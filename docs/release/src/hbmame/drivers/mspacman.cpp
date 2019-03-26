@@ -275,61 +275,61 @@ void pacman_state::zolapac_io(address_map &map) {
  *************************************/
 
 /* only for encrypted sets with 20000 in cpu1 */
-MACHINE_CONFIG_START( pacman_state::mspacman )
+void pacman_state::mspacman(machine_config &config)
+{
 	pacman(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(mspacman_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspacman_map);
+}
 
 /* Hires mspacman */
-MACHINE_CONFIG_START( pacman_state::mspacmnx )
+void pacman_state::mspacmnx(machine_config &config)
+{
 	pacmanx(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(mspacman_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspacman_map);
+}
 
 /* Hires hacks */
-MACHINE_CONFIG_START( pacman_state::woodpekx )
+void pacman_state::woodpekx(machine_config &config)
+{
 	pacmanx(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::woodpek_map);
+}
 
 /* MSPacman with modified memory maps */
 
-MACHINE_CONFIG_START( pacman_state::mspacii )
+void pacman_state::mspacii(machine_config &config)
+{
 	pacman(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(mspacii_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspacii_map);
+}
 
-MACHINE_CONFIG_START( pacman_state::zolapac )
+void pacman_state::zolapac(machine_config &config)
+{
 	pacman(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
-	MCFG_DEVICE_IO_MAP(zolapac_io)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::woodpek_map);
+	m_maincpu->set_addrmap(AS_IO, &pacman_state::zolapac_io);
+}
 
 /* These drivers need the watchdog to be removed in order to work */
 
-MACHINE_CONFIG_START( pacman_state::pachack )
+void pacman_state::pachack(machine_config &config)
+{
 	pacman(config);
 	subdevice<watchdog_timer_device>("watchdog")->set_vblank_count("screen", 0);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( pacman_state::mspachi )
+void pacman_state::mspachi(machine_config &config)
+{
 	pachack(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(mspachi_map)
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspachi_map);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
+}
 
-MACHINE_CONFIG_END
-
-MACHINE_CONFIG_START( pacman_state::widel )
+void pacman_state::widel(machine_config &config)
+{
 	pachack(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(widel_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::widel_map);
+}
 
 
 /*************************************

@@ -47,4 +47,4 @@ ROM_START( terracrc )
 	ROM_LOAD( "bk2_5.4e",     0x0000, 0x0100, CRC(2c43991f) SHA1(312112832bee511b0545524295aa9bc2e756db0f) )
 ROM_END
 
-HACK( 1985, terracrc, terracre, ym3526, terracre, terracre_state, 0, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 1985, terracrc, terracre, ym3526, terracre, terracre_state, empty_init, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )

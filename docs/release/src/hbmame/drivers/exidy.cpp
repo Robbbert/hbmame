@@ -68,5 +68,5 @@ ROM_END
  *
  *************************************/
 
-HACK( 2008, targtest,  targ,    targ,     targ,    exidy_state,  targ,     ROT0, "Timothy Shiels", "Targ Test Rom V1.0", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, teetertfp, teetert, teetert,  teetert, exidy_state,  teetert,  ROT0, "DogP", "Teeter Torture (free play hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, targtest,  targ,    targ,     targ,    exidy_state,  init_targ,     ROT0, "Timothy Shiels", "Targ Test Rom V1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, teetertfp, teetert, teetert,  teetert, exidy_state,  init_teetert,  ROT0, "DogP", "Teeter Torture (free play hack)", MACHINE_SUPPORTS_SAVE )

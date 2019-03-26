@@ -102,3 +102,5 @@ ROM_END
 GAME( 200?, silkroads01,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "Unknown", "The Legend of Silkroad (Simple Attack)", MACHINE_SUPPORTS_SAVE )
 GAME( 200?, silkroads02,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (All Move Without Magic)", MACHINE_SUPPORTS_SAVE )
 GAME( 200?, silkroads03,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (Easy Move)", MACHINE_SUPPORTS_SAVE )
+
+

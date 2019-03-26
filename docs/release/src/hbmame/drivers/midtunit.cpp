@@ -384,17 +384,17 @@ ROM_START( mk2fr )
 ROM_END
 
 
-HACK( 200?, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II Plus beta II", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)(rev L3.3)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "Arkatrad", "Mortal Kombat (Language Translation French)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Arkatrad", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 01)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "Unknown", "Mortal Kombat II (Ver 2.8)(Beta 1)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II Plus beta II", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Arkatrad", "Mortal Kombat (Language Translation French Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Arkatrad", "Mortal Kombat II (Language Translation French 2007-02-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Unknown", "Mortal Kombat II (Beta 1)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -438,161 +438,6 @@ ROM_START( mks01 )
 	ROM_LOAD32_BYTE( "mkt-uj22.bin", 0x400003, 0x80000, CRC(5e12523b) SHA1(468f93ef9bb6addb45c1c939d24b6511f255426a) )
 ROM_END
 
- /****************
- Mortal Kombat II
-*******************/
-
-ROM_START( mk2fr01 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u2.u2", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
-	ROM_RELOAD(                0x100000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u3.u3", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
-	ROM_RELOAD(                0x300000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u4.u4", 0x400000, 0x80000, CRC(eebc8e0f) SHA1(705ab63ff7672a4857d546afda6dca4973cce1ad) )
-	ROM_RELOAD(                0x500000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u5.u5", 0x600000, 0x80000, CRC(2b0b7961) SHA1(1cdc64aab74d14afbd8c3531e3d0bd49271a281f) )
-	ROM_RELOAD(                0x700000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u6.u6", 0x800000, 0x80000, CRC(f694b27f) SHA1(d43e38a124665f49ebb4ffc5a55e8f19a1a64686) )
-	ROM_RELOAD(                0x900000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u7.u7", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
-	ROM_RELOAD(                0xb00000, 0x80000 )
-
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "uj12hc01.l31", 0x00000, 0x80000, CRC(a80ca0a6) SHA1(2695e8394b99df89b03c52988e58a95ec37b0cc9) )
-	ROM_LOAD16_BYTE( "ug12hc91.l31", 0x00001, 0x80000, CRC(d70f3631) SHA1(414fb8cc30b96ca77b2a65cfdfcf73e0d9953e48) )
-
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj19.uj19", 0x000003, 0x100000, CRC(2d763156) SHA1(06536006da49ab5fb6b75b25f801b83fad000ff5) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug16.ug16", 0x400000, 0x100000, CRC(8ba6ae18) SHA1(465fe907de4a1e502180c4e41642998dd3abc8e6) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj16.uj16", 0x400001, 0x100000, CRC(39d885b4) SHA1(2251826d247c3c6df421124718401fb35a672f83) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug20.ug20", 0x400002, 0x100000, CRC(809118c1) SHA1(86153e648834c749e34573151cd4fee403a81962) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj20.uj20", 0x400003, 0x100000, CRC(b96824f0) SHA1(d42b122f9a57da330192abc7e5f97abc4065d718) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug17.ug17", 0x800000, 0x100000, CRC(937d8620) SHA1(8b9f80a460b124a747a6d1495b53f01f580e28f1) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj17.uj17", 0x800001, 0x100000, CRC(218de160) SHA1(87aea173720d2a33d8183903f4fe8ba1d47e3348) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug22.ug22", 0x800002, 0x100000, CRC(154d53b1) SHA1(58ff0aa59101f40a9a3b5fbae1c904d0b0b31612) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
-ROM_END
-
-ROM_START( mk2fr02 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u2.u2", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
-	ROM_RELOAD(                0x100000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u3.u3", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
-	ROM_RELOAD(                0x300000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u4.u4", 0x400000, 0x80000, CRC(eebc8e0f) SHA1(705ab63ff7672a4857d546afda6dca4973cce1ad) )
-	ROM_RELOAD(                0x500000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u5.u5", 0x600000, 0x80000, CRC(2b0b7961) SHA1(1cdc64aab74d14afbd8c3531e3d0bd49271a281f) )
-	ROM_RELOAD(                0x700000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u6.u6", 0x800000, 0x80000, CRC(f694b27f) SHA1(d43e38a124665f49ebb4ffc5a55e8f19a1a64686) )
-	ROM_RELOAD(                0x900000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u7.u7", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
-	ROM_RELOAD(                0xb00000, 0x80000 )
-
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "uj12hc02.l31", 0x00000, 0x80000, CRC(a7e402a2) SHA1(bb0a9d9460db4e6af87164aac5f9ed74ba2ed741) )
-	ROM_LOAD16_BYTE( "ug12hc92.l31", 0x00001, 0x80000, CRC(12a18f0e) SHA1(1b996e39b009b93d2e3845b2f8c5368b785b239d) )
-
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj19.uj19", 0x000003, 0x100000, CRC(2d763156) SHA1(06536006da49ab5fb6b75b25f801b83fad000ff5) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug16.ug16", 0x400000, 0x100000, CRC(8ba6ae18) SHA1(465fe907de4a1e502180c4e41642998dd3abc8e6) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj16.uj16", 0x400001, 0x100000, CRC(39d885b4) SHA1(2251826d247c3c6df421124718401fb35a672f83) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug20.ug20", 0x400002, 0x100000, CRC(809118c1) SHA1(86153e648834c749e34573151cd4fee403a81962) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj20.uj20", 0x400003, 0x100000, CRC(b96824f0) SHA1(d42b122f9a57da330192abc7e5f97abc4065d718) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug17.ug17", 0x800000, 0x100000, CRC(937d8620) SHA1(8b9f80a460b124a747a6d1495b53f01f580e28f1) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj17.uj17", 0x800001, 0x100000, CRC(218de160) SHA1(87aea173720d2a33d8183903f4fe8ba1d47e3348) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug22.ug22", 0x800002, 0x100000, CRC(154d53b1) SHA1(58ff0aa59101f40a9a3b5fbae1c904d0b0b31612) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
-ROM_END
-
-ROM_START( mk2fr03 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u2.u2", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
-	ROM_RELOAD(                0x100000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u3.u3", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
-	ROM_RELOAD(                0x300000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u4.u4", 0x400000, 0x80000, CRC(eebc8e0f) SHA1(705ab63ff7672a4857d546afda6dca4973cce1ad) )
-	ROM_RELOAD(                0x500000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u5.u5", 0x600000, 0x80000, CRC(2b0b7961) SHA1(1cdc64aab74d14afbd8c3531e3d0bd49271a281f) )
-	ROM_RELOAD(                0x700000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u6.u6", 0x800000, 0x80000, CRC(f694b27f) SHA1(d43e38a124665f49ebb4ffc5a55e8f19a1a64686) )
-	ROM_RELOAD(                0x900000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u7.u7", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
-	ROM_RELOAD(                0xb00000, 0x80000 )
-
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "uj12hc03.l31", 0x00000, 0x80000, CRC(ed8ea298) SHA1(aaf31bd70f1fdffd68b675467f1c98afb09508be) )
-	ROM_LOAD16_BYTE( "ug12hc93.l31", 0x00001, 0x80000, CRC(ed87b26b) SHA1(dc15ac14b332899e73d578f4b4844c727257505a) )
-
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj19.uj19", 0x000003, 0x100000, CRC(2d763156) SHA1(06536006da49ab5fb6b75b25f801b83fad000ff5) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug16.ug16", 0x400000, 0x100000, CRC(8ba6ae18) SHA1(465fe907de4a1e502180c4e41642998dd3abc8e6) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj16.uj16", 0x400001, 0x100000, CRC(39d885b4) SHA1(2251826d247c3c6df421124718401fb35a672f83) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug20.ug20", 0x400002, 0x100000, CRC(809118c1) SHA1(86153e648834c749e34573151cd4fee403a81962) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj20.uj20", 0x400003, 0x100000, CRC(b96824f0) SHA1(d42b122f9a57da330192abc7e5f97abc4065d718) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug17.ug17", 0x800000, 0x100000, CRC(937d8620) SHA1(8b9f80a460b124a747a6d1495b53f01f580e28f1) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj17.uj17", 0x800001, 0x100000, CRC(218de160) SHA1(87aea173720d2a33d8183903f4fe8ba1d47e3348) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug22.ug22", 0x800002, 0x100000, CRC(154d53b1) SHA1(58ff0aa59101f40a9a3b5fbae1c904d0b0b31612) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
-ROM_END
-
-ROM_START( mk2fr04 )
-	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u2.u2", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
-	ROM_RELOAD(                0x100000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u3.u3", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
-	ROM_RELOAD(                0x300000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u4.u4", 0x400000, 0x80000, CRC(eebc8e0f) SHA1(705ab63ff7672a4857d546afda6dca4973cce1ad) )
-	ROM_RELOAD(                0x500000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u5.u5", 0x600000, 0x80000, CRC(2b0b7961) SHA1(1cdc64aab74d14afbd8c3531e3d0bd49271a281f) )
-	ROM_RELOAD(                0x700000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u6.u6", 0x800000, 0x80000, CRC(f694b27f) SHA1(d43e38a124665f49ebb4ffc5a55e8f19a1a64686) )
-	ROM_RELOAD(                0x900000, 0x80000 )
-	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u7.u7", 0xa00000, 0x80000, CRC(20387e0a) SHA1(505d05173b2a1f1ee3ebc2898ccd3a95c98dd04a) )
-	ROM_RELOAD(                0xb00000, 0x80000 )
-
-	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "uj12hc04.l31", 0x00000, 0x80000, CRC(0068bc9f) SHA1(6bdd7a01a029ea859e201cc7743e5dddea78741f) )
-	ROM_LOAD16_BYTE( "ug12hc94.l31", 0x00001, 0x80000, CRC(1d387089) SHA1(bad95dde2f15f4807ec5a399dde93a8858f87fa0) )
-
-	ROM_REGION( 0xc00000, "gfxrom", 0 )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj14.uj14", 0x000001, 0x100000, CRC(d4985cbb) SHA1(367865da7efae38d83de3c0868d02a705177ae63) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj19.uj19", 0x000003, 0x100000, CRC(2d763156) SHA1(06536006da49ab5fb6b75b25f801b83fad000ff5) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug16.ug16", 0x400000, 0x100000, CRC(8ba6ae18) SHA1(465fe907de4a1e502180c4e41642998dd3abc8e6) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj16.uj16", 0x400001, 0x100000, CRC(39d885b4) SHA1(2251826d247c3c6df421124718401fb35a672f83) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug20.ug20", 0x400002, 0x100000, CRC(809118c1) SHA1(86153e648834c749e34573151cd4fee403a81962) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj20.uj20", 0x400003, 0x100000, CRC(b96824f0) SHA1(d42b122f9a57da330192abc7e5f97abc4065d718) )
-
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug17.ug17", 0x800000, 0x100000, CRC(937d8620) SHA1(8b9f80a460b124a747a6d1495b53f01f580e28f1) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj17.uj17", 0x800001, 0x100000, CRC(218de160) SHA1(87aea173720d2a33d8183903f4fe8ba1d47e3348) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug22.ug22", 0x800002, 0x100000, CRC(154d53b1) SHA1(58ff0aa59101f40a9a3b5fbae1c904d0b0b31612) )
-	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
-ROM_END
-
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
-HACK( 200?, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, mktunit, ROT0, "S.Arkames", "Mortal Kombat (Language Translation French)(Alt)(rev 5.0 T-Unit 03/19/93)", MACHINE_SUPPORTS_SAVE )
-// Mortal Kombat II
-HACK( 2007, mk2fr01,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 02)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr02,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 03)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr03,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 04)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, mk2fr04,     mk2, tunit_dcs,   mk2, midtunit_state, mk2,     ROT0, "S.Arkames", "Mortal Kombat II (Language Translation French)(12.02.2007)(Set 05)(rev L3.1)", MACHINE_SUPPORTS_SAVE )
-
-
+GAME( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (Language Translation French Rev.2)", MACHINE_SUPPORTS_SAVE )

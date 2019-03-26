@@ -722,6 +722,7 @@ negx      16  .     .     0100000001......  A+-DXWL...  U U U U U U U   8   8   
 negx      32  .     d     0100000010000...  ..........  U U U U U U U   6   6   2   2   2   2   2
 negx      32  .     .     0100000010......  A+-DXWL...  U U U U U U U  12  12   4   4   4   4   4
 nop        0  .     .     0100111001110001  ..........  U U U U U U U   4   4   2   2   2   2   2
+nophb      0  .     .     0100111001111101  ..........  U U U U U U U   4   4   2   2   2   2   2 HBMAME GSC SUPPORT
 not        8  .     d     0100011000000...  ..........  U U U U U U U   4   4   2   2   2   2   2
 not        8  .     .     0100011000......  A+-DXWL...  U U U U U U U   8   8   4   4   4   4   4
 not       16  .     d     0100011001000...  ..........  U U U U U U U   4   4   2   2   2   2   2
@@ -789,6 +790,7 @@ rte       32  .     .     0100111001110011  ..........  S S S S S S S  20  24  2
 rtm       32  .     .     000001101100....  ..........  . . U U U U U   .   .  19  19  19  19  19 not properly emulated
 rtr       32  .     .     0100111001110111  ..........  U U U U U U U  20  20  14  14  14  14  14
 rts       32  .     .     0100111001110101  ..........  U U U U U U U  16  16  10  10  10  10  10
+rtshb     32  .     .     0100111001111100  ..........  U U U U U U U  16  16  10  10  10  10  10 HBMAME GSC SUPPORT
 sbcd       8  rr    .     1000...100000...  ..........  U U U U U U U   6   6   4   4   4   4   4
 sbcd       8  mm    ax7   1000111100001...  ..........  U U U U U U U  18  18  16  16  16  16  16
 sbcd       8  mm    ay7   1000...100001111  ..........  U U U U U U U  18  18  16  16  16  16  16
@@ -7858,6 +7860,12 @@ M68KMAKE_OP(nop, 0, ., .)
 	m68ki_trace_t0();                  /* auto-disable (see m68kcpu.h) */
 }
 
+// HBMAME GSC SUPPORT
+M68KMAKE_OP(nophb, 0, ., .)
+{
+	m68ki_trace_t0();                  /* auto-disable (see m68kcpu.h) */
+}
+
 
 M68KMAKE_OP(not, 8, ., d)
 {
@@ -9174,6 +9182,13 @@ M68KMAKE_OP(rts, 32, ., .)
 	m68ki_jump(m68ki_pull_32());
 }
 
+// HBMAME GSC SUPPORT
+M68KMAKE_OP(rtshb, 32, ., .)
+{
+	m68ki_trace_t0();                  /* auto-disable (see m68kcpu.h) */
+	m68ki_jump(m68ki_pull_32());
+}
+
 
 M68KMAKE_OP(sbcd, 8, rr, .)
 {
@@ -9199,8 +9214,8 @@ M68KMAKE_OP(sbcd, 8, rr, .)
 
 	res = MASK_OUT_ABOVE_8(res - corf);
 
-	//m_v_flag &= ~res; /* Undefined V behavior part II */ // HBMAME - FIX FOR NEOGEO 90-SEC FIGHT
-	//m_n_flag = NFLAG_8(res); /* Undefined N behavior */ // HBMAME
+	m_v_flag &= ~res; /* Undefined V behavior part II */ // HBMAME - FIX FOR NEOGEO 90-SEC FIGHT
+	m_n_flag = NFLAG_8(res); /* Undefined N behavior */ // HBMAME
 	m_not_z_flag |= res;
 
 	*r_dst = MASK_OUT_BELOW_8(*r_dst) | res;

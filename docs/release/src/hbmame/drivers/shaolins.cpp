@@ -24,4 +24,4 @@ ROM_START( kfjohnny ) // same as kicker except for gfx roms
 	ROM_LOAD( "477j08.f16",   0x0400, 0x0100, CRC(80009cf5) SHA1(a367f3f55d75a9d5bf4d43f9d77272eb910a1344) )
 ROM_END
 
-HACK( 2002, kfjohnny, kicker, shaolins, shaolins, shaolins_state, 0, ROT90, "Smitdogg", "Kung-Fu Johnny", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kfjohnny, kicker, shaolins, shaolins, shaolins_state, empty_init, ROT90, "Smitdogg", "Kung-Fu Johnny", MACHINE_SUPPORTS_SAVE )

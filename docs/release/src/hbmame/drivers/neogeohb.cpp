@@ -248,49 +248,52 @@ void neogeo_state::init_fr2ch()
 {
 //// Fix rebooting at start
 
-	uint16_t *src = (uint16_t*)memregion("maincpu")->base();
+	uint16_t *mem16 = (uint16_t*)cpuregion;
 
 	// change jsr to C004DA
-	src[0x01AF8 /2] = 0x04DA; // C00552 (Not used?)
-	src[0x01BF6 /2] = 0x04DA; // C0056A (fixes crash)
-	src[0x01ED8 /2] = 0x04DA; // C00570 (Not used?)
-	src[0x1C384 /2] = 0x04DA; // C00552 (fixes crash)
+	mem16[0x01AF8 /2] = 0x04DA; // C00552 (Not used?)
+	mem16[0x01BF6 /2] = 0x04DA; // C0056A (fixes crash)
+	mem16[0x01ED8 /2] = 0x04DA; // C00570 (Not used?)
+	mem16[0x1C384 /2] = 0x04DA; // C00552 (fixes crash)
 
 	// 0x001C06 - this routine can cause a loop/freeze
-	src[0x01C06 /2] = 0x4E75;
+	mem16[0x01C06 /2] = 0x4E75;
 
 //// Fix text on bottom line
 
-	uint8_t *dst = memregion( "fixed" )->base();
+	uint8_t *dst = fix_region;
 
 	// Move text for credit + coin info (Thanks to Kanyero), overwrites "MA" in neogeo logo
 	memcpy(dst, dst + 0x600, 0x140);
 
 	// Patch out neogeo intro (because of above line)
-	src[0x114 /2]=0x200;
+//	mem16[0x114 /2]=0x200;
 
 
 //// Optional stuff
 
 
-	uint8_t i, *rom = memregion("maincpu")->base();
-
-	uint8_t data[16] = {
-		0x49, 0x46, 0x41, 0x4E, 0x20, 0x4C, 0x4F, 0x52,
-		0x41, 0x4D, 0x43, 0x4E, 0x20, 0x45, 0x20, 0x32 };
-
 	// Hack in the proper identification (see setup menu [F2])
-	for (i = 0; i < 16; i++)
-		rom[0x3A6 + i] = rom[0x61E + i] = rom[0x896 + i] = data[i];
+	mem16[0x3a6 / 2] = 0x4649;
+	mem16[0x3a8 / 2] = 0x4e41;
+	mem16[0x3aa / 2] = 0x4c20;
+	mem16[0x3ac / 2] = 0x524f;
+	mem16[0x3ae / 2] = 0x4d41;
+	mem16[0x3b0 / 2] = 0x4e43;
+	mem16[0x3b2 / 2] = 0x4520;
+	mem16[0x3b4 / 2] = 0x3220;
+	uint8_t  *mem8 = cpuregion;
+	memcpy(mem8+0x61e, mem8+0x3a6, 16);
+	memcpy(mem8+0x896, mem8+0x3a6, 16);
 
 	// Album Fix
-	src[0x1C382 /2] = 0x0008; // C00552
-	src[0x1C384 /2] = 0x0000;
-	src[0x80000 /2] = 0x33FC;
-	src[0x80002 /2] = 0x0001;
-	src[0x80004 /2] = 0x0020;
-	src[0x80006 /2] = 0x0002;
-	src[0x80008 /2] = 0x4E75;
+	mem16[0x1C382 /2] = 0x0008; // C00552
+	mem16[0x1C384 /2] = 0x0000;
+	mem16[0x80000 /2] = 0x33FC;
+	mem16[0x80002 /2] = 0x0001;
+	mem16[0x80004 /2] = 0x0020;
+	mem16[0x80006 /2] = 0x0002;
+	mem16[0x80008 /2] = 0x4E75;
 
 	init_neogeo();
 
@@ -299,7 +302,7 @@ void neogeo_state::init_fr2ch()
 	mem16[0x1BF2/2] = 0x4E71;
 	mem16[0x1BF4/2] = 0x4E71;
 	mem16[0x1BF6/2] = 0x4E71;
-	DRIVER_INIT_CALL(neogeo);  */
+	init_neogeo();  */
 }
 
 

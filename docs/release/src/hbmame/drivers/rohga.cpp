@@ -49,3 +49,5 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Schmeiser Robo
 GAME( 200?, schmeisrs01,  schmeisr,  schmeisr, schmeisr, rohga_state, init_schmeisr, ROT0,   "yumeji",  "Schmeiser Robo (Enable Celberus)(Japan)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL ) //Description: Press 'Start' to select Celberus
+
+

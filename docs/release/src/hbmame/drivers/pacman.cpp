@@ -32,6 +32,16 @@
  Clones include most hacks
 
  See the MAME source code for hardware information.
+ 
+ 
+ Notes for the speedup cheat.
+ - Only applies to games that run at normal speed
+ - Only applies if the rom has the bytes in the usual place
+ - If always enabled, the patch is applied when start pressed.
+   This fixes the BAD ROM message at boot.
+ - If you change the dipswitch during a game, you need to
+   press Fire to activate the change.
+
 ********************************************************/
 
 #include "emu.h"
@@ -89,41 +99,53 @@ WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
 	m_maincpu->set_input_line(0, CLEAR_LINE);
 }
 
-/* bit0 flags if memory poke already done */
-
-INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
+// Apply the speedup hack depending on dipswitch and fire button
+void pacman_state::speedcheat()
 {
-	uint8_t cheat_exist = m_io_fake.read_safe(120);
+	u8 fake_input = m_io_fake->read() & 7;
 
-	/* always signal a normal VBLANK */
-	if(m_irq_mask)
-		device.execute().set_input_line(0, HOLD_LINE);
+	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
 
-	if (cheat_exist != 120)
+	if (fake_input > 2) /* activate the cheat */
 	{
-		uint8_t cheating = ((cheat_exist & 7) > 2); /* are we cheating? */
-
-		if (cheating != (m_speedcheat & 1)) /* if status just changed, alter program bytes */
-		{
-			uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
-			m_speedcheat = (m_speedcheat & 2) | cheating;
-
-			if (cheating) /* activate the cheat */
-			{
-				if (RAM[0x180b] == 0xbe) RAM[0x180b] = 1; /* pacman */
-				else
-				if (RAM[0x182d] == 0xbe) RAM[0x182d] = 1; /* pacplus */
-			}
-			else /* remove the cheat */
-			{
-				if (RAM[0x180b] == 1) RAM[0x180b] = 0xbe; /* pacman */
-				else
-				if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe; /* pacplus */
-			}
-		}
+		if (RAM[0x180b] == 0xbe) RAM[0x180b] = 1; /* pacman */
+		else
+		if (RAM[0x182d] == 0xbe) RAM[0x182d] = 1; /* pacplus */
+	}
+	else /* remove the cheat */
+	{
+		if (RAM[0x180b] == 1) RAM[0x180b] = 0xbe; /* pacman */
+		else
+		if (RAM[0x182d] == 1) RAM[0x182d] = 0xbe; /* pacplus */
 	}
 }
 
+INTERRUPT_GEN_MEMBER( pacman_state::vblank_irq )
+{
+	if(m_irq_mask)
+		device.execute().set_input_line(0, HOLD_LINE);
+}
+
+// When fire button pressed or released, see if cheat should turn on or off
+INPUT_CHANGED_MEMBER(pacman_state::pacman_fake)
+{
+	speedcheat();
+}
+
+// When start button pressed for the first time, see if cheat should turn on
+READ8_MEMBER( pacman_state::in1_r )
+{
+	u8 data = ioport("IN1")->read();
+	if ((data & 0x60) < 0x60)
+		if (m_speedcheat != 120)
+		{
+			if (m_io_fake.read_safe(120) == 4)
+				speedcheat();
+			m_speedcheat = 120;
+		}
+
+	return data;
+}
 
 /*************************************
  *
@@ -179,7 +201,7 @@ void pacman_state::pacman_map(address_map &map) {
 	map(0x5070,0x5080).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x5000,0x5000).portr("IN0");
-	map(0x5040,0x5040).portr("IN1");
+	map(0x5040,0x5040).r(FUNC(pacman_state::in1_r));
 	map(0x5080,0x5080).portr("DSW1");
 	map(0x50c0,0x50c0).portr("DSW2");
 }
@@ -197,7 +219,7 @@ void pacman_state::woodpek_map(address_map &map) {
 	map(0x5070,0x5080).mirror(0x8000).nopw();
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x5000,0x5000).mirror(0x8000).portr("IN0");
-	map(0x5040,0x5040).mirror(0x8000).portr("IN1");
+	map(0x5040,0x5040).mirror(0x8000).r(FUNC(pacman_state::in1_r));
 	map(0x5080,0x5080).mirror(0x8000).portr("DSW1");
 	map(0x50c0,0x50c0).mirror(0x8000).portr("DSW2");
 	map(0x8000,0xbfff).rom();
@@ -277,7 +299,7 @@ INPUT_PORTS_START( mspacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, pacman_state, pacman_fake, nullptr)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
@@ -338,7 +360,7 @@ INPUT_PORTS_START( pacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, pacman_state, pacman_fake, nullptr)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
@@ -421,13 +443,14 @@ GFXDECODE_END
  *
  *************************************/
 
-MACHINE_CONFIG_START( pacman_state::pacman )
-
+void pacman_state::pacman(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", Z80, MASTER_CLOCK/6)
-	MCFG_DEVICE_PROGRAM_MAP(pacman_map)
-	MCFG_DEVICE_IO_MAP(io_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", pacman_state, vblank_irq)
+	Z80(config, m_maincpu, MASTER_CLOCK/6);
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::pacman_map);
+	m_maincpu->set_addrmap(AS_IO, &pacman_state::io_map);
+	m_maincpu->set_vblank_int("screen", FUNC(pacman_state::vblank_irq));
+
 	WATCHDOG_TIMER(config, m_watchdog).set_vblank_count("screen", 16);
 
 	LS259(config, m_mainlatch); // 74LS259 at 8K or 4099 at 7K
@@ -440,36 +463,41 @@ MACHINE_CONFIG_START( pacman_state::pacman )
 	m_mainlatch->q_out_cb<7>().set(FUNC(pacman_state::coin_counter_w));
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART)
-	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacman)
-	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacman)
-	MCFG_SCREEN_PALETTE("palette")
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(PIXEL_CLOCK, HTOTAL, HBEND, HBSTART, VTOTAL, VBEND, VBSTART);
+	m_screen->set_screen_update(FUNC(pacman_state::screen_update_pacman));
+	m_screen->set_palette("palette");
+
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_pacman);
 	PALETTE(config, m_palette, FUNC(pacman_state::pacman_palette), 128*4, 32);
+
+	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacman)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	NAMCO(config, m_namco_sound, MASTER_CLOCK/6/32);
 	m_namco_sound->set_voices(3);
 	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( pacman_state::pacmanx )
+void pacman_state::pacmanx(machine_config &config)
+{
 	pacman(config);
-	MCFG_SCREEN_MODIFY("screen")
-	MCFG_SCREEN_RAW_PARAMS(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1)
-	MCFG_SCREEN_UPDATE_DRIVER(pacman_state, screen_update_pacmanx)
-	MCFG_VIDEO_START_OVERRIDE(pacman_state,pacmanx)
+	//config.device_remove("screen");
+	//screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	//screen.set_palette("palette");
+	m_screen->set_raw(PIXEL_CLOCK<<2, HTOTAL<<1, HBEND<<1, HBSTART<<1, VTOTAL<<1, VBEND<<1, VBSTART<<1);
+	m_screen->set_screen_update(FUNC(pacman_state::screen_update_pacmanx));
 	m_gfxdecode->set_info(gfx_pacmanx);
-MACHINE_CONFIG_END
+	MCFG_VIDEO_START_OVERRIDE(pacman_state, pacmanx)
+}
 
 
-MACHINE_CONFIG_START( pacman_state::woodpek )
+void pacman_state::woodpek(machine_config &config)
+{
 	pacman(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(woodpek_map)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::woodpek_map);
+}
 
 
 /*************************************

@@ -30,7 +30,7 @@ class ng_memcard_device :  public device_t, public device_image_interface
 {
 public:
 	// construction/destruction
-	ng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	virtual iodevice_t image_type() const override { return IO_MEMCARD; }
 

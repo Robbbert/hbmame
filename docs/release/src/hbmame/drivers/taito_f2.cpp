@@ -10,27 +10,30 @@ public:
 	void f2demo(machine_config &config);
 };
 
-MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
-
+void taitof2_hbmame::f2demo(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD("maincpu", M68000, 24000000/2) /* 12 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(liquidk_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", taitof2_hbmame,  taitof2_interrupt)
+	M68000(config, m_maincpu, 24000000/2); /* 12 MHz */
+	m_maincpu->set_addrmap(AS_PROGRAM, &taitof2_hbmame::liquidk_map);
+	m_maincpu->set_vblank_int("screen", FUNC(taitof2_hbmame::taitof2_interrupt));
 
-	MCFG_DEVICE_ADD("audiocpu", Z80, 24000000/6)   /* 4 MHz */
-	MCFG_DEVICE_PROGRAM_MAP(sound_map)
+	Z80(config, m_audiocpu, 24000000/6);   /* 4 MHz */
+	m_audiocpu->set_addrmap(AS_PROGRAM, &taitof2_hbmame::sound_map);
 
 	MCFG_MACHINE_START_OVERRIDE(taitof2_hbmame,f2)
 
+	WATCHDOG_TIMER(config, "watchdog");
+
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(0)  /* frames per second, vblank duration */)
-	MCFG_SCREEN_SIZE(120*8, 32*8)
-	MCFG_SCREEN_VISIBLE_AREA(40*8, 106*8-1, 2*8, 32*8-1)
-	MCFG_SCREEN_UPDATE_DRIVER(taitof2_hbmame, screen_update_taitof2_pri)
-	MCFG_SCREEN_VBLANK_CALLBACK(WRITELINE(*this, taitof2_hbmame, screen_vblank_partial_buffer_delayed))
-	MCFG_SCREEN_PALETTE(m_palette)
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_refresh_hz(60);
+	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(0));  /* frames per second, vblank duration */
+	m_screen->set_size(120*8, 32*8);
+	m_screen->set_visarea(40*8, 106*8-1, 2*8, 32*8-1);
+	m_screen->set_screen_update(FUNC(taitof2_hbmame::screen_update_taitof2_pri));
+	m_screen->screen_vblank().set(FUNC(taitof2_hbmame::screen_vblank_partial_buffer_delayed));
+	m_screen->set_palette(m_palette);
+
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_taitof2);
 	PALETTE(config, m_palette).set_format(palette_device::RGBx_444, 4096);
 	MCFG_VIDEO_START_OVERRIDE(taitof2_hbmame,taitof2_megab)
@@ -65,7 +68,7 @@ MACHINE_CONFIG_START( taitof2_hbmame::f2demo )
 	m_tc0100scn->set_palette_tag(m_palette);
 
 	TC0360PRI(config, m_tc0360pri, 0);
-MACHINE_CONFIG_END
+}
 
 // Game has no sound
 ROM_START( f2demo )
@@ -88,7 +91,7 @@ ROM_START( f2demo )
 	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
 ROM_END
 
-HACK( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, 0, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, empty_init, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -355,21 +358,21 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Cameltry
-HACK( 200?, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, cameltry, ROT0,   "Unknown",         "Cameltry (Translation Chinese)(Japan, YM2610)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, init_cameltry, ROT0,   "Unknown",         "Cameltry (Translation Chinese)(Japan, YM2610)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-HACK( 200?, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, 0,        ROT0,   "Unknown",         "Dead Connection (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, empty_init, ROT0,   "Unknown",         "Dead Connection (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-HACK( 200?, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, 0,        ROT0,   "Unknown",         "Don Doko Don (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, empty_init, ROT0,   "Unknown",         "Don Doko Don (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Dino Rex
-HACK( 200?, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, 0,        ROT0,   "DDJ",             "Dino Rex (Easy Move)(World)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, empty_init, ROT0,   "DDJ",             "Dino Rex (Easy Move)(World)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
-HACK( 200?, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, 0,        ROT270, "Unknown",         "Gun Frontier (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, empty_init, ROT270, "Unknown",         "Gun Frontier (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-HACK( 200?, megablstjs01,  megablst, megab,     megabj,     taitof2_state, 0,        ROT0,   "Unknown",         "Mega Blast (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, megablstjs01,  megablst, megab,     megabj,     taitof2_state, empty_init, ROT0,   "Unknown",         "Mega Blast (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
-HACK( 200?, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, 0,        ROT0,   "Unknown",         "Mizubaku Daibouken (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, empty_init, ROT0,   "Unknown",         "Mizubaku Daibouken (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Runark
-HACK( 200?, runarks01,     growl,    growl,     runark,     taitof2_state, 0,        ROT0,   "Unknown",         "Runark (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, runarks01,     growl,    growl,     runark,     taitof2_state, empty_init, ROT0,   "Unknown",         "Runark (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Thunder Fox
-HACK( 200?, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, 0,        ROT0,   "Unknown",         "Thunder Fox (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, empty_init, ROT0,   "Unknown",         "Thunder Fox (Translation Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
 

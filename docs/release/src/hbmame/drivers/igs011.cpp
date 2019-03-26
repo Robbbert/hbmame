@@ -28,5 +28,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Long Hu Bang II
-HACK( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, lhb2, ROT0, "whistler_wmz", "Long Hu Bang II (No AI Cheat)(Hong Kong, V185H)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, init_lhb2, ROT0, "whistler_wmz", "Long Hu Bang II (No AI Cheat)(Hong Kong, V185H)",   MACHINE_SUPPORTS_SAVE )
 

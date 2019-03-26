@@ -148,8 +148,8 @@ ROM_START( rastane2 )
 ROM_END
 
 
-HACK( 2000, rastwack, rastan, rastan, rastsaga, rastan_state,  0, ROT0, "Vogel", "Wacky Rastan", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, rastandh, rastan, rastan, rastsaga, rastan_state,  0, ROT0, "Neil Pearce", "Rastan Dragon Hack", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, rastand2, rastan, rastan, rastsaga, rastan_state,  0, ROT0, "Neil Pearce", "Rastan Dragon Hack (set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, rastaneh, rastan, rastan, rastsaga, rastan_state,  0, ROT0, "Neil Pearce", "Rastan Enemy Hack", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, rastane2, rastan, rastan, rastsaga, rastan_state,  0, ROT0, "Neil Pearce", "Rastan Enemy Hack (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, rastwack, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Vogel", "Wacky Rastan", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastandh, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Dragon Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastand2, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Dragon Hack (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastaneh, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Enemy Hack", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, rastane2, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Enemy Hack (set 2)", MACHINE_SUPPORTS_SAVE )

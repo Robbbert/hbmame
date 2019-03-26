@@ -249,14 +249,6 @@ ROM_START( doubledrsp )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "082sp.p1", 0x000000, 0x100000, CRC(8ea8ee3d) SHA1(4cc513f9021a5a6bfe29ebf2773847c674f7921b) )
 	ROM_LOAD16_WORD_SWAP( "082sp.p2", 0x100000, 0x100000, CRC(0e2616ab) SHA1(cfe5ed1ec76e21dd833e8297a6dbb30ce407ab2d) )
-	ROM_FILL(0x17fe4,1,0x2b) // 4ef9
-	ROM_FILL(0x17fe5,1,0x7c)
-	ROM_FILL(0x17fe6,1,0x00) // 0091
-	ROM_FILL(0x17fe7,1,0x01)
-	ROM_FILL(0x17fe8,1,0x7f) // 0206
-	ROM_FILL(0x17fe9,1,0xee)
-	ROM_FILL(0x17fea,1,0xa2) // 4e7d
-	ROM_FILL(0x17feb,1,0x6a)
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "082sp.p3", 0x000000, 0x020000, CRC(8b4839c4) SHA1(6c0357f8455bc4a100e1063a5be88c8be388672c) )
@@ -290,7 +282,7 @@ HACK( 200?, dbdy,           doubledr, neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 200?, doubledre2,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Double Dragon Q (Boss hack Easy Special Attacks)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, doubledres,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Unknown", "Double Dragon (Easy Special Attacks)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state,  neogeo, ROT0, "Blackheart", "Double Dragon (Perfectly simplified Edition)(2009-09-19)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrsp,     doubledr, gsc,           neogeo, neogeo_state,  gsc,    ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, doubledrsp,     doubledr, gsc,           neogeo, neogeo_state,  neogeo, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -478,14 +470,6 @@ ROM_START( doubledrs08 )
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "082s08.p3", 0x000000, 0x020000, CRC(cd77bcb4) SHA1(9d8cb535ff0f29c962e544d00bb3bfb61d0beb7a) )
-	ROM_FILL(0x17fe4,1,0x2b) // 4ef9
-	ROM_FILL(0x17fe5,1,0x7c)
-	ROM_FILL(0x17fe6,1,0x00) // 0091
-	ROM_FILL(0x17fe7,1,0x01)
-	ROM_FILL(0x17fe8,1,0x7f) // 0206
-	ROM_FILL(0x17fe9,1,0xee)
-	ROM_FILL(0x17fea,1,0xa2) // 4e7d
-	ROM_FILL(0x17feb,1,0x6a)
 
 	NEO_SFIX_128K( "082.s1", CRC(bef995c5) SHA1(9c89adbdaa5c1f827632c701688563dac2e482a4) )
 
@@ -515,5 +499,5 @@ HACK( 200?, doubledrs04,    doubledr, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, doubledrs05,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Double Dragon (Random Selection)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, doubledrs06,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Super Remix Edition 1.0)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, doubledrs07,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Double Dragon (Super Remix Edition 1.1)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, doubledrs08,    doubledr, gsc,           neogeo, neogeo_state,         gsc,       ROT0, "GSC2007",    "Double Dragon (Special 2017 v1.?)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, doubledrs08,    doubledr, gsc,           neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Double Dragon (Special 2017 v1.X 2017-03-08)(Neo-Geo)", MACHINE_SUPPORTS_SAVE )
 

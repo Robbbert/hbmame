@@ -48,8 +48,8 @@ ROM_START( s1945sr3 )
 ROM_END
 
 /*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
-HACK( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)(2009-07-29)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "pipi899", "Strikers 1945 III (Secret Fighter)(2009-07-23)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, init_ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version)(2009-07-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "pipi899", "Strikers 1945 III (Secret Fighter)(2009-07-23)(Japan)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -145,6 +145,29 @@ ROM_START( s1945iiis01 )
 	ROM_LOAD( "eeprom-s1945iii.bin", 0x0000, 0x0100, CRC(b39f3604) SHA1(d7c66210598096fcafb20adac2f0b293755f4926) )
 ROM_END
 
+ROM_START( s1945iiis02 )
+	ROM_REGION( 0x929E90, "maincpu", 0)
+	ROM_LOAD32_WORD_SWAP( "2_progls02.u16", 0x000002, 0x454F48, CRC(0e45ff7e) SHA1(a76c4bb434168feaf1f72565f72dda8022edd10c) )
+	ROM_LOAD32_WORD_SWAP( "1_proghs02.u17", 0x000000, 0x454F48, CRC(1c12a67c) SHA1(ebf2a5e8e9cdbc2b91403fe8373ffa44833d73ec) )
+	ROM_LOAD16_WORD_SWAP( "3_data.u1",   0x100000, 0x080000, CRC(8ff5f7d3) SHA1(420a3d7f2d5ab6a56789d36b418431f12f5f73f5) )
+
+	ROM_REGION( 0x3800000, "gfx1", 0 )
+	ROM_LOAD32_WORD( "0l.u3",  0x0000000, 0x800000, CRC(70a0d52c) SHA1(c9d9534da59123b577dc22020273b94ccdeeb67d) )
+	ROM_LOAD32_WORD( "0h.u10", 0x0000002, 0x800000, CRC(4dcd22b4) SHA1(2df7a7d08df17d2a62d574fccc8ba40aaae21a13) )
+	ROM_LOAD32_WORD( "1l.u4",  0x1000000, 0x800000, CRC(de1042ff) SHA1(468f6dfd5c1f2084c573b6851e314ff2826dc350) )
+	ROM_LOAD32_WORD( "1h.u11", 0x1000002, 0x800000, CRC(b51a4430) SHA1(b51117591b0e351e922f9a6a7930e8b50237e54e) )
+	ROM_LOAD32_WORD( "2l.u5",  0x2000000, 0x800000, CRC(23b02dca) SHA1(0249dceca02b312301a917d98fac481b6a0a9122) )
+	ROM_LOAD32_WORD( "2h.u12", 0x2000002, 0x800000, CRC(9933ab04) SHA1(710e6b20e111c1898666b4466554d039309883cc) )
+	ROM_LOAD32_WORD( "3l.u6",  0x3000000, 0x400000, CRC(f693438c) SHA1(d70e25a3f56aae6575c696d9b7b6d7a9d04f0104) )
+	ROM_LOAD32_WORD( "3h.u13", 0x3000002, 0x400000, CRC(2d0c334f) SHA1(74d94abb34484c7b79dbb989645f53124e53e3b7) )
+
+	ROM_REGION( 0x400000, "ymf", 0 )
+	ROM_LOAD( "sound.u9", 0x000000, 0x400000, CRC(c5374beb) SHA1(d13e12cbd249246d953c45bb3bfa576a0ec75595) )
+
+	ROM_REGION( 0x100, "eeprom", 0 )
+	ROM_LOAD( "eeprom-s1945iii.bin", 0x0000, 0x0100, CRC(b39f3604) SHA1(d7c66210598096fcafb20adac2f0b293755f4926) )
+ROM_END
+
  /**********************************
  Sol Divide - The Sword Of Darkness
 *************************************/
@@ -168,11 +191,12 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Daraku Tenshi
-HACK( 200?, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, ps3, ROT0,   "yumeji", "Daraku Tenshi (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 200?, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, init_ps3, ROT0,   "yumeji", "Daraku Tenshi (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 // Gunbird 2
-HACK( 2009, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, ps5, ROT270, "yzb & pipi899", "Gunbird 2 (Ex Super Version)(2009-08-04)(set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, init_ps5, ROT270, "yzb & pipi899", "Gunbird 2 (Ex Super Version)(2009-08-04)(set 1)", MACHINE_SUPPORTS_SAVE )
 // Strikers 1945 III
-HACK( 2009, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, ps5, ROT270, "pipi899", "Strikers 1945 III (Ex Super Version)(2009-07-23)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "pipi899", "Strikers 1945 III (Ex Super Version)(2009-07-23)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945iiis02, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Unknown", "Strikers 1945 III (Version Enhanced 2014-04-07)(Japan)", MACHINE_SUPPORTS_SAVE )
 // Sol Divide - The Sword Of Darkness
-HACK( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French translation v1.0)(08-18-2007)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, init_ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French translation v1.0)(08-18-2007)", MACHINE_SUPPORTS_SAVE )
 

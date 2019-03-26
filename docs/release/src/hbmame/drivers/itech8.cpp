@@ -23,4 +23,4 @@ ROM_START( itecdemo )
 ROM_END
 
 
-HACK( 1989, itecdemo, 0, stratab_hi, gtg, itech8_state, 0, ROT0, "Charles Doty", "Demo - Itec", 0 )
+GAME( 1989, itecdemo, 0, stratab_hi, gtg, itech8_state, empty_init, ROT0, "Charles Doty", "Demo - Itec", 0 )

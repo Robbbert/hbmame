@@ -11,15 +11,12 @@
 
 DECLARE_DEVICE_TYPE(NGBOOTLEG_PROT, ngbootleg_prot_device)
 
-#define MCFG_NGBOOTLEG_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, NGBOOTLEG_PROT, 0)
-
 
 class ngbootleg_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void neogeo_bootleg_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_size);
 	void neogeo_bootleg_sx_decrypt(uint8_t* fixed, uint32_t fixed_size, int value);
@@ -93,15 +90,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(KOG_PROT, kog_prot_device)
 
-#define MCFG_KOG_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, KOG_PROT, 0)
-
 
 class kog_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void kog_install_protection(cpu_device* maincpu);
 	void kog_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size);
@@ -117,9 +111,6 @@ protected:
 
 
 DECLARE_DEVICE_TYPE(CMC_PROT, cmc_prot_device)
-
-#define MCFG_CMC_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, CMC_PROT, 0)
 
 // cmc42
 #define KOF99_GFX_KEY  (0x00)
@@ -153,7 +144,7 @@ class cmc_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void decrypt(uint8_t *r0, uint8_t *r1,
 		uint8_t c0, uint8_t c1,
@@ -190,15 +181,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(FATFURY2_PROT, fatfury2_prot_device)
 
-#define MCFG_FATFURY2_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, FATFURY2_PROT, 0)
-
 
 class fatfury2_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	DECLARE_READ16_MEMBER( fatfury2_protection_16_r );
 	DECLARE_WRITE16_MEMBER( fatfury2_protection_16_w );
@@ -216,15 +204,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(KOF2002_PROT, kof2002_prot_device)
 
-#define MCFG_KOF2002_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, KOF2002_PROT, 0)
-
 
 class kof2002_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void kof2002_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
 	void matrim_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
@@ -239,15 +224,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(KOF98_PROT, kof98_prot_device)
 
-#define MCFG_KOF98_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, KOF98_PROT, 0)
-
 
 class kof98_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void kof98_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size);
 	void install_kof98_protection(cpu_device* maincpu);
@@ -264,15 +246,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(MSLUGX_PROT, mslugx_prot_device)
 
-#define MCFG_MSLUGX_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, MSLUGX_PROT, 0)
-
 
 class mslugx_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 
 	DECLARE_WRITE16_MEMBER( mslugx_protection_16_w );
@@ -290,15 +269,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(PCM2_PROT, pcm2_prot_device)
 
-#define MCFG_PCM2_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, PCM2_PROT, 0)
-
 
 class pcm2_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void neo_pcm2_snk_1999(uint8_t* ymrom, uint32_t ymsize, int value);
 	void neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value);
@@ -311,15 +287,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(PVC_PROT, pvc_prot_device)
 
-#define MCFG_PVC_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, PVC_PROT, 0)
-
 
 class pvc_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	void pvc_write_unpack_color();
 	void pvc_write_pack_color();
@@ -345,15 +318,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(SBP_PROT, sbp_prot_device)
 
-#define MCFG_SBP_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, SBP_PROT, 0)
-
 
 class sbp_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 
 	uint8_t* m_mainrom;
@@ -369,15 +339,12 @@ protected:
 
 DECLARE_DEVICE_TYPE(SMA_PROT, sma_prot_device)
 
-#define MCFG_SMA_PROT_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, SMA_PROT, 0)
-
 
 class sma_prot_device :  public device_t
 {
 public:
 	// construction/destruction
-	sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 
 	DECLARE_WRITE16_MEMBER( kof99_bankswitch_w );

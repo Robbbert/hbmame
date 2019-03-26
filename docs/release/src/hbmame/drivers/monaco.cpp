@@ -289,9 +289,9 @@ private:
 	DECLARE_READ8_MEMBER(monaco_ram_r);
 	DECLARE_WRITE8_MEMBER(monaco_ram_w);
 	INTERRUPT_GEN_MEMBER(monaco_interrupt);
-	DECLARE_MACHINE_RESET(monaco);
 	DECLARE_VIDEO_START(monaco);
 	void monaco_map(address_map &map);
+	void machine_reset() override;
 	uint32_t screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	struct monaco_gfx *m_monaco_gfx;
 	enum monaco_mode m_monaco_mode;
@@ -1424,7 +1424,7 @@ static const char *const monaco_sample_names[] =
 
 /* ch 0 = engine; ch 1 = ambulance, puddle; ch 2 = extra car; ch 3 = crash; ch 4 = fanfare */
 
-MACHINE_RESET_MEMBER( monaco_state, monaco )
+void monaco_state::machine_reset()
 {
 	uint16_t i;
 	m_time = 0;			/* time remaining = 0 */
@@ -1436,25 +1436,26 @@ MACHINE_RESET_MEMBER( monaco_state, monaco )
 	GameOver();
 }
 
-MACHINE_CONFIG_START( monaco_state::monaco )
-
+void monaco_state::monaco(machine_config &config)
+{
 	/* basic machine hardware */
-	MCFG_DEVICE_ADD ("maincpu", Z80, 200) /* fake */
-	MCFG_DEVICE_PROGRAM_MAP(monaco_map)
-	MCFG_DEVICE_VBLANK_INT_DRIVER("screen", monaco_state, monaco_interrupt)
-	MCFG_MACHINE_RESET_OVERRIDE(monaco_state, monaco)
+	Z80(config, m_maincpu, 200);   // fake
+	m_maincpu->set_addrmap(AS_PROGRAM, &monaco_state::monaco_map);
+	m_maincpu->set_vblank_int("screen", FUNC(monaco_state::monaco_interrupt));
 
 	/* video hardware */
-	MCFG_SCREEN_ADD("screen", RASTER)
-	MCFG_SCREEN_REFRESH_RATE(60)
-	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(4368))
-	MCFG_SCREEN_SIZE(SCREEN_WIDTH, SCREEN_HEIGHT)
-	MCFG_SCREEN_VISIBLE_AREA(0, SCREEN_WIDTH-1, 0, SCREEN_HEIGHT-1)
+	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	screen.set_refresh_hz(60);
+	screen.set_vblank_time(ATTOSECONDS_IN_USEC(4368));
+	screen.set_size(SCREEN_WIDTH, SCREEN_HEIGHT);
+	screen.set_visarea(0, SCREEN_WIDTH-1, 0, SCREEN_HEIGHT-1);
+	screen.set_screen_update(FUNC(monaco_state::screen_update_monaco));
+	screen.set_palette(m_palette);
+
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_monaco);
+	PALETTE(config, m_palette, palette_device::BLACK, 160);   // set up in video start
+
 	MCFG_VIDEO_START_OVERRIDE(monaco_state, monaco)
-	MCFG_SCREEN_UPDATE_DRIVER(monaco_state, screen_update_monaco)
-	MCFG_SCREEN_PALETTE("palette")
-	MCFG_DEVICE_ADD("gfxdecode", GFXDECODE, "palette", gfx_monaco)
-	MCFG_PALETTE_ADD("palette", 160)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1462,12 +1463,12 @@ MACHINE_CONFIG_START( monaco_state::monaco )
 	m_samples->set_channels(5);
 	m_samples->set_samples_names(monaco_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 0.90);
-MACHINE_CONFIG_END
+}
 
 /*****************************************************************/
 
 ROM_START( monaco )
-	ROM_REGION( 0x10000, "maincpu", ROMREGION_ERASE00 ) /* fake */
+	ROM_REGION( 0xf000, "maincpu", ROMREGION_ERASE00 ) /* fake */
 
 	ROM_REGION( 0x3000, "gfx1", 0 )
 	ROM_LOAD( "pr125", 512*0,  512, CRC(7a66ed4c) SHA1(514e129c334a551b931c90b063b073a9b4bdffc3) ) /* light data */

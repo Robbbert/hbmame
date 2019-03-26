@@ -9,15 +9,12 @@
 
 DECLARE_DEVICE_TYPE(NEOGEO_BANKED_CART, neogeo_banked_cart_device)
 
-#define MCFG_NEOGEO_BANKED_CART_ADD(_tag) \
-	MCFG_DEVICE_ADD(_tag, NEOGEO_BANKED_CART, 0)
-
 
 class neogeo_banked_cart_device :  public device_t
 {
 public:
 	// construction/destruction
-	neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
 
 	memory_bank*   m_bank_cartridge;
 	uint32_t     m_main_cpu_bank_address;

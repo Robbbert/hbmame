@@ -27,6 +27,7 @@ copy /Y %from%\src\devices\video\vector.cpp %to%\src\devices\video
 
 md %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
+copy /Y %from%\src\mame\drivers\konamigx.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
 
 md %to%\src\mame\includes
@@ -34,6 +35,9 @@ copy /Y %from%\src\mame\includes\mhavoc.h %to%\src\mame\includes
 
 md %to%\src\mame\machine
 copy /Y %from%\src\mame\machine\mhavoc.cpp %to%\src\mame\machine
+
+md %to%\src\mame\video
+copy /Y %from%\src\mame\video\decbac06.cpp %to%\src\mame\video
 
 md %to%\src\hbmame
 xcopy /E /Y %from%\src\hbmame %to%\src\hbmame

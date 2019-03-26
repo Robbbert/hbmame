@@ -86,8 +86,45 @@ ROM_START( mmaulerss01 )
 	ROM_LOAD( "mmaulers.nv", 0x0000, 0x080, CRC(8324f517) SHA1(4697d091a1924e1a5d6c3ffc64a40fd36eebe557) )
 ROM_END
 
+ /****************
+ Metamorphic Force
+*******************/
+
+ROM_START( metamrphs01 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "224eaa01s01.15h", 0x000001, 0x40000, CRC(8fc188bb) SHA1(c5a2b5c50505e82e89e280c92e5a08bf4d8e76f1) )
+	ROM_LOAD16_BYTE( "224eaa02s01.15f", 0x000000, 0x40000, CRC(ec7b34a0) SHA1(cf2d9c45cff3d05079b51628dad07f4b879ffaaf) )
+	ROM_LOAD16_BYTE( "224a03",       0x100001, 0x80000, CRC(a5bedb01) SHA1(5e7a0b93af654ba6a87be8d449c7080a0f0e2a43) )
+	ROM_LOAD16_BYTE( "224a04",       0x100000, 0x80000, CRC(ada53ba4) SHA1(f77bf854dff1f8f718579fe6d3730066708396e2) )
+
+	ROM_REGION( 0x40000, "soundcpu", 0 )
+	ROM_LOAD("224a05", 0x000000, 0x40000, CRC(4b4c985c) SHA1(c83cce05355023be9cd55b4aa595c61f8236269c) )
+
+	ROM_REGION( 0x500000, "gfx1", ROMREGION_ERASE00 )
+	ROM_LOADTILE_WORD( "224a09", 0x000000, 1*1024*1024, CRC(1931afce) SHA1(78838c0fd2a9c80f130db1fcf6c88b14f7363639) )
+	ROM_LOADTILE_WORD( "224a08", 0x000002, 1*1024*1024, CRC(dc94d53a) SHA1(91e16371a335f078a81c06a1045759653080aba0) )
+
+	ROM_REGION( 0x800000, "gfx2", ROMREGION_ERASE00 )
+	ROM_LOAD64_WORD( "224a10", 0x000000, 2*1024*1024, CRC(161287f0) SHA1(a13b197a98fa1cebb11fb87b54e277c72852c4ee) )
+	ROM_LOAD64_WORD( "224a11", 0x000002, 2*1024*1024, CRC(df5960e1) SHA1(ee7794dd119f5f2c52e7ba589d78067a89ff3cab) )
+	ROM_LOAD64_WORD( "224a12", 0x000004, 2*1024*1024, CRC(ca72a4b3) SHA1(a09deb6d7cb8be4edaeb78e0e676ea2d6055e9e0) )
+	ROM_LOAD64_WORD( "224a13", 0x000006, 2*1024*1024, CRC(86b58feb) SHA1(5a43746e2cd3c7aca21496c092aef83e64b3ab2c) )
+
+	ROM_REGION( 0x40000, "k053250_1", 0 )
+	ROM_LOAD( "224a14", 0x000000, 0x40000, CRC(3c79b404) SHA1(7c6bb4cbf050f314ea0cd3e8bc6e1947d0573084) )
+
+	ROM_REGION( 0x400000, "k054539", 0 )
+	ROM_LOAD( "224a06", 0x000000, 2*1024*1024, CRC(972f6abe) SHA1(30907495fc49fe3424c092b074c1dc137aa14306) )
+	ROM_LOAD( "224a07", 0x200000, 1*1024*1024, CRC(61b2f97a) SHA1(34bf835d6361c7809d40fa20fd238c9e2a84b101) )
+
+	ROM_REGION( 0x80, "eeprom", 0 )
+	ROM_LOAD( "metamrph.nv", 0x0000, 0x080, CRC(2c51229a) SHA1(7f056792cc44ec3d4aacc33c825ab796a913488e) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Martial Champion
 GAME( 200?, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)(ver EAB)", MACHINE_IMPERFECT_GRAPHICS )
 // Monster Maulers
 GAME( 200?, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)(ver EAA)", MACHINE_IMPERFECT_GRAPHICS )
+// Metamorphic Force
+GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "Unknown", "Metamorphic Force (Version Enhanced 2017-07-03)(ver EAA)", MACHINE_IMPERFECT_GRAPHICS )

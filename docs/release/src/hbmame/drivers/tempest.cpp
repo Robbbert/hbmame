@@ -141,15 +141,15 @@ ROM_START( temped )
 	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-ROM_START( tempestm )
+ROM_START( tempm )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "136002.113",   0x9000, 0x0800, CRC(65d61fe7) SHA1(38a1e8a8f65b7887cf3e190269fe4ce2c6f818aa) )
 	ROM_LOAD( "136002-114.e1",   0x9800, 0x0800, CRC(11077375) SHA1(ed8ff0ca969da6672a7683b93d4fcf2935a0d903) )
 	ROM_LOAD( "136002.115",   0xa000, 0x0800, CRC(f3e2827a) SHA1(bd04fcfbbba995e08c3144c1474fcddaaeb1c700) )
 	ROM_LOAD( "136002.316",   0xa800, 0x0800, CRC(aeb0f7e9) SHA1(a5cc25015b98692673cfc1c7c2e9634efd750870) )
 	ROM_LOAD( "136002.217",   0xb000, 0x0800, CRC(ef2eb645) SHA1(b1a2c969e8897e335d5354de6ae04a65d4b2a1e4) )
-	ROM_LOAD( "tempestm.118", 0xb800, 0x0800, CRC(b5e00840) SHA1(912e98b6766143ff5a1bc09c4d9685379408ee85) )
-	ROM_LOAD( "tempestm.119", 0xc000, 0x0800, CRC(ed4f2132) SHA1(b7deb31b23c28d0e084772bbed80a1c5997eac12) )
+	ROM_LOAD( "tempm.118",    0xb800, 0x0800, CRC(b5e00840) SHA1(912e98b6766143ff5a1bc09c4d9685379408ee85) )
+	ROM_LOAD( "tempm.119",    0xc000, 0x0800, CRC(ed4f2132) SHA1(b7deb31b23c28d0e084772bbed80a1c5997eac12) )
 	ROM_LOAD( "136002.120",   0xc800, 0x0800, CRC(35619648) SHA1(48f1e8bed7ec6afa0b4c549a30e5ec331c071e40) )
 	ROM_LOAD( "136002.121",   0xd000, 0x0800, CRC(73d38e47) SHA1(9980606376a79ba94f8e2a325871a6c8d10d83fc) )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
@@ -608,15 +608,16 @@ ROM_START( aliensva ) /* rev 2? */
 	ROM_REGION(0x40, "earom", ROMREGION_ERASE00 ) // default earom to 0
 ROM_END
 
-/* tempest multigame */
+/*********************************************************************************************************************************
+
+Tempest Multigame - only the menu rom is dumped. The other roms were gathered up from existing sets.
+
+*********************************************************************************************************************************/
 
 class tempmg_state : public tempest_state
 {
 public:
-	tempmg_state(const machine_config &mconfig, device_type type, const char *tag)
-		: tempest_state(mconfig, type, tag)
-		, m_maincpu(*this, "maincpu")
-	{ }
+	using tempest_state::tempest_state;
 
 	void tempmg(machine_config &config);
 	void init_tempmg();
@@ -624,12 +625,11 @@ public:
 private:
 
 	void tempmg_map(address_map &map);
-	DECLARE_WRITE8_MEMBER(tempmg_rombank_w);
 	DECLARE_MACHINE_RESET(tempmg);
-	required_device<cpu_device> m_maincpu;
+	void rombank_w(u8 data);
 };
 
-WRITE8_MEMBER( tempmg_state::tempmg_rombank_w )
+void tempmg_state::rombank_w(u8 data)
 {
 	data &= 7;
 	uint8_t *RAM = memregion("maincpu")->base();
@@ -641,17 +641,14 @@ WRITE8_MEMBER( tempmg_state::tempmg_rombank_w )
 
 MACHINE_RESET_MEMBER( tempmg_state, tempmg )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	tempmg_rombank_w (space, 0,0);
+	rombank_w(0);
 }
 
 void tempmg_state::init_tempmg()
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x11000], 0x8000); // main roms
 	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000); // vectors
-	tempmg_rombank_w (space, 0,0);
 }
 
 void tempmg_state::tempmg_map(address_map &map) {
@@ -676,16 +673,17 @@ void tempmg_state::tempmg_map(address_map &map) {
 	map(0x60d0, 0x60df).rw("pokey2",FUNC(pokey_device::read),FUNC(pokey_device::write));
 	map(0x60e0, 0x60e0).w(FUNC(tempmg_state::tempest_led_w));
 	map(0x9000, 0xdfff).bankr("bank1");
-	map(0xe000, 0xe000).w(FUNC(tempmg_state::tempmg_rombank_w));
+	map(0xe000, 0xe000).lw8("rombank", [this] (u8 data) { rombank_w(data); });
 	map(0xf800, 0xffff).bankr("bank2");
 }
 
-MACHINE_CONFIG_START( tempmg_state::tempmg )
+
+void tempmg_state::tempmg(machine_config &config)
+{
 	tempest(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(tempmg_map)
+	m_maincpu->set_addrmap(AS_PROGRAM, &tempmg_state::tempmg_map);
 	MCFG_MACHINE_RESET_OVERRIDE(tempmg_state, tempmg)
-MACHINE_CONFIG_END
+}
 
 ROM_START( tempmg )
 	ROM_REGION( 0x50000, "maincpu", 0 )
@@ -809,7 +807,7 @@ GAME( 2000, temptwsta, tempest, tempest, tempest, tempest_state, empty_init,  RO
 GAME( 2000, temptwst2, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisty's Revenge", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptwst3, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Psycho Twist", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptwst4, tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Twisty", "Tempest Twisted Maniac", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, tempestm,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, tempm,     tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest Mark's Hacks", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, tempmg,    tempest, tempmg,  tempest, tempmg_state,  init_tempmg, ROT270, "Clay Cowgill", "Tempest Multigame", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, vbrakout,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Clay Cowgill", "Vector Breakout [h]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, temptlm,   tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "hack", "Tempest Level Man", MACHINE_SUPPORTS_SAVE )

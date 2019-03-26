@@ -68,5 +68,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Tengai
-HACK( 2009, tengais01,    tengai,   s1945,    tengai,   psikyo_state, tengai,   ROT0,   "pipi899",  "Tengai (Ex Super version)(2009-10-31)(World)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, tengaijs01,   tengai,   s1945,    tengaij,  psikyo_state, tengai,   ROT0,   "pipi899",  "Sengoku Blade: Sengoku Ace Episode II (Ex Super version)(2009-10-31)", MACHINE_SUPPORTS_SAVE ) 
+GAME( 2009, tengais01,    tengai,   s1945,    tengai,   psikyo_state, init_tengai,   ROT0,   "pipi899",  "Tengai (Ex Super version)(2009-10-31)(World)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tengaijs01,   tengai,   s1945,    tengaij,  psikyo_state, init_tengai,   ROT0,   "pipi899",  "Sengoku Blade: Sengoku Ace Episode II (Ex Super version)(2009-10-31)", MACHINE_SUPPORTS_SAVE )
+

@@ -4,9 +4,13 @@
 2019-03-27 0.208
 ----------------
 
-- The "GXB" user is thanked for his enormous cooperation with the new materials that were included in this version
-- It has been renewed several Roms remix old that contained bug/glitches of mslug/2/X/3/4/5.
-- It has begun to eliminate all duplicate roms with different regions made with the ips. Only for the moment will a region be preserved from now on.
+- Thanks to "gxb" who is thanked for his enormous assistance with the new materials that were included in this version.
+- Fixes for many glitched mslug hacks.
+- Removal of many sets where the difference is quite minor.
+- Added support to save the position of sliders such as volume. It might work for HLSL but this has not been tested.
+- Fixed hacks of dragoona.
+- Fixed a very old bug in pacman. If you had selected the speedup cheat to be always on, the game might not start.
+
 
 New Games
 ---------------------------------
@@ -1560,7 +1564,6 @@ New Games
 2016-06-29 0.175
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - WinUI: more 7z support
 - Continued adding hacks from MultiJet
@@ -1593,7 +1596,6 @@ New Games
 2016-05-25 0.174
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - NewUI: 7z enabled
 - WinUI: Various tweaks
@@ -1644,7 +1646,6 @@ New Games
 2016-04-27 0.173
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - NewUI is added but turned off by default
 - Started adding hacks from MultiJet
@@ -1729,7 +1730,6 @@ New Games
 2016-02-26 0.171
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - Added a number of kof hacks.
 
@@ -1746,7 +1746,6 @@ New Games
 2016-01-27 0.170
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - Added a number of kof hacks.
 - finished neogeo modernisation.
@@ -1765,7 +1764,6 @@ New Games
 2015-12-30 0.169
 ----------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - Added more neogeo hacks from MAME Plus/Ash-build.
 - Added a number of kof hacks.
@@ -1778,7 +1776,6 @@ Thanks to all those who helped gather the newest hacks.
 2015-11-25 0.168 r41860
 -----------------------
 
-Thanks to all those who helped gather the newest hacks.
 
 - Added more neogeo hacks from MAME Plus/Ash-build.
 - Added a number of kof94/95/96/97/98 hacks.
@@ -1804,7 +1801,7 @@ New Games
 2015-10-28 0.167 r41414
 -----------------------
 
-Thanks to all those who helped gather the newest hacks.
+
 
 - UI build: various small improvements
 - Added approx 100 neogeo hacks from MAME Plus/Ash-build
@@ -1828,7 +1825,7 @@ New Games
 2015-09-30 0.166 r40959
 -----------------------
 
-Thanks to all those who helped gather the newest hacks.
+
 
 - F2demo: Fixed display.
 - Punisherb: Fixed gfx.
@@ -1899,7 +1896,7 @@ New Games
 2015-08-26 0.165 r40487
 -----------------------
 
-Thanks to all those who helped gather the newest hacks.
+
 
 - UI build: various fixes and adjustments.
 - Added 41 versions of KOF'98 Combo.
@@ -1929,8 +1926,7 @@ New Games
 2015-06-04 0.162 r38440
 -----------------------
 
-Thanks to various sources of information:
-Smitdogg.
+
 
 - [pcmbdemo] - fixed with new roms from the author
 - UI build: various fixes and adjustments.
@@ -1952,8 +1948,7 @@ New Games
 2015-05-03 0.161 r37536
 -----------------------
 
-Thanks to various sources of information:
-Smitdogg, mamesick.
+
 
 - Converted to MAME's Genie compiling system
 - Fixed Charles Doty's Dec0 Chaos Demo.
@@ -1973,8 +1968,7 @@ New Games
 2015-03-28 r36652
 -----------------
 
-Thanks to various sources of information:
-Tafoid.
+
 
 - Cookie-Mon fixed
 
@@ -2000,8 +1994,7 @@ New Games
 2015-03-15 r36430
 -----------------
 
-Thanks to various sources of information:
-Newuzer.
+
 
 - fixed graphics in svcd
 - bbredux updated to latest patch
@@ -2024,8 +2017,7 @@ New Games
 2014-10-16 r32769
 -----------------
 
-Thanks to various sources of information:
- KOF-ON, Newuzer, Tafoid, JacKc.
+
 
 - UI build:
 -- Fixed problem where Default Game Options would revert to original defaults.
@@ -2064,8 +2056,7 @@ New Games
 2014-06-13 r30958
 -----------------
 
-Thanks to various sources of information:
- KOF-ON, Newuzer, Tafoid.
+
 
 - UI build: fixed certain directory settings not being saved.
 
@@ -2127,8 +2118,7 @@ New Games
 2014-04-10 r29507
 -----------------
 
-Thanks to various sources of information:
- JackC, Newuzer.
+
 
 - Added UI build
 - Various improvements to Galaga bootlegs
@@ -2195,8 +2185,6 @@ New Games
 2013-06-30 r24018
 -----------------
 
-Thanks to various sources of information:
- JackC, B2K24, Newuzer.
 
 
 New Games
@@ -2214,8 +2202,6 @@ New Games
 2013-05-01 r22408
 -----------------
 
-Thanks to various sources of information:
- JackC, B2K24, abelenki.
 
 
 New Games
@@ -2230,8 +2216,6 @@ New Games
 2013-04-15 r22408
 -----------------
 
-Thanks to various sources of information:
- JackC, B2K24, FBA, Houba, Jan Tleskac.
 
 
 CPS-1 games have seen improvement and cleanup:

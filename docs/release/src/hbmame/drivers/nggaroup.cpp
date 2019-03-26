@@ -516,6 +516,32 @@ ROM_START( garoupsi04 )
 	ROM_LOAD16_BYTE( "proto_253.c8", 0x3000001, 0x800000, CRC(f778fe99) SHA1(c963f6ba90a36d02991728b44ffcf174ca18268a) )
 ROM_END
 
+ROM_START( garoupsi05 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "protohc05_253.p1", 0x000000, 0x100000, CRC(246d6c8c) SHA1(8486445bcef313b10758d965d5f1ffc610204db7) )
+	ROM_LOAD16_WORD_SWAP( "protohc01_253-p2.p2", 0x100000, 0x400000, CRC(b8884d6a) SHA1(7c33d90521489d68c4afb589d4e4b43cc74366c8) )
+
+	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+
+	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "proto_253.v1", 0x000000, 0x400000, CRC(274f3923) SHA1(4c7a8ad1cd0e3afc1f78de3c2929120ed434f104) )
+	ROM_LOAD( "proto_253.v2", 0x400000, 0x400000, CRC(8f86dabe) SHA1(b3d2d9f5c1d97a6e7aee2c674fb6627f41bbb240) )
+	ROM_LOAD( "proto_253.v3", 0x800000, 0x400000, CRC(05fd06cd) SHA1(6cd699719614bb87547632ea3d61d92d81fdf563) )
+	ROM_LOAD( "proto_253.v4", 0xc00000, 0x400000, CRC(14984063) SHA1(170d5638327ec0eb3590b80dc11590897367250c) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "proto_253.c1", 0x0000000, 0x800000, CRC(5bb5d137) SHA1(d648febd8e6a0bdd9bdbb6ce1f1f8b08567ec05a) )
+	ROM_LOAD16_BYTE( "proto_253.c2", 0x0000001, 0x800000, CRC(5c8d2960) SHA1(f7503502be0332adf408ee0ea5ee5161c8939fd8) )
+	ROM_LOAD16_BYTE( "proto_253.c3", 0x1000000, 0x800000, CRC(234d16fc) SHA1(7b9221f7ecc438150c8a10be72390329854ed21b) )
+	ROM_LOAD16_BYTE( "proto_253.c4", 0x1000001, 0x800000, CRC(b9b5b993) SHA1(6059793eaf6e58c172235fe64aa9d25a40c38ed6) )
+	ROM_LOAD16_BYTE( "proto_253.c5", 0x2000000, 0x800000, CRC(722615d2) SHA1(798832c535869f0e247c3db0d8253779b103e213) )
+	ROM_LOAD16_BYTE( "proto_253.c6", 0x2000001, 0x800000, CRC(0a6fab38) SHA1(eaee6f2f18af91f7959d84d4b991b3fc182d07c4) )
+	ROM_LOAD16_BYTE( "proto_253.c7", 0x3000000, 0x800000, CRC(d68e806f) SHA1(92bfd9839115bd590972ae4ecc45ad35dce22387) )
+	ROM_LOAD16_BYTE( "proto_253.c8", 0x3000001, 0x800000, CRC(f778fe99) SHA1(c963f6ba90a36d02991728b44ffcf174ca18268a) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Garou
 HACK( 200?, garoups01,      garou,    neogeo_noslot, neogeo, neogeo_state,         garou,     ROT0, "Creamymami[EGCG]",    "Garou - Mark of the Wolves (Infinite Power)(NGM-2530)", MACHINE_SUPPORTS_SAVE )
@@ -525,5 +551,6 @@ HACK( 200?, garoupsi01,     garou,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 200?, garoupsi02,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "feiyang001597",    "Garou - Mark of the Wolves (Easy Special Attacks)(prototype)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, garoupsi03,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Garou - Mark of the Wolves (Bug Patch v2)(prototype)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, garoupsi04,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)(prototype)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, garoupsi05,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Garou - Mark of the Wolves (The brand of the wolf 2015-03-10)(prototype)", MACHINE_SUPPORTS_SAVE )
 
 

@@ -22,4 +22,4 @@ ROM_START( vantris )
 	ROM_REGION( 0x5800, "speech", ROMREGION_ERASE00 )
 ROM_END
 
-HACK( 1998, vantris, 0, vanguard, vanguard, snk6502_state, 0, ROT90, "Norbert Kehrer", "Vantris 98", MACHINE_SUPPORTS_SAVE ) // http://web.utanet.at/nkehrer/vantris.html
+GAME( 1998, vantris, 0, vanguard, vanguard, snk6502_state, empty_init, ROT90, "Norbert Kehrer", "Vantris 98", MACHINE_SUPPORTS_SAVE ) // http://web.utanet.at/nkehrer/vantris.html

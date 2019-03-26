@@ -38,5 +38,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gain Ground
-HACK( 200?, ggrounds01,   gground,  system24_floppy_fd1094, gground,  segas24_state, gground,  ROT270, "Wayder", "Gain Ground (Restore Bug 4-8 Enemy Count)(World, 3 Players, Floppy Based, FD1094 317-0058-03d Rev A)", 0 )
-HACK( 200?, ggroundjs01,  gground,  system24_floppy_fd1094, gground,  segas24_state, gground,  ROT270, "Wayder", "Gain Ground (Restore Bug 4-8 Enemy Count)(Japan, 2 Players, Floppy Based, FD1094 317-0058-03b)", 0 )
+GAME( 200?, ggrounds01,   gground,  system24_floppy_fd1094, gground,  segas24_state, init_gground,  ROT270, "Wayder", "Gain Ground (Restore Bug 4-8 Enemy Count)(World, 3 Players, Floppy Based, FD1094 317-0058-03d Rev A)", 0 )
+GAME( 200?, ggroundjs01,  gground,  system24_floppy_fd1094, gground,  segas24_state, init_gground,  ROT270, "Wayder", "Gain Ground (Restore Bug 4-8 Enemy Count)(Japan, 2 Players, Floppy Based, FD1094 317-0058-03b)", 0 )
+

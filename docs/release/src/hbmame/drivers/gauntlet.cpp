@@ -3,8 +3,6 @@
 #include "../mame/drivers/gauntlet.cpp"
 
 
-// There's some unknown hacks here. Need info on who the author is, and what the difference is.
-
 
 ROM_START( gaunt2s )
 	ROM_REGION( 0x80000, "maincpu", 0 )
@@ -22,7 +20,7 @@ ROM_START( gaunt2s )
 	ROM_LOAD( "136043-1119.16s", 0x008000, 0x008000, CRC(dc3591e7) SHA1(6d0d8493609974bd5a63be858b045fe4db35d8df) )
 
 	ROM_REGION( 0x04000, "gfx1", 0 )
-	ROM_LOAD( "136043-1104.6p",  0x000000, 0x002000, CRC(1343cf6f) SHA1(4a9542bc8ede305e7e8f860eb4b47ca2f3017275) )
+	ROM_LOAD( "gaunt2s.6p",  0x000000, 0x002000, CRC(1343cf6f) SHA1(4a9542bc8ede305e7e8f860eb4b47ca2f3017275) )
 
 	ROM_REGION( 0x60000, "gfx2", ROMREGION_INVERT )
 	ROM_LOAD( "136043-1111.1a",  0x000000, 0x008000, CRC(09df6e23) SHA1(726984275c6a338c12ec0c4cc449f92f4a7a138c) )
@@ -64,7 +62,7 @@ ROM_START( gaunt2ls )
 	ROM_LOAD( "136043-1119.16s", 0x008000, 0x008000, CRC(dc3591e7) SHA1(6d0d8493609974bd5a63be858b045fe4db35d8df) )
 
 	ROM_REGION( 0x04000, "gfx1", 0 )
-	ROM_LOAD( "136043-1104.6p",  0x000000, 0x002000, CRC(1343cf6f) SHA1(4a9542bc8ede305e7e8f860eb4b47ca2f3017275) )
+	ROM_LOAD( "gaunt2s.6p",  0x000000, 0x002000, CRC(1343cf6f) SHA1(4a9542bc8ede305e7e8f860eb4b47ca2f3017275) )
 
 	ROM_REGION( 0x60000, "gfx2", ROMREGION_INVERT )
 	ROM_LOAD( "136043-1111.1a",  0x000000, 0x008000, CRC(09df6e23) SHA1(726984275c6a338c12ec0c4cc449f92f4a7a138c) )
@@ -129,11 +127,11 @@ ROM_START( gaunt2f )
 	ROM_REGION( 0x500, "proms", 0 )
 	ROM_LOAD( "74s472-136037-101.7u", 0x000, 0x200, CRC(2964f76f) SHA1(da966c35557ec1b95e1c39cd950c38a19bce2d67) )
 	ROM_LOAD( "74s472-136037-102.5l", 0x200, 0x200, CRC(4d4fec6c) SHA1(3541b5c6405ad5742a3121dfd6acb227933de25a) )
-	ROM_LOAD( "gaunt2f.4r",           0x400, 0x100, CRC(32ae1fa9) SHA1(09eb56a0798456d73015909973ce2ba9660c1164) )
+	ROM_LOAD( "82s129-136043-1103.4r", 0x400, 0x100, CRC(32ae1fa9) SHA1(09eb56a0798456d73015909973ce2ba9660c1164) )
 ROM_END
 
 
 
-HACK( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Todd Bordelon", "Gauntlet II (Speed Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
-HACK( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Carl Lloyd-Parker", "Gauntlet II (New Levels)", MACHINE_SUPPORTS_SAVE )
-HACK( 1986, gaunt2f,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, gauntlet, ROT0, "Unknown", "Gauntlet II (Graphics Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, gaunt2s,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, init_gauntlet, ROT0, "Todd Bordelon", "Gauntlet II (Speed Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.ionpool.net/arcade/gauntlet/hacks.html
+GAME( 1988, gaunt2ls, gaunt2,   gauntlet2, gauntlet, gauntlet_state, init_gauntlet, ROT0, "Carl Lloyd-Parker", "Gauntlet II (New Levels)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, gaunt2f,  gaunt2,   gauntlet2, gauntlet, gauntlet_state, init_gauntlet, ROT0, "Unknown", "Gauntlet II (Graphics Hack)", MACHINE_SUPPORTS_SAVE )

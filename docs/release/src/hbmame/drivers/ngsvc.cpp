@@ -6566,7 +6566,7 @@ HACK( 200?, svcdwt02,       svc,      neogeo_noslot, neogeo, neogeo_state,   svc
 HACK( 200?, svcdwt03,       svc,      neogeo_noslot, neogeo, neogeo_state,   svchb,    ROT0, "siromezm",    "SvC Chaos (Enable hidden characters v2A)(decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcdwt04,       svc,      neogeo_noslot, neogeo, neogeo_state,   svchb,    ROT0, "Eddids",    "SvC Chaos (Fixed the 8*224 Black Block On The Left Of How To Play Screen)(decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcdwt05,       svc,      neogeo_noslot, neogeo, neogeo_state,   svchb,    ROT0, "oak2003",    "SvC Chaos (Transparent)(decrypted C set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, svcdwt06,       svc,      neogeo_noslot, neogeo, neogeo_state,   svchb,    ROT0, "Unknown",    "SvC Chaos (Dragon Edition 2018)(NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, svcdwt06,       svc,      neogeo_noslot, neogeo, neogeo_state,   svchb,    ROT0, "Unknown",    "SvC Chaos (Dragon Edition 2018 2017-10-29)(NGM-2690)(NGH-2690)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcdwt07,       svc,      neogeo_noslot, neogeo, neogeo_state,   neogeo,   ROT0, "EGHT", "SvC Chaos (Playstation2 Final 1.0?)(decrypted C set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcdwt08,       svc,      neogeo_noslot, neogeo, neogeo_state,   neogeo,   ROT0, "Playmore", "SvC Chaos (MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, svcdwt09,       svc,      neogeo_noslot, neogeo, neogeo_state,   neogeo,   ROT0, "Oak2003", "SvC Chaos Plus (Fix)", MACHINE_SUPPORTS_SAVE )

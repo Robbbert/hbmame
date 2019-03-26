@@ -62,13 +62,37 @@ ROM_START( decodemo )
 	//ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 ) /* copy the 3 nops to 0x4e8 */
 	//ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 ) /* and 0x96e */
 
-	// Text stopped working when bac06 device was rewritten. We send a 1 to pf_control_0 to fix it.
-	ROM_FILL( 0x04d8, 1, 0x33 )
-	ROM_FILL( 0x04d9, 1, 0xfc )
-	ROM_FILL( 0x04da, 6, 0x00 )
-	ROM_FILL( 0x04db, 1, 0x01 )
-	ROM_FILL( 0x04dd, 1, 0x24 )
-	ROM_FILL( 0x04e0, 1, 0x67 )
+	// pf_control_0 was not being set. This sends 3 to 240000, and 0 to the rest.
+	ROM_FILL(0x1000, 0x80, 0)
+	ROM_FILL(0x1000, 1, 0x33)
+	ROM_FILL(0x1001, 1, 0xfc)
+	ROM_FILL(0x1003, 1, 0x03)
+	ROM_FILL(0x1005, 1, 0x24)
+	ROM_COPY( "maincpu", 0x1000, 0x1008, 0x08 )
+	ROM_FILL(0x100b, 1, 0x00)
+	ROM_FILL(0x100f, 1, 0x02)
+	ROM_COPY( "maincpu", 0x1008, 0x1010, 0x08 )
+	ROM_FILL(0x1017, 1, 0x04)
+	ROM_COPY( "maincpu", 0x1008, 0x1018, 0x08 )
+	ROM_FILL(0x101f, 1, 0x06)
+	ROM_COPY( "maincpu", 0x1000, 0x1020, 0x20 )
+	ROM_FILL(0x1023, 1, 0x00)
+	ROM_FILL(0x1026, 1, 0x60)
+	ROM_FILL(0x102e, 1, 0x60)
+	ROM_FILL(0x1036, 1, 0x60)
+	ROM_FILL(0x103e, 1, 0x60)
+	ROM_COPY( "maincpu", 0x1000, 0x1040, 0x20 )
+	ROM_FILL(0x1043, 1, 0x00)
+	ROM_FILL(0x1046, 1, 0xc0)
+	ROM_FILL(0x104e, 1, 0xc0)
+	ROM_FILL(0x1056, 1, 0xc0)
+	ROM_FILL(0x105e, 1, 0xc0)
+	ROM_FILL(0x1060, 1, 0x4e)
+	ROM_FILL(0x1061, 1, 0xf9)
+	ROM_FILL(0x1064, 1, 0x04)
+	ROM_FILL(0x1065, 1, 0x2e)
+	ROM_FILL(0x0006, 1, 0x10)
+	ROM_FILL(0x0007, 1, 0x00)
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "ei07.8a",   0x8000, 0x8000, CRC(9fb1ef4b) SHA1(f4dd0773be93c2ad8b0faacd12939c531b5aa130) )
@@ -102,8 +126,8 @@ ROM_START( decodemo )
 	ROM_LOAD( "ei31.9a",   0x0000, 0x1000, CRC(2a8745d2) SHA1(f15ab17b1e7836d603135f5c66ca2e3d72f6e4a2) )
 ROM_END
 
-HACK( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -161,4 +185,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bad Dudes vs. Dragonninja
-HACK( 1988, baddudes01,     baddudes,        baddudes, baddudes, dec0_state,  hbarrel, ROT0,   "S.Arkames",         "Bad Dudes vs. Dragonninja (Translation French)(10.29.2007)(Us)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, baddudes01,     baddudes,        baddudes, baddudes, dec0_state,  init_hbarrel, ROT0,   "S.Arkames",         "Bad Dudes vs. Dragonninja (Translation French)(10.29.2007)(Us)", MACHINE_SUPPORTS_SAVE )
+
+

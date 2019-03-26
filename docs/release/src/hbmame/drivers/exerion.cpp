@@ -62,5 +62,5 @@ ROM_START( exerionj )
 	ROM_LOAD( "exerion.k4",   0x0320, 0x0100, CRC(ffc2ba43) SHA1(03be1c41d6ac3fc11439caef04ef5ffa60d6aec4) )
 ROM_END
 
-HACK( 2004, exeriongr, exerion, exerion, exerion, exerion_state, exerion,  ROT90, "GreekRoms", "Exerion (Greek)", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, exerionj,  exerion, exerion, exerion, exerion_state, exerion,  ROT90, "Jaleco", "Exerion (Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, exeriongr, exerion, exerion, exerion, exerion_state, init_exerion,  ROT90, "GreekRoms", "Exerion (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, exerionj,  exerion, exerion, exerion, exerion_state, init_exerion,  ROT90, "Jaleco", "Exerion (Japan)", MACHINE_SUPPORTS_SAVE )

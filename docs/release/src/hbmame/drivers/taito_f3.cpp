@@ -56,7 +56,7 @@ ROM_START( driusgxh )
 	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )
 ROM_END
 
-ROM_START( f3demo )
+ROM_START( f3demo ) // made specifically for Raine. Doesn't work on real hardware.
 	ROM_REGION(0x200000, "maincpu", ROMREGION_ERASE00)
 	ROM_LOAD("f3demo.bin", 0, 0x194c, CRC(08587aea) SHA1(4850d170b935fd4b6726c03693eb25e5ac3b6198) )
 	ROM_FILL(0x043A, 1, 0x4E)
@@ -214,13 +214,13 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-HACK( 200?, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (Hack)(Ver 2.1J 1996/09/05)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (Hack)(Ver 2.5O 1994/09/19)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (World Hack)(Ver 2.3O 1995/09/21)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation To China)(Ver 2.3J 1995/09/21)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (Hack)(Ver 2.01J 1998/06/01)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2X (Hack)(Ver 2.3O 1995/07/31)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (Hack)(Ver 2.1J 1996/09/05)", 0 )
+HACK( 200?, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (Hack)(Ver 2.5O 1994/09/19)", 0 )
+HACK( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
+HACK( 200?, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (World Hack)(Ver 2.3O 1995/09/21)", 0 )
+HACK( 200?, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation To China)(Ver 2.3J 1995/09/21)", 0 )
+HACK( 200?, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (Hack)(Ver 2.01J 1998/06/01)", 0 )
+HACK( 200?, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2X (Hack)(Ver 2.3O 1995/07/31)", 0 )
 
 
 //PSmame (c) gaston90 used with permission
@@ -726,7 +726,7 @@ HACK( 200?, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, 
  // Akkanbeder
 HACK( 200?, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Unknown",         "Akkanbeder (Translation Chinese)(Ver 2.5J 1995/06/14)", 0 )
  // Arabian Magic
-HACK( 200?, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese)(Ver 1.0J 1992/07/06)", 0 )
+HACK( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese 2017-04-27)(Ver 1.0J 1992/07/06)", 0 )
  // Bubble Symphony
 HACK( 200?, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Unknown",         "Bubble Symphony (Translation Chinese)(Ver 2.5J 1994/10/05)", 0 )
  // Dan-Ku-Ga
@@ -743,5 +743,5 @@ HACK( 200?, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, 
  // Land Maker
 HACK( 200?, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",         "Land Maker (Translation Chinese)(Ver 2.01J 1998/06/01)", 0 )
  // Light Bringer
-HACK( 200?, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese)(Ver 2.1J 1994/02/18)", 0 )
+HACK( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese 2017-04-26)(Ver 2.1J 1994/02/18)", 0 )
 

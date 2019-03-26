@@ -57,8 +57,8 @@ ROM_START( zeroteamss01 )
 	ROM_REGION( 0x40000, "user2", 0 )  
 	ROM_LOAD( "copx-d2.u0313.6n",   0x00000, 0x40000, CRC(a6732ff9) SHA1(c4856ec77869d9098da24b1bb3d7d58bb74b4cda) )
 
-	ROM_REGION( 0x20000, "audiocpu", ROMREGION_ERASEFF ) 
-	ROM_LOAD( "5_sel.bin",  0x000000, 0x08000, CRC(ed91046c) SHA1(de815c999aeeb814d3f091d5a9ac34ea9a388ddb) )
+	ROM_REGION( 0x20000, "audiocpu", ROMREGION_ERASEFF )
+	ROM_LOAD( "seibu__5.u1110.5b",  0x000000, 0x08000, CRC(7ec1fbc3) SHA1(48299d6530f641b18764cc49e283c347d0918a47) )
 	ROM_CONTINUE(0x10000,0x8000)
 	ROM_COPY( "audiocpu", 0x000000, 0x018000, 0x08000 )
 
@@ -86,5 +86,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Zero Team
-GAME( 200?, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team (Special Attack)(Taiwan)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
-GAME( 200?, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team Selection (Enhanced Version)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
+GAME( 200?, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team (Special Attack)(Taiwan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team Selection (Enhanced Version 2018-02-19)", MACHINE_SUPPORTS_SAVE )

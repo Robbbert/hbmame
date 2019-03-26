@@ -214,16 +214,17 @@ INPUT_PORTS_END
  *
  *************************************/
 
-MACHINE_CONFIG_START( pacman_state::maketrax )
+void pacman_state::maketrax(machine_config &config)
+{
 	pacman(config);
 	MCFG_MACHINE_RESET_OVERRIDE(pacman_state,maketrax)
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START( pacman_state::piranha )
+void pacman_state::piranha(machine_config &config)
+{
 	pacman(config);
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_IO_MAP(piranha_writeport)
-MACHINE_CONFIG_END
+	m_maincpu->set_addrmap(AS_IO, &pacman_state::piranha_writeport);
+}
 
 
 /*************************************
@@ -390,10 +391,21 @@ ROM_END
 
 ROM_START( deathstar ) // No text, no scores. From level 3, you need to use a 2nd joystick (RDFG keys).
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "deathstar.1",  0x0000, 0x1000, CRC(decc3963) SHA1(cbc291c767def5c92b82d6e00ebb5e61e45cbc41) )
+	ROM_LOAD( "dstar.6e",     0x0000, 0x1000, CRC(decc3963) SHA1(cbc291c767def5c92b82d6e00ebb5e61e45cbc41) )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
 	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( deathstar2 ) // No text, no scores. From level 3, you need to use a 2nd joystick (RDFG keys).
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dstar2.6e",    0x0000, 0x1000, CRC(53a5428e) SHA1(db4c271e47b9b14e4b266f30ff145c2074944f0f) )
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "dstar2.5e",    0x0000, 0x1000, CRC(99ad7923) SHA1(03dcae6625335ae2abc58b1e3e7724e84c985c6e) )
 	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
 	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
 
@@ -727,10 +739,21 @@ ROM_END
 
 ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys). If you run the snake next to an edge, gfx break.
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "snakes.1",     0x0000, 0x1000, CRC(5cba3718) SHA1(c093acd0f38e24d68c5dd618b742360976f1a3fa) )
+	ROM_LOAD( "snakes.6e",    0x0000, 0x1000, CRC(5cba3718) SHA1(c093acd0f38e24d68c5dd618b742360976f1a3fa) )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
 	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( snakes2 ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys).
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "snakes2.6e",   0x0000, 0x1000, CRC(6737be9c) SHA1(69a04dc9e9f08d78a6ad0a206b2af9126bfbe40c) )
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "snakes2.5e",   0x0000, 0x1000, CRC(5fa96d40) SHA1(fea209c43bea8db56426c7c74d7c16954d195fea) )
 	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
 	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
 
@@ -852,8 +875,10 @@ HACK( 1982, eyesb,     eyes,     pacman,   eyes,     pacman_state,  eyes,     RO
 HACK( 2016, ghohunt,   puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Hurray Banana", "Ghost Hunt", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, pactetris, puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Ben Leperchey", "Tetris on Pacman hardware (incomplete)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, deathstar, puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Stefano Bodrato", "Death Star", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, deathstar2,puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Stefano Bodrato", "Death Star v2", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, scroller,  puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Hurray Banana", "Scroller", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, snakes,    puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, snakes2,   puckman,  pacman,   pacman0,  pacman_state,  0,        ROT90,  "Stefano Bodrato", "Snakes v2", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/

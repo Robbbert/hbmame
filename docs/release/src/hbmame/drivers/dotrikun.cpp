@@ -166,19 +166,18 @@ void mineswp_state::machine_start()
 	m_beep->set_state(0);
 }
 
-MACHINE_CONFIG_START( mineswp_state::mineswp )
+void mineswp_state::mineswp(machine_config &config)
+{
 	dotrikun(config);
-	/* basic machine hardware */
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_DEVICE_PROGRAM_MAP(mineswp_map)
-	MCFG_DEVICE_IO_MAP(mineswp_io)
+	m_maincpu->set_addrmap(AS_PROGRAM, &mineswp_state::mineswp_map);
+	m_maincpu->set_addrmap(AS_IO, &mineswp_state::mineswp_io);
 
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	BEEP(config, m_beep, 950).add_route(ALL_OUTPUTS, "mono", 0.40);
-MACHINE_CONFIG_END
+}
 
 
 /***************************************************************************
@@ -200,4 +199,4 @@ ROM_START( mineswp )
 ROM_END
 
 
-GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, init_0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW, layout_dotrikun )
+GAMEL( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, init_0, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE, layout_dotrikun )

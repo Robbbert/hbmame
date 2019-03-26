@@ -1617,9 +1617,9 @@ ROM_START( kovsgqyzc )
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
 ROM_END
 
-HACK( 2002, ketarrb,    ket,       pgm_arm_type1_cave, pgm,      pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012/04/17 BACK. VER)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendh,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend Plus (ver. 2.0)(ver. 112, Chinese Board)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Kryso", "Oriental Legend (Some Items Are Unlimited)(ver. 112, Chinese Board)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, ketarrb,    ket,       pgm_arm_type1_cave, pgm,      pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (Adjustment Edition 1.0 2015-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, orlegendh,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend Plus (ver. 2.0)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, orlegendcs, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Kryso", "Oriental Legend (Some Items Are Unlimited)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2006, pgemeni,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Blastar", "P-Gemeni (060123)", MACHINE_SUPPORTS_SAVE ) // has no sound
 HACK( 2005, pgmdemo,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
 HACK( 2006, pgmfrog,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
@@ -1627,55 +1627,55 @@ HACK( 2008, kovassg,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_s
 HACK( 200?, kovdf,      kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (hack set df)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovsgqyzc,  kovplus,   pgm_arm_type1_sim,  sango_ch, pgm_arm_type1_state, kovboot,    ROT0,   "bootleg", "Knights of Valour: SanGuo QunYingZhuan / Sangoku Senki: SanGuo QunYingZhuan (bootleg, set 4)", MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kov2h1,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "007325", "Knights of Valour 2 Plus (Integrated version)(ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h2,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Unknow Hack)(Set 01) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h3,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Wuyd", "Knights of Valour 2 Plus (Unparalleled beta) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h2,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Unknow Hack)(Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h3,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Wuyd", "Knights of Valour 2 Plus (Unparalleled beta)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kov2h4,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "rote", "Knights of Valour 2 Plus (Changed Zhang Liao Edition)(ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h5,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "IGS", "Knights of Valour 2 Plus (Unknow Hack)(Set 02) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, kovph1,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus 2007 (Hack set 1)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph2,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The world's third test version 1.16)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph3,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (948 Takes he ordinary road official version A)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kovph4,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "XM", "Knights of Valour Plus 2006 (Hack set 4)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph5,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 5)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph6,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "tdkj009", "Knights of Valour Plus (Authentic 2006 Competitions V0.97)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph7,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 7)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph8,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Fangzhoo", "Knights of Valour Plus (Hack set 8)(ver. 119, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph9,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 9)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph10,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 10)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph11,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil phoenix battle)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph12,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Year gift revision)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph13,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 13)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph14,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 14)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // crashes in attract mode, but plays ok
-HACK( 200?, kovph15,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 15)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph16,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 16)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 2012, kovph17,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hui Yi", "Knights of Valour Plus 2012 (Hack set 17)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, kovph18,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hui Yi", "Knights of Valour Plus 2012 (Hack set 18)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2012, kovph19,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 19)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 2012, kovph20,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 20)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 2012, kovph21,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 21)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph22,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 22)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph23,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 23)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph24,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Huangxu", "Knights of Valour Plus (Rich World Perfect Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovph25,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "IGS",  "Knights of Valour Plus (Rise from the ashes)(ver. 119, set 1)", MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh1,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fix Beta 2)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh2,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 2)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh3,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 3)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h5,     kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "IGS", "Knights of Valour 2 Plus (Unknow Hack)(Set 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, kovph1,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus 2007 (Hack set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph2,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The world's third test version 1.16)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph3,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (948 Takes he ordinary road official version A)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kovph4,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "XM", "Knights of Valour Plus 2006 (Hack set 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph5,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph6,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "tdkj009", "Knights of Valour Plus (Authentic 2006 Competitions V0.97)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph7,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 7)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph8,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Fangzhoo", "Knights of Valour Plus (Hack set 8)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph9,     kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 9)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph10,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 10)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph11,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil phoenix battle)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph12,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Year gift revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph13,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 13)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph14,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 14)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE ) // crashes in attract mode, but plays ok
+HACK( 200?, kovph15,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 15)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph16,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 16)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kovph17,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hui Yi", "Knights of Valour Plus 2012 (Hack set 17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kovph18,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hui Yi", "Knights of Valour Plus 2012 (Hack set 18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kovph19,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 19)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kovph20,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 20)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kovph21,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 21)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph22,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 22)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph23,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack set 23)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph24,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Huangxu", "Knights of Valour Plus (Rich World Perfect Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovph25,    kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "IGS",  "Knights of Valour Plus (Rise from the ashes)", MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh1,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fix Beta 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh2,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh3,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 3)", MACHINE_SUPPORTS_SAVE )
 // Note: kovsh4-17 all have encrypted p-rom, and most of the other altered roms haven't been coded in yet
-HACK( 200?, kovsh4,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 4)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh5,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 5)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh6,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 6)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh7,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 7)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh8,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 8)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh9,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 9)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh10,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 10)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh11,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 11)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh12,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 12)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh13,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 13)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh14,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 14)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh15,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 15)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh16,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 16)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh17,    kovsh,     pgm_arm_type1_sim,  kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes (Hack set 17)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh18,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Grand", "Knights of Valour Super Heroes (Q version of the Three Kingdoms G2)(ver. 104, CN)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsh19,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 19)(ver. 104, CN)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh4,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 4)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh5,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 5)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh6,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 6)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh7,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 7)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh8,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 8)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh9,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 9)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh10,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 10)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh11,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 11)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh12,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 12)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh13,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 13)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh14,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 14)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh15,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 15)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh16,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 16)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh17,    kovsh,     pgm_arm_type1_sim,  kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes (Hack set 17)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh18,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Grand", "Knights of Valour Super Heroes (Q version of the Three Kingdoms G2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsh19,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Hack set 19)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 
 
 #if 0
@@ -2310,6 +2310,39 @@ ROM_START( killblds04 )
 	ROM_LOAD( "m0300.u1",     0x400000, 0x400000, CRC(93159695) SHA1(50c5976c9b681bd3d1ebefa3bfa9fe6e72dcb96f) )
 ROM_END
 
+ROM_START( killblds05 )
+	ROM_REGION( 0x600000, "maincpu", 0 ) 
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0300_v109_ps05.u9", 0x100000, 0x200000, CRC(6f2ca623) SHA1(a1ce4a83bbef10d7c3dd18e74472a97a50db89f4) )
+
+	ROM_REGION( 0x010000, "igs022data", 0 )
+	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
+
+	ROM_REGION( 0x800000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0300.u9",   0x0000000, 0x0400000,  CRC(3f9455d3) SHA1(3718ce00ad93975383aafc14e5a74dc297b011a1) )
+	ROM_LOAD( "a0301.u10",  0x0400000, 0x0400000,  CRC(92776889) SHA1(6d677837fefff47bfd1c6166322f69f89989a5e2) )
+	ROM_LOAD( "a0303.u11",  0x0800000, 0x0400000,  CRC(33f5cc69) SHA1(9cacd5058d4bb25b77f71658bbbbd4b38d0a6b6a) )
+	ROM_LOAD( "a0306.u12",  0x0c00000, 0x0400000,  CRC(cc018a8e) SHA1(37752d46f238fb57c0ab5a4f96b1e013f2077347) )
+	ROM_LOAD( "a0307.u2",   0x1000000, 0x0400000,  CRC(bc772e39) SHA1(079cc42a190cb916f02b59bca8fa90e524acefe9) )
+//  ROM_LOAD( "a0302.u3",   0x1400000, 0x0200000,  CRC(a4810e38) SHA1(c31fe641feab2c93795fc35bf71d4f37af1056d4) ) // from lord of gun! unused..
+//  ROM_LOAD( "a0304.u4",   0x1600000, 0x0200000,  CRC(3096de1c) SHA1(d010990d21cfda9cb8ab5b4bc0e329c23b7719f5) ) // from lord of gun! unused..
+//  ROM_LOAD( "a0305.u5",   0x1800000, 0x0200000,  CRC(2234531e) SHA1(58a82e31a1c0c1a4dd026576319f4e7ecffd140e) ) // from lord of gun! unused..
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) /* Sprite Masks + Colour Indexes */
+	ROM_LOAD( "b0300.u13",    0x0000000, 0x0400000, CRC(7f876981) SHA1(43555a200929ad5ecc42137fc9aeb42dc4f50d20) )
+	ROM_LOAD( "b0302.u14",    0x0400000, 0x0400000, CRC(eea9c502) SHA1(04b3972c7111ea59a3cceab6ad124080c4ce3520) )
+	ROM_LOAD( "b0303.u15",    0x0800000, 0x0200000, CRC(77a9652e) SHA1(2342f643d37945fbda224a5034c013796e5134ca) )
+//  ROM_LOAD( "b0301.u8",     0x0a00000, 0x0200000, CRC(400abe33) SHA1(20de1eb626424ea41bd55eb3cecd6b50be744ee0) ) // from lord of gun! unused..
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0300.u1",     0x400000, 0x400000, CRC(93159695) SHA1(50c5976c9b681bd3d1ebefa3bfa9fe6e72dcb96f) )
+ROM_END
+
  /**********************
  The Killing Blade Plus
 *************************/
@@ -2386,6 +2419,33 @@ ROM_START( kovss01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "p0600h_po01.117",    0x100000, 0x400000, CRC(ed72fc40) SHA1(8c786ba9a159bf436a7798432d8c4a810fe2275f) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovss02 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_po02.117",    0x100000, 0x400000, CRC(f680fc22) SHA1(1a521a9c7491f1ab30a8795dc9a3002137c4fd39) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
 	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
@@ -2736,6 +2796,34 @@ ROM_START( kov115s11 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
 ROM_END
+
+ROM_START( kov115s12 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600-p12.115",    0x100000, 0x400000, CRC(b26d7710) SHA1(8a033dc541189e1dffe9f9d0d8eb797f635cece4) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
 
  /************************
  Knights of Valour 2 Plus
@@ -4725,6 +4813,661 @@ ROM_START( kov2p204s66 )
 	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
 ROM_END
 
+ROM_START( kov2p204s67 )
+	ROM_REGION( 0x654F80, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p67.rom", 0x100000, 0x454F80, CRC(61da8700) SHA1(3d2cc6d70b6545c795be136b92183c0fd5fdb051) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s68 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p68.rom", 0x100000, 0x400000, CRC(5da6bb59) SHA1(5f059f4f0d8b9ddea8212cda6f3898781c12e113) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s69 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p69.rom", 0x100000, 0x400000, CRC(f61b2033) SHA1(0c72636a4a195351d7c89112639db5c2e4ae5914) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s70 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p70.rom", 0x100000, 0x400000, CRC(491cc37a) SHA1(df100de38f106d5d6060e0f8c1fa102511ea706f) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s71 )
+	ROM_REGION( 0x60032A, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p71.rom", 0x100000, 0x40032A, CRC(7a7dcb05) SHA1(4f86d6cb032e875bf2df7a907a59bb668ea01b4a) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s72 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p72.rom", 0x100000, 0x400000, CRC(1bcadbc2) SHA1(43a47446ddb139121477d13f98b239d889dba9ee) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s73 )
+	ROM_REGION( 0x60032A, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p73.rom", 0x100000, 0x40032A, CRC(e1318861) SHA1(db963c17e3781d897b590de404f024f7a8267a14) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s74 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p74.rom", 0x100000, 0x400000, CRC(e65bfd61) SHA1(96a5d9c38c5b3e89b7b2fa4f2fae950d25b74720) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s75 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p75.rom", 0x100000, 0x400000, CRC(94f1e4b2) SHA1(c1de1e849ef3a86ac3617c1ec083f0e0bd156c42) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s76 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p76.rom", 0x100000, 0x400000, CRC(96730100) SHA1(c715a6354362375a73d168ee6028933fb4af9db6) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s77 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p77.rom", 0x100000, 0x400000, CRC(68724690) SHA1(d130a0c518d98c210a8f37ee2128204ae8d4f882) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s78 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p78.rom", 0x100000, 0x400000, CRC(e3edc8c9) SHA1(391a1db238d347b09dcde95ae8e41ac772ee9d6d) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s79 )
+	ROM_REGION( 0x60032A, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p79.rom", 0x100000, 0x40032A, CRC(9a659cf6) SHA1(7d81e989ed9cd99d06f31d2f7720418895ec2ba5) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s80 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p80.rom", 0x100000, 0x400000, CRC(2c59cc1c) SHA1(8aa8e84c4b070ad826c68a07fa8ddf555c81ac14) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s81 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p81.rom", 0x100000, 0x400000, CRC(14751691) SHA1(b61a391e34c6eed0c8425c96cbf5e676e747eba4) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china-p81.bin", 0x000000, 0x04000, CRC(40a75c7e) SHA1(d2fc992a300a0c09f7ac3deba639aca4e8446663) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16-p81.rom", 0x000000, 0x200000,  CRC(76642296) SHA1(ed8716695541bc023177d32d669a3e7875d69f52) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s82 )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p82.rom", 0x100000, 0x600000, CRC(6332d98f) SHA1(f7de0f441d4be6072f3cf9c138042513434c8118) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china_p49.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16-p82.rom", 0x000000, 0x200000,  CRC(b77ae68e) SHA1(d58a9bfd3dd7625eac3ea0308006be76eebad8ce) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s83 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p83.rom", 0x100000, 0x400000, CRC(538596a6) SHA1(e3a9dbee22a78c66836fe0231c98cabbfb7fd692) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202-p83.rom",    0x1000000, 0x0800000, CRC(24a4315f) SHA1(168bc3d7d834683edcfb968794c28e30d9b0ea16) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201-p83.rom",   0x0800000, 0x0800000,  CRC(07347997) SHA1(444a753229f9356570583ee71e58665b2763f561) )
+
+	ROM_REGION( 0x1000002, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200-p49.rom",    0x800000, 0x800002, CRC(05dcaf3d) SHA1(c4e26b353f0c9cafabf22296d631165593167965) )
+ROM_END
+
+ROM_START( kov2p204s84 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p84.rom", 0x100000, 0x400000, CRC(836075b8) SHA1(0ee2b6455b44a1b932e3eb0f9b97a0fd0b8409cb) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202-p83.rom",    0x1000000, 0x0800000, CRC(24a4315f) SHA1(168bc3d7d834683edcfb968794c28e30d9b0ea16) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201-p83.rom",   0x0800000, 0x0800000,  CRC(07347997) SHA1(444a753229f9356570583ee71e58665b2763f561) )
+
+	ROM_REGION( 0x1000002, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200-p49.rom",    0x800000, 0x800002, CRC(05dcaf3d) SHA1(c4e26b353f0c9cafabf22296d631165593167965) )
+ROM_END
+
+ROM_START( kov2p204s85 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p85.rom", 0x100000, 0x400000, CRC(9b3ce7ca) SHA1(51f769cae4c1fe08237029b6c0260b959a018f7f) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s86 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p86.rom", 0x100000, 0x400000, CRC(44f7966a) SHA1(881bc4b987b9823f268302642704bbdf9ad22023) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china_p49.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16-p49.rom", 0x000000, 0x200000,  CRC(28029563) SHA1(7974729002e529655e8f13caf689603c2fc3a43b) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1400000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+	ROM_LOAD( "b1202-p86.rom",   0x1000000, 0x0200000,  CRC(66f561e6) SHA1(2df90bc6112c3a7e85aec8f147aa30e4c71e7e9f) )
+	ROM_LOAD( "b1203-p86.rom",   0x1200000, 0x0200000,  CRC(85cc2079) SHA1(fd7883569a48b3fb517cfac4329ebe58a7d85373) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2p204s87 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p86.rom", 0x100000, 0x400000, CRC(44f7966a) SHA1(881bc4b987b9823f268302642704bbdf9ad22023) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2p_igs027a_china_p49.bin", 0x000000, 0x04000, CRC(06214503) SHA1(ddede08011ab723a92a6da690e38903c173de2fa) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "v200-16.rom", 0x000000, 0x200000,  CRC(16a0c11f) SHA1(ce449cef76ebd5657d49b57951e2eb0f132e203e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+
+	ROM_REGION( 0x1400000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+	ROM_LOAD( "b1202-p87.rom",   0x1000000, 0x0200000,  CRC(8b8d3bf4) SHA1(2b3425cbb739f2cbd247a9050b82fde2415bbccb) )
+	ROM_LOAD( "b1203-p87.rom",   0x1200000, 0x0200000,  CRC(f2926e49) SHA1(5f807dcd3a2ac8c57fdbf826160f052bf447c0a4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
  /*******************
  Knights of Valour 2      
 **********************/
@@ -4893,8 +5636,9 @@ ROM_START( kov2h06 )
 	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
 
 	ROM_REGION32_LE( 0x400000, "user1", 0 )
-	ROM_LOAD( "u19.101", 0x000000, 0x200000, CRC(8c35f2fe) SHA1(d4858f97fcfad0f342fccbc9cf1590276cc3c69c) )
-
+	//ROM_LOAD( "u19.101", 0x000000, 0x200000, CRC(8c35f2fe) SHA1(d4858f97fcfad0f342fccbc9cf1590276cc3c69c) )
+    ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+		
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
@@ -5111,6 +5855,226 @@ ROM_START( kov2h13 )
 
 	ROM_REGION32_LE( 0x400000, "user1", 0 )
 	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h14 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p14.106",    0x100000, 0x400000, CRC(c78a7c65) SHA1(ce3701782de7b4b1afab71c0d10c4fe84fbc6c49) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h15 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p15.106",    0x100000, 0x400000, CRC(f6d32462) SHA1(ca087983fb0ac13e87e113b29249b3c76193cc07) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h16 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p16.106",    0x100000, 0x400000, CRC(d58d0c0b) SHA1(35e73476d5b0db41a1f3ac9e178c03609454aa1c) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h17 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p17.106",    0x100000, 0x400000, CRC(4e99c6f6) SHA1(8233bd956f418f9bbbe401f8c8efabe884ab4876) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+	//ROM_LOAD( "u19a.102", 0x000000, 0x200000,   CRC(b953f260) SHA1(53d3c362f82065516311b85a47bda0c376e82f67) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h18 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p18.106",    0x100000, 0x400000, CRC(210a896b) SHA1(8ae92753d9d131b843dc67b1c2139ca0359edb54) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h19 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p19.106",    0x100000, 0x400000, CRC(cd0bb205) SHA1(e9943d2e4a52aeeb67415cf211e241b59d6f3887) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+	//ROM_LOAD( "u19b.102", 0x000000, 0x200000,   CRC(00ed5a91) SHA1(955654c19b3a93f2438b328fe4d8d8cd1179a42e) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t1200.rom",    0x180000, 0x800000, CRC(d7e26609) SHA1(bdad810f82fcf1d50a8791bdc495374ec5a309c6) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
+	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
+	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
+	ROM_LOAD( "b1201.rom",   0x0800000, 0x0800000,  CRC(f251eb57) SHA1(56a5fc14ab7822f83379cecb26638e5bb266349a) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m1200.rom",    0x800000, 0x800000, CRC(b0d88720) SHA1(44ab137e3f8e15b7cb5697ffbd9b1143d8210c4f) )
+ROM_END
+
+ROM_START( kov2h20 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "u18-p20.106",    0x100000, 0x400000, CRC(2d518618) SHA1(b38a6185bcce0197c46bc88b611905f4ad0d6a01) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov2_v100_hongkong.asic", 0x000000, 0x04000,  CRC(e0d7679f) SHA1(e1c2d127eba4ddbeb8ad173c55b90ac1467e1ca8) )
+
+	ROM_REGION32_LE( 0x400000, "user1", 0 )
+	ROM_LOAD( "u19.102", 0x000000, 0x200000,   CRC(462e2980) SHA1(3da7c3d2c65b59f50c78be1c25922b71d40f6080) )
+	//ROM_LOAD( "u19a.102", 0x000000, 0x200000,   CRC(b953f260) SHA1(53d3c362f82065516311b85a47bda0c376e82f67) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -9309,7 +10273,7 @@ ROM_START( kovpluss155 )
 	ROM_REGION( 0x1c00000, "sprcol", 0 )
 	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
 	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
-	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0602_ph155.rom",    0x1000000, 0x0800000, CRC(f24258ce) SHA1(447bd06e0fe0efafd77d883b79360eee264c1067) )
 	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
 
 	ROM_REGION( 0x1000000, "sprmask", 0 )
@@ -9655,6 +10619,7 @@ ROM_START( kovpluss168 )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
+    ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
 	ROM_LOAD( "t0600_ph167.rom",    0x180000, 0x800000, CRC(ea123375) SHA1(8ffff9eae6927824c3e4f7891939153854004857) )
 
 	ROM_REGION( 0x1c00000, "sprcol", 0 )
@@ -9669,6 +10634,7 @@ ROM_START( kovpluss168 )
 
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
+	ROM_LOAD( "pgm_m01s_bios=bh02.rom", 0x000000, 0x200000, CRC(bc785efc) SHA1(a07a519a9be66de9295236e49bc721e0d0b3b883) )
 	ROM_LOAD( "m0600_ph167.rom",    0x400000, 0x400000, CRC(8865131e) SHA1(6b4b52c88353d3c0cea4378db26d608bca311979) )
 ROM_END
 
@@ -12501,6 +13467,7 @@ ROM_START( kovpluss275 )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
 	ROM_LOAD( "t0600_ph259.rom",    0x180000, 0x800000, CRC(842b7711) SHA1(b999d55e6e304b4057c66d57bf970f7b181ddac8) )
 
 	ROM_REGION( 0x1c00000, "sprcol", 0 )
@@ -12846,6 +13813,1074 @@ ROM_START( kovpluss287 )
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss288 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph288.119",    0x100000, 0x400000, CRC(99ee0c53) SHA1(3de043c61d5f35c9fbb5e8548a465525e3608345) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph147.rom",    0x180000, 0x800000, CRC(657bc51d) SHA1(ecc451788779000009ff15c4895d93408a51c3ce) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss289 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph289.119",    0x100000, 0x400000, CRC(8689560a) SHA1(95d9cae0684032b8b1c64bc3d3b337ae60bf2b07) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph19.rom",    0x180000, 0x800000, CRC(a51f6c60) SHA1(e2c184d6e4bb1e6fc02ee2e5953693c7461746be) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss290 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph290.119",    0x100000, 0x400000, CRC(38406afc) SHA1(50271cc81f454628f01b83370cfe90695001aef2) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph19.rom",    0x180000, 0x800000, CRC(a51f6c60) SHA1(e2c184d6e4bb1e6fc02ee2e5953693c7461746be) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph290.rom",    0x0000000, 0x0800000, CRC(19822acf) SHA1(a1ab9119e4c0b914d977218304be2056cb6cd4e3) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph290.rom",    0x0000000, 0x0800000, CRC(a7e1f6fd) SHA1(795ca04655ecc9ed9ce91dc53434338d35f70fbe) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800001, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph290.rom",    0x400000, 0x400001, CRC(623b03cb) SHA1(671306d7463919e479e1e33dd960ad475be48eac) )
+ROM_END
+
+ROM_START( kovpluss291 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph291.119",    0x100000, 0x400000, CRC(e4b0875d) SHA1(b85cd73573b47fa82383ccf22c89d7d7a6b77240) )
+    ROM_IGNORE( 0x04 )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss292 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph292.119",    0x100000, 0x400000, CRC(121ae6d3) SHA1(0a28f17193a940ee89da3957fc0b4b3e7d9d3050) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph292.rom",    0x180000, 0x800000, CRC(4a01bb69) SHA1(e38d23384bba607f2377ff4847598b793f3e0e8e) )
+    ROM_IGNORE( 0x702C13 )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss293 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph293.119",    0x100000, 0x400000, CRC(c956d923) SHA1(829cf86a78882da0e93c4acd5bf123becf3dfd5c) )
+    ROM_IGNORE( 0x54F8A )
+	
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph179.rom",    0x180000, 0x800000, CRC(14a294bc) SHA1(e1cb412612e98e143495f60208c6425224c2a183) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph179.rom",    0x0000000, 0x0800000, CRC(3a73f446) SHA1(102ac046ea44e704195105081d40125a54c42d69) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph179.rom",    0x0000000, 0x0800000, CRC(0b0ab3dc) SHA1(05e666b6c0dddafd531e7472db053b21ecc35ba8) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss294 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph294.119",    0x100000, 0x400000, CRC(9b25cee8) SHA1(3c0b810aea8e48ae9c63293102fa6dba3fdb3108) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t0600.ph18",    0x180000, 0x800000, CRC(d5b8327e) SHA1(5e00c0ff31e7258cc37e389c8bce0a1b8d39d49f) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x854f62, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.ph18",   0x400000, 0x454f62, CRC(24b06143) SHA1(3b712320ee9b4c8df2e0b2a3f05e3ccf11087c0a) )
+ROM_END
+
+ROM_START( kovpluss295 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph295.119",    0x100000, 0x400000, CRC(195e02ce) SHA1(826fe86cfe11b51aecaa00adc8cf078b85d65a51) )
+    ROM_IGNORE( 0x351CE8 )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph295.rom",    0x180000, 0x800000, CRC(c8630abc) SHA1(b7e4a27d41c80c222b35fae862198c4dcc836960) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603_ph269.rom",    0x1800000, 0x0400000, CRC(59fadc06) SHA1(0c05749b4eb0bbc736904a060f3963047a3efb51) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601_ph269.rom",    0x0800000, 0x0400000, CRC(b55f2ba8) SHA1(93be439535ff3adef3f7230b8c6ac71bdc57ef1a) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph269.rom",    0x400000, 0x400000, CRC(f38b622c) SHA1(0c2689b925fb26f341e0446fa6181a5b5cc93a54) )
+ROM_END
+
+ROM_START( kovpluss296 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph296.119",    0x100000, 0x400000, CRC(5d653094) SHA1(96662d2811b6cf38acc68744108bd62af3eb2e6f) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t0600.ph18",    0x180000, 0x800000, CRC(d5b8327e) SHA1(5e00c0ff31e7258cc37e389c8bce0a1b8d39d49f) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x854f62, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.ph18",   0x400000, 0x454f62, CRC(24b06143) SHA1(3b712320ee9b4c8df2e0b2a3f05e3ccf11087c0a) )
+ROM_END
+
+ROM_START( kovpluss297 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph297.119",    0x100000, 0x400000, CRC(361034e9) SHA1(ce3c32032fa1af8b45b47b86d91dcb4da5d308db) )
+    ROM_IGNORE( 0x54F5C )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+    ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss298 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph298.119",    0x100000, 0x400000, CRC(8b1b0a1a) SHA1(3fb6c25b3f1d9a05a88b6b8e30c8c8a6076fb6c4) )
+    ROM_IGNORE( 0x54F8A )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph179.rom",    0x180000, 0x800000, CRC(14a294bc) SHA1(e1cb412612e98e143495f60208c6425224c2a183) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph179.rom",    0x0000000, 0x0800000, CRC(3a73f446) SHA1(102ac046ea44e704195105081d40125a54c42d69) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph179.rom",    0x0000000, 0x0800000, CRC(0b0ab3dc) SHA1(05e666b6c0dddafd531e7472db053b21ecc35ba8) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss299 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph299.119",    0x100000, 0x400000, CRC(3ca06073) SHA1(eb8d25a42f1eaf2bac6dd9362d35869803b0c193) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss300 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph300.119",    0x100000, 0x400000, CRC(eca0c3ba) SHA1(41edd94227647dbf4fa875b633ae2a9fa663ace3) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw21.rom",    0x180000, 0x800000, CRC(7d3b36e0) SHA1(b80bce569393d3ce381d7657241d08d8cafea4e9) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss301 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph301.119",    0x100000, 0x400000, CRC(933db110) SHA1(e083258c54b9a1d8760aecab4c9b1f7770997471) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph301.rom",    0x180000, 0x800000, CRC(86ae33c4) SHA1(1f47c99d3686dae9047908cee6df3b64fa1e088f) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph77.rom",    0x0000000, 0x0800000, CRC(d44d710e) SHA1(2a0e07b1c60b325e0ddd1c5ab85ef7c51a66d251) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph301.rom",    0x0000000, 0x0800000, CRC(37967518) SHA1(7be83d82d1fb9073ef4506df2fbfa5fa077f77ce) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss302 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph302.119",    0x100000, 0x400000, CRC(d1323d1f) SHA1(b9f2e9eb7308e92f3bac54a6ef3fd76b749559cf) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph302.rom",    0x180000, 0x800000, CRC(eeca2b53) SHA1(bd478a5ad5b9e3cc3880e2cff24097d7798c59c7) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss303 )
+	ROM_REGION( 0x654FBE, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph303.119",    0x100000, 0x454FBE, CRC(1b442754) SHA1(843778ebf6ff48bf1b650294e892119e5aea070b) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph303.rom",    0x180000, 0x800000, CRC(617c43cc) SHA1(e13b2949b73f4924e3c93a1830b7209f1e008730) )
+
+	ROM_REGION( 0x1C54F89, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph303.rom",    0x0000000, 0x0800000, CRC(1bbcf0f1) SHA1(706dcba42db3e516ce8f0e602a1fa1ef77771767) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_ph152.rom",  0x1000000, 0x0800000, CRC(2c1c90ae) SHA1(a29fe92715e8bc883cd2e26434c432fee2435d01) )
+	ROM_LOAD( "a0603_ph303.rom",    0x1800000, 0x0454F89, CRC(576d9196) SHA1(569808b77ed65d160cb66652d562716fb1954919) )
+
+	ROM_REGION( 0xC54F48, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph303.rom",    0x0000000, 0x0800000, CRC(95a3cb7f) SHA1(c209746702faa0cbb790b4aec88f085e66c4a0e9) )
+	ROM_LOAD( "b0601_ph303.rom",    0x0800000, 0x0454F48, CRC(e7748963) SHA1(218ff180d2046b3a1af0723d50e687e664a06819) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss304 )
+	ROM_REGION( 0x654F8A, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph304.119",    0x100000, 0x454F8A, CRC(063bc0d0) SHA1(59c8c1202c0c07aabd74adb09f8ffa074da96959) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss305 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph305.119",    0x100000, 0x400000, CRC(17247230) SHA1(17f48e756b7081e12bb79657393846d8a5ad1006) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph176.rom",    0x180000, 0x800000, CRC(6459e292) SHA1(4d24ea61ee400a7f2cef9f37a6e98599bcfcddde) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph175.rom",    0x0000000, 0x0800000, CRC(b64be5d6) SHA1(7a62429e095a11370dcf7cb80233fd463862e810) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph175.rom",    0x0000000, 0x0800000, CRC(759b172f) SHA1(d5c721ce3e490773b0ed7d3df21330225da12913) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss306)
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph306.119",    0x100000, 0x400000, CRC(8b47f996) SHA1(98dbbafe35a8417f0d542811ceb206f53fa88441) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph177.rom",    0x180000, 0x800000, CRC(92b89388) SHA1(a3ec0761858a77f3d74b7c56078190db239f5ca4) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph78.rom",    0x0000000, 0x0800000, CRC(098cd614) SHA1(663e8ad60d1bdbdea22f8b186454649b4e432092) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph78.rom",    0x0000000, 0x0800000, CRC(b3691ed3) SHA1(3664fbd8bd775817a5f51326ecc05180c83c5e19) )
+	ROM_LOAD( "b0601_ph177.rom",    0x0800000, 0x0400000, CRC(f43e4276) SHA1(b0ad317f70681e4300228f34bb8f4bead50111ea) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss307 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph307.119",    0x100000, 0x400000, CRC(e8cea34d) SHA1(a9f79f76af25b94dae9d19268734a27352c72849) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph19.rom",    0x180000, 0x800000, CRC(a51f6c60) SHA1(e2c184d6e4bb1e6fc02ee2e5953693c7461746be) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss308 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph308.119",    0x100000, 0x400000, CRC(d38c3a91) SHA1(0dec8e95cec5492a254c57087ff6cd2b0dabc606) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph307.rom",    0x180000, 0x800000, CRC(baf28e34) SHA1(7cd02ade5200e7e85e6282a6caadfa2cd7082aaa) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_ph307.rom",    0x1000000, 0x0800000, CRC(4c59e36c) SHA1(f5ec1a375fcfde2d9b1c0dbf3784bfbfaf67f8f6) )
+	ROM_LOAD( "a0603_ph307.rom",    0x1800000, 0x0400000, CRC(1e88f9b5) SHA1(091c63e333c218c58b45c955f0c145eb8e911d0b) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601_ph307.rom",    0x0800000, 0x0400000, CRC(1f36d3d0) SHA1(04051be25a498ef521f284193134f57166602619) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss309 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph309.119",    0x100000, 0x400000, CRC(26715c3c) SHA1(ed617524b658477da3b4f8a135499d0bc2912d90) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph155.rom",    0x180000, 0x800000, CRC(954551ff) SHA1(97d1fc65334c9aec093275a45fedb8dcb8a3cc34) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_ph307.rom",    0x1000000, 0x0800000, CRC(4c59e36c) SHA1(f5ec1a375fcfde2d9b1c0dbf3784bfbfaf67f8f6) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601_ph309.rom",    0x0800000, 0x0400000, CRC(618546f9) SHA1(19e841a0d184c6660c0dc216d087b007759e596c) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss310 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph310.119",    0x100000, 0x400000, CRC(d1344576) SHA1(a2445b2ccff07a815e66d1892bb4f0742966e868) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph295.rom",    0x180000, 0x800000, CRC(c8630abc) SHA1(b7e4a27d41c80c222b35fae862198c4dcc836960) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603_ph269.rom",    0x1800000, 0x0400000, CRC(59fadc06) SHA1(0c05749b4eb0bbc736904a060f3963047a3efb51) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601_ph269.rom",    0x0800000, 0x0400000, CRC(b55f2ba8) SHA1(93be439535ff3adef3f7230b8c6ac71bdc57ef1a) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph269.rom",    0x400000, 0x400000, CRC(f38b622c) SHA1(0c2689b925fb26f341e0446fa6181a5b5cc93a54) )
+ROM_END
+
+ROM_START( kovpluss311 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph311.119",    0x100000, 0x400000, CRC(d5539594) SHA1(194c9cdbdecb41e525dc8e5f5a08f32d28b411d3) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph77.rom",    0x180000, 0x800000, CRC(e7d4d577) SHA1(900796b2c88ac8d9e454380d17c811d37243452d) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603_ph269.rom",    0x1800000, 0x0400000, CRC(59fadc06) SHA1(0c05749b4eb0bbc736904a060f3963047a3efb51) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601_ph269.rom",    0x0800000, 0x0400000, CRC(b55f2ba8) SHA1(93be439535ff3adef3f7230b8c6ac71bdc57ef1a) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph269.rom",    0x400000, 0x400000, CRC(f38b622c) SHA1(0c2689b925fb26f341e0446fa6181a5b5cc93a54) )
+ROM_END
+
+ROM_START( kovpluss312 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph312.119",    0x100000, 0x400000, CRC(9ef0c625) SHA1(3a08ccf455f8da9a27dc49ee7cf5588e2f72067c) )
+    ROM_IGNORE( 0x054F8A )
+  
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph192.rom",    0x180000, 0x800000, CRC(e451df7f) SHA1(123c7d9e9a3efdbd192e9da61ea64801744fc090) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph312.rom",    0x0000000, 0x0800000, CRC(e0a73add) SHA1(054f01cd06d743635305a7a9f4a9bcd3a3dc8d71) )
+	ROM_LOAD( "a0601_ph157.rom",    0x0800000, 0x0800000, CRC(551e3563) SHA1(377951b13508103796baeb4097670aff187d1696) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph312.rom",    0x0000000, 0x0800000, CRC(6c14d658) SHA1(f7f70085d7cf0f67549143b2c77b4d12ebe7786b) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss313 )
+	ROM_REGION( 0x600030, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph313.119",    0x100000, 0x400030, CRC(894a9bbd) SHA1(840c3f16f777d1261a92fd8fc180941d6c49535e) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph161.rom",    0x400000, 0x400000, CRC(25f4f240) SHA1(63c52b55da5c0dc4c9cc7db587bdd3fbfb128745) )
+ROM_END
+
+ROM_START( kovpluss314 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph314.119",    0x100000, 0x400000, CRC(2cae0283) SHA1(925715c4aaaebaaa4f827f2f8d6cf207075e776b) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss315 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph315.119",    0x100000, 0x400000, CRC(661ba90d) SHA1(35cfcd8e3c4882dd341dda0c45946dea30fe3f7a) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600lw.rom",  0x0000000, 0x0800000, CRC(cca70135) SHA1(2d288df75907e50c7fc2beca5fb9fd895faece55) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600lw.rom",  0x0000000, 0x0800000, CRC(a4155c55) SHA1(3146774f00dd4156b7423d9983dc6e678aca648d) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss316 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph316.119",    0x100000, 0x400000, CRC(2c75ac09) SHA1(3764cc1eaea33874ecd05f6ab3b0c6282a8a01bc) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t0600_ph259.rom",    0x180000, 0x800000, CRC(842b7711) SHA1(b999d55e6e304b4057c66d57bf970f7b181ddac8) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph115.rom",    0x0000000, 0x0800000, CRC(5bd7ea9f) SHA1(0eb33bd0e23441394ae7c6fa28aafe11adf0b22f) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_ph316.rom",    0x1000000, 0x0800000, CRC(af2c086d) SHA1(3d7b908ee7bdf46b8c1a5e0eac386c13b260cd8e) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph115.rom",    0x0000000, 0x0800000, CRC(07d91ea3) SHA1(8713409439eb4a2875baffbda711587f283a652b) )
+	ROM_LOAD( "b0601_ph316.rom",    0x0800000, 0x0400000, CRC(4ce7b2b8) SHA1(5519a09f3d5ede9064aca7849f687e27bcb77695) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "pgm_m01s_bios=bh01.rom", 0x000000, 0x200000, CRC(692511a5) SHA1(b272fdd0aa3724ba8ff30d2568c3a6b63f1358b3) )
+	ROM_LOAD( "m0600_ph259.rom",    0x400000, 0x400000, CRC(7a50501b) SHA1(1af6be69f3133ed56d4a132a1910cf562da83dac) )
+ROM_END
+
+ROM_START( kovpluss317 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph317.119",    0x100000, 0x400000, CRC(7e6c3c95) SHA1(4a0074161339b480bff2a03b3a704cff22bc2ccf) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph116.rom",    0x0000000, 0x0800000, CRC(24091941) SHA1(7fc28b716aa115815470add57f07d99c21e53f38) )
+	ROM_LOAD( "a0601_ph260.rom",    0x0800000, 0x0800000, CRC(8998680f) SHA1(654769ca07780b9a3409a8191c1b43b0587bc692) )
+	ROM_LOAD( "a0602_ph263.rom",    0x1000000, 0x0800000, CRC(27a93ff6) SHA1(749b1d9afe4847c5e781d04634c004a6111856cb) )
+	ROM_LOAD( "a0603_ph263.rom",    0x1800000, 0x0400000, CRC(5e00a709) SHA1(310bfb0c5651fead86a17c1ffb570cd10d912fe6) )
+
+	ROM_REGION( 0x1400000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph116.rom",    0x0000000, 0x0800000, CRC(1ce751b1) SHA1(6bb9297eb66d88ba4c6202bdc3b4142df51b13bd) )
+	ROM_LOAD( "b0601_ph263.rom",    0x0800000, 0x0400000, CRC(912acd06) SHA1(88f767752a69cc307ef22fd583dc672f961d9add) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss318 )
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph318.119",    0x100000, 0x600000, CRC(fb759b85) SHA1(a0a32fb17ff7fe85e0f9dbb5ec627da0b565e6f3) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t0600_ph167.rom",    0x180000, 0x800000, CRC(ea123375) SHA1(8ffff9eae6927824c3e4f7891939153854004857) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph115.rom",    0x0000000, 0x0800000, CRC(5bd7ea9f) SHA1(0eb33bd0e23441394ae7c6fa28aafe11adf0b22f) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph115.rom",    0x0000000, 0x0800000, CRC(07d91ea3) SHA1(8713409439eb4a2875baffbda711587f283a652b) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "pgm_m01s_bios=bh02.rom", 0x000000, 0x200000, CRC(bc785efc) SHA1(a07a519a9be66de9295236e49bc721e0d0b3b883) )
+	ROM_LOAD( "m0600_ph259.rom",    0x400000, 0x400000, CRC(7a50501b) SHA1(1af6be69f3133ed56d4a132a1910cf562da83dac) )
+ROM_END
+
+ROM_START( kovpluss319 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph319.119",    0x100000, 0x400000, CRC(14f0b6fc) SHA1(aebec8f8a006cb502647eecc399114d214d096e7) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph192.rom",    0x180000, 0x800000, CRC(e451df7f) SHA1(123c7d9e9a3efdbd192e9da61ea64801744fc090) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph67.rom",    0x0000000, 0x0800000, CRC(783df23c) SHA1(5458a1b84d0d52ef0490bec0b1fe5b503b7965fc) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602lw.rom",  0x1000000, 0x0800000, CRC(71c8a46c) SHA1(6391eb95e1f2933b0e02518232a4bbcf7c91b73f) )
+	ROM_LOAD( "a0603_ph67.rom",    0x1800000, 0x0400000, CRC(4d755da5) SHA1(8b04020578e96030b86359a9f0ba892adb703bf5) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph67.rom",    0x0000000, 0x0800000, CRC(e3bf000f) SHA1(154753a31913b931878ea3aafbb677f7d6174a54) )
+	ROM_LOAD( "b0601_ph67.rom",    0x0800000, 0x0400000, CRC(47a9af9c) SHA1(87596e64c2f6c4ed039928d2d69a04e669aeb930) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph192.rom",    0x400000, 0x400000, CRC(d84343ec) SHA1(c621a25a497cd58ec9af7374c5bd733d3d940937) )
+ROM_END
+
+ROM_START( kovpluss320 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph320.119",    0x100000, 0x400000, CRC(6be54539) SHA1(4ac994b877f62abb987340531089fd862b2f3bab) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph180.rom",    0x180000, 0x800000, CRC(169b4e8b) SHA1(dec35a62db009075fa4fc4181730985366b0df65) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph320.rom",    0x0000000, 0x0800000, CRC(4f287f85) SHA1(7ea2b432bc8f76a365086813ef09a9b4eb716c31) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_ph320.rom",  0x1000000, 0x0800000, CRC(11ecd0bf) SHA1(78ff855a9dfd67f2f2442625bfd81846b2ea09da) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph320.rom",    0x0000000, 0x0800000, CRC(9783ed2c) SHA1(b58f0536e4b406333eeca4767a9e5b1cba87021a) )
+	ROM_LOAD( "b0601_ph320.rom",    0x0800000, 0x0400000, CRC(50d9c24c) SHA1(0fb32a8c1e36cd29f305896fd0a13396aff632c3) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph320.rom",    0x400000, 0x400000, CRC(b61b8214) SHA1(2dfcdc203d9c75df6a699cb7b9e119e1ea9d743a) )
+ROM_END
+
+ROM_START( kovpluss321 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph321.119",    0x100000, 0x400000, CRC(404404e5) SHA1(b594c99c0caba742f8080180b758125c94869ff6) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph155.rom",    0x180000, 0x800000, CRC(954551ff) SHA1(97d1fc65334c9aec093275a45fedb8dcb8a3cc34) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_ph155.rom",    0x1000000, 0x0800000, CRC(f24258ce) SHA1(447bd06e0fe0efafd77d883b79360eee264c1067) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601_ph155.rom",    0x0800000, 0x0400000, CRC(c870aebb) SHA1(b797c7e30811f8915ea1e9de69d89e4e163b12e2) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovpluss322 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph322.119",    0x100000, 0x400000, CRC(55131344) SHA1(c7236936951d92c0a5c5f45a98af7a0e02a56f3c) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph161.rom",    0x400000, 0x400000, CRC(25f4f240) SHA1(63c52b55da5c0dc4c9cc7db587bdd3fbfb128745) )
+ROM_END
+
+ROM_START( kovpluss323 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph323.119",    0x100000, 0x400000, CRC(9935b99c) SHA1(13b6b2477d3a157e719cb5d4065a8e6987688756) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph161.rom",    0x400000, 0x400000, CRC(25f4f240) SHA1(63c52b55da5c0dc4c9cc7db587bdd3fbfb128745) )
+ROM_END
+
+ROM_START( kovpluss324 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph324.119",    0x100000, 0x400000, CRC(0d9dce43) SHA1(d5c81f48335db462c5e668bc1187e984ab5145f9) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph161.rom",    0x400000, 0x400000, CRC(25f4f240) SHA1(63c52b55da5c0dc4c9cc7db587bdd3fbfb128745) )
+ROM_END
+
+ROM_START( kovpluss325 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph325.119",    0x100000, 0x400000, CRC(dabc2c66) SHA1(7513f5eccc3d35b39172097f615f17b09844160b) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph161.rom",    0x400000, 0x400000, CRC(25f4f240) SHA1(63c52b55da5c0dc4c9cc7db587bdd3fbfb128745) )
+ROM_END
+
+ROM_START( kovpluss326 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph326.119",    0x100000, 0x400000, CRC(6da2fd46) SHA1(a3bb9d77cd431eb2959362f2c9ce361591440ca4) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph12.rom",    0x180000, 0x800000, CRC(c70efb8c) SHA1(0254abce39cd85e163b26078d512babc45522e39) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph161.rom",    0x400000, 0x400000, CRC(25f4f240) SHA1(63c52b55da5c0dc4c9cc7db587bdd3fbfb128745) )
 ROM_END
 
 ROM_START( kovplusas01 )
@@ -16137,6 +18172,183 @@ ROM_START( kovshs113 )
 	ROM_LOAD( "m0600.sh19", 0x400000, 0x400000, CRC(4a6053b0) SHA1(64b37dc52f7924a727f549a4c2c2682851f9405e) )
 ROM_END
 
+ROM_START( kovshs114 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw114.322", 0x100000, 0x400000, CRC(42104c3d) SHA1(8b57d85dead99c6865c9ada90d8b7fa5b87f3c5d) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604.rom",    0x1a00000, 0x0400000, CRC(26b59fd3) SHA1(53219376056f4766dc5236735599d982ceb56b84) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602.rom",    0x0c00000, 0x0100000, CRC(9df77934) SHA1(99a3fe337c13702c9aa2373bcd1bb1befd0e2a13) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovshs115 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw115.322", 0x100000, 0x400000, CRC(59d8b3fe) SHA1(072a89b23553a0da5ea07749ce61db689590256b) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604.rom",    0x1a00000, 0x0400000, CRC(26b59fd3) SHA1(53219376056f4766dc5236735599d982ceb56b84) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602.rom",    0x0c00000, 0x0100000, CRC(9df77934) SHA1(99a3fe337c13702c9aa2373bcd1bb1befd0e2a13) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovshs116 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw116.322", 0x100000, 0x400000, CRC(4ab24f4f) SHA1(16027e1802830254bc74c454c04a317bff3d9dc1) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.sh18",   0x0000000, 0x0800000, CRC(7bd1a62d) SHA1(8dee71a336a21b8ba967066477f0285e310686e4) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604.rom",    0x1a00000, 0x0400000, CRC(26b59fd3) SHA1(53219376056f4766dc5236735599d982ceb56b84) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.sh18",   0x0000000, 0x0800000, CRC(52f5ba74) SHA1(05abef7cdfc9632601628bc2e8df142fc348b914) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602.rom",    0x0c00000, 0x0100000, CRC(9df77934) SHA1(99a3fe337c13702c9aa2373bcd1bb1befd0e2a13) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovshs117 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw117.322", 0x100000, 0x400000, CRC(58e08538) SHA1(c2797251e67b43678f2a40721357b0ecbfbe5412) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw111.asic", 0x000000, 0x04000,  CRC(5c1c9305) SHA1(ba789c2c5df60def95faaf9607fbbba712afc0e8) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604_pw111.rom",    0x1a00000, 0x0400000, CRC(17a67ffa) SHA1(44dc2b7df6680beeef03d25c4306f37851073ba4) )
+
+	ROM_REGION( 0x1500000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602_pw111.rom",    0x0c00000, 0x0100000, CRC(1f79f118) SHA1(b5d1ed2acb9b22ec3bc662c0557b70524996cabd) )
+	ROM_LOAD( "b0603_pw111.rom",    0x0D00000, 0x0800000, CRC(d9da8cba) SHA1(aa509a7b8ab84edc35f7677b8dacf2c7e6c8fd66) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovshs118 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw118.322", 0x100000, 0x400000, CRC(b8799030) SHA1(d27eb8e7fbb8e0a307a275ffc5cd909d4c165347) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw111.asic", 0x000000, 0x04000,  CRC(5c1c9305) SHA1(ba789c2c5df60def95faaf9607fbbba712afc0e8) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604_pw111.rom",    0x1a00000, 0x0400000, CRC(17a67ffa) SHA1(44dc2b7df6680beeef03d25c4306f37851073ba4) )
+
+	ROM_REGION( 0x1500000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602_pw111.rom",    0x0c00000, 0x0100000, CRC(1f79f118) SHA1(b5d1ed2acb9b22ec3bc662c0557b70524996cabd) )
+	ROM_LOAD( "b0603_pw111.rom",    0x0D00000, 0x0800000, CRC(d9da8cba) SHA1(aa509a7b8ab84edc35f7677b8dacf2c7e6c8fd66) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovshs119 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw119.322", 0x100000, 0x400000, CRC(21bffcf1) SHA1(126033e9050ccac052ad3520eb893cdb77eeadbc) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw111.asic", 0x000000, 0x04000,  CRC(5c1c9305) SHA1(ba789c2c5df60def95faaf9607fbbba712afc0e8) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x1e00000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604_pw111.rom",    0x1a00000, 0x0400000, CRC(17a67ffa) SHA1(44dc2b7df6680beeef03d25c4306f37851073ba4) )
+
+	ROM_REGION( 0x1500000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	ROM_LOAD( "b0602_pw111.rom",    0x0c00000, 0x0100000, CRC(1f79f118) SHA1(b5d1ed2acb9b22ec3bc662c0557b70524996cabd) )
+	ROM_LOAD( "b0603_pw111.rom",    0x0D00000, 0x0800000, CRC(d9da8cba) SHA1(aa509a7b8ab84edc35f7677b8dacf2c7e6c8fd66) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
  /**************************
  Quanhuang Sanguo Tebie Ban  
 *****************************/
@@ -16474,7 +18686,8 @@ ROM_START( kovsho09 )
 	ROM_REGION( 0x1000000, "sprmask", 0 )
 	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
 	ROM_LOAD( "b0540.rom",    0x0800000, 0x0800000, CRC(60999757) SHA1(118cf058e67858958bcb931e14f5d160c7de87cc) )
-
+	//ROM_LOAD( "b0601.rom",    0x1000000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
@@ -18067,11 +20280,11 @@ ROM_START( kovsho68 )
 	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
 	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
 	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
-	ROM_LOAD( "a0540_po68.rom",    0x1800000, 0x0800000, CRC(3492b945) SHA1(c4dfffc3f032e2a8dc41d978062c57316ec8f785) )
+	ROM_LOAD( "a0540_po68.rom",    0x1800000, 0x0800000, CRC(f9b4bbd5) SHA1(e4df7ffc86464915a95bed2c87f08ba438024d4a) )
 
 	ROM_REGION( 0x1000000, "sprmask", 0 ) 
 	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
-	ROM_LOAD( "b0540_po68.rom",    0x0800000, 0x0800000, CRC(898386e5) SHA1(17d0e5de24c39e42143237694505bf1867c23b56) )
+	ROM_LOAD( "b0540_po68.rom",    0x0800000, 0x0800000, CRC(106eb7c0) SHA1(0f050ac974f388dbcfa103e615906ad60017af63) )
 
 	ROM_REGION( 0x800000, "ics", 0 ) 
 	PGM_AUDIO_BIOS
@@ -18094,11 +20307,11 @@ ROM_START( kovsho69 )
 	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
 	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
 	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
-	ROM_LOAD( "a0540_po68.rom",    0x1800000, 0x0800000, CRC(3492b945) SHA1(c4dfffc3f032e2a8dc41d978062c57316ec8f785) )
+	ROM_LOAD( "a0540_po69.rom",    0x1800000, 0x0800000, CRC(3492b945) SHA1(c4dfffc3f032e2a8dc41d978062c57316ec8f785) )
 
 	ROM_REGION( 0x1000000, "sprmask", 0 ) 
 	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
-	ROM_LOAD( "b0540_po68.rom",    0x0800000, 0x0800000, CRC(898386e5) SHA1(17d0e5de24c39e42143237694505bf1867c23b56) )
+	ROM_LOAD( "b0540_po69.rom",    0x0800000, 0x0800000, CRC(898386e5) SHA1(17d0e5de24c39e42143237694505bf1867c23b56) )
 
 	ROM_REGION( 0x800000, "ics", 0 ) 
 	PGM_AUDIO_BIOS
@@ -18412,6 +20625,344 @@ ROM_START( kovsho80 )
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0600_pw114.rom",    0x400000, 0x400000, CRC(63c76ec7) SHA1(a0a7d34e25e97f2e4f12d74d7c04e7a7a2c2bd39) )
+ROM_END
+
+ROM_START( kovsho81 )
+	ROM_REGION( 0x654F59, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po81.rom",   0x100000, 0x454F59, CRC(c216686d) SHA1(7517d9e1f0f74de276f2300008fc2997b4f35056) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) ) 
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_po81.rom",    0x180000, 0x800000, CRC(1cdfc484) SHA1(2eb8da647f4db9fb2a229354bce1a738b9d48f4a) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540.rom",    0x1800000, 0x0800000, CRC(4fd3413e) SHA1(5e8f3e421342bf558c77e59635f9b5d713e825c2) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0540.rom",    0x0800000, 0x0800000, CRC(60999757) SHA1(118cf058e67858958bcb931e14f5d160c7de87cc) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsho82 )
+	ROM_REGION( 0x6454F52, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po82.rom",   0x100000, 0x454F52, CRC(e35a957b) SHA1(3bd5143db6a850043e6acf8b047faea6b4645a3c) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po66.asic", 0x000000, 0x04000, BAD_DUMP CRC(d6fe40e1) SHA1(b0dfcc3f1b40e9056461e6165eb90a4e60c01bd6) ) 
+	ROM_IGNORE( 0x450F48 )
+	
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po82.rom",    0x1800000, 0x0800000, CRC(63830ea2) SHA1(115f238e48904bfdd9c2b2a0bc6c98592254673b) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0540_po82.rom",    0x0800000, 0x0800000, CRC(a772b4bf) SHA1(7a7bd4695c11522fb2b4142206435cdbe0c447d6) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsho83 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po83.322",    0x100000, 0x400000, CRC(4ad43d5e) SHA1(e56b431de3e20018ad7cbbcfcc25aab30a8ba1e5) )
+	ROM_IGNORE( 0x054F84 )
+	
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po12.asic", 0x000000, 0x04000, BAD_DUMP CRC(9af4d680) SHA1(5512504272a0940274f3cf7cd8e15ff4fa9d594b) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po01.rom",    0x0000000, 0x0800000, CRC(eaa46772) SHA1(b70b2b7aaf87cd1c56f860eb2a88aed3564996da) )
+	ROM_LOAD( "a0601_po07.rom",    0x0800000, 0x0800000, CRC(cd391de8) SHA1(c593f61ba9e0c42c4a48e549b217c396099ca840) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po07.rom",    0x1800000, 0x1000000, CRC(7d85204b) SHA1(b73fa7fa576089d510f73cc6c79bac5e5ed8cc20) )
+	//ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_po08.rom",    0x0000000, 0x0800000, CRC(8e650b67) SHA1(cfd600a2cf1d86d493af50e2759022aaa1b61ac6) )
+	ROM_LOAD( "b0540_po07.rom",    0x0800000, 0x0800000, CRC(6e21727b) SHA1(1b23ec0beca8daf8020a4bbab42961c8f5557e1e) )
+	//ROM_LOAD( "b0601.rom",    0x1000000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	
+	ROM_REGION( 0x900000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po07.rom",    0x400000, 0x40001C, CRC(c68e36b6) SHA1(690b5f4734a4f48fa010df0611d7188f3dff4deb) )
+ROM_END
+
+ROM_START( kovsho84 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po84.322",    0x100000, 0x400000, CRC(3466fe0e) SHA1(898c27293cbb151481583c1defe2f5bf13cbf1f1) )
+	ROM_IGNORE( 0x054F84 )
+	
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po12.asic", 0x000000, 0x04000, BAD_DUMP CRC(9af4d680) SHA1(5512504272a0940274f3cf7cd8e15ff4fa9d594b) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom",  0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po01.rom",    0x0000000, 0x0800000, CRC(eaa46772) SHA1(b70b2b7aaf87cd1c56f860eb2a88aed3564996da) )
+	ROM_LOAD( "a0601_po07.rom",    0x0800000, 0x0800000, CRC(cd391de8) SHA1(c593f61ba9e0c42c4a48e549b217c396099ca840) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po07.rom",    0x1800000, 0x1000000, CRC(7d85204b) SHA1(b73fa7fa576089d510f73cc6c79bac5e5ed8cc20) )
+	//ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_po08.rom",    0x0000000, 0x0800000, CRC(8e650b67) SHA1(cfd600a2cf1d86d493af50e2759022aaa1b61ac6) )
+	ROM_LOAD( "b0540_po07.rom",    0x0800000, 0x0800000, CRC(6e21727b) SHA1(1b23ec0beca8daf8020a4bbab42961c8f5557e1e) )
+	//ROM_LOAD( "b0601.rom",    0x1000000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+	
+	ROM_REGION( 0x900000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po07.rom",    0x400000, 0x40001C, CRC(c68e36b6) SHA1(690b5f4734a4f48fa010df0611d7188f3dff4deb) )
+ROM_END
+
+ROM_START( kovsho85 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po85.rom",   0x100000, 0x400000, CRC(c7885c6b) SHA1(16768af5def199e234fcb11e17ea9a2f47a28b65) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw113.asic", 0x000000, 0x04000,  CRC(d9a43086) SHA1(089a9ff2b5a67c6e74df4826501a366db84b0b9a) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po73.rom",    0x0000000, 0x0800000, CRC(72643288) SHA1(632f4a24f4f6a65f38dfbb9af1d624bc5c1d01f1) )
+	ROM_LOAD( "a0601_po85.rom",    0x0800000, 0x0800000, CRC(5334333b) SHA1(034425196f17fef422646e89aae86df014496e69) )
+	ROM_LOAD( "a0602_po73.rom",    0x1000000, 0x0800000, CRC(7b437e0f) SHA1(b3daa3c7d02ec79457e6a2e661daa1c6a9a8388c) )
+	ROM_LOAD( "a0540_po75.rom",    0x1800000, 0x0800000, CRC(612306ed) SHA1(ff29e784ca062b1c9295bacc02c30db0097ef8cf) )
+	ROM_LOAD( "a0541_po113.rom",    0x1a00000, 0x0800000, CRC(fac5160e) SHA1(021ee624c5840f82c5838800f8eb6284cfcab979) )
+
+	ROM_REGION( 0x1800000, "sprmask", 0 )
+	ROM_LOAD( "b0600_po85.rom",    0x0000000, 0x0800000, CRC(efd47825) SHA1(8027430b58cc21f2459dbd4a8c9b53286e2cfd0d) )
+	ROM_LOAD( "b0540_po113.rom",    0x0800000, 0x0800000, CRC(b7032905) SHA1(4a0e003c58567769421c56b9626513dfb10afae4) )
+	
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po69.rom",    0x400000, 0x400000, CRC(ec3f335d) SHA1(f81e2238eae4bb5154afa28ff07e69b8f10c5ee2) )
+ROM_END
+
+ROM_START( kovsho86 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po86.rom",   0x100000, 0x400000, CRC(929bffd8) SHA1(9ed4afd3885614f479020bbfbb5b5b7577835b84) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) ) 
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po86.rom",    0x0000000, 0x0800000, CRC(e3296767) SHA1(9e2821d236c67a7207ae7a57d2c059b186dbb1d3) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po86.rom",    0x1800000, 0x0800000, CRC(1669097c) SHA1(e905dd87140b2545dc780cf08b64e63b18e85fac) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600_po86.rom",    0x0000000, 0x0800000, CRC(6d71f012) SHA1(403dc6808353bf2812faddf019b8eeaa54ea0ad1) )
+	ROM_LOAD( "b0540_po86.rom",    0x0800000, 0x0800000, CRC(7bcbf278) SHA1(3f5c40d68e9bc7ae1252eeb9bc602736aee016b6) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsho87 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po87.rom",   0x100000, 0x400000, CRC(b993ca1b) SHA1(8778e00e72ca32f5236f9659493162e97363ed58) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po13.asic", 0x000000, 0x04000, BAD_DUMP CRC(b3123ccb) SHA1(ac13a9a3bcf86ea7dfd93e58e4b6772a9ca5ab35) )
+	
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po01.rom",    0x0000000, 0x0800000, CRC(eaa46772) SHA1(b70b2b7aaf87cd1c56f860eb2a88aed3564996da) )
+	ROM_LOAD( "a0601_po01.rom",    0x0800000, 0x0800000, CRC(d94abe4b) SHA1(58ee22308ca8eaa73ee6532cefbb574f0a994eee) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po13.rom",    0x1800000, 0x0800000, CRC(fd1e6e0b) SHA1(a3f41016f9a7c50e5f4a37422cfd0cf704db5ab6) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_po01.rom",    0x0000000, 0x0800000, CRC(f2a85ce6) SHA1(815c8f74909a0d37299aa7f4d22b5c0550674c55) )
+	ROM_LOAD( "b0540_po13.rom",    0x0800000, 0x0800000, CRC(14bd80ef) SHA1(60293a5a9608994fc74caee230fbc94c494f8555) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsho88 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po88.rom",   0x100000, 0x400000, CRC(46410a40) SHA1(180c5dc84b14013a684a6e34d480965a43fa18e5) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) ) 
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po88.rom",    0x0000000, 0x0800000, CRC(39d6f300) SHA1(7fda2be433418104e4fc1ec1dc9b4bbd816c3487) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po88.rom",    0x1800000, 0x0800000, CRC(eceac4bd) SHA1(3a00e2c9602a8d17337244c3960c7c5319dbc35a) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600_po88.rom",    0x0000000, 0x0800000, CRC(c9601515) SHA1(3546976d3a39e4ebf57070aacef7f550882390f4) )
+	ROM_LOAD( "b0540_po88.rom",    0x0800000, 0x0800000, CRC(69c542b7) SHA1(287719ce525cce105a57cd2ebd25445822b5f47d) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsho89 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po89.rom",   0x100000, 0x400000, CRC(086d100b) SHA1(56608fe30d7176c6153c18ceeba77dea4e5b793a) )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po89.asic", 0x000000, 0x04000, BAD_DUMP CRC(4627f36f) SHA1(c4daf33bcf2b3a8a8cd4c53fa0ede594170ab326) ) 
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po73.rom",    0x0000000, 0x0800000, CRC(72643288) SHA1(632f4a24f4f6a65f38dfbb9af1d624bc5c1d01f1) )
+	ROM_LOAD( "a0601_po73.rom",    0x0800000, 0x0800000, CRC(9c1d1bea) SHA1(f1fba1e71493b2f6755095b9a655c5d038f1ca0d) )
+	ROM_LOAD( "a0602_po73.rom",    0x1000000, 0x0800000, CRC(7b437e0f) SHA1(b3daa3c7d02ec79457e6a2e661daa1c6a9a8388c) )
+	ROM_LOAD( "a0540_po89.rom",    0x1800000, 0x0800000, CRC(b038e568) SHA1(67ae413771279cce95622025ef6be5b50983bc39) )
+    ROM_LOAD( "a0541_po73.rom",    0x2000000, 0x0800000, CRC(1fa3c921) SHA1(44f053826c50e762af6de9b3017563e485a4c5de) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600_po73.rom",    0x0000000, 0x0800000, CRC(0646c5ef) SHA1(062261023538da5d647e17a4fa47b4e4ebc4614d) )
+	ROM_LOAD( "b0540_po89.rom",    0x0800000, 0x0800000, CRC(03a1641e) SHA1(38934c2eb18fa75011de68f92bfccee7ec044524) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po69.rom",    0x400000, 0x400000, CRC(ec3f335d) SHA1(f81e2238eae4bb5154afa28ff07e69b8f10c5ee2) )
+ROM_END
+
+ROM_START( kovsho90 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po90.rom",   0x100000, 0x400000, CRC(10aee065) SHA1(bfa0ccfc5a61f6bbc94f2aa92d82212239e60a00) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po89.asic", 0x000000, 0x04000, BAD_DUMP CRC(4627f36f) SHA1(c4daf33bcf2b3a8a8cd4c53fa0ede594170ab326) ) 
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po73.rom",    0x0000000, 0x0800000, CRC(72643288) SHA1(632f4a24f4f6a65f38dfbb9af1d624bc5c1d01f1) )
+	ROM_LOAD( "a0601_po73.rom",    0x0800000, 0x0800000, CRC(9c1d1bea) SHA1(f1fba1e71493b2f6755095b9a655c5d038f1ca0d) )
+	ROM_LOAD( "a0602_po73.rom",    0x1000000, 0x0800000, CRC(7b437e0f) SHA1(b3daa3c7d02ec79457e6a2e661daa1c6a9a8388c) )
+	ROM_LOAD( "a0540_po89.rom",    0x1800000, 0x0800000, CRC(b038e568) SHA1(67ae413771279cce95622025ef6be5b50983bc39) )
+    ROM_LOAD( "a0541_po73.rom",    0x2000000, 0x0800000, CRC(1fa3c921) SHA1(44f053826c50e762af6de9b3017563e485a4c5de) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600_po73.rom",    0x0000000, 0x0800000, CRC(0646c5ef) SHA1(062261023538da5d647e17a4fa47b4e4ebc4614d) )
+	ROM_LOAD( "b0540_po89.rom",    0x0800000, 0x0800000, CRC(03a1641e) SHA1(38934c2eb18fa75011de68f92bfccee7ec044524) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po69.rom",    0x400000, 0x400000, CRC(ec3f335d) SHA1(f81e2238eae4bb5154afa28ff07e69b8f10c5ee2) )
+ROM_END
+
+ROM_START( kovsho91 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po91.rom",   0x100000, 0x400000, CRC(8268e84f) SHA1(b1ece003864d765beebc8d49da11a3842de0ab43) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po89.asic", 0x000000, 0x04000, BAD_DUMP CRC(4627f36f) SHA1(c4daf33bcf2b3a8a8cd4c53fa0ede594170ab326) ) 
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2800000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po73.rom",    0x0000000, 0x0800000, CRC(72643288) SHA1(632f4a24f4f6a65f38dfbb9af1d624bc5c1d01f1) )
+	ROM_LOAD( "a0601_po73.rom",    0x0800000, 0x0800000, CRC(9c1d1bea) SHA1(f1fba1e71493b2f6755095b9a655c5d038f1ca0d) )
+	ROM_LOAD( "a0602_po73.rom",    0x1000000, 0x0800000, CRC(7b437e0f) SHA1(b3daa3c7d02ec79457e6a2e661daa1c6a9a8388c) )
+	ROM_LOAD( "a0540_po89.rom",    0x1800000, 0x0800000, CRC(b038e568) SHA1(67ae413771279cce95622025ef6be5b50983bc39) )
+    ROM_LOAD( "a0541_po73.rom",    0x2000000, 0x0800000, CRC(1fa3c921) SHA1(44f053826c50e762af6de9b3017563e485a4c5de) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600_po73.rom",    0x0000000, 0x0800000, CRC(0646c5ef) SHA1(062261023538da5d647e17a4fa47b4e4ebc4614d) )
+	ROM_LOAD( "b0540_po89.rom",    0x0800000, 0x0800000, CRC(03a1641e) SHA1(38934c2eb18fa75011de68f92bfccee7ec044524) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po69.rom",    0x400000, 0x400000, CRC(ec3f335d) SHA1(f81e2238eae4bb5154afa28ff07e69b8f10c5ee2) )
+ROM_END
+
+ROM_START( kovsho92 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po92.rom",   0x100000, 0x400000, CRC(a0ba0f05) SHA1(79e6d63f30252081d23bed22d0910e1d3e806313) )
+    ROM_IGNORE( 0x0551EE )
+  
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_po92.asic", 0x000000, 0x04000, BAD_DUMP CRC(ddb852e9) SHA1(51fe27e869855f52c2a8b3a4a8e07e6c364e9d4f) ) 
+	
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_po92.rom",    0x1000000, 0x0800000, CRC(f25b6930) SHA1(b29bf150ba7cee93a345cbf931ae108628d3bd83) )
+	ROM_LOAD( "a0540_po92.rom",    0x1800000, 0x0800000, CRC(9d30ffbc) SHA1(e6fea881974e7ab17d1fbaa4cf34badf6a5bee78) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 ) 
+	ROM_LOAD( "b0600.rom",    0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0540_po92.rom",    0x0800000, 0x0800000, CRC(2de11691) SHA1(a8be72f85c839b34a4cebf3beea047370ce515d6) )
+
+	ROM_REGION( 0x800000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po92.rom",    0x400000, 0x400000, CRC(1f981f2c) SHA1(da3949e38e6ff8e6f84704ac9edff19dab2b8964) )
 ROM_END
 
  /************
@@ -22753,6 +25304,1027 @@ ROM_START( olds100ass119 )
 	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
 ROM_END
 
+ROM_START( olds100ass120 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah120.v10",    0x100000, 0x400000, CRC(77f6e51d) SHA1(1dedf1d5529d74f6414632755376c37266ba90fd) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass121 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah121.v10",    0x100000, 0x400000, CRC(7062f022) SHA1(2a5ddad499d9f609a9d29f7cc4c246a40ea5ddc3) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass122 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah122.v10",    0x100000, 0x400000, CRC(13e4b9fa) SHA1(27bd0efc602eed262753dd79fdec3ce60ad27c27) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah122.rom",    0x180000, 0x400000, CRC(4d8063e6) SHA1(2be2fbf50abf11348d6e03c2500b87857d83b124) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500_ah51.rom",    0x0000000, 0x400000, CRC(4d0c685f) SHA1(8fa33b5d18a0e96cc645a5d891997cac8ff3d194) )
+	ROM_LOAD( "a0501_ah50.rom",    0x0400000, 0x400000, CRC(c352d1c0) SHA1(1f44ae8ab64d5b764a61480e8fcdbdc75d98d7aa) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah51.rom",    0x1800000, 0x400000, CRC(212f9bec) SHA1(87c144e893e1a84370519df7aeeb23c0a0fe3dec) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah51.rom",    0x0000000, 0x400000, CRC(2c617c9d) SHA1(38df6857c2de885abf3ffd64496fbc115e4c759b) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah51.u16",    0x0c00000, 0x400000, CRC(c5beb6f8) SHA1(0d6eb085b1fe38c1842edc189fe5a3786c23b8a8) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500_ah50.rom",    0x400000, 0x200000, CRC(cd569b41) SHA1(442fa9ec67bd669b0c8bd259c53a5b8a09e9ab5f) )
+ROM_END
+
+ROM_START( olds100ass123 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah123.v10",    0x100000, 0x400000, CRC(86aa9332) SHA1(036cf2d3fbe0354fd5b052f57b8f1f520a7cca27) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass124 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah124.v10",    0x100000, 0x400000, CRC(95bebd77) SHA1(a283eb8932eeae9b851849ca825879a56348b2d1) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass125 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah125.v10",    0x100000, 0x400000, CRC(47ce8562) SHA1(8465ef44f027d9e017a59d33990be6da17098997) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah125.rom",    0x180000, 0x400000, CRC(1a8e3cec) SHA1(60f2b84762893826dff93a72c28547995c69bcc7) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501_ah63.rom",    0x0400000, 0x400000, CRC(b6266e02) SHA1(d8ffc5ca209fa08165e84d11c5e2f1028ee14616) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah125.rom",    0x1800000, 0x400000, CRC(69adc397) SHA1(ec44f4d1494c1128706636284196ae0b6016f789) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah63.rom",    0x0000000, 0x400000, CRC(d3b2d80d) SHA1(32eef56c4785b04b74dcf1aa813e153bc1dba060) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah126.u16",    0x0c00000, 0x400000, CRC(b9569fb9) SHA1(3311e15e41537af1eed23cad62c0e42ec9de3e7e) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500_ah125.rom",    0x400000, 0x200000, CRC(256f2e79) SHA1(ba1ccadf85ce6ed7c8de1c112ba87385683239ad) )
+ROM_END
+
+ROM_START( olds100ass126 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah126.v10",    0x100000, 0x400000, CRC(42a2157f) SHA1(bb906c569eb710006e3d37ec34c7a851ffaf3226) )
+    ROM_IGNORE( 0x54F47 )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass127 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah127.v10",    0x100000, 0x400000, CRC(5fee2c3f) SHA1(274e412f9ddc5e220fce167163ea8c9aa8c32305) )
+    ROM_IGNORE( 0x54F48 )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass128 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah128.v10",    0x100000, 0x400000, CRC(9f6865cd) SHA1(48c029865896206e6afd9dc78809b7187a2399a3) )
+    ROM_IGNORE( 0x54F47 )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump_ah128", 0x000000, 0x04000, CRC(619cc52d) SHA1(f249a0b58c8790a42d042ad09eb28d8d4eeb20eb) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah63.rom",    0x180000, 0x400000, CRC(502b4044) SHA1(fcb96d4960e09906fe27a7c668885ee28b65e2ef) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500_ah63.rom",    0x0000000, 0x400000, CRC(d6008de3) SHA1(5d306ba738441d26956084ecf1de09c23b2d988c) )
+	ROM_LOAD( "a0501_ah63.rom",    0x0400000, 0x400000, CRC(b6266e02) SHA1(d8ffc5ca209fa08165e84d11c5e2f1028ee14616) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah63.rom",    0x1800000, 0x400000, CRC(1539faa1) SHA1(7d9615c16ad0282640ebb1035fce0e887f0707f6) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah63.rom",    0x0000000, 0x400000, CRC(d3b2d80d) SHA1(32eef56c4785b04b74dcf1aa813e153bc1dba060) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah63.u16",    0x0c00000, 0x400000, CRC(7d777b31) SHA1(3621b9a6767cfa5a899dbd441565e09b4ef13204) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass129 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah129.v10",    0x100000, 0x400000, CRC(6523d3dc) SHA1(68510cf59dfa1582eaefa9ac56ab253f4a78f43d) )
+    ROM_IGNORE( 0x54F48 )
+	
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah125.rom",    0x180000, 0x400000, CRC(1a8e3cec) SHA1(60f2b84762893826dff93a72c28547995c69bcc7) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501_ah63.rom",    0x0400000, 0x400000, CRC(b6266e02) SHA1(d8ffc5ca209fa08165e84d11c5e2f1028ee14616) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah125.rom",    0x1800000, 0x400000, CRC(69adc397) SHA1(ec44f4d1494c1128706636284196ae0b6016f789) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah63.rom",    0x0000000, 0x400000, CRC(d3b2d80d) SHA1(32eef56c4785b04b74dcf1aa813e153bc1dba060) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah126.u16",    0x0c00000, 0x400000, CRC(b9569fb9) SHA1(3311e15e41537af1eed23cad62c0e42ec9de3e7e) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass130 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah130.v10",    0x100000, 0x400000, CRC(6364bd9c) SHA1(cc2664add4e94f97b533dfccd1fbf67dee68ffcf) )
+    ROM_IGNORE( 0x54F47 )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump_ah130", 0x000000, 0x04000, CRC(e7b26aea) SHA1(17d101f760d790619ce4858984787b494bdbbc8a) )
+    ROM_IGNORE( 0x1FC000 )
+	
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500_ah73.rom",    0x0000000, 0x400000, CRC(934284ca) SHA1(b54aaef0cdc92aaa77eb11286f2ba69ca9809bf6) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah73.rom",    0x0000000, 0x400000, CRC(0ad692b4) SHA1(087e4a33b991efeb5d064324adfafdb82f8556ce) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass131 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah131.v10",    0x100000, 0x400000, CRC(f5f17e7c) SHA1(cd021a8feb1116b307c6b8416b1e6b83d22514fb) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass132 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah132.v10",    0x100000, 0x400000, CRC(45a67179) SHA1(f136f3aec15eeda7be7c083d5dbdb8fef16d9031) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass133 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah133.v10",    0x100000, 0x400000, CRC(f059dfb5) SHA1(b6aaa9479a421257c8a7412618277aacacebce3c) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass134 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah134.v10",    0x100000, 0x400000, CRC(13ad261a) SHA1(6c01383d1102d0b69c909fc8ef9b02f91cb122fc) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah134.rom",    0x180000, 0x400000, CRC(cbda06e1) SHA1(b93350d299772f9faecc508104d28fd7957b7ede) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass135 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah135.v10",    0x100000, 0x400000, CRC(9fa9540f) SHA1(43bc0b474ac0975eaa5af9f589f21240eb5aa9a5) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah135.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah135.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass136 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah136.v10",    0x100000, 0x400000, CRC(17ca6649) SHA1(87b5128d0e6376c8ff4297e84f1e8bbad24bb28a) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah135.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah135.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass137 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah137.v10",    0x100000, 0x400000, CRC(dd9d040b) SHA1(c4369e294c537d7c62819158a3b4960588b8fdbc) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah135.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah135.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass138 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah138.v10",    0x100000, 0x400000, CRC(d77ee880) SHA1(7dbf1f03781d3f468e586654ec48c1cd200bc802) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah135.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah135.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass139 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah139.v10",    0x100000, 0x400000, CRC(bed6d02d) SHA1(888a9821ccc26607c32684252811d129db177ba3) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah135.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah135.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass140 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah140.v10",    0x100000, 0x400000, CRC(6fd0df4d) SHA1(217de3cba56c68504bd923345b0b34741b0a8bb7) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass141 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah141.v10",    0x100000, 0x400000, CRC(fbf9e737) SHA1(fe04230499fa4b9b833e1d97986f22d02659f688) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah141.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah141.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass142 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah142.v10",    0x100000, 0x400000, CRC(5162b454) SHA1(13314a0abceb96453527a9343066ca98242f72d7) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah141.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah141.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass143 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah143.v10",    0x100000, 0x400000, CRC(de996dd4) SHA1(53feecf2bdfdb59aa1fd2796849755e96d567536) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah141.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah141.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass144 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah144.v10",    0x100000, 0x400000, CRC(100bd69e) SHA1(2d86eed6c403168a7159b348431f3591410ab3ef) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah141.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah141.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass145 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah145.v10",    0x100000, 0x400000, CRC(f39435b3) SHA1(ea9d79d76a851233e944910bc61efcb3d8323e65) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah141.rom",    0x1800000, 0x400000, CRC(d76bdbad) SHA1(6785ffc0acd3b9b04eba550b243b6125d0ee6c9f) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah141.u16",    0x0c00000, 0x400000, CRC(d5c55bd3) SHA1(11aa795d20a6efeb0dcd240214ff4983c48061e4) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass146 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah146.v10",    0x100000, 0x400000, CRC(fc1bcd42) SHA1(e16bc382df78b71672c352bf19965755ce562244) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah122.rom",    0x180000, 0x400000, CRC(4d8063e6) SHA1(2be2fbf50abf11348d6e03c2500b87857d83b124) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500_ah51.rom",    0x0000000, 0x400000, CRC(4d0c685f) SHA1(8fa33b5d18a0e96cc645a5d891997cac8ff3d194) )
+	ROM_LOAD( "a0501_ah50.rom",    0x0400000, 0x400000, CRC(c352d1c0) SHA1(1f44ae8ab64d5b764a61480e8fcdbdc75d98d7aa) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah51.rom",    0x1800000, 0x400000, CRC(212f9bec) SHA1(87c144e893e1a84370519df7aeeb23c0a0fe3dec) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah146.rom",    0x0000000, 0x400000, CRC(cb608609) SHA1(fc17bbd10fe270bc7c84080246cf1ff940f4c996) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah51.u16",    0x0c00000, 0x400000, CRC(c5beb6f8) SHA1(0d6eb085b1fe38c1842edc189fe5a3786c23b8a8) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass147 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah147.v10",    0x100000, 0x400000, CRC(d63d9999) SHA1(c8925a21f9e6c97b3b64ea8a60f6da7f7e274550) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah147.rom",    0x1800000, 0x400000, CRC(2e50561c) SHA1(8f4016c36c9183a58f55d7a3d36bfb4e3975b155) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah141.u16",    0x0c00000, 0x400000, CRC(069ec4d1) SHA1(fe778d3a5d4926aa18b64722945e73c513367e6b) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass148 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah148.v10",    0x100000, 0x400000, CRC(3541e3b5) SHA1(67cbdee7be4e210a7ecc1ebe70e825ac54bcfdd9) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501.rom",    0x0400000, 0x400000, CRC(98c931b1) SHA1(9b70d1a7beb4c3a0c1436c25fd1fb76e47539538) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah148.rom",    0x1800000, 0x400000, CRC(8a050a47) SHA1(c84ea6674cfcacb09453b8946d97345eabfcd12e) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500.rom",    0x0000000, 0x400000, CRC(cde07f74) SHA1(1fe90db7c57faa28f3a054b2c07909bef89e3efb) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah148.u16",    0x0c00000, 0x400000, CRC(659ea5d5) SHA1(7383d9ea87f746d9e4bf956b9f4b026ddd44a374) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
  /****************************
  Oriental Legend Special Plus
 *******************************/
@@ -23219,6 +26791,35 @@ ROM_START( oldsplus16 )
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m05301.rom",   0x400000, 0x400000, CRC(86ec83bc) SHA1(067cb7ec449eacd1f49298f45a364368934db5dd) )
+ROM_END
+
+ROM_START( oldsplus17 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p05301_pw17.rom",   0x100000, 0x400000, CRC(c2e70cae) SHA1(a676917846504fbdac6970021faa730a59c95d27) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "oldsplus_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0x800000, "user1", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t05301.rom",   0x180000, 0x800000, CRC(8257bbb0) SHA1(b48067b7e7081a15fddf21739b641d677c2df3d9) )
+
+	ROM_REGION( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a05301.rom",   0x0000000, 0x0800000, CRC(57946fd2) SHA1(5d79bc71a1881f3099821a9b255a5f271e0eeff6) )
+	ROM_LOAD( "a05302_pw17.rom",   0x0800000, 0x0800000, CRC(65acdbf7) SHA1(008346d963e67e858d91a9cd1206e125e2eddec6) )
+	ROM_LOAD( "a05303.rom",   0x1000000, 0x0800000, CRC(13475d85) SHA1(4683a3bf304fdc15ffb1c61b7957ad68b023fa33) )
+	ROM_LOAD( "a05304_pw17.rom",   0x1800000, 0x0800000, CRC(b92e10a4) SHA1(f6e323187a46ff72dbba0618b0abd1b05208ba1a) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b05301_pw17.rom",   0x0000000, 0x0800000, CRC(7aedd210) SHA1(f974d4800d61dcdf779b52c190384ec3c6ef12e5) )
+	ROM_LOAD( "b05302_pw17.rom",   0x0800000, 0x0800000, CRC(059d9ad8) SHA1(9375a9c71fdde23eabd302c116b4e50a766d9d27) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m05301_pw17.rom",   0x400000, 0x400000, CRC(61a1413c) SHA1(f5a739226dfb95005543aa6cf7132b6fec3d8b43) )
 ROM_END
 
  /********************
@@ -24231,7 +27832,7 @@ ROM_START( orlegendcs28 )
 
 	ROM_REGION( 0x800000, "tiles",  0 )
 	PGM_VIDEO_BIOS
-	ROM_LOAD( "t0100.u8",     0x180000, 0x400000, CRC(61425e1e) SHA1(20753b86fc12003cfd763d903f034dbba8010b32) )
+	ROM_LOAD( "t0100_po06.u8",     0x180000, 0x400000, CRC(d69009ed) SHA1(ac5834a082d7912fe9b36722490446d13ca23c83) )
 
 	ROM_REGION( 0x1800000, "sprcol", 0 )
 	ROM_LOAD( "a0100hc28.u5",     0x0000000, 0x400000, CRC(360f6d80) SHA1(82ab60793980f343dd5a3128763667f621208254) )
@@ -24258,7 +27859,7 @@ ROM_START( orlegendcs29 )
 
 	ROM_REGION( 0x800000, "tiles",  0 )
 	PGM_VIDEO_BIOS
-	ROM_LOAD( "t0100.u8",     0x180000, 0x400000, CRC(61425e1e) SHA1(20753b86fc12003cfd763d903f034dbba8010b32) )
+	ROM_LOAD( "t0100_po06.u8",     0x180000, 0x400000, CRC(d69009ed) SHA1(ac5834a082d7912fe9b36722490446d13ca23c83) )
 
 	ROM_REGION( 0x1800000, "sprcol", 0 )
 	ROM_LOAD( "a0100.u5",     0x0000000, 0x400000, CRC(8b3bd88a) SHA1(42db3a60c6ba9d83ebe2008c8047d094027f65a7) )
@@ -24285,7 +27886,7 @@ ROM_START( orlegendcs30 )
 
 	ROM_REGION( 0x800000, "tiles",  0 )
 	PGM_VIDEO_BIOS
-	ROM_LOAD( "t0100.u8",     0x180000, 0x400000, CRC(61425e1e) SHA1(20753b86fc12003cfd763d903f034dbba8010b32) )
+	ROM_LOAD( "t0100_po06.u8",     0x180000, 0x400000, CRC(d69009ed) SHA1(ac5834a082d7912fe9b36722490446d13ca23c83) )
 
 	ROM_REGION( 0x1800000, "sprcol", 0 )
 	ROM_LOAD( "a0100.u5",     0x0000000, 0x400000, CRC(8b3bd88a) SHA1(42db3a60c6ba9d83ebe2008c8047d094027f65a7) )
@@ -25952,6 +29553,33 @@ ROM_START( orlegendcs94 )
 	ROM_LOAD( "m0100.u1",     0x400000, 0x200000, CRC(e5c36c83) SHA1(50c6f66770e8faa3df349f7d68c407a7ad021716) )
 ROM_END
 
+ROM_START( orlegendcs95 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0101_po95.s160",  0x100000, 0x200000, CRC(b515772b) SHA1(133a39141c6573bc85bb15872a79cc7ed0591ec6) )
+
+	ROM_REGION( 0x800000, "tiles",  0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0100.u8",     0x180000, 0x400000, CRC(61425e1e) SHA1(20753b86fc12003cfd763d903f034dbba8010b32) )
+
+	ROM_REGION( 0x1800000, "sprcol", 0 )
+	ROM_LOAD( "a0100.u5",     0x0000000, 0x400000, CRC(8b3bd88a) SHA1(42db3a60c6ba9d83ebe2008c8047d094027f65a7) )
+	ROM_LOAD( "a0101.u6",     0x0400000, 0x400000, CRC(3b9e9644) SHA1(5b95ec1d25c3bc3504c93547f5adb5ce24376405) )
+	ROM_LOAD( "a0102.u7",     0x0800000, 0x400000, CRC(069e2c38) SHA1(9bddca8c2f5bd80f4abe4e1f062751736dc151dd) )
+	ROM_LOAD( "a0103.u8",     0x0c00000, 0x400000, CRC(4460a3fd) SHA1(cbebdb65c17605853f7d0b298018dd8801a25a58) )
+	ROM_LOAD( "a0104.u11",    0x1000000, 0x400000, CRC(5f8abb56) SHA1(6c1ddc0309862a141aa0c0f63b641aec9257aaee) )
+	ROM_LOAD( "a0105.u12",    0x1400000, 0x400000, CRC(a17a7147) SHA1(44eeb43c6b0ebb829559a20ae357383fbdeecd82) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0100.u9",     0x0000000, 0x400000, CRC(69d2e48c) SHA1(5b5f759007264c07b3b39be8e03a713698e1fc2a) )
+	ROM_LOAD( "b0101.u10",    0x0400000, 0x400000, CRC(0d587bf3) SHA1(5347828b0a6e4ddd7a263663d2c2604407e4d49c) )
+	ROM_LOAD( "b0102.u15",    0x0800000, 0x400000, CRC(43823c1e) SHA1(e10a1a9a81b51b11044934ff702e35d8d7ab1b08) )
+
+	ROM_REGION( 0x600000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0100.u1",     0x400000, 0x200000, CRC(e5c36c83) SHA1(50c6f66770e8faa3df349f7d68c407a7ad021716) )
+ROM_END
+
 ROM_START( orlegendes01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
@@ -26195,845 +29823,964 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Killing Blade
-HACK( 200?, killblds01,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Always Have Super Move)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, killblds02,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Easy Move)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, killblds03,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Enable Hidden Boss)(ver. 109, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, killblds04,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "Unknown", "The Killing Blade (Qun Ying Edition)(ver. 109, Chinese Board)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds01,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds02,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Easy Move)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds03,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "DDJ", "The Killing Blade (Enable Hidden Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killblds04,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "Unknown", "The Killing Blade (Qun Ying Edition 2018-06-22)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, killblds05,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state,   killbld,    ROT0,   "Unknown", "The Killing Blade (Simplified 2018-08-24)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // The Killing Blade Plus
-HACK( 200?, killbldps01, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Easy Move)(China, ver. 300)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, killbldps02, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Always Have Super Move)(China, ver. 300)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killbldps01, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Easy Move)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, killbldps02, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Always Have Super Move)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // Knights of Valour
-HACK( 200?, kovss01,     kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)(ver. 117)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov100s01,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s01,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s02,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-12 Super Enhanced Version Of The Rom Energy Collector Version ---Corrected Version 2 Slow Version Of The Low Damage)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s03,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-11 Reduce The Basic Perfect Version Of Damage. Zhang Lingjian Should Not Exceed 30 Combos)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s04,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-11 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 1)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s05,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-11 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 2)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s06,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-12 Super Enhanced Version Of The Rom Energy Collector Quick Version --- Corrected Version 1 Restore Big Sword Damage)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s07,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-8-30 Reduce Damage To The Lowest Level Of Damage To The Three Countries)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s08,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-8-30 Reduce The Basic Perfect Version Of Damage. Zhang Lingjian Should Not Exceed 30 Combos)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s09,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-5-20 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 1)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s10,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-5-20 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 2)(ver. 115)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov115s11,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017 Super Enhanced Version)(ver. 115)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovss01,     kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovss02,     kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (Authentic 1V8 Edition 2017-02-18)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov100s01,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)(?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s01,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s02,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-12 Super Enhanced Version Of The Rom Energy Collector Version ---Corrected Version 2 Slow Version Of The Low Damage)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s03,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-11 Reduce The Basic Perfect Version Of Damage. Zhang Lingjian Should Not Exceed 30 Combos)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s04,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-11 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s05,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-11 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s06,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2018-8-12 Super Enhanced Version Of The Rom Energy Collector Quick Version --- Corrected Version 1 Restore Big Sword Damage)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s07,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-8-30 Reduce Damage To The Lowest Level Of Damage To The Three Countries)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s08,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-8-30 Reduce The Basic Perfect Version Of Damage. Zhang Lingjian Should Not Exceed 30 Combos)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s09,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-5-20 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s10,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017-5-20 Super Enhanced Version Rom Repair Zhuge Liang More Than 15 Level Small Sword Spike Soldier Can Not Gather Energy)(Set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s11,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (The Latest 2017 Super Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov115s12,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour (Unparalleled in the world 2016-09-26)", MACHINE_SUPPORTS_SAVE )
 // Knights of Valour 2 Plus
-HACK( 2006, kov2p204s01, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warlords Furious Hack Beta)(11/12/06) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kov2p204s02, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warlords Furious Hack Beta)(20/12/06) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, kov2p204s03, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "tdkj009", "Knights of Valour 2 Plus (Warlords Furious Hack Beta)(08/11/06) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s04, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warlords Original Hack v3.0) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s05, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Fast Gas Collection) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s06, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Enable Hidden Characters) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s07, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "fenguan34", "Knights of Valour 2 Plus (Special Revision Moved Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s08, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shen First Edition) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s09, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "67667667", "Knights of Valour 2 Plus (King Of the World V1.10) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s10, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "007325", "Knights of Valour 2 Plus (Unrecognizable Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s11, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Imitation 32 violent version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s12, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Military Commander vs. Zhenzhen Lubu) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s13, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Metamorphosis Lu Bu Official Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s14, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (BT Sun Quan) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s15, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Metamorphosis Lu Bu And Other Versions) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s16, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "baby123123", "Knights of Valour 2 Plus (Tempest Counterattack Version Mid-Autumn Preview) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s17, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "liuxujie", "Knights of Valour 2 Plus (The Overall Revised Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s18, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "lichenzhao", "Knights of Valour 2 Plus (Positive Character Best Weapon & Negative Character Reinforcements) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s19, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "qqq88844", "Knights of Valour 2 Plus (Authentic PLUX version V1.0) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s20, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "qqq88844", "Knights of Valour 2 Plus (Authentic PLUX version V1.5) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s21, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "fyc123", "Knights of Valour 2 Plus (Enhanced Version V2.0) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s22, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Qun Xiong Hegemony 204 Version Of The Super Modification) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s23, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "gameko789", "Knights of Valour 2 Plus (Enhanced Version V2.5) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s24, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "3DS", "Knights of Valour 2 Plus (Unlimited Props) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s25, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "gameko789", "Knights of Valour 2 Plus (Enhanced version V3.0) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s26, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Military Division Enhanced Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s27, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (There Is No Time Limit For Reinforcements) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s28, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Quick Set Gas And Infinite Time Reinforcements Props Unlimited) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s29, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Nine Dragons) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kov2p204s31, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Zhen Lu Bu - Jun Lin Tianxia) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s32, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "gameko789", "Knights of Valour 2 Plus (Plus !!!) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s33, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Max Power, Hacks Alternate Set 01) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kov2p204s34, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Plus Storm Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s35, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Add character, Max Power, Max Live) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kov2p204s36, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Magic Weapon Updated Version Set 01) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s37, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Magic Weapon Updated Version Set 02) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s38, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Flying Dragons in the sky) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )  //This roms is already verified
-HACK( 200?, kov2p204s39, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Three Wars 2 Warriors Beat Fifty-One New Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )  //This roms is already verified
-HACK( 200?, kov2p204s40, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Matchless Situation) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
-HACK( 200?, kov2p204s41, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warriors Beat) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
-HACK( 200?, kov2p204s42, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 01) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
-HACK( 200?, kov2p204s43, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 02) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
-HACK( 200?, kov2p204s44, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 03) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
-HACK( 200?, kov2p204s45, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 04) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
-HACK( 200?, kov2p204s46, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 05) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s47, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (San Guo Wu Shuang) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s48, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shuang 2016) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s49, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Feng Ye Dai Bi) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s51, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Imitation 32 Storm Version) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kov2p204s52, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Qun Mo Luan Wu Fu Mo Edition) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kov2p204s53, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Ming Yue Hua Cai) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kov2p204s54, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Tian Wai Shen Bing) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s55, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 06) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s56, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (San Guo Wu Shuang 2018) (ver. M204XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s57, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Maple Leafwriting) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s58, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Thunder) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s59, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gesang Musou 2016) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s60, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Qun Ying 2018) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s61, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shuang 2018) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s62, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Feng Ye Yuan Qing) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s63, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Jun Lin Tian Xia) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s64, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Ling Hun Bo Li) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s65, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Yi Tong Qun Xiong) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2p204s66, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Shen Yuan Qun Ying) (ver. M205XX, 200, 100CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kov2p204s01, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warlords Furious Hack Beta)(11/12/06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kov2p204s02, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warlords Furious Hack Beta)(20/12/06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, kov2p204s03, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "tdkj009", "Knights of Valour 2 Plus (Warlords Furious Hack Beta)(08/11/06)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s04, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Warlords Original Hack v3.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s05, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Fast Gas Collection)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s06, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s07, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "fenguan34", "Knights of Valour 2 Plus (Special Revision Moved Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s08, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shen First Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s09, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "67667667", "Knights of Valour 2 Plus (King Of the World V1.10)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s10, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "007325", "Knights of Valour 2 Plus (Unrecognizable Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s11, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Imitation 32 violent version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s12, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Military Commander vs. Zhenzhen Lubu)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s13, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Metamorphosis Lu Bu Official Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s14, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (BT Sun Quan)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s15, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Metamorphosis Lu Bu And Other Versions)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s16, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "baby123123", "Knights of Valour 2 Plus (Tempest Counterattack Version Mid-Autumn Preview)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s17, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "liuxujie", "Knights of Valour 2 Plus (The Overall Revised Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s18, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "lichenzhao", "Knights of Valour 2 Plus (Positive Character Best Weapon & Negative Character Reinforcements)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s19, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "qqq88844", "Knights of Valour 2 Plus (Authentic PLUX version V1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s20, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "qqq88844", "Knights of Valour 2 Plus (Authentic PLUX version V1.5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s21, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "fyc123", "Knights of Valour 2 Plus (Enhanced Version V2.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s22, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Qun Xiong Hegemony 204 Version Of The Super Modification)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s23, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "gameko789", "Knights of Valour 2 Plus (Enhanced Version V2.5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s24, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "3DS", "Knights of Valour 2 Plus (Unlimited Props)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s25, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "gameko789", "Knights of Valour 2 Plus (Enhanced version V3.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s26, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Military Division Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s27, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (There Is No Time Limit For Reinforcements)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s28, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Quick Set Gas And Infinite Time Reinforcements Props Unlimited)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s29, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Nine Dragons 2018-08-23)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kov2p204s31, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Zhen Lu Bu - Jun Lin Tianxia)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s32, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "gameko789", "Knights of Valour 2 Plus (Plus !!!)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s33, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Max Power, Hacks Alternate Set 01)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kov2p204s34, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Plus Storm Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s35, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Add character, Max Power, Max Live)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kov2p204s36, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Magic Weapon Updated Version 2016-08-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s37, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Magic Weapon Updated Version 2016-10-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s38, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Flying Dragons in the sky 2016-05-05)", MACHINE_SUPPORTS_SAVE )  //This roms is already verified
+HACK( 200?, kov2p204s39, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Unparalleled Groups 51 New Edition 2016-04-30)", MACHINE_SUPPORTS_SAVE )  //This roms is already verified
+HACK( 200?, kov2p204s40, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (The New World Matchless Situation 2016-02-01)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
+HACK( 200?, kov2p204s41, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Wushuang Qunying Second Edition 2016-01-16)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
+HACK( 2016, kov2p204s42, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Sweeping the Second Army 2016-01-17)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
+HACK( 2016, kov2p204s43, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Unrecognizable 2016-01-17)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
+HACK( 200?, kov2p204s44, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 03)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
+HACK( 200?, kov2p204s45, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Fluttering in the world 2016-01-02)(Set 04)", MACHINE_SUPPORTS_SAVE ) //This roms is already verified
+HACK( 200?, kov2p204s46, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 05)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s47, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (San Guo Wu Shuang)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s48, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shuang 2016)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s49, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Feng Ye Dai Bi)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s51, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Imitation 32 Storm Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s52, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Qun Mo Luan Wu Fu Mo Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s53, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Ming Yue Hua Cai)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s54, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Tian Wai Shen Bing)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s55, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Description Of Hack Unknown)(Set 06)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s56, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (San Guo Wu Shuang 2018 2018-06-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s57, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Maple Leafwriting 2018-01-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2p204s58, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Thunder 2017-02-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2p204s59, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gesang Musou 2016 2017-02-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s60, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Qun Ying 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s61, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shuang 2018 2018-06-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s62, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Maple Leaf Yuanqing 2018-07-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s63, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Jun Lin Tianxia Update 2016-11-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s64, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Ling Hun Bo Li 2018-09-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s65, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Yi Tong Qun Xiong)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2p204s66, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Shen Yuan Qun Ying)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s67, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gai Shi Wu Shen New 2 2016-01-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s68, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (2p full attack version 2016-10-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s69, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (King of the world 2016-08-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s70, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (King of the world 2016-10-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s71, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Plus 2016-10-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s72, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Full attack version 2016-10-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s73, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Update 2016-11-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s74, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Full attack version Updated 2016-11-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s75, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (No Pairs English Update 2016-11-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s76, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Heroes of the World 2016 2016-11-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s77, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (The new world 2016-11-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s78, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Gods weapon update version 2016-11-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2p204s79, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Hero Edition 2016-11-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s80, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (World Warriors 2016 2018-07-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s81, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (World Warriors Perfect Edition 2018-08-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s82, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Fengwu Dragon 2018-04-11)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s83, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Days of Falling Soldiers - Legend of Kowloon 2018-09-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s84, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Kowloon Legend 2018-09-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kov2p204s85, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Soul Stripping 2018-10-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kov2p204s86, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Shenwu Legend 2019 2019-01-20)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kov2p204s87, kov2p,     pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2p,      ROT0,   "Unknown", "Knights of Valour 2 Plus (Cangtian Route 2019-01-20)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Knights of Valour 2
-HACK( 200?, kov2h01,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (Full Character Initial Equipment Full Weapon V2)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h02,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Easy Max Power, Hacks Alternate Set 01)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kov2h03,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Boss,Hack Alternate Set)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kov2h04,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Simple Version)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h05,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Easy Max Power, Life Max, Hacks Alternate Set 03)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kov2h06,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Description Of Hack Unknown)(Set 01)(ver. 106, 102, 100HK)",  MACHINE_SUPPORTS_SAVE ) // Roms does not work and is unstable in the emulator (game lock) (Fba4droid)
-HACK( 200?, kov2h07,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (Full Character Initial Equipment)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h08,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (All Characters Initially Open All Skills)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h09,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (Full Character Initial Equipment Full Weapon)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h10,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Hidden Characters Are Fully Open)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h11,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Hidden Characters Full-Opening Reinforcements No Time Limit Props No Time Limit)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h12,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Hacks Unknown)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kov2h13,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (1v4 Edition)(ver. 106, 102, 100HK)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h01,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (Full Character Initial Equipment Full Weapon V2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h02,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Easy Max Power, Hacks Alternate Set 01)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kov2h03,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Boss,Hack Alternate Set)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kov2h04,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Simple Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h05,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Easy Max Power, Life Max, Hacks Alternate Set 03)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kov2h06,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Gods and Soldiers will be the second edition 2016-01-16)",  MACHINE_SUPPORTS_SAVE ) // Roms does not work and is unstable in the emulator (game lock) (Fba4droid)
+HACK( 200?, kov2h07,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (Full Character Initial Equipment)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h08,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (All Characters Initially Open All Skills)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h09,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "lichenzhao", "Knights of Valour 2 (Full Character Initial Equipment Full Weapon)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h10,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Hidden Characters Are Fully Open)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h11,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Hidden Characters Full-Opening Reinforcements No Time Limit Props No Time Limit)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h12,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Frosty Edition 2017-02-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kov2h13,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (1v4 Edition 2018-07-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kov2h14,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Full Attack Version 2016-08-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2h15,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Unknown Hack Rev.1 2017-08-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2h16,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Unknown Hack Rev.2 2017-06-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2h17,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Unknown Hack Rev.3 2017-06-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2h18,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Unknown Hack Rev.4 2017-06-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2h19,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Unknown Hack Rev.5 2017-06-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kov2h20,     kov2,      pgm_arm_type2,      kov2,     pgm_arm_type2_state, kov2,       ROT0,   "Unknown", "Knights of Valour 2 (Unknown Hack Rev.6 2017-06-17)", MACHINE_SUPPORTS_SAVE )
 // Knights of Valour Plus
-HACK( 200?, kovpluss01,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Lock Four-Player Mode)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss02,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Edition 2012 Unparalleled version (Youju Edition))(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss03,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars Authentic (Travel Edition))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss04,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars 2013 Yu Feng Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss05,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Forced Into The Burst Sword Room)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss06,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (948 Takes The Unusual Road)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss07,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Cao Cao 4 People?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss08,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Battle Of Chibi)(Wei Wu Wu will Fight)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss09,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wind Clouds Chung Feng Front)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss10,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fang Yue·Magic Rain)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss11,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fang Yue·Magic Rain Battle Mode)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss12,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hong Wave Filled)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss13,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Cao Corrected Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss14,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Work Un The Three Kingdoms - Who Is The Deer?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss15,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss16,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Double Child Birthday Special Edition (12.17))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss17,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really Flurry Super Special Edition)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss18,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super 1.0)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss19,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Who Is Fighting For The Wind?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss20,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Shu Complex Letter (Hidden Character Version))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss21,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Legend Of Evil Phoenix, True Unparalleled Dance, And The Sublimation Of Feng)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss22,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil Phoenix Battle)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss23,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil Phoenix Battle 2006 Special Edition)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss24,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Third Of The World)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss25,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Knife Shield Yong)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss26,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Crazy Zhang Liao)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss27,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Imitate the World Edition (Test))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss28,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Memory Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss29,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Forced To Enter Jingzhou)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss30,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Year kiss version ?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss31,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss Beta)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss32,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wars Wei Wuchuan 2016 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss33,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss 2016 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss34,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 (Bug Fix Edition))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss35,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Hacks Tour Together Enhanced Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss36,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2007 Super Simple BT Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss37,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 Revised Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss38,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2010 Wei Wu Generals Again)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss39,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2011)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss40,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 (Old Version))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss41,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare Version Swim Gather Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss42,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare Version (Old Version))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss43,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare April New Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss44,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare Version 2013.11 Month Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss45,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Unparalleled Version Of Tour Gather)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss46,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2019)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss47,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Enhanced Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss48,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Who Is The Deer Dead (National Day Edition))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss49,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Gone With The World War - Libu)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss50,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon And The World)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss51,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Open The Magic Zhang Gas Tank Will Kill)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss52,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Newcomer Modified Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss53,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "overlordworld", "Knights of Valour Plus (Style Moves Revision )(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss54,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Qin Double, Love, Dominate The World)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss55,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Double Qin Double Dominate The World To Commemorate The Special Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss56,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fushu Flutter Official Version D)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss57,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Flock Male Flurry Official Version D5)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss58,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna, feng34", "Knights of Valour Plus (Qunying Edition Rev Final SP2)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss59,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "tykensky", "Knights of Valour Plus (Imitation Fengyun Correction)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss60,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Single Into The Fire Sword Chamber)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss61,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Single Into The Secret Room)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss01,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Lock Four-Player Mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss02,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Edition 2012 Unparalleled version (Youju Edition))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss03,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars Authentic (Travel Edition))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss04,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars 2013 Yu Feng Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss05,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Forced Into The Burst Sword Room)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss06,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (948 Takes The Unusual Road)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss07,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Cao Cao 4 People?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss08,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Battle Of Chibi)(Wei Wu Wu will Fight)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss09,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wind Clouds Chung Feng Front)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss10,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fang Yue·Magic Rain)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss11,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fang Yue·Magic Rain Battle Mode)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss12,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hong Wave Filled)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss13,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Cao Corrected Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss14,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Work Un The Three Kingdoms - Who Is The Deer?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss15,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss16,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Double Child Birthday Special Edition (12.17))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss17,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really Flurry Super Special Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss18,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss19,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Who Is Fighting For The Wind?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss20,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Shu Complex Letter (Hidden Character Version))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss21,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Legend Of Evil Phoenix, True Unparalleled Dance, And The Sublimation Of Feng)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss22,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil Phoenix Battle)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss23,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil Phoenix Battle 2006 Special Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss24,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Third Of The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss25,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Knife Shield Yong)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss26,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Crazy Zhang Liao)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss27,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Imitate the World Edition (Test))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss28,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Memory Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss29,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Forced To Enter Jingzhou)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss30,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Year kiss version ?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss31,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss Beta)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss32,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Wuchuan 2016 Edition 2016-04-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss33,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss 2016 Edition 2016-04-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss34,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 (Bug Fix Edition))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss35,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Hacks Tour Together Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss36,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2007 Super Simple BT Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss37,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 Revised Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss38,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2010 Wei Wu Generals Again)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss39,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2011)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss40,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 (Old Version))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss41,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare Version Swim Gather Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss42,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare Version (Old Version))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss43,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare April New Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss44,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare Version 2013.11 Month Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss45,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Unparalleled Version Of Tour Gather)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss46,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2019)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss47,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss48,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Who Is The Deer Dead (National Day Edition))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss49,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Gone With The World War - Libu)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss50,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon And The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss51,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Open The Magic Zhang Gas Tank Will Kill)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss52,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Newcomer Modified Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss53,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "overlordworld", "Knights of Valour Plus (Style Moves Revision )", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss54,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Qin Double, Love, Dominate The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss55,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Double Qin Double Dominate The World To Commemorate The Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss56,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fushu Flutter Official Version D)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss57,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Flock Male Flurry Official Version D5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss58,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna, feng34", "Knights of Valour Plus (Qunying Edition Rev Final SP2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss59,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "tykensky", "Knights of Valour Plus (Imitation Fengyun Correction)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss60,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Single Into The Fire Sword Chamber)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss61,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Single Into The Secret Room)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovpluss62,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Chaotic Dance Special Edition)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss63,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "HappyASR & Creamymami", "Knights of Valour Plus (Enable Test Mode Y Enhanced Power)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss64,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss65,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Shu Revival Experience Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss66,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Repair The Third Dead Machine)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss67,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars - The World Under A New Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss68,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (948 Take Ordinary Road Warriors,The Military Commander)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss63,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "HappyASR & Creamymami", "Knights of Valour Plus (Enable Test Mode Y Enhanced Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss64,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss65,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Shu Revival Experience Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss66,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Repair The Third Dead Machine)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss67,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars - The World Under A New Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss68,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (948 Take Ordinary Road Warriors,The Military Commander)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovpluss69,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "ltessdeng", "Knights of Valour Plus (Proud Of The Heroes)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss70,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fighting Generals Fight)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss71,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil Wind Against The War)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss72,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Legend Of Evil Feng Warriors Fushuang Feng Sublimation)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss73,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really War Of The Flies Fluttering The Three Kingdoms West Tour Fix It)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss74,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Wuchuan Of The Three Kingdoms)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss75,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Royal Sword Flight)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss76,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dynasty Warriors Warriors Second Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss77,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Rider Savior)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss78,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars Authentic Plus Moxie Legend)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss79,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Imitation Turmoil)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss80,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Gas Gathering fast)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss70,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fighting Generals Fight)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss71,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Evil Wind Against The War)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss72,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Legend Of Evil Feng Warriors Fushuang Feng Sublimation)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss73,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really War Of The Flies Fluttering The Three Kingdoms West Tour Fix It)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss74,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Wuchuan Of The Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss75,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Royal Sword Flight)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss76,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dynasty Warriors Warriors Second Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss77,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Rider Savior)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss78,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars Authentic Plus Moxie Legend)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss79,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Imitation Turmoil)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss80,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Gas Gathering fast)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovpluss81,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super Plus)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss82,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Xyahzhs", "Knights of Valour Plus (All Explosive Style Open)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss83,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Variation Kong Ming)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss84,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "hbhswangzhi", "Knights of Valour Plus (Metamorphosis Guanyu Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss85,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "hbhswangzhi", "Knights of Valour Plus (Metamorphosis GuanYu Second Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss86,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Huang Zhong Edition Is Absolute Nightmare)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss87,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Troubled Times)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss88,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Chaos Double British)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss89,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ma Chao Version?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss90,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Massive Dance)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss91,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Unknown Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss92,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super Zhuge Liang)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss93,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super Moves Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss94,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Five Tigers Will Be Flurry)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss95,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Yan - Zhao Yun Flurry)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss96,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Righteous Spirit)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss97,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Metamorphosis Zhang Liao First Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss98,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Metamorphosis Zhang Liao Second Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss99,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Metamorphosis Zhang Liao Third Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss100,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Zhao Yun Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss101,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "yuanshaoning", "Knights of Valour Plus (Zhao Yun Enhanced Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss102,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Sky", "Knights of Valour Plus (119 Color Modified Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss103,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Person Color Replacement)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss104,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Character Color Replacement (Alt))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss105,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "fenguan34", "Knights of Valour Plus (Three King Color Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss106,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Four Swords Colored Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss107,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "yuanshaoning", "Knights of Valour Plus (Zhao Yun: White)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss108,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Simulator Bug Is Fully Repaired)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss109,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Problem Fix-Original Bug Repair)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss82,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Xyahzhs", "Knights of Valour Plus (All Explosive Style Open)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss83,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Variation Kong Ming)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss84,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "hbhswangzhi", "Knights of Valour Plus (Metamorphosis Guanyu Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss85,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "hbhswangzhi", "Knights of Valour Plus (Metamorphosis GuanYu Second Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss86,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Huang Zhong Edition Is Absolute Nightmare)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss87,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Troubled Times)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss88,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Chaos Double British)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss89,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ma Chao Version?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss90,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Massive Dance)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss91,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Unknown Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss92,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super Zhuge Liang)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss93,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Super Moves Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss94,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Five Tigers Will Be Flurry)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss95,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Yan - Zhao Yun Flurry)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss96,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Righteous Spirit)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss97,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Metamorphosis Zhang Liao First Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss98,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Metamorphosis Zhang Liao Second Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss99,   kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Metamorphosis Zhang Liao Third Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss100,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Zhao Yun Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss101,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "yuanshaoning", "Knights of Valour Plus (Zhao Yun Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss102,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Sky", "Knights of Valour Plus (119 Color Modified Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss103,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Person Color Replacement)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss104,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Character Color Replacement (Alt))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss105,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "fenguan34", "Knights of Valour Plus (Three King Color Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss106,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Four Swords Colored Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss107,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "yuanshaoning", "Knights of Valour Plus (Zhao Yun: White)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss108,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Simulator Bug Is Fully Repaired)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss109,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Problem Fix-Original Bug Repair)", MACHINE_SUPPORTS_SAVE )
 HACK( 200?, kovpluss110,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Prop Picture Repair)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss111,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Military Commander)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss112,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Plus P1)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss113,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Plus SP2)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss114,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Revised SP1 / SP2)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss115,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Warriors 2015 Amazing Change purgatory)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss116,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Gods Warriors 2016)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss117,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Enable Choosing Same One)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss118,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Full Character Four Swords)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss119,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Ship Sailor Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss120,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Kotomira Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss121,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Liu Bei Rev Final SP1 1.0)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss122,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Liu Version 2.0)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss123,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Lu Bu version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss124,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Perfect Lu Bu Version)(Internal Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss125,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Perfect Lu Bu Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss126,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Lu Xun 119 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss127,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Meng You Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss128,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "kallor", "Knights of Valour Plus (Horse Thief Yue Ji Revision)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss129,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Guan Zhaoma innocent people)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss130,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Blue Dragon Leopard)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss131,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ninja And Iron Armor)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss132,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Double Can Take Four Swords)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss133,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Iron Armor Revision)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss134,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Release Miscellaneous Goods Limit)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss135,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Life Is Not Reduced)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss136,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Yan Is Here, Perfect Revision)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss137,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (King Of The Lord)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss138,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Xiahou II)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss139,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Zhao Yun Brush Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss140,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "lichenzhao", "Knights of Valour Plus (Zhao Yunchao Optimization)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss141,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Resolution FZ Hack)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss142,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (FZ & Bobo Advertising Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss143,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Warriors 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss144,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Warriors 2015 Unparalleled Purgatory)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss145,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (King Of The Three King Spike The New Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss146,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Authentic BAKA)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss147,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss148,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warring States Nightmare Origin Of Zero)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss149,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Riboud Legend)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss150,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms God of Wars Musou 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss151,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hooooook", "Knights of Valour Plus (Fractional Defense Energy Enhancement)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss152,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Valkyrie Come)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss153,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2017 Unparalleled Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss154,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars 2017 Musou version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss155,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The Three Kingdoms Great God Road)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss156,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Ares 2016 Color Correction Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss157,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Ares 2016 Heroes 2 New Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss158,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic King)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss159,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The Three Kingdoms War, The Three Kingdoms Of The Dead)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss160,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (War Of The Three Kingdoms Warrior Edge)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss161,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016 Unparalleled Flurry New)(Alt)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss162,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Jiqin Double Love 2015 Enhanced Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss163,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Full Half Ice Condition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss164,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (War Of The Three Kingdoms 2015 Nightmare Advent)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss165,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Yu Feng 2013)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss166,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 01)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss167,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Authentic Nightmare Come)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss168,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 02)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss169,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Unparalleled Authentic 2015 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss170,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Authentic Nightmare Come)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss171,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Warriors 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss172,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2016 Authentic Nightmare Come)(Ver.?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss173,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016 Unparalleled Flurry New)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss174,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2016 Authentic Nightmare Come)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss175,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Authentic Six Swords Legend)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss176,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Sanguozhanji 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss177,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Sanguozhanji 2016)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss178,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Shadow Three Sango Fighter)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss179,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 03)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss180,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Savior)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss181,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Add character, Easy Max Power)(Hacks Alt 01)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss182,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Authentic King Spike)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss184,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon World)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss185,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Riboud Sanguozhanji Legend)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss186,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Riboud Sanguozhanji Troubled Times)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss187,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Warriors Warriors Purgatory)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss188,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Variety Unparalleled Purgatory)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss189,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Moye Sanguozhanji Legend)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss190,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Moye Sword)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss191,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Sanguozhanji Love War 2015 Enhanced Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss192,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Add New character, New Boss Start, Max Power)(Hacks Alt 03)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss193,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Add New character, Max Power)(Hacks Alt 05)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss194,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Shu Renaissance)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss195,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Souls Three Kingdoms)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss196,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wu Chuan Wei Sanguozhanji 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss197,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Five Reversal)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss198,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Brave Edge)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss199,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 04)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss200,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Unparalleled Ares 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss201,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2016 Warriors Ares)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss202,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Liu Bei)(Repaired)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss203,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (King)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss204,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Authentic Nightmare Edicion)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss205,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Piano Double Boss)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss206,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double True Hero Love War 2016)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss207,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars 2015 Variety purgatory)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss208,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars A948 World Hegemony)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss209,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Evil Feng Liu Bei Battle)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss210,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Legend Moye)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss211,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Moye Fly Overhead)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss212,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Moye Sword 1)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss213,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Moye Sword 2)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss214,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Unparalleled Flurry 2016)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss215,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (World Series Tour Poly Edition 2015)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss216,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Excepcional)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss218,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus Three Kingdoms Wars Authentic 2012 Nightmare Edition (Travel Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss219,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fighting To Death)(Alt)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss220,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Double Qin Double Dominate The World Special Edition)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss221,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008)(Bug Fix Edition))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss222,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Year kiss version 1.12)(active version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss223,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 Revision)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss224,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2007)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss225,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 Group Dances Test Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss226,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2009)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss227,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Tour Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss228,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Dominant World 0.518 (alt))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss229,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Qin Double Love Dominate The World Second Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss230,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Double Qin Double Situation Dominate The World Official Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss231,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "16649432", "Knights of Valour Plus (Sima Thief)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss232,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (True Group Dance v2.0 final Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss233,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really Unparalleled And Crowded. Rev Final SP1)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss234,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really Unparalleled, Group Dance, The Sublimation Of Maple, The Final Restoration)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss235,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Small version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss236,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Bear Dominates The World)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss237,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War 2016)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss238,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016 Six Swords of God)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss239,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 05)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss240,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Chinese Luxun Hack)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss241,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Plus 2007 FZ Hack)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss242,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Enhanced Version)(Alt)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss243,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Xin Lin Hack)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss244,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hero Chinese Hack)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss245,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack Rev Final (FZ))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss246,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Combo Hack)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss247,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warlord Revival)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss248,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Death Dead)(ver. 119, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss249,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Battle Of Red Cliff (Wei Wu generals battle))(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss250,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss)(Alt)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss251,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Tour Gatherings)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss252,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Double Qin Double Dominate The World (Alt))(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss253,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Soldier Version)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss254,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warring States Three Kingdoms)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss255,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Repair Hack Image V3)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
-HACK( 200?, kovpluss256,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fangyue Magic Rain 2016 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss257,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Group Edition 2016 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss258,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Revived 2016 Edition)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss259,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original)(Set 01)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss260,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original)(Set 02)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss261,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original)(Set 03)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss262,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original)(Set 04)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss263,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original)(Set 05)(ver. 119, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss264,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Ares St Dragon World Test)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss265,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ares ST strengthen 1V4)(ver. 119, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss266,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warriors Warriors S 2017)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss267,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Battle Of Chibi)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss268,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Centuries)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss269,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon Finch Update)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss270,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wars)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss271,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare Nightmare Falls +S 201)(Set 01)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss272,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare Nightmare Falls +S 201)(Set 02)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss273,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare 2017 Nightmare Zs)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss274,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare 2017 Nightmare St)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss275,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Edition Of The Unparalleled Update)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss276,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Beer Dream)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss277,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare S)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss278,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 God Of War ST 1V4)(ver. 119, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss279,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (six Swords Of God)(ver. 119, set 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss280,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (king Spike)(Ver.?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss281,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (E Meng Jiang Lin 2014 )(Ver.?)(ver. 119, set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss282,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wu Shuang 2012 Edition 2017)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss283,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Single Rider Savior)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss284,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (E Meng Jiang Lin 2012 Edition 2017)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss285,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Jifang Moon Magic Rain link)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss286,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hong Bo Fu Wang)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovpluss287,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Huo Long Hu Ti)(ver. 119)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovplusas01,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour Plus (Enhanced Power)(ver. 119, set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss111,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "huangxu", "Knights of Valour Plus (Military Commander)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss112,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Plus P1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss113,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Plus SP2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss114,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Revised SP1 / SP2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss115,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Warriors 2015 Amazing Change purgatory)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss116,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Gods Warriors 2016)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss117,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Enable Choosing Same One)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss118,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Full Character Four Swords)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss119,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Ship Sailor Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss120,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Kotomira Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss121,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Liu Bei Rev Final SP1 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss122,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "sertsuna", "Knights of Valour Plus (Liu Version 2.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss123,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Lu Bu version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss124,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Perfect Lu Bu Version)(Internal Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss125,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Perfect Lu Bu Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss126,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Lu Xun 119 Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss127,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Meng You Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss128,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "kallor", "Knights of Valour Plus (Horse Thief Yue Ji Revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss129,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Guan Zhaoma innocent people)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss130,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Blue Dragon Leopard)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss131,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ninja And Iron Armor)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss132,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Double Can Take Four Swords)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss133,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "iorikyo", "Knights of Valour Plus (Iron Armor Revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss134,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Release Miscellaneous Goods Limit)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss135,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Life Is Not Reduced)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss136,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wei Yan Is Here, Perfect Revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss137,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (King Of The Lord)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss138,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Xiahou II)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss139,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Zhao Yun Brush Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss140,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "lichenzhao", "Knights of Valour Plus (Zhao Yunchao Optimization)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss141,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Resolution FZ Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss142,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (FZ & Bobo Advertising Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss143,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Warriors 2015)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss144,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Warriors 2015 Unparalleled Purgatory)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss145,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (King Of The Three King Spike The New Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss146,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Authentic BAKA)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss147,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss148,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warring States Nightmare Origin Of Zero)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss149,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Riboud Legend)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss150,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms God of Wars Musou 2015)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss151,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Hooooook", "Knights of Valour Plus (Fractional Defense Energy Enhancement)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss152,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Valkyrie Come)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss153,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2017 Unparalleled Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss154,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Wars 2017 Musou version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss155,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The Three Kingdoms Great God Road 2016-09-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss156,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War Ares 2016 Color Correction Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss157,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Ares 2016 Heroes 2 New Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss158,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic King)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss159,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The Three Kingdoms War, The Three Kingdoms Of The Dead)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss160,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (War Of The Three Kingdoms Warrior Edge)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss161,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016 Unparalleled Flurry New)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss162,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Jiqin Double Love 2015 Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss163,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "RockyWall", "Knights of Valour Plus (Full Half Ice Condition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss164,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (War Of The Three Kingdoms 2015 Nightmare Advent)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss165,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Yu Feng 2013)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss166,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss167,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Authentic Nightmare Come)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss168,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Orthodox 2012 Nightmare 2015-12-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2012, kovpluss169,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wars Musou 2012-07-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss170,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2015 Nightmare 2015-07-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss171,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2015 2015-01-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss172,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wars Musou 2015 2015-08-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss173,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016 Unparalleled Flurry New)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss174,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Nightmare Coming 2016 2016-03-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss175,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Authentic Six Swords Legend 2015-12-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss176,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Final Edition 2015-08-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss177,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2016 Final Edition 2016-06-18)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss178,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Shadow Three Kingdoms 2016-02-23)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss179,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss180,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Savior 2016-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss181,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Nightmare Origins Zero 2016-01-05)(Hacks Alt 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss182,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Authentic King Spike 2016-02-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss184,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon World 2015-12-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss185,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Riboud Sanguozhanji Legend Of Lu Bu 2015-12-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss186,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Riboud Sanguozhanji Troubled Times Of Lu Bu 2016-03-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss187,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Musou 2015 Unparalleled Purgatory 2015-12-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss188,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Musou 2015 Variety Purgatory 2015-12-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss189,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Moxie Legend 2015-12-23)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss190,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Mo Sword 2015-12-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss191,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Love 2015 Enhanced Edition 2015-08-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss192,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Add New character, New Boss Start, Max Power)(Hacks Alt 03)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss193,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Add New character, Max Power)(Hacks Alt 05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss194,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Shu Renaissance 2016-01-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kovpluss195,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (The Three Kingdoms of the Dead 2014-10-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss196,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wu Chuan Wei Sanguozhanji 2015 2015-12-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss197,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Five Elements Reversal 2015-12-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss198,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Sanguozhanji Brave Edge 2016-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss199,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss200,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (God of War Musou 2015 2015-12-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss201,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (God of War Musou 2016 2016-01-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss202,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Liu Bei)(Repaired)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss203,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Kings Smash New Version 2016-09-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss204,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015 Authentic Nightmare Edicion)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss205,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Piano Double Boss)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss206,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double True Hero Love War 2016)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss207,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars 2015 Variety purgatory)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss208,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars A948 World Hegemony)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss209,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Evil Feng Liu Bei Battle)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss210,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Legend Moye)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss211,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Moye Fly Overhead)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss212,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Moye Sword 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss213,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Moye Sword 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss214,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Wars Unparalleled Flurry 2016)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss215,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (World Series Tour Poly Edition 2015 2015-07-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss216,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Excepcional)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss218,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus Three Kingdoms Wars Authentic 2012 Nightmare Edition (Travel Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss219,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fighting To Death)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss220,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Double Qin Double Dominate The World Special Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss221,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008)(Bug Fix Edition))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss222,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (New Year kiss version 1.12)(active version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss223,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 Revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss224,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2007)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss225,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2008 Group Dances Test Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss226,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2009)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss227,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Tour Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss228,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Dominant World 0.518 (alt))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss229,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Qin Double Love Dominate The World Second Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss230,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Kallor", "Knights of Valour Plus (Double Qin Double Situation Dominate The World Official Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss231,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "16649432", "Knights of Valour Plus (Sima Thief)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss232,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (True Group Dance v2.0 final Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss233,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really Unparalleled And Crowded. Rev Final SP1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss234,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Really Unparalleled, Group Dance, The Sublimation Of Maple, The Final Restoration)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss235,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Small version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss236,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Bear Dominates The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss237,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms War 2016)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss238,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016 Six Swords of God)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss239,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Description Of Hack Unknown)(Set 05)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss240,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Chinese Luxun Hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss241,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Plus 2007 FZ Hack)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss242,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Enhanced Version)(Alt)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss243,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Xin Lin Hack)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss244,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hero Chinese Hack)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss245,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hack Rev Final (FZ))", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss246,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Combo Hack)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss247,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warlord Revival)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss248,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Death Dead)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss249,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Battle Of Red Cliff (Wei Wu generals battle))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss250,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic Miss)(Alt)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss251,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Tour Gatherings)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss252,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Double Qin Double Dominate The World (Alt))", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss253,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Soldier Version)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss254,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warring States Three Kingdoms)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 200?, kovpluss255,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Repair Hack Image V3)", MACHINE_SUPPORTS_SAVE ) //File Not Yet Checked
+HACK( 2016, kovpluss256,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Fangyue Magic Rain 2016 Edition 2016-04-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss257,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Group Edition 2016 Edition 2016-04-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss258,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Revived 2016 Edition 2016-04-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss259,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original 2016-12-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss260,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original 2016-12-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss261,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original 2016-12-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss262,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Update Original 2016-12-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss263,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ares ST Enhanced Edition 2017-01-28)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss264,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms Ares St Dragon World Test 2017-07-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss265,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ares ST strengthen 1V4 2017-01-28)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss266,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (God of Wars Musou S 2017 2017-01-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss267,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Battle Of Chibi 2017-02-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss268,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Centuries 2017-02-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss269,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon Finch Update 2017-05-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss270,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wars 2018-05-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss271,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare Nightmare Falls +S 201 2017-06-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss272,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare Nightmare Falls +S 201 2017-06-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss273,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare 2017 Nightmare Zs 2017-04-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss274,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Warfare 2017 Nightmare St 2017-04-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss275,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Edition Of The Unparalleled Update 2017-04-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss276,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Beer Dream 2017-04-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss277,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 Nightmare S)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss278,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic 2012 God Of War ST 1V4)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss279,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (six Swords Of God)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss280,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (king Spike)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss281,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (E Meng Jiang Lin 2014)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss282,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Wu Shuang 2012 Edition 2017)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss283,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Single Rider Savior 2018-08-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss284,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (E Meng Jiang Lin 2012 Edition 2017)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss285,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Jifang Moon Magic Rain link)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss286,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hong Bo Fu Wang 2018-08-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovpluss287,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Huo Long Hu Ti)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss288,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Undead Spikes 2016-09-15)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss289,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic BAKA 2016-08-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss290,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Authentic PLUS Eight Gods Edition 2016-08-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss291,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Original Version Completely Repaired The Bug Version 2016-09-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss292,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (God of War is unparalleled 2016-01-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss293,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hegemony 2015-07-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kovpluss294,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Five Elements Reversed Steam Express 2010-01-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss295,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Zhuge rainy seconds boss + Zilong Zhuque + characters refueling admission 2016-09-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kovpluss296,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Unlimited gas + infinite card Tianshu + can take 4 swords, etc. 2010-12-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kovpluss297,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Soldier double infinity unlimited book 2014-04-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss298,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Liu Bei Legend New Edition 2015-07-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss299,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Edition of the Three Kingdoms War 2015-01-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss300,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Is proud of the group 2015-01-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss301,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Single Ride Savior Repair 2015-02-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovpluss302,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Love 2015-02-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss303,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Qin Double Love 2016-01-01)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss304,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2015-12-28)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss305,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Six Swords Legend 2015 2016-10-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss306,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2016 Final Remastered Edition 2016-10-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss307,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (A948 2016 Edition 2016-08-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss308,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (1V4 2016-10-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss309,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Three Kingdoms 2016-09-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss310,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Dragon Suzaku 2nd Edition 2016-10-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss311,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Zilong Suzaku 2016-09-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss312,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Ares 2016 Final Edition 2016-09-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovpluss313,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2017 Musou version 2016-11-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss314,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (One Kings 1 2017-05-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovpluss315,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (One Kings 2 2017-05-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss316,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Series A 2018-08-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss317,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Series B 2018-07-15)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss318,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Series C 2018-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss319,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (2012 Days Next 2018 New Edition 2018-05-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss320,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Single Ride Savior 2018 Final Edition 2018-03-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss321,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Great God Road 2018 Final Edition 2018-07-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss322,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Hongbo Falling 2018 2018-09-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss323,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Small Soldiers Series A 2018-12-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss324,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Small Soldiers Series B 2018-12-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss325,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Small Soldiers Series C 2018-12-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovpluss326,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Unknown", "Knights of Valour Plus (Small Soldiers Series D 2018-12-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovplusas01,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour Plus (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 // Knights of Valour Super Heroes
-HACK( 200?, kovshs01,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (FY 2016 4th Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs02,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Description Of Hack Unknown)(Set 01)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs03,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes (Unknow Hacks)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs04,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Wars Revival Original 2016 Remake)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs05,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Wars Chaotic Situation 3 Mode)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs06,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Shuanger", "Knights of Valour Super Heroes (Zhao Mystery)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs07,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Fantasy Dance - Return of Valkyrie Olympic Commemorative Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs08,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes (Fix Beta 1)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs09,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True And Chaotic Days 6.5 Beautiful Event Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs10,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Kingdoms War Situation 2016 Sixth Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovshs11,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Generals True Hero Unparalleled Flurry)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovshs12,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sango Fighter Three)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs13,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sango Fighter Zero Chunli)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs15,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji FY 2016)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovshs16,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Description Of Hack Unknown)(Set 03)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovshs17,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Feng Yun Zai Qi Xin Si Jian Chuan Shuo)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified 
-HACK( 200?, kovshs18,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Character Selection Fatal Fury/Kof)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )   // This roms is already verified 
-HACK( 200?, kovshs19,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji Revival Really Troubled Heroes)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovshs20,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji Revival New Heroes Troubled Times)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovshs21,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji Revival Chaotic Situation)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovshs22,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Creamymami", "Knights of Valour Super Heroes (Enhanced Power)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs23,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Kof Robert Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, kovshs24,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Legend Of The God Of War)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs25,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Boss Battle Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs26,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Crazy Cloud Renewed New Year's Day Special Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs27,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "qqq88844", "Knights of Valour Super Heroes (Mad Cloud Renews New Year's Day Special Edition Invincible Soldier Repair Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs28,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Crazy Cloud Renewed New Year's Day Invincible Version Of Invincible)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, kovshs29,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "qqq88844", "Knights of Valour Super Heroes (Xiefeng Tian Chi Wu Hegemony)(2010-11-12)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs30,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Xie Feng Tianchi (V106) B3 Revised Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs31,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Xie Feng Tian Chi B4)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs32,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Huang Yueying ?)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs33,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Huang Yueying Upgraded Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs34,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos Of The World 3.25)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs35,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super Enhanced Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs36,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos Of The World)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs37,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Fantasy Dance - Return of Valkyrie Optimized)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs38,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Edition - Dream Three Kingdoms)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs39,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Clouds Re-Launch Version Of The Military Will Compete For The Beta2 Miracle Of The Three Kingdoms)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs40,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The World Is In Turmoil)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs41,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 1)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs42,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 10)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs43,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 2)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs44,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 3)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs45,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 4)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs46,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 5)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs47,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 6)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs48,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 7)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs49,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True, chaotic world, blazing B2)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs50,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 8)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs51,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Three Kingdoms, The British Biography, The Military Commander, The Hegemony)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs52,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Kingdoms, The British Biography, The God Of War, Lu Bu)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs53,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Kingdoms)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs54,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True And Chaotic Days 5.12 Beautiful Revision)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs55,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Chaotic world, Blazing B3 (Tested Version?))(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs56,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Chaotic World, Blazing B3 Optimized Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs57,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Legend Of The Valkyrie Double Boss Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs58,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Wu Shen Legend Challenge Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs59,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - Valkyrie Returns Strengthen 10 Strokes 1)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs60,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - Return Of Valkyrie)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs61,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Battle Of The king)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs62,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Troubled Times, Evil Spirits, Battle, Beta 1)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs63,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Valkyrie Legendary Challenge)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs64,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Phoenix)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs65,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Bloody Clouds)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs66,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Xiong, The Military Commander (0524 Version))(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs67,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Original Character Generals Score Enhancement)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs68,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Original Optimized Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs69,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (2000 Boss Zero Chun Li Fire Fighting)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs70,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (God Of War Legends Beta 1)(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs71,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - God of War Legend Beta 2 (alt))(ver. 104, CN)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs72,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Undo The Number Of Items)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs73,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Turn On Hidden Characters)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs74,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "xyahzhs", "Knights of Valour Super Heroes (Open All Explosives)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs75,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "huangxu", "Knights of Valour Super Heroes (Regression version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs76,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Tian Chi Online Battle / Evil Feng Tian Chi Hack (V106) B4 (Super Beta))(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs77,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Tian Chi Online Battle / True Evil Phoenix Dance (V106) B4)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs78,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Tianqi Online Battle / Evil Feng Tian Chi B4 Evil Phoenix Battle)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs79,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos Of The World 6.5)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs80,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos In The Sky, Super Enhanced Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs81,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - Valkyrie Returns)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs82,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "sertsuna", "Knights of Valour Super Heroes (Reinforcement Damage Repair)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs83,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "yuanshaoning", "Knights of Valour Super Heroes (Bug Repair Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs84,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Special Correction)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs85,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fix Hack Timer Color?)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs86,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Lub Stable)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs87,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Hooooook", "Knights of Valour Super Heroes (Enhanced Score)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs88,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "huangxu", "Knights of Valour Super Heroes (Four Swords Legend)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs89,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Brave Special Correction)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs90,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Random Level 108 Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs91,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Restore FZ fonts)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs92,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Military Command)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs93,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Like The Chaos Of The World - The Military Commander Mode - The Character Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs94,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Revival Of The Fusion Version Of The Generals Warrior Beta 2 Miracle Three Countries (Alt))(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs95,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Storm Is Re-Starting The Fusion Version Of The Military Commander To Fight The Beta2 Miracle Of The Three Kingdoms)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs96,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Central Plains)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs97,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 9)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs98,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True, Chaotic World, Blazing B2)(Alt)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs99,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super Beta 1)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs100,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super Beta 2)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs101,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super SP1?)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs102,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Military Commander Beta 1 2014)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs103,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Lu Xun Xu Zhuan Enhanced Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs104,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Cat knife Test)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs105,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Legend Of Yuehua)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs106,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 3rd Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs107,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Resurrection 1V4 Random Edition)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs108,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (2016 Update 2017 Version)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs109,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (2016 Update 2017 Version)(Ver. Unknown)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs110,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Feng Yun Zai Qi Yue Hua Chuan Shuo)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs111,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Zhu Lu Zhong Yuan)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovshs112,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Wang Zhe Zhi Zhan Double Dragon)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kovshs113,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Rugal Edition 2018)(ver. 104, CN)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs01,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (FY 2016 4th Edition)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs02,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Description Of Hack Unknown)(Set 01)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs03,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes (Unknow Hacks)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs04,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Wars Revival Original 2016 Remake)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs05,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Wars Chaotic Situation 3 Mode)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs06,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Shuanger", "Knights of Valour Super Heroes (Zhao Mystery)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs07,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Fantasy Dance - Return of Valkyrie Olympic Commemorative Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs08,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Sertsuna", "Knights of Valour Super Heroes (Fix Beta 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs09,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True And Chaotic Days 6.5 Beautiful Event Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs10,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 6th Edition 2016-07-14)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovshs11,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Generals True Hero Unparalleled Flurry)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovshs12,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sango Fighter Three)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs13,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sango Fighter Zero Chunli)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs15,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji FY 2016)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovshs16,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Description Of Hack Unknown)(Set 03)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovshs17,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Feng Yun Zai Qi Xin Si Jian Chuan Shuo 2015-11-05)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified 
+HACK( 200?, kovshs18,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Character Selection Fatal Fury/Kof)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )   // This roms is already verified 
+HACK( 200?, kovshs19,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji Revival Really Troubled Heroes 2016-02-15)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovshs20,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Sanguozhanji Revival New Heroes Troubled Times 2015-08-24)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovshs21,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Storm, the Rise of the World 2015-11-27)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovshs22,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Creamymami", "Knights of Valour Super Heroes (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs23,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Kof Robert Version)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 200?, kovshs24,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Legend Of The God Of War)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs25,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Boss Battle Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs26,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Crazy Cloud Renewed New Year's Day Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs27,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "qqq88844", "Knights of Valour Super Heroes (Mad Cloud Renews New Year's Day Special Edition Invincible Soldier Repair Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs28,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Crazy Cloud Renewed New Year's Day Invincible Version Of Invincible)", MACHINE_SUPPORTS_SAVE )
+HACK( 2010, kovshs29,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "qqq88844", "Knights of Valour Super Heroes (Xiefeng Tian Chi Wu Hegemony)(2010-11-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs30,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Xie Feng Tianchi (V106) B3 Revised Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs31,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Xie Feng Tian Chi B4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs32,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Huang Yueying ?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs33,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Huang Yueying Upgraded Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs34,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos Of The World 3.25)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs35,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs36,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos Of The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs37,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Fantasy Dance - Return of Valkyrie Optimized)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs38,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Edition - Dream Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs39,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Clouds Re-Launch Version Of The Military Will Compete For The Beta2 Miracle Of The Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs40,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The World Is In Turmoil)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs41,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs42,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 10)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs43,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs44,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs45,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs46,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs47,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 6)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs48,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 7)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs49,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True, chaotic world, blazing B2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs50,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 8)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs51,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Three Kingdoms, The British Biography, The Military Commander, The Hegemony)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs52,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Kingdoms, The British Biography, The God Of War, Lu Bu)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs53,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs54,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True And Chaotic Days 5.12 Beautiful Revision)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs55,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Chaotic world, Blazing B3 (Tested Version?))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs56,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Chaotic World, Blazing B3 Optimized Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs57,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Legend Of The Valkyrie Double Boss Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs58,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Wu Shen Legend Challenge Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs59,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - Valkyrie Returns Strengthen 10 Strokes 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs60,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - Return Of Valkyrie)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs61,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Battle Of The king)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs62,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Troubled Times, Evil Spirits, Battle, Beta 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs63,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Valkyrie Legendary Challenge)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs64,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Phoenix)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs65,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Bloody Clouds)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs66,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Xiong, The Military Commander (0524 Version))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs67,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Original Character Generals Score Enhancement)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs68,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Original Optimized Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs69,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (2000 Boss Zero Chun Li Fire Fighting)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs70,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (God Of War Legends Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs71,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - God of War Legend Beta 2 (alt))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs72,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Undo The Number Of Items)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs73,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Turn On Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs74,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "xyahzhs", "Knights of Valour Super Heroes (Open All Explosives)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs75,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "huangxu", "Knights of Valour Super Heroes (Regression version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs76,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Tian Chi Online Battle / Evil Feng Tian Chi Hack (V106) B4 (Super Beta))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs77,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Tian Chi Online Battle / True Evil Phoenix Dance (V106) B4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs78,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Evil Feng Tianqi Online Battle / Evil Feng Tian Chi B4 Evil Phoenix Battle)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs79,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos Of The World 6.5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs80,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Chaos In The Sky, Super Enhanced Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs81,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True Evil Spirits Dance - Valkyrie Returns)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs82,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "sertsuna", "Knights of Valour Super Heroes (Reinforcement Damage Repair)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs83,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "yuanshaoning", "Knights of Valour Super Heroes (Bug Repair Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs84,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Special Correction)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs85,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fix Hack Timer Color?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs86,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Lub Stable)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs87,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Hooooook", "Knights of Valour Super Heroes (Enhanced Score)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs88,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "huangxu", "Knights of Valour Super Heroes (Four Swords Legend)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs89,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Brave Special Correction)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs90,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Random Level 108 Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs91,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Restore FZ fonts)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs92,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Military Command)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs93,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Like The Chaos Of The World - The Military Commander Mode - The Character Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs94,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Revival Of The Fusion Version Of The Generals Warrior Beta 2 Miracle Three Countries (Alt))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs95,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Storm Is Re-Starting The Fusion Version Of The Military Commander To Fight The Beta2 Miracle Of The Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs96,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Central Plains)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs97,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Storm Rising Fusion Version - Qunxiong Hegemony Beta 9)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs98,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (True, Chaotic World, Blazing B2)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs99,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super Beta 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs100,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super Beta 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs101,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Super SP1?)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs102,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Military Commander Beta 1 2014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs103,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Lu Xun Xu Zhuan Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs104,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Cat knife Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs105,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Legend Of Yuehua)",  MACHINE_NOT_WORKING |  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs106,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 3rd Edition 2016-04-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs107,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Resurrection 1V4 Random Edition 2017-01-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs108,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 Update 2017 Edition 2 2017-01-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs109,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 Update 2017 Edition 2017-01-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovshs110,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Feng Yun Zai Qi Yue Hua Chuan Shuo 2015-11-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovshs111,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Zhu Lu Zhong Yuan 2018-03-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovshs112,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Wang Zhe Zhi Zhan Double Dragon)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovshs113,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Rugal Edition 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovshs114,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 Final Edition 2016-09-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovshs115,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun 2016 Final Edition 2 2016-09-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovshs116,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Fengyun Street Fighter 2016 2016-10-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovshs117,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Central Plains Defeat the World 2018-12-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovshs118,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (Five Swords Edition 2018-12-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovshs119,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "Unknown", "Knights of Valour Super Heroes (The Central Plains 2019-01-02)", MACHINE_SUPPORTS_SAVE )
 // Quanhuang Sanguo Tebie Ban
-HACK( 200?, kovqhsgs01,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "Unknown", "Quanhuang Sanguo Tebie Ban (Three Kingdoms Wars - Edición especial de King of Fighters (¿alt?))(bootleg of Knights of Valour Super Heroes, V303CN, Nov 21 2008 19:03:49)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovqhsgs02,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "Unknown", "Quanhuang Sanguo Tebie Ban (4 Times Sent Out Test)(bootleg of Knights of Valour Super Heroes, V303CN, Nov 21 2008 19:03:49)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovqhsgs03,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "huangxu", "Quanhuang Sanguo Tebie Ban (Four Swords Legend)(bootleg of Knights of Valour Super Heroes, V303CN, Nov 21 2008 19:03:49)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovqhsgs01,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "Unknown", "Quanhuang Sanguo Tebie Ban (Three Kingdoms Wars - Edición especial de King of Fighters (¿alt?))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovqhsgs02,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "Unknown", "Quanhuang Sanguo Tebie Ban (4 Times Sent Out Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovqhsgs03,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "huangxu", "Quanhuang Sanguo Tebie Ban (Four Swords Legend)", MACHINE_SUPPORTS_SAVE )
 // Knights of Valour Super Heroes Plus
-HACK( 200?, kovsho01,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Description Of Unknown Origin 01)(ver. 101)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovsho02,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Lawrence of chaos Sanguozhanji Enhanced Version 1.8)(ver. 101)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
-HACK( 200?, kovsho03,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Lawrence of chaos Sanguozhanji Enhanced Version Of 2014)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho04,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Taiping)(ver. 101)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
-HACK( 200?, kovsho05,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Pacific Troubled Times Enhanced Version 2)(ver. 101)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovsho06,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Lawrence Of The New Enhanced Version Fifty-One 2nd Edition)(ver. 101)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
-HACK( 200?, kovsho07,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Kof 94/95 Set 01)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(?)
-HACK( 200?, kovsho08,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Kof 94/95 Set 02)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(?)
-HACK( 200?, kovsho09,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Lawrence Of Version 103)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(?)
-HACK( 200?, kovsho10,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Kof 94/95 Set 03)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(?)
-HACK( 200?, kovsho11,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three)(ver. 101)", MACHINE_SUPPORTS_SAVE )  //(?)
-HACK( 2017, kovsho12,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Ying Xiong 2.8 - E Meng Edition)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 2018, kovsho13,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Plus 2018)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 2018, kovsho14,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Tai Pin Lun Shi)(ver. 101)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, kovsho15,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes 6.21)(ver. 101)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING |  MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho16,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos of the World)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho17,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.2)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho18,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.3)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho19,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled World Plus 1.4)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho20,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troublesome Plus 1.4)(Fix)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho21,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Plus 1.5)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho22,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Plus 1.5)(Ver. 2)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho23,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.2)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho24,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.3)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho25,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.4)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho26,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.5)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho27,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.6)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho28,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Grand", "Knights of Valour Super Heroes Plus (Q Version Of The Three Kingdoms (First Edition?))(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho29,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Grand", "Knights of Valour Super Heroes Plus (Q version Of The Three Kingdoms (Old Version))(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho30,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Grand", "Knights of Valour Super Heroes Plus (Q Version Of The Three Kingdoms G5 Beta)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho31,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Rockman G)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho32,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Break Four Strokes One Style: Unlimited)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho33,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Red Clothes Zhao Yun)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho34,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Blue Zhao Yun)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho35,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (In The Chaos Of The World, The Four Big Black Characters Plus The Switch)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho36,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Fractional Micro Repair)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho37,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Score Defense Enhancement)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho38,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Solve The Invincible Soldier)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho39,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho40,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes of the World 2.4)(Alt)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho41,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes of the World 2.6)(Alt)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho42,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes 6.21)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho43,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Energy Free)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho44,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Sima Yi Recruited Conditional Repair)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho45,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Immortal Pen Change Probability Change)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho46,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Immortal Pen Change Probability Change 2)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho47,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars Tour version)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho48,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.3)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho49,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.6)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho50,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled World Plus 1.7 Tour Edition)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho51,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled World Plus Edition 1.8 Three Kingdoms Westward Tour)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho52,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Red clothes Zhao Yun)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho53,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Blue Zhao Yun)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho54,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (The Chaotic World Four Big Black Characters Plus Switch)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho55,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Fractional Micro Repair)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho56,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Score Defense Enhancement)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho57,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Solve The Invincible Soldier)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho58,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled In The World)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho59,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Energy Free)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho60,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Sima Yi Recruited Conditional Repair)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho61,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (The Three Kingdoms Wars Unified Central Plains)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho62,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.6)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho63,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho64,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.2)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho65,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.4)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho66,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho67,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Ne Zhe Huo Lun)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho68,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times, Gods, Dusk, Dawn)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho69,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos Xiongxiong Zhao Zilong Edition)(ver. 100)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho70,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Tai Pin Lun Shi)(Alt)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho71,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos Of The Gods Dusk)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho72,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Turbulent World 1v4 Strengthen 2016)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho73,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Sweeping Thousands Of Troops)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho74,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Memorial Gods Dusk Update)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho75,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Series V1)(ver. 101)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho76,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Series V2)(ver. 101)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho77,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Series V3)(ver. 101)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho78,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Zhu Shen Huang Hun Li Ming Edition)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho79,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest)(ver. 101)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kovsho80,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Qun Xiong Zai Qi 2012)(ver. 101)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho01,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (In the troubled times, Xiongxiong strengthened the 1.8 reinforcements and did not crash. 01 2015-02-15)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovsho02,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled people in the world to strengthen the 1.9 reinforcements without a crash 2014-08-29)", MACHINE_SUPPORTS_SAVE ) // This roms is already verified
+HACK( 200?, kovsho03,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Lawrence of chaos Sanguozhanji Enhanced Version Of 2014)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho04,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Taiping)", MACHINE_SUPPORTS_SAVE )  // This roms is already verified
+HACK( 200?, kovsho05,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (the Pacific World, The Pro Version, The Second Edition 2016-05-11)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovsho06,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Lawrence Of The New Enhanced Version Fifty-One 2nd Edition 2016-05-05)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified
+HACK( 200?, kovsho07,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Kof 94/95 Set 01)", MACHINE_SUPPORTS_SAVE ) //(?)
+HACK( 200?, kovsho08,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Kof 94/95 Set 02)", MACHINE_SUPPORTS_SAVE ) //(?)
+HACK( 200?, kovsho09,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Lawrence Of Version 103 2016-06-08)", MACHINE_SUPPORTS_SAVE ) //(?)
+HACK( 200?, kovsho10,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Troubled Times Enhanced Version Kof 94/95 Set 03)", MACHINE_SUPPORTS_SAVE ) //(?)
+HACK( 200?, kovsho11,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three)", MACHINE_SUPPORTS_SAVE )  //(?)
+HACK( 2017, kovsho12,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Ying Xiong 2.8 - E Meng Edition 2018-03-31)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 2018, kovsho13,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Plus 2018 2018-01-13)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 2018, kovsho14,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Tai Pin Lun Shi)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 200?, kovsho15,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes 6.21)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING |  MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho16,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos of the World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho17,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho18,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.3 XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho19,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled World Plus 1.4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho20,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troublesome Plus 1.4)(Fix)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho21,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Plus 1.5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho22,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Plus 1.5)(Ver. 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho23,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho24,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho25,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.4)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho26,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.5)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho27,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes Of The World 2.6)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho28,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Grand", "Knights of Valour Super Heroes Plus (Q Version Of The Three Kingdoms (First Edition?))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho29,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Grand", "Knights of Valour Super Heroes Plus (Q version Of The Three Kingdoms (Old Version))", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho30,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Grand", "Knights of Valour Super Heroes Plus (Q Version Of The Three Kingdoms G5 Beta)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho31,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Rockman G)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho32,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Break Four Strokes One Style: Unlimited)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho33,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Red Clothes Zhao Yun XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho34,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Blue Zhao Yun XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho35,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (In The Chaos Of The World, The Four Big Black Characters Plus The Switch)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho36,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Fractional Micro Repair XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho37,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Score Defense Enhancement XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho38,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Solve The Invincible Soldier)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho39,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho40,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes of the World 2.4)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho41,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars - Heroes of the World 2.6)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho42,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes 6.21)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho43,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Energy Free XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho44,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Sima Yi Recruited Conditional Repair XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho45,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Immortal Pen Change Probability Change)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho46,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Immortal Pen Change Probability Change 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho47,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars Tour version)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho48,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.3)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho49,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.6)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho50,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled World Plus 1.7 Tour Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho51,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled World Plus Edition 1.8 Three Kingdoms Westward Tour)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho52,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Red clothes Zhao Yun)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho53,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Blue Zhao Yun)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho54,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (The Chaotic World Four Big Black Characters Plus Switch)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho55,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Fractional Micro Repair)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho56,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Score Defense Enhancement)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho57,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Hooooook", "Knights of Valour Super Heroes Plus (Solve The Invincible Soldier XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho58,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled In The World)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho59,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Energy Free)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho60,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Sima Yi Recruited Conditional Repair)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho61,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (The Three Kingdoms Wars Unified Central Plains)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho62,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.6 XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho63,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho64,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.2 XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho65,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times 1.4)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovsho66,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Three Kingdoms Wars Taiping Chaos 2016-03-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho67,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Ne Zhe Huo Lun 2018-01-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovsho68,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Times, Gods, Dusk, Dawn 2017-10-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho69,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos Xiongxiong Zhao Zilong Edition 2017-10-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovsho70,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Tai Pin Lun Shi 2017-12-31)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho71,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaos Of The Gods Dusk 2017-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho72,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Turbulent World 1v4 Strengthen 2016 2016-12-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho73,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Sweeping Thousands Of Troops 2018-03-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho74,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Memorial Gods Dusk Update 2017-03-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho75,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Series 2017-08-01)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho76,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Series 2017-08-0X)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho77,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Series 2017-08-XX)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho78,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Zhu Shen Huang Hun Li Ming Edition 2018-05-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho79,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest 2018-04-11)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 200?, kovsho80,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Qun Xiong Zai Qi 2012)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovsho81,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Enhanced version 2 2015-12-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, kovsho82,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (The World Wars 2015-12-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovsho83,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Nightmare Edition + 1V4 Super Edition, 3rd Edition 2016-07-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kovsho84,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Troubled Heroes Nightmare Edition 2016-07-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho85,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Chaotic hero god cloud VS dog god 2018-08-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho86,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Zhao Zilong Edition Update 2018-09-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho87,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Plus 2018 2018-08-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho88,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Blood Zhao Yun update 2018-09-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho89,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Survival new version 2018-02-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho90,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Tianwang version 2018-09-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho91,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Qunxiong New Version 2018-09-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho92,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "Unknown", "Knights of Valour Super Heroes Plus (Qunxiong New Version 2019-02-16)", MACHINE_SUPPORTS_SAVE )
 // Aoshi Sanguo
-HACK( 201?, kovshxass01,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "Unknown", "Aoshi Sanguo (Troubled Hero)(bootleg of Knights of Valour Super Heroes Plus, V202CN, Oct 6 2008 09:59:26)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 201?, kovshxass02,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "Unknown", "Aoshi Sanguo (Metamorphosis V0.1)(bootleg of Knights of Valour Super Heroes Plus, V202CN, Oct 6 2008 09:59:26)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 201?, kovshxass03,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "Unknown", "Aoshi Sanguo (Chaos King)(bootleg of Knights of Valour Super Heroes Plus, V202CN, Oct 6 2008 09:59:26)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kovshxass01,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "Unknown", "Aoshi Sanguo (Troubled Hero)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kovshxass02,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "Unknown", "Aoshi Sanguo (Metamorphosis V0.1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kovshxass03,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "Unknown", "Aoshi Sanguo (Chaos King)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 //Martial Masters
-HACK( 200?, martmasts01,  martmast,  pgm_arm_type2,      martmast, pgm_arm_type2_state, martmast,   ROT0,   "0 Days", "Martial Masters (Enable Hidden Characters)(ver. 104, 102, 102US)", MACHINE_SUPPORTS_SAVE )
+HACK( 2001, martmasts01,  martmast,  pgm_arm_type2,      martmast, pgm_arm_type2_state, martmast,   ROT0,   "0 Days", "Martial Masters (Enable Hidden Characters))", MACHINE_SUPPORTS_SAVE )
 //Oriental Legend Super
-HACK( 200?, olds01,       olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Creamymami", "Oriental Legend Super (Enhanced power)(ver. 101, Korean Board)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds01,       olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Creamymami", "Oriental Legend Super (Enhanced power))", MACHINE_SUPPORTS_SAVE )
 //Xiyou Shi E Chuan Super
-HACK( 200?, olds103ts01,  olds,      pgm,                pgm,      pgm_state,           pgm,        ROT0,   "Unknown", "Xiyou Shi E Chuan Super (Description Of Hack Unknown)(ver. 103, China, Tencent) (unprotected)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds103ts01,  olds,      pgm,                pgm,      pgm_state,           pgm,        ROT0,   "Unknown", "Xiyou Shi E Chuan Super (Description Of Hack Unknown))", MACHINE_SUPPORTS_SAVE )
 //Oriental Legend Super
-HACK( 200?, olds100s01,   olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Creamymami", "Oriental Legend Special (Enhanced power)(ver. 100, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass01, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Xyahzhs", "Oriental Legend Special (West S-Fengyun Restarts B2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass02, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Hundred Ghost Night)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass03, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Boss Battle Mode)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass04, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "QQ84381882", "Oriental Legend Special (Perfect Conqueror)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass05, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Enemy Wukong)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass06, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Enemy Wukong 2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass07, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super Perfect Big Magic And Small Magic)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass08, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Phoenix Dance Nine Days)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass09, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Phoenix Dance Nine Days Second Edition Revised Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass10, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Change)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass11, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Original Moves Plus My Moves Additionally Strengthen Boss, Metamorphosis Level)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass12, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Battered Dragon Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass13, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Battered Zombie Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass14, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon's Version Of Blood Can Be Sent To The Ground)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass15, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon Edition Full Character Does Not Need Gas Gathering To Send All Moves)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass16, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon Reduction (No Energy Version Required))(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass17, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon Edition Joins The Call)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass18, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (S perfect Online Substitution [Calling Version])(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass19, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Perfect Conqueror Of The Dance Soul West S)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass20, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Soul 2011 West S Is The Most Powerful Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 2011, olds100ass21, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magic Legend B1)(2011-05-16)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass22, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Soul 2011 West S Is The Most Powerful Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass23, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Spirit West S)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass24, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S Super Plus)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass25, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Military Commander Mode Basically Has No Bug)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass26, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Boss Battle Perfect Edition Unlimited Items)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass27, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magician Zhao Yun Fast Gas Storage Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass28, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Creamymami", "Oriental Legend Special (Enhanced Power)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass29, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "xuleilei111", "Oriental Legend Special (Free Special Move)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass32, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "QQ84381882", "Oriental Legend Special (Magic Legend B2 Repair)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass33, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unblock 1)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass34, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unblock 2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass35, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Quick Whirlwind Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass36, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Soul)(2013-09-06)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass37, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Can Collect Gas Magician To Fix The Hole Bug)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass38, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Volatility Simplifies Rapid Gas Gathering)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass39, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Simplification Of Fluctuations Without Gas Gathering)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass40, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Simplification Of Fluctuations Requires Gas Gathering)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass41, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magic legend)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass42, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Military Commander Test Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass43, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Evil Feng Tian Chi Modified Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass44, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Group Of Monkeys)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass45, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (New Group Of Magical Dance 2011 Edition B1)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass46, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (New Group Of Magical Dance 2011 Edition B2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass47, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Remix)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass48, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Heavenly Double Devil)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass49, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Xtahso", "Oriental Legend Special (Heavenly Double Devil Repair Enhanced Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass50, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The World's Unparalleled Bulls)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass51, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The World's Latest Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass52, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Haunted Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass53, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Fluctuations Are Not Simple And Need To Collect Gas)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass54, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Fluctuation Is Not Simplified, No Gas Gathering Is Required.)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass55, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Fluctuation Is Not Simplified)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass56, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Xiyou Shie Chuan super Wu Chuan)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass57, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unknown Version 2012)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass58, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dragon Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass59, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Xiyou Shuangxiong)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass60, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Clouds And Seas)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass61, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Cloud Sea Churning 2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass62, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magician Zhao Yun)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass63, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Chinese Group Of Magical Dance)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass64, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Journey To The Mirror)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass65, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Kof Combo Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass66, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Kof Westward Tour)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass67, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dapeng King Test Second Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass68, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "wydqzdh", "Oriental Legend Special (Kof Terry Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass69, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Sun Wukong Changed The Devil)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass70, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (No Props)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass71, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Walk Around)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass72, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Journey To The West Super Nightmare Survival 2015 Tour Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass73, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Ghost Sword Tour)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass74, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Qitian Dasheng)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass75, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Various Restrictions Canceled)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass76, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Repair Invincible Creeps)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass77, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (System Stability + Instruction Simplification)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass78, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Wukong Super Invincible Bug Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass79, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Goku Super Invincible + Longma Super Metamorphosis)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass80, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Full Role Super Unlimited Enhanced Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass81, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Full Role Super Unlimited Final Repair Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass82, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (All Characters Accelerate To Various Restrictions)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass83, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Sun Wukong Invincible Bomb Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass84, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Violent Wukong Explosive Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass85, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S's Goku Violence Whip Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass86, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Sun Wukong Violent Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass87, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unknown Version)(Set 01)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass88, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unknown Version)(Set 02)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass89, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Full Character Bloodsucking Acceleration)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass90, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Full Boss version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass91, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S Super Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass92, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heaven And Earth Double Magic Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass93, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heavenly Double Devil Full Character Calling Enhanced Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass94, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Five Elements Reversal Beta)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass95, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heavenly Double Devil + Five Elements Reversal + Super Thang Long + Super Summon Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass96, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heavenly Double Devil + Five Elements Reversal + Super Thang Long + Super Summon Edition V2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass97, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Horror Version Of West S)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass98, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unlimited Energy And Speed For All)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass99, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Spirit Perfectly Modified)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass100,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Super Hell Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass101,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Kof Westward B2 Repair Most)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass102,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Latest Advanced Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass103,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (2009 National Day Release Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass104,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (2009 National Day Remix Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass105,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Remix Final Edition + Unlimited combo + no gas cow B version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass106,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass107,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Edition V2)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass108,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Edition V3)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass109,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S s Super Hit Kill Normal Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass110,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Normal Version Of The Updated Metamorphosis)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass111,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Private Collector's Edition)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass112,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (SP Remix Creeps Slow Down Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass113,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Original Gorgeous Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass114,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Original Gorgeous Moves Canceled The Combo Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass115,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Original Gorgeous Moves Increase One Button Energy Full)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass116,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Treasures Reduce The Boss Weakening Version Of SP Remix)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 2010, olds100ass117,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Treasures Reduce SP Remix Boss Weakened Version Without Energy Crazy Version)(2010-08-24)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass118,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (SP Remix Treasure Reduction + Remove Enemy Invincible + Characters Free To Move Around)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, olds100ass119,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (SP Remix Treasures Are Reduced, The Enemy Is Invincible, Normal Version)(ver. 100, set 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100s01,   olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Creamymami", "Oriental Legend Special (Enhanced power)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass01, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Xyahzhs", "Oriental Legend Special (West S-Fengyun Restarts B2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass02, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Hundred Ghost Night)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass03, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Boss Battle Mode)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass04, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "QQ84381882", "Oriental Legend Special (Perfect Conqueror)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass05, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Enemy Wukong)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass06, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Enemy Wukong 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass07, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super Perfect Big Magic And Small Magic)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass08, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Phoenix Dance Nine Days)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass09, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Phoenix Dance Nine Days Second Edition Revised Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass10, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Change)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass11, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Original Moves Plus My Moves Additionally Strengthen Boss, Metamorphosis Level)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass12, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Battered Dragon Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass13, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Battered Zombie Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass14, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon's Version Of Blood Can Be Sent To The Ground)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass15, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon Edition Full Character Does Not Need Gas Gathering To Send All Moves)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass16, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon Reduction (No Energy Version Required))", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass17, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Dragon Edition Joins The Call)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass18, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (S perfect Online Substitution [Calling Version])", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass19, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Perfect Conqueror Of The Dance Soul West S)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass20, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Soul 2011 West S Is The Most Powerful Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2011, olds100ass21, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magic Legend B1)(2011-05-16)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass22, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Soul 2011 West S Is The Most Powerful Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass23, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Spirit West S)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass24, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S Super Plus)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass25, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Military Commander Mode Basically Has No Bug)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass26, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Boss Battle Perfect Edition Unlimited Items)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass27, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magician Zhao Yun Fast Gas Storage Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass28, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Creamymami", "Oriental Legend Special (Enhanced Power)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass29, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "xuleilei111", "Oriental Legend Special (Free Special Move)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass32, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "QQ84381882", "Oriental Legend Special (Magic Legend B2 Repair)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass33, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unblock 1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass34, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unblock 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass35, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Quick Whirlwind Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass36, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Soul)(2013-09-06)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass37, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Can Collect Gas Magician To Fix The Hole Bug)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass38, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Volatility Simplifies Rapid Gas Gathering)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass39, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Simplification Of Fluctuations Without Gas Gathering)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass40, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Simplification Of Fluctuations Requires Gas Gathering)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass41, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magic legend)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass42, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Military Commander Test Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass43, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Evil Feng Tian Chi Modified Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass44, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Group Of Monkeys)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass45, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (New Group Of Magical Dance 2011 Edition B1)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass46, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (New Group Of Magical Dance 2011 Edition B2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass47, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Remix)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass48, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Heavenly Double Devil)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass49, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Xtahso", "Oriental Legend Special (Heavenly Double Devil Repair Enhanced Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass50, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The World's Unparalleled Bulls)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass51, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The World's Latest Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass52, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Haunted Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass53, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Fluctuations Are Not Simple And Need To Collect Gas)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass54, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Fluctuation Is Not Simplified, No Gas Gathering Is Required.)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass55, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Fluctuation Is Not Simplified)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass56, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Xiyou Shie Chuan super Wu Chuan)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass57, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unknown Version 2012)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass58, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dragon Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass59, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Xiyou Shuangxiong)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass60, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Clouds And Seas)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass61, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Cloud Sea Churning 2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass62, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magician Zhao Yun)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass63, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Chinese Group Of Magical Dance)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass64, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Journey To The Mirror)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass65, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Kof Combo Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass66, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Kof Westward Tour)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass67, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dapeng King Test Second Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass68, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "wydqzdh", "Oriental Legend Special (Kof Terry Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass69, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Sun Wukong Changed The Devil)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass70, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (No Props)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass71, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Walk Around)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass72, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Journey To The West Super Nightmare Survival 2015 Tour Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass73, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Ghost Sword Tour)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass74, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Qitian Dasheng)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass75, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Various Restrictions Canceled)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass76, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Repair Invincible Creeps)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass77, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (System Stability + Instruction Simplification)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass78, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Wukong Super Invincible Bug Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass79, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Goku Super Invincible + Longma Super Metamorphosis)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass80, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Full Role Super Unlimited Enhanced Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass81, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Full Role Super Unlimited Final Repair Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass82, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (All Characters Accelerate To Various Restrictions)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass83, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Sun Wukong Invincible Bomb Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass84, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Violent Wukong Explosive Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass85, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S's Goku Violence Whip Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass86, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Sun Wukong Violent Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass87, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unknown Version)(Set 01)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass88, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unknown Version)(Set 02)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass89, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Full Character Bloodsucking Acceleration)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass90, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Full Boss version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass91, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S Super Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass92, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heaven And Earth Double Magic Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass93, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heavenly Double Devil Full Character Calling Enhanced Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass94, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Five Elements Reversal Beta)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass95, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heavenly Double Devil + Five Elements Reversal + Super Thang Long + Super Summon Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass96, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Heavenly Double Devil + Five Elements Reversal + Super Thang Long + Super Summon Edition V2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass97, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Horror Version Of West S)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass98, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Unlimited Energy And Speed For All)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass99, olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance Spirit Perfectly Modified)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass100,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Super Hell Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass101,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Kof Westward B2 Repair Most)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass102,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Latest Advanced Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass103,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (2009 National Day Release Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass104,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (2009 National Day Remix Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass105,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Remix Final Edition + Unlimited combo + no gas cow B version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass106,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass107,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Edition V2)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass108,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Edition V3)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass109,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S s Super Hit Kill Normal Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass110,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Western S's Super Hit Kill Normal Version Of The Updated Metamorphosis)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass111,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (West S Private Collector's Edition)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass112,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (SP Remix Creeps Slow Down Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass113,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Original Gorgeous Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass114,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Original Gorgeous Moves Canceled The Combo Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass115,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The Original Gorgeous Moves Increase One Button Energy Full)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass116,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Treasures Reduce The Boss Weakening Version Of SP Remix)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2010, olds100ass117,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Treasures Reduce SP Remix Boss Weakened Version Without Energy Crazy Version)(2010-08-24)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass118,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (SP Remix Treasure Reduction + Remove Enemy Invincible + Characters Free To Move Around)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, olds100ass119,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (SP Remix Treasures Are Reduced, The Enemy Is Invincible, Normal Version)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass120,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super Remix 2015-01-21)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass121,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super Remix Yuanshen simplified version 2015-01-27)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass122,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super World Unparalleled Latest Yuanshen Lite 2015-01-30)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass123,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super and Wukong 2015-01-29)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass124,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The super group of the demon fights the simplified version 2015-01-31)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass125,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (The immortal devil dance 2015 enhanced version 2015-01-14)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass126,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Enhanced version 1 2015-12-29)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass127,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Enhanced version 2 2015-12-30)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2009, olds100ass128,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance 2009-12-29)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2010, olds100ass129,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dance 2010-12-30)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass130,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (2015-12-29)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass131,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super Edition Remix 2015-04-27)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass132,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Version Of The Super Hit Kill 2017-02-14)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass133,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super Edition Volvo Edition 2017-02-14)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass134,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Biography Super Version 2017-02-14)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass135,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Remix 2017-03-07)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass136,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dream Survival 2015 Final 2015-06-07)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, olds100ass137,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Dream Survival 2016 Final 2016-04-24)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass138,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Double magic version 2017-03-07)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass139,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Tour Dance Edition 2017-03-07)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass140,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Magical legend 2017-03-27)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass141,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Nightmare Survival 2015 2018-08-23)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, olds100ass142,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Remix enhanced version 2018-09-27)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, olds100ass143,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Nightmare Survival 2017 2018-09-27)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, olds100ass144,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Musou 2018-09-27)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, olds100ass145,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Musou 2018-10-30)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass146,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (No match, Travel Edition 2015-02-03)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2015, olds100ass147,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (No match, Travel Edition 2018-12-29)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, olds100ass148,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Yuanling 2019-01-29)", MACHINE_NOT_WORKING | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Special Plus
-HACK( 200?, oldsplus01,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Biography Super Dance Macabre 2016 Edition)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus02,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Description Of Unknown Origin 01)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus03,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Super Dance Macabre 2017 Edition)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus04,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Biography Super Edition Macabre Enhanced Version)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus05,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Simplification Version)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus06,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Xyahzhs", "Oriental Legend 2 (Simplification Version)(Alt)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus07,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Xyahzhs", "Oriental Legend 2 (Unlimited Props)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus08,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Turn On Masking)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus09,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Unlimited Life)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus10,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (No Need To Inflate)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus11,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Xyahzhs", "Oriental Legend 2 (Energy Mode Enhancement)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus12,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Simply Press AC Perfect!)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus13,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Grupo De Danza Mágica Versión Mejorada 1.0)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus14,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West 2016 Flender Dance Simplify More)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus15,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Of The Eritrean Flock Of Shades Devils Edition)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, oldsplus16,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey Shakers 2017 Plus)(World, China, Japan, Hong Kong, Taiwan) (ver. 205) [Oriental Ex]", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus01,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Biography Super Dance Macabre 2016 Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus02,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Description Of Unknown Origin 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus03,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Super Dance Macabre 2017 Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus04,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Biography Super Edition Macabre Enhanced Version 2015-12-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus05,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Simplification Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus06,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Xyahzhs", "Oriental Legend 2 (Simplification Version)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus07,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Xyahzhs", "Oriental Legend 2 (Unlimited Props)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus08,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Turn On Masking)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus09,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Unlimited Life)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus10,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (No Need To Inflate)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus11,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Xyahzhs", "Oriental Legend 2 (Energy Mode Enhancement)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus12,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Simply Press AC Perfect!)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus13,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Grupo De Danza Mágica Versión Mejorada 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus14,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West 2016 Flender Dance Simplify More 2017-01-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus15,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Of The Eritrean Flock Of Shades Devils Edition 2017-02-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, oldsplus16,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Group Devil Dance 2017 Enhanced Edition Plus 2017-01-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, oldsplus17,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Magic Dance Yellow Hat Volt Magic Version 2018-08-02)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Plus
-HACK( 200?, orlegends01,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 01)(ver. 126)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends02,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 02)(ver. 126)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends03,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 03)(ver. 126)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends04,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Unknow Hack)(ver. 126)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends05,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Evil Spirit Plus)(ver. 126)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends06,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Plus Revision)(ver. 126)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends07,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Kamikemono Fukkatsu Special Set 2)(ver. 126)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends08,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Boss Beta 01)(ver. 126) ", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegends09,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Skills Instruction Is Simplified)(ver. 126)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegends10,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Qigong)(ver. 126)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegends11,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Moves)(ver. 126)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, orlegends12,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Note Edition)(ver. 126)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs01, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Easy Super Moves)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs02, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Journey To The West Back To Lingshan)(Ver.?)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs03, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Enhanced Score)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs04, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Evil Wind Return The Final Version)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE ) //(!)
-HACK( 200?, orlegendcs05, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus Ver 1.0)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs06, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 2 Funny Innocence Plus)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs07, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 3 Phantom Legend)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs08, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 3 West Overlord)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs09, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 4 I Want To Rank)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs10, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 4 I Want To Rank Fever)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs11, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 4 I Want To Rank Pro)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs12, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet EX-2)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs13, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet EX-3)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs14, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet EX-3 Easy)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs16, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Warcraft Liberation 1024 Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs17, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Warcraft Liberation 1201 Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs18, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Longma Special Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs19, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Sha Wu Net Special Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs20, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Sun Wukong Special Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs21, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Little Dragon Girl Special Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs22, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Pig Eight Rings Special Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs23, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (World Of Warcraft Liberation)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs24, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Wave Power Recovery)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs25, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super World - Red Dragon Dance 1)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs26, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super World - Red Dragon Dance 2)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs28, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (2008 Musou Dragon Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs29, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 1)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs30, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 2)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs31, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 3)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs32, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 4)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs33, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines. Variety Unparalleled PRO)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs34, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Koftt521", "Oriental Legend (Return of the Holy)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs35, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus Ver 1.1)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs36, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus Ver 1.2 (Moves Simplified Version))(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs37, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Flurry Dance Beta 2)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs38, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Flurry Dance Beta 3)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs39, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Demon Dances)(Alt)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs41, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "abcxiaog", "Oriental Legend (2008 revised Enhanced Version)(ver. 112, Chinese Board)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs42, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westbound Evil Wind Beta 3)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs43, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds Beta 1)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs44, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds Beta 2)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs45, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds Beta 3)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs46, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "xyahzhs", "Oriental Legend (Join Hands)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs47, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "xyahzhs", "Oriental Legend (Join Hands 2)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs49, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "xyahzhs", "Oriental Legend (Westbound Flat Demon)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs50, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Chaos Demon Discipline)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs51, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Small Work)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs52, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Hide The Conversation)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs53, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Wukong Legend)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs54, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs55, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Instructional Simplified Version)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs56, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Gold Fish)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs57, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Full-Featured Pig Journey)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs58, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Boss Weakened Version)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs60, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Golden Monkey Legend)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs61, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Full Featured Dragon Horse)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs62, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Full Color Little Dragon Girl)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs63, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (The Full Role Of Sand Wu Net)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs64, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (The Full Role Of The Monkey King)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs65, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super World - The Beast Resurrection Plus)(ver. 112, Chinese Board)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs66, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Return To Thousands Of Machines To Change 2008)(ver. 112, Chinese Board)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs67, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Return To Thousands Of Machines To Change 2008 v2.0)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs68, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Abcluoasp", "Oriental Legend (Journey Metamorphosis)(ver. 112, Chinese Board) ", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs69, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Pro Silver Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs70, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus v2.0a)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs71, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super 2008)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs72, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super World - Resurrection Of The Beast Special)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs73, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super World - Resurrection Of The Beast)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs74, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet Ex)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs75, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, orlegendcs76, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus v1.3)(2006-09-12)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs77, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus v3.0)(ver. 112, Chinese Board))", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs78, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Chao Mo Ji Super v2.0)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs79, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Enhanced Power)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs80, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (River Crab Westward Tour - Warcraft Liberation Home Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs81, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super World - Red Baby Special Edition)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs82, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Demon Dances)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs83, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Journey Super Pig)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs84, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Variety)(World of Warcraft)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs85, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Full Attack Enhanced Version)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs86, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Flock Of Shameless 2017 Strengthening)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs87, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Tour 1v4)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs88, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 01)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs89, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 02)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs90, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 03)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs91, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 04)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs92, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Xiyou Turned Into An Enhanced Version)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs93, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Jing Yu Jing)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendcs94, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Plus)(Ver.?)(ver. 112, Chinese Board)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegendes01, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Enhanced Power)(ver. 112)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-HACK( 200?, orlegend111cs01, orlegend,  pgm_asic3,       orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Enhanced Power)(ver. 111)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegends01,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown XXXX-XX-XX)(Set 01)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends02,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown XXXX-XX-XX)(Set 02)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends03,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown XXXX-XX-XX)(Set 03)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends04,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Unknow Hack)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends05,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Evil Spirit Plus)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends06,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Plus Revision)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends07,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Kamikemono Fukkatsu Special Set 2)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends08,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Boss Beta 01) ", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegends09,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Skills Instruction Is Simplified)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegends10,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Qigong)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegends11,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Moves)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, orlegends12,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Note Edition 2017-06-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs01, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Easy Super Moves)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs02, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Turned into an enhanced version 2016-11-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs03, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Enhanced Score)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs04, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Evil Wind Return The Final Version)", MACHINE_SUPPORTS_SAVE ) //(!)
+HACK( 1997, orlegendcs05, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus Ver 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs06, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 2 Funny Innocence Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs07, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 3 Phantom Legend)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs08, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 3 West Overlord)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs09, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 4 I Want To Rank)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs10, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 4 I Want To Rank Fever)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs11, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 4 I Want To Rank Pro)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs12, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet EX-2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs13, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet EX-3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs14, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet EX-3 Easy)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs16, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Warcraft Liberation 1024 Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs17, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Warcraft Liberation 1201 Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs18, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Longma Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs19, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Sha Wu Net Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs20, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Sun Wukong Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs21, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Little Dragon Girl Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs22, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Warcraft Liberation Pig Eight Rings Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs23, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (World Of Warcraft Liberation)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs24, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Wave Power Recovery)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs25, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super World - Red Dragon Dance 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs26, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super World - Red Dragon Dance 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, orlegendcs28, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (2008 Musou Dragon Edition 2015-02-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, orlegendcs29, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 1 2015-03-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, orlegendcs30, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 2 2015-03-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs31, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs32, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines Change. Variety Unparalleled 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs33, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Thousands Of Machines. Variety Unparalleled PRO)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs34, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Koftt521", "Oriental Legend (Return of the Holy)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs35, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus Ver 1.1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs36, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus Ver 1.2 (Moves Simplified Version))", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs37, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Flurry Dance Beta 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs38, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Flurry Dance Beta 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs39, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Demon Dances)(Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs41, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "abcxiaog", "Oriental Legend (2008 revised Enhanced Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs42, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westbound Evil Wind Beta 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs43, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds Beta 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs44, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds Beta 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs45, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds Beta 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs46, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "xyahzhs", "Oriental Legend (Join Hands)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs47, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "xyahzhs", "Oriental Legend (Join Hands 2 2017-03-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs49, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "xyahzhs", "Oriental Legend (Westbound Flat Demon)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs50, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Chaos Demon Discipline)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs51, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Small Work)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs52, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Hide The Conversation)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs53, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Wukong Legend)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs54, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Return Of Evil Winds)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs55, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Instructional Simplified Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs56, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Gold Fish)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs57, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Full-Featured Pig Journey)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs58, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Boss Weakened Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs60, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Golden Monkey Legend)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs61, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Full Featured Dragon Horse)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs62, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Full Color Little Dragon Girl)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs63, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (The Full Role Of Sand Wu Net)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs64, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (The Full Role Of The Monkey King)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs65, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super World - The Beast Resurrection Plus)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs66, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Return To Thousands Of Machines To Change 2008)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs67, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super Return To Thousands Of Machines To Change 2008 v2.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs68, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Abcluoasp", "Oriental Legend (Journey Metamorphosis) ", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs69, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Pro Silver Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs70, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus v2.0a)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs71, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super 2008)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs72, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super World - Resurrection Of The Beast Special)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs73, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super World - Resurrection Of The Beast)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs74, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet Ex)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs75, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (Super Return 5 Very Skynet)", MACHINE_SUPPORTS_SAVE )
+HACK( 2006, orlegendcs76, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus v1.3)(2006-09-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs77, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend (Plus v3.0))", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs78, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Chao Mo Ji Super v2.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs79, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Enhanced Power XXXX-XX-XX)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs80, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "old9977", "Oriental Legend (River Crab Westward Tour - Warcraft Liberation Home Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs81, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Super World - Red Baby Special Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs82, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Group Of Demon Dances)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs83, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Journey Super Pig)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs84, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Variety)(World of Warcraft 2017-02-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, orlegendcs85, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Full Attack Enhanced Version 2017-03-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs86, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Flock Of Shameless 2017 Strengthening 2017-02-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs87, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Westward Tour 1v4 2017-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs88, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs89, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 02)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs90, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 03)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs91, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Description Of Hack Unknown)(Set 04)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs92, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Xiyou Turned Into An Enhanced Version 2018-05-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs93, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Jing Yu Jing)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs94, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Plus)(Ver.?)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendcs95, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Unknown", "Oriental Legend (Xianhui Dream 2018-07-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegendes01, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Enhanced Power)(Alt)(?)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, orlegend111cs01, orlegend,  pgm_asic3,       orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Creamymami", "Oriental Legend (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 // The Gladiator
-HACK( 200?, theglads01,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Hooooook", "The Gladiator (Ex Super Version v2)(M68k label V101) (ARM label V107)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, theglads02,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Infinite Power)(M68k label V101) (ARM label V107)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, theglads03,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Excalibur Vol. 2017 + Enhanced v1)(M68k label V101) (ARM label V107)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, theglads04,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Excalibur Vol.2 Enhanced version 2018)(M68k label V101) (ARM label V107)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, theglad100s01, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglada,   ROT0,   "Unknown", "The Gladiator (Excalibur Vol. 2017 + Enhanced v1)(M68k label V100) (ARM label V100, ROM 01/16/03 SHEN JIAN)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-HACK( 2017, theglad101s01, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Excalibur Vol. 2017 + Enhanced v1)(M68k label V100) (ARM label V101, ROM 03/13/03 SHEN JIAN)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 2003, theglads01,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Hooooook", "The Gladiator (Ex Super Version v2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, theglads02,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Infinite Power)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, theglads03,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Excalibur Vol. 2017 + Enhanced 2017-01-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, theglads04,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Excalibur Vol.2 Enhanced version 2018 2018-08-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, theglad100s01, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglada,   ROT0,   "Unknown", "The Gladiator (Excalibur Vol. 2017 + Enhanced 2017-10-11)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, theglad101s01, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Unknown", "The Gladiator (Excalibur Vol. 2017 + Enhanced 2017-11-04)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
