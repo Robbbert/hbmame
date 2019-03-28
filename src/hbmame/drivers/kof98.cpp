@@ -8613,7 +8613,7 @@ HACK( 1998, kof98s22,       kof98,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1998, kof98s23,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'98 (Combo 2017-07-27)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s24,       kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "Unknown",    "Kof'98 (Unknown Hack 20XX-0X-1X)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s25,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Hassan & Imran Butt", "Kof'98 (Anniversary Edition Unknown Date Rev.1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 1998, kof98s26,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'98 (Anniversary Edition  Unknown Date Rev.2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1998, kof98s26,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'98 (Anniversary Edition Unknown Date Rev.2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof98s27,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2006 Chinese Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof98s28,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2006 English Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof98s29,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'98 (Remix Color Rev.1)", MACHINE_SUPPORTS_SAVE )
