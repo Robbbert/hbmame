@@ -11540,7 +11540,7 @@ HACK( 2002, kof2002s40,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2002, kof2002s41,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882",    "Kof2002 (Background Color)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s42,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882",    "Kof2002 (Color Remix)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s43,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Violet",    "Kof2002 (Blue Fire)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2002s44,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882 & tcwlee",    "Kof2002 (Color Change)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2002s44,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lewis882 & tcwlee",    "Kof2002 (Color Change Vol.1)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s45,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Shinnok",    "Kof2002 (Color Change Vol.2)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s46,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Shinnok",    "Kof2002 (Color Change Vol.3)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s47,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "C6F8",    "Kof2002 (Color Change V1)" , MACHINE_SUPPORTS_SAVE )

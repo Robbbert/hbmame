@@ -1600,7 +1600,7 @@ HACK( 1998, lastbld2s06,    lastbld2, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1998, lastbld2s07,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Raymonose",    "Last Blade 2 (Optimization Of The Motion Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, lastbld2s08,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "lichenchao",    "Last Blade 2 (Optimization Move Out)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, lastbld2s09,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Last Blade 2 (Bug Fix Version)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, lastbld2s10,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Last Blade 2 (Enable Hidden Characters v5)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, lastbld2s10,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Last Blade 2 (Enable Hidden Characters V5)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, lastbld2s11,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Simplify Moves)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, lastbld2s12,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Last Blade 2 (Enhanced)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, lastbld2s15,    lastbld2, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade 2 (Enhanced Power V3)", MACHINE_SUPPORTS_SAVE )
