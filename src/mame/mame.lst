@@ -2723,6 +2723,7 @@ catchp                          // 008837 prototype 1977/?? [6502]
 
 @source:ave_arb.cpp
 arb                             //
+arbv2                           //
 
 @source:avigo.cpp
 avigo                           // 1997 Avigo
@@ -12884,6 +12885,7 @@ checkc4                         //
 @source:fidel_cc7.cpp
 backgamc                        //
 cc7                             //
+cc7o                            //
 
 @source:fidel_chesster.cpp
 chesster                        //
@@ -12910,7 +12912,7 @@ fdes2325                        //
 feagv10                         //
 feagv11                         //
 feagv2                          //
-feagv3                         //
+feagv3                          //
 feagv5                          //
 feagv7                          //
 feagv7a                         //
@@ -13222,6 +13224,7 @@ magicrd2c                       // (c) 1996 Impera
 megacard                        // (c) 1993 Fun World
 mongolnw                        // 199? bootleg
 multiwin                        // (c) 1992 Fun World
+nevadafw                        // 199? unknown
 novoplay                        // (c) 1986 Novomatic
 pool10                          // (c) 1996 C.M.C.
 pool10b                         // (c) 1996 C.M.C.
@@ -15103,6 +15106,7 @@ gnw_mickdon                     // Nintendo
 gnw_octopus                     // Nintendo
 gnw_opanic                      // Nintendo
 gnw_pchute                      // Nintendo
+gnw_popeye                      // Nintendo
 gnw_rshower                     // Nintendo
 gnw_smb                         // Nintendo
 gnw_squish                      // Nintendo
@@ -18604,6 +18608,7 @@ gallop                          // (c) 1991 (Japan)
 hharry                          // (c) 1990 (World)
 hharryu                         // (c) 1990 Irem America (US)
 imgfight                        // (c) 1988 (World)
+imgfightb                       // bootleg
 imgfightj                       // (c) 1988 (Japan)
 kengo                           // (c) 1991 (Japan)
 kengoa                          // (c) 1991 (Japan)
@@ -36235,6 +36240,7 @@ st_vulkn                        //
 @source:stfight.cpp
 cshootert                       // (c) 1987 Taito
 empcity                         // (c) 1986 Seibu Kaihatsu (bootleg?)
+empcityfr                       // (c) 1986 Seibu Kaihatsu (Norad license)
 empcityi                        // (c) 1986 Seibu Kaihatsu (Eurobed license)
 empcityj                        // (c) 1986 Taito Corporation (Japan)
 empcityu                        // (c) 1986 Taito (Romstar License)
