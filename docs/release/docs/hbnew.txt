@@ -4,7 +4,7 @@
 2019-03-27 0.208
 ----------------
 
-- Thanks to "gxb" who is thanked for his enormous assistance with the new materials that were included in this version.
+- Thanks to "gxb" for his enormous assistance with the new materials that were included in this version.
 - Fixes for many glitched mslug hacks.
 - Removal of many sets where the difference is quite minor.
 - Added support to save the position of sliders such as volume. It might work for HLSL but this has not been tested.
