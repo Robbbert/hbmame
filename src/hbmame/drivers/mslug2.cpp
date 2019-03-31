@@ -110,7 +110,7 @@ ROM_END
 // Metal Slug 2
 HACK( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)(Old)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "System11", "Metal Slug 2 Turbo ", MACHINE_SUPPORTS_SAVE )
 
 

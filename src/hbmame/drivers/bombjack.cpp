@@ -91,8 +91,8 @@ ROM_START( bombjred )
 	ROM_LOAD( "02_p04t.bin",  0x0000, 0x1000, CRC(398d4a02) SHA1(ac18a8219f99ba9178b96c9564de3978e39c59fd) )
 ROM_END
 
-GAME( 200?, bmbjckgr, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Greek)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, bombjckb, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bmbjckgr, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bombjckb, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, bombjred, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Red)", MACHINE_SUPPORTS_SAVE )
 
 
