@@ -8,9 +8,16 @@
     Non-Payout 'Gambling' style games.
 
     TODO:
-    - color version of the first version is undumped?
-    - figure out the rest of the dipswitches
-    - keyboard
+    - Clocks need to be verified
+    - Figure out the rest of the dipswitches
+    - Keyboard
+    - Battery backed RAM for High Scores & Keyboard message
+
+    Notes:
+    - The color versions are commonly called Little Casino II (as stickered on cabinet) - This is NOT refected on the title screen
+    - Color version of the first version is undumped (flyer exists)?
+    - In v18_10_rf.ic18, around 0x600 is text showing a service mode screen / dipswitch settings
+      How do you activate it?
 
 
 Mini Vegas
@@ -79,6 +86,8 @@ public:
 		m_maincpu(*this, "maincpu"),
 		m_pia(*this, "pia%u", 0U),
 		m_vtc(*this, "vtc"),
+		m_screen(*this, "screen"),
+		m_ay(*this, "ay"),
 		m_video_ram(*this, "video_ram"),
 		m_attribute_ram(*this, "attribute_ram"),
 		m_gfxdecode(*this, "gfxdecode"),
@@ -90,11 +99,14 @@ public:
 
 	void ltcasino(machine_config &config);
 	void ltcasinn(machine_config &config);
+	void mv4in1(machine_config &config);
 
 private:
 	required_device<cpu_device> m_maincpu;
 	required_device_array<pia6821_device, 2> m_pia;
 	required_device<crt5037_device> m_vtc;
+	required_device<screen_device> m_screen;
+	required_device<ay8910_device> m_ay;
 	required_shared_ptr<uint8_t> m_video_ram;
 	required_shared_ptr<uint8_t> m_attribute_ram;
 	required_device<gfxdecode_device> m_gfxdecode;
@@ -128,11 +140,11 @@ void ltcasino_state::main_map(address_map &map)
 	map(0x8000, 0xcfff).rom();
 	map(0xd000, 0xd7ff).ram().share(m_video_ram);
 	map(0xe000, 0xe7ff).ram().share(m_attribute_ram);
-	map(0xec00, 0xec03).rw("pia0", FUNC(pia6821_device::read), FUNC(pia6821_device::write));
-	map(0xec10, 0xec13).rw("pia1", FUNC(pia6821_device::read), FUNC(pia6821_device::write));
-	map(0xec20, 0xec21).r("aysnd", FUNC(ay8910_device::data_r));
-	map(0xec20, 0xec21).w("aysnd", FUNC(ay8910_device::data_address_w));
-	map(0xec30, 0xec3f).rw("vtc", FUNC(crt5037_device::read), FUNC(crt5037_device::write));
+	map(0xec00, 0xec03).rw(m_pia[0], FUNC(pia6821_device::read), FUNC(pia6821_device::write));
+	map(0xec10, 0xec13).rw(m_pia[1], FUNC(pia6821_device::read), FUNC(pia6821_device::write));
+	map(0xec20, 0xec21).r(m_ay, FUNC(ay8910_device::data_r));
+	map(0xec20, 0xec21).w(m_ay, FUNC(ay8910_device::data_address_w));
+	map(0xec30, 0xec3f).rw(m_vtc, FUNC(crt5037_device::read), FUNC(crt5037_device::write));
 	map(0xf000, 0xffff).rom();
 }
 
@@ -140,6 +152,8 @@ void ltcasino_state::main_map(address_map &map)
 //**************************************************************************
 //  INPUT PORT DEFINITIONS
 //**************************************************************************
+
+
 
 static INPUT_PORTS_START( ltcasino )
 	PORT_START("COIN")
@@ -152,13 +166,13 @@ static INPUT_PORTS_START( ltcasino )
 	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_POKER_HOLD3) PORT_NAME("Button 3")
 	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_POKER_HOLD4) PORT_NAME("Button 4")
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_POKER_HOLD5) PORT_NAME("Button 5")
-	PORT_DIPNAME(0x20, 0x00, "Enable Craps") // off to enter service
+	PORT_DIPNAME(0x20, 0x00, "Enable Craps") // off to enter service - likely mapped to DSW3
 	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
-	PORT_DIPNAME(0x40, 0x00, "Enable Poker") // off to enter service
+	PORT_DIPNAME(0x40, 0x00, "Enable Poker") // off to enter service - likely mapped to DSW3
 	PORT_DIPSETTING(   0x40, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
-	PORT_DIPNAME(0x80, 0x00, "Enable Black Jack") // off to enter service
+	PORT_DIPNAME(0x80, 0x00, "Enable Black Jack") // off to enter service - likely mapped to DSW3
 	PORT_DIPSETTING(   0x80, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
 
@@ -168,12 +182,14 @@ static INPUT_PORTS_START( ltcasino )
 	PORT_DIPUNKNOWN_DIPLOC(0x04, IP_ACTIVE_LOW, "DSW3:3")
 	PORT_DIPUNKNOWN_DIPLOC(0x08, IP_ACTIVE_LOW, "DSW3:4")
 	PORT_DIPUNKNOWN_DIPLOC(0x10, IP_ACTIVE_LOW, "DSW3:5")
-	PORT_DIPNAME(0x60, 0x00, DEF_STR( Service_Mode ))
+	PORT_DIPNAME(0x20, 0x00, DEF_STR( Service_Mode ))
 	PORT_DIPSETTING(   0x00, DEF_STR( Off ))
-	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x20, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:6")
+	PORT_DIPNAME(0x40, 0x00, "Enable Hi-Lo") // off to enter service
 	PORT_DIPSETTING(   0x40, DEF_STR( Off ))
-	PORT_DIPSETTING(   0x60, DEF_STR( On ))
-	PORT_DIPLOCATION("DSW3:6,7")
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:7")
 	PORT_DIPNAME(0x80, 0x00, DEF_STR( Demo_Sounds ))
 	PORT_DIPSETTING(   0x80, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
@@ -196,8 +212,8 @@ static INPUT_PORTS_START( ltcasino )
 	PORT_DIPSETTING(   0x00, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x10, DEF_STR( On )) // limits to 15 coins
 	PORT_DIPLOCATION("A:5")
-	PORT_DIPNAME(0x20, 0x00, DEF_STR( Unknown ))
-	PORT_DIPSETTING(   0x00, DEF_STR( On )) // needs to be 0 or ltcasinn can reset on coin-up
+	PORT_DIPNAME(0x20, 0x00, DEF_STR( Unknown )) // needs to be 0 or ltcasinn can reset on coin-up
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
 	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
 	PORT_DIPLOCATION("A:6")
 	PORT_DIPUNKNOWN_DIPLOC(0x40, IP_ACTIVE_LOW, "A:7")
@@ -220,7 +236,7 @@ static INPUT_PORTS_START( ltcasino )
 	PORT_DIPSETTING(   0x40, "100000 & 200000")
 	PORT_DIPSETTING(   0x00, DEF_STR( None ))
 	PORT_DIPLOCATION("B:7")
-	PORT_DIPNAME(0x80, 0x80, "Demo") // some kind of demo play?
+	PORT_DIPNAME(0x80, 0x80, "Auto Play")
 	PORT_DIPSETTING(   0x80, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
 	PORT_DIPLOCATION("B:8")
@@ -232,30 +248,74 @@ static INPUT_PORTS_START( ltcasinn )
 	PORT_MODIFY("COIN")
 	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_UNUSED)
 
+	PORT_MODIFY("S")
+	PORT_DIPNAME(0x01, 0x01, "Keyboard")
+	PORT_DIPSETTING(   0x01, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:1")
+	PORT_DIPNAME(0x20, 0x00, "Enable Enable Horse")
+	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:6")
+	PORT_DIPNAME(0x40, 0x00, "Enable Slots")
+	PORT_DIPSETTING(   0x40, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:7")
+
+	PORT_MODIFY("A")
+	PORT_DIPUNKNOWN_DIPLOC(0x10, IP_ACTIVE_LOW, "A:5") // Coin Limit for other sets, v18.1 always locked to 15 coins?
+	PORT_DIPUNKNOWN_DIPLOC(0x20, IP_ACTIVE_LOW, "A:6") // for v17.0 this one needs to be 0x00, but not here???
+	PORT_DIPNAME(0x40, 0x00, DEF_STR( Unknown ))
+	PORT_DIPSETTING(   0x00, DEF_STR( On )) // needs to be 0x00 or ltcasinn can reset on coin-up - But controls Hi-scores display??????
+	PORT_DIPSETTING(   0x40, DEF_STR( Off ))
+	PORT_DIPLOCATION("A:7")
+
 	PORT_MODIFY("B")
+	PORT_DIPUNKNOWN_DIPLOC(0x01, IP_ACTIVE_LOW, "B:1") // Moves "Show High Scores" to A:7 - see about note
 	PORT_DIPNAME(0x02, 0x02, "Memory Test") // tests d000 to d7ff
 	PORT_DIPSETTING(   0x00, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x02, DEF_STR( On ))
 	PORT_DIPLOCATION("B:2")
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( ltcasinna )
+	PORT_INCLUDE(ltcasino)
+
+	PORT_MODIFY("COIN")
+	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_UNUSED)
 
 	PORT_MODIFY("S")
 	PORT_DIPNAME(0x01, 0x01, "Keyboard")
 	PORT_DIPSETTING(   0x01, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
 	PORT_DIPLOCATION("DSW3:1")
+	PORT_DIPNAME(0x20, 0x00, "Enable Enable Horse")
+	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:6")
+
+	PORT_MODIFY("A")
+	PORT_DIPNAME(0x20, 0x00, DEF_STR( Unknown )) // needs to be 0x00 or v17.0 will reset on coin-up - different then v18.1
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
+	PORT_DIPLOCATION("A:6")
+	PORT_DIPUNKNOWN_DIPLOC(0x40, IP_ACTIVE_LOW, "A:7") // for v18.1 this one needs to be 0x00, but not here???
+
+	PORT_MODIFY("B")
+	PORT_DIPNAME(0x02, 0x02, "Memory Test") // tests d000 to d7ff
+	PORT_DIPSETTING(   0x00, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x02, DEF_STR( On ))
+	PORT_DIPLOCATION("B:2")
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( mv4in1 )
 	PORT_INCLUDE(ltcasino)
 
 	PORT_MODIFY("Q")
-	PORT_DIPNAME(0x20, 0x00, "Enable Dice") // must be off to enter service
+	PORT_DIPNAME(0x20, 0x00, "Enable Dice") // must be off to enter service - likely mapped to DSW3
 	PORT_DIPSETTING(   0x20, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
-	PORT_DIPNAME(0x40, 0x00, "Enable Poker") // must be off to enter service
-	PORT_DIPSETTING(   0x40, DEF_STR( Off ))
-	PORT_DIPSETTING(   0x00, DEF_STR( On ))
-	PORT_DIPNAME(0x80, 0x00, "Enable 21") // must be off to enter service
+	PORT_DIPNAME(0x80, 0x00, "Enable 21") // must be off to enter service - likely mapped to DSW3
 	PORT_DIPSETTING(   0x80, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
 
@@ -264,6 +324,10 @@ static INPUT_PORTS_START( mv4in1 )
 	PORT_DIPSETTING(   0x01, DEF_STR( Off ))
 	PORT_DIPSETTING(   0x00, DEF_STR( On ))
 	PORT_DIPLOCATION("DSW3:1")
+	PORT_DIPNAME(0x40, 0x00, "Red-Dog") // must be off to enter service
+	PORT_DIPSETTING(   0x40, DEF_STR( Off ))
+	PORT_DIPSETTING(   0x00, DEF_STR( On ))
+	PORT_DIPLOCATION("DSW3:7")
 INPUT_PORTS_END
 
 
@@ -396,7 +460,7 @@ WRITE8_MEMBER(ltcasino_state::output_t_w)
 
 void ltcasino_state::ltcasino(machine_config &config)
 {
-	M6502(config, m_maincpu, 18.432_MHz_XTAL/16); // clock unknown
+	M6502(config, m_maincpu, 18_MHz_XTAL/16); // clock unknown
 	m_maincpu->set_addrmap(AS_PROGRAM, &ltcasino_state::main_map);
 
 	PIA6821(config, m_pia[0], 0);
@@ -410,17 +474,17 @@ void ltcasino_state::ltcasino(machine_config &config)
 	MCFG_MACHINE_START_OVERRIDE(ltcasino_state, ltcasino)
 
 	// video hardware
-	CRT5037(config, m_vtc, 18.432_MHz_XTAL/16); // this clock gives about 61/51 hz
+	CRT5037(config, m_vtc, 18_MHz_XTAL/16); // this clock gives about 60/50 hz
 	m_vtc->set_char_width(8);
 	m_vtc->set_screen("screen");
 	m_vtc->set_visarea(48, 463, 0, 255);
 	m_vtc->vsyn_callback().set_inputline("maincpu", 0); // ?
 	m_vtc->vsyn_callback().append(m_pia[0], FUNC(pia6821_device::cb2_w)); // ?
 
-	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_raw(18.432_MHz_XTAL/2, 560, 48, 464, 268, 0, 256);
-	screen.set_screen_update(FUNC(ltcasino_state::screen_update));
-	screen.set_palette("palette");
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(18_MHz_XTAL/2, 560, 48, 464, 268, 0, 256);
+	m_screen->set_screen_update(FUNC(ltcasino_state::screen_update));
+	m_screen->set_palette("palette");
 
 	GFXDECODE(config, m_gfxdecode, "palette", gfx_ltcasino);
 
@@ -429,10 +493,10 @@ void ltcasino_state::ltcasino(machine_config &config)
 	// sound hardware
 	SPEAKER(config, "mono").front_center();
 
-	ay8910_device &aysnd(AY8910(config, "aysnd", 18.432_MHz_XTAL/16)); // clock unknown
-	aysnd.port_a_read_callback().set_ioport("A");
-	aysnd.port_b_read_callback().set_ioport("B");
-	aysnd.add_route(ALL_OUTPUTS, "mono", 0.4);
+	AY8910(config, m_ay, 18_MHz_XTAL/16); // clock unknown
+	m_ay->port_a_read_callback().set_ioport("A");
+	m_ay->port_b_read_callback().set_ioport("B");
+	m_ay->add_route(ALL_OUTPUTS, "mono", 0.4);
 }
 
 void ltcasino_state::ltcasinn(machine_config &config)
@@ -445,6 +509,17 @@ void ltcasino_state::ltcasinn(machine_config &config)
 	PALETTE(config, "palette", FUNC(ltcasino_state::ltcasinn_palette), 128, 8);
 
 	m_gfxdecode->set_info(gfx_ltcasinn);
+}
+
+void ltcasino_state::mv4in1(machine_config &config)
+{
+	ltcasinn(config);
+
+	// different XTAL
+	m_maincpu->set_clock(18.432_MHz_XTAL/16);
+	m_vtc->set_clock(18.432_MHz_XTAL/16);
+	m_screen->set_raw(18.432_MHz_XTAL/2, 560, 48, 464, 268, 0, 256);
+	m_ay->set_clock(18.432_MHz_XTAL/16);
 }
 
 
@@ -465,19 +540,6 @@ ROM_START( ltcasino )
 	ROM_LOAD( "v", 0x0000, 0x0800, CRC(f1f75675) SHA1(8f3777e6b2a3f824f94b28669cac501ec02bbf36) )
 ROM_END
 
-ROM_START( ltcasinn )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "lc2_ra.bin", 0x8000, 0x1000, CRC(1a595442) SHA1(b8fe3e5ed2024a57187c0ce547c1bbef2429ed63) )
-	ROM_LOAD( "lc2_rb.bin", 0x9000, 0x1000, CRC(4f5502c1) SHA1(cd1b7c08d26fed71c45e44ebd208bd18dc262e8f) )
-	ROM_LOAD( "lc2_rc.bin", 0xa000, 0x1000, CRC(990283b8) SHA1(8a3fe5be8381894b8e8dd14c7d42190e60a25600) )
-	ROM_LOAD( "lc2_rd.bin", 0xb000, 0x1000, CRC(884f39dc) SHA1(fe149faf118279205e82760c5052cefb88a2f5be) )
-	ROM_LOAD( "lc2_re.bin", 0xc000, 0x1000, CRC(fae38204) SHA1(e5908734cee0a89d873ab3761ded285f8ae138d3) )
-	ROM_LOAD( "lc2_rf.bin", 0xf000, 0x1000, CRC(7e8ad9d3) SHA1(8cbe342af7d9f32b2214664db318edd3d2e75630) )
-
-	ROM_REGION( 0x1000, "gfx1", 0 )
-	ROM_LOAD( "lc2_rv.bin", 0x0000, 0x1000, CRC(84cbee7b) SHA1(742831d5ae0db6c7c644a18a837831ee0474d472) )
-ROM_END
-
 ROM_START( mv4in1 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "g.ic13", 0x8000, 0x1000, CRC(ac33bd85) SHA1(fd555f70d0a7040473d35ec38e19185671a471ea) )
@@ -491,12 +553,39 @@ ROM_START( mv4in1 )
 	ROM_LOAD( "a.ic19", 0x0000, 0x1000, CRC(a25c125e) SHA1(e0ba83ccddbd82a2bf52585ae0accb9192cbb00e) )
 ROM_END
 
+ROM_START( ltcasin2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "v18_10_ra.bin", 0x8000, 0x1000, CRC(f0c5cc96) SHA1(ec50918ba2a2487df70694f9e1a52d4b8d1bc7e2) ) // board was marked version 18.1 (C)1984
+	ROM_LOAD( "v18_10_rb.bin", 0x9000, 0x1000, CRC(2ece16e4) SHA1(ef6adc45be2ecc510cd8b2e9682635066013a5e4) )
+	ROM_LOAD( "v18_10_rc.bin", 0xa000, 0x1000, CRC(16bae5c9) SHA1(e5cb61d9dcae3c46c7139f3494d1bf981ec8821f) )
+	ROM_LOAD( "v18_10_rd.bin", 0xb000, 0x1000, CRC(d12f2d6b) SHA1(e3544bf6b778c21b704a01f1ed06d6517ca01604) )
+	ROM_LOAD( "v18_10_re.bin", 0xc000, 0x1000, CRC(2acdad10) SHA1(2732b791fea0a9d1c6e4c174739381466f2b0270) )
+	ROM_LOAD( "v18_10_rf.bin", 0xf000, 0x1000, CRC(b711c779) SHA1(2bab84cab174a35fccfd23003a8a41aa241d4595) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v18_10_rv.bin", 0x0000, 0x1000, CRC(7209898d) SHA1(94bd7e8c3a544429af721e9564c11cc56d7805be) )
+ROM_END
+
+ROM_START( ltcasin2a )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "v17_00_ra.bin", 0x8000, 0x1000, CRC(1a595442) SHA1(b8fe3e5ed2024a57187c0ce547c1bbef2429ed63) )
+	ROM_LOAD( "v17_00_rb.bin", 0x9000, 0x1000, CRC(4f5502c1) SHA1(cd1b7c08d26fed71c45e44ebd208bd18dc262e8f) )
+	ROM_LOAD( "v17_00_rc.bin", 0xa000, 0x1000, CRC(990283b8) SHA1(8a3fe5be8381894b8e8dd14c7d42190e60a25600) )
+	ROM_LOAD( "v17_00_rd.bin", 0xb000, 0x1000, CRC(884f39dc) SHA1(fe149faf118279205e82760c5052cefb88a2f5be) )
+	ROM_LOAD( "v17_00_re.bin", 0xc000, 0x1000, CRC(fae38204) SHA1(e5908734cee0a89d873ab3761ded285f8ae138d3) )
+	ROM_LOAD( "v17_00_rf.bin", 0xf000, 0x1000, CRC(7e8ad9d3) SHA1(8cbe342af7d9f32b2214664db318edd3d2e75630) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v17_00_rv.bin", 0x0000, 0x1000, CRC(84cbee7b) SHA1(742831d5ae0db6c7c644a18a837831ee0474d472) )
+ROM_END
+
 
 //**************************************************************************
 //  SYSTEM DRIVERS
 //**************************************************************************
 
-//     YEAR  NAME      PARENT    MACHINE   INPUT     CLASS           INIT         ROTATION  COMPANY                            FULLNAME                 FLAGS
-GAMEL( 1982, ltcasino, 0,        ltcasino, ltcasino, ltcasino_state, empty_init,  ROT0,     "Digital Controls Inc.",           "Little Casino (older)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasino )
-GAMEL( 1983, mv4in1,   ltcasino, ltcasinn, mv4in1,   ltcasino_state, init_mv4in1, ROT0,     "Entertainment Enterprises, Ltd.", "Mini Vegas 4in1",       MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasinn )
-GAMEL( 1984, ltcasinn, 0,        ltcasinn, ltcasinn, ltcasino_state, empty_init,  ROT0,     "Digital Controls Inc.",           "Little Casino (newer)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasinn )
+//     YEAR  NAME       PARENT    MACHINE   INPUT      CLASS           INIT         ROTATION  COMPANY                            FULLNAME                  FLAGS
+GAMEL( 1982, ltcasino,  0,        ltcasino, ltcasino,  ltcasino_state, empty_init,  ROT0,     "Digital Controls Inc.",           "Little Casino",          MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasino )
+GAMEL( 1983, mv4in1,    ltcasino, mv4in1,   mv4in1,    ltcasino_state, init_mv4in1, ROT0,     "Entertainment Enterprises, Ltd.", "Mini Vegas 4in1",        MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasinn )
+GAMEL( 1984, ltcasin2,  0,        ltcasinn, ltcasinn,  ltcasino_state, empty_init,  ROT0,     "Digital Controls Inc.",           "Little Casino II v18.1", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasinn )
+GAMEL( 1984, ltcasin2a, ltcasin2, ltcasinn, ltcasinna, ltcasino_state, empty_init,  ROT0,     "Digital Controls Inc.",           "Little Casino II v17.0", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK, layout_ltcasinn )
