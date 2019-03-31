@@ -134,5 +134,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bomb Jack
-GAME( 200?, bombjacks01,  bombjack,        bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Translation Chinese)(set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bombjacks01,  bombjack,        bombjack, bombjack, bombjack_state, empty_init, ROT90, "Unknown", "Bomb Jack (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 

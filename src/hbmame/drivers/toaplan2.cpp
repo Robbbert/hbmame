@@ -85,10 +85,10 @@ ROM_END
 
 
 
-GAME( 200?, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, init_dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (Crazy gun transparent version 2015-03-22)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, init_bgaregga, ROT270, "Zack", "Battle Garegga (Zakk version)(Europe / USA / Japan / Asia) (Sat Feb 3 1996)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state, empty_init, ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
-GAME( 200?, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state, empty_init, ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, init_dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (Crazy Gun Transparent Version 2015-03-22)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, init_bgaregga, ROT270, "Zack", "Battle Garegga (Zakk version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state, empty_init, ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state, empty_init, ROT270, "Raizing (Able license)", "Mahou Daisakusen (Translation-Chinese V1)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -206,12 +206,12 @@ ROM_END
 
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
 // Mahou Daisakusen 
-GAME( 200?, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state, empty_init, ROT270, "liujunusa", "Mahou Daisakusen (Translation-Chinese)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state, empty_init, ROT270, "liujunusa", "Mahou Daisakusen (Translation-Chinese V1a)", MACHINE_SUPPORTS_SAVE )
 // Shippu Mahou Daisakusen
-GAME( 200?, shippumds01,  kingdmgp,        shippumd, shippumd, toaplan2_state, empty_init, ROT270, "NeilCorlett", "Shippu Mahou Daisakusen (Translation English)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, shippumds01,  kingdmgp,        shippumd, shippumd, toaplan2_state, empty_init, ROT270, "NeilCorlett", "Shippu Mahou Daisakusen (Translation English)", MACHINE_SUPPORTS_SAVE )
 // Snow Bros 2
-GAME( 200?, snowbro2s01,  snowbro2,        snowbro2, snowbro2, toaplan2_state, empty_init, ROT0,   "RockyWall", "Snow Bros 2 (Max Power, Easy Change The Character)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, snowbro2s02,  snowbro2,        snowbro2, snowbro2, toaplan2_state, empty_init, ROT0,   "DDJ",       "Snow Bros 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, snowbro2s01,  snowbro2,        snowbro2, snowbro2, toaplan2_state, empty_init, ROT0,   "RockyWall", "Snow Bros 2 (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, snowbro2s02,  snowbro2,        snowbro2, snowbro2, toaplan2_state, empty_init, ROT0,   "DDJ",       "Snow Bros 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
 // Pipi & Bibis
-GAME( 200?, pipibibss01,  pipibibs,        pipibibs, pipibibs, toaplan2_state, empty_init, ROT0,   "DDJ",       "Pipi & Bibis (Stage Select v1)(Z80 sound cpu, set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, pipibibss02,  pipibibs,        pipibibs, pipibibs, toaplan2_state, empty_init, ROT0,   "DDJ",       "Pipi & Bibis (Stage Select v2)(Z80 sound cpu, set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, pipibibss01,  pipibibs,        pipibibs, pipibibs, toaplan2_state, empty_init, ROT0,   "DDJ",       "Pipi & Bibis (Stage Select V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, pipibibss02,  pipibibs,        pipibibs, pipibibs, toaplan2_state, empty_init, ROT0,   "DDJ",       "Pipi & Bibis (Stage Select V2)", MACHINE_SUPPORTS_SAVE )

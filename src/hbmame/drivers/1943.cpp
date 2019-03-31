@@ -188,5 +188,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // 1943 Kai: Midway Kaisen
-GAME( 2009, 1943kais01,   1943kai,    _1943,   1943, _1943_state,  init_1943, ROT270,  "winux/pipi899",  "1943 Kai: Midway Kaisen(Ex Super Version)(2009-02-10)(Japan)", MACHINE_SUPPORTS_SAVE )
-
+GAME( 2009, 1943kais01,   1943kai,    _1943,   1943, _1943_state,  init_1943, ROT270,  "winux/pipi899",  "1943 Kai: Midway Kaisen(Ex Super Version 2009-02-10)", MACHINE_SUPPORTS_SAVE )

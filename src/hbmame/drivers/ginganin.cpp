@@ -49,4 +49,4 @@ ROM_END
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // Ginga NinkyouDen
-GAME( 200?, ginganins01,  ginganin,        ginganin, ginganin, ginganin_state, init_ginganin, ROT0, "Nunimmanse", "Ginga NinkyouDen (Korean Translation)(set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, ginganins01,  ginganin,        ginganin, ginganin, ginganin_state, init_ginganin, ROT0, "Nunimmanse", "Ginga NinkyouDen (Korean Translation)", MACHINE_SUPPORTS_SAVE )

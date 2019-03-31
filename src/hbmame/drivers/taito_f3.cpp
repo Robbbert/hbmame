@@ -214,13 +214,13 @@ ROM_START( pbobl2xh )
 ROM_END
 
 
-HACK( 200?, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (Hack)(Ver 2.1J 1996/09/05)", 0 )
-HACK( 200?, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (Hack)(Ver 2.5O 1994/09/19)", 0 )
+HACK( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",     "Cleopatra Fortune (Unknown Hack)", 0 )
+HACK( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, dariusg,  ROT0,   "Unknown",     "Darius Gaiden (Unknown Hack)", 0 )
 HACK( 2000, f3demo,    0,        f3,      f3, taito_f3_state, pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
-HACK( 200?, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (World Hack)(Ver 2.3O 1995/09/21)", 0 )
-HACK( 200?, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation To China)(Ver 2.3J 1995/09/21)", 0 )
-HACK( 200?, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (Hack)(Ver 2.01J 1998/06/01)", 0 )
-HACK( 200?, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2X (Hack)(Ver 2.3O 1995/07/31)", 0 )
+HACK( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Unknown",     "Gekirindan (Unknown Hack)", 0 )
+HACK( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation To China)", 0 )
+HACK( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",     "Land Maker (Unknown Hack)", 0 )
+HACK( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, pbobbl2x, ROT0,   "Unknown",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
 
 
 //PSmame (c) gaston90 used with permission
@@ -570,53 +570,12 @@ ROM_START( kaiserkns01 )
 	ROM_LOAD16_BYTE("d84-15.rom", 0xe00000, 0x100000, CRC(31ceb152) SHA1(d9d0bc631a6a726376f566a49605b50485ac7bf4) )
 ROM_END
 
-ROM_START( kaiserknjs01 )
+ROM_START( kaiserkns02 )
 	ROM_REGION(0x200000, "maincpu", 0)
 	ROM_LOAD32_BYTE("d84-25hc02.20", 0x000000, 0x80000, CRC(e55c530c) SHA1(4114b6ff4204fafe25a654a0411ebaa1cfed9f3e) )
 	ROM_LOAD32_BYTE("d84-24hc02.19", 0x000001, 0x80000, CRC(6e55c3d2) SHA1(c2c0d3cc2c5f0b2cbef2f09eb678a7b8ade176f2) )
 	ROM_LOAD32_BYTE("d84-23hc02.18", 0x000002, 0x80000, CRC(15ac582b) SHA1(a4af2f641360b9551539d73ff113a8dc70e15f0c) )
 	ROM_LOAD32_BYTE("d84-22hc02.17", 0x000003, 0x80000, CRC(5d44734c) SHA1(be9dd23227d27815366d615b2680bd48c6e896bd) )
-
-	ROM_REGION(0x1a00000, "gfx1" , 0)
-	ROM_LOAD16_BYTE("d84-03.rom", 0x0000000, 0x200000, CRC(d786f552) SHA1(f73146892f714b5706d568fc8a135fddaa656570) )
-	ROM_LOAD16_BYTE("d84-04.rom", 0x0000001, 0x200000, CRC(d1f32b5d) SHA1(35289cce64fdbb8d966dd1d5307b5393be5e7799) )
-	ROM_LOAD16_BYTE("d84-06.rom", 0x0400000, 0x200000, CRC(fa924dab) SHA1(28a8c3cd701f8df0c53069bb576bb2a820f3a331) )
-	ROM_LOAD16_BYTE("d84-07.rom", 0x0400001, 0x200000, CRC(54517a6b) SHA1(6e2c213c7ec1a3b78ad7e71db2326602557fd0f8) )
-	ROM_LOAD16_BYTE("d84-09.rom", 0x0800000, 0x200000, CRC(faa78d98) SHA1(da3a2c5a45dd169743f113aa08e574f732e1f0fd) )
-	ROM_LOAD16_BYTE("d84-10.rom", 0x0800001, 0x200000, CRC(b84b7320) SHA1(f5de0d6da50d8ed753607b51e46bc9a4572ef431) )
-	ROM_LOAD16_BYTE("d84-19.rom", 0x0c00000, 0x080000, CRC(6ddf77e5) SHA1(a1323acaed37fce62a19e63a0800d9d1dc2cfff7) )
-	ROM_LOAD16_BYTE("d84-20.rom", 0x0c00001, 0x080000, CRC(f85041e5) SHA1(6b2814514338f550d6aa14dbe39e848e8e64edee) )
-	ROM_LOAD       ("d84-05.rom", 0x1380000, 0x200000, CRC(31a3c75d) SHA1(1a16ccb6a0a03ab715e5b016ab3b1b2cd0f1ae41) )
-	ROM_LOAD       ("d84-08.rom", 0x1580000, 0x200000, CRC(07347bf1) SHA1(34bd359933acdec7fd1ce047092a30d1177afc2c) )
-	ROM_LOAD       ("d84-11.rom", 0x1780000, 0x200000, CRC(a062c1d4) SHA1(158912aa3dd75c3961bf738f9ac9034f0b005b60) )
-	ROM_LOAD       ("d84-21.rom", 0x1980000, 0x080000, CRC(89f68b66) SHA1(95916f02f71357324effe59da4f847f2f30ea34a) )
-	ROM_FILL       (              0x0d00000, 0x680000, 0x00 )
-
-	ROM_REGION(0xc00000, "gfx2" , 0)
-	ROM_LOAD16_BYTE("d84-12.rom", 0x000000, 0x200000, CRC(66a7a9aa) SHA1(a7d21f8b6370d16de3c1569019f2ad71d36e7a61) )
-	ROM_LOAD16_BYTE("d84-13.rom", 0x000001, 0x200000, CRC(ae125516) SHA1(d54e76e398ab0b0fb82f3154ba54fc823ff49a1a) )
-	ROM_LOAD16_BYTE("d84-16.rom", 0x400000, 0x100000, CRC(bcff9b2d) SHA1(0ca50ec809564eddf0ba7448a8fae9087d3b600b) )
-	ROM_LOAD16_BYTE("d84-17.rom", 0x400001, 0x100000, CRC(0be37cc3) SHA1(b10c10b93858cad0c962ef614cfd6daea712ef6b) )
-	ROM_LOAD       ("d84-14.rom", 0x900000, 0x200000, CRC(2b2e693e) SHA1(03eb37fa7dc68d54bf0f1800b8c0b581c344a40f) )
-	ROM_LOAD       ("d84-18.rom", 0xb00000, 0x100000, CRC(e812bcc5) SHA1(3574e4a99232d9fc7989ec5d1e8fe76b4b30784a) )
-	ROM_FILL       (              0x600000, 0x300000, 0x00 )
-
-	ROM_REGION(0x180000, "taito_en:audiocpu", 0)
-	ROM_LOAD16_BYTE("d84-26.32", 0x100000, 0x40000, CRC(4f5b8563) SHA1(1d4e06cbea7bc73a99d6e30be714fff420151bbc) )
-	ROM_LOAD16_BYTE("d84-27.33", 0x100001, 0x40000, CRC(fb0cb1ba) SHA1(16a79b53651a6131f7636db19738b456b7c28bff) )
-
-	ROM_REGION16_BE(0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE("d84-01.rom", 0x400000, 0x200000, CRC(9ad22149) SHA1(48055822e0cea228cdecf3d05ac24e50979b6f4d) )
-	ROM_LOAD16_BYTE("d84-02.rom", 0x800000, 0x200000, CRC(9e1827e4) SHA1(1840881b0f8f7b6225e6ffa12a8d4b463554988e) )
-	ROM_LOAD16_BYTE("d84-15.rom", 0xe00000, 0x100000, CRC(31ceb152) SHA1(d9d0bc631a6a726376f566a49605b50485ac7bf4) )
-ROM_END
-
-ROM_START( kaiserknjs02 )
-	ROM_REGION(0x200000, "maincpu", 0)
-	ROM_LOAD32_BYTE("d84-25hc01.20", 0x000000, 0x80000, CRC(f7b8cf53) SHA1(9c1d17f5fe05190fa9b93f2853955416342e47ec) )
-	ROM_LOAD32_BYTE("d84-24hc01.19", 0x000001, 0x80000, CRC(9c93aeae) SHA1(d9eb6972648cffde24dfddf9dc7dad81ffd07a56) )
-	ROM_LOAD32_BYTE("d84-23hc01.18", 0x000002, 0x80000, CRC(1c7802e0) SHA1(7dd6b53582d9617cfb159451ce73cf7419f626db) )
-	ROM_LOAD32_BYTE("d84-22hc03.17", 0x000003, 0x80000, CRC(64667971) SHA1(c1e516d9dd5dc10308046697a94306997b72887e) )
 
 	ROM_REGION(0x1a00000, "gfx1" , 0)
 	ROM_LOAD16_BYTE("d84-03.rom", 0x0000000, 0x200000, CRC(d786f552) SHA1(f73146892f714b5706d568fc8a135fddaa656570) )
@@ -722,26 +681,25 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
  // Cleopatra Fortune
-HACK( 200?, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",         "Cleopatra Fortune (Translation Chinese)(Ver 2.1J)", 0 )
+HACK( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, cleopatr, ROT0,   "Unknown",         "Cleopatra Fortune (Translation Chinese)", 0 )
  // Akkanbeder
-HACK( 200?, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Unknown",         "Akkanbeder (Translation Chinese)(Ver 2.5J 1995/06/14)", 0 )
+HACK( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, spcinv95, ROT270, "Unknown",         "Akkanbeder (Translation Chinese)", 0 )
  // Arabian Magic
-HACK( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese 2017-04-27)(Ver 1.0J 1992/07/06)", 0 )
+HACK( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, arabianm, ROT0,   "Unknown",         "Arabian Magic (Translation Chinese 2017-04-27)", 0 )
  // Bubble Symphony
-HACK( 200?, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Unknown",         "Bubble Symphony (Translation Chinese)(Ver 2.5J 1994/10/05)", 0 )
+HACK( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, ROT0,   "Unknown",         "Bubble Symphony (Translation Chinese)", 0 )
  // Dan-Ku-Ga
-HACK( 200?, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Dan-Ku-Ga Plus (Ver 0.0J 1994/12/13, prototype)", 0 )
-HACK( 200?, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Dan-Ku-Ga (Enable Hidden Characters)(Ver 0.0J 1994/12/13, prototype)", 0 )
+HACK( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Dan-Ku-Ga (Plus)", 0 )
+HACK( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
  // Elevator Action Returns
-HACK( 200?, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Unknown",         "Elevator Action Returns (Translation Chinese)(Ver 2.2J 1995/02/20)", 0 )
+HACK( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Unknown",         "Elevator Action Returns (Translation Chinese)(", 0 )
  // Grid Seeker: Project Storm Hammer
-HACK( 200?, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Unknown",         "Grid Seeker: Project Storm Hammer (Translation Chinese)(Ver 1.3J)", 0 )
+HACK( 1992, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Unknown",         "Grid Seeker: Project Storm Hammer (Translation Chinese)", 0 )
  // Kaiser Knuckle
-HACK( 200?, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Kaiser Knuckle (Enable Hidden Characters)(Ver 2.1O 1994/07/29)", 0 )
-HACK( 200?, kaiserknjs01,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Kaiser Knuckle Plus (Ver 2.1J 1994/07/29)", 0 )
-HACK( 200?, kaiserknjs02,      kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Kaiser Knuckle (Enable Hidden Characters)(Ver 2.1J 1994/07/29)", 0 )
+HACK( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Kaiser Knuckle (Enable Hidden Characters)", 0 )
+HACK( 1994, kaiserkns02,       kaiserkn, f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Kaiser Knuckle (Plus)", 0 )
  // Land Maker
-HACK( 200?, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",         "Land Maker (Translation Chinese)(Ver 2.01J 1998/06/01)", 0 )
+HACK( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, landmakr, ROT0,   "Unknown",         "Land Maker (Translation Chinese)", 0 )
  // Light Bringer
-HACK( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese 2017-04-26)(Ver 2.1J 1994/02/18)", 0 )
+HACK( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, lightbr,  ROT0,   "Unknown",         "Light Bringer (Translation Chinese 2017-04-26)", 0 )
 

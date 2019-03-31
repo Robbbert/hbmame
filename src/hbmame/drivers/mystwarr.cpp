@@ -123,8 +123,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Martial Champion
-GAME( 200?, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)(ver EAB)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1993, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
 // Monster Maulers
-GAME( 200?, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)(ver EAA)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1993, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
 // Metamorphic Force
-GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "Unknown", "Metamorphic Force (Version Enhanced 2017-07-03)(ver EAA)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "Unknown", "Metamorphic Force (Version Enhanced 2017-07-03)", MACHINE_IMPERFECT_GRAPHICS )
