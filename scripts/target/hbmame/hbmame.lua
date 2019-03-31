@@ -813,6 +813,7 @@ files {
 	MAME_DIR .. "src/mame/video/cabal.cpp",
 	MAME_DIR .. "src/mame/video/seibu_crtc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/raiden2.cpp",
+	MAME_DIR .. "src/mame/video/raiden2.cpp",
 	MAME_DIR .. "src/mame/machine/r2crypt.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
