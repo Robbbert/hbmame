@@ -32,7 +32,7 @@ ROM_START( dbz2h01 )
 	ROM_LOAD( "pcm.7c", 0x000000, 0x40000, CRC(b58c884a) SHA1(0e2a7267e9dff29c9af25558081ec9d56629bc43) )
 ROM_END
 
-GAME( 2009, dbz2h01, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "pipi899", "Dragon Ball Z 2 - Super Battle (Infinite Lives)(2009-03-11)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
+GAME( 2009, dbz2h01, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "pipi899", "Dragon Ball Z 2 (Infinite Lives 2009-03-11)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
 
 
  /****************************************************
@@ -109,6 +109,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragon Ball Z
-GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "Unknown", "Dragon Ball Z (Simple Attack)(rev B)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "Unknown", "Dragon Ball Z (Simple Attack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Dragon Ball Z 2
-GAME( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "Unknown", "Dragon Ball Z 2 - Super Battle (Simple Attack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "Unknown", "Dragon Ball Z 2 (Simple Attack)", MACHINE_SUPPORTS_SAVE )

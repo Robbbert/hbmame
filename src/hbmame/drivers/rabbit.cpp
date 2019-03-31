@@ -162,9 +162,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Rabbit
-GAME( 200?, rabbits01,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Enable Hidden Character)(Asia 3/6)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 200?, rabbits02,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Easy Move)(Asia 3/6)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 200?, rabbits03,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Infinite Power Player 1)(Asia 3/6)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 200?, rabbits04,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Description Unknown)(Asia 3/6)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, rabbits01,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Enable Hidden Character)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, rabbits02,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Easy Move)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, rabbits03,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Infinite Power Player 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2018, rabbits04,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "Unknown", "Rabbit (Unknown Hack 2018-03-04)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 
 

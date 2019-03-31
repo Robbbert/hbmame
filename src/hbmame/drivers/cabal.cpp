@@ -43,4 +43,4 @@ ROM_START( cabals01 )
 	ROM_LOAD( "1-1u",           0x00000, 0x10000, CRC(8b3e0789) SHA1(b1450db1b1bada237c90930623e4def321099f13) )
 ROM_END
 
-GAME( 2009, cabals01, cabal, cabal,   cabalj,  cabal_state,  init_cabal,  ROT0, "pipi899", "Cabal (Ex Super version)(2009-03-09)(World, Joystick)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, cabals01, cabal, cabal,   cabalj,  cabal_state,  init_cabal,  ROT0, "pipi899", "Cabal (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )

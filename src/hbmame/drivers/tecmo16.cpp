@@ -29,4 +29,4 @@ ROM_END
 
 
 
-GAME( 200?, fstarfrcc, fstarfrc, fstarfrc, fstarfrc, tecmo16_state, empty_init, ROT90, "Tecmo", "Final Star Force (Translation Chinese)(US)", 0 )
+GAME( 1992, fstarfrcc, fstarfrc, fstarfrc, fstarfrc, tecmo16_state, empty_init, ROT90, "Tecmo", "Final Star Force (Translation Chinese)", 0 )

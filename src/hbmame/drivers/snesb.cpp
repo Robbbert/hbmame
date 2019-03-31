@@ -28,4 +28,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Sonic Blast Man 2
-GAME( 200?, sblast2bs01,      sblast2b,  kinstb,        sblast2b, snesb_state, init_sblast2b, ROT0, "RockyWall",  "Sonic Blast Man 2 Special Turbo (Level Sequence Repair)(SNES bootleg)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS)
+GAME( 1997, sblast2bs01,      sblast2b,  kinstb,        sblast2b, snesb_state, init_sblast2b, ROT0, "RockyWall",  "Sonic Blast Man 2 Special Turbo (Level Sequence Repair)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS)

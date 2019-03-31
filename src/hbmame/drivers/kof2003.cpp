@@ -3397,7 +3397,7 @@ HACK( 2003, kof2003s47,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2003, kof2003s48,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (PS2 Style Portraits)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2003s49,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Unknown",    "Kof2003 (The Selection Interface Changes Randomly)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2003s50,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "Unknown", "Kof2003 (Combo)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, kof2003s51,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  xs02,      ROT0, "Unknown", "Kof2003 (Hero)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s51,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  xs02,      ROT0, "Unknown", "Kof2003 (Hero)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3pls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "devilfox & BisonSAS", "Kof2004 Plus / Hero (Translation Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3pls02,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "Jason", "Kof2004 Plus / Hero (Always Change Ok)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3pls03,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "kof1996", "Kof2004 Plus / Hero (Enable Zoom)", MACHINE_SUPPORTS_SAVE )

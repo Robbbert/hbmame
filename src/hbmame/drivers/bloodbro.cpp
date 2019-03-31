@@ -33,4 +33,4 @@ ROM_START( bloodbros01 )
 	ROM_LOAD( "cb006.u083.6c", 0x0000, 0x0100, CRC(b2b89a74) SHA1(1878823801048d677aef9702feedd5bf775e62d0) )
 ROM_END
 
-GAME( 2009, bloodbros01,  bloodbro, bloodbro, bloodbro, bloodbro_state, empty_init, ROT0, "pipi899", "Blood Bros (Ex Super version)(2009-03-09)(World?)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 2009, bloodbros01,  bloodbro, bloodbro, bloodbro, bloodbro_state, empty_init, ROT0, "pipi899", "Blood Bros (Ex Super Version 2009-03-09)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

@@ -311,17 +311,13 @@ sk2h104q
 sk2h105q
 sk2h106q
 sk2h107
-sk2h108
-sk2h10 
-sk2h11
+sk2h108 
 sk2h12
 sk2h13
 sk2h14
-sk2h15		// wofaehp
 sk2h16		// wofahp2
 sk2h17 
 sk2h18
-sk2h19
 sk2h21
 sk2h22
 sk2h23
@@ -518,9 +514,7 @@ tk2h136
 tk2h137
 wofb
 wofch		// tk2p1
-wofes
 woffr
-wofr1h
 wofsf2
 wofud
 3wonders01
@@ -846,28 +840,19 @@ sk2h115
 sk2h116
 sk2h117
 sk2h118
-wofus01
-wofus02
+wofs00
 wofs01
 wofs02
 wofs03
 wofs04
 wofs05
 wofs06
-wofs07
+wofs07 //ingame crash
 wofs08
-wofs10
-woffs01
-woffs02
-woffs03 //ingame crash
-woffs04 //ingame crash
-woffs05
-tk2p01
 tk2p02
 tk2p03
 tk2p04
 tk2p05
-tk2p06
 tk2p07
 tk2p08
 tk2p09
@@ -877,8 +862,6 @@ tk2p12
 tk2p13
 tk2p14
 tk2p15
-tk2p16
-tk2p17
 tk2p18
 tk2p19
 tk2p20
@@ -895,12 +878,10 @@ tk2p30
 tk2p31
 tk2p33
 tk2p34
-tk2p35
 tk2p36
 tk2p37
 tk2p38
 tk2p39
-tk2p40
 tk2p41
 tk2p42
 tk2p43
@@ -971,6 +952,7 @@ sfa3br
 sfa3dp
 sfa3nc
 sfa3nch
+sfa3ncj
 sfa3sp2
 sfa3spp
 sfa3uhd
@@ -1063,34 +1045,23 @@ cybotsjs01
 ddsomjs01
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
 gigawings01
-hsf2as01
-hsf2as02
-hsf2as03
-mshas01
-mshbs01
-mshjs01
-mshjs02
-mshjs03
-mshhs01
+mshs01
+mshs02
 mshvsfs01
 mshvsfs02
 mshvsfjs01
 mshvsfjs02
 mshvsfjs03
-mshjr1s01
 mvscjs01
 mvscjs02
 mvsh01
 mvsh02
-mshus01
-msheys01
 pfghtjs01
 pfghtjs02
 pfghtjs03
 progearjds01
 progearjds02
-hsf2s01
-hsf2s02
+hsf2js00
 hsf2js01
 hsf2js02
 hsf2js03
@@ -1104,31 +1075,20 @@ hsf2js10
 hsf2js11
 hsf2js12
 hsf2js13
+hsf2js14
 sfas01
 sfas02
-sfa2ur1s01
-sfa2ur1s02
-sfa2ur1s03
 sfa2us01
 sfa2us02
 sfa2us03
-sfa2s01
+sfa2us04
 sfa3s01
 sfa3s02
 sfa3s03
 sfa3s04
-sfa3bs01
-sfa3bs02
-sfa3bs03
-sfa3us01
-sfa3us02
-sfa3us03
-sfa3us04
-sfa3dps01
-sfz2als01
-sfz2als02
-sfz2albs01
-sfz2alhs01
+sfa3s05
+sfa3s06
+sfz2aljs00
 sfz2aljs01
 sfz2aljs02
 sfz2aljs03
@@ -1146,17 +1106,13 @@ sfz3js06
 sfz3js07
 sfz3js08
 sfz3js09
-sfz3jr1s01
-sfz3jr1s02
-sfz3jr1s03
-sfz3jr1s04
-sfz3jr2s01
+sfz3js10
+sfz3js11
+sfz3js12
 ssf2ts01
 ssf2ts02
 ssf2tus01
 ssf2tus02
-ssf2tur1s01
-ssf2tur1s02
 ssf2xjs01
 ssf2xjs02
 ssf2js01
@@ -1165,11 +1121,8 @@ sfzjs02
 sfzjs03
 sfzjs04
 sfzjs05
-ssf2tas01
-ssf2tas02
 vsav2s01
 vsav2s02
-vampjas01
 xmcotaj2s01
 xmcotaj2s02
 xmvsfs01
@@ -1207,29 +1160,16 @@ jojos02
 jojos03
 jojos04
 jojos05
-jojox01
-jojobaner1s01
-jojobaner1s02
-jojobaner1s03
-jojobaner1s04
-jojonr1s01
-jojonr1s02
+jojos06
 sfiiins01
-sfiiins02
-sfiiins03
 sfiii2ns01
 sfiii2ns02
 sfiii2ns03
-sfiii2ns04
-sfiii2ns05
 sfiii3ns01
-sfiii3ns02
 sfiii3ns03
-sfiii3ns04
 sfiii3ns05
-sfiii3nrs01
-sfiii3nrs02
-sfiii3nrs03
+sfiii3ns06
+sfiii3ns07
 
 @source:cv1k.cpp
 deathsml				//parent
@@ -1250,7 +1190,6 @@ dbz2h02
 baddudes		//parent
 baddudef		/* Arkatrad */
 decodemo		/* Charles Doty */
-baddudes01      // bad text
 
 @source:dkong.cpp
 dkong			//parent
@@ -1457,7 +1396,6 @@ jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 @source:kaneko.cpp
 shogwarr		//parent
 shogwarrs01
-fjbusterbh
 shogwarrbh
 
 @source:kof94.cpp
@@ -3561,8 +3499,6 @@ hooks05
 hooks06
 hookus01
 hookus02
-hookus03
-hookjs01
 hookxr
 nbbatmans01
 nbbatmans02
@@ -4140,24 +4076,12 @@ mslug3rmx33
 mslug3rmx34
 mslug3rmx35
 mslug3rmx36
-mslug3rmx37
-mslug3rmx38
-mslug3rmx39
-mslug3rmx40
-mslug3rmx41
-mslug3rmx42
 mslug3rmx43
 mslug3rmx44
 mslug3rmx45
 mslug3rmx46
 mslug3rmx47
 mslug3rmx48
-mslug3rmx49
-mslug3rmx50
-mslug3rmx51
-mslug3rmx52
-mslug3rmx53
-mslug3rmx54
 mslug3rmx55
 mslug3rmx56
 mslug3rmx57
@@ -4212,24 +4136,12 @@ mslug3rma33
 mslug3rma34
 mslug3rma35
 mslug3rma36
-mslug3rma37
-mslug3rma38
-mslug3rma39
-mslug3rma40
-mslug3rma41
-mslug3rma42
 mslug3rma43
 mslug3rma44
 mslug3rma45
 mslug3rma46
 mslug3rma47
 mslug3rma48
-mslug3rma49
-mslug3rma50
-mslug3rma51
-mslug3rma52
-mslug3rma53
-mslug3rma54
 mslug3rma55
 mslug3rma56
 mslug3rma57
@@ -4296,12 +4208,6 @@ mslug3rmb45
 mslug3rmb46
 mslug3rmb47
 mslug3rmb48
-mslug3rmb49
-mslug3rmb50
-mslug3rmb51
-mslug3rmb52
-mslug3rmb53
-mslug3rmb54
 mslug3rmb55
 mslug3rmb56
 mslug3rmb57
@@ -4356,24 +4262,12 @@ mslug3rmc33
 mslug3rmc34
 mslug3rmc35
 mslug3rmc36
-mslug3rmc37
-mslug3rmc38
-mslug3rmc39
-mslug3rmc40
-mslug3rmc41
-mslug3rmc42
 mslug3rmc43
 mslug3rmc44
 mslug3rmc45
 mslug3rmc46
 mslug3rmc47
 mslug3rmc48
-mslug3rmc49
-mslug3rmc50
-mslug3rmc51
-mslug3rmc52
-mslug3rmc53
-mslug3rmc54
 mslug3rmc55
 mslug3rmc56
 mslug3rmc57
@@ -4428,24 +4322,12 @@ mslug3rmd33
 mslug3rmd34
 mslug3rmd35
 mslug3rmd36
-mslug3rmd37
-mslug3rmd38
-mslug3rmd39
-mslug3rmd40
-mslug3rmd41
-mslug3rmd42
 mslug3rmd43
 mslug3rmd44
 mslug3rmd45
 mslug3rmd46
 mslug3rmd47
 mslug3rmd48
-mslug3rmd49
-mslug3rmd50
-mslug3rmd51
-mslug3rmd52
-mslug3rmd53
-mslug3rmd54
 mslug3rmd55
 mslug3rmd56
 mslug3rmd57
@@ -4613,12 +4495,6 @@ mslug4rma30
 mslug4rma31
 mslug4rma32
 mslug4rma33
-mslug4rma34
-mslug4rma35
-mslug4rma36
-mslug4rma37
-mslug4rma38
-mslug4rma39
 mslug4rma40
 mslug4rma41
 mslug4rma42
@@ -4628,12 +4504,6 @@ mslug4rma45
 mslug4rma46
 mslug4rma47
 mslug4rma48
-mslug4rma49
-mslug4rma50
-mslug4rma51
-mslug4rma52
-mslug4rma53
-mslug4rma54
 mslug4rma55
 mslug4rma56
 mslug4rma57
@@ -4664,18 +4534,12 @@ mslug4rmb15
 mslug4rmb16
 mslug4rmb17
 mslug4rmb18
-mslug4rmb19
-mslug4rmb20
-mslug4rmb21
 mslug4rmb22
 mslug4rmb23
 mslug4rmb24
 mslug4rmb25
 mslug4rmb26
 mslug4rmb27
-mslug4rmb28
-mslug4rmb29
-mslug4rmb30
 mslug4rmb31
 mslug4rmb32
 mslug4rmb33
@@ -4718,12 +4582,6 @@ mslug4rmc30
 mslug4rmc31
 mslug4rmc32
 mslug4rmc33
-mslug4rmc34
-mslug4rmc35
-mslug4rmc36
-mslug4rmc37
-mslug4rmc38
-mslug4rmc39
 mslug4rmc40
 mslug4rmc41
 mslug4rmc42
@@ -4733,12 +4591,6 @@ mslug4rmc45
 mslug4rmc46
 mslug4rmc47
 mslug4rmc48
-mslug4rmc49
-mslug4rmc50
-mslug4rmc51
-mslug4rmc52
-mslug4rmc53
-mslug4rmc54
 mslug4rmc55
 mslug4rmc56
 mslug4rmc57
@@ -4899,15 +4751,6 @@ mslug5rmtnc33
 mslug5rmtnc34
 mslug5rmtnc35
 mslug5rmtnc36
-mslug5rmtnc37
-mslug5rmtnc38
-mslug5rmtnc39
-mslug5rmtnc40
-mslug5rmtnc41
-mslug5rmtnc42
-mslug5rmtnc43
-mslug5rmtnc44
-mslug5rmtnc45
 mslug5rmtnc46
 mslug5rmtnc47
 mslug5rmtnc48
@@ -4935,15 +4778,6 @@ mslug5rmtnc69
 mslug5rmtnc70
 mslug5rmtnc71
 mslug5rmtnc72
-mslug5rmtnc73
-mslug5rmtnc74
-mslug5rmtnc75
-mslug5rmtnc76
-mslug5rmtnc77
-mslug5rmtnc78
-mslug5rmtnc79
-mslug5rmtnc80
-mslug5rmtnc81
 mslug5rmtnc82
 mslug5rmtnc83
 mslug5rmtnc84
@@ -7220,9 +7054,7 @@ killblds04
 killblds05
 killbldps01
 killbldps02
-kovss01
 //kovss02    // not working, encrypted
-kov100s01
 kov115s01
 kov115s02
 kov115s03
@@ -8190,17 +8022,11 @@ powerins		//parent
 powernbr
 powerns01
 powerns02
-powerinss01
-powerinss02
-powerinsas01
-powerinsas02
-powerinsbs01
-powerinsbs02
+powerns03
 
 @source:psikyo.cpp
 tengai					//parent
 tengais01
-tengaijs01
 
 @source:psikyosh.cpp
 s1945ii			//parent
@@ -8272,12 +8098,10 @@ altbeast				//parent
 altbeastfr
 altbeasts01
 altbeasts02
-altbeast5s01
 
 @source:segas24.cpp
 gground					//parent
 ggrounds01
-ggroundjs01
 
 @source:segas32.cpp
 ga2						//parent
@@ -8292,7 +8116,6 @@ msgundam    			//parent
 msgundams01
 rezon					//parent
 rezons01
-rezonts01
 
 @source:seta2.cpp
 grdians					//parent
@@ -8424,8 +8247,6 @@ gseeker					//parent
 gseekerjs01
 kaiserkn				//parent
 kaiserkns01
-kaiserknjs01
-kaiserknjs02
 landmakrs01
 lightbr					//parent
 lightbrjs01
@@ -8508,14 +8329,11 @@ timepltdiag
 @source:tmnt.cpp
 ssriders	//parent
 ssridersaex
-ssridersudas01
 ssridersebcs01
-ssridersjbds01
-ssridersubcs01
-tmnt2					//parent
+tmnt2	    //parent
 tmnt2s01
 tmnt2s02
-tmnt2as01
+tmnt2s03
 
 @source:tnzs.cpp
 insectx				// parent
