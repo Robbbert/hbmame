@@ -3506,6 +3506,7 @@ nbbatmanus01
 nbbatmanus02
 nbbatmanus03
 nbbatmanus04
+nbbatmanus05
 
 @source:maketrax.cpp
 eyes		//parent
@@ -6535,7 +6536,6 @@ samsho2s05
 samsho2s06
 samsho2s07
 samsho2s08
-samsho2s09
 samsho2s10
 samsho2s11
 samsho2s12
@@ -7710,11 +7710,14 @@ kovsho89
 kovsho90
 kovsho91
 kovsho92
+kovsho93
+kovsho94
+kovsho95  // Serious problem graphic
+kovsho96
 kovshxass01
 kovshxass02
 kovshxass03
 martmasts01
-olds01
 olds103ts01
 olds100s01
 //olds100ass01 //  Unstable game in the emulator (ingame crash)
@@ -7982,8 +7985,6 @@ orlegendcs92
 orlegendcs93
 orlegendcs94
 orlegendcs95
-orlegendes01
-orlegend111cs01
 theglads01
 theglads02
 theglads03

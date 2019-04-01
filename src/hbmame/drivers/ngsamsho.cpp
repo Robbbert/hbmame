@@ -1748,7 +1748,7 @@ HACK( 1993, samshoeh2,  samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo, 
 HACK( 2005, samshos1,   samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "dokx4869", "Samurai Shodown (Easy special attacks 2005-09-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, samshozk,   samsho,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "zuojie & kof1996", "Samurai Shodown (Unlimited Credits in Console Mode 2008-10-23)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 1994, samsho2eh,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown II (Enable hidden characters v1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, samsho2eh,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Samurai Shodown II (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, samsho2emb, samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Blackheart", "Samurai Shodown II (Move Modeasy Special Attacks V4 2009-08-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2hy,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Yashional", "Samurai Shodown II (Boss hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, samsho2mb,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Blackheart", "Samurai Shodown II (Moves hack 2009-08-03)", MACHINE_SUPPORTS_SAVE )
@@ -2168,31 +2168,6 @@ ROM_START( samsho2s08 )
 	ROM_LOAD16_BYTE( "063.c6", 0x800001, 0x200000, CRC(ae4c0a88) SHA1(cc8a7d11daa3821f83a6fd0942534706f939e576) )
 	ROM_LOAD16_BYTE( "063.c7", 0xc00000, 0x200000, CRC(2df3cbcf) SHA1(e54f9022359963711451c2025825b862d36c6975) )
 	ROM_LOAD16_BYTE( "063.c8", 0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
-ROM_END
-
-ROM_START( samsho2s09 )
-	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "063h09.p1", 0x000000, 0x200000, CRC(106c38ce) SHA1(940cbbe80db6891c03681744a96d7d906c1c2790) )
-
-	NEO_SFIX_128K( "063.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
-
-	NEO_BIOS_AUDIO_128K( "063.m1", CRC(56675098) SHA1(90429fc40d056d480d0e2bbefbc691d9fa260fc4) )
-
-	ROM_REGION( 0x700000, "ymsnd", 0 )
-	ROM_LOAD( "063.v1", 0x000000, 0x200000, CRC(37703f91) SHA1(a373ebef4c33ba1d8340e826981a58769aada238) )
-	ROM_LOAD( "063.v2", 0x200000, 0x200000, CRC(0142bde8) SHA1(0be6c53acac44802bf70b6925452f70289a139d9) )
-	ROM_LOAD( "063.v3", 0x400000, 0x200000, CRC(d07fa5ca) SHA1(1da7f081f8b8fc86a91feacf900f573218d82676) )
-	ROM_LOAD( "063.v4", 0x600000, 0x100000, CRC(24aab4bb) SHA1(10ee4c5b3579865b93dcc1e4079963276aa700a6) )
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "063.c1", 0x000000, 0x200000, CRC(86cd307c) SHA1(0d04336f7c436d74638d8c1cd8651faf436a6bec) )
-	ROM_LOAD16_BYTE( "063.c2", 0x000001, 0x200000, CRC(cdfcc4ca) SHA1(179dc81432424d68cefedd20cc1c4b2a95deb891) )
-	ROM_LOAD16_BYTE( "063.c3", 0x400000, 0x200000, CRC(7a63ccc7) SHA1(49d97c543bc2860d493a353ab0d059088c6fbd21) )
-	ROM_LOAD16_BYTE( "063.c4", 0x400001, 0x200000, CRC(751025ce) SHA1(e1bbaa7cd67fd04e4aab7f7ea77f63ae1cbc90d0) )
-	ROM_LOAD16_BYTE( "063.c5", 0x800000, 0x200000, CRC(20d3a475) SHA1(28da44a136bd14c73c62c147c3f6e6bcfa1066de) )
-	ROM_LOAD16_BYTE( "063.c6", 0x800001, 0x200000, CRC(ae4c0a88) SHA1(cc8a7d11daa3821f83a6fd0942534706f939e576) )
-	ROM_LOAD16_BYTE( "264s04.c7", 0xc00000, 0x200000, CRC(d662b45c) SHA1(4142e931d20cafa4bf0a61ee5ba32dabf3341540) )
-	ROM_LOAD16_BYTE( "264s04.c8", 0xc00001, 0x200000, CRC(90ece6bd) SHA1(c8133534a5d889b77a1b54b038ab458223de08ad) )
 ROM_END
 
 ROM_START( samsho2s10 )
@@ -3951,14 +3926,13 @@ HACK( 2014, samshos05,      samsho,   neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2016, samshos06,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown", "Samurai Shodown (Unknown Hack 2016-02-15)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown II
 HACK( 1994, samsho2s01,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown II (Always Maximun Power)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, samsho2s02,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "yumeji[2ch]",    "Samurai Shodown II (Enable Hidden Characters v2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, samsho2s02,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "yumeji[2ch]",    "Samurai Shodown II (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s03,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown II (Move Modeasy Special Attacks V3)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s04,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Yashional",    "Samurai Shodown II (Special Boss)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s05,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "IsmaMj",    "Samurai Shodown II (Xtreme Plus 2011)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s06,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "tcwlee[EGCG]",    "Samurai Shodown II (Color Change)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s07,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "dokx4869",    "Samurai Shodown II (Move Modeasy Special Attacks V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s08,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "dokx4869",    "Samurai Shodown II (Move Modeasy Special Attacks V2)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, samsho2s09,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown II (Description Of Hack Unknown)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s10,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Samurai Shodown II (Demosaic Patch For Kuroko v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s11,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "oak2003",    "Samurai Shodown II (Demosaic Patch For Kuroko v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, samsho2s12,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",    "Samurai Shodown II (Overlord Prison Hell 2014-11-24)", MACHINE_SUPPORTS_SAVE )
