@@ -3205,4 +3205,4 @@ ROM_START( captcommb2 )
 ROM_END
 
 
-HACK( 200?, captcommb2,captcomm, captcommb2,captcomm, cps_state, cps1,     ROT0,   "bootleg", "Captain Commando (bootleg set 2)(bootleg with YM2151 + 2xMSM5205)(911014 other country)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, captcommb2,captcomm, captcommb2,captcomm, cps_state, cps1,     ROT0,   "bootleg", "Captain Commando (bootleg set 2)(bootleg with YM2151 + 2xMSM5205)", MACHINE_SUPPORTS_SAVE )
