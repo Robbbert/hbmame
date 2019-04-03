@@ -22386,7 +22386,7 @@ HACK( 1992, sk2h42,        wof,      sk2h3,      sk2h21,   cps_state,   sk2h22, 
 HACK( 1992, sk2h43,        wof,      sk2h31,     sk2h31,   cps_state,   sk2h22,   ROT0,   "Unknown", "Sangokushi II (Chinese bootleg set 4, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, sk2h45,        wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bootleg", "Sangokushi II (Xia Houen's revenge 2017 full attack 2017-04-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sk2h46,        wof,      sk2h31,     sk2h31,   cps_state,   sk2h22,   ROT0,   "Unknown", "Sangokushi II (Holy Swords)", MACHINE_SUPPORTS_SAVE )
-HACK( 1992, sk2h107,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Description Of Unknown Origin HH 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, sk2h107,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Heroes Revised Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sk2h108,       wof,      sk2h1q,     sk2h1,    cps_state,   sk2h1q,   ROT0,   "Unknown", "Sangokushi II (Unknown Hack 2018-12-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sk2h114,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes Of The Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sk2h115,       wof,      sk2h3,      sk2h1,    cps_state,   sk2h1,    ROT0,   "Katana", "Sangokushi II (Heroes of the Three Kingdoms Repair SP)", MACHINE_SUPPORTS_SAVE )

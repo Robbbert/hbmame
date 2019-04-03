@@ -1,6 +1,22 @@
 ﻿What's new in HBMAME
 ====================
 
+2019-0X-2X 0.20X
+----------------
+
+New Games
+---------------------------------
+- [kovsho93]          Knights of Valour Super Heroes Plus (Edition 2019 2019-03-01)
+- [kovsho94]          Knights of Valour Super Heroes Plus (Enhanced Version 1.9 2019-03-19)
+- [kovsho95]          Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest 2019-03-19)
+- [kovsho96]          Knights of Valour Super Heroes Plus (Survival New Version 2019-03-19)
+- [nbbatmanus05]      Ninja Baseball Bat Man (Musou Edition 2019-03-08)
+- [viostorms01]       Violent Storm (Unknown Hack 2018-08-14)
+- [viostorms02]       Violent Storm (Unknown Hack 2018-08-13)
+- [viostorms03]       Violent Storm (Unknown Hack 2018-05-07)
+
+
+
 2019-03-27 0.208
 ----------------
 
