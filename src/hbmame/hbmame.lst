@@ -1209,7 +1209,7 @@ dktrainer
 dkpace
 kong2600		/* Vic Twenty George hack of Donkey Kong */
 nadkong
-dk_remix
+//dk_remix
 
 @source:docastle.cpp
 dorunrun		//parent
