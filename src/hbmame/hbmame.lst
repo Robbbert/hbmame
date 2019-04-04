@@ -49,7 +49,7 @@ asteroid		//parent
 asteroid6		/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer		// star destroyer, hack of asteroid2
-//amg			// test only
+//amg				// test only
 
 @source:astrocde.cpp
 tst_gorf		/* Gorf test rom */

@@ -110,18 +110,17 @@ ROM_END
 
 void amg_state::init_amg()
 {
-	UINT8 *src = memregion("user2")->base();
-//	int len = memregion("user1")->bytes();
-	UINT8 *dest = memregion("user3")->base();
+	u8 *src = memregion("user2")->base();
+	u8 *dest = memregion("user3")->base();
 
 	offs_t i,j;
 
 	for (i = 0; i < 0x10000; i++)
-		src[i] = BITSWAP8(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
+		src[i] = bitswap<8>(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
 
 	for (i = 0; i < 0x10000; i++)
 	{
-		j = BITSWAP16(i, 15, 5, 4, 7, 0, 10, 1, 11, 6, 2, 12, 3, 9, 8, 13, 14);
+		j = bitswap<16>(i, 15, 5, 4, 7, 0, 10, 1, 11, 6, 2, 12, 3, 9, 8, 13, 14);
 
 		if (!BIT(i, 10))
 			j ^= 0x100;
@@ -129,14 +128,18 @@ void amg_state::init_amg()
 		dest[j] = src[i];
 	}
 
-	for (i = 0x10000; i < 0x18000; i++)
-		src[i] = BITSWAP8(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
+//	for (i = 0x10000; i < 0x18000; i++)
+//		src[i] = bitswap<8>(src[i], 3, 4, 5, 6, 7, 1, 2, 0);
 
-	for (i = 0x10000; i < 0x18000; i++)
-	{
-		j = BITSWAP16(i, 15, 6, 5, 12, 11, 10, 9, 8, 7, 14, 13, 4, 3, 2, 1, 0);
-		dest[j|0x10000] = src[i];
-	}
+//	for (i = 0x10000; i < 0x18000; i++)
+//	{
+//		j = bitswap<16>(i, 15, 6, 5, 12, 11, 10, 9, 8, 7, 14, 13, 4, 3, 2, 1, 0);
+//		dest[j|0x10000] = src[i];
+//	}
+
+//	src = memregion("maincpu")->base()+0x6000;
+//	for (i = 0; i < 0x2000; i++)
+//		src[i] = dest[i];
 }
 
 
