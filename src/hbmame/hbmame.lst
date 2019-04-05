@@ -49,7 +49,7 @@ asteroid		//parent
 asteroid6		/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer		// star destroyer, hack of asteroid2
-//amg				// test only
+//amg			// test only
 
 @source:astrocde.cpp
 tst_gorf		/* Gorf test rom */
@@ -1131,11 +1131,11 @@ xmvsfs03
 xmvsfjs01
 
 @source:cps3.cpp
-jojo			//parent
-jojoba			//parent
-sfiii			//parent
-sfiii2			//parent
-sfiii3			//parent
+jojonc			//parent
+jojobanc		//parent
+sfiiinc			//parent
+sfiii2nc	    //parent
+sfiii3nc		//parent
 jojobbh2
 jojobbss
 jojobpow
@@ -1149,7 +1149,6 @@ sfiiipmp
 sfiii2bh
 sfiii2np
 sfiii2pl
-sfiii3an
 sfiii3bh
 sfiii3mh
 sfiii3ng
