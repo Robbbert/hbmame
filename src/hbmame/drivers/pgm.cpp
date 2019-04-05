@@ -1617,7 +1617,7 @@ ROM_START( kovsgqyzc )
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
 ROM_END
 
-HACK( 2015, ketarrb,    ket,       pgm_arm_type1_cave, pgm,      pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (Adjustment Edition 1.0 2015-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, ketarrb,    ket,       pgm_arm_type1_cave, pgm,      pgm_arm_type1_state, ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012/04/17 BACK. VER)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegendh,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Enbrow", "Oriental Legend Plus (ver. 2.0)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegendcs, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "Kryso", "Oriental Legend (Some Items Are Unlimited)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2006, pgemeni,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     orlegend,   ROT0,   "Blastar", "P-Gemeni (060123)", MACHINE_SUPPORTS_SAVE ) // has no sound

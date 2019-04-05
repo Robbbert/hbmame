@@ -6988,7 +6988,7 @@ ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 // orlegendh // it is duplicated roms orlegendcs
-olds100a			//parent (crashes)
+//olds100a			//parent (crashes)
 kovassg
 //kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
