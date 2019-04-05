@@ -4,6 +4,9 @@
 2019-0X-2X 0.20X
 ----------------
 
+- HBMAMEUI: Added preliminary support for jpg/jpeg pictures. Order of precedence: .png .jpg .jpeg
+
+
 New Games
 ---------------------------------
 - [kovsho93]          Knights of Valour Super Heroes Plus (Edition 2019 2019-03-01)
@@ -14,6 +17,7 @@ New Games
 - [viostorms01]       Violent Storm (Unknown Hack 2018-08-14)
 - [viostorms02]       Violent Storm (Unknown Hack 2018-08-13)
 - [viostorms03]       Violent Storm (Unknown Hack 2018-05-07)
+
 
 
 

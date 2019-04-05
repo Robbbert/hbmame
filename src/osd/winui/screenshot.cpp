@@ -7,7 +7,7 @@
   Screenshot.cpp
   
   Displays snapshots, control panels and other pictures.
-  Files must be of type .PNG .
+  Files must be of type .PNG, .JPG or .JPEG .
   If Software tab is chosen, software-specific pictures can be displayed.
   Background picture must be PNG, and can be chosen from anywhere, but
     must be uncompressed (not in a zip file).
@@ -17,6 +17,7 @@
 // standard windows headers
 #include <windows.h>
 #include <windowsx.h>
+#include <setjmp.h>
 
 // MAME/MAMEUI headers
 #include "png.h"
@@ -24,6 +25,7 @@
 #include "mui_opts.h"
 #include "mui_util.h"  // for DriverIsClone
 #include "drivenum.h"
+#include "libjpeg/jpeglib.h"
 
 /***************************************************************************
     Static global variables
@@ -60,13 +62,13 @@ HANDLE GetScreenShotHandle()
 // called by winui.cpp twice
 int GetScreenShotWidth(void)
 {
-	return ((LPBITMAPINFO)m_hDIB)->bmiHeader.biWidth;
+	return abs( ((LPBITMAPINFO)m_hDIB)->bmiHeader.biWidth);
 }
 
 // called by winui.cpp twice
 int GetScreenShotHeight(void)
 {
-	return ((LPBITMAPINFO)m_hDIB)->bmiHeader.biHeight;
+	return abs( ((LPBITMAPINFO)m_hDIB)->bmiHeader.biHeight);
 }
 
 // called by winui.cpp
@@ -85,6 +87,116 @@ void FreeScreenShot(void)
 		DeleteObject(m_hDDB);
 	m_hDDB = NULL;
 }
+
+/***************************************************************************
+    JPEG graphics handling functions
+***************************************************************************/
+
+struct mameui_jpeg_error_mgr
+{
+	struct jpeg_error_mgr pub; /* "public" fields */
+	jmp_buf setjmp_buffer; /* for return to caller */
+};
+
+METHODDEF(void) mameui_jpeg_error_exit(j_common_ptr cinfo)
+{
+	mameui_jpeg_error_mgr* myerr = (mameui_jpeg_error_mgr*)cinfo->err;
+	(*cinfo->err->output_message) (cinfo);
+	longjmp(myerr->setjmp_buffer, 1);
+}
+
+static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
+{
+	uint64_t bytes = mfile.size();
+	unsigned char* content = (unsigned char*)::malloc(bytes * sizeof(unsigned char));
+	::memcpy(content, mfile.buffer(), bytes);
+
+	*pPAL = NULL;
+	HGLOBAL hDIB = NULL;
+	jpeg_decompress_struct info;
+	mameui_jpeg_error_mgr  err;
+	info.err = jpeg_std_error(&err.pub);
+	err.pub.error_exit = mameui_jpeg_error_exit;
+
+	if (setjmp(err.setjmp_buffer))
+	{
+		jpeg_destroy_decompress(&info);
+		::free(content);
+		copy_size = 0;
+		pixel_ptr = NULL;
+		effWidth = 0;
+		row = 0;
+		if (hDIB)
+			::GlobalFree(hDIB);
+		return false;
+	}
+
+	jpeg_create_decompress(&info);
+	jpeg_mem_src(&info, content, bytes);
+	jpeg_read_header(&info, TRUE);
+	if (info.num_components != 3 || info.out_color_space != JCS_RGB)
+	{
+		jpeg_destroy_decompress(&info);
+		::free(content);
+		return false;
+	}
+
+	BITMAPINFOHEADER bi;
+	LPBITMAPINFOHEADER lpbi;
+	LPVOID lpDIBBits = 0;
+	int lineWidth = 0;
+	LPSTR pRgb;
+	copy_size = 0;
+	pixel_ptr = NULL;
+	row = info.image_height;
+	lineWidth = info.image_width;
+
+	bi.biSize = sizeof(BITMAPINFOHEADER);
+	bi.biWidth = info.image_width;
+	bi.biHeight = -info.image_height; //top down bitmap
+	bi.biPlanes = 1;
+	bi.biBitCount = 24;
+	bi.biCompression = BI_RGB;
+	bi.biSizeImage = 0;
+	bi.biXPelsPerMeter = 2835;
+	bi.biYPelsPerMeter = 2835;
+	bi.biClrUsed = 0;
+	bi.biClrImportant = 0;
+
+	effWidth = (long)(((long)lineWidth*bi.biBitCount + 31) / 32) * 4;
+	int dibSize = (effWidth * info.image_height);
+	hDIB = ::GlobalAlloc(GMEM_FIXED, bi.biSize + dibSize);
+
+	if (!hDIB)
+	{
+		::free(content);
+		return false;
+	}
+
+	jpeg_start_decompress(&info);
+
+	lpbi = (LPBITMAPINFOHEADER)hDIB;
+	::memcpy(lpbi, &bi, sizeof(BITMAPINFOHEADER));
+	pRgb = (LPSTR)lpbi + bi.biSize;
+	lpDIBBits = (LPVOID)((LPSTR)lpbi + bi.biSize);
+
+	while (info.output_scanline < info.output_height) // loop
+	{
+		unsigned char* cacheRow[1] = { (unsigned char*)pRgb };
+		jpeg_read_scanlines(&info, cacheRow, 1);
+		//rgb to win32 bgr
+		for (JDIMENSION i = 0; i < info.output_width; ++i)
+			std::swap(cacheRow[0][i * 3 + 0], cacheRow[0][i * 3 + 2]);
+		pRgb += effWidth;
+	}
+	jpeg_finish_decompress(&info);
+	jpeg_destroy_decompress(&info);
+	copy_size = dibSize;
+	pixel_ptr = (char*)lpDIBBits;
+	*phDIB = hDIB;
+	return true;
+}
+
 
 /***************************************************************************
     PNG graphics handling functions
@@ -134,12 +246,10 @@ static BOOL AllocatePNG(png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
 		for (i = 0; i < nColors; i++)
 		{
 			RGBQUAD rgb;
-
 			rgb.rgbRed = p->palette[i * 3 + 0];
 			rgb.rgbGreen = p->palette[i * 3 + 1];
 			rgb.rgbBlue = p->palette[i * 3 + 2];
 			rgb.rgbReserved = (BYTE)0;
-
 			pRgb[i] = rgb;
 		}
 	}
@@ -198,18 +308,18 @@ static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE
 {
 	png_info p;
 	if (p.read_file(mfile) != PNGERR_NONE)
-		return 0;
+		return false;
 
 	if (p.color_type != 3 && p.color_type != 2)
 	{
 		printf("PNG Unsupported color type %i (has to be 2 or 3)\n", p.color_type);
-		//return 0;                    Leave in so ppl can see incompatibility
+		//return false;                    Leave in so ppl can see incompatibility
 	}
 
 	if (p.interlace_method != 0)
 	{
 		printf("PNG Interlace unsupported\n");
-		return 0;
+		return false;
 	}
 
 	/* Convert < 8 bit to 8 bit */
@@ -218,7 +328,7 @@ static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE
 	if (!AllocatePNG(&p, phDIB, pPAL))
 	{
 		printf("PNG Unable to allocate memory to display screenshot\n");
-		return 0;
+		return false;
 	}
 
 	int bytespp = (p.color_type == 2) ? 3 : 1;
@@ -243,7 +353,7 @@ static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE
 		store_pixels(&p.image[i * (p.width * bytespp)], p.width * bytespp);
 	}
 
-	return 1;
+	return true;
 }
 
 
@@ -382,100 +492,118 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			zip_name = "versus";
 			break;
 		default :
-			// in case a non-image tab gets here, which can happen
+			// shouldn't get here
 			return false;
 	}
 
-	// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
-	strcpy(fullpath, t.c_str());
-	char tempfile[2048];
-	strcpy(tempfile, filename);
-	char* system_name = strtok(tempfile, ":");
-	char* file_name = strtok(NULL, ":");
+	string ext;
+	BOOL success;
 	void *buffer = NULL;
-	string fname;
 
-	// Support multiple paths
-	char* partpath = strtok(fullpath, ";");
-
-	while (partpath && filerr != osd_file::error::NONE)
+	for (u8 extnum = 0; extnum < 3; extnum++)
 	{
-		//Add handling for the displaying of all the different supported snapshot pattern types
-		//%g
-
-		// Do software checks first
-		if (file_name)
+		switch (extnum)
 		{
-			// Try dir/system/game.png
-			fname = string(system_name) + PATH_SEPARATOR + string(file_name) + ".png";
-			filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
+			case 1:
+				ext = ".jpg";
+				break;
+			case 2:
+				ext = ".jpeg";
+				break;
+			default:
+				ext = ".png";
+		}
+		// we need to split the filename into the game name (system_name), and the software-list item name (file_name)
+		strcpy(fullpath, t.c_str());
+		char tempfile[2048];
+		strcpy(tempfile, filename);
+		char* system_name = strtok(tempfile, ":");
+		char* file_name = strtok(NULL, ":");
+		string fname;
+		buffer = 0;
+		success = false;
 
-			// Try dir/system.zip/game.png
-			if (filerr != osd_file::error::NONE)
+		// Support multiple paths
+		char* partpath = strtok(fullpath, ";");
+
+		while (partpath && filerr != osd_file::error::NONE)
+		{
+			//Add handling for the displaying of all the different supported snapshot pattern types
+
+			// Do software checks first
+			if (file_name)
 			{
-				fname = string(file_name) + ".png";
-				filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
+				// Try dir/system/game.png
+				fname = string(system_name) + PATH_SEPARATOR + string(file_name) + ext;
+				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
+
+				// Try dir/system.zip/game.png
+				if (filerr != osd_file::error::NONE)
+				{
+					fname = string(file_name) + ext;
+					filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
+				}
+
+				// Try dir/system.zip/system/game.png
+				if (filerr != osd_file::error::NONE)
+				{
+					fname = string(system_name) + "/" + string(file_name) + ext;
+					filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
+				}
+
+				// Try dir/zipfile/system/game.png
+				if (filerr != osd_file::error::NONE)
+				{
+					filerr = OpenZipDIBFile(partpath, zip_name, fname.c_str(), file, &buffer);
+				}
 			}
 
-			// Try dir/system.zip/system/game.png
-			if (filerr != osd_file::error::NONE)
+			// give up on software-specific.
+			// For SNAPS only, try filenames with 0000.png
+			if ((pic_type == TAB_SCREENSHOT) && (extnum == 0))
 			{
-				fname = string(system_name) + "/" + string(file_name) + ".png";
-				filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
+				if (filerr != osd_file::error::NONE)
+				{
+					//%g/%i
+					fname = string(system_name) + PATH_SEPARATOR + "0000.png";
+					filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
+				}
 			}
 
-			// Try dir/zipfile/system/game.png
+			// Try dir/system.png  %g
 			if (filerr != osd_file::error::NONE)
 			{
+				fname = string(system_name) + ext;
+				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
+			}
+
+			//%g/%g
+			if (filerr != osd_file::error::NONE)
+			{
+				fname = string(system_name) + PATH_SEPARATOR + string(system_name) + ext;
+				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
+			}
+
+			// Try dir/zipfile/system.png
+			if (filerr != osd_file::error::NONE)
+			{
+				fname = string(system_name) + ext;
 				filerr = OpenZipDIBFile(partpath, zip_name, fname.c_str(), file, &buffer);
 			}
+
+			partpath = strtok(NULL, ";");
 		}
 
-		// give up on software-specific, try dir/system.png
-		if (filerr != osd_file::error::NONE)
+		if (filerr == osd_file::error::NONE)
 		{
-			fname = string(system_name) + ".png";
-			filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
+			if (extnum)
+				success = jpeg_read_bitmap_gui(*file, phDIB, pPal);
+			else
+				success = png_read_bitmap_gui(*file, phDIB, pPal);
+			file.reset();
 		}
-
-		// For SNAPS only, try filenames with 0000.
-		if (pic_type == TAB_SCREENSHOT)
-		{
-			if (filerr != osd_file::error::NONE)
-			{
-				//%g/%i
-				fname = string(system_name) + PATH_SEPARATOR + "0000.png";
-				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
-			}
-			if (filerr != osd_file::error::NONE)
-			{
-				//%g%i
-				fname = string(system_name) + "0000.png";
-				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
-			}
-			if (filerr != osd_file::error::NONE)
-			{
-				//%g/%g%i
-				fname = string(system_name) + PATH_SEPARATOR + string(system_name) + "0000.png";
-				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
-			}
-		}
-
-		// Try dir/zipfile/system.png
-		if (filerr != osd_file::error::NONE)
-		{
-			fname = string(system_name) + ".png";
-			filerr = OpenZipDIBFile(partpath, zip_name, fname.c_str(), file, &buffer);
-		}
-
-		partpath = strtok(NULL, ";");
-	}
-
-	BOOL success = false;
-	if (filerr == osd_file::error::NONE)
-	{
-		success = png_read_bitmap_gui(*file, phDIB, pPal);
-		file.reset();
+		if (success)
+			break;
 	}
 
 	// free the buffer if we have to
