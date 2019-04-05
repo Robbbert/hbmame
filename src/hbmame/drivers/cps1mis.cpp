@@ -652,7 +652,7 @@ void cps_state::cps1frog(machine_config &config)
 	M68000(config, m_maincpu, XTAL(10'000'000));    /* verified on pcb */
 	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::cps1frog_map);
 	m_maincpu->set_vblank_int("screen", FUNC(cps_state::cps1_interrupt));
-	m_maincpu->set_irq_acknowledge_callback(FUNC(cps_state::cps1_int_ack));
+	m_maincpu->set_addrmap(m68000_base_device::AS_CPU_SPACE, &cps_state::cpu_space_map);
 
 	Z80(config, m_audiocpu, XTAL(3'579'545));  /* verified on pcb */
 	m_audiocpu->set_addrmap(AS_PROGRAM, &cps_state::sub_map);
