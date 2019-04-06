@@ -491,7 +491,6 @@ tk2h113
 tk2h114
 tk2h115
 tk2h116
-tk2h117
 tk2h118
 tk2h119
 tk2h120
@@ -6988,7 +6987,7 @@ ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 // orlegendh // it is duplicated roms orlegendcs
-olds100a			//parent (crashes)
+//olds100a			//parent (crashes)
 kovassg
 //kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
