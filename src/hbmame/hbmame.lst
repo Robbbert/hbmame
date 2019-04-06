@@ -1192,6 +1192,7 @@ decodemo		/* Charles Doty */
 @source:dkong.cpp
 dkong			//parent
 dkong2m
+//dkongbcc			// 4 program roms not found
 dkongex			/* Jeff's Hack with Foundry Level */
 dkongf
 dkongp			/* Fix for level 22 kill screen by Don Hodges */
