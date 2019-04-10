@@ -824,6 +824,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/raiden2.cpp",
 	MAME_DIR .. "src/mame/video/raiden2.cpp",
 	MAME_DIR .. "src/mame/machine/r2crypt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/r2dx_v33.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_cmd.hxx",

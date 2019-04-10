@@ -8047,6 +8047,9 @@ s1945iiis02
 soldivid		//parent
 soldivids01
 
+@source:r2dx_v33.cpp
+nzeroteama					//parent
+
 @source:rabbit.cpp
 rabbit						//parent
 rabbits01
