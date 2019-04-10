@@ -326,7 +326,7 @@ ROM_START( kof2kgbh )
 
 	NEO_SFIX_MT_512K
 	// This came with the set but doesn't work
-	//NEO_SFIX_128K( "257gbh.s1", CRC(cabc287b) SHA1(dbf3adc0fe31d3c6c246ed4c996ca9b8c9bbfa4d) )
+	//NEO_SFIX_128K( "257gbh.s1", BAD_DUMP CRC(cabc287b) SHA1(dbf3adc0fe31d3c6c246ed4c996ca9b8c9bbfa4d) ) // confirmed bad dump
 
 	NEO_BIOS_AUDIO_256K( "257gbh.m1", CRC(a082f086) SHA1(809ef4a533cf541b86786f455a7f283a5acecd82) )
 
@@ -2545,7 +2545,7 @@ ROM_START( kof2000s57 )
 
 	NEO_SFIX_MT_512K
 	// This came with the set but doesn't work
-	//NEO_SFIX_128K( "257gbh.s1", CRC(cabc287b) SHA1(dbf3adc0fe31d3c6c246ed4c996ca9b8c9bbfa4d) )
+	//NEO_SFIX_128K( "257gbh.s1", BAD_DUMP CRC(cabc287b) SHA1(dbf3adc0fe31d3c6c246ed4c996ca9b8c9bbfa4d) ) // confirmed bad dump
 
 	NEO_BIOS_AUDIO_256K( "257gbh.m1", CRC(a082f086) SHA1(809ef4a533cf541b86786f455a7f283a5acecd82) )
 
