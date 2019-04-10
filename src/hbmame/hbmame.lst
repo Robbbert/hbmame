@@ -8192,6 +8192,12 @@ wbmlkb
 @source:system16.cpp
 sys16dem				// HB
 
+@source:stv.cpp
+stvbios					//bios
+gaxeduel				//parent
+groovef					//parent
+suikoenb				//parent
+
 @source:taitosj.cpp
 alpine					//parent
 alpines01

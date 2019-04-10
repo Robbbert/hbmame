@@ -42,6 +42,7 @@ CPUS["MN10200"] = true
 CPUS["NEC"] = true
 CPUS["PSX"] = true
 CPUS["S2650"] = true
+CPUS["SCUDSP"] = true -- stv
 CPUS["SH"] = true
 CPUS["SM510"] = true
 CPUS["SPC700"] = true -- snesb
@@ -147,6 +148,7 @@ VIDEOS["SNES_PPU"] = true -- snesb
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
 VIDEOS["PSX"] = true
+VIDEOS["STVVDP"] = true -- stv
 
 --------------------------------------------------
 -- specify available machine cores
@@ -199,7 +201,10 @@ MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
 MACHINES["RTC9701"] = true -- cv1k
+MACHINES["SEGA_SCU"] = true -- stv
 MACHINES["SERFLASH"] = true -- cv1k
+MACHINES["SMPC"] = true -- stv
+MACHINES["STVCD"] = true -- stv
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
@@ -229,6 +234,7 @@ MACHINES["Z80PIO"] = true
 BUSES["GENERIC"] = true
 -- BUSES["NEOGEO"] = true
 -- BUSES["NEOGEO_CTRL"] = true
+BUSES["SAT_CTRL"] = true -- stv
 BUSES["SCSI"] = true
 
 --------------------------------------------------
@@ -803,6 +809,9 @@ files {
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
 	MAME_DIR .. "src/mame/machine/model1io.cpp",
+	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
+	MAME_DIR .. "src/mame/machine/saturn.cpp",
+	MAME_DIR .. "src/mame/machine/stvprot.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")
