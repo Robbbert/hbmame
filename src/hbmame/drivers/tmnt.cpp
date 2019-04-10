@@ -30,7 +30,7 @@ ROM_END
 
 
 //    YEAR, NAME,        PARENT,   MACHINE,  INPUT,     INIT,          MONITOR,COMPANY,FULLNAME,FLAGS
-GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, empty_init, ROT0,   "Pipi899","Sunset Riders (EX Super Version)(2009-07-28)(2 Players ver ABD)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, empty_init, ROT0,   "Pipi899","Sunset Riders (EX Super Version 2009-07-28)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -38,35 +38,6 @@ GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, empty_init, 
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
-
- /*************
- Sunset Riders
-****************/
-
-ROM_START( ssridersebcs01 )
-	ROM_REGION( 0xc0000, "maincpu", 0 ) 
-	ROM_LOAD16_BYTE( "064ebc02s01.8e",  0x000000, 0x40000, CRC(b98e9dd6) SHA1(d278c91449a36d758d0456b32f3ce1b4dee43278) )
-	ROM_LOAD16_BYTE( "064ebc03s01.8g",  0x000001, 0x40000, CRC(a6566ab1) SHA1(9e170117e7865767492a00ca693e99bdabd3082f) )
-	ROM_LOAD16_BYTE( "064eab04.10e", 0x080000, 0x20000, CRC(ef2315bd) SHA1(2c8b11321cb5fdb78d760fabca666c0d8cc5b298) )
-	ROM_LOAD16_BYTE( "064eab05.10g", 0x080001, 0x20000, CRC(51d6fbc4) SHA1(e80de7d155b7f263c48ef4ae2702059be3c18e76) )
-
-	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "064e01.2f",   0x0000, 0x10000, CRC(44b9bc52) SHA1(4654d6e14c6956c40a19cb41155accb63f0da338) )
-
-	ROM_REGION( 0x100000, "k052109", 0 )    
-	ROM_LOAD32_WORD( "064e12.16k",   0x000000, 0x080000, CRC(e2bdc619) SHA1(04449deb267b0beacfa33640b593eb16194aa0d9) )
-	ROM_LOAD32_WORD( "064e11.12k",   0x000002, 0x080000, CRC(2d8ca8b0) SHA1(7c882f79c2402cf75979c681071007d76e4db9ae) )
-
-	ROM_REGION( 0x200000, "k053245", 0 )
-	ROM_LOAD32_WORD( "064e09.7l", 0x000000, 0x100000, CRC(4160c372) SHA1(0b36181e5ccd785c7fb89b9f41e458066a42c3b0) )
-	ROM_LOAD32_WORD( "064e07.3l", 0x000002, 0x100000, CRC(64dd673c) SHA1(bea4d17a71dd21c635866ee69b4892dc9d0ab455) )
-
-	ROM_REGION( 0x100000, "k053260", 0 ) 
-	ROM_LOAD( "064e06.1d",    0x0000, 0x100000, CRC(59810df9) SHA1(a0affc6330bdbfab1447dc0cf13c20ff708c2c71) )
-
-	ROM_REGION( 0x80, "eeprom", 0 ) 
-	ROM_LOAD( "ssriders_ebc.nv", 0x0000, 0x080, CRC(1918e90f) SHA1(edddbe80a5c9dd64411596b1aa4d7fce7b7090ae) )
-ROM_END
 
  /****************************
  Teenage Mutant Ninja Turtles
@@ -154,8 +125,6 @@ ROM_START( tmnt2s03 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Sunset Riders
-GAME( 1991, ssridersebcs01, ssriders, ssriders, ssriders,  tmnt_state, empty_init, ROT0,   "pipi899",  "Sunset Riders (Ex Super Version 2009-07-28)", MACHINE_SUPPORTS_SAVE )
 // Teenage Mutant Ninja Turtles
 GAME( 1991, tmnt2s01,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, tmnt2s02,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Start Change Char)", MACHINE_SUPPORTS_SAVE )
