@@ -9,16 +9,20 @@
 
 New Games
 ---------------------------------
+- [gaxeduels01]       Golden Axe (Enable Hidden Characters)
+- [groovefs01]        Groove on Fight (Enable Hidden Characters)
 - [kovsho93]          Knights of Valour Super Heroes Plus (Edition 2019 2019-03-01)
 - [kovsho94]          Knights of Valour Super Heroes Plus (Enhanced Version 1.9 2019-03-19)
 - [kovsho95]          Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest 2019-03-19)
 - [kovsho96]          Knights of Valour Super Heroes Plus (Survival New Version 2019-03-19)
+- [kov2p204s88]       Knights of Valour 2 Plus (Unknown Hack 2018-03-15)
+- [kov2p204s89]       Knights of Valour 2 Plus (Unknown Hack 2018-07-21)
 - [nbbatmanus05]      Ninja Baseball Bat Man (Musou Edition 2019-03-08)
+- [nzeroteamas01]     New Zero Team (Special Forces 2018-02-19)
+- [suikoenbs01]       Suiko Enbu / Outlaws of the Lost Dynasty (Enable Hidden Characters)
 - [viostorms01]       Violent Storm (Unknown Hack 2018-08-14)
 - [viostorms02]       Violent Storm (Unknown Hack 2018-08-13)
 - [viostorms03]       Violent Storm (Unknown Hack 2018-05-07)
-- [kov2p204s88]       Knights of Valour 2 Plus (Unknown Hack 2018-03-15)
-- [kov2p204s89]       Knights of Valour 2 Plus (Unknown Hack 2018-07-21)
 
 
 

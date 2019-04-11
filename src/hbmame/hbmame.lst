@@ -8049,6 +8049,7 @@ soldivids01
 
 @source:r2dx_v33.cpp
 nzeroteama					//parent
+nzeroteamas01
 
 @source:rabbit.cpp
 rabbit						//parent
@@ -8198,8 +8199,11 @@ sys16dem				// HB
 @source:stv.cpp
 stvbios					//bios
 gaxeduel				//parent
+gaxeduels01
 groovef					//parent
+groovefs01
 suikoenb				//parent
+suikoenbs01
 
 @source:taitosj.cpp
 alpine					//parent
@@ -8343,7 +8347,6 @@ timepltdiag
 @source:tmnt.cpp
 ssriders	//parent
 ssridersaex
-ssridersebcs01
 tmnt2	    //parent
 tmnt2s01
 tmnt2s02
