@@ -3538,6 +3538,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/tvgame.cpp",
 	MAME_DIR .. "src/mame/drivers/spg110.cpp",
 	MAME_DIR .. "src/mame/drivers/vii.cpp",
+	MAME_DIR .. "src/mame/drivers/sunplus_gcm394.cpp",
 	MAME_DIR .. "src/mame/drivers/xavix.cpp",
 	MAME_DIR .. "src/mame/video/xavix.cpp",
 	MAME_DIR .. "src/mame/machine/xavix.cpp",
@@ -3746,6 +3747,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "yamaha")
 files {
+	MAME_DIR .. "src/mame/machine/mulcd.cpp",
 	MAME_DIR .. "src/mame/drivers/ymmu100.cpp",
 	MAME_DIR .. "src/mame/drivers/fb01.cpp",
 	MAME_DIR .. "src/mame/drivers/tg100.cpp",
@@ -3847,6 +3849,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/dsb46.cpp",
 	MAME_DIR .. "src/mame/drivers/dual68.cpp",
 	MAME_DIR .. "src/mame/drivers/e100.cpp",
+	MAME_DIR .. "src/mame/drivers/e9161.cpp",
 	MAME_DIR .. "src/mame/drivers/eacc.cpp",
 	MAME_DIR .. "src/mame/drivers/elwro800.cpp",
 	MAME_DIR .. "src/mame/drivers/emate.cpp",
@@ -3877,6 +3880,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/hpz80unk.cpp",
 	MAME_DIR .. "src/mame/drivers/ht68k.cpp",
 	MAME_DIR .. "src/mame/drivers/hunter2.cpp",
+	MAME_DIR .. "src/mame/drivers/hunter16.cpp",
 	MAME_DIR .. "src/mame/drivers/i7000.cpp",
 	MAME_DIR .. "src/mame/drivers/ibm3153.cpp",
 	MAME_DIR .. "src/mame/drivers/icatel.cpp",

@@ -9,20 +9,21 @@
         die markings show
         "SunPlus QL8041" ( also known as Sunplus SPG240 & PAC300 )
 
-            (all GameKeyReady units?)
-            Disney Princess (GKR)
-            Wheel of Fortune (GKR)
-            JAKKS WWE (GKR)
-            Fantastic 4 (GKR)
-            Justice League (GKR)
-            Dora the Explorer Nursery Rhyme (GKR)
-            Dora the Explorer Play Park (GKR)
-            Spiderman 5-in-1 (GKR)
-            etc.
+            All GameKeyReady units
+			    Disney Princess (GKR)
+				Wheel of Fortune (GKR)
+				JAKKS WWE (GKR)
+				Fantastic 4 (GKR)
+				Justice League (GKR)
+				Dora the Explorer Nursery Rhyme (GKR)
+				Dora the Explorer Play Park (GKR)
+				Spiderman 5-in-1 (GKR)
+				etc.
 
             (other non GKR JAKKS games)
             X-Men (Wolverine pad)
             Avatar: The Last Airbender
+			Superman in Super Villain Showdown
 
             (other games)
             Mattel Classic Sports
@@ -36,8 +37,32 @@
         "SunPlus QU7074-P69A"
 
             The Batman
+			Star Wars (non-gamekey, which model? falcon? - check)
+			Dream Life
+
+		"SunPlus QL8167b" (is the scrambling built into the CPU, or external?)
+
+			Lexibook Zeus IG900 20-in-1
+
+		"SunPlus QL8139C"
+
+			Radica Cricket
+			V Smile Baby (Sweden) - see vsmileb.cpp
 
         ---
+
+		Very likely the same
+
+		"Sunplus QL8167" (these might have ROM scrambling if that is a 8167 feature)
+
+			Disney Princess Magical Adventure
+			Go Diego Go
+			Shrek - Over the Hedge (this unit shows a 'GameKey Unlock More Games' on startup, but has no port, not even on the internal PCB)
+			Marvel Heroes (Spider-man)
+			Spiderman 3 (Movie - black)
+
+
+		---
 
         It is unknown if the following are close to this architecture or not (no dumps yet)
 
@@ -49,27 +74,15 @@
 
             Mission Paintball
 
-        "Sunplus QL8167"
-
-            Disney Princess Magical Adventure
-            Go Diego Go
-            Shrek - Over the Hedge (this unit shows a 'GameKey Unlock More Games' on startup, but has no port, not even on the internal PCB)
-            Marvel Heroes (Spider-man)
-            Spiderman 3 (Movie - black)
-
         ---
 
-        These are definitely different
+        These are definitely different but still unSP based
 
-        "SunPlus PA7801" ( known as Sunplus SPG110? ) see spg110.cpp instead
+        "SunPlus PA7801" ( known as Sunplus SPG110? )
+		- see spg110.cpp instead
 
-            Classic Arcade Pinball
-            EA Sports (NHL95 + Madden 95)
-            Spiderman 5-in-1 (original release)
-
-        "GCM394" (this is clearly newer, has extra opcodes, different internal map etc.)
-
-            Smart Fit Park
+        "GCM394" (this is clearly newer, has extra opcodes, different internal map etc. also scaling and higher resolutions based on Spongebob) 
+		- see sunplus_gcm394.cpp instead
 
     Status:
 
@@ -1419,14 +1432,14 @@ INPUT_PORTS_END
 
 READ16_MEMBER(dreamlif_state::portb_r)
 {
-	// some kind of EEPROM device?
+	// some kind of EEPROM device?  has a HT93LC66A
 	logerror("%s: portb_r\n", machine().describe_context());
 	return 0x0000;
 }
 
 WRITE16_MEMBER(dreamlif_state::portb_w)
 {
-	// some kind of EEPROM device?
+	// some kind of EEPROM device? see above
 	logerror("%s: portb_w (%04x)\n", machine().describe_context(), data);
 }
 
@@ -2170,10 +2183,6 @@ ROM_START( dreamlif )
 	ROM_LOAD16_WORD_SWAP( "dreamlife.bin", 0x000000, 0x800000, CRC(632e0237) SHA1(a8586e8a626d75cf7782f13cfd9f1b938af23d56) )
 ROM_END
 
-ROM_START( smartfp )
-	ROM_REGION( 0x800000, "maincpu", ROMREGION_ERASE00 )
-	ROM_LOAD16_WORD_SWAP( "smartfitpark.bin", 0x000000, 0x800000, CRC(ada84507) SHA1(a3a80bf71fae62ebcbf939166a51d29c24504428) )
-ROM_END
 
 
 
@@ -2214,88 +2223,6 @@ ROM_START( wlsair60 )
 	ROM_REGION( 0x8400000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD16_WORD_SWAP( "wlsair60.nand", 0x0000, 0x8400000, CRC(eec23b97) SHA1(1bb88290cf54579a5bb51c08a02d793cd4d79f7a) )
 ROM_END
-
-/*
-Wireless Hunting Video Game System
-(info provided with dump)
-
-System: Wireless Hunting Video Game System
-Publisher: Hamy / Kids Station Toys Inc
-Year: 2011
-ROM: FDI MSP55LV100G
-RAM: Micron Technology 48LC8M16A2
-
-Games:
-
-Secret Mission
-Predator
-Delta Force
-Toy Land
-Dream Forest
-Trophy Season
-Freedom Force
-Be Careful
-Net Power
-Open Training
-Super Archer
-Ultimate Frisbee
-UFO Shooting
-Happy Darts
-Balloon Shoot
-Avatair
-Angry Pirate
-Penguin War
-Ghost Shooter
-Duck Hunt
-
-
-ROM Board:
-
-Package: SO44
-Spacing: 1.27 mm
-Width: 16.14 mm
-Length: 27.78 mm
-Voltage: 3V
-Pinout:
-
-          A25  A24
-            |  |
-      +--------------------------+
-A21 --|==   #  # `.__.'        ==|-- A20
-A18 --|==                      ==|-- A19
-A17 --|==                      ==|-- A8
- A7 --|==                      ==|-- A9
- A6 --|==                  o   ==|-- A10
- A5 --|==  +----------------+  ==|-- A11
- A4 --|==  |                |  ==|-- A12
- A3 --|==  |  MSP55LV100G   |  ==|-- A13
- A2 --|==  |  0834 M02H     |  ==|-- A14
- A1 --|==  |  JAPAN         |  ==|-- A15
- A0 --|==  |                |  ==|-- A16
-#CE --|==  |                |  ==|-- A23
-GND --|==  |                |  ==|-- A22
-#OE --|==  |                |  ==|-- Q15
- Q0 --|==  |                |  ==|-- Q7
- Q8 --|==  |                |  ==|-- Q14
- Q1 --|==  +----------------+  ==|-- Q6
- Q9 --|==                      ==|-- Q13
- Q2 --|==       M55L100G       ==|-- Q5
-Q10 --|==                      ==|-- Q12
- Q3 --|==                      ==|-- Q4
-Q11 --|==                      ==|-- VCC
-      +--------------------------+
-
-
-The only interesting string in this ROM is SPF2ALP,
-which is also found in the Wireless Air 60 ROM.
-
-*/
-
-ROM_START( wrlshunt )
-	ROM_REGION( 0x8000000, "maincpu", ROMREGION_ERASE00 )
-	ROM_LOAD16_WORD_SWAP( "wireless.bin", 0x0000, 0x8000000, CRC(a6ecc20e) SHA1(3645f23ba2bb218e92d4560a8ae29dddbaabf796) )
-ROM_END
-
 
 void spg2xx_game_state::init_crc()
 {
@@ -2417,13 +2344,6 @@ CONS( 2009, zone40,    0,       0,        non_spg_base, wirels60, spg2xx_game_st
 
 // Similar, SPG260?, scrambled
 CONS( 200?, lexizeus,    0,       0,        lexizeus, lexizeus, spg2xx_game_state, init_zeus, "Lexibook",          "Zeus IG900 20-in-1 (US?)",           MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
-
-
-// valid looking code, but extended periperhal area (twice the size?) makes use of unemulated opcode 0xfe00 ?
-CONS( 2011, wrlshunt,  0,       0,        non_spg_base, wirels60, spg2xx_game_state, empty_init, "Hamy / Kids Station Toys Inc",                      "Wireless Hunting Video Game System", MACHINE_NO_SOUND | MACHINE_NOT_WORKING )
-// extended opcodes different internal map?
-CONS( 2009, smartfp,   0,       0,        non_spg_base, wirels60, spg2xx_game_state, empty_init, "Fisher-Price", "Fun 2 Learn Smart Fit Park",     MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
-// Fun 2 Learn 3-in-1 SMART SPORTS  ?
 
 // NAND dumps w/ internal bootstrap. Almost certainly do not fit in this driver, as the SPG2xx can only address up to 4Mwords. These are 'GeneralPlus' instead?
 CONS( 2010, wlsair60,  0,       0,        non_spg_base, wirels60, spg2xx_game_state, empty_init, "Jungle Soft / Kids Station Toys Inc",               "Wireless Air 60",   MACHINE_NO_SOUND | MACHINE_NOT_WORKING )

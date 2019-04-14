@@ -204,6 +204,7 @@ duet16.cpp
 dvk_kcgd.cpp
 dvk_ksm.cpp
 e100.cpp
+e9161.cpp
 eacc.cpp
 ec184x.cpp
 ec65.cpp
@@ -335,6 +336,7 @@ ht6000.cpp
 ht68k.cpp
 huebler.cpp
 hunter2.cpp
+hunter16.cpp
 hx20.cpp
 hyperscan.cpp
 i7000.cpp
@@ -737,6 +739,7 @@ sun2.cpp
 sun3.cpp
 sun3x.cpp
 sun4.cpp
+sunplus_gcm394.cpp
 super6.cpp
 super80.cpp
 superslave.cpp

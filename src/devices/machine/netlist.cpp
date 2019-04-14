@@ -467,6 +467,8 @@ private:
 
 netlist::setup_t &netlist_mame_device::setup()
 {
+	if (!m_netlist)
+		throw device_missing_dependencies();
 	return m_netlist->nlstate().setup();
 }
 
@@ -548,6 +550,14 @@ void netlist_mame_sub_interface::set_mult_offset(const double mult, const double
 	m_offset = offset;
 }
 
+netlist_mame_analog_input_device::netlist_mame_analog_input_device(const machine_config &mconfig, const char *tag, device_t *owner, const char *param_name)
+	: device_t(mconfig, NETLIST_ANALOG_INPUT, tag, owner, 0)
+	, netlist_mame_sub_interface(*owner)
+	, m_param(nullptr)
+	, m_auto_port(true)
+	, m_param_name(param_name)
+{
+}
 
 netlist_mame_analog_input_device::netlist_mame_analog_input_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, NETLIST_ANALOG_INPUT, tag, owner, clock)
@@ -585,12 +595,6 @@ netlist_mame_analog_output_device::netlist_mame_analog_output_device(const machi
 	, netlist_mame_sub_interface(*owner)
 	, m_in("")
 {
-}
-
-void netlist_mame_analog_output_device::set_params(const char *in_name, output_delegate &&adelegate)
-{
-	m_in = in_name;
-	m_delegate = std::move(adelegate);
 }
 
 void netlist_mame_analog_output_device::custom_netlist_additions(netlist::netlist_state_t &nlstate)
@@ -723,6 +727,15 @@ netlist_mame_ram_pointer_device::netlist_mame_ram_pointer_device(const machine_c
 	, netlist_mame_sub_interface(*owner)
 	, m_param(nullptr)
 	, m_param_name("")
+	, m_data(nullptr)
+{
+}
+
+netlist_mame_ram_pointer_device::netlist_mame_ram_pointer_device(const machine_config &mconfig, const char *tag, device_t *owner, const char *pname)
+	: device_t(mconfig, NETLIST_RAM_POINTER, tag, owner, 0)
+	, netlist_mame_sub_interface(*owner)
+	, m_param(nullptr)
+	, m_param_name(pname)
 	, m_data(nullptr)
 {
 }

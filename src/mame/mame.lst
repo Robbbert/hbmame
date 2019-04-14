@@ -11904,6 +11904,9 @@ dyndukeu                        // (c) 1989 Seibu Kaihatsu + Fabtek license (25J
 @source:e100.cpp
 e100                            //
 
+@source:e9161.cpp
+e9161                           //
+
 @source:eacc.cpp
 eacc                            //
 
@@ -12884,6 +12887,7 @@ vbrc                            //
 
 @source:fidel_cc1.cpp
 cc1                             //
+cc3                             //
 
 @source:fidel_cc10.cpp
 cc10                            //
@@ -13196,6 +13200,8 @@ cuoreuno                        // (c) 1996 C.M.C.
 elephfam                        // (c) 1997 C.M.C.
 elephfmb                        // (c) 1996 C.M.C.
 funquiz                         // (c) 198? Fun World
+funquiza                        // (c) 1990 Fun World
+funquizb                        // (c) 1990 Fun World
 jokercrd                        // (c) 1993 Vesely Svet
 jollycrd                        // (c) 1985 TAB-Austria
 jollycrda                       // (c) 1985 TAB-Austria
@@ -15120,6 +15126,7 @@ gnw_squish                      // Nintendo
 gnw_stennis                     // Nintendo
 gnw_tbridge                     // Nintendo
 gnw_tfish                       // Nintendo
+gnw_zelda                       // Nintendo
 kbilly                          // Konami
 kblades                         // Konami
 kbucky                          // Konami
@@ -15526,6 +15533,10 @@ amu880                          //
 
 @source:hunter2.cpp
 hunter2                         //
+
+@source:hunter16.cpp
+hunter16                        //
+hunter1680                      //
 
 @source:hvyunit.cpp
 hvyunit                         // (c) 1988 Kaneko
@@ -33692,6 +33703,7 @@ cycln_l4                        //
 cycln_l5                        //
 eatpm_4g                        //
 eatpm_4u                        //
+eatpm_f1                        //
 eatpm_l1                        //
 eatpm_l2                        //
 eatpm_l4                        //
@@ -33731,6 +33743,7 @@ whirl_lg3                       //
 bbnny_l2                        //
 bbnny_lu                        //
 dd_l2                           //
+dd_lu1                          //
 dd_p6                           //
 diner_f2                        //
 diner_l1                        //
@@ -36503,6 +36516,10 @@ srangero                        // (c) 1988
 srangerw                        // (c) 1988 SunA (WDK License)
 starfigh                        // (c) 1990 SunA
 
+@source:sunplus_gcm394.cpp
+smartfp                         // Smart Fit Park
+wrlshunt                        // Wireless: Hunting Video Game System
+
 @source:supbtime.cpp
 chinatwn                        // MAK (c) 1991 Data East Corporation (Japan)
 supbtime                        // MAE (c) 1990 Data East Corporation (World)
@@ -38798,7 +38815,6 @@ jak_nick                        //
 jak_sbfc                        //
 lexizeus                        // Lexibook
 vii                             // KenSingTon / Jungle Soft / Siatronics Vii
-wrlshunt                        // Wireless: Hunting Video Game System
 wirels60                        // Wireless 60
 wlsair60                        // Wireless Air 60
 zone40                          // Zone 40
@@ -38810,7 +38826,6 @@ rad_crik                        //
 rad_fb2                         //
 mattelcs                        //
 dreamlif                        //
-smartfp                         //
 icanguit                        //
 icanpian                        //
 
