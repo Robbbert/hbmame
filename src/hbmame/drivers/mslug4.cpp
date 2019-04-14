@@ -6178,16 +6178,16 @@ HACK( 2006, mslug4hh26,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  msl
 HACK( 2016, mslug4hh27,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Metal Slug 4 (Last Bullet 2016-03-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslug4hh28,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Metal Slug 4 (Last Bullet 2016-10-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug4hh29,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Gaston90", "Metal Slug 4 (Last Bullet Multi-Function Prototype)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh30,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Character)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
-HACK( 200?, mslug4hh31,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Weapon)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh32,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Zombie)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
-HACK( 200?, mslug4hh34,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Shyma.X",    "Metal Slug 4 (Neo Arc French Traduction Rev.3)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh35,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Eddids[FGCH]",    "Metal Slug 4 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh37,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh38,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V2)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslug4hh39,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown", "Metal Slug 4 (Neo Arc French Traduction Alpha)", MACHINE_SUPPORTS_SAVE ) //Mame Neht
-HACK( 200?, mslug4hh40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown", "Metal Slug 4 (Ammunition Random Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh30,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Character)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
+HACK( 2002, mslug4hh31,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Weapon)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh32,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Zombie)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
+HACK( 2002, mslug4hh34,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Shyma.X",    "Metal Slug 4 (Neo Arc French Traduction Rev.3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh35,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Eddids[FGCH]",    "Metal Slug 4 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh37,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh38,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh39,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown", "Metal Slug 4 (Neo Arc French Traduction Alpha)", MACHINE_SUPPORTS_SAVE ) //Mame Neht
+HACK( 2002, mslug4hh40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown", "Metal Slug 4 (Ammunition Random Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh41,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-01-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh42,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-02-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug4hh43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Unknown/Gaston90",       "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-03-13)", MACHINE_SUPPORTS_SAVE )
