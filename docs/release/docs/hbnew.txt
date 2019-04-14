@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2019-0X-2X 0.20X
+2019-04-24 0.209
 ----------------
 
 - HBMAMEUI: Added preliminary support for jpg/jpeg pictures. Order of precedence: .png .jpg .jpeg
