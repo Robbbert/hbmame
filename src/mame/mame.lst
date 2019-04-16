@@ -879,6 +879,9 @@ borisa                          //
 @source:aci_borisdpl.cpp
 borisdpl                        //
 
+@source:aci_ggm.cpp
+ggm
+
 @source:acommand.cpp
 acommand                        // (c) 1990
 
@@ -992,6 +995,9 @@ typhoon                         // GX770 (c) 1987
 
 @source:akaiax80.cpp
 ax80
+
+@source:akkaarrh.cpp
+akkaarrh                        // (c) 1982 Atari (prototype)
 
 @source:albazc.cpp
 hanaroku                        // (c) 1988 Alba
@@ -11642,6 +11648,7 @@ shootgal                        // (c) 1984 Seatongrove Ltd (Zaccaria license)
 spcfrcii                        // (c) 1985 Senko Industries (Magic Eletronics Inc. license)
 spclforc                        // (c) 1985 Senko Industries (Magic Eletronics Inc. license)
 strtheat                        // (c) 1985 Epos Corporation
+strtheata                       // (c) 1985 Epos Corporation
 
 @source:dlair.cpp
 dlair                           // (c) 1983 Cinematronics
@@ -14270,6 +14277,8 @@ bsuertet                        // 1991, Unknown
 bsuerteu                        // 1991, Unknown
 bsuertev                        // 1991, Unknown
 caspoker                        // 1987, PM / Beck Elektronik.
+caspokera                       // 1986, PM / Beck Elektronik.
+unknownpg                       // 1984, Galanthis Inc./Zenitone Ltd.
 falcnwld                        // 1991, TVG
 falcnwlda                       // (c) 1990, Video Klein
 falcnwldb                       // (c) 1990, Video Klein
@@ -29941,6 +29950,7 @@ apparel                         // (c) 1986 Central Denshi
 barline                         // (c) 1986?
 bijokkog                        // (c) 1988
 bijokkoy                        // (c) 1987
+bikkuri                         // (c) 1988
 citylove                        // (c) 1986
 crystal2                        // (c) 1986
 crystalg                        // (c) 1986
@@ -31218,6 +31228,7 @@ pbactiont                       // (c) 1985 Tehkan (Tecfri license)
 ataripc1                        // Atari PC1
 ataripc3                        // Atari PC3
 bw230                           // 1985 Bondwell (CGA)
+cadd810							// CompuAdd 810
 compc1                          // 1984 Commodore PC-1
 comport                         // Compaq Portable
 dgone                           // 1984 Data General/One
@@ -31228,6 +31239,7 @@ eppc                            // 1985 Ericsson Portable PC
 ibm5550                         //
 iskr3104                        //
 ittxtra                         // 1984 ITT XTRA
+juko16
 kaypro16                        // Kaypro 16
 laser_turbo_xt                  // 1988 VTech Laser Turbo XT
 laser_xt3                       // 1989 VTech Laser XT/3
@@ -36563,6 +36575,9 @@ superdq                         // ???? (c) 1984
 superdqa                        // ???? (c) 1984
 superdqs                        // ???? (c) 1984
 
+@source:superga2.cpp
+kuzmich
+
 @source:superqix.cpp
 hotsmash                        // B18 (c) 1987 Taito
 pbillian                        // (c) 1986 Taito
@@ -38828,6 +38843,7 @@ mattelcs                        //
 dreamlif                        //
 icanguit                        //
 icanpian                        //
+tvgogo                          //
 
 @source:vsmile.cpp
 vsmile                          //
@@ -40103,11 +40119,17 @@ kof2002umj                      // (c)2009 SNK Playmore / New Channel
 yiear                           // GX407 (c) 1985
 yiear2                          // GX407 (c) 1985
 
-@source:ymmu100.cpp
+@source:ymmu50.cpp
 mu50                            // 1995 MU-50
+
+@source:ymmu80.cpp
 mu80                            // 1994 MU-80
+
+@source:ymmu100.cpp
 mu100                           // 1997 MU-100
 mu100r                          // 1997 MU-100 Rackable version
+
+@source:ymvl70.cpp
 vl70                            // 1996 VL70-m
 
 @source:yunsun16.cpp

@@ -18,6 +18,7 @@ acd.cpp
 aceex.cpp
 aci_boris.cpp
 aci_borisdpl.cpp
+aci_ggm.cpp
 acrnsys1.cpp
 acrnsys.cpp
 acvirus.cpp
@@ -899,7 +900,10 @@ xavix2.cpp
 xbox.cpp
 xerox820.cpp
 xor100.cpp
+ymmu50.cpp
+ymmu80.cpp
 ymmu100.cpp
+ymvl70.cpp
 z100.cpp
 z1013.cpp
 z29.cpp
