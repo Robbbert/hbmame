@@ -9969,6 +9969,7 @@ cmi2x                           // Fairlight CMI IIx
 
 @source:cmmb.cpp
 cmmb162                         //
+cmmb103
 
 @source:cms.cpp
 cms6502                         // CMS 6502 Development System
@@ -14248,6 +14249,7 @@ animpkr                         // 198?, Unknown
 animpkra                        // 198?, Unknown
 bchancep                        // 198?, Unknown
 bchanceq                        // 198?, Unknown
+bonuspkr                        // 1984, Galanthis Inc.
 brasil86                        // 1986, Unknown
 brasil87                        // 1987, Unknown
 brasil89                        // 1989, Unknown
@@ -14278,7 +14280,6 @@ bsuerteu                        // 1991, Unknown
 bsuertev                        // 1991, Unknown
 caspoker                        // 1987, PM / Beck Elektronik.
 caspokera                       // 1986, PM / Beck Elektronik.
-unknownpg                       // 1984, Galanthis Inc./Zenitone Ltd.
 falcnwld                        // 1991, TVG
 falcnwlda                       // (c) 1990, Video Klein
 falcnwldb                       // (c) 1990, Video Klein
@@ -15284,6 +15285,7 @@ bcclimbr                        // Bandai
 bmcfball                        // Bambino
 bmsafari                        // Bambino
 bmsoccer                        // Bambino
+ctntune                         // Castle Toy
 edracula                        // Epoch
 efball                          // Epoch
 galaxy2                         // Epoch
@@ -21259,6 +21261,11 @@ trvwzh                          // (c) 1985 Merit
 trvwzha                         // (c) 1985 Merit
 trvwzhb                         // (c) 1985 Merit
 trvwzv                          // (c) 1985 Merit
+
+@source:merit3xx.cpp
+ma6710                          // (c) 1989 Merit
+ma7551                          // (c) 199? Merit
+ma7556                          // (c) 199? Merit
 
 @source:meritm.cpp
 americna                        // (c) 1987 Merit
@@ -31228,7 +31235,7 @@ pbactiont                       // (c) 1985 Tehkan (Tecfri license)
 ataripc1                        // Atari PC1
 ataripc3                        // Atari PC3
 bw230                           // 1985 Bondwell (CGA)
-cadd810							// CompuAdd 810
+cadd810                         // CompuAdd 810
 compc1                          // 1984 Commodore PC-1
 comport                         // Compaq Portable
 dgone                           // 1984 Data General/One
@@ -31236,11 +31243,14 @@ eagle1600                       //
 eaglespirit                     // Eagle PC Spirit
 epc                             // 1984 Ericsson PC
 eppc                            // 1985 Ericsson Portable PC
+hyo88t                          // Hyosung Topstar 88T
 ibm5550                         //
 iskr3104                        //
 ittxtra                         // 1984 ITT XTRA
 juko16
 kaypro16                        // Kaypro 16
+kaypropc                        // Kaypro PC
+kyoxt                           // Kyocera XT
 laser_turbo_xt                  // 1988 VTech Laser Turbo XT
 laser_xt3                       // 1989 VTech Laser XT/3
 mbc16                           // Sanyo MBC-16

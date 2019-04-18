@@ -29,7 +29,6 @@ TODO:
 #include "emu.h"
 #include "includes/cdi.h"
 
-#include "cpu/m68000/m68000.h"
 #include "cpu/m6805/m6805.h"
 #include "imagedev/chd_cd.h"
 #include "machine/timekpr.h"
@@ -44,8 +43,16 @@ TODO:
 
 #include "cdi.lh"
 
-#define CLOCK_A XTAL(30'000'000)
-#define CLOCK_B XTAL(19'660'800)
+// TODO: NTSC system clock is 30.2098 MHz; additional 4.9152 MHz XTAL provided for UART
+#define CLOCK_A 30_MHz_XTAL
+
+/*----------- debug defines -----------*/
+
+#define VERBOSE_LEVEL   (1)
+
+#define ENABLE_VERBOSE_LOG (0)
+
+#define ENABLE_UART_PRINTING (0)
 
 #if ENABLE_VERBOSE_LOG
 static inline void ATTR_PRINTF(3,4) verboselog(device_t& device, int n_level, const char *s_fmt, ...)
@@ -74,7 +81,7 @@ void cdi_state::cdimono1_mem(address_map &map)
 	map(0x00200000, 0x0027ffff).ram().share("planeb");
 	map(0x00300000, 0x00303bff).rw(m_cdic, FUNC(cdicdic_device::ram_r), FUNC(cdicdic_device::ram_w));
 #if ENABLE_UART_PRINTING
-	map(0x00301400, 0x00301403).r(m_scc, FUNC(cdi68070_device::uart_loopback_enable));
+	map(0x00301400, 0x00301403).r(m_maincpu, FUNC(scc68070_device::uart_loopback_enable));
 #endif
 	map(0x00303c00, 0x00303fff).rw(m_cdic, FUNC(cdicdic_device::regs_r), FUNC(cdicdic_device::regs_w));
 	map(0x00310000, 0x00317fff).rw(m_slave_hle, FUNC(cdislave_device::slave_r), FUNC(cdislave_device::slave_w));
@@ -85,7 +92,6 @@ void cdi_state::cdimono1_mem(address_map &map)
 	map(0x00500000, 0x0057ffff).ram();
 	map(0x00580000, 0x00ffffff).noprw();
 	map(0x00e00000, 0x00efffff).ram(); // DVC
-	map(0x80000000, 0x8000807f).rw(m_scc, FUNC(cdi68070_device::periphs_r), FUNC(cdi68070_device::periphs_w));
 }
 
 void cdi_state::cdimono2_mem(address_map &map)
@@ -93,7 +99,7 @@ void cdi_state::cdimono2_mem(address_map &map)
 	map(0x00000000, 0x0007ffff).ram().share("planea");
 	map(0x00200000, 0x0027ffff).ram().share("planeb");
 #if ENABLE_UART_PRINTING
-	map(0x00301400, 0x00301403).r(m_scc, FUNC(cdi68070_device::uart_loopback_enable));
+	map(0x00301400, 0x00301403).r(m_maincpu, FUNC(scc68070_device::uart_loopback_enable));
 #endif
 	//AM_RANGE(0x00300000, 0x00303bff) AM_DEVREADWRITE("cdic", cdicdic_device, ram_r, ram_w)
 	//AM_RANGE(0x00303c00, 0x00303fff) AM_DEVREADWRITE("cdic", cdicdic_device, regs_r, regs_w)
@@ -105,7 +111,6 @@ void cdi_state::cdimono2_mem(address_map &map)
 	//AM_RANGE(0x00500000, 0x0057ffff) AM_RAM
 	map(0x00500000, 0x00ffffff).noprw();
 	//AM_RANGE(0x00e00000, 0x00efffff) AM_RAM // DVC
-	map(0x80000000, 0x8000807f).rw(m_scc, FUNC(cdi68070_device::periphs_r), FUNC(cdi68070_device::periphs_w));
 }
 
 void cdi_state::cdi910_mem(address_map &map)
@@ -115,7 +120,7 @@ void cdi_state::cdi910_mem(address_map &map)
 
 	map(0x00200000, 0x0027ffff).ram().share("planeb");
 #if ENABLE_UART_PRINTING
-	map(0x00301400, 0x00301403).r(m_scc, FUNC(cdi68070_device::uart_loopback_enable));
+	map(0x00301400, 0x00301403).r(m_maincpu, FUNC(scc68070_device::uart_loopback_enable));
 #endif
 //  AM_RANGE(0x00300000, 0x00303bff) AM_DEVREADWRITE("cdic", cdicdic_device, ram_r, ram_w)
 //  AM_RANGE(0x00303c00, 0x00303fff) AM_DEVREADWRITE("cdic", cdicdic_device, regs_r, regs_w)
@@ -126,7 +131,6 @@ void cdi_state::cdi910_mem(address_map &map)
 //  AM_RANGE(0x00500000, 0x0057ffff) AM_RAM
 	map(0x00500000, 0x00ffffff).noprw();
 //  AM_RANGE(0x00e00000, 0x00efffff) AM_RAM // DVC
-	map(0x80000000, 0x8000807f).rw(m_scc, FUNC(cdi68070_device::periphs_r), FUNC(cdi68070_device::periphs_w));
 }
 
 
@@ -144,11 +148,6 @@ void cdi_state::cdimono2_slave_mem(address_map &map)
 	map(0x0100, 0x1fff).rom().region("slave", 0x100);
 }
 
-
-void cdi_state::cdi070_cpuspace(address_map &map)
-{
-	map(0xfffffff0, 0xffffffff).r(m_scc, FUNC(cdi68070_device::iack_r)).umask16(0x00ff);
-}
 
 /*************************
 *      Input ports       *
@@ -196,7 +195,7 @@ INPUT_CHANGED_MEMBER(cdi_state::mcu_input)
 	if(send)
 	{
 		uint8_t data = (uint8_t)((uintptr_t)param & 0x000000ff);
-		m_scc->quizard_rx(data);
+		m_maincpu->quizard_rx(data);
 	}
 }
 
@@ -284,7 +283,7 @@ INPUT_PORTS_END
 
 INTERRUPT_GEN_MEMBER( cdi_state::mcu_frame )
 {
-	m_scc->mcu_frame();
+	m_maincpu->mcu_frame();
 }
 
 MACHINE_RESET_MEMBER( cdi_state, cdimono1 )
@@ -311,8 +310,8 @@ MACHINE_RESET_MEMBER( cdi_state, quizard1 )
 {
 	MACHINE_RESET_CALL_MEMBER( cdimono1 );
 
-	m_scc->set_quizard_mcu_value(0x021f);
-	m_scc->set_quizard_mcu_ack(0x5a);
+	m_maincpu->set_quizard_mcu_value(0x021f);
+	m_maincpu->set_quizard_mcu_ack(0x5a);
 }
 
 MACHINE_RESET_MEMBER( cdi_state, quizard2 )
@@ -323,8 +322,8 @@ MACHINE_RESET_MEMBER( cdi_state, quizard2 )
 	// 0x001: French
 	// 0x188: German
 
-	m_scc->set_quizard_mcu_value(0x188);
-	m_scc->set_quizard_mcu_ack(0x59);
+	m_maincpu->set_quizard_mcu_value(0x188);
+	m_maincpu->set_quizard_mcu_ack(0x59);
 }
 
 
@@ -333,17 +332,17 @@ MACHINE_RESET_MEMBER( cdi_state, quizard3 )
 {
 	MACHINE_RESET_CALL_MEMBER( cdimono1 );
 
-	m_scc->set_quizard_mcu_value(0x00ae);
-	m_scc->set_quizard_mcu_ack(0x58);
+	m_maincpu->set_quizard_mcu_value(0x00ae);
+	m_maincpu->set_quizard_mcu_ack(0x58);
 }
 
 MACHINE_RESET_MEMBER( cdi_state, quizard4 )
 {
 	MACHINE_RESET_CALL_MEMBER( cdimono1 );
 
-	//m_scc->set_quizard_mcu_value(0x0139);
-	m_scc->set_quizard_mcu_value(0x011f);
-	m_scc->set_quizard_mcu_ack(0x57);
+	//m_maincpu->set_quizard_mcu_value(0x0139);
+	m_maincpu->set_quizard_mcu_value(0x011f);
+	m_maincpu->set_quizard_mcu_ack(0x57);
 }
 
 
@@ -750,27 +749,95 @@ WRITE8_MEMBER( cdi_state::slave_io_w )
 }
 
 /*************************
+*       LCD screen       *
+*************************/
+
+static const uint16_t cdi220_lcd_char[20*22] =
+{
+	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x8000, 0x8000, 0x0000, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0000, 0x0002, 0x0002, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x8000, 0x8000, 0x8000, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0002, 0x0002, 0x0002, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x8000, 0x8000, 0x8000, 0x8000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0002, 0x0002, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x0000, 0x8000, 0x8000, 0x8000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0002, 0x0000, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x0000, 0x0000, 0x8000, 0x8000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0000, 0x0000, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x2000, 0x2000, 0x2000, 0x2000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0200, 0x0200, 0x0200, 0x0200,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0000, 0x0000, 0x0010, 0x0010, 0x0001, 0x0001, 0x0001, 0x0001, 0x0008, 0x0008, 0x0000, 0x0000, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0000, 0x0010, 0x0010, 0x0010, 0x0001, 0x0001, 0x0001, 0x0001, 0x0008, 0x0008, 0x0008, 0x0000, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0010, 0x0010, 0x0010, 0x0010, 0x0001, 0x0001, 0x0001, 0x0001, 0x0008, 0x0008, 0x0008, 0x0008, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0010, 0x0010, 0x0010, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0008, 0x0008, 0x0008, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0010, 0x0010, 0x0000, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0000, 0x0008, 0x0008, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400,
+	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400
+};
+
+void cdi_state::draw_lcd(int y)
+{
+	if (y >= 22 || !m_slave_hle.found())
+		return;
+
+	uint32_t *scanline = &m_lcdbitmap.pix32(y);
+
+	for (int lcd = 0; lcd < 8; lcd++)
+	{
+		uint16_t data = (m_slave_hle->get_lcd_state()[lcd*2] << 8) |
+						m_slave_hle->get_lcd_state()[lcd*2 + 1];
+		for (int x = 0; x < 20; x++)
+		{
+			if (data & cdi220_lcd_char[y*20 + x])
+			{
+				scanline[(7 - lcd)*24 + x] = rgb_t::white();
+			}
+			else
+			{
+				scanline[(7 - lcd)*24 + x] = rgb_t::black();
+			}
+		}
+	}
+}
+
+void cdi_state::video_start()
+{
+	if (m_lcd)
+		m_lcd->register_screen_bitmap(m_lcdbitmap);
+}
+
+uint32_t cdi_state::screen_update_cdimono1_lcd(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+{
+	copybitmap(bitmap, m_lcdbitmap, 0, 0, 0, 0, cliprect);
+	return 0;
+}
+
+/*************************
 *    Machine Drivers     *
 *************************/
 
 // CD-i Mono-I system base
 void cdi_state::cdimono1_base(machine_config &config)
 {
-	SCC68070(config, m_maincpu, CLOCK_A/2);
+	SCC68070(config, m_maincpu, CLOCK_A);
 	m_maincpu->set_addrmap(AS_PROGRAM, &cdi_state::cdimono1_mem);
-	m_maincpu->set_addrmap(m68000_base_device::AS_CPU_SPACE, &cdi_state::cdi070_cpuspace);
+	m_maincpu->iack4_callback().set(m_cdic, FUNC(cdicdic_device::intack_r));
 
-	MCD212(config, m_mcd212, 0);
+	MCD212(config, m_mcd212, CLOCK_A);
 	m_mcd212->set_screen("screen");
-	m_mcd212->int1_callback().set(m_scc, FUNC(cdi68070_device::int1_w));
-	m_mcd212->int2_callback().set(m_scc, FUNC(cdi68070_device::int2_w));
+	m_mcd212->int1_callback().set(m_maincpu, FUNC(scc68070_device::int1_w));
+	m_mcd212->int2_callback().set(m_maincpu, FUNC(scc68070_device::int2_w));
+	m_mcd212->set_scanline_callback(FUNC(cdi_state::draw_lcd));
 
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	screen.set_size(384, 302);
 	screen.set_visarea(0, 384-1, 22, 302-1); // TODO: dynamic resolution
-	screen.set_screen_update(FUNC(cdi_state::screen_update_cdimono1));
+	screen.set_screen_update("mcd212", FUNC(mcd212_device::screen_update));
 
 	SCREEN(config, m_lcd, SCREEN_TYPE_RASTER);
 	m_lcd->set_refresh_hz(60);
@@ -783,14 +850,14 @@ void cdi_state::cdimono1_base(machine_config &config)
 
 	config.set_default_layout(layout_cdi);
 
-	CDI_68070(config, m_scc, 0, "maincpu");
-	m_scc->iack4_callback().set_constant(0x80);
-
-	CDI_CDIC(config, m_cdic, 0);
-	m_cdic->int_callback().set(m_scc, FUNC(cdi68070_device::in4_w));
+	// IMS66490 CDIC input clocks are 22.5792 MHz and 19.3536 MHz
+	// DSP input clock is 7.5264 MHz
+	CDI_CDIC(config, m_cdic, 45.1584_MHz_XTAL / 2);
+	m_cdic->set_clock2(45.1584_MHz_XTAL * 3 / 7); // generated by PLL circuit incorporating 19.3575 MHz XTAL
+	m_cdic->intreq_callback().set(m_maincpu, FUNC(scc68070_device::in4_w));
 
 	CDI_SLAVE(config, m_slave_hle, 0);
-	m_slave_hle->int_callback().set(m_scc, FUNC(cdi68070_device::in2_w));
+	m_slave_hle->int_callback().set(m_maincpu, FUNC(scc68070_device::in2_w));
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
@@ -806,27 +873,27 @@ void cdi_state::cdimono1_base(machine_config &config)
 	m_cdda->add_route(ALL_OUTPUTS, "lspeaker", 1.0);
 	m_cdda->add_route(ALL_OUTPUTS, "rspeaker", 1.0);
 
-	MK48T08(config, "mk48t08", 0);
+	MK48T08(config, "mk48t08");
 }
 
 // CD-i model 220 (Mono-II, NTSC)
 void cdi_state::cdimono2(machine_config &config)
 {
-	SCC68070(config, m_maincpu, CLOCK_A/2);
+	SCC68070(config, m_maincpu, CLOCK_A);
 	m_maincpu->set_addrmap(AS_PROGRAM, &cdi_state::cdimono2_mem);
-	m_maincpu->set_addrmap(m68000_base_device::AS_CPU_SPACE, &cdi_state::cdi070_cpuspace);
 
-	MCD212(config, m_mcd212, 0);
+	MCD212(config, m_mcd212, CLOCK_A);
 	m_mcd212->set_screen("screen");
-	m_mcd212->int1_callback().set(m_scc, FUNC(cdi68070_device::int1_w));
-	m_mcd212->int2_callback().set(m_scc, FUNC(cdi68070_device::int2_w));
+	m_mcd212->int1_callback().set(m_maincpu, FUNC(scc68070_device::int1_w));
+	m_mcd212->int2_callback().set(m_maincpu, FUNC(scc68070_device::int2_w));
+	m_mcd212->set_scanline_callback(FUNC(cdi_state::draw_lcd));
 
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	screen.set_size(384, 302);
 	screen.set_visarea(0, 384-1, 22, 302-1); // TODO: dynamic resolution
-	screen.set_screen_update(FUNC(cdi_state::screen_update_cdimono1));
+	screen.set_screen_update("mcd212", FUNC(mcd212_device::screen_update));
 
 	SCREEN(config, m_lcd, SCREEN_TYPE_RASTER);
 	m_lcd->set_refresh_hz(60);
@@ -841,10 +908,9 @@ void cdi_state::cdimono2(machine_config &config)
 
 	MCFG_MACHINE_RESET_OVERRIDE( cdi_state, cdimono2 )
 
-	CDI_68070(config, m_scc, 0, "maincpu");
-	M68HC05EG(config, m_servo, XTAL(4'000'000));
+	M68HC05EG(config, m_servo, 4_MHz_XTAL); // FIXME: actually MC68HC05C8
 	m_servo->set_addrmap(AS_PROGRAM, &cdi_state::cdimono2_servo_mem);
-	M68HC05EG(config, m_slave, XTAL(4'000'000));
+	M68HC05EG(config, m_slave, 4_MHz_XTAL); // FIXME: actually MC68HC05C8
 	m_slave->set_addrmap(AS_PROGRAM, &cdi_state::cdimono2_slave_mem);
 
 	CDROM(config, "cdrom").set_interface("cdi_cdrom");
@@ -869,21 +935,21 @@ void cdi_state::cdimono2(machine_config &config)
 
 void cdi_state::cdi910(machine_config &config)
 {
-	SCC68070(config, m_maincpu, CLOCK_A/2);
+	SCC68070(config, m_maincpu, CLOCK_A);
 	m_maincpu->set_addrmap(AS_PROGRAM, &cdi_state::cdi910_mem);
-	m_maincpu->set_addrmap(m68000_base_device::AS_CPU_SPACE, &cdi_state::cdi070_cpuspace);
 
-	MCD212(config, m_mcd212, 0);
+	MCD212(config, m_mcd212, CLOCK_A);
 	m_mcd212->set_screen("screen");
-	m_mcd212->int1_callback().set(m_scc, FUNC(cdi68070_device::int1_w));
-	m_mcd212->int2_callback().set(m_scc, FUNC(cdi68070_device::int2_w));
+	m_mcd212->int1_callback().set(m_maincpu, FUNC(scc68070_device::int1_w));
+	m_mcd212->int2_callback().set(m_maincpu, FUNC(scc68070_device::int2_w));
+	m_mcd212->set_scanline_callback(FUNC(cdi_state::draw_lcd));
 
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	screen.set_size(384, 302);
 	screen.set_visarea(0, 384-1, 22, 302-1); // TODO: dynamic resolution
-	screen.set_screen_update(FUNC(cdi_state::screen_update_cdimono1));
+	screen.set_screen_update("mcd212", FUNC(mcd212_device::screen_update));
 
 	SCREEN(config, m_lcd, SCREEN_TYPE_RASTER);
 	m_lcd->set_refresh_hz(60);
@@ -898,10 +964,9 @@ void cdi_state::cdi910(machine_config &config)
 
 	MCFG_MACHINE_RESET_OVERRIDE( cdi_state, cdimono2 )
 
-	CDI_68070(config, m_scc, 0, "maincpu");
-	M68HC05EG(config, m_servo, XTAL(4'000'000));
+	M68HC05EG(config, m_servo, 4_MHz_XTAL); // FIXME: actually MC68HSC05C8
 	m_servo->set_addrmap(AS_PROGRAM, &cdi_state::cdimono2_servo_mem);
-	M68HC05EG(config, m_slave, XTAL(4'000'000));
+	M68HC05EG(config, m_slave, 4_MHz_XTAL); // FIXME: actually MC68HSC05C8
 	m_slave->set_addrmap(AS_PROGRAM, &cdi_state::cdimono2_slave_mem);
 
 	CDROM(config, "cdrom").set_interface("cdi_cdrom");
