@@ -7026,10 +7026,10 @@ kovsh1
 kovsh2
 kovsh3
 //kovsh4	// rom missing
-kovsh5     // broken
-kovsh6     // broken
-kovsh7     // broken
-kovsh8     // broken
+//kovsh5     // broken (causes emu to freeze)
+//kovsh6     // broken (causes emu to freeze)
+//kovsh7     // broken (causes emu to freeze)
+//kovsh8     // broken (causes emu to freeze)
 //kovsh9   // rom missing
 //kovsh10  // roms missing
 kovsh11    // broken

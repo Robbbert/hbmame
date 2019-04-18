@@ -356,7 +356,7 @@ HACK( 2007, whpss,     whp,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, 
 
 HACK( 1993, wh2bs,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "yumeji[2ch]", "World Heroes 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, wh2ey,     wh2,  neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ZKW", "World Heroes 2 (Boss, PPX hack, remixed)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (old set)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (Old set)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, wh2jb,     wh2j, neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "0 DAY-S[EGCG]", "World Heroes 2 Jet (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 
 

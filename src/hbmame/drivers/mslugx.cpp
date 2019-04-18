@@ -362,20 +362,20 @@ ROM_START( mslugxst )
 ROM_END
 
 // Metal Slug X
-HACK( 200?, mslugxce,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China/Unknown", "Metal Slug X (Level Reset Special Edition 2014-11-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxce,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China/Unknown", "Metal Slug X (Level Reset Special Edition 2014-11-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxeb,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Green Edition 2016-01-04)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslugxex,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Qing Chuanlan Old Version V1)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslugxfe,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Fire Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxex,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Qing Chuanlan Old Version V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxfe,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Fire Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslugxfr,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (Neo Arc Translator French 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslugxfro, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (Neo Arc Translator French 01)(Old)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxhp,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Enemy Heavy Plate 2013-06-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslugxit,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Translator Italian - Beta)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, mslugxmfb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Alloy Warhead X Crazy Fire Bthl Special Enhanced Version 2014-11-7)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X Plus", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X Plus", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxr,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "METROID", "Metal Slug X (Multi-Carrier Version 2013-01-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, mslugxres, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Alloy Warhead X Checkpoint Enemy Soldiers Reset Bullets Enhanced Version 2014-11-10)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslugxsef, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Special Edition Enhanced Flash Off)", MACHINE_SUPPORTS_SAVE )
-HACK( 200?, mslugxst,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "EGCG/Stark", "Metal Slug X (Change Gun Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxsef, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Unknown", "Metal Slug X (Special Edition Enhanced Flash Off)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, mslugxst,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "EGCG/Stark", "Metal Slug X (Change Gun Version)", MACHINE_SUPPORTS_SAVE )
 
 
 //PSmame (c) gaston90 used with permission
