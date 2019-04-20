@@ -180,3 +180,6 @@ ROM_END
 HACK( 2006, powerns01,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Unknown ", "Power Instinct (Great Blood Temple Simplification)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, powerns02,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "Unknown ", "Power Instinct (Unknown Hack 2017-07-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, powerns03,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "0 DAY-S", "Power Instinct (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+
+
+

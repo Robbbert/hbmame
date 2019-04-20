@@ -223,3 +223,6 @@ GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, 
 GAME( 2018, viostorms01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "Unknown", "Violent Storm (Unknown Hack 2018-08-14)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "Unknown", "Violent Storm (Unknown Hack 2018-08-13)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "Unknown", "Violent Storm (Unknown Hack 2018-05-07)", MACHINE_IMPERFECT_GRAPHICS )
+
+
+
