@@ -90,7 +90,7 @@
   * Power Card (Ver 0263, encrypted),                           Fun World,          1993.
   * Mega Card (Ver.0210, encrypted),                            Fun World,          1993.
   * Joker Card 300 (Ver.A267BC, encrypted),                     Amatic Trading,     1993.
-  * Royal Card (Slovak, encrypted),                             Evona Electronic,   1991.
+  * Royal Card (Evona, Polish, encrypted),                      Evona Electronic,   1991.
   * Saloon (French, encrypted),                                 unknown,            199?.
   * Nevada (French, encrypted),                                 unknown,            199?.
   * Jolly Card (Italian, blue TAB board, encrypted),            bootleg,            199?.
@@ -349,11 +349,16 @@
   When numbers start to fill the screen, press RESET (key F3) again to start the game.
 
 
-  * (multi) Joker Card (Vesely).
+  * Joker Card 300 (Ver.A267BC, encrypted).
   * Multi Win (Fun World)
 
-  These sets seems to run in the same modified hardware.
-  They are encrypted, and have a second program rom with unknown code/purposes.
+  These sets seems to run in the same modified hardware. They are highly encrypted.
+
+  Joker Card has a title nag at boot. You can wait to finish nearly one minute,
+  or simply press SERVICE 2 (key 0), then START (key 1) to enter the game.
+
+  Joker Card has a weird way of play. The more you bet, the more cards burns to
+  get better chances. You're not betting really. Just buying removed cards.
 
 
   * Mongolfier New
@@ -542,6 +547,17 @@
 
   In the Service menu (key 0), press HOLD 1 & HOLD 2 together for
   some seconds and the programming menu will appear.
+
+
+  * Royal Card (Evona, Polish, encrypted)
+
+  This is another highly encrypted game.
+  To initialize the NVRAM all DIP switches must be in ON. Keep pressed both service buttons
+  (keys 9 & 0) and then RESET (key F3), then release first the service 1 (key 9) and then
+  service 2 (key 0).
+
+  The game does some odd things, due to a possible bug in the
+  decryption scheme. (see the TO DO list).
 
 
 *****************************************************************************************
@@ -1130,16 +1146,49 @@
   - Switched Austrian-->German for all sets, since the language
     is in fact German.
 
-  
+  Royal Card (Slovak, encrypted):
+  - Adjusted the decryption offsets.
+  - Improved memory map.
+  - Mirrored PIA #0 to $6800, and PIA #1 to $6000.
+  - Improved inputs.
+  - Created a default NVRAM.
+  - Changed game description to Royal Card (Evona, Polish, encrypted).
+  - Switched the CPU base to R65C02 to avoid the bug when a NMI occurs in a BRK.
+  - Added a temporary workaround to force a NOP after the BRK, and
+    balanced checksums. Will be removed once found a workaround in
+    the decryption routines.
+  - Added technical and game notes.
+  - Promoted the game to working.
+
+  Royal Card (German, set 4):
+  - Verified the GFX dump as a mix of Royal Card
+    & Jolly Card graphics, with faulty address.
+	Used GFX set from parent, that matches 100%.
+  - Removed the imperfect graphics flag.
+
+  Joker Card 300 (Ver.A267BC, encrypted):
+  - Redumped the faulty graphics ROM thanks to a special
+    custom device constructed with forensics technics.
+  - Removed the imperfect graphics flag.
+  - Promoted the game to working.
+  - Added technical and game notes.
+
+  - I2C bus inclusion only for Saloon/Nevada instead of all games.
+
+
+
   *** TO DO ***
 
-  - Figure out the royalcdc, royalcrdf & jokercrd encryption.
+  - Figure out the royalcdc encryption.
   - Figure out the remaining PIA connections for almost all games.
   - Reverse-engineering the boot code of Jolly Card Professional 2.0,
      and Royal Card Professional 2.0 to get the proper codes to boot.
   - Analyze the unknown writes to $2000/$4000 in some games.
   - Check for the reads to the ay8910 output ports in some games.
   - Implement the MCU in monglfir and soccernw.
+  - Check for a possible bug in the royalcrdf decryption scheme, that
+    doesn't cover the BRK instruction properly, changing the next value
+	on the fly turning a NOP into a PLA, messing the Stack Pointer.
 
 
 ****************************************************************************************/
@@ -1486,6 +1535,8 @@ void royalcrdf_state::royalcrdf_map(address_map &map)
 	map(0x0e01, 0x0e01).rw("crtc", FUNC(mc6845_device::register_r), FUNC(mc6845_device::register_w));
 	map(0x4000, 0x4fff).ram().w(FUNC(royalcrdf_state::funworld_videoram_w)).share("videoram");
 	map(0x5000, 0x5fff).ram().w(FUNC(royalcrdf_state::funworld_colorram_w)).share("colorram");
+	map(0x6000, 0x6003).rw("pia1", FUNC(pia6821_device::read), FUNC(pia6821_device::write));
+	map(0x6800, 0x6803).rw("pia0", FUNC(pia6821_device::read), FUNC(pia6821_device::write));
 	map(0x8000, 0xbfff).rom();
 	map(0xc000, 0xffff).rom();
 }
@@ -2103,6 +2154,68 @@ static INPUT_PORTS_START( royalcrd )
 	PORT_DIPSETTING(    0x00, "With Joker" )        /* also enable Five of a Kind */
 	PORT_DIPSETTING(    0x20, "Without Joker" )
 	PORT_DIPNAME( 0x40, 0x00, "Hold" )              PORT_DIPLOCATION("SW1:2")
+	PORT_DIPSETTING(    0x00, "Auto Hold" )
+	PORT_DIPSETTING(    0x40, "No Auto Hold" )
+
+	/* after nvram init, set the following one to 'manual'
+	to allow the remote credits mode to work */
+	PORT_DIPNAME( 0x80, 0x80, "Payout" )            PORT_DIPLOCATION("SW1:1")
+	PORT_DIPSETTING(    0x00, "Hopper" )
+	PORT_DIPSETTING(    0x80, "Manual Payout SW" )
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( royalcrdf )
+	PORT_START("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_GAMBLE_KEYIN )   PORT_NAME("Kredyt (Remote)")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_POKER_HOLD1 )    PORT_NAME("Stop 1")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_POKER_CANCEL )   PORT_NAME("Zlikwidow (Cancel)")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_START1 )         PORT_NAME("Start")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_POKER_HOLD5 )    PORT_NAME("Stop 5")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE1 )       PORT_NAME("Rachunek (Account)")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_SERVICE2 )       PORT_NAME("Vstawiac (Service 2)")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_POKER_HOLD4 )    PORT_NAME("Stop 4")
+
+	PORT_START("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_POKER_HOLD2 )    PORT_NAME("Stop 2")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_POKER_HOLD3 )    PORT_NAME("Stop 3")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SERVICE )        PORT_NAME("Vyplatit (Payout)") PORT_CODE(KEYCODE_8)
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_SERVICE )        PORT_NAME("Hopper") PORT_CODE(KEYCODE_H)
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN2 )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_GAMBLE_KEYOUT )  PORT_NAME("Odpis (Keyout)")
+
+	PORT_START("IN2")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
+	PORT_START("DSW")
+	PORT_DIPNAME( 0x01, 0x01, "State" )             PORT_DIPLOCATION("SW1:8")
+	PORT_DIPSETTING(    0x00, "Keyboard Test" )
+	PORT_DIPSETTING(    0x01, "Play" )
+	PORT_DIPNAME( 0x02, 0x02, "Remote Value" )      PORT_DIPLOCATION("SW1:7")
+	PORT_DIPSETTING(    0x00, "10 Points/Pulse" )
+	PORT_DIPSETTING(    0x02, "100 Points/Pulse" )
+	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:6")
+	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x08, 0x08, DEF_STR( Unknown ) )  PORT_DIPLOCATION("SW1:5")
+	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x10, 0x00, "Bonus" )             PORT_DIPLOCATION("SW1:4")
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x00, "Joker" )             PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x00, "With Joker" )        /* also enable Five of a Kind */
+	PORT_DIPSETTING(    0x20, "Without Joker" )
+	PORT_DIPNAME( 0x40, 0x40, "Hold" )              PORT_DIPLOCATION("SW1:2")
 	PORT_DIPSETTING(    0x00, "Auto Hold" )
 	PORT_DIPSETTING(    0x40, "No Auto Hold" )
 
@@ -3489,11 +3602,6 @@ void funworld_state::fw1stpal(machine_config &config)
 	ay8910.port_a_write_callback().set(FUNC(funworld_state::funworld_lamp_a_w));
 	ay8910.port_b_write_callback().set(FUNC(funworld_state::funworld_lamp_b_w));
 	ay8910.add_route(ALL_OUTPUTS, "mono", 2.5);  /* analyzed to avoid clips */
-	
-	/* Serial Memory */
-	i2cmem_device &m_i2cmem(I2CMEM(config, "i2cmem", 0));
-	m_i2cmem.set_data_size(256);
-	m_i2cmem.set_e0(1);
 }
 
 
@@ -3574,6 +3682,11 @@ void funworld_state::saloon(machine_config &config)
 
 	config.device_remove("pia0");
 	config.device_remove("pia1");
+
+	/* Serial Memory */
+	i2cmem_device &m_i2cmem(I2CMEM(config, "i2cmem", 0));
+	m_i2cmem.set_data_size(256);
+	m_i2cmem.set_e0(1);
 }
 
 
@@ -3684,6 +3797,10 @@ READ8_MEMBER(royalcrdf_state::royalcrdf_opcode_r)
 	};
 	
 	uint8_t data {_maincpu->space(AS_PROGRAM).read_byte(offset)};
+
+	if(offset<0x800) 
+		data = bitswap<8>(data^0x22,2,6,7,4,3,1,5,0);
+
 	unsigned idx {bitswap<4>(offset, 8,5,2,1)};
 	
 	return bitswap<8>(data, bs[idx][3],6,bs[idx][2],4,3,bs[idx][1],bs[idx][0],0) ^ xm[idx];
@@ -3701,12 +3818,20 @@ void royalcrdf_state::driver_init()
 	{
 		ROM[x] = bitswap<8>(ROM[x]^0x22,2,6,7,4,3,1,5,0);
 	}
+
+/*  Temporary hack to modify the value that ends to be a NOP,
+    after the BRK, and balanced checksums. Will be removed once
+	found a workaround in the decryption routines.
+*/
+	ROM[0x802d]=0xa2;  // checksum.
+	ROM[0xbc4e]=0x68;  // future NOP after BRK. 
 }
 
 void royalcrdf_state::royalcrdf(machine_config &config)
 {
 	fw1stpal(config);
 
+	R65C02(config.replace(), m_maincpu, CPU_CLOCK);  // to avoid the NMI into BRK bug...
 	m_maincpu->set_addrmap(AS_PROGRAM, &royalcrdf_state::royalcrdf_map);
 
 	_maincpu = reinterpret_cast<cpu_device*>(config.device("maincpu"));
@@ -5836,13 +5961,17 @@ ROM_START( royalcrdc )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "roj.ic12", 0x8000, 0x8000, CRC(16923d58) SHA1(e865b91246ae5a21bdc9787e6e6e22be5182cabb) )
 
-	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_REGION( 0x10000, "gfx1", 0 )  // borrowed from parent set, that matches 100%.
+	ROM_LOAD( "3.bin", 0x0000, 0x8000, CRC(c46d804f) SHA1(b089821c7dae6714b49401d787f8bed859815763) )
+	ROM_LOAD( "2.bin", 0x8000, 0x8000, CRC(41f7a0b3) SHA1(9aff2b8832d2a4f868daa9849a0bfe5e44f88fc0) )
+
+	ROM_REGION( 0x10000, "gfxbad", 0 )  // faulty gfx set with bad addressing and mix of royal card & jolly card tiles. 
 	ROM_LOAD( "roj.ic26", 0x0000, 0x8000, BAD_DUMP CRC(3883cdcb) SHA1(b71a786822fe8fcb2c6fcdc463facb2738ec8c01) )
 	ROM_IGNORE(                   0x8000)
 	ROM_LOAD( "roj.ic25", 0x8000, 0x8000, CRC(c5b787e8) SHA1(be88aa901c1f96d171af45c3602e0ce72b8fff34) )
 	ROM_IGNORE(                   0x8000)
 
-	ROM_REGION( 0x0800, "nvram", 0 )    /* default NVRAM */
+	ROM_REGION( 0x0800, "nvram", 0 )  // default NVRAM
 	ROM_LOAD( "royalcrdc_nvram.bin", 0x0000, 0x0800, CRC(eacb0c7b) SHA1(513816623aa3843dd5d0416fc012060c7a9f6c71) )
 
 	ROM_REGION( 0x0200, "proms", 0 )
@@ -5982,7 +6111,7 @@ ROM_END
     - 2x 27256 - gfx - "2.bin", "3.bin"
 */
 
-ROM_START( royalcrdf )  /* encrypted program rom */
+ROM_START( royalcrdf )  // encrypted program rom
 	ROM_REGION( 0x10000*2, "maincpu", 0 ) // *2 for decrypted opcodes (see init)
 	ROM_LOAD( "rc_1.bin", 0x8000, 0x8000, CRC(8cdcc978) SHA1(489b58760a7c8646399c8cdfb86ec4341823e7dd) )
 
@@ -5990,13 +6119,16 @@ ROM_START( royalcrdf )  /* encrypted program rom */
 	ROM_LOAD( "rc_2.bin", 0x0000, 0x8000, CRC(7f934488) SHA1(c537a09ef7e88a81ee9c2e1d971b3caf9d3dba0e) )
 	ROM_LOAD( "rc_3.bin", 0x8000, 0x8000, CRC(8612c6ed) SHA1(3306a252af479e0510f136020086015b60dce879) )
 
+	ROM_REGION( 0x0800, "nvram", 0 )  // default NVRAM
+	ROM_LOAD( "royalcrdf_nvram.bin", 0x0000, 0x0800, CRC(05c14b70) SHA1(03ed97a67c7cd004f2c0abbb88fa3ec4a43c3f05) )
+
 	ROM_REGION( 0x0200, "proms", 0 )
 	ROM_LOAD( "82s147.bin", 0x0000, 0x0200, CRC(44dbf086) SHA1(43a2d615c00605db75a4fd4d57d9e056c0356f10) ) // sldh
 
 	ROM_REGION( 0x0600, "plds", 0 )
-	ROM_LOAD( "palce16v8.bin",    0x0000, 0x0117, NO_DUMP ) /* not present in the set */
-	ROM_LOAD( "1-peel18cv8p.bin", 0x0200, 0x0155, NO_DUMP ) /* not present in the set */
-	ROM_LOAD( "2-peel18cv8p.bin", 0x0400, 0x0155, NO_DUMP ) /* not present in the set */
+	ROM_LOAD( "palce16v8.bin",    0x0000, 0x0117, NO_DUMP )  // not present in the set
+	ROM_LOAD( "1-peel18cv8p.bin", 0x0200, 0x0155, NO_DUMP )  // not present in the set
+	ROM_LOAD( "2-peel18cv8p.bin", 0x0400, 0x0155, NO_DUMP )  // not present in the set
 ROM_END
 
 
@@ -6801,6 +6933,11 @@ ROM_END
   Unfortunatelly, the graphics ROM vesely_zg_1.ic10 has address 8 line (leg 25) shorted.
   Seems that the protection diode was blown due to a bad handling.
 
+  With forensics technics, a special device was constructed to process the faulty ROM
+  and try to read the contents. Fortunatelly after all these efforts, we got
+  a perfect and complete dump.
+
+
   Specs:
 
   1x Custom Fun World CPU, based on 6502 family. Silkscreened "Fun World Elektronik".
@@ -6847,6 +6984,7 @@ ROM_END
   ic41.bin   1ST AND 2ND HALF IDENTICAL
   ic37.bin   1ST AND 2ND HALF IDENTICAL
   ic10.bin   BADADDR    xxxxxx-xxxxxxxx
+
 */
 
 ROM_START( jokercrd )
@@ -6858,7 +6996,7 @@ ROM_START( jokercrd )
 
 	ROM_REGION( 0x10000, "gfx1", 0 )
 	ROM_LOAD( "vesely_zg_2.ic11", 0x0000, 0x8000, CRC(21d05a57) SHA1(156c18ec31b08e4c4af6f73b49cb5d5c68d1670f) )
-	ROM_LOAD( "vesely_zg_1.ic10", 0x8000, 0x8000, BAD_DUMP CRC(2bbd27ad) SHA1(37d37899398d95beac5f3cbffc4277c97aca1a23) )  // address 8 line is bad.
+	ROM_LOAD( "vesely_zg_1.ic10", 0x8000, 0x8000, CRC(f315587a) SHA1(6f24dd24ae4c48f2ee1db96d5cbff863734048de) )
 
 	ROM_REGION( 0x0200, "proms", 0 )
 	ROM_LOAD( "ic13.bin", 0x0000, 0x0200, CRC(e59fc06e) SHA1(88a3bb89f020fe2b20f768ca010a082e0b974831) )
@@ -8326,7 +8464,7 @@ GAMEL( 1998, crystal,   0,        cuoreuno, cuoreuno,  funworld_state, empty_ini
 GAMEL( 1991, royalcrd,  0,        royalcd2, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German, set 1)",                      0,                       layout_jollycrd )
 GAMEL( 1991, royalcrda, royalcrd, royalcd2, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German, set 2)",                      0,                       layout_jollycrd )
 GAMEL( 1991, royalcrdb, royalcrd, royalcd1, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German/Polish, set 3)",               0,                       layout_jollycrd )
-GAMEL( 1991, royalcrdc, royalcrd, royalcd2, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German, set 4)",                      MACHINE_IMPERFECT_GRAPHICS, layout_jollycrd )
+GAMEL( 1991, royalcrdc, royalcrd, royalcd2, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German, set 4)",                      0,                       layout_jollycrd )
 GAMEL( 1991, royalcrdd, royalcrd, royalcd1, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German, set 5)",                      0,                       layout_royalcrd )
 GAMEL( 1991, royalcrde, royalcrd, royalcd1, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (German, set 6)",                      0,                       layout_jollycrd )
 GAMEL( 1991, royalcrdt, royalcrd, royalcd1, royalcrd,  funworld_state, empty_init,    ROT0, "TAB Austria",     "Royal Card (TAB original)",                       0,                       layout_jollycrd )
@@ -8363,10 +8501,10 @@ GAMEL( 198?, jolyjokrc, jolyjokr, fw1stpal, funworld,  funworld_state, empty_ini
 GAME(  1992, multiwin,  0,        multiwin, funworld,  multiwin_state, driver_init,   ROT0, "Fun World",       "Multi Win (Ver.0167, encrypted)",                 0 )
 GAME(  1993, powercrd,  0,        powercrd, funworld,  powercrd_state, empty_init,    ROT0, "Fun World",       "Power Card (Ver 0263, encrypted)",                0 ) // clone of Bonus Card.
 GAME(  1993, megacard,  0,        megacard, funworld,  megacard_state, empty_init,    ROT0, "Fun World",       "Mega Card (Ver.0210, encrypted)",                 0 )
-GAME(  1993, jokercrd,  0,        jokercrd, funworld,  jokercrd_state, empty_init,    ROT0, "Amatic Trading",  "Joker Card 300 (Ver.A267BC, encrypted)",          MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING )
-GAME(  1991, royalcrdf, royalcrd, royalcrdf,royalcrd,  royalcrdf_state,driver_init,   ROT0, "Evona Electronic","Royal Card (Slovak, encrypted)",                  MACHINE_NOT_WORKING )
-GAME(  198?, saloon,    0,        saloon,   saloon,    funworld_state, init_saloon,   ROT0, "<unknown>",       "Saloon (French, encrypted)",                      0)
-GAME(  198?, nevadafw,  0,        saloon,   saloon,    funworld_state, init_saloon,   ROT0, "<unknown>",       "Nevada (French, encrypted)",                      0)
+GAME(  1993, jokercrd,  0,        jokercrd, funworld,  jokercrd_state, empty_init,    ROT0, "Amatic Trading",  "Joker Card 300 (Ver.A267BC, encrypted)",          0 )
+GAME(  1991, royalcrdf, royalcrd, royalcrdf,royalcrdf, royalcrdf_state,driver_init,   ROT0, "Evona Electronic","Royal Card (Evona, Polish, encrypted)",           0 )
+GAME(  198?, saloon,    0,        saloon,   saloon,    funworld_state, init_saloon,   ROT0, "<unknown>",       "Saloon (French, encrypted)",                      0 )
+GAME(  198?, nevadafw,  0,        saloon,   saloon,    funworld_state, init_saloon,   ROT0, "<unknown>",       "Nevada (French, encrypted)",                      0 )
 
 // Encrypted TAB blue PCB...
 GAMEL( 199?, jolycdit,  jollycrd, cuoreuno, jolycdit,  funworld_state, init_tabblue,  ROT0, "bootleg",         "Jolly Card (Italian, blue TAB board, encrypted)", 0,                       layout_royalcrd )
