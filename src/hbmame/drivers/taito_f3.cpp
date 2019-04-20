@@ -692,7 +692,7 @@ HACK( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, bubsymph, 
 HACK( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "Unknown",         "Dan-Ku-Ga (Plus)", 0 )
 HACK( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, kaiserkn, ROT0,   "yumeji",         "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
  // Elevator Action Returns
-HACK( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Unknown",         "Elevator Action Returns (Translation Chinese)(", 0 )
+HACK( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, elvactr,  ROT0,   "Unknown",         "Elevator Action Returns (Translation Chinese)", 0 )
  // Grid Seeker: Project Storm Hammer
 HACK( 1992, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, gseeker,  ROT90,  "Unknown",         "Grid Seeker: Project Storm Hammer (Translation Chinese)", 0 )
  // Kaiser Knuckle

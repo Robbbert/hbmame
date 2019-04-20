@@ -21952,7 +21952,7 @@ HACK( 1993, dinos38,       dino,     qsound,     dinohz,   cps_state,   dinoh,  
 HACK( 1993, dinos40,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "pipi899", "Cadillacs and Dinosaurs (Lock The Strongest Attack Power 2009-01-15)" , MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos41,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "pipi899", "Cadillacs and Dinosaurs (Lock Three Mode 2009-01-15)" , MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos42,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (Shooting With The Footkl)", MACHINE_SUPPORTS_SAVE )
-HACK( 1993, dinos43,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "zhyxxxx", "Cadillacs and Dinosaurs  Kyouryuu Shin Seiki (Battered Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, dinos43,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "zhyxxxx", "Cadillacs and Dinosaurs Kyouryuu Shin Seiki (Battered Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos44,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Unknown", "Cadillacs and Dinosaurs (Cadillacs Kyouryuu-Shinseiki Plus 2010-02-10))", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos45,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Kill Enemies To Get Bonus Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos46,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Kill Enemies To Get Bonus Rev.2)", MACHINE_SUPPORTS_SAVE )

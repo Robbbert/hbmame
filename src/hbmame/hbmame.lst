@@ -3932,6 +3932,7 @@ mslug3h54
 mslug3h55
 mslug3h56
 mslug3h57
+mslug3h58
 mslug3erbo01
 mslug3erbo02
 mslug3erbo03
@@ -4400,6 +4401,7 @@ mslug4hh40
 mslug4hh41
 mslug4hh42
 mslug4hh43
+mslug4hh44
 mslug4erm01
 mslug4erm02
 mslug4erm03
@@ -4664,6 +4666,7 @@ mslug5dh42
 mslug5dh43
 mslug5dh44
 mslug5dh45
+mslug5dh46
 ms5plus01
 ms5plus02
 ms5plus03
@@ -7026,10 +7029,10 @@ kovsh1
 kovsh2
 kovsh3
 //kovsh4	// rom missing
-kovsh5     // broken
-kovsh6     // broken
-kovsh7     // broken
-kovsh8     // broken
+//kovsh5     // broken (causes emu to freeze)
+//kovsh6     // broken (causes emu to freeze)
+//kovsh7     // broken (causes emu to freeze)
+//kovsh8     // broken (causes emu to freeze)
 //kovsh9   // rom missing
 //kovsh10  // roms missing
 kovsh11    // broken

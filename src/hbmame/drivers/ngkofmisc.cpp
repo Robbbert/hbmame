@@ -1083,7 +1083,7 @@ HACK( 2004, cthd2k3d,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neog
 HACK( 2004, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Eddids[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Ice fz remix)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Some characters move to simplify 1.2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 Remix (Diff Move - 030818)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 (Remix Edition)(Diff Move - 2003-08-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3spd,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 Super Plus (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 (Simplified 2016-03-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Unknown", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )

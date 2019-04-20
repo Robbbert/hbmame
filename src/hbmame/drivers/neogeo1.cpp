@@ -2984,7 +2984,7 @@ HACK( 2002, matrimeh,      matrim,   neogeo_noslot, neogeo, neogeo_state,       
 HACK( 2002, matrimehc,     matrim,   neogeo_noslot, neogeo, neogeo_state,       matrmehc,  ROT0, "Creamymami[EGCG]", "Matrimelee (Pow always max - MVS protection rem)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, matrimnd,      matrim,   neogeo_noslot, neogeo, neogeo_state,       neogeo,    ROT0, "Unknown", "Matrimelee (Bootleg)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 2005, miexchngfr,    miexchng, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Arkatrad", "Money Puzzle Exchanger (French)", MACHINE_SUPPORTS_SAVE )
+HACK( 2005, miexchngfr,    miexchng, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Arkatrad", "Money Puzzle Exchanger (Translation French)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Pipi899", "Mutation Nation (Ex version)", MACHINE_SUPPORTS_SAVE )
 
