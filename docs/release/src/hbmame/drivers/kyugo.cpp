@@ -43,4 +43,4 @@ ROM_START( airwolffr )
 	ROM_LOAD_OPTIONAL( "epl12p6a.9k",   0x0300, 0x0034, CRC(f5acad85) SHA1(ee3caeedf3e91793b12895f109eae5417f5c7631) )
 ROM_END
 
-GAME( 2007, airwolffr, airwolf, srdmissn, airwolf, kyugo_state, init_srdmissn, ROT0, "S.Arkames", "Airwolf (French Translation)(10.29.2007)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, airwolffr, airwolf, srdmissn, airwolf, kyugo_state, init_srdmissn, ROT0, "S.Arkames", "Airwolf (French Translation 2017-10-29)", MACHINE_SUPPORTS_SAVE )

@@ -45,5 +45,5 @@ ROM_START( pcktgalk )
 ROM_END
 
 
-GAME( 200?, pckgalgr, pcktgal, pcktgal, pcktgal, pcktgal_state, init_pcktgal,  ROT0, "GreekRoms", "Pocket Gal (Greek)(Japan)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, pcktgalk, pcktgal, pcktgal, pcktgal, pcktgal_state, init_pcktgal,  ROT0, "Aneue Bannzai", "Pocket Gal (Translation Korean)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, pckgalgr, pcktgal, pcktgal, pcktgal, pcktgal_state, init_pcktgal,  ROT0, "GreekRoms", "Pocket Gal (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, pcktgalk, pcktgal, pcktgal, pcktgal, pcktgal_state, init_pcktgal,  ROT0, "Aneue Bannzai", "Pocket Gal (Translation Korean)", MACHINE_SUPPORTS_SAVE )

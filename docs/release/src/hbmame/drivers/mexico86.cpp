@@ -39,4 +39,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // KiKi KaiKai
-GAME( 200?, kikikais01,  kikikai,        kikikai,  kikikai,  mexico86_state, empty_init, ROT90, "Unknown",  "KiKi KaiKai (Translation Chinese)",                                 MACHINE_SUPPORTS_SAVE )
+GAME( 1986, kikikais01,  kikikai,        kikikai,  kikikai,  mexico86_state, empty_init, ROT90, "Unknown",  "KiKi KaiKai (Translation Chinese)",                                 MACHINE_SUPPORTS_SAVE )

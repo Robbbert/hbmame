@@ -374,38 +374,63 @@ static osd_file::error OpenRawDIBFile(const char *dir_name, const char *filename
 
 static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name, const char *filename, util::core_file::ptr &file, void **buffer)
 {
-	osd_file::error filerr = osd_file::error::NOT_FOUND;
+	util::archive_file::error ziperr = util::archive_file::error::NONE;
 	util::archive_file::ptr zip;
 
 	// clear out result
-	file = NULL;
+	file = nullptr;
 
-	// look into zip file
-	string fname = string(dir_name) + PATH_SEPARATOR + string(zip_name) + ".zip";
-	if (util::archive_file::open_zip(fname, zip) == util::archive_file::error::NONE)
+	// look for the raw file
+	string fname = string(dir_name).append(PATH_SEPARATOR).append(filename);
+	osd_file::error filerr = util::core_file::open(fname, OPEN_FLAG_READ, file);
+
+	// did the raw file not exist?
+	if (filerr != osd_file::error::NONE)
 	{
-		if (zip->search(filename, false) >= 0)
+		// look into zip file
+		fname = std::string(dir_name).append(PATH_SEPARATOR).append(zip_name).append(".zip");
+		ziperr = util::archive_file::open_zip(fname, zip);
+
+		if (ziperr == util::archive_file::error::NONE)
 		{
-			*buffer = malloc(zip->current_uncompressed_length());
-			if (zip->decompress(*buffer, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
-				filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
-		}
-		zip.reset();
-	}
-	else
-	{
-		fname = string(dir_name) + PATH_SEPARATOR + string(zip_name) + ".7z";
-		if (util::archive_file::open_7z(fname, zip) == util::archive_file::error::NONE)
-		{
-			if (zip->search(filename, false) >= 0)
+			int found = zip->search(filename, false);
+
+			if (found >= 0)
 			{
 				*buffer = malloc(zip->current_uncompressed_length());
-				if (zip->decompress(*buffer, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
+				ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
+
+				if (ziperr == util::archive_file::error::NONE)
 					filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
 			}
+
 			zip.reset();
 		}
 	}
+
+	if ((filerr != osd_file::error::NONE) || (ziperr != util::archive_file::error::NONE))
+	{
+		// look into 7z file
+		fname = std::string(dir_name).append(PATH_SEPARATOR).append(zip_name).append(".7z");
+		ziperr = util::archive_file::open_7z(fname, zip);
+
+		if (ziperr == util::archive_file::error::NONE)
+		{
+			int found = zip->search(filename, false);
+
+			if (found >= 0)
+			{
+				*buffer = malloc(zip->current_uncompressed_length());
+				ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
+
+				if (ziperr == util::archive_file::error::NONE)
+					filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
+			}
+
+			zip.reset();
+		}
+	}
+
 	return filerr;
 }
 

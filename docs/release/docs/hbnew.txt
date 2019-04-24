@@ -5,6 +5,7 @@
 ----------------
 
 - HBMAMEUI: Added preliminary support for jpg/jpeg pictures. Order of precedence: .png .jpg .jpeg
+- HBMAMEUI: Fixed a bug where sometimes 7z files would be ignored when showing pictures
 
 
 New Games

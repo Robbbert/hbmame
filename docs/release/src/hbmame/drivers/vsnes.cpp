@@ -56,5 +56,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Vs. Dr. Mario
-GAME( 2002, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Translation Chinese)(2002-10)", 0 )
+GAME( 2002, drmarios01,  drmario,         vsnes,         drmario,  vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Translation Chinese 2002-10-XX)", 0 )
 
