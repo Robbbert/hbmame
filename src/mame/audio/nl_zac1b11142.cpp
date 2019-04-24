@@ -243,13 +243,7 @@ NETLIST_START(zac1b11142_schematics)
 	TTL_74156_DIP(U4B) // FIXME: should be a 74LS156 (lower sink capability)
 	LM3900(U5B3)
 
-#if 1
 	NET_C(RULLANTE, CASSA, BASSO, R82.2, /*R80.2,*/ PIANO, C40.1, R77.1)
-#else
-	// cassa swamps the other instruments if it's connected - just ground it for now
-	NET_C(GND, CASSA)
-	NET_C(RULLANTE, BASSO, R82.2, /*R80.2,*/ PIANO, C40.1, R77.1)
-#endif
 	NET_C(C40.2, R97.1)
 	NET_C(TROMBA, R97.2, R41.2, R42.2, R43.2, R44.2, R73.2, R74.2, R75.2, R76.2)
 	NET_C(IOA2, U4B.13)
@@ -279,7 +273,7 @@ NETLIST_END()
 
 NETLIST_START(zac1b11142_schematics_speech)
 
-	CS(I_SP, 0)	// Fed through stream ...
+	CS(I_SP, 0) // Fed through stream ...
 
 	LM3900(U5D4)
 	CAP(C31, CAP_U(0.22))
@@ -314,7 +308,7 @@ NETLIST_END()
 
 NETLIST_START(zac1b11142_schematics_dac)
 
-	CS(I_DAC, 0)	// Fed through stream ...
+	CS(I_DAC, 0)    // Fed through stream ...
 
 	QBJT_EB(T4, "2N4401")
 
