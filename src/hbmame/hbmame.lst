@@ -64,6 +64,8 @@ astrofbl		/* Black Background */
 @source:asuka.cpp
 asuka			//parent
 asukac			// chinese
+bonzeadv		//parent
+jigkmgris01
 
 @source:atarig42.cpp
 //dangerex
@@ -810,6 +812,7 @@ sf2ces07
 sf2ces08
 sf2ces09
 sf2ces10
+sf2ces11
 sf2js01
 sf2js02
 sf2s01
@@ -1055,6 +1058,7 @@ csclubs01
 cybotsjs01
 ddsomjs01
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
+ddsomuds02
 gigawings01
 mshs01
 mshs02
@@ -1200,6 +1204,8 @@ dbz2h02
 baddudes		//parent
 baddudef		/* Arkatrad */
 decodemo		/* Charles Doty */
+robocop 		//parent
+robocopbs01
 
 @source:dkong.cpp
 dkong			//parent
@@ -3340,6 +3346,7 @@ kof2k2s78
 kof2k2s79
 kof2k2s80
 kof2k2s81
+kof2k2s82
 
 @source:kof2003.cpp
 kof2003d
@@ -3662,6 +3669,8 @@ mkla4d		/* MK protection hack */
 
 @source:mitchell.cpp
 mitcdemo	/* Charles Doty */
+pang		//parent
+pangbolds01
 
 @source:model2.cpp
 srallyc		//parent
@@ -7777,6 +7786,10 @@ kovsho96
 kovsho97
 kovsho98  // Serious problem graphic
 kovsho99  // Serious problem graphic
+// kovsho100  //  Unstable game in the emulator (ingame crash)
+// kovsho101  //  Unstable game in the emulator (ingame crash)
+// kovsho102  //  Unstable game in the emulator (ingame crash)
+kovsho103
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8351,6 +8364,7 @@ rygar					//parent
 rygark
 geminis01
 rygarjs01
+rygars01
 silkworm				//parent
 silkworms01
 
@@ -8413,6 +8427,8 @@ tmnt2s02
 tmnt2s03
 
 @source:tnzs.cpp
+drtoppel    		// parent
+drtoppels01
 insectx				// parent
 insectxs01
 
@@ -8471,6 +8487,9 @@ karatblzas02
 
 @source:wc90.cpp
 pac90
+twcup90	    //parent
+twcup90s01
+twcup90s02
 
 @source:williams.cpp
 defender	//parent

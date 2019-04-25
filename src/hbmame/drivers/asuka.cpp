@@ -25,3 +25,42 @@ ROM_START( asukac )
 ROM_END
 
 GAME( 1988, asukac, asuka, asuka, asuka,  asuka_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+
+
+//PSmame (c) gaston90 used with permission
+
+ /********************************************
+     Proyecto Shadows Mame Build Plus
+**********************************************/
+
+/*************
+ Jigoku Meguri
+***************/
+
+ROM_START( jigkmgris01 ) //jigkmgria
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "b41-09-1__ps01.17", 0x00000, 0x10000, CRC(5d3a5283) SHA1(8c4804569f5e55ecef7a0ac83292ba4153dbf2a4) )
+	ROM_LOAD16_BYTE( "b41-11-1__ps01.26", 0x00001, 0x10000, CRC(e1f2f205) SHA1(ba1184107ac4e4558fbfb75d6bbf983168705769) )
+	ROM_LOAD16_BYTE( "b41-10.16",   0x20000, 0x10000, CRC(4ca94d77) SHA1(69a9f6bcb6d5e4132eed50860bdfe8d6b6d914cd) )
+	ROM_LOAD16_BYTE( "b41-12.25",   0x20001, 0x10000, CRC(40d9c1fc) SHA1(6f03d263e10559988aaa2be00d9bbf55f2fb864e) )
+	ROM_LOAD16_WORD_SWAP( "b41-01.15", 0x80000, 0x80000, CRC(5d072fa4) SHA1(6ffe1b8531381eb6dd3f1fec18c91294a6aca9f6) )
+
+	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
+	ROM_LOAD( "cchip_b41-05.43", 0x0000, 0x2000, CRC(75c52553) SHA1(87bbaefab90e7d43f63556fbae3e937baf9d397b) )
+
+	ROM_REGION( 0x80000, "gfx1", 0 )
+	ROM_LOAD( "b41-03.1",  0x00000, 0x80000, CRC(736d35d0) SHA1(7d41a7d71e117714bbd2cdda2953589cda6e763a) )
+
+	ROM_REGION( 0x80000, "gfx2", 0 )
+	ROM_LOAD( "b41-02.7",  0x00000, 0x80000, CRC(29f205d9) SHA1(9e9f0c2755a9aa5acfe2601911bfa07d8d61164c) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "b41-13.20", 0x00000, 0x10000, CRC(9e464254) SHA1(b6f6126b54c15320ecaa652d0eeabaa4cd94bd26) )
+
+	ROM_REGION( 0x80000, "ymsnd", 0 )
+	ROM_LOAD( "b41-04.48",  0x00000, 0x80000, CRC(c668638f) SHA1(07238a6cb4d93ffaf6351657163b5d80f0dbf688) )
+ROM_END
+
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Jigoku Meguri
+GAME( 1988, jigkmgris01,  bonzeadv, bonzeadv, jigkmgri, asuka_state, empty_init,  ROT0,   "Taito Corporation",   "Jigoku Meguri (Japan, hack?)", MACHINE_SUPPORTS_SAVE )
