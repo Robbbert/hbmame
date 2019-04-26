@@ -1671,6 +1671,29 @@ ROM_START( mslug5dh48 ) //mslug5nd
 	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
 ROM_END
 
+ROM_START( mslug5dh49 ) //mslug5b
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268dh49.p1", 0x000000, 0x800000, CRC(3f1cf3d2) SHA1(2c85eb5acdede4816675b91f8989c9e13c1573f8) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "268.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
+	ROM_LOAD16_BYTE( "268.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
+	ROM_LOAD16_BYTE( "268.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
+	ROM_LOAD16_BYTE( "268.c4", 0x1000001, 0x800000, CRC(c329c373) SHA1(5073d4079958a0ef5426885af2c9e3178f37d5e0) )
+	ROM_LOAD16_BYTE( "268.c5", 0x2000000, 0x800000, CRC(959c8177) SHA1(889bda7c65d71172e7d89194d1269561888fe789) )
+	ROM_LOAD16_BYTE( "268.c6", 0x2000001, 0x800000, CRC(010a831b) SHA1(aec140661e3ae35d264df416478ba15188544d91) )
+	ROM_LOAD16_BYTE( "268.c7", 0x3000000, 0x800000, CRC(6d72a969) SHA1(968dd9a4d1209b770b9b85ea6532fa24d262a262) )
+	ROM_LOAD16_BYTE( "268.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
+ROM_END
+
 ROM_START( ms5plus01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ms5-p1p_ps01.bin", 0x000000, 0x100000, CRC(220438ab) SHA1(dcc2ae277c50a5f879b218abb6a5e838604a6108) )
@@ -11689,6 +11712,7 @@ HACK( 2018, mslug5dh45,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo
 HACK( 2018, mslug5dh46,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2019-04-15)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //You cannot go beyond the fourth level
 HACK( 2003, mslug5dh47,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Bootleg", "Metal Slug 5 Plus (Bootleg, Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug5dh48,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "Bootleg", "Metal Slug 5 (Full Encrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug5dh49,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5,   ROT0, "Bootleg", "Metal Slug 5 (Bootleg/Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, ms5plus01,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Creamymami[EGCG]", "Metal Slug 5 Plus (Fire Bomb)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, ms5plus02,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Creamymami[EGCG]", "Metal Slug 5 Plus (Stone)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, ms5plus03,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Creamymami[EGCG]", "Metal Slug 5 Plus (Big Fat Mode)", MACHINE_SUPPORTS_SAVE )
