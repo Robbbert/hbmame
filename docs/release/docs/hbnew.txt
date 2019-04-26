@@ -1,6 +1,56 @@
 ﻿What's new in HBMAME
 ====================
 
+2019-0X-2X 0.210
+----------------
+
+
+New Games
+---------------------------------
+- [captcomms56]       Captain Commando (99 Beaters Edition Update 2019-04-15)
+- [captcomms57]       Captain Commando (God of War Update 2019-04-15)
+- [captcomms58]       Captain Commando (Infinity bullet Update 2019-04-15)
+- [captcomms59]       Captain Commando (Dream Version 2019-04-15)
+- [ddsomuds02]        Dungeons & Dragons: Shadow over Mystara (USA 960619 Phoenix Edition, Plus) (bootleg)
+- [drtoppels01]       Dr. Toppel's Adventure (World, alt?)
+- [dinos186]          Cadillacs and Dinosaurs (The Warriors Edition Update 2019-04-15)
+- [dinos187]          Cadillacs and Dinosaurs (God of War Update 2019-04-15)
+- [dinos188]          Cadillacs and Dinosaurs (Playing Competitive Version 2019-04-15)
+- [dinos189]          Cadillacs and Dinosaurs (The 2011 Musou Version 2019-04-15)
+- [dinos190]          Cadillacs and Dinosaurs (The king Version 2019-04-15)
+- [dinos191]          Cadillacs and Dinosaurs (Fast Fighting version Update 2019-04-15)
+- [grdianss10]        Guardians (Electric God Magic 2 Unparalleled Version 2019-04-15)
+- [jigkmgris01]       Jigoku Meguri (Japan, hack?)
+- [kovpluss327]       Knights of Valour Plus (2012 Edition Ares ST Kings Edition 2019-04-15)
+- [kovpluss328]       Knights of Valour Plus (2012 God of War Unparalleled 2019-04-15)
+- [kovpluss329]       Knights of Valour Plus (Seconds Edition 2019-04-15)
+- [kovsho97]          Knights of Valour Super Heroes Plus (The World Wars 2019-04-15)
+- [kovsho98]          Knights of Valour Super Heroes Plus (The True king Version Ultimate Rev 1.0 2019-04-15)
+- [kovsho99]          Knights of Valour Super Heroes Plus (The True king Version Ultimate Rev 1.1 2019-04-15)
+- [kovsho103]         Knights of Valour Super Heroes Plus (2018-0, hack)(Bootleg)
+- [kof97s145]         Kof'97 (Heavenly Kingdoms 2019-04-15)
+- [kof2k2s81]         Kof2002 (Tianguo Protoss revived 2019-04-15)
+- [kof2k2s82]         Kof2002 Plus (Unknown Date Hack)
+- [mslug5dh47]        Metal Slug 5 Plus (Bootleg, Fully decrypted)
+- [mslug5dh48]        Metal Slug 5 (Full Encrypted)
+- [mslug5dh49]        Metal Slug 5 (Bootleg/Alt)
+- [pangbolds01]       Pang (bootleg, set 7)
+- [robocopbs01]       Robocop (Red Corporation World bootleg)
+- [rygars01]          Rygar (US, bootleg)
+- [sf2ces10]          Street Fighter II': Champion Edition (Brazil 920313/hack)
+- [sf2ces11]          Street Fighter II': Champion Edition (M16, bootleg)
+- [sf2ces12]          Street Fighter II': Champion Edition (Hispanic 990804/hack)
+- [sfzchs03]          Street Fighter Zero (CPS Changer, Asia 950925)
+- [sfzchs04]          Street Fighter Zero (CPS Changer, Euro 950727)
+- [sfzchs05]          Street Fighter Zero (CPS Changer, Hispanic 950727)
+- [sfzchs06]          Street Fighter Zero (CPS Changer, Brazil 950727)
+- [svchs35]           SvC Chaos (Bootleg, set 3)
+- [tk2h138]           Tenchi wo Kurau II (Daren Edition Update 2019-04-15)
+- [twcup90s01]        Worldcup '90 (Hack, set 2)(Bootleg)
+- [twcup90s02]        Worldcup '90 (Hack, set 3)(Bootleg)
+
+
+
 2019-04-24 0.209
 ----------------
 
