@@ -35,6 +35,7 @@ New Games
 - [mslug5dh48]        Metal Slug 5 (Full Encrypted)
 - [mslug5dh49]        Metal Slug 5 (Bootleg/Alt)
 - [pangbolds01]       Pang (bootleg, set 7)
+- [redeartns01]       Red Earth (Asia 961023, NO CD)
 - [robocopbs01]       Robocop (Red Corporation World bootleg)
 - [rygars01]          Rygar (US, bootleg)
 - [sf2ces10]          Street Fighter II': Champion Edition (Brazil 920313/hack)

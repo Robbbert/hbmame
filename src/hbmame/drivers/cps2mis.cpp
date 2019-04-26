@@ -2108,7 +2108,7 @@ ROM_END
 
 
 
-HACK( 2000, 1944da,     1944,     dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition)(bootleg alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, 1944da,     1944,     dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, 1944fp,     1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (Fire Power Plus 2011-12-31)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, avspud,     avsp,     dead_cps2, cps2_3p3b, cps2_state, cps2, ROT0, "Razoola", "Alien vs. Predator (USA 940520 Phoenix edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Lock four person mode 2009-06-29)", MACHINE_SUPPORTS_SAVE )
