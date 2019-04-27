@@ -9090,6 +9090,7 @@ sboblboblb                      // bootleg
 sboblboblc                      // bootleg
 sboblbobld                      // bootleg
 sboblboble                      // bootleg
+sboblboblf                      // bootleg
 tokio                           // A71 1986
 tokiob                          // bootleg
 tokioo                          // A71 1986
@@ -11027,7 +11028,8 @@ gatedoom1                       // MAC (c) 1990 Data East Corporation (US)
 ds348                           // Sigtron Daruma
 
 @source:daryde.cpp
-pandart                         //
+cricket                         // (c) 1995 Daryde S.L.
+pandart                         // (c) 1999 Daryde S.L.
 
 @source:dassault.cpp
 dassault                        // MAJ (c) 1991 Data East Corporation (US)
@@ -13531,6 +13533,7 @@ mooncrgx                        // bootleg
 mooncrs2                        // bootleg
 mooncrs3                        // bootleg
 mooncrs4                        // bootleg
+mooncrs5                        // bootleg
 mooncrsb                        // bootleg
 mooncrsl                        // bootleg (Laguna S.A.)
 mooncrst                        // (c) 1980 Nichibutsu
@@ -14311,6 +14314,8 @@ potnpkrf                        // Bootleg
 potnpkrg                        // Bootleg
 potnpkrh                        // Bootleg
 potnpkri                        // Bootleg
+potnpkrj                        // Bootleg
+potnpkrk                        // Bootleg
 pottnpkr                        // Bootleg
 royale                          // Unknown
 royalea                         // Unknown
@@ -16166,6 +16171,7 @@ jngolady                        // (c) 1984
 luckygrl                        // (c) 1984 Wing?
 macha                           // (c) 1983 Logitec
 roylcrdn                        // (c) 1985
+roylcrdna                       // (c) 1982
 
 @source:jankenmn.cpp
 jankenmn                        // (c) 1985 Sunwise
@@ -21666,6 +21672,7 @@ mini2440                        //
 @source:miniboy7.cpp
 miniboy7                        // (c) 1983, Bonanza Enterprises
 miniboy7a                       // (c) 1983, Bonanza Enterprises
+sminiboy                        // (c) 1984, Bonanza Enterprises
 
 @source:minicom.cpp
 mcom4_02                        //
@@ -30115,6 +30122,7 @@ bubsys                          //
 citybomb                        // GX787 (c) 1987 (World)
 citybombj                       // GX787 (c) 1987 (Japan)
 gradius                         // GX456 (c) 1985
+gradiusb						// Bubble System
 gwarrior                        // GX578 (c) 1985
 hcrash                          // GX790 (c) 1987
 hcrashc                         // GX790 (c) 1987
@@ -30642,6 +30650,7 @@ grdnstrmj                       // (c) 1998 (Japan)
 grdnstrmk                       // (c) 1998 (Korea)
 grdnstrmv                       // (c) 1998 Apples Industries license
 gunnail                         // (c) 1993 NMK / Tecmo
+gunnailb                        // bootleg
 hachamf                         // (c) 1991 NMK
 hachamfa                        // (c) 1991 NMK
 hachamfb                        // bootleg
@@ -31885,6 +31894,7 @@ pex0516p                        // (c) 1995 IGT - International Game Technology
 pex0536p                        // (c) 1995 IGT - International Game Technology
 pex0537p                        // (c) 1995 IGT - International Game Technology
 pex0550p                        // (c) 1995 IGT - International Game Technology
+pex0556p                        // (c) 1995 IGT - International Game Technology
 pex0557p                        // (c) 1995 IGT - International Game Technology
 pex0568p                        // (c) 1995 IGT - International Game Technology
 pex0578p                        // (c) 1995 IGT - International Game Technology
@@ -37316,6 +37326,12 @@ taitotz                         //
 @source:taitowlf.cpp
 pf2012                          // E59 (c) 1997 Taito
 
+@source:talkingbb.cpp
+talkingbb
+
+@source:talkingfb.cpp
+talkingfb
+
 @source:tamag1.cpp
 tama                            // Bandai
 
@@ -38730,6 +38746,7 @@ brdrlins                        // Sidam bootleg
 car2                            // bootleg
 carhntds                        //
 carnival                        // 651-666 (c) 1980 Sega
+carnivalb                       //
 carnivalc                       // 501-516 (c) 1980 Sega
 carnivalh                       //
 carnivalha                      //

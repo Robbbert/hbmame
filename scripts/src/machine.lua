@@ -179,6 +179,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/2812fifo.h,MACHINES["2812FIFO"] = true
+---------------------------------------------------
+
+if (MACHINES["2812FIFO"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/2812fifo.cpp",
+		MAME_DIR .. "src/devices/machine/2812fifo.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/6522via.h,MACHINES["6522VIA"] = true
 ---------------------------------------------------
 
@@ -1202,6 +1214,18 @@ if (MACHINES["I8214"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/i8214.cpp",
 		MAME_DIR .. "src/devices/machine/i8214.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/i82355.h,MACHINES["I82355"] = true
+---------------------------------------------------
+
+if (MACHINES["I82355"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/i82355.cpp",
+		MAME_DIR .. "src/devices/machine/i82355.h",
 	}
 end
 

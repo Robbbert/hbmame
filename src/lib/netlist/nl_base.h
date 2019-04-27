@@ -257,8 +257,8 @@ namespace netlist
 		double fixed_V() const { return m_fixed_V; }
 		double low_thresh_V(const double VN, const double VP) const { return VN + (VP - VN) * m_low_thresh_PCNT; }
 		double high_thresh_V(const double VN, const double VP) const { return VN + (VP - VN) * m_high_thresh_PCNT; }
-		double low_V(const double VN, const double VP) const { plib::unused_var(VP); return VN + m_low_VO; }
-		double high_V(const double VN, const double VP) const { plib::unused_var(VN);  return VP - m_high_VO; }
+		double low_offset_V() const { return m_low_VO; }
+		double high_offset_V() const { return m_high_VO; }
 		double R_low() const { return m_R_low; }
 		double R_high() const { return m_R_high; }
 
@@ -398,6 +398,32 @@ namespace netlist
 
 	namespace detail {
 
+		template <typename C, typename T>
+		struct property_store_t
+		{
+			static void add(const C *obj, const T &aname)
+			{
+				store().insert({obj, aname});
+			}
+
+			static const T get(const C *obj)
+			{
+				return store().find(obj)->second;
+			}
+
+			static void remove(const C *obj)
+			{
+				store().erase(store().find(obj));
+			}
+
+			static std::unordered_map<const C *, T> &store()
+			{
+				static std::unordered_map<const C *, T> lstore;
+				return lstore;
+			}
+
+		};
+
 		// -----------------------------------------------------------------------------
 		// object_t
 		// -----------------------------------------------------------------------------
@@ -417,35 +443,32 @@ namespace netlist
 			 *
 			 *  Every class derived from the object_t class must have a name.
 			 */
-			explicit object_t(const pstring &aname /*!< string containing name of the object */);
+			explicit object_t(const pstring &aname /*!< string containing name of the object */)
+			{
+				props::add(this, aname);
+			}
 
 			COPYASSIGNMOVE(object_t, delete)
 			/*! return name of the object
 			 *
 			 *  \returns name of the object.
 			 */
-			pstring name() const;
+			pstring name() const
+			{
+				return props::get(this);
+			}
 
-	#if 0
-			void * operator new (size_t size, void *ptr) { plib::unused_var(size); return ptr; }
-			void operator delete (void *ptr, void *) { plib::unused_var(ptr); }
-			void * operator new (size_t size) = delete;
-			void operator delete (void * mem) = delete;
-	#endif
 		protected:
+
+			using props = property_store_t<object_t, pstring>;
+
 			// only childs should be destructible
 			~object_t() noexcept
 			{
-				name_hash().erase(name_hash().find(this));
+				props::remove(this);
 			}
 
 		private:
-			//pstring m_name;
-			static std::unordered_map<const object_t *, pstring> &name_hash()
-			{
-				static std::unordered_map<const object_t *, pstring> lhash;
-				return lhash;
-			}
 		};
 
 		struct netlist_ref
@@ -630,6 +653,7 @@ namespace netlist
 			void push_to_queue(netlist_time delay) NL_NOEXCEPT;
 			bool is_queued() const noexcept { return m_in_queue == queue_status::QUEUED; }
 
+			template <bool KEEP_STATS>
 			void update_devs() NL_NOEXCEPT;
 
 			netlist_time next_scheduled_time() const noexcept { return m_next_scheduled_time; }
@@ -718,7 +742,7 @@ namespace netlist
 			plib::linkedlist_t<core_terminal_t> m_list_active;
 			std::vector<core_terminal_t *> m_core_terms; // save post-start m_list ...
 
-			template <typename T>
+			template <bool KEEP_STATS, typename T>
 			void process(const T mask, netlist_sig_t sig);
 		};
 	} // namespace detail
@@ -1143,7 +1167,8 @@ namespace netlist
 			{
 				if (++m_active_outputs == 1)
 				{
-					m_stat_inc_active.inc();
+					if (m_stats/*NL_KEEP_STATISTICS*/)
+						m_stats->m_stat_inc_active.inc();
 					inc_active();
 				}
 			}
@@ -1166,9 +1191,15 @@ namespace netlist
 		void set_default_delegate(detail::core_terminal_t &term);
 
 		/* stats */
-		nperftime_t<NL_KEEP_STATISTICS>  m_stat_total_time;
-		nperfcount_t<NL_KEEP_STATISTICS> m_stat_call_count;
-		nperfcount_t<NL_KEEP_STATISTICS> m_stat_inc_active;
+		struct stats_t
+		{
+			// NL_KEEP_STATISTICS
+			nperftime_t<true>  m_stat_total_time;
+			nperfcount_t<true> m_stat_call_count;
+			nperfcount_t<true> m_stat_inc_active;
+		};
+
+		plib::unique_ptr<stats_t> m_stats;
 
 		virtual void update() NL_NOEXCEPT { }
 		virtual void reset() { }
@@ -1265,11 +1296,13 @@ namespace netlist
 	 * solvers will update inputs after parallel processing.
 	 */
 	class detail::queue_t :
-			public timed_queue<pqentry_t<net_t *, netlist_time>, false, NL_KEEP_STATISTICS>,
+			//public timed_queue<pqentry_t<net_t *, netlist_time>, false, NL_KEEP_STATISTICS>,
+			public timed_queue<pqentry_t<net_t *, netlist_time>, false, true>,
 			public detail::netlist_ref,
 			public plib::state_manager_t::callback_t
 	{
 	public:
+		using base_queue = timed_queue<pqentry_t<net_t *, netlist_time>, false, true>;
 		using entry_t = pqentry_t<net_t *, netlist_time>;
 		explicit queue_t(netlist_state_t &nl);
 		virtual ~queue_t() noexcept = default;
@@ -1319,6 +1352,8 @@ namespace netlist
 			return dynamic_cast<C *>(p) != nullptr;
 		}
 
+		core_device_t *get_single_device(const pstring &classname, bool (*cc)(core_device_t *)) const;
+
 		template<class C>
 		C *get_single_device(const pstring &classname) const
 		{
@@ -1351,8 +1386,6 @@ namespace netlist
 			this->run_state_manager().save_state_ptr(static_cast<void *>(&owner), module + pstring(".") + stname, plib::state_manager_t::dtype<C>(), count, state);
 		}
 
-		core_device_t *get_single_device(const pstring &classname, bool (*cc)(core_device_t *)) const;
-
 		detail::net_t *find_net(const pstring &name) const;
 		std::size_t find_net_id(const detail::net_t *net) const;
 
@@ -1370,6 +1403,14 @@ namespace netlist
 					tmp.push_back(dev);
 			}
 			return tmp;
+		}
+
+		core_device_t *find_device(const pstring &name)
+		{
+			for (auto & d : m_devices)
+				if (d.first == name)
+					return d.second.get();
+			return nullptr;
 		}
 
 		template <typename T>
@@ -1405,7 +1446,7 @@ namespace netlist
 		}
 
 		/* sole use is to manage lifetime of family objects */
-		std::vector<std::pair<pstring, plib::unique_ptr<logic_family_desc_t>>> m_family_cache;
+		std::unordered_map<pstring, plib::unique_ptr<logic_family_desc_t>> m_family_cache;
 
 		setup_t &setup() NL_NOEXCEPT { return *m_setup; }
 		const setup_t &setup() const NL_NOEXCEPT { return *m_setup; }
@@ -1457,8 +1498,45 @@ namespace netlist
 		void process_queue(const netlist_time delta) NL_NOEXCEPT;
 		void abort_current_queue_slice() NL_NOEXCEPT { m_queue.retime(detail::queue_t::entry_t(m_time, nullptr)); }
 
+		const detail::queue_t &queuex() const NL_NOEXCEPT { return m_queue; }
+#if 0
 		const detail::queue_t &queue() const NL_NOEXCEPT { return m_queue; }
 		detail::queue_t &queue() NL_NOEXCEPT { return m_queue; }
+#endif
+
+		void qpush(detail::queue_t::entry_t && e) noexcept
+		{
+#if (USE_QUEUE_STATS)
+			#if 0
+			// clang treats -Wswitch-bool as error
+			switch (m_stats)
+			{
+				case false: m_queue.push_nostats(std::move(e)); break;
+				case true:  m_queue.push(std::move(e)); break;
+			}
+			#else
+				if (!m_stats)
+					m_queue.push_nostats(std::move(e));
+				else
+					m_queue.push(std::move(e));
+			#endif
+#else
+			m_queue.push_nostats(std::move(e));
+#endif
+		}
+
+		template <class R>
+		void qremove(const R &elem) noexcept
+		{
+#if (USE_QUEUE_STATS)
+			if (!m_stats)
+				m_queue.remove_nostats(elem);
+			else
+				m_queue.remove(elem);
+#else
+			m_queue.remove_nostats(elem);
+#endif
+		}
 
 		/* Control functions */
 
@@ -1488,7 +1566,14 @@ namespace netlist
 
 		void print_stats() const;
 
+		bool stats_enabled() const { return m_stats; }
+		void enable_stats(bool val) { m_stats = val; }
+
 	private:
+
+		template <bool KEEP_STATS>
+		void process_queue_stats(const netlist_time delta) NL_NOEXCEPT;
+
 		plib::unique_ptr<netlist_state_t>   m_state;
 		devices::NETLIB_NAME(solver) *      m_solver;
 
@@ -1499,10 +1584,11 @@ namespace netlist
 
 		PALIGNAS_CACHELINE()
 		detail::queue_t                     m_queue;
+		bool								m_stats;
 
 		// performance
-		nperftime_t<NL_KEEP_STATISTICS>     m_stat_mainloop;
-		nperfcount_t<NL_KEEP_STATISTICS>    m_perf_out_processed;
+		nperftime_t<true>     				m_stat_mainloop;
+		nperfcount_t<true>    				m_perf_out_processed;
 };
 
 	// -----------------------------------------------------------------------------
@@ -1559,7 +1645,7 @@ namespace netlist
 		if (found)
 		{
 			bool err = false;
-			auto vald = plib::pstonum_ne<T>(p, err);
+			auto vald = plib::pstonum_ne<T, true>(p, err);
 			if (err)
 				device.state().log().fatal(MF_INVALID_NUMBER_CONVERSION_1_2(name, p));
 			m_param = vald;
@@ -1578,7 +1664,7 @@ namespace netlist
 		if (f != nullptr)
 			f->read(reinterpret_cast<plib::pistream::value_type *>(&m_data[0]),1<<AW);
 		else
-			device.state().log().warning("Rom {1} not found", str());
+			device.state().log().warning(MW_ROM_NOT_FOUND(str()));
 	}
 
 	inline void logic_input_t::inactivate() NL_NOEXCEPT
@@ -1622,15 +1708,15 @@ namespace netlist
 		if ((num_cons() != 0))
 		{
 			auto &lexec(exec());
-			auto &q(lexec.queue());
+			//auto &q(lexec.queue());
 			auto nst(lexec.time() + delay);
 
 			if (is_queued())
-				q.remove(this);
+				lexec.qremove(this);
 			m_in_queue = (!m_list_active.empty()) ?
 				queue_status::QUEUED : queue_status::DELAYED_DUE_TO_INACTIVE;    /* queued ? */
 			if (m_in_queue == queue_status::QUEUED)
-				q.push(queue_t::entry_t(nst, this));
+				lexec.qpush(queue_t::entry_t(nst, this));
 			else
 				update_inputs();
 			m_next_scheduled_time = nst;
@@ -1648,7 +1734,7 @@ namespace netlist
 				if (m_next_scheduled_time > exec().time())
 				{
 					m_in_queue = queue_status::QUEUED;     /* pending */
-					exec().queue().push({m_next_scheduled_time, this});
+					exec().qpush({m_next_scheduled_time, this});
 				}
 				else
 				{
