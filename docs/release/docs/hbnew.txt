@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2019-0X-2X 0.210
+2019-05-29 0.210
 ----------------
 
 
@@ -31,6 +31,8 @@ New Games
 - [kof97s145]         Kof'97 (Heavenly Kingdoms 2019-04-15)
 - [kof2k2s81]         Kof2002 (Tianguo Protoss revived 2019-04-15)
 - [kof2k2s82]         Kof2002 Plus (Unknown Date Hack)
+- [missilet]          Missile Command (Tesla variant)
+- [mmadness]          Mars Madness [Tesla]
 - [mslug5dh47]        Metal Slug 5 Plus (Bootleg, Fully decrypted)
 - [mslug5dh48]        Metal Slug 5 (Full Encrypted)
 - [mslug5dh49]        Metal Slug 5 (Bootleg/Alt)

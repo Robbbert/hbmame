@@ -386,14 +386,14 @@ ROM_END
 		The colour prom supplied produced terrible colours, with most enemies barely visible. Substituting
 		the normal mooncrst prom fixes all the problems. */
 
-ROM_START( mooncrs5 )
+ROM_START( mooncrs5f )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "mooncrs5.7k", 0x0000, 0x1000, CRC(d62875a5) SHA1(2e162bf559a72acb5d23434497a9377a302b0440) )
 	ROM_LOAD( "mooncrs5.7j", 0x1000, 0x1000, CRC(1683e74c) SHA1(5887ddeed7d3399e93bc3146f54c23e9f8893866) )
 	ROM_LOAD( "mooncrs5.7h", 0x2000, 0x1000, CRC(46921e92) SHA1(7a3cec261a9e0baf969bd356a0766b4b266eaa39) )
 	ROM_LOAD( "mooncrs5.7a", 0x3000, 0x0400, CRC(5318be0c) SHA1(cca73501da8783e47f3f3c7d8a795011d5fd91a3) )
 	ROM_LOAD( "mooncrs5.7b", 0x3400, 0x0400, CRC(aed8acb2) SHA1(a2429daba96e6c064f4bc65cab2df6b15a43bf44) )
-	ROM_LOAD( "mooncrs5.fake", 0x3800, 0x0400, CRC(76db94a5) SHA1(f7d9c81d5e09f7e42258caf265606b1ba32439dd) ) /* fake rom */
+	ROM_LOAD( "mooncrs5.5f", 0x3800, 0x0400, CRC(76db94a5) SHA1(f7d9c81d5e09f7e42258caf265606b1ba32439dd) )
 	ROM_LOAD( "mooncrs5.7d", 0x3c00, 0x0400, CRC(db0528cf) SHA1(be06b78d890e07fcbbfd6931d1a59ab0fb8b7a53) )
 	ROM_FILL(0x3FF4,1,0x2c ) /* patch unused byte so checksum test can be passed */
 
@@ -748,7 +748,7 @@ HACK( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, R
 
 /* Moon Cresta */
 HACK( 2000, mooncmst, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, mooncrs5, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrsu, ROT90, "bootleg", "Moon Cresta", MACHINE_SUPPORTS_SAVE )
+HACK( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrsu, ROT90, "bootleg", "Moon Cresta (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Other */

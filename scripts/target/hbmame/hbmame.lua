@@ -59,6 +59,7 @@ CPUS["V60"] = true  -- segas32
 CPUS["V810"] = true
 CPUS["Z180"] = true
 CPUS["Z80"] = true
+CPUS["Z8000"] = true  -- polepos
 
 --------------------------------------------------
 -- specify available sound cores
@@ -366,6 +367,7 @@ files {
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
+	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -634,7 +636,7 @@ files {
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",
 	MAME_DIR .. "src/mame/video/pacland.cpp",
-	MAME_DIR .. "src/mame/drivers/polepos.cpp",
+	MAME_DIR .. "src/hbmame/drivers/polepos.cpp",
 	MAME_DIR .. "src/mame/audio/polepos.cpp",
 	MAME_DIR .. "src/mame/video/polepos.cpp",
 	MAME_DIR .. "src/hbmame/drivers/rallyx.cpp",

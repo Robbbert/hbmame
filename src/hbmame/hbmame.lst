@@ -1334,7 +1334,7 @@ jumpbugx	// extra sounds
 kazzy
 monstrz		// monster zero hacked to partially work
 mooncmst
-mooncrs5	/* clone of fantazia */
+mooncrs5f	/* clone of fantazia */
 offender	/* Chris Henry hack of scramble */
 starfgh2	/* Bootleg of Pisces */
 superdog	/* Jerky Hack Hack of scramble */
@@ -3672,6 +3672,10 @@ umk3r13bf
 
 @source:midyunit.cpp
 mkla4d		/* MK protection hack */
+
+@source:missile.cpp
+missile				//parent
+missilet			// Tesla variant
 
 @source:mitchell.cpp
 mitcdemo	/* Charles Doty */
@@ -8096,6 +8100,10 @@ pc_dk			/* NES->PC-10 */
 pc_pacm			/* NES->PC-10 */
 pc_gyrus		/* NES->PC-10 */
 pc_skykd		/* NES->PC-10 */
+
+@source:polepos.cpp
+polepos					//parent
+mmadness				// Mars Madness - Tesla in-car entertainment
 
 @source:pooyan.cpp
 pooyan				// parent
