@@ -11569,7 +11569,7 @@ HACK( 2002, kof2002s14,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2002, kof2002s15,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "meiluoyao",    "Kof2002 Magic Plus II Super Plus " , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s16,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set 1 bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s18,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set 3 bootleg Old)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2002s20,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set 4 bootleg)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2002s20,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Bootleg",    "Kof2002 Plus (Set 4 bootleg)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s21,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "lb70",    "Kof2002 (RetroPokter V1.0 Beta)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2002s22,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Jason",    "Kof2002 (Remix Ultra 2.4 2003-12-02)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof2002s23,     kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,   ROT0, "Jason, Wesker, Raymonose, Andy Chan, Macrochen, Eddids, Danpaji1",    "Kof2002 (Remix Ultra 3.0 2006-05-28)" , MACHINE_SUPPORTS_SAVE )

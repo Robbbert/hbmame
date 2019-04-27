@@ -15426,13 +15426,12 @@ ROM_START( sf2ces10 )
 	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
-ROM_START( sf2ces11 )
+ROM_START( sf2ces11 ) // much the same as sf2m1
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "joe-922",              0x000000, 0x80000, CRC(e927556c) SHA1(3878ed3cfb10888a3c99001c3d6076c54d61999f) )
 	ROM_LOAD16_BYTE( "joe-921",              0x000001, 0x80000, CRC(8632e786) SHA1(56d4faf986a4791ae608b066659bd365d47bbe01) )
 	ROM_LOAD16_BYTE( "27010.4",              0x100000, 0x20000, CRC(8226c11c) SHA1(9588bd64e338901394805aca8a234f880674dc60) )
 	ROM_LOAD16_BYTE( "27010.3",              0x100001, 0x20000, CRC(924c6ce2) SHA1(676a912652bd75da5087f0c7eae047b7681a993c) )
-
 
 	ROM_REGION( 0x600000, "gfx", 0 )
 	ROMX_LOAD( "tat-01.bin",    0x000000, 0x40000, CRC(a887f7d4) SHA1(d7e0c46b3ab1c6352f45033cb9e610d9c34d51fb), ROM_SKIP(7) )
@@ -15470,7 +15469,10 @@ ROM_START( sf2ces11 )
 	ROM_LOAD( "27020.2",    0x00000, 0x40000, CRC(6cfffb11) SHA1(995526183ffd35f92e9096500a3fe6237faaa2dd) )
 
 	ROM_REGION( 0x00c8d, "pld", 0 ) 
-	ROM_LOAD( "gal20v8.68kadd",    0x00000, 0x00c8d, CRC(27cdd376) SHA1(9fb5844b33002bec80fb92d3e5d1bbc779087300) )//68k address decoder
+	ROM_LOAD_OPTIONAL( "gal20v8.68kadd",    0x00000, 0x00c8d, CRC(27cdd376) SHA1(9fb5844b33002bec80fb92d3e5d1bbc779087300) )//68k address decoder
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
 ROM_START( sf2ces12 ) //sf2ceh
@@ -22736,7 +22738,7 @@ HACK( 2018, sf2ces07,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,   
 HACK( 2018, sf2ces08,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "pipi899", "Street Fighter II': Champion Edition (Galactic Super Vega)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, sf2ces09,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Unknown", "Street Fighter II': Champion Edition (Insane Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sf2ces10,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter II': Champion Edition (Brazil 920313/hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1992, sf2ces11,      sf2ce,    sf2m1,      sf2,      cps_state,   dinopic,  ROT0,   "Bootleg", "Street Fighter II': Champion Edition (M16, bootleg)",   MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1992, sf2ces11,      sf2ce,    sf2m1,      sf2,      cps_state,   sf2m1,    ROT0,   "Bootleg", "Street Fighter II': Champion Edition (M16, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sf2ces12,      sf2ce,    cps1_12MHz, sf2,      cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter II': Champion Edition (Hispanic 990804/hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, sf2js01,       sf2,      cps1_10MHz, sf2j,     cps_state,   cps1,     ROT0,   "Unknown", "Street Fighter II: The World Warrior (King Of The Four Heavenly Kings)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, sf2js02,       sf2,      cps1_10MHz, sf2j,     cps_state,   cps1,     ROT0,   "Unknown", "Street Fighter II: The World Warrior (12 Person Version 2016-01-01)", MACHINE_SUPPORTS_SAVE )

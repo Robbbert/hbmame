@@ -11710,9 +11710,9 @@ HACK( 2018, mslug5dh43,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo
 HACK( 2018, mslug5dh44,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2018-12-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug5dh45,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "YouGuDuoLa", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-11-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug5dh46,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2019-04-15)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //You cannot go beyond the fourth level
-HACK( 2003, mslug5dh47,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Bootleg", "Metal Slug 5 Plus (Bootleg, Fully decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug5dh47,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Bootleg", "Metal Slug 5 Plus (Bootleg, Fully decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug5dh48,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "Bootleg", "Metal Slug 5 (Full Encrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, mslug5dh49,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5,   ROT0, "Bootleg", "Metal Slug 5 (Bootleg/Alt)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug5dh49,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5,   ROT0, "Bootleg", "Metal Slug 5 (Bootleg/Alt)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2003, ms5plus01,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Creamymami[EGCG]", "Metal Slug 5 Plus (Fire Bomb)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, ms5plus02,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Creamymami[EGCG]", "Metal Slug 5 Plus (Stone)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, ms5plus03,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "Creamymami[EGCG]", "Metal Slug 5 Plus (Big Fat Mode)", MACHINE_SUPPORTS_SAVE )
