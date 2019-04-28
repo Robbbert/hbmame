@@ -155,11 +155,6 @@ void ir_state::io_map(address_map &map) {
 	map(0x06,0x06).nopw();  //(watchdog_reset_w)
 }
 
-//ADDRESS_MAP_START( ir_state::sound_map )
-//	ADDRESS_MAP_UNMAP_HIGH
-//	AM_RANGE(0x0000, 0xffff) AM_ROM // dummy prg map, TODO: decrypt ROM
-//ADDRESS_MAP_END
-
 
 static INPUT_PORTS_START( ir )
 	PORT_START("IN0")
@@ -514,17 +509,11 @@ void ir_state::ir(machine_config &config)
 	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
 	m_screen->set_screen_update(FUNC(ir_state::screen_update_ir));
 
-	//MCFG_DEVICE_ADD("audiocpu", M6808, XTAL_4MHz/2) // MC6808P
-	//MCFG_DEVICE_PROGRAM_MAP(sound_map)
-
 	/* add shifter */
 	MB14241(config, "mb14241");
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-
-	//MCFG_DEVICE_ADD("ay1", AY8910, XTAL_4MHz/2)
-	//MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.5)
 
 	SAMPLES(config, m_samples);
 	m_samples->set_channels(9);
@@ -538,11 +527,6 @@ ROM_START( ir )
 	ROM_LOAD( "g.ic35",      0x0800, 0x0800, CRC(26b38aa4) SHA1(f281c7ec47ce6ab61bfda2e7aa6a5b8a01f2c11e) )
 	ROM_LOAD( "f.ic34",      0x1000, 0x0800, CRC(b3b2749e) SHA1(4f854f981396e2d6a959dd48cff12234074fb69b) )
 	ROM_LOAD( "e.ic33",      0x1800, 0x0800, CRC(d8e75102) SHA1(86d5618944265947e3ce60fdf048d8fff4a55744) )
-
-	// not used
-	//ROM_REGION( 0x10000, "audiocpu", 0 ) // encrypted
-	//ROM_LOAD( "snd.2c",      0xf000, 0x0800, CRC(135f3b16) SHA1(d472a6ca32c4a16cc1faf09f4a4876d75cd4ba24) )
-	//ROM_LOAD( "snd.1c",      0xf800, 0x0800, CRC(152fc85e) SHA1(df207d6e690287a56e4e330deaa5ee40a179f1fc) )
 
 	ROM_REGION( 0x0800, "proms", 0 )
 	ROM_LOAD( "colour.bin",  0x0000, 0x0800, CRC(7de74988) SHA1(0b8c94b2bfdbc3921d60aad765df8af611f3fdd7) )
