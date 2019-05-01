@@ -8573,7 +8573,7 @@ ROM_START( mslug3rmd18 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd19 )
+ROM_START( mslug3rmd19 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd19.p1",  0x000000, 0x100000, CRC(316dd903) SHA1(84398d5815e474fd6302faa94d2769d556df8599) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -8599,7 +8599,7 @@ ROM_START( mslug3rmd19 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd20 )
+ROM_START( mslug3rmd20 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd20.p1",  0x000000, 0x100000, CRC(cd4dcd03) SHA1(d1e8c5ad82c5a151ea8eb1b81a2f21cc0c34a5ba) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -8625,7 +8625,7 @@ ROM_START( mslug3rmd20 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd21 )
+ROM_START( mslug3rmd21 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd21.p1",  0x000000, 0x100000, CRC(2f82c33c) SHA1(3a71ef4672b8efba54610dccc99a2f39e494c58b) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -8651,7 +8651,7 @@ ROM_START( mslug3rmd21 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd22 )
+ROM_START( mslug3rmd22 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd22.p1",  0x000000, 0x100000, CRC(422c5b1a) SHA1(69d85bcb53163af8d322d1c80c8b0b1fa798e5c4) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -8677,7 +8677,7 @@ ROM_START( mslug3rmd22 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd23 )
+ROM_START( mslug3rmd23 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd23.p1",  0x000000, 0x100000, CRC(be0c4f1a) SHA1(69d0c75411ca0c914aac3330cae13ac243ff9a71) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -8703,7 +8703,7 @@ ROM_START( mslug3rmd23 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd24 )
+ROM_START( mslug3rmd24 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd24.p1",  0x000000, 0x100000, CRC(5cc34125) SHA1(d36d7d83438838fc62777257c1ab2254d12d4ab8) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9041,7 +9041,7 @@ ROM_START( mslug3rmd36 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd43 )
+ROM_START( mslug3rmd43 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd43.p1",  0x000000, 0x100000, CRC(a38b3ddb) SHA1(ee335d9c0f1e8483e8ffdf46ee670f388c612856) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9067,7 +9067,7 @@ ROM_START( mslug3rmd43 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd44 )
+ROM_START( mslug3rmd44 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd44.p1",  0x000000, 0x100000, CRC(5fab29db) SHA1(3f00880a670164940268890932de1d05ae5552f8) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9093,7 +9093,7 @@ ROM_START( mslug3rmd44 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd45 )
+ROM_START( mslug3rmd45 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd45.p1",  0x000000, 0x100000, CRC(bd6427e4) SHA1(d589d816f0fca681dc6dbd055500e45c987013a4) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9119,7 +9119,7 @@ ROM_START( mslug3rmd45 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd46 )
+ROM_START( mslug3rmd46 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd46.p1",  0x000000, 0x100000, CRC(d0cabfc2) SHA1(b4fca9a33fcef4fa99d72f29f6470b64178664ce) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9145,7 +9145,7 @@ ROM_START( mslug3rmd46 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd47 )
+ROM_START( mslug3rmd47 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd47.p1",  0x000000, 0x100000, CRC(2ceaabc2) SHA1(10c092ce4e11f35998c72e82c95b77da1194e93e) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9171,7 +9171,7 @@ ROM_START( mslug3rmd47 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd48 )
+ROM_START( mslug3rmd48 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd48.p1",  0x000000, 0x100000, CRC(ce25a5fd) SHA1(d05f150564bfa6b624b110551d5479c93f6aab1b) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9197,7 +9197,7 @@ ROM_START( mslug3rmd48 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd55 )
+ROM_START( mslug3rmd55 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd55.p1",  0x000000, 0x100000, CRC(e9d98f51) SHA1(3dccc1fe77f884fb16a366c246cfdcc965407191) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9223,7 +9223,7 @@ ROM_START( mslug3rmd55 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd56 )
+ROM_START( mslug3rmd56 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd56.p1",  0x000000, 0x100000, CRC(15f99b51) SHA1(c95757896f2652ca16ae96938e62514ca0cd7931) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9249,7 +9249,7 @@ ROM_START( mslug3rmd56 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd57 )
+ROM_START( mslug3rmd57 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd57.p1",  0x000000, 0x100000, CRC(f736956e) SHA1(99adabdd77a890515045a5d75d51da7d790c80d2) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9275,7 +9275,7 @@ ROM_START( mslug3rmd57 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd58 )
+ROM_START( mslug3rmd58 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd58.p1",  0x000000, 0x100000, CRC(9a980d48) SHA1(2202d297b7b3bf04497b0b68c4817fb151b25e61) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9301,7 +9301,7 @@ ROM_START( mslug3rmd58 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd59 )
+ROM_START( mslug3rmd59 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd59.p1",  0x000000, 0x100000, CRC(66b81948) SHA1(f10106d1414d43de7e8cbdf8a8ca4765220a100f) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -9327,7 +9327,7 @@ ROM_START( mslug3rmd59 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3rmd60 )
+ROM_START( mslug3rmd60 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmd60.p1",  0x000000, 0x100000, CRC(84771777) SHA1(76028ce11c23322506c2d4ee06ec93615ac50e17) )
 	ROM_LOAD16_WORD_SWAP( "256h58.p2", 0x100000, 0x400000, CRC(9e2064e6) SHA1(d807eb56aebd7f5e8b43b67291856ebb07130c1b) )
@@ -11693,7 +11693,7 @@ ROM_START( mslug3rmf18 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf19 )
+ROM_START( mslug3rmf19 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc19.p1",  0x000000, 0x100000, CRC(e5a464a7) SHA1(49d25262d0e18c144933c88ffe0a5616d2ae14f3) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -11719,7 +11719,7 @@ ROM_START( mslug3rmf19 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf20 )
+ROM_START( mslug3rmf20 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc20.p1",  0x000000, 0x100000, CRC(198470a7) SHA1(993e85a17345fcb9bcb7540b265b9c821cdce1bb) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -11745,7 +11745,7 @@ ROM_START( mslug3rmf20 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf21 )
+ROM_START( mslug3rmf21 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc21.p1",  0x000000, 0x100000, CRC(fb4b7e98) SHA1(27ae43be9291e05b83d316d4eb3a135edea030c1) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -11771,7 +11771,7 @@ ROM_START( mslug3rmf21 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf22 )
+ROM_START( mslug3rmf22 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc22.p1",  0x000000, 0x100000, CRC(96e5e6be) SHA1(b66173129c89db124c774f1729349a760c821404) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -11797,7 +11797,7 @@ ROM_START( mslug3rmf22 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf23 )
+ROM_START( mslug3rmf23 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc23.p1",  0x000000, 0x100000, CRC(6ac5f2be) SHA1(c82e962b4e1aeb774a27a260c2962f8d5206bd89) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -11823,7 +11823,7 @@ ROM_START( mslug3rmf23 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf24 )
+ROM_START( mslug3rmf24 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc24.p1",  0x000000, 0x100000, CRC(880afc81) SHA1(53173dfeabf6d043f62de2cdef56aafaee88d52c) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12161,7 +12161,7 @@ ROM_START( mslug3rmf36 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf43 )
+ROM_START( mslug3rmf43 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc43.p1",  0x000000, 0x100000, CRC(7742807f) SHA1(bcd60e02fcf38c91a294a327c8289d760c081cb3) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12187,7 +12187,7 @@ ROM_START( mslug3rmf43 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf44 )
+ROM_START( mslug3rmf44 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc44.p1",  0x000000, 0x100000, CRC(8b62947f) SHA1(bcc513238c134b5389a98c2efb1f579ba0818d0f) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12213,7 +12213,7 @@ ROM_START( mslug3rmf44 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf45 )
+ROM_START( mslug3rmf45 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc45.p1",  0x000000, 0x100000, CRC(69ad9a40) SHA1(062639f318c4edd6f791cab559883306ae5c664f) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12239,7 +12239,7 @@ ROM_START( mslug3rmf45 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf46 )
+ROM_START( mslug3rmf46 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc46.p1",  0x000000, 0x100000, CRC(04030266) SHA1(61fbbfba63bdb55a8c09fb901f129fcc54d4a8e8) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12265,7 +12265,7 @@ ROM_START( mslug3rmf46 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf47 )
+ROM_START( mslug3rmf47 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc47.p1",  0x000000, 0x100000, CRC(f8231666) SHA1(d2f4162bea15388792a41625ed45e01d6aa954bf) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12291,7 +12291,7 @@ ROM_START( mslug3rmf47 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf48 )
+ROM_START( mslug3rmf48 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc48.p1",  0x000000, 0x100000, CRC(1aec1859) SHA1(106d2fc07487cd552e4d47093dc61c3c2e11e0f2) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12317,7 +12317,7 @@ ROM_START( mslug3rmf48 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf55 )
+ROM_START( mslug3rmf55 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc55.p1",  0x000000, 0x100000, CRC(3d1032f5) SHA1(af56bdf4719892ac0e6b22ca9d75b618be887a2a) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12343,7 +12343,7 @@ ROM_START( mslug3rmf55 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf56 )
+ROM_START( mslug3rmf56 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc56.p1",  0x000000, 0x100000, CRC(c13026f5) SHA1(a77b3e606463aadd68046ed13ebc92af30bc5c7a) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12369,7 +12369,7 @@ ROM_START( mslug3rmf56 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf57 )
+ROM_START( mslug3rmf57 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc57.p1",  0x000000, 0x100000, CRC(23ff28ca) SHA1(c3287a49301c0445591ca78c6e5b6bfa22bf43f4) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12395,7 +12395,7 @@ ROM_START( mslug3rmf57 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf58 )
+ROM_START( mslug3rmf58 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc58.p1",  0x000000, 0x100000, CRC(4e51b0ec) SHA1(b73fd9b4d79451af5f4d86698704a9065ecb27a6) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12421,7 +12421,7 @@ ROM_START( mslug3rmf58 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf59 )
+ROM_START( mslug3rmf59 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc59.p1",  0x000000, 0x100000, CRC(b271a4ec) SHA1(01bc8fa823ee7dfccb4962706b2ccdb8f06088e5) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -12447,7 +12447,7 @@ ROM_START( mslug3rmf59 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmf60 )
+ROM_START( mslug3rmf60 ) //In Mission 3 we find ourselves in a dead end street when I usually choose a neutral path, which does not allow us to continue with the adventure
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256rmc60.p1",  0x000000, 0x100000, CRC(50beaad3) SHA1(26a59d5dacccc4ae20aff795ee580e9bd81e92a7) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(dc935dc2) SHA1(f6898dbf8333b0e24876f54876d4133fa715ea06) )
@@ -13126,12 +13126,12 @@ HACK( 2019, mslug3rmd15,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc4
 HACK( 2019, mslug3rmd16,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Laser Mix 2.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd17,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Laser Mix 2.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd18,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Laser Mix 2.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd19,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd20,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd21,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd22,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd23,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd24,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd19,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.0 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd20,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.1 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd21,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.2 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd22,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.0 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd23,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.1 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd24,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.2 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd25,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Shotgun Mix 1.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd26,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Shotgun Mix 1.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd27,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Big Shotgun Mix 1.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
@@ -13144,18 +13144,18 @@ HACK( 2019, mslug3rmd33,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc4
 HACK( 2019, mslug3rmd34,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Cannon Mix 2.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd35,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Cannon Mix 2.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd36,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Cannon Mix 2.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd43,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 1.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd44,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 1.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd45,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 1.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd46,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 2.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd47,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 2.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd48,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 2.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd55,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 1.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd56,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 1.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd57,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 1.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd58,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 2.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd59,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 2.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3rmd60,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 2.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd43,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 1.0 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd44,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 1.1 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd45,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 1.2 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd46,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 2.0 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd47,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 2.1 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd48,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Enemy Chaser Mix 2.2 [2019-02-24])" ,MACHINE_NOT_WORKING |  MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd55,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 1.0 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd56,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 1.1 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd57,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 1.2 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd58,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 2.0 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd59,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 2.1 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3rmd60,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Satellite Mix 2.2 [2019-02-24])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd61,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Super Grenade Mix 1.0 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd62,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Super Grenade Mix 1.1 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3rmd63,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)(Revised Version Super Grenade Mix 1.2 [2019-02-24])" , MACHINE_SUPPORTS_SAVE )
@@ -13228,64 +13228,64 @@ HACK( 2018, mslug3rme69,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2018, mslug3rme70,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemy Soldier Reset Prototype Summon Slug Edition 2018-07-21)(Revised Version Thunder Cloud Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3rme71,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemy Soldier Reset Prototype Summon Slug Edition 2018-07-21)(Revised Version Thunder Cloud Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3rme72,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemy Soldier Reset Prototype Summon Slug Edition 2018-07-21)(Revised Version Thunder Cloud Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf01,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf02,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf03,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf04,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf05,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf06,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf07,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf08,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf09,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf10,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf11,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf12,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf13,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf14,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf15,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf16,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf17,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf18,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf19,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf20,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf21,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf22,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf23,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf24,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf25,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf26,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf27,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf28,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf29,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf30,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf31,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf32,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf33,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf34,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf35,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf36,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf43,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf44,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf45,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf46,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf47,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf48,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf55,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf56,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf57,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf58,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf59,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf60,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf61,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf62,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf63,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf64,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf65,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf66,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf67,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf68,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf69,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf70,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf71,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3rmf72,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf01,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf02,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf03,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf04,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf05,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf06,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Flame Shot Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf07,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf08,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf09,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf10,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf11,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf12,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Heavy Machine Gun Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf13,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf14,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf15,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf16,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf17,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf18,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Laser Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf19,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.0 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf20,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.1 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf21,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 1.2 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf22,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.0 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf23,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.1 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf24,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Rocket Launcher Mix 2.2 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf25,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf26,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf27,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf28,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf29,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf30,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Big Shotgun Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf31,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf32,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf33,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf34,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf35,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf36,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Cannon Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf43,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 1.0 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf44,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 1.1 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf45,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 1.2 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf46,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 2.0 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf47,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 2.1 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf48,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Enemy Chaser Mix 2.2 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf55,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 1.0 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf56,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 1.1 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf57,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 1.2 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf58,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 2.0 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf59,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 2.1 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf60,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Satellite Mix 2.2 [2019-04-28])" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf61,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf62,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf63,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf64,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf65,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf66,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Super Grenade Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf67,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 1.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf68,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 1.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf69,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 1.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf70,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 2.0 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf71,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 2.1 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3rmf72,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",    "Metal Slug 3 (Enemies Resetting Summon Slug Edition 2019-04-15)(Revised Version Thunder Cloud Mix 2.2 [2019-04-28])" , MACHINE_SUPPORTS_SAVE )
 
