@@ -514,6 +514,7 @@ tk2h135
 tk2h136
 tk2h137
 tk2h138
+tk2h139
 wofb
 wofch		// tk2p1
 woffr
@@ -7518,6 +7519,9 @@ kovsho99  // Serious problem graphic
 // kovsho101  //  Unstable game in the emulator (ingame crash)
 // kovsho102  //  Unstable game in the emulator (ingame crash)
 kovsho103
+kovsho104
+kovsho105
+kovsho106
 kovshxass01
 kovshxass02
 kovshxass03
