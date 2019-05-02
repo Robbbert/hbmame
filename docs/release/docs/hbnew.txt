@@ -28,6 +28,9 @@ New Games
 - [kovsho98]          Knights of Valour Super Heroes Plus (The True king Version Ultimate Rev 1.0 2019-04-15)
 - [kovsho99]          Knights of Valour Super Heroes Plus (The True king Version Ultimate Rev 1.1 2019-04-15)
 - [kovsho103]         Knights of Valour Super Heroes Plus (2018-0, hack)(Bootleg)
+- [kovsho104]         Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest 2019-04-23)
+- [kovsho105]         Knights of Valour Super Heroes Plus (Survival New Version 2019-04-23)
+- [kovsho106]         Knights of Valour Super Heroes Plus (Ultimate King 2019-05-01)
 - [kof97s145]         Kof'97 (Heavenly Kingdoms 2019-04-15)
 - [kof2k2s81]         Kof2002 (Tianguo Protoss revived 2019-04-15)
 - [kof2k2s82]         Kof2002 Plus (Unknown Date Hack)
@@ -49,6 +52,7 @@ New Games
 - [sfzchs06]          Street Fighter Zero (CPS Changer, Brazil 950727)
 - [svchs35]           SvC Chaos (Bootleg, set 3)
 - [tk2h138]           Tenchi wo Kurau II (Daren Edition Update 2019-04-15)
+- [tk2h139]           Tenchi wo Kurau II (Three US Edition 1v3 2019-05-01)
 - [twcup90s01]        Worldcup '90 (Hack, set 2)(Bootleg)
 - [twcup90s02]        Worldcup '90 (Hack, set 3)(Bootleg)
 
