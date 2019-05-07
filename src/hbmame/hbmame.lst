@@ -1375,9 +1375,6 @@ gnw_squeeze				// HB
 lhb2					//parent
 lhb2s01
 
-@source:ir.cpp
-ir			// extra sounds
-
 @source:itech8.cpp
 itecdemo	/* Charles Doty */
 

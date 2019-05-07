@@ -70,6 +70,9 @@
 #include "sound/samples.h"
 #include "screen.h"
 #include "speaker.h"
+#include "cpu/m6800/m6800.h"
+#include "sound/ay8910.h"
+#include "machine/timer.h"
 
 #define MW8080BW_MASTER_CLOCK             (19968000.0)
 #define MW8080BW_CPU_CLOCK                (MW8080BW_MASTER_CLOCK / 10)
@@ -93,13 +96,16 @@ class ir_state : public driver_device
 public:
 	ir_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
+		, m_timer_state(0)
 		, m_maincpu(*this,"maincpu")
+		, m_audiocpu(*this, "audiocpu")
 		, m_p_ram(*this, "ram")
-		, m_samples(*this, "samples")
+//		, m_samples(*this, "samples")
 		, m_screen(*this, "screen")
 	{ }
 
 	void ir(machine_config &config);
+	void init();
 
 private:
 
@@ -112,9 +118,11 @@ private:
 	DECLARE_MACHINE_START(ir);
 	DECLARE_MACHINE_RESET(ir);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
+	TIMER_DEVICE_CALLBACK_MEMBER(nmi_timer);
 	uint32_t screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
+	void sound_map(address_map &map);
 	bool       m_flip_screen;
 	bool       m_screen_red;
 	emu_timer  *m_interrupt_timer;
@@ -122,11 +130,13 @@ private:
 	int        vysnc_chain_counter_to_vpos( uint8_t counter, int vblank );
 	void       mw8080bw_create_interrupt_timer(  );
 	void       mw8080bw_start_interrupt_timer(  );
+	u8 m_sound_data;
+	u16 m_timer_state;
 
-	/* device/memory pointers */
 	required_device<cpu_device> m_maincpu;
+	required_device<cpu_device> m_audiocpu;
 	required_shared_ptr<uint8_t> m_p_ram;
-	required_device<samples_device> m_samples;
+//	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
 };
 
@@ -152,7 +162,15 @@ void ir_state::io_map(address_map &map) {
 	map(0x03,0x03).r("mb14241",FUNC(mb14241_device::shift_result_r)).w(FUNC(ir_state::port03_w));
 	map(0x04,0x04).w("mb14241",FUNC(mb14241_device::shift_data_w));
 	map(0x05,0x05).w(FUNC(ir_state::port05_w));
-	map(0x06,0x06).nopw();  //(watchdog_reset_w)
+	map(0x06,0x06).nopw();  //w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
+}
+
+void ir_state::sound_map(address_map &map) {
+	map(0x0000,0x007f).ram(); // inside CPU
+	map(0xa001,0xa001).r("psg",FUNC(ay8910_device::data_r));
+	map(0xa002,0xa003).w("psg",FUNC(ay8910_device::data_address_w));
+	map(0xc000,0xc7ff).rom();
+	map(0xe000,0xe7ff).rom().mirror(0x1800);
 }
 
 
@@ -302,7 +320,7 @@ MACHINE_RESET_MEMBER( ir_state, ir )
 {
 	mw8080bw_start_interrupt_timer();
 }
-
+#if 0
 static const char *const ir_sample_names[] =
 {
 	"*invrvnge",
@@ -328,7 +346,7 @@ static const char *const ir_sample_names[] =
 	"3a",		/* thrust */
 	0
 };
-
+#endif
 
 /*************************************************************************************/
 /* Notes:                                                                            */
@@ -338,6 +356,8 @@ static const char *const ir_sample_names[] =
 /*************************************************************************************/
 WRITE8_MEMBER(ir_state::port03_w)
 {
+	m_sound_data = data;
+#if 0
 	switch (data)
 	{
 		case 0x02: /* Coin */
@@ -436,6 +456,7 @@ WRITE8_MEMBER(ir_state::port03_w)
 		default:
 			if (data) printf("Undefined sound code: %X\n",data);
 	}
+#endif
 }
 
 WRITE8_MEMBER(ir_state::port05_w)
@@ -449,6 +470,17 @@ WRITE8_MEMBER(ir_state::port05_w)
 
 	m_screen_red = BIT(data, 4);
 	m_flip_screen = BIT(data, 5) & ioport("CAB")->read();
+}
+
+TIMER_DEVICE_CALLBACK_MEMBER(ir_state::nmi_timer)
+{
+	m_timer_state++;
+	if (m_timer_state < 0x1000)
+		return;
+
+	m_audiocpu->set_input_line(INPUT_LINE_NMI, BIT(m_timer_state, 0) ? ASSERT_LINE : CLEAR_LINE );
+	if (m_timer_state == 0xf000)
+		m_timer_state = 0x8000;
 }
 
 uint32_t ir_state::screen_update_ir(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
@@ -509,16 +541,35 @@ void ir_state::ir(machine_config &config)
 	m_screen->set_raw(MW8080BW_PIXEL_CLOCK, MW8080BW_HTOTAL, MW8080BW_HBEND, MW8080BW_HPIXCOUNT, MW8080BW_VTOTAL, MW8080BW_VBEND, MW8080BW_VBSTART);
 	m_screen->set_screen_update(FUNC(ir_state::screen_update_ir));
 
+	M6802(config, m_audiocpu, 4e6); // divided by 4 internally
+	m_audiocpu->set_addrmap(AS_PROGRAM, &ir_state::sound_map);
+
 	/* add shifter */
 	MB14241(config, "mb14241");
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	SAMPLES(config, m_samples);
-	m_samples->set_channels(9);
-	m_samples->set_samples_names(ir_sample_names);
-	m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
+	ay8910_device &psg(AY8910(config, "psg", 2e6));
+	psg.port_a_read_callback().set([this] () { return m_sound_data >> 1; });
+	psg.port_b_read_callback().set([this] () { return 0xff; });
+	psg.add_route(ALL_OUTPUTS, "mono", 0.75);
+
+	//SAMPLES(config, m_samples);
+	//m_samples->set_channels(9);
+	//m_samples->set_samples_names(ir_sample_names);
+	//m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
+
+	TIMER(config, "nmi").configure_periodic(FUNC(ir_state::nmi_timer), attotime::from_hz(2e6/512));
+}
+
+void ir_state::init()
+{
+	uint8_t *rom = memregion("audiocpu")->base();
+	for (offs_t i = 0xc000; i < 0xc800; i++)
+		rom[i] = bitswap<8>(rom[i], 7, 6, 5, 3, 4, 2, 1, 0);
+	for (offs_t i = 0xe000; i < 0xe800; i++)
+		rom[i] = bitswap<8>(rom[i], 7, 6, 5, 3, 4, 2, 1, 0);
 }
 
 ROM_START( ir )
@@ -528,8 +579,13 @@ ROM_START( ir )
 	ROM_LOAD( "f.ic34",      0x1000, 0x0800, CRC(b3b2749e) SHA1(4f854f981396e2d6a959dd48cff12234074fb69b) )
 	ROM_LOAD( "e.ic33",      0x1800, 0x0800, CRC(d8e75102) SHA1(86d5618944265947e3ce60fdf048d8fff4a55744) )
 
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "snd.2c",      0xc000, 0x0800, CRC(135f3b16) SHA1(d472a6ca32c4a16cc1faf09f4a4876d75cd4ba24) )
+	ROM_LOAD( "snd.1c",      0xe000, 0x0800, CRC(152fc85e) SHA1(df207d6e690287a56e4e330deaa5ee40a179f1fc) )
+
 	ROM_REGION( 0x0800, "proms", 0 )
 	ROM_LOAD( "colour.bin",  0x0000, 0x0800, CRC(7de74988) SHA1(0b8c94b2bfdbc3921d60aad765df8af611f3fdd7) )
 ROM_END
 
-GAME( 1980?,ir, 0, ir, ir, ir_state, empty_init, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980?,ir, 0, ir, ir, ir_state, init, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+
