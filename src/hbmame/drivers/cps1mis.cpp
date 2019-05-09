@@ -5722,7 +5722,7 @@ HACK( 1990, ffightb,     ffight,   cps1_10MHz, ffight,   cps_state, cps1,     RO
 HACK( 2017, ffightjh01,  ffight,   cps1_10MHz, ffight,   cps_state, cps1,     ROT0,   "Kofzec", "Final Fight (Ming Yun Wu Shuang Edition 2016 2016-12-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, knight21,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1 2011-07-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, knightsa,    knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "LB70", "Knights of the Round (Angry Update)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightshb2,  knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 1991, knightshb2,  knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (bootleg/set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, knightsh,    knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "Unknown", "Knights of the Round (Unknown Hack)" , MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1991, knightsha,   knights,  cps1_10MHz, knightsh, cps_state, cps1,     ROT0,   "bootleg", "Knights of the Round (911127 etc bootleg set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, knightsjb,   knights,  cps1_10MHz, knights,  cps_state, cps1,     ROT0,   "bootleg", "Knights of the Round (bootleg set 3, 911127 Japan)", MACHINE_SUPPORTS_SAVE )
@@ -22808,7 +22808,7 @@ HACK( 2007, sfzchs02,      sfzch,    cps1_12MHz, sfzch,    cps_state,   cps1,   
 HACK( 1995, sfzchs03,      sfzch,    cps1_12MHz, sfzch,    cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter Zero (CPS Changer, Asia 950925)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, sfzchs04,      sfzch,    cps1_12MHz, sfzch,    cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter Zero (CPS Changer, Euro 950727)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, sfzchs05,      sfzch,    cps1_12MHz, sfzch,    cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter Zero (CPS Changer, Hispanic 950727)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, sfzchs06,      sfzch,    cps1_12MHz, sfzch,    cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter Zero (CPS Changer, Brazil 950727)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, sfzchs06,      sfzch,    cps1_12MHz, sfzch,    cps_state,   cps1,     ROT0,   "Bootleg", "Street Fighter Zero (CPS Changer, Brazil 950727 hack)", MACHINE_SUPPORTS_SAVE )
 // Varth: Operation Thunderstorm
 HACK( 1992, varths01,      varth,    cps1_12MHz, varth,    cps_state,   cps1,     ROT270, "HOOOOOOK", "Varth: Operation Thunderstorm (Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, varths02,      varth,    cps1_12MHz, varth,    cps_state,   cps1,     ROT270, "HOOOOOOK", "Varth: Operation Thunderstorm (Ex Super Version V2)", MACHINE_SUPPORTS_SAVE )
