@@ -61,3 +61,5 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Pang
 GAME( 1989, pangbolds01,    pang,     pang,       pang,     mitchell_state, init_pangb,      ROT0,   "bootleg",    "Pang (bootleg, set 7)", MACHINE_SUPPORTS_SAVE )
+
+

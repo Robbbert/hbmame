@@ -926,6 +926,8 @@ createHBMAMEProjects(_target, _subtarget, "technos")
 files {
 	MAME_DIR .. "src/hbmame/drivers/shadfrce.cpp",
 	MAME_DIR .. "src/mame/video/shadfrce.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ddragon.cpp",
+	MAME_DIR .. "src/mame/video/ddragon.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")

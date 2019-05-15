@@ -11862,4 +11862,5 @@ HACK( 2018, kof2k2s78,      kof2002, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 2018, kof2k2s79,      kof2002, neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Unknown", "Kof2002 (The 20th Anniversary King of Fighters Simplify C 2018-05-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof2k2s80,      kof2002, neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Unknown", "Kof2002 (Windbreaker 2019-02-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kof2k2s81,      kof2002, neogeo_noslot, neogeo, neogeo_state,       neogeo,   ROT0, "Unknown", "Kof2002 (Tianguo Protoss revived 2019-04-15)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kof2k2s82,      kof2002, gsc,           neogeo, neogeo_state,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (Unknown Date Hack)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kof2k2s82,      kof2002, gsc,           neogeo, neogeo_state,       kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (2019-01-06 Hack)" , MACHINE_SUPPORTS_SAVE )
+

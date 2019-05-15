@@ -1196,6 +1196,9 @@ sfiii3ns07
 deathsml				//parent
 deathsmlh01
 
+@source:ddragon.cpp
+ddragon2
+
 @source:deco32.cpp
 fghthist				//parent
 fghthistas01
