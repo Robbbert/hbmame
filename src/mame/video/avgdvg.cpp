@@ -774,9 +774,12 @@ int avg_mhavoc_device::handler_6() // mhavoc_strobe2
 		else
 		{
 			m_color = m_dvy & 0xf;
-
 			m_intensity = (m_dvy >> 4) & 0xf;
 			m_map = (m_dvy >> 8) & 0x3;
+			
+			//this is required so that the Alpha CPU can read active paged VROM
+			machine().root_device().membank("bank3")->set_entry(m_map);
+		
 			if (m_dvy & 0x800)
 			{
 				m_enspkl = 1;

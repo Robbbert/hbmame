@@ -384,7 +384,7 @@ ROM_START( mk2fr )
 ROM_END
 
 
-GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Unknown", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition Plus beta II)", MACHINE_SUPPORTS_SAVE )
