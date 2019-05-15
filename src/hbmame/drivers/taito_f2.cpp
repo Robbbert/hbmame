@@ -15,12 +15,10 @@ void taitof2_hbmame::f2demo(machine_config &config)
 	/* basic machine hardware */
 	M68000(config, m_maincpu, 24000000/2); /* 12 MHz */
 	m_maincpu->set_addrmap(AS_PROGRAM, &taitof2_hbmame::liquidk_map);
-	m_maincpu->set_vblank_int("screen", FUNC(taitof2_hbmame::taitof2_interrupt));
+	m_maincpu->set_vblank_int("screen", FUNC(taitof2_hbmame::interrupt));
 
 	Z80(config, m_audiocpu, 24000000/6);   /* 4 MHz */
 	m_audiocpu->set_addrmap(AS_PROGRAM, &taitof2_hbmame::sound_map);
-
-	MCFG_MACHINE_START_OVERRIDE(taitof2_hbmame,f2)
 
 	WATCHDOG_TIMER(config, "watchdog");
 
@@ -30,13 +28,13 @@ void taitof2_hbmame::f2demo(machine_config &config)
 	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(0));  /* frames per second, vblank duration */
 	m_screen->set_size(120*8, 32*8);
 	m_screen->set_visarea(40*8, 106*8-1, 2*8, 32*8-1);
-	m_screen->set_screen_update(FUNC(taitof2_hbmame::screen_update_taitof2_pri));
+	m_screen->set_screen_update(FUNC(taitof2_hbmame::screen_update_pri));
 	m_screen->screen_vblank().set(FUNC(taitof2_hbmame::screen_vblank_partial_buffer_delayed));
 	m_screen->set_palette(m_palette);
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_taitof2);
 	PALETTE(config, m_palette).set_format(palette_device::RGBx_444, 4096);
-	MCFG_VIDEO_START_OVERRIDE(taitof2_hbmame,taitof2_megab)
+	MCFG_VIDEO_START_OVERRIDE(taitof2_hbmame, megab)
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
@@ -60,11 +58,11 @@ void taitof2_hbmame::f2demo(machine_config &config)
 	m_tc0220ioc->read_3_callback().set_ioport("IN1");
 	m_tc0220ioc->read_7_callback().set_ioport("IN2");
 
-	TC0100SCN(config, m_tc0100scn, 0);
-	m_tc0100scn->set_gfx_region(1);
-	m_tc0100scn->set_offsets(3, 0);
-	m_tc0100scn->set_gfxdecode_tag(m_gfxdecode);
-	m_tc0100scn->set_palette(m_palette);
+	TC0100SCN(config, m_tc0100scn[0], 0);
+	m_tc0100scn[0]->set_gfx_region(1);
+	m_tc0100scn[0]->set_offsets(3, 0);
+	m_tc0100scn[0]->set_gfxdecode_tag(m_gfxdecode);
+	m_tc0100scn[0]->set_palette(m_palette);
 
 	TC0360PRI(config, m_tc0360pri, 0);
 }
@@ -76,11 +74,11 @@ ROM_START( f2demo )
 	ROM_LOAD16_BYTE( "lq11.bin",  0x00001, 0x20000, CRC(7ba3a5cb) SHA1(08f5392296cceadcae0cd34e9dfe76c835583231) )
 
 	ROM_REGION( 0x080000, "gfx1", 0 )
-	ROM_LOAD( "f2d_scr.bin", 0x000000, 0x80000, CRC(b178fb05) SHA1(3d33dd822622579c75b55971926f6eb04d33f5a6) )
+	ROM_LOAD16_WORD_SWAP( "f2d_scr.bin", 0x000000, 0x80000, CRC(b178fb05) SHA1(3d33dd822622579c75b55971926f6eb04d33f5a6) )
 
 	ROM_REGION( 0x100000, "gfx2", 0 )
-	ROM_LOAD( "f2d_obj0.bin", 0x00000, 0x80000, CRC(1bb8aa37) SHA1(9051270485a7a995779c80b4e692b8395503d6c3) )
-	ROM_LOAD( "f2d_obj1.bin", 0x80000, 0x80000, CRC(75660aac) SHA1(6a521e1d2a632c26e53b83d2cc4b0edecfc1e68c) )
+	ROM_LOAD16_WORD_SWAP( "f2d_obj0.bin", 0x00000, 0x80000, CRC(1bb8aa37) SHA1(9051270485a7a995779c80b4e692b8395503d6c3) )
+	ROM_LOAD16_WORD_SWAP( "f2d_obj1.bin", 0x80000, 0x80000, CRC(75660aac) SHA1(6a521e1d2a632c26e53b83d2cc4b0edecfc1e68c) )
 
 	ROM_REGION( 0x1c000, "audiocpu", 0 )
 	ROM_LOAD( "c49-08.9",    0x00000, 0x04000, CRC(413c310c) SHA1(cecb1c0c9fe3c8b744f95ce29009650a289107ab) )
