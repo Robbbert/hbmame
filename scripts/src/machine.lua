@@ -937,6 +937,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/ds1994.h,MACHINES["DS1994"] = true
+---------------------------------------------------
+
+if (MACHINES["DS1994"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/ds1994.cpp",
+		MAME_DIR .. "src/devices/machine/ds1994.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/ds2401.h,MACHINES["DS2401"] = true
 ---------------------------------------------------
 
@@ -2673,6 +2685,8 @@ if (MACHINES["SPG2XX"]~=null) then
 		MAME_DIR .. "src/devices/machine/spg110_video.h",
 		MAME_DIR .. "src/devices/machine/sunplus_gcm394.cpp",
 		MAME_DIR .. "src/devices/machine/sunplus_gcm394.h",
+		MAME_DIR .. "src/devices/machine/sunplus_gcm394_video.cpp",
+		MAME_DIR .. "src/devices/machine/sunplus_gcm394_video.h",
 	}
 end
 
