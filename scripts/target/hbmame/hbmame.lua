@@ -445,6 +445,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
 	MAME_DIR .. "src/mame/video/rohga.cpp",
 	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
+	MAME_DIR .. "src/hbmame/drivers/sidepckt.cpp",
+	MAME_DIR .. "src/mame/video/sidepckt.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")

@@ -7952,6 +7952,9 @@ sfs01					// freezes in attract mode
 shadfrce				//parent
 shadfrces01
 
+@source:sidepckt.cpp
+sidepckt				//parent
+
 @source:silkroad.cpp
 silkroad				//parent
 silkroads01
