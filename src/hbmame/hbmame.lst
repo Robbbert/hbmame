@@ -1198,6 +1198,7 @@ deathsmlh01
 
 @source:ddragon.cpp
 ddragon2
+ddragon2b2
 
 @source:deco32.cpp
 fghthist				//parent
@@ -7957,6 +7958,7 @@ shadfrces01
 
 @source:sidepckt.cpp
 sidepckt				//parent
+sidepcktb2
 
 @source:silkroad.cpp
 silkroad				//parent
