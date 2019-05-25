@@ -31,6 +31,7 @@ gcm394_base_video_device::gcm394_base_video_device(const machine_config &mconfig
 	, m_video_irq_cb(*this)
 	, m_palette(*this, "palette")
 	, m_gfxdecode(*this, "gfxdecode")
+	, m_space_read_cb(*this)
 {
 }
 
@@ -73,7 +74,7 @@ void gcm394_base_video_device::device_start()
 			16 * 16 * 4
 		};
 		obj_layout.total = m_gfxregionsize / (16 * 16 * 4 / 8);
-		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10, 0));
+		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10 * 0x10, 0));
 		gfxelement++;
 	}
 
@@ -90,7 +91,7 @@ void gcm394_base_video_device::device_start()
 			16 * 32 * 4
 		};
 		obj_layout.total = m_gfxregionsize / (16 * 32 * 4 / 8);
-		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10, 0));
+		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10 * 0x10, 0));
 		gfxelement++;
 	}
 
@@ -107,7 +108,7 @@ void gcm394_base_video_device::device_start()
 			32 * 16 * 4
 		};
 		obj_layout.total = m_gfxregionsize / (32 * 16 * 4 / 8);
-		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10, 0));
+		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10 * 0x10, 0));
 		gfxelement++;
 	}
 
@@ -124,7 +125,7 @@ void gcm394_base_video_device::device_start()
 			32 * 32 * 4
 		};
 		obj_layout.total = m_gfxregionsize / (32 * 32 * 4 / 8);
-		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10, 0));
+		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x10 * 0x10, 0));
 		gfxelement++;
 	}
 
@@ -141,14 +142,14 @@ void gcm394_base_video_device::device_start()
 			8 * 16 * 2
 		};
 		obj_layout.total = m_gfxregionsize / (8 * 16 * 2 / 8);
-		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x40, 0));
+		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x40 * 0x10, 0));
 		gfxelement++;
 	}
 
 	if (1)
 	{
 		const uint32_t texlayout_xoffset[64] = { STEP64(0,2) };
-		const uint32_t texlayout_yoffset[32] = { STEP32(0,2*64) };
+		const uint32_t texlayout_yoffset[32] = { STEP32(0,2 * 64) };
 
 		gfx_layout obj_layout =
 		{
@@ -163,10 +164,11 @@ void gcm394_base_video_device::device_start()
 			texlayout_yoffset
 		};
 		obj_layout.total = m_gfxregionsize / (16 * 32 * 2 / 8);
-		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x40, 0));
+		m_gfxdecode->set_gfx(gfxelement, std::make_unique<gfx_element>(m_palette, obj_layout, m_gfxregion, 0, 0x40 * 0x10, 0));
 		gfxelement++;
 	}
 	save_item(NAME(m_spriteextra));
+	m_space_read_cb.resolve_safe(0);
 }
 
 void gcm394_base_video_device::device_reset()
@@ -217,20 +219,14 @@ void gcm394_base_video_device::device_reset()
 *     Video Hardware     *
 *************************/
 
-inline uint16_t gcm394_base_video_device::read_data(uint32_t offset)
-{
-	uint16_t b = m_gfxregion[(offset * 2) & (m_gfxregionsize - 1)] | (m_gfxregion[(offset * 2 + 1) & (m_gfxregionsize - 1)] << 8);
-	return b;
-}
-
-
 template<gcm394_base_video_device::blend_enable_t Blend, gcm394_base_video_device::rowscroll_enable_t RowScroll, gcm394_base_video_device::flipx_t FlipX>
 void gcm394_base_video_device::draw(const rectangle &cliprect, uint32_t line, uint32_t xoff, uint32_t yoff, uint32_t bitmap_addr, uint32_t tile, int32_t h, int32_t w, uint8_t bpp, uint32_t yflipmask, uint32_t palette_offset)
 {
 	uint32_t nc_bpp = ((bpp) + 1) << 1;
 
-	palette_offset >>= nc_bpp;
-	palette_offset <<= nc_bpp;
+	// probably don't do this here as this SoC has extended palette for higher bpp modes
+	//palette_offset >>= nc_bpp;
+	//palette_offset <<= nc_bpp;
 
 	uint32_t bits_per_row = nc_bpp * w / 16;
 	//uint32_t words_per_tile = bits_per_row * h;
@@ -262,14 +258,38 @@ void gcm394_base_video_device::draw(const rectangle &cliprect, uint32_t line, ui
 
 		if (nbits < nc_bpp)
 		{
-			uint16_t b = read_data((m++ & 0x3fffff));
+			uint16_t b = m_space_read_cb((m++ & 0x3fffff));
 			b = (b << 8) | (b >> 8);
 			bits |= b << (nc_bpp - nbits);
 			nbits += 16;
 		}
 		nbits -= nc_bpp;
 
-		uint32_t pal = palette_offset + (bits >> 16);
+		int pen = bits >> 16;
+
+		int current_palette_offset = palette_offset;
+
+		// for planes above 4bpp palette ends up being pulled from different places?
+		if (nc_bpp < 6)
+		{
+			// 2bpp
+			// 4bpp
+
+			current_palette_offset |= 0x0800;
+
+		}
+		else if (nc_bpp < 8)
+		{
+			// 6bpp
+
+		}
+		else
+		{
+			pen = machine().rand() & 0x1f;
+			// 8bpp
+		}
+
+		uint32_t pal = current_palette_offset + pen;
 		bits &= 0xffff;
 
 		if (RowScroll)
@@ -339,18 +359,22 @@ void gcm394_base_video_device::draw_page(const rectangle &cliprect, uint32_t sca
 	{
 		uint32_t yy = ((tile_h * y0 - yscroll + 0x10) & 0xff) - 0x10;
 		uint32_t xx = (tile_w * x0 - xscroll) & 0x1ff;
-		uint16_t tile = (ctrl & PAGE_WALLPAPER_MASK) ? space.read_word(tilemap) : space.read_word(tilemap + tile_address);
-		uint16_t palette = 0;
+		uint32_t tile = (ctrl & PAGE_WALLPAPER_MASK) ? space.read_word(tilemap) : space.read_word(tilemap + tile_address);
+		
+		uint16_t palette = (ctrl & PAGE_WALLPAPER_MASK) ? space.read_word(palette_map) : space.read_word(palette_map + tile_address / 2);
+		if (x0 & 1)
+			palette >>= 8;
+
+		tile |= (palette & 0x0007) << 16;
 
 		if (!tile)
 			continue;
 
-		palette = (ctrl & PAGE_WALLPAPER_MASK) ? space.read_word(palette_map) : space.read_word(palette_map + tile_address / 2);
-		if (x0 & 1)
-			palette >>= 8;
 
 		uint32_t tileattr = attr;
 		uint32_t tilectrl = ctrl;
+
+#if 0
 		if ((ctrl & 2) == 0)
 		{   // -(1) bld(1) flip(2) pal(4)
 			tileattr &= ~0x000c;
@@ -362,14 +386,15 @@ void gcm394_base_video_device::draw_page(const rectangle &cliprect, uint32_t sca
 			tilectrl &= ~0x0100;
 			tilectrl |= (palette << 2) & 0x0100;    // blend
 		}
-
+#endif
 		const bool blend = (tileattr & 0x4000 || tilectrl & 0x0100);
 		const bool row_scroll = (tilectrl & 0x0010);
 		const bool flip_x = (tileattr & TILE_X_FLIP);
 		const uint32_t yflipmask = tileattr & TILE_Y_FLIP ? tile_h - 1 : 0;
 		uint32_t palette_offset = (tileattr & 0x0f00) >> 4;
 
-		palette_offset |= 0x0900;
+		//palette_offset |= 0x0900;
+		palette_offset |= 0x0100;
 
 		const uint8_t bpp = tileattr & 0x0003;
 
@@ -419,12 +444,13 @@ void gcm394_base_video_device::draw_sprite(const rectangle &cliprect, uint32_t s
 	int16_t y = m_spriteram[base_addr + 2];
 	uint16_t attr = m_spriteram[base_addr + 3];
 
-	tile |= m_spriteextra[base_addr / 4] << 16;
 
-	if (!tile)
+	if (!tile) // this check needs to come before the additional attribute bits are added in? (smartfp title)
 	{
 		return;
 	}
+
+	tile |= m_spriteextra[base_addr / 4] << 16;
 
 	if (((attr & PAGE_PRIORITY_FLAG_MASK) >> PAGE_PRIORITY_FLAG_SHIFT) != priority)
 	{
@@ -461,7 +487,8 @@ void gcm394_base_video_device::draw_sprite(const rectangle &cliprect, uint32_t s
 	const uint32_t yflipmask = attr & TILE_Y_FLIP ? h - 1 : 0;
 	uint32_t palette_offset = (attr & 0x0f00) >> 4;
 
-	palette_offset |= 0x0d00;
+	//palette_offset |= 0x0d00;
+	palette_offset |= 0x0500;
 
 	if (blend)
 	{
@@ -741,7 +768,18 @@ WRITE16_MEMBER(gcm394_base_video_device::video_703a_w) { LOGMASKED(LOG_GCM394_VI
 READ16_MEMBER(gcm394_base_video_device::video_7062_r) { LOGMASKED(LOG_GCM394_VIDEO, "%s:gcm394_base_video_device::video_7062_r\n", machine().describe_context()); return m_7062; }
 WRITE16_MEMBER(gcm394_base_video_device::video_7062_w) { LOGMASKED(LOG_GCM394_VIDEO, "%s:gcm394_base_video_device::video_7062_w %04x\n", machine().describe_context(), data); m_7062 = data; }
 
-WRITE16_MEMBER(gcm394_base_video_device::video_7063_w) { LOGMASKED(LOG_GCM394_VIDEO, "%s:gcm394_base_video_device::video_7063_w %04x\n", machine().describe_context(), data); m_7063 = data; }
+WRITE16_MEMBER(gcm394_base_video_device::video_7063_w)
+{
+	LOGMASKED(LOG_GCM394_VIDEO, "%s:gcm394_base_video_device::video_7063_w %04x\n", machine().describe_context(), data);
+	m_7063 = data;
+
+	// ack or enable? happens near start of the IRQ
+	if (data & 0x01)
+	{
+		m_video_irq_status &= ~1;
+		check_video_irq();
+	}
+}
 
 WRITE16_MEMBER(gcm394_base_video_device::video_702a_w) { LOGMASKED(LOG_GCM394_VIDEO, "%s:gcm394_base_video_device::video_702a_w %04x\n", machine().describe_context(), data); m_702a = data; }
 

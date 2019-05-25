@@ -40,6 +40,10 @@ if (BUSES["A800"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/a800/a8sio.cpp",
 		MAME_DIR .. "src/devices/bus/a800/a8sio.h",
+		MAME_DIR .. "src/devices/bus/a800/atari810.cpp",
+		MAME_DIR .. "src/devices/bus/a800/atari810.h",
+		MAME_DIR .. "src/devices/bus/a800/atari1050.cpp",
+		MAME_DIR .. "src/devices/bus/a800/atari1050.h",
 		MAME_DIR .. "src/devices/bus/a800/cassette.cpp",
 		MAME_DIR .. "src/devices/bus/a800/cassette.h",
 		MAME_DIR .. "src/devices/bus/a800/a800_slot.cpp",
@@ -1355,6 +1359,8 @@ if (BUSES["ISA"]~=null) then
 		MAME_DIR .. "src/devices/bus/isa/ultra24f.h",
 		MAME_DIR .. "src/devices/bus/isa/tekram_dc820.cpp",
 		MAME_DIR .. "src/devices/bus/isa/tekram_dc820.h",
+		MAME_DIR .. "src/devices/bus/isa/asc88.cpp",
+		MAME_DIR .. "src/devices/bus/isa/asc88.h",
 	}
 end
 
