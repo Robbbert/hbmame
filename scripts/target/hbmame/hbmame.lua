@@ -447,6 +447,10 @@ files {
 	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
 	MAME_DIR .. "src/hbmame/drivers/sidepckt.cpp",
 	MAME_DIR .. "src/mame/video/sidepckt.cpp",
+	MAME_DIR .. "src/mame/drivers/decocass.cpp",
+	MAME_DIR .. "src/mame/machine/decocass.cpp",
+	MAME_DIR .. "src/mame/machine/decocass_tape.cpp",
+	MAME_DIR .. "src/mame/video/decocass.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")

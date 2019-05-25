@@ -1205,37 +1205,41 @@ fghthist				//parent
 fghthistas01
 
 @source:dbz.cpp
-dbz 				//parent
+dbz						//parent
 dbzs01
-dbz2				//parent
+dbz2					//parent
 dbz2h01
 dbz2h02
 
 @source:dec0.cpp
-baddudes		//parent
-baddudef		/* Arkatrad */
-decodemo		/* Charles Doty */
-robocop 		//parent
+baddudes				//parent
+baddudef				/* Arkatrad */
+decodemo				/* Charles Doty */
+robocop 				//parent
 robocopbs01
 
+@source:decocass.cpp
+decocass				//parent
+decomult				// Dave Widel
+
 @source:dkong.cpp
-dkong			//parent
+dkong					//parent
 dkong2m
-//dkongbcc			// 4 program roms not found
-dkongex			/* Jeff's Hack with Foundry Level */
+//dkongbcc				// 4 program roms not found
+dkongex					/* Jeff's Hack with Foundry Level */
 dkongf
-dkongp			/* Fix for level 22 kill screen by Don Hodges */
-dkongpac		/* Tim Appleton - Donkey Kong with Pacman graphics */
+dkongp					/* Fix for level 22 kill screen by Don Hodges */
+dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
 dkongx
 dkongx11
 dkrainbow
 dkrdemo
-dkchrmx         // Sock Master - Christmas Remix 2017
-dkspkyrmx       // Sock Master - Spooky Remix Halloween Tournament 2018
+dkchrmx					// Sock Master - Christmas Remix 2017
+dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
-kong2600		/* Vic Twenty George hack of Donkey Kong */
+kong2600				/* Vic Twenty George hack of Donkey Kong */
 nadkong
 //dk_remix
 
