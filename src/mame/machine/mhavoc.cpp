@@ -90,7 +90,8 @@ void mhavoc_state::machine_reset()
 	membank("bank1")->configure_entry(0, m_zram0);
 	membank("bank1")->configure_entry(1, m_zram1);
 	membank("bank2")->configure_entries(0, 8, memregion("alpha")->base() + 0x10000, 0x2000);
-	membank("bank3")->configure_entries(0, 4, memregion("avgdvg")->base(), 0x2000);
+	if (memregion("bank3"))
+		membank("bank3")->configure_entries(0, 4, memregion("avg")->base(), 0x2000);
 
 	/* reset RAM/ROM banks to 0 */
 	mhavoc_ram_banksel_w(space, 0, 0);

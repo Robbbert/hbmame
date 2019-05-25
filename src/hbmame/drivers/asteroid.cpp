@@ -32,7 +32,7 @@ ROM_START( starslayer ) // This name does not appear anywhere, but it does say S
 	ROM_LOAD( "035127-02.ss",   0x5000, 0x0800, CRC(edf610a2) SHA1(bbbf62820a3b06488201137c735c0d8c03cf535c) )
 
 	/* DVG PROM */
-	ROM_REGION( 0x100, "user1", 0 )
+	ROM_REGION( 0x100, "dvg:prom", 0 )
 	ROM_LOAD( "034602-01.c8",   0x0000, 0x0100, CRC(97953db8) SHA1(8cbded64d1dd35b18c4d5cece00f77e7b2cab2ad) )
 ROM_END
 
@@ -44,7 +44,7 @@ ROM_START( asteroid6 )
 	/* Vector ROM */
 	ROM_LOAD( "035127-02.np3",  0x5000, 0x0800, CRC(8b71fd9e) SHA1(8cd5005e531eafa361d6b7e9eed159d164776c70) )
 
-	ROM_REGION( 0x0100, "user1", 0 )
+	ROM_REGION( 0x0100, "dvg:prom", 0 )
 	ROM_LOAD( "034602-01.c8",   0x0000, 0x0100, CRC(97953db8) SHA1(8cbded64d1dd35b18c4d5cece00f77e7b2cab2ad) )
 ROM_END
 
@@ -58,7 +58,7 @@ ROM_START( astdelux4 )
 	ROM_LOAD( "036800.02",      0x4800, 0x0800, CRC(5c0ca7a6) SHA1(4abbac4a4974c89a0b44e1a92ea0c8b9095d9594) )
 	ROM_LOAD( "036799.01",      0x5000, 0x0800, CRC(7d511572) SHA1(1956a12bccb5d3a84ce0c1cc10c6ad7f64e30b40) )
 	/* DVG PROM */
-	ROM_REGION( 0x100, "user1", 0 )
+	ROM_REGION( 0x100, "dvg:prom", 0 )
 	ROM_LOAD( "034602-01.c8",   0x0000, 0x0100, CRC(97953db8) SHA1(8cbded64d1dd35b18c4d5cece00f77e7b2cab2ad) )
 ROM_END
 
