@@ -40,7 +40,7 @@
 #define LOG_REJECTS     (1 << 8)
 #define LOG_ALL         (LOG_UNKNOWN | LOG_VC2 | LOG_CMAP0 | LOG_CMAP1 | LOG_XMAP0 | LOG_XMAP1 | LOG_REX3 | LOG_COMMANDS | LOG_REJECTS)
 
-#define VERBOSE         (0)//(LOG_UNKNOWN | LOG_REX3 | LOG_COMMANDS)
+#define VERBOSE         (0)
 #include "logmacro.h"
 
 DEFINE_DEVICE_TYPE(GIO_XL8,  gio_xl8_device,  "gio_xl8",  "SGI 8-bit XL board")
@@ -393,94 +393,94 @@ uint32_t newport_base_device::screen_update(screen_device &device, bitmap_rgb32 
 				pixel_replaced = true;
 			}
 			else if (aux_pix_mode != 0)
-            {
-                if (BIT(m_xmap0.m_config, 2))
-                {
-				    switch (aux_pix_mode)
-				    {
-					    case 1: // 2-Bit Underlay
-                            *dest++ = m_cmap0.m_palette[aux_msb | ((*src_olay >> 8) & 3)];
-                            pixel_replaced = true;
-                            continue;
-                        case 2: // 2-Bit Overlay
-                        {
-                        	const uint32_t pix_in = (*src_olay >> 8) & 3;
-                        	if (pix_in)
-                        	{
-                            	*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
-                            	pixel_replaced = true;
+			{
+				if (BIT(m_xmap0.m_config, 2))
+				{
+					switch (aux_pix_mode)
+					{
+						case 1: // 2-Bit Underlay
+							*dest++ = m_cmap0.m_palette[aux_msb | ((*src_olay >> 8) & 3)];
+							pixel_replaced = true;
+							continue;
+						case 2: // 2-Bit Overlay
+						{
+							const uint32_t pix_in = (*src_olay >> 8) & 3;
+							if (pix_in)
+							{
+								*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
+								pixel_replaced = true;
 							}
-                            break;
+							break;
 						}
-                        case 6: // 1-Bit Overlay
-                        {
+						case 6: // 1-Bit Overlay
+						{
 							const uint32_t shift = BIT(table_entry, 1) ? 9 : 8;
-                        	const uint32_t pix_in = (*src_olay >> shift) & 1;
-                        	if (pix_in)
-                        	{
-                            	*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
-                            	pixel_replaced = true;
+							const uint32_t pix_in = (*src_olay >> shift) & 1;
+							if (pix_in)
+							{
+								*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
+								pixel_replaced = true;
 							}
-                            break;
+							break;
 						}
-                        case 7: // 1-Bit Overlay, 1-Bit Underlay
-                        {
-                        	const uint32_t pix_in = (*src_olay >> 8) & 1;
-                        	if (pix_in)
-                            	*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
+						case 7: // 1-Bit Overlay, 1-Bit Underlay
+						{
+							const uint32_t pix_in = (*src_olay >> 8) & 1;
+							if (pix_in)
+								*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
 							else
-                            	*dest++ = m_cmap0.m_palette[aux_msb | ((*src_olay >> 9) & 1)];
-                            pixel_replaced = true;
-                            break;
+								*dest++ = m_cmap0.m_palette[aux_msb | ((*src_olay >> 9) & 1)];
+							pixel_replaced = true;
+							break;
 						}
-					    default:
-						    break;
-				    }
-                }
-                else
-                {
-				    switch (aux_pix_mode)
-				    {
-					    case 1: // 8-Bit Underlay
-                            *dest++ = m_cmap0.m_palette[aux_msb | ((*src_olay >> 8) & 0xff)];
-                            pixel_replaced = true;
-                            break;
-                        case 2: // 8-Bit Overlay
-                        {
-                        	const uint32_t pix_in = (*src_olay >> 8) & 0xff;
-                        	if (pix_in)
-                        	{
-                            	*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
-                            	pixel_replaced = true;
+						default:
+							break;
+					}
+				}
+				else
+				{
+					switch (aux_pix_mode)
+					{
+						case 1: // 8-Bit Underlay
+							*dest++ = m_cmap0.m_palette[aux_msb | ((*src_olay >> 8) & 0xff)];
+							pixel_replaced = true;
+							break;
+						case 2: // 8-Bit Overlay
+						{
+							const uint32_t pix_in = (*src_olay >> 8) & 0xff;
+							if (pix_in)
+							{
+								*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
+								pixel_replaced = true;
 							}
-                            break;
+							break;
 						}
-                        case 6: // 4-Bit Overlay
-                        {
+						case 6: // 4-Bit Overlay
+						{
 							const uint32_t shift = BIT(table_entry, 1) ? 12 : 8;
-                        	const uint32_t pix_in = (*src_olay >> shift) & 0xf;
-                        	if (pix_in)
-                        	{
-                            	*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
-                            	pixel_replaced = true;
+							const uint32_t pix_in = (*src_olay >> shift) & 0xf;
+							if (pix_in)
+							{
+								*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
+								pixel_replaced = true;
 							}
-                            break;
+							break;
 						}
-                        case 7: // 4-Bit Overlay, 4-Bit Underlay
-                        {
-                        	const uint32_t pix_in = (*src_pup >> 8) & 0xf;
-                        	if (pix_in)
-                            	*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
+						case 7: // 4-Bit Overlay, 4-Bit Underlay
+						{
+							const uint32_t pix_in = (*src_pup >> 8) & 0xf;
+							if (pix_in)
+								*dest++ = m_cmap0.m_palette[aux_msb | pix_in];
 							else
-                            	*dest++ = m_cmap0.m_palette[aux_msb | ((*src_pup >> 12) & 0xf)];
-                            pixel_replaced = true;
-                            break;
+								*dest++ = m_cmap0.m_palette[aux_msb | ((*src_pup >> 12) & 0xf)];
+							pixel_replaced = true;
+							break;
 						}
-					    default:
-						    break;
-				    }
-                }
-            }
+						default:
+							break;
+					}
+				}
+			}
 
 			if (!pixel_replaced)
 			{
@@ -518,30 +518,21 @@ uint32_t newport_base_device::screen_update(screen_device &device, bitmap_rgb32 
 							{
 								const uint8_t shift = BIT(table_entry, 0) ? 4 : 0;
 								const uint8_t pix_in = (uint8_t)(*src_ci >> shift);
-								const uint8_t r = 0xff * BIT(pix_in, 0);
-								const uint8_t g = (0xaa * BIT(pix_in, 2)) | (0x55 * BIT(pix_in, 1));
-								const uint8_t b = 0xff * BIT(pix_in, 3);
-								*dest++ = (r << 16) | (g << 8) | b;
+								*dest++ = convert_4bpp_bgr_to_24bpp_rgb(pix_in);
 								break;
 							}
 							case 1: // 8bpp
 							{
 								const uint8_t shift = BIT(table_entry, 0) ? 8 : 0;
 								const uint8_t pix_in = (uint8_t)(*src_ci >> shift);
-								const uint8_t r = (0x92 * BIT(pix_in, 2)) | (0x49 * BIT(pix_in, 1)) | (0x24 * BIT(pix_in, 0));
-								const uint8_t g = (0x92 * BIT(pix_in, 5)) | (0x49 * BIT(pix_in, 4)) | (0x24 * BIT(pix_in, 3));
-								const uint8_t b = (0xaa * BIT(pix_in, 7)) | (0x55 * BIT(pix_in, 6));
-								*dest++ = (r << 16) | (g << 8) | b;
+								*dest++ = convert_8bpp_bgr_to_24bpp_rgb(pix_in);
 								break;
 							}
 							case 2: // 12bpp
 							{
 								const uint8_t shift = BIT(table_entry, 0) ? 12 : 0;
 								const uint16_t pix_in = (uint16_t)(*src_ci >> shift);
-								const uint8_t r = 0x11 * ((pix_in >> 0) & 0xf);
-								const uint8_t g = 0x11 * ((pix_in >> 4) & 0xf);
-								const uint8_t b = 0x11 * ((pix_in >> 8) & 0xf);
-								*dest++ = (r << 16) | (g << 8) | b;
+								*dest++ = convert_12bpp_bgr_to_24bpp_rgb(pix_in);
 								break;
 							}
 							case 3: // 24bpp
@@ -583,6 +574,125 @@ uint32_t newport_base_device::screen_update(screen_device &device, bitmap_rgb32 
 	return 0;
 }
 
+uint32_t newport_base_device::convert_4bpp_bgr_to_8bpp(uint8_t pix_in)
+{
+	const uint8_t r = 0xff * BIT(pix_in, 0);
+	const uint8_t g = (0xaa * BIT(pix_in, 2)) | (0x55 * BIT(pix_in, 1));
+	const uint8_t b = 0xff * BIT(pix_in, 3);
+	return (b & 0xc0) | ((g & 0xe0) >> 2) | ((r & 0xe0) >> 5);
+}
+
+uint32_t newport_base_device::convert_4bpp_bgr_to_12bpp(uint8_t pix_in)
+{
+	const uint32_t r = 0xff * BIT(pix_in, 0);
+	const uint32_t g = (0xaa * BIT(pix_in, 2)) | (0x55 * BIT(pix_in, 1));
+	const uint32_t b = 0xff * BIT(pix_in, 3);
+	return ((b & 0xf0) << 4) | (g & 0xf0) | ((r & 0xf0) >> 4);
+}
+
+uint32_t newport_base_device::convert_4bpp_bgr_to_24bpp(uint8_t pix_in)
+{
+	const uint8_t r = 0xff * BIT(pix_in, 0);
+	const uint8_t g = (0xaa * BIT(pix_in, 2)) | (0x55 * BIT(pix_in, 1));
+	const uint8_t b = 0xff * BIT(pix_in, 3);
+	return (b << 16) | (g << 8) | r;
+}
+
+uint32_t newport_base_device::convert_8bpp_bgr_to_4bpp(uint8_t pix_in)
+{
+	const uint8_t r = (0x92 * BIT(pix_in, 2)) | (0x49 * BIT(pix_in, 1)) | (0x24 * BIT(pix_in, 0));
+	const uint8_t g = (0x92 * BIT(pix_in, 5)) | (0x49 * BIT(pix_in, 4)) | (0x24 * BIT(pix_in, 3));
+	const uint8_t b = (0xaa * BIT(pix_in, 7)) | (0x55 * BIT(pix_in, 6));
+	return (BIT(b, 7) << 3) | ((g & 0xc0) >> 5) | BIT(r, 7);
+}
+
+uint32_t newport_base_device::convert_8bpp_bgr_to_12bpp(uint8_t pix_in)
+{
+	const uint8_t r = (0x92 * BIT(pix_in, 2)) | (0x49 * BIT(pix_in, 1)) | (0x24 * BIT(pix_in, 0));
+	const uint8_t g = (0x92 * BIT(pix_in, 5)) | (0x49 * BIT(pix_in, 4)) | (0x24 * BIT(pix_in, 3));
+	const uint8_t b = (0xaa * BIT(pix_in, 7)) | (0x55 * BIT(pix_in, 6));
+	return ((b & 0xf0) << 4) | (g & 0xf0) | ((r & 0xf0) >> 4);
+}
+
+uint32_t newport_base_device::convert_8bpp_bgr_to_24bpp(uint8_t pix_in)
+{
+	const uint8_t r = (0x92 * BIT(pix_in, 2)) | (0x49 * BIT(pix_in, 1)) | (0x24 * BIT(pix_in, 0));
+	const uint8_t g = (0x92 * BIT(pix_in, 5)) | (0x49 * BIT(pix_in, 4)) | (0x24 * BIT(pix_in, 3));
+	const uint8_t b = (0xaa * BIT(pix_in, 7)) | (0x55 * BIT(pix_in, 6));
+	return (b << 16) | (g << 8) | r;
+}
+
+uint32_t newport_base_device::convert_12bpp_bgr_to_4bpp(uint16_t pix_in)
+{
+	const uint8_t r = 0x11 * ((pix_in >> 0) & 0xf);
+	const uint8_t g = 0x11 * ((pix_in >> 4) & 0xf);
+	const uint8_t b = 0x11 * ((pix_in >> 8) & 0xf);
+	return (BIT(b, 7) << 3) | ((g & 0xc0) >> 5) | BIT(r, 7);
+}
+
+uint32_t newport_base_device::convert_12bpp_bgr_to_8bpp(uint16_t pix_in)
+{
+	const uint8_t r = 0x11 * ((pix_in >> 0) & 0xf);
+	const uint8_t g = 0x11 * ((pix_in >> 4) & 0xf);
+	const uint8_t b = 0x11 * ((pix_in >> 8) & 0xf);
+	return (b & 0xc0) | ((g & 0xe0) >> 2) | ((r & 0xe0) >> 5);
+}
+
+uint32_t newport_base_device::convert_12bpp_bgr_to_24bpp(uint16_t pix_in)
+{
+	const uint8_t r = 0x11 * ((pix_in >> 0) & 0xf);
+	const uint8_t g = 0x11 * ((pix_in >> 4) & 0xf);
+	const uint8_t b = 0x11 * ((pix_in >> 8) & 0xf);
+	return (b << 16) | (g << 8) | r;
+}
+
+uint32_t newport_base_device::convert_24bpp_bgr_to_4bpp(uint32_t pix_in)
+{
+	const uint8_t r = (uint8_t)(pix_in >> 0);
+	const uint8_t g = (uint8_t)(pix_in >> 8);
+	const uint8_t b = (uint8_t)(pix_in >> 16);
+	return (BIT(b, 7) << 3) | ((g & 0xc0) >> 5) | BIT(r, 7);
+}
+
+uint32_t newport_base_device::convert_24bpp_bgr_to_8bpp(uint32_t pix_in)
+{
+	const uint8_t r = (uint8_t)(pix_in >> 0);
+	const uint8_t g = (uint8_t)(pix_in >> 8);
+	const uint8_t b = (uint8_t)(pix_in >> 16);
+	return (b & 0xc0) | ((g & 0xe0) >> 2) | ((r & 0xe0) >> 5);
+}
+
+uint32_t newport_base_device::convert_24bpp_bgr_to_12bpp(uint32_t pix_in)
+{
+	const uint8_t r = (uint8_t)(pix_in >> 0);
+	const uint8_t g = (uint8_t)(pix_in >> 8);
+	const uint8_t b = (uint8_t)(pix_in >> 16);
+	return ((b & 0xf0) << 4) | (g & 0xf0) | ((r & 0xf0) >> 4);
+}
+
+uint32_t newport_base_device::convert_4bpp_bgr_to_24bpp_rgb(uint8_t pix_in)
+{
+	const uint8_t r = 0xff * BIT(pix_in, 0);
+	const uint8_t g = (0xaa * BIT(pix_in, 2)) | (0x55 * BIT(pix_in, 1));
+	const uint8_t b = 0xff * BIT(pix_in, 3);
+	return (r << 16) | (g << 8) | b;
+}
+
+uint32_t newport_base_device::convert_8bpp_bgr_to_24bpp_rgb(uint8_t pix_in)
+{
+	const uint8_t r = (0x92 * BIT(pix_in, 2)) | (0x49 * BIT(pix_in, 1)) | (0x24 * BIT(pix_in, 0));
+	const uint8_t g = (0x92 * BIT(pix_in, 5)) | (0x49 * BIT(pix_in, 4)) | (0x24 * BIT(pix_in, 3));
+	const uint8_t b = (0xaa * BIT(pix_in, 7)) | (0x55 * BIT(pix_in, 6));
+	return (r << 16) | (g << 8) | b;
+}
+
+uint32_t newport_base_device::convert_12bpp_bgr_to_24bpp_rgb(uint16_t pix_in)
+{
+	const uint8_t r = 0x11 * ((pix_in >> 0) & 0xf);
+	const uint8_t g = 0x11 * ((pix_in >> 4) & 0xf);
+	const uint8_t b = 0x11 * ((pix_in >> 8) & 0xf);
+	return (r << 16) | (g << 8) | b;
+}
 
 void newport_base_device::cmap0_write(uint32_t data)
 {
@@ -1486,8 +1596,6 @@ READ64_MEMBER(newport_base_device::rex3_r)
 		}
 		break;
 	case 0x0230/8:
-		if ((m_rex3.m_draw_mode0 & 3) == 1)
-			m_rex3.m_host_dataport = do_pixel_word_read();
 		LOGMASKED(LOG_REX3, "%s: REX3 Host Data Port Read: %08x%08x\n", machine().describe_context(), (uint32_t)(m_rex3.m_host_dataport >> 32),
 			(uint32_t)m_rex3.m_host_dataport);
 		ret = m_rex3.m_host_dataport;
@@ -1629,21 +1737,58 @@ READ64_MEMBER(newport_base_device::rex3_r)
 		LOGMASKED(LOG_REX3 | LOG_UNKNOWN, "Unknown REX3 Read: %08x (%08x%08x)\n", 0x1f0f0000 + (offset << 2), (uint32_t)(mem_mask >> 32), (uint32_t)mem_mask);
 		return 0;
 	}
+
+	if (offset & 0x00000100)
+	{
+		do_rex3_command();
+	}
+
 	return ret;
 }
 
 uint32_t newport_base_device::get_host_color()
 {
-    static const uint32_t s_color_masks[4] = { 0xf, 0xff, 0xfff, 0xffffff };
-    const uint32_t color = (uint32_t)(m_rex3.m_host_dataport >> m_rex3.m_host_shift) & s_color_masks[m_rex3.m_hostdepth];
-    if (m_rex3.m_rwpacked)
-    {
-        if ((m_rex3.m_rwdouble && m_rex3.m_host_shift > 0) || m_rex3.m_host_shift > 32)
-            m_rex3.m_host_shift -= s_host_shifts[m_rex3.m_hostdepth];
-        else
-            m_rex3.m_host_shift = 64 - s_host_shifts[m_rex3.m_hostdepth];
-    }
-    return color;
+	static const uint32_t s_color_masks[4] = { 0xf, 0xff, 0xfff, 0xffffff };
+	const uint32_t color = (uint32_t)(m_rex3.m_host_dataport >> m_rex3.m_host_shift) & s_color_masks[m_rex3.m_hostdepth];
+	if (m_rex3.m_rwpacked)
+	{
+		if ((m_rex3.m_rwdouble && m_rex3.m_host_shift > 0) || m_rex3.m_host_shift > 32)
+			m_rex3.m_host_shift -= s_host_shifts[m_rex3.m_hostdepth];
+		else
+			m_rex3.m_host_shift = 64 - s_host_shifts[m_rex3.m_hostdepth];
+	}
+	uint8_t convert_index = (m_rex3.m_hostdepth << 2) | m_rex3.m_plane_depth;
+	switch (convert_index & 15)
+	{
+	default:
+		// No conversion needed
+		return color;
+	case 1:     // 4bpp -> 8bpp
+		return convert_4bpp_bgr_to_8bpp((uint8_t)color);
+	case 2:     // 4bpp -> 12bpp
+		return convert_4bpp_bgr_to_12bpp((uint8_t)color);
+	case 3:     // 4bpp -> 24bpp
+		return convert_4bpp_bgr_to_24bpp((uint8_t)color);
+	case 4:     // 8bpp -> 4bpp
+		return convert_8bpp_bgr_to_4bpp((uint8_t)color);
+	case 6:     // 8bpp -> 12bpp
+		return convert_8bpp_bgr_to_12bpp((uint8_t)color);
+	case 7:     // 8bpp -> 24bpp
+		return convert_8bpp_bgr_to_24bpp((uint8_t)color);
+	case 8:     // 12bpp -> 4bpp
+		return convert_12bpp_bgr_to_4bpp((uint16_t)color);
+	case 9:     // 12bpp -> 8bpp
+		return convert_12bpp_bgr_to_8bpp((uint16_t)color);
+	case 11:    // 12bpp -> 24bpp
+		return convert_12bpp_bgr_to_24bpp((uint16_t)color);
+	case 12:    // 32bpp -> 4bpp
+		return convert_24bpp_bgr_to_4bpp(color);
+	case 13:    // 32bpp -> 8bpp
+		return convert_24bpp_bgr_to_8bpp(color);
+	case 14:    // 32bpp -> 12bpp
+		return convert_24bpp_bgr_to_12bpp(color);
+	}
+	return color;
 }
 
 void newport_base_device::write_pixel(uint32_t color)
@@ -1741,197 +1886,202 @@ bool newport_base_device::pixel_clip_pass(int16_t x, int16_t y)
 	return true;
 }
 
-void newport_base_device::store_pixel(uint32_t *dest_buf, uint32_t src)
+void newport_base_device::blend_pixel(uint32_t *dest_buf, uint32_t src)
 {
-	const uint32_t write_mask = m_rex3.m_write_mask & m_global_mask;
 	const uint32_t dst = *dest_buf >> m_rex3.m_store_shift;
-	*dest_buf &= ~write_mask;
 
-	if (BIT(m_rex3.m_draw_mode1, 18)) // Blending
+	float sa = 0.0f;
+	float sb = 0.0f;
+	float sg = 0.0f;
+	float sr = 0.0f;
+
+	float db = 0.0f;
+	float dg = 0.0f;
+	float dr = 0.0f;
+
+	float sbb = 0.0f;
+	float sgb = 0.0f;
+	float srb = 0.0f;
+
+	float dbb = 0.0f;
+	float dgb = 0.0f;
+	float drb = 0.0f;
+
+	switch (m_rex3.m_plane_depth)
 	{
-		float sa = 0.0f;
-		float sb = 0.0f;
-		float sg = 0.0f;
-		float sr = 0.0f;
+	case 0: // 4bpp (not supported)
+	case 1: // 8bpp (not supported)
+		break;
+	case 2: // 12bpp
+		sa = (((src >> 12) & 15) * 0x11) / 255.0f;
+		sr = (((src >> 8) & 15) * 0x11) / 255.0f;
+		sg = (((src >> 4) & 15) * 0x11) / 255.0f;
+		sb = (((src >> 0) & 15) * 0x11) / 255.0f;
 
-		float db = 0.0f;
-		float dg = 0.0f;
-		float dr = 0.0f;
-
-		float sbb = 0.0f;
-		float sgb = 0.0f;
-		float srb = 0.0f;
-
-		float dbb = 0.0f;
-		float dgb = 0.0f;
-		float drb = 0.0f;
-
-		switch (m_rex3.m_plane_depth)
+		if (BIT(m_rex3.m_draw_mode1, 25))
 		{
-		case 0: // 4bpp (not supported)
-		case 1: // 8bpp (not supported)
-			break;
-		case 2: // 12bpp
-			sa = (((src >> 12) & 15) * 0x11) / 255.0f;
-			sr = (((src >> 8) & 15) * 0x11) / 255.0f;
-			sg = (((src >> 4) & 15) * 0x11) / 255.0f;
-			sb = (((src >> 0) & 15) * 0x11) / 255.0f;
-
-			if (BIT(m_rex3.m_draw_mode1, 25))
-			{
-				db = (uint8_t)(m_rex3.m_color_back >> 16) / 255.0f;
-				dg = (uint8_t)(m_rex3.m_color_back >>  8) / 255.0f;
-				dr = (uint8_t)(m_rex3.m_color_back >>  0) / 255.0f;
-			}
-			else
-			{
-				const uint32_t dstc = (dst >> m_rex3.m_store_shift) & 0xfff;
-				dr = (((dstc >> 8) & 15) * 0x11) / 255.0f;
-				dg = (((dstc >> 4) & 15) * 0x11) / 255.0f;
-				db = (((dstc >> 0) & 15) * 0x11) / 255.0f;
-			}
-			break;
-		case 3: // 24bpp
-			sa = (uint8_t)(src >> 24) / 255.0f;
-			sr = (uint8_t)(src >> 16) / 255.0f;
-			sg = (uint8_t)(src >>  8) / 255.0f;
-			sb = (uint8_t)(src >>  0) / 255.0f;
-
-			if (BIT(m_rex3.m_draw_mode1, 25))
-			{
-				db = (uint8_t)(m_rex3.m_color_back >> 16) / 255.0f;
-				dg = (uint8_t)(m_rex3.m_color_back >>  8) / 255.0f;
-				dr = (uint8_t)(m_rex3.m_color_back >>  0) / 255.0f;
-			}
-			else
-			{
-				const uint32_t dstc = dst;
-				dr = (uint8_t)(dstc >> 16) / 255.0f;
-				dg = (uint8_t)(dstc >>  8) / 255.0f;
-				db = (uint8_t)(dstc >>  0) / 255.0f;
-			}
-			break;
+			db = (uint8_t)(m_rex3.m_color_back >> 16) / 255.0f;
+			dg = (uint8_t)(m_rex3.m_color_back >>  8) / 255.0f;
+			dr = (uint8_t)(m_rex3.m_color_back >>  0) / 255.0f;
 		}
-
-		switch (m_rex3.m_sfactor)
+		else
 		{
-		case 0: // 0
-		default:
-			break;
-		case 1: // 1
+			const uint32_t dstc = (dst >> m_rex3.m_store_shift) & 0xfff;
+			dr = (((dstc >> 8) & 15) * 0x11) / 255.0f;
+			dg = (((dstc >> 4) & 15) * 0x11) / 255.0f;
+			db = (((dstc >> 0) & 15) * 0x11) / 255.0f;
+		}
+		break;
+	case 3: // 24bpp
+		sa = (uint8_t)(src >> 24) / 255.0f;
+		sr = (uint8_t)(src >> 16) / 255.0f;
+		sg = (uint8_t)(src >>  8) / 255.0f;
+		sb = (uint8_t)(src >>  0) / 255.0f;
+
+		if (BIT(m_rex3.m_draw_mode1, 25))
+		{
+			db = (uint8_t)(m_rex3.m_color_back >> 16) / 255.0f;
+			dg = (uint8_t)(m_rex3.m_color_back >>  8) / 255.0f;
+			dr = (uint8_t)(m_rex3.m_color_back >>  0) / 255.0f;
+		}
+		else
+		{
+			const uint32_t dstc = dst;
+			dr = (uint8_t)(dstc >> 16) / 255.0f;
+			dg = (uint8_t)(dstc >>  8) / 255.0f;
+			db = (uint8_t)(dstc >>  0) / 255.0f;
+		}
+		break;
+	}
+
+	switch (m_rex3.m_sfactor)
+	{
+	case 0: // 0
+	default:
+		break;
+	case 1: // 1
+		sbb = sb;
+		sgb = sg;
+		srb = sr;
+		break;
+	case 2: // dstc
+		sbb = sb * db;
+		sgb = sg * dg;
+		srb = sr * dr;
+		break;
+	case 3: // 1 - dstc
+		sbb = sb * (1.0f - db);
+		sgb = sg * (1.0f - dg);
+		srb = sr * (1.0f - dr);
+		break;
+	case 4: // srca
+		if (BIT(m_rex3.m_draw_mode1, 27))
+		{
+			sbb = sb * sa;
+			sgb = sg * sa;
+			srb = sr * sa;
+		}
+		else
+		{
 			sbb = sb;
 			sgb = sg;
 			srb = sr;
-			break;
-		case 2: // dstc
-			sbb = sb * db;
-			sgb = sg * dg;
-			srb = sr * dr;
-			break;
-		case 3: // 1 - dstc
-			sbb = sb * (1.0f - db);
-			sgb = sg * (1.0f - dg);
-			srb = sr * (1.0f - dr);
-			break;
-		case 4: // srca
-			if (BIT(m_rex3.m_draw_mode1, 27))
-			{
-				sbb = sb * sa;
-				sgb = sg * sa;
-				srb = sr * sa;
-			}
-            else
-            {
-                sbb = sb;
-                sgb = sg;
-                srb = sr;
-            }
-			break;
-		case 5: // 1 - srca
-			if (BIT(m_rex3.m_draw_mode1, 27))
-			{
-				sbb = sb * (1.0f - sa);
-				sgb = sg * (1.0f - sa);
-				srb = sr * (1.0f - sa);
-			}
-			break;
 		}
-
-		switch (m_rex3.m_dfactor)
+		break;
+	case 5: // 1 - srca
+		if (BIT(m_rex3.m_draw_mode1, 27))
 		{
-		case 0: // 0
-		default:
-			break;
-		case 1: // 1
-			dbb = db;
-			dgb = dg;
-			drb = dr;
-			break;
-		case 2: // srcc
-			dbb = db * sb;
-			dgb = dg * sg;
-			drb = dr * sr;
-			break;
-		case 3: // 1 - srcc
-			dbb = db * (1.0f - sb);
-			dgb = dg * (1.0f - sg);
-			drb = dr * (1.0f - sr);
-			break;
-		case 4: // srca
-			dbb = db * sa;
-			dgb = dg * sa;
-			drb = dr * sa;
-			break;
-		case 5: // 1 - srca
-			dbb = db * (1.0f - sa);
-			dgb = dg * (1.0f - sa);
-			drb = dr * (1.0f - sa);
-			break;
+			sbb = sb * (1.0f - sa);
+			sgb = sg * (1.0f - sa);
+			srb = sr * (1.0f - sa);
 		}
-
-		const float b_blend = sbb + dbb;
-		const float g_blend = sgb + dgb;
-		const float r_blend = srb + drb;
-
-		const uint8_t b_blend_i = b_blend > 1.0f ? 255 : (b_blend < 0.0f ? 0 : (uint8_t)(b_blend * 255.0f));
-		const uint8_t g_blend_i = g_blend > 1.0f ? 255 : (g_blend < 0.0f ? 0 : (uint8_t)(g_blend * 255.0f));
-		const uint8_t r_blend_i = r_blend > 1.0f ? 255 : (r_blend < 0.0f ? 0 : (uint8_t)(r_blend * 255.0f));
-
-		switch (m_rex3.m_plane_depth)
-		{
-		case 0: // 4bpp (not supported)
-		case 1: // 8bpp (not supported)
-			break;
-		case 2: // 12bpp
-			*dest_buf |= ((((r_blend_i & 0xf0) << 4) | (g_blend_i & 0xf0) | ((b_blend_i & 0xf0) >> 4)) << m_rex3.m_store_shift) & write_mask;
-			break;
-		case 3: // 24bpp
-			*dest_buf |= ((r_blend_i << 16) | (g_blend_i << 8) | b_blend_i) & write_mask;
-			break;
-		}
+		break;
 	}
-	else
+
+	switch (m_rex3.m_dfactor)
 	{
-		switch (m_rex3.m_logicop)
-		{
-			case 0:                                                break;
-			case 1:     *dest_buf |= ((src & dst) << m_rex3.m_store_shift) & write_mask;     break;
-			case 2:     *dest_buf |= ((src & ~dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 3:     *dest_buf |= ((src) << m_rex3.m_store_shift) & write_mask;           break;
-			case 4:     *dest_buf |= ((~src & dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 5:     *dest_buf |= ((dst) << m_rex3.m_store_shift) & write_mask;           break;
-			case 6:     *dest_buf |= ((src ^ dst) << m_rex3.m_store_shift) & write_mask;     break;
-			case 7:     *dest_buf |= ((src | dst) << m_rex3.m_store_shift) & write_mask;     break;
-			case 8:     *dest_buf |= (~(src | dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 9:     *dest_buf |= (~(src ^ dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 10:    *dest_buf |= (~(dst) << m_rex3.m_store_shift) & write_mask;          break;
-			case 11:    *dest_buf |= ((src | ~dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 12:    *dest_buf |= (~(src) << m_rex3.m_store_shift) & write_mask;          break;
-			case 13:    *dest_buf |= ((~src | dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 14:    *dest_buf |= (~(src & dst) << m_rex3.m_store_shift) & write_mask;    break;
-			case 15:    *dest_buf |= (0xffffff << m_rex3.m_store_shift) & write_mask;        break;
-		}
+	case 0: // 0
+	default:
+		break;
+	case 1: // 1
+		dbb = db;
+		dgb = dg;
+		drb = dr;
+		break;
+	case 2: // srcc
+		dbb = db * sb;
+		dgb = dg * sg;
+		drb = dr * sr;
+		break;
+	case 3: // 1 - srcc
+		dbb = db * (1.0f - sb);
+		dgb = dg * (1.0f - sg);
+		drb = dr * (1.0f - sr);
+		break;
+	case 4: // srca
+		dbb = db * sa;
+		dgb = dg * sa;
+		drb = dr * sa;
+		break;
+	case 5: // 1 - srca
+		dbb = db * (1.0f - sa);
+		dgb = dg * (1.0f - sa);
+		drb = dr * (1.0f - sa);
+		break;
 	}
+
+	const float b_blend = sbb + dbb;
+	const float g_blend = sgb + dgb;
+	const float r_blend = srb + drb;
+
+	const uint8_t b_blend_i = b_blend > 1.0f ? 255 : (b_blend < 0.0f ? 0 : (uint8_t)(b_blend * 255.0f));
+	const uint8_t g_blend_i = g_blend > 1.0f ? 255 : (g_blend < 0.0f ? 0 : (uint8_t)(g_blend * 255.0f));
+	const uint8_t r_blend_i = r_blend > 1.0f ? 255 : (r_blend < 0.0f ? 0 : (uint8_t)(r_blend * 255.0f));
+
+	switch (m_rex3.m_plane_depth)
+	{
+	case 0: // 4bpp (not supported)
+	case 1: // 8bpp (not supported)
+		break;
+	case 2: // 12bpp
+		store_pixel(dest_buf, ((r_blend_i & 0xf0) << 4) | (g_blend_i & 0xf0) | ((b_blend_i & 0xf0) >> 4));
+		break;
+	case 3: // 24bpp
+		store_pixel(dest_buf, (r_blend_i << 16) | (g_blend_i << 8) | b_blend_i);
+		break;
+	}
+}
+
+void newport_base_device::logic_pixel(uint32_t *dest_buf, uint32_t src)
+{
+	const uint32_t dst = *dest_buf >> m_rex3.m_store_shift;
+
+	switch (m_rex3.m_logicop)
+	{
+		case 0:     store_pixel(dest_buf, 0x000000);        break;
+		case 1:     store_pixel(dest_buf, src & dst);       break;
+		case 2:     store_pixel(dest_buf, src & ~dst);      break;
+		case 3:     store_pixel(dest_buf, src);             break;
+		case 4:     store_pixel(dest_buf, ~src & dst);      break;
+		case 5:     store_pixel(dest_buf, dst);             break;
+		case 6:     store_pixel(dest_buf, src ^ dst);       break;
+		case 7:     store_pixel(dest_buf, src | dst);       break;
+		case 8:     store_pixel(dest_buf, ~(src | dst));    break;
+		case 9:     store_pixel(dest_buf, ~(src ^ dst));    break;
+		case 10:    store_pixel(dest_buf, ~dst);            break;
+		case 11:    store_pixel(dest_buf, src | ~dst);      break;
+		case 12:    store_pixel(dest_buf, ~src);            break;
+		case 13:    store_pixel(dest_buf, ~src | dst);      break;
+		case 14:    store_pixel(dest_buf, ~(src & dst));    break;
+		case 15:    store_pixel(dest_buf, 0xffffff);        break;
+	}
+}
+
+void newport_base_device::store_pixel(uint32_t *dest_buf, uint32_t value)
+{
+	const uint32_t write_mask = m_rex3.m_write_mask & m_global_mask;
+	*dest_buf &= ~write_mask;
+	*dest_buf |= (value << m_rex3.m_store_shift) & write_mask;
 }
 
 void newport_base_device::write_pixel(int16_t x, int16_t y, uint32_t color)
@@ -1946,24 +2096,31 @@ void newport_base_device::write_pixel(int16_t x, int16_t y, uint32_t color)
 	x -= 0x1000;
 	y -= 0x1000;
 
+	uint32_t *dest_buf = nullptr;
 	switch (m_rex3.m_plane_enable)
 	{
 		case 1: // RGB/CI planes
-			store_pixel(&m_rgbci[y * (1280 + 64) + x], color);
+			dest_buf = &m_rgbci[y * (1280 + 64) + x];
 			break;
 		case 2: // RGBA planes
 			// Not yet handled
 			break;
 		case 4: // Overlay planes
-			store_pixel(&m_olay[y * (1280 + 64) + x], color);
+			dest_buf = &m_olay[y * (1280 + 64) + x];
 			break;
 		case 5: // Popup planes
-			store_pixel(&m_pup[y * (1280 + 64) + x], (color << 2) | (color << 6));
+			dest_buf = &m_pup[y * (1280 + 64) + x];
+			color = (color << 2) | (color << 6);
 			break;
 		case 6: // CID planes
-			store_pixel(&m_cid[y * (1280 + 64) + x], color);
+			dest_buf = &m_cid[y * (1280 + 64) + x];
 			break;
 	}
+
+	if (BIT(m_rex3.m_draw_mode1, 18))
+		blend_pixel(dest_buf, color);
+	else
+		logic_pixel(dest_buf, color);
 }
 
 uint32_t newport_base_device::get_rgb_color(int16_t x, int16_t y)
@@ -2027,23 +2184,23 @@ uint32_t newport_base_device::get_rgb_color(int16_t x, int16_t y)
 
 		case 2: // 12bpp
 		{
-            const uint32_t sr = red - (red >> 4);
-            const uint32_t sg = green - (green >> 4);
-            const uint32_t sb = blue - (blue >> 4);
+			const uint32_t sr = red - (red >> 4);
+			const uint32_t sg = green - (green >> 4);
+			const uint32_t sb = blue - (blue >> 4);
 
-            uint32_t dr = (sr >> 4) & 15;
-            uint32_t dg = (sg >> 4) & 15;
-            uint32_t db = (sb >> 4) & 15;
+			uint32_t dr = (sr >> 4) & 15;
+			uint32_t dg = (sg >> 4) & 15;
+			uint32_t db = (sb >> 4) & 15;
 
-            if ((sr & 0xf) > s_bayer[x & 3][y & 3]) dr++;
-            if ((sg & 0xf) > s_bayer[x & 3][y & 3]) dg++;
-            if ((sb & 0xf) > s_bayer[x & 3][y & 3]) db++;
+			if ((sr & 0xf) > s_bayer[x & 3][y & 3]) dr++;
+			if ((sg & 0xf) > s_bayer[x & 3][y & 3]) dg++;
+			if ((sb & 0xf) > s_bayer[x & 3][y & 3]) db++;
 
-            if (dr > 15) dr = 15;
-            if (dg > 15) dg = 15;
-            if (db > 15) db = 15;
+			if (dr > 15) dr = 15;
+			if (dg > 15) dg = 15;
+			if (db > 15) db = 15;
 
-            return (db << 8) | (dg << 4) | dr;
+			return (db << 8) | (dg << 4) | dr;
 		}
 
 		case 3: // 24bpp
@@ -2073,335 +2230,335 @@ uint32_t newport_base_device::get_rgb_color(int16_t x, int16_t y)
 
 uint8_t newport_base_device::get_octant(int16_t x1, int16_t y1, int16_t x2, int16_t y2, int16_t dx, int16_t dy)
 {
-    if (x1 < x2)
-    {
-        if (y2 < y1)
-            return (dx > dy) ? 0 : 1;
-        else
-            return (dx > dy) ? 7 : 6;
-    }
-    else
-    {
-        if (y2 < y1)
-            return (dx > dy) ? 3 : 2;
-        else
-            return (dx > dy) ? 4 : 5;
-    }
+	if (x1 < x2)
+	{
+		if (y2 < y1)
+			return (dx > dy) ? 0 : 1;
+		else
+			return (dx > dy) ? 7 : 6;
+	}
+	else
+	{
+		if (y2 < y1)
+			return (dx > dy) ? 3 : 2;
+		else
+			return (dx > dy) ? 4 : 5;
+	}
 }
 
 void newport_base_device::do_fline(uint32_t color)
 {
-    const int32_t x1 = m_rex3.m_x_start >> 7;
-    const int32_t y1 = m_rex3.m_y_start >> 7;
-    const int32_t x2 = m_rex3.m_x_end >> 7;
-    const int32_t y2 = m_rex3.m_y_end >> 7;
+	const int32_t x1 = m_rex3.m_x_start >> 7;
+	const int32_t y1 = m_rex3.m_y_start >> 7;
+	const int32_t x2 = m_rex3.m_x_end >> 7;
+	const int32_t y2 = m_rex3.m_y_end >> 7;
 
-    const int16_t x10 = x1 & ~0xf;
-    const int16_t y10 = y1 & ~0xf;
-    const int16_t x20 = x2 & ~0xf;
-    const int16_t y20 = y2 & ~0xf;
+	const int16_t x10 = x1 & ~0xf;
+	const int16_t y10 = y1 & ~0xf;
+	const int16_t x20 = x2 & ~0xf;
+	const int16_t y20 = y2 & ~0xf;
 
-    const bool iterate_one = (m_rex3.m_draw_mode0 & 0x300) == 0;
-    const bool skip_first = BIT(m_rex3.m_draw_mode0, 10);
-    const bool skip_last = BIT(m_rex3.m_draw_mode0, 11);
-    const bool shade = BIT(m_rex3.m_draw_mode0, 18);
-    const bool rgbmode = BIT(m_rex3.m_draw_mode1, 15);
+	const bool iterate_one = (m_rex3.m_draw_mode0 & 0x300) == 0;
+	const bool skip_first = BIT(m_rex3.m_draw_mode0, 10);
+	const bool skip_last = BIT(m_rex3.m_draw_mode0, 11);
+	const bool shade = BIT(m_rex3.m_draw_mode0, 18);
+	const bool rgbmode = BIT(m_rex3.m_draw_mode1, 15);
 
-    int16_t x = x10;
-    int16_t y = y10;
+	int16_t x = x10;
+	int16_t y = y10;
 
-    int16_t x1_fract = m_rex3.m_x_start_frac;
-    int16_t y1_fract = m_rex3.m_y_start_frac;
+	int16_t x1_fract = m_rex3.m_x_start_frac;
+	int16_t y1_fract = m_rex3.m_y_start_frac;
 
-    int32_t dx = abs(x1 - x2);
-    int32_t dy = abs(y1 - y2);
+	int32_t dx = abs(x1 - x2);
+	int32_t dy = abs(y1 - y2);
 
-    const int16_t dx_i = abs(x10 - x20) - 1;
-    const int16_t dy_i = abs(y10 - y20) - 1;
+	const int16_t dx_i = abs(x10 - x20) - 1;
+	const int16_t dy_i = abs(y10 - y20) - 1;
 
-    static const bresenham_octant_info_t s_bresenham_infos[8] =
-    {
-        {  1,  1,  0,  1,  0 },
-        {  0,  1,  1,  1,  1 },
-        {  0, -1,  1,  1,  1 },
-        { -1, -1,  0,  1,  0 },
-        { -1, -1,  0, -1,  0 },
-        {  0, -1, -1, -1,  1 },
-        {  0,  1, -1, -1,  1 },
-        {  1,  1,  0, -1,  0 }
-    };
+	static const bresenham_octant_info_t s_bresenham_infos[8] =
+	{
+		{  1,  1,  0,  1,  0 },
+		{  0,  1,  1,  1,  1 },
+		{  0, -1,  1,  1,  1 },
+		{ -1, -1,  0,  1,  0 },
+		{ -1, -1,  0, -1,  0 },
+		{  0, -1, -1, -1,  1 },
+		{  0,  1, -1, -1,  1 },
+		{  1,  1,  0, -1,  0 }
+	};
 
-    const uint8_t octant = get_octant(x1, y1, x2, y2, dx, dy);
-    const int16_t incrx1 = s_bresenham_infos[octant].incrx1;
-    const int16_t incrx2 = s_bresenham_infos[octant].incrx2;
-    const int16_t incry1 = s_bresenham_infos[octant].incry1;
-    const int16_t incry2 = s_bresenham_infos[octant].incry2;
-    int16_t loop = s_bresenham_infos[octant].loop ? dy_i : dx_i;
-    if (BIT(m_rex3.m_draw_mode0, 15) && loop > 32)
-    	loop = 32;
-    const int16_t x_major = 1 - s_bresenham_infos[octant].loop;
+	const uint8_t octant = get_octant(x1, y1, x2, y2, dx, dy);
+	const int16_t incrx1 = s_bresenham_infos[octant].incrx1;
+	const int16_t incrx2 = s_bresenham_infos[octant].incrx2;
+	const int16_t incry1 = s_bresenham_infos[octant].incry1;
+	const int16_t incry2 = s_bresenham_infos[octant].incry2;
+	int16_t loop = s_bresenham_infos[octant].loop ? dy_i : dx_i;
+	if (BIT(m_rex3.m_draw_mode0, 15) && loop > 32)
+		loop = 32;
+	const int16_t x_major = 1 - s_bresenham_infos[octant].loop;
 
-    const int32_t incr1 = s_bresenham_infos[octant].loop ? (2 * dx) : (2 * dy);
-    const int32_t incr2 = s_bresenham_infos[octant].loop ? (2 * (dx - dy)) : (2 * (dy - dx));
-    int32_t d = s_bresenham_infos[octant].loop ? (3 * dx - 2 * dy) : (3 * dy - 2 * dx);
+	const int32_t incr1 = s_bresenham_infos[octant].loop ? (2 * dx) : (2 * dy);
+	const int32_t incr2 = s_bresenham_infos[octant].loop ? (2 * (dx - dy)) : (2 * (dy - dx));
+	int32_t d = s_bresenham_infos[octant].loop ? (3 * dx - 2 * dy) : (3 * dy - 2 * dx);
 
-    switch (octant)
-    {
-    case 0:
-        // Nothing special needed
-        break;
-    case 1:
-    {
-        const int16_t temp_fract = x1_fract;
-        x1_fract = y1_fract;
-        y1_fract = temp_fract;
-        const int32_t temp_d = dx;
-        dx = dy;
-        dy = temp_d;
-        break;
-    }
-    case 2:
-    {
-        const int16_t temp_fract = 0x10 - x1_fract;
-        x1_fract = y1_fract;
-        y1_fract = temp_fract;
-        const int32_t temp_d = dx;
-        dx = dy;
-        dy = temp_d;
-        break;
-    }
-    case 3:
-        x1_fract = 0x10 - x1_fract;
-        break;
-    case 4:
-        x1_fract = 0x10 - x1_fract;
-        y1_fract = 0x10 - y1_fract;
-        break;
-    case 5:
-    {
-        const int16_t temp_fract = 0x10 - x1_fract;
-        x1_fract = 0x10 - y1_fract;
-        y1_fract = temp_fract;
-        const int32_t temp_d = dx;
-        dx = dy;
-        dy = temp_d;
-        break;
-    }
-    case 6:
-    {
-        const int16_t temp_fract = 0x10 - y1_fract;
-        y1_fract = x1_fract;
-        x1_fract = temp_fract;
-        const int32_t temp_d = dx;
-        dx = dy;
-        dy = temp_d;
-        break;
-    }
-    case 7:
-        y1_fract = 0x10 - y1_fract;
-        break;
-    }
+	switch (octant)
+	{
+	case 0:
+		// Nothing special needed
+		break;
+	case 1:
+	{
+		const int16_t temp_fract = x1_fract;
+		x1_fract = y1_fract;
+		y1_fract = temp_fract;
+		const int32_t temp_d = dx;
+		dx = dy;
+		dy = temp_d;
+		break;
+	}
+	case 2:
+	{
+		const int16_t temp_fract = 0x10 - x1_fract;
+		x1_fract = y1_fract;
+		y1_fract = temp_fract;
+		const int32_t temp_d = dx;
+		dx = dy;
+		dy = temp_d;
+		break;
+	}
+	case 3:
+		x1_fract = 0x10 - x1_fract;
+		break;
+	case 4:
+		x1_fract = 0x10 - x1_fract;
+		y1_fract = 0x10 - y1_fract;
+		break;
+	case 5:
+	{
+		const int16_t temp_fract = 0x10 - x1_fract;
+		x1_fract = 0x10 - y1_fract;
+		y1_fract = temp_fract;
+		const int32_t temp_d = dx;
+		dx = dy;
+		dy = temp_d;
+		break;
+	}
+	case 6:
+	{
+		const int16_t temp_fract = 0x10 - y1_fract;
+		y1_fract = x1_fract;
+		x1_fract = temp_fract;
+		const int32_t temp_d = dx;
+		dx = dy;
+		dy = temp_d;
+		break;
+	}
+	case 7:
+		y1_fract = 0x10 - y1_fract;
+		break;
+	}
 
-    d += 2 * (((dx * y1_fract) >> 4) - ((dy * x1_fract) >> 4)); // Adjust d due to fractional endpoints
-    const int32_t E = d - 2 * dx; // Variable used for adjusting the start point up one pixel
-    if (E > 0)
-    {
-        d = E;
-        x += incrx2 * (1 - x_major);
-        y += incry2 * x_major;
-    }
+	d += 2 * (((dx * y1_fract) >> 4) - ((dy * x1_fract) >> 4)); // Adjust d due to fractional endpoints
+	const int32_t E = d - 2 * dx; // Variable used for adjusting the start point up one pixel
+	if (E > 0)
+	{
+		d = E;
+		x += incrx2 * (1 - x_major);
+		y += incry2 * x_major;
+	}
 
-    if (!skip_first || iterate_one)
-    {
-        if (shade || rgbmode)
-            write_pixel(x >> 4, y >> 4, get_rgb_color(x >> 4, y >> 4));
-        else
-            write_pixel(x >> 4, y >> 4, color);
+	if (!skip_first || iterate_one)
+	{
+		if (shade || rgbmode)
+			write_pixel(x >> 4, y >> 4, get_rgb_color(x >> 4, y >> 4));
+		else
+			write_pixel(x >> 4, y >> 4, color);
 
-        if (shade)
-            iterate_shade();
+		if (shade)
+			iterate_shade();
 
-        if (d < 0)
-        {
-            x += incrx1;
-            y -= incry1;
-            d += incr1;
-        }
-        else
-        {
-            x += incrx2;
-            y -= incry2;
-            d += incr2;
-        }
+		if (d < 0)
+		{
+			x += incrx1;
+			y -= incry1;
+			d += incr1;
+		}
+		else
+		{
+			x += incrx2;
+			y -= incry2;
+			d += incr2;
+		}
 
-        if (iterate_one)
-        {
-            write_x_start(x << 7);
-            write_y_start(y << 7);
-            return;
-        }
-    }
+		if (iterate_one)
+		{
+			write_x_start(x << 7);
+			write_y_start(y << 7);
+			return;
+		}
+	}
 
-    for (int16_t i = 1; i < loop; i++)
-    {
-        if (shade || rgbmode)
-            write_pixel(x >> 4, y >> 4, get_rgb_color(x >> 4, y >> 4));
-        else
-            write_pixel(x >> 4, y >> 4, color);
+	for (int16_t i = 1; i < loop; i++)
+	{
+		if (shade || rgbmode)
+			write_pixel(x >> 4, y >> 4, get_rgb_color(x >> 4, y >> 4));
+		else
+			write_pixel(x >> 4, y >> 4, color);
 
-        if (shade)
-            iterate_shade();
+		if (shade)
+			iterate_shade();
 
-        if (d < 0)
-        {
-            x += incrx1;
-            y -= incry1;
-            d += incr1;
-        }
-        else
-        {
-            x += incrx2;
-            y -= incry2;
-            d += incr2;
-        }
-    }
+		if (d < 0)
+		{
+			x += incrx1;
+			y -= incry1;
+			d += incr1;
+		}
+		else
+		{
+			x += incrx2;
+			y -= incry2;
+			d += incr2;
+		}
+	}
 
-    if (!skip_last)
-    {
-        if (shade || rgbmode)
-            write_pixel(x2 >> 4, y2 >> 4, get_rgb_color(x2 >> 4, y2 >> 4));
-        else
-            write_pixel(x2 >> 4, y2 >> 4, color);
+	if (!skip_last)
+	{
+		if (shade || rgbmode)
+			write_pixel(x2 >> 4, y2 >> 4, get_rgb_color(x2 >> 4, y2 >> 4));
+		else
+			write_pixel(x2 >> 4, y2 >> 4, color);
 
-        if (shade)
-            iterate_shade();
+		if (shade)
+			iterate_shade();
 
-        write_x_start(x2);
-        write_y_start(y2);
-    }
-    else
-    {
-        write_x_start(x << 7);
-        write_y_start(y << 7);
-    }
+		write_x_start(x2);
+		write_y_start(y2);
+	}
+	else
+	{
+		write_x_start(x << 7);
+		write_y_start(y << 7);
+	}
 }
 
 void newport_base_device::do_iline(uint32_t color)
 {
-    int16_t x1 = m_rex3.m_x_start_i;
-    int16_t y1 = m_rex3.m_y_start_i;
-    int16_t x2 = m_rex3.m_x_end_i;
-    int16_t y2 = m_rex3.m_y_end_i;
+	int16_t x1 = m_rex3.m_x_start_i;
+	int16_t y1 = m_rex3.m_y_start_i;
+	int16_t x2 = m_rex3.m_x_end_i;
+	int16_t y2 = m_rex3.m_y_end_i;
 
-    const bool iterate_one = (m_rex3.m_draw_mode0 & 0x300) == 0;
-    const bool skip_first = BIT(m_rex3.m_draw_mode0, 10);
-    const bool skip_last = BIT(m_rex3.m_draw_mode0, 11);
-    const bool shade = BIT(m_rex3.m_draw_mode0, 18);
-    const bool rgbmode = BIT(m_rex3.m_draw_mode1, 15);
+	const bool iterate_one = (m_rex3.m_draw_mode0 & 0x300) == 0;
+	const bool skip_first = BIT(m_rex3.m_draw_mode0, 10);
+	const bool skip_last = BIT(m_rex3.m_draw_mode0, 11);
+	const bool shade = BIT(m_rex3.m_draw_mode0, 18);
+	const bool rgbmode = BIT(m_rex3.m_draw_mode1, 15);
 
-    int16_t x = x1;
-    int16_t y = y1;
-    int16_t dx = abs(x1 - x2);
-    int16_t dy = abs(y1 - y2);
-    //const uint8_t coverage = 1;
+	int16_t x = x1;
+	int16_t y = y1;
+	int16_t dx = abs(x1 - x2);
+	int16_t dy = abs(y1 - y2);
+	//const uint8_t coverage = 1;
 
-    static const bresenham_octant_info_t s_bresenham_infos[8] =
-    {
-        {  1,  1,  0,  1, 0 },
-        {  0,  1,  1,  1, 1 },
-        {  0, -1,  1,  1, 1 },
-        { -1, -1,  0,  1, 0 },
-        { -1, -1,  0, -1, 0 },
-        {  0, -1, -1, -1, 1 },
-        {  0,  1, -1, -1, 1 },
-        {  1,  1,  0, -1, 0 }
-    };
+	static const bresenham_octant_info_t s_bresenham_infos[8] =
+	{
+		{  1,  1,  0,  1, 0 },
+		{  0,  1,  1,  1, 1 },
+		{  0, -1,  1,  1, 1 },
+		{ -1, -1,  0,  1, 0 },
+		{ -1, -1,  0, -1, 0 },
+		{  0, -1, -1, -1, 1 },
+		{  0,  1, -1, -1, 1 },
+		{  1,  1,  0, -1, 0 }
+	};
 
-    const uint8_t octant = get_octant(x1, y1, x2, y2, dx, dy);
-    const int16_t incrx1 = s_bresenham_infos[octant].incrx1;
-    const int16_t incrx2 = s_bresenham_infos[octant].incrx2;
-    const int16_t incry1 = s_bresenham_infos[octant].incry1;
-    const int16_t incry2 = s_bresenham_infos[octant].incry2;
-    int16_t loop = s_bresenham_infos[octant].loop ? dy : dx;
-    if (BIT(m_rex3.m_draw_mode0, 15) && loop > 32)
-    	loop = 32;
+	const uint8_t octant = get_octant(x1, y1, x2, y2, dx, dy);
+	const int16_t incrx1 = s_bresenham_infos[octant].incrx1;
+	const int16_t incrx2 = s_bresenham_infos[octant].incrx2;
+	const int16_t incry1 = s_bresenham_infos[octant].incry1;
+	const int16_t incry2 = s_bresenham_infos[octant].incry2;
+	int16_t loop = s_bresenham_infos[octant].loop ? dy : dx;
+	if (BIT(m_rex3.m_draw_mode0, 15) && loop > 32)
+		loop = 32;
 
-    const int16_t incr1 = 2 * (s_bresenham_infos[octant].loop ? dx : dy);
-    const int16_t incr2 = 2 * (s_bresenham_infos[octant].loop ? (dx - dy) : (dy - dx));
-    int16_t d = incr1 - (s_bresenham_infos[octant].loop ? dy : dx);
+	const int16_t incr1 = 2 * (s_bresenham_infos[octant].loop ? dx : dy);
+	const int16_t incr2 = 2 * (s_bresenham_infos[octant].loop ? (dx - dy) : (dy - dx));
+	int16_t d = incr1 - (s_bresenham_infos[octant].loop ? dy : dx);
 
-    if (!skip_first || iterate_one)
-    {
-        if (shade || rgbmode)
-            write_pixel(x, y, get_rgb_color(x, y));
-        else
-            write_pixel(x, y, color);
+	if (!skip_first || iterate_one)
+	{
+		if (shade || rgbmode)
+			write_pixel(x, y, get_rgb_color(x, y));
+		else
+			write_pixel(x, y, color);
 
-        if (shade)
-            iterate_shade();
+		if (shade)
+			iterate_shade();
 
-        if (d < 0)
-        {
-            x += incrx1;
-            y -= incry1;
-            d += incr1;
-        }
-        else
-        {
-            x += incrx2;
-            y -= incry2;
-            d += incr2;
-        }
+		if (d < 0)
+		{
+			x += incrx1;
+			y -= incry1;
+			d += incr1;
+		}
+		else
+		{
+			x += incrx2;
+			y -= incry2;
+			d += incr2;
+		}
 
-        if (iterate_one)
-        {
-            write_x_start(x << 11);
-            write_y_start(y << 11);
-            return;
-        }
-    }
+		if (iterate_one)
+		{
+			write_x_start(x << 11);
+			write_y_start(y << 11);
+			return;
+		}
+	}
 
-    for (int16_t i = 1; i < loop; i++)
-    {
-        if (shade || rgbmode)
-            write_pixel(x, y, get_rgb_color(x, y));
-        else
-            write_pixel(x, y, color);
+	for (int16_t i = 1; i < loop; i++)
+	{
+		if (shade || rgbmode)
+			write_pixel(x, y, get_rgb_color(x, y));
+		else
+			write_pixel(x, y, color);
 
-        if (shade)
-            iterate_shade();
+		if (shade)
+			iterate_shade();
 
-        if (d < 0)
-        {
-            x += incrx1;
-            y -= incry1;
-            d += incr1;
-        }
-        else
-        {
-            x += incrx2;
-            y -= incry2;
-            d += incr2;
-        }
-    }
+		if (d < 0)
+		{
+			x += incrx1;
+			y -= incry1;
+			d += incr1;
+		}
+		else
+		{
+			x += incrx2;
+			y -= incry2;
+			d += incr2;
+		}
+	}
 
-    if (!skip_last)
-    {
-        if (shade || rgbmode)
-            write_pixel(x2, y2, get_rgb_color(x2, y2));
-        else
-            write_pixel(x2, y2, color);
+	if (!skip_last)
+	{
+		if (shade || rgbmode)
+			write_pixel(x2, y2, get_rgb_color(x2, y2));
+		else
+			write_pixel(x2, y2, color);
 
-        if (shade)
-            iterate_shade();
+		if (shade)
+			iterate_shade();
 
-    	write_x_start(x2 << 11);
-    	write_y_start(y2 << 11);
-    }
-    else
-    {
-    	write_x_start(x << 11);
-    	write_y_start(y << 11);
+		write_x_start(x2 << 11);
+		write_y_start(y2 << 11);
+	}
+	else
+	{
+		write_x_start(x << 11);
+		write_y_start(y << 11);
 	}
 }
 
@@ -2414,19 +2571,64 @@ uint32_t newport_base_device::do_pixel_read()
 	uint32_t ret = 0;
 	switch (m_rex3.m_plane_enable)
 	{
-		case 1: // RGB/CI planes
-		case 2: // RGBA planes
-			ret = m_rgbci[src_addr];
+	case 1: // RGB/CI planes
+	case 2: // RGBA planes
+	{
+		ret = m_rgbci[src_addr];
+		uint8_t convert_index = (m_rex3.m_plane_depth << 2) | m_rex3.m_hostdepth;
+		switch (convert_index & 15)
+		{
+		default:
+			// No conversion needed
 			break;
-		case 4: // Overlay planes
-			ret = m_olay[src_addr];
+		case 1:     // 4bpp -> 8bpp
+			ret = convert_4bpp_bgr_to_8bpp((uint8_t)ret);
 			break;
-		case 5: // Popup planes
-			ret = m_pup[src_addr];
+		case 2:     // 4bpp -> 12bpp
+			ret = convert_4bpp_bgr_to_12bpp((uint8_t)ret);
 			break;
-		case 6: // CID planes
-			ret = m_cid[src_addr];
+		case 3:     // 4bpp -> 24bpp
+			ret = convert_4bpp_bgr_to_24bpp((uint8_t)ret);
 			break;
+		case 4:     // 8bpp -> 4bpp
+			ret = convert_8bpp_bgr_to_4bpp((uint8_t)ret);
+			break;
+		case 6:     // 8bpp -> 12bpp
+			ret = convert_8bpp_bgr_to_12bpp((uint8_t)ret);
+			break;
+		case 7:     // 8bpp -> 24bpp
+			ret = convert_8bpp_bgr_to_24bpp((uint8_t)ret);
+			break;
+		case 8:     // 12bpp -> 4bpp
+			ret = convert_12bpp_bgr_to_4bpp((uint16_t)ret);
+			break;
+		case 9:     // 12bpp -> 8bpp
+			ret = convert_12bpp_bgr_to_8bpp((uint16_t)ret);
+			break;
+		case 11:    // 12bpp -> 24bpp
+			ret = convert_12bpp_bgr_to_24bpp((uint16_t)ret);
+			break;
+		case 12:    // 32bpp -> 4bpp
+			ret = convert_24bpp_bgr_to_4bpp(ret);
+			break;
+		case 13:    // 32bpp -> 8bpp
+			ret = convert_24bpp_bgr_to_8bpp(ret);
+			break;
+		case 14:    // 32bpp -> 12bpp
+			ret = convert_24bpp_bgr_to_12bpp(ret);
+			break;
+		}
+		break;
+	}
+	case 4: // Overlay planes
+		ret = m_olay[src_addr];
+		break;
+	case 5: // Popup planes
+		ret = m_pup[src_addr];
+		break;
+	case 6: // CID planes
+		ret = m_cid[src_addr];
+		break;
 	}
 	LOGMASKED(LOG_COMMANDS, "Read %08x (%08x) from %04x, %04x\n", ret, m_rgbci[src_addr], src_x, src_y);
 	m_rex3.m_x_start_i++;
@@ -2517,9 +2719,9 @@ uint64_t newport_base_device::do_pixel_word_read()
 
 void newport_base_device::iterate_shade()
 {
-    m_rex3.m_color_red += m_rex3.m_slope_red;
-    m_rex3.m_color_green += m_rex3.m_slope_green;
-    m_rex3.m_color_blue += m_rex3.m_slope_blue;
+	m_rex3.m_color_red += m_rex3.m_slope_red;
+	m_rex3.m_color_green += m_rex3.m_slope_green;
+	m_rex3.m_color_blue += m_rex3.m_slope_blue;
 }
 
 void newport_base_device::do_rex3_command()
@@ -2549,7 +2751,7 @@ void newport_base_device::do_rex3_command()
 		case 0: // NoOp
 			break;
 		case 1: // Read
-			// Handled on HOSTRW read
+			m_rex3.m_host_dataport = do_pixel_word_read();
 			break;
 		case 2: // Draw
 			switch (adrmode)
@@ -2559,23 +2761,23 @@ void newport_base_device::do_rex3_command()
 					if (BIT(mode0, 19) && dx < 0) // LROnly
 						break;
 
-                    end_x += dx;
+					end_x += dx;
 
 					int16_t prim_end_x = end_x;
-                    bool stop_on_x = BIT(mode0, 8);
+					bool stop_on_x = BIT(mode0, 8);
 
 					if (BIT(mode0, 15) && abs(end_x - start_x) > 32)
 						prim_end_x = start_x + 32 * dx;
 
-                    if (m_rex3.m_color_host && m_rex3.m_rwpacked)
-                    {
-                        stop_on_x = true;
-                        static const int16_t s_max_host_lengths[2][4] = { { 4, 4, 2, 1 }, { 8, 8, 4, 2 } };
-                        const int16_t max_length = s_max_host_lengths[m_rex3.m_rwdouble ? 1 : 0][m_rex3.m_hostdepth];
-                        int16_t length = abs(prim_end_x - start_x);
-                        if (length > max_length)
-                            prim_end_x = start_x + dx * max_length;
-                    }
+					if (m_rex3.m_color_host && m_rex3.m_rwpacked)
+					{
+						stop_on_x = true;
+						static const int16_t s_max_host_lengths[2][4] = { { 4, 4, 2, 1 }, { 8, 8, 4, 2 } };
+						const int16_t max_length = s_max_host_lengths[m_rex3.m_rwdouble ? 1 : 0][m_rex3.m_hostdepth];
+						int16_t length = abs(prim_end_x - start_x);
+						if (length > max_length)
+							prim_end_x = start_x + dx * max_length;
+					}
 
 					const bool shade = BIT(mode0, 18);
 					const bool rgbmode = BIT(mode1, 15);
@@ -2592,14 +2794,12 @@ void newport_base_device::do_rex3_command()
 						{
 							case 0: // 4bpp
 								color = m_rex3.m_color_vram & 0xf;
-								//color |= color << 4;
 								break;
 							case 1: // 8bpp
 								color = m_rex3.m_color_vram & 0xff;
 								break;
 							case 2: // 12bpp
 								color = ((m_rex3.m_color_vram & 0xf00000) >> 12) | ((m_rex3.m_color_vram & 0xf000) >> 8) | ((m_rex3.m_color_vram & 0xf0) >> 4);
-								//color |= color << 12;
 								break;
 							case 3: // 24bpp
 								color = m_rex3.m_color_vram & 0xffffff;
@@ -2640,25 +2840,25 @@ void newport_base_device::do_rex3_command()
 					if (BIT(mode0, 19) && dx < 0) // LROnly
 						break;
 
-                    end_x += dx;
+					end_x += dx;
 					end_y += dy;
 
 					int16_t prim_end_x = end_x;
-                    bool stop_on_x = BIT(mode0, 8);
+					bool stop_on_x = BIT(mode0, 8);
 					const bool stop_on_y = BIT(mode0, 9);
 
 					if (BIT(mode0, 15) && (end_x - start_x) >= 32)
 						prim_end_x = start_x + 32 * dx;
 
-                    if (m_rex3.m_color_host && m_rex3.m_rwpacked)
-                    {
-                        stop_on_x = true;
-                        static const int16_t s_max_host_lengths[2][4] = { { 4, 4, 2, 1 }, { 8, 8, 4, 2 } };
-                        const int16_t max_length = s_max_host_lengths[m_rex3.m_rwdouble ? 1 : 0][m_rex3.m_hostdepth];
-                        int16_t length = abs(prim_end_x - start_x);
-                        if (length > max_length)
-                            prim_end_x = start_x + dx * max_length;
-                    }
+					if (m_rex3.m_color_host && m_rex3.m_rwpacked)
+					{
+						stop_on_x = true;
+						static const int16_t s_max_host_lengths[2][4] = { { 4, 4, 2, 1 }, { 8, 8, 4, 2 } };
+						const int16_t max_length = s_max_host_lengths[m_rex3.m_rwdouble ? 1 : 0][m_rex3.m_hostdepth];
+						int16_t length = abs(prim_end_x - start_x);
+						if (length > max_length)
+							prim_end_x = start_x + dx * max_length;
+					}
 
 					const bool shade = BIT(mode0, 18);
 					const bool rgbmode = BIT(mode1, 15);
@@ -2799,7 +2999,7 @@ void newport_base_device::do_rex3_command()
 void newport_base_device::write_x_start(int32_t val)
 {
 	m_rex3.m_x_start = val & 0x07ffff80;
-    m_rex3.m_x_start_frac = (val >> 7) & 0xf;
+	m_rex3.m_x_start_frac = (val >> 7) & 0xf;
 	m_rex3.m_x_start_i = (int16_t)(val >> 11);
 	m_rex3.m_x_start_f = (uint32_t)val & 0x007fff80;
 	m_rex3.m_xy_start_i = (m_rex3.m_xy_start_i & 0x0000ffff) | (m_rex3.m_x_start_i << 16);
@@ -2808,7 +3008,7 @@ void newport_base_device::write_x_start(int32_t val)
 void newport_base_device::write_y_start(int32_t val)
 {
 	m_rex3.m_y_start = val & 0x07ffff80;
-    m_rex3.m_y_start_frac = (val >> 7) & 0xf;
+	m_rex3.m_y_start_frac = (val >> 7) & 0xf;
 	m_rex3.m_y_start_i = (int16_t)(val >> 11);
 	m_rex3.m_y_start_f = (uint32_t)val & 0x007fff80;
 	m_rex3.m_xy_start_i = (m_rex3.m_xy_start_i & 0xffff0000) | (uint16_t)m_rex3.m_y_start_i;
@@ -2817,7 +3017,7 @@ void newport_base_device::write_y_start(int32_t val)
 void newport_base_device::write_x_end(int32_t val)
 {
 	m_rex3.m_x_end = val & 0x07ffff80;
-    m_rex3.m_x_end_frac = (val >> 7) & 0xf;
+	m_rex3.m_x_end_frac = (val >> 7) & 0xf;
 	m_rex3.m_x_end_i = (int16_t)(val >> 11);
 	m_rex3.m_x_end_f = (uint32_t)val & 0x007fff80;
 	m_rex3.m_xy_end_i = (m_rex3.m_xy_end_i & 0x0000ffff) | (m_rex3.m_x_end_i << 16);
@@ -2826,7 +3026,7 @@ void newport_base_device::write_x_end(int32_t val)
 void newport_base_device::write_y_end(int32_t val)
 {
 	m_rex3.m_y_end = val & 0x07ffff80;
-    m_rex3.m_y_end_frac = (val >> 7) & 0xf;
+	m_rex3.m_y_end_frac = (val >> 7) & 0xf;
 	m_rex3.m_y_end_i = (int16_t)(val >> 11);
 	m_rex3.m_y_end_f = (uint32_t)val & 0x007fff80;
 	m_rex3.m_xy_end_i = (m_rex3.m_xy_end_i & 0xffff0000) | (uint16_t)m_rex3.m_y_end_i;
@@ -3143,7 +3343,7 @@ WRITE64_MEMBER(newport_base_device::rex3_w)
 		if (ACCESSING_BITS_0_31)
 		{
 			LOGMASKED(LOG_REX3, "REX3 VRAM Fastclear Color Write: %08x\n", (uint32_t)data);
-            m_rex3.m_color_vram = (uint32_t)data;
+			m_rex3.m_color_vram = (uint32_t)data;
 		}
 		break;
 	case 0x0020/8:

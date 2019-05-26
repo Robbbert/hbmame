@@ -15,8 +15,8 @@
 #define ENABLE_NEWVIEW_LOG      (0)
 
 class newport_base_device : public device_t
-                          , public device_palette_interface
-                          , public device_gio_card_interface
+						  , public device_palette_interface
+						  , public device_gio_card_interface
 {
 public:
 	newport_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, uint32_t global_mask);
@@ -97,9 +97,9 @@ protected:
 		uint32_t m_draw_mode1;
 		uint8_t m_plane_enable;
 		uint8_t m_plane_depth;
-    	bool m_rwpacked;
-    	bool m_rwdouble;
-    	uint8_t m_hostdepth;
+		bool m_rwpacked;
+		bool m_rwdouble;
+		uint8_t m_hostdepth;
 		uint8_t m_sfactor;
 		uint8_t m_dfactor;
 		uint8_t m_logicop;
@@ -121,10 +121,10 @@ protected:
 		int32_t m_y_start;
 		int32_t m_x_end;
 		int32_t m_y_end;
-        int16_t m_x_start_frac;
-        int16_t m_y_start_frac;
-        int16_t m_x_end_frac;
-        int16_t m_y_end_frac;
+		int16_t m_x_start_frac;
+		int16_t m_y_start_frac;
+		int16_t m_x_end_frac;
+		int16_t m_y_end_frac;
 		int16_t m_x_save;
 		uint32_t m_xy_move;
 		int16_t m_x_move;
@@ -148,14 +148,14 @@ protected:
 		int16_t m_x_end_i;
 		int16_t m_y_end_i;
 		uint32_t m_x_start_end_i;
-		int32_t m_color_red;
-		int32_t m_color_alpha;
-		int32_t m_color_green;
-		int32_t m_color_blue;
-		int32_t m_slope_red;
-		int32_t m_slope_alpha;
-		int32_t m_slope_green;
-		int32_t m_slope_blue;
+		uint32_t m_color_red;
+		uint32_t m_color_alpha;
+		uint32_t m_color_green;
+		uint32_t m_color_blue;
+		uint32_t m_slope_red;
+		uint32_t m_slope_alpha;
+		uint32_t m_slope_green;
+		uint32_t m_slope_blue;
 		uint32_t m_write_mask;
 		uint32_t m_color_i;
 		uint32_t m_zero_overflow;
@@ -205,6 +205,8 @@ protected:
 	bool pixel_clip_pass(int16_t x, int16_t y);
 	void write_pixel(uint32_t color);
 	void write_pixel(int16_t x, int16_t y, uint32_t color);
+	void blend_pixel(uint32_t *dest_buf, uint32_t src);
+	void logic_pixel(uint32_t *dest_buf, uint32_t src);
 	void store_pixel(uint32_t *dest_buf, uint32_t src);
 
 	void iterate_shade();
@@ -215,16 +217,33 @@ protected:
 	uint32_t get_host_color();
 	uint32_t get_rgb_color(int16_t x, int16_t y);
 
-    struct bresenham_octant_info_t
-    {
-        int16_t incrx1;
-        int16_t incrx2;
-        int16_t incry1;
-        int16_t incry2;
-        uint8_t loop;
-    };
-    uint8_t get_octant(int16_t x1, int16_t y1, int16_t x2, int16_t y2, int16_t dx, int16_t dy);
-    void do_fline(uint32_t color);
+	uint32_t convert_4bpp_bgr_to_8bpp(uint8_t pix_in);
+	uint32_t convert_4bpp_bgr_to_12bpp(uint8_t pix_in);
+	uint32_t convert_4bpp_bgr_to_24bpp(uint8_t pix_in);
+	uint32_t convert_8bpp_bgr_to_4bpp(uint8_t pix_in);
+	uint32_t convert_8bpp_bgr_to_12bpp(uint8_t pix_in);
+	uint32_t convert_8bpp_bgr_to_24bpp(uint8_t pix_in);
+	uint32_t convert_12bpp_bgr_to_4bpp(uint16_t pix_in);
+	uint32_t convert_12bpp_bgr_to_8bpp(uint16_t pix_in);
+	uint32_t convert_12bpp_bgr_to_24bpp(uint16_t pix_in);
+	uint32_t convert_24bpp_bgr_to_4bpp(uint32_t pix_in);
+	uint32_t convert_24bpp_bgr_to_8bpp(uint32_t pix_in);
+	uint32_t convert_24bpp_bgr_to_12bpp(uint32_t pix_in);
+
+	uint32_t convert_4bpp_bgr_to_24bpp_rgb(uint8_t pix_in);
+	uint32_t convert_8bpp_bgr_to_24bpp_rgb(uint8_t pix_in);
+	uint32_t convert_12bpp_bgr_to_24bpp_rgb(uint16_t pix_in);
+
+	struct bresenham_octant_info_t
+	{
+		int16_t incrx1;
+		int16_t incrx2;
+		int16_t incry1;
+		int16_t incry2;
+		uint8_t loop;
+	};
+	uint8_t get_octant(int16_t x1, int16_t y1, int16_t x2, int16_t y2, int16_t dx, int16_t dy);
+	void do_fline(uint32_t color);
 	void do_iline(uint32_t color);
 
 	uint32_t do_pixel_read();
