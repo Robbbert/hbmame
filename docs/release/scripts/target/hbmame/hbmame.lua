@@ -59,6 +59,7 @@ CPUS["V60"] = true  -- segas32
 CPUS["V810"] = true
 CPUS["Z180"] = true
 CPUS["Z80"] = true
+CPUS["Z8000"] = true  -- polepos
 
 --------------------------------------------------
 -- specify available sound cores
@@ -366,6 +367,7 @@ files {
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
+	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -443,6 +445,12 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
 	MAME_DIR .. "src/mame/video/rohga.cpp",
 	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
+	MAME_DIR .. "src/hbmame/drivers/sidepckt.cpp",
+	MAME_DIR .. "src/mame/video/sidepckt.cpp",
+	MAME_DIR .. "src/mame/drivers/decocass.cpp",
+	MAME_DIR .. "src/mame/machine/decocass.cpp",
+	MAME_DIR .. "src/mame/machine/decocass_tape.cpp",
+	MAME_DIR .. "src/mame/video/decocass.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
@@ -634,7 +642,7 @@ files {
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",
 	MAME_DIR .. "src/mame/video/pacland.cpp",
-	MAME_DIR .. "src/mame/drivers/polepos.cpp",
+	MAME_DIR .. "src/hbmame/drivers/polepos.cpp",
 	MAME_DIR .. "src/mame/audio/polepos.cpp",
 	MAME_DIR .. "src/mame/video/polepos.cpp",
 	MAME_DIR .. "src/hbmame/drivers/rallyx.cpp",
@@ -922,6 +930,8 @@ createHBMAMEProjects(_target, _subtarget, "technos")
 files {
 	MAME_DIR .. "src/hbmame/drivers/shadfrce.cpp",
 	MAME_DIR .. "src/mame/video/shadfrce.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ddragon.cpp",
+	MAME_DIR .. "src/mame/video/ddragon.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
@@ -943,6 +953,8 @@ files {
 	MAME_DIR .. "src/mame/video/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/drivers/wc90.cpp",
 	MAME_DIR .. "src/mame/video/wc90.cpp",
+	MAME_DIR .. "src/hbmame/drivers/wc90b.cpp",
+	MAME_DIR .. "src/mame/video/wc90b.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
@@ -998,7 +1010,6 @@ files {
 createHBMAMEProjects(_target, _subtarget, "misc")
 files {
 	MAME_DIR .. "src/hbmame/drivers/dotrikun.cpp",
-	MAME_DIR .. "src/hbmame/drivers/ir.cpp",
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
 	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",

@@ -26,24 +26,26 @@ void mhavoc_state::alphape_map(address_map &map)
 	map(0x0200, 0x07ff).bankrw("bank1").share("zram0");
 	map(0x0800, 0x09ff).ram();
 	map(0x0a00, 0x0fff).bankrw("bank1").share("zram1");
-	map(0x1000, 0x1000).r(FUNC(mhavoc_state::mhavoc_gamma_r));            /* Gamma Read Port */
-	map(0x1200, 0x1200).portr("IN0").nopw();    /* Alpha Input Port 0 */
-	map(0x1400, 0x141f).ram().share("colorram");    /* ColorRAM */
-	map(0x1600, 0x1600).w(FUNC(mhavoc_state::mhavoc_out_0_w));           /* Control Signals */
-	map(0x1640, 0x1640).w("avg", FUNC(avg_mhavoc_device::go_w));               /* Vector Generator GO */
+	map(0x1000, 0x1000).r(FUNC(mhavoc_state::mhavoc_gamma_r));          /* Gamma Read Port */
+	map(0x1200, 0x1200).portr("IN0").nopw();    						/* Alpha Input Port 0 */
+	map(0x1400, 0x141f).ram().share("avg:colorram");    					/* ColorRAM */
+	map(0x1600, 0x1600).w(FUNC(mhavoc_state::mhavoc_out_0_w));         	/* Control Signals */
+	map(0x1640, 0x1640).w("avg", FUNC(avg_mhavoc_device::go_w));        /* Vector Generator GO */
 	map(0x1680, 0x1680).w("watchdog", FUNC(watchdog_timer_device::reset_w));         /* Watchdog Clear */
-	map(0x16c0, 0x16c0).w("avg", FUNC(avg_mhavoc_device::reset_w));            /* Vector Generator Reset */
-	map(0x1700, 0x1700).w(FUNC(mhavoc_state::mhavoc_alpha_irq_ack_w));   /* IRQ ack */
+	map(0x16c0, 0x16c0).w("avg", FUNC(avg_mhavoc_device::reset_w));     /* Vector Generator Reset */
+	map(0x1700, 0x1700).w(FUNC(mhavoc_state::mhavoc_alpha_irq_ack_w));  /* IRQ ack */
 	//map(0x1740, 0x1740).w(FUNC(mhavoc_state::mhavocpe_rom_banksel_w));     /* Program ROM Page Select */
 	map(0x1740, 0x1740).lw8("bnk", [this] (u8 data) { membank("bank2")->set_entry((data & 1) | ((data & 2)<<1) | ((data & 4)>>1)); });
-	map(0x1780, 0x1780).w(FUNC(mhavoc_state::mhavoc_ram_banksel_w));     /* Program RAM Page Select */
-	map(0x17c0, 0x17c0).w(FUNC(mhavoc_state::mhavoc_gamma_w));           /* Gamma Communication Write Port */
-	map(0x1800, 0x1fff).ram();                             /* Shared Beta Ram */
-	map(0x2000, 0x3fff).bankr("bank2");                        /* Paged Program ROM (32K) */
-	map(0x4000, 0x4fff).ram().share("vectorram").region("alpha", 0x4000);    /* Vector Generator RAM */
-	map(0x5000, 0x7fff).rom();                             /* Vector ROM */
-	map(0x8000, 0xffff).rom();                 /* Program ROM (32K) */
+	map(0x1780, 0x1780).w(FUNC(mhavoc_state::mhavoc_ram_banksel_w));  	/* Program RAM Page Select */
+	map(0x17c0, 0x17c0).w(FUNC(mhavoc_state::mhavoc_gamma_w));          /* Gamma Communication Write Port */
+	map(0x1800, 0x1fff).ram();                             	/* Shared Beta Ram */
+	map(0x2000, 0x3fff).bankr("bank2");                    	/* Paged Program ROM (32K) */
+	map(0x4000, 0x4fff).ram().share("avg:vectorram").region("alpha", 0x4000);    /* Vector Generator RAM */
+	map(0x5000, 0x5fff).rom();                             	/* Vector ROM */
+	map(0x6000, 0x7fff).bankr("bank3");                    	/* Paged Vector ROM */
+	map(0x8000, 0xffff).rom();                 				/* Program ROM (32K) */
 }
+//		membank("bank3")->set_entry(m_map);
 
 void mhavoc_state::mhavocpe(machine_config &config)
 {
@@ -70,7 +72,7 @@ ROM_START( mhavocpex )
 	ROM_LOAD( "mhpe.1np",   0x18000, 0x8000, CRC(c1a70bad) SHA1(0b72b6817e2f00d2c001ac61ebd2cd42ff7785c9) ) /* page 2+3+6+7 */
 
 	/* Paged Vector Generator ROM */
-	ROM_REGION( 0x8000, "avgdvg", 0 )
+	ROM_REGION( 0x8000, "avg", 0 )
 	ROM_LOAD( "mhpe.6h",    0x0000, 0x4000, CRC(79fc58c0) SHA1(7b40dfb89bc4078e2bd6f89a570f2be9cca15df9) ) /* page 0+1 */
 	ROM_LOAD( "mhpe.6jk",   0x4000, 0x4000, CRC(dc78b802) SHA1(6b951982232de08d32d3a2d01814cc28f89d2120) ) /* page 2+3 */
 
@@ -79,7 +81,7 @@ ROM_START( mhavocpex )
 	ROM_LOAD( "mhpe.9s",    0x08000, 0x8000, CRC(d42ee58e) SHA1(667aec3c3e93df3f8dedddb0db1188291e37630b) ) /* 32K Here */
 
 	/* AVG PROM */
-	ROM_REGION( 0x100, "user1", 0 )
+	ROM_REGION( 0x100, "avg:prom", 0 )
 	ROM_LOAD( "036408-01.b1",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
 ROM_END
 

@@ -341,6 +341,7 @@ VIDEOS["SCN2674"] = true
 --VIDEOS["SED1520"] = true
 VIDEOS["SNES_PPU"] = true
 VIDEOS["STVVDP"] = true
+--VIDEOS["T6963C"] = true
 --VIDEOS["T6A04"] = true
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
@@ -371,6 +372,7 @@ MACHINES["DMAC"] = true
 MACHINES["GAYLE"] = true
 MACHINES["NCR53C7XX"] = true
 MACHINES["LSI53C810"] = true
+MACHINES["2812FIFO"] = true
 MACHINES["6522VIA"] = true
 MACHINES["TPI6525"] = true
 MACHINES["RIOT6532"] = true
@@ -436,6 +438,7 @@ MACHINES["DS1205"] = true
 MACHINES["DS1302"] = true
 --MACHINES["DS1315"] = true
 --MACHINES["DS1386"] = true
+MACHINES["DS1994"] = true
 MACHINES["DS2401"] = true
 MACHINES["DS2404"] = true
 MACHINES["DS75160A"] = true
@@ -455,6 +458,7 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8155"] = true
 MACHINES["I8212"] = true
 MACHINES["I8214"] = true
+MACHINES["I82355"] = true
 MACHINES["I8243"] = true
 MACHINES["I8251"] = true
 MACHINES["I8255"] = true
@@ -531,7 +535,7 @@ MACHINES["MSM58321"] = true
 MACHINES["MSM6242"] = true
 MACHINES["MSM6253"] = true
 --MACHINES["NCR5380"] = true
---MACHINES["NCR5380N"] = true
+MACHINES["NCR5380N"] = true
 MACHINES["NCR5390"] = true
 MACHINES["NCR539x"] = true
 MACHINES["NETLIST"] = true
@@ -658,6 +662,7 @@ MACHINES["PS2INTC"] = true
 --MACHINES["IOPINTC"] = true
 --MACHINES["IOPSIO2"] = true
 --MACHINES["IOPTIMER"] = true
+MACHINES["AIC565"] = true
 MACHINES["AIC6250"] = true
 
 --------------------------------------------------
@@ -2388,6 +2393,8 @@ files {
 	MAME_DIR .. "src/mame/machine/k573cass.h",
 	MAME_DIR .. "src/mame/machine/k573dio.cpp",
 	MAME_DIR .. "src/mame/machine/k573dio.h",
+	MAME_DIR .. "src/mame/machine/k573fpga.cpp",
+	MAME_DIR .. "src/mame/machine/k573fpga.h",
 	MAME_DIR .. "src/mame/machine/k573mcr.cpp",
 	MAME_DIR .. "src/mame/machine/k573mcr.h",
 	MAME_DIR .. "src/mame/machine/k573msu.cpp",
@@ -2713,6 +2720,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/sspeedr.cpp",
 	MAME_DIR .. "src/mame/includes/sspeedr.h",
 	MAME_DIR .. "src/mame/video/sspeedr.cpp",
+	MAME_DIR .. "src/mame/drivers/starrider.cpp",
 	MAME_DIR .. "src/mame/drivers/tmaster.cpp",
 	MAME_DIR .. "src/mame/drivers/vegas.cpp",
 	MAME_DIR .. "src/mame/drivers/wmg.cpp",
@@ -3493,6 +3501,7 @@ files {
 	MAME_DIR .. "src/mame/machine/xbox_usb.cpp",
 	MAME_DIR .. "src/mame/machine/xbox_pci.cpp",
 	MAME_DIR .. "src/mame/drivers/flashbeats.cpp",
+	MAME_DIR .. "src/mame/drivers/segaatom.cpp",
 }
 
 createMAMEProjects(_target, _subtarget, "seibu")
@@ -4498,6 +4507,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/wpc_s.cpp",
 	MAME_DIR .. "src/mame/machine/wpc.cpp",
 	MAME_DIR .. "src/mame/machine/wpc.h",
+	MAME_DIR .. "src/mame/audio/bally.cpp",
 	MAME_DIR .. "src/mame/audio/wpcsnd.cpp",
 	MAME_DIR .. "src/mame/audio/wpcsnd.h",
 	MAME_DIR .. "src/mame/video/wpc_dmd.cpp",
