@@ -579,6 +579,7 @@ captcomms56
 captcomms57
 captcomms58
 captcomms59
+captcomms60
 dinos01
 dinos02
 dinos03
@@ -753,6 +754,8 @@ dinos188
 dinos189
 dinos190
 dinos191
+dinos192
+dinos193
 ffights01
 ffights02
 ffightj2s01
@@ -788,6 +791,7 @@ punishers03
 punishers04
 punishers05
 punishers06
+punishers07
 punisherjs01
 punisherjs02
 punisherjs03
@@ -802,6 +806,9 @@ punisherjs11
 punisherjs12
 punisherjs13
 punisherjs14
+punisherjs15
+punisherjs16
+punisherjs17
 punisherbzs01
 sf2ces01
 sf2ces02
@@ -6060,6 +6067,7 @@ kf2k5unis09
 kf2k5unis10
 kf2k5unis11
 kf2k5unis12
+kf2k5unis13
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
@@ -7527,6 +7535,7 @@ kovsho103
 kovsho104
 kovsho105
 kovsho106
+kovsho107
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8272,3 +8281,5 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
+

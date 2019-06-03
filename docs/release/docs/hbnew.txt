@@ -1,6 +1,26 @@
 ﻿What's new in HBMAME
 ====================
 
+
+2019-06-26 0.211
+----------------
+
+
+New Games
+---------------------------------
+- [captcomms60]       Captain Commando (Enhanced Edition 2019-05-30)
+- [dinos192]          Cadillacs and Dinosaurs (God of War Update 2019-05-30)
+- [dinos193]          Cadillacs and Dinosaurs (Group Demon Dance Version 2019-05-30)
+- [kf2k5unis13]       Kof 10th Anniversary 2005 Unique (Edition Optimized )
+- [kovsho107]         Knights of Valour Super Heroes Plus (Survival New Version 2019-05-30)
+- [punishers07]       The Punisher (Unknown Hack 2019-05-30)
+- [punisherjs15]      The Punisher (1 Vs 2 Perfect Update 2019-05-30)
+- [punisherjs16]      The Punisher (Unknown Hack 2019)
+- [punisherjs17]      The Punisher (Unparalleled Version 2019-05-30)
+
+
+
+
 2019-05-29 0.210
 ----------------
 
