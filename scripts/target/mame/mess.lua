@@ -429,8 +429,9 @@ MACHINES["BIM68153"] = true
 MACHINES["CDP1852"] = true
 MACHINES["CDP1871"] = true
 MACHINES["CDP1879"] = true
-MACHINES["CMOS40105"] = true
 --MACHINES["CDU76S"] = true
+MACHINES["CHESSMACHINE"] = true
+MACHINES["CMOS40105"] = true
 MACHINES["COM8116"] = true
 MACHINES["CR589"] = true
 MACHINES["CS4031"] = true
@@ -628,6 +629,7 @@ MACHINES["UPD1990A"] = true
 --MACHINES["UPD4992"] = true
 MACHINES["UPD4701"] = true
 MACHINES["UPD7002"] = true
+--MACHINES["UPD7004"] = true
 MACHINES["UPD71071"] = true
 MACHINES["UPD765"] = true
 MACHINES["FDC_PLL"] = true
@@ -757,7 +759,7 @@ BUSES["GAMEBOY"] = true
 BUSES["GAMEGEAR"] = true
 BUSES["GBA"] = true
 BUSES["GENERIC"] = true
-BUSES["GIO"] = true
+BUSES["GIO64"] = true
 BUSES["HEXBUS"] = true
 BUSES["HPHIL"] = true
 BUSES["HPDIO"] = true
@@ -3211,6 +3213,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "siemens")
 files {
+	MAME_DIR .. "src/mame/drivers/bitel.cpp",
 	MAME_DIR .. "src/mame/drivers/pcd.cpp",
 	MAME_DIR .. "src/mame/machine/pcd_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/pcd_kbd.h",
@@ -3862,6 +3865,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/dmv.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.h",
+	MAME_DIR .. "src/mame/drivers/dpb7000.cpp",
 	MAME_DIR .. "src/mame/drivers/dps1.cpp",
 	MAME_DIR .. "src/mame/drivers/dsb46.cpp",
 	MAME_DIR .. "src/mame/drivers/dual68.cpp",
@@ -3912,6 +3916,7 @@ files {
 	MAME_DIR .. "src/mame/machine/itt1700_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/itt1700_kbd.h",
 	MAME_DIR .. "src/mame/drivers/itt3030.cpp",
+	MAME_DIR .. "src/mame/drivers/itt9216.cpp",
 	MAME_DIR .. "src/mame/drivers/jade.cpp",
 	MAME_DIR .. "src/mame/drivers/jonos.cpp",
 	MAME_DIR .. "src/mame/drivers/krokha.cpp",
@@ -4001,6 +4006,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/sys2900.cpp",
 	MAME_DIR .. "src/mame/drivers/sys9002.cpp",
 	MAME_DIR .. "src/mame/drivers/systec.cpp",
+	MAME_DIR .. "src/mame/drivers/systel1.cpp",
 	MAME_DIR .. "src/mame/drivers/talkingbb.cpp",
 	MAME_DIR .. "src/mame/drivers/talkingfb.cpp",
 	MAME_DIR .. "src/mame/drivers/tavernie.cpp",

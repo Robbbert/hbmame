@@ -160,6 +160,7 @@ const double XTAL::known_xtals[] = {
 	 10'733'000, /* 10.733_MHz_XTAL        The Fairyland Story */
 	 10'738'635, /* 10.738635_MHz_XTAL     TMS9918 family (3x NTSC subcarrier) */
 	 10'816'000, /* 10.816_MHz_XTAL        Universal 1979-1980 (Cosmic Alien, etc) */
+	 10'886'400, /* 10.8864_MHz_XTAL       Systel System 100 */
 	 10'920'000, /* 10.92_MHz_XTAL         ADDS Viewpoint 60, Viewpoint A2 */
 	 11'000'000, /* 11_MHz_XTAL            Mario I8039 sound */
 	 11'004'000, /* 11.004_MHz_XTAL        TI 911 VDT */
@@ -278,6 +279,7 @@ const double XTAL::known_xtals[] = {
 	 22'032'000, /* 22.032_MHz_XTAL        Intellec Series II I/O controller */
 	 22'096'000, /* 22.096_MHz_XTAL        ADDS Viewpoint 122 */
 	 22'118'400, /* 22.1184_MHz_XTAL       Amusco Poker */
+	 22'248'000, /* 22.248_MHz_XTAL        Quantel DPB-7000 */
 	 22'321'000, /* 22.321_MHz_XTAL        Apple LaserWriter II NT */
 	 22'464'000, /* 22.464_MHz_XTAL        CIT-101 132-column display clock */
 	 22'656'000, /* 22.656_MHz_XTAL        Super Pinball Action (~1440x NTSC line rate) */
@@ -296,13 +298,13 @@ const double XTAL::known_xtals[] = {
 	 25'398'360, /* 25.39836_MHz_XTAL      Tandberg TDV 2324 */
 	 25'400'000, /* 25.4_MHz_XTAL          PC9801-86 PCM base clock */
 	 25'447'000, /* 25.447_MHz_XTAL        Namco EVA3A (Funcube2) */
-	 25'590'906, /* 25.590906_MHz_XTAL     Atari Jaguar NTSC */
-	 25'593'900, /* 25.5939_MHz_XTAL       Atari Jaguar PAL */
 	 25'771'500, /* 25.7715_MHz_XTAL       HP-2622A */
 	 25'920'000, /* 25.92_MHz_XTAL         ADDS Viewpoint 60 */
 	 26'000'000, /* 26_MHz_XTAL            Gaelco PCBs */
 	 26'366'000, /* 26.366_MHz_XTAL        DEC VT320 */
 	 26'580'000, /* 26.58_MHz_XTAL         Wyse WY-60 80-column display clock */
+	 26'590'906, /* 26.590906_MHz_XTAL     Atari Jaguar NTSC */
+	 26'593'900, /* 26.5939_MHz_XTAL       Atari Jaguar PAL */
 	 26'601'712, /* 26.601712_MHz_XTAL     Astro Corp.'s Show Hand, PAL Vtech/Yeno Socrates (6x PAL subcarrier) */
 	 26'666'000, /* 26.666_MHz_XTAL        Imagetek I4100/I4220/I4300 */
 	 26'666'666, /* 26.666666_MHz_XTAL     Irem M92 but most use 27MHz */

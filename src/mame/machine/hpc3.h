@@ -11,28 +11,55 @@
 
 #pragma once
 
-#include "machine/ds1386.h"
-#include "machine/eepromser.h"
 #include "machine/hal2.h"
 #include "machine/ioc2.h"
-#include "machine/wd33c9x.h"
-#include "sound/dac.h"
-#include "sound/volt_reg.h"
-#include "speaker.h"
 
-class hpc3_base_device : public device_t
+class hpc3_device : public device_t, public device_memory_interface
 {
 public:
-	template <typename T> void set_cpu_tag(T &&tag) { m_maincpu.set_tag(std::forward<T>(tag)); }
-	template <typename T> void set_scsi0_tag(T &&tag) { m_wd33c93.set_tag(std::forward<T>(tag)); }
-	template <typename T> void set_scsi1_tag(T &&tag) { m_wd33c93_2.set_tag(std::forward<T>(tag)); }
+	enum pbus_space
+	{
+		AS_PIO0 = 0,
+		AS_PIO1,
+		AS_PIO2,
+		AS_PIO3,
+		AS_PIO4,
+		AS_PIO5,
+		AS_PIO6,
+		AS_PIO7,
+		AS_PIO8,
+		AS_PIO9
+	};
+
+	hpc3_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+	template <typename T, typename U>
+	hpc3_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&ioc2_tag, U &&hal2_tag)
+		: hpc3_device(mconfig, tag, owner, (uint32_t)0)
+	{
+		set_ioc2_tag(std::forward<T>(ioc2_tag));
+		set_hal2_tag(std::forward<U>(hal2_tag));
+	}
+
+	template <typename T> void set_gio64_space(T &&tag, int spacenum) { m_gio64_space.set_tag(std::forward<T>(tag), spacenum); }
+	template <typename T> void set_ioc2_tag(T &&tag) { m_ioc2.set_tag(std::forward<T>(tag)); }
+	template <typename T> void set_hal2_tag(T &&tag) { m_hal2.set_tag(std::forward<T>(tag)); }
+
+	template <int N> auto hd_rd_cb() { return m_hd_rd_cb[N].bind(); }
+	template <int N> auto hd_wr_cb() { return m_hd_wr_cb[N].bind(); }
+	template <int N> auto hd_dma_rd_cb() { return m_hd_dma_rd_cb[N].bind(); }
+	template <int N> auto hd_dma_wr_cb() { return m_hd_dma_wr_cb[N].bind(); }
+	template <int N> auto hd_reset_cb() { return m_hd_reset_cb[N].bind(); }
+	auto bbram_rd_cb() { return m_bbram_rd_cb.bind(); }
+	auto bbram_wr_cb() { return m_bbram_wr_cb.bind(); }
+	auto eeprom_dati_cb() { return m_eeprom_dati_cb.bind(); }
+	auto eeprom_dato_cb() { return m_eeprom_dato_cb.bind(); }
+	auto eeprom_clk_cb() { return m_eeprom_clk_cb.bind(); }
+	auto eeprom_cs_cb() { return m_eeprom_cs_cb.bind(); }
+	auto eeprom_pre_cb() { return m_eeprom_pre_cb.bind(); }
+	auto dma_complete_int_cb() { return m_dma_complete_int_cb.bind(); }
 
 	void map(address_map &map);
-
-	void raise_local_irq(int channel, uint32_t mask) { m_ioc2->raise_local_irq(channel, mask); }
-	void lower_local_irq(int channel, uint32_t mask) { m_ioc2->lower_local_irq(channel, mask); }
-	void raise_mappable_irq(uint8_t mask) { m_ioc2->set_mappable_int(mask, true); }
-	void lower_mappable_irq(uint8_t mask) { m_ioc2->set_mappable_int(mask, false); }
 
 	DECLARE_WRITE_LINE_MEMBER(scsi0_irq);
 	DECLARE_WRITE_LINE_MEMBER(scsi0_drq);
@@ -40,12 +67,12 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(scsi1_drq);
 
 protected:
-	hpc3_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
-
+	virtual void device_resolve_objects() override;
 	virtual void device_start() override;
 	virtual void device_reset() override;
-	virtual void device_add_mconfig(machine_config &config) override;
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+
+	virtual space_config_vector memory_space_config() const override;
 
 	enum fifo_type_t : uint32_t
 	{
@@ -65,21 +92,21 @@ protected:
 	template <fifo_type_t Type> DECLARE_READ32_MEMBER(fifo_r);
 	template <fifo_type_t Type> DECLARE_WRITE32_MEMBER(fifo_w);
 	DECLARE_READ32_MEMBER(intstat_r);
-	DECLARE_READ32_MEMBER(eeprom_r);
-	DECLARE_WRITE32_MEMBER(eeprom_w);
-	DECLARE_READ32_MEMBER(volume_r);
-	DECLARE_WRITE32_MEMBER(volume_w);
-	DECLARE_READ32_MEMBER(pbus4_r);
-	DECLARE_WRITE32_MEMBER(pbus4_w);
+	uint32_t misc_r();
+	void misc_w(uint32_t data);
+	uint32_t eeprom_r();
+	void eeprom_w(uint32_t data);
+	uint32_t pio_data_r(offs_t offset);
+	void pio_data_w(offs_t offset, uint32_t data);
 	DECLARE_READ32_MEMBER(pbusdma_r);
 	DECLARE_WRITE32_MEMBER(pbusdma_w);
-	DECLARE_READ32_MEMBER(unkpbus0_r);
-	DECLARE_WRITE32_MEMBER(unkpbus0_w);
 
 	DECLARE_READ32_MEMBER(dma_config_r);
 	DECLARE_WRITE32_MEMBER(dma_config_w);
 	DECLARE_READ32_MEMBER(pio_config_r);
 	DECLARE_WRITE32_MEMBER(pio_config_w);
+	uint32_t bbram_r(offs_t offset);
+	void bbram_w(offs_t offset, uint32_t data);
 
 	void do_pbus_dma(uint32_t channel);
 	void do_scsi_dma(int channel);
@@ -142,20 +169,30 @@ protected:
 		ENET_XMIT = 1
 	};
 
-	required_device<cpu_device> m_maincpu;
-	required_device<wd33c93b_device> m_wd33c93;
-	optional_device<wd33c93b_device> m_wd33c93_2;
-	required_device<eeprom_serial_93cxx_device> m_eeprom;
-	required_device<ds1386_device> m_rtc;
+	const address_space_config m_pio_space_config[10];
+
+	required_address_space m_gio64_space;
+	address_space *m_pio_space[10];
 	required_device<ioc2_device> m_ioc2;
 	required_device<hal2_device> m_hal2;
-	required_device<dac_16bit_r2r_twos_complement_device> m_ldac;
-	required_device<dac_16bit_r2r_twos_complement_device> m_rdac;
+
+	devcb_read8 m_hd_rd_cb[2];
+	devcb_write8 m_hd_wr_cb[2];
+	devcb_read8 m_hd_dma_rd_cb[2];
+	devcb_write8 m_hd_dma_wr_cb[2];
+	devcb_write_line m_hd_reset_cb[2];
+	devcb_read8 m_bbram_rd_cb;
+	devcb_write8 m_bbram_wr_cb;
+	devcb_read_line m_eeprom_dati_cb;
+	devcb_write_line m_eeprom_dato_cb;
+	devcb_write_line m_eeprom_clk_cb;
+	devcb_write_line m_eeprom_cs_cb;
+	devcb_write_line m_eeprom_pre_cb;
+	devcb_write_line m_dma_complete_int_cb;
 
 	uint32_t m_intstat;
+	uint32_t m_misc;
 	uint32_t m_cpu_aux_ctrl;
-	uint8_t m_volume_l;
-	uint8_t m_volume_r;
 
 	struct scsi_dma_t
 	{
@@ -194,46 +231,8 @@ protected:
 	std::unique_ptr<uint32_t[]> m_pbus_fifo;
 	std::unique_ptr<uint32_t[]> m_scsi_fifo[2];
 	std::unique_ptr<uint32_t[]> m_enet_fifo[2];
-
-	address_space *m_cpu_space;
 };
 
-class hpc3_guinness_device : public hpc3_base_device
-{
-public:
-	template <typename T, typename U>
-	hpc3_guinness_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&cpu_tag, U &&scsi0_tag)
-		: hpc3_guinness_device(mconfig, tag, owner, (uint32_t)0)
-	{
-		set_cpu_tag(std::forward<T>(cpu_tag));
-		set_scsi0_tag(std::forward<U>(scsi0_tag));
-	}
-
-	hpc3_guinness_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-
-protected:
-	virtual void device_add_mconfig(machine_config &config) override;
-};
-
-class hpc3_full_house_device : public hpc3_base_device
-{
-public:
-	template <typename T, typename U, typename V>
-	hpc3_full_house_device(const machine_config &mconfig, const char *tag, device_t *owner, T &&cpu_tag, U &&scsi0_tag, V &&scsi1_tag)
-		: hpc3_full_house_device(mconfig, tag, owner, (uint32_t)0)
-	{
-		set_cpu_tag(std::forward<T>(cpu_tag));
-		set_scsi0_tag(std::forward<U>(scsi0_tag));
-		set_scsi1_tag(std::forward<U>(scsi1_tag));
-	}
-
-	hpc3_full_house_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-
-protected:
-	virtual void device_add_mconfig(machine_config &config) override;
-};
-
-DECLARE_DEVICE_TYPE(SGI_HPC3_GUINNESS, hpc3_guinness_device)
-DECLARE_DEVICE_TYPE(SGI_HPC3_FULL_HOUSE, hpc3_full_house_device)
+DECLARE_DEVICE_TYPE(SGI_HPC3, hpc3_device)
 
 #endif // MAME_MACHINE_HPC3_H

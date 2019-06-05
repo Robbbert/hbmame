@@ -97,6 +97,7 @@ sgi_ip6                         // IP6: 4D/PI, R2000, 20MHz
 
 @source:4enlinea.cpp
 4enlinea                        // (c) 1991 System Compumatic
+k7_olym                         //
 
 @source:4enraya.cpp
 4enraya                         // (c) 1990 IDSA
@@ -201,7 +202,8 @@ schaserm                        // Model Racing
 searthie                        // bootleg
 searthin                        // bootleg
 searthina                       // bootleg
-sflush                          // (c)1979 Taito
+supinvsion                      // bootleg (Electromar software on hardware from Irecsa)
+sflush                          // (c) 1979 Taito
 shuttlei                        // (c) 1979 Omori (Arcade Tv Game List - P.79, Left, 6 from bottom)
 sicv                            // (c) 1979 Taito
 sicv1                           // (c) 1979 Taito
@@ -8933,6 +8935,10 @@ sbishik                         // GX675 (c) 1998 (Korea)
 sbishika                        // GX675 (c) 1998 (Korea)
 dobouchn                        //
 
+@source:bitel.cpp
+feap90                          //
+t3210                           //
+
 @source:bitgraph.cpp
 bitgrpha                        //
 bitgrphb                        //
@@ -11824,6 +11830,9 @@ dotrikun                        // cabinet test board
 dotrikun2                       // cabinet test board
 dotriman
 
+@source:dpb7000.cpp
+dpb7000                         //
+
 @source:dps1.cpp
 dps1                            //
 
@@ -14300,6 +14309,10 @@ homo                            // bootleg
 gokidetor                       // (c) 1992 Taito
 gokidetor2                      // (c) 1992 Taito
 
+@source:goldart.cpp
+goldart
+goldartp
+
 @source:goldngam.cpp
 moviecrd                        // (c) 1998 Golden Games
 swisspkr                        // (c) 1990 Golden Games
@@ -14891,6 +14904,7 @@ hlywoodhg                       //
 hotshots                        //
 hotshotsf                       //
 hotshotsg                       //
+mmmaster                        //
 mntecrlo                        //
 mntecrlo2                       //
 mntecrloa                       //
@@ -15839,9 +15853,10 @@ indigo3k                        // IP12: Indigo 1, R3000, 33MHz
 indigo4k                        // IP20: Indigo 1, R4400, 150MHz
 
 @source:indy_indigo2.cpp
-ip224613                        // IP22: Indy, R4600, 133MHz
-ip225015                        // IP22: Indy, R5000, 150MHz
-ip244415                        // IP24: Indigo 2, R4400, 150MHz
+indy_4610                       // IP22: Indy, R4600, 100MHz
+indy_4613                       // IP22: Indy, R4600, 133MHz
+indy_5015                       // IP22: Indy, R5000, 150MHz
+indigo2_4415                    // IP24: Indigo 2, R4400, 150MHz
 
 @source:instantm.cpp
 instantm                        //
@@ -16151,6 +16166,9 @@ itt1700                         //
 
 @source:itt3030.cpp
 itt3030                         //
+
+@source:itt9216.cpp
+itt9216                         //
 
 @source:jack.cpp
 brix                            // (c) 1982 Cinematronics + Advanced Microcomputer Systems
@@ -18028,6 +18046,7 @@ konin                           //
 ddboy
 ddboya
 shuriboy
+fuusenpn
 tsukande
 
 @source:konmedal68k.cpp
@@ -29848,7 +29867,8 @@ monkeyba                        // 2001.05 Monkey Ball
 mslug6                          // 2006.02 Metal Slug 6
 mushi2k4                        // 2004.?? MushiKing The King Of Beetles 2004 Second (Japan)
 mushi2k5                        // 2005.?? MushiKing The King Of Beetles 2005 First (Japan)
-mushike                         // 2004.?? MushiKing The King Of Beetle (World)
+mushike                         // 2004.?? MushiKing The King Of Beetle (2K3 2ND Ver. 1.003-, World)
+mushikeo                        // 2004.?? MushiKing The King Of Beetle (2K3 2ND Ver. 1.002-, World)
 mushikep                        // 2004.?? MushiKing The King Of Beetle (Prototype)
 mushi2eo                        // 2005.?? Mushiking The King Of Beetles II / III / III+ (Ver. 1.001) (World)
 mushik2e                        // 2005.?? Mushiking The King Of Beetles II / III / III+ (Ver. 2.001) (World)
@@ -30541,6 +30561,10 @@ nespal                          // Nintendo Entertainment System PAL
 @source:nes_vt.cpp
 vdogdeme
 vdogdemo
+pinkjelly                       // From V.R. Technology VT SDK
+vtpinball                       // From V.R. Technology VT SDK
+vtsndtest                       // From V.R. Technology VT SDK
+vtboxing                        // From V.R. Technology VT SDK
 mc_dgear
 dgun2500
 dgun2561
@@ -35156,7 +35180,8 @@ sokonuke                        // (c) 1995 Sammy Industries
 stg                             // (c) 1991 Athena / Tecmo
 superbar                        // (c) 1994 Promat (not genuine seta hardware, but based on thunderl code)
 thunderl                        // (c) 1990 Seta + Romstar or Visco license (DSW)
-thunderlbl                      // (c) 1990 Seta + Romstar or Visco license (DSW) - bootleg with Tetris sound
+thunderlbl                      // (c) 1991 Hyogo bootleg with Tetris sound
+thunderlbl2                     // (c) 1990 bootleg with Tetris sound
 tndrcade                        // UA-0 (c) 1987 Taito
 tndrcadej                       // UA-0 (c) 1987 Taito
 triplfun                        // bootleg
@@ -36834,6 +36859,9 @@ sys9002                         //
 @source:systec.cpp
 systec                          //
 
+@source:systel1.cpp
+systel100                       //
+
 @source:system1.cpp
 4dwarrio                        // 834-5918 (c) 1985 Coreland / Sega (S1)
 blockgal                        // 834-6303 (S1)
@@ -37601,12 +37629,10 @@ t4490                           // Terco 4490 Mill CNC Control (c) 1986
 @source:terminal.cpp
 7951om                          //
 alcat258                        //
-feap90                          //
-itt9216                         //
 loewe715                        //
 loewed                          //
-t3210                           //
 teleguide                       //
+telex277d                       // Telex 1979
 
 @source:terracre.cpp
 amatelas                        // (c) 1986
@@ -39085,6 +39111,7 @@ policet2                        // (c) 2003 Team Play, Inc.
 jnero                           // (c) 2004 ICE/Play Mechanix
 specfrce                        // (c) 2002 ICE/Play Mechanix
 specfrceo                       // (c) 2002 ICE/Play Mechanix
+rhnation                        // (c) 2003 ICE/Play Mechanix
 zoofari                         // (c) 2006 ICE/Play Mechanix
 
 @source:vp415.cpp
