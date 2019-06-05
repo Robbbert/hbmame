@@ -233,6 +233,7 @@ cps1testm		/* HB Cal2 */
 cps1testma		/* HB Cal2 */
 cps1tests		/* HB Cal2 */
 cps1testsa		/* HB Cal2 */
+cps1xx
 daimakb
 dino08h2
 dino08h3

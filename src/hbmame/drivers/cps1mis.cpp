@@ -1068,6 +1068,24 @@ ROM_START( cps1testma )
 	ROM_LOAD ( "megaman.key", 0x00, 0x80, CRC(9c89eb62) SHA1(e67a3ed58f82875cff4861c14bd701b54dcc111f) )
 ROM_END
 
+ROM_START( cps1xx )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD( "cps1xx.68k",      0x000000, 0x010000, CRC(0a5437b6) SHA1(eb0f1b8cc8b085bffb9725cca5b4ab8bafed23bd) )
+
+	ROM_REGION( 0x200000, "gfx", 0 )
+	ROM_LOAD( "cps1xx.tile",     0x000000, 0x200000, CRC(e357205f) SHA1(4eafc81273273b3a1b8d9e3fedbbe3b87fd9acaf) ) // wrong layout
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "ff_09.12b",   0x00000, 0x08000, CRC(b8367eb5) SHA1(ec3db29fdd6200e9a8f4f8073a7e34aef731354f) )
+	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cps1xx.okim6295", 0x000000, 0x040000, CRC(cd24355f) SHA1(e43c8151562bf4aa997a4373ae891b3780169b68) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "cps1demo.key", 0x00, 0x80, CRC(b0e5ee2d) SHA1(8189f48892fff7dc4fff4e765448e0ea2cfba4bc) )
+ROM_END
+
 
 ROM_START( daimakb )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
@@ -5694,6 +5712,7 @@ HACK( 2012, cps1tests,   sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     RO
 HACK( 2012, cps1testsa,  sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnostic (For sf2ce 2012-10-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, cps1testm,   megaman,  cps1_12MHz, megaman,  cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnostic (For megaman 2012-10-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, cps1testma,  megaman,  cps1_12MHz, megaman,  cps_state, cps1,     ROT0,   "Cal2", "CPS1 Diagnostic (For megaman 2012-10-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, cps1xx,      cps1demo, cps1frog,   cps1frog, cps_state, cps1,     ROT0,   "Wang", "Demo Wang xx", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // no sound
 HACK( 1988, daimakb,     ghouls,   daimakb,    daimakai, cps_state, cps1,     ROT0,   "bootleg", "Dai Makai-Mura (Japan, bootleg)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2008, dino08h2,    dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f 2008-10-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, dino08h3,    dino,     qsound,     dino,     cps_state, dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 2008-10-11)", MACHINE_SUPPORTS_SAVE )
