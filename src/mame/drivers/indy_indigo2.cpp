@@ -345,7 +345,6 @@ void ip24_state::ip24_base(machine_config &config)
 
 	SGI_HAL2(config, m_hal2);
 	EEPROM_93C56_16BIT(config, m_eeprom);
-	DS1386_8K(config, m_rtc, 32768);
 }
 
 void ip24_state::ip24(machine_config &config)
@@ -354,6 +353,7 @@ void ip24_state::ip24(machine_config &config)
 
 	SGI_IOC2_GUINNESS(config, m_ioc2, m_maincpu);
 	VINO(config, m_vino);
+	DS1386_8K(config, m_rtc, 32768);
 }
 
 void ip24_state::indy_5015(machine_config &config)
@@ -421,6 +421,7 @@ void ip22_state::indigo2_4415(machine_config &config)
 	m_hpc3->hd_reset_cb<1>().set(m_scsi_ctrl2, FUNC(wd33c93b_device::reset_w));
 
 	SGI_IOC2_FULL_HOUSE(config, m_ioc2, m_maincpu);
+	DS1286(config, m_rtc, 32768);
 }
 
 #define INDY_BIOS_FLAGS(bios) ROM_GROUPDWORD | ROM_BIOS(bios)
@@ -490,7 +491,7 @@ ROM_START( indigo2_4415 )
 ROM_END
 
 //    YEAR  NAME          PARENT     COMPAT  MACHINE       INPUT CLASS       INIT        COMPANY                 FULLNAME                   FLAGS
-COMP( 1993, indy_4610,    0,         0,      indy_4610,    ip24, ip24_state, empty_init, "Silicon Graphics Inc", "Indy (R4600, 100MHz)",    MACHINE_NOT_WORKING )
-COMP( 1993, indy_4613,    indy_4610, 0,      indy_4613,    ip24, ip24_state, empty_init, "Silicon Graphics Inc", "Indy (R4600, 133MHz)",    MACHINE_NOT_WORKING )
+COMP( 1993, indy_4610,    0,         0,      indy_4610,    ip24, ip24_state, empty_init, "Silicon Graphics Inc", "Indy (R4600, 100MHz)",    MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN | MACHINE_NODEVICE_MICROPHONE )
+COMP( 1993, indy_4613,    indy_4610, 0,      indy_4613,    ip24, ip24_state, empty_init, "Silicon Graphics Inc", "Indy (R4600, 133MHz)",    MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN | MACHINE_NODEVICE_MICROPHONE )
 COMP( 1996, indy_5015,    indy_4610, 0,      indy_5015,    ip24, ip24_state, empty_init, "Silicon Graphics Inc", "Indy (R5000, 150MHz)",    MACHINE_NOT_WORKING )
 COMP( 1993, indigo2_4415, 0,         0,      indigo2_4415, ip24, ip22_state, empty_init, "Silicon Graphics Inc", "Indigo2 (R4400, 150MHz)", MACHINE_NOT_WORKING )

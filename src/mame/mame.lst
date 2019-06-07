@@ -15359,6 +15359,7 @@ tc4                             // Coleco
 tcfball                         // Tandy Radio Shack
 tcfballa                        // Tandy Radio Shack
 timaze                          // Texas Instruments
+tithermos                       // Texas Instruments
 xl25                            // Vulcan
 zodiac                          // Coleco
 
@@ -37508,6 +37509,9 @@ tapatune                        //
 targeth                         // (c) 1994 - Ref 940531
 targetha                        // (c) 1994 - Ref 940531
 targeth10                       // (c) 1994 - Ref 940531
+
+@source:tasc.cpp
+tascr30
 
 @source:tasman.cpp
 dragsphr                        //
