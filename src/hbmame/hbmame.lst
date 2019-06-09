@@ -940,6 +940,7 @@ mshvsf
 mvsc
 nwarr
 progear
+pzloop2
 ringdest
 sfa
 sfa2
@@ -973,6 +974,7 @@ mvscjphp
 mvscrcp // reboots shortly after start
 mvscuh // reboots shortly after start
 pfghtjrm
+pzloop2jd
 suicide		/* Razoola */
 suicide2	/* Razoola */
 sfa2h
