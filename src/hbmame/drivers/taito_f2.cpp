@@ -59,9 +59,7 @@ void taitof2_hbmame::f2demo(machine_config &config)
 	m_tc0220ioc->read_7_callback().set_ioport("IN2");
 
 	TC0100SCN(config, m_tc0100scn[0], 0);
-	m_tc0100scn[0]->set_gfx_region(1);
 	m_tc0100scn[0]->set_offsets(3, 0);
-	m_tc0100scn[0]->set_gfxdecode_tag(m_gfxdecode);
 	m_tc0100scn[0]->set_palette(m_palette);
 
 	TC0360PRI(config, m_tc0360pri, 0);
