@@ -80,16 +80,14 @@
   - Though very uncommon when compared to games with LED/lamp display, some
     games may manipulate VFD plate brightness by strobing it longer/shorter,
     eg. cgalaxn when the player ship explodes.
-  - Related to the above issue: bultrman sometimes strobes D0/D1/D2 for a very
-    short duration, causing (unwanted) dimly lit segments on the real machine.
-    On MAME they will show with full brightness, see eg. building explosions.
-    Currently there's a workaround in place.
   - bzaxxon 3D effect is difficult to simulate
   - improve/redo SVGs of: bzaxxon, bpengo, bbtime
 
 ***************************************************************************/
 
 #include "emu.h"
+#include "includes/screenless.h"
+
 #include "cpu/hmcs40/hmcs40.h"
 #include "cpu/cop400/cop400.h"
 #include "machine/gen_latch.h"
@@ -112,28 +110,19 @@
 //#include "hh_hmcs40_test.lh" // common test-layout - no svg artwork(yet), use external artwork
 
 
-class hh_hmcs40_state : public driver_device
+class hh_hmcs40_state : public screenless_state
 {
 public:
 	hh_hmcs40_state(const machine_config &mconfig, device_type type, const char *tag) :
-		driver_device(mconfig, type, tag),
+		screenless_state(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_inp_matrix(*this, "IN.%u", 0),
-		m_out_x(*this, "%u.%u", 0U, 0U),
-		m_out_a(*this, "%u.a", 0U),
-		m_out_digit(*this, "digit%u", 0U),
-		m_speaker(*this, "speaker"),
-		m_display_wait(33),
-		m_display_maxy(1),
-		m_display_maxx(0)
+		m_speaker(*this, "speaker")
 	{ }
 
 	// devices
 	required_device<hmcs40_cpu_device> m_maincpu;
 	optional_ioport_array<7> m_inp_matrix; // max 7
-	output_finder<0x20, 0x40> m_out_x;
-	output_finder<0x20> m_out_a;
-	output_finder<0x20> m_out_digit;
 	optional_device<speaker_sound_device> m_speaker;
 
 	// misc common
@@ -142,28 +131,13 @@ public:
 	u8 m_int[2];                    // MCU INT0/1 pins state
 	u16 m_inp_mux;                  // multiplexed inputs mask
 
+	u32 m_grid;                     // VFD current row data
+	u64 m_plate;                    // VFD current column data
+
 	u16 read_inputs(int columns);
 	void refresh_interrupts(void);
 	void set_interrupt(int line, int state);
 	DECLARE_INPUT_CHANGED_MEMBER(single_interrupt_line);
-
-	// display common
-	int m_display_wait;             // led/lamp off-delay in milliseconds (default 33ms)
-	int m_display_maxy;             // display matrix number of rows
-	int m_display_maxx;             // display matrix number of columns (max 47 for now)
-
-	u32 m_grid;                     // VFD current row data
-	u64 m_plate;                    // VFD current column data
-
-	u64 m_display_state[0x20];      // display matrix rows data (last bit is used for always-on)
-	u16 m_display_segmask[0x20];    // if not 0, display matrix row is a digit, mask indicates connected segments
-	u8 m_display_decay[0x20][0x40]; // (internal use)
-
-	TIMER_DEVICE_CALLBACK_MEMBER(display_decay_tick);
-	void display_update();
-	void set_display_size(int maxx, int maxy);
-	void set_display_segmask(u32 digits, u32 mask);
-	void display_matrix(int maxx, int maxy, u64 setx, u32 sety, bool update = true);
 
 protected:
 	virtual void machine_start() override;
@@ -175,16 +149,9 @@ protected:
 
 void hh_hmcs40_state::machine_start()
 {
-	// resolve handlers
-	m_out_x.resolve();
-	m_out_a.resolve();
-	m_out_digit.resolve();
+	screenless_state::machine_start();
 
 	// zerofill
-	memset(m_display_state, 0, sizeof(m_display_state));
-	memset(m_display_decay, 0, sizeof(m_display_decay));
-	memset(m_display_segmask, 0, sizeof(m_display_segmask));
-
 	memset(m_r, 0, sizeof(m_r));
 	memset(m_int, 0, sizeof(m_int));
 	m_d = 0;
@@ -193,14 +160,6 @@ void hh_hmcs40_state::machine_start()
 	m_plate = 0;
 
 	// register for savestates
-	save_item(NAME(m_display_maxy));
-	save_item(NAME(m_display_maxx));
-	save_item(NAME(m_display_wait));
-
-	save_item(NAME(m_display_state));
-	save_item(NAME(m_display_decay));
-	save_item(NAME(m_display_segmask));
-
 	save_item(NAME(m_r));
 	save_item(NAME(m_int));
 	save_item(NAME(m_d));
@@ -221,80 +180,6 @@ void hh_hmcs40_state::machine_reset()
   Helper Functions
 
 ***************************************************************************/
-
-// The device may strobe the outputs very fast, it is unnoticeable to the user.
-// To prevent flickering here, we need to simulate a decay.
-
-void hh_hmcs40_state::display_update()
-{
-	for (int y = 0; y < m_display_maxy; y++)
-	{
-		u64 active_state = 0;
-
-		for (int x = 0; x <= m_display_maxx; x++)
-		{
-			// turn on powered segments
-			if (m_display_state[y] >> x & 1)
-				m_display_decay[y][x] = m_display_wait;
-
-			// determine active state
-			u64 ds = (m_display_decay[y][x] != 0) ? 1 : 0;
-			active_state |= (ds << x);
-
-			// output to y.x, or y.a when always-on
-			if (x != m_display_maxx)
-				m_out_x[y][x] = ds;
-			else
-				m_out_a[y] = ds;
-		}
-
-		// output to digity
-		if (m_display_segmask[y] != 0)
-			m_out_digit[y] = active_state & m_display_segmask[y];
-	}
-}
-
-TIMER_DEVICE_CALLBACK_MEMBER(hh_hmcs40_state::display_decay_tick)
-{
-	// slowly turn off unpowered segments
-	for (int y = 0; y < m_display_maxy; y++)
-		for (int x = 0; x <= m_display_maxx; x++)
-			if (m_display_decay[y][x] != 0)
-				m_display_decay[y][x]--;
-
-	display_update();
-}
-
-void hh_hmcs40_state::set_display_size(int maxx, int maxy)
-{
-	m_display_maxx = maxx;
-	m_display_maxy = maxy;
-}
-
-void hh_hmcs40_state::set_display_segmask(u32 digits, u32 mask)
-{
-	// set a segment mask per selected digit, but leave unselected ones alone
-	for (int i = 0; i < 0x20; i++)
-	{
-		if (digits & 1)
-			m_display_segmask[i] = mask;
-		digits >>= 1;
-	}
-}
-
-void hh_hmcs40_state::display_matrix(int maxx, int maxy, u64 setx, u32 sety, bool update)
-{
-	set_display_size(maxx, maxy);
-
-	// update current state
-	u64 mask = (u64(1) << maxx) - 1;
-	for (int y = 0; y < maxy; y++)
-		m_display_state[y] = (sety >> y & 1) ? ((setx & mask) | (u64(1) << maxx)) : 0;
-
-	if (update)
-		display_update();
-}
-
 
 // generic input handlers
 
@@ -444,12 +329,10 @@ void bambball_state::bambball(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 478);
 	screen.set_visarea_full();
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_bambball);
 
 	/* sound hardware */
@@ -464,7 +347,7 @@ ROM_START( bambball )
 	ROM_LOAD( "hd38750a08", 0x0000, 0x0800, CRC(907fef18) SHA1(73fe7ca7c6332268a3a9abc5ac88ada2991012fb) )
 	ROM_CONTINUE(           0x0f00, 0x0080 )
 
-	ROM_REGION( 281988, "svg", 0)
+	ROM_REGION( 281988, "screen", 0)
 	ROM_LOAD( "bambball.svg", 0, 281988, CRC(63019194) SHA1(cbfb5b051d8f57f6b4d698796030850b3631ed56) )
 ROM_END
 
@@ -593,12 +476,9 @@ void bmboxing_state::bmboxing(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 529);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -612,7 +492,7 @@ ROM_START( bmboxing )
 	ROM_LOAD( "hd38750a07", 0x0000, 0x0800, CRC(7f33e259) SHA1(c5fcdd6bf060c96666354f09f0570c754f6ed4e0) )
 	ROM_CONTINUE(           0x0f00, 0x0080 )
 
-	ROM_REGION( 257144, "svg", 0)
+	ROM_REGION( 257144, "screen", 0)
 	ROM_LOAD( "bmboxing.svg", 0, 257144, CRC(dab81477) SHA1(28b0c844a311e2023ffa71d754e799059b7d050f) )
 ROM_END
 
@@ -723,12 +603,9 @@ void bfriskyt_state::bfriskyt(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 675);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -742,7 +619,7 @@ ROM_START( bfriskyt )
 	ROM_LOAD( "hd38800a77", 0x0000, 0x1000, CRC(a2445c4f) SHA1(0aaccfec90b66d27dae194d4462d88e654c41578) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 413577, "svg", 0)
+	ROM_REGION( 413577, "screen", 0)
 	ROM_LOAD( "bfriskyt.svg", 0, 413577, CRC(17090264) SHA1(4512a8a91a459f2ddc258641c6d38c2f48f4160f) )
 ROM_END
 
@@ -845,12 +722,10 @@ void packmon_state::packmon(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 680);
 	screen.set_visarea_full();
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_packmon);
 
 	/* sound hardware */
@@ -865,7 +740,7 @@ ROM_START( packmon )
 	ROM_LOAD( "hd38800a27", 0x0000, 0x1000, CRC(86e09e84) SHA1(ac7d3c43667d5720ca513f8ff51d146d9f2af124) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 224386, "svg", 0)
+	ROM_REGION( 224386, "screen", 0)
 	ROM_LOAD( "packmon.svg", 0, 224386, CRC(b2ee5b6b) SHA1(e53b4d5a4118cc5fbec4656580c2aab76af8f8d7) )
 ROM_END
 
@@ -974,12 +849,9 @@ void bzaxxon_state::bzaxxon(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(613, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -993,7 +865,7 @@ ROM_START( bzaxxon )
 	ROM_LOAD( "hd38800b19", 0x0000, 0x1000, CRC(4fecb80d) SHA1(7adf079480ffd3825ad5ae1eaa4d892eecbcc42d) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 521080, "svg", 0)
+	ROM_REGION( 521080, "screen", 0)
 	ROM_LOAD( "bzaxxon.svg", 0, 521080, BAD_DUMP CRC(f4fbb2de) SHA1(83db400e67d91ae4bfee3e8568ae9df94ebede19) )
 ROM_END
 
@@ -1098,12 +970,9 @@ void zackman_state::zackman(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(487, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1117,7 +986,7 @@ ROM_START( zackman )
 	ROM_LOAD( "hd38820a49", 0x0000, 0x1000, CRC(b97f5ef6) SHA1(7fe20e8107361caf9ea657e504be1f8b10b8b03f) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 910689, "svg", 0)
+	ROM_REGION( 910689, "screen", 0)
 	ROM_LOAD( "zackman.svg", 0, 910689, CRC(5f322820) SHA1(4210aff160e5de9a409aba8b915aaebff2a92647) )
 ROM_END
 
@@ -1232,12 +1101,9 @@ void bpengo_state::bpengo(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 759);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1251,7 +1117,7 @@ ROM_START( bpengo )
 	ROM_LOAD( "hd38820a63", 0x0000, 0x1000, CRC(ebd6bc64) SHA1(0a322c47b9553a2739a85908ce64b9650cf93d49) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 744461, "svg", 0)
+	ROM_REGION( 744461, "screen", 0)
 	ROM_LOAD( "bpengo.svg", 0, 744461, BAD_DUMP CRC(2b9abaa5) SHA1(c70a6ac1fa757fdd3ababfe6e00573ef1410c1eb) )
 ROM_END
 
@@ -1362,12 +1228,9 @@ void bbtime_state::bbtime(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(379, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1381,7 +1244,7 @@ ROM_START( bbtime )
 	ROM_LOAD( "hd38820a65", 0x0000, 0x1000, CRC(33611faf) SHA1(29b6a30ed543688d31ec2aa18f7938fa4eef30b0) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 461605, "svg", 0)
+	ROM_REGION( 461605, "screen", 0)
 	ROM_LOAD( "bbtime.svg", 0, 461605, BAD_DUMP CRC(5b335271) SHA1(46c45b711358e8397ae707668aecead9e341ab8a) )
 ROM_END
 
@@ -1472,12 +1335,9 @@ void bdoramon_state::bdoramon(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 668);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1491,7 +1351,7 @@ ROM_START( bdoramon )
 	ROM_LOAD( "hd38800b43", 0x0000, 0x1000, CRC(9387ca42) SHA1(8937e208934b34bd9f49700aa50287dfc8bda76c) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 624751, "svg", 0)
+	ROM_REGION( 624751, "screen", 0)
 	ROM_LOAD( "bdoramon.svg", 0, 624751, CRC(5dc4017c) SHA1(2091765de401969651b8eb22067572be72d12398) )
 ROM_END
 
@@ -1543,8 +1403,7 @@ WRITE16_MEMBER(bultrman_state::grid_w)
 	m_grid = data >> 8 & 0xff;
 
 	// D0-D2: plate 15-17 (update display there)
-	//plate_w(space, 4, data & 7);
-	plate_w(space, 4, data & (1 << offset) & 7);
+	plate_w(space, 4, data & 7);
 }
 
 // config
@@ -1575,12 +1434,9 @@ void bultrman_state::bultrman(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 673);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1594,7 +1450,7 @@ ROM_START( bultrman )
 	ROM_LOAD( "hd38800b52", 0x0000, 0x1000, CRC(88d372dc) SHA1(f2ac3b89be8afe6fb65914ccebe1a56316b9472a) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 405717, "svg", 0)
+	ROM_REGION( 405717, "screen", 0)
 	ROM_LOAD( "bultrman.svg", 0, 405717, CRC(13367971) SHA1(f294898712d1e146ff267bb1e3cfd059f972b248) )
 ROM_END
 
@@ -1676,12 +1532,9 @@ void machiman_state::machiman(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1534, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1695,7 +1548,7 @@ ROM_START( machiman )
 	ROM_LOAD( "hd38820a85", 0x0000, 0x1000, CRC(894b4954) SHA1(cab49638a326b031aa548301beb16f818759ef62) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 374097, "svg", 0)
+	ROM_REGION( 374097, "screen", 0)
 	ROM_LOAD( "machiman.svg", 0, 374097, CRC(78af02ac) SHA1(1b4bbea3e46e1bf33149727d9725bc9b18652b9c) )
 ROM_END
 
@@ -1845,7 +1698,6 @@ void pairmtch_state::pairmtch(machine_config &config)
 
 	config.m_perfect_cpu_quantum = subtag("maincpu");
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_pairmtch);
 
 	/* sound hardware */
@@ -1970,12 +1822,9 @@ void alnattck_state::alnattck(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 700);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -1989,7 +1838,7 @@ ROM_START( alnattck )
 	ROM_LOAD( "hd38800a25", 0x0000, 0x1000, CRC(18b50869) SHA1(11e9d5f7b4ae818b077b0ee14a3b43190e20bff3) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 564271, "svg", 0)
+	ROM_REGION( 564271, "screen", 0)
 	ROM_LOAD( "alnattck.svg", 0, 564271, CRC(5466d1d4) SHA1(3295272015969e58fddc53272769e1fc1bd4b355) )
 ROM_END
 
@@ -2115,12 +1964,9 @@ void cdkong_state::cdkong(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(605, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2141,7 +1987,7 @@ ROM_START( cdkong )
 	ROM_LOAD( "hd38820a45", 0x0000, 0x1000, CRC(196b8070) SHA1(da85d1eb4b048b77f3168630662ab94ec9baa262) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 359199, "svg", 0)
+	ROM_REGION( 359199, "screen", 0)
 	ROM_LOAD( "cdkong.svg", 0, 359199, CRC(ba159fd5) SHA1(3188e2ed3234f39ac9ee93a485a7e73314bc3457) )
 ROM_END
 
@@ -2261,12 +2107,9 @@ void cgalaxn_state::cgalaxn(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(526, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2280,7 +2123,7 @@ ROM_START( cgalaxn )
 	ROM_LOAD( "hd38800a70", 0x0000, 0x1000, CRC(a4c5ed1d) SHA1(0f647cb78437d7e62411febf7c9ce3c5b6753a80) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 712204, "svg", 0)
+	ROM_REGION( 712204, "screen", 0)
 	ROM_LOAD( "cgalaxn.svg", 0, 712204, CRC(67ec57bf) SHA1(195c9867b321da9768ce287d1060ceae50345dd4) )
 ROM_END
 
@@ -2394,12 +2237,9 @@ void cpacman_state::cpacman(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(484, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2413,7 +2253,7 @@ ROM_START( cpacman )
 	ROM_LOAD( "hd38820a29", 0x0000, 0x1000, CRC(1082d577) SHA1(0ef73132bd41f6ca1e4c001ae19f7f7c97eaa8d1) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 359765, "svg", 0)
+	ROM_REGION( 359765, "screen", 0)
 	ROM_LOAD( "cpacman.svg", 0, 359765, CRC(e3810a46) SHA1(d0994edd71a6adc8f238c71e360a8606ce397a14) )
 ROM_END
 
@@ -2422,7 +2262,7 @@ ROM_START( cpacmanr1 )
 	ROM_LOAD( "hd38820a28", 0x0000, 0x1000, CRC(d2ed57e5) SHA1(f56f1341485ac28ea9e6cc4d162fab18d8a4c977) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 359765, "svg", 0)
+	ROM_REGION( 359765, "screen", 0)
 	ROM_LOAD( "cpacman.svg", 0, 359765, CRC(e3810a46) SHA1(d0994edd71a6adc8f238c71e360a8606ce397a14) )
 ROM_END
 
@@ -2531,12 +2371,9 @@ void cmspacmn_state::cmspacmn(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(481, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2550,7 +2387,7 @@ ROM_START( cmspacmn )
 	ROM_LOAD( "hd38820a61", 0x0000, 0x1000, CRC(76276318) SHA1(9d6ff3f49b4cdaee5c9e238c1ed638bfb9b99aa7) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 849327, "svg", 0)
+	ROM_REGION( 849327, "screen", 0)
 	ROM_LOAD( "cmspacmn.svg", 0, 849327, CRC(4110ad07) SHA1(76113a2ce0fb1c6dab4e26fd59a13dc89d950d75) )
 ROM_END
 
@@ -2685,7 +2522,6 @@ void sag_state::sag(machine_config &config)
 	m_maincpu->write_d().set(FUNC(sag_state::grid_w));
 	m_maincpu->read_d().set(FUNC(sag_state::input_r));
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_sag);
 
 	/* sound hardware */
@@ -2823,12 +2659,9 @@ void egalaxn2_state::egalaxn2(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(505, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2842,7 +2675,7 @@ ROM_START( egalaxn2 )
 	ROM_LOAD( "hd38820a13", 0x0000, 0x1000, CRC(112b721b) SHA1(4a185bc57ea03fe64f61f7db4da37b16eeb0cb54) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 507945, "svg", 0)
+	ROM_REGION( 507945, "screen", 0)
 	ROM_LOAD( "egalaxn2.svg", 0, 507945, CRC(b72a8721) SHA1(2d90fca6ce962710525b631e5bc8f75d79332b9d) )
 ROM_END
 
@@ -2922,7 +2755,7 @@ ROM_START( epacman2 )
 	ROM_LOAD( "hd38820a23", 0x0000, 0x1000, CRC(6eab640f) SHA1(509bdd02be915089e13769f22a08e03509f03af4) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 262480, "svg", 0)
+	ROM_REGION( 262480, "screen", 0)
 	ROM_LOAD( "epacman2.svg", 0, 262480, CRC(73bd9671) SHA1(a3ac754c0e060da50b65f3d0f9630d9c3d871650) )
 ROM_END
 
@@ -2931,7 +2764,7 @@ ROM_START( epacman2r )
 	ROM_LOAD( "hd38820a23", 0x0000, 0x1000, CRC(6eab640f) SHA1(509bdd02be915089e13769f22a08e03509f03af4) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 262483, "svg", 0)
+	ROM_REGION( 262483, "screen", 0)
 	ROM_LOAD( "epacman2r.svg", 0, 262483, CRC(279b629a) SHA1(4c499fb143aadf4f6722b994a22a0d0d3c5150b6) )
 ROM_END
 
@@ -3113,12 +2946,9 @@ void eturtles_state::eturtles(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(484, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -3135,7 +2965,7 @@ ROM_START( eturtles )
 	ROM_REGION( 0x0200, "audiocpu", 0 )
 	ROM_LOAD( "cop411l-ked_n", 0x0000, 0x0200, CRC(503d26e9) SHA1(a53d24d62195bfbceff2e4a43199846e0950aef6) )
 
-	ROM_REGION( 1027626, "svg", 0)
+	ROM_REGION( 1027626, "screen", 0)
 	ROM_LOAD( "eturtles.svg", 0, 1027626, CRC(b4f7abff) SHA1(e9b065a3a3fef3c71495002945724a86c2a68eb4) )
 ROM_END
 
@@ -3236,12 +3066,9 @@ void estargte_state::estargte(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 854);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -3258,7 +3085,7 @@ ROM_START( estargte )
 	ROM_REGION( 0x0200, "audiocpu", 0 )
 	ROM_LOAD( "cop411l-kec_n", 0x0000, 0x0200, CRC(fbd3c2d3) SHA1(65b8b24d38678c3fa970bfd639e9449a75a28927) )
 
-	ROM_REGION( 462214, "svg", 0)
+	ROM_REGION( 462214, "screen", 0)
 	ROM_LOAD( "estargte.svg", 0, 462214, CRC(282cc090) SHA1(b0f3c21e9a529e5f1e33b90ca25ce3a097fb75a0) )
 ROM_END
 
@@ -3366,12 +3193,9 @@ void ghalien_state::ghalien(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 699);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -3385,7 +3209,7 @@ ROM_START( ghalien )
 	ROM_LOAD( "hd38800a04", 0x0000, 0x1000, CRC(019c3328) SHA1(9f1029c5c479f78350952c4f18747341ba5ea7a0) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 462749, "svg", 0)
+	ROM_REGION( 462749, "screen", 0)
 	ROM_LOAD( "ghalien.svg", 0, 462749, CRC(1acbb1e8) SHA1(7bdeb840bc9080792e24812eba923bf84f7865a6) )
 ROM_END
 
@@ -3499,12 +3323,10 @@ void gckong_state::gckong(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(479, 1080);
 	screen.set_visarea_full();
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_gckong);
 
 	/* sound hardware */
@@ -3519,7 +3341,7 @@ ROM_START( gckong )
 	ROM_LOAD( "hd38800b01", 0x0000, 0x1000, CRC(d5a2cca3) SHA1(37bb5784383daab672ed1e0e2362c7a40d8d9b3f) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 346588, "svg", 0)
+	ROM_REGION( 346588, "screen", 0)
 	ROM_LOAD( "gckong.svg", 0, 346588, CRC(317af984) SHA1(ff6323526d1f5e46eccf8fa8d979175895be75de) )
 ROM_END
 
@@ -3627,12 +3449,9 @@ void gdigdug_state::gdigdug(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(476, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -3646,7 +3465,7 @@ ROM_START( gdigdug )
 	ROM_LOAD( "hd38820a69", 0x0000, 0x1000, CRC(501165a9) SHA1(8a15d00c4aa66e870cadde33148426463560d2e6) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 807990, "svg", 0)
+	ROM_REGION( 807990, "screen", 0)
 	ROM_LOAD( "gdigdug.svg", 0, 807990, CRC(a5b8392d) SHA1(3503829bb1a626a9e70115fb60b656dff8908144) )
 ROM_END
 
@@ -3799,12 +3618,10 @@ void mwcbaseb_state::mwcbaseb(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 478);
 	screen.set_visarea_full();
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_mwcbaseb);
 
 	/* sound hardware */
@@ -3820,7 +3637,7 @@ ROM_START( mwcbaseb )
 	ROM_LOAD( "hd38820a09", 0x0000, 0x1000, CRC(25ba7dc0) SHA1(69e0a867fdcf07b454b1faf835e576ae782432c0) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 178441, "svg", 0)
+	ROM_REGION( 178441, "screen", 0)
 	ROM_LOAD( "mwcbaseb.svg", 0, 178441, CRC(0f631190) SHA1(74a10ad0630af5516f76d5bf5628483d21f6b7be) )
 ROM_END
 
@@ -3939,12 +3756,10 @@ void msthawk_state::msthawk(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 696);
 	screen.set_visarea_full();
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 	config.set_default_layout(layout_msthawk);
 
 	/* sound hardware */
@@ -3959,7 +3774,7 @@ ROM_START( msthawk )
 	ROM_LOAD( "hd38800a73", 0x0000, 0x1000, CRC(a4f9a523) SHA1(465f06b02e2e7d2277218fd447830725790a816c) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 191888, "svg", 0)
+	ROM_REGION( 191888, "screen", 0)
 	ROM_LOAD( "msthawk.svg", 0, 191888, CRC(a607fc0f) SHA1(282a412f6462128e09ee8bd18d682dda01297611) )
 ROM_END
 
@@ -4040,12 +3855,9 @@ void pbqbert_state::pbqbert(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(603, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -4059,7 +3871,7 @@ ROM_START( pbqbert )
 	ROM_LOAD( "hd38820a70", 0x0000, 0x1000, CRC(be7c80b4) SHA1(0617a80ef7fe188ea221de32e760d45fd4318c67) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 456567, "svg", 0)
+	ROM_REGION( 456567, "screen", 0)
 	ROM_LOAD( "pbqbert.svg", 0, 456567, CRC(49853a62) SHA1(869377109fb7163e5ef5efadb26ce3955231f6ca) )
 ROM_END
 
@@ -4167,12 +3979,9 @@ void kingman_state::kingman(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(374, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -4186,7 +3995,7 @@ ROM_START( kingman )
 	ROM_LOAD( "hd38800b23", 0x0000, 0x1000, CRC(f8dfe14f) SHA1(660610d92ae7e5f92bddf5a3bcc2296b2ec3946b) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 396320, "svg", 0)
+	ROM_REGION( 396320, "screen", 0)
 	ROM_LOAD( "kingman.svg", 0, 396320, CRC(3f52d2a9) SHA1(9291f1a1da3d19c3d6dedb995de0a5feba75b442) )
 ROM_END
 
@@ -4294,12 +4103,9 @@ void tmtron_state::tmtron(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(1920, 662);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -4313,7 +4119,7 @@ ROM_START( tmtron )
 	ROM_LOAD( "hd38800a88", 0x0000, 0x1000, CRC(33db9670) SHA1(d6f747a59356526698784047bcfdbb59e79b9a23) )
 	ROM_CONTINUE(           0x1e80, 0x0100 )
 
-	ROM_REGION( 384174, "svg", 0)
+	ROM_REGION( 384174, "screen", 0)
 	ROM_LOAD( "tmtron.svg", 0, 384174, CRC(06bd9e63) SHA1(fb93013ec42dc05f7029ef3c3073c84867f0d077) )
 ROM_END
 
@@ -4400,12 +4206,9 @@ void vinvader_state::vinvader(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
-	screen.set_svg_region("svg");
-	screen.set_refresh_hz(50);
+	screen.set_refresh_hz(60);
 	screen.set_size(233, 1080);
 	screen.set_visarea_full();
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_hmcs40_state::display_decay_tick), attotime::from_msec(1));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -4419,7 +4222,7 @@ ROM_START( vinvader )
 	ROM_LOAD( "hd38750a45", 0x0000, 0x0800, CRC(32de6056) SHA1(70238c6c40c3d513f8eced1cb81bdd4dbe12f16c) )
 	ROM_CONTINUE(           0x0f00, 0x0080 )
 
-	ROM_REGION( 166379, "svg", 0)
+	ROM_REGION( 166379, "screen", 0)
 	ROM_LOAD( "vinvader.svg", 0, 166379, CRC(b75c448e) SHA1(40d546f9fbdb446883e3ab0e3f678f1be8105159) )
 ROM_END
 

@@ -17,6 +17,8 @@
 #include "emu.h"
 #include "includes/hh_ucom4.h"
 
+#include "machine/timer.h"
+
 #include "tb303.lh"
 
 
@@ -268,8 +270,6 @@ void tb303_state::tb303(machine_config &config)
 	tp3_clock.configure_periodic(FUNC(tb303_state::tp3_clock), TP3_PERIOD);
 	tp3_clock.set_start_delay(TP3_PERIOD - TP3_LOW);
 	TIMER(config, "tp3_clear").configure_periodic(FUNC(tb303_state::tp3_clear), TP3_PERIOD);
-
-	TIMER(config, "display_decay").configure_periodic(FUNC(hh_ucom4_state::display_decay_tick), attotime::from_msec(1));
 
 	config.set_default_layout(layout_tb303);
 
