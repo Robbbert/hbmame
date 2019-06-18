@@ -404,6 +404,7 @@ kramermc.cpp
 krokha.cpp
 kron.cpp
 krz2000.cpp
+ktm3.cpp
 kyocera.cpp
 laser3k.cpp
 lb186.cpp
@@ -660,8 +661,8 @@ qtsbc.cpp
 qvt70.cpp
 qvt102.cpp
 qvt103.cpp
+qvt190.cpp
 qvt201.cpp
-qvt6800.cpp
 qx10.cpp
 r9751.cpp
 rad_eu3a05.cpp
@@ -806,7 +807,6 @@ ti99_4x.cpp
 ti99_8.cpp
 ti990_10.cpp
 ti990_4.cpp
-ticalc1x.cpp
 tiki100.cpp
 titan_soc.cpp
 tim011.cpp

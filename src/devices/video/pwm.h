@@ -20,7 +20,7 @@ public:
 	pwm_display_device &set_size(u8 numrows, u8 rowbits) { m_height = numrows; m_width = rowbits; return *this; } // max 64 * 64
 	pwm_display_device &set_refresh(attotime duration) { m_framerate_set = duration; return *this; } // time between each outputs refresh
 	pwm_display_device &set_interpolation(double factor) { m_interpolation = factor; return *this; } // frame interpolation (0.0 - 1.0)
-	pwm_display_device &set_segmask(u64 digits, u64 mask) { segmask(digits, mask); return *this; } // mask for multi-state outputs, eg. 7seg led
+	pwm_display_device &set_segmask(u64 digits, u64 mask); // mask for multi-state outputs, eg. 7seg led
 	pwm_display_device &reset_segmask() { std::fill_n(m_segmask, ARRAY_LENGTH(m_segmask), 0); return *this; }
 	pwm_display_device &set_bri_levels(double l0, double l1 = 1.0, double l2 = 1.0, double l3 = 1.0); // brightness threshold per level (0.0 - 1.0)
 	pwm_display_device &set_bri_minimum(u8 i) { m_level_min = i; return *this; } // minimum level index for element to be considered "on"
@@ -33,9 +33,8 @@ public:
 
 	void reset_bri_levels() { std::fill_n(m_levels, ARRAY_LENGTH(m_levels), 1.0); }
 	void set_bri_one(u8 i, double level) { m_levels[i] = level; }
-
-	void segmask(u64 digits, u64 mask);
 	void segmask_one(u8 y, u64 mask) { m_segmask[y] = mask; }
+
 	void matrix_partial(u8 start, u8 height, u64 rowsel, u64 rowdata, bool upd = true);
 	void matrix(u64 rowsel, u64 rowdata, bool upd = true) { matrix_partial(0, m_height, rowsel, rowdata, upd); }
 	void update(); // apply changes to m_rowdata
@@ -49,8 +48,10 @@ public:
 	void write_row(offs_t offset, u64 data) { m_rowdata[offset] = data; m_rowsel |= u64(1) << offset; }
 	void clear_row(offs_t offset, u64 data = 0) { m_rowdata[offset] = 0; m_rowsel &= ~(u64(1) << offset); }
 
-	double element_bri(u8 y, u8 x) { return m_bri[y][x]; }
-	bool element_on(u8 y, u8 x) { return (m_bri[y][x] > m_levels[m_level_min]); }
+	// directly handle element current brightness
+	double read_element_bri(u8 y, u8 x) { return m_bri[y][x]; }
+	void write_element_bri(u8 y, u8 x, double b) { m_bri[y][x] = b; }
+	bool element_on(u8 y, u8 x) { return (read_element_bri(y, x) > m_levels[m_level_min]); }
 	bool row_on(u8 y) { return element_on(y, m_width); }
 
 protected:

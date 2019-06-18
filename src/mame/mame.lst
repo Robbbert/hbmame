@@ -15325,6 +15325,7 @@ bigtrak                         // Milton Bradley
 bship                           // Milton Bradley
 bshipb                          // Milton Bradley
 cmsport                         // Conic
+cmulti8                         // Canon
 cnbaskb                         // Conic
 cnfball                         // Conic
 cnfball2                        // Conic
@@ -15333,6 +15334,7 @@ comp4                           // Milton Bradley
 copycat                         // Tiger Electronics
 copycatm2                       // Tiger Electronics
 cqback                          // Coleco
+dataman                         // Texas Instruments
 ditto                           // Tiger Electronics
 ebaskb2                         // Entex
 ebball                          // Entex
@@ -15359,9 +15361,12 @@ h2hboxing                       // Coleco
 h2hfootb                        // Coleco
 h2hhockey                       // Coleco
 horseran                        // Mattel
+lilprof                         // Texas Instruments
+lilprof78                       // Texas Instruments
 lostreas                        // Parker Bros
 matchnum                        // A-One LSI
 mathmagi                        // APF
+mathmarv                        // Texas Instruments
 mbdtower                        // Milton Bradley
 mdndclab                        // Mattel
 merlin                          // Parker Bros
@@ -15385,8 +15390,19 @@ tbreakup                        // Tomy
 tc4                             // Coleco
 tcfball                         // Tandy Radio Shack
 tcfballa                        // Tandy Radio Shack
+ti1000                          // Texas Instruments
+ti1250                          // Texas Instruments
+ti125076                        // Texas Instruments
+ti1270                          // Texas Instruments
+ti25503                         // Texas Instruments
+ti30                            // Texas Instruments
+tibusan                         // Texas Instruments
 timaze                          // Texas Instruments
+tiprog                          // Texas Instruments
+tisr16                          // Texas Instruments
+tisr16ii                        // Texas Instruments
 tithermos                       // Texas Instruments
+wizatron                        // Texas Instruments
 xl25                            // Vulcan
 zodiac                          // Coleco
 
@@ -18226,6 +18242,9 @@ powyakex                        // 1998 - Jikkyou Powerful Pro Yakyuu EX (GX802 
 salarymc                        // 2000 - Salary Man Champ (G*A18 VER. JAA)
 stepchmp                        // 1999 - Step Champ (GE930 VER. JA)
 sys573                          //
+
+@source:ktm3.cpp
+ktm3                            // (c) 1980 Synertek Systems Corp.
 
 @source:kungfur.cpp
 kungfur                         // (c) 1987
@@ -33376,15 +33395,16 @@ qvt70                           //
 
 @source:qvt102.cpp
 qvt102                          // (c) 1983 Qume Corp.
+qvt102a                         // (c) 1983 Qume Corp.
 
 @source:qvt103.cpp
 qvt103                          // (c) 1983 Qume Corp.
 
+@source:qvt190.cpp
+qvt190                          // Qume Corp.
+
 @source:qvt201.cpp
 qvt201                          // (c) 1986 Qume Corp.
-
-@source:qvt6800.cpp
-qvt190                          //
 
 @source:qx10.cpp
 qx10                            //
@@ -37863,24 +37883,6 @@ sosterm                         // (c) 1988 Terminal
 gorodki                         // (c) 1988 Terminal
 kot                             // (c) 1988 Terminal
 
-@source:ticalc1x.cpp
-cmulti8                         // Canon
-dataman                         //
-lilprof                         //
-lilprof78                       //
-mathmarv                        //
-ti1000                          //
-ti1250                          //
-ti125076                        //
-ti1270                          //
-ti25503                         //
-ti30                            //
-tibusan                         //
-tiprog                          //
-tisr16                          //
-tisr16ii                        //
-wizatron                        //
-
 @source:tickee.cpp
 ghoshunt                        // (c) 1995? Hanaho Games
 maletmad                        // (c) 1999 Hanaho Games, licensed to Capcom
@@ -38247,6 +38249,9 @@ tokib                           // bootleg
 tokiu                           // (c) 1989 Tad + Fabtek license (US)
 tokiua                          // (c) 1989 Tad + Fabtek license (US)
 tokip
+
+@source:toki_ms.cpp
+tokims
 
 @source:tomcat.cpp
 tomcat                          // (proto)          (c) 1985
@@ -40043,6 +40048,7 @@ corv_21                         //
 corv_la1                        //
 corv_lx1                        //
 corv_lx2                        //
+corv_px3                        //
 corv_px4                        //
 dh_lf2                          //
 dh_lx2                          //

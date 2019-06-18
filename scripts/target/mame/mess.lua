@@ -412,6 +412,7 @@ MACHINES["ADC083X"] = true
 MACHINES["ADC1038"] = true
 MACHINES["ADC1213X"] = true
 MACHINES["AICARTC"] = true
+MACHINES["AM25S55X"] = true
 MACHINES["AM2847"] = true
 MACHINES["AM2910"] = true
 MACHINES["AM53CF96"] = true
@@ -604,9 +605,11 @@ MACHINES["SPG2XX"] = true
 MACHINES["STVCD"] = true
 MACHINES["SUN4C_MMU"] = true
 MACHINES["TC0091LVC"] = true
+MACHINES["TDC1008"] = true
 --MACHINES["TE7750"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMC0430"] = true
+MACHINES["TMC208K"] = true
 MACHINES["TMP68301"] = true
 MACHINES["TMS5501"] = true
 MACHINES["TMS6100"] = true
@@ -1208,7 +1211,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"svi",
 		"svision",
 		"swtpc",
-		"synertec",
+		"synertek",
 		"ta",
 		"tandberg",
 		"tangerin",
@@ -1879,7 +1882,6 @@ files {
 	MAME_DIR .. "src/mame/machine/chessbase.cpp",
 	MAME_DIR .. "src/mame/includes/chessbase.h",
 	MAME_DIR .. "src/mame/drivers/ave_arb.cpp",
-	MAME_DIR .. "src/mame/drivers/scisys_cp2000.cpp",
 
 	MAME_DIR .. "src/mame/machine/fidelbase.cpp",
 	MAME_DIR .. "src/mame/includes/fidelbase.h",
@@ -2291,7 +2293,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/mmodular.cpp",
 	MAME_DIR .. "src/mame/drivers/modena.cpp",
 	MAME_DIR .. "src/mame/drivers/polgar.cpp",
-	MAME_DIR .. "src/mame/drivers/risc2500.cpp",
 	MAME_DIR .. "src/mame/machine/mmboard.cpp",
 	MAME_DIR .. "src/mame/machine/mmboard.h",
 }
@@ -2707,9 +2708,6 @@ createMESSProjects(_target, _subtarget, "nec")
 files {
 	MAME_DIR .. "src/mame/drivers/apc.cpp",
 	MAME_DIR .. "src/mame/drivers/hh_ucom4.cpp",
-	MAME_DIR .. "src/mame/includes/hh_ucom4.h",
-	MAME_DIR .. "src/mame/drivers/tb303.cpp", -- subdriver of hh_ucom4
-	MAME_DIR .. "src/mame/drivers/tr606.cpp", -- "
 	MAME_DIR .. "src/mame/drivers/pce.cpp",
 	MAME_DIR .. "src/mame/includes/pce.h",
 	MAME_DIR .. "src/mame/machine/pce.cpp",
@@ -2966,8 +2964,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/qvt70.cpp",
 	MAME_DIR .. "src/mame/drivers/qvt102.cpp",
 	MAME_DIR .. "src/mame/drivers/qvt103.cpp",
+	MAME_DIR .. "src/mame/drivers/qvt190.cpp",
 	MAME_DIR .. "src/mame/drivers/qvt201.cpp",
-	MAME_DIR .. "src/mame/drivers/qvt6800.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "radio")
@@ -3032,6 +3030,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/rmt32.cpp",
 	MAME_DIR .. "src/mame/drivers/rd110.cpp",
 	MAME_DIR .. "src/mame/drivers/rsc55.cpp",
+	MAME_DIR .. "src/mame/drivers/tb303.cpp",
+	MAME_DIR .. "src/mame/drivers/tr606.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "rolm")
@@ -3055,7 +3055,9 @@ files {
 
 createMESSProjects(_target, _subtarget, "saitek")
 files {
+	MAME_DIR .. "src/mame/drivers/risc2500.cpp",
 	MAME_DIR .. "src/mame/drivers/scisys_chesstrv.cpp",
+	MAME_DIR .. "src/mame/drivers/scisys_cp2000.cpp",
 	MAME_DIR .. "src/mame/drivers/stratos.cpp",
 }
 
@@ -3328,8 +3330,9 @@ files {
 	MAME_DIR .. "src/mame/machine/swtpc09.cpp",
 }
 
-createMESSProjects(_target, _subtarget, "synertec")
+createMESSProjects(_target, _subtarget, "synertek")
 files {
+	MAME_DIR .. "src/mame/drivers/ktm3.cpp",
 	MAME_DIR .. "src/mame/drivers/sym1.cpp",
 }
 
@@ -3449,12 +3452,9 @@ files {
 	MAME_DIR .. "src/mame/drivers/evmbug.cpp",
 	MAME_DIR .. "src/mame/drivers/exelv.cpp",
 	MAME_DIR .. "src/mame/drivers/geneve.cpp",
-	MAME_DIR .. "src/mame/machine/screenless.cpp", -- delete soon
-	MAME_DIR .. "src/mame/includes/screenless.h", -- delete soon
 	MAME_DIR .. "src/mame/drivers/hh_tms1k.cpp",
 	MAME_DIR .. "src/mame/includes/hh_tms1k.h",
-	MAME_DIR .. "src/mame/drivers/ticalc1x.cpp", -- subdriver of hh_tms1k
-	MAME_DIR .. "src/mame/drivers/tispeak.cpp",  -- "
+	MAME_DIR .. "src/mame/drivers/tispeak.cpp",  -- subdriver of hh_tms1k
 	MAME_DIR .. "src/mame/drivers/tispellb.cpp", -- "
 	MAME_DIR .. "src/mame/drivers/ti74.cpp",
 	MAME_DIR .. "src/mame/drivers/ti85.cpp",
@@ -3893,6 +3893,10 @@ files {
 	MAME_DIR .. "src/mame/machine/dmv_keyb.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.h",
 	MAME_DIR .. "src/mame/drivers/dpb7000.cpp",
+	MAME_DIR .. "src/mame/video/dpb_combiner.cpp",
+	MAME_DIR .. "src/mame/video/dpb_combiner.h",
+	MAME_DIR .. "src/mame/video/dpb_brushproc.cpp",
+	MAME_DIR .. "src/mame/video/dpb_brushproc.h",
 	MAME_DIR .. "src/mame/drivers/dps1.cpp",
 	MAME_DIR .. "src/mame/drivers/dsb46.cpp",
 	MAME_DIR .. "src/mame/drivers/dual68.cpp",

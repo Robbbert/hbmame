@@ -13,26 +13,34 @@
 #include "cpu/m68000/m68000.h"
 #include "cpu/m6800/m6801.h"
 #include "machine/6850acia.h"
+#include "machine/am25s55x.h"
 #include "machine/am2910.h"
 #include "machine/com8116.h"
 #include "machine/input_merger.h"
+#include "machine/tdc1008.h"
 #include "video/mc6845.h"
+#include "video/dpb_brushproc.h"
+#include "video/dpb_combiner.h"
 #include "emupal.h"
 #include "screen.h"
 #include <deque>
 
-#define LOG_UNKNOWN		(1 << 0)
-#define LOG_UCODE		(1 << 2)
-#define LOG_MORE_UCODE	(1 << 3)
-#define LOG_CSR			(1 << 4)
-#define LOG_CTRLBUS		(1 << 5)
-#define LOG_SYS_CTRL	(1 << 6)
-#define LOG_FDC_CTRL	(1 << 7)
-#define LOG_FDC_PORT	(1 << 8)
-#define LOG_FDC_CMD		(1 << 9)
-#define LOG_ALL			(LOG_UNKNOWN | LOG_UCODE | LOG_MORE_UCODE | LOG_CSR | LOG_CTRLBUS | LOG_SYS_CTRL | LOG_FDC_CTRL | LOG_FDC_PORT | LOG_FDC_CMD)
+#define LOG_UNKNOWN			(1 << 0)
+#define LOG_UCODE			(1 << 1)
+#define LOG_MORE_UCODE		(1 << 2)
+#define LOG_CSR				(1 << 3)
+#define LOG_CTRLBUS			(1 << 4)
+#define LOG_SYS_CTRL		(1 << 5)
+#define LOG_FDC_CTRL		(1 << 6)
+#define LOG_FDC_PORT		(1 << 7)
+#define LOG_FDC_CMD			(1 << 8)
+#define LOG_OUTPUT_TIMING	(1 << 9)
+#define LOG_STORE_ADDR		(1 << 10)
+#define LOG_BRUSH_ADDR		(1 << 11)
+#define LOG_ALL				(LOG_UNKNOWN | LOG_UCODE | LOG_MORE_UCODE | LOG_CSR | LOG_CTRLBUS | LOG_SYS_CTRL | LOG_FDC_CTRL | LOG_FDC_PORT | LOG_FDC_CMD | \
+							 LOG_OUTPUT_TIMING | LOG_STORE_ADDR | LOG_BRUSH_ADDR)
 
-#define VERBOSE			(LOG_ALL &~ LOG_FDC_CTRL)
+#define VERBOSE				(LOG_ALL &~ LOG_FDC_CTRL)
 #include "logmacro.h"
 
 class dpb7000_state : public driver_device
@@ -58,6 +66,12 @@ public:
 		, m_diskseq_prom(*this, "diskseq_prom")
 		, m_fddcpu(*this, "fddcpu")
 		, m_fdd_serial(*this, "fddserial")
+		, m_filter_cd(*this, "filter_cd")
+		, m_filter_ce(*this, "filter_ce")
+		, m_filter_cf(*this, "filter_cf")
+		, m_filter_cg(*this, "filter_cg")
+		, m_brush_proc(*this, "brush_proc%u", 0U)
+		, m_combiner(*this, "combiner")
 	{
 	}
 
@@ -142,6 +156,14 @@ private:
 	uint8_t m_fdd_port1;
 	uint8_t m_fdd_track;
 
+	required_device<tdc1008_device> m_filter_cd;
+	required_device<tdc1008_device> m_filter_ce;
+	required_device<tdc1008_device> m_filter_cf;
+	required_device<tdc1008_device> m_filter_cg;
+
+	required_device_array<dpb7000_brushproc_card_device, 2> m_brush_proc;
+	required_device<dpb7000_combiner_card_device> m_combiner;
+
 	emu_timer *m_diskseq_clk;
 	emu_timer *m_field_in_clk;
 	emu_timer *m_field_out_clk;
@@ -175,8 +197,11 @@ private:
 		DSEQ_CTRLOUT_DISC_CLEAR		= (1 << 7), // S55
 	};
 
+	// Computer Card
 	uint8_t m_csr;
 	uint16_t m_sys_ctrl;
+
+	// Disc Sequencer Card
 	int m_diskseq_cp;
 	bool m_diskseq_reset;
 	bool m_diskseq_halt;
@@ -191,6 +216,30 @@ private:
 	uint8_t m_diskseq_status_out;		// BC
 	uint8_t m_diskseq_ucode_latch[7];	// GG/GF/GE/GD/GC/GB/GA
 	uint8_t m_diskseq_cc_inputs[4];		// Inputs to FE/FD/FC/FB
+
+	// Output Timing Card
+	uint16_t m_cursor_origin_x;
+	uint16_t m_cursor_origin_y;
+	uint16_t m_cursor_size_x;
+	uint16_t m_cursor_size_y;
+
+	// Store Address Card
+	uint16_t m_rhscr[2];
+	uint16_t m_rvscr[2];
+	uint16_t m_rzoom[2];
+	uint16_t m_fld_sel[2];
+	uint16_t m_cxpos[2];
+	uint16_t m_cypos[2];
+
+	// Brush Address Card
+	uint16_t m_brush_addr_func;
+	uint8_t m_bif;
+	uint8_t m_bixos;
+	uint8_t m_biyos;
+	uint8_t m_bxlen;
+	uint8_t m_bylen;
+	uint8_t m_plum;
+	uint8_t m_pchr;
 };
 
 void dpb7000_state::main_map(address_map &map)
@@ -346,8 +395,17 @@ INPUT_PORTS_END
 
 void dpb7000_state::machine_start()
 {
+	// Computer Card
 	save_item(NAME(m_csr));
 	save_item(NAME(m_sys_ctrl));
+
+	m_field_in_clk = timer_alloc(TIMER_FIELD_IN);
+	m_field_in_clk->adjust(attotime::never);
+
+	m_field_out_clk = timer_alloc(TIMER_FIELD_OUT);
+	m_field_out_clk->adjust(attotime::never);
+
+	// Disc Sequencer Card
 	save_item(NAME(m_diskseq_cp));
 	save_item(NAME(m_diskseq_reset));
 	save_item(NAME(m_diskseq_halt));
@@ -372,18 +430,42 @@ void dpb7000_state::machine_start()
 	m_diskseq_clk = timer_alloc(TIMER_DISKSEQ);
 	m_diskseq_clk->adjust(attotime::never);
 
-	m_field_in_clk = timer_alloc(TIMER_FIELD_IN);
-	m_field_in_clk->adjust(attotime::never);
+	// Output Timing Card
+	save_item(NAME(m_cursor_origin_x));
+	save_item(NAME(m_cursor_origin_y));
+	save_item(NAME(m_cursor_size_x));
+	save_item(NAME(m_cursor_size_y));
 
-	m_field_out_clk = timer_alloc(TIMER_FIELD_OUT);
-	m_field_out_clk->adjust(attotime::never);
+	// Store Address Card
+	save_item(NAME(m_rhscr));
+	save_item(NAME(m_rvscr));
+	save_item(NAME(m_rzoom));
+	save_item(NAME(m_fld_sel));
+	save_item(NAME(m_cxpos));
+	save_item(NAME(m_cypos));
+
+	// Brush Address Card
+	save_item(NAME(m_brush_addr_func));
+	save_item(NAME(m_bif));
+	save_item(NAME(m_bixos));
+	save_item(NAME(m_biyos));
+	save_item(NAME(m_bxlen));
+	save_item(NAME(m_bylen));
+	save_item(NAME(m_plum));
+	save_item(NAME(m_pchr));
 }
 
 void dpb7000_state::machine_reset()
 {
+	// Computer Card
 	m_brg->stt_w(m_baud_dip->read());
 	m_csr = 0;
 	m_sys_ctrl = SYSCTRL_REQ_B_IN;
+
+	m_field_in_clk->adjust(attotime::from_hz(59.94), 0, attotime::from_hz(59.94));
+	m_field_out_clk->adjust(attotime::from_hz(59.94) + attotime::from_hz(15734.0 / 1.0), 0, attotime::from_hz(59.94));
+
+	// Disc Sequencer Card
 	m_diskseq_cp = 0;
 	m_diskseq_reset = false;
 	m_diskseq_halt = true;
@@ -400,9 +482,8 @@ void dpb7000_state::machine_reset()
 	memset(m_diskseq_cc_inputs, 0, 4);
 
 	m_diskseq_clk->adjust(attotime::from_hz(1000000), 0, attotime::from_hz(1000000));
-	m_field_in_clk->adjust(attotime::from_hz(59.94), 0, attotime::from_hz(59.94));
-	m_field_out_clk->adjust(attotime::from_hz(59.94) + attotime::from_hz(15734.0 / 1.0), 0, attotime::from_hz(59.94));
 
+	// Floppy Disc Controller
 	m_fdd_debug_rx_bits.clear();
 	m_fdd_debug_rx_bit_count = 0;
 	m_fdd_debug_rx_byte_count = 0;
@@ -410,6 +491,30 @@ void dpb7000_state::machine_reset()
 	m_fdd_ctrl = 0;
 	m_fdd_port1 = 0;
 	m_fdd_track = 20;
+
+	// Output Timing Card
+	m_cursor_origin_x = 0;
+	m_cursor_origin_y = 0;
+	m_cursor_size_x = 0;
+	m_cursor_size_y = 0;
+
+	// Store Address Card
+	memset(m_rhscr, 0, sizeof(uint16_t) * 2);
+	memset(m_rvscr, 0, sizeof(uint16_t) * 2);
+	memset(m_rzoom, 0, sizeof(uint16_t) * 2);
+	memset(m_fld_sel, 0, sizeof(uint16_t) * 2);
+	memset(m_cxpos, 0, sizeof(uint16_t) * 2);
+	memset(m_cypos, 0, sizeof(uint16_t) * 2);
+
+	// Brush Address Card
+	m_brush_addr_func = 0;
+	m_bif = 0;
+	m_bixos = 0;
+	m_biyos = 0;
+	m_bxlen = 0;
+	m_bylen = 0;
+	m_plum = 0;
+	m_pchr = 0;
 }
 
 void dpb7000_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
@@ -668,6 +773,10 @@ READ16_MEMBER(dpb7000_state::cpu_ctrlbus_r)
 	uint16_t ret = 0;
 	switch (m_csr)
 	{
+	case 0:
+		LOGMASKED(LOG_CTRLBUS, "%s: CPU read from Control Bus, Brush Address Card status: %04x\n", machine().describe_context(), m_brush_addr_func);
+		ret = m_brush_addr_func;
+		break;
 	case 1:
 		LOGMASKED(LOG_CTRLBUS, "%s: CPU read from Control Bus, Disk Sequencer Card status: %02x\n", machine().describe_context(), m_diskseq_status_out);
 		ret = m_diskseq_status_out;
@@ -691,6 +800,31 @@ WRITE16_MEMBER(dpb7000_state::cpu_ctrlbus_w)
 {
 	switch (m_csr)
 	{
+	case 0: // Brush Address Card, function select
+	{
+		static const char* const s_func_names[16] =
+		{
+			"Live Video",			"Brush Store Read",		"Brush Store Write",		"Framestore Read",
+			"Framestore Write",		"Fast Wipe Video",		"Fast Wipe Brush Store",	"Fast Wipe Framestore",
+			"Draw",					"Draw with Stencil I",	"Draw with Stencil II",		"Copy to Framestore",
+			"Copy to Brush Store",	"Paste with Stencil I",	"Paste with Stencil II",	"Copy to same Framestore (Invert)"
+		};
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Function Select: %04x\n", machine().describe_context(), data);
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Function:           %s\n", s_func_names[(data >> 1) & 0xf]);
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                /Store I:           %d\n", BIT(data, 5));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                /Store II:          %d\n", BIT(data, 6));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Luma Enable:        %d\n", BIT(data, 7));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Chroma Enable:      %d\n", BIT(data, 8));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Brush Select:       %d\n", BIT(data, 9));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Disc Enable:        %d\n", BIT(data, 10));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                /Brush Invert:      %d\n", BIT(data, 11));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Brush Zero:         %d\n", BIT(data, 12));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Fixed Color Select: %d\n", BIT(data, 13));
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "                Go:                 %d\n", BIT(data, 0));
+		m_brush_addr_func = data & ~1;
+		break;
+	}
+
 	case 1: // Disk Sequencer Card, disc access
 	{
 		const uint8_t hi_nybble = data >> 12;
@@ -712,6 +846,128 @@ WRITE16_MEMBER(dpb7000_state::cpu_ctrlbus_w)
 		}
 		break;
 	}
+
+	case 2: // Store Address Card
+		switch ((data >> 12) & 7)
+		{
+			case 0:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), set RHSCR: %03x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data & 0xfff);
+				m_rhscr[1] = data & 0xfff;
+				if (BIT(data, 15))
+					m_rhscr[0] = data & 0xfff;
+				break;
+			case 1:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), set RVSCR: %03x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data & 0xfff);
+				m_rvscr[1] = data & 0xfff;
+				if (BIT(data, 15))
+					m_rvscr[0] = data & 0xfff;
+				break;
+			case 2:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), set R ZOOM: %03x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data & 0xfff);
+				m_rzoom[1] = data & 0xfff;
+				if (BIT(data, 15))
+					m_rzoom[0] = data & 0xfff;
+				break;
+			case 3:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), set FLDSEL: %03x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data & 0xfff);
+				m_fld_sel[1] = data & 0xfff;
+				if (BIT(data, 15))
+					m_fld_sel[0] = data & 0xfff;
+				break;
+			case 4:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), set CXPOS: %03x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data & 0xfff);
+				m_cxpos[1] = data & 0xfff;
+				if (BIT(data, 15))
+					m_cxpos[0] = data & 0xfff;
+				break;
+			case 5:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), set CYPOS: %03x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data & 0xfff);
+				m_cypos[1] = data & 0xfff;
+				if (BIT(data, 15))
+					m_cypos[0] = data & 0xfff;
+				break;
+			default:
+				LOGMASKED(LOG_CTRLBUS | LOG_STORE_ADDR, "%s: CPU write to Store Address Card (%s), unknown register: %04x\n", machine().describe_context(), BIT(data, 15) ? "II" : "Both", data);
+				break;
+		}
+		break;
+
+	case 8: // Brush Address Card, "Select 8" signal to PAL 16L8, BE
+		LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Select 8\n", machine().describe_context());
+		break;
+
+	case 9: // Brush Address Card, register write/select
+		switch (data >> 12)
+		{
+		case 1:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: BIF = %02x\n", machine().describe_context(), data & 0xff);
+			m_bif = data & 0xff;
+			break;
+		case 2:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: BIXOS = %d\n", machine().describe_context(), data & 0x7);
+			m_bixos = data & 0x7;
+			break;
+		case 3:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: BIYOS = %d\n", machine().describe_context(), data & 0x7);
+			m_biyos = data & 0x7;
+			break;
+		case 4:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: BXLEN = %02x\n", machine().describe_context(), data & 0x3f);
+			m_bxlen = data & 0x3f;
+			break;
+		case 5:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: BYLEN = %02x\n", machine().describe_context(), data & 0x3f);
+			m_bylen = data & 0x3f;
+			break;
+		case 6:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: PLUM = %03x(?)\n", machine().describe_context(), data & 0xff);
+			m_plum = data & 0xff;
+			break;
+		case 7:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: PCHR = %03x(?)\n", machine().describe_context(), data & 0xff);
+			m_pchr = data & 0xff;
+			break;
+		default:
+			LOGMASKED(LOG_CTRLBUS | LOG_BRUSH_ADDR, "%s: Brush Address Card, Register Write: Unknown (%04x)\n", machine().describe_context(), data);
+			break;
+		}
+		break;
+
+	case 10: // Output Timing Card - cursor registers; Combiner Card
+	{
+		const uint8_t hi_bits = (data >> 14) & 3;
+		if (hi_bits == 0) // Cursor Parameters
+		{
+			static const char* const s_reg_names[4] = { "Cursor X Origin", "Cursor Y Origin", "Cursor X Size", "Cursor Y Size" };
+			const uint8_t reg = (data >> 12) & 3;
+			LOGMASKED(LOG_CTRLBUS | LOG_OUTPUT_TIMING, "%s: CPU write to Output Timing Card: %s = %03x\n", machine().describe_context(), s_reg_names[reg], data & 0xfff);
+			switch (reg)
+			{
+			case 0: // Cursor X Origin
+				m_cursor_origin_x = data & 0xfff;
+				break;
+			case 1: // Cursor Y Origin
+				m_cursor_origin_y = data & 0xfff;
+				break;
+			case 2: // Cursor X Size
+				m_cursor_size_x = data & 0xfff;
+				break;
+			case 3: // Cursor Y Size
+				m_cursor_size_y = data & 0xfff;
+				break;
+			}
+		}
+		else if (hi_bits == 3) // Combiner Card, constant registers
+		{
+			m_combiner->reg_w(data);
+		}
+		else
+		{
+			LOGMASKED(LOG_CTRLBUS | LOG_OUTPUT_TIMING | LOG_UNKNOWN, "%s: CPU write to Output Timing Card, unknown select value: %04x\n", machine().describe_context(), data);
+		}
+		break;
+	}
+
 	case 15: // Disk Sequencer Card, panic reset
 		LOGMASKED(LOG_CTRLBUS, "%s: CPU write to Control Bus, Disk Sequencer Card, panic reset\n", machine().describe_context());
 		m_diskseq_reset = true;
@@ -921,6 +1177,19 @@ void dpb7000_state::dpb7000(machine_config &config)
 	m_fdd_serial->rxd_handler().set(FUNC(dpb7000_state::fddcpu_debug_rx));
 
 	config.m_perfect_cpu_quantum = subtag("fddcpu");
+
+	// Filter Card
+	TDC1008(config, m_filter_cd);
+	TDC1008(config, m_filter_ce);
+	TDC1008(config, m_filter_cf);
+	TDC1008(config, m_filter_cg);
+
+	// Brush Processor Cards
+	DPB7000_BRUSHPROC(config, m_brush_proc[0]);
+	DPB7000_BRUSHPROC(config, m_brush_proc[1]);
+
+	// Combiner Card
+	DPB7000_COMBINER(config, m_combiner, 14.318181_MHz_XTAL);
 }
 
 
@@ -960,6 +1229,9 @@ ROM_START( dpb7000 )
 
 	ROM_REGION(0x800, "fddprom", 0)
 	ROM_LOAD("17446a-gd-m2716.bin", 0x000, 0x800, CRC(a0be00ca) SHA1(48c4f8c07b9f6bc9b68698e1e326782e0b01e1b0))
+
+	ROM_REGION(0x100, "brushstore_prom", 0)
+	ROM_LOAD("pb-02a-17421-ada.bin", 0x000, 0x100, CRC(84bf7029) SHA1(9d58322994f6f7e99a9c6478577559c8171670ed))
 
 	ROM_REGION(0xc00, "storeaddr_x_prom", 0)
 	ROM_LOAD("pb-032-17425b-bbb.bin", 0x000, 0x400, CRC(2051a6e4) SHA1(3bd8a9015e77b034a94fe072a9753649b76f9f69))

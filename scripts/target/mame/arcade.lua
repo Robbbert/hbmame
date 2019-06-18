@@ -408,6 +408,7 @@ MACHINES["ADC083X"] = true
 MACHINES["ADC1038"] = true
 MACHINES["ADC1213X"] = true
 MACHINES["AICARTC"] = true
+--MACHINES["AM25S55X"] = true
 --MACHINES["AM2847"] = true
 --MACHINES["AM2910"] = true
 MACHINES["AM53CF96"] = true
@@ -594,9 +595,11 @@ MACHINES["SMPC"] = true
 MACHINES["STVCD"] = true
 --MACHINES["SUN4C_MMU"] = true
 MACHINES["TC0091LVC"] = true
+--MACHINES["TDC1008"] = true
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
+--MACHINES["TMC208K"] = true
 MACHINES["TMP68301"] = true
 --MACHINES["TMS5501"] = true
 MACHINES["TMS6100"] = true
@@ -3577,6 +3580,7 @@ files {
 	MAME_DIR .. "src/mame/machine/stfight.cpp",
 	MAME_DIR .. "src/mame/drivers/toki.cpp",
 	MAME_DIR .. "src/mame/includes/toki.h",
+	MAME_DIR .. "src/mame/drivers/toki_ms.cpp",
 	MAME_DIR .. "src/mame/video/toki.cpp",
 	MAME_DIR .. "src/mame/drivers/wiz.cpp",
 	MAME_DIR .. "src/mame/includes/wiz.h",
