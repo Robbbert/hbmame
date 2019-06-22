@@ -2315,6 +2315,7 @@ westvent                        // (c) 2007? Astro Corp.
 winbingo                        // (c) 2005? Astro Corp.
 winbingoa                       // (c) 2005? Astro Corp.
 zoo                             // (c) 2005? Astro Corp.
+magibomb
 
 @source:astrocde.cpp
 demndrgn                        // (c) 1982 Bally Midway
@@ -13430,7 +13431,8 @@ maniacsq                        // (c) 1996 - Ref 940411
 maniacsqa                       // (c) 1996 - Ref 940411
 maniacsqu                       // (c) 1996 - Ref 940411 - (unprotected)
 maniacsqs                       // (c) 1996 - Ref 960419/1
-saltcrdi                        // (c) 1997 - Ref 970410
+sltpcycl                        // (c) 1997 - Ref 970410
+sltpstep
 snowboar                        // (c) 1996 - Ref 960419/1
 snowboara                       // (c) 1996 - Ref 960419/1
 touchgo                         // (c) 1995 - Ref 950906
@@ -18104,6 +18106,7 @@ tsukande
 
 @source:konmedal68k.cpp
 kzaurus
+koropens
 
 @source:quickpick5.cpp
 quickp5
@@ -32998,7 +33001,6 @@ prestige                        // PreComputer Prestige Elite
 snotec                          // Bandai Super Note Club (Japan)
 snotecex                        // Bandai Super Note Club EX (Japan)
 snotecu                         // Bandai Super Note Club U (Japan)
-princ                           // Tomy Prin-C (Japan)
 
 @source:primo.cpp
 primoa32                        // Primo A-32
@@ -33603,10 +33605,10 @@ redalert                        // M27 (c) 1981 + "GDI presents"
 ww3                             // M27 (c) 1981
 
 @source:redclash.cpp
-redclash                        // (c) 1981 Tehkan
-redclasha                       // (c) 1981 Tehkan
-redclashk                       // (c) Kaneko (bootleg?)
-redclashs                       // (c) Suntronics (licensed?)
+redclash                        // (c) Kaneko
+redclasht                       // (c) 1981 Tehkan
+redclashta                      // (c) 1981 Tehkan
+redclashs                       // (c) Suntronics
 zerohour                        // 8011 (c) Universal
 zerohoura                       // 8011 (c) Universal
 zerohouri                       //
@@ -36643,6 +36645,7 @@ bishjan                         // (c) 1999 Subsino
 expcard                         // (c) 1998 American Alpha
 humlan                          // (c) 2001 Subsino & Truemax
 mtrain                          // (c) 1996 Subsino
+strain
 tbonusal                        // (c) 1996 American Alpha
 new2001                         // (c) 2000 Subsino
 ptrain                          // (c) 1999 Subsino
@@ -36657,6 +36660,8 @@ xplan                           // (c) 2006 Subsino
 xtrain                          // (c) 1999 Subsino
 qbeebing
 treamary
+treacity
+treacity202
 
 @source:summit.cpp
 pushover                        // (c)1981 Summit Coin
@@ -38265,6 +38270,9 @@ tokims
 
 @source:tomcat.cpp
 tomcat                          // (proto)          (c) 1985
+
+@source:tomy_princ.cpp
+princ                           // Tomy Prin-C (Japan)
 
 @source:tonton.cpp
 tonton                          // (c) 199? Success / Taiyo Jidoki.
