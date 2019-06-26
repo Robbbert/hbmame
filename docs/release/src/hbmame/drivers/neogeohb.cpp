@@ -174,8 +174,8 @@ NUM YEAR COMPANY                 TITLE
 440 2013 Cristiano Bei           Neo Geo Galaga demo
 441 2013 Cristiano Bei           Neo Geo Sound Test
 442 2017 Cristiano Bei           Bad Apple demo
-443
-444 2012 M.Priewe                Santaball
+443 2012 M.Priewe                Santaball
+444 2018 kl3mousse               Sea Fighter
 445*2014 M.Priewe                Doom in the Deep (in development or cancelled)
 446 2014 M.Priewe                Monitor Test Tool
 447*2016 M.Priewe                Hypernoid (in development or cancelled)
@@ -1577,23 +1577,42 @@ ROM_START( neobadapple )
 ROM_END
 
 
-// 444 : Santaball by M.Priewe.
+// 443 : Santaball by M.Priewe.
 // Press 1 to play a game of Pong.
 // If the game misbehaves, read the FAQ.
 ROM_START( santabll )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "444.p1", 0x000000, 0x100000, CRC(2af7a77c) SHA1(ff79d4695e8060f5a7b981524303336a0ad99c0c) )
+	ROM_LOAD16_WORD_SWAP( "443.p1", 0x000000, 0x100000, CRC(2af7a77c) SHA1(ff79d4695e8060f5a7b981524303336a0ad99c0c) )
 
-	NEO_SFIX_128K( "444.s1", CRC(ac031928) SHA1(7516593efc70e6effed8f5423e9736d6555b3baf) )
+	NEO_SFIX_128K( "443.s1", CRC(ac031928) SHA1(7516593efc70e6effed8f5423e9736d6555b3baf) )
 
-	NEO_BIOS_AUDIO_64K( "444.m1", CRC(37a8d679) SHA1(957de2aa1775502a51b4e2d5cb6268cee00f6c2a) )
+	NEO_BIOS_AUDIO_64K( "443.m1", CRC(37a8d679) SHA1(957de2aa1775502a51b4e2d5cb6268cee00f6c2a) )
 
 	ROM_REGION( 0x200000, "ymsnd", 0 )
-	ROM_LOAD( "444.v1", 0x000000, 0x100000, CRC(d0150804) SHA1(b3d4cdb6d0f426de3801eb04d56f867bec8fe611) )
+	ROM_LOAD( "443.v1", 0x000000, 0x100000, CRC(d0150804) SHA1(b3d4cdb6d0f426de3801eb04d56f867bec8fe611) )
 
 	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "444.c1", 0x000000, 0x100000, CRC(1e271a9b) SHA1(5cae43aa094d5ee34983bc70aeab06652a6b0e7f) )
-	ROM_LOAD16_BYTE( "444.c2", 0x000001, 0x100000, CRC(1c7fd396) SHA1(aa2e2fff1ad1804631f3058b9666b970a368a847) )
+	ROM_LOAD16_BYTE( "443.c1", 0x000000, 0x100000, CRC(1e271a9b) SHA1(5cae43aa094d5ee34983bc70aeab06652a6b0e7f) )
+	ROM_LOAD16_BYTE( "443.c2", 0x000001, 0x100000, CRC(1c7fd396) SHA1(aa2e2fff1ad1804631f3058b9666b970a368a847) )
+ROM_END
+
+
+// 444 : Sea Fighter by kl3mousse.
+// Neogeo logo is corrupt
+ROM_START( seafight )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "444.p1", 0x000000, 0x100000, CRC(598d14ef) SHA1(da6dda92ec8cf3a5f46fae2dd4578f945f7a8ec7) )
+
+	NEO_SFIX_128K( "444.s1", CRC(c46cf6b1) SHA1(6785e9dad6dbe339f7d8ab0d3852fb6df036c737) )
+
+	NEO_BIOS_AUDIO_64K( "444.m1", CRC(16adbe82) SHA1(88c8fbe61735c41adffb0598e6311547a739f4d5) )
+
+	ROM_REGION( 0x200000, "ymsnd", 0 )
+	ROM_LOAD( "444.v1", 0x000000, 0x100000, CRC(becc781e) SHA1(a5a3ed13de539ce55c4f35bb052ee35ffe29fb5d) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "444.c1", 0x000000, 0x100000, CRC(383a9dde) SHA1(6d54c6389f9f992c1654643a537c01fda9b83259) )
+	ROM_LOAD16_BYTE( "444.c2", 0x000001, 0x100000, CRC(1f43c1f4) SHA1(aa0cd4eebb02225b939f57cee4347c0a43654d31) )
 ROM_END
 
 
@@ -2367,6 +2386,7 @@ HACK( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2012, santabll,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "Santaball", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, seafight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "kl3mousse", "Sea Fighter 0.01.009", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, shaman16,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.16", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, shaman17,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.17", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, shaman18,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.18", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )

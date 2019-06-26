@@ -480,6 +480,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/74381.h,MACHINES["TTL74381"] = true
+---------------------------------------------------
+
+if (MACHINES["TTL74381"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/74381.cpp",
+		MAME_DIR .. "src/devices/machine/74381.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/7474.h,MACHINES["TTL7474"] = true
 ---------------------------------------------------
 
@@ -600,6 +612,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/am25s55x.h,MACHINES["AM25S55X"] = true
+---------------------------------------------------
+
+if (MACHINES["AM25S55X"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/am25s55x.cpp",
+		MAME_DIR .. "src/devices/machine/am25s55x.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/am2847.h,MACHINES["AM2847"] = true
 ---------------------------------------------------
 
@@ -607,6 +631,18 @@ if (MACHINES["AM2847"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/am2847.cpp",
 		MAME_DIR .. "src/devices/machine/am2847.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/am2910.h,MACHINES["AM2910"] = true
+---------------------------------------------------
+
+if (MACHINES["AM2910"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/am2910.cpp",
+		MAME_DIR .. "src/devices/machine/am2910.h",
 	}
 end
 
@@ -813,6 +849,19 @@ if (MACHINES["CDP1879"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/cdp1879.cpp",
 		MAME_DIR .. "src/devices/machine/cdp1879.h",
+	}
+end
+
+
+---------------------------------------------------
+--
+--@src/devices/machine/chessmachine.h,MACHINES["CHESSMACHINE"] = true
+---------------------------------------------------
+
+if (MACHINES["CHESSMACHINE"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/chessmachine.cpp",
+		MAME_DIR .. "src/devices/machine/chessmachine.h",
 	}
 end
 
@@ -1951,6 +2000,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/mm5307.h,MACHINES["MM5307"] = true
+---------------------------------------------------
+
+if (MACHINES["MM5307"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/mm5307.cpp",
+		MAME_DIR .. "src/devices/machine/mm5307.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/mm58274c.h,MACHINES["MM58274C"] = true
 ---------------------------------------------------
 
@@ -2736,6 +2797,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/tdc1008.h,MACHINES["TDC1008"] = true
+---------------------------------------------------
+
+if (MACHINES["TDC1008"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/tdc1008.cpp",
+		MAME_DIR .. "src/devices/machine/tdc1008.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/te7750.h,MACHINES["TE7750"] = true
 ---------------------------------------------------
 
@@ -2779,6 +2852,18 @@ if (MACHINES["TMC0430"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/tmc0430.cpp",
 		MAME_DIR .. "src/devices/machine/tmc0430.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/tmc208k.h,MACHINES["TMC208K"] = true
+---------------------------------------------------
+
+if (MACHINES["TMC208K"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/tmc208k.cpp",
+		MAME_DIR .. "src/devices/machine/tmc208k.h",
 	}
 end
 
@@ -2924,6 +3009,18 @@ if (MACHINES["UPD7002"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/upd7002.cpp",
 		MAME_DIR .. "src/devices/machine/upd7002.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/upd7004.h,MACHINES["UPD7004"] = true
+---------------------------------------------------
+
+if (MACHINES["UPD7004"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/upd7004.cpp",
+		MAME_DIR .. "src/devices/machine/upd7004.h",
 	}
 end
 

@@ -233,6 +233,7 @@ cps1testm		/* HB Cal2 */
 cps1testma		/* HB Cal2 */
 cps1tests		/* HB Cal2 */
 cps1testsa		/* HB Cal2 */
+//cps1xx
 daimakb
 dino08h2
 dino08h3
@@ -579,6 +580,7 @@ captcomms56
 captcomms57
 captcomms58
 captcomms59
+captcomms60
 dinos01
 dinos02
 dinos03
@@ -753,6 +755,8 @@ dinos188
 dinos189
 dinos190
 dinos191
+dinos192
+dinos193
 ffights01
 ffights02
 ffightj2s01
@@ -788,6 +792,7 @@ punishers03
 punishers04
 punishers05
 punishers06
+punishers07
 punisherjs01
 punisherjs02
 punisherjs03
@@ -802,6 +807,9 @@ punisherjs11
 punisherjs12
 punisherjs13
 punisherjs14
+punisherjs15
+punisherjs16
+punisherjs17
 punisherbzs01
 sf2ces01
 sf2ces02
@@ -932,6 +940,7 @@ mshvsf
 mvsc
 nwarr
 progear
+pzloop2
 ringdest
 sfa
 sfa2
@@ -965,6 +974,7 @@ mvscjphp
 mvscrcp // reboots shortly after start
 mvscuh // reboots shortly after start
 pfghtjrm
+pzloop2jd
 suicide		/* Razoola */
 suicide2	/* Razoola */
 sfa2h
@@ -1241,6 +1251,8 @@ dktrainer
 dkpace
 kong2600				/* Vic Twenty George hack of Donkey Kong */
 nadkong
+dkcbarrel
+dkfreerun
 //dk_remix
 
 @source:docastle.cpp
@@ -3718,6 +3730,7 @@ mslugps09
 mslugps10
 mslugps11
 mslugps12
+mslugps13
 mslugps14
 mslugps15
 mslugps16
@@ -5687,6 +5700,7 @@ raroggame
 rci			/* Robocop intro */
 samantha
 santabll
+seafight
 shaman16
 shaman17
 shaman18
@@ -6060,6 +6074,7 @@ kf2k5unis09
 kf2k5unis10
 kf2k5unis11
 kf2k5unis12
+kf2k5unis13
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
@@ -7527,6 +7542,7 @@ kovsho103
 kovsho104
 kovsho105
 kovsho106
+kovsho107
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8083,6 +8099,7 @@ gseeker					//parent
 gseekerjs01
 kaiserkn				//parent
 kaiserkns01
+kaiserkns02
 landmakrs01
 lightbr					//parent
 lightbrjs01
@@ -8272,3 +8289,5 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
+

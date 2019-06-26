@@ -9,6 +9,8 @@
 New Games
 ---------------------------------
 - [captcomms60]       Captain Commando (Enhanced Edition 2019-05-30)
+- [dkcbarrel]         Donkey Kong Crazy Barrels [by PaulGoes]
+- [dkfreerun]         Donkey Kong Freerun Edition [by PaulGoes]
 - [dinos192]          Cadillacs and Dinosaurs (God of War Update 2019-05-30)
 - [dinos193]          Cadillacs and Dinosaurs (Group Demon Dance Version 2019-05-30)
 - [kf2k5unis13]       Kof 10th Anniversary 2005 Unique (Edition Optimized)

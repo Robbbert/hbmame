@@ -134,6 +134,8 @@ CPUS["HMCS40"] = true
 CPUS["ST62XX"] = true
 CPUS["DSPP"] = true
 CPUS["HPC"] = true
+--CPUS["RII"] = true
+--CPUS["BCP"] = true
 
 --------------------------------------------------
 -- specify available sound cores
@@ -336,6 +338,7 @@ VIDEOS["RAMDAC"] = true
 VIDEOS["SAA5050"] = true
 --VIDEOS["SDA5708"] = true
 VIDEOS["SCN2674"] = true
+--VIDEOS["PWM_DISPLAY"] = true
 --VIDEOS["SED1200"] = true
 --VIDEOS["SED1330"] = true
 --VIDEOS["SED1520"] = true
@@ -397,6 +400,7 @@ MACHINES["TTL74166"] = true
 --MACHINES["TTL74175"] = true
 MACHINES["TTL74181"] = true
 MACHINES["TTL74259"] = true
+--MACHINES["TTL74381"] = true
 MACHINES["TTL7474"] = true
 MACHINES["KBDC8042"] = true
 MACHINES["I8257"] = true
@@ -407,7 +411,9 @@ MACHINES["ADC083X"] = true
 MACHINES["ADC1038"] = true
 MACHINES["ADC1213X"] = true
 MACHINES["AICARTC"] = true
+--MACHINES["AM25S55X"] = true
 --MACHINES["AM2847"] = true
+--MACHINES["AM2910"] = true
 MACHINES["AM53CF96"] = true
 MACHINES["AM79C90"] = true
 --MACHINES["AM9513"] = true
@@ -424,6 +430,7 @@ MACHINES["BANKDEV"] = true
 --MACHINES["BIM68153"] = true
 MACHINES["CDP1852"] = true
 MACHINES["CDP1871"] = true
+MACHINES["CHESSMACHINE"] = true
 MACHINES["CMOS40105"] = true
 MACHINES["CDU76S"] = true
 MACHINES["COM8116"] = true
@@ -518,6 +525,7 @@ MACHINES["MCF5206E"] = true
 MACHINES["METERS"] = true
 MACHINES["MICROTOUCH"] = true
 --MACHINES["MIOT6530"] = true
+--MACHINES["MM5307"] = true
 --MACHINES["MM58167"] = true
 MACHINES["MM58274C"] = true
 MACHINES["MM74C922"] = true
@@ -590,9 +598,11 @@ MACHINES["SMPC"] = true
 MACHINES["STVCD"] = true
 --MACHINES["SUN4C_MMU"] = true
 MACHINES["TC0091LVC"] = true
+--MACHINES["TDC1008"] = true
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
+--MACHINES["TMC208K"] = true
 MACHINES["TMP68301"] = true
 --MACHINES["TMS5501"] = true
 MACHINES["TMS6100"] = true
@@ -609,6 +619,7 @@ MACHINES["UPD1990A"] = true
 MACHINES["UPD4992"] = true
 MACHINES["UPD4701"] = true
 MACHINES["UPD7002"] = true
+MACHINES["UPD7004"] = true
 MACHINES["UPD71071"] = true
 MACHINES["UPD765"] = true
 MACHINES["FDC_PLL"] = true
@@ -1911,6 +1922,7 @@ files {
 	MAME_DIR .. "src/mame/machine/gaelco3d.cpp",
 	MAME_DIR .. "src/mame/machine/gaelco3d.h",
 	MAME_DIR .. "src/mame/drivers/gaelcopc.cpp",
+	MAME_DIR .. "src/mame/drivers/goldart.cpp",
 	MAME_DIR .. "src/mame/drivers/glass.cpp",
 	MAME_DIR .. "src/mame/includes/glass.h",
 	MAME_DIR .. "src/mame/video/glass.cpp",
@@ -1940,6 +1952,7 @@ files {
 	MAME_DIR .. "src/mame/video/xorworld.cpp",
 	MAME_DIR .. "src/mame/machine/gaelco_ds5002fp.cpp",
 	MAME_DIR .. "src/mame/machine/gaelco_ds5002fp.h",
+	MAME_DIR .. "src/mame/drivers/bigkarnk_ms.cpp",
 }
 
 createMAMEProjects(_target, _subtarget, "gameplan")
@@ -2222,6 +2235,7 @@ files {
 	MAME_DIR .. "src/mame/video/djboy.cpp",
 	MAME_DIR .. "src/mame/drivers/expro02.cpp",
 	MAME_DIR .. "src/mame/drivers/galpanic.cpp",
+	MAME_DIR .. "src/mame/drivers/galpanic_ms.cpp",
 	MAME_DIR .. "src/mame/includes/galpnipt.h",
 	MAME_DIR .. "src/mame/includes/galpanic.h",
 	MAME_DIR .. "src/mame/video/galpanic.cpp",
@@ -3569,6 +3583,7 @@ files {
 	MAME_DIR .. "src/mame/machine/stfight.cpp",
 	MAME_DIR .. "src/mame/drivers/toki.cpp",
 	MAME_DIR .. "src/mame/includes/toki.h",
+	MAME_DIR .. "src/mame/drivers/toki_ms.cpp",
 	MAME_DIR .. "src/mame/video/toki.cpp",
 	MAME_DIR .. "src/mame/drivers/wiz.cpp",
 	MAME_DIR .. "src/mame/includes/wiz.h",

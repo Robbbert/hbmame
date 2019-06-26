@@ -142,6 +142,8 @@ CPUS["NS32000"] = true
 CPUS["HPC"] = true
 CPUS["MEG"] = true
 CPUS["DSPV"] = true
+CPUS["RII"] = true
+CPUS["BCP"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -298,6 +300,7 @@ VIDEOS["SEGA315_5313"] = true
 --VIDEOS["BUFSPRITE"] = true
 VIDEOS["BT45X"] = true
 VIDEOS["BT459"] = true
+VIDEOS["BT47X"] = true
 VIDEOS["CATSEYE"] = true
 VIDEOS["CDP1861"] = true
 VIDEOS["CDP1862"] = true
@@ -354,6 +357,7 @@ VIDEOS["PSX"] = true
 VIDEOS["RAMDAC"] = true
 VIDEOS["S2636"] = true
 VIDEOS["SAA5050"] = true
+VIDEOS["PWM_DISPLAY"] = true
 VIDEOS["SDA5708"] = true
 VIDEOS["SED1200"] = true
 VIDEOS["SED1330"] = true
@@ -411,7 +415,9 @@ MACHINES["ADC083X"] = true
 MACHINES["ADC1038"] = true
 MACHINES["ADC1213X"] = true
 MACHINES["AICARTC"] = true
+MACHINES["AM25S55X"] = true
 MACHINES["AM2847"] = true
+MACHINES["AM2910"] = true
 MACHINES["AM53CF96"] = true
 MACHINES["AM79C90"] = true
 MACHINES["AM9513"] = true
@@ -429,8 +435,9 @@ MACHINES["BIM68153"] = true
 MACHINES["CDP1852"] = true
 MACHINES["CDP1871"] = true
 MACHINES["CDP1879"] = true
-MACHINES["CMOS40105"] = true
 --MACHINES["CDU76S"] = true
+MACHINES["CHESSMACHINE"] = true
+MACHINES["CMOS40105"] = true
 MACHINES["COM8116"] = true
 MACHINES["CR589"] = true
 MACHINES["CS4031"] = true
@@ -522,6 +529,7 @@ MACHINES["MCCS1850"] = true
 MACHINES["MCF5206E"] = true
 MACHINES["MICROTOUCH"] = true
 MACHINES["MIOT6530"] = true
+MACHINES["MM5307"] = true
 MACHINES["MM58167"] = true
 MACHINES["MM58274C"] = true
 MACHINES["MM74C922"] = true
@@ -600,9 +608,11 @@ MACHINES["SPG2XX"] = true
 MACHINES["STVCD"] = true
 MACHINES["SUN4C_MMU"] = true
 MACHINES["TC0091LVC"] = true
+MACHINES["TDC1008"] = true
 --MACHINES["TE7750"] = true
 MACHINES["TIMEKPR"] = true
 MACHINES["TMC0430"] = true
+MACHINES["TMC208K"] = true
 MACHINES["TMP68301"] = true
 MACHINES["TMS5501"] = true
 MACHINES["TMS6100"] = true
@@ -622,12 +632,14 @@ MACHINES["TTL74164"] = true
 MACHINES["TTL74175"] = true
 MACHINES["TTL74181"] = true
 MACHINES["TTL74259"] = true
+MACHINES["TTL74381"] = true
 MACHINES["TTL7474"] = true
 MACHINES["TUBE"] = true
 MACHINES["UPD1990A"] = true
 --MACHINES["UPD4992"] = true
 MACHINES["UPD4701"] = true
 MACHINES["UPD7002"] = true
+--MACHINES["UPD7004"] = true
 MACHINES["UPD71071"] = true
 MACHINES["UPD765"] = true
 MACHINES["FDC_PLL"] = true
@@ -704,6 +716,7 @@ MACHINES["XC1700E"] = true
 
 BUSES["A1BUS"] = true
 BUSES["A2BUS"] = true
+BUSES["A2GAMEIO"] = true
 BUSES["A7800"] = true
 BUSES["A800"] = true
 BUSES["ABCBUS"] = true
@@ -757,7 +770,7 @@ BUSES["GAMEBOY"] = true
 BUSES["GAMEGEAR"] = true
 BUSES["GBA"] = true
 BUSES["GENERIC"] = true
-BUSES["GIO"] = true
+BUSES["GIO64"] = true
 BUSES["HEXBUS"] = true
 BUSES["HPHIL"] = true
 BUSES["HPDIO"] = true
@@ -1017,6 +1030,7 @@ FORMATS["ZX81_P"] = true
 function linkProjects_mame_mess(_target, _subtarget)
 	links {
 		"access",
+		"aci",
 		"acorn",
 		"act",
 		"adc",
@@ -1043,6 +1057,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"be",
 		"bitcorp",
 		"bnpo",
+		"brea",
 		"bondwell",
 		"booth",
 		"camputers",
@@ -1054,6 +1069,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"cce",
 		"ccs",
 		"chess",
+		"chessking",
 		"chromatics",
 		"chrysler",
 		"coleco",
@@ -1062,6 +1078,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"comx",
 		"concept",
 		"conitec",
+		"cxg",
 		"cybiko",
 		"dai",
 		"ddr",
@@ -1140,6 +1157,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"mupid",
 		"nakajima",
 		"nascom",
+		"natsemi",
 		"ncd",
 		"ne",
 		"nec",
@@ -1149,7 +1167,6 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"nokia",
 		"northstar",
 		"novag",
-		"ns",
 		"olivetti",
 		"olympia",
 		"omnibyte",
@@ -1177,6 +1194,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"roland",
 		"rolm",
 		"sage",
+		"saitek",
 		"samcoupe",
 		"samsung",
 		"sanyo",
@@ -1197,7 +1215,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"svi",
 		"svision",
 		"swtpc",
-		"synertec",
+		"synertek",
 		"ta",
 		"tandberg",
 		"tangerin",
@@ -1209,7 +1227,6 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"televideo",
 		"tem",
 		"tesla",
-		"test",
 		"thomson",
 		"ti",
 		"tiger",
@@ -1440,6 +1457,13 @@ files {
 createMESSProjects(_target, _subtarget, "access")
 files {
 	MAME_DIR .. "src/mame/drivers/acvirus.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "aci")
+files {
+	MAME_DIR .. "src/mame/drivers/aci_boris.cpp",
+	MAME_DIR .. "src/mame/drivers/aci_borisdpl.cpp",
+	MAME_DIR .. "src/mame/drivers/aci_ggm.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "acorn")
@@ -1735,6 +1759,11 @@ files {
 	MAME_DIR .. "src/mame/video/b2m.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "brea")
+files {
+	MAME_DIR .. "src/mame/drivers/intellect02.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "bondwell")
 files {
 	MAME_DIR .. "src/mame/drivers/bw12.cpp",
@@ -1857,9 +1886,6 @@ files {
 	MAME_DIR .. "src/mame/machine/chessbase.cpp",
 	MAME_DIR .. "src/mame/includes/chessbase.h",
 	MAME_DIR .. "src/mame/drivers/ave_arb.cpp",
-	MAME_DIR .. "src/mame/drivers/cking_master.cpp",
-	MAME_DIR .. "src/mame/drivers/cxg_ch2001.cpp",
-	MAME_DIR .. "src/mame/drivers/scisys_cp2000.cpp",
 
 	MAME_DIR .. "src/mame/machine/fidelbase.cpp",
 	MAME_DIR .. "src/mame/includes/fidelbase.h",
@@ -1891,6 +1917,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/novag_presto.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_scon.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_sexpert.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "chessking")
+files {
+	MAME_DIR .. "src/mame/drivers/cking_master.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "chromatics")
@@ -1948,6 +1979,11 @@ files {
 	MAME_DIR .. "src/mame/includes/prof80.h",
 	MAME_DIR .. "src/mame/machine/prof80mmu.cpp",
 	MAME_DIR .. "src/mame/machine/prof80mmu.h",
+}
+
+createMESSProjects(_target, _subtarget, "cxg")
+files {
+	MAME_DIR .. "src/mame/drivers/cxg_ch2001.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "cybiko")
@@ -2261,8 +2297,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/mmodular.cpp",
 	MAME_DIR .. "src/mame/drivers/modena.cpp",
 	MAME_DIR .. "src/mame/drivers/polgar.cpp",
-	MAME_DIR .. "src/mame/drivers/risc2500.cpp",
-	MAME_DIR .. "src/mame/drivers/stratos.cpp",
 	MAME_DIR .. "src/mame/machine/mmboard.cpp",
 	MAME_DIR .. "src/mame/machine/mmboard.h",
 }
@@ -2289,8 +2323,10 @@ files {
 	MAME_DIR .. "src/mame/drivers/sitcom.cpp",
 	MAME_DIR .. "src/mame/drivers/slc1.cpp",
 	MAME_DIR .. "src/mame/drivers/slc1a.cpp",
+	MAME_DIR .. "src/mame/drivers/test_t400.cpp",
 	MAME_DIR .. "src/mame/drivers/uzebox.cpp",
 	MAME_DIR .. "src/mame/drivers/z80dev.cpp",
+	MAME_DIR .. "src/mame/drivers/zexall.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "homelab")
@@ -2527,6 +2563,7 @@ files {
 createMESSProjects(_target, _subtarget, "mb")
 files {
 	MAME_DIR .. "src/mame/drivers/microvsn.cpp",
+	MAME_DIR .. "src/mame/drivers/milton6805.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "mchester")
@@ -2652,11 +2689,17 @@ files {
 	MAME_DIR .. "src/mame/drivers/nascom1.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "natsemi")
+files {
+	MAME_DIR .. "src/mame/drivers/hh_cop400.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "ncd")
 files {
-	MAME_DIR .. "src/mame/drivers/ncd17c.cpp",
+	MAME_DIR .. "src/mame/drivers/ncd68k.cpp",
 	MAME_DIR .. "src/mame/drivers/ncdmips.cpp",
 	MAME_DIR .. "src/mame/drivers/ncdppc.cpp",
+	MAME_DIR .. "src/mame/machine/bert.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "ne")
@@ -2669,6 +2712,7 @@ files {
 createMESSProjects(_target, _subtarget, "nec")
 files {
 	MAME_DIR .. "src/mame/drivers/apc.cpp",
+	MAME_DIR .. "src/mame/drivers/hh_ucom4.cpp",
 	MAME_DIR .. "src/mame/drivers/pce.cpp",
 	MAME_DIR .. "src/mame/includes/pce.h",
 	MAME_DIR .. "src/mame/machine/pce.cpp",
@@ -2696,8 +2740,6 @@ files {
 	MAME_DIR .. "src/mame/machine/pc9801_cd.cpp",
 	MAME_DIR .. "src/mame/machine/pc9801_cd.h",
 	MAME_DIR .. "src/mame/drivers/tk80bs.cpp",
-	MAME_DIR .. "src/mame/drivers/hh_ucom4.cpp",
-	MAME_DIR .. "src/mame/includes/hh_ucom4.h",
 }
 
 createMESSProjects(_target, _subtarget, "netronic")
@@ -2795,11 +2837,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/olyboss.cpp",
 	MAME_DIR .. "src/mame/drivers/olytext.cpp",
 	MAME_DIR .. "src/mame/drivers/peoplepc.cpp",
-}
-
-createMESSProjects(_target, _subtarget, "ns")
-files {
-	MAME_DIR .. "src/mame/drivers/hh_cop400.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "omnibyte")
@@ -2932,8 +2969,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/qvt70.cpp",
 	MAME_DIR .. "src/mame/drivers/qvt102.cpp",
 	MAME_DIR .. "src/mame/drivers/qvt103.cpp",
+	MAME_DIR .. "src/mame/drivers/qvt190.cpp",
 	MAME_DIR .. "src/mame/drivers/qvt201.cpp",
-	MAME_DIR .. "src/mame/drivers/qvt6800.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "radio")
@@ -3015,15 +3052,18 @@ files {
 	MAME_DIR .. "src/mame/drivers/aim65_40.cpp",
 }
 
-createMESSProjects(_target, _subtarget, "saturn")
-files {
-	MAME_DIR .. "src/mame/drivers/st17xx.cpp",
-}
-
 createMESSProjects(_target, _subtarget, "sage")
 files {
 	MAME_DIR .. "src/mame/drivers/sage2.cpp",
 	MAME_DIR .. "src/mame/includes/sage2.h",
+}
+
+createMESSProjects(_target, _subtarget, "saitek")
+files {
+	MAME_DIR .. "src/mame/drivers/risc2500.cpp",
+	MAME_DIR .. "src/mame/drivers/scisys_chesstrv.cpp",
+	MAME_DIR .. "src/mame/drivers/scisys_cp2000.cpp",
+	MAME_DIR .. "src/mame/drivers/stratos.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "samcoupe")
@@ -3052,11 +3092,15 @@ files {
 	MAME_DIR .. "src/mame/machine/mbc55x_kbd.h",
 }
 
+createMESSProjects(_target, _subtarget, "saturn")
+files {
+	MAME_DIR .. "src/mame/drivers/st17xx.cpp",
+}
+
 -- Don't call this project "sega" or it collides with the arcade one
 -- and merges with it, which ends up with libsega.a linked after
 -- libshared.a.  The link then fails on linux because SEGAM1AUDIO and RAX
 -- are in shared while model* and stv are in sega.
-
 createMESSProjects(_target, _subtarget, "segacons")
 files {
 	MAME_DIR .. "src/mame/drivers/dccons.cpp",
@@ -3125,6 +3169,7 @@ createMESSProjects(_target, _subtarget, "sharp")
 files {
 	MAME_DIR .. "src/mame/drivers/hh_sm510.cpp",
 	MAME_DIR .. "src/mame/includes/hh_sm510.h",
+	MAME_DIR .. "src/mame/drivers/rzone.cpp", -- subdriver of hh_sm510
 	MAME_DIR .. "src/mame/video/mz700.cpp",
 	MAME_DIR .. "src/mame/drivers/mz700.cpp",
 	MAME_DIR .. "src/mame/includes/mz700.h",
@@ -3211,6 +3256,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "siemens")
 files {
+	MAME_DIR .. "src/mame/drivers/bitel.cpp",
 	MAME_DIR .. "src/mame/drivers/pcd.cpp",
 	MAME_DIR .. "src/mame/machine/pcd_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/pcd_kbd.h",
@@ -3289,8 +3335,9 @@ files {
 	MAME_DIR .. "src/mame/machine/swtpc09.cpp",
 }
 
-createMESSProjects(_target, _subtarget, "synertec")
+createMESSProjects(_target, _subtarget, "synertek")
 files {
+	MAME_DIR .. "src/mame/drivers/ktm3.cpp",
 	MAME_DIR .. "src/mame/drivers/sym1.cpp",
 }
 
@@ -3391,12 +3438,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/sapi1.cpp",
 }
 
-createMESSProjects(_target, _subtarget, "test")
-files {
-	MAME_DIR .. "src/mame/drivers/test_t400.cpp",
-	MAME_DIR .. "src/mame/drivers/zexall.cpp",
-}
-
 createMESSProjects(_target, _subtarget, "thomson")
 files {
 	MAME_DIR .. "src/mame/drivers/thomson.cpp",
@@ -3416,9 +3457,10 @@ files {
 	MAME_DIR .. "src/mame/drivers/evmbug.cpp",
 	MAME_DIR .. "src/mame/drivers/exelv.cpp",
 	MAME_DIR .. "src/mame/drivers/geneve.cpp",
-	MAME_DIR .. "src/mame/drivers/ticalc1x.cpp",
-	MAME_DIR .. "src/mame/drivers/tispeak.cpp",
-	MAME_DIR .. "src/mame/drivers/tispellb.cpp",
+	MAME_DIR .. "src/mame/drivers/hh_tms1k.cpp",
+	MAME_DIR .. "src/mame/includes/hh_tms1k.h",
+	MAME_DIR .. "src/mame/drivers/tispeak.cpp",  -- subdriver of hh_tms1k
+	MAME_DIR .. "src/mame/drivers/tispellb.cpp", -- "
 	MAME_DIR .. "src/mame/drivers/ti74.cpp",
 	MAME_DIR .. "src/mame/drivers/ti85.cpp",
 	MAME_DIR .. "src/mame/includes/ti85.h",
@@ -3440,8 +3482,6 @@ files {
 	MAME_DIR .. "src/mame/video/911_vdt.h",
 	MAME_DIR .. "src/mame/video/911_chr.h",
 	MAME_DIR .. "src/mame/video/911_key.h",
-	MAME_DIR .. "src/mame/drivers/hh_tms1k.cpp",
-	MAME_DIR .. "src/mame/includes/hh_tms1k.h",
 }
 
 createMESSProjects(_target, _subtarget, "tiger")
@@ -3451,7 +3491,6 @@ files {
 	MAME_DIR .. "src/mame/machine/gamecom.cpp",
 	MAME_DIR .. "src/mame/video/gamecom.cpp",
 	MAME_DIR .. "src/mame/drivers/k28.cpp",
-	MAME_DIR .. "src/mame/drivers/rzone.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "tigertel")
@@ -3470,6 +3509,7 @@ files {
 createMESSProjects(_target, _subtarget, "tomy")
 files {
 	MAME_DIR .. "src/mame/drivers/tutor.cpp",
+	MAME_DIR .. "src/mame/drivers/tomy_princ.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "toshiba")
@@ -3541,12 +3581,12 @@ files {
 
 createMESSProjects(_target, _subtarget, "tvgames")
 files {
-	MAME_DIR .. "src/mame/drivers/rad_eu3a14.cpp",
-	MAME_DIR .. "src/mame/drivers/rad_eu3a05.cpp",
-	MAME_DIR .. "src/mame/audio/rad_eu3a05.cpp",
-	MAME_DIR .. "src/mame/audio/rad_eu3a05.h",
-	MAME_DIR .. "src/mame/machine/rad_eu3a05gpio.cpp",
-	MAME_DIR .. "src/mame/machine/rad_eu3a05gpio.h",
+	MAME_DIR .. "src/mame/drivers/elan_eu3a14.cpp",
+	MAME_DIR .. "src/mame/drivers/elan_eu3a05.cpp",
+	MAME_DIR .. "src/mame/audio/elan_eu3a05.cpp",
+	MAME_DIR .. "src/mame/audio/elan_eu3a05.h",
+	MAME_DIR .. "src/mame/machine/elan_eu3a05gpio.cpp",
+	MAME_DIR .. "src/mame/machine/elan_eu3a05gpio.h",
 	MAME_DIR .. "src/mame/drivers/trkfldch.cpp",
 	MAME_DIR .. "src/mame/drivers/tvgame.cpp",
 	MAME_DIR .. "src/mame/drivers/spg110.cpp",
@@ -3793,9 +3833,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/aaa.cpp",
 	MAME_DIR .. "src/mame/drivers/acd.cpp",
 	MAME_DIR .. "src/mame/drivers/aceex.cpp",
-	MAME_DIR .. "src/mame/drivers/aci_boris.cpp",
-	MAME_DIR .. "src/mame/drivers/aci_borisdpl.cpp",
-	MAME_DIR .. "src/mame/drivers/aci_ggm.cpp",
 	MAME_DIR .. "src/mame/drivers/adm23.cpp",
 	MAME_DIR .. "src/mame/drivers/adm31.cpp",
 	MAME_DIR .. "src/mame/drivers/adm36.cpp",
@@ -3831,7 +3868,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/candela.cpp",
 	MAME_DIR .. "src/mame/drivers/cardinal.cpp",
 	MAME_DIR .. "src/mame/drivers/chaos.cpp",
-	MAME_DIR .. "src/mame/drivers/scisys_chesstrv.cpp",
 	MAME_DIR .. "src/mame/drivers/cd2650.cpp",
 	MAME_DIR .. "src/mame/drivers/cdc721.cpp",
 	MAME_DIR .. "src/mame/drivers/cit101.cpp",
@@ -3862,6 +3898,13 @@ files {
 	MAME_DIR .. "src/mame/drivers/dmv.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.cpp",
 	MAME_DIR .. "src/mame/machine/dmv_keyb.h",
+	MAME_DIR .. "src/mame/drivers/dpb7000.cpp",
+	MAME_DIR .. "src/mame/video/dpb_combiner.cpp",
+	MAME_DIR .. "src/mame/video/dpb_combiner.h",
+	MAME_DIR .. "src/mame/video/dpb_brushproc.cpp",
+	MAME_DIR .. "src/mame/video/dpb_brushproc.h",
+	MAME_DIR .. "src/mame/video/dpb_storeaddr.cpp",
+	MAME_DIR .. "src/mame/video/dpb_storeaddr.h",
 	MAME_DIR .. "src/mame/drivers/dps1.cpp",
 	MAME_DIR .. "src/mame/drivers/dsb46.cpp",
 	MAME_DIR .. "src/mame/drivers/dual68.cpp",
@@ -3906,12 +3949,12 @@ files {
 	MAME_DIR .. "src/mame/drivers/ikt5a.cpp",
 	MAME_DIR .. "src/mame/drivers/imsai.cpp",
 	MAME_DIR .. "src/mame/drivers/indiana.cpp",
-	MAME_DIR .. "src/mame/drivers/intellect02.cpp",
 	MAME_DIR .. "src/mame/drivers/is48x.cpp",
 	MAME_DIR .. "src/mame/drivers/itt1700.cpp",
 	MAME_DIR .. "src/mame/machine/itt1700_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/itt1700_kbd.h",
 	MAME_DIR .. "src/mame/drivers/itt3030.cpp",
+	MAME_DIR .. "src/mame/drivers/itt9216.cpp",
 	MAME_DIR .. "src/mame/drivers/jade.cpp",
 	MAME_DIR .. "src/mame/drivers/jonos.cpp",
 	MAME_DIR .. "src/mame/drivers/krokha.cpp",
@@ -3935,7 +3978,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/microterm.cpp",
 	MAME_DIR .. "src/mame/drivers/microterm_f8.cpp",
 	MAME_DIR .. "src/mame/drivers/mightyframe.cpp",
-	MAME_DIR .. "src/mame/drivers/milton6805.cpp",
 	MAME_DIR .. "src/mame/drivers/milwaukee.cpp",
 	MAME_DIR .. "src/mame/drivers/mini2440.cpp",
 	MAME_DIR .. "src/mame/drivers/miniframe.cpp",
@@ -4001,11 +4043,15 @@ files {
 	MAME_DIR .. "src/mame/drivers/sys2900.cpp",
 	MAME_DIR .. "src/mame/drivers/sys9002.cpp",
 	MAME_DIR .. "src/mame/drivers/systec.cpp",
+	MAME_DIR .. "src/mame/drivers/systel1.cpp",
 	MAME_DIR .. "src/mame/drivers/talkingbb.cpp",
 	MAME_DIR .. "src/mame/drivers/talkingfb.cpp",
+	MAME_DIR .. "src/mame/drivers/tasc.cpp",
 	MAME_DIR .. "src/mame/drivers/tavernie.cpp",
 	MAME_DIR .. "src/mame/drivers/tecnbras.cpp",
+	MAME_DIR .. "src/mame/drivers/telex1192.cpp",
 	MAME_DIR .. "src/mame/drivers/telex274.cpp",
+	MAME_DIR .. "src/mame/drivers/telex277d.cpp",
 	MAME_DIR .. "src/mame/drivers/terak.cpp",
 	MAME_DIR .. "src/mame/drivers/terco.cpp",
 	MAME_DIR .. "src/mame/drivers/terminal.cpp",
@@ -4038,6 +4084,7 @@ files {
 	MAME_DIR .. "src/mame/machine/nl_tp1985.cpp",
 	MAME_DIR .. "src/mame/drivers/palestra.cpp",
 	MAME_DIR .. "src/mame/machine/nl_palestra.cpp",
+	MAME_DIR .. "src/mame/drivers/mindset.cpp",
 }
 
 end

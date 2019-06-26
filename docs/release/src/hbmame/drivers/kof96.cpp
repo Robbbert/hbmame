@@ -1560,7 +1560,7 @@ HACK( 1996, kof96cr,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,  
 HACK( 1996, kof96de,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Dragon Edition set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, kof96dr1,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Dragon Edition set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, kof96eh,   kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Pow hack ABC set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_state, kof96ep,  ROT0, "bootleg", "Kof'96 (Bootleg / Hack Rev.1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, kof96ep,   kof96,    neogeo_noslot, neogeo, neogeo_state,  kof96ep,  ROT0, "bootleg", "Kof'96 (Bootleg / Hack Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, kof96ep2,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Bootleg / Hack Rev.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, kof96ep3,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Unknown", "Kof'96 (Bootleg / Hack Rev.3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof96evo,  kof96,    neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "Wesker, FGCH", "Kof'96 (Evolution)", MACHINE_SUPPORTS_SAVE ) // Moves and style rev
@@ -2657,8 +2657,8 @@ ROM_START( kof96s46 )
 	ROM_LOAD16_BYTE( "214h44.c2", 0x0000001, 0x800000, CRC(6ff22256) SHA1(cc92838f83d01ff1bef5d354231c223043705170) )
 	ROM_LOAD16_BYTE( "214h44.c3", 0x1000000, 0x800000, CRC(48d81318) SHA1(2c2f4149c613da45d8b2a8545ccef4ed3cfc0d74) )
 	ROM_LOAD16_BYTE( "214h45.c4", 0x1000001, 0x800000, CRC(d69836e6) SHA1(30cdda1a72dfe536bced936c54145217fc6ae17f) )
-	ROM_LOAD16_BYTE( "214h45.c5", 0x2000000, 0x800000, CRC(8bb710f2) SHA1(e0e673b712ce9baeee5980938bd7316ed2642379) )
-	ROM_LOAD16_BYTE( "214h45.c6", 0x2000001, 0x800000, CRC(fc99d445) SHA1(ac7aaad07f5d310ab9c913d915a5d884731f4e3e) )
+	ROM_LOAD16_BYTE( "214h45.c5", 0x2000000, 0x800000, CRC(ed71e6bb) SHA1(6e8021912029b6d1a68f3f942648b95d3724bcd4) )
+	ROM_LOAD16_BYTE( "214h45.c6", 0x2000001, 0x800000, CRC(059fa364) SHA1(0e701f66fbf14089943c03c2a2e0401ebc10a0f2) )
 ROM_END
 
 ROM_START( kof96cns01 )
@@ -2732,5 +2732,5 @@ HACK( 1996, kof96s42,       kof96,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1996, kof96s43,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'96 (Remix Special v5)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, kof96s44,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Master Stiller",    "Kof'96 (Remix Special v6)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof96s45,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'96 (The Aniversary Edition 2018 2018-09-02)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kof96s46,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Kof'96 (The Aniversary Edition 2019 2019-02-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kof96s46,       kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "EGHT/EGCG",    "Kof'96 (The Aniversary Edition 2.0 Final Version 2019-05-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, kof96cns01,     kof96,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Guangzhou Game Team", "Kof'96 (Earlier version)(Chinese Edition ver 1.0)", MACHINE_SUPPORTS_SAVE )

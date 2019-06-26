@@ -969,15 +969,15 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/bus/gio/gio.h,BUSES["GIO"] = true
+--@src/devices/bus/gio64/gio64.h,BUSES["GIO64"] = true
 ---------------------------------------------------
 
-if (BUSES["GIO"]~=null) then
+if (BUSES["GIO64"]~=null) then
 	files {
-		MAME_DIR .. "src/devices/bus/gio/gio.cpp",
-		MAME_DIR .. "src/devices/bus/gio/gio.h",
-		MAME_DIR .. "src/devices/bus/gio/newport.cpp",
-		MAME_DIR .. "src/devices/bus/gio/newport.h",
+		MAME_DIR .. "src/devices/bus/gio64/gio64.cpp",
+		MAME_DIR .. "src/devices/bus/gio64/gio64.h",
+		MAME_DIR .. "src/devices/bus/gio64/newport.cpp",
+		MAME_DIR .. "src/devices/bus/gio64/newport.h",
 	}
 end
 
@@ -1231,6 +1231,10 @@ if (BUSES["ISA"]~=null) then
 		MAME_DIR .. "src/devices/bus/isa/wdxt_gen.h",
 		MAME_DIR .. "src/devices/bus/isa/adlib.cpp",
 		MAME_DIR .. "src/devices/bus/isa/adlib.h",
+		MAME_DIR .. "src/devices/bus/isa/chessmdr.cpp",
+		MAME_DIR .. "src/devices/bus/isa/chessmdr.h",
+		MAME_DIR .. "src/devices/bus/isa/chessmsr.cpp",
+		MAME_DIR .. "src/devices/bus/isa/chessmsr.h",
 		MAME_DIR .. "src/devices/bus/isa/com.cpp",
 		MAME_DIR .. "src/devices/bus/isa/com.h",
 		MAME_DIR .. "src/devices/bus/isa/fdc.cpp",
@@ -1571,6 +1575,8 @@ if (BUSES["PC_KBD"]~=null) then
 		MAME_DIR .. "src/devices/bus/pc_kbd/pcxt83.h",
 		MAME_DIR .. "src/devices/bus/pc_kbd/pcat101.cpp",
 		MAME_DIR .. "src/devices/bus/pc_kbd/pcat101.h",
+		MAME_DIR .. "src/devices/bus/pc_kbd/hle_mouse.cpp",
+		MAME_DIR .. "src/devices/bus/pc_kbd/hle_mouse.h",
 	}
 end
 
@@ -2120,6 +2126,20 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/bus/a2gameio/gameio.h,BUSES["A2GAMEIO"] = true
+---------------------------------------------------
+
+if (BUSES["A2GAMEIO"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/a2gameio/gameio.cpp",
+		MAME_DIR .. "src/devices/bus/a2gameio/gameio.h",
+		MAME_DIR .. "src/devices/bus/a2gameio/joystick.cpp",
+		MAME_DIR .. "src/devices/bus/a2gameio/joystick.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/bus/nubus/nubus.h,BUSES["NUBUS"] = true
 ---------------------------------------------------
 
@@ -2175,6 +2195,8 @@ if (BUSES["CENTRONICS"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/centronics/ctronics.cpp",
 		MAME_DIR .. "src/devices/bus/centronics/ctronics.h",
+		MAME_DIR .. "src/devices/bus/centronics/chessmec.cpp",
+		MAME_DIR .. "src/devices/bus/centronics/chessmec.h",
 		MAME_DIR .. "src/devices/bus/centronics/comxpl80.cpp",
 		MAME_DIR .. "src/devices/bus/centronics/comxpl80.h",
 		MAME_DIR .. "src/devices/bus/centronics/covox.cpp",
@@ -3686,6 +3708,8 @@ if (BUSES["HP9845_IO"]~=null) then
 		MAME_DIR .. "src/devices/bus/hp9845_io/98034.h",
 		MAME_DIR .. "src/devices/bus/hp9845_io/98035.cpp",
 		MAME_DIR .. "src/devices/bus/hp9845_io/98035.h",
+		MAME_DIR .. "src/devices/bus/hp9845_io/98046.cpp",
+		MAME_DIR .. "src/devices/bus/hp9845_io/98046.h",
 		MAME_DIR .. "src/devices/bus/hp9845_io/hp9885.cpp",
 		MAME_DIR .. "src/devices/bus/hp9845_io/hp9885.h",
 	}
