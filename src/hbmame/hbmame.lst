@@ -1251,6 +1251,8 @@ dktrainer
 dkpace
 kong2600				/* Vic Twenty George hack of Donkey Kong */
 nadkong
+dkcbarrel
+dkfreerun
 //dk_remix
 
 @source:docastle.cpp
