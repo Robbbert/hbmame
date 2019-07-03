@@ -289,6 +289,7 @@ gb.cpp
 gba.cpp
 geneve.cpp
 geniusiq.cpp
+geniusjr.cpp
 genpc.cpp
 gimix.cpp
 gizmondo.cpp
@@ -544,6 +545,7 @@ novag_diablo.cpp
 novag_mk1.cpp
 novag_mk2.cpp
 novag_presto.cpp
+novag_savant.cpp
 novag_scon.cpp
 novag_sexpert.cpp
 o2.cpp

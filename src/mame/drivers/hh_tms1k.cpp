@@ -470,8 +470,6 @@ static INPUT_PORTS_START( matchnum )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_NAME("Square 1")
 INPUT_PORTS_END
 
-static const s16 matchnum_speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
-
 void matchnum_state::matchnum(machine_config &config)
 {
 	/* basic machine hardware */
@@ -488,7 +486,8 @@ void matchnum_state::matchnum(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, matchnum_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -582,8 +581,6 @@ static INPUT_PORTS_START( arrball )
 	PORT_CONFSETTING(    0x08, "Fast" )
 INPUT_PORTS_END
 
-static const s16 arrball_speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
-
 void arrball_state::arrball(machine_config &config)
 {
 	/* basic machine hardware */
@@ -601,7 +598,8 @@ void arrball_state::arrball(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, arrball_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -2140,7 +2138,7 @@ public:
 		m_pinout(0)
 	{ }
 
-	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cartridge);
+	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
 	u16 m_pinout; // cartridge R pins
 
 	void update_display();
@@ -2163,7 +2161,7 @@ void quizwizc_state::machine_start()
 
 // handlers
 
-DEVICE_IMAGE_LOAD_MEMBER(quizwizc_state, cartridge)
+DEVICE_IMAGE_LOAD_MEMBER(quizwizc_state::cart_load)
 {
 	if (!image.loaded_through_softlist())
 	{
@@ -2275,7 +2273,7 @@ void quizwizc_state::quizwizc(machine_config &config)
 	/* cartridge */
 	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "quizwiz_cart"));
 	cartslot.set_must_be_loaded(true);
-	cartslot.set_device_load(device_image_load_delegate(&quizwizc_state::device_image_load_cartridge, this));
+	cartslot.set_device_load(FUNC(quizwizc_state::cart_load), this);
 	SOFTWARE_LIST(config, "cart_list").set_original("quizwiz");
 }
 
@@ -2328,7 +2326,7 @@ public:
 		m_pinout(0)
 	{ }
 
-	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cartridge);
+	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
 	u8 m_pinout; // cartridge K pins
 
 	void update_display();
@@ -2351,7 +2349,7 @@ void tc4_state::machine_start()
 
 // handlers
 
-DEVICE_IMAGE_LOAD_MEMBER(tc4_state, cartridge)
+DEVICE_IMAGE_LOAD_MEMBER(tc4_state::cart_load)
 {
 	if (!image.loaded_through_softlist())
 	{
@@ -2463,7 +2461,7 @@ void tc4_state::tc4(machine_config &config)
 	/* cartridge */
 	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "tc4_cart"));
 	cartslot.set_must_be_loaded(true); // system won't power on without cartridge
-	cartslot.set_device_load(device_image_load_delegate(&tc4_state::device_image_load_cartridge, this));
+	cartslot.set_device_load(FUNC(tc4_state::cart_load), this);
 
 	SOFTWARE_LIST(config, "cart_list").set_original("tc4");
 }
@@ -2833,8 +2831,6 @@ static INPUT_PORTS_START( cnfball )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY PORT_NAME("P1 Left/Right")
 INPUT_PORTS_END
 
-static const s16 cnfball_speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
-
 void cnfball_state::cnfball(machine_config &config)
 {
 	/* basic machine hardware */
@@ -2853,7 +2849,8 @@ void cnfball_state::cnfball(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, cnfball_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -5629,8 +5626,6 @@ static INPUT_PORTS_START( elecdet )
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_tms1k_state, power_button, false)
 INPUT_PORTS_END
 
-static const s16 elecdet_speaker_levels[4] = { 0, 0x3fff, 0x3fff, 0x7fff };
-
 void elecdet_state::elecdet(machine_config &config)
 {
 	/* basic machine hardware */
@@ -5648,7 +5643,8 @@ void elecdet_state::elecdet(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, elecdet_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x3fff, 0x3fff, 0x7fff };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -7344,8 +7340,6 @@ static INPUT_PORTS_START( bigtrak )
 	PORT_BIT( 0x0b, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
-static const s16 bigtrak_speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
-
 void bigtrak_state::bigtrak(machine_config &config)
 {
 	/* basic machine hardware */
@@ -7363,7 +7357,8 @@ void bigtrak_state::bigtrak(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(8, bigtrak_speaker_levels);
+	static const s16 speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
+	m_speaker->set_levels(8, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -7712,8 +7707,6 @@ static INPUT_PORTS_START( arcmania )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
-static const s16 arcmania_speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
-
 void arcmania_state::arcmania(machine_config &config)
 {
 	/* basic machine hardware */
@@ -7729,7 +7722,8 @@ void arcmania_state::arcmania(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(8, arcmania_speaker_levels);
+	static const s16 speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
+	m_speaker->set_levels(8, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -7975,8 +7969,6 @@ static INPUT_PORTS_START( merlin )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_N) PORT_CODE(KEYCODE_ENTER) PORT_CODE(KEYCODE_ENTER_PAD) PORT_NAME("New Game")
 INPUT_PORTS_END
 
-static const s16 merlin_speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
-
 void merlin_state::merlin(machine_config &config)
 {
 	/* basic machine hardware */
@@ -7992,7 +7984,8 @@ void merlin_state::merlin(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(8, merlin_speaker_levels);
+	static const s16 speaker_levels[8] = { 0, 0x7fff/3, 0x7fff/3, 0x7fff/3*2, 0x7fff/3, 0x7fff/3*2, 0x7fff/3*2, 0x7fff };
+	m_speaker->set_levels(8, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -8175,8 +8168,6 @@ static INPUT_PORTS_START( stopthief )
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_POWER_OFF ) PORT_CHANGED_MEMBER(DEVICE_SELF, hh_tms1k_state, power_button, false)
 INPUT_PORTS_END
 
-static const s16 stopthief_speaker_levels[7] = { 0, 0x7fff/6, 0x7fff/5, 0x7fff/4, 0x7fff/3, 0x7fff/2, 0x7fff };
-
 void stopthief_state::stopthief(machine_config &config)
 {
 	/* basic machine hardware */
@@ -8194,7 +8185,8 @@ void stopthief_state::stopthief(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(7, stopthief_speaker_levels);
+	static const s16 speaker_levels[7] = { 0x7fff/7, 0x7fff/6, 0x7fff/5, 0x7fff/4, 0x7fff/3, 0x7fff/2, 0x7fff/1 };
+	m_speaker->set_levels(7, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -8582,12 +8574,6 @@ static INPUT_PORTS_START( lostreas )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_U) PORT_NAME("Up")
 INPUT_PORTS_END
 
-static const s16 lostreas_speaker_levels[16] =
-{
-	0, 0x7fff/15, 0x7fff/14, 0x7fff/13, 0x7fff/12, 0x7fff/11, 0x7fff/10, 0x7fff/9,
-	0x7fff/8, 0x7fff/7, 0x7fff/6, 0x7fff/5, 0x7fff/4, 0x7fff/3, 0x7fff/2, 0x7fff/1
-};
-
 void lostreas_state::lostreas(machine_config &config)
 {
 	/* basic machine hardware */
@@ -8603,8 +8589,13 @@ void lostreas_state::lostreas(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(16, lostreas_speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
+
+	// set volume levels
+	static s16 speaker_levels[0x10];
+	for (int i = 0; i < 0x10; i++)
+		speaker_levels[i] = 0x7fff / (0x10 - i);
+	m_speaker->set_levels(16, speaker_levels);
 }
 
 // roms
@@ -11290,8 +11281,6 @@ static INPUT_PORTS_START( copycat )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
-static const s16 copycat_speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
-
 void copycat_state::copycat(machine_config &config)
 {
 	/* basic machine hardware */
@@ -11307,7 +11296,8 @@ void copycat_state::copycat(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, copycat_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -11396,7 +11386,8 @@ void copycatm2_state::copycatm2(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, copycat_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -11480,7 +11471,8 @@ void ditto_state::ditto(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->set_levels(4, copycat_speaker_levels);
+	static const s16 speaker_levels[4] = { 0, 0x7fff, -0x8000, 0 };
+	m_speaker->set_levels(4, speaker_levels);
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 

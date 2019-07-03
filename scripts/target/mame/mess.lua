@@ -144,6 +144,7 @@ CPUS["MEG"] = true
 CPUS["DSPV"] = true
 CPUS["RII"] = true
 CPUS["BCP"] = true
+CPUS["F2MC16"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -599,6 +600,7 @@ MACHINES["SCC2698B"] = true
 MACHINES["SCUDSP"] = true
 MACHINES["SECFLASH"] = true
 MACHINES["SEIBU_COP"] = true
+MACHINES["SENSORBOARD"] = true
 --MACHINES["SERFLASH"] = true
 MACHINES["SMC91C9X"] = true
 MACHINES["SMIOC"] = true
@@ -709,6 +711,7 @@ MACHINES["AIC6250"] = true
 MACHINES["DC7085"] = true
 MACHINES["I82357"] = true
 MACHINES["XC1700E"] = true
+MACHINES["EDLC"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -1051,6 +1054,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"at",
 		"atari",
 		"att",
+		"ave",
 		"bally",
 		"bandai",
 		"banctec",
@@ -1068,7 +1072,6 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"cccp",
 		"cce",
 		"ccs",
-		"chess",
 		"chessking",
 		"chromatics",
 		"chrysler",
@@ -1101,6 +1104,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"exidy",
 		"fairch",
 		"fairlight",
+		"fidelity",
 		"force",
 		"fujitsu",
 		"funtech",
@@ -1219,6 +1223,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"ta",
 		"tandberg",
 		"tangerin",
+		"tasc",
 		"tatung",
 		"teamconc",
 		"tektroni",
@@ -1713,6 +1718,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/unixpc.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "ave")
+files {
+	MAME_DIR .. "src/mame/drivers/ave_arb.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "bally")
 files {
 	MAME_DIR .. "src/mame/drivers/astrohome.cpp",
@@ -1879,44 +1889,6 @@ createMESSProjects(_target, _subtarget, "ccs")
 files {
 	MAME_DIR .. "src/mame/drivers/ccs2810.cpp",
 	MAME_DIR .. "src/mame/drivers/ccs300.cpp",
-}
-
-createMESSProjects(_target, _subtarget, "chess")
-files {
-	MAME_DIR .. "src/mame/machine/chessbase.cpp",
-	MAME_DIR .. "src/mame/includes/chessbase.h",
-	MAME_DIR .. "src/mame/drivers/ave_arb.cpp",
-
-	MAME_DIR .. "src/mame/machine/fidelbase.cpp",
-	MAME_DIR .. "src/mame/includes/fidelbase.h",
-	MAME_DIR .. "src/mame/drivers/fidel_as12.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_card.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_cc1.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_cc10.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_cc7.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_chesster.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_csc.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_dames.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_desdis.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_eag68k.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_elite.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_excel.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_phantom.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_sc12.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_sc6.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_sc8.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_sc9.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_vcc.cpp",
-	MAME_DIR .. "src/mame/drivers/fidel_vsc.cpp",
-
-	MAME_DIR .. "src/mame/machine/novagbase.cpp",
-	MAME_DIR .. "src/mame/includes/novagbase.h",
-	MAME_DIR .. "src/mame/drivers/novag_cforte.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_delta1.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_diablo.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_presto.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_scon.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_sexpert.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "chessking")
@@ -2213,6 +2185,33 @@ files {
 	MAME_DIR .. "src/mame/machine/cmi_ankbd.h",
 	MAME_DIR .. "src/mame/machine/cmi_mkbd.cpp",
 	MAME_DIR .. "src/mame/machine/cmi_mkbd.h",
+}
+
+createMESSProjects(_target, _subtarget, "fidelity")
+files {
+	MAME_DIR .. "src/mame/machine/chessbase.cpp",
+	MAME_DIR .. "src/mame/includes/chessbase.h",
+	MAME_DIR .. "src/mame/machine/fidelbase.cpp",
+	MAME_DIR .. "src/mame/includes/fidelbase.h",
+	MAME_DIR .. "src/mame/drivers/fidel_as12.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_card.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_cc1.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_cc10.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_cc7.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_chesster.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_csc.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_dames.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_desdis.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_eag68k.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_elite.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_excel.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_phantom.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_sc12.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_sc6.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_sc8.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_sc9.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_vcc.cpp",
+	MAME_DIR .. "src/mame/drivers/fidel_vsc.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "force")
@@ -2811,8 +2810,15 @@ files {
 
 createMESSProjects(_target, _subtarget, "novag")
 files {
+	MAME_DIR .. "src/mame/drivers/novag_cforte.cpp",
+	MAME_DIR .. "src/mame/drivers/novag_delta1.cpp",
+	MAME_DIR .. "src/mame/drivers/novag_diablo.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_mk1.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_mk2.cpp",
+	MAME_DIR .. "src/mame/drivers/novag_presto.cpp",
+	MAME_DIR .. "src/mame/drivers/novag_savant.cpp",
+	MAME_DIR .. "src/mame/drivers/novag_scon.cpp",
+	MAME_DIR .. "src/mame/drivers/novag_sexpert.cpp",
 	MAME_DIR .. "src/mame/drivers/ssystem3.cpp",
 	MAME_DIR .. "src/mame/includes/ssystem3.h",
 	MAME_DIR .. "src/mame/video/ssystem3.cpp",
@@ -3362,6 +3368,13 @@ files {
 	MAME_DIR .. "src/mame/drivers/oric.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "tasc")
+files {
+	MAME_DIR .. "src/mame/drivers/tasc.cpp",
+	MAME_DIR .. "src/mame/machine/smartboard.cpp",
+	MAME_DIR .. "src/mame/machine/smartboard.h",
+}
+
 createMESSProjects(_target, _subtarget, "tatung")
 files {
 	MAME_DIR .. "src/mame/drivers/einstein.cpp",
@@ -3714,6 +3727,7 @@ files {
 	MAME_DIR .. "src/mame/includes/crvision.h",
 	MAME_DIR .. "src/mame/drivers/gamemachine.cpp",
 	MAME_DIR .. "src/mame/drivers/geniusiq.cpp",
+	MAME_DIR .. "src/mame/drivers/geniusjr.cpp",
 	MAME_DIR .. "src/mame/drivers/vtech_unk1.cpp",
 	MAME_DIR .. "src/mame/drivers/vtech_unk2.cpp",
 	MAME_DIR .. "src/mame/drivers/vtech_eu3a12.cpp",
@@ -3903,6 +3917,10 @@ files {
 	MAME_DIR .. "src/mame/video/dpb_combiner.h",
 	MAME_DIR .. "src/mame/video/dpb_brushproc.cpp",
 	MAME_DIR .. "src/mame/video/dpb_brushproc.h",
+	MAME_DIR .. "src/mame/video/dpb_brushstore.cpp",
+	MAME_DIR .. "src/mame/video/dpb_brushstore.h",
+	MAME_DIR .. "src/mame/video/dpb_framestore.cpp",
+	MAME_DIR .. "src/mame/video/dpb_framestore.h",
 	MAME_DIR .. "src/mame/video/dpb_storeaddr.cpp",
 	MAME_DIR .. "src/mame/video/dpb_storeaddr.h",
 	MAME_DIR .. "src/mame/drivers/dps1.cpp",
@@ -4046,7 +4064,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/systel1.cpp",
 	MAME_DIR .. "src/mame/drivers/talkingbb.cpp",
 	MAME_DIR .. "src/mame/drivers/talkingfb.cpp",
-	MAME_DIR .. "src/mame/drivers/tasc.cpp",
 	MAME_DIR .. "src/mame/drivers/tavernie.cpp",
 	MAME_DIR .. "src/mame/drivers/tecnbras.cpp",
 	MAME_DIR .. "src/mame/drivers/telex1192.cpp",

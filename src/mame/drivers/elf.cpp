@@ -16,8 +16,10 @@
 
 #include "emu.h"
 #include "includes/elf.h"
-#include "elf2.lh"
 #include "screen.h"
+#include "sound/wave.h"
+#include "speaker.h"
+#include "elf2.lh"
 
 #define RUN \
 	BIT(m_special->read(), 0)
@@ -222,7 +224,7 @@ void elf2_state::machine_start()
 
 /* Machine Driver */
 
-QUICKLOAD_LOAD_MEMBER( elf2_state, elf )
+QUICKLOAD_LOAD_MEMBER(elf2_state::quickload_cb)
 {
 	int size = image.length();
 
@@ -273,9 +275,11 @@ void elf2_state::elf2(machine_config &config)
 	DM9368(config, m_led_l, 0).update_cb().set(FUNC(elf2_state::digit_w<1>));
 
 	CASSETTE(config, m_cassette);
-	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_MUTED);
+	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_ENABLED);
+	SPEAKER(config, "mono").front_center();
+	WAVE(config, "wave", m_cassette).add_route(ALL_OUTPUTS, "mono", 0.05);
 
-	QUICKLOAD(config, "quickload").set_handler(snapquick_load_delegate(&QUICKLOAD_LOAD_NAME(elf2_state, elf), this), "bin");
+	QUICKLOAD(config, "quickload", "bin").set_load_callback(FUNC(elf2_state::quickload_cb), this);
 
 	/* internal ram */
 	RAM(config, RAM_TAG).set_default_size("256");

@@ -280,6 +280,7 @@ Few other notes:
 #include "machine/z80daisy.h"
 #include "machine/z80ctc.h"
 #include "sound/sn76496.h"
+#include "sound/wave.h"
 #include "video/tms9928a.h"
 
 #include "bus/m5/rom.h"
@@ -1417,6 +1418,7 @@ void m5_state::m5(machine_config &config)
 	// sound hardware
 	SPEAKER(config, "mono").front_center();
 	SN76489A(config, SN76489AN_TAG, 14.318181_MHz_XTAL / 4).add_route(ALL_OUTPUTS, "mono", 1.00);
+	WAVE(config, "wave", m_cassette).add_route(ALL_OUTPUTS, "mono", 0.05);
 
 	// devices
 	Z80CTC(config, m_ctc, 14.318181_MHz_XTAL / 4);
@@ -1525,7 +1527,7 @@ void brno_state::brno(machine_config &config)
 	// only one floppy drive
 	//config.device_remove(WD2797_TAG":1");
 
-	//MCFG_SNAPSHOT_ADD("snapshot", brno_state, brno, "rmd", 0)
+	//SNAPSHOT(config, "snapshot", "rmd", 0).set_load_callback(brno_state::snapshot_cb), this);
 
 	// software list
 	SOFTWARE_LIST(config, "flop_list").set_original("m5_flop");

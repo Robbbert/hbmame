@@ -42,6 +42,7 @@
 
 #include "screen.h"
 #include "speaker.h"
+#include "sound/wave.h"
 
 #include "cosmicos.lh"
 
@@ -496,7 +497,7 @@ void cosmicos_state::machine_reset()
 
 /* Quickload */
 
-QUICKLOAD_LOAD_MEMBER( cosmicos_state, cosmicos )
+QUICKLOAD_LOAD_MEMBER(cosmicos_state::quickload_cb)
 {
 	uint8_t *ptr = m_rom->base();
 	int size = image.length();
@@ -509,7 +510,8 @@ QUICKLOAD_LOAD_MEMBER( cosmicos_state, cosmicos )
 
 /* Machine Driver */
 
-MACHINE_CONFIG_START(cosmicos_state::cosmicos)
+void cosmicos_state::cosmicos(machine_config &config)
+{
 	/* basic machine hardware */
 	CDP1802(config, m_maincpu, 1.75_MHz_XTAL);
 	m_maincpu->set_addrmap(AS_PROGRAM, &cosmicos_state::cosmicos_mem);
@@ -534,8 +536,8 @@ MACHINE_CONFIG_START(cosmicos_state::cosmicos)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-
 	SPEAKER_SOUND(config, m_speaker).add_route(ALL_OUTPUTS, "mono", 0.25);
+	WAVE(config, "wave", m_cassette).add_route(ALL_OUTPUTS, "mono", 0.05);
 
 	CDP1864(config, m_cti, 1.75_MHz_XTAL).set_screen(SCREEN_TAG);
 	m_cti->inlace_cb().set_constant(0);
@@ -549,13 +551,13 @@ MACHINE_CONFIG_START(cosmicos_state::cosmicos)
 	m_cti->add_route(ALL_OUTPUTS, "mono", 0.25);
 
 	/* devices */
-	MCFG_QUICKLOAD_ADD("quickload", cosmicos_state, cosmicos, "bin")
+	QUICKLOAD(config, "quickload", "bin").set_load_callback(FUNC(cosmicos_state::quickload_cb), this);
 	CASSETTE(config, m_cassette);
-	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_MUTED);
+	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_ENABLED);
 
 	/* internal ram */
 	RAM(config, RAM_TAG).set_default_size("256").set_extra_options("4K,48K");
-MACHINE_CONFIG_END
+}
 
 /* ROMs */
 

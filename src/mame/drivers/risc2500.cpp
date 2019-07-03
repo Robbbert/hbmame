@@ -2,13 +2,17 @@
 // copyright-holders:Sandro Ronco
 /******************************************************************************
 
-    Saitek RISC 2500, Mephisto Montreux
+Saitek RISC 2500, Mephisto Montreux
 
-    The chess engine is also compatible with Tasc's The ChessMachine software.
+The chess engine is also compatible with Tasc's The ChessMachine software.
+Was the hardware+software subcontracted to Tasc? It has similarities with Tasc R30.
 
-    TODO:
-     - Sound is too short and high pitch, better when you underclock the cpu.
-       Is cpu cycle timing wrong? or waitstate on p1000_w?
+TODO:
+- bootrom disable timer shouldn't be needed, real ARM has already fetched the next opcode
+- Sound is too short and high pitched, better when you underclock the cpu.
+  Is cpu cycle timing wrong? I suspect conditional branch timing due to cache miss
+  (pipeline has to refill). The delay loop between writing to the speaker is simply:
+  SUBS R2, R2, #$1, BNE $2000cd8
 
 ******************************************************************************/
 
@@ -321,7 +325,7 @@ void risc2500_state::risc2500(machine_config &config)
 	ARM(config, m_maincpu, XTAL(28'322'000) / 2); // VY86C010
 	m_maincpu->set_addrmap(AS_PROGRAM, &risc2500_state::risc2500_mem);
 	m_maincpu->set_copro_type(arm_cpu_device::copro_type::VL86C020);
-	m_maincpu->set_periodic_int(FUNC(risc2500_state::irq1_line_hold), attotime::from_hz(250));
+	m_maincpu->set_periodic_int(FUNC(risc2500_state::irq1_line_hold), attotime::from_hz(256));
 
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_LCD));
 	screen.set_refresh_hz(50);
@@ -366,5 +370,5 @@ ROM_END
 
 
 /*    YEAR  NAME      PARENT  COMPAT  MACHINE   INPUT     CLASS           INIT        COMPANY   FULLNAME              FLAGS */
-CONS( 1992, risc,     0,      0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek", "Kasparov RISC 2500", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-CONS( 1995, montreux, 0,      0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek", "Mephisto Montreux", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // after Saitek bought Hegener & Glaser
+CONS( 1992, risc,     0,      0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek", "Kasparov RISC 2500", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_IMPERFECT_SOUND )
+CONS( 1995, montreux, 0,      0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek", "Mephisto Montreux", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_IMPERFECT_SOUND ) // after Saitek bought Hegener & Glaser

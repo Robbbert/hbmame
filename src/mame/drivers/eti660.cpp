@@ -37,6 +37,7 @@
 
 #include "emu.h"
 #include "includes/eti660.h"
+#include "sound/wave.h"
 #include "screen.h"
 #include "speaker.h"
 
@@ -253,7 +254,7 @@ void eti660_state::machine_start()
 	save_item(NAME(m_resetcnt));
 }
 
-QUICKLOAD_LOAD_MEMBER( eti660_state, eti660 )
+QUICKLOAD_LOAD_MEMBER(eti660_state::quickload_cb)
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
 	int i;
@@ -291,7 +292,8 @@ QUICKLOAD_LOAD_MEMBER( eti660_state, eti660 )
 
 /* Machine Drivers */
 
-MACHINE_CONFIG_START(eti660_state::eti660)
+void eti660_state::eti660(machine_config &config)
+{
 	/* basic machine hardware */
 	CDP1802(config, m_maincpu, XTAL(8'867'238)/5);
 	m_maincpu->set_addrmap(AS_PROGRAM, &eti660_state::mem_map);
@@ -328,14 +330,15 @@ MACHINE_CONFIG_START(eti660_state::eti660)
 	m_pia->irqb_handler().set_inputline(m_maincpu, COSMAC_INPUT_LINE_INT).invert();
 
 	CASSETTE(config, m_cassette);
-	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_MUTED);
+	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_ENABLED);
+	WAVE(config, "wave", m_cassette).add_route(ALL_OUTPUTS, "mono", 0.05);
 
 	/* internal ram */
 	RAM(config, RAM_TAG).set_default_size("3K");
 
 	/* quickload */
-	MCFG_QUICKLOAD_ADD("quickload", eti660_state, eti660, "bin,c8,ch8", attotime::from_seconds(2))
-MACHINE_CONFIG_END
+	QUICKLOAD(config, "quickload", "bin,c8,ch8", attotime::from_seconds(2)).set_load_callback(FUNC(eti660_state::quickload_cb), this);
+}
 
 /* ROMs */
 

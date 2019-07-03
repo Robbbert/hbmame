@@ -200,7 +200,7 @@ void mame_ui_manager::init()
 	get_font_rows(&machine());
 	decode_ui_color(0, &machine());
 
-	// more initialization
+	// more initialisation
 	using namespace std::placeholders;
 	set_handler(ui_callback_type::GENERAL, std::bind(&mame_ui_manager::handler_messagebox, this, _1));
 	m_non_char_keys_down = std::make_unique<uint8_t[]>((ARRAY_LENGTH(non_char_keys) + 7) / 8);
@@ -291,7 +291,7 @@ void mame_ui_manager::display_startup_screens(bool first_time)
 	const int maxstate = 3;
 	int str = machine().options().seconds_to_run();
 	bool show_gameinfo = !machine().options().skip_gameinfo();
-	bool show_warnings = true, show_mandatory_fileman = true;
+	bool show_warnings = true, show_mandatory_fileman = false; //true; //MESSUI
 
 	// disable everything if we are using -str for 300 or fewer seconds, or if we're the empty driver,
 	// or if we are debugging
@@ -424,7 +424,7 @@ void mame_ui_manager::update_and_render(render_container &container)
 
 	// display the internal mouse cursor
 	if (machine().options().ui_mouse() && (m_mouse_show || is_menu_active())) //MESSUI - (NEWUI) system pointer always on; MAME pointer always off
-	//if (m_mouse_show || (is_menu_active() && machine().options().ui_mouse()))
+//	if (m_mouse_show || (is_menu_active() && machine().options().ui_mouse()))
 	{
 		int32_t mouse_target_x, mouse_target_y;
 		bool mouse_button;
@@ -2262,8 +2262,8 @@ void mame_ui_manager::config_load(config_type cfg_type, util::xml::data_node con
 		const char *desc = slider_node->get_attribute_string("desc", "");
 		int32_t saved_val = slider_node->get_attribute_int("value", 0);
 
-	// create a dummy slider to store the saved value
-	m_sliders_saved.push_back(slider_alloc(0, desc, 0, saved_val, 0, 0, 0));
+		// create a dummy slider to store the saved value
+		m_sliders_saved.push_back(slider_alloc(0, desc, 0, saved_val, 0, 0, 0));
 	}
 }
 

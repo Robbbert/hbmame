@@ -27,15 +27,6 @@ Keypad legend:
 
 Read the official manual(s) on how to play.
 
-Peripherals, compatible with various boards:
-- Fidelity Challenger Printer - thermal printer, MCU=D8048C243
-
-Program/data cartridges, for various boards, some cross-compatible:
-- CB9: Challenger Book Openings 1 - 8KB (label not known)
-- CB16: Challenger Book Openings 2 - 8+8KB 101-1042A01,02
-- *CG64: 64 Greatest Games
-- *EOA-EOE: Challenger Book Openings - Chess Encyclopedia A-E (5 modules)
-
 ******************************************************************************/
 
 #include "emu.h"
@@ -49,12 +40,8 @@ void fidelbase_state::machine_start()
 	chessbase_state::machine_start();
 
 	// zerofill/register for savestates
-	m_speech_data = 0;
-	m_speech_bank = 0;
 	m_div_config = 0;
 
-	save_item(NAME(m_speech_data));
-	save_item(NAME(m_speech_bank));
 	save_item(NAME(m_div_status));
 	save_item(NAME(m_div_config));
 	save_item(NAME(m_div_scale));
@@ -75,34 +62,6 @@ void fidelbase_state::machine_reset()
 /***************************************************************************
     Helper Functions
 ***************************************************************************/
-
-// cartridge
-
-DEVICE_IMAGE_LOAD_MEMBER(fidelbase_state, scc_cartridge)
-{
-	u32 size = m_cart->common_get_size("rom");
-
-	// max size is 16KB?
-	if (size > 0x4000)
-	{
-		image.seterror(IMAGE_ERROR_UNSPECIFIED, "Invalid file size");
-		return image_init_result::FAIL;
-	}
-
-	m_cart->rom_alloc(size, GENERIC_ROM8_WIDTH, ENDIANNESS_LITTLE);
-	m_cart->common_load_rom(m_cart->get_rom_base(), size, "rom");
-
-	return image_init_result::PASS;
-}
-
-READ8_MEMBER(fidelbase_state::cartridge_r)
-{
-	if (m_cart->exists())
-		return m_cart->read_rom(offset);
-	else
-		return 0;
-}
-
 
 // Offset-dependent CPU divider on some 6502-based machines
 

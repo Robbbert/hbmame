@@ -181,7 +181,7 @@ void vector06_state::vector06(machine_config &config)
 	PALETTE(config, m_palette, palette_device::BLACK, 16);
 
 	SPEAKER(config, "mono").front_center();
-	WAVE(config, "wave", m_cassette).add_route(ALL_OUTPUTS, "mono", 0.25);
+	WAVE(config, "wave", m_cassette).add_route(ALL_OUTPUTS, "mono", 0.05);
 
 	/* devices */
 	I8255(config, m_ppi8255);
@@ -197,7 +197,7 @@ void vector06_state::vector06(machine_config &config)
 	m_ppi8255_2->out_pc_callback().set(FUNC(vector06_state::vector06_romdisk_portc_w));
 
 	CASSETTE(config, m_cassette);
-	m_cassette->set_default_state((cassette_state)(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_ENABLED));
+	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_ENABLED);
 
 	KR1818VG93(config, m_fdc, 1_MHz_XTAL);
 
