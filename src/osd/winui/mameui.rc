@@ -859,16 +859,16 @@ BEGIN
     COMBOBOX        IDC_SNAPVIEW,13,158,90,60,CBS_DROPDOWNLIST | WS_VSCROLL |
                     WS_TABSTOP,0,HIDC_SNAPVIEW
     GROUPBOX        "Artwork options",IDC_STATIC,113,40,102,85
-    CONTROL         "Backdrops",IDC_BACKDROPS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,50,86,10,0,HIDC_BACKDROPS
-    CONTROL         "Bezels",IDC_BEZELS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,62,86,10,0,HIDC_BEZELS
-    CONTROL         "Overlays",IDC_OVERLAYS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,74,84,10,0,HIDC_OVERLAYS
-    CONTROL         "CPanels",IDC_CPANELS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,86,84,10,0
-    CONTROL         "Marquees",IDC_MARQUEES,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,98,84,10,0
+//    CONTROL         "Backdrops",IDC_BACKDROPS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,50,86,10,0,HIDC_BACKDROPS
+//    CONTROL         "Bezels",IDC_BEZELS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,62,86,10,0,HIDC_BEZELS
+//    CONTROL         "Overlays",IDC_OVERLAYS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,74,84,10,0,HIDC_OVERLAYS
+//    CONTROL         "CPanels",IDC_CPANELS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,86,84,10,0
+//    CONTROL         "Marquees",IDC_MARQUEES,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,98,84,10,0
     CONTROL         "Crop artwork",IDC_ARTWORK_CROP,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,119,110,53,10,0,HIDC_ARTWORK_CROP
     GROUPBOX        "BIOS",IDC_STATIC,113,128,102,28
