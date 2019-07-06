@@ -3,8 +3,6 @@
 // thanks-to:Berger, yoyo_chessboard
 /******************************************************************************
 
-* fidel_eag68k.cpp, subdriver of machine/fidelbase.cpp, machine/chessbase.cpp
-
 Fidelity 68000-based Elite Avant Garde driver
 For 6502-based EAG, see fidel_elite.cpp
 Excel 68000 I/O is very similar to EAG, so it's handled in this driver as well
@@ -152,8 +150,6 @@ B0000x-xxxxxx: see V7, -800000
 ******************************************************************************/
 
 #include "emu.h"
-#include "includes/fidelbase.h"
-
 #include "cpu/m68000/m68000.h"
 #include "machine/gen_latch.h"
 #include "machine/ram.h"
@@ -161,8 +157,10 @@ B0000x-xxxxxx: see V7, -800000
 #include "machine/timer.h"
 #include "sound/dac.h"
 #include "sound/volt_reg.h"
+#include "video/pwm.h"
 #include "bus/generic/slot.h"
 #include "bus/generic/carts.h"
+
 #include "softlist.h"
 #include "speaker.h"
 
@@ -175,16 +173,18 @@ namespace {
 
 // EAG / shared
 
-class eag_state : public fidelbase_state
+class eag_state : public driver_device
 {
 public:
 	eag_state(const machine_config &mconfig, device_type type, const char *tag) :
-		fidelbase_state(mconfig, type, tag),
+		driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_irq_on(*this, "irq_on"),
 		m_ram(*this, "ram"),
+		m_display(*this, "display"),
 		m_dac(*this, "dac"),
-		m_cart(*this, "cartslot")
+		m_cart(*this, "cartslot"),
+		m_inputs(*this, "IN.%u", 0)
 	{ }
 
 	// machine drivers
@@ -199,14 +199,17 @@ public:
 	void init_eag();
 
 protected:
+	virtual void machine_start() override;
 	void eag_base(machine_config &config);
 
 	// devices/pointers
 	required_device<m68000_base_device> m_maincpu;
 	optional_device<timer_device> m_irq_on;
 	optional_device<ram_device> m_ram;
+	required_device<pwm_display_device> m_display;
 	required_device<dac_bit_interface> m_dac;
 	optional_device<generic_slot_device> m_cart;
+	optional_ioport_array<10> m_inputs;
 
 	// address maps
 	void eag_map(address_map &map);
@@ -226,7 +229,24 @@ protected:
 	DECLARE_READ8_MEMBER(input2_r);
 	DECLARE_WRITE8_MEMBER(leds_w);
 	DECLARE_WRITE8_MEMBER(digit_w);
+
+	u8 m_select;
+	u8 m_7seg_data;
+	u8 m_led_data;
 };
+
+void eag_state::machine_start()
+{
+	// zerofill
+	m_select = 0;
+	m_7seg_data = 0;
+	m_led_data = 0;
+
+	// register for savestates
+	save_item(NAME(m_select));
+	save_item(NAME(m_7seg_data));
+	save_item(NAME(m_led_data));
+}
 
 // EAG V5
 
@@ -304,49 +324,58 @@ void eag_state::update_display()
 {
 	// Excel 68000: 4*7seg leds, 8*8 chessboard leds
 	// EAG: 8*7seg leds(2 panels), (8+1)*8 chessboard leds
-	u8 seg_data = bitswap<8>(m_7seg_data_xxx,0,1,3,2,7,5,6,4);
-	set_display_segmask(0x1ff, 0x7f);
-	display_matrix(16, 9, m_led_data_xxx << 8 | seg_data, m_inp_mux_xxx);
+	u8 seg_data = bitswap<8>(m_7seg_data,0,1,3,2,7,5,6,4);
+	m_display->matrix(1 << m_select, m_led_data << 8 | seg_data);
 }
 
 WRITE8_MEMBER(eag_state::mux_w)
 {
 	// a1-a3,d0: 74259
 	u8 mask = 1 << offset;
-	m_led_select_xxx = (m_led_select_xxx & ~mask) | ((data & 1) ? mask : 0);
+	m_select = (m_select & ~mask) | ((data & 1) ? mask : 0);
 
 	// 74259 Q0-Q3: 74145 A-D (Q4-Q7 N/C)
+	m_select &= 0xf;
+
 	// 74145 0-8: input mux, digit/led select
 	// 74145 9: speaker out
-	u16 sel = 1 << (m_led_select_xxx & 0xf);
-	m_dac->write(BIT(sel, 9));
-	m_inp_mux_xxx = sel & 0x1ff;
+	m_dac->write(BIT(1 << m_select, 9));
 	update_display();
 }
 
 READ8_MEMBER(eag_state::input1_r)
 {
+	u8 data = 0;
+
 	// a1-a3,d7: multiplexed inputs (active low)
-	return (read_inputs(9) >> offset & 1) ? 0 : 0x80;
+	// read chessboard sensors
+	if (m_select < 8)
+		data = m_inputs[m_select]->read();
+
+	// read button panel
+	else if (m_select == 8)
+		data = m_inputs[8]->read();
+
+	return (data >> offset & 1) ? 0 : 0x80;
 }
 
 READ8_MEMBER(eag_state::input2_r)
 {
-	// d7: multiplexed inputs highest bit
-	return (read_inputs(9) & 0x100) ? 0x80 : 0;
+	// d7: 3 more buttons on EAG
+	return (BIT(m_inputs[9]->read(), m_select)) ? 0x80 : 0;
 }
 
 WRITE8_MEMBER(eag_state::leds_w)
 {
 	// a1-a3,d0: led data
-	m_led_data_xxx = (m_led_data_xxx & ~(1 << offset)) | ((data & 1) << offset);
+	m_led_data = (m_led_data & ~(1 << offset)) | ((data & 1) << offset);
 	update_display();
 }
 
 WRITE8_MEMBER(eag_state::digit_w)
 {
 	// a1-a3,d0(d8): digit segment data
-	m_7seg_data_xxx = (m_7seg_data_xxx & ~(1 << offset)) | ((data & 1) << offset);
+	m_7seg_data = (m_7seg_data & ~(1 << offset)) | ((data & 1) << offset);
 	update_display();
 }
 
@@ -653,15 +682,6 @@ INPUT_PORTS_END
 static INPUT_PORTS_START( eag )
 	PORT_INCLUDE( generic_cb_magnets )
 
-	PORT_MODIFY("IN.0")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_DEL) PORT_NAME("CL")
-
-	PORT_MODIFY("IN.1")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_M) PORT_NAME("DM")
-
-	PORT_MODIFY("IN.2")
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_R) PORT_CODE(KEYCODE_N) PORT_NAME("New Game")
-
 	PORT_START("IN.8")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("PB / King")
 	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("PV / Queen")
@@ -671,6 +691,11 @@ static INPUT_PORTS_START( eag )
 	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("LV / Pawn")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_O) PORT_NAME("Option")
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_V) PORT_NAME("RV")
+
+	PORT_START("IN.9")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_DEL) PORT_NAME("CL")
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_M) PORT_NAME("DM")
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_R) PORT_CODE(KEYCODE_N) PORT_NAME("New Game")
 INPUT_PORTS_END
 
 
@@ -690,7 +715,9 @@ void excel68k_state::fex68k(machine_config &config)
 	m_irq_on->set_start_delay(irq_period - attotime::from_nsec(1528)); // active for 1.525us
 	TIMER(config, "irq_off").configure_periodic(FUNC(excel68k_state::irq_off<M68K_IRQ_2>), irq_period);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(excel68k_state::display_decay_tick), attotime::from_msec(1));
+	/* video hardware */
+	PWM_DISPLAY(config, m_display).set_size(8, 16);
+	m_display->set_segmask(0x55, 0x7f);
 	config.set_default_layout(layout_fidel_ex_68k);
 
 	/* sound hardware */
@@ -730,7 +757,9 @@ void eag_state::eag_base(machine_config &config)
 
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(eag_state::display_decay_tick), attotime::from_msec(1));
+	/* video hardware */
+	PWM_DISPLAY(config, m_display).set_size(9, 16);
+	m_display->set_segmask(0x1ef, 0x7f);
 	config.set_default_layout(layout_fidel_eag_68k);
 
 	/* sound hardware */

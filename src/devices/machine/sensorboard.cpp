@@ -53,11 +53,11 @@ sensorboard_device::sensorboard_device(const machine_config &mconfig, const char
 	m_magnets = false;
 	m_inductive = false;
 	m_ui_enabled = 3;
+	set_delay(attotime::never);
 
 	// set defaults for most common use case (aka chess)
 	set_size(8, 8);
 	set_spawnpoints(12);
-	set_delay(attotime::from_msec(75));
 }
 
 
@@ -540,6 +540,9 @@ INPUT_CHANGED_MEMBER(sensorboard_device::ui_init)
 //-------------------------------------------------
 //  input_ports - device-specific input ports
 //-------------------------------------------------
+
+#undef PORT_CONDITION
+#define PORT_CONDITION(a, b, c, d) ;
 
 static INPUT_PORTS_START( sensorboard )
 	PORT_START("RANK.1")

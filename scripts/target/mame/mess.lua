@@ -145,6 +145,7 @@ CPUS["DSPV"] = true
 CPUS["RII"] = true
 CPUS["BCP"] = true
 CPUS["F2MC16"] = true
+CPUS["CR16B"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -884,6 +885,7 @@ FORMATS["ADAM_CAS"] = true
 FORMATS["ADAM_DSK"] = true
 FORMATS["AFS_DSK"] = true
 FORMATS["AGAT840K_HLE_DSK"] = true
+FORMATS["AIM_DSK"] = true
 FORMATS["AMI_DSK"] = true
 FORMATS["AP2_DSK"] = true
 FORMATS["APD_DSK"] = true
@@ -926,6 +928,7 @@ FORMATS["DCP_DSK"] = true
 FORMATS["DIM_DSK"] = true
 FORMATS["DIP_DSK"] = true
 FORMATS["DMK_DSK"] = true
+FORMATS["DS9_DSK"] = true
 FORMATS["SDF_DSK"] = true
 FORMATS["EP64_DSK"] = true
 FORMATS["DMV_DSK"] = true
@@ -1524,6 +1527,8 @@ files {
 	MAME_DIR .. "src/mame/includes/apple2.h",
 	MAME_DIR .. "src/mame/video/agat7.cpp",
 	MAME_DIR .. "src/mame/video/agat7.h",
+	MAME_DIR .. "src/mame/video/agat9.cpp",
+	MAME_DIR .. "src/mame/video/agat9.h",
 }
 
 createMESSProjects(_target, _subtarget, "akai")
@@ -2189,10 +2194,8 @@ files {
 
 createMESSProjects(_target, _subtarget, "fidelity")
 files {
-	MAME_DIR .. "src/mame/machine/chessbase.cpp",
-	MAME_DIR .. "src/mame/includes/chessbase.h",
-	MAME_DIR .. "src/mame/machine/fidelbase.cpp",
-	MAME_DIR .. "src/mame/includes/fidelbase.h",
+	MAME_DIR .. "src/mame/machine/fidel_clockdiv.cpp",
+	MAME_DIR .. "src/mame/machine/fidel_clockdiv.h",
 	MAME_DIR .. "src/mame/drivers/fidel_as12.cpp",
 	MAME_DIR .. "src/mame/drivers/fidel_card.cpp",
 	MAME_DIR .. "src/mame/drivers/fidel_cc1.cpp",
@@ -3728,8 +3731,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/gamemachine.cpp",
 	MAME_DIR .. "src/mame/drivers/geniusiq.cpp",
 	MAME_DIR .. "src/mame/drivers/geniusjr.cpp",
-	MAME_DIR .. "src/mame/drivers/vtech_unk1.cpp",
-	MAME_DIR .. "src/mame/drivers/vtech_unk2.cpp",
+	MAME_DIR .. "src/mame/drivers/glcx.cpp",
 	MAME_DIR .. "src/mame/drivers/vtech_eu3a12.cpp",
 	MAME_DIR .. "src/mame/drivers/iqunlim.cpp",
 	MAME_DIR .. "src/mame/drivers/laser3k.cpp",
@@ -4052,6 +4054,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/scopus.cpp",
 	MAME_DIR .. "src/mame/drivers/shine.cpp",
 	MAME_DIR .. "src/mame/drivers/si5500.cpp",
+	MAME_DIR .. "src/mame/drivers/sk101bl.cpp",
 	MAME_DIR .. "src/mame/drivers/softbox.cpp",
 	MAME_DIR .. "src/mame/includes/softbox.h",
 	MAME_DIR .. "src/mame/drivers/squale.cpp",

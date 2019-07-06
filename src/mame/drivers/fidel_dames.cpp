@@ -3,11 +3,9 @@
 // thanks-to:yoyo_chessboard
 /******************************************************************************
 
-* fidel_dames.cpp, subdriver of machine/fidelbase.cpp, machine/chessbase.cpp
+Fidelity Dame Sensory Challenger (DSC)
 
-*******************************************************************************
-
-Fidelity Dame Sensory Challenger (DSC) overview:
+Hardware notes:
 - Z80A CPU @ 3.9MHz
 - 8KB ROM(MOS 2364), 1KB RAM(2*TMM314APL)
 - 4-digit 7seg panel, sensory board with 50 buttons
@@ -18,12 +16,11 @@ It's a checkers game for once instead of chess
 ******************************************************************************/
 
 #include "emu.h"
-#include "includes/fidelbase.h"
-
 #include "cpu/z80/z80.h"
 #include "machine/timer.h"
 #include "sound/dac.h"
 #include "sound/volt_reg.h"
+#include "video/pwm.h"
 #include "speaker.h"
 
 // internal artwork
@@ -32,22 +29,31 @@ It's a checkers game for once instead of chess
 
 namespace {
 
-class dsc_state : public fidelbase_state
+class dsc_state : public driver_device
 {
 public:
 	dsc_state(const machine_config &mconfig, device_type type, const char *tag) :
-		fidelbase_state(mconfig, type, tag),
+		driver_device(mconfig, type, tag),
+		m_maincpu(*this, "maincpu"),
 		m_irq_on(*this, "irq_on"),
-		m_dac(*this, "dac")
+		m_display(*this, "display"),
+		m_dac(*this, "dac"),
+		m_inputs(*this, "IN.%u", 0)
 	{ }
 
 	// machine drivers
 	void dsc(machine_config &config);
 
+protected:
+	virtual void machine_start() override;
+
 private:
 	// devices/pointers
+	required_device<cpu_device> m_maincpu;
 	required_device<timer_device> m_irq_on;
+	required_device<pwm_display_device> m_display;
 	required_device<dac_bit_interface> m_dac;
+	required_ioport_array<8> m_inputs;
 
 	// address maps
 	void main_map(address_map &map);
@@ -61,7 +67,22 @@ private:
 	DECLARE_WRITE8_MEMBER(control_w);
 	DECLARE_WRITE8_MEMBER(select_w);
 	DECLARE_READ8_MEMBER(input_r);
+
+	u8 m_inp_mux;
+	u8 m_led_select;
 };
+
+void dsc_state::machine_start()
+{
+	// zerofill
+	m_inp_mux = 0;
+	m_led_select = 0;
+
+	// register for savestates
+	save_item(NAME(m_inp_mux));
+	save_item(NAME(m_led_select));
+}
+
 
 
 /******************************************************************************
@@ -73,15 +94,13 @@ private:
 void dsc_state::update_display()
 {
 	// 4 7seg leds
-	set_display_segmask(0xf, 0x7f);
-	display_matrix(8, 4, m_7seg_data_xxx, m_led_select_xxx);
+	m_display->matrix(m_led_select, m_inp_mux);
 }
 
 WRITE8_MEMBER(dsc_state::control_w)
 {
 	// d0-d7: input mux, 7seg data
-	m_inp_mux_xxx = ~data;
-	m_7seg_data_xxx = data;
+	m_inp_mux = data;
 	update_display();
 }
 
@@ -91,14 +110,21 @@ WRITE8_MEMBER(dsc_state::select_w)
 	m_dac->write(BIT(~data, 4));
 
 	// d0-d3: digit select
-	m_led_select_xxx = data & 0xf;
+	m_led_select = data & 0xf;
 	update_display();
 }
 
 READ8_MEMBER(dsc_state::input_r)
 {
+	u8 data = 0;
+
 	// d0-d7: multiplexed inputs (active low)
-	return ~read_inputs(8);
+	// read checkerboard
+	for (int i = 0; i < 8; i++)
+		if (BIT(~m_inp_mux, i))
+			data |= m_inputs[i]->read();
+
+	return ~data;
 }
 
 
@@ -242,7 +268,9 @@ void dsc_state::dsc(machine_config &config)
 	m_irq_on->set_start_delay(irq_period - attotime::from_usec(41)); // active for 41us
 	TIMER(config, "irq_off").configure_periodic(FUNC(dsc_state::irq_off<INPUT_LINE_IRQ0>), irq_period);
 
-	TIMER(config, "display_decay").configure_periodic(FUNC(dsc_state::display_decay_tick), attotime::from_msec(1));
+	/* video hardware */
+	PWM_DISPLAY(config, m_display).set_size(4, 8);
+	m_display->set_segmask(0xf, 0x7f);
 	config.set_default_layout(layout_fidel_dsc);
 
 	/* sound hardware */

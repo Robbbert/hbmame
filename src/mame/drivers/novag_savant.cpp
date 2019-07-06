@@ -27,12 +27,13 @@ TODO:
 #include "cpu/z80/z80.h"
 #include "cpu/f8/f8.h"
 #include "machine/f3853.h"
-#include "video/hlcd0538.h"
-#include "video/pwm.h"
 #include "machine/sensorboard.h"
 #include "machine/nvram.h"
 #include "sound/dac.h"
 #include "sound/volt_reg.h"
+#include "video/hlcd0538.h"
+#include "video/pwm.h"
+
 #include "screen.h"
 #include "speaker.h"
 
@@ -369,7 +370,6 @@ void savant_state::savant(machine_config &config)
 
 	SENSORBOARD(config, m_board).set_type(sensorboard_device::BUTTONS);
 	m_board->set_ui_enable(false); // no chesspieces
-	m_board->set_delay(attotime::never);
 
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
 

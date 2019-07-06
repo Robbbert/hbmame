@@ -14,11 +14,11 @@ Hardware notes:
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
-#include "video/pwm.h"
 #include "machine/sensorboard.h"
 #include "machine/timer.h"
 #include "sound/dac.h"
 #include "sound/volt_reg.h"
+#include "video/pwm.h"
 #include "speaker.h"
 
 // internal artwork
@@ -184,6 +184,7 @@ void ch2001_state::ch2001(machine_config &config)
 
 	SENSORBOARD(config, m_board).set_type(sensorboard_device::MAGNETS);
 	m_board->init_cb().set(m_board, FUNC(sensorboard_device::preset_chess));
+	m_board->set_delay(attotime::from_msec(150));
 
 	/* video hardware */
 	PWM_DISPLAY(config, m_display).set_size(10, 8);
