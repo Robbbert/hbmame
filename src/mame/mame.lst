@@ -9836,6 +9836,11 @@ chaos                           //
 @source:cheekyms.cpp
 cheekyms                        // 8004 (c) [1980?]
 
+@source:chessmate.cpp
+ccmk2                           // Chess Champion MK II
+ccmk2a                          //
+chmate                          //
+
 @source:chessmst.cpp
 chessmst                        //
 chessmsta                       //
@@ -10162,6 +10167,11 @@ compgolfo                       // (c) 1985 Data East Corporation (Japan)
 @source:compis.cpp
 compis                          // 1985 Telenova Compis
 compis2                         // 1985 Telenova Compis
+
+@source:compuchess.cpp
+ccmk1                           // Chess Champion MK I
+cmpchess
+cncchess
 
 @source:compucolor.cpp
 compclr2                        //
@@ -12608,6 +12618,7 @@ klaxp2                          // prototype
 @source:equites.cpp
 bullfgtr                        // (c) 1984 Alpha Denshi Co.
 bullfgtrs                       // (c) 1984 Alpha Denshi Co./Sega
+clsunk                          // (c) 1986 CLS?
 equites                         // (c) 1984 Alpha Denshi Co.
 equitess                        // (c) 1984 Alpha Denshi Co./Sega
 gekisou                         // (c) 1985 Eastern
@@ -14400,6 +14411,7 @@ bsuerteu                        // 1991, Unknown
 bsuertev                        // 1991, Unknown
 caspoker                        // 1987, PM / Beck Elektronik.
 caspokera                       // 1986, PM / Beck Elektronik.
+caspokerb                       // 1988, PM / Beck Elektronik.
 falcnwld                        // 1991, TVG
 falcnwlda                       // (c) 1990, Video Klein
 falcnwldb                       // (c) 1990, Video Klein
@@ -21839,6 +21851,7 @@ mindset                         // (c) 1984
 mini2440                        //
 
 @source:miniboy7.cpp
+bejpoker                        // (c) 1992?, Bonanza Enterprises
 miniboy7                        // (c) 1983, Bonanza Enterprises
 miniboy7a                       // (c) 1983, Bonanza Enterprises
 sminiboy                        // (c) 1984, Bonanza Enterprises
@@ -30964,20 +30977,9 @@ raiders5t                       // UPL-85004 (c) 1985 Taito license
 cfortea                         //
 cforteb                         //
 
-@source:novag_delta1.cpp
-ccdelta1                        //
-
 @source:novag_diablo.cpp
 diablo68                        //
 scorpio68                       //
-
-@source:novag_mk1.cpp
-ccmk1                           // Chess Champion MK I
-cmpchess
-cncchess
-
-@source:novag_mk2.cpp
-ccmk2                           // Chess Champion MK II
 
 @source:novag_presto.cpp
 nocto                           //
@@ -33661,10 +33663,6 @@ rex6000                         //
 @source:rgum.cpp
 rgum                            //
 
-@source:risc2500.cpp
-risc                            //
-montreux                        //
-
 @source:riscpc.cpp
 a7000                           // 1995 Acorn Archimedes 7000
 a7000p                          // 1997 Acorn Archimedes 7000+
@@ -34091,6 +34089,22 @@ safarirj                        // (c) 1979 Shin Nihon Kikaku (SNK)
 @source:sage2.cpp
 sage2                           //
 
+@source:saitek_chesstrv.cpp
+chesstrv                        //
+
+@source:saitek_cp2000.cpp
+cp2000                          //
+
+@source:saitek_delta1.cpp
+ccdelta1                        //
+
+@source:saitek_risc2500.cpp
+risc2500                        //
+montreux                        //
+
+@source:saitek_stratos.cpp
+stratos                         // Kasparov Stratos Chess Computer
+
 @source:sam.cpp
 24_130                          //
 24_140                          //
@@ -34373,12 +34387,6 @@ sbuggera                        // (c) 1981 Game-A-Tron
 @source:sc2.cpp
 sc2                             //
 sc2a                            //
-
-@source:scisys_chesstrv.cpp
-chesstrv                        //
-
-@source:scisys_cp2000.cpp
-cp2000                          //
 
 @source:scm_500.cpp
 scm_500                         //
@@ -36511,9 +36519,6 @@ stlforce                        // (c) 1994 Electronic Devices (Italy) / Ecogame
 twinbrat                        // (c) 1995
 twinbrata                       // (c) 1995
 twinbratb                       // (c) 1995
-
-@source:stratos.cpp
-stratos                         // Kasparov Stratos Chess Computer
 
 @source:strkzn.cpp
 strkzn                          // (c) 1994 Purple Star
