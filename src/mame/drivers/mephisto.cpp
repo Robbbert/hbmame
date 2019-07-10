@@ -274,23 +274,6 @@ void mephisto_state::machine_reset()
 {
 	m_lcd_shift_counter = 3;
 	m_allowNMI = 1;
-
-/* adjust artwork depending on current emulation*/
-
-	if (!strcmp(machine().system().name,"mm2") )
-		output().set_value("MM",1);
-	else if (!strcmp(machine().system().name,"mm4") )
-		output().set_value("MM",2);
-	else if (!strcmp(machine().system().name,"mm4tk") )
-		output().set_value("MM",5);
-	else if (!strcmp(machine().system().name,"mm5tk") )
-		output().set_value("MM",5);
-	else if (!strcmp(machine().system().name,"mm5") )
-		output().set_value("MM",3);
-	else if (!strcmp(machine().system().name,"mm50") )
-		output().set_value("MM",3);
-	else if (!strcmp(machine().system().name,"rebel5") )
-		output().set_value("MM",4);
 }
 
 
@@ -316,7 +299,7 @@ void mephisto_state::mephisto(machine_config &config)
 
 	TIMER(config, "nmi_timer").configure_periodic(FUNC(mephisto_state::update_nmi), attotime::from_hz(600));
 
-	MEPHISTO_SENSORS_BOARD(config, "board", 0);
+	MEPHISTO_SENSORS_BOARD(config, "board");
 	config.set_default_layout(layout_mephisto);
 }
 

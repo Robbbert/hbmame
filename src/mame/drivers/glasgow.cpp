@@ -81,8 +81,6 @@ protected:
 	uint8_t m_lcd_shift_counter;
 	uint8_t m_led7;
 	uint8_t m_key_select;
-
-private:
 };
 
 
@@ -314,7 +312,8 @@ void glasgow_state::glasgow(machine_config &config)
 	M68000(config, m_maincpu, 12_MHz_XTAL);
 	m_maincpu->set_addrmap(AS_PROGRAM, &glasgow_state::glasgow_mem);
 
-	MEPHISTO_SENSORS_BOARD(config, m_board, 0);
+	MEPHISTO_SENSORS_BOARD(config, m_board);
+	m_board->set_delay(attotime::from_msec(200));
 
 	/* video hardware */
 	config.set_default_layout(layout_glasgow);
