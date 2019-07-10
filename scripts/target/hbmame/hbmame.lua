@@ -592,7 +592,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "midway")
 files {
-	MAME_DIR .. "src/mame/drivers/8080bw.cpp",
+	MAME_DIR .. "src/hbmame/drivers/8080bw.cpp",
 	MAME_DIR .. "src/mame/audio/8080bw.cpp",
 	MAME_DIR .. "src/mame/video/8080bw.cpp",
 	MAME_DIR .. "src/mame/drivers/mw8080bw.cpp",

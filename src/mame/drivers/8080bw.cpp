@@ -1309,7 +1309,7 @@ static INPUT_PORTS_START( invasion )
 	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
 INPUT_PORTS_END
 
-
+#endif
 
 /*******************************************************/
 /*                                                     */
@@ -1332,7 +1332,7 @@ static INPUT_PORTS_START( superinv )
 	PORT_DIPUNKNOWN_DIPLOC( 0x80, 0x00, "SW1:8" )
 INPUT_PORTS_END
 
-
+#if 0
 
 /*******************************************************/
 /*                                                     */
