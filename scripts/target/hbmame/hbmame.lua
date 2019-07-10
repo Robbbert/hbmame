@@ -28,6 +28,7 @@ CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["I86"] = true
 CPUS["I960"] = true -- model2
+CPUS["M37710"] = true -- namcona1
 CPUS["M6502"] = true
 CPUS["M6800"] = true
 CPUS["M6805"] = true
@@ -69,6 +70,7 @@ SOUNDS["ASTROCADE"] = true
 SOUNDS["AY8910"] = true
 SOUNDS["BEEP"] = true
 SOUNDS["BSMT2000"] = true -- deco32
+SOUNDS["C140"] = true  -- namcona1
 SOUNDS["C6280"] = true
 SOUNDS["CDDA"] = true
 SOUNDS["DAC"] = true
@@ -192,6 +194,7 @@ MACHINES["MB87078"] = true
 MACHINES["MB89352"] = true  -- segas32
 MACHINES["MCF5206E"] = true -- seta2
 MACHINES["MIOT6530"] = true
+MACHINES["MSM6242"] = true -- namcona1
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
 MACHINES["NSCSI"] = true -- cps3
@@ -656,6 +659,9 @@ files {
 	MAME_DIR .. "src/mame/audio/namco52.cpp",
 	MAME_DIR .. "src/mame/audio/namco54.cpp",
 	MAME_DIR .. "src/mame/audio/timeplt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/namcona1.cpp",
+	MAME_DIR .. "src/mame/video/namcona1.cpp",
+	MAME_DIR .. "src/mame/machine/namcomcu.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "neogeo")
