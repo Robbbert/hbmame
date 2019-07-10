@@ -662,6 +662,20 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/namcona1.cpp",
 	MAME_DIR .. "src/mame/video/namcona1.cpp",
 	MAME_DIR .. "src/mame/machine/namcomcu.cpp",
+	MAME_DIR .. "src/hbmame/drivers/namcos2.cpp",
+	MAME_DIR .. "src/mame/machine/namcos2.cpp",
+	MAME_DIR .. "src/mame/video/namcos2.cpp",
+	MAME_DIR .. "src/mame/video/namcos2_roz.cpp",
+	MAME_DIR .. "src/mame/video/namcos2_sprite.cpp",
+	MAME_DIR .. "src/mame/video/c45.cpp",
+	MAME_DIR .. "src/mame/machine/namco65.cpp",
+	MAME_DIR .. "src/mame/machine/namco68.cpp",
+	MAME_DIR .. "src/mame/video/namco_c116.cpp",
+	MAME_DIR .. "src/mame/video/namco_c123tmap.cpp",
+	MAME_DIR .. "src/mame/machine/namco_c139.cpp",
+	MAME_DIR .. "src/mame/machine/namco_c148.cpp",
+	MAME_DIR .. "src/mame/video/namco_c169roz.cpp",
+	MAME_DIR .. "src/mame/video/namco_c355spr.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "neogeo")

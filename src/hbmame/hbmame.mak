@@ -68,4 +68,5 @@ LAYOUTS += \
 	$(SRC)/mame/layout/spacwalk.lay \
 	$(SRC)/mame/layout/spcenctr.lay \
 	$(SRC)/mame/layout/yosakdon.lay \
+	$(SRC)/mame/layout/finallap.lay \
 
