@@ -236,6 +236,7 @@ MACHINES["Z80PIO"] = true
 --------------------------------------------------
 
 BUSES["GENERIC"] = true
+BUSES["NSCSI"] = true
 -- BUSES["NEOGEO"] = true
 -- BUSES["NEOGEO_CTRL"] = true
 BUSES["SAT_CTRL"] = true -- stv
