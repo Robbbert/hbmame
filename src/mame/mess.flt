@@ -318,6 +318,7 @@ hh_pic16.cpp
 hh_sm510.cpp
 hh_tms1k.cpp
 hh_ucom4.cpp
+hhtiger.cpp
 hk68v10.cpp
 homelab.cpp
 homez80.cpp
@@ -614,7 +615,6 @@ phunsy.cpp
 pimps.cpp
 pipbug.cpp
 picno.cpp
-pitagjr.cpp
 pk8000.cpp
 pk8020.cpp
 plan80.cpp

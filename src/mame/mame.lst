@@ -14221,6 +14221,7 @@ gjmovie                         // Genius Junior Movie (Germany)
 gjrstar                         // Genius Junior Redstar (Germany)
 gjrstar2                        // Genius Junior Redstar 2 (Germany)
 gjrstar3                        // Genius Junior Redstar 3 (Germany)
+pitagjr                         // Pitagorin Junior
 
 @source:genpc.cpp
 pc                              // 1987 PC with CGA
@@ -15468,6 +15469,9 @@ tmpacman                        // Tomy
 tmscramb                        // Tomy
 tmtennis                        // Tomy
 ufombs                          // Bambino
+
+@source:hhtiger.cpp
+hhtiger                         // 1983 H/H Tiger
 
 @source:hideseek.cpp
 hideseek                        //
@@ -21386,11 +21390,12 @@ mm4                             // Mephisto 4
 mm4tk                           // Mephisto 4 Turbo Kit
 mm5                             // Mephisto 5.1 ROM
 mm50                            // Mephisto 5.0 ROM
-mm5tk                           // Mephisto 5.1 ROM Turbo Kit Speed
 rebel5                          // Mephisto 5
 
 @source:mephisto_montec.cpp
-smondial                        // 1986 Mephisto Super Mondial
+mondial                         // 1985 Mephisto Mondial
+smondial                        // 1986 Mephisto Super Mondial (Ver A)
+smondialb                       // 1986 Mephisto Super Mondial (Ver B)
 montec                          // 1987 Mephisto Monte Carlo
 mondial2                        // 1987 Mephisto Mondial II
 smondial2                       // 1989 Mephisto Super Mondial II
@@ -32575,9 +32580,6 @@ piratesb                        // bootleg?
 
 @source:piratesh.cpp
 piratesh                        // (c) 1995 Konami
-
-@source:pitagjr.cpp
-pitagjr                         // Pitagorin Junior
 
 @source:pitnrun.cpp
 pitnrun                         // PR  (c) 1984 Taito Corporation

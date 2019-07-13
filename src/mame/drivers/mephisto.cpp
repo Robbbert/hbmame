@@ -67,7 +67,8 @@ Mephisto 4 Turbo Kit 18mhz - (mm4tk)
 #include "machine/74259.h"
 #include "machine/mmboard.h"
 #include "machine/timer.h"
-#include "sound/beep.h"
+#include "sound/dac.h"
+#include "sound/volt_reg.h"
 #include "speaker.h"
 
 // internal artwork
@@ -81,7 +82,7 @@ public:
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
 		, m_outlatch(*this, "outlatch")
-		, m_beep(*this, "beeper")
+		, m_dac(*this, "dac")
 		, m_key1(*this, "KEY1_%u", 0U)
 		, m_key2(*this, "KEY2_%u", 0U)
 		, m_digits(*this, "digit%u", 0U)
@@ -95,7 +96,11 @@ public:
 private:
 	required_device<m65c02_device> m_maincpu;
 	required_device<hc259_device> m_outlatch;
-	required_device<beep_device> m_beep;
+	required_device<dac_bit_interface> m_dac;
+	required_ioport_array<8> m_key1;
+	required_ioport_array<8> m_key2;
+	output_finder<4> m_digits;
+
 	DECLARE_WRITE8_MEMBER(write_lcd);
 	DECLARE_WRITE8_MEMBER(mephisto_NMI);
 	DECLARE_READ8_MEMBER(read_keys);
@@ -114,10 +119,6 @@ private:
 	void mephisto_mem(address_map &map);
 	void mm2_mem(address_map &map);
 	void rebel5_mem(address_map &map);
-
-	required_ioport_array<8> m_key1;
-	required_ioport_array<8> m_key2;
-	output_finder<4> m_digits;
 };
 
 
@@ -294,12 +295,13 @@ void mephisto_state::mephisto(machine_config &config)
 	m_outlatch->q_out_cb<3>().set_output("led103");
 	m_outlatch->q_out_cb<4>().set_output("led104");
 	m_outlatch->q_out_cb<5>().set_output("led105");
-	m_outlatch->q_out_cb<6>().set(m_beep, FUNC(beep_device::set_state));
+	m_outlatch->q_out_cb<6>().set(m_dac, FUNC(dac_bit_interface::write));
 	m_outlatch->q_out_cb<7>().set(FUNC(mephisto_state::write_led7));
 
 	/* sound hardware */
-	SPEAKER(config, "mono").front_center();
-	BEEP(config, m_beep, 3250).add_route(ALL_OUTPUTS, "mono", 1.0);
+	SPEAKER(config, "speaker").front_center();
+	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
+	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 
 	TIMER(config, "nmi_timer").configure_periodic(FUNC(mephisto_state::update_nmi), attotime::from_hz(600));
 
@@ -366,14 +368,6 @@ ROM_START(mm4tk)
 	ROMX_LOAD( "hg440.rom", 0x4000, 0x4000, CRC(81ffcdfd) SHA1(b0f7bcc11d1e821daf92cde31e3446c8be0bbe19), ROM_BIOS(1))
 ROM_END
 
-ROM_START(mm5tk)
-	ROM_REGION(0x10000,"maincpu",0)
-	ROM_LOAD("mephisto5.rom", 0x8000, 0x8000, BAD_DUMP CRC(89c3d9d2) SHA1(77cd6f8eeb03c713249db140d2541e3264328048))
-	ROM_SYSTEM_BIOS( 0, "none", "No Opening Library" )
-	ROM_SYSTEM_BIOS( 1, "hg550", "HG550 Opening Library" )
-	ROMX_LOAD("hg550.rom", 0x4000, 0x4000, CRC(0359f13d) SHA1(833cef8302ad8d283d3f95b1d325353c7e3b8614), ROM_BIOS(1))
-ROM_END
-
 ROM_START(mm5)
 	ROM_REGION(0x10000,"maincpu",0)
 	ROM_LOAD("mephisto5.rom", 0x8000, 0x8000, CRC(89c3d9d2) SHA1(77cd6f8eeb03c713249db140d2541e3264328048))
@@ -401,7 +395,6 @@ ROM_END
 CONS( 1984, mm2,    mm4,    0,      mm2,      mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto MM II", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1986, rebel5, mm4,    0,      rebel5,   mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto Rebell 5.0", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1987, mm4,    0,      0,      mephisto, mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto MM IV", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-CONS( 1987, mm4tk,  mm4,    0,      mm4tk,    mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto MM IV (TurboKit + HG440)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1987, mm4tk,  mm4,    0,      mm4tk,    mephisto, mephisto_state, empty_init, "hack", "Mephisto MM IV (TurboKit + HG440)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1990, mm5,    mm4,    0,      mephisto, mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto MM V (V5.1)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1990, mm50,   mm4,    0,      mephisto, mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto MM V (V5.0)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-CONS( 1990, mm5tk,  mm4,    0,      mm4tk,    mephisto, mephisto_state, empty_init, "Hegener & Glaser", "Mephisto MM V (V5.1) (TurboKit + HG550)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
