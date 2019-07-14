@@ -5,12 +5,24 @@
 2019-xx-xx 0.2xx
 ----------------
 
+- Metal Slug 2/3/4/5 the remix has been updated
 
 New Games
 ---------------------------------
+- [mslug2ps34]        Metal Slug 2 (Generation 1V2 2019-05-11)
+- [mslug3h66]         Metal Slug 3 (Multi-Function Version 2019-02-15)
+- [mslug3h67]         Metal Slug 3 (Enemies Resetting Version 2019-04-17)
+- [mslug3h68]         Metal Slug 3 (Generation 1V2 2019-05-11)
+- [mslug4hh45]        Metal Slug 4 (Generation 1V2 2019-05-11)
+- [mslug4hh46]        Metal Slug 4 (Enemies Resetting Version 2019-04-25)
+- [mslug5dh52]        Metal Slug 5 (Enemies Resetting Version 2019-03-07)
+- [mslug5dh53]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-02-12)
+- [mslug5dh54]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-04-18)
+- [mslug5dh55]        Metal Slug 5 (Enemy Soldiers Magic Version 2019-05-27)
+- [mslug5dh56]        Metal Slug 5 (Enemies Resetting Version 2019-06-09)
+- [mslug5dh57]        Metal Slug 5 (Generation 1V2 2019-05-11)
+- [mslugxz63]         Metal Slug X (Generation 1V2 2019-05-11)
 - [sinvrdzm]          Super Invaders (Zenitone-Microsec Ltd)(branded Ruffler & Deith) [from NES4LIFE]
-
-
 
 
 2019-06-26 0.211
