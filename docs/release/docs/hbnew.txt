@@ -9,6 +9,7 @@
 
 New Games
 ---------------------------------
+- [knckheadx]         Knuckle Heads (Easy Move)
 - [mslug2ps34]        Metal Slug 2 (Generation 1V2 2019-05-11)
 - [mslug3h66]         Metal Slug 3 (Multi-Function Version 2019-02-15)
 - [mslug3h67]         Metal Slug 3 (Enemies Resetting Version 2019-04-17)
@@ -22,7 +23,12 @@ New Games
 - [mslug5dh56]        Metal Slug 5 (Enemies Resetting Version 2019-06-09)
 - [mslug5dh57]        Metal Slug 5 (Generation 1V2 2019-05-11)
 - [mslugxz63]         Metal Slug X (Generation 1V2 2019-05-11)
+- [pheliosx]          Phelios (Sound Bug fix - Final Battle)
 - [sinvrdzm]          Super Invaders (Zenitone-Microsec Ltd)(branded Ruffler & Deith) [from NES4LIFE]
+- [umk3uc]            Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-09-26)
+- [umk3uc2]           Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-06-06)
+- [umk3tm ]           Ultimate Mortal Kombat 3 (Team Edition 2018-01-20)
+
 
 
 2019-06-26 0.211

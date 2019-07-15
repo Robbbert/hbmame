@@ -3688,6 +3688,9 @@ umk3r13b101
 umk3r13b1213
 umk3r13b201
 umk3r13bf
+umk3uc
+umk3uc2
+umk3tm
 
 @source:midyunit.cpp
 mkla4d		/* MK protection hack */
@@ -5499,9 +5502,11 @@ superabco
 
 @source:namcona1.cpp
 knckhead
+knckheadx
 
 @source:namcos2.cpp
 phelios
+pheliosx
 
 @source:nemesis.cpp
 salamand	//parent
