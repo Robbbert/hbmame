@@ -29,3 +29,16 @@ CONS( 2018, gnw_squeeze, 0, 0, gnw_mickdon, gnw_mickdon, gnw_mickdon_state, empt
 //  http://montrose.is/games/
 
 
+ROM_START( spicegirls )
+	ROM_REGION( 0x1000, "maincpu", 0 )
+	ROM_LOAD( "n63.program", 0x0000, 0x1000, CRC(303aa6f7) SHA1(296689be1ee05238e52e9882812868b2ea96202c) )
+
+	ROM_REGION( 0x100, "maincpu:melody", 0 )
+	ROM_LOAD( "n63.melody", 0x000, 0x100, CRC(77c1a5a3) SHA1(c00ae3b7c64dd9db96eab520fe674a40571fc15f) )
+
+	ROM_REGION( 0x12effe, "screen", 0)
+	ROM_LOAD( "tmchammer1.svg", 0, 0x12effe, CRC(2780e107) SHA1(ddada21ef480bccee7c4c1a54b3842e03be85921) )
+ROM_END
+
+CONS( 2019, spicegirls, 0, 0, tmchammer, tmchammer, tmchammer_state, empty_init, "Pagent Tech", "Spice Girls", MACHINE_SUPPORTS_SAVE )
+
