@@ -2,7 +2,7 @@
 ====================
 
 
-2019-xx-xx 0.2xx
+2019-07-31 0.212
 ----------------
 
 - Metal Slug 2/3/4/5 the remix has been updated
@@ -40,9 +40,11 @@ New Games
 - [mslugxz63]         Metal Slug X (Generation 1V2 2019-05-11)
 - [pheliosx]          Phelios (Sound Bug fix - Final Battle)
 - [sinvrdzm]          Super Invaders (Zenitone-Microsec Ltd)(branded Ruffler & Deith) [from NES4LIFE]
+- [spicegirls]        Spice Girls [from Pagent Tech]
 - [umk3uc]            Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-09-26)
 - [umk3uc2]           Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-06-06)
 - [umk3tm ]           Ultimate Mortal Kombat 3 (Team Edition 2018-01-20)
+
 
 
 
@@ -64,6 +66,7 @@ New Games
 - [punisherjs16]      The Punisher (Unknown Hack 2019)
 - [punisherjs17]      The Punisher (Unparalleled Version 2019-05-30)
 - [pzloop2jd]         Puzz Loop 2 (Japan 010226 Phoenix Edition)
+- [seafight]          Sea Fighter 0.01.009 [by kl3mousse]
 
 
 
