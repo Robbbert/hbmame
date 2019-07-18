@@ -93,7 +93,8 @@ undoukai                        // A17 (c) 1984 Taito
 4d410                           // (c) SGI 1991
 
 @source:4dpi.cpp
-4d20                            // IP6: Personal Iris 4D/20, R2000 @12.5MHz
+4d20                            //  IP6: Personal Iris 4D/20, R2000 @12.5MHz
+4d25                            // IP10: Personal Iris 4D/25, R3000 @20MHz
 
 @source:4enlinea.cpp
 4enlinea                        // (c) 1991 System Compumatic
@@ -15280,6 +15281,7 @@ gnw_opanic                      // Nintendo
 gnw_pchute                      // Nintendo
 gnw_popeye                      // Nintendo
 gnw_rshower                     // Nintendo
+gnw_sbuster                     // Nintendo
 gnw_smb                         // Nintendo
 gnw_squish                      // Nintendo
 gnw_stennis                     // Nintendo
@@ -34113,7 +34115,12 @@ risc2500                        //
 montreux                        //
 
 @source:saitek_stratos.cpp
-stratos                         // Kasparov Stratos Chess Computer
+corona
+stratos
+stratosl
+tking
+tkingl
+tkingp
 
 @source:sam.cpp
 24_130                          //
