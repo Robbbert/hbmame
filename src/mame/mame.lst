@@ -18677,6 +18677,12 @@ zephya                          //
 7smash                          // (c) 1993 Sovic
 luckgrln                        // (c) 1991 Wing Co. Ltd
 
+@source:lucky37.cpp
+lucky21                         // (c) 199? Wing Co. Ltd
+lucky21d                        // (c) 199? Wing Co. Ltd
+lucky25                         // (c) 199? Wing Co. Ltd
+lucky37                         // (c) 199? Wing Co. Ltd
+
 @source:lucky74.cpp
 excitbj                         // (c) 1992 Wing Co. Ltd
 lucky74                         // (c) 1988 Wing Co. Ltd
@@ -34117,11 +34123,12 @@ montreux                        //
 
 @source:saitek_stratos.cpp
 corona
+coronaa
 stratos
-stratosl
+stratosa
 tking
-tkingl
-tkingp
+tkinga
+tkingb
 
 @source:sam.cpp
 24_130                          //
@@ -34376,6 +34383,9 @@ savia84                         //
 
 @source:savquest.cpp
 savquest                        //
+
+@source:sb8085.cpp
+sb8085                          //
 
 @source:sbasketb.cpp
 sbasketb                        // GX405 (c) 1984 (Version I, Encrypted)
