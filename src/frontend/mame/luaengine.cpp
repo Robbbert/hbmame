@@ -1671,6 +1671,7 @@ void lua_engine::initialize()
 
 	sol().registry().new_usertype<ioport_manager>("ioport", "new", sol::no_constructor,
 			"count_players", &ioport_manager::count_players,
+			"natkeyboard", &ioport_manager::natkeyboard,
 			"ports", sol::property([this](ioport_manager &im) {
 					sol::table port_table = sol().create_table();
 					for (auto &port : im.ports())
@@ -1678,6 +1679,23 @@ void lua_engine::initialize()
 					return port_table;
 				}));
 
+/*  natkeyboard library
+ *
+ * manager:machine():ioport():natkeyboard()
+ *
+ * natkeyboard.empty - is the natural keyboard buffer empty?
+ * natkeyboard.in_use - is the natural keyboard in use?
+ * natkeyboard:paste() - paste clipboard data
+ * natkeyboard:post() - post data to natural keyboard
+ * natkeyboard:post_coded() - post data to natural keyboard
+ */
+
+	sol().registry().new_usertype<natural_keyboard>("natkeyboard", "new", sol::no_constructor,
+			"empty", sol::property(&natural_keyboard::empty),
+			"in_use", sol::property(&natural_keyboard::in_use, &natural_keyboard::set_in_use),
+			"paste", &natural_keyboard::paste,
+			"post", [](natural_keyboard &nat, const std::string &text)			{ nat.post_utf8(text); },
+			"post_coded", [](natural_keyboard &nat, const std::string &text)	{ nat.post_coded(text); });
 
 /*  ioport_port library
  *
@@ -1850,6 +1868,7 @@ void lua_engine::initialize()
 			"skip_this_frame", &video_manager::skip_this_frame,
 			"speed_factor", &video_manager::speed_factor,
 			"speed_percent", &video_manager::speed_percent,
+			"effective_frameskip", &video_manager::effective_frameskip,
 			"frame_update", &video_manager::frame_update,
 			"size", [](video_manager &vm) {
 					s32 width, height;

@@ -12842,6 +12842,7 @@ smissw                          //
 supmodel                        // (c) 1994 Comad & New Japan System
 wownfant                        // (c) 2002 Comad
 zipzap                          // (c) 1995 Barko Corp
+zipzapa                         // (c) 1995 Barko Corp
 
 @source:exprraid.cpp
 exprraid                        // (c) 1986 Data East Corporation
@@ -34111,6 +34112,10 @@ sage2                           //
 @source:saitek_chesstrv.cpp
 chesstrv                        //
 
+@source:saitek_corona.cpp
+corona
+coronaa
+
 @source:saitek_cp2000.cpp
 cp2000                          //
 
@@ -34122,8 +34127,6 @@ risc2500                        //
 montreux                        //
 
 @source:saitek_stratos.cpp
-corona
-coronaa
 stratos
 stratosa
 tking
@@ -37753,6 +37756,7 @@ t4490                           // Terco 4490 Mill CNC Control (c) 1986
 alcat258                        //
 loewe715                        //
 loewed                          //
+swtpc8212                       //
 teleguide                       //
 
 @source:terracre.cpp
