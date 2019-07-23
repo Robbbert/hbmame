@@ -1676,6 +1676,8 @@ if (BUSES["S100"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/s100/s100.cpp",
 		MAME_DIR .. "src/devices/bus/s100/s100.h",
+		MAME_DIR .. "src/devices/bus/s100/dg640.cpp",
+		MAME_DIR .. "src/devices/bus/s100/dg640.h",
 		MAME_DIR .. "src/devices/bus/s100/dj2db.cpp",
 		MAME_DIR .. "src/devices/bus/s100/dj2db.h",
 		MAME_DIR .. "src/devices/bus/s100/djdma.cpp",
@@ -3206,6 +3208,8 @@ if (BUSES["MACPDS"]~=null) then
 		MAME_DIR .. "src/devices/bus/macpds/macpds.h",
 		MAME_DIR .. "src/devices/bus/macpds/pds_tpdfpd.cpp",
 		MAME_DIR .. "src/devices/bus/macpds/pds_tpdfpd.h",
+		MAME_DIR .. "src/devices/bus/macpds/hyperdrive.cpp",
+		MAME_DIR .. "src/devices/bus/macpds/hyperdrive.h",
 	}
 end
 
