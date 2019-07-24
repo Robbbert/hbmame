@@ -1976,10 +1976,8 @@ static BOOL SnapViewPopulateControl(datamap *map, HWND dialog, HWND control, win
 static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
 	int input_option_index = ComboBox_GetCurSel(control);
-	TCHAR *input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
-	char *op_val = ui_utf8_from_wstring(input_option_value);
-	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE);
-	free(op_val);
+	const char *input_option_value = (const char*)ComboBox_GetItemData(control, input_option_index);
+	opts->set_value(OPTION_CTRLR, input_option_index ? input_option_value : "", OPTION_PRIORITY_CMDLINE);
 	return false;
 }
 
