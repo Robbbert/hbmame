@@ -70,6 +70,7 @@ private:
 	DECLARE_READ8_MEMBER(control1_r);
 	DECLARE_READ8_MEMBER(control2_r);
 	DECLARE_READ8_MEMBER(chessboard_r);
+	DECLARE_WRITE8_MEMBER(lcd_reset_w);
 
 	u8 m_control1;
 	u8 m_control2;
@@ -212,6 +213,13 @@ READ8_MEMBER(corona_state::chessboard_r)
 {
 	// d0-d7: chessboard sensors
 	return ~m_board->read_file(m_select2 & 0xf);
+}
+
+WRITE8_MEMBER(corona_state::lcd_reset_w)
+{
+	// reset lcd?
+	m_lcd_ready = true;
+	m_lcd_count = 0;
 }
 
 
