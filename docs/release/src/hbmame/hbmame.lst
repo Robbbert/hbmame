@@ -36,6 +36,7 @@ invmultis1a
 invmultis2a
 invmultis3a
 invmultit3d
+sinvrdzm
 
 @source:arkanoid.cpp
 arkanoid		//parent
@@ -1390,6 +1391,7 @@ gradius3s01
 @source:hh_sm510.cpp
 gnw_bride				// HB
 gnw_squeeze				// HB
+spicegirls				// HB
 
 @source:igs011.cpp
 lhb2					//parent
@@ -3687,6 +3689,9 @@ umk3r13b101
 umk3r13b1213
 umk3r13b201
 umk3r13bf
+umk3uc
+umk3uc2
+umk3tm
 
 @source:midyunit.cpp
 mkla4d		/* MK protection hack */
@@ -3788,6 +3793,7 @@ mslug2ps30
 mslug2ps31
 mslug2ps32
 mslug2ps33
+mslug2ps34
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -3923,8 +3929,10 @@ mslug3h60
 mslug3h61
 mslug3h62
 mslug3h63
-mslug3h64
 mslug3h65
+mslug3h66
+mslug3h67
+mslug3h68
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4403,6 +4411,8 @@ mslug4hh41
 mslug4hh42
 mslug4hh43
 mslug4hh44
+mslug4hh45
+mslug4hh46
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -4617,6 +4627,12 @@ mslug5dh48
 mslug5dh49
 mslug5dh50
 mslug5dh51
+mslug5dh52
+mslug5dh53
+mslug5dh54
+mslug5dh55
+mslug5dh56
+mslug5dh57
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -4955,6 +4971,30 @@ mslug5xsm21
 mslug5xsm22
 mslug5xsm23
 mslug5xsm24
+mslug5ervx01
+mslug5ervx02
+mslug5ervx03
+mslug5ervx04
+mslug5ervx05
+mslug5ervx06
+mslug5ervx07
+mslug5ervx08
+mslug5ervx09
+mslug5ervx10
+mslug5ervx11
+mslug5ervx12
+mslug5ervx13
+mslug5ervx14
+mslug5ervx15
+mslug5ervx16
+mslug5ervx17
+mslug5ervx18
+mslug5ervx19
+mslug5ervx20
+mslug5ervx21
+mslug5ervx22
+mslug5ervx23
+mslug5ervx24
 
 @source:mslugx.cpp
 mslugxce
@@ -5026,6 +5066,7 @@ mslugxz59
 mslugxz60
 mslugxz61
 mslugxz62
+mslugxz63
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
@@ -5459,6 +5500,14 @@ pm4n1d
 pm4n1e
 superabc
 superabco
+
+@source:namcona1.cpp
+knckhead
+knckheadx
+
+@source:namcos2.cpp
+phelios
+pheliosx
 
 @source:nemesis.cpp
 salamand	//parent
@@ -6878,7 +6927,6 @@ kov115s08
 kov115s09
 kov115s10
 kov115s11
-kov115s12
 kov2p204s01
 kov2p204s02
 kov2p204s03
@@ -7315,6 +7363,22 @@ kovpluss328  //graphic problem
 kovpluss329
 //kovpluss330  // Unstable game in the emulator(ingame crash)
 //kovpluss331  // Unstable game in the emulator(ingame crash)
+kovpluss332
+kovpluss333
+kovpluss334
+kovpluss335
+kovpluss336
+kovpluss337
+kovpluss338
+kovpluss339
+kovpluss340
+kovpluss341
+kovpluss342
+kovpluss343
+kovpluss344
+kovpluss345
+kovpluss346
+kovpluss347
 kovplusas01
 kovshs01
 kovshs02

@@ -66,7 +66,7 @@ ROM_START( 1943h )
 	ROM_LOAD( "bm05.4k", 0x00000, 0x8000, CRC(ee2bd2d7) SHA1(4d2d019a9f8452fbbb247e893280568a2e86073e) )
 
 	ROM_REGION( 0x10000, "mcu", 0 )
-	ROM_LOAD( "bm.7k", 0x00000, 0x10000 , NO_DUMP )
+	ROM_LOAD( "bm.7k", 0x0000, 0x1000 , CRC(cf4781bf) SHA1(4d63da5bf39a892499c02a79c7daf33d3a94234a) )
 
 	ROM_REGION( 0x8000, "gfx1", 0 )
 	ROM_LOAD( "bm04.5h", 0x00000, 0x8000, CRC(46cb9d3d) SHA1(96fd0e714b91fe13a2ca0d185ada9e4b4baa0c0b) )
@@ -114,8 +114,8 @@ ROM_START( 1943h )
 	ROM_LOAD( "bm6.4b",   0x0b00, 0x0100, CRC(0eaf5158) SHA1(bafd4108708f66cd7b280e47152b108f3e254fc9) )
 ROM_END
 
-GAME( 1987, 1943b2, 1943,  _1943, 1943, _1943_state, init_1943b, ROT270,  "bootleg", "1943: Midway Kaisen (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
-GAME( 1987, 1943h,  1943,  _1943, 1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, 1943b2, 1943,  _1943b, 1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: Midway Kaisen (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, 1943h,  1943,  _1943,  1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -138,7 +138,7 @@ ROM_START( 1943kais01 )
 	ROM_LOAD( "bmk05.4k", 0x00000, 0x8000, CRC(25f37957) SHA1(1e50c2a920eb3b5c881843686db857e9fee5ba1d) )
 
 	ROM_REGION( 0x10000, "mcu", 0 )
-	ROM_LOAD( "bm.7k", 0x00000, 0x10000 , NO_DUMP )
+	ROM_LOAD( "bm.7k", 0x0000, 0x1000 , CRC(cf4781bf) SHA1(4d63da5bf39a892499c02a79c7daf33d3a94234a) )
 
 	ROM_REGION( 0x8000, "gfx1", 0 )
 	ROM_LOAD( "bmk04.5h", 0x00000, 0x8000, CRC(884a8692) SHA1(027aa8c868dc07ccd9e27705031107881aef4b91) )

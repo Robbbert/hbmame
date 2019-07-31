@@ -1715,11 +1715,11 @@ static void SetPropEnabledControls(HWND hWnd)
 	EnableWindow(GetDlgItem(hWnd, IDC_SCREENSELECTTEXT), ddraw | d3d);
 
 	EnableWindow(GetDlgItem(hWnd, IDC_ARTWORK_CROP), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_BACKDROPS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_BEZELS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_OVERLAYS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_CPANELS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_MARQUEES), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_BACKDROPS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_BEZELS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_OVERLAYS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_CPANELS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_MARQUEES), useart);
 	EnableWindow(GetDlgItem(hWnd, IDC_ARTMISCTEXT), useart);
 
 	/* Joystick options */
@@ -1976,10 +1976,8 @@ static BOOL SnapViewPopulateControl(datamap *map, HWND dialog, HWND control, win
 static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
 	int input_option_index = ComboBox_GetCurSel(control);
-	TCHAR *input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
-	char *op_val = ui_utf8_from_wstring(input_option_value);
-	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE);
-	free(op_val);
+	const char *input_option_value = (const char*)ComboBox_GetItemData(control, input_option_index);
+	opts->set_value(OPTION_CTRLR, input_option_index ? input_option_value : "", OPTION_PRIORITY_CMDLINE);
 	return false;
 }
 
@@ -2256,11 +2254,11 @@ static void BuildDataMap(void)
 
 	// core artwork options
 	datamap_add(properties_datamap, IDC_ARTWORK_CROP,			DM_BOOL,	OPTION_ARTWORK_CROP);
-	datamap_add(properties_datamap, IDC_BACKDROPS,				DM_BOOL,	OPTION_USE_BACKDROPS);
-	datamap_add(properties_datamap, IDC_OVERLAYS,				DM_BOOL,	OPTION_USE_OVERLAYS);
-	datamap_add(properties_datamap, IDC_BEZELS,					DM_BOOL,	OPTION_USE_BEZELS);
-	datamap_add(properties_datamap, IDC_CPANELS,				DM_BOOL,	OPTION_USE_CPANELS);
-	datamap_add(properties_datamap, IDC_MARQUEES,				DM_BOOL,	OPTION_USE_MARQUEES);
+//	datamap_add(properties_datamap, IDC_BACKDROPS,				DM_BOOL,	OPTION_USE_BACKDROPS);
+//	datamap_add(properties_datamap, IDC_OVERLAYS,				DM_BOOL,	OPTION_USE_OVERLAYS);
+//	datamap_add(properties_datamap, IDC_BEZELS,					DM_BOOL,	OPTION_USE_BEZELS);
+//	datamap_add(properties_datamap, IDC_CPANELS,				DM_BOOL,	OPTION_USE_CPANELS);
+//	datamap_add(properties_datamap, IDC_MARQUEES,				DM_BOOL,	OPTION_USE_MARQUEES);
 
 	// core screen options
 	datamap_add(properties_datamap, IDC_BRIGHTCORRECT,			DM_FLOAT,	OPTION_BRIGHTNESS);

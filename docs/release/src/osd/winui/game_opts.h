@@ -248,15 +248,17 @@ public:
 		{
 			// rebuild the cache
 			device_t::feature_type ft;
-			const game_driver *drv;
+			const game_driver *drv = 0;
 			windows_options dummy;
+			ui_options ui_opts;
 			printf("game_opts.cpp::load_file : Rebuilding cache\n");fflush(stdout);
 			for (uint32_t i = 0; i < m_total; i++)
 			{
 				uint32_t t = 0;
 				// BITS 0,1 = arcade, console, computer, other
 				drv = &driver_list::driver(i);
-				ui::machine_static_info const info(machine_config(*drv, dummy));
+				machine_config config(*drv, dummy);
+				ui::machine_static_info const info(ui_opts, config);
 				if ((info.machine_flags() & machine_flags::MASK_TYPE) == machine_flags::TYPE_CONSOLE)
 					t = 1;
 				else
