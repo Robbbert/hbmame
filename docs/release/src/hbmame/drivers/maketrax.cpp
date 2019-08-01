@@ -868,7 +868,7 @@ HACK( 2012, tinyworld, 0,        pacman,   mspacman, pacman_state,  0,        RO
 
 /* Other Misc Hacks */
 
-HACK( 2002, crashh,    0,        woodpek,  mspacpls, pacman_state,  0,        ROT90,  "hack", "Crash", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, crashh,    0,        woodpek,  mspacpls, pacman_state,  0,        ROT90,  "hack", "Crash (Pac-Man)", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, mtturbo,   0,        maketrax, maketrax, pacman_state,  maketrax, ROT270, "Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
 HACK( 1999, tst_pacm,  0,        pacman,   mspacpls, pacman_state,  0,        ROT90,  "David Caldwell", "Test - Pacman Hardware", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
 HACK( 1982, eyesb,     eyes,     pacman,   eyes,     pacman_state,  eyes,     ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )

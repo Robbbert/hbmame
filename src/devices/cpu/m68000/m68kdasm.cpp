@@ -1897,9 +1897,9 @@ std::string m68k_disassembler::d68010_movec()
 	}
 
 	if(BIT(m_cpu_ir, 0))
-		return util::string_format("movec %c%d, %s; (%s)", BIT(extension, 15) ? 'A' : 'D', (extension>>12)&7, reg_name, processor);
+		return util::string_format("movec   %c%d, %s; (%s)", BIT(extension, 15) ? 'A' : 'D', (extension>>12)&7, reg_name, processor);
 	else
-		return util::string_format("movec %s, %c%d; (%s)", reg_name, BIT(extension, 15) ? 'A' : 'D', (extension>>12)&7, processor);
+		return util::string_format("movec   %s, %c%d; (%s)", reg_name, BIT(extension, 15) ? 'A' : 'D', (extension>>12)&7, processor);
 }
 
 std::string m68k_disassembler::d68000_movem_pd_16()
@@ -2330,6 +2330,11 @@ std::string m68k_disassembler::d68000_nop()
 	return util::string_format("nop");
 }
 
+std::string m68k_disassembler::d68000_nophb()
+{
+	return util::string_format("nophb");
+}
+
 std::string m68k_disassembler::d68000_not_8()
 {
 	return util::string_format("not.b   %s", get_ea_mode_str_8(m_cpu_ir));
@@ -2604,6 +2609,12 @@ std::string m68k_disassembler::d68000_rts()
 {
 	m_flags = STEP_OUT;
 	return util::string_format("rts");
+}
+
+std::string m68k_disassembler::d68000_rtshb()
+{
+	m_flags = STEP_OUT;
+	return util::string_format("rtshb");
 }
 
 std::string m68k_disassembler::d68000_sbcd_rr()
@@ -2901,9 +2912,9 @@ std::string m68k_disassembler::d68020_unpk_mm()
 	return util::string_format("unpk    -(A%d), -(A%d), %s; (2+)", m_cpu_ir&7, (m_cpu_ir>>9)&7, get_imm_str_u16());
 }
 
-std::string m68k_disassembler::fc_to_string(uint16_t modes)
+std::string m68k_disassembler::fc_to_string(u16 modes)
 {
-	uint16_t fc = modes & 0x1f;
+	u16 fc = modes & 0x1f;
 
 	if (fc == 0)
 	{
@@ -3077,7 +3088,7 @@ std::string m68k_disassembler::d68851_pbcc32()
 std::string m68k_disassembler::d68851_pdbcc()
 {
 	u32 temp_pc = m_cpu_pc;
-	uint16_t modes = read_imm_16();
+	u16 modes = read_imm_16();
 
 	return util::string_format("pb%s %x", m_mmucond[modes&0xf], temp_pc + make_int_16(read_imm_16()));
 }
@@ -3095,7 +3106,7 @@ std::string m68k_disassembler::d68040_fbcc_16()
 	if(limit.first)
 		return limit.second;
 	u32 temp_pc = m_cpu_pc;
-	int16_t disp = make_int_16(read_imm_16());
+	s16 disp = make_int_16(read_imm_16());
 	return util::string_format("fb%-s   $%x", m_cpcc[m_cpu_ir & 0x3f], temp_pc + disp);
 }
 
@@ -3332,6 +3343,7 @@ const m68k_disassembler::opcode_struct m68k_disassembler::m_opcode_info[] =
 	{&m68k_disassembler::d68000_negx_16      , 0xffc0, 0x4040, 0xbf8},
 	{&m68k_disassembler::d68000_negx_32      , 0xffc0, 0x4080, 0xbf8},
 	{&m68k_disassembler::d68000_nop          , 0xffff, 0x4e71, 0x000},
+	{&m68k_disassembler::d68000_nophb        , 0xffff, 0x4e7d, 0x000},
 	{&m68k_disassembler::d68000_not_8        , 0xffc0, 0x4600, 0xbf8},
 	{&m68k_disassembler::d68000_not_16       , 0xffc0, 0x4640, 0xbf8},
 	{&m68k_disassembler::d68000_not_32       , 0xffc0, 0x4680, 0xbf8},
@@ -3384,6 +3396,7 @@ const m68k_disassembler::opcode_struct m68k_disassembler::m_opcode_info[] =
 	{&m68k_disassembler::d68020_rtm          , 0xfff0, 0x06c0, 0x000},
 	{&m68k_disassembler::d68000_rtr          , 0xffff, 0x4e77, 0x000},
 	{&m68k_disassembler::d68000_rts          , 0xffff, 0x4e75, 0x000},
+	{&m68k_disassembler::d68000_rtshb        , 0xffff, 0x4e7c, 0x000},
 	{&m68k_disassembler::d68000_sbcd_rr      , 0xf1f8, 0x8100, 0x000},
 	{&m68k_disassembler::d68000_sbcd_mm      , 0xf1f8, 0x8108, 0x000},
 	{&m68k_disassembler::d68000_scc          , 0xf0c0, 0x50c0, 0xbf8},

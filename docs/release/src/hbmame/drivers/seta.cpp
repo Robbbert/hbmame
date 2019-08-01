@@ -141,35 +141,13 @@ ROM_START( rezons01 )
 	ROM_LOAD16_WORD_SWAP( "us001009.u70",  0x000000, 0x100000, CRC(0d7d2e2b) SHA1(cfba19314ecb0a49ed9ff8df32cd6a3fe37ff526) )
 ROM_END
 
-ROM_START( rezonts01 )
-	ROM_REGION( 0x200000, "maincpu", 0 )    
-	ROM_LOAD16_BYTE( "us001001_ps01.u3",  0x000000, 0x020000, CRC(8ee3b85d) SHA1(f3ed438b680e0e0b97f27f38580951029d1f1be1) )
-	ROM_LOAD16_BYTE( "rezon_1_p_ps01.u4", 0x000001, 0x020000, CRC(f52aa5a6) SHA1(dfb1909e1bbb5b9462cb0b37e17db542cc7204ec) )
-	ROM_LOAD16_BYTE( "us001004.103", 0x100000, 0x020000, CRC(54871c7c) SHA1(2f807b15760b1e712fa69eee6f33cc8a36ee1c02) )
-	ROM_LOAD16_BYTE( "us001003.102", 0x100001, 0x020000, CRC(1ac3d272) SHA1(0f19bc9c19e355dad5b463b0fa33127523bf141b) )
-
-	ROM_REGION( 0x100000, "gfx1", 0 )
-	ROM_LOAD( "us001006.u64",  0x000000, 0x080000, CRC(a4916e96) SHA1(bfb63b72273e4fbf0843b3201bb4fddaf54909a7) )
-	ROM_LOAD( "us001005.u63",  0x080000, 0x080000, CRC(e6251ebc) SHA1(f02a4c8373e33fc57e18e39f1b5ecff3f6d9ca9e) )
-
-	ROM_REGION( 0x080000, "gfx2", 0 )
-	ROM_LOAD( "us001007.u66",  0x000000, 0x080000, CRC(3760b935) SHA1(f5fe69f7e93c90a5b6c1dff236402b962821e33f) )
-
-	ROM_REGION( 0x080000, "gfx3", 0 ) 
-	ROM_LOAD( "us001008.u68",  0x000000, 0x080000, CRC(0ab73910) SHA1(78e2c0570c5c6f5e1cdb2fbeae73376923127024) )
-
-	ROM_REGION( 0x100000, "x1snd", 0 )
-	ROM_LOAD16_WORD_SWAP( "us001009.u70",  0x000000, 0x100000, CRC(0d7d2e2b) SHA1(cfba19314ecb0a49ed9ff8df32cd6a3fe37ff526) )
-ROM_END
-
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // The FairyLand Story
-GAME( 200?, blandias01,   blandia,   blandia,   blandia,   seta_state,     init_blandia,   ROT0,   "Unknown",  "Blandia (Boss With Simple Attack Edition)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 200?, blandias02,   blandia,   blandia,   blandia,   seta_state,     init_blandia,   ROT0,   "DDJ",  "Blandia (Choice Hidden Character)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 200?, blandias03,   blandia,   blandia,   blandia,   seta_state,     init_blandia,   ROT0,   "DDJ",  "Blandia (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1992, blandias01,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "Unknown",  "Blandia (Boss With Simple Attack Edition)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1992, blandias02,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "DDJ",  "Blandia (Choice Hidden Character)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1992, blandias03,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "DDJ",  "Blandia (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
 // Mobile Suit Gundam
-GAME( 200?, msgundams01,  msgundam,  msgundam,  msgundam,  seta_state,     empty_init,     ROT0,   "DDJ",   "Mobile Suit Gundam (Easy Move)", 0 )
+GAME( 1993, msgundams01,  msgundam,  msgundam,  msgundam,  seta_state,     empty_init,     ROT0,   "DDJ",   "Mobile Suit Gundam (Easy Move)", 0 )
 // Rezon
-GAME( 200?, rezons01,     rezon,     rezon,     rezon,     seta_state,     init_rezon,     ROT0,   "Unknown",  "Rezon (3 button version (Fixed Vaws, Rapid Fire))", 0 )
-GAME( 200?, rezonts01,    rezon,     rezon,     rezont,    seta_state,     init_rezon,     ROT0,   "Unknown",  "Rezon (3 button version (Fixed Vaws, Rapid Fire))(Taito)", 0 )
+GAME( 1991, rezons01,     rezon,     rezon,     rezon,     seta_state,     init_rezon,     ROT0,   "Unknown",  "Rezon (3 button version (Fixed Vaws, Rapid Fire)", 0 )
 

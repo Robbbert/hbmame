@@ -4,27 +4,6 @@
 
 #include "includes/neogeo.h"
 
-#if 0
-void neogeo_state::init_kof95sp() // thx FBA
-{
-	init_neogeo();
-	uint32_t i;
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
-	for (i = 0; i < 0x100000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	for (i = 0x200000/2; i < 0x220000/2; i++)
-	{
-		if (rom[i] == 0x4e7d) rom[i] = 0x4e71;
-		if (rom[i] == 0x4e7c) rom[i] = 0x4e75;
-	}
-	rom[0x1f3a8] = 0x2b7c; // 4ef9
-	rom[0x1f3a9] = 0x0003; // 0090
-	rom[0x1f3aa] = 0xe7fa; // 16be
-}
-#endif
 
 ROM_START( kof95bln ) // Boss - Like NeogeoCD Version (Eddids hack)
 	ROM_REGION( 0x200000, "maincpu", 0 )

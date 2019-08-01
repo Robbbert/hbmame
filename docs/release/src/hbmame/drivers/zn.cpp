@@ -20,7 +20,7 @@ ROM_START( doapph01 )
 	ROM_LOAD( "mg05", 0x000000, 0x000008, CRC(5748a4ca) SHA1(c88d73f6a646a9ddefdfd84cba70d591759c069f) )
 ROM_END
 
-GAME( 200?, doapph01, doapp, coh1002m, zn, zn_state, empty_init, ROT0, "yumeji", "Dead Or Alive ++ (Enable hidden characters)(Japan)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1998, doapph01, doapp, coh1002m, zn, zn_state, empty_init, ROT0, "yumeji", "Dead Or Alive ++ (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 
 
 /****************************************************
@@ -143,10 +143,10 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Street Fighter EX
-GAME( 200?, sfexs01,      sfex,   coh1002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX (Enable Hidden Characters)(Euro 961219)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1996, sfexs01,      sfex,   coh1002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 // Street Fighter EX2
-GAME( 200?, sfex2s01,     sfex2,  coh3002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 (Enable Hidden Characters)(USA 980526)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1998, sfex2s01,     sfex2,  coh3002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 // Street Fighter EX2 Plus
-GAME( 200?, sfex2ps01,    sfex2p, coh3002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 Plus (Enable Hidden Characters)(USA 990611)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1999, sfex2ps01,    sfex2p, coh3002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 Plus (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 // Street Fighter EX Plus
-GAME( 200?, sfexps01,     sfexp,  coh1002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX Plus (Enable Hidden Characters)(USA 970407)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1997, sfexps01,     sfexp,  coh1002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX Plus (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )

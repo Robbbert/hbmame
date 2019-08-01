@@ -207,6 +207,7 @@ void mips1core_device_base::device_reset()
 	m_cop0[COP0_Status] = SR_BEV | SR_TS;
 
 	m_data_spacenum = 0;
+	m_bus_error = false;
 }
 
 void mips1core_device_base::execute_run()
@@ -911,32 +912,31 @@ void mips1core_device_base::set_cop0_reg(unsigned const reg, u32 const data)
 {
 	switch (reg)
 	{
-	case COP0_Context:
-		m_cop0[COP0_Context] = (m_cop0[COP0_Context] & ~PTE_BASE) | (data & PTE_BASE);
-		break;
 	case COP0_Status:
-	{
-		u32 const delta = SR ^ data;
+		{
+			u32 const delta = SR ^ data;
 
-		m_cop0[COP0_Status] = data;
+			m_cop0[COP0_Status] = data;
 
-		// handle cache isolation and swap
-		m_data_spacenum = (data & SR_IsC) ? ((data & SR_SwC) ? 1 : 2) : 0;
+			// handle cache isolation and swap
+			m_data_spacenum = (data & SR_IsC) ? ((data & SR_SwC) ? 1 : 2) : 0;
 
-		// update interrupts
-		if (delta & (SR_IEc | SR_IM))
-			check_irqs();
+			// update interrupts
+			if (delta & (SR_IEc | SR_IM))
+				check_irqs();
 
-		if ((delta & SR_KUc) && (m_branch_state != EXCEPTION))
-			debugger_privilege_hook();
-	}
-	break;
+			if ((delta & SR_KUc) && (m_branch_state != EXCEPTION))
+				debugger_privilege_hook();
+		}
+		break;
+
 	case COP0_Cause:
 		CAUSE = (CAUSE & CAUSE_IPEX) | (data & ~CAUSE_IPEX);
 
 		// update interrupts -- software ints can occur this way
 		check_irqs();
 		break;
+
 	case COP0_PRId:
 		// read-only register
 		break;
@@ -1069,12 +1069,18 @@ template <typename T, typename U> std::enable_if_t<std::is_convertible<U, std::f
 {
 	if (memory_translate(m_data_spacenum, TRANSLATE_READ, address))
 	{
-		switch (sizeof(T))
+		T const data
+			= (sizeof(T) == 1) ? space(m_data_spacenum).read_byte(address)
+			: (sizeof(T) == 2) ? space(m_data_spacenum).read_word(address)
+			: space(m_data_spacenum).read_dword(address);
+
+		if (m_bus_error)
 		{
-		case 1: apply(T(space(m_data_spacenum).read_byte(address))); break;
-		case 2: apply(T(space(m_data_spacenum).read_word(address))); break;
-		case 4: apply(T(space(m_data_spacenum).read_dword(address))); break;
+			m_bus_error = false;
+			generate_exception(EXCEPTION_BUSDATA);
 		}
+		else
+			apply(data);
 	}
 }
 
@@ -1095,8 +1101,17 @@ bool mips1core_device_base::fetch(u32 address, std::function<void(u32)> &&apply)
 {
 	if (memory_translate(0, TRANSLATE_FETCH, address))
 	{
-		apply(space(0).read_dword(address));
+		u32 const data = space(0).read_dword(address);
 
+		if (m_bus_error)
+		{
+			m_bus_error = false;
+			generate_exception(EXCEPTION_BUSINST);
+
+			return false;
+		}
+
+		apply(data);
 		return true;
 	}
 	else
@@ -1177,7 +1192,7 @@ void mips1_device_base::device_start()
 	{
 		state_add(MIPS1_FCR31, "FCSR", m_fcr31);
 		for (unsigned i = 0; i < ARRAY_LENGTH(m_f); i++)
-			state_add(MIPS1_F0 + i, util::string_format("F%d", i).c_str(), m_f[i]);
+			state_add(MIPS1_F0 + i, util::string_format("F%d", i * 2).c_str(), m_f[i]);
 	}
 
 	save_item(NAME(m_reset_time));
@@ -1287,6 +1302,28 @@ u32 mips1_device_base::get_cop0_reg(unsigned const reg)
 	return m_cop0[reg];
 }
 
+void mips1_device_base::set_cop0_reg(unsigned const reg, u32 const data)
+{
+	switch (reg)
+	{
+	case COP0_EntryHi:
+		m_cop0[COP0_EntryHi] = data & EH_WM;
+		break;
+
+	case COP0_EntryLo:
+		m_cop0[COP0_EntryLo] = data & EL_WM;
+		break;
+
+	case COP0_Context:
+		m_cop0[COP0_Context] = (m_cop0[COP0_Context] & ~PTE_BASE) | (data & PTE_BASE);
+		break;
+
+	default:
+		mips1core_device_base::set_cop0_reg(reg, data);
+		break;
+	}
+}
+
 void mips1_device_base::handle_cop1(u32 const op)
 {
 	if (!(SR & SR_COP1))
@@ -1355,8 +1392,10 @@ void mips1_device_base::handle_cop1(u32 const op)
 				}
 
 				// exception check
-				if ((m_fcr31 & FCR31_CE) || ((m_fcr31 & FCR31_CM) >> 5) & (m_fcr31 & FCR31_EM))
-					execute_set_input(m_fpu_irq, ASSERT_LINE);
+				{
+					bool const exception = (m_fcr31 & FCR31_CE) || (((m_fcr31 & FCR31_CM) >> 5) & (m_fcr31 & FCR31_EM));
+					execute_set_input(m_fpu_irq, exception ? ASSERT_LINE : CLEAR_LINE);
+				}
 				break;
 
 			default:
@@ -1408,10 +1447,23 @@ void mips1_device_base::handle_cop1(u32 const op)
 				if (f32_lt(float32_t{ u32(m_f[FSREG >> 1]) }, float32_t{ 0 }))
 					set_cop1_reg(FDREG >> 1, f32_mul(float32_t{ u32(m_f[FSREG >> 1]) }, i32_to_f32(-1)).v);
 				else
-					set_cop1_reg(FDREG >> 1, m_f[FSREG >> 1]);
+					set_cop1_reg(FDREG >> 1, u32(m_f[FSREG >> 1]));
 				break;
 			case 0x06: // MOV.S
-				m_f[FDREG >> 1] = m_f[FSREG >> 1];
+				if (FDREG & 1)
+					if (FSREG & 1)
+						// move high half to high half
+						m_f[FDREG >> 1] = (m_f[FSREG >> 1] & ~0xffffffffULL) | u32(m_f[FDREG >> 1]);
+					else
+						// move low half to high half
+						m_f[FDREG >> 1] = (m_f[FSREG >> 1] << 32) | u32(m_f[FDREG >> 1]);
+				else
+					if (FSREG & 1)
+						// move high half to low half
+						m_f[FDREG >> 1] = (m_f[FDREG >> 1] & ~0xffffffffULL) | (m_f[FSREG >> 1] >> 32);
+					else
+						// move low half to low half
+						m_f[FDREG >> 1] = (m_f[FDREG >> 1] & ~0xffffffffULL) | u32(m_f[FSREG >> 1]);
 				break;
 			case 0x07: // NEG.S
 				set_cop1_reg(FDREG >> 1, f32_mul(float32_t{ u32(m_f[FSREG >> 1]) }, i32_to_f32(-1)).v);
@@ -1802,7 +1854,7 @@ void mips1_device_base::handle_cop1(u32 const op)
 	}
 }
 
-void mips1_device_base::set_cop1_reg(unsigned const reg, u64 const data)
+template <typename T> void mips1_device_base::set_cop1_reg(unsigned const reg, T const data)
 {
 	// translate softfloat exception flags to cause register
 	if (softfloat_exceptionFlags)
@@ -1818,18 +1870,21 @@ void mips1_device_base::set_cop1_reg(unsigned const reg, u64 const data)
 		if (softfloat_exceptionFlags & softfloat_flag_invalid)
 			m_fcr31 |= FCR31_CV;
 
-		// check if exception is enabled
-		if (((m_fcr31 & FCR31_CM) >> 5) & (m_fcr31 & FCR31_EM))
-		{
-			execute_set_input(m_fpu_irq, ASSERT_LINE);
-			return;
-		}
-
 		// set flags
 		m_fcr31 |= ((m_fcr31 & FCR31_CM) >> 10);
+
+		// update exception state
+		bool const exception = (m_fcr31 & FCR31_CE) || ((m_fcr31 & FCR31_CM) >> 5) & (m_fcr31 & FCR31_EM);
+		execute_set_input(m_fpu_irq, exception ? ASSERT_LINE : CLEAR_LINE);
+
+		if (exception)
+			return;
 	}
 
-	m_f[reg] = data;
+	if (sizeof(T) == 4)
+		m_f[reg] = (m_f[reg] & ~0xffffffffULL) | data;
+	else
+		m_f[reg] = data;
 }
 
 bool mips1_device_base::memory_translate(int spacenum, int intention, offs_t &address)

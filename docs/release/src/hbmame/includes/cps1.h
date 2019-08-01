@@ -236,7 +236,7 @@ public:
 	int          m_palette_align;
 	int          m_palette_size;
 	int          m_stars_rom_size;
-	uint8_t        m_empty_tile[32*32];
+	uint8_t     m_empty_tile[32*32];
 	int          m_cps_version;
 
 	/* fcrash video config */
@@ -349,7 +349,7 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
-	IRQ_CALLBACK_MEMBER(cps1_int_ack);
+	void cpu_space_map(address_map &map);
 	TIMER_DEVICE_CALLBACK_MEMBER(cps2_interrupt);
 	TIMER_CALLBACK_MEMBER(cps2_update_digital_volume);
 

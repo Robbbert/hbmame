@@ -76,5 +76,5 @@ ROM_START( tdragon2p )
 	ROM_LOAD( "10.bpr", 0x0100, 0x0100, CRC(e6ead349) SHA1(6d81b1c0233580aa48f9718bade42d640e5ef3dd) )
 ROM_END
 
-GAME( 1991, tdragonp, tdragon,  tdragon,  tdragon,  nmk16_state, empty_init,            ROT270, "Trap15", "Thunder Dragon Practice Mode (9th Jan. 1992 - v1.01)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1993, tdragon2p,tdragon2, tdragon2, tdragon2, nmk16_state, init_banked_audiocpu,  ROT270, "Trap15", "Thunder Dragon 2 Practice Mode (9th Nov. 1993 - v1.0)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1991, tdragonp, tdragon,  tdragon,  tdragon,  nmk16_state, empty_init,            ROT270, "Trap15", "Thunder Dragon (Practice Mode)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1993, tdragon2p,tdragon2, tdragon2, tdragon2, nmk16_state, init_banked_audiocpu,  ROT270, "Trap15", "Thunder Dragon 2 (Practice Mode)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )

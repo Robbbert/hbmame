@@ -1554,7 +1554,32 @@ ROM_START( svchs34 )
 
 	NEO_SFIX_128K( "269rm.s1", CRC(bc670454) SHA1(468641985fd3136235510bc48781039ef7b05c64) )
 
-	NEO_BIOS_AUDIO_128K( "269rm.m1", CRC(fd602218) SHA1(d7af0af3e116a7c2f594d1ca77a1289b4e31cd7e) )
+	NEO_BIOS_AUDIO_128K( "269pryu.m1", CRC(dcc67f10) SHA1(acdd75144f90d2b135181a4fd2c6c72c240c66b0) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "269h.v1", 0x000000, 0x400000, CRC(e7203930) SHA1(c6753df1db87d223ee39ffac920da449127dbcdf) )
+	ROM_LOAD( "269h.v2", 0x400000, 0x400000, CRC(675159c3) SHA1(c3a4f6db61dfab5bc31bfe94e1c3915676347031) )
+	ROM_LOAD( "269h.v3", 0x800000, 0x400000, CRC(f8810665) SHA1(fc1e94629a5124076959938257a80d04b2e871eb) )
+	ROM_LOAD( "269h.v4", 0xc00000, 0x400000, CRC(b57b4ea3) SHA1(873dc7f5eae687bc70af01ea310e935287de0ebf) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "269d.c1", 0x0000000, 0x800000, CRC(465d473b) SHA1(0B2BE2B2657C2AE021EC91515D1D6306179751D5) )
+	ROM_LOAD16_BYTE( "269d.c2", 0x0000001, 0x800000, CRC(3eb28f78) SHA1(DF1B096FE95796DB1515B69F74266ED13DD9EE56) )
+	ROM_LOAD16_BYTE( "269d.c3", 0x1000000, 0x800000, CRC(f4d4ab2b) SHA1(A19788435173540469FE5D07429A83DDE6D701A0) )
+	ROM_LOAD16_BYTE( "269d.c4", 0x1000001, 0x800000, CRC(a69d523a) SHA1(98D8DAC2E40F71B5B8426D3C77476A0A20783181) )
+	ROM_LOAD16_BYTE( "269d.c5", 0x2000000, 0x800000, CRC(ba2a7892) SHA1(EED45E1330DCC9F610598DC53977BF3A81DD161A) )
+	ROM_LOAD16_BYTE( "269d.c6", 0x2000001, 0x800000, CRC(37371ca1) SHA1(8AAA1B9EA34470085D9944C9AD64CFB0FFE09859) )
+	ROM_LOAD16_BYTE( "269d.c7", 0x3000000, 0x800000, CRC(56ac5fb9) SHA1(74CB0D57060D25E35F76A9820F607633BD1B9C2C) )
+	ROM_LOAD16_BYTE( "269d.c8", 0x3000001, 0x800000, CRC(de99e613) SHA1(F28C6AF4A31A937E5B441D4B860E3CCCA725F27A) )
+ROM_END
+
+ROM_START( svchs35 ) //svcplusb
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "269s35.p1", 0x000000, 0x600000, CRC(1cc8fb7a) SHA1(96fc02803d597c8083a8a25ca1fedb9f50553c8d) )
+
+	NEO_SFIX_128K( "269ee.s1", CRC(aaef740c) SHA1(d7ae898ac93f78b19b125e98659dcfd9ee3179b2) )
+
+	NEO_BIOS_AUDIO_128K( "269pryu.m1", CRC(dcc67f10) SHA1(acdd75144f90d2b135181a4fd2c6c72c240c66b0) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "269h.v1", 0x000000, 0x400000, CRC(e7203930) SHA1(c6753df1db87d223ee39ffac920da449127dbcdf) )
@@ -3234,7 +3259,8 @@ HACK( 2003, svchs30,        svc,      neogeo_noslot, neogeo, neogeo_state,  svch
 HACK( 2003, svchs31,        svc,      neogeo_noslot, neogeo, neogeo_state,  svchb,    ROT0,  "Unknown",    "SvC Chaos (Pink Remix Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svchs32,        svc,      neogeo_noslot, neogeo, neogeo_state,  svcboot,  ROT0,  "Unknown",    "SvC Chaos (Fixed Sound Bugs With Original M1 Data)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svchs33,        svc,      neogeo_noslot, neogeo, neogeo_state,  svcboot,  ROT0,  "Jason[FGCH]",    "SvC Chaos (Remix 2010-02-23)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, svchs34,        svc,      neogeo_noslot, neogeo, neogeo_state,   neogeo,   ROT0, "Playmore", "SvC Chaos (MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, svchs34,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "Playmore", "SvC Chaos (MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, svchs35,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0,  "Bootleg", "SvC Chaos (Bootleg, set 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svcpluss01,     svc,      neogeo_noslot, neogeo, neogeo_state,   svcplus, ROT0,  "kawada7278",    "SvC Chaos Plus (Subdue The Dragon Super Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svcpluss02,     svc,      neogeo_noslot, neogeo, neogeo_state,   svcplus, ROT0,  "Eddids",    "SvC Chaos Plus (PlayStation 2 Final)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svcpluss03,     svc,      neogeo_noslot, neogeo, neogeo_state,   svcplus, ROT0,  "Jason[FGCH]",    "SvC Chaos Plus (Remix Ultra v1.2)", MACHINE_SUPPORTS_SAVE )

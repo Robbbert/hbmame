@@ -96,7 +96,9 @@ TODO: Volleyball...
  * http://www.youtube.com/watch?v=pDrRnJOCKZc
  */
 
-#define MASTER_CLOCK    7159000
+static const int NS_PER_CLOCK_PONG  = static_cast<int>((double) NETLIST_INTERNAL_RES / (double) 7159000 + 0.5);
+static const int MASTER_CLOCK_PONG  = static_cast<int>((double) NETLIST_INTERNAL_RES / (double) NS_PER_CLOCK_PONG + 0.5);
+
 #define V_TOTAL_PONG    (0x105+1)       // 262
 #define H_TOTAL_PONG    (0x1C6+1)       // 454
 
@@ -115,10 +117,12 @@ TODO: Volleyball...
  *
  */
 
-#define MASTER_CLOCK_BREAKOUT    (14318000 / 2)
+//#define MASTER_CLOCK_BREAKOUT    (14318000)
+static const int NS_PER_CLOCK_BREAKOUT           = static_cast<int>((double) NETLIST_INTERNAL_RES / (double) 14318000 + 0.5);
+static const int MASTER_CLOCK_BREAKOUT  = static_cast<int>((double) NETLIST_INTERNAL_RES / (double) NS_PER_CLOCK_BREAKOUT + 0.5);
 
-#define V_TOTAL_BREAKOUT         (0xFC)       // 252
-#define H_TOTAL_BREAKOUT         (448)    // 448
+static const int V_TOTAL_BREAKOUT       = (0xFC);       // 252
+static const int H_TOTAL_BREAKOUT       = (448*2);      // 448
 
 enum input_changed_enum
 {
@@ -463,13 +467,9 @@ static INPUT_PORTS_START( rebound )
 INPUT_PORTS_END
 
 
-MACHINE_CONFIG_START(pong_state::pong)
-
+void pong_state::pong(machine_config &config)
+{
 	/* basic machine hardware */
-	//MCFG_DEVICE_ADD("maincpu", NETLIST_CPU, NETLIST_CLOCK)
-	//MCFG_NETLIST_SETUP(pong)
-	//MCFG_NETLIST_SETUP_MEMBER(this, &pong_state::NETLIST_NAME(pong))
-
 	NETLIST_CPU(config, "maincpu", NETLIST_CLOCK).set_source(this, &pong_state::NETLIST_NAME(pong));
 
 	NETLIST_ANALOG_INPUT(config, "maincpu:vr0", "ic_b9_R.R").set_mult_offset(1.0 / 100.0 * RES_K(50), RES_K(56) );
@@ -487,11 +487,12 @@ MACHINE_CONFIG_START(pong_state::pong)
 	/* video hardware */
 	SCREEN(config, "screen", SCREEN_TYPE_RASTER);
 	FIXFREQ(config, m_video).set_screen("screen");
-	m_video->set_monitor_clock(MASTER_CLOCK);
+	m_video->set_monitor_clock(MASTER_CLOCK_PONG);
 	m_video->set_horz_params(H_TOTAL_PONG-67,H_TOTAL_PONG-40,H_TOTAL_PONG-8,H_TOTAL_PONG);
 	m_video->set_vert_params(V_TOTAL_PONG-22,V_TOTAL_PONG-19,V_TOTAL_PONG-12,V_TOTAL_PONG);
 	m_video->set_fieldcount(1);
 	m_video->set_threshold(0.11);
+	m_video->set_horz_scale(4);
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
@@ -499,10 +500,10 @@ MACHINE_CONFIG_START(pong_state::pong)
 	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
 	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(breakout_state::breakout)
-
+void breakout_state::breakout(machine_config &config)
+{
 	/* basic machine hardware */
 	NETLIST_CPU(config, "maincpu", NETLIST_CLOCK).set_source(NETLIST_NAME(breakout));
 
@@ -540,12 +541,13 @@ MACHINE_CONFIG_START(breakout_state::breakout)
 	/* The Pixel width is a 2,1,2,1,2,1,1,1 repeating pattern
 	 * Thus we must use double resolution horizontally
 	 */
-	m_video->set_monitor_clock(MASTER_CLOCK_BREAKOUT*2);
-	m_video->set_horz_params((H_TOTAL_BREAKOUT-104)*2,(H_TOTAL_BREAKOUT-72)*2,(H_TOTAL_BREAKOUT-8)*2,  (H_TOTAL_BREAKOUT)*2);
+	m_video->set_monitor_clock(MASTER_CLOCK_BREAKOUT);
+	m_video->set_horz_params((H_TOTAL_BREAKOUT-208),(H_TOTAL_BREAKOUT-144),(H_TOTAL_BREAKOUT-16),  (H_TOTAL_BREAKOUT));
 	m_video->set_vert_params(V_TOTAL_BREAKOUT-22,V_TOTAL_BREAKOUT-23,V_TOTAL_BREAKOUT-4, V_TOTAL_BREAKOUT);
 	m_video->set_fieldcount(1);
 	m_video->set_threshold(1.0);
 	m_video->set_gain(1.5);
+	m_video->set_horz_scale(2);
 
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
@@ -553,20 +555,19 @@ MACHINE_CONFIG_START(breakout_state::breakout)
 	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
 	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(pong_state::pongf)
+void pong_state::pongf(machine_config &config)
+{
 	pong(config);
 
 	/* basic machine hardware */
 
-	MCFG_DEVICE_MODIFY("maincpu")
-	MCFG_NETLIST_SETUP(pong_fast)
+	subdevice<netlist_mame_device>("maincpu")->set_setup_func(NETLIST_NAME(pong_fast));
+}
 
-MACHINE_CONFIG_END
-
-MACHINE_CONFIG_START(pong_state::pongd)
-
+void pong_state::pongd(machine_config &config)
+{
 	/* basic machine hardware */
 	NETLIST_CPU(config, "maincpu", NETLIST_CLOCK).set_source(NETLIST_NAME(pongdoubles));
 
@@ -589,7 +590,7 @@ MACHINE_CONFIG_START(pong_state::pongd)
 	/* video hardware */
 	SCREEN(config, "screen", SCREEN_TYPE_RASTER);
 	FIXFREQ(config, m_video).set_screen("screen");
-	m_video->set_monitor_clock(MASTER_CLOCK);
+	m_video->set_monitor_clock(MASTER_CLOCK_PONG);
 	m_video->set_horz_params(H_TOTAL_PONG-67,H_TOTAL_PONG-52,H_TOTAL_PONG-8,H_TOTAL_PONG);
 	m_video->set_vert_params(V_TOTAL_PONG-22,V_TOTAL_PONG-19,V_TOTAL_PONG-12,V_TOTAL_PONG);
 	m_video->set_fieldcount(1);
@@ -601,10 +602,10 @@ MACHINE_CONFIG_START(pong_state::pongd)
 	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
 	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(rebound_state::rebound)
-
+void rebound_state::rebound(machine_config &config)
+{
 	/* basic machine hardware */
 	NETLIST_CPU(config, "maincpu", NETLIST_CLOCK).set_source(NETLIST_NAME(rebound_schematics));
 
@@ -628,7 +629,7 @@ MACHINE_CONFIG_START(rebound_state::rebound)
 	/* video hardware */
 	SCREEN(config, "screen", SCREEN_TYPE_RASTER);
 	FIXFREQ(config, m_video).set_screen("screen");
-	m_video->set_monitor_clock(MASTER_CLOCK);
+	m_video->set_monitor_clock(MASTER_CLOCK_PONG);
 	//m_video->set_horz_params(H_TOTAL_PONG-67,H_TOTAL_PONG-40,H_TOTAL_PONG-8,H_TOTAL_PONG);
 	m_video->set_horz_params(H_TOTAL_PONG-51,H_TOTAL_PONG-40,H_TOTAL_PONG-8,H_TOTAL_PONG);
 	m_video->set_vert_params(V_TOTAL_PONG-22,V_TOTAL_PONG-19,V_TOTAL_PONG-12,V_TOTAL_PONG);
@@ -644,7 +645,7 @@ MACHINE_CONFIG_START(rebound_state::rebound)
 	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
 	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
-MACHINE_CONFIG_END
+}
 
 
 /***************************************************************************

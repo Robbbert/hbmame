@@ -27,10 +27,10 @@ ROM_START( dragoonas01 )
 	ROM_LOAD16_BYTE("417a06.9c", 0x000000, 128*1024, CRC(8addbbee) SHA1(fdb38fab1fd65b7362578b108bf6128e926b5f13) )
 	ROM_LOAD16_BYTE("417a07.7c", 0x000001, 128*1024, CRC(c1fd7584) SHA1(1b204165ef07b6b53f47adc16eed69d11dab53b2) )
 
-	ROM_REGION( 0x400000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x400000, "k056832", ROMREGION_ERASE00 )
 	TILE_WORD_ROM_LOAD( "417a16.17h", 0x000000, 2*1024*1024, CRC(88b2213b) SHA1(ac4ac57618cf98d7486b147f5494e6943bff1a4d) )
 
-	ROM_REGION( 0x1000000, "gfx2", ROMREGION_ERASE00 )
+	ROM_REGION( 0x1000000, "k055673", ROMREGION_ERASE00 )
 	ROM_LOAD32_WORD( "417a15.25g", 0x000000, 2*1024*1024, CRC(83bccd01) SHA1(c0e65c43115164c3f64ac14a449c65c4e3e3c4cf) )
 	ROM_LOAD32_WORD( "417a11.28g", 0x000002, 2*1024*1024, CRC(624a7c4c) SHA1(5fda37cd02b4dcb328b80b29041214c685c77a78) )
 	ROM_LOAD32_WORD( "417a14.18h", 0x400000, 2*1024*1024, CRC(fbf551f1) SHA1(871c5804aba9845aa04596db51def3ba3b8bae30) )
@@ -60,10 +60,10 @@ ROM_START( dragoonas02 )
 	ROM_LOAD16_BYTE("417a06.9c", 0x000000, 128*1024, CRC(8addbbee) SHA1(fdb38fab1fd65b7362578b108bf6128e926b5f13) )
 	ROM_LOAD16_BYTE("417a07.7c", 0x000001, 128*1024, CRC(c1fd7584) SHA1(1b204165ef07b6b53f47adc16eed69d11dab53b2) )
 
-	ROM_REGION( 0x400000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x400000, "k056832", ROMREGION_ERASE00 )
 	TILE_WORD_ROM_LOAD( "417a16.17h", 0x000000, 2*1024*1024, CRC(88b2213b) SHA1(ac4ac57618cf98d7486b147f5494e6943bff1a4d) )
 
-	ROM_REGION( 0x1000000, "gfx2", ROMREGION_ERASE00 )
+	ROM_REGION( 0x1000000, "k055673", ROMREGION_ERASE00 )
 	ROM_LOAD32_WORD( "417a15.25g", 0x000000, 2*1024*1024, CRC(83bccd01) SHA1(c0e65c43115164c3f64ac14a449c65c4e3e3c4cf) )
 	ROM_LOAD32_WORD( "417a11.28g", 0x000002, 2*1024*1024, CRC(624a7c4c) SHA1(5fda37cd02b4dcb328b80b29041214c685c77a78) )
 	ROM_LOAD32_WORD( "417a14.18h", 0x400000, 2*1024*1024, CRC(fbf551f1) SHA1(871c5804aba9845aa04596db51def3ba3b8bae30) )
@@ -93,10 +93,10 @@ ROM_START( dragoonas03 )
 	ROM_LOAD16_BYTE("417a06.9c", 0x000000, 128*1024, CRC(8addbbee) SHA1(fdb38fab1fd65b7362578b108bf6128e926b5f13) )
 	ROM_LOAD16_BYTE("417a07.7c", 0x000001, 128*1024, CRC(c1fd7584) SHA1(1b204165ef07b6b53f47adc16eed69d11dab53b2) )
 
-	ROM_REGION( 0x400000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x400000, "k056832", ROMREGION_ERASE00 )
 	TILE_WORD_ROM_LOAD( "417a16.17h", 0x000000, 2*1024*1024, CRC(88b2213b) SHA1(ac4ac57618cf98d7486b147f5494e6943bff1a4d) )
 
-	ROM_REGION( 0x1000000, "gfx2", ROMREGION_ERASE00 )
+	ROM_REGION( 0x1000000, "k055673", ROMREGION_ERASE00 )
 	ROM_LOAD32_WORD( "417a15.25g", 0x000000, 2*1024*1024, CRC(83bccd01) SHA1(c0e65c43115164c3f64ac14a449c65c4e3e3c4cf) )
 	ROM_LOAD32_WORD( "417a11.28g", 0x000002, 2*1024*1024, CRC(624a7c4c) SHA1(5fda37cd02b4dcb328b80b29041214c685c77a78) )
 	ROM_LOAD32_WORD( "417a14.18h", 0x400000, 2*1024*1024, CRC(fbf551f1) SHA1(871c5804aba9845aa04596db51def3ba3b8bae30) )
@@ -126,10 +126,10 @@ ROM_START( dragoonas04 )
 	ROM_LOAD16_BYTE("417a06.9c", 0x000000, 128*1024, CRC(8addbbee) SHA1(fdb38fab1fd65b7362578b108bf6128e926b5f13) )
 	ROM_LOAD16_BYTE("417a07.7c", 0x000001, 128*1024, CRC(c1fd7584) SHA1(1b204165ef07b6b53f47adc16eed69d11dab53b2) )
 
-	ROM_REGION( 0x400000, "gfx1", ROMREGION_ERASE00 )
+	ROM_REGION( 0x400000, "k056832", ROMREGION_ERASE00 )
 	TILE_WORD_ROM_LOAD( "417a16.17h", 0x000000, 2*1024*1024, CRC(88b2213b) SHA1(ac4ac57618cf98d7486b147f5494e6943bff1a4d) )
 
-	ROM_REGION( 0x1000000, "gfx2", ROMREGION_ERASE00 )
+	ROM_REGION( 0x1000000, "k055673", ROMREGION_ERASE00 )
 	ROM_LOAD32_WORD( "417a15.25g", 0x000000, 2*1024*1024, CRC(83bccd01) SHA1(c0e65c43115164c3f64ac14a449c65c4e3e3c4cf) )
 	ROM_LOAD32_WORD( "417a11.28g", 0x000002, 2*1024*1024, CRC(624a7c4c) SHA1(5fda37cd02b4dcb328b80b29041214c685c77a78) )
 	ROM_LOAD32_WORD( "417a14.18h", 0x400000, 2*1024*1024, CRC(fbf551f1) SHA1(871c5804aba9845aa04596db51def3ba3b8bae30) )
@@ -148,8 +148,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragoon Might
-GAME( 200?, dragoonas01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)(ver AAB)", 0 )
-GAME( 200?, dragoonas02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)(ver AAB)", 0 )
-GAME( 200?, dragoonas03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)(ver AAB)", 0 )
-GAME( 200?, dragoonas04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "Unknown", "Dragoon Might (Description Unknown)(ver AAB)", 0 )
+GAME( 1995, dragoonas01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)", 0 )
+GAME( 1995, dragoonas02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)", 0 )
+GAME( 1995, dragoonas03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)", 0 )
+GAME( 2018, dragoonas04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "Unknown", "Dragoon Might (Unknown Hack 2018-03-04)", 0 )
 

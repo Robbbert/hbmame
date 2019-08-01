@@ -953,8 +953,12 @@ g_profiler.start(PROFILER_TILEMAP_DRAW);
 
 	// flip the tilemap around the center of the visible area
 	rectangle visarea = screen.visible_area();
-	u32 width = visarea.left() + visarea.right() + 1;
-	u32 height = visarea.top() + visarea.bottom() + 1;
+	// TODO: is this correct or are drivers relying on a bug here?
+	// These are not the width and height, rather 2 * left + width,
+	// and 2 * top + height, and these are inputs to the
+	// effective_*scroll functions used in the case of a flip.
+	u32 width = visarea.right() + visarea.left() + 1;
+	u32 height = visarea.bottom() + visarea.top() + 1;
 
 	// XY scrolling playfield
 	if (m_scrollrows == 1 && m_scrollcols == 1)
@@ -1627,14 +1631,14 @@ tilemap_device::tilemap_device(const machine_config &mconfig, const char *tag, d
 //  write: Main memory writes
 //-------------------------------------------------
 
-WRITE8_MEMBER(tilemap_device::write8)
+void tilemap_device::write8(offs_t offset, u8 data)
 {
 	m_basemem.write8(offset, data);
 	offset /= m_bytes_per_entry;
 	mark_tile_dirty(offset);
 }
 
-WRITE16_MEMBER(tilemap_device::write16)
+void tilemap_device::write16(offs_t offset, u16 data, u16 mem_mask)
 {
 	m_basemem.write16(offset, data, mem_mask);
 	offset = offset * 2 / m_bytes_per_entry;
@@ -1643,7 +1647,7 @@ WRITE16_MEMBER(tilemap_device::write16)
 		mark_tile_dirty(offset + 1);
 }
 
-WRITE32_MEMBER(tilemap_device::write32)
+void tilemap_device::write32(offs_t offset, u32 data, u32 mem_mask)
 {
 	m_basemem.write32(offset, data, mem_mask);
 	offset = offset * 4 / m_bytes_per_entry;
@@ -1664,14 +1668,14 @@ WRITE32_MEMBER(tilemap_device::write32)
 //  write_entry_ext: Extension memory writes
 //-------------------------------------------------
 
-WRITE8_MEMBER(tilemap_device::write8_ext)
+void tilemap_device::write8_ext(offs_t offset, u8 data)
 {
 	m_extmem.write8(offset, data);
 	offset /= m_bytes_per_entry;
 	mark_tile_dirty(offset);
 }
 
-WRITE16_MEMBER(tilemap_device::write16_ext)
+void tilemap_device::write16_ext(offs_t offset, u16 data, u16 mem_mask)
 {
 	m_extmem.write16(offset, data, mem_mask);
 	offset = offset * 2 / m_bytes_per_entry;
@@ -1680,7 +1684,7 @@ WRITE16_MEMBER(tilemap_device::write16_ext)
 		mark_tile_dirty(offset + 1);
 }
 
-WRITE32_MEMBER(tilemap_device::write32_ext)
+void tilemap_device::write32_ext(offs_t offset, u32 data, u32 mem_mask)
 {
 	m_extmem.write32(offset, data, mem_mask);
 	offset = offset * 4 / m_bytes_per_entry;

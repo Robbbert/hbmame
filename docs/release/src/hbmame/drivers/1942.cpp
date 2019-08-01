@@ -123,4 +123,4 @@ ROM_END
 
 GAME( 2015, 1942c64, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Minwah", "1942 (With C64 music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, 1942fpa, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "cmonkey", "1942 (With attract mode in free play)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, galagax, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Jerky and Chris Moore", "1942 (Galaga X)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, galagax, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Jerky and Chris Moore", "1942 (Galaga X)", MACHINE_SUPPORTS_SAVE )

@@ -52,7 +52,7 @@ protected:
 	virtual void machine_start() override { m_lamps.resolve(); }
 	virtual void video_start() override;
 	void funworld_palette(palette_device &palette) const;
-	uint32_t screen_update_funworld(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_funworld(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
 
 	void magicrd2_map(address_map &map);
@@ -140,18 +140,18 @@ class multiwin_state : public funworld_state
 public:
 
 	using funworld_state::funworld_state;
-	
+
 	void multiwin(machine_config& config);
-	
+
 	void driver_init() override;
-	
+
 protected:
 	virtual void video_start() override;
 
 private:
 	cpu_device* _maincpu {};
 	DECLARE_READ8_MEMBER(multiwin_opcode_r);
-	
+
 	void multiwin_opcodes_map(address_map& map);
 };
 
@@ -159,15 +159,15 @@ class royalcrdf_state : public funworld_state
 {
 public:
 	using funworld_state::funworld_state;
-	
+
 	void royalcrdf(machine_config& config);
 
 	void driver_init() override;
-	
+
 private:
 	cpu_device* _maincpu {};
 	DECLARE_READ8_MEMBER(royalcrdf_opcode_r);
-	
+
 	void royalcrdf_map(address_map& map);
 	void royalcrdf_opcodes_map(address_map& map);
 };

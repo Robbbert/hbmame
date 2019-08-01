@@ -779,7 +779,7 @@ WRITE16_MEMBER(neogeo_state::memcard_w)
 
 WRITE8_MEMBER(neogeo_state::audio_command_w)
 {
-	m_soundlatch->write(space, 0, data);
+	m_soundlatch->write(data);
 
 	m_audio_cpu_nmi_pending = true;
 	audio_cpu_check_nmi();
@@ -791,7 +791,7 @@ WRITE8_MEMBER(neogeo_state::audio_command_w)
 
 READ8_MEMBER(neogeo_state::audio_command_r)
 {
-	uint8_t ret = m_soundlatch->read(space, 0);
+	uint8_t ret = m_soundlatch->read();
 
 	m_audio_cpu_nmi_pending = false;
 	audio_cpu_check_nmi();
@@ -802,7 +802,7 @@ READ8_MEMBER(neogeo_state::audio_command_r)
 
 CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
 {
-	uint8_t ret = m_soundlatch2->read(m_audiocpu->space(AS_PROGRAM), 0);
+	uint8_t ret = m_soundlatch2->read();
 
 	return ret;
 }

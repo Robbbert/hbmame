@@ -36,6 +36,7 @@ invmultis1a
 invmultis2a
 invmultis3a
 invmultit3d
+sinvrdzm
 
 @source:arkanoid.cpp
 arkanoid		//parent
@@ -64,6 +65,8 @@ astrofbl		/* Black Background */
 @source:asuka.cpp
 asuka			//parent
 asukac			// chinese
+bonzeadv		//parent
+jigkmgris01
 
 @source:atarig42.cpp
 //dangerex
@@ -231,6 +234,7 @@ cps1testm		/* HB Cal2 */
 cps1testma		/* HB Cal2 */
 cps1tests		/* HB Cal2 */
 cps1testsa		/* HB Cal2 */
+//cps1xx
 daimakb
 dino08h2
 dino08h3
@@ -311,17 +315,13 @@ sk2h104q
 sk2h105q
 sk2h106q
 sk2h107
-sk2h108
-sk2h10 
-sk2h11
+sk2h108 
 sk2h12
 sk2h13
 sk2h14
-sk2h15		// wofaehp
 sk2h16		// wofahp2
 sk2h17 
 sk2h18
-sk2h19
 sk2h21
 sk2h22
 sk2h23
@@ -495,7 +495,6 @@ tk2h113
 tk2h114
 tk2h115
 tk2h116
-tk2h117
 tk2h118
 tk2h119
 tk2h120
@@ -516,11 +515,11 @@ tk2h134
 tk2h135
 tk2h136
 tk2h137
+tk2h138
+tk2h139
 wofb
 wofch		// tk2p1
-wofes
 woffr
-wofr1h
 wofsf2
 wofud
 3wonders01
@@ -578,6 +577,11 @@ captcomms52
 captcomms53
 captcomms54
 captcomms55
+captcomms56
+captcomms57
+captcomms58
+captcomms59
+captcomms60
 dinos01
 dinos02
 dinos03
@@ -746,6 +750,14 @@ dinos182
 dinos183
 dinos184
 dinos185
+dinos186
+dinos187
+dinos188
+dinos189
+dinos190
+dinos191
+dinos192
+dinos193
 ffights01
 ffights02
 ffightj2s01
@@ -781,6 +793,7 @@ punishers03
 punishers04
 punishers05
 punishers06
+punishers07
 punisherjs01
 punisherjs02
 punisherjs03
@@ -795,6 +808,9 @@ punisherjs11
 punisherjs12
 punisherjs13
 punisherjs14
+punisherjs15
+punisherjs16
+punisherjs17
 punisherbzs01
 sf2ces01
 sf2ces02
@@ -805,6 +821,9 @@ sf2ces06
 sf2ces07
 sf2ces08
 sf2ces09
+sf2ces10
+sf2ces11
+sf2ces12
 sf2js01
 sf2js02
 sf2s01
@@ -838,6 +857,10 @@ slammasts05
 striders01
 sfzchs01
 sfzchs02
+sfzchs03
+sfzchs04
+sfzchs05
+sfzchs06
 varths01
 varths02
 willows01
@@ -846,28 +869,19 @@ sk2h115
 sk2h116
 sk2h117
 sk2h118
-wofus01
-wofus02
+wofs00
 wofs01
 wofs02
 wofs03
 wofs04
 wofs05
 wofs06
-wofs07
+wofs07 //ingame crash
 wofs08
-wofs10
-woffs01
-woffs02
-woffs03 //ingame crash
-woffs04 //ingame crash
-woffs05
-tk2p01
 tk2p02
 tk2p03
 tk2p04
 tk2p05
-tk2p06
 tk2p07
 tk2p08
 tk2p09
@@ -877,8 +891,6 @@ tk2p12
 tk2p13
 tk2p14
 tk2p15
-tk2p16
-tk2p17
 tk2p18
 tk2p19
 tk2p20
@@ -895,12 +907,10 @@ tk2p30
 tk2p31
 tk2p33
 tk2p34
-tk2p35
 tk2p36
 tk2p37
 tk2p38
 tk2p39
-tk2p40
 tk2p41
 tk2p42
 tk2p43
@@ -931,6 +941,7 @@ mshvsf
 mvsc
 nwarr
 progear
+pzloop2
 ringdest
 sfa
 sfa2
@@ -964,6 +975,7 @@ mvscjphp
 mvscrcp // reboots shortly after start
 mvscuh // reboots shortly after start
 pfghtjrm
+pzloop2jd
 suicide		/* Razoola */
 suicide2	/* Razoola */
 sfa2h
@@ -971,6 +983,7 @@ sfa3br
 sfa3dp
 sfa3nc
 sfa3nch
+sfa3ncj
 sfa3sp2
 sfa3spp
 sfa3uhd
@@ -1062,35 +1075,25 @@ csclubs01
 cybotsjs01
 ddsomjs01
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
+ddsomuds02
 gigawings01
-hsf2as01
-hsf2as02
-hsf2as03
-mshas01
-mshbs01
-mshjs01
-mshjs02
-mshjs03
-mshhs01
+mshs01
+mshs02
 mshvsfs01
 mshvsfs02
 mshvsfjs01
 mshvsfjs02
 mshvsfjs03
-mshjr1s01
 mvscjs01
 mvscjs02
 mvsh01
 mvsh02
-mshus01
-msheys01
 pfghtjs01
 pfghtjs02
 pfghtjs03
 progearjds01
 progearjds02
-hsf2s01
-hsf2s02
+hsf2js00
 hsf2js01
 hsf2js02
 hsf2js03
@@ -1104,31 +1107,20 @@ hsf2js10
 hsf2js11
 hsf2js12
 hsf2js13
+hsf2js14
 sfas01
 sfas02
-sfa2ur1s01
-sfa2ur1s02
-sfa2ur1s03
 sfa2us01
 sfa2us02
 sfa2us03
-sfa2s01
+sfa2us04
 sfa3s01
 sfa3s02
 sfa3s03
 sfa3s04
-sfa3bs01
-sfa3bs02
-sfa3bs03
-sfa3us01
-sfa3us02
-sfa3us03
-sfa3us04
-sfa3dps01
-sfz2als01
-sfz2als02
-sfz2albs01
-sfz2alhs01
+sfa3s05
+sfa3s06
+sfz2aljs00
 sfz2aljs01
 sfz2aljs02
 sfz2aljs03
@@ -1146,17 +1138,13 @@ sfz3js06
 sfz3js07
 sfz3js08
 sfz3js09
-sfz3jr1s01
-sfz3jr1s02
-sfz3jr1s03
-sfz3jr1s04
-sfz3jr2s01
+sfz3js10
+sfz3js11
+sfz3js12
 ssf2ts01
 ssf2ts02
 ssf2tus01
 ssf2tus02
-ssf2tur1s01
-ssf2tur1s02
 ssf2xjs01
 ssf2xjs02
 ssf2js01
@@ -1165,11 +1153,8 @@ sfzjs02
 sfzjs03
 sfzjs04
 sfzjs05
-ssf2tas01
-ssf2tas02
 vsav2s01
 vsav2s02
-vampjas01
 xmcotaj2s01
 xmcotaj2s02
 xmvsfs01
@@ -1178,11 +1163,11 @@ xmvsfs03
 xmvsfjs01
 
 @source:cps3.cpp
-jojo			//parent
-jojoba			//parent
-sfiii			//parent
-sfiii2			//parent
-sfiii3			//parent
+jojonc			//parent
+jojobanc		//parent
+sfiiinc			//parent
+sfiii2nc	    //parent
+sfiii3nc		//parent
 jojobbh2
 jojobbss
 jojobpow
@@ -1196,7 +1181,6 @@ sfiiipmp
 sfiii2bh
 sfiii2np
 sfiii2pl
-sfiii3an
 sfiii3bh
 sfiii3mh
 sfiii3ng
@@ -1207,69 +1191,70 @@ jojos02
 jojos03
 jojos04
 jojos05
-jojox01
-jojobaner1s01
-jojobaner1s02
-jojobaner1s03
-jojobaner1s04
-jojonr1s01
-jojonr1s02
+jojos06
+redeartns01
 sfiiins01
-sfiiins02
-sfiiins03
 sfiii2ns01
 sfiii2ns02
 sfiii2ns03
-sfiii2ns04
-sfiii2ns05
 sfiii3ns01
-sfiii3ns02
 sfiii3ns03
-sfiii3ns04
 sfiii3ns05
-sfiii3nrs01
-sfiii3nrs02
-sfiii3nrs03
+sfiii3ns06
+sfiii3ns07
 
 @source:cv1k.cpp
 deathsml				//parent
 deathsmlh01
+
+@source:ddragon.cpp
+ddragon2
+ddragon2b2
 
 @source:deco32.cpp
 fghthist				//parent
 fghthistas01
 
 @source:dbz.cpp
-dbz 				//parent
+dbz						//parent
 dbzs01
-dbz2				//parent
+dbz2					//parent
 dbz2h01
 dbz2h02
 
 @source:dec0.cpp
-baddudes		//parent
-baddudef		/* Arkatrad */
-decodemo		/* Charles Doty */
-baddudes01      // bad text
+baddudes				//parent
+baddudef				/* Arkatrad */
+decodemo				/* Charles Doty */
+robocop 				//parent
+robocopbs01
+
+@source:decocass.cpp
+decocass				//parent
+decomult				// Dave Widel
 
 @source:dkong.cpp
-dkong			//parent
+dkong					//parent
 dkong2m
-dkongex			/* Jeff's Hack with Foundry Level */
+//dkongbcc				// 4 program roms not found
+dkongex					/* Jeff's Hack with Foundry Level */
 dkongf
-dkongp			/* Fix for level 22 kill screen by Don Hodges */
-dkongpac		/* Tim Appleton - Donkey Kong with Pacman graphics */
+dkongp					/* Fix for level 22 kill screen by Don Hodges */
+dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
 dkongx
 dkongx11
 dkrainbow
 dkrdemo
-dkchrmx         // Sock Master - Christmas Remix 2017
-dkspkyrmx       // Sock Master - Spooky Remix Halloween Tournament 2018
+dkchrmx					// Sock Master - Christmas Remix 2017
+dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
-kong2600		/* Vic Twenty George hack of Donkey Kong */
+kong2600				/* Vic Twenty George hack of Donkey Kong */
 nadkong
+dkcbarrel
+dkfreerun
+//dk_remix
 
 @source:docastle.cpp
 dorunrun		//parent
@@ -1371,7 +1356,7 @@ jumpbugx	// extra sounds
 kazzy
 monstrz		// monster zero hacked to partially work
 mooncmst
-mooncrs5	/* clone of fantazia */
+mooncrs5f	/* clone of fantazia */
 offender	/* Chris Henry hack of scramble */
 starfgh2	/* Bootleg of Pisces */
 superdog	/* Jerky Hack Hack of scramble */
@@ -1406,13 +1391,11 @@ gradius3s01
 @source:hh_sm510.cpp
 gnw_bride				// HB
 gnw_squeeze				// HB
+spicegirls				// HB
 
 @source:igs011.cpp
 lhb2					//parent
 lhb2s01
-
-@source:ir.cpp
-ir			// extra sounds
 
 @source:itech8.cpp
 itecdemo	/* Charles Doty */
@@ -1456,7 +1439,6 @@ jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 @source:kaneko.cpp
 shogwarr		//parent
 shogwarrs01
-fjbusterbh
 shogwarrbh
 
 @source:kof94.cpp
@@ -1890,6 +1872,7 @@ kof97s141
 kof97s142
 kof97s143
 kof97s144
+kof97s145
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2976,7 +2959,6 @@ kof2k2evo
 kof2k2evo2
 kof2k2fy
 kof2k2gc
-kof2k2gc2
 kof2k2gf
 kof2k2green
 kof2k2ht
@@ -3096,9 +3078,7 @@ kof2002s13
 kof2002s14
 kof2002s15
 kof2002s16
-kof2002s17
 kof2002s18
-kof2002s19
 kof2002s20
 kof2002s21 // no sound in attract mode
 kof2002s22
@@ -3189,11 +3169,11 @@ kof2002s106
 kof2002s107
 kof2002s108
 kof2002s109
-kof2002ds06
-kof2002ds32
-kof2002ds33
-kof2002ds34
-kof2002ds35
+kof2002s110
+kof2002s111
+kof2002s112
+kof2002s113
+kof2002s114
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -3262,9 +3242,7 @@ kf2k2mp2s33
 kf2k2mp2s34
 kf2k2mp2s35
 kf2k2mp2s36
-kf2k2mp2s37 // not working, encrypted
-kf2k2mp2s38 // not working, encrypted
-kf2k2mp2s39
+kf2k2mp2s37
 kf2k2plas01
 kf2k2plas02
 kf2k2plas03
@@ -3313,52 +3291,6 @@ kf2k2plas45
 kf2k2plas46
 kf2k2plas47
 kf2k2plas48
-kof2k2plbs01
-kof2k2plbs02
-kof2k2plbs03
-kof2k2plbs04
-kof2k2plbs05
-kof2k2plbs06
-kof2k2plbs07
-kof2k2plbs08
-kof2k2plbs09
-kof2k2plbs10
-kof2k2plbs11
-kof2k2plbs12
-kof2k2plbs13
-kof2k2plbs14
-kof2k2plbs15
-kof2k2plbs16
-kof2k2plbs17
-kof2k2plbs18
-kof2k2plbs19
-kof2k2plbs20
-kof2k2plbs21
-kof2k2plbs22
-kof2k2plbs23
-kof2k2plcs01
-kof2k2plcs02
-kof2k2plcs03
-kof2k2plcs04
-kof2k2plcs05
-kof2k2plcs06
-kof2k2plcs07
-kof2k2plcs08
-kof2k2plcs09
-kof2k2plcs10
-kof2k2plcs11
-kof2k2plcs12
-kof2k2plcs13
-kof2k2plcs14
-kof2k2plcs15
-kof2k2plcs16
-kof2k2plcs17
-kof2k2plcs18
-kof2k2plcs19
-kof2k2plcs20
-kof2k2plcs21
-kof2k2plcs22
-kof2k2plcs23
 kof2k2ps2as01
 kof2k2ps2as02
 kof2k2s01
@@ -3439,6 +3371,8 @@ kof2k2s77
 kof2k2s78
 kof2k2s79
 kof2k2s80
+kof2k2s81
+kof2k2s82
 
 @source:kof2003.cpp
 kof2003d
@@ -3454,7 +3388,6 @@ kof2k3bs4
 kof2k3d
 kof2k3evo
 kof2k3fd
-kof2k3gc
 kof2k3hd
 kof2k3nd
 kof2k3nrx
@@ -3464,11 +3397,7 @@ kof2k3plr
 kof2k3ps2
 kof2k3ps3
 kof2k3ryu
-kof2k3sc
-kof2k3ss
 kof2k3tc
-kof2k3zgf
-kof2003s01   // bad gfx in counter
 kof2003s02
 kof2003s03
 kof2003s04
@@ -3509,123 +3438,14 @@ kof2003s39
 kof2003s40
 kof2003s41
 kof2003s43
-kof2003ds01
-kof2003ds02
-kof2003ds03
-kof2003ds04
-kof2003ds05
-kof2003ds06
-kof2003ds07
-kof2003ds08
-kof2003ds09
-kof2003ds10
-kof2003ds11
-kof2003ds12
-kof2003ds13
-kof2003ds14
-kof2003ds15
-kof2003ds16
-kof2003ds17
-kof2003ds18
-kof2003ds19
-kof2003ds20
-kof2003ds21
-kf2k3bls01
-kf2k3bls02
-kf2k3bls03
-kf2k3bls04
-kf2k3bls05
-kf2k3bls06
-kf2k3bls07
-kf2k3bls08
-kf2k3bls09
-kf2k3bls10
-kf2k3bls11
-kf2k3bls12
-kf2k3bls13
-kf2k3bls14
-kf2k3bls15
-kf2k3bls16
-kf2k3bls17
-kf2k3bls18
-kf2k3bls19
-kf2k3bls20
-kf2k3bls21
-kf2k3bls22
-kf2k3bls23
-kf2k3bls24
-kf2k3bls25
-kf2k3bls26
-kf2k3bls27
-kf2k3bls28
-kf2k3bls29
-kf2k3bls30
-kf2k3bls31
-kf2k3bls32
-kf2k3bls33
-kf2k3bls34
-kf2k3blas01
-kf2k3blas02
-kf2k3blas03
-kf2k3blas04
-kf2k3blas05
-kf2k3blas06
-kf2k3blas07
-kf2k3blas08
-kf2k3blas09
-kf2k3blas10
-kf2k3blas11
-kf2k3blas12
-kf2k3blas13
-kf2k3blas14
-kf2k3blas15
-kf2k3blas16
-kf2k3blas17
-kf2k3blas18
-kf2k3blas19
-kf2k3blas20
-kf2k3blas21
-kf2k3blas22
-kf2k3blas23
-kf2k3blas24
-kf2k3blas25
-kf2k3blas26
-kf2k3blas27
-kf2k3blas28
-kf2k3blas29
-kf2k3blas30
-kf2k3blas31
-kf2k3blas32
-kf2k3blas33
-kf2k3pcbs01
-kf2k3pcbs02
-kf2k3pcbs03
-kf2k3pcbs04
-kf2k3pcbs05
-kf2k3pcbs06
-kf2k3pcbs07
-kf2k3pcbs08
-kf2k3pcbs09
-kf2k3pcbs10
-kf2k3pcbs11
-kf2k3pcbs12
-kf2k3pcbs13
-kf2k3pcbs14
-kf2k3pcbs15
-kf2k3pcbs16
-kf2k3pcbs17
-kf2k3pcbs18
-kf2k3pcbs19
-kf2k3pcbs20
-kf2k3pcbs21
-kf2k3pcbs22
-kf2k3pcbs23
-kf2k3pcbs24
-kf2k3pcbs25
-kf2k3pcbs26
-kf2k3pcbs27
-kf2k3pcbs28
-kf2k3pcbs29
+kof2003s44
+kof2003s45
+kof2003s46
+kof2003s47
+kof2003s48
+kof2003s49
+kof2003s50
+kof2003s51
 kf2k3pls01
 kf2k3pls02
 kf2k3pls03
@@ -3657,7 +3477,6 @@ kf2k3pls28
 kf2k3pls29
 kf2k3pls30
 kf2k3pls31
-// kof2004EX hack of kof2003
 kof2004pd  // hero
 kof2004upls00
 kof2004upls01
@@ -3689,8 +3508,6 @@ kof2004upls26
 kof2004upls27
 kof2004upls28
 kof2004upls29
-kof2003xs01
-kof2003xs02
 
 @source:konamigx.cpp
 konamigx			//required bios
@@ -3728,8 +3545,6 @@ hooks05
 hooks06
 hookus01
 hookus02
-hookus03
-hookjs01
 hookxr
 nbbatmans01
 nbbatmans02
@@ -3737,6 +3552,7 @@ nbbatmanus01
 nbbatmanus02
 nbbatmanus03
 nbbatmanus04
+nbbatmanus05
 
 @source:maketrax.cpp
 eyes		//parent
@@ -3873,12 +3689,21 @@ umk3r13b101
 umk3r13b1213
 umk3r13b201
 umk3r13bf
+umk3uc
+umk3uc2
+umk3tm
 
 @source:midyunit.cpp
 mkla4d		/* MK protection hack */
 
+@source:missile.cpp
+missile				//parent
+missilet			// Tesla variant
+
 @source:mitchell.cpp
 mitcdemo	/* Charles Doty */
+pang		//parent
+pangbolds01
 
 @source:model2.cpp
 srallyc		//parent
@@ -3910,6 +3735,7 @@ mslugps09
 mslugps10
 mslugps11
 mslugps12
+mslugps13
 mslugps14
 mslugps15
 mslugps16
@@ -3921,17 +3747,6 @@ mslugrmpl05
 mslugrmpl06
 mslugrmpl07
 mslugrmpl08
-mslughp01
-mslughp02
-mslughp03
-mslughp04
-mslughp05
-mslughp06
-mslughp07
-mslughp08
-mslughp09
-mslughp10
-mslughp11
 mslugrmhp01
 mslugrmhp02
 mslugrmhp03
@@ -3952,7 +3767,9 @@ mslug2ps03
 mslug2ps04
 mslug2ps05
 mslug2ps06
+mslug2ps07 //It does not work
 mslug2ps08
+mslug2ps09
 mslug2ps10
 mslug2ps12
 mslug2ps13
@@ -3973,65 +3790,20 @@ mslug2ps27
 mslug2ps28
 mslug2ps29
 mslug2ps30
-mslug2ers01
-mslug2ers02
-mslug2ers03
-mslug2ers04
-mslug2ers05
-mslug2ers06
-mslug2ers07
-mslug2ers08
-mslug2ers09
-mslug2ers10
-mslug2ers11
-mslug2ts01
-mslug2ts02
-mslug2ts03
-mslug2ts04
-mslug2ts05
-mslug2ts06
-mslug2ts07
-mslug2ts08
-mslug2ts09
-mslug2ts10
-mslug2ts11
-mslug2ts12
-mslug2ts13
-mslug2ts14
-mslug2ts15
-mslug2ts16
-mslug2erm01
-mslug2erm02
-mslug2erm03
-mslug2erm04
-mslug2erm05
-mslug2erm06
-mslug2erm07
-mslug2erm08
-mslug2erm09
-mslug2erm10
-mslug2vhep01
-mslug2vhep02
-mslug2vhep03
-mslug2vhep04
-mslug2vhep05
-mslug2vhep06
-mslug2vhep07
-mslug2vhep08
-mslug2vhep09
-mslug2vhep10
-mslug2vhep11
-mslug2vhep12
-mslug2vhep13
-mslug2vqy01
-mslug2vqy02
-mslug2vqy03
-mslug2vqy04
-mslug2vqy05
-mslug2vqy06
-mslug2vqy07
-mslug2vqy08
-mslug2vqy09
+mslug2ps31
+mslug2ps32
+mslug2ps33
+mslug2ps34
+mslug2erss01
+mslug2erss02
+mslug2erss03
+mslug2erss04
+mslug2erms01
+mslug2erms02
+mslug2erms03
+mslug2erms04
+mslug2vqys01
+mslug2vqys02
 mslug2rmnl01
 mslug2rmnl02
 mslug2rmnl03
@@ -4087,18 +3859,6 @@ mslug3nd
 mslug3v		/* EEZEZY Violence Edition */
 ms6s01
 ms6s02
-ms6s03
-ms6s04
-ms6s05
-ms6s06
-ms6s07
-ms6s08
-ms6sx01
-ms6sx02
-ms6sx03
-ms6sx04
-ms6sx05
-ms6sx06
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -4163,114 +3923,16 @@ mslug3h54
 mslug3h55
 mslug3h56
 mslug3h57
-mslug3erbo01
-mslug3erbo02
-mslug3erbo03
-mslug3erbo04
-mslug3erbo05
-mslug3erbo06
-mslug3erbo07
-mslug3erbo08
-mslug3erbo09
-mslug3erbo10
-mslug3erbo11
-mslug3erbo12
-mslug3erbo13
-mslug3erbo14
-mslug3erbo15
-mslug3erbo16
-mslug3erbo17
-mslug3erbo18
-mslug3erbo19
-mslug3erbo20
-mslug3erbo21
-mslug3erbo22
-mslug3erbo23
-mslug3erbo24
-mslug3erbo25
-mslug3erbo26
-mslug3erbo27
-mslug3erbo28
-mslug3erbo29
-mslug3erbo30
-mslug3erbo31
-//mslug3erbo32
-mslug3erbd01
-mslug3erbd02
-mslug3erbd03
-mslug3erbd04
-mslug3erbd05
-mslug3erbd06
-mslug3erbd07
-mslug3erbd08
-mslug3erbd09
-mslug3erbd10
-mslug3erbd11
-mslug3erbd12
-mslug3erbd13
-mslug3erbd14
-mslug3erbd15
-mslug3erbd16
-mslug3erbd17
-mslug3erbd18
-mslug3erbd19
-mslug3erbd20
-mslug3erbd21
-mslug3erbd22
-mslug3erbd23
-mslug3erbd24
-mslug3erbs01
-mslug3erbs02
-mslug3erbs03
-mslug3erbs04
-mslug3erbs05
-mslug3erbs06
-mslug3erbs07
-mslug3erbs08
-mslug3erbs09
-mslug3erbs10
-mslug3erbs11
-mslug3erbs12
-mslug3erbs13
-mslug3erbs14
-mslug3erbs15
-mslug3erbs16
-mslug3erbs17
-mslug3erbs18
-mslug3erbs19
-mslug3erbs20
-mslug3erbs21
-mslug3erbs22
-mslug3erbs23
-mslug3erbs24
-mslug3ercx01
-mslug3ercx02
-mslug3ercx03
-mslug3ercx04
-mslug3ercx05
-mslug3ercx06
-mslug3ercx07
-mslug3ercx08
-mslug3ercx09
-mslug3ercx10
-mslug3ercx11
-mslug3ercx12
-mslug3ercx13
-mslug3ercx14
-mslug3ercx15
-mslug3ercx16
-mslug3ercx17
-mslug3ercx18
-mslug3ercx19
-mslug3ercx20
-mslug3ercx21
-mslug3ercx22
-mslug3ercx23
-mslug3ercx24
-mslug3ercx25
-mslug3ercx26
-//mslug3ercx27
-mslug3ercx28
+mslug3h58
+//mslug3h59
+mslug3h60
+mslug3h61
+mslug3h62
+mslug3h63
+mslug3h65
+mslug3h66
+mslug3h67
+mslug3h68
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4307,24 +3969,12 @@ mslug3rmx33
 mslug3rmx34
 mslug3rmx35
 mslug3rmx36
-mslug3rmx37
-mslug3rmx38
-mslug3rmx39
-mslug3rmx40
-mslug3rmx41
-mslug3rmx42
 mslug3rmx43
 mslug3rmx44
 mslug3rmx45
 mslug3rmx46
 mslug3rmx47
 mslug3rmx48
-mslug3rmx49
-mslug3rmx50
-mslug3rmx51
-mslug3rmx52
-mslug3rmx53
-mslug3rmx54
 mslug3rmx55
 mslug3rmx56
 mslug3rmx57
@@ -4379,24 +4029,12 @@ mslug3rma33
 mslug3rma34
 mslug3rma35
 mslug3rma36
-mslug3rma37
-mslug3rma38
-mslug3rma39
-mslug3rma40
-mslug3rma41
-mslug3rma42
 mslug3rma43
 mslug3rma44
 mslug3rma45
 mslug3rma46
 mslug3rma47
 mslug3rma48
-mslug3rma49
-mslug3rma50
-mslug3rma51
-mslug3rma52
-mslug3rma53
-mslug3rma54
 mslug3rma55
 mslug3rma56
 mslug3rma57
@@ -4463,12 +4101,6 @@ mslug3rmb45
 mslug3rmb46
 mslug3rmb47
 mslug3rmb48
-mslug3rmb49
-mslug3rmb50
-mslug3rmb51
-mslug3rmb52
-mslug3rmb53
-mslug3rmb54
 mslug3rmb55
 mslug3rmb56
 mslug3rmb57
@@ -4523,24 +4155,12 @@ mslug3rmc33
 mslug3rmc34
 mslug3rmc35
 mslug3rmc36
-mslug3rmc37
-mslug3rmc38
-mslug3rmc39
-mslug3rmc40
-mslug3rmc41
-mslug3rmc42
 mslug3rmc43
 mslug3rmc44
 mslug3rmc45
 mslug3rmc46
 mslug3rmc47
 mslug3rmc48
-mslug3rmc49
-mslug3rmc50
-mslug3rmc51
-mslug3rmc52
-mslug3rmc53
-mslug3rmc54
 mslug3rmc55
 mslug3rmc56
 mslug3rmc57
@@ -4595,24 +4215,12 @@ mslug3rmd33
 mslug3rmd34
 mslug3rmd35
 mslug3rmd36
-mslug3rmd37
-mslug3rmd38
-mslug3rmd39
-mslug3rmd40
-mslug3rmd41
-mslug3rmd42
 mslug3rmd43
 mslug3rmd44
 mslug3rmd45
 mslug3rmd46
 mslug3rmd47
 mslug3rmd48
-mslug3rmd49
-mslug3rmd50
-mslug3rmd51
-mslug3rmd52
-mslug3rmd53
-mslug3rmd54
 mslug3rmd55
 mslug3rmd56
 mslug3rmd57
@@ -4631,6 +4239,126 @@ mslug3rmd69
 mslug3rmd70
 mslug3rmd71
 mslug3rmd72
+mslug3rme01
+mslug3rme02
+mslug3rme03
+mslug3rme04
+mslug3rme05
+mslug3rme06
+mslug3rme07
+mslug3rme08
+mslug3rme09
+mslug3rme10
+mslug3rme11
+mslug3rme12
+mslug3rme13
+mslug3rme14
+mslug3rme15
+mslug3rme16
+mslug3rme17
+mslug3rme18
+mslug3rme19
+mslug3rme20
+mslug3rme21
+mslug3rme22
+mslug3rme23
+mslug3rme24
+mslug3rme25
+mslug3rme26
+mslug3rme27
+mslug3rme28
+mslug3rme29
+mslug3rme30
+mslug3rme31
+mslug3rme32
+mslug3rme33
+mslug3rme34
+mslug3rme35
+mslug3rme36
+mslug3rme43
+mslug3rme44
+mslug3rme45
+mslug3rme46
+mslug3rme47
+mslug3rme48
+mslug3rme55
+mslug3rme56
+mslug3rme57
+mslug3rme58
+mslug3rme59
+mslug3rme60
+mslug3rme61
+mslug3rme62
+mslug3rme63
+mslug3rme64
+mslug3rme65
+mslug3rme66
+mslug3rme67
+mslug3rme68
+mslug3rme69
+mslug3rme70
+mslug3rme71
+mslug3rme72
+mslug3rmf01
+mslug3rmf02
+mslug3rmf03
+mslug3rmf04
+mslug3rmf05
+mslug3rmf06
+mslug3rmf07
+mslug3rmf08
+mslug3rmf09
+mslug3rmf10
+mslug3rmf11
+mslug3rmf12
+mslug3rmf13
+mslug3rmf14
+mslug3rmf15
+mslug3rmf16
+mslug3rmf17
+mslug3rmf18
+mslug3rmf19
+mslug3rmf20
+mslug3rmf21
+mslug3rmf22
+mslug3rmf23
+mslug3rmf24
+mslug3rmf25
+mslug3rmf26
+mslug3rmf27
+mslug3rmf28
+mslug3rmf29
+mslug3rmf30
+mslug3rmf31
+mslug3rmf32
+mslug3rmf33
+mslug3rmf34
+mslug3rmf35
+mslug3rmf36
+mslug3rmf43
+mslug3rmf44
+mslug3rmf45
+mslug3rmf46
+mslug3rmf47
+mslug3rmf48
+mslug3rmf55
+mslug3rmf56
+mslug3rmf57
+mslug3rmf58
+mslug3rmf59
+mslug3rmf60
+mslug3rmf61
+mslug3rmf62
+mslug3rmf63
+mslug3rmf64
+mslug3rmf65
+mslug3rmf66
+mslug3rmf67
+mslug3rmf68
+mslug3rmf69
+mslug3rmf70
+mslug3rmf71
+mslug3rmf72
 
 @source:mslug4.cpp
 mslug4d
@@ -4640,9 +4368,6 @@ mslug4i
 mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
-mslug4pls01
-mslug4pls02
-mslug4pls03
 mslug4hh01
 mslug4hh02
 mslug4hh03
@@ -4685,68 +4410,15 @@ mslug4hh40
 mslug4hh41
 mslug4hh42
 mslug4hh43
-mslug4erm01
-mslug4erm02
-mslug4erm03
-mslug4erm04
-mslug4erm05
-mslug4erm06
-mslug4erm07
-mslug4h01
-mslug4h02
-mslug4h03
-mslug4h04
-mslug4h05
-mslug4h06
-mslug4h07
-mslug4h08
-mslug4h09
-mslug4h10
-mslug4h11
-mslug4h12
-mslug4h13
-mslug4h14
-mslug4h15
-mslug4h16
-mslug4h17
-mslug4h18
-mslug4h19
-mslug4h20
-mslug4h21
-mslug4h22
-mslug4lws02
-mslug4lws03
-mslug4lws04
-mslug4lws05
-mslug4lws06
-mslug4lws07
-mslug4lws08
-mslug4lws09
-mslug4lws10
-mslug4lws11
-mslug4lws12
-mslug4lws13
-mslug4lws14
-mslug4lws15
-mslug4lws16
-mslug4lws17
-mslug4lws18
-mslug4lws19
-mslug4lws20
-mslug4lws21
-mslug4lws24
-mslug4lws25
-mslug4lws26
-mslug4lws27
-mslug4lws30
-mslug4hqyv01
-mslug4hqyv02
-mslug4hqyv03
-mslug4hqyv04
-mslug4hqyv05
-mslug4hqyv06
-mslug4hqyv07
-mslug4hqyv08
+mslug4hh44
+mslug4hh45
+mslug4hh46
+mslug4erms01
+mslug4erms02
+mslug4erms03
+mslug4hqyvs01
+mslug4hqyvs02
+mslug4hqyvs03
 mslug4rma01
 mslug4rma02
 mslug4rma03
@@ -4780,12 +4452,6 @@ mslug4rma30
 mslug4rma31
 mslug4rma32
 mslug4rma33
-mslug4rma34
-mslug4rma35
-mslug4rma36
-mslug4rma37
-mslug4rma38
-mslug4rma39
 mslug4rma40
 mslug4rma41
 mslug4rma42
@@ -4795,12 +4461,6 @@ mslug4rma45
 mslug4rma46
 mslug4rma47
 mslug4rma48
-mslug4rma49
-mslug4rma50
-mslug4rma51
-mslug4rma52
-mslug4rma53
-mslug4rma54
 mslug4rma55
 mslug4rma56
 mslug4rma57
@@ -4831,18 +4491,12 @@ mslug4rmb15
 mslug4rmb16
 mslug4rmb17
 mslug4rmb18
-mslug4rmb19
-mslug4rmb20
-mslug4rmb21
 mslug4rmb22
 mslug4rmb23
 mslug4rmb24
 mslug4rmb25
 mslug4rmb26
 mslug4rmb27
-mslug4rmb28
-mslug4rmb29
-mslug4rmb30
 mslug4rmb31
 mslug4rmb32
 mslug4rmb33
@@ -4885,12 +4539,6 @@ mslug4rmc30
 mslug4rmc31
 mslug4rmc32
 mslug4rmc33
-mslug4rmc34
-mslug4rmc35
-mslug4rmc36
-mslug4rmc37
-mslug4rmc38
-mslug4rmc39
 mslug4rmc40
 mslug4rmc41
 mslug4rmc42
@@ -4900,12 +4548,6 @@ mslug4rmc45
 mslug4rmc46
 mslug4rmc47
 mslug4rmc48
-mslug4rmc49
-mslug4rmc50
-mslug4rmc51
-mslug4rmc52
-mslug4rmc53
-mslug4rmc54
 mslug4rmc55
 mslug4rmc56
 mslug4rmc57
@@ -4979,11 +4621,18 @@ mslug5dh42
 mslug5dh43
 mslug5dh44
 mslug5dh45
-ms5plus01
-ms5plus02
-ms5plus03
-ms5plus04
-ms5plus05
+mslug5dh46
+mslug5dh47
+mslug5dh48
+mslug5dh49
+mslug5dh50
+mslug5dh51
+mslug5dh52
+mslug5dh53
+mslug5dh54
+mslug5dh55
+mslug5dh56
+mslug5dh57
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -5002,34 +4651,6 @@ ms5plusrm15
 ms5plusrm16
 ms5plusrm17
 ms5plusrm18
-mslug5tnc02
-mslug5tnc03
-mslug5tnc04
-mslug5tnc05
-mslug5tnc06
-mslug5tnc07
-mslug5tnc08
-mslug5tnc09
-mslug5tnc10
-mslug5tnc11
-mslug5tnc12
-mslug5tnc13
-mslug5tnc14
-mslug5tnc15
-mslug5tnc16
-mslug5tnc17
-mslug5tnc18
-mslug5tnc19
-mslug5tnc20
-mslug5tnc21
-mslug5tnc22
-mslug5tnc23
-mslug5tnc24
-mslug5tnc26
-mslug5tnc27
-mslug5tnc28
-mslug5tnc29
-mslug5tnc30
 mslug5rmtnc01
 mslug5rmtnc02
 mslug5rmtnc03
@@ -5066,15 +4687,6 @@ mslug5rmtnc33
 mslug5rmtnc34
 mslug5rmtnc35
 mslug5rmtnc36
-mslug5rmtnc37
-mslug5rmtnc38
-mslug5rmtnc39
-mslug5rmtnc40
-mslug5rmtnc41
-mslug5rmtnc42
-mslug5rmtnc43
-mslug5rmtnc44
-mslug5rmtnc45
 mslug5rmtnc46
 mslug5rmtnc47
 mslug5rmtnc48
@@ -5102,15 +4714,6 @@ mslug5rmtnc69
 mslug5rmtnc70
 mslug5rmtnc71
 mslug5rmtnc72
-mslug5rmtnc73
-mslug5rmtnc74
-mslug5rmtnc75
-mslug5rmtnc76
-mslug5rmtnc77
-mslug5rmtnc78
-mslug5rmtnc79
-mslug5rmtnc80
-mslug5rmtnc81
 mslug5rmtnc82
 mslug5rmtnc83
 mslug5rmtnc84
@@ -5156,15 +4759,6 @@ mslug5rmnm33
 mslug5rmnm34
 mslug5rmnm35
 mslug5rmnm36
-mslug5rmnm37
-mslug5rmnm38
-mslug5rmnm39
-mslug5rmnm40
-mslug5rmnm41
-mslug5rmnm42
-mslug5rmnm43
-mslug5rmnm44
-mslug5rmnm45
 mslug5rmnm46
 mslug5rmnm47
 mslug5rmnm48
@@ -5192,15 +4786,6 @@ mslug5rmnm69
 mslug5rmnm70
 mslug5rmnm71
 mslug5rmnm72
-mslug5rmnm73
-mslug5rmnm74
-mslug5rmnm75
-mslug5rmnm76
-mslug5rmnm77
-mslug5rmnm78
-mslug5rmnm79
-mslug5rmnm80
-mslug5rmnm81
 mslug5rmnm82
 mslug5rmnm83
 mslug5rmnm84
@@ -5210,189 +4795,206 @@ mslug5rmnm87
 mslug5rmnm88
 mslug5rmnm89
 mslug5rmnm90
-mslug5re01
-mslug5re02
-mslug5re03
-mslug5re04
-mslug5re05
-mslug5re06
-mslug5re07
-mslug5re08
-mslug5re09
-mslug5re10
-mslug5re11
-mslug5re12
-mslug5re13
-mslug5re14
-mslug5re15
-mslug5re16
-mslug5re17
-mslug5re18
-mslug5re19
-mslug5re20
-mslug5re21
-mslug5re22
-mslug5re23
-mslug5re24
-mslug5re25
-mslug5re26
-mslug5re27
-mslug5re28
-mslug5re29
-mslug5re30
-mslug5re31
-mslug5re32
-mslug5re33
-mslug5re34
-mslug5re35
-mslug5re36
-mslug5re37
-mslug5re38
-mslug5re39
-mslug5re40
-mslug5re41
-mslug5re42
-mslug5re43
-mslug5re44
-mslug5re45
-mslug5re46
-mslug5re47
-mslug5re48
-mslug5re49
-mslug5re50
-mslug5re51
-mslug5re52
-mslug5erv01
-mslug5erv02
-mslug5erv03
-mslug5erv04
-mslug5erv05
-mslug5erv06
-mslug5erv07
-mslug5erv08
-mslug5erv09
-mslug5erv10
-mslug5erv11
-mslug5erv12
-mslug5erv13
-mslug5erv14
-mslug5erv15
-mslug5erv16
-mslug5erv17
-mslug5erv18
-mslug5erv19
-mslug5erv20
-mslug5erv21
-mslug5erv22
-mslug5erv23
-mslug5erv24
-mslug5erv25
-mslug5erv26
-mslug5erv27
-mslug5erv28
-mslug5erv29
-mslug5erv30
-mslug5erv31
-mslug5erv32
-mslug5erv33
-mslug5erv34
-mslug5erv35
-mslug5erv36
-mslug5erv37
-mslug5erv38
-mslug5erv39
-mslug5erv40
-mslug5erv41
-mslug5erv42
-mslug5erv43
-mslug5erv44
-mslug5erv45
-mslug5erv46
-mslug5erv47
-mslug5erv48
-mslug5erv49
-mslug5erv50
-mslug5erv51
-mslug5erv52
-mslug5erv53
-mslug5sse01
-mslug5sse02
-mslug5sse03
-mslug5sse04
-mslug5sse05
-mslug5sse06
-mslug5sse07
-mslug5sse08
-mslug5sse09
-mslug5sse10
-mslug5sse11
-mslug5sse12
-mslug5sse13
-mslug5sse14
-mslug5sse15
-mslug5sse16
-mslug5sse17
-mslug5sse18
-mslug5sse19
-mslug5sse20
-mslug5sse21
-mslug5sse22
-mslug5sse23
-mslug5sse24
-mslug5sse25
-mslug5sse26
-mslug5sse27
-mslug5sse28
-mslug5sse29
-mslug5sse30
-mslug5sse31
-mslug5sse32
-mslug5sse33
-mslug5sse34
-mslug5sse35
-mslug5sse36
-mslug5sse37
-mslug5sse38
-mslug5sse39
-mslug5sse40
-mslug5sse41
-mslug5sse42
-mslug5sse43
-mslug5sse44
-mslug5sse45
-mslug5sse46
-mslug5sse47
-mslug5sse48
-mslug5sse49
-mslug5sse50
-mslug5sse51
-mslug5hq01
-mslug5hq02
-mslug5hq03
-mslug5hq04
-mslug5hq05
-mslug5hq06
-mslug5hq07
-mslug5hq08
-mslug5hq09
-mslug5hq10
-mslug5hq11
-mslug5hq12
-mslug5hq13
-mslug5hq14
-mslug5hq15
-mslug5hq16
-mslug5hq17
-mslug5hq18
-mslug5hq19
-mslug5hq20
-mslug5hq21
-mslug5hq22
-mslug5hq23
-mslug5hq24
-mslug5hq25
-mslug5hq26
-mslug5hq27
+mslug5res01
+mslug5res02
+mslug5res03
+mslug5res04
+mslug5res05
+mslug5res06
+mslug5res07
+mslug5res08
+mslug5res09
+mslug5res10
+mslug5res11
+mslug5res12
+mslug5res13
+mslug5res14
+mslug5res15
+mslug5res16
+mslug5res17
+mslug5res18
+mslug5res19
+mslug5res20
+mslug5res21
+mslug5res22
+mslug5res23
+mslug5res24
+mslug5ervs01
+mslug5ervs02
+mslug5ervs03
+mslug5ervs04
+mslug5ervs05
+mslug5ervs06
+mslug5ervs07
+mslug5ervs08
+mslug5ervs09
+mslug5ervs10
+mslug5ervs11
+mslug5ervs12
+mslug5ervs13
+mslug5ervs14
+mslug5ervs15
+mslug5ervs16
+mslug5ervs17
+mslug5ervs18
+mslug5ervs19
+mslug5ervs20
+mslug5ervs21
+mslug5ervs22
+mslug5ervs23
+mslug5ervs24
+mslug5ervr01
+mslug5ervr02
+mslug5ervr03
+mslug5ervr04
+mslug5ervr05
+mslug5ervr06
+mslug5ervr07
+mslug5ervr08
+mslug5ervr09
+mslug5ervr10
+mslug5ervr11
+mslug5ervr12
+mslug5ervr13
+mslug5ervr14
+mslug5ervr15
+mslug5ervr16
+mslug5ervr17
+mslug5ervr18
+mslug5ervr19
+mslug5ervr20
+mslug5ervr21
+mslug5ervr22
+mslug5ervr23
+mslug5ervr24
+mslug5ervn01
+mslug5ervn02
+mslug5ervn03
+mslug5ervn04
+mslug5ervn05
+mslug5ervn06
+mslug5ervn07
+mslug5ervn08
+mslug5ervn09
+mslug5ervn10
+mslug5ervn11
+mslug5ervn12
+mslug5ervn13
+mslug5ervn14
+mslug5ervn15
+mslug5ervn16
+mslug5ervn17
+mslug5ervn18
+mslug5ervn19
+mslug5ervn20
+mslug5ervn21
+mslug5ervn22
+mslug5ervn23
+mslug5ervn24
+mslug5sses01
+mslug5sses02
+mslug5sses03
+mslug5sses04
+mslug5sses05
+mslug5sses06
+mslug5sses07
+mslug5sses08
+mslug5sses09
+mslug5sses10
+mslug5sses11
+mslug5sses12
+mslug5sses13
+mslug5sses14
+mslug5sses15
+mslug5sses16
+mslug5sses17
+mslug5sses18
+mslug5sses19
+mslug5sses20
+mslug5sses21
+mslug5sses22
+mslug5sses23
+mslug5sses24
+mslug5hqs01
+mslug5hqs02
+mslug5hqs03
+mslug5hqs04
+mslug5hqs05
+mslug5hqs06
+mslug5hqs07
+mslug5hqs08
+mslug5xsn01
+mslug5xsn02
+mslug5xsn03
+mslug5xsn04
+mslug5xsn05
+mslug5xsn06
+mslug5xsn07
+mslug5xsn08
+mslug5xsn09
+mslug5xsn10
+mslug5xsn11
+mslug5xsn12
+mslug5xsn13
+mslug5xsn14
+mslug5xsn15
+mslug5xsn16
+mslug5xsn17
+mslug5xsn18
+mslug5xsn19
+mslug5xsn20
+mslug5xsn21
+mslug5xsn22
+mslug5xsn23
+mslug5xsn24
+mslug5xsm01
+mslug5xsm02
+mslug5xsm03
+mslug5xsm04
+mslug5xsm05
+mslug5xsm06
+mslug5xsm07
+mslug5xsm08
+mslug5xsm09
+mslug5xsm10
+mslug5xsm11
+mslug5xsm12
+mslug5xsm13
+mslug5xsm14
+mslug5xsm15
+mslug5xsm16
+mslug5xsm17
+mslug5xsm18
+mslug5xsm19
+mslug5xsm20
+mslug5xsm21
+mslug5xsm22
+mslug5xsm23
+mslug5xsm24
+mslug5ervx01
+mslug5ervx02
+mslug5ervx03
+mslug5ervx04
+mslug5ervx05
+mslug5ervx06
+mslug5ervx07
+mslug5ervx08
+mslug5ervx09
+mslug5ervx10
+mslug5ervx11
+mslug5ervx12
+mslug5ervx13
+mslug5ervx14
+mslug5ervx15
+mslug5ervx16
+mslug5ervx17
+mslug5ervx18
+mslug5ervx19
+mslug5ervx20
+mslug5ervx21
+mslug5ervx22
+mslug5ervx23
+mslug5ervx24
 
 @source:mslugx.cpp
 mslugxce
@@ -5410,6 +5012,7 @@ mslugxp
 mslugxr
 mslugxst
 mslugxz01
+mslugxz02  //It does not work
 mslugxz04
 mslugxz05
 mslugxz06
@@ -5462,151 +5065,27 @@ mslugxz58
 mslugxz59
 mslugxz60
 mslugxz61
-mslugxervs01
-mslugxervs02
-mslugxervs03
-mslugxervs04
-mslugxervs05
-mslugxervs06
-mslugxervs07
-mslugxervs08
-mslugxervs09
-mslugxervs10
-mslugxervs11
-mslugxervs12
-mslugxervs13
-mslugxervs14
-mslugxervs15
-mslugxervs16
-mslugxervs17
-mslugxervs18
-mslugxervs19
-mslugxervs20
-mslugxervs21
-mslugxervs22
-mslugxervs23
-mslugxervs24
-mslugxervs25
-mslugxervs26
-mslugxervs27
-mslugxervs28
-mslugxervs29
-mslugxervs30
-mslugxervx01
-mslugxervx02
-mslugxervx03
-mslugxervx04
-mslugxervx05
-mslugxervx06
-mslugxervx07
-mslugxervx08
-mslugxervx09
-mslugxervx10
-mslugxervx11
-mslugxervx12
-mslugxervx13
-mslugxervx14
-mslugxervx15
-mslugxervx16
-mslugxervx17
-mslugxervx18
-mslugxervx19
-mslugxervx20
-mslugxervx21
-mslugxervx22
-mslugxervx23
-mslugxervx24
-mslugxervx25
-mslugxervx26
-mslugxervx27
-mslugxervx28
-mslugxervx29
-mslugxervx30
-mslugxervz01
-mslugxervz02
-mslugxervz03
-mslugxervz04
-mslugxervz05
-mslugxervz06
-mslugxervz07
-mslugxervz08
-mslugxervz09
-mslugxervz10
-mslugxervz11
-mslugxervz12
-mslugxervz13
-mslugxervz14
-mslugxervz15
-mslugxervz16
-mslugxervz17
-mslugxervz18
-mslugxervz19
-mslugxervz20
-mslugxervz21
-mslugxervz22
-mslugxervz23
-mslugxervz24
-mslugxervz25
-mslugxervz26
-mslugxervz27
-mslugxervz28
-mslugxervz29
-mslugxervz30
-mslugxrmc01
-mslugxrmc02
-mslugxrmc03
-mslugxrmc04
-mslugxrmc05
-mslugxrmc06
-mslugxrmc07
-mslugxrmc08
-mslugxrmc09
-mslugxrmc10
-mslugxrmc11
-mslugxrmc12
-mslugxrmc13
-mslugxrmc14
-mslugxrmc15
-mslugxrmc16
-mslugxrmc17
-mslugxrmc18
-mslugxrmc19
-mslugxrmc20
-mslugxrmc21
-mslugxrmc22
-mslugxrmc23
-mslugxrmc24
-mslugxrmc25
-mslugxrmc26
-mslugxrmc27
-mslugxrmc28
-mslugxrmc29
-mslugxotb01
-mslugxotb02
-mslugxotb03
-mslugxotb04
-mslugxotb05
-mslugxotb06
-mslugxotb07
-mslugxotb08
-mslugxotb09
-mslugxotb10
-mslugxotb11
-mslugxotb12
-mslugxotb13
-mslugxotb14
-mslugxotb15
-mslugxotb16
-mslugxotb17
-mslugxotb18
-mslugxotb19
-mslugxotb20
-mslugxotb21
+mslugxz62
+mslugxz63
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
+mslugxhbs04
 mslugxhbs05
 mslugxhbs06
+mslugxhbs07
+mslugxhbs08
+mslugxhbs09
+mslugxhbs10
+mslugxhbs11
+mslugxhbs12
+mslugxhbs13
+mslugxhbs14
+mslugxhbs15
+mslugxhbs16
+mslugxhbs17
+mslugxhbs18
+mslugxhbs19
 mslugxmrhbs01
 mslugxmrhbs02
 mslugxmrhbs03
@@ -5615,9 +5094,8 @@ mslugxmrhbs05
 mslugxmrhbs06
 mslugxmrhbs07
 mslugxmrhbs08
-mslugxmrhbs11
-mslugxmrhbs12
-mslugxmrhbs13
+mslugxmrhbs09
+mslugxmrhbs10
 mslugxrm0s01
 mslugxrm0s02
 mslugxrm0s03
@@ -5648,24 +5126,12 @@ mslugxrm0s27
 mslugxrm0s28
 mslugxrm0s29
 mslugxrm0s30
-mslugxrm0s31
-mslugxrm0s32
-mslugxrm0s33
-mslugxrm0s34
-mslugxrm0s35
-mslugxrm0s36
 mslugxrm0s37
 mslugxrm0s38
 mslugxrm0s39
 mslugxrm0s40
 mslugxrm0s41
 mslugxrm0s42
-mslugxrm0s43
-mslugxrm0s44
-mslugxrm0s45
-mslugxrm0s46
-mslugxrm0s47
-mslugxrm0s48
 mslugxrm0s49
 mslugxrm0s50
 mslugxrm0s51
@@ -5702,24 +5168,12 @@ mslugxrm1s27
 mslugxrm1s28
 mslugxrm1s29
 mslugxrm1s30
-mslugxrm1s31
-mslugxrm1s32
-mslugxrm1s33
-mslugxrm1s34
-mslugxrm1s35
-mslugxrm1s36
 mslugxrm1s37
 mslugxrm1s38
 mslugxrm1s39
 mslugxrm1s40
 mslugxrm1s41
 mslugxrm1s42
-mslugxrm1s43
-mslugxrm1s44
-mslugxrm1s45
-mslugxrm1s46
-mslugxrm1s47
-mslugxrm1s48
 mslugxrm1s49
 mslugxrm1s50
 mslugxrm1s51
@@ -5756,24 +5210,12 @@ mslugxrm2s27
 mslugxrm2s28
 mslugxrm2s29
 mslugxrm2s30
-mslugxrm2s31
-mslugxrm2s32
-mslugxrm2s33
-mslugxrm2s34
-mslugxrm2s35
-mslugxrm2s36
 mslugxrm2s37
 mslugxrm2s38
 mslugxrm2s39
 mslugxrm2s40
 mslugxrm2s41
 mslugxrm2s42
-mslugxrm2s43
-mslugxrm2s44
-mslugxrm2s45
-mslugxrm2s46
-mslugxrm2s47
-mslugxrm2s48
 mslugxrm2s49
 mslugxrm2s50
 mslugxrm2s51
@@ -5810,24 +5252,12 @@ mslugxrm3s27
 mslugxrm3s28
 mslugxrm3s29
 mslugxrm3s30
-mslugxrm3s31
-mslugxrm3s32
-mslugxrm3s33
-mslugxrm3s34
-mslugxrm3s35
-mslugxrm3s36
 mslugxrm3s37
 mslugxrm3s38
 mslugxrm3s39
 mslugxrm3s40
 mslugxrm3s41
 mslugxrm3s42
-mslugxrm3s43
-mslugxrm3s44
-mslugxrm3s45
-mslugxrm3s46
-mslugxrm3s47
-mslugxrm3s48
 mslugxrm3s49
 mslugxrm3s50
 mslugxrm3s51
@@ -5864,24 +5294,12 @@ mslugxrmmpv27
 mslugxrmmpv28
 mslugxrmmpv29
 mslugxrmmpv30
-mslugxrmmpv31
-mslugxrmmpv32
-mslugxrmmpv33
-mslugxrmmpv34
-mslugxrmmpv35
-mslugxrmmpv36
 mslugxrmmpv37
 mslugxrmmpv38
 mslugxrmmpv39
 mslugxrmmpv40
 mslugxrmmpv41
 mslugxrmmpv42
-mslugxrmmpv43
-mslugxrmmpv44
-mslugxrmmpv45
-mslugxrmmpv46
-mslugxrmmpv47
-mslugxrmmpv48
 mslugxrmmpv49
 mslugxrmmpv50
 mslugxrmmpv51
@@ -5903,15 +5321,9 @@ mslugxece12
 mslugxece13
 mslugxece14
 mslugxece15
-mslugxece16
-mslugxece17
-mslugxece18
 mslugxece19
 mslugxece20
 mslugxece21
-mslugxece22
-mslugxece23
-mslugxece24
 mslugxece25
 mslugxece26
 mslugxece27
@@ -5920,9 +5332,13 @@ mslugxece27
 mtlchamp			//parent
 mmaulers			//parent
 metamrph			//parent
+viostorm			//parent
 metamrphs01
 mtlchamps01
 mmaulerss01
+viostorms01
+viostorms02
+viostorms03
 
 @source:mspacman.cpp
 mspacman	//parent
@@ -6085,6 +5501,14 @@ pm4n1e
 superabc
 superabco
 
+@source:namcona1.cpp
+knckhead
+knckheadx
+
+@source:namcos2.cpp
+phelios
+pheliosx
+
 @source:nemesis.cpp
 salamand	//parent
 spclone		// v0.7.3
@@ -6236,7 +5660,7 @@ ssideki			// 052
 strhoop			// 079
 superspy		// 011
 svc				// 269
-svcpcb
+//svcpcb                not needed
 tophuntr		// 046
 tpgolf			// 003
 trally			// 038
@@ -6325,6 +5749,7 @@ raroggame
 rci			/* Robocop intro */
 samantha
 santabll
+seafight
 shaman16
 shaman17
 shaman18
@@ -6488,13 +5913,6 @@ zupapadd
 androduns01
 aof2s01
 aof2s02
-aof2s03
-aof2as01
-aof2as02
-aof2as03
-aof2as04
-aof3ks01
-aof3ks02
 breakers01
 breakrevs01
 breakrevs02
@@ -6502,7 +5920,6 @@ breakrevs03
 breakrevs04
 fightfevs01
 fightfevs02
-fightfevas01
 galaxyfs01
 kabukikls01
 kabukikls02
@@ -6536,8 +5953,6 @@ ninjamass02
 ninjamass03
 ninjamass04
 nitds01
-nitds02
-nitds03
 preisle2s01
 ragnagrds01
 ragnagrds02
@@ -6579,7 +5994,6 @@ doubledrs08
 garoub
 garoud
 garoupamu
-garoupeh
 garoupehc
 garoupy
 garoupf
@@ -6588,13 +6002,9 @@ garoupfp
 garoupx11
 garoupy1
 garoups01
-garouhs01
-garouhs02
-garoupsi01
-garoupsi02
-garoupsi03
-garoupsi04
-garoupsi05
+garoups02
+garoups03
+garoups04
 
 @source:ngkofmisc.cpp
 cthd2k3a
@@ -6701,10 +6111,6 @@ kof10ths11
 kof10ths12
 kof10ths13
 kof10ths14
-kof10thds01
-kof10thds02
-kof10thds03
-kof10thds04
 kf2k5unis01
 kf2k5unis02
 kf2k5unis03
@@ -6717,9 +6123,8 @@ kf2k5unis09
 kf2k5unis10
 kf2k5unis11
 kf2k5unis12
+kf2k5unis13
 kof2k4ses01
-kof2k4ses02
-kof2k4ses03
 kof2k4ses04
 kof2k4ses05
 kof2k4ses06
@@ -6748,8 +6153,6 @@ kof2k4ses28
 kof2k4ses29
 kof2k4ses30
 kof2k4ses31
-kof2k4ses32
-kof2k4ses33
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03
@@ -6802,49 +6205,23 @@ lb2te
 lb2uh
 lb2wh
 lb2yd
-lastblads01
-lastblads02
-lastblads03
-lastblads04
-lastblads05
-lastblads06
-lastblads07
-lastblads08
-lastblads09
-lastblads10
-lastblads11
-lastblads12
-lastblads13
-lastblads14
-lastblads15
-lastblads16
-lastblads17
-lastbladhs01
-lastbladhs02
-lastbladhs03
-lastbladhs04
-lastbladhs05
-lastbladhs07
-lastbladhs09
-lastbladhs10
-lastbladhs11
-lastbladhs12
-lastbladhs13
-lastbladhs14
-lastbladhs15
-lastbladhs16
-lastbladhs17
-lastsolds01
-lastsolds02
-lastsolds03
-lastsolds04
-lastsolds05
-lastsolds06
-lastsolds07
-lastsolds08
-lastsolds09
-lastsolds10
-lastsolds11
+lastblad02
+lastblad03
+lastblad04
+lastblad05
+lastblad06
+lastblad07
+lastblad08
+lastblad09
+lastblad10
+lastblad11
+lastblad12
+lastblad13
+lastblad14
+lastblad15
+lastblad16
+lastblad17
+lastblad18
 lastbld2s01
 lastbld2s02
 lastbld2s03
@@ -6857,14 +6234,11 @@ lastbld2s09
 lastbld2s10
 lastbld2s11
 lastbld2s12
-lastbld2s13
-lastbld2s14
 lastbld2s15
 lastbld2s16
 lastbld2s17
 
 @source:ngrbff.cpp
-fatfury2b
 fatfury3b
 fatfury3bd
 fatfury3bh
@@ -6877,9 +6251,7 @@ rbff1ud
 rbffsehd
 rbffsb
 rbffseh
-rbffspecbs
 rbffspy
-rbffspbd
 rbffsud
 rbff2b
 rbff2bh
@@ -6891,9 +6263,6 @@ rbff2fc
 rbff2ud
 rbff2y
 fatfursps01
-fatfurspas01
-fatfurspas02
-fatfurspas03
 fatfury1s01
 fatfury2s01
 fatfury2s02
@@ -6901,18 +6270,17 @@ fatfury2s03
 rbffss01
 rbffss02
 rbffss03
-rbffspecs01
-rbffspecs02
+rbffss04
+rbffss05
 rbff2bs01
 rbff2bs02
 rbff2bs03
 rbff2bs04
-rbff2hs01
-rbff2hs02
-rbff2hs03
-rbff2hs04
-rbff2hs05
-rbff2hs06
+rbff2bs05
+rbff2bs06
+rbff2bs07
+rbff2bs08
+rbff2bs09
 
 @source:ngrotd.cpp
 rotdb
@@ -6921,11 +6289,9 @@ rotdbh
 rotdbr
 rotdbr1
 rotdbr2
-rotdbr2d
 rotdcre
 rotdcreb
 rotdd
-rotddh
 rotdeh
 rotdehc
 rotdfw
@@ -6948,17 +6314,8 @@ rotds07
 rotds08
 rotds09
 rotds10
-rotds11
-rotds12
-rotds13
-rotds14
-rotdds01
-rotdds02
 
 @source:ngsamsho.cpp
-fswordsb1
-fswordsb2
-fswordsbf
 samshob
 samshoeh
 samshoeh2
@@ -6985,7 +6342,6 @@ samsho3s2
 samsho3se
 samsho3ss
 samsho3yc
-samsho3zk
 samsho4bh
 samsho4cz
 samsho4eh
@@ -7026,18 +6382,12 @@ samsh5spn
 samsh5spnd
 samsh5spnh3
 samsh5spnzk
-fswordss01
-fswordss02
-fswordss03
 samshos01
 samshos02
 samshos03
 samshos04
 samshos05
 samshos06
-samshos07
-samshos08
-samshos09
 samsho2s01
 samsho2s02
 samsho2s03
@@ -7046,13 +6396,10 @@ samsho2s05
 samsho2s06
 samsho2s07
 samsho2s08
-samsho2s09
 samsho2s10
 samsho2s11
 samsho2s12
 samsho2s13
-samsho2ks01
-samsho2ks02
 samsho3s01
 samsho3s02
 samsho3s03
@@ -7064,11 +6411,6 @@ samsho3s08
 samsho3s09
 samsho3s10
 samsho3s11
-samsho3s12
-samsho3s13
-samsho3s14
-samsho3s15
-samsho3s16
 samsho4s01
 samsho4s02
 samsho4s03
@@ -7106,70 +6448,24 @@ samsho5s22
 samsho5s23
 samsho5s24
 samsho5s25
-samsho5s26
-samsho5s27
-samsho5s28
-samsho5s29
-samsho5s30
-samsho5s31
-samsho5s32
-samsho5s33
-samsho5s34
-samsho5s35
-samsho5s36
-samsho5s37
-samsho5s38
-samsho5s39
-samsho5s40
-samsho5s41
-samsho5s42
-samsho5s43
-samsho5s44
-samsho5s45
-samsho5s46
-samsho5s47
-samsho5s48
-samsho5s49
-samsho5s50
-samsho5s51
-samsho5s52
-samsho5bds01
-samsh5spho01
 samsh5sp01
 samsh5sp02
 samsh5sp03
-samsh5spds01
-samsh5spds02
-samsh5spds03
-samsh5spds04
-samsh5spds05
-samsh5spds06
-samsh5spds07
-samsh5spds08
-samsh5spds09
-samsh5spds10
-samsh5spds11
-samsh5spds12
-samsh5spds13
-samsh5sphds01
-samsh5sphds02
-samsh5sphds03
-samsh5sphds04
-samsh5sphds05
-samsh5sphds06
-samsh5sphds07
-samsh5sphds08
-samsh5sphds09
-samsh5sphds10
-samsh5sphds11
-samsh5sphds12
-samsh5spnds01
-samsh5spnds02
-samsh5spnds03
-samsh5spnds04
-samsh5spnds05
-samsh5spnds06
-samsh5spnds07
+samsh5sp04
+samsh5sp05
+samsh5sp06
+samsh5sp07
+samsh5sp08
+samsh5sp09
+samsh5sp10
+samsh5sp11
+samsh5sp12
+samsh5sp13
+samsh5sp14
+samsh5sp15
+samsh5sp16
+samsh5sp17
+samsh5sp18
 
 @source:ngsengoku.cpp
 sengokucd
@@ -7195,7 +6491,6 @@ sengoku3s06
 sengoku3s07
 sengoku3s08
 sengoku3s09
-sengoku3s10
 
 @source:ngsvc.cpp
 svccprw
@@ -7210,7 +6505,6 @@ svcice
 svclspc
 svcnd
 svcnh
-svcpcbd
 svcplusa2016
 svcplusb
 svcplusd
@@ -7219,14 +6513,12 @@ svcplusp
 svcplusp2
 svcpryu
 svcps2
-svcrm
 svcryu
 svcspjoy
 svcsplus2016
 svcspryu
 svcstdse
 svcxlb
-svchs01  // bad gfx on main logo
 svchs02
 svchs03
 svchs04
@@ -7261,65 +6553,6 @@ svchs32
 svchs33
 svchs34
 svchs35
-svcboots01
-svcboots02
-svcboots03
-svcboots04
-svcboots05
-svcboots06
-svcboots07
-svcboots08
-svcboots09
-svcboots10
-svcboots11
-svcboots12
-svcboots13
-svcboots14
-svcboots15
-svcboots16
-svcboots17
-svcboots18
-svcboots19
-svcboots20
-svcboots21
-svcboots22
-svcboots23
-svcboots24
-svcboots25
-svcboots26
-svcboots27
-svcboots28
-svcboots29
-svcboots30
-svcboots31
-svcboots32
-svcboots33
-svcboots34
-svcboots35
-svcboots36
-svcboots37
-svcboots38
-svcboots39
-svcpcbs01
-svcpcbs02
-svcpcbs03
-svcpcbs04
-svcpcbs05
-svcpcbs06
-svcpcbs08
-svcpcbs09
-svcpcbs10
-svcpcbs11
-svcpcbs12
-svcpcbs13
-svcpcbs14
-svcpcbs15
-svcpcbs16
-svcpcbas01
-svcpcbas02
-svcpcbas03
-svcpcbas04
-svcpcbas05
 svcpluss01
 svcpluss02
 svcpluss03
@@ -7349,35 +6582,6 @@ svcpluss26
 svcpluss27
 svcpluss28
 svcpluss29
-svcplusas01
-svcplusas02
-svcplusas03
-svcplusas04
-svcplusas05
-svcplusas06
-svcplusas07
-svcplusas08
-svcplusas09
-svcplusas10
-svcplusas11
-svcplusas12
-svcplusas13
-svcplusas14
-svcplusas15
-svcplusas16
-svcplusas17
-svcplusas18
-svcplusas19
-svcplusas20
-svcplusas21
-svcplusas22
-svcplusas23
-svcplusas24
-svcplusas25
-svcplusas26
-svcplusas27
-svcplusas28
-svcplusas29
 svcsplus01
 svcsplus02
 svcsplus03
@@ -7396,15 +6600,6 @@ svcsplus15
 svcsplus16
 svcsplus17
 svcsplus18
-svcdwt01
-svcdwt02
-svcdwt03
-svcdwt04
-svcdwt05
-svcdwt06
-svcdwt07
-svcdwt08
-svcdwt09
 
 @source:ngwh.cpp
 whpb
@@ -7417,7 +6612,6 @@ whpeho
 whphez
 whpsp
 whpss
-wh1bs
 wh2bs
 wh2ey
 wh2ja
@@ -7428,19 +6622,13 @@ whps03
 whps04
 whps05
 whps06
-whps07
-whps08
-whps09
-whps10
 wh1s01
 wh1s02
-wh1hs01
-wh1has01
 wh2s01
 wh2s02
-wh2s03
-wh2s04
-wh2s05
+wh2js01
+wh2js02
+wh2js03
 
 @source:nmk16.cpp
 tdragon			//parent
@@ -7658,7 +6846,7 @@ ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 // orlegendh // it is duplicated roms orlegendcs
-olds100a			//parent (crashes)
+//olds100a			//parent (crashes)
 kovassg
 //kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
@@ -7696,10 +6884,10 @@ kovsh1
 kovsh2
 kovsh3
 //kovsh4	// rom missing
-kovsh5     // broken
-kovsh6     // broken
-kovsh7     // broken
-kovsh8     // broken
+//kovsh5     // broken (causes emu to freeze)
+//kovsh6     // broken (causes emu to freeze)
+//kovsh7     // broken (causes emu to freeze)
+//kovsh8     // broken (causes emu to freeze)
 //kovsh9   // rom missing
 //kovsh10  // roms missing
 kovsh11    // broken
@@ -7727,9 +6915,7 @@ killblds04
 killblds05
 killbldps01
 killbldps02
-kovss01
 //kovss02    // not working, encrypted
-kov100s01
 kov115s01
 kov115s02
 kov115s03
@@ -7741,7 +6927,6 @@ kov115s08
 kov115s09
 kov115s10
 kov115s11
-kov115s12
 kov2p204s01
 kov2p204s02
 kov2p204s03
@@ -7827,6 +7012,8 @@ kov2p204s84
 kov2p204s85
 kov2p204s86   //graphic problem
 kov2p204s87   //graphic problem
+kov2p204s88
+kov2p204s89
 kov2h01
 kov2h02
 kov2h03
@@ -8171,6 +7358,27 @@ kovpluss323
 kovpluss324
 kovpluss325
 kovpluss326
+kovpluss327  //graphic problem
+kovpluss328  //graphic problem
+kovpluss329
+//kovpluss330  // Unstable game in the emulator(ingame crash)
+//kovpluss331  // Unstable game in the emulator(ingame crash)
+kovpluss332
+kovpluss333
+kovpluss334
+kovpluss335
+kovpluss336
+kovpluss337
+kovpluss338
+kovpluss339
+kovpluss340
+kovpluss341
+kovpluss342
+kovpluss343
+kovpluss344
+kovpluss345
+kovpluss346
+kovpluss347
 kovplusas01
 kovshs01
 kovshs02
@@ -8331,7 +7539,6 @@ kovsho35
 kovsho36
 kovsho37
 kovsho38
-//kovsho39  //Duplicado
 kovsho40
 kovsho41
 kovsho42
@@ -8385,11 +7592,25 @@ kovsho89
 kovsho90
 kovsho91
 kovsho92
+kovsho93
+kovsho94
+kovsho95  // Serious problem graphic
+kovsho96
+kovsho97
+kovsho98  // Serious problem graphic
+kovsho99  // Serious problem graphic
+// kovsho100  //  Unstable game in the emulator (ingame crash)
+// kovsho101  //  Unstable game in the emulator (ingame crash)
+// kovsho102  //  Unstable game in the emulator (ingame crash)
+kovsho103
+kovsho104
+kovsho105
+kovsho106
+kovsho107
 kovshxass01
 kovshxass02
 kovshxass03
 martmasts01
-olds01
 olds103ts01
 olds100s01
 //olds100ass01 //  Unstable game in the emulator (ingame crash)
@@ -8657,8 +7878,6 @@ orlegendcs92
 orlegendcs93
 orlegendcs94
 orlegendcs95
-orlegendes01
-orlegend111cs01
 theglads01
 theglads02
 theglads03
@@ -8688,6 +7907,10 @@ pc_pacm			/* NES->PC-10 */
 pc_gyrus		/* NES->PC-10 */
 pc_skykd		/* NES->PC-10 */
 
+@source:polepos.cpp
+polepos					//parent
+mmadness				// Mars Madness - Tesla in-car entertainment
+
 @source:pooyan.cpp
 pooyan				// parent
 pooyandiag
@@ -8697,17 +7920,11 @@ powerins		//parent
 powernbr
 powerns01
 powerns02
-powerinss01
-powerinss02
-powerinsas01
-powerinsas02
-powerinsbs01
-powerinsbs02
+powerns03
 
 @source:psikyo.cpp
 tengai					//parent
 tengais01
-tengaijs01
 
 @source:psikyosh.cpp
 s1945ii			//parent
@@ -8722,6 +7939,10 @@ s1945iiis01
 s1945iiis02
 soldivid		//parent
 soldivids01
+
+@source:r2dx_v33.cpp
+nzeroteama					//parent
+nzeroteamas01
 
 @source:rabbit.cpp
 rabbit						//parent
@@ -8779,12 +8000,10 @@ altbeast				//parent
 altbeastfr
 altbeasts01
 altbeasts02
-altbeast5s01
 
 @source:segas24.cpp
 gground					//parent
 ggrounds01
-ggroundjs01
 
 @source:segas32.cpp
 ga2						//parent
@@ -8799,7 +8018,6 @@ msgundam    			//parent
 msgundams01
 rezon					//parent
 rezons01
-rezonts01
 
 @source:seta2.cpp
 grdians					//parent
@@ -8812,6 +8030,7 @@ grdianss06
 grdianss07
 grdianss08
 grdianss09
+grdianss10
 
 @source:sf.cpp
 sf						//parent
@@ -8820,6 +8039,10 @@ sfs01					// freezes in attract mode
 @source:shadfrce.cpp
 shadfrce				//parent
 shadfrces01
+
+@source:sidepckt.cpp
+sidepckt				//parent
+sidepcktb2
 
 @source:silkroad.cpp
 silkroad				//parent
@@ -8870,6 +8093,15 @@ wbmlkb
 
 @source:system16.cpp
 sys16dem				// HB
+
+@source:stv.cpp
+stvbios					//bios
+gaxeduel				//parent
+gaxeduels01
+groovef					//parent
+groovefs01
+suikoenb				//parent
+suikoenbs01
 
 @source:taitosj.cpp
 alpine					//parent
@@ -8931,8 +8163,7 @@ gseeker					//parent
 gseekerjs01
 kaiserkn				//parent
 kaiserkns01
-kaiserknjs01
-kaiserknjs02
+kaiserkns02
 landmakrs01
 lightbr					//parent
 lightbrjs01
@@ -8959,6 +8190,7 @@ rygar					//parent
 rygark
 geminis01
 rygarjs01
+rygars01
 silkworm				//parent
 silkworms01
 
@@ -9015,16 +8247,14 @@ timepltdiag
 @source:tmnt.cpp
 ssriders	//parent
 ssridersaex
-ssridersudas01
-ssridersebcs01
-ssridersjbds01
-ssridersubcs01
-tmnt2					//parent
+tmnt2	    //parent
 tmnt2s01
 tmnt2s02
-tmnt2as01
+tmnt2s03
 
 @source:tnzs.cpp
+drtoppel    		// parent
+drtoppels01
 insectx				// parent
 insectxs01
 
@@ -9083,6 +8313,9 @@ karatblzas02
 
 @source:wc90.cpp
 pac90
+twcup90	    //parent
+twcup90s01
+twcup90s02
 
 @source:williams.cpp
 defender	//parent
@@ -9120,4 +8353,5 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
 

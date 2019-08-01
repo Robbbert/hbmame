@@ -420,5 +420,5 @@ GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_
 GAME( 1994, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Power Instinct 2 (Unknown Hack 2015-12-06)", MACHINE_SUPPORTS_SAVE )
  // Gouketsuji Gaiden
 GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Ddj",  "Gouketsuji Gaiden (always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "DDJ",  "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
 

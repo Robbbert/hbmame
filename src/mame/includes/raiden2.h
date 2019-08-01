@@ -7,6 +7,7 @@
 
 #include "audio/seibu.h"
 #include "machine/seibucop/seibucop.h"
+#include "video/bufsprite.h"
 #include "video/seibu_crtc.h"
 #include "emupal.h"
 #include "screen.h"
@@ -18,7 +19,7 @@ class raiden2_state : public driver_device
 public:
 	raiden2_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
-		, m_spriteram(*this, "spriteram") 
+		, m_spriteram(*this, "spriteram")
 		, m_maincpu(*this, "maincpu")
 		, m_seibu_sound(*this, "seibu_sound")
 		, m_gfxdecode(*this, "gfxdecode")
@@ -62,7 +63,7 @@ protected:
 	std::unique_ptr<u16[]> m_mid_data;
 	std::unique_ptr<u16[]> m_text_data; // private buffers, allocated in init
 	std::unique_ptr<u16[]> m_palette_data;
-	required_shared_ptr<u16> m_spriteram;
+	required_device<buffered_spriteram16_device> m_spriteram;
 	required_device<cpu_device> m_maincpu;
 	optional_device<seibu_sound_device> m_seibu_sound;
 	required_device<gfxdecode_device> m_gfxdecode;

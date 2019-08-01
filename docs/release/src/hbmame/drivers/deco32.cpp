@@ -46,4 +46,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Fighter's History
-GAME( 1993, fghthistas01,   fghthist, fghthist,  fghthist, fghthist_state, init_fghthist,  ROT0, "yumeji[2ch]", "Fighter's History (Enable Hidden Characters)(World ver 43-07, DE-0380-2 PCB)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, fghthistas01,   fghthist, fghthist,  fghthist, fghthist_state, init_fghthist,  ROT0, "yumeji[2ch]", "Fighter's History (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )

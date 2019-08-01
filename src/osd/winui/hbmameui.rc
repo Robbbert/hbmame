@@ -416,7 +416,7 @@ BEGIN
     CTEXT           "HomeBrew MAME",IDC_STATIC,147,7,142,
                     11,NOT WS_GROUP
     CTEXT           "Version 0",IDC_VERSION,147,18,142,11,NOT WS_GROUP
-    CTEXT           "Copyright (C) 1997-2018 The HBMAME Team",IDC_STATIC,147,
+    CTEXT           "Copyright (C) 1997-2019 Robbbert",IDC_STATIC,147,
                     29,142,10,NOT WS_GROUP
     CTEXT           "MAMEUI version by",IDC_STATIC,147,51,142,10,NOT 
                     WS_GROUP
@@ -882,16 +882,16 @@ BEGIN
     COMBOBOX        IDC_SNAPVIEW,13,158,90,60,CBS_DROPDOWNLIST | WS_VSCROLL |
                     WS_TABSTOP,0,HIDC_SNAPVIEW
     GROUPBOX        "Artwork options",IDC_STATIC,113,40,102,85
-    CONTROL         "Backdrops",IDC_BACKDROPS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,50,86,10,0,HIDC_BACKDROPS
-    CONTROL         "Bezels",IDC_BEZELS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,62,86,10,0,HIDC_BEZELS
-    CONTROL         "Overlays",IDC_OVERLAYS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,74,84,10,0,HIDC_OVERLAYS
-    CONTROL         "CPanels",IDC_CPANELS,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,86,84,10,0
-    CONTROL         "Marquees",IDC_MARQUEES,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,119,98,84,10,0
+//    CONTROL         "Backdrops",IDC_BACKDROPS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,50,86,10,0,HIDC_BACKDROPS
+//    CONTROL         "Bezels",IDC_BEZELS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,62,86,10,0,HIDC_BEZELS
+//    CONTROL         "Overlays",IDC_OVERLAYS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,74,84,10,0,HIDC_OVERLAYS
+//    CONTROL         "CPanels",IDC_CPANELS,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,86,84,10,0
+//    CONTROL         "Marquees",IDC_MARQUEES,"Button",BS_AUTOCHECKBOX |
+//                    WS_TABSTOP,119,98,84,10,0
     CONTROL         "Crop artwork",IDC_ARTWORK_CROP,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,119,110,53,10,0,HIDC_ARTWORK_CROP
     GROUPBOX        "BIOS",IDC_STATIC,113,128,102,28

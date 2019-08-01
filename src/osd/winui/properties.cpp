@@ -129,6 +129,7 @@ b) Exit the dialog.
 #include "properties.h"
 #include "drivenum.h"
 #include "machine/ram.h"
+#include <shlwapi.h>
 
 
 #if defined(__GNUC__)
@@ -165,11 +166,20 @@ static void InitializeD3DVersionUI(HWND hwnd);
 static void InitializeVideoUI(HWND hwnd);
 static void InitializeBIOSUI(HWND hwnd);
 static void InitializeControllerMappingUI(HWND hwnd);
+static void InitializeLanguageUI(HWND hWnd);
+static void InitializePluginsUI(HWND hWnd);
+//static void InitializeGLSLFilterUI(HWND hWnd);
 static void UpdateOptions(HWND hDlg, datamap *map, windows_options &opts);
 static void UpdateProperties(HWND hDlg, datamap *map, windows_options &opts);
 static void PropToOptions(HWND hWnd, windows_options &o);
 static void OptionsToProp(HWND hWnd, windows_options &o);
 static void SetPropEnabledControls(HWND hWnd);
+static bool SelectLUAScript(HWND hWnd);
+static bool ResetLUAScript(HWND hWnd);
+static bool SelectPlugins(HWND hWnd);
+static bool ResetPlugins(HWND hWnd);
+//static bool SelectBGFXChains(HWND hWnd);
+//static bool ResetBGFXChains(HWND hWnd);
 static BOOL SelectEffect(HWND hWnd);
 static BOOL ResetEffect(HWND hWnd);
 static BOOL SelectJoystickMap(HWND hWnd);
@@ -211,6 +221,7 @@ static OPTIONS_TYPE g_nPropertyMode = OPTIONS_GAME;
 static BOOL  g_bAutoAspect[MAX_SCREENS] = {false, false, false, false};
 static BOOL  g_bAutoSnapSize = false;
 static HICON g_hIcon = NULL;
+std::vector<string> plugin_names(32);
 
 /* Property sheets */
 
@@ -1091,6 +1102,22 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 				changed = ResetDebugscript(hDlg);
 				break;
 
+			case IDC_SELECT_LUASCRIPT:
+				changed = SelectLUAScript(hDlg);
+				break;
+
+			case IDC_RESET_LUASCRIPT:
+				changed = ResetLUAScript(hDlg);
+				break;
+
+			case IDC_SELECT_PLUGIN:
+				changed = SelectPlugins(hDlg);
+				break;
+
+			case IDC_RESET_PLUGIN:
+				changed = ResetPlugins(hDlg);
+				break;
+
 			case IDC_PROP_RESET:
 				// RESET Button - Only do it if mouse-clicked
 				if (wNotifyCode != BN_CLICKED)
@@ -1393,7 +1420,7 @@ static void UpdateProperties(HWND hDlg, datamap *map, windows_options &opts)
 static void OptionsToProp(HWND hWnd, windows_options& o)
 {
 	HWND hCtrl2;
-	TCHAR buf[100];
+	TCHAR buf[1024];
 	int  n = 0;
 	int  d = 0;
 	int  width = 0;
@@ -1409,24 +1436,18 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 
 	HWND hCtrl = GetDlgItem(hWnd, IDC_ASPECT);
 	if (hCtrl)
-	{
-		Button_SetCheck(hCtrl, g_bAutoAspect[GetSelectedScreen(hWnd)] )	;
-	}
+		Button_SetCheck(hCtrl, g_bAutoAspect[GetSelectedScreen(hWnd)] );
 
 	hCtrl = GetDlgItem(hWnd, IDC_SNAPSIZE);
 	if (hCtrl)
-	{
-		Button_SetCheck(hCtrl, g_bAutoSnapSize )	;
-	}
+		Button_SetCheck(hCtrl, g_bAutoSnapSize );
 
 	/* Bios select list */
 	hCtrl = GetDlgItem(hWnd, IDC_BIOS);
 	if (hCtrl)
 	{
 		const char* cBuffer;
-		int i = 0;
-		int iCount = ComboBox_GetCount( hCtrl );
-		for( i=0; i< iCount; i++ )
+		for( uint8_t i = 0; i < ComboBox_GetCount( hCtrl ); i++ )
 		{
 			cBuffer = (const char*)ComboBox_GetItemData( hCtrl, i );
 			if (strcmp(cBuffer, pCurrentOpts.value(OPTION_BIOS) ) == 0)
@@ -1487,6 +1508,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 			Edit_SetText(hCtrl2, TEXT("3"));
 		}
 	}
+
 	hCtrl = GetDlgItem(hWnd, IDC_EFFECT);
 	if (hCtrl) {
 		const char* effect = o.value(OPTION_EFFECT);
@@ -1496,6 +1518,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		}
 		win_set_window_text_utf8(hCtrl, effect);
 	}
+
 	hCtrl = GetDlgItem(hWnd, IDC_SNAPSIZE);
 	if (hCtrl)
 	{
@@ -1510,6 +1533,92 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 			g_bAutoSnapSize = false;
 		}
 	}
+#if 0
+	for (int i = 0; i < 5; i++)
+	{
+		UpdateMameShader(hWnd, i, opts);
+		UpdateScreenShader(hWnd, i, opts);
+	}
+
+	hCtrl = GetDlgItem(hWnd, IDC_CHEATFILE);
+
+	if (hCtrl)
+	{
+		const char* cheatfile = opts.value(OPTION_CHEATPATH);
+
+		if (strcmp(cheatfile, "cheat") == 0)
+			winui_set_window_text_utf8(hCtrl, "Default");
+		else
+		{
+			char *cheatname = strrchr(cheatfile, '\\');
+
+			if (cheatname != NULL)
+			{
+				strcpy(buffer, cheatname + 1);
+				winui_set_window_text_utf8(hCtrl, buffer);
+			}
+			else
+				winui_set_window_text_utf8(hCtrl, cheatfile);
+		}
+	}
+#endif
+	hCtrl = GetDlgItem(hWnd, IDC_JOYSTICKMAP);
+
+	if (hCtrl)
+	{
+		const char* joymap = o.value(OPTION_JOYSTICK_MAP);
+
+		win_set_window_text_utf8(hCtrl, joymap);
+	}
+
+	hCtrl = GetDlgItem(hWnd, IDC_LUASCRIPT);
+
+	if (hCtrl)
+	{
+		const char* script = o.value(OPTION_AUTOBOOT_SCRIPT);
+
+		if (strcmp(script, "") == 0)
+			win_set_window_text_utf8(hCtrl, "None");
+		else
+		{
+			char buffer[260];
+			wchar_t *t_filename = ui_wstring_from_utf8(script);
+			wchar_t *tempname = PathFindFileName(t_filename);
+			PathRemoveExtension(tempname);
+			char *optname = ui_utf8_from_wstring(tempname);
+			strcpy(buffer, optname);
+			free(t_filename);
+			free(optname);
+			win_set_window_text_utf8(hCtrl, buffer);
+		}
+	}
+
+	hCtrl = GetDlgItem(hWnd, IDC_PLUGIN);
+
+	if (hCtrl)
+	{
+		string t1 = GetPlugins();
+		const char* plugin = t1.c_str();
+
+		if (strlen(plugin) == 0)
+		//if (strcmp(plugin, "") == 0)
+			win_set_window_text_utf8(hCtrl, "None");
+		else
+			win_set_window_text_utf8(hCtrl, plugin);
+	}
+#if 0
+	hCtrl = GetDlgItem(hWnd, IDC_BGFX_CHAINS);
+
+	if (hCtrl)
+	{
+		const char* chains = o.value(OSDOPTION_BGFX_SCREEN_CHAINS);
+
+		if (strcmp(chains, "default") == 0)
+			winui_set_window_text_utf8(hCtrl, "Default");
+		else
+			winui_set_window_text_utf8(hCtrl, chains);
+	}
+#endif
 	/* snapshot size */
 	hCtrl  = GetDlgItem(hWnd, IDC_SNAPSIZEWIDTH);
 	hCtrl2 = GetDlgItem(hWnd, IDC_SNAPSIZEHEIGHT);
@@ -1519,7 +1628,7 @@ static void OptionsToProp(HWND hWnd, windows_options& o)
 		d = 0;
 		if (o.value(OPTION_SNAPSIZE))
 		{
-			if (sscanf(o.value(OPTION_SNAPSIZE), "%dx%d", &width, &height) == 2 && width != 0 && height != 0)
+			if (sscanf(o.value(OPTION_SNAPSIZE), "%dx%d", &width, &height) == 2 && width && height)
 			{
 				_stprintf(buf, TEXT("%d"), width);
 				Edit_SetText(hCtrl, buf);
@@ -1606,11 +1715,11 @@ static void SetPropEnabledControls(HWND hWnd)
 	EnableWindow(GetDlgItem(hWnd, IDC_SCREENSELECTTEXT), ddraw | d3d);
 
 	EnableWindow(GetDlgItem(hWnd, IDC_ARTWORK_CROP), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_BACKDROPS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_BEZELS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_OVERLAYS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_CPANELS), useart);
-	EnableWindow(GetDlgItem(hWnd, IDC_MARQUEES), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_BACKDROPS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_BEZELS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_OVERLAYS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_CPANELS), useart);
+//	EnableWindow(GetDlgItem(hWnd, IDC_MARQUEES), useart);
 	EnableWindow(GetDlgItem(hWnd, IDC_ARTMISCTEXT), useart);
 
 	/* Joystick options */
@@ -1646,24 +1755,24 @@ static void SetPropEnabledControls(HWND hWnd)
 			bOsVersionInfoEx = GetVersionEx ( (OSVERSIONINFO *) &osvi);
 		}
 
-		if( bOsVersionInfoEx && (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT) && (osvi.dwMajorVersion >= 5) )
-		{
+//		if( bOsVersionInfoEx && (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT) && (osvi.dwMajorVersion >= 5) )
+//		{
 			BOOL use_lightgun;
 			//XP and above...
 			Button_Enable(GetDlgItem(hWnd,IDC_LIGHTGUN),false);
 			use_lightgun = Button_GetCheck(GetDlgItem(hWnd,IDC_USE_MOUSE));
 			Button_Enable(GetDlgItem(hWnd,IDC_DUAL_LIGHTGUN),false);
 			Button_Enable(GetDlgItem(hWnd,IDC_RELOAD),use_lightgun);
-		}
-		else
-		{
-			BOOL use_lightgun;
+//		}
+//		else
+//		{
+//			BOOL use_lightgun;
 			// Older than XP
-			Button_Enable(GetDlgItem(hWnd,IDC_LIGHTGUN),true);
-			use_lightgun = Button_GetCheck(GetDlgItem(hWnd,IDC_LIGHTGUN));
-			Button_Enable(GetDlgItem(hWnd,IDC_DUAL_LIGHTGUN),use_lightgun);
-			Button_Enable(GetDlgItem(hWnd,IDC_RELOAD),use_lightgun);
-		}
+//			Button_Enable(GetDlgItem(hWnd,IDC_LIGHTGUN),true);
+//			use_lightgun = Button_GetCheck(GetDlgItem(hWnd,IDC_LIGHTGUN));
+//			Button_Enable(GetDlgItem(hWnd,IDC_DUAL_LIGHTGUN),use_lightgun);
+//			Button_Enable(GetDlgItem(hWnd,IDC_RELOAD),use_lightgun);
+//		}
 	}
 	else
 	{
@@ -1867,95 +1976,102 @@ static BOOL SnapViewPopulateControl(datamap *map, HWND dialog, HWND control, win
 static BOOL DefaultInputReadControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
 	int input_option_index = ComboBox_GetCurSel(control);
-	TCHAR *input_option_value = (TCHAR*) ComboBox_GetItemData(control, input_option_index);
-	char *op_val = ui_utf8_from_wstring(input_option_value);
-	opts->set_value(OPTION_CTRLR, input_option_index ? op_val : "", OPTION_PRIORITY_CMDLINE);
-	free(op_val);
+	const char *input_option_value = (const char*)ComboBox_GetItemData(control, input_option_index);
+	opts->set_value(OPTION_CTRLR, input_option_index ? input_option_value : "", OPTION_PRIORITY_CMDLINE);
 	return false;
+}
+
+wchar_t *win_wstring_from_utf8(const char *utf8string)
+{
+	// convert MAME string (UTF-8) to UTF-16
+	int char_count = MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, nullptr, 0);
+	wchar_t *result = (wchar_t *)malloc(char_count * sizeof(*result));
+
+	if (result != nullptr)
+		MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, result, char_count);
+
+	return result;
+}
+
+char *win_utf8_from_wstring(const wchar_t *wstring)
+{
+	// convert UTF-16 to MAME string (UTF-8)
+	int char_count = WideCharToMultiByte(CP_UTF8, 0, wstring, -1, nullptr, 0, nullptr, nullptr);
+	char *result = (char *)malloc(char_count * sizeof(*result));
+
+	if (result != nullptr)
+		WideCharToMultiByte(CP_UTF8, 0, wstring, -1, result, char_count, nullptr, nullptr);
+
+	return result;
+}
+
+HANDLE winui_find_first_file_utf8(const char* filename, WIN32_FIND_DATA *findfiledata)
+{
+	wchar_t *t_filename = win_wstring_from_utf8(filename);
+
+	if (!t_filename)
+		return NULL;
+
+	HANDLE result = FindFirstFile(t_filename, findfiledata);
+	free(t_filename);
+	return result;
 }
 
 static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control, windows_options *opts, const char *option_name)
 {
-	TCHAR root[256];
-	TCHAR path[256];
+	WIN32_FIND_DATA FindFileData;
+	char path[MAX_PATH];
 	int selected = 0;
 	int index = 0;
-	LPCTSTR t_ctrlr_option = 0;
-	LPTSTR t_buf = 0;
 
 	// determine the ctrlr option
 	const char *ctrlr_option = opts->value(OPTION_CTRLR);
-	if( ctrlr_option )
-	{
-		t_buf = ui_wstring_from_utf8(ctrlr_option);
-		if( !t_buf )
-			return false;
-		t_ctrlr_option = t_buf;
-	}
-	else
-		t_ctrlr_option = TEXT("");
 
 	// reset the controllers dropdown
-	int res = ComboBox_ResetContent(control);
-	res = ComboBox_InsertString(control, index, TEXT("Default"));
-	res = ComboBox_SetItemData(control, index, "");
+	(void)ComboBox_ResetContent(control);
+	(void)ComboBox_InsertString(control, index, TEXT("Default"));
+	(void)ComboBox_SetItemData(control, index, "");
 	index++;
-
-	std::string t = GetCtrlrDir();
-	TCHAR *t_ctrldir = ui_wstring_from_utf8(t.c_str());
-	if( !t_ctrldir )
-	{
-		if( t_buf )
-			free(t_buf);
-		return false;
-	}
-
-	_stprintf (path, TEXT("%s\\*.*"), t_ctrldir);
-
-	free(t_ctrldir);
-
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind = FindFirstFile(path, &FindFileData);
+	snprintf(path, WINUI_ARRAY_LENGTH(path), "%s\\*.*", GetCtrlrDir().c_str());
+	HANDLE hFind = winui_find_first_file_utf8(path, &FindFileData);
 
 	if (hFind != INVALID_HANDLE_VALUE)
 	{
-		do
+		while (FindNextFile (hFind, &FindFileData) != 0)
 		{
 			// copy the filename
-			_tcscpy (root,FindFileData.cFileName);
-
+			const char *root = win_utf8_from_wstring(FindFileData.cFileName);
 			// find the extension
-			TCHAR *ext = _tcsrchr (root,'.');
+			char *ext = strrchr(root, '.');
+
 			if (ext)
 			{
 				// check if it's a cfg file
-				if (_tcscmp (ext, TEXT(".cfg")) == 0)
+				if (strcmp (ext, ".cfg") == 0)
 				{
 					// and strip off the extension
 					*ext = 0;
 
 					// set the option?
-					if (!_tcscmp(root, t_ctrlr_option))
+					if (!strcmp(root, ctrlr_option))
 						selected = index;
 
 					// add it as an option
-					res = ComboBox_InsertString(control, index, root);
-					res = ComboBox_SetItemData(control, index, (void*)win_tstring_strdup(root)); // FIXME - leaks memory!
+					wchar_t *t_root = win_wstring_from_utf8(root);
+					(void)ComboBox_InsertString(control, index, t_root);
+					(void)ComboBox_SetItemData(control, index, root);
+					free(t_root);
+					root = NULL;
 					index++;
 				}
 			}
 		}
-		while (FindNextFile (hFind, &FindFileData) != 0);
 
 		FindClose (hFind);
 	}
 
-	res = ComboBox_SetCurSel(control, selected);
+	(void)ComboBox_SetCurSel(control, selected);
 
-	if( t_buf )
-		free(t_buf);
-
-	res++;
 	return false;
 }
 
@@ -2138,11 +2254,11 @@ static void BuildDataMap(void)
 
 	// core artwork options
 	datamap_add(properties_datamap, IDC_ARTWORK_CROP,			DM_BOOL,	OPTION_ARTWORK_CROP);
-	datamap_add(properties_datamap, IDC_BACKDROPS,				DM_BOOL,	OPTION_USE_BACKDROPS);
-	datamap_add(properties_datamap, IDC_OVERLAYS,				DM_BOOL,	OPTION_USE_OVERLAYS);
-	datamap_add(properties_datamap, IDC_BEZELS,					DM_BOOL,	OPTION_USE_BEZELS);
-	datamap_add(properties_datamap, IDC_CPANELS,				DM_BOOL,	OPTION_USE_CPANELS);
-	datamap_add(properties_datamap, IDC_MARQUEES,				DM_BOOL,	OPTION_USE_MARQUEES);
+//	datamap_add(properties_datamap, IDC_BACKDROPS,				DM_BOOL,	OPTION_USE_BACKDROPS);
+//	datamap_add(properties_datamap, IDC_OVERLAYS,				DM_BOOL,	OPTION_USE_OVERLAYS);
+//	datamap_add(properties_datamap, IDC_BEZELS,					DM_BOOL,	OPTION_USE_BEZELS);
+//	datamap_add(properties_datamap, IDC_CPANELS,				DM_BOOL,	OPTION_USE_CPANELS);
+//	datamap_add(properties_datamap, IDC_MARQUEES,				DM_BOOL,	OPTION_USE_MARQUEES);
 
 	// core screen options
 	datamap_add(properties_datamap, IDC_BRIGHTCORRECT,			DM_FLOAT,	OPTION_BRIGHTNESS);
@@ -2153,10 +2269,16 @@ static void BuildDataMap(void)
 	datamap_add(properties_datamap, IDC_GAMMADISP,				DM_FLOAT,	OPTION_GAMMA);
 	datamap_add(properties_datamap, IDC_PAUSEBRIGHT,			DM_FLOAT,	OPTION_PAUSE_BRIGHTNESS);
 	datamap_add(properties_datamap, IDC_PAUSEBRIGHTDISP,		DM_FLOAT,	OPTION_PAUSE_BRIGHTNESS);
+	datamap_add(properties_datamap, IDC_BURNIN,					DM_BOOL,	OPTION_BURNIN);
+	datamap_add(properties_datamap, IDC_SNAPBILINEAR,			DM_BOOL,	OPTION_SNAPBILINEAR);
 
 	// core vector options
-	datamap_add(properties_datamap, IDC_BEAM,					DM_FLOAT,	OPTION_BEAM_WIDTH_MAX);
-	datamap_add(properties_datamap, IDC_BEAMDISP,				DM_FLOAT,	OPTION_BEAM_WIDTH_MAX);
+	datamap_add(properties_datamap, IDC_BEAM_MIN,				DM_FLOAT,	OPTION_BEAM_WIDTH_MIN);
+	datamap_add(properties_datamap, IDC_BEAM_MINDISP,			DM_FLOAT,	OPTION_BEAM_WIDTH_MIN);
+	datamap_add(properties_datamap, IDC_BEAM_MAX,				DM_FLOAT,	OPTION_BEAM_WIDTH_MAX);
+	datamap_add(properties_datamap, IDC_BEAM_MAXDISP,			DM_FLOAT,	OPTION_BEAM_WIDTH_MAX);
+	datamap_add(properties_datamap, IDC_BEAM_INTEN,				DM_FLOAT,	OPTION_BEAM_INTENSITY_WEIGHT);
+	datamap_add(properties_datamap, IDC_BEAM_INTENDISP,			DM_FLOAT,	OPTION_BEAM_INTENSITY_WEIGHT);
 	datamap_add(properties_datamap, IDC_FLICKER,				DM_FLOAT,	OPTION_FLICKER);
 	datamap_add(properties_datamap, IDC_FLICKERDISP,			DM_FLOAT,	OPTION_FLICKER);
 
@@ -2205,6 +2327,15 @@ static void BuildDataMap(void)
 	datamap_add(properties_datamap, IDC_BIOS,					DM_STRING,	OPTION_BIOS);
 	datamap_add(properties_datamap, IDC_CHEAT,					DM_BOOL,	OPTION_CHEAT);
 	datamap_add(properties_datamap, IDC_SKIP_GAME_INFO,			DM_BOOL,	OPTION_SKIP_GAMEINFO);
+
+	datamap_add(properties_datamap, IDC_LANGUAGE,				DM_STRING,	OPTION_LANGUAGE);
+	datamap_add(properties_datamap, IDC_LUASCRIPT,				DM_STRING,	OPTION_AUTOBOOT_SCRIPT);
+	datamap_add(properties_datamap, IDC_BOOTDELAY,				DM_INT,		OPTION_AUTOBOOT_DELAY);
+	datamap_add(properties_datamap, IDC_BOOTDELAYDISP,			DM_INT,		OPTION_AUTOBOOT_DELAY);
+	datamap_add(properties_datamap, IDC_PLUGINS,				DM_BOOL,	OPTION_PLUGINS);
+	datamap_add(properties_datamap, IDC_PLUGIN,					DM_STRING,	OPTION_PLUGIN);
+	datamap_add(properties_datamap, IDC_NVRAM_SAVE,				DM_BOOL,	OPTION_NVRAM_SAVE);
+	datamap_add(properties_datamap, IDC_REWIND,					DM_BOOL,	OPTION_REWIND);
 
 	// windows debugging options
 	datamap_add(properties_datamap, IDC_OSLOG,					DM_BOOL,	OPTION_OSLOG);
@@ -2284,8 +2415,10 @@ static void BuildDataMap(void)
 	// formats
 	datamap_set_int_format(properties_datamap, IDC_VOLUMEDISP,		"%ddB");
 	datamap_set_int_format(properties_datamap, IDC_AUDIO_LATENCY_DISP,	"%d/5");
-	datamap_set_float_format(properties_datamap, IDC_BEAMDISP,		"%03.2f");
-	datamap_set_float_format(properties_datamap, IDC_FLICKERDISP,		"%03.2f");
+	datamap_set_float_format(properties_datamap, IDC_BEAM_MINDISP,		"%3.2f");
+	datamap_set_float_format(properties_datamap, IDC_BEAM_MAXDISP,		"%3.2f");
+	datamap_set_float_format(properties_datamap, IDC_BEAM_INTENDISP,	"%3.2f");
+	datamap_set_float_format(properties_datamap, IDC_FLICKERDISP,		"%3.2f");
 	datamap_set_float_format(properties_datamap, IDC_GAMMADISP,		"%03.2f");
 	datamap_set_float_format(properties_datamap, IDC_BRIGHTCORRECTDISP,	"%03.2f");
 	datamap_set_float_format(properties_datamap, IDC_CONTRASTDISP,		"%03.2f");
@@ -2301,7 +2434,10 @@ static void BuildDataMap(void)
 	datamap_set_trackbar_range(properties_datamap, IDC_JDZ,         0.00, 1.00,  (float)0.05);
 	datamap_set_trackbar_range(properties_datamap, IDC_JSAT,        0.00, 1.00,  (float)0.05);
 	datamap_set_trackbar_range(properties_datamap, IDC_SPEED,       0.00, 3.00,  (float)0.01);
-	datamap_set_trackbar_range(properties_datamap, IDC_BEAM,        (float)0.10, 10.00, (float)0.10);
+	datamap_set_trackbar_range(properties_datamap, IDC_BEAM_MIN,        0.00, 1.00, (float)0.01);
+	datamap_set_trackbar_range(properties_datamap, IDC_BEAM_MAX,        1.00, 10.00, (float)0.01);
+	datamap_set_trackbar_range(properties_datamap, IDC_BEAM_INTEN,      -10.00, 10.00, (float)0.01);
+	datamap_set_trackbar_range(properties_datamap, IDC_FLICKER,          0.00, 1.00, (float)0.01);
 	datamap_set_trackbar_range(properties_datamap, IDC_AUDIO_LATENCY, 1,  5, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_VOLUME,      -32,  0, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_SECONDSTORUN, 0,  60, 1);
@@ -2314,6 +2450,7 @@ static void BuildDataMap(void)
 	datamap_set_trackbar_range(properties_datamap, IDC_BRIGHTCORRECT, 0.00,  2.0, (float)0.1);
 	datamap_set_trackbar_range(properties_datamap, IDC_CONTRAST, 0.0,  2.0, (float)0.1);
 	datamap_set_trackbar_range(properties_datamap, IDC_PAUSEBRIGHT, 0.00,  1.00, (float)0.05);
+	datamap_set_trackbar_range(properties_datamap, IDC_BOOTDELAY, 0, 5, 1);
 
 #ifdef MESS
 	// MESS specific stuff
@@ -2352,16 +2489,24 @@ static void SetSamplesEnabled(HWND hWnd, int nIndex, BOOL bSoundEnabled)
 /* Moved here cause it's called in a few places */
 static void InitializeOptions(HWND hDlg)
 {
+// from FX
+//	InitializeSampleRateUI(hDlg);
 	InitializeSoundUI(hDlg);
+//	InitializeSoundModeUI(hDlg);
 	InitializeSkippingUI(hDlg);
 	InitializeRotateUI(hDlg);
 	InitializeSelectScreenUI(hDlg);
 	InitializeBIOSUI(hDlg);
 	InitializeControllerMappingUI(hDlg);
+	InitializeVideoUI(hDlg);
+//	InitializeSnapViewUI(hDlg);
+//	InitializeSnapNameUI(hDlg);
+	InitializeLanguageUI(hDlg);
+	InitializePluginsUI(hDlg);
+//	InitializeGLSLFilterUI(hDlg);
 #ifdef D3DVERSION
 	InitializeD3DVersionUI(hDlg);
 #endif
-	InitializeVideoUI(hDlg);
 }
 
 /* Moved here because it is called in several places */
@@ -2690,6 +2835,100 @@ static void InitializeBIOSUI(HWND hwnd)
 	res++;
 }
 
+static void InitializeLanguageUI(HWND hWnd)
+{
+	HWND hCtrl = GetDlgItem(hWnd, IDC_LANGUAGE);
+
+	if (hCtrl)
+	{
+		int count = 0;
+		string t1 = GetLangDir();
+		const char* t2 = t1.c_str();
+		osd::directory::ptr directory = osd::directory::open(t2);
+
+		if (directory == nullptr)
+			return;
+
+		for (const osd::directory::entry *entry = directory->read(); entry; entry = directory->read())
+		{
+			if (entry->type == osd::directory::entry::entry_type::DIR)
+			{
+				string name = entry->name;
+				
+				if (!(name == "." || name == ".."))
+				{
+					char *value = strdup(entry->name);
+					wchar_t *text = ui_wstring_from_utf8(entry->name);
+					(void)ComboBox_InsertString(hCtrl, count, text);
+					(void)ComboBox_SetItemData(hCtrl, count, value);
+					count++;
+					free(text);
+					free(value);
+				}
+			}
+		}
+
+		directory.reset();
+	}
+}
+
+static void InitializePluginsUI(HWND hWnd)
+{
+	HWND hCtrl = GetDlgItem(hWnd, IDC_SELECT_PLUGIN);
+
+	if (hCtrl)
+	{
+		string t1 = GetPluginsDir();
+		const char* t2 = t1.c_str();
+		osd::directory::ptr directory = osd::directory::open(t2);
+
+		if (directory == nullptr)
+			return;
+
+		TCHAR* t_s;
+		int count = 0;
+
+		for (const osd::directory::entry *entry = directory->read(); entry; entry = directory->read())
+		{
+			if (entry->type == osd::directory::entry::entry_type::DIR)
+			{
+				string name = entry->name;
+
+				if (!(name == "." || name == ".." || name == "json"))
+				{
+					plugin_names[count] = name;
+					const char* label = name.c_str();
+					t_s = ui_wstring_from_utf8(label);
+					label = 0;
+					if( !t_s )
+						return;
+					if (ComboBox_InsertString(hCtrl, count++, win_tstring_strdup(t_s)) == CB_ERR)
+						return;
+					free(t_s);
+				}
+			}
+		}
+		directory.reset();
+	}
+
+	(void)ComboBox_SetCurSel(hCtrl, -1);
+	(void)ComboBox_SetCueBannerText(hCtrl, TEXT("Select a plugin"));
+}
+#if 0
+static void InitializeGLSLFilterUI(HWND hWnd)
+{
+	HWND hCtrl = GetDlgItem(hWnd, IDC_GLSLFILTER);
+
+	if (hCtrl)
+	{
+		for (int i = 0; i < NUMGLSLFILTER; i++)
+		{
+			(void)ComboBox_InsertString(hCtrl, i, g_ComboBoxGLSLFilter[i].m_pText);
+			(void)ComboBox_SetItemData(hCtrl, i, g_ComboBoxGLSLFilter[i].m_pData);
+		}
+	}
+}
+#endif
 static BOOL SelectEffect(HWND hWnd)
 {
 	char filename[MAX_PATH];
@@ -2772,6 +3011,133 @@ static BOOL ResetJoystickMap(HWND hWnd)
 		win_set_window_text_utf8(control, new_value);
 		changed = true;
 	}
+	return changed;
+}
+
+static bool SelectLUAScript(HWND hWnd)
+{
+	char filename[MAX_PATH];
+	bool changed = false;
+
+	*filename = 0;
+
+	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_LUASCRIPT_FILES))
+	{
+		char option[MAX_PATH];
+		char script[MAX_PATH];
+		wchar_t *t_filename = ui_wstring_from_utf8(filename);
+		wchar_t *tempname = PathFindFileName(t_filename);
+		char *optvalue = ui_utf8_from_wstring(tempname);
+		strcpy(script, optvalue);
+		PathRemoveExtension(tempname);
+		char *optname = ui_utf8_from_wstring(tempname);
+		strcpy(option, optname);
+		free(t_filename);
+		free(optname);
+		free(optvalue);
+
+		if (strcmp(script, pCurrentOpts.value(OPTION_AUTOBOOT_SCRIPT)))
+		{
+			pCurrentOpts.set_value(OPTION_AUTOBOOT_SCRIPT, script, OPTION_PRIORITY_CMDLINE);
+			win_set_window_text_utf8(GetDlgItem(hWnd, IDC_LUASCRIPT), option);
+			changed = true;
+		}
+	}
+
+	return changed;
+}
+
+static bool ResetLUAScript(HWND hWnd)
+{
+	bool changed = false;
+	const char *new_value = "";
+
+	if (strcmp(new_value, pCurrentOpts.value(OPTION_AUTOBOOT_SCRIPT)))
+	{
+		pCurrentOpts.set_value(OPTION_AUTOBOOT_SCRIPT, new_value, OPTION_PRIORITY_CMDLINE);
+		win_set_window_text_utf8(GetDlgItem(hWnd, IDC_LUASCRIPT), "None");
+		changed = true;
+	}
+
+	return changed;
+}
+
+static bool SelectPlugins(HWND hWnd)
+{
+	bool changed = false;
+	bool already_enabled = false;
+	HWND hcontrol = GetDlgItem(hWnd, IDC_SELECT_PLUGIN);
+	if (!hcontrol)
+		return changed;
+
+	int index = ComboBox_GetCurSel(hcontrol);
+	if (index == CB_ERR)
+		return changed;
+
+	const char *new_value = plugin_names[index].c_str();
+	string t1 = GetPlugins();
+	const char* value = t1.c_str();
+
+	char *token = NULL;
+	char buffer[990];  // hold all plugins
+	char plugins[24][32]; // number of possible plugins, max length of name
+	int num_plugins = 0;
+
+	strcpy(buffer, value);
+	token = strtok(buffer, ",");
+
+	if (token == NULL)
+	{
+		strcpy(plugins[num_plugins], buffer);
+	}
+	else
+	{
+		while (token != NULL)
+		{
+			strcpy(plugins[num_plugins], token);
+			num_plugins++;
+			token = strtok(NULL, ",");
+		}
+	}
+
+	if (strcmp(value, "") == 0)
+	{
+		pCurrentOpts.set_value(OPTION_PLUGIN, new_value, OPTION_PRIORITY_CMDLINE);
+		win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), new_value);
+		changed = true;
+		(void)ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_SELECT_PLUGIN), -1);
+		return changed;	
+	}
+
+	for (int i = 0; i < num_plugins; i++)
+	{
+		if (strcmp(new_value, plugins[i]) == 0)
+		{
+			already_enabled = true;
+			break;
+		}
+	}
+
+	if (!already_enabled)
+	{
+		char new_option[256];
+		snprintf(new_option, WINUI_ARRAY_LENGTH(new_option), "%s,%s", value, new_value);
+		pCurrentOpts.set_value(OPTION_PLUGIN, new_option, OPTION_PRIORITY_CMDLINE);
+		win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), new_option);
+		changed = true;
+	}
+
+	(void)ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_SELECT_PLUGIN), -1);
+	return changed;
+}
+
+static bool ResetPlugins(HWND hWnd)
+{
+	bool changed = false;
+	pCurrentOpts.set_value(OPTION_PLUGIN, "", OPTION_PRIORITY_CMDLINE);
+	win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), "None");
+	changed = true;
+	(void)ComboBox_SetCurSel(GetDlgItem(hWnd, IDC_SELECT_PLUGIN), -1);
 	return changed;
 }
 
@@ -3075,25 +3441,21 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 		if (!ramdev->extra_options().empty())
 		{
 			/* try to parse each option */
-			const uint32_t *p = ramdev->extra_options().data();
-			for (int j = 0; j < ramdev->extra_options().size(); j++)
+			for (ram_device::extra_option const &option : ramdev->extra_options())
 			{
-				i++;
-				char ramtext[20];
 				// identify this option
-				messram_string(ramtext, p[j]);
+				t_ramstring = ui_wstring_from_utf8(option.first.c_str());
+				if( t_ramstring )
+				{
+					i++;
+					// add this option to the combo box
+					res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
+					res = ComboBox_SetItemData(control, i, option.second);
 
-				t_ramstring = ui_wstring_from_utf8(ramtext);
-				if( !t_ramstring )
-					return false;
-
-				// add this option to the combo box
-				res = ComboBox_InsertString(control, i, win_tstring_strdup(t_ramstring));
-				res = ComboBox_SetItemData(control, i, p[j]);
-
-				// is this the current option?  record the index if so
-				if (p[j] == current_ram)
-					current_index = i;
+					// is this the current option?  record the index if so
+					if (option.second == current_ram)
+						current_index = i;
+				}
 			}
 		}
 		if (t_ramstring)

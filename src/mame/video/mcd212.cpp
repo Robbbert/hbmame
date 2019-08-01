@@ -3,7 +3,7 @@
 /******************************************************************************
 
 
-    CD-i MCD212 video emulation
+    CD-i MCD212 Video Decoder and System Controller emulation
     -------------------
 
     written by Ryan Holtz
@@ -23,13 +23,14 @@ TODO:
 
 #include "emu.h"
 #include "video/mcd212.h"
-#include "includes/cdi.h"
 
 #include "screen.h"
 
+#define ENABLE_VERBOSE_LOG 0
+
 
 // device type definition
-DEFINE_DEVICE_TYPE(MCD212, mcd212_device, "mcd212", "MCD212 Video")
+DEFINE_DEVICE_TYPE(MCD212, mcd212_device, "mcd212", "MCD212 VDSC")
 
 #if ENABLE_VERBOSE_LOG
 static inline void ATTR_PRINTF(3,4) verboselog(device_t& device, int n_level, const char *s_fmt, ...)
@@ -47,62 +48,6 @@ static inline void ATTR_PRINTF(3,4) verboselog(device_t& device, int n_level, co
 #else
 #define verboselog(x,y,z, ...)
 #endif
-
-static const uint16_t cdi220_lcd_char[20*22] =
-{
-	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0100, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x8000, 0x8000, 0x0000, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0000, 0x0002, 0x0002, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x8000, 0x8000, 0x8000, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0002, 0x0002, 0x0002, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x8000, 0x8000, 0x8000, 0x8000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0002, 0x0002, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x0000, 0x8000, 0x8000, 0x8000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0002, 0x0000, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x0000, 0x0000, 0x8000, 0x8000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0000, 0x0000, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x2000, 0x2000, 0x2000, 0x2000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0200, 0x0200, 0x0200, 0x0200,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x4000, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0000, 0x0000, 0x0010, 0x0010, 0x0001, 0x0001, 0x0001, 0x0001, 0x0008, 0x0008, 0x0000, 0x0000, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0000, 0x0010, 0x0010, 0x0010, 0x0001, 0x0001, 0x0001, 0x0001, 0x0008, 0x0008, 0x0008, 0x0000, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0010, 0x0010, 0x0010, 0x0010, 0x0001, 0x0001, 0x0001, 0x0001, 0x0008, 0x0008, 0x0008, 0x0008, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0010, 0x0010, 0x0010, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0008, 0x0008, 0x0008, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0010, 0x0010, 0x0000, 0x0000, 0x0001, 0x0001, 0x0001, 0x0001, 0x0000, 0x0000, 0x0008, 0x0008, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400,
-	0x1000, 0x1000, 0x1000, 0x1000, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0800, 0x0400, 0x0400, 0x0400, 0x0400
-};
-
-void mcd212_device::draw_lcd(int y)
-{
-	cdi_state *state = machine().driver_data<cdi_state>();
-	if (state->m_slave_hle == nullptr)
-	{
-		return;
-	}
-	bitmap_rgb32 &bitmap = state->m_lcdbitmap;
-	uint32_t *scanline = &bitmap.pix32(y);
-	int x = 0;
-	int lcd = 0;
-
-	for(lcd = 0; lcd < 8; lcd++)
-	{
-		uint16_t data = (state->m_slave_hle->get_lcd_state()[lcd*2] << 8) |
-						state->m_slave_hle->get_lcd_state()[lcd*2 + 1];
-		for(x = 0; x < 20; x++)
-		{
-			if(data & cdi220_lcd_char[y*20 + x])
-			{
-				scanline[(7 - lcd)*24 + x] = 0x00ffffff;
-			}
-			else
-			{
-				scanline[(7 - lcd)*24 + x] = 0;
-			}
-		}
-	}
-}
 
 void mcd212_device::update_region_arrays()
 {
@@ -555,8 +500,7 @@ uint32_t mcd212_device::get_screen_width()
 
 void mcd212_device::process_ica(int channel)
 {
-	cdi_state *state = machine().driver_data<cdi_state>();
-	uint16_t *ica = channel ? state->m_planeb : state->m_planea;
+	uint16_t *ica = channel ? m_planeb.target() : m_planea.target();
 	uint32_t addr = 0x000400/2;
 	uint32_t cmd = 0;
 	while(1)
@@ -602,11 +546,7 @@ void mcd212_device::process_ica(int channel)
 				verboselog(*this, 11, "%08x: %08x: ICA %d: INTERRUPT\n", addr * 2 + channel * 0x200000, cmd, channel );
 				m_channel[1].csrr |= 1 << (2 - channel);
 				if(m_channel[1].csrr & (MCD212_CSR2R_IT1 | MCD212_CSR2R_IT2))
-					m_int1_callback(ASSERT_LINE);
-#if 0
-				if(m_channel[1].csrr & MCD212_CSR2R_IT2)
-					m_int2_callback(ASSERT_LINE);
-#endif
+					m_int_callback(ASSERT_LINE);
 				break;
 			case 0x78: case 0x79: case 0x7a: case 0x7b: case 0x7c: case 0x7d: case 0x7e: case 0x7f: // RELOAD DISPLAY PARAMETERS
 				verboselog(*this, 6, "%08x: %08x: ICA %d: RELOAD DISPLAY PARAMETERS\n", addr * 2 + channel * 0x200000, cmd, channel );
@@ -625,8 +565,7 @@ void mcd212_device::process_ica(int channel)
 
 void mcd212_device::process_dca(int channel)
 {
-	cdi_state *state = machine().driver_data<cdi_state>();
-	uint16_t *dca = channel ? state->m_planeb : state->m_planea;
+	uint16_t *dca = channel ? m_planeb.target() : m_planea.target();
 	uint32_t addr = (m_channel[channel].dca & 0x0007ffff) / 2; //(get_dcp(mcd212, channel) & 0x0007ffff) / 2; // m_channel[channel].dca / 2;
 	uint32_t cmd = 0;
 	uint32_t count = 0;
@@ -678,11 +617,7 @@ void mcd212_device::process_dca(int channel)
 				verboselog(*this, 11, "%08x: %08x: DCA %d: INTERRUPT\n", addr * 2 + channel * 0x200000, cmd, channel );
 				m_channel[1].csrr |= 1 << (2 - channel);
 				if(m_channel[1].csrr & (MCD212_CSR2R_IT1 | MCD212_CSR2R_IT2))
-					m_int1_callback(ASSERT_LINE);
-#if 0
-				if(m_channel[1].csrr & MCD212_CSR2R_IT2)
-					m_int2_callback(ASSERT_LINE);
-#endif
+					m_int_callback(ASSERT_LINE);
 				break;
 			case 0x78: case 0x79: case 0x7a: case 0x7b: case 0x7c: case 0x7d: case 0x7e: case 0x7f: // RELOAD DISPLAY PARAMETERS
 				verboselog(*this, 6, "%08x: %08x: DCA %d: RELOAD DISPLAY PARAMETERS\n", addr * 2 + channel * 0x200000, cmd, channel );
@@ -758,8 +693,7 @@ static inline uint8_t BYTE_TO_CLUT(int channel, int icm, uint8_t byte)
 
 void mcd212_device::process_vsr(int channel, uint8_t *pixels_r, uint8_t *pixels_g, uint8_t *pixels_b)
 {
-	cdi_state *state = machine().driver_data<cdi_state>();
-	uint8_t *data = reinterpret_cast<uint8_t *>(channel ? state->m_planeb.target() : state->m_planea.target());
+	uint8_t *data = reinterpret_cast<uint8_t *>(channel ? m_planeb.target() : m_planea.target());
 	uint32_t vsr = get_vsr(channel) & 0x0007ffff;
 	uint8_t done = 0;
 	uint32_t x = 0;
@@ -1308,18 +1242,16 @@ READ16_MEMBER( mcd212_device::regs_r )
 			if(ACCESSING_BITS_0_7)
 			{
 				verboselog(*this, 12, "mcd212_r: Status Register %d: %02x & %04x\n", channel + 1, m_channel[1 - (offset / 8)].csrr, mem_mask);
-				if(channel == 0)
+				if(channel == 0 || machine().side_effects_disabled())
 				{
-					return m_channel[0].csrr;
+					return m_channel[channel].csrr;
 				}
-				else if (!machine().side_effects_disabled())
+				else
 				{
 					uint8_t old_csr = m_channel[1].csrr;
 					m_channel[1].csrr &= ~(MCD212_CSR2R_IT1 | MCD212_CSR2R_IT2);
-					if (old_csr & MCD212_CSR2R_IT1)
-						m_int1_callback(CLEAR_LINE);
-					if (old_csr & MCD212_CSR2R_IT2)
-						m_int2_callback(CLEAR_LINE);
+					if (old_csr & (MCD212_CSR2R_IT1 | MCD212_CSR2R_IT2))
+						m_int_callback(CLEAR_LINE);
 					return old_csr;
 				}
 			}
@@ -1407,11 +1339,6 @@ TIMER_CALLBACK_MEMBER( mcd212_device::perform_scan )
 					process_ica(index);
 				}
 			}
-			draw_lcd(scanline);
-		}
-		else if(scanline < 22)
-		{
-			draw_lcd(scanline);
 		}
 		else if(scanline >= 22)
 		{
@@ -1435,6 +1362,9 @@ TIMER_CALLBACK_MEMBER( mcd212_device::perform_scan )
 				m_channel[0].csrr ^= 0x20;
 			}
 		}
+
+		if (!m_scanline_callback.isnull())
+			m_scanline_callback(scanline);
 	}
 	m_scan_timer->adjust(screen().time_until_pos(( scanline + 1 ) % 302, 0));
 }
@@ -1476,8 +1406,7 @@ void mcd212_device::device_reset()
 	memset(m_region_flag_0, 0, 768);
 	memset(m_region_flag_1, 0, 768);
 
-	m_int1_callback(CLEAR_LINE);
-	m_int2_callback(CLEAR_LINE);
+	m_int_callback(CLEAR_LINE);
 }
 
 //-------------------------------------------------
@@ -1487,9 +1416,9 @@ void mcd212_device::device_reset()
 mcd212_device::mcd212_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, MCD212, tag, owner, clock)
 	, device_video_interface(mconfig, *this)
-	, m_int1_callback(*this)
-	, m_int2_callback(*this)
-	, m_lcd(*this, ":lcd")
+	, m_int_callback(*this)
+	, m_planea(*this, "planea")
+	, m_planeb(*this, "planeb")
 {
 }
 
@@ -1501,8 +1430,8 @@ mcd212_device::mcd212_device(const machine_config &mconfig, const char *tag, dev
 
 void mcd212_device::device_resolve_objects()
 {
-	m_int1_callback.resolve_safe();
-	m_int2_callback.resolve_safe();
+	m_int_callback.resolve_safe();
+	m_scanline_callback.bind_relative_to(*owner());
 }
 
 //-------------------------------------------------
@@ -1511,6 +1440,8 @@ void mcd212_device::device_resolve_objects()
 
 void mcd212_device::device_start()
 {
+	ab_init();
+
 	screen().register_screen_bitmap(m_bitmap);
 
 	m_scan_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(mcd212_device::perform_scan), this));
@@ -1611,21 +1542,8 @@ void mcd212_device::ab_init()
 	}
 }
 
-void cdi_state::video_start()
+uint32_t mcd212_device::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	m_mcd212->ab_init();
-	if (m_lcd)
-		m_lcd->register_screen_bitmap(m_lcdbitmap);
-}
-
-uint32_t cdi_state::screen_update_cdimono1(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
-{
-	copybitmap(bitmap, m_mcd212->get_bitmap(), 0, 0, 0, 0, cliprect);
-	return 0;
-}
-
-uint32_t cdi_state::screen_update_cdimono1_lcd(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
-{
-	copybitmap(bitmap, m_lcdbitmap, 0, 0, 0, 0, cliprect);
+	copybitmap(bitmap, m_bitmap, 0, 0, 0, 0, cliprect);
 	return 0;
 }

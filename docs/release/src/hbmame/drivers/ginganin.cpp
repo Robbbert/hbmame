@@ -39,7 +39,7 @@ ROM_START( ginganins01 )
 	ROM_LOAD( "gn_08.bin", 0x020000, 0x10000, CRC(f7c73c18) SHA1(102700e2217bcd1532af56ee6a00ad608c8217db) )
 	ROM_LOAD( "gn_09.bin", 0x030000, 0x10000, CRC(a5e07c3b) SHA1(cdda02cd847330575612cb33d1bb38a5d50a3e6d) )
 
-	ROM_REGION( 0x08000, "gfx5", 0 )
+	ROM_REGION( 0x08000, "bgrom", 0 )
 	ROM_LOAD( "gn_11.bin", 0x00000, 0x08000, CRC(f0d0e605) SHA1(0c541e8e036573be1d99ecb71fdb4568ca8cc269) )
 
 	ROM_REGION( 0x20000, "ymsnd", 0 )
@@ -49,4 +49,4 @@ ROM_END
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // Ginga NinkyouDen
-GAME( 200?, ginganins01,  ginganin,        ginganin, ginganin, ginganin_state, init_ginganin, ROT0, "Nunimmanse", "Ginga NinkyouDen (Korean Translation)(set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, ginganins01,  ginganin,        ginganin, ginganin, ginganin_state, init_ginganin, ROT0, "Nunimmanse", "Ginga NinkyouDen (Korean Translation)", MACHINE_SUPPORTS_SAVE )

@@ -353,8 +353,8 @@ GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_commo
 GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Unknown", "Super Bobble Bobble (Level Select)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)(USA)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)(alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -397,5 +397,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bubble Bobble
-GAME( 2007, bublbobls01,   bublbobl,        bublbobl, bublbobl,   bublbobl_state, init_common, ROT0,  "S.Arkames",     "Bubble Bobble (Translation French)(Japan, Ver 0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, bublbobls01,   bublbobl,        bublbobl, bublbobl,   bublbobl_state, init_common, ROT0,  "S.Arkames",     "Bubble Bobble (Translation French)", MACHINE_SUPPORTS_SAVE )
 

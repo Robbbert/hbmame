@@ -70,8 +70,8 @@ ROM_START( rygark ) // same as rygarj except for gfx1
 	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
 ROM_END
 
-GAME( 2002, geminit, gemini, gemini, gemini, tecmo_state, init_gemini, ROT90, "Twisty", "Gemini Wing (Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, rygark,  rygar,  rygar,  rygar,  tecmo_state, init_rygar,  ROT0,  "Unknown", "Argus no Senshi (Translation Korean)(Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, geminit, gemini, gemini, gemini, tecmo_state, init_gemini, ROT90, "Twisty", "Gemini Wing (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygark,  rygar,  rygar,  rygar,  tecmo_state, init_rygar,  ROT0,  "Unknown", "Argus no Senshi (Translation Korean)", MACHINE_SUPPORTS_SAVE )
 
 // PSmame (c) gaston90 used with permission
 
@@ -155,6 +155,40 @@ ROM_START( rygarjs01 )
 	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
 ROM_END
 
+ROM_START( rygars01 )
+	ROM_REGION( 0x20000, "maincpu", 0 )
+	ROM_LOAD( "5_ps01.5p",         0x00000, 0x08000, CRC(0e13e0e4) SHA1(e4eed9e4f424838cd80303554d98048b42a197ef) )
+	ROM_LOAD( "cpu_5m.bin",   0x08000, 0x04000, CRC(7ac5191b) SHA1(305f39d974f906f9bc24e9fe2ca58e647925ab63) )
+	ROM_LOAD( "cpu_5j.bin",   0x10000, 0x08000, CRC(ed76d606) SHA1(39c8a07e9a1f218ad088d00a2c9dfc993efafb6b) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 )
+	ROM_LOAD( "cpu_4h.bin",   0x0000, 0x2000, CRC(e4a2fa87) SHA1(ed58187dbbcf59358496a98ffd6c227a87d6c433) )
+
+	ROM_REGION( 0x08000, "gfx1", 0 )
+	ROM_LOAD( "cpu_8k.bin",   0x00000, 0x08000, CRC(4d482fb6) SHA1(57ad838b6d30b49dbd2d0ec425f33cfb15a67918) )
+
+	ROM_REGION( 0x20000, "gfx2", 0 )
+	ROM_LOAD( "vid_6k.bin",   0x00000, 0x08000, CRC(aba6db9e) SHA1(43eb6f4f92afb5fbc11adc7e2ab04878ab56cb17) )
+	ROM_LOAD( "vid_6j.bin",   0x08000, 0x08000, CRC(ae1f2ed6) SHA1(6e6a33e665ba0884b7f57e9ad69d3f51e41d9e7b) )
+	ROM_LOAD( "vid_6h.bin",   0x10000, 0x08000, CRC(46d9e7df) SHA1(a24e0bea310a03636af704a0ad3f1a9cc4aafe12) )
+	ROM_LOAD( "vid_6g.bin",   0x18000, 0x08000, CRC(45839c9a) SHA1(eaee5767d8b0b62b991c089ef51b922e89850b79) )
+
+	ROM_REGION( 0x20000, "gfx3", 0 )
+	ROM_LOAD( "vid_6p.bin",   0x00000, 0x08000, CRC(9eae5f8e) SHA1(ed83b608ca57b9bf69fa866d9b8f55d16b7cff63) )
+	ROM_LOAD( "vid_6o.bin",   0x08000, 0x08000, CRC(5a10a396) SHA1(12ebed3952ff35a2c275cb27c915f82183048cd4) )
+	ROM_LOAD( "vid_6n.bin",   0x10000, 0x08000, CRC(7b12cf3f) SHA1(6b9d8cad6e15317df01bab0591fab09199ca6d40) )
+	ROM_LOAD( "vid_6l.bin",   0x18000, 0x08000, CRC(3cea7eaa) SHA1(1dd194d5672dfe71c2b27d2d7b76f5a611cff76f) )
+
+	ROM_REGION( 0x20000, "gfx4", 0 )
+	ROM_LOAD( "vid_6f.bin",   0x00000, 0x08000, CRC(9840edd8) SHA1(f19a1a1d932214037144c533ad07ed81256c34e7) )
+	ROM_LOAD( "vid_6e.bin",   0x08000, 0x08000, CRC(ff65e074) SHA1(513c1bad336ef5d871f15d6ba8943020f98d1f4a) )
+	ROM_LOAD( "vid_6c.bin",   0x10000, 0x08000, CRC(89868c85) SHA1(f21550f40e7a177e95c40f2726c651f85ca8edce) )
+	ROM_LOAD( "vid_6b.bin",   0x18000, 0x08000, CRC(35389a7b) SHA1(a887a89f9bbb5979bb589468d80efba1f243690b) )
+
+	ROM_REGION( 0x4000, "adpcm", 0 ) 
+	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
+ROM_END
+
  /*********
  Silk Worm
 ************/
@@ -194,10 +228,11 @@ ROM_END
 
 /*    YEAR  NAME          PARENT    MACHINE   INPUT     CLASS        INIT           MONITOR COMPANY                 FULLNAME FLAGS */
 // Gemini Wing 
-GAME( 1987, geminis01,    gemini,   gemini,   gemini,   tecmo_state, init_gemini,   ROT90, "Unknown",   "Gemini Wing (Translation Chinese)(Japan)",          MACHINE_SUPPORTS_SAVE )
+GAME( 1987, geminis01,    gemini,   gemini,   gemini,   tecmo_state, init_gemini,   ROT90, "Unknown",   "Gemini Wing (Translation Chinese)",          MACHINE_SUPPORTS_SAVE )
 // Argus no Senshi
-GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Unknown",   "Argus no Senshi (Translation Chinese)(Japan)",      MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Unknown",   "Argus no Senshi (Translation Chinese)",      MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygars01,     rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Tecmo",   "Rygar (US, bootleg)",             MACHINE_SUPPORTS_SAVE )
 // Silk Worm
-GAME( 1988, silkworms01,  silkworm, silkworm, silkworm, tecmo_state, init_silkworm, ROT0,  "Unknown",   "Silk Worm (Translation Chinese)(World)",            MACHINE_SUPPORTS_SAVE )
+GAME( 1988, silkworms01,  silkworm, silkworm, silkworm, tecmo_state, init_silkworm, ROT0,  "Unknown",   "Silk Worm (Translation Chinese)",            MACHINE_SUPPORTS_SAVE )
 
 

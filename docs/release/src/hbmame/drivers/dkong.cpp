@@ -251,7 +251,7 @@ ROM_START( dkrainbow )
 	ROM_LOAD( "c_5bt_g.bin",  0x2000, 0x1000, CRC(1c97d324) SHA1(c7966261f3a1d3296927e0b6ee1c58039fc53c1f) )
 	ROM_LOAD( "c_5at_g.bin",  0x3000, 0x1000, CRC(b9005ac0) SHA1(3fe3599f6fa7c496f782053ddf7bacb453d197c4) )
 
-	ROM_REGION( 0x1800, "soundcpu", 0 ) /* sound */
+	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
 	ROM_RELOAD(               0x0800, 0x0800 )
 	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
@@ -390,10 +390,96 @@ ROM_START( dkpace )
 	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
 ROM_END
 
+ROM_START( dkongbcc )
+	ROM_REGION( 0x10000, "maincpu", 0 )   // All 4 roms are unobtainable
+	ROM_LOAD( "dkbcc.5et",  0x0000, 0x1000, CRC(eec71586) SHA1(8c9c05c919265d6b930e5088e869c4b44264ded4) )
+	ROM_LOAD( "dkbcc.5ct",  0x1000, 0x1000, CRC(49200edb) SHA1(e40a19700196dc7b2ae766cbef51867856c986aa) )
+	ROM_LOAD( "dkbcc.5bt",  0x2000, 0x1000, CRC(56f7c409) SHA1(265817ce17951d49b95a2361c5cc3032620aae96) )
+	ROM_LOAD( "dkbcc.5at",  0x3000, 0x1000, CRC(03b56372) SHA1(fea19bb4c46c88c26943ccd910b560cecd5dc44c) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.bin",   0x0000, 0x0800, CRC(12c8c95d) SHA1(a57ff5a231c45252a63b354137c920a1379b70a3) )
+	ROM_LOAD( "v_3pt.bin",    0x0800, 0x0800, CRC(15e9c5e9) SHA1(976eb1e18c74018193a35aa86cff482ebfc5cc4e) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",   0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",   0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",   0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",   0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",     0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",     0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
+ROM_START( dkcbarrel )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkcbarrel.5et",  0x0000, 0x1000, CRC(78e37c41) SHA1(1a30f11d6c49f168da9ccb7bda44e2d001544177) )
+	ROM_LOAD( "dkcbarrel.5ct",  0x1000, 0x1000, CRC(a46cbb85) SHA1(f19a397b0556676dbc854b3072a0f48660759d8a) )
+	ROM_LOAD( "dkcbarrel.5bt",  0x2000, 0x1000, CRC(07da5b15) SHA1(14f0a510783ce618c1acdcef35837f0dc3fbd370) )
+	ROM_LOAD( "dkcbarrel.5at",  0x3000, 0x1000, CRC(515e0639) SHA1(c556cc9aa67cb36fa3aad6b4ad4d5e726b35378a) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.bin",   0x0000, 0x0800, CRC(12c8c95d) SHA1(a57ff5a231c45252a63b354137c920a1379b70a3) )
+	ROM_LOAD( "v_3pt.bin",    0x0800, 0x0800, CRC(15e9c5e9) SHA1(976eb1e18c74018193a35aa86cff482ebfc5cc4e) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",   0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",   0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",   0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",   0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",     0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",     0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
+ROM_START( dkfreerun )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkfreerun.5et",  0x0000, 0x1000, CRC(2b85ddf0) SHA1(61a0cb413e4ec794ee5997f7b67f36645f9af03b) )
+	ROM_LOAD( "dkfreerun.5ct",  0x1000, 0x1000, CRC(ef7e15d7) SHA1(22a8c25eed51b7fc4bbcc09ae87fc24baf688983) )
+	ROM_LOAD( "dkfreerun.5bt",  0x2000, 0x1000, CRC(cb390d7c) SHA1(13dc382a543d216772858451be749534337c5163) )
+	ROM_LOAD( "dkfreerun.5at",  0x3000, 0x1000, CRC(76fb86ba) SHA1(9934df182b54fdc7f5e551eb07e236550308ec73) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",   0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.bin",   0x0000, 0x0800, CRC(12c8c95d) SHA1(a57ff5a231c45252a63b354137c920a1379b70a3) )
+	ROM_LOAD( "v_3pt.bin",    0x0800, 0x0800, CRC(15e9c5e9) SHA1(976eb1e18c74018193a35aa86cff482ebfc5cc4e) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",   0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",   0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",   0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",   0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",     0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",     0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
 
 
 GAME( 2013, dkong2m,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "hack", "Donkey Kong (US set 1 with barrel control coloring)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, dkongex,   dkong, dkong2b,   dkongex, dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, dkfreerun, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "PaulGoes", "Donkey Kong Freerun Edition", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, dkcbarrel, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "PaulGoes", "Donkey Kong Crazy Barrels Edition", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, dkongp,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Don Hodges", "Donkey Kong (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, dkrainbow, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Sock Master", "Rainbow Donkey Kong", MACHINE_SUPPORTS_SAVE )
@@ -404,3 +490,5 @@ GAME( 2017, dkchrmx,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT
 GAME( 2018, dkspkyrmx, dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "Sock Master", "Donkey Kong Spooky Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kong2600,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, nadkong,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
+
+

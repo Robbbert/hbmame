@@ -4502,7 +4502,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 					string version = string(GetVersionString()); // turn version string into std
 					version.erase(1,1); // take out the decimal point
 					version.erase(4, string::npos); // take out the date
-					string url = "http://mamedev.org/releases/whatsnew_" + version + ".txt"; // construct url
+					string url = "https://mamedev.org/releases/whatsnew_" + version + ".txt"; // construct url
 					std::wstring stemp = s2ws(url); // convert to wide string (yeah, typical c++ mess)
 					LPCWSTR result = stemp.c_str(); // then convert to const wchar_t*
 					ShellExecute(hMain, TEXT("open"), result, TEXT(""), NULL, SW_SHOWNORMAL); // show web page

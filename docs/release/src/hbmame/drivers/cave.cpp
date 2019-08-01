@@ -89,8 +89,8 @@ ROM_START( pwrinst2z )
 	ROM_LOAD( "g02.u56", 0x240000, 0x200000, CRC(9ff50dda) SHA1(1121685e387c20e228032f2b0f5cbb606376fc15) )
 ROM_END
 
-GAME( 2013, pwrinst2h, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "TT", "Power Instinct 2 (hack)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "Unknown", "Power Instinct 2 (Great Blood Temple Simplification 2015-12-05)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, pwrinst2h, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "TT", "Power Instinct 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "Unknown", "Power Instinct 2 (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -409,16 +409,16 @@ ROM_END
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
  // Gaia Crusaders
-GAME( 200?, gaias01,       gaia,     gaia,       gaia,     cave_state,     init_gaia,     ROT0,         "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+GAME( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     init_gaia,     ROT0,         "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
  // Metamoqester
-GAME( 200?, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr, ROT0,         "Aneue Bannzai",  "Metamoqester (Translation Korean)(International)",   MACHINE_SUPPORTS_SAVE )
-GAME( 200?, metmqstrs02,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr, ROT0,         "DDJ",  "Metamoqester (Always Have Super Move)(International)",   MACHINE_SUPPORTS_SAVE )
-GAME( 200?, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr, ROT0,         "DDJ",  "Metamoqester (Easy Move)(International)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr, ROT0,         "Aneue Bannzai",  "Metamoqester (Translation Korean)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstrs02,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr, ROT0,         "DDJ",  "Metamoqester (Always Have Super Move)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr, ROT0,         "DDJ",  "Metamoqester (Easy Move)",   MACHINE_SUPPORTS_SAVE )
  // Thunder Heroes
-GAME( 200?, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_gaia,      ROT0,        "pipi899",  "Thunder Heroes (Select Characters)(2009-08-19)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_gaia,      ROT0,        "pipi899",  "Thunder Heroes (Select Characters 2009-08-19)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
  // Power Instinct 2
-GAME( 200?, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Power Instinct 2 (Description Of Unknown Origin 01)(US, Ver. 94/04/08)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Power Instinct 2 (Unknown Hack 2015-12-06)", MACHINE_SUPPORTS_SAVE )
  // Gouketsuji Gaiden
-GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)(Japan, Ver. 95/06/20)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Ddj",  "Gouketsuji Gaiden (always Have Super Moves)(Japan, Ver. 95/06/20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "DDJ",  "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
 

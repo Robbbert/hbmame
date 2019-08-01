@@ -2,25 +2,13 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/sf.cpp"
 
-/***************************************
-	Proyecto Shadows Mame Build Plus
-***************************************/
-
-/******************************************************************************************
-   Muchos Roms De Mi Proyecto Shadow Se Estará Deshabilitado. Por
-   Los Motivo Es Que Se Empezó Agregar En El HBMame Oficial, Lo Cual Me Veré
-   Obligado Deshabilitando Porque Si No Se Estaría Duplicado Archivo De Roms.
-******************************************************************************************/
-
-/*****************************************
- *
- *         ROM Definición(s)
- *
- ****************************************/
+ /****************************************************
+         Proyecto Shadows Mame Build Plus
+*****************************************************/
  
-  /****************************************
-               Street Fighter
-*****************************************/
+  /************
+ Street Fighter
+*****************/
 
 ROM_START( sfs01 )
 	ROM_REGION( 0x60000, "maincpu", 0 )
@@ -86,12 +74,6 @@ ROM_START( sfs01 )
 	ROM_LOAD( "mmi-7603.13h", 0x0300, 0x0020, CRC(06bcda53) SHA1(fa69b77697bb12aa6012d82ef5b504d3a1d20232) )
 ROM_END
 
-/*************************************
- *
- *  Game driver(s)
- *
- *************************************/
-// Proyecto Shadows Mame Build Plus
 //    YEAR  NAME     PARENT  MACHINE INPUT   CLASS    INIT   MONITOR COMPANY    FULLNAME                            FLAGS
-GAME( 1987, sfs01,   sf,      sfus,   sfus, sf_state, init_0, ROT0,   "Hacks", "Street Fighter (US, set 1(Plus))", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1987, sfs01,   sf,      sfus,   sfus, sf_state, init_0, ROT0,   "Unknown", "Street Fighter (Plus)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 

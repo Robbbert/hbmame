@@ -1541,6 +1541,63 @@ ROM_START( jojos06 )
 	ROM_LOAD( "jojoba-simm5.7",  0x00000, 0x200000, CRC(8c8be520) SHA1(c461f3f76a83592b36b29afb316679a7c8972404) )
 ROM_END
 
+ /*********
+ Red Earth
+************/
+
+ROM_START( redeartns01 )
+	ROM_REGION32_BE( 0x080000, "bios", 0 )
+	ROM_LOAD( "redearthn_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(db09f27c) SHA1(f2d299cda7cda175b4218526a15f12560654d97f) )
+
+	ROM_REGION( 0x200000, "simm1.0", 0 )
+	ROM_LOAD( "redeartn-simm1.0_ps01", 0x00000, 0x200000, CRC(65bac346) SHA1(6f4ba0c2cae91a37fc97bea5fc8a50aaf6ca6513) )
+	ROM_REGION( 0x200000, "simm1.1", 0 )
+	ROM_LOAD( "redeartn-simm1.1_ps01", 0x00000, 0x200000, CRC(a8ec4aae) SHA1(0012cb6ba630ddd74958f7759de34706bf919338) )
+	ROM_REGION( 0x200000, "simm1.2", 0 )
+	ROM_LOAD( "redeartn-simm1.2_ps01", 0x00000, 0x200000, CRC(2caf8995) SHA1(ca012b6dec0481b043edf9c7e931bd952ec74ebb) )
+	ROM_REGION( 0x200000, "simm1.3", 0 )
+	ROM_LOAD( "redeartn-simm1.3_ps01", 0x00000, 0x200000, CRC(13ebc21d) SHA1(465bdea0633526a8bf07b35495a5311c8bf213d5) )
+
+	ROM_REGION( 0x200000, "simm3.0", 0 )
+	ROM_LOAD( "redeartn-simm3.0", 0x00000, 0x200000, CRC(83350cc5) SHA1(922b1abf80a4a89f35279b66311a7369d3965bd0) )
+	ROM_REGION( 0x200000, "simm3.1", 0 )
+	ROM_LOAD( "redeartn-simm3.1", 0x00000, 0x200000, CRC(56734de6) SHA1(75699fa6efe5bec335e4b02e15b3c45726b68fa8) )
+	ROM_REGION( 0x200000, "simm3.2", 0 )
+	ROM_LOAD( "redeartn-simm3.2", 0x00000, 0x200000, CRC(800ea0f1) SHA1(33871ab56dc1cd24441389d53e43fb8e43b149d9) )
+	ROM_REGION( 0x200000, "simm3.3", 0 )
+	ROM_LOAD( "redeartn-simm3.3", 0x00000, 0x200000, CRC(97e9146c) SHA1(ab7744709615081440bee72f4080d6fd5b938668) )
+	ROM_REGION( 0x200000, "simm3.4", 0 )
+	ROM_LOAD( "redeartn-simm3.4", 0x00000, 0x200000, CRC(0cb1d648) SHA1(7042a590c2b7ec55323062127e254da3cdc790a1) )
+	ROM_REGION( 0x200000, "simm3.5", 0 )
+	ROM_LOAD( "redeartn-simm3.5", 0x00000, 0x200000, CRC(7a1099f0) SHA1(c6a92ec86eb24485f1db530e0e78f647e8432231) )
+	ROM_REGION( 0x200000, "simm3.6", 0 )
+	ROM_LOAD( "redeartn-simm3.6", 0x00000, 0x200000, CRC(aeff8f54) SHA1(fd760e237c2e5fb2da45e32a1c12fd3defb4c3e4) )
+	ROM_REGION( 0x200000, "simm3.7", 0 )
+	ROM_LOAD( "redeartn-simm3.7", 0x00000, 0x200000, CRC(f770acd0) SHA1(4b3ccb6f91568f95f04ede6c574144918d131201) )
+
+	ROM_REGION( 0x200000, "simm4.0", 0 )
+	ROM_LOAD( "redeartn-simm4.0", 0x00000, 0x200000, CRC(301e56f2) SHA1(4847d971bff70a2aeed4599e1201c7ec9677da60) )
+	ROM_REGION( 0x200000, "simm4.1", 0 )
+	ROM_LOAD( "redeartn-simm4.1", 0x00000, 0x200000, CRC(2048e103) SHA1(b21f95b05cd99749bd3f25cc71b2671c2026847b) )
+	ROM_REGION( 0x200000, "simm4.2", 0 )
+	ROM_LOAD( "redeartn-simm4.2", 0x00000, 0x200000, CRC(c9433455) SHA1(63a269d76bac332c2e991d0f6a20c35e0e88680a) )
+	ROM_REGION( 0x200000, "simm4.3", 0 )
+	ROM_LOAD( "redeartn-simm4.3", 0x00000, 0x200000, CRC(c02171a8) SHA1(2e9228729b27a6113d9f2e42af310a834979f714) )
+	ROM_REGION( 0x200000, "simm4.4", 0 )
+	ROM_LOAD( "redeartn-simm4.4", 0x00000, 0x200000, CRC(2ddbf276) SHA1(b232baaa8edc8db18f8a3bdcc2d38fe984a94a34) )
+	ROM_REGION( 0x200000, "simm4.5", 0 )
+	ROM_LOAD( "redeartn-simm4.5", 0x00000, 0x200000, CRC(fea820a6) SHA1(55ee8ef95751f5a509fb126513e1b2a70a3414e5) )
+	ROM_REGION( 0x200000, "simm4.6", 0 )
+	ROM_LOAD( "redeartn-simm4.6", 0x00000, 0x200000, CRC(c7528df1) SHA1(aa312f80c2d7759d18d1aa8d416cf932b2850824) )
+	ROM_REGION( 0x200000, "simm4.7", 0 )
+	ROM_LOAD( "redeartn-simm4.7", 0x00000, 0x200000, CRC(2449cf3b) SHA1(c60d8042136d74e547f668ad787cae529c42eed9) )
+
+	ROM_REGION( 0x200000, "simm5.0", 0 )
+	ROM_LOAD( "redeartn-simm5.0", 0x00000, 0x200000, CRC(424451b9) SHA1(250fb92254c9e7ff5bc8dbeea5872f8a771dc9bd) )
+	ROM_REGION( 0x200000, "simm5.1", 0 )
+	ROM_LOAD( "redeartn-simm5.1", 0x00000, 0x200000, CRC(9b8cb56b) SHA1(2ff1081dc99bb7c2f1e036f4c112137c96b83d23) )
+ROM_END
+
  /**********************************
  Street Fighter III: New Generation
 *************************************/
@@ -2291,6 +2348,8 @@ HACK( 2009, jojos03,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame, 
 HACK( 2009, jojos04,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Oceania 990913, NO CD)", 0 )
 HACK( 2009, jojos05,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (U.S.A 990913, NO CD)", 0 )
 HACK( 2018, jojos06,        jojobanc,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Super Plus)", 0 )
+// Red Earth
+HACK( 1996, redeartns01,    redeartn,   redeartn,      cps3_ren,   cps3_hbmame,     redearth, ROT0,     "Capcom",   "Red Earth (Asia 961023, NO CD)", 0 )
 // Street Fighter III: New Generation
 HACK( 2016, sfiiins01,      sfiiinc,  sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "Unknown",    "Street Fighter III: New Generation (Simple Attack 2016-01-21)", 0 )
 // Street Fighter III 2nd Impact Giant Attack
@@ -2671,3 +2730,7 @@ GAMEL(1997, sfiii2nc,      0,    sfiii2,   cps3,      cps3_state, init_sfiii2,  
 GAME( 1999, sfiii3nc,      0,    sfiii3,   cps3,      cps3_state, init_sfiii3,   ROT0, "Capcom", "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1999, jojobanc,      0,    jojoba,   cps3_jojo, cps3_state, init_jojoba,   ROT0, "Capcom", "JoJo no Kimyou na Bouken: Mirai e no Isan (Japan 990927, NO CD)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1998, jojonc,        0,    jojo,     cps3_jojo, cps3_state, init_jojo,     ROT0, "Capcom", "JoJo's Venture (Asia 990128, NO CD)", MACHINE_IMPERFECT_GRAPHICS )
+
+
+
+

@@ -28,6 +28,7 @@ CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["I86"] = true
 CPUS["I960"] = true -- model2
+CPUS["M37710"] = true -- namcona1
 CPUS["M6502"] = true
 CPUS["M6800"] = true
 CPUS["M6805"] = true
@@ -42,6 +43,7 @@ CPUS["MN10200"] = true
 CPUS["NEC"] = true
 CPUS["PSX"] = true
 CPUS["S2650"] = true
+CPUS["SCUDSP"] = true -- stv
 CPUS["SH"] = true
 CPUS["SM510"] = true
 CPUS["SPC700"] = true -- snesb
@@ -58,6 +60,7 @@ CPUS["V60"] = true  -- segas32
 CPUS["V810"] = true
 CPUS["Z180"] = true
 CPUS["Z80"] = true
+CPUS["Z8000"] = true  -- polepos
 
 --------------------------------------------------
 -- specify available sound cores
@@ -67,6 +70,7 @@ SOUNDS["ASTROCADE"] = true
 SOUNDS["AY8910"] = true
 SOUNDS["BEEP"] = true
 SOUNDS["BSMT2000"] = true -- deco32
+SOUNDS["C140"] = true  -- namcona1
 SOUNDS["C6280"] = true
 SOUNDS["CDDA"] = true
 SOUNDS["DAC"] = true
@@ -147,6 +151,7 @@ VIDEOS["SNES_PPU"] = true -- snesb
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
 VIDEOS["PSX"] = true
+VIDEOS["STVVDP"] = true -- stv
 
 --------------------------------------------------
 -- specify available machine cores
@@ -189,6 +194,7 @@ MACHINES["MB87078"] = true
 MACHINES["MB89352"] = true  -- segas32
 MACHINES["MCF5206E"] = true -- seta2
 MACHINES["MIOT6530"] = true
+MACHINES["MSM6242"] = true -- namcona1
 MACHINES["MSM6253"] = true
 MACHINES["NETLIST"] = true
 MACHINES["NSCSI"] = true -- cps3
@@ -199,7 +205,10 @@ MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
 MACHINES["RTC9701"] = true -- cv1k
+MACHINES["SEGA_SCU"] = true -- stv
 MACHINES["SERFLASH"] = true -- cv1k
+MACHINES["SMPC"] = true -- stv
+MACHINES["STVCD"] = true -- stv
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
@@ -227,8 +236,10 @@ MACHINES["Z80PIO"] = true
 --------------------------------------------------
 
 BUSES["GENERIC"] = true
+BUSES["NSCSI"] = true
 -- BUSES["NEOGEO"] = true
 -- BUSES["NEOGEO_CTRL"] = true
+BUSES["SAT_CTRL"] = true -- stv
 BUSES["SCSI"] = true
 
 --------------------------------------------------
@@ -360,6 +371,7 @@ files {
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
+	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -437,6 +449,12 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
 	MAME_DIR .. "src/mame/video/rohga.cpp",
 	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
+	MAME_DIR .. "src/hbmame/drivers/sidepckt.cpp",
+	MAME_DIR .. "src/mame/video/sidepckt.cpp",
+	MAME_DIR .. "src/mame/drivers/decocass.cpp",
+	MAME_DIR .. "src/mame/machine/decocass.cpp",
+	MAME_DIR .. "src/mame/machine/decocass_tape.cpp",
+	MAME_DIR .. "src/mame/video/decocass.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
@@ -575,7 +593,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "midway")
 files {
-	MAME_DIR .. "src/mame/drivers/8080bw.cpp",
+	MAME_DIR .. "src/hbmame/drivers/8080bw.cpp",
 	MAME_DIR .. "src/mame/audio/8080bw.cpp",
 	MAME_DIR .. "src/mame/video/8080bw.cpp",
 	MAME_DIR .. "src/mame/drivers/mw8080bw.cpp",
@@ -610,6 +628,7 @@ files {
 	MAME_DIR .. "src/mame/audio/cage.cpp",
 	MAME_DIR .. "src/mame/audio/dcs.cpp",
 	MAME_DIR .. "src/mame/audio/csd.cpp",
+	MAME_DIR .. "src/mame/audio/bally.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "namco")
@@ -628,7 +647,7 @@ files {
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",
 	MAME_DIR .. "src/mame/video/pacland.cpp",
-	MAME_DIR .. "src/mame/drivers/polepos.cpp",
+	MAME_DIR .. "src/hbmame/drivers/polepos.cpp",
 	MAME_DIR .. "src/mame/audio/polepos.cpp",
 	MAME_DIR .. "src/mame/video/polepos.cpp",
 	MAME_DIR .. "src/hbmame/drivers/rallyx.cpp",
@@ -641,6 +660,23 @@ files {
 	MAME_DIR .. "src/mame/audio/namco52.cpp",
 	MAME_DIR .. "src/mame/audio/namco54.cpp",
 	MAME_DIR .. "src/mame/audio/timeplt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/namcona1.cpp",
+	MAME_DIR .. "src/mame/video/namcona1.cpp",
+	MAME_DIR .. "src/mame/machine/namcomcu.cpp",
+	MAME_DIR .. "src/hbmame/drivers/namcos2.cpp",
+	MAME_DIR .. "src/mame/machine/namcos2.cpp",
+	MAME_DIR .. "src/mame/video/namcos2.cpp",
+	MAME_DIR .. "src/mame/video/namcos2_roz.cpp",
+	MAME_DIR .. "src/mame/video/namcos2_sprite.cpp",
+	MAME_DIR .. "src/mame/video/c45.cpp",
+	MAME_DIR .. "src/mame/machine/namco65.cpp",
+	MAME_DIR .. "src/mame/machine/namco68.cpp",
+	MAME_DIR .. "src/mame/video/namco_c116.cpp",
+	MAME_DIR .. "src/mame/video/namco_c123tmap.cpp",
+	MAME_DIR .. "src/mame/machine/namco_c139.cpp",
+	MAME_DIR .. "src/mame/machine/namco_c148.cpp",
+	MAME_DIR .. "src/mame/video/namco_c169roz.cpp",
+	MAME_DIR .. "src/mame/video/namco_c355spr.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "neogeo")
@@ -803,6 +839,9 @@ files {
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
 	MAME_DIR .. "src/mame/machine/model1io.cpp",
+	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
+	MAME_DIR .. "src/mame/machine/saturn.cpp",
+	MAME_DIR .. "src/mame/machine/stvprot.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")
@@ -813,7 +852,9 @@ files {
 	MAME_DIR .. "src/mame/video/cabal.cpp",
 	MAME_DIR .. "src/mame/video/seibu_crtc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/raiden2.cpp",
+	MAME_DIR .. "src/mame/video/raiden2.cpp",
 	MAME_DIR .. "src/mame/machine/r2crypt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/r2dx_v33.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop.cpp",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
 	MAME_DIR .. "src/mame/machine/seibucop/seibucop_cmd.hxx",
@@ -911,6 +952,8 @@ createHBMAMEProjects(_target, _subtarget, "technos")
 files {
 	MAME_DIR .. "src/hbmame/drivers/shadfrce.cpp",
 	MAME_DIR .. "src/mame/video/shadfrce.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ddragon.cpp",
+	MAME_DIR .. "src/mame/video/ddragon.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "tehkan")
@@ -932,6 +975,8 @@ files {
 	MAME_DIR .. "src/mame/video/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/drivers/wc90.cpp",
 	MAME_DIR .. "src/mame/video/wc90.cpp",
+	MAME_DIR .. "src/hbmame/drivers/wc90b.cpp",
+	MAME_DIR .. "src/mame/video/wc90b.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
@@ -987,7 +1032,6 @@ files {
 createHBMAMEProjects(_target, _subtarget, "misc")
 files {
 	MAME_DIR .. "src/hbmame/drivers/dotrikun.cpp",
-	MAME_DIR .. "src/hbmame/drivers/ir.cpp",
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
 	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",

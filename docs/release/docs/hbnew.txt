@@ -1,10 +1,138 @@
 ﻿What's new in HBMAME
 ====================
 
+
+2019-07-31 0.212
+----------------
+
+- Metal Slug 2/3/4/5 the remix has been updated
+
+New Games
+---------------------------------
+- [knckheadx]         Knuckle Heads (Easy Move)
+- [kovpluss333]       Knights of Valour Plus (Infinite Power 2019-02-26)
+- [kovpluss334]       Knights of Valour Plus (Fang Yue Mo Yu 2016-04-26)
+- [kovpluss335]       Knights of Valour Plus (Miss 2016-03-02)
+- [kovpluss336]       Knights of Valour Plus (Rerise of Shu 2016-03-02)
+- [kovpluss337]       Knights of Valour Plus (Legends of Wei and Wu 2016-03-02)
+- [kovpluss338]       Knights of Valour Plus (1VS4 2018-01-30)
+- [kovpluss339]       Knights of Valour Plus (2007 2015-06-16)
+- [kovpluss340]       Knights of Valour Plus (2012 2015-06-16)
+- [kovpluss341]       Knights of Valour Plus (Classic Unrivalled Version 2016-01-25)
+- [kovpluss342]       Knights of Valour Plus (Qin Shuang Qing Shang 2015-01-17)
+- [kovpluss343]       Knights of Valour Plus (Plus 2018-02-02)
+- [kovpluss344]       Knights of Valour Plus (Dream of Shuang Er 2018-01-09)
+- [kovpluss345]       Knights of Valour Plus (Ordinary Soldiers 2018-12-25)
+- [kovpluss346]       Knights of Valour Plus (Ordinary Soldiers 2 2018-12-25)
+- [kovpluss347]       Knights of Valour Plus (Dream of Tu Mi 2018-03-05)
+- [mslug2ps34]        Metal Slug 2 (Generation 1V2 2019-05-11)
+- [mslug3h66]         Metal Slug 3 (Multi-Function Version 2019-02-15)
+- [mslug3h67]         Metal Slug 3 (Enemies Resetting Version 2019-04-17)
+- [mslug3h68]         Metal Slug 3 (Generation 1V2 2019-05-11)
+- [mslug4hh45]        Metal Slug 4 (Generation 1V2 2019-05-11)
+- [mslug4hh46]        Metal Slug 4 (Enemies Resetting Version 2019-04-25)
+- [mslug5dh52]        Metal Slug 5 (Enemies Resetting Version 2019-03-07)
+- [mslug5dh53]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-02-12)
+- [mslug5dh54]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-04-18)
+- [mslug5dh55]        Metal Slug 5 (Enemy Soldiers Magic Version 2019-05-27)
+- [mslug5dh56]        Metal Slug 5 (Enemies Resetting Version 2019-06-09)
+- [mslug5dh57]        Metal Slug 5 (Generation 1V2 2019-05-11)
+- [mslugxz63]         Metal Slug X (Generation 1V2 2019-05-11)
+- [pheliosx]          Phelios (Sound Bug fix - Final Battle)
+- [sinvrdzm]          Super Invaders (Zenitone-Microsec Ltd)(branded Ruffler & Deith) [from NES4LIFE]
+- [spicegirls]        Spice Girls [from Pagent Tech]
+- [umk3uc]            Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-09-26)
+- [umk3uc2]           Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-06-06)
+- [umk3tm ]           Ultimate Mortal Kombat 3 (Team Edition 2018-01-20)
+
+
+
+
+2019-06-26 0.211
+----------------
+
+
+New Games
+---------------------------------
+- [captcomms60]       Captain Commando (Enhanced Edition 2019-05-30)
+- [dkcbarrel]         Donkey Kong Crazy Barrels [by PaulGoes]
+- [dkfreerun]         Donkey Kong Freerun Edition [by PaulGoes]
+- [dinos192]          Cadillacs and Dinosaurs (God of War Update 2019-05-30)
+- [dinos193]          Cadillacs and Dinosaurs (Group Demon Dance Version 2019-05-30)
+- [kf2k5unis13]       Kof 10th Anniversary 2005 Unique (Edition Optimized)
+- [kovsho107]         Knights of Valour Super Heroes Plus (Survival New Version 2019-05-30)
+- [punishers07]       The Punisher (Unknown Hack 2019-05-30)
+- [punisherjs15]      The Punisher (1 Vs 2 Perfect Update 2019-05-30)
+- [punisherjs16]      The Punisher (Unknown Hack 2019)
+- [punisherjs17]      The Punisher (Unparalleled Version 2019-05-30)
+- [pzloop2jd]         Puzz Loop 2 (Japan 010226 Phoenix Edition)
+- [seafight]          Sea Fighter 0.01.009 [by kl3mousse]
+
+
+
+
+2019-05-29 0.210
+----------------
+
+
+New Games
+---------------------------------
+- [captcomms56]       Captain Commando (99 Beaters Edition Update 2019-04-15)
+- [captcomms57]       Captain Commando (God of War Update 2019-04-15)
+- [captcomms58]       Captain Commando (Infinity bullet Update 2019-04-15)
+- [captcomms59]       Captain Commando (Dream Version 2019-04-15)
+- [ddsomuds02]        Dungeons & Dragons: Shadow over Mystara (USA 960619 Phoenix Edition, Plus) (bootleg)
+- [drtoppels01]       Dr. Toppel's Adventure (World, alt?)
+- [dinos186]          Cadillacs and Dinosaurs (The Warriors Edition Update 2019-04-15)
+- [dinos187]          Cadillacs and Dinosaurs (God of War Update 2019-04-15)
+- [dinos188]          Cadillacs and Dinosaurs (Playing Competitive Version 2019-04-15)
+- [dinos189]          Cadillacs and Dinosaurs (The 2011 Musou Version 2019-04-15)
+- [dinos190]          Cadillacs and Dinosaurs (The king Version 2019-04-15)
+- [dinos191]          Cadillacs and Dinosaurs (Fast Fighting version Update 2019-04-15)
+- [grdianss10]        Guardians (Electric God Magic 2 Unparalleled Version 2019-04-15)
+- [jigkmgris01]       Jigoku Meguri (Japan, hack?)
+- [kovpluss327]       Knights of Valour Plus (2012 Edition Ares ST Kings Edition 2019-04-15)
+- [kovpluss328]       Knights of Valour Plus (2012 God of War Unparalleled 2019-04-15)
+- [kovpluss329]       Knights of Valour Plus (Seconds Edition 2019-04-15)
+- [kovsho97]          Knights of Valour Super Heroes Plus (The World Wars 2019-04-15)
+- [kovsho98]          Knights of Valour Super Heroes Plus (The True king Version Ultimate Rev 1.0 2019-04-15)
+- [kovsho99]          Knights of Valour Super Heroes Plus (The True king Version Ultimate Rev 1.1 2019-04-15)
+- [kovsho103]         Knights of Valour Super Heroes Plus (2018-0, hack)(Bootleg)
+- [kovsho104]         Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest 2019-04-23)
+- [kovsho105]         Knights of Valour Super Heroes Plus (Survival New Version 2019-04-23)
+- [kovsho106]         Knights of Valour Super Heroes Plus (Ultimate King 2019-05-01)
+- [kof97s145]         Kof'97 (Heavenly Kingdoms 2019-04-15)
+- [kof2k2s81]         Kof2002 (Tianguo Protoss revived 2019-04-15)
+- [kof2k2s82]         Kof2002 Plus (Unknown Date Hack)
+- [missilet]          Missile Command (Tesla variant)
+- [mmadness]          Mars Madness [Tesla]
+- [mslug5dh47]        Metal Slug 5 Plus (Bootleg, Fully decrypted)
+- [mslug5dh48]        Metal Slug 5 (Full Encrypted)
+- [mslug5dh49]        Metal Slug 5 (Bootleg/Alt)
+- [pangbolds01]       Pang (bootleg, set 7)
+- [redeartns01]       Red Earth (Asia 961023, NO CD)
+- [robocopbs01]       Robocop (Red Corporation World bootleg)
+- [rygars01]          Rygar (US, bootleg)
+- [sf2ces10]          Street Fighter II': Champion Edition (Brazil 920313/hack)
+- [sf2ces11]          Street Fighter II': Champion Edition (M16, bootleg)
+- [sf2ces12]          Street Fighter II': Champion Edition (Hispanic 990804/hack)
+- [sfzchs03]          Street Fighter Zero (CPS Changer, Asia 950925)
+- [sfzchs04]          Street Fighter Zero (CPS Changer, Euro 950727)
+- [sfzchs05]          Street Fighter Zero (CPS Changer, Hispanic 950727)
+- [sfzchs06]          Street Fighter Zero (CPS Changer, Brazil 950727)
+- [svchs35]           SvC Chaos (Bootleg, set 3)
+- [tk2h138]           Tenchi wo Kurau II (Daren Edition Update 2019-04-15)
+- [tk2h139]           Tenchi wo Kurau II (Three US Edition 1v3 2019-05-01)
+- [twcup90s01]        Worldcup '90 (Hack, set 2)(Bootleg)
+- [twcup90s02]        Worldcup '90 (Hack, set 3)(Bootleg)
+
+
+
 2019-04-24 0.209
 ----------------
 
 - HBMAMEUI: Added preliminary support for jpg/jpeg pictures. Order of precedence: .png .jpg .jpeg
+- HBMAMEUI: Fixed a bug where sometimes 7z files would be ignored when showing pictures
 
 
 New Games
@@ -18,6 +146,9 @@ New Games
 - [kov2p204s88]       Knights of Valour 2 Plus (Unknown Hack 2018-03-15)
 - [kov2p204s89]       Knights of Valour 2 Plus (Unknown Hack 2018-07-21)
 - [nbbatmanus05]      Ninja Baseball Bat Man (Musou Edition 2019-03-08)
+- [mslug3h58]         Metal Slug 3 (Enemies Resetting Version 2019-04-15)
+- [mslug4hh44]        Metal Slug 4 (Enemies Resetting Version 2019-04-15)
+- [mslug5dh46]        Metal Slug 5 (Enemies Resetting Version 2019-04-15)
 - [nzeroteamas01]     New Zero Team (Special Forces 2018-02-19)
 - [suikoenbs01]       Suiko Enbu / Outlaws of the Lost Dynasty (Enable Hidden Characters)
 - [viostorms01]       Violent Storm (Unknown Hack 2018-08-14)

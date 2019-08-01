@@ -42,6 +42,4 @@ ROM_END
 
 //    YEAR  NAME            PARENT    MACHINE    INPUT      CLASS       INIT  MONITOR COMPANY   FULLNAME                            FLAGS
 // Survival Arts
-GAME( 200?,  survartss01,  survarts,  survarts, survarts, ssv_state, init_ssv, ROT0,   "DDJ",  "Survival Arts (Easy Move)(World)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-
-
+GAME( 1993,  survartss01,  survarts,  survarts, survarts, ssv_state, init_ssv, ROT0,   "DDJ",  "Survival Arts (Easy Move)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

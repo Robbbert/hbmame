@@ -58,7 +58,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Age Of Heroes
-GAME( 200?, aohs01,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (Easy Move)(v0.63 - 2001/02/07)", MACHINE_SUPPORTS_SAVE )
-GAME( 200?, aohs02,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (No Need Power)(v0.63 - 2001/02/07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, aohs01,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, aohs02,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (No Need Power)", MACHINE_SUPPORTS_SAVE )
 
 

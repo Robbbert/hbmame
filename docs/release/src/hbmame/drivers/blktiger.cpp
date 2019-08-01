@@ -38,4 +38,4 @@ ROM_START( blkdrgonk )
 	ROM_LOAD( "bd04.11l",  0x0300, 0x0100, CRC(e5490b68) SHA1(40f9f92efe7dd97b49144aec02eb509834056915) )
 ROM_END
 
-GAME( 1987, blkdrgonk, blktiger, blktiger, blktiger, blktiger_state, empty_init, ROT0, "hack", "Black Dragon (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, blkdrgonk, blktiger, blktiger, blktiger, blktiger_state, empty_init, ROT0, "Unknown", "Black Dragon (Traduction Korean)", MACHINE_SUPPORTS_SAVE )

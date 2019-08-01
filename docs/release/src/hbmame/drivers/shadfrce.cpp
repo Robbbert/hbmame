@@ -43,7 +43,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Shadow Force
-GAME( 200?, shadfrces01,   shadfrce,  shadfrce, shadfrce, shadfrce_state, empty_init, ROT0, "KrysoFun", "Shadow Force (Enable All Characters)(US, Version 2)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1993, shadfrces01,   shadfrce,  shadfrce, shadfrce, shadfrce_state, empty_init, ROT0, "KrysoFun", "Shadow Force (Enable All Characters)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 
 
 

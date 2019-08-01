@@ -343,11 +343,11 @@ void atarikee_state::atarikee(machine_config &config)
 //#define STUNTCYC_NL_CLOCK (14318181*69)
 #define STUNTCYC_NL_CLOCK (SC_HTOTAL*SC_VTOTAL*60*140)
 
-MACHINE_CONFIG_START(stuntcyc_state::stuntcyc)
+void stuntcyc_state::stuntcyc(machine_config &config)
+{
 	/* basic machine hardware */
 	NETLIST_CPU(config, m_maincpu, STUNTCYC_NL_CLOCK).set_source(netlist_stuntcyc);
 
-	//MCFG_NETLIST_ANALOG_OUTPUT("maincpu", "vid0", "VIDEO_OUT", fixedfreq_device, update_vid, "fixfreq")
 	NETLIST_LOGIC_OUTPUT(config, "maincpu:probe_bit0", 0).set_params("probe_bit0", FUNC(stuntcyc_state::probe_bit0_cb));
 	NETLIST_LOGIC_OUTPUT(config, "maincpu:probe_bit1", 0).set_params("probe_bit1", FUNC(stuntcyc_state::probe_bit1_cb));
 	NETLIST_LOGIC_OUTPUT(config, "maincpu:probe_bit2", 0).set_params("probe_bit2", FUNC(stuntcyc_state::probe_bit2_cb));
@@ -367,9 +367,10 @@ MACHINE_CONFIG_START(stuntcyc_state::stuntcyc)
 	//m_video->set_vert_params(SC_VTOTAL-22,SC_VTOTAL-19,SC_VTOTAL-12,SC_VTOTAL);
 	//m_video->set_fieldcount(1);
 	//m_video->set_threshold(0.30);
-MACHINE_CONFIG_END
+}
 
-MACHINE_CONFIG_START(gtrak10_state::gtrak10)
+void gtrak10_state::gtrak10(machine_config &config)
+{
 	/* basic machine hardware */
 	NETLIST_CPU(config, "maincpu", NETLIST_CLOCK).set_source(netlist_gtrak10);
 
@@ -406,8 +407,7 @@ MACHINE_CONFIG_START(gtrak10_state::gtrak10)
 	m_video->set_fieldcount(2);
 	m_video->set_threshold(1.0);
 	//m_video->set_gain(1.50);
-
-MACHINE_CONFIG_END
+}
 
 static INPUT_PORTS_START( gtrak10 )
 	// TODO
