@@ -2,7 +2,13 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/mhavoc.cpp"
 
-
+//**********************************************************************
+//* Drivers included
+//*
+//* Major Havoc - The Promised End - CAX 2018 BETA v0.21 - mhavocpex
+//* Major Havoc - The Promised End - CAX 2019 BETA v0.50 - mhavocpex2
+//*
+//**********************************************************************
 
 void mhavoc_state::gammape_map(address_map &map)
 {
@@ -85,6 +91,34 @@ ROM_START( mhavocpex )
 	ROM_LOAD( "036408-01.b1",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
 ROM_END
 
+ROM_START( mhavocpex2 )
+	/* Alpha Processor ROMs */
+	ROM_REGION( 0x20000, "alpha", 0 )   /* 152KB for ROMs */
+	/* Vector Generator ROM */
+	ROM_LOAD( "mhpe.6kl",   0x05000, 0x2000, CRC(3804822b) SHA1(78ca5ad3ac9ce9f6ce6ca497f70c7233adc52502) )
 
-GAME( 2018, mhavocpex, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc - The Promised End (v0.21)", MACHINE_SUPPORTS_SAVE )
+	/* Program ROM */
+	ROM_LOAD( "mhpe.1mn",   0x08000, 0x4000, CRC(f3adf942) SHA1(9bf1e2c473cb04a73d587e6a4859caf92f78add9) )
+	ROM_LOAD( "mhpe.1l",    0x0c000, 0x4000, CRC(d738d189) SHA1(44c31640b972476e6539b67f972a75c831a764d3) )
+    
+	/* Paged Program ROM */
+	ROM_LOAD( "mhpe.1q",    0x10000, 0x8000, CRC(63d1e5bd) SHA1(d66a95b7fff33a76970beba8c73a063dcf25f5dc) ) /* page 0+1+4+5 */
+	ROM_LOAD( "mhpe.1np",   0x18000, 0x8000, CRC(57c067c6) SHA1(ec5a86c7e887a89c65716762ba14d02dae77c60a) ) /* page 2+3+6+7 */
+
+	/* Paged Vector Generator ROM */
+	ROM_REGION( 0x8000, "avg", 0 )
+	ROM_LOAD( "mhpe.6h",    0x0000, 0x4000, CRC(ec19097f) SHA1(261c957e5311ac5fd700949e04e9d4a6ef12c043) ) /* page 0+1 */
+	ROM_LOAD( "mhpe.6jk",   0x4000, 0x4000, CRC(2ac3f07b) SHA1(27d06ed9edf8cd227c7db7c28a7f7357da1260c6) ) /* page 2+3 */
+
+	/* Gamma Processor ROM */
+	ROM_REGION( 0x10000, "gamma", 0 )
+	ROM_LOAD( "mhpe.9s",    0x08000, 0x8000, CRC(57ca8c09) SHA1(84ae19a9ff3b61c75f1fd147540a1e5fb42e6915) ) /* 32K Here */
+
+	/* AVG PROM */
+	ROM_REGION( 0x100, "avg:prom", 0 )
+	ROM_LOAD( "036408-01.b1",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
+ROM_END
+
+
+GAME( 2019, mhavocpex2, mhavoc, mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "HaxRus", "Major Havoc - The Promised End (v0.50)", MACHINE_SUPPORTS_SAVE )
 
