@@ -3659,31 +3659,32 @@ wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 mhavoc				//parent
 mhavocrv			//HB Jess M. Askey
 mhavocpex			//HB Jess M. Askey
+mhavocpex2			//HB Jess M. Askey
 
 @source:midtunit.cpp
-mk			//parent
-mkfr		// french
-mkturbod	/* MK protection hack */
-mktturboen	// Zenomorp 2012 Turbo Endurance
-mktturbopi	// Zenomorp 2012 Turbo Projectile Insanity
-mk2			//parent Mortal Kombat II r3.1
-mk2p			// Mortal Kombat II Plus beta
-mk2fr		// french
-mk2r33		// Mortal Kombat II r3.3
-mk2v28b1	// Mortal Kombat II v2.8 beta 1
-umk2te50	// Ultimate MKII Tournament Edition r5.0.050
-umk2te51	// Ultimate MKII Tournament Edition r5.0.051
-umk2te52	// Ultimate MKII Tournament Edition r5.0.052
+mk					//parent
+mkfr				// french
+mkturbod			/* MK protection hack */
+mktturboen			// Zenomorp 2012 Turbo Endurance
+mktturbopi			// Zenomorp 2012 Turbo Projectile Insanity
+mk2					//parent Mortal Kombat II r3.1
+mk2p				// Mortal Kombat II Plus beta
+mk2fr				// french
+mk2r33				// Mortal Kombat II r3.3
+mk2v28b1			// Mortal Kombat II v2.8 beta 1
+umk2te50			// Ultimate MKII Tournament Edition r5.0.050
+umk2te51			// Ultimate MKII Tournament Edition r5.0.051
+umk2te52			// Ultimate MKII Tournament Edition r5.0.052
 mks01
 
 @source:midwunit.cpp
-umk3		//parent
-umk3j		/* UMK3 1.2 Juggernaut Hack v1.0 */
-umk3r13b1	/* UMK3 1.3 public beta 1 */
-umk3te		/* UMK3 Tournament Edition 2.0.032b8 */
-umk3te2		/* UMK3 Tournament Edition 2.0.035 */
-umk3te42	/* UMK3 Tournament Edition 2.0.042 */
-umk3z		/* UMK3 1.2 Zeus hack */
+umk3				//parent
+umk3j				/* UMK3 1.2 Juggernaut Hack v1.0 */
+umk3r13b1			/* UMK3 1.3 public beta 1 */
+umk3te				/* UMK3 Tournament Edition 2.0.032b8 */
+umk3te2				/* UMK3 Tournament Edition 2.0.035 */
+umk3te42			/* UMK3 Tournament Edition 2.0.042 */
+umk3z				/* UMK3 1.2 Zeus hack */
 umk3ze
 umk3r13b101
 umk3r13b1213
@@ -3694,32 +3695,32 @@ umk3uc2
 umk3tm
 
 @source:midyunit.cpp
-mkla4d		/* MK protection hack */
+mkla4d				/* MK protection hack */
 
 @source:missile.cpp
 missile				//parent
 missilet			// Tesla variant
 
 @source:mitchell.cpp
-mitcdemo	/* Charles Doty */
-pang		//parent
+mitcdemo			/* Charles Doty */
+pang				//parent
 pangbolds01
 
 @source:model2.cpp
-srallyc		//parent
-srallyp		// Kyle Hodgetts Sega Rally Pro Drivin'
+srallyc				//parent
+srallyp				// Kyle Hodgetts Sega Rally Pro Drivin'
 
 @source:monaco.cpp
 monaco
 
 @source:mrdo.cpp
-mrdo		//parent
-mrdigdo		/* Justin Clark hack of Mr. Do! */
-mrdofast	/* Speedup hack from Evil Exidy*/
-mrpac		/* Twist Hack 20020813 */
+mrdo				//parent
+mrdigdo				/* Justin Clark hack of Mr. Do! */
+mrdofast			/* Speedup hack from Evil Exidy*/
+mrpac				/* Twist Hack 20020813 */
 mrpacb
-newdigdo	/* Vic 20 George and Jerky hack of... */
-stickydo	/* Marck's Hacks */
+newdigdo			/* Vic 20 George and Jerky hack of... */
+stickydo			/* Marck's Hacks */
 
 @source:mslug.cpp
 msboot

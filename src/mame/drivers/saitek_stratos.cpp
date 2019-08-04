@@ -493,7 +493,7 @@ void stratos_state::stratos(machine_config &config)
 	/* basic machine hardware */
 	M65C02(config, m_maincpu, 5_MHz_XTAL); // see set_cpu_freq
 	m_maincpu->set_addrmap(AS_PROGRAM, &stratos_state::main_map);
-	m_maincpu->set_periodic_int(FUNC(stratos_state::irq0_line_hold), attotime::from_hz(75));
+	m_maincpu->set_periodic_int(FUNC(stratos_state::irq0_line_hold), attotime::from_hz(76));
 
 	NVRAM(config, "nvram.u6", nvram_device::DEFAULT_ALL_0);
 	NVRAM(config, "nvram.u7", nvram_device::DEFAULT_ALL_0);
@@ -527,7 +527,7 @@ void stratos_state::tking(machine_config &config)
 void stratos_state::tking2(machine_config &config)
 {
 	tking(config);
-	m_maincpu->set_periodic_int(FUNC(stratos_state::irq0_line_hold), attotime::from_hz(100));
+	m_maincpu->set_periodic_int(FUNC(stratos_state::irq0_line_hold), attotime::from_hz(107));
 
 	// seems much more responsive (not just because of higher irq rate)
 	m_board->set_delay(attotime::from_msec(200));
@@ -577,9 +577,9 @@ ROM_END
 ******************************************************************************/
 
 /*    YEAR  NAME      PARENT  CMP MACHINE  INPUT    CLASS          INIT        COMPANY, FULLNAME, FLAGS */
-CONS( 1987, stratos,  0,       0, stratos, stratos, stratos_state, empty_init, "SciSys", "Kasparov Stratos (set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_CLICKABLE_ARTWORK )
-CONS( 1987, stratosa, stratos, 0, stratos, stratos, stratos_state, empty_init, "SciSys", "Kasparov Stratos (set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1987, stratos,  0,       0, stratos, stratos, stratos_state, empty_init, "SciSys", "Kasparov Stratos (set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1987, stratosa, stratos, 0, stratos, stratos, stratos_state, empty_init, "SciSys", "Kasparov Stratos (set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
-CONS( 1990, tking,    0,       0, tking2,  tking2,  stratos_state, empty_init, "Saitek", "Kasparov Turbo King (ver. D)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_CLICKABLE_ARTWORK ) // aka Turbo King II
-CONS( 1988, tkinga,   tking,   0, tking,   stratos, stratos_state, empty_init, "Saitek", "Kasparov Turbo King (ver. B, set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_CLICKABLE_ARTWORK )
-CONS( 1988, tkingb,   tking,   0, tking,   stratos, stratos_state, empty_init, "Saitek", "Kasparov Turbo King (ver. B, set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_GRAPHICS | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1990, tking,    0,       0, tking2,  tking2,  stratos_state, empty_init, "Saitek", "Kasparov Turbo King (ver. D)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // aka Turbo King II
+CONS( 1988, tkinga,   tking,   0, tking,   stratos, stratos_state, empty_init, "Saitek", "Kasparov Turbo King (ver. B, set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1988, tkingb,   tking,   0, tking,   stratos, stratos_state, empty_init, "Saitek", "Kasparov Turbo King (ver. B, set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )

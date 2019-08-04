@@ -3158,6 +3158,7 @@ ad5dndq                         //
 ad5dndr                         //
 ad5dndu                         //
 ad5dndv                         //
+ad5etdls                        // El Trebol de la Suerte (Bellfruit)
 ad5eyes                         // Eyes Down (Mazooma)
 ad5eyesa                        //
 ad5eyesb                        //
@@ -3193,6 +3194,7 @@ ad5jckmob                       //
 ad5jckmoc                       //
 ad5jckmod                       //
 ad5jckmoe                       //
+ad5lluck                        // Lady Luck (Bellfruit)
 ad5mcob                         // Monte Carlo Or Bust (Qps)
 ad5mcoba                        //
 ad5mcobb                        //
@@ -14418,9 +14420,9 @@ bsuertes                        // 1991, Unknown
 bsuertet                        // 1991, Unknown
 bsuerteu                        // 1991, Unknown
 bsuertev                        // 1991, Unknown
-caspoker                        // 1987, PM / Beck Elektronik.
-caspokera                       // 1986, PM / Beck Elektronik.
-caspokerb                       // 1988, PM / Beck Elektronik.
+caspoker                        // 1988, PM / Beck Elektronik.
+caspokera                       // 1987, PM / Beck Elektronik.
+caspokerb                       // 1986, PM / Beck Elektronik.
 falcnwld                        // 1991, TVG
 falcnwlda                       // (c) 1990, Video Klein
 falcnwldb                       // (c) 1990, Video Klein
@@ -17867,6 +17869,9 @@ jubileep                        //
 @source:juicebox.cpp
 juicebox                        //
 
+@source:juku.cpp
+juku                            //
+
 @source:jungleyo.cpp
 jungleyo
 
@@ -19038,6 +19043,7 @@ magicard                        // (c) 199? Impera
 magicarda                       // (c) 199? Impera
 magicardb                       // (c) 199? Impera
 magicarde                       // (c) 1994 Impera
+magicardf                       // (c) 199? Impera
 magicardj                       // (c) 1998 Impera
 magicle                         // (c) 2001 Impera
 quingo                          // (c) 1999 Impera
@@ -30688,6 +30694,7 @@ npusagif                        //
 
 @source:neptunp2.cpp
 neptunp2                        //
+rockroll                        //
 
 @source:nes.cpp
 iq501                           // Micro Genius IQ-501
@@ -32109,6 +32116,7 @@ pex0057pc                       // (c) 1995 IGT - International Game Technology
 pex0057pd                       // (c) 1995 IGT - International Game Technology
 pex0057pe                       // (c) 1995 IGT - International Game Technology
 pex0057pf                       // (c) 1995 IGT - International Game Technology
+pex0057pg                       // (c) 1995 IGT - International Game Technology
 pex0060p                        // (c) 1995 IGT - International Game Technology
 pex0124p                        // (c) 1995 IGT - International Game Technology
 pex0150p                        // (c) 1995 IGT - International Game Technology
@@ -33031,6 +33039,7 @@ powerbal                        // (c) 1994
 powerins                        // (c) 1993 Atlus (USA)
 powerinsa                       // (c) 1993 Atlus (bootleg of USA version)
 powerinsb                       // (c) 1993 Atlus (bootleg of USA version)
+powerinsc                       // (c) 1993 Atlus (bootleg of USA version)
 powerinsj                       // (c) 1993 Atlus (Japan)
 powerinsp                       // prototype
 
@@ -34837,6 +34846,7 @@ dduxd                           //
 dduxj                           // (c) 1989 (FD1094)
 dduxjd                          //
 defense                         // (c) 1987 (FD1094)
+dfjail                          //
 dunkshot                        // (c) 1986 (FD1089A)
 dunkshota                       // (c) 1986 (FD1089A)
 dunkshoto                       // (c) 1986 (FD1089A)
@@ -36717,6 +36727,7 @@ tisub                           // (c) 1992 Subsino
 tisuba                          // (c) 1992 Subsino
 victor21                        // (c) 1990 Subsino
 victor5                         // (c) 1990 Subsino
+victor5a                        // (c) 1990 Subsino
 victor6                         // (c) 1995 Subsino (Alpha license)
 victor6a                        // (c) 1995 Subsino (Alpha license)
 victor6b                        // (c) 1995 Subsino (Alpha license)
@@ -39055,6 +39066,7 @@ startrks                        // Sidam bootleg
 subhunt                         // ?   [1977 Taito]
 supcrash                        // bootleg
 tranqgun                        // 413-428 (c) 1980 Sega
+wantsega						// ? (c) 1982 Sega
 
 @source:victor9k.cpp
 victor9k                        //
@@ -40427,6 +40439,7 @@ mu80                            // 1994 MU-80
 @source:ymmu100.cpp
 mu100                           // 1997 MU-100
 mu100r                          // 1997 MU-100 Rackable version
+mu100b                          // 1998 MU-100B
 
 @source:ymvl70.cpp
 vl70                            // 1996 VL70-m
