@@ -650,17 +650,23 @@ bool lua_engine::menu_callback(const std::string &menu, int index, const std::st
 	return ret;
 }
 
-bool lua_engine::execute_function(const char *id)
+int lua_engine::enumerate_functions(const char *id, std::function<bool(const sol::protected_function &func)> &&callback)
 {
+	int count = 0;
 	sol::object functable = sol().registry()[id];
-	if(functable.is<sol::table>())
+	if (functable.is<sol::table>())
 	{
-		for(auto &func : functable.as<sol::table>())
+		for (auto &func : functable.as<sol::table>())
 		{
-			if(func.second.is<sol::protected_function>())
+			if (func.second.is<sol::protected_function>())
 			{
+				bool cont = callback(func.second.as<sol::protected_function>());
+				count++;
+				if (!cont)
+					break;
+
 				auto ret = invoke(func.second.as<sol::protected_function>());
-				if(!ret.valid())
+				if (!ret.valid())
 				{
 					sol::error err = ret;
 					osd_printf_error("[LUA ERROR] in execute_function: %s\n", err.what());
@@ -669,7 +675,22 @@ bool lua_engine::execute_function(const char *id)
 		}
 		return true;
 	}
-	return false;
+	return count;
+}
+
+bool lua_engine::execute_function(const char *id)
+{
+	int count = enumerate_functions(id, [this](const sol::protected_function &func)
+	{
+		auto ret = invoke(func);
+		if(!ret.valid())
+		{
+			sol::error err = ret;
+			osd_printf_error("[LUA ERROR] in execute_function: %s\n", err.what());
+		}
+		return true;
+	});
+	return count > 0;
 }
 
 void lua_engine::register_function(sol::function func, const char *id)
@@ -721,6 +742,27 @@ void lua_engine::on_periodic()
 	execute_function("LUA_ON_PERIODIC");
 }
 
+bool lua_engine::on_missing_mandatory_image(const std::string &instance_name)
+{
+	bool handled = false;
+	enumerate_functions("LUA_ON_MANDATORY_FILE_MANAGER_OVERRIDE", [this, &instance_name, &handled](const sol::protected_function &func)
+	{
+		auto ret = invoke(func, instance_name);
+
+		if(!ret.valid())
+		{
+			sol::error err = ret;
+			osd_printf_error("[LUA ERROR] in on_missing_mandatory_image: %s\n", err.what());
+		}
+		else if (ret.get<bool>())
+		{
+			handled = true;
+		}
+		return !handled;
+	});
+	return handled;
+}
+
 void lua_engine::attach_notifiers()
 {
 	machine().add_notifier(MACHINE_NOTIFY_RESET, machine_notify_delegate(&lua_engine::on_machine_prestart, this), true);
@@ -767,6 +809,7 @@ void lua_engine::initialize()
  * emu.register_periodic(callback) - register periodic callback while program is running
  * emu.register_callback(callback, name) - register callback to be used by MAME via lua_engine::call_plugin()
  * emu.register_menu(event_callback, populate_callback, name) - register callbacks for plugin menu
+ * emu.register_mandatory_file_manager_override(callback) - register callback invoked to override mandatory file manager
  * emu.show_menu(menu_name) - show menu by name and pause the machine
  *
  * emu.print_verbose(str) - output to stderr at verbose level
@@ -806,6 +849,7 @@ void lua_engine::initialize()
 	emu["register_frame"] = [this](sol::function func){ register_function(func, "LUA_ON_FRAME"); };
 	emu["register_frame_done"] = [this](sol::function func){ register_function(func, "LUA_ON_FRAME_DONE"); };
 	emu["register_periodic"] = [this](sol::function func){ register_function(func, "LUA_ON_PERIODIC"); };
+	emu["register_mandatory_file_manager_override"] = [this](sol::function func) { register_function(func, "LUA_ON_MANDATORY_FILE_MANAGER_OVERRIDE"); };
 	emu["register_menu"] = [this](sol::function cb, sol::function pop, const std::string &name) {
 			std::string cbfield = "menu_cb_" + name;
 			std::string popfield = "menu_pop_" + name;
@@ -2278,6 +2322,7 @@ void lua_engine::initialize()
  * ui:get_line_height() - current ui font height
  * ui:get_string_width(str, scale) - get str width with ui font at scale factor of current font size
  * ui:get_char_width(char) - get width of utf8 glyph char with ui font
+ * ui:set_aggressive_input_focus(bool)
  *
  * ui.single_step
  * ui.show_fps - fps display enabled
@@ -2293,7 +2338,8 @@ void lua_engine::initialize()
 			"get_line_height", &mame_ui_manager::get_line_height,
 			"get_string_width", &mame_ui_manager::get_string_width,
 			// sol converts char32_t to a string
-			"get_char_width", [](mame_ui_manager &m, uint32_t utf8char) { return m.get_char_width(utf8char); });
+			"get_char_width", [](mame_ui_manager &m, uint32_t utf8char) { return m.get_char_width(utf8char); },
+			"set_aggressive_input_focus", [](mame_ui_manager &m, bool aggressive_focus) { osd_set_aggressive_input_focus(aggressive_focus); });
 
 
 /*  device_state_entry library
