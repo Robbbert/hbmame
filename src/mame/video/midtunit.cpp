@@ -20,8 +20,8 @@
 #include "emuopts.h" // Used by PNG logging
 #include "png.h" // Used by PNG logging
 
-#include <rapidjson/prettywriter.h> // Used by JSON logging
-#include <rapidjson/stringbuffer.h> // Used by JSON logging
+//#include <rapidjson/prettywriter.h> // Used by JSON logging
+//#include <rapidjson/stringbuffer.h> // Used by JSON logging
 
 DEFINE_DEVICE_TYPE(MIDTUNIT_VIDEO, midtunit_video_device, "tunitvid", "Midway T-Unit Video")
 DEFINE_DEVICE_TYPE(MIDWUNIT_VIDEO, midwunit_video_device, "wunitvid", "Midway W-Unit Video")
@@ -1019,7 +1019,7 @@ void midtunit_video_device::log_bitmap(int command, int bpp, bool Skip)
 	}
 
 	png_write_bitmap(file, nullptr, m_log_bitmap, 0, nullptr);
-
+#if 0
 	if (m_log_json)
 	{
 		char hex_buf[11];
@@ -1088,4 +1088,5 @@ void midtunit_video_device::log_bitmap(int command, int bpp, bool Skip)
 		json.puts(s.GetString());
 		json.close();
 	}
+#endif
 }
