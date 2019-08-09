@@ -51,10 +51,6 @@ ESB 6000 chessboard:
 ESB 3000 hardware is probably same as ESB 6000.
 There are no other known external port peripherals.
 
-TODO:
-- beeper is noisy on mephisto/mephisto2, is it normal? caused by interrupts triggering mid-beep
-  (mephisto3 disables interrupts during beep)
-
 ******************************************************************************/
 
 #include "emu.h"
@@ -133,7 +129,6 @@ private:
 
 	u8 m_lcd_mask;
 	u8 m_digit_idx;
-	u8 m_digit_data[4];
 	bool m_reset;
 
 	u8 m_esb_led;
@@ -146,8 +141,6 @@ void brikett_state::machine_start()
 	// zerofill
 	m_lcd_mask = 0;
 	m_digit_idx = 0;
-	memset(m_digit_data, 0, sizeof(m_digit_data));
-
 	m_esb_led = 0;
 	m_esb_row = 0;
 	m_esb_select = 0;
@@ -155,8 +148,6 @@ void brikett_state::machine_start()
 	// register for savestates
 	save_item(NAME(m_lcd_mask));
 	save_item(NAME(m_digit_idx));
-	save_item(NAME(m_digit_data));
-
 	save_item(NAME(m_esb_led));
 	save_item(NAME(m_esb_row));
 	save_item(NAME(m_esb_select));
@@ -202,16 +193,14 @@ READ_LINE_MEMBER(brikett_state::clear_r)
 WRITE_LINE_MEMBER(brikett_state::q_w)
 {
 	// Q: LCD digit data mask
-	m_lcd_mask = state ? 0xff : 0;
+	m_lcd_mask = state ? 0 : 0xff;
 }
 
 WRITE8_MEMBER(brikett_state::lcd_w)
 {
 	// write/shift LCD digit (4*CD4015)
 	// note: last digit "dp" is the colon in the middle
-	m_digit_data[m_digit_idx] = (m_digit_data[m_digit_idx] & ~data) | (m_lcd_mask & data);
-
-	m_display->write_row(m_digit_idx, m_digit_data[m_digit_idx]);
+	m_display->write_row(m_digit_idx, data ^ m_lcd_mask);
 	m_display->update();
 
 	m_digit_idx = (m_digit_idx + 1) & 3;
@@ -345,6 +334,11 @@ static INPUT_PORTS_START( mephisto )
 	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_V) PORT_NAME("REV")
 	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_H) PORT_CODE(KEYCODE_8) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("H / 8")
 
+	PORT_START("IN.4") // 2nd model main PCB has 2 XTALs on PCB
+	PORT_CONFNAME( 0x01, 0x00, "CPU Frequency" ) PORT_CHANGED_MEMBER(DEVICE_SELF, brikett_state, switch_cpu_freq, nullptr)
+	PORT_CONFSETTING(    0x00, "3.579MHz (Battery / Model 1)" )
+	PORT_CONFSETTING(    0x01, "6.144MHz (Mains)" )
+
 	PORT_START("RESET")
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_R) PORT_NAME("RES") PORT_CHANGED_MEMBER(DEVICE_SELF, brikett_state, reset_button, nullptr)
 INPUT_PORTS_END
@@ -352,9 +346,9 @@ INPUT_PORTS_END
 static INPUT_PORTS_START( mephisto2 )
 	PORT_INCLUDE( mephisto )
 
-	PORT_START("IN.4") // 2 XTALs on PCB
+	PORT_MODIFY("IN.4") // default to 6.144MHz
 	PORT_CONFNAME( 0x01, 0x01, "CPU Frequency" ) PORT_CHANGED_MEMBER(DEVICE_SELF, brikett_state, switch_cpu_freq, nullptr)
-	PORT_CONFSETTING(    0x00, "3.579MHz (Battery)" )
+	PORT_CONFSETTING(    0x00, "3.579MHz (Battery / Model 1)" )
 	PORT_CONFSETTING(    0x01, "6.144MHz (Mains)" )
 INPUT_PORTS_END
 
