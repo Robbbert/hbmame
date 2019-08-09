@@ -221,6 +221,7 @@ NUM YEAR COMPANY                 TITLE
 487 2018 Vasily Familiya         Double Dragon SpritePool Demo
 488 2018 Vasily Familiya         Shaman King demo
 489 2019 Vasily Familiya         Venus Wars demo
+490*n/r  Hine62/SAOH             Neo Geo Space Invaders
 
 
 ********************** 800 to 899 **********************************
