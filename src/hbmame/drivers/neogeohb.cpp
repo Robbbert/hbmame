@@ -1031,7 +1031,7 @@ ROM_START( cndi )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "425.m1", 0x0000, 0x2000, CRC(591adc4f) SHA1(02886106b5bbcd1c63a7ccd5c91456a785b0621a) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x092000, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "425.v1", 0x000000, 0x091000, CRC(15d318a6) SHA1(10f99dbded4093bac104ce954e93dba7ce8c4ade) ) // bad sound
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1062,7 +1062,7 @@ ROM_START( cndia )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "425a.m1", 0x0000, 0x2000, CRC(ae120a59) SHA1(11a49a82007810890ac01757af217ce76c78335b) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x092000, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "425a.v1", 0x000000, 0x092000, CRC(91d45537) SHA1(2e3fe9733a49a7d5597fea40f59274133c331795) ) // better sound
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1094,7 +1094,7 @@ ROM_START( dwi )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "426.m1", 0x0000, 0x2000, CRC(2249e065) SHA1(3dc737888846acfbe693452b03ee2b5c09ff9408) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x09b000, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "426.v1", 0x000000, 0x09b000, CRC(13bb4ce4) SHA1(0762db7991a5958ae7d8fd5cad2a850f1803a372) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1125,7 +1125,7 @@ ROM_START( dwia )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "426a.m1", 0x0000, 0x2000, CRC(b9f8df96) SHA1(8472b7308df7b7d3f1fc8824b17d81f670e6d68e) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x09b000, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "426.v1", 0x000000, 0x09b000, CRC(13bb4ce4) SHA1(0762db7991a5958ae7d8fd5cad2a850f1803a372) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1157,7 +1157,7 @@ ROM_START( gbi )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "427.m1", 0x0000, 0x2000, CRC(6624e642) SHA1(03a723c477905425ced965a63fb6d006abd045e9) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x094a00, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "427.v1", 0x000000, 0x094a00, CRC(44864761) SHA1(35334b93c65b3e27338290c2ba1f73aa902aa893) )
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
@@ -1187,7 +1187,7 @@ ROM_START( rci )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "428.m1", 0x0000, 0x2000, CRC(c4d35e83) SHA1(0f2bb58e6e545090a11f7fbf471dcd46768a313b) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x096000, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "428.v1", 0x000000, 0x096000, CRC(ecb284a9) SHA1(1ff34e6f3091ddf0da7b8afb06b903ab39d0b629) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1220,7 +1220,7 @@ ROM_START( smi )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "429.m1", 0x0000, 0x2000, CRC(6a02cb1d) SHA1(fffd39708bfb121496c78d01e53f07aa9a539c47) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x096100, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "429.v1", 0x000000, 0x096100, CRC(95c138da) SHA1(7bfcd525ecf01737ec85db88355323d676f1f03b) ) // bad sound
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
@@ -1250,7 +1250,7 @@ ROM_START( tmnti ) /* you must use unibios to select Japan Console */
 	ROM_LOAD( "430.m1", 0x0000, 0x2000, CRC(953542ef) SHA1(95e93833b938b8d374d29f925777cf296468ae9e) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x094900, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "430.v1", 0x000000, 0x094900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1280,7 +1280,7 @@ ROM_START( tmntia ) /* you must use unibios to select Japan Console */
 	ROM_LOAD( "430.m1", 0x0000, 0x2000, CRC(953542ef) SHA1(95e93833b938b8d374d29f925777cf296468ae9e) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x094900, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "430.v1", 0x000000, 0x094900, CRC(273640c3) SHA1(6d445e728fa9c4af00de4f454a73651de7a69ec9) )
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1312,7 +1312,7 @@ ROM_START( dti )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "431.m1", 0x0000, 0x2000, CRC(7761d993) SHA1(b269e9878ca28faa1d36c7fa3dd8e9939714a5f4) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x090200, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "431.v1", 0x000000, 0x090200, CRC(b40c3a5a) SHA1(fda5e4bf3af75aa70df32b21f132c41670212c52) ) // bad sound
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -1343,7 +1343,7 @@ ROM_START( dtia )	/* you must use unibios to select Japan Console */
 	ROM_LOAD( "431.m1", 0x0000, 0x2000, CRC(7761d993) SHA1(b269e9878ca28faa1d36c7fa3dd8e9939714a5f4) )
 	ROM_RELOAD( 0x10000, 0x2000 )
 
-	ROM_REGION( 0x090200, "ymsnd", 0 )
+	ROM_REGION( 0x100000, "ymsnd", 0 )
 	ROM_LOAD( "431a.v1", 0x000000, 0x090200, CRC(24b716ee) SHA1(ec153b7f4054644a8dbeacfc1c03a464a7c47c3b) ) // good sound
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
@@ -2276,7 +2276,7 @@ ROM_START( lhcdb )
 
 	NEO_BIOS_AUDIO_128K( "802cd.m1", CRC(d9f6c153) SHA1(c08f7ca288be1c34f4b33ed13abd805b5cd66d4e) )
 
-	ROM_REGION( 0xbc3500, "ymsnd", 0 )
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "802cd.v1", 0x000000, 0x400000, CRC(de563ec3) SHA1(cd0f1a436cdac679792fc78906e718c78369b15a) )
 	ROM_LOAD( "802cd.v2", 0x400000, 0x400000, CRC(93478033) SHA1(a03e0fcb7f51c66ec0bc5d164744db00b96973c2) )
 	ROM_LOAD( "802cd.v3", 0x800000, 0x3c3500, CRC(f0ad87b8) SHA1(f992e84c6cbbc3cab79747a2ca4d646d18bebcbd) )
@@ -2295,7 +2295,7 @@ ROM_START( lhcdba ) // v3,p1 rom are different, but same bugs as above
 
 	NEO_BIOS_AUDIO_128K( "802cd.m1", CRC(d9f6c153) SHA1(c08f7ca288be1c34f4b33ed13abd805b5cd66d4e) )
 
-	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "802cd.v1", 0x000000, 0x400000, CRC(de563ec3) SHA1(cd0f1a436cdac679792fc78906e718c78369b15a) )
 	ROM_LOAD( "802cd.v2", 0x400000, 0x400000, CRC(93478033) SHA1(a03e0fcb7f51c66ec0bc5d164744db00b96973c2) )
 	ROM_LOAD( "802cda.v3", 0x800000, 0x400000, CRC(e0fc99ca) SHA1(6de935b54bf5adc4394fe824b001b38eca0291ad) )
@@ -2363,8 +2363,8 @@ HACK( 1990, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, ddsprdmo1,    ddsprdmo, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo (newer)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
