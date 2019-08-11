@@ -1192,7 +1192,7 @@ ROM_START( smi )	/* you must use unibios to select Japan Console */
 	ROM_RELOAD( 0x10000, 0x2000 )
 
 	ROM_REGION( 0x096100, "ymsnd", 0 )
-	ROM_LOAD( "429.v1", 0x000000, 0x096100, CRC(95c138da) SHA1(7bfcd525ecf01737ec85db88355323d676f1f03b) )
+	ROM_LOAD( "429.v1", 0x000000, 0x096100, CRC(95c138da) SHA1(7bfcd525ecf01737ec85db88355323d676f1f03b) ) // bad sound
 
 	ROM_REGION( 0x1800000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "429.c1", 0x0000000, 0x400000, CRC(8e5ccfdd) SHA1(a26a3cadf67f864ded64daca3af13a8db8a73b62) )
@@ -1284,7 +1284,7 @@ ROM_START( dti )	/* you must use unibios to select Japan Console */
 	ROM_RELOAD( 0x10000, 0x2000 )
 
 	ROM_REGION( 0x090200, "ymsnd", 0 )
-	ROM_LOAD( "431.v1", 0x000000, 0x090200, CRC(b40c3a5a) SHA1(fda5e4bf3af75aa70df32b21f132c41670212c52) )
+	ROM_LOAD( "431.v1", 0x000000, 0x090200, CRC(b40c3a5a) SHA1(fda5e4bf3af75aa70df32b21f132c41670212c52) ) // bad sound
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "431.c1", 0x0000000, 0x400000, CRC(02adabba) SHA1(7b1eafebed09dbfc1b8d9612f0ed477e25ab152d) )
@@ -1298,7 +1298,7 @@ ROM_START( dti )	/* you must use unibios to select Japan Console */
 ROM_END
 
 // 431 : Duck Tales intro from Raregame
-ROM_START( dti2 )	/* you must use unibios to select Japan Console */
+ROM_START( dtia )	/* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "431.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
 
@@ -1315,7 +1315,7 @@ ROM_START( dti2 )	/* you must use unibios to select Japan Console */
 	ROM_RELOAD( 0x10000, 0x2000 )
 
 	ROM_REGION( 0x090200, "ymsnd", 0 )
-	ROM_LOAD( "432.v1", 0x000000, 0x090200, CRC(24b716ee) SHA1(ec153b7f4054644a8dbeacfc1c03a464a7c47c3b) )
+	ROM_LOAD( "431a.v1", 0x000000, 0x090200, CRC(24b716ee) SHA1(ec153b7f4054644a8dbeacfc1c03a464a7c47c3b) ) // good sound
 
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "431.c1", 0x0000000, 0x400000, CRC(02adabba) SHA1(7b1eafebed09dbfc1b8d9612f0ed477e25ab152d) )
@@ -2334,7 +2334,7 @@ HACK( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2018, ddsprdmo1,    ddsprdmo, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo (newer)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, dti2,         dti,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales 2 (Intro demo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo)(Alt)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo)(Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
@@ -2397,7 +2397,7 @@ HACK( 2019, shaman21,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2019, shaman22,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.22", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, shaman23,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.23", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, shaman24,     shaman16, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Vasily Familiya", "Shaman King demo 0.24", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-HACK( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 HACK( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, syscheck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
