@@ -3419,6 +3419,29 @@ ROM_START( kf2k5unis13 )
 	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
+ROM_START( kf2k5unis14 )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "363hc14.p1", 0x000000, 0x800000, CRC(956ac7f9) SHA1(d0667d0fbb9ead1db9a8ad273ba8922e08764989) )
+
+	NEO_SFIX_128K( "363xs01.s1", CRC(0ebe5645) SHA1(56a08a5e5209f42e2813a0530c33cf7623aa4cf1) )
+
+	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "363ud.c1", 0x0000000, 0x800000, CRC(2491af91) SHA1(e3e237e50395dc985c564867046ad202bc744d37) )
+	ROM_LOAD16_BYTE( "363ud.c2", 0x0000001, 0x800000, CRC(47ff1d91) SHA1(7d6ade9409af2c64114ed5836ccf9f50c7ebac69) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265d.c7", 0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
+	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
+ROM_END
+
  /************************
  Kof Special Edition 2004
 ***************************/
@@ -4764,7 +4787,8 @@ HACK( 2005, kf2k5unis09,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 2005, kf2k5unis10,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k5uni,  ROT0, "oak2003",    "Kof 10th Anniversary 2005 Unique (Turn Time Bg Into Half Transparency V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kf2k5unis11,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k5uni,  ROT0, "Eddids[FGCH]",    "Kof 10th Anniversary 2005 Unique (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kf2k5unis12,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k5uni,  ROT0, "oak2003",    "Kof 10th Anniversary 2005 Unique (Turn Life-Bar Into Half-Transparency)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kf2k5unis13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary 2005 Unique (Edition Optimized )", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kf2k5unis13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary 2005 Unique (Edition Optimized)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kf2k5unis14,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown", "Kof 10th Anniversary 2005 Unique (Optimized Version 2019 2019-06-05)", MACHINE_SUPPORTS_SAVE )
 // Kof Special Edition 2004
 HACK( 2004, kof2k4ses01,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "KyoX",    "Kof Special Edition 2004 (Translation Portuguese)(Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4ses04,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 (Unluck Max2 V1)", MACHINE_SUPPORTS_SAVE )

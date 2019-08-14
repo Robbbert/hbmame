@@ -521,6 +521,11 @@ tk2h136
 tk2h137
 tk2h138
 tk2h139
+tk2h140
+tk2h141
+tk2h142
+tk2h143
+tk2h144
 wofb
 wofch		// tk2p1
 woffr
@@ -586,6 +591,10 @@ captcomms57
 captcomms58
 captcomms59
 captcomms60
+captcomms61
+captcomms62
+captcomms63
+captcomms64
 dinos01
 dinos02
 dinos03
@@ -762,6 +771,14 @@ dinos190
 dinos191
 dinos192
 dinos193
+dinos194
+dinos195
+dinos196
+dinos197
+dinos198
+dinos199
+dinos200
+dinos201
 ffights01
 ffights02
 ffightj2s01
@@ -1133,6 +1150,7 @@ sfz2aljs05
 sfz2aljs06
 sfz2aljs07
 sfz2aljs08
+sfz2ns01
 sfz3js01
 sfz3js02
 sfz3js03
@@ -1877,6 +1895,7 @@ kof97s142
 kof97s143
 kof97s144
 kof97s145
+kof97s146
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2492,6 +2511,9 @@ kof98hh116
 kof98hh117
 kof98hh118
 kof98hh119
+kof98hh120
+kof98hh121
+kof98hh122
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3377,6 +3399,7 @@ kof2k2s79
 kof2k2s80
 kof2k2s81
 kof2k2s82
+kof2k2s83
 
 @source:kof2003.cpp
 kof2003d
@@ -3541,6 +3564,7 @@ spatrol		/* Sponge Patrol - Gatinho 2008 */
 @source:m92.cpp
 hook			//parent
 nbbatman		//parent
+uccops  		//parent
 hooks01
 hooks02
 hooks03
@@ -3557,6 +3581,7 @@ nbbatmanus02
 nbbatmanus03
 nbbatmanus04
 nbbatmanus05
+uccopsjs01
 
 @source:maketrax.cpp
 eyes		//parent
@@ -4418,6 +4443,7 @@ mslug4hh43
 mslug4hh44
 mslug4hh45
 mslug4hh46
+mslug4hh47
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -6130,6 +6156,7 @@ kf2k5unis10
 kf2k5unis11
 kf2k5unis12
 kf2k5unis13
+kf2k5unis14
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
@@ -7385,6 +7412,7 @@ kovpluss344
 kovpluss345
 kovpluss346
 kovpluss347
+kovpluss348
 kovplusas01
 kovshs01
 kovshs02
@@ -8359,5 +8387,4 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-
 

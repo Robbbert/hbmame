@@ -447,6 +447,36 @@ ROM_START( nbbatmanus05 )
 	ROM_LOAD( "lh534k0k.8", 0x000000, 0x080000, CRC(735e6380) SHA1(bf019815e579ef2393c00869f101a01f746e04d6) )
 ROM_END
 
+ /***************
+ Undercover Cops
+******************/
+
+ROM_START( uccopsjs01 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "uc_h0_a.ic28", 0x000001, 0x040000, CRC(9e17cada) SHA1(086bb9c1ab851cab3734c2f9188d8ff3c5f98913) )
+	ROM_LOAD16_BYTE( "uc_l0_a.ic39", 0x000000, 0x040000, CRC(4a4e3208) SHA1(d61c74d46584e2c15e70f7a17b598e51981da9e8) )
+	ROM_LOAD16_BYTE( "uc_h1_a_ps01.ic27", 0x080001, 0x020000, CRC(c298aba7) SHA1(1891c5449a2b5bc6e3fad8313eb4aa95e10839c2) )
+	ROM_LOAD16_BYTE( "uc_l1_a_ps01.ic38", 0x080000, 0x020000, CRC(5ade2afb) SHA1(34a4829e18052dcb114c2d6ec10c0c9588192534) )
+
+	ROM_REGION( 0x20000, "soundcpu", 0 )
+	ROM_LOAD16_BYTE( "uc_sh0.ic30", 0x00001, 0x10000, CRC(f0ca1b03) SHA1(07154a2c747091f8be23587c109d91ed1672da6e) )
+	ROM_LOAD16_BYTE( "uc_sl0.ic31", 0x00000, 0x10000, CRC(d1661723) SHA1(bdc00196aa2074e7b21e5949f73e9f2b93d76fd9) )
+
+	ROM_REGION( 0x200000, "gfx1", 0 ) /* Tiles */
+	ROM_LOAD( "uc_c0.ic26", 0x000000, 0x080000, CRC(6a419a36) SHA1(1907d15fcc4a8bf875d19768667ee4de4702cc2a) )
+	ROM_LOAD( "uc_c1.ic25", 0x080000, 0x080000, CRC(d703ecc7) SHA1(9716a8fde668e63cf3060450eb32ea43edf143d8) )
+	ROM_LOAD( "uc_c2.ic24", 0x100000, 0x080000, CRC(96397ac6) SHA1(6dfe507bd9f41b5d46d85ef5f46a368745593b52) )
+	ROM_LOAD( "uc_c3.ic23", 0x180000, 0x080000, CRC(5d07d10d) SHA1(ee1a928b37043c476346f189f75d2bfcc44bffe6) )
+
+	ROM_REGION( 0x400000, "gfx2", 0 ) /* Sprites */
+	ROM_LOAD( "uc_030.ic37", 0x000000, 0x100000, CRC(97f7775e) SHA1(5cd147fd940b1ab6eba8e6c6f803bdcc5da5a563) )
+	ROM_LOAD( "uc_020.ic36", 0x100000, 0x100000, CRC(5e0b1d65) SHA1(9e45753d10b2d7b580cd11cef74181209a424189) )
+	ROM_LOAD( "uc_010.ic35", 0x200000, 0x100000, CRC(bdc224b3) SHA1(09477ec39890d954fac6ff653b9f46c9adea56b6) )
+	ROM_LOAD( "uc_000.ic34", 0x300000, 0x100000, CRC(7526daec) SHA1(79431d711deb6ed09dc52be753b7b0f2c5588dc3) )
+
+	ROM_REGION( 0x80000, "irem", 0 )
+	ROM_LOAD( "uc_da.bin", 0x000000, 0x080000, CRC(0b2855e9) SHA1(70f9decd78eab679a2ccad69e01cb303b61e0d38) )
+ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
@@ -467,4 +497,5 @@ GAME( 2016, nbbatmanus02,nbbatman,    nbbatman,      nbbatman,  m92_state, init_
 GAME( 2019, nbbatmanus03,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Musou version 2019-02-23)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 2016, nbbatmanus04,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Characters Changeable 2016-12-03)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 GAME( 2019, nbbatmanus05,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "Unknown",         "Ninja Baseball Bat Man (Musou Edition 2019-03-08)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-
+// Undercover Cops
+GAME( 2019, uccopsjs01,  uccops,      uccops,        uccops,    m92_state, empty_init,    ROT0,   "Unknown",         "Undercover Cops (Edition Enhanced 2019-07-22)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
