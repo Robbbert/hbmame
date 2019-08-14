@@ -8,7 +8,34 @@
 
 New Games
 ---------------------------------
+- [captcomms61]       Captain Commando (Elite Version 2019-05-13)
+- [captcomms62]       Captain Commando (Nightmare 2019-06-06)
+- [captcomms63]       Captain Commando (Shape Shifting Version 2019-05-05)
+- [captcomms64]       Captain Commando (Caller Mount Version 2019-08-02)
+- [dinos194]          Cadillacs and Dinosaurs (Fighting God Version 2019-06-12)
+- [dinos195]          Cadillacs and Dinosaurs (Purgatory 2019-04-21)
+- [dinos196]          Cadillacs and Dinosaurs (Majin Ranbu 2019-02-22)
+- [dinos197]          Cadillacs and Dinosaurs (Warlord Version 2019-05-30)
+- [dinos198]          Cadillacs and Dinosaurs (Warriors 2019-05-02)
+- [dinos199]          Cadillacs and Dinosaurs (1V3 Enhanced Version 2019 2019-08-02)
+- [dinos200]          Cadillacs and Dinosaurs (Devil dance Series A 2019-07-30)
+- [dinos201]          Cadillacs and Dinosaurs (Devil dance Series B 2019-07-30)
+- [kf2k5unis14]       Kof 10th Anniversary 2005 Unique (Optimized Version 2019 2019-06-05)
+- [kof2k2s83]         Kof2002 (All Mix Version 2018-04-22) 
+- [kof97s146]         Kof'97 (Heavenly Divine 2019-03-25) 
+- [kof98hh120]        Kof'98 (Combo 2019-07-09)(Original)  
+- [kof98hh121]        Kof'98 (Combo 2019-07-09)(Simplify)  
+- [kof98hh122]        Kof'98 (ECK 2019-07-25)  
+- [kovpluss348]       Knights of Valour Plus (2012 Musou Edition 2019-04-15) 
 - [mhavocpex2]        Major Havoc - The Promised End (v0.50)
+- [mslug4hh47]        Metal Slug 4 (Fully Decrypted [?] Version)
+- [sfz2ns01]          Street Fighter Zero 2 (Crazy Edition 2019-04-10)
+- [tk2h140]           Tenchi wo Kurau II (Master Version 2019-05-06)
+- [tk2h141]           Tenchi wo Kurau II (Fighting Spirit 2019-05-06)
+- [tk2h142]           Tenchi wo Kurau II (Xu Wei Musou Edition 2019-08-14)
+- [tk2h143]           Tenchi wo Kurau II (Daren Fighting Edition 2019-08-02)
+- [tk2h144]           Tenchi wo Kurau II (Dragon Edition 2019-07-14)
+- [uccopsjs01]        Undercover Cops (Edition Enhanced 2019-07-22)
 
 
 
