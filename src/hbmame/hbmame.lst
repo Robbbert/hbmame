@@ -183,16 +183,20 @@ centipb		/* bootleg of centipdb */
 magworm2	/* bootleg of magworm */
 
 @source:cinemat.cpp
-bbugtest	/* Test Rom */
+bbugtest				/* Test Rom */
+bbugtest1
+warrior					//parent
+warrior4j1
+warrior4j2
 
 @source:cninja.cpp
 mutantf					//parent
 deathbrdh01
 
 @source:commando.cpp
-commando	//parent
-comdelux	/* Twisty Hack */
-comdlux1	/* Twisty Hack */
+commando				//parent
+comdelux				/* Twisty Hack */
+comdlux1				/* Twisty Hack */
 
 @source:contra.cpp
 contra					//parent
