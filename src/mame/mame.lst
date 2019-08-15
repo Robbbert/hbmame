@@ -9027,6 +9027,7 @@ agress                          // TA-0029 (c) 1991 Palco
 agressb                         // TA-0029 (c) 1991 Palco
 blockout                        // TA-0029 (c) 1989 + California Dreams
 blockout2                       // TA-0029 (c) 1989 + California Dreams
+blockout3                       // TA-0029 (c) 1989 + California Dreams (Europe and Oceania)
 blockoutj                       // TA-0029 (c) 1989 + California Dreams (Japan)
 
 @source:blocktax.cpp
@@ -21464,6 +21465,9 @@ berlinp                         // 1994 Mephisto Berlin Pro 68020
 berl16l                         // 1996 Mephisto Berlin 68000 London Upgrade
 bpl32                           // 1996 Mephisto Berlin Pro London Upgrade
 
+@source:mephisto_mondial68k.cpp
+mondl68k                        // 1988 Mephisto Mondial 68000XL
+
 @source:mephisto_montec.cpp
 mondial                         // 1985 Mephisto Mondial
 smondial                        // 1986 Mephisto Super Mondial (Ver A)
@@ -32969,6 +32973,9 @@ pokemini                        // Nintendo Pokemon Mini
 @source:poker72.cpp
 poker72                         //
 
+@source:pokerout.cpp
+pokerout                        // 19??, unknown
+
 @source:polepos.cpp
 grally                          // bootleg
 polepos                         // (c) 1982
@@ -38202,6 +38209,7 @@ prmrsocr                        // GX101 (c) 1993 (Europe)
 prmrsocrj                       // GX101 (c) 1993 (Japan)
 punkshot                        // GX907 (c) 1990 (US)
 punkshot2                       // GX907 (c) 1990 (US)
+punkshot2e                      // GX907 (c) 1990 (World)
 punkshotj                       // GX907 (c) 1990 (Japan)
 qgakumon                        // GX248 (c) 1993 (Japan)
 ssriders                        // GX064 (c) 1991 (World)

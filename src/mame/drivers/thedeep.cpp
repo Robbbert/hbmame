@@ -6,16 +6,20 @@
 
                     driver by   Luca Elia (l.elia@tin.it)
 
-Main CPU    :   Z80 (LH0080B @ 6MHz) + i8751 (Intel C8751H-88, protection)
 
-Sound CPU   :   65C02 (R65C02P2 @ 2MHz)
+Board       :   DE-0298-1
 
-Sound Chips :   YM2203C
+Main CPU    :   Z80 (LH0080B @ 6MHz) + i8751 (Intel C8751H-88 @ 8MHz, protection)
+
+Sound CPU   :   65C02 (R65C02P2 @ 1.5MHz)
+
+Sound Chips :   YM2203C (@ 3MHz)
 
 Video Chips :   L7B0073 DATA EAST MXC 06 8746
                 L7A0072 DATA EAST BAC 06 VAE8713
 
-Board       :   DE-0298-1
+XTAL        :   12.000MHz, 8.000MHz
+
 
 Notes:
 
@@ -23,6 +27,9 @@ Notes:
   It additionally provides some z80 code that is copied to ram.
 
 - One ROM (FI-1) is not used.
+
+NOTE: There is manual for Run Deep which is (c) 1988 by World Games. Is Cream Co, Ltd
+      the legitimate license and World Games the US distributors?
 
 ***************************************************************************/
 
@@ -60,14 +67,6 @@ void thedeep_state::machine_start()
 	save_item(NAME(m_mcu_p2));
 	save_item(NAME(m_mcu_p3));
 	save_item(NAME(m_coin_result));
-}
-
-void thedeep_state::machine_reset()
-{
-	m_scroll[0] = 0;
-	m_scroll[1] = 0;
-	m_scroll[2] = 0;
-	m_scroll[3] = 0;
 }
 
 READ8_MEMBER(thedeep_state::protection_r)
@@ -114,11 +113,12 @@ void thedeep_state::main_map(address_map &map)
 	map(0xe00b, 0xe00b).portr("e00b");           // DSW2
 	map(0xe00c, 0xe00c).w(m_soundlatch, FUNC(generic_latch_8_device::write));  // To Sound CPU
 	map(0xe100, 0xe100).w(FUNC(thedeep_state::e100_w));   // ?
-	map(0xe210, 0xe213).writeonly().share("scroll");    // Scroll
-	map(0xe400, 0xe7ff).ram().share("spriteram");   // Sprites
-	map(0xe800, 0xefff).ram().w(FUNC(thedeep_state::vram_1_w)).share("vram_1");  // Text Layer
-	map(0xf000, 0xf7ff).ram().w(FUNC(thedeep_state::vram_0_w)).share("vram_0");  // Background Layer
-	map(0xf800, 0xf83f).ram().share("scroll2"); // Column Scroll
+	map(0xe200, 0xe207).w(m_tilegen, FUNC(deco_bac06_device::pf_control0_8bit_w));
+	map(0xe210, 0xe217).w(m_tilegen, FUNC(deco_bac06_device::pf_control1_8bit_swap_w));
+	map(0xe400, 0xe7ff).ram().share(m_spriteram);   // Sprites
+	map(0xe800, 0xefff).ram().w(FUNC(thedeep_state::textram_w)).share(m_textram);  // Text Layer
+	map(0xf000, 0xf7ff).rw(m_tilegen, FUNC(deco_bac06_device::pf_data_8bit_swap_r), FUNC(deco_bac06_device::pf_data_8bit_swap_w));  // Background Layer
+	map(0xf800, 0xf83f).rw(m_tilegen, FUNC(deco_bac06_device::pf_colscroll_8bit_swap_r), FUNC(deco_bac06_device::pf_colscroll_8bit_swap_w));
 	map(0xf840, 0xffff).ram();
 }
 
@@ -166,6 +166,7 @@ void thedeep_state::mcu_p1_w(uint8_t data)
 	membank("bank1")->set_entry((data >> 1) & 0x03);
 
 	flip_screen_set(!BIT(data, 0));
+	m_tilegen->set_flip_screen(!BIT(data, 0));
 	m_spritegen->set_flip_screen(!BIT(data, 0));
 }
 
@@ -370,6 +371,11 @@ void thedeep_state::thedeep(machine_config &config)
 
 	DECO_MXC06(config, m_spritegen, 0);
 
+	DECO_BAC06(config, m_tilegen, 0);
+	m_tilegen->set_gfx_region_wide(1, 1, 0);
+	m_tilegen->set_gfxdecode_tag(m_gfxdecode);
+	m_tilegen->set_thedeep_kludge();  // TODO: this game wants TILE_FLIPX always set. Investigate why.
+
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
@@ -389,24 +395,6 @@ void thedeep_state::thedeep(machine_config &config)
 
 ***************************************************************************/
 
-/***************************************************************************
-
-Here are the proms for The Deep!
-NOTE: This game is Vertical.
-I couldn't test this board so I don't know the manufacturer, sorry.
-1 Z80
-1 R6502
-1 YM 2203
-1 OSC 12 Mhz
-1 OSC 8 Mhz
-1 MPU 8751 (which is read-protected)
-
-If you need more info or if this package doesn't
-Work, mail me.
-
-..............CaBBe!...................................
-
-***************************************************************************/
 
 ROM_START( thedeep )
 	ROM_REGION( 0x20000, "maincpu", 0 )     /* Z80 Code */
@@ -472,5 +460,5 @@ ROM_START( rundeep )
 	ROM_LOAD( "fi-3", 0x400, 0x200, CRC(f61a9686) SHA1(24082f60b72268d240ceca6999bdf18872625cd2) )
 ROM_END
 
-GAME( 1987, thedeep, 0,       thedeep, thedeep, thedeep_state, empty_init, ROT270, "Wood Place Inc.", "The Deep (Japan)", MACHINE_SUPPORTS_SAVE )
-GAME( 1988, rundeep, thedeep, thedeep, thedeep, thedeep_state, empty_init, ROT270, "bootleg (Cream)", "Run Deep",         MACHINE_SUPPORTS_SAVE )
+GAME( 1987, thedeep, 0,       thedeep, thedeep, thedeep_state, empty_init, ROT270, "Woodplace Inc.", "The Deep (Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, rundeep, thedeep, thedeep, thedeep, thedeep_state, empty_init, ROT270, "Cream Co, Ltd.", "Run Deep",         MACHINE_SUPPORTS_SAVE )

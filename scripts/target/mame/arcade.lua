@@ -447,6 +447,7 @@ MACHINES["DS1205"] = true
 MACHINES["DS1302"] = true
 --MACHINES["DS1315"] = true
 --MACHINES["DS1386"] = true
+MACHINES["DS17X85"] = true
 MACHINES["DS1994"] = true
 MACHINES["DS2401"] = true
 MACHINES["DS2404"] = true
@@ -4843,6 +4844,7 @@ files {
 	MAME_DIR .. "src/mame/audio/polyplay.cpp",
 	MAME_DIR .. "src/mame/video/polyplay.cpp",
 	MAME_DIR .. "src/mame/drivers/poker72.cpp",
+	MAME_DIR .. "src/mame/drivers/pokerout.cpp",
 	MAME_DIR .. "src/mame/drivers/potgoldu.cpp",
 	MAME_DIR .. "src/mame/drivers/proconn.cpp",
 	MAME_DIR .. "src/mame/drivers/pse.cpp",

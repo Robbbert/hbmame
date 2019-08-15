@@ -8,6 +8,7 @@
 
 New Games
 ---------------------------------
+- [bbugtest1]         Cinematic Ram Test Rom
 - [captcomms61]       Captain Commando (Elite Version 2019-05-13)
 - [captcomms62]       Captain Commando (Nightmare 2019-06-06)
 - [captcomms63]       Captain Commando (Shape Shifting Version 2019-05-05)
@@ -36,6 +37,9 @@ New Games
 - [tk2h143]           Tenchi wo Kurau II (Daren Fighting Edition 2019-08-02)
 - [tk2h144]           Tenchi wo Kurau II (Dragon Edition 2019-07-14)
 - [uccopsjs01]        Undercover Cops (Edition Enhanced 2019-07-22)
+- [warrior4j1]        Warrior (4 joysticks, version 1)
+- [warrior4j2]        Warrior (4 joysticks, version 2)
+
 
 
 
