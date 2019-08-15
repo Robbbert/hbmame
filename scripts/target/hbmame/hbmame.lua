@@ -946,6 +946,8 @@ files {
 	MAME_DIR .. "src/mame/machine/taitosj.cpp",
 	MAME_DIR .. "src/mame/video/taitosj.cpp",
 	MAME_DIR .. "src/mame/audio/taito_zm.cpp", -- zn
+	MAME_DIR .. "src/hbmame/drivers/warriorb.cpp",
+	MAME_DIR .. "src/mame/video/warriorb.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "technos")
