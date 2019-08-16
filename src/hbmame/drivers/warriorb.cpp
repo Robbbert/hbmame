@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/warriorb.cpp"
 
+// This set came from something called "Darius Cozmic Collection"
 ROM_START( sagaiav2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c07_44v2.74", 0x00000, 0x20000, CRC(62e0c736) SHA1(86973c4260143e9f1d0d03605487607c6d0c569f) )
@@ -40,5 +41,5 @@ ROM_START( sagaiav2 )
 	ROM_LOAD( "c07-14.38", 0x00000, 0x00400, CRC(baf2a193) SHA1(b7f103b5f5aab0702dd21fd7e3a82261ae1760e9) )
 ROM_END
 
-GAME( 1989, sagaiav2, 0, darius2d, sagaia,   warriorb_state, empty_init, ROT0,   "Taito Corporation Japan", "Sagaia (dual screen) (V2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+GAME( 2018, sagaiav2, 0, darius2d, sagaia,   warriorb_state, empty_init, ROT0,   "Taito Corporation Japan", "Sagaia (dual screen) (V2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
 
