@@ -15318,6 +15318,7 @@ ktopgun                         // Konami
 merrycook                       // Elektronika
 nummunch                        // VTech
 nupogodi                        // Elektronika
+spacebridge                     // Elektronika
 taddams                         // Tiger
 taltbeast                       // Tiger
 tapollo13                       // Tiger
@@ -35989,6 +35990,10 @@ trvhanga                        // (c) 1984 SMS MFG CORP
 snes                            // Nintendo Super Nintendo NTSC
 snespal                         // Nintendo Super Nintendo PAL
 
+@source:snesb51.cpp
+mk3snes
+snes4sl
+
 @source:snesb.cpp
 denseib                         // bootleg
 denseib2                        // bootleg
@@ -35997,7 +36002,6 @@ ffight2b                        // bootleg
 iron                            // bootleg
 legendsb                        // bootleg
 kinstb                          // bootleg
-mk3snes                         // bootleg
 rushbets                        // bootleg
 sblast2b                        // bootleg
 venom                           // bootleg
