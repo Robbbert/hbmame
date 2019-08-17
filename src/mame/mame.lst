@@ -2764,6 +2764,9 @@ santam                          // Santa Maria
 shpinxii                        // Sphinx II
 splmastr                        // Spell Master
 tajmah                          // Tajmahal
+atrwild
+atricmon
+atrbonpk
 
 @source:att4425.cpp
 att4425                         //
@@ -22082,6 +22085,8 @@ mmagic                          // (c) 1979 Nintendo
 
 @source:mmd1.cpp
 mmd1                            //
+
+@source:mmd2.cpp
 mmd2                            //
 
 @source:mmm.cpp
