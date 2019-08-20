@@ -14606,6 +14606,7 @@ lucky8g                         // (c) 1989 Wing Co. Ltd
 lucky8h                         // 1991, hack
 lucky8i                         // 199?, Eagle, licensed by Wing
 lucky8j                         // 199?, hack
+lucky8k                         // (c) 1989 Wing. With CPU NEC D315-5136
 luckybar                        // unknown
 luckylad                        // (c) 1985 Wing Co. Ltd
 magodds                         // 198? (c) Micro Manufacturing Ltd.
@@ -16234,6 +16235,7 @@ wfortune                        // (c) 1989 GameTek
 wfortunea                       // (c) 1989 GameTek
 
 @source:itgambl2.cpp
+btorneo                         // (c) 200? unknown
 cmagica                         // (c) 200? unknown
 granfrat                        // (c) 200? unknown
 mcard_h8                        // (c) 200? unknown
@@ -34199,6 +34201,9 @@ ccdelta1                        //
 risc2500                        //
 montreux                        //
 
+@source:saitek_ssystem3.cpp
+ssystem3                        // Chess Champion Super System III / MK III
+
 @source:saitek_stratos.cpp
 stratos
 stratosa
@@ -36487,9 +36492,6 @@ vasara                          // (c) 2000 Visco
 vasara2                         // (c) 2001 Visco
 vasara2a                        // (c) 2001 Visco
 
-@source:ssystem3.cpp
-ssystem3                        // Chess Champion Super System III / MK III
-
 @source:st_mp100.cpp
 dracula                         //
 hothand                         //
@@ -37036,8 +37038,8 @@ tvlinkp                         //
 svmu                            // 1998 Sega Visual Memory Unit
 
 @source:swtpc.cpp
-swtpc                           //
-swtpcm                          //
+swtpc                           // MPA2 MPS Swtbug rom - FLEX
+swtpcm                          // MPA2 MPC Mikbug rom
 
 @source:swtpc09.cpp
 swtpc09                         // S09, DMF2 Floppy SBUG rom - FLEX

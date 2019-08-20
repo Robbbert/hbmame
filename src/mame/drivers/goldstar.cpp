@@ -11760,14 +11760,13 @@ ROM_END
 
 
 /*
-  New Lucky 8 Lines Super Turbo.
-  (Hack).
+  New Lucky 8 Lines Super Turbo (Hack).
 
   Sticker of Impera Austria in the PCB.
 
   It takes 15 seconds for the nag, and extra 30 seconds to boot the game.
 
-  Needs proper DSW and lamps fix.
+  This set needs proper DIP switches and lamps.
 
 */
 ROM_START( lucky8h )
@@ -11831,7 +11830,7 @@ ROM_START( lucky8i )
 	ROM_LOAD( "4.h6",   0x6000, 0x2000, CRC(9e939979) SHA1(c6e93df6465c076557ff5dccf650aff3a9064e0d) )
 	ROM_IGNORE(                 0x6000)  // identical quarters.... discarding three.
 
-	// neeed proper bipolar proms dumps...
+    // neeed proper bipolar proms dumps...
 	ROM_REGION( 0x200, "proms", 0 )
 	ROM_LOAD( "n82s129an.g13", 0x0000, 0x0100, BAD_DUMP CRC(23e81049) SHA1(78071dae70fad870e972d944642fb3a2374be5e4) )
 	ROM_LOAD( "n82s129an.g14", 0x0100, 0x0100, BAD_DUMP CRC(526cf9d3) SHA1(eb779d70f2507d0f26d225ac8f5de8f2243599ca) )
@@ -11848,19 +11847,31 @@ ROM_END
 
 
 /*
-   New Lucky 8 Lines Crown Turbo (hack)
+  New Lucky 8 Lines Crown Turbo (hack)
 
-   It takes 15 seconds for the nag, and extra 30 seconds to boot the game.
+  It takes 15 seconds for the nag, and extra 30 seconds to boot the game.
+
+  The program has a nasty protection that checks a value mirrored
+  from $1249 to $D249. If this fails, just reset the machine.
+  This routine is used when BET, and other critical things.
+
+  3831: ld   a,($D249)
+  3834: cp   $4F
+  3836: jp   nz,$0000
+
+  This set needs proper DIP switches and lamps.
 
 */
 ROM_START( lucky8j )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pr.b14",  0x0000, 0x8000, CRC(245ab833) SHA1(0e73c7a4cd387ae71752b422c537f9b7e5dbb770) )
+	ROM_RELOAD(          0xc000, 0x2000)
+	ROM_IGNORE(                  0x6000)
 
-	ROM_REGION( 0x18000, "gfx1", 0 )
-	ROM_LOAD( "5.h7",  0x00000, 0x8000, BAD_DUMP CRC(994a9894) SHA1(4063c2c5e111f24a85df1665fd3f9fbb20fda4da) )  // the original one is missing the first 0x4000
+	ROM_REGION( 0x18000, "gfx1", 0 )  // the original devices 5 & 7 are half the size, and have only the second half of the required data.
+	ROM_LOAD( "5.h7",  0x00000, 0x8000, BAD_DUMP CRC(994a9894) SHA1(4063c2c5e111f24a85df1665fd3f9fbb20fda4da) )  // from a gfx match set
 	ROM_LOAD( "6.h8",  0x08000, 0x8000, CRC(80888d64) SHA1(91ec96709df77c534d381e391839984a88aeb1e0) )
-	ROM_LOAD( "7.h10", 0x10000, 0x8000, BAD_DUMP CRC(255d5860) SHA1(f171fde3d542594132b38b44300f750d45fb67a2) )  // the original one is missing the first 0x4000
+	ROM_LOAD( "7.h10", 0x10000, 0x8000, BAD_DUMP CRC(255d5860) SHA1(f171fde3d542594132b38b44300f750d45fb67a2) )  // from a gfx match set
 
 	ROM_REGION( 0x8000, "gfx2", 0 )
 	ROM_LOAD( "1.h1",  0x0000, 0x2000, CRC(275265ee) SHA1(7075dbe2d59b8cae4f355bcecfbbb9853fe9ca75) )
@@ -11880,6 +11891,49 @@ ROM_START( lucky8j )
 
 	ROM_REGION( 0x20, "unkprom2", 0 )
 	ROM_LOAD( "82s123.d12", 0x0000, 0x0020, CRC(6df3f972) SHA1(0096a7f7452b70cac6c0752cb62e24b643015b5c) )
+ROM_END
+
+
+/*
+  New Lucky 8 Lines (encrypted).
+  Original of Wing.
+
+  Ths board has a custom Sega/NEC CPU (D315-5136)
+  instead of a regular Z80.
+
+  The custom CPU performs XOR masks and bitswaps relative to addressing
+  and involves M1 line for different encryption betweeen opcodes and data.
+  
+*/
+ROM_START( lucky8k )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "48.b12",   0x0000, 0x4000, CRC(d9fb41b4) SHA1(bf33d0a5e0167eb48b3ae00e7e4136cd57cf0a4d) )
+	ROM_LOAD( "49.b14",   0x4000, 0x4000, CRC(ef89f730) SHA1(20d28fde72ace10f476fd42131c76f2969d5b1e4) )
+
+	ROM_REGION( 0x18000, "gfx1", 0 )
+	ROM_LOAD( "5.h7",  0x00000, 0x8000, CRC(59026af3) SHA1(3d7f7e78968ca26275635aeaa0e994468a3da575) )
+	ROM_LOAD( "6.h8",  0x08000, 0x8000, CRC(67a073c1) SHA1(36194d57d0dc0601fa1fdf2e6806f11b2ea6da36) )
+	ROM_LOAD( "7.h10", 0x10000, 0x8000, CRC(c415b9d0) SHA1(fd558fe8a116c33bbd712a639224d041447a45c1) )
+
+	ROM_REGION( 0x8000, "gfx2", 0 )
+	ROM_LOAD( "1.h1",   0x0000, 0x2000, CRC(0452b3c5) SHA1(7d432247d14ac13712beba682e169054f664b81d) )
+	ROM_LOAD( "2.h3",   0x2000, 0x2000, CRC(5f812e65) SHA1(70d9ea82f9337936bf21f82b6961768d436f3a6f) )
+	ROM_LOAD( "3.h4",   0x4000, 0x2000, CRC(898b9ed5) SHA1(11b7d1cfcf425d00d086c74e0dbcb72068dda9fe) )
+	ROM_LOAD( "4.h5",   0x6000, 0x2000, CRC(4f7cfb35) SHA1(0617cf4419be00d9bacc78724089cb8af4104d68) )
+
+    // neeed proper bipolar proms dumps...
+	ROM_REGION( 0x200, "proms", 0 )
+	ROM_LOAD( "tbp24s10n.g13",  0x0000, 0x0100, BAD_DUMP CRC(23e81049) SHA1(78071dae70fad870e972d944642fb3a2374be5e4) )
+	ROM_LOAD( "tbp24s10n.g14",  0x0100, 0x0100, BAD_DUMP CRC(526cf9d3) SHA1(eb779d70f2507d0f26d225ac8f5de8f2243599ca) )
+
+	ROM_REGION( 0x40, "proms2", 0 )
+	ROM_LOAD( "tbp18s030n.d13", 0x0000, 0x0020, BAD_DUMP CRC(c6b41352) SHA1(d7c3b5aa32e4e456c9432a13bede1db6d62eb270) )
+
+	ROM_REGION( 0x100, "unkprom", 0 )
+	ROM_LOAD( "tbp24s10n.f3",   0x0000, 0x0100, BAD_DUMP CRC(bd48de71) SHA1(e4fa1e774af1499bc568be5b2deabb859d8c8172) )
+
+	ROM_REGION( 0x20, "unkprom2", 0 )
+	ROM_LOAD( "tbp18s030n.d12", 0x0000, 0x0020, BAD_DUMP CRC(6df3f972) SHA1(0096a7f7452b70cac6c0752cb62e24b643015b5c) )
 ROM_END
 
 
@@ -17258,6 +17312,7 @@ GAMEL( 1989, lucky8g,   lucky8,   lucky8,   lucky8,   wingco_state,   empty_init
 GAMEL( 1991, lucky8h,   lucky8,   lucky8,   lucky8,   wingco_state,   empty_init,     ROT0, "<unknown>",         "New Lucky 8 Lines Super Turbo (Hack)",                     0,                     layout_lucky8 )    // 2 control sets...
 GAMEL( 1989, lucky8i,   lucky8,   lucky8,   lucky8,   wingco_state,   empty_init,     ROT0, "Eagle/Wing",        "New Lucky 8 Lines (set 9, W-4, Eagle, licensed by Wing)",  0,                     layout_lucky8 )    // 2 control sets...
 GAMEL( 199?, lucky8j,   lucky8,   lucky8,   lucky8,   wingco_state,   empty_init,     ROT0, "<unknown>",         "New Lucky 8 Lines Crown Turbo (Hack)",                     MACHINE_NOT_WORKING,   layout_lucky8 )    // 2 control sets...
+GAMEL( 1989, lucky8k,   lucky8,   lucky8,   lucky8,   wingco_state,   empty_init,     ROT0, "Wing Co., Ltd.",    "New Lucky 8 Lines (set 10, W-4, encrypted NEC D315-5136)", MACHINE_NOT_WORKING,   layout_lucky8 )    // 2 control sets...
 GAMEL( 198?, ns8lines,  0,        lucky8,   lucky8b,  wingco_state,   empty_init,     ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (W-4)",              0,                     layout_lucky8p1 )  // only 1 control set...
 GAMEL( 1985, ns8linesa, ns8lines, lucky8,   lucky8b,  wingco_state,   empty_init,     ROT0, "Yamate (bootleg)",  "New Lucky 8 Lines / New Super 8 Lines (W-4, Lucky97 HW)",  0,                     layout_lucky8p1 )  // only 1 control set...
 GAMEL( 198?, ns8linew,  ns8lines, lucky8,   ns8linew, wingco_state,   empty_init,     ROT0, "<unknown>",         "New Lucky 8 Lines / New Super 8 Lines (F-5, Witch Bonus)", 0,                     layout_lucky8 )    // 2 control sets...
