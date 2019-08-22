@@ -8,6 +8,7 @@
 #include "machine/74259.h"
 #include "machine/watchdog.h"
 #include "sound/namco.h"
+#include "tilemap.h"
 #include "emupal.h"
 
 /*************************************************************************

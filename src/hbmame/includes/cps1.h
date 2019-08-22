@@ -16,6 +16,7 @@
 #include "machine/timekpr.h"
 #include "machine/timer.h"
 #include "cpu/m68000/m68000.h"
+#include "tilemap.h"
 #include "emupal.h"
 #include "screen.h"
 
