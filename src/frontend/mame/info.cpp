@@ -269,7 +269,7 @@ info_xml_creator::info_xml_creator(emu_options const &options, bool dtd)
 
 //-------------------------------------------------
 //  output - print the XML information for all
-//	known machines matching a pattern
+//  known machines matching a pattern
 //-------------------------------------------------
 
 void info_xml_creator::output(std::ostream &out, const std::vector<std::string> &patterns)
@@ -328,15 +328,15 @@ void info_xml_creator::output(std::ostream &out, const std::vector<std::string> 
 
 //-------------------------------------------------
 //  output - print the XML information for all
-//	known (and filtered) machines
+//  known (and filtered) machines
 //-------------------------------------------------
 
 void info_xml_creator::output(std::ostream &out, const std::function<bool(const char *shortname, bool &done)> &filter, bool include_devices)
 {
 	struct prepared_info
 	{
-		std::string		m_xml_snippet;
-		device_type_set	m_dev_set;
+		std::string     m_xml_snippet;
+		device_type_set m_dev_set;
 	};
 
 	// prepare a driver enumerator and the queue
@@ -400,7 +400,7 @@ void info_xml_creator::output(std::ostream &out, const std::function<bool(const 
 			// emit the XML
 			output_header_if_necessary(out);
 			out << pi.m_xml_snippet;
-			
+
 			// merge devices into devfilter, if appropriate
 			if (devfilter)
 			{
@@ -1860,21 +1860,22 @@ void output_images(std::ostream &out, device_t &device, const char *root_tag)
 
 			if (loadable)
 			{
-				const char *name = imagedev.instance_name().c_str();
-				const char *shortname = imagedev.brief_instance_name().c_str();
+				char const *const name = imagedev.instance_name().c_str();
+				char const *const shortname = imagedev.brief_instance_name().c_str();
 
 				out << "\t\t\t<instance";
 				out << util::string_format(" name=\"%s\"", normalize_string(name));
 				out << util::string_format(" briefname=\"%s\"", normalize_string(shortname));
 				out << "/>\n";
 
-				std::string extensions(imagedev.file_extensions());
-
-				char *ext = strtok((char *)extensions.c_str(), ",");
-				while (ext != nullptr)
+				char const *extensions(imagedev.file_extensions());
+				while (extensions)
 				{
-					out << util::string_format("\t\t\t<extension name=\"%s\"/>\n", normalize_string(ext));
-					ext = strtok(nullptr, ",");
+					char const *end(extensions);
+					while (*end && (',' != *end))
+						++end;
+					out << util::string_format("\t\t\t<extension name=\"%s\"/>\n", normalize_string(std::string(extensions, end).c_str()));
+					extensions = *end ? (end + 1) : nullptr;
 				}
 			}
 			out << "\t\t</device>\n";
