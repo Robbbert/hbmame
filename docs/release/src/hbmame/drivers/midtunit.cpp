@@ -441,3 +441,42 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
 GAME( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (Language Translation French Rev.2)", MACHINE_SUPPORTS_SAVE )
+
+
+ROM_START( nbajamtexxx )
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
+	ROM_RELOAD(             0x030000, 0x20000 )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "xxx_nba_jam_tournament.u12", 0x000000, 0x80000, CRC(dd0b81b1) SHA1(1ea938138e2267b30250de9a7f643ba624923204) )
+	ROM_LOAD( "xxx_nba_jam_tournament.u13", 0x080000, 0x80000, CRC(b42a0374) SHA1(6a565fc01b662d116db065172c057ee596b3a538) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "l4_nba_jam_tournament_game_rom_uj12.uj12", 0x00000, 0x80000, CRC(d7c21bc4) SHA1(e05f0299b955500df6a08b1c0b24b932a9cdfa6a) )
+	ROM_LOAD16_BYTE( "l4_nba_jam_tournament_game_rom_ug12.ug12", 0x00001, 0x80000, CRC(7ad49229) SHA1(e9ceedb0e620809d8a4d42087d806aa296a4cd59) )
+
+	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj19.uj19", 0x000003, 0x80000, CRC(8130a8a2) SHA1(f23f124024285d07d8cf822817b62e42c38b82db) )
+
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug16.ug16", 0x200000, 0x80000, CRC(c7ce74d0) SHA1(93861cd909e0f28ed112096d6f9fc57d0d31c57c) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj16.uj16", 0x200001, 0x80000, CRC(905ad88b) SHA1(24c336ccc0e2ac0ee96a34ad6fe4aa7464de0009) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug20.ug20", 0x200002, 0x80000, CRC(8a48728c) SHA1(3684099b4934b027336c319c77d9e0710b8c22dc) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj20.uj20", 0x200003, 0x80000, CRC(bf263d61) SHA1(b5b59e8df55f8030eff068c1d8b07dad8521bf5d) )
+
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug17.ug17", 0x400000, 0x80000, CRC(9401be62) SHA1(597413a8a1eb66a7ad89af2f548fa3062e5e8efb) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj17.uj17", 0x400001, 0x80000, CRC(8a852b9e) SHA1(604c7f4305887e9505320630027765ea76607c58) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug22.ug22", 0x400002, 0x80000, CRC(3b05133b) SHA1(f6067abb92b8751afe7352a4f1b1a22c9528002b) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj22.uj22", 0x400003, 0x80000, CRC(39791051) SHA1(7aa02500ddacd31fca04044a22a38f36452ca300) )
+
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug18.ug18", 0x600000, 0x80000, CRC(6fd08f57) SHA1(5b7031dffc88374c5bfdf3021aa01ec4e28d0631) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj18.uj18", 0x600001, 0x80000, CRC(4eb73c26) SHA1(693bf45f777da8e55b7bcd8699ea5bd711964941) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug23.ug23", 0x600002, 0x80000, CRC(854f73bc) SHA1(242cc8ce28711f6f0787524a1070eb4b0956e6ae) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj23.uj23", 0x600003, 0x80000, CRC(f8c30998) SHA1(33e2f982d74e9f3686b1f4a8172c49fb8b604cf5) )
+ROM_END
+
+GAME( 1994, nbajamtexxx,nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Midway", "NBA Jam TE (rev XXX)", MACHINE_SUPPORTS_SAVE )
+

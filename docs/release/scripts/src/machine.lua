@@ -51,14 +51,20 @@ files {
 	MAME_DIR .. "src/devices/imagedev/harddriv.h",
 --	MAME_DIR .. "src/devices/imagedev/mfmhd.cpp",
 --	MAME_DIR .. "src/devices/imagedev/mfmhd.h",
+--	MAME_DIR .. "src/devices/imagedev/microdrv.cpp",
+--	MAME_DIR .. "src/devices/imagedev/microdrv.h",
 --	MAME_DIR .. "src/devices/imagedev/midiin.cpp",
 --	MAME_DIR .. "src/devices/imagedev/midiin.h",
 --	MAME_DIR .. "src/devices/imagedev/midiout.cpp",
 --	MAME_DIR .. "src/devices/imagedev/midiout.h",
+--	MAME_DIR .. "src/devices/imagedev/picture.cpp",
+--	MAME_DIR .. "src/devices/imagedev/picture.h",
 --	MAME_DIR .. "src/devices/imagedev/printer.cpp",
 --	MAME_DIR .. "src/devices/imagedev/printer.h",
 --	MAME_DIR .. "src/devices/imagedev/snapquik.cpp",
 --	MAME_DIR .. "src/devices/imagedev/snapquik.h",
+--	MAME_DIR .. "src/devices/imagedev/wafadrive.cpp",
+--	MAME_DIR .. "src/devices/imagedev/wafadrive.h",
 }
 
 
@@ -983,6 +989,18 @@ if (MACHINES["DS1386"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/ds1386.cpp",
 		MAME_DIR .. "src/devices/machine/ds1386.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/ds17x85.h,MACHINES["DS17X85"] = true
+---------------------------------------------------
+
+if (MACHINES["DS17X85"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/ds17x85.cpp",
+		MAME_DIR .. "src/devices/machine/ds17x85.h",
 	}
 end
 
@@ -2244,6 +2262,18 @@ if (MACHINES["PCF8583"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/pcf8583.cpp",
 		MAME_DIR .. "src/devices/machine/pcf8583.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/pcf8584.h,MACHINES["PCF8584"] = true
+---------------------------------------------------
+
+if (MACHINES["PCF8584"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/pcf8584.cpp",
+		MAME_DIR .. "src/devices/machine/pcf8584.h",
 	}
 end
 
@@ -4092,5 +4122,17 @@ if (MACHINES["WTL3132"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/wtl3132.cpp",
 		MAME_DIR .. "src/devices/machine/wtl3132.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/vrender0.h,MACHINES["VRENDER0"] = true
+---------------------------------------------------
+
+if (MACHINES["VRENDER0"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/vrender0.cpp",
+		MAME_DIR .. "src/devices/machine/vrender0.h",
 	}
 end

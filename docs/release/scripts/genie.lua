@@ -77,6 +77,16 @@ function precompiledheaders()
 	end
 end
 
+function precompiledheaders_novs()
+	precompiledheaders()
+	if string.sub(_ACTION,1,4) == "vs20" then
+		--print("Disabling pch for Visual Studio")
+		flags {
+			"NoPCH"
+		}
+	end
+end
+
 function addprojectflags()
 	local version = str_to_version(_OPTIONS["gcc_version"])
 	if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "gcc") then
@@ -486,7 +496,6 @@ configuration { "vs20*" }
 		"/bigobj",
 	}
 	flags {
-		"NoPCH",
 		"ExtraWarnings",
 	}
 	if not _OPTIONS["NOWERROR"] then
@@ -1174,6 +1183,7 @@ configuration { "asmjs" }
 	}
 	linkoptions {
 		"-Wl,--start-group",
+		"-s ERROR_ON_MISSING_LIBRARIES=0"
 	}
 	archivesplit_size "20"
 
