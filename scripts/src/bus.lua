@@ -1676,6 +1676,8 @@ if (BUSES["S100"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/s100/s100.cpp",
 		MAME_DIR .. "src/devices/bus/s100/s100.h",
+		MAME_DIR .. "src/devices/bus/s100/am310.cpp",
+		MAME_DIR .. "src/devices/bus/s100/am310.h",
 		MAME_DIR .. "src/devices/bus/s100/dg640.cpp",
 		MAME_DIR .. "src/devices/bus/s100/dg640.h",
 		MAME_DIR .. "src/devices/bus/s100/dj2db.cpp",
@@ -2143,6 +2145,8 @@ if (BUSES["A2BUS"]~=null) then
 		MAME_DIR .. "src/devices/bus/a2bus/transwarp.h",
 		MAME_DIR .. "src/devices/bus/a2bus/4play.cpp",
 		MAME_DIR .. "src/devices/bus/a2bus/4play.h",
+		MAME_DIR .. "src/devices/bus/a2bus/computereyes2.cpp",
+		MAME_DIR .. "src/devices/bus/a2bus/computereyes2.h",
 	}
 end
 
@@ -3469,6 +3473,8 @@ if (BUSES["SPECTRUM"]~=null) then
 		MAME_DIR .. "src/devices/bus/spectrum/exp.h",
 		MAME_DIR .. "src/devices/bus/spectrum/beta.cpp",
 		MAME_DIR .. "src/devices/bus/spectrum/beta.h",
+		MAME_DIR .. "src/devices/bus/spectrum/beta128.cpp",
+		MAME_DIR .. "src/devices/bus/spectrum/beta128.h",
 		MAME_DIR .. "src/devices/bus/spectrum/intf1.cpp",
 		MAME_DIR .. "src/devices/bus/spectrum/intf1.h",
 		MAME_DIR .. "src/devices/bus/spectrum/intf2.cpp",

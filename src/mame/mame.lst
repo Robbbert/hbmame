@@ -10914,11 +10914,14 @@ wizzard                         //
 
 @source:crystal.cpp
 crysbios                        //
-crysking                        // 2001 Brezzasoft. Crystal of the kings
-donghaer                        //
-evosocc                         // 2001 Evoga. Evolution Soccer
-officeye                        //
-topbladv                        // 2002 Sonokong. Top Blade V
+crysking                        // 2001 Brezzasoft
+donghaer                        // 2001 Danbi
+evosocc                         // 2001 Evoga
+maldaiza                        //
+officeye                        // 2001 Danbi
+topbladv                        // 2002 Sonokong
+urachamu                        // 2002 GamToU
+wulybuly                        //
 
 @source:airraid.cpp
 airraid                         // (c) 1987 Seibu Kaihatsu
@@ -14250,6 +14253,8 @@ gjmovie                         // Genius Junior Movie (Germany)
 gjrstar                         // Genius Junior Redstar (Germany)
 gjrstar2                        // Genius Junior Redstar 2 (Germany)
 gjrstar3                        // Genius Junior Redstar 3 (Germany)
+gln                             // Genius Leader Notebook
+gls                             // Genius Leader Select
 pitagjr                         // Pitagorin Junior
 
 @source:genpc.cpp
@@ -31627,7 +31632,6 @@ gl4000                          // Genius Leader 4000 Quadro (Germany)
 gl4004                          // Genius Leader 4004 Quadro L (Germany)
 gl5000                          // Genius Leader 5000 (Germany)
 gl5005x                         // Genius Leader 5005X (Germany)
-gln                             // 199? Genius Leader Notebook
 glpn                            // Genius Leader Power Notebook (Germany)
 gmtt                            // 1998 Genius Master Table Top (Germany)
 lexipcm                         // LexiPC Mega 2000 (Germany)
@@ -33111,7 +33115,8 @@ powerinsa                       // (c) 1993 Atlus (bootleg of USA version)
 powerinsb                       // (c) 1993 Atlus (bootleg of USA version)
 powerinsc                       // (c) 1993 Atlus (bootleg of USA version)
 powerinsj                       // (c) 1993 Atlus (Japan)
-powerinsp                       // prototype
+powerinspj                      // prototype (USA)
+powerinspu                      // prototype (Japan)
 
 @source:powerstack.cpp
 powerstk                        // Motorola Powerstack II
@@ -38422,6 +38427,7 @@ othldrby                        // (c) 1995 Sunwise
 pipibibs                        // TP-025
 pipibibsa                       // TP-025
 pipibibsbl                      // (c) 1991 Ryouta Kikaku (bootleg)
+pipibibsbl2                     // bootleg
 pipibibsp                       // TP-025
 pwrkick                         // (c) 1994 Sunwise
 shippumd                        // (c) 1994 Raizing/8ing
