@@ -1369,7 +1369,7 @@ amidars01
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */
 fourplay
-galaxiab	/* unknown hack of Galaxian */
+galaxiabh	/* unknown hack of Galaxian */
 galaxkyo	/* unknown hack of Galaxian Part X */
 galaxni		/* Petaco bootleg of Galaxian Part X */
 galinvad	/* T-Bone hack of Galaxian */
@@ -5476,7 +5476,7 @@ pacgalu
 pacgent
 pacrab
 pacsnoop	/* Jerronimo */
-petshop
+petshops
 pheartb
 piranha2
 ramsnoop	/* Jerronimo */
@@ -6684,7 +6684,7 @@ baby2		/* T-Bone hack */
 baby3		/* T-Bone hack */
 baby4		/* T-Bone hack */
 brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
-bucaneer	/* PacMAME Hacks */
+bucaneerx	/* PacMAME Hacks */
 caterpil
 chtpac
 chtpac3d
@@ -7651,7 +7651,7 @@ martmasts01
 olds103ts01
 olds100s01
 olds100ass01
-//olds100ass02 //  Resource error
+olds100ass02 //  Resource error
 olds100ass03
 olds100ass04
 olds100ass05
@@ -7693,7 +7693,7 @@ olds100ass42
 olds100ass43
 olds100ass44
 olds100ass45
-//olds100ass46 //  Resource error
+olds100ass46 //  Resource error
 olds100ass47
 olds100ass48 //  bad gfx
 olds100ass49 //  bad gfx
@@ -7741,61 +7741,65 @@ olds100ass90 //  bad gfx
 olds100ass91
 olds100ass92 //  bad gfx
 olds100ass93 //  bad gfx
-//olds100ass94 //  resource error
-//olds100ass95 //  resource error
-//olds100ass96 //  resource error
+olds100ass94 //  resource error
+olds100ass95 //  resource error
+olds100ass96 //  resource error
 olds100ass97 //  bad gfx
 olds100ass98 //  bad gfx
 olds100ass99 //  bad gfx
 olds100ass100 //  bad gfx
 olds100ass101
 olds100ass102 //  bad gfx
-//olds100ass103 //  Unstable game in the emulator (ingame crash)
-//olds100ass104 //  Unstable game in the emulator (ingame crash)
-//olds100ass105 //  Unstable game in the emulator (ingame crash)
-//olds100ass106 //  Unstable game in the emulator (ingame crash)
-//olds100ass107 //  Unstable game in the emulator (ingame crash)
-//olds100ass108 //  Unstable game in the emulator (ingame crash)
-//olds100ass109 //  Unstable game in the emulator (ingame crash)
-//olds100ass110 //  Unstable game in the emulator (ingame crash)
-//olds100ass111 //  Unstable game in the emulator (ingame crash)
-//olds100ass112 //  Unstable game in the emulator (ingame crash)
+//olds100ass103 //  Not Working
+//olds100ass104 //  Not Working
+//olds100ass105 //  Not Working
+//olds100ass106 //  Not Working
+//olds100ass107 //  Not Working
+//olds100ass108 //  Not Working
+//olds100ass109 //  Not Working
+//olds100ass110 //  Not Working
+//olds100ass111 //  Not Working
+//olds100ass112 //  Not Working
 olds100ass113
 olds100ass114
 olds100ass115
-//olds100ass116 //  Unstable game in the emulator (ingame crash)
-//olds100ass117 //  Unstable game in the emulator (ingame crash)
-//olds100ass118 //  Unstable game in the emulator (ingame crash)
-//olds100ass119 //  Unstable game in the emulator (ingame crash)
+//olds100ass116 //  Not Working
+//olds100ass117 //  Not Working
+//olds100ass118 //  Not Working
+//olds100ass119 //  Not Working
 //olds100ass120 //  roms missing
 //olds100ass121 //  roms missing
 //olds100ass122 //  roms missing
 //olds100ass123 //  roms missing
 //olds100ass124 //  roms missing
 //olds100ass125 //  roms missing
-//olds100ass126 //  roms missing
-//olds100ass127 //  roms missing
-//olds100ass128 //  roms missing
-//olds100ass129 //  roms missing
-//olds100ass130 //  roms missing
-//olds100ass131 //  roms missing
-//olds100ass132 //  roms missing
-//olds100ass133 //  roms missing
-//olds100ass134 //  roms missing
-//olds100ass135 //  roms missing
-//olds100ass136 //  roms missing
-//olds100ass137 //  roms missing
-//olds100ass138 //  roms missing
-//olds100ass139 //  roms missing
-//olds100ass140 //  roms missing
-//olds100ass141 //  roms missing
-//olds100ass142 //  roms missing
-//olds100ass143 //  roms missing
-//olds100ass144 //  roms missing
-//olds100ass145 //  roms missing
-//olds100ass146 //  roms missing
-//olds100ass147 //  roms missing
-//olds100ass148 //  roms missing
+olds100ass126
+olds100ass127
+olds100ass128
+olds100ass129
+olds100ass130
+olds100ass131
+//olds100ass132 //  Not Working
+olds100ass133
+olds100ass134
+olds100ass135
+olds100ass136 
+//olds100ass137 //  Not Working
+olds100ass138
+//olds100ass139 //  Not Working
+olds100ass140
+olds100ass141
+olds100ass142
+olds100ass143
+//olds100ass144 //  Not Working
+//olds100ass145 //  Not Working
+olds100ass146
+olds100ass147
+olds100ass148
+olds100ass149
+olds100ass150
+olds100ass151
+olds100ass152
 oldsplus01
 oldsplus02
 oldsplus03

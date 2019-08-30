@@ -681,7 +681,7 @@ ROM_START( brakman )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( bucaneer )
+ROM_START( bucaneerx )
 	ROM_REGION( 0x10000, "maincpu", 0 )	
 	ROM_LOAD( "puckmanb.6e",  0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
 	ROM_LOAD( "puckmanb.6f",  0x1000, 0x1000, CRC(39d1fc83) SHA1(326dbbf94c6fa2e96613dedb53702f8832b47d59) )
@@ -3521,7 +3521,7 @@ HACK( 1982, joyman,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT9
 HACK( 1980, newpuc2,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "hack", "Newpuc2", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, newpuc2b, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "hack", "Newpuc2 (set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, newpuckx, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "hack", "New Puck-X", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, pacheart, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "hack", "Pacman (Hearts)", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, pacheart, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "hack", "Pacman ((Heart/Edition hack))", MACHINE_SUPPORTS_SAVE ) //The roms of the pacman system have the same name.
 HACK( 1980, pacman,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Namco] (Midway license)", "Pacman (Midway)", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, pacmanf,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Namco] (Midway license)", "Pacman (Midway, with speedup hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, pacmod,   puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "[Namco] (Midway license)", "Pacman (Midway, harder)", MACHINE_SUPPORTS_SAVE )
@@ -3631,7 +3631,7 @@ HACK( 1981, puckmodx, puckmanx, pacmanx,  pacman,   pacman_state, 0,        ROT9
 /* Misc Pacman Hacks */
 
 HACK( 2001, abortman, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Paul Copeland",  "Abortman", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, bucaneer, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Bucco", "Buccaneer", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, bucaneerx, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Bucco", "Buccaneer", MACHINE_SUPPORTS_SAVE ) //The roms of the aristmk6 system have the same name.
 HACK( 2000, caterpil, puckman,  pacman,   mspacman, pacman_state, 0,        ROT90, "Phi", "Caterpillar", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, chtpac,   puckman,  pacman,   pacman0,  pacman_state, 0,        ROT90, "[Midway]", "Pacman [c]", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, chtpman2, puckman,  pacman,   pacman0,  pacman_state, 0,        ROT90, "[Namco]", "New Puck2 [c]", MACHINE_SUPPORTS_SAVE )
