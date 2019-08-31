@@ -842,6 +842,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
 	MAME_DIR .. "src/mame/machine/stvprot.cpp",
+	MAME_DIR .. "src/mame/machine/segabill.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")
