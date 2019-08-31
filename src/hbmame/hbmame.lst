@@ -7698,8 +7698,8 @@ olds100ass47 // opcode 1111 at cliff in attract mode
 olds100ass48 //  bad gfx
 olds100ass49 //  bad gfx
 olds100ass50
-olds100ass51 // roms missing
-olds100ass52 // roms missing
+olds100ass51
+olds100ass52
 olds100ass53 // opcode 1111 at cliff in attract mode
 olds100ass54 // opcode 1111 at cliff in attract mode
 olds100ass55 // opcode 1111 at cliff in attract mode
@@ -7778,26 +7778,26 @@ olds100ass127
 olds100ass128
 olds100ass129
 olds100ass130
-olds100ass131
-//olds100ass132 //  Not Working
+olds100ass131 // opcode 1111 at cliff in attract mode
+//olds100ass132 //  Not Working, roms missing
 olds100ass133
 olds100ass134
 olds100ass135
-olds100ass136 
-//olds100ass137 //  Not Working
+olds100ass136 // opcode 1111 at cliff in attract mode
+//olds100ass137 //  Not Working, roms missing
 olds100ass138
-//olds100ass139 //  Not Working
+//olds100ass139 //  Not Working, roms missing
 olds100ass140
-olds100ass141
+olds100ass141 // opcode 1111 at cliff in attract mode
 olds100ass142
-olds100ass143
-//olds100ass144 //  Not Working
-//olds100ass145 //  Not Working
+olds100ass143 // opcode 1111 at cliff in attract mode
+//olds100ass144 //  Not Working, roms missing
+//olds100ass145 //  Not Working, roms missing
 olds100ass146
 olds100ass147
 olds100ass148
-olds100ass149
-olds100ass150
+//olds100ass149 // roms missing
+olds100ass150 // opcode 1111 at cliff in attract mode
 olds100ass151
 olds100ass152
 oldsplus01
