@@ -454,7 +454,30 @@ ROM_START( kof94y ) // Hack Boss By Ydmis
 	ROM_LOAD16_BYTE( "055.c8", 0xc00001, 0x200000, CRC(fe0a235d) SHA1(a45c66836e4e3c77dfef9d4c6cc422cb59169149) )
 ROM_END
 
+ROM_START( kof94cg2 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "055cg2.p1", 0x100000, 0x100000, CRC(2c769afd) SHA1(7cd005da089dd1d22a1f75bd73fcfae431c2d39f) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
 
+	NEO_SFIX_128K( "055.s1", CRC(825976c1) SHA1(cb6a70bdd95d449d25196ca269b621c362db6743) )
+
+	NEO_BIOS_AUDIO_128K( "055.m1", CRC(f6e77cf5) SHA1(292a3e3a4918ffe72bd1c41acb927b91844e035e) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "055.v1", 0x000000, 0x200000, CRC(8889596d) SHA1(c9ce713b720511438dbd3fe3bcc7c246f475c6a2) )
+	ROM_LOAD( "055.v2", 0x200000, 0x200000, CRC(25022b27) SHA1(2b040a831c3c92ac6e4719de38009a0d55b64f6b) )
+	ROM_LOAD( "055.v3", 0x400000, 0x200000, CRC(83cf32c0) SHA1(34a31a37eb10945b5169e96321bcea06eec33a00) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "055.c1", 0x000000, 0x200000, CRC(b96ef460) SHA1(e52f5303c17b50ce165c008be2837336369c110b) )
+	ROM_LOAD16_BYTE( "055.c2", 0x000001, 0x200000, CRC(15e096a7) SHA1(237c2a3d059de00bfca66e0016ed325d7a32bfec) )
+	ROM_LOAD16_BYTE( "055.c3", 0x400000, 0x200000, CRC(54f66254) SHA1(c594384bcd8b03beb8c595591505fecc44b185ac) )
+	ROM_LOAD16_BYTE( "055.c4", 0x400001, 0x200000, CRC(0b01765f) SHA1(ec1fdcc944611408367bf5023d4ebe7edd9dfa88) )
+	ROM_LOAD16_BYTE( "055.c5", 0x800000, 0x200000, CRC(ee759363) SHA1(8a5621c1b1f8267b9b9b6a14ab4944de542e1945) )
+	ROM_LOAD16_BYTE( "055.c6", 0x800001, 0x200000, CRC(498da52c) SHA1(1e6e6202ee053a5261db889177ce3a087e078bda) )
+	ROM_LOAD16_BYTE( "055.c7", 0xc00000, 0x200000, CRC(62f66888) SHA1(ac91a0eab0753bee175ad40213a4ae5d38ed5b87) )
+	ROM_LOAD16_BYTE( "055.c8", 0xc00001, 0x200000, CRC(fe0a235d) SHA1(a45c66836e4e3c77dfef9d4c6cc422cb59169149) )
+ROM_END
 
 HACK( 1994, kof94b,    kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'94 (Enable Hidden Characters Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, kof94bc,   kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "Kof'94 (Boss Colour Remix)", MACHINE_SUPPORTS_SAVE )
@@ -474,7 +497,7 @@ HACK( 1994, kof94rz,   kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,
 HACK( 1994, kof94seh,  kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Creamymami and Ydmis", "Kof'94 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Rugal
 HACK( 1994, kof94sri,  kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "IsmaMj", "Kof'94 (Super Ultra Remixed)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, kof94y,    kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'94 (Hidden Characters-Fix Boss's error)", MACHINE_SUPPORTS_SAVE )
-
+HACK( 1994, kof94cg2,  kof94,    neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Yumeji, Kawada7278",    "Kof'94 (Boss Hack - Color Change v2)", MACHINE_SUPPORTS_SAVE )
 
 // PSmame (c) gaston90 used with permission
 

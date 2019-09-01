@@ -4105,6 +4105,32 @@ ROM_START( kof98zy ) // multijet
 	ROM_LOAD16_BYTE( "242.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
+ROM_START( kof98evox ) // Evolution
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242evox.p1", 0x000000, 0x100000, CRC(f9a22b2f) SHA1(0da84d7151a5b00e50baf3ea8e0e5edf7b7f1f7c) )
+	ROM_LOAD16_WORD_SWAP( "242evo.p2", 0x100000, 0x400000, CRC(65547465) SHA1(6f3d8bc995e2ef195e682885c050715a274913e7) )
+
+	NEO_SFIX_128K( "242.s1", CRC(7f7b4805) SHA1(80ee6e5d0ece9c34ebca54b043a7cb33f9ff6b92) )
+
+	NEO_BIOS_AUDIO_256K( "242.m1", CRC(4ef7016b) SHA1(4182235e963bd70d398a79abeb54ab4d62887c48) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242.c1", 0x0000000, 0x800000, CRC(e564ecd6) SHA1(78f22787a204f26bae9b2b1c945ddbc27143352f) )
+	ROM_LOAD16_BYTE( "242.c2", 0x0000001, 0x800000, CRC(bd959b60) SHA1(2c97c59e77c9a3fe7d664e741d37944f3d56c10b) )
+	ROM_LOAD16_BYTE( "242.c3", 0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242.c4", 0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
+	ROM_LOAD16_BYTE( "242.c5", 0x2000000, 0x800000, CRC(9d10bed3) SHA1(4d44addc7c808649bfb03ec45fb9529da413adff) )
+	ROM_LOAD16_BYTE( "242.c6", 0x2000001, 0x800000, CRC(da07b6a2) SHA1(9c3f0da7cde1ffa8feca89efc88f07096e502acf) )
+	ROM_LOAD16_BYTE( "242sp.c7", 0x3000000, 0x800000, CRC(35839069) SHA1(830dcc84f91ef5498019604fecd9a8db1e3e22a9 ) )
+	ROM_LOAD16_BYTE( "242sp.c8", 0x3000001, 0x800000, CRC(9744d47f) SHA1(8a7057a99f6cbc9707f10feb64192716cf6df151 ) )
+ROM_END
+
 HACK( 1998, kof98aas,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ivex", "Kof'98 (Asamiya Athena 99 Style)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, kof98ae,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'98 (Anniversary Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2009, kof98ae0,  kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Kof'98 (Anniversary Edition)(set 0)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
@@ -4260,6 +4286,7 @@ HACK( 1998, kof98xi,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   
 HACK( 1998, kof98y,    kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'98 (Add Rugal)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98yh,   kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Ydmis", "Kof'98 (Add Rugal - Pow hack ABC in Extra Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98zy,   kof98,    neogeo_noslot, neogeo, neogeo_state, kof98,  ROT0, "Wanglins", "Kof'98 (Purple version)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, kof98evox, kof98,    neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "hack", "Kof'98 (Evolution, Orochi, Baozou Hack)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission

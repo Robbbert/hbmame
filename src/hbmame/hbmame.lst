@@ -1190,6 +1190,7 @@ jojobanc		//parent
 sfiiinc			//parent
 sfiii2nc	    //parent
 sfiii3nc		//parent
+jojoan
 jojobbh2
 jojobbss
 jojobpow
@@ -1483,6 +1484,7 @@ kof94rz
 kof94seh
 kof94sri
 kof94y
+kof94cg2
 kof94s01
 kof94s02
 kof94s03
@@ -2362,6 +2364,7 @@ kof98xi
 kof98y
 kof98yh
 kof98zy
+kof98evox
 kof98s01
 kof98s02
 kof98s03
@@ -2636,6 +2639,9 @@ kof99xpsp
 kof99xxx
 kof99y
 kof99yd
+kof99bs
+kof99yb
+kf99rev2
 kof99s01
 kof99s02
 kof99s03
@@ -2767,6 +2773,9 @@ kof2kyd
 kof2kyg
 kof2kz
 kof2kzs
+kof2000h
+kof2kbj
+kof2ky
 kof2000s01
 kof2000s02
 kof2000s03
@@ -2902,6 +2911,9 @@ kof2k1st
 kof2k1wh
 kof2k1z1
 kof2k1z2
+kf2k1hgm
+kof2k1bx
+kof2k1hb
 kof2001s01
 kof2001s02
 kof2001s03
@@ -3092,6 +3104,7 @@ kof2k2ul
 kof2k2ule
 kof2k2wuk // no sound in attract mode
 kof2k2xxx
+kof2k2bsx
 kof2002s01
 kof2002s02
 kof2002s03
@@ -3426,6 +3439,9 @@ kof2k3ps2
 kof2k3ps3
 kof2k3ryu
 kof2k3tc
+kf2k3zgf
+kof2k3gc
+kof2k3sc
 kof2003s02
 kof2003s03
 kof2003s04
@@ -3756,6 +3772,7 @@ stickydo			/* Marck's Hacks */
 
 @source:mslug.cpp
 msboot
+mslugeh
 mslugps01
 mslugps02
 mslugps03
@@ -3790,6 +3807,11 @@ mslugrmhp07
 mslugrmhp08
 
 @source:mslug2.cpp
+mslug2eh0
+mslug2eh1
+mslug2eh2
+mslug2eh3
+mslug2eh4
 mslug2fr
 mslug2fro
 mslug2sh
@@ -3883,6 +3905,32 @@ mslug2rmhbhv01
 mslug2rmhbhv02
 
 @source:mslug3.cpp
+mslug3e02
+mslug3e03
+mslug3e04
+mslug3e05
+mslug3e06
+mslug3e07
+mslug3e08
+mslug3e09
+mslug3e10
+mslug3e11
+mslug3e12
+mslug3e13
+mslug3e14
+mslug3e15
+mslug3e16
+mslug3e17
+mslug3e18
+mslug3e19
+mslug3e20
+mslug3e21
+mslug3e22
+mslg3eha
+mslg3ehs
+mslg3kho
+mslug3kh
+mslug3xg
 mslug3d
 mslug3eb
 mslug3fr
@@ -4394,6 +4442,14 @@ mslug3rmf71
 mslug3rmf72
 
 @source:mslug4.cpp
+mslug4eh2
+mslug4eh3
+mslug4eh4
+mslug4eh5
+mslug4eh6
+mslug4eh
+mslug4kh
+mslug4xg
 mslug4d
 mslug4dh	/* Super D version */
 mslug4fr
@@ -5045,6 +5101,7 @@ mslugxsef
 mslugxp
 mslugxr
 mslugxst
+mslugxeh
 mslugxz01
 mslugxz02  //It does not work
 mslugxz04
@@ -5563,7 +5620,7 @@ b2b				// 071
 bakatono		// 036
 bangbead		// 259
 bjourney		// 022
-//blazstar		// 239  not needed
+blazstar		// 239
 breakers		// 230
 breakrev		// 245
 bstars			// 002
@@ -5586,7 +5643,7 @@ galaxyfg		// 078
 ganryu			// 252
 garou			// 253
 ghostlop		// 228
-//goalx3		// 209  not needed
+goalx3		    // 209
 gowcaizr		// 094
 gpilots			// 020
 //gururin		// 067  not needed
@@ -5611,7 +5668,7 @@ kof2003			// 271
 kf2k3pcb
 kof2k4se		// 365
 kotm			// 016
-//kotm2			// 039  not needed
+kotm2			// 039
 lastblad		// 234
 lastbld2		// 243
 lasthope		// 802
@@ -5640,7 +5697,7 @@ ncombat			// 009
 ncommand		// 050
 neobombe		// 093
 neocup98		// 244
-//neodrift		// 213  not needed
+neodrift		// 213
 //neomrdo		// 207  not needed
 ninjamas		// 217
 nitd			// 260
@@ -5653,7 +5710,7 @@ pnyaa			// 267
 //popbounc		// 237  not needed
 preisle2		// 255
 pspikes2		// 068  not needed
-//pulstar		// 089
+pulstar		// 089
 puzzledp		// 202
 puzzldpr		// 235
 //quizdais		// 023  not needed
@@ -5688,7 +5745,7 @@ spinmast		// 062
 ssideki			// 052
 //ssideki2		// 061  not needed
 //ssideki3		// 081  not needed
-//ssideki4		// 215  not needed
+ssideki4		// 215
 //stakwin		// 088  not needed
 //stakwin2		// 227  not needed
 strhoop			// 079
@@ -5698,9 +5755,9 @@ svc				// 269
 tophuntr		// 046
 tpgolf			// 003
 trally			// 038
-//turfmast		// 200  not needed
+turfmast		// 200
 twinspri		// 224
-//tws96			// 086  not needed
+tws96			// 086
 viewpoin		// 051
 //vliner		// 332  not needed
 wakuwak7		// 225
@@ -5891,6 +5948,7 @@ ninjamasehc
 ninjamasehyc
 ninjamasha
 ninjamashb
+ninjmsha
 nitdd
 nitdfr		/* Neo-Arc French Trans */
 nitdfro		/* Neo-Arc French Trans */
@@ -5899,6 +5957,7 @@ nitdpx
 nitdsp
 nitdsp1		// Spanish.Rev2
 nitdsp2
+nitdfro2
 pbcrazyb1
 pbcrazyb2
 pbobblenba
@@ -6003,6 +6062,34 @@ sdodgebs01
 sdodgebs02
 sdodgebs03
 wakuwak7s01
+2020bbe
+3countbe 
+aof3e
+blazstre
+goalx3e
+kabukikle
+kof95e
+kotm2e
+magdrp3e
+msluge
+neobombee
+neodrifte
+ninjamse
+pulstare
+ragnagrde
+rbffspece
+roboarme
+samsho3e
+samsho4e
+shocktre
+sonicw3e
+ssidek4e
+turfmste
+twinspre
+tws96e
+wakuwk7e
+whpe
+wjammere
 
 @source:ngdoubledr.cpp
 dbdehy
@@ -6036,6 +6123,7 @@ garoupfu
 garoupfp
 garoupx11
 garoupy1
+garoupeh
 garoups01
 garoups02
 garoups03
@@ -6275,6 +6363,7 @@ lastbld2s16
 lastbld2s17
 
 @source:ngrbff.cpp
+fatfur2b
 fatfury3b
 fatfury3bd
 fatfury3bh
@@ -6289,6 +6378,8 @@ rbffsb
 rbffseh
 rbffspy
 rbffsud
+rbffspbd
+rbffspbs
 rbff2b
 rbff2bh
 rbff2eh
@@ -6555,6 +6646,8 @@ svcsplus2016
 svcspryu
 svcstdse
 svcxlb
+svccpru
+svcpsv2
 svchs02
 svchs03
 svchs04
@@ -6648,6 +6741,7 @@ whpeho
 whphez
 whpsp
 whpss
+wh1bs
 wh2bs
 wh2ey
 wh2ja
@@ -7770,7 +7864,7 @@ olds100ass119 // opcode 1111 at cliff in attract mode
 //olds100ass120 //  roms missing
 //olds100ass121 //  roms missing
 //olds100ass122 //  roms missing
-//olds100ass123 //  roms missing
+olds100ass123
 //olds100ass124 //  roms missing
 //olds100ass125 //  roms missing
 olds100ass126
@@ -7796,10 +7890,19 @@ olds100ass145 //  Resource error
 olds100ass146
 olds100ass147
 olds100ass148
-//olds100ass149 // roms missing
+olds100ass149
 olds100ass150 // opcode 1111 at cliff in attract mode
 olds100ass151
 olds100ass152
+olds100ass153
+olds100ass154
+olds100ass155 // opcode 1111 at cliff in attract mode
+olds100ass156
+olds100ass157
+olds100ass158 // opcode 1111 at cliff in attract mode
+olds100ass159 // opcode 1111 at cliff in attract mode
+olds100ass160
+olds100ass161 // opcode 1111 at cliff in attract mode
 oldsplus01
 oldsplus02
 oldsplus03
@@ -8389,6 +8492,7 @@ coh1002m
 coh3002c
 doapp		//parent
 doapph01
+doappnud
 sfex 		//parent
 sfexs01
 sfex2 		//parent
@@ -8397,4 +8501,3 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-
