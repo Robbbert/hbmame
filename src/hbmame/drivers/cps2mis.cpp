@@ -373,7 +373,6 @@ ROM_START( halfway )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-
 ROM_START( mpangjd )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "mpnj_d.03a", 0x000000, 0x80000, CRC(dac63128) SHA1(e5ee8f6d698a28dbf54520473520e40efadf30e3) )
@@ -4237,6 +4236,38 @@ ROM_START( sfz2aljs08 )
 	ROM_LOAD( "sfz2alj.key",  0x00, 0x14, CRC(4c42320f) SHA1(0fabdab677416c5a8060526d997e6f80b26f9bb3) )
 ROM_END
 
+ROM_START( sfz2aljs09 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "szajs09.03", 0x000000, 0x80000, CRC(744f029a) SHA1(7359d9070a1f88db4caddcaf74a164a671b56c9a) )
+	ROM_LOAD16_WORD_SWAP( "sfzaldp2.04", 0x080000, 0x80000, CRC(b124800a) SHA1(560e708e1296ac3e7e6b74bee99a152a0d1f6894) )
+	ROM_LOAD16_WORD_SWAP( "szaj.05a", 0x100000, 0x80000, CRC(c88ebf88) SHA1(e37cf232fc70b9a3254dea99754e288232f04e25) )
+	ROM_LOAD16_WORD_SWAP( "szaj.06a", 0x180000, 0x80000, CRC(35ed5b7a) SHA1(b03cb92f594eb35fa374445f74930e9040a2baff) )
+	ROM_LOAD16_WORD_SWAP( "szaj.07a", 0x200000, 0x80000, CRC(975dcb3e) SHA1(a2ca8e5a768e49cce9e2137ec0dcba9337ed2ad5) )
+	ROM_LOAD16_WORD_SWAP( "szaj.08a", 0x280000, 0x80000, CRC(dc73f2d7) SHA1(09fa10e7d1ff5f0dac87a6cf3d66730e3ab9ad25) )
+
+	ROM_REGION( 0x1400000, "gfx", 0 )
+	ROMX_LOAD( "sza.13m",   0x0000000, 0x400000, CRC(4d1f1f22) SHA1(659fb4305bcf0cbbbbec97ede6e68a8323b13308) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.15m",   0x0000002, 0x400000, CRC(19cea680) SHA1(4cb88963a0fbcef191c8419b6379387c01b4c81e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.17m",   0x0000004, 0x400000, CRC(e01b4588) SHA1(c2936608fd75ff6cd5fa94c6d6d6f0c77c44a450) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.19m",   0x0000006, 0x400000, CRC(0feeda64) SHA1(f5b350601437bd94b70d97feb23d791df19da6b3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.14m",   0x1000000, 0x100000, CRC(0560c6aa) SHA1(f2bed3a8efef18052b51a7f0f6a888a18db813a1) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.16m",   0x1000002, 0x100000, CRC(ae940f87) SHA1(39ee26333abbe302ba76dced0196a2e6b3b1d02a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.18m",   0x1000004, 0x100000, CRC(4bc3c8bc) SHA1(6256963c515bf56f39b6e559afefd653ead56c54) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sza.20m",   0x1000006, 0x100000, CRC(39e674c0) SHA1(8e771a2d8c2accad0463bccd21d7b23af0c895a1) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "sza.01",   0x00000, 0x08000, CRC(1bc323cf) SHA1(83fbd6e9b327700dc9f1c59700b7385bc3705749) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "sza.02",   0x28000, 0x20000, CRC(ba6a5013) SHA1(7814f3e56b69529b9860dd61c3b1e8d700244b03) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "sza.11m",   0x000000, 0x200000, CRC(aa47a601) SHA1(a4d1ee89c84a3b9db06469bb66e85293b5aa9ac9) )
+	ROM_LOAD16_WORD_SWAP( "sza.12m",   0x200000, 0x200000, CRC(2237bc53) SHA1(96d5693047e4cf1ed10a8ee1905cea267a278e92) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "sfz2alj.key",  0x00, 0x14, CRC(4c42320f) SHA1(0fabdab677416c5a8060526d997e6f80b26f9bb3) )
+ROM_END
+
  /*********************
  Street Fighter Zero 3
 ************************/
@@ -5481,6 +5512,7 @@ HACK( 2007, sfz2aljs05, sfz2al,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2008, sfz2aljs06, sfz2al,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Street Fighter Zero 2 Alpha (Super Combo 2008-02-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, sfz2aljs07, sfz2al,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Pipi899", "Street Fighter Zero 2 Alpha (Dragon Edition v2.1 2009-04-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, sfz2aljs08, sfz2al,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Unknown", "Street Fighter Zero 2 Alpha (Dragon Fighter Enhanced Edition 2014-11-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, sfz2aljs09, sfz2al,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "MamePlus", "Street Fighter Zero 2 Alpha (Fatal Fury Chun-Li 2019-03-07)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero 3
 HACK( 1998, sfz3js01,   sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Street Fighter Zero 3 (Balrog Lifts The Scene Crawl Limit)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, sfz3js02,   sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Street Fighter Zero 3 (Command Change)", MACHINE_SUPPORTS_SAVE )
