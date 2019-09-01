@@ -74,6 +74,30 @@ ROM_START( fatfurspbt )
 	ROM_LOAD16_BYTE( "058.c6", 0x800001, 0x200000, CRC(8ff1f43d) SHA1(6180ceb5412a3e2e34e9513a3283b9f63087f747) )
 ROM_END
 
+ROM_START( fatfur2b )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "047b.p1", 0x000000, 0x80000, CRC(a94a8fa5) SHA1(313e40c50d761f509c9826f064a588738a1b64ec) )
+    ROM_LOAD16_WORD_SWAP( "047b.p2", 0x080000, 0x80000, CRC(2a9beac5) SHA1(61378f89d64fef4c172825694f83229c2ab1a7af) )
+
+	NEO_SFIX_128K( "047.s1", CRC(d7dbbf39) SHA1(29253e596f475ebd41a6e3bb53952e3a0ccd2eed) )
+
+	NEO_BIOS_AUDIO_128K( "047.m1", CRC(820b0ba7) SHA1(5708248d89446e49184eaadb52f7c61b2b6c13c5) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "047.v1", 0x000000, 0x200000, CRC(d9d00784) SHA1(f6a91eada8c23aa4518c4b82eeebca69f79d845c) )
+	ROM_LOAD( "047.v2", 0x200000, 0x200000, CRC(2c9a4b33) SHA1(d4a1c0951c02c8919b3ec32ed96933634ff9e54c) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "047.c1", 0x000000, 0x100000, CRC(f72a939e) SHA1(67fc398ec28061adca0d3be82bbe7297015800da) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "047.c2", 0x000001, 0x100000, CRC(05119a0d) SHA1(c2f100b73eb04f65b6ba6089d49aceb51b470ec6) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "047.c3", 0x200000, 0x100000, CRC(01e00738) SHA1(79654f24d777dd5eb68bafc3b8cb9db71d5822e2) )
+	ROM_CONTINUE( 0x600000, 0x100000 )
+	ROM_LOAD16_BYTE( "047.c4", 0x200001, 0x100000, CRC(9fe27432) SHA1(89d22d77ba8bc6d1f6c974195c34ad61b9010de7) )
+	ROM_CONTINUE( 0x600001, 0x100000 )
+ROM_END
+
 ROM_START( fatfurspeh ) /* Fatal Fury Special - (fatfspeh) - Enhance by Dodowang - (Can choose Ryo Sakazaki - works in AES/MVS mode) */
 	ROM_REGION( 0x180000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "058eh.p1",   0x000000, 0x100000, CRC(5da7db92) SHA1(755C90B1A722A844C0E518CA188D915317C5ABB0) )
@@ -365,6 +389,55 @@ ROM_START( rbffsud ) /* Real Bout Fatal Fury Special - Enhance by Dodowang - (Al
 	ROM_LOAD16_BYTE( "223.c8", 0x1800001, 0x400000, CRC(5ad62102) SHA1(e28cc9840caed2a1a8bd65a03bef05231071040c) )
 ROM_END
 
+ROM_START( rbffspbd )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "223bd.p1",  0x000000, 0x100000, CRC(04cb6d40) SHA1(97427ce56aeb3eaa851297a7beae125a34ca82c4) )
+	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
+
+	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
+
+	NEO_BIOS_AUDIO_128K( "223.m1", CRC(3fee46bf) SHA1(e750f85233953853618fcdff980a4721af1710a3) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "223.v1", 0x000000, 0x400000, CRC(76673869) SHA1(78a26afa29f73de552ffabdbf3fc4bf26be8ae9e) )
+	ROM_LOAD( "223.v2", 0x400000, 0x400000, CRC(7a275acd) SHA1(8afe87ce822614262b72a90b371fc79155ac0d0c) )
+	ROM_LOAD( "223.v3", 0x800000, 0x400000, CRC(5a797fd2) SHA1(94958e334f86d4d71059af8138f255b8d97a3b01) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "223.c1", 0x0000000, 0x400000, CRC(ebab05e2) SHA1(0d60a8b631e3a3dcfbfdd7779dee081c9548ec39) )
+	ROM_LOAD16_BYTE( "223.c2", 0x0000001, 0x400000, CRC(641868c3) SHA1(aa1aeb661842276b3326bfa4f1456f75bfecd52e) )
+	ROM_LOAD16_BYTE( "223.c3", 0x0800000, 0x400000, CRC(ca00191f) SHA1(96977febfcc513e1848d7029ff169cdf51104038) )
+	ROM_LOAD16_BYTE( "223.c4", 0x0800001, 0x400000, CRC(1f23d860) SHA1(e18df52f898a51074e07a0b8c6e75873e7cde35e) )
+	ROM_LOAD16_BYTE( "223.c5", 0x1000000, 0x400000, CRC(321e362c) SHA1(39bd189334278f266124c97c6f70995f6f171cea) )
+	ROM_LOAD16_BYTE( "223.c6", 0x1000001, 0x400000, CRC(d8fcef90) SHA1(bbccacb27f1e587bc144fe7ce68bd7b327ceaaee) )
+	ROM_LOAD16_BYTE( "223.c7", 0x1800000, 0x400000, CRC(bc80dd2d) SHA1(086f372015eede88c6c578595fe915e28a589d2f) )
+	ROM_LOAD16_BYTE( "223.c8", 0x1800001, 0x400000, CRC(5ad62102) SHA1(e28cc9840caed2a1a8bd65a03bef05231071040c) )
+ROM_END
+
+ROM_START( rbffspbs )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "223bs.p1",  0x000000, 0x100000, CRC(abf2a6e7) SHA1(59c5d253c66aad2b352ccf752d2a90f3ea229897) )
+	ROM_LOAD16_WORD_SWAP( "223.p2", 0x100000, 0x400000, CRC(addd8f08) SHA1(abaf5b86c8ec915c07ef2d83fce9ad03acaa4817) )
+
+	NEO_SFIX_128K( "223.s1", CRC(7ecd6e8c) SHA1(465455afc4d83cbb118142be4671b2539ffafd79) )
+
+	NEO_BIOS_AUDIO_128K( "223.m1", CRC(3fee46bf) SHA1(e750f85233953853618fcdff980a4721af1710a3) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "223.v1", 0x000000, 0x400000, CRC(76673869) SHA1(78a26afa29f73de552ffabdbf3fc4bf26be8ae9e) )
+	ROM_LOAD( "223.v2", 0x400000, 0x400000, CRC(7a275acd) SHA1(8afe87ce822614262b72a90b371fc79155ac0d0c) )
+	ROM_LOAD( "223.v3", 0x800000, 0x400000, CRC(5a797fd2) SHA1(94958e334f86d4d71059af8138f255b8d97a3b01) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "223.c1", 0x0000000, 0x400000, CRC(ebab05e2) SHA1(0d60a8b631e3a3dcfbfdd7779dee081c9548ec39) )
+	ROM_LOAD16_BYTE( "223.c2", 0x0000001, 0x400000, CRC(641868c3) SHA1(aa1aeb661842276b3326bfa4f1456f75bfecd52e) )
+	ROM_LOAD16_BYTE( "223.c3", 0x0800000, 0x400000, CRC(ca00191f) SHA1(96977febfcc513e1848d7029ff169cdf51104038) )
+	ROM_LOAD16_BYTE( "223.c4", 0x0800001, 0x400000, CRC(1f23d860) SHA1(e18df52f898a51074e07a0b8c6e75873e7cde35e) )
+	ROM_LOAD16_BYTE( "223.c5", 0x1000000, 0x400000, CRC(321e362c) SHA1(39bd189334278f266124c97c6f70995f6f171cea) )
+	ROM_LOAD16_BYTE( "223.c6", 0x1000001, 0x400000, CRC(d8fcef90) SHA1(bbccacb27f1e587bc144fe7ce68bd7b327ceaaee) )
+	ROM_LOAD16_BYTE( "223.c7", 0x1800000, 0x400000, CRC(bc80dd2d) SHA1(086f372015eede88c6c578595fe915e28a589d2f) )
+	ROM_LOAD16_BYTE( "223.c8", 0x1800001, 0x400000, CRC(5ad62102) SHA1(e28cc9840caed2a1a8bd65a03bef05231071040c) )
+ROM_END
 
 ROM_START( rbff2b ) /* Real Bout Fatal Fury 2 - Hack by Ydmis - (Can choose Alfred) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -587,6 +660,8 @@ HACK( 1993, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 1993, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Optional Hidden Character Second Edition)", MACHINE_SUPPORTS_SAVE )
 
+HACK( 1992, fatfur2b,      fatfury2, neogeo_noslot, neogeo, neogeo_state,        fatfury2,  ROT0, "hack", "Fatal Fury 2 (Boss, Yumeji [2ch] Hack)", MACHINE_SUPPORTS_SAVE )
+
 HACK( 1995, fatfury3b,     fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Fatal Fury 3 (Enable Hidden Characters v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fatfury3bd,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Enable Hidden Characters v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fatfury3bh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury 3 (Enable Hidden Characters v3 2015-03-13)", MACHINE_SUPPORTS_SAVE )
@@ -600,6 +675,8 @@ HACK( 1996, rbffsehd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 1996, rbffspy,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury Special (Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, rbffss07,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Unknown", "Real Bout Fatal Fury Special (Ultra Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, rbffsud,       rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "klaus1990", "Real Bout Fatal Fury Special (Optimize The Move V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffspbd,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special (Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, rbffspbs,      rbffspec, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Real Bout Fatal Fury Special (Boss, Yumeji [2ch] Hack)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 1998, rbff2b,        rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (Add Alfred)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, rbff2bh,       rbff2,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury 2 (Enable Hidden Characters & Boss V2)", MACHINE_SUPPORTS_SAVE )
