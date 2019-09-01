@@ -1184,6 +1184,9 @@ wrldtour                        //
 wrldtour2                       //
 wrldtour3                       //
 
+@source:am1000.cpp
+am1000                          // (c) 1988 Alpha Micro
+
 @source:amaticmg.cpp
 am_mg24                         // (c) 2000 Amatic
 am_mg24a                        // (c) 2000 Amatic
@@ -15329,6 +15332,7 @@ gnw_squish                      // Nintendo
 gnw_stennis                     // Nintendo
 gnw_tbridge                     // Nintendo
 gnw_tfish                       // Nintendo
+gnw_vermin                      // Nintendo
 gnw_zelda                       // Nintendo
 kbilly                          // Konami
 kblades                         // Konami
@@ -31050,6 +31054,7 @@ noki8890                        //
 
 @source:norautp.cpp
 bjpoker                         // (c) M. Kramer Inc.
+cdrawpkr                        // (c) 1984, Coinmaster
 cgip30cs                        // (c) 1999, CGI
 cgidjp                          // (c) 1999, CGI
 df_djpkr                        // (c) DellFern Ltd.
