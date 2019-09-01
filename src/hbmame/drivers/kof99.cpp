@@ -2926,7 +2926,7 @@ HACK( 1999, kof99y,     kof99,    neogeo_noslot, neogeo, neogeo_state,        ko
 HACK( 1999, kof99yd,    kof99,    neogeo_noslot, neogeo, neogeo_state,        kof99,   ROT0, "Ydmis", "Kof'99 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kof99bs,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "hack", "Kof'99 (Boss Like Dreamcast, FCHT Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kof99yb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Ydmis", "Kof'99 (proto)(2 Add Char set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, kf99rev2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "wesker", "Kof'99 (Revolution, Merry Christmas, Okuhoshi Hack Set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kf99rev2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "wesker", "Kof'99 (Revolution, Merry Christmas, Okuhoshi Hack Set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 /* Hacks of the Prototype */
 HACK( 1999, kof99evos,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof'99 (Evolution Balanced)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kof99hp,    neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Kof'99 (2 Add Char set 2)", MACHINE_SUPPORTS_SAVE )
