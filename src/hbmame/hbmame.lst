@@ -5832,6 +5832,7 @@ ngtd2
 ngtetris
 ngym2610
 nyan
+nyana
 pcmademo	// 2015 freem
 pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
@@ -7899,10 +7900,10 @@ olds100ass154
 olds100ass155 // opcode 1111 at cliff in attract mode
 olds100ass156
 olds100ass157
-olds100ass158 // opcode 1111 at cliff in attract mode
-olds100ass159 // opcode 1111 at cliff in attract mode
+olds100ass158 // illegal instruction
+olds100ass159 // illegal instruction
 olds100ass160
-olds100ass161 // opcode 1111 at cliff in attract mode
+olds100ass161 // illegal instruction
 oldsplus01
 oldsplus02
 oldsplus03
