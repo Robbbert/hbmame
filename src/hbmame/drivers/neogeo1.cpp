@@ -4622,6 +4622,7 @@ ROM_END
 ROM_START( 3countbe )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "043e.p1", 0x000000, 0x80000, CRC(eb2714c4) SHA1(ba5dbfee4160f27ff36060b777d64b93dc2e929c) )
+	ROM_LOAD16_WORD_SWAP( "043e.p2", 0x080000, 0x80000, CRC(5e764567) SHA1(3e34d051e8e1483073e4fcce0b688e50a1e713ce) )
 
 	NEO_SFIX_128K( "043.s1", CRC(c362d484) SHA1(a3c029292572842feabe9aa8c3372628fb63978d) )
 
@@ -4632,14 +4633,10 @@ ROM_START( 3countbe )
 	ROM_LOAD( "043.v2", 0x200000, 0x200000, CRC(c69a827b) SHA1(f5197ea87bb6573fa6aef3a1713c3679c58c1e74) )
 
 	ROM_REGION( 0x0800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "043e.c1", 0x000000, 0x100000, CRC(d290cc33) SHA1(f794e86da80930b273a134b82d39c6a8887f5228) )
-	ROM_CONTINUE( 0x400000, 0x100000 )
-	ROM_LOAD16_BYTE( "043e.c2", 0x000001, 0x100000, CRC(0b28095d) SHA1(9f8184bab13939d2ef80e007462ed083c6cdd46f) )
-	ROM_CONTINUE( 0x400001, 0x100000 )
-	ROM_LOAD16_BYTE( "043e.c3", 0x200000, 0x100000, CRC(bcc0cb35) SHA1(8bbee3201212be19ab53598c8663205cf27b6b4e) )
-	ROM_CONTINUE( 0x600000, 0x100000 )
-	ROM_LOAD16_BYTE( "043e.c4", 0x200001, 0x100000, CRC(4d1ff7b9) SHA1(469fda8aaca673cb25b6b3c5534d78a990140d38) )
-	ROM_CONTINUE( 0x600001, 0x100000 )
+	ROM_LOAD16_BYTE( "043e.c1", 0x0000000, 0x200000, CRC(d290cc33) SHA1(f794e86da80930b273a134b82d39c6a8887f5228) )
+	ROM_LOAD16_BYTE( "043e.c2", 0x0000001, 0x200000, CRC(0b28095d) SHA1(9f8184bab13939d2ef80e007462ed083c6cdd46f) )
+	ROM_LOAD16_BYTE( "043e.c3", 0x0400000, 0x200000, CRC(bcc0cb35) SHA1(8bbee3201212be19ab53598c8663205cf27b6b4e) )
+	ROM_LOAD16_BYTE( "043e.c4", 0x0400001, 0x200000, CRC(4d1ff7b9) SHA1(469fda8aaca673cb25b6b3c5534d78a990140d38) )
 ROM_END
 
 ROM_START( aof3e )
@@ -5216,7 +5213,7 @@ ROM_START( wjammere )
 ROM_END
 
 HACK( 1991, 2020bbe,     2020bb,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK / Pallas", "2020 Super Baseball (Earlier)", MACHINE_SUPPORTS_SAVE )
-HACK( 1993, 3countbe,    3countb,  neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex (Earlier)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1993, 3countbe,    3countb,  neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex (Earlier)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, aof3e,       aof3,     neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden (Earlier)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1998, blazstre,    blazstar, neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Yumekobo", "Blazing Star (Earlier)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1995, goalx3e,     goalx3,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Visco", "Goal! Goal! Goal! (Earlier)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
