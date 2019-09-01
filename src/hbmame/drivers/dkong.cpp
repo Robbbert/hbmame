@@ -476,10 +476,10 @@ ROM_END
 
 ROM_START( dkongrev )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "dkongrev.bin",  0x0000, 0x1000, CRC(ee02057e) SHA1(4d035ed48d8ff6f602cc8892033c28a784242787) )
-	ROM_LOAD( "dkongrev.bin",  0x1000, 0x1000, CRC(e6fabd0f) SHA1(53782655b5cbdeb78abff9a5194467c82ff8f48e) )
-	ROM_LOAD( "dkongrev.bin",  0x2000, 0x1000, CRC(31c5bea3) SHA1(d92c86ef55c09d9e038551f8c69c7777fd71c11a) )
-	ROM_LOAD( "dkongrev.bin",  0x3000, 0x1000, CRC(c7d04ef3) SHA1(33224c6c869a898212a4b3b5f56bd80b3dbd4bac) )
+	ROM_LOAD( "dkongrev.5et",  0x0000, 0x1000, CRC(ee02057e) SHA1(4d035ed48d8ff6f602cc8892033c28a784242787) )
+	ROM_LOAD( "dkongrev.5ct",  0x1000, 0x1000, CRC(e6fabd0f) SHA1(53782655b5cbdeb78abff9a5194467c82ff8f48e) )
+	ROM_LOAD( "dkongrev.5bt",  0x2000, 0x1000, CRC(31c5bea3) SHA1(d92c86ef55c09d9e038551f8c69c7777fd71c11a) )
+	ROM_LOAD( "dkongrev.5at",  0x3000, 0x1000, CRC(c7d04ef3) SHA1(33224c6c869a898212a4b3b5f56bd80b3dbd4bac) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "s_3i_b.bin",   0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )

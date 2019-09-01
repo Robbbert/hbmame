@@ -1770,9 +1770,9 @@ ROM_START( ninjamashb )
 	ROM_LOAD16_BYTE( "217.c8", 0x1800001, 0x400000, CRC(a085bb61) SHA1(6a3e9e6ba96072b8849b407f2b24103dc0852259) )
 ROM_END
 
-ROM_START( ninjmsha )
+ROM_START( ninjamashc )
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "217ha.p1",  0x000000, 0x100000, CRC(f26190b4) SHA1(de1cc3a2adac78a43bb065e873596b584d13b375) )
+	ROM_LOAD16_WORD_SWAP( "217hc.p1",  0x000000, 0x100000, CRC(f26190b4) SHA1(de1cc3a2adac78a43bb065e873596b584d13b375) )
 	ROM_LOAD16_WORD_SWAP( "217.p2", 0x100000, 0x200000, CRC(191fca88) SHA1(e318e5931704779bbe461719a5eeeba89bd83a5d) )
 
 	NEO_SFIX_128K( "217.s1", CRC(8ff782f0) SHA1(90099c154357042ba658d4ef6abe4d9335bb7172) )
@@ -3040,7 +3040,7 @@ HACK( 1996, ninjamasehc,   ninjamas, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 1996, ninjamasehyc,  ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami[EGCG] and Ydmis", "Ninja Master's (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, ninjamasha,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ninjamashb,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Happy Batter Edition 2009-09-09)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, ninjmsha,      ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Plus 25/12/2008)", MACHINE_SUPPORTS_SAVE )
+HACK( 1996, ninjamashc,    ninjamas, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "007325", "Ninja Master's (Plus 2008-12-25)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2000, nitdd,         nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Eleven / Gavaking", "Nightmare in the Dark (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, nitdfr,        nitd,     neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (Translation French V1a)", MACHINE_SUPPORTS_SAVE )  // based on decrypted C
@@ -5045,7 +5045,7 @@ ROM_END
 ROM_START( samsho3e )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "087h.p1", 0x000000, 0x100000, CRC(282a336e) SHA1(e062f1939d36a45f185b5dbd726cdd833dc7c28c) )
-	ROM_LOAD16_WORD_SWAP( "087h.p2", 0x100000, 0x200000, CRC(9bbe27e0) SHA1(b18117102159903c8e8f4e4226e1cc91a400e816) )
+	ROM_LOAD16_WORD_SWAP( "087k.p2", 0x100000, 0x200000, CRC(9bbe27e0) SHA1(b18117102159903c8e8f4e4226e1cc91a400e816) )
 
 	NEO_SFIX_128K( "087.s1", CRC(74ec7d9f) SHA1(d79c479838a7ca51735a44f91f1968ec5b3c6b91) )
 
