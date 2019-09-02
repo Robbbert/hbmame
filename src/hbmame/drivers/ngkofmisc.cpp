@@ -4171,6 +4171,31 @@ ROM_START( kof2k4ses31 )
 	ROM_LOAD16_BYTE( "k2k4shc06-c5.bin", 0x3000001, 0x800000, CRC(5bbf0048) SHA1(8a8448e44aefd10a3f215ee2dcb452ebee24fbc0) )
 ROM_END
 
+ROM_START( kof2k4ses32 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc32.p3", 0x000000, 0x080000, CRC(6c6b814a) SHA1(5325cde98a76e83386989fc3b14f1a04cc7d98af) )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc32.p2", 0x080000, 0x080000, CRC(8ed65c6c) SHA1(d26edbc961ed6f6c97c602e951f2a3050dc97459) )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc10.p1", 0x100000, 0x400000, CRC(9a20ffe1) SHA1(e1f510eff5849c60a6c0cf27a0e21f15c14665b8) )
+
+	NEO_SFIX_128K( "k2k4shc32.s1", CRC(12afaf26) SHA1(2550574e38ef0013ba3d639fab451f2d0ba3db8a) )
+
+	NEO_BIOS_AUDIO_128K( "365.m1", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "365.v1", 0x000000, 0x800000, CRC(e4ddfb3f) SHA1(eb8220ab01c16cf9244b7f3f9912bec0db561b85) )
+	ROM_LOAD( "365.v2", 0x800000, 0x800000, CRC(b887d287) SHA1(f593a5722df6f6fac023d189a739a117e976bb2f) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "365.c1", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "365.c2", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "k2k4shc06-c1.bin", 0x3000000, 0x800000, CRC(dec455b7) SHA1(d2b75a0fb72e38f506d82cba9f368db2ba47a23d) )
+	ROM_LOAD16_BYTE( "k2k4shc06-c5.bin", 0x3000001, 0x800000, CRC(5bbf0048) SHA1(8a8448e44aefd10a3f215ee2dcb452ebee24fbc0) )
+ROM_END
+
 ROM_START( kof2k4plss01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "365plss01.p1", 0x000000, 0x100000, CRC(567bb88e) SHA1(f6f035d5f8d4bd1764458d14782b1bf04e38ed06) )
@@ -4819,6 +4844,7 @@ HACK( 2004, kof2k4ses28,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2004, kof2k4ses29,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "Eddids[FGCH]",    "Kof Special Edition 2004 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4ses30,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Kof Special Edition 2004 (Omega v1.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4ses31,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic Plus (Add Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kof2k4ses32,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "Unknown", "Kof Special Edition 2004 Magic Plus (Crazy Edition 2018-10-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss01,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "KyoX",    "Kof Special Edition 2004 Plus (Translation Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss02,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 Plus (Unluck Max2 v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss03,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "Creamymami[EGCG]",    "Kof Special Edition 2004 Plus (Unlimited Power)", MACHINE_SUPPORTS_SAVE )
