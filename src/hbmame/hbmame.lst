@@ -779,6 +779,9 @@ dinos198
 dinos199
 dinos200
 dinos201
+dinos202
+dinos203
+dinos204
 ffights01
 ffights02
 ffightj2s01
@@ -845,6 +848,19 @@ sf2ces09
 sf2ces10
 sf2ces11
 sf2ces12
+sf2ces13
+sf2ces14
+sf2ces15
+sf2ces16
+sf2ces17
+sf2ces18
+sf2ces19
+sf2ces20
+sf2ces21
+sf2ces22
+sf2ces23
+sf2ces24
+sf2ces25
 sf2js01
 sf2js02
 sf2s01
@@ -869,6 +885,8 @@ sf2reds01
 sf2reds02
 sf2reds03
 sf2reds04
+sf2reds05
+sf2reds06
 sf2m7s01
 slammasts01
 slammasts02
@@ -1150,6 +1168,7 @@ sfz2aljs05
 sfz2aljs06
 sfz2aljs07
 sfz2aljs08
+sfz2aljs09 
 sfz2ns01
 sfz3js01
 sfz3js02
@@ -1484,7 +1503,6 @@ kof94rz
 kof94seh
 kof94sri
 kof94y
-kof94cg2
 kof94s01
 kof94s02
 kof94s03
@@ -2416,6 +2434,7 @@ kof98s48
 kof98s49
 kof98s50
 kof98s51
+kof98s52
 kof98hh05
 kof98hh06
 kof98hh07
@@ -6278,6 +6297,7 @@ kof2k4ses28
 kof2k4ses29
 kof2k4ses30
 kof2k4ses31
+kof2k4ses32
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03
@@ -7904,6 +7924,7 @@ olds100ass158 // illegal instruction
 olds100ass159 // illegal instruction
 olds100ass160
 olds100ass161 // illegal instruction
+olds100ass162
 oldsplus01
 oldsplus02
 oldsplus03
@@ -8502,3 +8523,5 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
+
