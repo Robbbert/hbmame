@@ -518,7 +518,7 @@ ROM_START( rotdyc ) /* Rage of the Dragons - Hack by Creamymami and Ydmis - (Con
 ROM_END
 
 HACK( 2002, rotdb,     rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 4)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, rotdb1,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdnd, ROT0, "Unknown", "Rage of the Dragons (Boss Hack)(Set 01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, rotdb1,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdnd, ROT0, "hack", "Rage of the Dragons (Boss Hack)(Set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdbh,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotd,   ROT0, "Dodowang", "Rage of the Dragons (Boss Hack)(Set 02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdbr,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "BisonSAS", "Rage of the Dragons (Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdbr1,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "BisonSAS", "Rage of the Dragons (Portuguese) (Alt Set 1)", MACHINE_SUPPORTS_SAVE )
@@ -532,7 +532,7 @@ HACK( 2002, rotdfw,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  
 HACK( 2002, rotdfy,    rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdh2b,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "Unk and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 5)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdhab,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "HappyAsr", "Rage of the Dragons (Add Char - Console mode enabled - Char menu changed - Char choose twice)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, rotdhab1,  rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Rage of the Dragons (Hack, Hero AES) [EGCG]", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, rotdhab1,  rotd, neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Rage of the Dragons (Hack, Hero AES) [EGCG]", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdhar,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "HappyAsr", "Rage of the Dragons (Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdhfw,   rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL", "Rage of the Dragons (Console mode enabled set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_state,       rotdb,  ROT0, "FWNL and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled set 1)", MACHINE_SUPPORTS_SAVE )
@@ -790,4 +790,4 @@ HACK( 2002, rotds06,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd
 HACK( 2002, rotds07,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "HappyASR[EGCG]",    "Rage of the Dragons (Enhanced power v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotds08,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "HappyASR[EGCG]",    "Rage of the Dragons (Same Character In A Team)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, rotds09,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "DDJ",    "Rage of the Dragons (Easy Move)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, rotds10,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Unknown/Gaston90",    "Rage of the Dragons (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, rotds10,        rotd,     neogeo_noslot, neogeo, neogeo_state,  rotd,      ROT0, "Gaston90",    "Rage of the Dragons (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )

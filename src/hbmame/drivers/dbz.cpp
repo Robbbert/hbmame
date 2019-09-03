@@ -109,9 +109,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragon Ball Z
-GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "Unknown", "Dragon Ball Z (Simple Attack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "hack", "Dragon Ball Z (Simple Attack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Dragon Ball Z 2
-GAME( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "Unknown", "Dragon Ball Z 2 (Simple Attack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "hack", "Dragon Ball Z 2 (Simple Attack)", MACHINE_SUPPORTS_SAVE )
 
 
 

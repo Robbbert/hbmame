@@ -71,7 +71,7 @@ ROM_START( rygark ) // same as rygarj except for gfx1
 ROM_END
 
 GAME( 2002, geminit, gemini, gemini, gemini, tecmo_state, init_gemini, ROT90, "Twisty", "Gemini Wing (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, rygark,  rygar,  rygar,  rygar,  tecmo_state, init_rygar,  ROT0,  "Unknown", "Argus no Senshi (Translation Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygark,  rygar,  rygar,  rygar,  tecmo_state, init_rygar,  ROT0,  "hack", "Argus no Senshi (Translation Korean)", MACHINE_SUPPORTS_SAVE )
 
 // PSmame (c) gaston90 used with permission
 
@@ -228,11 +228,11 @@ ROM_END
 
 /*    YEAR  NAME          PARENT    MACHINE   INPUT     CLASS        INIT           MONITOR COMPANY                 FULLNAME FLAGS */
 // Gemini Wing 
-GAME( 1987, geminis01,    gemini,   gemini,   gemini,   tecmo_state, init_gemini,   ROT90, "Unknown",   "Gemini Wing (Translation Chinese)",          MACHINE_SUPPORTS_SAVE )
+GAME( 1987, geminis01,    gemini,   gemini,   gemini,   tecmo_state, init_gemini,   ROT90, "hack",   "Gemini Wing (Translation Chinese)",          MACHINE_SUPPORTS_SAVE )
 // Argus no Senshi
-GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Unknown",   "Argus no Senshi (Translation Chinese)",      MACHINE_SUPPORTS_SAVE )
+GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "hack",   "Argus no Senshi (Translation Chinese)",      MACHINE_SUPPORTS_SAVE )
 GAME( 1986, rygars01,     rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Tecmo",   "Rygar (US, bootleg)",             MACHINE_SUPPORTS_SAVE )
 // Silk Worm
-GAME( 1988, silkworms01,  silkworm, silkworm, silkworm, tecmo_state, init_silkworm, ROT0,  "Unknown",   "Silk Worm (Translation Chinese)",            MACHINE_SUPPORTS_SAVE )
+GAME( 1988, silkworms01,  silkworm, silkworm, silkworm, tecmo_state, init_silkworm, ROT0,  "hack",   "Silk Worm (Translation Chinese)",            MACHINE_SUPPORTS_SAVE )
 
 

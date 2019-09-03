@@ -26,7 +26,7 @@ ROM_START( alpines01 )
 	ROM_LOAD( "eb16.22",      0x0000, 0x0100, CRC(b833b5ea) SHA1(d233f1bf8a3e6cd876853ffd721b9b64c61c9047) )
 ROM_END
 
-GAME( 1982, alpines01, alpine, nomcu, alpine, taitosj_state, init_alpine, ROT270, "Unknown", "Alpine Ski (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, alpines01, alpine, nomcu, alpine, taitosj_state, init_alpine, ROT270, "hack", "Alpine Ski (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 
 
 /****************************************************
@@ -75,4 +75,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Front Line
-GAME( 1982, frontlins01, frontlin,        mcu,      frontlin, taitosj_state, init_taitosj, ROT270, "Unknown", "Front Line (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, frontlins01, frontlin,        mcu,      frontlin, taitosj_state, init_taitosj, ROT270, "hack", "Front Line (Translation Chinese)", MACHINE_SUPPORTS_SAVE )

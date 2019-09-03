@@ -30,4 +30,4 @@ ROM_START( contrajs01 )
 ROM_END
 
 
-GAME( 1987, contrajs01, contra, contra, contra, contra_state, empty_init, ROT90, "Unknown", "Contra (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, contrajs01, contra, contra, contra, contra_state, empty_init, ROT90, "hack", "Contra (Translation Chinese)", MACHINE_SUPPORTS_SAVE )

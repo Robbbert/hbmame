@@ -78,4 +78,4 @@ ROM_END
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 //Shogun Warriors
-GAME( 2017, shogwarrs01,   shogwarr,        shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "Unknown", "Shogun Warriors (Simplified 2017-02-28)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 2017, shogwarrs01,   shogwarr,        shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "hack", "Shogun Warriors (Simplified 2017-02-28)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

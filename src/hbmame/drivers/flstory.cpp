@@ -38,4 +38,4 @@ ROM_END
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // The FairyLand Story
-GAME( 1985, flstoryjs01,  flstory,  flstory,      flstory,  flstory_state, empty_init, ROT180, "Unknown", "The FairyLand Story (Translation Chinese)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1985, flstoryjs01,  flstory,  flstory,      flstory,  flstory_state, empty_init, ROT180, "hack", "The FairyLand Story (Translation Chinese)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

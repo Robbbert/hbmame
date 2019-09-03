@@ -1255,7 +1255,7 @@ HACK( 1999, sfiii3bh,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   
 HACK( 1999, sfiii3mh,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "2ch", "Street Fighter III 3rd Strike: Fight for the Future (Makoto Color)", 0 )
 HACK( 2009, sfiii3ng,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Gill Unable Reactivating 2009-07-14)", 0 )
 HACK( 2009, sfiii3np,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked 2009-07-14)", 0 )
-HACK( 2013, sfiii4rd,  sfiii3nc,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "Unknown",   "Street Fighter III 3rd Strike: 4rd Arrange Edition", 0 )
+HACK( 2013, sfiii4rd,  sfiii3nc,   sfiii3,   cps3,      cps3_state,  sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition", 0 )
 
 
 //PSmame (c) gaston90 used with permission
@@ -2388,26 +2388,26 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       CLASS            INIT     MONITOR     COMPANY                 FULLNAME FLAGS */
 // JoJo's Bizarre Adventure
-HACK( 2009, jojos01,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Brazil 990913, NO CD)", 0 )
-HACK( 2009, jojos02,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Asia 990913, NO CD)", 0 )
-HACK( 2009, jojos03,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Hispanic 990913, NO CD)", 0 )
-HACK( 2009, jojos04,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Oceania 990913, NO CD)", 0 )
-HACK( 2009, jojos05,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "Unknown",    "JoJo's Bizarre Adventure (U.S.A 990913, NO CD)", 0 )
-HACK( 2018, jojos06,        jojobanc,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "Unknown",    "JoJo's Bizarre Adventure (Super Plus)", 0 )
+HACK( 2009, jojos01,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "hack",    "JoJo's Bizarre Adventure (Brazil 990913, NO CD)", 0 )
+HACK( 2009, jojos02,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "hack",    "JoJo's Bizarre Adventure (Asia 990913, NO CD)", 0 )
+HACK( 2009, jojos03,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "hack",    "JoJo's Bizarre Adventure (Hispanic 990913, NO CD)", 0 )
+HACK( 2009, jojos04,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "hack",    "JoJo's Bizarre Adventure (Oceania 990913, NO CD)", 0 )
+HACK( 2009, jojos05,        jojobanc,   jojoba,        cps3_jojo,  cps3_hbmame,     jojoban, ROT0,      "hack",    "JoJo's Bizarre Adventure (U.S.A 990913, NO CD)", 0 )
+HACK( 2018, jojos06,        jojobanc,   jojoba,        cps3_jojo,  cps3_state,      jojoba,  ROT0,      "hack",    "JoJo's Bizarre Adventure (Super Plus)", 0 )
 // Red Earth
 HACK( 1996, redeartns01,    redeartn,   redeartn,      cps3_ren,   cps3_hbmame,     redearth, ROT0,     "Capcom",   "Red Earth (Asia 961023, NO CD)", 0 )
 // Street Fighter III: New Generation
-HACK( 2016, sfiiins01,      sfiiinc,  sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "Unknown",    "Street Fighter III: New Generation (Simple Attack 2016-01-21)", 0 )
+HACK( 2016, sfiiins01,      sfiiinc,  sfiii,         cps3,       cps3_state,      sfiii,   ROT0,      "hack",    "Street Fighter III: New Generation (Simple Attack 2016-01-21)", 0 )
 // Street Fighter III 2nd Impact Giant Attack
 GAMEL(1997, sfiii2ns01,     sfiii2nc, sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "yumeji",     "Street Fighter III 2nd Impact: Giant Attack (Enable Hidden Characters V2)", 0, layout_sfiii2 )
-GAMEL(2016, sfiii2ns02,     sfiii2nc, sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Unknown",    "Street Fighter III 2nd Impact: Giant Attack (Boss With Simple Attack Edition 2016-01-11)", 0, layout_sfiii2 )
-GAMEL(2016, sfiii2ns03,     sfiii2nc, sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "Unknown",    "Street Fighter III 2nd Impact: Giant Attack (Hits The Second Time 2014-11-19)", 0, layout_sfiii2 )
+GAMEL(2016, sfiii2ns02,     sfiii2nc, sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "hack",    "Street Fighter III 2nd Impact: Giant Attack (Boss With Simple Attack Edition 2016-01-11)", 0, layout_sfiii2 )
+GAMEL(2016, sfiii2ns03,     sfiii2nc, sfiii2,        cps3,       cps3_state, init_sfiii2,  ROT0,      "hack",    "Street Fighter III 2nd Impact: Giant Attack (Hits The Second Time 2014-11-19)", 0, layout_sfiii2 )
 // Street Fighter III 3rd Strike Fight for the Future
-HACK( 1999, sfiii3ns01,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Characters Makoto)", 0 )
-HACK( 1999, sfiii3ns03,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Ex Super Version)", 0 )
+HACK( 1999, sfiii3ns01,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Characters Makoto)", 0 )
+HACK( 1999, sfiii3ns03,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Ex Super Version)", 0 )
 HACK( 2014, sfiii3ns05,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "pipi899",    "Street Fighter III 3rd Strike: Fight for the Future (Hits the third time 2014-11-20)", 0 )
-HACK( 2015, sfiii3ns06,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (Boss With Simple Attack Edition 2015-12-16)", 0 )
-HACK( 2015, sfiii3ns07,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "Unknown",    "Street Fighter III 3rd Strike: Fight for the Future (4rd Arrange Edition 2013 Simplified 2014-11-16)", 0 )
+HACK( 2015, sfiii3ns06,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Boss With Simple Attack Edition 2015-12-16)", 0 )
+HACK( 2015, sfiii3ns07,     sfiii3nc,   sfiii3,        cps3,       cps3_state,      sfiii3,  ROT0,      "hack",    "Street Fighter III 3rd Strike: Fight for the Future (4rd Arrange Edition 2013 Simplified 2014-11-16)", 0 )
 
  /*********************************
  Don't require the CD image to boot

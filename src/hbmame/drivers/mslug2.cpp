@@ -215,7 +215,7 @@ HACK( 1998, mslug2eh3,   mslug2,   neogeo_noslot,   neogeo, neogeo_state,   neog
 HACK( 1998, mslug2eh4,   mslug2,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)(Old)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Unknown", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "System11", "Metal Slug 2 Turbo ", MACHINE_SUPPORTS_SAVE )
 
 
@@ -1971,7 +1971,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Metal Slug 2 
-HACK( 2014, mslug2ps01,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Enemies Resetting Version 2014-09-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, mslug2ps01,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Enemies Resetting Version 2014-09-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps02,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Flame Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps03,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Heavy Machine Gun With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps04,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Laser Gun With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
@@ -1984,7 +1984,7 @@ HACK( 2006, mslug2ps10,      mslug2,   neogeo_noslot, neogeo, neogeo_state,     
 HACK( 1998, mslug2ps12,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Siromezm", "Metal Slug 2 (Fire Bomb)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps13,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (99 Bombs)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslug2ps14,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2ps15,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Ward Charior Rev.1)", MACHINE_SUPPORTS_SAVE ) 
+HACK( 1998, mslug2ps15,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Ward Charior Rev.1)", MACHINE_SUPPORTS_SAVE ) 
 HACK( 1998, mslug2ps16,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps17,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Change Weapon And Mummy)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps18,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Circulation For The Gun)", MACHINE_SUPPORTS_SAVE )
@@ -1993,17 +1993,17 @@ HACK( 1998, mslug2ps20,      mslug2,   neogeo_noslot, neogeo, neogeo_state,     
 HACK( 1998, mslug2ps21,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids",   "Metal Slug 2 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslug2ps22,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "kof1996",  "Metal Slug 2 (Enable Hidden Menu)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps23,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Ward Chariot Rev.2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug2ps24,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Gaston90", "Metal Slug 2 (Enemies Resetting Multi-Function Version 2018-05-12)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug2ps25,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Multi-Function Version 2017-05-09)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug2ps26,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Multi-Function Version 2017-04-23)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2ps27,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslug2ps28,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Guns Storable Version 2015-11-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslug2ps29,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",  "Metal Slug 2 (Survival Version 2018-07-31)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-HACK( 2019, mslug2ps30,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Gaston90", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+HACK( 2018, mslug2ps24,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90", "Metal Slug 2 (Enemies Resetting Multi-Function Version 2018-05-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug2ps25,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Multi-Function Version 2017-05-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug2ps26,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Multi-Function Version 2017-04-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, mslug2ps27,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, mslug2ps28,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Guns Storable Version 2015-11-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, mslug2ps29,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",  "Metal Slug 2 (Survival Version 2018-07-31)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+HACK( 2019, mslug2ps30,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 HACK( 2017, mslug2ps31,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Unknown",    "Metal Slug 2 Turbo (Multi-Function Version 2017-05-09)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslug2ps32,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",   "Metal Slug 2 Turbo (Enemies Resetting Multi-Function Version 2018-05-12)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug2ps33,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Unknown/Gaston90",    "Metal Slug 2 Turbo (Enemies Resetting Version 2014-09-14)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug2ps34,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Metal Slug 2 (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug2ps33,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",    "Metal Slug 2 Turbo (Enemies Resetting Version 2014-09-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug2ps34,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Metal Slug 2 (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2erss01,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Version Remix [2019-06-25])", MACHINE_SUPPORTS_SAVE ) //To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 HACK( 2019, mslug2erss02,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Hybrid Bullets Version Remix [2019-06-25])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 HACK( 2019, mslug2erss03,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Version Remix [2019-06-25])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
