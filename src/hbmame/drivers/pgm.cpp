@@ -27880,6 +27880,42 @@ ROM_START( olds100ass161 )
 	ROM_LOAD( "m0500_ah161.rom",    0x400000, 0x200000, CRC(8d10c3a6) SHA1(4efd78ae2bbdf0e6de7375b17f32e11c9c67e6fb) )
 ROM_END
 
+ROM_START( olds100ass162 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah162.v10",    0x100000, 0x400000, CRC(a7c39af7) SHA1(f0004e3d221ff6060531cc6931fb2cf59caafaae) )
+ 
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+	ROM_LOAD( "kd-u6.512", 0x000000, 0x010000,  CRC(e7613dda) SHA1(0d7c043b90e2f9a36a45066f22e3e305dc716676) )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF ) 
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 ) 
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah64.rom",    0x180000, 0x400000, CRC(d6e659d2) SHA1(5161b6462ecb6192c7e5494ce63bc962fce01844) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 ) 
+	ROM_LOAD( "a0500_ah64.rom",    0x0000000, 0x400000, CRC(3bd1f686) SHA1(44924f2fede3f539fe7b61a88beda62c21bac0f1) )
+	ROM_LOAD( "a0501_ah64.rom",    0x0400000, 0x400000, CRC(66761144) SHA1(a371c765886067c8d75202438172ca81dc6db96d) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah64.rom",    0x1800000, 0x400000, CRC(cdc61ba7) SHA1(2f3c52d2ba801780ad5c94b76000d885a136ac3e) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah64.rom",    0x0000000, 0x400000, CRC(37efad3a) SHA1(48a552d7a5ef45d4a44cfc848b4b6da1a99f2a48) )
+	ROM_LOAD( "b0501_ah64.rom",    0x0400000, 0x400000, CRC(e79b47bf) SHA1(588af08a8ebeab2ff202cdf289b7b8fd35976655) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah64.u16",    0x0c00000, 0x400000, CRC(83d3f7b4) SHA1(33dc746ea3e415424e69f966e881808109475aa7) )
+
+	ROM_REGION( 0x1000000, "ics", 0 ) 
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
  /****************************
  Oriental Legend Special Plus
 *******************************/
@@ -32196,8 +32232,9 @@ HACK( 2012, olds100ass156,olds,      pgm_028_025_ol,     olds,     pgm_028_025_s
 HACK( 2009, olds100ass157,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super xftz qmlw 2009 2008-09-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, olds100ass158,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super 2012 Lantern Festival Special Edition Simplified 2012-02-05)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2012, olds100ass159,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Super 2012 Lantern Festival Special Edition Original 2012-02-05)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2008, olds100ass160,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (KOF Version Terry 2008-09-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, olds100ass160,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (KOF Version Terry 2008-07-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, olds100ass161,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Zero 2013-03-17)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass162,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "Unknown", "Oriental Legend Special (Street Fighter 2 2017-09-29)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Special Plus
 HACK( 2004, oldsplus01,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Journey To The West Buddhism Adversity Biography Super Dance Macabre 2016 Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, oldsplus02,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "Unknown", "Oriental Legend 2 (Unknown Hack 2014-04-04)", MACHINE_SUPPORTS_SAVE )
