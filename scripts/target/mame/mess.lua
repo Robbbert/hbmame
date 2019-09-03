@@ -2847,7 +2847,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/novag_diablo.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_presto.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_savant.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_sconst.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_sexpert.cpp",
 }
 
@@ -3090,6 +3089,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/saitek_chesstrv.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_cp2000.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_delta1.cpp",
+	MAME_DIR .. "src/mame/drivers/saitek_mark5.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_risc2500.cpp",
 	MAME_DIR .. "src/mame/includes/saitek_stratos.h",
 	MAME_DIR .. "src/mame/drivers/saitek_ssystem3.cpp",
