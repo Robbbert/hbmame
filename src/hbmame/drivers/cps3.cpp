@@ -611,7 +611,8 @@ ROM_END
 
 ROM_START( redearex )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
-	ROM_LOAD( "redearth_euro.29f400.u2", 0x000000, 0x080000, CRC(02e0f336) SHA1(acc37e830dfeb9674f5a0fb24f4cc23217ae4ff5) )
+	ROM_LOAD( "redearthn_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(db09f27c) SHA1(f2d299cda7cda175b4218526a15f12560654d97f) )
+	//ROM_LOAD( "redearth_euro.29f400.u2", 0x000000, 0x080000, CRC(02e0f336) SHA1(acc37e830dfeb9674f5a0fb24f4cc23217ae4ff5) ) //The game does not work inform us "No CD-ROM DRIVE". BIOS has been changed to fix it.
 
 	ROM_REGION( 0x200000, "simm1.0", ROMREGION_ERASEFF )
 	ROM_REGION( 0x200000, "simm1.1", ROMREGION_ERASEFF )
@@ -648,7 +649,8 @@ ROM_END
 
 ROM_START( redeartno )
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
-	ROM_LOAD( "redearth_euro.29f400.u2", 0x000000, 0x080000, CRC(02e0f336) SHA1(acc37e830dfeb9674f5a0fb24f4cc23217ae4ff5) )
+	ROM_LOAD( "redearthn_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(db09f27c) SHA1(f2d299cda7cda175b4218526a15f12560654d97f) )
+	//ROM_LOAD( "redearth_euro.29f400.u2", 0x000000, 0x080000, CRC(02e0f336) SHA1(acc37e830dfeb9674f5a0fb24f4cc23217ae4ff5) ) The game does not work inform us "No CD-ROM DRIVE". BIOS has been changed to fix it.
 
 	ROM_REGION( 0x200000, "simm1.0", ROMREGION_ERASEFF )
 	ROM_REGION( 0x200000, "simm1.1", ROMREGION_ERASEFF )
@@ -1242,7 +1244,7 @@ HACK( 2009, jojonbss,  jojonc,     jojo,     cps3_jojo, cps3_hbmame, jojon,     
 HACK( 2009, jojonpow,  jojonc,     jojo,     cps3_jojo, cps3_hbmame, jojon,     ROT0, "Pipi899", "JoJo's Venture (Infinite Power 2009-07-11)", 0 )
 HACK( 1998, jojoan,    jojonc,     jojo,     cps3_jojo, cps3_hbmame, jojon,        ROT0, "Capcom", "JoJo's Venture (Asia, 981202, NO CD)", 0 )
 HACK( 1996, redeartn,  0,        redeartn, cps3_ren,  cps3_hbmame, redearth,  ROT0, "Capcom", "Red Earth (Asia 961121, NO CD)", 0 )
-HACK( 1996, redeartno, redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Capcom", "Red Earth (Euro 961121, NO CD)", 0 )
+HACK( 1996, redeartno, redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Capcom", "Red Earth (Asia 961121, NO CD/Old Set)", 0 )
 HACK( 2009, redearex,  redeartn, redeartn, cps3_ren,  cps3_hbmame, redeartno, ROT0, "Pipi899", "Red Earth (Ex Super Version 2009-09-08)", 0 )
 HACK( 2009, sfiiibhp,  sfiiinc,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Enable Hidden Characters V1 2009-08-08)", 0 )
 HACK( 2009, sfiiipmp,  sfiiinc,    sfiii,    cps3,      cps3_hbmame, sfiiin,    ROT0, "Pipi899", "Street Fighter III: New Generation (Infinite Power 2009-07-06)", 0 )
