@@ -96,5 +96,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Worldcup '90
-GAME( 1989, twcup90s01, twcup90, wc90b, wc90b, wc90b_state, init_wc90b, ROT0, "Bootleg", "Worldcup '90 (Hack, set 2)(Bootleg)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1989, twcup90s02, twcup90, wc90b, wc90b, wc90b_state, init_wc90b, ROT0, "Bootleg", "Worldcup '90 (Hack, set 3)(Bootleg)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1989, twcup90s01, twcup90, wc90b, wc90b, wc90b_state, init_wc90b, ROT0, "bootleg", "Worldcup '90 (Hack, set 2)(Bootleg)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1989, twcup90s02, twcup90, wc90b, wc90b, wc90b_state, init_wc90b, ROT0, "bootleg", "Worldcup '90 (Hack, set 3)(Bootleg)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

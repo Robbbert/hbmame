@@ -733,10 +733,10 @@ HACK( 1998, superdog, scramble, scramble, scramble, galaxian_hbmame, scramble, R
 
 
 /* Galaxian */
-HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Unknown",  "Andromeda", MACHINE_SUPPORTS_SAVE)
+HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "hack",  "Andromeda", MACHINE_SUPPORTS_SAVE)
 HACK( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, galaxiabh, galnamco, galaxian, galaxiab, galaxian_hbmame, galaxian, ROT90, "bootleg", "Galaxian (Edition Hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Unknown", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
+HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "hack", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
 HACK( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
 HACK( 1979, galnamco, 0,        galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )

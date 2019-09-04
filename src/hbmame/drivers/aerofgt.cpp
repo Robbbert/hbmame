@@ -74,6 +74,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Karate Blazers
-GAME( 2017, karatblzas01,  karatblz, karatblz,   karatblz,  aerofgt_state, empty_init,      ROT0,   "Unknown",    "Karate Blazers (1V4 2017-09-30)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
+GAME( 2017, karatblzas01,  karatblz, karatblz,   karatblz,  aerofgt_state, empty_init,      ROT0,   "hack",    "Karate Blazers (1V4 2017-09-30)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
 GAME( 2009, karatblzas02,  karatblz, karatblz,   karatblz,  aerofgt_state, empty_init,      ROT0,   "pipi899",    "Karate Blazers (Super Version V1 2009-03-11)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
 

@@ -1244,6 +1244,11 @@ sfiii3ns03
 sfiii3ns05
 sfiii3ns06
 sfiii3ns07
+sfiii3ns08
+sfiii3ns09
+sfiii3ns10
+sfiii3ns11
+sfiii3ns12
 
 @source:cv1k.cpp
 deathsml				//parent
@@ -2537,6 +2542,7 @@ kof98hh119
 kof98hh120
 kof98hh121
 kof98hh122
+kof98hh123
 kof98xz01
 kof98xz02
 kof98xz03
@@ -7924,7 +7930,7 @@ olds100ass158 // illegal instruction
 olds100ass159 // illegal instruction
 olds100ass160
 olds100ass161 // illegal instruction
-//olds100ass162  // not exist
+olds100ass162
 oldsplus01
 oldsplus02
 oldsplus03

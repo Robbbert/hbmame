@@ -262,13 +262,13 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
-GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric Shadow 2 Satsuki Version 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-06-06)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric Shadow 2 Satsuki Version 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-06-06)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, grdianss03,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hooooook", "Guardians (Blood Blue Initial Lengthening)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, grdianss04,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "KrysoFun", "Guardians (Super Version V1)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2010, grdianss05,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V2 2010-07-12)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2010, grdianss06,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V3 2010-07-13)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2019, grdianss07,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "BinDi", "Guardians (Robust Version 2019-01-11)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, grdianss08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-12-10)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, grdianss09,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Plus 2018-07-26)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2019, grdianss10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Unknown", "Guardians (Electric God Magic 2 Unparalleled Version 2019-04-15)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-12-10)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss09,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Plus 2018-07-26)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2019, grdianss10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric God Magic 2 Unparalleled Version 2019-04-15)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )

@@ -719,15 +719,15 @@ HACK( 1995, whps02,         whp,      neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1995, whps03,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",     "World Heroes Perfect (Always Maximum Hero Power v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, whps04,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Yashional",     "World Heroes Perfect (Moved To Modify V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, whps05,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "007325",     "World Heroes Perfect (Moved To Modify V2)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, whps06,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown/Gaston90",     "World Heroes Perfect (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, whps06,         whp,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Gaston90",     "World Heroes Perfect (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 // World Heroes
 HACK( 1992, wh1s01,         wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "yumeji[2ch]",     "World Heroes (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 1992, wh1s02,         wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",         "World Heroes (Simple Attack Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, wh1s02,         wh1,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,   "hack",         "World Heroes (Simple Attack Edition)", MACHINE_SUPPORTS_SAVE )
 // World Heroes 2 
 HACK( 1993, wh2s01,         wh2,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "kawada7278",     "World Heroes 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-HACK( 1993, wh2s02,         wh2,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",     "World Heroes 2 (Boss With Simple Attack Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, wh2s02,         wh2,      neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,   "hack",     "World Heroes 2 (Boss With Simple Attack Edition)", MACHINE_SUPPORTS_SAVE )
 // World Heroes 2 
 HACK( 1994, wh2js01,         wh2j,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "yumeji[2ch]",     "World Heroes 2 Jet (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, wh2js02,         wh2j,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "kawada7278",     "World Heroes 2 Jet (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, wh2js03,         wh2j,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Unknown",     "World Heroes 2 Jet (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 1994, wh2js03,         wh2j,     neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,   "hack",     "World Heroes 2 Jet (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 

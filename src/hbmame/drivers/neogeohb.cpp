@@ -2356,7 +2356,7 @@ ROM_END
 
 
 HACK( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
@@ -2364,7 +2364,7 @@ HACK( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
@@ -2398,7 +2398,7 @@ HACK( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, neobadapple,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+HACK( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, neofightb,    neofight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo (Neo Fight beta)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )

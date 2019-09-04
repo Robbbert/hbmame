@@ -412,9 +412,9 @@ HACK( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, 
 HACK( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (Neo Arc French Traduction Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Unknown", "Metal Slug 4 (Last Bullet)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4lw,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 4 (Last Bullet)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (Fully decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "Unknown", "Metal Slug 4 (Super Enhanced Version 2015-05-10)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
+HACK( 2015, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, mslug4hb, ROT0, "hack", "Metal Slug 4 (Super Enhanced Version 2015-05-10)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
 
 
 //PSmame (c) gaston90 used with permission
@@ -4999,11 +4999,11 @@ HACK( 2002, mslug4hh21,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  msl
 HACK( 2002, mslug4hh22,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (Weapons Super Grenade With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh23,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (Weapons Thunder Cloud With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh24,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Eddids",              "Metal Slug 4 (Fix The Black Background Of Title)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug4hh25,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown",             "Metal Slug 4 (Multi-Function Version 2017-12-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug4hh25,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Multi-Function Version 2017-12-25)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, mslug4hh26,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Shyma.X",    "Metal Slug 4 (Neo Arc French Traduction Rev.2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslug4hh27,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Metal Slug 4 (Last Bullet 2016-03-10)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslug4hh28,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown",    "Metal Slug 4 (Last Bullet 2016-10-15)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug4hh29,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Unknown/Gaston90", "Metal Slug 4 (Last Bullet Multi-Function 2016-10-16 (Prototype))", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, mslug4hh27,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",    "Metal Slug 4 (Last Bullet 2016-03-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, mslug4hh28,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",    "Metal Slug 4 (Last Bullet 2016-10-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug4hh29,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "Gaston90", "Metal Slug 4 (Last Bullet Multi-Function 2016-10-16 (Prototype))", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh30,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Character)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
 HACK( 2002, mslug4hh31,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Weapon)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh32,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Zombie)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
@@ -5013,12 +5013,12 @@ HACK( 2002, mslug4hh36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  msl
 HACK( 2002, mslug4hh37,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh38,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (War Chariot V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh39,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Mame Neht", "Metal Slug 4 (Neo Arc French Traduction (Version Unknown))", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, mslug4hh40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown", "Metal Slug 4 (Ammunition Random Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, mslug4hh40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "hack", "Metal Slug 4 (Ammunition Random Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh41,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-01-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh42,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-02-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4hh43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Unknown/Gaston90",       "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4hh43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Gaston90",       "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh44,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",       "Metal Slug 4 (Enemies Resetting Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4hh45,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Unknown",       "Metal Slug 4 (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4hh45,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "hack",       "Metal Slug 4 (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh46,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-04-25)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh47,      mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "GOTVG", "Metal Slug 4 (Fully Decrypted [?] Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4erms01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.0 (2019-04-19))", MACHINE_SUPPORTS_SAVE )

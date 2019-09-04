@@ -143,11 +143,11 @@ ROM_END
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // The FairyLand Story
-GAME( 1992, blandias01,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "Unknown",  "Blandia (Boss With Simple Attack Edition)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1992, blandias01,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "hack",  "Blandia (Boss With Simple Attack Edition)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1992, blandias02,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "DDJ",  "Blandia (Choice Hidden Character)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1992, blandias03,   blandia,   blandia,   blandia,   seta_state,     init_bankx1,    ROT0,   "DDJ",  "Blandia (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
 // Mobile Suit Gundam
 GAME( 1993, msgundams01,  msgundam,  msgundam,  msgundam,  seta_state,     empty_init,     ROT0,   "DDJ",   "Mobile Suit Gundam (Easy Move)", 0 )
 // Rezon
-GAME( 1991, rezons01,     rezon,     rezon,     rezon,     seta_state,     init_rezon,     ROT0,   "Unknown",  "Rezon (3 button version (Fixed Vaws, Rapid Fire)", 0 )
+GAME( 1991, rezons01,     rezon,     rezon,     rezon,     seta_state,     init_rezon,     ROT0,   "hack",  "Rezon (3 button version (Fixed Vaws, Rapid Fire)", 0 )
 

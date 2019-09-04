@@ -2738,7 +2738,7 @@ HACK( 1998, mspacii,  mspacman, mspacii,  mspacman, pacman_state, 0,        ROT9
 HACK( 1983, mspacit,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman -2", MACHINE_SUPPORTS_SAVE )
 HACK( 1983, mspacit2, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman -3", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, mspacj,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (Jamma? Bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, mspacmanl,mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "unknown", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, mspacmanl,mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "hack", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, mspacmap, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "Don Hodges", "Ms. Pacman (patched)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mspacmbg, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (single rom)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, mspacpbl, mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "Dav/PMP", "Ms. Pac Plus (bootleg)", MACHINE_SUPPORTS_SAVE )

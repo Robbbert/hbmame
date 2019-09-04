@@ -126,6 +126,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Teenage Mutant Ninja Turtles
-GAME( 1991, tmnt2s01,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, tmnt2s02,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Start Change Char)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, tmnt2s03,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "Unknown",  "Teenage Mutant Ninja Turtles (Cowabunga Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, tmnt2s01,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, tmnt2s02,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Start Change Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, tmnt2s03,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Cowabunga Mode)", MACHINE_SUPPORTS_SAVE )

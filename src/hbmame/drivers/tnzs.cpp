@@ -64,4 +64,4 @@ ROM_END
 // Dr. Toppel's Adventure
 GAME( 1987, drtoppels01,  drtoppel,   extrmatn, drtoppel, extrmatn_state, empty_init, ROT90,  "Taito Corporation Japan",   "Dr. Toppel's Adventure (World, alt?)", MACHINE_SUPPORTS_SAVE ) /* Possible region hack */
 // Insector X
-GAME( 1989, insectxs01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "Unknown", "Insector X (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, insectxs01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "hack", "Insector X (Translation Chinese)", MACHINE_SUPPORTS_SAVE )

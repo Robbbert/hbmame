@@ -47,7 +47,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // New Zero Team
-GAME( 1997, nzeroteamas01,   zeroteam, nzerotea, nzerotea, r2dx_v33_state, init_nzerotea,  ROT0,   "Unknown",  "New Zero Team (Special Forces 2018-02-19)", MACHINE_SUPPORTS_SAVE)
+GAME( 1997, nzeroteamas01,   zeroteam, nzerotea, nzerotea, r2dx_v33_state, init_nzerotea,  ROT0,   "hack",  "New Zero Team (Special Forces 2018-02-19)", MACHINE_SUPPORTS_SAVE)
 
 
 
