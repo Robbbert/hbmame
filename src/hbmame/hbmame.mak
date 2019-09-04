@@ -70,4 +70,5 @@ LAYOUTS += \
 	$(SRC)/mame/layout/spcenctr.lay \
 	$(SRC)/mame/layout/yosakdon.lay \
 	$(SRC)/mame/layout/finallap.lay \
+	$(SRC)/mame/layout/segabillv.lay \
 
