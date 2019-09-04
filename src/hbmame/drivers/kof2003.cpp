@@ -587,6 +587,32 @@ ROM_START( kof2k3ryu )
 	ROM_LOAD16_BYTE( "271pcd.c6", 0x4000001, 0x1000000, CRC(3ff750db) SHA1(714f14a2eb2df6f25d10a6b6aff4b3adfbc7a5dc) )
 ROM_END
 
+ROM_START( kof2k3ss )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "271ss.p1", 0x100000, 0x400000, CRC(3b6ce72b) SHA1(9c44a4adb993a8fa63fc44b29ca0bfe8a166e049) )
+	ROM_LOAD16_WORD_SWAP( "271gc.p2", 0x500000, 0x200000, CRC(5d3d8bb3) SHA1(7f2341f14ca12ff5721eb038b3496228a1f34b60) )
+	ROM_IGNORE( 0x100000 )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "271b.s1", CRC(482c48a5) SHA1(27e2f5295a9a838e112be28dafc111893a388a16) )
+
+	NEO_BIOS_AUDIO_128K( "271b.m1", CRC(3a4969ff) SHA1(2fc107a023a82053a8df63025829bcf12cee9610) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "271.v1", 0x000000, 0x800000, CRC(ffa3f8c7) SHA1(7cf4a933973ca23b7f87c81151d8659e6ec4bd20) )
+	ROM_LOAD( "271.v2", 0x800000, 0x800000, CRC(5382c7d1) SHA1(1bf999705eda80ba1e7b0d6bdd010d9bfb18bd76) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "271.c1", 0x0000000, 0x800000, CRC(b1dc25d0) SHA1(50adc3c60d5b4b3abd10a49db2267306c6dbd772) )
+	ROM_LOAD16_BYTE( "271.c2", 0x0000001, 0x800000, CRC(d5362437) SHA1(66db36522dc09106388c707252df9fe1c88b4856) )
+	ROM_LOAD16_BYTE( "271.c3", 0x1000000, 0x800000, CRC(0a1fbeab) SHA1(9fe30d36ba98d00fda010832ff2f27783dd577c1) )
+	ROM_LOAD16_BYTE( "271.c4", 0x1000001, 0x800000, CRC(87b19a0c) SHA1(b72a8e7d9124ce859b5149bb4381ba481c161ea5) )
+	ROM_LOAD16_BYTE( "271.c5", 0x2000000, 0x800000, CRC(704ea371) SHA1(e75b80422f0d72eac826f8ffadf79efeccaab124) )
+	ROM_LOAD16_BYTE( "271.c6", 0x2000001, 0x800000, CRC(20a1164c) SHA1(c9843b37612a16fc95f6851793b1cfb5d49d811d) )
+	ROM_LOAD16_BYTE( "271.c7", 0x3000000, 0x800000, CRC(189aba7f) SHA1(7152195a57ad36b28290810fe87ed8c206262ba9) )
+	ROM_LOAD16_BYTE( "271.c8", 0x3000001, 0x800000, CRC(20ec4fdc) SHA1(deb5f7ec5a090e419b9d1a6a74877bee081198e2) )
+ROM_END
+
 ROM_START( kof2k3tc ) /* The King of Fighters 2003 BOOTLEG - (kof2k3tc) - Colour fix by T.Com - (Character colour change for Kyo (2P/4P), DUOLON (4P), K' (4P) ) */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "271tc.p1", 0x100000, 0x400000, CRC(0d1a1da9) SHA1(0ba0d11c3bb3c30bc95f9aae181769ea874da096) )
@@ -721,6 +747,7 @@ HACK( 2003, kof2k3plr,  kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,
 HACK( 2008, kof2k3ps2,  kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (PS2 2008-03-03 beta 1.0 (EGCG/FCHT))", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, kof2k3ps3,  kof2003,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "EGCG / FCHT", "Kof2003 (PS2 2008-10-31 (EGCG/FCHT))", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2k3ryu,  kof2003,  no_watchdog,   neogeo, neogeo_state, neogeo,    ROT0, "Iori Yagami", "Kof2003 (Ryu Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k3ss,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "hack", "Kof2003 (Silver Style Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2k3tc,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "T.Com", "Kof2003 (Char color changed for Kyo (2P/4P), DUOLON (4P), K' (4P) )", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3zgf,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "Zhaolu94", "Kof2003 (Attack cremation green)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2k3gc,   kof2003,  neogeo_noslot, neogeo, neogeo_state, kof2003b,  ROT0, "Gledson01", "Kof2003 (Char color changed for Terry (4P), Athena (3P), Ash (3P), Leona (3P), K' (4P) and King (2P) )", MACHINE_SUPPORTS_SAVE )

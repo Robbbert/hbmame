@@ -291,6 +291,7 @@ sf2c			// sf2, chinese
 sf2ced
 sf2ceda
 sf2cehp
+sf2cehk
 sf2cejem
 sf2jbh			// sf2jbh2014
 sf2koryuh
@@ -319,10 +320,12 @@ sk2h104q
 sk2h105q
 sk2h106q
 sk2h107
-sk2h108 
+sk2h108
+sk2h11 
 sk2h12
 sk2h13
 sk2h14
+sk2h15
 sk2h16		// wofahp2
 sk2h17 
 sk2h18
@@ -528,6 +531,8 @@ tk2h143
 tk2h144
 wofb
 wofch		// tk2p1
+wofes
+wofr1h
 woffr
 wofsf2
 wofud
@@ -835,6 +840,8 @@ punisherjs14
 punisherjs15
 punisherjs16
 punisherjs17
+punisherjs18
+punisherjs19
 punisherbzs01
 sf2ces01
 sf2ces02
@@ -917,6 +924,7 @@ wofs05
 wofs06
 wofs07 //ingame crash
 wofs08
+wofs09
 tk2p02
 tk2p03
 tk2p04
@@ -1488,6 +1496,7 @@ jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 shogwarr		//parent
 shogwarrs01
 shogwarrbh
+fjbusterbh
 
 @source:kof94.cpp
 kof94b
@@ -1532,12 +1541,14 @@ kof94s21
 kof94s22
 
 @source:kof95.cpp
+kof95b
 kof95bln
 kof95brz
 kof95ce
 kof95d
 kof95eh
 kof95hp
+kof95k
 kof95neo
 kof95pjc
 kof95ru
@@ -2646,6 +2657,7 @@ kof99rsm
 kof99rsp
 kof99seh
 kof99sp
+kof99spd
 kof99sr
 kof99srr
 kof99srr1
@@ -2665,6 +2677,7 @@ kof99xxx
 kof99y
 kof99yd
 kof99bs
+kof99bs2
 kof99yb
 kf99rev2
 kof99s01
@@ -2869,6 +2882,7 @@ kof2k1b3
 kof2k1b4
 kof2k1bd2
 kof2k1bh1
+kof2k1bs
 kof2k1bs2
 kof2k1ce
 kof2k1cfc
@@ -3011,6 +3025,7 @@ kof2k2cl2
 kof2k2cl3
 kof2k2cn
 kof2k2cori
+kof2k2dbh
 kof2k2e1
 kof2k2e2
 kof2k2e3
@@ -3462,6 +3477,7 @@ kof2k3pch
 kof2k3plr
 kof2k3ps2
 kof2k3ps3
+kof2k3ss
 kof2k3ryu
 kof2k3tc
 kf2k3zgf
@@ -3832,6 +3848,7 @@ mslugrmhp07
 mslugrmhp08
 
 @source:mslug2.cpp
+mslug2eh
 mslug2eh0
 mslug2eh1
 mslug2eh2
@@ -4477,6 +4494,7 @@ mslug4kh
 mslug4xg
 mslug4d
 mslug4dh	/* Super D version */
+mslug4eho
 mslug4fr
 mslug4i
 mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
@@ -4693,6 +4711,7 @@ mslug5nd
 mslug5w
 ms5boot
 ms5pcbd
+ms5sp
 mslug5dh03
 mslug5dh04
 mslug5dh05
@@ -5114,12 +5133,14 @@ mslug5ervx24
 @source:mslugx.cpp
 mslugxce
 mslugxeb
+mslugxeh1
 mslugxex
 mslugxfe
 mslugxfr
 mslugxfro
 mslugxhp
 mslugxit
+mslugxjdkj
 mslugxmfb
 mslugxres
 mslugxsef
@@ -5127,6 +5148,7 @@ mslugxp
 mslugxr
 mslugxst
 mslugxeh
+mslugxsvb
 mslugxz01
 mslugxz02  //It does not work
 mslugxz04
@@ -6446,6 +6468,7 @@ rotdbr2
 rotdcre
 rotdcreb
 rotdd
+rotddh
 rotdeh
 rotdehc
 rotdfw
@@ -6470,6 +6493,9 @@ rotds09
 rotds10
 
 @source:ngsamsho.cpp
+fswordsb1
+fswordsb2
+fswordsbf
 samshob
 samshoeh
 samshoeh2
@@ -6496,6 +6522,7 @@ samsho3s2
 samsho3se
 samsho3ss
 samsho3yc
+samsho3zk
 samsho4bh
 samsho4cz
 samsho4eh
@@ -8097,6 +8124,7 @@ powerns03
 @source:psikyo.cpp
 tengai					//parent
 tengais01
+tengais02
 
 @source:psikyosh.cpp
 s1945ii			//parent
