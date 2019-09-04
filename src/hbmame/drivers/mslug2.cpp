@@ -27,6 +27,26 @@ ROM_START( mslug2 )
 ROM_END
 #endif
 
+ROM_START( mslug2eh ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241eh.p1",   0x000000, 0x100000, CRC(82cdf18b) SHA1(4a51e4973f7ff5d7149763502e07cf2fc8ec9f43) )
+	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
+
+	NEO_SFIX_128K( "241.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+
+	NEO_BIOS_AUDIO_128K( "241.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "241.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) )
+	ROM_LOAD( "241.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) )
+	ROM_LOAD16_BYTE( "241.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) )
+	ROM_LOAD16_BYTE( "241.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
+	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
+ROM_END
+
 ROM_START( mslug2eh0 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241eh0.p1",  0x000000, 0x100000, CRC(d2dbae34) SHA1(6bd86bd6b3f4a08d0586efccdef457499bb53d8f) )
@@ -208,6 +228,7 @@ ROM_START( mslug2t ) /* System11 - Metal Slug 2 Turbo - hack to remove slowdowns
 ROM_END
 
 // Metal Slug 2
+HACK( 1998, mslug2eh,    mslug2,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2eh0,   mslug2,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Enhanced Revised Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2eh1,   mslug2,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2eh2,   mslug2,   neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )

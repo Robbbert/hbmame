@@ -870,6 +870,30 @@ ROM_START( kof2k2cori )
 	ROM_LOAD16_BYTE( "265ori.c8", 0x3000001, 0x800000, CRC(9961799E) SHA1(cf5d43bbd90269155ac41fe9a31328654784351f) )
 ROM_END
 
+ROM_START( kof2k2dbh ) /* The King of Fighters 2002 - Hack by Dodowang - (Can choose Kusanagi and Rugal - when using NrX have icons in character select menu -> MVS timer flaw) */
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "265dbh.p1", 0x000000, 0x100000, CRC(e9d96cf7) SHA1(fc9fe5ac13cf328867538a474171a6878a09a731) )
+	ROM_LOAD16_WORD_SWAP( "265.p2", 0x100000, 0x400000, CRC(327266b8) SHA1(98f445cc0a94f8744d74bca71cb420277622b034) )
+
+	NEO_SFIX_128K( "265dbh.s1", CRC(491510d1) SHA1(506fb00c1b1a0e8077bdeba9acee4245df918a98) )
+
+	NEO_BIOS_AUDIO_128K( "265d.m1", CRC(1c661a4b) SHA1(4e5aa862a0a182a806d538996ddc68d9f2dffaf7) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
+	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265.c1", 0x0000000, 0x800000, CRC(2b65a656) SHA1(9c46d8cf5b1ef322db442ac6a9b9406ab49206c5) )
+	ROM_LOAD16_BYTE( "265.c2", 0x0000001, 0x800000, CRC(adf18983) SHA1(150cd4a5e51e9df88688469d2ea7675c2cf3658a) )
+	ROM_LOAD16_BYTE( "265.c3", 0x1000000, 0x800000, CRC(875e9fd7) SHA1(28f52d56192d48bbc5dc3c97abf456bd34a58cbd) )
+	ROM_LOAD16_BYTE( "265.c4", 0x1000001, 0x800000, CRC(2da13947) SHA1(f8d79ec2c236aa3d3648a4f715676899602122c1) )
+	ROM_LOAD16_BYTE( "265.c5", 0x2000000, 0x800000, CRC(61bd165d) SHA1(b3424db84bc683d858fb635bc42728f9cdd89caf) )
+	ROM_LOAD16_BYTE( "265.c6", 0x2000001, 0x800000, CRC(03fdd1eb) SHA1(6155c7e802062f4eafa27e414c4e73ee59b868bf) )
+	ROM_LOAD16_BYTE( "265.c7", 0x3000000, 0x800000, CRC(1a2749d8) SHA1(af7d9ec1d576209826fa568f676bbff92f6d6ddd) )
+	ROM_LOAD16_BYTE( "265.c8", 0x3000001, 0x800000, CRC(ab0bb549) SHA1(d23afb60b7f831f7d4a98ad3c4a00ee19877a1ce) )
+ROM_END
+
 ROM_START( kof2k2e1 ) /* The King of Fighters 2002 - Hack by Kurouri - (Can choose Kusanagi and Rugal) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265e1.p1", 0x000000, 0x100000, CRC(b1ad673f) SHA1(013928acacb501384a597e9c5fce96e1745043b7) )
@@ -3895,6 +3919,7 @@ HACK( 2003, kof2k2cl2,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof
 HACK( 2003, kof2k2cl3,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "CHL", "Kof2002 (Enhanced gameplay - Rev.3 2003-04-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2cn,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FoxUU / ZUOJIE", "Kof2002 (Chinese Translation)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, kof2k2cori,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Ismamj / EGCG / EGHT", "Kof2002 (3rd Strike)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k2dbh,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002,ROT0, "Dodowang","Kof2002 (Add Char- MVS timer flaw)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2e1,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Kurouri", "Kof2002 (Add Char set 4)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2e2,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Enable Hidden Characters v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2e3,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Creamymami", "Kof2002 (Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
