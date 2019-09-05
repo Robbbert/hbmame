@@ -31119,6 +31119,7 @@ cforteb                         //
 @source:novag_const.cpp
 const
 const36
+constq
 ssensor4
 supercon
 
@@ -34260,6 +34261,7 @@ tkingb
 
 @source:saitek_superstar.cpp
 sstar28k
+tstar432
 
 @source:sam.cpp
 24_130                          //

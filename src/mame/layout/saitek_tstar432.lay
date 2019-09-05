@@ -6,7 +6,7 @@
 	<element name="blackb"><rect><color red="0" green="0" blue="0" /></rect></element>
 	<element name="black"><rect><color red="0.21" green="0.2" blue="0.2" /></rect></element>
 	<element name="white2"><rect><color red="0.75" green="0.74" blue="0.74" /></rect></element>
-	<element name="blue"><rect><color red="0.05" green="0.35" blue="0.85" /></rect></element>
+	<element name="red"><rect><color red="0.8" green="0.1" blue="0.2" /></rect></element>
 
 	<element name="hl" defstate="0">
 		<rect state="0"><color red="0" green="0" blue="0" /></rect>
@@ -454,7 +454,7 @@
 		<element ref="text_p4"><bounds x="99.5" y="48.3" width="3" height="3" /></element>
 		<element ref="text_p5"><bounds x="99.5" y="52.3" width="3" height="3" /></element>
 		<element ref="text_p6"><bounds x="99.5" y="56.3" width="3" height="3" /></element>
-		<element ref="blue" blend="multiply"><bounds x="99.5" y="36" width="3" height="25" /></element>
+		<element ref="red" blend="multiply"><bounds x="99.5" y="36" width="3" height="25" /></element>
 
 		<element ref="text_b1"><bounds x="97.1" y="65.2" width="5.2" height="1.5" /></element>
 		<element ref="text_b2"><bounds x="97.1" y="69.2" width="5.2" height="1.5" /></element>
