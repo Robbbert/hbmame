@@ -7,13 +7,40 @@ VTech Genius Junior series
 CPU is 68HC05 derived?
 
 Other known international versions:
+- Genius 4000 (French version of Genius Leader 4000)
+- Genius 5000 (French version of Genius Leader 5000)
+- Genius PRO (French version of Genius Leader Select)
 - Pitagorín (Spanish version of Genius Leader Notebook)
 - Pitagorín Plus (Spanish version of Genius Junior Redstar 3)
+- PreComputer Notebook (alternate English version of Genius Leader Notebook)
+- Smart Start Animated (alternate English version of Genius Junior Redstar)
 - El Super-Ordenador Parlanchín (alternate Spanish version of Genius Junior Movie)
+- Talande Smart Start Laptop (Swedish version of Genius Junior Movie)
 - Talking Whiz-Kid Animated (English version of Genius Junior Redstar)
 - Talking Whiz-Kid Genius (English version of Genius Junior Movie)
 - Talking Whiz-Kid Notebook (English version of Genius Leader Notebook)
 - Talking Whiz-Kid Power Mouse (English version of Genius Leader Select)
+- Talking Whiz-Kid Super Animated (English version of Genius Junior Redstar 3)
+
+Undumped VTech laptops possibly on similar hardware:
+- Genius Einstein (French version of Genius Leader Action)
+- Genius Explorations (French version; German version unknown)
+- Genius Junior Profi 2
+- Genius Leader Action
+- Genius Leader Notebook Plus
+- Genius Master Notebook MM
+- Genius Master Power Maus
+- Genius Prodige (French version of Genius Master Power Maus)
+- Genius Progress (French version of Genius Junior Profi 2)
+- Mega Ratón Parlanchín (Spanish version of Genius Explorations)
+- PreComputer Notebook II (English version of Genius Leader Notebook Plus)
+- Smart Start Future (alternate English version of Genius Junior Profi 2)
+- Talking Einstein (English version of Genius Leader Action)
+- Talking Whiz-Kid Explorer (alternate English version of Genius Leader Action)
+- Talking Whiz-Kid Laptop (English version of Genius Junior Profi 2)
+- Talking Whiz-Kid Major Mouse (alternate English version of Genius Explorations)
+- Talking Whiz-Kid Notebook 2000 (English version of Genius Master Notebook MM)
+- Talking Whiz-Kid Power Mouse Deluxe (English version of Genius Explorations)
 
 */
 
