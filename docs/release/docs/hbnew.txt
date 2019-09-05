@@ -156,6 +156,8 @@ New Games
 - [sf2reds06]         Street Fighter II': Champion Edition (Koryu Street Warriors 2019-06-13)
 - [sfz2aljs09]        Street Fighter Zero 2 Alpha (Fatal Fury Chun-Li 2019-03-07)
 - [tengais02]         Tengai (Easy Type 2019-03-08)
+- [umk3uc20181029]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-10-29)
+- [umk3uc20190704]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-07-04)
 - [wofs09]            Warriors of Fate (1VS3 2013-04-05)
 
 
