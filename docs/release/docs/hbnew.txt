@@ -137,6 +137,8 @@ New Games
 - [olds100ass160]     Oriental Legend Special (KOF Version Terry 2008-07-29)
 - [olds100ass161]     Oriental Legend Special (Zero 2013-03-17)
 - [olds100ass162]     Oriental Legend Special (Street Fighter 2 2017-09-29)
+- [punisherjs18]      The Punisher (Blaze 2018-08-13)
+- [punisherjs19]      The Punisher (Match Version 2018-09-20)
 - [sf2ces13]          Street Fighter II': Champion Edition (Amazing M5 Gold Edition 2019-08-01)
 - [sf2ces14]          Street Fighter II': Champion Edition (Communist Edition 2019-07-12)
 - [sf2ces15]          Street Fighter II': Champion Edition (Extra Koryu 2019-06-13)
@@ -153,6 +155,10 @@ New Games
 - [sf2reds05]         Street Fighter II': Champion Edition (The CPU strikes back Yoga 2019-05-06)
 - [sf2reds06]         Street Fighter II': Champion Edition (Koryu Street Warriors 2019-06-13)
 - [sfz2aljs09]        Street Fighter Zero 2 Alpha (Fatal Fury Chun-Li 2019-03-07)
+- [tengais02]         Tengai (Easy Type 2019-03-08)
+- [umk3uc20181029]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2018-10-29)
+- [umk3uc20190704]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-07-04)
+- [wofs09]            Warriors of Fate (1VS3 2013-04-05)
 
 
 
