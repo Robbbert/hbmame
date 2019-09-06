@@ -105,7 +105,8 @@
 #include "video/segaic24.h"
 #include "speaker.h"
 
-//#include "model1io2.lh"
+//#include "model1io2.lh"   // HBMAME don't need this
+#include "segabill.lh"
 
 /* Timers - these count down at 25 MHz and pull IRQ2 when they hit 0 */
 READ32_MEMBER(model2_state::timers_r)
@@ -2697,12 +2698,17 @@ void model2a_state::model2a(machine_config &config)
 	io.in_pb_callback().set(FUNC(model2a_state::in0_r));
 	io.in_pc_callback().set_ioport("IN1");
 	io.in_pd_callback().set_ioport("IN2");
+	io.out_pe_callback().set([this] (uint8_t data) { m_billboard->write(data); });
 
 	model2_timers(config);
 	model2_screen(config);
 	model2_scsp(config);
 
 	M2COMM(config, "m2comm", 0);
+
+	SEGA_BILLBOARD(config, m_billboard, 0);
+
+	config.set_default_layout(layout_segabill);
 }
 
 void model2a_state::manxtt(machine_config &config)
@@ -2819,12 +2825,17 @@ void model2b_state::model2b(machine_config &config)
 	io.in_pb_callback().set(FUNC(model2b_state::in0_r));
 	io.in_pc_callback().set_ioport("IN1");
 	io.in_pd_callback().set_ioport("IN2");
+	io.out_pe_callback().set([this] (uint8_t data) { m_billboard->write(data); });
 
 	model2_timers(config);
 	model2_screen(config);
 	model2_scsp(config);
 
 	M2COMM(config, "m2comm", 0);
+
+	SEGA_BILLBOARD(config, m_billboard, 0);
+
+	config.set_default_layout(layout_segabill);
 }
 
 void model2b_state::model2b_5881(machine_config &config)
