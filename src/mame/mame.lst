@@ -1357,6 +1357,7 @@ uniap2pt                        // 1982 Unitron AP II (in Brazilian Portuguese)
 uniap2ti                        // 1982 Unitron AP II+ (Teclado Inteligente)
 craft2p                         // 1982 Craft?
 laser2c                         // 1985? Laser //c (Brazil)
+hkc8800a                        // 1984 HKC 8800A
 
 @source:apple2e.cpp
 apple2c                         // Apr 1984 Apple //c
@@ -1383,6 +1384,7 @@ cece                            // China Education Computer-E
 cecg                            // China Education Computer-G
 cecm                            // China Education Computer-M
 cec2000                         // China Education Computer-2000
+zijini                          // 1989 Zi Jin I
 
 @source:apple2gs.cpp
 apple2gs                        // Aug 1989 Apple IIgs ROM03
@@ -31124,6 +31126,7 @@ cforteb                         //
 @source:novag_const.cpp
 const
 const36
+const36a
 constq
 ssensor4
 supercon
