@@ -19,10 +19,6 @@ Tilemap Global X/Y flip not emulated
     Street Fighter 3 2nd Impact uses Y-flipped tilemaps during flashing.
     Warzard uses X-flipped tilemaps during special effects.
 
-Sprite-list caching (presumable)
-    Warzard 2p mode, at next screen after characters select,
-    if holding player's button to speed up sequence - player's sprites will be distorted.
-
 Whole screen flip not emulated
 
 Miscellaneous TO-DOs:
@@ -512,7 +508,7 @@ Hardware registers info
 		7A		xxxx xxxx xxxx xxxx	V ?? Zoom Offset?	0		0
 		7C		xxxx xxxx xxxx xxxx	V ?? Zoom Size?		1023	1023	(261 at BIOS init)
 		7E		xxxx xxxx xxxx xxxx	V Zoom Scale		64		64
-		80		---- ---- ---- -210	Pixel clock			3		5		not clear how it works, which OSC is base clock, etc.
+		80		---- ---- ---- -210	Pixel clock			3		5		base clock is 42.954545MHz, 3 = /5 divider, 5 = /4 divider.
 				---- ---- ---4 3---	Flip screen X/Y (or Y/X)
 				---- ---- --5- ----	?? always set to 1, 0 in unused 24KHz mode (pixel clock divider?)
 				---- ---- -6-- ----	?? set to 0 by BIOS init, then set to 1 after video mode selection, 0 in unused 24KHz mode (pixel clock divider?)
@@ -538,8 +534,8 @@ Hardware registers info
 
 		All CRTC-related values is last clock/line of given area, i.e. actual sizes is +1 to value.
 
-	(*) H Total value is same for all 15KHz modes, uses fixed clock (not affected by pixel clock modifier),
-		probably 42.954545MHz/6 (similar to SSV) /(454+1) = 15734.25Hz /(262+1) = 59.826Hz
+	(*) H Total value is same for all 15KHz modes, uses fixed clock (not affected by pixel clock modifier) -
+		42.954545MHz/6 (similar to SSV) /(454+1) = 15734.25Hz /(262+1) = 59.826Hz
 		unused 24KHz 512x384 mode uses H Total 293 V Total 424 (42.954545MHz/6 /(293+1) = 24350.62Hz /(424+1) = 57.29Hz)
 
 
@@ -975,7 +971,7 @@ void cps3_state::set_mame_colours(int colournum, u16 data, u32 fadeval)
 	colournum &= 0x1ffff;
 	m_colourram[colournum] = data;
 
-	m_mame_colours[colournum] = rgb_t(pal5bit(r), pal5bit(g), pal5bit(b));
+	m_mame_colours[colournum] = rgb_t(r << 3, g << 3, b << 3); // no color extension, VideoDAC's RGB bits 0-2 connected to GND
 
 	if (colournum < 0x10000) m_palette->set_pen_color(colournum,m_mame_colours[colournum]/* rgb_t(r<<3,g<<3,b<<3)*/);//m_mame_colours[colournum]);
 }
@@ -986,6 +982,9 @@ void cps3_state::video_start()
 	m_char_ram = make_unique_clear<u32[]>(0x800000/4);
 	m_mame_colours = make_unique_clear<u32[]>(0x20000);
 	m_ss_ram = make_unique_clear<u8[]>(0x8000);
+	m_spritelist = make_unique_clear<u32[]>(0x80000/4);
+
+	m_spritelist[0] = 0x80000000;
 
 	/* create the char set (gfx will then be updated dynamically from RAM) */
 	m_gfxdecode->set_gfx(0, std::make_unique<gfx_element>(m_palette, cps3_tiles8x8_layout, &m_ss_ram[0x4000], 0, m_palette->entries() / 16, 0));
@@ -1007,6 +1006,7 @@ void cps3_state::video_start()
 	save_pointer(NAME(m_char_ram), 0x800000/4);
 	save_pointer(NAME(m_mame_colours), 0x20000);
 	save_pointer(NAME(m_ss_ram), 0x8000);
+	save_pointer(NAME(m_spritelist), 0x80000/4);
 }
 
 static inline int to_s10(int data)
@@ -1153,23 +1153,24 @@ u32 cps3_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const
 	//logerror("Spritelist start:\n");
 	for (int i = 0x00000 / 4; i < 0x2000 / 4; i += 4)
 	{
-		if (m_spriteram[i + 0] & 0x80000000)
+		if (m_spritelist[i + 0] & 0x80000000)
 			break;
 
-		u8 const gscroll = (m_spriteram[i + 0] & 0x70000000) >> 28;
-		u32 const length = (m_spriteram[i + 0] & 0x01ff0000) >> 16; // how many entries in the sprite table
-		u32 start =        (m_spriteram[i + 0] & 0x00007ff0) >> 4;
+		u8 const gscroll = (m_spritelist[i + 0] & 0x70000000) >> 28;
+		u32 const length = (m_spritelist[i + 0] & 0x01ff0000) >> 16; // how many entries in the sprite table
+		u32 start =        (m_spritelist[i + 0] & 0x00007ff0) >> 4;
 		
-		int const xpos =   (m_spriteram[i + 1] & 0x03ff0000) >> 16;
-		int const ypos =    m_spriteram[i + 1] & 0x000003ff;
+		int const xpos =   (m_spritelist[i + 1] & 0x03ff0000) >> 16;
+		int const ypos =    m_spritelist[i + 1] & 0x000003ff;
 
-		bool const whichbpp =     (m_spriteram[i + 2] & 0x40000000) >> 30; // not 100% sure if this is right, jojo title / characters
-		bool const whichpal =     (m_spriteram[i + 2] & 0x20000000) >> 29;
-		u8 const global_xflip =   (m_spriteram[i + 2] & 0x10000000) >> 28;
-		u8 const global_yflip =   (m_spriteram[i + 2] & 0x08000000) >> 27;
-		bool const global_alpha = (m_spriteram[i + 2] & 0x04000000) >> 26; // alpha / shadow? set on sfiii2 shadows, and big black image in jojo intro
-		bool const global_bpp =   (m_spriteram[i + 2] & 0x02000000) >> 25;
-		u32 const global_pal =    (m_spriteram[i + 2] & 0x01ff0000) >> 16;
+		bool const whichbpp =     (m_spritelist[i + 2] & 0x40000000) >> 30; // not 100% sure if this is right, jojo title / characters
+		bool const whichpal =     (m_spritelist[i + 2] & 0x20000000) >> 29;
+		u8 const global_xflip =   (m_spritelist[i + 2] & 0x10000000) >> 28;
+		u8 const global_yflip =   (m_spritelist[i + 2] & 0x08000000) >> 27;
+		bool const global_alpha = (m_spritelist[i + 2] & 0x04000000) >> 26; // alpha / shadow? set on sfiii2 shadows, and big black image in jojo intro
+		bool const global_bpp =   (m_spritelist[i + 2] & 0x02000000) >> 25;
+		u32 const global_pal =    (m_spritelist[i + 2] & 0x01ff0000) >> 16;
+		//int const tilemapnum =  (m_spritelist[i + 2] & 0x00000030) >> 4; // jojo and jojoba only
 
 		int const gscrollx = (m_ppu_gscroll[gscroll] & 0x03ff0000) >> 16;
 		int const gscrolly = (m_ppu_gscroll[gscroll] & 0x000003ff) >> 0;
@@ -1177,9 +1178,9 @@ u32 cps3_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const
 
 		for (int j = 0; j < (length) * 4; j += 4)
 		{
-			u32 const value1 = (m_spriteram[start + j + 0]);
-			u32 const value2 = (m_spriteram[start + j + 1]);
-			u32 const value3 = (m_spriteram[start + j + 2]);
+			u32 const value1 = (m_spritelist[start + j + 0]);
+			u32 const value2 = (m_spritelist[start + j + 1]);
+			u32 const value3 = (m_spritelist[start + j + 2]);
 
 			static const int tilestable[4] = { 8,1,2,4 };
 
@@ -1213,9 +1214,9 @@ u32 cps3_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const
 				/* Urgh, the startline / endline seem to be direct screen co-ordinates regardless of fullscreen zoom
 				    which probably means the fullscreen zoom is applied when rendering everything, not aftewards */
 
-				for (int yy = 0; yy <= ysizedraw2; yy++)
+				for (int yy = 0; yy < ysizedraw2; yy++)
 				{
-					int cury_pos = to_s10(yy - (to_s10(ypos2) + to_s10(gscrolly))); // OK for sfiii Alex's stage, but not sure if hardware realy works this way
+					int cury_pos = to_s10(yy - (to_s10(ypos2) + to_s10(gscrolly)) - 19); // OK for sfiii Alex's stage, but not sure if hardware realy works this way
 
 					if (cury_pos >= m_renderbuffer_clip.top() && cury_pos <= m_renderbuffer_clip.bottom())
 						draw_tilemapsprite_line(tilemapnum, cury_pos, m_renderbuffer_bitmap, m_renderbuffer_clip);
@@ -1406,6 +1407,27 @@ WRITE32_MEMBER(cps3_state::cram_data_w)
 	data = little_endianize_int32(data);
 	COMBINE_DATA(&m_char_ram[fulloffset]);
 	m_gfxdecode->gfx(1)->mark_dirty(fulloffset/0x40);
+}
+
+WRITE16_MEMBER(cps3_state::spritedma_w)
+{
+	u16 prev = m_spritelist_dma;
+	COMBINE_DATA(&m_spritelist_dma);
+
+	// display list caching (into PPU on-chip RAM ?)
+	if ((m_spritelist_dma & 8) && !(prev & 8)) // 0->1
+	{
+		for (int i = 0; i < 0x2000/4; i += 4)
+		{
+			std::copy(&m_spriteram[i], &m_spriteram[i + 4], &m_spritelist[i]); // copy main list record
+			u32 dat = m_spriteram[i];
+			if (dat & 0x80000000)
+				break;
+			u32 offs =   (dat & 0x00007fff) << 2;
+			u32 length = (dat & 0x01ff0000) >> 16;
+			std::copy(&m_spriteram[offs], &m_spriteram[offs + length*4], &m_spritelist[offs]); // copy sublist
+		}
+	}
 }
 
 /* FLASH ROM ACCESS */
@@ -1780,6 +1802,8 @@ WRITE8_MEMBER(cps3_state::ssregs_w)
 	case 0x12:
 		m_ss_pal_base = data;
 		break;
+	case 0x14:
+		break;
 	default:
 		logerror("SS regs write %02X data %02X\n", offset, data);
 		break;
@@ -2132,7 +2156,7 @@ void cps3_state::cps3_map(address_map &map)
 	map(0x040c0040, 0x040c004b).writeonly().share("tmap40_regs");
 	map(0x040c0050, 0x040c005b).writeonly().share("tmap50_regs");
 	map(0x040c0060, 0x040c007f).writeonly().share("ppu_crtc_zoom");
-	map(0x040c0080, 0x040c0083).nopw().umask32(0x0000ffff); // sprite-related, triggered after sprite list upload
+	map(0x040c0080, 0x040c0083).w(FUNC(cps3_state::spritedma_w)).umask32(0x0000ffff);
 	map(0x040c0084, 0x040c0087).w(FUNC(cps3_state::cram_bank_w));
 	map(0x040c0088, 0x040c008b).w(FUNC(cps3_state::cram_gfxflash_bank_w));
 	map(0x040c0094, 0x040c009b).w(FUNC(cps3_state::characterdma_w));
@@ -2279,6 +2303,7 @@ void cps3_state::machine_start()
 	save_item(NAME(m_ss_hscroll));
 	save_item(NAME(m_ss_vscroll));
 	save_item(NAME(m_ss_pal_base));
+	save_item(NAME(m_spritelist_dma));
 
 	save_pointer(NAME(m_eeprom), 0x80/4);
 }
@@ -2288,6 +2313,7 @@ void cps3_state::machine_reset()
 {
 	m_current_table_address = -1;
 	m_dma_status = 0;
+	m_spritelist_dma = 0;
 
 	// copy data from flashroms back into user regions + decrypt into regions we execute/draw from.
 	copy_from_nvram();
@@ -2493,18 +2519,16 @@ void cps3_state::cps3(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_raw(XTAL(60'000'000)/8, 486, 0, 384, 259, 0, 224);
+	screen.set_raw(XTAL(42'954'545)/5, (454+1)*6/5, 0, 384, 262+1, 0, 224); // H Total counter uses XTAL/6 clock
 	screen.set_screen_update(FUNC(cps3_state::screen_update));
 	screen.screen_vblank().set(FUNC(cps3_state::vbl_interrupt));
 /*
     Measured clocks:
-        V = 59.5992Hz
-        H = 15.4335kHz
-        H/V = 258.955 ~ 259 lines
-
-    Possible video clocks:
-        60MHz       / 15.4335kHz = 3887.647 / 8 = 485.956 ~ 486 -> likely
-         42.9545MHz / 15.4445kHz = 2781.217 / 6 = 463.536 -> unlikely
+        Video DAC = 8.602MHz (384 wide mode) ~ 42.9545MHz / 5
+                    10.73MHZ (496 wide mode) ~ 42.9545MHz / 4
+        H = 15.73315kHz
+        V = 59.8Hz
+        H/V ~ 263 lines
 */
 
 	TIMER(config, m_dma_timer).configure_generic(FUNC(cps3_state::dma_interrupt));
@@ -2592,7 +2616,7 @@ ROM_START( redearth )
 	ROM_LOAD( "redearth_euro.29f400.u2", 0x000000, 0x080000, CRC(02e0f336) SHA1(acc37e830dfeb9674f5a0fb24f4cc23217ae4ff5) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-wzd-5", 0, BAD_DUMP SHA1(e5676752b08283dc4a98c3d7b759e8aa6dcd0679) )
+	DISK_IMAGE_READONLY( "cap-wzd-5", 0, SHA1(034c375c3f2f68723eef530b40da909a7be7b556) )
 ROM_END
 
 ROM_START( redearthr1 )
@@ -2608,7 +2632,7 @@ ROM_START( warzard )
 	ROM_LOAD( "warzard_japan.29f400.u2", 0x000000, 0x080000, CRC(f8e2f0c6) SHA1(93d6a986f44c211fff014e55681eca4d2a2774d6) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-wzd-5", 0, BAD_DUMP SHA1(e5676752b08283dc4a98c3d7b759e8aa6dcd0679) )
+	DISK_IMAGE_READONLY( "cap-wzd-5", 0, SHA1(034c375c3f2f68723eef530b40da909a7be7b556) )
 ROM_END
 
 ROM_START( warzardr1 )
@@ -2625,7 +2649,7 @@ ROM_START( sfiii )
 	ROM_LOAD( "sfiii_euro.29f400.u2", 0x000000, 0x080000, CRC(27699ddc) SHA1(d8b525cd27e584560b129598df31fd2c5b2a682a) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-sf3-3", 0, BAD_DUMP SHA1(606e62cc5f46275e366e7dbb412dbaeb7e54cd0c) )
+	DISK_IMAGE_READONLY( "cap-sf3-3", 0, SHA1(20aa46f8ffeb235205dc95cfd8fba42c7d102355) )
 ROM_END
 
 ROM_START( sfiiiu )
@@ -2633,7 +2657,7 @@ ROM_START( sfiiiu )
 	ROM_LOAD( "sfiii_usa_region_b1.29f400.u2", 0x000000, 0x080000, CRC(fb172a8e) SHA1(48ebf59910f246835f7dc0c588da30f7a908072f) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-sf3-3", 0, BAD_DUMP SHA1(606e62cc5f46275e366e7dbb412dbaeb7e54cd0c) )
+	DISK_IMAGE_READONLY( "cap-sf3-3", 0, SHA1(20aa46f8ffeb235205dc95cfd8fba42c7d102355) )
 ROM_END
 
 ROM_START( sfiiia )
@@ -2641,7 +2665,7 @@ ROM_START( sfiiia )
 	ROM_LOAD( "sfiii_asia_region_bd.29f400.u2", 0x000000, 0x080000,  CRC(cbd28de7) SHA1(9c15ecb73b9587d20850e62e8683930a45caa01b) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-sf3-3", 0, BAD_DUMP SHA1(606e62cc5f46275e366e7dbb412dbaeb7e54cd0c) )
+	DISK_IMAGE_READONLY( "cap-sf3-3", 0, SHA1(20aa46f8ffeb235205dc95cfd8fba42c7d102355) )
 ROM_END
 
 ROM_START( sfiiij )
@@ -2649,7 +2673,7 @@ ROM_START( sfiiij )
 	ROM_LOAD( "sfiii_japan.29f400.u2", 0x000000, 0x080000, CRC(74205250) SHA1(c3e83ace7121d32da729162662ec6b5285a31211) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-sf3-3", 0, BAD_DUMP SHA1(606e62cc5f46275e366e7dbb412dbaeb7e54cd0c) )
+	DISK_IMAGE_READONLY( "cap-sf3-3", 0, SHA1(20aa46f8ffeb235205dc95cfd8fba42c7d102355) )
 ROM_END
 
 ROM_START( sfiiih )
@@ -2657,7 +2681,7 @@ ROM_START( sfiiih )
 	ROM_LOAD( "sfiii_hispanic.29f400.u2", 0x000000, 0x080000, CRC(d2b3cd48) SHA1(00ebb270c24a66515c97e35331de54ff5358000e) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-sf3-3", 0, BAD_DUMP SHA1(606e62cc5f46275e366e7dbb412dbaeb7e54cd0c) )
+	DISK_IMAGE_READONLY( "cap-sf3-3", 0, SHA1(20aa46f8ffeb235205dc95cfd8fba42c7d102355) )
 ROM_END
 
 
@@ -2666,7 +2690,7 @@ ROM_START( sfiii2 )
 	ROM_LOAD( "sfiii2_usa.29f400.u2", 0x000000, 0x080000, CRC(75dd72e0) SHA1(5a12d6ea6734df5de00ecee6f9ef470749d2f242) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-3ga000", 0, BAD_DUMP SHA1(4e162885b0b3265a56e0265037bcf247e820f027) )
+	DISK_IMAGE_READONLY( "cap-3ga000", 0, SHA1(a0c11a5c3057dc1ad3962aa38adf95acb3430bec) )
 ROM_END
 
 ROM_START( sfiii2j )
@@ -2674,7 +2698,7 @@ ROM_START( sfiii2j )
 	ROM_LOAD( "sfiii2_japan.29f400.u2", 0x000000, 0x080000, CRC(faea0a3e) SHA1(a03cd63bcf52e4d57f7a598c8bc8e243694624ec) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-3ga000", 0, BAD_DUMP SHA1(4e162885b0b3265a56e0265037bcf247e820f027) )
+	DISK_IMAGE_READONLY( "cap-3ga000", 0, SHA1(a0c11a5c3057dc1ad3962aa38adf95acb3430bec) )
 ROM_END
 
 
@@ -2691,7 +2715,7 @@ ROM_START( jojor1 )
 	ROM_LOAD( "jojo_usa.29f400.u2", 0x000000, 0x080000, CRC(8d40f7be) SHA1(2a4bd83db2f959c33b071e517941aa55a0f919c0) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-jjk-2", 0, BAD_DUMP SHA1(0f5c09171409213e191a607ee89ca3a91fe9c96a) )
+	DISK_IMAGE_READONLY( "cap-jjk-2", 0, SHA1(ce22d10f2b35a0e00f8d83642b97842c9b2327fa) )
 ROM_END
 
 ROM_START( jojor2 )
@@ -2699,7 +2723,7 @@ ROM_START( jojor2 )
 	ROM_LOAD( "jojo_usa.29f400.u2", 0x000000, 0x080000, CRC(8d40f7be) SHA1(2a4bd83db2f959c33b071e517941aa55a0f919c0) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-jjk000", 0, BAD_DUMP SHA1(09869f6d8c032b527e02d815749dc8fab1289e86) )
+	DISK_IMAGE_READONLY( "cap-jjk000", 0, SHA1(a24e174aaaf47f98312a38129645026a613cd344) )
 ROM_END
 
 ROM_START( jojoj )
@@ -2715,7 +2739,7 @@ ROM_START( jojojr1 )
 	ROM_LOAD( "jojo_japan.29f400.u2", 0x000000, 0x080000, CRC(02778f60) SHA1(a167f9ebe030592a0cdb0c6a3c75835c6a43be4c) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-jjk-2", 0, BAD_DUMP SHA1(0f5c09171409213e191a607ee89ca3a91fe9c96a) )
+	DISK_IMAGE_READONLY( "cap-jjk-2", 0, SHA1(ce22d10f2b35a0e00f8d83642b97842c9b2327fa) )
 ROM_END
 
 ROM_START( jojojr2 )
@@ -2723,7 +2747,7 @@ ROM_START( jojojr2 )
 	ROM_LOAD( "jojo_japan.29f400.u2", 0x000000, 0x080000, CRC(02778f60) SHA1(a167f9ebe030592a0cdb0c6a3c75835c6a43be4c) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-jjk000", 0, BAD_DUMP SHA1(09869f6d8c032b527e02d815749dc8fab1289e86) )
+	DISK_IMAGE_READONLY( "cap-jjk000", 0, SHA1(a24e174aaaf47f98312a38129645026a613cd344) )
 ROM_END
 
 
@@ -2740,7 +2764,7 @@ ROM_START( sfiii3r1 )
 	ROM_LOAD( "sfiii3_euro.29f400.u2", 0x000000, 0x080000, CRC(30bbf293) SHA1(f094c2eeaf4f6709060197aca371a4532346bf78) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-33s-1", 0, BAD_DUMP SHA1(2f4a9006a31903114f9f9dc09465ae253e565c51) )
+	DISK_IMAGE_READONLY( "cap-33s-1", 0, SHA1(92e146fea751404077919da91f4c5112742627ed) )
 ROM_END
 
 ROM_START( sfiii3u )
@@ -2756,7 +2780,7 @@ ROM_START( sfiii3ur1 )
 	ROM_LOAD( "sfiii3_usa.29f400.u2", 0x000000, 0x080000, CRC(ecc545c1) SHA1(e39083820aae914fd8b80c9765129bedb745ceba) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-33s-1", 0, BAD_DUMP SHA1(2f4a9006a31903114f9f9dc09465ae253e565c51) )
+	DISK_IMAGE_READONLY( "cap-33s-1", 0, SHA1(92e146fea751404077919da91f4c5112742627ed) )
 ROM_END
 
 ROM_START( sfiii3j )
@@ -2772,7 +2796,7 @@ ROM_START( sfiii3jr1 )
 	ROM_LOAD( "sfiii3_japan.29f400.u2", 0x000000, 0x080000, CRC(63f23d1f) SHA1(58559403c325454f8c8d3eb0f569a531aa22db26) )
 
 	DISK_REGION( "scsi:1:cdrom" )
-	DISK_IMAGE_READONLY( "cap-33s-1", 0, BAD_DUMP SHA1(2f4a9006a31903114f9f9dc09465ae253e565c51) )
+	DISK_IMAGE_READONLY( "cap-33s-1", 0, SHA1(92e146fea751404077919da91f4c5112742627ed) )
 ROM_END
 
 
