@@ -3213,7 +3213,8 @@ ROM_START( kof97s41 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h41.p1", 0x000000, 0x100000, CRC(3105402e) SHA1(a89f6df281695bb22162079ddf1512d2794da919) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3241,7 +3242,8 @@ ROM_START( kof97s42 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h42.p1", 0x000000, 0x100000, CRC(d0c88690) SHA1(045750f531347b52581a0fb60109fc677083417d) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3269,6 +3271,7 @@ ROM_START( kof97s43 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h43.p1", 0x000000, 0x100000, CRC(f1137c05) SHA1(0e76e03d4702935a3d5980a511c6992b49157e7c) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3292,7 +3295,8 @@ ROM_START( kof97s44 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h44.p1", 0x000000, 0x100000, CRC(9e296a1f) SHA1(7b4741d3a5318d5b720e719e036ae31fccd05f4b) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3320,7 +3324,8 @@ ROM_START( kof97s45 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h45.p1", 0x000000, 0x100000, CRC(cb5a039e) SHA1(6b26c2dc9496e6f4a0655f025ee1e0972a3ca586) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3348,6 +3353,7 @@ ROM_START( kof97s46 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h46.p1", 0x000000, 0x100000, CRC(b3a35de4) SHA1(4bd3dbc424c8a82e4a83a2b4d69dec3cd06ad1ad) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3371,7 +3377,8 @@ ROM_START( kof97s47 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h47.p1", 0x000000, 0x100000, CRC(e97f2658) SHA1(e516794baccb23b9a1d60af23cf11d4cecf51d27) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3399,6 +3406,7 @@ ROM_START( kof97s48 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h48.p1", 0x000000, 0x100000, CRC(f5e9c0a0) SHA1(69dab915d3c58a832ebd32e7086bf58fad748cb2) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3422,6 +3430,7 @@ ROM_START( kof97s49 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h49.p1", 0x000000, 0x100000, CRC(c93c3bea) SHA1(583ebfcc36826f8f93093254875f0bb6a4bfc421) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3445,6 +3454,7 @@ ROM_START( kof97s50 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h50.p1", 0x000000, 0x100000, CRC(a3afd406) SHA1(262f6b64167e77e8f24a32e7e04552a075b5cb77) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3468,6 +3478,7 @@ ROM_START( kof97s51 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h51.p1", 0x000000, 0x100000, CRC(ad343426) SHA1(3956e5102eae3993dd3f3d7ffb0cdcb3100250ce) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3491,7 +3502,8 @@ ROM_START( kof97s52 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h52.p1", 0x000000, 0x100000, CRC(ba5b697c) SHA1(a74341557fc80b3827ac51b3c5ec0f52355c4376) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3519,6 +3531,7 @@ ROM_START( kof97s53 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h53.p1", 0x000000, 0x100000, CRC(c2a8fe3d) SHA1(91c01a37ce5dd1164a2f342d530e86500416a6e7) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3542,7 +3555,8 @@ ROM_START( kof97s54 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h54.p1", 0x000000, 0x100000, CRC(b270c635) SHA1(3dd8fc9131c314188e2f1b61d4ddfbda0c7f1fe2) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3570,6 +3584,7 @@ ROM_START( kof97s55 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h55.p1", 0x000000, 0x100000, CRC(2b3cbe68) SHA1(1713b25220a0453815490b9c2b4b96abea70c9ab) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3593,7 +3608,8 @@ ROM_START( kof97s56 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h56.p1", 0x000000, 0x100000, CRC(5be48660) SHA1(f55dd5735d76e0618f9c9ef97590f98558dde386) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3621,6 +3637,7 @@ ROM_START( kof97s57 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h57.p1", 0x000000, 0x100000, CRC(214077cb) SHA1(a66b34d9aa99e45d14db3226eefdd1c663d15f59) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3644,7 +3661,8 @@ ROM_START( kof97s58 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h58.p1", 0x000000, 0x100000, CRC(51984fc3) SHA1(d3bd50e67d8492d2272f0b3c961b7751c76dac16) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -3672,6 +3690,7 @@ ROM_START( kof97s59 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h59.p1", 0x000000, 0x100000, CRC(c8d4379e) SHA1(55245395861b5e18fc9bc989c34cb680bc7c2b1b) )
 	ROM_LOAD16_WORD_SWAP( "232h43.p2", 0x100000, 0x600000, CRC(48f1001e) SHA1(38d18dc0cedd61f87392c3d06da30a70b2aceb53) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -3695,7 +3714,8 @@ ROM_START( kof97s60 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h60.p1", 0x000000, 0x100000, CRC(b80c0f96) SHA1(f1ebba7691cf5651abbb04627e56c0b92af70e90) )
 	ROM_LOAD16_WORD_SWAP( "232h41.p2", 0x100000, 0x600000, CRC(fddb76a8) SHA1(fe14255d9ba5e97a409ae3d561245fa0fef72ce5) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4078,6 +4098,7 @@ ROM_START( kof97s76 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h76.p1",  0x000000, 0x100000, CRC(538f0c2c) SHA1(7ec575250fdcd93143b468119245add258095e60) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4101,6 +4122,7 @@ ROM_START( kof97s77 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h77.p1",  0x000000, 0x100000, CRC(dbb2752b) SHA1(b23abe7bbc83ff3605e769f6d060350d156002fe) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4124,7 +4146,8 @@ ROM_START( kof97s78 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h78.p1", 0x000000, 0x100000, CRC(331b4043) SHA1(d813bd57e3477b28c400f5f3349edca2f9653ec9) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4152,7 +4175,8 @@ ROM_START( kof97s79 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h79.p1", 0x000000, 0x100000, CRC(da8f0016) SHA1(446852115ae2c07e71ce7f170f0b9ce389f1f798) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4180,7 +4204,8 @@ ROM_START( kof97s80 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h80.p1", 0x000000, 0x100000, CRC(88ba59be) SHA1(85724833494a6cd8fad0a743069b4c8f1a1c3ecf) )
 	ROM_LOAD16_WORD_SWAP( "232h75.p2", 0x100000, 0x600000, CRC(0113130f) SHA1(a53ed2cad21fb7d531978cfc4107d96aa98e909b) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232yk85.s1", CRC(d8826314) SHA1(5d3ffdf709ee8f84e451464866d0ddcaf98bdb89) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4208,6 +4233,7 @@ ROM_START( kof97s81 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h81.p1",  0x000000, 0x100000, CRC(f74ab248) SHA1(3aed8ae6a01092de40c7820b42920b222844de2f) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4231,6 +4257,7 @@ ROM_START( kof97s82 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h82.p1",  0x000000, 0x100000, CRC(3b0516f9) SHA1(e5206703454576be027d992e7a4eb069b59639f1) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4254,7 +4281,8 @@ ROM_START( kof97s83 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h83.p1", 0x000000, 0x100000, CRC(20f95750) SHA1(fdbff63fe80afacf44914cd83f82e92e9ff57fef) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4282,7 +4310,8 @@ ROM_START( kof97s84 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h84.p1", 0x000000, 0x100000, CRC(7e602bc7) SHA1(a0455f68ce01122f52af9a464f45dbc7b9e1dbe0) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4310,7 +4339,8 @@ ROM_START( kof97s85 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h85.p1", 0x000000, 0x100000, CRC(85be140c) SHA1(4936ee54b439c21b6727b27adcb77aaa91548990) )
 	ROM_LOAD16_WORD_SWAP( "232h75.p2", 0x100000, 0x600000, CRC(0113130f) SHA1(a53ed2cad21fb7d531978cfc4107d96aa98e909b) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232yk85.s1", CRC(d8826314) SHA1(5d3ffdf709ee8f84e451464866d0ddcaf98bdb89) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4338,6 +4368,7 @@ ROM_START( kof97s86 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h86.p1",  0x000000, 0x100000, CRC(8a145eff) SHA1(ff628344f97b4db07150fd6ae8a3456b0ff513e0) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4361,7 +4392,8 @@ ROM_START( kof97s87 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h87.p1", 0x000000, 0x100000, CRC(7384fe51) SHA1(6085650e7ab6bf1f20dabadd8b49c5bb357095f3) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4389,6 +4421,7 @@ ROM_START( kof97s88 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h88.p1",  0x000000, 0x100000, CRC(5685ec40) SHA1(b5ab94f1ddc91dea30919e1c4bc1b86b90fc1355) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4412,7 +4445,8 @@ ROM_START( kof97s89 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h89.p1", 0x000000, 0x100000, CRC(1beab6d4) SHA1(7a7c71eb4a1260c9f5c844e0a134917e09cbe08a) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4440,6 +4474,7 @@ ROM_START( kof97s90 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h90.p1",  0x000000, 0x100000, CRC(89575117) SHA1(df45dbc7bd0e769d8f9e2ecdea454a9cb09ef3c8) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4463,7 +4498,8 @@ ROM_START( kof97s91 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h91.p1", 0x000000, 0x100000, CRC(c4380b83) SHA1(7dd5f86d64a8ec2790ce605d90e19f4145b765c3) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4491,6 +4527,7 @@ ROM_START( kof97s92 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h92.p1",  0x000000, 0x100000, CRC(1d21833d) SHA1(d62a6e3481d045e2ae4ca1109c2541ccb7b6eda3) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4514,7 +4551,8 @@ ROM_START( kof97s93 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h93.p1", 0x000000, 0x100000, CRC(504ed9a9) SHA1(86fddc0bfa61f955e71dd46bdf6cca56d4a7218a) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4542,6 +4580,7 @@ ROM_START( kof97s94 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h94.p1",  0x000000, 0x100000, CRC(adf48e99) SHA1(c0f5964167fe798a7224b33673a9eb08dec4ec8c) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4565,7 +4604,8 @@ ROM_START( kof97s95 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h95.p1", 0x000000, 0x100000, CRC(e09bd40d) SHA1(da05de47b99237b777869f058fe2a6e2f0fb0684) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4593,6 +4633,7 @@ ROM_START( kof97s96 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h96.p1",  0x000000, 0x100000, CRC(7598dabe) SHA1(8de28e519d4b84fc1d2beb28abba91faef3530cf) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4616,7 +4657,8 @@ ROM_START( kof97s97 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h97.p1", 0x000000, 0x100000, CRC(38f7802a) SHA1(d0593fdd82fe45ec446a0e29b1ef5724b192fe7a) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4644,6 +4686,7 @@ ROM_START( kof97s98 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h98.p1",  0x000000, 0x100000, CRC(c96228af) SHA1(3b4835937d43aa26589d2093e496d4da0272eadf) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4667,7 +4710,8 @@ ROM_START( kof97s99 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h99.p1", 0x000000, 0x100000, CRC(840d723b) SHA1(21a538293db1050bdbd6908d684d53b654b19237) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4695,6 +4739,7 @@ ROM_START( kof97s100 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h100.p1",  0x000000, 0x100000, CRC(3796e68d) SHA1(ba7e57b89ee43273f9743a9d68033bc16a5681c6) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4718,7 +4763,8 @@ ROM_START( kof97s101 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h101.p1", 0x000000, 0x100000, CRC(7af9bc19) SHA1(6e4dc35b0d479fc35435cc1a65ce6c7cbf017663) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4746,6 +4792,7 @@ ROM_START( kof97s102 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h102.p1",  0x000000, 0x100000, CRC(110e7c88) SHA1(e0862ea3bc5b024fbd1624d76e41a6cc1a31cc2a) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4769,7 +4816,8 @@ ROM_START( kof97s103 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h103.p1", 0x000000, 0x100000, CRC(5c61261c) SHA1(3e5859fa6bb9bb22fd5ea9ad9fc126168551aad4) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -4797,6 +4845,7 @@ ROM_START( kof97s104 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h104.p1",  0x000000, 0x100000, CRC(84531ca5) SHA1(74fd40d963d31706cf9ec420e1fb415b1a2b0752) )
 	ROM_LOAD16_WORD_SWAP( "232h76.p2", 0x100000, 0x600000, CRC(bf7011f0) SHA1(6ce3624c64d99453c46f01975ac3cdf42a8acadc) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
@@ -4820,7 +4869,8 @@ ROM_START( kof97s105 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232h105.p1", 0x000000, 0x100000, CRC(c93c4631) SHA1(7c61801a7a6ce52eb2dfe7363a30500054c3255a) )
 	ROM_LOAD16_WORD_SWAP( "232h78.p2", 0x100000, 0x600000, CRC(33b4ecd7) SHA1(e5cddc35600f5d973b3854ed11e45192cba3b2f8) )
-	
+	ROM_FILL(0x263ba,1,0x65)
+
 	NEO_SFIX_128K( "232h41.s1", CRC(ca1d4290) SHA1(658ad9d6d4a153af19f2e9d04e78c879bd4c1a77) )
 
 	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
@@ -11901,6 +11951,7 @@ ROM_START( kof97hx272 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232hx272.p1",  0x000000, 0x100000, CRC(b1e50003) SHA1(c0339fe296387231600f15679ab61f2147a2e41b) )
 	ROM_LOAD16_WORD_SWAP( "232hx272.p2", 0x100000, 0x400000, CRC(d3e6a20f) SHA1(0cb52cac3d5dd4878a2eafb5c25be60effa54541) )
+	ROM_FILL(0x263ba,1,0x65)
 
 	NEO_SFIX_128K( "232z.s1", CRC(ece9abba) SHA1(608ea08ef8fd5f32e97a99df4edf285eb9f2e108) )
 
@@ -12996,26 +13047,26 @@ HACK( 1997, kof97s37,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1997, kof97s38,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Super metamorphosis version 2012-01-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s39,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Heavenly Protoss 2012-01-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s40,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Dragon Super Plus 2016-06-14)", MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s41,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Myth Test Version 34)(85 Gonitz Foot Super Kill After The Avatar Teleportation, The Big Snake Colorful Sunlight Teleport)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s42,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Test Version 35)(85 Optimized Gonitz Foot Super Kill To Avoid Card Death, Big Snake Colorful Sunshine Heart Shine)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s43,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 27)(83 All Banned From Heaven, Repairing Kagura And Buns Brother Bugs In Place, Strengthening An Lina, Big Snake Colorful Sunshine Six Hair + Protective Light))", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s44,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 28)(85 All Banned From The Sky, Yamazaki Ryuji Exhibition Tenth Anniversary Super Killing On The Ground Stepping On The Drooling Whip, Repairing Kagura And Buns Brother Bugs)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s45,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 30)(85 Amendment To The Seven-Yuan Society’s Move-Style Big Move To Kill, The Big Snake Shines)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s46,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 32)(83 Strengthen Grass, Terry, Etc., Big Snake Six Hair Colorful Sunshine)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s47,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 33)(85 Strengthen Grass, Terry, Gonitz, Etc., The Big Snake Shines)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s48,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Martial Arts Mythical Dark Snake Test Version 36)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake Colorful Sunlight Teleportation First God Pointing Oblique)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s49,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 37)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake In The Middle Of The God Refers To The Colorful Sunshine At First Slant)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s50,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 38)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake Colorful Sunshine Heart Shine)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s51,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 39)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake Six Hair Colorful Sunlight)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s52,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 40)(85 Snakes In The Middle Of The God Refers To The Colorful Sunshine At First Slant)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s53,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 52)(83 Big Snake Double Two Hair Whitening Sun A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s54,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 53)(85 Gonitz Foot Super Kill Mad Dig Or Blade Or Indefinite + Big Snake Double Two Hair Whitening A Sun A Key Hair Attack Break Defense Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s55,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 54)(83 Big Snake Six Hair Whitening A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s56,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 55)(85 Gonitz Foot Super Kill Mad Dig Or Blade Or Indefinite + Big Snake Six Hair Whitening A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s57,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 56)(83 Repair Crazy Eight Super Kill Stuck, The Big Snake Double White Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s58,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 57)(85 Repairs The High Nitz Foot Super-Killing Small Tornado + Big Snake Double White Sun Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s59,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 58)(83 Repair Crazy Eight Super Kill Stuck, Big Snake Six Hair White Sun + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s60,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 59)(85 Repair Gao Niz Foot Super Killing Small Tornado + Big Snake Six Hair White Sun + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s41,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Myth Test Version 34)(85 Gonitz Foot Super Kill After The Avatar Teleportation, The Big Snake Colorful Sunlight Teleport)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s42,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Test Version 35)(85 Optimized Gonitz Foot Super Kill To Avoid Card Death, Big Snake Colorful Sunshine Heart Shine)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s43,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 27)(83 All Banned From Heaven, Repairing Kagura And Buns Brother Bugs In Place, Strengthening An Lina, Big Snake Colorful Sunshine Six Hair + Protective Light))", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s44,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 28)(85 All Banned From The Sky, Yamazaki Ryuji Exhibition Tenth Anniversary Super Killing On The Ground Stepping On The Drooling Whip, Repairing Kagura And Buns Brother Bugs)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s45,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 30)(85 Amendment To The Seven-Yuan Society’s Move-Style Big Move To Kill, The Big Snake Shines)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s46,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 32)(83 Strengthen Grass, Terry, Etc., Big Snake Six Hair Colorful Sunshine)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s47,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 33)(85 Strengthen Grass, Terry, Gonitz, Etc., The Big Snake Shines)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s48,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Martial Arts Mythical Dark Snake Test Version 36)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake Colorful Sunlight Teleportation First God Pointing Oblique)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s49,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 37)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake In The Middle Of The God Refers To The Colorful Sunshine At First Slant)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s50,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 38)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake Colorful Sunshine Heart Shine)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s51,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 39)(83 Repair Crazy Eight Super Kill Ko Stuck + Big Snake Six Hair Colorful Sunlight)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s52,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 40)(85 Snakes In The Middle Of The God Refers To The Colorful Sunshine At First Slant)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s53,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 52)(83 Big Snake Double Two Hair Whitening Sun A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s54,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 53)(85 Gonitz Foot Super Kill Mad Dig Or Blade Or Indefinite + Big Snake Double Two Hair Whitening A Sun A Key Hair Attack Break Defense Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s55,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 54)(83 Big Snake Six Hair Whitening A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s56,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 55)(85 Gonitz Foot Super Kill Mad Dig Or Blade Or Indefinite + Big Snake Six Hair Whitening A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s57,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 56)(83 Repair Crazy Eight Super Kill Stuck, The Big Snake Double White Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s58,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 57)(85 Repairs The High Nitz Foot Super-Killing Small Tornado + Big Snake Double White Sun Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s59,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 58)(83 Repair Crazy Eight Super Kill Stuck, Big Snake Six Hair White Sun + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s60,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 59)(85 Repair Gao Niz Foot Super Killing Small Tornado + Big Snake Six Hair White Sun + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof97s61,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Ge Xin Edition 2017-12-06)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, kof97s62,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Tu She Edition 2006-08-06)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof97s63,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Combo 2016-03-30)", MACHINE_SUPPORTS_SAVE )
@@ -13031,36 +13082,36 @@ HACK( 1997, kof97s72,       kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1997, kof97s73,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Unknown Hack 2017-07-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s74,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "MamePlus",   "Kof'97 (Super Edition Plus 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s75,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Clone Zero Modified Version)(Fat Lianhua + Even Strokes + Big Snake Green Sunshine Two  First Free, Went To The Fan Slap Small Bug To Be Repaired))", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s76,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 60)(83 Correction Of The Gods Color + Light Foot Rotating Legs After The Air D Feet + Big Snake Double White Sun Two Hair A Key Hair Attack Break Defense Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s77,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 61)(83 Correction Eight God Color + Light Foot Rotation Legs Can Even Even Move + Big Snake Six Hair White Sunlight + Protective Light A Key Hair First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s78,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 62)(85 Correction Of The Gods Color + Light Feet To Turn The Legs After The Air D Feet + Big Snake Double White Sun Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s79,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 63)(85 Correction Of The Gods Color + Light Foot After The Legs Can Even Even Move + Big Snake Six Hair White Sunshine + Protective Light A Key Hair Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s80,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Clone Zero Modified Version)(Fixed Eight Gods Garbled, Fat Lotus Huan + Even Strokes + Big Snake Green Sunshine Two First Free, Went To The Fan Slap Small Bug To Be Repaired)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s81,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Myth Test Version 64)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s82,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Test Version 65)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s83,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Test Version 66)(85 Optimized Eight Gods Feet Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s84,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Test Version 67)(85 Optimized Eight Gods Feet Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s85,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Zore Clone Zero Modified Version)(Even Strokes + Fat Lotus Huanhua + Big Snake Blue, Purple Sunshine Two, First Free, Went To The Fan Slap Small Bug To Be Repaired)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s86,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 68)(83 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods Crazy Eight + Big Snake Six Hair Color Sun + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s87,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 69)(85 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods, Goritz + Big Snake Six Hair Whitening Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s88,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 70)(83 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s89,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 71)(85 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s90,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 72)(83 Big Snakes Heart Teleport, Six Hair Whitening Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s91,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 73)(85 Big Snakes Heart Teleport, Six Hair White Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s92,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 74)(83 Big Snakes Heart Teleport, Six Hair Colorful Sun + Protective Light First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s93,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 75)(85 Big Snakes Heart Teleport, Six Hair Color Dense Sunlight + Protective Light First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s94,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 76)(83 Big Snakes Heart Teleport, Six Purple Red Orange Color Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s95,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 77)(85 Big Snakes Heart Teleport, Six Purple Red Orange Color Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s96,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 78)(83 Big Snakes Heart Teleport, Six Hair Purple Potato Red Orange Gray Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s97,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 79)(85 Big Snakes Heart Teleport, Six Hair Purple Potato Red Gray Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s98,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 80)(83 Big Snakes Heart Teleport, Six Hair Blue Water Gray Orange Red Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s99,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 81)(85 Big Snakes Heart Teleport, Six Hair Blue Water Gray Orange Red Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s100,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 82)(83 Big Snakes Heart Teleport, Six Red, Blue, Gray, Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s101,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 83)(85 Big Snakes Heart Teleport, Six Red, Blue, Gray, Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s102,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 84)(83 Big Snakes Heart Teleport, Six Blue And Red Sunshine + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s103,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 85)(85 Big Snakes Heart Teleport, Six Blue And Red Sunshine + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s104,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 86)(83 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97s105,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 87)(85 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s76,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 60)(83 Correction Of The Gods Color + Light Foot Rotating Legs After The Air D Feet + Big Snake Double White Sun Two Hair A Key Hair Attack Break Defense Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s77,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 61)(83 Correction Eight God Color + Light Foot Rotation Legs Can Even Even Move + Big Snake Six Hair White Sunlight + Protective Light A Key Hair First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s78,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 62)(85 Correction Of The Gods Color + Light Feet To Turn The Legs After The Air D Feet + Big Snake Double White Sun Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s79,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 63)(85 Correction Of The Gods Color + Light Foot After The Legs Can Even Even Move + Big Snake Six Hair White Sunshine + Protective Light A Key Hair Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s80,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Clone Zero Modified Version)(Fixed Eight Gods Garbled, Fat Lotus Huan + Even Strokes + Big Snake Green Sunshine Two First Free, Went To The Fan Slap Small Bug To Be Repaired)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s81,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Myth Test Version 64)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s82,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Test Version 65)(83 Optimized Eight Gods Crazy Eight Feet Out Of The Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s83,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Test Version 66)(85 Optimized Eight Gods Feet Move + Big Snake Double Sunshine Two Hair A Key Hair Attack Break Defense First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s84,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Test Version 67)(85 Optimized Eight Gods Feet Move + Big Snake Six Hair Sunshine + Protective Light A Key Hair Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s85,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Zore Clone Zero Modified Version)(Even Strokes + Fat Lotus Huanhua + Big Snake Blue, Purple Sunshine Two, First Free, Went To The Fan Slap Small Bug To Be Repaired)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s86,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 68)(83 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods Crazy Eight + Big Snake Six Hair Color Sun + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s87,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 69)(85 Weakened Robert, Nagasaki Yuri, Optimized Eight Gods, Goritz + Big Snake Six Hair Whitening Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s88,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 70)(83 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s89,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 71)(85 Restore Map + Big Snake Six Hair White Sunshine + Protective Light First Dizziness, Cancel The Dark)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s90,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 72)(83 Big Snakes Heart Teleport, Six Hair Whitening Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s91,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 73)(85 Big Snakes Heart Teleport, Six Hair White Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s92,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 74)(83 Big Snakes Heart Teleport, Six Hair Colorful Sun + Protective Light First Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s93,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 75)(85 Big Snakes Heart Teleport, Six Hair Color Dense Sunlight + Protective Light First Dizziness)", MACHINE_IMPERFECT_GRAPHICS  | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s94,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 76)(83 Big Snakes Heart Teleport, Six Purple Red Orange Color Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s95,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 77)(85 Big Snakes Heart Teleport, Six Purple Red Orange Color Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s96,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 78)(83 Big Snakes Heart Teleport, Six Hair Purple Potato Red Orange Gray Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s97,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 79)(85 Big Snakes Heart Teleport, Six Hair Purple Potato Red Gray Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s98,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 80)(83 Big Snakes Heart Teleport, Six Hair Blue Water Gray Orange Red Sunlight + Protective Light Initial Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s99,       kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 81)(85 Big Snakes Heart Teleport, Six Hair Blue Water Gray Orange Red Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s100,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 82)(83 Big Snakes Heart Teleport, Six Red, Blue, Gray, Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s101,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 83)(85 Big Snakes Heart Teleport, Six Red, Blue, Gray, Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s102,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (The Martial Arts Mythical Dark Snake Test Version 84)(83 Big Snakes Heart Teleport, Six Blue And Red Sunshine + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s103,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 85)(85 Big Snakes Heart Teleport, Six Blue And Red Sunshine + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s104,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 86)(83 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97s105,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Wulin Mythology Dark Snake Test Version 87)(85 Big Snakes Heart Teleport, Six Hair 0c Powder, Blue, Red Sunlight + Protective Light Dizziness)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s106,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Yukimura",   "Kof'97 (The Dragon 3.1 Dark Snake Bu Wu Gao IQ)(The Big Snake Crescent Slow Push Defense Special Effect Big Snake Flash)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, kof97s107,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Littlemoon", "Kof'97 (Heavenly Divine 2013-02-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof97s108,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "HZ62",       "Kof'97 (Innovation 2018-09-04)", MACHINE_SUPPORTS_SAVE )
@@ -13367,7 +13418,7 @@ HACK( 1997, kof97hx268,     kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1997, kof97hx269,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Imitation KOF98)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx270,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "EMU_MAX",    "Kof'97 (Orochi Max Sun Shine To White Luo Extinction)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx271,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "EMU_MAX",    "Kof'97 (Shermie Added New Moves)", MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97hx272,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 Plus (2017 Final)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1997, kof97hx272,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 Plus (2017 Final)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, kof97hx273,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",     "Kof'97 (Combo 2010-02-07)(Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx274,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "bootleg",    "Kof'97 Plus (2003 Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx275,     kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "ZUOJIE",    "Kof'97 (Chinese Version 2006-05-24)", MACHINE_SUPPORTS_SAVE )
