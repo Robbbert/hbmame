@@ -2298,6 +2298,7 @@ ROM_START( kf99rev2 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "251revo.p1", 0x000000, 0x100000, CRC(38FD8609) SHA1(fded1624a670835ae107dc19707c2fa8b06d6cea) )
 	ROM_LOAD16_WORD_SWAP( "251revo.p2", 0x100000, 0x400000, CRC(361F64DB) SHA1(a789df74ff197f2c552a87be4db8d321603d404e) )
+	ROM_FILL(0x2abe8,1,0x67)
 
 	NEO_SFIX_128K( "251revo.s1", CRC(1b0133fe) SHA1(7f8e743bc0c8384dec12ca7007d32b23fef8875d) )
 
@@ -2981,7 +2982,7 @@ HACK( 1999, kof99yd,    kof99,    neogeo_noslot, neogeo, neogeo_state,        ko
 HACK( 1999, kof99bs,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "hack", "Kof'99 (Boss Like Dreamcast, FCHT Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kof99bs2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Eddids", "Kof'99 (DreamCast 1.2f/M.Multijet)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kof99yb,    kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "Ydmis", "Kof'99 (proto)(2 Add Char set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, kf99rev2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "wesker", "Kof'99 (Revolution, Merry Christmas, Okuhoshi Hack Set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1999, kf99rev2,   kof99,    neogeo_noslot, neogeo, neogeo_state,        neogeo,  ROT0, "wesker", "Kof'99 (Revolution, Merry Christmas, Okuhoshi Hack Set 2)", MACHINE_SUPPORTS_SAVE )
 /* Hacks of the Prototype */
 HACK( 1999, kof99evos,  kof99hp,  neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (Evolution Balanced)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kof99hp,    neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof'99 (2 Add Char set 2)", MACHINE_SUPPORTS_SAVE )
