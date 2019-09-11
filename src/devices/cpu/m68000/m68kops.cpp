@@ -26729,7 +26729,9 @@ void m68000_base_device::x8100_sbcd_b_071234fc()
 	u32 dst = *r_dst;
 	u32 res = LOW_NIBBLE(dst) - LOW_NIBBLE(src) - XFLAG_1();
 	u32 corf = 0;
-
+//std::string st = machine().describe_context();     // HBMAME
+//if (st != "':maincpu' (C1180E)")
+//printf("%s\n",st.c_str());
 	if(res > 0xf)
 		corf = 6;
 	res += HIGH_NIBBLE(dst) - HIGH_NIBBLE(src);
