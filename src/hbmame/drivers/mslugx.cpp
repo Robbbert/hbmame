@@ -508,7 +508,7 @@ ROM_END
 
 ROM_START( mslugxz02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "250z02.p1",  0x000000, 0x100000, CRC(151f6a6d) SHA1(6d564714cdefe711fe7470d9c1cea901913e2592) )
+	ROM_LOAD16_WORD_SWAP( "250z02.p1",  0x000000, 0x100000, CRC(27d836c8) SHA1(4b110e1f1094cea607914156c69298017153a9d8) )
 	ROM_LOAD16_WORD_SWAP( "250.p2", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
 
 	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
@@ -7754,7 +7754,7 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Metal Slug X
 HACK( 1999, mslugxz01,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Extreme Blue)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxz02,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "DDJ",    "Metal Slug X (Jump In Mid Air)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // //The roms is not working, but the Fba emulator works correctly
+HACK( 1999, mslugxz02,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "DDJ",    "Metal Slug X (Jump In Mid Air)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz04,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Qing Youlan First Edition V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz05,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Blue Old V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz06,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Blue 6.14)", MACHINE_SUPPORTS_SAVE )

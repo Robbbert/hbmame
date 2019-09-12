@@ -1163,6 +1163,28 @@ ROM_START( mslug4hh32 )
 	ROM_LOAD16_BYTE( "263.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
 
+ROM_START( mslug4hh33 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263hh33.p1",   0x000000, 0x100000, CRC(414416d1) SHA1(78d3f7bc4a5e603c8035a2c9ece3969f9ee1b567) )
+	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_64K( "263d.m1", CRC(0c4c42f8) SHA1(b7be47d909f5e4fcfe769ead0653d40e1e708d36) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
+	ROM_LOAD( "263.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
+	ROM_LOAD16_BYTE( "263.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
+	ROM_LOAD16_BYTE( "263.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
+	ROM_LOAD16_BYTE( "263.c4",   0x1000001, 0x800000, CRC(942cfb44) SHA1(d9b46c71726383c4581fb042e63897e5a3c92d1b) )
+	ROM_LOAD16_BYTE( "263.c5",   0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
+	ROM_LOAD16_BYTE( "263.c6",   0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
+ROM_END
+
 ROM_START( mslug4hh34 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263hh34.p1",    0x000000, 0x100000, CRC(a3ceab91) SHA1(f0e125e708bb466308e6846bb943022f4b5785a3) )
@@ -5030,6 +5052,7 @@ HACK( 2018, mslug4hh29,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neo
 HACK( 2002, mslug4hh30,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Character)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
 HACK( 2002, mslug4hh31,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Weapon)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh32,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Change Zombie)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //It is Crashea when one changes character at the beginning of the final mission.
+HACK( 2002, mslug4hh33,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ", "Metal Slug 4 (Jump In Mid Air)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh34,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Shyma.X",    "Metal Slug 4 (Neo Arc French Traduction Rev.3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh35,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "DDJ",    "Metal Slug 4 (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslug4hh36,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Eddids[FGCH]",    "Metal Slug 4 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )

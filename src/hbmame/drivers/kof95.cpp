@@ -1137,6 +1137,31 @@ ROM_START( kof95s28 )
 	ROM_LOAD16_BYTE( "084.c8", 0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
 ROM_END
 
+ROM_START( kof95s29 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "084h29.p1",0x100000, 0x100000, CRC(e0adb858) SHA1(da28b6a5c0b06ff63a1f394be2868f9e3d455a99) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "084.s1", CRC(de716f8a) SHA1(f7386454a943ed5caf625f67ee1d0197b1c6fa13) )
+
+	NEO_BIOS_AUDIO_128K( "084.m1", CRC(6f2d7429) SHA1(6f8462e4f07af82a5ca3197895d5dcbb67bdaa61) )
+
+	ROM_REGION( 0x900000, "ymsnd", 0 )
+	ROM_LOAD( "084.v1", 0x000000, 0x400000, CRC(84861b56) SHA1(1b6c91ddaed01f45eb9b7e49d9c2b9b479d50da6) )
+	ROM_LOAD( "084.v2", 0x400000, 0x200000, CRC(b38a2803) SHA1(dbc2c8606ca09ed7ff20906b022da3cf053b2f09) )
+	ROM_LOAD( "084.v3", 0x800000, 0x100000, CRC(d683a338) SHA1(eb9866b4b286edc09963cb96c43ce0a8fb09adbb) )
+
+	ROM_REGION( 0x1a00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "084.c1", 0x0000000, 0x400000, CRC(fe087e32) SHA1(e8e89faa616027e4fb9b8a865c1a67f409c93bdf) )
+	ROM_LOAD16_BYTE( "084.c2", 0x0000001, 0x400000, CRC(07864e09) SHA1(0817fcfd75d0735fd8ff27561eaec371e4ff5829) )
+	ROM_LOAD16_BYTE( "084.c3", 0x0800000, 0x400000, CRC(a4e65d1b) SHA1(740a405b40b3a4b324697d2652cae29ffe0ac0bd) )
+	ROM_LOAD16_BYTE( "084.c4", 0x0800001, 0x400000, CRC(c1ace468) SHA1(74ea2a3cfd7b744f0988a05baaff10016ca8f625) )
+	ROM_LOAD16_BYTE( "084.c5", 0x1000000, 0x200000, CRC(8a2c1edc) SHA1(67866651bc0ce27122285a66b0aab108acf3d065) )
+	ROM_LOAD16_BYTE( "084.c6", 0x1000001, 0x200000, CRC(f593ac35) SHA1(302c92c63f092a8d49429c3331e5e5678f0ea48d) )
+	ROM_LOAD16_BYTE( "084.c7", 0x1800000, 0x100000, CRC(9904025f) SHA1(eec770746a0ad073f7d353ab16a2cc3a5278d307) )
+	ROM_LOAD16_BYTE( "084.c8", 0x1800001, 0x100000, CRC(78eb0f9b) SHA1(2925ea21ed2ce167f08a25589e94f28643379034) )
+ROM_END
+
 ROM_START( kof95s30 )  // encrypted px
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "084h30.p1",0x000000, 0x100000, CRC(e829d460) SHA1(15e6dc701a41bf357e3423f56ed4796198052fa1) )
@@ -1220,5 +1245,6 @@ HACK( 2018, kof95s25,       kof95,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, kof95s26,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'95 (Uncensored Version Remix v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof95s27,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'95 (Uncensored Version Remix v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof95s28,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'95 (Uncensored Version Remix v3)", MACHINE_SUPPORTS_SAVE )
+HACK( 1995, kof95s29,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",     "Kof'95 (Training Move)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof95s30,       kof95,    gsc,           neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007", "Kof'95 (Special v1.0.062?)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1995, kof95s31,       kof95,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Wanglins/IsmaMj",    "Kof'95 (Ice Blue Style Remix v6)", MACHINE_SUPPORTS_SAVE )
