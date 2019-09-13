@@ -394,7 +394,7 @@ void neosprite_device::draw_sprites( bitmap_rgb32 &bitmap, int scanline )
 
 			attr_and_code_offs = (sprite_number << 6) | (tile << 1);
 			attr = m_videoram_drawsource[attr_and_code_offs + 1];
-			code = ((attr << 12) & 0x70000) | m_videoram_drawsource[attr_and_code_offs];
+			code = ((attr << 12) & 0xf0000) | m_videoram_drawsource[attr_and_code_offs];
 
 			/* substitute auto animation bits */
 			if (!m_auto_animation_disabled)
@@ -412,7 +412,7 @@ void neosprite_device::draw_sprites( bitmap_rgb32 &bitmap, int scanline )
 			zoom_x_table = zoom_x_tables[zoom_x];
 
 			/* compute offset in gfx ROM and mask it to the number of bits available */
-			int gfx_base = ((code << 8) | (sprite_y << 4)) & m_sprite_gfx_address_mask;
+			u32 gfx_base = ((code << 8) | (sprite_y << 4)) & m_sprite_gfx_address_mask;
 
 			line_pens = &m_pens[attr >> 8 << m_bppshift];
 
@@ -428,11 +428,9 @@ void neosprite_device::draw_sprites( bitmap_rgb32 &bitmap, int scanline )
 			/* draw the line - no wrap-around */
 			if (x <= 0x01f0)
 			{
-				int i;
-
 				uint32_t *pixel_addr = &bitmap.pix32(scanline, x + NEOGEO_HBEND);
 
-				for (i = 0; i < 0x10; i++)
+				for (u8 i = 0; i < 0x10; i++)
 				{
 					if (*zoom_x_table)
 					{
@@ -448,12 +446,10 @@ void neosprite_device::draw_sprites( bitmap_rgb32 &bitmap, int scanline )
 			/* wrap-around */
 			else
 			{
-				int i;
-
 				int x_save = x;
 				uint32_t *pixel_addr = &bitmap.pix32(scanline, NEOGEO_HBEND);
 
-				for (i = 0; i < 0x10; i++)
+				for (u8 i = 0; i < 0x10; i++)
 				{
 					if (*zoom_x_table)
 					{
@@ -610,11 +606,11 @@ void neosprite_device::optimize_sprite_data()
 	uint8_t *src = m_region_sprites;
 	uint8_t *dest = &m_sprite_gfx[0];
 
-	for (unsigned i = 0; i < m_region_sprites_size; i += 0x80, src += 0x80)
+	for (u32 i = 0; i < m_region_sprites_size; i += 0x80, src += 0x80)
 	{
-		for (unsigned y = 0; y < 0x10; y++)
+		for (u8 y = 0; y < 0x10; y++)
 		{
-			for (unsigned x = 0; x < 8; x++)
+			for (u8 x = 0; x < 8; x++)
 			{
 				*(dest++) = (((src[0x43 | (y << 2)] >> x) & 0x01) << 3) |
 							(((src[0x41 | (y << 2)] >> x) & 0x01) << 2) |
@@ -622,7 +618,7 @@ void neosprite_device::optimize_sprite_data()
 							(((src[0x40 | (y << 2)] >> x) & 0x01) << 0);
 			}
 
-			for (unsigned x = 0; x < 8; x++)
+			for (u8 x = 0; x < 8; x++)
 			{
 				*(dest++) = (((src[0x03 | (y << 2)] >> x) & 0x01) << 3) |
 							(((src[0x01 | (y << 2)] >> x) & 0x01) << 2) |

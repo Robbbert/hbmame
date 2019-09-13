@@ -1600,7 +1600,7 @@ ROM_END
 
 // 442 : Bad Apple demo by BEY
 // No colours
-ROM_START( neobadapple )
+ROM_START( badapple )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD( "442.p1", 0x000000, 0x09e0f, CRC(c8068de3) SHA1(f240b23f5f2aed998ebcbb95680225e3e35a8051) )
 	ROM_LOAD16_WORD( "442.p2", 0x100000, 0xeeb5c, CRC(f5fe8e16) SHA1(68398a9719eb9f4e42668991384683965c5787bf) )
@@ -1620,6 +1620,22 @@ ROM_START( neobadapple )
 	ROM_LOAD16_WORD( "442.c2",  0x600000, 0x5bb580, CRC(5cbbc6e0) SHA1(aad04b9b7cdf7c3951006b39676ee4ee989338b0) )
 	ROM_LOAD16_WORD( "442.c3",  0xc00000, 0x5b1200, CRC(befd5392) SHA1(49f0610b9a4e1bdbb881c2156f01631cc45915c1) )
 	ROM_LOAD16_WORD( "442.c4",  0x1200000, 0x2c7480, CRC(e4b70cf5) SHA1(af717a650dbde0c4a852f8ee87a1d55ac9349172) )
+ROM_END
+
+ROM_START( badapplea )
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "442a.p1", 0x000000, 0x400000, CRC(f68ade5a) SHA1(c2aa87783bc04cccb9d5df0ed74524787be1860f) )
+
+	NEO_SFIX_128K( "442a.s1", CRC(bc7ebee7) SHA1(401d98fc4dbecf0281ee04718cf549cd35a80fed) )
+
+	NEO_BIOS_AUDIO_64K( "442a.m1", CRC(c11e8874) SHA1(5b3316757b77e43ac5d18206bdeb90f7e8bc882a) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "442a.v1", 0x000000, 0x500000, CRC(3b741894) SHA1(c3e509830b53e36211823d6b912d5a2acb983ed9) )
+
+	ROM_REGION( 0x6200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "442a.c1",  0x000000, 0x3100000, CRC(88ddc443) SHA1(b682f86647903c10bd7b525bb92dfd0a13499b36) )
+	ROM_LOAD16_BYTE( "442a.c2",  0x000001, 0x3100000, CRC(b64face4) SHA1(f7f36370c6d6f56a6b924bedbdf87a3cd572b61d) )
 ROM_END
 
 
@@ -2368,6 +2384,8 @@ HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, badapplea,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HPman", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)(Homebrew)", MACHINE_SUPPORTS_SAVE )
@@ -2397,7 +2415,6 @@ HACK( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, neobadapple,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
