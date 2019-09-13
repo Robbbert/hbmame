@@ -1492,8 +1492,10 @@ jrcheat
 jrspeed
 jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
-@source:kaneko.cpp
+@source:kaneko16.cpp
 shogwarr		//parent
+bloodwar		//parent
+bloodwars01
 shogwarrs01
 shogwarrbh
 fjbusterbh
@@ -1585,6 +1587,7 @@ kof95s25
 kof95s26
 kof95s27
 kof95s28
+kof95s29
 //kof95s30 // encrypted but probably same as kof95sp
 kof95s31
 
@@ -3837,18 +3840,10 @@ mslugrmpl01
 mslugrmpl02
 mslugrmpl03
 mslugrmpl04
-mslugrmpl05
-mslugrmpl06
-mslugrmpl07
-mslugrmpl08
 mslugrmhp01
 mslugrmhp02
 mslugrmhp03
 mslugrmhp04
-mslugrmhp05
-mslugrmhp06
-mslugrmhp07
-mslugrmhp08
 
 @source:mslug2.cpp
 mslug2eh
@@ -3867,10 +3862,11 @@ mslug2ps03
 mslug2ps04
 mslug2ps05
 mslug2ps06
-mslug2ps07 //It does not work
+mslug2ps07
 mslug2ps08
 mslug2ps09
 mslug2ps10
+mslug2ps11
 mslug2ps12
 mslug2ps13
 mslug2ps14
@@ -3894,6 +3890,7 @@ mslug2ps31
 mslug2ps32
 mslug2ps33
 mslug2ps34
+mslug2ps35
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -3999,6 +3996,7 @@ ms6slm05
 ms6slm06
 mslug3h01
 mslug3h02
+mslug3h03
 mslug3h04
 mslug3h05
 mslug3h06
@@ -4535,6 +4533,7 @@ mslug4hh29
 mslug4hh30
 mslug4hh31
 mslug4hh32
+mslug4hh33
 mslug4hh34
 mslug4hh35
 mslug4hh36
@@ -5153,7 +5152,7 @@ mslugxst
 mslugxeh
 mslugxsvb
 mslugxz01
-mslugxz02  //It does not work
+mslugxz02
 mslugxz04
 mslugxz05
 mslugxz06
@@ -6381,6 +6380,7 @@ lb2te
 lb2uh
 lb2wh
 lb2yd
+lastblad01
 lastblad02
 lastblad03
 lastblad04
@@ -6398,6 +6398,7 @@ lastblad15
 lastblad16
 lastblad17
 lastblad18
+lastblad19
 lastbld2s01
 lastbld2s02
 lastbld2s03
@@ -6410,6 +6411,8 @@ lastbld2s09
 lastbld2s10
 lastbld2s11
 lastbld2s12
+lastbld2s13
+lastbld2s14
 lastbld2s15
 lastbld2s16
 lastbld2s17
@@ -6572,6 +6575,7 @@ samshos03
 samshos04
 samshos05
 samshos06
+samshos07
 samsho2s01
 samsho2s02
 samsho2s03
@@ -6580,6 +6584,7 @@ samsho2s05
 samsho2s06
 samsho2s07
 samsho2s08
+samsho2s09
 samsho2s10
 samsho2s11
 samsho2s12
@@ -6595,6 +6600,7 @@ samsho3s08
 samsho3s09
 samsho3s10
 samsho3s11
+samsho3s12
 samsho4s01
 samsho4s02
 samsho4s03
@@ -6607,6 +6613,8 @@ samsho4s09
 samsho4s10
 samsho4s11
 samsho4s12
+samsho4s13
+samsho4s14
 samsho5s01
 samsho5s02
 samsho5s03
@@ -6632,6 +6640,9 @@ samsho5s22
 samsho5s23
 samsho5s24
 samsho5s25
+samsho5s26
+samsho5s27
+samsho5s28
 samsh5sp01
 samsh5sp02
 samsh5sp03
@@ -6650,6 +6661,10 @@ samsh5sp15
 samsh5sp16
 samsh5sp17
 samsh5sp18
+samsh5sp19
+samsh5sp20
+samsh5sp21
+samsh5sp22
 
 @source:ngsengoku.cpp
 sengokucd
@@ -6675,6 +6690,8 @@ sengoku3s06
 sengoku3s07
 sengoku3s08
 sengoku3s09
+sengoku3s10
+sengoku3s11
 
 @source:ngsvc.cpp
 svccprw
@@ -7920,7 +7937,7 @@ olds100ass118 // opcode 1111 at cliff in attract mode
 olds100ass119 // opcode 1111 at cliff in attract mode
 //olds100ass120 //  roms missing
 //olds100ass121 //  roms missing
-//olds100ass122 //  roms missing
+olds100ass122
 olds100ass123
 //olds100ass124 //  roms missing
 //olds100ass125 //  roms missing
@@ -8211,6 +8228,8 @@ ggrounds01
 @source:segas32.cpp
 ga2						//parent
 ga2s01
+brival  				//parent
+brivals01
 
 @source:seta.cpp
 blandia					//parent
