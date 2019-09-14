@@ -2,14 +2,19 @@
 ====================
 
 
-2019-09-25 0.214
+2019-09-27 0.214
 ----------------
 
-- Some old hack roms of the old emulators for Mame Hack are being restored.
-- Fixed hack compatibility in roms olds100a.
+- Some hacked games from old dead derivative emulators have been added.
+- Fixed many olds100a hacks.
+- Neogeo: fixed bad graphics where the sprites rom was very large.
+- Neogeo kof hacks: fixed timer where it started at 90 or 99 then went straight to 00.
+     (if you find any games still with this bug, please report it).
+
 
 New Games
 ---------------------------------
+- [badapplea]         Bad Apple demo (Giga Power edition)
 - [dinos202]          Cadillacs and Dinosaurs (Powerful Rainbow Edition 2019-08-30)
 - [dinos203]          Cadillacs and Dinosaurs (Boss 2019-03-01)
 - [dinos204]          Cadillacs and Dinosaurs (Punishment Edition 2018-08-23)

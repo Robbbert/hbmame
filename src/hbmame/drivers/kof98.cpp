@@ -268,7 +268,7 @@ ROM_START( kof98ae20160902 ) // Anniversary Edition, all confirmed.
 	// These are corrupt during attract mode fight (where cars are driving past), do not use
 	ROM_LOAD16_WORD_SWAP( "242aec.p1", 0x000000, 0x100004, CRC(c7fddbd8) SHA1(3fd7cd0676907b6d287355e5ade309858818dca6) )
 	ROM_LOAD16_WORD_SWAP( "242aec.p2", 0x100000, 0x600004, CRC(d84dbe5b) SHA1(b3327f4a122fdebe56d34bc26bf2e35e0ec5e034) )
-	
+
 	NEO_SFIX( 0x40000, "242aea.s1", CRC(345c20b0) SHA1(ff844e47667297f09f8b49ae19987542e253095e) )
 
 	NEO_BIOS_AUDIO_256K( "242ae.m1", CRC(9ade0528) SHA1(67d0c3b146d369416b84c081544fe51fc6c2a140) )
