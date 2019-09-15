@@ -14,7 +14,8 @@
 
 New Games
 ---------------------------------
-- [badapplea]         Bad Apple demo (Giga Power edition)
+- [badapplea]         Bad Apple demo (v2)
+- [badappleb]         Bad Apple demo (Giga Power edition)
 - [dinos202]          Cadillacs and Dinosaurs (Powerful Rainbow Edition 2019-08-30)
 - [dinos203]          Cadillacs and Dinosaurs (Boss 2019-03-01)
 - [dinos204]          Cadillacs and Dinosaurs (Punishment Edition 2018-08-23)
