@@ -4055,6 +4055,10 @@ mslug3h65
 mslug3h66
 mslug3h67
 mslug3h68
+mslug3h69
+mslug3h70
+mslug3h71
+mslug3h72
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4540,6 +4544,7 @@ mslug4hh44
 mslug4hh45
 mslug4hh46
 mslug4hh47
+mslug4hh48
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -4706,6 +4711,8 @@ mslug5w
 ms5boot
 ms5pcbd
 ms5sp
+mslug5dh01
+mslug5dh02
 mslug5dh03
 mslug5dh04
 mslug5dh05
@@ -5258,6 +5265,9 @@ mslugxrm0s27
 mslugxrm0s28
 mslugxrm0s29
 mslugxrm0s30
+mslugxrm0s31
+mslugxrm0s32
+mslugxrm0s33
 mslugxrm0s37
 mslugxrm0s38
 mslugxrm0s39
@@ -5300,6 +5310,9 @@ mslugxrm1s27
 mslugxrm1s28
 mslugxrm1s29
 mslugxrm1s30
+mslugxrm1s31
+mslugxrm1s32
+mslugxrm1s33
 mslugxrm1s37
 mslugxrm1s38
 mslugxrm1s39
@@ -5342,6 +5355,9 @@ mslugxrm2s27
 mslugxrm2s28
 mslugxrm2s29
 mslugxrm2s30
+mslugxrm2s31
+mslugxrm2s32
+mslugxrm2s33
 mslugxrm2s37
 mslugxrm2s38
 mslugxrm2s39
@@ -5384,6 +5400,9 @@ mslugxrm3s27
 mslugxrm3s28
 mslugxrm3s29
 mslugxrm3s30
+mslugxrm3s31
+mslugxrm3s32
+mslugxrm3s33
 mslugxrm3s37
 mslugxrm3s38
 mslugxrm3s39
@@ -5426,6 +5445,9 @@ mslugxrmmpv27
 mslugxrmmpv28
 mslugxrmmpv29
 mslugxrmmpv30
+mslugxrmmpv31
+mslugxrmmpv32
+mslugxrmmpv33
 mslugxrmmpv37
 mslugxrmmpv38
 mslugxrmmpv39
