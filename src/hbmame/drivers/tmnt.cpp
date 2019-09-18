@@ -38,6 +38,34 @@ GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, empty_init, 
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
+ /*************
+ Sunset Riders
+***************/
+
+ROM_START( ssriderseaas01 )
+	ROM_REGION( 0xc0000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "064eaa02_ps01.8e",   0x000000, 0x40000, CRC(f6bce510) SHA1(3c46487c4bd591fe14248344ac2563beb1437769) )
+	ROM_LOAD16_BYTE( "064eaa03_ps01.8g",   0x000001, 0x40000, CRC(9e998ebe) SHA1(683d75bcfb8b8f87996fe8aadde4d1c600b409df) )
+	ROM_LOAD16_BYTE( "064eaa04_ps01.10e",  0x080000, 0x20000, CRC(06755c89) SHA1(0e19d1147407b8062335c0529ae8f7c01b634e01) )
+	ROM_LOAD16_BYTE( "064eaa05_ps01.10g",  0x080001, 0x20000, CRC(0aad4619) SHA1(98678d79323f5cc439dd186aa45ab3fb2e7d1515) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "064eaa01.2f",   0x0000, 0x10000, CRC(bce45d82) SHA1(7f6d17fad0b556243c59d25a94925d259d98d81a) )
+
+	ROM_REGION( 0x100000, "k052109", 0 ) 
+	ROM_LOAD32_WORD( "064e12.16k",   0x000000, 0x080000, CRC(e2bdc619) SHA1(04449deb267b0beacfa33640b593eb16194aa0d9) )
+	ROM_LOAD32_WORD( "064e11.12k",   0x000002, 0x080000, CRC(2d8ca8b0) SHA1(7c882f79c2402cf75979c681071007d76e4db9ae) )
+
+	ROM_REGION( 0x200000, "k053245", 0 )  
+	ROM_LOAD32_WORD( "064e09.7l", 0x000000, 0x100000, CRC(4160c372) SHA1(0b36181e5ccd785c7fb89b9f41e458066a42c3b0) )
+	ROM_LOAD32_WORD( "064e07.3l", 0x000002, 0x100000, CRC(64dd673c) SHA1(bea4d17a71dd21c635866ee69b4892dc9d0ab455) )
+
+	ROM_REGION( 0x100000, "k053260", 0 )
+	ROM_LOAD( "064e06.1d",    0x0000, 0x100000, CRC(59810df9) SHA1(a0affc6330bdbfab1447dc0cf13c20ff708c2c71) )
+
+	ROM_REGION( 0x80, "eeprom", 0 ) 
+	ROM_LOAD( "ssriders_eaa.nv", 0x0000, 0x080, CRC(74a45ef5) SHA1(da01f14684315bfb5c180f0c64a14350c34ae945) )
+ROM_END
 
  /****************************
  Teenage Mutant Ninja Turtles
@@ -125,6 +153,8 @@ ROM_START( tmnt2s03 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Sunset Riders
+GAME( 2019, ssriderseaas01, ssriders, ssriders, ssridr4p,  tmnt_state, empty_init, ROT0,   "hack",  "Sunset Riders (1V4 Edition 2019-07-28)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Teenage Mutant Ninja Turtles
 GAME( 1991, tmnt2s01,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, tmnt2s02,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Start Change Char)", MACHINE_SUPPORTS_SAVE )
