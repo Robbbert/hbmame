@@ -297,4 +297,4 @@ GAME( 2019, grdianss07,   grdians,        grdians,  grdians,  seta2_state,    em
 GAME( 2018, grdianss08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-12-10)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2018, grdianss09,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Plus 2018-07-26)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2019, grdianss10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Unparalleled Version 2019-04-15)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2019, grdianss11,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Unparalleled version 2019-09-16",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2019, grdianss11,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Unparalleled version 2019-09-16)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
