@@ -1303,7 +1303,7 @@ decomult				// Dave Widel
 @source:dkong.cpp
 dkong					//parent
 dkong2m
-//dkongbcc				// 4 program roms not found
+dkongbcc				// Jeff's Rom Hacks
 dkongex					/* Jeff's Hack with Foundry Level */
 dkongf
 dkongp					/* Fix for level 22 kill screen by Don Hodges */

@@ -391,7 +391,7 @@ ROM_START( dkpace )
 ROM_END
 
 ROM_START( dkongbcc )
-	ROM_REGION( 0x10000, "maincpu", 0 )   // All 4 roms are unobtainable
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "dkbcc.5et",  0x0000, 0x1000, CRC(eec71586) SHA1(8c9c05c919265d6b930e5088e869c4b44264ded4) )
 	ROM_LOAD( "dkbcc.5ct",  0x1000, 0x1000, CRC(49200edb) SHA1(e40a19700196dc7b2ae766cbef51867856c986aa) )
 	ROM_LOAD( "dkbcc.5bt",  0x2000, 0x1000, CRC(56f7c409) SHA1(265817ce17951d49b95a2361c5cc3032620aae96) )
@@ -504,7 +504,7 @@ ROM_END
 
 
 GAME( 2013, dkong2m,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "hack", "Donkey Kong (2 marios)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "hack", "Donkey Kong (US set 1 with barrel control coloring)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong (US set 1 with barrel control coloring)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, dkongex,   dkong, dkong2b,   dkongex, dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, dkfreerun, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "PaulGoes", "Donkey Kong Freerun Edition", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, dkcbarrel, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "PaulGoes", "Donkey Kong Crazy Barrels Edition", MACHINE_SUPPORTS_SAVE )

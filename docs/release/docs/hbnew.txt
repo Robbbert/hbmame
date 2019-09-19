@@ -33,6 +33,7 @@ New Games
 - [dinos208]          Cadillacs and Dinosaurs (Playing Competitive Version 2019-09-16)
 - [dinos209]          Cadillacs and Dinosaurs (Play 97 V5 Enhanced Version 2019-09-16)
 - [dinos210]          Cadillacs and Dinosaurs (The 2011 New Unparalleled 2019-09-16)
+- [dkongbcc]          Donkey Kong with Barrel Control Coloring [thx to Jeffs Rom Hacks]
 - [dkongrev]          Donkey Kong Reverse [by PaulGoes]
 - [grdianss11]        Guardians (Unparalleled version 2019-09-16)
 - [kof2k4ses32]       Kof Special Edition 2004 Magic Plus (Crazy Edition 2018-10-26)
