@@ -62,7 +62,7 @@
 				premake.stats.num_skipped = premake.stats.num_skipped + 1
 			end
 		else
-			printf("Generating %s...", filename)
+--			printf("Generating %s...", filename)
 
 			local f, err = io.open(filename, "wb")
 			if (not f) then

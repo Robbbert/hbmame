@@ -1334,8 +1334,8 @@ dotrikun2
 dotriman
 mineswp			/* Minesweeper */
 
-@source:ertictac.cpp
-armdemo		/* Charles Doty */  // totally broken
+//@source:ertictac.cpp
+//armdemo		/* Charles Doty */  // totally broken
 
 @source:exidy.cpp
 targ			//parent
