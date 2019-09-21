@@ -1241,11 +1241,11 @@ uint32_t mame_ui_manager::handler_ingame(render_container &container)
 	// toggle autofire
 	if (machine().ui_input().pressed(IPT_UI_TOGGLE_AUTOFIRE))
 	{
-		if (!machine().options().cheat())
-		{
-			machine().popmessage(_("Autofire can't be enabled"));
-		}
-		else
+//		if (!machine().options().cheat()) //HBMAME
+//		{
+//			machine().popmessage(_("Autofire can't be enabled"));
+//		}
+//		else
 		{
 			bool autofire_toggle = machine().ioport().get_autofire_toggle();
 			machine().ioport().set_autofire_toggle(!autofire_toggle);
@@ -1396,7 +1396,7 @@ std::vector<ui::menu_item> mame_ui_manager::slider_init(running_machine &machine
 
 	// add CPU overclocking (cheat only)
 	slider_index = 0;
-	if (machine.options().cheat())
+//	if (machine.options().cheat()) // HBMAME
 	{
 		for (device_execute_interface &exec : execute_interface_iterator(machine.root_device()))
 		{
@@ -1429,7 +1429,7 @@ std::vector<ui::menu_item> mame_ui_manager::slider_init(running_machine &machine
 		std::string screen_desc = machine_info().get_screen_desc(screen);
 
 		// add refresh rate tweaker
-		if (machine.options().cheat())
+//		if (machine.options().cheat()) // HBMAME
 		{
 			std::string str = string_format(_("%1$s Refresh Rate"), screen_desc);
 			m_sliders.push_back(slider_alloc(SLIDER_ID_REFRESH + slider_index, str.c_str(), -10000, 0, 10000, 1000, param));
