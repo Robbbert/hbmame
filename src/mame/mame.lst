@@ -11487,6 +11487,7 @@ debutm
 automat                         // bootleg
 baddudes                        // EI (c) 1988 Data East USA (US)
 birdtry                         // EK (c) 1988 Data East Corporation (Japan)
+birdtrya                        // EK (c) 1988 Data East Corporation (Japan)
 bouldash                        // (c) 1990 Data East Corporation (World)
 bouldashj                       // (c) 1990 Data East Corporation (Japan)
 drgninja                        // EG (c) 1988 Data East Corporation (Japan)
@@ -15352,12 +15353,13 @@ uspbball                        // US Games
 exospace                        // Elektronika
 gnw_ball                        // Nintendo
 gnw_bfight                      // Nintendo
+gnw_bfightn                     // Nintendo
 gnw_bjack                       // Nintendo
 gnw_boxing                      // Nintendo
 gnw_bsweep                      // Nintendo
 gnw_chef                        // Nintendo
 gnw_climber                     // Nintendo
-gnw_climbcs                     // Nintendo
+gnw_climbern                    // Nintendo
 gnw_dkjr                        // Nintendo
 gnw_dkjrp                       // Nintendo
 gnw_dkong                       // Nintendo

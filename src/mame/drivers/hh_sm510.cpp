@@ -20,13 +20,14 @@ TODO:
 - improve/redo SVGs of: gnw_mmouse, gnw_egg, exospace
 - confirm gnw_mmouse/gnw_egg rom (dumped from Soviet clone, but pretty
   confident that it's same)
-- confirm gnw_climbcs rom (assumed to be the same as gnw_climber)
+- confirm gnw_bfight rom (assumed to be the same as gnw_bfightn)
+- confirm gnw_climber rom (assumed to be the same as gnw_climbern)
 - dump/add purple version of gnw_judge
 - dump/add CN-07 version of gnw_helmet
 - Currently there is no accurate way to dump the SM511/SM512 melody ROM
   electronically. For the ones that weren't decapped, they were read by
   playing back all melody data and reconstructing it to ROM. Visual(decap)
-  verification is wanted for: gnw_bfight, gnw_bjack, gnw_bsweep, gnw_climber,
+  verification is wanted for: gnw_bfightn, gnw_bjack, gnw_bsweep, gnw_climbern,
   gnw_dkjrp, gnw_gcliff, gnw_mbaway, gnw_sbuster, gnw_zelda
 
 ****************************************************************************
@@ -103,7 +104,7 @@ AK-302*   mvs  SM511?  Donkey Kong 3
 HK-303*   mvs  SM511?  Donkey Kong Hockey
 YM-801*   cs   SM511   Super Mario Bros. (assume same ROM as nws version)
 DR-802    cs   SM511   Climber            "
-BF-803*   cs   SM511   Balloon Fight      "
+BF-803    cs   SM511   Balloon Fight      "
 YM-901-S* x    SM511   Super Mario Bros.  "
 
 RGW-001 (2010 Ball remake) is on different hardware, ATmega169PV MCU.
@@ -3740,19 +3741,19 @@ ROM_END
 
 /***************************************************************************
 
-  Nintendo Game & Watch: Climber New Wide Screen (model DR-106),
-  Nintendo Game & Watch: Climber Crystal Screen (model DR-802)
-  * PCB label DR-106 (New Wide Screen), DR-802 (Crystal Screen)
+  Nintendo Game & Watch: Climber Crystal Screen (model DR-802),
+  Nintendo Game & Watch: Climber New Wide Screen (model DR-106)
+  * PCB label DR-802 (Crystal Screen), DR-106 (New Wide Screen)
   * Sharp SM511
-     - label DR-106 9038B (new wide screen version) (no decap)
      - label DR-802 8626A (crystal screen) (not dumped yet)
+     - label DR-106 9038B (new wide screen version) (no decap)
   * lcd screen with custom segments, 1-bit sound
 
   First released in 1986 on Crystal Screen (model DR-802), rereleased on
   New Wide Screen in 1988 (model DR-106). The graphic LCD elements look the same
   in both versions but the display aspect ratio and the graphical background is
-  slightly different.
-  Until further proof, it's assumed that the ROM is the same for both models.
+  slightly different. Until further proof, it's assumed that the ROM is the same
+  for both models.
 
 ***************************************************************************/
 
@@ -3764,7 +3765,7 @@ public:
 	{ }
 
 	void gnw_climber(machine_config &config);
-	void gnw_climbcs(machine_config &config);
+	void gnw_climbern(machine_config &config);
 };
 
 // config
@@ -3808,7 +3809,7 @@ void gnw_climber_state::gnw_climber(machine_config &config)
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
 	screen.set_refresh_hz(60);
-	screen.set_size(1677, 1080);
+	screen.set_size(1756, 1080);
 	screen.set_visarea_full();
 
 	/* sound hardware */
@@ -3817,13 +3818,13 @@ void gnw_climber_state::gnw_climber(machine_config &config)
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
-void gnw_climber_state::gnw_climbcs(machine_config &config)
+void gnw_climber_state::gnw_climbern(machine_config &config)
 {
 	gnw_climber(config);
 
 	/* video hardware */
 	screen_device *screen = subdevice<screen_device>("screen");
-	screen->set_size(1756, 1080);
+	screen->set_size(1677, 1080);
 	screen->set_visarea_full();
 }
 
@@ -3831,24 +3832,24 @@ void gnw_climber_state::gnw_climbcs(machine_config &config)
 
 ROM_START( gnw_climber )
 	ROM_REGION( 0x1000, "maincpu", 0 )
+	ROM_LOAD( "dr-802.program", 0x0000, 0x1000, BAD_DUMP CRC(2adcbd6d) SHA1(110dc08c65120ab2c76ee647e89aa2726e24ac1a) ) // dumped from NWS version
+
+	ROM_REGION( 0x100, "maincpu:melody", 0 )
+	ROM_LOAD( "dr-802.melody", 0x000, 0x100, BAD_DUMP CRC(7c49a3a3) SHA1(fad00d650b4864135c7d50f6fae735b7fffe720f) ) // dumped from NWS version
+
+	ROM_REGION( 564704, "screen", 0)
+	ROM_LOAD( "gnw_climber.svg", 0, 564704, CRC(60b25cc5) SHA1(1c101539a861257c5b0334ffdf9491c877759fa1) )
+ROM_END
+
+ROM_START( gnw_climbern )
+	ROM_REGION( 0x1000, "maincpu", 0 )
 	ROM_LOAD( "dr-106.program", 0x0000, 0x1000, CRC(2adcbd6d) SHA1(110dc08c65120ab2c76ee647e89aa2726e24ac1a) )
 
 	ROM_REGION( 0x100, "maincpu:melody", 0 )
 	ROM_LOAD( "dr-106.melody", 0x000, 0x100, BAD_DUMP CRC(7c49a3a3) SHA1(fad00d650b4864135c7d50f6fae735b7fffe720f) ) // decap needed for verification
 
 	ROM_REGION( 542332, "screen", 0)
-	ROM_LOAD( "gnw_climber.svg", 0, 542332, CRC(d7e84c21) SHA1(a5b5b68c8cdb3a09966bfb91b281791bef311248) )
-ROM_END
-
-ROM_START( gnw_climbcs )
-	ROM_REGION( 0x1000, "maincpu", 0 )
-	ROM_LOAD( "dr-106.program", 0x0000, 0x1000, BAD_DUMP CRC(2adcbd6d) SHA1(110dc08c65120ab2c76ee647e89aa2726e24ac1a) ) // dumped from NWS version
-
-	ROM_REGION( 0x100, "maincpu:melody", 0 )
-	ROM_LOAD( "dr-106.melody", 0x000, 0x100, BAD_DUMP CRC(7c49a3a3) SHA1(fad00d650b4864135c7d50f6fae735b7fffe720f) ) // dumped from NWS version
-
-	ROM_REGION( 564704, "screen", 0)
-	ROM_LOAD( "gnw_climbcs.svg", 0, 564704, CRC(60b25cc5) SHA1(1c101539a861257c5b0334ffdf9491c877759fa1) )
+	ROM_LOAD( "gnw_climbern.svg", 0, 542332, CRC(d7e84c21) SHA1(a5b5b68c8cdb3a09966bfb91b281791bef311248) )
 ROM_END
 
 
@@ -3857,15 +3858,23 @@ ROM_END
 
 /***************************************************************************
 
-  Nintendo Game & Watch: Balloon Fight (model: see below)
-  * PCB label DR-106 (same PCB as in Climber (new wide screen version))
-  * Sharp SM511 label BF-107 9031B (new wide screen version) (no decap)
+  Nintendo Game & Watch: Balloon Fight Crystal Screen (model BF-803),
+  Nintendo Game & Watch: Balloon Fight New Wide Screen (model BF-107)
+  * PCB labels
+     - DR-802-2 (Crystal Screen)
+     - DR-106 (new wide screen version)
+  * Sharp SM511
+     - label BF-803 8646A (crystal screen) (not dumped yet)
+     - label BF-107 9031B (new wide screen version) (no decap)
   * lcd screen with custom segments, 1-bit sound
 
   First released in 1986 on Crystal Screen (model BF-803), rereleased on
   New Wide Screen in 1988 (model BF-107). The graphic LCD elements look the same
   in both versions but the graphical background is slightly different.
   Until further proof, it's assumed that the ROM is the same for both models.
+
+  The PCB design for the different editions seems to be shared with the
+  corresponding editions of Climber.
 
 ***************************************************************************/
 
@@ -3877,6 +3886,7 @@ public:
 	{ }
 
 	void gnw_bfight(machine_config &config);
+	void gnw_bfightn(machine_config &config);
 };
 
 // config
@@ -3920,7 +3930,7 @@ void gnw_bfight_state::gnw_bfight(machine_config &config)
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_SVG));
 	screen.set_refresh_hz(60);
-	screen.set_size(1549, 1080);
+	screen.set_size(1771, 1080);
 	screen.set_visarea_full();
 
 	/* sound hardware */
@@ -3929,17 +3939,38 @@ void gnw_bfight_state::gnw_bfight(machine_config &config)
 	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
+void gnw_bfight_state::gnw_bfightn(machine_config &config)
+{
+	gnw_bfight(config);
+
+	/* video hardware */
+	screen_device *screen = subdevice<screen_device>("screen");
+	screen->set_size(1549, 1080);
+	screen->set_visarea_full();
+}
+
 // roms
 
 ROM_START( gnw_bfight )
+	ROM_REGION( 0x1000, "maincpu", 0 )
+	ROM_LOAD( "bf-803.program", 0x0000, 0x1000, BAD_DUMP CRC(4c8d07ed) SHA1(a8974dff85d5f3bacaadb71b86e9b30994b6d129) ) // dumped from NWS version
+
+	ROM_REGION( 0x100, "maincpu:melody", 0 )
+	ROM_LOAD( "bf-803.melody", 0x000, 0x100, BAD_DUMP CRC(ffddf9ed) SHA1(e9cb3a340924363eeef5ab453c452b9cc69207b9) ) // dumped from NWS version
+
+	ROM_REGION( 586284, "screen", 0)
+	ROM_LOAD( "gnw_bfight.svg", 0, 586284, CRC(e4ca7a48) SHA1(5f425183ee8d347d93d11a611f3726230e83859c) )
+ROM_END
+
+ROM_START( gnw_bfightn )
 	ROM_REGION( 0x1000, "maincpu", 0 )
 	ROM_LOAD( "bf-107.program", 0x0000, 0x1000, CRC(4c8d07ed) SHA1(a8974dff85d5f3bacaadb71b86e9b30994b6d129) )
 
 	ROM_REGION( 0x100, "maincpu:melody", 0 )
 	ROM_LOAD( "bf-107.melody", 0x000, 0x100, BAD_DUMP CRC(ffddf9ed) SHA1(e9cb3a340924363eeef5ab453c452b9cc69207b9) ) // decap needed for verification
 
-	ROM_REGION( 558341, "screen", 0)
-	ROM_LOAD( "gnw_bfight.svg", 0, 558341, CRC(f0d61fe8) SHA1(b0b56224a967e4b26836c0f7e3015d13b42ae5cc) )
+	ROM_REGION( 558342, "screen", 0)
+	ROM_LOAD( "gnw_bfightn.svg", 0, 558342, CRC(361e03c3) SHA1(2883bc3de07f71fff8ea95dbc4f6955fd13abacd) )
 ROM_END
 
 
@@ -10162,8 +10193,8 @@ CONS( 1980, gnw_ball,    0,          0, gnw_ball,    gnw_ball,    gnw_ball_state
 CONS( 1980, gnw_flagman, 0,          0, gnw_flagman, gnw_flagman, gnw_flagman_state, empty_init, "Nintendo", "Game & Watch: Flagman", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, gnw_vermin,  0,          0, gnw_vermin,  gnw_vermin,  gnw_vermin_state,  empty_init, "Nintendo", "Game & Watch: Vermin", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, gnw_fires,   0,          0, gnw_fires,   gnw_fires,   gnw_fires_state,   empty_init, "Nintendo", "Game & Watch: Fire (silver)", MACHINE_SUPPORTS_SAVE )
-CONS( 1980, gnw_judge,   0,          0, gnw_judge,   gnw_judge,   gnw_judge_state,   empty_init, "Nintendo", "Game & Watch: Judge", MACHINE_SUPPORTS_SAVE )
-CONS( 1981, gnw_helmet,  0,          0, gnw_helmet,  gnw_helmet,  gnw_helmet_state,  empty_init, "Nintendo", "Game & Watch: Helmet", MACHINE_SUPPORTS_SAVE )
+CONS( 1980, gnw_judge,   0,          0, gnw_judge,   gnw_judge,   gnw_judge_state,   empty_init, "Nintendo", "Game & Watch: Judge (green)", MACHINE_SUPPORTS_SAVE )
+CONS( 1981, gnw_helmet,  0,          0, gnw_helmet,  gnw_helmet,  gnw_helmet_state,  empty_init, "Nintendo", "Game & Watch: Helmet (Rev. 2)", MACHINE_SUPPORTS_SAVE )
 
 // Nintendo G&W: wide screen
 CONS( 1981, gnw_pchute,  0,          0, gnw_pchute,  gnw_pchute,  gnw_pchute_state,  empty_init, "Nintendo", "Game & Watch: Parachute", MACHINE_SUPPORTS_SAVE )
@@ -10203,9 +10234,10 @@ CONS( 1983, gnw_mariocm, 0,          0, gnw_mariocm, gnw_mariocm, gnw_mariocm_st
 CONS( 1983, gnw_manhole, 0,          0, gnw_manhole, gnw_manhole, gnw_manhole_state, empty_init, "Nintendo", "Game & Watch: Manhole (new wide screen)", MACHINE_SUPPORTS_SAVE )
 CONS( 1985, gnw_tfish,   0,          0, gnw_tfish,   gnw_tfish,   gnw_tfish_state,   empty_init, "Nintendo", "Game & Watch: Tropical Fish", MACHINE_SUPPORTS_SAVE )
 CONS( 1988, gnw_smb,     0,          0, gnw_smb,     gnw_smb,     gnw_smb_state,     empty_init, "Nintendo", "Game & Watch: Super Mario Bros. (new wide screen)", MACHINE_SUPPORTS_SAVE )
-CONS( 1988, gnw_climber, 0,          0, gnw_climber, gnw_climber, gnw_climber_state, empty_init, "Nintendo", "Game & Watch: Climber (new wide screen)", MACHINE_SUPPORTS_SAVE )
-CONS( 1986, gnw_climbcs, gnw_climber,0, gnw_climbcs, gnw_climber, gnw_climber_state, empty_init, "Nintendo", "Game & Watch: Climber (crystal screen)", MACHINE_SUPPORTS_SAVE )
-CONS( 1988, gnw_bfight,  0,          0, gnw_bfight,  gnw_bfight,  gnw_bfight_state,  empty_init, "Nintendo", "Game & Watch: Balloon Fight (new wide screen)", MACHINE_SUPPORTS_SAVE )
+CONS( 1986, gnw_climber, 0,          0, gnw_climber, gnw_climber, gnw_climber_state, empty_init, "Nintendo", "Game & Watch: Climber (crystal screen)", MACHINE_SUPPORTS_SAVE )
+CONS( 1988, gnw_climbern,gnw_climber,0, gnw_climbern,gnw_climber, gnw_climber_state, empty_init, "Nintendo", "Game & Watch: Climber (new wide screen)", MACHINE_SUPPORTS_SAVE )
+CONS( 1986, gnw_bfight,  0,          0, gnw_bfight,  gnw_bfight,  gnw_bfight_state,  empty_init, "Nintendo", "Game & Watch: Balloon Fight (crystal screen)", MACHINE_SUPPORTS_SAVE )
+CONS( 1988, gnw_bfightn, gnw_bfight, 0, gnw_bfightn, gnw_bfight,  gnw_bfight_state,  empty_init, "Nintendo", "Game & Watch: Balloon Fight (new wide screen)", MACHINE_SUPPORTS_SAVE )
 
 // Nintendo G&W: table top / panorama screen
 CONS( 1983, gnw_dkjrp,   0,          0, gnw_dkjrp,   gnw_dkjrp,   gnw_dkjrp_state,   empty_init, "Nintendo", "Game & Watch: Donkey Kong Jr. (panorama screen)", MACHINE_SUPPORTS_SAVE )
