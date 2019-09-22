@@ -8,6 +8,8 @@
 - Metal Slug 1/2/3/4/5 the remix has been updated
 - Some hacked games from old dead derivative emulators have been added.
 - Fixed many olds100a hacks.
+- Enabled overclocking and refresh-rate sliders without needing cheat mode.
+- Enabled autofire plugin without needing cheat mode.
 - Neogeo: fixed bad graphics where the sprites rom was very large.
 - Neogeo kof hacks: fixed timer where it started at 90 or 99 then went straight to 00.
      (if you find any games still with this bug, please report it).
