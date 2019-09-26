@@ -365,11 +365,13 @@ VIDEOS["ZEUS2"] = true
 VIDEOS["PPU2C0X"] = true
 VIDEOS["PS2GS"] = true
 VIDEOS["PS2GIF"] = true
+VIDEOS["VRENDER0"] = true
 
 --------------------------------------------------
 -- specify available machine cores
 --------------------------------------------------
 
+MACHINES["ACORN_VIDC"] = true
 MACHINES["AKIKO"] = true
 MACHINES["AUTOCONFIG"] = true
 MACHINES["BUSMOUSE"] = true
@@ -559,7 +561,7 @@ MACHINES["OUTPUT_LATCH"] = true
 MACHINES["PC_FDC"] = true
 MACHINES["PC_LPT"] = true
 --MACHINES["PCCARD"] = true
---MACHINES["PCF8583"] = true
+MACHINES["PCF8583"] = true
 MACHINES["PCF8584"] = true
 MACHINES["PCF8593"] = true
 MACHINES["PCI"] = true
@@ -981,7 +983,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/aristmk5.cpp",
 	MAME_DIR .. "src/mame/machine/archimds.cpp",
 	MAME_DIR .. "src/mame/includes/archimds.h",
-	MAME_DIR .. "src/mame/video/archimds.cpp",
 }
 
 createMAMEProjects(_target, _subtarget, "adp")
@@ -3511,6 +3512,8 @@ files {
 	MAME_DIR .. "src/mame/machine/mc8123.h",
 	MAME_DIR .. "src/mame/machine/segaic16.cpp",
 	MAME_DIR .. "src/mame/machine/segaic16.h",
+	MAME_DIR .. "src/mame/machine/segabill.cpp",
+	MAME_DIR .. "src/mame/machine/segabill.h",
 	MAME_DIR .. "src/mame/audio/segasnd.cpp",
 	MAME_DIR .. "src/mame/audio/segasnd.h",
 	MAME_DIR .. "src/mame/video/segaic16.cpp",
@@ -4656,8 +4659,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/trivrus.cpp",
 	MAME_DIR .. "src/mame/drivers/crospuzl.cpp",
 	MAME_DIR .. "src/mame/drivers/psattack.cpp",
-	MAME_DIR .. "src/mame/video/vrender0.cpp",
-	MAME_DIR .. "src/mame/video/vrender0.h",
 	MAME_DIR .. "src/mame/drivers/cubeqst.cpp",
 	MAME_DIR .. "src/mame/drivers/cybertnk.cpp",
 	MAME_DIR .. "src/mame/drivers/daryde.cpp",

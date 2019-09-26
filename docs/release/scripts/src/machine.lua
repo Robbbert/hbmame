@@ -68,6 +68,19 @@ files {
 }
 
 
+--------------------------------------------------
+--
+--@src/devices/machine/acorn_vidc.h,MACHINES["ACORN_VIDC"] = true
+--------------------------------------------------
+
+if (MACHINES["ACORN_VIDC"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/acorn_vidc.cpp",
+		MAME_DIR .. "src/devices/machine/acorn_vidc.h",
+	}
+end
+
+
 ---------------------------------------------------
 --
 --@src/devices/machine/akiko.h,MACHINES["AKIKO"] = true
@@ -1187,6 +1200,18 @@ if (MACHINES["HD64610"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/hd64610.cpp",
 		MAME_DIR .. "src/devices/machine/hd64610.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/hp_dc100_tape.h,MACHINES["HP_DC100_TAPE"] = true
+---------------------------------------------------
+
+if (MACHINES["HP_DC100_TAPE"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/hp_dc100_tape.cpp",
+		MAME_DIR .. "src/devices/machine/hp_dc100_tape.h",
 	}
 end
 
@@ -3109,6 +3134,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/wd1000.h,MACHINES["WD1000"] = true
+---------------------------------------------------
+
+if (MACHINES["WD1000"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/wd1000.cpp",
+		MAME_DIR .. "src/devices/machine/wd1000.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/wd1010.h,MACHINES["WD1010"] = true
 ---------------------------------------------------
 
@@ -4133,6 +4170,7 @@ end
 if (MACHINES["VRENDER0"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/vrender0.cpp",
+		MAME_DIR .. "src/devices/machine/vr0uart.cpp",
 		MAME_DIR .. "src/devices/machine/vrender0.h",
 	}
 end

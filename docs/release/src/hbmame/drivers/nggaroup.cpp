@@ -77,9 +77,9 @@ ROM_END
 ROM_START( garoupamu ) /* Garou: Mark of the Wolves PROTOTYPE - Fix by MU - (Approach to Arcade by MU Version 5.0a) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "253pamu.p1", 0x000000, 0x100000, CRC(d5c54453) SHA1(A7FE7AB68161583E10397B1B1B30299BE93AE90C) )
-	ROM_LOAD16_WORD_SWAP( "proto_253-p2.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -103,9 +103,9 @@ ROM_END
 ROM_START( garoupehc ) /* Garou: Mark of the Wolves PROTOTYPE - Enhance by Creamymami and Ydmis - (In MVS mode can choose Kain and Grant - power hack) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "253pehc.p1", 0x000000, 0x100000, CRC(46b087b7) SHA1(236C8EC295A7380101BE27C5ED472617380A87A6) )
-	ROM_LOAD16_WORD_SWAP( "proto_253-p2.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -131,7 +131,7 @@ ROM_START( garoupf ) /* Garou: Mark of the Wolves PROTOTYPE - Fix by UNKNOWN - (
 	ROM_LOAD16_WORD_SWAP( "253pf.p1", 0x000000, 0x100000, CRC(124bdbf7) SHA1(81F4BC87AA6B7D34ECF4BEDF0BAA8AEB5B2E179A) )
 	ROM_LOAD16_WORD_SWAP( "253pf.p2", 0x100000, 0x400000, CRC(19eb641b) SHA1(114BE5C20142223CF6BB0938AA3B07B61E3243E1) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -155,9 +155,9 @@ ROM_END
 ROM_START( garoupfp ) /* Garou: Mark of the Wolves PROTOTYPE - (garoupfp) - Fix by UNKNOWN (Rom fix - FIXPLUS) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "253pfp.p1", 0x000000, 0x100000, CRC(0b23e2cb) SHA1(B61730457EFEBFFC4A1F5A31FEFBAF2E4CC8F49E) )
-	ROM_LOAD16_WORD_SWAP( "proto_253-p2.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -183,7 +183,7 @@ ROM_START( garoupfu ) /* Garou: Mark of the Wolves PROTOTYPE - Fix by UNKNOWN - 
 	ROM_LOAD16_WORD_SWAP( "253pfu.p1", 0x000000, 0x100000, CRC(3f41581e) SHA1(F62C64529A79C8867B789BC655182D702824464C) )
 	ROM_LOAD16_WORD_SWAP( "253pfu.p2", 0x100000, 0x400000, CRC(cf4b3903) SHA1(CFC00DC3EB0F6D566C3F5DD8EC0D6B4440E17AAE) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -209,7 +209,7 @@ ROM_START( garoupx11 ) // all confirmed
 	ROM_LOAD16_WORD_SWAP( "253px11.p1", 0x000000, 0x100000, CRC(7a5e411e) SHA1(e56c518e1496948d882721d393e6e95b74cf95f4) )
 	ROM_LOAD16_WORD_SWAP( "253px11.p2", 0x100000, 0x400000, CRC(1eeecc14) SHA1(f42cfcaf10a2c8454bf90e53fa51c1c5c23b26de) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -233,9 +233,9 @@ ROM_END
 ROM_START( garoupy ) /* Garou: Mark of the Wolves PROTOTYPE - Hack by Ydmis - (In MVS mode P1 can choose Kain and Grant) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "253py.p1", 0x000000, 0x100000, CRC(5b010d7a) SHA1(5DC416E634456B2403ADF0668D18FC5FF60FAFDC) )
-	ROM_LOAD16_WORD_SWAP( "proto_253-p2.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -261,7 +261,33 @@ ROM_START( garoupy1 ) /* Prototype Version, seems genuine */
 	ROM_LOAD16_WORD_SWAP( "253py1.p1", 0x000000, 0x100000, CRC(b4a28ce4) SHA1(bab447230b6bc91a327a2622a55e125ce3aef781) )
 	ROM_LOAD16_WORD_SWAP( "253pf.p2",  0x100000, 0x400000, CRC(19eb641b) SHA1(114BE5C20142223CF6BB0938AA3B07B61E3243E1) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+
+	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "proto_253.v1", 0x000000, 0x400000, CRC(274f3923) SHA1(4c7a8ad1cd0e3afc1f78de3c2929120ed434f104) )
+	ROM_LOAD( "proto_253.v2", 0x400000, 0x400000, CRC(8f86dabe) SHA1(b3d2d9f5c1d97a6e7aee2c674fb6627f41bbb240) )
+	ROM_LOAD( "proto_253.v3", 0x800000, 0x400000, CRC(05fd06cd) SHA1(6cd699719614bb87547632ea3d61d92d81fdf563) )
+	ROM_LOAD( "proto_253.v4", 0xc00000, 0x400000, CRC(14984063) SHA1(170d5638327ec0eb3590b80dc11590897367250c) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "proto_253.c1", 0x0000000, 0x800000, CRC(5bb5d137) SHA1(d648febd8e6a0bdd9bdbb6ce1f1f8b08567ec05a) )
+	ROM_LOAD16_BYTE( "proto_253.c2", 0x0000001, 0x800000, CRC(5c8d2960) SHA1(f7503502be0332adf408ee0ea5ee5161c8939fd8) )
+	ROM_LOAD16_BYTE( "proto_253.c3", 0x1000000, 0x800000, CRC(234d16fc) SHA1(7b9221f7ecc438150c8a10be72390329854ed21b) )
+	ROM_LOAD16_BYTE( "proto_253.c4", 0x1000001, 0x800000, CRC(b9b5b993) SHA1(6059793eaf6e58c172235fe64aa9d25a40c38ed6) )
+	ROM_LOAD16_BYTE( "proto_253.c5", 0x2000000, 0x800000, CRC(722615d2) SHA1(798832c535869f0e247c3db0d8253779b103e213) )
+	ROM_LOAD16_BYTE( "proto_253.c6", 0x2000001, 0x800000, CRC(0a6fab38) SHA1(eaee6f2f18af91f7959d84d4b991b3fc182d07c4) )
+	ROM_LOAD16_BYTE( "proto_253.c7", 0x3000000, 0x800000, CRC(d68e806f) SHA1(92bfd9839115bd590972ae4ecc45ad35dce22387) )
+	ROM_LOAD16_BYTE( "proto_253.c8", 0x3000001, 0x800000, CRC(f778fe99) SHA1(c963f6ba90a36d02991728b44ffcf174ca18268a) )
+ROM_END
+
+ROM_START( garoupeh )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "253eh.p1", 0x000000, 0x100000, CRC(61c65b05) SHA1(0159d181eec3346c53c411bcfb9a3f17781fd7bc) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -283,15 +309,16 @@ ROM_START( garoupy1 ) /* Prototype Version, seems genuine */
 ROM_END
 
 HACK( 1999, garoub,    garou,    neogeo_noslot, neogeo, neogeo_state,        garou,  ROT0, "Ydmis", "Garou - Mark of the Wolves (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_state,        garoud, ROT0, "Unknown","Garou - Mark of the Wolves (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_state,        garoud, ROT0, "hack","Garou - Mark of the Wolves (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "MU", "Garou - Mark of the Wolves (Approach to Arcade v5.0a)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupf,   garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Fixed Bug Patch V1 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupfu,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Fixed Bug Patch V2 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupfp,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Rom Fix - Fix Plus)", MACHINE_SUPPORTS_SAVE )
-HACK( 2011, garoupx11, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Xtreme Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, garoupf,   garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Fixed Bug Patch V1 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, garoupfu,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Fixed Bug Patch V2 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, garoupfp,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Rom Fix - Fix Plus)", MACHINE_SUPPORTS_SAVE )
+HACK( 2011, garoupx11, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Xtreme Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, garoupy,   neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (P1 Add Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Unknown", "Garou - Mark of the Wolves (Add selection boss V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Add selection boss V1)", MACHINE_SUPPORTS_SAVE )
+HACK( 1999, garoupeh,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Misfit Ydmis", "Garou - Mark of the Wolves (Add Char)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -336,9 +363,9 @@ ROM_END
 ROM_START( garoups02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "253hs02.p1", 0x000000, 0x100000, CRC(76d76dda) SHA1(8ed77f9a037a9ec211d9ae13e80f722c654933aa) )
-	ROM_LOAD16_WORD_SWAP( "proto_253-p2.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -362,9 +389,9 @@ ROM_END
 ROM_START( garoups03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "253hs03.p1", 0x000000, 0x100000, CRC(dc033884) SHA1(951859661981d760bc175816368dd86f9d2d73df) )
-	ROM_LOAD16_WORD_SWAP( "proto_253-p2.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
+	ROM_LOAD16_WORD_SWAP( "proto_253.p2", 0x100000, 0x400000, CRC(bf8de565) SHA1(0e24574168cd38138bed0aa4dca49849f6901ca2) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -390,7 +417,7 @@ ROM_START( garoups04 )
 	ROM_LOAD16_WORD_SWAP( "253hs04.p1", 0x000000, 0x100000, CRC(246d6c8c) SHA1(8486445bcef313b10758d965d5f1ffc610204db7) )
 	ROM_LOAD16_WORD_SWAP( "253hs04.p2", 0x100000, 0x400000, CRC(b8884d6a) SHA1(7c33d90521489d68c4afb589d4e4b43cc74366c8) )
 
-	NEO_SFIX_128K( "proto_253-s1.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
+	NEO_SFIX_128K( "proto_253.s1", CRC(779989de) SHA1(8bd550857b60f8a907f6d39a4225ceffdd330307) )
 
 	NEO_BIOS_AUDIO_256K( "proto_253.m1", CRC(bbe464f7) SHA1(f5f8f3e48f5d453f45107085d6f4023bcd24c053) )
 
@@ -415,7 +442,7 @@ ROM_END
 // Garou
 HACK( 1999, garoups01,     garou,    neogeo_noslot, neogeo, neogeo_state,         garou,     ROT0, "Creamymami[EGCG]",    "Garou - Mark of the Wolves (Infinite Power)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, garoups02,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "feiyang001597",    "Garou - Mark of the Wolves (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, garoups03,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown/Gaston90",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Unknown",    "Garou - Mark of the Wolves (The brand of the wolf 2015-03-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, garoups03,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Garou - Mark of the Wolves (The brand of the wolf 2015-03-10)", MACHINE_SUPPORTS_SAVE )
 
 

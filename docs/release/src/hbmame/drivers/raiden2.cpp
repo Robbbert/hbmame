@@ -86,5 +86,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Zero Team
-GAME( 1993, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team (Special Attack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "Unknown", "Zero Team Selection (Enhanced Version 2018-02-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team (Special Attack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (Enhanced Version 2018-02-19)", MACHINE_SUPPORTS_SAVE )

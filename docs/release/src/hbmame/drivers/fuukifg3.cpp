@@ -9,9 +9,8 @@ ROM_START( asurablds01 )
 	ROM_LOAD32_BYTE( "s01_1.u3", 0x000002, 0x80000, CRC(90715f6f) SHA1(b776ffb5d962936b499c52eef1015e657a06687a) )
 	ROM_LOAD32_BYTE( "s01_0.u4", 0x000003, 0x80000, CRC(2d51018b) SHA1(f12b3091bbdec3d46800bad383adfb1ccd523c3a) )
 
-	ROM_REGION( 0x090000, "soundcpu", 0 )
+	ROM_REGION( 0x080000, "soundcpu", 0 )
 	ROM_LOAD( "srom.u7", 0x00000, 0x80000, CRC(bb1deb89) SHA1(b1c70abddc0b9a88beb69a592376ff69a7e091eb) )
-	ROM_RELOAD(          0x10000, 0x80000)
 
 	ROM_REGION( 0x2000000, "fuukivid", 0 )
 	ROM_LOAD16_WORD_SWAP( "sp23.u14", 0x0400000, 0x400000, CRC(7df492eb) SHA1(30b88a3cd025ffc8c28fef06e0784755be37ef8e) )
@@ -32,7 +31,7 @@ ROM_START( asurablds01 )
 	ROM_REGION( 0x200000, "gfx4", 0 )
 	ROM_LOAD16_WORD_SWAP( "map.u5", 0x00000, 0x200000, CRC(e681155e) SHA1(458845b9c86df72685d92d0d4052aacc2fa7d1bd) )
 
-	ROM_REGION( 0x400000, "ymf1", 0 )
+	ROM_REGION( 0x400000, "ymf", 0 )
 	ROM_LOAD( "pcm.u6", 0x00000, 0x400000, CRC(ac72225a) SHA1(8d16399ed34ac5bd69dbf43b2de2b0db9ac1c610) )
 ROM_END
 
@@ -43,9 +42,8 @@ ROM_START( asurablds02 )
 	ROM_LOAD32_BYTE( "s02_1.u3", 0x000002, 0x80000, CRC(85ec63ae) SHA1(768e4f1da9e126f94873a2e6c6a304643143faea) )
 	ROM_LOAD32_BYTE( "s02_0.u4", 0x000003, 0x80000, CRC(a9a90415) SHA1(7445ad491a1f6c7733f0ee79e912fd186f8ae222) )
 
-	ROM_REGION( 0x090000, "soundcpu", 0 )
+	ROM_REGION( 0x080000, "soundcpu", 0 )
 	ROM_LOAD( "srom.u7", 0x00000, 0x80000, CRC(bb1deb89) SHA1(b1c70abddc0b9a88beb69a592376ff69a7e091eb) )
-	ROM_RELOAD(          0x10000, 0x80000)
 
 	ROM_REGION( 0x2000000, "fuukivid", 0 )
 	ROM_LOAD16_WORD_SWAP( "sp23.u14", 0x0400000, 0x400000, CRC(7df492eb) SHA1(30b88a3cd025ffc8c28fef06e0784755be37ef8e) )
@@ -66,7 +64,7 @@ ROM_START( asurablds02 )
 	ROM_REGION( 0x200000, "gfx4", 0 )
 	ROM_LOAD16_WORD_SWAP( "map.u5", 0x00000, 0x200000, CRC(e681155e) SHA1(458845b9c86df72685d92d0d4052aacc2fa7d1bd) )
 
-	ROM_REGION( 0x400000, "ymf1", 0 )
+	ROM_REGION( 0x400000, "ymf", 0 )
 	ROM_LOAD( "pcm.u6", 0x00000, 0x400000, CRC(ac72225a) SHA1(8d16399ed34ac5bd69dbf43b2de2b0db9ac1c610) )
 ROM_END
 
@@ -77,9 +75,8 @@ ROM_START( asurablds03 )
 	ROM_LOAD32_BYTE( "s03_1.u3", 0x000002, 0x80000, CRC(208d7893) SHA1(80fd9a3e9be1ea920fc9ec760b325fccb0d29b0f) )
 	ROM_LOAD32_BYTE( "s03_0.u4", 0x000003, 0x80000, CRC(ec995109) SHA1(1485e5eee2c72121b36f8d3ce04c5cbec7469169) )
 
-	ROM_REGION( 0x090000, "soundcpu", 0 )
+	ROM_REGION( 0x080000, "soundcpu", 0 )
 	ROM_LOAD( "srom.u7", 0x00000, 0x80000, CRC(bb1deb89) SHA1(b1c70abddc0b9a88beb69a592376ff69a7e091eb) )
-	ROM_RELOAD(          0x10000, 0x80000)
 
 	ROM_REGION( 0x2000000, "fuukivid", 0 )
 	ROM_LOAD16_WORD_SWAP( "sp23.u14", 0x0400000, 0x400000, CRC(7df492eb) SHA1(30b88a3cd025ffc8c28fef06e0784755be37ef8e) )
@@ -100,7 +97,7 @@ ROM_START( asurablds03 )
 	ROM_REGION( 0x200000, "gfx4", 0 )
 	ROM_LOAD16_WORD_SWAP( "map.u5", 0x00000, 0x200000, CRC(e681155e) SHA1(458845b9c86df72685d92d0d4052aacc2fa7d1bd) )
 
-	ROM_REGION( 0x400000, "ymf1", 0 )
+	ROM_REGION( 0x400000, "ymf", 0 )
 	ROM_LOAD( "pcm.u6", 0x00000, 0x400000, CRC(ac72225a) SHA1(8d16399ed34ac5bd69dbf43b2de2b0db9ac1c610) )
 ROM_END
 
@@ -111,9 +108,8 @@ ROM_START( asurabuss01 )
 	ROM_LOAD32_BYTE( "s01_1.u3", 0x000002, 0x80000, CRC(71c4fcfc) SHA1(b0ed5302393b196f11f042e4b0964495e799bb6e) )
 	ROM_LOAD32_BYTE( "s01_0.u4", 0x000003, 0x80000, CRC(44a33fcb) SHA1(97a0bc3922049a99ae3c71bd9dcea04ccc7237ba) )
 
-	ROM_REGION( 0x090000, "soundcpu", 0 )
+	ROM_REGION( 0x080000, "soundcpu", 0 )
 	ROM_LOAD( "srom.u7", 0x00000, 0x80000, CRC(368da389) SHA1(1423b709da40bf3033c9032c4bd07658f1a969de) )
-	ROM_RELOAD(          0x10000, 0x80000)
 
 	ROM_REGION( 0x2000000, "fuukivid", 0 )
 	ROM_LOAD16_WORD_SWAP( "sp01.u13", 0x0000000, 0x400000, CRC(5edea463) SHA1(22a780912f060bae0c9a403a7bfd4d27f25b76e3) )
@@ -136,7 +132,7 @@ ROM_START( asurabuss01 )
 	ROM_REGION( 0x200000, "gfx4", 0 )
 	ROM_LOAD16_WORD_SWAP( "map.u5", 0x00000, 0x200000, CRC(bd179dc5) SHA1(ce3fcac573b14fd5365eb5dcec3257e439d2c129) )
 
-	ROM_REGION( 0x400000, "ymf1", 0 )
+	ROM_REGION( 0x400000, "ymf", 0 )
 	ROM_LOAD( "opm.u6", 0x00000, 0x400000, CRC(31b05be4) SHA1(d0f4f387f84a74591224b0f42b7f5c538a3dc498) )
 ROM_END
 
@@ -147,9 +143,8 @@ ROM_START( asurabuss02 )
 	ROM_LOAD32_BYTE( "s01_1.u3", 0x000002, 0x80000, CRC(71c4fcfc) SHA1(b0ed5302393b196f11f042e4b0964495e799bb6e) )
 	ROM_LOAD32_BYTE( "s02_0.u4", 0x000003, 0x80000, CRC(1e040613) SHA1(db7fe4199025b6f67e86611e99043ae80a008527) )
 
-	ROM_REGION( 0x090000, "soundcpu", 0 )
+	ROM_REGION( 0x080000, "soundcpu", 0 )
 	ROM_LOAD( "srom.u7", 0x00000, 0x80000, CRC(368da389) SHA1(1423b709da40bf3033c9032c4bd07658f1a969de) )
-	ROM_RELOAD(          0x10000, 0x80000)
 
 	ROM_REGION( 0x2000000, "fuukivid", 0 )
 	ROM_LOAD16_WORD_SWAP( "sp01.u13", 0x0000000, 0x400000, CRC(5edea463) SHA1(22a780912f060bae0c9a403a7bfd4d27f25b76e3) )
@@ -172,13 +167,13 @@ ROM_START( asurabuss02 )
 	ROM_REGION( 0x200000, "gfx4", 0 )
 	ROM_LOAD16_WORD_SWAP( "map.u5", 0x00000, 0x200000, CRC(bd179dc5) SHA1(ce3fcac573b14fd5365eb5dcec3257e439d2c129) )
 
-	ROM_REGION( 0x400000, "ymf1", 0 )
+	ROM_REGION( 0x400000, "ymf", 0 )
 	ROM_LOAD( "opm.u6", 0x00000, 0x400000, CRC(31b05be4) SHA1(d0f4f387f84a74591224b0f42b7f5c538a3dc498) )
 ROM_END
 
 
 GAME( 2009, asurablds01, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "pipi899", "Asura Blade - Sword of Dynasty (Energy Mode Max 2009-11-21)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, asurablds02, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "yumeji", "Asura Blade - Sword of Dynasty (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, asurablds03, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "Unknown", "Asura Blade - Sword of Dynasty (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, asurablds03, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "hack", "Asura Blade - Sword of Dynasty (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, asurabuss01, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "yumeji", "Asura Buster (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, asurabuss02, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "Unknown", "Asura Buster (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, asurabuss02, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "hack", "Asura Buster (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )

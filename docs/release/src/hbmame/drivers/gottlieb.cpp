@@ -93,7 +93,7 @@ ROM_START( vbert )
 	ROM_LOAD( "vb-fg0.bin",   0x6000, 0x2000, CRC(4c3db270) SHA1(212f1c353511fb4166a7ad0135dd295a2a16af8d) )
 ROM_END
 
-GAME( 1982, 711qbert, qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Hack", "7-11 Q*bert", 0 )
+GAME( 1982, 711qbert, qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "hack", "7-11 Q*bert", 0 )
 GAME( 2003, pbert,    qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Grand Master Peter", "P*bert", 0 )
 GAME( 1982, qbertb,   qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "bootleg", "Q*bert", 0 )
 GAME( 2003, vbert,    qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Grand Master Peter", "V*bert", 0 )

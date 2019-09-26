@@ -894,7 +894,23 @@ ROM_START( nyan )
 
 	NEO_BIOS_AUDIO_128K( "417.m1", CRC(97b9a8e0) SHA1(161a06ac0a6d33a6b337a5c6ec65345cd10472e4) )
 
-	ROM_REGION( 0x80000, "ymsnd", 0 )
+	ROM_REGION( 0x40000, "ymsnd", 0 )
+	ROM_LOAD( "417.v1", 0x000000, 0x3d400, CRC(8870e0bb) SHA1(5f6f33c07f04bb00337cca6ee4db1cfa7beaa63e) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "417.c1", 0x000000, 0x400000, CRC(71128701) SHA1(76ae8ef8f032621706cb39161f01ef7e747ceb70) )
+	ROM_LOAD16_BYTE( "417.c2", 0x000001, 0x400000, CRC(85dcccef) SHA1(4270b11c9f9400b3b818124c96db352d94512807) )
+ROM_END
+
+ROM_START( nyana )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "417a.p1", 0x000000, 0x80000, CRC(91bbcb56) SHA1(e35906e7ecf8735a4c16d9c1463674c4f29a8b9d) )
+
+	NEO_SFIX_128K( "417.s1", CRC(2e7f15ec) SHA1(b41ac46ca2a81cf240dc6df4a80694ecebf65202) )
+
+	NEO_BIOS_AUDIO_128K( "417.m1", CRC(97b9a8e0) SHA1(161a06ac0a6d33a6b337a5c6ec65345cd10472e4) )
+
+	ROM_REGION( 0x40000, "ymsnd", 0 )
 	ROM_LOAD( "417.v1", 0x000000, 0x3d400, CRC(8870e0bb) SHA1(5f6f33c07f04bb00337cca6ee4db1cfa7beaa63e) )
 
 	ROM_REGION( 0x800000, "sprites", 0 )
@@ -1584,7 +1600,7 @@ ROM_END
 
 // 442 : Bad Apple demo by BEY
 // No colours
-ROM_START( neobadapple )
+ROM_START( badapple )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD( "442.p1", 0x000000, 0x09e0f, CRC(c8068de3) SHA1(f240b23f5f2aed998ebcbb95680225e3e35a8051) )
 	ROM_LOAD16_WORD( "442.p2", 0x100000, 0xeeb5c, CRC(f5fe8e16) SHA1(68398a9719eb9f4e42668991384683965c5787bf) )
@@ -1604,6 +1620,52 @@ ROM_START( neobadapple )
 	ROM_LOAD16_WORD( "442.c2",  0x600000, 0x5bb580, CRC(5cbbc6e0) SHA1(aad04b9b7cdf7c3951006b39676ee4ee989338b0) )
 	ROM_LOAD16_WORD( "442.c3",  0xc00000, 0x5b1200, CRC(befd5392) SHA1(49f0610b9a4e1bdbb881c2156f01631cc45915c1) )
 	ROM_LOAD16_WORD( "442.c4",  0x1200000, 0x2c7480, CRC(e4b70cf5) SHA1(af717a650dbde0c4a852f8ee87a1d55ac9349172) )
+ROM_END
+
+ROM_START( badapplea )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD( "442a.p1",    0x000000, 0x00c5b0, CRC(f916d0bf) SHA1(21b7bdb47893e00ef77abca9aba831059e0d48dc) )
+	ROM_LOAD( "442a.p2",    0x100000, 0x0c628c, CRC(6e0e218c) SHA1(f15ceae5c9fb4b268d8b1c6513a3954746ace550) )
+	ROM_LOAD( "442a.p3",    0x200000, 0x0872cc, CRC(475877e0) SHA1(f6fa2aeab36264a544895bb49c3858286a3edde7) )
+	ROM_LOAD( "442a.p4",    0x300000, 0x08ced4, CRC(9529aad1) SHA1(54ce5fa06e915383430b4fc2eb4b2bd8d5d0ca62) )
+	ROM_LOAD( "442a.p5",    0x400000, 0x08ca3c, CRC(1fa70a3b) SHA1(d4f5560a38d057081fc16d7c3e673171bd194b72) )
+	ROM_LOAD( "442a.p6",    0x500000, 0x0c99c4, CRC(7b7bc0e2) SHA1(6bd31d2e4e424ac27117b4c94273ae8cb779f17d) )
+	ROM_LOAD( "442a.p7",    0x600000, 0x09824c, CRC(9a331574) SHA1(38454cca5e9dc003aa575b2463dd644a1f46a206) )
+	ROM_LOAD( "442a.p8",    0x700000, 0x067d3c, CRC(473889f4) SHA1(5120a1dd1ff8fa30836ac934f08cae73616983e7) )
+	ROM_LOAD( "442a.p9",    0x800000, 0x04b114, CRC(73424cd1) SHA1(fe48a88c10925e17e25e02d7728c80a7f72dd24f) )
+
+	NEO_SFIX_128K( "063.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
+
+	NEO_BIOS_AUDIO_128K( "442a.m1", CRC(6432e6e8) SHA1(5cc0547320cf6ccb4c5641497d5469f867d33eee) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "442a.v1",    0x000000, 0x400000, CRC(77656df1) SHA1(c95a1b09ee77020c19d5ab58de4ab8dc8b94a3b4) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD( "442a.c0",    0x0000000, 0x413b00, CRC(d5a0e4dc) SHA1(a3a34ba916c7df9ffdafdc25579d627784cfbdf1) )
+	ROM_LOAD( "442a.c1",    0x0500000, 0x464d80, CRC(35da6dbc) SHA1(f5cc58620074a11363f0937f16c0eec6b6c0438e) )
+	ROM_LOAD( "442a.c2",    0x0a00000, 0x398e80, CRC(34482b96) SHA1(a6a88e99d55a56a9e84e65e9edc68099214cdbd6) )
+	ROM_LOAD( "442a.c3",    0x0f00000, 0x439780, CRC(95aa9237) SHA1(55a085727e3e30e40aa13e7444611226ab114b00) )
+	ROM_LOAD( "442a.c4",    0x1400000, 0x4f0d00, CRC(4489296d) SHA1(bd32f6647179080413d196b33a72280d2a1b6694) )
+	ROM_LOAD( "442a.c5",    0x1900000, 0x3eac00, CRC(744c9151) SHA1(503c2bdb07fe1677213368c4db1cc6acf236ca54) )
+	ROM_LOAD( "442a.c6",    0x1e00000, 0x2a2200, CRC(1320af55) SHA1(b6ea612bd689799a36cab1f6ab6ba213ce07b3ea) )
+	ROM_LOAD( "442a.c7",    0x2300000, 0x1cbf80, CRC(95d6d202) SHA1(2f10a548420b9d52ddd6b6698ba1fbeee6fcdfa1) )
+ROM_END
+
+ROM_START( badappleb )
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "442b.p1", 0x000000, 0x400000, CRC(f68ade5a) SHA1(c2aa87783bc04cccb9d5df0ed74524787be1860f) )
+
+	NEO_SFIX_128K( "442b.s1", CRC(bc7ebee7) SHA1(401d98fc4dbecf0281ee04718cf549cd35a80fed) )
+
+	NEO_BIOS_AUDIO_64K( "442b.m1", CRC(c11e8874) SHA1(5b3316757b77e43ac5d18206bdeb90f7e8bc882a) )
+
+	ROM_REGION( 0x500000, "ymsnd", 0 )
+	ROM_LOAD( "442b.v1", 0x000000, 0x500000, CRC(3b741894) SHA1(c3e509830b53e36211823d6b912d5a2acb983ed9) )
+
+	ROM_REGION( 0x6200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "442b.c1",  0x000000, 0x3100000, CRC(88ddc443) SHA1(b682f86647903c10bd7b525bb92dfd0a13499b36) )
+	ROM_LOAD16_BYTE( "442b.c2",  0x000001, 0x3100000, CRC(b64face4) SHA1(f7f36370c6d6f56a6b924bedbdf87a3cd572b61d) )
 ROM_END
 
 
@@ -2340,7 +2402,7 @@ ROM_END
 
 
 HACK( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
@@ -2348,10 +2410,13 @@ HACK( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)(Homebrew)", MACHINE_SUPPORTS_SAVE )
@@ -2381,8 +2446,7 @@ HACK( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, neobadapple,  neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Unknown", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+HACK( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 HACK( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, neofightb,    neofight, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Kannagi", "Neogeo Sprite Demo (Neo Fight beta)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
@@ -2407,7 +2471,8 @@ HACK( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Crim/Stephen", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, ngym2610,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NeoGeo YM2610 Test", MACHINE_SUPPORTS_SAVE )
-HACK( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo", MACHINE_SUPPORTS_SAVE )
+HACK( 2011, nyan,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+HACK( 2011, nyana,        nyan,     neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Furrtek", "Nyan Cat demo (v2)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 HACK( 2015, pcmademo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-A Playback Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Freem", "ADPCM-B Playback Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )

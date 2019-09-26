@@ -1133,5 +1133,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Xevios
-GAME( 1984, sxeviouss01,  xevious, xevious, sxevious, xevious_state, init_xevious, ROT90, "Hacks", "Xevious Plus! (Release 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, sxeviouss01,  xevious, xevious, sxevious, xevious_state, init_xevious, ROT90, "hack", "Xevious Plus! (Release 1)", MACHINE_SUPPORTS_SAVE )
 

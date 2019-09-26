@@ -164,6 +164,7 @@ MACHINES["68681"] = true
 MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["ACIA6850"] = true -- seta
+MACHINES["ACORN_VIDC"] = false -- armdemo, MNW
 MACHINES["ADC0808"] = true
 MACHINES["ADC083X"] = true -- seta
 MACHINES["ADC0844"] = true
@@ -250,7 +251,7 @@ BUSES["SCSI"] = true
 
 function linkProjects_hbmame_hbmame(_target, _subtarget)
 	links {
-		"acorn",
+--		"acorn",
 		"atari",
 		"atlus",
 		"capcom",
@@ -336,12 +337,11 @@ function createProjects_hbmame_hbmame(_target, _subtarget)
 -- manufacturer-specific groupings for drivers
 --------------------------------------------------
 
-createHBMAMEProjects(_target, _subtarget, "acorn")
-files {
-	MAME_DIR .. "src/hbmame/drivers/ertictac.cpp",
-	MAME_DIR .. "src/mame/machine/archimds.cpp",
-	MAME_DIR .. "src/mame/video/archimds.cpp",
-}
+--createHBMAMEProjects(_target, _subtarget, "acorn")
+--files {
+--	MAME_DIR .. "src/hbmame/drivers/ertictac.cpp",
+--	MAME_DIR .. "src/mame/machine/archimds.cpp",
+--}
 
 createHBMAMEProjects(_target, _subtarget, "atari")
 files {
@@ -842,6 +842,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
 	MAME_DIR .. "src/mame/machine/stvprot.cpp",
+	MAME_DIR .. "src/mame/machine/segabill.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")

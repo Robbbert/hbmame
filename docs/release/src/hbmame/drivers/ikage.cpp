@@ -60,5 +60,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Legend of Kage
-GAME( 1984, lkages01, lkage, lkage, lkage, lkage_state, init_lkage, ROT0, "Hacks", "The Legend of Kage (Translation Chinese)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1984, lkages01, lkage, lkage, lkage, lkage_state, init_lkage, ROT0, "hack", "The Legend of Kage (Translation Chinese)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 

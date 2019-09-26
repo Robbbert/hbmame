@@ -395,6 +395,8 @@ VIDEOS["MB88303"] = true
 VIDEOS["PS2GS"] = true
 VIDEOS["PS2GIF"] = true
 VIDEOS["DECSFB"] = true
+VIDEOS["BT431"] = true
+--VIDEOS["VRENDER0"] = true
 
 --------------------------------------------------
 -- specify available machine cores
@@ -415,6 +417,7 @@ MACHINES["7200FIFO"] = true
 MACHINES["8530SCC"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["ACIA6850"] = true
+MACHINES["ACORN_VIDC"] = true
 MACHINES["ADC0808"] = true
 MACHINES["ADC083X"] = true
 MACHINES["ADC1038"] = true
@@ -469,6 +472,7 @@ MACHINES["ER2055"] = true
 MACHINES["F3853"] = true
 MACHINES["HD63450"] = true
 MACHINES["HD64610"] = true
+MACHINES["HP_DC100_TAPE"] = true
 MACHINES["HP_TACO"] = true
 MACHINES["1MA6"] = true
 MACHINES["1MB5"] = true
@@ -653,6 +657,7 @@ MACHINES["UPD765"] = true
 MACHINES["FDC_PLL"] = true
 MACHINES["V3021"] = true
 MACHINES["WD_FDC"] = true
+MACHINES["WD1000"] = true
 MACHINES["WD1010"] = true
 MACHINES["WD11C00_17"] = true
 MACHINES["WD2010"] = true
@@ -718,6 +723,7 @@ MACHINES["DC7085"] = true
 MACHINES["I82357"] = true
 MACHINES["XC1700E"] = true
 MACHINES["EDLC"] = true
+MACHINES["WTL3132"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -1125,6 +1131,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"gi",
 		"gridcomp",
 		"grundy",
+		"h01x",
 		"hartung",
 		"heathkit",
 		"hec2hrp",
@@ -1341,7 +1348,6 @@ if (_subtarget=="mess") then
 createMESSProjects(_target, _subtarget, "mameshared")
 files {
 	MAME_DIR .. "src/mame/machine/archimds.cpp",
-	MAME_DIR .. "src/mame/video/archimds.cpp",
 	MAME_DIR .. "src/mame/machine/amiga.cpp",
 	MAME_DIR .. "src/mame/video/amiga.cpp",
 	MAME_DIR .. "src/mame/video/amigaaga.cpp",
@@ -2291,6 +2297,13 @@ files {
 	MAME_DIR .. "src/mame/video/newbrain.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "h01x")
+files {
+	MAME_DIR .. "src/mame/include/h01x.h",
+	MAME_DIR .. "src/mame/drivers/h01x.cpp",
+	MAME_DIR .. "src/mame/video/h01x.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "hartung")
 files {
 	MAME_DIR .. "src/mame/drivers/gmaster.cpp",
@@ -2688,6 +2701,9 @@ files {
 	MAME_DIR .. "src/mame/drivers/m6805evs.cpp",
 	MAME_DIR .. "src/mame/drivers/m68705prg.cpp",
 	MAME_DIR .. "src/mame/drivers/mekd2.cpp",
+	MAME_DIR .. "src/mame/drivers/mekd3.cpp",
+	MAME_DIR .. "src/mame/drivers/mekd4.cpp",
+	MAME_DIR .. "src/mame/drivers/mekd5.cpp",
 	MAME_DIR .. "src/mame/drivers/mvme147.cpp",
 	MAME_DIR .. "src/mame/drivers/mvme162.cpp",
 }
@@ -2844,7 +2860,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/novag_diablo.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_presto.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_savant.cpp",
-	MAME_DIR .. "src/mame/drivers/novag_sconst.cpp",
 	MAME_DIR .. "src/mame/drivers/novag_sexpert.cpp",
 }
 
@@ -3087,6 +3102,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/saitek_chesstrv.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_cp2000.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_delta1.cpp",
+	MAME_DIR .. "src/mame/drivers/saitek_mark5.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_risc2500.cpp",
 	MAME_DIR .. "src/mame/includes/saitek_stratos.h",
 	MAME_DIR .. "src/mame/drivers/saitek_ssystem3.cpp",
@@ -3172,6 +3188,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/octane.cpp",
 	MAME_DIR .. "src/mame/machine/vino.cpp",
 	MAME_DIR .. "src/mame/machine/vino.h",
+	MAME_DIR .. "src/mame/machine/saa7191.cpp",
+	MAME_DIR .. "src/mame/machine/saa7191.h",
 	MAME_DIR .. "src/mame/machine/sgi.cpp",
 	MAME_DIR .. "src/mame/machine/sgi.h",
 	MAME_DIR .. "src/mame/machine/hal2.cpp",
@@ -3192,6 +3210,14 @@ files {
 	MAME_DIR .. "src/mame/video/light.h",
 	MAME_DIR .. "src/mame/video/crime.cpp",
 	MAME_DIR .. "src/mame/video/crime.h",
+	MAME_DIR .. "src/mame/video/sgi_gr1.cpp",
+	MAME_DIR .. "src/mame/video/sgi_gr1.h",
+	MAME_DIR .. "src/mame/video/sgi_ge5.cpp",
+	MAME_DIR .. "src/mame/video/sgi_ge5.h",
+	MAME_DIR .. "src/mame/video/sgi_re2.cpp",
+	MAME_DIR .. "src/mame/video/sgi_re2.h",
+	MAME_DIR .. "src/mame/video/sgi_xmap2.cpp",
+	MAME_DIR .. "src/mame/video/sgi_xmap2.h",
 }
 
 createMESSProjects(_target, _subtarget, "sharp")
@@ -3876,6 +3902,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/alcat7100.cpp",
 	MAME_DIR .. "src/mame/drivers/alesis_qs.cpp",
 	MAME_DIR .. "src/mame/drivers/alphasma.cpp",
+	MAME_DIR .. "src/mame/drivers/am1000.cpp",
 	MAME_DIR .. "src/mame/drivers/ampex.cpp",
 	MAME_DIR .. "src/mame/drivers/ampex210.cpp",
 	MAME_DIR .. "src/mame/drivers/ampro.cpp",
@@ -3903,6 +3930,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/c2color.cpp",
 	MAME_DIR .. "src/mame/drivers/candela.cpp",
 	MAME_DIR .. "src/mame/drivers/cardinal.cpp",
+	MAME_DIR .. "src/mame/drivers/cbnt2039.cpp",
 	MAME_DIR .. "src/mame/drivers/chaos.cpp",
 	MAME_DIR .. "src/mame/drivers/cd2650.cpp",
 	MAME_DIR .. "src/mame/drivers/cdc721.cpp",

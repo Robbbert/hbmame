@@ -218,11 +218,11 @@ GAME( 1993, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, 
 // Monster Maulers
 GAME( 1993, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
 // Metamorphic Force
-GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "Unknown", "Metamorphic Force (Version Enhanced 2017-07-03)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "hack", "Metamorphic Force (Version Enhanced 2017-07-03)", MACHINE_IMPERFECT_GRAPHICS )
 // Violent Storm
-GAME( 2018, viostorms01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "Unknown", "Violent Storm (Unknown Hack 2018-08-14)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "Unknown", "Violent Storm (Unknown Hack 2018-08-13)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "Unknown", "Violent Storm (Unknown Hack 2018-05-07)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, viostorms01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Unknown Hack 2018-08-14)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Unknown Hack 2018-08-13)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Unknown Hack 2018-05-07)", MACHINE_IMPERFECT_GRAPHICS )
 
 
 

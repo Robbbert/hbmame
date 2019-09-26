@@ -160,7 +160,7 @@ ROM_END
 // Evil Stone
 GAME( 2007, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init, ROT270, "S.Arkames.", "Evil Stone (Translation French V2 2007-11-28)", 0 )
 // Kuri Kinton
-GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init, ROT0,   "Unknown", "Kuri Kinton (Translation Chinese)", 0 )
+GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init, ROT0,   "hack", "Kuri Kinton (Translation Chinese)", 0 )
 // Plotting
-GAME( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, init_plottinga, ROT0,   "Unknown", "Plotting (Translation Chinese)", 0 )
+GAME( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, init_plottinga, ROT0,   "hack", "Plotting (Translation Chinese)", 0 )
 

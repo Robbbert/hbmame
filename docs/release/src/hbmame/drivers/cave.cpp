@@ -90,7 +90,7 @@ ROM_START( pwrinst2z )
 ROM_END
 
 GAME( 2013, pwrinst2h, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "TT", "Power Instinct 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "Unknown", "Power Instinct 2 (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pwrinst2z, pwrinst2, pwrinst2, metmqstr, cave_state, init_pwrinst2j, ROT0, "hack", "Power Instinct 2 (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -417,8 +417,8 @@ GAME( 1995, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     init_
  // Thunder Heroes
 GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_gaia,      ROT0,        "pipi899",  "Thunder Heroes (Select Characters 2009-08-19)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
  // Power Instinct 2
-GAME( 1994, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Power Instinct 2 (Unknown Hack 2015-12-06)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "hack",  "Power Instinct 2 (Unknown Hack 2015-12-06)", MACHINE_SUPPORTS_SAVE )
  // Gouketsuji Gaiden
-GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "Unknown",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "hack",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "DDJ",  "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
 

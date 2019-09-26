@@ -2,7 +2,32 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/segas32.cpp"
 
+ROM_START( brivals01 )
+	ROM_REGION( 0x200000, "mainpcb:maincpu", 0 )
+	ROM_LOAD_x8( "epr-15722.ic8",      0x000000, 0x020000, CRC(138141c0) SHA1(aca2a46ee1008e91c65a09e79c76d5175e7df5e8) )
+	ROM_LOAD16_BYTE( "epr-15723_ps01.ic18", 0x100000, 0x080000, CRC(b0b38505) SHA1(93523d8a410e116b556e5c711dff93ed7f1a0827) )
+	ROM_LOAD16_BYTE( "epr-15724_ps01.ic9",  0x100001, 0x080000, CRC(72173a51) SHA1(0e3f80be93ada860ca6b6bb0f2b569479e9fabda) )
 
+	ROM_REGION( 0x400000, "mainpcb:soundcpu", 0 )
+	ROM_LOAD_x8( "epr-15725.ic36", 0x000000, 0x020000, CRC(ea1407d7) SHA1(68b571341f032278e87a38739ba8084b7a6062d3) )
+	ROM_LOAD( "mpr-15627.ic35",    0x100000, 0x100000, CRC(8a8388c5) SHA1(7ee03feb975cc576a3d8651fd41976ca87d60894) )
+	ROM_LOAD( "mpr-15626.ic34",    0x200000, 0x100000, CRC(83306d1e) SHA1(feb08902b51c0013d9417832cdf198e36cdfc28c) )
+	ROM_LOAD( "mpr-15625.ic24",    0x300000, 0x100000, CRC(3ce82932) SHA1(f2107bc2591f46a51c9f0d706933b1ae69db91f9) )
+
+	ROM_REGION( 0x400000, "mainpcb:gfx1", 0 )
+	ROM_LOAD16_BYTE( "mpr-15629.ic14", 0x000000, 0x200000, CRC(2c8dd96d) SHA1(4a42a30485c19eb4f4a9d518a3dff3ae11911d01) )
+	ROM_LOAD16_BYTE( "mpr-15628.ic5",  0x000001, 0x200000, CRC(58d4ca40) SHA1(b1633acc803bba7e8283a9663b49abeda662a74d) )
+
+	ROM_REGION32_BE( 0x1000000, "mainpcb:sprites", 0 )
+	ROMX_LOAD( "mpr-15637.ic32", 0x000000, 0x200000, CRC(b6cf2f05) SHA1(a308d40ce5165e03fccf7fcd615ee111f7840fdc) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15635.ic30", 0x000002, 0x200000, CRC(70f2eb2b) SHA1(9868c8b0dd8ce810a0e32f51e702eee7e1c9a967) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15633.ic28", 0x000004, 0x200000, CRC(005dfed5) SHA1(f555620d75d3886a890307be9df9c0879bcda695) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15631.ic26", 0x000006, 0x200000, CRC(c35e2f21) SHA1(37935aa2eaa1769e57fb58f47f9797ae153d7496) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15636.ic31", 0x800000, 0x200000, CRC(d81ca97b) SHA1(a8e64e6cbe822f18ce20f50c8ddb8f1d5ed8b783) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15634.ic29", 0x800002, 0x200000, CRC(b0c6c52a) SHA1(04dd7344ca82e38f9d796a764c9e5a631a89aaac) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15632.ic27", 0x800004, 0x200000, CRC(8476e52b) SHA1(e89748d34febcaf362580cdae30a5c570e56899a) , ROM_SKIP(6)|ROM_GROUPWORD )
+	ROMX_LOAD( "mpr-15630.ic25", 0x800006, 0x200000, CRC(bf7dd2f6) SHA1(ab3fbe9e2b9b57424fb2a147f32b0f573c0b11b8) , ROM_SKIP(6)|ROM_GROUPWORD )
+ROM_END
 
 ROM_START( ga2s01 )
 	ROM_REGION( 0x200000, "mainpcb:maincpu", 0 )    
@@ -35,6 +60,6 @@ ROM_START( ga2s01 )
 ROM_END
 
 
-
-GAME( 1992, ga2s01, ga2, sega_system32_ga2, ga2, segas32_new_state, init_ga2, ROT0, "Sega", "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
+GAME( 1992, brivals01, brival,  sega_system32_4p,  brival,   segas32_new_state, init_brival,   ROT0, "DDJ",   "Burning Rival (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1992, ga2s01,    ga2,     sega_system32_ga2, ga2,      segas32_new_state, init_ga2,      ROT0, "Sega",   "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
 

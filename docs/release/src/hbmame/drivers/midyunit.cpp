@@ -33,4 +33,4 @@ ROM_START( mkla4d )
  	ROM_LOAD ( "mkg-u109.rom",  0x580000, 0x80000, CRC(cafc47bb) SHA1(8610af6e52f7089ff4acd850c53ab8b4119e4445) )
 ROM_END
 
-GAME( 1992, mkla4d, mk, yunit_adpcm_6bit_fast, mkla4, midyunit_state, init_mkyunit, ROT0, "Midway", "Mortal Kombat (rev 4.0 09/28/92 hack/set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mkla4d, mk, yunit_adpcm_6bit_fast, mkla4, midyunit_state, init_mkyunit, ROT0, "Midway", "Mortal Kombat (rev 4.0 09/28/92 hack/Ver.Unknown)", MACHINE_SUPPORTS_SAVE )

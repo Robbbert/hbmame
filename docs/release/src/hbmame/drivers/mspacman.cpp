@@ -2204,7 +2204,7 @@ ROM_START( pacgent )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( petshop )
+ROM_START( petshops )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
 	ROM_LOAD( "boot2",        0x1000, 0x1000, CRC(0d32de5e) SHA1(13ea0c343de072508908be885e6a2a217bbb3047) )
@@ -2738,7 +2738,7 @@ HACK( 1998, mspacii,  mspacman, mspacii,  mspacman, pacman_state, 0,        ROT9
 HACK( 1983, mspacit,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman -2", MACHINE_SUPPORTS_SAVE )
 HACK( 1983, mspacit2, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman -3", MACHINE_SUPPORTS_SAVE )
 HACK( 1981, mspacj,   mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (Jamma? Bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, mspacmanl,mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "unknown", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
+HACK( 1981, mspacmanl,mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "hack", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, mspacmap, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90,  "Don Hodges", "Ms. Pacman (patched)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mspacmbg, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Ms. Pacman (single rom)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, mspacpbl, mspacman, woodpek,  mspacpls, pacman_state, 0,        ROT90, "Dav/PMP", "Ms. Pac Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -2751,7 +2751,7 @@ HACK( 2000, msultra,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT9
 HACK( 2000, msvectr,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "[Midway]", "Vector Ms. Pacman", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, msyakman, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Jeff Minter", "Ms. Yak Man", MACHINE_SUPPORTS_SAVE )
 HACK( 1982, pacgalu,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Uchida", "Pac-Gal (Hearts)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, petshop,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Weirdness Inc", "Pet Shop Freak-Out!", MACHINE_SUPPORTS_SAVE )
+HACK( 2001, petshops,  mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "Weirdness Inc", "Pet Shop Freak-Out!", MACHINE_SUPPORTS_SAVE ) //The roms of the aristmk5 system have the same name.
 HACK( 2002, piranha2, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "US Billiards", "Piranha 2 Revenge!", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, sueworld, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "PacFay", "Sue's World", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, sueworlb, mspacman, woodpek,  mspacman, pacman_state, 0,        ROT90, "PacFay", "Sue's World (Old)", MACHINE_SUPPORTS_SAVE )
