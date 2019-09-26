@@ -40,6 +40,8 @@ aliens.cpp
 alinvade.cpp
 allied.cpp
 alpha68k.cpp
+alpha68k_i.cpp
+alpha68k_n.cpp
 alvg.cpp
 amaticmg.cpp
 ambush.cpp
@@ -557,6 +559,7 @@ invqix.cpp
 iqblock.cpp
 irobot.cpp
 ironhors.cpp
+island.cpp
 istellar.cpp
 istrebiteli.cpp
 iteagle.cpp
@@ -639,7 +642,6 @@ lastbank.cpp
 lastduel.cpp
 lastfght.cpp
 laz_aftrshok.cpp
-laz_awetoss.cpp
 laz_ribrac.cpp
 lazercmd.cpp
 lbeach.cpp
