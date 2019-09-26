@@ -840,20 +840,23 @@ extern const LPCTSTR column_names[COLUMN_MAX] =
 class mameui_output_error : public osd_output
 {
 public:
-	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args)
+	virtual void output_callback(osd_output_channel channel, const util::format_argument_pack<std::ostream> &args) override
 	{
+		std::ostringstream sbuffer;
+		util::stream_format(sbuffer, args);
+		string s = sbuffer.str();
+		const char* buffer = s.c_str();
 		if (channel == OSD_OUTPUT_CHANNEL_VERBOSE)
 		{
 			FILE *pFile;
 			pFile = fopen("verbose.log", "a");
-			vfprintf(pFile, msg, args);fflush(pFile);
+			fputs(buffer, pFile);
+			fflush(pFile);
 			fclose (pFile);
 			return;
 		}
 
 		int s_action = 0;
-		char buffer[4096];
-		vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
 
 		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
 		{
@@ -884,7 +887,8 @@ public:
 		// LOG all messages
 		FILE *pFile;
 		pFile = fopen("winui.log", "a");
-		vfprintf(pFile, msg, args);fflush(pFile);
+		fputs(buffer, pFile);
+		fflush(pFile);
 		fclose (pFile);
 /*  List of output types:
 		case OSD_OUTPUT_CHANNEL_ERROR:
