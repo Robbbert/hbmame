@@ -152,7 +152,9 @@ metmqstr		//parent
 metmqstrs01
 metmqstrs02
 metmqstrs03
-theroes
+sailormn				//parent
+sailormnts01
+theroes					//parent
 theroes01
 
 @source:cball.cpp
