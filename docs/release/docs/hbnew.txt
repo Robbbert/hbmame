@@ -1,6 +1,52 @@
 ﻿What's new in HBMAME
 ====================
 
+2019-10-30 0.215
+
+New Games
+---------------------------------
+- [dinos211]          Cadillacs and Dinosaurs (Fighting God Version 2019-07-25)
+- [dinos212]          Cadillacs and Dinosaurs (Arena Version 2019-07-25)
+- [dinos213]          Cadillacs and Dinosaurs (Sky King 2019-07-25)
+- [dinos214]          Cadillacs and Dinosaurs (The Warriors Edition Update 2019-07-25)
+- [dinos215]          Cadillacs and Dinosaurs (Bloody Enhanced Version (No Double Version Modified 1 2011-03-28))
+- [dinos216]          Cadillacs and Dinosaurs (Bloody Enhanced Version (No Double Version Modified 2 2011-03-31))
+- [grdianss12]        Guardians (Robust Super Edition 2019-07-25)
+- [grdianss13]        Guardians (Kerron Edition 2019-08-17)
+- [kof2k2s84]         Kof2002 (Unknown Hack 2014-12-01)
+- [lastblad20]        Last Blade (Unknown Hack 2013-03-07)
+- [lastbld2s18]       Last Blade 2 (Unknown Hack 2013-03-09)
+- [martmasts02]       Martial Masters (All Super Move)
+- [martmasts03]       Martial Masters (Always Have Super Move)
+- [mslug2ps36]        Metal Slug 2 (Become Big Mode Fixed)
+- [orlegendcs97]      Oriental Legend (Unknown Hack 2019-05-24/Set 1)
+- [orlegendcs98]      Oriental Legend (Unknown Hack 2019-05-24/Set 2)
+- [roishtarx]         The Return of Ishtar (Another tower)
+- [samsho4s15]        Samurai Shodown IV (Unknown Hack 2004-06-20)
+- [samsho5s29]        Samurai Shodown V (Unknown Hack 2017-04-16)
+- [sengoku3s12]       Sengoku 3 (Unlock Hidden Character)
+- [sf2s06]            Street Fighter II: The World Warrior (Choice Same Character)
+- [sf2s07]            Street Fighter II: The World Warrior (Hit Any Where 2018-02-25)
+- [sf2s08]            Street Fighter II: The World Warrior (Magic Throw 2016-05-22)
+- [sfas03]            Street Fighter Alpha: Warriors' Dreams (Easy Move 2017-03-23)
+- [sfas04]            Street Fighter Alpha: Warriors' Dreams (Enable Hidden Character 2016-08-26)
+- [sfas05]            Street Fighter Alpha: Warriors' Dreams (Full Power 2016-08-26)
+- [sfa2s01]           Street Fighter Alpha 2 (Easy Move 2016-11-18)
+- [sfa2s02]           Street Fighter Alpha 2 (Full Power 2016-09-05)
+- [sfa3s07]           Street Fighter Alpha 3 (Easy Move 2016-11-18)
+- [sfa3s08]           Street Fighter Alpha 3 (Full Power 2016-09-05)
+- [sfz2als01]         Street Fighter Zero 2 Alpha (Easy Move 2016-11-18)
+- [sfz2als02]         Street Fighter Zero 2 Alpha (Full Power 2016-09-05)
+- [sf2ces26]          Street Fighter II': Champion Edition (Quick Go Next Stage 2016-01-23)
+- [sf2ces27]          Street Fighter II': Champion Edition (Easy Move 2016-08-04)
+- [sf2ces28]          Street Fighter II': Champion Edition (Rainbow, bootleg, Easy Move 2018-05-06)
+- [ssriderseaas02]    Sunset Riders (The Hardest Version In Two Weeks 2019-04-20)
+- [taotaidoas01]      Tao Taido (Easy Move)
+- [umk3plus20190921]  Ultimate Mortal Kombat 3 (Ultimate Mortal Kombat 3+ Beta 1 2019-09-21)
+- [umk3uc20190917]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-09-17)
+
+
+
 
 2019-09-25 0.214
 ----------------

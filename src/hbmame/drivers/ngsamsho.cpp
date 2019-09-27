@@ -4436,7 +4436,7 @@ HACK( 2016, samsho5s25,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sam5
 HACK( 2003, samsho5s26,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "DDJ",    "Samurai Shodown V (Always Have Super Move And One Strike)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, samsho5s27,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "DDJ",    "Samurai Shodown V (Easy Move)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, samsho5s28,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  samsho5,  ROT0,  "DDJ",    "Samurai Shodown V (Yoshitora Always Have Seven Sword Move)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, samsho5s29,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sam5hb,   ROT0,  "GOTVG", "Samurai Shodown V (2017-04-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, samsho5s29,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  sam5hb,   ROT0,  "GOTVG", "Samurai Shodown V (Unknown Hack 2017-04-16)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown V Special
 HACK( 2004, samsh5sp01,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0,   "hack", "Samurai Shodown V Special (Fully Decrypted Set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, samsh5sp02,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0,   "hack", "Samurai Shodown V Special (non encrypted P, decrypted C)", MACHINE_SUPPORTS_SAVE )

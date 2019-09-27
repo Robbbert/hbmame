@@ -32637,8 +32637,8 @@ HACK( 1997, orlegendcs93, orlegend,  pgm_asic3,          orlegend, pgm_asic3_sta
 HACK( 1997, orlegendcs94, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, orlegendcs95, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Xianhui Dream 2018-07-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, orlegendcs96, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Illusion Five Lines 2019-09-16)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, orlegendcs97, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Unknown Hack 2019-05-24/Set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, orlegendcs98, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Unknown Hack 2019-05-24/Set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, orlegendcs97, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "GOTVG", "Oriental Legend (Unknown Hack 2019-05-24/Set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, orlegendcs98, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "GOTVG", "Oriental Legend (Unknown Hack 2019-05-24/Set 2)", MACHINE_SUPPORTS_SAVE )
 // The Gladiator
 HACK( 2003, theglads01,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "Hooooook", "The Gladiator (Ex Super Version v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, theglads02,   theglad,   pgm_arm_type3,      theglad, pgm_arm_type3_state,  theglad,    ROT0,   "hack", "The Gladiator (Infinite Power)", MACHINE_SUPPORTS_SAVE )
