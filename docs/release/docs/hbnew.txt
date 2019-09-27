@@ -22,6 +22,8 @@ New Games
 - [orlegendcs97]      Oriental Legend (Unknown Hack 2019-05-24/Set 1)
 - [orlegendcs98]      Oriental Legend (Unknown Hack 2019-05-24/Set 2)
 - [roishtarx]         The Return of Ishtar (Another tower)
+- [sailormnts01]      Pretty Soldier Sailor Moon (Increases The Difficulty 2018-04-19)
+- [sailormnts02]      Pretty Soldier Sailor Moon (Enhanced magic 2009-02-24)
 - [samsho4s15]        Samurai Shodown IV (Unknown Hack 2004-06-20)
 - [samsho5s29]        Samurai Shodown V (Unknown Hack 2017-04-16)
 - [sengoku3s12]       Sengoku 3 (Unlock Hidden Character)
