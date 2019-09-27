@@ -8438,6 +8438,9 @@ kurikintjs01
 plotting				//parent
 plottingas01
 
+@source:taotaido.cpp
+taotaido
+
 @source:tecmo.cpp
 gemini					//parent
 geminit

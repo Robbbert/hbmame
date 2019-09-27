@@ -1030,6 +1030,8 @@ files {
 	MAME_DIR .. "src/mame/video/vsystem_spr2.cpp",
 	MAME_DIR .. "src/hbmame/drivers/aerofgt.cpp",
 	MAME_DIR .. "src/mame/video/aerofgt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/taotaido.cpp",
+	MAME_DIR .. "src/mame/video/taotaido.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "misc")
