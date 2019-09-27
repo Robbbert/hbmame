@@ -96,6 +96,7 @@ SOUNDS["MSM5232"] = true -- flstory
 SOUNDS["MULTIPCM"] = true -- model2
 SOUNDS["NAMCO_15XX"] = true
 SOUNDS["NAMCO_52XX"] = true
+SOUNDS["NAMCO_63701X"] = true
 SOUNDS["NES_APU"] = true
 SOUNDS["OKIM6295"] = true
 SOUNDS["OKIM9810"] = true -- seta2
@@ -671,6 +672,8 @@ files {
 	MAME_DIR .. "src/mame/video/c45.cpp",
 	MAME_DIR .. "src/mame/machine/namco65.cpp",
 	MAME_DIR .. "src/mame/machine/namco68.cpp",
+	MAME_DIR .. "src/hbmame/drivers/namcos86.cpp",
+	MAME_DIR .. "src/mame/video/namcos86.cpp",
 	MAME_DIR .. "src/mame/video/namco_c116.cpp",
 	MAME_DIR .. "src/mame/video/namco_c123tmap.cpp",
 	MAME_DIR .. "src/mame/machine/namco_c139.cpp",
