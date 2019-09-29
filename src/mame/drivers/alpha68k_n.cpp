@@ -7,8 +7,8 @@
 	derived from alpha68k.cpp
 
 	TODO:
-	- Super Stingray MCU irq controls timer speed, needs the MCU to be 
-	  hooked up to define actual timings.
+	- Super Stingray MCU irq controls timer speed. The MCU has been
+          hooked up but the clock is almost certainly wrong.
 	- GFX region can eventually overflow in jongbou, and in general all three 
 	  games can probably be run with the same gfx_layout structs
 
@@ -247,8 +247,7 @@ TIMER_CALLBACK_MEMBER(sstingray_state::alpha8511_sync)
 	if (BIT(m_alpha8511_control, 4))
 	{
 		m_alpha8511->set_input_line(MCS48_INPUT_IRQ, ASSERT_LINE);
-		if (m_alpha8511_read_mode)
-			m_maincpu->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
+		m_maincpu->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
 	}
 }
 
@@ -275,14 +274,14 @@ u8 sstingray_state::alpha8511_rw_r()
 void sstingray_state::alpha8511_control_w(u8 data)
 {
 	if (!BIT(data, 4))
+	{
 		m_alpha8511->set_input_line(MCS48_INPUT_IRQ, CLEAR_LINE);
+		m_maincpu->set_input_line(INPUT_LINE_HALT, CLEAR_LINE);
+	}
 	if (BIT(data, 5))
 		m_maincpu->set_input_line(M68K_IRQ_2, HOLD_LINE);
 	if (!BIT(data, 6))
-	{
 		m_shared_ram[m_alpha8511_address] = (m_shared_ram[m_alpha8511_address] & 0xff00) | m_microcontroller_data;
-		m_maincpu->set_input_line(INPUT_LINE_HALT, CLEAR_LINE);
-	}
 	flipscreen_w(!BIT(data, 7));
 
 	m_alpha8511_control = data;
@@ -561,7 +560,15 @@ static INPUT_PORTS_START( sstingry )
 	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Demo_Sounds ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
-	ALPHA68K_COINAGE_BITS_1TO3
+	PORT_DIPNAME( 0x0e, 0x00, DEF_STR( Coinage ) )
+	PORT_DIPSETTING(    0x00, "A 1C/1C B 1C/1C" )
+	PORT_DIPSETTING(    0x02, "A 1C/2C B 2C/1C" )
+	PORT_DIPSETTING(    0x04, "A 1C/3C B 3C/1C" )
+	PORT_DIPSETTING(    0x06, "A 1C/4C B 4C/1C" )
+	PORT_DIPSETTING(    0x08, "A 1C/5C B 5C/1C" )
+	PORT_DIPSETTING(    0x0a, "A 1C/6C B 6C/1C" )
+	PORT_DIPSETTING(    0x0c, "A 2C/3C B 7C/1C" )
+	PORT_DIPSETTING(    0x0e, "A 3C/2C B 8C/1C" )
 	PORT_DIPNAME( 0x30, 0x00, DEF_STR( Lives ) )
 	PORT_DIPSETTING(    0x00, "3" )
 	PORT_DIPSETTING(    0x10, "4" )
@@ -586,7 +593,6 @@ static INPUT_PORTS_START( kyros )
 	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Demo_Sounds ) )  PORT_DIPLOCATION("SW1:1")
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	//ALPHA68K_COINAGE_BITS_1TO3
 	PORT_DIPNAME( 0x0e, 0x0e, DEF_STR( Coinage ) )      PORT_DIPLOCATION("SW1:2,3,4")
 	PORT_DIPSETTING(    0x0e, "A 1C/1C B 1C/1C" )
 	PORT_DIPSETTING(    0x06, "A 1C/2C B 2C/1C" )
@@ -803,6 +809,7 @@ ROM_START( sstingry )
 	ROM_LOAD( "ss_02.rom",       0x4000,  0x4000, CRC(ab4e8c01) SHA1(d96e7f97945fff48fb7b4661fdb575ac7ff77445) )
 
 	ROM_REGION( 0x0400, "alpha8511", 0 )    /* 8748 MCU code */
+	// Was this dumped from a bootleg? The original "ALPHA-8511" MCU appears to be some sort of Hitachi part.
 	ROM_LOAD( "d8748.bin",       0x0000, 0x0400, CRC(7fcbfc30) SHA1(6d087a3d44e475b6c8260a5134952097f26459b7) )
 
 	ROM_REGION( 0x60000, "gfx1", 0 )
@@ -841,7 +848,7 @@ ROM_START( kyros )
 	// not hooked up yet
 	ROM_REGION( 0x1000, "mcu", 0 )
 	ROM_LOAD( "kyros_68705u3.bin",    0x0000, 0x1000, CRC(c20880b7) SHA1(b041c36cbc4f348d74e0548df5cb14727f2d353b) ) // this one is from a bootleg PCB, program code *might* be compatible.
-	ROM_LOAD( "kyros_mcu.bin",    0x0000, 0x0800,  CRC(3a902a19) SHA1(af1be8894c899b27b1106663ffaf2ab43fa1cdaa) ) // original MCU? (HD6805U1)
+	ROM_LOAD( "kyros_mcu.bin",    0x0800, 0x0800,  BAD_DUMP CRC(3a902a19) SHA1(af1be8894c899b27b1106663ffaf2ab43fa1cdaa) ) // original MCU? (HD6805U1) zero-page ROM not dumped
 
 	ROM_REGION( 0x60000, "gfx1", 0 )
 	ROM_LOAD( "8.9pr",  0x00000, 0x8000, CRC(c5290944) SHA1(ec97482dc59220002780ae4d02be4cd172cf65ac) )
@@ -887,7 +894,7 @@ ROM_START( kyrosj )
 
 	ROM_REGION( 0x1000, "mcu", 0 ) // these comes from original set
 	ROM_LOAD( "kyros_68705u3.bin",    0x0000, 0x1000, BAD_DUMP CRC(c20880b7) SHA1(b041c36cbc4f348d74e0548df5cb14727f2d353b) ) // this one is from a bootleg PCB, program code *might* be compatible.
-	ROM_LOAD( "kyros_mcu.bin",    0x0000, 0x0800,  BAD_DUMP CRC(3a902a19) SHA1(af1be8894c899b27b1106663ffaf2ab43fa1cdaa) ) // original MCU? (HD6805U1)
+	ROM_LOAD( "kyros_mcu.bin",    0x0800, 0x0800,  BAD_DUMP CRC(3a902a19) SHA1(af1be8894c899b27b1106663ffaf2ab43fa1cdaa) ) // original MCU? (HD6805U1)
 
 	ROM_REGION( 0x60000, "gfx1", 0 )
 	ROM_LOAD( "8.9r",   0x00000, 0x8000, CRC(d8203284) SHA1(7dede410239be6b674644fa76c91dd01837f841f) )

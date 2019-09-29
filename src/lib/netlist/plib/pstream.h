@@ -15,12 +15,12 @@
 #include "pstring.h"
 
 #include <array>
-#include <type_traits>
-#include <vector>
-#include <ios>
 #include <fstream>
+#include <ios>
 #include <iostream>
 #include <sstream>
+#include <type_traits>
+#include <vector>
 
 namespace plib {
 
@@ -55,15 +55,37 @@ public:
 	{}
 
 	bool eof() const { return m_strm->eof(); }
-	bool readline(pstring &line);
 
-	bool readbyte1(std::istream::char_type &b)
+	bool readline(pstring &line)
+	{
+		putf8string::code_t c = 0;
+		m_linebuf = "";
+		if (!this->readcode(c))
+		{
+			line = "";
+			return false;
+		}
+		while (true)
+		{
+			if (c == 10)
+				break;
+			else if (c != 13) /* ignore CR */
+				m_linebuf += putf8string(1, c);
+			if (!this->readcode(c))
+				break;
+		}
+		line = m_linebuf.c_str();
+		return true;
+	}
+
+	bool readbyte(std::istream::char_type &b)
 	{
 		if (m_strm->eof())
 			return false;
 		m_strm->read(&b, 1);
 		return true;
 	}
+
 	bool readcode(putf8string::traits_type::code_t &c)
 	{
 		std::array<std::istream::char_type, 4> b{0};
@@ -154,7 +176,11 @@ public:
 	~putf8_fmt_writer() override = default;
 
 //protected:
-	void vdowrite(const pstring &ls) const;
+	void vdowrite(const pstring &s) const
+	{
+		write(s);
+	}
+
 
 private:
 };
@@ -183,7 +209,7 @@ public:
 	void write(const pstring &s)
 	{
 		const auto sm = reinterpret_cast<const std::ostream::char_type *>(s.c_str());
-		const std::streamsize sl(static_cast<std::streamsize>(pstring_mem_t_size(s)));
+		const auto sl(static_cast<std::streamsize>(pstring_mem_t_size(s)));
 		write(sl);
 		m_strm.write(sm, sl);
 	}
@@ -191,7 +217,7 @@ public:
 	template <typename T>
 	void write(const std::vector<T> &val)
 	{
-		const std::streamsize sz(static_cast<std::streamsize>(val.size()));
+		const auto sz(static_cast<std::streamsize>(val.size()));
 		write(sz);
 		m_strm.write(reinterpret_cast<const std::ostream::char_type *>(val.data()), sz * static_cast<std::streamsize>(sizeof(T)));
 	}
@@ -256,7 +282,7 @@ struct perrlogger
 	template <typename ... Args>
 	explicit perrlogger(Args&& ... args)
 	{
-		h()(std::forward<Args>(args)...);
+		h()(std::forward<Args>(args)...); // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 	}
 private:
 	static putf8_fmt_writer &h()
@@ -278,7 +304,7 @@ namespace filesystem
 		return pstring(source);
 	}
 
-}
+} // namespace filesystem
 
 } // namespace plib
 

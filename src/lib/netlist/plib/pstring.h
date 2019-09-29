@@ -107,7 +107,7 @@ public:
 
 	template<typename C, std::size_t N,
 		class = typename std::enable_if<std::is_same<C, const mem_t>::value>::type>
-	pstring_t(C (&string)[N]) // NOLINT(cppcoreguidelines-avoid-c-arrays, modernize-avoid-c-arrays)
+	pstring_t(C (*string)[N]) // NOLINT(cppcoreguidelines-avoid-c-arrays, modernize-avoid-c-arrays)
 	{
 		static_assert(N > 0,"pstring from array of length 0");
 		if (string[N-1] != 0)
@@ -178,9 +178,6 @@ public:
 	size_type find(const pstring_t &search, size_type start = 0) const;
 	size_type find(code_t search, size_type start = 0) const;
 
-	size_type find_first_not_of(const pstring_t &no) const;
-	size_type find_last_not_of(const pstring_t &no) const;
-
 	// concatenation operators
 	pstring_t& operator+=(const pstring_t &string) { m_str.append(string.m_str); return *this; }
 	pstring_t& operator+=(const code_t c) { traits_type::encode(c, m_str); return *this; }
@@ -248,9 +245,7 @@ struct putf8_traits
 	static std::size_t codelen(const mem_t *p)
 	{
 		const auto p1 = reinterpret_cast<const unsigned char *>(p);
-		if ((*p1 & 0x80) == 0x00)
-			return 1;
-		else if ((*p1 & 0xE0) == 0xC0)
+		if ((*p1 & 0xE0) == 0xC0)
 			return 2;
 		else if ((*p1 & 0xF0) == 0xE0)
 			return 3;
@@ -258,7 +253,9 @@ struct putf8_traits
 			return 4;
 		else
 		{
-			return 1; // not correct
+			// valid utf8: ((*p1 & 0x80) == 0x00)
+			// However, we return 1 here.
+			return 1;
 		}
 	}
 	static std::size_t codelen(const code_t c)
@@ -284,7 +281,7 @@ struct putf8_traits
 		else if ((*p1 & 0xF8) == 0xF0)
 			return static_cast<code_t>(((p1[0] & 0x0f) << 18) | ((p1[1] & 0x3f) << 12) | ((p1[2] & 0x3f) << 6)  | ((p1[3] & 0x3f) << 0));
 		else
-			return *p1; // not correct
+			return 0xFFFD; // unicode-replacement character
 	}
 	static void encode(const code_t c, string_type &s)
 	{

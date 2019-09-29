@@ -891,7 +891,7 @@ void models_t::model_parse(const pstring &model_in, model_map_t &map)
 	remainder = plib::left(remainder, remainder.size() - 1);
 
 	std::vector<pstring> pairs(plib::psplit(remainder," ", true));
-	for (pstring &pe : pairs)
+	for (const pstring &pe : pairs)
 	{
 		auto pose = pe.find('=');
 		if (pose == pstring::npos)
@@ -900,9 +900,10 @@ void models_t::model_parse(const pstring &model_in, model_map_t &map)
 	}
 }
 
-pstring models_t::model_string(model_map_t &map)
+pstring models_t::model_string(const model_map_t &map) const
 {
-	pstring ret = map["COREMODEL"] + "(";
+	// operator [] has no const implementation
+	pstring ret = map.at("COREMODEL") + "(";
 	for (auto & i : map)
 		ret += (i.first + '=' + i.second + ' ');
 
@@ -942,7 +943,7 @@ nl_double models_t::value(const pstring &model, const pstring &entity)
 	switch (*p)
 	{
 		case 'M': factor = 1e6; break;
-		case 'k': factor = 1e3; break;
+		case 'k':
 		case 'K': factor = 1e3; break;
 		case 'm': factor = 1e-3; break;
 		case 'u': factor = 1e-6; break;

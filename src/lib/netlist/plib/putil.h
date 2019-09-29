@@ -12,10 +12,10 @@
 #include "pstring.h"
 #include <algorithm>
 #include <initializer_list>
+#include <iostream>
 #include <locale>
 #include <sstream>
 #include <vector>
-#include <iostream>
 
 #define PSTRINGIFY_HELP(y) # y
 #define PSTRINGIFY(x) PSTRINGIFY_HELP(x)
@@ -26,8 +26,8 @@ namespace plib
 
 	namespace util
 	{
-		const pstring buildpath(std::initializer_list<pstring> list );
-		const pstring environment(const pstring &var, const pstring &default_val);
+		pstring buildpath(std::initializer_list<pstring> list );
+		pstring environment(const pstring &var, const pstring &default_val);
 	} // namespace util
 
 	namespace container
@@ -188,7 +188,7 @@ namespace plib
 	};
 
 	template<typename T, typename S>
-	T pstonum(const S &arg, std::locale loc = std::locale::classic())
+	T pstonum(const S &arg, const std::locale &loc = std::locale::classic())
 	{
 		decltype(arg.c_str()) cstr = arg.c_str();
 		std::size_t idx(0);

@@ -159,10 +159,12 @@ ptokenizer::token_t ptokenizer::get_token()
 		{
 			skipeol();
 		}
+#if 0
 		else if (ret.str() == "#")
 		{
 			skipeol();
 		}
+#endif
 		else
 		{
 			return ret;
@@ -253,18 +255,12 @@ ptokenizer::token_t ptokenizer::get_token_internal()
 	}
 }
 
-void ptokenizer::error(const pstring &errs)
-{
-	verror(errs, currentline_no(), currentline_str());
-	//throw error;
-}
-
 // ----------------------------------------------------------------------------------------
 // A simple preprocessor
 // ----------------------------------------------------------------------------------------
 
 ppreprocessor::ppreprocessor(defines_map_type *defines)
-: std::istream(new st(this))
+: std::istream(new readbuffer(this))
 , m_ifflag(0)
 , m_level(0)
 , m_lineno(0)
@@ -299,6 +295,8 @@ void ppreprocessor::error(const pstring &err)
 #define CHECKTOK2(p_op, p_prio) \
 	else if (tok == # p_op)                         \
 	{                                               \
+		if (!has_val)								\
+			{ error("parsing error!"); return 1;}	\
 		if (prio < (p_prio))                        \
 			return val;                             \
 		start++;                                    \
@@ -310,7 +308,9 @@ void ppreprocessor::error(const pstring &err)
 
 int ppreprocessor::expr(const std::vector<pstring> &sexpr, std::size_t &start, int prio)
 {
-	int val = 0;
+	int val(0);
+	bool has_val(false);
+
 	pstring tok=sexpr[start];
 	if (tok == "(")
 	{
@@ -318,6 +318,7 @@ int ppreprocessor::expr(const std::vector<pstring> &sexpr, std::size_t &start, i
 		val = expr(sexpr, start, /*prio*/ 255);
 		if (sexpr[start] != ")")
 			error("parsing error!");
+		has_val = true;
 		start++;
 	}
 	while (start < sexpr.size())
@@ -325,18 +326,32 @@ int ppreprocessor::expr(const std::vector<pstring> &sexpr, std::size_t &start, i
 		tok=sexpr[start];
 		if (tok == ")")
 		{
-			// FIXME: catch error
-			return val;
+			if (!has_val)
+			{
+				error("parsing error!");
+				return 1; // tease compiler
+			}
+			else
+				return val;
 		}
 		else if (tok == "!")
 		{
 			if (prio < 3)
-				return val;
+			{
+				if (!has_val)
+				{
+					error("parsing error!");
+					return 1; // tease compiler
+				}
+				else
+					return val;
+			}
 			start++;
 			val = !expr(sexpr, start, 3);
+			has_val = true;
 		}
 		CHECKTOK2(*,  5)
-		CHECKTOK2(/,  5)
+		CHECKTOK2(/,  5) // NOLINT(clang-analyzer-core.DivideZero)
 		CHECKTOK2(+,  6)
 		CHECKTOK2(-,  6)
 		CHECKTOK2(==, 10)
@@ -344,12 +359,18 @@ int ppreprocessor::expr(const std::vector<pstring> &sexpr, std::size_t &start, i
 		CHECKTOK2(||, 15)
 		else
 		{
-			// FIXME: error handling
 			val = plib::pstonum<decltype(val)>(tok);
+			has_val = true;
 			start++;
 		}
 	}
-	return val;
+	if (!has_val)
+	{
+		error("parsing error!");
+		return 1; // tease compiler
+	}
+	else
+		return val;
 }
 
 ppreprocessor::define_t *ppreprocessor::get_define(const pstring &name)
@@ -423,7 +444,7 @@ pstring ppreprocessor::process_comments(pstring line)
 	return ret;
 }
 
-pstring  ppreprocessor::process_line(pstring line)
+pstring ppreprocessor::process_line(pstring line)
 {
 	bool line_cont = plib::right(line, 1) == "\\";
 	if (line_cont)
