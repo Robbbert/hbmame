@@ -11,6 +11,9 @@ New Games
 - [dinos214]          Cadillacs and Dinosaurs (The Warriors Edition Update 2019-07-25)
 - [dinos215]          Cadillacs and Dinosaurs (Bloody Enhanced Version (No Double Version Modified 1 2011-03-28))
 - [dinos216]          Cadillacs and Dinosaurs (Bloody Enhanced Version (No Double Version Modified 2 2011-03-31))
+- [dinos217]          Cadillacs and Dinosaurs (Fighting God Version 2019-09-26)
+- [dinos218]          Cadillacs and Dinosaurs (Arena Version 2019-02-27)
+- [dinos219]          Cadillacs and Dinosaurs (Sky King 2019-09-26)
 - [grdianss12]        Guardians (Robust Super Edition 2019-07-25)
 - [grdianss13]        Guardians (Kerron Edition 2019-08-17)
 - [kof2k2s84]         Kof2002 (Unknown Hack 2014-12-01)
@@ -44,6 +47,7 @@ New Games
 - [sf2ces28]          Street Fighter II': Champion Edition (Rainbow, bootleg, Easy Move 2018-05-06)
 - [ssriderseaas02]    Sunset Riders (The Hardest Version In Two Weeks 2019-04-20)
 - [taotaidoas01]      Tao Taido (Easy Move)
+- [tk2h146]           Tenchi wo Kurau II (Fighting version 2019-09-16)
 - [umk3plus20190921]  Ultimate Mortal Kombat 3 (Ultimate Mortal Kombat 3+ Beta 1 2019-09-21)
 - [umk3uc20190917]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-09-17)
 
