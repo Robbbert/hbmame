@@ -765,6 +765,7 @@ createHBMAMEProjects(_target, _subtarget, "nmk")
 files {
 	MAME_DIR .. "src/hbmame/drivers/nmk16.cpp",
 	MAME_DIR .. "src/mame/video/nmk16.cpp",
+	MAME_DIR .. "src/mame/video/nmk16spr.cpp",
 	MAME_DIR .. "src/mame/machine/nmk004.cpp",
 	MAME_DIR .. "src/mame/audio/seibu.cpp",
 }
