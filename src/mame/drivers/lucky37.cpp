@@ -53,7 +53,23 @@ public:
 	{ }
 
 	void lucky37(machine_config &config);
+
+private:
+	void mcu_mem_map(address_map &map);
+	void mcu_io_map(address_map &map);
 };
+
+void lucky37_state::mcu_mem_map(address_map &map)
+{
+	map(0x04000, 0x047ff).rw("dpram", FUNC(mb8421_device::left_r), FUNC(mb8421_device::left_w));
+	map(0x08000, 0x09fff).ram();
+}
+
+void lucky37_state::mcu_io_map(address_map &map)
+{
+	map(0x0000, 0x007f).noprw(); // internal registers
+	map(0x0083, 0x0083).mirror(0xff00).nopw();
+}
 
 static INPUT_PORTS_START( lucky37 )
 	PORT_START("DSW1")
@@ -120,17 +136,22 @@ INPUT_PORTS_END
 void lucky37_state::lucky37(machine_config &config)
 {
 	/* basic machine hardware */
-	Z80(config, "maincpu", 32_MHz_XTAL / 8); // not verified
+	Z80(config, "maincpu", 32_MHz_XTAL / 8).set_disable(); // not verified
 
-	HD647180X(config, "mcu", 32_MHz_XTAL / 8); // clock not verified
+	hd647180x_device &mcu(HD647180X(config, "mcu", 32_MHz_XTAL / 2)); // clock not verified
+	mcu.set_addrmap(AS_PROGRAM, &lucky37_state::mcu_mem_map);
+	mcu.set_addrmap(AS_IO, &lucky37_state::mcu_io_map);
+
+	mb8421_device &dpram(MB8421(config, "dpram"));
+	dpram.intl_callback().set_inputline("mcu", INPUT_LINE_NMI);
 }
 
 ROM_START( lucky21 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "a001-a9b2",    0x0000, 0x10000, NO_DUMP )
 
-	ROM_REGION( 0x8000, "mcu", 0 )
-	ROM_LOAD( "internal_rom", 0x0000, 0x8000, CRC(bfa1214c) SHA1(34a3dc0fadc8a86f0cd35944437fc6f362cb7bf5) ) // decapped
+	ROM_REGION( 0x4000, "mcu", 0 )
+	ROM_LOAD( "internal_rom", 0x0000, 0x4000, CRC(23291c00) SHA1(881f722f75e621fe7aa743d005c5c6b336f4e033) ) // decapped
 
 	ROM_REGION( 0xc0000, "unsorted", 0 ) // no ROM 6 present
 	ROM_LOAD( "1.bin", 0x00000, 0x20000, CRC(2198b736) SHA1(556fd89dc9d1183a672324b7e1bb6350331459d2) )
@@ -145,8 +166,8 @@ ROM_START( lucky21d )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "a001-b9g1",    0x0000, 0x10000, NO_DUMP )
 
-	ROM_REGION( 0x8000, "mcu", 0 )
-	ROM_LOAD( "internal_rom", 0x0000, 0x8000, CRC(93fe39b6) SHA1(e9951173682f4566ed0e0a5a77fd51fdf5cb6058) ) // decapped
+	ROM_REGION( 0x4000, "mcu", 0 )
+	ROM_LOAD( "internal_rom", 0x0000, 0x4000, CRC(b990a28e) SHA1(afaa1fa9d1e314c67af5e23ef2a1b28f6e995a0e) ) // decapped
 
 	ROM_REGION( 0xe0000, "unsorted", 0 )
 	ROM_LOAD( "1.bin", 0x00000, 0x20000, CRC(e512ec6d) SHA1(28925c54edc002ee9d575e2ef53bccb02df176a0) )
@@ -162,8 +183,8 @@ ROM_START( lucky25 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "a001-b9f2",    0x0000, 0x10000, NO_DUMP )
 
-	ROM_REGION( 0x8000, "mcu", 0 )
-	ROM_LOAD( "internal_rom", 0x0000, 0x8000, NO_DUMP )
+	ROM_REGION( 0x4000, "mcu", 0 )
+	ROM_LOAD( "internal_rom", 0x0000, 0x4000, NO_DUMP )
 
 	ROM_REGION( 0xc0000, "unsorted", 0 )
 	ROM_LOAD( "1.bin", 0x00000, 0x20000, CRC(e504afa8) SHA1(efc984037ca692de44d7f829fec6445315bf5a54) )
@@ -178,8 +199,8 @@ ROM_START( lucky37 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "a001-a9a2",    0x0000, 0x10000, NO_DUMP )
 
-	ROM_REGION( 0x8000, "mcu", 0 )
-	ROM_LOAD( "internal_rom", 0x0000, 0x8000,  CRC(047c26e1) SHA1(a3bd5aa4eebb92a8dcd8611b1bf29621e095f7fd) ) // decapped
+	ROM_REGION( 0x4000, "mcu", 0 )
+	ROM_LOAD( "internal_rom", 0x0000, 0x4000,  CRC(c57e6818) SHA1(1d746fed6d13f7f711bcac6685af13e295891a38) ) // decapped
 
 	ROM_REGION( 0xc0000, "unsorted", 0 )
 	ROM_LOAD( "1.bin", 0x00000, 0x20000, CRC(15729cbb) SHA1(2e3255f0ff2e084311be41c908ab5a2be8c1b25d) )

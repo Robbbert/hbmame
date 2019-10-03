@@ -21,14 +21,18 @@
 
 Z180 Info:
 
-Known clock speeds (from ZiLOG): 6, 8, 10, 20 & 33MHz
+Known clock speeds (from ZiLOG): 6 (actually ~6.15), 8, 10, 20 & 33MHz
+
+Much like the 80186/188, the operating frequency is generated from the
+XTAL/EXTAL clock by an internal divide-by-2 circuit. The maximum frequency of
+the EXTAL input is therefore twice the speed rating for the specific part.
 
 ZiLOG Z180 codes:
 
   Speed: 10 = 10MHZ
          20 = 20MHz
          33 = 33MHz
-Package: P = 60-Pin Plastic DIP
+Package: P = 64-Pin Plastic SDIP
          V = 68-Pin PLCC
          F = 80-Pin QFP
    Temp: S = 0C to +70C
@@ -78,18 +82,18 @@ Hitachi HD647180 series:
 /* register is calculated as follows: refresh=(Regs.R&127)|(Regs.R2&128)    */
 /****************************************************************************/
 
-DEFINE_DEVICE_TYPE(Z80180, z80180_device, "z80180", "Zilog Z80180") // equivalent to Hitachi HD64180
-DEFINE_DEVICE_TYPE(HD64180RP, hd64180rp_device, "hd64180rp", "Hitachi HD64180RP") // DIP version identical to Zilog Z80180xxPSC
-DEFINE_DEVICE_TYPE(Z8S180, z8s180_device, "z8s180", "Zilog Z8S180")
-DEFINE_DEVICE_TYPE(Z80182, z80182_device, "z80182", "Zilog Z80182")
+DEFINE_DEVICE_TYPE(Z80180, z80180_device, "z80180", "Zilog Z80180") // equivalent to Hitachi HD64180R or HD64180Z
+DEFINE_DEVICE_TYPE(HD64180RP, hd64180rp_device, "hd64180rp", "Hitachi HD64180RP") // DIP64 version, identical to Zilog Z80180xxPSC
+DEFINE_DEVICE_TYPE(Z8S180, z8s180_device, "z8s180", "Zilog Z8S180") // enhanced Z80180
+DEFINE_DEVICE_TYPE(Z80182, z80182_device, "z80182", "Zilog Z80182") // further enhanced Z8S180
 
 
 z180_device::z180_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, bool extended_io, address_map_constructor internal_map)
 	: cpu_device(mconfig, type, tag, owner, clock)
 	, z80_daisy_chain_interface(mconfig, *this)
-	, m_program_config("program", ENDIANNESS_LITTLE, 8, 20, 0, internal_map)
+	, m_program_config("program", ENDIANNESS_LITTLE, 8, 20, 0, 16, 12, internal_map)
 	, m_io_config("io", ENDIANNESS_LITTLE, 8, 16, 0)
-	, m_decrypted_opcodes_config("opcodes", ENDIANNESS_LITTLE, 8, 20, 0)
+	, m_decrypted_opcodes_config("opcodes", ENDIANNESS_LITTLE, 8, 20, 0, 16, 12, internal_map)
 	, m_extended_io(extended_io)
 {
 	// some arbitrary initial values
