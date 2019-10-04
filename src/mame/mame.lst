@@ -15093,6 +15093,7 @@ sprbreaks                       //
 tagteamp                        //
 tagteamp2                       //
 tagteampg                       //
+topsound                        //
 triplay                         //
 triplaya                        //
 txsector                        //
@@ -15382,6 +15383,7 @@ gnw_ghouse                      // Nintendo
 gnw_helmet                      // Nintendo
 gnw_judge                       // Nintendo
 gnw_lboat                       // Nintendo
+gnw_lion                        // Nintendo
 gnw_manhole                     // Nintendo
 gnw_mario                       // Nintendo
 gnw_mariocm                     // Nintendo
@@ -30091,6 +30093,7 @@ dragntra                        // 2003.05 Dragon Treasure (Rev A)
 dragntr                         // 2003.10 Dragon Treasure (Rev B)
 dragntr2                        // 2004.?? Dragon Treasure 2 (Rev A)
 dragntr3                        // 2005.11 Dragon Treasure 3 (Rev A)
+drbyocwa                        // 2001.?? Derby Owners Club World Edition (Rev A)
 drbyocwb                        // 2001.?? Derby Owners Club World Edition (Rev B)
 drbyocwc                        // 2001.?? Derby Owners Club World Edition (Rev C)
 dybb99                          // 1999.11 Dynamite Baseball '99 (Rev B)
@@ -32862,6 +32865,7 @@ sklflite                        //
 spain82                         //
 starfirp                        //
 starfirpa                       //
+terrlake                        //
 theraid                         //
 trailer                         //
 ufo_x                           //
