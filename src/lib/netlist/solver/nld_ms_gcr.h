@@ -283,6 +283,7 @@ namespace devices
 		strm.writeline("{\n");
 		csc_private(strm);
 		strm.writeline("}\n");
+		// some compilers (_WIN32, _WIN64, mac osx) need an explicit cast
 		return std::pair<pstring, pstring>(name, pstring(t.str()));
 	}
 

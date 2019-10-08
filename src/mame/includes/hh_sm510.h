@@ -24,9 +24,14 @@ public:
 		m_out_x(*this, "%u.%u.%u", 0U, 0U, 0U),
 		m_inp_lines(0),
 		m_inp_fixed(-1),
-		m_display_wait(8)
+		m_decay_pivot(7),
+		m_decay_len(17)
 	{ }
 
+	virtual DECLARE_INPUT_CHANGED_MEMBER(input_changed);
+	virtual DECLARE_INPUT_CHANGED_MEMBER(acl_button);
+
+protected:
 	// devices
 	required_device<sm510_base_device> m_maincpu;
 	optional_device<speaker_sound_device> m_speaker;
@@ -45,8 +50,6 @@ public:
 	u8 read_inputs(int columns, int fixed = -1);
 
 	virtual void update_k_line();
-	virtual DECLARE_INPUT_CHANGED_MEMBER(input_changed);
-	virtual DECLARE_INPUT_CHANGED_MEMBER(acl_button);
 	virtual DECLARE_WRITE16_MEMBER(sm510_lcd_segment_w);
 	virtual DECLARE_WRITE16_MEMBER(sm500_lcd_segment_w);
 	virtual DECLARE_READ8_MEMBER(input_r);
@@ -58,7 +61,8 @@ public:
 	virtual DECLARE_WRITE8_MEMBER(piezo2bit_input_w);
 
 	// display common
-	int m_display_wait;             // lcd segment on/off-delay in 1kHz ticks
+	int m_decay_pivot;              // lcd segment off-to-on delay in 1kHz ticks (affects input lag)
+	int m_decay_len;                // lcd segment on-to-off delay in 1kHz ticks (lcd persistence)
 	u8 m_display_x_len;             // lcd number of groups
 	u8 m_display_y_len;             // lcd number of segments
 	u8 m_display_z_len;             // lcd number of commons
@@ -69,9 +73,20 @@ public:
 	TIMER_CALLBACK_MEMBER(display_decay_tick);
 	emu_timer *m_display_decay_timer;
 
-protected:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
+
+	void common_base(machine_config &config, u16 width, u16 height);
+	void sm500_base(machine_config &config, u16 width, u16 height);
+	void sm510_base(machine_config &config, u16 width, u16 height);
+
+	void common_sm511(machine_config &config, u16 width, u16 height);
+
+	void konami_sm510(machine_config &config, u16 width, u16 height);
+
+	void tiger_sm510_1bit(machine_config &config, u16 width, u16 height);
+	void tiger_sm511_1bit(machine_config &config, u16 width, u16 height);
+	void tiger_sm511_2bit(machine_config &config, u16 width, u16 height);
 };
 
 

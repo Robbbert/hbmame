@@ -111,13 +111,13 @@ namespace devices
 	}
 
 	template <class C>
-	pool_owned_ptr<matrix_solver_t> create_it(netlist_state_t &nl, pstring name, solver_parameters_t &params, std::size_t size)
+	plib::unique_ptr<matrix_solver_t> create_it(netlist_state_t &nl, pstring name, solver_parameters_t &params, std::size_t size)
 	{
-		return pool().make_poolptr<C>(nl, name, &params, size);
+		return plib::make_unique<C>(nl, name, &params, size);
 	}
 
 	template <typename FT, int SIZE>
-	pool_owned_ptr<matrix_solver_t> NETLIB_NAME(solver)::create_solver(std::size_t size, const pstring &solvername)
+	plib::unique_ptr<matrix_solver_t> NETLIB_NAME(solver)::create_solver(std::size_t size, const pstring &solvername)
 	{
 		if (m_params.m_method() == "SOR_MAT")
 		{
@@ -161,7 +161,7 @@ namespace devices
 		else
 		{
 			log().fatal(MF_UNKNOWN_SOLVER_TYPE(m_params.m_method()));
-			return pool_owned_ptr<matrix_solver_t>();
+			return plib::unique_ptr<matrix_solver_t>();
 		}
 	}
 
@@ -226,19 +226,6 @@ namespace devices
 
 	void NETLIB_NAME(solver)::post_start()
 	{
-		m_params.m_min_timestep = m_params.m_dynamic_min_ts();
-		m_params.m_max_timestep = netlist_time::from_double(1.0 / m_params.m_freq()).as_double();
-
-		if (m_params.m_dynamic_ts)
-		{
-			m_params.m_max_timestep *= 1;//NL_FCONST(1000.0);
-		}
-		else
-		{
-			m_params.m_min_timestep = m_params.m_max_timestep;
-		}
-
-		//m_params.m_max_timestep = std::max(m_params.m_max_timestep, m_params.m_max_timestep::)
 
 		log().verbose("Scanning net groups ...");
 		// determine net groups
@@ -251,7 +238,7 @@ namespace devices
 		log().verbose("Found {1} net groups in {2} nets\n", splitter.groups.size(), state().nets().size());
 		for (auto & grp : splitter.groups)
 		{
-			pool_owned_ptr<matrix_solver_t> ms;
+			plib::unique_ptr<matrix_solver_t> ms;
 			std::size_t net_count = grp.size();
 			pstring sname = plib::pfmt("Solver_{1}")(m_mat_solvers.size());
 
@@ -259,10 +246,10 @@ namespace devices
 			{
 	#if 1
 				case 1:
-					ms = pool().make_poolptr<matrix_solver_direct1_t<double>>(state(), sname, &m_params);
+					ms = plib::make_unique<matrix_solver_direct1_t<double>>(state(), sname, &m_params);
 					break;
 				case 2:
-					ms = pool().make_poolptr<matrix_solver_direct2_t<double>>(state(), sname, &m_params);
+					ms = plib::make_unique<matrix_solver_direct2_t<double>>(state(), sname, &m_params);
 					break;
 				case 3:
 					ms = create_solver<double, 3>(3, sname);
