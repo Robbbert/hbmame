@@ -25182,7 +25182,7 @@ HACK( 2011, dinos216,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2019, dinos217,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "NanGongSheng", "Cadillacs and Dinosaurs (Fighting God Version 2019-09-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos218,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "BinDi", "Cadillacs and Dinosaurs (Arena Version 2019-02-27)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos219,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "NanGongSheng", "Cadillacs and Dinosaurs (Sky King 2019-09-26)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, dinos220,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "NanGongSheng", "Cadillacs and Dinosaurs (The Warriors Edition Update 2019-09-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinos220,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (The Warriors Edition Update 2019-09-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos221,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Playing Uranus Edition Update 2019-09-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos222,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Playing Fighting Version 2019-09-28)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
