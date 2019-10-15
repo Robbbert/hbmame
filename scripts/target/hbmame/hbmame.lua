@@ -387,6 +387,7 @@ files {
 	MAME_DIR .. "src/mame/video/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1942.cpp",
 	MAME_DIR .. "src/mame/video/1942.cpp",
+	MAME_DIR .. "src/mame/audio/nl_1942.cpp",
 	MAME_DIR .. "src/hbmame/drivers/blktiger.cpp",
 	MAME_DIR .. "src/mame/video/blktiger.cpp",
 	MAME_DIR .. "src/hbmame/drivers/commando.cpp",
