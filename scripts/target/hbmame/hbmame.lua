@@ -166,6 +166,7 @@ MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["ACIA6850"] = true -- seta
 MACHINES["ACORN_VIDC"] = false -- armdemo, MNW
+MACHINES["ADC0804"] = true
 MACHINES["ADC0808"] = true
 MACHINES["ADC083X"] = true -- seta
 MACHINES["ADC0844"] = true
