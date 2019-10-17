@@ -245,7 +245,12 @@ HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
  /********************************************
       Proyecto Shadows Mame Build Plus
 **********************************************/
-
+/*
+  The roms that are implemented Version Hybrid Bullets, have a problem that generates a bug in mission 2, which manifests itself by disappearing 
+  the half body will not allow you to continue playing which the game will restart from scratch.
+  Name roms: mslug2erss01, mslug2erss04, mslug2rmhbv01, mslug2rmhbv02, mslug2rmhbhv01, mslug2rmhbhv02.
+ */
+ 
 /*************
  Metal Slug 2
 ***************/
@@ -2465,9 +2470,9 @@ HACK( 2019, mslug2ps34,      mslug2,   neogeo_noslot, neogeo, neogeo_state,     
 HACK( 1998, mslug2ps35,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",    "Metal Slug 2 (Stage Select)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2ps36,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",    "Metal Slug 2 (Become Big Mode Fixed)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2erss01,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Version Remix [2019-09-13])", MACHINE_SUPPORTS_SAVE ) //To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-HACK( 2019, mslug2erss02,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Hybrid Bullets Version Remix [2019-09-13])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+HACK( 2019, mslug2erss02,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Hybrid Bullets Version Remix [2019-09-13])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 HACK( 2019, mslug2erss03,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Version Remix [2019-09-13])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-HACK( 2019, mslug2erss04,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Hybrid Bullets Version Remix [2019-09-13])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+HACK( 2019, mslug2erss04,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Hybrid Bullets Version Remix [2019-09-13])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 HACK( 2019, mslug2erms01,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Multi-Function Version 2018-05-12)(Revised Version Remix Rev.1.0 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2erms02,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Enemies Resetting Multi-Function Version 2018-05-12)(Revised Version Remix Rev.1.1 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2vqys01,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ)", "Metal Slug 2 Turbo (Multi-Function Version 2017-05-09)(Revised Version Remix Rev.1.0 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
@@ -2512,8 +2517,8 @@ HACK( 2019, mslug2rmvh17,    mslug2,   neogeo_noslot, neogeo, neogeo_state,     
 HACK( 2019, mslug2rmvh18,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Enemies Resetting Version 2014-09-14)(Revised Version Shotgun Extreme Mix V1.1 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2rmvh19,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Enemies Resetting Version 2014-09-14)(Revised Version Shotgun Extreme Mix V2.0 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug2rmvh20,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Enemies Resetting Version 2014-09-14)(Revised Version Shotgun Extreme Mix V2.1 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug2rmhbv01,   mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Revised Version Hybrid Bullets Mix V1.0 [2018-05-21])", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug2rmhbv02,   mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Revised Version Hybrid Bullets Mix V1.1 [2018-05-21])", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug2rmhbhv01,  mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Mix V1.0 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug2rmhbhv02,  mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Mix V1.1 [2019-09-13])", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug2rmhbv01,   mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Revised Version Hybrid Bullets Mix V1.0 [2018-05-21])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug2rmhbv02,   mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 (Revised Version Hybrid Bullets Mix V1.1 [2018-05-21])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug2rmhbhv01,  mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Mix V1.0 [2019-09-13])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug2rmhbhv02,  mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",    "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Mix V1.1 [2019-09-13])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 
