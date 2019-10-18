@@ -962,7 +962,7 @@ HACK( 2000, mslug3e19,   mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslu
 HACK( 2000, mslug3e20,   mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 20)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e21,   mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 21)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3e22,   mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, mslg3eha,    mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Style remix 030826)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, mslg3eha,    mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Super D version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslg3ehs,    mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslg3kho,    mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3kh,    mslug3,   neogeo_noslot,   neogeo, neogeo_state,   mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE )
