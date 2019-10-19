@@ -161,6 +161,7 @@ public:
 
 	/* memory pointers */
 	// cps1
+	bitmap_ind16 m_dummy_bitmap;
 	optional_shared_ptr<uint16_t> m_mainram;
 	required_shared_ptr<uint16_t> m_gfxram;
 	required_shared_ptr<uint16_t> m_cps_a_regs;
