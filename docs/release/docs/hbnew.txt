@@ -58,6 +58,7 @@ New Games
 - [tk2h146]           Tenchi wo Kurau II (Daren Fighting Edition 2019-09-16)
 - [umk3plus20190921]  Ultimate Mortal Kombat 3 (Plus Beta 1 2019-09-21)
 - [umk3uc20190917]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-09-17)
+- [umk3uc20191017]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-10-17)
 
 
 
