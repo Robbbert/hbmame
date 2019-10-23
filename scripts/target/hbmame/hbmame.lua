@@ -841,6 +841,7 @@ files {
 	MAME_DIR .. "src/mame/machine/model2.cpp",
 	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
 	MAME_DIR .. "src/mame/video/segaic24.cpp",
+	MAME_DIR .. "src/mame/machine/315_5195.cpp",
 	MAME_DIR .. "src/mame/machine/315_5338a.cpp",
 	MAME_DIR .. "src/mame/machine/315_5649.cpp",
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
