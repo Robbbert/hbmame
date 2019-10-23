@@ -18839,6 +18839,9 @@ lkageoo                         // A54 (c) 1984 Taito Corporation
 llc1                            //
 llc2                            //
 
+@source:lms46.cpp
+lms46                           //
+
 @source:lockon.cpp
 lockon                          // (c) 1986 Tatsumi
 lockonc                         // (c) 1986 Tatsumi
@@ -40480,6 +40483,7 @@ corv_px4                        //
 dh_lf2                          //
 dh_lx2                          //
 fs_lx2                          //
+fs_lx3                          //
 fs_lx4                          //
 fs_lx5                          //
 fs_sp2                          //
