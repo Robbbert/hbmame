@@ -5,6 +5,7 @@
 
 New Games
 ---------------------------------
+- [altbeasts03]       Altered Beast (Language Translation Español 2018-08-07)
 - [dinos211]          Cadillacs and Dinosaurs (Fighting God Version 2019-07-25)
 - [dinos212]          Cadillacs and Dinosaurs (Arena Version 2019-07-25)
 - [dinos213]          Cadillacs and Dinosaurs (Sky King 2019-07-25)
