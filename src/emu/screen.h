@@ -63,6 +63,9 @@ constexpr u32 UPDATE_HAS_NOT_CHANGED = 0x0001;   // the video has not changed
  @def VIDEO_UPDATE_SCANLINE
  calls VIDEO_UPDATE for every visible scanline, even for skipped frames
 
+ @def VIDEO_VARIABLE_WIDTH
+ causes the screen to construct its final bitmap from a composite upscale of individual scanline bitmaps
+
  @}
  */
 
@@ -72,6 +75,7 @@ constexpr u32 VIDEO_UPDATE_AFTER_VBLANK     = 0x0004;
 constexpr u32 VIDEO_SELF_RENDER             = 0x0008;
 constexpr u32 VIDEO_ALWAYS_UPDATE           = 0x0080;
 constexpr u32 VIDEO_UPDATE_SCANLINE         = 0x0100;
+constexpr u32 VIDEO_VARIABLE_WIDTH          = 0x0200;
 
 
 //**************************************************************************
@@ -453,6 +457,9 @@ private:
 	void vblank_end();
 	void finalize_burnin();
 	void load_effect_overlay(const char *filename);
+	void update_scan_bitmap_size(int y);
+	void pre_update_scanline(int y);
+	void create_composited_bitmap();
 
 	// inline configuration data
 	screen_type_enum    m_type;                     // type of screen
@@ -475,14 +482,17 @@ private:
 	render_container *  m_container;                // pointer to our container
 	std::unique_ptr<svg_renderer> m_svg; // the svg renderer
 	// dimensions
+	int                 m_max_width;                // maximum width encountered
 	int                 m_width;                    // current width (HTOTAL)
 	int                 m_height;                   // current height (VTOTAL)
 	rectangle           m_visarea;                  // current visible area (HBLANK end/start, VBLANK end/start)
+	std::vector<int>    m_scan_widths;              // current width, in samples, of each individual scanline
 
 	// textures and bitmaps
 	texture_format      m_texformat;                // texture format
 	render_texture *    m_texture[2];               // 2x textures for the screen bitmap
 	screen_bitmap       m_bitmap[2];                // 2x bitmaps for rendering
+	std::vector<bitmap_t *> m_scan_bitmaps[2];      // 2x bitmaps for each individual scanline
 	bitmap_ind8         m_priority;                 // priority bitmap
 	bitmap_ind64        m_burnin;                   // burn-in bitmap
 	u8                  m_curbitmap;                // current bitmap index
