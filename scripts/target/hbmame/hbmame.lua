@@ -20,6 +20,7 @@ CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
 CPUS["E1"] = true -- vamphalf
 CPUS["ES5510"] = true
+CPUS["FR"] = true
 CPUS["G65816"] = true -- snesb
 CPUS["H8"] = true -- seta2
 CPUS["H6280"] = true
@@ -180,7 +181,7 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8251"] = true
 MACHINES["I8255"] = true
-MACHINES["IDE"] = true
+MACHINES["IDECTRL"] = true
 MACHINES["INPUT_MERGER"] = true
 MACHINES["INTELFLASH"] = true
 MACHINES["GEN_FIFO"] = true
@@ -238,6 +239,7 @@ MACHINES["Z80PIO"] = true
 -- specify available bus cores
 --------------------------------------------------
 
+BUSES["ATA"] = true
 BUSES["GENERIC"] = true
 BUSES["NSCSI"] = true
 -- BUSES["NEOGEO"] = true
