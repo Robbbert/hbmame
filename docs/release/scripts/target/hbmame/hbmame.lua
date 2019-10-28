@@ -20,6 +20,7 @@ CPUS["CCPU"] = true
 CPUS["DSP16A"] = true
 CPUS["E1"] = true -- vamphalf
 CPUS["ES5510"] = true
+CPUS["FR"] = true
 CPUS["G65816"] = true -- snesb
 CPUS["H8"] = true -- seta2
 CPUS["H6280"] = true
@@ -96,6 +97,7 @@ SOUNDS["MSM5232"] = true -- flstory
 SOUNDS["MULTIPCM"] = true -- model2
 SOUNDS["NAMCO_15XX"] = true
 SOUNDS["NAMCO_52XX"] = true
+SOUNDS["NAMCO_63701X"] = true
 SOUNDS["NES_APU"] = true
 SOUNDS["OKIM6295"] = true
 SOUNDS["OKIM9810"] = true -- seta2
@@ -165,6 +167,7 @@ MACHINES["7200FIFO"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["ACIA6850"] = true -- seta
 MACHINES["ACORN_VIDC"] = false -- armdemo, MNW
+MACHINES["ADC0804"] = true
 MACHINES["ADC0808"] = true
 MACHINES["ADC083X"] = true -- seta
 MACHINES["ADC0844"] = true
@@ -178,7 +181,7 @@ MACHINES["I2CMEM"] = true
 MACHINES["I8243"] = true
 MACHINES["I8251"] = true
 MACHINES["I8255"] = true
-MACHINES["IDE"] = true
+MACHINES["IDECTRL"] = true
 MACHINES["INPUT_MERGER"] = true
 MACHINES["INTELFLASH"] = true
 MACHINES["GEN_FIFO"] = true
@@ -236,6 +239,7 @@ MACHINES["Z80PIO"] = true
 -- specify available bus cores
 --------------------------------------------------
 
+BUSES["ATA"] = true
 BUSES["GENERIC"] = true
 BUSES["NSCSI"] = true
 -- BUSES["NEOGEO"] = true
@@ -386,6 +390,7 @@ files {
 	MAME_DIR .. "src/mame/video/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1942.cpp",
 	MAME_DIR .. "src/mame/video/1942.cpp",
+	MAME_DIR .. "src/mame/audio/nl_1942.cpp",
 	MAME_DIR .. "src/hbmame/drivers/blktiger.cpp",
 	MAME_DIR .. "src/mame/video/blktiger.cpp",
 	MAME_DIR .. "src/hbmame/drivers/commando.cpp",
@@ -407,6 +412,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/cave.cpp",
 	MAME_DIR .. "src/mame/video/cave.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cv1k.cpp",
+	MAME_DIR .. "src/mame/video/tmap038.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cinemat")
@@ -671,6 +677,8 @@ files {
 	MAME_DIR .. "src/mame/video/c45.cpp",
 	MAME_DIR .. "src/mame/machine/namco65.cpp",
 	MAME_DIR .. "src/mame/machine/namco68.cpp",
+	MAME_DIR .. "src/hbmame/drivers/namcos86.cpp",
+	MAME_DIR .. "src/mame/video/namcos86.cpp",
 	MAME_DIR .. "src/mame/video/namco_c116.cpp",
 	MAME_DIR .. "src/mame/video/namco_c123tmap.cpp",
 	MAME_DIR .. "src/mame/machine/namco_c139.cpp",
@@ -762,6 +770,7 @@ createHBMAMEProjects(_target, _subtarget, "nmk")
 files {
 	MAME_DIR .. "src/hbmame/drivers/nmk16.cpp",
 	MAME_DIR .. "src/mame/video/nmk16.cpp",
+	MAME_DIR .. "src/mame/video/nmk16spr.cpp",
 	MAME_DIR .. "src/mame/machine/nmk004.cpp",
 	MAME_DIR .. "src/mame/audio/seibu.cpp",
 }
@@ -834,6 +843,7 @@ files {
 	MAME_DIR .. "src/mame/machine/model2.cpp",
 	MAME_DIR .. "src/mame/audio/segam1audio.cpp",
 	MAME_DIR .. "src/mame/video/segaic24.cpp",
+	MAME_DIR .. "src/mame/machine/315_5195.cpp",
 	MAME_DIR .. "src/mame/machine/315_5338a.cpp",
 	MAME_DIR .. "src/mame/machine/315_5649.cpp",
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
@@ -1030,6 +1040,8 @@ files {
 	MAME_DIR .. "src/mame/video/vsystem_spr2.cpp",
 	MAME_DIR .. "src/hbmame/drivers/aerofgt.cpp",
 	MAME_DIR .. "src/mame/video/aerofgt.cpp",
+	MAME_DIR .. "src/hbmame/drivers/taotaido.cpp",
+	MAME_DIR .. "src/mame/video/taotaido.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "misc")

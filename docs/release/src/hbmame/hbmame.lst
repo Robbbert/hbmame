@@ -152,7 +152,10 @@ metmqstr		//parent
 metmqstrs01
 metmqstrs02
 metmqstrs03
-theroes
+sailormn	    //parent
+sailormnts01
+sailormnts02
+theroes         //parent
 theroes01
 
 @source:cball.cpp
@@ -530,6 +533,7 @@ tk2h142
 tk2h143
 tk2h144
 tk2h145
+tk2h146
 wofb
 wofch		// tk2p1
 wofes
@@ -799,6 +803,18 @@ dinos207
 dinos208
 dinos209
 dinos210
+dinos211
+dinos212
+dinos213
+dinos214
+dinos215
+dinos216
+dinos217
+dinos218
+dinos219
+dinos220
+dinos221
+dinos222
 ffights01
 ffights02
 ffightj2s01
@@ -880,6 +896,9 @@ sf2ces22
 sf2ces23
 sf2ces24
 sf2ces25
+sf2ces26
+sf2ces27
+sf2ces28
 sf2js01
 sf2js02
 sf2s01
@@ -887,6 +906,9 @@ sf2s02
 sf2s03
 sf2s04
 sf2s05
+sf2s06
+sf2s07
+sf2s08
 sf2koryus01
 sf2koryus02
 sf2koryus03
@@ -1169,6 +1191,9 @@ hsf2js13
 hsf2js14
 sfas01
 sfas02
+sfas03
+sfas04
+sfas05
 sfa2us01
 sfa2us02
 sfa2us03
@@ -1179,6 +1204,8 @@ sfa3s03
 sfa3s04
 sfa3s05
 sfa3s06
+sfa3s07
+sfa3s08
 sfz2aljs00
 sfz2aljs01
 sfz2aljs02
@@ -1189,7 +1216,11 @@ sfz2aljs06
 sfz2aljs07
 sfz2aljs08
 sfz2aljs09 
+sfz2als01
+sfz2als02
 sfz2ns01
+sfa2s01
+sfa2s02
 sfz3js01
 sfz3js02
 sfz3js03
@@ -1948,6 +1979,7 @@ kof97s143
 kof97s144
 kof97s145
 kof97s146
+kof97s147
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3469,6 +3501,7 @@ kof2k2s80
 kof2k2s81
 kof2k2s82
 kof2k2s83
+kof2k2s84
 
 @source:kof2003.cpp
 kof2003d
@@ -3798,8 +3831,11 @@ umk3uc
 umk3uc2
 umk3uc20181029
 umk3uc20190704
+umk3uc20190917
+umk3uc20191017
 umk3tm
 umk3tm20190417
+umk3plus20190921
 
 @source:midyunit.cpp
 mkla4d				/* MK protection hack */
@@ -3903,6 +3939,7 @@ mslug2ps32
 mslug2ps33
 mslug2ps34
 mslug2ps35
+mslug2ps36
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -3992,18 +4029,19 @@ mslug3nd
 mslug3v		/* EEZEZY Violence Edition */
 ms6s01
 ms6s02
+ms6s03
+ms6s04
+ms6s05
+ms6s06
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
 ms6sre6px04
 ms6sre6px05
 ms6sre6px06
-ms6slm01
-ms6slm02
-ms6slm03
-ms6slm04
-ms6slm05
-ms6slm06
+ms6sre6px07
+ms6sre6px08
+ms6sre6px09
 mslug3h01
 mslug3h02
 mslug3h03
@@ -5427,6 +5465,31 @@ mslugxrm3s51
 mslugxrm3s52
 mslugxrm3s53
 mslugxrm3s54
+mslugxrm4s01
+mslugxrm4s02
+mslugxrm4s03
+mslugxrm4s04
+mslugxrm4s05
+mslugxrm4s06
+mslugxrm4s07
+mslugxrm4s08
+mslugxrm4s09
+mslugxrm4s10
+mslugxrm4s11
+mslugxrm4s12
+mslugxrm4s13
+mslugxrm4s14
+mslugxrm4s15
+mslugxrm4s16
+mslugxrm4s17
+mslugxrm4s18
+mslugxrm4s19
+mslugxrm4s20
+mslugxrm4s21
+mslugxrm4s22
+mslugxrm4s23
+mslugxrm4s24
+mslugxrm4s25
 mslugxrmmpv01
 mslugxrmmpv02
 mslugxrmmpv03
@@ -5675,6 +5738,10 @@ knckheadx
 phelios
 pheliosx
 
+@source:namcos86.cpp
+roishtar
+roishtarx
+
 @source:nemesis.cpp
 salamand	//parent
 spclone		// v0.7.3
@@ -5902,6 +5969,7 @@ neoponga	/* (c) 2002 Neodev */
 neoromjb	// CeL
 neotest		// BEY
 neothund	// Sebastian Mihai
+neotrisd1
 ngem2k
 ngftdemo	// CeL
 ngmontst
@@ -6426,6 +6494,7 @@ lastblad16
 lastblad17
 lastblad18
 lastblad19
+lastblad20
 lastbld2s01
 lastbld2s02
 lastbld2s03
@@ -6443,6 +6512,7 @@ lastbld2s14
 lastbld2s15
 lastbld2s16
 lastbld2s17
+lastbld2s18
 
 @source:ngrbff.cpp
 fatfur2b
@@ -6642,6 +6712,7 @@ samsho4s11
 samsho4s12
 samsho4s13
 samsho4s14
+samsho4s15
 samsho5s01
 samsho5s02
 samsho5s03
@@ -6670,6 +6741,7 @@ samsho5s25
 samsho5s26
 samsho5s27
 samsho5s28
+samsho5s29
 samsh5sp01
 samsh5sp02
 samsh5sp03
@@ -6719,6 +6791,7 @@ sengoku3s08
 sengoku3s09
 sengoku3s10
 sengoku3s11
+sengoku3s12
 
 @source:ngsvc.cpp
 svccprw
@@ -7840,10 +7913,14 @@ kovsho105
 kovsho106
 kovsho107
 kovsho108
+kovsho109
+kovsho110
 kovshxass01
 kovshxass02
 kovshxass03
 martmasts01
+martmasts02
+martmasts03
 olds103ts01
 olds100s01
 olds100ass01
@@ -8129,6 +8206,8 @@ orlegendcs93
 orlegendcs94
 orlegendcs95
 orlegendcs96
+orlegendcs97
+orlegendcs98
 theglads01
 theglads02
 theglads03
@@ -8252,6 +8331,7 @@ altbeast				//parent
 altbeastfr
 altbeasts01
 altbeasts02
+altbeasts03
 
 @source:segas24.cpp
 gground					//parent
@@ -8286,6 +8366,8 @@ grdianss08
 grdianss09
 grdianss10
 grdianss11
+grdianss12
+grdianss13
 
 @source:sf.cpp
 sf						//parent
@@ -8438,6 +8520,10 @@ kurikintjs01
 plotting				//parent
 plottingas01
 
+@source:taotaido.cpp
+taotaido						
+taotaidoas01
+
 @source:tecmo.cpp
 gemini					//parent
 geminit
@@ -8503,6 +8589,7 @@ timepltdiag
 ssriders	//parent
 ssridersaex
 ssriderseaas01
+ssriderseaas02
 tmnt2	    //parent
 tmnt2s01
 tmnt2s02

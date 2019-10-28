@@ -5894,6 +5894,29 @@ ROM_START( kof97s146 )
 	ROM_LOAD16_BYTE( "232h145.c6", 0x2000001, 0x800000, CRC(ba28c1b4) SHA1(a7b95079ec221836e11391a5aa95f61be7d86342) )
 ROM_END
 
+ROM_START( kof97s147 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "232h147.p1", 0x000000, 0x100000, CRC(52ea8542) SHA1(978b4556038bd8a381a3fcd670db804c02eedca1) )
+	ROM_LOAD16_WORD_SWAP( "232h147.p2", 0x100000, 0x400000, CRC(930325ed) SHA1(a5db55ce10e7f8979764cc8429c762c6f9abd1fe) )
+
+	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
+
+	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232.c1", 0x0000000, 0x800000, CRC(5f8bf0a1) SHA1(e8b63bbc814de171fd18c5864a7fc639970c1ecf) )
+	ROM_LOAD16_BYTE( "232.c2", 0x0000001, 0x800000, CRC(e4d45c81) SHA1(fdb2b9326362e27b1c7a5beb977e0bc537488186) )
+	ROM_LOAD16_BYTE( "232.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232.c5", 0x2000000, 0x400000, CRC(34fc4e51) SHA1(b39c65f27873f71a6f5a5d1d04e5435f874472ee) )
+	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
+ROM_END
+
 ROM_START( kof97hx01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232.p1",  0x000000, 0x100000, CRC(7db81ad9) SHA1(8bc42be872fd497eb198ca13bf004852b88eb1dc) )
@@ -13206,6 +13229,7 @@ HACK( 1997, kof97s143,      kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1997, kof97s144,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (SvS Crystal Version 2013-12-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s145,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Heavenly Kingdoms 2019-04-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97s146,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Heavenly Divine 2019-03-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kof97s147,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'97 (Crazy Dragon Edition 2019-09-27)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kof97hx01,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kof1996",    "Kof'97 (Attack Finished 2005-08-27)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx02,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "ace1",    "Kof'97 (Translation Korean)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx03,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "simaguang",    "Kof'97 (#1 Athena Modified)", MACHINE_SUPPORTS_SAVE )

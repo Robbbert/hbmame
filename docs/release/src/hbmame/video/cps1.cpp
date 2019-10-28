@@ -2019,6 +2019,8 @@ VIDEO_START_MEMBER(cps_state,cps)
 	cps1_get_video_base();   /* Calculate base pointers */
 	cps1_get_video_base();   /* Calculate old base pointers */
 
+	m_screen->register_screen_bitmap(m_dummy_bitmap);
+
 	/* state save register */
 	save_item(NAME(m_scanline1));
 	save_item(NAME(m_scanline2));
@@ -2648,7 +2650,6 @@ void cps_state::cps1_render_layer( screen_device &screen, bitmap_ind16 &bitmap, 
 
 void cps_state::cps1_render_high_layer( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer )
 {
-	bitmap_ind16 dummy_bitmap;
 	switch (layer)
 	{
 		case 0:
@@ -2657,7 +2658,7 @@ void cps_state::cps1_render_high_layer( screen_device &screen, bitmap_ind16 &bit
 		case 1:
 		case 2:
 		case 3:
-			m_bg_tilemap[layer - 1]->draw(screen, dummy_bitmap, cliprect, TILEMAP_DRAW_LAYER0, 1);
+			m_bg_tilemap[layer - 1]->draw(screen, m_dummy_bitmap, cliprect, TILEMAP_DRAW_LAYER0, 1);
 			break;
 	}
 }

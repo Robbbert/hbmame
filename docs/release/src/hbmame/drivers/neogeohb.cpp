@@ -222,6 +222,7 @@ NUM YEAR COMPANY                 TITLE
 488 2018 Vasily Familiya         Shaman King demo
 489 2019 Vasily Familiya         Venus Wars demo
 490*n/r  Hine62/SAOH             Neo Geo Space Invaders
+491 2019 Totologic               Neotris
 
 
 ********************** 800 to 899 **********************************
@@ -2326,6 +2327,24 @@ ROM_START( venuswars )
 	ROM_LOAD( "489.c1", 0x000000, 0x37e880, CRC(6983fb91) SHA1(1f626f52544b6ddcdd1756bc529df999f3a47872) )
 ROM_END
 
+// 491 : Neotris by Totologic
+// Bugs: Pressing 1 will reboot the game and can corrupt the right-hand side of the title
+ROM_START( neotrisd1 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "491.p1", 0x000000, 0x080000, CRC(6a253ce9) SHA1(b9a3949dcd7e7dd3cd8b4e739ce2c913c16435b1) )
+
+	NEO_SFIX_128K( "491.s1", CRC(7a30a592) SHA1(3d7fd159fafaf20b12388849e4c54192ce410fe8) )
+
+	NEO_BIOS_AUDIO_64K( "491.m1", CRC(7a38ff47) SHA1(084cdf9dea053126783a4f570a56cc2444529f44) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "491.v1", 0x000000, 0x300000, CRC(95b3b726) SHA1(d0c361a78e509b083243e5f3a4b89bbaa658216e) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "491.c1", 0x000000, 0x100000, CRC(d53e8069) SHA1(55a9bb30fe1ce0abd9ebe54fa806992b2a790f28) )
+	ROM_LOAD16_BYTE( "491.c2", 0x000001, 0x100000, CRC(61143d05) SHA1(093e0c819ee7884786c029e4a0da9e779f11db02) )
+ROM_END
+
 
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
@@ -2465,6 +2484,7 @@ HACK( 2002, neoponga,     neopong,  no_watchdog,     neogeo,  neogeo_state, neog
 HACK( 2010, neoromjb,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "CeL", "Neo Rom Jukebox", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, neotest,      neogal1,  neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Neo Geo Sound Test", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, neothund,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, neotrisd1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Totologic", "Neotris Demo 1", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "NGEM2K (Beta 2006-01-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )

@@ -64,6 +64,14 @@ static int m_choice = 0;
     External functions
  ***************************************************************************/
 
+static int strcatvprintf(std::string &str, const char *format, va_list args)
+{
+	char tempbuf[4096];
+	int result = vsprintf(tempbuf, format, args);
+	str.append(tempbuf);
+	return result;
+}
+
 static int strcatprintf(std::string &str, const char *format, ...)
 {
 	va_list ap;
