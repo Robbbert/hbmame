@@ -673,7 +673,7 @@ void tempmg_state::tempmg_map(address_map &map) {
 	map(0x60d0, 0x60df).rw("pokey2",FUNC(pokey_device::read),FUNC(pokey_device::write));
 	map(0x60e0, 0x60e0).w(FUNC(tempmg_state::tempest_led_w));
 	map(0x9000, 0xdfff).bankr("bank1");
-	map(0xe000, 0xe000).lw8("rombank", [this] (u8 data) { rombank_w(data); });
+	map(0xe000, 0xe000).lw8(NAME([this] (u8 data) { rombank_w(data); }));
 	map(0xf800, 0xffff).bankr("bank2");
 }
 

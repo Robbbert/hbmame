@@ -428,10 +428,10 @@ void tandy1000_state::machine_start()
 	m_maincpu->space(AS_PROGRAM).install_ram(0, m_ram->size() - (128*1024) - 1, &m_ram->pointer()[128*1024]);
 	if(m_maincpu->space(AS_PROGRAM).data_width() == 8)
 		m_maincpu->space(AS_PROGRAM).install_readwrite_handler(m_ram->size() - (128*1024), 640*1024 - 1,
-			read8_delegate(FUNC(tandy1000_state::vram_r), this), write8_delegate(FUNC(tandy1000_state::vram_w), this));
+				read8_delegate(*this, FUNC(tandy1000_state::vram_r)), write8_delegate(*this, FUNC(tandy1000_state::vram_w)));
 	else
 		m_maincpu->space(AS_PROGRAM).install_readwrite_handler(m_ram->size() - (128*1024), 640*1024 - 1,
-			read8_delegate(FUNC(tandy1000_state::vram_r), this), write8_delegate(FUNC(tandy1000_state::vram_w), this), 0xffff);
+				read8_delegate(*this, FUNC(tandy1000_state::vram_r)), write8_delegate(*this, FUNC(tandy1000_state::vram_w)), 0xffff);
 	subdevice<nvram_device>("nvram")->set_base(m_eeprom_ee, sizeof(m_eeprom_ee));
 }
 
@@ -645,13 +645,13 @@ void tandy1000_state::cfg_fdc_35(device_t *device)
 {
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_default_option("35dd");
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_fixed(true);
-	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option("");
+	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option(nullptr);
 }
 
 void tandy1000_state::cfg_fdc_525(device_t *device)
 {
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_fixed(true);
-	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option("");
+	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option(nullptr);
 }
 
 static GFXDECODE_START( gfx_t1000 )
@@ -662,6 +662,8 @@ void tandy1000_state::tandy1000_common(machine_config &config)
 {
 	T1000_MOTHERBOARD(config, m_mb, 0);
 	m_mb->set_cputag("maincpu");
+	m_mb->int_callback().set_inputline("maincpu", 0);
+	m_mb->nmi_callback().set_inputline("maincpu", INPUT_LINE_NMI);
 
 	/* video hardware */
 	PCVIDEO_T1000(config, m_video, 0);

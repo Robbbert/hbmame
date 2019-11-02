@@ -43,8 +43,8 @@
 class qvt102_state : public driver_device
 {
 public:
-	qvt102_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag),
+	qvt102_state(const machine_config &mconfig, device_type type, const char *tag) :
+		driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
 		m_irqs(*this, "irqs"),
 		m_kbdmcu(*this, "kbdmcu"),
@@ -610,7 +610,7 @@ void qvt102_state::qvt102(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &qvt102_state::mem_map);
 
 	// needs a tight sync with the keyboard cpu
-	config.m_perfect_cpu_quantum = subtag("maincpu");
+	config.set_perfect_quantum(m_maincpu);
 
 	INPUT_MERGER_ANY_HIGH(config, m_irqs).output_handler().set_inputline(m_maincpu, M6800_IRQ_LINE);
 
@@ -630,7 +630,7 @@ void qvt102_state::qvt102(machine_config &config)
 	m_crtc->set_screen("screen");
 	m_crtc->set_show_border_area(false);
 	m_crtc->set_char_width(9);
-	m_crtc->set_update_row_callback(FUNC(qvt102_state::crtc_update_row), this);
+	m_crtc->set_update_row_callback(FUNC(qvt102_state::crtc_update_row));
 	m_crtc->out_vsync_callback().set(FUNC(qvt102_state::vsync_w));
 
 	ACIA6850(config, m_acia, 0);

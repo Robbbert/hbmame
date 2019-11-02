@@ -58,7 +58,7 @@ namespace plib
 			return ptime(lhs.m_time + rhs.m_time);
 		}
 
-		friend constexpr const ptime operator*(ptime lhs, const mult_type &factor) noexcept
+		friend constexpr const ptime operator*(ptime lhs, const mult_type factor) noexcept
 		{
 			return ptime(lhs.m_time * factor);
 		}
@@ -99,26 +99,45 @@ namespace plib
 		}
 
 		constexpr internal_type as_raw() const noexcept { return m_time; }
-		constexpr double as_double() const noexcept
+
+		template <typename FT>
+		constexpr typename std::enable_if<std::is_floating_point<FT>::value, FT>::type
+		as_fp() const noexcept
 		{
-			return static_cast<double>(m_time) * inv_res;
+			return static_cast<FT>(m_time) * inv_res<FT>();
 		}
+
+		constexpr double as_double() const noexcept { return as_fp<double>(); }
+		constexpr double as_float() const noexcept { return as_fp<float>(); }
+		constexpr double as_long_double() const noexcept { return as_fp<long double>(); }
 
 		// for save states ....
 		C14CONSTEXPR internal_type *get_internaltype_ptr() noexcept { return &m_time; }
 
-		static constexpr ptime from_nsec(const internal_type ns) noexcept { return ptime(ns, UINT64_C(1000000000)); }
-		static constexpr ptime from_usec(const internal_type us) noexcept { return ptime(us, UINT64_C(   1000000)); }
-		static constexpr ptime from_msec(const internal_type ms) noexcept { return ptime(ms, UINT64_C(      1000)); }
-		static constexpr ptime from_sec(const internal_type s) noexcept   { return ptime(s,  UINT64_C(         1)); }
-		static constexpr ptime from_hz(const internal_type hz) noexcept { return ptime(1 , hz); }
-		static constexpr ptime from_raw(const internal_type raw) noexcept { return ptime(raw); }
-		static constexpr ptime from_double(const double t) noexcept { return ptime(static_cast<internal_type>(std::floor(t * static_cast<double>(RES) + 0.5)), RES); }
+		static constexpr const ptime from_nsec(const internal_type ns) noexcept { return ptime(ns, UINT64_C(1000000000)); }
+		static constexpr const ptime from_usec(const internal_type us) noexcept { return ptime(us, UINT64_C(   1000000)); }
+		static constexpr const ptime from_msec(const internal_type ms) noexcept { return ptime(ms, UINT64_C(      1000)); }
+		static constexpr const ptime from_sec(const internal_type s) noexcept   { return ptime(s,  UINT64_C(         1)); }
+		static constexpr const ptime from_hz(const internal_type hz) noexcept { return ptime(1 , hz); }
+		static constexpr const ptime from_raw(const internal_type raw) noexcept { return ptime(raw); }
 
-		static constexpr ptime zero() noexcept { return ptime(0, RES); }
-		static constexpr ptime quantum() noexcept { return ptime(1, RES); }
-		static constexpr ptime never() noexcept { return ptime(plib::numeric_limits<internal_type>::max(), RES); }
-		static constexpr internal_type resolution() noexcept { return RES; }
+		template <typename FT>
+		static constexpr const typename std::enable_if<std::is_floating_point<FT>::value, ptime>::type
+		from_fp(const FT t) noexcept { return ptime(static_cast<internal_type>(std::floor(t * static_cast<FT>(RES) + 0.5)), RES); }
+
+		static constexpr const ptime from_double(const double t) noexcept
+		{ return from_fp<double>(t); }
+
+		static constexpr const ptime from_float(const float t) noexcept
+		{ return from_fp<float>(t); }
+
+		static constexpr const ptime from_long_double(const long double t) noexcept
+		{ return from_fp<long double>(t); }
+
+		static constexpr const ptime zero() noexcept { return ptime(0, RES); }
+		static constexpr const ptime quantum() noexcept { return ptime(1, RES); }
+		static constexpr const ptime never() noexcept { return ptime(plib::numeric_limits<internal_type>::max(), RES); }
+		static constexpr const internal_type resolution() noexcept { return RES; }
 
 		constexpr internal_type in_nsec() const noexcept { return m_time / (RES / UINT64_C(1000000000)); }
 		constexpr internal_type in_usec() const noexcept { return m_time / (RES / UINT64_C(   1000000)); }
@@ -126,7 +145,8 @@ namespace plib
 		constexpr internal_type in_sec()  const noexcept { return m_time / (RES / UINT64_C(         1)); }
 
 	private:
-		static constexpr const double inv_res = 1.0 / static_cast<double>(RES);
+		template <typename FT>
+		static constexpr FT inv_res() noexcept { return static_cast<FT>(1.0) / static_cast<FT>(RES); }
 		internal_type m_time;
 	};
 

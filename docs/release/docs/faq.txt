@@ -100,6 +100,10 @@ A.  The monsters can fire at you!
 23. Ironclad - the screen is rather dark.
 A.  Choose Japan or US bios. You still get some Japanese text though.
 
+24. How to get into the config menu in CPS changer games?
+A.  When the title screen shows, hold down F1 and 1 together.
+    If you're asked for a password, press these buttons one at a time: 3,2,1,4,5,6,3 (where 1=ctrl button, etc)
+
 98. I would like to submit a game.
 A.  Send me a PM. Remember, games cannot be included without roms to test with.
 

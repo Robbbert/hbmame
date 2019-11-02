@@ -190,7 +190,7 @@ void neogeo_joy_ac_device::device_reset()
 //  in0_r
 //-------------------------------------------------
 
-READ8_MEMBER(neogeo_joy_ac_device::in0_r)
+u8 neogeo_joy_ac_device::in0_r()
 {
 	return m_joy1->read();
 }
@@ -199,7 +199,7 @@ READ8_MEMBER(neogeo_joy_ac_device::in0_r)
 //  in1_r
 //-------------------------------------------------
 
-READ8_MEMBER(neogeo_joy_ac_device::in1_r)
+u8 neogeo_joy_ac_device::in1_r()
 {
 	return m_joy2->read();
 }

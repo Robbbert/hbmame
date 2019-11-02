@@ -41,11 +41,11 @@
 
 namespace netlist
 {
-namespace devices
+namespace solver
 {
 
 	template <typename FT, int SIZE>
-	class matrix_solver_sm_t: public matrix_solver_t
+	class matrix_solver_sm_t: public matrix_solver_ext_t<FT, SIZE>
 	{
 		friend class matrix_solver_t;
 
@@ -57,16 +57,19 @@ namespace devices
 		static constexpr const std::size_t storage_N = 100;
 
 		matrix_solver_sm_t(netlist_state_t &anetlist, const pstring &name,
-				const solver_parameters_t *params, const std::size_t size);
+			const analog_net_t::list_t &nets,
+			const solver_parameters_t *params, const std::size_t size)
+		: matrix_solver_ext_t<FT, SIZE>(anetlist, name, nets, params, size)
+		, m_cnt(0)
+		{
+			this->build_mat_ptr(m_A);
+		}
 
-		void vsetup(analog_net_t::list_t &nets) override;
 		void reset() override { matrix_solver_t::reset(); }
 
 	protected:
 		unsigned vsolve_non_dynamic(const bool newton_raphson) override;
 		unsigned solve_non_dynamic(const bool newton_raphson);
-
-		constexpr std::size_t size() const { return m_dim; }
 
 		void LE_invert();
 
@@ -103,7 +106,6 @@ namespace devices
 
 		//float_ext_type m_RHSx[storage_N];
 
-		const std::size_t m_dim;
 		std::size_t m_cnt;
 
 	};
@@ -113,46 +115,37 @@ namespace devices
 	// ----------------------------------------------------------------------------------------
 
 	template <typename FT, int SIZE>
-	void matrix_solver_sm_t<FT, SIZE>::vsetup(analog_net_t::list_t &nets)
-	{
-		matrix_solver_t::setup_base(nets);
-
-		/* FIXME: Shouldn't be necessary */
-		for (std::size_t k = 0; k < size(); k++)
-			state().save(*this, RHS(k), this->name(), plib::pfmt("RHS.{1}")(k));
-	}
-
-	template <typename FT, int SIZE>
 	void matrix_solver_sm_t<FT, SIZE>::LE_invert()
 	{
-		const std::size_t kN = size();
+		const std::size_t kN = this->size();
 
 		for (std::size_t i = 0; i < kN; i++)
 		{
 			for (std::size_t j = 0; j < kN; j++)
 			{
 				W(i,j) = lA(i,j) = A(i,j);
-				Ainv(i,j) = 0.0;
+				Ainv(i,j) = plib::constants<FT>::zero();
 			}
-			Ainv(i,i) = 1.0;
+			Ainv(i,i) = plib::constants<FT>::one();
 		}
 		/* down */
 		for (std::size_t i = 0; i < kN; i++)
 		{
 			/* FIXME: Singular matrix? */
-			const float_type f = 1.0 / W(i,i);
-			const auto * const p = m_terms[i]->m_nzrd.data();
-			const std::size_t e = m_terms[i]->m_nzrd.size();
+			const float_type f = plib::reciprocal(W(i,i));
+			const auto * const p = this->m_terms[i].m_nzrd.data();
+			const std::size_t e = this->m_terms[i].m_nzrd.size();
 
 			/* Eliminate column i from row j */
 
-			const auto * const pb = m_terms[i]->m_nzbd.data();
-			const std::size_t eb = m_terms[i]->m_nzbd.size();
+			const auto * const pb = this->m_terms[i].m_nzbd.data();
+			const std::size_t eb = this->m_terms[i].m_nzbd.size();
 			for (std::size_t jb = 0; jb < eb; jb++)
 			{
 				const unsigned j = pb[jb];
 				const float_type f1 = - W(j,i) * f;
-				if (f1 != 0.0)
+				// FIXME: comparison to zero
+				if (f1 != plib::constants<float_type>::zero())
 				{
 					for (std::size_t k = 0; k < e; k++)
 						W(j,p[k]) += W(i,p[k]) * f1;
@@ -165,11 +158,12 @@ namespace devices
 		for (std::size_t i = kN; i-- > 0; )
 		{
 			/* FIXME: Singular matrix? */
-			const float_type f = 1.0 / W(i,i);
+			const float_type f = plib::reciprocal(W(i,i));
 			for (std::size_t j = i; j-- > 0; )
 			{
 				const float_type f1 = - W(j,i) * f;
-				if (f1 != 0.0)
+				// FIXME: comparison to zero
+				if (f1 != plib::constants<float_type>::zero())
 				{
 					for (std::size_t k = i; k < kN; k++)
 						W(j,k) += W(i,k) * f1;
@@ -190,10 +184,10 @@ namespace devices
 	void matrix_solver_sm_t<FT, SIZE>::LE_compute_x(
 			T & x)
 	{
-		const std::size_t kN = size();
+		const std::size_t kN = this->size();
 
 		for (std::size_t i=0; i<kN; i++)
-			x[i] = 0.0;
+			x[i] = plib::constants<FT>::zero();
 
 		for (std::size_t k=0; k<kN; k++)
 		{
@@ -208,7 +202,7 @@ namespace devices
 	unsigned matrix_solver_sm_t<FT, SIZE>::solve_non_dynamic(const bool newton_raphson)
 	{
 		static constexpr const bool incremental = true;
-		const std::size_t iN = size();
+		const std::size_t iN = this->size();
 
 		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
 		std::array<float_type, storage_N> new_V;
@@ -236,19 +230,20 @@ namespace devices
 			{
 				std::size_t colcount = 0;
 
-				auto &nz = m_terms[row]->m_nz;
+				auto &nz = this->m_terms[row].m_nz;
 				for (unsigned & col : nz)
 				{
 					v[col] = A(row,col) - lA(row,col);
 					if (incremental)
 						lA(row,col) = A(row,col);
-					if (v[col] != 0.0)
+					// FIXME: comparison to zero
+					if (v[col] != plib::constants<float_type>::zero())
 						cols[colcount++] = col;
 				}
 
 				if (colcount > 0)
 				{
-					float_type lamba = 0.0;
+					auto lamba(plib::constants<FT>::zero());
 					std::array<float_type, m_pitch> w = {0};
 
 					/* compute w and lamba */
@@ -266,11 +261,12 @@ namespace devices
 							w[k] += Ainv(col,k) * f; /* Transpose(Ainv) * v */
 					}
 
-					lamba = -1.0 / (1.0 + lamba);
+					lamba = -plib::reciprocal(plib::constants<float_type>::one() + lamba);
 					for (std::size_t i=0; i<iN; i++)
 					{
 						const float_type f = lamba * z[i];
-						if (f != 0.0)
+						// FIXME: comparison to zero
+						if (f != plib::constants<float_type>::zero())
 							for (std::size_t k = 0; k < iN; k++)
 								Ainv(i,k) += f * w[k];
 					}
@@ -283,31 +279,24 @@ namespace devices
 
 		this->LE_compute_x(new_V);
 
-		const float_type err = (newton_raphson ? delta(new_V) : 0.0);
-		store(new_V);
-		return (err > this->m_params.m_accuracy) ? 2 : 1;
+		const float_type err = (newton_raphson ? this->delta(new_V) : plib::constants<FT>::zero());
+		this->store(new_V);
+		return (err > static_cast<FT>(this->m_params.m_accuracy)) ? 2 : 1;
 	}
 
 	template <typename FT, int SIZE>
 	unsigned matrix_solver_sm_t<FT, SIZE>::vsolve_non_dynamic(const bool newton_raphson)
 	{
-		this->build_LE_A(*this);
-		this->build_LE_RHS(*this);
+
+		this->clear_square_mat(this->m_A);
+		this->fill_matrix(this->m_RHS);
 
 		this->m_stat_calculations++;
 		return this->solve_non_dynamic(newton_raphson);
 	}
 
-	template <typename FT, int SIZE>
-	matrix_solver_sm_t<FT, SIZE>::matrix_solver_sm_t(netlist_state_t &anetlist, const pstring &name,
-			const solver_parameters_t *params, const std::size_t size)
-	: matrix_solver_t(anetlist, name, params)
-	, m_dim(size)
-	, m_cnt(0)
-	{
-	}
 
-} // namespace devices
+} // namespace solver
 } // namespace netlist
 
 #endif /* NLD_MS_DIRECT_H_ */

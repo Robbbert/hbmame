@@ -159,13 +159,13 @@ protected:
 	void define_state(void);
 
 public:
-	void set_reset_callback(write_line_delegate callback);
-	void set_cmpild_callback(write32_delegate callback);
-	void set_rte_callback(write_line_delegate callback);
-	void set_tas_write_callback(write8_delegate callback);
+	template <typename... T> void set_reset_callback(T &&... args) { m_reset_instr_callback.set(std::forward<T>(args)...); }
+	template <typename... T> void set_cmpild_callback(T &&... args) { m_cmpild_instr_callback.set(std::forward<T>(args)...); }
+	template <typename... T> void set_rte_callback(T &&... args) { m_rte_instr_callback.set(std::forward<T>(args)...); }
+	template <typename... T> void set_tas_write_callback(T &&... args) { m_tas_write_callback.set(std::forward<T>(args)...); }
 	u16 get_fc();
 	void set_hmmu_enable(int enable);
-	int get_pmmu_enable() {return m_pmmu_enabled;};
+	int get_pmmu_enable() const {return m_pmmu_enabled;};
 	void set_fpu_enable(int enable);
 	void set_buserror_details(u32 fault_addr, u8 rw, u8 fc);
 	void disable_interrupt_mixer() { m_interrupt_mixer = false; }

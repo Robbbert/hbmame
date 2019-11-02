@@ -263,8 +263,8 @@ void outrunm_state::sound_portmap_banked(address_map &map) {
 	map.global_mask(0xff);
 	map(0x00,0x01).mirror(0x3e).rw("ymsnd",FUNC(ym2151_device::read),FUNC(ym2151_device::write));
 	map(0x40,0x7f).r("mapper",FUNC(sega_315_5195_mapper_device::pread));
-	map(0x80,0xbf).lw8("bank0", [this](u8 data) { m_soundbank->set_bank(0); } );
-	map(0xc0,0xff).lw8("bank1", [this](u8 data) { m_soundbank->set_bank(1); } );
+	map(0x80,0xbf).lw8(NAME([this](u8 data) { m_soundbank->set_bank(0); } ));
+	map(0xc0,0xff).lw8(NAME([this](u8 data) { m_soundbank->set_bank(1); } ));
 }
 
 void outrunm_state::soundbank_map(address_map &map) {
@@ -289,8 +289,8 @@ void outrunm_state::outrunm(machine_config &config)
 void outrunm_state::init_init()
 {
 	init_generic();
-	m_custom_io_r = read16_delegate(FUNC(outrunm_state::outrun_custom_io_r), this);
-	m_custom_io_w = write16_delegate(FUNC(outrunm_state::outrun_custom_io_w), this);
+	m_custom_io_r = read16_delegate(*this, FUNC(outrunm_state::outrun_custom_io_r));
+	m_custom_io_w = write16_delegate(*this, FUNC(outrunm_state::outrun_custom_io_w));
 }
 
 ROM_START( outrunm )

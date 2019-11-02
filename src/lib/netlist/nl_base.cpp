@@ -408,7 +408,7 @@ namespace netlist
 	}
 
 
-	void netlist_t::print_stats() const NL_NOEXCEPT
+	void netlist_t::print_stats() const
 	{
 		if (m_use_stats)
 		{
@@ -482,7 +482,7 @@ namespace netlist
 				if (stats->m_stat_inc_active() > 3 * stats->m_stat_total_time.count()
 					&& stats->m_stat_inc_active() > trigger)
 					log().verbose("HINT({}, NO_DEACTIVATE) // {} {} {}", ep->name(),
-						static_cast<double>(stats->m_stat_inc_active()) / static_cast<double>(stats->m_stat_total_time.count()),
+						static_cast<nl_fptype>(stats->m_stat_inc_active()) / static_cast<nl_fptype>(stats->m_stat_total_time.count()),
 						stats->m_stat_inc_active(), stats->m_stat_total_time.count());
 			}
 		}
@@ -561,7 +561,7 @@ namespace netlist
 	: core_device_t(owner, name)
 	{
 	}
-
+#if 0
 	setup_t &device_t::setup() noexcept
 	{
 		return state().setup();
@@ -571,13 +571,14 @@ namespace netlist
 	{
 		return state().setup();
 	}
+#endif
 
 	void device_t::register_subalias(const pstring &name, detail::core_terminal_t &term)
 	{
 		pstring alias = this->name() + "." + name;
 
 		// everything already fully qualified
-		setup().register_alias_nofqn(alias, term.name());
+		state().setup().register_alias_nofqn(alias, term.name());
 	}
 
 	void device_t::register_subalias(const pstring &name, const pstring &aliased)
@@ -586,17 +587,17 @@ namespace netlist
 		pstring aliased_fqn = this->name() + "." + aliased;
 
 		// everything already fully qualified
-		setup().register_alias_nofqn(alias, aliased_fqn);
+		state().setup().register_alias_nofqn(alias, aliased_fqn);
 	}
 
 	void device_t::connect(detail::core_terminal_t &t1, detail::core_terminal_t &t2)
 	{
-		setup().register_link_fqn(t1.name(), t2.name());
+		state().setup().register_link_fqn(t1.name(), t2.name());
 	}
 
 	void device_t::connect(const pstring &t1, const pstring &t2)
 	{
-		setup().register_link_fqn(name() + "." + t1, name() + "." + t2);
+		state().setup().register_link_fqn(name() + "." + t1, name() + "." + t2);
 	}
 
 	/* FIXME: this is only used by solver code since matrix solvers are started in
@@ -604,7 +605,7 @@ namespace netlist
 	 */
 	void device_t::connect_post_start(detail::core_terminal_t &t1, detail::core_terminal_t &t2)
 	{
-		if (!setup().connect(t1, t2))
+		if (!state().setup().connect(t1, t2))
 			log().fatal(MF_ERROR_CONNECTING_1_TO_2(t1.name(), t2.name()));
 	}
 
@@ -620,7 +621,7 @@ namespace netlist
 
 	detail::family_setter_t::family_setter_t(core_device_t &dev, const pstring &desc)
 	{
-		dev.set_logic_family(dev.setup().family_from_model(desc));
+		dev.set_logic_family(dev.state().setup().family_from_model(desc));
 	}
 
 	detail::family_setter_t::family_setter_t(core_device_t &dev, const logic_family_desc_t *desc)
@@ -846,7 +847,7 @@ namespace netlist
 		state().setup().register_term(*this);
 	}
 
-	void analog_output_t::initial(const nl_double val)
+	void analog_output_t::initial(const nl_fptype val)
 	{
 		net().set_Q_Analog(val);
 	}
@@ -870,14 +871,14 @@ namespace netlist
 	param_t::param_t(device_t &device, const pstring &name)
 		: device_object_t(device, device.name() + "." + name)
 	{
-		device.setup().register_param_t(this->name(), *this);
+		device.state().setup().register_param_t(this->name(), *this);
 	}
 
 	param_t::param_type_t param_t::param_type() const
 	{
 		if (dynamic_cast<const param_str_t *>(this) != nullptr)
 			return STRING;
-		else if (dynamic_cast<const param_double_t *>(this) != nullptr)
+		else if (dynamic_cast<const param_fp_t *>(this) != nullptr)
 			return DOUBLE;
 		else if (dynamic_cast<const param_int_t *>(this) != nullptr)
 			return INTEGER;
@@ -893,14 +894,14 @@ namespace netlist
 	}
 
 
-	void param_t::update_param() NL_NOEXCEPT
+	void param_t::update_param() noexcept
 	{
 		device().update_param();
 	}
 
 	pstring param_t::get_initial(const device_t &dev, bool *found)
 	{
-		pstring res = dev.setup().get_initial_param_val(this->name(), "");
+		pstring res = dev.state().setup().get_initial_param_val(this->name(), "");
 		*found = (res != "");
 		return res;
 	}
@@ -913,7 +914,7 @@ namespace netlist
 	param_str_t::param_str_t(device_t &device, const pstring &name, const pstring &val)
 	: param_t(device, name)
 	{
-		m_param = device.setup().get_initial_param_val(this->name(),val);
+		m_param = device.state().setup().get_initial_param_val(this->name(),val);
 	}
 
 	void param_str_t::changed()
@@ -937,7 +938,7 @@ namespace netlist
 		return state().setup().models().value_str(str(), entity);
 	}
 
-	nl_double param_model_t::value(const pstring &entity)
+	nl_fptype param_model_t::value(const pstring &entity)
 	{
 		return state().setup().models().value(str(), entity);
 	}
@@ -945,51 +946,51 @@ namespace netlist
 
 	plib::unique_ptr<std::istream> param_data_t::stream()
 	{
-		return device().setup().get_data_stream(str());
+		return device().state().setup().get_data_stream(str());
 	}
 
-	bool detail::core_terminal_t::is_logic() const NL_NOEXCEPT
+	bool detail::core_terminal_t::is_logic() const noexcept
 	{
 		return dynamic_cast<const logic_t *>(this) != nullptr;
 	}
 
-	bool detail::core_terminal_t::is_logic_input() const NL_NOEXCEPT
+	bool detail::core_terminal_t::is_logic_input() const noexcept
 	{
 		return dynamic_cast<const logic_input_t *>(this) != nullptr;
 	}
 
-	bool detail::core_terminal_t::is_logic_output() const NL_NOEXCEPT
+	bool detail::core_terminal_t::is_logic_output() const noexcept
 	{
 		return dynamic_cast<const logic_output_t *>(this) != nullptr;
 	}
 
-	bool detail::core_terminal_t::is_analog() const NL_NOEXCEPT
+	bool detail::core_terminal_t::is_analog() const noexcept
 	{
 		return dynamic_cast<const analog_t *>(this) != nullptr;
 	}
 
-	bool detail::core_terminal_t::is_analog_input() const NL_NOEXCEPT
+	bool detail::core_terminal_t::is_analog_input() const noexcept
 	{
 		return dynamic_cast<const analog_input_t *>(this) != nullptr;
 	}
 
-	bool detail::core_terminal_t::is_analog_output() const NL_NOEXCEPT
+	bool detail::core_terminal_t::is_analog_output() const noexcept
 	{
 		return dynamic_cast<const analog_output_t *>(this) != nullptr;
 	}
 
 
-	bool detail::net_t::is_logic() const NL_NOEXCEPT
+	bool detail::net_t::is_logic() const noexcept
 	{
 		return dynamic_cast<const logic_net_t *>(this) != nullptr;
 	}
 
-	bool detail::net_t::is_analog() const NL_NOEXCEPT
+	bool detail::net_t::is_analog() const noexcept
 	{
 		return dynamic_cast<const analog_net_t *>(this) != nullptr;
 	}
 
-	void netlist_t::process_queue(const netlist_time delta) NL_NOEXCEPT
+	void netlist_t::process_queue(const netlist_time delta) noexcept
 	{
 		if (!m_use_stats)
 			process_queue_stats<false>(delta, m_mainclock);

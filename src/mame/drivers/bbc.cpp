@@ -829,7 +829,7 @@ void bbc_state::bbca(machine_config &config)
 	M6502(config, m_maincpu, 16_MHz_XTAL / 8);
 	m_maincpu->set_addrmap(AS_PROGRAM, &bbc_state::bbca_mem);
 	m_maincpu->set_periodic_int(FUNC(bbc_state::bbcb_keyscan), attotime::from_hz(1000)); /* scan keyboard */
-	config.m_minimum_quantum = attotime::from_hz(60);
+	config.set_maximum_quantum(attotime::from_hz(60));
 
 	INPUT_MERGER_ANY_HIGH(config, m_irqs).output_handler().set_inputline(m_maincpu, M6502_IRQ_LINE);
 
@@ -858,9 +858,9 @@ void bbc_state::bbca(machine_config &config)
 	m_hd6845->set_screen("screen");
 	m_hd6845->set_show_border_area(false);
 	m_hd6845->set_char_width(12);
-	//m_hd6845->set_begin_update_callback(FUNC(bbc_state::crtc_begin_update), this);
-	m_hd6845->set_update_row_callback(FUNC(bbc_state::crtc_update_row), this);
-	//m_hd6845->set_reconfigure_callback(FUNC(bbc_state::crtc_reconfig), this);
+	//m_hd6845->set_begin_update_callback(FUNC(bbc_state::crtc_begin_update));
+	m_hd6845->set_update_row_callback(FUNC(bbc_state::crtc_update_row));
+	//m_hd6845->set_reconfigure_callback(FUNC(bbc_state::crtc_reconfig));
 	m_hd6845->out_de_callback().set(FUNC(bbc_state::bbc_de_changed));
 	m_hd6845->out_hsync_callback().set(FUNC(bbc_state::bbc_hsync_changed));
 	m_hd6845->out_vsync_callback().set(FUNC(bbc_state::bbc_vsync_changed));
@@ -947,8 +947,8 @@ void bbc_state::bbcb(machine_config &config)
 
 	/* adc */
 	UPD7002(config, m_upd7002, 16_MHz_XTAL / 16);
-	m_upd7002->set_get_analogue_callback(FUNC(bbc_state::get_analogue_input), this);
-	m_upd7002->set_eoc_callback(FUNC(bbc_state::upd7002_eoc), this);
+	m_upd7002->set_get_analogue_callback(FUNC(bbc_state::get_analogue_input));
+	m_upd7002->set_eoc_callback(FUNC(bbc_state::upd7002_eoc));
 
 	/* printer */
 	centronics_device &centronics(CENTRONICS(config, "centronics", centronics_devices, "printer"));
@@ -1081,7 +1081,7 @@ void bbc_state::torchh10(machine_config &config)
 {
 	torchf(config);
 	/* fdc */
-	m_i8271->subdevice<floppy_connector>("1")->set_default_option("");
+	m_i8271->subdevice<floppy_connector>("1")->set_default_option(nullptr);
 
 	/* 10MB HDD */
 
@@ -1092,7 +1092,7 @@ void bbc_state::torchh21(machine_config &config)
 {
 	torchf(config);
 	/* fdc */
-	m_i8271->subdevice<floppy_connector>("1")->set_default_option("");
+	m_i8271->subdevice<floppy_connector>("1")->set_default_option(nullptr);
 
 	/* 21MB HDD */
 
@@ -1162,7 +1162,7 @@ void bbcbp_state::abc110(machine_config &config)
 {
 	bbcbp(config);
 	/* fdc */
-	m_wd1770->subdevice<floppy_connector>("1")->set_default_option("");
+	m_wd1770->subdevice<floppy_connector>("1")->set_default_option(nullptr);
 
 	/* Acorn Z80 co-processor */
 	m_tube->set_default_option("z80");
@@ -1184,7 +1184,7 @@ void bbcbp_state::acw443(machine_config &config)
 {
 	bbcbp(config);
 	/* fdc */
-	m_wd1770->subdevice<floppy_connector>("1")->set_default_option("");
+	m_wd1770->subdevice<floppy_connector>("1")->set_default_option(nullptr);
 
 	/* 32016 co-processor */
 	//m_tube->set_default_option("32016");
@@ -1211,7 +1211,7 @@ void bbcbp_state::abc310(machine_config &config)
 {
 	bbcbp(config);
 	/* fdc */
-	m_wd1770->subdevice<floppy_connector>("1")->set_default_option("");
+	m_wd1770->subdevice<floppy_connector>("1")->set_default_option(nullptr);
 
 	/* Acorn 80286 co-processor */
 	m_tube->set_default_option("80286");
@@ -1317,7 +1317,7 @@ void bbcm_state::bbcm(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &bbcm_state::bbcm_mem);
 	m_maincpu->set_addrmap(AS_OPCODES, &bbcm_state::bbcm_fetch);
 	m_maincpu->set_periodic_int(FUNC(bbc_state::bbcb_keyscan), attotime::from_hz(1000)); /* scan keyboard */
-	config.m_minimum_quantum = attotime::from_hz(60);
+	config.set_maximum_quantum(attotime::from_hz(60));
 
 	ADDRESS_MAP_BANK(config, m_bankdev).set_map(&bbcm_state::bbcm_bankdev).set_options(ENDIANNESS_LITTLE, 8, 16, 0x0400);
 
@@ -1350,9 +1350,9 @@ void bbcm_state::bbcm(machine_config &config)
 	m_hd6845->set_screen("screen");
 	m_hd6845->set_show_border_area(false);
 	m_hd6845->set_char_width(12);
-	//m_hd6845->set_begin_update_callback(FUNC(bbc_state::crtc_begin_update), this);
-	m_hd6845->set_update_row_callback(FUNC(bbc_state::crtc_update_row), this);
-	//m_hd6845->set_reconfigure_callback(FUNC(bbc_state::crtc_reconfig), this);
+	//m_hd6845->set_begin_update_callback(FUNC(bbc_state::crtc_begin_update));
+	m_hd6845->set_update_row_callback(FUNC(bbc_state::crtc_update_row));
+	//m_hd6845->set_reconfigure_callback(FUNC(bbc_state::crtc_reconfig));
 	m_hd6845->out_de_callback().set(FUNC(bbc_state::bbc_de_changed));
 	m_hd6845->out_hsync_callback().set(FUNC(bbc_state::bbc_hsync_changed));
 	m_hd6845->out_vsync_callback().set(FUNC(bbc_state::bbc_vsync_changed));
@@ -1400,8 +1400,8 @@ void bbcm_state::bbcm(machine_config &config)
 
 	/* adc */
 	UPD7002(config, m_upd7002, 16_MHz_XTAL / 16);
-	m_upd7002->set_get_analogue_callback(FUNC(bbc_state::get_analogue_input), this);
-	m_upd7002->set_eoc_callback(FUNC(bbc_state::upd7002_eoc), this);
+	m_upd7002->set_get_analogue_callback(FUNC(bbc_state::get_analogue_input));
+	m_upd7002->set_eoc_callback(FUNC(bbc_state::upd7002_eoc));
 
 	/* system via */
 	VIA6522(config, m_via6522_0, 16_MHz_XTAL / 16);
@@ -1461,9 +1461,9 @@ void bbcm_state::bbcm(machine_config &config)
 
 	/* cartridge slots */
 	GENERIC_CARTSLOT(config, m_cart[0], generic_linear_slot, "bbcm_cart", "bin,rom");
-	m_cart[0]->set_device_load(FUNC(bbc_state::cart1_load), this);
+	m_cart[0]->set_device_load(FUNC(bbc_state::cart1_load));
 	GENERIC_CARTSLOT(config, m_cart[1], generic_linear_slot, "bbcm_cart", "bin,rom");
-	m_cart[1]->set_device_load(FUNC(bbc_state::cart2_load), this);
+	m_cart[1]->set_device_load(FUNC(bbc_state::cart2_load));
 
 	/* eprom sockets */
 	BBC_ROMSLOT16(config, m_rom[0x08], bbc_rom_devices, nullptr); /* ic27 */
@@ -1608,8 +1608,8 @@ void bbcm_state::cfa3000(machine_config &config)
 	bbcm(config);
 
 	/* fdc */
-	m_wd1770->subdevice<floppy_connector>("0")->set_default_option("");
-	m_wd1770->subdevice<floppy_connector>("1")->set_default_option("");
+	m_wd1770->subdevice<floppy_connector>("0")->set_default_option(nullptr);
+	m_wd1770->subdevice<floppy_connector>("1")->set_default_option(nullptr);
 
 	/* keyboard */
 	m_userport->set_default_option("cfa3000kbd");

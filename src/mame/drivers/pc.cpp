@@ -185,14 +185,14 @@ void pc_state::cfg_single_360K(device_t *device)
 {
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_default_option("525dd");
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_fixed(true);
-	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option("");
+	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option(nullptr);
 }
 
 void pc_state::cfg_single_720K(device_t *device)
 {
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_default_option("35dd");
 	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:0")).set_fixed(true);
-	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option("");
+	dynamic_cast<device_slot_interface &>(*device->subdevice("fdc:1")).set_default_option(nullptr);
 }
 
 void pc_state::pccga(machine_config &config)
@@ -205,6 +205,8 @@ void pc_state::pccga(machine_config &config)
 
 	ibm5160_mb_device &mb(IBM5160_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
 	// FIXME: determine ISA bus clock
@@ -580,6 +582,8 @@ void pc_state::ibm5550(machine_config &config)
 
 	ibm5160_mb_device &mb(IBM5160_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
 	// FIXME: determine ISA bus clock
@@ -797,7 +801,7 @@ void pc_state::olytext30(machine_config &config)
 	maincpu.set_irq_acknowledge_callback("mb:pic8259", FUNC(pic8259_device::inta_cb));
 
 	subdevice<isa8_slot_device>("isa2")->set_option_machine_config("fdc_xt", cfg_single_720K);
-	subdevice<isa8_slot_device>("isa3")->set_default_option("");
+	subdevice<isa8_slot_device>("isa3")->set_default_option(nullptr);
 	subdevice<isa8_slot_device>("isa5")->set_default_option("hdc");
 	subdevice<ram_device>(RAM_TAG)->set_default_size("768K");
 }
@@ -822,6 +826,8 @@ void pc_state::poisk2(machine_config &config)
 
 	ibm5160_mb_device &mb(IBM5160_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
 	ISA8_SLOT(config, "isa1", 0, "mb:isa", pc_isa8_cards, "cga_poisk2", false); // FIXME: determine ISA bus clock
@@ -918,6 +924,8 @@ void pc_state::iskr3104(machine_config &config)
 
 	ibm5160_mb_device &mb(IBM5160_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(iskr3104));
 
 	ISA8_SLOT(config, "isa1", 0, "mb:isa", pc_isa8_cards, "ega", false).set_option_default_bios("ega", "iskr3104"); // FIXME: determine ISA bus clock
@@ -997,6 +1005,8 @@ void pc_state::siemens(machine_config &config)
 
 	ibm5150_mb_device &mb(IBM5150_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(siemens));
 
 	// FIXME: determine ISA bus clock
@@ -1045,6 +1055,8 @@ void pc_state::laser_turbo_xt(machine_config &config)
 
 	ibm5160_mb_device &mb(IBM5160_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
 	// FIXME: determine ISA bus clock
@@ -1129,6 +1141,8 @@ void pc_state::zenith(machine_config &config)
 
 	ibm5150_mb_device &mb(IBM5150_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
 	ISA8_SLOT(config, "isa1", 0, "mb:isa", pc_isa8_cards, "cga", false); // FIXME: determine ISA bus clock
@@ -1196,6 +1210,8 @@ void pc_state::juko16(machine_config &config)
 
 	ibm5160_mb_device &mb(IBM5160_MOTHERBOARD(config, "mb", 0));
 	mb.set_cputag(m_maincpu);
+	mb.int_callback().set_inputline(m_maincpu, 0);
+	mb.nmi_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
 	ISA8_SLOT(config, "isa1", 0, "mb:isa", pc_isa8_cards, "cga", false); // FIXME: determine ISA bus clock

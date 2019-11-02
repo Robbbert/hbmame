@@ -128,6 +128,12 @@ struct ptype_traits<double> : ptype_traits_base<double>
 };
 
 template<>
+struct ptype_traits<long double> : ptype_traits_base<long double>
+{
+	static char32_t fmt_spec() { return 'f'; }
+};
+
+template<>
 struct ptype_traits<char *> : ptype_traits_base<char *>
 {
 	static const char *cast(const char *x) { return x; }
@@ -248,7 +254,7 @@ protected:
 				strm << std::forward<T>(val);
 				const pstring ps(strm.str());
 				pstring pad("");
-				std::size_t aw(std::abs(ret.width));
+				auto aw(static_cast<std::size_t>(std::abs(ret.width)));
 				if (aw > ps.length())
 					pad = pstring(aw - ps.length(), ' ');
 

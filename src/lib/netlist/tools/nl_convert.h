@@ -11,8 +11,8 @@
 #define NL_CONVERT_H_
 
 #include "plib/plists.h"
-#include "plib/pparser.h"
 #include "plib/pstring.h"
+#include "plib/ptokenizer.h"
 #include "plib/ptypes.h"
 
 #include <memory>
@@ -185,7 +185,7 @@ public:
 
 	protected:
 
-		void verror(const pstring &msg, int line_num, const pstring &line) override;
+		void verror(const pstring &msg) override;
 
 	private:
 		nl_convert_eagle_t &m_convert;
@@ -223,7 +223,7 @@ public:
 
 	protected:
 
-		void verror(const pstring &msg, int line_num, const pstring &line) override;
+		void verror(const pstring &msg) override;
 
 	private:
 		nl_convert_rinf_t &m_convert;

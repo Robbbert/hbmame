@@ -244,8 +244,8 @@ void taitopjc_state::video_start()
 	m_screen_ram = std::make_unique<uint32_t[]>(0x40000);
 	m_pal_ram = std::make_unique<uint32_t[]>(0x8000);
 
-	m_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(taitopjc_state::tile_get_info),this), tilemap_mapper_delegate(FUNC(taitopjc_state::tile_scan_layer0),this), 16, 16, 32, 32);
-	m_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(taitopjc_state::tile_get_info),this), tilemap_mapper_delegate(FUNC(taitopjc_state::tile_scan_layer1),this), 16, 16, 32, 32);
+	m_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(taitopjc_state::tile_get_info)), tilemap_mapper_delegate(*this, FUNC(taitopjc_state::tile_scan_layer0)), 16, 16, 32, 32);
+	m_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(taitopjc_state::tile_get_info)), tilemap_mapper_delegate(*this, FUNC(taitopjc_state::tile_scan_layer1)), 16, 16, 32, 32);
 	m_tilemap[0]->set_transparent_pen(0);
 	m_tilemap[1]->set_transparent_pen(1);
 
@@ -797,7 +797,7 @@ void taitopjc_state::taitopjc(machine_config &config)
 	MN1020012A(config, m_soundcpu, 10000000); /* MN1020819DA sound CPU - NOTE: May have 64kB internal ROM */
 	m_soundcpu->set_addrmap(AS_PROGRAM, &taitopjc_state::mn10200_map);
 
-	config.m_minimum_quantum = attotime::from_hz(6000);
+	config.set_maximum_quantum(attotime::from_hz(6000));
 
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 

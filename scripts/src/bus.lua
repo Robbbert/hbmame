@@ -1383,6 +1383,8 @@ if (BUSES["ISA"]~=null) then
 		MAME_DIR .. "src/devices/bus/isa/myb3k_fdc.h",
 		MAME_DIR .. "src/devices/bus/isa/eis_sad8852.cpp",
 		MAME_DIR .. "src/devices/bus/isa/eis_sad8852.h",
+		MAME_DIR .. "src/devices/bus/isa/eis_twib.cpp",
+		MAME_DIR .. "src/devices/bus/isa/eis_twib.h",
 		MAME_DIR .. "src/devices/bus/isa/lbaenhancer.cpp",
 		MAME_DIR .. "src/devices/bus/isa/lbaenhancer.h",
 		MAME_DIR .. "src/devices/bus/isa/np600.cpp",
@@ -2351,6 +2353,8 @@ if (BUSES["RS232"]~=null) then
 		MAME_DIR .. "src/devices/bus/rs232/xvd701.h",
 		MAME_DIR .. "src/devices/bus/rs232/ie15.cpp",
 		MAME_DIR .. "src/devices/bus/rs232/ie15.h",
+		MAME_DIR .. "src/devices/bus/rs232/swtpc8212.cpp",
+		MAME_DIR .. "src/devices/bus/rs232/swtpc8212.h",
 	}
 end
 
@@ -3838,7 +3842,7 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/bus/hp_optroms/hp_optrom.h,BUSES["HP_OPTROM"] = true
+--@src/devices/bus/hp9825_optroms/hp9825_optrom.h,BUSES["HP9825_OPTROM"] = true
 ---------------------------------------------------
 
 if (BUSES["HP9825_OPTROM"]~=null) then

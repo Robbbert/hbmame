@@ -608,6 +608,7 @@ MACHINES["SMPC"] = true
 --MACHINES["SPG2XX"] = true
 MACHINES["STVCD"] = true
 --MACHINES["SUN4C_MMU"] = true
+MACHINES["SWTPC8212"] = true
 MACHINES["TC0091LVC"] = true
 --MACHINES["TDC1008"] = true
 MACHINES["TE7750"] = true
@@ -2688,6 +2689,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/8080bw.cpp",
 	MAME_DIR .. "src/mame/includes/8080bw.h",
 	MAME_DIR .. "src/mame/audio/8080bw.cpp",
+	MAME_DIR .. "src/mame/audio/8080bw.h",
 	MAME_DIR .. "src/mame/video/8080bw.cpp",
 	MAME_DIR .. "src/mame/drivers/m79amb.cpp",
 	MAME_DIR .. "src/mame/includes/m79amb.h",

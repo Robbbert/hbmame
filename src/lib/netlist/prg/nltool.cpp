@@ -36,6 +36,7 @@ public:
 		opt_rfolders(*this, "r", "rom",                     "where to look for data files"),
 		opt_verb(*this,     "v", "verbose",                 "be verbose - this produces lots of output"),
 		opt_quiet(*this,    "q", "quiet",                   "be quiet - no warnings"),
+		opt_prepro(*this,   "",  "prepro",                  "output preprocessor output to stderr"),
 		opt_version(*this,  "",  "version",                 "display version and exit"),
 		opt_help(*this,     "h", "help",                    "display help and exit"),
 
@@ -52,6 +53,8 @@ public:
 		opt_inp(*this,      "i", "input",       "",         "input file to process (default is none)"),
 		opt_loadstate(*this,"",  "loadstate",   "",         "load state from file and continue from there"),
 		opt_savestate(*this,"",  "savestate",   "",         "save state to file at end of run"),
+		opt_fperr(*this,    "",  "fperr",
+			"raise exception on floating point errors. This is intended to be used during debugging."),
 
 		opt_grp5(*this,     "Options for convert command",  "These options are only used by the convert command."),
 		opt_type(*this,     "y", "type",        0,          std::vector<pstring>({"spice","eagle","rinf"}), "type of file to be converted: spice,eagle,rinf"),
@@ -82,6 +85,7 @@ public:
 	plib::option_vec    opt_rfolders;
 	plib::option_bool   opt_verb;
 	plib::option_bool   opt_quiet;
+	plib::option_bool   opt_prepro;
 	plib::option_bool   opt_version;
 	plib::option_bool   opt_help;
 	plib::option_group  opt_grp2;
@@ -89,12 +93,13 @@ public:
 	plib::option_group  opt_grp3;
 	plib::option_str    opt_dir;
 	plib::option_group  opt_grp4;
-	plib::option_num<double> opt_ttr;
+	plib::option_num<nl_fptype> opt_ttr;
 	plib::option_bool   opt_stats;
 	plib::option_vec    opt_logs;
 	plib::option_str    opt_inp;
 	plib::option_str    opt_loadstate;
 	plib::option_str    opt_savestate;
+	plib::option_bool   opt_fperr;
 	plib::option_group  opt_grp5;
 	plib::option_str_limit<unsigned> opt_type;
 	plib::option_group  opt_grp6;
@@ -126,7 +131,7 @@ private:
 
 	void listdevices();
 
-	std::vector<pstring> m_options;
+	std::vector<pstring> m_defines;
 
 };
 
@@ -310,11 +315,14 @@ struct input_t
 	{
 		std::array<char, 400> buf; // NOLINT(cppcoreguidelines-pro-type-member-init)
 		double t(0);
+		double val(0);
+
 		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-		int e = std::sscanf(line.c_str(), "%lf,%[^,],%lf", &t, buf.data(), &m_value);
+		int e = std::sscanf(line.c_str(), "%lf,%[^,],%lf", &t, buf.data(), &val);
 		if (e != 3)
 			throw netlist::nl_exception(plib::pfmt("error {1} scanning line {2}\n")(e)(line));
-		m_time = netlist::netlist_time::from_double(t);
+		m_value = static_cast<nl_fptype>(val);
+		m_time = netlist::netlist_time::from_fp(t);
 		m_param = setup.find_param(pstring(buf.data()), true);
 	}
 
@@ -326,7 +334,7 @@ struct input_t
 			case netlist::param_t::POINTER:
 				throw netlist::nl_exception(plib::pfmt("param {1} is not numeric\n")(m_param->name()));
 			case netlist::param_t::DOUBLE:
-				static_cast<netlist::param_double_t*>(m_param)->setTo(m_value);
+				static_cast<netlist::param_fp_t*>(m_param)->setTo(m_value);
 				break;
 			case netlist::param_t::INTEGER:
 				static_cast<netlist::param_int_t*>(m_param)->setTo(static_cast<int>(m_value));
@@ -339,7 +347,7 @@ struct input_t
 
 	netlist::netlist_time m_time;
 	netlist::param_t *m_param;
-	double m_value;
+	nl_fptype m_value;
 };
 
 static std::vector<input_t> read_input(const netlist::setup_t &setup, const pstring &fname)
@@ -385,12 +393,12 @@ void tool_app_t::run()
 
 		nt.read_netlist(opt_file(), opt_name(),
 				opt_logs(),
-				m_options, opt_rfolders(), opt_includes());
+				m_defines, opt_rfolders(), opt_includes());
 
 		nt.reset();
 
 		inps = read_input(nt.setup(), opt_inp());
-		ttr = netlist::netlist_time::from_double(opt_ttr());
+		ttr = netlist::netlist_time::from_fp(opt_ttr());
 	}
 
 
@@ -454,7 +462,7 @@ void tool_app_t::run()
 		nt.stop();
 	}
 
-	double emutime = t.as_seconds();
+	nl_fptype emutime = t.as_seconds();
 	pout("{1:f} seconds emulation took {2:f} real time ==> {3:5.2f}%\n",
 			(ttr - nlt).as_double(), emutime,
 			(ttr - nlt).as_double() / emutime * 100.0);
@@ -481,7 +489,7 @@ void tool_app_t::validate()
 
 		nt.read_netlist(opt_file(), opt_name(),
 				opt_logs(),
-				m_options, opt_rfolders(), opt_includes());
+				m_defines, opt_rfolders(), opt_includes());
 	}
 	catch (netlist::nl_exception &e)
 	{
@@ -515,7 +523,7 @@ void tool_app_t::static_compile()
 
 	nt.read_netlist(opt_file(), opt_name(),
 			opt_logs(),
-			m_options, opt_rfolders(), opt_includes());
+			m_defines, opt_rfolders(), opt_includes());
 
 	// need to reset ...
 
@@ -826,10 +834,6 @@ int tool_app_t::execute()
 {
 	tool_app_t opts;
 
-	/* make SIGFPE actually deliver signals on supoorted platforms */
-	plib::fpsignalenabler::global_enable(true);
-	plib::fpsignalenabler sigen(plib::FP_ALL & ~plib::FP_INEXACT & ~plib::FP_UNDERFLOW);
-
 	if (opt_help())
 	{
 		pout(usage());
@@ -857,11 +861,16 @@ int tool_app_t::execute()
 		return 0;
 	}
 
-	m_options = opt_defines();
-	m_options.emplace_back("NLTOOL_VERSION=" PSTRINGIFY(NLTOOL_VERSION));
+	m_defines = opt_defines();
+	m_defines.emplace_back("NLTOOL_VERSION=" PSTRINGIFY(NLTOOL_VERSION));
+	if (opt_prepro())
+		m_defines.emplace_back("__PREPROCESSOR_DEBUG__=1");
 
 	try
 	{
+		plib::fpsignalenabler::global_enable(opt_fperr());
+		plib::fpsignalenabler fpprotect(plib::FP_DIVBYZERO | plib::FP_UNDERFLOW | plib::FP_OVERFLOW | plib::FP_INVALID);
+
 		pstring cmd = opt_cmd.as_string();
 		if (cmd == "listdevices")
 			listdevices();
@@ -895,6 +904,7 @@ int tool_app_t::execute()
 		perr("plib exception caught: {}\n", e.text());
 		return 2;
 	}
+
 #if 0
 	std::cout.imbue(std::locale("de_DE.utf8"));
 	std::cout.imbue(std::locale("C.UTF-8"));

@@ -70,6 +70,32 @@ namespace plib {
 		{
 		}
 
+		template <int X = SIZE >
+		parray(size_type size, FT val, typename std::enable_if<(X==0), int>::type = 0)
+		: m_a(size, val), m_size(size)
+		{
+		}
+
+		template <int X = SIZE >
+		parray(size_type size, typename std::enable_if<(X != 0), int>::type = 0)
+		: m_size(size)
+		{
+			if ((SIZE < 0 && size > SIZEABS())
+				|| (SIZE > 0 && size != SIZEABS()))
+				throw plib::pexception("parray: size error " + plib::to_string(size) + ">" + plib::to_string(SIZE));
+		}
+
+		template <int X = SIZE >
+		parray(size_type size, FT val, typename std::enable_if<(X != 0), int>::type = 0)
+		: m_size(size)
+		{
+			if ((SIZE < 0 && size > SIZEABS())
+				|| (SIZE > 0 && size != SIZEABS()))
+				throw plib::pexception("parray: size error " + plib::to_string(size) + ">" + plib::to_string(SIZE));
+			m_a.fill(val);
+		}
+
+
 		/* allow construction in fixed size arrays */
 		parray()
 		: m_size(SIZEABS())
@@ -82,17 +108,21 @@ namespace plib {
 
 		parray(const parray &rhs) : m_a(rhs.m_a), m_size(rhs.m_size) {}
 		parray(parray &&rhs) noexcept : m_a(std::move(rhs.m_a)), m_size(std::move(rhs.m_size)) {}
-		parray &operator=(const parray &rhs) { m_a = rhs.m_a; m_size = rhs.m_size; return *this; }
+		parray &operator=(const parray &rhs) noexcept
+		{
+			if (this != &rhs)
+			{
+				m_a = rhs.m_a;
+				m_size = rhs.m_size;
+			}
+			return *this;
+		}
+
 		parray &operator=(parray &&rhs) noexcept { std::swap(m_a,rhs.m_a); std::swap(m_size, rhs.m_size); return *this; }
 
-		template <int X = SIZE >
-		parray(size_type size, typename std::enable_if<(X != 0), int>::type = 0)
-		: m_size(size)
-		{
-			if ((SIZE < 0 && size > SIZEABS())
-				|| (SIZE > 0 && size != SIZEABS()))
-				throw plib::pexception("parray: size error " + plib::to_string(size) + ">" + plib::to_string(SIZE));
-		}
+		~parray() noexcept = default;
+
+		base_type &as_base() noexcept { return m_a; }
 
 		inline size_type size() const noexcept { return SIZE <= 0 ? m_size : SIZEABS(); }
 
@@ -137,6 +167,9 @@ namespace plib {
 		}
 
 		COPYASSIGNMOVE(parray2D, default)
+
+		~parray2D() noexcept = default;
+
 	};
 
 } // namespace plib

@@ -2343,7 +2343,7 @@ static INPUT_PORTS_START( theglobp )
 INPUT_PORTS_END
 
 
-static INPUT_PORTS_START( eeekk )
+static INPUT_PORTS_START( eeekkp )
 	PORT_INCLUDE(pacman)
 	PORT_MODIFY("IN0")
 	PORT_SERVICE_NO_TOGGLE( 0x10, 0x10 )
@@ -3713,7 +3713,7 @@ void pacman_state::acitya(machine_config &config)
 }
 
 
-void pacman_state::eeekk(machine_config &config)
+void pacman_state::eeekkp(machine_config &config)
 {
 	pacman(config);
 
@@ -3721,8 +3721,8 @@ void pacman_state::eeekk(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::epos_map);
 	m_maincpu->set_addrmap(AS_IO, &pacman_state::epos_portmap);
 
-	MCFG_MACHINE_START_OVERRIDE(pacman_state,eeekk)
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state,eeekk)
+	MCFG_MACHINE_START_OVERRIDE(pacman_state,eeekkp)
+	MCFG_MACHINE_RESET_OVERRIDE(pacman_state,eeekkp)
 }
 
 
@@ -6430,7 +6430,7 @@ ROM_START( beastfp )
 ROM_END
 
 
-ROM_START( eeekk ) // Pac-Man PCB conversion kit. Includes a small daughtercard (2 roms + 4 PLDs, plugs in through the Z80 socket), 2 roms + 2 BPROMs
+ROM_START( eeekkp ) // Pac-Man PCB conversion kit. Includes a small daughtercard (2 roms + 4 PLDs, plugs in through the Z80 socket), 2 roms + 2 BPROMs
 	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "u_2_eeekk_pg03094.u2",   0x0000, 0x2000, CRC(701e37f2) SHA1(15bbd983e9112ce15dd229f126f2bccfa8b9807c) ) // encrypted  - located on daughtercard
 	ROM_LOAD( "u_3_eeekk_pg03094.u3",   0x2000, 0x2000, CRC(bcf524ae) SHA1(be2a1a2984ea1439c63d8c353e4ae85bf42c8a55) ) // encrypted  - located on daughtercard
@@ -7190,9 +7190,9 @@ ROM_END
 void pacman_state::init_maketrax()
 {
 	/* set up protection handlers */
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5004, 0x5004, write8_delegate(FUNC(pacman_state::maketrax_protection_w),this));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50bf, read8_delegate(FUNC(pacman_state::maketrax_special_port2_r),this));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x50c0, 0x50ff, read8_delegate(FUNC(pacman_state::maketrax_special_port3_r),this));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5004, 0x5004, write8_delegate(*this, FUNC(pacman_state::maketrax_protection_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50bf, read8_delegate(*this, FUNC(pacman_state::maketrax_special_port2_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x50c0, 0x50ff, read8_delegate(*this, FUNC(pacman_state::maketrax_special_port3_r)));
 
 	save_item(NAME(m_maketrax_disable_protection));
 	save_item(NAME(m_maketrax_offset));
@@ -7202,7 +7202,7 @@ void pacman_state::init_maketrax()
 void pacman_state::init_mbrush()
 {
 	/* set up protection handlers */
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50ff, read8_delegate(FUNC(pacman_state::mbrush_prot_r),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50ff, read8_delegate(*this, FUNC(pacman_state::mbrush_prot_r)));
 }
 
 void pacman_state::init_ponpoko()
@@ -7493,7 +7493,7 @@ READ8_MEMBER(pacman_state::mspacii_protection_r)
 void pacman_state::init_mspacii()
 {
 	// protection
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x504d, 0x506f, read8_delegate(FUNC(pacman_state::mspacii_protection_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x504d, 0x506f, read8_delegate(*this, FUNC(pacman_state::mspacii_protection_r)));
 }
 
 void pacman_state::init_superabc()
@@ -7556,7 +7556,7 @@ void pacman_state::init_cannonbp()
 	m_maincpu->space(AS_PROGRAM).install_ram(0x4800, 0x4bff);
 
 	/* protection? */
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x3000, 0x3fff, read8_delegate(FUNC(pacman_state::cannonbp_protection_r),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x3000, 0x3fff, read8_delegate(*this, FUNC(pacman_state::cannonbp_protection_r)));
 }
 
 void pacman_state::init_pengomc1()
@@ -7710,8 +7710,8 @@ GAME( 1983, theglobp, suprglob, theglobp, theglobp, pacman_state,  empty_init,  
 GAME( 1983, sprglobp, suprglob, theglobp, theglobp, pacman_state,  empty_init,    ROT90,  "Epos Corporation", "Super Glob (Pac-Man hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, sprglbpg, suprglob, pacman,   theglobp, pacman_state,  empty_init,    ROT90,  "bootleg (Software Labor)", "Super Glob (Pac-Man hardware) (German bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, theglobme,suprglob, woodpek,  theglobp, pacman_state,  empty_init,    ROT90,  "Magic Electronics Inc.", "The Glob (Pacman hardware, Magic Electronics Inc. license)", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, beastfp,  suprglob, theglobp, theglobp, pacman_state,  empty_init,    ROT90,  "Epos Corporation", "Beastie Feastie (conversion kit)", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, eeekk,    0,        eeekk,    eeekk,    pacman_state,  empty_init,    ROT90,  "Epos Corporation", "Eeekk!", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, beastfp,  suprglob, theglobp, theglobp, pacman_state,  empty_init,    ROT90,  "Epos Corporation", "Beastie Feastie (Pac-Man conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, eeekkp,   eeekk,    eeekkp,   eeekkp,   pacman_state,  empty_init,    ROT90,  "Epos Corporation", "Eeekk! (Pac-Man conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1984, drivfrcp, 0,        drivfrcp, drivfrcp, pacman_state,  init_drivfrcp, ROT90,  "Shinkai Inc. (Magic Electronics Inc. license)", "Driving Force (Pac-Man conversion)", MACHINE_SUPPORTS_SAVE )
 

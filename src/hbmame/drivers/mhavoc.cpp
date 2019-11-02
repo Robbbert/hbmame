@@ -41,7 +41,7 @@ void mhavoc_state::alphape_map(address_map &map)
 	map(0x16c0, 0x16c0).w("avg", FUNC(avg_mhavoc_device::reset_w));     /* Vector Generator Reset */
 	map(0x1700, 0x1700).w(FUNC(mhavoc_state::mhavoc_alpha_irq_ack_w));  /* IRQ ack */
 	//map(0x1740, 0x1740).w(FUNC(mhavoc_state::mhavocpe_rom_banksel_w));     /* Program ROM Page Select */
-	map(0x1740, 0x1740).lw8("bnk", [this] (u8 data) { membank("bank2")->set_entry((data & 1) | ((data & 2)<<1) | ((data & 4)>>1)); });
+	map(0x1740, 0x1740).lw8(NAME([this] (u8 data) { membank("bank2")->set_entry((data & 1) | ((data & 2)<<1) | ((data & 4)>>1)); }));
 	map(0x1780, 0x1780).w(FUNC(mhavoc_state::mhavoc_ram_banksel_w));    /* Program RAM Page Select */
 	map(0x17c0, 0x17c0).w(FUNC(mhavoc_state::mhavoc_gamma_w));          /* Gamma Communication Write Port */
 	map(0x1800, 0x1fff).ram();                              /* Shared Beta Ram */

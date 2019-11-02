@@ -25,7 +25,7 @@ namespace netlist
 	NETLIB_RESET(extclock)
 	{
 		m_cnt = 0;
-		m_off = netlist_time::from_double(m_offset());
+		m_off = netlist_time::from_fp<decltype(m_offset())>(m_offset());
 		m_feedback.m_delegate = NETLIB_DELEGATE(extclock, update);
 
 		//m_feedback.m_delegate .set(&NETLIB_NAME(extclock)::update, this);
@@ -76,7 +76,7 @@ namespace netlist
 		if (state != m_last_state)
 		{
 			m_last_state = state;
-			const nl_double R = state ? m_RON() : m_ROFF();
+			const nl_fptype R = state ? m_RON() : m_ROFF();
 
 			// FIXME: We only need to update the net first if this is a time stepping net
 			m_R.update();

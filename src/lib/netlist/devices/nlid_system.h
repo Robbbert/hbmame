@@ -54,7 +54,7 @@ namespace devices
 		, m_Q(*this, "Q")
 		, m_freq(*this, "FREQ", 7159000.0 * 5)
 		{
-			m_inc = netlist_time::from_double(1.0 / (m_freq()*2.0));
+			m_inc = netlist_time::from_fp<decltype(m_freq())>(1.0 / (m_freq()*2.0));
 		}
 
 		NETLIB_RESETI()
@@ -64,7 +64,7 @@ namespace devices
 
 		NETLIB_UPDATE_PARAMI()
 		{
-			m_inc = netlist_time::from_double(1.0 / (m_freq()*2.0));
+			m_inc = netlist_time::from_fp<decltype(m_freq())>(1.0 / (m_freq()*2.0));
 		}
 
 		NETLIB_UPDATEI()
@@ -79,7 +79,7 @@ namespace devices
 		logic_output_t m_Q;
 		netlist_time m_inc;
 	private:
-		param_double_t m_freq;
+		param_fp_t m_freq;
 	};
 
 	// -----------------------------------------------------------------------------
@@ -93,7 +93,7 @@ namespace devices
 		, m_Q(*this, "Q")
 		, m_freq(*this, "FREQ", 7159000.0 * 5.0)
 		{
-			m_inc = netlist_time::from_double(1.0 / (m_freq()*2.0));
+			m_inc = netlist_time::from_fp<decltype(m_freq())>(1.0 / (m_freq()*2.0));
 
 			connect(m_feedback, m_Q);
 		}
@@ -101,7 +101,7 @@ namespace devices
 
 		NETLIB_UPDATE_PARAMI()
 		{
-			m_inc = netlist_time::from_double(1.0 / (m_freq() * 2.0));
+			m_inc = netlist_time::from_fp<decltype(m_freq())>(1.0 / (m_freq() * 2.0));
 		}
 
 		NETLIB_UPDATEI()
@@ -113,7 +113,7 @@ namespace devices
 		logic_input_t m_feedback;
 		logic_output_t m_Q;
 
-		param_double_t m_freq;
+		param_fp_t m_freq;
 		netlist_time m_inc;
 	};
 
@@ -139,8 +139,8 @@ namespace devices
 
 		NETLIB_UPDATEI()
 		{
-			m_funcparam[0] = exec().time().as_double();
-			const netlist_time m_inc = netlist_time::from_double(m_compiled.evaluate(m_funcparam));
+			m_funcparam[0] = exec().time().as_fp<nl_fptype>();
+			const netlist_time m_inc = netlist_time::from_fp(m_compiled.evaluate(m_funcparam));
 			m_Q.push(!m_feedback(), m_inc);
 		}
 
@@ -149,8 +149,8 @@ namespace devices
 		logic_output_t m_Q;
 
 		param_str_t m_func;
-		plib::pfunction m_compiled;
-		std::vector<double> m_funcparam;
+		plib::pfunction<nl_fptype> m_compiled;
+		std::vector<nl_fptype> m_funcparam;
 	};
 
 	// -----------------------------------------------------------------------------
@@ -168,13 +168,13 @@ namespace devices
 		, m_cnt(*this, "m_cnt", 0)
 		, m_off(*this, "m_off", netlist_time::zero())
 		{
-			m_inc[0] = netlist_time::from_double(1.0 / (m_freq() * 2.0));
+			m_inc[0] = netlist_time::from_fp<decltype(m_freq())>(1.0 / (m_freq() * 2.0));
 
 			connect(m_feedback, m_Q);
 
-			netlist_time base = netlist_time::from_double(1.0 / (m_freq()*2.0));
+			netlist_time base = netlist_time::from_fp<decltype(m_freq())>(1.0 / (m_freq()*2.0));
 			std::vector<pstring> pat(plib::psplit(m_pattern(),","));
-			m_off = netlist_time::from_double(m_offset());
+			m_off = netlist_time::from_fp(m_offset());
 
 			std::array<std::int64_t, 32> pati = { 0 };
 
@@ -207,9 +207,9 @@ namespace devices
 
 	private:
 
-		param_double_t m_freq;
+		param_fp_t m_freq;
 		param_str_t m_pattern;
-		param_double_t m_offset;
+		param_fp_t m_offset;
 
 		logic_input_t m_feedback;
 		logic_output_t m_Q;
@@ -231,7 +231,7 @@ namespace devices
 		/* make sure we get the family first */
 		, m_FAMILY(*this, "FAMILY", "FAMILY(TYPE=TTL)")
 		{
-			set_logic_family(setup().family_from_model(m_FAMILY()));
+			set_logic_family(state().setup().family_from_model(m_FAMILY()));
 			m_Q.set_logic_family(this->logic_family());
 		}
 
@@ -260,7 +260,7 @@ namespace devices
 
 	private:
 		analog_output_t m_Q;
-		param_double_t m_IN;
+		param_fp_t m_IN;
 	};
 
 	// -----------------------------------------------------------------------------
@@ -331,8 +331,8 @@ namespace devices
 
 		NETLIB_RESETI()
 		{
-			m_RIN.set_G_V_I(1.0 / m_p_RIN(),0,0);
-			m_ROUT.set_G_V_I(1.0 / m_p_ROUT(),0,0);
+			m_RIN.set_G_V_I(plib::reciprocal(m_p_RIN()),0,0);
+			m_ROUT.set_G_V_I(plib::reciprocal(m_p_ROUT()),0,0);
 		}
 
 		NETLIB_UPDATEI()
@@ -347,8 +347,8 @@ namespace devices
 		analog_input_t m_I;
 		analog_output_t m_Q;
 
-		param_double_t m_p_RIN;
-		param_double_t m_p_ROUT;
+		param_fp_t m_p_RIN;
+		param_fp_t m_p_ROUT;
 	};
 
 	/* -----------------------------------------------------------------------------
@@ -388,8 +388,8 @@ namespace devices
 		analog_output_t m_Q;
 		std::vector<unique_pool_ptr<analog_input_t>> m_I;
 
-		std::vector<double> m_vals;
-		plib::pfunction m_compiled;
+		std::vector<nl_fptype> m_vals;
+		plib::pfunction<nl_fptype> m_compiled;
 	};
 
 	// -----------------------------------------------------------------------------
@@ -416,8 +416,8 @@ namespace devices
 
 		analog::NETLIB_SUB(R_base) m_R;
 		logic_input_t m_I;
-		param_double_t m_RON;
-		param_double_t m_ROFF;
+		param_fp_t m_RON;
+		param_fp_t m_ROFF;
 
 	private:
 
@@ -438,7 +438,7 @@ namespace devices
 		nld_power_pins(device_t &owner, const pstring &sVCC = "VCC",
 			const pstring &sGND = "GND", bool force_analog_input = false)
 		{
-			if (owner.setup().is_extended_validation() || force_analog_input)
+			if (owner.state().setup().is_extended_validation() || force_analog_input)
 			{
 				m_GND = plib::make_unique<analog_input_t>(owner, sGND, NETLIB_DELEGATE(power_pins, noop));
 				m_VCC = plib::make_unique<analog_input_t>(owner, sVCC, NETLIB_DELEGATE(power_pins, noop));
@@ -452,8 +452,8 @@ namespace devices
 		}
 
 		/* FIXME: this will seg-fault if force_analog_input = false */
-		nl_double VCC() const NL_NOEXCEPT { return m_VCC->Q_Analog(); }
-		nl_double GND() const NL_NOEXCEPT { return m_GND->Q_Analog(); }
+		nl_fptype VCC() const NL_NOEXCEPT { return m_VCC->Q_Analog(); }
+		nl_fptype GND() const NL_NOEXCEPT { return m_GND->Q_Analog(); }
 
 		NETLIB_SUBXX(analog, R) m_RVG; // dummy resistor between VCC and GND
 

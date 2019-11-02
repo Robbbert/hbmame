@@ -126,6 +126,7 @@ alieninvp2                      // bootleg
 astropal                        // (c) 19?? Sidam
 attackfc                        // (c) 1979? E.G.S.
 ballbomb                        // TN  (c) 1980 Taito
+cane                            // Model Racing
 claybust                        // (c) 1978 Model Racing
 cosmicin                        // bootleg
 cosmicm2                        // Universal
@@ -186,6 +187,7 @@ lupin3a                         // LP  (c) 1980 Taito
 mlander                         // (c) 1980 Leisure Time Electronics
 moonbase                        // Taito
 moonbasea                       // Zeta - Nichibutsu
+orbite                          // Model Racing
 ozmawars                        // Shin Nihon Kikaku (SNK)
 ozmawars2                       // Shin Nihon Kikaku (SNK)
 ozmawarsmr                      // bootleg (Model Racing)
@@ -10614,6 +10616,7 @@ sf2ui                           // 22/05/1991 (c) 1991 (USA, Rev. I)
 sf2uk                           // 01/11/1991 (c) 1991 (USA)
 sf2v004                         // hack
 sf2yyc                          // hack
+sf2ceds6                        // bootleg
 sf2cems6a                       // bootleg
 sf2cems6b                       // bootleg
 sf2cems6c                       // bootleg
@@ -11315,6 +11318,9 @@ dcdev                           // 1998 Sega HKT-0120 Sega Dreamcast Development
 dceu                            // 1999 Sega Dreamcast (Europe)
 dcjp                            // 1998 Sega Dreamcast (Japan)
 dctream                         // 200? Treamcast
+
+@source:dcebridge.cpp
+dcebridge                       // generic
 
 @source:dcheese.cpp
 cecmatch                        // (c) 1993 Coastal Amusements
@@ -12706,6 +12712,7 @@ rad_baskp
 @source:elan_eu3a05.cpp
 rad_sinv
 rad_tetr
+airblsjs
 
 @source:electra.cpp
 avenger                         // (c) 1975 Electra
@@ -12783,6 +12790,7 @@ epic14e                         //
 @source:epos.cpp
 catapult                        // (c) 1982
 dealer                          // (c) 198?
+eeekk                           // (c) 1984
 igmo                            // (c) 1984
 megadon                         // (c) 1982
 revngr84                        // (c) 1984
@@ -15191,6 +15199,7 @@ tagteampg                       //
 topsound                        //
 triplay                         //
 triplaya                        //
+triplayg                        //
 txsector                        //
 txsectorf                       //
 txsectorg                       //
@@ -15947,6 +15956,7 @@ husky                           // DVW Husky
 @source:hvyunit.cpp
 hvyunit                         // (c) 1988 Kaneko
 hvyunitj                        // (c) 1988 Kaneko
+hvyunitja                       // (c) 1988 Kaneko
 hvyunitjo                       // (c) 1988 Kaneko
 hvyunitu                        // (c) 1988 Kaneko
 
@@ -16184,6 +16194,8 @@ instantm                        //
 instruct                        //
 
 @source:inteladv.cpp
+cars2lap                        // CARS 2 Laptop (Germany)
+dyndesk
 inteladv
 
 @source:intellec4.cpp
@@ -21723,6 +21735,7 @@ nshort                          // 1993 Mephisto Nigel Short
 @source:mephistp.cpp
 mephistp                        //
 mephistp1                       //
+mephistpn                       //
 sport2k                         //
 
 @source:merit.cpp
@@ -31577,7 +31590,7 @@ crushs                          // 1981 bootleg
 ctrpllrp                        // hack
 dremshpr                        // (c) 1982 Sanritsu
 drivfrcp                        // (c) 1984 Shinkai Inc. (Magic Eletronics Inc. license)
-eeekk                           // (c) 1984 Epos Corporation
+eeekkp                          // (c) 1984 Epos Corporation
 eggor                           // (c) 1983 Telko
 eyes                            // (c) 1982 Digitrex Techstar + "Rockola presents"
 eyes2                           // (c) 1982 Techstar + "Rockola presents"
@@ -33342,7 +33355,6 @@ prehisleu                       // A8003 'GT' (c) 1989
 prehisleb                       // bootleg
 
 @source:prestige.cpp
-cars2lap                        // CARS 2 Laptop (Germany)
 gkidabc                         // Genius KID ABC Fan (Germany)
 gl6000sl                        // Genius Leader 6000SL (Germany)
 gl7007sl                        // Genius Leader 7007SL (Germany)
@@ -37297,7 +37309,7 @@ swtpc09i                        // S09, DC4 Floppy + PIA IDE SBUG rom - FLEX
 swtpc09u                        // S09, DMF2 Floppy UNIBUG rom - UniFLEX
 
 @source:swtpc8212.cpp
-swtpc8212                       //
+swtpc8212                       // Terminal
 
 @source:swyft.cpp
 swyft                           //
@@ -39392,6 +39404,7 @@ startrks                        // Sidam bootleg
 subhunt                         // ?   [1977 Taito]
 supcrash                        // bootleg
 tranqgun                        // 413-428 (c) 1980 Sega
+verbena                         //
 wantsega                        // ? (c) 1982 Sega
 
 @source:victor9k.cpp

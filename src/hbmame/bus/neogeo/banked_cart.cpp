@@ -99,7 +99,7 @@ void neogeo_banked_cart_device::init_banks(void)
 void neogeo_banked_cart_device::install_banks(running_machine& machine, cpu_device* maincpu, uint8_t* region, uint32_t region_size)
 {
 	maincpu->space(AS_PROGRAM).install_read_bank(0x200000, 0x2fffff, "cartridge");
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(FUNC(neogeo_banked_cart_device::main_cpu_bank_select_w),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(*this, FUNC(neogeo_banked_cart_device::main_cpu_bank_select_w)));
 
 	m_bank_cartridge = machine.root_device().membank("cartridge");
 	m_region = region;

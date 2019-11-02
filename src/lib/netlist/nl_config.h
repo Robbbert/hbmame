@@ -94,16 +94,69 @@
 // Use nano-second resolution - Sufficient for now
 
 static constexpr const auto NETLIST_INTERNAL_RES = 1000000000;
-//static constexpr const auto NETLIST_INTERNAL_RES = 1000000000000;
 static constexpr const auto NETLIST_CLOCK = NETLIST_INTERNAL_RES;
 
-//#define NETLIST_INTERNAL_RES        (UINT64_C(1000000000))
-//#define NETLIST_CLOCK               (NETLIST_INTERNAL_RES)
-//#define NETLIST_INTERNAL_RES      (UINT64_C(1000000000000))
-//#define NETLIST_CLOCK               (UINT64_C(1000000000))
+//============================================================
+// Floating point types used
+//
+// Don't change this. Simple analog circuits like pong
+// work with float. Kidniki just doesn't work at all
+// due to numeric issues
+//============================================================
 
+using nl_fptype = double;
 
-//#define nl_double float
-using nl_double = double;
+namespace netlist
+{
+	/*! Specific constants depending on floating type
+	 *
+	 *  @tparam FT floating point type: double/float
+	 */
+	template <typename FT>
+	struct fp_constants
+	{ };
+
+	/*! Specific constants for long double floating point type
+	 */
+	template <>
+	struct fp_constants<long double>
+	{
+		static inline constexpr long double DIODE_MAXDIFF() noexcept { return  1e100L; }
+		static inline constexpr long double DIODE_MAXVOLT() noexcept { return  300.0L; }
+
+		static inline constexpr long double TIMESTEP_MAXDIFF() noexcept { return  1e100L; }
+		static inline constexpr long double TIMESTEP_MINDIV() noexcept { return  1e-60L; }
+
+		static inline constexpr const char * name() noexcept { return "long double"; }
+	};
+
+	/*! Specific constants for double floating point type
+	 */
+	template <>
+	struct fp_constants<double>
+	{
+		static inline constexpr double DIODE_MAXDIFF() noexcept { return  1e100; }
+		static inline constexpr double DIODE_MAXVOLT() noexcept { return  300.0; }
+
+		static inline constexpr double TIMESTEP_MAXDIFF() noexcept { return  1e100; }
+		static inline constexpr double TIMESTEP_MINDIV() noexcept { return  1e-60; }
+
+		static inline constexpr const char * name() noexcept { return "double"; }
+	};
+
+	/*! Specific constants for float floating point type
+	 */
+	template <>
+	struct fp_constants<float>
+	{
+		static inline constexpr float DIODE_MAXDIFF() noexcept { return  1e2; }
+		static inline constexpr float DIODE_MAXVOLT() noexcept { return  20.0; }
+
+		static inline constexpr float TIMESTEP_MAXDIFF() noexcept { return  1e30f; }
+		static inline constexpr float TIMESTEP_MINDIV() noexcept { return  1e-8f; }
+
+		static inline constexpr const char * name() noexcept { return "float"; }
+	};
+} // namespace netlist
 
 #endif /* NLCONFIG_H_ */

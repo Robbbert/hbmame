@@ -6027,7 +6027,7 @@ HACK( 1992, wofud,       wof,      qsound,     wof,      cps_state, wof,      RO
 
 void cps_state::init_dinoeh()
 {
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800181, write16_delegate(FUNC(cps_state::dinoh_sound_command_w),this));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800181, write16_delegate(*this, FUNC(cps_state::dinoh_sound_command_w)));
 	kabuki_setup(dino_decode);
 	init_cps1();
 }

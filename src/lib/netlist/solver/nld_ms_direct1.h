@@ -13,7 +13,7 @@
 
 namespace netlist
 {
-namespace devices
+namespace solver
 {
 	template <typename FT>
 	class matrix_solver_direct1_t: public matrix_solver_direct_t<FT, 1>
@@ -23,8 +23,10 @@ namespace devices
 		using float_type = FT;
 		using base_type = matrix_solver_direct_t<FT, 1>;
 
-		matrix_solver_direct1_t(netlist_state_t &anetlist, const pstring &name, const solver_parameters_t *params)
-			: matrix_solver_direct_t<FT, 1>(anetlist, name, params, 1)
+		matrix_solver_direct1_t(netlist_state_t &anetlist, const pstring &name,
+			const analog_net_t::list_t &nets,
+			const solver_parameters_t *params)
+			: matrix_solver_direct_t<FT, 1>(anetlist, name, nets, params, 1)
 			{}
 
 		// ----------------------------------------------------------------------------------------
@@ -32,22 +34,21 @@ namespace devices
 		// ----------------------------------------------------------------------------------------
 		unsigned vsolve_non_dynamic(const bool newton_raphson) override
 		{
-			this->build_LE_A(*this);
-			this->build_LE_RHS(*this);
-			//NL_VERBOSE_OUT(("{1} {2}\n", new_val, m_RHS[0] / m_A[0][0]);
+			this->clear_square_mat(this->m_A);
+			this->fill_matrix(this->m_RHS);
 
-			std::array<FT, 1> new_V = { this->RHS(0) / this->A(0,0) };
+			std::array<FT, 1> new_V = { this->m_RHS[0] / this->m_A[0][0] };
 
-			const FT err = (newton_raphson ? this->delta(new_V) : 0.0);
+			const FT err = (newton_raphson ? this->delta(new_V) : plib::constants<FT>::zero());
 			this->store(new_V);
-			return (err > this->m_params.m_accuracy) ? 2 : 1;
+			return (err > static_cast<FT>(this->m_params.m_accuracy)) ? 2 : 1;
 		}
 
 	};
 
 
 
-} //namespace devices
+} // namespace solver
 } // namespace netlist
 
 

@@ -796,7 +796,7 @@ TIMER_CALLBACK_MEMBER(galaga_state::cpu3_interrupt_callback)
 	int scanline = param;
 
 	if(m_sub2_nmi_mask)
-		nmi_line_pulse(*m_subcpu2);
+		m_subcpu2->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
 
 	scanline = scanline + 128;
 	if (scanline >= 272)
@@ -1651,7 +1651,7 @@ void bosco_state::bosco(machine_config &config)
 
 	WATCHDOG_TIMER(config, "watchdog").set_vblank_count(m_screen, 8);
 
-	config.m_minimum_quantum = attotime::from_hz(6000);  /* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
+	config.set_maximum_quantum(attotime::from_hz(6000));  /* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
@@ -1721,7 +1721,7 @@ void galaga_state::galaga(machine_config &config)
 
 	WATCHDOG_TIMER(config, "watchdog").set_vblank_count(m_screen, 8);
 
-	config.m_minimum_quantum = attotime::from_hz(6000);  /* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
+	config.set_maximum_quantum(attotime::from_hz(6000));  /* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
@@ -1823,7 +1823,7 @@ void xevious_state::xevious(machine_config &config)
 
 	WATCHDOG_TIMER(config, "watchdog").set_vblank_count(m_screen, 8);
 
-	config.m_minimum_quantum = attotime::from_hz(60000); /* 1000 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
+	config.set_maximum_quantum(attotime::from_hz(60000)); /* 1000 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
@@ -1931,7 +1931,7 @@ void digdug_state::digdug(machine_config &config)
 	m_videolatch->q_out_cb<3>().set(FUNC(digdug_state::bg_disable_w));
 	m_videolatch->q_out_cb<7>().set(FUNC(digdug_state::flip_screen_w));
 
-	config.m_minimum_quantum = attotime::from_hz(6000);  /* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
+	config.set_maximum_quantum(attotime::from_hz(6000));  /* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
 
 	ER2055(config, m_earom);
 
@@ -3462,8 +3462,8 @@ void xevious_state::init_xevios()
 void battles_state::driver_init()
 {
 	/* replace the Namco I/O handlers with interface to the 4th CPU */
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x7000, 0x700f, read8_delegate(FUNC(battles_state::customio_data0_r),this), write8_delegate(FUNC(battles_state::customio_data0_w),this) );
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x7100, 0x7100, read8_delegate(FUNC(battles_state::customio0_r),this), write8_delegate(FUNC(battles_state::customio0_w),this) );
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x7000, 0x700f, read8_delegate(*this, FUNC(battles_state::customio_data0_r)), write8_delegate(*this, FUNC(battles_state::customio_data0_w)));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x7100, 0x7100, read8_delegate(*this, FUNC(battles_state::customio0_r)), write8_delegate(*this, FUNC(battles_state::customio0_w)));
 
 	init_xevious();
 }
