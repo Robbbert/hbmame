@@ -38,10 +38,10 @@ namespace analog
 	{
 	public:
 		generic_capacitor(device_t &dev, const pstring &name)
-		: m_h(dev, name + ".m_h", 0.0)
-		, m_c(dev, name + ".m_c", 0.0)
-		, m_v(dev, name + ".m_v", 0.0)
-		, m_gmin(0.0)
+		: m_h(dev, name + ".m_h", nlconst::zero())
+		, m_c(dev, name + ".m_c", nlconst::zero())
+		, m_v(dev, name + ".m_v", nlconst::zero())
+		, m_gmin(nlconst::zero())
 		{
 		}
 
@@ -57,7 +57,7 @@ namespace analog
 		nl_fptype G(nl_fptype cap) const
 		{
 			//return m_h * cap +  m_gmin;
-			return m_h * 0.5 * (cap + m_c) +  m_gmin;
+			return m_h * nlconst::half() * (cap + m_c) +  m_gmin;
 			//return m_h * cap +  m_gmin;
 		}
 
@@ -65,7 +65,7 @@ namespace analog
 		{
 			plib::unused_var(v);
 			//return -m_h * 0.5 * ((cap + m_c) * m_v + (cap - m_c) * v) ;
-			return -m_h * 0.5 * (cap + m_c) * m_v;
+			return -m_h * nlconst::half() * (cap + m_c) * m_v;
 			//return -m_h * cap * m_v;
 		}
 
@@ -91,9 +91,9 @@ namespace analog
 	{
 	public:
 		generic_capacitor(device_t &dev, const pstring &name)
-		: m_h(dev, name + ".m_h", 0.0)
-		, m_v(dev, name + ".m_v", 0.0)
-		, m_gmin(0.0)
+		: m_h(dev, name + ".m_h", nlconst::zero())
+		, m_v(dev, name + ".m_v", nlconst::zero())
+		, m_gmin(nlconst::zero())
 		{
 		}
 
@@ -133,25 +133,29 @@ namespace analog
 	{
 	public:
 		generic_diode(device_t &dev, const pstring &name)
-		: m_Vd(dev, name + ".m_Vd", 0.7)
-		, m_Id(dev, name + ".m_Id", 0.0)
-		, m_G(dev,  name + ".m_G", 1e-15)
-		, m_Vt(0.0)
-		, m_Vmin(0.0) // not used in MOS model
-		, m_Is(0.0)
-		, m_logIs(0.0)
-		, m_n(0.0)
-		, m_gmin(1e-15)
-		, m_VtInv(0.0)
-		, m_Vcrit(0.0)
+		: m_Vd(dev, name + ".m_Vd", nlconst::magic(0.7))
+		, m_Id(dev, name + ".m_Id", nlconst::zero())
+		, m_G(dev,  name + ".m_G", nlconst::magic(1e-15))
+		, m_Vt(nlconst::zero())
+		, m_Vmin(nlconst::zero()) // not used in MOS model
+		, m_Is(nlconst::zero())
+		, m_logIs(nlconst::zero())
+		, m_n(nlconst::zero())
+		, m_gmin(nlconst::magic(1e-15))
+		, m_VtInv(nlconst::zero())
+		, m_Vcrit(nlconst::zero())
 		, m_name(name)
 		{
-			set_param(1e-15, 1, 1e-15, 300.0);
+			set_param(
+				nlconst::magic(1e-15)
+			  , nlconst::magic(1)
+			  , nlconst::magic(1e-15)
+			  , nlconst::magic(300.0));
 		}
 
 		void update_diode(const nl_fptype nVd)
 		{
-			nl_fptype IseVDVt(0.0);
+			nl_fptype IseVDVt(nlconst::zero());
 
 			if (TYPE == diode_e::BIPOLAR)
 			{
@@ -160,7 +164,7 @@ namespace analog
 				{
 					const nl_fptype d = std::min(+fp_constants<nl_fptype>::DIODE_MAXDIFF(), nVd - m_Vd);
 					const nl_fptype a = std::abs(d) * m_VtInv;
-					m_Vd = m_Vd + (d < 0 ? -1.0 : 1.0) * std::log1p(a) * m_Vt;
+					m_Vd = m_Vd + nlconst::magic(d < 0 ? -1.0 : 1.0) * std::log1p(a) * m_Vt;
 				}
 				else
 					m_Vd = std::max(-fp_constants<nl_fptype>::DIODE_MAXDIFF(), nVd);
@@ -180,7 +184,7 @@ namespace analog
 			}
 			else if (TYPE == diode_e::MOS)
 			{
-				if (nVd < constants::zero())
+				if (nVd < nlconst::zero())
 				{
 					m_Vd = nVd;
 					m_G = m_Is * m_VtInv + m_gmin;
@@ -203,12 +207,12 @@ namespace analog
 			m_n = n;
 			m_gmin = gmin;
 
-			m_Vt = m_n * temp * constants::k_b() / constants::Q_e();
+			m_Vt = m_n * temp * nlconst::k_b() / nlconst::Q_e();
 
-			m_Vmin = -5.0 * m_Vt;
+			m_Vmin = nlconst::magic(-5.0) * m_Vt;
 
-			m_Vcrit = m_Vt * std::log(m_Vt / m_Is / constants::sqrt2());
-			m_VtInv = constants::one() / m_Vt;
+			m_Vcrit = m_Vt * std::log(m_Vt / m_Is / nlconst::sqrt2());
+			m_VtInv = nlconst::one() / m_Vt;
 			//printf("%g %g\n", m_Vmin, m_Vcrit);
 		}
 

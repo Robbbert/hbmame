@@ -49,26 +49,29 @@ namespace solver
 	struct solver_parameters_t
 	{
 		solver_parameters_t(device_t &parent)
-		: m_freq(parent, "FREQ", 48000.0)
+		: m_freq(parent, "FREQ", nlconst::magic(48000.0))
 
 		/* iteration parameters */
-		, m_gs_sor(parent, "SOR_FACTOR", 1.059)
-		, m_method(parent, "METHOD", matrix_type_e::MAT_CR)
-		, m_fp_type(parent, "FPTYPE", matrix_fp_type_e::DOUBLE)
-		, m_accuracy(parent, "ACCURACY", 1e-7)
-		, m_gs_loops(parent, "GS_LOOPS", 9)              // Gauss-Seidel loops
+		, m_gs_sor(parent,   "SOR_FACTOR", nlconst::magic(1.059))
+		, m_method(parent,   "METHOD", matrix_type_e::MAT_CR)
+		, m_fp_type(parent,  "FPTYPE", matrix_fp_type_e::DOUBLE)
+		, m_reltol(parent,   "RELTOL", nlconst::magic(1e-3))			///< SPICE RELTOL parameter
+		, m_vntol(parent,    "VNTOL",  nlconst::magic(1e-6))			///< SPICE VNTOL parameter
+		, m_accuracy(parent, "ACCURACY", nlconst::magic(1e-7))			///< Iterative solver accuracy
+		, m_nr_loops(parent, "NR_LOOPS", 250)           ///< Maximum number of Newton-Raphson loops
+		, m_gs_loops(parent, "GS_LOOPS", 9)             ///< Maximum number of Gauss-Seidel loops
 
 		/* general parameters */
-		, m_gmin(parent, "GMIN", 1e-9)
-		, m_pivot(parent, "PIVOT", false)                    // use pivoting - on supported solvers
-		, m_nr_loops(parent, "NR_LOOPS", 250)            // Newton-Raphson loops
-		, m_nr_recalc_delay(parent, "NR_RECALC_DELAY", netlist_time::quantum().as_fp<nl_fptype>()) // Delay to next solve attempt if nr loops exceeded
+		, m_gmin(parent, "GMIN", nlconst::magic(1e-9))
+		, m_pivot(parent, "PIVOT", false)               ///< use pivoting on supported solvers
+		, m_nr_recalc_delay(parent, "NR_RECALC_DELAY",
+			netlist_time::quantum().as_fp<nl_fptype>()) ///< Delay to next solve attempt if nr loops exceeded
 		, m_parallel(parent, "PARALLEL", 0)
 
 		/* automatic time step */
-		, m_dynamic_ts(parent, "DYNAMIC_TS", false)
-		, m_dynamic_lte(parent, "DYNAMIC_LTE", 1e-5)                     // diff/timestep
-		, m_dynamic_min_ts(parent, "DYNAMIC_MIN_TIMESTEP", 1e-6)   // nl_fptype timestep resolution
+		, m_dynamic_ts(parent, "DYNAMIC_TS", false)		///< Use dynamic time stepping
+		, m_dynamic_lte(parent, "DYNAMIC_LTE", nlconst::magic(1e-5))    ///< dynamic time stepping slope
+		, m_dynamic_min_ts(parent, "DYNAMIC_MIN_TIMESTEP", nlconst::magic(1e-6)) ///< smallest time step allowed
 
 		/* matrix sorting */
 		, m_sort_type(parent, "SORT_TYPE", matrix_sort_type_e::PREFER_IDENTITY_TOP_LEFT)
@@ -95,11 +98,13 @@ namespace solver
 		param_fp_t m_gs_sor;
 		param_enum_t<matrix_type_e> m_method;
 		param_enum_t<matrix_fp_type_e> m_fp_type;
+		param_fp_t m_reltol;
+		param_fp_t m_vntol;
 		param_fp_t m_accuracy;
+		param_num_t<std::size_t> m_nr_loops;
 		param_num_t<std::size_t> m_gs_loops;
 		param_fp_t m_gmin;
 		param_logic_t  m_pivot;
-		param_num_t<std::size_t> m_nr_loops;
 		param_fp_t m_nr_recalc_delay;
 		param_int_t m_parallel;
 		param_logic_t  m_dynamic_ts;
@@ -227,31 +232,6 @@ namespace solver
 			for (std::size_t k = 0; k < m_terms.size(); k++)
 				max_rail = std::max(max_rail, m_terms[k].railstart());
 			return max_rail;
-		}
-
-		template <typename T>
-		void store(const T & V)
-		{
-			const std::size_t iN = this->m_terms.size();
-			for (std::size_t i = 0; i < iN; i++)
-				this->m_terms[i].setV(V[i]);
-		}
-
-
-		template <typename T>
-		auto delta(const T & V) -> typename std::decay<decltype(V[0])>::type
-		{
-			/* NOTE: Ideally we should also include currents (RHS) here. This would
-			 * need a reevaluation of the right hand side after voltages have been updated
-			 * and thus belong into a different calculation. This applies to all solvers.
-			 */
-
-			const std::size_t iN = this->m_terms.size();
-			using vtype = typename std::decay<decltype(V[0])>::type;
-			vtype cerr = 0;
-			for (std::size_t i = 0; i < iN; i++)
-				cerr = std::max(cerr, std::abs(V[i] - this->m_terms[i].getV<vtype>()));
-			return cerr;
 		}
 
 		void set_pointers()
@@ -392,10 +372,12 @@ namespace solver
 			const solver_parameters_t *params, const std::size_t size)
 		: matrix_solver_t(anetlist, name, nets, params)
 		, m_dim(size)
+		, m_new_V(size)
+		, m_RHS(size)
 		, m_mat_ptr(size, this->max_railstart() + 1)
-		, m_last_V(size, plib::constants<nl_fptype>::zero())
-		, m_DD_n_m_1(size, plib::constants<nl_fptype>::zero())
-		, m_h_n_m_1(size, plib::constants<nl_fptype>::zero())
+		, m_last_V(size, nlconst::zero())
+		, m_DD_n_m_1(size, nlconst::zero())
+		, m_h_n_m_1(size, nlconst::zero())
 		{
 			/*
 			 * save states
@@ -414,7 +396,14 @@ namespace solver
 		static constexpr const std::size_t m_pitch_ABS = (((SIZEABS + 0) + 7) / 8) * 8;
 
 		PALIGNAS_VECTOROPT()
+		plib::parray<FT, SIZE> m_new_V;
+		PALIGNAS_VECTOROPT()
+		plib::parray<FT, SIZE> m_RHS;
+
+		PALIGNAS_VECTOROPT()
 		plib::parray2D<float_type *, SIZE, 0> m_mat_ptr;
+
+		// FIXME: below should be private
 		/* state - variable time_stepping */
 		PALIGNAS_VECTOROPT()
 		plib::parray<nl_fptype, SIZE> m_last_V;
@@ -423,7 +412,38 @@ namespace solver
 		PALIGNAS_VECTOROPT()
 		plib::parray<nl_fptype, SIZE> m_h_n_m_1;
 
-		constexpr std::size_t size() const noexcept { return (SIZE > 0) ? static_cast<std::size_t>(SIZE) : m_dim; }
+		constexpr std::size_t size() const noexcept
+		{
+			return (SIZE > 0) ? static_cast<std::size_t>(SIZE) : m_dim;
+		}
+
+		void store()
+		{
+			const std::size_t iN = size();
+			for (std::size_t i = 0; i < iN; i++)
+				this->m_terms[i].setV(m_new_V[i]);
+		}
+
+		bool check_err()
+		{
+			/* NOTE: Ideally we should also include currents (RHS) here. This would
+			 * need a reevaluation of the right hand side after voltages have been updated
+			 * and thus belong into a different calculation. This applies to all solvers.
+			 */
+
+			const std::size_t iN = size();
+			const auto reltol(static_cast<FT>(m_params.m_reltol));
+			const auto vntol(static_cast<FT>(m_params.m_vntol));
+			for (std::size_t i = 0; i < iN; i++)
+			{
+				const auto vold(this->m_terms[i].template getV<FT>());
+				const auto vnew(m_new_V[i]);
+				const auto tol(vntol + reltol * std::max(std::abs(vnew),std::abs(vold)));
+				if (std::abs(vnew - vold) > tol)
+					return true;
+			}
+			return false;
+		}
 
 		netlist_time compute_next_timestep(const nl_fptype cur_ts) override
 		{
@@ -431,7 +451,7 @@ namespace solver
 
 			if (m_params.m_dynamic_ts)
 			{
-				for (std::size_t k = 0; k < m_terms.size(); k++)
+				for (std::size_t k = 0; k < size(); k++)
 				{
 					auto &t = m_terms[k];
 					//const nl_fptype DD_n = (n->Q_Analog() - t->m_last_V);
@@ -448,7 +468,7 @@ namespace solver
 					m_h_n_m_1[k] = hn;
 					m_DD_n_m_1[k] = DD_n;
 					if (std::fabs(DD2) > fp_constants<nl_fptype>::TIMESTEP_MINDIV()) // avoid div-by-zero
-						new_net_timestep = std::sqrt(m_params.m_dynamic_lte / std::fabs(plib::constants<nl_fptype>::cast(0.5)*DD2));
+						new_net_timestep = std::sqrt(m_params.m_dynamic_lte / std::fabs(nlconst::magic(0.5)*DD2));
 					else
 						new_net_timestep = m_params.m_max_timestep;
 
@@ -507,8 +527,7 @@ namespace solver
 			}
 		}
 
-		template <typename RT>
-		void fill_matrix(RT &RHS)
+		void fill_matrix_and_rhs()
 		{
 			const std::size_t N = size();
 
@@ -530,8 +549,8 @@ namespace solver
 					*tcr_r[i]       += static_cast<FT>(go[i]);
 
 				/* use native floattype for now */
-				auto gtot_t(plib::constants<nl_fptype>::zero());
-				auto RHS_t (plib::constants<nl_fptype>::zero());
+				auto gtot_t(nlconst::zero());
+				auto RHS_t (nlconst::zero());
 
 				for (std::size_t i = 0; i < term_count; i++)
 				{
@@ -549,7 +568,7 @@ namespace solver
 					RHS_t += (/*m_Idr[i]*/ (- go[i]) * *cnV[i]);
 				}
 
-				RHS[k] = static_cast<FT>(RHS_t);
+				m_RHS[k] = static_cast<FT>(RHS_t);
 				// update diagonal element ...
 				*tcr_r[railstart] += static_cast<FT>(gtot_t); //mat.A[mat.diag[k]] += gtot_t;
 			}
