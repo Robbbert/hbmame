@@ -12054,5 +12054,5 @@ HACK( 2019, kof2k2s81,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2019, kof2k2s82,      kof2002,  gsc,           neogeo, neogeo_state,      kof2k2pl17, ROT0, "GSC2007", "Kof2002 Plus (2019-01-06 Hack)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kof2k2s83,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack",    "Kof2002 (All Mix Version 2018-04-22)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kof2k2s84,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "GSC2007", "Kof2002 (Unknown Hack 2014-12-01)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kof2k2s85,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "GSC2007", "Kof2002 (Tianguo Protoss 2019-10-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kof2k2s85,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack", "Kof2002 (Tianguo Protoss 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 

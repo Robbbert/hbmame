@@ -1,6 +1,27 @@
 ﻿What's new in HBMAME
 ====================
 
+2019-11-28 0.216
+
+New Games
+---------------------------------
+- [batcirds01]        Battle Circuit (Evolution 2019-10-21)
+- [captcomms70]       Captain Commando (Journey Version 2019-10-21)
+- [captcomms71]       Captain Commando (Double Version 2019-10-21)
+- [captcomms72]       Captain Commando (Nightmare Edition Update 2019-10-21)
+- [captcomms73]       Captain Commando (Unlimited Bullet Version 2019-10-21)
+- [kof2k2s85]         Kof2002 (Tianguo Protoss 2019-10-21)
+- [kovpluss349]       Knights of Valour Plus (Nightmare Kings Edition 2019-10-21)
+- [mslug5dh58]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-10-21)
+- [mslug5dh59]        Metal Slug 5 (Enemy Soldiers Magic Version 2019-10-21)
+- [sf2ces29]          Street Fighter II': Champion Edition (3 Questions Edition 2019-10-21)
+- [sf2ces30]          Street Fighter II': Champion Edition (3 Questions Edition Simplify The Move 2019-10-21)
+- [sf2ces31]          Street Fighter II': Champion Edition (Question Mark Edition 2019-10-21)
+- [sf2ces32]          Street Fighter II': Champion Edition (Question Mark Edition Simplify The Move 2019-10-21)
+- [tk2h147]           Tenchi wo Kurau II (Daren Edition 2019-10-21) 
+
+
+
 2019-10-30 0.215
 
 New Games
