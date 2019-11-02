@@ -15456,6 +15456,33 @@ ROM_START( kovpluss348 ) //kovplus2012dw
 	ROM_LOAD( "m0600_ph259.rom",    0x400000, 0x400000, CRC(7a50501b) SHA1(1af6be69f3133ed56d4a132a1910cf562da83dac) )
 ROM_END
 
+ROM_START( kovpluss349 ) //kovplus2012mp
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_ph349.119",    0x100000, 0x400000, CRC(2d80798e) SHA1(7b809b1a85abe8388ac3bf0dd0289ce7ce06450f) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_ph174.rom",    0x180000, 0x800000, CRC(f7b6f432) SHA1(1c450f5eac830a41248c93b3e3f67abc217e18c3) )
+
+	ROM_REGION( 0x1c00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_ph174.rom",    0x0000000, 0x0800000, CRC(b2a208a1) SHA1(3c4191336aa760e6077eee9983c809dfbe3eb57a) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+
+	ROM_REGION( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_ph174.rom",    0x0000000, 0x0800000, CRC(e0a70b54) SHA1(ad94e39fb418770af677083406c3db7a0279c865) )
+	ROM_LOAD( "b0601.rom",    0x0800000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_ph174.rom",    0x400000, 0x454F47, CRC(132765c9) SHA1(b4f56dfeba59fea248ec4e04255033e2cb3ec8fb) )
+ROM_END
+
 ROM_START( kovplusas01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
@@ -32168,6 +32195,7 @@ HACK( 2018, kovpluss345,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1
 HACK( 2018, kovpluss346,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Gotvg", "Knights of Valour Plus (Ordinary Soldiers 2 2018-12-25)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovpluss347,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Gotvg", "Knights of Valour Plus (Dream of Tu Mi 2018-03-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovpluss348,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Gotvg", "Knights of Valour Plus (2012 Musou Edition 2019-04-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovpluss349,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "hack",  "Knights of Valour Plus (Nightmare Kings Edition 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kovplusas01,  kovplus,   pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, kov,        ROT0,   "Creamymami", "Knights of Valour Plus (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 // Knights of Valour Super Heroes
 HACK( 1999, kovshs01,     kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "hack", "Knights of Valour Super Heroes (FY 2016 4th Edition)", MACHINE_SUPPORTS_SAVE )   // This roms is already verified

@@ -2368,6 +2368,42 @@ ROM_START( avspus02 )
 	ROM_LOAD( "avspu.key",    0x000000, 0x000014, CRC(4e68e346) SHA1(60d5a12c77d07efc01f48968f4a12c59bf6b629e) )
 ROM_END
 
+ /***************
+ Battle Circuit
+******************/
+
+ROM_START( batcirds01 ) //batcird
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "btceds01.03", 0x000000, 0x80000, CRC(03bd6707) SHA1(62eda0d68b9940f5d07a529d05e8c90fe6a8ad02) )
+	ROM_LOAD16_WORD_SWAP( "btceds01.04", 0x080000, 0x80000, CRC(c3ff82b6) SHA1(3b23b13e0588479a598dd43093a42cd0c9db1484) )
+	ROM_LOAD16_WORD_SWAP( "btced.05", 0x100000, 0x80000, CRC(20bdbb14) SHA1(fe3a202741ca657b2b67e89050788b67d709a36d) )
+	ROM_LOAD16_WORD_SWAP( "btced.06", 0x180000, 0x80000, CRC(b4d8f5bc) SHA1(dc5ca580ecfb051ded551663ea4e9f161f820f81) )
+	ROM_LOAD16_WORD_SWAP( "btcs01.07",   0x200000, 0x80000, CRC(b194270f) SHA1(e152d48760c92b84c748014ef68050f138f75cf5) )
+	ROM_LOAD16_WORD_SWAP( "btc.08",   0x280000, 0x80000, CRC(6aac85ab) SHA1(ad02d4185c2b3664fb96350d8ad317d3939a7554) )
+	ROM_LOAD16_WORD_SWAP( "btcs01.09",   0x300000, 0x80000, CRC(31865161) SHA1(2217a4b8ca1ed3fe52e9b9d4ead85ce7df3a6bf9) )
+
+	ROM_REGION16_BE( CODE_SIZE, "user1", 0 )
+	ROM_FILL( 0x000000, 0x100000, 0x00 )
+
+	ROM_REGION( 0x1000000, "gfx", 0 )
+	ROMX_LOAD( "btc.13m",   0x000000, 0x400000, CRC(dc705bad) SHA1(96e37147674bf9cd21c770897da59daac25d921a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "btc.15m",   0x000002, 0x400000, CRC(e5779a3c) SHA1(bbd7fbe061e751388d2f02434144daf9b1e36640) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "btc.17m",   0x000004, 0x400000, CRC(b33f4112) SHA1(e501fd921c8bcede69946b029e05d422714c1040) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "btc.19m",   0x000006, 0x400000, CRC(a6fcdb7e) SHA1(7a28d5d7aa036d23d97fad17d0cdb8210dc8153a) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "btc.01",   0x00000, 0x08000, CRC(1e194310) SHA1(3b29de0aca9dbca59d6b50fb2509e2a913c6b0af) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "btc.02",   0x28000, 0x20000, CRC(01aeb8e6) SHA1(50a5d1cce0caf7c5143d4904431e8f41e2a57464) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "btc.11m",   0x000000, 0x200000, CRC(c27f2229) SHA1(df2459493af40937b6656a16fad43ff51bed2204) )
+	ROM_LOAD16_WORD_SWAP( "btc.12m",   0x200000, 0x200000, CRC(418a2e33) SHA1(0642ddff2ab9255f154419da24ba644ed63f34ab) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
  /******************
  Capcom Sports Club
 *********************/
@@ -5716,6 +5752,8 @@ HACK( 2000, 1944s01,   1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0,  
 //Alien vs. Predator
 HACK( 2017, avspus01,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "hack", "Alien vs. Predator (1 Vs 3 Plus 2017-12-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, avspus02,   avsp,     cps2, cps2_3p3b, cps2_state, cps2,     ROT0,   "hack", "Alien vs. Predator (Enhanced Edition 2018-02-26)", MACHINE_SUPPORTS_SAVE )
+//Battle Circuit
+HACK( 2019, batcirds01, batcir,   dead_cps2, cps2_4p2b, cps2_state, cps2, ROT0,   "hack", "Battle Circuit (Evolution 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 // Capcom Sports Club
 HACK( 1997, csclubs01, csclub,   cps2,      cps2_2p3b, cps2_state, cps2, ROT0,   "Hooooook[Chinese cabbage loves me]", "Capcom Sports Club (Time Increases)", MACHINE_SUPPORTS_SAVE )
 // Cyberbots Fullmetal Madness
