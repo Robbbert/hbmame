@@ -1379,8 +1379,8 @@ void neogeo_state::mvs(machine_config &config)
 
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", false);
 
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", false);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", false);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, false);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, false);
 }
 
 void neogeo_state::main_map_noslot(address_map &map)
@@ -1399,8 +1399,8 @@ void neogeo_state::neogeo_noslot(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 
 	MSLUGX_PROT(config, "mslugx_prot");
 	SMA_PROT(config, "sma_prot");
@@ -1423,8 +1423,8 @@ void neogeo_state::neogeo_kog(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 
 	NGBOOTLEG_PROT(config, "bootleg_prot");
 	KOG_PROT(config, "kog_prot");
@@ -1437,13 +1437,13 @@ void neogeo_state::neogeo_mj(machine_config &config)
 	neogeo_noslot(config);
 
 	//no joystick panel
-	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "", true);
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, nullptr, true);
 
 	//P1 mahjong controller
 	config.device_remove("ctrl1");
 	config.device_remove("ctrl2");
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "mahjong", false);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 }
 
 void neogeo_state::neogeo_dial(machine_config &config)

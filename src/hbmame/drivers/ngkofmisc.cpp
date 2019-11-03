@@ -67,8 +67,8 @@ void neogeo_state::hbmame_kog(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 }
 
 void neogeo_state::init_kogd()
