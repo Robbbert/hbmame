@@ -8,8 +8,6 @@
 #include "nld_matrix_solver.h"
 #include "plib/putil.h"
 
-#include <cmath>  // <<= needed by windows build
-
 namespace netlist
 {
 namespace solver
@@ -514,7 +512,7 @@ namespace solver
 						if (colu==row) colu = static_cast<unsigned>(diag);
 						else if (colu==diag) colu = static_cast<unsigned>(row);
 
-						weight = weight + std::abs(static_cast<nl_fptype>(colu) - static_cast<nl_fptype>(diag));
+						weight = weight + plib::abs(static_cast<nl_fptype>(colu) - static_cast<nl_fptype>(diag));
 						touched[colu] = true;
 					}
 				}

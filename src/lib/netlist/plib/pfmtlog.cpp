@@ -8,10 +8,10 @@
 #include "pfmtlog.h"
 #include "palloc.h"
 #include "pstrutil.h"
+#include "pstonum.h"
 
 #include <algorithm>
 #include <array>
-#include <cmath>
 #include <iomanip>
 #include <iostream>
 

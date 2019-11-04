@@ -5,14 +5,13 @@
  *
  */
 
-#pragma once
-
 #ifndef POPTIONS_H_
 #define POPTIONS_H_
 
 #include "plists.h"
 #include "pstring.h"
 #include "putil.h"
+#include "pstonum.h"
 
 namespace plib {
 /***************************************************************************

@@ -11,6 +11,7 @@
 #include "pstate.h"
 #include "pstring.h"
 #include "putil.h"
+#include "pmath.h"
 
 #include <vector>
 
@@ -118,7 +119,9 @@ namespace plib {
 	extern template class pfunction<float>;
 	extern template class pfunction<double>;
 	extern template class pfunction<long double>;
-
+#if (PUSE_FLOAT128)
+	extern template class pfunction<__float128>;
+#endif
 } // namespace plib
 
 #endif /* PEXCEPTION_H_ */

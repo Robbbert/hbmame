@@ -10,8 +10,6 @@
 #include "netlist/nl_factory.h"
 #include "nlid_twoterm.h"
 
-#include <cmath>
-
 namespace netlist
 {
 	namespace analog
@@ -64,7 +62,7 @@ NETLIB_RESET(POT)
 {
 	nl_fptype v = m_Dial();
 	if (m_DialIsLog())
-		v = (std::exp(v) - nlconst::one()) / (std::exp(nlconst::one()) - nlconst::one());
+		v = (plib::exp(v) - nlconst::one()) / (plib::exp(nlconst::one()) - nlconst::one());
 
 	m_R1.set_R(std::max(m_R() * v, exec().gmin()));
 	m_R2.set_R(std::max(m_R() * (nlconst::one() - v), exec().gmin()));
@@ -77,7 +75,7 @@ NETLIB_UPDATE_PARAM(POT)
 
 	nl_fptype v = m_Dial();
 	if (m_DialIsLog())
-		v = (std::exp(v) - nlconst::one()) / (std::exp(nlconst::one()) - nlconst::one());
+		v = (plib::exp(v) - nlconst::one()) / (plib::exp(nlconst::one()) - nlconst::one());
 	if (m_Reverse())
 		v = nlconst::one() - v;
 	m_R1.set_R(std::max(m_R() * v, exec().gmin()));
@@ -94,7 +92,7 @@ NETLIB_RESET(POT2)
 	nl_fptype v = m_Dial();
 
 	if (m_DialIsLog())
-		v = (std::exp(v) - nlconst::one()) / (std::exp(nlconst::one()) - nlconst::one());
+		v = (plib::exp(v) - nlconst::one()) / (plib::exp(nlconst::one()) - nlconst::one());
 	if (m_Reverse())
 		v = nlconst::one() - v;
 	m_R1.set_R(std::max(m_R() * v, exec().gmin()));
@@ -108,7 +106,7 @@ NETLIB_UPDATE_PARAM(POT2)
 	nl_fptype v = m_Dial();
 
 	if (m_DialIsLog())
-		v = (std::exp(v) - nlconst::one()) / (std::exp(nlconst::one()) - nlconst::one());
+		v = (plib::exp(v) - nlconst::one()) / (plib::exp(nlconst::one()) - nlconst::one());
 	if (m_Reverse())
 		v = nlconst::one() - v;
 	m_R1.set_R(std::max(m_R() * v, exec().gmin()));
