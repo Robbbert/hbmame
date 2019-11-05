@@ -13,11 +13,11 @@
 #include "palloc.h"
 #include "parray.h"
 #include "pconfig.h"
+#include "pmath.h"
 #include "pomp.h"
 #include "pstate.h"
 #include "ptypes.h"
 #include "putil.h"
-#include "pmath.h"
 
 #include <algorithm>
 #include <array>
@@ -114,7 +114,7 @@ namespace plib
 		{
 			C nz = 0;
 			if (nz_num != 0)
-				throw pexception("build_from_mat only allowed on empty CR matrix");
+				pthrow<pexception>("build_from_mat only allowed on empty CR matrix");
 			for (std::size_t k=0; k < size(); k++)
 			{
 				row_idx[k] = nz;
@@ -178,7 +178,7 @@ namespace plib
 
 		/* throws error if P(source)>P(destination) */
 		template <typename LUMAT>
-		void slim_copy_from(LUMAT & src) noexcept
+		void slim_copy_from(LUMAT & src)
 		{
 			for (std::size_t r=0; r<src.size(); r++)
 			{
@@ -189,7 +189,7 @@ namespace plib
 					while (col_idx[dp] < src.col_idx[sp])
 						A[dp++] = 0;
 					if (row_idx[r+1] <= dp || col_idx[dp] != src.col_idx[sp])
-						throw plib::pexception("slim_copy_from error");
+						pthrow<pexception>("slim_copy_from error");
 					A[dp++] = src.A[sp];
 				}
 				/* fill remaining elements in row */
