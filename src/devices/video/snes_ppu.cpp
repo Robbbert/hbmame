@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// copyright-holders:Anthony Kruize, Fabio Priuli
+// license:GPL-2.0+
+// copyright-holders:byuu, Anthony Kruize, Fabio Priuli
 /***************************************************************************
 
   snes.c
@@ -1303,6 +1303,7 @@ void snes_ppu_device::update_objects( uint8_t priority_oam0, uint8_t priority_oa
 	for (ii = 0; ii < 34; ii++)
 	{
 		int tile = ii;
+
 #if SNES_LAYER_DEBUG
 		if (m_debug_options.sprite_reversed)
 			tile = 33 - ii;
@@ -1329,7 +1330,7 @@ void snes_ppu_device::update_objects( uint8_t priority_oam0, uint8_t priority_oa
 	for (uint16_t x = 0; x < SNES_SCR_WIDTH; x++)
 	{
 		if (pribuf[x] == 0) continue;
-		uint16_t c = m_cgram[palbuf[x] % FIXED_COLOUR];
+		uint16_t c = m_cgram[palbuf[x]];
 		int blend = (palbuf[x] < 192) ? 1 : 0;
 		if (m_layer[SNES_OAM].main_bg_enabled && window_above[x] == 0) plot_above(x, SNES_OAM, pribuf[x], c, blend);
 		if (m_layer[SNES_OAM].sub_bg_enabled  && window_below[x] == 0) plot_below(x, SNES_OAM, pribuf[x], c, blend);
@@ -1704,7 +1705,7 @@ uint16_t snes_ppu_device::pixel(uint16_t x, SNES_SCANLINE *above, SNES_SCANLINE 
 {
 	if (!window_above[x]) above->buffer[x] = 0;
 	if (!window_below[x]) return above->buffer[x];
-	if (!m_layer[above->layer[x]].color_math) return above->buffer[x];
+	if (!m_layer[above->layer[x]].color_math || (above->layer[x] == SNES_OAM && above->blend_exception[x])) return above->buffer[x];
 	if (!m_sub_add_mode) return blend(above->buffer[x], m_cgram[FIXED_COLOUR], BIT(m_color_modes, 0) != 0 && window_above[x] != 0);
 	return blend(above->buffer[x], below->buffer[x], BIT(m_color_modes, 0) != 0 && window_above[x] != 0 && below->layer[x] != SNES_COLOR);
 }
