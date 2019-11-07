@@ -239,6 +239,7 @@ NUM YEAR COMPANY                 TITLE
 807*2013 Neobitz                 Knight's Chance
 808*2014 NG:DEV.Team             Razion
 809*2015 NG:DEV.Team             Kraut Buster
+810*2018 Bitmap Bureau           Xeno Crisis
 
 
 *********************************************************************************************************/
