@@ -8,13 +8,13 @@
 class st2xxx_device : public r65c02_device {
 public:
 	enum {
-		ST_PDA = M6502_IR + 1,
-		ST_PDB,
-		ST_PDC,
-		ST_PDD,
-		ST_PDE,
-		ST_PDF,
-		ST_PDL,
+		ST_PAOUT = M6502_IR + 1,
+		ST_PBOUT,
+		ST_PCOUT,
+		ST_PDOUT,
+		ST_PEOUT,
+		ST_PFOUT,
+		ST_PLOUT,
 		ST_PCA,
 		ST_PCB,
 		ST_PCC,
@@ -32,8 +32,10 @@ public:
 		ST_PFC,
 		ST_PFD,
 		ST_PMCR,
+		ST_PSGC,
 		ST_BTEN,
 		ST_BTSR,
+		ST_PRS,
 		ST_SYS,
 		ST_IRR,
 		ST_PRR,
@@ -51,7 +53,10 @@ public:
 		ST_LCKR,
 		ST_LFRA,
 		ST_LAC,
-		ST_LPWM
+		ST_LPWM,
+		ST_BCTR,
+		ST_BRS,
+		ST_BDIV
 	};
 
 	auto in_pa_callback() { return m_in_port_cb[0].bind(); }
@@ -81,7 +86,11 @@ protected:
 
 	virtual u16 st2xxx_ireq_mask() const = 0;
 	virtual const char *st2xxx_irq_name(int i) const = 0;
+	virtual u8 st2xxx_pmcr_mask() const = 0;
 	virtual unsigned st2xxx_bt_divider(int n) const = 0;
+	virtual u8 st2xxx_prs_mask() const = 0;
+	virtual void st2xxx_tclk_start() { }
+	virtual void st2xxx_tclk_stop() { }
 	virtual u8 st2xxx_sys_mask() const = 0;
 	virtual u8 st2xxx_misc_mask() const = 0;
 	virtual bool st2xxx_wdten_on_reset() const { return false; }
@@ -90,6 +99,7 @@ protected:
 	virtual u8 st2xxx_lctr_mask() const = 0;
 	virtual u8 st2xxx_lckr_mask() const = 0;
 	virtual u8 st2xxx_lpwm_mask() const = 0;
+	virtual u8 st2xxx_bctr_mask() const = 0;
 
 	class mi_st2xxx : public memory_interface {
 	public:
@@ -133,6 +143,8 @@ protected:
 	void pfc_w(u8 data);
 	u8 pfd_r();
 	void pfd_w(u8 data);
+	u8 pmcr_r();
+	void pmcr_w(u8 data);
 
 	u8 sys_r();
 	void sys_w(u8 data);
@@ -162,6 +174,11 @@ protected:
 	void btclr_w(u8 data);
 	void btclr_all_w(u8 data);
 
+	u32 tclk_pres_div(u8 mode) const;
+	u16 pres_count() const;
+	u8 prs_r();
+	void prs_w(u8 data);
+
 	u8 ireql_r();
 	void ireql_w(u8 data);
 	u8 ireqh_r();
@@ -188,6 +205,12 @@ protected:
 	void lac_w(u8 data);
 	u8 lpwm_r();
 	void lpwm_w(u8 data);
+	u8 bctr_r();
+	void bctr_w(u8 data);
+	u8 brs_r();
+	void brs_w(u8 data);
+	u8 bdiv_r();
+	void bdiv_w(u8 data);
 
 #define O(o) void o ## _full(); void o ## _partial()
 
@@ -217,6 +240,10 @@ protected:
 	u8 m_bt_mask;
 	u16 m_bt_ireq;
 
+	u16 m_pres_base;
+	attotime m_pres_started;
+	u8 m_prs;
+
 	u8 m_sys;
 	u8 m_misc;
 
@@ -233,6 +260,9 @@ protected:
 	u8 m_lfra;
 	u8 m_lac;
 	u8 m_lpwm;
+	u8 m_bctr;
+	u8 m_brs;
+	u8 m_bdiv;
 };
 
 #endif // MAME_CPU_M6502_ST2XXX_H
