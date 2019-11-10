@@ -3188,7 +3188,8 @@ bert                            //
 
 @source:berzerk.cpp
 berzerk                         // (c) 1980
-berzerk1                        // (c) 1980
+berzerka                        // (c) 1980
+berzerkb                        // (c) 1980
 berzerkf                        // (c) 1980 (French speech)
 berzerkg                        // (c) 1980 (German speech)
 berzerks                        // (c) 1980 Sonic license(Spanish speech)
@@ -9909,6 +9910,9 @@ quizard4                        // (c) TAB Austria 1998
 quizard4_40                     // (c) TAB Austria 1997
 quizard4_41                     // (c) TAB Austria 1998
 
+@source:cdsys5.cpp
+minijook                        //
+
 @source:cedar_magnet.cpp
 cedmag
 mag_time
@@ -10421,6 +10425,7 @@ cortex                          //
 cosmica                         // 7910-AII (c) [1979]
 cosmica1                        // 7910-A (c) [1979]
 cosmica2                        // 7910 (c) 1979
+cosmica3                        // 7910-AII (c) [1979]
 cosmicg                         // 7907 (c) 1979
 cosmicgi                        // bootleg (Inder)
 devzone                         // 8022 (c) [1980]
@@ -10553,6 +10558,7 @@ sf2acca                         // hack
 sf2accp2                        // hack
 sf2amf                          // bootleg
 sf2amf2                         // bootleg
+sf2amf3                         // bootleg
 sf2bhh                          // hack
 sf2ce                           // 13/05/1992 (c) 1992 (World)
 sf2ceblp                        // hack
@@ -13185,6 +13191,7 @@ sf2mdta                         // bootleg
 sf2mdtb                         // bootleg
 sgyxz                           // bootleg (All-In Electronics)
 slampic                         // bootleg
+slampic2                        // bootleg
 varthb                          // bootleg
 wofabl                          // bootleg
 
@@ -36234,6 +36241,9 @@ slivera                         //
 @source:slotcarn.cpp
 slotcarn                        // (c) 1985 Wing Co. Ltd
 spielbud                        // (c) 1985 ADP
+
+@source:slsstars.cpp
+slsstars                        //
 
 @source:sm1800.cpp
 sm1800                          //
