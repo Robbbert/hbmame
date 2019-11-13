@@ -29,8 +29,7 @@
 		PARAM(name.IN, v)
 
 #define MAINCLOCK(name, freq)                                                   \
-		NET_REGISTER_DEV(MAINCLOCK, name)                                       \
-		PARAM(name.FREQ, freq)
+		NET_REGISTER_DEVEXT(MAINCLOCK, name, freq)
 
 #define CLOCK(name, freq)                                                       \
 		NET_REGISTER_DEV(CLOCK, name)                                           \

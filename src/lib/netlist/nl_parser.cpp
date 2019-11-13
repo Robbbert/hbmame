@@ -47,6 +47,13 @@ bool parser_t::parse(const pstring &nlname)
 	m_tok_TT_LINE = register_token("TT_LINE");
 	m_tok_TT_FAMILY = register_token("TT_FAMILY");
 
+	register_token("RES_R");
+	register_token("RES_K");
+	register_token("RES_M");
+	register_token("CAP_U");
+	register_token("CAP_N");
+	register_token("CAP_P");
+
 	bool in_nl = false;
 
 	while (true)
@@ -347,63 +354,42 @@ void parser_t::netdev_hint()
 
 void parser_t::device(const pstring &dev_type)
 {
-	factory::element_t *f = m_setup.factory().factory_by_name(dev_type);
-	auto paramlist = plib::psplit(f->param_desc(), ",");
+	std::vector<pstring> params;
 
 	pstring devname = get_identifier();
 
-	m_setup.register_dev(dev_type, devname);
 	m_setup.log().debug("Parser: IC: {1}\n", devname);
 
-	for (const pstring &tp : paramlist)
+	auto tok(get_token());
+
+	//printf("enter\n");
+	while (tok.is(m_tok_comma))
 	{
-		if (plib::startsWith(tp, "+"))
-		{
-			require_token(m_tok_comma);
-			pstring output_name = get_identifier();
-			m_setup.log().debug("Link: {1} {2}\n", tp, output_name);
-
-			m_setup.register_link(devname + "." + tp.substr(1), output_name);
-		}
-		else if (plib::startsWith(tp, "@"))
-		{
-			pstring term = tp.substr(1);
-			m_setup.log().debug("Link: {1} {2}\n", tp, term);
-
-			//FIXME
-			if (term == "VCC")
-				m_setup.register_link(devname + "." + term, "V5");
-			else
-				m_setup.register_link(devname + "." + term, term);
-		}
+		tok = get_token();
+		//printf("%d %s\n", tok.type(), tok.str().c_str());
+		if (tok.is_type(IDENTIFIER) || tok.is_type(STRING))
+			params.push_back(tok.str());
 		else
 		{
-			require_token(m_tok_comma);
-			pstring paramfq = devname + "." + tp;
-
-			m_setup.log().debug("Defparam: {1}\n", paramfq);
-			token_t tok = get_token();
-			if (tok.is_type(STRING))
-			{
-				m_setup.register_param(paramfq, tok.str());
-			}
+			// FIXME: Do we really need this?
+			nl_fptype value = eval_param(tok);
+			if (plib::abs(value - plib::floor(value)) > nlconst::magic(1e-30)
+				|| plib::abs(value) > nlconst::magic(1e9))
+				params.push_back(plib::pfmt("{1:.9}").e(value));
 			else
-			{
-				nl_fptype val = eval_param(tok);
-				m_setup.register_param(paramfq, val);
-			}
+				params.push_back(plib::pfmt("{1}")(static_cast<long>(value)));
 		}
+		tok = get_token();
 	}
 
-	// error(plib::pfmt("Input count mismatch for {1} - expected {2} found {3}")(devname)(termlist.size())(cnt));
-	require_token(m_tok_param_right);
+	require_token(tok, m_tok_param_right);
+	m_setup.register_dev(dev_type, devname, params);
 }
 
 
 // ----------------------------------------------------------------------------------------
 // private
 // ----------------------------------------------------------------------------------------
-
 
 nl_fptype parser_t::eval_param(const token_t &tok)
 {
