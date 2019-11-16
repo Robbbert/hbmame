@@ -22,7 +22,7 @@
 		template<typename... Args> explicit name(Args&&... args) \
 		: m_m(plib::pfmt(str)(std::forward<Args>(args)...)) \
 		{ static_assert(narg == sizeof...(args), "Argument count mismatch"); } \
-		operator pstring() const noexcept { return m_m; } \
+		operator pstring() const { return m_m; } \
 		pstring m_m; \
 	};
 
@@ -30,7 +30,6 @@ namespace netlist
 {
 
 	static constexpr const char sHINT_NO_DEACTIVATE[] = ".HINT_NO_DEACTIVATE";
-	static constexpr const char sPowerDevRes[] = "_RVG";
 	static constexpr const char sPowerGND[] = "GND";
 	static constexpr const char sPowerVCC[] = "VCC";
 
@@ -81,6 +80,7 @@ namespace netlist
 	PERRMSGV(MF_OBJECT_1_2_WRONG_TYPE,              2, "object {1}({2}) found but wrong type")
 	PERRMSGV(MF_PARAMETER_1_2_NOT_FOUND,            2, "parameter {1}({2}) not found!")
 	PERRMSGV(MF_CONNECTING_1_TO_2,                  2, "Error connecting {1} to {2}")
+	PERRMSGV(MF_DUPLICATE_PROXY_1,                  1, "Terminal {1} already has proxy")
 	PERRMSGV(MF_MERGE_RAIL_NETS_1_AND_2,            2, "Trying to merge two rail nets: {1} and {2}")
 	PERRMSGV(MF_OBJECT_INPUT_TYPE_1,                1, "Unable to determine input type of {1}")
 	PERRMSGV(MF_OBJECT_OUTPUT_TYPE_1,               1, "Unable to determine output type of {1}")
@@ -97,7 +97,7 @@ namespace netlist
 
 	PERRMSGV(MW_OVERWRITING_PARAM_1_OLD_2_NEW_3,    3, "Overwriting {1} old <{2}> new <{3}>")
 	PERRMSGV(MW_CONNECTING_1_TO_ITSELF,             1, "Connecting {1} to itself. This may be right, though")
-	PERRMSGV(MI_DUMMY_1_WITHOUT_CONNECTIONS,        1, "Found dummy terminal {1} without connections")
+	PERRMSGV(ME_NC_PIN_1_WITH_CONNECTIONS,          1, "Found NC (not connected) terminal {1} with connections")
 	PERRMSGV(MI_ANALOG_OUTPUT_1_WITHOUT_CONNECTIONS,1, "Found analog output {1} without connections")
 	PERRMSGV(MI_LOGIC_OUTPUT_1_WITHOUT_CONNECTIONS, 1, "Found logic output {1} without connections")
 	PERRMSGV(MW_LOGIC_INPUT_1_WITHOUT_CONNECTIONS,  1, "Found logic input {1} without connections")
@@ -107,7 +107,6 @@ namespace netlist
 	PERRMSGV(MF_TERMINALS_WITHOUT_NET,              0, "Found terminals without a net")
 
 	PERRMSGV(MI_REMOVE_DEVICE_1_CONNECTED_ONLY_TO_RAILS_2_3, 3, "Found device {1} connected only to railterminals {2}/{3}. Will be removed")
-	PERRMSGV(MI_POWER_TERMINALS_1_CONNECTED_ANALOG_2_3, 3, "Power terminals {1} connected to analog nets {2}/{3}.")
 
 	PERRMSGV(MW_DATA_1_NOT_FOUND,                   1, "unable to find data {1} in sources collection")
 
