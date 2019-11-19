@@ -95,6 +95,8 @@ undoukai                        // A17 (c) 1984 Taito
 @source:4dpi.cpp
 4d20                            //  IP6: Personal Iris 4D/20, R2000 @12.5MHz
 4d25                            // IP10: Personal Iris 4D/25, R3000 @20MHz
+4d30                            // IP14: Personal Iris 4D/30, R3000A @30MHz
+4d35                            // IP12: Personal Iris 4D/35, R3000A @36MHz
 
 @source:4enlinea.cpp
 4enlinea                        // (c) 1991 System Compumatic
@@ -11002,7 +11004,7 @@ cps3booto                       // bootleg
 cps3booto2                      // bootleg
 cps3bs32                        //
 cps3bs32a                       //
-jojo                            // 28/01/1999 (c) 1998 (USA)
+jojo                            // 28/01/1999 (c) 1998 (Euro)
 jojoba                          // 27/09/1999 (c) 1999 (Japan)
 jojoban                         // 27/09/1999 (c) 1999 (Japan)
 jojobane                        // 27/09/1999 (c) 1999 (Euro)
@@ -11015,8 +11017,11 @@ jojojr2                         // 02/12/1998 (c) 1998 (Japan)
 jojon                           // 28/01/1999 (c) 1998 (Asia)
 jojonr1                         // 08/01/1999 (c) 1998 (Asia)
 jojonr2                         // 02/12/1998 (c) 1998 (Asia)
-jojor1                          // 08/01/1999 (c) 1998 (USA)
-jojor2                          // 02/12/1998 (c) 1998 (USA)
+jojor1                          // 08/01/1999 (c) 1998 (Euro)
+jojor2                          // 02/12/1998 (c) 1998 (Euro)
+jojou                           // 28/01/1999 (c) 1998 (USA)
+jojour1                         // 08/01/1999 (c) 1998 (USA)
+jojour2                         // 02/12/1998 (c) 1998 (USA)
 redearth                        // 21/11/1996 (c) 1996 (Euro)
 redearthr1                      // 23/10/1996 (c) 1996 (Euro)
 sfiii                           // 04/02/1997 (c) 1997 (Euro)
@@ -14480,6 +14485,10 @@ ginganina                       // (c) 1987 Jaleco
 
 @source:gizmondo.cpp
 gizmondo                        //
+
+@source:gkidabc.cpp
+gkidabc                         // Genius KID ABC Fan (Germany)
+miprimlec                       // Mis Primeras Lecciones (Spain)
 
 @source:gkigt.cpp
 gkigt4                          //
@@ -33396,7 +33405,6 @@ prehisleu                       // A8003 'GT' (c) 1989
 prehisleb                       // bootleg
 
 @source:prestige.cpp
-gkidabc                         // Genius KID ABC Fan (Germany)
 gl6000sl                        // Genius Leader 6000SL (Germany)
 gl7007sl                        // Genius Leader 7007SL (Germany)
 glcolor                         // Genius Leader Color (Germany)
