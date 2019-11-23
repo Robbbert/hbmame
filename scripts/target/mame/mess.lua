@@ -2878,6 +2878,10 @@ files {
 	MAME_DIR .. "src/mame/drivers/vt1682.cpp",
 	MAME_DIR .. "src/mame/machine/vt1682_io.h",
 	MAME_DIR .. "src/mame/machine/vt1682_io.cpp",
+	MAME_DIR .. "src/mame/machine/vt1682_alu.h",
+	MAME_DIR .. "src/mame/machine/vt1682_alu.cpp",
+	MAME_DIR .. "src/mame/machine/vt1682_timer.h",
+	MAME_DIR .. "src/mame/machine/vt1682_timer.cpp",
 	MAME_DIR .. "src/mame/machine/m6502_vt1682.cpp",
 	MAME_DIR .. "src/mame/machine/m6502_vt1682.h",
 }
@@ -3978,6 +3982,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/akaiax80.cpp",
 	MAME_DIR .. "src/mame/drivers/alcat7100.cpp",
 	MAME_DIR .. "src/mame/drivers/alesis_qs.cpp",
+	MAME_DIR .. "src/mame/drivers/alfaskop41xx.cpp",
 	MAME_DIR .. "src/mame/drivers/alphasma.cpp",
 	MAME_DIR .. "src/mame/drivers/am1000.cpp",
 	MAME_DIR .. "src/mame/drivers/ampex.cpp",

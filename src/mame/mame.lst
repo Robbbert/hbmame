@@ -65,6 +65,7 @@ flagrall                        // ?
 4in1a                           // MAME based bootleg
 4in1b                           // MAME based bootleg
 60in1                           // MAME based bootleg
+rodent                          // (c) 2005 The Game Room
 
 @source:3do.cpp
 3do                             // 3DO consoles
@@ -1043,6 +1044,11 @@ sr16                            //
 
 @source:alesis_qs.cpp
 alesqs7                         //
+
+@source:alfaskop41xx.cpp
+alfaskop4110                    //
+alfaskop4120                    //
+alfaskop4101                    //
 
 @source:alg.cpp
 alg_bios                        //
@@ -2480,9 +2486,12 @@ ev1806                          // Everex EV-1806
 ev1815                          // Everex EV-1815
 ews286                          // 1986 Ericsson WS286
 ficgiovt2                       // FIC 486-GIO-VT2
+fic486kvd                       // FIC 486 KVD motherboard (486)
 ficpio2                         // 1995 FIC 486-PIO-2
 ficvipio                        // FIC 486-VIP-IO
 ficvipio2                       // FIC 486-VIP-IO2
+fic4386vchd                     // FIC 4386-VC-HD motherboard (386)
+fic4386vcv                      // FIC 4386-VC-V motherboard (486)
 ftsserv                         // 1991 Apricot FTs (Scorpion)
 aubam12s2                       // AUVA COMPUTER, INC. BAM/12-S2 motherboard (286)
 bi025c                          // BI-025C HT 12 286 motherboard (286)
@@ -2511,7 +2520,6 @@ mx83c305                        // motherboards using the MX83C305(A)(FC), MX83C
 td60c                           // TD60C motherboard (286)
 td70n                           // TD70N motherboard (386sx)
 td70a                           // TD70A and TD70AN motherboards (386sx)
-fic4386vchd                     // FIC 4386-VC-HD motherboard (386)
 opti495slc                      // motherboards using the OPTi495SLC chipset (386)
 opti495xlc                      // motherboards using the OPTi 82C495XLC chipset (386)
 op82c283                        // motherboards using the Opti F82C206, Opti 82C283 chipset (386sx)
@@ -2632,7 +2640,6 @@ alaleolx                        // RYC Alaris LEOPARD LX REV D (486)
 alim1489                        // 486 motherboards using the ALi 1487/1489 chipset
 ms4125                          // MSI MS-4125 motherboard (486)
 pkm0038s                        // DTK PKM-0038S aka Gemlight GMB-486SG motherboard (486)
-fic4386vcv                      // FIC 4386-VC-V motherboard (486)
 v4p895p3                        // QDI V4P895P3/SMT V5.0 motherboard (486)
 op82c392                        // 486 motherboards using the OPTi OPTi 82C392, 82C493, 82C206 chipset
 ls486e                          // LuckyStar LS-486E Rev:C motherboard (486)
@@ -2646,6 +2653,13 @@ hot307h                         // Shuttle HOT-307H motherboard (486)
 mb1433ucv                       // Biostar MB-1433UCV motherboard (486)
 gc10a                           // EAGLEN486 GC10A motherboard (486)
 hot419                          // Shuttle HOT-419 motherboard (486)
+ts34t25                         // Highscreen 486-25 aka Midwest Micro Elite TS34T-25 notebook
+wpc250                          // Wang PC-250/16 (286)
+suntac303                       // motherboards using the Suntac ST62C303 chipset
+abah4                           // Abit AH4(T) motherboard (486)
+abpi4                           // Abit PI4(T) motherboard (486)
+so4saw2                         // SOYO SY-4SAW2 motherboard (486)
+nat48pv                         // NAT48PV-1.00 VL motherboard (486)
 
 @source:atari_s1.cpp
 aavenger                        //
@@ -10278,6 +10292,7 @@ lzcolor64                       // Novo Tempo / LZ Equipamentos Color64
 mx1600                          // Dynacom MX-1600
 cd6809                          // Codimex CD-6809
 t4426                           // Terco 4426 CNC programming station
+trsvidtx                        // TRS-80 Videotex
 
 @source:coco3.cpp
 coco3                           // Color Computer 3 (NTSC)
@@ -10315,6 +10330,7 @@ czz50                           // Bit Corporation Chuang Zao Zhe 50
 dina                            // Telegames Dina
 onyx                            // Microdigital ONYX (Brazilian Coleco clone / unreleased prototype)
 prsarcde                        // Telegames Personal Arcade
+bit90                           // Bit Corporation Bit90
 
 @source:combatsc.cpp
 bootcamp                        // GX611 (c) 1987
@@ -15534,6 +15550,7 @@ gnw_mariocm                     // Nintendo
 gnw_mariotj                     // Nintendo
 gnw_mbaway                      // Nintendo
 gnw_mmouse                      // Nintendo
+gnw_mmousep                     // Nintendo
 gnw_mickdon                     // Nintendo
 gnw_octopus                     // Nintendo
 gnw_opanic                      // Nintendo
@@ -18429,6 +18446,8 @@ tsukande
 @source:konmedal68k.cpp
 kzaurus
 koropens
+pwrchanc
+ymcapsul
 
 @source:quickpick5.cpp
 quickp5
@@ -31103,6 +31122,7 @@ zdog
 @source:vt1682.cpp
 ii8in1
 ii32in1
+zone40                          // Zone 40
 
 @source:newbrain.cpp
 newbrain                        //
@@ -31843,6 +31863,7 @@ ataripc3                        // Atari PC3
 bw230                           // 1985 Bondwell (CGA)
 cadd810                         // CompuAdd 810
 comport                         // Compaq Portable
+coppc400                        // Cordata PPC-400 portable
 dgone                           // 1984 Data General/One
 eagle1600                       //
 eaglespirit                     // Eagle PC Spirit
@@ -31864,13 +31885,17 @@ mk88                            //
 ncrpc4i                         // NCR PC4i
 nixpc01                         // Nixdorf 8810/25 - PC01
 olivm15                         // Olivetti M15
+olystar20f                      // AEG Olympia Olystar 20F
 olytext30                       // AEG Olympia Olytext 30
 pc7000                          // 1985 Sharp PC-7000
 poisk2                          //
 sicpc1605                       // Siemens Sicomp PC16-05
 ssam88s                         //
 sx16                            // Sanyo SX-16
-zdsupers                        //
+zdsupers                        // Zenith SuperSport
+zdz150                          // Zenith Z-150 series
+zdz160                          // Zenith Z-160 series
+ledgmodd                        // Leading Edge Model D
 ledgmodm                        // Leading Edge Model M
 eaglepc2                        // Eagle PC-2
 mpx16                           // Ciarcia's Circuit Cellar Micromint MPX-16
@@ -39548,7 +39573,6 @@ jak_sbfc                        //
 lexizeus                        // Lexibook
 vii                             // KenSingTon / Jungle Soft / Siatronics Vii
 wirels60                        // Wireless 60
-zone40                          // Zone 40
 zone60                          // Zone 60
 rad_skat                        //
 rad_skatp                       //

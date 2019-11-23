@@ -10,9 +10,52 @@
     can also be configured as boot device
 */
 
+/*
+	UNIMPLEMENTED / TODO
+	
+	General VT1862:
+
+	Sound Quality (currently crackles)
+	Verify timer enable / disable behavior
+	Line Modes, High Colour Line Mode
+	Tile rowscroll modes
+	0x8000 bit in palette is 'cut through' mode, which isn't the same as transpen, some kind of palette manipulation
+	**DONE** It seems Pal1 and Pal2 should actually be separate render buffers for each palette, on which layers / sprites can be enabled, that are mixed later and can be output independently to LCD and TV? 
+		(how does this work with high colour line mode?)
+	CCIR effects (only apply to 'palette 2'?)
+	LCD Control registers
+	Internal to External DMA (glitchy)
+	Sprite limits
+	Other hardware limits (video DMA should be delayed until Vblank, some registers only take effect at Hblank)
+	Verify raster timing (might be off by a line)
+	Hardware glitches (scroll layers + sprites get offset under specific conditions, sprites sometimes missing in 2 rightmost column, bk sometimes missing in rightmost column during scroll)
+	Sleep functionality on sound cpu (broken on hardware?)
+	Interrupt controller / proper interrupt support (currently a bit hacky, only main timer and sub-timer a supported)
+	Proper IO support (enables / disables) UART, I2C etc.
+	'Capture' mode
+	Gain (zoom) for Tilemaps
+
+	Refactor into a device
+
+	+ more
+
+	Intec InterAct:
+
+	Is there meant to be a 2nd player? (many games prompt a 2nd player to start, but inputs don't appear to be read?)
+	Verify that internal ROM is blank (it isn't used)
+
+	Zone 40:
+
+	Decrypt, verify it's a good dump, verify that it's 6502 code, see how close the architecture is to 1682 (many games are the same)
+	If it has an internal ROM dump it (I don't see any obvious encrypted boot vectors in current dump)
+
+*/
+
 #include "emu.h"
 #include "machine/m6502_vt1682.h"
 #include "machine/vt1682_io.h"
+#include "machine/vt1682_alu.h"
+#include "machine/vt1682_timer.h"
 #include "machine/bankdev.h"
 #include "machine/timer.h"
 #include "sound/volt_reg.h"
@@ -23,11 +66,29 @@
 
 #define LOG_VRAM_WRITES      (1U << 1)
 #define LOG_SRAM_WRITES      (1U << 2)
+#define LOG_OTHER            (1U << 3)
 
-#define LOG_ALL           ( LOG_VRAM_WRITES | LOG_SRAM_WRITES )
+#define LOG_ALL           ( LOG_VRAM_WRITES | LOG_SRAM_WRITES | LOG_OTHER )
 
 #define VERBOSE             (0)
 #include "logmacro.h"
+
+// NTSC uses XTAL(21'477'272) Sound CPU runs at exactly this, Main CPU runs at this / 4
+// PAL  uses XTAL(26'601'712) Sound CPU runs at exactly this, Main CPU runs at this / 5
+
+// can also be used with the following
+// PAL M 21.453669MHz
+// PAL N 21.492336MHz
+
+#define MAIN_CPU_CLOCK_NTSC XTAL(21'477'272)/4
+#define SOUND_CPU_CLOCK_NTSC XTAL(21'477'272)
+#define TIMER_ALT_SPEED_NTSC (15746)
+
+#define MAIN_CPU_CLOCK_PAL XTAL(26'601'712)/5
+#define SOUND_CPU_CLOCK_PAL XTAL(26'601'712)
+#define TIMER_ALT_SPEED_PAL (15602)
+
+
 
 class vt_vt1682_state : public driver_device
 {
@@ -39,16 +100,18 @@ public:
 		m_rightdac(*this, "rightdac"),
 		m_maincpu(*this, "maincpu"),
 		m_soundcpu(*this, "soundcpu"),
+		m_maincpu_alu(*this, "mainalu"),
+		m_soundcpu_alu(*this, "soundalu"),
+		m_soundcpu_timer_a_dev(*this, "snd_timera_dev"),
+		m_soundcpu_timer_b_dev(*this, "snd_timerb_dev"),
+		m_system_timer_dev(*this, "sys_timer_dev"),
 		m_screen(*this, "screen"),
 		m_fullrom(*this, "fullrom"),
 		m_spriteram(*this, "spriteram"),
 		m_vram(*this, "vram"),
 		m_sound_share(*this, "sound_share"),
 		m_gfxdecode(*this, "gfxdecode2"),
-		m_palette(*this, "palette"),
-		m_soundcpu_timer_a(*this, "snd_timera"),
-		m_soundcpu_timer_b(*this, "snd_timerb"),
-		m_system_timer(*this, "sys_timer")
+		m_palette(*this, "palette")
 	{ }
 
 	void vt_vt1682(machine_config& config);
@@ -64,6 +127,13 @@ protected:
 private:
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_soundcpu;
+	required_device<vrt_vt1682_alu_device> m_maincpu_alu;
+	required_device<vrt_vt1682_alu_device> m_soundcpu_alu;
+
+	required_device<vrt_vt1682_timer_device> m_soundcpu_timer_a_dev;
+	required_device<vrt_vt1682_timer_device> m_soundcpu_timer_b_dev;
+	required_device<vrt_vt1682_timer_device> m_system_timer_dev;
+
 	required_device<screen_device> m_screen;
 	required_device<address_map_bank_device> m_fullrom;
 	required_device<address_map_bank_device> m_spriteram;
@@ -71,11 +141,6 @@ private:
 	required_shared_ptr<uint8_t> m_sound_share;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
-	required_device<timer_device> m_soundcpu_timer_a;
-	required_device<timer_device> m_soundcpu_timer_b;
-	required_device<timer_device> m_system_timer;
-
-
 
 	uint32_t screen_update(screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect);
 	void vt_vt1682_map(address_map& map);
@@ -332,18 +397,6 @@ private:
 
 	uint8_t m_2106_enable_reg;
 
-	uint8_t m_alu_oprand[4];
-	uint8_t m_alu_oprand_mult[2];
-	uint8_t m_alu_oprand_div[2];
-	uint8_t m_alu_out[6];
-
-	uint8_t m_2101_timer_preload_7_0;
-	uint8_t m_2102_timer_enable;
-	uint8_t m_2104_timer_preload_15_8;
-
-
-
-
 	DECLARE_READ8_MEMBER(vt1682_2100_prgbank1_r3_r);
 	DECLARE_WRITE8_MEMBER(vt1682_2100_prgbank1_r3_w);
 	DECLARE_READ8_MEMBER(vt1682_210c_prgbank1_r2_r);
@@ -399,37 +452,13 @@ private:
 	DECLARE_READ8_MEMBER(vt1682_2106_enable_regs_r);
 	DECLARE_WRITE8_MEMBER(vt1682_2106_enable_regs_w);
 
-
-	DECLARE_READ8_MEMBER(alu_out_1_r);
-	DECLARE_READ8_MEMBER(alu_out_2_r);
-	DECLARE_READ8_MEMBER(alu_out_3_r);
-	DECLARE_READ8_MEMBER(alu_out_4_r);
-	DECLARE_READ8_MEMBER(alu_out_5_r);
-	DECLARE_READ8_MEMBER(alu_out_6_r);
-
-	DECLARE_WRITE8_MEMBER(alu_oprand_1_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_2_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_3_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_4_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_5_mult_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_6_mult_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_5_div_w);
-	DECLARE_WRITE8_MEMBER(alu_oprand_6_div_w);
-
-	DECLARE_READ8_MEMBER(vt1682_2101_timer_preload_7_0_r);
-	DECLARE_WRITE8_MEMBER(vt1682_2101_timer_preload_7_0_w);
-
-	DECLARE_READ8_MEMBER(vt1682_2102_timer_enable_r);
-	DECLARE_WRITE8_MEMBER(vt1682_2102_timer_enable_w);
-
-	DECLARE_READ8_MEMBER(vt1682_2104_timer_preload_15_8_r);
-	DECLARE_WRITE8_MEMBER(vt1682_2104_timer_preload_15_8_w);
-
-	TIMER_DEVICE_CALLBACK_MEMBER(system_timer_expired);
+	DECLARE_READ8_MEMBER(vt1682_212c_prng_r);
+	DECLARE_WRITE8_MEMBER(vt1682_212c_prng_seed_w);
 
 	/* Hacky */
 
-	DECLARE_READ8_MEMBER(irq_vector_hack_r);
+	DECLARE_READ8_MEMBER(soundcpu_irq_vector_hack_r);
+	DECLARE_READ8_MEMBER(maincpu_irq_vector_hack_r);
 
 	/* System Helpers */
 
@@ -491,67 +520,12 @@ private:
 
 	/* Sound CPU Related*/
 
-	uint8_t m_soundcpu_2100_timer_a_preload_7_0;
-	uint8_t m_soundcpu_2101_timer_a_preload_15_8;
-	uint8_t m_soundcpu_2102_timer_a_enable;
-	uint8_t m_soundcpu_2110_timer_b_preload_7_0;
-	uint8_t m_soundcpu_2111_timer_b_preload_15_8;
-	uint8_t m_soundcpu_2112_timer_b_enable;
-
-	uint8_t m_soundcpu_alu_oprand[4];
-	uint8_t m_soundcpu_alu_oprand_mult[2];
-	uint8_t m_soundcpu_alu_oprand_div[2];
-	uint8_t m_soundcpu_alu_out[6];
-
 	uint8_t m_soundcpu_2118_dacleft_7_0;
 	uint8_t m_soundcpu_2119_dacleft_15_8;
 	uint8_t m_soundcpu_211a_dacright_7_0;
 	uint8_t m_soundcpu_211b_dacright_15_8;
 
-
-	DECLARE_READ8_MEMBER(vt1682_soundcpu_2100_timer_a_preload_7_0_r);
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2100_timer_a_preload_7_0_w);
-
-	DECLARE_READ8_MEMBER(vt1682_soundcpu_2101_timer_a_preload_15_8_r);
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2101_timer_a_preload_15_8_w);
-
-	DECLARE_READ8_MEMBER(vt1682_soundcpu_2102_timer_a_enable_r);
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2102_timer_a_enable_w);
-
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2103_timer_a_irqclear_w);
-
-	DECLARE_READ8_MEMBER(vt1682_soundcpu_2110_timer_b_preload_7_0_r);
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2110_timer_b_preload_7_0_w);
-
-	DECLARE_READ8_MEMBER(vt1682_soundcpu_2111_timer_b_preload_15_8_r);
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2111_timer_b_preload_15_8_w);
-
-	DECLARE_READ8_MEMBER(vt1682_soundcpu_2112_timer_b_enable_r);
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2112_timer_b_enable_w);
-
-	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2113_timer_b_irqclear_w);
-
-
 	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_211c_reg_irqctrl_w);
-
-	TIMER_DEVICE_CALLBACK_MEMBER(soundcpu_timer_a_expired);
-	TIMER_DEVICE_CALLBACK_MEMBER(soundcpu_timer_b_expired);
-
-	DECLARE_READ8_MEMBER(soundcpu_alu_out_1_r);
-	DECLARE_READ8_MEMBER(soundcpu_alu_out_2_r);
-	DECLARE_READ8_MEMBER(soundcpu_alu_out_3_r);
-	DECLARE_READ8_MEMBER(soundcpu_alu_out_4_r);
-	DECLARE_READ8_MEMBER(soundcpu_alu_out_5_r);
-	DECLARE_READ8_MEMBER(soundcpu_alu_out_6_r);
-
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_1_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_2_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_3_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_4_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_5_mult_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_6_mult_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_5_div_w);
-	DECLARE_WRITE8_MEMBER(soundcpu_alu_oprand_6_div_w);
 
 	DECLARE_READ8_MEMBER(vt1682_soundcpu_2118_dacleft_7_0_r);
 	DECLARE_WRITE8_MEMBER(vt1682_soundcpu_2118_dacleft_7_0_w);
@@ -564,6 +538,25 @@ private:
 
 	/* Support */
 
+	DECLARE_WRITE_LINE_MEMBER(soundcpu_timera_irq);
+	DECLARE_WRITE_LINE_MEMBER(soundcpu_timerb_irq);
+
+	DECLARE_WRITE_LINE_MEMBER(maincpu_timer_irq);
+
+	DECLARE_WRITE8_MEMBER(vt1682_timer_enable_trampoline_w)
+	{
+		// this is used for raster interrpt effects, despite not being a scanline timer, so knowing when it triggers is useful, so trampoline it to avoid passing m_screen to the device
+		LOGMASKED(LOG_OTHER, "%s: vt1682_timer_enable_trampoline_w: %02x @ position y%d, x%d\n", machine().describe_context(), data, m_screen->vpos(), m_screen->hpos());
+		m_system_timer_dev->vt1682_timer_enable_w(space, offset, data);
+	};
+
+	DECLARE_WRITE8_MEMBER(vt1682_timer_preload_15_8_trampoline_w)
+	{
+		LOGMASKED(LOG_OTHER, "%s: vt1682_timer_preload_15_8_trampoline_w: %02x @ position y%d, x%d\n", machine().describe_context(), data, m_screen->vpos(), m_screen->hpos());
+		m_system_timer_dev->vt1682_timer_preload_15_8_w(space, offset, data);
+	};
+
+
 	void update_banks();
 	uint8_t translate_prg0select(uint8_t tp20_tp13);
 	uint32_t translate_address_4000_to_7fff(uint16_t address);
@@ -572,16 +565,20 @@ private:
 	DECLARE_READ8_MEMBER(rom_4000_to_7fff_r);
 	DECLARE_READ8_MEMBER(rom_8000_to_ffff_r);
 
-	INTERRUPT_GEN_MEMBER(nmi);
+	TIMER_DEVICE_CALLBACK_MEMBER(scanline);
 
-	bitmap_ind8 m_priority_bitmap;
+	bitmap_ind8 m_pal2_priority_bitmap;
+	bitmap_ind8 m_pal1_priority_bitmap;
+	bitmap_ind8 m_pal2_pix_bitmap;
+	bitmap_ind8 m_pal1_pix_bitmap;
+
 	void setup_video_pages(int which, int tilesize, int vs, int hs, int y8, int x8, uint16_t* pagebases);
 	int get_address_for_tilepos(int x, int y, int tilesize, uint16_t* pagebases);
 
-	void draw_tile_pixline(int segment, int tile, int yy, int x, int y, int palbase, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect);
-	void draw_tile(int segment, int tile, int x, int y, int palbase, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect);
-	void draw_layer(int which, int opaque, screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect);
-	void draw_sprites(screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect);
+	void draw_tile_pixline(int segment, int tile, int yy, int x, int y, int palselect, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, const rectangle& cliprect);
+	void draw_tile(int segment, int tile, int x, int y, int palselect, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, const rectangle& cliprect);
+	void draw_layer(int which, int opaque, const rectangle& cliprect);
+	void draw_sprites(const rectangle& cliprect);
 };
 
 
@@ -599,14 +596,14 @@ public:
 	void intech_interact(machine_config& config);
 
 	DECLARE_READ8_MEMBER(porta_r);
-	DECLARE_READ8_MEMBER(portb_r) { return 0x00;/*uint8_t ret = machine().rand() & 0xf; logerror("%s: portb_r returning: %1x\n", machine().describe_context(), ret); return ret;*/ };
+	DECLARE_READ8_MEMBER(portb_r) { return 0x00;/*uint8_t ret = machine().rand() & 0xf; LOGMASKED(LOG_OTHER, "%s: portb_r returning: %1x\n", machine().describe_context(), ret); return ret;*/ };
 	DECLARE_READ8_MEMBER(portc_r);
-	DECLARE_READ8_MEMBER(portd_r) { return 0x00;/*uint8_t ret = machine().rand() & 0xf; logerror("%s: portd_r returning: %1x\n", machine().describe_context(), ret); return ret;*/ };
+	DECLARE_READ8_MEMBER(portd_r) { return 0x00;/*uint8_t ret = machine().rand() & 0xf; LOGMASKED(LOG_OTHER, "%s: portd_r returning: %1x\n", machine().describe_context(), ret); return ret;*/ };
 
 	DECLARE_WRITE8_MEMBER(porta_w);
 	DECLARE_WRITE8_MEMBER(portb_w);
-	DECLARE_WRITE8_MEMBER(portc_w) { logerror("%s: portc_w writing: %1x\n", machine().describe_context(), data & 0xf); };
-	DECLARE_WRITE8_MEMBER(portd_w) { logerror("%s: portd_w writing: %1x\n", machine().describe_context(), data & 0xf); };
+	DECLARE_WRITE8_MEMBER(portc_w) { LOGMASKED(LOG_OTHER, "%s: portc_w writing: %1x\n", machine().describe_context(), data & 0xf); };
+	DECLARE_WRITE8_MEMBER(portd_w) { LOGMASKED(LOG_OTHER, "%s: portd_w writing: %1x\n", machine().describe_context(), data & 0xf); };
 
 protected:
 	virtual void machine_start() override;
@@ -621,14 +618,33 @@ private:
 	required_ioport m_io_p2;
 	required_ioport m_io_p3;
 	required_ioport m_io_p4;
+};
 
+class zone40_state : public vt_vt1682_state
+{
+public:
+	zone40_state(const machine_config& mconfig, device_type type, const char* tag) :
+		vt_vt1682_state(mconfig, type, tag)
+	{ }
 
+	void init_zone40();
+
+protected:
+
+private:
 };
 
 void vt_vt1682_state::video_start()
 {
-	m_screen->register_screen_bitmap(m_priority_bitmap);
-	m_priority_bitmap.fill(0xff);
+	m_screen->register_screen_bitmap(m_pal2_priority_bitmap);
+	m_screen->register_screen_bitmap(m_pal1_priority_bitmap);
+	m_screen->register_screen_bitmap(m_pal2_pix_bitmap);
+	m_screen->register_screen_bitmap(m_pal1_pix_bitmap);
+
+	m_pal2_priority_bitmap.fill(0xff);
+	m_pal1_priority_bitmap.fill(0xff);
+	m_pal2_pix_bitmap.fill(0xff);
+	m_pal1_pix_bitmap.fill(0xff);
 }
 
 
@@ -721,28 +737,7 @@ void vt_vt1682_state::machine_start()
 
 	save_item(NAME(m_2106_enable_reg));
 
-	save_item(NAME(m_alu_oprand));
-	save_item(NAME(m_alu_oprand_mult));
-	save_item(NAME(m_alu_oprand_div));
-	save_item(NAME(m_alu_out));
-
-	save_item(NAME(m_2101_timer_preload_7_0));
-	save_item(NAME(m_2102_timer_enable));
-	save_item(NAME(m_2104_timer_preload_15_8));
-
 	/* Sound CPU */
-
-	save_item(NAME(m_soundcpu_2100_timer_a_preload_7_0));
-	save_item(NAME(m_soundcpu_2101_timer_a_preload_15_8));
-	save_item(NAME(m_soundcpu_2102_timer_a_enable));
-	save_item(NAME(m_soundcpu_2110_timer_b_preload_7_0));
-	save_item(NAME(m_soundcpu_2111_timer_b_preload_15_8));
-	save_item(NAME(m_soundcpu_2112_timer_b_enable));
-
-	save_item(NAME(m_soundcpu_alu_oprand));
-	save_item(NAME(m_soundcpu_alu_oprand_mult));
-	save_item(NAME(m_soundcpu_alu_oprand_div));
-	save_item(NAME(m_soundcpu_alu_out));
 
 	save_item(NAME(m_soundcpu_2118_dacleft_7_0));
 	save_item(NAME(m_soundcpu_2119_dacleft_15_8));
@@ -844,42 +839,7 @@ void vt_vt1682_state::machine_reset()
 
 	m_2106_enable_reg = 0;
 
-	for (int i=0;i<4;i++)
-		m_alu_oprand[i] = 0;
-
-	for (int i = 0; i < 2; i++)
-	{
-		m_alu_oprand_mult[i] = 0;
-		m_alu_oprand_div[i] = 0;
-	}
-
-	for (int i=0;i<6;i++)
-		m_alu_out[i] = 0;
-
-	m_2101_timer_preload_7_0 = 0;
-	m_2102_timer_enable = 0;
-	m_2104_timer_preload_15_8 = 0;
-
 	/* Sound CPU */
-
-	m_soundcpu_2100_timer_a_preload_7_0 = 0;
-	m_soundcpu_2101_timer_a_preload_15_8 = 0;
-	m_soundcpu_2102_timer_a_enable = 0;
-	m_soundcpu_2110_timer_b_preload_7_0 = 0;
-	m_soundcpu_2111_timer_b_preload_15_8 = 0;
-	m_soundcpu_2112_timer_b_enable = 0;
-
-	for (int i=0;i<4;i++)
-		m_soundcpu_alu_oprand[i] = 0;
-
-	for (int i = 0; i < 2; i++)
-	{
-		m_soundcpu_alu_oprand_mult[i] = 0;
-		m_soundcpu_alu_oprand_div[i] = 0;
-	}
-
-	for (int i=0;i<6;i++)
-		m_soundcpu_alu_out[i] = 0;
 
 	m_soundcpu_2118_dacleft_7_0 = 0;
 	m_soundcpu_2119_dacleft_15_8 = 0;
@@ -1157,13 +1117,13 @@ READ8_MEMBER(vt_vt1682_state::rom_8000_to_ffff_r)
 READ8_MEMBER(vt_vt1682_state::vt1682_2000_r)
 {
 	uint8_t ret = m_2000;
-	logerror("%s: vt1682_2000_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2000_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2000_w)
 {
-	logerror("%s: vt1682_2000_w writing: %02x (Capture:%1x Slave:%1x NMI_Enable:%1x)\n", machine().describe_context(), data, (data & 0x10)>>4, (data & 0x08)>>3, (data & 0x01)>>0 );
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2000_w writing: %02x (Capture:%1x Slave:%1x NMI_Enable:%1x)\n", machine().describe_context(), data, (data & 0x10)>>4, (data & 0x08)>>3, (data & 0x01)>>0 );
 	m_2000 = data;
 }
 
@@ -1201,13 +1161,13 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2001_vblank_r)
 	ret |= sp_err << 6;
 	ret |= vblank << 7;
 
-	logerror("%s: vt1682_2001_vblank_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2001_vblank_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2001_w)
 {
-	logerror("%s: vt1682_2001_w writing: %02x (ext_clk_div:%1x sp_ini:%1x bk_ini:%1x)\n", machine().describe_context(), data,
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2001_w writing: %02x (ext_clk_div:%1x sp_ini:%1x bk_ini:%1x)\n", machine().describe_context(), data,
 		(data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0);
 
 	m_2001 = data;
@@ -1230,13 +1190,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2001_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2002_sprramaddr_2_0_r)
 {
 	uint8_t ret = m_2002_sprramaddr_2_0;
-	logerror("%s: vt1682_2002_sprramaddr_2_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2002_sprramaddr_2_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2002_sprramaddr_2_0_w)
 {
-	logerror("%s: vt1682_2002_sprramaddr_2_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2002_sprramaddr_2_0_w writing: %02x\n", machine().describe_context(), data);
 	m_2002_sprramaddr_2_0 = data & 0x07;
 }
 
@@ -1256,13 +1216,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2002_sprramaddr_2_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2003_sprramaddr_10_3_r)
 {
 	uint8_t ret = m_2003_sprramaddr_10_3;
-	logerror("%s: vt1682_2003_sprramaddr_10_3_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2003_sprramaddr_10_3_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2003_sprramaddr_10_3_w)
 {
-	logerror("%s: vt1682_2003_sprramaddr_10_3_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2003_sprramaddr_10_3_w writing: %02x\n", machine().describe_context(), data);
 	m_2003_sprramaddr_10_3 = data;
 }
 
@@ -1283,9 +1243,9 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2004_sprram_data_r)
 {
 	uint16_t spriteram_address = get_spriteram_addr();
 	uint8_t ret = m_spriteram->read8(spriteram_address);
-	logerror("%s: vt1682_2004_sprram_data_r returning: %02x from SpriteRam Address %04x\n", machine().describe_context(), ret, spriteram_address);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2004_sprram_data_r returning: %02x from SpriteRam Address %04x\n", machine().describe_context(), ret, spriteram_address);
 	// no increment on read?
-
+	// documentation indicates this doesn't work
 	return ret;
 }
 
@@ -1315,13 +1275,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2004_sprram_data_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2005_vramaddr_7_0_r)
 {
 	uint8_t ret = m_2005_vramaddr_7_0;
-	logerror("%s: vt1682_2005_vramaddr_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2005_vramaddr_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2005_vramaddr_7_0_w)
 {
-	logerror("%s: vt1682_2005_vramaddr_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2005_vramaddr_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_2005_vramaddr_7_0 = data;
 }
 
@@ -1341,13 +1301,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2005_vramaddr_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2006_vramaddr_15_8_r)
 {
 	uint8_t ret = m_2006_vramaddr_15_8;
-	logerror("%s: vt1682_2006_vramaddr_15_8 returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2006_vramaddr_15_8 returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2006_vramaddr_15_8_w)
 {
-	logerror("%s: vt1682_2006_vramaddr_15_8 writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2006_vramaddr_15_8 writing: %02x\n", machine().describe_context(), data);
 	m_2006_vramaddr_15_8 = data;
 }
 
@@ -1369,9 +1329,9 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2007_vram_data_r)
 {
 	uint16_t vram_address = get_vram_addr();
 	uint8_t ret = m_vram->read8(vram_address);
-	logerror("%s: vt1682_2007_vram_data_r returning: %02x from VideoRam Address %04x\n", machine().describe_context(), ret, vram_address);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2007_vram_data_r returning: %02x from VideoRam Address %04x\n", machine().describe_context(), ret, vram_address);
 	// no increment on read?
-
+	// documentation indicates this doesn't work
 	return ret;
 }
 
@@ -1401,13 +1361,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2007_vram_data_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2008_lcd_vs_delay_r)
 {
 	uint8_t ret = m_2008_lcd_vs_delay;
-	logerror("%s: vt1682_2008_lcd_vs_delay_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2008_lcd_vs_delay_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2008_lcd_vs_delay_w)
 {
-	logerror("%s: vt1682_2008_lcd_vs_delay_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2008_lcd_vs_delay_w writing: %02x\n", machine().describe_context(), data);
 	m_2008_lcd_vs_delay = data;
 }
 
@@ -1427,13 +1387,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2008_lcd_vs_delay_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2009_lcd_hs_delay_7_0_r)
 {
 	uint8_t ret = m_2009_lcd_hs_delay_7_0;
-	logerror("%s: vt1682_2009_lcd_hs_delay_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2009_lcd_hs_delay_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2009_lcd_hs_delay_7_0_w)
 {
-	logerror("%s: vt1682_2009_lcd_hs_delay_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2009_lcd_hs_delay_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_2009_lcd_hs_delay_7_0 = data;
 }
 
@@ -1453,13 +1413,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2009_lcd_hs_delay_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_200a_lcd_fr_delay_7_0_r)
 {
 	uint8_t ret = m_200a_lcd_fr_delay_7_0;
-	logerror("%s: vt1682_200a_lcd_fr_delay_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200a_lcd_fr_delay_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_200a_lcd_fr_delay_7_0_w)
 {
-	logerror("%s: vt1682_200a_lcd_fr_delay_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200a_lcd_fr_delay_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_200a_lcd_fr_delay_7_0 = data;
 }
 
@@ -1480,13 +1440,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_200a_lcd_fr_delay_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_200b_misc_vregs0_r)
 {
 	uint8_t ret = m_200b_misc_vregs0;
-	logerror("%s: vt1682_200b_misc_vregs0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200b_misc_vregs0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_200b_misc_vregs0_w)
 {
-	logerror("%s: vt1682_200b_misc_vregs0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200b_misc_vregs0_w writing: %02x\n", machine().describe_context(), data);
 	m_200b_misc_vregs0 = data;
 }
 
@@ -1506,13 +1466,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_200b_misc_vregs0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_200c_misc_vregs1_r)
 {
 	uint8_t ret = m_200c_misc_vregs1;
-	logerror("%s: vt1682_200c_misc_vregs1_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200c_misc_vregs1_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_200c_misc_vregs1_w)
 {
-	logerror("%s: vt1682_200c_misc_vregs1_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200c_misc_vregs1_w writing: %02x\n", machine().describe_context(), data);
 	m_200c_misc_vregs1 = data;
 }
 
@@ -1532,13 +1492,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_200c_misc_vregs1_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_200d_misc_vregs2_r)
 {
 	uint8_t ret = m_200d_misc_vregs2;
-	logerror("%s: vt1682_200d_misc_vregs2_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200d_misc_vregs2_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_200d_misc_vregs2_w)
 {
-	logerror("%s: vt1682_200d_misc_vregs2_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200d_misc_vregs2_w writing: %02x\n", machine().describe_context(), data);
 	m_200d_misc_vregs2 = data;
 }
 
@@ -1548,24 +1508,24 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_200d_misc_vregs2_w)
 
     0x80 - (unused)
     0x40 - (unused)
-    0x20 - Blend2
-    0x10 - Blend1
-    0x08 - Palette 2 Out Sel
-    0x04 - Palette 2 Out Sel
-    0x02 - Palette 1 Out Sel
-    0x01 - Palette 1 Out Sel
+    0x20 - Blend2 - LCD output blending  0 = Overlapped (use depth) 1 = 50% blend Pal1/Pal2
+    0x10 - Blend1 - TV output blending   0 = Overlapped (use depth) 1 = 50% blend Pal1/Pal2
+    0x08 - Palette 2 Out Sel 'SB4' \
+    0x04 - Palette 2 Out Sel 'SB6' /- 0 = output Palette 2 Disable, 1 = output Palette 2 to LCD only, 2 = Output Palette 2 to TV only, 3 = Output Palette 2 to both
+    0x02 - Palette 1 Out Sel 'SB3' \
+    0x01 - Palette 1 Out Sel 'SB5' /- 0 = output Palette 1 Disable, 1 = output Palette 1 to LCD only, 2 = Output Palette 1 to TV only, 3 = Output Palette 1 to both
 */
 
 READ8_MEMBER(vt_vt1682_state::vt1682_200e_blend_pal_sel_r)
 {
 	uint8_t ret = m_200e_blend_pal_sel;
-	logerror("%s: vt1682_200e_blend_pal_sel_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200e_blend_pal_sel_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_200e_blend_pal_sel_w)
 {
-	logerror("%s: vt1682_200e_blend_pal_sel_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200e_blend_pal_sel_w writing: %02x\n", machine().describe_context(), data);
 	m_200e_blend_pal_sel = data;
 }
 
@@ -1576,22 +1536,22 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_200e_blend_pal_sel_w)
     0x40 - (unused)
     0x20 - (unused)
     0x10 - (unused)
-    0x08 - Bk2 Palette Select
-    0x04 - Bk2 Palette Select
-    0x02 - Bk1 Palette Select
-    0x01 - Bk1 Palette Select
+    0x08 - Bk2 Palette Select 'BK2 SB2'
+    0x04 - Bk2 Palette Select 'BK2 SB1'
+    0x02 - Bk1 Palette Select 'BK1 SB2'
+    0x01 - Bk1 Palette Select 'BK1 SB1'
 */
 
 READ8_MEMBER(vt_vt1682_state::vt1682_200f_bk_pal_sel_r)
 {
 	uint8_t ret = m_200f_bk_pal_sel;
-	logerror("%s: vt1682_200f_bk_pal_sel_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200f_bk_pal_sel_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_200f_bk_pal_sel_w)
 {
-	logerror("%s: vt1682_200f_bk_pal_sel_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_200f_bk_pal_sel_w writing: %02x\n", machine().describe_context(), data);
 	m_200f_bk_pal_sel = data;
 }
 
@@ -1611,13 +1571,15 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_200f_bk_pal_sel_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2010_bk1_xscroll_7_0_r)
 {
 	uint8_t ret = m_xscroll_7_0_bk[0];
-	logerror("%s: vt1682_2010_bk1_xscroll_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2010_bk1_xscroll_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2010_bk1_xscroll_7_0_w)
 {
-	logerror("%s: vt1682_2010_bk1_xscroll_7_0_w writing: %02x\n", machine().describe_context(), data);
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2010_bk1_xscroll_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_xscroll_7_0_bk[0] = data;
 }
 
@@ -1637,13 +1599,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2010_bk1_xscroll_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2011_bk1_yscoll_7_0_r)
 {
 	uint8_t ret = m_ysrcoll_7_0_bk[0];
-	logerror("%s: vt1682_2011_bk1_yscoll_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2011_bk1_yscoll_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2011_bk1_yscoll_7_0_w)
 {
-	logerror("%s: vt1682_2011_bk1_yscoll_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2011_bk1_yscoll_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_ysrcoll_7_0_bk[0] = data;
 }
 
@@ -1664,14 +1626,16 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2011_bk1_yscoll_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2012_bk1_scroll_control_r)
 {
 	uint8_t ret = m_scroll_control_bk[0];
-	logerror("%s: vt1682_2012_bk1_scroll_control_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2012_bk1_scroll_control_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2012_bk1_scroll_control_w)
 {
-	logerror("%s: vt1682_2012_bk1_scroll_control_w writing: %02x (hclr: %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2012_bk1_scroll_control_w writing: %02x (hclr: %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
 		(data & 0x10) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0);
 
 	m_scroll_control_bk[0] = data;
@@ -1694,13 +1658,15 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2012_bk1_scroll_control_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2013_bk1_main_control_r)
 {
 	uint8_t ret = m_main_control_bk[0];
-	logerror("%s: vt1682_2013_bk1_main_control_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2013_bk1_main_control_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2013_bk1_main_control_w)
 {
-	logerror("%s: vt1682_2013_bk1_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x linemode:%01x tilesize:%01x)\n", machine().describe_context(), data,
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2013_bk1_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x linemode:%01x tilesize:%01x)\n", machine().describe_context(), data,
 		(data & 0x80) >> 7, (data & 0x40) >> 6, (data & 0x30) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0 );
 
 	m_main_control_bk[0] = data;
@@ -1723,13 +1689,15 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2013_bk1_main_control_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2014_bk2_xscroll_7_0_r)
 {
 	uint8_t ret = m_xscroll_7_0_bk[1];
-	logerror("%s: vt1682_2014_bk2_xscroll_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2014_bk2_xscroll_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2014_bk2_xscroll_7_0_w)
 {
-	logerror("%s: vt1682_2014_bk2_xscroll_7_0_w writing: %02x\n", machine().describe_context(), data);
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2014_bk2_xscroll_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_xscroll_7_0_bk[1] = data;
 }
 
@@ -1749,13 +1717,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2014_bk2_xscroll_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2015_bk2_yscoll_7_0_r)
 {
 	uint8_t ret = m_ysrcoll_7_0_bk[1];
-	logerror("%s: vt1682_2015_bk2_yscoll_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2015_bk2_yscoll_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2015_bk2_yscoll_7_0_w)
 {
-	logerror("%s: vt1682_2015_bk2_yscoll_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2015_bk2_yscoll_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_ysrcoll_7_0_bk[1] = data;
 }
 
@@ -1776,14 +1744,16 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2015_bk2_yscoll_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2016_bk2_scroll_control_r)
 {
 	uint8_t ret = m_scroll_control_bk[1];
-	logerror("%s: vt1682_2016_bk2_scroll_control_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2016_bk2_scroll_control_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2016_bk2_scroll_control_w)
 {
-	logerror("%s: vt1682_2016_bk2_scroll_control_w writing: %02x ((invalid): %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2016_bk2_scroll_control_w writing: %02x ((invalid): %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
 		(data & 0x10) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0);
 
 	m_scroll_control_bk[1] = data;
@@ -1806,13 +1776,15 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2016_bk2_scroll_control_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2017_bk2_main_control_r)
 {
 	uint8_t ret = m_main_control_bk[1];
-	logerror("%s: vt1682_2017_bk2_main_control_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2017_bk2_main_control_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2017_bk2_main_control_w)
 {
-	logerror("%s: vt1682_2017_bk2_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x (invalid):%01x tilesize:%01x)\n", machine().describe_context(), data,
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2017_bk2_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x (invalid):%01x tilesize:%01x)\n", machine().describe_context(), data,
 		(data & 0x80) >> 7, (data & 0x40) >> 6, (data & 0x30) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0 );
 
 	m_main_control_bk[1] = data;
@@ -1835,13 +1807,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2017_bk2_main_control_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2018_spregs_r)
 {
 	uint8_t ret = m_2018_spregs;
-	logerror("%s: vt1682_2018_spregs_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2018_spregs_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2018_spregs_w)
 {
-	logerror("%s: vt1682_2018_spregs_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2018_spregs_w writing: %02x\n", machine().describe_context(), data);
 	m_2018_spregs = data;
 }
 
@@ -1861,13 +1833,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2018_spregs_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2019_bkgain_r)
 {
 	uint8_t ret = m_2019_bkgain;
-	logerror("%s: vt1682_2019_bkgain_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2019_bkgain_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2019_bkgain_w)
 {
-	logerror("%s: vt1682_2019_bkgain_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2019_bkgain_w writing: %02x\n", machine().describe_context(), data);
 	m_2019_bkgain = data;
 }
 
@@ -1888,13 +1860,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2019_bkgain_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_201a_sp_segment_7_0_r)
 {
 	uint8_t ret = m_201a_sp_segment_7_0;
-	logerror("%s: vt1682_201a_sp_segment_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201a_sp_segment_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_201a_sp_segment_7_0_w)
 {
-	logerror("%s: vt1682_201a_sp_segment_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201a_sp_segment_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_201a_sp_segment_7_0 = data;
 }
 
@@ -1914,13 +1886,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_201a_sp_segment_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_201b_sp_segment_11_8_r)
 {
 	uint8_t ret = m_201b_sp_segment_11_8;
-	logerror("%s: vt1682_201b_sp_segment_11_8_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201b_sp_segment_11_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_201b_sp_segment_11_8_w)
 {
-	logerror("%s: vt1682_201b_sp_segment_11_8_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201b_sp_segment_11_8_w writing: %02x\n", machine().describe_context(), data);
 	m_201b_sp_segment_11_8 = data & 0x0f;
 }
 
@@ -1941,13 +1913,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_201b_sp_segment_11_8_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_201c_bk1_segment_7_0_r)
 {
 	uint8_t ret = m_segment_7_0_bk[0];
-	logerror("%s: vt1682_201c_bk1_segment_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201c_bk1_segment_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_201c_bk1_segment_7_0_w)
 {
-	logerror("%s: vt1682_201c_bk1_segment_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201c_bk1_segment_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_segment_7_0_bk[0] = data;
 }
 
@@ -1967,13 +1939,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_201c_bk1_segment_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_201d_bk1_segment_11_8_r)
 {
 	uint8_t ret = m_segment_11_8_bk[0];
-	logerror("%s: vt1682_201d_bk1_segment_11_8_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201d_bk1_segment_11_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_201d_bk1_segment_11_8_w)
 {
-	logerror("%s: vt1682_201d_bk1_segment_11_8_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201d_bk1_segment_11_8_w writing: %02x\n", machine().describe_context(), data);
 	m_segment_11_8_bk[0] = data & 0x0f;
 }
 
@@ -1994,13 +1966,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_201d_bk1_segment_11_8_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_201e_bk2_segment_7_0_r)
 {
 	uint8_t ret = m_segment_7_0_bk[1];
-	logerror("%s: vt1682_201e_bk2_segment_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201e_bk2_segment_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_201e_bk2_segment_7_0_w)
 {
-	logerror("%s: vt1682_201e_bk2_segment_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201e_bk2_segment_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_segment_7_0_bk[1] = data;
 }
 
@@ -2020,13 +1992,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_201e_bk2_segment_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_201f_bk2_segment_11_8_r)
 {
 	uint8_t ret = m_segment_11_8_bk[1];
-	logerror("%s: vt1682_201f_bk2_segment_11_8_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201f_bk2_segment_11_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_201f_bk2_segment_11_8_w)
 {
-	logerror("%s: vt1682_201f_bk2_segment_11_8_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_201f_bk2_segment_11_8_w writing: %02x\n", machine().describe_context(), data);
 	m_segment_11_8_bk[1] = data & 0x0f;
 }
 
@@ -2046,14 +2018,19 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_201f_bk2_segment_11_8_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2020_bk_linescroll_r)
 {
 	uint8_t ret = m_2020_bk_linescroll;
-	logerror("%s: vt1682_2020_bk_linescroll_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2020_bk_linescroll_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2020_bk_linescroll_w)
 {
-	logerror("%s: vt1682_2020_bk_linescroll_w writing: %02x\n", machine().describe_context(), data);
+	m_screen->update_partial(m_screen->vpos());
+
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2020_bk_linescroll_w writing: %02x\n", machine().describe_context(), data);
 	m_2020_bk_linescroll = data;
+
+	if (data)
+		popmessage("linescroll %02x!\n", data);
 }
 
 /*
@@ -2072,13 +2049,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2020_bk_linescroll_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2021_lum_offset_r)
 {
 	uint8_t ret = m_2021_lum_offset;
-	logerror("%s: vt1682_2021_lum_offset_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2021_lum_offset_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2021_lum_offset_w)
 {
-	logerror("%s: vt1682_2021_lum_offset_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2021_lum_offset_w writing: %02x\n", machine().describe_context(), data);
 	m_2021_lum_offset = data;
 }
 
@@ -2099,13 +2076,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2021_lum_offset_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2022_saturation_misc_r)
 {
 	uint8_t ret = m_2022_saturation_misc;
-	logerror("%s: vt1682_2022_saturation_misc_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2022_saturation_misc_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2022_saturation_misc_w)
 {
-	logerror("%s: vt1682_2022_saturation_misc_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2022_saturation_misc_w writing: %02x\n", machine().describe_context(), data);
 	m_2022_saturation_misc = data;
 }
 
@@ -2125,13 +2102,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2022_saturation_misc_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2023_lightgun_reset_r)
 {
 	uint8_t ret = m_2023_lightgun_reset;
-	logerror("%s: vt1682_2023_lightgun_reset_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2023_lightgun_reset_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2023_lightgun_reset_w)
 {
-	logerror("%s: vt1682_2023_lightgun_reset_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2023_lightgun_reset_w writing: %02x\n", machine().describe_context(), data);
 	m_2023_lightgun_reset = data;
 }
 
@@ -2151,13 +2128,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2023_lightgun_reset_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2024_lightgun1_y_r)
 {
 	uint8_t ret = m_2024_lightgun1_y;
-	logerror("%s: vt1682_2024_lightgun1_y_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2024_lightgun1_y_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2024_lightgun1_y_w)
 {
-	logerror("%s: vt1682_2024_lightgun1_y_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2024_lightgun1_y_w writing: %02x\n", machine().describe_context(), data);
 	m_2024_lightgun1_y = data;
 }
 
@@ -2177,13 +2154,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2024_lightgun1_y_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2025_lightgun1_x_r)
 {
 	uint8_t ret = m_2025_lightgun1_x;
-	logerror("%s: vt1682_2025_lightgun1_x_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2025_lightgun1_x_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2025_lightgun1_x_w)
 {
-	logerror("%s: vt1682_2025_lightgun1_x_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2025_lightgun1_x_w writing: %02x\n", machine().describe_context(), data);
 	m_2025_lightgun1_x = data;
 }
 
@@ -2203,13 +2180,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2025_lightgun1_x_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2026_lightgun2_y_r)
 {
 	uint8_t ret = m_2026_lightgun2_y;
-	logerror("%s: vt1682_2026_lightgun2_y_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2026_lightgun2_y_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2026_lightgun2_y_w)
 {
-	logerror("%s: vt1682_2026_lightgun2_y_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2026_lightgun2_y_w writing: %02x\n", machine().describe_context(), data);
 	m_2026_lightgun2_y = data;
 }
 
@@ -2230,13 +2207,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2026_lightgun2_y_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2027_lightgun2_x_r)
 {
 	uint8_t ret = m_2027_lightgun2_x;
-	logerror("%s: vt1682_2027_lightgun2_x_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2027_lightgun2_x_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2027_lightgun2_x_w)
 {
-	logerror("%s: vt1682_2027_lightgun2_x_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2027_lightgun2_x_w writing: %02x\n", machine().describe_context(), data);
 	m_2027_lightgun2_x = data;
 }
 
@@ -2257,13 +2234,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2027_lightgun2_x_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2028_r)
 {
 	uint8_t ret = m_2028;
-	logerror("%s: vt1682_2028_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2028_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2028_w)
 {
-	logerror("%s: vt1682_2028_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2028_w writing: %02x\n", machine().describe_context(), data);
 	m_2028 = data;
 }
 
@@ -2283,13 +2260,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2028_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2029_r)
 {
 	uint8_t ret = m_2029;
-	logerror("%s: vt1682_2029_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2029_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2029_w)
 {
-	logerror("%s: vt1682_2029_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2029_w writing: %02x\n", machine().describe_context(), data);
 	m_2029 = data;
 }
 
@@ -2311,13 +2288,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2029_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_202a_r)
 {
 	uint8_t ret = m_202a;
-	logerror("%s: vt1682_202a_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_202a_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_202a_w)
 {
-	logerror("%s: vt1682_202a_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_202a_w writing: %02x\n", machine().describe_context(), data);
 	m_202a = data;
 }
 
@@ -2339,13 +2316,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_202a_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_202b_r)
 {
 	uint8_t ret = m_202b;
-	logerror("%s: vt1682_202b_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_202b_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_202b_w)
 {
-	logerror("%s: vt1682_202b_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_202b_w writing: %02x\n", machine().describe_context(), data);
 	m_202b = data;
 }
 
@@ -2370,13 +2347,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_202b_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_202e_r)
 {
 	uint8_t ret = m_202e;
-	logerror("%s: vt1682_202e_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_202e_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_202e_w)
 {
-	logerror("%s: vt1682_202e_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_202e_w writing: %02x\n", machine().describe_context(), data);
 	m_202e = data;
 }
 
@@ -2400,13 +2377,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_202e_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2030_r)
 {
 	uint8_t ret = m_2030;
-	logerror("%s: vt1682_2030_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2030_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2030_w)
 {
-	logerror("%s: vt1682_2030_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2030_w writing: %02x\n", machine().describe_context(), data);
 	m_2030 = data;
 }
 
@@ -2427,13 +2404,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2030_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2031_red_dac_r)
 {
 	uint8_t ret = m_2031_red_dac;
-	logerror("%s: vt1682_2031_red_dac_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2031_red_dac_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2031_red_dac_w)
 {
-	logerror("%s: vt1682_2031_red_dac_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2031_red_dac_w writing: %02x\n", machine().describe_context(), data);
 	m_2031_red_dac = data;
 }
 
@@ -2453,13 +2430,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2031_red_dac_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2032_green_dac_r)
 {
 	uint8_t ret = m_2032_green_dac;
-	logerror("%s: vt1682_2032_green_dac_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2032_green_dac_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2032_green_dac_w)
 {
-	logerror("%s: vt1682_2032_green_dac_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2032_green_dac_w writing: %02x\n", machine().describe_context(), data);
 	m_2032_green_dac = data;
 }
 
@@ -2479,13 +2456,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2032_green_dac_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2033_blue_dac_r)
 {
 	uint8_t ret = m_2033_blue_dac;
-	logerror("%s: vt1682_2033_blue_dac_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2033_blue_dac_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2033_blue_dac_w)
 {
-	logerror("%s: vt1682_2033_blue_dac_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2033_blue_dac_w writing: %02x\n", machine().describe_context(), data);
 	m_2033_blue_dac = data;
 }
 
@@ -2510,116 +2487,18 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2033_blue_dac_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2100_prgbank1_r3_r)
 {
 	uint8_t ret = m_2100_prgbank1_r3;
-	logerror("%s: vt1682_2100_prgbank1_r3_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2100_prgbank1_r3_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2100_prgbank1_r3_w)
 {
-	logerror("%s: vt1682_2100_prgbank1_r3_w writing: %02x (4-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2100_prgbank1_r3_w writing: %02x (4-bits)\n", machine().describe_context(), data);
 	m_2100_prgbank1_r3 = data;
 	update_banks();
 }
 
-
-/*
-    Address 0x2101 r/w (MAIN CPU)
-
-    0x80 - Timer Preload:7
-    0x40 - Timer Preload:6
-    0x20 - Timer Preload:5
-    0x10 - Timer Preload:4
-    0x08 - Timer Preload:3
-    0x04 - Timer Preload:2
-    0x02 - Timer Preload:1
-    0x01 - Timer Preload:0
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_2101_timer_preload_7_0_r)
-{
-	uint8_t ret = m_2101_timer_preload_7_0;
-	logerror("%s: vt1682_2101_timer_preload_7_0_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_2101_timer_preload_7_0_w)
-{
-	logerror("%s: vt1682_2101_timer_preload_7_0_w writing: %02x\n", machine().describe_context(), data);
-	m_2101_timer_preload_7_0 = data;
-}
-
-
-/*
-    Address 0x2102 r/w (MAIN CPU)
-
-    0x80 - (unused)
-    0x40 - (unused)
-    0x20 - (unused)
-    0x10 - (unused)
-    0x08 - (unused)
-    0x04 - (unused)
-    0x02 - TMR_IRQ
-    0x01 - TMR_EN
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_2102_timer_enable_r)
-{
-	uint8_t ret = m_2102_timer_enable;
-	logerror("%s: vt1682_2102_timer_enable_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_2102_timer_enable_w)
-{
-	logerror("%s: vt1682_2102_timer_enable_w writing: %02x\n", machine().describe_context(), data);
-	m_2102_timer_enable = data;
-}
-
-TIMER_DEVICE_CALLBACK_MEMBER(vt_vt1682_state::system_timer_expired)
-{
-
-}
-
-
-/*
-    Address 0x2103 r/w (MAIN CPU)
-
-    0x80 - Timer IRQ Clear
-    0x40 - Timer IRQ Clear
-    0x20 - Timer IRQ Clear
-    0x10 - Timer IRQ Clear
-    0x08 - Timer IRQ Clear
-    0x04 - Timer IRQ Clear
-    0x02 - Timer IRQ Clear
-    0x01 - Timer IRQ Clear
-*/
-
-/*
-    Address 0x2104 r/w (MAIN CPU)
-
-    0x80 - Timer Preload:15
-    0x40 - Timer Preload:14
-    0x20 - Timer Preload:13
-    0x10 - Timer Preload:12
-    0x08 - Timer Preload:11
-    0x04 - Timer Preload:10
-    0x02 - Timer Preload:9
-    0x01 - Timer Preload:8
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_2104_timer_preload_15_8_r)
-{
-	uint8_t ret = m_2104_timer_preload_15_8;
-	logerror("%s: vt1682_2104_timer_preload_15_8_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_2104_timer_preload_15_8_w)
-{
-	logerror("%s: vt1682_2104_timer_preload_15_8_w writing: %02x\n", machine().describe_context(), data);
-	m_2104_timer_preload_15_8 = data;
-}
-
+/* Address 0x2101 - 0x2104 (MAIN CPU) - see vt1682_timer.cpp */
 
 /*
     Address 0x2105 WRITE ONLY (MAIN CPU)
@@ -2643,7 +2522,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2104_timer_preload_15_8_w)
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2105_comr6_tvmodes_w)
 {
 	// COMR6 is used for banking
-	logerror("%s: vt1682_2105_comr6_tvmodes_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2105_comr6_tvmodes_w writing: %02x\n", machine().describe_context(), data);
 	m_2105_vt1682_2105_comr6_tvmodes = data;
 	update_banks();
 }
@@ -2665,14 +2544,14 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2105_comr6_tvmodes_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2106_enable_regs_r)
 {
 	uint8_t ret = m_2106_enable_reg;
-	logerror("%s: vt1682_2106_enable_regs_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2106_enable_regs_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2106_enable_regs_w)
 {
 	// COMR6 is used for banking
-	logerror("%s: vt1682_2106_enable_regs_w writing: %02x (scpurn:%1x scpuon:%1x spion:%1x uarton:%1x tvon:%1x lcdon:%1x)\n", machine().describe_context(), data,
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2106_enable_regs_w writing: %02x (scpurn:%1x scpuon:%1x spion:%1x uarton:%1x tvon:%1x lcdon:%1x)\n", machine().describe_context(), data,
 		(data & 0x20) >> 5, (data & 0x10) >> 4, (data & 0x08) >> 3, (data & 0x04) >> 2, (data & 0x02) >> 1, (data & 0x01));
 	m_2106_enable_reg = data;
 
@@ -2703,13 +2582,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2106_enable_regs_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2107_prgbank0_r0_r)
 {
 	uint8_t ret = m_2107_prgbank0_r0;
-	logerror("%s: vt1682_2107_prgbank0_r0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2107_prgbank0_r0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2107_prgbank0_r0_w)
 {
-	logerror("%s: vt1682_2107_prgbank0_r0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2107_prgbank0_r0_w writing: %02x\n", machine().describe_context(), data);
 	m_2107_prgbank0_r0 = data;
 	update_banks();
 }
@@ -2730,13 +2609,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2107_prgbank0_r0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2108_prgbank0_r1_r)
 {
 	uint8_t ret = m_2108_prgbank0_r1;
-	logerror("%s: vt1682_2108_prgbank0_r1_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2108_prgbank0_r1_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2108_prgbank0_r1_w)
 {
-	logerror("%s: vt1682_2108_prgbank0_r1_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2108_prgbank0_r1_w writing: %02x\n", machine().describe_context(), data);
 	m_2108_prgbank0_r1 = data;
 	update_banks();
 }
@@ -2759,13 +2638,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2108_prgbank0_r1_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2109_prgbank0_r2_r)
 {
 	uint8_t ret = m_2109_prgbank0_r2;
-	logerror("%s: vt1682_2109_prgbank0_r2_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2109_prgbank0_r2_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2109_prgbank0_r2_w)
 {
-	logerror("%s: vt1682_2109_prgbank0_r2_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2109_prgbank0_r2_w writing: %02x\n", machine().describe_context(), data);
 	m_2109_prgbank0_r2 = data;
 	update_banks();
 }
@@ -2786,13 +2665,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2109_prgbank0_r2_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_210a_prgbank0_r3_r)
 {
 	uint8_t ret = m_210a_prgbank0_r3;
-	logerror("%s: vt1682_210a_prgbank0_r3_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_210a_prgbank0_r3_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_210a_prgbank0_r3_w)
 {
-	logerror("%s: vt1682_210a_prgbank0_r3_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_210a_prgbank0_r3_w writing: %02x\n", machine().describe_context(), data);
 	m_210a_prgbank0_r3 = data;
 	update_banks();
 }
@@ -2800,7 +2679,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_210a_prgbank0_r3_w)
 /*
     Address 0x210b r/w (MAIN CPU)
 
-    0x80 - TSYSN Enable
+    0x80 - TSYSN En (Timer Clock Select)
     0x40 - PQ2 Enable
     0x20 - BUS Tristate
     0x10 - CS Control:1
@@ -2813,7 +2692,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_210a_prgbank0_r3_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_210b_misc_cs_prg0_bank_sel_r)
 {
 	uint8_t ret = m_210b_misc_cs_prg0_bank_sel;
-	logerror("%s: vt1682_210b_misc_cs_prg0_bank_sel_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_210b_misc_cs_prg0_bank_sel_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
@@ -2821,8 +2700,19 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_210b_misc_cs_prg0_bank_sel_w)
 {
 	// PQ2 Enable is also used for ROM banking along with Program Bank 0 select
 
-	logerror("%s: vt1682_210b_misc_cs_prg0_bank_sel_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_210b_misc_cs_prg0_bank_sel_w writing: %02x\n", machine().describe_context(), data);
 	m_210b_misc_cs_prg0_bank_sel = data;
+
+	// TODO: allow PAL
+	if (data & 0x80)
+	{
+		m_system_timer_dev->set_clock(TIMER_ALT_SPEED_NTSC);
+	}
+	else
+	{
+		m_system_timer_dev->set_clock(MAIN_CPU_CLOCK_NTSC);
+	}
+
 	update_banks();
 }
 
@@ -2843,13 +2733,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_210b_misc_cs_prg0_bank_sel_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_210c_prgbank1_r2_r)
 {
 	uint8_t ret = m_210c_prgbank1_r2;
-	logerror("%s: vt1682_210c_prgbank1_r2_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_210c_prgbank1_r2_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_210c_prgbank1_r2_w)
 {
-	logerror("%s: vt1682_210c_prgbank1_r2_w writing: %02x (4-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_210c_prgbank1_r2_w writing: %02x (4-bits)\n", machine().describe_context(), data);
 	m_210c_prgbank1_r2 = data;
 	update_banks();
 }
@@ -2887,13 +2777,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_210c_prgbank1_r2_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_prgbank0_r4_r)
 {
 	uint8_t ret = m_prgbank0_r4;
-	logerror("%s: (2110) vt1682_prgbank0_r4_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: (2110) vt1682_prgbank0_r4_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank1_r0_w)
 {
-	logerror("%s: (2110) vt1682_prgbank1_r0_w writing: %02x (4-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: (2110) vt1682_prgbank1_r0_w writing: %02x (4-bits)\n", machine().describe_context(), data);
 	m_prgbank1_r0 = data;
 	update_banks();
 }
@@ -2925,14 +2815,14 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank1_r0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_prgbank0_r5_r)
 {
 	uint8_t ret = m_prgbank0_r5;
-	logerror("%s: (2111) vt1682_prgbank0_r5_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: (2111) vt1682_prgbank0_r5_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank1_r1_w)
 {
-	logerror("%s: (2111) vt1682_prgbank1_r1_w writing: %02x (4-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: (2111) vt1682_prgbank1_r1_w writing: %02x (4-bits)\n", machine().describe_context(), data);
 	m_prgbank1_r1 = data;
 	update_banks();
 }
@@ -2965,14 +2855,14 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank1_r1_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_prgbank1_r0_r)
 {
 	uint8_t ret = m_prgbank1_r0;
-	logerror("%s: (2112) vt1682_prgbank1_r0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: (2112) vt1682_prgbank1_r0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank0_r4_w)
 {
-	logerror("%s: (2112) vt1682_prgbank0_r4_w writing: %02x (8-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: (2112) vt1682_prgbank0_r4_w writing: %02x (8-bits)\n", machine().describe_context(), data);
 	m_prgbank0_r4 = data;
 	update_banks();
 }
@@ -3005,13 +2895,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank0_r4_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_prgbank1_r1_r)
 {
 	uint8_t ret = m_prgbank1_r1;
-	logerror("%s: (2113) vt1682_prgbank1_r1_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: (2113) vt1682_prgbank1_r1_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank0_r5_w)
 {
-	logerror("%s: (2113) vt1682_prgbank0_r5_w writing: %02x (8-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: (2113) vt1682_prgbank0_r5_w writing: %02x (8-bits)\n", machine().describe_context(), data);
 	m_prgbank0_r5 = data;
 	update_banks();
 }
@@ -3095,13 +2985,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_prgbank0_r5_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2118_prgbank1_r4_r5_r)
 {
 	uint8_t ret = m_2118_prgbank1_r4_r5;
-	logerror("%s: vt1682_2118_prgbank1_r4_r5_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2118_prgbank1_r4_r5_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2118_prgbank1_r4_r5_w)
 {
-	logerror("%s: vt1682_2118_prgbank1_r4_r5_w writing: %02x (2x 4-bits)\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2118_prgbank1_r4_r5_w writing: %02x (2x 4-bits)\n", machine().describe_context(), data);
 	m_2118_prgbank1_r4_r5 = data;
 	update_banks();
 }
@@ -3195,7 +3085,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2118_prgbank1_r4_r5_w)
 WRITE8_MEMBER(vt_vt1682_state::vt1682_211c_regs_ext2421_w)
 {
 	// EXT2421EN is used for ROM banking
-	logerror("%s: vt1682_211c_regs_ext2421_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_211c_regs_ext2421_w writing: %02x\n", machine().describe_context(), data);
 	m_211c_regs_ext2421 = data;
 	update_banks();
 
@@ -3320,13 +3210,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_211c_regs_ext2421_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2122_dma_dt_addr_7_0_r)
 {
 	uint8_t ret = m_2122_dma_dt_addr_7_0;
-	logerror("%s: vt1682_2122_dma_dt_addr_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2122_dma_dt_addr_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2122_dma_dt_addr_7_0_w)
 {
-	logerror("%s: vt1682_2122_dma_dt_addr_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2122_dma_dt_addr_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_2122_dma_dt_addr_7_0 = data;
 }
 
@@ -3347,13 +3237,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2122_dma_dt_addr_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2123_dma_dt_addr_15_8_r)
 {
 	uint8_t ret = m_2123_dma_dt_addr_15_8;
-	logerror("%s: vt1682_2123_dma_dt_addr_15_8_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2123_dma_dt_addr_15_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2123_dma_dt_addr_15_8_w)
 {
-	logerror("%s: vt1682_2123_dma_dt_addr_15_8_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2123_dma_dt_addr_15_8_w writing: %02x\n", machine().describe_context(), data);
 	m_2123_dma_dt_addr_15_8 = data;
 }
 
@@ -3374,13 +3264,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2123_dma_dt_addr_15_8_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2124_dma_sr_addr_7_0_r)
 {
 	uint8_t ret = m_2124_dma_sr_addr_7_0;
-	logerror("%s: vt1682_2124_dma_sr_addr_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2124_dma_sr_addr_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2124_dma_sr_addr_7_0_w)
 {
-	logerror("%s: vt1682_2124_dma_sr_addr_7_0_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2124_dma_sr_addr_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_2124_dma_sr_addr_7_0 = data;
 }
 
@@ -3401,13 +3291,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2124_dma_sr_addr_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2125_dma_sr_addr_15_8_r)
 {
 	uint8_t ret = m_2125_dma_sr_addr_15_8;
-	logerror("%s: vt1682_2125_dma_sr_addr_15_8_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2125_dma_sr_addr_15_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2125_dma_sr_addr_15_8_w)
 {
-	logerror("%s: vt1682_2125_dma_sr_addr_15_8_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2125_dma_sr_addr_15_8_w writing: %02x\n", machine().describe_context(), data);
 	m_2125_dma_sr_addr_15_8 = data;
 }
 
@@ -3429,13 +3319,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2125_dma_sr_addr_15_8_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2126_dma_sr_bank_addr_22_15_r)
 {
 	uint8_t ret = m_2126_dma_sr_bank_addr_22_15;
-	logerror("%s: vt1682_2126_dma_sr_bank_addr_22_15_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2126_dma_sr_bank_addr_22_15_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2126_dma_sr_bank_addr_22_15_w)
 {
-	logerror("%s: vt1682_2126_dma_sr_bank_addr_22_15_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2126_dma_sr_bank_addr_22_15_w writing: %02x\n", machine().describe_context(), data);
 	m_2126_dma_sr_bank_addr_22_15 = data;
 }
 
@@ -3470,7 +3360,7 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2127_dma_status_r)
 	int dma_status = 0; // 1 would be 'busy'
 	ret |= dma_status;
 
-	logerror("%s: vt1682_2127_dma_status_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2127_dma_status_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
@@ -3485,9 +3375,9 @@ void vt_vt1682_state::do_dma_external_to_internal(int data, bool is_video)
 	uint16_t dstaddr = get_dma_dt_addr();
 
 	if (is_video)
-		logerror("Doing DMA, External to Internal (VRAM/SRAM) src: %08x dest: %04x length: %03x\n", srcaddr | srcbank<<15, dstaddr, count);
+		LOGMASKED(LOG_OTHER, "Doing DMA, External to Internal (VRAM/SRAM) src: %08x dest: %04x length: %03x\n", srcaddr | srcbank<<15, dstaddr, count);
 	else
-		logerror("Doing DMA, External to Internal src: %08x dest: %04x length: %03x\n", srcaddr | srcbank<<15, dstaddr, count);
+		LOGMASKED(LOG_OTHER, "Doing DMA, External to Internal src: %08x dest: %04x length: %03x\n", srcaddr | srcbank<<15, dstaddr, count);
 
 	for (int i = 0; i < count; i++)
 	{
@@ -3518,9 +3408,9 @@ void vt_vt1682_state::do_dma_internal_to_internal(int data, bool is_video)
 	uint16_t dstaddr = get_dma_dt_addr();
 
 	if (is_video)
-		logerror("Doing DMA, Internal to Internal (VRAM/SRAM) src: %04x dest: %04x length: %03x\n", srcaddr, dstaddr, count);
+		LOGMASKED(LOG_OTHER, "Doing DMA, Internal to Internal (VRAM/SRAM) src: %04x dest: %04x length: %03x\n", srcaddr, dstaddr, count);
 	else
-		logerror("Doing DMA, Internal to Internal src: %04x dest: %04x length: %03x\n", srcaddr, dstaddr, count);
+		LOGMASKED(LOG_OTHER, "Doing DMA, Internal to Internal src: %04x dest: %04x length: %03x\n", srcaddr, dstaddr, count);
 
 	for (int i = 0; i < count; i++)
 	{
@@ -3546,7 +3436,7 @@ void vt_vt1682_state::do_dma_internal_to_internal(int data, bool is_video)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2127_dma_size_trigger_w)
 {
-	logerror("%s: vt1682_2127_dma_size_trigger_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2127_dma_size_trigger_w writing: %02x\n", machine().describe_context(), data);
 
 	// hw waits until VBLANK before actually doing the DMA! (TODO)
 
@@ -3556,7 +3446,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2127_dma_size_trigger_w)
 		{
 			// Source External
 			// Dest External
-			logerror("Invalid DMA, both Source and Dest are 'External'\n");
+			LOGMASKED(LOG_OTHER, "Invalid DMA, both Source and Dest are 'External'\n");
 			return;
 		}
 		else
@@ -3569,7 +3459,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2127_dma_size_trigger_w)
 
 			if ((srcaddr & 1) || ((dstaddr & 1) && (!get_dma_dt_is_video())) )
 			{
-				logerror("Invalid DMA, low bit of address set\n");
+				LOGMASKED(LOG_OTHER, "Invalid DMA, low bit of address set\n");
 				return;
 			}
 
@@ -3593,11 +3483,11 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2127_dma_size_trigger_w)
 
 			if ((srcaddr & 1) || (dstaddr & 1))
 			{
-				logerror("Invalid DMA, low bit of address set\n");
+				LOGMASKED(LOG_OTHER, "Invalid DMA, low bit of address set\n");
 				return;
 			}
 
-			logerror("Unhandled DMA, Dest is 'External'\n");
+			LOGMASKED(LOG_OTHER, "Unhandled DMA, Dest is 'External'\n");
 			return;
 		}
 		else
@@ -3610,7 +3500,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2127_dma_size_trigger_w)
 
 			if ((srcaddr & 1) || ((dstaddr & 1) && (!get_dma_dt_is_video())) )
 			{
-				logerror("Invalid DMA, low bit of address set\n");
+				LOGMASKED(LOG_OTHER, "Invalid DMA, low bit of address set\n");
 				return;
 			}
 
@@ -3636,13 +3526,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2127_dma_size_trigger_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_2128_dma_sr_bank_addr_24_23_r)
 {
 	uint8_t ret = m_2128_dma_sr_bank_addr_24_23;
-	logerror("%s: vt1682_2128_dma_sr_bank_addr_24_23_r returning: %02x\n", machine().describe_context(), ret);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2128_dma_sr_bank_addr_24_23_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2128_dma_sr_bank_addr_24_23_w)
 {
-	logerror("%s: vt1682_2128_dma_sr_bank_addr_24_23_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_2128_dma_sr_bank_addr_24_23_w writing: %02x\n", machine().describe_context(), data);
 	m_2128_dma_sr_bank_addr_24_23 = data & 0x03;
 }
 
@@ -3733,6 +3623,20 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2128_dma_sr_bank_addr_24_23_w)
     0x01 - Pseudo Random Number Seed
 */
 
+READ8_MEMBER(vt_vt1682_state::vt1682_212c_prng_r)
+{
+	uint8_t ret = machine().rand();
+	LOGMASKED(LOG_OTHER, "%s: vt1682_212c_prng_r returning: %02x\n", machine().describe_context(), ret);
+	return ret;
+}
+
+WRITE8_MEMBER(vt_vt1682_state::vt1682_212c_prng_seed_w)
+{
+	LOGMASKED(LOG_OTHER, "%s: vt1682_212c_prng_seed_w writing: %02x\n", machine().describe_context(), data);
+	// don't know the algorithm
+}
+
+
 /*
     Address 0x212d WRITE ONLY (MAIN CPU)
 
@@ -3749,290 +3653,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_2128_dma_sr_bank_addr_24_23_w)
 /* Address 0x212e Unused */
 /* Address 0x212f Unused */
 
-/*
-    Address 0x2130 WRITE (MAIN CPU)
-
-    0x80 - ALU Oprand 1
-    0x40 - ALU Oprand 1
-    0x20 - ALU Oprand 1
-    0x10 - ALU Oprand 1
-    0x08 - ALU Oprand 1
-    0x04 - ALU Oprand 1
-    0x02 - ALU Oprand 1
-    0x01 - ALU Oprand 1
-
-    Address 0x2130 READ (MAIN CPU)
-
-    0x80 - ALU Output 1
-    0x40 - ALU Output 1
-    0x20 - ALU Output 1
-    0x10 - ALU Output 1
-    0x08 - ALU Output 1
-    0x04 - ALU Output 1
-    0x02 - ALU Output 1
-    0x01 - ALU Output 1
-*/
-
-READ8_MEMBER(vt_vt1682_state::alu_out_1_r)
-{
-	uint8_t ret = m_alu_out[0];
-	logerror("%s: alu_out_1_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_1_w)
-{
-	logerror("%s: alu_oprand_1_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand[0] = data;
-}
-
-/*
-    Address 0x2131 WRITE (MAIN CPU)
-
-    0x80 - ALU Oprand 2
-    0x40 - ALU Oprand 2
-    0x20 - ALU Oprand 2
-    0x10 - ALU Oprand 2
-    0x08 - ALU Oprand 2
-    0x04 - ALU Oprand 2
-    0x02 - ALU Oprand 2
-    0x01 - ALU Oprand 2
-
-    Address 0x2131 READ (MAIN CPU)
-
-    0x80 - ALU Output 2
-    0x40 - ALU Output 2
-    0x20 - ALU Output 2
-    0x10 - ALU Output 2
-    0x08 - ALU Output 2
-    0x04 - ALU Output 2
-    0x02 - ALU Output 2
-    0x01 - ALU Output 2
-*/
-
-READ8_MEMBER(vt_vt1682_state::alu_out_2_r)
-{
-	uint8_t ret = m_alu_out[1];
-	logerror("%s: alu_out_2_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_2_w)
-{
-	logerror("%s: alu_oprand_2_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand[1] = data;
-}
-
-/*
-    Address 0x2132 WRITE (MAIN CPU)
-
-    0x80 - ALU Oprand 3
-    0x40 - ALU Oprand 3
-    0x20 - ALU Oprand 3
-    0x10 - ALU Oprand 3
-    0x08 - ALU Oprand 3
-    0x04 - ALU Oprand 3
-    0x02 - ALU Oprand 3
-    0x01 - ALU Oprand 3
-
-    Address 0x2132 READ (MAIN CPU)
-
-    0x80 - ALU Output 3
-    0x40 - ALU Output 3
-    0x20 - ALU Output 3
-    0x10 - ALU Output 3
-    0x08 - ALU Output 3
-    0x04 - ALU Output 3
-    0x02 - ALU Output 3
-    0x01 - ALU Output 3
-*/
-
-READ8_MEMBER(vt_vt1682_state::alu_out_3_r)
-{
-	uint8_t ret = m_alu_out[2];
-	logerror("%s: alu_out_3_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_3_w)
-{
-	logerror("%s: alu_oprand_3_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand[2] = data;
-}
-
-
-/*
-    Address 0x2133 WRITE (MAIN CPU)
-
-    0x80 - ALU Oprand 4
-    0x40 - ALU Oprand 4
-    0x20 - ALU Oprand 4
-    0x10 - ALU Oprand 4
-    0x08 - ALU Oprand 4
-    0x04 - ALU Oprand 4
-    0x02 - ALU Oprand 4
-    0x01 - ALU Oprand 4
-
-    Address 0x2133 READ (MAIN CPU)
-
-    0x80 - ALU Output 4
-    0x40 - ALU Output 4
-    0x20 - ALU Output 4
-    0x10 - ALU Output 4
-    0x08 - ALU Output 4
-    0x04 - ALU Output 4
-    0x02 - ALU Output 4
-    0x01 - ALU Output 4
-*/
-
-READ8_MEMBER(vt_vt1682_state::alu_out_4_r)
-{
-	uint8_t ret = m_alu_out[3];
-	logerror("%s: alu_out_4_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_4_w)
-{
-	logerror("%s: alu_oprand_4_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand[3] = data;
-}
-
-/*
-    Address 0x2134 WRITE (MAIN CPU)
-
-    0x80 - ALU Mul Oprand 5
-    0x40 - ALU Mul Oprand 5
-    0x20 - ALU Mul Oprand 5
-    0x10 - ALU Mul Oprand 5
-    0x08 - ALU Mul Oprand 5
-    0x04 - ALU Mul Oprand 5
-    0x02 - ALU Mul Oprand 5
-    0x01 - ALU Mul Oprand 5
-
-    Address 0x2134 READ (MAIN CPU)
-
-    0x80 - ALU Output 5
-    0x40 - ALU Output 5
-    0x20 - ALU Output 5
-    0x10 - ALU Output 5
-    0x08 - ALU Output 5
-    0x04 - ALU Output 5
-    0x02 - ALU Output 5
-    0x01 - ALU Output 5
-*/
-
-READ8_MEMBER(vt_vt1682_state::alu_out_5_r)
-{
-	uint8_t ret = m_alu_out[4];
-	logerror("%s: alu_out_5_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_5_mult_w)
-{
-	logerror("%s: alu_oprand_5_mult_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand_mult[0] = data;
-}
-
-
-/*
-    Address 0x2135 WRITE (MAIN CPU)
-
-    0x80 - ALU Mul Oprand 6
-    0x40 - ALU Mul Oprand 6
-    0x20 - ALU Mul Oprand 6
-    0x10 - ALU Mul Oprand 6
-    0x08 - ALU Mul Oprand 6
-    0x04 - ALU Mul Oprand 6
-    0x02 - ALU Mul Oprand 6
-    0x01 - ALU Mul Oprand 6
-
-    Address 0x2135 READ (MAIN CPU)
-
-    0x80 - ALU Output 6
-    0x40 - ALU Output 6
-    0x20 - ALU Output 6
-    0x10 - ALU Output 6
-    0x08 - ALU Output 6
-    0x04 - ALU Output 6
-    0x02 - ALU Output 6
-    0x01 - ALU Output 6
-*/
-
-READ8_MEMBER(vt_vt1682_state::alu_out_6_r)
-{
-	uint8_t ret = m_alu_out[5];
-	logerror("%s: alu_out_6_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_6_mult_w)
-{
-	// used one of the 32in1 menus
-
-	logerror("%s: alu_oprand_6_mult_w writing: %02x\n", machine().describe_context(), data);
-	logerror("------------------------------------------ MULTIPLICATION REQUESTED ------------------------------------\n");
-	m_alu_oprand_mult[1] = data;
-
-	int param1 = (m_alu_oprand_mult[1] << 8) | m_alu_oprand_mult[0];
-	int param2 = (m_alu_oprand[1] << 8) | m_alu_oprand[0];
-
-	uint32_t result = param1 * param2;
-
-	m_alu_out[0] = result & 0xff;
-	m_alu_out[1] = (result >> 8) & 0xff;
-	m_alu_out[2] = (result >> 16) & 0xff;
-	m_alu_out[3] = (result >> 24) & 0xff;
-
-	// oprands 5/6 cleared?
-}
-
-
-/*
-    Address 0x2136 WRITE ONLY (MAIN CPU)
-
-    0x80 - ALU Div Oprand 5
-    0x40 - ALU Div Oprand 5
-    0x20 - ALU Div Oprand 5
-    0x10 - ALU Div Oprand 5
-    0x08 - ALU Div Oprand 5
-    0x04 - ALU Div Oprand 5
-    0x02 - ALU Div Oprand 5
-    0x01 - ALU Div Oprand 5
-
-*/
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_5_div_w)
-{
-	logerror("%s: alu_oprand_5_div_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand_div[0] = data;
-}
-
-
-/*
-    Address 0x2137 WRITE ONLY (MAIN CPU)
-
-    0x80 - ALU Div Oprand 6
-    0x40 - ALU Div Oprand 6
-    0x20 - ALU Div Oprand 6
-    0x10 - ALU Div Oprand 6
-    0x08 - ALU Div Oprand 6
-    0x04 - ALU Div Oprand 6
-    0x02 - ALU Div Oprand 6
-    0x01 - ALU Div Oprand 6
-*/
-
-WRITE8_MEMBER(vt_vt1682_state::alu_oprand_6_div_w)
-{
-	logerror("%s: alu_oprand_6_div_w writing: %02x\n", machine().describe_context(), data);
-	m_alu_oprand_div[1] = data;
-
-	popmessage("------------------------------------------ DIVISION REQUESTED ------------------------------------\n");
-}
-
+/* Address 0x2130 - 0x2137 - see v1682_alu.cpp */
 
 /* Address 0x2138 Unused */
 /* Address 0x2139 Unused */
@@ -4194,144 +3815,7 @@ WRITE8_MEMBER(vt_vt1682_state::alu_oprand_6_div_w)
  VT1682 Sound CPU Registers
 ************************************************************************************************************************************/
 
-/*
-    Address 0x2100 r/w (SOUND CPU)
-
-    0x80 - Timer A Preload:7
-    0x40 - Timer A Preload:6
-    0x20 - Timer A Preload:5
-    0x10 - Timer A Preload:4
-    0x08 - Timer A Preload:3
-    0x04 - Timer A Preload:2
-    0x02 - Timer A Preload:1
-    0x01 - Timer A Preload:0
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2100_timer_a_preload_7_0_r)
-{
-	uint8_t ret = m_soundcpu_2100_timer_a_preload_7_0;
-	logerror("%s: vt1682_soundcpu_2100_timer_a_preload_7_0_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2100_timer_a_preload_7_0_w)
-{
-	logerror("%s: vt1682_soundcpu_2100_timer_a_preload_7_0_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_2100_timer_a_preload_7_0 = data;
-}
-
-
-/*
-    Address 0x2101 r/w (SOUND CPU)
-
-    0x80 - Timer A Preload:15
-    0x40 - Timer A Preload:14
-    0x20 - Timer A Preload:13
-    0x10 - Timer A Preload:12
-    0x08 - Timer A Preload:11
-    0x04 - Timer A Preload:10
-    0x02 - Timer A Preload:9
-    0x01 - Timer A Preload:8
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2101_timer_a_preload_15_8_r)
-{
-	uint8_t ret = m_soundcpu_2101_timer_a_preload_15_8;
-	logerror("%s: vt1682_soundcpu_2101_timer_a_preload_15_8_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2101_timer_a_preload_15_8_w)
-{
-	logerror("%s: vt1682_soundcpu_2101_timer_a_preload_15_8_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_2101_timer_a_preload_15_8 = data;
-}
-
-
-/*
-    Address 0x2102 r/w (SOUND CPU)
-
-    0x80 - (unused)
-    0x40 - (unused)
-    0x20 - (unused)
-    0x10 - (unused)
-    0x08 - (unused)
-    0x04 - (unused)
-    0x02 - TMRA IRQ
-    0x01 - TMRA EN
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2102_timer_a_enable_r)
-{
-	uint8_t ret = m_soundcpu_2102_timer_a_enable;
-	logerror("%s: vt1682_soundcpu_2102_timer_a_enable_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2102_timer_a_enable_w)
-{
-	// For NTSC
-	//Period = (65536 - Timer _PreLoad) / 21.4772 MHz
-	//Timer PreLoad = 65536 - (Period in seconds) * 21.4772 * 1000000 )
-
-	// For PAL
-	// Period = (65536 - Timer PreLoad) / 26.601712 MHz
-	//Timer PreLoad = 65536 - (Period in seconds) * 26.601712 * 1000000 )
-
-	/*
-	uint16_t preload = (m_soundcpu_2101_timer_a_preload_15_8 << 8) | m_soundcpu_2100_timer_a_preload_7_0;
-
-	double newval = 65536 - preload;
-	double soundclock = m_soundcpu->clock();
-	soundclock = soundclock / 1000000;
-
-	double period = newval / soundclock; // in microseconds?
-
-	printf("sound clock %f preload %d  newval %f period %f\n", soundclock, preload, newval, period );
-	*/
-
-
-	logerror("%s: vt1682_soundcpu_2102_timer_a_enable_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_2102_timer_a_enable = data;
-
-	if (m_soundcpu_2102_timer_a_enable & 0x01)
-	{
-		m_soundcpu_timer_a->adjust(attotime::from_hz(16000), 0, attotime::from_hz(16000));
-	}
-	else
-	{
-		m_soundcpu_timer_a->adjust(attotime::never);
-	}
-
-}
-
-TIMER_DEVICE_CALLBACK_MEMBER(vt_vt1682_state::soundcpu_timer_a_expired)
-{
-	if (m_soundcpu_2102_timer_a_enable & 0x02)
-	{
-		m_soundcpu->set_input_line(0, ASSERT_LINE);
-	}
-}
-
-/*
-    Address 0x2103 r/w (SOUND CPU)
-
-    0x80 - Timer A IRQ Clear
-    0x40 - Timer A IRQ Clear
-    0x20 - Timer A IRQ Clear
-    0x10 - Timer A IRQ Clear
-    0x08 - Timer A IRQ Clear
-    0x04 - Timer A IRQ Clear
-    0x02 - Timer A IRQ Clear
-    0x01 - Timer A IRQ Clear
-*/
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2103_timer_a_irqclear_w)
-{
-	//logerror("%s: vt1682_soundcpu_2103_timer_a_irqclear_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu->set_input_line(0, CLEAR_LINE);
-}
-
+/* Address 0x2100 - 0x2103 (SOUND CPU) - see vt1682_timer.cpp */
 
 /* Address 0x2104 Unused (SOUND CPU) */
 /* Address 0x2105 Unused (SOUND CPU) */
@@ -4346,110 +3830,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2103_timer_a_irqclear_w)
 /* Address 0x210e Unused (SOUND CPU) */
 /* Address 0x210f Unused (SOUND CPU) */
 
-/*
-    Address 0x2110 r/w (SOUND CPU)
-
-    0x80 - Timer B Preload:7
-    0x40 - Timer B Preload:6
-    0x20 - Timer B Preload:5
-    0x10 - Timer B Preload:4
-    0x08 - Timer B Preload:3
-    0x04 - Timer B Preload:2
-    0x02 - Timer B Preload:1
-    0x01 - Timer B Preload:0
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2110_timer_b_preload_7_0_r)
-{
-	uint8_t ret = m_soundcpu_2110_timer_b_preload_7_0;
-	logerror("%s: vt1682_soundcpu_2110_timer_b_preload_7_0_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2110_timer_b_preload_7_0_w)
-{
-	logerror("%s: vt1682_soundcpu_2110_timer_b_preload_7_0_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_2110_timer_b_preload_7_0 = data;
-}
-
-
-/*
-    Address 0x2111 r/w (SOUND CPU)
-
-    0x80 - Timer B Preload:15
-    0x40 - Timer B Preload:14
-    0x20 - Timer B Preload:13
-    0x10 - Timer B Preload:12
-    0x08 - Timer B Preload:11
-    0x04 - Timer B Preload:10
-    0x02 - Timer B Preload:9
-    0x01 - Timer B Preload:8
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2111_timer_b_preload_15_8_r)
-{
-	uint8_t ret = m_soundcpu_2111_timer_b_preload_15_8;
-	logerror("%s: vt1682_soundcpu_2111_timer_b_preload_15_8_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2111_timer_b_preload_15_8_w)
-{
-	logerror("%s: vt1682_soundcpu_2111_timer_b_preload_15_8_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_2111_timer_b_preload_15_8 = data;
-}
-
-
-
-/*
-    Address 0x2112 r/w (SOUND CPU)
-
-    0x80 - (unused)
-    0x40 - (unused)
-    0x20 - (unused)
-    0x10 - (unused)
-    0x08 - (unused)
-    0x04 - (unused)
-    0x02 - TMRB IRQ
-    0x01 - TMRB EN
-*/
-
-READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2112_timer_b_enable_r)
-{
-	uint8_t ret = m_soundcpu_2112_timer_b_enable;
-	logerror("%s: vt1682_soundcpu_2112_timer_b_enable_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2112_timer_b_enable_w)
-{
-	logerror("%s: vt1682_soundcpu_2112_timer_b_enable_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_2112_timer_b_enable = data;
-}
-
-TIMER_DEVICE_CALLBACK_MEMBER(vt_vt1682_state::soundcpu_timer_b_expired)
-{
-
-}
-
-/*
-    Address 0x2113 r/w (SOUND CPU)
-
-    0x80 - Timer B IRQ Clear
-    0x40 - Timer B IRQ Clear
-    0x20 - Timer B IRQ Clear
-    0x10 - Timer B IRQ Clear
-    0x08 - Timer B IRQ Clear
-    0x04 - Timer B IRQ Clear
-    0x02 - Timer B IRQ Clear
-    0x01 - Timer B IRQ Clear
-*/
-
-WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2113_timer_b_irqclear_w)
-{
-	logerror("%s: vt1682_soundcpu_2113_timer_b_irqclear_w writing: %02x\n", machine().describe_context(), data);
-}
-
+/* Address 0x2110 - 0x2113 (SOUND CPU) - see vt1682_timer.cpp */
 
 /* Address 0x2114 Unused (SOUND CPU) */
 /* Address 0x2115 Unused (SOUND CPU) */
@@ -4474,13 +3855,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2113_timer_b_irqclear_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2118_dacleft_7_0_r)
 {
 	uint8_t ret = m_soundcpu_2118_dacleft_7_0;
-	//logerror("%s: vt1682_soundcpu_2118_dacleft_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_2118_dacleft_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2118_dacleft_7_0_w)
 {
-	//logerror("%s: vt1682_soundcpu_2118_dacleft_7_0_r writing: %02x\n", machine().describe_context(), data);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_2118_dacleft_7_0_r writing: %02x\n", machine().describe_context(), data);
 	m_soundcpu_2118_dacleft_7_0 = data;
 }
 
@@ -4500,13 +3881,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2118_dacleft_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2119_dacleft_15_8_r)
 {
 	uint8_t ret = m_soundcpu_2119_dacleft_15_8;
-	//logerror("%s: vt1682_soundcpu_2119_dacleft_15_8_r returning: %02x\n", machine().describe_context(), ret);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_2119_dacleft_15_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2119_dacleft_15_8_w)
 {
-	//logerror("%s: vt1682_soundcpu_2119_dacleft_15_8_r writing: %02x\n", machine().describe_context(), data);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_2119_dacleft_15_8_r writing: %02x\n", machine().describe_context(), data);
 	m_soundcpu_2119_dacleft_15_8 = data;
 
 	uint16_t dacdata = (m_soundcpu_2119_dacleft_15_8 << 8) | m_soundcpu_2118_dacleft_7_0;
@@ -4529,13 +3910,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_2119_dacleft_15_8_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211a_dacright_7_0_r)
 {
 	uint8_t ret = m_soundcpu_211a_dacright_7_0;
-	//logerror("%s: vt1682_soundcpu_211a_dacright_7_0_r returning: %02x\n", machine().describe_context(), ret);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_211a_dacright_7_0_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211a_dacright_7_0_w)
 {
-	//logerror("%s: vt1682_soundcpu_211a_dacright_7_0_r writing: %02x\n", machine().describe_context(), data);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_211a_dacright_7_0_r writing: %02x\n", machine().describe_context(), data);
 	m_soundcpu_211a_dacright_7_0 = data;
 }
 
@@ -4555,13 +3936,13 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211a_dacright_7_0_w)
 READ8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211b_dacright_15_8_r)
 {
 	uint8_t ret = m_soundcpu_211b_dacright_15_8;
-	//logerror("%s: vt1682_soundcpu_211b_dacright_15_8_r returning: %02x\n", machine().describe_context(), ret);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_211b_dacright_15_8_r returning: %02x\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211b_dacright_15_8_w)
 {
-	//logerror("%s: vt1682_soundcpu_211b_dacright_15_8_r writing: %02x\n", machine().describe_context(), data);
+	//LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_211b_dacright_15_8_r writing: %02x\n", machine().describe_context(), data);
 	m_soundcpu_211b_dacright_15_8 = data;
 
 	uint16_t dacdata = (m_soundcpu_211b_dacright_15_8 << 8) | m_soundcpu_211a_dacright_7_0;
@@ -4596,7 +3977,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211b_dacright_15_8_w)
 WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211c_reg_irqctrl_w)
 {
 	// EXT2421EN is used for ROM banking
-	logerror("%s: vt1682_soundcpu_211c_reg_irqctrl_w writing: %02x\n", machine().describe_context(), data);
+	LOGMASKED(LOG_OTHER, "%s: vt1682_soundcpu_211c_reg_irqctrl_w writing: %02x\n", machine().describe_context(), data);
 
 	if (data & 0x10)
 	{
@@ -4636,304 +4017,7 @@ WRITE8_MEMBER(vt_vt1682_state::vt1682_soundcpu_211c_reg_irqctrl_w)
 /* Address 0x212e Unused (SOUND CPU) */
 /* Address 0x212f Unused (SOUND CPU) */
 
-/*
-    Address 0x2130 WRITE (SOUND CPU)
-
-    0x80 - ALU Oprand 1
-    0x40 - ALU Oprand 1
-    0x20 - ALU Oprand 1
-    0x10 - ALU Oprand 1
-    0x08 - ALU Oprand 1
-    0x04 - ALU Oprand 1
-    0x02 - ALU Oprand 1
-    0x01 - ALU Oprand 1
-
-    Address 0x2130 READ (SOUND CPU)
-
-    0x80 - ALU Output 1
-    0x40 - ALU Output 1
-    0x20 - ALU Output 1
-    0x10 - ALU Output 1
-    0x08 - ALU Output 1
-    0x04 - ALU Output 1
-    0x02 - ALU Output 1
-    0x01 - ALU Output 1
-*/
-
-READ8_MEMBER(vt_vt1682_state::soundcpu_alu_out_1_r)
-{
-	uint8_t ret = m_soundcpu_alu_out[0];
-	//logerror("%s: soundcpu_alu_out_1_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_1_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_1_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand[0] = data;
-}
-
-/*
-    Address 0x2131 WRITE (SOUND CPU)
-
-    0x80 - ALU Oprand 2
-    0x40 - ALU Oprand 2
-    0x20 - ALU Oprand 2
-    0x10 - ALU Oprand 2
-    0x08 - ALU Oprand 2
-    0x04 - ALU Oprand 2
-    0x02 - ALU Oprand 2
-    0x01 - ALU Oprand 2
-
-    Address 0x2131 READ (SOUND CPU)
-
-    0x80 - ALU Output 2
-    0x40 - ALU Output 2
-    0x20 - ALU Output 2
-    0x10 - ALU Output 2
-    0x08 - ALU Output 2
-    0x04 - ALU Output 2
-    0x02 - ALU Output 2
-    0x01 - ALU Output 2
-*/
-
-READ8_MEMBER(vt_vt1682_state::soundcpu_alu_out_2_r)
-{
-	uint8_t ret = m_soundcpu_alu_out[1];
-	//logerror("%s: soundcpu_alu_out_2_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_2_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_2_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand[1] = data;
-}
-
-/*
-    Address 0x2132 WRITE (SOUND CPU)
-
-    0x80 - ALU Oprand 3
-    0x40 - ALU Oprand 3
-    0x20 - ALU Oprand 3
-    0x10 - ALU Oprand 3
-    0x08 - ALU Oprand 3
-    0x04 - ALU Oprand 3
-    0x02 - ALU Oprand 3
-    0x01 - ALU Oprand 3
-
-    Address 0x2132 READ (SOUND CPU)
-
-    0x80 - ALU Output 3
-    0x40 - ALU Output 3
-    0x20 - ALU Output 3
-    0x10 - ALU Output 3
-    0x08 - ALU Output 3
-    0x04 - ALU Output 3
-    0x02 - ALU Output 3
-    0x01 - ALU Output 3
-*/
-
-READ8_MEMBER(vt_vt1682_state::soundcpu_alu_out_3_r)
-{
-	uint8_t ret = m_soundcpu_alu_out[2];
-	//logerror("%s: soundcpu_alu_out_3_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_3_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_3_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand[2] = data;
-}
-
-/*
-    Address 0x2133 WRITE (SOUND CPU)
-
-    0x80 - ALU Oprand 4
-    0x40 - ALU Oprand 4
-    0x20 - ALU Oprand 4
-    0x10 - ALU Oprand 4
-    0x08 - ALU Oprand 4
-    0x04 - ALU Oprand 4
-    0x02 - ALU Oprand 4
-    0x01 - ALU Oprand 4
-
-    Address 0x2133 READ (SOUND CPU)
-
-    0x80 - ALU Output 4
-    0x40 - ALU Output 4
-    0x20 - ALU Output 4
-    0x10 - ALU Output 4
-    0x08 - ALU Output 4
-    0x04 - ALU Output 4
-    0x02 - ALU Output 4
-    0x01 - ALU Output 4
-*/
-
-READ8_MEMBER(vt_vt1682_state::soundcpu_alu_out_4_r)
-{
-	uint8_t ret = m_soundcpu_alu_out[3];
-	//logerror("%s: soundcpu_alu_out_4_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_4_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_4_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand[3] = data;
-}
-
-/*
-    Address 0x2134 WRITE (SOUND CPU)
-
-    0x80 - ALU Mul Oprand 5
-    0x40 - ALU Mul Oprand 5
-    0x20 - ALU Mul Oprand 5
-    0x10 - ALU Mul Oprand 5
-    0x08 - ALU Mul Oprand 5
-    0x04 - ALU Mul Oprand 5
-    0x02 - ALU Mul Oprand 5
-    0x01 - ALU Mul Oprand 5
-
-    Address 0x2134 READ (SOUND CPU)
-
-    0x80 - ALU Output 5
-    0x40 - ALU Output 5
-    0x20 - ALU Output 5
-    0x10 - ALU Output 5
-    0x08 - ALU Output 5
-    0x04 - ALU Output 5
-    0x02 - ALU Output 5
-    0x01 - ALU Output 5
-*/
-
-READ8_MEMBER(vt_vt1682_state::soundcpu_alu_out_5_r)
-{
-	uint8_t ret = m_soundcpu_alu_out[4];
-	//logerror("%s: soundcpu_alu_out_5_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_5_mult_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_5_mult_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand_mult[0] = data;
-}
-
-/*
-    Address 0x2135 WRITE (SOUND CPU)
-
-    0x80 - ALU Mul Oprand 6
-    0x40 - ALU Mul Oprand 6
-    0x20 - ALU Mul Oprand 6
-    0x10 - ALU Mul Oprand 6
-    0x08 - ALU Mul Oprand 6
-    0x04 - ALU Mul Oprand 6
-    0x02 - ALU Mul Oprand 6
-    0x01 - ALU Mul Oprand 6
-
-    Address 0x2135 READ (SOUND CPU)
-
-    0x80 - ALU Output 6
-    0x40 - ALU Output 6
-    0x20 - ALU Output 6
-    0x10 - ALU Output 6
-    0x08 - ALU Output 6
-    0x04 - ALU Output 6
-    0x02 - ALU Output 6
-    0x01 - ALU Output 6
-*/
-
-READ8_MEMBER(vt_vt1682_state::soundcpu_alu_out_6_r)
-{
-	uint8_t ret = m_soundcpu_alu_out[5];
-	//logerror("%s: soundcpu_alu_out_6_r returning: %02x\n", machine().describe_context(), ret);
-	return ret;
-}
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_6_mult_w)
-{
-	// used one of the 32in1 menus
-
-	//logerror("%s: soundcpu_alu_oprand_6_mult_w writing: %02x\n", machine().describe_context(), data);
-	//logerror("------------------------------------------ SOUND CPU MULTIPLICATION REQUESTED ------------------------------------\n");
-	m_soundcpu_alu_oprand_mult[1] = data;
-
-	int param1 = (m_soundcpu_alu_oprand_mult[1] << 8) | m_soundcpu_alu_oprand_mult[0];
-	int param2 = (m_soundcpu_alu_oprand[1] << 8) | m_soundcpu_alu_oprand[0];
-
-	uint32_t result = param1 * param2;
-
-	m_soundcpu_alu_out[0] = result & 0xff;
-	m_soundcpu_alu_out[1] = (result >> 8) & 0xff;
-	m_soundcpu_alu_out[2] = (result >> 16) & 0xff;
-	m_soundcpu_alu_out[3] = (result >> 24) & 0xff;
-
-	// oprands 5/6 cleared?
-}
-
-/*
-    Address 0x2136 WRITE ONLY (SOUND CPU)
-
-    0x80 - ALU Div Oprand 5
-    0x40 - ALU Div Oprand 5
-    0x20 - ALU Div Oprand 5
-    0x10 - ALU Div Oprand 5
-    0x08 - ALU Div Oprand 5
-    0x04 - ALU Div Oprand 5
-    0x02 - ALU Div Oprand 5
-    0x01 - ALU Div Oprand 5
-
-*/
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_5_div_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_5_div_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand_div[0] = data;
-}
-
-/*
-    Address 0x2137 WRITE ONLY (SOUND CPU)
-
-    0x80 - ALU Div Oprand 6
-    0x40 - ALU Div Oprand 6
-    0x20 - ALU Div Oprand 6
-    0x10 - ALU Div Oprand 6
-    0x08 - ALU Div Oprand 6
-    0x04 - ALU Div Oprand 6
-    0x02 - ALU Div Oprand 6
-    0x01 - ALU Div Oprand 6
-*/
-
-WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_6_div_w)
-{
-	//logerror("%s: soundcpu_alu_oprand_6_div_w writing: %02x\n", machine().describe_context(), data);
-	m_soundcpu_alu_oprand_div[1] = data;
-
-	uint32_t param1 = (m_soundcpu_alu_oprand[3] << 24) | (m_soundcpu_alu_oprand[2] << 16) | (m_soundcpu_alu_oprand[1] << 8) | m_soundcpu_alu_oprand[0];
-	// sources say the mult registers areu sed here, but that makes little sense?
-	uint32_t param2 = (m_soundcpu_alu_oprand_div[1] << 8) | m_soundcpu_alu_oprand_div[0];
-
-	if (param2 != 0)
-	{
-		//popmessage("------------------------------------------ SOUND CPU DIVISION REQUESTED ------------------------------------\n");
-
-		uint32_t result = param1 / param2;
-
-		m_soundcpu_alu_out[0] = result & 0xff;
-		m_soundcpu_alu_out[1] = (result >> 8) & 0xff;
-		m_soundcpu_alu_out[2] = (result >> 16) & 0xff;
-		m_soundcpu_alu_out[3] = (result >> 24) & 0xff;
-
-		// should be the remainder?
-		m_soundcpu_alu_out[4] = 0x00;// machine().rand();
-		m_soundcpu_alu_out[5] = 0x00;// machine().rand();
-
-	}
-}
+/* Address 0x2130 - 0x2137 - see v1682_alu.cpp (device identical to main CPU device) */
 
 /* Address 0x2138 Unused (SOUND CPU) */
 /* Address 0x2139 Unused (SOUND CPU) */
@@ -5024,7 +4108,7 @@ WRITE8_MEMBER(vt_vt1682_state::soundcpu_alu_oprand_6_div_w)
     0x01 - IOB PLH
 */
 
-void vt_vt1682_state::draw_tile_pixline(int segment, int tile, int tileline, int x, int y, int palbase, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect)
+void vt_vt1682_state::draw_tile_pixline(int segment, int tile, int tileline, int x, int y, int palselect, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, const rectangle& cliprect)
 {
 	int tilesize_high = is16pix_high ? 16 : 8;
 
@@ -5083,9 +4167,12 @@ void vt_vt1682_state::draw_tile_pixline(int segment, int tile, int tileline, int
 		else
 			currentaddress = startaddress + ((tilesize_high - 1) - tileline) * linebytes;
 
+		uint8_t* pri2ptr = &m_pal2_priority_bitmap.pix8(y);
+		uint8_t* pri1ptr = &m_pal1_priority_bitmap.pix8(y);
 
-		uint32_t* dstptr = &bitmap.pix32(y);
-		uint8_t* priptr = &m_priority_bitmap.pix8(y);
+		uint8_t* pix2ptr = &m_pal2_pix_bitmap.pix8(y);
+		uint8_t* pix1ptr = &m_pal1_pix_bitmap.pix8(y);
+
 
 		int shift_amount, mask, bytes_in;
 		if (bpp == 3) // (8bpp)
@@ -5135,12 +4222,23 @@ void vt_vt1682_state::draw_tile_pixline(int segment, int tile, int tileline, int
 
 					if (xdraw_real >= cliprect.min_x && xdraw_real <= cliprect.max_x)
 					{
-						if (depth < priptr[xdraw_real])
+						if (palselect & 1)
 						{
-							const pen_t* paldata = m_palette->pens();
-							dstptr[xdraw_real] = paldata[(palbase + pen) | (pal << 4)];
-							priptr[xdraw_real] = depth;
+							if (depth < pri1ptr[xdraw_real])
+							{
+								pix1ptr[xdraw_real] = pen | (pal << 4);
+								pri1ptr[xdraw_real] = depth;
+							}
 						}
+						if (palselect & 2)
+						{
+							if (depth < pri2ptr[xdraw_real])
+							{
+								pix2ptr[xdraw_real] = pen | (pal << 4);
+								pri2ptr[xdraw_real] = depth;
+							}
+						}
+
 					}
 				}
 				shift += shift_amount;
@@ -5148,13 +4246,13 @@ void vt_vt1682_state::draw_tile_pixline(int segment, int tile, int tileline, int
 		}
 	}
 }
-void vt_vt1682_state::draw_tile(int segment, int tile, int x, int y, int palbase, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect)
+void vt_vt1682_state::draw_tile(int segment, int tile, int x, int y, int palselect, int pal, int is16pix_high, int is16pix_wide, int bpp, int depth, int opaque, int flipx, int flipy, const rectangle& cliprect)
 {
 	int tilesize_high = is16pix_high ? 16 : 8;
 
 	for (int yy = 0; yy < tilesize_high; yy++) // tile y lines
 	{
-		draw_tile_pixline(segment, tile, yy, x, y+yy, palbase, pal, is16pix_high, is16pix_wide, bpp, depth, opaque, flipx, flipy, screen, bitmap, cliprect);
+		draw_tile_pixline(segment, tile, yy, x, y+yy, palselect, pal, is16pix_high, is16pix_wide, bpp, depth, opaque, flipx, flipy, cliprect);
 	}
 }
 
@@ -5573,25 +4671,14 @@ int vt_vt1682_state::get_address_for_tilepos(int x, int y, int tilesize, uint16_
     =================================================================================================================================
 */
 
-void vt_vt1682_state::draw_layer(int which, int opaque, screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect)
+void vt_vt1682_state::draw_layer(int which, int opaque, const rectangle& cliprect)
 {
-	// m_main_control_bk[0]
-	// logerror("%s: vt1682_2013_bk1_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x linemode:%01x tilesize:%01x)\n", machine().describe_context(), data,
-	//      (data & 0x80) >> 7, (data & 0x40) >> 6, (data & 0x30) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0 );
-
-	// m_scroll_control_bk[0]
-	// logerror("%s: vt1682_2012_bk1_scroll_control_w writing: %02x (hclr: %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
-	//      (data & 0x10) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0);
-
-
-
 	int bk_tilesize = (m_main_control_bk[which] & 0x01);
 	int bk_line = (m_main_control_bk[which] & 0x02) >> 1;
 	int bk_tilebpp = (m_main_control_bk[which] & 0x0c) >> 2;
 	int bk_depth = (m_main_control_bk[which] & 0x30) >> 4;
-	int bk_palette = (m_main_control_bk[which] & 0x40) >> 5;
+	int bk_paldepth_mode = (m_main_control_bk[which] & 0x40) >> 5; // called bkpal in places, bk_pal_select in others (in conflict with palselect below)
 	int bk_enable = (m_main_control_bk[which] & 0x80) >> 7;
-
 
 	if (bk_enable)
 	{
@@ -5602,6 +4689,20 @@ void vt_vt1682_state::draw_layer(int which, int opaque, screen_device& screen, b
 		int page_layout_h = (m_scroll_control_bk[which] & 0x04) >> 2;
 		int page_layout_v = (m_scroll_control_bk[which] & 0x08) >> 3;
 		int high_color = (m_scroll_control_bk[which] & 0x10) >> 4;
+
+		/* must be some condition for this, as Maze Pac does not want this offset (confirmed no offset on hardware) but some others do (see Snake title for example)
+		   documentation says it's a hw bug, for bk2 (+2 pixels), but conditions aren't understood, and bk1 clearly needs offset too
+		   sprites and tilemaps on the select menu need to align too, without left edge scrolling glitches
+		   judging this from videos is tricky, because there's another bug that causes the right-most column of pixels to not render for certain scroll values
+		   and the right-most 2 columns of sprites to not render
+		   
+		   does this come down to pal1/pal2 output mixing rather than specific layers?
+		*/
+		//if (which == 0)
+		//	xscroll += 1;
+
+		//if (which == 1)
+		//	xscroll += 1;
 
 		int segment = m_segment_7_0_bk[which];
 		segment |= m_segment_11_8_bk[which] << 8;
@@ -5615,39 +4716,18 @@ void vt_vt1682_state::draw_layer(int which, int opaque, screen_device& screen, b
 
 		setup_video_pages(which, bk_tilesize, page_layout_v, page_layout_h, yscrollmsb, xscrollmsb, bases);
 
-		//logerror("layer %d bases %04x %04x %04x %04x (scrolls x:%02x y:%02x)\n", which, bases[0], bases[1], bases[2], bases[3], xscroll, yscroll);
+		//LOGMASKED(LOG_OTHER, "layer %d bases %04x %04x %04x %04x (scrolls x:%02x y:%02x)\n", which, bases[0], bases[1], bases[2], bases[3], xscroll, yscroll);
 
 		if (!bk_line)
 		{
-			// Character Mode
-			logerror("DRAWING ----- bk, Character Mode Segment base %08x, TileSize %1x Bpp %1x, Depth %1x Palette %1x PageLayout_V:%1x PageLayout_H:%1x XScroll %04x YScroll %04x\n", segment, bk_tilesize, bk_tilebpp, bk_depth, bk_palette, page_layout_v, page_layout_h, xscroll, yscroll);
-
 			int palselect;
 			if (which == 0) palselect = m_200f_bk_pal_sel & 0x03;
 			else palselect = (m_200f_bk_pal_sel & 0x0c) >> 2;
 
-			int palbase;
+			// Character Mode
+			LOGMASKED(LOG_OTHER, "DRAWING ----- bk, Character Mode Segment base %08x, TileSize %1x Bpp %1x, Depth %1x PalDepthMode:%1x PalSelect:%1 PageLayout_V:%1x PageLayout_H:%1x XScroll %04x YScroll %04x\n", segment, bk_tilesize, bk_tilebpp, bk_depth, bk_paldepth_mode, palselect, page_layout_v, page_layout_h, xscroll, yscroll);
 
-			if (palselect == 0)
-			{
-				// 'disable' ?
-				return;
-			}
-			else if (palselect == 1)
-			{
-				palbase = 0x100;
-			}
-			else if (palselect == 2)
-			{
-				palbase = 0x000;
-			}
-			else
-			{
-				// 'both' ? (how?)
-				palbase = machine().rand() & 0xff;
-			}
-
-			for (int y = 0; y < 240; y++)
+			for (int y = cliprect.min_y; y <= cliprect.max_y; y++)
 			{
 				int ytile, ytileline;
 
@@ -5689,11 +4769,33 @@ void vt_vt1682_state::draw_layer(int which, int opaque, screen_device& screen, b
 					count++;
 
 					int tile = word & 0x0fff;
+
+					if (!tile) // verified
+						continue;
+
 					uint8_t pal = (word & 0xf000) >> 12;
 
 					int xpos = xtile * (bk_tilesize ? 16 : 8);
 
-					draw_tile_pixline(segment, tile, ytileline, xpos + xscrolltile_part, y, palbase, pal, bk_tilesize, bk_tilesize, bk_tilebpp, (bk_depth * 2) + 1, opaque, 0, 0, screen, bitmap, cliprect);
+					uint8_t realpal, realdepth;
+
+					if (bk_paldepth_mode)
+					{
+						// this mode isn't tested, not seen it used
+						//if (bk_paldepth_mode)
+						//	popmessage("bk_paldepth_mode set\n");
+						realdepth = pal & 0x03;
+
+						// depth might instead be the high 2 bits in 4bpp mode
+						realpal = (pal & 0x0c) | bk_depth;
+					}
+					else
+					{
+						realpal = pal;
+						realdepth = bk_depth;
+					}
+
+					draw_tile_pixline(segment, tile, ytileline, xpos + xscrolltile_part, y, palselect, realpal, bk_tilesize, bk_tilesize, bk_tilebpp, (realdepth * 2) + 1, opaque, 0, 0, cliprect);
 				}
 			}
 		}
@@ -5709,10 +4811,10 @@ void vt_vt1682_state::draw_layer(int which, int opaque, screen_device& screen, b
 	}
 }
 
-void vt_vt1682_state::draw_sprites(screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect)
+void vt_vt1682_state::draw_sprites(const rectangle& cliprect)
 {
 	int sp_en = (m_2018_spregs & 0x04) >> 2;
-	//int sp_pal_sel = (m_2018_spregs & 0x08) >> 3;
+	int sp_pal_sel = (m_2018_spregs & 0x08) >> 3;
 	int sp_size = (m_2018_spregs & 0x03);
 
 	int segment = m_201a_sp_segment_7_0;
@@ -5734,17 +4836,17 @@ void vt_vt1682_state::draw_sprites(screen_device& screen, bitmap_rgb32& bitmap, 
 			int attr2 = m_spriteram->read8((i * SPRITE_STEP) + 5);
 
 			tilenum |= (attr0 & 0x0f) << 8;
+
+			if (!tilenum) // verified
+				continue;
+
 			int pal = (attr0 & 0xf0) >> 4;
 
-			int flipx = (attr1 & 0x02) >> 1;
+			int flipx = (attr1 & 0x02) >> 1; // might not function correctly on hardware
 			int flipy = (attr1 & 0x04) >> 2;
 
-			// sp_pal_sel also influences this
-			int palbase;
-			if (attr2 & 0x02)
-				palbase = 0x000;
-			else
-				palbase = 0x100;
+			int depth = (attr1 & 0x18) >> 3;
+
 
 			if (attr2 & 0x01)
 				y -= 256;
@@ -5752,8 +4854,25 @@ void vt_vt1682_state::draw_sprites(screen_device& screen, bitmap_rgb32& bitmap, 
 			if (attr1 & 0x01)
 				x -= 256;
 
+			// guess! Maze Pac needs sprites shifted left by 1, but actual conditions might be more complex
+			//if ((!sp_size & 0x01))
+			//	x -= 1;
 
-			draw_tile(segment, tilenum, x, y, palbase, pal, sp_size & 0x2, sp_size&0x1, 0, 0, 0, flipx, flipy, screen, bitmap, cliprect);
+			int palselect = 0;
+			if (sp_pal_sel)
+			{
+				// sprites are rendered to both buffers
+				palselect = 3;
+			}
+			else
+			{
+				if (attr2 & 0x02)
+					palselect = 2;
+				else
+					palselect = 1;
+			}
+
+			draw_tile(segment, tilenum, x, y, palselect, pal, sp_size & 0x2, sp_size&0x1, 0, depth * 2, 0, flipx, flipy, cliprect);
 		}
 	}
 	// if more than 16 sprites on any line 0x2001 bit 0x40 (SP_ERR) should be set (updated every line, can only be read in HBLANK)
@@ -5761,14 +4880,49 @@ void vt_vt1682_state::draw_sprites(screen_device& screen, bitmap_rgb32& bitmap, 
 
 uint32_t vt_vt1682_state::screen_update(screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect)
 {
-	m_priority_bitmap.fill(0xff, cliprect);
+	m_pal2_priority_bitmap.fill(0xff, cliprect);
+	m_pal1_priority_bitmap.fill(0xff, cliprect);
+	m_pal2_pix_bitmap.fill(0x00, cliprect);
+	m_pal1_pix_bitmap.fill(0x00, cliprect);
+
 	bitmap.fill(0, cliprect);
 
-	draw_layer(0, 0, screen, bitmap, cliprect);
+	draw_layer(0, 0, cliprect);
 
-	draw_layer(1, 0, screen, bitmap, cliprect);
+	draw_layer(1, 0, cliprect);
 
-	draw_sprites(screen, bitmap, cliprect);
+	draw_sprites(cliprect);
+
+	for (int y = cliprect.min_y; y <= cliprect.max_y; y++)
+	{
+		const pen_t* paldata = m_palette->pens();
+		uint8_t* pri2ptr = &m_pal2_priority_bitmap.pix8(y);
+		uint8_t* pri1ptr = &m_pal1_priority_bitmap.pix8(y);
+		uint8_t* pix2ptr = &m_pal2_pix_bitmap.pix8(y);
+		uint8_t* pix1ptr = &m_pal1_pix_bitmap.pix8(y);
+		uint32_t* dstptr = &bitmap.pix32(y);
+
+		for (int x = cliprect.min_x; x <= cliprect.max_x; x++)
+		{
+			uint8_t pix1 = pix1ptr[x];
+			uint8_t pix2 = pix2ptr[x];
+			uint8_t pri1 = pri1ptr[x];
+			uint8_t pri2 = pri2ptr[x];
+			// TODO: bit 0x8000 in palette can cause the layer to 'dig through'
+			// palette layers can also be turned off, or just sent to lcd / just sent to tv
+			// layers can also blend 50/50 rather than using depth
+			if (pri1 <= pri2)
+			{
+				if (pix1) dstptr[x] = paldata[pix1 | 0x100];
+				else if (pix2) dstptr[x] = paldata[pix2];
+			}
+			else
+			{
+				if (pix2) dstptr[x] = paldata[pix2];
+				else if (pix1) dstptr[x] = paldata[pix1 | 0x100];
+			}
+		}
+	}
 
 	return 0;
 }
@@ -5800,15 +4954,15 @@ void vt_vt1682_state::vt_vt1682_sound_map(address_map& map)
 	map(0x1000, 0x1fff).ram().share("sound_share");
 	// 3000-3fff internal ROM if enabled
 
-	map(0x2100, 0x2100).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2100_timer_a_preload_7_0_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2100_timer_a_preload_7_0_w));
-	map(0x2101, 0x2101).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2101_timer_a_preload_15_8_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2101_timer_a_preload_15_8_w));
-	map(0x2102, 0x2102).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2102_timer_a_enable_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2102_timer_a_enable_w));
-	map(0x2103, 0x2103).w(FUNC(vt_vt1682_state::vt1682_soundcpu_2103_timer_a_irqclear_w));
+	map(0x2100, 0x2100).rw(m_soundcpu_timer_a_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_7_0_r),  FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_7_0_w));
+	map(0x2101, 0x2101).rw(m_soundcpu_timer_a_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_15_8_r), FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_15_8_w));
+	map(0x2102, 0x2102).rw(m_soundcpu_timer_a_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_enable_r),       FUNC(vrt_vt1682_timer_device::vt1682_timer_enable_w));
+	map(0x2103, 0x2103).w( m_soundcpu_timer_a_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_irqclear_w));
 
-	map(0x2110, 0x2110).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2110_timer_b_preload_7_0_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2110_timer_b_preload_7_0_w));
-	map(0x2111, 0x2111).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2111_timer_b_preload_15_8_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2111_timer_b_preload_15_8_w));
-	map(0x2112, 0x2112).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2112_timer_b_enable_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2112_timer_b_enable_w));
-	map(0x2113, 0x2113).w(FUNC(vt_vt1682_state::vt1682_soundcpu_2113_timer_b_irqclear_w));
+	map(0x2110, 0x2110).rw(m_soundcpu_timer_b_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_7_0_r),  FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_7_0_w));
+	map(0x2111, 0x2111).rw(m_soundcpu_timer_b_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_15_8_r), FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_15_8_w));
+	map(0x2112, 0x2112).rw(m_soundcpu_timer_b_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_enable_r),       FUNC(vrt_vt1682_timer_device::vt1682_timer_enable_w));
+	map(0x2113, 0x2113).w( m_soundcpu_timer_b_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_irqclear_w));
 
 	map(0x2118, 0x2118).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2118_dacleft_7_0_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2118_dacleft_7_0_w));
 	map(0x2119, 0x2119).rw(FUNC(vt_vt1682_state::vt1682_soundcpu_2119_dacleft_15_8_r), FUNC(vt_vt1682_state::vt1682_soundcpu_2119_dacleft_15_8_w));
@@ -5817,18 +4971,18 @@ void vt_vt1682_state::vt_vt1682_sound_map(address_map& map)
 
 	map(0x211c, 0x211c).w(FUNC(vt_vt1682_state::vt1682_soundcpu_211c_reg_irqctrl_w));
 
-	map(0x2130, 0x2130).rw(FUNC(vt_vt1682_state::soundcpu_alu_out_1_r), FUNC(vt_vt1682_state::soundcpu_alu_oprand_1_w));
-	map(0x2131, 0x2131).rw(FUNC(vt_vt1682_state::soundcpu_alu_out_2_r), FUNC(vt_vt1682_state::soundcpu_alu_oprand_2_w));
-	map(0x2132, 0x2132).rw(FUNC(vt_vt1682_state::soundcpu_alu_out_3_r), FUNC(vt_vt1682_state::soundcpu_alu_oprand_3_w));
-	map(0x2133, 0x2133).rw(FUNC(vt_vt1682_state::soundcpu_alu_out_4_r), FUNC(vt_vt1682_state::soundcpu_alu_oprand_4_w));
-	map(0x2134, 0x2134).rw(FUNC(vt_vt1682_state::soundcpu_alu_out_5_r), FUNC(vt_vt1682_state::soundcpu_alu_oprand_5_mult_w));
-	map(0x2135, 0x2135).rw(FUNC(vt_vt1682_state::soundcpu_alu_out_6_r), FUNC(vt_vt1682_state::soundcpu_alu_oprand_6_mult_w));
-	map(0x2136, 0x2136).w(FUNC(vt_vt1682_state::soundcpu_alu_oprand_5_div_w));
-	map(0x2137, 0x2137).w(FUNC(vt_vt1682_state::soundcpu_alu_oprand_6_div_w));
+	map(0x2130, 0x2130).rw(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_1_r), FUNC(vrt_vt1682_alu_device::alu_oprand_1_w));
+	map(0x2131, 0x2131).rw(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_2_r), FUNC(vrt_vt1682_alu_device::alu_oprand_2_w));
+	map(0x2132, 0x2132).rw(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_3_r), FUNC(vrt_vt1682_alu_device::alu_oprand_3_w));
+	map(0x2133, 0x2133).rw(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_4_r), FUNC(vrt_vt1682_alu_device::alu_oprand_4_w));
+	map(0x2134, 0x2134).rw(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_5_r), FUNC(vrt_vt1682_alu_device::alu_oprand_5_mult_w));
+	map(0x2135, 0x2135).rw(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_6_r), FUNC(vrt_vt1682_alu_device::alu_oprand_6_mult_w));
+	map(0x2136, 0x2136).w(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_oprand_5_div_w));
+	map(0x2137, 0x2137).w(m_soundcpu_alu, FUNC(vrt_vt1682_alu_device::alu_oprand_6_div_w));
 
 	map(0xf000, 0xffff).ram().share("sound_share"); // doesn't actually map here, the CPU fetches vectors from 0x0ff0 - 0x0fff!
 
-	map(0xfffe, 0xffff).r(FUNC(vt_vt1682_state::irq_vector_hack_r)); // probably need custom IRQ support in the core instead...
+	map(0xfffe, 0xffff).r(FUNC(vt_vt1682_state::soundcpu_irq_vector_hack_r)); // probably need custom IRQ support in the core instead...
 }
 
 void vt_vt1682_state::vt_vt1682_map(address_map &map)
@@ -5892,10 +5046,12 @@ void vt_vt1682_state::vt_vt1682_map(address_map &map)
 
 	/* System */
 	map(0x2100, 0x2100).rw(FUNC(vt_vt1682_state::vt1682_2100_prgbank1_r3_r), FUNC(vt_vt1682_state::vt1682_2100_prgbank1_r3_w));
-	map(0x2101, 0x2101).rw(FUNC(vt_vt1682_state::vt1682_2101_timer_preload_7_0_r), FUNC(vt_vt1682_state::vt1682_2101_timer_preload_7_0_w));
-	map(0x2102, 0x2102).rw(FUNC(vt_vt1682_state::vt1682_2102_timer_enable_r), FUNC(vt_vt1682_state::vt1682_2102_timer_enable_w));
-
-	map(0x2104, 0x2104).rw(FUNC(vt_vt1682_state::vt1682_2104_timer_preload_15_8_r), FUNC(vt_vt1682_state::vt1682_2104_timer_preload_15_8_w));
+	map(0x2101, 0x2101).rw(m_system_timer_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_7_0_r),  FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_7_0_w));
+	map(0x2102, 0x2102).r(m_system_timer_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_enable_r));
+	map(0x2102, 0x2102).w(FUNC(vt_vt1682_state::vt1682_timer_enable_trampoline_w));
+	map(0x2103, 0x2103).w( m_system_timer_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_irqclear_w));
+	map(0x2104, 0x2104).r(m_system_timer_dev, FUNC(vrt_vt1682_timer_device::vt1682_timer_preload_15_8_r));
+	map(0x2104, 0x2104).w(FUNC(vt_vt1682_state::vt1682_timer_preload_15_8_trampoline_w));
 	map(0x2105, 0x2105).w(FUNC(vt_vt1682_state::vt1682_2105_comr6_tvmodes_w));
 	map(0x2106, 0x2106).rw(FUNC(vt_vt1682_state::vt1682_2106_enable_regs_r), FUNC(vt_vt1682_state::vt1682_2106_enable_regs_w));
 	map(0x2107, 0x2107).rw(FUNC(vt_vt1682_state::vt1682_2107_prgbank0_r0_r), FUNC(vt_vt1682_state::vt1682_2107_prgbank0_r0_w));
@@ -5907,18 +5063,24 @@ void vt_vt1682_state::vt_vt1682_map(address_map &map)
 	map(0x210d, 0x210d).rw(m_io, FUNC(vrt_vt1682_io_device::vt1682_210d_ioconfig_r),FUNC(vrt_vt1682_io_device::vt1682_210d_ioconfig_w));
 	map(0x210e, 0x210e).rw(m_io, FUNC(vrt_vt1682_io_device::vt1682_210e_io_ab_r),FUNC(vrt_vt1682_io_device::vt1682_210e_io_ab_w));
 	map(0x210f, 0x210f).rw(m_io, FUNC(vrt_vt1682_io_device::vt1682_210f_io_cd_r),FUNC(vrt_vt1682_io_device::vt1682_210f_io_cd_w));
-
-	// either reads/writes are on different addresses or our source info is incorrect
-	map(0x2110, 0x2110).rw(FUNC(vt_vt1682_state::vt1682_prgbank0_r4_r), FUNC(vt_vt1682_state::vt1682_prgbank1_r0_w));
-	map(0x2111, 0x2111).rw(FUNC(vt_vt1682_state::vt1682_prgbank0_r5_r), FUNC(vt_vt1682_state::vt1682_prgbank1_r1_w));
-	map(0x2112, 0x2112).rw(FUNC(vt_vt1682_state::vt1682_prgbank1_r0_r), FUNC(vt_vt1682_state::vt1682_prgbank0_r4_w));
-	map(0x2113, 0x2113).rw(FUNC(vt_vt1682_state::vt1682_prgbank1_r1_r), FUNC(vt_vt1682_state::vt1682_prgbank0_r5_w));
-
+	map(0x2110, 0x2110).rw(FUNC(vt_vt1682_state::vt1682_prgbank0_r4_r), FUNC(vt_vt1682_state::vt1682_prgbank1_r0_w)); // either reads/writes are on different addresses or our source info is incorrect
+	map(0x2111, 0x2111).rw(FUNC(vt_vt1682_state::vt1682_prgbank0_r5_r), FUNC(vt_vt1682_state::vt1682_prgbank1_r1_w)); // ^
+	map(0x2112, 0x2112).rw(FUNC(vt_vt1682_state::vt1682_prgbank1_r0_r), FUNC(vt_vt1682_state::vt1682_prgbank0_r4_w)); // ^
+	map(0x2113, 0x2113).rw(FUNC(vt_vt1682_state::vt1682_prgbank1_r1_r), FUNC(vt_vt1682_state::vt1682_prgbank0_r5_w)); // ^
+	// 2114 baud rade
+	// 2115 baud rate
+	// 2116 SPI
+	// 2117 SPI
 	map(0x2118, 0x2118).rw(FUNC(vt_vt1682_state::vt1682_2118_prgbank1_r4_r5_r), FUNC(vt_vt1682_state::vt1682_2118_prgbank1_r4_r5_w));
-
-
+	// 2119 UART
+	// 211a UART
+	// 211b UART
 	map(0x211c, 0x211c).w(FUNC(vt_vt1682_state::vt1682_211c_regs_ext2421_w));
-
+	// 211d misc enable regs
+	// 211e ADC
+	// 211f voice gain
+	// 2120 sleep period
+	// 2121 misc interrupt masks / clears
 	map(0x2122, 0x2122).rw(FUNC(vt_vt1682_state::vt1682_2122_dma_dt_addr_7_0_r), FUNC(vt_vt1682_state::vt1682_2122_dma_dt_addr_7_0_w));
 	map(0x2123, 0x2123).rw(FUNC(vt_vt1682_state::vt1682_2123_dma_dt_addr_15_8_r), FUNC(vt_vt1682_state::vt1682_2123_dma_dt_addr_15_8_w));
 	map(0x2124, 0x2124).rw(FUNC(vt_vt1682_state::vt1682_2124_dma_sr_addr_7_0_r), FUNC(vt_vt1682_state::vt1682_2124_dma_sr_addr_7_0_w));
@@ -5926,19 +5088,27 @@ void vt_vt1682_state::vt_vt1682_map(address_map &map)
 	map(0x2126, 0x2126).rw(FUNC(vt_vt1682_state::vt1682_2126_dma_sr_bank_addr_22_15_r), FUNC(vt_vt1682_state::vt1682_2126_dma_sr_bank_addr_22_15_w));
 	map(0x2127, 0x2127).rw(FUNC(vt_vt1682_state::vt1682_2127_dma_status_r), FUNC(vt_vt1682_state::vt1682_2127_dma_size_trigger_w));
 	map(0x2128, 0x2128).rw(FUNC(vt_vt1682_state::vt1682_2128_dma_sr_bank_addr_24_23_r), FUNC(vt_vt1682_state::vt1682_2128_dma_sr_bank_addr_24_23_w));
-
-	map(0x2130, 0x2130).rw(FUNC(vt_vt1682_state::alu_out_1_r), FUNC(vt_vt1682_state::alu_oprand_1_w));
-	map(0x2131, 0x2131).rw(FUNC(vt_vt1682_state::alu_out_2_r), FUNC(vt_vt1682_state::alu_oprand_2_w));
-	map(0x2132, 0x2132).rw(FUNC(vt_vt1682_state::alu_out_3_r), FUNC(vt_vt1682_state::alu_oprand_3_w));
-	map(0x2133, 0x2133).rw(FUNC(vt_vt1682_state::alu_out_4_r), FUNC(vt_vt1682_state::alu_oprand_4_w));
-	map(0x2134, 0x2134).rw(FUNC(vt_vt1682_state::alu_out_5_r), FUNC(vt_vt1682_state::alu_oprand_5_mult_w));
-	map(0x2135, 0x2135).rw(FUNC(vt_vt1682_state::alu_out_6_r), FUNC(vt_vt1682_state::alu_oprand_6_mult_w));
-	map(0x2136, 0x2136).w(FUNC(vt_vt1682_state::alu_oprand_5_div_w));
-	map(0x2137, 0x2137).w(FUNC(vt_vt1682_state::alu_oprand_6_div_w));
+	// 2129 UIO
+	// 212a UIO
+	// 212b UIO
+	map(0x212c, 0x212c).rw(FUNC(vt_vt1682_state::vt1682_212c_prng_r), FUNC(vt_vt1682_state::vt1682_212c_prng_seed_w));
+	// 212d PLL
+	// 212e unused
+	// 212f unused
+	map(0x2130, 0x2130).rw(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_1_r), FUNC(vrt_vt1682_alu_device::alu_oprand_1_w));
+	map(0x2131, 0x2131).rw(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_2_r), FUNC(vrt_vt1682_alu_device::alu_oprand_2_w));
+	map(0x2132, 0x2132).rw(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_3_r), FUNC(vrt_vt1682_alu_device::alu_oprand_3_w));
+	map(0x2133, 0x2133).rw(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_4_r), FUNC(vrt_vt1682_alu_device::alu_oprand_4_w));
+	map(0x2134, 0x2134).rw(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_5_r), FUNC(vrt_vt1682_alu_device::alu_oprand_5_mult_w));
+	map(0x2135, 0x2135).rw(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_out_6_r), FUNC(vrt_vt1682_alu_device::alu_oprand_6_mult_w));
+	map(0x2136, 0x2136).w(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_oprand_5_div_w));
+	map(0x2137, 0x2137).w(m_maincpu_alu, FUNC(vrt_vt1682_alu_device::alu_oprand_6_div_w));
 
 	// 3000-3fff internal ROM if enabled
 	map(0x4000, 0x7fff).r(FUNC(vt_vt1682_state::rom_4000_to_7fff_r));
 	map(0x8000, 0xffff).r(FUNC(vt_vt1682_state::rom_8000_to_ffff_r));
+
+	map(0xfffe, 0xffff).r(FUNC(vt_vt1682_state::maincpu_irq_vector_hack_r)); // probably need custom IRQ support in the core instead...
 }
 
 /*
@@ -5967,21 +5137,75 @@ Ext IRQ         0x0ffe - 0x0fff
 */
 
 
-READ8_MEMBER(vt_vt1682_state::irq_vector_hack_r)
+READ8_MEMBER(vt_vt1682_state::soundcpu_irq_vector_hack_r)
 {
 	// redirect to Timer IRQ!
 	return m_sound_share[0x0ff8 + offset];
 }
 
-INTERRUPT_GEN_MEMBER(vt_vt1682_state::nmi)
+READ8_MEMBER(vt_vt1682_state::maincpu_irq_vector_hack_r)
 {
-	if (m_2000 & 0x01)
-	{
-		m_maincpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
-		m_soundcpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero); // same enable? (NMI_EN on sub is 'wakeup NMI')
-	}
+	// redirect to Timer IRQ!
+	return rom_8000_to_ffff_r(space, (0xfff8 - 0x8000)+offset);
 }
 
+
+WRITE_LINE_MEMBER(vt_vt1682_state::soundcpu_timera_irq)
+{
+	if (state)
+		m_soundcpu->set_input_line(0, ASSERT_LINE);
+	else
+		m_soundcpu->set_input_line(0, CLEAR_LINE);
+}
+
+WRITE_LINE_MEMBER(vt_vt1682_state::soundcpu_timerb_irq)
+{
+// need to set proper vector (need IRQ priority manager function?)
+/*
+    if (state)
+        m_soundcpu->set_input_line(0, ASSERT_LINE);
+    else
+        m_soundcpu->set_input_line(0, CLEAR_LINE);
+*/
+}
+
+WRITE_LINE_MEMBER(vt_vt1682_state::maincpu_timer_irq)
+{
+	// need to set proper vector (need IRQ priority manager function?)
+
+	/* rasters are used on:
+
+	   Highway Racing (title screen - scrolling split)
+	   Fire Man (title screen - scrolling split)
+	   Bee Fighting (title screen - scrolling split)
+	   Over Speed (ingame rendering - road)
+	   Motor Storm (ingame rendering - road)
+	   Fish War (ingame rendering - status bar split)
+	   Duel Soccer (ingame rendering - status bar split)
+	*/
+
+	if (state)
+		m_maincpu->set_input_line(0, ASSERT_LINE);
+	else
+		m_maincpu->set_input_line(0, CLEAR_LINE);
+}
+
+
+TIMER_DEVICE_CALLBACK_MEMBER(vt_vt1682_state::scanline)
+{
+	int scanline = param;
+
+	//m_screen->update_partial(m_screen->vpos());
+
+	if (scanline == 239) // 239 aligns highway racing title, but could actually depend on when registers get latched
+	{
+		if (m_2000 & 0x01)
+		{
+			m_maincpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
+			m_soundcpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero); // same enable? (NMI_EN on sub is 'wakeup NMI')
+		}
+	}
+}
 
 static const gfx_layout helper_8bpp_8x8_layout =
 {
@@ -6046,23 +5270,30 @@ GFXDECODE_END
 
 
 
-// NTSC uses XTAL(21'477'272) Sound CPU runs at exactly this, Main CPU runs at this / 4
-// PAL  uses XTAL(26'601'712) Sound CPU runs at exactly this, Main CPU runs at this / 5
-
-// can also be used with the following
-// PAL M 21.453669MHz
-// PAL N 21.492336MHz
-
 
 void vt_vt1682_state::vt_vt1682(machine_config &config)
 {
 	/* basic machine hardware */
-	M6502_VT1682(config, m_maincpu, XTAL(21'477'272)/4);
+	M6502_VT1682(config, m_maincpu, MAIN_CPU_CLOCK_NTSC);
 	m_maincpu->set_addrmap(AS_PROGRAM, &vt_vt1682_state::vt_vt1682_map);
-	m_maincpu->set_vblank_int("screen", FUNC(vt_vt1682_state::nmi));
+	//m_maincpu->set_vblank_int("screen", FUNC(vt_vt1682_state::nmi));
 
-	M6502(config, m_soundcpu, XTAL(21'477'272));
+	M6502(config, m_soundcpu, SOUND_CPU_CLOCK_NTSC);
 	m_soundcpu->set_addrmap(AS_PROGRAM, &vt_vt1682_state::vt_vt1682_sound_map);
+
+	TIMER(config, "scantimer").configure_scanline(FUNC(vt_vt1682_state::scanline), "screen", 0, 1);
+
+	VT_VT1682_ALU(config, m_maincpu_alu, 0);
+	VT_VT1682_ALU(config, m_soundcpu_alu, 0);
+	m_soundcpu_alu->set_sound_alu(); // different logging conditions
+
+	VT_VT1682_TIMER(config, m_soundcpu_timer_a_dev, SOUND_CPU_CLOCK_NTSC);
+	m_soundcpu_timer_a_dev->write_irq_callback().set(FUNC(vt_vt1682_state::soundcpu_timera_irq));
+	m_soundcpu_timer_a_dev->set_sound_timer(); // different logging conditions
+	VT_VT1682_TIMER(config, m_soundcpu_timer_b_dev, SOUND_CPU_CLOCK_NTSC);
+	m_soundcpu_timer_b_dev->write_irq_callback().set(FUNC(vt_vt1682_state::soundcpu_timerb_irq));
+	VT_VT1682_TIMER(config, m_system_timer_dev, MAIN_CPU_CLOCK_NTSC);
+	m_system_timer_dev->write_irq_callback().set(FUNC(vt_vt1682_state::maincpu_timer_irq));
 
 	config.set_maximum_quantum(attotime::from_hz(6000));
 
@@ -6077,17 +5308,12 @@ void vt_vt1682_state::vt_vt1682(machine_config &config)
 
 	VT_VT1682_IO(config, m_io, 0);
 
-	TIMER(config, m_soundcpu_timer_a).configure_periodic(FUNC(vt_vt1682_state::soundcpu_timer_a_expired), attotime::never);
-	TIMER(config, m_soundcpu_timer_b).configure_periodic(FUNC(vt_vt1682_state::soundcpu_timer_b_expired), attotime::never);
-	TIMER(config, m_system_timer).configure_periodic(FUNC(vt_vt1682_state::system_timer_expired), attotime::never);
-
-
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_refresh_hz(60);
 	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(0));
-	m_screen->set_size(256, 256);
-	m_screen->set_visarea(0, 256-1, 0, 256-16-1);
+	m_screen->set_size(256, 262); // 262 for NTSC, might be 261 if Vblank line is changed
+	m_screen->set_visarea(0, 256-1, 0, 240-1);
 	m_screen->set_screen_update(FUNC(vt_vt1682_state::screen_update));
 
 	SPEAKER(config, "lspeaker").front_left();
@@ -6125,7 +5351,7 @@ WRITE8_MEMBER(intec_interact_state::porta_w)
 {
 	if (data != 0xf)
 	{
-		logerror("%s: porta_w writing: %1x\n", machine().describe_context(), data & 0xf);
+		LOGMASKED(LOG_OTHER, "%s: porta_w writing: %1x\n", machine().describe_context(), data & 0xf);
 	}
 }
 
@@ -6172,6 +5398,8 @@ static INPUT_PORTS_START( intec )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( zone40 )
+INPUT_PORTS_END
 
 // this controller code is just designed to feed the games with data they're happy with, it probably has no grounds in reality
 // as I don't know how they really work.  presumably wireless with timeouts, sending signals for brief periods that need to be
@@ -6196,7 +5424,7 @@ READ8_MEMBER(intec_interact_state::porta_r)
 	case 0x4: ret = m_io_p4->read(); break;
 	}
 
-	//logerror("%s: porta_r returning: %1x (INPUTS) (with input position %d)\n", machine().describe_context(), ret, m_input_pos);
+	//LOGMASKED(LOG_OTHER, "%s: porta_r returning: %1x (INPUTS) (with input position %d)\n", machine().describe_context(), ret, m_input_pos);
 	return ret;
 }
 
@@ -6204,18 +5432,18 @@ READ8_MEMBER(intec_interact_state::portc_r)
 {
 	uint8_t ret = 0x0;
 	ret |= m_input_sense ^1;
-	//logerror("%s: portc_r returning: %1x (CONTROLLER INPUT SENSE)\n", machine().describe_context(), ret);
+	//LOGMASKED(LOG_OTHER, "%s: portc_r returning: %1x (CONTROLLER INPUT SENSE)\n", machine().describe_context(), ret);
 	return ret;
 }
 
 WRITE8_MEMBER(intec_interact_state::portb_w)
 {
-	logerror("%s: portb_w writing: %1x\n", machine().describe_context(), data & 0xf);
+	LOGMASKED(LOG_OTHER, "%s: portb_w writing: %1x\n", machine().describe_context(), data & 0xf);
 
 	if ((m_previous_port_b & 0x1) && (!(data & 0x1)))
 	{
 		// 0x1 high -> low
-		logerror("high to low\n");
+		LOGMASKED(LOG_OTHER, "high to low\n");
 
 		if (m_input_sense == 1)
 		{
@@ -6225,19 +5453,19 @@ WRITE8_MEMBER(intec_interact_state::portb_w)
 		{
 			m_input_sense = 1;
 		}
-		logerror("input pos is %d\n", m_input_pos);
+		LOGMASKED(LOG_OTHER, "input pos is %d\n", m_input_pos);
 
 	}
 	else if ((m_previous_port_b & 0x1) && (data & 0x1))
 	{
 		// 0x1 high -> high
-		logerror("high to high\n");
+		LOGMASKED(LOG_OTHER, "high to high\n");
 		m_input_pos = 0;
 	}
 	else if ((!(m_previous_port_b & 0x1)) && (!(data & 0x1)))
 	{
 		// 0x1 low -> low
-		logerror("low to low\n");
+		LOGMASKED(LOG_OTHER, "low to low\n");
 
 		if (m_input_sense == 1)
 		{
@@ -6247,7 +5475,7 @@ WRITE8_MEMBER(intec_interact_state::portb_w)
 	else if ((!(m_previous_port_b & 0x1)) && (data & 0x1))
 	{
 		// 0x1 low -> high
-		logerror("low to high\n");
+		LOGMASKED(LOG_OTHER, "low to high\n");
 
 		if (m_input_sense == 1)
 		{
@@ -6259,7 +5487,7 @@ WRITE8_MEMBER(intec_interact_state::portb_w)
 			m_input_sense = 0;
 		}
 
-		logerror("input pos is %d\n", m_input_pos);
+		LOGMASKED(LOG_OTHER, "input pos is %d\n", m_input_pos);
 
 	}
 
@@ -6303,20 +5531,43 @@ ROM_START( ii8in1 )
 	ROM_REGION( 0x2000000, "mainrom", 0 )
 	ROM_LOAD( "ii8in1.bin", 0x00000, 0x2000000, CRC(7aee7464) SHA1(7a9cf7f54a350f0853a17459f2dcbef34f4f7c30) ) // 2ND HALF EMPTY
 
-	// possible undumped 0x1000 bytes of Internal ROM
+	// possible undumped 0x1000 bytes of Internal ROM (software doesn't appear to make use of it)
 ROM_END
 
 ROM_START( ii32in1 )
 	ROM_REGION( 0x2000000, "mainrom", 0 )
 	ROM_LOAD( "ii32in1.bin", 0x00000, 0x2000000, CRC(ddee4eac) SHA1(828c0c18a66bb4872299f9a43d5e3647482c5925) )
 
-	// possible undumped 0x1000 bytes of Internal ROM
+	// possible undumped 0x1000 bytes of Internal ROM (software doesn't appear to make use of it)
 ROM_END
 
-// TODO: this is a cartridge based system, move these to SL
-CONS( 200?, ii8in1,    0,  0,  intech_interact,    intec, intec_interact_state, empty_init,  "Intec", "InterAct 8-in-1", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
-CONS( 200?, ii32in1,   0,  0,  intech_interact,    intec, intec_interact_state, empty_init,  "Intec", "InterAct 32-in-1", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+// TODO: this is a cartridge based system (actually, verify this, it seems some versions simply had built in games) move these to SL if verified as from cartridge config
+CONS( 200?, ii8in1,    0,  0,  intech_interact,    intec, intec_interact_state, empty_init,  "Intec", "InterAct 8-in-1", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+CONS( 200?, ii32in1,   0,  0,  intech_interact,    intec, intec_interact_state, empty_init,  "Intec", "InterAct 32-in-1", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
 // a 40-in-1 also exists which combines the above
 
 // Intec Interact Infrazone 15 Shooting Games, 42 Mi kara, 96 Arcade Games + more should run here too
 // MiWi(2?) and other Mi Kara units should fit here as well
+
+
+void zone40_state::init_zone40()
+{
+	uint16_t *ROM = (uint16_t*)memregion("mainrom")->base();
+	int size = memregion("mainrom")->bytes();
+
+	for (int i = 0; i < size/2; i++)
+	{
+		ROM[i] = ROM[i] ^ 0xbb88;
+	}
+}
+
+ROM_START( zone40 )
+	ROM_REGION( 0x4000000, "mainrom", ROMREGION_ERASE00 )
+	ROM_LOAD16_WORD_SWAP( "zone40.bin", 0x0000, 0x4000000, CRC(4ba1444f) SHA1(de83046ab93421486668a247972ad6d3cda19440) )
+
+	// possible undumped internal ROM
+ROM_END
+
+// this has higher resolution version (320 pixel width) of many of the same games, and twice the usual capacity vt1682 can address, so while it can't be vt1682 it's most likely something related
+// probably an evolution of it even if the first 0x8000 block is blanked out like many SunPlus systems
+CONS( 2009, zone40,    0,       0,        vt_vt1682, zone40, zone40_state, init_zone40, "Jungle Soft / Ultimate Products (HK) Ltd",          "Zone 40",           MACHINE_NO_SOUND | MACHINE_NOT_WORKING )

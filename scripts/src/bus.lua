@@ -1463,6 +1463,8 @@ if (BUSES["ISA"]~=null) then
 		MAME_DIR .. "src/devices/bus/isa/eis_sad8852.h",
 		MAME_DIR .. "src/devices/bus/isa/eis_twib.cpp",
 		MAME_DIR .. "src/devices/bus/isa/eis_twib.h",
+		MAME_DIR .. "src/devices/bus/isa/eis_hgb107x.cpp",
+		MAME_DIR .. "src/devices/bus/isa/eis_hgb107x.h",
 		MAME_DIR .. "src/devices/bus/isa/lbaenhancer.cpp",
 		MAME_DIR .. "src/devices/bus/isa/lbaenhancer.h",
 		MAME_DIR .. "src/devices/bus/isa/np600.cpp",
@@ -3178,6 +3180,8 @@ if (BUSES["BML3"]~=null) then
 		MAME_DIR .. "src/devices/bus/bml3/bml3mp1805.h",
 		MAME_DIR .. "src/devices/bus/bml3/bml3kanji.cpp",
 		MAME_DIR .. "src/devices/bus/bml3/bml3kanji.h",
+		MAME_DIR .. "src/devices/bus/bml3/bml3rtc.cpp",
+		MAME_DIR .. "src/devices/bus/bml3/bml3rtc.h",
 	}
 end
 
@@ -3611,6 +3615,8 @@ if (BUSES["SPECTRUM"]~=null) then
 		MAME_DIR .. "src/devices/bus/spectrum/melodik.h",
 		MAME_DIR .. "src/devices/bus/spectrum/mface.cpp",
 		MAME_DIR .. "src/devices/bus/spectrum/mface.h",
+		MAME_DIR .. "src/devices/bus/spectrum/mgt.cpp",
+		MAME_DIR .. "src/devices/bus/spectrum/mgt.h",
 		MAME_DIR .. "src/devices/bus/spectrum/mikroplus.cpp",
 		MAME_DIR .. "src/devices/bus/spectrum/mikroplus.h",
 		MAME_DIR .. "src/devices/bus/spectrum/opus.cpp",
