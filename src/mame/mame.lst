@@ -14776,6 +14776,7 @@ chryangl                        // (c) 199? Dyna Electronics
 chryangla                       // unknown, W-4 hardware
 chrygld                         // bootleg
 chryglda                        // bootleg
+chthree                         // 199? Promat
 cmast91                         // (c) 1991 Dyna Electronics
 cmast92                         // (c) 1992 Dyna Electronics
 cmast97                         // (c) 1996 Dyna Electronics
@@ -36275,8 +36276,9 @@ tigerhb4                        // bootleg but (c) 1985 Taito Corporation
 tigerhj                         // A47 (c) 1985 Taito Corporation   GX-551 [not a Konami board!]
 
 @source:slapshot.cpp
-opwolf3                         // D74 (c) 1994 Taito
-opwolf3u                        // D74 (c) 1994 Taito
+opwolf3                         // D74 (c) 1994 Taito Corporation Japan
+opwolf3j                        // D74 (c) 1994 Taito Corporation
+opwolf3u                        // D74 (c) 1994 Taito America Corporation
 slapshot                        // D71 (c) 1994 Taito Corporation (Japan)
 
 @source:slc1.cpp
