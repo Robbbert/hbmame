@@ -920,7 +920,6 @@ files {
 	MAME_DIR .. "src/mame/machine/bublbobl.cpp",
 	MAME_DIR .. "src/mame/video/bublbobl.cpp",
 	MAME_DIR .. "src/hbmame/drivers/flstory.cpp",
-	MAME_DIR .. "src/mame/machine/flstory.cpp",
 	MAME_DIR .. "src/mame/video/flstory.cpp",
 	MAME_DIR .. "src/hbmame/drivers/rastan.cpp",
 	MAME_DIR .. "src/mame/video/rastan.cpp",
