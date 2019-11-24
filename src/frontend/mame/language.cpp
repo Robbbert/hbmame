@@ -65,10 +65,17 @@ void load_translation(emu_options &m_options)
 	strreplace(name, " ", "_");
 	strreplace(name, "(", "");
 	strreplace(name, ")", "");
+
+	// MESSUI: See if language file exists. If not, try English, see if that exists. If not, use inbuilt default.
 	if (file.open(name.c_str(), PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
 	{
-//		osd_printf_error("Error opening translation file %s\n", name);   // MESSUI - default to English if file not found or language not specified
-		return;
+		osd_printf_verbose("Error opening translation file %s\n", name);
+		name = "English";
+		if (file.open(name.c_str(), PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
+		{
+			osd_printf_verbose("Error opening translation file %s\n", name);
+			return;
+		}
 	}
 
 	u64 const size = file.size();
