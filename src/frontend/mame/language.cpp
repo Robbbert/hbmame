@@ -67,7 +67,7 @@ void load_translation(emu_options &m_options)
 	strreplace(name, ")", "");
 	if (file.open(name.c_str(), PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
 	{
-		osd_printf_error("Error opening translation file %s\n", name);
+//		osd_printf_error("Error opening translation file %s\n", name);   // MESSUI - default to English if file not found or language not specified
 		return;
 	}
 
