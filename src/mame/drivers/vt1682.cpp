@@ -11,43 +11,43 @@
 */
 
 /*
-	UNIMPLEMENTED / TODO
-	
-	General VT1862:
+    UNIMPLEMENTED / TODO
 
-	Sound Quality (currently crackles)
-	Verify timer enable / disable behavior
-	Line Modes, High Colour Line Mode
-	Tile rowscroll modes
-	0x8000 bit in palette is 'cut through' mode, which isn't the same as transpen, some kind of palette manipulation
-	**DONE** It seems Pal1 and Pal2 should actually be separate render buffers for each palette, on which layers / sprites can be enabled, that are mixed later and can be output independently to LCD and TV? 
-		(how does this work with high colour line mode?)
-	CCIR effects (only apply to 'palette 2'?)
-	LCD Control registers
-	Internal to External DMA (glitchy)
-	Sprite limits
-	Other hardware limits (video DMA should be delayed until Vblank, some registers only take effect at Hblank)
-	Verify raster timing (might be off by a line)
-	Hardware glitches (scroll layers + sprites get offset under specific conditions, sprites sometimes missing in 2 rightmost column, bk sometimes missing in rightmost column during scroll)
-	Sleep functionality on sound cpu (broken on hardware?)
-	Interrupt controller / proper interrupt support (currently a bit hacky, only main timer and sub-timer a supported)
-	Proper IO support (enables / disables) UART, I2C etc.
-	'Capture' mode
-	Gain (zoom) for Tilemaps
+    General VT1862:
 
-	Refactor into a device
+    Sound Quality (currently crackles)
+    Verify timer enable / disable behavior
+    Line Modes, High Colour Line Mode
+    Tile rowscroll modes
+    0x8000 bit in palette is 'cut through' mode, which isn't the same as transpen, some kind of palette manipulation
+    **DONE** It seems Pal1 and Pal2 should actually be separate render buffers for each palette, on which layers / sprites can be enabled, that are mixed later and can be output independently to LCD and TV?
+        (how does this work with high colour line mode?)
+    CCIR effects (only apply to 'palette 2'?)
+    LCD Control registers
+    Internal to External DMA (glitchy)
+    Sprite limits
+    Other hardware limits (video DMA should be delayed until Vblank, some registers only take effect at Hblank)
+    Verify raster timing (might be off by a line)
+    Hardware glitches (scroll layers + sprites get offset under specific conditions, sprites sometimes missing in 2 rightmost column, bk sometimes missing in rightmost column during scroll)
+    Sleep functionality on sound cpu (broken on hardware?)
+    Interrupt controller / proper interrupt support (currently a bit hacky, only main timer and sub-timer a supported)
+    Proper IO support (enables / disables) UART, I2C etc.
+    'Capture' mode
+    Gain (zoom) for Tilemaps
 
-	+ more
+    Refactor into a device
 
-	Intec InterAct:
+    + more
 
-	Is there meant to be a 2nd player? (many games prompt a 2nd player to start, but inputs don't appear to be read?)
-	Verify that internal ROM is blank (it isn't used)
+    Intec InterAct:
 
-	Zone 40:
+    Is there meant to be a 2nd player? (many games prompt a 2nd player to start, but inputs don't appear to be read?)
+    Verify that internal ROM is blank (it isn't used)
 
-	Decrypt, verify it's a good dump, verify that it's 6502 code, see how close the architecture is to 1682 (many games are the same)
-	If it has an internal ROM dump it (I don't see any obvious encrypted boot vectors in current dump)
+    Zone 40:
+
+    Decrypt, verify it's a good dump, verify that it's 6502 code, see how close the architecture is to 1682 (many games are the same)
+    If it has an internal ROM dump it (I don't see any obvious encrypted boot vectors in current dump)
 
 */
 
@@ -1577,8 +1577,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2010_bk1_xscroll_7_0_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2010_bk1_xscroll_7_0_w)
 {
-	m_screen->update_partial(m_screen->vpos());
-
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2010_bk1_xscroll_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_xscroll_7_0_bk[0] = data;
 }
@@ -1633,7 +1631,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2012_bk1_scroll_control_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2012_bk1_scroll_control_w)
 {
-	m_screen->update_partial(m_screen->vpos());
 
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2012_bk1_scroll_control_w writing: %02x (hclr: %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
 		(data & 0x10) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0);
@@ -1664,8 +1661,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2013_bk1_main_control_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2013_bk1_main_control_w)
 {
-	m_screen->update_partial(m_screen->vpos());
-
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2013_bk1_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x linemode:%01x tilesize:%01x)\n", machine().describe_context(), data,
 		(data & 0x80) >> 7, (data & 0x40) >> 6, (data & 0x30) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0 );
 
@@ -1695,8 +1690,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2014_bk2_xscroll_7_0_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2014_bk2_xscroll_7_0_w)
 {
-	m_screen->update_partial(m_screen->vpos());
-
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2014_bk2_xscroll_7_0_w writing: %02x\n", machine().describe_context(), data);
 	m_xscroll_7_0_bk[1] = data;
 }
@@ -1751,8 +1744,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2016_bk2_scroll_control_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2016_bk2_scroll_control_w)
 {
-	m_screen->update_partial(m_screen->vpos());
-
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2016_bk2_scroll_control_w writing: %02x ((invalid): %1x page_layout:%1x ymsb:%1x xmsb:%1x)\n", machine().describe_context(), data,
 		(data & 0x10) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0);
 
@@ -1782,8 +1773,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2017_bk2_main_control_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2017_bk2_main_control_w)
 {
-	m_screen->update_partial(m_screen->vpos());
-
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2017_bk2_main_control_w writing: %02x (enable:%01x palette:%01x depth:%01x bpp:%01x (invalid):%01x tilesize:%01x)\n", machine().describe_context(), data,
 		(data & 0x80) >> 7, (data & 0x40) >> 6, (data & 0x30) >> 4, (data & 0x0c) >> 2, (data & 0x02) >> 1, (data & 0x01) >> 0 );
 
@@ -2024,8 +2013,6 @@ READ8_MEMBER(vt_vt1682_state::vt1682_2020_bk_linescroll_r)
 
 WRITE8_MEMBER(vt_vt1682_state::vt1682_2020_bk_linescroll_w)
 {
-	m_screen->update_partial(m_screen->vpos());
-
 	LOGMASKED(LOG_OTHER, "%s: vt1682_2020_bk_linescroll_w writing: %02x\n", machine().describe_context(), data);
 	m_2020_bk_linescroll = data;
 
@@ -4695,14 +4682,14 @@ void vt_vt1682_state::draw_layer(int which, int opaque, const rectangle& cliprec
 		   sprites and tilemaps on the select menu need to align too, without left edge scrolling glitches
 		   judging this from videos is tricky, because there's another bug that causes the right-most column of pixels to not render for certain scroll values
 		   and the right-most 2 columns of sprites to not render
-		   
+
 		   does this come down to pal1/pal2 output mixing rather than specific layers?
 		*/
 		//if (which == 0)
-		//	xscroll += 1;
+		//  xscroll += 1;
 
 		//if (which == 1)
-		//	xscroll += 1;
+		//  xscroll += 1;
 
 		int segment = m_segment_7_0_bk[which];
 		segment |= m_segment_11_8_bk[which] << 8;
@@ -4783,7 +4770,7 @@ void vt_vt1682_state::draw_layer(int which, int opaque, const rectangle& cliprec
 					{
 						// this mode isn't tested, not seen it used
 						//if (bk_paldepth_mode)
-						//	popmessage("bk_paldepth_mode set\n");
+						//  popmessage("bk_paldepth_mode set\n");
 						realdepth = pal & 0x03;
 
 						// depth might instead be the high 2 bits in 4bpp mode
@@ -4826,56 +4813,71 @@ void vt_vt1682_state::draw_sprites(const rectangle& cliprect)
 
 	if (sp_en)
 	{
-		for (int i = 0; i < 240; i++)
+		for (int line = cliprect.min_y; line <= cliprect.max_y; line++)
 		{
-			int tilenum = m_spriteram->read8((i * SPRITE_STEP) + 0);
-			int attr0 = m_spriteram->read8((i * SPRITE_STEP) + 1);
-			int x = m_spriteram->read8((i * SPRITE_STEP) + 2);
-			int attr1 = m_spriteram->read8((i * SPRITE_STEP) + 3);
-			int y = m_spriteram->read8((i * SPRITE_STEP) + 4);
-			int attr2 = m_spriteram->read8((i * SPRITE_STEP) + 5);
-
-			tilenum |= (attr0 & 0x0f) << 8;
-
-			if (!tilenum) // verified
-				continue;
-
-			int pal = (attr0 & 0xf0) >> 4;
-
-			int flipx = (attr1 & 0x02) >> 1; // might not function correctly on hardware
-			int flipy = (attr1 & 0x04) >> 2;
-
-			int depth = (attr1 & 0x18) >> 3;
-
-
-			if (attr2 & 0x01)
-				y -= 256;
-
-			if (attr1 & 0x01)
-				x -= 256;
-
-			// guess! Maze Pac needs sprites shifted left by 1, but actual conditions might be more complex
-			//if ((!sp_size & 0x01))
-			//	x -= 1;
-
-			int palselect = 0;
-			if (sp_pal_sel)
+			for (int i = 0; i < 240; i++)
 			{
-				// sprites are rendered to both buffers
-				palselect = 3;
-			}
-			else
-			{
-				if (attr2 & 0x02)
-					palselect = 2;
-				else
-					palselect = 1;
-			}
+				int attr2 = m_spriteram->read8((i * SPRITE_STEP) + 5);
 
-			draw_tile(segment, tilenum, x, y, palselect, pal, sp_size & 0x2, sp_size&0x1, 0, depth * 2, 0, flipx, flipy, cliprect);
+				int ystart = m_spriteram->read8((i * SPRITE_STEP) + 4);
+
+				if (attr2 & 0x01)
+					ystart -= 256;
+
+				int yend = ystart + ((sp_size & 0x2) ? 16 : 8);
+
+				// TODO, cache first 16 sprites per scanline which meet the critera to a list during hblank, set overflow flag if more requested
+				// (do tilenum = 0 sprites count against this limit?)
+
+				if (line >= ystart && line < yend)
+				{
+					int ytileline = line - ystart;
+
+					int tilenum = m_spriteram->read8((i * SPRITE_STEP) + 0);
+					int attr0 = m_spriteram->read8((i * SPRITE_STEP) + 1);
+					int x = m_spriteram->read8((i * SPRITE_STEP) + 2);
+					int attr1 = m_spriteram->read8((i * SPRITE_STEP) + 3);
+
+					tilenum |= (attr0 & 0x0f) << 8;
+
+					if (!tilenum) // verified
+						continue;
+
+					int pal = (attr0 & 0xf0) >> 4;
+
+					int flipx = (attr1 & 0x02) >> 1; // might not function correctly on hardware
+					int flipy = (attr1 & 0x04) >> 2;
+
+					int depth = (attr1 & 0x18) >> 3;
+
+					if (attr1 & 0x01)
+						x -= 256;
+
+					// guess! Maze Pac needs sprites shifted left by 1, but actual conditions might be more complex
+					//if ((!sp_size & 0x01))
+					//  x -= 1;
+
+					int palselect = 0;
+					if (sp_pal_sel)
+					{
+						// sprites are rendered to both buffers
+						palselect = 3;
+					}
+					else
+					{
+						if (attr2 & 0x02)
+							palselect = 2;
+						else
+							palselect = 1;
+					}
+
+					draw_tile_pixline(segment, tilenum, ytileline, x, line, palselect, pal, sp_size & 0x2, sp_size & 0x1, 0, depth * 2, 0, flipx, flipy, cliprect);
+
+				}
+			}
 		}
+		// if more than 16 sprites on any line 0x2001 bit 0x40 (SP_ERR) should be set (updated every line, can only be read in HBLANK)
 	}
-	// if more than 16 sprites on any line 0x2001 bit 0x40 (SP_ERR) should be set (updated every line, can only be read in HBLANK)
 }
 
 uint32_t vt_vt1682_state::screen_update(screen_device& screen, bitmap_rgb32& bitmap, const rectangle& cliprect)
@@ -4914,12 +4916,20 @@ uint32_t vt_vt1682_state::screen_update(screen_device& screen, bitmap_rgb32& bit
 			if (pri1 <= pri2)
 			{
 				if (pix1) dstptr[x] = paldata[pix1 | 0x100];
-				else if (pix2) dstptr[x] = paldata[pix2];
+				else
+				{
+					if (pix2) dstptr[x] = paldata[pix2];
+					else dstptr[x] = paldata[0x000];
+				}
 			}
 			else
 			{
 				if (pix2) dstptr[x] = paldata[pix2];
-				else if (pix1) dstptr[x] = paldata[pix1 | 0x100];
+				else
+				{
+					if (pix1) dstptr[x] = paldata[pix1 | 0x100];
+					else dstptr[x] = paldata[0x100];
+				}
 			}
 		}
 	}
@@ -5195,7 +5205,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(vt_vt1682_state::scanline)
 {
 	int scanline = param;
 
-	//m_screen->update_partial(m_screen->vpos());
+	m_screen->update_partial(m_screen->vpos());
 
 	if (scanline == 239) // 239 aligns highway racing title, but could actually depend on when registers get latched
 	{
