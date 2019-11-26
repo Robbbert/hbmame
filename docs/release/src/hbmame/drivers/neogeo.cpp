@@ -627,12 +627,12 @@ WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
 
 READ16_MEMBER(neogeo_state::in0_r)
 {
-	return ((m_edge->in0_r(space, offset) & m_ctrl1->ctrl_r(space, offset)) << 8) | m_dsw->read();
+	return ((m_edge->in0_r() & m_ctrl1->read_ctrl()) << 8) | m_dsw->read();
 }
 
 READ16_MEMBER(neogeo_state::in1_r)
 {
-	return ((m_edge->in1_r(space, offset) & m_ctrl2->ctrl_r(space, offset)) << 8) | 0xff;
+	return ((m_edge->in1_r() & m_ctrl2->read_ctrl()) << 8) | 0xff;
 }
 
 CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_start_r)
@@ -1010,8 +1010,8 @@ void neogeo_state::init_neogeo()
 	m_sprgen->m_fixed_layer_bank_type = 0;
 
 	// install controllers
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16_delegate(FUNC(neogeo_state::in0_r), this));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16_delegate(FUNC(neogeo_state::in1_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16_delegate(*this, FUNC(neogeo_state::in0_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16_delegate(*this, FUNC(neogeo_state::in1_r)));
 }
 
 
@@ -1379,8 +1379,8 @@ void neogeo_state::mvs(machine_config &config)
 
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", false);
 
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", false);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", false);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, false);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, false);
 }
 
 void neogeo_state::main_map_noslot(address_map &map)
@@ -1399,8 +1399,8 @@ void neogeo_state::neogeo_noslot(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 
 	MSLUGX_PROT(config, "mslugx_prot");
 	SMA_PROT(config, "sma_prot");
@@ -1423,8 +1423,8 @@ void neogeo_state::neogeo_kog(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 
 	NGBOOTLEG_PROT(config, "bootleg_prot");
 	KOG_PROT(config, "kog_prot");
@@ -1437,13 +1437,13 @@ void neogeo_state::neogeo_mj(machine_config &config)
 	neogeo_noslot(config);
 
 	//no joystick panel
-	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "", true);
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, nullptr, true);
 
 	//P1 mahjong controller
 	config.device_remove("ctrl1");
 	config.device_remove("ctrl2");
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "mahjong", false);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 }
 
 void neogeo_state::neogeo_dial(machine_config &config)

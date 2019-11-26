@@ -144,11 +144,11 @@ void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neo
 	m_fixedrom = fixedrom;
 	m_bankdev = bankdev;
 
-	maincpu->space(AS_PROGRAM).install_read_handler(0x0e0000, 0x0fffff, read16_delegate(FUNC(ngbootleg_prot_device::kof10th_RAM2_r),this));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x0e0000, 0x0fffff, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_RAM2_r)));
 
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16_delegate(FUNC(ngbootleg_prot_device::kof10th_RAMB_r),this));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x200000, 0x23ffff, write16_delegate(FUNC(ngbootleg_prot_device::kof10th_custom_w),this));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x240000, 0x2fffff, write16_delegate(FUNC(ngbootleg_prot_device::kof10th_bankswitch_w),this));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_RAMB_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x200000, 0x23ffff, write16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_custom_w)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x240000, 0x2fffff, write16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_bankswitch_w)));
 	memcpy(m_cartridge_ram2, cpurom + 0xe0000, 0x20000);
 
 	// HACK: only save this at device_start (not allowed later)
@@ -433,7 +433,7 @@ void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_ca
 	uint16_t *mem16 = (uint16_t *)cpurom;
 
 	/* special ROM banking handler */
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(FUNC(ngbootleg_prot_device::cthd2003_bankswitch_w),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(*this, FUNC(ngbootleg_prot_device::cthd2003_bankswitch_w)));
 	m_bankdev = bankdev;
 
 	// theres still a problem on the character select screen but it seems to be related to cpu core timing issues,
@@ -660,8 +660,8 @@ void ngbootleg_prot_device::install_ms5plus_protection(cpu_device* maincpu, neog
 {
 	// special ROM banking handler / additional protection
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2ffff0, 0x2fffff,
-		read16_delegate(FUNC(ngbootleg_prot_device::mslug5_prot_r),this),
-		write16_delegate(FUNC(ngbootleg_prot_device::ms5plus_bankswitch_w),this));
+		read16_delegate(*this, FUNC(ngbootleg_prot_device::mslug5_prot_r)),
+		write16_delegate(*this, FUNC(ngbootleg_prot_device::ms5plus_bankswitch_w)));
 	m_bankdev = bankdev;
 }
 
@@ -855,9 +855,9 @@ void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neog
 {
 	m_mainrom = cpurom;
 
-	maincpu->space(AS_PROGRAM).install_read_handler(0x58196, 0x58197, read16_delegate(FUNC(ngbootleg_prot_device::kof2003_overlay_r),this) );
+	maincpu->space(AS_PROGRAM).install_read_handler(0x58196, 0x58197, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_overlay_r)));
 
-	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff, read16_delegate(FUNC(ngbootleg_prot_device::kof2003_r),this), write16_delegate(FUNC(ngbootleg_prot_device::kof2003_w),this) );
+	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_r)), write16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_w)));
 	m_bankdev = bankdev;
 }
 
@@ -888,8 +888,8 @@ void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neog
 {
 	m_mainrom = cpurom;
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff,
-		read16_delegate(FUNC(ngbootleg_prot_device::kof2003_r),this),
-		write16_delegate(FUNC(ngbootleg_prot_device::kof2003p_w),this) );
+		read16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_r)),
+		write16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003p_w)));
 	m_bankdev = bankdev;
 }
 
@@ -1026,7 +1026,7 @@ READ16_MEMBER(kog_prot_device::read_jumper)
 void kog_prot_device::kog_install_protection(cpu_device* maincpu)
 {
 	/* overlay cartridge ROM */
-	maincpu->space(AS_PROGRAM).install_read_handler(0x0ffffe, 0x0fffff, read16_delegate(FUNC(kog_prot_device::read_jumper), this));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x0ffffe, 0x0fffff, read16_delegate(*this, FUNC(kog_prot_device::read_jumper)));
 }
 
 
@@ -1869,8 +1869,8 @@ void fatfury2_prot_device::fatfury2_install_protection(cpu_device* maincpu, neog
 	/* the protection involves reading and writing addresses in the */
 	/* 0x2xxxxx range. There are several checks all around the code. */
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x200000, 0x2fffff,
-		read16_delegate(FUNC(fatfury2_prot_device::fatfury2_protection_16_r),this),
-		write16_delegate(FUNC(fatfury2_prot_device::fatfury2_protection_16_w),this));
+		read16_delegate(*this, FUNC(fatfury2_prot_device::fatfury2_protection_16_r)),
+		write16_delegate(*this, FUNC(fatfury2_prot_device::fatfury2_protection_16_w)));
 
 	m_bankdev = bankdev;
 	m_fatfury2_prot_data = 0;
@@ -2061,8 +2061,8 @@ WRITE16_MEMBER( kof98_prot_device::kof98_prot_w )
 void kof98_prot_device::install_kof98_protection(cpu_device* maincpu)
 {
 	/* when 0x20aaaa contains 0x0090 (word) then 0x100 (normally the neogeo header) should return 0x00c200fd worked out using real hw */
-	maincpu->space(AS_PROGRAM).install_read_handler(0x00100, 0x00103, read16_delegate(FUNC(kof98_prot_device::kof98_prot_r),this));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x20aaaa, 0x20aaab, write16_delegate(FUNC(kof98_prot_device::kof98_prot_w),this));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x00100, 0x00103, read16_delegate(*this, FUNC(kof98_prot_device::kof98_prot_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x20aaaa, 0x20aaab, write16_delegate(*this, FUNC(kof98_prot_device::kof98_prot_w)));
 }
 
 /***********************************************************************************************************************************/
@@ -2153,8 +2153,8 @@ READ16_MEMBER( mslugx_prot_device::mslugx_protection_16_r )
 void mslugx_prot_device::mslugx_install_protection(cpu_device* maincpu)
 {
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fffe0, 0x2fffef,
-		read16_delegate(FUNC(mslugx_prot_device::mslugx_protection_16_r),this),
-		write16_delegate(FUNC(mslugx_prot_device::mslugx_protection_16_w),this));
+		read16_delegate(*this, FUNC(mslugx_prot_device::mslugx_protection_16_r)),
+		write16_delegate(*this, FUNC(mslugx_prot_device::mslugx_protection_16_w)));
 }
 
 /***********************************************************************************************************************************/
@@ -2316,8 +2316,8 @@ void pvc_prot_device::install_pvc_protection(cpu_device* maincpu, neogeo_banked_
 {
 	m_bankdev = bankdev;
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff,
-		read16_delegate(FUNC(pvc_prot_device::pvc_prot_r),this),
-		write16_delegate(FUNC(pvc_prot_device::pvc_prot_w),this));
+		read16_delegate(*this, FUNC(pvc_prot_device::pvc_prot_r)),
+		write16_delegate(*this, FUNC(pvc_prot_device::pvc_prot_w)));
 }
 
 
@@ -2596,8 +2596,8 @@ void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpuro
 	// there are also writes to 0x1080..
 	//
 	// other stuff going on as well tho, the main overlay is still missing, and p1 inputs don't work
-	maincpu->space(AS_PROGRAM).install_read_handler(0x00200, 0x001fff, read16_delegate(FUNC(sbp_prot_device::sbp_lowerrom_r), this));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x00200, 0x001fff, write16_delegate(FUNC(sbp_prot_device::sbp_lowerrom_w), this));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x00200, 0x001fff, read16_delegate(*this, FUNC(sbp_prot_device::sbp_lowerrom_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x00200, 0x001fff, write16_delegate(*this, FUNC(sbp_prot_device::sbp_lowerrom_w)));
 
 	/* the game code clears the text overlay used ingame immediately after writing it.. why? protection? sloppy code that the hw ignores? imperfect emulation? */
 	{
@@ -2798,15 +2798,15 @@ void sma_prot_device::reset_sma_rng()
 
 void sma_prot_device::sma_install_random_read_handler(cpu_device* maincpu, int addr1, int addr2 )
 {
-	maincpu->space(AS_PROGRAM).install_read_handler(addr1, addr1 + 1, read16_delegate(FUNC(sma_prot_device::sma_random_r),this));
-	maincpu->space(AS_PROGRAM).install_read_handler(addr2, addr2 + 1, read16_delegate(FUNC(sma_prot_device::sma_random_r),this));
+	maincpu->space(AS_PROGRAM).install_read_handler(addr1, addr1 + 1, read16_delegate(*this, FUNC(sma_prot_device::sma_random_r)));
+	maincpu->space(AS_PROGRAM).install_read_handler(addr2, addr2 + 1, read16_delegate(*this, FUNC(sma_prot_device::sma_random_r)));
 }
 
 
 void sma_prot_device::kof99_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2ffff1, write16_delegate(FUNC(sma_prot_device::kof99_bankswitch_w),this));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(FUNC(sma_prot_device::prot_9a37_r),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2ffff1, write16_delegate(*this, FUNC(sma_prot_device::kof99_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2ffff8, 0x2ffffa);
@@ -2815,8 +2815,8 @@ void sma_prot_device::kof99_install_protection(cpu_device* maincpu, neogeo_banke
 
 void sma_prot_device::garou_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16_delegate(FUNC(sma_prot_device::garou_bankswitch_w),this));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(FUNC(sma_prot_device::prot_9a37_r),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16_delegate(*this, FUNC(sma_prot_device::garou_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2fffcc, 0x2ffff0);
@@ -2825,8 +2825,8 @@ void sma_prot_device::garou_install_protection(cpu_device* maincpu, neogeo_banke
 
 void sma_prot_device::garouh_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16_delegate(FUNC(sma_prot_device::garouh_bankswitch_w),this));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(FUNC(sma_prot_device::prot_9a37_r),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16_delegate(*this, FUNC(sma_prot_device::garouh_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2fffcc, 0x2ffff0);
@@ -2835,8 +2835,8 @@ void sma_prot_device::garouh_install_protection(cpu_device* maincpu, neogeo_bank
 
 void sma_prot_device::mslug3_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffe4, 0x2fffe5, write16_delegate(FUNC(sma_prot_device::mslug3_bankswitch_w),this));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(FUNC(sma_prot_device::prot_9a37_r),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffe4, 0x2fffe5, write16_delegate(*this, FUNC(sma_prot_device::mslug3_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 //  sma_install_random_read_handler(maincpu, 0x2ffff8, 0x2ffffa);
@@ -2845,8 +2845,8 @@ void sma_prot_device::mslug3_install_protection(cpu_device* maincpu, neogeo_bank
 
 void sma_prot_device::kof2000_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffec, 0x2fffed, write16_delegate(FUNC(sma_prot_device::kof2000_bankswitch_w),this));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(FUNC(sma_prot_device::prot_9a37_r),this));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffec, 0x2fffed, write16_delegate(*this, FUNC(sma_prot_device::kof2000_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2fffd8, 0x2fffda);

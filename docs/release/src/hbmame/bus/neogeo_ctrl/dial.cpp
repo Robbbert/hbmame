@@ -95,7 +95,7 @@ void neogeo_dial_device::device_reset()
 //  in0_r
 //-------------------------------------------------
 
-READ8_MEMBER(neogeo_dial_device::in0_r)
+u8 neogeo_dial_device::in0_r()
 {
 	uint8_t res = 0;
 	if (m_ctrl_sel & 0x01)
@@ -110,7 +110,7 @@ READ8_MEMBER(neogeo_dial_device::in0_r)
 //  in1_r
 //-------------------------------------------------
 
-READ8_MEMBER(neogeo_dial_device::in1_r)
+u8 neogeo_dial_device::in1_r()
 {
 	uint8_t res = 0;
 	if (m_ctrl_sel & 0x01)

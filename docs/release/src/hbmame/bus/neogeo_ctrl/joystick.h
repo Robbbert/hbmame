@@ -64,8 +64,8 @@ protected:
 	virtual void device_reset() override;
 
 	// device_neogeo_ctrl_edge_interface overrides
-	virtual DECLARE_READ8_MEMBER( in0_r ) override;
-	virtual DECLARE_READ8_MEMBER( in1_r ) override;
+	virtual u8 in0_r() override;
+	virtual u8 in1_r() override;
 
 private:
 	required_ioport m_joy1;

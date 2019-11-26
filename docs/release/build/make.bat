@@ -1,16 +1,19 @@
-//goto start0
 @if exist scripts\minimaws\minimaws.sqlite3 del scripts\minimaws\minimaws.sqlite3
-@del hbmameui.sym
+@del hbmameui64.sym
 :start
-del hbmameui.exe
-if exist hbmameui.exe goto start
-call make32 -j4 "OSD=winui" %1 %2 %3
-if not exist hbmameui.exe goto end
-:start0
-del hbmame.sym
+del hbmameui64.exe
+if exist hbmameui64.exe goto start
+call make64 -j4 "OSD=winui" %1 %2 %3
+if not exist hbmameui64.exe goto end
+@copy /Y hbmameui64.exe hbmameui.exe
+@copy /Y hbmameui64.sym hbmameui.sym
+@del hbmame64.sym
 :start1
-del hbmame.exe
-if exist hbmame.exe goto start1
-call make32 -j4 %1 %2 %3
+del hbmame64.exe
+if exist hbmame64.exe goto start1
+call make64 -j4 %1 %2 %3
+if not exist hbmame64.exe goto end
+@copy /Y hbmame64.exe hbmame.exe
+@copy /Y hbmame64.sym hbmame.sym
+hbmame64 -valid
 :end
-hbmame -valid

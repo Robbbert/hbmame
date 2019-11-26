@@ -322,6 +322,7 @@
 #define IDC_SNAPSIZETEXT                1252
 #define IDC_SNAPSIZEX                   1253
 #define IDC_FILTER_MECHANICAL           1254
+#define IDC_LOWLATENCY                  1257
 #define IDC_BURNIN                      1280
 #define IDC_OVERRIDE_REDX               1352
 #define IDC_SNAPBILINEAR                1353

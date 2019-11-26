@@ -534,6 +534,7 @@ tk2h143
 tk2h144
 tk2h145
 tk2h146
+tk2h147
 wofb
 wofch		// tk2p1
 wofes
@@ -610,6 +611,10 @@ captcomms66
 captcomms67
 captcomms68
 captcomms69
+captcomms70
+captcomms71
+captcomms72
+captcomms73
 dinos01
 dinos02
 dinos03
@@ -899,6 +904,10 @@ sf2ces25
 sf2ces26
 sf2ces27
 sf2ces28
+sf2ces29
+sf2ces30
+sf2ces31
+sf2ces32
 sf2js01
 sf2js02
 sf2s01
@@ -1152,6 +1161,7 @@ xmvsfu1d
 1944s01
 avspus01
 avspus02
+batcirds01
 csclubs01
 cybotsjs01
 ddsomjs01
@@ -3502,6 +3512,7 @@ kof2k2s81
 kof2k2s82
 kof2k2s83
 kof2k2s84
+kof2k2s85
 
 @source:kof2003.cpp
 kof2003d
@@ -4818,6 +4829,8 @@ mslug5dh54
 mslug5dh55
 mslug5dh56
 mslug5dh57
+mslug5dh58
+mslug5dh59
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -7684,6 +7697,7 @@ kovpluss345
 kovpluss346
 kovpluss347
 kovpluss348
+kovpluss349
 kovplusas01
 kovshs01
 kovshs02

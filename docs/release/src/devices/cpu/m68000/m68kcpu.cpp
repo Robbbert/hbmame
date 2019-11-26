@@ -1654,11 +1654,6 @@ void m68000_base_device::init32hmmu(address_space &space, address_space &ospace)
 	};
 }
 
-void m68000_base_device::set_reset_callback(write_line_delegate callback)
-{
-	m_reset_instr_callback = callback;
-}
-
 // fault_addr = address to indicate fault at
 // rw = 1 for read, 0 for write
 // fc = 3-bit function code of access (usually you'd just put what m68k_get_fc() returns here)
@@ -1668,21 +1663,6 @@ void m68000_base_device::set_buserror_details(u32 fault_addr, u8 rw, u8 fc)
 	m_aerr_write_mode = (rw << 4);
 	m_aerr_fc = fc;
 	m_mmu_tmp_buserror_address = fault_addr; // Hack for x68030
-}
-
-void m68000_base_device::set_cmpild_callback(write32_delegate callback)
-{
-	m_cmpild_instr_callback = callback;
-}
-
-void m68000_base_device::set_rte_callback(write_line_delegate callback)
-{
-	m_rte_instr_callback = callback;
-}
-
-void m68000_base_device::set_tas_write_callback(write8_delegate callback)
-{
-	m_tas_write_callback = callback;
 }
 
 u16 m68000_base_device::get_fc()
@@ -1804,9 +1784,9 @@ void m68000_base_device::init_cpu_m68000(void)
 	m_cyc_dbcc_f_noexp = -2;
 	m_cyc_dbcc_f_exp   = 2;
 	m_cyc_scc_r_true   = 2;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 3;
-	m_cyc_shift        = 1;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 8;
+	m_cyc_shift        = 2;
 	m_cyc_reset        = 132;
 	m_has_pmmu         = 0;
 	m_has_hmmu         = 0;
@@ -1833,9 +1813,9 @@ void m68000_base_device::init_cpu_m68008(void)
 	m_cyc_dbcc_f_noexp = -2;
 	m_cyc_dbcc_f_exp   = 2;
 	m_cyc_scc_r_true   = 2;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 3;
-	m_cyc_shift        = 1;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 8;
+	m_cyc_shift        = 2;
 	m_cyc_reset        = 132;
 	m_has_pmmu         = 0;
 	m_has_fpu          = 0;
@@ -1860,9 +1840,9 @@ void m68000_base_device::init_cpu_m68010(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 6;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 3;
-	m_cyc_shift        = 1;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 8;
+	m_cyc_shift        = 2;
 	m_cyc_reset        = 130;
 	m_has_pmmu         = 0;
 	m_has_fpu          = 0;
@@ -1886,9 +1866,9 @@ void m68000_base_device::init_cpu_m68020(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 
 	define_state();
@@ -1942,9 +1922,9 @@ void m68000_base_device::init_cpu_m68ec020(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 	m_has_pmmu         = 0;
 	m_has_fpu          = 0;
@@ -1970,9 +1950,9 @@ void m68000_base_device::init_cpu_m68030(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 	m_has_pmmu         = 1;
 	m_has_fpu          = 1;
@@ -1999,9 +1979,9 @@ void m68000_base_device::init_cpu_m68ec030(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 	m_has_pmmu         = 0;     /* EC030 lacks the PMMU and is effectively a die-shrink 68020 */
 	m_has_fpu          = 1;
@@ -2028,9 +2008,9 @@ void m68000_base_device::init_cpu_m68040(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 	m_has_pmmu         = 1;
 	m_has_fpu          = 1;
@@ -2056,9 +2036,9 @@ void m68000_base_device::init_cpu_m68ec040(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 	m_has_pmmu         = 0;
 	m_has_fpu          = 0;
@@ -2084,9 +2064,9 @@ void m68000_base_device::init_cpu_m68lc040(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 	m_has_pmmu         = 1;
 	m_has_fpu          = 0;
@@ -2100,21 +2080,20 @@ void m68000_base_device::init_cpu_scc68070(void)
 	init_cpu_common();
 	m_cpu_type         = CPU_TYPE_SCC070;
 
-	// TODO: most of this is subtly different
 	init16(*m_program, *m_oprogram);
 	m_sr_mask          = 0xa71f; /* T1 -- S  -- -- I2 I1 I0 -- -- -- X  N  Z  V  C  */
 	m_state_table      = m68ki_instruction_state_table[1];
 	m_cyc_instruction  = m68ki_cycles[1];
 	m_cyc_exception    = m68ki_exception_cycle_table[1];
-	m_cyc_bcc_notake_b = -4;
+	m_cyc_bcc_notake_b = 0;
 	m_cyc_bcc_notake_w = 0;
-	m_cyc_dbcc_f_noexp = 0;
-	m_cyc_dbcc_f_exp   = 6;
+	m_cyc_dbcc_f_noexp = 3;
+	m_cyc_dbcc_f_exp   = 3;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 3;
-	m_cyc_shift        = 1;
-	m_cyc_reset        = 130;
+	m_cyc_movem_w      = 7;
+	m_cyc_movem_l      = 11;
+	m_cyc_shift        = 3;
+	m_cyc_reset        = 154;
 	m_has_pmmu         = 0;
 	m_has_fpu          = 0;
 
@@ -2139,9 +2118,9 @@ void m68000_base_device::init_cpu_fscpu32(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 
 	define_state();
@@ -2166,9 +2145,9 @@ void m68000_base_device::init_cpu_coldfire(void)
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp   = 4;
 	m_cyc_scc_r_true   = 0;
-	m_cyc_movem_w      = 2;
-	m_cyc_movem_l      = 2;
-	m_cyc_shift        = 0;
+	m_cyc_movem_w      = 4;
+	m_cyc_movem_l      = 4;
+	m_cyc_shift        = 1;
 	m_cyc_reset        = 518;
 
 	define_state();
@@ -2344,7 +2323,11 @@ m68000_base_device::m68000_base_device(const machine_config &mconfig, const char
 		m_oprogram_config("decrypted_opcodes", ENDIANNESS_BIG, prg_data_width, prg_address_bits, 0, internal_map),
 		m_cpu_space_config("cpu space", ENDIANNESS_BIG, prg_data_width, prg_address_bits, 0, address_map_constructor(FUNC(m68000_base_device::default_autovectors_map), this)),
 		m_interrupt_mixer(true),
-		m_cpu_space_id(AS_CPU_SPACE)
+		m_cpu_space_id(AS_CPU_SPACE),
+		m_reset_instr_callback(*this),
+		m_cmpild_instr_callback(*this),
+		m_rte_instr_callback(*this),
+		m_tas_write_callback(*this)
 {
 	clear_all();
 }
@@ -2357,7 +2340,11 @@ m68000_base_device::m68000_base_device(const machine_config &mconfig, const char
 		m_oprogram_config("decrypted_opcodes", ENDIANNESS_BIG, prg_data_width, prg_address_bits),
 		m_cpu_space_config("cpu space", ENDIANNESS_BIG, prg_data_width, prg_address_bits, 0, address_map_constructor(FUNC(m68000_base_device::default_autovectors_map), this)),
 		m_interrupt_mixer(true),
-		m_cpu_space_id(AS_CPU_SPACE)
+		m_cpu_space_id(AS_CPU_SPACE),
+		m_reset_instr_callback(*this),
+		m_cmpild_instr_callback(*this),
+		m_rte_instr_callback(*this),
+		m_tas_write_callback(*this)
 {
 	clear_all();
 }
@@ -2412,9 +2399,9 @@ void m68000_base_device::clear_all()
 	m_cyc_dbcc_f_noexp = 0;
 	m_cyc_dbcc_f_exp = 0;
 	m_cyc_scc_r_true = 0;
-	m_cyc_movem_w = 0;
-	m_cyc_movem_l = 0;
-	m_cyc_shift = 0;
+	m_cyc_movem_w = 1;
+	m_cyc_movem_l = 1;
+	m_cyc_shift = 1;
 	m_cyc_reset = 0;
 
 	m_initial_cycles = 0;
@@ -2482,13 +2469,13 @@ void m68000_base_device::autovectors_map(address_map &map)
 {
 	// Eventually add the sync to E due to vpa
 	// 8-bit handlers are used here to be compatible with all bus widths
-	map(0x3, 0x3).lr8("avec1", []() -> u8 { return autovector(1); });
-	map(0x5, 0x5).lr8("avec2", []() -> u8 { return autovector(2); });
-	map(0x7, 0x7).lr8("avec3", []() -> u8 { return autovector(3); });
-	map(0x9, 0x9).lr8("avec4", []() -> u8 { return autovector(4); });
-	map(0xb, 0xb).lr8("avec5", []() -> u8 { return autovector(5); });
-	map(0xd, 0xd).lr8("avec6", []() -> u8 { return autovector(6); });
-	map(0xf, 0xf).lr8("avec7", []() -> u8 { return autovector(7); });
+	map(0x3, 0x3).lr8(NAME([] () -> u8 { return autovector(1); }));
+	map(0x5, 0x5).lr8(NAME([] () -> u8 { return autovector(2); }));
+	map(0x7, 0x7).lr8(NAME([] () -> u8 { return autovector(3); }));
+	map(0x9, 0x9).lr8(NAME([] () -> u8 { return autovector(4); }));
+	map(0xb, 0xb).lr8(NAME([] () -> u8 { return autovector(5); }));
+	map(0xd, 0xd).lr8(NAME([] () -> u8 { return autovector(6); }));
+	map(0xf, 0xf).lr8(NAME([] () -> u8 { return autovector(7); }));
 }
 
 void m68000_base_device::default_autovectors_map(address_map &map)
@@ -2501,6 +2488,10 @@ void m68000_base_device::default_autovectors_map(address_map &map)
 
 void m68000_base_device::device_start()
 {
+	m_reset_instr_callback.resolve();
+	m_cmpild_instr_callback.resolve();
+	m_rte_instr_callback.resolve();
+	m_tas_write_callback.resolve();
 }
 
 void m68000_base_device::device_stop()
@@ -2594,6 +2585,7 @@ m68000_device::m68000_device(const machine_config &mconfig, const device_type ty
 
 void m68000_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68000();
 }
 
@@ -2617,6 +2609,7 @@ m68008_device::m68008_device(const machine_config &mconfig, const char *tag, dev
 
 void m68008_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68008();
 }
 
@@ -2628,6 +2621,7 @@ m68008fn_device::m68008fn_device(const machine_config &mconfig, const char *tag,
 
 void m68008fn_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68008();
 }
 
@@ -2640,6 +2634,7 @@ m68010_device::m68010_device(const machine_config &mconfig, const char *tag, dev
 
 void m68010_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68010();
 }
 
@@ -2652,6 +2647,7 @@ m68020_device::m68020_device(const machine_config &mconfig, const char *tag, dev
 
 void m68020_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68020();
 }
 
@@ -2663,6 +2659,7 @@ m68020fpu_device::m68020fpu_device(const machine_config &mconfig, const char *ta
 
 void m68020fpu_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68020fpu();
 }
 
@@ -2674,6 +2671,7 @@ m68020pmmu_device::m68020pmmu_device(const machine_config &mconfig, const char *
 
 void m68020pmmu_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68020pmmu();
 }
 
@@ -2699,6 +2697,7 @@ m68020hmmu_device::m68020hmmu_device(const machine_config &mconfig, const char *
 
 void m68020hmmu_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68020hmmu();
 }
 
@@ -2710,6 +2709,7 @@ m68ec020_device::m68ec020_device(const machine_config &mconfig, const char *tag,
 
 void m68ec020_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68ec020();
 }
 
@@ -2720,6 +2720,7 @@ m68030_device::m68030_device(const machine_config &mconfig, const char *tag, dev
 
 void m68030_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68030();
 }
 
@@ -2730,6 +2731,7 @@ m68ec030_device::m68ec030_device(const machine_config &mconfig, const char *tag,
 
 void m68ec030_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68ec030();
 }
 
@@ -2741,6 +2743,7 @@ m68040_device::m68040_device(const machine_config &mconfig, const char *tag, dev
 
 void m68040_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68040();
 }
 
@@ -2753,6 +2756,7 @@ m68ec040_device::m68ec040_device(const machine_config &mconfig, const char *tag,
 
 void m68ec040_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68ec040();
 }
 
@@ -2765,6 +2769,7 @@ m68lc040_device::m68lc040_device(const machine_config &mconfig, const char *tag,
 
 void m68lc040_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_m68lc040();
 }
 
@@ -2777,6 +2782,7 @@ scc68070_base_device::scc68070_base_device(const machine_config &mconfig, const 
 
 void scc68070_base_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_scc68070();
 }
 
@@ -2795,6 +2801,7 @@ fscpu32_device::fscpu32_device(const machine_config &mconfig, const char *tag, d
 
 void fscpu32_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_fscpu32();
 }
 
@@ -2807,6 +2814,7 @@ mcf5206e_device::mcf5206e_device(const machine_config &mconfig, const char *tag,
 
 void mcf5206e_device::device_start()
 {
+	m68000_base_device::device_start();
 	init_cpu_coldfire();
 }
 

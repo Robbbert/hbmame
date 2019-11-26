@@ -14,9 +14,10 @@ copy /Y %from%\src\emu\video.* %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src
 
 md %to%\src\frontend\mame
-copy /Y %from%\src\frontend\mame\audit.* %to%\src\frontend\mame
-copy /Y %from%\src\frontend\mame\info.cpp %to%\src\frontend\mame
-copy /Y %from%\src\frontend\mame\mameopts.* %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\audit.*            %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
@@ -61,11 +62,3 @@ type %from%\docs\BSD3Clause.txt    | MORE /P > %to%\docs\BSD3Clause.txt
 type %from%\docs\LICENSE           | MORE /P > %to%\docs\license.txt
 type %from%\docs\winui_license.txt | MORE /P > %to%\docs\winui_license.txt
 
-pause
-echo off
-cls
-echo.
-echo RAR up everything.
-echo.
-
-pause

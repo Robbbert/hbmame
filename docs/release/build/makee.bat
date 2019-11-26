@@ -1,8 +1,8 @@
-@del hbmameui.sym
+@del hbmameui64.sym
 :start
-del hbmameui.exe
-if exist hbmameui.exe goto start
-call make32 -j4 "OSD=winui" %1 %2 %3
-if not exist hbmameui.exe goto end
+del hbmameui64.exe
+if exist hbmameui64.exe goto start
+call make64 -j4 "OSD=winui" %1 %2 %3
+if not exist hbmameui64.exe goto end
+copy /Y hbmameui64.exe hbmameui.exe
 :end
-
