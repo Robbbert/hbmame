@@ -5743,12 +5743,12 @@ GAMEL(1979, yosakdon,    0,        yosakdon,  yosakdon,  _8080bw_state,  empty_i
 GAMEL(1979, yosakdona,   yosakdon, yosakdon,  yosakdon,  _8080bw_state,  empty_init,    ROT270, "Wing", "Yosaku To Donbei (set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND, layout_yosakdon )
 
 GAMEL(1979, shuttlei,    0,        shuttlei,  shuttlei,  _8080bw_state,  empty_init,    ROT270, "Omori Electric Co., Ltd.", "Shuttle Invader", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND, layout_shuttlei )
-
 GAMEL(1979, skylove,     0,        shuttlei,  skylove,   _8080bw_state,  empty_init,    ROT270, "Omori Electric Co., Ltd.", "Sky Love", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND, layout_shuttlei )
 
 GAME( 1978, claybust,    0,        claybust,  claybust,  _8080bw_state,  empty_init,    ROT0,   "Model Racing", "Claybuster", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND ) // no titlescreen, Claybuster according to flyers
-
 GAMEL(1980, gunchamp,    0,        claybust,  gunchamp,  _8080bw_state,  empty_init,    ROT0,   "Model Racing", "Gun Champ", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND, layout_gunchamp ) // no titlescreen, Gun Champ according to original cab
+GAME( 1979?,cane,        0,        cane,      cane,      cane_state,     empty_init,    ROT0,   "Model Racing", "Cane (prototype)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+GAME( 1979?,orbite,      0,        orbite,    orbite,    orbite_state,   empty_init,    ROT270, "Model Racing", "Orbite (prototype)", MACHINE_SUPPORTS_SAVE | MACHINE_IS_INCOMPLETE | MACHINE_NO_SOUND_HW )
 
 GAME( 1980?,astropal,    0,        astropal,  astropal,  _8080bw_state,  empty_init,    ROT0,   "Sidam?", "Astropal", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
 
