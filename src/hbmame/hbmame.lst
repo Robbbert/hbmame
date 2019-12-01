@@ -535,6 +535,7 @@ tk2h144
 tk2h145
 tk2h146
 tk2h147
+tk2h148
 wofb
 wofch		// tk2p1
 wofes
@@ -820,6 +821,7 @@ dinos219
 dinos220
 dinos221
 dinos222
+dinos223
 ffights01
 ffights02
 ffightj2s01
@@ -1990,6 +1992,8 @@ kof97s144
 kof97s145
 kof97s146
 kof97s147
+kof97s148
+kof97s149
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2611,6 +2615,7 @@ kof98hh120
 kof98hh121
 kof98hh122
 kof98hh123
+kof98hh124
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3051,6 +3056,7 @@ kof2001s39
 kof2001s40
 kof2001s41
 kof2001s42
+kof2001s43
 
 @source:kof2002.cpp
 kof200215
@@ -3513,6 +3519,10 @@ kof2k2s82
 kof2k2s83
 kof2k2s84
 kof2k2s85
+kof2k2s86
+kof2k2s87
+kof2k2s88
+kof2k2s89
 
 @source:kof2003.cpp
 kof2003d
@@ -5269,6 +5279,7 @@ mslugxz60
 mslugxz61
 mslugxz62
 mslugxz63
+mslugxz64
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
@@ -5503,6 +5514,13 @@ mslugxrm4s22
 mslugxrm4s23
 mslugxrm4s24
 mslugxrm4s25
+mslugxrm5s01
+mslugxrm5s02
+mslugxrm5s03
+mslugxrm5s04
+mslugxrm5s05
+mslugxrm5s06
+mslugxrm5s07
 mslugxrmmpv01
 mslugxrmmpv02
 mslugxrmmpv03
@@ -7929,6 +7947,8 @@ kovsho107
 kovsho108
 kovsho109
 kovsho110
+//kovsho111
+//kovsho112
 kovshxass01
 kovshxass02
 kovshxass03
