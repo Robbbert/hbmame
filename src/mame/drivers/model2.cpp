@@ -6233,7 +6233,11 @@ ROM_START( daytona ) /* Daytona USA (Japan, Revision A), Original Model 2 w/Mode
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) )
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) )
 ROM_END
 
 ROM_START( daytonase ) /* Daytona USA (Japan, Revision A), Original Model 2 w/Model 1 sound board */
@@ -6294,7 +6298,11 @@ ROM_START( daytonase ) /* Daytona USA (Japan, Revision A), Original Model 2 w/Mo
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) )
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) )
 ROM_END
 
 ROM_START( daytona93 ) /* Daytona USA, Deluxe cabinet, '93 version, ROM board ID# 834-10536-01 - There is said to be a Deluxe '94 edition */
@@ -6354,7 +6362,11 @@ ROM_START( daytona93 ) /* Daytona USA, Deluxe cabinet, '93 version, ROM board ID
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, BAD_DUMP CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) ) // unconfirmed
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, BAD_DUMP CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) ) // unconfirmed
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, BAD_DUMP CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) ) // unconfirmed
 ROM_END
 
 ROM_START( daytonas ) /* Daytona USA (With Saturn Adverts) */
@@ -6415,7 +6427,11 @@ ROM_START( daytonas ) /* Daytona USA (With Saturn Adverts) */
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, BAD_DUMP CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) ) // unconfirmed
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, BAD_DUMP CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) ) // unconfirmed
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, BAD_DUMP CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) ) // unconfirmed
 ROM_END
 
 ROM_START( daytonat )/* Daytona USA (Japan, Turbo hack) */
@@ -6478,7 +6494,11 @@ ROM_START( daytonat )/* Daytona USA (Japan, Turbo hack) */
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) )
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) )
 ROM_END
 
 ROM_START( daytonata )/* Daytona USA (Japan, Turbo hack) */
@@ -6539,7 +6559,11 @@ ROM_START( daytonata )/* Daytona USA (Japan, Turbo hack) */
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) )
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) )
 ROM_END
 
 /*
@@ -6611,7 +6635,11 @@ ROM_START( daytonam ) /* Daytona USA (Japan, To The MAXX) */
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) )
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) )
 
 	ROM_REGION( 0x10000, "pic", 0)
 	ROM_LOAD("pic.bin", 0x00000, 0x10000, NO_DUMP )
@@ -6679,7 +6707,11 @@ ROM_START( daytonagtx )
 	MODEL2_CPU_BOARD /* Model 2 CPU board extra roms */
 
 	ROM_REGION( 0x10000, "drivecpu", 0 ) // 838-10646 drive board
-	ROM_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da) )
+	ROM_DEFAULT_BIOS("16488a")
+	ROM_SYSTEM_BIOS(0, "16488a", "drive board ROM 16488a")
+	ROMX_LOAD("epr-16488a.ic12", 0x000000, 0x010000, CRC(546c5d1a) SHA1(5533301fe7e3b499e6cee12230d2c656c3c667da), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "16488", "drive board ROM 16488")
+	ROMX_LOAD("epr-16488.ic12",  0x000000, 0x010000, CRC(4f0b8114) SHA1(1fcebd0632da8f224a04fe6b39147a05eb358e83), ROM_BIOS(1) )
 ROM_END
 
 ROM_START( vcop ) /* Virtua Cop Revision B, Model 2 */
