@@ -3712,38 +3712,39 @@ nbbatmanus05
 uccopsjs01
 
 @source:maketrax.cpp
-eyes		//parent
-aa			/* Widel's Games */
-abscam		// GL 1982
-absurd		/* scott - nonworking alpha ver 3 */
-alpaca7		/* Jerronimo (useless) */
-alpaca8		/* Jerronimo (useless) */
-bace		/* Widel's Games */
-crashh		/* PacMAME Hacks */
-deathstar
-deathstar2
-dderby		/* Widel's Games */
+eyes			//parent
+aa				/* HB - Widel's Games */
+abscam			// GL 1982
+absurd			/* HB - scott - nonworking alpha ver 3 */
+alienres		// HB
+alpaca7			/* HB - Jerronimo (useless) */
+alpaca8			/* HB - Jerronimo (useless) */
+bace			/* HB - Widel's Games */
+crashh			/* HB - PacMAME Hacks */
+deathstar		// HB
+deathstar2		// HB
+dderby			/* HB - Widel's Games */
 eyesb
-ghohunt		// Hurray Banana
-kangaroh	/* Widel's Games */
+ghohunt			// HB - Hurray Banana
+kangaroh		/* HB - Widel's Games */
 lazybug
 lazybug1
-mtturbo		/* Tim - Make Trax Turbo Hack */
-pachello	/* Jerronimo */
-pacmatri	/* Jerronimo */
-pactest		/* Widel's Games */
-pactetris
-ppong		/* Widel's Games */
-ppong2		/* Widel's Games */
-rainboh		/* Widel's Games */
-scroller
-seq1		/* Jerronimo */
-seq2		/* Jerronimo */
-snakes
-snakes2
-tst_pacm
+mtturbo			/* Tim - Make Trax Turbo Hack */
+pachello		/* HB - Jerronimo */
+pacmatri		/* HB - Jerronimo */
+pactest			/* HB - Widel's Games */
+pactetris		// HB
+ppong			/* HB - Widel's Games */
+ppong2			/* HB - Widel's Games */
+rainboh			/* HB - Widel's Games */
+scroller		// HB
+seq1			/* HB - Jerronimo */
+seq2			/* HB - Jerronimo */
+snakes			// HB
+snakes2			// HB
+tst_pacm		// HB
 wavybug
-zap			/* Widel's Games */
+zap				/* HB - Widel's Games */
 
 @source:mappy.cpp
 mappy		//parent

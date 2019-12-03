@@ -5,6 +5,7 @@
 
 New Games
 ---------------------------------
+- [alienres]          Alien Rescue (on Pacman hardware)
 - [dinos223]          Cadillacs and Dinosaurs (Warriors 2020 2019-11-17)
 - [ffightae]          Final Fight 30th Anniversary Edition
 - [kof97s148]         Kof'97 (Dogs Edition 2019-11-26)
