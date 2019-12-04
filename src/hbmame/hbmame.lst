@@ -1995,6 +1995,9 @@ kof97s146
 kof97s147
 kof97s148
 kof97s149
+kof97s150
+kof97s151
+kof97s152
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3058,6 +3061,7 @@ kof2001s40
 kof2001s41
 kof2001s42
 kof2001s43
+kof2001s44
 
 @source:kof2002.cpp
 kof200215
@@ -3524,6 +3528,7 @@ kof2k2s86
 kof2k2s87
 kof2k2s88
 kof2k2s89
+kof2k2s90
 
 @source:kof2003.cpp
 kof2003d
@@ -8739,5 +8744,4 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-
 
