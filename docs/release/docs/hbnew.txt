@@ -21,6 +21,7 @@ New Games
 - [kof2k2s88]         Kof2002 (Black Modified Powers 2014-01-05)
 - [kof2k2s89]         Kof2002 (Remix ultra 3.5 2018-01-05)
 - [kof2k2s90]         Kof2002 (Merry Christmas Mix Plus 2015-06-24)
+- [kof2k2s91]         Kof2002 (Omega v.PS2 Simplificada 2018-06-08)
 - [mslugxz64]         Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)
 - [tk2h148]           Tenchi wo Kurau II (Li Dianda Random Edition 2019-07-27)
 
