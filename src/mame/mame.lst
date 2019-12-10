@@ -11275,6 +11275,9 @@ ch2001
 @source:cxg_dominator.cpp
 sdtor
 
+@source:cxg_sphinx40.cpp
+sphinx40
+
 @source:cxhumax.cpp
 hxhdci2k                        //
 
@@ -21925,6 +21928,7 @@ megat4te                        // (c) 1996 Merit
 megat4tea                       // (c) 1996 Merit
 megat5                          // (c) 1997 Merit
 megat5a                         // (c) 1997 Merit
+megat5g                         // (c) 1997 Merit
 megat5nj                        // (c) 1997 Merit
 megat5t                         // (c) 1997 Merit
 megat5tg                        // (c) 1997 Merit
@@ -31165,6 +31169,7 @@ zdog
 @source:vt1682.cpp
 ii8in1
 ii32in1
+miwi2_16
 
 @source:newbrain.cpp
 newbrain                        //
