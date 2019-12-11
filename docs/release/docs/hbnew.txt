@@ -14,6 +14,7 @@ New Games
 - [kof97s151]         Kof'97 (Versión Sexy Estilo Mugen 2015-10-25)
 - [kof97s152]         Kof'97 (Mythical Martial Arts Dark Snakes Edition Plus 2018-04-08)
 - [kof98hh124]        Kof'98 (ECK Dragon Edition 2019-09-09)
+- [kof98hh125]        Kof'98 (Ultra Rugal 2016-12-18)
 - [kof2001s43]        Kof2001 (PS2 Krizalid Edition 2018-11-22)
 - [kof2001s44]        Kof2001 (PS2 Mugen Style New Orochi And Rugal Characters 2015-12-09)
 - [kof2k2s86]         Kof2002 (Resurgence In The Kingdom Of Heaven 2019 2019-11-29)
