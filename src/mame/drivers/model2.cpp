@@ -1686,6 +1686,21 @@ static INPUT_PORTS_START( model2 )
 	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT)  PORT_PLAYER(2)
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( model2crx )
+	PORT_INCLUDE(model2)
+
+	PORT_START("SW")
+	// SW1 and SW2 are push buttons
+	PORT_DIPUNKNOWN_DIPLOC(0x01, 0x01, "SW3:1")
+	PORT_DIPUNKNOWN_DIPLOC(0x02, 0x02, "SW3:2")
+	PORT_DIPUNKNOWN_DIPLOC(0x04, 0x04, "SW3:3")
+	PORT_DIPUNKNOWN_DIPLOC(0x08, 0x08, "SW3:4")
+	PORT_DIPUNKNOWN_DIPLOC(0x10, 0x10, "SW3:5")
+	PORT_DIPUNKNOWN_DIPLOC(0x20, 0x20, "SW3:6")
+	PORT_DIPUNKNOWN_DIPLOC(0x40, 0x40, "SW3:7")
+	PORT_DIPUNKNOWN_DIPLOC(0x80, 0x80, "SW3:8")
+INPUT_PORTS_END
+
 static INPUT_PORTS_START( ioboard_dipswitches )
 	PORT_START("ioboard:dsw1")
 	PORT_DIPUNUSED_DIPLOC(0x01, 0x01, "DSW1:1")
@@ -1826,7 +1841,7 @@ static INPUT_PORTS_START( vcop )
 INPUT_PORTS_END
 
 INPUT_PORTS_START( vf2 )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_BUTTON1) PORT_PLAYER(1) PORT_NAME("P1 Punch")
@@ -1842,7 +1857,7 @@ INPUT_PORTS_START( vf2 )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( manxtt )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x30, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -1868,7 +1883,7 @@ static INPUT_PORTS_START( manxtt )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( srallyc )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 	PORT_INCLUDE(gears)
 
 	PORT_MODIFY("IN0")
@@ -1914,7 +1929,7 @@ static INPUT_PORTS_START( vcop2 )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( skytargt )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_UNKNOWN)
@@ -1938,7 +1953,7 @@ static INPUT_PORTS_START( skytargt )
 INPUT_PORTS_END
 
 INPUT_PORTS_START( doa )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_BUTTON1) PORT_PLAYER(1) PORT_NAME("P1 Hold")
@@ -1954,7 +1969,7 @@ INPUT_PORTS_START( doa )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( zerogun )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x0c, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -1962,7 +1977,7 @@ static INPUT_PORTS_START( zerogun )
 	PORT_MODIFY("IN2")
 	PORT_BIT(0x0c, IP_ACTIVE_LOW, IPT_UNUSED)
 
-	PORT_START("DSW")
+	PORT_MODIFY("SW")
 	// in service mode, enables scroll check, polygon check, bg check, stage select
 	PORT_DIPNAME(0x01, 0x01, "Enable Debug Menu") PORT_DIPLOCATION("SW:1")
 	PORT_DIPSETTING(   0x01, DEF_STR( Off ))
@@ -1985,7 +2000,7 @@ static INPUT_PORTS_START( motoraid )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( dynamcop )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_BUTTON1) PORT_PLAYER(1) PORT_NAME("P1 Punch")
@@ -2001,7 +2016,7 @@ static INPUT_PORTS_START( dynamcop )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( pltkids )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x0c, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -2011,7 +2026,7 @@ static INPUT_PORTS_START( pltkids )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( rchase2 )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_BUTTON1) PORT_PLAYER(1)
@@ -2035,7 +2050,7 @@ static INPUT_PORTS_START( rchase2 )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( vstriker )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	// oddly enough service mode returns standard 1-2-3 layout but actual ingame is 2-3-1
 	// also bit 3 repeats bit 2 functionality.
@@ -2063,7 +2078,7 @@ static INPUT_PORTS_START( gunblade )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( indy500 )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x30, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -2093,7 +2108,7 @@ static INPUT_PORTS_START( indy500 )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( von )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_BUTTON1) PORT_NAME("P1 Left Shot")
@@ -2115,7 +2130,7 @@ static INPUT_PORTS_START( von )
 INPUT_PORTS_END
 
 INPUT_PORTS_START( schamp )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_BUTTON1) PORT_PLAYER(1) PORT_NAME("P1 Punch")
@@ -2139,7 +2154,7 @@ static INPUT_PORTS_START( sgt24h )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( dynabb )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN1")
 	PORT_BIT(0x0c, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -2164,7 +2179,7 @@ static INPUT_PORTS_START( overrev )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( skisuprg )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_BUTTON3) PORT_NAME("Select 3")
@@ -2189,7 +2204,7 @@ static INPUT_PORTS_START( skisuprg )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( waverunr )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x32, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -2249,7 +2264,7 @@ static INPUT_PORTS_START( hotd )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( segawski )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x32, IP_ACTIVE_LOW, IPT_UNUSED)
@@ -2271,7 +2286,7 @@ INPUT_PORTS_END
 
 // TODO: has testable service / test on board buttons
 static INPUT_PORTS_START( topskatr )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_BUTTON4) PORT_NAME("Select Right")
@@ -2295,7 +2310,7 @@ static INPUT_PORTS_START( topskatr )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( powsled )
-	PORT_INCLUDE(model2)
+	PORT_INCLUDE(model2crx)
 
 	PORT_MODIFY("IN0")
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_SERVICE2)
@@ -2698,6 +2713,7 @@ void model2a_state::model2a(machine_config &config)
 	io.in_pb_callback().set(FUNC(model2a_state::in0_r));
 	io.in_pc_callback().set_ioport("IN1");
 	io.in_pd_callback().set_ioport("IN2");
+	io.in_pg_callback().set_ioport("SW");
 	io.out_pe_callback().set([this] (uint8_t data) { m_billboard->write(data); });
 
 	model2_timers(config);
@@ -2791,9 +2807,6 @@ void model2a_state::model2a_0229(machine_config &config)
 void model2a_state::zeroguna(machine_config &config)
 {
 	model2a_5881(config);
-
-	sega_315_5649_device &io(*subdevice<sega_315_5649_device>("io"));
-	io.in_pg_callback().set_ioport("DSW");
 }
 
 /* 2B-CRX */
@@ -2825,6 +2838,7 @@ void model2b_state::model2b(machine_config &config)
 	io.in_pb_callback().set(FUNC(model2b_state::in0_r));
 	io.in_pc_callback().set_ioport("IN1");
 	io.in_pd_callback().set_ioport("IN2");
+	io.in_pg_callback().set_ioport("SW");
 	io.out_pe_callback().set([this] (uint8_t data) { m_billboard->write(data); });
 
 	model2_timers(config);
@@ -2948,9 +2962,6 @@ void model2b_state::dynabb(machine_config &config)
 void model2b_state::zerogun(machine_config &config)
 {
 	model2b_5881(config);
-
-	sega_315_5649_device &io(*subdevice<sega_315_5649_device>("io"));
-	io.in_pg_callback().set_ioport("DSW");
 }
 
 /* 2C-CRX */
@@ -2977,6 +2988,7 @@ void model2c_state::model2c(machine_config &config)
 	io.in_pb_callback().set(FUNC(model2c_state::in0_r));
 	io.in_pc_callback().set_ioport("IN1");
 	io.in_pd_callback().set_ioport("IN2");
+	io.in_pg_callback().set_ioport("SW");
 
 	model2_timers(config);
 	model2_screen(config);
