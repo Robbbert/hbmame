@@ -2186,7 +2186,7 @@ ROM_START( killblds01 )
 	ROM_REGION( 0x010000, "igs022", 0 ) 
 	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
 
-	ROM_REGION( 0x800000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
 
@@ -2219,7 +2219,7 @@ ROM_START( killblds02 )
 	ROM_REGION( 0x010000, "igs022", 0 ) 
 	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
 
-	ROM_REGION( 0x800000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
 
@@ -2252,7 +2252,7 @@ ROM_START( killblds03 )
 	ROM_REGION( 0x010000, "igs022", 0 ) 
 	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
 
-	ROM_REGION( 0x800000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
 
@@ -2285,7 +2285,7 @@ ROM_START( killblds04 )
 	ROM_REGION( 0x010000, "igs022", 0 )
 	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
 
-	ROM_REGION( 0x800000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
 
@@ -2318,7 +2318,7 @@ ROM_START( killblds05 )
 	ROM_REGION( 0x010000, "igs022", 0 )
 	ROM_LOAD( "kb_u2.rom", 0x000000, 0x010000,  CRC(de3eae63) SHA1(03af767ef764055bda528b5cc6a24b9e1218cca8) )
 
-	ROM_REGION( 0x800000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t0300.u14",    0x180000, 0x400000, CRC(0922f7d9) SHA1(4302b4b7369e13f315fad14f7d6cad1321101d24) )
 
@@ -2358,10 +2358,10 @@ ROM_START( killbldps01 )
 	/* there are some differences around 0x2e80, investigate - maybe above is badly dumped?, padding at 0x3ac0 is also different */
 	ROM_LOAD( "killbldp_igs027a_alt.bin", 0x000000, 0x04000, CRC(98316b06) SHA1(09be9fad24d68980a0a5beae60ced48012286216) )
 
-	ROM_REGION( 0x800000, "user1", 0 ) 
+	ROM_REGION32_LE( 0x800000, "user1", 0 ) 
 	ROM_LOAD( "v300x_ps01.u26", 0x000000, 0x200004,  CRC(144388c8) SHA1(9db146cc4434e90b5d931a9b15b5c3f1e7474a88) )
 
-	ROM_REGION( 0x800000, "tiles", 0 ) 
+	ROM_REGION( 0xa00000, "tiles", 0 ) 
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t05701w032.bin",0x180000, 0x400000, CRC(567c714f) SHA1(b25b20e1ec9f077d6f7b9d41723a68d0d461bef2) )
 
@@ -2390,10 +2390,10 @@ ROM_START( killbldps02 )
 	/* there are some differences around 0x2e80, investigate - maybe above is badly dumped?, padding at 0x3ac0 is also different */
 	ROM_LOAD( "killbldp_igs027a_alt.bin", 0x000000, 0x04000, CRC(98316b06) SHA1(09be9fad24d68980a0a5beae60ced48012286216) )
 
-	ROM_REGION( 0x800000, "user1", 0 ) 
+	ROM_REGION32_LE( 0x800000, "user1", 0 ) 
 	ROM_LOAD( "v300x_ps02.u26", 0x000000, 0x200004,  CRC(2d50157e) SHA1(a3c4c8fcc8e5de22868beb533fab965029fdc16d) )
 
-	ROM_REGION( 0x800000, "tiles", 0 ) 
+	ROM_REGION( 0xa00000, "tiles", 0 ) 
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t05701w032.bin",0x180000, 0x400000, CRC(567c714f) SHA1(b25b20e1ec9f077d6f7b9d41723a68d0d461bef2) )
 
@@ -31599,10 +31599,10 @@ ROM_START( theglads01 )
 	ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
 	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
 
-	ROM_REGION( 0x800000, "user1", 0 )
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
 	ROM_LOAD( "v107_ph01.u26", 0x000000, 0x200000,  CRC(aba60d88) SHA1(953f6476871c2ad32b195e231c4a07ec3ddfb5b5) )
 
-	ROM_REGION( 0xc00000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t04601.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
 
@@ -31629,10 +31629,10 @@ ROM_START( theglads02 )
 	ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
 	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
 
-	ROM_REGION( 0x800000, "user1", 0 )
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
 	ROM_LOAD( "v107_ph02.u26", 0x000000, 0x200000,  CRC(8187ce9d) SHA1(3670eb61c458a8e5aa32a087574de865a51263ee) )
 
-	ROM_REGION( 0xc00000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t04601.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
 
@@ -31659,10 +31659,10 @@ ROM_START( theglads03 )
 	ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
 	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
 
-	ROM_REGION( 0x800000, "user1", 0 )
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
 	ROM_LOAD( "v107_ph03.u26", 0x000000, 0x200000,  CRC(78959ea7) SHA1(a4591431bbdbfd2ae2912264bad268e91862d240) )
 
-	ROM_REGION( 0xc00000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t04601.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
 
@@ -31689,10 +31689,10 @@ ROM_START( theglads04 )
 	ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
 	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
 
-	ROM_REGION( 0x800000, "user1", 0 )
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
 	ROM_LOAD( "v107_ph04.u26", 0x000000, 0x200000,  CRC(8c8eb98e) SHA1(6868da4136d6594586997abe0629c61ff5303214) )
 
-	ROM_REGION( 0xc00000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t04601.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
 
@@ -31719,10 +31719,10 @@ ROM_START( theglad100s01 )
 	ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
 	ROM_LOAD( "thegladpcb_igs027a_v100_japan.bin", 0x0188, 0x3e78, CRC(d7f06e2d) SHA1(9c3aca7a487f5329d84731e2c63d5ed591bf9d24) )
 
-	ROM_REGION( 0x800000, "user1", 0 )
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
 	ROM_LOAD( "u2_pw01.rom", 0x000000, 0x200000,  CRC(e9ebb722) SHA1(03a4f4c9541b7c605381537f4490b236d6993f2f) ) 
 
-	ROM_REGION( 0xc00000, "tiles", 0 ) 
+	ROM_REGION( 0xa00000, "tiles", 0 ) 
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t04601.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
 
@@ -31749,10 +31749,10 @@ ROM_START( theglad101s01 )
 	ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
 	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
 
-	ROM_REGION( 0x800000, "user1", 0 ) 
+	ROM_REGION32_LE( 0x800000, "user1", 0 ) 
 	ROM_LOAD( "v101_pw01.u26", 0x000000, 0x200000, CRC(9629273b) SHA1(3004d44079ddd680ea426b00b2bcff5e9e123e81) )
 
-	ROM_REGION( 0xc00000, "tiles", 0 )
+	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
 	ROM_LOAD( "t04601.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
 
