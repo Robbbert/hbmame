@@ -14,8 +14,12 @@ Or, configure the gun aim inputs and share them with the trigger. For example
 use Z,X,C,V,B for the gun aims, and "Z or X or C or V or B" for the trigger.
 
 TODO:
+- dump/add Japanese version
 - game can't be played properly within MAME's constraints (mechanical stuff,
   and the lightguns linked to it)
+- shot target is sometimes ignored, maybe a BTANB? since it's easy to dismiss
+  on the real thing as a missed aim. It turns on the lightgun lamp but then
+  doesn't read the lightsensor.
 
 -------------------------------------------------------------------------------
 
@@ -95,6 +99,7 @@ public:
 		m_ticket(*this, "ticket"),
 		m_adpcm(*this, "adpcm%u", 0),
 		m_ymsnd(*this, "ymsnd"),
+		m_spot(*this, "spot"),
 		m_digits(*this, "digits"),
 		m_fake(*this, "FAKE%u", 1),
 		m_conf(*this, "CONF1"),
@@ -129,6 +134,7 @@ private:
 	required_device<ticket_dispenser_device> m_ticket;
 	required_device_array<upd7759_device, 2> m_adpcm;
 	required_device<ym2151_device> m_ymsnd;
+	required_device<pwm_display_device> m_spot;
 	required_device<pwm_display_device> m_digits;
 	required_ioport_array<2> m_fake;
 	required_ioport m_conf;
@@ -173,6 +179,7 @@ private:
 
 	template<int N> DECLARE_WRITE8_MEMBER(adpcm_w);
 	DECLARE_WRITE8_MEMBER(spot_w);
+	DECLARE_WRITE8_MEMBER(output_spot_w) { m_spot_lamps[offset >> 6] = data; }
 
 	DECLARE_WRITE8_MEMBER(ppi5_a_w);
 	DECLARE_WRITE8_MEMBER(ppi5_b_w);
@@ -543,8 +550,8 @@ WRITE8_MEMBER(cgang_state::spot_w)
 {
 	// d0-d2: ufo boss spotlights
 	// d3-d7: cosmo spotlights
-	for (int i = 0; i < 8; i++)
-		m_spot_lamps[i] = BIT(data, i);
+	// it strobes them for dimming
+	m_spot->matrix(1, data);
 }
 
 WRITE8_MEMBER(cgang_state::ppi5_a_w)
@@ -774,7 +781,6 @@ void cgang_state::cgang(machine_config &config)
 	m_ppi[1]->in_pb_callback().set(FUNC(cgang_state::ppi2_b_r));
 	m_ppi[1]->in_pc_callback().set_ioport("SW4").lshift(4);
 	m_ppi[1]->out_pc_callback().set(FUNC(cgang_state::ppi2_c_w));
-	m_ppi[1]->tri_pc_callback().set_constant(0);
 
 	I8255(config, m_ppi[2]); // 0x80: all = output
 	m_ppi[2]->out_pa_callback().set(FUNC(cgang_state::ppi3_a_w));
@@ -791,6 +797,13 @@ void cgang_state::cgang(machine_config &config)
 	m_ppi[4]->out_pb_callback().set(FUNC(cgang_state::ppi5_b_w));
 	m_ppi[4]->in_pc_callback().set(FUNC(cgang_state::ppi5_c_r));
 
+	for (int i = 0; i < 5; i++)
+	{
+		m_ppi[i]->tri_pa_callback().set_constant(0);
+		m_ppi[i]->tri_pb_callback().set_constant(0);
+		m_ppi[i]->tri_pc_callback().set_constant(0);
+	}
+
 	WATCHDOG_TIMER(config, m_watchdog); // HA1835P
 	m_watchdog->set_time(attotime::from_msec(100)); // approximation
 
@@ -801,6 +814,10 @@ void cgang_state::cgang(machine_config &config)
 	/* video hardware */
 	PWM_DISPLAY(config, m_digits).set_size(10, 7);
 	m_digits->set_segmask(0x3ff, 0x7f);
+
+	PWM_DISPLAY(config, m_spot).set_size(1, 8);
+	m_spot->output_x().set(FUNC(cgang_state::output_spot_w));
+	m_spot->set_bri_levels(0.0576, 0.144, 0.36, 0.9); // dimmed lights
 
 	config.set_default_layout(layout_cgang);
 
@@ -845,4 +862,4 @@ ROM_END
 ******************************************************************************/
 
 /*    YEAR  NAME   PARENT  MACHINE  INPUT  CLASS        INIT        MONITOR  COMPANY, FULLNAME, FLAGS */
-GAME( 1990, cgang, 0,      cgang,   cgang, cgang_state, empty_init, ROT0,    "Namco (Data East license)", "Cosmo Gang (US)", MACHINE_SUPPORTS_SAVE | MACHINE_MECHANICAL | MACHINE_CLICKABLE_ARTWORK | MACHINE_NOT_WORKING )
+GAME( 1990, cgang, 0,      cgang,   cgang, cgang_state, empty_init, ROT0,    "Namco (Data East license)", "Cosmo Gang (US)", MACHINE_SUPPORTS_SAVE | MACHINE_MECHANICAL | MACHINE_CLICKABLE_ARTWORK | MACHINE_IMPERFECT_CONTROLS )
