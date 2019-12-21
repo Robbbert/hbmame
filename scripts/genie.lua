@@ -1082,7 +1082,6 @@ end
 				"-Wno-tautological-compare",
 				"-Wno-unused-value",
 				"-Wno-constant-logical-operand",
-				"-Wno-missing-braces", -- clang is not as permissive as GCC about std::array initialization
 				"-fdiagnostics-show-note-include-stack",
 			}
 			if (version >= 30500) then
@@ -1099,8 +1098,8 @@ end
 				}
 			end
 		else
-			if (version < 50000) then
-				print("GCC version 5.0 or later needed")
+			if (version < 70000) then
+				print("GCC version 7.0 or later needed")
 				os.exit(-1)
 			end
 				buildoptions {

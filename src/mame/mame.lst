@@ -12819,6 +12819,7 @@ electron                        // 1983 Acorn Electron
 electront                       // 1983 Acorn Electron (Trial)
 btm2105                         // 1985 BT Merlin M2105
 electron64                      // 1987 Acorn Electron (64K Master RAM Board)
+electronsp                      // 1991 Acorn Electron (Stop Press 64i)
 
 @source:elekscmp.cpp
 elekscmp                        //
@@ -13913,6 +13914,7 @@ losttomb                        // (c) 1982 Stern
 losttombh                       // (c) 1982 Stern
 luctoday                        // 1980 Sigma
 mandinga                        // bootleg (Artemi)
+mandingaeg                      // bootleg (Electrogame)
 mandingarf                      // bootleg (Recreativos Franco S.A.)
 mandingac                       // bootleg (Centromatic)
 mltiwars                        // bootleg (Gayton Games)
