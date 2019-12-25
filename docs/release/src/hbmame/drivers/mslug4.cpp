@@ -1538,6 +1538,28 @@ ROM_START( mslug4hh48 ) //mslug4c
 	ROM_LOAD16_BYTE( "263lw.c6", 0x2000001, 0x400000, CRC(b015aeee) SHA1(24e12e72b82eea9e52a4cefc774efb3bd7db822f) )
 ROM_END
 
+ROM_START( mslug4hh49 ) 
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263hh49.p1",   0x000000, 0x100000, CRC(0132eff7) SHA1(07b100255d2cf9955ae28cfdd19fee3d7787832b) )
+	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_64K( "263d.m1", CRC(0c4c42f8) SHA1(b7be47d909f5e4fcfe769ead0653d40e1e708d36) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
+	ROM_LOAD( "263.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263.c1",   0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
+	ROM_LOAD16_BYTE( "263.c2",   0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
+	ROM_LOAD16_BYTE( "263.c3",   0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
+	ROM_LOAD16_BYTE( "263.c4",   0x1000001, 0x800000, CRC(942cfb44) SHA1(d9b46c71726383c4581fb042e63897e5a3c92d1b) )
+	ROM_LOAD16_BYTE( "263.c5",   0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
+	ROM_LOAD16_BYTE( "263.c6",   0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
+ROM_END
+
 ROM_START( mslug4erms01 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263erms01.p1",  0x000000, 0x100000, CRC(094c778d) SHA1(185d878547162f2c7774fdcb9d7e3f8cdad4ef8b) )
@@ -1729,7 +1751,7 @@ ROM_END
 
 ROM_START( mslug4rma01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma01.p1",    0x000000, 0x100000, CRC(e48680c4) SHA1(7303a9aff3faaf0333358e334bb0a6cca2c13f1b) )
+	ROM_LOAD16_WORD_SWAP( "263rma01.p1",    0x000000, 0x100000, CRC(c250b1c0) SHA1(54ff1a659fe7e028a22518487bc59c75031cc7a6) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1759,7 +1781,7 @@ ROM_END
 
 ROM_START( mslug4rma02 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma02.p1",    0x000000, 0x100000, CRC(990e0f42) SHA1(2fc1eb0543e08b266ab7d26e2b9f11dee4e302b2) )
+	ROM_LOAD16_WORD_SWAP( "263rma02.p1",    0x000000, 0x100000, CRC(bfd83e46) SHA1(a81da59a12a11582d5058fd740d97ae3874c43a1) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1789,7 +1811,7 @@ ROM_END
 
 ROM_START( mslug4rma03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma03.p1",    0x000000, 0x100000, CRC(b27675c0) SHA1(f217f28cc8392dce9d8e33d0a107c2a8571687c8) )
+	ROM_LOAD16_WORD_SWAP( "263rma03.p1",    0x000000, 0x100000, CRC(94a044c4) SHA1(23474fc6855c6a002e511c2dd42b0d95c2c31cfd) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1819,7 +1841,7 @@ ROM_END
 
 ROM_START( mslug4rma04 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma04.p1",    0x000000, 0x100000, CRC(4c746fb2) SHA1(6588e78f8b89c45eaccb8f531cba9fc28f9a00fd) )
+	ROM_LOAD16_WORD_SWAP( "263rma04.p1",    0x000000, 0x100000, CRC(6aa25eb6) SHA1(536b0c326e7a220aab9540b9701e9806b2696f0f) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1849,7 +1871,7 @@ ROM_END
 
 ROM_START( mslug4rma05 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma05.p1",    0x000000, 0x100000, CRC(31fce034) SHA1(c9a874e3771d980e780462078a99787c561edd9d) )
+	ROM_LOAD16_WORD_SWAP( "263rma05.p1",    0x000000, 0x100000, CRC(172ad130) SHA1(806290a3431c9959f0cf5f57c73f2311cebeeca3) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1879,7 +1901,7 @@ ROM_END
 
 ROM_START( mslug4rma06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma06.p1",    0x000000, 0x100000, CRC(1a849ab6) SHA1(151852f2db2e3ebe303ad628a69b09991ea62e2a) )
+	ROM_LOAD16_WORD_SWAP( "263rma06.p1",    0x000000, 0x100000, CRC(3c52abb2) SHA1(216b7ab933f70c71c103dcf04f6710aa38f3c72c) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1909,7 +1931,7 @@ ROM_END
 
 ROM_START( mslug4rma07 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma07.p1",    0x000000, 0x100000, CRC(fde23716) SHA1(035fd5d2e335268c041f0e4584c4d65401ef85ed) )
+	ROM_LOAD16_WORD_SWAP( "263rma07.p1",    0x000000, 0x100000, CRC(db340612) SHA1(f7fe6e0728ef18334259611154bf2aeb463cf72b) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1939,7 +1961,7 @@ ROM_END
 
 ROM_START( mslug4rma08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma08.p1",    0x000000, 0x100000, CRC(806ab890) SHA1(2a114fb5fd37cd25e76cfcc1e0320e5a03c12c5c) )
+	ROM_LOAD16_WORD_SWAP( "263rma08.p1",    0x000000, 0x100000, CRC(a6bc8994) SHA1(35b8f5fce26ae39ca2d391bf0a66919ba3dbf336) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1969,7 +1991,7 @@ ROM_END
 
 ROM_START( mslug4rma09 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma09.p1",    0x000000, 0x100000, CRC(ab12c212) SHA1(c8b0797202b6673ddbc29109b1f4329b0b764f01) )
+	ROM_LOAD16_WORD_SWAP( "263rma09.p1",    0x000000, 0x100000, CRC(8dc4f316) SHA1(b4b2ab5ac12c5324968b1557ba581baa521bb84f) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -1999,7 +2021,7 @@ ROM_END
 
 ROM_START( mslug4rma10 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma10.p1",    0x000000, 0x100000, CRC(5510d860) SHA1(f4266e353fda93834d3eceedeea81563e62a40c6) )
+	ROM_LOAD16_WORD_SWAP( "263rma10.p1",    0x000000, 0x100000, CRC(73c6e964) SHA1(056cc94f2e3d10d5a13e4ea2d8619259a23432d9) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2029,7 +2051,7 @@ ROM_END
 
 ROM_START( mslug4rma11 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma11.p1",    0x000000, 0x100000, CRC(289857e6) SHA1(7b00d7d016baf77bfc9c8051ae0bce88d3932731) )
+	ROM_LOAD16_WORD_SWAP( "263rma11.p1",    0x000000, 0x100000, CRC(0e4e66e2) SHA1(b1d5ee14cb086d76383f8a878de7d906772bb8a9) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2059,7 +2081,7 @@ ROM_END
 
 ROM_START( mslug4rma12 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma12.p1",    0x000000, 0x100000, CRC(03e02d64) SHA1(69060df3f82afbf657649665b155e40f7cdfb9e9) )
+	ROM_LOAD16_WORD_SWAP( "263rma12.p1",    0x000000, 0x100000, CRC(25361c60) SHA1(ef32f373db7dcce2c9baacb67ddbc457840490ae) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2089,7 +2111,7 @@ ROM_END
 
 ROM_START( mslug4rma13 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma13.p1",    0x000000, 0x100000, CRC(f53e5a58) SHA1(92e715facc51ea7c11c8178a9d903b6e9ac86f25) )
+	ROM_LOAD16_WORD_SWAP( "263rma13.p1",    0x000000, 0x100000, CRC(d3e86b5c) SHA1(ee0b016759e49289d5ba318de9a5b27322094820) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2119,7 +2141,7 @@ ROM_END
 
 ROM_START( mslug4rma14 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma14.p1",    0x000000, 0x100000, CRC(88b6d5de) SHA1(bd522803fd0182ee4a02219aa486bf2415201595) )
+	ROM_LOAD16_WORD_SWAP( "263rma14.p1",    0x000000, 0x100000, CRC(ae60e4da) SHA1(5955314daa60e07bfa57bf135df6e3b1afbb0052) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2149,7 +2171,7 @@ ROM_END
 
 ROM_START( mslug4rma15 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma15.p1",    0x000000, 0x100000, CRC(a3ceaf5c) SHA1(5c3fb82cccdd9ed0250b8e235c5f6b2de4e453f0) )
+	ROM_LOAD16_WORD_SWAP( "263rma15.p1",    0x000000, 0x100000, CRC(85189e58) SHA1(dfe50b4807edad9f2927a49c5343680cf798cab8) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2179,7 +2201,7 @@ ROM_END
 
 ROM_START( mslug4rma16 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma16.p1",    0x000000, 0x100000, CRC(5dccb52e) SHA1(900dffb3fcdc5cee4da3d76751d2414a84365b5e) )
+	ROM_LOAD16_WORD_SWAP( "263rma16.p1",    0x000000, 0x100000, CRC(7b1a842a) SHA1(69a3a565f7de71da3df12810d9b100c2fdbee0e2) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2209,7 +2231,7 @@ ROM_END
 
 ROM_START( mslug4rma17 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma17.p1",    0x000000, 0x100000, CRC(20443aa8) SHA1(1a084d9cd5abf3ca9f3de545f3f54ce97e9a5878) )
+	ROM_LOAD16_WORD_SWAP( "263rma17.p1",    0x000000, 0x100000, CRC(06920bac) SHA1(02dbac77ae47955a260055156a164f6b6040ae56) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2239,7 +2261,7 @@ ROM_END
 
 ROM_START( mslug4rma18 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma18.p1",    0x000000, 0x100000, CRC(0b3c402a) SHA1(4c725985afd78dbaf878beb185c04157d180ee7c) )
+	ROM_LOAD16_WORD_SWAP( "263rma18.p1",    0x000000, 0x100000, CRC(2dea712e) SHA1(a6980e242b76fe655ee6a6385b5c4cf6f1ef5f34) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2269,7 +2291,7 @@ ROM_END
 
 ROM_START( mslug4rma19 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma19.p1",    0x000000, 0x100000, CRC(ec5aed8a) SHA1(ec946f7787ac8b5e0617a0a3450d3fe5d15f6c23) )
+	ROM_LOAD16_WORD_SWAP( "263rma19.p1",    0x000000, 0x100000, CRC(ca8cdc8e) SHA1(a6deedf4e3df8f8aecd33bcde3a0462737ef5a15) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2299,7 +2321,7 @@ ROM_END
 
 ROM_START( mslug4rma20 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma20.p1",    0x000000, 0x100000, CRC(91d2620c) SHA1(73b00851c8756c01a4293299d33713dc78033516) )
+	ROM_LOAD16_WORD_SWAP( "263rma20.p1",    0x000000, 0x100000, CRC(b7045308) SHA1(f2947d30225439e53c65c36da8d441e513da95de) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2329,7 +2351,7 @@ ROM_END
 
 ROM_START( mslug4rma21 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma21.p1",    0x000000, 0x100000, CRC(baaa188e) SHA1(a4b923745e9ddd329406b954b9500f44f1b17827) )
+	ROM_LOAD16_WORD_SWAP( "263rma21.p1",    0x000000, 0x100000, CRC(9c7c298a) SHA1(107bbef18854e6a6a2a11a7f08b1c30825c2a878) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2359,7 +2381,7 @@ ROM_END
 
 ROM_START( mslug4rma22 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma22.p1",    0x000000, 0x100000, CRC(44a802fc) SHA1(0c91e4b97ba3efe5472eaed635bda0bb5fb65cda) )
+	ROM_LOAD16_WORD_SWAP( "263rma22.p1",    0x000000, 0x100000, CRC(627e33f8) SHA1(f095d4773e2f20c2a2b9abd792711add566cdd59) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2389,7 +2411,7 @@ ROM_END
 
 ROM_START( mslug4rma23 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma23.p1",    0x000000, 0x100000, CRC(39208d7a) SHA1(59c3db5d3b80b4cb3214a9e1932c131726e10d82) )
+	ROM_LOAD16_WORD_SWAP( "263rma23.p1",    0x000000, 0x100000, CRC(1ff6bc7e) SHA1(c5a03d7ff751fbb89f3b236467c1e52fd3b50fa2) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2419,7 +2441,7 @@ ROM_END
 
 ROM_START( mslug4rma24 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma24.p1",    0x000000, 0x100000, CRC(1258f7f8) SHA1(93e344101b2c719b0fb6eefdfcfd3ad9d7594080) )
+	ROM_LOAD16_WORD_SWAP( "263rma24.p1",    0x000000, 0x100000, CRC(348ec6fc) SHA1(5787a95dc3cd3541c16a2ca3e32433613732c201) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2449,7 +2471,7 @@ ROM_END
 
 ROM_START( mslug4rma25 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma25.p1",    0x000000, 0x100000, CRC(90ac8510) SHA1(fd5967473ae8d0ded0a11c05fab621d442cc6e84) )
+	ROM_LOAD16_WORD_SWAP( "263rma25.p1",    0x000000, 0x100000, CRC(b67ab414) SHA1(930fdcdb7f916c2d0da78ef0c05f0d3fb235f419) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2479,7 +2501,7 @@ ROM_END
 
 ROM_START( mslug4rma26 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma26.p1",    0x000000, 0x100000, CRC(ed240a96) SHA1(37ed2ae18bbd0fb676c08657e9b587a4f7a369b1) )
+	ROM_LOAD16_WORD_SWAP( "263rma26.p1",    0x000000, 0x100000, CRC(cbf23b92) SHA1(5b3ab7d068874b832740c73a2ec0050496114ff8) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2509,7 +2531,7 @@ ROM_END
 
 ROM_START( mslug4rma27 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma27.p1",    0x000000, 0x100000, CRC(c65c7014) SHA1(d8861be12cb1e22cab5e608f5b6e45aad85cc670) )
+	ROM_LOAD16_WORD_SWAP( "263rma27.p1",    0x000000, 0x100000, CRC(e08a4110) SHA1(f6a0852a75445beeee20c0f18b4ce39a65a8c563) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2539,7 +2561,7 @@ ROM_END
 
 ROM_START( mslug4rma28 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma28.p1",    0x000000, 0x100000, CRC(385e6a66) SHA1(791834b8e54295c2772ddeae72608115381c859a) )
+	ROM_LOAD16_WORD_SWAP( "263rma28.p1",    0x000000, 0x100000, CRC(1e885b62) SHA1(0e77169eca1461fb124696b4b1518e7ab17abd2e) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2569,7 +2591,7 @@ ROM_END
 
 ROM_START( mslug4rma29 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma29.p1",    0x000000, 0x100000, CRC(45d6e5e0) SHA1(6d34bee619de98009e72630cf8bac4241739c0ba) )
+	ROM_LOAD16_WORD_SWAP( "263rma29.p1",    0x000000, 0x100000, CRC(6300d4e4) SHA1(081159b39ed0a64cb6b49781b33e7d64f96011fb) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2599,7 +2621,7 @@ ROM_END
 
 ROM_START( mslug4rma30 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma30.p1",    0x000000, 0x100000, CRC(6eae9f62) SHA1(c46f6c3241c6ce4572f60c793f1cd2f4c1c6524d) )
+	ROM_LOAD16_WORD_SWAP( "263rma30.p1",    0x000000, 0x100000, CRC(4878ae66) SHA1(516895ca10adfcc8428e543b867e73d09efb19da) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2629,7 +2651,7 @@ ROM_END
 
 ROM_START( mslug4rma31 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma31.p1",    0x000000, 0x100000, CRC(a265eab4) SHA1(755fc81d9c1327e2a6e2cfc6716db821f13a57a0) )
+	ROM_LOAD16_WORD_SWAP( "263rma31.p1",    0x000000, 0x100000, CRC(84b3dbb0) SHA1(e7a58ee2cf98ccf30ab8ff6a8ada2c05d0fed307) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2659,7 +2681,7 @@ ROM_END
 
 ROM_START( mslug4rma32 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma32.p1",    0x000000, 0x100000, CRC(dfed6532) SHA1(72038da5b78ea3c9578413e2619aa7e1937399e8) )
+	ROM_LOAD16_WORD_SWAP( "263rma32.p1",    0x000000, 0x100000, CRC(f93b5436) SHA1(d832cc28b4495403a6357aa14f376c137a7f3d98) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2689,7 +2711,7 @@ ROM_END
 
 ROM_START( mslug4rma33 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma33.p1",    0x000000, 0x100000, CRC(f4951fb0) SHA1(36de9e25e2905aac98a472eb3a1f99c9b28860ba) )
+	ROM_LOAD16_WORD_SWAP( "263rma33.p1",    0x000000, 0x100000, CRC(d2432eb4) SHA1(ef11c5f4189e7c78e9ec6a9acfaec08c84b1984a) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2719,7 +2741,7 @@ ROM_END
 
 ROM_START( mslug4rma40 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma40.p1",    0x000000, 0x100000, CRC(36c78986) SHA1(4ddce9d7e02fa84655accca23b0e16a4f13278ce) )
+	ROM_LOAD16_WORD_SWAP( "263rma40.p1",    0x000000, 0x100000, CRC(1011b882) SHA1(8458819800b75dd53c2f631c3b05b1b0b77536e7) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2749,7 +2771,7 @@ ROM_END
 
 ROM_START( mslug4rma41 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma41.p1",    0x000000, 0x100000, CRC(4b4f0600) SHA1(7acdde544e340702a283818054e76f16b7795e4d) )
+	ROM_LOAD16_WORD_SWAP( "263rma41.p1",    0x000000, 0x100000, CRC(6d993704) SHA1(0cd34e133120b9fd9581794656d064ce90a73dc3) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2779,7 +2801,7 @@ ROM_END
 
 ROM_START( mslug4rma42 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma42.p1",    0x000000, 0x100000, CRC(60377c82) SHA1(bed20738ce090d55cd3af39bb4265337c67b807a) )
+	ROM_LOAD16_WORD_SWAP( "263rma42.p1",    0x000000, 0x100000, CRC(46e14d86) SHA1(2de397e3345e881663a2fa56da0c7c25d7b976b9) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2809,7 +2831,7 @@ ROM_END
 
 ROM_START( mslug4rma43 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma43.p1",    0x000000, 0x100000, CRC(cf2b58b2) SHA1(a4e3fee8c6d4d338503f2f96045f00c9398227e7) )
+	ROM_LOAD16_WORD_SWAP( "263rma43.p1",    0x000000, 0x100000, CRC(e9fd69b6) SHA1(ca948feb82edae713e14e8d9c5065ae8ba01aaad) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2839,7 +2861,7 @@ ROM_END
 
 ROM_START( mslug4rma44 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma44.p1",    0x000000, 0x100000, CRC(b2a3d734) SHA1(96b2feb522a32555175abc6d26d0236b7bc7bef7) )
+	ROM_LOAD16_WORD_SWAP( "263rma44.p1",    0x000000, 0x100000, CRC(9475e630) SHA1(eef7ddeda6ee9a65db88173f823c30a25c996257) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2869,7 +2891,7 @@ ROM_END
 
 ROM_START( mslug4rma45 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma45.p1",    0x000000, 0x100000, CRC(99dbadb6) SHA1(9d59792ecb23b91c5295132fa907507b579e4637) )
+	ROM_LOAD16_WORD_SWAP( "263rma45.p1",    0x000000, 0x100000, CRC(bf0d9cb2) SHA1(76573f174b752e2d8b34a43c2cf05d145946410e) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2899,7 +2921,7 @@ ROM_END
 
 ROM_START( mslug4rma46 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma46.p1",    0x000000, 0x100000, CRC(67d9b7c4) SHA1(2a28bbe21c9166bd634604ee8efd4b3a31a4d9b2) )
+	ROM_LOAD16_WORD_SWAP( "263rma46.p1",    0x000000, 0x100000, CRC(410f86c0) SHA1(d1fcf719a2472ebe734009ef47e64b4282e29d85) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2929,7 +2951,7 @@ ROM_END
 
 ROM_START( mslug4rma47 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma47.p1",    0x000000, 0x100000, CRC(1a513842) SHA1(7d36ebee799abd7f619a74b6cb70c426979cebdf) )
+	ROM_LOAD16_WORD_SWAP( "263rma47.p1",    0x000000, 0x100000, CRC(3c870946) SHA1(6fc215dabe83a394bfe3c9363f9d1016598c2607) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2959,7 +2981,7 @@ ROM_END
 
 ROM_START( mslug4rma48 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma48.p1",    0x000000, 0x100000, CRC(312942c0) SHA1(9f14bba10318f38581e49ffcc0a0150d7ad6200c) )
+	ROM_LOAD16_WORD_SWAP( "263rma48.p1",    0x000000, 0x100000, CRC(17ff73c4) SHA1(c5339ca41380a4c760804c23ed6624469b8ecba0) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -2989,7 +3011,7 @@ ROM_END
 
 ROM_START( mslug4rma55 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma55.p1",    0x000000, 0x100000, CRC(277f531a) SHA1(cb8b5c036e12fe2f01790c7cb33c5e543ae164a0) )
+	ROM_LOAD16_WORD_SWAP( "263rma55.p1",    0x000000, 0x100000, CRC(01a9621e) SHA1(7d4c387ef1148dbd2f832ab8b3302ab4008a7760) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3019,7 +3041,7 @@ ROM_END
 
 ROM_START( mslug4rma56 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma56.p1",    0x000000, 0x100000, CRC(5af7dc9c) SHA1(508ac48e6c3eabd451ab02859f72a107c1dcc5a1) )
+	ROM_LOAD16_WORD_SWAP( "263rma56.p1",    0x000000, 0x100000, CRC(7c21ed98) SHA1(9b5b06677f39c3ca6d929316e2e0a021c9a5009f) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3049,7 +3071,7 @@ ROM_END
 
 ROM_START( mslug4rma57 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma57.p1",    0x000000, 0x100000, CRC(718fa61e) SHA1(9c8cf803a85c5026c823492a7bf487f9b54e9c45) )
+	ROM_LOAD16_WORD_SWAP( "263rma57.p1",    0x000000, 0x100000, CRC(5759971a) SHA1(64983968f35079cd569c58ecdc8f24a5249dd763) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3079,7 +3101,7 @@ ROM_END
 
 ROM_START( mslug4rma58 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma58.p1",    0x000000, 0x100000, CRC(d64fef60) SHA1(821e61bb1d5ad8f4a4b59c3034194e05b93bf025) )
+	ROM_LOAD16_WORD_SWAP( "263rma58.p1",    0x000000, 0x100000, CRC(f099de64) SHA1(f8f0cb452eb6b052bdf63332e60dd7ded6bb3367) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3109,7 +3131,7 @@ ROM_END
 
 ROM_START( mslug4rma59 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma59.p1",    0x000000, 0x100000, CRC(abc760e6) SHA1(849e5c9fc0b2b42016a9da03f08e0a30e3d819b3) )
+	ROM_LOAD16_WORD_SWAP( "263rma59.p1",    0x000000, 0x100000, CRC(8d1151e2) SHA1(64056eac39e37b850606efb69504ca2706e88c2f) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3139,7 +3161,7 @@ ROM_END
 
 ROM_START( mslug4rma60 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma60.p1",    0x000000, 0x100000, CRC(80bf1a64) SHA1(7d50e612bd3de1b21465569cc60c251c517d27db) )
+	ROM_LOAD16_WORD_SWAP( "263rma60.p1",    0x000000, 0x100000, CRC(a6692b60) SHA1(99fb72955fec62ee42aabfebe2d401fbc273f591) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3169,7 +3191,7 @@ ROM_END
 
 ROM_START( mslug4rma61 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma61.p1",    0x000000, 0x100000, CRC(7ebd0016) SHA1(83ada2e1e7f8695585c63559ae62de006e7a1e0a) )
+	ROM_LOAD16_WORD_SWAP( "263rma61.p1",    0x000000, 0x100000, CRC(586b3112) SHA1(3d4298774cab75848a256e2646b310c4bebd5460) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3199,7 +3221,7 @@ ROM_END
 
 ROM_START( mslug4rma62 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma62.p1",    0x000000, 0x100000, CRC(03358f90) SHA1(9c5bad6877b978cd3d953078aa6f815539578c8a) )
+	ROM_LOAD16_WORD_SWAP( "263rma62.p1",    0x000000, 0x100000, CRC(25e3be94) SHA1(06d6dabd075eb5aee1151945aa0b9bffe83bd5dd) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3229,7 +3251,7 @@ ROM_END
 
 ROM_START( mslug4rma63 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma63.p1",    0x000000, 0x100000, CRC(284df512) SHA1(79ad1df2ae866216bd122e93ee40df11c00269ce) )
+	ROM_LOAD16_WORD_SWAP( "263rma63.p1",    0x000000, 0x100000, CRC(0e9bc416) SHA1(66bbb08421d545cebb36b311abd648961812f4ca) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3259,7 +3281,7 @@ ROM_END
 
 ROM_START( mslug4rma64 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma64.p1",    0x000000, 0x100000, CRC(2fa33e54) SHA1(298f502506ca3dee58ac2c63f3ba658cb826a82d) )
+	ROM_LOAD16_WORD_SWAP( "263rma64.p1",    0x000000, 0x100000, CRC(09750f50) SHA1(6a85cb3d03a2180c95a9bc32045f97f3d65e3b9d) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3289,7 +3311,7 @@ ROM_END
 
 ROM_START( mslug4rma65 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma65.p1",    0x000000, 0x100000, CRC(522bb1d2) SHA1(32d37a5449947cb93ac9e76e55a16d03cea9293e) )
+	ROM_LOAD16_WORD_SWAP( "263rma65.p1",    0x000000, 0x100000, CRC(74fd80d6) SHA1(bc75fca76c0beeba2034dc73d277a68ac045af50) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -3319,7 +3341,7 @@ ROM_END
 
 ROM_START( mslug4rma66 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "263rma66.p1",    0x000000, 0x100000, CRC(7953cb50) SHA1(3c6deda10f434481fba0825950c9335b1009d940) )
+	ROM_LOAD16_WORD_SWAP( "263rma66.p1",    0x000000, 0x100000, CRC(5f85fa54) SHA1(18e213f4673e291a5c07b2738da611c5863f7078) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
 
 	NEO_SFIX_MT_512K
@@ -6266,68 +6288,69 @@ HACK( 2019, mslug4hh43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neo
 HACK( 2019, mslug4hh44,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",       "Metal Slug 4 (Enemies Resetting Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh45,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "hack",       "Metal Slug 4 (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh46,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-04-25)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4hh47,      mslug4,   neogeo_noslot, neogeo, neogeo_state, neogeo,   ROT0, "GOTVG", "Metal Slug 4 (Fully Decrypted [?] Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4hh47,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "GOTVG", "Metal Slug 4 (Fully Decrypted [?] Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh48,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-07-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug4hh49,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb, ROT0, "hack", "Metal Slug 4 (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4erms01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.0 (2019-04-19))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4erms02,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.1 (2019-04-19))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4erms03,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.2 (2019-04-19))", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug4hqyvs01,   mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG])",        "Metal Slug 4 (Multi-Function Version 2017-12-25)(Revised Version Remix 1.0 (2019-03-13))", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug4hqyvs02,   mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG])",        "Metal Slug 4 (Multi-Function Version 2017-12-25)(Revised Version Remix 1.1 (2019-03-13))", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug4hqyvs03,   mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG])",        "Metal Slug 4 (Multi-Function Version 2017-12-25)(Revised Version Remix 1.2 (2019-03-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma01,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma02,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma03,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma04,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma05,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma06,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma07,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma08,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma09,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma10,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma11,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma12,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma13,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma14,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma15,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma16,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma17,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma18,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma19,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma20,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma21,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma22,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma23,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma24,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma25,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma26,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma27,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma28,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma29,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma30,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma31,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Cannon Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma32,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Cannon Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma33,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Cannon Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma40,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Dual Machine Gun Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma41,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Dual Machine Gun Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma42,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Dual Machine Gun Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma43,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma44,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma45,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma46,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma47,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma48,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma55,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Satellite Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma56,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Satellite Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma57,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Satellite Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma58,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma59,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma60,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma61,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 2.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma62,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 2.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma63,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 2.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma64,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Thunder Cloud Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma65,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Thunder Cloud Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug4rma66,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Thunder Cloud Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma01,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma02,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma03,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma04,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma05,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma06,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma07,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma08,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma09,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma10,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma11,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma12,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Heavy Machine Gun Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma13,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma14,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma15,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma16,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma17,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma18,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Laser Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma19,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma20,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma21,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma22,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma23,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma24,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Rocket Launcher Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma25,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma26,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma27,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma28,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma29,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma30,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Shotgun Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma31,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Cannon Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma32,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Cannon Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma33,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Cannon Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma40,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Dual Machine Gun Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma41,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Dual Machine Gun Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma42,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Dual Machine Gun Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma43,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma44,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma45,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma46,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma47,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma48,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Enemy Chaser Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma55,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Satellite Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma56,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Satellite Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma57,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Satellite Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma58,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma59,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma60,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma61,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 2.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma62,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 2.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma63,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Super Grenade Extreme Mix 2.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma64,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Thunder Cloud Extreme Mix 1.0 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma65,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Thunder Cloud Extreme Mix 1.1 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug4rma66,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Thunder Cloud Extreme Mix 1.2 (2019-12-03))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4rmb01,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Unknown,Gaston90,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Last Bullet 2016-10-15)(Revised Version Big Flame Shot Extreme Extreme Mix 1.0 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4rmb02,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Unknown,Gaston90,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Last Bullet 2016-10-15)(Revised Version Big Flame Shot Extreme Extreme Mix 1.1 (2019-09-13))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4rmb03,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Unknown,Gaston90,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Last Bullet 2016-10-15)(Revised Version Big Flame Shot Extreme Extreme Mix 1.2 (2019-09-13))", MACHINE_SUPPORTS_SAVE )

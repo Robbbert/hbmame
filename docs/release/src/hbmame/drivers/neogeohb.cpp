@@ -154,7 +154,7 @@ NUM YEAR COMPANY                 TITLE
 420 2004 BarfHappy               Neo Castlevania demo
 421 2012 Oxygene                 Neo 3D demo
 422 2012 NeoGeoFreak             Time's Up! demo
-423*1996 Kigyo Corp              Action-Pac (not known if it ever existed)
+423
 424 2012 NeoGeoFreak             Transparency demo
 425 2009 Raregame                Chip n Dale intro
 426 2009 Raregame                Darkwing Duck intro
@@ -223,6 +223,7 @@ NUM YEAR COMPANY                 TITLE
 489 2019 Vasily Familiya         Venus Wars demo
 490*n/r  Hine62/SAOH             Neo Geo Space Invaders
 491 2019 Totologic               Neotris
+492 2019 Fullset                 Project Neon Caravan Edition
 
 
 ********************** 800 to 899 **********************************
@@ -2347,6 +2348,34 @@ ROM_START( neotrisd1 )
 ROM_END
 
 
+// 492 : Project Neon Caravan Edition Prealpha 0.4.19 (c) 2019
+// Bugs: Insert Coin (first time) causes reboot
+// First time: Use video option to rotate 90CCW
+// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
+ROM_START( caravan )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "492.neo", 0x000000, 0x001000, CRC(d5064998) SHA1(a3c2f0b33a96be6279ef2460e165a3f5ac492b1c) ) // skip header
+	ROM_CONTINUE(0x000000, 0x80000)
+	ROM_IGNORE(0x1b0000)
+
+	ROM_REGION(0x230000, "asis", 0)
+	ROM_LOAD("492.neo", 0x000000, 0x001000, CRC(d5064998) SHA1(a3c2f0b33a96be6279ef2460e165a3f5ac492b1c) )
+	ROM_CONTINUE(0x000000, 0x230000)
+
+	NEO_SFIX_MT(0x20000)
+	ROM_COPY("asis", 0x80000, 0x00000, 0x20000) // srctag, srcoffs, dstoffs, length
+
+	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
+	ROM_COPY("asis", 0xa0000, 0x00000, 0x10000)
+
+	ROM_REGION( 0x100000, "ymsnd", 0 )
+	ROM_COPY("asis", 0xb0000, 0x00000, 0x100000)
+
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_COPY("asis", 0x1b0000, 0x00000, 0x80000)
+ROM_END
+
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -2438,6 +2467,7 @@ HACK( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neog
 HACK( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
