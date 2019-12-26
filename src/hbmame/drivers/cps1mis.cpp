@@ -6885,7 +6885,7 @@ static INPUT_PORTS_START( ffightae )
 INPUT_PORTS_END
 
 ROM_START( ffightae )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )      /* 68000 code */
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ff-23m.8h", 0x00000, 0x80000, CRC(86DEF74F) SHA1(5206cc13bfe40fb4f9c3677629aee89099623ee6) )
 	ROM_LOAD16_WORD_SWAP( "ff-22m.7h", 0x80000, 0x80000, CRC(CBDD8689) SHA1(a75918ee837dfccdd4fd02b716928a2de2003103) )
 
@@ -6895,11 +6895,11 @@ ROM_START( ffightae )
 	ROM_LOAD64_WORD( "ff-1m.3a", 0x000004, 0x80000, CRC(D5469303) SHA1(0c1e33a87eb3ef79e6a5ba80753eb495284e666c) )
 	ROM_LOAD64_WORD( "ff-3m.5a", 0x000006, 0x80000, CRC(0C6302BF) SHA1(03ee13a67a8a3b92fac462623ace752d77b9e9f1) )
 
-	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "ff_09.12b", 0x00000, 0x08000, CRC(b8367eb5) SHA1(ec3db29fdd6200e9a8f4f8073a7e34aef731354f) )
 	ROM_CONTINUE(          0x10000, 0x08000 )
 
-	ROM_REGION( 0x40000, "oki", 0 ) /* Samples */
+	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "ff_18.11c", 0x00000, 0x20000, CRC(375c66e7) SHA1(36189e23209ce4ae5d9cbabd1574540d0591e7b3) )
 	ROM_LOAD( "ff_19.12c", 0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
 
@@ -6918,7 +6918,7 @@ ROM_START( ffightae )
 	ROM_LOAD ( "ffightae.key", 0x00, 0x80, CRC(8a7e5df2) SHA1(34a93d94ee4579826f5f91e7c1acfa6e0c80029a) )
 ROM_END
 
-GAME( 2019, ffightae, ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Grego", "Final Fight 30th Anniversary Edition", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, ffightae, ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Grego & Rotwang", "Final Fight 30th Anniversary Edition", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
