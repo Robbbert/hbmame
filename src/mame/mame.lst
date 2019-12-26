@@ -11934,6 +11934,10 @@ digijet                         //
 @source:dim68k.cpp
 dim68k                          //
 
+@source:dinoking.cpp
+dkbattle                        //
+dkkids                          //
+
 @source:discoboy.cpp
 discoboy                        // (c) 1993 Soft Art Co.
 discoboyp                       // (c) 1993 Soft Art Co. (Promat license?)
@@ -12934,6 +12938,8 @@ deluxe5                         // (c) 2000 ESD
 deluxe5a                        // (c) 2000 ESD
 deluxe5b                        // (c) 2000 ESD
 deluxe4u                        // (c) 2000 ESD
+fantstry                        // (c) 2002 Z Soft
+fantstrya                       // (c) 2002 Z Soft
 hedpanic                        // (c) 2000 ESD
 hedpanica                       // (c) 1999 ESD
 hedpanicf                       // (c) 2000 ESD + Fuuki, Co. Ltd.
@@ -12948,7 +12954,6 @@ multchmpa                       // (c) 1998 (World)
 multchmpk                       // (c) 1998 (Korea)
 swatpolc                        // (c) 2001 ESD
 tangtang                        // (c) 2000 ESD
-fantstry                        // (c) 2002 Z Soft
 
 @source:esh.cpp
 esh                             // (c) 1984 Funai / Gakken
@@ -18398,6 +18403,9 @@ koikoi                          // (c) 1983 Kiwako
 @source:konamigq.cpp
 cryptklr                        // Crypt Killer (GQ420 UAA)
 
+@source:konamigs.cpp
+musclhit                        // 2000.11 Muscle Ranking Kinniku Banzuke Spray Hitter
+
 @source:konamigv.cpp
 btchamp                         // GV053, UAA01
 hyperath                        // GV021, Japan 1.00
@@ -21877,6 +21885,7 @@ dodgectyb                       // (c) 1986 Merit
 dodgectyc                       // (c) 1986 Merit
 dtrvwz5                         // (c) 1987 Merit
 iowapp                          // (c) 1990 Merit
+matchemg                        // (c) 1986 Merit
 misdraw                         // (c) 1986 Merit / Big Apple Games
 mdchoice                        // (c) 1983 Merit
 mpchoice                        // (c) 1983 Merit
@@ -31152,6 +31161,7 @@ mc_105te
 mc_sp69
 polmega
 silv35
+lpgm240
 mc_dcat8
 mc_dcat8a
 pjoyn50
@@ -31198,7 +31208,9 @@ ts_handy11
 ii8in1
 ii32in1
 miwi2_16
+miwi2_7
 intact89
+intg5410
 
 @source:newbrain.cpp
 newbrain                        //
@@ -31488,8 +31500,8 @@ savant2                         //
 
 @source:novag_sexpert.cpp
 sexperta                        //
+sexperta1                       //
 sexpertb                        //
-sexpertb1                       //
 sexpertc                        //
 sexpertc1                       //
 sfortea                         //
@@ -39885,6 +39897,9 @@ wrecking                        // (c) 1984 Nintendo
 
 @source:vt52.cpp
 vt52                            // 1975 Digital Equipment Corporation
+
+@source:vt62.cpp
+vt62                            // 1978 Digital Equipment Corporation
 
 @source:vt100.cpp
 vt100                           // 1978 Digital Equipment Corporation
