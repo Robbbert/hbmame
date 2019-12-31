@@ -83,7 +83,9 @@ atarist.cpp
 atm.cpp
 atom.cpp
 atpci.cpp
+att3b2.cpp
 att4425.cpp
+att610.cpp
 att630.cpp
 attache.cpp
 aussiebyte.cpp
@@ -588,6 +590,7 @@ novag_diablo.cpp
 novag_presto.cpp
 novag_savant.cpp
 novag_sexpert.cpp
+ns5652.cpp
 o2.cpp
 ob68k1a.cpp
 octane.cpp
@@ -893,6 +896,7 @@ tti.cpp
 tutor.cpp
 tv910.cpp
 tv912.cpp
+tv924.cpp
 tv950.cpp
 tv955.cpp
 tv965.cpp
