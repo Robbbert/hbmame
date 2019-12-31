@@ -7,11 +7,24 @@
 
 New Games
 ---------------------------------
+- [captcomms74]       Captain Commando (Nightmare Edition Update 2019-11-11)
+- [captcomms75]       Captain Commando (Elite Edition Update 2019-11-11)
+- [dinos224]          Cadillacs and Dinosaurs (kof Combo + Unlimited Bullets 2011-12-20)
+- [kof96s47]          Kof'96 (The Aniversary Edition 2.0 Final Version Simplify The Move 2019-05-30)
+- [kof97s153]         Kof'97 (ST Revolution 2019-12-21)
+- [kof98hh126]        Kof'98 (ECK Dragon Edition 2019-12-04)
 - [kof2001s45]        Kof2001 (PS2 Krizalid Edition 2019-12-10)
+- [kof2001s46]        Kof2001 (PS2 Krizalid Edition 2019-12-12)
 - [kof2k2s92]         Kof2002 (Omega Magic plus 3 2018-12-06)
+- [kov2p204s90]       Knights of Valour 2 Plus (Ching Ying 2019-01-05)
+- [kovpluss351]       Knights of Valour Plus 2012 (Enhanced Edition 2019-08-13)
+- [kovpluss352]       Knights of Valour Plus 2012 (Legend Of Ares 2020 2019-08-13)
+- [kovsho113]         Knights of Valour Super Heroes Plus (Edition 2019-12-25)
+- [kovsho116]         Knights of Valour Super Heroes Plus (Unification Of Central Plains Warriors 2019-10-06)
 - [mslug4hh50]        Metal Slug 4 (Enemies Resetting Version 2019-11-17)
 - [mslug5dh61]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-11-08)
 - [mslug5dh62]        Metal Slug 5 (Enemy Soldiers Magic Version 2019-12-07)
+- [tk2h149]           Tenchi wo Kurau II (Master Edition 2019-12-26)
 - [umk3uc20191220]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-20)
 - [umk3uc20191226]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-26)
 
