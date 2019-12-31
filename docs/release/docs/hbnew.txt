@@ -1,6 +1,22 @@
 ﻿What's new in HBMAME
 ====================
 
+2020-01-29 0.218
+
+- Metal Slug 4 and 5 the remix has been updated
+
+New Games
+---------------------------------
+- [kof2001s45]        Kof2001 (PS2 Krizalid Edition 2019-12-10)
+- [kof2k2s92]         Kof2002 (Omega Magic plus 3 2018-12-06)
+- [mslug4hh50]        Metal Slug 4 (Enemies Resetting Version 2019-11-17)
+- [mslug5dh61]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2019-11-08)
+- [mslug5dh62]        Metal Slug 5 (Enemy Soldiers Magic Version 2019-12-07)
+- [umk3uc20191220]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-20)
+- [umk3uc20191226]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-26)
+
+
+
 2019-12-25 0.217
 
 New Games

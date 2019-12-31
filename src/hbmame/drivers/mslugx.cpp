@@ -9053,10 +9053,10 @@ ROM_END
 
 ROM_START( mslugxrm5s06 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "250rm5s06.p1",   0x000000, 0x100000, CRC(eaf290fb) SHA1(901b0fd595366f2f6e33614020e5ffad2c8092d7) )
+	ROM_LOAD16_WORD_SWAP( "250rm5s01.p1",  0x000000, 0x100000, CRC(882f24d5) SHA1(9f6e4b24fd164fea207ed7932bef83cf761b36cc) )
 	ROM_LOAD16_WORD_SWAP( "250rm5s06.p2", 0x100000, 0x400000, CRC(ba3db0e4) SHA1(c7cce1130f6f54edc0aa2eaeadb56b1807b1cb99) )
 
-	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+	NEO_SFIX_128K( "250bfs.s1", CRC(a2bb2551) SHA1(fa22568bf15ac41afdf5e2bd7dc2dec4fe813f02) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
 	ROM_LOAD16_WORD_SWAP( "uni-bios_3_3.rom",  0x00000, 0x20000, CRC(24858466) SHA1(0ad92efb0c2338426635e0159d1f60b4473d0785) )
@@ -9074,8 +9074,8 @@ ROM_START( mslugxrm5s06 )
 	ROM_LOAD( "250.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
 
 	ROM_REGION( 0x3000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "250z52.c1", 0x0000000, 0x800000, CRC(d52e8702) SHA1(e332e9c95679dbdbcdfdf868b3a0233ad6bd47c4) )
-	ROM_LOAD16_BYTE( "250z52.c2", 0x0000001, 0x800000, CRC(edec334c) SHA1(56c6d6d19dd891e1dc66b1089abb2dacd1ad2611) )
+	ROM_LOAD16_BYTE( "250rm5s06.c1", 0x0000000, 0x800000, CRC(37f74a92) SHA1(111177091af0e8edda31ce6398b5e48c46e31cbc) )
+	ROM_LOAD16_BYTE( "250rm5s06.c2", 0x0000001, 0x800000, CRC(994c4f6c) SHA1(0fc5e78a37afa51e101bd72021ea366fbb763659) )
 	ROM_LOAD16_BYTE( "250.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
 	ROM_LOAD16_BYTE( "250.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
 	ROM_LOAD16_BYTE( "250.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
@@ -11457,7 +11457,7 @@ HACK( 2019, mslugxrm5s02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslug
 HACK( 2019, mslugxrm5s03,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(Enemy Heavy Plate 2013-06-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugxrm5s04,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(Enemy Soldiers Remake Version 3)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugxrm5s05,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(Extreme Blue)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslugxrm5s06,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(Extreme Space Edition 2015-04-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslugxrm5s06,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(World Of Glitcher)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugxrm5s07,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(Level Reset Special Edition 2014-11-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugxrmmpv01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,METROID,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Multi-Carrier Version 2013-01-05)(Revised Version Flame Shot Extreme Mix V1.0 [2019-09-16])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugxrmmpv02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,METROID,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Multi-Carrier Version 2013-01-05)(Revised Version Flame Shot Extreme Mix V1.1 [2019-09-16])", MACHINE_SUPPORTS_SAVE )

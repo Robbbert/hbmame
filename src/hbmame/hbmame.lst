@@ -537,6 +537,7 @@ tk2h145
 tk2h146
 tk2h147
 tk2h148
+tk2h149
 wofb
 wofch		// tk2p1
 wofes
@@ -617,6 +618,8 @@ captcomms70
 captcomms71
 captcomms72
 captcomms73
+captcomms74
+captcomms75
 dinos01
 dinos02
 dinos03
@@ -823,6 +826,7 @@ dinos220
 dinos221
 dinos222
 dinos223
+dinos224
 ffights01
 ffights02
 ffightj2s01
@@ -1751,6 +1755,7 @@ kof96s43
 //kof96s44 //encrypted
 kof96s45
 kof96s46
+kof96s47
 kof96cns01
 
 @source:kof97.cpp
@@ -1998,6 +2003,7 @@ kof97s149
 kof97s150
 kof97s151
 kof97s152
+kof97s153
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2621,6 +2627,7 @@ kof98hh122
 kof98hh123
 kof98hh124
 kof98hh125
+kof98hh126
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3063,6 +3070,8 @@ kof2001s41
 kof2001s42
 kof2001s43
 kof2001s44
+kof2001s45
+kof2001s46
 
 @source:kof2002.cpp
 kof200215
@@ -3531,6 +3540,7 @@ kof2k2s88
 kof2k2s89
 kof2k2s90
 kof2k2s91
+kof2k2s92
 
 @source:kof2003.cpp
 kof2003d
@@ -3863,6 +3873,8 @@ umk3uc20181029
 umk3uc20190704
 umk3uc20190917
 umk3uc20191017
+umk3uc20191220
+umk3uc20191226
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -4627,6 +4639,7 @@ mslug4hh46
 mslug4hh47
 mslug4hh48
 mslug4hh49
+mslug4hh50
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -4853,6 +4866,8 @@ mslug5dh57
 mslug5dh58
 mslug5dh59
 mslug5dh60
+mslug5dh61
+mslug5dh62
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -7363,6 +7378,7 @@ kov2p204s86   //graphic problem
 kov2p204s87   //graphic problem
 kov2p204s88
 kov2p204s89
+kov2p204s90
 kov2h01
 kov2h02
 kov2h03
@@ -7730,6 +7746,9 @@ kovpluss346
 kovpluss347
 kovpluss348
 kovpluss349
+kovpluss350
+kovpluss351
+kovpluss352
 kovplusas01
 kovshs01
 kovshs02
@@ -7961,8 +7980,13 @@ kovsho107
 kovsho108
 kovsho109
 kovsho110
-//kovsho111
-//kovsho112
+//kovsho111  //  Unstable game in the emulator (ingame crash)
+//kovsho112  //  Unstable game in the emulator (ingame crash)
+kovsho113
+//kovsho114  //  Unstable game in the emulator (ingame crash)
+//kovsho115  //  Unstable game in the emulator (ingame crash)
+kovsho116
+//kovsho117  //  Unstable game in the emulator (ingame crash)
 kovshxass01
 kovshxass02
 kovshxass03
