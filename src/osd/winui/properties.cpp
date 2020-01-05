@@ -2442,8 +2442,8 @@ static void BuildDataMap(void)
 	datamap_set_trackbar_range(properties_datamap, IDC_AUDIO_LATENCY, 1,  5, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_VOLUME,      -32,  0, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_SECONDSTORUN, 0,  60, 1);
-	datamap_set_trackbar_range(properties_datamap, IDC_NUMSCREENS, 1,  4, 1);
-	datamap_set_trackbar_range(properties_datamap, IDC_PRESCALE, 1,  3, 1);
+	datamap_set_trackbar_range(properties_datamap, IDC_NUMSCREENS, 1, 4, 1);
+	datamap_set_trackbar_range(properties_datamap, IDC_PRESCALE, 1, 8, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_FSGAMMA, 0.0, 3.0, (float)0.1);
 	datamap_set_trackbar_range(properties_datamap, IDC_FSBRIGHTNESS, 0.00,  2.0, (float)0.1);
 	datamap_set_trackbar_range(properties_datamap, IDC_FSCONTRAST, 0.0,  2.0, (float)0.1);
