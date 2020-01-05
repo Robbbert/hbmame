@@ -7,7 +7,6 @@
         Driver by Ryan Holtz, ported from work by Ash Wolf
 
         TODO:
-        - Touch inputs
         - Audio
         - UART support
         - Probably more
@@ -55,7 +54,7 @@
 #define LOG_ALL_IRQ			(LOG_IRQ | LOG_EOI_WRITES | LOG_INT_WRITES | LOG_EOI_READS | LOG_INT_READS)
 #define LOG_ALL				(LOG_UNKNOWNS | LOG_IRQ | LOG_DISPLAY | LOG_WRITES | LOG_READS)
 
-#define VERBOSE				(LOG_ALL)
+#define VERBOSE				(LOG_CODEC_READS | LOG_CODEC_WRITES | LOG_BUZZER_WRITES)
 #include "logmacro.h"
 
 void psion5mx_state::machine_start()
@@ -76,6 +75,8 @@ void psion5mx_state::machine_start()
 	save_item(NAME(m_pwrsr));
 	save_item(NAME(m_last_ssi_request));
 	save_item(NAME(m_ssi_read_counter));
+
+	save_item(NAME(m_kbd_scan));
 
 	save_item(NAME(m_ports));
 
@@ -104,6 +105,7 @@ void psion5mx_state::machine_reset()
 	m_pwrsr = (1 << 10) | (1 << 13);
 	m_last_ssi_request = 0;
 	m_ssi_read_counter = 0;
+	m_kbd_scan = 0;
 
 	memset(m_ports, 0, ARRAY_LENGTH(m_ports));
 
@@ -116,6 +118,11 @@ void psion5mx_state::check_interrupts()
 {
 	LOGMASKED(LOG_IRQ, "Pending FIQs is %08x & %08x & %08x\n", m_pending_ints, m_int_mask, IRQ_FIQ_MASK);
 	LOGMASKED(LOG_IRQ, "Pending IRQs is %08x & %08x & %08x\n", m_pending_ints, m_int_mask, IRQ_IRQ_MASK);
+	bool any_interrupts = (m_pending_ints & m_int_mask) != 0;
+	if (any_interrupts)
+	{
+		m_maincpu->resume(SUSPEND_REASON_HALT);
+	}
 	m_maincpu->set_input_line(ARM7_FIRQ_LINE, m_pending_ints & m_int_mask & IRQ_FIQ_MASK ? ASSERT_LINE : CLEAR_LINE);
 	m_maincpu->set_input_line(ARM7_IRQ_LINE, m_pending_ints & m_int_mask & IRQ_IRQ_MASK ? ASSERT_LINE : CLEAR_LINE);
 }
@@ -126,6 +133,10 @@ void psion5mx_state::device_timer(emu_timer &timer, device_timer_id id, int para
 	{
 		case TID_TIMER1:
 			update_timer(0);
+			if (BIT(m_buzzer_ctrl, 1))
+			{
+				m_speaker->level_w(BIT(m_timer_value[0], 15));
+			}
 			break;
 		case TID_TIMER2:
 			update_timer(1);
@@ -311,10 +322,10 @@ READ32_MEMBER(psion5mx_state::periphs_r)
 			switch (m_last_ssi_request)
 			{
 				case 0xd0d3: // Touch X
-					value = 50;
+					value = 50 + (uint16_t)(m_touchx->read() * 5.7);
 					break;
 				case 0x9093: // Touch Y
-					value = 3834;
+					value = 3834 - (uint16_t)(m_touchy->read() * 13.225);
 					break;
 				case 0xa4a4: // Main Battery
 				case 0xe4e4: // Backup Battery
@@ -369,6 +380,7 @@ READ32_MEMBER(psion5mx_state::periphs_r)
 			break;
 
 		case REG_BZCONT:
+			data = m_buzzer_ctrl;
 			LOGMASKED(LOG_BUZZER_READS, "%s: peripheral read, BZCONT = %08x & %08x\n", machine().describe_context(), data, mem_mask);
 			break;
 
@@ -426,6 +438,7 @@ READ32_MEMBER(psion5mx_state::periphs_r)
 			break;
 
 		case REG_KSCAN:
+			data = m_kbd_scan;
 			LOGMASKED(LOG_KBD_READS, "%s: peripheral read, KSCAN = %08x & %08x\n", machine().describe_context(), data, mem_mask);
 			break;
 		case REG_LCDMUX:
@@ -486,6 +499,7 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 			LOGMASKED(LOG_POWER_WRITES, "%s: peripheral write, PWRCNT = %08x & %08x\n", machine().describe_context(), data, mem_mask);
 			break;
 		case REG_HALT:
+			m_maincpu->suspend(SUSPEND_REASON_HALT, 1);
 			LOGMASKED(LOG_POWER_WRITES, "%s: peripheral write, HALT = %08x & %08x\n", machine().describe_context(), data, mem_mask);
 			break;
 		case REG_STBY:
@@ -607,6 +621,11 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 			break;
 
 		case REG_BZCONT:
+			m_buzzer_ctrl = data;
+			if (!BIT(m_buzzer_ctrl, 1))
+			{
+				m_speaker->level_w(BIT(m_buzzer_ctrl, 0));
+			}
 			LOGMASKED(LOG_BUZZER_WRITES, "%s: peripheral write, BZCONT = %08x & %08x\n", machine().describe_context(), data, mem_mask);
 			break;
 
@@ -644,11 +663,11 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 			if (BIT(diff, 1))
 				m_etna->eeprom_clk_in(BIT(data, 1));
 			if (diff & 0x3c)
-				LOGMASKED(LOG_PIN_WRITES, "Contrast: %d\n", (diff >> 2) & 0x0f);
+				LOGMASKED(LOG_PIN_WRITES, "Contrast: %d\n", (data >> 2) & 0x0f);
 			if (BIT(diff, 6))
-				LOGMASKED(LOG_PIN_WRITES, "Case Open: %d\n", BIT(diff, 6));
+				LOGMASKED(LOG_PIN_WRITES, "Case Open: %d\n", BIT(data, 6));
 			if (BIT(diff, 7))
-				LOGMASKED(LOG_PIN_WRITES, "ETNA CompactFlash Power: %d\n", BIT(diff, 7));
+				LOGMASKED(LOG_PIN_WRITES, "ETNA CompactFlash Power: %d\n", BIT(data, 7));
 			break;
 		}
 		case REG_PCDR:
@@ -658,19 +677,19 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 			m_ports[PORTC] = data;
 			const uint8_t diff = old ^ data;
 			if (BIT(diff, 0))
-				LOGMASKED(LOG_PIN_WRITES, "RS232 RTS: %d\n", BIT(diff, 0));
+				LOGMASKED(LOG_PIN_WRITES, "RS232 RTS: %d\n", BIT(data, 0));
 			if (BIT(diff, 1))
-				LOGMASKED(LOG_PIN_WRITES, "RS232 DTR Toggle: %d\n", BIT(diff, 1));
+				LOGMASKED(LOG_PIN_WRITES, "RS232 DTR Toggle: %d\n", BIT(data, 1));
 			if (BIT(diff, 2))
-				LOGMASKED(LOG_PIN_WRITES, "Disable Power LED: %d\n", BIT(diff, 2));
+				LOGMASKED(LOG_PIN_WRITES, "Disable Power LED: %d\n", BIT(data, 2));
 			if (BIT(diff, 3))
-				LOGMASKED(LOG_PIN_WRITES, "Enable UART1: %d\n", BIT(diff, 3));
+				LOGMASKED(LOG_PIN_WRITES, "Enable UART1: %d\n", BIT(data, 3));
 			if (BIT(diff, 4))
-				LOGMASKED(LOG_PIN_WRITES, "LCD Backlight: %d\n", BIT(diff, 4));
+				LOGMASKED(LOG_PIN_WRITES, "LCD Backlight: %d\n", BIT(data, 4));
 			if (BIT(diff, 5))
-				LOGMASKED(LOG_PIN_WRITES, "Enable UART0: %d\n", BIT(diff, 5));
+				LOGMASKED(LOG_PIN_WRITES, "Enable UART0: %d\n", BIT(data, 5));
 			if (BIT(diff, 6))
-				LOGMASKED(LOG_PIN_WRITES, "Dictaphone: %d\n", BIT(diff, 6));
+				LOGMASKED(LOG_PIN_WRITES, "Dictaphone: %d\n", BIT(data, 6));
 			break;
 		}
 		case REG_PDDR:
@@ -680,21 +699,21 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 			m_ports[PORTD] = data;
 			const uint8_t diff = old ^ data;
 			if (BIT(diff, 0))
-				LOGMASKED(LOG_PIN_WRITES, "Codec Enable: %d\n", BIT(diff, 0));
+				LOGMASKED(LOG_PIN_WRITES, "Codec Enable: %d\n", BIT(data, 0));
 			if (BIT(diff, 1))
-				LOGMASKED(LOG_PIN_WRITES, "Audio Amp Enable: %d\n", BIT(diff, 1));
+				LOGMASKED(LOG_PIN_WRITES, "Audio Amp Enable: %d\n", BIT(data, 1));
 			if (BIT(diff, 2))
-				LOGMASKED(LOG_PIN_WRITES, "LCD Power: %d\n", BIT(diff, 2));
+				LOGMASKED(LOG_PIN_WRITES, "LCD Power: %d\n", BIT(data, 2));
 			if (BIT(diff, 3))
-				LOGMASKED(LOG_PIN_WRITES, "ETNA Door: %d\n", BIT(diff, 3));
+				LOGMASKED(LOG_PIN_WRITES, "ETNA Door: %d\n", BIT(data, 3));
 			if (BIT(diff, 4))
-				LOGMASKED(LOG_PIN_WRITES, "Sled: %d\n", BIT(diff, 4));
+				LOGMASKED(LOG_PIN_WRITES, "Sled: %d\n", BIT(data, 4));
 			if (BIT(diff, 5))
-				LOGMASKED(LOG_PIN_WRITES, "Pump Power2: %d\n", BIT(diff, 5));
+				LOGMASKED(LOG_PIN_WRITES, "Pump Power2: %d\n", BIT(data, 5));
 			if (BIT(diff, 6))
-				LOGMASKED(LOG_PIN_WRITES, "Pump Power1: %d\n", BIT(diff, 6));
+				LOGMASKED(LOG_PIN_WRITES, "Pump Power1: %d\n", BIT(data, 6));
 			if (BIT(diff, 7))
-				LOGMASKED(LOG_PIN_WRITES, "ETNA Error: %d\n", BIT(diff, 7));
+				LOGMASKED(LOG_PIN_WRITES, "ETNA Error: %d\n", BIT(data, 7));
 			break;
 		}
 		case REG_PADDR:
@@ -717,6 +736,7 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 			break;
 
 		case REG_KSCAN:
+			m_kbd_scan = data;
 			LOGMASKED(LOG_KBD_WRITES, "%s: peripheral write, KSCAN = %08x & %08x\n", machine().describe_context(), data, mem_mask);
 			break;
 		case REG_LCDMUX:
@@ -731,6 +751,19 @@ WRITE32_MEMBER(psion5mx_state::periphs_w)
 
 uint8_t psion5mx_state::read_keyboard()
 {
+	if (BIT(m_kbd_scan, 3))
+	{
+		return m_kbd_cols[m_kbd_scan & 7]->read();
+	}
+	else if (m_kbd_scan == 0)
+	{
+		uint8_t rows = 0;
+		for (int i = 0; i < 8; i++)
+		{
+			rows |= m_kbd_cols[i]->read();
+		}
+		return rows;
+	}
 	return 0x00;
 }
 
@@ -742,9 +775,20 @@ void psion5mx_state::main_map(address_map &map)
 	map(0xc0000000, 0xc03fffff).ram().mirror(0x1fc00000).share("lcd_ram");
 }
 
+void psion5mx_state::palette_init(palette_device &palette)
+{
+	for (int i = 0; i < 16; i++)
+	{
+		const int r = (0x99 * i) / 15;
+		const int g = (0xaa * i) / 15;
+		const int b = (0x88 * i) / 15;
+		m_palette->set_pen_color(15 - i, rgb_t(r, g, b));
+	}
+}
+
 uint32_t psion5mx_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	uint8_t *lcd_buf = (uint8_t*)&m_lcd_ram[(m_lcd_display_base_addr & 0x003fffff) >> 2];
+	const uint8_t *lcd_buf = (uint8_t*)&m_lcd_ram[(m_lcd_display_base_addr & 0x003fffff) >> 2];
 	static const int width = 640;
 	static const int height = 240;
 
@@ -761,6 +805,8 @@ uint32_t psion5mx_state::screen_update(screen_device &screen, bitmap_rgb32 &bitm
 		LOGMASKED(LOG_DISPLAY, "palette[%d]: %04x\n", i, palette[i]);
 	}
 
+	const pen_t *pen = m_palette->pens();
+
 	// build our image out
 	const int line_width = (width * bpp) / 8;
 	for (int y = 0; y < height; y++)
@@ -770,20 +816,122 @@ uint32_t psion5mx_state::screen_update(screen_device &screen, bitmap_rgb32 &bitm
 		for (int x = 0; x < width; x++)
 		{
 			const uint8_t byte = lcd_buf[line_offs + (x / ppb)];
-			const int shift = (x & (ppb - 1)) & bpp;
+			const int shift = (x & (ppb - 1)) * bpp;
 			const int mask = (1 << bpp) - 1;
 			const int pal_idx = (byte >> shift) & mask;
-			const uint8_t pal_value = palette[pal_idx] | (palette[pal_idx] << 4);
-			//printf("%d:%02x %04x %04x\n", pal_idx, pal_value, palette[0], palette[1]);
 
-			line[x] = 0xff000000 | (0x010101 * pal_value);
+			line[x] = pen[palette[pal_idx]];
 		}
 	}
 	return 0;
 }
 
+INPUT_CHANGED_MEMBER(psion5mx_state::touch_down)
+{
+	if (newval)
+	{
+		logerror("Flagging EINT3\n");
+		m_pending_ints |= (1 << IRQ_EINT3);
+	}
+	else
+	{
+		logerror("Unflagging EINT3\n");
+		m_pending_ints &= ~(1 << IRQ_EINT3);
+	}
+	check_interrupts();
+}
+
 /* Input ports */
 INPUT_PORTS_START( psion5mx )
+	PORT_START("TOUCHX")
+	PORT_BIT(0x3ff, 362, IPT_LIGHTGUN_X) PORT_CROSSHAIR(X, 1.0, 0.0, 0) PORT_MINMAX(42,681) PORT_SENSITIVITY(25) PORT_KEYDELTA(13)
+
+	PORT_START("TOUCHY")
+	PORT_BIT(0x0ff, 125, IPT_LIGHTGUN_Y) PORT_CROSSHAIR(Y, 1.0, 0.0, 0) PORT_MINMAX(5,244) PORT_SENSITIVITY(25) PORT_KEYDELTA(13)
+
+	PORT_START("TOUCH")
+	PORT_BIT(0x0001, IP_ACTIVE_HIGH, IPT_BUTTON1) PORT_NAME("Touch") PORT_CHANGED_MEMBER(DEVICE_SELF, psion5mx_state, touch_down, 0)
+	PORT_BIT(0xfffe, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL0")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("6") PORT_CODE(KEYCODE_6) PORT_CHAR('6') PORT_CHAR('^')
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("5") PORT_CODE(KEYCODE_5) PORT_CHAR('5') PORT_CHAR('%')
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("4") PORT_CODE(KEYCODE_4) PORT_CHAR('4') PORT_CHAR('$')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("3") PORT_CODE(KEYCODE_3) PORT_CHAR('3') PORT_CHAR('#')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("2") PORT_CODE(KEYCODE_2) PORT_CHAR('2') PORT_CHAR('@')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("1") PORT_CODE(KEYCODE_1) PORT_CHAR('1') PORT_CHAR('!')
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Dictaphone Record") PORT_CODE(KEYCODE_INSERT)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL1")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("'") PORT_CODE(KEYCODE_QUOTE) PORT_CHAR('\'') PORT_CHAR('\"')
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Backspace") PORT_CODE(KEYCODE_BACKSPACE) PORT_CHAR(8)
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("0") PORT_CODE(KEYCODE_0) PORT_CHAR('0') PORT_CHAR(')')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("9") PORT_CODE(KEYCODE_9) PORT_CHAR('9') PORT_CHAR('(')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("8") PORT_CODE(KEYCODE_8) PORT_CHAR('8') PORT_CHAR('*')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("7") PORT_CODE(KEYCODE_7) PORT_CHAR('7') PORT_CHAR('&')
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Dictaphone Play") PORT_CODE(KEYCODE_HOME)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL2")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Y") PORT_CODE(KEYCODE_Y) PORT_CHAR('y') PORT_CHAR('Y')
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("T") PORT_CODE(KEYCODE_T) PORT_CHAR('t') PORT_CHAR('T')
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("R") PORT_CODE(KEYCODE_R) PORT_CHAR('r') PORT_CHAR('R')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("E") PORT_CODE(KEYCODE_E) PORT_CHAR('e') PORT_CHAR('E')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("W") PORT_CODE(KEYCODE_W) PORT_CHAR('w') PORT_CHAR('W')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Q") PORT_CODE(KEYCODE_Q) PORT_CHAR('q') PORT_CHAR('Q')
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Escape") PORT_CODE(KEYCODE_ESC) PORT_CHAR(27)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL3")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Enter") PORT_CODE(KEYCODE_ENTER) PORT_CHAR(13)
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("L") PORT_CODE(KEYCODE_L) PORT_CHAR('l') PORT_CHAR('L')
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("P") PORT_CODE(KEYCODE_P) PORT_CHAR('p') PORT_CHAR('P')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("O") PORT_CODE(KEYCODE_O) PORT_CHAR('o') PORT_CHAR('O')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("I") PORT_CODE(KEYCODE_I) PORT_CHAR('i') PORT_CHAR('I')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("U") PORT_CODE(KEYCODE_U) PORT_CHAR('u') PORT_CHAR('U')
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Menu") PORT_CODE(KEYCODE_END)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL4")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("G") PORT_CODE(KEYCODE_G) PORT_CHAR('g') PORT_CHAR('G')
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("F") PORT_CODE(KEYCODE_F) PORT_CHAR('f') PORT_CHAR('F')
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("D") PORT_CODE(KEYCODE_D) PORT_CHAR('d') PORT_CHAR('D')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("S") PORT_CODE(KEYCODE_S) PORT_CHAR('s') PORT_CHAR('S')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("A") PORT_CODE(KEYCODE_A) PORT_CHAR('a') PORT_CHAR('A')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Tab") PORT_CODE(KEYCODE_TAB) PORT_CHAR(9)
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Left Ctrl") PORT_CODE(KEYCODE_LCONTROL) PORT_CHAR(UCHAR_MAMEKEY(LCONTROL))
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL5")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Down Arrow") PORT_CODE(KEYCODE_DOWN) PORT_CHAR(UCHAR_MAMEKEY(DOWN))
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME(".") PORT_CODE(KEYCODE_STOP) PORT_CHAR('.') PORT_CHAR('>')
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("M") PORT_CODE(KEYCODE_M) PORT_CHAR('m') PORT_CHAR('M')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("K") PORT_CODE(KEYCODE_K) PORT_CHAR('k') PORT_CHAR('K')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("J") PORT_CODE(KEYCODE_J) PORT_CHAR('j') PORT_CHAR('J')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("H") PORT_CODE(KEYCODE_H) PORT_CHAR('h') PORT_CHAR('H')
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Left Func") PORT_CODE(KEYCODE_DEL)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL6")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("N") PORT_CODE(KEYCODE_N) PORT_CHAR('n') PORT_CHAR('N')
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("B") PORT_CODE(KEYCODE_B) PORT_CHAR('b') PORT_CHAR('B')
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("V") PORT_CODE(KEYCODE_V) PORT_CHAR('v') PORT_CHAR('V')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("C") PORT_CODE(KEYCODE_C) PORT_CHAR('c') PORT_CHAR('C')
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("X") PORT_CODE(KEYCODE_X) PORT_CHAR('x') PORT_CHAR('X')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Z") PORT_CODE(KEYCODE_Z) PORT_CHAR('z') PORT_CHAR('Z')
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Right Shift") PORT_CODE(KEYCODE_RSHIFT) PORT_CHAR(UCHAR_SHIFT_1)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
+
+	PORT_START("COL7")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Right Arrow") PORT_CODE(KEYCODE_RIGHT) PORT_CHAR(UCHAR_MAMEKEY(RIGHT))
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Left Arrow") PORT_CODE(KEYCODE_LEFT) PORT_CHAR(UCHAR_MAMEKEY(LEFT))
+	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME(",") PORT_CODE(KEYCODE_COMMA) PORT_CHAR(',') PORT_CHAR('<')
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Up Arrow") PORT_CODE(KEYCODE_UP) PORT_CHAR(UCHAR_MAMEKEY(UP))
+	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Space") PORT_CODE(KEYCODE_SPACE) PORT_CHAR(' ')
+	PORT_BIT(0x20, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Dictaphone Stop") PORT_CODE(KEYCODE_PGUP)
+	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Left Shift") PORT_CODE(KEYCODE_LSHIFT) PORT_CHAR(UCHAR_SHIFT_1)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_UNUSED)
 INPUT_PORTS_END
 
 /* basic configuration for 2 lines display */
@@ -802,6 +950,12 @@ void psion5mx_state::psion5mx(machine_config &config)
 	screen.set_screen_update(FUNC(psion5mx_state::screen_update));
 	screen.set_size(640, 240);
 	screen.set_visarea(0, 640-1, 0, 240-1);
+
+	PALETTE(config, m_palette, FUNC(psion5mx_state::palette_init), 16);
+
+	/* sound hardware */
+	SPEAKER(config, "mono").front_center();
+	SPEAKER_SOUND(config, m_speaker).add_route(ALL_OUTPUTS, "mono", 1.00);
 }
 
 /* ROM definition */
@@ -814,4 +968,4 @@ ROM_END
 /* Driver */
 
 //    YEAR  NAME        PARENT   COMPAT  MACHINE    INPUT     CLASS           INIT        COMPANY  FULLNAME  FLAGS
-COMP( 1999, psion5mx,   0,       0,      psion5mx,  psion5mx, psion5mx_state, empty_init, "Psion", "5mx",    MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+COMP( 1999, psion5mx,   0,       0,      psion5mx,  psion5mx, psion5mx_state, empty_init, "Psion", "Series 5mx",    MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

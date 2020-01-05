@@ -17,8 +17,11 @@
 #include "cpu/arm7/arm7.h"
 #include "cpu/arm7/arm7core.h"
 #include "machine/etna.h"
+#include "sound/spkrdev.h"
 
 #include "screen.h"
+#include "emupal.h"
+#include "speaker.h"
 
 class psion5mx_state : public driver_device
 {
@@ -28,10 +31,18 @@ public:
 		, m_maincpu(*this, "maincpu")
 		, m_etna(*this, "etna")
 		, m_lcd_ram(*this, "lcd_ram")
+		, m_palette(*this, "palette")
+		, m_speaker(*this, "speaker")
+		, m_touchx(*this, "TOUCHX")
+		, m_touchy(*this, "TOUCHY")
+		, m_touch(*this, "TOUCH")
+		, m_kbd_cols(*this, "COL%u", 0U)
 	{
 	}
 
 	void psion5mx(machine_config &config);
+
+	DECLARE_INPUT_CHANGED_MEMBER(touch_down);
 
 protected:
 	virtual void machine_start() override;
@@ -40,6 +51,7 @@ protected:
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
 private:
+	void palette_init(palette_device &palette);
 
 	DECLARE_READ32_MEMBER(periphs_r);
 	DECLARE_WRITE32_MEMBER(periphs_w);
@@ -169,6 +181,12 @@ private:
 	required_device<arm710t_cpu_device> m_maincpu;
 	required_device<etna_device> m_etna;
 	required_shared_ptr<uint32_t> m_lcd_ram;
+	required_device<palette_device> m_palette;
+	required_device<speaker_sound_device> m_speaker;
+	required_ioport m_touchx;
+	required_ioport m_touchy;
+	required_ioport m_touch;
+	required_ioport_array<8> m_kbd_cols;
 
 	emu_timer *m_timers[2];
 
@@ -188,6 +206,9 @@ private:
 	uint32_t m_pwrsr;
 	uint32_t m_last_ssi_request;
 	uint32_t m_ssi_read_counter;
+	uint8_t m_buzzer_ctrl;
+
+	uint8_t m_kbd_scan;
 
 	uint8_t m_ports[5];
 
