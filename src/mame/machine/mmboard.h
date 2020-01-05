@@ -38,6 +38,8 @@ public:
 	void set_disable_leds(int disable_leds) { m_disable_leds = disable_leds; }
 	void set_delay(attotime sensordelay)    { m_sensordelay = sensordelay; }
 
+	sensorboard_device *get() { return m_board; }
+
 	DECLARE_READ8_MEMBER(input_r);
 	DECLARE_WRITE8_MEMBER(led_w);
 	DECLARE_READ8_MEMBER(mux_r);
@@ -50,6 +52,7 @@ protected:
 
 	void set_config(machine_config &config, sensorboard_device::sb_type board_type);
 	DECLARE_WRITE8_MEMBER(refresh_leds_w);
+	void update_led_pwm() { m_led_pwm->matrix(~m_mux, m_led_data); }
 
 	required_device<sensorboard_device> m_board;
 	required_device<pwm_display_device> m_led_pwm;
@@ -95,6 +98,8 @@ class mephisto_display_modul_device : public device_t
 public:
 	// construction/destruction
 	mephisto_display_modul_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
+
+	hd44780_device *get() { return m_lcdc; }
 
 	DECLARE_WRITE8_MEMBER(latch_w);
 	DECLARE_WRITE8_MEMBER(io_w);
