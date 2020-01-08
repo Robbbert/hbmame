@@ -12028,9 +12028,11 @@ bmfinal                         // GXC01 (c) 2002 (Japan)
 hmcompm2                        // GX988 (c) 2000
 hmcompmx                        // GX858 (c) 1999
 popn1                           // GX803 (c) 1998 (Asia)
+popn1k                          // GX803 (c) 1998 (Korea)
+popn1j                          // GX803 (c) 1998 (Japan)
 popn2                           // GX831 (c) 1998 (Japan)
 popn3                           // GX980 (c) 1999 (Japan)
-popnstage                       // GQ970 (c) 1999 (Japan)
+popnstex                        // GQ970 (c) 1999 (Japan)
 
 @source:dkmb.cpp
 dkmb
@@ -18443,6 +18445,7 @@ klax4                           // 136075           (c) 1989
 klax5                           // 136075           (c) 1989
 klax5bl                         // bootleg
 klax5bl2                        // bootleg
+klax5bl3                        // bootleg
 klaxd2                          // 136075           (c) 1989 (Germany)
 klaxj3                          // 136075           (c) 1989 (Japan)
 klaxj4                          // 136075           (c) 1989 (Japan)
@@ -35823,6 +35826,7 @@ seicross                        // (c) 1984 + Alice
 cupsocsb                        // bootleg
 cupsocsb2                       // bootleg
 cupsocsb3                       // bootleg
+cupsocsb4                       // bootleg
 
 @source:selz80.cpp
 dagz80                          //
@@ -39812,8 +39816,6 @@ sentx6p                         //
 
 @source:vsmile.cpp
 vsmile                          //
-vsmilef                         //
-vsmileg                         //
 vsmilem                         //
 
 @source:vsmileb.cpp
