@@ -3143,6 +3143,9 @@ triviaes5                       // (c) 19?? (Maibesa hardware)
 @source:banctec.cpp
 banctec                         // BancTec ESeries panel
 
+@source:bandai_design_master.cpp
+bdesignm
+
 @source:bankp.cpp
 bankp                           // (c) 1984 Sega,  made by Sanritsu
 combh                           // (c) 1987 Sega,  made by Sanritsu
@@ -10007,9 +10010,11 @@ quizard2                        // (c) TAB Austria 1995
 quizard2_22                     // (c) TAB Austria 199?
 quizard3                        // (c) TAB Austria 1996
 quizard3_32                     // (c) TAB Austria 1996
+quizard3a                       // (c) TAB Austria 1996
 quizard4                        // (c) TAB Austria 1998
 quizard4_40                     // (c) TAB Austria 1997
 quizard4_41                     // (c) TAB Austria 1998
+quizard4cz                      // (c) TAB Austria 1998
 
 @source:cdsys5.cpp
 minijook                        //
@@ -11260,12 +11265,15 @@ cubeqsta                        // (c) 1983 Simutrek Inc.
 @source:cubo.cpp
 cndypuzl                        // (c) 1995
 cubo                            // Base unit
+eldoralg                        //
 haremchl                        // (c) 1995
 lasstixx                        // (c) 1995
 lsrquiz                         // (c) 1995
-lsrquiz2                        // (c) 1995
+lsrquizg                        // (c) 1995
+lsrquiz2i                       // (c) 1995
 mgnumber                        // (c) 1995
 mgprem11                        // (c) 1995
+odeontw                         //
 odeontw2                        // (c) 1999
 
 @source:cultures.cpp
@@ -14118,6 +14126,7 @@ dkongjrmc                       // bootleg (Centromatic)
 drivfrcb                        // bootleg
 drivfrcg                        // [1984] Shinkai (Magic Electronics USA license)
 drivfrcsg                       // [1984] Seatongrove
+drivfrcsga                      // [1984] Seatongrove
 drivfrct                        // bootleg
 froggerv                        // bootleg
 guttangt                        //
@@ -41017,6 +41026,7 @@ rad_bdp                         //
 has_wamg                        //
 ltv_tam                         //
 tak_geig                        //
+jarajal                         //
 ban_onep                        //
 ekara                           //
 ekaraa                          //

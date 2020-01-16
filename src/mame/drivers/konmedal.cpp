@@ -67,6 +67,7 @@ public:
 	void ddboy(machine_config &config);
 	void tsukande(machine_config &config);
 	void fuusenpn(machine_config &config);
+	void mariorou(machine_config &config);
 
 private:
 	void konmedal_palette(palette_device &palette) const;
@@ -85,15 +86,14 @@ private:
 	uint32_t screen_update_konmedal(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_shuriboy(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_fuusenpn(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_mariorou(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	INTERRUPT_GEN_MEMBER(konmedal_interrupt);
 	K056832_CB_MEMBER(tile_callback);
 
 	K052109_CB_MEMBER(shuriboy_tile_callback);
-	K052109_CB_MEMBER(fuusenpn_tile_callback);
 	TIMER_DEVICE_CALLBACK_MEMBER(scanline);
 	DECLARE_WRITE8_MEMBER(shuri_bank_w);
-	DECLARE_WRITE8_MEMBER(shuri_control_w);
 	DECLARE_READ8_MEMBER(shuri_irq_r);
 	DECLARE_WRITE8_MEMBER(shuri_irq_w);
 
@@ -218,13 +218,26 @@ uint32_t konmedal_state::screen_update_fuusenpn(screen_device &screen, bitmap_in
 
 	return 0;
 }
+
+uint32_t konmedal_state::screen_update_mariorou(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+{
+	bitmap.fill(0, cliprect);
+	screen.priority().fill(0, cliprect);
+
+	m_k052109->tilemap_update();
+
+	m_k052109->tilemap_draw(screen, bitmap, cliprect, 1, 0, 4);
+	m_k052109->tilemap_draw(screen, bitmap, cliprect, 2, 0, 2);
+	m_k052109->tilemap_draw(screen, bitmap, cliprect, 0, 0, 1);
+	return 0;
+}
+
 void konmedal_state::konmedal_palette(palette_device &palette) const
 {
 	uint8_t const *const PROM = memregion("proms")->base();
 
 	for (int i = 0; i < 256; i++)
 	{
-		// this is extremely wrong, see the color test screen
 		palette.set_pen_color(i,
 				(PROM[i]) << 4,
 				(PROM[0x100 + i]) << 4,
@@ -301,7 +314,6 @@ void konmedal_state::shuriboy_main(address_map &map)
 	map(0xa000, 0xbfff).bankr("bank1");
 	map(0xc000, 0xffff).rw(m_k052109, FUNC(k052109_device::read), FUNC(k052109_device::write));
 	map(0xdd00, 0xdd00).rw(FUNC(konmedal_state::shuri_irq_r), FUNC(konmedal_state::shuri_irq_w));
-	map(0xdd80, 0xdd80).w(FUNC(konmedal_state::shuri_control_w));
 }
 
 static INPUT_PORTS_START( konmedal )
@@ -484,21 +496,39 @@ K052109_CB_MEMBER(konmedal_state::shuriboy_tile_callback)
 	*flags = (*color & 0x1) ? TILE_FLIPX : 0;
 	u8 col = *color;
 	*color = (col >> 4);
-	if (layer > 0) *color |= 8;
-}
-
-K052109_CB_MEMBER(konmedal_state::fuusenpn_tile_callback)
-{
-	*code |= ((*color & 0xc) << 6) | (bank << 10);
-	if (*color & 0x2) *code |= 0x1000;
-	*flags = (*color & 0x1) ? TILE_FLIPX : 0;
-	u8 col = *color;
-	*color = (col >> 4);
-	*color |= 8;
+	if (layer == 0)
+	{
+		if (*color == 1) *color = 0;
+		if (*color == 2) *color = 1;
+		if (*color == 3) *color = 1;
+		if (*color == 6) *color = 5;
+		if (*color == 8) *color = 4;
+		if (*color == 9) *color = 4;
+		if (*color == 0xa) *color = 5;
+		if (*color == 0xb) *color = 5;
+		if (*color == 0xd) *color = 6;
+		if (*color == 0xe) *color = 3;
+	}
+	if (layer == 1)
+	{
+		if (*color == 0) *color = 8;
+		if (*color == 0xa) *color = 0xe;
+		if (*color == 4) *color = 0xa;
+	}
+	if (layer == 2)
+	{
+		if (*color == 6) *color = 3;
+		if (*color == 8) *color = 0xc;
+		if (*color == 0) *color = 8;
+		if (*color == 0xa) *color = 0xd;
+		if (*color == 4) *color = 0xa;
+		if (*color == 5) *color = 0xa;
+	}
 }
 
 WRITE8_MEMBER(konmedal_state::shuri_bank_w)
 {
+	m_k052109->set_rmrd_line((data & 0x40) ? ASSERT_LINE : CLEAR_LINE);
 	membank("bank1")->set_entry(data&0x3);
 }
 
@@ -535,13 +565,6 @@ TIMER_DEVICE_CALLBACK_MEMBER(konmedal_state::scanline)
 	{
 		m_maincpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
 	}
-}
-
-WRITE8_MEMBER(konmedal_state::shuri_control_w)
-{
-	m_control = data;
-	m_k052109->set_rmrd_line((m_control & 0x10) ? ASSERT_LINE : CLEAR_LINE);
-	m_k052109->write(offset+0x1d80, data);
 }
 
 void konmedal_state::shuriboy(machine_config &config)
@@ -591,7 +614,22 @@ void konmedal_state::fuusenpn(machine_config &config)
 	screen.set_screen_update(FUNC(konmedal_state::screen_update_fuusenpn));
 	screen.set_palette(m_palette);
 
-	m_k052109->set_tile_callback(FUNC(konmedal_state::fuusenpn_tile_callback));
+	m_k052109->set_tile_callback(FUNC(konmedal_state::shuriboy_tile_callback));
+}
+
+void konmedal_state::mariorou(machine_config &config)
+{
+	shuriboy(config);
+
+	screen_device &screen(SCREEN(config.replace(), "screen", SCREEN_TYPE_RASTER)); // everything not verified, just a placeholder
+	screen.set_refresh_hz(60);
+	screen.set_vblank_time(ATTOSECONDS_IN_USEC(30));
+	screen.set_size(64*8, 32*8);
+	screen.set_visarea(96, 416-1, 16, 240-1);
+	screen.set_screen_update(FUNC(konmedal_state::screen_update_mariorou));
+	screen.set_palette(m_palette);
+
+	m_k052109->set_tile_callback(FUNC(konmedal_state::shuriboy_tile_callback));
 }
 
 ROM_START( tsukande )
@@ -754,11 +792,13 @@ ROM_START( mariorou )
 	ROM_LOAD( "111_a10.3e.82s129", 0x000300, 0x000100, CRC(07ffc2ed) SHA1(37955d1788a86b90439233bb098c59b191056f68) )
 ROM_END
 
+// K052109 (TMNT tilemaps) board
+GAME( 1991, mariorou, 0,     mariorou, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Mario Roulette", MACHINE_NOT_WORKING)
+GAME( 1993, shuriboy, 0,     shuriboy, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Shuriken Boy", MACHINE_NOT_WORKING)
+GAME( 1993, fuusenpn, 0,     fuusenpn, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Fuusen Pentai", MACHINE_NOT_WORKING)
+
+// K054156/K054157 (GX tilemaps) board
 GAME( 1994, buttobi,  0,     ddboy,    konmedal, konmedal_state, empty_init, ROT0, "Konami", "Buttobi Striker", MACHINE_NOT_WORKING)
 GAME( 1995, tsukande, 0,     tsukande, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Tsukande Toru Chicchi", MACHINE_NOT_WORKING)
 GAME( 1995, ddboy,    0,     ddboy,    konmedal, konmedal_state, empty_init, ROT0, "Konami", "Dam Dam Boy (on dedicated PCB)", MACHINE_NOT_WORKING)
 GAME( 1995, ddboya,   ddboy, ddboy,    konmedal, konmedal_state, empty_init, ROT0, "Konami", "Dam Dam Boy (on Tsukande Toru Chicchi PCB)", MACHINE_NOT_WORKING)
-GAME( 1993, shuriboy, 0,     shuriboy, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Shuriken Boy", MACHINE_NOT_WORKING)
-GAME( 1993, fuusenpn, 0,     fuusenpn, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Fuusen Pentai", MACHINE_NOT_WORKING)
-GAME( 1993, mariorou, 0,     fuusenpn, konmedal, konmedal_state, empty_init, ROT0, "Konami", "Mario Roulette", MACHINE_NOT_WORKING)
-
