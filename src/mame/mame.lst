@@ -914,6 +914,9 @@ actfancrj                       // (c) 1989 Data East Corporation (Japan)
 triothep                        // (c) 1989 Data East Corporation (World)
 triothepj                       // (c) 1989 Data East Corporation (Japan)
 
+@source:actions_atj2279b.cpp
+rbitgen
+
 @source:acvirus.cpp
 virusa                          // (c) 1997 Access GmbH
 virusb                          // (c) 1999 Access GmbH
@@ -3092,6 +3095,7 @@ botanic2                        // (c) 1983
 botanicf                        // (c) 1984
 pickin                          // (c) 1983
 sbagman                         // (c) 1984
+sbagman2                        // (c) 1984
 sbagmani                        // (c) 1984 + Itisa license
 sbagmans                        // (c) 1984 + Stern license
 squaitsa                        // (c) 1985
@@ -15023,6 +15027,7 @@ unkch2                          // bootleg
 unkch3                          // bootleg
 unkch4                          // bootleg
 wcat3                           //
+wcat3a                          //
 wcherry                         // bootleg
 
 @source:gomoku.cpp
@@ -38342,7 +38347,7 @@ tceptor2                        // (c) 1986
 tdv2324                         //
 
 @source:teamjocs.cpp
-teamjocs                        //
+diaelite                        //
 
 @source:tec1.cpp
 tec1                            // Talking Electronics Computer
@@ -39798,6 +39803,7 @@ jak_capb                        //
 jak_spdmo                       //
 conyteni                        //
 conyping                        //
+conyfght
 
 @source:vii.cpp
 jak_batm                        // The Batman, 2004
@@ -39843,6 +39849,7 @@ taikeegr                        //
 shredmjr                        //
 sentx6p                         //
 telestry                        //
+wiwi18                          //
 
 @source:vsmile.cpp
 vsmile                          //
@@ -41030,6 +41037,7 @@ has_wamg                        //
 ltv_tam                         //
 tak_geig                        //
 jarajal                         //
+tcarnavi                        //
 ban_onep                        //
 ekara                           //
 ekaraa                          //
