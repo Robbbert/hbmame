@@ -277,10 +277,10 @@ knightsha
 knightsjb
 knightsro
 knightud
-kodd			// roms not matching; no gfx in attract mode
+kodd			// no gfx in attract mode; illegal instruction
 kodh
 kodsp
-kodud			// roms not matching; no gfx in attract mode
+kodud			// no gfx in attract mode; illegal instruction
 pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb
 punisherf
@@ -8023,7 +8023,7 @@ olds100ass25
 olds100ass26
 olds100ass27
 olds100ass28
-//olds100ass29 //  rom problem
+olds100ass29 //  rom problem
 olds100ass32
 olds100ass33
 olds100ass34
