@@ -3231,8 +3231,7 @@ pro128s                         // 1987 Olivetti Prodest PC 128S
 autoc15                         // 1988 Autocue 1500
 reutapm                         // 1985 Reuters APM Board
 torchf                          // 1982 Torch CF240
-torchh10                        // 1982 Torch CH240/10
-torchh21                        // 1982 Torch CH240/21
+torchh                          // 1982 Torch CH240
 
 @source:bbcbc.cpp
 bbcbc                           // 1985 BBC Bridge Companion
@@ -13352,6 +13351,9 @@ wofabl                          // bootleg
 @source:feversoc.cpp
 feversoc                        // (c) 2004
 
+@source:ffantasy_ms.cpp
+ffantasym                       //
+
 @source:fgoal.cpp
 fgoal                           // TF  (c) 1979 Taito Corporation
 fgoala                          // MF  (c) 1979 Taito Corporation
@@ -14616,6 +14618,9 @@ touryuu                         // (c) 200? Yuki Enterprise
 @source:giclassic.cpp
 giclasex
 giclassvr
+
+@source:gigatron.cpp
+gigatron						// (c) 2018 Marcel van Kervinck
 
 @source:gijoe.cpp
 gijoe                           // GX069 (c) 1991 (World)
@@ -30140,6 +30145,7 @@ gamsharaj                       // 2002.08 Gamshara (10021 Ver.A)
 gjspace                         // 2001.12 Gekitoride-Jong Space (10011 Ver.A)
 g13jnc                          // 2001.?? Golgo 13: Juusei no Chinkonka (Japan, GLT1 VER.A)
 gunbalina                       // 2000.12 Gunbalina (GNN1 Ver.A)
+kd2001                          // 2011.1? Knock Down 2001 (KD11 Ver.B)
 knpuzzle                        // 2001.12 Kotoba no Puzzle Mojipittan (KPM1 Ver.A)
 konotako                        // 2003.?? Kono Tako (10021 Ver.A)
 mrdrilr2                        // 2000.07 Mr Driller 2 (DR21 Ver.A)
@@ -30889,6 +30895,9 @@ ncd16                           // 1989 Network Computing Devices
 ncd17c                          // 1990 Network Computing Devices
 ncd19                           // 1990 Network Computing Devices
 
+@source:ncd88k.cpp
+ncd19c                          //
+
 @source:ncdmips.cpp
 hmxpro                          // 1994 Network Computing Devices
 
@@ -31249,6 +31258,9 @@ m82                             // Nintendo M82 Display Unit
 m82p                            // Nintendo M82 Display Unit PAL
 nes                             // Nintendo Entertainment System
 nespal                          // Nintendo Entertainment System PAL
+
+@source:nes_boot.cpp
+pjoypj001
 
 @source:nes_vt.cpp
 vdogdeme
@@ -39815,7 +39827,17 @@ conyteni                        //
 conyping                        //
 conyfght
 
-@source:vii.cpp
+@source:spg2xx.cpp
+rad_skat                        //
+rad_skatp                       //
+rad_sktv                        //
+rad_crik                        //
+rad_fb2                         //
+mattelcs                        //
+abltenni                        //
+wiwi18                          //
+
+@source:spg2xx_jakks.cpp
 jak_batm                        // The Batman, 2004
 jak_wall                        //
 jak_wwe                         //
@@ -39838,33 +39860,57 @@ jak_pooh                        //
 jak_care                        //
 jak_nick                        //
 jak_sbfc                        //
-lexizeus                        // Lexibook
-lexiseal                        //
-vii                             // KenSingTon / Jungle Soft / Siatronics Vii
+
+@source:spg2xx_zone.cpp
 wirels60                        // Wireless 60
 zone40                          // Zone 40
 zone60                          // Zone 60
 zone100                         //
+lx_jg7415                       //
+
+@source:spg2xx_zone_32bit.cpp
 mywicodx                        //
 zon32bit                        // Zone 32-bit
-lx_jg7415                       //
-rad_skat                        //
-rad_skatp                       //
-rad_sktv                        //
-rad_crik                        //
-rad_fb2                         //
-mattelcs                        //
-dreamlif                        //
+
+@source:spg2xx_senario.cpp
+senmil
+senbbs
+senapren
+senpmate
+sencosmo
+
+@source:spg2xx_senario_poker.cpp
+sentx6p                         //
+
+@source:spg2xx_vii.cpp
+vii                             // KenSingTon / Jungle Soft / Siatronics Vii
+
+@source:spg2xx_ican.cpp
 icanguit                        //
 icanpian                        //
-tvgogo                          //
+
+@source:spg2xx_playvision.cpp
 pvmil                           //
+
+@source:spg2xx_shredmjr.cpp
 taikeegr                        //
 shredmjr                        //
-sentx6p                         //
+
+@source:spg2xx_telestory.cpp
 telestry                        //
-wiwi18                          //
+
+@source:spg2xx_tvgogo.cpp
+tvgogo                          //
+
+@source:spg2xx_pdc.cpp
 pdc100
+
+@source:spg2xx_dreamlife.cpp
+dreamlif                        //
+
+@source:spg2xx_lexibook.cpp
+lexizeus                        // Lexibook
+lexiseal                        //
 
 @source:vsmile.cpp
 vsmile                          //

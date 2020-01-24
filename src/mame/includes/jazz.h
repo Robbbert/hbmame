@@ -14,7 +14,7 @@
 #include "machine/28fxxx.h"
 
 // various hardware
-#include "machine/jazz_mct_adr.h"
+#include "machine/mct_adr.h"
 #include "machine/dp83932c.h"
 #include "machine/mc146818.h"
 #include "machine/ins8250.h"
@@ -93,7 +93,7 @@ protected:
 	required_device<r4000_device> m_cpu;
 	required_device<ram_device> m_ram;
 	required_device<ram_device> m_vram;
-	required_device<jazz_mct_adr_device> m_mct_adr;
+	required_device<mct_adr_device> m_mct_adr;
 	required_device<nscsi_bus_device> m_scsibus;
 	required_device<ncr53c94_device> m_scsi;
 	required_device<n82077aa_device> m_fdc;

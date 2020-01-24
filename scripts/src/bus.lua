@@ -458,6 +458,21 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/bus/bbc/modem/modem.h,BUSES["BBC_MODEM"] = true
+---------------------------------------------------
+
+if (BUSES["BBC_MODEM"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/bbc/modem/modem.cpp",
+		MAME_DIR .. "src/devices/bus/bbc/modem/modem.h",
+		MAME_DIR .. "src/devices/bus/bbc/modem/scsiaiv.cpp",
+		MAME_DIR .. "src/devices/bus/bbc/modem/scsiaiv.h",
+	}
+end
+
+
+---------------------------------------------------
+--
 --@src/devices/bus/bbc/1mhzbus/1mhzbus.h,BUSES["BBC_1MHZBUS"] = true
 ---------------------------------------------------
 
@@ -485,6 +500,8 @@ if (BUSES["BBC_1MHZBUS"]~=null) then
 		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/pms64k.h",
 		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/ramdisc.cpp",
 		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/ramdisc.h",
+		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/scsi.cpp",
+		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/scsi.h",
 		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/sprite.cpp",
 		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/sprite.h",
 		MAME_DIR .. "src/devices/bus/bbc/1mhzbus/cfa3000opt.cpp",
