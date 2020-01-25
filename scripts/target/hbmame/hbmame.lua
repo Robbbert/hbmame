@@ -820,6 +820,7 @@ files {
 	MAME_DIR .. "src/mame/video/system1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/system16.cpp",
 	MAME_DIR .. "src/mame/video/system16.cpp",
+	MAME_DIR .. "src/mame/audio/nl_segas16b.cpp",
 	MAME_DIR .. "src/mame/machine/315_5296.cpp",
 	MAME_DIR .. "src/mame/machine/fd1089.cpp",
 	MAME_DIR .. "src/mame/machine/fd1094.cpp",
