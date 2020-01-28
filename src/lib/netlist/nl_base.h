@@ -62,10 +62,17 @@ class NETLIB_NAME(name) : public device_t
 	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name) \
 	: NETLIB_NAME(pclass)(owner, name)
 
+// FIXME: Only used by diode
 #define NETLIB_CONSTRUCTOR_DERIVED_EX(cname, pclass, ...)                      \
 	private: detail::family_setter_t m_famsetter;                              \
 	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name, __VA_ARGS__) \
 	: NETLIB_NAME(pclass)(owner, name)
+
+#define NETLIB_CONSTRUCTOR_DERIVED_PASS(cname, pclass, ...)                      \
+	private: detail::family_setter_t m_famsetter;                              \
+	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name) \
+	: NETLIB_NAME(pclass)(owner, name, __VA_ARGS__)
+
 
 /// \brief Used to define the constructor of a netlist device.
 ///  Use this to define the constructor of a netlist device. Please refer to
@@ -135,7 +142,7 @@ class NETLIB_NAME(name) : public device_t
 /// Please see \ref NETLIB_IS_TIMESTEP for an example.
 
 #define NETLIB_TIMESTEPI()                                                     \
-	public: virtual void timestep(const nl_fptype step)  noexcept override
+	public: virtual void timestep(nl_fptype step)  noexcept override
 
 /// \brief Used to implement the body of the time stepping code.
 ///
@@ -258,8 +265,6 @@ namespace netlist
 		virtual unique_pool_ptr<devices::nld_base_a_to_d_proxy> create_a_d_proxy(netlist_state_t &anetlist, const pstring &name,
 				logic_input_t *proxied) const = 0;
 
-		// FIXME: remove fixed_V()
-		nl_fptype fixed_V() const noexcept{return m_fixed_V; }
 		nl_fptype low_thresh_V(nl_fptype VN, nl_fptype VP) const noexcept{ return VN + (VP - VN) * m_low_thresh_PCNT; }
 		nl_fptype high_thresh_V(nl_fptype VN, nl_fptype VP) const noexcept{ return VN + (VP - VN) * m_high_thresh_PCNT; }
 		nl_fptype low_offset_V() const noexcept{ return m_low_VO; }
@@ -273,7 +278,6 @@ namespace netlist
 		bool is_below_low_thresh_V(nl_fptype V, nl_fptype VN, nl_fptype VP) const noexcept
 		{ return (V - VN) < low_thresh_V(VN, VP); }
 
-		nl_fptype m_fixed_V;           //!< For variable voltage families, specify 0. For TTL this would be 5.
 		nl_fptype m_low_thresh_PCNT;   //!< low input threshhold offset. If the input voltage is below this value times supply voltage, a "0" input is signalled
 		nl_fptype m_high_thresh_PCNT;  //!< high input threshhold offset. If the input voltage is above the value times supply voltage, a "0" input is signalled
 		nl_fptype m_low_VO;            //!< low output voltage offset. This voltage is output if the ouput is "0"
@@ -590,7 +594,7 @@ namespace netlist
 			};
 
 			core_terminal_t(core_device_t &dev, const pstring &aname,
-					const state_e state, nldelegate delegate = nldelegate());
+					state_e state, nldelegate delegate = nldelegate());
 			virtual ~core_terminal_t() noexcept = default;
 
 			COPYASSIGNMOVE(core_terminal_t, delete)
@@ -632,7 +636,7 @@ namespace netlist
 
 			state_var_sig m_Q;
 	#else
-			void set_copied_input(netlist_sig_t val) const noexcept { plib::unused_var(val); }
+			void set_copied_input(netlist_sig_t val) noexcept { plib::unused_var(val); }
 	#endif
 
 			void set_delegate(const nldelegate &delegate) noexcept { m_delegate = delegate; }
@@ -788,7 +792,7 @@ namespace netlist
 	{
 	public:
 
-		analog_t(core_device_t &dev, const pstring &aname, const state_e state,
+		analog_t(core_device_t &dev, const pstring &aname, state_e state,
 			nldelegate delegate = nldelegate());
 
 		const analog_net_t & net() const noexcept;
@@ -849,7 +853,7 @@ namespace netlist
 	{
 	public:
 		logic_t(core_device_t &dev, const pstring &aname,
-				const state_e state, nldelegate delegate = nldelegate());
+				state_e state, nldelegate delegate = nldelegate());
 
 		logic_net_t & net() noexcept;
 		const logic_net_t &  net() const noexcept;
@@ -1148,7 +1152,7 @@ namespace netlist
 	class param_num_t final: public param_t
 	{
 	public:
-		param_num_t(device_t &device, const pstring &name, const T val) noexcept(false);
+		param_num_t(device_t &device, const pstring &name, T val) noexcept(false);
 
 		T operator()() const noexcept { return m_param; }
 		operator T() const noexcept { return m_param; }
@@ -1162,7 +1166,7 @@ namespace netlist
 	class param_enum_t final: public param_t
 	{
 	public:
-		param_enum_t(device_t &device, const pstring &name, const T val) noexcept(false);
+		param_enum_t(device_t &device, const pstring &name, T val) noexcept(false);
 
 		T operator()() const noexcept { return T(m_param); }
 		operator T() const noexcept { return T(m_param); }
@@ -1932,12 +1936,10 @@ namespace netlist
 			state().log().fatal("Inconsistent nullptrs for terminal {}", name());
 			throw nl_exception("Inconsistent nullptrs for terminal {}", name());
 		}
-		else
-		{
-			m_gt1 = gt;
-			m_go1 = go;
-			m_Idr1 = Idr;
-		}
+
+		m_gt1 = gt;
+		m_go1 = go;
+		m_Idr1 = Idr;
 	}
 
 	inline logic_net_t & logic_t::net() noexcept

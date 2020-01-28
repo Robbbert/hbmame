@@ -81,8 +81,8 @@ namespace devices
 			return ret;
 		}
 
-		static constexpr const pbitset all_bits() noexcept { return pbitset(~static_cast<T>(0)); }
-		static constexpr const pbitset no_bits() noexcept{ return pbitset(static_cast<T>(0)); }
+		static constexpr pbitset all_bits() noexcept { return pbitset(~static_cast<T>(0)); }
+		static constexpr pbitset no_bits() noexcept{ return pbitset(static_cast<T>(0)); }
 	private:
 		T m_bs;
 	};
@@ -162,7 +162,7 @@ namespace devices
 		void parseline(unsigned cur, std::vector<pstring> list,
 				tt_bitset state, std::uint_least64_t val, std::vector<uint_least8_t> &timing_index);
 
-		tt_bitset calculate_ignored_inputs(tt_bitset i) const;
+		tt_bitset calculate_ignored_inputs(tt_bitset state) const;
 
 		unsigned m_NO;
 		unsigned m_NI;

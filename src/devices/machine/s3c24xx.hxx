@@ -77,45 +77,45 @@
 
 #endif
 
-#define LOG_RESET			(1 << 0)
-#define LOG_ADC				(1 << 1)
-#define LOG_LCD_DMA			(1 << 2)
-#define LOG_LCD_TIMER		(1 << 3)
-#define LOG_LCD_REGS		(1 << 4)
-#define LOG_SPI				(1 << 5)
-#define LOG_LCD_CFG			(1 << 6)
-#define LOG_LCD_TFT			(1 << 7)
-#define LOG_LCD_STN			(1 << 8)
-#define LOG_CLKPOW			(1 << 9)
-#define LOG_MMC				(1 << 10)
-#define LOG_IRQS			(1 << 11)
-#define LOG_IRQ_REGS		(1 << 12)
-#define LOG_FLASH			(1 << 13)
-#define LOG_PWM				(1 << 14)
-#define LOG_PWM_REGS		(1 << 15)
-#define LOG_CAM				(1 << 16)
-#define LOG_DMA				(1 << 17)
-#define LOG_DMA_REQS		(1 << 18)
-#define LOG_DMA_REGS		(1 << 19)
-#define LOG_AC97			(1 << 20)
-#define LOG_DMA_TIMERS		(1 << 21)
-#define LOG_GPIO			(1 << 22)
-#define LOG_MEMCON			(1 << 23)
-#define LOG_USBHOST			(1 << 24)
-#define LOG_UART			(1 << 25)
-#define LOG_USB				(1 << 26)
-#define LOG_WDT				(1 << 27)
-#define LOG_I2C				(1 << 28)
-#define LOG_I2S				(1 << 29)
-#define LOG_RTC				(1 << 30)
-#define LOG_SDI				(1 << 31)
+#define LOG_RESET           (1 << 0)
+#define LOG_ADC             (1 << 1)
+#define LOG_LCD_DMA         (1 << 2)
+#define LOG_LCD_TIMER       (1 << 3)
+#define LOG_LCD_REGS        (1 << 4)
+#define LOG_SPI             (1 << 5)
+#define LOG_LCD_CFG         (1 << 6)
+#define LOG_LCD_TFT         (1 << 7)
+#define LOG_LCD_STN         (1 << 8)
+#define LOG_CLKPOW          (1 << 9)
+#define LOG_MMC             (1 << 10)
+#define LOG_IRQS            (1 << 11)
+#define LOG_IRQ_REGS        (1 << 12)
+#define LOG_FLASH           (1 << 13)
+#define LOG_PWM             (1 << 14)
+#define LOG_PWM_REGS        (1 << 15)
+#define LOG_CAM             (1 << 16)
+#define LOG_DMA             (1 << 17)
+#define LOG_DMA_REQS        (1 << 18)
+#define LOG_DMA_REGS        (1 << 19)
+#define LOG_AC97            (1 << 20)
+#define LOG_DMA_TIMERS      (1 << 21)
+#define LOG_GPIO            (1 << 22)
+#define LOG_MEMCON          (1 << 23)
+#define LOG_USBHOST         (1 << 24)
+#define LOG_UART            (1 << 25)
+#define LOG_USB             (1 << 26)
+#define LOG_WDT             (1 << 27)
+#define LOG_I2C             (1 << 28)
+#define LOG_I2S             (1 << 29)
+#define LOG_RTC             (1 << 30)
+#define LOG_SDI             (1 << 31)
 
-#define LOG_ALL				(LOG_RESET | LOG_ADC | LOG_LCD_DMA | LOG_LCD_TIMER | LOG_LCD_REGS | LOG_SPI | LOG_LCD_CFG | LOG_LCD_TFT | LOG_LCD_STN \
+#define LOG_ALL             (LOG_RESET | LOG_ADC | LOG_LCD_DMA | LOG_LCD_TIMER | LOG_LCD_REGS | LOG_SPI | LOG_LCD_CFG | LOG_LCD_TFT | LOG_LCD_STN \
 							| LOG_CLKPOW | LOG_MMC | LOG_IRQS | LOG_IRQ_REGS | LOG_FLASH | LOG_PWM | LOG_PWM_REGS | LOG_CAM | LOG_DMA | LOG_DMA_REQS \
 							| LOG_DMA_REGS | LOG_AC97 | LOG_DMA_TIMERS | LOG_GPIO | LOG_MEMCON | LOG_USBHOST | LOG_UART | LOG_USB \
 							| LOG_WDT | LOG_I2C | LOG_I2S | LOG_RTC | LOG_SDI)
 
-#define VERBOSE				(LOG_ALL & ~(LOG_FLASH | LOG_UART))
+#define VERBOSE             (LOG_ALL & ~(LOG_FLASH | LOG_UART))
 #include "logmacro.h"
 
 /***************************************************************************
@@ -294,20 +294,17 @@ void S3C24_CLASS_NAME::s3c24xx_lcd_dma_init()
 #if 0
 uint32_t S3C24_CLASS_NAME::s3c24xx_lcd_dma_read()
 {
-	address_space& space = m_cpu->space( AS_PROGRAM);
-	uint8_t *vram, data[4];
-	vram = (uint8_t *)space.get_read_ptr( m_lcd.vramaddr_cur);
+	uint8_t data[4];
 	for (int i = 0; i < 2; i++)
 	{
-		data[i*2+0] = *vram++;
-		data[i*2+1] = *vram++;
+		data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur + 0);
+		data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur + 1);
 		m_lcd.vramaddr_cur += 2;
 		m_lcd.pagewidth_cur++;
 		if (m_lcd.pagewidth_cur >= m_lcd.pagewidth_max)
 		{
 			m_lcd.vramaddr_cur += m_lcd.offsize << 1;
 			m_lcd.pagewidth_cur = 0;
-			vram = (uint8_t *)space.get_read_ptr( m_lcd.vramaddr_cur);
 		}
 	}
 	if (m_lcd.hwswp == 0)
@@ -337,9 +334,7 @@ uint32_t S3C24_CLASS_NAME::s3c24xx_lcd_dma_read()
 
 uint32_t S3C24_CLASS_NAME::s3c24xx_lcd_dma_read()
 {
-	address_space& space = m_cpu->space( AS_PROGRAM);
-	uint8_t *vram, data[4];
-	vram = (uint8_t *)space.get_read_ptr( m_lcd.vramaddr_cur);
+	uint8_t data[4];
 	for (int i = 0; i < 2; i++)
 	{
 		if (m_lcd.hwswp == 0)
@@ -348,39 +343,39 @@ uint32_t S3C24_CLASS_NAME::s3c24xx_lcd_dma_read()
 			{
 				if ((m_lcd.vramaddr_cur & 2) == 0)
 				{
-					data[i*2+0] = *(vram + 3);
-					data[i*2+1] = *(vram + 2);
+					data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur + 3);
+					data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur + 2);
 				}
 				else
 				{
-					data[i*2+0] = *(vram - 1);
-					data[i*2+1] = *(vram - 2);
+					data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur - 1);
+					data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur - 2);
 				}
 			}
 			else
 			{
-				data[i*2+0] = *(vram + 0);
-				data[i*2+1] = *(vram + 1);
+				data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur + 0);
+				data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur + 1);
 			}
 		}
 		else
 		{
 			if (m_lcd.bswp == 0)
 			{
-				data[i*2+0] = *(vram + 1);
-				data[i*2+1] = *(vram + 0);
+				data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur + 1);
+				data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur + 0);
 			}
 			else
 			{
 				if ((m_lcd.vramaddr_cur & 2) == 0)
 				{
-					data[i*2+0] = *(vram + 2);
-					data[i*2+1] = *(vram + 3);
+					data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur + 2);
+					data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur + 3);
 				}
 				else
 				{
-					data[i*2+0] = *(vram - 2);
-					data[i*2+1] = *(vram - 1);
+					data[i*2+0] = m_cache->read_byte(m_lcd.vramaddr_cur - 2);
+					data[i*2+1] = m_cache->read_byte(m_lcd.vramaddr_cur - 1);
 				}
 			}
 		}
@@ -390,11 +385,6 @@ uint32_t S3C24_CLASS_NAME::s3c24xx_lcd_dma_read()
 		{
 			m_lcd.vramaddr_cur += m_lcd.offsize << 1;
 			m_lcd.pagewidth_cur = 0;
-			vram = (uint8_t *)space.get_read_ptr( m_lcd.vramaddr_cur);
-		}
-		else
-		{
-			vram += 2;
 		}
 	}
 	if (m_flags & S3C24XX_INTERFACE_LCD_REVERSE)
@@ -758,6 +748,8 @@ void S3C24_CLASS_NAME::s3c24xx_video_start()
 {
 	m_lcd.bitmap[0] = std::make_unique<bitmap_rgb32>(m_screen->width(), m_screen->height());
 	m_lcd.bitmap[1] = std::make_unique<bitmap_rgb32>(m_screen->width(), m_screen->height());
+
+	m_cache = m_cpu->space(AS_PROGRAM).cache<2, 0, ENDIANNESS_LITTLE>();
 }
 
 void S3C24_CLASS_NAME::bitmap_blend( bitmap_rgb32 &bitmap_dst, bitmap_rgb32 &bitmap_src_1, bitmap_rgb32 &bitmap_src_2)

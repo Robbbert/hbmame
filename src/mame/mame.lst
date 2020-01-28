@@ -14623,7 +14623,7 @@ giclasex
 giclassvr
 
 @source:gigatron.cpp
-gigatron						// (c) 2018 Marcel van Kervinck
+gigatron                        // (c) 2018 Marcel van Kervinck
 
 @source:gijoe.cpp
 gijoe                           // GX069 (c) 1991 (World)
@@ -16466,7 +16466,7 @@ iqblock                         // (c) 1993
 iqunlim                         // 199? IQ Unlimited (680x0)
 
 @source:iris3130.cpp
-sgi_ip2                         // IP2: IRIS 3xx0, 68020, 16MHz
+iris3130                        // IP2: IRIS 3xx0, 68020, 16MHz
 
 @source:irisha.cpp
 irisha                          //
@@ -18576,6 +18576,7 @@ kbadlands                       // GX455 (c) 1984
 kbadlandsh                      // GX455 (c) 1984
 
 @source:konendev.cpp
+konendev                        // Konami Endeavour BIOS
 aadvent                         // African Adventure
 dragnfly                        // Dragonfly
 enchlamp                        // Enchanted Lamp
@@ -38725,6 +38726,7 @@ bikkuric                        // Peni Soft (NOT Konami)
 chkun                           // Peni Soft (NOT Konami)
 psurge                          // (c) 1988 unknown (NOT Konami)
 spaceplt                        // bootleg
+spaceplta                       // bootleg
 timeplt                         // GX393 (c) 1982
 timeplta                        // GX393 (c) 1982 + Atari license
 timepltc                        // GX393 (c) 1982 + Centuri license

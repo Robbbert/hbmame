@@ -63,7 +63,7 @@ public:
 		m_f.write(reinterpret_cast<const std::ostream::char_type *>(&val), sizeof(T));
 	}
 
-	void write_sample(int *sample)
+	void write_sample(const int *sample)
 	{
 		m_data.len += m_fmt.block_align;
 		for (std::size_t i = 0; i < channels(); i++)
@@ -494,8 +494,6 @@ void nlwav_app::convert(std::ostream &ostrm)
 
 int nlwav_app::execute()
 {
-	for (auto &i : opt_args())
-		pout("Hello : " + i + "\n");
 	if (opt_help())
 	{
 		pout(usage());
