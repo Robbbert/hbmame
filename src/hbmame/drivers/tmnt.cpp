@@ -42,7 +42,7 @@ GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, empty_init, 
  Sunset Riders
 ***************/
 
-ROM_START( ssriderseaas01 )
+ROM_START( ssriderseaas01 ) //ssriderseaa
 	ROM_REGION( 0xc0000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "064eaa02_ps01.8e",   0x000000, 0x40000, CRC(f6bce510) SHA1(3c46487c4bd591fe14248344ac2563beb1437769) )
 	ROM_LOAD16_BYTE( "064eaa03_ps01.8g",   0x000001, 0x40000, CRC(9e998ebe) SHA1(683d75bcfb8b8f87996fe8aadde4d1c600b409df) )

@@ -2209,13 +2209,13 @@ ROM_START( sfiii3ns06 )
 	ROM_LOAD( "sfiii3_japan_nocd.29f400.u2", 0x000000, 0x080000, CRC(1edc6366) SHA1(60b4b9adeb030a33059d74fdf03873029e465b52) )
 
 	ROM_REGION( 0x454F4B, "simm1.0", 0 )
-	ROM_LOAD( "sfiii3s03-simm1.0", 0x00000, 0x454F4B, CRC(11dfd3cd) SHA1(de7cea6021b0e92586531990c70f035d327f581e) )
+	ROM_LOAD( "sfiii3s06-simm1.0", 0x00000, 0x454F4B, CRC(11dfd3cd) SHA1(de7cea6021b0e92586531990c70f035d327f581e) )
 	ROM_REGION( 0x454F4C, "simm1.1", 0 )
-	ROM_LOAD( "sfiii3s03-simm1.1", 0x00000, 0x454F4C, CRC(c50585e6) SHA1(9486ae732e229f6bfa6bd4ebdc49802a3cfa5649) )
+	ROM_LOAD( "sfiii3s06-simm1.1", 0x00000, 0x454F4C, CRC(c50585e6) SHA1(9486ae732e229f6bfa6bd4ebdc49802a3cfa5649) )
 	ROM_REGION( 0x454F4F, "simm1.2", 0 )
-	ROM_LOAD( "sfiii3s03-simm1.2", 0x00000, 0x454F4F, CRC(8e011d9b) SHA1(65ec49d694924f8283e53adc3877eab851dd49f0) )
+	ROM_LOAD( "sfiii3s06-simm1.2", 0x00000, 0x454F4F, CRC(8e011d9b) SHA1(65ec49d694924f8283e53adc3877eab851dd49f0) )
 	ROM_REGION( 0x454F4B, "simm1.3", 0 )
-	ROM_LOAD( "sfiii3s03-simm1.3", 0x00000, 0x454F4B, CRC(dca8d92f) SHA1(bae290f473132df058248c7b012a5e602866a4a2) )
+	ROM_LOAD( "sfiii3s06-simm1.3", 0x00000, 0x454F4B, CRC(dca8d92f) SHA1(bae290f473132df058248c7b012a5e602866a4a2) )
 
 	ROM_REGION( 0x200000, "simm2.0", 0 )
 	ROM_LOAD( "sfiii3-simm2.0",  0x00000, 0x200000, CRC(06eb969e) SHA1(d89f6a6585b76692d57d337f0f8186398fb056da) )
@@ -2295,7 +2295,7 @@ ROM_START( sfiii3ns06 )
 	ROM_LOAD( "sfiii3-simm6.7",  0x00000, 0x200000, CRC(cc5f4187) SHA1(248ddace21ed4736a56e92f77cc6ad219d7fef0b) )
 ROM_END
 
-ROM_START( sfiii3ns07 )
+ROM_START( sfiii3ns07 ) //sfiii4n
 	ROM_REGION32_BE( 0x080000, "bios", 0 )
 	ROM_LOAD( "sfiii3_japan_nocd.29f400.u2", 0x000000, 0x080000, CRC(1edc6366) SHA1(60b4b9adeb030a33059d74fdf03873029e465b52) )
 
@@ -2862,7 +2862,7 @@ GAME( 1999, sfiii3ns01,     sfiii3nc,   sfiii3,      cps3,       cps3_state,    
 GAME( 1999, sfiii3ns03,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Ex Super Version)", 0 )
 GAME( 2014, sfiii3ns05,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Hits the third time 2014-11-20)", 0 )
 GAME( 2015, sfiii3ns06,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: Fight for the Future (Boss With Simple Attack Edition 2015-12-16)", 0 )
-GAME( 2015, sfiii3ns07,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: Fight for the Future (4rd Arrange Edition 2013 Simplified 2014-11-16)", 0 )
+GAME( 2014, sfiii3ns07,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: Fight for the Future (4rd Arrange Edition 2013 Simplified 2014-11-16)", 0 )
 GAME( 1999, sfiii3ns08,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "Capcom",  "Street Fighter III 3rd Strike: Fight for the Future (Asia 990608, NO CD)", 0 )
 GAME( 1999, sfiii3ns09,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "Capcom",  "Street Fighter III 3rd Strike: Fight for the Future (Brazil 990608, NO CD)", 0 )
 GAME( 1999, sfiii3ns10,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "Capcom",  "Street Fighter III 3rd Strike: Fight for the Future (Euro 990608, NO CD)", 0 )

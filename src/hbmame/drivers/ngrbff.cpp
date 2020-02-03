@@ -664,7 +664,7 @@ HACK( 1992, fatfur2b,      fatfury2, neogeo_noslot, neogeo, neogeo_state,       
 
 HACK( 1995, fatfury3b,     fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami", "Fatal Fury 3 (Enable Hidden Characters v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fatfury3bd,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Enable Hidden Characters v2)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, fatfury3bh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury 3 (Enable Hidden Characters v3 2015-03-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, fatfury3bh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Yumeji", "Fatal Fury 3 (Ancient Battles Resurgence 2015-03-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, fatfury3eh,    fatfury3, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Creamymami and Dodowang", "Fatal Fury 3 (Add Char - Ultra kill style changed)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 2014, rbff1ud,       rbff1,    neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Dodowang", "Real Bout Fatal Fury (Legends Renewed Edition 2014-12-11)", MACHINE_SUPPORTS_SAVE ) // He is also known Easy moves
@@ -1175,7 +1175,7 @@ HACK( 2015, fatfursps01,    fatfursp, neogeo_noslot, neogeo, neogeo_state,      
  // Fatal Fury 1
 HACK( 1991, fatfury1s01,    fatfury1, neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0, "yumeji1768", "Fatal Fury (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
  // Fatal Fury 2
-HACK( 1992, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Optional Hidden Characters And Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, fatfury2s01,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (The New Legendary Simplified Version 2015-03-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, fatfury2s02,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "yumeji[2ch]",    "Fatal Fury 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, fatfury2s03,    fatfury2, neogeo_noslot, neogeo, neogeo_state,         fatfury2,  ROT0, "lichenzhao",    "Fatal Fury 2 (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
  // Real Bout Fatal Fury Special
@@ -1193,4 +1193,4 @@ HACK( 1998, rbff2bs05,      rbff2,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1998, rbff2bs06,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Real Bout Fatal Fury 2 (Fix Alfred's Player 2 Color)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, rbff2bs07,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Real Bout Fatal Fury 2 (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, rbff2bs08,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Real Bout Fatal Fury 2 (Hidden Characters - Fix Alfred's player 2 color)", MACHINE_SUPPORTS_SAVE )
-HACK( 2014, rbff2bs09,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Real Bout Fatal Fury 2 (Rise Again 2014-12-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, rbff2bs09,      rbff2,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FCHT]",    "Real Bout Fatal Fury 2 (Resurgence Enhanced Edition 2014-12-11)", MACHINE_SUPPORTS_SAVE )

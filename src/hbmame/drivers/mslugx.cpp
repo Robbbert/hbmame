@@ -109,7 +109,7 @@ ROM_END
 
 ROM_START( mslugxex )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "250z65.p1",   0x000000, 0x100000, CRC(7b751398) SHA1(6149b81b5fb4e9b501a7b119b030df432985b409) )
+	ROM_LOAD16_WORD_SWAP( "250z49.p1",   0x000000, 0x100000, CRC(7b751398) SHA1(6149b81b5fb4e9b501a7b119b030df432985b409) )
 	ROM_LOAD16_WORD_SWAP( "250.p2", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
 
 	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
@@ -316,7 +316,7 @@ ROM_START( mslugxp )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxr )
+ROM_START( mslugxr ) //mslugxc1
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250r.p1", 0x000000, 0x100000, CRC(e74f36c2) SHA1(b17d66f36e6ac31433179566ea07a0ed8790b161) )
 	ROM_LOAD16_WORD_SWAP( "250r.p2", 0x100000, 0x400000, CRC(e954b8aa) SHA1(b339b1fd05d50ac3a9d3992bb0fc8e3fd1a95557) )
@@ -455,7 +455,7 @@ ROM_START( mslugxsvb )
 ROM_END
 
 // Metal Slug X
-HACK( 1999, mslugxce,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Level Reset Special Edition 2014-11-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, mslugxce,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Level Reset Special Edition 2014-11-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxeb,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Green Edition 2016-01-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxeh1, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "KrysoFun", "Metal Slug X (Super Revised Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxex,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Qing Chuanlan Old Version V1)", MACHINE_SUPPORTS_SAVE )
@@ -463,7 +463,7 @@ HACK( 1999, mslugxfe,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   
 HACK( 2003, mslugxfr,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (Neo Arc Translator French 01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, mslugxfro, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Arkatrad", "Metal Slug X (Neo Arc Translator French 01)(Old)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, mslugxhp,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Enemy Heavy Plate 2013-06-18)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxjdkj,mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Live Enhanced)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mslugxjdkj,mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Live Enhanced 2015-12-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslugxit,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "Clomax & Ombra", "Metal Slug X (Translator Italian - Beta)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, mslugxmfb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Crazy Fire Bthl Special Enhanced Version 2014-11-7)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxp,   mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X Plus", MACHINE_SUPPORTS_SAVE )
@@ -472,7 +472,7 @@ HACK( 2014, mslugxres, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   
 HACK( 1999, mslugxsef, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "hack", "Metal Slug X (Special Edition Enhanced Flash Off)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxst,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "EGCG/Stark", "Metal Slug X (Change Gun Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxeh,  mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "KrysoFun/KVS", "Metal Slug X (Style remix)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxsvb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Super Enhanced Version Of The Beta 2015)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mslugxsvb, mslugx,   neogeo_noslot, neogeo, neogeo_state, mslugx,   ROT0, "PlayerX China", "Metal Slug X (Super Enhanced Version Of The Beta 2015 2015-05-24)", MACHINE_SUPPORTS_SAVE )
 
 //PSmame (c) gaston90 used with permission
 
@@ -713,7 +713,7 @@ ROM_START( mslugxz11 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz12 )
+ROM_START( mslugxz12 ) //mslugxh
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z12.p1",  0x000000, 0x100000, CRC(a3764c51) SHA1(791e23b6953aba236fe18182efa7445291c991ba) )
 	ROM_LOAD16_WORD_SWAP( "250.p2", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
@@ -1474,7 +1474,7 @@ ROM_END
 
 ROM_START( mslugxz49 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "250z65.p1",   0x000000, 0x100000, CRC(7b751398) SHA1(6149b81b5fb4e9b501a7b119b030df432985b409) )
+	ROM_LOAD16_WORD_SWAP( "250z49.p1",   0x000000, 0x100000, CRC(7b751398) SHA1(6149b81b5fb4e9b501a7b119b030df432985b409) )
 	ROM_LOAD16_WORD_SWAP( "250z49.p2", 0x100000, 0x400000, CRC(859e2463) SHA1(1349b845e0cc960cae799455b700b9122440ed6f) )
 
 	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
@@ -1541,7 +1541,7 @@ ROM_START( mslugxz51 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz52 )
+ROM_START( mslugxz52 ) //msxplus
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250r.p1", 0x000000, 0x100000, CRC(e74f36c2) SHA1(b17d66f36e6ac31433179566ea07a0ed8790b161) )
 	ROM_LOAD16_WORD_SWAP( "250mfb.p2", 0x100000, 0x400000, CRC(7b47677c) SHA1(af42d01b6fb3c288b1750b9960c11020bc12b7b4) )
@@ -1610,7 +1610,7 @@ ROM_START( mslugxz54 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz57 )
+ROM_START( mslugxz57 ) //mslugxjdkj
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z57.p1", 0x000000, 0x100000, CRC(41fc71cc) SHA1(82c9f78edb0cba74491f755fc2f349fc7131ade0) )
 	ROM_LOAD16_WORD_SWAP( "250svb.p2", 0x100000, 0x400000, CRC(6a114e1a) SHA1(3da62274252d36226dcccda0e05593f7f18c7193) )
@@ -1633,7 +1633,7 @@ ROM_START( mslugxz57 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz58 )
+ROM_START( mslugxz58 ) //mslugxeb
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z58.p1",  0x000000, 0x100000, CRC(5836f4d7) SHA1(002c6a519c118d33e3cef92066b0e8fc96f52627) )
 	ROM_LOAD16_WORD_SWAP( "250z58.p2", 0x100000, 0x400000, CRC(9033c16c) SHA1(13336d2d9a042973dd744966c37a0a3d5f574808) )
@@ -1656,7 +1656,7 @@ ROM_START( mslugxz58 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz59 )
+ROM_START( mslugxz59 ) //mslugxc1
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z59.p1", 0x000000, 0x100000, CRC(a2f9e0b4) SHA1(93d02103c7752300c96f1efa4cb1bea337a0c338) )
 	ROM_LOAD16_WORD_SWAP( "250r.p2", 0x100000, 0x400000, CRC(e954b8aa) SHA1(b339b1fd05d50ac3a9d3992bb0fc8e3fd1a95557) )
@@ -1679,7 +1679,7 @@ ROM_START( mslugxz59 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
-ROM_START( mslugxz60 )
+ROM_START( mslugxz60 ) //mslugxeb
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z60.p1",   0x000000, 0x454F8A, CRC(8593be25) SHA1(cc174609c98140025584997c0e46979c054ed821) )
 	ROM_LOAD16_WORD_SWAP( "250.p2", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
@@ -1775,6 +1775,29 @@ ROM_START( mslugxz64 ) //mslugxh
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z64.p1", 0x000000, 0x100000, CRC(6a116211) SHA1(92b1d87248e03d21eb87201cbadc5de0eaaf4b47) )
 	ROM_LOAD16_WORD_SWAP( "250rm5s01.p2", 0x100000, 0x400000, CRC(91e82e00) SHA1(402790a5f99d4909d472b3ca45c8a27bf36c5de6) )
+
+	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
+ROM_START( mslugxz65 ) //msxplus
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250z65.p1", 0x000000, 0x100000, CRC(9da9a569) SHA1(6bf9505c15a2d480660f1e22e2631c5f29d35534) )
+	ROM_LOAD16_WORD_SWAP( "250.p2", 0x100000, 0x400000, CRC(1fda2e12) SHA1(18aaa7a3ba8da99f78c430e9be69ccde04bc04d9) )
 
 	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
 
@@ -11171,7 +11194,7 @@ HACK( 2011, mslugxz08,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2011, mslugxz09,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Out Of The Blue Version Rev.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, mslugxz10,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Out Of The Blue Version Rev.3)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz11,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "METROID",    "Metal Slug X (Multi-Carrier Version 201X-0X-0X)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxz12,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "lb70 (Eezezy)",    "Metal Slug X (Crazy Fire Edition 2017-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslugxz12,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "lb70 (Eezezy)",    "Metal Slug X (Crazy Fire Edition 2017-01-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz13,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Extreme Space Edition 2015-04-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz14,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Eddids [FGCH]",    "Metal Slug X (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz15,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "kof1996",    "Metal Slug X (Enable Hidden Menu)", MACHINE_SUPPORTS_SAVE )
@@ -11207,10 +11230,10 @@ HACK( 1999, mslugxz48,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 1999, mslugxz49,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Blue Rev.?)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz50,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Qing Youlan First edition V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz51,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "METROID",    "Metal Slug X (Multi-Carrier Version (Looking Edition))", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, mslugxz52,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "METROID",    "Metal Slug X (Special Plus Version 2017-01-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslugxz52,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "METROID",    "Metal Slug X (Special Plus Version 2017-01-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, mslugxz53,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "METROID",    "Metal Slug X (Multi-Carrier Version(V.Unknown))", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, mslugxz54,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Gaston90",    "Metal Slug X (World Of Glitcher)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, mslugxz57,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Extreme Space Edition 201X-0X-1X)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mslugxz57,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Extreme Space Edition 2015-04-21)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslugxz58,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Edition 2016-10-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslugxz59,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Multi-Carrier Version 2016-10-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslugxz60,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Green Edition 2016-03-11)", MACHINE_SUPPORTS_SAVE )
@@ -11218,6 +11241,7 @@ HACK( 2016, mslugxz61,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 1999, mslugxz62,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "hack",    "Metal Slug X (Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugxz63,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "hack",    "Metal Slug X (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugxz64,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "hack",    "Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslugxz65,      mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "hack",    "Metal Slug X (Plus 2018-05-09)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugxhbs01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Enemy Heavy Plate 2013-06-18)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugxhbs02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Enemy Soldiers Remake Version 3)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, mslugxhbs03,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China",    "Metal Slug X (Extreme Space Edition 2015-04-10)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )

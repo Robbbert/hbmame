@@ -2983,7 +2983,7 @@ HACK( 2009, gowcaizrrv,    gowcaizr, neogeo_noslot, neogeo, neogeo_state,       
 HACK( 1995, gowcaizry,     gowcaizr, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "hack", "Voltage Fighter (Easy Moves)", MACHINE_SUPPORTS_SAVE)
 
 HACK( 1991, gpilotscd,     gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "CD_conv", "Ghost Pilots (CD conversion)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, gpilotse,      gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "kawada7278", "Ghost Pilots (Ex Super version 2014-10-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, gpilotse,      gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "kawada7278", "Ghost Pilots (Ex Super version 2014-10-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 1991, gpilotspx,     gpilots,  neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Xyahzhs", "Ghost Pilots (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
 HACK( 1996, ironcladb,     ironclad, neogeo_noslot, neogeo, neogeo_state,        neogeo,    ROT0, "Saurus", "Ironclad (Conversion from Wii)", MACHINE_SUPPORTS_SAVE )
@@ -4553,7 +4553,7 @@ HACK( 2018, magdrop3s01,    magdrop3, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, magdrop3s02,    magdrop3, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007/Shyma.X/Gaston90",   "Magical Drop III (Remix Edition 1.0 2018-08-03)", MACHINE_SUPPORTS_SAVE )
  // Matrimelee
 HACK( 2002, matrims01,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "hack",    "Matrimelee (Super Plus+)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "hack",    "Matrimelee (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrima,   ROT0, "hack",    "Matrimelee (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, matrims03,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "HappyAsr[EGCG]",    "Matrimelee (Enable Hidden Menu)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, matrims04,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "Dodowang[EGCG][EGCG]",    "Matrimelee (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, matrims05,      matrim,   neogeo_noslot, neogeo, neogeo_state,         matrim,    ROT0, "Creamymami[EGCG]",    "Matrimelee (Maximum Power)", MACHINE_SUPPORTS_SAVE )
@@ -4585,7 +4585,7 @@ HACK( 1999, s1945ps01,      s1945p,   neogeo_noslot, neogeo, neogeo_state,      
  // Savage Reign
 HACK( 1995, savageres01,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yumeji",    "Savage Reign (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, savageres02,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG][EGCG]",    "Savage Reign (Unlimited Super Moves)", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, savageres03,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Big Feng",    "Savage Reign (Super kill Command System 2015-03-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, savageres03,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Big Feng",    "Savage Reign (Super kill Command System 2015-03-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, savageres04,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Savage Reign (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, savageres05,    savagere, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Savage Reign (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
  // Super Dodge Ball

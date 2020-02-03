@@ -47,7 +47,7 @@ ROM_START( zeroteamcs01 )
 	ROM_LOAD( "v3c004x.ami18cv8pc-25.u0310.jed", 0x0000, 0x288, NO_DUMP)
 ROM_END
 
-ROM_START( zeroteamss01 )
+ROM_START( zeroteamss01 ) //zeroteams
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD32_BYTE("1_sel_po01.bin",   0x000000, 0x40000, CRC(c2f5bba6) SHA1(a99655bef65af96c160c5e83b709597edff2a953) )
 	ROM_LOAD32_BYTE("3_sel_po01.bin",   0x000002, 0x40000, CRC(aa278057) SHA1(dfe1082c1555b196989f3cbbd2b6207947f5059a) )

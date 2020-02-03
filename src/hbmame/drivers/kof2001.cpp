@@ -2133,13 +2133,13 @@ HACK( 2001, kof2k1mk,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, 
 HACK( 2001, kof2k1mk2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "MasakiAnton", "Kof2001 (Revised set 3 v2.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, kof2k1mke,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "MasakiAnton", "Kof2001 (Revised set 4)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, kof2k1nd,   kof2001,  neogeo_noslot, neogeo, neogeo_state, neogeo,    ROT0, "Hassan32000", "Kof2001 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2k1pa,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kf2k1pa,   ROT0, "bootleg", "Kof2001 Plus (set 2, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2k1pa,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kf2k1pa,   ROT0, "bootleg", "Kof2001 Plus (set 2, bootleg / hack)", MACHINE_SUPPORTS_SAVE ) //Plus Plus + Resurgence plus 3 Simplified BOSS
 HACK( 2003, kof2k1pjc,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Color Fix 030302)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, kof2k1pjo,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Color Fix)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, kof2k1pj1,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Char color changed ?? rev.2 ??  1508)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, kof2k1pj2,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Char color changed - Machine repair menu col changed)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2k1pj3,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "TcwLee", "Kof2001 (Color Fix 030720)", MACHINE_SUPPORTS_SAVE )
-HACK( 2002, kof2k1pls,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "bootleg", "Kof2001 Plus (Set 1, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2002, kof2k1pls,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "bootleg", "Kof2001 Plus (Set 1, bootleg / hack)", MACHINE_SUPPORTS_SAVE ) //Plus Plus + Resurgence plus 3 Simplified BOSS
 HACK( 2001, kof2k1rm,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Raymonose", "Kof2001 (Remix)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k1rp,   kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001, ROT0, "Fighters Kim, Jason/K3 and Raymonose", "Kof2001 (Remix Pro v1.02 final 2004-03-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k1rp0,  kof2001,  neogeo_noslot, neogeo, neogeo_state, kof2001,   ROT0, "Jason, Kim & Raymonose", "Kof2001 (Remix Pro v1.02 Final 2004-03-01)", MACHINE_SUPPORTS_SAVE )
@@ -3207,7 +3207,7 @@ ROM_START( kof2001s41 )
 	ROM_LOAD16_BYTE( "262d.c8", 0x3000001, 0x800000, CRC(954d0e16) SHA1(975803C130DF3A6E835B9BF0F8532D6586058C54) )
 ROM_END
 
-ROM_START( kof2001s42 )
+ROM_START( kof2001s42 ) //kf2k1cm
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "262s42.p1", 0x000000, 0x100000, CRC(595e2226) SHA1(0db14134041154ef8c5b92a766f573a272a3b691) )
 	ROM_LOAD16_WORD_SWAP( "262s42.p2", 0x100000, 0x400000, CRC(2aa937b0) SHA1(abc4ec29ccb12547dcb4c4060eee4291f3fd13a6) )
@@ -3235,7 +3235,7 @@ ROM_START( kof2001s42 )
 	ROM_LOAD16_BYTE( "262s42.c10", 0x4000001, 0x800000, CRC(c2ed841d) SHA1(7b84949057068a013522a27ec72be240b5c576cd) )
 ROM_END
 
-ROM_START( kof2001s43 )
+ROM_START( kof2001s43 ) //kf2k1pkz
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "262s43.p1",  0x000000, 0x100000, CRC(b30a961a) SHA1(47753893805f9cca19819d84ae53b226a4a4e321) )
 	ROM_LOAD16_WORD_SWAP( "262s43.p2",  0x100000, 0x400000, CRC(27b4e485) SHA1(955981dd9847c92e07c5b5002c5f0bc89c1cf3e7) )
@@ -3319,7 +3319,7 @@ ROM_START( kof2001s45 )
 	ROM_LOAD16_BYTE( "262s43.c10", 0x4000001, 0x800000, CRC(35109b7d) SHA1(6152f4bfef59ec7f5cc40de29814266ee13fb7ad) )
 ROM_END
 
-ROM_START( kof2001s46 )
+ROM_START( kof2001s46 ) //kf2k1pkz
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "262s46.p1",  0x000000, 0x100000, CRC(c484272e) SHA1(6ceed676f2f5b1663215d22bf74a58cb0bbd42b2) )
 	ROM_LOAD16_WORD_SWAP( "262s46.p2",  0x100000, 0x400000, CRC(91d4f9f7) SHA1(c14bb14d407210c8a132438c310222d01323df7a) )

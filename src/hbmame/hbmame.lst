@@ -142,7 +142,6 @@ ddonpacha		// trap15 hack
 pwrinst2		//parent
 pwrinst2h		/* 2013 Hack by TT */
 pwrinst2z
-pwrinst2s01
 plegends			//parent
 plegendsjs01
 plegendsjs02
@@ -827,6 +826,7 @@ dinos221
 dinos222
 dinos223
 dinos224
+dinos225
 ffights01
 ffights02
 ffightj2s01
@@ -849,6 +849,7 @@ knightsh11
 knightsh12
 knightsh13
 knightsh14
+knightsh15
 knightsjs01
 mercs01
 mercjs01
@@ -1756,6 +1757,7 @@ kof96s43
 kof96s45
 kof96s46
 kof96s47
+kof96s48
 kof96cns01
 
 @source:kof97.cpp
@@ -2004,6 +2006,8 @@ kof97s150
 kof97s151
 kof97s152
 kof97s153
+kof97s154
+kof97s155
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2312,6 +2316,7 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
+kof97plss13 // The roms has problems
 
 @source:kof98.cpp
 kof98aas
@@ -2522,6 +2527,8 @@ kof98s49
 kof98s50
 kof98s51
 kof98s52
+kof98hh03
+kof98hh04
 kof98hh05
 kof98hh06
 kof98hh07
@@ -3541,6 +3548,12 @@ kof2k2s89
 kof2k2s90
 kof2k2s91
 kof2k2s92
+kof2k2s93
+kof2k2s94
+kof2k2s95
+kof2k2s96
+kof2k2s97
+kof2k2s98
 
 @source:kof2003.cpp
 kof2003d
@@ -3726,6 +3739,7 @@ nbbatmanus02
 nbbatmanus03
 nbbatmanus04
 nbbatmanus05
+nbbatmanus06
 uccopsjs01
 
 @source:maketrax.cpp
@@ -3875,6 +3889,7 @@ umk3uc20190917
 umk3uc20191017
 umk3uc20191220
 umk3uc20191226
+umk3uc20200130
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -3982,6 +3997,8 @@ mslug2ps33
 mslug2ps34
 mslug2ps35
 mslug2ps36
+mslug2ps37
+mslug2ps38
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -4075,6 +4092,10 @@ ms6s03
 ms6s04
 ms6s05
 ms6s06
+ms6s07
+ms6s08
+ms6s09
+ms6s10
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -4152,6 +4173,7 @@ mslug3h70
 mslug3h71
 mslug3h72
 mslug3h73
+mslug3h74
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4868,6 +4890,8 @@ mslug5dh59
 mslug5dh60
 mslug5dh61
 mslug5dh62
+mslug5dh63
+mslug5dh64
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -5307,6 +5331,7 @@ mslugxz61
 mslugxz62
 mslugxz63
 mslugxz64
+mslugxz65
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
@@ -6413,6 +6438,7 @@ kogs08
 kogs09
 kogs10
 kogs11
+kogs12
 kf10theps01
 kf10theps02
 kf10theps03
@@ -6453,6 +6479,8 @@ kf2k5unis11
 kf2k5unis12
 kf2k5unis13
 kf2k5unis14
+kf2k5unis15
+kf2k5unis16
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
@@ -6483,6 +6511,9 @@ kof2k4ses29
 kof2k4ses30
 kof2k4ses31
 kof2k4ses32
+kof2k4ses33
+kof2k4ses34 
+kof2k4ses35
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03
@@ -7210,7 +7241,7 @@ ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
 // orlegendh // it is duplicated roms orlegendcs
-olds100a			//parent (crashes)
+olds100a			//parent
 kovassg
 //kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
@@ -7656,21 +7687,21 @@ kovpluss256
 kovpluss257
 kovpluss258
 kovpluss259
-//kovpluss260  // Unstable game in the emulator(ingame crash)
-//kovpluss261  // Unstable game in the emulator(ingame crash)
-//kovpluss262  // Unstable game in the emulator(ingame crash)
+kovpluss260  // Unstable game in the emulator(ingame crash)
+kovpluss261  // Unstable game in the emulator(ingame crash)
+kovpluss262  // Unstable game in the emulator(ingame crash)
 kovpluss263 // Serious problem graphic
 kovpluss264
 kovpluss265 // Serious problem graphic
-//kovpluss266  // Unstable game in the emulator(ingame crash)
+kovpluss266  // Unstable game in the emulator(ingame crash)
 kovpluss267
 kovpluss268
 kovpluss269
 kovpluss270
-//kovpluss271  // Unstable game in the emulator(ingame crash)
-//kovpluss272  // Unstable game in the emulator(ingame crash)
-//kovpluss273  // Unstable game in the emulator(ingame crash)
-//kovpluss274  // Unstable game in the emulator(ingame crash)
+kovpluss271
+kovpluss272
+kovpluss273
+kovpluss274
 kovpluss275
 kovpluss276
 kovpluss277
@@ -7710,11 +7741,11 @@ kovpluss310
 kovpluss311
 kovpluss312
 kovpluss313
-//kovpluss314
-//kovpluss315
+kovpluss314
+kovpluss315
 kovpluss316
 kovpluss317  //graphic problem
-//kovpluss318
+kovpluss318  // The roms has problems
 kovpluss319
 kovpluss320
 kovpluss321
@@ -7726,8 +7757,7 @@ kovpluss326
 kovpluss327  //graphic problem
 kovpluss328  //graphic problem
 kovpluss329
-//kovpluss330  // Unstable game in the emulator(ingame crash)
-//kovpluss331  // Unstable game in the emulator(ingame crash)
+kovpluss331
 kovpluss332
 kovpluss333
 kovpluss334
@@ -7749,6 +7779,12 @@ kovpluss349
 kovpluss350
 kovpluss351
 kovpluss352
+kovpluss353 //The roms has problems
+kovpluss354
+kovpluss355
+kovpluss356
+kovpluss357
+kovpluss358
 kovplusas01
 kovshs01
 kovshs02
@@ -7855,19 +7891,21 @@ kovshs103
 kovshs104
 kovshs105    // bad gfx
 kovshs106
-//kovshs107   //  Unstable game in the emulator (ingame crash) 
+kovshs107   //  Unstable game in the emulator (ingame crash) 
 kovshs108
 kovshs109
 kovshs110
 kovshs111    // graphic problem
 kovshs112
-// kovshs113   //  Unstable game in the emulator (ingame crash) 
+//kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
 kovshs115
 kovshs116
 kovshs117   //graphic problem
 kovshs118   //graphic problem
 kovshs119   //graphic problem
+kovshs120
+kovsgqyzs01
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
@@ -7884,7 +7922,6 @@ kovsho10
 kovsho11
 kovsho12
 kovsho13
-kovsho14
 //kovsho15 //disabled serious problems graphic
 kovsho16
 kovsho17
@@ -7980,13 +8017,45 @@ kovsho107
 kovsho108
 kovsho109
 kovsho110
-//kovsho111  //  Unstable game in the emulator (ingame crash)
-//kovsho112  //  Unstable game in the emulator (ingame crash)
+kovsho111
+kovsho112
 kovsho113
-//kovsho114  //  Unstable game in the emulator (ingame crash)
-//kovsho115  //  Unstable game in the emulator (ingame crash)
+kovsho114
+kovsho115
 kovsho116
 //kovsho117  //  Unstable game in the emulator (ingame crash)
+//kovsho118  //  Unstable game in the emulator (ingame crash)
+kovsho119
+kovsho120
+kovsho121
+kovsho122
+kovsho123
+kovsho124 // The roms has problems
+kovsho125
+kovsho126 // The roms has problems
+kovsho127 // The roms has problems
+kovsho128
+kovsho129
+kovsho130
+kovsho131
+kovsho132
+kovsho133
+kovsho134
+kovsho135
+kovsho136 // The roms has problems
+kovsho137 // Boot bios 1
+kovsho138 // Boot bios 1
+kovsho139 // The roms has problems
+kovsho140
+kovsho141
+kovsho142
+kovsho143 // The roms has problems      
+kovsho144
+kovsho145
+kovsho146 // Boot bios 1
+kovsho147
+kovsho148
+kovsho149
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8112,12 +8181,12 @@ olds100ass116 // opcode 1111 at cliff in attract mode
 olds100ass117 // opcode 1111 at cliff in attract mode
 olds100ass118 // opcode 1111 at cliff in attract mode
 olds100ass119 // opcode 1111 at cliff in attract mode
-//olds100ass120 //  roms missing
-//olds100ass121 //  roms missing
+olds100ass120
+olds100ass121
 olds100ass122
 olds100ass123
-//olds100ass124 //  roms missing
-//olds100ass125 //  roms missing
+olds100ass124
+olds100ass125
 olds100ass126
 olds100ass127
 olds100ass128
@@ -8175,6 +8244,8 @@ oldsplus15
 oldsplus16
 oldsplus17
 oldsplus18
+oldsplus19
+oldsplus20
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03

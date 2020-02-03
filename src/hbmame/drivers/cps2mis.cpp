@@ -2159,7 +2159,7 @@ HACK( 1998, mvscuh,     mvsc,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, 
 HACK( 2009, mshvsemb,   mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Blackheart", "Marvel Super Heroes Vs. Street Fighter (Easy Moves 2009-04-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, mshvsfjh,   mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Yumeji", "Marvel Super Heroes Vs. Street Fighter (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, mshvsfjphp, mshvsf,   cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Marvel Super Heroes Vs. Street Fighter (Get maximum power on a valid attack or being attacked)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, pfghtjrm,   sgemf,    cps2,      cps2_2p3b, cps2_state, cps2, ROT0, "Blackheart", "Pocket Fighter (Rise Starts Lite 2014-12-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, pfghtjrm,   sgemf,    cps2,      cps2_2p3b, cps2_state, cps2, ROT0, "Blackheart", "Pocket Fighter (Resurgence Lite 2014-12-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, pzloop2jd,  pzloop2,  dead_cps2, pzloop2,   cps2_state, pzloop2,  ROT0,   "Razoola", "Puzz Loop 2 (Japan 010226 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, sfa2h,      sfa2,     cps2,      cps2_2p6b, cps2_state, cps2, ROT0, "Pipi899", "Street Fighter Alpha 2 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, sfa3br,     sfa3,     cps2,      cps2_2p6bt,cps2_state, cps2, ROT0, "BisonSAS & Alan Yagami", "Street Fighter Alpha 3 (Brasil translation)", MACHINE_SUPPORTS_SAVE )
@@ -2310,7 +2310,7 @@ ROM_END
  Alien vs. Predator
 *********************/
 
-ROM_START( avspus01 )
+ROM_START( avspus01 ) //avspu3p
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )   
 	ROM_LOAD16_WORD_SWAP( "avpus01.03d", 0x000000, 0x80000, CRC(2f3dfdd3) SHA1(730a6d70a6cb44a6c60f500d9312c1b8c31d0f4b) )
 	ROM_LOAD16_WORD_SWAP( "avpus01.04d", 0x080000, 0x80000, CRC(04229fd7) SHA1(65a5719697c7c1cb46c330c69559666f2bf6e16f) )
@@ -2339,7 +2339,7 @@ ROM_START( avspus01 )
 	ROM_LOAD( "avspu.key",    0x000000, 0x000014, CRC(4e68e346) SHA1(60d5a12c77d07efc01f48968f4a12c59bf6b629e) )
 ROM_END
 
-ROM_START( avspus02 )
+ROM_START( avspus02 ) //avspu3p
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      
 	ROM_LOAD16_WORD_SWAP( "avpus02.03d", 0x000000, 0x80000, CRC(bb0f1eba) SHA1(08b13b0044b3ed2d0293799422eebfb3e531e276) )
 	ROM_LOAD16_WORD_SWAP( "avpus02.04d", 0x080000, 0x80000, CRC(78106911) SHA1(2b47d9c99f36de5a8028708e6e17ba278d38b155) )
@@ -2495,7 +2495,7 @@ ROM_END
  Dungeons & Dragons Shadow over Mystara
 *****************************************/
 
-ROM_START( ddsomjs01 )
+ROM_START( ddsomjs01 ) //ddsomjc
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "dd2js01.03g", 0x000000, 0x80000, CRC(ed73e646) SHA1(d438e440f8de98cf3bc4d4c47fc8eb9202b0e995) )
 	ROM_LOAD16_WORD_SWAP( "dd2js01.04g", 0x080000, 0x80000, CRC(c5a6e4b5) SHA1(8f1f285fd73bcce22a1dfdff24dcd8680f791fdc) )
@@ -2529,7 +2529,7 @@ ROM_START( ddsomjs01 )
 	ROM_LOAD( "ddsomj.key",   0x00, 0x14, CRC(d8dadb22) SHA1(e07b50ae464c35439333dd983e2acac48a1ce529) )
 ROM_END
 
-ROM_START( ddsomuds01 )   // unknown decryption key
+ROM_START( ddsomuds01 )   // ddsomap unknown decryption key
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "dd2uds01.03g", 0x000000, 0x80000, CRC(f486e08a) SHA1(a646dd908f606bcfdcdd589868eaff6b75ad6d54) )
 	ROM_LOAD16_WORD_SWAP( "dd2uds01.04g", 0x080000, 0x80000, CRC(c8f38de1) SHA1(c912e22cb3d06375e5bf53bddfd67c566c9bdfea) )
@@ -2566,7 +2566,7 @@ ROM_START( ddsomuds01 )   // unknown decryption key
 	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-ROM_START( ddsomuds02 ) //ddsomudp
+ROM_START( ddsomuds02 ) //ddsomudp, ddsomud
 	ROM_REGION( CODE_SIZE, "maincpu", 0 ) 
 	ROM_LOAD16_WORD_SWAP( "dd2uds02.03g", 0x000000, 0x80000, CRC(41429cbc) SHA1(dfd6011a52c8a8c5b42c85ee3c886cd3db8964b9) )
 	ROM_LOAD16_WORD_SWAP( "dd2uds02.04g", 0x080000, 0x80000, CRC(11f7496d) SHA1(b0f64487f8b9e410195ae6810a30b58874c2497c) )
@@ -5761,7 +5761,7 @@ HACK( 1995, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,  
 // Dungeons & Dragons Shadow over Mystara
 HACK( 2017, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese 2017-04-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ddsomuds01, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "hack", "Dungeons & Dragons: Shadow over Mystara (Diablo Mystery 2016-07-14)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 1996, ddsomuds02, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "bootleg", "Dungeons & Dragons: Shadow over Mystara (USA 960619 Phoenix Edition, Plus) (bootleg)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, ddsomuds02, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "hack", "Dungeons & Dragons: Shadow over Mystara (Enhanced Edition 2019-10-22)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
 HACK( 1999, gigawings01, gigawing, cps2,    cps2_2p2b, cps2_state, cps2, ROT0,   "LB70", "Giga Wing (Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 // Hyper Street Fighter II 
@@ -5782,18 +5782,18 @@ HACK( 2004, hsf2js13,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2004, hsf2js14,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Blue-Ray", "Hyper Street Fighter II: The Anniversary Edition (30% Blood)", MACHINE_SUPPORTS_SAVE )
 // Marvel Super Heroes
 HACK( 2014, mshs01,    msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Super Heroes (Rise Again 2014-12-24)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, mshs02,    msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Super Heroes (Unknown Hack 2015-12-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mshs02,    msh,      cps2,      cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Super Heroes (Enhanced Edition 2015-12-04)", MACHINE_SUPPORTS_SAVE )
 // Marvel Super Heroes Vs. Street Fighter
 HACK( 2010, mshvsfs01,  mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "kakakawa", "Marvel Super Heroes Vs. Street Fighter (Can Be Substitutions At Any Time 2010-08-18)", MACHINE_SUPPORTS_SAVE )
-HACK( 2013, mshvsfs02,  mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "kakakawa", "Marvel Super Heroes Vs. Street Fighter (Unknown Hack 2013-10-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, mshvsfs02,  mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "kakakawa", "Marvel Super Heroes Vs. Street Fighter (Enhanced Edition 2013-10-08)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, mshvsfjs01, mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Super Heroes Vs. Street Fighter (Move The Order To Modify 2008-07-21)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, mshvsfjs02, mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Super Heroes Vs. Street Fighter (Rise Again 2014-12-14)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, mshvsfjs03, mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Super Heroes Vs. Street Fighter (Unknown Hack 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mshvsfjs03, mshvsf,   cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Super Heroes Vs. Street Fighter (Enhanced Edition 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 // Marvel Vs. Capcom Clash of Super Heroes 
 HACK( 2008, mvscjs01,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Move The Order To Modify V1 2008-07-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, mvscjs02,   mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Marvel Vs. Capcom: Clash of Super Heroes (Move The Order To Modify V2 2009-07-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mvsh01,     mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "0 DAY-S[EGCG]", "Marvel Vs. Capcom: Clash of Super Heroes (Enable EX.Characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, mvsh02,     mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Vs. Capcom: Clash of Super Heroes (Unknown Hack 2013-10-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, mvsh02,     mvsc,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Marvel Vs. Capcom: Clash of Super Heroes (Enhanced Edition 2013-10-08)", MACHINE_SUPPORTS_SAVE )
 // Pocket Fighter
 HACK( 2008, pfghtjs01,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Command Change 2008-01-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, pfghtjs02,  sgemf,    cps2,     cps2_2p3b, cps2_state, cps2, ROT0,   "pipi899", "Pocket Fighter (Enhanced Power 2008-07-28)", MACHINE_SUPPORTS_SAVE )
@@ -5821,7 +5821,7 @@ HACK( 1998, sfa3s02,    sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2007, sfa3s03,    sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Street Fighter Alpha 3 (Moves Hack 2007-11-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, sfa3s04,    sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Dodowang[EGCG]", "Street Fighter Alpha 3 (Unlock All Modes 2004-04-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, sfa3s05,    sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Blue-Ray", "Street Fighter Alpha 3 (2 VS 1 27 Round)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, sfa3s06,    sfa3,     cps2,     cps2_2p6bt,cps2_state, cps2, ROT0,   "hack", "Street Fighter Alpha 3 (Dragon Edition 2014-11-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, sfa3s06,    sfa3,     cps2,     cps2_2p6bt,cps2_state, cps2, ROT0,   "hack", "Street Fighter Alpha 3 (Dragon Edition 2014-11-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, sfa3s07,    sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "DDJ", "Street Fighter Alpha 3 (Easy Move 2016-11-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, sfa3s08,    sfa3,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "DDJ", "Street Fighter Alpha 3 (Full Power 2016-09-05)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero 2 Alpha
@@ -5857,7 +5857,7 @@ HACK( 2009, sfzjs03,    sfa,      cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2007, sfzjs04,    sfa,      cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Street Fighter Zero (Moves Hack 2007-11-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, sfzjs05,    sfa,      cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Street Fighter Zero (Super-Entry Force To Modify 2008-02-17)", MACHINE_SUPPORTS_SAVE )
 // Super Street Fighter II X Grand Master Challenge
-HACK( 2004, ssf2ts01,   ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "KrysoFun", "Super Street Fighter II Turbo (Accelerated Plus V0.9 Beta 2014-12-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, ssf2ts01,   ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "KrysoFun", "Super Street Fighter II Turbo (Accelerated Plus V0.9 Beta 2014-12-16)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ssf2ts02,   ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Super Street Fighter II Turbo (Instruction Is Simplified 2009-05-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, ssf2tus01,  ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "shiro", "Super Street Fighter II Turbo (Nude Cammy)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, ssf2tus02,  ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Jason[FGCH]", "Super Street Fighter II Turbo (Retro color)", MACHINE_SUPPORTS_SAVE )
@@ -5865,13 +5865,13 @@ HACK( 2012, ssf2xjs01,  ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 1994, ssf2xjs02,  ssf2t,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Blue-Ray", "Super Street Fighter II X: Grand Master Challenge (Gouki Color Change)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, ssf2js01,   ssf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Super Street Fighter II X: The New Challengers (Unknown Hack 2012-09-12)", MACHINE_SUPPORTS_SAVE )
 // Vampire Savior 2 The Lord of Vampire
-HACK( 2008, vsav2s01,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2: The Lord of Vampire (Command Change 2008-4-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, vsav2s01,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2: The Lord of Vampire (Command Change 2008-04-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, vsav2s02,   vsav2,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "Vampire Savior 2: The Lord of Vampire (Infinite Power 2008-07-28)", MACHINE_SUPPORTS_SAVE )
 // X-Men Children of the Atom
 HACK( 1994, xmcotaj2s01, xmcota,  cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "yumeji", "X-Men: Children of the Atom (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, xmcotaj2s02, xmcota,  cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "X-Men: Children of the Atom (Unknown Hack 2013-01-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2013, xmcotaj2s02, xmcota,  cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "X-Men: Children of the Atom (Enhanced Edition 2013-01-09)", MACHINE_SUPPORTS_SAVE )
 // X-Men Vs. Street Fighter
 HACK( 1996, xmvsfs01,   xmvsf,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "shiro", "X-Men Vs. Street Fighter (Nude Alpha Chun Li)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, xmvsfs02,   xmvsf,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "X-Men Vs. Street Fighter (Unknown Hack 2015-12-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, xmvsfs02,   xmvsf,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "X-Men Vs. Street Fighter (Enhanced Edition 2015-12-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, xmvsfs03,   xmvsf,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Blackheart", "X-Men Vs. Street Fighter (Edition Enhanced)", MACHINE_SUPPORTS_SAVE )
 HACK( 2008, xmvsfjs01,  xmvsf,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "pipi899", "X-Men Vs. Street Fighter (Move The Order To Modify 2008-07-20)", MACHINE_SUPPORTS_SAVE )
