@@ -22473,7 +22473,7 @@ ROM_END
 ROM_START( kovsho117 ) //kovytzyhjb
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p0600h_101_po117.rom",    0x100000, 0x400041, CRC(858ab94e) SHA1(9674110a943dd2cd0408a4cdeb0b08b9e6f3ce9f) )
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po117.rom",    0x100000, 0x400000, CRC(a3776799) SHA1(fab91f0cc89ba9ba231565e7b7a42bce8372f632) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
 	ROM_LOAD( "kovsh_v100_china_pw117.asic", 0x000000, 0x04000,  CRC(9d352b6f) SHA1(9a9737478cc5aed4e60d341569c866854a3fca81) )
@@ -22493,9 +22493,9 @@ ROM_START( kovsho117 ) //kovytzyhjb
 	ROM_LOAD( "b0600.rom",          0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
 	ROM_LOAD( "b0540_po117.rom",    0x0800000, 0x0800000, CRC(94fc8287) SHA1(885b85afd0a730e74bd2e83a271f45c2d90e183f) )
 
-	ROM_REGION( 0x800000, "ics", 0 )
+	ROM_REGION( 0x800041, "ics", 0 )
 	PGM_AUDIO_BIOS
-	ROM_LOAD( "m0600_po117.rom",    0x400000, 0x400000, CRC(858ab94e) SHA1(9674110a943dd2cd0408a4cdeb0b08b9e6f3ce9f) )
+	ROM_LOAD( "m0600_po117.rom",    0x400000, 0x400041, CRC(858ab94e) SHA1(9674110a943dd2cd0408a4cdeb0b08b9e6f3ce9f) )
 ROM_END
 
 ROM_START( kovsho118 ) //kovwsqxzb3
@@ -23304,12 +23304,43 @@ ROM_START( kovsho149 ) //kovshpxy
 	ROM_LOAD( "a0540_pw149.rom",    0x1800000, 0x0800000, CRC(f5f5d7fc) SHA1(150eac16162b1f8830b16e326f2584d7190413f9) )
 
 	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "b0600.rom",          0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0600_pw149.rom",          0x0000000, 0x0800000, CRC(7d1eacc7) SHA1(ef759850110cc121504be58fbc3bc4aca3fa5b62) )
 	ROM_LOAD( "b0540_pw149.rom",    0x0800000, 0x0800000, CRC(9708e8b8) SHA1(8d304ee075171adf4963b60cd457a88a0de78ac0) )
 
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
+ROM_START( kovsho150 ) //kovshpds
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po150.rom",    0x100000, 0x400000, CRC(6fbfa1db) SHA1(d2d85e6b68ab66f95151c6767d7d4d227a38d5b6) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw147.asic", 0x000000, 0x04000,  CRC(c5494399) SHA1(77a1bdd68e6eaaa9a00d41123cbc71d4f3018612) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) ) //BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION16_LE( 0x2C00000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po147.rom",    0x0000000, 0x0800000, CRC(8bccc3ba) SHA1(5511109abf8dd6e69d167c021ae6a7a9fd08b026) )
+	ROM_LOAD( "a0601_po07.rom",    0x0800000, 0x0800000, CRC(cd391de8) SHA1(c593f61ba9e0c42c4a48e549b217c396099ca840) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0540_po147.rom",   0x1c00000, 0x1000000, CRC(3b11c9b3) SHA1(3244d263c0a1aea3b619670b47c21220a42a7d10) )
+
+	ROM_REGION16_LE( 0x1400000, "sprmask", 0 )
+	ROM_LOAD( "b0600_po147.rom",          0x0000000, 0x0800000, CRC(32cb43ef) SHA1(96e20d08506b94a345cfc2681da24ae68fe15ed2) )
+	ROM_LOAD( "b0601_kv11.rom",    0x0800000, 0x0400000, CRC(184fb667) SHA1(532aab9ad823d4eb6c21b143c6d5be429bcc1f38) )
+	ROM_LOAD( "b0540_po147.rom",    0x0c00000, 0x0800000, CRC(127085a9) SHA1(aeddde5212f7f0dc9478ec1503e925dc54b0eac8) )
+
+	ROM_REGION( 0x900000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "pgm_m01s_bios=bh03.rom", 0x000000, 0x200000, CRC(81a6aeca) SHA1(9b77df457566209fdbf47ed3f62c5d3249b03ec7) )
+	ROM_LOAD( "m0600_po07.rom",    0x400000, 0x40001C, CRC(c68e36b6) SHA1(690b5f4734a4f48fa010df0611d7188f3dff4deb) )
 ROM_END
 
  /************
@@ -33728,7 +33759,7 @@ HACK( 2018, kovsho73,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2017, kovsho74,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Memorial Gods Dusk Update 2017-03-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho75,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Enhanced Edition 2017-08-01)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho76,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Enhanced Edition 2017-08-0X)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2017, kovsho77,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Road to Survival True King Version Renew 2017-08-XX)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, kovsho77,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Road to Life True King Edition 2017-08-XX)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho78,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Zhu Shen Huang Hun Li Ming Edition 2018-05-16)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho79,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (In The Chaos Of The World Are The Latest 2018-04-11)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2012, kovsho80,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Qun Xiong Zai Qi 2012)", MACHINE_SUPPORTS_SAVE )
@@ -33740,7 +33771,7 @@ HACK( 2018, kovsho85,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2018, kovsho86,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Zhao Zilong Edition Update 2018-09-09)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho87,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Plus 2018 2018-08-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho88,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Blood Zhao Yun update 2018-09-22)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kovsho89,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Road to Survival True King Version Renew 2018-02-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kovsho89,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Road to Life True King Edition 2018-02-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho90,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2018-09-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho91,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Fighting Deer Update 2018-09-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho92,     kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Qunxiong New Version 2019-02-16)", MACHINE_SUPPORTS_SAVE )
@@ -33765,15 +33796,15 @@ HACK( 2019, kovsho110,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2019, kovsho111,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors In Troubled Times 2019-11-21)",  MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho112,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors Warlords 2019-11-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho113,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors Edition 2019-12-25)",  MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kovsho114,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Musou Combo Edition 2019-12-13)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kovsho115,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors World War II 2019-12-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho114,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Musou Combo Edition 2019-12-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho115,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors World War II 2019-12-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho116,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Unification Of Central Plains Warriors 2019-10-06)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kovsho117,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Central Plains Gold Edition 2019-10-03)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho117,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Central Plains Gold Edition 2019-10-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho118,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly Kingdom Protoss 2020-01-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho119,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2020-01-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho120,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors Edition 2020-01-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho121,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors Edition 2020-01-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, kovsho122,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Gone In Troubled Times 1V4 2020-01-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kovsho122,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Best firepower 1V4 2020-01-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho123,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (The Best Firepower In 2020 2020-01-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho124,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus 2012 (Nightmare Ares 2019-04-16)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho125,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Troubled Times 2019-05-01)", MACHINE_SUPPORTS_SAVE )
@@ -33800,7 +33831,8 @@ HACK( 2019, kovsho145,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2019, kovsho146,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (God of War 2019-07-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho147,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2019-09-15)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho148,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Central Plains Green Edition 2019-09-12)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kovsho149,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Journey To The West 2019 2019-08-18)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho149,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Journey To The West 2019 2019-08-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kovsho150,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2020-01-03)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 // Aoshi Sanguo
 HACK( 2004, kovshxass01,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Troubled Hero)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kovshxass02,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Metamorphosis V0.1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
@@ -33995,7 +34027,7 @@ HACK( 2017, oldsplus16,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1
 HACK( 2018, oldsplus17,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Magic Dance Yellow Hat Volt Magic Version 2018-08-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, oldsplus18,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Combo Plus 2019-07-16)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, oldsplus19,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208 2019-12-31)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, oldsplus20,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (A Legendary Edition 2019-01-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, oldsplus20,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (One-Key Gorgeous Edition A Legendary Edition 2019-01-19)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Plus
 HACK( 2013, orlegends01,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Unknown Hack 2013-02-11)", MACHINE_SUPPORTS_SAVE ) //(!)
 HACK( 2017, orlegends02,  orlegend,  pgm_asic3,          orlegend, pgm_asic3_state,     orlegend,   ROT0,   "hack", "Oriental Legend (Unknown Hack 2017-07-01)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //(!)
