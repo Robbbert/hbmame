@@ -12886,6 +12886,7 @@ rad_baskp
 rad_sinv
 rad_tetr
 airblsjs
+buzztime
 sudoelan
 carlecfg
 
@@ -14102,6 +14103,7 @@ tenspot                         // (c) 1982 Thomas Automatics
 theend                          // (c) 1980 Konami
 takeoff                         // (c) 1980 Sidam (bootleg)
 theends                         // (c) 1980 Stern
+theendss                        // bootleg (SegaSA / Sonic)
 thepitm                         // bootleg
 timefgtr                        // (c) Taito (Brazil) - rewrite of Time Pilot
 tst_galx                        // Galaxian Test ROM
@@ -14816,7 +14818,6 @@ ngoldb                          // 198? Unknown
 pmpoker                         // (c) 1981 PlayMan
 poker91                         // 1991, Unknown
 pokerdub                        // 198?, Unknown
-pokerduc                        // 198?, Unknown
 pokermon                        // 1987, Unknown
 pokersis                        // 198?, Sisteme France.
 potnpkra                        // Bootleg in Coinmaster H/W
@@ -14851,6 +14852,7 @@ witchcdf                        // (c) 1991, PlayMan
 witchcdg                        // (c) 199?, Falcon
 witchcdh                        // (c) 1994, TV Game Elektronik - Proma
 witchcdi                        // (c) 1994, TV Game Elektronik - Proma
+witchcdj                        // 199?, Unknown
 witchcdk                        // (c) 1991, Video Klein
 witchcrd                        // (c) 1991, Video Klein
 witchgme                        // (c) 1991 Video Klein
@@ -15030,6 +15032,7 @@ schery97                        // (c) 1998 Amcoe
 schery97a                       // (c) 1998 Amcoe
 scmaster                        // 1994, unknown
 skill98                         // (c) 1998 Amcoe
+ss2001                          // bootleg / hack
 star100                         // (c) 199? Sang Ho
 super7                          // bootleg (New Impeuropex?)
 super9                          // (c) 2001 Playmark
@@ -16601,6 +16604,7 @@ shufshot                        // (c) Strata/Incredible Technologies
 shufshot137                     // (c) Strata/Incredible Technologies
 shufshot139                     // (c) Strata/Incredible Technologies
 timekill                        // (c) 1992 Strata/Incredible Technologies
+timekill100                     // (c) 1992 Strata/Incredible Technologies
 timekill121                     // (c) 1992 Strata/Incredible Technologies
 timekill121a                    // (c) 1992 Strata/Incredible Technologies
 timekill131                     // (c) 1992 Strata/Incredible Technologies
@@ -18331,6 +18335,8 @@ jupiter3                        //
 
 @source:jvh.cpp
 escape                          //
+formula1                        //
+icemania                        //
 movmastr                        //
 
 @source:k1003.cpp
@@ -19626,6 +19632,7 @@ mastboyia                       // (c) 1991 - No Ref on the PCB
 @source:mastboyo.cpp
 mastboyo                        // (c) 1987 - No Ref on the PCB
 mastboyoa                       // (c) 1987 - No Ref on the PCB
+mastboyob
 
 @source:matmania.cpp
 excthour                        // TA-0015 (c) 1985 + Taito license
@@ -21900,6 +21907,7 @@ berlinpl                        // 1996 Mephisto Berlin Pro London Upgrade
 @source:mephisto_brikett.cpp
 mephisto
 mephisto2
+mephisto2a
 mephisto2e
 mephisto3
 mephisto3b
@@ -29253,6 +29261,7 @@ mrdot                           // 8201 (c) 1982 + Taito license
 mrdoy                           // 8201 (c) 1982
 mrdu                            // bootleg
 mrlo                            // bootleg
+mrdofabr                        // bootleg (Fabremar)
 yankeedo                        // bootleg
 
 @source:mrflea.cpp
@@ -30441,7 +30450,8 @@ chocomk                         // 2002.06 Musapey's Choco Marker (Rev A)
 claychal                        // 2008.11 Sega Clay Challenge
 cleoftp                         // 2002.05 Cleopatra Fortune Plus
 clubk2k3                        // 2003.?? Club Kart: European Session (2003, Rev A)
-clubk2kp                        // 2003.?? Club Kart: European Session (2003, prototype)
+clubk2kp                        // 2003.?? Club Kart: European Session (2003, prototype, set 1)
+clubk2kpa                       // 2003.?? Club Kart: European Session (2003, prototype, set 2)
 clubkcyc                        // 2003.?? Club Kart Cycraft Edition (Rev A)
 clubkcyco                       // 2003.?? Club Kart Cycraft Edition
 clubkprz                        // 2003.?? Club Kart Prize
@@ -30483,6 +30493,7 @@ dybb99                          // 1999.11 Dynamite Baseball '99 (Rev B)
 dybbnao                         // 1998.12 Dynamite Baseball NAOMI
 dygolf                          // 2001.04.27 Dynamic Golf / Virtua Golf (Rev A)
 f355                            // 1999.07 Ferrari F355 Challenge (deluxe, no link)
+f355p                           // 1999.05 Ferrari F355 Challenge (private show version)
 f355bios                        // 1999.08 F355 Challenge Twin/Deluxe (BIOS)
 f355dlx                         // 1999.07 F355 Challenge Deluxe (BIOS)
 f355twin                        // 1999.07 Ferrari F355 Challenge (twin/deluxe)
@@ -34215,6 +34226,7 @@ metamaq2                        // Metamaquina 2 desktop 3d printer
 @source:rampart.cpp
 rampart                         // 136082           (c) 1990
 rampart2p                       // 136082           (c) 1990
+rampart2pa                      // 136082           (c) 1990
 rampartj                        // 136082           (c) 1990 (Japan)
 
 @source:ramtek.cpp
@@ -36160,6 +36172,7 @@ hldspin2                        // (c) 2000 Amcoe - Hold & Spin II
 hldspin2d1                      // (c) 2000 Amcoe
 hldspin2o                       // (c) 2000 Amcoe
 hldspin2v1                      // (c) 2000 Amcoe
+mcircus                         // (c) 2009 Amcoe - Merry Circus
 moneymac                        // (c) 200? Amcoe - Money Machine
 moneymacd1                      // (c) 200? Amcoe
 moneymacd2                      // (c) 200? Amcoe
@@ -36638,8 +36651,8 @@ countryc                        // A7004 'CC' (c) 1988
 dogosokb                        // bootleg
 dogosoke                        // A6002      (c) 1986
 fitegolf                        // 'GU' (c) 1988
-fitegolf2                       //
 fitegolfu                       // 'GU' (c) 1988
+fitegolfua                      //
 fsoccer                         // A6006 'FS' (c) 1988
 fsoccerb                        // (c) 1988
 fsoccerba                       // (c) 1988
@@ -36916,6 +36929,105 @@ speedspn                        // (c) 1994
 
 @source:speglsht.cpp
 speglsht                        // (c) 1994 Seta
+
+@source:spg110.cpp
+jak_capb                        //
+jak_spdmo                       //
+conyteni                        //
+conyping                        //
+conyfght
+
+@source:spg2xx.cpp
+rad_skat                        //
+rad_skatp                       //
+rad_sktv                        //
+rad_crik                        //
+rad_fb2                         //
+mattelcs                        //
+abltenni                        //
+tvsprt10                        //
+wiwi18                          //
+
+@source:spg2xx_dreamlife.cpp
+dreamlif                        //
+
+@source:spg2xx_ican.cpp
+icanguit                        //
+icanpian                        //
+
+@source:spg2xx_jakks.cpp
+jak_batm                        // The Batman, 2004
+jak_wall                        //
+jak_wwe                         //
+jak_fan4                        //
+jak_just                        //
+jak_dora                        //
+jak_dorr                        //
+jak_disn                        //
+jak_disf                        //
+jak_dpr                         //
+jak_dprs                        //
+jak_sith                        //
+jak_sdoo                        //
+jak_dbz                         //
+jak_mpac                        //
+jak_capc                        //
+jak_wof                         //
+jak_spdm                        //
+jak_pooh                        //
+jak_care                        //
+jak_nick                        //
+jak_sbfc                        //
+
+@source:spg2xx_lexibook.cpp
+lexizeus                        // Lexibook
+lexiseal                        //
+discpal
+
+@source:spg2xx_pdc.cpp
+pdc100
+tmntpdc
+
+@source:spg2xx_playvision.cpp
+pvmil                           //
+
+@source:spg2xx_senario.cpp
+senmil
+senbbs
+senapren
+senpmate
+sencosmo
+
+@source:spg2xx_senario_poker.cpp
+sentx6p                         //
+sentx6puk
+sentx6pd
+
+@source:spg2xx_shredmjr.cpp
+taikeegr                        //
+shredmjr                        //
+
+@source:spg2xx_telestory.cpp
+telestry                        //
+
+@source:spg2xx_tvgogo.cpp
+tvgogo                          //
+
+@source:spg2xx_vii.cpp
+vii                             // KenSingTon / Jungle Soft / Siatronics Vii
+
+@source:spg2xx_zone.cpp
+wirels60                        // Wireless 60
+zone40                          // Zone 40
+reactmd
+itvg49
+zone60                          // Zone 60
+zone100                         //
+lx_jg7415                       //
+
+@source:spg2xx_zone_32bit.cpp
+mywicodx                        //
+zon32bit                        // Zone 32-bit
 
 @source:spiders.cpp
 spiders                         // (c) 1981 Sigma Ent. Inc.
@@ -39836,101 +39948,6 @@ vigilantd                       // (c) 1988 (Japan Rev D)
 vigilantg                       // (c) 1988 (US Rev G)
 vigilanto                       // (c) 1988 (US)
 
-@source:spg110.cpp
-jak_capb                        //
-jak_spdmo                       //
-conyteni                        //
-conyping                        //
-conyfght
-
-@source:spg2xx.cpp
-rad_skat                        //
-rad_skatp                       //
-rad_sktv                        //
-rad_crik                        //
-rad_fb2                         //
-mattelcs                        //
-abltenni                        //
-tvsprt10                        //
-wiwi18                          //
-
-@source:spg2xx_jakks.cpp
-jak_batm                        // The Batman, 2004
-jak_wall                        //
-jak_wwe                         //
-jak_fan4                        //
-jak_just                        //
-jak_dora                        //
-jak_dorr                        //
-jak_disn                        //
-jak_disf                        //
-jak_dpr                         //
-jak_dprs                        //
-jak_sith                        //
-jak_sdoo                        //
-jak_dbz                         //
-jak_mpac                        //
-jak_capc                        //
-jak_wof                         //
-jak_spdm                        //
-jak_pooh                        //
-jak_care                        //
-jak_nick                        //
-jak_sbfc                        //
-
-@source:spg2xx_zone.cpp
-wirels60                        // Wireless 60
-zone40                          // Zone 40
-zone60                          // Zone 60
-zone100                         //
-lx_jg7415                       //
-
-@source:spg2xx_zone_32bit.cpp
-mywicodx                        //
-zon32bit                        // Zone 32-bit
-
-@source:spg2xx_senario.cpp
-senmil
-senbbs
-senapren
-senpmate
-sencosmo
-
-@source:spg2xx_senario_poker.cpp
-sentx6p                         //
-sentx6puk
-sentx6pd
-
-@source:spg2xx_vii.cpp
-vii                             // KenSingTon / Jungle Soft / Siatronics Vii
-
-@source:spg2xx_ican.cpp
-icanguit                        //
-icanpian                        //
-
-@source:spg2xx_playvision.cpp
-pvmil                           //
-
-@source:spg2xx_shredmjr.cpp
-taikeegr                        //
-shredmjr                        //
-
-@source:spg2xx_telestory.cpp
-telestry                        //
-
-@source:spg2xx_tvgogo.cpp
-tvgogo                          //
-
-@source:spg2xx_pdc.cpp
-pdc100
-
-@source:spg2xx_dreamlife.cpp
-dreamlif                        //
-
-@source:spg2xx_lexibook.cpp
-lexizeus                        // Lexibook
-lexiseal                        //
-
 @source:vsmile.cpp
 vsmile                          //
 vsmilem                         //
@@ -41119,6 +41136,7 @@ ltv_tam                         //
 tak_geig                        //
 jarajal                         //
 tcarnavi                        //
+tomcpin
 ban_onep                        //
 ekara                           //
 ekaraa                          //

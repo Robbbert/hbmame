@@ -226,7 +226,6 @@ namespace plib {
 			{
 				pstring s(STR);
 				pi++;
-				// FIXME : \"
 				while (pi < tmp.size() && tmp[pi] != STR)
 				{
 					s += tmp[pi];
@@ -448,13 +447,12 @@ namespace plib {
 			m_state = LINE_CONTINUATION;
 			return {"", false};
 		}
-		else
-			m_state = PROCESS;
+
+		m_state = PROCESS;
 
 		line = process_comments(m_line);
 
 		pstring lt = plib::trim(plib::replace_all(line, "\t", " "));
-		// FIXME ... revise and extend macro handling
 		if (plib::startsWith(lt, "#"))
 		{
 			string_list lti(psplit(lt, " ", true));
@@ -462,7 +460,6 @@ namespace plib {
 			{
 				m_if_level++;
 				lt = replace_macros(lt);
-				//std::vector<pstring> t(psplit(replace_all(lt.substr(3), " ", ""), m_expr_sep));
 				auto t(simple_iter<ppreprocessor>(this, tokenize(lt.substr(3), m_expr_sep, true, true)));
 				auto val = static_cast<int>(prepro_expr(t, 255));
 				t.skip_ws();
@@ -585,13 +582,11 @@ namespace plib {
 			}
 			return { "", false };
 		}
-		else
-		{
-			if (m_if_flag == 0)
-				return { replace_macros(lt), true };
-			else
-				return { "", false };
-		}
+
+		if (m_if_flag == 0)
+			return { replace_macros(lt), true };
+
+		return { "", false };
 	}
 
 	void ppreprocessor::push_out(const pstring &s)
@@ -603,7 +598,7 @@ namespace plib {
 
 	void ppreprocessor::process_stack()
 	{
-		while (m_stack.size() > 0)
+		while (!m_stack.empty())
 		{
 			pstring line;
 			pstring linemarker = pfmt("# {1} \"{2}\"\n")(m_stack.back().m_lineno, m_stack.back().m_name);
@@ -624,7 +619,7 @@ namespace plib {
 					last_skipped = true;
 			}
 			m_stack.pop_back();
-			if (m_stack.size() > 0)
+			if (!m_stack.empty())
 			{
 				linemarker = pfmt("# {1} \"{2}\" 2\n")(m_stack.back().m_lineno, m_stack.back().m_name);
 				push_out(linemarker);
