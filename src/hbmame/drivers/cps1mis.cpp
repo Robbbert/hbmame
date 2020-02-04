@@ -25758,8 +25758,8 @@ HACK( 2019, dinos220,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2019, dinos221,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Uranus Edition Update 2019-09-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos222,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (God of War Edition 2019-09-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos223,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Warriors 2020 2019-11-17)", MACHINE_SUPPORTS_SAVE )
-HACK( 2011, dinos224,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (kof Combo + Unlimited Bullets 2011-12-20)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, dinos225,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Combat Prosperity Enhanced Edition 2020-01-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, dinos224,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (kof Combo + Unlimited Bullets 2019-12-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, dinos225,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-01-02)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
 HACK( 1990, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ffights02,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "hack", "Final Fight (1VS2 Enhanced Version 2016-08-17)", MACHINE_SUPPORTS_SAVE )

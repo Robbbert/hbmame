@@ -13456,7 +13456,7 @@ HACK( 2008, kof97hx04,      kof97,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1997, kof97hx05,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Chl",    "Kof'97 (Three Artifact Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx06,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kof1996",    "Kof'97 (Household Coin Is Not Reduced)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx07,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kof1996",    "Kof'97 (Household Coin Full)", MACHINE_SUPPORTS_SAVE )
-HACK( 1997, kof97hx08,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "ivex",    "Kof'97 (10th Anniversary Combo 2007)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, kof97hx08,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "ivex",    "Kof'97 (10th Anniversary Combo 2007)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx09,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yashional",    "Kof'97 (#2 EVO New Hack)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx10,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yashional",    "Kof'97 (Evolution)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kof97hx11,      kof97,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yukimura & bdmwzq",    "Kof'97 (EX Mode Plus Rev.2)", MACHINE_SUPPORTS_SAVE )
