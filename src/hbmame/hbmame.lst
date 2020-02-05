@@ -827,6 +827,7 @@ dinos222
 dinos223
 dinos224
 dinos225
+dinos226
 ffights01
 ffights02
 ffightj2s01
@@ -1239,6 +1240,7 @@ sfz2als02
 sfz2ns01
 sfa2s01
 sfa2s02
+sfa2s03
 sfz3js01
 sfz3js02
 sfz3js03
@@ -7638,7 +7640,7 @@ kovpluss206  // Unstable game in the emulator(ingame crash)
 kovpluss207
 kovpluss208
 kovpluss209  // very bad gfx
-//kovpluss210  // Unstable game in the emulator (causes emu to freeze)
+kovpluss210  // Unstable game in the emulator (causes emu to freeze)
 kovpluss211
 kovpluss212
 kovpluss213
@@ -7692,7 +7694,7 @@ kovpluss261  // Unstable game in the emulator(ingame crash)
 kovpluss262  // Unstable game in the emulator(ingame crash)
 kovpluss263 // Serious problem graphic
 kovpluss264
-kovpluss265 // Serious problem graphic
+kovpluss265
 kovpluss266  // Unstable game in the emulator(ingame crash)
 kovpluss267
 kovpluss268
@@ -7706,12 +7708,12 @@ kovpluss275
 kovpluss276
 kovpluss277
 //kovpluss278 // Serious problem graphic
-//kovpluss279  // Unstable game in the emulator(ingame crash)
+kovpluss279  // Unstable game in the emulator(ingame crash)
 kovpluss280
 kovpluss281
 kovpluss282
 kovpluss283
-//kovpluss284   // Unstable game in the emulator(ingame crash)
+kovpluss284   // Unstable game in the emulator(ingame crash)
 kovpluss285
 kovpluss286
 kovpluss287
@@ -7730,7 +7732,7 @@ kovpluss299
 kovpluss300
 kovpluss301
 kovpluss302
-kovpluss303 //graphic problem
+kovpluss303
 kovpluss304
 kovpluss305
 kovpluss306
@@ -7744,7 +7746,7 @@ kovpluss313
 kovpluss314
 kovpluss315
 kovpluss316
-kovpluss317  //graphic problem
+kovpluss317
 kovpluss318  // The roms has problems
 kovpluss319
 kovpluss320
@@ -7754,8 +7756,8 @@ kovpluss323
 kovpluss324
 kovpluss325
 kovpluss326
-kovpluss327  //graphic problem
-kovpluss328  //graphic problem
+kovpluss327
+kovpluss328
 kovpluss329
 kovpluss331
 kovpluss332
@@ -7779,12 +7781,18 @@ kovpluss349
 kovpluss350
 kovpluss351
 kovpluss352
-kovpluss353 //The roms has problems
+kovpluss353
 kovpluss354
 kovpluss355
 kovpluss356
 kovpluss357
 kovpluss358
+kovpluss359 // kovsho124
+kovpluss360 // kovsho127
+kovpluss361 //
+kovpluss362
+kovpluss363
+kovpluss364
 kovplusas01
 kovshs01
 kovshs02
@@ -7895,16 +7903,17 @@ kovshs107   //  Unstable game in the emulator (ingame crash)
 kovshs108
 kovshs109
 kovshs110
-kovshs111    // graphic problem
+kovshs111
 kovshs112
 //kovshs113   //  Unstable game in the emulator (ingame crash) 
 kovshs114
 kovshs115
 kovshs116
-kovshs117   //graphic problem
-kovshs118   //graphic problem
-kovshs119   //graphic problem
+kovshs117
+kovshs118
+kovshs119
 kovshs120
+kovshs121
 kovsgqyzs01
 kovqhsgs01
 kovqhsgs02
@@ -7922,7 +7931,6 @@ kovsho10
 kovsho11
 kovsho12
 kovsho13
-//kovsho15 //disabled serious problems graphic
 kovsho16
 kovsho17
 kovsho18
@@ -7985,14 +7993,14 @@ kovsho75
 kovsho76
 kovsho77
 kovsho78
-kovsho79  // Serious problem graphic
-//kovsho80  //  Unstable game in the emulator (ingame crash)
+kovsho79
+kovsho80  // Illegal Intruction
 kovsho81
 kovsho82
 kovsho83
 kovsho84
 kovsho86
-kovsho85  //graphic problem
+kovsho85
 kovsho87
 kovsho88
 kovsho89
@@ -8001,18 +8009,18 @@ kovsho91
 kovsho92
 kovsho93
 kovsho94
-kovsho95  // Serious problem graphic
+kovsho95
 kovsho96
 kovsho97
-kovsho98  // Serious problem graphic
-kovsho99  // Serious problem graphic
-// kovsho100  //  Unstable game in the emulator (ingame crash)
-// kovsho101  //  Unstable game in the emulator (ingame crash)
-// kovsho102  //  Unstable game in the emulator (ingame crash)
+kovsho98
+kovsho99
+kovsho100
+kovsho101
+kovsho102
 kovsho103
 kovsho104
 kovsho105
-kovsho106
+kovsho106 //Illegal Intruction
 kovsho107
 kovsho108
 kovsho109
@@ -8030,10 +8038,8 @@ kovsho120
 kovsho121
 kovsho122
 kovsho123
-kovsho124 // The roms has problems
 kovsho125
-kovsho126 // The roms has problems
-kovsho127 // The roms has problems
+kovsho126
 kovsho128
 kovsho129
 kovsho130
@@ -8049,7 +8055,7 @@ kovsho139 // The roms has problems
 kovsho140
 kovsho141
 kovsho142
-kovsho143 // The roms has problems      
+kovsho143 //Illegal Intruction     
 kovsho144
 kovsho145
 kovsho146 // Boot bios 1
@@ -8057,9 +8063,31 @@ kovsho147
 kovsho148
 kovsho149
 kovsho150
+kovsho151
+kovsho152 //
+kovsho153 //
+kovsho154
+kovsho155
+kovsho156
+kovsho157
+kovsho158 //
+kovsho159 //
+kovsho160 // Hardware 27 Error
+kovsho161 //
+kovsho162
+kovsho163
+kovsho164
+kovsho165
+kovsho166
+kovsho167
+kovsho168 //
+kovsho169 //
+kovsho170 //
+kovsho171
 kovshxass01
 kovshxass02
 kovshxass03
+kovshxass04
 martmasts01
 martmasts02
 martmasts03

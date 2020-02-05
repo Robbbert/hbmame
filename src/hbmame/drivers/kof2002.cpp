@@ -12397,7 +12397,7 @@ HACK( 2019, kof2k2s82,      kof2002,  gsc,           neogeo, neogeo_state,      
 HACK( 2019, kof2k2s83,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack",    "Kof2002 (All Mix Version 2018-04-22)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2014, kof2k2s84,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "GSC2007", "Kof2002 (Unknown Hack 2014-12-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kof2k2s85,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack", "Kof2002 (Tianguo Protoss 2019-10-21)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kof2k2s86,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack", "Kof2002 (Resurgence In The Kingdom Of Heaven 2019 2019-11-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kof2k2s86,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack", "Kof2002 (The Resurrection of the Kingdom of Heaven 2019 2019-11-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2015, kof2k2s87,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack", "Kof2002 (Another Kyo New powers 2015-02-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, kof2k2s88,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      neogeo,    ROT0, "hack", "Kof2002 (Black Modified Powers 2014-01-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof2k2s89,      kof2002,  neogeo_noslot, neogeo, neogeo_state,      kof2002,   ROT0, "hack", "Kof2002 (Remix ultra 3.5 2018-01-05)", MACHINE_SUPPORTS_SAVE )

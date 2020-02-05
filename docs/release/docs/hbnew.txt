@@ -4,6 +4,7 @@
 2020-03-25 0.220
 
 - Metal Slug 4 and 5 the remix has been updated
+- The serious graphic problem that some PGM system games have has been solved 
 
 New Games
 ---------------------------------
@@ -11,6 +12,7 @@ New Games
 - [captcomms75]       Captain Commando (Elite Edition Update 2019-11-11)
 - [dinos224]          Cadillacs and Dinosaurs (kof Combo + Unlimited Bullets 2019-12-15)
 - [dinos225]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-01-02)
+- [dinos226]          Cadillacs and Dinosaurs (Enhanced Edition 2019-11-07)
 - [kf2k5unis15]       Kof 10th Anniversary 2005 Unique (Alpha Unique 2020-01-23)
 - [kf2k5unis16]       Kof 10th Anniversary 2005 Unique (Alpha Unique New 2020-01-24)
 - [knightsh15]        Knights of the Round (Full Screen Attack 2018-02-26)
@@ -43,13 +45,21 @@ New Games
 - [kovpluss314]       Knights of Valour Plus (One Kings 1 2017-05-15)
 - [kovpluss315]       Knights of Valour Plus (One Kings 2 2017-05-07)
 - [kovpluss331]       Knights of Valour Plus (2017 Nightmare God of War Version 1.1 2019-04-15)
-- [kovpluss354]       Knights of Valour Plus 2012 (Warriors Classic Edition 2020-01-15)
+- [kovpluss350]       Knights of Valour Plus 2012 (God of Warriors Enhanced Edition 2019-08-17)
 - [kovpluss351]       Knights of Valour Plus 2012 (Enhanced Edition 2019-08-13)
 - [kovpluss352]       Knights of Valour Plus 2012 (Legend Of Ares 2020 2019-08-13)
+- [kovpluss353]       Knights of Valour Plus 2012 (God of War ST Uranus Edition 2020-01-10)
+- [kovpluss354]       Knights of Valour Plus 2012 (Warriors Classic Edition 2020-01-15)
 - [kovpluss355]       Knights of Valour Plus (Edition 2020-01-16)
 - [kovpluss356]       Knights of Valour Plus (Spike Edition 2019-09-14)
 - [kovpluss357]       Knights of Valour Plus (2012S Edition 2019-09-14)
 - [kovpluss358]       Knights of Valour Plus (Authentic 1V8 Edition 2017-02-18)
+- [kovpluss359]       Knights of Valour Plus 2012 (God of War 2019 2019-05-22)
+- [kovpluss360]       Knights of Valour Plus 2012 (Nightmare Ares 2019-04-16)
+- [kovpluss361]       Knights of Valour Plus (God of War Edition ST 2018-07-16)
+- [kovsho100]         Knights of Valour Super Heroes Plus (Super Hero The Road to Survival 2017)
+- [kovsho101]         Luan Shi Ying Xiong - Qun Xiong Zhu Lu (hack of Knights of Valour Super Heroes Plus, ver. 500 2017) [bootleg]
+- [kovsho102]         Luan Shi Ying Xiong - Qun Xiong Zhu Lu Plus (hack of Knights of Valour Super Heroes Plus, ver. 500 2017) [bootleg]
 - [kovsho111]         Knights of Valour Super Heroes Plus (Warriors In Troubled Times 2019-11-21)
 - [kovsho112]         Knights of Valour Super Heroes Plus (Warriors Warlords 2019-11-20)
 - [kovsho113]         Knights of Valour Super Heroes Plus (Edition 2019-12-25)
@@ -64,6 +74,7 @@ New Games
 - [kovsho122]         Knights of Valour Super Heroes Plus (The Best firepower 1V4 2020-01-18)
 - [kovsho123]         Knights of Valour Super Heroes Plus (The Best Firepower In 2020 2020-01-18)
 - [kovsho125]         Knights of Valour Super Heroes Plus (Troubled Times 2019-05-01)
+- [kovsho126]         Knights of Valour Super Heroes Plus (Heroes Of The Destroyer 2019-05-01)
 - [kovsho128]         Knights of Valour Super Heroes Plus (God of War 2019 2019-05-26)
 - [kovsho129]         Knights of Valour Super Heroes Plus (God of War 2019 2019-02-03)
 - [kovsho130]         Knights of Valour Super Heroes Plus (Gone With The Wind Warriors 2019 2019-02-28)
@@ -84,8 +95,22 @@ New Games
 - [kovsho148]         Knights of Valour Super Heroes Plus (Central Plains Green Edition 2019-09-12)
 - [kovsho149]         Knights of Valour Super Heroes Plus (Journey To The West 2019 2019-08-18)
 - [kovsho150]         Knights of Valour Super Heroes Plus (Heavenly King Edition 2020-01-03)
+- [kovsho151]         Knights of Valour Super Heroes Plus (Super Hero The Road to Survival 2017-10-02)
+- [kovsho152]         Knights of Valour Super Heroes Plus (Super Hero Qun Xiong Zhu Lu 2017-10-07)
+- [kovsho153]         Knights of Valour Super Heroes Plus (Bloody Battle Against All Quarters 2017-10-02)
+- [kovsho154]         Knights of Valour Super Heroes Plus (Super Hero The Road to Survival 2017-07-07)
+- [kovsho155]         Knights of Valour Super Heroes Plus (hack of Knights of Valour Super Heroes Plus, ver. 500 2017-11-20) [bootleg]
+- [kovsho157]         Knights of Valour Super Heroes Plus (Qun Xiong Zhu Lu Edition 2018-09-02)
+- [kovsho159]         Knights of Valour Super Heroes Plus (Tian Wang Edition 2018 2018-08-22)
+- [kovsho162]         Knights of Valour Super Heroes Plus (Heavenly King Edition 2014-07-14)
+- [kovsho163]         Knights of Valour Super Heroes Plus (Heavenly King Edition 2012-11-17)
+- [kovsho164]         Knights of Valour Super Heroes Plus (Heavenly King Edition 2012-04-21)
+- [kovsho165]         Knights of Valour Super Heroes Plus (Enhanced Version of 2015 2015-12-10)
+- [kovsho167]         Knights of Valour Super Heroes Plus (KOF Pirated Version 3 2012-08-03)
+- [kovsho171]         Knights of Valour Super Heroes Plus (Enhanced Edition 2015-01-17)
 - [kovshs120]         Knights of Valour Super Heroes (The Legend of Ares 2019 2019-08-03)
 - [kovsgqyzs01]       Sanguo Qunying Chuan Zhengzong Plus (Choose The Magic Yellow Is 32 Zhao Yun)
+- [kovshxass04]       Aoshi Sanguo (Hack Unknown 2015-12-11)
 - [nbbatmanus06]      Ninja Baseball Bat Man (Warriors Edition 2020-01-15)
 - [ms6s07]            Metal Slug 6 (Enemy Soldier Reset Prototype + Summon Mount Edition 2018-07-21)
 - [ms6s08]            Metal Slug 6 (Enemies Resetting Version + Summon Mount Edition 2019-07-20)
@@ -104,10 +129,12 @@ New Games
 - [olds100ass125]     Oriental Legend Special (The Immortal Devil Dance 2015 Enhanced Version 2015-01-14)
 - [oldsplus19]        Oriental Legend 2 (Xinqun Magic Ranwu 208 2019-12-31)
 - [oldsplus20]        Oriental Legend 2 (One-Key Gorgeous Edition A Legendary Edition 2019-01-19)
+- [sfa2s03]           Street Fighter Alpha 2 (Press Select Button Changed Character 2019-12-27)
 - [tk2h149]           Tenchi wo Kurau II (Master Edition 2019-12-26)
 - [umk3uc20191220]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-20)
 - [umk3uc20191226]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-26)
 - [umk3uc20200130]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-01-30)
+
 
 
 
