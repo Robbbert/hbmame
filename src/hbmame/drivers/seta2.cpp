@@ -10,7 +10,7 @@
  Guardians
 ************/
 
-ROM_START( grdianss01 )
+ROM_START( grdianss01 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s01.u2", 0x000000, 0x080000, CRC(90b1aa01) SHA1(c837230f1a14f6097ad3474dad5fb18d18f4a917) )
 	ROM_LOAD16_BYTE( "s01.u3", 0x000001, 0x080000, CRC(dbaabf39) SHA1(45e483675883512e5dd3a3baf8b867da77a96eb3) )
@@ -337,7 +337,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
-GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric Shadow 2 Satsuki Version 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition 2018-06-06)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, grdianss03,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hooooook", "Guardians (Blood Blue Initial Lengthening)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, grdianss04,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "KrysoFun", "Guardians (Super Version V1)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )

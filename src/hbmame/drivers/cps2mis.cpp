@@ -88,7 +88,7 @@ ROM_START( avspud )
 ROM_END
 
 
-ROM_START( ddsomavs )
+ROM_START( ddsomavs ) //ddsoma4p
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ddsomavs.03g", 0x000000, 0x80000, CRC(e28c61f2) SHA1(a15ba7e4d1c6e2e2c047e12edefc6b1564464496) )
 	ROM_LOAD16_WORD_SWAP( "ddsomavs.04g", 0x080000, 0x80000, CRC(145efa6f) SHA1(2da422bf43c4b4abd20ddcf7b0dd4a37f23d756a) )
@@ -2140,7 +2140,7 @@ ROM_END
 HACK( 2000, 1944da,     1944,     dead_cps2, cps2_2p3b, cps2_state, cps2, ROT0, "Razoola", "1944: The Loop Master (USA 000620 Phoenix Edition) (bootleg alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2012, 1944fp,     1944,     cps2,      cps2_2p2b, cps2_state, cps2, ROT0, "Qxs8", "1944: The Loop Master (Fire Power Plus 2011-12-31)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, avspud,     avsp,     dead_cps2, cps2_3p3b, cps2_state, cps2, ROT0, "Razoola", "Alien vs. Predator (USA 940520 Phoenix edition)", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Lock four person mode 2009-06-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2009, ddsomavs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (1vs4 Players 2009-06-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, ddsomchs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomhp,    ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (Strengthen The Physical Model 2009-06-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, ddsomjfs,   ddsom,    cps2,      cps2_4p4b, cps2_state, cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (Change the Final Strike condition 2009-07-17)", MACHINE_SUPPORTS_SAVE )
@@ -2310,7 +2310,7 @@ ROM_END
  Alien vs. Predator
 *********************/
 
-ROM_START( avspus01 ) //avspu3p
+ROM_START( avspus01 ) //avspu3p, avspp
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )   
 	ROM_LOAD16_WORD_SWAP( "avpus01.03d", 0x000000, 0x80000, CRC(2f3dfdd3) SHA1(730a6d70a6cb44a6c60f500d9312c1b8c31d0f4b) )
 	ROM_LOAD16_WORD_SWAP( "avpus01.04d", 0x080000, 0x80000, CRC(04229fd7) SHA1(65a5719697c7c1cb46c330c69559666f2bf6e16f) )
@@ -2339,7 +2339,7 @@ ROM_START( avspus01 ) //avspu3p
 	ROM_LOAD( "avspu.key",    0x000000, 0x000014, CRC(4e68e346) SHA1(60d5a12c77d07efc01f48968f4a12c59bf6b629e) )
 ROM_END
 
-ROM_START( avspus02 ) //avspu3p
+ROM_START( avspus02 ) //avspu3p, avspu3pp
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )      
 	ROM_LOAD16_WORD_SWAP( "avpus02.03d", 0x000000, 0x80000, CRC(bb0f1eba) SHA1(08b13b0044b3ed2d0293799422eebfb3e531e276) )
 	ROM_LOAD16_WORD_SWAP( "avpus02.04d", 0x080000, 0x80000, CRC(78106911) SHA1(2b47d9c99f36de5a8028708e6e17ba278d38b155) )
@@ -2601,6 +2601,44 @@ ROM_START( ddsomuds02 ) //ddsomudp, ddsomud
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x000000, 0x000014, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+ /*********************************
+ Darkstalkers: The Night Warriors
+************************************/
+
+ROM_START( dstlks01 ) //dstlkl
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )   
+	ROM_LOAD16_WORD_SWAP( "vame_ps01.03a", 0x000000, 0x80000, CRC(062da6f1) SHA1(6f470b5a68d70f066fbb29e88d819496de611713) )
+	ROM_LOAD16_WORD_SWAP( "vame.04a", 0x080000, 0x80000, CRC(ae413ff2) SHA1(e9b85ac04d6d1a57368c70aa24e3ab8a8d67409f) )
+	ROM_LOAD16_WORD_SWAP( "vame.05a", 0x100000, 0x80000, CRC(60678756) SHA1(5d10829ad7522b5de3b318dd8cbf1b506ba4c2d4) )
+	ROM_LOAD16_WORD_SWAP( "vame.06a", 0x180000, 0x80000, CRC(912870b3) SHA1(9c7620c7e25d236050411ba94fbc5b3b501970a3) )
+	ROM_LOAD16_WORD_SWAP( "vame.07a", 0x200000, 0x80000, CRC(dabae3e8) SHA1(126f8433491db36649f5e1908bbe45eb123048e4) )
+	ROM_LOAD16_WORD_SWAP( "vame.08a", 0x280000, 0x80000, CRC(2c6e3077) SHA1(d8042312ec546e3e807e3ef0a14af9b4f716e415) )
+	ROM_LOAD16_WORD_SWAP( "vame.09a", 0x300000, 0x80000, CRC(f16db74b) SHA1(7b7e31916a61e7fb35ec20849c6d22d74e169ec0) )
+	ROM_LOAD16_WORD_SWAP( "vame.10a", 0x380000, 0x80000, CRC(701e2147) SHA1(c0a0603e01fbed67a600b83902091c1073e2ed27) )
+
+	ROM_REGION( 0x1400000, "gfx", 0 )
+	ROMX_LOAD( "vam.13m",   0x0000000, 0x400000, CRC(c51baf99) SHA1(2fb6642908e542e404391eb17392f8270e87bf48) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.15m",   0x0000002, 0x400000, CRC(3ce83c77) SHA1(93369b23c6d7d834297434691bb047ee3dd9539c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.17m",   0x0000004, 0x400000, CRC(4f2408e0) SHA1(cd49c6b3c7e6470c6058f98ccc5210b052bb13e2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.19m",   0x0000006, 0x400000, CRC(9ff60250) SHA1(d69ba4dc6bd37d003245f0cf3211d6e2623005b8) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.14m",   0x1000000, 0x100000, CRC(bd87243c) SHA1(87b33aeb72514e1228ffc27ec6dd534f14882760) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.16m",   0x1000002, 0x100000, CRC(afec855f) SHA1(cd117833b8d475489b90ff44b57e2c5cb1af3af5) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.18m",   0x1000004, 0x100000, CRC(3a033625) SHA1(294238f30cba5cf4f8f1de951d54c2077bd95de9) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "vam.20m",   0x1000006, 0x100000, CRC(2bff6a89) SHA1(8f4e131e5ce0af48fb89f98026d9f0356c7c301f) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 ) 
+	ROM_LOAD( "vam.01",   0x00000, 0x08000, CRC(64b685d5) SHA1(6c180e7420db754eca5cad17a40f5a64f5c3bd15) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "vam.02",   0x28000, 0x20000, CRC(cf7c97c7) SHA1(109a4b56ecd59be9c3f5869de99d40619bdaef21) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "vam.11m",   0x000000, 0x200000, CRC(4a39deb2) SHA1(7e63e615869958db66a4e52a0272afee5a10e446) )
+	ROM_LOAD16_WORD_SWAP( "vam.12m",   0x200000, 0x200000, CRC(1a3e5c03) SHA1(c5a556e125d6c3d68da745b4d56cd7a851f2a23d) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "dstlk.key",    0x000000, 0x000014, CRC(cfa46dec) SHA1(ce57b3d53557f04ac53dac97d67374c288d85866) )
 ROM_END
 
  /*********
@@ -5794,6 +5832,8 @@ HACK( 1995, cybotsjs01, cybots,  cps2,      cybots,    cps2_state, cps2, ROT0,  
 HACK( 2017, ddsomjs01,  ddsom,   cps2,      cps2_4p4b, cps2_state, cps2, ROT0,   "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (Translation Chinese 2017-04-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ddsomuds01, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "hack", "Dungeons & Dragons: Shadow over Mystara (Diablo Mystery 2016-07-14)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, ddsomuds02, ddsom,   dead_cps2, cps2_4p4b, cps2_state, cps2, ROT0,   "hack", "Dungeons & Dragons: Shadow over Mystara (Enhanced Edition 2019-10-22)", MACHINE_SUPPORTS_SAVE )
+// Darkstalkers: The Night Warriors
+HACK( 2016, dstlks01,   dstlk,    cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Darkstalkers: The Night Warriors (Simplify Edition 2016-12-06)", MACHINE_SUPPORTS_SAVE )
 // Giga Wing
 HACK( 1999, gigawings01, gigawing, cps2,    cps2_2p2b, cps2_state, cps2, ROT0,   "LB70", "Giga Wing (Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 // Hyper Street Fighter II 

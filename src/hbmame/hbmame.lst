@@ -142,9 +142,11 @@ ddonpacha		// trap15 hack
 pwrinst2		//parent
 pwrinst2h		/* 2013 Hack by TT */
 pwrinst2z
+pwrinst2s01
 plegends			//parent
 plegendsjs01
 plegendsjs02
+plegendsjs03
 gaia			//parent
 gaias01
 metmqstr		//parent
@@ -537,6 +539,12 @@ tk2h146
 tk2h147
 tk2h148
 tk2h149
+tk2h150
+tk2h151
+tk2h152
+tk2h153
+tk2h154
+tk2h155
 wofb
 wofch		// tk2p1
 wofes
@@ -619,6 +627,10 @@ captcomms72
 captcomms73
 captcomms74
 captcomms75
+//captcomms76 // encrypted
+captcomms77
+captcomms78
+captcomms79
 dinos01
 dinos02
 dinos03
@@ -828,6 +840,11 @@ dinos223
 dinos224
 dinos225
 dinos226
+dinos227
+dinos228
+dinos229
+dinos230
+dinos231
 ffights01
 ffights02
 ffightj2s01
@@ -851,6 +868,8 @@ knightsh12
 knightsh13
 knightsh14
 knightsh15
+knightsh16
+knightsh17
 knightsjs01
 mercs01
 mercjs01
@@ -1176,6 +1195,7 @@ cybotsjs01
 ddsomjs01
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
 ddsomuds02
+dstlks01
 gigawings01
 mshs01
 mshs02
@@ -1416,6 +1436,7 @@ asurabld				//parent
 asurablds01
 asurablds02
 asurablds03
+asurablds04
 asurabus				//parent
 asurabuss01
 asurabuss02
@@ -3715,6 +3736,7 @@ lkages01
 @source:lordgun.cpp
 aliencha			//parent
 alienchas01 
+alienchas02
 
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
@@ -6262,6 +6284,7 @@ kizunas03
 kizunas04
 kizunas05
 kizunas06
+kizunas07
 magdrop3s01
 magdrop3s02
 matrims01
@@ -6271,6 +6294,7 @@ matrims04
 matrims05
 matrims06
 matrims07
+matrims08
 miexchngs01
 neobombes01
 neobombes02
@@ -6285,16 +6309,19 @@ ragnagrds01
 ragnagrds02
 ragnagrds03
 ragnagrds04
+ragnagrds05
 s1945ps01
 savageres01
 savageres02
 savageres03
 savageres04
 savageres05
+savageres06
 sdodgebs01
 sdodgebs02
 sdodgebs03
 wakuwak7s01
+wakuwak7s02
 2020bbe
 3countbe 
 aof3e
@@ -6766,6 +6793,7 @@ samshos04
 samshos05
 samshos06
 samshos07
+samshos08
 samsho2s01
 samsho2s02
 samsho2s03
@@ -6779,6 +6807,8 @@ samsho2s10
 samsho2s11
 samsho2s12
 samsho2s13
+samsho2s14
+samsho2s15
 samsho3s01
 samsho3s02
 samsho3s03
@@ -6791,6 +6821,7 @@ samsho3s09
 samsho3s10
 samsho3s11
 samsho3s12
+samsho3s13
 samsho4s01
 samsho4s02
 samsho4s03
@@ -6806,6 +6837,7 @@ samsho4s12
 samsho4s13
 samsho4s14
 samsho4s15
+samsho4s16
 samsho5s01
 samsho5s02
 samsho5s03
@@ -6835,6 +6867,7 @@ samsho5s26
 samsho5s27
 samsho5s28
 samsho5s29
+samsho5s30
 samsh5sp01
 samsh5sp02
 samsh5sp03
@@ -6857,6 +6890,7 @@ samsh5sp19
 samsh5sp20
 samsh5sp21
 samsh5sp22
+samsh5sp23
 
 @source:ngsengoku.cpp
 sengokucd
@@ -6885,6 +6919,7 @@ sengoku3s09
 sengoku3s10
 sengoku3s11
 sengoku3s12
+sengoku3s13
 
 @source:ngsvc.cpp
 svccprw
@@ -7019,6 +7054,7 @@ whps03
 whps04
 whps05
 whps06
+whps07
 wh1s01
 wh1s02
 wh2s01
@@ -7407,11 +7443,12 @@ kov2p204s82
 kov2p204s83
 kov2p204s84
 kov2p204s85
-kov2p204s86   //graphic problem
-kov2p204s87   //graphic problem
+kov2p204s86
+kov2p204s87
 kov2p204s88
 kov2p204s89
 kov2p204s90
+kov2p204s91
 kov2h01
 kov2h02
 kov2h03
@@ -7692,7 +7729,7 @@ kovpluss259
 kovpluss260  // Unstable game in the emulator(ingame crash)
 kovpluss261  // Unstable game in the emulator(ingame crash)
 kovpluss262  // Unstable game in the emulator(ingame crash)
-kovpluss263 // Serious problem graphic
+kovpluss263
 kovpluss264
 kovpluss265
 kovpluss266  // Unstable game in the emulator(ingame crash)
@@ -7707,7 +7744,7 @@ kovpluss274
 kovpluss275
 kovpluss276
 kovpluss277
-//kovpluss278 // Serious problem graphic
+kovpluss278
 kovpluss279  // Unstable game in the emulator(ingame crash)
 kovpluss280
 kovpluss281
@@ -7793,6 +7830,7 @@ kovpluss361 //
 kovpluss362
 kovpluss363
 kovpluss364
+kovpluss365
 kovplusas01
 kovshs01
 kovshs02
@@ -8084,6 +8122,7 @@ kovsho168 //
 kovsho169 //
 kovsho170 //
 kovsho171
+kovsho172
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8275,6 +8314,7 @@ oldsplus17
 oldsplus18
 oldsplus19
 oldsplus20
+oldsplus21
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -8380,6 +8420,9 @@ orlegendcs95
 orlegendcs96
 orlegendcs97
 orlegendcs98
+orlegendcs99
+orlegendcs100
+orlegendcs101
 theglads01
 theglads02
 theglads03
@@ -8423,6 +8466,7 @@ powernbr
 powerns01
 powerns02
 powerns03
+powerns04
 
 @source:psikyo.cpp
 tengai					//parent

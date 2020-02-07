@@ -12,7 +12,7 @@
  Long Hu Bang II
 ******************/
 
-ROM_START( lhb2s01 )
+ROM_START( lhb2s01 ) //lhb2c
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "maj2v185hhc01.u29", 0x00000, 0x80000, CRC(16a6f6de) SHA1(b5b463ce68da9541c6dd68d99a7469ab4cca3f78) )
 
@@ -28,5 +28,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Long Hu Bang II
-GAME( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, init_lhb2, ROT0, "whistler_wmz", "Long Hu Bang II (No AI Cheat)(Hong Kong, V185H)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, init_lhb2, ROT0, "whistler_wmz", "Long Hu Bang II (No AI Cheat)",   MACHINE_SUPPORTS_SAVE )
 
