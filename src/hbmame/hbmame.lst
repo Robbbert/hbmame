@@ -853,6 +853,7 @@ dinos231
 dinos232
 dinos233
 dinos234
+dinos235
 ffights01
 ffights02
 ffightj2s01
@@ -2039,6 +2040,9 @@ kof97s152
 kof97s153
 kof97s154
 kof97s155
+kof97s156
+kof97s157
+kof97s158
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2884,6 +2888,8 @@ kof99s91
 kof99s92
 kof99s93
 kof99s94
+kof99s95
+kof99s96
 
 @source:kof2000.cpp
 kof2000d
@@ -3585,6 +3591,10 @@ kof2k2s95
 kof2k2s96
 kof2k2s97
 kof2k2s98
+kof2k2s99
+kof2k2s100
+kof2k2s101
+kof2k2s102
 
 @source:kof2003.cpp
 kof2003d
@@ -7368,6 +7378,7 @@ kov115s08
 kov115s09
 kov115s10
 kov115s11
+kov115s12
 kov2p204s01
 kov2p204s02
 kov2p204s03
@@ -8131,6 +8142,12 @@ kovsho169 //
 kovsho170 //
 kovsho171
 kovsho172
+kovsho173
+kovsho174
+kovsho175
+kovsho176
+kovsho177
+kovsho178
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8302,6 +8319,7 @@ olds100ass161 // illegal instruction
 olds100ass162
 olds100ass163
 olds100ass164
+olds100ass165
 oldsplus01
 oldsplus02
 oldsplus03
@@ -8323,6 +8341,7 @@ oldsplus18
 oldsplus19
 oldsplus20
 oldsplus21
+oldsplus22
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
