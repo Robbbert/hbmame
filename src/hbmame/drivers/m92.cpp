@@ -258,7 +258,7 @@ ROM_END
  Ninja Baseball Bat Man
 *************************/
 
-ROM_START( nbbatmans01 )
+ROM_START( nbbatmans01 ) //nbbatmanx2
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "6_h0_po01.34",   0x000001, 0x040000, CRC(81e706e6) SHA1(95e3b0e490d8a0d8cb8f01c227e6a81bf764fcc5) )
 	ROM_LOAD16_BYTE( "3_l0_po01.31",   0x000000, 0x040000, CRC(353c90e9) SHA1(6f53e93f83b08bbb9acd0f593265880a01f96df4) )

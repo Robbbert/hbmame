@@ -4538,7 +4538,7 @@ HACK( 1993, samshos04,      samsho,   neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2014, samshos05,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "hack", "Samurai Shodown (Twelve Swordsman 2014-11-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, samshos06,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "hack", "Samurai Shodown (Enhanced Edition 2016-02-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, samshos07,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "DDJ",    "Samurai Shodown (Easy Move)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, samshos08,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "DDJ",    "Samurai Shodown (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, samshos08,      samsho,   neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "hack",    "Samurai Shodown (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown II
 HACK( 1994, samsho2s01,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "Creamymami[EGCG]",    "Samurai Shodown II (Always Maximun Power)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, samsho2s02,     samsho2,  neogeo_noslot, neogeo, neogeo_state,         neogeo,   ROT0,  "yumeji[2ch]",    "Samurai Shodown II (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )

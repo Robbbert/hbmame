@@ -552,7 +552,7 @@ GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_
 // Gouketsuji Gaiden
 GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "hack",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "DDJ",   "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, plegendsjs03,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "DDJ",   "Gouketsuji Gaiden (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, plegendsjs03,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j,ROT0,         "hack",  "Gouketsuji Gaiden (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Power Instinct 2
 GAME( 2018, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2, ROT0,         "hack",   "Power Instinct 2 (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Pretty Soldier Sailor Moon

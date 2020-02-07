@@ -643,4 +643,4 @@ HACK( 2017, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  seng
 HACK( 2001, sengoku3s10,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "DDJ",    "Sengoku 3 (Always Have Super Move)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3s11,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "DDJ",    "Sengoku 3 (Easy Move)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3s12,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "kofzec",    "Sengoku 3 (Unlock Hidden Character)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, sengoku3s13,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "kofzec",    "Sengoku 3 (Blue Out Of Blue 2018-06-04)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, sengoku3s13,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "hack",    "Sengoku 3 (Blue Out Of Blue 2018-06-04)" , MACHINE_SUPPORTS_SAVE )
