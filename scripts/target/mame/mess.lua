@@ -155,6 +155,7 @@ CPUS["WE32000"] = true
 CPUS["RX01"] = true
 CPUS["GTRON"] = true
 CPUS["M88000"] = true
+CPUS["XAVIX2"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -2908,6 +2909,7 @@ files {
 	MAME_DIR .. "src/mame/machine/nes.cpp",
 	MAME_DIR .. "src/mame/video/nes.cpp",
 	MAME_DIR .. "src/mame/drivers/nes_vt.cpp",
+	MAME_DIR .. "src/mame/drivers/nes_sh6578.cpp",
 	MAME_DIR .. "src/mame/drivers/nes_boot.cpp",
 	MAME_DIR .. "src/mame/drivers/pokemini.cpp",
 	MAME_DIR .. "src/mame/drivers/snes.cpp",
@@ -4103,6 +4105,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/cd100.cpp",
 	MAME_DIR .. "src/mame/drivers/cd2650.cpp",
 	MAME_DIR .. "src/mame/drivers/cdc721.cpp",
+	MAME_DIR .. "src/mame/drivers/cit1500.cpp",
 	MAME_DIR .. "src/mame/drivers/clxvme186.cpp",
 	MAME_DIR .. "src/mame/drivers/codata.cpp",
 	MAME_DIR .. "src/mame/drivers/controlid.cpp",
