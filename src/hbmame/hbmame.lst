@@ -7296,10 +7296,8 @@ ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
-// orlegendh // it is duplicated roms orlegendcs
 olds100a			//parent
 kovassg
-//kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
 kov2h1
 kov2h2
@@ -7312,16 +7310,15 @@ kovph3
 kovph4
 kovph5
 kovph6
-//kovph7      // broken (causes emu to freeze)
+//kovph7      // Encrypted
 kovph8
-//kovph9      // broken (causes emu to freeze)
-//kovph10     // broken (causes emu to freeze)
-//kovph11
+kovph9
+//kovph10     // Encrypted
 kovph12
 kovph13
 kovph14
 kovph15
-//kovph16     // broken (causes emu to freeze)
+//kovph16     // Encrypted
 kovph17
 kovph18
 //kovph19     // broken (causes emu to freeze)
@@ -8185,7 +8182,6 @@ olds100ass25
 olds100ass26
 olds100ass27
 olds100ass28
-olds100ass29 //  rom problem
 olds100ass32
 olds100ass33
 olds100ass34
