@@ -7296,7 +7296,7 @@ ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
-olds100a			//parent
+olds100a    //parent
 kovassg
 kovsgqyzc	// similar to kovsgqyza
 kov2h1
@@ -7321,10 +7321,10 @@ kovph15
 //kovph16     // Encrypted
 kovph17
 kovph18
-//kovph19     // broken (causes emu to freeze)
-//kovph20     // broken (causes emu to freeze)
-//kovph21     // broken (causes emu to freeze)
-//kovph22     // broken (causes emu to freeze)
+//kovph19     // Encrypted
+//kovph20     // Encrypted
+//kovph21     // Encrypted
+//kovph22     // Encrypted
 //kovph23   // rom missing
 kovph24		// was kvplusjq
 kovph25		// was kovplusq
