@@ -204,6 +204,7 @@ New Games
 - [umk3uc20191220]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-20)
 - [umk3uc20191226]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2019-12-26)
 - [umk3uc20200130]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-01-30)
+- [umk3uc20200204]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-02-04)
 - [wakuwak7s02]       Waku Waku 7 (Simplify Edition 2018-06-04)
 - [whps07]            World Heroes Perfect (Simplify Edition 2018-06-04)
 
