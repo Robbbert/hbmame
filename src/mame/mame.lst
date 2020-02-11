@@ -2485,6 +2485,7 @@ pcd4x                           // Siemens-Nixdorf PCD-4H and other 486 desktops
 pcd4nl                          // 1995 Siemens-Nixdorf PCD-4NL 486 subnotebook
 pcd4nd                          // 1993 Siemens-Nixdorf 486 notebook
 ct386sx                         //
+v286c                           // Victor V286c
 wy220001                        // WYSEpc 286
 cxsxd                           //
 ec1842                          //
@@ -9295,6 +9296,7 @@ blocktax                        // (c)2002 TAX / Game Revival
 bloodbro                        // (c) 1990 Tad
 bloodbroj                       // (c) 1990 Tad
 bloodbroja                      // (c) 1990 Tad
+bloodbrok                       // (c) 1990 Tad
 bloodbrou                       // (c) 1990 Tad + Fabtek license
 skysmash                        // (c) 1990 Nihon System Inc.
 weststry                        // bootleg
@@ -9802,6 +9804,9 @@ carpolo                         // (c) 1977
 @source:carrera.cpp
 bsebman                         // (c) 19?? BS Electronics
 carrera                         // (c) 19?? BS Electronics
+
+@source:casio_rompack.cpp
+casiorom
 
 @source:casloopy.cpp
 casloopy                        //
@@ -14016,6 +14021,7 @@ moonal2b                        // [1980] Nichibutsu
 moonaln                         // [Nichibutsu] (Karateco license) or hack
 mooncmw                         // bootleg
 mooncptc                        // bootleg (Petaco S.A.)
+sirio2                          // bootleg (Calfesa S.L.)
 mooncreg                        // bootleg
 mooncrgx                        // bootleg
 mooncrs2                        // bootleg
@@ -21920,6 +21926,7 @@ berlinpl                        // 1996 Mephisto Berlin Pro London Upgrade
 
 @source:mephisto_brikett.cpp
 mephisto
+mephisto1x
 mephisto2
 mephisto2a
 mephisto2e
@@ -29322,24 +29329,25 @@ ms0515                          //
 ms6102                          //
 
 @source:ms32.cpp
-suchie2                         // (c) 1994
-suchie2o                        // (c) 1994
-akiss                           // (c) 1995
-bbbxing                         // (c) 1994
-bnstars                         // (c) 1997
-desertwr                        // (c) 1995
+akiss                           // (c) 1995 - Ver 1.0
+bbbxing                         // (c) 1994 - Ver 1.3
+bnstars                         // (c) 1997 - Ver 1.1
+desertwr                        // (c) 1995 - Ver 1.0
 f1superb                        // (c) 1994
-gametngk                        // (c) 1995
-gratia                          // (c) 1996
-gratiaa                         // (c) 1996
+gametngk                        // (c) 1995 - Ver 1.0
+gratia                          // (c) 1996 - 92047-01 encrypted
+gratiaa                         // (c) 1996 - 91022-10 encrypted
 hayaosi2                        // (c) 1993
-hayaosi3                        // (c) 1994
-hayaosi3a                       // (c) 1994
+hayaosi3                        // (c) 1994 - Ver 1.5
+hayaosi3a                       // (c) 1994 - Ver 1.2
 kirarast                        // (c) 1996
-p47aces                         // (c) 1995
-tetrisp                         // (c) 1995 Jaleco / BPS
-tp2m32                          // (c) 1997
-wpksocv2                        // (c) 1997
+p47aces                         // (c) 1995 - Ver 1.1
+p47acesa                        // (c) 1995 - Ver 1.0
+suchie2                         // (c) 1994 - Ver 1.1
+suchie2o                        // (c) 1994 - Ver 1.0
+tetrisp                         // (c) 1995 Jaleco / BPS - Ver 1.0
+tp2m32                          // (c) 1997 - Ver 1.0
+wpksocv2                        // (c) 1997 - Ver 1.1
 
 @source:ms9540.cpp
 ms9540                          //
@@ -31311,11 +31319,11 @@ m82p                            // Nintendo M82 Display Unit PAL
 nes                             // Nintendo Entertainment System
 nespal                          // Nintendo Entertainment System PAL
 
-@source:nes_boot.cpp
+@source:nes_clone.cpp
 pjoypj001
+afbm7800
 
 @source:nes_sh6578.cpp
-afbm7800
 bandgpad
 cpatrolm
 ts_handy11
@@ -31336,6 +31344,8 @@ lxcmcy
 lxcmc250
 lxcmcysw
 lxcmcyfz
+lxcmcydp
+red5mam
 cybar120
 mc_dg101
 mc_aa2
@@ -31384,6 +31394,7 @@ dvnimbus
 cbrs8
 mc_tv200
 unkra200
+ppgc200g
 fcpocket
 mog_m320
 fapocket
@@ -36986,6 +36997,7 @@ jak_spdmo                       //
 conyteni                        //
 conyping                        //
 conyfght
+karaokd2
 
 @source:spg2xx.cpp
 rad_skat                        //
@@ -36996,8 +37008,11 @@ rad_fb2                         //
 mattelcs                        //
 abltenni                        //
 tvsprt10                        //
+decathln
 wiwi18                          //
 guitarfv
+jjstrip
+tmntmutm
 
 @source:spg2xx_dreamlife.cpp
 dreamlif                        //
@@ -37036,7 +37051,9 @@ lexiseal                        //
 discpal
 
 @source:spg2xx_mysprtch.cpp
-mysprtch
+mysprtcp
+mysptqvc
+mgt20in1
 
 @source:spg2xx_pdc.cpp
 pdc100
@@ -37661,12 +37678,17 @@ starfigh                        // (c) 1990 SunA
 
 @source:sunplus_gcm394.cpp
 jak_s500
+jak_totm
 smartfp                         // Smart Fit Park
 wlsair60                        // Wireless Air 60
 wrlshunt                        // Wireless: Hunting Video Game System
 tkmag220                        //
 jak_car2
 jak_gtg
+jak_duck
+jak_swc
+jak_wdzh
+jak_wdbg
 jak_tsm
 vbaby
 mgtfit
@@ -37834,8 +37856,9 @@ swtpcm                          // MPA2 MPC Mikbug rom
 @source:swtpc09.cpp
 swtpc09                         // S09, DMF2 Floppy SBUG rom - FLEX
 swtpc09d3                       // S09, DMF3 Floppy UNIBUG U3 rom - UniFLEX U3
-swtpc09i                        // S09, DC4 Floppy + PIA IDE SBUG rom - FLEX
+swtpc09i                        // S09, DC5 Floppy + PIA IDE SBUG rom - FLEX
 swtpc09u                        // S09, DMF2 Floppy UNIBUG rom - UniFLEX
+swtpc09o                        // S09, DC5 Floppy - OS9
 
 @source:swtpc8212.cpp
 swtpc8212                       // Terminal
@@ -39075,6 +39098,7 @@ tmntj                           // GX963 (c) 1990 (Japan)
 tmntu                           // GX963 (c) 1989 (US)
 tmntua                          // GX963 (c) 1989 (US)
 tmntub                          // GX963 (c) 1989 (US)
+tmntuc                          // GX963 (c) 1989 (US)
 trigon                          // GX939 (c) 1990 (Japan)
 
 @source:tmspoker.cpp
@@ -40240,6 +40264,9 @@ laser700                        // 1984? Laser 700
 
 @source:vtech_eu3a12.cpp
 vreadere
+
+@source:vtech_mobigo.cpp
+mobigo2
 
 @source:vulgus.cpp
 mach9                           // bootleg (ITISA)

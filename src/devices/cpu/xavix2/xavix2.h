@@ -38,7 +38,7 @@ protected:
 
 	const address_space_config m_program_config;
 	address_space *m_program;
-	memory_access_cache<0, 0, ENDIANNESS_LITTLE> *m_program_cache;
+	memory_access_cache<2, 0, ENDIANNESS_LITTLE> *m_program_cache;
 
 	int m_icount;
 	u32 m_pc;
@@ -51,9 +51,9 @@ protected:
 
 	static inline u32 val24u(u32 opcode) { return opcode & 0x00ffffff; }
 	static inline u32 val22s(u32 opcode) { return opcode & 0x200000 ? opcode | 0xffc00000 : opcode & 0x3fffff; }
+	static inline u32 val19s(u32 opcode) { return opcode & 0x40000 ? opcode | 0xfff80000 : opcode & 0x7ffff; }
 	static inline u32 val19u(u32 opcode) { return opcode & 0x0007ffff; }
-	static inline u32 val16u(u32 opcode) { return static_cast<u16>(opcode); }
-	static inline u32 val16s(u32 opcode) { return static_cast<s16>(opcode); }
+	static inline u32 val16s(u32 opcode) { return static_cast<s16>(opcode >> 8); }
 	static inline u32 val14h(u32 opcode) { return (opcode << 10) & 0xfffc0000; }
 	static inline u32 val14u(u32 opcode) { return (opcode >>  8) & 0x00003fff; }
 	static inline u32 val14s(u32 opcode) { return opcode & 0x200000 ? (opcode >> 8) | 0xffffc000 : (opcode >> 8) & 0x3fff; }
@@ -94,8 +94,7 @@ protected:
 		return r;
 	}
 
-	inline u32 do_or(u32 v1, u32 v2) {
-		u32 r = v1 | v2;
+	inline u32 do_set_nz(u32 r) {
 		u32 f = 0;
 		if(!r)
 			f |= F_Z;
@@ -103,17 +102,18 @@ protected:
 			f |= F_N;
 		m_f = f;
 		return r;		
+	}		
+
+	inline u32 do_or(u32 v1, u32 v2) {
+		return do_set_nz(v1 | v2);
 	}
 
 	inline u32 do_and(u32 v1, u32 v2) {
-		u32 r = v1 & v2;
-		u32 f = 0;
-		if(!r)
-			f |= F_Z;
-		if(r & 0x80000000)
-			f |= F_N;
-		m_f = f;
-		return r;		
+		return do_set_nz(v1 & v2);
+	}
+
+	inline u32 do_xor(u32 v1, u32 v2) {
+		return do_set_nz(v1 ^ v2);
 	}
 
 	inline u32 do_lsl(u32 v1, u32 shift) {

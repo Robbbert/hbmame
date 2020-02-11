@@ -156,6 +156,7 @@ CPUS["RX01"] = true
 CPUS["GTRON"] = true
 CPUS["M88000"] = true
 CPUS["XAVIX2"] = true
+CPUS["UPD78K"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -546,6 +547,7 @@ MACHINES["MC14411"] = true
 MACHINES["MC146818"] = true
 MACHINES["MC2661"] = true
 MACHINES["MC6843"] = true
+MACHINES["MC6844"] = true
 MACHINES["MC6846"] = true
 MACHINES["MC6852"] = true
 MACHINES["MC6854"] = true
@@ -1882,6 +1884,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/pv2000.cpp",
 	MAME_DIR .. "src/mame/drivers/sk1.cpp",
 	MAME_DIR .. "src/mame/drivers/rz1.cpp",
+	MAME_DIR .. "src/mame/drivers/casio_rompack.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "cbm")
@@ -2916,7 +2919,7 @@ files {
 	MAME_DIR .. "src/mame/video/nes.cpp",
 	MAME_DIR .. "src/mame/drivers/nes_vt.cpp",
 	MAME_DIR .. "src/mame/drivers/nes_sh6578.cpp",
-	MAME_DIR .. "src/mame/drivers/nes_boot.cpp",
+	MAME_DIR .. "src/mame/drivers/nes_clone.cpp",
 	MAME_DIR .. "src/mame/drivers/pokemini.cpp",
 	MAME_DIR .. "src/mame/drivers/snes.cpp",
 	MAME_DIR .. "src/mame/includes/snes.h",
@@ -3979,6 +3982,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/vsmileb.cpp",
 	MAME_DIR .. "src/mame/drivers/clickstart.cpp",
 	MAME_DIR .. "src/mame/drivers/storio.cpp",
+	MAME_DIR .. "src/mame/drivers/vtech_mobigo.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "wang")
