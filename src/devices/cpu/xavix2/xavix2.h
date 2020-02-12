@@ -20,7 +20,8 @@ protected:
 		F_Z = 1,
 		F_N = 2,
 		F_C = 4,
-		F_V = 8
+		F_V = 8,
+		F_I = 16
 	};
 		
 	static const u8 bpo[8];
@@ -42,8 +43,12 @@ protected:
 
 	int m_icount;
 	u32 m_pc;
-	u32 m_r[8];
+	u32 m_r[8], m_hr[64];
+	u32 m_ilr1;
 	u8 m_f;
+	u8 m_if1;
+
+	bool m_int_line;
 
 	static inline int r1(u32 opcode) { return (opcode >> 22) & 7; }
 	static inline int r2(u32 opcode) { return (opcode >> 19) & 7; }
@@ -60,6 +65,7 @@ protected:
 	static inline u32 val11s(u32 opcode) { return opcode & 0x40000 ? (opcode >> 8) | 0xfffff800 : (opcode >> 8) & 0x7ff; }
 	static inline u32 val11u(u32 opcode) { return (opcode >>  8) & 0x000007ff; }
 	static inline u32 val8s(u32 opcode)  { return static_cast<s8>(opcode >> 16); }
+	static inline u32 val6u(u32 opcode)  { return (opcode >> 16) & 0x0000003f; }
 	static inline u32 val6s(u32 opcode)  { return opcode & 0x200000 ? (opcode >> 16) | 0xffffffc0 : (opcode >> 16) & 0x3f; }
 	static inline u32 val3u(u32 opcode)  { return (opcode >> 16) & 0x00000007; }
 	static inline u32 val3s(u32 opcode)  { return opcode & 0x40000 ? (opcode >> 16) | 0xfffffff8 : (opcode >> 16) & 0x7; }
@@ -94,7 +100,7 @@ protected:
 		return r;
 	}
 
-	inline u32 do_set_nz(u32 r) {
+	inline u32 snz(u32 r) {
 		u32 f = 0;
 		if(!r)
 			f |= F_Z;
@@ -103,18 +109,6 @@ protected:
 		m_f = f;
 		return r;		
 	}		
-
-	inline u32 do_or(u32 v1, u32 v2) {
-		return do_set_nz(v1 | v2);
-	}
-
-	inline u32 do_and(u32 v1, u32 v2) {
-		return do_set_nz(v1 & v2);
-	}
-
-	inline u32 do_xor(u32 v1, u32 v2) {
-		return do_set_nz(v1 ^ v2);
-	}
 
 	inline u32 do_lsl(u32 v1, u32 shift) {
 		if(!shift) {
@@ -177,6 +171,8 @@ protected:
 			}
 		}
 	}
+
+	u32 check_interrupt(u32 npc);
 };
 
 enum {
@@ -189,7 +185,77 @@ enum {
 	XAVIX2_R4,
 	XAVIX2_R5,
 	XAVIX2_SP,
-	XAVIX2_LR
+	XAVIX2_LR,
+	XAVIX2_ILR1,
+	XAVIX2_IF1,
+
+	XAVIX2_HR00,
+	XAVIX2_HR01,
+	XAVIX2_HR02,
+	XAVIX2_HR03,
+	XAVIX2_HR04,
+	XAVIX2_HR05,
+	XAVIX2_HR06,
+	XAVIX2_HR07,
+	XAVIX2_HR08,
+	XAVIX2_HR09,
+	XAVIX2_HR0A,
+	XAVIX2_HR0B,
+	XAVIX2_HR0C,
+	XAVIX2_HR0D,
+	XAVIX2_HR0E,
+	XAVIX2_HR0F,
+
+	XAVIX2_HR10,
+	XAVIX2_HR11,
+	XAVIX2_HR12,
+	XAVIX2_HR13,
+	XAVIX2_HR14,
+	XAVIX2_HR15,
+	XAVIX2_HR16,
+	XAVIX2_HR17,
+	XAVIX2_HR18,
+	XAVIX2_HR19,
+	XAVIX2_HR1A,
+	XAVIX2_HR1B,
+	XAVIX2_HR1C,
+	XAVIX2_HR1D,
+	XAVIX2_HR1E,
+	XAVIX2_HR1F,
+
+	XAVIX2_HR20,
+	XAVIX2_HR21,
+	XAVIX2_HR22,
+	XAVIX2_HR23,
+	XAVIX2_HR24,
+	XAVIX2_HR25,
+	XAVIX2_HR26,
+	XAVIX2_HR27,
+	XAVIX2_HR28,
+	XAVIX2_HR29,
+	XAVIX2_HR2A,
+	XAVIX2_HR2B,
+	XAVIX2_HR2C,
+	XAVIX2_HR2D,
+	XAVIX2_HR2E,
+	XAVIX2_HR2F,
+
+	XAVIX2_HR30,
+	XAVIX2_HR31,
+	XAVIX2_HR32,
+	XAVIX2_HR33,
+	XAVIX2_HR34,
+	XAVIX2_HR35,
+	XAVIX2_HR36,
+	XAVIX2_HR37,
+	XAVIX2_HR38,
+	XAVIX2_HR39,
+	XAVIX2_HR3A,
+	XAVIX2_HR3B,
+	XAVIX2_HR3C,
+	XAVIX2_HR3D,
+	XAVIX2_HR3E,
+	XAVIX2_HR3F
 };
 
 DECLARE_DEVICE_TYPE(XAVIX2, xavix2_device)
