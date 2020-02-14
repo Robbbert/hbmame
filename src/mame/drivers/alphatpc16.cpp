@@ -1,6 +1,50 @@
 // license:BSD-3-Clause
 // copyright-holders:Carl
 
+/******************************************************************************************
+The Alphatronic PC 16 was modeled after the earlier 8 bit Alphatronic PC – on the outside
+a typical "breadbox" home computer case with an integrated keyboard and external floppy disk drives.
+Coming from a typewriter company, it had ambitions for office use - its high price and mismatched
+intended use and design coupled with its release date gave it little success. It was released
+in the early phase of DOS computers, when IBM’s standard was not yet set into stone, but would
+vanquish all "incompatible" solutions within short time.
+The start screen allows the selection
+of functions by entering the first (two) letters of the command or using the F-key as shown on the screen.
+
+CPU: 8088@5MHz - RAM: 64KB, can be extended to 128KB - ROM: 64KB (monitor and BASIC)
+
+Keyboard: ALP: the key marked with a Greek alpha character makes the computer/printer combo a
+          typewriter, everything is typed "through".
+          BRK: BREAK stops a BASIC program or acts like CTRL-C
+          GRAPH: allows the entering of semigraphics characters, locks into place like CAPSLK
+          numeric and BTX function keys:
+          UP, DWN, LFT and RWT are marked with their respective arrows and move the cursor
+          DEL is marked (R) for BTX mode and reloads the page
+          CLR is marked (i) in BTX mode for “info” and loads the start page
+          = is marked with a page that’s being turned and is a "reveal" key, e.g. for quizzes
+          <-/ is marked with an envelope, it loads BTX’s messaging service
+          the + and – keys aren’t defined yet in BTX mode, they are marked with a page and an arrow each
+         * shows a screen with a black/white contrast and turns BTX screen attributes on and off
+          / has a telephone receiver and three lines and is the online/offline/dialing key
+
+                                                  [RST] [F1 ] [F2] [F3 ] [F4 ] [F5 ] [F6 ]
+
+[ESC] [1 !] [2 ”] [3 §] [4 $] [5 %] [6 &] [7 /] [8 (][9 )] [0 =] [ß ?] [´ `] [BRK] [GRAPH]   [ 7 ] [ 8 ] [ 9 ] [ * ] [ / ]
+[TAB  ] [ Q ] [ W ] [ E ] [ R ] [ T ] [ Z ] [ U ] [ I ] [ O ] [ P ] [ Ü ] [+ *] [CTR] [| ]   [ 4 ] [ 5 ] [ 6 ] [ + ] [ - ]
+[CAPSLK]  [ A ] [ S ] [ D ] [ F ] [ G ] [ H ] [ J ] [ K ] [ L ] [ Ö ] [ Ä ] [^ #] [  <-- ]   [ 1 ] [ 2 ] [ 3 ] [ = ] [<-/]
+[SHFT] [< >] [ Y ] [ X ] [ C ] [ V ] [ B ] [ N ] [ M ] [, ;] [: .] [- _] [  SHFT  ]  [ALP]   [ 0 ] [UP ] [ . ] [DEL] [CLR]
+                   [                      LEER                   ]                           [LFT] [DWN] [RGT] [INS] [HOM]
+
+Graphics options: Standard monitor cassette (Cinch for bw and DIN for SCART/RGB connectors) 40/80x21/25
+characters, Full graphics cassette (512x256 pixels, 16 colours, vector graphics, 64K video RAM),
+BTX cassette (compatible with the standard monitor cassette but includes a modem for BTX functionality)
+Floppy: 1 or 2 5.25” DSDD 40 tracks x 5 sectors x 1024 bytes
+Connectors: joystick, cassette recorder (600/1200 BD) FSK, printer (recommended: TRD 7020 or
+GABRIELE 9009 typewriter, V24), floppy, module slot
+Options: 2 versions of an autonomous processor PCB (Z8671 based, programmable in TinyBasic
+via the PC 16 Terminal, operates independently after programming), connects to the printer port
+******************************************************************************************/
+
 #include "emu.h"
 
 #include "cpu/i86/i86.h"
@@ -28,7 +72,8 @@ public:
 		m_ef9345(*this, "ef9345"),
 		m_beep(*this, "beeper"),
 		m_wdfdc(*this, "wdfdc"),
-		m_ram(*this, RAM_TAG)
+		m_ram(*this, RAM_TAG),
+		m_z80(*this, "z80")
 	{ }
 
 public:
@@ -58,8 +103,10 @@ private:
 	required_device<beep_device> m_beep;
 	required_device<wd1770_device> m_wdfdc;
 	required_device<ram_device> m_ram;
+	required_device<cpu_device> m_z80;
 
-	u8 m_p1, m_p2;
+	u8 m_p1, m_p2, m_data;
+	bool m_bsy, m_req, m_ack, m_cd, m_io, m_sel;
 };
 
 void alphatpc16_state::machine_start()
@@ -93,19 +140,64 @@ READ8_MEMBER(alphatpc16_state::p2_r)
 
 WRITE8_MEMBER(alphatpc16_state::host_scsi_w)
 {
+	switch(offset)
+	{
+		case 0:
+			m_ack = true;
+			m_sel = false;
+			m_data = data;
+			m_z80->set_input_line(INPUT_LINE_NMI, CLEAR_LINE);
+			break;
+		case 2:
+			m_ack = false;
+			m_sel = true;
+			m_data = data;
+			m_z80->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
+			break;
+	}
 }
 
 READ8_MEMBER(alphatpc16_state::host_scsi_r)
 {
+	switch(offset)
+	{
+		case 0:
+			m_ack = true;
+			m_req = false;
+			return m_data;
+		case 1:
+			return (m_req << 1) | (m_bsy << 2) | (m_cd << 3) | (m_io << 5);
+	}
 	return 0;
 }
 
 WRITE8_MEMBER(alphatpc16_state::flop_scsi_w)
 {
+	switch(offset)
+	{
+		case 0:
+			m_req = true;
+			m_ack = false;
+			m_data = data;
+			break;
+		case 1:
+			m_bsy = !BIT(data, 0);
+			m_cd = !BIT(data, 2);
+			m_io = !BIT(data, 3);
+	}
 }
 
 READ8_MEMBER(alphatpc16_state::flop_scsi_r)
 {
+	switch(offset)
+	{
+		case 0:
+			m_ack = false;
+			m_req = false;
+			return m_data;
+		case 1:
+			return m_bsy | (m_sel << 1) | (m_ack << 2);
+	}
 	return 0;
 }
 
@@ -133,7 +225,7 @@ void alphatpc16_state::apc16_z80_io(address_map &map)
 {
 	map.global_mask(0xff);
 	map(0x20, 0x23).rw(m_wdfdc, FUNC(wd1770_device::read), FUNC(wd1770_device::write));
-	map(0x62, 0x63)	.rw(FUNC(alphatpc16_state::flop_scsi_r), FUNC(alphatpc16_state::flop_scsi_w));
+	map(0x62, 0x63) .rw(FUNC(alphatpc16_state::flop_scsi_r), FUNC(alphatpc16_state::flop_scsi_w));
 }
 
 static INPUT_PORTS_START( alphatpc16 )
@@ -153,9 +245,9 @@ void alphatpc16_state::alphatpc16(machine_config &config)
 	z80dart_device &dart(Z80DART(config, "z80dart", 15_MHz_XTAL / 3)); // clock?
 	dart.out_int_callback().set(m_pic8259, FUNC(pic8259_device::ir7_w));
 
-	cpu_device& z80(Z80(config, "z80", 8_MHz_XTAL / 2));
-	z80.set_addrmap(AS_PROGRAM, &alphatpc16_state::apc16_z80_map);
-	z80.set_addrmap(AS_IO, &alphatpc16_state::apc16_z80_io);
+	Z80(config, m_z80, 8_MHz_XTAL / 2);
+	m_z80->set_addrmap(AS_PROGRAM, &alphatpc16_state::apc16_z80_map);
+	m_z80->set_addrmap(AS_IO, &alphatpc16_state::apc16_z80_io);
 	WD1770(config, m_wdfdc, 8_MHz_XTAL);
 
 	i8741a_device& i8741(I8741A(config, "i8741", 4.608_MHz_XTAL));
@@ -198,5 +290,5 @@ ROM_START( alphatpc16 )
 	ROM_LOAD( "charset.rom", 0x0000, 0x2000, BAD_DUMP CRC(b2f49eb3) SHA1(d0ef530be33bfc296314e7152302d95fdf9520fc) )                // from dcvg5k
 ROM_END
 
-COMP( 198?, alphatpc16,  0, 0, alphatpc16, alphatpc16, alphatpc16_state, empty_init, "Triumph-Adler", "alphatronic PC-16",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND)
+COMP( 1985, alphatpc16,  0, 0, alphatpc16, alphatpc16, alphatpc16_state, empty_init, "Triumph-Adler", "alphatronic PC-16",  MACHINE_NOT_WORKING)
 
