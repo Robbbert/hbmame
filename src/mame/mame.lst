@@ -11482,6 +11482,7 @@ dblcrown                        // (c) 1994 Excellent System
 
 @source:dblewing.cpp
 dblewing                        // MBE (c) 1993 Mitchell
+dblewinga                       // MBE (c) 1994 Mitchell
 
 @source:dbox.cpp
 dbox                            // (c) 1996 Nokia Multimedia
@@ -14016,6 +14017,7 @@ luctoday                        // 1980 Sigma
 mandinga                        // bootleg (Artemi)
 mandingaeg                      // bootleg (Electrogame)
 mandingarf                      // bootleg (Recreativos Franco S.A.)
+olmandingo                      // bootleg
 mandingac                       // bootleg (Centromatic)
 mltiwars                        // bootleg (Gayton Games)
 monsterz                        // (c) 1982 Nihon (Arcade TV Game List - P.102, Left, 20 from top)
@@ -14138,6 +14140,7 @@ warofbug                        // (c) 1981 Armenia
 warofbugg                       // German Version
 warofbugu                       // (c) 1981 Armenia
 zerotime                        // hack (Petaco S.A.)
+galaktron                       // bootleg (Petaco S.A.)
 zerotimed                       // hack (Datamat)
 zerotimemc                      // hack (Marti Colls)
 zigzagb                         // (c) 1982 LAX (bootleg)
@@ -16161,6 +16164,7 @@ hpz80unk                        //
 
 @source:hp80.cpp
 hp85                            //
+hp86b                           //
 
 @source:hshavoc.cpp
 hshavoc                         // (c) 1993 Data East
@@ -31345,6 +31349,7 @@ lxcmc250
 lxcmcysw
 lxcmcyfz
 lxcmcydp
+rtvgc300
 red5mam
 cybar120
 mc_dg101
@@ -31385,6 +31390,7 @@ sy889
 sy888b
 rfcp168
 dgun2573
+dgun2593
 bittboy
 mc_89in1
 mc_cb280
@@ -31410,8 +31416,9 @@ miwi2_7
 intact89
 intg5410
 exsprt48
-exsprt48a
+itvg48
 wowwg
+110dance
 
 @source:newbrain.cpp
 newbrain                        //
