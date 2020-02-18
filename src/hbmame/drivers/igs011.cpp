@@ -48,4 +48,4 @@ ROM_END
 // Long Hu Bang II
 GAME( 1996, lhb2s01, lhb2, lhb2, lhb2, igs011_state, init_lhb2, ROT0, "whistler_wmz", "Long Hu Bang II (No AI Cheat)",   MACHINE_SUPPORTS_SAVE )
 // Wanli Changcheng
-GAME( 2006, wlccs01, xymg, wlcc, wlcc, igs011_state, init_wlcc, ROT0, "hack",          "Wanli Changcheng (No AI Cheat)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, wlccs01, xymg, wlcc, wlcc, igs011_state, init_wlcc, ROT0, "hack",          "Wanli Changcheng (No AI Cheat 2006-01-01)", MACHINE_SUPPORTS_SAVE )

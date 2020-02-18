@@ -211,7 +211,7 @@ New Games
 - [umk3uc20200130]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-01-30)
 - [umk3uc20200204]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-02-04)
 - [wakuwak7s02]       Waku Waku 7 (Simplify Edition 2018-06-04)
-- [wlccs01]           Wanli Changcheng (No AI Cheat)
+- [wlccs01]           Wanli Changcheng (No AI Cheat  2006-01-01)
 - [whps07]            World Heroes Perfect (Simplify Edition 2018-06-04)
 
 
