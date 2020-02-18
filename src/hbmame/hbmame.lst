@@ -636,6 +636,8 @@ captcomms80
 captcomms81
 captcomms82
 captcomms83
+captcomms84
+captcomms85
 dinos01
 dinos02
 dinos03
@@ -854,6 +856,7 @@ dinos232
 dinos233
 dinos234
 dinos235
+dinos236
 ffights01
 ffights02
 ffightj2s01
@@ -893,6 +896,7 @@ punishers04
 punishers05
 punishers06
 punishers07
+//punishers08 //Encrypted
 punisherjs01
 punisherjs02
 punisherjs03
@@ -1545,6 +1549,8 @@ spicegirls				// HB
 @source:igs011.cpp
 lhb2					//parent
 lhb2s01
+xymg					//parent
+wlccs01
 
 @source:itech8.cpp
 itecdemo	/* Charles Doty */
@@ -2043,6 +2049,7 @@ kof97s155
 kof97s156
 kof97s157
 kof97s158
+kof97s159
 kof97hx01
 kof97hx02
 kof97hx03
@@ -7355,6 +7362,7 @@ oldsplus			//parent
 olds				//parent
 martmast			//parent
 theglad				//parent
+killbld104s01
 killblds01
 killblds02
 killblds03
@@ -8144,6 +8152,8 @@ kovsho175
 kovsho176
 kovsho177
 kovsho178
+kovsho179
+kovsho180
 kovshxass01
 kovshxass02
 kovshxass03

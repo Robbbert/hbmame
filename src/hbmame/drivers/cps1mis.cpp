@@ -9189,6 +9189,58 @@ ROM_START( captcomms83 )  // captcommr1ws
 	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
+ROM_START( captcomms84 )  // captcommpzs
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("ccs84.10f", 0x000000, 0x300000, CRC(a7c2ed02) SHA1(2e5195c357de03ad7de26961c23c18eb806db4d8) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcomms85 )  // captcommr1dw
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP("ccs85.10f", 0x000000, 0x300000, CRC(d7f9c02e) SHA1(12dca9ee23feeae6cc9b35554b0c9e2dcdfe73e2) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
 /************************
  Cadillacs And Dinosaurs
 **************************/
@@ -15638,6 +15690,36 @@ ROM_START( dinos235 ) //dinows2020
 	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
+ROM_START( dinos236 ) //dino18ws
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "cdes236.8f",  0x000000, 0x80000, CRC(67d2d499) SHA1(ef0a59bd2ba8dd506cb60a69beec3a4e7fad4b7b) )
+	ROM_LOAD16_WORD_SWAP( "cdes236.7f",  0x080000, 0x80000, CRC(cb80f8e3) SHA1(adeab1f44cecff02925c9ce66e55e7b62c588433) )
+	ROM_LOAD16_WORD_SWAP( "cdes236.6f",  0x100000, 0x80000, CRC(cc09bfa1) SHA1(b51bf069b8ae77d1bf70f7a44714b48baf5f99d6) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
 /************
  Final Fight
 **************/
@@ -16918,6 +17000,42 @@ ROM_START( punishers07 ) //punisherbs
 	ROMX_LOAD( "ps-1m.3a",  0x000000, 0x80000, CRC(77b7ccab) SHA1(e08e5d55a79e4c0c8ca819d6d7d2a14f753c6ec3) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "ps-3m.5a",  0x000002, 0x80000, CRC(0122720b) SHA1(5f0d3097e097f64106048156fbb0d343fe78fffa) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "ps-2m.4a",  0x000004, 0x80000, CRC(64fa58d4) SHA1(d4a774285ed15273195b6b26d2965ce370e54e73) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-4m.6a",  0x000006, 0x80000, CRC(60da42c8) SHA1(95eec4a58d9628a2d9764951dd8dc11e4860a899) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-5m.7a",  0x200000, 0x80000, CRC(c54ea839) SHA1(0733f37329edd9d0cace1319a7544b40aa7ecb0b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-7m.9a",  0x200002, 0x80000, CRC(04c5acbd) SHA1(fddc94b0f36d4d22d7c357856ae15b7514c342d3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-6m.8a",  0x200004, 0x80000, CRC(a544f4cc) SHA1(9552df8934ba25f19a22f2e07783712d8c8ef03c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-8m.10a", 0x200006, 0x80000, CRC(8f02f436) SHA1(a2f0ebb7e9593469c7b843f8962a66f3d77f79e5) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "ps_q.5k",    0x00000, 0x08000, CRC(49ff4446) SHA1(87af12f87a940a6c5428b4574ad44a4b54867bc3) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "ps-q1.1k",   0x000000, 0x80000, CRC(31fd8726) SHA1(1d73a76682e9fb908db0c55b9a18163f7539fea1) )
+	ROM_LOAD( "ps-q2.2k",   0x080000, 0x80000, CRC(980a9eef) SHA1(36571381f349bc726508a7e618ba1c635ec9d271) )
+	ROM_LOAD( "ps-q3.3k",   0x100000, 0x80000, CRC(0dd44491) SHA1(903cea1d7f3120545ea3229d30fbd687d11ad68f) )
+	ROM_LOAD( "ps-q4.4k",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+ROM_END
+
+ROM_START( punishers08 ) //punisherly
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )    
+	ROM_LOAD16_BYTE( "pse_26s08.11e",    0x000000, 0x20000, CRC(25893e5b) SHA1(d713002cb05463d3d711b718ff17a6c7c2337f1b) )
+	ROM_LOAD16_BYTE( "pse_30s08.11f",    0x000001, 0x20000, CRC(babc4311) SHA1(276c4c7815e20e20f453970d6eb4e50bb5b153b9) )
+	ROM_LOAD16_BYTE( "pse_27s08.12e", 0x040000, 0x20000, CRC(4bf9a738) SHA1(41f2f9b83a6b932f392878c0a3acb7f318502cd3) )
+	ROM_LOAD16_BYTE( "pse_31s08.12f", 0x040001, 0x20000, CRC(02b7fc2a) SHA1(26e7f1ac1ff211718dda78bdb16967e5534c3cd4) )
+	ROM_LOAD16_BYTE( "pse_24s08.9e",  0x080000, 0x20000, CRC(0dca24ca) SHA1(8c4e30f1c701d9f9b6d958def3a6632cccf96885) )
+	ROM_LOAD16_BYTE( "pse_28s08.9f",  0x080001, 0x20000, CRC(2f8ca5e4) SHA1(c436f4eb5fb20333d53c15e6af887dcf7c4caf03) )
+	ROM_LOAD16_BYTE( "pse_25s08.10e", 0x0c0000, 0x20000, CRC(30671efe) SHA1(22506e619200f77ba3db08215b1f2edc4e46d097) )
+	ROM_LOAD16_BYTE( "pse_29s08.10f",  0x0c0001, 0x20000, CRC(6954982d) SHA1(bb299427776012967c901ddcaa3263ba252432ea) )
+	ROM_LOAD16_WORD_SWAP( "psjs16.6f", 0x100000, 0x80000, CRC(43327bbd) SHA1(ac5d1b1fa5824ac50ddf8c5bb2908f9a4ffcc07c) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "psms16.3a",  0x000000, 0x80000, CRC(4d4111de) SHA1(f67002f6a9073f5aba33e31879fc7f4c1d60ffda) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "psms16.5a",  0x000002, 0x80000, CRC(2d346b82) SHA1(dfd48382fdc8d1da5ece31a8ed99a0fa9f58c1ed) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "psms16.4a",  0x000004, 0x80000, CRC(5e0c85a1) SHA1(3b2487d8ae60d2beabafd83007359a84d3d0079e) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "ps-4m.6a",  0x000006, 0x80000, CRC(60da42c8) SHA1(95eec4a58d9628a2d9764951dd8dc11e4860a899) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "ps-5m.7a",  0x200000, 0x80000, CRC(c54ea839) SHA1(0733f37329edd9d0cace1319a7544b40aa7ecb0b) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "ps-7m.9a",  0x200002, 0x80000, CRC(04c5acbd) SHA1(fddc94b0f36d4d22d7c357856ae15b7514c342d3) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -26307,13 +26425,15 @@ HACK( 2019, captcomms73,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,   
 HACK( 2019, captcomms74,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Nightmare Edition Update 2019-11-11)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, captcomms75,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Elite Edition Update 2019-11-11)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2016, captcomms76,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Enhanced Edition 2016-11-28)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, captcomms77,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "BinDi", "Captain Commando (Shape Shifting Version 2017-09-05)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, captcomms78,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJingGaiErDeZei", "Captain Commando (99 Fighter Edition Update 2018-05-28)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, captcomms79,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "BinDi", "Captain Commando (99 Fighter Edition Update 2018-05-20)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, captcomms80,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJingGaiErDeZei", "Captain Commando (99 Fighter Edition Update 2018-12-31)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, captcomms81,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "BinDi", "Captain Commando (99 Fighter Edition Update 2019-04-21)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, captcomms82,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "BinDi", "Captain Commando (99 Fighter Edition Update 2018-11-06)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, captcomms83,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "TouJingGaiErDeZei", "Captain Commando (99 Fighter Edition Update 201X-0X-0X)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, captcomms77,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Shape Shifting Version 2017-09-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms78,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 2018-05-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms79,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 2018-05-20)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms80,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 2018-12-31)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms81,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 2019-04-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms82,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 2018-11-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms83,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 201X-0X-0X)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms84,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (God Of War Edition Update 2018-07-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, captcomms85,   captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (99 Fighter Edition Update 2018-05-31)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 HACK( 1993, dinos01,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Bazooka)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos02,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Club)", MACHINE_SUPPORTS_SAVE )
@@ -26533,6 +26653,7 @@ HACK( 2019, dinos232,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2018, dinos233,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "NanGongSheng", "Cadillacs and Dinosaurs (Fighting God Version 2018-10-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, dinos234,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "JieJiSanQi", "Cadillacs and Dinosaurs (Majin Ranbu 2019-04-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, dinos235,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (The Warriors Edition 2020 Update 2020-01-25)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, dinos236,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (The Warriors Edition 2018 Update 2018-07-29)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
 HACK( 1990, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ffights02,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "hack", "Final Fight (1VS2 Enhanced Version 2016-08-17)", MACHINE_SUPPORTS_SAVE )
@@ -26578,6 +26699,7 @@ HACK( 2018, punishers04,   punisher, qsound,     punisher, cps_state,   punisher
 HACK( 2018, punishers05,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (1 Vs 2 Competition Edition 2018-03-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, punishers06,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Warriors Fast Fighting 2017-12-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, punishers07,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (1 Vs 2 Competition Edition 2019-05-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, punishers08,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Flame Edition 2018-06-18)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 1993, punisherjs01,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "e107", "The Punisher (Time No Decrease)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, punisherjs02,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "e107",  "The Punisher (100 Second For Every Scene 2017-12-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, punisherjs03,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (1V2 Unparalleled Version 2016-02-18)", MACHINE_SUPPORTS_SAVE )
@@ -26593,7 +26715,7 @@ HACK( 2014, punisherjs12,  punisher, qsound,     punisher, cps_state,   punisher
 HACK( 2014, punisherjs13,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Strengthens Second Edition 2014-12-24)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, punisherjs14,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (The fourth edition of V2 2014-12-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, punisherjs15,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (1 Vs 2 Perfect Update 2019-05-30)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, punisherjs16,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Unknown Hack 2019)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, punisherjs16,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Flame Edition 2019)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, punisherjs17,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Unparalleled Version 2019-05-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, punisherjs18,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "GOTVG", "The Punisher (Blaze 2018-08-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, punisherjs19,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "GOTVG", "The Punisher (1 Vs 2 Competition Edition 2018-09-20)", MACHINE_SUPPORTS_SAVE )
