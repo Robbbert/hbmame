@@ -71,6 +71,7 @@ New Games
 - [kof2k2s102]        Kof2002 Magic Plus II (Resurgence plus D 2020-01-27)
 - [kogs12]            King of Gladiator (Resurgence Plus Dog Slaughter Edition 2020-01-23)
 - [kov115s12]         Knights of Valour (The Latest 2017 The Warriors 2017-07-18)
+- [kov2h21]           Knights of Valour 2 (1v4 Edition 2018-07-11)
 - [kov2p204s29]       Knights of Valour 2 Plus (Edition 2018-07-19)
 - [kov2p204s90]       Knights of Valour 2 Plus (Ching Ying 2019-01-05)
 - [kov2p204s91]       Knights of Valour 2 Plus (The Warriors Edition 2016 2018-06-03)

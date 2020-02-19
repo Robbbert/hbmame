@@ -7371,7 +7371,6 @@ killblds04
 killblds05
 killbldps01
 killbldps02
-//kovss02    // not working, encrypted
 kov115s01
 kov115s02
 kov115s03
@@ -7493,6 +7492,7 @@ kov2h17
 kov2h18
 kov2h19
 kov2h20
+kov2h21
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
