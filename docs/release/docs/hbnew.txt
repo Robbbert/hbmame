@@ -198,6 +198,7 @@ New Games
 - [savageres06]       Savage Reign (Simplify Edition 2018-06-04)
 - [sengoku3s13]       Sengoku 3 (Blue Out Of Blue 2018-06-04)
 - [sfa2s03]           Street Fighter Alpha 2 (Press Select Button Changed Character 2019-12-27)
+- [sfz2aljs10]        Street Fighter Zero 2 Alpha (Super Golden 2020-02-17)
 - [tk2h149]           Tenchi wo Kurau II (Master Edition 2019-12-26)
 - [tk2h150]           Tenchi wo Kurau II (Master Edition Update 2018-06-06)
 - [tk2h151]           Tenchi wo Kurau II (Boss Cho Unparalleled Edition Series A 2018-01-28)
