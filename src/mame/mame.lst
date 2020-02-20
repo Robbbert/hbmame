@@ -10502,6 +10502,9 @@ comquest                        // Comquest Plus German
 comx35n                         //
 comx35p                         //
 
+@source:conchess.cpp
+concstd
+
 @source:concept.cpp
 concept                         // 1982 Corvus Concept
 
@@ -15740,6 +15743,7 @@ gnw_mickdon                     // Nintendo
 gnw_octopus                     // Nintendo
 gnw_opanic                      // Nintendo
 gnw_pchute                      // Nintendo
+gnw_pinball                     // Nintendo
 gnw_popeye                      // Nintendo
 gnw_rshower                     // Nintendo
 gnw_sbuster                     // Nintendo
