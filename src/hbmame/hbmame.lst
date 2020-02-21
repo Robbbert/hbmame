@@ -1374,6 +1374,11 @@ dbz2					//parent
 dbz2h01
 dbz2h02
 
+@source:ddenlovr.cpp
+mjmyster
+mjreach1
+mjdchuka
+
 @source:dec0.cpp
 baddudes				//parent
 baddudef				/* Arkatrad */
@@ -1418,6 +1423,10 @@ dotrikun		//parent
 dotrikun2
 dotriman
 mineswp			/* Minesweeper */
+
+@source:dynax.cpp
+mjelct3
+mjelctrn
 
 //@source:ertictac.cpp
 //armdemo		/* Charles Doty */  // totally broken

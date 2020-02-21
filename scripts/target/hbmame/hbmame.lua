@@ -208,6 +208,7 @@ MACHINES["PIT8253"] = true -- seta
 MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
+MACHINES["RSTBUF"] = true -- dynax, ddenlovr
 MACHINES["RTC9701"] = true -- cv1k
 MACHINES["SEGA_SCU"] = true -- stv
 MACHINES["SERFLASH"] = true -- cv1k
@@ -262,6 +263,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"cave",
 		"cinemat",
 		"dataeast",
+		"dynax",
 		"exidy",
 		"fuuki",
 		"gottlieb",
@@ -461,6 +463,14 @@ files {
 	MAME_DIR .. "src/mame/machine/decocass.cpp",
 	MAME_DIR .. "src/mame/machine/decocass_tape.cpp",
 	MAME_DIR .. "src/mame/video/decocass.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "dynax")
+files {
+	MAME_DIR .. "src/hbmame/drivers/ddenlovr.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dynax.cpp",
+	MAME_DIR .. "src/mame/video/dynax.cpp",
+	MAME_DIR .. "src/mame/video/dynax_blitter_rev2.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "exidy")
