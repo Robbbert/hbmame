@@ -1375,9 +1375,12 @@ dbz2h01
 dbz2h02
 
 @source:ddenlovr.cpp
-mjmyster
-mjreach1
-mjdchuka
+mjmyster				//parent
+mjmysters01
+mjreach1				//parent
+mjreach1s01
+mjdchuka				//parent
+mjdchukas01
 
 @source:dec0.cpp
 baddudes				//parent
@@ -1425,8 +1428,12 @@ dotriman
 mineswp			/* Minesweeper */
 
 @source:dynax.cpp
-mjelct3
-mjelctrn
+//mjelct3
+mjelctrn		//parent
+mjelct3s01
+mjelctrns01
+tenkai  		//parent
+tenkaibbs01
 
 //@source:ertictac.cpp
 //armdemo		/* Charles Doty */  // totally broken
