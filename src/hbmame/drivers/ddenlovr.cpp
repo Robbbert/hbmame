@@ -50,7 +50,7 @@ ROM_END
 
 ROM_START( mjreach1s01 ) //mjreach1c
 	ROM_REGION( 0x90000+16*0x1000, "maincpu", 0 ) 
-	ROM_LOAD( "52602-n.5b",   0x00000, 0x80000, CRC(f264cd14) SHA1(7c58eb04e021cee8b37b083e4b88faf9764fe8d2) )
+	ROM_LOAD( "s01.5b",   0x00000, 0x80000, CRC(f264cd14) SHA1(7c58eb04e021cee8b37b083e4b88faf9764fe8d2) )
 	ROM_RELOAD(               0x10000, 0x80000 )
 
 	ROM_REGION( 0x500000, "blitter", 0 )
@@ -62,7 +62,7 @@ ROM_START( mjreach1s01 ) //mjreach1c
 	ROM_LOAD16_BYTE( "52607.12c",    0x400001, 0x080000, CRC(5e685c4d) SHA1(57c99fb791429d0edb7416cffb4d1d1eb34a2813) )
 
 	ROM_REGION( 0x80000, "oki", 0 )
-	ROM_LOAD( "52601.1c",     0x00000, 0x80000, CRC(52666107) SHA1(1e1c17b1da7ded5fc52422c7e569ef02af1ee11d) )  // 2 banks
+	ROM_LOAD( "52601.1c",     0x00000, 0x80000, CRC(52666107) SHA1(1e1c17b1da7ded5fc52422c7e569ef02af1ee11d) )
 ROM_END
 
 // Mahjong The Dai Chuuka Ken
