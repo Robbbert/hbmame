@@ -33,9 +33,9 @@
             Clickstart ( see clickstart.cpp instead)
             Wheel of Fortune 2nd Edition
             Spider-man - Villain Roundup
-			Dream Life Superstar
-			Designer's World
-			Star Wars TV Touch
+            Dream Life Superstar
+            Designer's World
+            Star Wars TV Touch
 
         "SunPlus QU7074-P69A"
 
@@ -719,7 +719,7 @@ INPUT_PORTS_END
 static INPUT_PORTS_START( guitarss )
 	PORT_START("P1")
 	PORT_BIT( 0x0001, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("B1: Blue / Up")
-	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("B2: ellow / Down")
+	PORT_BIT( 0x0002, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("B2: Yellow / Down")
 	PORT_BIT( 0x0004, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("B3: Purple")
 	PORT_BIT( 0x0008, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("B4: Red")
 	PORT_BIT( 0x0010, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("B5: Green")
@@ -987,7 +987,7 @@ void spg2xx_game_tmntmutm_state::tmntmutm(machine_config &config)
 READ16_MEMBER(spg2xx_game_pballpup_state::porta_r)
 {
 	uint16_t ret = m_io_p1->read() & 0xfff7;
-//	logerror("%s: spg2xx_game_pballpup_state::porta_r\n", machine().describe_context());
+//  logerror("%s: spg2xx_game_pballpup_state::porta_r\n", machine().describe_context());
 	ret |= m_eeprom->do_read() ? 0x8 : 0x0;
 	return ret;
 }

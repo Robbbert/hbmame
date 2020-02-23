@@ -1291,7 +1291,7 @@ dialog80                        // Ampex Dialogue 80
 
 @source:ampex210.cpp
 ampex210p                       //
-ampex230                        //
+ampex230p                       //
 
 @source:ampro.cpp
 ampro                           //
@@ -34494,7 +34494,7 @@ cm32p                           //
 
 @source:roland_d50.cpp
 d50                             //
-d50a                            //
+d50o                            //
 d550                            //
 
 @source:roland_d110.cpp
@@ -35808,6 +35808,7 @@ jpark                           // 1994.?? Jurassic Park (World)
 jparkj                          // 1994.02 Jurassic Park (Japan) - Deluxe with moving cabinet, Rev A
 jparkja                         // 1994.02 Jurassic Park (Japan) - Deluxe with moving cabinet
 jparkjc                         // 1994.02 Jurassic Park (Japan) - Cabinet conversion kit
+kokoroj                         // 1992.?? Soreike! Kokoroji (Japan)
 kokoroj2                        // 1993.12 Soreike! Kokoroji 2 (Japan)
 orunners                        // 1993.?? Outrunners (World)
 orunnersj                       // 1993.05 Outrunners (Japan)
@@ -37104,6 +37105,7 @@ jak_sbfc                        //
 
 @source:spg2xx_jakks_tvtouch.cpp
 tvtchsw
+tvtchspd
 
 @source:spg2xx_lexibook.cpp
 lexizeus                        // Lexibook
@@ -37111,6 +37113,7 @@ lexiseal                        //
 discpal
 
 @source:spg2xx_mysprtch.cpp
+mysprtch
 mysprtcp
 mysptqvc
 mgt20in1
