@@ -235,6 +235,7 @@ MACHINES["Z80CTC"] = true
 MACHINES["Z80DAISY"] = true
 MACHINES["Z80DART"] = true
 MACHINES["Z80PIO"] = true
+MACHINES["Z80SIO"] = true -- ddenlovr
 
 --------------------------------------------------
 -- specify available bus cores
