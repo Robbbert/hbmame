@@ -46,21 +46,55 @@ private:
 	u16 m_dma_count;
 	emu_timer *m_dma_timer;
 
-	u16 m_port0_ddr, m_port0_data;
+	u16 m_port0_ddr;
+	u8  m_port0_dataw, m_port0_data;
+	u8  m_port0_maskw, m_port0_maskr;
+
+	u16 m_gpu0_adr,  m_gpu0_count,  m_gpu1_adr,  m_gpu1_count;
+	u16 m_gpu0b_adr, m_gpu0b_count, m_gpu1b_adr, m_gpu1b_count;
 
 	u16 m_gpu_adr, m_gpu_descsize_adr, m_gpu_descdata_adr;
 	u32 m_int_active;
+	u32 m_int_enabled;
+	u32 m_int_nmi;
 
+	u16 m_bg_color;
 	u32 m_sd[0x400][0x800];
 
 	std::string m_debug_string;
+
+	static u32 rgb555_888(u16 color);
 
 	void irq_raise(u32 level);
 	void irq_clear(u32 level);
 	bool irq_state(u32 level) const;
 	void irq_clear_w(u16 data);
+	u16 irq_nmi_r();
+	void irq_nmi_w(u16 data);
+	u16 irq_enable_r();
+	void irq_enable_w(u16 data);
 	u8 irq_level_r();
 
+	void bg_color_w(u16 data);
+
+	void gpu0_adr_w(u16 data);
+	u16 gpu0b_adr_r();
+	void gpu0b_adr_w(u16 data);
+	void gpu0_count_w(u16 data);
+	u16 gpu0b_count_r();
+	void gpu0b_count_w(u16 data);
+	void gpu0_trigger_w(u8 data);
+  
+	void gpu1_adr_w(u16 data);
+	u16 gpu1b_adr_r();
+	void gpu1b_adr_w(u16 data);
+	void gpu1_count_w(u16 data);
+	u16 gpu1b_count_r();
+	void gpu1b_count_w(u16 data);
+	void gpu1_trigger_w(u8 data);
+
+	void gpu_update(u16 count, u16 adr);
+  
 	void gpu_descsize_w(u16 data);
 	void gpu_descdata_w(u16 data);
 	void gpu_adr_w(u16 data);
@@ -82,8 +116,9 @@ private:
 
 	void port0_ddr_w(u16 data);
 	u16 port0_ddr_r();
-	void port0_w(u16 data);
-	u16 port0_r();
+	void port0_update();
+	void port0_w(u8 data);
+	u8 port0_r();
 
 	void crtc_w(offs_t reg, u16 data);
 
@@ -95,11 +130,30 @@ private:
 	void mem(address_map &map);
 };
 
+u32 xavix2_state::rgb555_888(u16 color)
+{
+	u8 r = (color >> 10) & 31;
+	u8 g = (color >>  5) & 31;
+	u8 b = (color >>  0) & 31;
+	r = (r << 3) | (r >> 2);
+	g = (g << 3) | (g >> 2);
+	b = (b << 3) | (b >> 2);
+	return (r << 16) | (b << 8) | g;
+}
+
+void xavix2_state::bg_color_w(u16 data)
+{
+	m_bg_color = data;
+}
+
 void xavix2_state::irq_raise(u32 level)
 {
-	if(!m_int_active)
-		m_maincpu->set_input_line(0, ASSERT_LINE);
-	m_int_active |= 1 << level;
+	u32 line = 1 << level;
+	if ((m_int_enabled | m_int_nmi) & line) {
+		if(!m_int_active)
+			m_maincpu->set_input_line(0, ASSERT_LINE);
+		m_int_active |= line;
+	}
 }
 
 void xavix2_state::irq_clear(u32 level)
@@ -117,9 +171,30 @@ void xavix2_state::irq_clear_w(u16 data)
 
 }
 
+u16 xavix2_state::irq_nmi_r()
+{
+	return m_int_nmi;
+}
+
+void xavix2_state::irq_nmi_w(u16 data)
+{
+	m_int_nmi = data;
+}
+
+u16 xavix2_state::irq_enable_r()
+{
+	return m_int_enabled;
+}
+
+void xavix2_state::irq_enable_w(u16 data)
+{
+	irq_clear(~data);
+	m_int_enabled = data;
+}
+
 u8 xavix2_state::irq_level_r()
 {
-	for(u32 i=31; i>=0; i--)
+	for(u32 i=0; i<=12; i++)
 		if(m_int_active & (1 << i))
 			return i;
 	return 0xff;
@@ -130,15 +205,80 @@ bool xavix2_state::irq_state(u32 level) const
 	return m_int_active & (1 << level);
 }
 
-void xavix2_state::gpu_adr_w(u16 data)
+void xavix2_state::gpu0_adr_w(u16 data)
 {
-	m_gpu_adr = data;
+	m_gpu0_adr = data;
 }
 
-void xavix2_state::gpu_count_w(u16 data)
+u16 xavix2_state::gpu0b_adr_r()
 {
-	for(u32 i=0; i != data; i++) {
-		u64 command = m_maincpu->space(AS_PROGRAM).read_qword(m_gpu_adr + 8*i);
+	return m_gpu0b_adr;
+}
+
+void xavix2_state::gpu0b_adr_w(u16 data)
+{
+	m_gpu0b_adr = data;
+}
+
+void xavix2_state::gpu0_count_w(u16 data)
+{
+	m_gpu0_count = data;
+}
+
+u16 xavix2_state::gpu0b_count_r()
+{
+	return m_gpu0b_count;
+}
+
+void xavix2_state::gpu0b_count_w(u16 data)
+{
+	m_gpu0b_count = data;
+}
+
+void xavix2_state::gpu0_trigger_w(u8 data)
+{
+	gpu_update(m_gpu0_count, m_gpu0_adr);
+}
+
+void xavix2_state::gpu1_adr_w(u16 data)
+{
+	m_gpu1_adr = data;
+}
+
+u16 xavix2_state::gpu1b_adr_r()
+{
+	return m_gpu1b_adr;
+}
+
+void xavix2_state::gpu1b_adr_w(u16 data)
+{
+	m_gpu1b_adr = data;
+}
+
+void xavix2_state::gpu1_count_w(u16 data)
+{
+	m_gpu1_count = data;
+}
+
+u16 xavix2_state::gpu1b_count_r()
+{
+	return m_gpu1b_count;
+}
+
+void xavix2_state::gpu1b_count_w(u16 data)
+{
+	m_gpu1b_count = data;
+}
+
+void xavix2_state::gpu1_trigger_w(u8 data)
+{
+	gpu_update(m_gpu1_count, m_gpu1_adr);
+}
+
+void xavix2_state::gpu_update(u16 count, u16 adr)
+{
+	for(u32 i=0; i != count; i++) {
+		u64 command = m_maincpu->space(AS_PROGRAM).read_qword(adr + 8*i);
 		logerror("gpu %02d: %016x x=%03x y=%03x ?=%02x ?=%x ?=%02x w=%02x h=%02x c=%04x %s\n",
 				 i, command,
 				 (command >>  0) &  0x7ff,
@@ -150,9 +290,10 @@ void xavix2_state::gpu_count_w(u16 data)
 				 (command >> 42) &   0x3f,
 				 (command >> 48) & 0xffff,
 				 machine().describe_context());
-		u32 idx = (command >> 58) & 0x3f;
+		u32 idx  = (command >> 30) & 0x3f;
+		u32 idx2 = (command >> 58) & 0x3f;
 		u32 descsize = m_maincpu->space(AS_PROGRAM).read_dword(m_gpu_descsize_adr + 4*idx);
-		u16 descdata = m_maincpu->space(AS_PROGRAM).read_word(m_gpu_descdata_adr + 2*idx);
+		u16 descdata = m_maincpu->space(AS_PROGRAM).read_word(m_gpu_descdata_adr + 2*idx2);
 
 		u32 sadr = (descdata << 14) | ((command >> 43) & 0x3fe0);
 		u32 x = (command >>  0) &  0x7ff;
@@ -162,59 +303,29 @@ void xavix2_state::gpu_count_w(u16 data)
 		u32 bpp = 1 + ((descsize >> 24) & 7);
 		logerror("gpu    - data %06x size %08x w=%x h=%x ?=%x bpp=%x ?=%x\n", sadr, descsize, sx, sy, (descsize >> 16) & 0xff, bpp, descsize >> 27);
 
-		u32 stride = sx;
-
 		if(x+sx > 0x800)
 			sx = 0x800 - x;
 		if(y+sy > 0x400)
 			sy = 0x400 - y;
 
-		switch(bpp) {
-		case 2: {
-			stride = 8*((sx+31)/32);
-			for(u32 yy=0; yy<sy; yy++) {
-				u32 cadr = sadr;
-				for(u32 xx=0; xx<sx; xx += 32) {
-					u64 v = m_maincpu->space(AS_PROGRAM).read_qword(cadr);
-					u32 xxl = sx - xx;
-					if(xxl > 32)
-						xxl = 32;
-					for(u32 xxx=0; xxx<xxl; xxx++) {
-						u32 c = (v >> (2*xxx)) & 3;
-						m_sd[y+yy][x+xx+xxx] = 0xff000000 | (0x555555 * c);
-					}
-					cadr += 8;
+		u32 avail = 0;
+		u32 mask  = (1 << bpp) - 1;
+		u32 shift = (8 - bpp);
+		for(u32 yy=0; yy<sy; yy++) {
+			u64 v = m_maincpu->space(AS_PROGRAM).read_qword(sadr);
+			sadr += 8;
+			avail = 64;
+			for(u32 xx=0; xx<sx; xx++) {
+				if (avail < bpp) {
+					v = m_maincpu->space(AS_PROGRAM).read_qword(sadr);
+					sadr += 8;
+					avail = 64;
 				}
-				sadr += stride;
+				u32 c = (v & mask) << shift;
+				m_sd[y+yy][x+xx] = 0xff000000 | (0x010101 * c);
+				v >>= bpp;
+				avail -= bpp;
 			}
-			break;
-		}
-
-		case 3: {
-			stride = 8*((sx+20)/21);
-			for(u32 yy=0; yy<sy; yy++) {
-				u32 cadr = sadr;
-				for(u32 xx=0; xx<sx; xx += 21) {
-					u64 v = m_maincpu->space(AS_PROGRAM).read_qword(cadr);
-					u32 xxl = sx - xx;
-					if(xxl > 21)
-						xxl = 21;
-					for(u32 xxx=0; xxx<xxl; xxx++) {
-						u32 c = (v >> (3*xxx)) & 7;
-						m_sd[y+yy][x+xx+xxx] = 0xff000000 | (0x242424 * c);
-					}
-					cadr += 8;
-				}
-				sadr += stride;
-			}
-			break;
-		}
-
-		default:
-			for(u32 yy=0; yy<sy; yy++)
-				for(u32 xx=0; xx<sx; xx++)
-					m_sd[yy+y][xx+x] = 0xffff0000;
-			break;
 		}
 	}
 }
@@ -280,8 +391,10 @@ TIMER_CALLBACK_MEMBER(xavix2_state::dma_end)
 
 INTERRUPT_GEN_MEMBER(xavix2_state::vblank_irq)
 {
-	logerror("clear\n");
-	memset(m_sd, 0, sizeof(m_sd));
+	u32 color = rgb555_888(m_bg_color);
+	for(u32 y=0; y != 0x400; y++)
+		for(u32 x=0; x != 0x800; x++)
+			m_sd[y][x] = color;
 	irq_raise(IRQ_TIMER);
 }
 
@@ -310,8 +423,16 @@ u8 xavix2_state::debug_port_status_r()
 
 void xavix2_state::port0_ddr_w(u16 data)
 {
+	//	logerror("%s: port0 ddr %04x -> %04x\n", machine().describe_context(), m_port0_ddr, data);
 	m_port0_ddr = data;
-	logerror("port0 ddr %04x\n", data);
+	m_port0_maskr = m_port0_maskw = 0;
+	for (u32 i=0; i<8; i++) {
+		m_port0_maskr |= ((data & 3) == 0) ? 1 << i : 0;
+		m_port0_maskw |= ((data & 3) == 3) ? 1 << i : 0;
+		data >>= 2;
+	}
+	//	logerror("%s: port0 maskr %04x, maskw %04x\n", machine().describe_context(), m_port0_maskr, m_port0_maskw);
+	port0_update();
 }
 
 u16 xavix2_state::port0_ddr_r()
@@ -319,19 +440,31 @@ u16 xavix2_state::port0_ddr_r()
 	return m_port0_ddr;
 }
 
-void xavix2_state::port0_w(u16 data)
+void xavix2_state::port0_update()
 {
-	m_port0_data = data;
-	m_i2cmem->write_sda(data & 0x20);
-	m_i2cmem->write_scl(data & 0x10);
-	logerror("port0_w %04x\n", data);
+	u8 old = m_port0_data;
+	m_port0_data &= ~m_port0_maskw;
+	m_port0_data |= (m_port0_dataw & m_port0_maskw);
+//	logerror("%s: port0 %04x -> %04x (%04x)\n", machine().describe_context(), old, m_port0_data, m_port0_dataw);
+	if (m_port0_maskw & 0x20)
+		m_i2cmem->write_sda((m_port0_dataw >> 5) & 0x1);
+	if (m_port0_maskw & 0x10)
+		m_i2cmem->write_scl((m_port0_dataw >> 4) & 0x1);
+	if ((old ^ m_port0_dataw) & 0x30) {
+		m_port0_data &= ~m_port0_maskr;
+		m_port0_data |= ((m_i2cmem->read_sda() << 5) & m_port0_maskr);
+	}
 }
 
-u16 xavix2_state::port0_r()
+void xavix2_state::port0_w(u8 data)
 {
-	// Slightly hacky, should take ddr into account
-	u16 data = m_port0_data & (m_i2cmem->read_sda() ? ~0x00 : ~0x20);
-	logerror("port0_r %04x\n", data);
+	m_port0_dataw = data;
+	port0_update();
+}
+
+u8 xavix2_state::port0_r()
+{
+	u8 data = (m_port0_dataw & m_port0_maskw) | (m_port0_data & m_port0_maskr);
 	return data;
 }
 
@@ -387,14 +520,26 @@ void xavix2_state::mem(address_map &map)
 	map(0xffffe010, 0xffffe010).rw(FUNC(xavix2_state::dma_status_r), FUNC(xavix2_state::dma_status_w));
 
 	map(0xffffe204, 0xffffe205).rw(FUNC(xavix2_state::port0_ddr_r), FUNC(xavix2_state::port0_ddr_w));
-	map(0xffffe20a, 0xffffe20b).rw(FUNC(xavix2_state::port0_r), FUNC(xavix2_state::port0_w));
+	map(0xffffe20a, 0xffffe20a).rw(FUNC(xavix2_state::port0_r), FUNC(xavix2_state::port0_w));
 	map(0xffffe238, 0xffffe238).rw(FUNC(xavix2_state::debug_port_r), FUNC(xavix2_state::debug_port_w));
 	map(0xffffe239, 0xffffe239).r(FUNC(xavix2_state::debug_port_status_r));
 
-	map(0xffffe604, 0xffffe605).w(FUNC(xavix2_state::gpu_adr_w));
-	map(0xffffe606, 0xffffe607).w(FUNC(xavix2_state::gpu_count_w));
+	map(0xffffe400, 0xffffe401).w(FUNC(xavix2_state::gpu0_adr_w));
+	map(0xffffe404, 0xffffe405).w(FUNC(xavix2_state::gpu0_count_w));
+	map(0xffffe408, 0xffffe408).w(FUNC(xavix2_state::gpu0_trigger_w));
+
+	map(0xffffe40c, 0xffffe40d).w(FUNC(xavix2_state::gpu1_adr_w));
+	map(0xffffe410, 0xffffe411).w(FUNC(xavix2_state::gpu1_count_w));
+	map(0xffffe414, 0xffffe414).w(FUNC(xavix2_state::gpu1_trigger_w));
+
+	map(0xffffe600, 0xffffe601).rw(FUNC(xavix2_state::gpu0b_adr_r), FUNC(xavix2_state::gpu0b_adr_w));
+	map(0xffffe602, 0xffffe603).rw(FUNC(xavix2_state::gpu0b_count_r), FUNC(xavix2_state::gpu0b_count_w));
+	map(0xffffe604, 0xffffe605).rw(FUNC(xavix2_state::gpu1b_adr_r), FUNC(xavix2_state::gpu1b_adr_w));
+	map(0xffffe606, 0xffffe607).rw(FUNC(xavix2_state::gpu1b_count_r), FUNC(xavix2_state::gpu1b_count_w));
 	map(0xffffe608, 0xffffe609).w(FUNC(xavix2_state::gpu_descsize_w));
-	map(0xffffe60a, 0xffffe60a).lr8(NAME([]() { return 0x40; })); // pal/ntsc
+	map(0xffffe60a, 0xffffe60b).lr16(NAME([]() { return 0x240; })); // pal/ntsc
+	map(0xffffe60e, 0xffffe60f).w(FUNC(xavix2_state::bg_color_w));
+
 	map(0xffffe622, 0xffffe623).w(FUNC(xavix2_state::gpu_descdata_w));
 	map(0xffffe630, 0xffffe631).lr16(NAME([]() { return 0x210; }));
 	map(0xffffe632, 0xffffe633).lr16(NAME([]() { return 0x210; }));
@@ -402,11 +547,17 @@ void xavix2_state::mem(address_map &map)
 
 	map(0xfffffc00, 0xfffffc00).r(FUNC(xavix2_state::irq_level_r));
 	map(0xfffffc04, 0xfffffc05).w(FUNC(xavix2_state::irq_clear_w));
+	map(0xfffffc08, 0xfffffc09).rw(FUNC(xavix2_state::irq_nmi_r), FUNC(xavix2_state::irq_nmi_w));
+	map(0xfffffc0a, 0xfffffc0b).rw(FUNC(xavix2_state::irq_enable_r), FUNC(xavix2_state::irq_enable_w));
 }
 
 uint32_t xavix2_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	logerror("draw\n");
+  if(machine().input().code_pressed_once(KEYCODE_8))
+    irq_raise(8);
+  if(machine().input().code_pressed_once(KEYCODE_0))
+    irq_raise(10);
+  
 	constexpr int dx = 0x400 - 320;
 	constexpr int dy = 0x200 - 200;
 
@@ -428,6 +579,7 @@ void xavix2_state::machine_reset()
 	m_dma_dst = 0;
 	m_dma_count = 0;
 	m_int_active = 0;
+	m_bg_color = 0;
 }
 
 static INPUT_PORTS_START( xavix2 )

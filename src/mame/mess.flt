@@ -173,6 +173,7 @@ codata.cpp
 coleco.cpp
 compc.cpp
 compis.cpp
+compmahj.cpp
 compuchess.cpp
 compucolor.cpp
 comquest.cpp
@@ -437,6 +438,7 @@ kc.cpp
 kdt6.cpp
 kim1.cpp
 konin.cpp
+korgm1.cpp
 kramermc.cpp
 krokha.cpp
 kron.cpp
@@ -742,6 +744,7 @@ roland_cm32p.cpp
 roland_d110.cpp
 roland_d50.cpp
 roland_mt32.cpp
+roland_r8.cpp
 roland_sc55.cpp
 rt1715.cpp
 rvoice.cpp

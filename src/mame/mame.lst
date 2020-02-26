@@ -10493,6 +10493,9 @@ ccmk1                           // Chess Champion MK I
 cmpchess
 cncchess
 
+@source:compmahj.cpp
+compmahj			// 1987 Nintendo Computer Mahjong
+
 @source:compucolor.cpp
 compclr2                        //
 
@@ -18667,6 +18670,13 @@ kontest                         // GX800 (c) 198? (Japan)
 
 @source:kopunch.cpp
 kopunch                         // 834-0103 (c) 1981 Sega
+
+@source:korgm1.cpp
+korgm1                          //
+korgm1ex                        //
+korgm1p1                        //
+korgm1r                         //
+korgm1rex                       //
 
 @source:kramermc.cpp
 kramermc                        // 1987 Kramer MC
@@ -34504,6 +34514,11 @@ d110                            //
 cm32l                           //
 mt32                            //
 
+@source:roland_r8.cpp
+r8                              //
+r8m                             //
+r8mk2                           //
+
 @source:roland_sc55.cpp
 sc55                            // 1991 Sound Canvas SC-55
 
@@ -37111,6 +37126,7 @@ tvtchspd
 lexizeus                        // Lexibook
 lexiseal                        //
 discpal
+vgcaplet
 
 @source:spg2xx_mysprtch.cpp
 mysprtch
