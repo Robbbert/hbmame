@@ -8918,7 +8918,7 @@ HACK( 1998, kof98s17,       kof98,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1998, kof98s18,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Enhance Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s19,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Unknown Hack 2009-12-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s20,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Unknown Hack 2014-11-22)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, kof98s21,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Extra Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof98s21,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Super Plus Aniversary 2016)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s22,       kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "hack",    "Kof'98 (Ultra Rugal Final Version 2016-04-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s23,       kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Combo 2017-07-27)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98s24,       kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "hack",    "Kof'98 (Unknown Hack 20XX-0X-1X)", MACHINE_SUPPORTS_SAVE )
