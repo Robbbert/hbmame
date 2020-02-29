@@ -2071,6 +2071,8 @@ kof97s159
 kof97s160
 kof97s161
 kof97s162
+kof97s163
+kof97s164
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2590,6 +2592,7 @@ kof98s49
 kof98s50
 kof98s51
 kof98s52
+kof98hh01
 kof98hh02
 kof98hh03
 kof98hh04
@@ -2920,6 +2923,7 @@ kof99s94
 kof99s95
 kof99s96
 kof99s97
+kof99s98
 
 @source:kof2000.cpp
 kof2000d
@@ -3021,6 +3025,7 @@ kof2000s56
 kof2000s57
 kof2000s58
 kof2000s59
+kof2000s60
 
 @source:kof2001.cpp
 kof2001d
@@ -3148,6 +3153,7 @@ kof2001s44
 kof2001s45
 kof2001s46
 kof2001s47
+kof2001s48
 
 @source:kof2002.cpp
 kof200215
@@ -3630,6 +3636,8 @@ kof2k2s101
 kof2k2s102
 kof2k2s103
 kof2k2s104
+kof2k2s105
+kof2k2s106
 
 @source:kof2003.cpp
 kof2003d
@@ -6567,6 +6575,8 @@ kf2k5unis13
 kf2k5unis14
 kf2k5unis15
 kf2k5unis16
+kf2k5unis17
+kf2k5unis18
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05

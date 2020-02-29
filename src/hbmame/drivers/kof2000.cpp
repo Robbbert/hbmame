@@ -2700,6 +2700,31 @@ ROM_START( kof2000s59 ) // kof2kps2
 	ROM_LOAD16_BYTE( "257hc33.c8", 0x3000001, 0x800000, CRC(ba92f698) SHA1(7a80c24472752f86130e7c963d14fed88b106bf6) )
 ROM_END
 
+ROM_START( kof2000s60 ) // kof2000evol
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257hc60.p1", 0x000000, 0x100000, CRC(f74d599a) SHA1(40ceae4cdbf6f2b30906d9c3892cca165825684e) )
+	ROM_LOAD16_WORD_SWAP( "257hc60.p2", 0x100000, 0x400000, CRC(4c08fb12) SHA1(aedcc161d58489436491f290bd853615f94d9010) )
+
+	NEO_SFIX_MT_512K
+	ROM_LOAD( "257hc58.s1", 0x000000, 0x80000, CRC(38901d4d) SHA1(c7684f66ab4ed577094da6ae143477c9df28d1fe) )
+
+	NEO_BIOS_AUDIO_512K( "257hc60.m1", CRC(e6122074) SHA1(e06e2d8eac8fff5450f5fe5134615149533010ad) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257hc60.v1", 0x000000, 0x800000, CRC(2817845f) SHA1(bf8161942671c5b102f55fb01118f9213675ed59) )
+	ROM_LOAD( "257hc60.v2", 0x400000, 0x800000, CRC(fef0a7f4) SHA1(54ed26eacd7ed33af0ef013c6b409ffacb537446) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257hc60.c7", 0x3000000, 0x800000, CRC(0ceb9669) SHA1(b262e0b6327fa61cba78f7ac23b5221e66abc615) )
+	ROM_LOAD16_BYTE( "257hc60.c8", 0x3000001, 0x800000, CRC(381f3964) SHA1(7fa15a63783979a10628d2ab077f7b21bde8498d) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2000
 HACK( 2000, kof2000s01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "wesker & Jason",    "Kof2000 (Evolution V1.2a)", MACHINE_SUPPORTS_SAVE )
@@ -2761,3 +2786,4 @@ HACK( 2000, kof2000s56,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2000, kof2000s57,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Boss Hack - Gold Color Edition 2015-04-21)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s58,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Chinese Codogo Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof2000s59,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Playsation 2 Plus 2020-02-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2000s60,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Evolution Blue Edition Simplified 2020-02-27)", MACHINE_SUPPORTS_SAVE )
