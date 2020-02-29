@@ -33707,6 +33707,10 @@ polyplay                        //
 polyplay2                       //
 polyplay2c                      //
 
+@source:polysix.cpp
+polysix                         //
+poly61                          //
+
 @source:pong.cpp
 breakout                        // (c) 1976 Atari
 pong                            // (c) 1972 Atari
@@ -37962,6 +37966,9 @@ sym1                            // Synertek SYM-1
 
 @source:symbolics.cpp
 s3670                           //
+
+@source:synthex.cpp
+synthex                         //
 
 @source:sys2900.cpp
 sys2900                         //
