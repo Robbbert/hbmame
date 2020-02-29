@@ -1813,6 +1813,7 @@ kof96s45
 kof96s46
 kof96s47
 kof96s48
+kof96s49
 kof96cns01
 
 @source:kof97.cpp
@@ -2069,6 +2070,7 @@ kof97s158
 kof97s159
 kof97s160
 kof97s161
+kof97s162
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2588,6 +2590,7 @@ kof98s49
 kof98s50
 kof98s51
 kof98s52
+kof98hh02
 kof98hh03
 kof98hh04
 kof98hh05
@@ -3017,6 +3020,7 @@ kof2000s55
 kof2000s56
 kof2000s57
 kof2000s58
+kof2000s59
 
 @source:kof2001.cpp
 kof2001d
@@ -3143,6 +3147,7 @@ kof2001s43
 kof2001s44
 kof2001s45
 kof2001s46
+kof2001s47
 
 @source:kof2002.cpp
 kof200215
@@ -3403,6 +3408,7 @@ kof2002s111
 kof2002s112
 kof2002s113
 kof2002s114
+kof2002s115
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -3622,6 +3628,8 @@ kof2k2s99
 kof2k2s100
 kof2k2s101
 kof2k2s102
+kof2k2s103
+kof2k2s104
 
 @source:kof2003.cpp
 kof2003d
@@ -3699,6 +3707,8 @@ kof2003s48
 kof2003s49
 kof2003s50
 kof2003s51
+kof2003s52
+kof2003s53
 kf2k3pls01
 kf2k3pls02
 kf2k3pls03
@@ -8175,6 +8185,7 @@ kovsho177
 kovsho178
 kovsho179
 kovsho180
+kovsho181
 kovshxass01
 kovshxass02
 kovshxass03

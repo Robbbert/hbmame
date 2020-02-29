@@ -24331,6 +24331,37 @@ ROM_START( kovsho180 ) //kovshptpls, kovshptp
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
 ROM_END
 
+ROM_START( kovsho181 ) //kovshpds
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po181.rom",    0x100000, 0x400000, CRC(9c446f36) SHA1(d98cd30fd92b70b7749a9af0cc6886766031a10d) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw147.asic", 0x000000, 0x04000,  CRC(c5494399) SHA1(77a1bdd68e6eaaa9a00d41123cbc71d4f3018612) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) ) //BIOS
+	ROM_LOAD( "t0600_pw10.rom",    0x180000, 0x800000, CRC(a919ec0f) SHA1(b464490abba8a5e651c407a7833c3a2e3befa5b8) )
+
+	ROM_REGION16_LE( 0x4000000, "sprcol", 0 )
+	ROM_LOAD( "a0600_po147.rom",    0x0000000, 0x0800000, CRC(8bccc3ba) SHA1(5511109abf8dd6e69d167c021ae6a7a9fd08b026) )
+	ROM_LOAD( "a0601_po07.rom",    0x0800000, 0x0800000, CRC(cd391de8) SHA1(c593f61ba9e0c42c4a48e549b217c396099ca840) )
+	ROM_LOAD( "a0602.rom",    0x1000000, 0x0800000, CRC(e7a32959) SHA1(3d0ed684dc5b269238890836b2ce7ef46aa5265b) )
+	ROM_LOAD( "a0540_po147.rom",   0x1800000, 0x1000000, CRC(3b11c9b3) SHA1(3244d263c0a1aea3b619670b47c21220a42a7d10) )
+	ROM_LOAD( "a0603.rom",    0x2800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	
+	ROM_REGION16_LE( 0x2000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_po147.rom",          0x0000000, 0x0800000, CRC(32cb43ef) SHA1(96e20d08506b94a345cfc2681da24ae68fe15ed2) )
+	ROM_LOAD( "b0540_po147.rom",    0x0800000, 0x0800000, CRC(127085a9) SHA1(aeddde5212f7f0dc9478ec1503e925dc54b0eac8) )
+	ROM_LOAD( "b0601_kv11.rom",    0x1000000, 0x0400000, CRC(184fb667) SHA1(532aab9ad823d4eb6c21b143c6d5be429bcc1f38) )
+
+	ROM_REGION( 0x900000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "pgm_m01s_bios=bh03.rom", 0x000000, 0x200000, CRC(81a6aeca) SHA1(9b77df457566209fdbf47ed3f62c5d3249b03ec7) )
+	ROM_LOAD( "m0600_po07.rom",    0x400000, 0x40001C, CRC(c68e36b6) SHA1(690b5f4734a4f48fa010df0611d7188f3dff4deb) )
+ROM_END
+
  /************
  Aoshi Sanguo
 **************/
@@ -34995,10 +35026,10 @@ HACK( 2019, kovsho143,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2019, kovsho144,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (God of War 2019-01-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho145,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Ginger Iron Horse 2019-12-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho146,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (God of War 2019-07-20)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kovsho147,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2019-09-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho147,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2.7s 2019-09-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho148,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Central Plains Green Edition 2019-09-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho149,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Journey To The West 2019 2019-08-18)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, kovsho150,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2020-01-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kovsho150,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2.7s 2020-01-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho151,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Super Hero The Road to Survival 2017-10-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho152,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Super Hero Qun Xiong Zhu Lu 2017-10-07)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho153,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Bloody Battle Against All Quarters 2017-10-02)", MACHINE_SUPPORTS_SAVE )
@@ -35029,6 +35060,7 @@ HACK( 2020, kovsho177,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2020, kovsho178,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors Edition 2020-02-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kovsho179,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Super Hero The Road to Survival 2018-07-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho180,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Luan Shi Xiao Xiong Tai Pin Lun Shi 2018-02-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kovsho181,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2.7s 2020-02-11)", MACHINE_SUPPORTS_SAVE )
 // Aoshi Sanguo
 HACK( 2004, kovshxass01,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Troubled Hero)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kovshxass02,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Metamorphosis V0.1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
