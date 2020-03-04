@@ -438,6 +438,7 @@ kc.cpp
 kdt6.cpp
 kim1.cpp
 konin.cpp
+korgds8.cpp
 korgdss1.cpp
 korgm1.cpp
 kramermc.cpp
@@ -688,6 +689,7 @@ poisk1.cpp
 pokemini.cpp
 poly.cpp
 poly88.cpp
+poly800.cpp
 poly880.cpp
 polysix.cpp
 powerstack.cpp
