@@ -4374,6 +4374,29 @@ ROM_START( kof2k4ses35 ) //kofse2k4ap2a
 	ROM_LOAD16_BYTE( "365.c8", 0x3000001, 0x800000, CRC(2c912ff9) SHA1(b624a625ea3e221808b7ea43fb0b1a51d8c1853e) )
 ROM_END
 
+ROM_START( kof2k4ses36 ) //kof2k4p
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc36.p1",  0x000000, 0x500000, CRC(ebe6ccf7) SHA1(0469f0da6a1d47f3fdb79487e839c00920c0483f))
+	
+	NEO_SFIX_128K( "k2k4shc36.s1", CRC(de88d1a0) SHA1(df8231791924d89a9a005cdf1a13c019f3d97806))
+
+	NEO_BIOS_AUDIO_128K( "365.m1", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "365.c1", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "365.c2", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "k2k4shc36.c7", 0x3000000, 0x800000, CRC(dc5de81a) SHA1(2aabb1845c5e609f96db25b66c53384fbe4afe18) )
+	ROM_LOAD16_BYTE( "k2k4shc36.c8", 0x3000001, 0x800000, CRC(e09f5496) SHA1(b7312ca1123257be0e194fdb2ef1cb5a8a303892) )
+ROM_END
+
 ROM_START( kof2k4plss01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "365plss01.p1", 0x000000, 0x100000, CRC(567bb88e) SHA1(f6f035d5f8d4bd1764458d14782b1bf04e38ed06) )
@@ -5031,6 +5054,7 @@ HACK( 2018, kof2k4ses32,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2020, kof2k4ses33,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Omega v1.0 2020-01-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof2k4ses34,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Resurgence Plus Enhanced 2020-01-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof2k4ses35,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Resurgence Plus Enhanced New 2020-01-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2k4ses36,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Plus 2020-03-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss01,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "KyoX",    "Kof Special Edition 2004 Plus (Translation Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss02,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 Plus (Unluck Max2 v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss03,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "Creamymami[EGCG]",    "Kof Special Edition 2004 Plus (Unlimited Power)", MACHINE_SUPPORTS_SAVE )

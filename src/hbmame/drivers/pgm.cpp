@@ -19432,6 +19432,35 @@ ROM_START( kovshs121 ) //kovshwsgl
 	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
 ROM_END
 
+ROM_START( kovshs122 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600_pw122.322",    0x100000, 0x400000, CRC(17395578) SHA1(f5cb70d1f55c483131d80f5d76ce6a72e31345f9) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw16.asic", 0x000000, 0x04000,  CRC(d79943df) SHA1(d3c32b30aed245fec3ce18e7cd0fcab1de06d74d) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600_pw16.rom",    0x180000, 0x800000, CRC(c62ba437) SHA1(a120a9db95306749a1e2589db872d54dc9751210) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600_pw16.rom",    0x0000000, 0x0800000, CRC(a616c24d) SHA1(3d972ae65f28b16f56d7ed86d65060705eaa0483) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_pw16.rom",    0x1000000, 0x0800000, CRC(ab94d8a0) SHA1(f54843fc3ec6f2e0d56da5f8e2a55880bf603109) )
+	ROM_LOAD( "a0603.rom",    0x1800000, 0x0400000, CRC(ec31abda) SHA1(ee526655369bae63b0ef0730e9768b765c9950fc) )
+	ROM_LOAD( "a0604_pw16.rom",    0x1a00000, 0x0400000, CRC(8e3c32bc) SHA1(296376cefcf2d04e8c62a9131ca141162fafa3b0) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0600_pw16.rom",    0x0000000, 0x0800000, CRC(2c5421a6) SHA1(fdb9d9b1d1b716f8835e093ffbb7f7d84b8fb630) )
+	ROM_LOAD( "b0601_pw16.rom",    0x0800000, 0x0400000, CRC(1e917e36) SHA1(480c691c0c3df7225145e163848c46404306fcb4) )
+	ROM_LOAD( "b0602_pw16.rom",    0x0c00000, 0x0400000, CRC(caec6b2c) SHA1(c27805d016c8ba7c35ffa01a3ccc4fa8ae900ead) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
  /**************************
  Quanhuang Sanguo Tebie Ban
 *****************************/
@@ -35000,6 +35029,7 @@ HACK( 2018, kovshs118,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2019, kovshs119,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "hack", "Knights of Valour Super Heroes (The Central Plains 2019-01-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovshs120,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "hack", "Knights of Valour Super Heroes (The Legend of Ares 2019 2019-08-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovshs121,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "hack", "Knights of Valour Super Heroes (Legend Of Moonlight 2019-03-16)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kovshs122,    kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovsh,      ROT0,   "hack", "Knights of Valour Super Heroes (Unknown Hack 2014-06-07)", MACHINE_SUPPORTS_SAVE )
 // Quanhuang Sanguo Tebie Ban
 HACK( 1999, kovqhsgs01,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "hack", "Quanhuang Sanguo Tebie Ban (Three Kingdoms Wars - Edición especial de King of Fighters (¿alt?))", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, kovqhsgs02,   kovsh,     pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovqhsgs,   ROT0,   "hack", "Quanhuang Sanguo Tebie Ban (4 Times Sent Out Test)", MACHINE_SUPPORTS_SAVE )
