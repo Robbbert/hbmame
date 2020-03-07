@@ -2074,6 +2074,7 @@ kof97s161
 kof97s162
 kof97s163
 kof97s164
+kof97s165
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2925,6 +2926,8 @@ kof99s95
 kof99s96
 kof99s97
 kof99s98
+kof99s99
+kof99s100
 
 @source:kof2000.cpp
 kof2000d
@@ -3718,6 +3721,9 @@ kof2003s50
 kof2003s51
 kof2003s52
 kof2003s53
+kof2003s54
+kof2003s55
+kof2003s56
 kf2k3pls01
 kf2k3pls02
 kf2k3pls03
@@ -3780,6 +3786,8 @@ kof2004upls26
 kof2004upls27
 kof2004upls28
 kof2004upls29
+kof2004upls30
+kof2004upls31
 
 @source:konamigx.cpp
 konamigx			//required bios
@@ -6386,6 +6394,7 @@ savageres06
 sdodgebs01
 sdodgebs02
 sdodgebs03
+shocktr2s01
 wakuwak7s01
 wakuwak7s02
 2020bbe
@@ -6611,6 +6620,7 @@ kof2k4ses32
 kof2k4ses33
 kof2k4ses34 
 kof2k4ses35
+kof2k4ses36
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03
@@ -7052,6 +7062,7 @@ svchs32
 svchs33
 svchs34
 svchs35
+svchs36
 svcpluss01
 svcpluss02
 svcpluss03
@@ -8017,6 +8028,7 @@ kovshs118
 kovshs119
 kovshs120
 kovshs121
+kovshs122
 kovsgqyzs01
 kovqhsgs01
 kovqhsgs02
