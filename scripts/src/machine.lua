@@ -1885,18 +1885,6 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/machine/mc2661.h,MACHINES["MC2661"] = true
----------------------------------------------------
-
-if (MACHINES["MC2661"]~=null) then
-	files {
-		MAME_DIR .. "src/devices/machine/mc2661.cpp",
-		MAME_DIR .. "src/devices/machine/mc2661.h",
-	}
-end
-
----------------------------------------------------
---
 --@src/devices/machine/mc6843.h,MACHINES["MC6843"] = true
 ---------------------------------------------------
 
@@ -2716,6 +2704,18 @@ if (MACHINES["SCC68070"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/scc68070.cpp",
 		MAME_DIR .. "src/devices/machine/scc68070.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/scnxx562.h,MACHINES["SCN_PCI"] = true
+---------------------------------------------------
+
+if (MACHINES["SCN_PCI"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/scn_pci.cpp",
+		MAME_DIR .. "src/devices/machine/scn_pci.h",
 	}
 end
 
