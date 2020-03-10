@@ -70,7 +70,7 @@ void load_translation(emu_options &m_options)
 
 	// MESSUI: See if language file exists. If not, try English, see if that exists. If not, use inbuilt default.
 	emu_file file(m_options.language_path(), OPEN_FLAG_READ);
-	if (file.open(name, PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
+	if (file.open(name + PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
 	{
 		osd_printf_verbose("Error opening translation file %s\n", name);
 		name = "English";
