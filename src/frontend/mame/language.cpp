@@ -74,7 +74,7 @@ void load_translation(emu_options &m_options)
 	{
 		osd_printf_verbose("Error opening translation file %s\n", name);
 		name = "English";
-		if (file.open(name.c_str(), PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
+		if (file.open(name + PATH_SEPARATOR "strings.mo") != osd_file::error::NONE)
 		{
 			osd_printf_verbose("Error opening translation file %s\n", name);
 			return;
