@@ -201,7 +201,7 @@ TILE_GET_INFO_MEMBER(deco_bac06_device::get_pf8x8_tile_info)
 	int tile = m_pf_data[tile_index];
 	int colourpri = (tile >> 12);
 	//int flags=(m_pf_control_0[0]&2) ? 0 : TILE_FLIPX; // HBMAME fix for decodemo 2019-02-27 - TILE_GET_INFO_MEMBER always returns 0 for m_pf_control_0[0] regardless of its real value
-	SET_TILE_INFO_MEMBER(m_tile_region_8,tile&0xfff,0,0); // HBMAME fix for decodemo 2019-02-27
+	tileinfo.set(m_tile_region_8,tile & 0xfff,0,0); // HBMAME fix for decodemo 2019-02-27
 	tileinfo.category = colourpri;
 }
 
@@ -211,7 +211,7 @@ TILE_GET_INFO_MEMBER(deco_bac06_device::get_pf16x16_tile_info)
 	int tile = m_pf_data[tile_index];
 	int colourpri = (tile >> 12);
 	//int flags=(m_pf_control_0[0]&2) ? 0 : TILE_FLIPX; // HBMAME fix for decodemo 2019-02-27 - TILE_GET_INFO_MEMBER always returns 0 for m_pf_control_0[0] regardless of its real value
-	SET_TILE_INFO_MEMBER(m_tile_region_16,tile&0xfff,0,0); // HBMAME fix for decodemo 2019-02-27
+	tileinfo.set(m_tile_region_16,tile & 0xfff,0,0); // HBMAME fix for decodemo 2019-02-27
 	tileinfo.category = colourpri;
 }
 

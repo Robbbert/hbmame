@@ -13462,6 +13462,7 @@ feasbu                          //
 feasgla                         //
 feag                            //
 feag2100                        //
+feag2100a                       //
 fepriv                          //
 fpres                           //
 fpresbu                         //
@@ -34366,6 +34367,7 @@ dngrtrck                        // Petaco bootleg
 gutangtn                        // GX359 (c) 1982 Konami + Sega license
 jackler                         // 1 9 8 2 (Jungler Bootleg)
 jungler                         // GX327 (c) 1981 Konami
+junglero                        // Olympia license
 junglers                        // GX327 (c) 1981 Stern
 locoboot                        // bootleg
 locomotn                        // GX359 (c) 1982 Konami + Centuri license
@@ -37131,6 +37133,7 @@ rad_skatp                       //
 rad_crik                        //
 rad_fb2                         //
 mattelcs                        //
+comil                           //
 abltenni                        //
 tvsprt10                        //
 decathln
@@ -37826,6 +37829,7 @@ starfigh                        // (c) 1990 SunA
 @source:sunplus_unsp20soc.cpp
 paccon
 jak_s500
+jak_smwm
 jak_pf
 jak_prft
 jak_tink
