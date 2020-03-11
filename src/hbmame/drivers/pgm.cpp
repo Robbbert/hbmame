@@ -30638,7 +30638,7 @@ ROM_START( olds100ass166 ) //oldsdsgl
 
 	ROM_REGION( 0xc00000, "tiles",  0 )
 	PGM_VIDEO_BIOS
-	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0500_ah163.rom",    0x180000, 0x400000, CRC(434ddae8) SHA1(6a439dfd169b83bbd8ed442e72cf6fc27c142e80) )
 	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
 
 	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
@@ -30674,7 +30674,7 @@ ROM_START( olds100ass167 ) //oldsdsgl
 
 	ROM_REGION( 0xc00000, "tiles",  0 )
 	PGM_VIDEO_BIOS
-	ROM_LOAD( "t0500.rom",    0x180000, 0x400000, CRC(d881726c) SHA1(a82517e665996f7b7017c940f1fcf016fccb65c2) )
+	ROM_LOAD( "t0500_ah163.rom",    0x180000, 0x400000, CRC(434ddae8) SHA1(6a439dfd169b83bbd8ed442e72cf6fc27c142e80) )
 	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
 
 	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
@@ -30695,6 +30695,44 @@ ROM_START( olds100ass167 ) //oldsdsgl
 	ROM_REGION( 0x1000000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "m0500.rom",    0x400000, 0x200000, CRC(37928cdd) SHA1(e80498cabc2a6a54d4f3ebcb097d4b3fad96fe55) )
+ROM_END
+
+ROM_START( olds100ass168 ) //olds100az
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0500_ah168.v10",    0x100000, 0x400000, CRC(c0d74394) SHA1(8356ee4b1c76440177b559e1201a2eb1eea8c6fa) )
+
+	ROM_REGION( 0x010000, "user1", ROMREGION_ERASEFF )
+	ROM_LOAD( "kd-u6.512", 0x000000, 0x010000,  CRC(e7613dda) SHA1(0d7c043b90e2f9a36a45066f22e3e305dc716676) )
+
+	ROM_REGION( 0x4000, "user2", ROMREGION_ERASEFF )
+	ROM_LOAD( "ram_dump", 0x000000, 0x04000, CRC(280cfb4e) SHA1(cd2bdcaa21347952c2bf38b105a204d327fde39e) )
+
+	ROM_REGION( 0xc00000, "tiles",  0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0500_ah168.rom",    0x180000, 0x400000, CRC(593f07e3) SHA1(e5afdf0885021d3af354a154619840ed0824b679) )
+	ROM_LOAD( "t0501.rom",    0x580000, 0x200000, CRC(d2106864) SHA1(65d827135b87d82196433aea3279608ee263feca) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0500.rom",    0x0000000, 0x400000, CRC(80a59197) SHA1(7d0108e2f0d0347d43ace2d96c0388202c05fdfb) )
+	ROM_LOAD( "a0501_ah168.rom",    0x0400000, 0x400000, CRC(b946398d) SHA1(e35e709ec2a429b69651d5acdcdb802ccccb4c60) )
+	ROM_LOAD( "a0502.rom",    0x0800000, 0x400000, CRC(c3fcdf1d) SHA1(107585fd103fcd0af0fb7db283be4f7c7058aef7) )
+	ROM_LOAD( "a0503.rom",    0x0c00000, 0x400000, CRC(066dffec) SHA1(f023032a7202b7090fb609a39e0f19018e664bf3) )
+	ROM_LOAD( "a0504.rom",    0x1000000, 0x400000, CRC(45337583) SHA1(c954d0e5bf7fa99c90b0d154e7119d2b0c461f1c) )
+	ROM_LOAD( "a0505.rom",    0x1400000, 0x400000, CRC(5b8cf3a5) SHA1(856d1e47b5d9a66dcfbdc74a51ed646fd7d96a35) )
+	ROM_LOAD( "a0506_ah161.rom",    0x1800000, 0x400000, CRC(f5e5cce3) SHA1(8672e1a3282b2738dcc3d04c8deba13e4e79005d) )
+	//ROM_LOAD( "a0506.rom",    0x1800000, 0x400000, CRC(087ac60c) SHA1(3d5bf7dd40c8a3c1224cf82e12410ca904c0c5db) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "b0500_ah168.rom",    0x0000000, 0x400000, CRC(2b273a17) SHA1(f87687c2011b7cca374c9aabc0f29b9d4b86db05) )
+	ROM_LOAD( "b0501.rom",    0x0400000, 0x400000, CRC(1546c2e9) SHA1(a7b9c8b44203db54a59d49fe469bb52bba807ba2) )
+	ROM_LOAD( "b0502.rom",    0x0800000, 0x400000, CRC(e97b31c3) SHA1(1a7ca4f6c8644e84a33ae41cd4637f21046b14c5) )
+	ROM_LOAD( "b0503_ah161.u16",    0x0c00000, 0x400000, CRC(9679f77d) SHA1(a35fd4a130a9083a5edf0f98b1f9f01ff4f7844b) )
+	//ROM_LOAD( "b0503.u16",    0x0c00000, 0x400000, CRC(e41d98e4) SHA1(f80b27fcee81762993e09bf1b3cad6e85274760c) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0500_ah168.rom",    0x400000, 0x200000, CRC(d36c1661) SHA1(95a0e4075222fc25c317f704ac8861222cdaa47d) )
 ROM_END
 
  /****************************
@@ -35486,6 +35524,7 @@ HACK( 2019, olds100ass164,olds,      pgm_028_025_ol,     olds,     pgm_028_025_s
 HACK( 2019, olds100ass165,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "hack", "Oriental Legend Special (Breath Enhanced Edition 2019 2019-02-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, olds100ass166,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "hack", "Oriental Legend Special (Hack of Xi You Shi E Zhuan Super 20XX-0X-0X)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, olds100ass167,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "hack", "Oriental Legend Special (Hack of Xi You Shi E Zhuan Super 2019-08-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, olds100ass168,olds,      pgm_028_025_ol,     olds,     pgm_028_025_state,   olds,       ROT0,   "hack", "Oriental Legend Special (Enhanced Edition 2017-07-08)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Special Plus
 HACK( 2016, oldsplus01,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Super Dance Macabre 2016 Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, oldsplus02,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Unknown Hack 2014-04-04)", MACHINE_SUPPORTS_SAVE )
