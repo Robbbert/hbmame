@@ -429,6 +429,7 @@ INPUT_PORTS_EXTERN(dualbios);
 
 #define NEOGEO_BIOS \
 	ROM_REGION16_BE( 0x80000, "mainbios", 0 ) \
+	ROMX_LOAD( "sp-s2.sp1", 0x00000, 0x020000, CRC(9036d879) SHA1(4f5ed7105b7128794654ce82b51723e16e389543), ROM_GROUPWORD | ROM_REVERSE ) \
 	ROM_SYSTEM_BIOS( 0, "euro", "Europe MVS (Ver. 2)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( 0, "sp-s2.sp1",         0x00000, 0x020000, CRC(9036d879) SHA1(4f5ed7105b7128794654ce82b51723e16e389543) ) /* 5 Dark Blue - Europe, 1 Slot, has also been found on 2 Slot and 4 Slot (the old hacks were designed for this one) */ \
 	ROM_SYSTEM_BIOS( 1, "euro-s1", "Europe MVS (Ver. 1)" ) \
@@ -466,7 +467,8 @@ INPUT_PORTS_EXTERN(dualbios);
 	ROM_LOAD16_WORD_SWAP_BIOS( 15, "sp-1v1_3db8c.bin", 0x00000, 0x020000, CRC(162f0ebe) SHA1(fe1c6dd3dfcf97d960065b1bb46c1e11cb7bf271) ) /* 6 Red - 'rare MVS found in japanese hotels' shows v1.3 in test mode */ \
 	\
 	NEOGEO_UNIBIOS(16) \
-	NEOGEO_UNIBIOS_1_2_AND_OLDER(16)
+	NEOGEO_UNIBIOS_1_2_AND_OLDER(16) \
+	ROM_DEFAULT_BIOS("euro")
 
 
 #define NEO_BIOS_AUDIO_64K(name, hash) \

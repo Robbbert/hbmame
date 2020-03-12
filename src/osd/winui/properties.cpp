@@ -2782,7 +2782,7 @@ static void InitializeBIOSUI(HWND hwnd)
 				return;
 			}
 			res = ComboBox_InsertString(hCtrl, i, TEXT("Default"));
-			res = ComboBox_SetItemData( hCtrl, i++, "");
+			res = ComboBox_SetItemData( hCtrl, i++, "default");
 
 			if (gamedrv->rom)
 			{
@@ -2799,6 +2799,8 @@ static void InitializeBIOSUI(HWND hwnd)
 						res = ComboBox_InsertString(hCtrl, i, win_tstring_strdup(t_s));
 						res = ComboBox_SetItemData( hCtrl, i++, biosname);
 						free(t_s);
+						if (ROMENTRY_ISDEFAULT_BIOS(rom))
+							res = ComboBox_SetItemData( hCtrl, 0, biosname);
 					}
 				}
 			}
