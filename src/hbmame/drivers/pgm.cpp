@@ -24476,6 +24476,34 @@ ROM_START( kovsho184 ) //kovytzyws
 	ROM_LOAD( "m0600_po112.rom",    0x400000, 0x400000, CRC(53532587) SHA1(e1562903c6bc6fc278d6ed6448bb715736e6d129) )
 ROM_END
 
+ROM_START( kovsho185 ) //kovytzyhm
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po185.rom",    0x100000, 0x400000, CRC(67902066) SHA1(e6bb48594a790bf892f3067a37a3c3ee4bd2ea1a) )
+    ROM_IGNORE( 0x400000 )
+ 
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000, BAD_DUMP CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_po112.rom",    0x1000000, 0x0800000, CRC(f25b6930) SHA1(b29bf150ba7cee93a345cbf931ae108628d3bd83) )
+	ROM_LOAD( "a0540_pw185.rom",    0x1800000, 0x0800000, CRC(0a7a89a9) SHA1(105753386cd9d15e050cb7460ce75f490a994bf7) )
+
+	ROM_REGION16_LE( 0x2000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",          0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0540_pw185.rom",    0x0800000, 0x0800000, CRC(2c39cf4e) SHA1(53bf34907f3a3ee926326b88b3a09d816c9e0818) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600.rom",    0x400000, 0x400000, CRC(3ada4fd6) SHA1(4c87adb25d31cbd41f04fbffe31f7bc37173da76) )
+ROM_END
+
  /************
  Aoshi Sanguo
 **************/
@@ -35349,6 +35377,7 @@ HACK( 2020, kovsho181,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2004, kovsho182,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Luan Shi Ying Xiong 20XX-0X-0X)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho183,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Blue Version 2019-05-0X)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho184,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Edition 2019-0X-0X)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kovsho185,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Uniform Central Plains Yellow Hat 2020-03-08)", MACHINE_SUPPORTS_SAVE )
 // Aoshi Sanguo
 HACK( 2004, kovshxass01,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Troubled Hero)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kovshxass02,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Metamorphosis V0.1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
