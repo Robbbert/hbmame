@@ -858,6 +858,7 @@ dinos233
 dinos234
 dinos235
 dinos236
+dinos237
 ffights01
 ffights02
 ffightj2s01
@@ -6338,6 +6339,7 @@ zupapadd
 androduns01
 aof2s01
 aof2s02
+aof2s03
 breakers01
 breakrevs01
 breakrevs02
@@ -6889,6 +6891,7 @@ samsho2s12
 samsho2s13
 samsho2s14
 samsho2s15
+samsho2s16
 samsho3s01
 samsho3s02
 samsho3s03
@@ -6902,6 +6905,7 @@ samsho3s10
 samsho3s11
 samsho3s12
 samsho3s13
+samsho3s14
 samsho4s01
 samsho4s02
 samsho4s03
@@ -6918,6 +6922,7 @@ samsho4s13
 samsho4s14
 samsho4s15
 samsho4s16
+samsho4s17
 samsho5s01
 samsho5s02
 samsho5s03
@@ -6948,6 +6953,7 @@ samsho5s27
 samsho5s28
 samsho5s29
 samsho5s30
+samsho5s31
 samsh5sp01
 samsh5sp02
 samsh5sp03
@@ -6971,6 +6977,7 @@ samsh5sp20
 samsh5sp21
 samsh5sp22
 samsh5sp23
+samsh5sp24
 
 @source:ngsengoku.cpp
 sengokucd
@@ -8021,7 +8028,7 @@ kovshs109
 kovshs110
 kovshs111
 kovshs112
-//kovshs113   //  Unstable game in the emulator (ingame crash) 
+kovshs113
 kovshs114
 kovshs115
 kovshs116

@@ -11389,11 +11389,11 @@ ROM_START( dinos74 ) //dinovr
 ROM_END
 
 ROM_START( dinos75 ) //dino7s
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "cdes75.8f", 0x000000, 0x80000, CRC(894b3f34) SHA1(c382c1b566e48bb08d1a054dc1b6345a3dca1462) )
 	ROM_LOAD16_WORD_SWAP( "cdes75.7f", 0x080000, 0x80000, CRC(c14680e6) SHA1(6fe25b6325e56ba4b2f6eac9d2c5ccb8607af60e) )
 	ROM_LOAD16_WORD_SWAP( "cdes75.6f", 0x100000, 0x80000, CRC(abda9f74) SHA1(d38ed99209c7b6431fa7ab4ded8e402a72b80254) )
-   //ROM_LOAD16_WORD_SWAP( "kl.ww", 0x000000, 0x400000, CRC(77b3d3c4) SHA1(05c26e8c5bc2e4d91307925a4dbb86a15fb7bebd) )
+    ROM_LOAD16_WORD_SWAP( "kl.ww", 0x180000, 0x400000, CRC(77b3d3c4) SHA1(05c26e8c5bc2e4d91307925a4dbb86a15fb7bebd) )
    
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -11420,11 +11420,11 @@ ROM_START( dinos75 ) //dino7s
 ROM_END
 
 ROM_START( dinos91 ) //dino5b
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "cdes91.8f", 0x000000, 0x80000, CRC(68db2b56) SHA1(61c5ee1c1d7d54c5aa5b4e976df3f757e02fed72) )
 	ROM_LOAD16_WORD_SWAP( "cdes91.7f", 0x080000, 0x80000, CRC(1df612a8) SHA1(7946a248ef460f0f2cf602a76fe5ddb531196d95) )
 	ROM_LOAD16_WORD_SWAP( "cdes91.6f", 0x100000, 0x80000, CRC(5599e48e) SHA1(b41f31e7aadb763233595b92f9b07fd0d47674ef) )
-    //ROM_LOAD16_WORD_SWAP( "kl.ww", 0x000000, 0x400000, CRC(77b3d3c4) SHA1(05c26e8c5bc2e4d91307925a4dbb86a15fb7bebd) )
+    ROM_LOAD16_WORD_SWAP( "kl.ww", 0x180000, 0x400000, CRC(77b3d3c4) SHA1(05c26e8c5bc2e4d91307925a4dbb86a15fb7bebd) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -12745,11 +12745,11 @@ ROM_START( dinos135 )
 ROM_END
 
 ROM_START( dinos136 ) //dinotl
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "cdes136.8f", 0x000000, 0x80000, CRC(ecdc1734) SHA1(656e7028d0f44a31281be0fee50d467c8eaffaef) )
 	ROM_LOAD16_WORD_SWAP( "cdes136.7f", 0x080000, 0x80000, CRC(291ab913) SHA1(b8b54e91d085201de60ba94378cc991e0897cfa3) )
 	ROM_LOAD16_WORD_SWAP( "cdes136.6f", 0x100000, 0x80000, CRC(27b721ef) SHA1(d020ca6a31ec45ff25635d0e9d453c151d5144be) )
-    //ROM_LOAD16_WORD_SWAP( "kl.ww", 0x000000, 0x400000, CRC(77b3d3c4) SHA1(05c26e8c5bc2e4d91307925a4dbb86a15fb7bebd) )
+    ROM_LOAD16_WORD_SWAP( "kl.ww", 0x180000, 0x400000, CRC(77b3d3c4) SHA1(05c26e8c5bc2e4d91307925a4dbb86a15fb7bebd) )
  
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -15720,6 +15720,36 @@ ROM_START( dinos236 ) //dino18ws
 	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
+ROM_START( dinos237 ) //dinob
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "cdes23.8f", 0x000000, 0x80000, CRC(836a492c) SHA1(7dd6aae51acd53aaf49b99155eebd52cb9e96e3e) )
+	ROM_LOAD16_WORD_SWAP( "cdes24.7f", 0x080000, 0x80000, CRC(8111b35c) SHA1(78c17659f7573e0292b7eb84bc97f0373119ca3a) )
+	ROM_LOAD16_WORD_SWAP( "cdes25.6f", 0x100000, 0x80000, CRC(a0411261) SHA1(b807908f14ac9667ba2226e350f322ca73ecbb79) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
 /************
  Final Fight
 **************/
@@ -15858,8 +15888,8 @@ ROM_START( ffightj2s02 )
 	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
 ROM_END
 
-ROM_START( ffightj1s01 )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )     
+ROM_START( ffightj1s01 ) //ffight1v2
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "ffj_36_1ps01.12f", 0x00000, 0x20000, CRC(5d9b9222) SHA1(4db46e757f8ffad514ec9f3c27613d601b88f316) )
 	ROM_LOAD16_BYTE( "ffj_42_1ps01.12h", 0x00001, 0x20000, CRC(48986323) SHA1(004ace666449278aed2a69fdca4a3a0779083d4a) )
 	ROM_LOAD16_BYTE( "ffj_37.13f", 0x40000, 0x20000, CRC(c371c667) SHA1(633977c91a8ff09b7fe83128eced7c4dee9aee1d) )
@@ -15868,7 +15898,7 @@ ROM_START( ffightj1s01 )
 	ROM_LOAD16_BYTE( "ffj_40.10h", 0x80001, 0x20000, CRC(8075bab9) SHA1(f9c7405133f6fc5557c90e60e8ccc459e4f6fd7d) ) 
 	ROM_LOAD16_BYTE( "ffj_35.11f", 0xc0000, 0x20000, CRC(4a934121) SHA1(3982c261582755a0eac340d6d7ed96e6c263c8b6) )
 	ROM_LOAD16_BYTE( "ffj_41.11h", 0xc0001, 0x20000, CRC(2af68154) SHA1(7d549cb38650b4b79c68ad6d0dfcefdd62be4e99) )
-	//ROM_LOAD16_BYTE( "ffj_44.09h", 0x100000, 0x20000, CRC(37708588) SHA1(ab1a841d37b7cafc88e160dcde4d72b981033fdf) )
+	ROM_LOAD16_BYTE( "36v2", 0xE0000, 0x20000, CRC(37708588) SHA1(ab1a841d37b7cafc88e160dcde4d72b981033fdf) )
 
 	ROM_REGION( 0x200000, "gfx", 0 )
 	ROMX_LOAD( "ffj_09.4b",  0x000000, 0x20000, CRC(5b116d0d) SHA1(a24e829fdfa043bd27b508d7cc0788ad80fd180e) , ROM_SKIP(7) )
@@ -16277,7 +16307,7 @@ ROM_START( knightsh10 ) //knightsjb
 	ROM_LOAD ( "knightsh.key", 0x00, 0x80, CRC(68d9786b) SHA1(8721cda836d88c48ab07b96d66015832b5e561f7) )
 ROM_END
 
-ROM_START( knightsh11 )
+ROM_START( knightsh11 ) //knightsh
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "krs11.8f", 0x00000, 0x80000, CRC(7d6e3cb9) SHA1(089ee26a479f0bbe6e032f8c162af5df61732146) )
 	ROM_LOAD16_WORD_SWAP( "krh_22.rom",   0x80000, 0x80000, CRC(1438d070) SHA1(4f6fad844c3e8eb960bb6cb85ac570979c0ae973) )
@@ -26527,19 +26557,19 @@ HACK( 2017, dinos59,       dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2010, dinos60,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (2011 Plus New Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos61,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (2011 Plus Bloody Warriors 2018 New Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, dinos62,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Phantom Musou Updated version 2017 2017-11-29)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, dinos63,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2018)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, dinos63,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2017-12-27)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, dinos64,       dino,     qsound,     dinohz,   cps_state,   dinoh,    ROT0,   "hack", "Cadillacs and Dinosaurs (Second Generation Extreme Edition 1 2017-12-16)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2017, dinos65,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Second Generation Extreme Edition 2 2017-12-17)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2012, dinos66,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Unknown Hack 2012-10-26)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos67,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Unknown Hack 2015-11-15)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos68,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Unknown Hack 2013-08-23)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, dinos69,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ngs", "Cadillacs and Dinosaurs (Butcher's Wrath Final Edition Matchless Death 2017-11-23)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, dinos69,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ngs", "Cadillacs and Dinosaurs (Tu Fu Zhi Nu 2017-11-23)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos70,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs 2011 Plus (2011 Warriors Final Cracked Version 2018-02-12)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos71,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ngs", "Cadillacs and Dinosaurs (Dou Shen Edition 2018 2018-05-14)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, dinos72,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Hell Warriors 2017-12-24)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, dinos72,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Di Yu Wu Shuang 2017-12-24)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2017, dinos73,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (99 Jurassic Plus 2017-11-13)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, dinos74,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (2018 Villain's Revenge 2017-12-31)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, dinos75,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Qi Sha Edition)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, dinos74,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (E Gun De Fu Chou 2017-12-31)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, dinos75,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Qi Sha Edition 2018-02-25)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos91,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Hacks Unknown 2018-03-09)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos92,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (2011 Bloody Battle Unparalleled 2018-02-05)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2017, dinos93,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Ogasa Version 2017-12-17)" , MACHINE_SUPPORTS_SAVE )
@@ -26590,7 +26620,7 @@ HACK( 2018, dinos137,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2018, dinos138,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "DDJ", "Cadillacs and Dinosaurs (Press Button Call Out Weapon)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos139,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "DDJ", "Cadillacs and Dinosaurs (Quick Go Next Stage 2018-08-23)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos140,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "DDJ", "Cadillacs and Dinosaurs (Stage Select)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2018, dinos141,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Fast Moving, Continuous, Unparalleled 2018-08-13)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, dinos141,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Ruan Bu Wu Shuang 2018 2018-08-13)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos142,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Fast Fight Blood Battle Version 2018 Tour Version 2018-06-11)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos143,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Xue Zhan Edition 2018-10-25)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2016, dinos144,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Dinosaur New Century 2016-01-26)" , MACHINE_SUPPORTS_SAVE )
@@ -26686,6 +26716,7 @@ HACK( 2018, dinos233,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2019, dinos234,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "JieJiSanQi", "Cadillacs and Dinosaurs (Majin Ranbu 2019-04-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, dinos235,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (The Warriors Edition 2020 Update 2020-01-25)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, dinos236,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (The Warriors Edition 2018 Update 2018-07-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 1993, dinos237,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Unparalleled Multi-Boss Bloody Version v.?)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
 HACK( 1990, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ffights02,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "hack", "Final Fight (1VS2 Enhanced Version 2016-08-17)", MACHINE_SUPPORTS_SAVE )
@@ -26707,8 +26738,8 @@ HACK( 1991, knightsh07,    knights,  cps1_10MHz, knights,  cps_state,   cps1,   
 HACK( 2016, knightsh08,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack",     "Knights of the Round (Super Plus 2016-08-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, knightsh09,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack",     "Knights of the Round (Tie Jia Ying Hao 1 Vs 3 Edition 2018-03-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, knightsh10,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack",     "Knights of the Round (Translation Chinese 2018-03-03)", MACHINE_SUPPORTS_SAVE )
-HACK( 1991, knightsh11,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "doubledr", "Knights of the Round (Tie Jia Ying Hao 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, knightsh12,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "doubledr", "Knights of the Round (Super Enhanced Latest Edition 2015-06-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, knightsh11,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack", "Knights of the Round (Tie Jia Ying Hao 2 2018-03-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, knightsh12,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack", "Knights of the Round (Super Enhanced Latest Edition 2015-06-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, knightsh13,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack", "Knights of the Round (Unknown Hack 2016-11-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, knightsh14,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack", "Knights of the Round (Enhanced Edition 2016-07-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, knightsh15,    knights,  cps1_10MHz, knights,  cps_state,   cps1,     ROT0,   "hack", "Knights of the Round (Full Screen Attack 2018-02-26)", MACHINE_SUPPORTS_SAVE )
