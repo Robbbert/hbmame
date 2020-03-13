@@ -17210,7 +17210,7 @@ HACK( 2000, mslug3h35,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2000, mslug3h36,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons Rocket Launcher With Infinite Ammo)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h37,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "PlayerX China",    "Metal Slug 3 (Out Of Blue)" , MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h39,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enemy Soldier Reset Alpha 2014-01-18)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug3h40,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 2017-12-08)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug3h40,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 2017-12-08)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h41,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Store Version 2017-12-16)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h42,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Edition 2017-04-04)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug3h43,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3fr,  ROT0, "Shyma.X",    "Metal Slug 3 (Neo Arc French Traduction Rev.2)", MACHINE_SUPPORTS_SAVE )
