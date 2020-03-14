@@ -1585,6 +1585,28 @@ ROM_START( mslug4hh50 ) //mslug4c, mslug4dr
 	ROM_LOAD16_BYTE( "263lw.c6", 0x2000001, 0x400000, CRC(b015aeee) SHA1(24e12e72b82eea9e52a4cefc774efb3bd7db822f) )
 ROM_END
 
+ROM_START( mslug4hh51 ) //It is unknown whether an updated version or an older version.
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263hh50.p1",  0x000000, 0x100000, CRC(7c000d36) SHA1(9b60834d6fee94d6e841cd489cb4c0fb470d52b2) )
+	ROM_LOAD16_WORD_SWAP( "263hh25.sp2", 0x100000, 0x400000, CRC(cf6feb75) SHA1(133e1d97a3ae14835dcb7b6a642c3968cd174547) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "263.m1", CRC(46ac8228) SHA1(5aeea221050c98e4bb0f16489ce772bf1c80f787) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263.v1", 0x000000, 0x800000, CRC(01e9b9cd) SHA1(0b045c2999449f7dab5ae8a42e957d5b6650431e) )
+	ROM_LOAD( "263.v2", 0x800000, 0x800000, CRC(4ab2bf81) SHA1(77ccfa48f7e3daddef5fe5229a0093eb2f803742) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263.c1", 0x0000000, 0x800000, CRC(84865f8a) SHA1(34467ada896eb7c7ca58658bf2a932936d8b632c) )
+	ROM_LOAD16_BYTE( "263.c2", 0x0000001, 0x800000, CRC(81df97f2) SHA1(2b74493b8ec8fd49216a627aeb3db493f76124e3) )
+	ROM_LOAD16_BYTE( "263.c3", 0x1000000, 0x800000, CRC(1a343323) SHA1(bbbb5232bba538c277ce2ee02e2956ca2243b787) )
+	ROM_LOAD16_BYTE( "263.c4", 0x1000001, 0x800000, CRC(942cfb44) SHA1(d9b46c71726383c4581fb042e63897e5a3c92d1b) )
+	ROM_LOAD16_BYTE( "263.c5", 0x2000000, 0x800000, CRC(a748854f) SHA1(2611bbedf9b5d8e82c6b2c99b88f842c46434d41) )
+	ROM_LOAD16_BYTE( "263.c6", 0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
+ROM_END
+
 ROM_START( mslug4erms01 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263erms01.p1",  0x000000, 0x100000, CRC(094c778d) SHA1(185d878547162f2c7774fdcb9d7e3f8cdad4ef8b) )
@@ -6317,6 +6339,7 @@ HACK( 2019, mslug4hh47,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neo
 HACK( 2019, mslug4hh48,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-07-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug4hh49,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb, ROT0, "hack", "Metal Slug 4 (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4hh50,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-11-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug4hh51,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Multi-Function Version 2018-10-05)", MACHINE_SUPPORTS_SAVE ) //The date of the ips is taken into account
 HACK( 2019, mslug4erms01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.0 (2019-04-19))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4erms02,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.1 (2019-04-19))", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug4erms03,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.2 (2019-04-19))", MACHINE_SUPPORTS_SAVE )
