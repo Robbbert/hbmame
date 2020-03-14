@@ -5873,7 +5873,7 @@ HACK( 2004, hsf2js00,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,  
 HACK( 2004, hsf2js01,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "yumeji", "Hyper Street Fighter II: The Anniversary Edition (Choose Hidden Characters Easier)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, hsf2js02,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "yumeji/MasterStiller", "Hyper Street Fighter II: The Anniversary Edition (Enabled Hidden Characters In Normal Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, hsf2js03,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "Blue-Ray", "Hyper Street Fighter II: The Anniversary Edition (Simplify The Move)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, hsf2js04,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Hyper Street Fighter II: The Anniversary Edition (Gouki Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, hsf2js04,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "hack", "Hyper Street Fighter II: The Anniversary Edition (Gouki Edition 2018-07-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, hsf2js05,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "DDJ", "Hyper Street Fighter II: The Anniversary Edition (Can Choice Same Character)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, hsf2js06,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "DDJ", "Hyper Street Fighter II: The Anniversary Edition (Changed Character ｖ2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, hsf2js07,   hsf2,     cps2,     cps2_2p6b, cps2_state, cps2, ROT0,   "DDJ", "Hyper Street Fighter II: The Anniversary Edition (Easy Move v2)", MACHINE_SUPPORTS_SAVE )

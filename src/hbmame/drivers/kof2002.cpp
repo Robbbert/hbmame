@@ -3995,7 +3995,7 @@ HACK( 2010, kof2k2omg8,  kof2002, neogeo_noslot, neogeo, neogeo_state,        ne
 HACK( 2012, kof2k2omg9,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.9)", MACHINE_SUPPORTS_SAVE )
 HACK( 2011, kof2k2omg9b, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Omega v0.9 beta)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2on,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "KOF-ON Team", "Kof2002 (Onteam)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, kof2k2or,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (Tianguo Protoss 2008-06-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2007, kof2k2or,    kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (Tianguo Protoss 2008-06-24)", MACHINE_SUPPORTS_SAVE ) //Name: 3rd Strike of the OROCHI [EGHT]
 HACK( 2002, kof2k2ori,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "hack", "Kof2002 (Orochi's Iori Remixed Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ori2,  kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "FCHT", "Kof2002 (Orochi's Iori Remixed Rev.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2pa,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "hack", "Kof2002 Plus (Set 2 bootleg)", MACHINE_SUPPORTS_SAVE )
@@ -4008,7 +4008,7 @@ HACK( 2003, kof2k2pro,   kof2002, neogeo_noslot, neogeo, neogeo_state,       kof
 HACK( 2007, kof2k2ps2,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 (PlayStation 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2a,  kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "EGHT", "Kof2002 (PlayStation 2 ver 0.4)", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, kof2k2ps2mp, kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "EGCG-EGHT", "Kof2002 Magic Plus (PlayStation 2 Beta)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, kf2k2ps2re,  kof2002, gsc,           neogeo, neogeo_state,       neogeo, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, kf2k2ps2re,  kof2002, gsc,           neogeo, neogeo_state,       neogeo, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 Public Test 2018-10-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kf2k2ps2re1, kof2002, gsc,           neogeo, neogeo_state,       neogeo, ROT0, "EGCG", "Kof2002 (PlayStation 2 Hack Ver.1.0 2018-12-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2pur,   kof2002, neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Kawada7278", "Kof2002 (Boss Purple)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2k2ra,    kof2002, neogeo_noslot, neogeo, neogeo_state,       kof2002, ROT0, "Ruin Angel", "Kof2002 (Diff Moves - Based on CHL set 2)", MACHINE_SUPPORTS_SAVE )

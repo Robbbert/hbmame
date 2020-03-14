@@ -1979,14 +1979,14 @@ ROM_START( kof2000s32 )
 	ROM_LOAD16_BYTE( "257.c8", 0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) ) 
 ROM_END
 
-ROM_START( kof2000s33 ) // kof2000ps2 : cx,px confirmed
+ROM_START( kof2000s33 ) // kof2kps2, kof2000ps2 : cx,px confirmed
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "257hc33.p1", 0x000000, 0x100000, CRC(56941018) SHA1(92d6d131111726f8ab616bf9dd54c1d5cbaa5bd5) )
 	ROM_LOAD16_WORD_SWAP( "257hc33.p2", 0x100000, 0x400000, CRC(1669a5ad) SHA1(64169a059aafcd91262243f6f5625a3104410d5b) )
 
 	NEO_SFIX_MT_512K
 
-	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+	NEO_BIOS_AUDIO_256K( "257gbh.m1", CRC(a082f086) SHA1(809ef4a533cf541b86786f455a7f283a5acecd82) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "257.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
@@ -2759,7 +2759,7 @@ HACK( 2000, kof2000s29,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2000, kof2000s30,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "sujianxiong",    "Kof2000 (The Eight Gods Of The Blood Of The Great Snake)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s31,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Eddids",    "Kof2000 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s32,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "yashional",    "Kof2000 (Investment Skills Hit)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Playsation 2 Plus)(Hack only enable in AES mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Like PS2 Version V1.0 2013)(Hack only enable in AES mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s34,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "COGODO",    "Kof2000 (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s35,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Eddids & 0 Day-S，A1",    "Kof2000 (Boss Striker Perfect Edtion)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s36,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Simplify The Move)", MACHINE_SUPPORTS_SAVE )
