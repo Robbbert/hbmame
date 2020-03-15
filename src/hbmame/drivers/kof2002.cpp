@@ -1411,7 +1411,7 @@ ROM_START( kof2k2js )
 	ROM_LOAD16_BYTE( "265rm13.c8", 0x3000001, 0x800000, CRC(93D8501F) SHA1(470f29de0bad8c15d924fffbbfa85926b551a8ae) )
 ROM_END
 
-ROM_START( kof2k2js2 )
+ROM_START( kof2k2js2 ) //kf2k2js2
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265js2.p1", 0x000000, 0x100000, CRC(8da72d5c) SHA1(315d104da120fe1df041221209dc609a2f1d41a8) )
 	ROM_LOAD16_WORD_SWAP( "265js.p2", 0x100000, 0x400000, CRC(75185760) SHA1(5501d4d9ac7fcd83102f6fbee7d986006566bf9d) )
@@ -1993,7 +1993,7 @@ ROM_START( kof2k2lb )
 	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
 ROM_END
 
-ROM_START( kof2k2leon ) // Credit display is incorrect
+ROM_START( kof2k2leon ) //kf2k2leon  Credit display is incorrect
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265leon.p1", 0x000000, 0x100000, CRC(eba68160) SHA1(1d226e00782df71556666222e20f48268c17968c) )
 	ROM_LOAD16_WORD_SWAP( "265leon.p2", 0x100000, 0x400000, CRC(952fae3d) SHA1(09f868eb02b8df425c80f59ad43adbc3107755ab) )
@@ -6568,19 +6568,18 @@ ROM_START( kof2002s109 ) //kof2002mp2
 	ROM_LOAD16_BYTE( "265hc102.c8", 0x3000001, 0x800000, CRC(c1199488) SHA1(9ee404335e62485e71d8e711bf3094116fdf84f1) )
 ROM_END
 
-ROM_START( kof2002s110 )
+ROM_START( kof2002s110 ) //2k2climax
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265hc110.p1",  0x000000, 0x100000, CRC(516c362b) SHA1(26d91ee67d51d223bc587a36b867ab1a46672ead) )
 	ROM_LOAD16_WORD_SWAP( "265hc110.p2", 0x100000, 0x400000, CRC(01f474fa) SHA1(5d72244b448f787081bf06ab54ce300ea3112e58) )
 
 	NEO_SFIX_128K( "265rm13.s1", CRC(BD19C308) SHA1(38a9055bbd981a794e1fd9065985b4c033b78e93) )
 
-	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265hc23.m1", CRC(d0446490) SHA1(81499f7b7083ad48e2a5438dfc9b33ea11ddd5c1) )
+	NEO_BIOS_AUDIO_128K( "265rm13.m1", CRC(9956CCD8) SHA1(ed0f5e87360dfa89a58e1b333f4a66e91c2faf56) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "265js2.v1", 0x000000, 0x800000, CRC(6e7e3508) SHA1(9d995fd9e9665da26153704a9fa539259759c105) )
 	ROM_LOAD( "265js2.v2", 0x800000, 0x800000, CRC(2157b90f) SHA1(407422df7a24530d21119ef9233b831fb0166661) )
-	//ROM_LOAD( "265ds06.v2", 0x800000, 0x800000, CRC(69017b1b) SHA1(8b71b064fe7facfdf9b0ff768450b2036dd04c9e) )  // original supplied, is bad dump
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "265d.c1", 0x0000000, 0x800000, CRC(7efa6ef7) SHA1(71345A4202E7CC9239538FB978638141416C8893) )
@@ -10290,7 +10289,7 @@ ROM_START( kof2k2s29 )
 	ROM_LOAD16_BYTE( "265rma.c8", 0x3000001, 0x800000, CRC(a2b54e2d) SHA1(3f534ac51f3c2b1efe8a76cabd7e154ea9f1f13e) )
 ROM_END
 
-ROM_START( kof2k2s30 )
+ROM_START( kof2k2s30 ) //k2k2uniq
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265s30.p1",  0x000000, 0x100000, CRC(f05673d5) SHA1(a0991df623b096d896512cf2e466d17983a7e80e) )
 	ROM_LOAD16_WORD_SWAP( "265hc30.p2", 0x100000, 0x400000, CRC(f035d115) SHA1(d6988a8545c620358296e689d354dbd454782092) )
@@ -12439,7 +12438,7 @@ HACK( 2009, kof2002s106,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2002, kof2002s107,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "hack",    "Kof2002 (Integration + Modification)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s108,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "hack",    "Kof2002 Magic (Enhancement)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kof2002s109,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002, ROT0, "hack",    "Kof2002 Magic (Simplified 2017-11-04)", MACHINE_SUPPORTS_SAVE )
-HACK( 2016, kof2002s110,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "GSC2007",  "Kof2002 (Climax Revised Vercion)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof2002s110,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "GSC2007",  "Kof2002 (Climax Revised Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s111,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "hack",    "Kof2002 (Modified Energy Gauge)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s112,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "hack",    "Kof2002 (The Third Edition Of The Kingdom Of The Gods)", MACHINE_SUPPORTS_SAVE )
 HACK( 2002, kof2002s113,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kof2002,  ROT0, "IsmaMJ",    "Kof2002 (Super Blood Plus 3)", MACHINE_SUPPORTS_SAVE )
