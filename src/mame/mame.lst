@@ -10502,7 +10502,7 @@ cmpchess
 cncchess
 
 @source:compmahj.cpp
-compmahj            // 1987 Nintendo Computer Mahjong
+compmahj                        // 1983 Nintendo Computer Mah-jong Yakuman
 
 @source:compucolor.cpp
 compclr2                        //
@@ -18388,6 +18388,12 @@ jungleyo
 
 @source:junior.cpp
 junior                          //
+
+@source:juno106.cpp
+juno106                         //
+
+@source:juno6.cpp
+juno6                           //
 
 @source:junofrst.cpp
 junofrst                        // GX310 (c) 1983 Konami
@@ -34593,6 +34599,16 @@ r8mk2                           //
 @source:roland_sc55.cpp
 sc55                            // 1991 Sound Canvas SC-55
 
+@source:roland_tb303.cpp
+tb303                           // Roland
+
+@source:roland_tr606.cpp
+tr606                           // Roland
+
+@source:roland_tr707.cpp
+tr707                           //
+tr727                           //
+
 @source:rollerg.cpp
 rollerg                         // GX999 (c) 1991 (US)
 rollergj                        // GX999 (c) 1991 (Japan)
@@ -34976,6 +34992,9 @@ ccdelta1                        //
 @source:saitek_mark5.cpp
 ccmk5
 ccmk6
+
+@source:saitek_president.cpp
+prschess
 
 @source:saitek_risc2500.cpp
 risc2500                        //
@@ -35442,6 +35461,7 @@ bloxeedc                        // (c) 1989 Sega / Elorg
 bloxeedu                        // (c) 1989 Sega / Elorg
 borench                         // (c) 1990 Sega
 borencha                        // (c) 1990 Sega
+borenchj                        // (c) 1990 Sega
 column2j                        // (c) 1990 Sega
 columns                         // (c) 1990 Sega
 columns2                        // (c) 1990 Sega
@@ -38744,9 +38764,6 @@ ivg09                           //
 @source:taxidriv.cpp
 taxidriv                        // [1984 Graphic Techno]
 
-@source:tb303.cpp
-tb303                           // Roland
-
 @source:tbowl.cpp
 tbowl                           // 6206 - (c) 1987 Tecmo
 tbowla                          //
@@ -39487,9 +39504,6 @@ tp84b                           // GX388 (c) 1984
 
 @source:tr175.cpp
 tr175                           // Relisys
-
-@source:tr606.cpp
-tr606                           // Roland
 
 @source:trackfld.cpp
 atlantol                        // bootleg

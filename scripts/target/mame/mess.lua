@@ -3238,6 +3238,8 @@ files {
 createMESSProjects(_target, _subtarget, "roland")
 files {
 	MAME_DIR .. "src/mame/drivers/alphajuno.cpp",
+	MAME_DIR .. "src/mame/drivers/juno106.cpp",
+	MAME_DIR .. "src/mame/drivers/juno6.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_cm32p.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_d10.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_d50.cpp",
@@ -3245,8 +3247,9 @@ files {
 	MAME_DIR .. "src/mame/drivers/roland_mt32.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_r8.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_sc55.cpp",
-	MAME_DIR .. "src/mame/drivers/tb303.cpp",
-	MAME_DIR .. "src/mame/drivers/tr606.cpp",
+	MAME_DIR .. "src/mame/drivers/roland_tb303.cpp",
+	MAME_DIR .. "src/mame/drivers/roland_tr606.cpp",
+	MAME_DIR .. "src/mame/drivers/roland_tr707.cpp",
 	MAME_DIR .. "src/mame/machine/pg200.cpp",
 }
 
@@ -3275,6 +3278,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/saitek_cp2000.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_delta1.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_mark5.cpp",
+	MAME_DIR .. "src/mame/drivers/saitek_president.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_risc2500.cpp",
 	MAME_DIR .. "src/mame/includes/saitek_stratos.h",
 	MAME_DIR .. "src/mame/drivers/saitek_ssystem3.cpp",
