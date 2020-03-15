@@ -1162,6 +1162,7 @@ sstingry                        // (c) 1986 Alpha Denshi Co.
 @source:alphajuno.cpp
 ajuno1                          //
 ajuno2                          //
+mks50                           //
 
 @source:alphasma.cpp
 asma2k                          //
@@ -15061,6 +15062,7 @@ nc96h                           // (c) 1996 Amcoe
 nc96i                           // (c) 1996 Amcoe
 nc96j                           // (c) 1996 Amcoe
 nc96k                           // (c) 1996 Amcoe
+nc96l                           // (c) 1996 Amcoe
 nc96txt                         // (c) 2000 Amcoe
 ncb3                            // (c) 199? Dyna Electronics
 nfb96                           // (c) 1996 Amcoe
@@ -15744,6 +15746,7 @@ gnw_bfightn                     // Nintendo
 gnw_bjack                       // Nintendo
 gnw_boxing                      // Nintendo
 gnw_bsweep                      // Nintendo
+gnw_cgrab                       // Nintendo
 gnw_chef                        // Nintendo
 gnw_climber                     // Nintendo
 gnw_climbern                    // Nintendo
