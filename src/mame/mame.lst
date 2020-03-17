@@ -18494,6 +18494,9 @@ k4r                             //
 k5                              //
 k5m                             //
 
+@source:kawai_r100.cpp
+r100                            //
+
 @source:kaypro.cpp
 kaypro1                         // Kaypro 1
 kaypro10                        // Kaypro 10/83
@@ -35427,6 +35430,9 @@ seabattla                       // (c) 1980
 
 @source:sealy.cpp
 crzyddz                         // (c) 2004? Sealy
+
+@source:sealy_fr.cpp
+snowbwar                         // (c) 201? Sealy
 
 @source:seattle.cpp
 biofreak                        // (c) 1997 Midway Games (prototype)
