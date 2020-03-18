@@ -1145,6 +1145,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"elektor",
 		"elektrka",
 		"elektron",
+		"emusys",
 		"ensoniq",
 		"enterprise",
 		"entex",
@@ -2204,6 +2205,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/elektronmono.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "emusys")
+files {
+	MAME_DIR .. "src/mame/drivers/emu3.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "ensoniq")
 files {
 	MAME_DIR .. "src/mame/drivers/esq1.cpp",
@@ -2639,6 +2645,7 @@ createMESSProjects(_target, _subtarget, "korg")
 files {
 	MAME_DIR .. "src/mame/drivers/korgds8.cpp",
 	MAME_DIR .. "src/mame/drivers/korgdss1.cpp",
+	MAME_DIR .. "src/mame/drivers/korgdw8k.cpp",
 	MAME_DIR .. "src/mame/drivers/korgm1.cpp",
 	MAME_DIR .. "src/mame/drivers/poly800.cpp",
 	MAME_DIR .. "src/mame/drivers/polysix.cpp",

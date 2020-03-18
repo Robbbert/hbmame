@@ -249,6 +249,7 @@ elf.cpp
 elwro800.cpp
 emate.cpp
 emma2.cpp
+emu3.cpp
 enmirage.cpp
 ep64.cpp
 epic14e.cpp
@@ -447,6 +448,7 @@ kim1.cpp
 konin.cpp
 korgds8.cpp
 korgdss1.cpp
+korgdw8k.cpp
 korgm1.cpp
 kramermc.cpp
 krokha.cpp

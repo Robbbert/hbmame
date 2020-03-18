@@ -12962,6 +12962,9 @@ embargo                         //
 @source:emma2.cpp
 emma2                           // 1979 L.J.Technical Systems
 
+@source:emu3.cpp
+emu3                            //
+
 @source:enigma2.cpp
 enigma2                         // (c) 1981 Game Plan (Zilec Electronics license)
 enigma2a                        // (c) 1984 Zilec Electronics (bootleg?)
@@ -18730,6 +18733,11 @@ korg707                         //
 @source:korgdss1.cpp
 dss1                            //
 dssmsrk                         //
+
+@source:korgdw8k.cpp
+dw8000                          //
+dw8000ex                        //
+ex8000                          //
 
 @source:korgm1.cpp
 korgm1                          //
@@ -31501,6 +31509,8 @@ mog_m320
 fapocket
 zdog
 otrail
+denv150
+techni4
 
 @source:vt1682.cpp
 ii8in1
@@ -37302,6 +37312,7 @@ lx_jg7415                       //
 @source:spg2xx_zone_32bit.cpp
 mywicodx                        //
 zon32bit                        // Zone 32-bit
+oplayer
 
 @source:spiders.cpp
 spiders                         // (c) 1981 Sigma Ent. Inc.
@@ -37886,6 +37897,7 @@ jak_tink
 jak_totm
 jak_ths
 smartfp                         // Smart Fit Park
+smartfps
 gormiti
 wlsair60                        // Wireless Air 60
 wrlshunt                        // Wireless: Hunting Video Game System
