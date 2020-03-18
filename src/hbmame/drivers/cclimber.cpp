@@ -45,7 +45,7 @@ ROM_START( cclimbrm )
 	ROM_LOAD( "cclimber.pr2", 0x0020, 0x0020, CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423) )
 	ROM_LOAD( "cclimber.pr3", 0x0040, 0x0020, CRC(71317756) SHA1(1195f0a037e379cc1a3c0314cb746f5cd2bffe50) )
 
-	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "cc13",         0x0000, 0x1000, CRC(e0042f75) SHA1(86cb31b110742a0f7ae33052c88f42d00deb5468) )
 	ROM_LOAD( "cc12",         0x1000, 0x1000, CRC(5da13aaa) SHA1(b2d41e69435d09c456648a10e33f5e1fbb0bc64c) )
 ROM_END
@@ -76,7 +76,7 @@ ROM_START( ckonga2 )
 	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
 	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
-	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
 	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
@@ -107,7 +107,7 @@ ROM_START( ckonga3 )
 	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
 	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
-	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
 	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
@@ -136,7 +136,7 @@ ROM_START( ckongfix )
 	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
 	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
-	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
 	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
@@ -166,7 +166,7 @@ ROM_START( tongypac )
 	ROM_LOAD( "ck6u.bin",     0x0020, 0x0020, CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423)  )
 	ROM_LOAD( "ck6t.bin",     0x0040, 0x0020, CRC(b4e827a5) SHA1(31a5a5ad54417a474d22bb16c473415d99a2b6f1)  )
 
-	ROM_REGION( 0x2000, "samples", 0 )
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
 	ROM_LOAD( "ck12.bin",     0x1000, 0x1000, CRC(2eb23b60) SHA1(c9e7dc584562aceb374193655fbacb7df6c9c731) )
 ROM_END
