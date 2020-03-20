@@ -2692,7 +2692,7 @@ ROM_START( mslug3h47 )
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
-ROM_START( mslug3h48 )
+ROM_START( mslug3h48 ) // Roms unofficial Random Enemies Resetting Version 1.0 
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256h06.p1",   0x000000, 0x100000, CRC(18c5c6f0) SHA1(4ac2bd2aa9183aaf95991fa9a2a7b2245ff4c9ce) )
 	ROM_LOAD16_WORD_SWAP( "256h48.p2", 0x100000, 0x400000, CRC(7593474c) SHA1(fcdd76013069eff64dc6842c672870854a53c0f2) )
@@ -2740,7 +2740,10 @@ ROM_START( mslug3h49 ) //mslug3nzj
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
-ROM_START( mslug3h50 )  // This is super-difficult
+//The updated .p1 of this version is missing, therefore we make it work .p1 of the mslug3h40 which is an old version.
+//This roms still doesn't work properly same as old roms version Metal Slug 3 (Random Enemies Resetting Version 1.0 2017-12-08)
+
+ROM_START( mslug3h50 )  // The same roms .p2 mslug3h48(Enemy Soldier Reset Prototype 2018-07-21)
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256h40.p1",  0x000000, 0x100000, CRC(f804b927) SHA1(a1a6bcc0fe65416c3ab04f84513da2138515fed0) )
 	ROM_LOAD16_WORD_SWAP( "256h48.p2", 0x100000, 0x400000, CRC(7593474c) SHA1(fcdd76013069eff64dc6842c672870854a53c0f2) )
@@ -17210,7 +17213,7 @@ HACK( 2000, mslug3h35,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2000, mslug3h36,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons Rocket Launcher With Infinite Ammo)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h37,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "PlayerX China",    "Metal Slug 3 (Out Of Blue)" , MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h39,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enemy Soldier Reset Alpha 2014-01-18)" , MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug3h40,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 2017-12-08)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug3h40,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 1.0 2017-12-08)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h41,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Store Version 2017-12-16)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h42,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Edition 2017-04-04)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2004, mslug3h43,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3fr,  ROT0, "Shyma.X",    "Metal Slug 3 (Neo Arc French Traduction Rev.2)", MACHINE_SUPPORTS_SAVE )
@@ -17219,7 +17222,7 @@ HACK( 2018, mslug3h46,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 2017, mslug3h47,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h48,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack",    "Metal Slug 3 (Enemy Soldier Reset Prototype 2018-07-21)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h49,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enhanced Edition 2018-05-09)" ,  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug3h50,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version Rev.Unknown Date)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug3h50,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 1.0.1 2018-07-21)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3h51,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-01-02)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3h52,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "CiBaoXianQuan",    "Metal Slug 3 (Multi-Function Version 2019-01-19)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3h53,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix,   ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-02-12)" , MACHINE_SUPPORTS_SAVE )
