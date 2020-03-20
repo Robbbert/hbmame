@@ -12929,6 +12929,7 @@ airblsjs
 buzztime
 sudoelan
 carlecfg
+pvmilfin
 
 @source:electra.cpp
 avenger                         // (c) 1975 Electra
@@ -12961,6 +12962,9 @@ embargo                         //
 
 @source:emma2.cpp
 emma2                           // 1979 L.J.Technical Systems
+
+@source:emu2.cpp
+emu2                            //
 
 @source:emu3.cpp
 emu3                            //
@@ -31452,6 +31456,7 @@ lxcmcysw
 lxcmcyfz
 lxcmcydp
 rtvgc300
+rtvgc300fz
 red5mam
 cybar120
 mc_dg101
@@ -31511,6 +31516,7 @@ zdog
 otrail
 denv150
 techni4
+ablmini
 
 @source:vt1682.cpp
 ii8in1
@@ -35523,6 +35529,7 @@ tantrkor                        // (c) 1992 Sega
 tfrceac                         // (c) 1990 Sega / Technosoft
 tfrceacb                        // bootleg
 tfrceacj                        // (c) 1990 Sega / Technosoft
+tfrceacjpb                      // prototype / bootleg
 twinsqua                        // (c) 1991 Sega
 wwmarine                        // (c) 1992 Sega
 zunkyou                         // (c) 1994 Sega
@@ -37195,8 +37202,6 @@ abltenni                        //
 fordrace
 tvsprt10                        //
 decathln
-wiwi18                          //
-foxsport
 guitarfv
 guitarss
 jjstrip
@@ -37299,6 +37304,11 @@ tvgogo                          //
 
 @source:spg2xx_vii.cpp
 vii                             // KenSingTon / Jungle Soft / Siatronics Vii
+
+@source:spg2xx_wiwi.cpp
+wiwi18                          //
+foxsport
+lexifit
 
 @source:spg2xx_zone.cpp
 wirels60                        // Wireless 60
