@@ -3019,7 +3019,7 @@ GAME( 1999, sfiii3ns10,     sfiii3nc,   sfiii3,      cps3,       cps3_state,    
 GAME( 1999, sfiii3ns11,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "Capcom",  "Street Fighter III 3rd Strike: Fight for the Future (Oceania 990608, NO CD)", 0 ) //Boot Bios System
 GAME( 1999, sfiii3ns12,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "Capcom",  "Street Fighter III 3rd Strike: Fight for the Future (USA 990608, NO CD)", 0 ) //Boot Bios System
 GAME( 2013, sfiii3ns13,     sfiii3nc,   sfiii3,      cps3,       cps3_state,      init_sfiii3,   ROT0,  "hack",    "Street Fighter III 3rd Strike: 4rd Arrange Edition 2013-07-16", 0 )
-GAME( 2013, sfiii3ns14,     sfiii3nc,   sfiii3,      cps3,       cps3_hbmame,     init_sfiii3n,  ROT0,  "hack",    "Street Fighter III 3rd Strike: 4rd Arrange Edition 2013-07-14)(Set Old)", 0 )
+GAME( 2013, sfiii3ns14,     sfiii3nc,   sfiii3,      cps3,       cps3_hbmame,     init_sfiii3n,  ROT0,  "hack",    "Street Fighter III 3rd Strike: 4rd Arrange Edition 2013-07-14 (Set Old)", 0 )
 
  /*********************************
  Don't require the CD image to boot
