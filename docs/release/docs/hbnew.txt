@@ -256,6 +256,8 @@ New Games
 - [savageres06]       Savage Reign (Simplify Edition 2018-06-04)
 - [sengoku3s13]       Sengoku 3 (Blue Out Of Blue 2018-06-04)
 - [sfa2s03]           Street Fighter Alpha 2 (Press Select Button Changed Character 2019-12-27)
+- [sfiii3ns13]        Street Fighter III 3rd Strike: 4rd Arrange Edition 2013-07-16
+- [sfiii3ns14]        Street Fighter III 3rd Strike: 4rd Arrange Edition 2013-07-14)(Set Old)
 - [sfz2aljs10]        Street Fighter Zero 2 Alpha (Super Golden 2020-02-17)
 - [shocktr2s01]       Shock Troopers - 2nd Squad (Unknown Hack 2014-01-27)
 - [svchs36]           SvC Chaos (Dragon version simplified 2020-02-29)
