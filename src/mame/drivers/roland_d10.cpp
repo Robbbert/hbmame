@@ -20,6 +20,7 @@
 #include "emu.h"
 #include "cpu/mcs96/i8x9x.h"
 #include "machine/bankdev.h"
+#include "machine/mb63h149.h"
 #include "machine/nvram.h"
 #include "machine/timer.h"
 #include "video/msm6222b.h"
@@ -234,6 +235,7 @@ void roland_d10_state::d10_map(address_map &map)
 	map(0x0200, 0x0200).w(FUNC(roland_d10_state::so_w));
 	map(0x0300, 0x0300).w(FUNC(roland_d10_state::lcd_data_w));
 	map(0x0380, 0x0380).rw(FUNC(roland_d10_state::lcd_ctrl_r), FUNC(roland_d10_state::lcd_ctrl_w));
+	map(0x0c00, 0x0dff).rw("keyscan", FUNC(mb63h149_device::read), FUNC(mb63h149_device::write));
 	map(0x1000, 0x7fff).rom().region("maincpu", 0x1000);
 	map(0x8000, 0xbfff).m(m_bank, FUNC(address_map_bank_device::amap8));
 	map(0xc000, 0xffff).rw(FUNC(roland_d10_state::fixed_r), FUNC(roland_d10_state::fixed_w));
@@ -289,6 +291,9 @@ void roland_d10_state::d10(machine_config &config)
 // Shall become a proper memcard device someday
 	NVRAM( config, m_memcs, nvram_device::DEFAULT_ALL_0 );
 
+	MB63H149(config, "keyscan", 16.384_MHz_XTAL);
+	//keyscan.int_callback().set_inputline(m_maincpu, i8x9x_device::HSI0_LINE);
+
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_LCD));
 	screen.set_refresh_hz(50);
 	screen.set_screen_update(FUNC(roland_d10_state::screen_update));
@@ -309,9 +314,12 @@ void roland_d10_state::d10(machine_config &config)
 void roland_d10_state::d110(machine_config &config)
 {
 	d10(config);
+
 	m_maincpu->set_addrmap(AS_PROGRAM, &roland_d10_state::d110_map);
 	//m_bank->set_data_width(8);
 	m_bank->set_addrmap(0, &roland_d10_state::d110_bank_map);
+
+	config.device_remove("keyscan");
 }
 
 ROM_START( d10 )
