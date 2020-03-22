@@ -36,6 +36,9 @@ New Games
 - [dinos235]          Cadillacs and Dinosaurs (The Warriors Edition 2020 Update 2020-01-25)
 - [dinos236]          Cadillacs and Dinosaurs (The Warriors Edition 2018 Update 2018-07-29)
 - [dinos237]          Cadillacs and Dinosaurs (Unparalleled Multi-Boss Bloody Version v.?)
+- [dkongchm]          Donkey Kong League Championship v1.00
+- [dkongchm1]         Donkey Kong Championship Edition v1.01
+- [dkongran1]         Donkey Kong Randomized Edition v1.01
 - [dstlks01]          Darkstalkers: The Night Warriors (Simplify Edition 2016-12-06)
 - [kf2k5unis15]       Kof 10th Anniversary 2005 Unique (Alpha Unique 2020-01-23)
 - [kf2k5unis16]       Kof 10th Anniversary 2005 Unique (Alpha Unique New 2020-01-24)

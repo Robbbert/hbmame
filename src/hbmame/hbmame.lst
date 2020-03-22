@@ -1406,6 +1406,9 @@ dkongf
 dkongp					/* Fix for level 22 kill screen by Don Hodges */
 dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
+dkongchm
+dkongchm1
+dkongran1
 dkongrev
 dkongx
 dkongx11
