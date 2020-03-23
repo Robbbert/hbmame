@@ -12,7 +12,7 @@ ROM_START( c2frog )
 	ROM_LOAD16_BYTE( "c2frog.ic31", 0x000001, 0x020000, CRC(754b111a) SHA1(5542fc3b955df843e15e7c98aebc4f80c7d44b69) )
 ROM_END
 
-GAME( 2007, c2frog, 0, segac, columns, segac2_state, init_columns, ROT0, "Rastersoft", "Frog Feast (Sega C2 hardware)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2007, c2frog, 0, segac, columns, segac2_state, init_columns, ROT0, "Rastersoft", "Frog Feast (Sega C2 hardware)", MACHINE_NO_SOUND )
 
 
 
@@ -47,4 +47,18 @@ ROM_START( ssonicbr )
 	ROM_LOAD( "ssonicbr.ic4", 0x000000, 0x020000, CRC(78e56a51) SHA1(8a72c12975cd74919b4337e0f681273e6b5cbbc6) )
 ROM_END
 
-GAME( 1992, ssonicbr,  0, segac2, ssonicbr, segac2_state, init_bloxeedc, ROT0, "Sega", "SegaSonic Bros. (Japan, prototype)", MACHINE_SUPPORTS_SAVE )
+ROM_START( ooparts )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "ooparts.ic32", 0x000000, 0x080000, CRC(8dcf2940) SHA1(f72630e8a26e7f2089da56878a1599268c355246) )
+	ROM_LOAD16_BYTE( "ooparts.ic31", 0x000001, 0x080000, CRC(35381899) SHA1(524f6e1b1292542079589275e20f45c2eb68605c) )
+	ROM_LOAD16_BYTE( "ooparts.ic34", 0x100000, 0x080000, CRC(7192ac29) SHA1(d3028a9bbb7faa733285cf7e47fd840ec0d0bf69) )
+	ROM_LOAD16_BYTE( "ooparts.ic33", 0x100001, 0x080000, CRC(42755dc2) SHA1(cd0aa79418b922266c5d41bf24b9136f9f105dc5) )
+
+	ROM_REGION( 0x040000, "upd", 0 )
+	ROM_LOAD( "ooparts.ic4", 0x000000, 0x040000, CRC(e09961f6) SHA1(e109b5f41502b765d191f22e3bbcff97d6defaa1) )
+ROM_END
+
+
+GAME( 1992, ssonicbr,  0, segac2, ssonicbr, segac2_state, init_bloxeedc, ROT0, "Sega", "SegaSonic Bros. (Japan, prototype)", 0 )
+GAME( 1992, ooparts,   0, segac2, ichir,    segac2_state, init_tantr,    ROT270, "Success", "OOParts", 0 )
+

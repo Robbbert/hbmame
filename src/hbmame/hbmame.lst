@@ -69,7 +69,7 @@ bonzeadv		//parent
 jigkmgris01
 
 @source:atarig42.cpp
-//dangerex
+//more...
 
 @source:atarisy1.cpp
 atarisy1		//bios
@@ -8640,6 +8640,7 @@ schasrcv		// extra sounds
 
 @source:segac2.cpp
 c2frog					// HB
+//more...
 
 @source:segaorun.cpp
 outrun					//parent
