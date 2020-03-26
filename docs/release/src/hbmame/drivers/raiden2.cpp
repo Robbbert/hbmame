@@ -10,7 +10,7 @@
  Zero Team
 ***********/
 
-ROM_START( zeroteamcs01 )
+ROM_START( zeroteamcs01 ) //zeroteamdw
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD32_BYTE("b1.u024_pw01.5k",   0x000000, 0x40000, CRC(b47b73b7) SHA1(1ed53b517c7886383772f731fed95b2e8e7b523e) )
 	ROM_LOAD32_BYTE("b3.u023_pw01.6k",   0x000002, 0x40000, CRC(81979a9b) SHA1(1b9e216f9f6b4e6d38ac881dfe0e7ee53c523f1b) )
@@ -47,7 +47,7 @@ ROM_START( zeroteamcs01 )
 	ROM_LOAD( "v3c004x.ami18cv8pc-25.u0310.jed", 0x0000, 0x288, NO_DUMP)
 ROM_END
 
-ROM_START( zeroteamss01 )
+ROM_START( zeroteamss01 ) //zeroteams, zeroteam1v4
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD32_BYTE("1_sel_po01.bin",   0x000000, 0x40000, CRC(c2f5bba6) SHA1(a99655bef65af96c160c5e83b709597edff2a953) )
 	ROM_LOAD32_BYTE("3_sel_po01.bin",   0x000002, 0x40000, CRC(aa278057) SHA1(dfe1082c1555b196989f3cbbd2b6207947f5059a) )
@@ -87,4 +87,4 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Zero Team
 GAME( 1993, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team (Special Attack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (Enhanced Version 2018-02-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (1v4 Version 2018-02-19)", MACHINE_SUPPORTS_SAVE )

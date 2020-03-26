@@ -1062,7 +1062,7 @@ HACK( 2004, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd
 HACK( 2004, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Some characters move to simplify 1.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 (Remix Edition)(Diff Move - 2003-08-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3spd,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 Super Plus (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Simplified 2016-03-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Simplified 2016-03-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3ad,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state,  neogeo,    ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003  (The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
@@ -2137,6 +2137,30 @@ ROM_START( kogs11 )
 	ROM_LOAD16_BYTE( "5232-c2b.bin", 0x1000001, 0x800000, CRC(ea82cf8f) SHA1(3d9ab64b69cecd6b3950839ac2c6d151ad66dcf8) )
 	ROM_LOAD16_BYTE( "5232-c3.bin",  0x2000000, 0x400000, CRC(abd1be07) SHA1(857eb68bbee4538770bbfa77aaa540d61ab0abcd) )
 	ROM_LOAD16_BYTE( "5232-c4.bin",  0x2000001, 0x400000, CRC(d2bd967b) SHA1(c494e0a98e127d37ca360a28accc167fa50fb626) )
+ROM_END
+
+ROM_START( kogs12 ) //kogptgb
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "5232hc12.p1", 0x000000, 0x100000, CRC(ea2ce829) SHA1(a7a1c785ed3eb1c0c6e348942cbe1fc154da8ce0) )
+	ROM_LOAD16_WORD_SWAP( "5232hc12.p2", 0x100000, 0x400000, CRC(d1d6c3a5) SHA1(a8878c2da73e7c25330d2f2130b63b6e8df71961) )
+	ROM_FILL(0x0263ba,1,0x65)
+	
+	NEO_SFIX_128K( "5232hc12.s1", CRC(f178fbde) SHA1(886142f1f52439712329f0028654829340f28627) )
+
+	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "5232hc12.c1", 0x0000000, 0x800000, CRC(be9ec0a5) SHA1(c77006fe0f24fb7cb80b4ed079927148059f72d9) )
+	ROM_LOAD16_BYTE( "5232hc12.c2", 0x0000001, 0x800000, CRC(f4739e81) SHA1(1f2ea1f84edeb867e8ed630f6e148852a44803a2) )
+	ROM_LOAD16_BYTE( "232yk.c3",  0x1000000, 0x800000, CRC(b092e64f) SHA1(7d809432d068db8f9056f5210570191416f1a53b) )
+	ROM_LOAD16_BYTE( "232yk.c4",  0x1000001, 0x800000, CRC(d25e8a04) SHA1(52227828e3fdd27399b4cd514551abf856293f47) )
+	ROM_LOAD16_BYTE( "5232hc12.c5",   0x2000000, 0x400000, CRC(3c779848) SHA1(20ec25277295de9dfd00b3380607e9f40b32c6e6) )
+	ROM_LOAD16_BYTE( "5232hc12.c6",   0x2000001, 0x400000, CRC(b0178cf0) SHA1(a20a9bbd90e76ba72baea2c8ada2ec4cca64d02c) )
 ROM_END
 
  /********************
@@ -3372,7 +3396,7 @@ ROM_START( kf2k5unis12 )
 	ROM_LOAD16_BYTE( "kf10-c8b.bin", 0x3800001, 0x400000, CRC(661b7a52) SHA1(0ae2ad2389134892f156337332b77adade3ddad1) )
 ROM_END
 
-ROM_START( kf2k5unis13 )
+ROM_START( kf2k5unis13 ) //kof10thuo
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "363hc12.p1", 0x000000, 0x800000, CRC(20d0dd47) SHA1(178457183987a63e6c6b8b6e0614a53835e1e868) )
 
@@ -3416,6 +3440,104 @@ ROM_START( kf2k5unis14 )
 	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
 	ROM_LOAD16_BYTE( "265d.c7", 0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
 	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
+ROM_END
+
+ROM_START( kf2k5unis15 ) //kof10thalphau
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "363hc15.p1", 0x000000, 0x800000, CRC(53cb8a6b) SHA1(63acfbeb77bfa38c1545e9c61addce4009b22a1e) )
+	ROM_FILL(0x012510,1,0x65)
+	
+	NEO_SFIX_128K( "363hc15.s1", CRC(614db6b7) SHA1(11c65a37e3eb1441a13ce68c6db7367270b0e65b) )
+
+	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "363ud.c1", 0x0000000, 0x800000, CRC(2491af91) SHA1(e3e237e50395dc985c564867046ad202bc744d37) )
+	ROM_LOAD16_BYTE( "363ud.c2", 0x0000001, 0x800000, CRC(47ff1d91) SHA1(7d6ade9409af2c64114ed5836ccf9f50c7ebac69) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265d.c7", 0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
+	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
+ROM_END
+
+ROM_START( kf2k5unis16 ) //kof10thalphau
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "363hc16.p1", 0x000000, 0x800000, CRC(bc16bdca) SHA1(6d2c1c7d962bedc222e0c1cc14722d054294922c) )
+	ROM_FILL(0x012510,1,0x65)
+	
+	NEO_SFIX_128K( "363hc15.s1", CRC(614db6b7) SHA1(11c65a37e3eb1441a13ce68c6db7367270b0e65b) )
+
+	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "363ud.c1", 0x0000000, 0x800000, CRC(2491af91) SHA1(e3e237e50395dc985c564867046ad202bc744d37) )
+	ROM_LOAD16_BYTE( "363ud.c2", 0x0000001, 0x800000, CRC(47ff1d91) SHA1(7d6ade9409af2c64114ed5836ccf9f50c7ebac69) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265d.c7", 0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
+	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
+ROM_END
+
+ROM_START( kf2k5unis17 ) //kof10thuo
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "363hc17.p1", 0x000000, 0x800000, CRC(70beaeda) SHA1(a16027b3d9cd81dd7c2f58c7f530c7c790772904) )
+
+	NEO_SFIX_128K( "363xs01.s1", CRC(0ebe5645) SHA1(56a08a5e5209f42e2813a0530c33cf7623aa4cf1) )
+
+	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "363ud.c1", 0x0000000, 0x800000, CRC(2491af91) SHA1(e3e237e50395dc985c564867046ad202bc744d37) )
+	ROM_LOAD16_BYTE( "363ud.c2", 0x0000001, 0x800000, CRC(47ff1d91) SHA1(7d6ade9409af2c64114ed5836ccf9f50c7ebac69) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "265d.c7", 0x3000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )
+	ROM_LOAD16_BYTE( "265d.c8", 0x3000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )
+ROM_END
+
+ROM_START( kf2k5unis18 ) //kof10thuomg
+	ROM_REGION( 0xC00000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "363hc19.p1",  0x000000, 0x800000, CRC(fcd074e7) SHA1(2b62d16e22726a8d560bc00b678517a3c70b3243) )
+	ROM_LOAD16_WORD_SWAP( "265or.p2", 0x800000, 0x400000, CRC(293bbf78) SHA1(647eea522d0a163675205aeab9b0b9ebb3a47eea) )
+
+	NEO_SFIX_128K( "363hc15.s1", CRC(614db6b7) SHA1(11c65a37e3eb1441a13ce68c6db7367270b0e65b) )
+
+	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265d.c7",     0x0000000, 0x800000, CRC(8a5b561c) SHA1(A19697D4C2CC8EDEBC669C95AE1DB4C8C2A70B2C) )  // to fix KOF2002 logo
+	ROM_LOAD16_BYTE( "265d.c8",     0x0000001, 0x800000, CRC(bef667a3) SHA1(D5E8BC185DCF63343D129C31D2DDAB9F723F1A12) )  // to fix KOF2002 logo
+	ROM_LOAD16_BYTE( "265omg8.c3", 0x1000000, 0x800000, CRC(2367927c) SHA1(31a5b58feaeb2ecbde5573b48b50cdd8bcaa6ab4) )
+	ROM_LOAD16_BYTE( "265omg8.c4", 0x1000001, 0x800000, CRC(4ad48c29) SHA1(9908a7c2d579059a97927d58f4ea95b17deb9952) )
+	ROM_LOAD16_BYTE( "365ru.c5",  0x2000000, 0x800000, CRC(11126545) SHA1(4ae58848c8a6701c9cfcd60e6674e8fb7491c0c0) )
+	ROM_LOAD16_BYTE( "365ru.c6",  0x2000001, 0x800000, CRC(d225bb9b) SHA1(ee627dab6aeebfb1af9dbdc315a927245243817c) )
+	ROM_LOAD16_BYTE( "265omg8.c7", 0x3000000, 0x800000, CRC(890c2a4a) SHA1(04e8720ee62782b8fd6621ef4dc4e7469f57b10c) )
+	ROM_LOAD16_BYTE( "265omg8.c8", 0x3000001, 0x800000, CRC(b726009d) SHA1(29e84e7012cd5c109937ea2e6a455ed9829776ac) )
+	ROM_COPY("sprites", 0xc6ed00, 0x3c6ed00, 0x3e00)
+	ROM_LOAD16_BYTE( "363hc19.c1", 0x0000000, 0x800000, CRC(44cb2a44) SHA1(f02fd816fa526d8b4a2d3f4bfdd2dcfd66e927d9) )
+	ROM_LOAD16_BYTE( "363hc19.c2", 0x0000001, 0x800000, CRC(202a8cba) SHA1(6241a2f54e93eb89ea5be1d002ed8aed078cd93e) )
 ROM_END
 
  /************************
@@ -4172,6 +4294,109 @@ ROM_START( kof2k4ses32 )
 	ROM_LOAD16_BYTE( "k2k4shc06-c5.bin", 0x3000001, 0x800000, CRC(5bbf0048) SHA1(8a8448e44aefd10a3f215ee2dcb452ebee24fbc0) )
 ROM_END
 
+ROM_START( kof2k4ses33 ) //kof04omg
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc33.p1",  0x000000, 0x3BD4C1, CRC(176576d4) SHA1(adb1529665b918d6628886b712d49c26a5f1eb43))
+	ROM_LOAD16_WORD_SWAP( "k2k4shc30.p2", 0x100000, 0x400000, CRC(35c8ec2f) SHA1(2587a0452d3929820f0c1507d0657683a9a9b125))
+
+	NEO_SFIX_128K( "365omg.s1", CRC(a41ebb8b) SHA1(e7fde454fe3adfdfa1f43f5a0042979e0f43c89f) )
+
+	NEO_BIOS_AUDIO_128K( "365.m1", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265sm.v1", 0x000000, 0x400000, CRC(8991f6e9) SHA1(ce5afc0169c142d7f98111afbc60b3a9a2e17256) )
+	ROM_LOAD( "265sm.v2", 0x400000, 0x400000, CRC(511e4d2f) SHA1(28190ec86ac2169ab6fad80635ed13cfcf430c65) )
+	ROM_LOAD( "265sm.v3", 0x800000, 0x400000, CRC(1dd8b53a) SHA1(9aa84f145ba07f5f3c3b3fb682eb8a8ab1500b4c) )
+	ROM_LOAD( "265sm.v4", 0xc00000, 0x400000, CRC(63bb5462) SHA1(afc6a085e25bd006f26e16beda4244bc8bc19bb8) )
+
+	ROM_REGION( 0x4000400, "sprites", 0 )
+	ROM_LOAD16_BYTE( "365.c1", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "365.c2", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c4", 0x1000001, 0x880400, CRC(72482b25) SHA1(0ad1aaeaa359a0a35f6be84bdb813559c11ddcd2) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c5", 0x2000000, 0x800000, CRC(cef18d97) SHA1(8a42837828f8d69854186fe1bbe6acd520414f8e) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c6", 0x2000001, 0x800000, CRC(cafb6c0a) SHA1(683efa1435c5fc07c357b2530390559980cfb5d9) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c7", 0x3000000, 0x800000, CRC(13d68c11) SHA1(11de1fb01068fecd2b68c64a49be83e1c7a5c790) )
+	ROM_LOAD16_BYTE( "k2k4shc30.c8", 0x3000001, 0x800000, CRC(f155bf30) SHA1(c1ac15ae6d3b8a9f719ff819398685ebd5c42450) )
+ROM_END
+
+ROM_START( kof2k4ses34 ) //kofse2k4ap2a
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc34.p1",  0x000000, 0x100000, CRC(59c06f53) SHA1(0e2c09f7349911986e3b1af911da719f9b4d0773))
+	ROM_LOAD16_WORD_SWAP( "k2k4shc34.p2", 0x100000, 0x400000, CRC(b5e8e68e) SHA1(02b8dcb0193ea981e712a6d961767d1d47858909))
+	ROM_FILL(0x012510,1,0x65)
+	
+	NEO_SFIX_128K( "365mp.s1", CRC(f5f10e6f) SHA1(ab9d390785e03561f6b32f6c66fad2b2e9a5d996))
+
+	NEO_BIOS_AUDIO_128K( "365.m1", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265sm.v1", 0x000000, 0x400000, CRC(8991f6e9) SHA1(ce5afc0169c142d7f98111afbc60b3a9a2e17256) )
+	ROM_LOAD( "265sm.v2", 0x400000, 0x400000, CRC(511e4d2f) SHA1(28190ec86ac2169ab6fad80635ed13cfcf430c65) )
+	ROM_LOAD( "265sm.v3", 0x800000, 0x400000, CRC(1dd8b53a) SHA1(9aa84f145ba07f5f3c3b3fb682eb8a8ab1500b4c) )
+	ROM_LOAD( "265sm.v4", 0xc00000, 0x400000, CRC(63bb5462) SHA1(afc6a085e25bd006f26e16beda4244bc8bc19bb8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "365.c1", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "365.c2", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "365.c7", 0x3000000, 0x800000, CRC(fa705b2b) SHA1(f314c66876589601806352484dd8e45bc41be692) )
+	ROM_LOAD16_BYTE( "365.c8", 0x3000001, 0x800000, CRC(2c912ff9) SHA1(b624a625ea3e221808b7ea43fb0b1a51d8c1853e) )
+ROM_END
+
+ROM_START( kof2k4ses35 ) //kofse2k4ap2a
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc35.p1",  0x000000, 0x100000, CRC(aeec2f55) SHA1(c6b784689c0be30feb2403c2b90f981a5f160d99))
+	ROM_LOAD16_WORD_SWAP( "k2k4shc34.p2", 0x100000, 0x400000, CRC(b5e8e68e) SHA1(02b8dcb0193ea981e712a6d961767d1d47858909))
+	ROM_FILL(0x012510,1,0x65)
+	
+	NEO_SFIX_128K( "365mp.s1", CRC(f5f10e6f) SHA1(ab9d390785e03561f6b32f6c66fad2b2e9a5d996))
+
+	NEO_BIOS_AUDIO_128K( "365.m1", CRC(5a47d9ad) SHA1(0197737934653acc6c97221660d789e9914f3578) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "265sm.v1", 0x000000, 0x400000, CRC(8991f6e9) SHA1(ce5afc0169c142d7f98111afbc60b3a9a2e17256) )
+	ROM_LOAD( "265sm.v2", 0x400000, 0x400000, CRC(511e4d2f) SHA1(28190ec86ac2169ab6fad80635ed13cfcf430c65) )
+	ROM_LOAD( "265sm.v3", 0x800000, 0x400000, CRC(1dd8b53a) SHA1(9aa84f145ba07f5f3c3b3fb682eb8a8ab1500b4c) )
+	ROM_LOAD( "265sm.v4", 0xc00000, 0x400000, CRC(63bb5462) SHA1(afc6a085e25bd006f26e16beda4244bc8bc19bb8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "365.c1", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "365.c2", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "365.c7", 0x3000000, 0x800000, CRC(fa705b2b) SHA1(f314c66876589601806352484dd8e45bc41be692) )
+	ROM_LOAD16_BYTE( "365.c8", 0x3000001, 0x800000, CRC(2c912ff9) SHA1(b624a625ea3e221808b7ea43fb0b1a51d8c1853e) )
+ROM_END
+
+ROM_START( kof2k4ses36 ) //kof2k4p
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "k2k4shc36.p1",  0x000000, 0x500000, CRC(ebe6ccf7) SHA1(0469f0da6a1d47f3fdb79487e839c00920c0483f))
+	
+	NEO_SFIX_128K( "k2k4shc36.s1", CRC(de88d1a0) SHA1(df8231791924d89a9a005cdf1a13c019f3d97806))
+
+	NEO_BIOS_AUDIO_512K( "265k2s94.m1", CRC(36acf1b9) SHA1(762162acd2bfcea797b4c7db94f675e35133d886) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "365.c1", 0x0000000, 0x800000, CRC(7a050288) SHA1(55a20c5b01e11a859f096af3f8e09986025d288f) )
+	ROM_LOAD16_BYTE( "365.c2", 0x0000001, 0x800000, CRC(e924afcf) SHA1(651e974f7339d2cdcfa58c5398013197a0525b77) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "k2k4shc36.c7", 0x3000000, 0x800000, CRC(dc5de81a) SHA1(2aabb1845c5e609f96db25b66c53384fbe4afe18) )
+	ROM_LOAD16_BYTE( "k2k4shc36.c8", 0x3000001, 0x800000, CRC(e09f5496) SHA1(b7312ca1123257be0e194fdb2ef1cb5a8a303892) )
+ROM_END
+
 ROM_START( kof2k4plss01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "365plss01.p1", 0x000000, 0x100000, CRC(567bb88e) SHA1(f6f035d5f8d4bd1764458d14782b1bf04e38ed06) )
@@ -4707,7 +4932,7 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Crouching Tiger Hidden Dragon
 HACK( 2004, ct2k3k3s01,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "zhaolu94",    "Crouching Tiger Hidden Dragon 2003 (Color Fix Form Kof2001)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, ct2k3k3s02,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "hack",    "Crouching Tiger Hidden Dragon 2003 (Simplified Color 2016-03-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, ct2k3k3s02,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "hack",    "Crouching Tiger Hidden Dragon 2003 (Simplified Color 2016-03-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3k3s03,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003 (Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3k3s04,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003 (Super Plus)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, ct2k3k3s05,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state,  cthd2003,  ROT0, "Creamymami[EGCG]",    "Crouching Tiger Hidden Dragon 2003 (Hidden Characters Boss V2)", MACHINE_SUPPORTS_SAVE )
@@ -4748,6 +4973,7 @@ HACK( 1997, kogs08,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog, 
 HACK( 1997, kogs09,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "liuzheng0131",     "King of Gladiator (Valentine's Day And Red Fire)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kogs10,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "K65535",           "King of Gladiator (Purple & Green Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, kogs11,         kof97,    neogeo_kog,    neogeo, neogeo_state, kog,    ROT0, "Bloodlust",        "King of Gladiator (Add Chris's Purple Fire)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kogs12,         kof97,    neogeo_noslot, neogeo, neogeo_state, neogeo, ROT0, "hack",             "King of Gladiator (Resurgence Plus Dog Slaughter Edition 2020-01-23)", MACHINE_SUPPORTS_SAVE )
 // 10th Anniversary
 HACK( 2005, kf10theps01,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf10thep,  ROT0, "Creamymami[EGCG]",    "Kof 10th Anniversary Extra Plus (Unlimited Power Store)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kf10theps02,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf10thep,  ROT0, "kumagorou",    "Kof 10th Anniversary Extra Plus (Green Fire)", MACHINE_SUPPORTS_SAVE )
@@ -4788,8 +5014,12 @@ HACK( 2005, kf2k5unis09,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k
 HACK( 2005, kf2k5unis10,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k5uni,  ROT0, "oak2003",    "Kof 10th Anniversary 2005 Unique (Turn Time Bg Into Half Transparency V2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kf2k5unis11,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k5uni,  ROT0, "Eddids[FGCH]",    "Kof 10th Anniversary 2005 Unique (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2005, kf2k5unis12,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  kf2k5uni,  ROT0, "oak2003",    "Kof 10th Anniversary 2005 Unique (Turn Life-Bar Into Half-Transparency)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kf2k5unis13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Edition Optimized)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kf2k5unis13,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Edition Optimized 2019 2019-05-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kf2k5unis14,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Optimized Version 2019 2019-06-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kf2k5unis15,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Alpha Unique 2020-01-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kf2k5unis16,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Alpha Unique New 2020-01-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kf2k5unis17,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Optimization 2019 Simplified Edition 2020-02-05)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kf2k5unis18,    kof2002,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Omega Edition Simplified 2020-02-27)", MACHINE_SUPPORTS_SAVE )
 // Kof Special Edition 2004
 HACK( 2004, kof2k4ses01,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "KyoX",    "Kof Special Edition 2004 (Translation Portuguese)(Alt)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4ses04,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 (Unluck Max2 V1)", MACHINE_SUPPORTS_SAVE )
@@ -4818,9 +5048,13 @@ HACK( 2004, kof2k4ses26,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2004, kof2k4ses27,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "kof1996",    "Kof Special Edition 2004 (Remove Countdown)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4ses28,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 (Practice Mode Maximum Power)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4ses29,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "Eddids[FGCH]",    "Kof Special Edition 2004 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2k4ses30,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",    "Kof Special Edition 2004 (Omega v1.0)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, kof2k4ses31,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus (Add Boss Hack)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2k4ses30,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",    "Kof Special Edition 2004 (Omega v1.0 2011-12-13)", MACHINE_SUPPORTS_SAVE )
+HACK( 2004, kof2k4ses31,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus (Add Boss Hack )", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof2k4ses32,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus (Crazy Edition 2018-10-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2k4ses33,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Omega v1.0 2020-01-03)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2k4ses34,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Resurgence Plus Enhanced 2020-01-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2k4ses35,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Resurgence Plus Enhanced New 2020-01-24)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2k4ses36,    kof2k4se, neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof Special Edition 2004 (Plus 2020-03-02)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss01,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "KyoX",    "Kof Special Edition 2004 Plus (Translation Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss02,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 Plus (Unluck Max2 v1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kof2k4plss03,   kof2k4se, neogeo_noslot, neogeo, neogeo_state,  kof2k4pls, ROT0, "Creamymami[EGCG]",    "Kof Special Edition 2004 Plus (Unlimited Power)", MACHINE_SUPPORTS_SAVE )

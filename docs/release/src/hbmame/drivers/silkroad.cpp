@@ -99,7 +99,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Legend of Silkroad
-GAME( 1999, silkroads01,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "hack", "The Legend of Silkroad (Simple Attack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, silkroads01,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "hack", "The Legend of Silkroad (Simple Attack 2018-03-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, silkroads02,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (All Move Without Magic)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, silkroads03,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (Easy Move)", MACHINE_SUPPORTS_SAVE )
 

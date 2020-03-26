@@ -780,10 +780,6 @@ static Resize main_resize = { {0, 0, 0, 0}, main_resize_items };
 /* last directory for common file dialogs */
 TCHAR last_directory[MAX_PATH];
 
-/* system-wide window message sent out with an ATOM of the current game name
-   each time it changes */
-static UINT g_mame32_message = 0;
-
 static BOOL g_listview_dragging = false;
 static HIMAGELIST himl_drag;
 static int game_dragged; /* which game started the drag */
@@ -1570,8 +1566,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (!OptionsInit())
 		return false;
 
-	srand((unsigned)time(NULL));
-
 	// create the memory pool
 	mameui_pool = pool_alloc_lib(memory_error);
 
@@ -1609,14 +1603,13 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 		return false;
 	}
 
-	g_mame32_message = RegisterWindowMessage(TEXT("MAME32"));
-
 	HelpInit();
 
+	hMain = NULL;
 	hMain = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), 0, NULL);
 	if (hMain == NULL)
 	{
-		dprintf("error creating main dialog, aborting\n");
+		printf("error creating main dialog, aborting\n");
 		return false;
 	}
 
@@ -5276,7 +5269,7 @@ static void MamePlayBackGame()
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
 		emu_file pPlayBack(MameUIGlobal().input_directory(), OPEN_FLAG_READ);
-		fileerr = pPlayBack.open(fname);
+		fileerr = pPlayBack.open(string(fname));
 		if (fileerr != osd_file::error::NONE)
 		{
 			MameMessageBox("Could not open '%s' as a valid input file.", filename);
@@ -5379,7 +5372,7 @@ static void MameLoadState()
 		}
 #endif // MESS
 		emu_file pSaveState(MameUIGlobal().state_directory(), OPEN_FLAG_READ);
-		osd_file::error fileerr = pSaveState.open(state_fname);
+		osd_file::error fileerr = pSaveState.open(string(state_fname));
 		if (fileerr != osd_file::error::NONE)
 		{
 			MameMessageBox("Could not open '%s' as a valid savestate file.", filename);

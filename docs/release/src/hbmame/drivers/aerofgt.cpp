@@ -10,7 +10,7 @@
  Karate Blazers
 *****************/
 
-ROM_START( karatblzas01 )
+ROM_START( karatblzas01 ) //karatblza
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "v2_po01.u14",  0x00000, 0x40000, CRC(d3df88c4) SHA1(9a5a9d2ec96f4614fbf861a5cd62f6f5b907b2fb) ) 
 	ROM_LOAD16_WORD_SWAP( "v1.u15",     0x40000, 0x40000, CRC(d16ee21b) SHA1(d454cdf22b72a537b9d7ae73deb8136a4f09da47) )

@@ -443,6 +443,6 @@ ROM_END
 HACK( 1999, garoups01,     garou,    neogeo_noslot, neogeo, neogeo_state,         garou,     ROT0, "Creamymami[EGCG]",    "Garou - Mark of the Wolves (Infinite Power)", MACHINE_SUPPORTS_SAVE )
 HACK( 1999, garoups02,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "feiyang001597",    "Garou - Mark of the Wolves (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, garoups03,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Garou - Mark of the Wolves (The brand of the wolf 2015-03-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Garou - Mark of the Wolves (Resurgence Lite 2015-03-10)", MACHINE_SUPPORTS_SAVE )
 
 

@@ -46,13 +46,9 @@ cd\mess
 call newsrc.bat
 
 rem --- MESSUI 64bit ---
-del messui64.exe
-del messui64.sym
-call make64 -j4 "OSD=messui" %1 %2 %3
+call makee.bat
 if not exist messui64.exe goto end
-del mess64.exe
-del mess64.sym
-call make64 -j4 "OSD=newui" %1 %2 %3
+call maker.bat
 if not exist mess64.exe goto end
 
 :mameui

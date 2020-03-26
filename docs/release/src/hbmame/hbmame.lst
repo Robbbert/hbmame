@@ -69,7 +69,7 @@ bonzeadv		//parent
 jigkmgris01
 
 @source:atarig42.cpp
-//dangerex
+//more...
 
 @source:atarisy1.cpp
 atarisy1		//bios
@@ -146,6 +146,7 @@ pwrinst2s01
 plegends			//parent
 plegendsjs01
 plegendsjs02
+plegendsjs03
 gaia			//parent
 gaias01
 metmqstr		//parent
@@ -277,10 +278,10 @@ knightsha
 knightsjb
 knightsro
 knightud
-kodd			// roms not matching; no gfx in attract mode
+kodd			// no gfx in attract mode; illegal instruction
 kodh
 kodsp
-kodud			// roms not matching; no gfx in attract mode
+kodud			// no gfx in attract mode; illegal instruction
 pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
 punisherb
 punisherf
@@ -537,6 +538,15 @@ tk2h145
 tk2h146
 tk2h147
 tk2h148
+tk2h149
+tk2h150
+tk2h151
+tk2h152
+tk2h153
+tk2h154
+tk2h155
+tk2h156
+//tk2h157
 wofb
 wofch		// tk2p1
 wofes
@@ -617,6 +627,18 @@ captcomms70
 captcomms71
 captcomms72
 captcomms73
+captcomms74
+captcomms75
+//captcomms76 // encrypted
+captcomms77
+captcomms78
+captcomms79
+captcomms80
+captcomms81
+captcomms82
+captcomms83
+captcomms84
+captcomms85
 dinos01
 dinos02
 dinos03
@@ -823,6 +845,20 @@ dinos220
 dinos221
 dinos222
 dinos223
+dinos224
+dinos225
+dinos226
+dinos227
+dinos228
+dinos229
+dinos230
+dinos231
+dinos232
+dinos233
+dinos234
+dinos235
+dinos236
+dinos237
 ffights01
 ffights02
 ffightj2s01
@@ -845,6 +881,9 @@ knightsh11
 knightsh12
 knightsh13
 knightsh14
+knightsh15
+knightsh16
+knightsh17
 knightsjs01
 mercs01
 mercjs01
@@ -859,6 +898,7 @@ punishers04
 punishers05
 punishers06
 punishers07
+//punishers08 //Encrypted
 punisherjs01
 punisherjs02
 punisherjs03
@@ -1170,6 +1210,7 @@ cybotsjs01
 ddsomjs01
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
 ddsomuds02
+dstlks01
 gigawings01
 mshs01
 mshs02
@@ -1228,12 +1269,14 @@ sfz2aljs05
 sfz2aljs06
 sfz2aljs07
 sfz2aljs08
-sfz2aljs09 
+sfz2aljs09
+sfz2aljs10
 sfz2als01
 sfz2als02
 sfz2ns01
 sfa2s01
 sfa2s02
+sfa2s03
 sfz3js01
 sfz3js02
 sfz3js03
@@ -1313,6 +1356,8 @@ sfiii3ns09
 sfiii3ns10
 sfiii3ns11
 sfiii3ns12
+sfiii3ns13
+sfiii3ns14
 
 @source:cv1k.cpp
 deathsml				//parent
@@ -1333,6 +1378,14 @@ dbz2					//parent
 dbz2h01
 dbz2h02
 
+@source:ddenlovr.cpp
+mjmyster				//parent
+mjmysters01
+mjreach1				//parent
+mjreach1s01
+mjdchuka				//parent
+mjdchukas01
+
 @source:dec0.cpp
 baddudes				//parent
 baddudef				/* Arkatrad */
@@ -1350,9 +1403,13 @@ dkong2m
 dkongbcc				// Jeff's Rom Hacks
 dkongex					/* Jeff's Hack with Foundry Level */
 dkongf
+dkongl5
 dkongp					/* Fix for level 22 kill screen by Don Hodges */
 dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
+dkongchm
+dkongchm1
+dkongran1
 dkongrev
 dkongx
 dkongx11
@@ -1377,6 +1434,14 @@ dotrikun		//parent
 dotrikun2
 dotriman
 mineswp			/* Minesweeper */
+
+@source:dynax.cpp
+//mjelct3
+mjelctrn		//parent
+mjelct3s01
+mjelctrns01
+tenkai  		//parent
+tenkaibbs01
 
 //@source:ertictac.cpp
 //armdemo		/* Charles Doty */  // totally broken
@@ -1409,6 +1474,7 @@ asurabld				//parent
 asurablds01
 asurablds02
 asurablds03
+asurablds04
 asurabus				//parent
 asurabuss01
 asurabuss02
@@ -1508,6 +1574,8 @@ spicegirls				// HB
 @source:igs011.cpp
 lhb2					//parent
 lhb2s01
+xymg					//parent
+wlccs01
 
 @source:itech8.cpp
 itecdemo	/* Charles Doty */
@@ -1751,6 +1819,9 @@ kof96s43
 //kof96s44 //encrypted
 kof96s45
 kof96s46
+kof96s47
+kof96s48
+kof96s49
 kof96cns01
 
 @source:kof97.cpp
@@ -1998,6 +2069,20 @@ kof97s149
 kof97s150
 kof97s151
 kof97s152
+kof97s153
+kof97s154
+kof97s155
+kof97s156
+kof97s157
+kof97s158
+kof97s159
+kof97s160
+kof97s161
+kof97s162
+kof97s163
+kof97s164
+kof97s165
+kof97s166
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2306,6 +2391,7 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
+kof97plss13 // The roms has problems
 
 @source:kof98.cpp
 kof98aas
@@ -2516,6 +2602,10 @@ kof98s49
 kof98s50
 kof98s51
 kof98s52
+kof98hh01
+kof98hh02
+kof98hh03
+kof98hh04
 kof98hh05
 kof98hh06
 kof98hh07
@@ -2621,6 +2711,7 @@ kof98hh122
 kof98hh123
 kof98hh124
 kof98hh125
+kof98hh126
 kof98xz01
 kof98xz02
 kof98xz03
@@ -2839,6 +2930,13 @@ kof99s91
 kof99s92
 kof99s93
 kof99s94
+kof99s95
+kof99s96
+kof99s97
+kof99s98
+kof99s99
+kof99s100
+kof99s101
 
 @source:kof2000.cpp
 kof2000d
@@ -2939,6 +3037,8 @@ kof2000s55
 kof2000s56
 kof2000s57
 kof2000s58
+kof2000s59
+kof2000s60
 
 @source:kof2001.cpp
 kof2001d
@@ -3063,6 +3163,10 @@ kof2001s41
 kof2001s42
 kof2001s43
 kof2001s44
+kof2001s45
+kof2001s46
+kof2001s47
+kof2001s48
 
 @source:kof2002.cpp
 kof200215
@@ -3323,6 +3427,7 @@ kof2002s111
 kof2002s112
 kof2002s113
 kof2002s114
+kof2002s115
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -3531,6 +3636,21 @@ kof2k2s88
 kof2k2s89
 kof2k2s90
 kof2k2s91
+kof2k2s92
+kof2k2s93
+kof2k2s94
+kof2k2s95
+kof2k2s96
+kof2k2s97
+kof2k2s98
+kof2k2s99
+kof2k2s100
+kof2k2s101
+kof2k2s102
+kof2k2s103
+kof2k2s104
+kof2k2s105
+kof2k2s106
 
 @source:kof2003.cpp
 kof2003d
@@ -3608,6 +3728,11 @@ kof2003s48
 kof2003s49
 kof2003s50
 kof2003s51
+kof2003s52
+kof2003s53
+kof2003s54
+kof2003s55
+kof2003s56
 kf2k3pls01
 kf2k3pls02
 kf2k3pls03
@@ -3670,6 +3795,8 @@ kof2004upls26
 kof2004upls27
 kof2004upls28
 kof2004upls29
+kof2004upls30
+kof2004upls31
 
 @source:konamigx.cpp
 konamigx			//required bios
@@ -3690,6 +3817,7 @@ lkages01
 @source:lordgun.cpp
 aliencha			//parent
 alienchas01 
+alienchas02
 
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
@@ -3716,6 +3844,7 @@ nbbatmanus02
 nbbatmanus03
 nbbatmanus04
 nbbatmanus05
+nbbatmanus06
 uccopsjs01
 
 @source:maketrax.cpp
@@ -3863,6 +3992,11 @@ umk3uc20181029
 umk3uc20190704
 umk3uc20190917
 umk3uc20191017
+umk3uc20191220
+umk3uc20191226
+umk3uc20200130
+umk3uc20200204
+umk3uc20200226
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -3970,6 +4104,8 @@ mslug2ps33
 mslug2ps34
 mslug2ps35
 mslug2ps36
+mslug2ps37
+mslug2ps38
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -4063,6 +4199,10 @@ ms6s03
 ms6s04
 ms6s05
 ms6s06
+ms6s07
+ms6s08
+ms6s09
+ms6s10
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -4140,6 +4280,7 @@ mslug3h70
 mslug3h71
 mslug3h72
 mslug3h73
+mslug3h74
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4627,6 +4768,8 @@ mslug4hh46
 mslug4hh47
 mslug4hh48
 mslug4hh49
+mslug4hh50
+mslug4hh51
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -4853,6 +4996,10 @@ mslug5dh57
 mslug5dh58
 mslug5dh59
 mslug5dh60
+mslug5dh61
+mslug5dh62
+mslug5dh63
+mslug5dh64
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -5292,6 +5439,7 @@ mslugxz61
 mslugxz62
 mslugxz63
 mslugxz64
+mslugxz65
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
@@ -6198,6 +6346,7 @@ zupapadd
 androduns01
 aof2s01
 aof2s02
+aof2s03
 breakers01
 breakrevs01
 breakrevs02
@@ -6220,6 +6369,7 @@ kizunas03
 kizunas04
 kizunas05
 kizunas06
+kizunas07
 magdrop3s01
 magdrop3s02
 matrims01
@@ -6229,6 +6379,7 @@ matrims04
 matrims05
 matrims06
 matrims07
+matrims08
 miexchngs01
 neobombes01
 neobombes02
@@ -6243,16 +6394,20 @@ ragnagrds01
 ragnagrds02
 ragnagrds03
 ragnagrds04
+ragnagrds05
 s1945ps01
 savageres01
 savageres02
 savageres03
 savageres04
 savageres05
+savageres06
 sdodgebs01
 sdodgebs02
 sdodgebs03
+shocktr2s01
 wakuwak7s01
+wakuwak7s02
 2020bbe
 3countbe 
 aof3e
@@ -6398,6 +6553,7 @@ kogs08
 kogs09
 kogs10
 kogs11
+kogs12
 kf10theps01
 kf10theps02
 kf10theps03
@@ -6438,6 +6594,10 @@ kf2k5unis11
 kf2k5unis12
 kf2k5unis13
 kf2k5unis14
+kf2k5unis15
+kf2k5unis16
+kf2k5unis17
+kf2k5unis18
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
@@ -6468,6 +6628,10 @@ kof2k4ses29
 kof2k4ses30
 kof2k4ses31
 kof2k4ses32
+kof2k4ses33
+kof2k4ses34 
+kof2k4ses35
+kof2k4ses36
 kof2k4plss01
 kof2k4plss02
 kof2k4plss03
@@ -6718,6 +6882,7 @@ samshos04
 samshos05
 samshos06
 samshos07
+samshos08
 samsho2s01
 samsho2s02
 samsho2s03
@@ -6731,6 +6896,9 @@ samsho2s10
 samsho2s11
 samsho2s12
 samsho2s13
+samsho2s14
+samsho2s15
+samsho2s16
 samsho3s01
 samsho3s02
 samsho3s03
@@ -6743,6 +6911,8 @@ samsho3s09
 samsho3s10
 samsho3s11
 samsho3s12
+samsho3s13
+samsho3s14
 samsho4s01
 samsho4s02
 samsho4s03
@@ -6758,6 +6928,8 @@ samsho4s12
 samsho4s13
 samsho4s14
 samsho4s15
+samsho4s16
+samsho4s17
 samsho5s01
 samsho5s02
 samsho5s03
@@ -6787,6 +6959,8 @@ samsho5s26
 samsho5s27
 samsho5s28
 samsho5s29
+samsho5s30
+samsho5s31
 samsh5sp01
 samsh5sp02
 samsh5sp03
@@ -6809,6 +6983,8 @@ samsh5sp19
 samsh5sp20
 samsh5sp21
 samsh5sp22
+samsh5sp23
+samsh5sp24
 
 @source:ngsengoku.cpp
 sengokucd
@@ -6837,6 +7013,7 @@ sengoku3s09
 sengoku3s10
 sengoku3s11
 sengoku3s12
+sengoku3s13
 
 @source:ngsvc.cpp
 svccprw
@@ -6901,6 +7078,7 @@ svchs32
 svchs33
 svchs34
 svchs35
+svchs36
 svcpluss01
 svcpluss02
 svcpluss03
@@ -6971,6 +7149,7 @@ whps03
 whps04
 whps05
 whps06
+whps07
 wh1s01
 wh1s02
 wh2s01
@@ -7194,10 +7373,8 @@ ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
 orlegend	//parent
 orlegendcs
-// orlegendh // it is duplicated roms orlegendcs
-olds100a			//parent (crashes)
+olds100a    //parent
 kovassg
-//kovdf   // rom missing
 kovsgqyzc	// similar to kovsgqyza
 kov2h1
 kov2h2
@@ -7210,29 +7387,27 @@ kovph3
 kovph4
 kovph5
 kovph6
-//kovph7      // broken (causes emu to freeze)
+//kovph7      // Encrypted
 kovph8
-//kovph9      // broken (causes emu to freeze)
-//kovph10     // broken (causes emu to freeze)
-//kovph11
+kovph9
+//kovph10     // Encrypted
 kovph12
 kovph13
 kovph14
 kovph15
-//kovph16     // broken (causes emu to freeze)
+//kovph16     // Encrypted
 kovph17
 kovph18
-//kovph19     // broken (causes emu to freeze)
-//kovph20     // broken (causes emu to freeze)
-//kovph21     // broken (causes emu to freeze)
-//kovph22     // broken (causes emu to freeze)
+//kovph19     // Encrypted
+//kovph20     // Encrypted
+//kovph21     // Encrypted
+//kovph22     // Encrypted
 //kovph23   // rom missing
 kovph24		// was kvplusjq
 kovph25		// was kovplusq
 kovsh1
 kovsh2
 kovsh3
-//kovsh4	// rom missing
 //kovsh5     // broken (causes emu to freeze)
 //kovsh6     // broken (causes emu to freeze)
 //kovsh7     // broken (causes emu to freeze)
@@ -7243,8 +7418,6 @@ kovsh11    // broken
 //kovsh12  // roms missing
 //kovsh13  // roms missing
 //kovsh14  // roms missing
-//kovsh15  // rom missing
-//kovsh16  // broken (causes emu to freeze)
 //kovsh17  // broken (causes emu to freeze)
 kovsh18			// gem fighters
 kovsh19			// rugal 98
@@ -7257,6 +7430,7 @@ oldsplus			//parent
 olds				//parent
 martmast			//parent
 theglad				//parent
+killbld104s01
 killblds01
 killblds02
 killblds03
@@ -7264,7 +7438,6 @@ killblds04
 killblds05
 killbldps01
 killbldps02
-//kovss02    // not working, encrypted
 kov115s01
 kov115s02
 kov115s03
@@ -7276,6 +7449,7 @@ kov115s08
 kov115s09
 kov115s10
 kov115s11
+kov115s12
 kov2p204s01
 kov2p204s02
 kov2p204s03
@@ -7359,10 +7533,12 @@ kov2p204s82
 kov2p204s83
 kov2p204s84
 kov2p204s85
-kov2p204s86   //graphic problem
-kov2p204s87   //graphic problem
+kov2p204s86
+kov2p204s87
 kov2p204s88
 kov2p204s89
+kov2p204s90
+kov2p204s91
 kov2h01
 kov2h02
 kov2h03
@@ -7383,6 +7559,7 @@ kov2h17
 kov2h18
 kov2h19
 kov2h20
+kov2h21
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7591,7 +7768,7 @@ kovpluss206  // Unstable game in the emulator(ingame crash)
 kovpluss207
 kovpluss208
 kovpluss209  // very bad gfx
-//kovpluss210  // Unstable game in the emulator (causes emu to freeze)
+kovpluss210  // Unstable game in the emulator (causes emu to freeze)
 kovpluss211
 kovpluss212
 kovpluss213
@@ -7640,31 +7817,31 @@ kovpluss256
 kovpluss257
 kovpluss258
 kovpluss259
-//kovpluss260  // Unstable game in the emulator(ingame crash)
-//kovpluss261  // Unstable game in the emulator(ingame crash)
-//kovpluss262  // Unstable game in the emulator(ingame crash)
-kovpluss263 // Serious problem graphic
+kovpluss260  // Unstable game in the emulator(ingame crash)
+kovpluss261  // Unstable game in the emulator(ingame crash)
+kovpluss262  // Unstable game in the emulator(ingame crash)
+kovpluss263
 kovpluss264
-kovpluss265 // Serious problem graphic
-//kovpluss266  // Unstable game in the emulator(ingame crash)
+kovpluss265
+kovpluss266  // Unstable game in the emulator(ingame crash)
 kovpluss267
 kovpluss268
 kovpluss269
 kovpluss270
-//kovpluss271  // Unstable game in the emulator(ingame crash)
-//kovpluss272  // Unstable game in the emulator(ingame crash)
-//kovpluss273  // Unstable game in the emulator(ingame crash)
-//kovpluss274  // Unstable game in the emulator(ingame crash)
+kovpluss271
+kovpluss272
+kovpluss273
+kovpluss274
 kovpluss275
 kovpluss276
 kovpluss277
-//kovpluss278 // Serious problem graphic
-//kovpluss279  // Unstable game in the emulator(ingame crash)
+kovpluss278
+kovpluss279  // Unstable game in the emulator(ingame crash)
 kovpluss280
 kovpluss281
 kovpluss282
 kovpluss283
-//kovpluss284   // Unstable game in the emulator(ingame crash)
+kovpluss284   // Unstable game in the emulator(ingame crash)
 kovpluss285
 kovpluss286
 kovpluss287
@@ -7683,7 +7860,7 @@ kovpluss299
 kovpluss300
 kovpluss301
 kovpluss302
-kovpluss303 //graphic problem
+kovpluss303
 kovpluss304
 kovpluss305
 kovpluss306
@@ -7694,11 +7871,11 @@ kovpluss310
 kovpluss311
 kovpluss312
 kovpluss313
-//kovpluss314
-//kovpluss315
+kovpluss314
+kovpluss315
 kovpluss316
-kovpluss317  //graphic problem
-//kovpluss318
+kovpluss317
+kovpluss318  // The roms has problems
 kovpluss319
 kovpluss320
 kovpluss321
@@ -7707,11 +7884,10 @@ kovpluss323
 kovpluss324
 kovpluss325
 kovpluss326
-kovpluss327  //graphic problem
-kovpluss328  //graphic problem
+kovpluss327
+kovpluss328
 kovpluss329
-//kovpluss330  // Unstable game in the emulator(ingame crash)
-//kovpluss331  // Unstable game in the emulator(ingame crash)
+kovpluss331
 kovpluss332
 kovpluss333
 kovpluss334
@@ -7730,6 +7906,22 @@ kovpluss346
 kovpluss347
 kovpluss348
 kovpluss349
+kovpluss350
+kovpluss351
+kovpluss352
+kovpluss353
+kovpluss354
+kovpluss355
+kovpluss356
+kovpluss357
+kovpluss358
+kovpluss359 // kovsho124
+kovpluss360 // kovsho127
+kovpluss361 //
+kovpluss362
+kovpluss363
+kovpluss364
+kovpluss365
 kovplusas01
 kovshs01
 kovshs02
@@ -7836,19 +8028,23 @@ kovshs103
 kovshs104
 kovshs105    // bad gfx
 kovshs106
-//kovshs107   //  Unstable game in the emulator (ingame crash) 
+kovshs107   //  Unstable game in the emulator (ingame crash) 
 kovshs108
 kovshs109
 kovshs110
-kovshs111    // graphic problem
+kovshs111
 kovshs112
-// kovshs113   //  Unstable game in the emulator (ingame crash) 
+kovshs113
 kovshs114
 kovshs115
 kovshs116
-kovshs117   //graphic problem
-kovshs118   //graphic problem
-kovshs119   //graphic problem
+kovshs117
+kovshs118
+kovshs119
+kovshs120
+kovshs121
+kovshs122
+kovsgqyzs01
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
@@ -7865,8 +8061,6 @@ kovsho10
 kovsho11
 kovsho12
 kovsho13
-kovsho14
-//kovsho15 //disabled serious problems graphic
 kovsho16
 kovsho17
 kovsho18
@@ -7929,14 +8123,14 @@ kovsho75
 kovsho76
 kovsho77
 kovsho78
-kovsho79  // Serious problem graphic
-//kovsho80  //  Unstable game in the emulator (ingame crash)
+kovsho79
+kovsho80  // Illegal Intruction
 kovsho81
 kovsho82
 kovsho83
 kovsho84
 kovsho86
-kovsho85  //graphic problem
+kovsho85
 kovsho87
 kovsho88
 kovsho89
@@ -7945,27 +8139,99 @@ kovsho91
 kovsho92
 kovsho93
 kovsho94
-kovsho95  // Serious problem graphic
+kovsho95
 kovsho96
 kovsho97
-kovsho98  // Serious problem graphic
-kovsho99  // Serious problem graphic
-// kovsho100  //  Unstable game in the emulator (ingame crash)
-// kovsho101  //  Unstable game in the emulator (ingame crash)
-// kovsho102  //  Unstable game in the emulator (ingame crash)
+kovsho98
+kovsho99
+kovsho100
+kovsho101
+kovsho102
 kovsho103
 kovsho104
 kovsho105
-kovsho106
+kovsho106 //Illegal Intruction
 kovsho107
 kovsho108
 kovsho109
 kovsho110
-//kovsho111
-//kovsho112
+kovsho111
+kovsho112
+kovsho113
+kovsho114
+kovsho115
+kovsho116
+kovsho117
+kovsho118
+kovsho119
+kovsho120
+kovsho121
+kovsho122
+kovsho123
+kovsho125
+kovsho126
+kovsho128
+kovsho129
+kovsho130
+kovsho131
+kovsho132
+kovsho133
+kovsho134
+kovsho135
+kovsho136 // The roms has problems
+kovsho137 // Boot bios 1
+kovsho138 // Boot bios 1
+kovsho139 // The roms has problems
+kovsho140
+kovsho141
+kovsho142
+kovsho143 //Illegal Intruction     
+kovsho144
+kovsho145
+kovsho146 // Boot bios 1
+kovsho147
+kovsho148
+kovsho149
+kovsho150
+kovsho151
+kovsho152 //
+kovsho153 //
+kovsho154
+kovsho155
+kovsho156
+kovsho157
+kovsho158 //
+kovsho159 //
+kovsho160 // Hardware 27 Error
+kovsho161 //
+kovsho162
+kovsho163
+kovsho164
+kovsho165
+kovsho166
+kovsho167
+kovsho168 //
+kovsho169 //
+kovsho170 //
+kovsho171
+kovsho172
+kovsho173
+kovsho174
+kovsho175
+kovsho176
+kovsho177
+kovsho178
+kovsho179
+kovsho180
+kovsho181
+kovsho182
+kovsho183
+kovsho184
+kovsho185
 kovshxass01
 kovshxass02
 kovshxass03
+kovshxass04
 martmasts01
 martmasts02
 martmasts03
@@ -7999,7 +8265,6 @@ olds100ass25
 olds100ass26
 olds100ass27
 olds100ass28
-//olds100ass29 //  rom problem
 olds100ass32
 olds100ass33
 olds100ass34
@@ -8088,12 +8353,12 @@ olds100ass116 // opcode 1111 at cliff in attract mode
 olds100ass117 // opcode 1111 at cliff in attract mode
 olds100ass118 // opcode 1111 at cliff in attract mode
 olds100ass119 // opcode 1111 at cliff in attract mode
-//olds100ass120 //  roms missing
-//olds100ass121 //  roms missing
+olds100ass120
+olds100ass121
 olds100ass122
 olds100ass123
-//olds100ass124 //  roms missing
-//olds100ass125 //  roms missing
+olds100ass124
+olds100ass125
 olds100ass126
 olds100ass127
 olds100ass128
@@ -8133,6 +8398,10 @@ olds100ass161 // illegal instruction
 olds100ass162
 olds100ass163
 olds100ass164
+olds100ass165
+olds100ass166
+olds100ass167
+olds100ass168
 oldsplus01
 oldsplus02
 oldsplus03
@@ -8151,6 +8420,12 @@ oldsplus15
 oldsplus16
 oldsplus17
 oldsplus18
+oldsplus19
+oldsplus20
+oldsplus21
+oldsplus22
+oldsplus23
+oldsplus24
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -8256,6 +8531,9 @@ orlegendcs95
 orlegendcs96
 orlegendcs97
 orlegendcs98
+orlegendcs99
+orlegendcs100
+orlegendcs101
 theglads01
 theglads02
 theglads03
@@ -8299,6 +8577,7 @@ powernbr
 powerns01
 powerns02
 powerns03
+powerns04
 
 @source:psikyo.cpp
 tengai					//parent
@@ -8361,6 +8640,7 @@ schasrcv		// extra sounds
 
 @source:segac2.cpp
 c2frog					// HB
+//more...
 
 @source:segaorun.cpp
 outrun					//parent
@@ -8748,4 +9028,3 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-

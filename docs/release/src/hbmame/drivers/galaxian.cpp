@@ -44,8 +44,7 @@ void galaxian_hbmame::jumpbugx(machine_config &config)
 {
 	jumpbug(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &galaxian_hbmame::jumpbugx_map);
-	GALAXIAN(config, "cust", 0).add_route(ALL_OUTPUTS, "speaker", 0.4);
-	DISCRETE(config, GAL_AUDIO, galaxian_discrete).add_route(ALL_OUTPUTS, "speaker", 1.0);
+	GALAXIAN_SOUND(config, "cust", 0);
 }
 
 

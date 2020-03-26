@@ -196,7 +196,7 @@ GAME( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, init_
 GAME( 2009, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, init_ps5, ROT270, "yzb & pipi899", "Gunbird 2 (Ex Super Version 2009-08-04)", MACHINE_SUPPORTS_SAVE )
 // Strikers 1945 III
 GAME( 2009, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "pipi899", "Strikers 1945 III (Ex Super Version 2009-07-X3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, s1945iiis02, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "hack", "Strikers 1945 III (Version Enhanced 2014-04-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, s1945iiis02, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "hack", "Strikers 1945 III (Version Enhanced 2014-04-07)", MACHINE_SUPPORTS_SAVE )
 // Sol Divide - The Sword Of Darkness
-GAME( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, init_ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French translation v1.0 08-18-2007)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, init_ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French translation v1.0 2007-08-18)", MACHINE_SUPPORTS_SAVE )
 

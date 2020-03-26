@@ -314,7 +314,7 @@ ROM_END
  Akkanbeder
 *************/
 
-ROM_START( arabianmjs01 )
+ROM_START( arabianmjs01 ) //arabianmjc
 	ROM_REGION(0x200000, "maincpu", 0)
 	ROM_LOAD32_BYTE("d29-23hc01.ic40", 0x000000, 0x40000, CRC(dd54b8ed) SHA1(2584ae22e52d2f5990cf0857ddd5707f8df4beb0) )
 	ROM_LOAD32_BYTE("d29-22hc01.ic38", 0x000001, 0x40000, CRC(4605b9e1) SHA1(0d050754c37fdab7596385daf242054d50882872) )

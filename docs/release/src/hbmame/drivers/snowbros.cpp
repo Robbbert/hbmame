@@ -37,7 +37,7 @@ ROM_START( snowbross02 )
 	ROM_LOAD( "sbros-1.41",   0x00000, 0x80000, CRC(16f06b3a) SHA1(c64d3b2d32f0f0fcf1d8c5f02f8589d59ddfd428) )
 ROM_END
 
-ROM_START( snowbross03 )
+ROM_START( snowbross03 ) //snowbrosa
 	ROM_REGION( 0x40000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "sn6hc03.bin",  0x00000, 0x20000, CRC(090800df) SHA1(02cdb6a07a9043ef26f4abb6769928be8324db85) )
 	ROM_LOAD16_BYTE( "sn5hc03.bin",  0x00001, 0x20000, CRC(b7ebd161) SHA1(66cb4baf3eb341dddb9381b6b4e1873f5678a916) )
@@ -49,7 +49,7 @@ ROM_START( snowbross03 )
 	ROM_LOAD( "sbros-1.41",   0x00000, 0x80000, CRC(16f06b3a) SHA1(c64d3b2d32f0f0fcf1d8c5f02f8589d59ddfd428) )
 ROM_END
 
-ROM_START( snowbross04 )
+ROM_START( snowbross04 ) //snowbrosb
 	ROM_REGION( 0x40000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "sn6hc04.bin",  0x00000, 0x20000, CRC(9a0f2016) SHA1(6486e197a3d3e260a736f56cec3fe02be9747353) )
 	ROM_LOAD16_BYTE( "sn5hc04.bin",  0x00001, 0x20000, CRC(0f83e900) SHA1(bc39f53a95240ef04c4c45ac7cafc8e04f5d8912) )

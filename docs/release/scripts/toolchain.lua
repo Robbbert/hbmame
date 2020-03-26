@@ -1,5 +1,5 @@
 --
--- Copyright 2010-2015 Branimir Karadzic. All rights reserved.
+-- Copyright 2010-2020 Branimir Karadzic. All rights reserved.
 -- License: https://github.com/bkaradzic/bx#license-bsd-2-clause
 --
 
@@ -262,14 +262,7 @@ function toolchain(_buildDir, _subDir)
 			end
 			premake.gcc.cc  = toolchainPrefix .. "gcc"
 			premake.gcc.cxx = toolchainPrefix .. "g++"
--- work around GCC 4.9.2 not having proper linker for LTO=1 usage
-			local version_4_ar = str_to_version(_OPTIONS["gcc_version"])
-			if (version_4_ar < 50000) then
-				premake.gcc.ar  = toolchainPrefix .. "ar"
-			end
-			if (version_4_ar >= 50000) then
-				premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
-			end
+			premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
 			location (_buildDir .. "projects/" .. _subDir .. "/".. _ACTION .. "-mingw32-gcc")
 		end
 
@@ -282,14 +275,7 @@ function toolchain(_buildDir, _subDir)
 			end
 			premake.gcc.cc  = toolchainPrefix .. "gcc"
 			premake.gcc.cxx = toolchainPrefix .. "g++"
--- work around GCC 4.9.2 not having proper linker for LTO=1 usage
-			local version_4_ar = str_to_version(_OPTIONS["gcc_version"])
-			if (version_4_ar < 50000) then
-				premake.gcc.ar  = toolchainPrefix .. "ar"
-			end
-			if (version_4_ar >= 50000) then
-				premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
-			end
+			premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
 			location (_buildDir .. "projects/" .. _subDir .. "/".. _ACTION .. "-mingw64-gcc")
 		end
 

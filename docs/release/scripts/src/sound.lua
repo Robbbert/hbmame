@@ -1436,7 +1436,7 @@ end
 
 ---------------------------------------------------
 -- MM5837 Noise Generator
---@src/devices/sound/mm5837.h,MACHINES["MM5837"] = true
+--@src/devices/sound/mm5837.h,SOUNDS["MM5837"] = true
 ---------------------------------------------------
 
 if (SOUNDS["MM5837"]~=null) then
@@ -1539,5 +1539,41 @@ if (SOUNDS["SWP30"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/sound/swp30.cpp",
 		MAME_DIR .. "src/devices/sound/swp30.h",
+	}
+end
+
+---------------------------------------------------
+-- Roland sample players
+--@src/devices/sound/rolandpcm.h,SOUNDS["ROLANDPCM"] = true
+---------------------------------------------------
+
+if (SOUNDS["ROLANDPCM"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/rolandpcm.cpp",
+		MAME_DIR .. "src/devices/sound/rolandpcm.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/vgm_visualizer.h,SOUNDS["VGMVIZ"] = true
+---------------------------------------------------
+
+if (SOUNDS["VGMVIZ"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/vgm_visualizer.cpp",
+		MAME_DIR .. "src/devices/sound/vgm_visualizer.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/ks0164.h,SOUNDS["KS0164"] = true
+---------------------------------------------------
+
+if (SOUNDS["KS0164"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/ks0164.cpp",
+		MAME_DIR .. "src/devices/sound/ks0164.h",
 	}
 end

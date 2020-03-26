@@ -51,6 +51,7 @@ end
 			"/wd4100", -- warning C4100: 'xxx' : unreferenced formal parameter
 			"/wd4127", -- warning C4127: conditional expression is constant
 			"/wd4244", -- warning C4244: 'argument' : conversion from 'xxx' to 'xxx', possible loss of data
+			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 		}
 if _OPTIONS["vs"]=="intel-15" then
 		buildoptions {
@@ -60,10 +61,6 @@ if _OPTIONS["vs"]=="intel-15" then
 			"/Qwd869",              -- remark #869: parameter "xxx" was never referenced
 		}
 end
-	configuration { "vs201*" }
-		buildoptions {
-			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
-		}
 	configuration { }
 
 	files {
@@ -76,6 +73,7 @@ links {
 	ext_lib("expat"),
 }
 end
+
 
 --------------------------------------------------
 -- zlib library objects
@@ -142,6 +140,7 @@ links {
 }
 end
 
+
 --------------------------------------------------
 -- SoftFloat library objects
 --------------------------------------------------
@@ -181,6 +180,7 @@ end
 		MAME_DIR .. "3rdparty/softfloat/fsincos.c",
 		MAME_DIR .. "3rdparty/softfloat/fyl2x.c",
 	}
+
 
 --------------------------------------------------
 -- SoftFloat 3 library objects
@@ -526,6 +526,7 @@ files {
 	MAME_DIR .. "3rdparty/softfloat3/source/f128M_lt_quiet.c",
 }
 
+
 -------------------------------------------------
 -- libJPEG library objects
 --------------------------------------------------
@@ -608,6 +609,7 @@ links {
 }
 end
 
+
 --------------------------------------------------
 -- libflac library objects
 --------------------------------------------------
@@ -622,6 +624,7 @@ project "flac"
 			"/wd4127", -- warning C4127: conditional expression is constant
 			"/wd4244", -- warning C4244: 'argument' : conversion from 'xxx' to 'xxx', possible loss of data
 			"/wd4100", -- warning C4100: 'xxx' : unreferenced formal parameter
+			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 			"/wd4702", -- warning C4702: unreachable code
 		}
 if _OPTIONS["vs"]=="intel-15" then
@@ -637,11 +640,6 @@ end
 	configuration { "mingw-clang" }
 		buildoptions {
 			"-include stdint.h"
-		}
-
-	configuration { "vs201*" }
-		buildoptions {
-			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 		}
 
 	configuration { "vsllvm" }
@@ -705,6 +703,7 @@ links {
 }
 end
 
+
 --------------------------------------------------
 -- lib7z library objects
 --------------------------------------------------
@@ -727,17 +726,14 @@ project "7z"
 	configuration { "vs*" }
 		buildoptions {
 			"/wd4100", -- warning C4100: 'xxx' : unreferenced formal parameter
+			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
+			"/wd4457", -- warning C4457: declaration of 'xxx' hides function parameter
 		}
 if _OPTIONS["vs"]=="intel-15" then
 		buildoptions {
 			"/Qwd869",              -- remark #869: parameter "xxx" was never referenced
 		}
 end
-	configuration { "vs201*" }
-		buildoptions {
-			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
-			"/wd4457", -- warning C4457: declaration of 'xxx' hides function parameter
-		}
 	configuration { "winstore*" }
 		forcedincludes {
 			MAME_DIR .. "src/osd/uwp/uwpcompat.h"
@@ -793,6 +789,7 @@ end
 			-- MAME_DIR .. "3rdparty/lzma/C/XzEnc.c",
 			-- MAME_DIR .. "3rdparty/lzma/C/XzIn.c",
 		}
+
 
 --------------------------------------------------
 -- LUA library objects
@@ -898,6 +895,7 @@ links {
 	ext_lib("lua"),
 }
 end
+
 
 --------------------------------------------------
 -- small lua library objects
@@ -1005,9 +1003,12 @@ links {
 end
 
 end
+
+
 --------------------------------------------------
 -- portmidi library objects
 --------------------------------------------------
+
 if _OPTIONS["NO_USE_MIDI"]~="1" then
 if not _OPTIONS["with-system-portmidi"] then
 project "portmidi"
@@ -1024,6 +1025,7 @@ project "portmidi"
 			"/wd4100", -- warning C4100: 'xxx' : unreferenced formal parameter
 			"/wd4127", -- warning C4127: conditional expression is constant
 			"/wd4244", -- warning C4244: 'argument' : conversion from 'xxx' to 'xxx', possible loss of data
+			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
 			"/wd4706", -- warning C4706: assignment within conditional expression
 		}
 if _OPTIONS["vs"]=="intel-15" then
@@ -1034,11 +1036,6 @@ if _OPTIONS["vs"]=="intel-15" then
 			"/Qwd2557",             -- remark #2557: comparison between signed and unsigned operands
 		}
 end
-
-	configuration { "vs201*" }
-		buildoptions {
-			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
-		}
 
 	configuration { "linux*" }
 		defines {
@@ -1092,6 +1089,7 @@ links {
 }
 end
 end
+
 
 --------------------------------------------------
 -- BX library objects
@@ -1171,6 +1169,7 @@ project "bx"
 		MAME_DIR .. "3rdparty/bx/src/url.cpp",
 	}
 
+
 --------------------------------------------------
 -- BIMG library objects
 --------------------------------------------------
@@ -1245,6 +1244,7 @@ project "bimg"
 		MAME_DIR .. "3rdparty/bimg/3rdparty/astc-codec/src/decoder/quantization.cc",
 		MAME_DIR .. "3rdparty/bimg/3rdparty/astc-codec/src/decoder/weight_infill.cc",
 	}
+
 
 --------------------------------------------------
 -- BGFX library objects
@@ -1434,9 +1434,11 @@ end
 		}
 	end
 
+
 --------------------------------------------------
 -- PortAudio library objects
 --------------------------------------------------
+
 if _OPTIONS["NO_USE_PORTAUDIO"]~="1" then
 if not _OPTIONS["with-system-portaudio"] then
 project "portaudio"
@@ -1451,6 +1453,8 @@ project "portaudio"
 			"/wd4389", -- warning C4389: 'operator' : signed/unsigned mismatch
 			"/wd4189", -- warning C4189: 'xxx' : local variable is initialized but not referenced
 			"/wd4127", -- warning C4127: conditional expression is constant
+			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
+			"/wd4312", -- warning C4312: 'type cast': conversion from 'UINT' to 'HWAVEIN' of greater size
 		}
 	if _OPTIONS["vs"]=="intel-15" then
 		buildoptions {
@@ -1460,10 +1464,6 @@ project "portaudio"
 			"/Qwd1879",             -- warning #1879: unimplemented pragma ignored
 		}
 	end
-	configuration { "vs2015*" }
-		buildoptions {
-			"/wd4456", -- warning C4456: declaration of 'xxx' hides previous local declaration
-		}
 
 	configuration { "vsllvm" }
 		buildoptions {
@@ -1606,6 +1606,7 @@ links {
 }
 end
 end
+
 
 --------------------------------------------------
 -- SDL2 library
@@ -2117,9 +2118,11 @@ end
 
 end
 
+
 --------------------------------------------------
 -- linenoise library
 --------------------------------------------------
+
 if (_OPTIONS["osd"] ~= "uwp") then
 project "linenoise"
 	uuid "7320ffc8-2748-4add-8864-ae29b72a8511"
@@ -2154,9 +2157,9 @@ project "utf8proc"
 	uuid "1f881f09-0395-4483-ac37-2935fb092187"
 	kind "StaticLib"
 
-  defines {
-	"UTF8PROC_DLLEXPORT="
-  }
+	defines {
+		"UTF8PROC_DLLEXPORT="
+	}
 
 	configuration "Debug"
 		defines {
@@ -2182,3 +2185,23 @@ links {
 }
 end
 
+
+--------------------------------------------------
+-- wdlfft library objects (from Cockos WDL)
+--------------------------------------------------
+
+project "wdlfft"
+	uuid "74ca017e-fa0d-48b8-81d6-8081a37be14c"
+	kind "StaticLib"
+
+	configuration { "gmake or ninja" }
+		buildoptions_c {
+			"-Wno-strict-prototypes",
+		}
+
+	configuration { }
+
+	files {
+		MAME_DIR .. "3rdparty/wdlfft/fft.c",
+		MAME_DIR .. "3rdparty/wdlfft/fft.h"
+	}

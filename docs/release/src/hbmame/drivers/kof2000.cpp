@@ -1064,7 +1064,7 @@ ROM_START( kof2ky )
 ROM_END
 
 HACK( 2000, kof2000d,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,  ROT0, "SNK", "Kof2000 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000ev,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,   ROT0, "hack", "Kof2000 (Enhanced Version Super 2014-11-04)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, kof2000ev,  kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,   ROT0, "hack", "Kof2000 (Enhanced Version Super 2014-11-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000r,   kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,   ROT0, "Raymonose, Jason & Kim", "Kof2000 (Remix Pro 1.00a)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2kce,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,  ROT0, "hack", "Kof2000 (Char color changed set 1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2kch,    kof2000,  neogeo_noslot, neogeo, neogeo_state,       kof2000,  ROT0, "Chase", "Kof2000 (Diff Moves 030503)", MACHINE_SUPPORTS_SAVE )
@@ -1979,14 +1979,14 @@ ROM_START( kof2000s32 )
 	ROM_LOAD16_BYTE( "257.c8", 0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) ) 
 ROM_END
 
-ROM_START( kof2000s33 ) // kof2000ps2 : cx,px confirmed
+ROM_START( kof2000s33 ) // kof2kps2, kof2000ps2 : cx,px confirmed
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "257hc33.p1", 0x000000, 0x100000, CRC(56941018) SHA1(92d6d131111726f8ab616bf9dd54c1d5cbaa5bd5) )
 	ROM_LOAD16_WORD_SWAP( "257hc33.p2", 0x100000, 0x400000, CRC(1669a5ad) SHA1(64169a059aafcd91262243f6f5625a3104410d5b) )
 
 	NEO_SFIX_MT_512K
 
-	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+	NEO_BIOS_AUDIO_256K( "257gbh.m1", CRC(a082f086) SHA1(809ef4a533cf541b86786f455a7f283a5acecd82) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
 	ROM_LOAD( "257.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
@@ -2674,6 +2674,57 @@ ROM_START( kof2000s58 )
 	ROM_LOAD16_BYTE( "257d.c8", 0x3000001, 0x800000, CRC(0fa30e5f) SHA1(0cb7fa6b0219e1af2df9b97786c677651a78f37a) )
 ROM_END
 
+ROM_START( kof2000s59 ) // kof2kps2
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257hc59.p1", 0x000000, 0x100000, CRC(6219fcc1) SHA1(ef61a7146643ce7dc01fc90ef6cf6c14c0864852) )
+	ROM_LOAD16_WORD_SWAP( "257hc33.p2", 0x100000, 0x400000, CRC(1669a5ad) SHA1(64169a059aafcd91262243f6f5625a3104410d5b) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_256K( "257gbh.m1", CRC(a082f086) SHA1(809ef4a533cf541b86786f455a7f283a5acecd82) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
+	ROM_LOAD( "257.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
+	ROM_LOAD( "257.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
+	ROM_LOAD( "257.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257hc33.c7", 0x3000000, 0x800000, CRC(93c343ec) SHA1(b1a30c16f1bc2eee8c27e391b32dddecd979cc59) )
+	ROM_LOAD16_BYTE( "257hc33.c8", 0x3000001, 0x800000, CRC(ba92f698) SHA1(7a80c24472752f86130e7c963d14fed88b106bf6) )
+ROM_END
+
+ROM_START( kof2000s60 ) // kof2000evol
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257hc60.p1", 0x000000, 0x100000, CRC(f74d599a) SHA1(40ceae4cdbf6f2b30906d9c3892cca165825684e) )
+	ROM_LOAD16_WORD_SWAP( "257hc60.p2", 0x100000, 0x400000, CRC(4c08fb12) SHA1(aedcc161d58489436491f290bd853615f94d9010) )
+
+	NEO_SFIX_MT_512K
+	ROM_LOAD( "257hc58.s1", 0x000000, 0x80000, CRC(38901d4d) SHA1(c7684f66ab4ed577094da6ae143477c9df28d1fe) )
+
+	NEO_BIOS_AUDIO_512K( "257hc60.m1", CRC(e6122074) SHA1(e06e2d8eac8fff5450f5fe5134615149533010ad) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "257hc60.v1", 0x000000, 0x800000, CRC(2817845f) SHA1(bf8161942671c5b102f55fb01118f9213675ed59) )
+	ROM_LOAD( "257hc60.v2", 0x400000, 0x800000, CRC(fef0a7f4) SHA1(54ed26eacd7ed33af0ef013c6b409ffacb537446) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257d.c1", 0x0000000, 0x800000, CRC(abcdd424) SHA1(1d52aae8a7806d48c098c2a7a77dff6e02ac4870) )
+	ROM_LOAD16_BYTE( "257d.c2", 0x0000001, 0x800000, CRC(cda33778) SHA1(a619740364c952c443f27ed9b7c395610f2673c7) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257hc60.c7", 0x3000000, 0x800000, CRC(0ceb9669) SHA1(b262e0b6327fa61cba78f7ac23b5221e66abc615) )
+	ROM_LOAD16_BYTE( "257hc60.c8", 0x3000001, 0x800000, CRC(381f3964) SHA1(7fa15a63783979a10628d2ab077f7b21bde8498d) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2000
 HACK( 2000, kof2000s01,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "wesker & Jason",    "Kof2000 (Evolution V1.2a)", MACHINE_SUPPORTS_SAVE )
@@ -2708,10 +2759,10 @@ HACK( 2000, kof2000s29,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2000, kof2000s30,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "sujianxiong",    "Kof2000 (The Eight Gods Of The Blood Of The Great Snake)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s31,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Eddids",    "Kof2000 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s32,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "yashional",    "Kof2000 (Investment Skills Hit)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Playsation 2 Hack)(Hack only enable in AES mode)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s34,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,  ROT0, "COGODO",    "Kof2000 (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s35,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,  ROT0, "Eddids & 0 Day-S，A1",    "Kof2000 (Boss Striker Perfect Edtion)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s36,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,  ROT0, "hack",    "Kof2000 (Simplify The Move)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Like PS2 Version V1.0 2013)(Hack only enable in AES mode)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s34,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "COGODO",    "Kof2000 (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s35,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Eddids & 0 Day-S，A1",    "Kof2000 (Boss Striker Perfect Edtion)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s36,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Simplify The Move)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s37,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Yagami Nunnery Add '97 Shavings Wind)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s38,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "EtheN.H",    "Kof2000 (Move Correction)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s39,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "Raymonose",    "Kof2000 (Remix)", MACHINE_SUPPORTS_SAVE )
@@ -2721,16 +2772,18 @@ HACK( 2000, kof2000s42,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2000, kof2000s43,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Optimized Version 2013-09-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s44,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 Plus (Enable Hidden Characters 2015-02-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, kof2000s45,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Boss ST Zero 2010-09-05)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s46,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 Plus (Unknown Hack 2006-06-02)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s47,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 Plus (Edition Chinese 2007-04-23)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s48,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Pro 1.0a 2007-08-17)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s49,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (SP Version 2009-03-19)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s50,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Colors Set 1)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s51,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Colors Set 2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s52,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Colors Set 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s53,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Edition Special Remix)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s54,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Colors Set 4)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s55,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Colors Set 5)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s56,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,    ROT0, "hack",    "Kof2000 (Remix Colors Set 6)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s57,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,  ROT0, "hack", "Kof2000 (Boss Hack - Gold Color Edition 2015-04-21)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, kof2000s58,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack", "Kof2000 (Chinese Codogo Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s46,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 Plus (Unknown Hack 2006-06-02)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s47,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 Plus (Edition Chinese 2007-04-23)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s48,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Pro 1.0a 2007-08-17)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s49,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (SP Version 2009-03-19)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s50,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Colors Set 1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s51,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Colors Set 2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s52,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Colors Set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s53,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Edition Special Remix)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s54,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Colors Set 4)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s55,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Colors Set 5)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s56,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Remix Colors Set 6)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s57,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Boss Hack - Gold Color Edition 2015-04-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2000, kof2000s58,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Chinese Codogo Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2000s59,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Playsation 2 Plus 2020-02-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2000s60,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  kof2000,   ROT0, "hack",    "Kof2000 (Evolution Blue Edition Simplified 2020-02-27)", MACHINE_SUPPORTS_SAVE )

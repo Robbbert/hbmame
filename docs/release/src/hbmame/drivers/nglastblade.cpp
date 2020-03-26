@@ -272,7 +272,7 @@ ROM_START( lbsk ) // lastbdsk in multijet
 	ROM_LOAD16_BYTE( "234.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) )
 ROM_END
 
-ROM_START( lbsp )
+ROM_START( lbsp ) //lastbladsp
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "234sp.p1", 0x000000, 0x100000, CRC(b902e73e) SHA1(239b98715c23dc7cee870d0f18ab9fc8b8520472) )
 	ROM_LOAD16_WORD_SWAP( "234sp.p2", 0x100000, 0x600000, CRC(8ff3fb6d) SHA1(dc36bddc086cb8877945f907b81a340bfba72e3c) )
@@ -1731,7 +1731,7 @@ HACK( 1997, lastblad11,     lastblad, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1997, lastblad12,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "wesker[FGCH]",    "Last Blade (Super Kaede with No Health Drain V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, lastblad13,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Creamymami[EGCG]",    "Last Blade (Unlimit Special Moves V1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1997, lastblad14,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Kurouri",    "Last Blade (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, lastblad15,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Last Blade (Super Remix Edition 1.0 2018-10-22)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, lastblad15,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",        "Last Blade (Enhanced Edition 2014-10-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, lastblad16,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Last Blade (Super Remix Edition 1.1 2018-10-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, lastblad17,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Last Blade (Super Remix Edition 2.0 2018-10-22)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, lastblad18,     lastblad, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Last Blade (Super Remix Edition 2.1 2018-10-22)", MACHINE_SUPPORTS_SAVE )

@@ -1009,7 +1009,7 @@ ROM_START( kof94s21 )
 	ROM_LOAD16_BYTE( "055.c8", 0xc00001, 0x200000, CRC(fe0a235d) SHA1(a45c66836e4e3c77dfef9d4c6cc422cb59169149) )
 ROM_END
 
-ROM_START( kof94s22 )
+ROM_START( kof94s22 ) //kof94p
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "055s22.p1", 0x100000, 0x100000, CRC(139593e7) SHA1(d9aa6fe795ee5bb23d0b1c42cb212f9156608e81) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -1058,4 +1058,4 @@ HACK( 2018, kof94s18,       kof94,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, kof94s19,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'94 (New Remix 2018 Rev.2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'94 (Rebout)", MACHINE_SUPPORTS_SAVE )
 HACK( 1994, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "IsmaMj",    "Kof'94 (Xtreme Black v0.8)", MACHINE_SUPPORTS_SAVE )
-HACK( 1994, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'94 (Boss Edition 2016-03-27)", MACHINE_SUPPORTS_SAVE )
+HACK( 2016, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'94 (Boss Edition 2016-03-27)", MACHINE_SUPPORTS_SAVE )

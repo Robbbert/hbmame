@@ -208,6 +208,7 @@ MACHINES["PIT8253"] = true -- seta
 MACHINES["RIOT6532"] = true
 MACHINES["RP5C01"] = true
 MACHINES["RP5H01"] = true
+MACHINES["RSTBUF"] = true -- dynax, ddenlovr
 MACHINES["RTC9701"] = true -- cv1k
 MACHINES["SEGA_SCU"] = true -- stv
 MACHINES["SERFLASH"] = true -- cv1k
@@ -232,8 +233,8 @@ MACHINES["WD33C9X"] = true -- cps3
 MACHINES["WD_FDC"] = true
 MACHINES["Z80CTC"] = true
 MACHINES["Z80DAISY"] = true
-MACHINES["Z80DART"] = true
 MACHINES["Z80PIO"] = true
+MACHINES["Z80SIO"] = true -- ddenlovr
 
 --------------------------------------------------
 -- specify available bus cores
@@ -262,6 +263,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"cave",
 		"cinemat",
 		"dataeast",
+		"dynax",
 		"exidy",
 		"fuuki",
 		"gottlieb",
@@ -463,6 +465,14 @@ files {
 	MAME_DIR .. "src/mame/video/decocass.cpp",
 }
 
+createHBMAMEProjects(_target, _subtarget, "dynax")
+files {
+	MAME_DIR .. "src/hbmame/drivers/ddenlovr.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dynax.cpp",
+	MAME_DIR .. "src/mame/video/dynax.cpp",
+	MAME_DIR .. "src/mame/video/dynax_blitter_rev2.cpp",
+}
+
 createHBMAMEProjects(_target, _subtarget, "exidy")
 files {
 	MAME_DIR .. "src/hbmame/drivers/exidy.cpp",
@@ -649,6 +659,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/galaxian.cpp",
 	MAME_DIR .. "src/mame/audio/galaxian.cpp",
 	MAME_DIR .. "src/mame/video/galaxian.cpp",
+	MAME_DIR .. "src/mame/audio/nl_konami.cpp",
 	MAME_DIR .. "src/mame/video/starfield_05xx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/video/mappy.cpp",
@@ -819,6 +830,7 @@ files {
 	MAME_DIR .. "src/mame/video/system1.cpp",
 	MAME_DIR .. "src/hbmame/drivers/system16.cpp",
 	MAME_DIR .. "src/mame/video/system16.cpp",
+	MAME_DIR .. "src/mame/audio/nl_segas16b.cpp",
 	MAME_DIR .. "src/mame/machine/315_5296.cpp",
 	MAME_DIR .. "src/mame/machine/fd1089.cpp",
 	MAME_DIR .. "src/mame/machine/fd1094.cpp",

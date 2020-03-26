@@ -321,7 +321,7 @@ HACK( 2007, sengokucd,   sengoku,  neogeo_noslot, neogeo, neogeo_state,        n
 HACK( 2001, sengoku3b,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Ydmis", "Sengoku 3 (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3c,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "Unk", "Sengoku 3 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3d,   sengoku3, neogeo_noslot, neogeo, neogeo_state,       cmc42sfix, ROT0, "SNK", "Sengoku 3 (decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (Green version 2014-01-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2014, sengoku3eb,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (Green version 2014-01-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3eh,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "hack", "Sengoku 3 (Evolution Special)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3ha,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "HappyAsr","Sengoku 3 (Add Char - Select USA and Brazil)", MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3k,   sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3,  ROT0, "KrysoFun", "Sengoku 3 (Add Char - Pow hack set 3)", MACHINE_SUPPORTS_SAVE )
@@ -519,7 +519,7 @@ ROM_START( sengoku3s08 )
 	ROM_LOAD16_BYTE( "261.c4", 0x1000001, 0x800000, CRC(0b45ae53) SHA1(a19fb21408ab633aee8bbf38bf43b5e26766b355) )
 ROM_END
 
-ROM_START( sengoku3s09 )
+ROM_START( sengoku3s09 ) //sgk3eb
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "261hc09-ph1.p1", 0x100000, 0x100000, CRC(2df82062) SHA1(55048f41b1f4c5987f701a884ffd59bca7ecb3a1) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -607,6 +607,28 @@ ROM_START( sengoku3s12 )
 	ROM_LOAD16_BYTE( "261.c4", 0x1000001, 0x800000, CRC(0b45ae53) SHA1(a19fb21408ab633aee8bbf38bf43b5e26766b355) )
 ROM_END
 
+ROM_START( sengoku3s13 ) //sengoku3h
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "261hc13-ph1.p1", 0x100000, 0x100000, CRC(18a8c9ae) SHA1(40848ae6397caffdea82705a7ccfc79e534865a3) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_512K( "261.m1", CRC(7d501c39) SHA1(8e6bcc428f5ac7532d9c9be7e07ad0821461a080) )
+
+	ROM_REGION( 0x0e00000, "ymsnd", 0 )
+	ROM_LOAD( "261.v1", 0x000000, 0x400000, CRC(64c30081) SHA1(f9ebd20cf59b72e864b7274c1bdb6d99ecaf4595) )
+	ROM_LOAD( "261.v2", 0x400000, 0x400000, CRC(392a9c47) SHA1(7ab90a54089236ca6c3ef1af8e566a8025d38159) )
+	ROM_LOAD( "261.v3", 0x800000, 0x400000, CRC(c1a7ebe3) SHA1(1d7bb481451f5ee0457e954bb5210300182c3c9c) )
+	ROM_LOAD( "261.v4", 0xc00000, 0x200000, CRC(9000d085) SHA1(11157b355ab4eb6627e9f322ed875332d3d77349) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "261.c1", 0x0000000, 0x800000, CRC(ded84d9c) SHA1(d960523b813d4fae06d716298d4e431a5c77a0c5) )
+	ROM_LOAD16_BYTE( "261.c2", 0x0000001, 0x800000, CRC(b8eb4348) SHA1(619d24312549932959481fa58f43f11c048e1ca5) )
+	ROM_LOAD16_BYTE( "261.c3", 0x1000000, 0x800000, CRC(84e2034a) SHA1(38ec4ae4b86933a25c9a03799b8cade4b1346401) )
+	ROM_LOAD16_BYTE( "261.c4", 0x1000001, 0x800000, CRC(0b45ae53) SHA1(a19fb21408ab633aee8bbf38bf43b5e26766b355) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
  // Sengoku 3
 HACK( 2001, sengoku3s01,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "KrysoFun",    "Sengoku 3 (EX Super Version V1)" , MACHINE_SUPPORTS_SAVE )
@@ -621,3 +643,4 @@ HACK( 2017, sengoku3s09,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  seng
 HACK( 2001, sengoku3s10,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "DDJ",    "Sengoku 3 (Always Have Super Move)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3s11,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "DDJ",    "Sengoku 3 (Easy Move)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2001, sengoku3s12,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "kofzec",    "Sengoku 3 (Unlock Hidden Character)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2018, sengoku3s13,    sengoku3, neogeo_noslot, neogeo, neogeo_state,  sengoku3, ROT0,  "hack",    "Sengoku 3 (Blue Out Of Blue 2018-06-04)" , MACHINE_SUPPORTS_SAVE )

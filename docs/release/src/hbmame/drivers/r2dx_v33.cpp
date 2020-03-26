@@ -12,7 +12,7 @@
  New Zero Team
 ***************/
 
-ROM_START( nzeroteamas01 )
+ROM_START( nzeroteamas01 ) //nzeroteama, nzeroteamp
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE("prg1_ps1", 0x000000, 0x80000, CRC(cc45b0c6) SHA1(3d4212512b5fa33f543e1a94f7c6b33fe9562fb3) )
 	ROM_LOAD16_BYTE("prg2_ps1", 0x000001, 0x80000, CRC(8537b97d) SHA1(5cb89ab54e9830a525bf2b68309b342fd577d2ca) )
@@ -47,7 +47,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // New Zero Team
-GAME( 1997, nzeroteamas01,   zeroteam, nzerotea, nzerotea, r2dx_v33_state, init_nzerotea,  ROT0,   "hack",  "New Zero Team (Special Forces 2018-02-19)", MACHINE_SUPPORTS_SAVE)
-
-
-
+GAME( 2018, nzeroteamas01,   zeroteam, nzerotea, nzerotea, r2dx_v33_state, init_nzerotea,  ROT0,   "hack",  "New Zero Team (Special Forces 2018-02-19)", MACHINE_SUPPORTS_SAVE)

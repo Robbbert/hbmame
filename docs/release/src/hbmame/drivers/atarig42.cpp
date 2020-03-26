@@ -13,7 +13,7 @@ public:
 
 // 5 = coin in; Alt = Start
 INPUT_PORTS_START( dangerex )
-	PORT_START("IN0")		/* e00000 */
+	PORT_START("IN0")      /* e00000 */
 	PORT_BIT( 0x000f, IP_ACTIVE_LOW, IPT_UNUSED )
 	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_CUSTOM )		// Toggle 0 - D4
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_CUSTOM )		// Toggle 1 - D5
@@ -118,7 +118,7 @@ ROM_END
  
 void dangerex_state::init_dangerex()
 {
-	m_playfield_base = 0x000;
+	m_playfield_base = 0;
 }
 
 

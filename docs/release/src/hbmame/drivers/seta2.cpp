@@ -10,7 +10,7 @@
  Guardians
 ************/
 
-ROM_START( grdianss01 )
+ROM_START( grdianss01 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s01.u2", 0x000000, 0x080000, CRC(90b1aa01) SHA1(c837230f1a14f6097ad3474dad5fb18d18f4a917) )
 	ROM_LOAD16_BYTE( "s01.u3", 0x000001, 0x080000, CRC(dbaabf39) SHA1(45e483675883512e5dd3a3baf8b867da77a96eb3) )
@@ -35,7 +35,7 @@ ROM_START( grdianss01 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss02 )
+ROM_START( grdianss02 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s02.u2", 0x000000, 0x080000, CRC(9ad3bcde) SHA1(677125dd4a9c8b7324ab2a9d0cfef9c6990fbcf1) )
 	ROM_LOAD16_BYTE( "s02.u3", 0x000001, 0x080000, CRC(96c804e1) SHA1(023c51ccbe74da1c892252c14369215587315e52) )
@@ -160,7 +160,7 @@ ROM_START( grdianss06 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss07 )  // grdianslbs
+ROM_START( grdianss07 )  // grdianslbs, grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s07.u2", 0x000000, 0x080000, CRC(fb243872) SHA1(cb9c44c17c2d03c100839dd4b40291bbf9d28a5c) )
 	ROM_LOAD16_BYTE( "s07.u3", 0x000001, 0x080000, CRC(a375123e) SHA1(c84faad4cc9efabede0ef9673eeb5f076836005d) )
@@ -185,7 +185,7 @@ ROM_START( grdianss07 )  // grdianslbs
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss08 )
+ROM_START( grdianss08 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s08.u2", 0x000000, 0x080000, CRC(d051ba40) SHA1(4ff8ba85ca552aef0b8c7e00b54de1f55b8fc7cf) )
 	ROM_LOAD16_BYTE( "s08.u3", 0x000001, 0x080000, CRC(73f806a1) SHA1(2ecc6ac4945a9a74527038404bf1b7cba8f99810) )
@@ -235,7 +235,7 @@ ROM_START( grdianss09 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss10 )
+ROM_START( grdianss10 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s10.u2", 0x000000, 0x080000, CRC(8f0ccf93) SHA1(3f7ad4630faecde9138609d43b9126a0af15cd84) )
 	ROM_LOAD16_BYTE( "s10.u3", 0x000001, 0x080000, CRC(2ae2ac73) SHA1(8c899c6c3e6931ead61f2c62873e9cc77a6fed93) )
@@ -260,7 +260,7 @@ ROM_START( grdianss10 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss11 )
+ROM_START( grdianss11 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )   
 	ROM_LOAD16_BYTE( "s11.u2", 0x000000, 0x080000, CRC(1bff5d6a) SHA1(79c30d5b334bb306a83c0e33688a80d17617bbde) )
 	ROM_LOAD16_BYTE( "s11.u3", 0x000001, 0x080000, CRC(bb7cba06) SHA1(8ecdc466201197a5ba76ac284ac3d027c6757c8a) )
@@ -337,17 +337,17 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
-GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric Shadow 2 Satsuki Version 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Electric God Magic 2 Unparalleled Edition 2018-06-06)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition 2018-05-05)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition 2018-06-06)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, grdianss03,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hooooook", "Guardians (Blood Blue Initial Lengthening)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, grdianss04,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "KrysoFun", "Guardians (Super Version V1)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2010, grdianss05,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V2 2010-07-12)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2010, grdianss06,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V3 2010-07-13)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2019, grdianss07,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "BinDi", "Guardians (Robust Version 2019-01-11)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, grdianss08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Unparalleled Edition 2018-12-10)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, grdianss08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition Update 2018-12-10)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2018, grdianss09,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Plus 2018-07-26)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2019, grdianss10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Unparalleled Version 2019-04-15)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2019, grdianss11,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Unparalleled version 2019-09-16)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2019, grdianss10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition Update 2019-04-15)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2019, grdianss11,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition Update 2019-09-16)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2019, grdianss12,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Robust Super Edition 2019-07-25)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2019, grdianss13,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Kerron Edition 2019-08-17)",  MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
 
