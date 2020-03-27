@@ -63,6 +63,10 @@ public:
 	inifile_manager &inifile() const { assert(m_inifile != nullptr); return *m_inifile; }
 	favorite_manager &favorite() const { assert(m_favorite != nullptr); return *m_favorite; }
 
+#if defined(__LIBRETRO__)
+	void mmchange();
+#endif
+
 private:
 	// construction
 	mame_machine_manager(emu_options &options, osd_interface &osd);

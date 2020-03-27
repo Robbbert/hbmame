@@ -204,6 +204,20 @@ cli_frontend::~cli_frontend()
 {
 }
 
+#if defined(__LIBRETRO__)
+mame_machine_manager *retro_manager;
+
+void retro_execute(){
+  	retro_manager->execute();
+}
+
+void free_man(){
+
+	util::archive_file::cache_clear();
+	global_free(retro_manager);
+}
+#endif
+
 void cli_frontend::start_execution(mame_machine_manager *manager, const std::vector<std::string> &args)
 {
 	std::ostringstream option_errors;
@@ -264,7 +278,15 @@ void cli_frontend::start_execution(mame_machine_manager *manager, const std::vec
 		throw emu_fatalerror(EMU_ERR_NO_SUCH_SYSTEM, "Unknown system '%s'", m_options.system_name());
 
 	// otherwise just run the game
+#if defined(__LIBRETRO__)
+      retro_manager = mame_machine_manager::instance(m_options, m_osd);
+      //retro_manager = machine_manager::instance(m_options, m_osd);
+      m_result = retro_manager->execute();
+
+      return;
+#endif
 	m_result = manager->execute();
+
 }
 
 //-------------------------------------------------
@@ -280,7 +302,10 @@ int cli_frontend::execute(std::vector<std::string> &args)
 
 	try
 	{
-		start_execution(manager, args);
+      		start_execution(manager, args);
+#if defined(__LIBRETRO__)
+      return m_result;
+#endif
 	}
 	// handle exceptions of various types
 	catch (emu_fatalerror &fatal)

@@ -262,7 +262,14 @@ function toolchain(_buildDir, _subDir)
 			end
 			premake.gcc.cc  = toolchainPrefix .. "gcc"
 			premake.gcc.cxx = toolchainPrefix .. "g++"
-			premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
+-- work around GCC 4.9.2 not having proper linker for LTO=1 usage
+			local version_4_ar = str_to_version(_OPTIONS["gcc_version"])
+			if (version_4_ar < 50000) then
+				premake.gcc.ar  = toolchainPrefix .. "ar"
+			end
+			if (version_4_ar >= 50000) then
+				premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
+			end
 			location (_buildDir .. "projects/" .. _subDir .. "/".. _ACTION .. "-mingw32-gcc")
 		end
 
@@ -275,7 +282,14 @@ function toolchain(_buildDir, _subDir)
 			end
 			premake.gcc.cc  = toolchainPrefix .. "gcc"
 			premake.gcc.cxx = toolchainPrefix .. "g++"
-			premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
+-- work around GCC 4.9.2 not having proper linker for LTO=1 usage
+			local version_4_ar = str_to_version(_OPTIONS["gcc_version"])
+			if (version_4_ar < 50000) then
+				premake.gcc.ar  = toolchainPrefix .. "ar"
+			end
+			if (version_4_ar >= 50000) then
+				premake.gcc.ar  = toolchainPrefix .. "gcc-ar"
+			end
 			location (_buildDir .. "projects/" .. _subDir .. "/".. _ACTION .. "-mingw64-gcc")
 		end
 
@@ -860,8 +874,28 @@ function toolchain(_buildDir, _subDir)
 
 	configuration { "android-*" }
 		objdir (_buildDir .. "android/obj/" .. _OPTIONS["PLATFORM"])
+-- LIBRETRO HACK BEGIN support ndk-r13b structure
+--		includedirs {
+--			MAME_DIR .. "3rdparty/bgfx/3rdparty/khronos",
+--			"$(ANDROID_NDK_ROOT)/sources/cxx-stl/llvm-libc++/libcxx/include",
+--			"$(ANDROID_NDK_ROOT)/sources/android/support/include",
+--			"$(ANDROID_NDK_ROOT)/sources/android/native_app_glue",
+--		}
+if os.getenv("ANDROID_NDK_ROOT") then		
+		checkndk13 = os.getenv("ANDROID_NDK_ROOT") .. "/sources/cxx-stl/llvm-libc++/libcxx/include/list"	
+		if (os.isfile(checkndk13)) then
+			includedirs {
+				"$(ANDROID_NDK_ROOT)/sources/cxx-stl/llvm-libc++/libcxx/include",
+			}
+		else
+			includedirs {
+				"$(ANDROID_NDK_ROOT)/sources/cxx-stl/llvm-libc++/include",
+			}
+		end
+end
 		includedirs {
 			MAME_DIR .. "3rdparty/bgfx/3rdparty/khronos",
+
 			"$(ANDROID_NDK_ROOT)/sources/cxx-stl/llvm-libc++/libcxx/include",
 			"$(ANDROID_NDK_ROOT)/sources/cxx-stl/llvm-libc++/include",
 			"$(ANDROID_NDK_ROOT)/sysroot/usr/include",
@@ -874,20 +908,49 @@ function toolchain(_buildDir, _subDir)
 		flags {
 			"NoImportLib",
 		}
+--		links {
+--			"c",
+--			"dl",
+--			"m",
+--			"android",
+--			"log",
+--			"c++_static",
+--			"gcc",
+--		}
 		links {
 			"c",
 			"dl",
 			"m",
 			"android",
 			"log",
-			"c++_static",
-			"c++abi",
+		}
+
+if os.getenv("ANDROID_NDK_ROOT") then
+		if (os.isfile(checkndk13)) then
+			links {
+				"c++_static",
+			}
+		else
+			links {
+				"c++_static",
+				"c++abi",
+				"unwind",
+				"android_support",
+			}
+		end
+end
+		links {
+--=======
+--			"c++_static",
+--			"c++abi",
+--			"android_support",
+--			"stdc++",
+-->>>>>>> 2beedc540f14267850036f8b2aba81e874895ade
 			"stdc++",
 			"gcc",
 		}
-		buildoptions_c {
-			"-Wno-strict-prototypes",
-		}
+-- LIBRETRO HACK END support ndk-r13b structure
+
 		buildoptions {
 			"-fpic",
 			"-ffunction-sections",
@@ -932,6 +995,7 @@ function toolchain(_buildDir, _subDir)
 				"unwind",
 			}
 			linkoptions {
+				"$(ANDROID_NDK_ROOT)/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libunwind.a -lgcc",
 				"-gcc-toolchain $(ANDROID_NDK_ARM)",
 				"--sysroot=$(ANDROID_NDK_ROOT)/platforms/" .. androidPlatform .. "/arch-arm",
 				"$(ANDROID_NDK_ROOT)/platforms/" .. androidPlatform .. "/arch-arm/usr/lib/crtbegin_so.o",
@@ -1088,6 +1152,85 @@ function toolchain(_buildDir, _subDir)
 	configuration { "rpi" }
 		targetdir (_buildDir .. "rpi" .. "/bin")
 		objdir (_buildDir .. "rpi" .. "/obj")
+-- BEGIN libretro overrides to MAME's GENie build
+
+	configuration { "libretro*" }
+		objdir (_buildDir .. "libretro" .. "/obj")
+
+	-- $ARCH means something to Apple/Clang, so we can't use it here.
+		-- Instead, use ARCH="" LIBRETRO_CPU="$ARCH" on the make cmdline.
+		--
+		-- NB: $ARCH has caused libretro problems before, LIBRETRO_CPU will
+		--     replace it everywhere at some point.
+		newoption {
+			trigger = "LIBRETRO_CPU",
+			description = "libretro CPU/architecture variable",
+		}
+		if _OPTIONS["LIBRETRO_CPU"]~=nil then
+			LIBRETRO_CPU=_OPTIONS["LIBRETRO_CPU"]
+		end
+
+		-- $platform we could keep using, but $LIBRETRO_OS seems safer.
+		newoption {
+			trigger = "LIBRETRO_OS",
+			description = "libretro OS/platform variable",
+		}
+		if _OPTIONS["LIBRETRO_OS"]~=nil then
+			LIBRETRO_OS=_OPTIONS["LIBRETRO_OS"]
+		end
+
+		-- Set TARGETOS based on LIBRETRO_OS if we know
+		if LIBRETRO_OS~=nil then
+			-- most things are "linux" (ish).
+			local targetos = "linux"
+			if LIBRETRO_OS=="osx" then
+				targetos = "macosx"
+			elseif LIBRETRO_OS:sub(1, 4)=="armv" then
+				targetos = "android"
+                        elseif LIBRETRO_OS=="ios" then
+				targetos = "ios"
+                        elseif LIBRETRO_OS=="win32" then
+				targetos = "win32"
+			end
+			_OPTIONS["TARGETOS"] = targetos
+		end
+
+		-- FIXME: set BIGENDIAN and dynarec based on retro_platform/retro_arch
+		if LIBRETRO_CPU~=nil then
+			if LIBRETRO_CPU=="x86_64" or LIBRETRO_CPU=="ppc64" then
+				defines { "PTR64=1" }
+			end
+		end
+
+
+		-- MS and Apple don't need -fPIC, but pretty much everything else does.
+		if _OPTIONS["targetos"] ~= "windows" and _OPTIONS["targetos"] ~= "macosx" then
+			buildoptions { "-fPIC" }
+			linkoptions { "-fPIC" }
+		end
+
+		-- Don't use BGFX (Defaults to 1 for Windows if unset)
+		 USE_BGFX = 0
+-- _OPTIONS["USE_BGFX"] = "1"
+		-- libretro only supports the retro OSD
+		_OPTIONS["osd"] = "retro"
+
+		-- libretro does not (yet) support MIDI.
+		_OPTIONS["NO_USE_MIDI"] = "1"
+
+	configuration { "libretrodbg" }
+		targetdir (_buildDir .. "libretro"  .. "/debug")
+		flags {
+			"Symbols",
+		}
+	configuration { "libretro" }
+		targetdir (_buildDir .. "libretro" .. "/bin")
+		flags {
+			"Optimize",
+		}
+
+
+-- END   libretro overrides to MAME's GENie build
 
 	configuration {} -- reset configuration
 
