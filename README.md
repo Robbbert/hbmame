@@ -32,10 +32,3 @@ Information about the MAME content can be found at https://github.com/mamedev/ma
 Information about the MAME license can be found at https://github.com/mamedev/mame/blob/master/COPYING
 
 Information about the WINUI portion can be found at https://github.com/Robbbert/mameui/blob/master/docs/winui_license.txt
-
-
-Warning to trolls
-=================
-
-If this online facility gets abused again, it will be removed permanently.
-
