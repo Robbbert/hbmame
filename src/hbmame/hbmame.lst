@@ -8755,6 +8755,8 @@ survartss01
 wbml					//parent
 wbmlbit
 wbmlkb
+//raflesia				//parent
+//raflsiau				// roms missing
 
 @source:system16.cpp
 sys16dem				// HB
