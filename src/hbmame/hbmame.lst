@@ -5898,6 +5898,11 @@ mspacatx
 mspacmbx
 mspacplx
 pacgalx
+//otto1012		// roms missing
+//otto1020		// roms missing
+//otto1029		// roms missing
+//sp4n1029		// roms missing
+//sp4o1029		// roms missing
 
 @source:multipac.cpp
 96in1		/* Widel's Games */

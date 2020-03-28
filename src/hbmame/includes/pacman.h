@@ -44,6 +44,7 @@ public:
 	void pacman_map(address_map &map);
 	void superabc_map(address_map &map);
 	void woodpek_map(address_map &map);
+	void otto1012_map(address_map &map);
 	void init_maketrax();
 	void init_drivfrcp();
 	void init_mspacmbe();
@@ -183,12 +184,14 @@ public:
 	void widel(machine_config &config);
 	void pacmanx(machine_config &config);
 	void zolapac(machine_config &config);
+	void otto1012(machine_config &config);
 	void init_96in1();
 	void init_madpac();
 	void init_mspaceur();
 	void init_multipac();
 	void init_pm4n1();
 	void init_pengo();
+	void init_otto1029();
 	DECLARE_INPUT_CHANGED_MEMBER(pacman_fake);
 
 protected:
