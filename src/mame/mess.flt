@@ -181,6 +181,7 @@ comquest.cpp
 comx35.cpp
 concept.cpp
 conchess.cpp
+conic_cchess2.cpp
 controlid.cpp
 cortex.cpp
 cosmicos.cpp
@@ -604,6 +605,7 @@ nes_clone.cpp
 nes_sh6578.cpp
 nes_vt.cpp
 newbrain.cpp
+news_r3k.cpp
 next.cpp
 nforcepc.cpp
 ngen.cpp
@@ -762,6 +764,8 @@ roland_jx3p.cpp
 roland_jx8p.cpp
 roland_mt32.cpp
 roland_r8.cpp
+roland_s10.cpp
+roland_s50.cpp
 roland_sc55.cpp
 roland_tb303.cpp
 roland_tr606.cpp
@@ -780,6 +784,7 @@ saitek_delta1.cpp
 saitek_mark5.cpp
 saitek_prschess.cpp
 saitek_risc2500.cpp
+saitek_schess.cpp
 saitek_ssystem3.cpp
 saitek_stratos.cpp
 saitek_superstar.cpp
@@ -841,6 +846,7 @@ spg2xx_dreamlife.cpp
 spg2xx_ican.cpp
 spg2xx_jakks.cpp
 spg2xx_jakks_gkr.cpp
+spg2xx_jakks_sharp.cpp
 spg2xx_jakks_tvtouch.cpp
 spg2xx_lexibook.cpp
 spg2xx_mysprtch.cpp
@@ -1050,6 +1056,7 @@ xor100.cpp
 ymmu100.cpp
 ymmu50.cpp
 ymmu80.cpp
+ymtx81z.cpp
 ymvl70.cpp
 z100.cpp
 z1013.cpp
