@@ -960,7 +960,7 @@ void sega_sys16b_sprite_device::draw(bitmap_ind16 &bitmap, const rectangle &clip
 				{
 					// start at the word before because we preincrement below
 					data[7] = addr - 1;
-					for (x = xpos; ((xpos - x) & 0x1ff) != 1; )
+					for (x = xpos+11; ((xpos - x) & 0x1ff) != 1; )      // HBMAME - added offset to centre the sprite in the box.
 					{
 						uint16_t pixels = spritedata[++data[7]];
 
@@ -974,6 +974,7 @@ void sega_sys16b_sprite_device::draw(bitmap_ind16 &bitmap, const rectangle &clip
 						// stop if the last pixel in the group was 0xf
 						if (pix == 15)
 							break;
+						if ((data[7] - addr) == 7) break;       // HBMAME - added this to stop the freezing - the 7 is critical.
 					}
 				}
 
