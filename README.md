@@ -12,7 +12,7 @@ How to compile
 ==============
 
 ```
-make TARGET=hbmame -f Makefile.libretro
+make -f Makefile.libretro
 ```
 
 
