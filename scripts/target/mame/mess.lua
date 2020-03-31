@@ -748,6 +748,7 @@ MACHINES["I82357"] = true
 MACHINES["XC1700E"] = true
 MACHINES["EDLC"] = true
 MACHINES["WTL3132"] = true
+MACHINES["CXD1185"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -3284,6 +3285,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/roland_tr707.cpp",
 	MAME_DIR .. "src/mame/audio/jx8p_synth.cpp",
 	MAME_DIR .. "src/mame/audio/jx8p_synth.h",
+	MAME_DIR .. "src/mame/machine/mb62h195.cpp",
+	MAME_DIR .. "src/mame/machine/mb62h195.h",
 	MAME_DIR .. "src/mame/machine/mb63h149.cpp",
 	MAME_DIR .. "src/mame/machine/mb63h149.h",
 	MAME_DIR .. "src/mame/machine/pg200.cpp",
