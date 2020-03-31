@@ -2250,6 +2250,7 @@ files {
 	MAME_DIR .. "src/mame/includes/advision.h",
 	MAME_DIR .. "src/mame/machine/advision.cpp",
 	MAME_DIR .. "src/mame/video/advision.cpp",
+	MAME_DIR .. "src/mame/drivers/sag.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "epoch")
@@ -2973,6 +2974,8 @@ files {
 	MAME_DIR .. "src/mame/machine/nes.cpp",
 	MAME_DIR .. "src/mame/video/nes.cpp",
 	MAME_DIR .. "src/mame/drivers/nes_vt.cpp",
+	MAME_DIR .. "src/mame/machine/nes_vt_soc.cpp",
+	MAME_DIR .. "src/mame/machine/nes_vt_soc.h",
 	MAME_DIR .. "src/mame/drivers/nes_sh6578.cpp",
 	MAME_DIR .. "src/mame/drivers/nes_clone.cpp",
 	MAME_DIR .. "src/mame/drivers/pokemini.cpp",
