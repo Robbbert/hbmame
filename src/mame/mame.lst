@@ -2742,6 +2742,11 @@ edmv035f                        // Edom MV035F motherboard (486)
 td4ipaio                        // TD-4IP-UMC-AIO motherboard (486)
 dvbslan                         // Datavan Book-Size LAN station (386sx)
 486igb21                        // 486IG-B-2-1 motherboard (486)
+euroat                          // Schneider Euro AT
+pg750                           // Siemens PG 750
+pg750eisa                       // Siemens PG 750 486 EISA
+samdm286                        // Samsung Deskmaster 286-12
+zdz248                          // Zenith Z-248
 
 
 @source:atari_s1.cpp
@@ -14701,6 +14706,7 @@ gijoea                          // GX069 (c) 1991 (Asia)
 gijoeea                         // GX069 (c) 1991 (World)
 gijoej                          // GX069 (c) 1991 (Japan)
 gijoeu                          // GX069 (c) 1991 (US)
+gijoeua                         // GX069 (c) 1991 (US)
 
 @source:gimix.cpp
 gimix                           //
@@ -34586,6 +34592,7 @@ rmhaihib                        // (c) 1985 Alba
 rmhaijin                        // (c) 1986 Alba
 rmhaisei                        // (c) 1986 Visco
 themj                           // (c) 1987 Visco
+themj2                          // (c) 1987 Visco
 
 @source:rmnimbus.cpp
 nimbus                          // RM Nimbus 186
@@ -40961,6 +40968,7 @@ sprk_103                        //
 startrp                         //
 startrp2                        //
 strikext                        //
+strikext_100                    //
 strknew                         //
 strxt_fr                        //
 strxt_gr                        //
