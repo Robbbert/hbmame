@@ -646,6 +646,7 @@ files {
 	MAME_DIR .. "src/mame/audio/dcs.cpp",
 	MAME_DIR .. "src/mame/audio/csd.cpp",
 	MAME_DIR .. "src/mame/audio/bally.cpp",
+	MAME_DIR .. "src/mame/audio/nl_gunfight.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "namco")
