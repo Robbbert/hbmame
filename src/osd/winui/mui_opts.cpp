@@ -490,9 +490,12 @@ int GetCurrentTab(void)
 }
 
 // Need int here in case no games were in the list at exit
-void SetDefaultGame(uint32_t val)
+void SetDefaultGame(int val)
 {
-	settings.setter(MUIOPTION_DEFAULT_GAME, driver_list::driver(val).name);
+	if ((val < 0) || (val > driver_list::total()))
+		settings.setter(MUIOPTION_DEFAULT_GAME, "");
+	else
+		settings.setter(MUIOPTION_DEFAULT_GAME, driver_list::driver(val).name);
 }
 
 uint32_t GetDefaultGame(void)
