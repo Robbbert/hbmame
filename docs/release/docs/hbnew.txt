@@ -3,6 +3,8 @@
 
 2020-04-29 0.221
 - Metal Slug 4,5 and X the remix has been updated
+- dkongl5 was renamed to dkongst (Spring Trainer)
+
 
 New Games
 ---------------------------------
@@ -12,6 +14,7 @@ New Games
 - [dinos238]          Cadillacs and Dinosaurs (Three Forbidden Version 2020-03-25)
 - [dinos239]          Cadillacs and Dinosaurs (God of War Edition Update 2020-03-25)
 - [dinos240]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-03-25)
+- [dkongss]           Donkey Kong Skip Start
 - [grdianss14]        Guardians (Warriors Edition 2020-02-15)
 - [kof95s32]          Kof'95 (Special v1.0 2020-02-22)
 - [kof97s167]         Kof'97 (ST Innovation 2020-01-21)
