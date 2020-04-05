@@ -114,6 +114,7 @@ SOUNDS["SP0250"] = true
 SOUNDS["SPEAKER"] = true
 SOUNDS["SPU"] = true -- zn
 SOUNDS["ST0016"] = true
+SOUNDS["S_DSP"] = true -- snes
 SOUNDS["TA7630"] = true -- flstory
 SOUNDS["TC8830F"] = true -- timeplt
 SOUNDS["TMS36XX"] = true
@@ -214,6 +215,7 @@ MACHINES["SEGA_SCU"] = true -- stv
 MACHINES["SERFLASH"] = true -- cv1k
 MACHINES["SMPC"] = true -- stv
 MACHINES["STVCD"] = true -- stv
+MACHINES["S_SMP"] = true -- snes
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
@@ -771,7 +773,6 @@ files {
 	MAME_DIR .. "src/mame/machine/playch10.cpp",
 	MAME_DIR .. "src/mame/video/playch10.cpp",
 	MAME_DIR .. "src/mame/machine/snes.cpp",
-	MAME_DIR .. "src/mame/audio/snes_snd.cpp",
 	MAME_DIR .. "src/hbmame/drivers/snesb.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vsnes.cpp",
 	MAME_DIR .. "src/mame/machine/vsnes.cpp",
@@ -881,9 +882,9 @@ files {
 	MAME_DIR .. "src/mame/video/raiden2.cpp",
 	MAME_DIR .. "src/mame/machine/r2crypt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/r2dx_v33.cpp",
-	MAME_DIR .. "src/mame/machine/seibucop/seibucop.cpp",
-	MAME_DIR .. "src/mame/machine/seibucop/seibucop_dma.hxx",
-	MAME_DIR .. "src/mame/machine/seibucop/seibucop_cmd.hxx",
+	MAME_DIR .. "src/mame/machine/seibucop.cpp",
+	MAME_DIR .. "src/mame/machine/seibucop_dma.hxx",
+	MAME_DIR .. "src/mame/machine/seibucop_cmd.hxx",
 	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wiz.cpp",
 	MAME_DIR .. "src/mame/video/wiz.cpp",
