@@ -1410,7 +1410,8 @@ dkong2m
 dkongbcc				// Jeff's Rom Hacks
 dkongex					/* Jeff's Hack with Foundry Level */
 dkongf
-dkongl5
+dkongst
+dkongss
 dkongp					/* Fix for level 22 kill screen by Don Hodges */
 dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
