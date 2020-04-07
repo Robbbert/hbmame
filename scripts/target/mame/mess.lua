@@ -853,6 +853,7 @@ BUSES["NSCSI"] = true
 BUSES["NUBUS"] = true
 BUSES["O2"] = true
 BUSES["ORICEXT"] = true
+BUSES["PASOPIA"] = true
 BUSES["PC1512"] = true
 BUSES["PCE"] = true
 BUSES["PC_JOY"] = true
@@ -3290,6 +3291,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/roland_tb303.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_tr606.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_tr707.cpp",
+	MAME_DIR .. "src/mame/drivers/roland_u20.cpp",
 	MAME_DIR .. "src/mame/audio/jx8p_synth.cpp",
 	MAME_DIR .. "src/mame/audio/jx8p_synth.h",
 	MAME_DIR .. "src/mame/machine/mb62h195.cpp",

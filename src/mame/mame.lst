@@ -19020,7 +19020,8 @@ medlanes                        // [1977?]
 lb186                           // Ampro Little Board/186
 
 @source:lbeach.cpp
-lbeach                          // (c) 1979 Olympia / Seletron
+lbeach
+speedrs
 
 @source:lbpc.cpp
 lbpc                            // Ampro Little Board/PC
@@ -22265,6 +22266,9 @@ spitboss                        // (c) 1988 Merit
 @source:merits.cpp
 scrpiond                        //
 scrpionda                       //
+
+@source:meritsdx.cpp
+scrpndx                        //
 
 @source:meritum.cpp
 meritum1                        //
@@ -34688,6 +34692,10 @@ tr606                           // Roland
 tr707                           //
 tr727                           //
 
+@source:roland_u20.cpp
+u20                             //
+u220                            //
+
 @source:rollerg.cpp
 rollerg                         // GX999 (c) 1991 (US)
 rollergj                        // GX999 (c) 1991 (Japan)
@@ -41597,7 +41605,7 @@ xexexa                          // GX067 (c) 1991 (Asia)
 xexexj                          // GX067 (c) 1991 (Japan)
 
 @source:xmen.cpp
-xmen                            // GX065 (c) 1992 (US)
+xmen                            // GX065 (c) 1992 (World)
 xmen2pa                         // GX065 (c) 1992 (Asia)
 xmen2pe                         // GX065 (c) 1992 (World)
 xmen2pj                         // GX065 (c) 1992 (Japan)
@@ -41606,9 +41614,10 @@ xmen6p                          // GX065 (c) 1992 (World)
 xmen6pu                         // GX065 (c) 1992 (US)
 xmena                           // GX065 (c) 1992 (Asia)
 xmenaa                          // GX065 (c) 1992 (Asia)
-xmene                           // GX065 (c) 1992 (World)
 xmenj                           // GX065 (c) 1992 (Japan)
 xmenja                          // GX065 (c) 1992 (Japan)
+xmenu                           // GX065 (c) 1992 (US)
+xmenua                          // GX065 (c) 1992 (US)
 
 @source:xor100.cpp
 xor100                          //
