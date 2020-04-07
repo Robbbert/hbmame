@@ -522,6 +522,10 @@ public:
 
 protected:
 	virtual void device_add_mconfig(machine_config &config) override;
+	virtual void device_start() override;
+
+private:
+	void map(address_map &map);
 };
 
 DEFINE_DEVICE_TYPE(EUROPC_FDC, europc_fdc_device, "europc_fdc", "EURO PC FDC hookup")
@@ -539,12 +543,26 @@ static void pc_dd_floppies(device_slot_interface &device)
 
 void europc_fdc_device::device_add_mconfig(machine_config &config)
 {
-	wd37c65c_device &fdc(WD37C65C(config, m_fdc, 16_MHz_XTAL));
-	fdc.intrq_wr_callback().set(FUNC(isa8_fdc_device::irq_w));
-	fdc.drq_wr_callback().set(FUNC(isa8_fdc_device::drq_w));
+	WD37C65C(config, m_fdc, 16_MHz_XTAL);
+	m_fdc->intrq_wr_callback().set(FUNC(europc_fdc_device::irq_w));
+	m_fdc->drq_wr_callback().set(FUNC(europc_fdc_device::drq_w));
 	// single built-in 3.5" 720K drive, connector for optional external 3.5" or 5.25" drive
 	FLOPPY_CONNECTOR(config, "fdc:0", pc_dd_floppies, "35dd", isa8_fdc_device::floppy_formats).set_fixed(true);
 	FLOPPY_CONNECTOR(config, "fdc:1", pc_dd_floppies, nullptr, isa8_fdc_device::floppy_formats);
+}
+
+void europc_fdc_device::device_start()
+{
+	set_isa_device();
+	m_isa->install_device(0x03f0, 0x03f7, *this, &europc_fdc_device::map);
+	m_isa->set_dma_channel(2, this, true);
+}
+
+void europc_fdc_device::map(address_map &map)
+{
+	map(2, 2).w(m_fdc, FUNC(wd37c65c_device::dor_w));
+	map(4, 5).m(m_fdc, FUNC(wd37c65c_device::map));
+	// TODO: DCR also decoded by JIM/BIGJIM
 }
 
 static void europc_fdc(device_slot_interface &device)
