@@ -562,6 +562,8 @@ void sorcerer_state::sorcerera(machine_config &config)
 	m_fdc4->drq_wr_callback().set(FUNC(sorcerer_state::intrq4_w));
 	FLOPPY_CONNECTOR(config, "fdc4:0", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
 	FLOPPY_CONNECTOR(config, "fdc4:1", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
+	FLOPPY_CONNECTOR(config, "fdc4:2", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
+	FLOPPY_CONNECTOR(config, "fdc4:3", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
 	//SOFTWARE_LIST(config, "flop_list").set_original("sorcerer_flop");   // no suitable software yet
 
 	// internal ram
@@ -589,6 +591,8 @@ void sorcerer_state::sorcererb(machine_config &config)
 	m_fdc3->drq_wr_callback().set(m_dma, FUNC(z80dma_device::rdy_w));
 	FLOPPY_CONNECTOR(config, "fdc3:0", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
 	FLOPPY_CONNECTOR(config, "fdc3:1", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
+	FLOPPY_CONNECTOR(config, "fdc3:2", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
+	FLOPPY_CONNECTOR(config, "fdc3:3", floppies, "525qd", floppy_image_device::default_floppy_formats).enable_sound(true);
 	//SOFTWARE_LIST(config, "flop_list").set_original("sorcerer_flop");   // no suitable software yet
 
 	config.device_remove("cartslot");
@@ -624,6 +628,11 @@ ROM_START(sorcererd)
 	ROM_SYSTEM_BIOS(0, "standard", "Standard")
 	ROMX_LOAD("exmo1-1.1e",  0xe000, 0x0800, CRC(ac924f67) SHA1(72fcad6dd1ed5ec0527f967604401284d0e4b6a1), ROM_BIOS(0) ) /* monitor roms */
 	ROMX_LOAD("exmo1-2.2e",  0xe800, 0x0800, CRC(ead1d0f6) SHA1(c68bed7344091bca135e427b4793cc7d49ca01be), ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "esag", "ESAG 1.3/B")
+	ROMX_LOAD("right.1e",    0xe000, 0x0800, CRC(95586fea) SHA1(9263b0c5f059b70799e0704aa18437b04487e1b0), ROM_BIOS(1) )
+	ROM_IGNORE(0x800)
+	ROMX_LOAD("left.2e",     0xe800, 0x0800, CRC(153d1628) SHA1(e9421e8eeaa5945d0e1e5135058bfe9796db8458), ROM_BIOS(1) )
+	ROM_IGNORE(0x800)
 
 	ROM_REGION( 0x0400, "proms", 0 )
 	ROM_LOAD_OPTIONAL("bruce.15b",  0x0000, 0x0020, CRC(fae922cb) SHA1(470a86844cfeab0d9282242e03ff1d8a1b2238d1) ) /* video prom type 6331 */
