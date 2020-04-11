@@ -41,6 +41,7 @@ New Games
 - [mslugxrm5s10]      Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(The Fallen Angels Edition 2020-03-23)
 - [oldsplus25]        Oriental Legend 2 (Yellow Hat Version 2020-03-20)
 - [tk2h158]           Tenchi wo Kurau II (Master Edition Update 2020-02-15)
+- [valkyrien]         Valkyrie no Densetsu (English Translation)
 - [viostorms04]       Violent Storm (Enhanced Edition 2020-03-24)
 
 
