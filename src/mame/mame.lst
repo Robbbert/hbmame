@@ -13406,6 +13406,7 @@ cawingbl                        // bootleg
 fcrash                          // bootleg of Final Fight
 ffightbl                        // bootleg
 ffightbla                       // bootleg
+ffightblb                       // bootleg
 kodb                            // bootleg
 mtwinsb                         // bootleg
 sf2m1                           // hack
@@ -22122,17 +22123,19 @@ berl32t8p
 lond32t
 lond32t8
 
+@source:mephisto_mondial.cpp
+mondial                         // 1985 Mephisto Mondial
+mondial2                        // 1987 Mephisto Mondial II
+
 @source:mephisto_mondial68k.cpp
 mondl68k                        // 1988 Mephisto Mondial 68000XL
 
 @source:mephisto_montec.cpp
-mondial                         // 1985 Mephisto Mondial
 smondial                        // 1986 Mephisto Super Mondial (Ver A)
 smondialab                      // 1986 Mephisto Super Mondial (Ver AB)
 smondialb                       // 1986 Mephisto Super Mondial (Ver B)
 montec                          // 1987 Mephisto Monte Carlo
 monteca                         // 1987 Mephisto Monte Carlo
-mondial2                        // 1987 Mephisto Mondial II
 smondial2                       // 1989 Mephisto Super Mondial II
 megaiv                          // 1989 Mephisto Mega IV
 megaiva                         // 1989 Mephisto Mega IV
@@ -34730,8 +34733,9 @@ roul                            // (c) 1990
 
 @source:route16.cpp
 jongpute                        // 1981 Alpha Denshi Co.
-route16                         // (c) 1981 Tehkan/Sun + Centuri license
+route16                         // (c) 1981 Sun Electronics
 route16a                        // (c) 1981 Tehkan/Sun + Centuri license
+route16b                        // (c) 1981 Tehkan/Sun + Centuri license
 route16bl                       // bootleg
 route16c                        // (c) 1981 Tehkan/Sun + Centuri license
 routex                          // bootleg
@@ -39111,6 +39115,7 @@ crazycop                        // GX878 (c) 1988 (Japan)
 gbusters                        // GX878 (c) 1988
 gbustersa                       // GX878 (c) 1988
 scontra                         // GX775 (c) 1988
+scontraa                        // GX775 (c) 1988
 scontraj                        // GX775 (c) 1988 (Japan)
 thunderx                        // GX873 (c) 1988
 thunderxa                       // GX873 (c) 1988
