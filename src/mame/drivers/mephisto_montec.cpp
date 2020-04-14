@@ -14,9 +14,9 @@
 
     TODO:
     - split driver into several files?
+    - megaiv/smondial leds are tri-color
     - why are megaiv/smondial2 beeps noisy?
     - add Monte Carlo IV (non-LE)
-    - add MM 1000 module
 
 **************************************************************************************************/
 

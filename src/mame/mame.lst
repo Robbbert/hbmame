@@ -10750,6 +10750,7 @@ sf2ebbl2                        // 14/02/1991 (c) 1991 (World, bootleg)
 sf2ebbl3                        // 14/02/1991 (c) 1991 (World, bootleg)
 sf2ed                           // 18/03/1991 (c) 1991 (World)
 sf2ee                           // 28/02/1991 (c) 1991 (World)
+sf2ef                           // 11/04/1991 (c) 1991 (World)
 sf2em                           // 29/01/1991 (c) 1991 (World)
 sf2en                           // 04/02/1991 (c) 1991 (World, conversion)
 sf2hf                           // 09/12/1992 (c) 1992 (World)
@@ -10846,6 +10847,7 @@ sf2mdtb                         // bootleg
 dinopic                         // bootleg
 dinopic2                        // bootleg
 dinopic3                        // bootleg
+jurassic99                      // bootleg
 punipic                         // bootleg
 punipic2                        // bootleg
 punipic3                        // bootleg
@@ -15030,6 +15032,7 @@ cmv801                          // (c) 198? Corsica
 cmwm                            // (c) 199? Dyna Electronics
 crazybon                        // (c) 199? Sang Ho
 crazybona                       // (c) 199? Sang Ho
+crazybonb                       // (c) 199? unknown
 eldoradd                        // (c) 1991 Dyna Electronics
 fb2010                          // (c) 2009 Amcoe
 fl7_3121                        // (c) 199? Cyberdyne Systems, Inc.
@@ -15808,6 +15811,7 @@ gnw_rshower                     // Nintendo
 gnw_sbuster                     // Nintendo
 gnw_smb                         // Nintendo
 gnw_smbn                        // Nintendo
+gnw_snoopyp                     // Nintendo
 gnw_squish                      // Nintendo
 gnw_ssparky                     // Nintendo
 gnw_stennis                     // Nintendo
@@ -31464,6 +31468,7 @@ dnce2000
 
 @source:nes_sh6578.cpp
 bandgpad
+bandggcn
 cpatrolm
 ts_handy11
 ablwikid
@@ -31516,6 +31521,7 @@ gprnrs1
 gprnrs16
 ddrdismx                        // (c) 2006 Majesco / Konami [(c) 2001 Disney on title screen]
 ddrstraw                        // (c) 2006 Majesco / Konami
+dbdancem
 megapad
 timetp36
 majkon
@@ -31960,6 +31966,9 @@ okean240t                       //
 
 @source:olibochu.cpp
 olibochu                        // M47 (c) 1981 + "GDI presents"
+
+@source:olivpc1.cpp
+olivpc1
 
 @source:olyboss.cpp
 olybossb                        // Olympia BOSS B
@@ -36173,6 +36182,7 @@ rdft2j                          // (c) 1997 Seibu Kaihatsu
 rdft2ja                         // (c) 1997 Seibu Kaihatsu
 rdft2jb                         // (c) 1997 Seibu Kaihatsu
 rdft2jc                         // (c) 1997 Seibu Kaihatsu
+rdft2s                          // (c) 2000 Seibu Kaihatsu
 rdft2t                          // (c) 1997 Seibu Kaihatsu
 rdft2u                          // (c) 1997 Seibu Kaihatsu (Fabtek license)
 rdft2us                         // (c) 1997 Seibu Kaihatsu (Fabtek license)
@@ -37289,6 +37299,7 @@ ablkickb
 guitarfv
 guitarss
 jjstrip
+vtechtvs
 tmntmutm
 pballpup
 swclone
@@ -38002,6 +38013,9 @@ wrlshunt                        // Wireless: Hunting Video Game System
 tkmag220                        //
 jak_car2
 jak_gtg
+jak_sspop
+jak_hmhsm
+jak_umfit
 jak_duck
 jak_swc
 jak_wdzh
