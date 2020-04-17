@@ -921,9 +921,9 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "taito")
 files {
-	MAME_DIR .. "src/hbmame/drivers/mexico86.cpp",
-	MAME_DIR .. "src/mame/machine/mexico86.cpp",
-	MAME_DIR .. "src/mame/video/mexico86.cpp",
+	MAME_DIR .. "src/hbmame/drivers/kikikai.cpp",
+	MAME_DIR .. "src/mame/machine/kikikai.cpp",
+	MAME_DIR .. "src/mame/video/kikikai.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ikage.cpp",
 	MAME_DIR .. "src/mame/video/lkage.cpp",
 	MAME_DIR .. "src/hbmame/drivers/arkanoid.cpp",
