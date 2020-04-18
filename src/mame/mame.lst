@@ -14098,6 +14098,7 @@ mooncrstg                       // (c) 1980 Gremlin
 mooncrstso                      // (c) 1980 SegaSA / Sonic
 mooncrsto                       // (c) 1980 Nichibutsu
 mooncrstu                       // (c) 1980 Nichibutsu USA
+mooncrstuu                      // (c) 1980 Nichibutsu USA
 mooncrstuk                      // (c) 1980 Nichibutsu UK
 mooncrstuku                     // (c) 1980 Nichibutsu UK
 moonqsr                         // (c) 1980 Nichibutsu
@@ -19671,6 +19672,9 @@ quingo                          // (c) 1999 Impera
 belslots                        // (c) 1999 Impera
 bigdeal0                        // (c) 2001 Impera
 
+@source:magiceyes_pollux_vr3520f.cpp
+didj                            // (c) 2008 Leapfrog
+
 @source:magicfly.cpp
 7mezzo                          // 198? Unknown
 bchance                         // 198? Unknown
@@ -22184,6 +22188,7 @@ dtrvwz5                         // (c) 1987 Merit
 iowapp                          // (c) 1990 Merit
 matchemg                        // (c) 1986 Merit
 misdraw                         // (c) 1986 Merit / Big Apple Games
+mosdraw                         // (c) 1990 Merit
 mdchoice                        // (c) 1983 Merit
 mpchoice                        // (c) 1983 Merit
 mroundup                        // (c) 1984 Merit
@@ -37054,6 +37059,7 @@ satansata                       // (c) 1981 SNK
 satansatind                     // bootleg
 vanguard                        // (c) 1981 SNK
 vanguardc                       // (c) 1981 SNK + Centuri
+vanguardg                       // (c) 1981 SNK
 vanguardj                       // (c) 1981 SNK
 zarzon                          // (c) 1981 Taito, gameplay says SNK
 
@@ -37693,6 +37699,9 @@ starridr                        //
 @source:starshp1.cpp
 starshp1                        // 007513-007531    1977/07 [6502]
 starshpp                        // 007513-007531    1977/07 [6502]
+
+@source:startouch.cpp
+europl01                        //
 
 @source:starwars.cpp
 esb                             // 136031           (c) 1985
