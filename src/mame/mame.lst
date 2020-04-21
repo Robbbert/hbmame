@@ -13433,6 +13433,7 @@ fgoala                          // MF  (c) 1979 Taito Corporation
 feleg                           //
 
 @source:fidel_card.cpp
+bridgec
 bridgec3
 bridgeca
 gincribc
@@ -15731,6 +15732,7 @@ cmspacmn                        // Coleco
 cpacman                         // Coleco
 cpacmanr1                       // Coleco (rev 1)
 egalaxn2                        // Entex
+einvader2                       // Entex
 epacman2                        // Entex
 epacman2r                       // Entex
 estargte                        // Entex
@@ -19168,7 +19170,8 @@ eggventr7                       // (c) 1997 The Game Room
 eggventr8                       // (c) 1997 The Game Room
 eggventra                       // (c) 1997 The Game Room (Allied Leisure license)
 eggventrd                       // (c) 1997 The Game Room
-franticf                        // (c) 1996 The Game Room
+franticf                        // (c) 1998 ICE (Innovative Concepts in Entertainment, Inc.)
+franticfa                       // (c) 1996 The Game Room
 lethalj                         // (c) 1996 The Game Room
 ripribit                        // (c) 1997 LAI Games
 ripribita                       // (c) 1997 LAI Games
@@ -37314,6 +37317,8 @@ ablkickb
 lxspidaj
 guitarfv
 guitarss
+guitarssa
+tmntbftc
 gssytts
 jjstrip
 vtechtvs
@@ -39373,6 +39378,7 @@ tm5k                            // (c) 1998 Midway Games
 tm5ka                           // (c) 1998 Midway Games
 tm5kca                          // (c) 1998 Midway Games
 tm5kmn                          // (c) 1998 Midway Games
+tm5kuk                          // (c) 1998 Midway Games
 tm7k                            // (c) 1999 Midway Games
 tm7ka                           // (c) 1999 Midway Games
 tm7kde                          // (c) 1999 Midway Games
@@ -39725,7 +39731,8 @@ gekpurya                        // 2003.10 Gekitou Pro Yakyuu Mizushima Shinji A
 gekpuryb                        // 2003.10 Gekitou Pro Yakyuu Mizushima Shinji All Stars vs. Pro Yakyuu (Rev B)
 mkartag2                        // 2007.03 Mario Kart Arcade GP 2 (MK21 Ver.A)
 mkartag2a                       // 2007.03 Mario Kart Arcade GP 2 (MK21 Ver.A, alt dump)
-mkartagp                        // 2005.12 Mario Kart Arcade GP (MKA2 Ver.B)
+mkartagp                        // 2005.12 Mario Kart Arcade GP (MKA1 Ver.B)
+mkartagpc                       // 2006.07 Mario Kart Arcade GP (MKA1 Ver.C, update)
 tcfboxa                         // 2006.?? Firmware Update For Compact Flash Box (Rev A)
 tfupdate                        // 2004.?? Triforce GDROM Boot Update
 triforce                        // 2002.?? Triforce BIOS
