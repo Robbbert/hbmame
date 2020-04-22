@@ -94,8 +94,8 @@
   - gckong random lockups (tap the jump button repeatedly): mcu stack overflow,
     works ok if stack levels is increased, 38800 B rev. has more stack levels?
     Or it could be a race condition: irq happening too late/early.
-  - epacman2 booting the game in demo mode, pacman should go straight to the
-    upper-left power pill: mcu cycle/interrupt timing related
+  - epacman2 booting the game in demo mode, pacman should take the shortest route to
+    the upper-left power pill: mcu cycle/interrupt timing related
   - kevtris's HMCS40 ROM dumps are incomplete, missing MCU factory test code from
     the 2nd half of the ROM, none of the games access it though and it's impossible
     to execute unless the chip is in testmode.
@@ -2736,7 +2736,7 @@ WRITE16_MEMBER(einvader2_state::grid_w)
 READ16_MEMBER(einvader2_state::input_r)
 {
 	// D13-D15: multiplexed inputs
-	return read_inputs(6) << 13;
+	return read_inputs(3) << 13;
 }
 
 // config
