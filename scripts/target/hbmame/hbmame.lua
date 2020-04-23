@@ -216,6 +216,7 @@ MACHINES["SERFLASH"] = true -- cv1k
 MACHINES["SMPC"] = true -- stv
 MACHINES["STVCD"] = true -- stv
 MACHINES["S_SMP"] = true -- snes
+MACHINES["TC0091LVC"] = true
 MACHINES["TE7750"] = true
 MACHINES["TICKET"] = true
 MACHINES["TIMEKPR"] = true
