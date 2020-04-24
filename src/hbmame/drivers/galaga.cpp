@@ -12,7 +12,7 @@ WRITE8_MEMBER( galaga_hbmame::galaga_sample_w )
 		case 0x10: /* soft bang */
 			break;
 		default:
-			m_06xx->data_w ( space, offset, data );
+			m_06xx->data_w ( offset, data );
 	}
 }
 
