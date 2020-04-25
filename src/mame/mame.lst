@@ -11414,6 +11414,10 @@ ch2001
 @source:cxg_dominator.cpp
 sdtor
 
+@source:cxg_scptchess.cpp
+prtchess2
+scptchess
+
 @source:cxg_sphinx40.cpp
 sphinx40
 
@@ -12310,6 +12314,8 @@ rolcrusha                       // (c) 1999 SemiCom
 @source:drgnmst.cpp
 drgnmst                         // (c) 1994
 drgnmst2                        // (c) 1994
+mastfury
+
 
 @source:dribling.cpp
 dribling                        // (c) 1983 Model Racing
@@ -14051,6 +14057,7 @@ galaxiant                       // (c) Taito
 galaxrcgg                       // bootleg (Recreativos Covadonga)
 galaxrf                         // bootleg (Recreativos Franco)
 galaxrfgg                       // bootleg (Recreativos Franco)
+galaxyx                         // bootleg
 galemp                          // (c) Taito do Brasil
 galturbo                        // hack
 ghostmun                        //
@@ -15161,6 +15168,9 @@ good                            // (c) 1998
 goodejan                        // (c) 1991 Seibu/Tecmo
 goodejana                       // (c) 1991 Seibu/Tecmo
 totmejan                        // (c) 1991 Seibu/Tecmo
+
+@source:goori.cpp
+goori
 
 @source:gotcha.cpp
 gotcha                          // (c) 1997 Dongsung + "presented by Para"
