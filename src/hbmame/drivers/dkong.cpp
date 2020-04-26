@@ -618,7 +618,7 @@ ROM_START( dkongss )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "dkongss.5et",   0x0000, 0x1000, CRC(87c65c59) SHA1(51f3d6160f58449ff9a8a5374ced4fe5b5af86b4) )
 	ROM_LOAD( "dkongss.5ct",   0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
-	ROM_LOAD( "c_5bt_g.bin",   0x2000, 0x1000, CRC(f31c0c47) SHA1(1cd546e4e1924fedcb44894c43345fe2680d6f8a) )
+	ROM_LOAD( "dkongss.5bt",   0x2000, 0x1000, CRC(f31c0c47) SHA1(1cd546e4e1924fedcb44894c43345fe2680d6f8a) )
 	ROM_LOAD( "dkongss.5at",   0x3000, 0x1000, CRC(87d58e2e) SHA1(46c940a0fd0c15bfa6c304699bef29542aabab32) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
