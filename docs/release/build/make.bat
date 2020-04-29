@@ -15,5 +15,5 @@ call make64 -j4 %1 %2 %3
 if not exist hbmame64.exe goto end
 @copy /Y hbmame64.exe hbmame.exe
 @copy /Y hbmame64.sym hbmame.sym
-hbmame64 -valid
+@call v.bat
 :end

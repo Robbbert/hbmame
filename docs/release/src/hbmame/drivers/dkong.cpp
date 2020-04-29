@@ -586,12 +586,40 @@ ROM_START( dkongchm1 )
 	ROM_LOAD( "v-5e.bpr",      0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
 ROM_END
 
-ROM_START( dkongl5 )
+ROM_START( dkongst )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "dkongl5.5et",   0x0000, 0x1000, CRC(8fb6e908) SHA1(f361699ef3ba76e3734dfe31dedeb4363ac7f837) )
-	ROM_LOAD( "dkongl5.5ct",   0x1000, 0x1000, CRC(c9d766ea) SHA1(0e4d6fc04e88c4622a63fccf49cdfa2e008210cf) )
-	ROM_LOAD( "dkongl5.5bt",   0x2000, 0x1000, CRC(aef88ff5) SHA1(621300c9a43c000958aa8a11e7ff0cf2d14a2d32) )
-	ROM_LOAD( "dkongl5.5at",   0x3000, 0x1000, CRC(5cf3774b) SHA1(7061fb739b03d947a320a2ce3a11598ef520d586) )
+	ROM_LOAD( "dkongst.5et",   0x0000, 0x1000, CRC(8fb6e908) SHA1(f361699ef3ba76e3734dfe31dedeb4363ac7f837) )
+	ROM_LOAD( "dkongst.5ct",   0x1000, 0x1000, CRC(c9d766ea) SHA1(0e4d6fc04e88c4622a63fccf49cdfa2e008210cf) )
+	ROM_LOAD( "dkongst.5bt",   0x2000, 0x1000, CRC(aef88ff5) SHA1(621300c9a43c000958aa8a11e7ff0cf2d14a2d32) )
+	ROM_LOAD( "dkongst.5at",   0x3000, 0x1000, CRC(5cf3774b) SHA1(7061fb739b03d947a320a2ce3a11598ef520d586) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",    0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(                0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",    0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "v_5h_b.bin",    0x0000, 0x0800, CRC(12c8c95d) SHA1(a57ff5a231c45252a63b354137c920a1379b70a3) )
+	ROM_LOAD( "v_3pt.bin",     0x0800, 0x0800, CRC(15e9c5e9) SHA1(976eb1e18c74018193a35aa86cff482ebfc5cc4e) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",    0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",    0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",    0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",    0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",      0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",      0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",      0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
+ROM_START( dkongss )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkongss.5et",   0x0000, 0x1000, CRC(87c65c59) SHA1(51f3d6160f58449ff9a8a5374ced4fe5b5af86b4) )
+	ROM_LOAD( "dkongss.5ct",   0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
+	ROM_LOAD( "dkongss.5bt",   0x2000, 0x1000, CRC(f31c0c47) SHA1(1cd546e4e1924fedcb44894c43345fe2680d6f8a) )
+	ROM_LOAD( "dkongss.5at",   0x3000, 0x1000, CRC(87d58e2e) SHA1(46c940a0fd0c15bfa6c304699bef29542aabab32) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "s_3i_b.bin",    0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
@@ -615,6 +643,7 @@ ROM_START( dkongl5 )
 ROM_END
 
 
+
 GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong (US set 1 with barrel control coloring)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kong2600,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pacman graphics)", MACHINE_SUPPORTS_SAVE )
@@ -628,12 +657,13 @@ GAME( 2016, dktrainer, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2016, dkpace,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Sock Master", "Donkey Kong Pace", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dkchrmx,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "Sock Master", "Donkey Kong Christmas Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dkspkyrmx, dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "Sock Master", "Donkey Kong Spooky Remix", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, dkongl5,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "hack", "Donkey Kong Level 5", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, dkongst,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Sock Master", "Donkey Kong Springs Trainer", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, dkongrev,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Reverse", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, dkfreerun, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Freerun Edition", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, dkcbarrel, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Crazy Barrels Edition", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongchm,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong League Championship v1.00", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongchm1, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Championship Edition v1.01", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongran1, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Randomized Edition v1.01", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, dkongss,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Skip Start v1.00", MACHINE_SUPPORTS_SAVE )
 
 

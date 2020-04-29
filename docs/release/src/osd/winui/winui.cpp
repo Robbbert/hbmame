@@ -2063,8 +2063,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 
 			/* Save the users current game options and default game */
 			nItem = Picker_GetSelectedItem(hwndList);
-			if (nItem >= 0)
-				SetDefaultGame(nItem);
+			SetDefaultGame(nItem);
 
 			/* hide window to prevent orphan empty rectangles on the taskbar */
 			/* ShowWindow(hWnd,SW_HIDE); */
@@ -5590,38 +5589,32 @@ static void ToggleScreenShot(void)
 
 static void AdjustMetrics(void)
 {
-	HDC hDC;
-	TEXTMETRIC tm;
-	int xtraX, xtraY;
-	AREA area;
-	int  offX, offY;
-	int  maxX, maxY;
-	COLORREF textColor;
-	TCHAR szClass[128];
-	HWND hWnd;
 	HRESULT res;
 	BOOL b_res;
 
 	/* WM_SETTINGCHANGE also */
-	xtraX  = GetSystemMetrics(SM_CXFIXEDFRAME); /* Dialog frame width */
-	xtraY  = GetSystemMetrics(SM_CYFIXEDFRAME); /* Dialog frame height */
+	int xtraX  = GetSystemMetrics(SM_CXFIXEDFRAME); /* Dialog frame width */
+	int xtraY  = GetSystemMetrics(SM_CYFIXEDFRAME); /* Dialog frame height */
 	xtraY += GetSystemMetrics(SM_CYMENUSIZE);	/* Menu height */
 	xtraY += GetSystemMetrics(SM_CYCAPTION);	/* Caption Height */
-	maxX   = GetSystemMetrics(SM_CXSCREEN); 	/* Screen Width */
-	maxY   = GetSystemMetrics(SM_CYSCREEN); 	/* Screen Height */
+	int maxX   = GetSystemMetrics(SM_CXSCREEN); 	/* Screen Width */
+	int maxY   = GetSystemMetrics(SM_CYSCREEN); 	/* Screen Height */
 
-	hDC = GetDC(hMain);
+	TEXTMETRIC tm;
+	HDC hDC = GetDC(hMain);
 	GetTextMetrics (hDC, &tm);
 
 	/* Convert MIN Width/Height from Dialog Box Units to pixels. */
 	MIN_WIDTH  = (int)((tm.tmAveCharWidth / 4.0) * DBU_MIN_WIDTH)  + xtraX;
-	MIN_HEIGHT = (int)((tm.tmHeight 	  / 8.0) * DBU_MIN_HEIGHT) + xtraY;
+	MIN_HEIGHT = (int)((tm.tmHeight / 8.0) * DBU_MIN_HEIGHT) + xtraY;
 	ReleaseDC(hMain, hDC);
 
+	COLORREF textColor;
 	if ((textColor = GetListFontColor()) == RGB(255, 255, 255))
 		textColor = RGB(240, 240, 240);
 
-	hWnd = GetWindow(hMain, GW_CHILD);
+	TCHAR szClass[128];
+	HWND hWnd = GetWindow(hMain, GW_CHILD);
 	while(hWnd)
 	{
 		if (GetClassName(hWnd, szClass, sizeof(szClass) / sizeof(szClass[0])))
@@ -5640,21 +5633,21 @@ static void AdjustMetrics(void)
 		hWnd = GetWindow(hWnd, GW_HWNDNEXT);
 	}
 
-	GetWindowArea(&area);
+	AREA area;
+	GetWindowArea(&area); // read window size from ini
 
-	offX = area.x + area.width;
-	offY = area.y + area.height;
+	// Reposition the window so that the top or left side is in view.
+	// The width and height never change, even if they stretch off the screen.
+	if (area.x < 0)
+		area.x = 0;
+	if (area.y < 0)
+		area.y = 0;
 
-	if (offX > maxX)
-	{
-		offX = maxX;
-		area.x = (offX - area.width > 0) ? (offX - area.width) : 0;
-	}
-	if (offY > maxY)
-	{
-		offY = maxY;
-		area.y = (offY - area.height > 0) ? (offY - area.height) : 0;
-	}
+	// If the width or height is too small, or bigger than the screen, default them to the max screen size.
+	if ((area.width < 200) || (area.width > maxX))
+		area.width = maxX;
+	if ((area.height < 100) || (area.height > maxY))
+		area.height = maxY;
 
 	SetWindowArea(&area);
 	SetWindowPos(hMain, 0, area.x, area.y, area.width, area.height, SWP_NOZORDER | SWP_SHOWWINDOW | SWP_NOACTIVATE);

@@ -40,6 +40,7 @@ copy /Y %from%\src\mame\machine\mhavoc.cpp %to%\src\mame\machine
 md %to%\src\mame\video
 copy /Y %from%\src\mame\video\decbac06.cpp %to%\src\mame\video
 copy /Y %from%\src\mame\video\midtunit.cpp %to%\src\mame\video
+copy /Y %from%\src\mame\video\sega16sp.cpp %to%\src\mame\video
 
 md %to%\src\hbmame
 xcopy /E /Y %from%\src\hbmame %to%\src\hbmame

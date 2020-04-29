@@ -547,6 +547,7 @@ tk2h154
 tk2h155
 tk2h156
 //tk2h157
+tk2h158
 wofb
 wofch		// tk2p1
 wofes
@@ -639,6 +640,9 @@ captcomms82
 captcomms83
 captcomms84
 captcomms85
+captcomms86
+captcomms87
+captcomms88
 dinos01
 dinos02
 dinos03
@@ -859,6 +863,9 @@ dinos234
 dinos235
 dinos236
 dinos237
+dinos238
+dinos239
+dinos240
 ffights01
 ffights02
 ffightj2s01
@@ -1403,7 +1410,8 @@ dkong2m
 dkongbcc				// Jeff's Rom Hacks
 dkongex					/* Jeff's Hack with Foundry Level */
 dkongf
-dkongl5
+dkongst
+dkongss
 dkongp					/* Fix for level 22 kill screen by Don Hodges */
 dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
 dkongpe
@@ -1714,6 +1722,7 @@ kof95s28
 kof95s29
 //kof95s30 // encrypted but probably same as kof95sp
 kof95s31
+kof95s32
 
 @source:kof96.cpp
 kof96a
@@ -2083,6 +2092,11 @@ kof97s163
 kof97s164
 kof97s165
 kof97s166
+kof97s167
+kof97s168
+kof97s169
+kof97s170
+kof97s171
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2712,6 +2726,9 @@ kof98hh123
 kof98hh124
 kof98hh125
 kof98hh126
+kof98hh127
+kof98hh128
+kof98hh129
 kof98xz01
 kof98xz02
 kof98xz03
@@ -2937,6 +2954,8 @@ kof99s98
 kof99s99
 kof99s100
 kof99s101
+kof99s102
+kof99s103
 
 @source:kof2000.cpp
 kof2000d
@@ -3971,6 +3990,7 @@ nbajamtexxx
 umk2te50			// Ultimate MKII Tournament Edition r5.0.050
 umk2te51			// Ultimate MKII Tournament Edition r5.0.051
 umk2te52			// Ultimate MKII Tournament Edition r5.0.052
+umk2te53			// Ultimate MKII Tournament Edition r5.0.053
 mks01
 
 @source:midwunit.cpp
@@ -4218,6 +4238,7 @@ mslug3h03
 mslug3h04
 mslug3h05
 mslug3h06
+mslug3h07
 mslug3h08
 mslug3h09
 mslug3h10
@@ -4248,6 +4269,7 @@ mslug3h34
 mslug3h35
 mslug3h36
 mslug3h37
+mslug3h39
 mslug3h40
 mslug3h41
 mslug3h42
@@ -4770,6 +4792,8 @@ mslug4hh48
 mslug4hh49
 mslug4hh50
 mslug4hh51
+mslug4hh52
+mslug4hh53
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -5000,6 +5024,8 @@ mslug5dh61
 mslug5dh62
 mslug5dh63
 mslug5dh64
+mslug5dh65
+mslug5dh66
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -5440,6 +5466,9 @@ mslugxz62
 mslugxz63
 mslugxz64
 mslugxz65
+mslugxz66
+mslugxz67
+//mslugxz68 //Temporarily disabled
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
@@ -5674,6 +5703,16 @@ mslugxrm4s22
 mslugxrm4s23
 mslugxrm4s24
 mslugxrm4s25
+mslugxrm4s26
+mslugxrm4s27
+mslugxrm4s28
+mslugxrm4s29
+mslugxrm4s30
+mslugxrm4s31
+mslugxrm4s32
+mslugxrm4s33
+mslugxrm4s34
+mslugxrm4s35
 mslugxrm5s01
 mslugxrm5s02
 mslugxrm5s03
@@ -5681,6 +5720,9 @@ mslugxrm5s04
 mslugxrm5s05
 mslugxrm5s06
 mslugxrm5s07
+mslugxrm5s08
+mslugxrm5s09
+mslugxrm5s10
 mslugxrmmpv01
 mslugxrmmpv02
 mslugxrmmpv03
@@ -5759,6 +5801,7 @@ mmaulerss01
 viostorms01
 viostorms02
 viostorms03
+viostorms04
 
 @source:mspacman.cpp
 mspacman	//parent
@@ -5898,6 +5941,11 @@ mspacatx
 mspacmbx
 mspacplx
 pacgalx
+//otto1012		// roms missing
+//otto1020		// roms missing
+//otto1029		// roms missing
+//sp4n1029		// roms missing
+//sp4o1029		// roms missing
 
 @source:multipac.cpp
 96in1		/* Widel's Games */
@@ -5928,6 +5976,8 @@ knckheadx
 @source:namcos2.cpp
 phelios
 pheliosx
+valkyrie
+valkyrien
 
 @source:namcos86.cpp
 roishtar
@@ -7560,6 +7610,7 @@ kov2h18
 kov2h19
 kov2h20
 kov2h21
+kov2h22
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7922,6 +7973,7 @@ kovpluss362
 kovpluss363
 kovpluss364
 kovpluss365
+kovpluss366
 kovplusas01
 kovshs01
 kovshs02
@@ -8228,6 +8280,8 @@ kovsho182
 kovsho183
 kovsho184
 kovsho185
+kovsho186
+kovsho187
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8426,6 +8480,7 @@ oldsplus21
 oldsplus22
 oldsplus23
 oldsplus24
+oldsplus25
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -8696,6 +8751,7 @@ grdianss10
 grdianss11
 grdianss12
 grdianss13
+grdianss14
 
 @source:sf.cpp
 sf						//parent
@@ -8755,6 +8811,8 @@ survartss01
 wbml					//parent
 wbmlbit
 wbmlkb
+//raflesia				//parent
+//raflsiau				// roms missing
 
 @source:system16.cpp
 sys16dem				// HB
