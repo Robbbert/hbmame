@@ -1,6 +1,38 @@
 ﻿What's new in HBMAME
 ====================
 
+2020-05-27 0.222
+
+New Games
+---------------------------------
+- [dinos241]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-03-27)
+- [dinos242]          Cadillacs and Dinosaurs (Ares Infinite Bullet 2020 2020-04-03)
+- [dinos243]          Cadillacs and Dinosaurs (Ares Edition 2020-04-10)
+- [dinos244]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-04-22)
+- [dinos245]          Cadillacs and Dinosaurs (Uranus Edition Update 2020-02-28)
+- [grdianss15]        Guardians (Warriors Edition 2020-02-06)
+- [kof2k2s107]        Kof2002 (Iori Special Edition 2020-03-23)
+- [kov2p204s92]       Knights of Valour 2 Plus (God of War Musou 2020-03-07)
+- [ms6s11]            Metal Slug 6 (Enemies Resetting Version 2019-02-12 + Burst Enhanced Edition 2020-03-29)
+- [mslug2ps39]        Metal Slug 2 (Burst Enhanced Edition 2020-03-29)
+- [mslug3h38]         Metal Slug 3 (Burst Enhanced Edition 2020-03-29)
+- [mslug4hh54]        Metal Slug 4 (Burst Enhanced Edition 2020-03-29)
+- [mslug5dh67]        Metal Slug 5 (Burst Enhanced Edition 2020-03-28)
+- [mslugxz69]         Metal Slug X (Multi-Carrier Version + Burst Enhanced Edition 2020-03-29)
+- [mslugxz70]         Metal Slug X (2R Version 2020-04-16)
+- [nbbatmans03]       Ninja Baseball Bat Man (1V2 2020-04-17)
+- [punisherjs20]      The Punisher (Warriors Edition 2020-04-03)
+- [punisherjs21]      The Punisher (1v2 Unlimited Bullets 2020-04-03)
+- [sailormnts03]      Pretty Soldier Sailor Moon (Enhanced Edition 2019-12-15)
+- [sk2h44]            Sangokushi II (The Three Swordsmen Pirate Chinese Version 2020-03-17)
+- [tk2h159]           Tenchi wo Kurau II (Three Sword Saints Chinese Version 2020-04-23)
+- [tk2h160]           Tenchi wo Kurau II (Dared Evil Boss Edition 2020-04-23)
+- [umk3uc20200506]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-05-06)
+- [viostorms05]       Violent Storm (Enhanced Edition 2020-03-25)
+
+
+
+
 2020-04-29 0.221
 
 - Metal Slug 4,5 and X the remix has been updated

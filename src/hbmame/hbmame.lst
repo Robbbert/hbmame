@@ -156,6 +156,7 @@ metmqstrs03
 sailormn	    //parent
 sailormnts01
 sailormnts02
+sailormnts03
 theroes         //parent
 theroes01
 
@@ -349,6 +350,7 @@ sk2h34q
 sk2h41
 sk2h42
 sk2h43
+sk2h44
 sk2h45
 sk2h46
 sk3h1
@@ -548,6 +550,8 @@ tk2h155
 tk2h156
 //tk2h157
 tk2h158
+tk2h159
+tk2h160
 wofb
 wofch		// tk2p1
 wofes
@@ -866,6 +870,11 @@ dinos237
 dinos238
 dinos239
 dinos240
+dinos241
+dinos242
+dinos243
+dinos244
+dinos245
 ffights01
 ffights02
 ffightj2s01
@@ -925,6 +934,8 @@ punisherjs16
 punisherjs17
 punisherjs18
 punisherjs19
+punisherjs20
+punisherjs21
 punisherbzs01
 sf2ces01
 sf2ces02
@@ -3670,6 +3681,7 @@ kof2k2s103
 kof2k2s104
 kof2k2s105
 kof2k2s106
+kof2k2s107
 
 @source:kof2003.cpp
 kof2003d
@@ -3858,6 +3870,7 @@ hookus02
 hookxr
 nbbatmans01
 nbbatmans02
+nbbatmans03
 nbbatmanus01
 nbbatmanus02
 nbbatmanus03
@@ -4017,6 +4030,7 @@ umk3uc20191226
 umk3uc20200130
 umk3uc20200204
 umk3uc20200226
+umk3uc20200506
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -4126,6 +4140,7 @@ mslug2ps35
 mslug2ps36
 mslug2ps37
 mslug2ps38
+mslug2ps39
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -4223,6 +4238,7 @@ ms6s07
 ms6s08
 ms6s09
 ms6s10
+ms6s11
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -4269,6 +4285,7 @@ mslug3h34
 mslug3h35
 mslug3h36
 mslug3h37
+mslug3h38
 mslug3h39
 mslug3h40
 mslug3h41
@@ -4794,6 +4811,7 @@ mslug4hh50
 mslug4hh51
 mslug4hh52
 mslug4hh53
+mslug4hh54
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -5026,6 +5044,7 @@ mslug5dh63
 mslug5dh64
 mslug5dh65
 mslug5dh66
+mslug5dh67
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -5469,6 +5488,8 @@ mslugxz65
 mslugxz66
 mslugxz67
 //mslugxz68 //Temporarily disabled
+mslugxz69
+mslugxz70
 mslugxhbs01
 mslugxhbs02
 mslugxhbs03
@@ -5802,6 +5823,7 @@ viostorms01
 viostorms02
 viostorms03
 viostorms04
+viostorms05
 
 @source:mspacman.cpp
 mspacman	//parent
@@ -7589,6 +7611,7 @@ kov2p204s88
 kov2p204s89
 kov2p204s90
 kov2p204s91
+kov2p204s92
 kov2h01
 kov2h02
 kov2h03
@@ -8752,6 +8775,7 @@ grdianss11
 grdianss12
 grdianss13
 grdianss14
+grdianss15
 
 @source:sf.cpp
 sf						//parent
@@ -9086,3 +9110,4 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+

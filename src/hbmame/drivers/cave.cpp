@@ -540,6 +540,48 @@ ROM_START( sailormnts02 )
 	ROM_LOAD16_WORD( "sailormn_taiwan.nv", 0x0000, 0x0080, CRC(6c7e8c2a) SHA1(68ef4e6593e4c12e6488a20dcc6dda920b01de67) )
 ROM_END
 
+ROM_START( sailormnts03 ) //sailormnoh
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "bpsm945s03.u45", 0x000000, 0x080000, CRC(e77a6fbe) SHA1(0fd65be4585fac68c73dd0d1141ca3283d087523) )
+	ROM_LOAD16_WORD_SWAP( "bpsm.u46",     0x200000, 0x200000, CRC(32084e80) SHA1(0ac503190d95009620b5ad7e7e0e63324f6fa4eb) )
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "bpsm945a.u9",  0x00000, 0x80000, CRC(438de548) SHA1(81a0ca1cd662e2017aa980da162d39cfd0a19f14) )
+
+	ROM_REGION( 0x400000 * 2, "sprites0", 0 )
+	ROM_LOAD( "bpsm.u76", 0x000000, 0x200000, CRC(a243a5ba) SHA1(3a32d685e53e0b75977f7acb187cf414a50c7f8b) )
+	ROM_LOAD( "bpsm.u77", 0x200000, 0x200000, CRC(5179a4ac) SHA1(ceb8d3d889aae885debb2c9cf2263f60be3f1212) )
+
+	ROM_REGION( 0x200000, "layer0", 0 )
+	ROM_LOAD( "bpsm.u53", 0x000000, 0x200000, CRC(b9b15f83) SHA1(8c574c97d38fb9e2889648c8d677b171e80a4229) )
+
+	ROM_REGION( 0x200000, "layer1", 0 )
+	ROM_LOAD( "bpsm.u54", 0x000000, 0x200000, CRC(8f00679d) SHA1(4ea412f8ecdb9fd46f2d1378809919d1a62fcc2b) )
+
+	ROM_REGION( (5*0x200000)*2, "layer2", 0 )
+	ROM_LOAD( "bpsm.u57", 0x000000, 0x200000, CRC(86be7b63) SHA1(6b7d3d41fb1e4045c765b3cc98304464d91e6e3d) )
+	ROM_LOAD( "bpsm.u58", 0x200000, 0x200000, CRC(e0bba83b) SHA1(9e1434814efd9321b2e5210b995d2fe66cca37dd) )
+	ROM_LOAD( "bpsm.u62", 0x400000, 0x200000, CRC(a1e3bfac) SHA1(4528887d57e519df8dd60b2392db4c175c57b239) )
+	ROM_LOAD( "bpsm.u61", 0x600000, 0x200000, CRC(6a014b52) SHA1(107c687479b59c455fc514cd61d290853c95ad9a) )
+	ROM_LOAD( "bpsm.u60", 0x800000, 0x200000, CRC(992468c0) SHA1(3c66cc08313a9a326badc44f53a98cdfe0643da4) )
+	ROM_LOAD( "bpsm.u65", 0xa00000, 0x200000, CRC(f60fb7b5) SHA1(72cb8908cd687a330e14657664cd35037a52c39e) )
+	ROM_LOAD( "bpsm.u64", 0xc00000, 0x200000, CRC(6559d31c) SHA1(bf688123a4beff625652cc1844bf0dc192f5c90f) )
+	ROM_LOAD( "bpsm.u63", 0xe00000, 0x100000, CRC(d57a56b4) SHA1(e039b336887b66eba4e0630a3cb04cbd8fe14073) )
+	ROM_CONTINUE(         0xe00000, 0x100000             )
+
+	ROM_REGION( 0x200000, "oki1", 0 )
+	ROM_LOAD( "bpsm.u48", 0x000000, 0x200000, CRC(498e4ed1) SHA1(28d45a41702d9e5af4e214c1800b2e513ec84d51) )
+
+	ROM_REGION( 0x200000, "oki2", 0 )
+	ROM_LOAD( "bpsm.u47", 0x000000, 0x080000, CRC(0f2901b9) SHA1(ebd3e9e39e8d2bc91688dac19b99548a28b4733c) )
+	ROM_RELOAD(           0x080000, 0x080000             )
+	ROM_RELOAD(           0x100000, 0x080000             )
+	ROM_RELOAD(           0x180000, 0x080000             )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD16_WORD( "sailormn_hongkong.nv", 0x0000, 0x0080, CRC(4d24c874) SHA1(93b87ef18cff98e4f6a60234692e7a9a9c8e7552) )
+ROM_END
+
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // Gaia Crusaders
 GAME( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     init_gaia,     ROT0,         "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
@@ -557,5 +599,6 @@ GAME( 2018, plegendsjs03,  plegends, pwrinst2,   metmqstr, cave_state,     init_
 GAME( 2018, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2, ROT0,         "hack",   "Power Instinct 2 (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Pretty Soldier Sailor Moon
 GAME( 2018, sailormnts01,  sailormn, sailormn,   cave,     cave_state,     init_sailormn, ROT0,         "GOTVG", "Pretty Soldier Sailor Moon (Increases The Difficulty 2018-04-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, sailormnts02,  sailormn, sailormn,   cave,     cave_state,     init_sailormn, ROT0,         "pipi899", "Pretty Soldier Sailor Moon (Enhanced magic 2009-02-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, sailormnts02,  sailormn, sailormn,   cave,     cave_state,     init_sailormn, ROT0,         "pipi899", "Pretty Soldier Sailor Moon (Enhanced Magic 2009-02-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, sailormnts03,  sailormn, sailormn,   cave,     cave_state,     init_sailormn, ROT0,         "hack", "Pretty Soldier Sailor Moon (Enhanced Edition 2019-12-15)", MACHINE_SUPPORTS_SAVE )
 
