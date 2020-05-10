@@ -393,7 +393,6 @@ files {
 createHBMAMEProjects(_target, _subtarget, "capcom")
 files {
 	MAME_DIR .. "src/hbmame/drivers/sf.cpp",
-	MAME_DIR .. "src/mame/video/sf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/1942.cpp",
 	MAME_DIR .. "src/mame/video/1942.cpp",
 	MAME_DIR .. "src/mame/audio/nl_1942.cpp",
