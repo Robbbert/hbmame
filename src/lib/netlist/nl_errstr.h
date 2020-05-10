@@ -26,7 +26,7 @@ namespace netlist
 	PERRMSGV(MF_UNKNOWN_PARAM_TYPE,                 1, "Can not determine param_type for {1}")
 	PERRMSGV(MF_ERROR_CONNECTING_1_TO_2,            2, "Error connecting {1} to {2}")
 	PERRMSGV(MF_NO_SOLVER,                          0, "No solver found for this netlist although analog elements are present")
-	PERRMSGV(MF_HND_VAL_NOT_SUPPORTED,              1, "HINT_NO_DEACTIVATE value not supported: <{1}>")
+	PERRMSGV(ME_HND_VAL_NOT_SUPPORTED,              1, "HINT_NO_DEACTIVATE value not supported: <{1}>")
 	PERRMSGV(MW_ROM_NOT_FOUND,                      1, "Rom {1} not found")
 
 	// nl_factory.cpp
@@ -81,7 +81,7 @@ namespace netlist
 	PERRMSGV(MF_MODEL_ERROR_ON_PAIR_1,              1, "Model error on pair {1}")
 	PERRMSGV(MF_MODEL_PARAMETERS_NOT_UPPERCASE_1_2, 2, "Model parameters should be uppercase:{1} {2}")
 	PERRMSGV(MF_ENTITY_1_NOT_FOUND_IN_MODEL_2,      2, "Entity {1} not found in model {2}")
-	PERRMSGV(MF_UNKNOWN_NUMBER_FACTOR_IN_1,         1, "Unknown number factor in: {1}")
+	PERRMSGV(MF_UNKNOWN_NUMBER_FACTOR_IN_2,         2, "Unknown number factor in: {1}:{2}")
 	PERRMSGV(MF_MODEL_NUMBER_CONVERSION_ERROR,      4, "Can't convert {1}={2} to {3} for model {4}")
 	PERRMSGV(MF_NOT_FOUND_IN_SOURCE_COLLECTION,     1, "unable to find {1} in sources collection")
 
@@ -100,8 +100,9 @@ namespace netlist
 
 	PERRMSGV(MW_DATA_1_NOT_FOUND,                   1, "unable to find data {1} in sources collection")
 
-	PERRMSGV(MW_DEVICE_NOT_FOUND_FOR_HINT,          1, "Device not found for hint {1}")
-	PERRMSGV(MW_UNKNOWN_PARAMETER,                  1, "Unknown parameter {1}")
+	PERRMSGV(ME_DEVICE_NOT_FOUND_FOR_HINT,          1, "Device not found for hint {1}")
+	PERRMSGV(ME_UNKNOWN_PARAMETER,                  1, "Unknown parameter {1}")
+	PERRMSGV(MF_ERRORS_FOUND,                       1, "Counted {1} errors which need to be fixed")
 
 	// nlid_proxy.cpp
 

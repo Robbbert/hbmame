@@ -110,8 +110,9 @@ TODO:
 
 Notes:
 
-- daimyojn: In Test->Option, press "N Ron Ron N" to access more options
-- kotbinyo: To access service mode, during boot press start+button+right (start+d+e in keyboard mode)
+- all games using black as default palette is trusted from a real rongrong PCB;
+- daimyojn: In Test->Option, press "N Ron Ron N" to access more options;
+- kotbinyo: To access service mode, during boot press start+button+right (start+d+e in keyboard mode);
 
 **********************************************************************************************************************/
 
@@ -4398,7 +4399,7 @@ void ddenlovr_state::htengoku(machine_config &config)
 	m_blitter->scrolly_cb().set(FUNC(dynax_state::dynax_blit_scrolly_w));
 	m_blitter->ready_cb().set(FUNC(dynax_state::sprtmtch_blitter_irq_w));
 
-	PALETTE(config, m_palette).set_entries(16*256);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x1000);
 
 	MCFG_VIDEO_START_OVERRIDE(ddenlovr_state,htengoku)
 
@@ -5102,62 +5103,63 @@ static INPUT_PORTS_START( rongrong )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_CUSTOM )    // ? blitter irq flag ?
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_CUSTOM )    // ? blitter busy flag ?
 
+	// default all off except for SW2:9, that's unused anyway so presumably an error of the dip sheet
 	PORT_START("DSW1")
-	PORT_DIPNAME( 0x03, 0x03, DEF_STR( Coin_A ) )
+	PORT_DIPNAME( 0x03, 0x03, DEF_STR( Coin_A ) ) PORT_DIPLOCATION("SW1:1,2")
 	PORT_DIPSETTING(    0x00, DEF_STR( 3C_1C ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( 2C_1C ) )
 	PORT_DIPSETTING(    0x03, DEF_STR( 1C_1C ) )
 	PORT_DIPSETTING(    0x02, DEF_STR( 1C_2C ) )
-	PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( Coin_B ) )
+	PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( Coin_B ) ) PORT_DIPLOCATION("SW1:3,4")
 	PORT_DIPSETTING(    0x00, DEF_STR( 3C_1C ) )
 	PORT_DIPSETTING(    0x04, DEF_STR( 2C_1C ) )
 	PORT_DIPSETTING(    0x0c, DEF_STR( 1C_1C ) )
 	PORT_DIPSETTING(    0x08, DEF_STR( 1C_2C ) )
-	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Free_Play ) )
+	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Free_Play ) ) PORT_DIPLOCATION("SW1:5")
 	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, "Helps" )
+	PORT_DIPNAME( 0x20, 0x20, "Helps" ) PORT_DIPLOCATION("SW1:6")
 	PORT_DIPSETTING(    0x00, "2" )
 	PORT_DIPSETTING(    0x20, "3" )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Demo_Sounds ) )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Demo_Sounds ) ) PORT_DIPLOCATION("SW1:7")
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x80, "Blinking on Matching Pieces" ) PORT_DIPLOCATION("SW1:8") // "Teach Flash Hai"
+	PORT_DIPSETTING(    0x80, "First Level and on Continues" ) // "First Game & Continue"
+	PORT_DIPSETTING(    0x00, "Always On" ) // "All Game"
 
 	PORT_START("DSW2")
-	PORT_DIPNAME( 0x03, 0x03, DEF_STR( Difficulty ) )
+	PORT_DIPNAME( 0x03, 0x03, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW2:1,2")
 	PORT_DIPSETTING(    0x02, DEF_STR( Easy ) )
 	PORT_DIPSETTING(    0x03, DEF_STR( Normal ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( Hard ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Hardest ) )
-	PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x0c, "0" )
-	PORT_DIPSETTING(    0x08, "1" )
-	PORT_DIPSETTING(    0x04, "2" )
-	PORT_DIPSETTING(    0x00, "3" )
-	PORT_DIPNAME( 0x30, 0x30, "VS Rounds" )
+	PORT_DIPNAME( 0x0c, 0x0c, "Base Time" ) PORT_DIPLOCATION("SW2:3,4")
+	PORT_DIPSETTING(    0x0c, "80 Seconds" )
+	PORT_DIPSETTING(    0x08, "90 Seconds" )
+	PORT_DIPSETTING(    0x04, "70 Seconds" )
+	PORT_DIPSETTING(    0x00, "60 Seconds" )
+	PORT_DIPNAME( 0x30, 0x30, "VS Rounds" ) PORT_DIPLOCATION("SW2:5,6")
 	PORT_DIPSETTING(    0x30, "1" )
 	PORT_DIPSETTING(    0x20, "2" )
 	PORT_DIPSETTING(    0x10, "3" )
 	PORT_DIPSETTING(    0x00, "3 (duplicate)" )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unused ) ) PORT_DIPLOCATION("SW2:7")
 	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unused ) ) PORT_DIPLOCATION("SW2:8")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 
 	PORT_START("DSW3")
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Flip_Screen ) )
+	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Flip_Screen ) ) PORT_DIPLOCATION("SW1:9")
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_SERVICE( 0x02, IP_ACTIVE_LOW )
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )
+	PORT_SERVICE( 0x02, IP_ACTIVE_LOW ) PORT_DIPLOCATION("SW1:10")
+	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unused ) ) PORT_DIPLOCATION("SW2:9")
 	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, "Select Round" )
+	PORT_DIPNAME( 0x08, 0x08, "Select Round (Cheat)" ) PORT_DIPLOCATION("SW2:10") // undocumented
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_BIT( 0xf0, IP_ACTIVE_LOW, IPT_UNKNOWN )
@@ -7696,125 +7698,125 @@ static INPUT_PORTS_START( hgokou )
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )    // "b"
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )    // "s"
 
-	PORT_START("DSW4")
-	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Demo_Sounds ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
-	PORT_DIPNAME( 0x02, 0x02, "Unknown 4-1" )
-	PORT_DIPSETTING(    0x02, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, "Girls" )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, "Unknown 4-3" )
-	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, "Hint" )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, "Unknown 4-5" )
-	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, "Unknown 4-6" )
-	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x00, "Cards Labels" )
-	PORT_DIPSETTING(    0x80, "Numbers" )
-	PORT_DIPSETTING(    0x00, "Letters" )
-
-	PORT_START("DSW3")
-	PORT_DIPNAME( 0x03, 0x03, "Unknown 3-0&1" )
-	PORT_DIPSETTING(    0x03, "1" )
-	PORT_DIPSETTING(    0x02, "2" )
-	PORT_DIPSETTING(    0x01, "3" )
-	PORT_DIPSETTING(    0x00, "4" )
-	PORT_DIPNAME( 0x04, 0x04, "Unknown 3-2" )
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x18, 0x18, "Unknown 3-3&4" )
-	PORT_DIPSETTING(    0x18, "10" )
-	PORT_DIPSETTING(    0x10, "20" )
-	PORT_DIPSETTING(    0x08, "30" )
-	PORT_DIPSETTING(    0x00, "50" )
-	PORT_DIPNAME( 0x20, 0x20, "Unknown 3-5" )
-	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0xc0, 0xc0, "Unknown 3-6&7" )
-	PORT_DIPSETTING(    0xc0, "0" )
-	PORT_DIPSETTING(    0x80, "1" )
-	PORT_DIPSETTING(    0x40, "2" )
-	PORT_DIPSETTING(    0x00, "3" )
+	// Note the PCB has 4x 10-position DIP switches and SW5 is a 4-position DIP switch.
+	// SW5 is used to select either the Mahjong edge connector, or the 18/10 Edge connectors (i.e. emulation of SW5 is not required)
+	// SW5 All off = Mahjong connector, all on = 18/10 connector.
+	PORT_START("DSW1")
+	PORT_DIPNAME( 0x07, 0x07, "Difficulty" )               PORT_DIPLOCATION("SW1:1,2,3")
+	PORT_DIPSETTING(    0x07, "1 (Easy)" )
+	PORT_DIPSETTING(    0x06, "2" )
+	PORT_DIPSETTING(    0x05, "3" )
+	PORT_DIPSETTING(    0x04, "4" )
+	PORT_DIPSETTING(    0x03, "5" )
+	PORT_DIPSETTING(    0x02, "6" )
+	PORT_DIPSETTING(    0x01, "7" )
+	PORT_DIPSETTING(    0x00, "8 (Hard)" )
+	PORT_DIPNAME( 0x08, 0x08, "Level Increase" )           PORT_DIPLOCATION("SW1:4")
+	PORT_DIPSETTING(    0x08, "Often" )
+	PORT_DIPSETTING(    0x00, "Rarely" )
+	PORT_DIPNAME( 0x10, 0x10, "Biggest Bonus Enabled" )    PORT_DIPLOCATION("SW1:5")
+	PORT_DIPSETTING(    0x10, DEF_STR( Yes ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
+	PORT_DIPNAME( 0x60, 0x60, "W-Up Win Percentage" )      PORT_DIPLOCATION("SW1:6,7")
+	PORT_DIPSETTING(    0x60, "80%" ) // Easy
+	PORT_DIPSETTING(    0x40, "75%" )
+	PORT_DIPSETTING(    0x20, "70%" )
+	PORT_DIPSETTING(    0x00, "65%" ) // Hard
+	PORT_DIPNAME( 0x80, 0x80, "Key-in Rate ?" )            PORT_DIPLOCATION("SW1:8")  // What is this? Manual says キ一インレ一ト
+	PORT_DIPSETTING(    0x80, "x10" )
+	PORT_DIPSETTING(    0x00, "x5" )
 
 	PORT_START("DSW2")
-	PORT_DIPNAME( 0x03, 0x03, "Unknown 2-0&1" )
-	PORT_DIPSETTING(    0x03, "1" )
-	PORT_DIPSETTING(    0x02, "2" )
-	PORT_DIPSETTING(    0x01, "5" )
-	PORT_DIPSETTING(    0x00, "10" )
-	PORT_DIPNAME( 0x04, 0x04, "Unknown 2-2" )
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, "Unknown 2-3" )
-	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x30, 0x30, "Odds Rate" )
-	PORT_DIPSETTING(    0x30, "2 5 6 20 50 100" )
-	PORT_DIPSETTING(    0x20, "2 5 6 20 50 200" )
-	PORT_DIPSETTING(    0x10, "2 5 6 20 50 250" )
-	PORT_DIPSETTING(    0x00, "2 5 6 20 50 300" )
-	PORT_DIPNAME( 0xc0, 0xc0, "Unknown 2-6&7" )
+	PORT_DIPNAME( 0x03, 0x03, DEF_STR( Coinage ) )         PORT_DIPLOCATION("SW2:1,2")
+	PORT_DIPSETTING(    0x03, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( 1C_2C ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( 1C_5C ) )
+	PORT_DIPSETTING(    0x00, "1 Coin 10 Credits" )
+	PORT_DIPNAME( 0x0c, 0x0c, "Start Level" )              PORT_DIPLOCATION("SW2:3,4")
+	PORT_DIPSETTING(    0x0c, "1" )
+	PORT_DIPSETTING(    0x08, "2" )
+	PORT_DIPSETTING(    0x04, "3" )
+	PORT_DIPSETTING(    0x00, "5" )
+	PORT_DIPNAME( 0x30, 0x30, "Gokou Odds" )               PORT_DIPLOCATION("SW2:5,6")
+	PORT_DIPSETTING(    0x30, "100" )
+	PORT_DIPSETTING(    0x20, "200" )
+	PORT_DIPSETTING(    0x10, "250" )
+	PORT_DIPSETTING(    0x00, "300" )
+	PORT_DIPNAME( 0xc0, 0xc0, "Shikou Odds" )              PORT_DIPLOCATION("SW2:7,8")
 	PORT_DIPSETTING(    0xc0, "50" )
 	PORT_DIPSETTING(    0x80, "60" )
 	PORT_DIPSETTING(    0x40, "70" )
 	PORT_DIPSETTING(    0x00, "80" )
 
-	PORT_START("DSW1")
-	PORT_DIPNAME( 0x07, 0x07, "Unknown 1-0&1&2" )
-	PORT_DIPSETTING(    0x07, "0" )
-	PORT_DIPSETTING(    0x06, "1" )
-	PORT_DIPSETTING(    0x05, "2" )
-	PORT_DIPSETTING(    0x04, "3" )
-	PORT_DIPSETTING(    0x03, "4" )
-	PORT_DIPSETTING(    0x02, "5" )
-	PORT_DIPSETTING(    0x01, "6" )
-	PORT_DIPSETTING(    0x00, "7" )
-	PORT_DIPNAME( 0x08, 0x08, "Unknown 1-3" )
-	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, "Unknown 1-4" )
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x60, 0x60, "Unknown 1-5&6" )
-	PORT_DIPSETTING(    0x60, "0" )
-	PORT_DIPSETTING(    0x40, "1" )
-	PORT_DIPSETTING(    0x20, "2" )
-	PORT_DIPSETTING(    0x00, "3" )
-	PORT_DIPNAME( 0x80, 0x80, "Unknown 1-7" )
-	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_START("DSW3")
+	PORT_DIPNAME( 0x03, 0x03, "Machine" )                  PORT_DIPLOCATION("SW3:1,2")
+	PORT_DIPSETTING(    0x03, "Credit Type" )
+	PORT_DIPSETTING(    0x02, "Hopper Type" )
+	PORT_DIPSETTING(    0x01, "Timer Type" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Unused ) )
+	PORT_DIPNAME( 0x04, 0x04, "Hopper Microswitch" )       PORT_DIPLOCATION("SW3:3")
+	PORT_DIPSETTING(    0x04, "Active Low" )
+	PORT_DIPSETTING(    0x00, "Active High" )
+	PORT_DIPNAME( 0x18, 0x18, "Credit Limit" )             PORT_DIPLOCATION("SW3:4,5")
+	PORT_DIPSETTING(    0x18, "1000" )
+	PORT_DIPSETTING(    0x10, "2000" )
+	PORT_DIPSETTING(    0x08, "3000" )
+	PORT_DIPSETTING(    0x00, "5000" )
+	PORT_DIPNAME( 0x20, 0x20, "Hopper Type" )              PORT_DIPLOCATION("SW3:6")
+	PORT_DIPSETTING(    0x20, "Manual" )
+	PORT_DIPSETTING(    0x00, "Automatic" )
+	PORT_DIPNAME( 0xc0, 0xc0, "Shikou Limit" )             PORT_DIPLOCATION("SW3:7,8")
+	PORT_DIPSETTING(    0xc0, "Set 1" )
+	PORT_DIPSETTING(    0x80, "Set 2" )
+	PORT_DIPSETTING(    0x40, "Set 3" )
+	PORT_DIPSETTING(    0x00, "Set 4" )
 
-	PORT_START("DSW5")
-	PORT_DIPNAME( 0x01, 0x00, "Control Panel" )
-	PORT_DIPSETTING(    0x00, "Hanafuda" )
-	PORT_DIPSETTING(    0x01, "Mahjong" )   // Requires different inputs
-	PORT_SERVICE( 0x02, IP_ACTIVE_LOW )
-	PORT_DIPNAME( 0x04, 0x04, "Unknown 2-8" )
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x08, 0x08, "Unknown 2-9" )
-	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x10, 0x10, "Unknown 3-8" )
-	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x20, 0x20, "Unknown 3-9" )
-	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x40, 0x40, "Unknown 4-8" )
-	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Flip_Screen ) )
+	PORT_START("DSW4")
+	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Demo_Sounds ) )     PORT_DIPLOCATION("SW4:1")
+	PORT_DIPSETTING(    0x01, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x02, 0x02, "In-Game Music" )            PORT_DIPLOCATION("SW4:2")
+	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x04, 0x04, "Girls" )                    PORT_DIPLOCATION("SW4:3")
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x08, 0x08, "Secret Technique ?" )       PORT_DIPLOCATION("SW4:4")  // What is this? Manual says 秘技
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x10, 0x10, "Hint" )                     PORT_DIPLOCATION("SW4:5")
+	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x20, 0x20, "Win Bonus" )                PORT_DIPLOCATION("SW4:6")
+	PORT_DIPSETTING(    0x20, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )                                           //                                   7   8   9
+	PORT_DIPNAME( 0xc0, 0xc0, "Panel" )                    PORT_DIPLOCATION("SW4:7,8")  // SW4-7,8,9        Hanafuda Panel: OFF OFF OFF
+	PORT_DIPSETTING(    0xc0, "Hanafuda" ) //                                                               Mahjong Panel : ON  OFF OFF
+	PORT_DIPSETTING(    0x80, "Mahjong" )  // Requires different inputs                                     Hanagoku Panel: OFF ON  OFF
+	PORT_DIPSETTING(    0x40, "Numbers" )  // Manual says 'Hanagoku Panel'                                  Mahjong Amuse : ON  ON  OFF
+	PORT_DIPSETTING(    0x00, "Letters" )  // Manual says 'Mahjong Amusement'                               Lever         : OFF OFF ON
+										   //                                                               Amuse Seal    : ON  OFF ON
+
+	PORT_START("DSW5")  // 0x01 is part of SW4-7,8,9                                     Does MAME support DIPsw bits used in multiple ports?
+	PORT_DIPNAME( 0x01, 0x01, "SW4-9" )                    PORT_DIPLOCATION("SW4:9")  // If on, a joystick shows when the girl lifts up the cup
+	PORT_DIPSETTING(    0x01, "Amusement Seal" )                                      // in attract mode and in-game, bars appear above the cards.
+	PORT_DIPSETTING(    0x00, "Lever" )
+	PORT_SERVICE( 0x02, IP_ACTIVE_LOW )                    PORT_DIPLOCATION("SW4:10")
+	PORT_DIPNAME( 0x04, 0x04, "Show Girl at Game Start" )  PORT_DIPLOCATION("SW3:9")
+	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x08, 0x08, "In-Game Voice" )            PORT_DIPLOCATION("SW3:10")
+	PORT_DIPSETTING(    0x08, DEF_STR( On ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
+	PORT_DIPNAME( 0x30, 0x30, "Ameshikou Odds" )           PORT_DIPLOCATION("SW2:9,10")
+	PORT_DIPSETTING(    0x30, "20" )
+	PORT_DIPSETTING(    0x20, "30" )
+	PORT_DIPSETTING(    0x10, "40" )
+	PORT_DIPSETTING(    0x00, "50" )
+	PORT_DIPNAME( 0x40, 0x40, "Max Bet" )                  PORT_DIPLOCATION("SW1:9")
+	PORT_DIPSETTING(    0x40, "10" )
+	PORT_DIPSETTING(    0x00, "5" )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Flip_Screen ) )     PORT_DIPLOCATION("SW1:10")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 INPUT_PORTS_END
@@ -9750,7 +9752,7 @@ void ddenlovr_state::ddenlovr(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(FUNC(ddenlovr_state::ddenlovr_irq));
 
-	PALETTE(config, m_palette).set_entries(0x100);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x100);
 
 	blitter_irq().set(FUNC(ddenlovr_state::ddenlovr_blitter_irq));
 
@@ -9873,7 +9875,7 @@ void ddenlovr_state::quizchq(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(m_maincpu, FUNC(tmpz84c015_device::strobe_a)).invert();
 
-	PALETTE(config, m_palette).set_entries(0x100);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x100);
 
 	blitter_irq().set("maincpu", FUNC(tmpz84c015_device::trg0));
 	blitter_irq().append("maincpu", FUNC(tmpz84c015_device::trg1));
@@ -9963,7 +9965,7 @@ void ddenlovr_state::mmpanic(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(FUNC(ddenlovr_state::mmpanic_irq));
 
-	PALETTE(config, m_palette).set_entries(0x100);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x100);
 
 	blitter_irq().set(FUNC(ddenlovr_state::mmpanic_blitter_irq));
 
@@ -10048,7 +10050,7 @@ void ddenlovr_state::hanakanz(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(FUNC(ddenlovr_state::hanakanz_irq));
 
-	PALETTE(config, m_palette).set_entries(0x200);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x200);
 
 	MCFG_VIDEO_START_OVERRIDE(ddenlovr_state,hanakanz) // blitter commands in the roms are shuffled around
 
@@ -10093,7 +10095,7 @@ void ddenlovr_state::kotbinyo(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(FUNC(ddenlovr_state::hanakanz_irq));
 
-	PALETTE(config, m_palette).set_entries(0x200);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x200);
 
 	MCFG_VIDEO_START_OVERRIDE(ddenlovr_state,hanakanz) // blitter commands in the roms are shuffled around
 
@@ -10210,7 +10212,7 @@ void ddenlovr_state::mjschuka(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set("maincpu", FUNC(tmpz84c015_device::trg0));
 
-	PALETTE(config, m_palette).set_entries(0x200);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x200);
 
 	blitter_irq().set("maincpu", FUNC(tmpz84c015_device::trg1));
 	blitter_irq().append("maincpu", FUNC(tmpz84c015_device::trg2));
@@ -10496,7 +10498,7 @@ void ddenlovr_state::jongtei(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(FUNC(ddenlovr_state::hanakanz_irq));
 
-	PALETTE(config, m_palette).set_entries(0x200);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x200);
 
 	blitter_irq().set(FUNC(ddenlovr_state::mjflove_blitter_irq));
 
@@ -10548,7 +10550,7 @@ void ddenlovr_state::sryudens(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(m_maincpu, FUNC(tmpz84c015_device::trg0));
 
-	PALETTE(config, m_palette).set_entries(0x100);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x100);
 
 	blitter_irq().set(FUNC(ddenlovr_state::mjflove_blitter_irq));
 
@@ -10594,7 +10596,7 @@ void ddenlovr_state::janshinp(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(m_maincpu, FUNC(tmpz84c015_device::trg0));
 
-	PALETTE(config, m_palette).set_entries(0x100);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x100);
 
 	blitter_irq().set(FUNC(ddenlovr_state::mjflove_blitter_irq));
 
@@ -10662,7 +10664,7 @@ void ddenlovr_state::seljan2(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(m_maincpu, FUNC(tmpz84c015_device::trg0));
 
-	PALETTE(config, m_palette).set_entries(0x100);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x100);
 
 	blitter_irq().set("maincpu", FUNC(tmpz84c015_device::pa7_w)).invert(); // PA bit 7 = blitter busy
 
@@ -10710,7 +10712,7 @@ void ddenlovr_state::daimyojn(machine_config &config)
 	m_screen->set_video_attributes(VIDEO_ALWAYS_UPDATE);
 	m_screen->screen_vblank().set(FUNC(ddenlovr_state::hanakanz_irq));
 
-	PALETTE(config, m_palette).set_entries(0x200);
+	PALETTE(config, m_palette, palette_device::BLACK).set_entries(0x200);
 
 	MCFG_VIDEO_START_OVERRIDE(ddenlovr_state,hanakanz); // blitter commands in the roms are shuffled around
 

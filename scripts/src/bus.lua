@@ -1248,6 +1248,8 @@ if (BUSES["IEEE488"]~=null) then
 		MAME_DIR .. "src/devices/bus/ieee488/hp9895.h",
 		MAME_DIR .. "src/devices/bus/ieee488/remote488.cpp",
 		MAME_DIR .. "src/devices/bus/ieee488/remote488.h",
+		MAME_DIR .. "src/devices/bus/ieee488/grid2102.cpp",
+		MAME_DIR .. "src/devices/bus/ieee488/grid2102.h",
 	}
 
 	dependency {
@@ -2192,6 +2194,23 @@ if (BUSES["WANGPC"]~=null) then
 		MAME_DIR .. "src/devices/bus/wangpc/tig.h",
 		MAME_DIR .. "src/devices/bus/wangpc/wdc.cpp",
 		MAME_DIR .. "src/devices/bus/wangpc/wdc.h",
+	}
+end
+
+
+---------------------------------------------------
+--
+--@src/devices/bus/z29_kbd/keyboard.h,BUSES["Z29_KBD"] = true
+---------------------------------------------------
+
+if (BUSES["Z29_KBD"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/z29_kbd/keyboard.cpp",
+		MAME_DIR .. "src/devices/bus/z29_kbd/keyboard.h",
+		MAME_DIR .. "src/devices/bus/z29_kbd/he191_3425.cpp",
+		MAME_DIR .. "src/devices/bus/z29_kbd/he191_3425.h",
+		MAME_DIR .. "src/devices/bus/z29_kbd/md_kbd.cpp",
+		MAME_DIR .. "src/devices/bus/z29_kbd/md_kbd.h",
 	}
 end
 
@@ -3287,6 +3306,8 @@ if (BUSES["COCO"]~=null) then
 		MAME_DIR .. "src/devices/bus/coco/coco_dcmodem.h",
 		MAME_DIR .. "src/devices/bus/coco/coco_orch90.cpp",
 		MAME_DIR .. "src/devices/bus/coco/coco_orch90.h",
+		MAME_DIR .. "src/devices/bus/coco/coco_ram.cpp",
+		MAME_DIR .. "src/devices/bus/coco/coco_ram.h",
 		MAME_DIR .. "src/devices/bus/coco/coco_ssc.cpp",
 		MAME_DIR .. "src/devices/bus/coco/coco_ssc.h",
 		MAME_DIR .. "src/devices/bus/coco/coco_pak.cpp",

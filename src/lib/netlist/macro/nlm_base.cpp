@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------------------*/
 
 static NETLIST_START(diode_models)
-	NET_MODEL("D _(IS=1e-15 N=1)")
+	NET_MODEL("D _(IS=1e-15 N=1 NBV=3 IBV=0.001 BV=1E9)")
 
 	NET_MODEL("1N914 D(Is=2.52n Rs=.568 N=1.752 Cjo=4p M=.4 tt=20n Iave=200m Vpk=75 mfg=OnSemi type=silicon)")
 	// FIXME: 1N916 currently only a copy of 1N914!
@@ -78,6 +78,8 @@ static NETLIST_START(family_models)
 	NET_MODEL("FAMILY _(TYPE=CUSTOM IVL=0.16 IVH=0.4 OVL=0.1 OVH=1.0 ORL=1.0 ORH=130.0)")
 	NET_MODEL("OPAMP _()")
 	NET_MODEL("SCHMITT_TRIGGER _()")
+
+	// TTL: 	FAMILY(IVL=0.16 IVH=0.4 OVL=0.1 OVH=1.0 ORL=1.0 ORH=130)
 
 	NET_MODEL("74XXOC FAMILY(IVL=0.16 IVH=0.4 OVL=0.1 OVH=0.05 ORL=10.0 ORH=1.0e8)")
 	NET_MODEL("74XX FAMILY(TYPE=TTL)")

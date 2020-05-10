@@ -243,6 +243,7 @@ const double XTAL::known_xtals[] = {
 	 16'128'000, /* 16.128_MHz_XTAL        Fujitsu FM-7 */
 	 16'200'000, /* 16.2_MHz_XTAL          Debut */
 	 16'257'000, /* 16.257_MHz_XTAL        IBM PC MDA & EGA */
+	 16'313'000, /* 16.313_MHz_XTAL        Micro-Term ERGO 201 */
 	 16'364'000, /* 16.364_MHz_XTAL        Corvus Concept */
 	 16'384'000, /* 16.384_MHz_XTAL        - */
 	 16'400'000, /* 16.4_MHz_XTAL          MS 6102 */
@@ -342,6 +343,7 @@ const double XTAL::known_xtals[] = {
 	 28'375'160, /* 28.37516_MHz_XTAL      Amiga PAL systems */
 	 28'475'000, /* 28.475_MHz_XTAL        CoCo 3 PAL */
 	 28'480'000, /* 28.48_MHz_XTAL         Chromatics CGC-7900 */
+	 28'636'000, /* 28.636_MHz_XTAL        Super Kaneko Nova System */
 	 28'636'363, /* 28.636363_MHz_XTAL     Later Leland games and Atari GT, Amiga NTSC, Raiden2 h/w (8x NTSC subcarrier)*/
 	 28'640'000, /* 28.64_MHz_XTAL         Fukki FG-1c AI AM-2 PCB */
 	 28'700'000, /* 28.7_MHz_XTAL          - */
@@ -367,6 +369,7 @@ const double XTAL::known_xtals[] = {
 	 33'264'000, /* 33.264_MHz_XTAL        Hazeltine 1500 terminal */
 	 33'330'000, /* 33.33_MHz_XTAL         Sharp X68000 XVI */
 	 33'333'000, /* 33.333_MHz_XTAL        Sega Model 3 CPU board, Vegas */
+	 33'333'333, /* 33.333333_MHz_XTAL     Super Kaneko Nova System Sound clock with /2 divider */
 	 33'833'000, /* 33.833_MHz_XTAL        - */
 	 33'868'800, /* 33.8688_MHz_XTAL       Usually used to drive 90's Yamaha OPL/FM chips with /2 divider */
 	 34'000'000, /* 34_MHz_XTAL            Gaelco PCBs */

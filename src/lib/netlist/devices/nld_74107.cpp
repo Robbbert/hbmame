@@ -7,7 +7,6 @@
 
 #include "nld_74107.h"
 #include "netlist/nl_base.h"
-#include "nlid_system.h"
 
 namespace netlist
 {
@@ -63,7 +62,7 @@ namespace netlist
 	NETLIB_OBJECT_DERIVED(74107, 74107A)
 	{
 	public:
-		NETLIB_CONSTRUCTOR_DERIVED(74107, 74107A)
+		NETLIB_CONSTRUCTOR(74107)
 		{
 			m_delay[0] = delay_107[0];
 			m_delay[1] = delay_107[1];

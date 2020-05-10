@@ -225,7 +225,7 @@ namespace plib {
 
 		T* allocate(std::size_t n)
 		{
-			return reinterpret_cast<T *>(m_a.allocate(ALIGN, sizeof(T) * n));
+			return reinterpret_cast<T *>(m_a.allocate(ALIGN, sizeof(T) * n)); //NOLINT
 		}
 
 		void deallocate(T* p, std::size_t n) noexcept
@@ -234,7 +234,7 @@ namespace plib {
 		}
 
 		template <class AR1, class T1, std::size_t A1, class AR2, class T2, std::size_t A2>
-		friend bool operator==(const arena_allocator<AR1, T1, A1>& lhs,
+		friend bool operator==(const arena_allocator<AR1, T1, A1>& lhs, // NOLINT
 			const arena_allocator<AR2, T2, A2>& rhs) noexcept;
 
 		template <class AU, class U, std::size_t A>
@@ -323,6 +323,7 @@ namespace plib {
 			auto *mem = allocate(alignof(T), sizeof(T));
 			try
 			{
+				// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 				auto *mema = new (mem) T(std::forward<Args>(args)...);
 				return unique_pool_ptr<T>(mema, arena_deleter<aligned_arena, T>(*this));
 			}
@@ -339,6 +340,7 @@ namespace plib {
 			auto *mem = allocate(alignof(T), sizeof(T));
 			try
 			{
+				// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 				auto *mema = new (mem) T(std::forward<Args>(args)...);
 				return owned_pool_ptr<T>(mema, true, arena_deleter<aligned_arena, T>(*this));
 			}
@@ -353,6 +355,7 @@ namespace plib {
 		static T *alloc(Args&&... args)
 		{
 			auto *p = allocate(alignof(T), sizeof(T));
+			// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 			return new(p) T(std::forward<Args>(args)...);
 		}
 

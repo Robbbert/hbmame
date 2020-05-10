@@ -179,14 +179,14 @@ WRITE32_MEMBER( mac_state::ariel_ramdac_w ) // this is for the "Ariel" style RAM
 				{
 					m_palette->set_pen_color(m_rbv_clutoffs, rgb_t(m_rbv_colors[2], m_rbv_colors[2], m_rbv_colors[2]));
 					m_rbv_palette[m_rbv_clutoffs] = rgb_t(m_rbv_colors[2], m_rbv_colors[2], m_rbv_colors[2]);
-					m_rbv_clutoffs++;
+					m_rbv_clutoffs = (m_rbv_clutoffs + 1) & 0xff;
 					m_rbv_count = 0;
 				}
 				else
 				{
 					m_palette->set_pen_color(m_rbv_clutoffs, rgb_t(m_rbv_colors[0], m_rbv_colors[1], m_rbv_colors[2]));
 					m_rbv_palette[m_rbv_clutoffs] = rgb_t(m_rbv_colors[0], m_rbv_colors[1], m_rbv_colors[2]);
-					m_rbv_clutoffs++;
+					m_rbv_clutoffs = (m_rbv_clutoffs + 1) & 0xff;
 					m_rbv_count = 0;
 				}
 			}
@@ -1348,7 +1348,7 @@ void mac_state::maclc520(machine_config &config)
 
 void mac_state::maciivx(machine_config &config)
 {
-	maclc(config, false);
+	maclc(config, false, true, asc_device::asc_type::VASP);
 
 	M68030(config, m_maincpu, C32M);
 	m_maincpu->set_addrmap(AS_PROGRAM, &mac_state::maclc3_map);

@@ -94,6 +94,18 @@ if (MACHINES["AKIKO"]~=null) then
 	}
 end
 
+---------------------------------------------------
+--
+--@src/devices/machine/am2901b.h,MACHINES["AM2901B"] = true
+---------------------------------------------------
+
+if (MACHINES["AM2901B"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/am2901b.cpp",
+		MAME_DIR .. "src/devices/machine/am2901b.h",
+	}
+end
+
 --------------------------------------------------
 --
 --@src/devices/machine/arm_iomd.h,MACHINES["ARM_IOMD"] = true
@@ -2769,7 +2781,7 @@ end
 
 ---------------------------------------------------
 --
---@src/devices/machine/scnxx562.h,MACHINES["SCN_PCI"] = true
+--@src/devices/machine/scn_pci.h,MACHINES["SCN_PCI"] = true
 ---------------------------------------------------
 
 if (MACHINES["SCN_PCI"]~=null) then
@@ -2867,7 +2879,7 @@ end
 --
 --@src/devices/machine/spg2xx.h,MACHINES["SPG2XX"] = true
 --@src/devices/machine/spg110.h,MACHINES["SPG2XX"] = true
---@src/devices/machine/sunplus_gcm394.h,MACHINES["SPG2XX"] = true
+--@src/devices/machine/sunplus_gpl16250soc.h,MACHINES["SPG2XX"] = true
 ---------------------------------------------------
 
 if (MACHINES["SPG2XX"]~=null) then
@@ -2886,10 +2898,10 @@ if (MACHINES["SPG2XX"]~=null) then
 		MAME_DIR .. "src/devices/machine/spg110.h",
 		MAME_DIR .. "src/devices/machine/spg110_video.cpp",
 		MAME_DIR .. "src/devices/machine/spg110_video.h",
-		MAME_DIR .. "src/devices/machine/sunplus_gcm394.cpp",
-		MAME_DIR .. "src/devices/machine/sunplus_gcm394.h",
-		MAME_DIR .. "src/devices/machine/sunplus_gcm394_video.cpp",
-		MAME_DIR .. "src/devices/machine/sunplus_gcm394_video.h",
+		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc.cpp",
+		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc.h",
+		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc_video.cpp",
+		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc_video.h",
 	}
 end
 

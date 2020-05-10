@@ -382,6 +382,7 @@ VIDEOS["PWM_DISPLAY"] = true
 VIDEOS["SDA5708"] = true
 VIDEOS["SED1200"] = true
 VIDEOS["SED1330"] = true
+VIDEOS["SED1500"] = true
 VIDEOS["SED1520"] = true
 VIDEOS["SNES_PPU"] = true
 VIDEOS["STVVDP"] = true
@@ -420,6 +421,7 @@ VIDEOS["BT431"] = true
 --------------------------------------------------
 
 MACHINES["AKIKO"] = true
+MACHINES["AM2901B"] = true
 MACHINES["AUTOCONFIG"] = true
 MACHINES["BUSMOUSE"] = true
 MACHINES["CR511B"] = true
@@ -918,6 +920,7 @@ BUSES["VTECH_MEMEXP"] = true
 BUSES["WANGPC"] = true
 BUSES["WSWAN"] = true
 BUSES["X68K"] = true
+BUSES["Z29_KBD"] = true
 BUSES["Z88"] = true
 BUSES["ZORRO"] = true
 
@@ -1899,6 +1902,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/fp200.cpp",
 	MAME_DIR .. "src/mame/drivers/fp1100.cpp",
 	MAME_DIR .. "src/mame/drivers/fp6000.cpp",
+	MAME_DIR .. "src/mame/machine/fp6000_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/fp6000_kbd.h",
 	MAME_DIR .. "src/mame/drivers/ht6000.cpp",
 	MAME_DIR .. "src/mame/drivers/pb1000.cpp",
 	MAME_DIR .. "src/mame/drivers/pv1000.cpp",
@@ -2001,6 +2006,8 @@ files {
 	MAME_DIR .. "src/mame/machine/cit101_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/cit101_kbd.h",
 	MAME_DIR .. "src/mame/drivers/cit220.cpp",
+	MAME_DIR .. "src/mame/machine/cit220_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/cit220_kbd.h",
 }
 
 createMESSProjects(_target, _subtarget, "coleco")
@@ -3210,16 +3217,6 @@ files {
 createMESSProjects(_target, _subtarget, "quantel")
 files {
 	MAME_DIR .. "src/mame/drivers/dpb7000.cpp",
-	MAME_DIR .. "src/mame/video/dpb_combiner.cpp",
-	MAME_DIR .. "src/mame/video/dpb_combiner.h",
-	MAME_DIR .. "src/mame/video/dpb_brushproc.cpp",
-	MAME_DIR .. "src/mame/video/dpb_brushproc.h",
-	MAME_DIR .. "src/mame/video/dpb_brushstore.cpp",
-	MAME_DIR .. "src/mame/video/dpb_brushstore.h",
-	MAME_DIR .. "src/mame/video/dpb_framestore.cpp",
-	MAME_DIR .. "src/mame/video/dpb_framestore.h",
-	MAME_DIR .. "src/mame/video/dpb_storeaddr.cpp",
-	MAME_DIR .. "src/mame/video/dpb_storeaddr.h",
 	MAME_DIR .. "src/mame/drivers/harriet.cpp",
 }
 
@@ -3349,6 +3346,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/saitek_exchess.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_leonardo.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_mark5.cpp",
+	MAME_DIR .. "src/mame/drivers/saitek_minichess.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_prschess.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_renaissance.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_risc2500.cpp",
@@ -3947,8 +3945,17 @@ files {
 	MAME_DIR .. "src/mame/includes/spg2xx.h",
 	MAME_DIR .. "src/mame/drivers/spg29x.cpp",
 	MAME_DIR .. "src/mame/drivers/spg29x_lexibook_jg7425.cpp",
-	MAME_DIR .. "src/mame/drivers/sunplus_unsp20soc.cpp",
-	MAME_DIR .. "src/mame/drivers/sunplus_unsp20soc_mobigo.cpp",
+	MAME_DIR .. "src/mame/drivers/generalplus_gpl16250.cpp",
+	MAME_DIR .. "src/mame/drivers/generalplus_gpl16250_rom.cpp",
+	MAME_DIR .. "src/mame/drivers/generalplus_gpl16250_romram.cpp",
+	MAME_DIR .. "src/mame/drivers/generalplus_gpl16250_nand.cpp",
+	MAME_DIR .. "src/mame/drivers/generalplus_gpl16250_mobigo.cpp",
+	MAME_DIR .. "src/mame/drivers/generalplus_gpl16250_spi.cpp",
+	MAME_DIR .. "src/mame/includes/generalplus_gpl16250.h",
+	MAME_DIR .. "src/mame/includes/generalplus_gpl16250_romram.h",
+	MAME_DIR .. "src/mame/includes/generalplus_gpl16250_nand.h",
+	MAME_DIR .. "src/mame/machine/generalplus_gpl16250.cpp",
+	MAME_DIR .. "src/mame/machine/generalplus_gpl16250.h",
 	MAME_DIR .. "src/mame/drivers/generalplus_gpl32612.cpp",
 	MAME_DIR .. "src/mame/drivers/xavix.cpp",
 	MAME_DIR .. "src/mame/video/xavix.cpp",
@@ -4177,7 +4184,9 @@ files {
 
 createMESSProjects(_target, _subtarget, "zenith")
 files {
+	MAME_DIR .. "src/mame/drivers/mdt60.cpp",
 	MAME_DIR .. "src/mame/drivers/z100.cpp",
+	MAME_DIR .. "src/mame/drivers/z22.cpp",
 	MAME_DIR .. "src/mame/drivers/z29.cpp",
 }
 
@@ -4275,6 +4284,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/elwro800.cpp",
 	MAME_DIR .. "src/mame/drivers/emate.cpp",
 	MAME_DIR .. "src/mame/drivers/epic14e.cpp",
+	MAME_DIR .. "src/mame/drivers/ergo201.cpp",
 	MAME_DIR .. "src/mame/drivers/esprit.cpp",
 	MAME_DIR .. "src/mame/drivers/eti660.cpp",
 	MAME_DIR .. "src/mame/includes/eti660.h",
@@ -4456,6 +4466,10 @@ files {
 	MAME_DIR .. "src/mame/drivers/palestra.cpp",
 	MAME_DIR .. "src/mame/machine/nl_palestra.cpp",
 	MAME_DIR .. "src/mame/drivers/mindset.cpp",
+	MAME_DIR .. "src/mame/drivers/gs6502.cpp",
+	MAME_DIR .. "src/mame/drivers/gs6809.cpp",
+	MAME_DIR .. "src/mame/drivers/gscpm.cpp",
+	MAME_DIR .. "src/mame/drivers/gsz80.cpp",
 }
 
 end
