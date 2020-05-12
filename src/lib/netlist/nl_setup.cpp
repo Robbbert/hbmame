@@ -1115,7 +1115,7 @@ void models_t::model_parse(const pstring &model_in, model_map_t &map)
 	}
 }
 
-pstring models_t::model_string(const model_map_t &map)
+pstring models_t::model_t::model_string(const model_map_t &map)
 {
 	// operator [] has no const implementation
 	pstring ret = map.at("COREMODEL") + "(";
@@ -1125,29 +1125,30 @@ pstring models_t::model_string(const model_map_t &map)
 	return ret + ")";
 }
 
-pstring models_t::value_str(const pstring &model, const pstring &entity)
+models_t::model_t models_t::get_model(const pstring &model)
 {
 	model_map_t &map = m_cache[model];
 
 	if (map.empty())
 		model_parse(model , map);
 
-	if (entity != plib::ucase(entity))
-		throw nl_exception(MF_MODEL_PARAMETERS_NOT_UPPERCASE_1_2(entity, model_string(map)));
-	if (map.find(entity) == map.end())
-		throw nl_exception(MF_ENTITY_1_NOT_FOUND_IN_MODEL_2(entity, model_string(map)));
-
-	return map[entity];
+	return model_t(model, map);
 }
 
-nl_fptype models_t::value(const pstring &model, const pstring &entity)
+pstring models_t::model_t::value_str(const pstring &entity) const
 {
-	model_map_t &map = m_cache[model];
+	if (entity != plib::ucase(entity))
+		throw nl_exception(MF_MODEL_PARAMETERS_NOT_UPPERCASE_1_2(entity, model_string(m_map)));
+	const auto it(m_map.find(entity));
+	if ( it == m_map.end())
+		throw nl_exception(MF_ENTITY_1_NOT_FOUND_IN_MODEL_2(entity, model_string(m_map)));
 
-	if (map.empty())
-		model_parse(model , map);
+	return it->second;
+}
 
-	pstring tmp = value_str(model, entity);
+nl_fptype models_t::model_t::value(const pstring &entity) const
+{
+	pstring tmp = value_str(entity);
 
 	nl_fptype factor = nlconst::one();
 	auto p = std::next(tmp.begin(), static_cast<pstring::difference_type>(tmp.size() - 1));
@@ -1164,7 +1165,7 @@ nl_fptype models_t::value(const pstring &model, const pstring &entity)
 		case 'a': factor = nlconst::magic(1e-18); break; // NOLINT
 		default:
 			if (*p < '0' || *p > '9')
-				throw nl_exception(MF_UNKNOWN_NUMBER_FACTOR_IN_2(model, entity));
+				throw nl_exception(MF_UNKNOWN_NUMBER_FACTOR_IN_2(m_model, entity));
 	}
 	if (factor != nlconst::one())
 		tmp = plib::left(tmp, tmp.size() - 1);
@@ -1173,28 +1174,63 @@ nl_fptype models_t::value(const pstring &model, const pstring &entity)
 	bool err(false);
 	auto val = plib::pstonum_ne<nl_fptype>(tmp, err);
 	if (err)
-		throw nl_exception(MF_MODEL_NUMBER_CONVERSION_ERROR(entity, tmp, "double", model));
+		throw nl_exception(MF_MODEL_NUMBER_CONVERSION_ERROR(entity, tmp, "double", m_model));
 	return val * factor;
 }
+
+
+// FIXME: all this belongs elsewhere
+
+P_ENUM(family_type,
+	CUSTOM,
+	TTL,
+	MOS,
+	CMOS,
+	NMOS,
+	PMOS)
 
 class logic_family_std_proxy_t : public logic_family_desc_t
 {
 public:
-	logic_family_std_proxy_t() = default;
-	unique_pool_ptr<devices::nld_base_d_to_a_proxy> create_d_a_proxy(netlist_state_t &anetlist,
-			const pstring &name, const logic_output_t *proxied) const override;
-	unique_pool_ptr<devices::nld_base_a_to_d_proxy> create_a_d_proxy(netlist_state_t &anetlist, const pstring &name, const logic_input_t *proxied) const override;
-};
+	logic_family_std_proxy_t(family_type ft)
+	: m_family_type(ft)
+	{
+	}
 
-unique_pool_ptr<devices::nld_base_d_to_a_proxy> logic_family_std_proxy_t::create_d_a_proxy(netlist_state_t &anetlist,
-		const pstring &name, const logic_output_t *proxied) const
-{
-	return anetlist.make_object<devices::nld_d_to_a_proxy>(anetlist, name, proxied);
-}
-unique_pool_ptr<devices::nld_base_a_to_d_proxy> logic_family_std_proxy_t::create_a_d_proxy(netlist_state_t &anetlist, const pstring &name, const logic_input_t *proxied) const
-{
-	return anetlist.make_object<devices::nld_a_to_d_proxy>(anetlist, name, proxied);
-}
+	// FIXME: create proxies based on family type (far future)
+	unique_pool_ptr<devices::nld_base_d_to_a_proxy> create_d_a_proxy(netlist_state_t &anetlist,
+			const pstring &name, const logic_output_t *proxied) const override
+	{
+		switch(m_family_type)
+		{
+			case family_type::CUSTOM:
+			case family_type::TTL:
+			case family_type::MOS:
+			case family_type::CMOS:
+			case family_type::NMOS:
+			case family_type::PMOS:
+				return anetlist.make_object<devices::nld_d_to_a_proxy>(anetlist, name, proxied);
+		}
+		return anetlist.make_object<devices::nld_d_to_a_proxy>(anetlist, name, proxied);
+	}
+
+	unique_pool_ptr<devices::nld_base_a_to_d_proxy> create_a_d_proxy(netlist_state_t &anetlist, const pstring &name, const logic_input_t *proxied) const override
+	{
+		switch(m_family_type)
+		{
+			case family_type::CUSTOM:
+			case family_type::TTL:
+			case family_type::MOS:
+			case family_type::CMOS:
+			case family_type::NMOS:
+			case family_type::PMOS:
+				return anetlist.make_object<devices::nld_a_to_d_proxy>(anetlist, name, proxied);
+		}
+		return anetlist.make_object<devices::nld_a_to_d_proxy>(anetlist, name, proxied);
+	}
+private:
+	family_type m_family_type;
+};
 
 
 /// \brief Class representing the logic families.
@@ -1215,8 +1251,10 @@ unique_pool_ptr<devices::nld_base_a_to_d_proxy> logic_family_std_proxy_t::create
 class family_model_t
 {
 public:
-	family_model_t(param_model_t &model)
-	: m_IVL(model, "IVL")
+	template <typename P>
+	family_model_t(P &model)
+	: m_TYPE(model, "TYPE")
+	, m_IVL(model, "IVL")
 	, m_IVH(model, "IVH")
 	, m_OVL(model, "OVL")
 	, m_OVH(model, "OVH")
@@ -1224,34 +1262,38 @@ public:
 	, m_ORH(model, "ORH")
 	{}
 
-	param_model_t::value_t m_IVL;    //!< Input voltage low threshold relative to supply voltage
-	param_model_t::value_t m_IVH;    //!< Input voltage high threshold relative to supply voltage
-	param_model_t::value_t m_OVL;    //!< Output voltage minimum voltage relative to supply voltage
-	param_model_t::value_t m_OVH;    //!< Output voltage maximum voltage relative to supply voltage
-	param_model_t::value_t m_ORL;    //!< Output output resistance for logic 0
-	param_model_t::value_t m_ORH;    //!< Output output resistance for logic 1
+	param_model_t::value_str_t m_TYPE; //!< Family type (TTL, CMOS, ...)
+	param_model_t::value_t m_IVL;      //!< Input voltage low threshold relative to supply voltage
+	param_model_t::value_t m_IVH;      //!< Input voltage high threshold relative to supply voltage
+	param_model_t::value_t m_OVL;      //!< Output voltage minimum voltage relative to supply voltage
+	param_model_t::value_t m_OVH;      //!< Output voltage maximum voltage relative to supply voltage
+	param_model_t::value_t m_ORL;      //!< Output output resistance for logic 0
+	param_model_t::value_t m_ORH;      //!< Output output resistance for logic 1
 };
+
 
 const logic_family_desc_t *setup_t::family_from_model(const pstring &model)
 {
+	family_type ft(family_type::CUSTOM);
 
-	if (models().value_str(model, "TYPE") == "TTL")
-		return family_TTL();
-	if (models().value_str(model, "TYPE") == "CD4XXX")
-		return family_CD4XXX();
+	auto mod(models().get_model(model));
+	family_model_t modv(mod);
+
+	if (!ft.set_from_string(modv.m_TYPE()))
+		throw nl_exception(MF_UNKNOWN_FAMILY_TYPE_1(modv.m_TYPE(), model));
 
 	auto it = m_nlstate.family_cache().find(model);
 	if (it != m_nlstate.family_cache().end())
 		return it->second.get();
 
-	auto ret = plib::make_unique<logic_family_std_proxy_t>();
+	auto ret = plib::make_unique<logic_family_std_proxy_t>(ft);
 
-	ret->m_low_thresh_PCNT = models().value(model, "IVL");
-	ret->m_high_thresh_PCNT = models().value(model, "IVH");
-	ret->m_low_VO = models().value(model, "OVL");
-	ret->m_high_VO = models(). value(model, "OVH");
-	ret->m_R_low = models().value(model, "ORL");
-	ret->m_R_high = models().value(model, "ORH");
+	ret->m_low_thresh_PCNT = modv.m_IVL();
+	ret->m_high_thresh_PCNT = modv.m_IVH();
+	ret->m_low_VO = modv.m_OVL();
+	ret->m_high_VO = modv.m_OVH();
+	ret->m_R_low = modv.m_ORL();
+	ret->m_R_high = modv.m_ORH();
 
 	auto *retp = ret.get();
 

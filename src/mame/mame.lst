@@ -13712,6 +13712,7 @@ pbillrdsa                       // (c) 1987 Nihon System (Sega license?)
 
 @source:freeway.cpp
 freeway
+freewaya
 
 @source:fresh.cpp
 fresh                           // (c) Chain Leisure
@@ -38419,6 +38420,7 @@ shdancbl                        // BOOTLEG
 shdancbla                       // BOOTLEG
 shinobld                        // (c) 1987 (but bootleg)
 shinoblda                       //
+shinobldb                       //
 tetrisbl                        // (c) 1988 (but bootleg)
 tturfbl                         // (c) 1989 (Datsu bootleg)
 wb3bbl                          // bootleg
