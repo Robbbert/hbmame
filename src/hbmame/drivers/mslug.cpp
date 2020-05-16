@@ -409,6 +409,23 @@ ROM_START( mslugps16 )
 	ROM_LOAD16_BYTE( "201.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
 ROM_END
 
+ROM_START( mslugps17 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "201_ps17.p1", 0x000000, 0x200000, CRC(f20aa6ae) SHA1(1b38cc122bf06e824bfa2aea00770272526fcab1) )
+	//ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
+
+	NEO_BIOS_AUDIO_512K( "201_ps17.m1", CRC(d62d0bb0) SHA1(c88cbca937fafe05fdf1eaa3adcafa1dffdfca2c) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "201_ps17.v1", 0x000000, 0x800000, CRC(14cf8459) SHA1(d03f0c513cf5b76ae6193f619eb0b08d435e243a) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "201_ps17.c1", 0x000000, 0x800000, CRC(3baf9125) SHA1(42cec2d5a8a471fc98f342a5142774f2911cba7b) )
+	ROM_LOAD16_BYTE( "201_ps17.c2", 0x000001, 0x800000, CRC(f24190fe) SHA1(f63909f4bf7fed19740e249432b019e0a4457130) )
+ROM_END
+
 ROM_START( mslugrmpl01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "201rmpl01.p1", 0x100000, 0x100000, CRC(704a164f) SHA1(63095b2c1436945a69c57b7d83b48bbef242f260) )
@@ -650,7 +667,8 @@ HACK( 1996, mslugps12,      mslug,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1996, mslugps13,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, mslugps14,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FGCH]",  "Metal Slug (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, mslugps15,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (War Chariot)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps16,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Multi-Function Version 2018-04-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslugps16,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Multi-Function Version 2018-04-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugps17,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-05-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Mix [2019-09-13])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Rocket Launcher Extreme Mix [2019-09-13])", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Shotgun Extreme Mix [2019-09-13])", MACHINE_SUPPORTS_SAVE )

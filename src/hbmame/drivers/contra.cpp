@@ -3,7 +3,7 @@
 #include "../mame/drivers/contra.cpp"
 
 
-ROM_START( contrajs01 )
+ROM_START( contrajs01 ) //contrajc
 	ROM_REGION( 0x30000, "maincpu", ROMREGION_ERASEFF )    
 	ROM_LOAD( "s01.633n03.18a",   0x20000, 0x08000, CRC(10faba24) SHA1(8769ab8f00d8aa215b1a759c60f6a9a0bd17af57) )
 	ROM_CONTINUE(             0x08000, 0x08000 )

@@ -875,6 +875,7 @@ dinos242
 dinos243
 dinos244
 dinos245
+dinos246
 ffights01
 ffights02
 ffightj2s01
@@ -1220,8 +1221,10 @@ xmvsfu1d
 19xxs01
 19xxjrs01
 1944s01
+armwars01
 avspus01
 avspus02
+avspus03
 batcirds01
 csclubs01
 cybotsjs01
@@ -1278,6 +1281,8 @@ sfa3s05
 sfa3s06
 sfa3s07
 sfa3s08
+sfa3s09
+sfa3s10
 sfz2aljs00
 sfz2aljs01
 sfz2aljs02
@@ -1289,6 +1294,7 @@ sfz2aljs07
 sfz2aljs08
 sfz2aljs09
 sfz2aljs10
+sfz2aljs11
 sfz2als01
 sfz2als02
 sfz2ns01
@@ -2108,6 +2114,8 @@ kof97s168
 kof97s169
 kof97s170
 kof97s171
+kof97s172
+kof97s173
 kof97hx01
 kof97hx02
 kof97hx03
@@ -4082,6 +4090,7 @@ mslugps13
 mslugps14
 mslugps15
 mslugps16
+mslugps17
 mslugrmpl01
 mslugrmpl02
 mslugrmpl03
@@ -4141,6 +4150,7 @@ mslug2ps36
 mslug2ps37
 mslug2ps38
 mslug2ps39
+mslug2ps40
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -4239,6 +4249,7 @@ ms6s08
 ms6s09
 ms6s10
 ms6s11
+ms6s12
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -4291,6 +4302,7 @@ mslug3h40
 mslug3h41
 mslug3h42
 mslug3h43
+mslug3h44
 mslug3h45
 mslug3h46
 mslug3h47
@@ -4812,6 +4824,8 @@ mslug4hh51
 mslug4hh52
 mslug4hh53
 mslug4hh54
+mslug4hh55
+mslug4hh56
 mslug4erms01
 mslug4erms02
 mslug4erms03
@@ -5045,6 +5059,7 @@ mslug5dh64
 mslug5dh65
 mslug5dh66
 mslug5dh67
+mslug5dh68
 ms5plusrm01
 ms5plusrm02
 ms5plusrm03
@@ -5724,16 +5739,6 @@ mslugxrm4s22
 mslugxrm4s23
 mslugxrm4s24
 mslugxrm4s25
-mslugxrm4s26
-mslugxrm4s27
-mslugxrm4s28
-mslugxrm4s29
-mslugxrm4s30
-mslugxrm4s31
-mslugxrm4s32
-mslugxrm4s33
-mslugxrm4s34
-mslugxrm4s35
 mslugxrm5s01
 mslugxrm5s02
 mslugxrm5s03
@@ -5742,8 +5747,6 @@ mslugxrm5s05
 mslugxrm5s06
 mslugxrm5s07
 mslugxrm5s08
-mslugxrm5s09
-mslugxrm5s10
 mslugxrmmpv01
 mslugxrmmpv02
 mslugxrmmpv03
@@ -7612,6 +7615,9 @@ kov2p204s89
 kov2p204s90
 kov2p204s91
 kov2p204s92
+kov2p204s93
+kov2p204s94
+kov2p204s95
 kov2h01
 kov2h02
 kov2h03

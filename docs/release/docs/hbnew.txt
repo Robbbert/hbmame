@@ -5,28 +5,47 @@
 
 New Games
 ---------------------------------
+- [armwars01]         Armored Warriors (Full Attack Edition 2020-05-07)
+- [avspus03]          Alien vs. Predator (Ultimate Evolution Edition 2020-05-08)
 - [dinos241]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-03-27)
 - [dinos242]          Cadillacs and Dinosaurs (Ares Infinite Bullet 2020 2020-04-03)
 - [dinos243]          Cadillacs and Dinosaurs (Ares Edition 2020-04-10)
 - [dinos244]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-04-22)
 - [dinos245]          Cadillacs and Dinosaurs (Uranus Edition Update 2020-02-28)
+- [dinos246]          Cadillacs and Dinosaurs (Prosperity Enhanced Edition 2020-05-02)
 - [grdianss15]        Guardians (Warriors Edition 2020-02-06)
+- [kof97s172]         Kof'97 (World Armed Forces 83 Revised Edition 2020-05-01)
+- [kof97s173]         Kof'97 (World Armed Forces 83 Revised Edition + Alloy Bullet Series 2020-05-01)
 - [kof2k2s107]        Kof2002 (Iori Special Edition 2020-03-23)
 - [kov2p204s92]       Knights of Valour 2 Plus (God of War Musou 2020-03-07)
+- [kov2p204s93]       Knights of Valour 2 Plus (Heroes 2020-05-07)
+- [kov2p204s94]       Knights of Valour 2 Plus (Dragon And Phoenix Dance 2020-05-07)
+- [kov2p204s95]       Knights of Valour 2 Plus (Shenbing Mushuang 2020-05-07)
 - [ms6s11]            Metal Slug 6 (Enemies Resetting Version 2019-02-12 + Burst Enhanced Edition 2020-03-29)
+- [ms6s12]            Metal Slug 6 (Enemies Resetting Version 2019-02-12 + Burst Enhanced Edition 2020-04-28)
+- [mslugps17]         Metal Slug (Burst Enhanced Edition 2020-05-04)
 - [mslug2ps39]        Metal Slug 2 (Burst Enhanced Edition 2020-03-29)
+- [mslug2ps40]        Metal Slug 2 (Burst Enhanced Edition 2020-04-28)
 - [mslug3h38]         Metal Slug 3 (Burst Enhanced Edition 2020-03-29)
-- [mslug4hh54]        Metal Slug 4 (Burst Enhanced Edition 2020-03-29)
+- [mslug3h44]         Metal Slug 3 (Burst Enhanced Edition 2020-04-28)
+- [mslug4hh54]        Metal Slug 4 (Burst Enhanced Edition 2020-03-29)[NOT WORKING]
+- [mslug4hh55]        Metal Slug 4 (Burst Enhanced Edition 2020-04-28)[NOT WORKING]
+- [mslug4hh56]        Metal Slug 4 (Super Enhanced Version 2020-04-28)[NOT WORKING]
 - [mslug5dh67]        Metal Slug 5 (Burst Enhanced Edition 2020-03-28)
+- [mslug5dh68]        Metal Slug 5 (Burst Enhanced Edition 2020-04-28)
+- [mslugxz67]         Metal Slug X (Apocalyptic Time 1.0 2020-04-20)[HB Exclusive]
 - [mslugxz69]         Metal Slug X (Multi-Carrier Version + Burst Enhanced Edition 2020-03-29)
 - [mslugxz70]         Metal Slug X (2R Version 2020-04-16)
 - [nbbatmans03]       Ninja Baseball Bat Man (1V2 2020-04-17)
 - [punisherjs20]      The Punisher (Warriors Edition 2020-04-03)
 - [punisherjs21]      The Punisher (1v2 Unlimited Bullets 2020-04-03)
 - [sailormnts03]      Pretty Soldier Sailor Moon (Enhanced Edition 2019-12-15)
+- [sfa3s09]           Street Fighter Alpha 3 (Dragon Drop 2020-04-09)
+- [sfa3s10]           Street Fighter Alpha 3 (Dragon Drop Simplified 2020-04-09)
 - [sk2h44]            Sangokushi II (The Three Swordsmen Pirate Chinese Version 2020-03-17)
+- [sfz2aljs11]        Street Fighter Zero 2 Alpha (Dragon Drop Simplified 2016-10-31)
 - [tk2h159]           Tenchi wo Kurau II (Three Sword Saints Chinese Version 2020-04-23)
-- [tk2h160]           Tenchi wo Kurau II (Dared Evil Boss Edition 2020-04-23)
+- [tk2h160]           Tenchi wo Kurau II (Dared Evil Boss Edition 2020-04-23)[NOT WORKING]
 - [umk3uc20200506]    Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-05-06)
 - [viostorms05]       Violent Storm (Enhanced Edition 2020-03-25)
 
@@ -69,8 +88,6 @@ New Games
 - [mslug4hh53]        Metal Slug 4 (Burst Enhanced Edition 2020-03-17)
 - [mslug5dh65]        Metal Slug 5 (Enemy Soldiers Enhanced Version 2020-01-30)
 - [mslug5dh66]        Metal Slug 5 (Burst Enhanced Edition 2020-03-18)
-- [mslugxz66]         Metal Slug X (Enemy Soldiers Psycho Edition 2020-03-22)
-- [mslugxz67]         Metal Slug X (The Hungry Meteorite Edition 2020-03-22)
 - [mslugxrm5s10]      Metal Slug X (Big Heavy Machine Gun Flame Edition Remix 2019-11-30)(The Fallen Angels Edition 2020-03-23)
 - [oldsplus25]        Oriental Legend 2 (Yellow Hat Version 2020-03-20)
 - [tk2h158]           Tenchi wo Kurau II (Master Edition Update 2020-02-15)
