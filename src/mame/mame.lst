@@ -11231,6 +11231,9 @@ cpzodiacj                       //
 @source:craft.cpp
 craft                           // Craft, by [lft]
 
+@source:crazybal.cpp
+crazybal                        // EGS
+
 @source:crbaloon.cpp
 crbaloon                        // CL  (c) 1980 Taito Corporation
 crbaloon2                       // CL  (c) 1980 Taito Corporation
@@ -13545,6 +13548,7 @@ fscc12b                         //
 
 @source:fidel_sc6.cpp
 fscc6                           //
+gambit
 miniscc
 
 @source:fidel_sc8.cpp
