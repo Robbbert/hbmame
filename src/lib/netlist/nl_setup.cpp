@@ -235,9 +235,9 @@ namespace netlist
 	}
 
 	void nlparse_t::register_lib_entry(const pstring &name, const
-		pstring &paramdef, const pstring &sourcefile)
+		pstring &paramdef, plib::source_location &&sourceloc)
 	{
-		m_factory.add(plib::make_unique<factory::library_element_t>(name, paramdef, sourcefile));
+		m_factory.add(plib::make_unique<factory::library_element_t>(name, paramdef, std::move(sourceloc)));
 	}
 
 	void nlparse_t::register_frontier(const pstring &attach, const pstring &r_IN,
@@ -273,9 +273,9 @@ namespace netlist
 		register_link(attach, frontier_name + ".Q");
 	}
 
-	void nlparse_t::truthtable_create(tt_desc &desc, const pstring &sourcefile)
+	void nlparse_t::truthtable_create(tt_desc &desc, plib::source_location &&sourceloc)
 	{
-		auto fac = factory::truthtable_create(desc, sourcefile);
+		auto fac = factory::truthtable_create(desc, std::move(sourceloc));
 		m_factory.add(std::move(fac));
 	}
 
@@ -1082,6 +1082,28 @@ void setup_t::resolve_inputs()
 				log().info(MI_ANALOG_OUTPUT_1_WITHOUT_CONNECTIONS(term->name()));
 			else
 				log().warning(MW_TERMINAL_1_WITHOUT_CONNECTIONS(term->name()));
+		}
+	}
+	log().verbose("checking tristate consistency  ...");
+	for (auto & i : m_terminals)
+	{
+		detail::core_terminal_t *term = i.second;
+		if (term->is_tristate_output())
+		{
+			const auto *tri(static_cast<tristate_output_t *>(term));
+			// check if we are connected to a proxy
+			const auto iter_proxy(m_proxies.find(tri));
+
+			if (iter_proxy == m_proxies.end() && !tri->is_force_logic())
+			{
+				log().error(ME_TRISTATE_NO_PROXY_FOUND_2(term->name(), term->device().name()));
+				err = true;
+			}
+			else if (iter_proxy != m_proxies.end() && tri->is_force_logic())
+			{
+				log().error(ME_TRISTATE_PROXY_FOUND_2(term->name(), term->device().name()));
+				err = true;
+			}
 		}
 	}
 	if (err)
