@@ -1518,9 +1518,9 @@ uint8_t upd765_family_device::get_st3(floppy_info &fi)
 {
 	uint8_t st3 = command[1] & 7;
 	if(fi.ready)
-		result[0] |= ST3_RY;
+		st3 |= ST3_RY;
 	if(fi.dev)
-		result[0] |=
+		st3 |=
 			(fi.dev->wpt_r() ? ST3_WP : 0x00) |
 			(fi.dev->trk00_r() ? 0x00 : ST3_T0) |
 			(fi.dev->twosid_r() ? 0x00 : ST3_TS);
@@ -3050,6 +3050,7 @@ dp8473_device::dp8473_device(const machine_config &mconfig, const char *tag, dev
 	ready_connected = false;
 	select_connected = true;
 	select_multiplexed = false;
+	recalibrate_steps = 77; // TODO: 3917 in extended track range mode
 }
 
 pc8477a_device::pc8477a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) : ps2_fdc_device(mconfig, PC8477A, tag, owner, clock)
@@ -3058,6 +3059,7 @@ pc8477a_device::pc8477a_device(const machine_config &mconfig, const char *tag, d
 	ready_connected = false;
 	select_connected = true;
 	select_multiplexed = false;
+	recalibrate_steps = 85; // TODO: may also be programmed as 255, 3925 or 4095 by (unemulated) mode command
 }
 
 wd37c65c_device::wd37c65c_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
@@ -3075,9 +3077,9 @@ wd37c65c_device::wd37c65c_device(const machine_config &mconfig, const char *tag,
 uint8_t wd37c65c_device::get_st3(floppy_info &fi)
 {
 	uint8_t st3 = command[1] & 7;
-	result[0] |= 0x20;
+	st3 |= 0x20;
 	if(fi.dev)
-		result[0] |=
+		st3 |=
 			(fi.dev->wpt_r() ? 0x48 : 0x00) |
 			(fi.dev->trk00_r() ? 0x00 : 0x10);
 	return st3;
@@ -3113,6 +3115,7 @@ tc8566af_device::tc8566af_device(const machine_config &mconfig, const char *tag,
 	ready_connected = true;
 	select_connected = true;
 	select_multiplexed = false;
+	recalibrate_steps = 255;
 }
 
 void tc8566af_device::device_start()
