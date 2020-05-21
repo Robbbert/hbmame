@@ -34,6 +34,7 @@ New Games
 - [mslug5dh67]        Metal Slug 5 (Burst Enhanced Edition 2020-03-28)
 - [mslug5dh68]        Metal Slug 5 (Burst Enhanced Edition 2020-04-28)
 - [mslugxz67]         Metal Slug X (Apocalyptic Time 1.0 2020-04-20)[HB Exclusive]
+- [mslugxz68]         Metal Slug X (Apocalyptic Time 2.1 2020-05-01)[HB Exclusive]
 - [mslugxz69]         Metal Slug X (Multi-Carrier Version + Burst Enhanced Edition 2020-03-29)
 - [mslugxz70]         Metal Slug X (2R Version 2020-04-16)
 - [nbbatmans03]       Ninja Baseball Bat Man (1V2 2020-04-17)
