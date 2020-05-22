@@ -226,6 +226,8 @@ void unsp_20_device::execute_extended_group(uint16_t op)
 		uint8_t use_ds = BIT(ximm, 5);
 		uint8_t form = (ximm & 0x0018) >> 3;
 
+		r0 = m_core->m_r[rx];
+
 		switch (form)
 		{
 			case 0x0: // Rx, [<ds:>Ry]
@@ -238,7 +240,7 @@ void unsp_20_device::execute_extended_group(uint16_t op)
 				if (aluop != 0x0d)
 					r1 = read16(r2);
 				m_core->m_r[ry] = (uint16_t)(m_core->m_r[ry] - 1);
-				if (m_core->m_r[ry] == 0xffff)
+				if (m_core->m_r[ry] == 0xffff && use_ds)
 					m_core->m_r[REG_SR] -= 0x0400;
 				break;
 			case 0x2: // Rx, [<ds:>Ry++]
@@ -246,7 +248,7 @@ void unsp_20_device::execute_extended_group(uint16_t op)
 				if (aluop != 0x0d)
 					r1 = read16(r2);
 				m_core->m_r[ry] = (uint16_t)(m_core->m_r[ry] + 1);
-				if (m_core->m_r[ry] == 0x0000)
+				if (m_core->m_r[ry] == 0x0000 && use_ds)
 					m_core->m_r[REG_SR] += 0x0400;
 				break;
 			case 0x3: // Rx, [<ds:>++Ry]
@@ -259,8 +261,7 @@ void unsp_20_device::execute_extended_group(uint16_t op)
 				break;
 		}
 
-		const bool write = do_basic_alu_ops(aluop, lres, r0, r1, r2, (aluop != 7) ? true : false);
-		if (write)
+		if (do_basic_alu_ops(aluop, lres, r0, r1, r2, (aluop != 7) ? true : false))
 		{
 			m_core->m_r[rx] = (uint16_t)lres;
 		}

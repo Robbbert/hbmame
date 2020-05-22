@@ -37,7 +37,7 @@ the printer data goes to B800 which is a spare address range in the real machine
 #include "video/i8275.h"
 #include "machine/7474.h"
 #include "machine/x2212.h"
-#include "sound/spkrdev.h"
+#include "sound/beep.h"
 #include "bus/rs232/rs232.h"
 #include "bus/centronics/ctronics.h"
 #include "emupal.h"
@@ -88,7 +88,7 @@ private:
 	required_device<i8276_device> m_crtc;
 	required_device<x2210_device> m_nvram;
 	required_ioport_array<9> m_io_keyboard;
-	required_device<speaker_sound_device> m_buzzer;
+	required_device<beep_device> m_buzzer;
 	required_device<ttl7474_device> m_7474;
 	required_device<rs232_port_device> m_rs232;
 	required_device<centronics_device> m_centronics;
@@ -155,7 +155,7 @@ d5 : Printer enable */
 void trs80dt1_state::port3_w(u8 data)
 {
 	m_rs232->write_txd(BIT(data, 1));
-	m_buzzer->level_w(BIT(data, 4));
+	m_buzzer->set_state(BIT(data, 4));
 }
 
 void trs80dt1_state::prg_map(address_map &map)
@@ -284,6 +284,9 @@ void trs80dt1_state::machine_start()
 	m_palette->set_pen_color(0, rgb_t(0x00,0x00,0x00)); // black
 	m_palette->set_pen_color(1, rgb_t(0x00,0xa0,0x00)); // normal
 	m_palette->set_pen_color(2, rgb_t(0x00,0xff,0x00)); // highlight
+
+	save_item(NAME(m_bow));
+	save_item(NAME(m_cent_busy));
 }
 
 const gfx_layout trs80dt1_charlayout =
@@ -365,7 +368,7 @@ void trs80dt1_state::trs80dt1(machine_config &config)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
-	SPEAKER_SOUND(config, m_buzzer).add_route(ALL_OUTPUTS, "mono", 0.50);
+	BEEP(config, m_buzzer, 2000).add_route(ALL_OUTPUTS, "mono", 0.50);
 
 	RS232_PORT(config, m_rs232, default_rs232_devices, nullptr);
 	m_rs232->rxd_handler().set_inputline("maincpu", MCS51_RX_LINE);
@@ -388,4 +391,5 @@ ROM_START( trs80dt1 )
 	ROM_LOAD( "8045716.u8",   0x0000, 0x0800, CRC(e2c5e59b) SHA1(0d571888d5f9fea4e565486ea8d3af8998ca46b1) )
 ROM_END
 
-COMP( 1989, trs80dt1, 0, 0, trs80dt1, trs80dt1, trs80dt1_state, empty_init, "Radio Shack", "TRS-80 DT-1 Data Terminal", 0 )
+COMP( 1982, trs80dt1, 0, 0, trs80dt1, trs80dt1, trs80dt1_state, empty_init, "Radio Shack", "TRS-80 DT-1 Data Terminal", MACHINE_SUPPORTS_SAVE )
+

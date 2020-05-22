@@ -211,7 +211,10 @@ namespace netlist
 		/// See the 74125 implementation
 		///
 		template <std::size_t V>
-		using desc_const =  std::integral_constant<std::size_t, V>;
+		using desc_const =  std::integral_constant<const std::size_t, V>;
+
+		template <typename T, T V>
+		using desc_const_t =  std::integral_constant<const T, V>;
 	};
 
 
