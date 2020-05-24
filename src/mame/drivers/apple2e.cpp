@@ -158,7 +158,7 @@ Address bus A0-A11 is Y0-Y11
 #include "bus/a2bus/4play.h"
 #include "bus/a2bus/computereyes2.h"
 #include "bus/a2bus/byte8251.h"
-
+#include "bus/a2bus/a2iwm.h"
 #include "bus/a2gameio/gameio.h"
 
 #include "bus/rs232/rs232.h"
@@ -285,7 +285,7 @@ public:
 	required_device<address_map_bank_device> m_lcbank;
 	optional_device<mos6551_device> m_acia1, m_acia2;
 	optional_device<applefdc_base_device> m_laserudc;
-	optional_device<iwm_device> m_iicpiwm;
+	optional_device<legacy_iwm_device> m_iicpiwm;
 	required_device<ds1315_device> m_ds1315;
 
 	TIMER_DEVICE_CALLBACK_MEMBER(apple2_interrupt);
@@ -4165,6 +4165,7 @@ static void apple2_cards(device_slot_interface &device)
 	device.option_add("diskii", A2BUS_DISKII);  /* Disk II Controller Card */
 	device.option_add("diskiing", A2BUS_DISKIING);  /* Disk II Controller Card, cycle-accurate version */
 	device.option_add("diskiing13", A2BUS_DISKIING13);  /* Disk II Controller Card, cycle-accurate version */
+	device.option_add("diskiiiwm", A2BUS_IWM_CARD);  /* IWM Disk II Controller Card */
 	device.option_add("mockingboard", A2BUS_MOCKINGBOARD);  /* Sweet Micro Systems Mockingboard */
 	device.option_add("phasor", A2BUS_PHASOR);  /* Applied Engineering Phasor */
 	device.option_add("cffa2", A2BUS_CFFA2);  /* CFFA2000 Compact Flash for Apple II (www.dreher.net), 65C02/65816 firmware */
@@ -4560,7 +4561,7 @@ void apple2e_state::apple2c_iwm(machine_config &config)
 	apple2c(config);
 
 	config.device_remove("sl6");
-	A2BUS_IWM_FDC(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
+	A2BUS_IWM(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 }
 
 void apple2e_state::apple2c_mem(machine_config &config)
@@ -4571,7 +4572,7 @@ void apple2e_state::apple2c_mem(machine_config &config)
 	m_maincpu->set_dasm_override(FUNC(apple2e_state::dasm_trampoline));
 
 	config.device_remove("sl6");
-	A2BUS_IWM_FDC(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
+	A2BUS_IWM(config, "sl6", A2BUS_7M_CLOCK).set_onboard(m_a2bus);
 
 	m_ram->set_default_size("128K").set_extra_options("128K, 384K, 640K, 896K, 1152K");
 }
