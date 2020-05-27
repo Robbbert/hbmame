@@ -1101,6 +1101,11 @@ end
 					"-Wno-class-memaccess", -- many instances in ImGui and BGFX
 				}
 			end
+			if (version >= 100000) then
+				buildoptions {
+					"-Wno-return-local-addr", -- sqlite3.c in GCC 10
+				}
+			end
 		end
 	end
 
@@ -1255,8 +1260,8 @@ configuration { "mingw*" }
 				"-static",
 			}
 		end
-		linkoptions {
-			"-Wl,--start-group",
+		flags {
+			"LinkSupportCircularDependencies",
 		}
 		links {
 			"user32",

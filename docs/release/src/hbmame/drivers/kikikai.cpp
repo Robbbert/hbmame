@@ -36,7 +36,7 @@ ROM_START( kikikais01 )
 	ROM_LOAD( "a85-09.g14", 0x0200, 0x0100, CRC(b931c94d) SHA1(fb554084f34c602d1ff7806fb945a06cf14332af) )
 ROM_END
 
-/*    YEAR  NAME         PARENT      MACHINE   INPUT     CLASS           INIT       MONITOR COMPANY                 FULLNAME               FLAGS */
+/*    YEAR  NAME         PARENT      MACHINE   INPUT     CLASS                       INIT      MONITOR COMPANY                 FULLNAME               FLAGS */
 // KiKi KaiKai
-GAME( 1986, kikikais01,  kikikai,    kikikai,  kikikai,  kikikai_state, empty_init, ROT90,   "hack",  "KiKi KaiKai (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, kikikais01,  kikikai,    kikikai,  kikikai,  kikikai_simulation_state, empty_init, ROT90,   "hack",  "KiKi KaiKai (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 
