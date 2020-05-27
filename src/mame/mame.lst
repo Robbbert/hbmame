@@ -3261,6 +3261,8 @@ autoc15                         // 1988 Autocue 1500
 reutapm                         // 1985 Reuters APM Board
 torchf                          // 1982 Torch CF240
 torchh                          // 1982 Torch CH240
+torch301                        // 1984 Torch Model 301
+torch725                        // 1984 Torch Model 725
 
 @source:bbcbc.cpp
 bbcbc                           // 1985 BBC Bridge Companion
@@ -9388,6 +9390,13 @@ boogwinga                       // MBD (c) 1992 (Asia, v1.5)
 boogwingu                       // MBD (c) 1992 (USA, v1.7)
 ragtime                         // MBD (c) 1992 (Japan, v1.5)
 ragtimea                        // MBD (c) 1992 (Japan, v1.3)
+
+@source:boss_se70.cpp
+se70                            //
+
+@source:boss_sx700.cpp
+gx700                           //
+sx700                           //
 
 @source:bottom9.cpp
 bottom9                         // GX891 (c) 1989
@@ -19149,8 +19158,8 @@ lbpc                            // Ampro Little Board/PC
 
 @source:lc80.cpp
 lc80                            //
+lc80e                           //
 lc80_2                          //
-sc80                            //
 
 @source:lckydraw.cpp
 lckydraw                        // (c) 1979 Mirco
@@ -19561,6 +19570,7 @@ m6805evs                        //
 
 @source:m72.cpp
 airduel                         // (c) 1990 (World)
+airduelu
 airduelm72                      // (c) 1990 (Japan)
 bchopper                        // (c) 1987
 cosmccop                        // (c) 1991 (World)
@@ -21856,6 +21866,8 @@ alice                           // Matra & Hachette Ordinateur Alice
 alice32                         // Matra & Hachette Alice 32
 alice90                         // Matra & Hachette Alice 90
 mc10                            // MC-10
+mcx128                          // MCX-128
+alice128                        // Alice with a MCX-128
 
 @source:mc1000.cpp
 mc1000                          //
@@ -33658,6 +33670,7 @@ starfirp                        //
 starfirpa                       //
 terrlake                        //
 theraid                         //
+theraida                        // (c) 1984 Playmatic / EFOSA
 trailer                         //
 ufo_x                           //
 
@@ -34832,6 +34845,9 @@ tr606                           // Roland
 @source:roland_tr707.cpp
 tr707                           //
 tr727                           //
+
+@source:roland_tr909.cpp
+tr909                           //
 
 @source:roland_u20.cpp
 u20                             //

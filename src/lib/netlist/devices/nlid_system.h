@@ -9,7 +9,7 @@
 
 #include "netlist/analog/nlid_twoterm.h"
 #include "netlist/nl_base.h"
-#include "netlist/nl_setup.h"
+#include "netlist/nl_factory.h"
 #include "netlist/plib/putil.h"
 #include "netlist/plib/prandom.h"
 
@@ -67,7 +67,7 @@ namespace devices
 
 		NETLIB_UPDATEI()
 		{
-			m_Q.push(!m_feedback(), m_inc);
+			m_Q.push(m_feedback() ^ 1, m_inc);
 		}
 
 	private:
@@ -104,7 +104,7 @@ namespace devices
 		{
 			m_funcparam[0] = exec().time().as_fp<nl_fptype>();
 			const netlist_time m_inc = netlist_time::from_fp(m_compiled->evaluate(m_funcparam));
-			m_Q.push(!m_feedback(), m_inc);
+			m_Q.push(m_feedback() ^ 1, m_inc);
 		}
 
 	private:
@@ -353,7 +353,7 @@ namespace devices
 			for (int i=0; i < m_N(); i++)
 			{
 				pstring inpname = plib::pfmt("A{1}")(i);
-				m_I.push_back(state().make_object<analog_input_t>(*this, inpname));
+				m_I.push_back(state().make_pool_object<analog_input_t>(*this, inpname));
 				inps.push_back(inpname);
 				m_vals.push_back(nlconst::zero());
 			}
@@ -376,13 +376,14 @@ namespace devices
 		}
 
 	private:
+		using pf_type = plib::pfunction<nl_fptype>;
 		param_int_t m_N;
 		param_str_t m_func;
 		analog_output_t m_Q;
 		std::vector<unique_pool_ptr<analog_input_t>> m_I;
 
-		std::vector<nl_fptype> m_vals;
-		state_var<plib::pfunction<nl_fptype>> m_compiled;
+		pf_type::values_container m_vals;
+		state_var<pf_type> m_compiled;
 
 	};
 

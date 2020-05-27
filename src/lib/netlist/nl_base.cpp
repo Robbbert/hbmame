@@ -39,11 +39,11 @@ namespace netlist
 	// ----------------------------------------------------------------------------------------
 
 	detail::queue_t::queue_t(netlist_t &nl, const pstring &name)
-		: timed_queue<plib::pqentry_t<net_t *, netlist_time_ext>, false>(nlconst::max_queue_size())
+		: timed_queue<plib::pqentry_t<netlist_time_ext, net_t *>, false>(config::MAX_QUEUE_SIZE::value)
 		, netlist_object_t(nl, name)
 		, m_qsize(0)
-		, m_times(nlconst::max_queue_size())
-		, m_net_ids(nlconst::max_queue_size())
+		, m_times(config::MAX_QUEUE_SIZE::value)
+		, m_net_ids(config::MAX_QUEUE_SIZE::value)
 	{
 	}
 
@@ -245,8 +245,10 @@ namespace netlist
 		ENTRY_EX(sizeof(param_logic_t))
 		ENTRY_EX(sizeof(state_var<int>))
 		ENTRY_EX(sizeof(pstring))
-
+		ENTRY_EX(sizeof(core_device_t::stats_t))
+		ENTRY_EX(sizeof(plib::plog_level))
 	#undef ENTRY
+	#undef ENTRY_EX
 	}
 
 	pstring netlist_state_t::version()
@@ -280,7 +282,6 @@ namespace netlist
 	void netlist_state_t::reset()
 	{
 		m_setup = nullptr;
-
 		// Reset all nets once !
 		log().verbose("Call reset on all nets:");
 		for (auto & n : nets())
@@ -360,10 +361,9 @@ namespace netlist
 			break;
 		}
 
-	#if 1
 		// the above may screw up m_active and the list
 		rebuild_lists();
-	#endif
+
 	}
 
 	void netlist_t::print_stats() const
@@ -401,13 +401,13 @@ namespace netlist
 		}
 
 		log().verbose("Total calls : {1:12} {2:12} {3:12}", total_count,
-			total_time, total_time / static_cast<decltype(total_time)>(total_count ? total_count : 1));
+			total_time, total_time / static_cast<decltype(total_time)>((total_count > 0) ? total_count : 1));
 
 		log().verbose("Total loop     {1:15}", si.m_stat_mainloop());
 		log().verbose("Total time     {1:15}", total_time);
 
 		// FIXME: clang complains about unreachable code without
-		const auto clang_workaround_unreachable_code = NL_USE_QUEUE_STATS;
+		const bool clang_workaround_unreachable_code(NL_USE_QUEUE_STATS>0);
 		if (clang_workaround_unreachable_code)
 		{
 			// Only one serialization should be counted in total time
@@ -484,7 +484,7 @@ namespace netlist
 		, m_active_outputs(*this, "m_active_outputs", 1)
 	{
 		if (exec().stats_enabled())
-			m_stats = owner.make_object<stats_t>();
+			m_stats = owner.make_pool_object<stats_t>();
 	}
 
 	core_device_t::core_device_t(core_device_t &owner, const pstring &name)
@@ -492,9 +492,10 @@ namespace netlist
 		, m_hint_deactivate(false)
 		, m_active_outputs(*this, "m_active_outputs", 1)
 	{
+		//printf("owned device: %s\n", this->name().c_str());
 		owner.state().register_device(this->name(), owned_pool_ptr<core_device_t>(this, false));
 		if (exec().stats_enabled())
-			m_stats = owner.state().make_object<stats_t>();
+			m_stats = owner.state().make_pool_object<stats_t>();
 	}
 
 	void core_device_t::set_default_delegate(detail::core_terminal_t &term)
@@ -556,7 +557,7 @@ namespace netlist
 
 	device_t::device_t(netlist_state_t &owner, const pstring &name)
 	: base_device_t(owner, name)
-	, m_model(*this, "MODEL", pstring(NETLIST_DEFAULT_LOGIC_FAMILY))
+	, m_model(*this, "MODEL", pstring(config::DEFAULT_LOGIC_FAMILY()))
 	{
 		set_logic_family(state().setup().family_from_model(m_model()));
 		if (logic_family() == nullptr)
@@ -714,8 +715,21 @@ namespace netlist
 	{
 		const auto *solv(solver());
 		// Nets may belong to railnets which do not have a solver attached
-		if (solv)
+		if (solv != nullptr)
 				solver()->solve_now();
+	}
+
+	void terminal_t::set_ptrs(nl_fptype *gt, nl_fptype *go, nl_fptype *Idr) noexcept(false)
+	{
+		// NOLINTNEXTLINE(readability-implicit-bool-conversion)
+		if (!(gt && go && Idr) && (gt || go || Idr))
+		{
+			throw nl_exception("Inconsistent nullptrs for terminal {}", name());
+		}
+
+		m_gt = gt;
+		m_go = go;
+		m_Idr = Idr;
 	}
 
 	// ----------------------------------------------------------------------------------------
@@ -816,6 +830,11 @@ namespace netlist
 		device.state().setup().register_param_t(*this);
 	}
 
+	param_t::~param_t() noexcept
+	{
+		// placed here to avoid weak vtable warnings
+	}
+
 	param_t::param_type_t param_t::param_type() const noexcept(false)
 	{
 		if (dynamic_cast<const param_str_t *>(this) != nullptr)
@@ -832,6 +851,7 @@ namespace netlist
 		state().log().fatal(MF_UNKNOWN_PARAM_TYPE(name()));
 		throw nl_exception(MF_UNKNOWN_PARAM_TYPE(name()));
 	}
+
 
 
 	pstring param_t::get_initial(const core_device_t *dev, bool *found) const
@@ -944,5 +964,50 @@ namespace netlist
 
 	nlparse_t &netlist_state_t::parser() { return m_setup->parser(); }
 	const nlparse_t &netlist_state_t::parser() const { return m_setup->parser(); }
+
+	template struct state_var<std::uint8_t>;
+	template struct state_var<std::uint16_t>;
+	template struct state_var<std::uint32_t>;
+	template struct state_var<std::uint64_t>;
+	template struct state_var<std::int8_t>;
+	template struct state_var<std::int16_t>;
+	template struct state_var<std::int32_t>;
+	template struct state_var<std::int64_t>;
+	template struct state_var<bool>;
+
+	template class param_num_t<std::uint8_t>;
+	template class param_num_t<std::uint16_t>;
+	template class param_num_t<std::uint32_t>;
+	template class param_num_t<std::uint64_t>;
+	template class param_num_t<std::int8_t>;
+	template class param_num_t<std::int16_t>;
+	template class param_num_t<std::int32_t>;
+	template class param_num_t<std::int64_t>;
+	template class param_num_t<long double>;
+	template class param_num_t<double>;
+	template class param_num_t<float>;
+	template class param_num_t<bool>;
+
+	template class param_model_t::value_base_t<float>;
+	template class param_model_t::value_base_t<double>;
+	template class param_model_t::value_base_t<long double>;
+
+	template class object_array_t<logic_input_t, 1>;
+	template class object_array_t<logic_input_t, 2>;
+	template class object_array_t<logic_input_t, 3>;
+	template class object_array_t<logic_input_t, 4>;
+	template class object_array_t<logic_input_t, 5>;
+	template class object_array_t<logic_input_t, 6>;
+	template class object_array_t<logic_input_t, 7>;
+	template class object_array_t<logic_input_t, 8>;
+
+	template class object_array_t<logic_output_t, 1>;
+	template class object_array_t<logic_output_t, 2>;
+	template class object_array_t<logic_output_t, 3>;
+	template class object_array_t<logic_output_t, 4>;
+	template class object_array_t<logic_output_t, 5>;
+	template class object_array_t<logic_output_t, 6>;
+	template class object_array_t<logic_output_t, 7>;
+	template class object_array_t<logic_output_t, 8>;
 
 } // namespace netlist

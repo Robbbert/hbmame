@@ -217,7 +217,7 @@ public:
 
 	NETLIB_UPDATEI()
 	{
-		nl_fptype cur = m_in();
+		netlist::nl_fptype cur = m_in();
 
 		// FIXME: make this a parameter
 		// avoid calls due to noise
@@ -234,7 +234,7 @@ private:
 	netlist::analog_input_t m_in;
 	std::unique_ptr<netlist_mame_analog_output_device::output_delegate> m_callback; // TODO: change to std::optional for C++17
 	netlist_mame_cpu_device *m_cpu_device;
-	netlist::state_var<nl_fptype> m_last;
+	netlist::state_var<netlist::nl_fptype> m_last;
 };
 
 // ----------------------------------------------------------------------------------------
@@ -456,7 +456,7 @@ protected:
 
 	NETLIB_UPDATEI()
 	{
-		nl_fptype val = m_in() * m_mult() + m_offset();
+		netlist::nl_fptype val = m_in() * m_mult() + m_offset();
 		sound_update(exec().time());
 		/* ignore spikes */
 		if (plib::abs(val) < 32767.0)
@@ -524,7 +524,7 @@ public:
 
 	NETLIB_NAME(sound_in)(netlist::netlist_state_t &anetlist, const pstring &name)
 	: netlist::device_t(anetlist, name)
-	, m_sample_time(attotime::zero)
+	, m_sample_time(netlist::netlist_time::zero())
 	, m_feedback(*this, "FB") // clock part
 	, m_Q(*this, "Q")
 	, m_pos(0)
@@ -535,9 +535,9 @@ public:
 
 		for (int i = 0; i < MAX_INPUT_CHANNELS; i++)
 		{
-			m_channels[i].m_param_name = anetlist.make_object<netlist::param_str_t>(*this, plib::pfmt("CHAN{1}")(i), "");
-			m_channels[i].m_param_mult = anetlist.make_object<netlist::param_fp_t>(*this, plib::pfmt("MULT{1}")(i), 1.0);
-			m_channels[i].m_param_offset = anetlist.make_object<netlist::param_fp_t>(*this, plib::pfmt("OFFSET{1}")(i), 0.0);
+			m_channels[i].m_param_name = anetlist.make_pool_object<netlist::param_str_t>(*this, plib::pfmt("CHAN{1}")(i), "");
+			m_channels[i].m_param_mult = anetlist.make_pool_object<netlist::param_fp_t>(*this, plib::pfmt("MULT{1}")(i), 1.0);
+			m_channels[i].m_param_offset = anetlist.make_pool_object<netlist::param_fp_t>(*this, plib::pfmt("OFFSET{1}")(i), 0.0);
 		}
 	}
 
@@ -557,7 +557,7 @@ protected:
 			{
 				if (m_channels[i].m_buffer == nullptr)
 					break; // stop, called outside of stream_update
-				const nl_fptype v = m_channels[i].m_buffer[m_pos];
+				const netlist::nl_fptype v = m_channels[i].m_buffer[m_pos];
 				m_channels[i].m_param->set(v * (*m_channels[i].m_param_mult)() + (*m_channels[i].m_param_offset)());
 			}
 		}
@@ -570,14 +570,14 @@ protected:
 		}
 		m_pos++;
 
-		m_Q.net().toggle_and_push_to_queue(nltime_from_attotime(m_sample_time));
+		m_Q.net().toggle_and_push_to_queue(m_sample_time);
 	}
 
 public:
 	void resolve(attotime sample_time)
 	{
 		m_pos = 0;
-		m_sample_time = sample_time;
+		m_sample_time = netlist::netlist_time::from_raw(static_cast<netlist::netlist_time::internal_type>(nltime_from_attotime(sample_time).as_raw()));
 
 		for (int i = 0; i < MAX_INPUT_CHANNELS; i++)
 		{
@@ -597,7 +597,7 @@ public:
 	void buffer_reset(attotime sample_time, int num_samples, S **inputs)
 	{
 		m_samples = num_samples;
-		m_sample_time = sample_time;
+		m_sample_time = netlist::netlist_time::from_raw(static_cast<netlist::netlist_time::internal_type>(nltime_from_attotime(sample_time).as_raw()));
 
 		m_pos = 0;
 		for (int i=0; i < m_num_channels; i++)
@@ -619,7 +619,7 @@ public:
 
 private:
 	channel m_channels[MAX_INPUT_CHANNELS];
-	attotime m_sample_time;
+	netlist::netlist_time m_sample_time;
 
 	netlist::logic_input_t m_feedback;
 	netlist::logic_output_t m_Q;
@@ -808,7 +808,7 @@ void netlist_mame_analog_output_device::custom_netlist_additions(netlist::netlis
 	if (owner()->has_running_machine())
 		m_delegate.resolve();
 
-	auto dev = nlstate.make_object<NETLIB_NAME(analog_callback)>(nlstate, dname);
+	auto dev = nlstate.make_pool_object<NETLIB_NAME(analog_callback)>(nlstate, dname);
 	dev->register_callback(std::move(m_delegate));
 	nlstate.register_device(dname, std::move(dev));
 	nlstate.parser().register_link(dname + ".IN", pin);
@@ -841,7 +841,7 @@ void netlist_mame_logic_output_device::custom_netlist_additions(netlist::netlist
 	if (owner()->has_running_machine())
 		m_delegate.resolve();
 
-	auto dev = nlstate.make_object<NETLIB_NAME(logic_callback)>(nlstate, dname);
+	auto dev = nlstate.make_pool_object<NETLIB_NAME(logic_callback)>(nlstate, dname);
 	dev->register_callback(std::move(m_delegate));
 	nlstate.register_device(dname, std::move(dev));
 	nlstate.parser().register_link(dname + ".IN", pin);
@@ -1497,7 +1497,7 @@ void netlist_mame_sound_device::device_start()
 			fatalerror("illegal channel number");
 		m_out[chan] = outdev;
 		m_out[chan]->m_sample_time = netlist::netlist_time::from_hz(clock());
-		m_out[chan]->buffer_reset(netlist::netlist_time::zero());
+		m_out[chan]->buffer_reset(netlist::netlist_time_ext::zero());
 	}
 
 	// Configure inputs
