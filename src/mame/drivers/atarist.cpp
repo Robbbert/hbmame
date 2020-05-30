@@ -1336,6 +1336,7 @@ void megast_state::megast_map(address_map &map)
 void ste_state::ste_map(address_map &map)
 {
 	st_map(map);
+	map(0xe00000, 0xe3ffff).rom().region(M68000_TAG, 0);
 	map(0xff9200, 0xff9201).portr("JOY0");
 	map(0xff9202, 0xff9203).portr("JOY1");
 	map(0xff9210, 0xff9211).portr("PADDLE0X");
@@ -1354,6 +1355,7 @@ void ste_state::ste_map(address_map &map)
 void megaste_state::megaste_map(address_map &map)
 {
 	st_map(map);
+	map(0xe00000, 0xe3ffff).rom().region(M68000_TAG, 0);
 	map(0xff8c80, 0xff8c87).rw(Z8530_TAG, FUNC(scc8530_legacy_device::reg_r), FUNC(scc8530_legacy_device::reg_w)).umask16(0x00ff);
 	map(0xfffc20, 0xfffc3f).rw(RP5C15_TAG, FUNC(rp5c15_device::read), FUNC(rp5c15_device::write)).umask16(0x00ff);
 }
@@ -2780,7 +2782,8 @@ ROM_START( megaste )
 	ROM_REGION16_BE( 0x40000, M68000_TAG, 0 )
 	ROM_DEFAULT_BIOS("tos206")
 	ROM_SYSTEM_BIOS( 0, "tos205", "TOS 2.05 (Mega STE TOS)" )
-	ROMX_LOAD( "tos205.bin", 0x00000, 0x40000, BAD_DUMP CRC(d8845f8d) SHA1(e069c14863819635bea33074b90c22e5bd99f1bd), ROM_BIOS(0) )
+	ROMX_LOAD( "atari mega ste 205 018 tms27c010.bin", 0x00000, 0x20000, CRC(befac3ab) SHA1(5b49f101f15a4d1c89cfd1d7ce3fec84a5ca36d0), ROM_BIOS(0) | ROM_SKIP(1) )
+	ROMX_LOAD( "atari mega ste 205 019 tms27c010.bin", 0x00001, 0x20000, CRC(ea2a136d) SHA1(c3c259293de562d2a0fac4d41f95cf3d42ad6df4), ROM_BIOS(0) | ROM_SKIP(1) )
 	ROM_SYSTEM_BIOS( 1, "tos206", "TOS 2.06 (ST/STE TOS)" )
 	ROMX_LOAD( "tos206.bin", 0x00000, 0x40000, BAD_DUMP CRC(3f2f840f) SHA1(ee58768bdfc602c9b14942ce5481e97dd24e7c83), ROM_BIOS(1) )
 

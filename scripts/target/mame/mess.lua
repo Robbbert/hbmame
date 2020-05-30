@@ -65,6 +65,7 @@ CPUS["DSP16"] = true
 CPUS["DSP32C"] = true
 CPUS["PIC16C5X"] = true
 CPUS["PIC16C62X"] = true
+CPUS["PIC17"] = true
 CPUS["G65816"] = true
 CPUS["SPC700"] = true
 CPUS["E1"] = true
@@ -569,6 +570,7 @@ MACHINES["MICROTOUCH"] = true
 MACHINES["MIOT6530"] = true
 MACHINES["MM5307"] = true
 MACHINES["MM58167"] = true
+MACHINES["MM58174"] = true
 MACHINES["MM58274C"] = true
 MACHINES["MM74C922"] = true
 MACHINES["MM5740"] = true
@@ -4465,6 +4467,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/vp415.cpp",
 	MAME_DIR .. "src/mame/drivers/vsmilepro.cpp",
 	MAME_DIR .. "src/mame/drivers/wicat.cpp",
+	MAME_DIR .. "src/mame/drivers/xbase09.cpp",
 	MAME_DIR .. "src/mame/drivers/xor100.cpp",
 	MAME_DIR .. "src/mame/includes/xor100.h",
 	MAME_DIR .. "src/mame/drivers/zms8085.cpp",
