@@ -79,7 +79,8 @@ class NETLIB_NAME(name) : public delegator_t<NETLIB_NAME(pclass)>
 #define NETLIB_BASE_OBJECT(name)                                               \
 class NETLIB_NAME(name) : public delegator_t<base_device_t>
 
-#define NETLIB_CONSTRUCTOR_PASS(cname, ...)                      \
+#define NETLIB_CONSTRUCTOR_PASS(cname, ...)                                    \
+	using this_type = NETLIB_NAME(cname);                                      \
 	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name) \
 	: base_type(owner, name, __VA_ARGS__)
 
@@ -88,6 +89,7 @@ class NETLIB_NAME(name) : public delegator_t<base_device_t>
 ///  Use this to define the constructor of a netlist device. Please refer to
 ///  #NETLIB_OBJECT for an example.
 #define NETLIB_CONSTRUCTOR(cname)                                              \
+	using this_type = NETLIB_NAME(cname);                                      \
 	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name) \
 		: base_type(owner, name)
 
@@ -101,6 +103,7 @@ class NETLIB_NAME(name) : public delegator_t<base_device_t>
 ///      };
 ///
 #define NETLIB_CONSTRUCTOR_MODEL(cname, cmodel)                                              \
+	using this_type = NETLIB_NAME(cname);                                      \
 	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name) \
 		: base_type(owner, name, cmodel)
 
@@ -108,6 +111,7 @@ class NETLIB_NAME(name) : public delegator_t<base_device_t>
 /// The macro allows to add further parameters to a device constructor. This is
 /// normally used for sub-devices and system devices only.
 #define NETLIB_CONSTRUCTOR_EX(cname, ...)                                      \
+	using this_type = NETLIB_NAME(cname);                                      \
 	public: template <class CLASS> NETLIB_NAME(cname)(CLASS &owner, const pstring &name, __VA_ARGS__) \
 		: base_type(owner, name)
 
@@ -173,7 +177,7 @@ class NETLIB_NAME(name) : public delegator_t<base_device_t>
 #define NETLIB_TIMESTEP(cname)                                                 \
 	void NETLIB_NAME(cname) :: timestep(nl_fptype step) noexcept
 
-#define NETLIB_DELEGATE(chip, name) nldelegate(&NETLIB_NAME(chip) :: name, this)
+#define NETLIB_DELEGATE(name) nldelegate(&this_type :: name, this)
 
 #define NETLIB_UPDATE_TERMINALSI() virtual void update_terminals() noexcept override
 #define NETLIB_HANDLERI(name) void name() noexcept
@@ -384,29 +388,25 @@ namespace netlist
 		//! Copy Constructor removed.
 		constexpr state_var(const state_var &rhs) = delete;
 		//! Assignment operator to assign value of a state var.
-		C14CONSTEXPR state_var &operator=(const state_var &rhs) noexcept { m_value = rhs.m_value; return *this; } // OSX doesn't like noexcept
+		constexpr state_var &operator=(const state_var &rhs) noexcept { m_value = rhs.m_value; return *this; } // OSX doesn't like noexcept
 		//! Assignment operator to assign value of type T.
-		C14CONSTEXPR state_var &operator=(const T &rhs) noexcept { m_value = rhs; return *this; }
+		constexpr state_var &operator=(const T &rhs) noexcept { m_value = rhs; return *this; }
 		//! Assignment move operator to assign value of type T.
-		C14CONSTEXPR state_var &operator=(T &&rhs) noexcept { std::swap(m_value, rhs); return *this; }
+		constexpr state_var &operator=(T &&rhs) noexcept { std::swap(m_value, rhs); return *this; }
 		//! Return non-const value of state variable.
-		C14CONSTEXPR operator T & () noexcept { return m_value; }
+		constexpr operator T & () noexcept { return m_value; }
 		//! Return const value of state variable.
 		constexpr operator const T & () const noexcept { return m_value; }
 		//! Return non-const value of state variable.
-		C14CONSTEXPR T & var() noexcept { return m_value; }
+		constexpr T & var() noexcept { return m_value; }
 		//! Return const value of state variable.
 		constexpr const T & var() const noexcept { return m_value; }
 		//! Return non-const value of state variable.
-		C14CONSTEXPR T & operator ()() noexcept { return m_value; }
+		constexpr T & operator ()() noexcept { return m_value; }
 		//! Return const value of state variable.
 		constexpr const T & operator ()() const noexcept { return m_value; }
-		//! Return pointer to state variable.
-		C14CONSTEXPR T * ptr() noexcept { return &m_value; }
-		//! Return const pointer to state variable.
-		constexpr const T * ptr() const noexcept{ return &m_value; }
 		//! Access state variable by ->.
-		C14CONSTEXPR T * operator->() noexcept { return &m_value; }
+		constexpr T * operator->() noexcept { return &m_value; }
 		//! Access state variable by const ->.
 		constexpr const T * operator->() const noexcept{ return &m_value; }
 
@@ -825,9 +825,6 @@ namespace netlist
 			// internal state support
 			// FIXME: get rid of this and implement export/import in MAME
 
-			// only used for logic nets
-			netlist_sig_t *Q_state_ptr() noexcept { return m_cur_Q.ptr(); }
-
 		private:
 			state_var<netlist_sig_t>     m_new_Q;
 			state_var<netlist_sig_t>     m_cur_Q;
@@ -990,7 +987,6 @@ namespace netlist
 		using detail::net_t::initial;
 		using detail::net_t::set_Q_and_push;
 		using detail::net_t::set_Q_time;
-		using detail::net_t::Q_state_ptr;
 	};
 
 	class analog_net_t : public detail::net_t
@@ -1003,7 +999,8 @@ namespace netlist
 
 		nl_fptype Q_Analog() const noexcept { return m_cur_Analog; }
 		void set_Q_Analog(nl_fptype v) noexcept { m_cur_Analog = v; }
-		nl_fptype *Q_Analog_state_ptr() noexcept { return m_cur_Analog.ptr(); }
+		// used by solver code ...
+		nl_fptype *Q_Analog_state_ptr() noexcept { return &m_cur_Analog(); }
 
 		//FIXME: needed by current solver code
 		solver::matrix_solver_t *solver() const noexcept { return m_solver; }
@@ -1109,7 +1106,7 @@ namespace netlist
 			if (!m_force_logic)
 				if (v != m_tristate)
 				{
-					logic_output_t::push(v ? OUT_TRISTATE() : m_last_logic, v ? ts_off_on : ts_on_off);
+					logic_output_t::push((v != 0) ? OUT_TRISTATE() : m_last_logic, v ? ts_off_on : ts_on_off);
 					m_tristate = v;
 				}
 		}
@@ -1137,11 +1134,10 @@ namespace netlist
 	public:
 		analog_output_t(core_device_t &dev, const pstring &aname);
 
-		void push(nl_fptype val) noexcept { set_Q(val); }
+		void push(nl_fptype val) noexcept;
 		void initial(nl_fptype val) noexcept;
 
 	private:
-		void set_Q(nl_fptype newQ) noexcept;
 		analog_net_t m_my_net;
 	};
 
@@ -1513,6 +1509,7 @@ namespace netlist
 
 		~device_t() noexcept override = default;
 
+		nldelegate default_delegate() { return nldelegate(&device_t::update, this); }
 	protected:
 
 		NETLIB_UPDATEI() { }
@@ -1975,11 +1972,11 @@ namespace netlist
 				this->emplace(i, dev, formatted(fmt, i));
 		}
 
-		template<class D>
-		object_array_base_t(D &dev, std::size_t offset, const pstring &fmt,  bool force_logic = false)
+		template<class D, typename... Args>
+		object_array_base_t(D &dev, std::size_t offset, const pstring &fmt, Args&&... args)
 		{
 			for (std::size_t i = 0; i<N; i++)
-				this->emplace(i, dev, formatted(fmt, i+offset), force_logic);
+				this->emplace(i, dev, formatted(fmt, i+offset), std::forward<Args>(args)...);
 		}
 
 		template<class D>
@@ -2169,10 +2166,12 @@ namespace netlist
 	class nld_power_pins
 	{
 	public:
+		using this_type = nld_power_pins;
+
 		explicit nld_power_pins(device_t &owner, const pstring &sVCC = sPowerVCC,
 			const pstring &sGND = sPowerGND)
-		: m_VCC(owner, sVCC, NETLIB_DELEGATE(power_pins, noop))
-		, m_GND(owner, sGND, NETLIB_DELEGATE(power_pins, noop))
+		: m_VCC(owner, sVCC, NETLIB_DELEGATE(noop))
+		, m_GND(owner, sGND, NETLIB_DELEGATE(noop))
 		{
 		}
 
@@ -2330,11 +2329,11 @@ namespace netlist
 		return net().Q_Analog();
 	}
 
-	inline void analog_output_t::set_Q(nl_fptype newQ) noexcept
+	inline void analog_output_t::push(nl_fptype val) noexcept
 	{
-		if (newQ != m_my_net.Q_Analog())
+		if (val != m_my_net.Q_Analog())
 		{
-			m_my_net.set_Q_Analog(newQ);
+			m_my_net.set_Q_Analog(val);
 			m_my_net.toggle_and_push_to_queue(netlist_time::quantum());
 		}
 	}

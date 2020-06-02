@@ -13300,10 +13300,11 @@ fantsia2a                       // (c) 1997 Comad
 fantsia2n                       // (c) 1998 Comad
 fantsy95                        // (c) 1995 Hi-max Technology Inc.
 galhustl                        // (c) 1997 ACE International
-galsnew                         // (c) 1990 Kaneko
-galsnewa                        // (c) 1990 Kaneko
-galsnewj                        // (c) 1990 Kaneko
-galsnewk                        // (c) 1990 Kaneko
+galsnew                         // (c) 1990 Kaneko (Export)
+galsnewj                        // (c) 1990 Kaneko (Japan)
+galsnewk                        // (c) 1990 Kaneko (Korea)
+galsnewt                        // (c) 1990 Kaneko (Taiwan)
+galsnewu                        // (c) 1990 Kaneko (US)
 missmw96                        // (c) 1996 Comad
 missw02                         // (c) 2002 Daigom
 missw96                         // (c) 1996 Comad
@@ -17033,6 +17034,7 @@ mmr4000le                       // MIPS Magnum R4000 (little)
 @source:jchan.cpp
 jchan                           // (c) 1995 Kaneko
 jchan2                          // (c) 1995 Kaneko
+jchana                          // (c) 1995 Kaneko
 
 @source:jclub2.cpp
 darkhors                        // bootleg of Jockey Club II
@@ -22037,6 +22039,7 @@ twinktmb                        // MegaDrive-based hack
 rad_sf2                         // (c)2004 Radica
 rad_sf2p                        // (c)2004 Radica
 rad_gen1                        // (c)2004 Radica
+rad_gen2                        // (c)2004 Radica
 rad_ssoc                        // (c)2004 Radica
 rad_sonic
 
@@ -31631,6 +31634,7 @@ lxcmc250
 lxcmcysw
 lxcmcyfz
 lxcmcydp
+lxcmcysp
 rtvgc300
 rtvgc300fz
 red5mam
@@ -31675,6 +31679,7 @@ sy889
 sy888b
 rfcp168
 dgun2573
+dgun2573a
 dgun2593
 bittboy
 mc_89in1
@@ -32513,6 +32518,11 @@ nms9100                         // Philips NMS 9100 series
 to16                            // Thomson TO16
 alphatp10                       // Triumph-Adler Alphatronic P10
 alphatp50                       // Triumph-Adler Alphatronic P50
+sergeysxt                       // Sergey's XT
+xiprocessor                     // Xi processor board
+micro88                         // Micro 8088
+mononuxt                        // monotech NuXT
+mononuxt2                       // monotech NuXT v2
 
 @source:pc100.cpp
 pc100                           //
@@ -37452,6 +37462,7 @@ karaokd2
 hyprscan                        //
 jak_bbh
 jak_bbsf
+zone3d
 
 @source:spg29x_lexibook_jg7425.cpp
 lx_jg7425
@@ -37536,6 +37547,7 @@ lexizeus                        // Lexibook
 lexiseal                        //
 discpal
 vgcaplet
+vsplus
 
 @source:spg2xx_mysprtch.cpp
 mysprtch

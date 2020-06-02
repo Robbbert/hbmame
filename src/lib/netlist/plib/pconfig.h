@@ -113,26 +113,25 @@
 //============================================================
 
 
-#ifdef NVCCBUILD
-	#define C14CONSTEXPR constexpr
+#if (NVCCBUILD > 0)
 	#if NVCCBUILD == 101
 		#define NVCC_CONSTEXPR constexpr
 	#else
 		#define NVCC_CONSTEXPR constexpr
 	#endif
 	#if __cplusplus != 201402L
-		#error nvcc - something is wrong
+		#error nvcc - use c++14 to compile
 	#endif
 #else
 	#define NVCC_CONSTEXPR constexpr
 	#if __cplusplus == 201103L
-		#define C14CONSTEXPR
+		#error c++11 not supported - you need c++14
 	#elif __cplusplus == 201402L
-		#define C14CONSTEXPR constexpr
+		// Ok
 	#elif __cplusplus == 201703L
-		#define C14CONSTEXPR constexpr
+		// Ok
 	#elif defined(_MSC_VER)
-		#define C14CONSTEXPR
+		// Ok
 	#else
 		#error "C++ version not supported"
 	#endif

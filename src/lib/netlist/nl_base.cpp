@@ -247,6 +247,11 @@ namespace netlist
 		ENTRY_EX(sizeof(pstring))
 		ENTRY_EX(sizeof(core_device_t::stats_t))
 		ENTRY_EX(sizeof(plib::plog_level))
+
+		ENTRY_EX(sizeof(nldelegate))
+		ENTRY(PPMF_TYPE)
+		ENTRY(PHAS_PMF_INTERNAL)
+
 	#undef ENTRY
 	#undef ENTRY_EX
 	}
@@ -757,7 +762,7 @@ namespace netlist
 
 	logic_input_t::logic_input_t(device_t &dev, const pstring &aname,
 			nldelegate delegate)
-			: logic_t(dev, aname, STATE_INP_ACTIVE, delegate)
+			: logic_t(dev, aname, STATE_INP_ACTIVE, delegate.is_set() ? delegate : dev.default_delegate())
 	{
 		state().setup().register_term(*this);
 	}

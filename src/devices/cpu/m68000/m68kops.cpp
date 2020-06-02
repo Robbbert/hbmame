@@ -30182,7 +30182,7 @@ void m68000_base_device::x4ad0_tas_b_ai_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30204,7 +30204,7 @@ void m68000_base_device::x4ad8_tas_b_pi_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30226,7 +30226,7 @@ void m68000_base_device::x4adf_tas_b_pi7_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30248,7 +30248,7 @@ void m68000_base_device::x4ae0_tas_b_pd_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30270,7 +30270,7 @@ void m68000_base_device::x4ae7_tas_b_pd7_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30292,7 +30292,7 @@ void m68000_base_device::x4ae8_tas_b_di_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30314,7 +30314,7 @@ void m68000_base_device::x4af0_tas_b_ix_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30336,7 +30336,7 @@ void m68000_base_device::x4af8_tas_b_aw_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
@@ -30358,7 +30358,7 @@ void m68000_base_device::x4af9_tas_b_al_071234fc()
 	   In particular, the Genesis/Megadrive games Gargoyles and Ex-Mutants need the TAS
 	   to fail to write back in order to function properly. */
 	if (CPU_TYPE_IS_010_LESS() && !m_tas_write_callback.isnull())
-		(m_tas_write_callback)(*m_program, ea, dst | 0x80, 0xff);
+		(m_tas_write_callback)(ea, dst | 0x80);
 	else
 		m68ki_write_8(ea, dst | 0x80);
 
