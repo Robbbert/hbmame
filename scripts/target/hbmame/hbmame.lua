@@ -1075,6 +1075,7 @@ files {
 	MAME_DIR .. "src/mame/video/timelimt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vamphalf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
+	MAME_DIR .. "src/hbmame/drivers/zexall.cpp",
 }
 
 end
