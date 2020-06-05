@@ -3214,6 +3214,10 @@ barbball                        // (proto)          (c) 1983
 basic31                         //
 basic52                         //
 
+@source:basssta.cpp
+bassstr                         //
+sbasssta                        //
+
 @source:batman.cpp
 batman                          // 136085           (c) 1991
 
@@ -11485,8 +11489,8 @@ skydest                         // PD0 (c) 1985 Taito Corporation
 @source:cz101.cpp
 cz101                           // 1984 Casio
 
-@source:czk80.cpp
-czk80                           //
+@source:ckz80.cpp
+ckz80                           //
 
 @source:d400.cpp
 d461                            //
@@ -12362,6 +12366,9 @@ drmicro                         // (c) 1983 Sanritsu
 
 @source:drtomy.cpp
 drtomy                          // (c) 1993 no copyright message (1993 on pcb), some code taken from 'Big Karnak'
+
+@source:drumsta.cpp
+drumsta                         //
 
 @source:drw80pkr.cpp
 drw80pk2                        // (c) 1983 IGT
@@ -22257,6 +22264,7 @@ alm32                           // 1988 Mephisto Almeria 32 Bit
 port16                          // 1989 Mephisto Portorose 16 Bit
 port32                          // 1989 Mephisto Portorose 32 Bit
 port32a                         // 1989 Mephisto Portorose 32 Bit
+port32b                         // 1989 Mephisto Portorose 32 Bit
 lyon16                          // 1990 Mephisto Lyon 16 Bit
 lyon32                          // 1990 Mephisto Lyon 32 Bit
 van16                           // 1991 Mephisto Vancouver 16 Bit
@@ -42245,3 +42253,6 @@ gs6502
 
 @source:gs6809.cpp
 gs6809
+
+@source:ultim809.cpp
+ultim809
