@@ -179,6 +179,12 @@ void spg_renderer_device::draw_linemap(bool has_extended_tilemaps, const rectang
 
 		linebase = linebase | (palette << 16);
 
+		int upperpalselect = 0;
+		if (has_extended_tilemaps && (tilegfxdata_addr & 0x80000000))
+			upperpalselect = 1;
+
+		tilegfxdata_addr &= 0x7ffffff;
+
 		// this logic works for jak_s500 and the test modes to get the correct base, doesn't seem to work for jak_car2 ingame, maybe data is copied to wrong place?
 		int gfxbase = (tilegfxdata_addr&0x7ffffff) + (linebase&0x7ffffff);
 
@@ -205,6 +211,9 @@ void spg_renderer_device::draw_linemap(bool has_extended_tilemaps, const rectang
 
 				pal = (pix & 0xff) | 0x100;
 
+				if (upperpalselect)
+					pal |= 0x200;
+
 				if (xx >= 0 && xx <= cliprect.max_x)
 				{
 					uint16_t rgb = paletteram[pal];
@@ -216,7 +225,10 @@ void spg_renderer_device::draw_linemap(bool has_extended_tilemaps, const rectang
 				}
 
 				xx = (i * 2)+1;
-				pal = (pix >> 8) + 0x100;
+				pal = (pix >> 8) | 0x100;
+
+				if (upperpalselect)
+					pal |= 0x200;
 
 				if (xx >= 0 && xx <= cliprect.max_x)
 				{
@@ -407,24 +419,29 @@ void spg_renderer_device::draw_page(bool read_from_csspace, bool has_extended_ti
 	uint32_t total_width;
 	uint32_t y_mask;
 	uint32_t screenwidth;
-	uint32_t drawwidthmask;
 
-	if (read_from_csspace && ((attr >> 15) & 0x1))
+	 
+	if (read_from_csspace && (attr & 0x8000)) // is this only available in high res mode, or always?
 	{
 		// just a guess based on this being set on the higher resolution tilemaps we've seen, could be 100% incorrect register
 		total_width = 1024;
-		y_mask = 0x1ff;
+		y_mask = 0x200;
 		screenwidth = 640;
-		drawwidthmask = 0x400 - 1;
 	}
 	else
 	{
 		total_width = 512;
-		y_mask = 0xff;
+		y_mask = 0x100;
 		screenwidth = 320;
-		drawwidthmask = 0x200 - 1;
 	}
 
+	if (has_extended_tilemaps && (attr & 0x4000)) // is this only available in high res mode, or always?
+	{
+		y_mask <<= 1; // double height tilemap?
+	}
+
+	const uint32_t drawwidthmask = total_width - 1;
+	y_mask--; // turn into actual mask
 
 	const uint32_t xscroll = scrollregs[0];
 	const uint32_t yscroll = scrollregs[1];
@@ -459,12 +476,27 @@ void spg_renderer_device::draw_page(bool read_from_csspace, bool has_extended_ti
 	int realxscroll = xscroll;
 	if (row_scroll)
 	{
-		// Tennis in My Wireless Sports confirms the need to add the scroll value here rather than rowscroll being screen-aligned
-		realxscroll += (int16_t)scrollram[(logical_scanline + yscroll) & 0xff];
+		if (!has_extended_tilemaps)
+		{
+			// Tennis in My Wireless Sports confirms the need to add the scroll value here rather than rowscroll being screen-aligned
+			realxscroll += (int16_t)scrollram[(logical_scanline + yscroll) & 0xff];
+		}
+		else
+		{
+			// the logic seems to be different on GPL16250, see Galaxian in paccon and Crazy Moto in myac220, is this mode be selected or did behavior just change?
+			realxscroll += (int16_t)scrollram[logical_scanline & 0xff];
+		}
 	}
 
 	const int upperscrollbits = (realxscroll >> (tile_width + 3));
 	const int endpos = (screenwidth + tile_w) / tile_w;
+
+	int upperpalselect = 0;
+	if (has_extended_tilemaps && (tilegfxdata_addr & 0x80000000))
+		upperpalselect = 1;
+
+	tilegfxdata_addr &= 0x7ffffff;
+
 	for (uint32_t x0 = 0; x0 < endpos; x0++)
 	{
 		spg_renderer_device::blend_enable_t blend;
@@ -480,7 +512,24 @@ void spg_renderer_device::draw_page(bool read_from_csspace, bool has_extended_ti
 		tile = (ctrl & 0x0004) ? spc.read_word(tilemap_rambase) : spc.read_word(tilemap_rambase + tile_address);
 
 		if (!tile)
-			continue;
+		{
+			if (!has_extended_tilemaps)
+			{
+				// always skip on older SPG types?
+				continue;
+			}
+			else if (m_video_regs_7f & 0x0002)
+			{
+				// Galaga in paccon won't render '0' characters in the scoring table if you skip empty tiles, so maybe GPL16250 doesn't skip? - extra tile bits from extended read make no difference
+
+				// probably not based on register m_video_regs_7f, but paccon galaga needs no skip, jak_gtg and jak_hmhsm needs to skip
+				//49 0100 1001  no skip (paccon galaga)
+				//4b 0100 1011  skip    (paccon pacman)
+				//53 0101 0011  skip    (jak_gtg, jak_hmhsm)
+				continue;
+			}
+		}
+
 
 		uint32_t tileattr = attr;
 		uint32_t tilectrl = ctrl;
@@ -518,53 +567,19 @@ void spg_renderer_device::draw_page(bool read_from_csspace, bool has_extended_ti
 			tilectrl |= (exattribute << 2) & 0x0100;    // blend
 		}
 
-		blend = ((tileattr & 0x4000 || tilectrl & 0x0100)) ? BlendOn : BlendOff;
+		if (!has_extended_tilemaps)
+			blend = (tilectrl & 0x0100) ? BlendOn : BlendOff;
+		else
+			blend = ((/*tileattr & 0x4000 ||*/ tilectrl & 0x0100)) ? BlendOn : BlendOff; // is this logic even correct or should it just be like above? where is the extra enable needed?
+
 		flip_x = (tileattr & 0x0004) ? FlipXOn : FlipXOff;
 		flip_y = (tileattr & 0x0008);
 
 		palette_offset = (tileattr & 0x0f00) >> 4;
 		// got tile info
 
-		if (1)
-		{
-			// HACKS
-			// There must be a select bit for the tilemap palettes somewhere, but where?!
-			// the different games in paccon also expect a variety of different configs here, maybe a good place to look
-			if (palbank & 1) // this actually seems to be the sprite palette bank enable, but for myac220 / tkmag220 (where everything is from a single palette) it gives us an easy way to ignore the logic below
-			{
-				if (which == 0) // tilemap 0
-				{
-					if (ctrl & 0x0002)  // RegSet:1
-					{
-						// smartfp has a conflict between the bootlogos and the first screen, it's in regset mode, no obvious difference in registers but needs palette from different places?
-						// not even m_video_regs_7f changes here, which makes the m_video_regs_7f case specific hacks for jak_s500 below very unlikely to actually be related
-						if ((bpp + 1) * 2 == 4)
-							if (use_alt_tile_addressing == true)
-								palette_offset |= 0x200;
-					}
-				}
-
-				if (which == 1)
-				{
-					// can't do this for jak_s500 logos
-					// jak_s500 also uses this tilemap in both 4 and 6bpp modes expecting the same palette base, so the hack used for smartfp on tilemap 0 is not applicable here
-
-					// m_video_regs_7f != 0x2d3 for jak_S500 main menu
-					if ((m_video_regs_7f != 0x53) && (m_video_regs_7f != 0x63) && (m_video_regs_7f != 0x2d3))
-						palette_offset |= 0x200;
-				}
-
-				// jak_car2 screen transitions use layers 2 and 3 the same way, alternating each frame
-				if (which == 2)
-				{
-					// jak_s500 title screen + loading screen before race
-					if ((m_video_regs_7f == 0x2d3) || (m_video_regs_7f == 0x2db))
-						palette_offset |= 0x200;
-				}
-
-			}
-		}
-
+		if (upperpalselect)
+			palette_offset |= 0x200;
 
 		palette_offset >>= nc_bpp;
 		palette_offset <<= nc_bpp;
@@ -605,6 +620,7 @@ void spg_renderer_device::draw_sprite(bool read_from_csspace, bool has_extended_
 //		screenheight = 480;
 		screenheight = 512;
 		xmask = 0x3ff;
+		ymask = 0x3ff;
 	}
 
 	const uint32_t tile_h = 8 << ((attr & 0x00c0) >> 6);
@@ -699,7 +715,7 @@ void spg_renderer_device::draw_sprite(bool read_from_csspace, bool has_extended_
 	else
 	{
 		// clipped from top
-		int tempfirstline = firstline - 0x200;
+		int tempfirstline = firstline - (screenheight<<1);
 		int templastline = lastline;
 		int scanx = scanline - tempfirstline;
 
@@ -709,7 +725,7 @@ void spg_renderer_device::draw_sprite(bool read_from_csspace, bool has_extended_
 		}
 		// clipped against the bottom
 		tempfirstline = firstline;
-		templastline = lastline + 0x200;
+		templastline = lastline + (screenheight<<1);
 		scanx = scanline - tempfirstline;
 
 		if ((scanx >= 0) && (scanline <= templastline))
