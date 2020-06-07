@@ -22,15 +22,6 @@
 #define PUSE_ACCURATE_STATS (0)
 #endif
 
-/// \brief System supports INT128
-///
-/// Set this to one if you want to use 128 bit int for ptime.
-/// This is about 10% slower on a skylake processor for pongf.
-///
-#ifndef PHAS_INT128
-#define PHAS_INT128 (0)
-#endif
-
 /// \brief Add support for the __float128 floating point type.
 ///
 #ifndef PUSE_FLOAT128
@@ -42,7 +33,7 @@
 /// OpenMP adds about 10% to 20% performance for analog netlists.
 ///
 #ifndef PUSE_OPENMP
-#define PUSE_OPENMP              (0)
+#define PUSE_OPENMP              (1)
 #endif
 
 /// \brief Use aligned optimizations.
@@ -137,10 +128,6 @@
 	#endif
 #endif
 
-#if (PHAS_INT128)
-typedef __uint128_t UINT128;
-typedef __int128_t INT128;
-#endif
 
 #if (PUSE_FLOAT128)
 typedef __float128 FLOAT128;
@@ -173,7 +160,9 @@ typedef __float128 FLOAT128;
 
 #if (PUSE_OPENMP)
 #if (!(PHAS_OPENMP))
-#error To use openmp compile and link with "-fopenmp"
+//#error To use openmp compile and link with "-fopenmp"
+#undef PUSE_OPENMP
+#define PUSE_OPENMP (0)
 #endif
 #endif
 

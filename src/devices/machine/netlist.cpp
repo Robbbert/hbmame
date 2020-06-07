@@ -801,6 +801,14 @@ struct save_helper
 	{
 		m_device->save_item(item, (m_prefix + "_" + name).c_str());
 	}
+
+	void save_item(std::enable_if_t<plib::compile_info::has_int128::value,INT128> &item, pstring name)
+	{
+		auto *p = reinterpret_cast<std::uint64_t *>(&item);
+		m_device->save_item(p[0], (m_prefix + "_" + name + "_1").c_str());
+		m_device->save_item(p[1], (m_prefix + "_" + name + "_2").c_str());
+	}
+
 private:
 	device_t *m_device;
 	pstring m_prefix;
@@ -1123,10 +1131,8 @@ void netlist_mame_device::save_state()
 				save_pointer((int16_t *) s->ptr(), s->name().c_str(), s->count());
 			else if (s->dt().size() == sizeof(int8_t))
 				save_pointer((int8_t *) s->ptr(), s->name().c_str(), s->count());
-#if (PHAS_INT128)
-			else if (s->dt().size() == sizeof(INT128))
+			else if (plib::compile_info::has_int128::value && s->dt().size() == sizeof(INT128))
 				save_pointer((int64_t *) s->ptr(), s->name().c_str(), s->count() * 2);
-#endif
 			else
 				netlist().log().fatal("Unknown integral type size {1} for {2}\n", s->dt().size(), s->name().c_str());
 		}

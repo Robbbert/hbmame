@@ -21,6 +21,7 @@
 #include <ios>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <type_traits>
 #include <vector>
 
@@ -193,7 +194,7 @@ public:
 	void write(const pstring &s)
 	{
 		const auto *const sm = reinterpret_cast<const std::ostream::char_type *>(s.c_str());
-		const auto sl(static_cast<std::streamsize>(pstring_mem_t_size(s)));
+		const auto sl(static_cast<std::streamsize>(std::char_traits<std::ostream::char_type>::length(sm)));
 		write(sl);
 		m_strm.write(sm, sl);
 	}
@@ -260,6 +261,40 @@ inline void copystream(std::ostream &dest, std::istream &src)
 		dest.write(buf.data(), 1);
 	}
 }
+
+///
+/// \brief utf8 filename aware ifstream wrapper
+///
+class ifstream : public std::ifstream
+{
+public:
+
+	using filename_type = std::conditional<compile_info::win32::value,
+		pstring_t<pwchar_traits>, pstring_t<putf8_traits>>::type;
+
+	template <typename T>
+	explicit ifstream(const pstring_t<T> name, ios_base::openmode mode = ios_base::in)
+	: std::ifstream(filename_type(name).c_str(), mode)
+	{
+	}
+};
+
+///
+/// \brief utf8 filename aware ofstream wrapper
+///
+class ofstream : public std::ofstream
+{
+public:
+	using filename_type = std::conditional<compile_info::win32::value,
+		pstring_t<pwchar_traits>, pstring_t<putf8_traits>>::type;
+
+	template <typename T>
+	explicit ofstream(const pstring_t<T> name, ios_base::openmode mode = ios_base::in)
+	: std::ofstream(filename_type(name).c_str(), mode)
+	{
+	}
+};
+
 
 struct perrlogger
 {

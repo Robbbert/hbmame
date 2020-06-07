@@ -5,6 +5,7 @@
 #include "penum.h"
 #include "pstrutil.h"
 #include "ptypes.h"
+#include "pstream.h"
 
 #include <algorithm>
 #include <cstdlib> // needed for getenv ...
@@ -14,13 +15,8 @@ namespace plib
 {
 	namespace util
 	{
-		#ifdef _WIN32
-		static constexpr const char PATH_SEP = '\\';
-		static constexpr const char *PATH_SEPS = "\\/";
-		#else
-		static constexpr const char PATH_SEP = '/';
-		static constexpr const char *PATH_SEPS = "/";
-		#endif
+		static constexpr const char PATH_SEP = compile_info::win32::value ? '\\' : '/';
+		static constexpr const char *PATH_SEPS = compile_info::win32::value ? "\\/" :"/";
 
 		pstring basename(const pstring &filename, const pstring &suffix)
 		{
@@ -40,6 +36,12 @@ namespace plib
 				return filename.substr(0, 1);
 
 			return filename.substr(0, p);
+		}
+
+		bool exists (const pstring &filename)
+		{
+			plib::ifstream f(filename);
+			return f.good();
 		}
 
 		pstring buildpath(std::initializer_list<pstring> list )
