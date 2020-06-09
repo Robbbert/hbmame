@@ -1352,11 +1352,11 @@ xmvsfs03
 xmvsfjs01
 
 @source:cps3.cpp
-jojonc			//parent
-jojobanc		//parent
-sfiiinc			//parent
-sfiii2nc	    //parent
-sfiii3nc		//parent
+jojonc					//parent
+jojobanc				//parent
+sfiiinc					//parent
+sfiii2nc				//parent
+sfiii3nc				//parent
 jojoan
 jojobbh2
 jojobbss
@@ -1364,8 +1364,8 @@ jojobpow
 jojonbss
 jojonpow
 redearex
-redeartn		// no-cd version
-redeartno		// no-cd version with old roms from multijet
+redeartn				// no-cd version
+redeartno				// no-cd version with old roms from multijet
 sfiiibhp
 sfiiipmp
 sfiii2bh
@@ -1429,8 +1429,8 @@ mjdchukas01
 
 @source:dec0.cpp
 baddudes				//parent
-baddudef				/* Arkatrad */
-decodemo				/* Charles Doty */
+baddudef				// Arkatrad
+decodemo				// Charles Doty
 robocop 				//parent
 robocopbs01
 
@@ -1442,12 +1442,12 @@ decomult				// Dave Widel
 dkong					//parent
 dkong2m
 dkongbcc				// Jeff's Rom Hacks
-dkongex					/* Jeff's Hack with Foundry Level */
+dkongex					// Jeff's Hack with Foundry Level
 dkongf
 dkongst
 dkongss
-dkongp					/* Fix for level 22 kill screen by Don Hodges */
-dkongpac				/* Tim Appleton - Donkey Kong with Pacman graphics */
+dkongp					// Fix for level 22 kill screen by Don Hodges
+dkongpac				// Tim Appleton - Donkey Kong with Pacman graphics
 dkongpe
 dkongchm
 dkongchm1
@@ -1461,43 +1461,44 @@ dkchrmx					// Sock Master - Christmas Remix 2017
 dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
-kong2600				/* Vic Twenty George hack of Donkey Kong */
+kong2600				// Vic Twenty George hack of Donkey Kong
 nadkong
 dkcbarrel
 dkfreerun
+dkongotr
 //dk_remix
 
 @source:docastle.cpp
-dorunrun		//parent
+dorunrun				//parent
 sdreturn
 
 @source:dotrikun.cpp
-dotrikun		//parent
+dotrikun				//parent
 dotrikun2
 dotriman
-mineswp			/* Minesweeper */
+mineswp					// Minesweeper
 
 @source:dynax.cpp
 //mjelct3
-mjelctrn		//parent
+mjelctrn				//parent
 mjelct3s01
 mjelctrns01
-tenkai  		//parent
+tenkai					//parent
 tenkaibbs01
 
 //@source:ertictac.cpp
-//armdemo		/* Charles Doty */  // totally broken
+//armdemo				/* Charles Doty */  // totally broken
 
 @source:exidy.cpp
-targ			//parent
-targtest		// Targ Test Rom
-teetert			//parent
-teetertfp		// free play hack
+targ					//parent
+targtest				// Targ Test Rom
+teetert					//parent
+teetertfp				// free play hack
 
 @source:exerion.cpp
-exerion		//parent
-exerionj	/* Japanese version */
-exeriongr	/* Vag @ GreekRoms 2004 */
+exerion					//parent
+exerionj				// Japanese version
+exeriongr				// Vag @ GreekRoms 2004
 
 @source:fcrash.cpp
 fcrash

@@ -18,6 +18,7 @@ New Games
 [dinos253]            Cadillacs and Dinosaurs (Ares Edition 2020-05-15)
 [dinos254]            Cadillacs and Dinosaurs (Multi-Mode Enhanced Edition 2020-05-23)
 [dinos255]            Cadillacs and Dinosaurs (Demon God Dance 2020-05-18)
+[dkongotr]            Donkey Kong On the Run
 [grdianss16]          Guardians (Warriors Edition 2020-04-01)
 [grdianss17]          Guardians (Warriors Edition 2020-04-02)
 [kof96ae23]           Kof'96 (The Aniversary Edition 2.3 Final Version 2020-05-27)
