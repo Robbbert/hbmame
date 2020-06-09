@@ -46,7 +46,7 @@ public:
 	{
 	}
 
-	putf8_reader(plib::unique_ptr<std::istream> &&rhs) noexcept
+	putf8_reader(std::unique_ptr<std::istream> &&rhs) noexcept
 	: m_strm(std::move(rhs))
 	{
 	}
@@ -104,7 +104,7 @@ public:
 
 	std::istream &stream() { return *m_strm; }
 private:
-	plib::unique_ptr<std::istream> m_strm;
+	std::unique_ptr<std::istream> m_strm;
 	putf8string m_linebuf;
 };
 
@@ -269,7 +269,7 @@ class ifstream : public std::ifstream
 {
 public:
 
-	using filename_type = std::conditional<compile_info::win32::value,
+	using filename_type = std::conditional<compile_info::win32() && (!compile_info::mingw() || compile_info::version()>=900),
 		pstring_t<pwchar_traits>, pstring_t<putf8_traits>>::type;
 
 	template <typename T>
@@ -285,7 +285,7 @@ public:
 class ofstream : public std::ofstream
 {
 public:
-	using filename_type = std::conditional<compile_info::win32::value,
+	using filename_type = std::conditional<compile_info::win32() && (!compile_info::mingw() || compile_info::version()>=900),
 		pstring_t<pwchar_traits>, pstring_t<putf8_traits>>::type;
 
 	template <typename T>

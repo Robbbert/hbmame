@@ -27,28 +27,20 @@ namespace plib {
 	//  Memory pool
 	//============================================================
 
-	class mempool_arena
+	template <typename BASEARENA>
+	class mempool_arena : public arena_base<mempool_arena<BASEARENA>, false, false>
 	{
 	public:
 
-		using size_type = std::size_t;
-
-		static constexpr const bool has_static_deallocator = true;
-
-		template <class T, size_type ALIGN = alignof(T)>
-		using allocator_type = arena_allocator<mempool_arena, T, ALIGN>;
-
-		template <typename T>
-		using owned_pool_ptr = plib::owned_ptr<T, arena_deleter<mempool_arena, T>>;
-
-		template <typename T>
-		using unique_pool_ptr = std::unique_ptr<T, arena_deleter<mempool_arena, T>>;
+		using size_type = typename BASEARENA::size_type;
+		using base_type = arena_base<mempool_arena<BASEARENA>, false, false>;
+		template <class T>
+		using base_allocator_type = typename BASEARENA::template allocator_type<T>;
 
 		mempool_arena(size_t min_alloc = (1<<21), size_t min_align = PALIGN_CACHELINE)
 		: m_min_alloc(min_alloc)
 		, m_min_align(min_align)
-		, m_stat_cur_alloc(0)
-		, m_stat_max_alloc(0)
+		, m_blocks(base_allocator_type<block *>(m_arena))
 		{
 			icount()++;
 		}
@@ -65,7 +57,7 @@ namespace plib {
 					plib::perrlogger("Found {} info blocks\n", sinfo().size());
 					plib::perrlogger("Found block with {} dangling allocations\n", b->m_num_alloc);
 				}
-				aligned_arena::free(b);
+				m_arena.free(b);
 				//::operator delete(b->m_data);
 			}
 			if (icount()-- == 1)
@@ -103,13 +95,14 @@ namespace plib {
 			sinfo().insert({ ret, info(b, b->m_cur)});
 			rs -= (capacity - size);
 			b->m_cur += rs;
-			m_stat_cur_alloc += size;
-			m_stat_max_alloc = std::max(m_stat_max_alloc, m_stat_cur_alloc);
+			base_type::m_stat_cur_alloc() += size;
+			if (base_type::m_stat_max_alloc() < base_type::m_stat_cur_alloc())
+				base_type::m_stat_max_alloc() = base_type::m_stat_cur_alloc();
 
 			return ret;
 		}
 
-		static void deallocate(void *ptr, size_t size) noexcept
+		/*static */ void deallocate(void *ptr, size_t size) noexcept
 		{
 
 			auto it = sinfo().find(ptr);
@@ -122,7 +115,7 @@ namespace plib {
 			{
 				mempool_arena &mp = b->m_mempool;
 				b->m_num_alloc--;
-				mp.m_stat_cur_alloc -= size;
+				mp.m_stat_cur_alloc() -= size;
 				if (b->m_num_alloc == 0)
 				{
 					auto itb = std::find(mp.m_blocks.begin(), mp.m_blocks.end(), b);
@@ -130,48 +123,11 @@ namespace plib {
 						plib::terminate("mempool::free - block not found");
 
 					mp.m_blocks.erase(itb);
-					aligned_arena::free(b);
+					m_arena.free(b);
 				}
 				sinfo().erase(it);
 			}
 		}
-
-		template<typename T, typename... Args>
-		owned_pool_ptr<T> make_owned(Args&&... args)
-		{
-			auto *mem = this->allocate(alignof(T), sizeof(T));
-			try
-			{
-				// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-				auto *mema = new (mem) T(std::forward<Args>(args)...);
-				return owned_pool_ptr<T>(mema, true, arena_deleter<mempool_arena, T>(this));
-			}
-			catch (...)
-			{
-				deallocate(mem, sizeof(T));
-				throw;
-			}
-		}
-
-		template<typename T, typename... Args>
-		unique_pool_ptr<T> make_unique(Args&&... args)
-		{
-			auto *mem = this->allocate(alignof(T), sizeof(T));
-			try
-			{
-				// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-				auto *mema = new (mem) T(std::forward<Args>(args)...);
-				return unique_pool_ptr<T>(mema, arena_deleter<mempool_arena, T>(this));
-			}
-			catch (...)
-			{
-				deallocate(mem, sizeof(T));
-				throw;
-			}
-		}
-
-		size_type cur_alloc() const noexcept { return m_stat_cur_alloc; }
-		size_type max_alloc() const noexcept { return m_stat_max_alloc; }
 
 		bool operator ==(const mempool_arena &rhs) const noexcept { return this == &rhs; }
 
@@ -224,7 +180,7 @@ namespace plib {
 
 		block * new_block(size_type min_bytes)
 		{
-			auto *b = aligned_arena::alloc<block>(*this, min_bytes);
+			auto *b = m_arena.template alloc<block>(*this, min_bytes);
 			m_blocks.push_back(b);
 			return b;
 		}
@@ -243,11 +199,10 @@ namespace plib {
 
 		size_t m_min_alloc;
 		size_t m_min_align;
+		BASEARENA m_arena;
 
-		plib::aligned_vector<block *> m_blocks;
+		std::vector<block *, typename BASEARENA::template allocator_type<block *>> m_blocks;
 
-		size_t m_stat_cur_alloc;
-		size_t m_stat_max_alloc;
 	};
 
 } // namespace plib
