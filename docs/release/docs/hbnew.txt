@@ -3,6 +3,8 @@
 
 2020-06-24 0.222
 
+- Metal Slug 1,2,3,4,5 and X the roms remix generated a cleanup and has been updated
+
 New Games
 ---------------------------------
 [captcomms89]         Captain Commando (Elite Edition Update 2020-05-03)
@@ -41,13 +43,30 @@ New Games
 [kov2p204s98]         Knights of Valour 2 Plus (God of War Musou 2020-05-25)
 [kovpluss367]         Knights of Valour Plus 2012 (Heroes Dance 2020 2020-05-15)
 [kovpluss368]         Knights of Valour: SanGuo QunYingZhuan / Sangoku Senki: SanGuo QunYingZhuan (bootleg, set 5)
+[mslugps18]           Metal Slug (Burst Enhanced Edition 2020-03-26)[Version Original]
 [mslug2ps41]          Metal Slug 2 (Burst Enhanced Edition 2020-05-10)
+[mslug2ps42]          Metal Slug 2 (Burst Enhanced Edition 2020-03-26)[Version Original]
+[mslug3h01]           Metal Slug 3 (Zombie Players Mode Edition 2020-05-31)
+[mslug3h09]           Metal Slug 3 (Mummy Players Mode Edition 2020-05-31)
+[mslug3h64]           Metal Slug 3 (Burst Enhanced Edition 2020-03-27)[Version Original]
+[mslug4hh57]          Metal Slug 4 (Burst Enhanced Version 2020-03-27)[Version Original]
 [mslug5dh69]          Metal Slug 5 (Enemy Soldiers Enhanced Version 2020-04-06)
+[mslug5dh70]          Metal Slug 5 (Burst Enhanced Edition 2020-03-26)[Version Original]
 [mslugxz71]           Metal Slug X (Apocalyptic Time 1.0 Alpha 2020-04-21)
 [mslugxz72]           Metal Slug X (Apocalyptic Time 2.2 2020-05-11)
 [mslugxz73]           Metal Slug X (2R Version 2020-04-18)
-[mslugxz74]           Metal Slug X (The Hungry Meteorite Edition 2020-03-22)
+[mslugxz74]           Metal Slug X (The Hungry Meteorite Edition 2020-06-11)
 [mslugxz75]           Metal Slug X (2R Version 2020-04-26)
+[mslugxz76]           Metal Slug X (Burst Enhanced Edition 2020-03-26)[Version Original]
+[mslugxz77]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(Enemy Heavy Plate 2013-06-18)
+[mslugxz78]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(Enemy Soldiers Remake Version 3)
+[mslugxz79]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(World Of Glitcher 2020-06-11)
+[mslugxz80]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(Level Reset Special Edition 2014-11-08)
+[mslugxz81]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(Apocalyptic Time 2.2 2020-05-11)
+[mslugxz82]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(2R Version 2020-04-26)
+[mslugxz83]           Metal Slug X (Enemy Soldiers Psycho Edition 2020-06-11)
+[mslugxz84]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(The Hungry Meteorite Edition 2020-06-11)
+[mslugxz85]           Metal Slug X (Big Heavy Machine Gun Flame Edition 2018-12-08)(Enemy Soldiers Psycho Edition 2020-06-11)
 [powerns05]           Power Instinct (Optimized Edition 2020-05-15)
 [sailormnts04]        Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-13)
 [sailormnts05]        Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-24)
