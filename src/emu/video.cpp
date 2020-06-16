@@ -92,7 +92,8 @@ video_manager::video_manager(running_machine &machine)
 	, m_speed(original_speed_setting())
 	, m_low_latency(machine.options().low_latency())
 	, m_empty_skip_count(0)
-	, m_frameskip_level(machine.options().frameskip())
+	, m_frameskip_max(m_auto_frameskip ? machine.options().frameskip() : 0)
+	, m_frameskip_level(m_auto_frameskip ? 0 : machine.options().frameskip())
 	, m_frameskip_counter(0)
 	, m_frameskip_adjust(0)
 	, m_skipping_this_frame(false)
@@ -291,7 +292,7 @@ std::string video_manager::speed_text()
 
 	// if we're auto frameskipping, display that plus the level
 	else if (effective_autoframeskip())
-		util::stream_format(str, "auto%2d/%d", effective_frameskip(), MAX_FRAMESKIP);
+		util::stream_format(str, "auto%2d/%d", effective_frameskip(), m_frameskip_max ? m_frameskip_max : MAX_FRAMESKIP);
 
 	// otherwise, just display the frameskip plus the level
 	else
@@ -893,7 +894,7 @@ void video_manager::update_frameskip()
 		// calibrate the "adjusted speed" based on the target
 		double adjusted_speed_percent = m_speed_percent / (double) m_throttle_rate;
 
-		// if we're too fast, attempt to increase the frameskip
+		// if we're too fast, attempt to decrease the frameskip
 		double speed = m_speed * 0.001;
 		if (adjusted_speed_percent >= 0.995 * speed)
 		{
@@ -921,7 +922,7 @@ void video_manager::update_frameskip()
 			while (m_frameskip_adjust <= -2)
 			{
 				m_frameskip_adjust += 2;
-				if (m_frameskip_level < MAX_FRAMESKIP)
+				if (m_frameskip_level < (m_frameskip_max ? m_frameskip_max : MAX_FRAMESKIP))
 					m_frameskip_level++;
 			}
 		}
