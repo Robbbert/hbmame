@@ -289,8 +289,8 @@ void outrunm_state::outrunm(machine_config &config)
 void outrunm_state::init_init()
 {
 	init_generic();
-	m_custom_io_r = read16_delegate(*this, FUNC(outrunm_state::outrun_custom_io_r));
-	m_custom_io_w = write16_delegate(*this, FUNC(outrunm_state::outrun_custom_io_w));
+	m_custom_io_r = read16m_delegate(*this, FUNC(outrunm_state::outrun_custom_io_r));
+	m_custom_io_w = write16s_delegate(*this, FUNC(outrunm_state::outrun_custom_io_w));
 }
 
 ROM_START( outrunm )
