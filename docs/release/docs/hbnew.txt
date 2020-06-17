@@ -70,6 +70,7 @@ New Games
 [powerns05]           Power Instinct (Optimized Edition 2020-05-15)
 [sailormnts04]        Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-13)
 [sailormnts05]        Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-24)
+[samsho5fe]           Samurai Shodown V Special (Final Edition, location test)
 [sengoku3s14]         Sengoku 3 (Fengshen Edition 2020-05-15)
 [tk2h161]             Tenchi wo Kurau II (Master Edition Update 2020-05-15)
 [umk3uc20200519]      Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-05-19)
