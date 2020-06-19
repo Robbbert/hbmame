@@ -6,7 +6,7 @@
  *
  *************************************/
 
-WRITE8_MEMBER(pacman_state::maketrax_protection_w)
+void pacman_state::maketrax_protection_w(u8 data)
 {
 	if (data == 0) // disable protection / reset?
 	{
@@ -32,9 +32,9 @@ WRITE8_MEMBER(pacman_state::maketrax_protection_w)
 	}
 }
 
-READ8_MEMBER(pacman_state::maketrax_special_port2_r)
+u8 pacman_state::maketrax_special_port2_r(offs_t offset)
 {
-	uint8_t data = ioport("DSW1")->read() & 0x3f;
+	u8 data = ioport("DSW1")->read() & 0x3f;
 
 	if (m_maketrax_disable_protection == 0)
 		return m_p_maincpu[0xebe + m_maketrax_offset*2] | data;
@@ -53,7 +53,7 @@ READ8_MEMBER(pacman_state::maketrax_special_port2_r)
 	return data;
 }
 
-READ8_MEMBER(pacman_state::maketrax_special_port3_r)
+u8 pacman_state::maketrax_special_port3_r(offs_t offset)
 {
 
 	if (m_maketrax_disable_protection == 0)
@@ -72,7 +72,7 @@ READ8_MEMBER(pacman_state::maketrax_special_port3_r)
 	}
 }
 
-WRITE8_MEMBER(pacman_state::piranha_interrupt_vector_w)
+void pacman_state::piranha_interrupt_vector_w(u8 data)
 {
 	if (data == 0xfa)
 		data = 0x78;
@@ -243,9 +243,9 @@ MACHINE_RESET_MEMBER(pacman_state,maketrax)
 void pacman_state::init_maketrax()
 {
 	/* set up protection handlers */
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5004, 0x5004, write8_delegate(*this, FUNC(pacman_state::maketrax_protection_w)));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50bf, read8_delegate(*this, FUNC(pacman_state::maketrax_special_port2_r)));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x50c0, 0x50ff, read8_delegate(*this, FUNC(pacman_state::maketrax_special_port3_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5004, 0x5004, write8smo_delegate(*this, FUNC(pacman_state::maketrax_protection_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50bf, read8sm_delegate(*this, FUNC(pacman_state::maketrax_special_port2_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x50c0, 0x50ff, read8sm_delegate(*this, FUNC(pacman_state::maketrax_special_port3_r)));
 
 	save_item(NAME(m_maketrax_disable_protection));
 	save_item(NAME(m_maketrax_offset));

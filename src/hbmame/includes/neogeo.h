@@ -209,29 +209,29 @@ public:
 
 private:
 
-	DECLARE_WRITE8_MEMBER(io_control_w);
-	DECLARE_READ16_MEMBER(memcard_r);
-	DECLARE_WRITE16_MEMBER(memcard_w);
-	DECLARE_WRITE8_MEMBER(audio_command_w);
-	DECLARE_READ8_MEMBER(audio_command_r);
-	DECLARE_READ8_MEMBER(audio_cpu_bank_select_r);
-	DECLARE_WRITE8_MEMBER(audio_cpu_enable_nmi_w);
-	DECLARE_WRITE8_MEMBER(system_control_w);
-	DECLARE_READ16_MEMBER(neogeo_unmapped_r);
-	DECLARE_READ16_MEMBER(neogeo_paletteram_r);
-	DECLARE_WRITE16_MEMBER(neogeo_paletteram_w);
-	DECLARE_READ16_MEMBER(neogeo_video_register_r);
-	DECLARE_WRITE16_MEMBER(neogeo_video_register_w);
-	READ16_MEMBER(banked_vectors_r);
-	DECLARE_READ16_MEMBER(in0_r);
-	DECLARE_READ16_MEMBER(in1_r);
-	DECLARE_WRITE16_MEMBER(save_ram_w);
+	void io_control_w(offs_t offset, u8 data);
+	u16 memcard_r(offs_t offset);
+	void memcard_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void audio_command_w(u8 data);
+	u8 audio_command_r();
+	u8 audio_cpu_bank_select_r(offs_t offset);
+	void audio_cpu_enable_nmi_w(offs_t offset, u8 data);
+	void system_control_w(offs_t offset, u8 data);
+	u16 neogeo_unmapped_r(address_space &space);
+	u16 neogeo_paletteram_r(offs_t offset);
+	void neogeo_paletteram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 neogeo_video_register_r(address_space &space, offs_t offset, u16 mem_mask = ~0);
+	void neogeo_video_register_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 banked_vectors_r(offs_t offset);
+	u16 in0_r();
+	u16 in1_r();
+	void save_ram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 
 	TIMER_CALLBACK_MEMBER(display_position_interrupt_callback);
 	TIMER_CALLBACK_MEMBER(display_position_vblank_callback);
 	TIMER_CALLBACK_MEMBER(vblank_interrupt_callback);
 
-	uint32_t screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	u32 screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
 	void neogeo_main_map(address_map &map);
 	void main_map_slot(address_map &map);
@@ -245,15 +245,15 @@ private:
 	void update_interrupts();
 	void create_interrupt_timers();
 	void start_interrupt_timers();
-	void neogeo_acknowledge_interrupt(uint16_t data);
+	void neogeo_acknowledge_interrupt(u16  data);
 
 	void neogeo_main_cpu_banking_init();
 	void neogeo_audio_cpu_banking_init(int set_entry);
 	void adjust_display_position_interrupt_timer();
-	void neogeo_set_display_position_interrupt_control(uint16_t data);
-	void neogeo_set_display_counter_msb(uint16_t data);
-	void neogeo_set_display_counter_lsb(uint16_t data);
-	void set_video_control( uint16_t data );
+	void neogeo_set_display_position_interrupt_control(u16  data);
+	void neogeo_set_display_counter_msb(u16  data);
+	void neogeo_set_display_counter_lsb(u16  data);
+	void set_video_control( u16  data );
 
 	void create_rgb_lookups();
 	void set_pens();
@@ -261,10 +261,10 @@ private:
 	void neogeo_set_palette_bank( int data );
 
 	void audio_cpu_check_nmi();
-	void set_save_ram_unlock( uint8_t data );
+	void set_save_ram_unlock( u8 data );
 	void set_outputs(  );
-	void set_output_latch( uint8_t data );
-	void set_output_data( uint8_t data );
+	void set_output_latch( u8 data );
+	void set_output_data( u8 data );
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
@@ -280,37 +280,37 @@ private:
 	bool       m_audio_cpu_nmi_pending;
 
 	// MVS-specific state
-	uint8_t      m_save_ram_unlocked;
-	uint8_t      m_output_data;
-	uint8_t      m_output_latch;
-	uint8_t      m_el_value;
-	uint8_t      m_led1_value;
-	uint8_t      m_led2_value;
+	u8      m_save_ram_unlocked;
+	u8      m_output_data;
+	u8      m_output_latch;
+	u8      m_el_value;
+	u8      m_led1_value;
+	u8      m_led2_value;
 
 	virtual void video_start() override;
 
 	emu_timer  *m_display_position_interrupt_timer;
 	emu_timer  *m_display_position_vblank_timer;
 	emu_timer  *m_vblank_interrupt_timer;
-	uint32_t     m_display_counter;
-	uint8_t      m_vblank_interrupt_pending;
-	uint8_t      m_display_position_interrupt_pending;
-	uint8_t      m_irq3_pending;
-	uint8_t      m_display_position_interrupt_control;
-	uint8_t      m_vblank_level;
-	uint8_t      m_raster_level;
+	u32     m_display_counter;
+	u8      m_vblank_interrupt_pending;
+	u8      m_display_position_interrupt_pending;
+	u8      m_irq3_pending;
+	u8      m_display_position_interrupt_control;
+	u8      m_vblank_level;
+	u8      m_raster_level;
 
-	uint16_t get_video_control(  );
+	u16  get_video_control(  );
 
 	// color/palette related
-	std::vector<uint16_t> m_paletteram;
-	uint8_t        m_palette_lookup[32][4];
+	std::vector<u16 > m_paletteram;
+	u8        m_palette_lookup[32][4];
 	const pen_t *m_bg_pen;
 	int          m_screen_shadow;
 	int          m_palette_bank;
 
-	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_r);
-	DECLARE_READ16_MEMBER(neogeo_slot_rom_low_vectors_r);
+	u16 neogeo_slot_rom_low_r();
+	u16 neogeo_slot_rom_low_vectors_r(offs_t offset);
 
 	void install_banked_bios();
 
@@ -326,7 +326,7 @@ private:
 	optional_memory_region m_region_fixedbios;
 	optional_memory_bank   m_bank_audio_main; // optional because of neocd
 	optional_device<upd4990a_device> m_upd4990a;
-	optional_shared_ptr<uint16_t> m_save_ram;
+	optional_shared_ptr<u16 > m_save_ram;
 	required_device<screen_device> m_screen;
 	optional_device<palette_device> m_palette;
 	optional_device<ng_memcard_device> m_memcard;

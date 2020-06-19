@@ -8,18 +8,18 @@
 #define mspacman_disable_decode_latch(m) m.root_device().membank("bank1")->set_entry(0)
 
 // any access to these ROM addresses disables the decoder, and all you see is the original Pac-Man code
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x0038){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x0038]; }
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x03b0){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x03b0]; }
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x1600){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x1600]; }
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x2120){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x2120]; }
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x3ff0){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff0]; }
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x8000){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x8000]; }
-READ8_MEMBER(pacman_state::mspacman_disable_decode_r_0x97f0){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x97f0]; }
-WRITE8_MEMBER(pacman_state::mspacman_disable_decode_w){ mspacman_disable_decode_latch(machine()); }
+u8 pacman_state::mspacman_disable_decode_r_0x0038(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x0038]; }
+u8 pacman_state::mspacman_disable_decode_r_0x03b0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x03b0]; }
+u8 pacman_state::mspacman_disable_decode_r_0x1600(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x1600]; }
+u8 pacman_state::mspacman_disable_decode_r_0x2120(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x2120]; }
+u8 pacman_state::mspacman_disable_decode_r_0x3ff0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff0]; }
+u8 pacman_state::mspacman_disable_decode_r_0x8000(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x8000]; }
+u8 pacman_state::mspacman_disable_decode_r_0x97f0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x97f0]; }
+void pacman_state::mspacman_disable_decode_w(u8 data){ mspacman_disable_decode_latch(machine()); }
 
 // any access to these ROM addresses enables the decoder, and you'll see the Ms. Pac-Man code
-READ8_MEMBER(pacman_state::mspacman_enable_decode_r_0x3ff8){ mspacman_enable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff8+0x10000]; }
-WRITE8_MEMBER(pacman_state::mspacman_enable_decode_w){ mspacman_enable_decode_latch(machine()); }
+u8 pacman_state::mspacman_enable_decode_r_0x3ff8(offs_t offset){ mspacman_enable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff8+0x10000]; }
+void pacman_state::mspacman_enable_decode_w(u8 data){ mspacman_enable_decode_latch(machine()); }
 
 #define BITSWAP12(val,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \
 	bitswap<16>(val,15,14,13,12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)
@@ -27,7 +27,7 @@ WRITE8_MEMBER(pacman_state::mspacman_enable_decode_w){ mspacman_enable_decode_la
 #define BITSWAP11(val,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \
 	bitswap<16>(val,15,14,13,12,11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)
 
-void pacman_state::mspacman_install_patches(uint8_t *ROM)
+void pacman_state::mspacman_install_patches(u8 *ROM)
 {
 	int i;
 
@@ -82,7 +82,7 @@ void pacman_state::mspacman_install_patches(uint8_t *ROM)
 void pacman_state::init_mspacman()
 {
 	int i;
-	uint8_t *ROM, *DROM;
+	u8 *ROM, *DROM;
 
 	/* CPU ROMs */
 
@@ -132,21 +132,21 @@ void pacman_state::init_mspacman()
 
 
 /* used by extra routine at $3FE, bit 4 of 504d needs to be low, and of 504e to be high */
-READ8_MEMBER( pacman_state::mspacii_prot_r )
+u8 pacman_state::mspacii_prot_r(offs_t offset)
 {
 	return offset<<4;
 }
 
 /* For Zola's timer */
 
-READ8_MEMBER( pacman_state::zolatimer_r )
+u8 pacman_state::zolatimer_r()
 {
-	uint8_t timernow = m_timerthing;
+	u8 timernow = m_timerthing;
 	m_timerthing++;
 	return timernow;
 }
 
-WRITE8_MEMBER( pacman_state::zolatimer_w )	/* to stop it hanging when game reset */
+void pacman_state::zolatimer_w(u8 data)	/* to stop it hanging when game reset */
 {
 	m_timerthing = data;
 }
@@ -344,8 +344,8 @@ The select line is tied to a2; a0 and a1 of the eprom are are left out of
 socket and run through the 74298.  Clock is tied to system clock.  */
 void pacman_state::init_mspacmbe()
 {
-	uint8_t temp;
-	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
+	u8 temp;
+	u8 *RAM = machine().root_device().memregion("maincpu")->base();
 	int i;
 
 	/* Address lines A1 and A0 swapped if A2=0 */

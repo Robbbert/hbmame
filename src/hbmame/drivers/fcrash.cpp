@@ -98,7 +98,7 @@ slampic: no sound. A priority problem between sprites and crowd.
 #include "machine/eepromser.h"
 #include "speaker.h"
 
-WRITE16_MEMBER( cps_state::fcrash_soundlatch_w )
+void cps_state::fcrash_soundlatch_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -107,7 +107,7 @@ WRITE16_MEMBER( cps_state::fcrash_soundlatch_w )
 	}
 }
 
-WRITE16_MEMBER(cps_state::cawingbl_soundlatch_w)
+void cps_state::cawingbl_soundlatch_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -117,7 +117,7 @@ WRITE16_MEMBER(cps_state::cawingbl_soundlatch_w)
 	}
 }
 
-WRITE8_MEMBER( cps_state::fcrash_snd_bankswitch_w )
+void cps_state::fcrash_snd_bankswitch_w(u8 data)
 {
 	m_msm_1->set_output_gain(0, (data & 0x08) ? 0.0 : 1.0);
 	m_msm_2->set_output_gain(0, (data & 0x10) ? 0.0 : 1.0);
@@ -125,7 +125,7 @@ WRITE8_MEMBER( cps_state::fcrash_snd_bankswitch_w )
 	membank("bank1")->set_entry(data & 0x07);
 }
 
-WRITE8_MEMBER( cps_state::sf2mdt_snd_bankswitch_w )
+void cps_state::sf2mdt_snd_bankswitch_w(u8 data)
 {
 	m_msm_1->set_output_gain(0, (data & 0x20) ? 0.0 : 1.0);
 	m_msm_2->set_output_gain(0, (data & 0x10) ? 0.0 : 1.0);
@@ -133,7 +133,7 @@ WRITE8_MEMBER( cps_state::sf2mdt_snd_bankswitch_w )
 	membank("bank1")->set_entry(data & 0x07);
 }
 
-WRITE8_MEMBER( cps_state::knightsb_snd_bankswitch_w )
+void cps_state::knightsb_snd_bankswitch_w(u8 data)
 {
 	m_msm_1->set_output_gain(0, (data & 0x20) ? 0.0 : 1.0);
 	m_msm_2->set_output_gain(0, (data & 0x10) ? 0.0 : 1.0);
@@ -159,12 +159,12 @@ WRITE_LINE_MEMBER(cps_state::m5205_int2)
 
 
 
-WRITE8_MEMBER( cps_state::fcrash_msm5205_0_data_w )
+void cps_state::fcrash_msm5205_0_data_w(u8 data)
 {
 	m_sample_buffer1 = data;
 }
 
-WRITE8_MEMBER( cps_state::fcrash_msm5205_1_data_w )
+void cps_state::fcrash_msm5205_1_data_w(u8 data)
 {
 	m_sample_buffer2 = data;
 }
@@ -172,7 +172,7 @@ WRITE8_MEMBER( cps_state::fcrash_msm5205_1_data_w )
 /* not verified */
 #define CPS1_ROWSCROLL_OFFS     (0x20/2)    /* base of row scroll offsets in other RAM */
 
-WRITE16_MEMBER(cps_state::dinopic_layer_w)
+void cps_state::dinopic_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -201,12 +201,12 @@ WRITE16_MEMBER(cps_state::dinopic_layer_w)
 	}
 }
 
-WRITE16_MEMBER( cps_state::dinopic_layer2_w )
+void cps_state::dinopic_layer2_w(u16 data)
 {
 	m_cps_a_regs[0x06 / 2] = data;
 }
 
-WRITE16_MEMBER(cps_state::kodb_layer_w)
+void cps_state::kodb_layer_w(offs_t offset, u16 data)
 {
 	/* layer enable and mask 1&2 registers are written here - passing them to m_cps_b_regs for now for drawing routines */
 	if (offset == 0x06)
@@ -219,7 +219,7 @@ WRITE16_MEMBER(cps_state::kodb_layer_w)
 		m_cps_b_regs[m_layer_mask_reg[2] / 2] = data;
 }
 
-WRITE16_MEMBER(cps_state::knightsb_layer_w)
+void cps_state::knightsb_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -275,7 +275,7 @@ WRITE16_MEMBER(cps_state::knightsb_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::punipic_layer_w)
+void cps_state::punipic_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -326,7 +326,7 @@ WRITE16_MEMBER(cps_state::punipic_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::sf2m1_layer_w)
+void cps_state::sf2m1_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -384,7 +384,7 @@ WRITE16_MEMBER(cps_state::sf2m1_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::sf2mdt_layer_w)
+void cps_state::sf2mdt_layer_w(offs_t offset, u16 data)
 {
 	/* layer enable and scroll registers are written here - passing them to m_cps_b_regs and m_cps_a_regs for now for drawing routines
 	the scroll layers aren't buttery smooth, due to the lack of using the row scroll address tables in the rendering code, this is also
@@ -416,7 +416,7 @@ WRITE16_MEMBER(cps_state::sf2mdt_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::sf2mdta_layer_w)
+void cps_state::sf2mdta_layer_w(offs_t offset, u16 data)
 {
 	/* layer enable and scroll registers are written here - passing them to m_cps_b_regs and m_cps_a_regs for now for drawing routines
 	the scroll layers aren't buttery smooth, due to the lack of using the row scroll address tables in the rendering code, this is also
@@ -448,7 +448,7 @@ WRITE16_MEMBER(cps_state::sf2mdta_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::slampic_layer_w)
+void cps_state::slampic_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -458,7 +458,7 @@ WRITE16_MEMBER(cps_state::slampic_layer_w)
 	case 0x03:
 	case 0x04:
 	case 0x05:
-		dinopic_layer_w(space, offset, data);
+		dinopic_layer_w(offset, data);
 		break;
 	case 0x06: // scroll 2 base
 		m_cps_a_regs[0x04/2] = data << 4;
@@ -493,8 +493,8 @@ void cps_state::fcrash_render_sprites( screen_device &screen, bitmap_ind16 &bitm
 	int base = m_sprite_base / 2;
 	int num_sprites = m_gfxdecode->gfx(2)->elements();
 	int last_sprite_offset = 0x1ffc;
-	uint16_t *sprite_ram = m_gfxram;
-	uint16_t tileno,colour,xpos,ypos;
+	u16 *sprite_ram = m_gfxram;
+	u16 tileno,colour,xpos,ypos;
 	bool flipx, flipy;
 
 	/* if we have separate sprite ram, use it */
@@ -584,7 +584,7 @@ void cps_state::fcrash_build_palette()
 	}
 }
 
-uint32_t cps_state::screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+u32 cps_state::screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int layercontrol, l0, l1, l2, l3;
 	int videocontrol = m_cps_a_regs[0x22 / 2];
@@ -1429,7 +1429,7 @@ INPUT_PORTS_END
 
 MACHINE_START_MEMBER(cps_state,fcrash)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 
@@ -1493,7 +1493,7 @@ MACHINE_START_MEMBER(cps_state, cawingbl)
 
 MACHINE_START_MEMBER(cps_state, sf2mdt)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 
@@ -1517,7 +1517,7 @@ MACHINE_START_MEMBER(cps_state, sf2mdt)
 
 MACHINE_START_MEMBER(cps_state, knightsb)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 
@@ -1536,7 +1536,7 @@ MACHINE_START_MEMBER(cps_state, knightsb)
 
 MACHINE_START_MEMBER(cps_state, sf2m1)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 
@@ -1984,13 +1984,13 @@ ROM_END
 void cps_state::init_kodb()
 {
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x800000, 0x800007, "IN1");
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x800018, 0x80001f, read16_delegate(*this, FUNC(cps_state::cps1_dsw_r)));
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800187, write16_delegate(*this, FUNC(cps_state::cps1_soundlatch_w)));
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x980000, 0x98002f, write16_delegate(*this, FUNC(cps_state::kodb_layer_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x800018, 0x80001f, read16sm_delegate(*this, FUNC(cps_state::cps1_dsw_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800187, write16s_delegate(*this, FUNC(cps_state::cps1_soundlatch_w)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x980000, 0x98002f, write16sm_delegate(*this, FUNC(cps_state::kodb_layer_w)));
 
 	/* the original game alternates between 2 sprite ram areas to achieve flashing sprites - the bootleg doesn't do the write to the register to achieve this
 	mapping both sprite ram areas to the same bootleg sprite ram - similar to how sf2mdt works */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x900000, 0x903fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x904000, 0x907fff, m_bootleg_sprite_ram.get()); /* both of these need to be mapped */
 
@@ -2120,8 +2120,8 @@ ROM_END
 void cps_state::init_cawingbl()
 {
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x882000, 0x882001, "IN1");
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x882006, 0x882007, write16_delegate(*this, FUNC(cps_state::cawingbl_soundlatch_w)));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x882008, 0x88200f, read16_delegate(*this, FUNC(cps_state::cps1_dsw_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x882006, 0x882007, write16s_delegate(*this, FUNC(cps_state::cawingbl_soundlatch_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x882008, 0x88200f, read16sm_delegate(*this, FUNC(cps_state::cps1_dsw_r)));
 
 	init_cps1();
 }
@@ -2312,7 +2312,7 @@ ROM_END
 
 void cps_state::init_dinopic()
 {
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x990000, 0x993fff, m_bootleg_sprite_ram.get());
 	init_cps1();
 }
@@ -2633,7 +2633,7 @@ ROM_END
 
 void cps_state::init_punipic()
 {
-	uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
+	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 	mem16[0x5A8/2] = 0x4E71; // set data pointers
 	mem16[0x4DF0/2] = 0x33ED;
 	mem16[0x4DF2/2] = 0xDB2E;
@@ -2646,7 +2646,7 @@ void cps_state::init_punipic()
 
 void cps_state::init_punipic3()
 {
-	uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
+	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 	mem16[0x5A6/2] = 0x4E71; // set data pointers
 	mem16[0x5A8/2] = 0x4E71;
 
@@ -2724,7 +2724,7 @@ ROM_END
 
 void cps_state::init_sf2m1()
 {
-	uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
+	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 	mem16[0x64E/2] = 0x6046; // fix priorities
 
 	init_dinopic();
@@ -2904,9 +2904,9 @@ ROM_END
 void cps_state::init_sf2mdt()
 {
 	int i;
-	uint32_t gfx_size = memregion( "gfx" )->bytes();
-	uint8_t *rom = memregion( "gfx" )->base();
-	uint8_t tmp;
+	u32 gfx_size = memregion( "gfx" )->bytes();
+	u8 *rom = memregion( "gfx" )->base();
+	u8 tmp;
 
 	for( i = 0; i < gfx_size; i += 8 )
 	{
@@ -2918,7 +2918,7 @@ void cps_state::init_sf2mdt()
 		rom[i + 6] = tmp;
 	}
 
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x708100, 0x7081ff, write16_delegate(*this, FUNC(cps_state::sf2mdt_layer_w)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x708100, 0x7081ff, write16sm_delegate(*this, FUNC(cps_state::sf2mdt_layer_w)));
 	init_sf2mdta();
 }
 
@@ -2927,9 +2927,9 @@ void cps_state::init_sf2mdt()
 void cps_state::init_sf2mdtb()
 {
 	int i;
-	uint32_t gfx_size = memregion( "gfx" )->bytes();
-	uint8_t *rom = memregion( "gfx" )->base();
-	uint8_t tmp;
+	u32 gfx_size = memregion( "gfx" )->bytes();
+	u8 *rom = memregion( "gfx" )->base();
+	u8 tmp;
 
 	for( i = 0; i < gfx_size; i += 8 )
 	{
@@ -2942,7 +2942,7 @@ void cps_state::init_sf2mdtb()
 	}
 
 	/* bootleg sprite ram */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x700000, 0x703fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x704000, 0x707fff, m_bootleg_sprite_ram.get()); /* both of these need to be mapped  */
 
@@ -2953,11 +2953,11 @@ void cps_state::init_sf2mdtb()
 void cps_state::init_sf2mdta()
 {
 	/* bootleg sprite ram */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x700000, 0x703fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x704000, 0x707fff, m_bootleg_sprite_ram.get()); /* both of these need to be mapped - see the "Magic Delta Turbo" text on the title screen */
 
-	m_bootleg_work_ram = std::make_unique<uint16_t[]>(0x8000);
+	m_bootleg_work_ram = std::make_unique<u16[]>(0x8000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0xfc0000, 0xfcffff, m_bootleg_work_ram.get()); /* this has moved */
 
 	init_cps1();
@@ -2966,7 +2966,7 @@ void cps_state::init_sf2mdta()
 void cps_state::init_sf2b()
 {
 	/* bootleg sprite ram */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x700000, 0x703fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x704000, 0x707fff, m_bootleg_sprite_ram.get());
 
@@ -3122,7 +3122,7 @@ void cps_state::captcommb2_map(address_map &map) {
 
 MACHINE_START_MEMBER(cps_state, captcommb2)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 

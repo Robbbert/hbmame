@@ -162,30 +162,30 @@ public:
 	/* memory pointers */
 	// cps1
 	bitmap_ind16 m_dummy_bitmap;
-	optional_shared_ptr<uint16_t> m_mainram;
-	required_shared_ptr<uint16_t> m_gfxram;
-	required_shared_ptr<uint16_t> m_cps_a_regs;
-	required_shared_ptr<uint16_t> m_cps_b_regs;
-	uint16_t *     m_scroll1;
-	uint16_t *     m_scroll2;
-	uint16_t *     m_scroll3;
-	uint16_t *     m_obj;
-	uint16_t *     m_other;
-	std::unique_ptr<uint16_t[]>     m_buffered_obj;
-	optional_shared_ptr<uint8_t> m_qsound_sharedram1;
-	optional_shared_ptr<uint8_t> m_qsound_sharedram2;
-	std::unique_ptr<uint8_t[]> m_decrypt_kabuki;
+	optional_shared_ptr<u16 > m_mainram;
+	required_shared_ptr<u16 > m_gfxram;
+	required_shared_ptr<u16 > m_cps_a_regs;
+	required_shared_ptr<u16 > m_cps_b_regs;
+	u16  *     m_scroll1;
+	u16  *     m_scroll2;
+	u16  *     m_scroll3;
+	u16  *     m_obj;
+	u16  *     m_other;
+	std::unique_ptr<u16 []>     m_buffered_obj;
+	optional_shared_ptr<u8> m_qsound_sharedram1;
+	optional_shared_ptr<u8> m_qsound_sharedram2;
+	std::unique_ptr<u8[]> m_decrypt_kabuki;
 	// cps2
-	optional_shared_ptr<uint16_t> m_objram1;
-	optional_shared_ptr<uint16_t> m_objram2;
-	optional_shared_ptr<uint16_t> m_output;
+	optional_shared_ptr<u16 > m_objram1;
+	optional_shared_ptr<u16 > m_objram2;
+	optional_shared_ptr<u16 > m_output;
 
 	optional_ioport m_io_in0;
 	optional_ioport m_io_in1;
-	std::unique_ptr<uint16_t[]>     m_cps2_buffered_obj;
+	std::unique_ptr<u16 []>     m_cps2_buffered_obj;
 	// game-specific
-	std::unique_ptr<uint16_t[]>    m_gigaman2_dummyqsound_ram;
-	uint16_t  sf2ceblp_prot;
+	std::unique_ptr<u16 []>    m_gigaman2_dummyqsound_ram;
+	u16   sf2ceblp_prot;
 
 	/* video-related */
 	tilemap_t      *m_bg_tilemap[3];
@@ -238,20 +238,20 @@ public:
 	int          m_palette_align;
 	int          m_palette_size;
 	int          m_stars_rom_size;
-	uint8_t     m_empty_tile[32*32];
+	u8     m_empty_tile[32*32];
 	int          m_cps_version;
 
 	/* fcrash video config */
-	uint8_t        m_layer_enable_reg;
-	uint8_t        m_layer_mask_reg[4];
+	u8        m_layer_enable_reg;
+	u8        m_layer_mask_reg[4];
 	int          m_layer_scroll1x_offset;
 	int          m_layer_scroll2x_offset;
 	int          m_layer_scroll3x_offset;
 	int          m_sprite_base;
 	int          m_sprite_list_end_marker;
 	int          m_sprite_x_offset;
-	std::unique_ptr<uint16_t[]> m_bootleg_sprite_ram;
-	std::unique_ptr<uint16_t[]> m_bootleg_work_ram;
+	std::unique_ptr<u16 []> m_bootleg_sprite_ram;
+	std::unique_ptr<u16 []> m_bootleg_work_ram;
 
 	/* devices */
 	required_device<m68000_base_device> m_maincpu;
@@ -265,46 +265,46 @@ public:
 	required_device<palette_device> m_palette;
 	optional_device<generic_latch_8_device> m_soundlatch;
 	optional_device<generic_latch_8_device> m_soundlatch2;
-	optional_shared_ptr<uint16_t> m_decrypted_opcodes;
+	optional_shared_ptr<u16 > m_decrypted_opcodes;
 	optional_memory_region m_region_key;
 	optional_memory_region m_region_stars;
 
-	DECLARE_READ16_MEMBER(cps1_hack_dsw_r);
-	DECLARE_READ16_MEMBER(cps1_in1_r);
-	DECLARE_READ16_MEMBER(cps1_in2_r);
-	DECLARE_READ16_MEMBER(cps1_in3_r);
-	DECLARE_WRITE8_MEMBER(cps1_snd_bankswitch_w);
-	DECLARE_WRITE16_MEMBER(cps1_soundlatch_w);
-	DECLARE_WRITE16_MEMBER(cps1_soundlatch2_w);
-	DECLARE_WRITE16_MEMBER(cpsq_coinctrl2_w);
-	DECLARE_READ16_MEMBER(qsound_rom_r);
-	DECLARE_READ16_MEMBER(qsound_sharedram2_r);
-	DECLARE_WRITE16_MEMBER(qsound_sharedram2_w);
-	DECLARE_WRITE8_MEMBER(qsound_banksw_w);
-	DECLARE_READ16_MEMBER(sf2rb_prot_r);
-	DECLARE_READ16_MEMBER(sf2rb2_prot_r);
-	DECLARE_READ16_MEMBER(sf2dongb_prot_r);
-	DECLARE_READ16_MEMBER(sf2ceblp_prot_r);
-	DECLARE_WRITE16_MEMBER(sf2ceblp_prot_w);
-	DECLARE_READ16_MEMBER(cps1_dsw_r);
-	DECLARE_WRITE16_MEMBER(cps1_coinctrl_w);
-	DECLARE_READ16_MEMBER(qsound_sharedram1_r);
-	DECLARE_WRITE16_MEMBER(qsound_sharedram1_w);
-	DECLARE_READ16_MEMBER(ganbare_ram_r);
-	DECLARE_WRITE16_MEMBER(ganbare_ram_w);
-	DECLARE_WRITE16_MEMBER(cps1_cps_a_w);
-	DECLARE_READ16_MEMBER(cps1_cps_b_r);
-	DECLARE_WRITE16_MEMBER(cps1_cps_b_w);
-	DECLARE_WRITE16_MEMBER(cps1_gfxram_w);
-	DECLARE_WRITE16_MEMBER(cps2_objram_bank_w);
-	DECLARE_READ16_MEMBER(cps2_objram1_r);
-	DECLARE_READ16_MEMBER(cps2_objram2_r);
-	DECLARE_WRITE16_MEMBER(cps2_objram1_w);
-	DECLARE_WRITE16_MEMBER(cps2_objram2_w);
-	DECLARE_WRITE8_MEMBER(cps1_oki_pin7_w);
-	DECLARE_WRITE16_MEMBER(sf2m1_layer_w);
-	DECLARE_WRITE16_MEMBER(sf2m3_layer_w);
-	DECLARE_READ16_MEMBER(dinohunt_sound_r);
+	u16 cps1_hack_dsw_r(offs_t offset);
+	u16 cps1_in1_r();
+	u16 cps1_in2_r();
+	u16 cps1_in3_r();
+	void cps1_snd_bankswitch_w(u8 data);
+	void cps1_soundlatch_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cps1_soundlatch2_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cpsq_coinctrl2_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 qsound_rom_r(offs_t offset);
+	u16 qsound_sharedram2_r(offs_t offset);
+	void qsound_sharedram2_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void qsound_banksw_w(u8 data);
+	u16 sf2rb_prot_r(offs_t offset);
+	u16 sf2rb2_prot_r(offs_t offset);
+	u16 sf2dongb_prot_r(offs_t offset);
+	u16 sf2ceblp_prot_r();
+	void sf2ceblp_prot_w(u16 data);
+	u16 cps1_dsw_r(offs_t offset);
+	void cps1_coinctrl_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 qsound_sharedram1_r(offs_t offset);
+	void qsound_sharedram1_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 ganbare_ram_r(offs_t offset, u16 mem_mask = ~0);
+	void ganbare_ram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cps1_cps_a_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 cps1_cps_b_r(offs_t offset);
+	void cps1_cps_b_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cps1_gfxram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cps2_objram_bank_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u16 cps2_objram1_r(offs_t offset);
+	u16 cps2_objram2_r(offs_t offset);
+	void cps2_objram1_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cps2_objram2_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void cps1_oki_pin7_w(u8 data);
+	void sf2m1_layer_w(offs_t offset, u16 data);
+	void sf2m3_layer_w(offs_t offset, u16 data);
+	u16 dinohunt_sound_r();
 	void init_sf2rb();
 	void init_sf2rb2();
 	void init_sf2thndr();
@@ -347,7 +347,7 @@ public:
 	DECLARE_MACHINE_RESET(cps);
 	DECLARE_VIDEO_START(cps);
 	DECLARE_MACHINE_START(sf2m1);
-	uint32_t screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	u32 screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	DECLARE_WRITE_LINE_MEMBER(screen_vblank_cps1);
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
@@ -355,7 +355,7 @@ public:
 	TIMER_DEVICE_CALLBACK_MEMBER(cps2_interrupt);
 	TIMER_CALLBACK_MEMBER(cps2_update_digital_volume);
 
-	void kabuki_setup(void (*decode)(uint8_t *src, uint8_t *dst));
+	void kabuki_setup(void (*decode)(u8 *src, u8 *dst));
 
 	/* fcrash handlers */
 	void init_kodb();
@@ -380,23 +380,22 @@ public:
 	DECLARE_MACHINE_START(sf2mdt);
 	DECLARE_MACHINE_START(slampic);
 	DECLARE_MACHINE_START(sgyxz);
-	DECLARE_WRITE16_MEMBER(cawingbl_soundlatch_w);
-	DECLARE_WRITE16_MEMBER(dinopic_layer_w);
-	DECLARE_WRITE16_MEMBER(dinopic_layer2_w);
-	DECLARE_WRITE16_MEMBER(knightsb_layer_w);
-	DECLARE_WRITE16_MEMBER(kodb_layer_w);
-	DECLARE_WRITE16_MEMBER(punipic_layer_w);
-	DECLARE_WRITE16_MEMBER(sf2mdt_layer_w);
-	DECLARE_WRITE16_MEMBER(sf2mdta_layer_w);
-	DECLARE_WRITE16_MEMBER(slampic_layer_w);
-	DECLARE_WRITE16_MEMBER(fcrash_soundlatch_w);
-	DECLARE_WRITE8_MEMBER(fcrash_snd_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(sf2mdt_snd_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(knightsb_snd_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(fcrash_msm5205_0_data_w);
-	DECLARE_WRITE8_MEMBER(fcrash_msm5205_1_data_w);
-	DECLARE_WRITE16_MEMBER(varthb_layer_w);
-	uint32_t screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	void cawingbl_soundlatch_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void dinopic_layer_w(offs_t offset, u16 data);
+	void dinopic_layer2_w(u16 data);
+	void knightsb_layer_w(offs_t offset, u16 data);
+	void kodb_layer_w(offs_t offset, u16 data);
+	void punipic_layer_w(offs_t offset, u16 data);
+	void sf2mdt_layer_w(offs_t offset, u16 data);
+	void sf2mdta_layer_w(offs_t offset, u16 data);
+	void slampic_layer_w(offs_t offset, u16 data);
+	void fcrash_soundlatch_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void fcrash_snd_bankswitch_w(u8 data);
+	void sf2mdt_snd_bankswitch_w(u8 data);
+	void knightsb_snd_bankswitch_w(u8 data);
+	void fcrash_msm5205_0_data_w(u8 data);
+	void fcrash_msm5205_1_data_w(u8 data);
+	u32 screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void fcrash_update_transmasks();
 	void fcrash_render_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void fcrash_render_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer, int primask);
@@ -405,13 +404,13 @@ public:
 
 
 	/* cps video */
-	inline uint16_t *cps1_base( int offset, int boundary );
+	inline u16  *cps1_base( int offset, int boundary );
 	void cps1_get_video_base();
-	void unshuffle(uint64_t *buf, int len);
+	void unshuffle(u64 *buf, int len);
 	void cps2_gfx_decode();
 	int gfxrom_bank_mapper(int type, int code);
 	void cps1_update_transmasks();
-	void cps1_build_palette(const uint16_t* const palette_base);
+	void cps1_build_palette(const u16 * const palette_base);
 	void cps1_find_last_sprite();
 	void cps1_render_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void cps2_find_last_sprite();
@@ -421,19 +420,12 @@ public:
 	void cps1_render_high_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer);
 	void cps2_set_sprite_priorities();
 	void cps2_objram_latch();
-	uint16_t *cps2_objbase();
+	u16  *cps2_objbase();
 
 
 	/* cps2 driver */
 	void init_digital_volume();
-	DECLARE_READ16_MEMBER(gigaman2_dummyqsound_r);
-	DECLARE_WRITE16_MEMBER(gigaman2_dummyqsound_w);
 	void gigaman2_gfx_reorder();
-	DECLARE_WRITE16_MEMBER(cps2_eeprom_port_w);
-	DECLARE_READ16_MEMBER(cps2_qsound_volume_r);
-	DECLARE_READ16_MEMBER(kludge_r);
-	DECLARE_READ16_MEMBER(joy_or_paddle_r);
-	DECLARE_READ16_MEMBER(joy_or_paddle_ecofghtr_r);
 	DECLARE_WRITE_LINE_MEMBER(m5205_int1);
 	DECLARE_WRITE_LINE_MEMBER(m5205_int2);
 	void cps2(machine_config &config);
@@ -508,9 +500,9 @@ public:
 	void sk2h31_map(address_map &map);
 	void wofsf2_map(address_map &map);
 	void captcommb2_map(address_map &map);
-	DECLARE_WRITE16_MEMBER(dinoh_sound_command_w);
-	DECLARE_WRITE16_MEMBER(daimakb_layer_w);
-	DECLARE_WRITE16_MEMBER(daimakb_palctrl_w);
+	void dinoh_sound_command_w(u16 data);
+	void daimakb_layer_w(offs_t offset, u16 data);
+	void daimakb_palctrl_w(u16 data);
 	void init_dinoeh();
 	void init_dinoh();
 	void init_dinoz();

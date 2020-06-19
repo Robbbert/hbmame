@@ -110,7 +110,7 @@ private:
 
 	void mineswp_map(address_map &map);
 	void mineswp_io(address_map &map);
-	DECLARE_WRITE8_MEMBER(mineswp_color_w);
+	void mineswp_color_w(u8 data);
 	virtual void machine_start() override;
 	required_device<beep_device> m_beep;
 };
@@ -123,7 +123,7 @@ private:
 *******************************************************************/
 
 
-WRITE8_MEMBER( mineswp_state::mineswp_color_w )
+void mineswp_state::mineswp_color_w(u8 data)
 {
 	// d0-d2: fg palette
 	// d3: sound bit

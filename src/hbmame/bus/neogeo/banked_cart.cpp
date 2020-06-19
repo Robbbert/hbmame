@@ -8,7 +8,7 @@
 DEFINE_DEVICE_TYPE(NEOGEO_BANKED_CART, neogeo_banked_cart_device, "neogeo_banked_cart", "NeoGeo Banked Cartridge")
 
 
-neogeo_banked_cart_device::neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+neogeo_banked_cart_device::neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, NEOGEO_BANKED_CART, tag, owner, clock),
 	m_bank_cartridge(nullptr),
 	m_main_cpu_bank_address(0),
@@ -56,7 +56,7 @@ void neogeo_banked_cart_device::_set_main_cpu_bank_address(void)
 }
 
 
-void neogeo_banked_cart_device::neogeo_set_main_cpu_bank_address( uint32_t bank_address )
+void neogeo_banked_cart_device::neogeo_set_main_cpu_bank_address( u32 bank_address )
 {
 //  if (LOG_MAIN_CPU_BANKING) logerror("MAIN CPU PC %06x: neogeo_set_main_cpu_bank_address %06x\n", m_maincpu->pc(), bank_address);
 
@@ -66,10 +66,10 @@ void neogeo_banked_cart_device::neogeo_set_main_cpu_bank_address( uint32_t bank_
 }
 
 
-WRITE16_MEMBER(neogeo_banked_cart_device::main_cpu_bank_select_w)
+void neogeo_banked_cart_device::main_cpu_bank_select_w(u16 data)
 {
-	uint32_t bank_address;
-	uint32_t len = m_region_size;
+	u32 bank_address;
+	u32 len = m_region_size;
 
 	if ((len <= 0x100000) && (data & 0x07))
 		logerror("PC %06x: warning: bankswitch to %02x but no banks available\n", machine().describe_context(), data);
@@ -96,10 +96,10 @@ void neogeo_banked_cart_device::init_banks(void)
 		neogeo_set_main_cpu_bank_address(0x000000);
 }
 
-void neogeo_banked_cart_device::install_banks(running_machine& machine, cpu_device* maincpu, uint8_t* region, uint32_t region_size)
+void neogeo_banked_cart_device::install_banks(running_machine& machine, cpu_device* maincpu, u8* region, u32 region_size)
 {
 	maincpu->space(AS_PROGRAM).install_read_bank(0x200000, 0x2fffff, "cartridge");
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(*this, FUNC(neogeo_banked_cart_device::main_cpu_bank_select_w)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16smo_delegate(*this, FUNC(neogeo_banked_cart_device::main_cpu_bank_select_w)));
 
 	m_bank_cartridge = machine.root_device().membank("cartridge");
 	m_region = region;

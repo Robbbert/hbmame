@@ -70,37 +70,34 @@ public:
 
 private:
 
-	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
-	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
-	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
-	DECLARE_READ8_MEMBER(port02_r);
-	DECLARE_WRITE8_MEMBER(port03_w);
-	DECLARE_WRITE8_MEMBER(port05_w);
-	DECLARE_WRITE8_MEMBER(colour_w);
+	u8 port02_r();
+	void port03_w(u8 data);
+	void port05_w(u8 data);
+	void colour_w(offs_t offset, u8 data);
 	DECLARE_MACHINE_START(sc);
 	DECLARE_MACHINE_RESET(sc);
 	TIMER_DEVICE_CALLBACK_MEMBER(schaser_effect_555_cb);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
-	uint32_t screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	u32 screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	bool m_flip_screen;
 	bool m_sound_enabled;
 	bool m_explosion;
 	bool m_555_is_low;
 	attotime m_555_time_remain;
 	int32_t m_555_time_remain_savable;
-	uint8_t m_last_effect;
-	uint8_t m_sound_seq;
+	u8 m_last_effect;
+	u8 m_sound_seq;
 	emu_timer   *m_interrupt_timer;
-	uint8_t vpos_to_vysnc_chain_counter( int vpos );
-	int vysnc_chain_counter_to_vpos( uint8_t counter, int vblank );
+	u8 vpos_to_vysnc_chain_counter( int vpos );
+	int vysnc_chain_counter_to_vpos( u8 counter, int vblank );
 	void schaser_reinit_555_time_remain();
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
 	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<uint8_t> m_p_ram;
-	required_shared_ptr<uint8_t> m_p_colorram;
+	required_shared_ptr<u8> m_p_ram;
+	required_shared_ptr<u8> m_p_colorram;
 	required_device<sn76477_device> m_sn;
 	required_device<discrete_sound_device> m_discrete;
 	required_device<timer_device> m_555_timer;
@@ -204,7 +201,7 @@ static const double schaser_effect_rc[8] =
 	(1.0/ (1.0/RES_K(15) + 1.0/RES_K(39) + 1.0/RES_K(82)) + RES_K(20)) * CAP_U(1)
 };
 
-WRITE8_MEMBER(sc_state::port03_w)
+void sc_state::port03_w(u8 data)
 {
 	/* bit 1 - Dot Sound Enable
 	   bit 2 - Effect Sound A (a stream of pulses)
@@ -212,7 +209,7 @@ WRITE8_MEMBER(sc_state::port03_w)
 	   bit 4 - Explosion (a stream of ff's with some fe's thrown in)
 	   bit 5 - Goes high when first dot hit */
 
-	uint8_t effect = 0, byte = data & 0x2c;
+	u8 effect = 0, byte = data & 0x2c;
 
 	/* If you use fuel, the dot sound turns into a continuous beep.
 
@@ -286,7 +283,7 @@ WRITE8_MEMBER(sc_state::port03_w)
 	m_sn->mixer_b_w(m_explosion);
 }
 
-WRITE8_MEMBER(sc_state::port05_w)
+void sc_state::port05_w(u8 data)
 {
 	/* bit 0 - Music (DAC)
 	   bit 2 - Coin Lockout
@@ -309,7 +306,7 @@ WRITE8_MEMBER(sc_state::port05_w)
 
 TIMER_DEVICE_CALLBACK_MEMBER(sc_state::schaser_effect_555_cb)
 {
-	uint8_t effect = param;
+	u8 effect = param;
 	attotime new_time;
 
 	/* Toggle 555 output */
@@ -364,16 +361,15 @@ MACHINE_RESET_MEMBER( sc_state, sc )
 	m_555_time_remain_savable = m_555_time_remain.as_double();
 	m_555_timer->adjust(attotime::never);
 
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	port03_w(space, 0, 0);
-	port05_w(space, 0, 0);
+	port03_w(0);
+	port05_w(0);
 	mw8080bw_start_interrupt_timer();
 }
 
-uint8_t sc_state::vpos_to_vysnc_chain_counter( int vpos )
+u8 sc_state::vpos_to_vysnc_chain_counter( int vpos )
 {
 	/* convert from a vertical position to the actual values on the vertical sync counters */
-	uint8_t counter;
+	u8 counter;
 	int vblank = (vpos >= MW8080BW_VBSTART);
 
 	if (vblank)
@@ -385,7 +381,7 @@ uint8_t sc_state::vpos_to_vysnc_chain_counter( int vpos )
 }
 
 
-int sc_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
+int sc_state::vysnc_chain_counter_to_vpos( u8 counter, int vblank )
 {
 	/* convert from the vertical sync counters to an actual vertical position */
 	int vpos;
@@ -401,14 +397,14 @@ int sc_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 
 TIMER_CALLBACK_MEMBER(sc_state::mw8080bw_interrupt_callback)
 {
-	uint8_t next_counter;
+	u8 next_counter;
 	int next_vpos;
 	int next_vblank;
 
 	/* compute vector and set the interrupt line */
 	int vpos = m_screen->vpos();
-	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
-	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+	u8 counter = vpos_to_vysnc_chain_counter(vpos);
+	u8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
 	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
 
 	/* set up for next interrupt */
@@ -442,11 +438,11 @@ void sc_state::mw8080bw_start_interrupt_timer(  )
 
 
 
-uint32_t sc_state::screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+u32 sc_state::screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	pen_t pens[8];
 	offs_t offs;
-	uint8_t i, x, y, data, fg, color;
+	u8 i, x, y, data, fg, color;
 
 	for (i = 0; i < 8; i++)
 		pens[i] = rgb_t(pal1bit(i >> 0), pal1bit(i >> 2), pal1bit(i >> 1));
@@ -478,15 +474,15 @@ uint32_t sc_state::screen_update_schasercv(screen_device &screen, bitmap_rgb32 &
 	return 0;
 }
 
-READ8_MEMBER(sc_state::port02_r)
+u8 sc_state::port02_r()
 {
-	uint8_t data = ioport("IN2")->read();
+	u8 data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
-	uint8_t in1 = ioport("IN1")->read();
+	u8 in1 = ioport("IN1")->read();
 	return (data & 0x89) | (in1 & 0x70) | (BIT(in1, 3) << 1) | (BIT(in1, 7) << 2);
 }
 
-WRITE8_MEMBER( sc_state::colour_w )
+void sc_state::colour_w(offs_t offset, u8 data)
 {
 	m_p_colorram[offset & 0x1f9f] = data;
 }
