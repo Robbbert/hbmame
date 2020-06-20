@@ -3,7 +3,7 @@
 #include "../mame/drivers/galaga.cpp"
 
 // Produce pacman death sound in galagost
-WRITE8_MEMBER( galaga_hbmame::galaga_sample_w )
+void galaga_hbmame::galaga_sample_w(offs_t offset, u8 data)
 {
 	switch ( data )
 	{

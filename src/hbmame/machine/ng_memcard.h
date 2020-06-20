@@ -30,7 +30,7 @@ class ng_memcard_device :  public device_t, public device_image_interface
 {
 public:
 	// construction/destruction
-	ng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
+	ng_memcard_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
 	virtual iodevice_t image_type() const noexcept override { return IO_MEMCARD; }
 
@@ -48,13 +48,13 @@ public:
 	// device-level overrides
 	virtual void device_start() override;
 
-	DECLARE_READ8_MEMBER(read);
-	DECLARE_WRITE8_MEMBER(write);
+	u8 read(offs_t offset);
+	void write(offs_t offset, u8 data);
 
 	/* returns the index of the current memory card, or -1 if none */
 	int present() { return is_loaded() ? 0 : -1; }
 private:
-	uint8_t m_memcard_data[0x800];
+	u8 m_memcard_data[0x800];
 };
 
 

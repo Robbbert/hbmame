@@ -41,28 +41,28 @@ void neogeo_state::init_kof2k2pl17()
 // Due to lack of info, this is not emulated. It could happen that bad sounds might
 // occur.
 #if 0
-WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
+void neogeo_state::audio_cpu_enable_nmi_w(offs_t offset, u8 data)
 {
 	// out ($08) enables the nmi, out ($18) disables it
 	m_audio_cpu_nmi_enabled = !(offset & 0x10);
 	audio_cpu_check_nmi();
 }
 
-WRITE8_MEMBER(neogeo_state::audio_command_w_x)
+void neogeo_state::audio_command_w_x(offs_t offset, u8 data)
 {
 	offs_t which = offset >> 17;printf("%X ",which);
 	switch (which)
 	{
 		case 0:
-			m_soundlatch_m2->write(space, 0, data);
+			m_soundlatch_m2->write(data);
 			m_audiocpu_m2->set_input_line(INPUT_LINE_NMI, (m2_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
 			break;
 		case 1:
-			m_soundlatch_m3->write(space, 0, data);
+			m_soundlatch_m3->write(data);
 			m_audiocpu_m3->set_input_line(INPUT_LINE_NMI, (m3_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
 			break;
 		case 2:
-			m_soundlatch_m4->write(space, 0, data);
+			m_soundlatch_m4->write(data);
 			m_audiocpu_m3->set_input_line(INPUT_LINE_NMI, (m4_nmi_enabled) ? ASSERT_LINE : CLEAR_LINE);
 			break;
 	}
@@ -74,17 +74,17 @@ WRITE8_MEMBER(neogeo_state::audio_command_w_x)
 	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
 }
 
-WRITE8_MEMBER(neogeo_state::audio_command_w_m3)
+void neogeo_state::audio_command_w_m3(u8 data)
 {
-	m_soundlatch_m3->write(space, 0, data);
+	m_soundlatch_m3->write(data);
 	m_audio_cpu_nmi_pending = true;
 	audio_cpu_check_nmi();
 	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));
 }
 
-WRITE8_MEMBER(neogeo_state::audio_command_w_m4)
+void neogeo_state::audio_command_w_m4(u8 data)
 {
-	m_soundlatch_m4->write(space, 0, data);
+	m_soundlatch_m4->write( data);
 	m_audio_cpu_nmi_pending = true;
 	audio_cpu_check_nmi();
 	machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(50));

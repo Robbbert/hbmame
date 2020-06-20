@@ -7,15 +7,15 @@
      Game choice is done via a menu
 **********************************************/
 
-WRITE8_MEMBER( pacman_state::m96in1_rombank_w )
+void pacman_state::m96in1_rombank_w(u8 data)
 {
 	data &= 0x0f;
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
-	multipac_gfxbank_w( space, 0, data );
+	multipac_gfxbank_w(data);
 }
 
-WRITE8_MEMBER( pacman_state::m96in1b_rombank_w )
+void pacman_state::m96in1b_rombank_w(u8 data)
 {
 	data &= 0x1f;
 	membank("bank1")->set_entry(data);
@@ -23,16 +23,16 @@ WRITE8_MEMBER( pacman_state::m96in1b_rombank_w )
 	m96in1b_gfxbank_w( data );
 }
 
-WRITE8_MEMBER( pacman_state::hackypac_rombank_w )
+void pacman_state::hackypac_rombank_w(u8 data)
 {
-	uint8_t banks[] = { 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 8, 6, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 3 };
+	u8 banks[] = { 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 8, 6, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 3 };
 	data &= 0x1f;
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
-	multipac_palbank_w( space, 1, banks[data] );	/* convert to a palette bank and switch to it */
+	multipac_palbank_w(1, banks[data]);	/* convert to a palette bank and switch to it */
 }
 
-WRITE8_MEMBER( pacman_state::madpac_rombank_w )
+void pacman_state::madpac_rombank_w(u8 data)
 {
 	data &= 0x1f;
 	membank("bank1")->set_entry(data);
@@ -40,43 +40,43 @@ WRITE8_MEMBER( pacman_state::madpac_rombank_w )
 	madpac_gfxbank_w( data );
 }
 
-WRITE8_MEMBER( pacman_state::multipac_rombank_w )
+void pacman_state::multipac_rombank_w(u8 data)
 {
-	uint8_t temp = bitswap<8>(data, 7, 6, 5, 3, 2, 1, 0, 4);  //((data & 0x0f) << 1) + ((data & 0x10) >> 4);	/* rearrange bits */
+	u8 temp = bitswap<8>(data, 7, 6, 5, 3, 2, 1, 0, 4);  //((data & 0x0f) << 1) + ((data & 0x10) >> 4);	/* rearrange bits */
 	membank("bank1")->set_entry(temp);				/* select rom bank */
 	if (!m_maincpu->space(AS_PROGRAM).read_byte(0xa007))
 		membank("bank2")->set_entry(temp << 1);	/* Ms Pacman needs more roms */
 	m_maincpu->set_pc(0);					/* Set PC <- 0000 needed for Lizard Wizard */
 }
 
-WRITE8_MEMBER( pacman_state::pm4n1_rombank_w )
+void pacman_state::pm4n1_rombank_w(offs_t offset, u8 data)
 {
-	static uint8_t pm4n1_temp = 0;
-	uint8_t banks[] = { 0, 4, 2, 0, 1, 0, 3, 0 };
+	static u8 pm4n1_temp = 0;
+	u8 banks[] = { 0, 4, 2, 0, 1, 0, 3, 0 };
 	pm4n1_temp &= (7 - (1<<offset));
 	pm4n1_temp |= (data&1)<<offset;
 	membank("bank1")->set_entry(banks[pm4n1_temp]);
 	membank("bank2")->set_entry(banks[pm4n1_temp]);
-	multipac_gfxbank_w( space, 0, banks[pm4n1_temp] );
+	multipac_gfxbank_w(banks[pm4n1_temp]);
 }
 
-WRITE8_MEMBER( pacman_state::pm4n1d_rombank_w )
+void pacman_state::pm4n1d_rombank_w(offs_t offset, u8 data)
 {
 	if (offset==1)
 	{
 		membank("bank1")->set_entry(data);
 		membank("bank2")->set_entry(data);
-		multipac_gfxbank_w( space, 0, data<<1 );
+		multipac_gfxbank_w(data<<1);
 	}
 }
 
-WRITE8_MEMBER( pacman_state::superabc_rombank_w )
+void pacman_state::superabc_rombank_w(u8 data)
 {
 	data = data >> 4;
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
 	membank("bank3")->set_entry(data);
-	multipac_gfxbank_w( space, 0, data );
+	multipac_gfxbank_w(data);
 }
 
 
@@ -88,30 +88,27 @@ WRITE8_MEMBER( pacman_state::superabc_rombank_w )
 
 MACHINE_RESET_MEMBER( pacman_state, 96in1 )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	m96in1_rombank_w( space, 0,0 );
+	m96in1_rombank_w(0);
 	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, hackypac )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	multipac_gfxbank_w( space, 0,0 );
-	hackypac_rombank_w( space, 0,0 );
+	multipac_gfxbank_w(0);
+	hackypac_rombank_w(0);
 	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, madpac )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	madpac_rombank_w( space, 0,0 );
+	madpac_rombank_w(0);
 	m_namco_sound->sound_enable_w(0);
 }
 
 MACHINE_RESET_MEMBER( pacman_state, mschamp )
 {
-	uint8_t *rom = memregion("maincpu")->base() + 0x10000;
-	uint8_t data = ioport("GAME")->read() & 1;
+	u8 *rom = memregion("maincpu")->base() + 0x10000;
+	u8 data = ioport("GAME")->read() & 1;
 
 	membank("bank1")->configure_entries(0, 2, &rom[0x0000], 0x8000);
 	membank("bank2")->configure_entries(0, 2, &rom[0x4000], 0x8000);
@@ -122,14 +119,13 @@ MACHINE_RESET_MEMBER( pacman_state, mschamp )
 
 MACHINE_RESET_MEMBER( pacman_state, multipac )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	multipac_rombank_w( space, 0, 0);
-	multipac_gfxbank_w( space, 0, 0);
-	multipac_palbank_w( space, 0, 0);
+	multipac_rombank_w(0);
+	multipac_gfxbank_w(0);
+	multipac_palbank_w(0, 0);
 	m_namco_sound->sound_enable_w(0);
 }
 
-static uint8_t curr_bank = 0;
+static u8 curr_bank = 0;
 
 /* select next game when F3 pressed */
 MACHINE_RESET_MEMBER( pacman_state, mspaceur )
@@ -140,10 +136,9 @@ MACHINE_RESET_MEMBER( pacman_state, mspaceur )
 
 MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	pm4n1_rombank_w(space, 0, 0);
-	pm4n1_rombank_w(space, 1, 0);
-	pm4n1_rombank_w(space, 2, 0);
+	pm4n1_rombank_w(0, 0);
+	pm4n1_rombank_w(1, 0);
+	pm4n1_rombank_w(2, 0);
 	m_namco_sound->sound_enable_w(0);
 }
 
@@ -623,27 +618,27 @@ INPUT_PORTS_END
 
 void pacman_state::init_96in1()
 {
-	uint8_t *RAM = memregion("maincpu")->base();
+	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 16, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 16, &RAM[0x14000], 0x8000);
 }
 
 void pacman_state::init_madpac()
 {
-	uint8_t *RAM = memregion("maincpu")->base();
+	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 32, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 32, &RAM[0x14000], 0x8000);
 }
 
 void pacman_state::init_mspaceur()
 {
-	uint8_t *RAM = memregion("maincpu")->base();
+	u8 *RAM = memregion("maincpu")->base();
 	membank("bank2")->configure_entries(0, 2, &RAM[0x10000], 0x2000);
 }
 
 void pacman_state::init_multipac()
 {
-	uint8_t *RAM = memregion("maincpu")->base();
+	u8 *RAM = memregion("maincpu")->base();
 	RAM[0x10000] = 0xED;	/* It seems that IM0 is not working properly in MAME */
 	RAM[0x10001] = 0x56;	/* and, the interrupt mode is not being reset when a */
 	RAM[0x10002] = 0xC3;	/* machine reset is done. So, inserting some code so */
@@ -656,14 +651,14 @@ void pacman_state::init_multipac()
 
 void pacman_state::init_pm4n1()
 {
-	uint8_t *RAM = memregion("maincpu")->base();
+	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 5, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 5, &RAM[0x14000], 0x8000);
 }
 
 void pacman_state::init_superabc()
 {
-	uint8_t *RAM = memregion("maincpu")->base();
+	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x10000], 0x10000);
 	membank("bank2")->configure_entries(0, 8, &RAM[0x14000], 0x10000);
 	membank("bank3")->configure_entries(0, 8, &RAM[0x1a000], 0x10000);

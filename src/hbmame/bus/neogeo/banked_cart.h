@@ -14,17 +14,17 @@ class neogeo_banked_cart_device :  public device_t
 {
 public:
 	// construction/destruction
-	neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0);
+	neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
 	memory_bank*   m_bank_cartridge;
-	uint32_t     m_main_cpu_bank_address;
-	uint8_t* m_region;
-	uint32_t m_region_size;
+	u32     m_main_cpu_bank_address;
+	u8* m_region;
+	u32 m_region_size;
 
 
-	void install_banks(running_machine& machine, cpu_device* maincpu, uint8_t* region, uint32_t region_size);
-	WRITE16_MEMBER(main_cpu_bank_select_w);
-	void neogeo_set_main_cpu_bank_address(uint32_t bank_address);
+	void install_banks(running_machine& machine, cpu_device* maincpu, u8* region, u32 region_size);
+	void main_cpu_bank_select_w(u16 data);
+	void neogeo_set_main_cpu_bank_address(u32 bank_address);
 	void _set_main_cpu_bank_address();
 	void init_banks(void);
 

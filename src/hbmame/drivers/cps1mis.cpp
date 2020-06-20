@@ -25,18 +25,18 @@ Issues:
 
 *******************************************************************************************************************/
 
-WRITE16_MEMBER( cps_state::dinoh_sound_command_w )
+void cps_state::dinoh_sound_command_w(u16 data)
 {
 	/* Pass the Sound Code to the Q-Sound Shared Ram */
 	m_qsound_sharedram1[1] = data;
 }
 
-WRITE16_MEMBER( cps_state::daimakb_palctrl_w )
+void cps_state::daimakb_palctrl_w(u16 data)
 {
 	m_cps_b_regs[0x30 / 2] = data;
 }
 
-WRITE16_MEMBER(cps_state::daimakb_layer_w)
+void cps_state::daimakb_layer_w(offs_t offset, u16 data)
 {
 	if (offset == 0x00)
 		m_cps_a_regs[0x0e / 2] = data; /* scroll 1y */
@@ -6027,7 +6027,7 @@ HACK( 1992, wofud,       wof,      qsound,     wof,      cps_state, wof,      RO
 
 void cps_state::init_dinoeh()
 {
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800181, write16_delegate(*this, FUNC(cps_state::dinoh_sound_command_w)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800181, write16smo_delegate(*this, FUNC(cps_state::dinoh_sound_command_w)));
 	kabuki_setup(dino_decode);
 	init_cps1();
 }
@@ -6035,14 +6035,14 @@ void cps_state::init_dinoeh()
 void cps_state::init_dinoh()
 {
 	/* Patch out Q-Sound test */
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	u16 *rom = (u16 *)memregion("maincpu")->base();
 	rom[0xaacf4/2] = 0x4e71;
 	init_dinoeh();
 }
 
 void cps_state::init_dinoz()
 {
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	u16 *rom = (u16 *)memregion("maincpu")->base();
 	rom[0xaaa82/2] = 0x4e71; // Patch out Q-Sound test
 	rom[0x1cfb4/2] = 0x4e71; // patch out invalid instruction
 	init_dinoeh();
@@ -6050,7 +6050,7 @@ void cps_state::init_dinoz()
 
 void cps_state::init_dinohb()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Fix draw scroll
 //	mem8[0x006c2] = 0xC0;
 //	mem8[0x006c3] = 0xFF;
@@ -6133,7 +6133,7 @@ void cps_state::init_dinohb()
 void cps_state::init_punisherb()
 {
 	// note: bytes are swapped around compared to rom_fill.
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Use standard ports
 	mem8[0xAB3] = 0x33;
 	mem8[0xAB4] = 0x30;
@@ -6345,14 +6345,14 @@ void cps_state::init_punisherb()
 void cps_state::init_sf2h9()
 {
 	/* Patch out protection check */
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	u16 *rom = (u16 *)memregion("maincpu")->base();
 	rom[0xc0670/2] = 0x4e71;
 	init_cps1();
 }
 
 void cps_state::init_sf2h13()
 {
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	u16 *rom = (u16 *)memregion("maincpu")->base();
 
 	// Fix scroll
 	rom[0x1d22a/2] = 0x0120;
@@ -6381,7 +6381,7 @@ void cps_state::init_sf2h13()
 
 void cps_state::init_wofb()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Fix gfx
 	mem8[0x506] = 0xE7;
 	mem8[0x507] = 0x48;
@@ -6407,7 +6407,7 @@ void cps_state::init_wofb()
 
 void cps_state::init_sk2h35()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Patch Q sound protection? check
 	mem8[0x5A1A] = 0x00;
 	mem8[0x5A1B] = 0x67;
@@ -6477,7 +6477,7 @@ void cps_state::init_sk2h35()
 
 void cps_state::init_sk2h1q()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Stage Order
 	mem8[0x72a6] = 0x00;
 	// Disable Sprite Recoding
@@ -6602,7 +6602,7 @@ void cps_state::init_sk2h1q()
 
 void cps_state::init_sk2h1()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Stage Order
 	mem8[0x72a6] = 0x00;
 	// Disable Sprite Recoding
@@ -6634,7 +6634,7 @@ void cps_state::init_sk2h1()
 
 void cps_state::init_sk2h3()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
 	mem8[0x5d858] = 0x00;
 	mem8[0x5d859] = 0x61;
@@ -6668,7 +6668,7 @@ void cps_state::init_sk2h3()
 
 void cps_state::init_sk2h21()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Patch Q sound protection? check
 	mem8[0x0554] = 0xb4;
 	mem8[0x0555] = 0x54;
@@ -6689,7 +6689,7 @@ void cps_state::init_sk2h21()
 
 void cps_state::init_sk2h22()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Protection
 	mem8[0xE7AD0] = 0x71;
 	mem8[0xE7AD1] = 0x4E;
@@ -6714,7 +6714,7 @@ void cps_state::init_sk2h22()
 
 void cps_state::init_sk2h31()
 {
-	uint8_t *mem8 = memregion("maincpu")->base();
+	u8 *mem8 = memregion("maincpu")->base();
 	// Disable Sprite Recoding
 	mem8[0x5de96] = 0x00;
 	mem8[0x5de97] = 0x61;

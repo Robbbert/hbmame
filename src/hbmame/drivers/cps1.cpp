@@ -253,50 +253,50 @@ Stephh's log (2006.09.20) :
 
 
 
-READ16_MEMBER(cps_state::cps1_dsw_r)
+u16 cps_state::cps1_dsw_r(offs_t offset)
 {
 	static const char *const dswname[] = { "IN0", "DSWA", "DSWB", "DSWC" };
 	int in = ioport(dswname[offset])->read();
 	return (in << 8) | 0xff;
 }
 
-READ16_MEMBER(cps_state::cps1_hack_dsw_r)
+u16 cps_state::cps1_hack_dsw_r(offs_t offset)
 {
 	static const char *const dswname[] = { "IN0", "DSWA", "DSWB", "DSWC" };
 	int in = ioport(dswname[offset])->read();
 	return (in << 8) | in;
 }
 
-READ16_MEMBER(cps_state::cps1_in1_r)
+u16 cps_state::cps1_in1_r()
 {
 	int in = ioport("IN1")->read();
 	return (in << 8) | in;
 }
 
-READ16_MEMBER(cps_state::cps1_in2_r)
+u16 cps_state::cps1_in2_r()
 {
 	int in = ioport("IN2")->read();
 	return (in << 8) | in;
 }
 
-READ16_MEMBER(cps_state::cps1_in3_r)
+u16 cps_state::cps1_in3_r()
 {
 	int in = ioport("IN3")->read();
 	return (in << 8) | in;
 }
 
 
-WRITE8_MEMBER(cps_state::cps1_snd_bankswitch_w)
+void cps_state::cps1_snd_bankswitch_w(u8 data)
 {
 	membank("bank1")->set_entry(data & 0x01);
 }
 
-WRITE8_MEMBER(cps_state::cps1_oki_pin7_w)
+void cps_state::cps1_oki_pin7_w(u8 data)
 {
 	m_oki->set_pin7(data & 1);
 }
 
-WRITE16_MEMBER(cps_state::cps1_soundlatch_w)
+void cps_state::cps1_soundlatch_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_soundlatch->write(data & 0xff);
@@ -304,13 +304,13 @@ WRITE16_MEMBER(cps_state::cps1_soundlatch_w)
 		m_soundlatch->write(data >> 8);
 }
 
-WRITE16_MEMBER(cps_state::cps1_soundlatch2_w)
+void cps_state::cps1_soundlatch2_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_soundlatch2->write(data & 0xff);
 }
 
-WRITE16_MEMBER(cps_state::cps1_coinctrl_w)
+void cps_state::cps1_coinctrl_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -323,7 +323,7 @@ WRITE16_MEMBER(cps_state::cps1_coinctrl_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::cpsq_coinctrl2_w)
+void cps_state::cpsq_coinctrl2_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -368,11 +368,11 @@ void cps_state::cpu_space_map(address_map &map)
 *
 ********************************************************************/
 
-READ16_MEMBER(cps_state::qsound_rom_r)
+u16 cps_state::qsound_rom_r(offs_t offset)
 {
 	if (memregion("user1") != nullptr)
 	{
-		uint8_t *rom = memregion("user1")->base();
+		u8 *rom = memregion("user1")->base();
 		return rom[offset] | 0xff00;
 	}
 	else
@@ -382,29 +382,29 @@ READ16_MEMBER(cps_state::qsound_rom_r)
 	}
 }
 
-READ16_MEMBER(cps_state::qsound_sharedram1_r)
+u16 cps_state::qsound_sharedram1_r(offs_t offset)
 {
 	return m_qsound_sharedram1[offset] | 0xff00;
 }
 
-WRITE16_MEMBER(cps_state::qsound_sharedram1_w)
+void cps_state::qsound_sharedram1_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_qsound_sharedram1[offset] = data;
 }
 
-READ16_MEMBER(cps_state::qsound_sharedram2_r)
+u16 cps_state::qsound_sharedram2_r(offs_t offset)
 {
 	return m_qsound_sharedram2[offset] | 0xff00;
 }
 
-WRITE16_MEMBER(cps_state::qsound_sharedram2_w)
+void cps_state::qsound_sharedram2_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_qsound_sharedram2[offset] = data;
 }
 
-WRITE8_MEMBER(cps_state::qsound_banksw_w)
+void cps_state::qsound_banksw_w(u8 data)
 {
 	/* Z80 bank register for music note data. It's odd that it isn't encrypted though. */
 	int bank = data & 0x0f;
@@ -12320,7 +12320,7 @@ ROM_START( sfzbch )
 ROM_END
 
 
-READ16_MEMBER(cps_state::sf2rb_prot_r)
+u16 cps_state::sf2rb_prot_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -12336,11 +12336,11 @@ READ16_MEMBER(cps_state::sf2rb_prot_r)
 
 void cps_state::init_sf2rb()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x2fffff, read16_delegate(*this, FUNC(cps_state::sf2rb_prot_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x2fffff, read16sm_delegate(*this, FUNC(cps_state::sf2rb_prot_r)));
 
 	init_cps1();}
 
-READ16_MEMBER(cps_state::sf2rb2_prot_r)
+u16 cps_state::sf2rb2_prot_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -12356,7 +12356,7 @@ READ16_MEMBER(cps_state::sf2rb2_prot_r)
 
 void cps_state::init_sf2rb2()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x2fffff, read16_delegate(*this, FUNC(cps_state::sf2rb2_prot_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x2fffff, read16sm_delegate(*this, FUNC(cps_state::sf2rb2_prot_r)));
 
 	init_cps1();
 }
@@ -12366,7 +12366,8 @@ void cps_state::init_sf2ee()
 	/* This specific revision of SF2 has the CPS-B custom mapped at a different address. */
 	/* The mapping is handled by the PAL IOB2 on the B-board */
 	m_maincpu->space(AS_PROGRAM).unmap_readwrite(0x800140, 0x80017f);
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x8001c0, 0x8001ff, read16_delegate(*this, FUNC(cps_state::cps1_cps_b_r)), write16_delegate(*this, FUNC(cps_state::cps1_cps_b_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x8001c0, 0x8001ff, read16sm_delegate(*this, FUNC(cps_state::cps1_cps_b_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x8001c0, 0x8001ff, write16s_delegate(*this, FUNC(cps_state::cps1_cps_b_w)));
 
 	init_cps1();
 }
@@ -12374,7 +12375,8 @@ void cps_state::init_sf2ee()
 void cps_state::init_sf2thndr()
 {
 	/* This particular hack uses a modified B-board PAL which mirrors the CPS-B registers at an alternate address */
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0x8001c0, 0x8001ff, read16_delegate(*this, FUNC(cps_state::cps1_cps_b_r)), write16_delegate(*this, FUNC(cps_state::cps1_cps_b_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x8001c0, 0x8001ff, read16sm_delegate(*this, FUNC(cps_state::cps1_cps_b_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x8001c0, 0x8001ff, write16s_delegate(*this, FUNC(cps_state::cps1_cps_b_w)));
 
 	init_cps1();
 }
@@ -12382,13 +12384,13 @@ void cps_state::init_sf2thndr()
 void cps_state::init_sf2hack()
 {
 	/* some SF2 hacks have some inputs wired to the LSB instead of MSB */
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x800018, 0x80001f, read16_delegate(*this, FUNC(cps_state::cps1_hack_dsw_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x800018, 0x80001f, read16sm_delegate(*this, FUNC(cps_state::cps1_hack_dsw_r)));
 
 	init_cps1();
 }
 
 
-READ16_MEMBER(cps_state::sf2dongb_prot_r)
+u16 cps_state::sf2dongb_prot_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -12403,12 +12405,12 @@ READ16_MEMBER(cps_state::sf2dongb_prot_r)
 void cps_state::init_sf2dongb()
 {
 	// There is a hacked up Altera EP910PC-30 DIP in the 5f socket instead of a 4th eprom
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x180000, 0x1fffff, read16_delegate(*this, FUNC(cps_state::sf2dongb_prot_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x180000, 0x1fffff, read16sm_delegate(*this, FUNC(cps_state::sf2dongb_prot_r)));
 
 	init_cps1();
 }
 
-READ16_MEMBER(cps_state::sf2ceblp_prot_r)
+u16 cps_state::sf2ceblp_prot_r()
 {
 	if (sf2ceblp_prot == 0x0)
 		return 0x1992;
@@ -12417,7 +12419,7 @@ READ16_MEMBER(cps_state::sf2ceblp_prot_r)
 	return 0xffff;
 }
 
-WRITE16_MEMBER(cps_state::sf2ceblp_prot_w)
+void cps_state::sf2ceblp_prot_w(u16 data)
 {
 	sf2ceblp_prot = data;
 }
@@ -12425,8 +12427,8 @@ WRITE16_MEMBER(cps_state::sf2ceblp_prot_w)
 
 void cps_state::init_sf2ceblp()
 {
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5762b0, 0x5762b1, write16_delegate(*this, FUNC(cps_state::sf2ceblp_prot_w)));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x57A2b0, 0x57A2b1, read16_delegate(*this, FUNC(cps_state::sf2ceblp_prot_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5762b0, 0x5762b1, write16smo_delegate(*this, FUNC(cps_state::sf2ceblp_prot_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x57A2b0, 0x57A2b1, read16smo_delegate(*this, FUNC(cps_state::sf2ceblp_prot_r)));
 
 	init_cps1();
 }
@@ -12434,8 +12436,8 @@ void cps_state::init_sf2ceblp()
 void cps_state::init_sf2m8()
 {
 	// unscramble gfx
-	uint8_t *grom = memregion("gfx")->base();
-	uint8_t *urom = memregion("user2")->base();
+	u8 *grom = memregion("gfx")->base();
+	u8 *urom = memregion("user2")->base();
 	int i = 0x480000, j = 0;
 
 	for (j = 0x20000; j < 0x80000; j+=2)
@@ -12453,10 +12455,10 @@ void cps_state::init_sf2m8()
 	init_cps1();
 }
 
-void cps_state::kabuki_setup(void (*decode)(uint8_t *src, uint8_t *dst))
+void cps_state::kabuki_setup(void (*decode)(u8 *src, u8 *dst))
 {
-	m_decrypt_kabuki = std::make_unique<uint8_t[]>(0x8000);
-	uint8_t *rom = memregion("audiocpu")->base();
+	m_decrypt_kabuki = std::make_unique<u8[]>(0x8000);
+	u8 *rom = memregion("audiocpu")->base();
 	decode(rom, m_decrypt_kabuki.get());
 	membank("decrypted")->set_base(m_decrypt_kabuki.get());
 }
@@ -12496,7 +12498,7 @@ void cps_state::init_pang3b()
 
 void cps_state::init_pang3()
 {
-	uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+	u16 *rom = (u16 *)memregion("maincpu")->base();
 	int A, src, dst;
 
 	for (A = 0x80000; A < 0x100000; A += 2)
@@ -12518,9 +12520,9 @@ void cps_state::init_pang3()
 	init_pang3b();
 }
 
-READ16_MEMBER(cps_state::ganbare_ram_r)
+u16 cps_state::ganbare_ram_r(offs_t offset, u16 mem_mask)
 {
-	uint16_t result = 0xffff;
+	u16 result = 0xffff;
 
 	if (ACCESSING_BITS_0_7)
 		result = (result & ~0x00ff) | m_m48t35->read(offset);
@@ -12530,7 +12532,7 @@ READ16_MEMBER(cps_state::ganbare_ram_r)
 	return result;
 }
 
-WRITE16_MEMBER(cps_state::ganbare_ram_w)
+void cps_state::ganbare_ram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	COMBINE_DATA(&m_mainram[offset]);
 
@@ -12543,10 +12545,10 @@ void cps_state::init_ganbare()
 	init_cps1();
 
 	/* ram is shared between the CPS work ram and the timekeeper ram */
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xff0000, 0xffffff, read16_delegate(*this, FUNC(cps_state::ganbare_ram_r)), write16_delegate(*this, FUNC(cps_state::ganbare_ram_w)));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xff0000, 0xffffff, read16s_delegate(*this, FUNC(cps_state::ganbare_ram_r)), write16s_delegate(*this, FUNC(cps_state::ganbare_ram_w)));
 }
 
-READ16_MEMBER(cps_state::dinohunt_sound_r)
+u16 cps_state::dinohunt_sound_r()
 {
 	/*TODO: understand what's really going on here. According to MT05805;
 	"I think that the values written are only qsound leftovers (after a lot of 0xFF values,
@@ -12557,16 +12559,16 @@ READ16_MEMBER(cps_state::dinohunt_sound_r)
 void cps_state::init_dinohunt()
 {
 	// is this shared with the new sound hw?
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0xf18000, 0xf19fff, read16_delegate(*this, FUNC(cps_state::dinohunt_sound_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0xf18000, 0xf19fff, read16smo_delegate(*this, FUNC(cps_state::dinohunt_sound_r)));
 	m_maincpu->space(AS_PROGRAM).install_read_port(0xfc0000, 0xfc0001, "IN2"); ;
 	// the ym2151 doesn't seem to be used. Is it actually on the PCB?
 
 	init_cps1();
 }
 
-WRITE16_MEMBER( cps_state::sf2m3_layer_w )
+void cps_state::sf2m3_layer_w(offs_t offset, u16 data)
 {
-	cps1_cps_b_w(space,0x0a,data);
+	cps1_cps_b_w(0x0a,data);
 }
 
 
