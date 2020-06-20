@@ -1999,7 +1999,6 @@ files {
 createMESSProjects(_target, _subtarget, "ccs")
 files {
 	MAME_DIR .. "src/mame/drivers/ccs2810.cpp",
-	MAME_DIR .. "src/mame/drivers/ccs300.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "chessking")
@@ -2128,10 +2127,8 @@ files {
 	MAME_DIR .. "src/mame/includes/huebler.h",
 	MAME_DIR .. "src/mame/drivers/jtc.cpp",
 	MAME_DIR .. "src/mame/drivers/kramermc.cpp",
-	MAME_DIR .. "src/mame/drivers/llc.cpp",
-	MAME_DIR .. "src/mame/includes/llc.h",
-	MAME_DIR .. "src/mame/machine/llc.cpp",
-	MAME_DIR .. "src/mame/video/llc.cpp",
+	MAME_DIR .. "src/mame/drivers/llc1.cpp",
+	MAME_DIR .. "src/mame/drivers/llc2.cpp",
 	MAME_DIR .. "src/mame/drivers/nanos.cpp",
 	MAME_DIR .. "src/mame/drivers/pcm.cpp",
 	MAME_DIR .. "src/mame/drivers/vcs80.cpp",
