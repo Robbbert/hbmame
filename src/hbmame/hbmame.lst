@@ -5491,7 +5491,7 @@ fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
 gbi			/* Ghostbusters Intro */
-igla
+//igla
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lernit
@@ -5535,20 +5535,20 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
-raroggame
+//raroggame
 rci			/* Robocop intro */
 samantha
 santabll
 seafight
 shaman16
-shaman17
-shaman18
-shaman19
+//shaman17
+//shaman18
+//shaman19
 shaman20
-shaman21
-shaman22
-shaman23
-shaman24
+//shaman21
+//shaman22
+//shaman23
+//shaman24
 smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
