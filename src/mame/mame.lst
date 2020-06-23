@@ -13550,6 +13550,7 @@ fex68km4                        //
 feasbu                          //
 feasgla                         //
 feasglaa                        //
+feasglab                        //
 feag                            //
 feag2100                        //
 feag2100a                       //
@@ -18663,6 +18664,9 @@ k4r                             //
 k5                              //
 k5m                             //
 
+@source:kawai_ksp10.cpp
+ksp10                           //
+
 @source:kawai_r100.cpp
 r100                            //
 
@@ -22591,6 +22595,9 @@ md3                             //
 
 @source:microkit.cpp
 microkit                        //
+
+@source:microkorg.cpp
+microkorg                       //
 
 @source:micromon.cpp
 micromon7141                    //
@@ -42060,6 +42067,7 @@ zapcomp                         // (1981) ZAP computer - Z80 Applications Proces
 
 @source:zaurus.cpp
 zsl5500                         // Sharp Zaurus SL-5500 "Collie"
+zslc500                         // Sharp Zaurus SL-C500
 zsl5600                         // Sharp Zaurus SL-5600 / SL-B500 "Poodle"
 zslc1000                        // Sharp Zaurus SL-C1000 "Akita"
 zslc3000                        // Sharp Zaurus SL-C3000 "Spitz"

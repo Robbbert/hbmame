@@ -460,6 +460,7 @@ k8915.cpp
 kawai_k1.cpp
 kawai_k4.cpp
 kawai_k5.cpp
+kawai_ksp10.cpp
 kawai_r100.cpp
 kaypro.cpp
 kc.cpp
@@ -552,6 +553,7 @@ micro20.cpp
 microb.cpp
 microdec.cpp
 microkit.cpp
+microkorg.cpp
 micromon.cpp
 micronic.cpp
 microtan.cpp
