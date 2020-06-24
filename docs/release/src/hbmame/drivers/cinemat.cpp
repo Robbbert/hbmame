@@ -29,7 +29,7 @@ public:
 
 	void init_bbugtest()
 	{
-		m_maincpu->space(AS_IO).install_read_handler(0x0c, 0x0f, read8_delegate(*this, FUNC(cinemat_hbmame::boxingb_dial_r)));
+		m_maincpu->space(AS_IO).install_read_handler(0x0c, 0x0f, read8sm_delegate(*this, FUNC(cinemat_hbmame::boxingb_dial_r)));
 	}
 };
 

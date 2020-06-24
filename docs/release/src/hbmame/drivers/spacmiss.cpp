@@ -55,28 +55,25 @@ private:
 	bool m_flip_screen;
 	bool m_screen_red;
 	bool m_sound_enabled;
-	uint8_t m_port_1_last_extra;
-	uint8_t m_port_2_last_extra;
+	u8 m_port_1_last_extra;
+	u8 m_port_2_last_extra;
 	emu_timer   *m_interrupt_timer;
-	DECLARE_READ8_MEMBER(mw8080bw_shift_result_rev_r);
-	DECLARE_READ8_MEMBER(mw8080bw_reversable_shift_result_r);
-	DECLARE_WRITE8_MEMBER(mw8080bw_reversable_shift_count_w);
-	DECLARE_READ8_MEMBER(spacmissx_02_r);
-	DECLARE_WRITE8_MEMBER(spacmissx_03_w);
-	DECLARE_WRITE8_MEMBER(spacmissx_05_w);
-	DECLARE_WRITE8_MEMBER(spacmissx_07_w);
+	u8 spacmissx_02_r();
+	void spacmissx_03_w(u8 data);
+	void spacmissx_05_w(u8 data);
+	void spacmissx_07_w(u8 data);
 	DECLARE_MACHINE_START(sm);
 	DECLARE_MACHINE_RESET(sm);
-	uint8_t vpos_to_vysnc_chain_counter( int vpos );
-	int vysnc_chain_counter_to_vpos( uint8_t counter, int vblank );
-	uint32_t screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	u8 vpos_to_vysnc_chain_counter( int vpos );
+	int vysnc_chain_counter_to_vpos( u8 counter, int vblank );
+	u32 screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mw8080bw_create_interrupt_timer(  );
 	void mw8080bw_start_interrupt_timer(  );
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
 	required_device<cpu_device> m_maincpu;
-	required_shared_ptr<uint8_t> m_p_ram;
+	required_shared_ptr<u8> m_p_ram;
 	required_device<discrete_sound_device> m_discrete;
 	required_device<samples_device> m_samples;
 	required_device<screen_device> m_screen;
@@ -179,14 +176,14 @@ DISCRETE_SOUND_START(spacmissx_disc)
 
 DISCRETE_SOUND_END
 
-WRITE8_MEMBER( sm_state::spacmissx_07_w )
+void sm_state::spacmissx_07_w(u8 data)
 {
 	m_discrete->write(NODE_01, data | 0xc0);
 }
 
-WRITE8_MEMBER(sm_state::spacmissx_03_w)
+void sm_state::spacmissx_03_w(u8 data)
 {
-	uint8_t rising_bits = data & ~m_port_1_last_extra;
+	u8 rising_bits = data & ~m_port_1_last_extra;
 
 	if (BIT(rising_bits, 1)) m_samples->start(2, 2);     /* Killed an enemy */
 	if (BIT(rising_bits, 2)) m_samples->start(1, 1);     /* Lost a life */
@@ -195,14 +192,14 @@ WRITE8_MEMBER(sm_state::spacmissx_03_w)
 }
 
 // bits 0-3 make a variable background tone
-WRITE8_MEMBER(sm_state::spacmissx_05_w)
+void sm_state::spacmissx_05_w(u8 data)
 {
 	if (BIT(m_port_1_last_extra, 5))
 		m_discrete->write(NODE_02, data & 0x0f);
 	else
 		m_discrete->write(NODE_02, 0);
 
-	uint8_t rising_bits = data & ~m_port_2_last_extra;
+	u8 rising_bits = data & ~m_port_2_last_extra;
 
 	if (BIT(rising_bits, 4)) m_samples->start(0, 0);     /* Shoot */
 
@@ -211,10 +208,10 @@ WRITE8_MEMBER(sm_state::spacmissx_05_w)
 	m_port_2_last_extra = data;
 }
 
-uint8_t sm_state::vpos_to_vysnc_chain_counter( int vpos )
+u8 sm_state::vpos_to_vysnc_chain_counter( int vpos )
 {
 	/* convert from a vertical position to the actual values on the vertical sync counters */
-	uint8_t counter;
+	u8 counter;
 	int vblank = (vpos >= MW8080BW_VBSTART);
 
 	if (vblank)
@@ -226,7 +223,7 @@ uint8_t sm_state::vpos_to_vysnc_chain_counter( int vpos )
 }
 
 
-int sm_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
+int sm_state::vysnc_chain_counter_to_vpos( u8 counter, int vblank )
 {
 	/* convert from the vertical sync counters to an actual vertical position */
 	int vpos;
@@ -242,14 +239,14 @@ int sm_state::vysnc_chain_counter_to_vpos( uint8_t counter, int vblank )
 
 TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
 {
-	uint8_t next_counter;
+	u8 next_counter;
 	int next_vpos;
 	int next_vblank;
 
 	/* compute vector and set the interrupt line */
 	int vpos = m_screen->vpos();
-	uint8_t counter = vpos_to_vysnc_chain_counter(vpos);
-	uint8_t vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
+	u8 counter = vpos_to_vysnc_chain_counter(vpos);
+	u8 vector = 0xc7 | ((counter & 0x40) >> 2) | ((~counter & 0x40) >> 3);
 	m_maincpu->set_input_line_and_vector(0, HOLD_LINE, vector);
 
 	/* set up for next interrupt */
@@ -306,12 +303,12 @@ MACHINE_RESET_MEMBER( sm_state, sm )
 
 
 
-uint32_t sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	uint8_t x = 0;
-	uint8_t y = MW8080BW_VCOUNTER_START_NO_VBLANK;
-	uint8_t video_data = 0;
-	uint8_t flip = m_flip_screen;
+	u8 x = 0;
+	u8 y = MW8080BW_VCOUNTER_START_NO_VBLANK;
+	u8 video_data = 0;
+	u8 flip = m_flip_screen;
 
 	while (1)
 	{
@@ -364,9 +361,9 @@ uint32_t sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &
 	return 0;
 }
 
-READ8_MEMBER(sm_state::spacmissx_02_r)
+u8 sm_state::spacmissx_02_r()
 {
-	uint8_t data = ioport("IN2")->read();
+	u8 data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }

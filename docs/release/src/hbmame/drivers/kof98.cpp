@@ -8643,6 +8643,32 @@ ROM_START( kof98hh129 ) //kof98maxp
 	ROM_LOAD16_BYTE( "242evr.c8", 0x3000001, 0x800000, CRC(3489c788) SHA1(b47ba5d64e7aad2d3f263f9fd659c1ae83b06284) )
 ROM_END
 
+ROM_START( kof98hh130 ) //kof98cb
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242hx130.p1", 0x000000, 0x100000, CRC(6cd3cf05) SHA1(9692705a0d66478ea3644b9745cad68afad5eee1) )
+	ROM_LOAD16_WORD_SWAP( "242hx110.p2", 0x100000, 0x400000, CRC(d34a4d38) SHA1(7af1d73a6b82f7be847719b013f77a5692bd0d49) )
+
+	NEO_SFIX_128K( "242cnd28.s1", CRC(8e37c589) SHA1(44b9f1cd06cd029fcc39bf29724b03e021974c20) )
+
+	NEO_BIOS_AUDIO_256K( "242coc30.m1", CRC(db046fc4) SHA1(4b793a125bade067ef0fdcd1775d135c646c6b94) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242cli15.c1",  0x0000000, 0x800000, CRC(066db0a6) SHA1(ea200b79bf60d2d9a025da873173cc4704d254b0) )
+	ROM_LOAD16_BYTE( "242cli15.c2",  0x0000001, 0x800000, CRC(99d0b0fa) SHA1(b56813917de0c19858c13e51888b6af2030bc324) )
+	ROM_LOAD16_BYTE( "242cnd19.c3",  0x1000000, 0x800000, CRC(ea84bdae) SHA1(27108247ed7406060f0b149a9dfa64869a6bbcf2) )
+	ROM_LOAD16_BYTE( "242cnd19.c4",  0x1000001, 0x800000, CRC(2c17ac8e) SHA1(fc704f5cf358df81a88d20932be3edffe202dea9) )
+	ROM_LOAD16_BYTE( "242.c5", 0x2000000, 0x800000, CRC(9d10bed3) SHA1(4d44addc7c808649bfb03ec45fb9529da413adff) )
+	ROM_LOAD16_BYTE( "242.c6", 0x2000001, 0x800000, CRC(da07b6a2) SHA1(9c3f0da7cde1ffa8feca89efc88f07096e502acf) )
+	ROM_LOAD16_BYTE( "242.c7", 0x3000000, 0x800000, CRC(f6d7a38a) SHA1(dd295d974dd4a7e5cb26a3ef3febcd03f28d522b) )
+	ROM_LOAD16_BYTE( "242.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
+ROM_END
+
 ROM_START( kof98xz01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242.p1",  0x000000, 0x200000, CRC(8893df89) SHA1(0452828785110601c65f667209fc2d2926cd3751) )
@@ -9200,6 +9226,7 @@ HACK( 2019, kof98hh126,     kof98,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2020, kof98hh127,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (BC Combo Version Simplified 2020-03-21)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof98hh128,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (C Dragon Edition Simplified 2020-03-16)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof98hh129,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Kof'98 (Max Plus Simplified 2020-03-06)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof98hh130,     kof98,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ivex",    "Kof'98 (Combo 2020-03-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98xz01,      kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "zuojie",    "Kof'98 (Posture Is Transferred)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98xz02,      kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "zuojie",    "Kof'98 (Posture Reversal)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, kof98xz03,      kof98,    neogeo_noslot, neogeo, neogeo_state,         kof98,     ROT0, "Ydmis",    "Kof'98 (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )

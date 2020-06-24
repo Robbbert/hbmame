@@ -6,7 +6,7 @@
 DEFINE_DEVICE_TYPE(NGBOOTLEG_PROT, ngbootleg_prot_device, "ngbootleg_prot", "NeoGeo Protection (Bootleg)")
 
 
-ngbootleg_prot_device::ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+ngbootleg_prot_device::ngbootleg_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, NGBOOTLEG_PROT, tag, owner, clock)
 	, kof2k3_overlay(0)
 	, m_mainrom(nullptr)
@@ -28,12 +28,12 @@ void ngbootleg_prot_device::device_reset() { }
 /* General Bootleg Functions - used by more than 1 game */
 
 
-void ngbootleg_prot_device::neogeo_bootleg_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_size)
+void ngbootleg_prot_device::neogeo_bootleg_cx_decrypt(u8*sprrom, u32 sprrom_size)
 {
 	int i;
 	int cx_size = sprrom_size;
-	uint8_t *rom = sprrom;
-	std::vector<uint8_t> buf( cx_size );
+	u8 *rom = sprrom;
+	std::vector<u8> buf( cx_size );
 
 	memcpy( &buf[0], rom, cx_size );
 
@@ -42,15 +42,15 @@ void ngbootleg_prot_device::neogeo_bootleg_cx_decrypt(uint8_t*sprrom, uint32_t s
 }
 
 
-void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(uint8_t* fixed, uint32_t fixed_size, int value )
+void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(u8* fixed, u32 fixed_size, int value )
 {
 	int sx_size = fixed_size;
-	uint8_t *rom = fixed;
+	u8 *rom = fixed;
 	int i;
 
 	if (value == 1)
 	{
-		std::vector<uint8_t> buf( sx_size );
+		std::vector<u8> buf( sx_size );
 		memcpy( &buf[0], rom, sx_size );
 
 		for( i = 0; i < sx_size; i += 0x10 )
@@ -70,11 +70,11 @@ void ngbootleg_prot_device::neogeo_bootleg_sx_decrypt(uint8_t* fixed, uint32_t f
 
 /* The King of Fighters '97 Oroshi Plus 2003 (bootleg) */
 
-void ngbootleg_prot_device::kof97oro_px_decode(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kof97oro_px_decode(u8* cpurom, u32 cpurom_size)
 {
 	int i;
-	std::vector<uint16_t> tmp( 0x500000 );
-	uint16_t *src = (uint16_t*)cpurom;
+	std::vector<u16> tmp( 0x500000 );
+	u16 *src = (u16*)cpurom;
 
 	for (i = 0; i < 0x500000/2; i++)
 		tmp[i] = src[i ^ 0x7ffef];
@@ -90,29 +90,29 @@ void ngbootleg_prot_device::kof97oro_px_decode(uint8_t* cpurom, uint32_t cpurom_
   is incomplete, at the moment the S data is copied from the program rom on
   start-up instead */
 
-void ngbootleg_prot_device::kof10thBankswitch(address_space &space, uint16_t nBank)
+void ngbootleg_prot_device::kof10thBankswitch(u16 nBank)
 {
-	uint32_t bank = 0x100000 + ((nBank & 7) << 20);
+	u32 bank = 0x100000 + ((nBank & 7) << 20);
 	if (bank >= 0x700000)
 		bank = 0x100000;
 	m_bankdev->neogeo_set_main_cpu_bank_address(bank);
 }
 
-READ16_MEMBER( ngbootleg_prot_device::kof10th_RAMB_r )
+u16 ngbootleg_prot_device::kof10th_RAMB_r(offs_t offset)
 {
 	return m_cartridge_ram[offset];
 }
 
-READ16_MEMBER(ngbootleg_prot_device::kof10th_RAM2_r)
+u16 ngbootleg_prot_device::kof10th_RAM2_r(offs_t offset)
 {
 //  printf("kof10th_RAM2_r\n");
 	return m_cartridge_ram2[offset];
 }
 
-WRITE16_MEMBER( ngbootleg_prot_device::kof10th_custom_w )
+void ngbootleg_prot_device::kof10th_custom_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (!m_cartridge_ram[0xFFE]) { // Write to RAM bank A
-		//uint16_t *prom = (uint16_t*)m_mainrom;
+		//u16 *prom = (u16*)m_mainrom;
 		COMBINE_DATA(&m_cartridge_ram2[(0x00000/2) + (offset & 0xFFFF)]);
 	}
 	else
@@ -121,34 +121,34 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof10th_custom_w )
 	}
 }
 
-WRITE16_MEMBER( ngbootleg_prot_device::kof10th_bankswitch_w )
+void ngbootleg_prot_device::kof10th_bankswitch_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (offset >= 0x5F000) {
 		if (offset == 0x5FFF8)
 		{ // Standard bankswitch
-			kof10thBankswitch(space, data);
+			kof10thBankswitch(data);
 		}
 		else
 		if (offset == 0x5FFFC && m_cartridge_ram[0xFFC] != data)
 		{ // Special bankswitch
-			uint8_t *src = m_mainrom;
+			u8 *src = m_mainrom;
 			memcpy (src + 0x10000,  src + ((data & 1) ? 0x810000 : 0x710000), 0xcffff);
 		}
 		COMBINE_DATA(&m_cartridge_ram[offset & 0xFFF]);
 	}
 }
 
-void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
+void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neogeo_banked_cart_device* bankdev, u8* cpurom, u32 cpurom_size, u8* fixedrom, u32 fixedrom_size)
 {
 	m_mainrom = cpurom;
 	m_fixedrom = fixedrom;
 	m_bankdev = bankdev;
 
-	maincpu->space(AS_PROGRAM).install_read_handler(0x0e0000, 0x0fffff, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_RAM2_r)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x0e0000, 0x0fffff, read16sm_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_RAM2_r)));
 
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_RAMB_r)));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x200000, 0x23ffff, write16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_custom_w)));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x240000, 0x2fffff, write16_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16sm_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_RAMB_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x200000, 0x23ffff, write16s_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_custom_w)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x240000, 0x2fffff, write16s_delegate(*this, FUNC(ngbootleg_prot_device::kof10th_bankswitch_w)));
 	memcpy(m_cartridge_ram2, cpurom + 0xe0000, 0x20000);
 
 	// HACK: only save this at device_start (not allowed later)
@@ -156,11 +156,11 @@ void ngbootleg_prot_device::install_kof10th_protection (cpu_device* maincpu, neo
 		save_pointer(NAME(m_fixedrom), 0x40000);
 }
 
-void ngbootleg_prot_device::decrypt_kof10th(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::decrypt_kof10th(u8* cpurom, u32 cpurom_size)
 {
 	int i, j;
-	std::vector<uint8_t> dst(0x900000);
-	uint8_t *src = cpurom;
+	std::vector<u8> dst(0x900000);
+	u8 *src = cpurom;
 
 	memcpy(&dst[0x000000], src + 0x700000, 0x100000); // Correct (Verified in Uni-bios)
 	memcpy(&dst[0x100000], src + 0x000000, 0x800000);
@@ -172,21 +172,21 @@ void ngbootleg_prot_device::decrypt_kof10th(uint8_t* cpurom, uint32_t cpurom_siz
 	}
 
 	// Altera protection chip patches these over P ROM
-	((uint16_t*)src)[0x0124/2] = 0x000d; // Enables XOR for RAM moves, forces SoftDIPs, and USA region
-	((uint16_t*)src)[0x0126/2] = 0xf7a8;
-	((uint16_t*)src)[0x8bf4/2] = 0x4ef9; // Run code to change "S" data
-	((uint16_t*)src)[0x8bf6/2] = 0x000d;
-	((uint16_t*)src)[0x8bf8/2] = 0xf980;
+	((u16*)src)[0x0124/2] = 0x000d; // Enables XOR for RAM moves, forces SoftDIPs, and USA region
+	((u16*)src)[0x0126/2] = 0xf7a8;
+	((u16*)src)[0x8bf4/2] = 0x4ef9; // Run code to change "S" data
+	((u16*)src)[0x8bf6/2] = 0x000d;
+	((u16*)src)[0x8bf8/2] = 0xf980;
 }
 
 
 /* The King of Fighters 10th Anniversary Extra Plus (The King of Fighters 2002 bootleg) */
 
 
-void ngbootleg_prot_device::kf10thep_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf10thep_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
-	uint16_t *rom = (uint16_t*)cpurom;
-	std::vector<uint16_t> buf(0x100000/2);
+	u16 *rom = (u16*)cpurom;
+	std::vector<u16> buf(0x100000/2);
 
 	memcpy(&buf[0x000000/2], &rom[0x060000/2], 0x20000);
 	memcpy(&buf[0x020000/2], &rom[0x100000/2], 0x20000);
@@ -214,11 +214,11 @@ void ngbootleg_prot_device::kf10thep_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 /* The King of Fighters 10th Anniversary 2005 Unique (The King of Fighters 2002 bootleg) */
 
 
-void ngbootleg_prot_device::kf2k5uni_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k5uni_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	int i, j, ofst;
-	uint8_t *src = cpurom;
-	uint8_t dst[0x80];
+	u8 *src = cpurom;
+	u8 dst[0x80];
 
 	for (i = 0; i < 0x800000; i+=0x80)
 	{
@@ -233,25 +233,25 @@ void ngbootleg_prot_device::kf2k5uni_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 	memcpy(src, src + 0x600000, 0x100000); // Seems to be the same as kof10th
 }
 
-void ngbootleg_prot_device::kf2k5uni_sx_decrypt(uint8_t* fixedrom, uint32_t fixedrom_size)
+void ngbootleg_prot_device::kf2k5uni_sx_decrypt(u8* fixedrom, u32 fixedrom_size)
 {
 	int i;
-	uint8_t *srom = fixedrom;
+	u8 *srom = fixedrom;
 
 	for (i = 0; i < 0x20000; i++)
 		srom[i] = bitswap<8>(srom[i], 4, 5, 6, 7, 0, 1, 2, 3);
 }
 
-void ngbootleg_prot_device::kf2k5uni_mx_decrypt(uint8_t* audiorom, uint32_t audiorom_size)
+void ngbootleg_prot_device::kf2k5uni_mx_decrypt(u8* audiorom, u32 audiorom_size)
 {
 	int i;
-	uint8_t *mrom = audiorom;
+	u8 *mrom = audiorom;
 
 	for (i = 0; i < 0x30000; i++)
 		mrom[i] = bitswap<8>(mrom[i], 4, 5, 6, 7, 0, 1, 2, 3);
 }
 
-void ngbootleg_prot_device::decrypt_kf2k5uni(uint8_t* cpurom, uint32_t cpurom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
+void ngbootleg_prot_device::decrypt_kf2k5uni(u8* cpurom, u32 cpurom_size, u8* audiorom, u32 audiorom_size, u8* fixedrom, u32 fixedrom_size)
 {
 	kf2k5uni_px_decrypt(cpurom, cpurom_size);
 	kf2k5uni_sx_decrypt(fixedrom, fixedrom_size);
@@ -262,10 +262,10 @@ void ngbootleg_prot_device::decrypt_kf2k5uni(uint8_t* cpurom, uint32_t cpurom_si
 /* The King of Fighters 2002 (bootleg) */
 
 
-void ngbootleg_prot_device::kof2002b_gfx_decrypt(uint8_t *src, int size)
+void ngbootleg_prot_device::kof2002b_gfx_decrypt(u8 *src, int size)
 {
 	int i, j;
-	static const uint8_t t[ 8 ][ 6 ] =
+	static const u8 t[ 8 ][ 6 ] =
 	{
 		{ 0, 8, 7, 6, 2, 1 },
 		{ 1, 0, 8, 7, 6, 2 },
@@ -277,7 +277,7 @@ void ngbootleg_prot_device::kof2002b_gfx_decrypt(uint8_t *src, int size)
 		{ 8, 0, 7, 6, 2, 1 },
 	};
 
-	std::vector<uint8_t> dst( 0x10000 );
+	std::vector<u8> dst( 0x10000 );
 
 	for ( i = 0; i < size; i+=0x10000 )
 	{
@@ -296,12 +296,12 @@ void ngbootleg_prot_device::kof2002b_gfx_decrypt(uint8_t *src, int size)
 /* The King of Fighters 2002 Magic Plus (bootleg) */
 
 
-void ngbootleg_prot_device::kf2k2mp_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k2mp_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	int i,j;
 
-	uint8_t *src = cpurom;
-	uint8_t dst[0x80];
+	u8 *src = cpurom;
+	u8 dst[0x80];
 
 	memmove(src, src + 0x300000, 0x500000);
 
@@ -320,10 +320,10 @@ void ngbootleg_prot_device::kf2k2mp_decrypt(uint8_t* cpurom, uint32_t cpurom_siz
 /* The King of Fighters 2002 Magic Plus II (bootleg) */
 
 
-void ngbootleg_prot_device::kf2k2mp2_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k2mp2_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst(0x600000);
+	u8 *src = cpurom;
+	std::vector<u8> dst(0x600000);
 
 	memcpy (&dst[0x000000], &src[0x1C0000], 0x040000);
 	memcpy (&dst[0x040000], &src[0x140000], 0x080000);
@@ -337,13 +337,13 @@ void ngbootleg_prot_device::kf2k2mp2_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 
 
 /* descrambling information from razoola */
-void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix_do(uint8_t* sprrom, uint32_t sprrom_size, int start, int end, int bit3shift, int bit2shift, int bit1shift, int bit0shift)
+void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix_do(u8* sprrom, u32 sprrom_size, int start, int end, int bit3shift, int bit2shift, int bit1shift, int bit0shift)
 {
 	int i,j;
 	int tilesize=128;
 
-	std::vector<uint8_t> rom(16*tilesize); // 16 tiles buffer
-	uint8_t* realrom = sprrom + start*tilesize;
+	std::vector<u8> rom(16*tilesize); // 16 tiles buffer
+	u8* realrom = sprrom + start*tilesize;
 
 	for (i = 0; i < (end-start)/16; i++)
 	{
@@ -358,7 +358,7 @@ void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix_do(uint8_t* sprrom, 
 	}
 }
 
-void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix(uint8_t* sprrom, uint32_t sprrom_size, int start, int end)
+void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix(u8* sprrom, u32 sprrom_size, int start, int end)
 {
 	cthd2003_neogeo_gfx_address_fix_do(sprrom, sprrom_size, start+512*0, end+512*0, 0,3,2,1);
 	cthd2003_neogeo_gfx_address_fix_do(sprrom, sprrom_size, start+512*1, end+512*1, 1,0,3,2);
@@ -369,7 +369,7 @@ void ngbootleg_prot_device::cthd2003_neogeo_gfx_address_fix(uint8_t* sprrom, uin
 	cthd2003_neogeo_gfx_address_fix_do(sprrom, sprrom_size, start+512*7, end+512*7, 0,2,3,1);
 }
 
-void ngbootleg_prot_device::cthd2003_c(uint8_t* sprrom, uint32_t sprrom_size, int pow)
+void ngbootleg_prot_device::cthd2003_c(u8* sprrom, u32 sprrom_size, int pow)
 {
 	int i;
 
@@ -392,10 +392,10 @@ void ngbootleg_prot_device::cthd2003_c(uint8_t* sprrom, uint32_t sprrom_size, in
 		cthd2003_neogeo_gfx_address_fix(sprrom, sprrom_size, i*512,i*512+512);
 }
 
-void ngbootleg_prot_device::decrypt_cthd2003(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
+void ngbootleg_prot_device::decrypt_cthd2003(u8* sprrom, u32 sprrom_size, u8* audiorom, u32 audiorom_size, u8* fixedrom, u32 fixedrom_size)
 {
-	uint8_t *romdata = fixedrom;
-	std::vector<uint8_t> tmp(8*128*128);
+	u8 *romdata = fixedrom;
+	std::vector<u8> tmp(8*128*128);
 
 	memcpy(&tmp[8*0*128], romdata+8*0*128, 8*32*128);
 	memcpy(&tmp[8*32*128], romdata+8*64*128, 8*32*128);
@@ -415,7 +415,7 @@ void ngbootleg_prot_device::decrypt_cthd2003(uint8_t* sprrom, uint32_t sprrom_si
 	cthd2003_c(sprrom, sprrom_size, 0);
 }
 
-WRITE16_MEMBER( ngbootleg_prot_device::cthd2003_bankswitch_w )
+void ngbootleg_prot_device::cthd2003_bankswitch_w(offs_t offset, u16 data)
 {
 	int bankaddress;
 	static const int cthd2003_banks[8] = { 1,0,1,0,1,0,3,2 };
@@ -426,14 +426,14 @@ WRITE16_MEMBER( ngbootleg_prot_device::cthd2003_bankswitch_w )
 	}
 }
 
-void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, u8* cpurom, u32 cpurom_size)
 {
 	/* patches thanks to razoola */
 	int i;
-	uint16_t *mem16 = (uint16_t *)cpurom;
+	u16 *mem16 = (u16 *)cpurom;
 
 	/* special ROM banking handler */
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16_delegate(*this, FUNC(ngbootleg_prot_device::cthd2003_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16sm_delegate(*this, FUNC(ngbootleg_prot_device::cthd2003_bankswitch_w)));
 	m_bankdev = bankdev;
 
 	// theres still a problem on the character select screen but it seems to be related to cpu core timing issues,
@@ -469,11 +469,11 @@ void ngbootleg_prot_device::patch_cthd2003(cpu_device* maincpu, neogeo_banked_ca
 /* Crouching Tiger Hidden Dragon 2003 Super Plus (bootleg of King of Fighters 2001) */
 
 
-void ngbootleg_prot_device::ct2k3sp_sx_decrypt( uint8_t* fixedrom, uint32_t fixedrom_size )
+void ngbootleg_prot_device::ct2k3sp_sx_decrypt( u8* fixedrom, u32 fixedrom_size )
 {
 	int rom_size = fixedrom_size;
-	uint8_t *rom = fixedrom;
-	std::vector<uint8_t> buf( rom_size );
+	u8 *rom = fixedrom;
+	std::vector<u8> buf( rom_size );
 	int i;
 	int ofst;
 
@@ -495,10 +495,10 @@ void ngbootleg_prot_device::ct2k3sp_sx_decrypt( uint8_t* fixedrom, uint32_t fixe
 	memcpy( &rom[ 0x30000 ], &buf[ 0x28000 ], 0x8000 );
 }
 
-void ngbootleg_prot_device::decrypt_ct2k3sp(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size, uint8_t* fixedrom, uint32_t fixedrom_size)
+void ngbootleg_prot_device::decrypt_ct2k3sp(u8* sprrom, u32 sprrom_size, u8* audiorom, u32 audiorom_size, u8* fixedrom, u32 fixedrom_size)
 {
-	uint8_t *romdata = audiorom + 0x10000;
-	std::vector<uint8_t> tmp(8*128*128);
+	u8 *romdata = audiorom + 0x10000;
+	std::vector<u8> tmp(8*128*128);
 	memcpy(&tmp[8*0*128], romdata+8*0*128, 8*32*128);
 	memcpy(&tmp[8*32*128], romdata+8*64*128, 8*32*128);
 	memcpy(&tmp[8*64*128], romdata+8*32*128, 8*32*128);
@@ -513,10 +513,10 @@ void ngbootleg_prot_device::decrypt_ct2k3sp(uint8_t* sprrom, uint32_t sprrom_siz
 /* Crouching Tiger Hidden Dragon 2003 Super Plus alternate (bootleg of King of Fighters 2001) */
 
 
-void ngbootleg_prot_device::decrypt_ct2k3sa(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size )
+void ngbootleg_prot_device::decrypt_ct2k3sa(u8* sprrom, u32 sprrom_size, u8* audiorom, u32 audiorom_size )
 {
-	uint8_t *romdata = audiorom + 0x10000;
-	std::vector<uint8_t> tmp(8*128*128);
+	u8 *romdata = audiorom + 0x10000;
+	std::vector<u8> tmp(8*128*128);
 	memcpy(&tmp[8*0*128], romdata+8*0*128, 8*32*128);
 	memcpy(&tmp[8*32*128], romdata+8*64*128, 8*32*128);
 	memcpy(&tmp[8*64*128], romdata+8*32*128, 8*32*128);
@@ -527,11 +527,11 @@ void ngbootleg_prot_device::decrypt_ct2k3sa(uint8_t* sprrom, uint32_t sprrom_siz
 	cthd2003_c(sprrom, sprrom_size, 0);
 }
 
-void ngbootleg_prot_device::patch_ct2k3sa(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::patch_ct2k3sa(u8* cpurom, u32 cpurom_size)
 {
 	/* patches thanks to razoola - same as for cthd2003*/
 	int i;
-	uint16_t *mem16 = (uint16_t *)cpurom;
+	u16 *mem16 = (u16 *)cpurom;
 
 	// theres still a problem on the character select screen but it seems to be related to cpu core timing issues,
 	// overclocking the 68k prevents it.
@@ -567,14 +567,14 @@ void ngbootleg_prot_device::patch_ct2k3sa(uint8_t* cpurom, uint32_t cpurom_size)
 /* King of Fighters Special Edition 2004 (bootleg of King of Fighters 2002) */
 
 
-void ngbootleg_prot_device::decrypt_kof2k4se_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::decrypt_kof2k4se_68k(u8* cpurom, u32 cpurom_size)
 {
-	uint8_t *src = cpurom+0x100000;
-	std::vector<uint8_t> dst(0x400000);
+	u8 *src = cpurom+0x100000;
+	std::vector<u8> dst(0x400000);
 	static const int sec[] = {0x300000, 0x200000, 0x100000, 0x000000};
 	memcpy(&dst[0], src, 0x400000);
 
-	for(uint8_t i = 0; i < 4; ++i)
+	for(u8 i = 0; i < 4; ++i)
 		memcpy(src + i*0x100000, &dst[sec[i]], 0x100000);
 }
 
@@ -582,22 +582,22 @@ void ngbootleg_prot_device::decrypt_kof2k4se_68k(uint8_t* cpurom, uint32_t cpuro
 /* Lansquenet 2004 (Shock Troopers - 2nd Squad bootleg) */
 
 
-void ngbootleg_prot_device::lans2004_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsndrom_size)
+void ngbootleg_prot_device::lans2004_vx_decrypt(u8* ymsndrom, u32 ymsndrom_size)
 {
-	uint8_t *rom = ymsndrom;
-	for (uint8_t i = 0; i < 0xA00000; i++)
+	u8 *rom = ymsndrom;
+	for (u8 i = 0; i < 0xA00000; i++)
 		rom[i] = bitswap<8>(rom[i], 0, 1, 5, 4, 3, 2, 6, 7);
 }
 
-void ngbootleg_prot_device::lans2004_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::lans2004_decrypt_68k(u8* cpurom, u32 cpurom_size)
 {
 	/* Descrambling P ROMs - Thanks to Razoola for the info */
 	int i;
-	uint8_t *src = cpurom;
-	uint16_t *rom = (uint16_t*)cpurom;
+	u8 *src = cpurom;
+	u16 *rom = (u16*)cpurom;
 
 	static const int sec[] = { 0x3, 0x8, 0x7, 0xC, 0x1, 0xA, 0x6, 0xD };
-	std::vector<uint8_t> dst(0x600000);
+	std::vector<u8> dst(0x600000);
 
 	for (i = 0; i < 8; i++)
 		memcpy (&dst[i * 0x20000], src + sec[i] * 0x20000, 0x20000);
@@ -630,13 +630,13 @@ void ngbootleg_prot_device::lans2004_decrypt_68k(uint8_t* cpurom, uint32_t cpuro
 /* Metal Slug 5 Plus (bootleg) */
 
 
-READ16_MEMBER( ngbootleg_prot_device::mslug5_prot_r )
+u16 ngbootleg_prot_device::mslug5_prot_r()
 {
 	logerror("PC %06x: access protected\n",machine().describe_context());
 	return 0xa0;
 }
 
-WRITE16_MEMBER( ngbootleg_prot_device::ms5plus_bankswitch_w )
+void ngbootleg_prot_device::ms5plus_bankswitch_w(offs_t offset, u16 data)
 {
 	int bankaddress;
 	logerror("offset: %06x PC %06x: set banking %04x\n",offset,machine().describe_context(),data);
@@ -659,9 +659,8 @@ WRITE16_MEMBER( ngbootleg_prot_device::ms5plus_bankswitch_w )
 void ngbootleg_prot_device::install_ms5plus_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
 	// special ROM banking handler / additional protection
-	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2ffff0, 0x2fffff,
-		read16_delegate(*this, FUNC(ngbootleg_prot_device::mslug5_prot_r)),
-		write16_delegate(*this, FUNC(ngbootleg_prot_device::ms5plus_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2ffff0, 0x2fffff, read16smo_delegate(*this, FUNC(ngbootleg_prot_device::mslug5_prot_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2fffff, write16sm_delegate(*this, FUNC(ngbootleg_prot_device::ms5plus_bankswitch_w)));
 	m_bankdev = bankdev;
 }
 
@@ -669,13 +668,13 @@ void ngbootleg_prot_device::install_ms5plus_protection(cpu_device* maincpu, neog
 /* SNK vs. CAPCOM SVC CHAOS (bootleg) */
 
 
-void ngbootleg_prot_device::svcboot_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::svcboot_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
-	static const uint8_t sec[] = { 0x06, 0x07, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00 };
+	static const u8 sec[] = { 0x06, 0x07, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00 };
 	int i;
 	int size = cpurom_size;
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst( size );
+	u8 *src = cpurom;
+	std::vector<u8> dst( size );
 	int ofst;
 	for( i = 0; i < size / 0x100000; i++ )
 		memcpy( &dst[ i * 0x100000 ], &src[ sec[ i ] * 0x100000 ], 0x100000 );
@@ -688,14 +687,14 @@ void ngbootleg_prot_device::svcboot_px_decrypt(uint8_t* cpurom, uint32_t cpurom_
 	}
 }
 
-void ngbootleg_prot_device::svcboot_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_size)
+void ngbootleg_prot_device::svcboot_cx_decrypt(u8*sprrom, u32 sprrom_size)
 {
-	static const uint8_t idx_tbl[ 0x10 ] = { 0, 1, 0, 1, 2, 3, 2, 3, 3, 4, 3, 4, 4, 5, 4, 5 };
-	static const uint8_t bitswap4_tbl[ 6 ][ 4 ] = { { 3, 0, 1, 2 }, { 2, 3, 0, 1 }, { 1, 2, 3, 0 }, { 0, 1, 2, 3 }, { 3, 2, 1, 0 }, { 3, 0, 2, 1 } };
+	static const u8 idx_tbl[ 0x10 ] = { 0, 1, 0, 1, 2, 3, 2, 3, 3, 4, 3, 4, 4, 5, 4, 5 };
+	static const u8 bitswap4_tbl[ 6 ][ 4 ] = { { 3, 0, 1, 2 }, { 2, 3, 0, 1 }, { 1, 2, 3, 0 }, { 0, 1, 2, 3 }, { 3, 2, 1, 0 }, { 3, 0, 2, 1 } };
 	int i;
 	int size = sprrom_size;
-	uint8_t *src = sprrom;
-	std::vector<uint8_t> dst( size );
+	u8 *src = sprrom;
+	std::vector<u8> dst( size );
 	int ofst;
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < size / 0x80; i++ )
@@ -715,12 +714,12 @@ void ngbootleg_prot_device::svcboot_cx_decrypt(uint8_t*sprrom, uint32_t sprrom_s
 /* SNK vs. CAPCOM SVC CHAOS Plus (bootleg set 1) */
 
 
-void ngbootleg_prot_device::svcplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::svcplus_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	static const int sec[] = { 0x00, 0x03, 0x02, 0x05, 0x04, 0x01 };
 	int i, ofst, size = cpurom_size;
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst( size );
+	u8 *src = cpurom;
+	std::vector<u8> dst( size );
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < size / 2; i++ )
 	{
@@ -735,10 +734,10 @@ void ngbootleg_prot_device::svcplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom_
 		memcpy( &src[ i * 0x100000 ], &dst[ sec[ i ] * 0x100000 ], 0x100000 );
 }
 
-void ngbootleg_prot_device::svcplus_px_hack(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::svcplus_px_hack(u8* cpurom, u32 cpurom_size)
 {
 	/* patched by the protection chip? */
-	uint16_t *mem16 = (uint16_t *)cpurom;
+	u16 *mem16 = (u16 *)cpurom;
 	mem16[0x0f8016/2] = 0x33c1;
 }
 
@@ -746,13 +745,13 @@ void ngbootleg_prot_device::svcplus_px_hack(uint8_t* cpurom, uint32_t cpurom_siz
 /* SNK vs. CAPCOM SVC CHAOS Plus (bootleg set 2) */
 
 
-void ngbootleg_prot_device::svcplusa_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::svcplusa_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	int i;
 	static const int sec[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x00 };
 	int size = cpurom_size;
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst( size );
+	u8 *src = cpurom;
+	std::vector<u8> dst( size );
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < 6; i++ )
 		memcpy( &src[ i * 0x100000 ], &dst[ sec[ i ] * 0x100000 ], 0x100000 );
@@ -762,12 +761,12 @@ void ngbootleg_prot_device::svcplusa_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 /* SNK vs. CAPCOM SVC CHAOS Super Plus (bootleg) */
 
 
-void ngbootleg_prot_device::svcsplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::svcsplus_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	static const int sec[] = { 0x06, 0x07, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00 };
 	int i, ofst, size = cpurom_size;
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst( size );
+	u8 *src = cpurom;
+	std::vector<u8> dst( size );
 	memcpy( &dst[0], src, size );
 	for( i = 0; i < size / 2; i++ )
 	{
@@ -778,10 +777,10 @@ void ngbootleg_prot_device::svcsplus_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 	}
 }
 
-void ngbootleg_prot_device::svcsplus_px_hack(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::svcsplus_px_hack(u8* cpurom, u32 cpurom_size)
 {
 	/* patched by the protection chip? */
-	uint16_t *mem16 = (uint16_t *)cpurom;
+	u16 *mem16 = (u16 *)cpurom;
 	mem16[0x9e90/2] = 0x000f;
 	mem16[0x9e92/2] = 0xc9c0;
 	mem16[0xa10c/2] = 0x4eb9;
@@ -793,24 +792,24 @@ void ngbootleg_prot_device::svcsplus_px_hack(uint8_t* cpurom, uint32_t cpurom_si
 /* The King of Fighters 2003 (bootleg set 1) */
 
 
-READ16_MEMBER( ngbootleg_prot_device::kof2003_r)
+u16 ngbootleg_prot_device::kof2003_r(offs_t offset)
 {
 	return m_cartridge_ram[offset];
 }
 
-READ16_MEMBER(ngbootleg_prot_device::kof2003_overlay_r) // hack?
+u16 ngbootleg_prot_device::kof2003_overlay_r() // hack?
 {
 	return kof2k3_overlay;
 }
 
-WRITE16_MEMBER( ngbootleg_prot_device::kof2003_w )
+void ngbootleg_prot_device::kof2003_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	data = COMBINE_DATA(&m_cartridge_ram[offset]);
 	if (offset == 0x1ff0/2 || offset == 0x1ff2/2)
 	{
-		uint8_t* cr = (uint8_t *)m_cartridge_ram;
-		uint32_t address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff1)];
-		uint8_t prt = cr[BYTE_XOR_LE(0x1ff2)];
+		u8* cr = (u8 *)m_cartridge_ram;
+		u32 address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff1)];
+		u8 prt = cr[BYTE_XOR_LE(0x1ff2)];
 
 		cr[BYTE_XOR_LE(0x1ff0)] =  0xa0;
 		cr[BYTE_XOR_LE(0x1ff1)] &= 0xfe;
@@ -821,14 +820,14 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof2003_w )
 	}
 }
 
-WRITE16_MEMBER( ngbootleg_prot_device::kof2003p_w )
+void ngbootleg_prot_device::kof2003p_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	data = COMBINE_DATA(&m_cartridge_ram[offset]);
 	if (offset == 0x1ff0/2 || offset == 0x1ff2/2)
 	{
-		uint8_t* cr = (uint8_t *)m_cartridge_ram;
-		uint32_t address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff0)];
-		uint8_t prt = cr[BYTE_XOR_LE(0x1ff2)];
+		u8* cr = (u8 *)m_cartridge_ram;
+		u32 address = (cr[BYTE_XOR_LE(0x1ff3)]<<16)|(cr[BYTE_XOR_LE(0x1ff2)]<<8)|cr[BYTE_XOR_LE(0x1ff0)];
+		u8 prt = cr[BYTE_XOR_LE(0x1ff2)];
 
 		cr[BYTE_XOR_LE(0x1ff0)] &= 0xfe;
 		cr[BYTE_XOR_LE(0x1ff3)] &= 0x7f;
@@ -838,26 +837,27 @@ WRITE16_MEMBER( ngbootleg_prot_device::kof2003p_w )
 	}
 }
 
-void ngbootleg_prot_device::kf2k3bl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k3bl_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
-	static const uint8_t sec[] = { 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+	static const u8 sec[] = { 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
 
 	int rom_size = 0x800000;
-	uint8_t *rom = cpurom;
-	std::vector<uint8_t> buf( rom_size );
+	u8 *rom = cpurom;
+	std::vector<u8> buf( rom_size );
 	memcpy( &buf[0], rom, rom_size );
 
 	for( int i = 0; i < rom_size / 0x100000; i++ )
 		memcpy( &rom[ i * 0x100000 ], &buf[ sec[ i ] * 0x100000 ], 0x100000 );
 }
 
-void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, u8* cpurom, u32 cpurom_size)
 {
 	m_mainrom = cpurom;
 
-	maincpu->space(AS_PROGRAM).install_read_handler(0x58196, 0x58197, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_overlay_r)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x58196, 0x58197, read16smo_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_overlay_r)));
 
-	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff, read16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_r)), write16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16sm_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fe000, 0x2fffff, write16s_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_w)));
 	m_bankdev = bankdev;
 }
 
@@ -865,10 +865,10 @@ void ngbootleg_prot_device::kf2k3bl_install_protection(cpu_device* maincpu, neog
 /* The King of Fighters 2004 Plus / Hero (The King of Fighters 2003 bootleg) */
 
 
-void ngbootleg_prot_device::kf2k3pl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k3pl_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
-	std::vector<uint16_t> tmp(0x100000/2);
-	uint16_t*rom16 = (uint16_t*)cpurom;
+	std::vector<u16> tmp(0x100000/2);
+	u16*rom16 = (u16*)cpurom;
 	int i, j;
 
 	for (i = 0;i < 0x700000/2;i+=0x100000/2)
@@ -884,12 +884,11 @@ void ngbootleg_prot_device::kf2k3pl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_
 	kof2k3_overlay = rom16[0x58196 / 2];
 }
 
-void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev, u8* cpurom, u32 cpurom_size)
 {
 	m_mainrom = cpurom;
-	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff,
-		read16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_r)),
-		write16_delegate(*this, FUNC(ngbootleg_prot_device::kof2003p_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16sm_delegate(*this, FUNC(ngbootleg_prot_device::kof2003_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fe000, 0x2fffff, write16s_delegate(*this, FUNC(ngbootleg_prot_device::kof2003p_w)));
 	m_bankdev = bankdev;
 }
 
@@ -897,18 +896,18 @@ void ngbootleg_prot_device::kf2k3pl_install_protection(cpu_device* maincpu, neog
 /* The King of Fighters 2004 Ultra Plus (The King of Fighters 2003 bootleg) */
 
 
-void ngbootleg_prot_device::kf2k3upl_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::kf2k3upl_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	{
-		uint8_t *src = cpurom;
+		u8 *src = cpurom;
 		memmove(src+0x100000, src, 0x600000);
 		memmove(src, src+0x700000, 0x100000);
 	}
 
 	{
 		int i, ofst;
-		uint8_t *rom = cpurom + 0xfe000;
-		uint8_t *buf = cpurom + 0xd0610;
+		u8 *rom = cpurom + 0xfe000;
+		u8 *buf = cpurom + 0xd0610;
 
 		for( i = 0; i < 0x2000 / 2; i++ )
 		{
@@ -917,7 +916,7 @@ void ngbootleg_prot_device::kf2k3upl_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 		}
 	}
 
-	uint16_t*rom16 = (uint16_t*)cpurom;
+	u16*rom16 = (u16*)cpurom;
 	kof2k3_overlay = rom16[0x58196 / 2];
 }
 
@@ -925,11 +924,11 @@ void ngbootleg_prot_device::kf2k3upl_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 /* Samurai Shodown V / Samurai Spirits Zero (bootleg) */
 
 
-void ngbootleg_prot_device::samsho5b_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void ngbootleg_prot_device::samsho5b_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
 	int i, ofst, px_size = cpurom_size;
-	uint8_t *rom = cpurom;
-	std::vector<uint8_t> buf( px_size );
+	u8 *rom = cpurom;
+	std::vector<u8> buf( px_size );
 
 	memcpy( &buf[0], rom, px_size );
 
@@ -948,10 +947,10 @@ void ngbootleg_prot_device::samsho5b_px_decrypt(uint8_t* cpurom, uint32_t cpurom
 }
 
 
-void ngbootleg_prot_device::samsho5b_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsndrom_size)
+void ngbootleg_prot_device::samsho5b_vx_decrypt(u8* ymsndrom, u32 ymsndrom_size)
 {
 	int vx_size = ymsndrom_size;
-	uint8_t *rom = ymsndrom;
+	u8 *rom = ymsndrom;
 
 	for( int i = 0; i < vx_size; i++ )
 		rom[ i ] = bitswap<8>( rom[ i ], 0, 1, 5, 4, 3, 2, 6, 7 );
@@ -963,11 +962,11 @@ void ngbootleg_prot_device::samsho5b_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsn
 
 #define MATRIMBLZ80( i ) ( i^(bitswap<8>(i&0x3,4,3,1,2,0,7,6,5)<<8) )
 
-void ngbootleg_prot_device::matrimbl_decrypt(uint8_t* sprrom, uint32_t sprrom_size, uint8_t* audiorom, uint32_t audiorom_size)
+void ngbootleg_prot_device::matrimbl_decrypt(u8* sprrom, u32 sprrom_size, u8* audiorom, u32 audiorom_size)
 {
 	/* decrypt Z80 */
-	uint8_t *rom = audiorom+0x10000;
-	std::vector<uint8_t> buf( 0x20000 );
+	u8 *rom = audiorom+0x10000;
+	std::vector<u8> buf( 0x20000 );
 	int i, j;
 	memcpy( &buf[0], rom, 0x20000 );
 	for( i=0x00000; i<0x20000; i++ )
@@ -1009,7 +1008,7 @@ void ngbootleg_prot_device::matrimbl_decrypt(uint8_t* sprrom, uint32_t sprrom_si
 DEFINE_DEVICE_TYPE(KOG_PROT, kog_prot_device, "kog_prot", "NeoGeo Protection (King of Gladiator)")
 
 
-kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, KOG_PROT, tag, owner, clock)
 	, m_jumper(*this, "JUMPER")
 	{ }
@@ -1018,7 +1017,7 @@ kog_prot_device::kog_prot_device(const machine_config &mconfig, const char *tag,
 void kog_prot_device::device_start() { }
 void kog_prot_device::device_reset() { }
 
-READ16_MEMBER(kog_prot_device::read_jumper)
+u16 kog_prot_device::read_jumper()
 {
 	return ioport("JUMPER")->read();
 }
@@ -1026,15 +1025,15 @@ READ16_MEMBER(kog_prot_device::read_jumper)
 void kog_prot_device::kog_install_protection(cpu_device* maincpu)
 {
 	/* overlay cartridge ROM */
-	maincpu->space(AS_PROGRAM).install_read_handler(0x0ffffe, 0x0fffff, read16_delegate(*this, FUNC(kog_prot_device::read_jumper)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x0ffffe, 0x0fffff, read16smo_delegate(*this, FUNC(kog_prot_device::read_jumper)));
 }
 
 
-void kog_prot_device::kog_px_decrypt(uint8_t* cpurom, uint32_t cpurom_size)
+void kog_prot_device::kog_px_decrypt(u8* cpurom, u32 cpurom_size)
 {
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst( 0x600000 );
-	uint16_t *rom = (uint16_t *)cpurom;
+	u8 *src = cpurom;
+	std::vector<u8> dst( 0x600000 );
+	u16 *rom = (u16 *)cpurom;
 	int i;
 	static const int sec[] = { 0x3, 0x8, 0x7, 0xC, 0x1, 0xA, 0x6, 0xD };
 
@@ -1110,7 +1109,7 @@ ioport_constructor kog_prot_device::device_input_ports() const
 DEFINE_DEVICE_TYPE(CMC_PROT, cmc_prot_device, "cmc_prot", "NeoGeo Protection (CMC)")
 
 
-cmc_prot_device::cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+cmc_prot_device::cmc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, CMC_PROT, tag, owner, clock)
 	, type0_t03(nullptr)
 	, type0_t12(nullptr)
@@ -1127,7 +1126,7 @@ cmc_prot_device::cmc_prot_device(const machine_config &mconfig, const char *tag,
 void cmc_prot_device::device_start() { }
 void cmc_prot_device::device_reset() { }
 
-static const uint8_t kof99_type0_t03[256] =
+static const u8 kof99_type0_t03[256] =
 {
 	0xfb, 0x86, 0x9d, 0xf1, 0xbf, 0x80, 0xd5, 0x43, 0xab, 0xb3, 0x9f, 0x6a, 0x33, 0xd9, 0xdb, 0xb6,
 	0x66, 0x08, 0x69, 0x88, 0xcc, 0xb7, 0xde, 0x49, 0x97, 0x64, 0x1f, 0xa6, 0xc0, 0x2f, 0x52, 0x42,
@@ -1148,7 +1147,7 @@ static const uint8_t kof99_type0_t03[256] =
 };
 
 
-static const uint8_t kof99_type0_t12[256] =
+static const u8 kof99_type0_t12[256] =
 {
 	0x1f, 0xac, 0x4d, 0xcd, 0xca, 0x70, 0x02, 0x6b, 0x18, 0x40, 0x62, 0xb2, 0x3f, 0x9b, 0x5b, 0xef,
 	0x69, 0x68, 0x71, 0x3b, 0xcb, 0xd4, 0x30, 0xbc, 0x47, 0x72, 0x74, 0x5e, 0x84, 0x4c, 0x1b, 0xdb,
@@ -1169,7 +1168,7 @@ static const uint8_t kof99_type0_t12[256] =
 };
 
 
-static const uint8_t kof99_type1_t03[256] =
+static const u8 kof99_type1_t03[256] =
 {
 	0xa9, 0x17, 0xaf, 0x0d, 0x34, 0x6e, 0x53, 0xb6, 0x7f, 0x58, 0xe9, 0x14, 0x5f, 0x55, 0xdb, 0xd4,
 	0x42, 0x80, 0x99, 0x59, 0xa8, 0x3a, 0x57, 0x5d, 0xd5, 0x6f, 0x4c, 0x68, 0x35, 0x46, 0xa6, 0xe7,
@@ -1190,7 +1189,7 @@ static const uint8_t kof99_type1_t03[256] =
 };
 
 
-static const uint8_t kof99_type1_t12[256] =
+static const u8 kof99_type1_t12[256] =
 {
 	0xea, 0xe6, 0x5e, 0xa7, 0x8e, 0xac, 0x34, 0x03, 0x30, 0x97, 0x52, 0x53, 0x76, 0xf2, 0x62, 0x0b,
 	0x0a, 0xfc, 0x94, 0xb8, 0x67, 0x36, 0x11, 0xbc, 0xae, 0xca, 0xfa, 0x15, 0x04, 0x2b, 0x17, 0xc4,
@@ -1213,7 +1212,7 @@ static const uint8_t kof99_type1_t12[256] =
 
 /* underlined values are wrong (not enough evidence, FF fill in kof99 and garou) */
 /* they correspond to tiles 7d000-7efff */
-static const uint8_t kof99_address_8_15_xor1[256] =
+static const u8 kof99_address_8_15_xor1[256] =
 {
 	0x00, 0xb1, 0x1e, 0xc5, 0x3d, 0x40, 0x45, 0x5e, 0xf2, 0xf8, 0x04, 0x63, 0x36, 0x87, 0x88, 0xbf,
 	0xab, 0xcc, 0x78, 0x08, 0xdd, 0x20, 0xd4, 0x35, 0x09, 0x8e, 0x44, 0xae, 0x33, 0xa9, 0x9e, 0xcd,
@@ -1235,7 +1234,7 @@ static const uint8_t kof99_address_8_15_xor1[256] =
 };
 
 
-static const uint8_t kof99_address_8_15_xor2[256] =
+static const u8 kof99_address_8_15_xor2[256] =
 {
 	0x9b, 0x9d, 0xc1, 0x3d, 0xa9, 0xb8, 0xf4, 0x6f, 0xf6, 0x25, 0xc7, 0x47, 0xd5, 0x97, 0xdf, 0x6b,
 	0xeb, 0x90, 0xa4, 0xb2, 0x5d, 0xf5, 0x66, 0xb0, 0xb9, 0x8b, 0x93, 0x64, 0xec, 0x7b, 0x65, 0x8c,
@@ -1256,7 +1255,7 @@ static const uint8_t kof99_address_8_15_xor2[256] =
 };
 
 
-static const uint8_t kof99_address_16_23_xor1[256] =
+static const u8 kof99_address_16_23_xor1[256] =
 {
 	0x00, 0x5f, 0x03, 0x52, 0xce, 0xe3, 0x7d, 0x8f, 0x6b, 0xf8, 0x20, 0xde, 0x7b, 0x7e, 0x39, 0xbe,
 	0xf5, 0x94, 0x18, 0x78, 0x80, 0xc9, 0x7f, 0x7a, 0x3e, 0x63, 0xf2, 0xe0, 0x4e, 0xf7, 0x87, 0x27,
@@ -1277,7 +1276,7 @@ static const uint8_t kof99_address_16_23_xor1[256] =
 };
 
 
-static const uint8_t kof99_address_16_23_xor2[256] =
+static const u8 kof99_address_16_23_xor2[256] =
 {
 	0x29, 0x97, 0x1a, 0x2c, 0x0b, 0x94, 0x3e, 0x75, 0x01, 0x0d, 0x1b, 0xe1, 0x4d, 0x38, 0x39, 0x8f,
 	0xe7, 0xd0, 0x60, 0x90, 0xb2, 0x0f, 0xbb, 0x70, 0x1f, 0xe6, 0x5b, 0x87, 0xb4, 0x43, 0xfd, 0xf5,
@@ -1298,7 +1297,7 @@ static const uint8_t kof99_address_16_23_xor2[256] =
 };
 
 
-static const uint8_t kof99_address_0_7_xor[256] =
+static const u8 kof99_address_0_7_xor[256] =
 {
 	0x74, 0xad, 0x5d, 0x1d, 0x9e, 0xc3, 0xfa, 0x4e, 0xf7, 0xdb, 0xca, 0xa2, 0x64, 0x36, 0x56, 0x0c,
 	0x4f, 0xcf, 0x43, 0x66, 0x1e, 0x91, 0xe3, 0xa5, 0x58, 0xc2, 0xc1, 0xd4, 0xb9, 0xdd, 0x76, 0x16,
@@ -1319,7 +1318,7 @@ static const uint8_t kof99_address_0_7_xor[256] =
 };
 
 
-static const uint8_t kof2000_type0_t03[256] =
+static const u8 kof2000_type0_t03[256] =
 {
 	0x10, 0x61, 0xf1, 0x78, 0x85, 0x52, 0x68, 0xe3, 0x12, 0x0d, 0xfa, 0xf0, 0xc9, 0x36, 0x5e, 0x3d,
 	0xf9, 0xa6, 0x01, 0x2e, 0xc7, 0x84, 0xea, 0x2b, 0x6d, 0x14, 0x38, 0x4f, 0x55, 0x1c, 0x9d, 0xa7,
@@ -1340,7 +1339,7 @@ static const uint8_t kof2000_type0_t03[256] =
 };
 
 
-static const uint8_t kof2000_type0_t12[256] =
+static const u8 kof2000_type0_t12[256] =
 {
 	0xf4, 0x28, 0xb4, 0x8f, 0xfa, 0xeb, 0x8e, 0x54, 0x2b, 0x49, 0xd1, 0x76, 0x71, 0x47, 0x8b, 0x57,
 	0x92, 0x85, 0x7c, 0xb8, 0x5c, 0x22, 0xf9, 0x26, 0xbc, 0x5b, 0x6d, 0x67, 0xae, 0x5f, 0x6f, 0xf5,
@@ -1361,7 +1360,7 @@ static const uint8_t kof2000_type0_t12[256] =
 };
 
 
-static const uint8_t kof2000_type1_t03[256] =
+static const u8 kof2000_type1_t03[256] =
 {
 	0x9a, 0x2f, 0xcc, 0x4e, 0x40, 0x69, 0xac, 0xca, 0xa5, 0x7b, 0x0a, 0x61, 0x91, 0x0d, 0x55, 0x74,
 	0xcd, 0x8b, 0x0b, 0x80, 0x09, 0x5e, 0x38, 0xc7, 0xda, 0xbf, 0xf5, 0x37, 0x23, 0x31, 0x33, 0xe9,
@@ -1382,7 +1381,7 @@ static const uint8_t kof2000_type1_t03[256] =
 };
 
 
-static const uint8_t kof2000_type1_t12[256] =
+static const u8 kof2000_type1_t12[256] =
 {
 	0xda, 0xa7, 0xd6, 0x6e, 0x2f, 0x5e, 0xf0, 0x3f, 0xa4, 0xce, 0xd3, 0xfd, 0x46, 0x2a, 0xac, 0xc9,
 	0xbe, 0xeb, 0x9f, 0xd5, 0x3c, 0x61, 0x96, 0x11, 0xd0, 0x38, 0xca, 0x06, 0xed, 0x1b, 0x65, 0xe7,
@@ -1403,7 +1402,7 @@ static const uint8_t kof2000_type1_t12[256] =
 };
 
 
-static const uint8_t kof2000_address_8_15_xor1[256] =
+static const u8 kof2000_address_8_15_xor1[256] =
 {
 	0xfc, 0x9b, 0x1c, 0x35, 0x72, 0x53, 0xd6, 0x7d, 0x84, 0xa4, 0xc5, 0x93, 0x7b, 0xe7, 0x47, 0xd5,
 	0x24, 0xa2, 0xfa, 0x19, 0x0c, 0xb1, 0x8c, 0xb9, 0x9d, 0xd8, 0x59, 0x4f, 0x3c, 0xb2, 0x78, 0x4a,
@@ -1424,7 +1423,7 @@ static const uint8_t kof2000_address_8_15_xor1[256] =
 };
 
 
-static const uint8_t kof2000_address_8_15_xor2[256] =
+static const u8 kof2000_address_8_15_xor2[256] =
 {
 	0x00, 0xbe, 0x06, 0x5a, 0xfa, 0x42, 0x15, 0xf2, 0x3f, 0x0a, 0x84, 0x93, 0x4e, 0x78, 0x3b, 0x89,
 	0x32, 0x98, 0xa2, 0x87, 0x73, 0xdd, 0x26, 0xe5, 0x05, 0x71, 0x08, 0x6e, 0x9b, 0xe0, 0xdf, 0x9e,
@@ -1445,7 +1444,7 @@ static const uint8_t kof2000_address_8_15_xor2[256] =
 };
 
 
-static const uint8_t kof2000_address_16_23_xor1[256] =
+static const u8 kof2000_address_16_23_xor1[256] =
 {
 	0x45, 0x9f, 0x6e, 0x2f, 0x28, 0xbc, 0x5e, 0x6d, 0xda, 0xb5, 0x0d, 0xb8, 0xc0, 0x8e, 0xa2, 0x32,
 	0xee, 0xcd, 0x8d, 0x48, 0x8c, 0x27, 0x14, 0xeb, 0x65, 0xd7, 0xf2, 0x93, 0x99, 0x90, 0x91, 0xfc,
@@ -1466,7 +1465,7 @@ static const uint8_t kof2000_address_16_23_xor1[256] =
 };
 
 
-static const uint8_t kof2000_address_16_23_xor2[256] =
+static const u8 kof2000_address_16_23_xor2[256] =
 {
 	0x00, 0xb8, 0xf0, 0x34, 0xca, 0x21, 0x3c, 0xf9, 0x01, 0x8e, 0x75, 0x70, 0xec, 0x13, 0x27, 0x96,
 	0xf4, 0x5b, 0x88, 0x1f, 0xeb, 0x4a, 0x7d, 0x9d, 0xbe, 0x02, 0x14, 0xaf, 0xa2, 0x06, 0xc6, 0xdb,
@@ -1487,7 +1486,7 @@ static const uint8_t kof2000_address_16_23_xor2[256] =
 };
 
 
-static const uint8_t kof2000_address_0_7_xor[256] =
+static const u8 kof2000_address_0_7_xor[256] =
 {
 	0x26, 0x48, 0x06, 0x9b, 0x21, 0xa9, 0x1b, 0x76, 0xc9, 0xf8, 0xb4, 0x67, 0xe4, 0xff, 0x99, 0xf7,
 	0x15, 0x9e, 0x62, 0x00, 0x72, 0x4d, 0xa0, 0x4f, 0x02, 0xf1, 0xea, 0xef, 0x0b, 0xf3, 0xeb, 0xa6,
@@ -1509,9 +1508,9 @@ static const uint8_t kof2000_address_0_7_xor[256] =
 
 
 
-void cmc_prot_device::decrypt(uint8_t *r0, uint8_t *r1, uint8_t c0,  uint8_t c1, const uint8_t *table0hi, const uint8_t *table0lo, const uint8_t *table1, int base, int invert)
+void cmc_prot_device::decrypt(u8 *r0, u8 *r1, u8 c0,  u8 c1, const u8 *table0hi, const u8 *table0lo, const u8 *table1, int base, int invert)
 {
-	uint8_t tmp,xor0,xor1;
+	u8 tmp,xor0,xor1;
 
 	tmp = table1[(base & 0xff) ^ address_0_7_xor[(base >> 8) & 0xff]];
 	xor0 = (table0hi[(base >> 8) & 0xff] & 0xfe) | (tmp & 0x01);
@@ -1530,10 +1529,10 @@ void cmc_prot_device::decrypt(uint8_t *r0, uint8_t *r1, uint8_t c0,  uint8_t c1,
 }
 
 
-void cmc_prot_device::neogeo_gfx_decrypt(uint8_t* rom, uint32_t rom_size, int extra_xor)
+void cmc_prot_device::neogeo_gfx_decrypt(u8* rom, u32 rom_size, int extra_xor)
 {
 	int rpos;
-	std::vector<uint8_t> buf(rom_size);
+	std::vector<u8> buf(rom_size);
 
 	// Data xor
 	for (rpos = 0;rpos < rom_size/4;rpos++)
@@ -1578,12 +1577,12 @@ void cmc_prot_device::neogeo_gfx_decrypt(uint8_t* rom, uint32_t rom_size, int ex
 
 
 /* the S data comes from the end of the C data */
-void cmc_prot_device::neogeo_sfix_decrypt(uint8_t* rom, uint32_t rom_size, uint8_t* fixed, uint32_t fixed_size)
+void cmc_prot_device::neogeo_sfix_decrypt(u8* rom, u32 rom_size, u8* fixed, u32 fixed_size)
 {
 	int i;
 	int tx_size = fixed_size;
-	uint8_t *src = rom+rom_size-tx_size;
-	uint8_t *dst = fixed;
+	u8 *src = rom+rom_size-tx_size;
+	u8 *dst = fixed;
 
 	for (i = 0;i < tx_size;i++)
 		dst[i] = src[(i & ~0x1f) + ((i & 7) << 2) + ((~i & 8) >> 2) + ((i & 0x10) >> 4)];
@@ -1591,7 +1590,7 @@ void cmc_prot_device::neogeo_sfix_decrypt(uint8_t* rom, uint32_t rom_size, uint8
 
 
 /* CMC42 protection chip */
-void cmc_prot_device::cmc42_neogeo_gfx_decrypt(uint8_t* rom, uint32_t rom_size, int extra_xor)
+void cmc_prot_device::cmc42_neogeo_gfx_decrypt(u8* rom, u32 rom_size, int extra_xor)
 {
 	type0_t03 =          kof99_type0_t03;
 	type0_t12 =          kof99_type0_t12;
@@ -1607,7 +1606,7 @@ void cmc_prot_device::cmc42_neogeo_gfx_decrypt(uint8_t* rom, uint32_t rom_size, 
 
 
 /* CMC50 protection chip */
-void cmc_prot_device::cmc50_neogeo_gfx_decrypt(uint8_t* rom, uint32_t rom_size, int extra_xor)
+void cmc_prot_device::cmc50_neogeo_gfx_decrypt(u8* rom, u32 rom_size, int extra_xor)
 {
 	type0_t03 =          kof2000_type0_t03;
 	type0_t12 =          kof2000_type0_t12;
@@ -1631,7 +1630,7 @@ NeoGeo 'M' ROM encryption
 ***************************************************************************/
 
 
-static const uint8_t m1_address_8_15_xor[256] =
+static const u8 m1_address_8_15_xor[256] =
 {
 		0x0a, 0x72, 0xb7, 0xaf, 0x67, 0xde, 0x1d, 0xb1, 0x78, 0xc4, 0x4f, 0xb5, 0x4b, 0x18, 0x76, 0xdd,
 		0x11, 0xe2, 0x36, 0xa1, 0x82, 0x03, 0x98, 0xa0, 0x10, 0x5f, 0x3f, 0xd6, 0x1f, 0x90, 0x6a, 0x0b,
@@ -1651,7 +1650,7 @@ static const uint8_t m1_address_8_15_xor[256] =
 		0x7d, 0x1a, 0x02, 0x65, 0x54, 0x5e, 0x19, 0xcc, 0xdc, 0xdb, 0x73, 0xed, 0xad, 0x59, 0x2f, 0xa3,
 };
 
-static const uint8_t m1_address_0_7_xor[256] =
+static const u8 m1_address_0_7_xor[256] =
 {
 		0xf4, 0xbc, 0x02, 0xf7, 0x2c, 0x3d, 0xe8, 0xd9, 0x50, 0x62, 0xec, 0xbd, 0x53, 0x73, 0x79, 0x61,
 		0x00, 0x34, 0xcf, 0xa2, 0x63, 0x28, 0x90, 0xaf, 0x44, 0x3b, 0xc5, 0x8d, 0x3a, 0x46, 0x07, 0x70,
@@ -1676,9 +1675,9 @@ static const uint8_t m1_address_0_7_xor[256] =
    ,and uses this checksum as the basis of the key with which to decrypt
    the rom */
 
-uint16_t cmc_prot_device::generate_cs16(uint8_t *rom, int size)
+u16 cmc_prot_device::generate_cs16(u8 *rom, int size)
 {
-	uint16_t cs16 = 0;
+	u16 cs16 = 0;
 	for (int i=0; i<size; i++ )
 		cs16 += rom[i];
 
@@ -1686,7 +1685,7 @@ uint16_t cmc_prot_device::generate_cs16(uint8_t *rom, int size)
 }
 
 
-int cmc_prot_device::m1_address_scramble(int address, uint16_t key)
+int cmc_prot_device::m1_address_scramble(int address, u16 key)
 {
 	const int p1[8][16] = {
 		{15,14,10,7,1,2,3,8,0,12,11,13,6,9,5,4},
@@ -1716,17 +1715,17 @@ int cmc_prot_device::m1_address_scramble(int address, uint16_t key)
 }
 
 
-void cmc_prot_device::neogeo_cmc50_m1_decrypt(uint8_t* romcrypt, uint32_t romcrypt_size, uint8_t* romaudio, uint32_t romaudio_size)
+void cmc_prot_device::neogeo_cmc50_m1_decrypt(u8* romcrypt, u32 romcrypt_size, u8* romaudio, u32 romaudio_size)
 {
-	uint8_t* rom = romcrypt;
+	u8* rom = romcrypt;
 	size_t rom_size = 0x80000;
-	uint8_t* rom2 = romaudio;
+	u8* rom2 = romaudio;
 
-	std::vector<uint8_t> buffer(rom_size);
+	std::vector<u8> buffer(rom_size);
 
-	uint32_t i;
+	u32 i;
 
-	uint16_t key=generate_cs16(rom,0x10000);
+	u16 key=generate_cs16(rom,0x10000);
 
 	//printf("key %04x\n",key);
 
@@ -1776,7 +1775,7 @@ void cmc_prot_device::neogeo_cmc50_m1_decrypt(uint8_t* romcrypt, uint32_t romcry
 DEFINE_DEVICE_TYPE(FATFURY2_PROT, fatfury2_prot_device, "fatfury2_prot", "NeoGeo Protection (Fatal Fury 2)")
 
 
-fatfury2_prot_device::fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+fatfury2_prot_device::fatfury2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, FATFURY2_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	, m_fatfury2_prot_data(0)
@@ -1794,9 +1793,9 @@ void fatfury2_prot_device::device_reset() { }
 
 /************************ Fatal Fury 2 *************************/
 
-READ16_MEMBER( fatfury2_prot_device::fatfury2_protection_16_r )
+u16 fatfury2_prot_device::fatfury2_protection_16_r(offs_t offset)
 {
-	uint16_t res = m_fatfury2_prot_data >> 24;
+	u16 res = m_fatfury2_prot_data >> 24;
 
 	switch (offset)
 	{
@@ -1819,7 +1818,7 @@ READ16_MEMBER( fatfury2_prot_device::fatfury2_protection_16_r )
 }
 
 
-WRITE16_MEMBER( fatfury2_prot_device::fatfury2_protection_16_w )
+void fatfury2_prot_device::fatfury2_protection_16_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -1869,8 +1868,8 @@ void fatfury2_prot_device::fatfury2_install_protection(cpu_device* maincpu, neog
 	/* the protection involves reading and writing addresses in the */
 	/* 0x2xxxxx range. There are several checks all around the code. */
 	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x200000, 0x2fffff,
-		read16_delegate(*this, FUNC(fatfury2_prot_device::fatfury2_protection_16_r)),
-		write16_delegate(*this, FUNC(fatfury2_prot_device::fatfury2_protection_16_w)));
+		read16sm_delegate(*this, FUNC(fatfury2_prot_device::fatfury2_protection_16_r)),
+		write16sm_delegate(*this, FUNC(fatfury2_prot_device::fatfury2_protection_16_w)));
 
 	m_bankdev = bankdev;
 	m_fatfury2_prot_data = 0;
@@ -1883,7 +1882,7 @@ void fatfury2_prot_device::fatfury2_install_protection(cpu_device* maincpu, neog
 DEFINE_DEVICE_TYPE(KOF2002_PROT, kof2002_prot_device, "kof2002_prot", "NeoGeo Protection (KOF2002)")
 
 
-kof2002_prot_device::kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+kof2002_prot_device::kof2002_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, KOF2002_PROT, tag, owner, clock)
 	{ }
 
@@ -1894,46 +1893,46 @@ void kof2002_prot_device::device_reset() { }
 
 
 /* kof2002, matrim, samsho5, samsh5sp have some simple block swapping */
-void kof2002_prot_device::kof2002_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void kof2002_prot_device::kof2002_decrypt_68k(u8* cpurom, u32 cpurom_size)
 {
 	static const int sec[]={0x100000,0x280000,0x300000,0x180000,0x000000,0x380000,0x200000,0x080000};
-	uint8_t *src = cpurom+0x100000;
-	std::vector<uint8_t> dst(0x400000);
+	u8 *src = cpurom+0x100000;
+	std::vector<u8> dst(0x400000);
 	memcpy( &dst[0], src, 0x400000 );
-	for( uint8_t i=0; i<8; ++i )
+	for( u8 i=0; i<8; ++i )
 		memcpy( src+i*0x80000, &dst[sec[i]], 0x80000 );
 }
 
 
-void kof2002_prot_device::matrim_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void kof2002_prot_device::matrim_decrypt_68k(u8* cpurom, u32 cpurom_size)
 {
 	static const int sec[]={0x100000,0x280000,0x300000,0x180000,0x000000,0x380000,0x200000,0x080000};
-	uint8_t *src = cpurom+0x100000;
-	std::vector<uint8_t> dst(0x400000);
+	u8 *src = cpurom+0x100000;
+	std::vector<u8> dst(0x400000);
 	memcpy( &dst[0], src, 0x400000);
-	for( uint8_t i=0; i<8; ++i )
+	for( u8 i=0; i<8; ++i )
 		memcpy( src+i*0x80000, &dst[sec[i]], 0x80000 );
 }
 
 
-void kof2002_prot_device::samsho5_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void kof2002_prot_device::samsho5_decrypt_68k(u8* cpurom, u32 cpurom_size)
 {
 	static const int sec[]={0x000000,0x080000,0x700000,0x680000,0x500000,0x180000,0x200000,0x480000,0x300000,0x780000,0x600000,0x280000,0x100000,0x580000,0x400000,0x380000};
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst(0x800000);
+	u8 *src = cpurom;
+	std::vector<u8> dst(0x800000);
 	memcpy( &dst[0], src, 0x800000 );
-	for( uint8_t i=0; i<16; ++i )
+	for( u8 i=0; i<16; ++i )
 		memcpy( src+i*0x80000, &dst[sec[i]], 0x80000 );
 }
 
 
-void kof2002_prot_device::samsh5sp_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void kof2002_prot_device::samsh5sp_decrypt_68k(u8* cpurom, u32 cpurom_size)
 {
 	static const int sec[]={0x000000,0x080000,0x500000,0x480000,0x600000,0x580000,0x700000,0x280000,0x100000,0x680000,0x400000,0x780000,0x200000,0x380000,0x300000,0x180000};
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst(0x800000);
+	u8 *src = cpurom;
+	std::vector<u8> dst(0x800000);
 	memcpy( &dst[0], src, 0x800000 );
-	for( uint8_t i=0; i<16; ++i )
+	for( u8 i=0; i<16; ++i )
 		memcpy( src+i*0x80000, &dst[sec[i]], 0x80000 );
 }
 
@@ -1942,7 +1941,7 @@ void kof2002_prot_device::samsh5sp_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_
 DEFINE_DEVICE_TYPE(KOF98_PROT, kof98_prot_device, "kof98_prot", "NeoGeo Protection (KOF98)")
 
 
-kof98_prot_device::kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+kof98_prot_device::kof98_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, KOF98_PROT, tag, owner, clock)
 	, kof98_prot_state(0)
 	{ }
@@ -1957,13 +1956,13 @@ void kof98_prot_device::device_reset()
 
 
 /* Kof98 uses an early encryption, quite different from the others */
-void kof98_prot_device::kof98_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
+void kof98_prot_device::kof98_decrypt_68k(u8* cpurom, u32 cpurom_size)
 {
-	uint8_t *src = cpurom;
-	std::vector<uint8_t> dst(0x200000);
+	u8 *src = cpurom;
+	std::vector<u8> dst(0x200000);
 	int i, j, k;
-	static const uint32_t sec[]={0x000000,0x100000,0x000004,0x100004,0x10000a,0x00000a,0x10000e,0x00000e};
-	static const uint32_t pos[]={0x000,0x004,0x00a,0x00e};
+	static const u32 sec[]={0x000000,0x100000,0x000004,0x100004,0x10000a,0x00000a,0x10000e,0x00000e};
+	static const u32 pos[]={0x000,0x004,0x00a,0x00e};
 
 	memcpy( &dst[0], src, 0x200000);
 	for( i=0x800; i<0x100000; i+=0x200 )
@@ -1999,7 +1998,7 @@ void kof98_prot_device::kof98_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
 	}
 	memmove( &src[0x100000], &src[0x200000], 0x400000 );
 
-	uint16_t* mem16 = (uint16_t*)cpurom;
+	u16* mem16 = (u16*)cpurom;
 	m_default_rom[0] = mem16[0x100 / 2];
 	m_default_rom[1] = mem16[0x102 / 2];
 }
@@ -2012,7 +2011,7 @@ void kof98_prot_device::kof98_decrypt_68k(uint8_t* cpurom, uint32_t cpurom_size)
   The boards have an ALTERA chip (EPM7128SQC100-15) which is tied to 242-P1
 ***************************************************************/
 
-READ16_MEMBER(kof98_prot_device::kof98_prot_r)
+u16 kof98_prot_device::kof98_prot_r(offs_t offset)
 {
 	if (kof98_prot_state == 1)
 	{
@@ -2036,7 +2035,7 @@ READ16_MEMBER(kof98_prot_device::kof98_prot_r)
 	return m_default_rom[1];
 }
 
-WRITE16_MEMBER( kof98_prot_device::kof98_prot_w )
+void kof98_prot_device::kof98_prot_w(u16 data)
 {
 	/* info from razoola */
 	switch (data)
@@ -2061,8 +2060,8 @@ WRITE16_MEMBER( kof98_prot_device::kof98_prot_w )
 void kof98_prot_device::install_kof98_protection(cpu_device* maincpu)
 {
 	/* when 0x20aaaa contains 0x0090 (word) then 0x100 (normally the neogeo header) should return 0x00c200fd worked out using real hw */
-	maincpu->space(AS_PROGRAM).install_read_handler(0x00100, 0x00103, read16_delegate(*this, FUNC(kof98_prot_device::kof98_prot_r)));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x20aaaa, 0x20aaab, write16_delegate(*this, FUNC(kof98_prot_device::kof98_prot_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x00100, 0x00103, read16sm_delegate(*this, FUNC(kof98_prot_device::kof98_prot_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x20aaaa, 0x20aaab, write16smo_delegate(*this, FUNC(kof98_prot_device::kof98_prot_w)));
 }
 
 /***********************************************************************************************************************************/
@@ -2071,7 +2070,7 @@ void kof98_prot_device::install_kof98_protection(cpu_device* maincpu)
 DEFINE_DEVICE_TYPE(MSLUGX_PROT, mslugx_prot_device, "mslugx_prot", "NeoGeo Protection (Metal Slug X)")
 
 
-mslugx_prot_device::mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+mslugx_prot_device::mslugx_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, MSLUGX_PROT, tag, owner, clock)
 	, m_mslugx_counter(0)
 	, m_mslugx_command(0)
@@ -2095,7 +2094,7 @@ void mslugx_prot_device::device_reset() { }
   Also found is a QFP144 chip labeled with 0103 - function unknown
 ***************************************************************/
 
-WRITE16_MEMBER( mslugx_prot_device::mslugx_protection_16_w )
+void mslugx_prot_device::mslugx_protection_16_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -2123,9 +2122,9 @@ WRITE16_MEMBER( mslugx_prot_device::mslugx_protection_16_w )
 }
 
 
-READ16_MEMBER( mslugx_prot_device::mslugx_protection_16_r )
+u16 mslugx_prot_device::mslugx_protection_16_r(address_space &space, offs_t offset)
 {
-	uint16_t res = 0;
+	u16 res = 0;
 
 	switch (m_mslugx_command)
 	{
@@ -2152,9 +2151,8 @@ READ16_MEMBER( mslugx_prot_device::mslugx_protection_16_r )
 
 void mslugx_prot_device::mslugx_install_protection(cpu_device* maincpu)
 {
-	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fffe0, 0x2fffef,
-		read16_delegate(*this, FUNC(mslugx_prot_device::mslugx_protection_16_r)),
-		write16_delegate(*this, FUNC(mslugx_prot_device::mslugx_protection_16_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fffe0, 0x2fffef, read16m_delegate(*this, FUNC(mslugx_prot_device::mslugx_protection_16_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffe0, 0x2fffef, write16sm_delegate(*this, FUNC(mslugx_prot_device::mslugx_protection_16_w)));
 }
 
 /***********************************************************************************************************************************/
@@ -2163,7 +2161,7 @@ void mslugx_prot_device::mslugx_install_protection(cpu_device* maincpu)
 DEFINE_DEVICE_TYPE(PCM2_PROT, pcm2_prot_device, "pcm2_prot", "NeoGeo Protection (NEOPCM2)")
 
 
-pcm2_prot_device::pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+pcm2_prot_device::pcm2_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, PCM2_PROT, tag, owner, clock)
 	{ }
 
@@ -2180,15 +2178,15 @@ NeoGeo 'V' (PCM) ROM encryption
 ***************************************************************************/
 
 /* Neo-Pcm2 Drivers for Encrypted V Roms */
-void pcm2_prot_device::neo_pcm2_snk_1999(uint8_t* ymrom, uint32_t ymsize, int value)
+void pcm2_prot_device::neo_pcm2_snk_1999(u8* ymrom, u32 ymsize, int value)
 {   /* thanks to Elsemi for the NEO-PCM2 info */
-	uint16_t *rom = (uint16_t *)ymrom;
+	u16 *rom = (u16 *)ymrom;
 	int size = ymsize;
 	int i, j;
 
 	if (rom)
 	{   /* swap address lines on the whole ROMs */
-		std::vector<uint16_t> buffer(value / 2);
+		std::vector<u16> buffer(value / 2);
 
 		for( i = 0; i < size / 2; i += ( value / 2 ) )
 		{
@@ -2201,9 +2199,9 @@ void pcm2_prot_device::neo_pcm2_snk_1999(uint8_t* ymrom, uint32_t ymsize, int va
 
 
 /* the later PCM2 games have additional scrambling */
-void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
+void pcm2_prot_device::neo_pcm2_swap(u8* ymrom, u32 ymsize, int value)
 {
-	static const uint32_t addrs[7][2]={
+	static const u32 addrs[7][2]={
 		{0x000000,0xa5000},
 		{0xffce20,0x01000},
 		{0xfe2cf6,0x4e001},
@@ -2211,7 +2209,7 @@ void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
 		{0xfeb2c0,0x0a000},
 		{0xff14ea,0xa7001},
 		{0xffb440,0x02000}};
-	static const uint8_t xordata[7][8]={
+	static const u8 xordata[7][8]={
 		{0xf9,0xe0,0x5d,0xf3,0xea,0x92,0xbe,0xef},
 		{0xc4,0x83,0xa8,0x5f,0x21,0x27,0x64,0xaf},
 		{0xc3,0xfd,0x81,0xac,0x6d,0xe7,0xbf,0x9e},
@@ -2220,9 +2218,9 @@ void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
 		{0x4b,0xa4,0x63,0x46,0xf0,0x91,0xea,0x62},
 		{0x4b,0xa4,0x63,0x46,0xf0,0x91,0xea,0x62}};
 
-	std::vector<uint8_t> buf(0x1000000);
+	std::vector<u8> buf(0x1000000);
 	int i, j, d;
-	uint8_t* src = ymrom;
+	u8* src = ymrom;
 	memcpy(&buf[0], src, 0x1000000);
 	for (i=0; i<0x1000000; i++)
 	{
@@ -2239,7 +2237,7 @@ void pcm2_prot_device::neo_pcm2_swap(uint8_t* ymrom, uint32_t ymsize, int value)
 DEFINE_DEVICE_TYPE(PVC_PROT, pvc_prot_device, "pvc_prot", "NeoGeo Protection (PVC)")
 
 
-pvc_prot_device::pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+pvc_prot_device::pvc_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, PVC_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	{ }
@@ -2261,12 +2259,12 @@ void pvc_prot_device::device_reset() { }
 
 void pvc_prot_device::pvc_write_unpack_color()
 {
-	uint16_t pen = m_cartridge_ram[0xff0];
+	u16 pen = m_cartridge_ram[0xff0];
 
-	uint8_t b = ((pen & 0x000f) << 1) | ((pen & 0x1000) >> 12);
-	uint8_t g = ((pen & 0x00f0) >> 3) | ((pen & 0x2000) >> 13);
-	uint8_t r = ((pen & 0x0f00) >> 7) | ((pen & 0x4000) >> 14);
-	uint8_t s = (pen & 0x8000) >> 15;
+	u8 b = ((pen & 0x000f) << 1) | ((pen & 0x1000) >> 12);
+	u8 g = ((pen & 0x00f0) >> 3) | ((pen & 0x2000) >> 13);
+	u8 r = ((pen & 0x0f00) >> 7) | ((pen & 0x4000) >> 14);
+	u8 s = (pen & 0x8000) >> 15;
 
 	m_cartridge_ram[0xff1] = (g << 8) | b;
 	m_cartridge_ram[0xff2] = (s << 8) | r;
@@ -2275,30 +2273,30 @@ void pvc_prot_device::pvc_write_unpack_color()
 
 void pvc_prot_device::pvc_write_pack_color()
 {
-	uint16_t gb = m_cartridge_ram[0xff4];
-	uint16_t sr = m_cartridge_ram[0xff5];
+	u16 gb = m_cartridge_ram[0xff4];
+	u16 sr = m_cartridge_ram[0xff5];
 
 	m_cartridge_ram[0xff6] = ((gb & 0x001e) >> 1) | ((gb & 0x1e00) >> 5) | ((sr & 0x001e) << 7) |
 		((gb & 0x0001) << 12) | ((gb & 0x0100) << 5) | ((sr & 0x0001) << 14) | ((sr & 0x0100) << 7);
 }
 
 
-void pvc_prot_device::pvc_write_bankswitch( address_space &space )
+void pvc_prot_device::pvc_write_bankswitch()
 {
-	uint32_t bankaddress = ((m_cartridge_ram[0xff8] >> 8)|(m_cartridge_ram[0xff9] << 8));
+	u32 bankaddress = ((m_cartridge_ram[0xff8] >> 8)|(m_cartridge_ram[0xff9] << 8));
 	m_cartridge_ram[0xff8] = (m_cartridge_ram[0xff8] & 0xfe00) | 0x00a0;
 	m_cartridge_ram[0xff9] &= 0x7fff;
 	m_bankdev->neogeo_set_main_cpu_bank_address(bankaddress + 0x100000);
 }
 
 
-READ16_MEMBER( pvc_prot_device::pvc_prot_r )
+u16 pvc_prot_device::pvc_prot_r(offs_t offset)
 {
 	return m_cartridge_ram[offset];
 }
 
 
-WRITE16_MEMBER( pvc_prot_device::pvc_prot_w )
+void pvc_prot_device::pvc_prot_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	COMBINE_DATA(&m_cartridge_ram[offset] );
 	if (offset == 0xff0)
@@ -2308,28 +2306,27 @@ WRITE16_MEMBER( pvc_prot_device::pvc_prot_w )
 		pvc_write_pack_color();
 	else
 	if(offset >= 0xff8)
-		pvc_write_bankswitch(space);
+		pvc_write_bankswitch();
 }
 
 
 void pvc_prot_device::install_pvc_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
 	m_bankdev = bankdev;
-	maincpu->space(AS_PROGRAM).install_readwrite_handler(0x2fe000, 0x2fffff,
-		read16_delegate(*this, FUNC(pvc_prot_device::pvc_prot_r)),
-		write16_delegate(*this, FUNC(pvc_prot_device::pvc_prot_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe000, 0x2fffff, read16sm_delegate(*this, FUNC(pvc_prot_device::pvc_prot_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fe000, 0x2fffff, write16s_delegate(*this, FUNC(pvc_prot_device::pvc_prot_w)));
 }
 
 
 
 
 /* kf2k3pcb, kof2003, kof2003h, mslug5 and svc have updated P rom scramble */
-void pvc_prot_device::mslug5_decrypt_68k(uint8_t* rom, uint32_t size)
+void pvc_prot_device::mslug5_decrypt_68k(u8* rom, u32 size)
 {
-	static const uint8_t xor1[ 0x20 ] = { 0xc2, 0x4b, 0x74, 0xfd, 0x0b, 0x34, 0xeb, 0xd7, 0x10, 0x6d, 0xf9, 0xce, 0x5d, 0xd5, 0x61, 0x29, 0xf5, 0xbe, 0x0d, 0x82, 0x72, 0x45, 0x0f, 0x24, 0xb3, 0x34, 0x1b, 0x99, 0xea, 0x09, 0xf3, 0x03 };
-	static const uint8_t xor2[ 0x20 ] = { 0x36, 0x09, 0xb0, 0x64, 0x95, 0x0f, 0x90, 0x42, 0x6e, 0x0f, 0x30, 0xf6, 0xe5, 0x08, 0x30, 0x64, 0x08, 0x04, 0x00, 0x2f, 0x72, 0x09, 0xa0, 0x13, 0xc9, 0x0b, 0xa0, 0x3e, 0xc2, 0x00, 0x40, 0x2b };
+	static const u8 xor1[ 0x20 ] = { 0xc2, 0x4b, 0x74, 0xfd, 0x0b, 0x34, 0xeb, 0xd7, 0x10, 0x6d, 0xf9, 0xce, 0x5d, 0xd5, 0x61, 0x29, 0xf5, 0xbe, 0x0d, 0x82, 0x72, 0x45, 0x0f, 0x24, 0xb3, 0x34, 0x1b, 0x99, 0xea, 0x09, 0xf3, 0x03 };
+	static const u8 xor2[ 0x20 ] = { 0x36, 0x09, 0xb0, 0x64, 0x95, 0x0f, 0x90, 0x42, 0x6e, 0x0f, 0x30, 0xf6, 0xe5, 0x08, 0x30, 0x64, 0x08, 0x04, 0x00, 0x2f, 0x72, 0x09, 0xa0, 0x13, 0xc9, 0x0b, 0xa0, 0x3e, 0xc2, 0x00, 0x40, 0x2b };
 	int i, ofst, rom_size = 0x800000;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for( i = 0; i < 0x100000; i++ )
 		rom[ i ] ^= xor1[ (BYTE_XOR_LE(i) % 0x20) ];
@@ -2339,7 +2336,7 @@ void pvc_prot_device::mslug5_decrypt_68k(uint8_t* rom, uint32_t size)
 
 	for( i = 0x100000; i < 0x0800000; i += 4 )
 	{
-		uint16_t rom16;
+		u16 rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
 		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
@@ -2366,14 +2363,14 @@ void pvc_prot_device::mslug5_decrypt_68k(uint8_t* rom, uint32_t size)
 }
 
 
-void pvc_prot_device::svc_px_decrypt(uint8_t* rom, uint32_t size)
+void pvc_prot_device::svc_px_decrypt(u8* rom, u32 size)
 {
-	static const uint8_t xor1[ 0x20 ] = { 0x3b, 0x6a, 0xf7, 0xb7, 0xe8, 0xa9, 0x20, 0x99, 0x9f, 0x39, 0x34, 0x0c, 0xc3, 0x9a, 0xa5, 0xc8,
+	static const u8 xor1[ 0x20 ] = { 0x3b, 0x6a, 0xf7, 0xb7, 0xe8, 0xa9, 0x20, 0x99, 0x9f, 0x39, 0x34, 0x0c, 0xc3, 0x9a, 0xa5, 0xc8,
 		0xb8, 0x18, 0xce, 0x56, 0x94, 0x44, 0xe3, 0x7a, 0xf7, 0xdd, 0x42, 0xf0, 0x18, 0x60, 0x92, 0x9f };
-	static const uint8_t xor2[ 0x20 ] = { 0x69, 0x0b, 0x60, 0xd6, 0x4f, 0x01, 0x40, 0x1a, 0x9f, 0x0b, 0xf0, 0x75, 0x58, 0x0e, 0x60, 0xb4,
+	static const u8 xor2[ 0x20 ] = { 0x69, 0x0b, 0x60, 0xd6, 0x4f, 0x01, 0x40, 0x1a, 0x9f, 0x0b, 0xf0, 0x75, 0x58, 0x0e, 0x60, 0xb4,
 		0x14, 0x04, 0x20, 0xe4, 0xb9, 0x0d, 0x10, 0x89, 0xeb, 0x07, 0x30, 0x90, 0x50, 0x0e, 0x20, 0x26 };
 	int i, ofst, rom_size = 0x800000;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for( i = 0; i < 0x100000; i++ )
 		rom[ i ] ^= xor1[ (BYTE_XOR_LE(i) % 0x20) ];
@@ -2383,7 +2380,7 @@ void pvc_prot_device::svc_px_decrypt(uint8_t* rom, uint32_t size)
 
 	for( i = 0x100000; i < 0x0800000; i += 4 )
 	{
-		uint16_t rom16;
+		u16 rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
 		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
@@ -2410,12 +2407,12 @@ void pvc_prot_device::svc_px_decrypt(uint8_t* rom, uint32_t size)
 }
 
 
-void pvc_prot_device::kf2k3pcb_decrypt_68k(uint8_t* rom, uint32_t size)
+void pvc_prot_device::kf2k3pcb_decrypt_68k(u8* rom, u32 size)
 {
-	static const uint8_t xor2[ 0x20 ] = { 0xb4, 0x0f, 0x40, 0x6c, 0x38, 0x07, 0xd0, 0x3f, 0x53, 0x08, 0x80, 0xaa, 0xbe, 0x07, 0xc0, 0xfa,
+	static const u8 xor2[ 0x20 ] = { 0xb4, 0x0f, 0x40, 0x6c, 0x38, 0x07, 0xd0, 0x3f, 0x53, 0x08, 0x80, 0xaa, 0xbe, 0x07, 0xc0, 0xfa,
 		0xd0, 0x08, 0x10, 0xd2, 0xf1, 0x03, 0x70, 0x7e, 0x87, 0x0b, 0x40, 0xf6, 0x2a, 0x0a, 0xe0, 0xf9 };
 	int i, ofst, rom_size = 0x900000;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for (i = 0; i < 0x100000; i++)
 		rom[ 0x800000 + i ] ^= rom[ 0x100002 | i ];
@@ -2425,7 +2422,7 @@ void pvc_prot_device::kf2k3pcb_decrypt_68k(uint8_t* rom, uint32_t size)
 
 	for( i = 0x100000; i < 0x800000; i += 4 )
 	{
-		uint16_t rom16;
+		u16 rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
 		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 4, 5, 6, 7, 8, 9, 10, 11, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
@@ -2450,14 +2447,14 @@ void pvc_prot_device::kf2k3pcb_decrypt_68k(uint8_t* rom, uint32_t size)
 }
 
 
-void pvc_prot_device::kof2003_decrypt_68k(uint8_t* rom, uint32_t size)
+void pvc_prot_device::kof2003_decrypt_68k(u8* rom, u32 size)
 {
-	static const uint8_t xor1[0x20] = { 0x3b, 0x6a, 0xf7, 0xb7, 0xe8, 0xa9, 0x20, 0x99, 0x9f, 0x39, 0x34, 0x0c, 0xc3, 0x9a, 0xa5, 0xc8,
+	static const u8 xor1[0x20] = { 0x3b, 0x6a, 0xf7, 0xb7, 0xe8, 0xa9, 0x20, 0x99, 0x9f, 0x39, 0x34, 0x0c, 0xc3, 0x9a, 0xa5, 0xc8,
 		0xb8, 0x18, 0xce, 0x56, 0x94, 0x44, 0xe3, 0x7a, 0xf7, 0xdd, 0x42, 0xf0, 0x18, 0x60, 0x92, 0x9f };
-	static const uint8_t xor2[0x20] = { 0x2f, 0x02, 0x60, 0xbb, 0x77, 0x01, 0x30, 0x08, 0xd8, 0x01, 0xa0, 0xdf, 0x37, 0x0a, 0xf0, 0x65,
+	static const u8 xor2[0x20] = { 0x2f, 0x02, 0x60, 0xbb, 0x77, 0x01, 0x30, 0x08, 0xd8, 0x01, 0xa0, 0xdf, 0x37, 0x0a, 0xf0, 0x65,
 		0x28, 0x03, 0xd0, 0x23, 0xd3, 0x03, 0x70, 0x42, 0xbb, 0x06, 0xf0, 0x28, 0xba, 0x0f, 0xf0, 0x7a };
 	int i, ofst, rom_size = 0x900000;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for (i = 0; i < 0x100000; i++)
 		rom[ 0x800000 + i ] ^= rom[ 0x100002 | i ];
@@ -2470,7 +2467,7 @@ void pvc_prot_device::kof2003_decrypt_68k(uint8_t* rom, uint32_t size)
 
 	for( i = 0x100000; i < 0x800000; i += 4)
 	{
-		uint16_t rom16;
+		u16 rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
 		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 5, 4, 7, 6, 9, 8, 11, 10, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
@@ -2495,14 +2492,14 @@ void pvc_prot_device::kof2003_decrypt_68k(uint8_t* rom, uint32_t size)
 }
 
 
-void pvc_prot_device::kof2003h_decrypt_68k(uint8_t* rom, uint32_t size)
+void pvc_prot_device::kof2003h_decrypt_68k(u8* rom, u32 size)
 {
-	static const uint8_t xor1[0x20] = { 0xc2, 0x4b, 0x74, 0xfd, 0x0b, 0x34, 0xeb, 0xd7, 0x10, 0x6d, 0xf9, 0xce, 0x5d, 0xd5, 0x61, 0x29,
+	static const u8 xor1[0x20] = { 0xc2, 0x4b, 0x74, 0xfd, 0x0b, 0x34, 0xeb, 0xd7, 0x10, 0x6d, 0xf9, 0xce, 0x5d, 0xd5, 0x61, 0x29,
 		0xf5, 0xbe, 0x0d, 0x82, 0x72, 0x45, 0x0f, 0x24, 0xb3, 0x34, 0x1b, 0x99, 0xea, 0x09, 0xf3, 0x03 };
-	static const uint8_t xor2[0x20] = { 0x2b, 0x09, 0xd0, 0x7f, 0x51, 0x0b, 0x10, 0x4c, 0x5b, 0x07, 0x70, 0x9d, 0x3e, 0x0b, 0xb0, 0xb6,
+	static const u8 xor2[0x20] = { 0x2b, 0x09, 0xd0, 0x7f, 0x51, 0x0b, 0x10, 0x4c, 0x5b, 0x07, 0x70, 0x9d, 0x3e, 0x0b, 0xb0, 0xb6,
 		0x54, 0x09, 0xe0, 0xcc, 0x3d, 0x0d, 0x80, 0x99, 0x87, 0x03, 0x90, 0x82, 0xfe, 0x04, 0x20, 0x18 };
 	int i, ofst, rom_size = 0x900000;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for (i = 0; i < 0x100000; i++)
 		rom[ 0x800000 + i ] ^= rom[ 0x100002 | i ];
@@ -2515,7 +2512,7 @@ void pvc_prot_device::kof2003h_decrypt_68k(uint8_t* rom, uint32_t size)
 
 	for( i = 0x100000; i < 0x800000; i += 4)
 	{
-		uint16_t rom16;
+		u16 rom16;
 		rom16 = rom[BYTE_XOR_LE(i+1)] | rom[BYTE_XOR_LE(i+2)]<<8;
 		rom16 = bitswap<16>( rom16, 15, 14, 13, 12, 10, 11, 8, 9, 6, 7, 4, 5, 3, 2, 1, 0 );
 		rom[BYTE_XOR_LE(i+1)] = rom16&0xff;
@@ -2545,7 +2542,7 @@ void pvc_prot_device::kof2003h_decrypt_68k(uint8_t* rom, uint32_t size)
 DEFINE_DEVICE_TYPE(SBP_PROT, sbp_prot_device, "sbp_prot", "NeoGeo Protection (Super Bubble Pop)")
 
 
-sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, SBP_PROT, tag, owner, clock)
 	, m_mainrom(nullptr)
 	{ }
@@ -2553,11 +2550,11 @@ sbp_prot_device::sbp_prot_device(const machine_config &mconfig, const char *tag,
 void sbp_prot_device::device_start() { }
 void sbp_prot_device::device_reset() { }
 
-READ16_MEMBER( sbp_prot_device::sbp_lowerrom_r )
+u16 sbp_prot_device::sbp_lowerrom_r(offs_t offset)
 {
-	uint16_t* rom = (uint16_t*)m_mainrom;
-	uint16_t origdata = rom[(offset+(0x200/2))];
-	uint16_t data =  bitswap<16>(origdata, 11,10,9,8,15,14,13,12,3,2,1,0,7,6,5,4);
+	u16* rom = (u16*)m_mainrom;
+	u16 origdata = rom[(offset+(0x200/2))];
+	u16 data =  bitswap<16>(origdata, 11,10,9,8,15,14,13,12,3,2,1,0,7,6,5,4);
 	int realoffset = 0x200+(offset*2);
 	logerror("sbp_lowerrom_r offset %08x data %04x\n", realoffset, data );
 
@@ -2567,7 +2564,7 @@ READ16_MEMBER( sbp_prot_device::sbp_lowerrom_r )
 	return data;
 }
 
-WRITE16_MEMBER( sbp_prot_device::sbp_lowerrom_w )
+void sbp_prot_device::sbp_lowerrom_w(offs_t offset, u16 data)
 {
 	int realoffset = 0x200+(offset*2);
 
@@ -2587,7 +2584,7 @@ WRITE16_MEMBER( sbp_prot_device::sbp_lowerrom_w )
 }
 
 
-void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpurom, uint32_t cpurom_size)
+void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, u8* cpurom, u32 cpurom_size)
 {
 	m_mainrom = cpurom;
 
@@ -2596,12 +2593,12 @@ void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpuro
 	// there are also writes to 0x1080..
 	//
 	// other stuff going on as well tho, the main overlay is still missing, and p1 inputs don't work
-	maincpu->space(AS_PROGRAM).install_read_handler(0x00200, 0x001fff, read16_delegate(*this, FUNC(sbp_prot_device::sbp_lowerrom_r)));
-	maincpu->space(AS_PROGRAM).install_write_handler(0x00200, 0x001fff, write16_delegate(*this, FUNC(sbp_prot_device::sbp_lowerrom_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x00200, 0x001fff, read16sm_delegate(*this, FUNC(sbp_prot_device::sbp_lowerrom_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x00200, 0x001fff, write16sm_delegate(*this, FUNC(sbp_prot_device::sbp_lowerrom_w)));
 
 	/* the game code clears the text overlay used ingame immediately after writing it.. why? protection? sloppy code that the hw ignores? imperfect emulation? */
 	{
-		uint16_t* rom = (uint16_t*)cpurom;
+		u16* rom = (u16*)cpurom;
 
 		rom[0x2a6f8 / 2] = 0x4e71;
 		rom[0x2a6fa / 2] = 0x4e71;
@@ -2615,7 +2612,7 @@ void sbp_prot_device::sbp_install_protection(cpu_device* maincpu, uint8_t* cpuro
 DEFINE_DEVICE_TYPE(SMA_PROT, sma_prot_device, "sma_prot", "NeoGeo SMA Cartridge")
 
 
-sma_prot_device::sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+sma_prot_device::sma_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, SMA_PROT, tag, owner, clock)
 	, m_bankdev(nullptr)
 	, m_sma_rng(0)
@@ -2637,7 +2634,7 @@ void sma_prot_device::device_reset()
   thanks to Razoola
 ***************************************************************/
 
-WRITE16_MEMBER( sma_prot_device::kof99_bankswitch_w )
+void sma_prot_device::kof99_bankswitch_w(u16 data)
 {
 	static const int bankoffset[64] =
 	{
@@ -2660,7 +2657,7 @@ WRITE16_MEMBER( sma_prot_device::kof99_bankswitch_w )
 }
 
 
-WRITE16_MEMBER( sma_prot_device::garou_bankswitch_w )
+void sma_prot_device::garou_bankswitch_w(u16 data)
 {
 	/* thanks to Razoola and Mr K for the info */
 	static const int bankoffset[64] =
@@ -2689,7 +2686,7 @@ WRITE16_MEMBER( sma_prot_device::garou_bankswitch_w )
 }
 
 
-WRITE16_MEMBER( sma_prot_device::garouh_bankswitch_w )
+void sma_prot_device::garouh_bankswitch_w(u16 data)
 {
 	/* thanks to Razoola and Mr K for the info */
 	static const int bankoffset[64] =
@@ -2720,7 +2717,7 @@ WRITE16_MEMBER( sma_prot_device::garouh_bankswitch_w )
 }
 
 
-WRITE16_MEMBER( sma_prot_device::mslug3_bankswitch_w )
+void sma_prot_device::mslug3_bankswitch_w(u16 data)
 {
 	/* thanks to Razoola and Mr K for the info */
 	static const int bankoffset[64] =
@@ -2748,7 +2745,7 @@ WRITE16_MEMBER( sma_prot_device::mslug3_bankswitch_w )
 }
 
 
-WRITE16_MEMBER( sma_prot_device::kof2000_bankswitch_w )
+void sma_prot_device::kof2000_bankswitch_w(u16 data)
 {
 	/* thanks to Razoola and Mr K for the info */
 	static const int bankoffset[64] =
@@ -2772,7 +2769,7 @@ WRITE16_MEMBER( sma_prot_device::kof2000_bankswitch_w )
 }
 
 
-READ16_MEMBER( sma_prot_device::prot_9a37_r )
+u16 sma_prot_device::prot_9a37_r()
 {
 	return 0x9a37;
 }
@@ -2781,10 +2778,10 @@ READ16_MEMBER( sma_prot_device::prot_9a37_r )
 /* information about the sma random number generator provided by razoola */
 /* this RNG is correct for KOF99, other games might be different */
 
-READ16_MEMBER( sma_prot_device::sma_random_r )
+u16 sma_prot_device::sma_random_r()
 {
-	uint16_t old = m_sma_rng;
-	uint16_t newbit = ((m_sma_rng >> 2) ^ (m_sma_rng >> 3) ^ (m_sma_rng >> 5) ^ (m_sma_rng >> 6) ^ (m_sma_rng >> 7) ^ (m_sma_rng >>11) ^ (m_sma_rng >>12) ^ (m_sma_rng >>15)) & 1;
+	u16 old = m_sma_rng;
+	u16 newbit = ((m_sma_rng >> 2) ^ (m_sma_rng >> 3) ^ (m_sma_rng >> 5) ^ (m_sma_rng >> 6) ^ (m_sma_rng >> 7) ^ (m_sma_rng >>11) ^ (m_sma_rng >>12) ^ (m_sma_rng >>15)) & 1;
 	m_sma_rng = (m_sma_rng << 1) | newbit;
 	return old;
 }
@@ -2798,15 +2795,15 @@ void sma_prot_device::reset_sma_rng()
 
 void sma_prot_device::sma_install_random_read_handler(cpu_device* maincpu, int addr1, int addr2 )
 {
-	maincpu->space(AS_PROGRAM).install_read_handler(addr1, addr1 + 1, read16_delegate(*this, FUNC(sma_prot_device::sma_random_r)));
-	maincpu->space(AS_PROGRAM).install_read_handler(addr2, addr2 + 1, read16_delegate(*this, FUNC(sma_prot_device::sma_random_r)));
+	maincpu->space(AS_PROGRAM).install_read_handler(addr1, addr1 + 1, read16smo_delegate(*this, FUNC(sma_prot_device::sma_random_r)));
+	maincpu->space(AS_PROGRAM).install_read_handler(addr2, addr2 + 1, read16smo_delegate(*this, FUNC(sma_prot_device::sma_random_r)));
 }
 
 
 void sma_prot_device::kof99_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2ffff1, write16_delegate(*this, FUNC(sma_prot_device::kof99_bankswitch_w)));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2ffff0, 0x2ffff1, write16smo_delegate(*this, FUNC(sma_prot_device::kof99_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16smo_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2ffff8, 0x2ffffa);
@@ -2815,8 +2812,8 @@ void sma_prot_device::kof99_install_protection(cpu_device* maincpu, neogeo_banke
 
 void sma_prot_device::garou_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16_delegate(*this, FUNC(sma_prot_device::garou_bankswitch_w)));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16smo_delegate(*this, FUNC(sma_prot_device::garou_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16smo_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2fffcc, 0x2ffff0);
@@ -2825,8 +2822,8 @@ void sma_prot_device::garou_install_protection(cpu_device* maincpu, neogeo_banke
 
 void sma_prot_device::garouh_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16_delegate(*this, FUNC(sma_prot_device::garouh_bankswitch_w)));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffc0, 0x2fffc1, write16smo_delegate(*this, FUNC(sma_prot_device::garouh_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16smo_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2fffcc, 0x2ffff0);
@@ -2835,8 +2832,8 @@ void sma_prot_device::garouh_install_protection(cpu_device* maincpu, neogeo_bank
 
 void sma_prot_device::mslug3_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffe4, 0x2fffe5, write16_delegate(*this, FUNC(sma_prot_device::mslug3_bankswitch_w)));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffe4, 0x2fffe5, write16smo_delegate(*this, FUNC(sma_prot_device::mslug3_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16smo_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 //  sma_install_random_read_handler(maincpu, 0x2ffff8, 0x2ffffa);
@@ -2845,8 +2842,8 @@ void sma_prot_device::mslug3_install_protection(cpu_device* maincpu, neogeo_bank
 
 void sma_prot_device::kof2000_install_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev)
 {
-	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffec, 0x2fffed, write16_delegate(*this, FUNC(sma_prot_device::kof2000_bankswitch_w)));
-	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
+	maincpu->space(AS_PROGRAM).install_write_handler(0x2fffec, 0x2fffed, write16smo_delegate(*this, FUNC(sma_prot_device::kof2000_bankswitch_w)));
+	maincpu->space(AS_PROGRAM).install_read_handler(0x2fe446, 0x2fe447, read16smo_delegate(*this, FUNC(sma_prot_device::prot_9a37_r)));
 	m_bankdev = bankdev;
 
 	sma_install_random_read_handler(maincpu, 0x2fffd8, 0x2fffda);
@@ -2855,10 +2852,10 @@ void sma_prot_device::kof2000_install_protection(cpu_device* maincpu, neogeo_ban
 
 
 /* kof99, garou, garouh, mslug3 and kof2000 have a SMA chip which contains program code and decrypts the 68k roms */
-void sma_prot_device::kof99_decrypt_68k(uint8_t* base)
+void sma_prot_device::kof99_decrypt_68k(u8* base)
 {
 	int i,j;
-	uint16_t *rom = (uint16_t *)(base + 0x100000);
+	u16 *rom = (u16 *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
 		rom[i] = bitswap<16>(rom[i],13,7,3,0,9,4,5,6,1,12,8,14,10,11,2,15);
@@ -2866,39 +2863,39 @@ void sma_prot_device::kof99_decrypt_68k(uint8_t* base)
 	/* swap address lines for the banked part */
 	for (i = 0;i < 0x600000/2;i+=0x800/2)
 	{
-		uint16_t buffer[0x800/2];
+		u16 buffer[0x800/2];
 		memcpy(buffer, &rom[i], 0x800);
 		for (j = 0; j < 0x800/2; j++)
 			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,13,12,11,10,6,2,4,9,8,3,1,7,0,5)];
 	}
 
 	/* swap address lines & relocate fixed part */
-	rom = (uint16_t *)base;
+	rom = (u16 *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
 		rom[i] = rom[0x700000/2 + bitswap<24>(i,23,22,21,20,19,18,11,6,14,17,16,5,8,10,12,0,4,3,2,7,9,15,13,1)];
 }
 
 
-void sma_prot_device::garou_decrypt_68k(uint8_t* base)
+void sma_prot_device::garou_decrypt_68k(u8* base)
 {
 	int i,j;
 
 	/* thanks to Razoola and Mr K for the info */
-	uint16_t *rom = (uint16_t *)(base + 0x100000);
+	u16 *rom = (u16 *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
 		rom[i] = bitswap<16>(rom[i],13,12,14,10,8,2,3,1,5,9,11,4,15,0,6,7);
 
 	/* swap address lines & relocate fixed part */
-	rom = (uint16_t *)base;
+	rom = (u16 *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
 		rom[i] = rom[0x710000/2 + bitswap<24>(i,23,22,21,20,19,18,4,5,16,14,7,9,6,13,17,15,3,1,2,12,11,8,10,0)];
 
 	/* swap address lines for the banked part */
-	rom = (uint16_t *)(base + 0x100000);
+	rom = (u16 *)(base + 0x100000);
 	for (i = 0;i < 0x800000/2;i+=0x8000/2)
 	{
-		uint16_t buffer[0x8000/2];
+		u16 buffer[0x8000/2];
 		memcpy(buffer,&rom[i],0x8000);
 		for (j = 0;j < 0x8000/2;j++)
 			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,9,4,8,3,13,6,2,7,0,12,1,11,10,5)];
@@ -2906,26 +2903,26 @@ void sma_prot_device::garou_decrypt_68k(uint8_t* base)
 }
 
 
-void sma_prot_device::garouh_decrypt_68k(uint8_t* base)
+void sma_prot_device::garouh_decrypt_68k(u8* base)
 {
 	int i,j;
 
 	/* thanks to Razoola and Mr K for the info */
-	uint16_t *rom = (uint16_t *)(base + 0x100000);
+	u16 *rom = (u16 *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
 		rom[i] = bitswap<16>(rom[i],14,5,1,11,7,4,10,15,3,12,8,13,0,2,9,6);
 
 	/* swap address lines & relocate fixed part */
-	rom = (uint16_t *)base;
+	rom = (u16 *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
 		rom[i] = rom[0x7f8000/2 + bitswap<24>(i,23,22,21,20,19,18,5,16,11,2,6,7,17,3,12,8,14,4,0,9,1,10,15,13)];
 
 	/* swap address lines for the banked part */
-	rom = (uint16_t *)(base + 0x100000);
+	rom = (u16 *)(base + 0x100000);
 	for (i = 0;i < 0x800000/2;i+=0x8000/2)
 	{
-		uint16_t buffer[0x8000/2];
+		u16 buffer[0x8000/2];
 		memcpy(buffer,&rom[i],0x8000);
 		for (j = 0;j < 0x8000/2;j++)
 			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,12,8,1,7,11,3,13,10,6,9,5,4,0,2)];
@@ -2933,26 +2930,26 @@ void sma_prot_device::garouh_decrypt_68k(uint8_t* base)
 }
 
 
-void sma_prot_device::mslug3_decrypt_68k(uint8_t* base)
+void sma_prot_device::mslug3_decrypt_68k(u8* base)
 {
 	int i,j;
 
 	/* thanks to Razoola and Mr K for the info */
-	uint16_t *rom = (uint16_t *)(base + 0x100000);
+	u16 *rom = (u16 *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
 		rom[i] = bitswap<16>(rom[i],4,11,14,3,1,13,0,7,2,8,12,15,10,9,5,6);
 
 	/* swap address lines & relocate fixed part */
-	rom = (uint16_t *)base;
+	rom = (u16 *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
 		rom[i] = rom[0x5d0000/2 + bitswap<24>(i,23,22,21,20,19,18,15,2,1,13,3,0,9,6,16,4,11,5,7,12,17,14,10,8)];
 
 	/* swap address lines for the banked part */
-	rom = (uint16_t *)(base + 0x100000);
+	rom = (u16 *)(base + 0x100000);
 	for (i = 0;i < 0x800000/2;i+=0x10000/2)
 	{
-		uint16_t buffer[0x10000/2];
+		u16 buffer[0x10000/2];
 		memcpy(buffer,&rom[i],0x10000);
 		for (j = 0;j < 0x10000/2;j++)
 			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,2,11,0,14,6,4,13,8,9,3,10,7,5,12,1)];
@@ -2960,12 +2957,12 @@ void sma_prot_device::mslug3_decrypt_68k(uint8_t* base)
 }
 
 
-void sma_prot_device::kof2000_decrypt_68k(uint8_t* base)
+void sma_prot_device::kof2000_decrypt_68k(u8* base)
 {
 	int i,j;
 
 	/* thanks to Razoola and Mr K for the info */
-	uint16_t *rom = (uint16_t *)(base + 0x100000);
+	u16 *rom = (u16 *)(base + 0x100000);
 	/* swap data lines on the whole ROMs */
 	for (i = 0;i < 0x800000/2;i++)
 		rom[i] = bitswap<16>(rom[i],12,8,11,3,15,14,7,0,10,13,6,5,9,2,1,4);
@@ -2973,14 +2970,14 @@ void sma_prot_device::kof2000_decrypt_68k(uint8_t* base)
 	/* swap address lines for the banked part */
 	for (i = 0;i < 0x63a000/2;i+=0x800/2)
 	{
-		uint16_t buffer[0x800/2];
+		u16 buffer[0x800/2];
 		memcpy(buffer,&rom[i],0x800);
 		for (j = 0;j < 0x800/2;j++)
 			rom[i+j] = buffer[bitswap<24>(j,23,22,21,20,19,18,17,16,15,14,13,12,11,10,4,1,3,8,6,2,7,0,9,5)];
 	}
 
 	/* swap address lines & relocate fixed part */
-	rom = (uint16_t *)base;
+	rom = (u16 *)base;
 	for (i = 0;i < 0x0c0000/2;i++)
 		rom[i] = rom[0x73a000/2 + bitswap<24>(i,23,22,21,20,19,18,8,4,15,13,3,14,16,2,6,17,7,12,10,0,5,11,1,9)];
 }
@@ -2989,18 +2986,18 @@ void sma_prot_device::kof2000_decrypt_68k(uint8_t* base)
 
 
 /* ms5pcb and svcpcb have an additional scramble on top of the standard CMC scrambling */
-void sma_prot_device::svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
+void sma_prot_device::svcpcb_gfx_decrypt(u8* rom, u32 rom_size)
 {
-	static const uint8_t xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
+	static const u8 xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
 	int i, ofst;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for( i = 0; i < rom_size; i++ )
 		rom[ i ] ^= xorval[ (i % 4) ];
 
 	for( i = 0; i < rom_size; i += 4 )
 	{
-		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
+		u32 rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
 		rom32 = bitswap<32>( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
 			0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
 		buf[i]   = rom32       & 0xff;
@@ -3021,7 +3018,7 @@ void sma_prot_device::svcpcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 
 
 /* and a further swap on the s1 data */
-void sma_prot_device::svcpcb_s1data_decrypt(uint8_t* rom, uint32_t rom_size)
+void sma_prot_device::svcpcb_s1data_decrypt(u8* rom, u32 rom_size)
 {
 	for( int i = 0; i < rom_size; i++ ) // Decrypt S
 		rom[ i ] = bitswap<8>( rom[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
@@ -3030,18 +3027,18 @@ void sma_prot_device::svcpcb_s1data_decrypt(uint8_t* rom, uint32_t rom_size)
 
 /* kf2k3pcb has an additional scramble on top of the standard CMC scrambling */
 /* Thanks to Razoola & Halrin for the info */
-void sma_prot_device::kf2k3pcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
+void sma_prot_device::kf2k3pcb_gfx_decrypt(u8* rom, u32 rom_size)
 {
-	const uint8_t xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
+	const u8 xorval[ 4 ] = { 0x34, 0x21, 0xc4, 0xe9 };
 	int i, ofst;
-	std::vector<uint8_t> buf( rom_size );
+	std::vector<u8> buf( rom_size );
 
 	for ( i = 0; i < rom_size; i++ )
 		rom[ i ] ^= xorval[ (i % 4) ];
 
 	for ( i = 0; i < rom_size; i +=4 )
 	{
-		uint32_t rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
+		u32 rom32 = rom[i] | rom[i+1]<<8 | rom[i+2]<<16 | rom[i+3]<<24;
 		rom32 = bitswap<32>( rom32, 0x09, 0x0d, 0x13, 0x00, 0x17, 0x0f, 0x03, 0x05, 0x04, 0x0c, 0x11, 0x1e, 0x12,
 			0x15, 0x0b, 0x06, 0x1b, 0x0a, 0x1a, 0x1c, 0x14, 0x02, 0x0e, 0x1d, 0x18, 0x08, 0x01, 0x10, 0x19, 0x1f, 0x07, 0x16 );
 		buf[i]   =  rom32      & 0xff;
@@ -3061,10 +3058,10 @@ void sma_prot_device::kf2k3pcb_gfx_decrypt(uint8_t* rom, uint32_t rom_size)
 
 
 /* and a further swap on the s1 data */
-void sma_prot_device::kf2k3pcb_decrypt_s1data(uint8_t* rom, uint32_t rom_size, uint8_t* fixed, uint32_t fixed_size)
+void sma_prot_device::kf2k3pcb_decrypt_s1data(u8* rom, u32 rom_size, u8* fixed, u32 fixed_size)
 {
-	uint8_t *src;
-	uint8_t *dst;
+	u8 *src;
+	u8 *dst;
 	int i;
 
 	src = rom + rom_size - 0x1000000 - 0x80000; // Decrypt S
@@ -3091,9 +3088,9 @@ NeoGeo 'SP1' (BIOS) ROM encryption
 
 
 /* only found on kf2k3pcb */
-void sma_prot_device::kf2k3pcb_sp1_decrypt(uint16_t* rom)
+void sma_prot_device::kf2k3pcb_sp1_decrypt(u16* rom)
 {
-	static const uint8_t address[0x40] = {
+	static const u8 address[0x40] = {
 		0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,
 		0x0a,0x04,0x0a,0x04,0x0a,0x04,0x0a,0x04,
 		0x09,0x07,0x09,0x07,0x09,0x07,0x09,0x07,
@@ -3104,7 +3101,7 @@ void sma_prot_device::kf2k3pcb_sp1_decrypt(uint16_t* rom)
 		0x04,0x00,0x04,0x00,0x0e,0x0a,0x0e,0x0a
 	};
 
-	std::vector<uint16_t> buf(0x80000/2);
+	std::vector<u16> buf(0x80000/2);
 	int i, addr;
 
 	for (i = 0; i < 0x80000/2; i++)

@@ -93,7 +93,7 @@ WRITE_LINE_MEMBER(pacman_state::irq_mask_w)
 	m_irq_mask = state;
 }
 
-WRITE8_MEMBER(pacman_state::pacman_interrupt_vector_w)
+void pacman_state::pacman_interrupt_vector_w(u8 data)
 {
 	m_maincpu->set_input_line_vector(0, data);
 	m_maincpu->set_input_line(0, CLEAR_LINE);
@@ -104,7 +104,7 @@ void pacman_state::speedcheat()
 {
 	u8 fake_input = m_io_fake->read() & 7;
 
-	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
+	u8 *RAM = machine().root_device().memregion("maincpu")->base();
 
 	if (fake_input > 2) /* activate the cheat */
 	{
@@ -133,7 +133,7 @@ INPUT_CHANGED_MEMBER(pacman_state::pacman_fake)
 }
 
 // When start button pressed for the first time, see if cheat should turn on
-READ8_MEMBER( pacman_state::in1_r )
+u8 pacman_state::in1_r()
 {
 	u8 data = ioport("IN1")->read();
 	if ((data & 0x60) < 0x60)
@@ -176,7 +176,7 @@ WRITE_LINE_MEMBER(pacman_state::coin_lockout_global_w)
 }
 
 
-READ8_MEMBER( pacman_state::pacman_read_nop )
+u8 pacman_state::pacman_read_nop()
 {
 	return 0xbf;
 }
@@ -506,7 +506,7 @@ void pacman_state::woodpek(machine_config &config)
  *
  *************************************/
 
-uint8_t pacman_state::hbmame_pacplus_decode(offs_t addr, uint8_t e)
+u8 pacman_state::hbmame_pacplus_decode(offs_t addr, u8 e)
 {
 	static const unsigned char swap_xor_table[6][9] =
 	{
@@ -549,16 +549,16 @@ void pacman_state::init_pacplus()
 	offs_t i;
 
 	/* CPU ROMs */
-	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
+	u8 *RAM = machine().root_device().memregion("maincpu")->base();
 
 	for (i = 0; i < 0x4000; i++)
 		RAM[i] = hbmame_pacplus_decode(i,RAM[i]);
 }
 
-void pacman_state::eyes_decode(uint8_t *data)
+void pacman_state::eyes_decode(u8 *data)
 {
 	int j;
-	uint8_t swapbuffer[8];
+	u8 swapbuffer[8];
 
 	for (j = 0; j < 8; j++)
 		swapbuffer[j] = data[bitswap<16>(j,15,14,13,12,11,10,9,8,7,6,5,4,3,0,1,2)];
@@ -574,7 +574,7 @@ void pacman_state::init_eyes()
 	/* CPU ROMs */
 
 	/* Data lines D3 and D5 swapped */
-	uint8_t *RAM = machine().root_device().memregion("maincpu")->base();
+	u8 *RAM = machine().root_device().memregion("maincpu")->base();
 	for (i = 0; i < 0x4000; i++)
 		RAM[i] = bitswap<8>(RAM[i],7,6,3,4,5,2,1,0);
 

@@ -54,7 +54,11 @@ def parse_args():
 
 def extract_version(input):
     pattern = re.compile('\s+BARE_BUILD_VERSION\s+"(([^."]+)\.([^."]+))"')
-    return '0.221.A','0','221'
+    for line in input.readlines():
+        match = pattern.search(line)
+        if match:
+            return match.group(1), match.group(2), match.group(3)
+    return None, None, None
 
 
 build, outfmt, srcfile, dstfile = parse_args()
@@ -66,7 +70,7 @@ except IOError:
     sys.exit(1)
 
 version_string, version_major, version_minor = extract_version(fp)
-version_build = "1"
+version_build = "0"
 version_subbuild = "0"
 if not version_string:
     sys.stderr.write("Unable to extract version from source file '%s'\n" % srcfile)

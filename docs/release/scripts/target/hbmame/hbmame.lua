@@ -649,6 +649,7 @@ files {
 	MAME_DIR .. "src/mame/audio/csd.cpp",
 	MAME_DIR .. "src/mame/audio/bally.cpp",
 	MAME_DIR .. "src/mame/audio/nl_gunfight.cpp",
+	MAME_DIR .. "src/mame/audio/nl_280zzzap.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "namco")
@@ -1074,6 +1075,7 @@ files {
 	MAME_DIR .. "src/mame/video/timelimt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vamphalf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
+	MAME_DIR .. "src/hbmame/drivers/zexall.cpp",
 }
 
 end

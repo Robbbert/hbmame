@@ -88,13 +88,13 @@ void neogeo_state::neogeo_set_palette_bank( int data )
 }
 
 
-READ16_MEMBER(neogeo_state::neogeo_paletteram_r)
+u16 neogeo_state::neogeo_paletteram_r(offs_t offset)
 {
 	return m_paletteram[m_palette_bank + offset];
 }
 
 
-WRITE16_MEMBER(neogeo_state::neogeo_paletteram_w)
+void neogeo_state::neogeo_paletteram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	offset += m_palette_bank;
 	data = COMBINE_DATA(&m_paletteram[offset]);
@@ -149,7 +149,7 @@ void neogeo_state::video_start()
  *
  *************************************/
 
-uint32_t neogeo_state::screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+u32 neogeo_state::screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	// fill with background color first
 	bitmap.fill(*m_bg_pen, cliprect);
@@ -169,10 +169,10 @@ uint32_t neogeo_state::screen_update_neogeo(screen_device &screen, bitmap_rgb32 
  *
  *************************************/
 
-uint16_t neogeo_state::get_video_control(  )
+u16  neogeo_state::get_video_control(  )
 {
-	uint16_t ret;
-	uint16_t v_counter;
+	u16  ret;
+	u16  v_counter;
 
 	/*
 	    The format of this very important location is:  AAAA AAAA A??? BCCC
@@ -209,7 +209,7 @@ uint16_t neogeo_state::get_video_control(  )
 }
 
 
-void neogeo_state::set_video_control( uint16_t data )
+void neogeo_state::set_video_control( u16  data )
 {
 	if (VERBOSE) logerror("%s: video control write %04x\n", machine().describe_context(), data);
 
@@ -220,13 +220,13 @@ void neogeo_state::set_video_control( uint16_t data )
 }
 
 
-READ16_MEMBER(neogeo_state::neogeo_video_register_r)
+u16 neogeo_state::neogeo_video_register_r(address_space &space, offs_t offset, u16 mem_mask)
 {
-	uint16_t ret;
+	u16  ret;
 
 	/* accessing the LSB only is not mapped */
 	if (mem_mask == 0x00ff)
-		ret = neogeo_unmapped_r(space, 0, 0xffff) & 0x00ff;
+		ret = neogeo_unmapped_r(space) & 0x00ff;
 	else
 	{
 		switch (offset)
@@ -243,7 +243,7 @@ READ16_MEMBER(neogeo_state::neogeo_video_register_r)
 }
 
 
-WRITE16_MEMBER(neogeo_state::neogeo_video_register_w)
+void neogeo_state::neogeo_video_register_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	/* accessing the LSB only is not mapped */
 	if (mem_mask != 0x00ff)

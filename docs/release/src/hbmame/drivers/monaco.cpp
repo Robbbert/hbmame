@@ -286,17 +286,17 @@ public:
 	void init_monaco();
 	void monaco(machine_config &config);
 private:
-	DECLARE_READ8_MEMBER(monaco_ram_r);
-	DECLARE_WRITE8_MEMBER(monaco_ram_w);
+	u8 monaco_ram_r(offs_t offset);
+	void monaco_ram_w(offs_t offset, u8 data);
 	INTERRUPT_GEN_MEMBER(monaco_interrupt);
 	DECLARE_VIDEO_START(monaco);
 	void monaco_map(address_map &map);
 	void machine_reset() override;
-	uint32_t screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	u32 screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	struct monaco_gfx *m_monaco_gfx;
 	enum monaco_mode m_monaco_mode;
-	uint32_t monaco_word_r (uint16_t offset);
-	void monaco_word_w (uint16_t offset, uint32_t data);
+	u32 monaco_word_r (u16 offset);
+	void monaco_word_w (u16 offset, u32 data);
 	int get_player_xpos( void );
 	void handle_collision( int sx, int sy, int width, int height, int type );
 	int read_coin();
@@ -329,15 +329,15 @@ private:
 	int m_anim_timer;
 
 	/* LED display */
-	uint16_t m_plays;
-	uint16_t m_rank;
-	uint16_t m_rank_display;	// shows 0 until game ends
-	uint32_t m_score;
-	uint32_t m_bonus_score;
-	uint8_t m_in_ext_play;
-	uint8_t m_gear;
-	uint16_t m_time;
-	uint8_t m_lives;
+	u16 m_plays;
+	u16 m_rank;
+	u16 m_rank_display;	// shows 0 until game ends
+	u32 m_score;
+	u32 m_bonus_score;
+	u8 m_in_ext_play;
+	u8 m_gear;
+	u16 m_time;
+	u8 m_lives;
 	int m_bShaking;
 	double m_speed;
 	double m_player_ypos;
@@ -371,21 +371,21 @@ private:
 	int m_y[NUM_COMPUTER_CARS];
 	int m_tile[NUM_COMPUTER_CARS];
 	int m_color[NUM_COMPUTER_CARS];
-	uint32_t m_led_high1;
-	uint32_t m_led_high2;
-	uint32_t m_led_high3;
-	uint32_t m_led_high4;
-	uint32_t m_led_high5;
-	uint32_t m_led_score;
-	uint16_t m_led_time;
-	uint16_t m_led_rank;
-	uint16_t m_led_plays;
-	uint16_t m_led_lives;
-	uint16_t m_led_gear;
-	uint16_t m_led_speed;
+	u32 m_led_high1;
+	u32 m_led_high2;
+	u32 m_led_high3;
+	u32 m_led_high4;
+	u32 m_led_high5;
+	u32 m_led_score;
+	u16 m_led_time;
+	u16 m_led_rank;
+	u16 m_led_plays;
+	u16 m_led_lives;
+	u16 m_led_gear;
+	u16 m_led_speed;
 	required_device<cpu_device> m_maincpu;
 	required_device<samples_device> m_samples;
-	required_shared_ptr<uint8_t> m_p_ram;
+	required_shared_ptr<u8> m_p_ram;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 	output_finder<105> m_out_digit;
@@ -420,37 +420,35 @@ enum
 #define FIRST_TIME (90<<8)			// number of seconds when coin inserted, 90
 
 
-READ8_MEMBER( monaco_state::monaco_ram_r )
+u8 monaco_state::monaco_ram_r(offs_t offset)
 {
 	return m_p_ram[offset];
 }
 
-WRITE8_MEMBER( monaco_state::monaco_ram_w )
+void monaco_state::monaco_ram_w(offs_t offset, u8 data)
 {
 	m_p_ram[offset] = data;
 }
 
-uint32_t monaco_state::monaco_word_r (uint16_t offset)
+u32 monaco_state::monaco_word_r (u16 offset)
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	uint8_t byte0 = monaco_ram_r (space, (offset << 2));
-	uint8_t byte1 = monaco_ram_r (space, (offset << 2) + 1);
-	uint8_t byte2 = monaco_ram_r (space, (offset << 2) + 2);
-	uint8_t byte3 = monaco_ram_r (space, (offset << 2) + 3);
+	u8 byte0 = monaco_ram_r ((offset << 2));
+	u8 byte1 = monaco_ram_r ((offset << 2) + 1);
+	u8 byte2 = monaco_ram_r ((offset << 2) + 2);
+	u8 byte3 = monaco_ram_r ((offset << 2) + 3);
 	return (byte3<<24) | (byte2<<16) | (byte1<<8) | byte0;
 }
 
-void monaco_state::monaco_word_w (uint16_t offset, uint32_t data)
+void monaco_state::monaco_word_w (u16 offset, u32 data)
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	uint8_t byte0 = data & 0xff;
-	uint8_t byte1 = (data & 0xff00) >> 8;
-	uint8_t byte2 = (data & 0xff0000) >> 16;
-	uint8_t byte3 = (data & 0xff000000) >> 24;
-	monaco_ram_w (space, (offset << 2), byte0);
-	monaco_ram_w (space, (offset << 2) + 1, byte1);
-	monaco_ram_w (space, (offset << 2) + 2, byte2);
-	monaco_ram_w (space, (offset << 2) + 3, byte3);
+	u8 byte0 = data & 0xff;
+	u8 byte1 = (data & 0xff00) >> 8;
+	u8 byte2 = (data & 0xff0000) >> 16;
+	u8 byte3 = (data & 0xff000000) >> 24;
+	monaco_ram_w ((offset << 2), byte0);
+	monaco_ram_w ((offset << 2) + 1, byte1);
+	monaco_ram_w ((offset << 2) + 2, byte2);
+	monaco_ram_w ((offset << 2) + 3, byte3);
 }
 
 int monaco_state::get_player_xpos( void )
@@ -893,7 +891,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 	case MODE_SPINOUT4:
 		if( m_player_ypos > 0 )
 		{
-			uint8_t temp = (m_anim_timer/2)&3;
+			u8 temp = (m_anim_timer/2)&3;
 			if (temp == 0) m_monaco_mode = MODE_SPINOUT1;
 			else if (temp == 1) m_monaco_mode = MODE_SPINOUT2;
 			else if (temp == 2) m_monaco_mode = MODE_SPINOUT3;
@@ -1426,7 +1424,7 @@ static const char *const monaco_sample_names[] =
 
 void monaco_state::machine_reset()
 {
-	uint16_t i;
+	u16 i;
 	m_time = 0;			/* time remaining = 0 */
 	m_score = 0;		/* player score = 0 */
 	m_gear = 0;			/* low gear */
@@ -1663,7 +1661,7 @@ void monaco_state::draw_strip( bitmap_ind16 &bitmap, int sy, int x0, int x1, int
 
 void monaco_state::DrawSmoothZone( bitmap_ind16 &bitmap, const rectangle clip, int xpos )
 {
-	const uint8_t data[14] =
+	const u8 data[14] =
 	{
 		GFX_GRASS,GFX_GRASS,GFX_GRASS,
 		GFX_TREE,GFX_GRASS,GFX_TREE,
@@ -1713,7 +1711,7 @@ void monaco_state::DrawSmoothZone( bitmap_ind16 &bitmap, const rectangle clip, i
 
 void monaco_state::DrawSlipZone( bitmap_ind16 &bitmap, const rectangle clip, int xpos )
 {
-	const uint8_t data[14] =
+	const u8 data[14] =
 	{
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
@@ -1763,7 +1761,7 @@ void monaco_state::DrawSlipZone( bitmap_ind16 &bitmap, const rectangle clip, int
 
 void monaco_state::DrawGravelZone( bitmap_ind16 &bitmap, const rectangle clip, int xpos )
 {
-	const uint8_t data[14] = {
+	const u8 data[14] = {
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
 		GFX_SHRUB,GFX_HOUSE,
@@ -2025,14 +2023,14 @@ void monaco_state::draw_text( bitmap_ind16 &bitmap, const rectangle clip )
 }
 
 /* last two values are L and H used to display in gear field (not supported officially)*/
-static const uint8_t led_map[12] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x38,0x76 };
+static const u8 led_map[12] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x38,0x76 };
 
 /* following outputs LED's for bezel. also displays time,score&speed text versions (text version disabled here) */
 
 void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 {
 	int i; // must be signed
-	uint32_t data;
+	u32 data;
 
 //	data = m_speed;
 //	for( i=2; i>=0; i-- )
@@ -2167,7 +2165,7 @@ void monaco_state::draw_signal( bitmap_ind16 &bitmap )
 	}
 }
 
-uint32_t monaco_state::screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+u32 monaco_state::screen_update_monaco(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	const rectangle &visarea = screen.visible_area();
 	draw_background( bitmap, visarea );

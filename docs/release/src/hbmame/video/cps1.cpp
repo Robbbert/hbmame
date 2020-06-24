@@ -1386,13 +1386,13 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 		   by the cpu core as a 32-bit branch. This branch would make the
 		   game crash (address error, since it would branch to an odd address)
 		   if location 180ca6 (outside ROM space) isn't 0. Protection check? */
-		uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+		u16 *rom = (u16 *)memregion("maincpu")->base();
 		rom[0x11756 / 2] = 0x4e71;
 	}
 	else if (strcmp(gamename, "ghouls") == 0)
 	{
 		/* Patch out self-test... it takes forever */
-		uint16_t *rom = (uint16_t *)memregion("maincpu")->base();
+		u16 *rom = (u16 *)memregion("maincpu")->base();
 		rom[0x61964 / 2] = 0x4ef9;
 		rom[0x61966 / 2] = 0x0000;
 		rom[0x61968 / 2] = 0x0400;
@@ -1477,7 +1477,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 }
 
 
-inline uint16_t *cps_state::cps1_base( int offset, int boundary )
+inline u16 *cps_state::cps1_base( int offset, int boundary )
 {
 	int base = m_cps_a_regs[offset] * 256;
 
@@ -1495,7 +1495,7 @@ inline uint16_t *cps_state::cps1_base( int offset, int boundary )
 
 
 
-WRITE16_MEMBER(cps_state::cps1_cps_a_w)
+void cps_state::cps1_cps_a_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	data = COMBINE_DATA(&m_cps_a_regs[offset]);
 
@@ -1521,7 +1521,7 @@ WRITE16_MEMBER(cps_state::cps1_cps_a_w)
 }
 
 
-READ16_MEMBER(cps_state::cps1_cps_b_r)
+u16 cps_state::cps1_cps_b_r(offs_t offset)
 {
 	/* Some games interrogate a couple of registers on bootup. */
 	/* These are CPS1 board B self test checks. They wander from game to */
@@ -1547,10 +1547,10 @@ READ16_MEMBER(cps_state::cps1_cps_b_r)
 	}
 	else
 	if (offset == m_in2_addr / 2)  /* Extra input ports (on C-board) */
-		return cps1_in2_r(space, 0, 0); // HBMAME ioport("IN2")->read();
+		return cps1_in2_r(); // HBMAME ioport("IN2")->read();
 	else
 	if (offset == m_in3_addr / 2)  /* Player 4 controls (on C-board) ("Captain Commando") */
-		return cps1_in3_r(space, 0, 0); // HBMAME ioport("IN3")->read();
+		return cps1_in3_r(); // HBMAME ioport("IN3")->read();
 	else
 	if (m_cps_version == 2)
 	{
@@ -1569,7 +1569,7 @@ READ16_MEMBER(cps_state::cps1_cps_b_r)
 }
 
 
-WRITE16_MEMBER(cps_state::cps1_cps_b_w)
+void cps_state::cps1_cps_b_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	data = COMBINE_DATA(&m_cps_b_regs[offset]);
 
@@ -1631,10 +1631,10 @@ WRITE16_MEMBER(cps_state::cps1_cps_b_w)
 }
 
 
-void cps_state::unshuffle( uint64_t *buf, int len )
+void cps_state::unshuffle( u64 *buf, int len )
 {
 	int i;
-	uint64_t t;
+	u64 t;
 
 	if (len == 2)
 		return;
@@ -1662,7 +1662,7 @@ void cps_state::cps2_gfx_decode()
 	int i;
 
 	for (i = 0; i < size; i += banksize)
-		unshuffle((uint64_t *)(memregion("gfx")->base() + i), banksize / 8);
+		unshuffle((u64 *)(memregion("gfx")->base() + i), banksize / 8);
 }
 
 
@@ -1717,7 +1717,7 @@ void cps_state::cps1_get_video_base()
 
 	// HBMAME start
 	/* Some of the sf2 hacks use only sprite port 0x9100 and the scroll layers are offset */
-	uint8_t kludge = m_bootleg_kludge & 15;
+	u8 kludge = m_bootleg_kludge & 15;
 	if (kludge == 0x01 || kludge == 0x02)
 		m_cps_a_regs[CPS1_OBJ_BASE] = 0x9100;
 	else
@@ -1794,7 +1794,7 @@ void cps_state::cps1_get_video_base()
 }
 
 
-WRITE16_MEMBER(cps_state::cps1_gfxram_w)
+void cps_state::cps1_gfxram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	int page = (offset >> 7) & 0x3c0;
 	COMBINE_DATA(&m_gfxram[offset]);
@@ -1985,10 +1985,10 @@ VIDEO_START_MEMBER(cps_state,cps)
 	for (i = 0; i < cps1_palette_entries * 16; i++)
 		m_palette->set_pen_color(i, rgb_t(0,0,0));
 
-	m_buffered_obj = make_unique_clear<uint16_t[]>(m_obj_size / 2);
+	m_buffered_obj = make_unique_clear<u16[]>(m_obj_size / 2);
 
 	if (m_cps_version == 2)
-		m_cps2_buffered_obj = make_unique_clear<uint16_t[]>(m_cps2_obj_size / 2);
+		m_cps2_buffered_obj = make_unique_clear<u16[]>(m_cps2_obj_size / 2);
 
 	/* clear RAM regions */
 	memset(m_gfxram, 0, m_gfxram.bytes());   /* Clear GFX RAM */
@@ -2068,10 +2068,10 @@ VIDEO_START_MEMBER(cps_state,cps1)
 
 ***************************************************************************/
 
-void cps_state::cps1_build_palette( const uint16_t* const palette_base )
+void cps_state::cps1_build_palette( const u16* const palette_base )
 {
 	int offset, page;
-	const uint16_t *palette_ram = palette_base;
+	const u16 *palette_ram = palette_base;
 	int ctrl = m_cps_b_regs[m_palette_control/2];
 
 	/*
@@ -2210,7 +2210,7 @@ void cps_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 
 
 	int i, baseadd;
-	uint16_t *base = m_buffered_obj.get();
+	u16 *base = m_buffered_obj.get();
 
 	/* some sf2 hacks draw the sprites in reverse order */
 	if (BIT(m_bootleg_kludge, 6)) // HBMAME
@@ -2345,13 +2345,13 @@ void cps_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 
 
 
-WRITE16_MEMBER(cps_state::cps2_objram_bank_w)
+void cps_state::cps2_objram_bank_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_objram_bank = data & 1;
 }
 
-READ16_MEMBER(cps_state::cps2_objram1_r)
+u16 cps_state::cps2_objram1_r(offs_t offset)
 {
 	if (m_objram_bank & 1)
 		return m_objram2[offset];
@@ -2359,7 +2359,7 @@ READ16_MEMBER(cps_state::cps2_objram1_r)
 		return m_objram1[offset];
 }
 
-READ16_MEMBER(cps_state::cps2_objram2_r)
+u16 cps_state::cps2_objram2_r(offs_t offset)
 {
 	if (m_objram_bank & 1)
 		return m_objram1[offset];
@@ -2367,7 +2367,7 @@ READ16_MEMBER(cps_state::cps2_objram2_r)
 		return m_objram2[offset];
 }
 
-WRITE16_MEMBER(cps_state::cps2_objram1_w)
+void cps_state::cps2_objram1_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (m_objram_bank & 1)
 		COMBINE_DATA(&m_objram2[offset]);
@@ -2375,7 +2375,7 @@ WRITE16_MEMBER(cps_state::cps2_objram1_w)
 		COMBINE_DATA(&m_objram1[offset]);
 }
 
-WRITE16_MEMBER(cps_state::cps2_objram2_w)
+void cps_state::cps2_objram2_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (m_objram_bank & 1)
 		COMBINE_DATA(&m_objram1[offset]);
@@ -2383,7 +2383,7 @@ WRITE16_MEMBER(cps_state::cps2_objram2_w)
 		COMBINE_DATA(&m_objram2[offset]);
 }
 
-uint16_t *cps_state::cps2_objbase()
+u16 *cps_state::cps2_objbase()
 {
 	int baseptr;
 	baseptr = 0x7000;
@@ -2403,7 +2403,7 @@ uint16_t *cps_state::cps2_objbase()
 void cps_state::cps2_find_last_sprite()    /* Find the offset of last sprite */
 {
 	int offset = 0;
-	uint16_t *base = m_cps2_buffered_obj.get();
+	u16 *base = m_cps2_buffered_obj.get();
 
 	/* Locate the end of table marker */
 	while (offset < m_cps2_obj_size / 2)
@@ -2442,7 +2442,7 @@ void cps_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 }
 
 	int i;
-	uint16_t *base = m_cps2_buffered_obj.get();
+	u16 *base = m_cps2_buffered_obj.get();
 	int xoffs = 64 - m_output[CPS2_OBJ_XOFFS /2];
 	int yoffs = 16 - m_output[CPS2_OBJ_YOFFS /2];
 
@@ -2571,7 +2571,7 @@ void cps_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 void cps_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect )
 {
 	int offs;
-	uint8_t *stars_rom = m_region_stars->base();
+	u8 *stars_rom = m_region_stars->base();
 
 	if (!stars_rom && (m_stars_enabled[0] || m_stars_enabled[1]))
 	{
@@ -2670,7 +2670,7 @@ void cps_state::cps1_render_high_layer( screen_device &screen, bitmap_ind16 &bit
 
 ***************************************************************************/
 
-uint32_t cps_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+u32 cps_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int layercontrol, l0, l1, l2, l3;
 	int videocontrol = m_cps_a_regs[CPS1_VIDEOCONTROL];

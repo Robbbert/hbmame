@@ -16,9 +16,9 @@ files {
 --	MAME_DIR .. "src/devices/machine/buffer.h",
 	MAME_DIR .. "src/devices/machine/clock.cpp",
 	MAME_DIR .. "src/devices/machine/clock.h",
---	MAME_DIR .. "src/devices/machine/keyboard.cpp",
---	MAME_DIR .. "src/devices/machine/keyboard.h",
---	MAME_DIR .. "src/devices/machine/keyboard.ipp",
+	MAME_DIR .. "src/devices/machine/keyboard.cpp",
+	MAME_DIR .. "src/devices/machine/keyboard.h",
+	MAME_DIR .. "src/devices/machine/keyboard.ipp",
 	MAME_DIR .. "src/devices/machine/laserdsc.cpp",
 	MAME_DIR .. "src/devices/machine/laserdsc.h",
 	MAME_DIR .. "src/devices/machine/nvram.cpp",
@@ -29,8 +29,8 @@ files {
 	MAME_DIR .. "src/devices/machine/legscsi.h",
 --	MAME_DIR .. "src/devices/machine/sdlc.cpp",
 --	MAME_DIR .. "src/devices/machine/sdlc.h",
---	MAME_DIR .. "src/devices/machine/terminal.cpp",
---	MAME_DIR .. "src/devices/machine/terminal.h",
+	MAME_DIR .. "src/devices/machine/terminal.cpp",
+	MAME_DIR .. "src/devices/machine/terminal.h",
 	MAME_DIR .. "src/devices/machine/timer.cpp",
 	MAME_DIR .. "src/devices/machine/timer.h",
 }
@@ -2758,6 +2758,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/sa1110.h,MACHINES["SA1110"] = true
+---------------------------------------------------
+
+if (MACHINES["SA1110"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/sa1110.cpp",
+		MAME_DIR .. "src/devices/machine/sa1110.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/saa1043.h,MACHINES["SAA1043"] = true
 ---------------------------------------------------
 
@@ -2902,9 +2914,31 @@ if (MACHINES["SPG2XX"]~=null) then
 		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc.h",
 		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc_video.cpp",
 		MAME_DIR .. "src/devices/machine/generalplus_gpl16250soc_video.h",
+		MAME_DIR .. "src/devices/machine/spg_renderer.cpp",
+		MAME_DIR .. "src/devices/machine/spg_renderer.h",
 	}
 end
 
+---------------------------------------------------
+--
+--@src/devices/machine/spg290_cdservo.h,MACHINES["SPG290"] = true
+--@src/devices/machine/spg290_timer.h,MACHINES["SPG290"] = true
+--@src/devices/machine/spg290_i2c.h,MACHINES["SPG290"] = true
+--@src/devices/machine/spg290_ppu.h,MACHINES["SPG290"] = true
+---------------------------------------------------
+
+if (MACHINES["SPG290"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/spg290_cdservo.cpp",
+		MAME_DIR .. "src/devices/machine/spg290_cdservo.h",
+		MAME_DIR .. "src/devices/machine/spg290_timer.cpp",
+		MAME_DIR .. "src/devices/machine/spg290_timer.h",
+		MAME_DIR .. "src/devices/machine/spg290_i2c.cpp",
+		MAME_DIR .. "src/devices/machine/spg290_i2c.h",
+		MAME_DIR .. "src/devices/machine/spg290_ppu.cpp",
+		MAME_DIR .. "src/devices/machine/spg290_ppu.h",
+	}
+end
 ---------------------------------------------------
 --
 --@src/devices/machine/stvcd.h,MACHINES["STVCD"] = true
@@ -3562,6 +3596,18 @@ if (MACHINES["MM58167"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/mm58167.cpp",
 		MAME_DIR .. "src/devices/machine/mm58167.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/mm58174.h,MACHINES["MM58174"] = true
+---------------------------------------------------
+
+if (MACHINES["MM58174"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/mm58174.cpp",
+		MAME_DIR .. "src/devices/machine/mm58174.h",
 	}
 end
 

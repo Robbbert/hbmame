@@ -12,7 +12,6 @@ GEN_FOLDERS += $(GENDIR)/mame/layout/
 
 # MAME layouts that we use
 LAYOUTS += \
-	$(SRC)/mame/layout/dotrikun.lay \
 	$(SRC)/hbmame/layout/spacmissx.lay \
 	$(SRC)/mame/layout/segabill.lay
 #	$(SRC)/mame/layout/atari_s1.lay

@@ -13,7 +13,7 @@ public:
 		, m_06xx(*this, "06xx")
 		{ }
 
-	DECLARE_WRITE8_MEMBER(galaga_sample_w);
+	void galaga_sample_w(offs_t offset, u8 data);
 	void galagost(machine_config &config);
 	void galagost_map(address_map &map);
 

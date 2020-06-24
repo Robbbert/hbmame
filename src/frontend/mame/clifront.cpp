@@ -1727,18 +1727,18 @@ void cli_frontend::execute_commands(const char *exename)
 //  output
 //-------------------------------------------------
 
+// HBMAME - remove reference to software, remove reference to config.txt/windows.txt which do not exist.
 void cli_frontend::display_help(const char *exename)
 {
 	osd_printf_info("%s v%s\n%s\n\n", emulator_info::get_appname(),build_version,emulator_info::get_copyright_info());
 	osd_printf_info("This software reproduces, more or less faithfully, the behaviour of a wide range\n"
 					"of machines. But hardware is useless without software, so images of the ROMs and\n"
 					"other media which run on that hardware are also required.\n\n");
-	osd_printf_info("Usage:  %s [machine] [media] [software] [options]",exename);
+	osd_printf_info("Usage:  %s [machine] [media] [options]",exename);
 	osd_printf_info("\n\n"
 			"        %s -showusage    for a list of options\n"
 			"        %s -showconfig   to show your current %s.ini\n"
 			"        %s -listmedia    for a full list of supported media\n"
-			"        %s -createconfig to create a %s.ini\n\n"
-			"For usage instructions, please consult the files config.txt and windows.txt.\n",exename,
+			"        %s -createconfig to create a %s.ini\n\n",exename,
 			exename,emulator_info::get_configname(),exename,exename,emulator_info::get_configname());
 }
