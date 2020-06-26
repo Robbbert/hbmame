@@ -2088,6 +2088,52 @@ ROM_START( kof2003s56 ) //kof2003ryu
 	ROM_LOAD16_BYTE( "271hc52.c8", 0x3000001, 0x800000, CRC(d191b4e1) SHA1(fc4af4e151de42b6067f205887a4ff8855055c6c) )
 ROM_END
 
+ROM_START( kof2003s57 ) //kof2003t
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "271hc57.p1", 0x000000, 0x800000, CRC(5efd262a) SHA1(f53b2e9f6286fefeafa3da1347f9e1564b8f638c) )
+
+	NEO_SFIX_128K( "271ps2.s1", CRC(c2e48e98) SHA1(8734c3d1c936aff3d7d1f460b5d211e25a816cc5) )
+
+	NEO_BIOS_AUDIO_512K( "271fd.m1", CRC(cc8b54c0) SHA1(c0dabaad7a8e9e57774af8fa1009296af5c60005) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "271bs1.v1", 0x000000, 0x800000, CRC(dd6c6a85) SHA1(e32b16d0b716a4f3b95868457347303d020147fb) )
+	ROM_LOAD( "271bs1.v2", 0x800000, 0x800000, CRC(0e84f8c1) SHA1(28c964fe89c800b445d3a65c965de32b4e504726) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "271b.c1", 0x0000000, 0x800000, CRC(e42fc226) SHA1(1cd9364993e141facdcdd53ec2277df7b275d8a7) )
+	ROM_LOAD16_BYTE( "271b.c2", 0x0000001, 0x800000, CRC(1b5e3b58) SHA1(0eb254477a9479541291e43e415310852a0f0bed) )
+	ROM_LOAD16_BYTE( "271b.c3", 0x1000000, 0x800000, CRC(d334fdd9) SHA1(1efe30b4f56a55e25ab518cf6999de797b5e407c) )
+	ROM_LOAD16_BYTE( "271b.c4", 0x1000001, 0x800000, CRC(0d457699) SHA1(ec73d0c9fc7094d0ac6c0986a6e07cde25893e57) )
+	ROM_LOAD16_BYTE( "271b.c5", 0x2000000, 0x800000, CRC(8a91aae4) SHA1(802f4baacf801646be1ef686e105b2e867a6a5df) )
+	ROM_LOAD16_BYTE( "271b.c6", 0x2000001, 0x800000, CRC(9f8674b8) SHA1(65964f40b2227d020023fb436579927e65807dcd) )
+	ROM_LOAD16_BYTE( "271d.c7", 0x3000000, 0x800000, CRC(8ee6b43c) SHA1(c78b749c7c8e1d8ab8335b96da03764cc8e9eb21) )
+	ROM_LOAD16_BYTE( "271d.c8", 0x3000001, 0x800000, CRC(6d8d2d60) SHA1(841698eead0f7d422937ce2f2329e17c383d90a6) )
+ROM_END
+
+ROM_START( kof2003s58 ) //kof2003t
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "271hc58.p1", 0x000000, 0x800000, CRC(6dd5d580) SHA1(7900f4f7338e9ea8eeede7ea798b79e7fa8b439f) )
+
+	NEO_SFIX_128K( "271ps2.s1", CRC(c2e48e98) SHA1(8734c3d1c936aff3d7d1f460b5d211e25a816cc5) )
+
+	NEO_BIOS_AUDIO_512K( "271fd.m1", CRC(cc8b54c0) SHA1(c0dabaad7a8e9e57774af8fa1009296af5c60005) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "271bs1.v1", 0x000000, 0x800000, CRC(dd6c6a85) SHA1(e32b16d0b716a4f3b95868457347303d020147fb) )
+	ROM_LOAD( "271bs1.v2", 0x800000, 0x800000, CRC(0e84f8c1) SHA1(28c964fe89c800b445d3a65c965de32b4e504726) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "271b.c1", 0x0000000, 0x800000, CRC(e42fc226) SHA1(1cd9364993e141facdcdd53ec2277df7b275d8a7) )
+	ROM_LOAD16_BYTE( "271b.c2", 0x0000001, 0x800000, CRC(1b5e3b58) SHA1(0eb254477a9479541291e43e415310852a0f0bed) )
+	ROM_LOAD16_BYTE( "271b.c3", 0x1000000, 0x800000, CRC(d334fdd9) SHA1(1efe30b4f56a55e25ab518cf6999de797b5e407c) )
+	ROM_LOAD16_BYTE( "271b.c4", 0x1000001, 0x800000, CRC(0d457699) SHA1(ec73d0c9fc7094d0ac6c0986a6e07cde25893e57) )
+	ROM_LOAD16_BYTE( "271b.c5", 0x2000000, 0x800000, CRC(8a91aae4) SHA1(802f4baacf801646be1ef686e105b2e867a6a5df) )
+	ROM_LOAD16_BYTE( "271b.c6", 0x2000001, 0x800000, CRC(9f8674b8) SHA1(65964f40b2227d020023fb436579927e65807dcd) )
+	ROM_LOAD16_BYTE( "271d.c7", 0x3000000, 0x800000, CRC(8ee6b43c) SHA1(c78b749c7c8e1d8ab8335b96da03764cc8e9eb21) )
+	ROM_LOAD16_BYTE( "271d.c8", 0x3000001, 0x800000, CRC(6d8d2d60) SHA1(841698eead0f7d422937ce2f2329e17c383d90a6) )
+ROM_END
+
 ROM_START( kf2k3pls01 )
 	ROM_REGION( 0x700000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "2k3pls01-p1pl.bin", 0x000000, 0x100000, CRC(e70b482b) SHA1(73e2aeb77ac99f28c18aa2f99e8fd580f6103909) )
@@ -3676,12 +3722,12 @@ HACK( 2003, kof2003s39,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2
 HACK( 2003, kof2003s40,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Eddids",    "Kof2003 (Replace Time Border And Font Into PS2 Style)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2003s41,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Eddids",    "Kof2003 (Unlimited Credits in Console Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2003s43,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "hack",    "Kof2003 (Captain Super Kill Unified)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2003s44,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "marcochen",    "Kof2003 (Simplified Chinese Access Menu)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2003s45,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Kami Team)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2003s46,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Portrait)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2003s47,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "Eddids",    "Kof2003 (PlayStation 2 Beta)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2003s48,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (PS2 Style Portraits)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, kof2003s49,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003, ROT0, "hack",    "Kof2003 (The Selection Interface Changes Randomly)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s44,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "marcochen",    "Kof2003 (Simplified Chinese Access Menu)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s45,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Kami Team)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s46,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (Portrait)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s47,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "Eddids",    "Kof2003 (PlayStation 2 Beta)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s48,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "0 Day-S, Eddids, Hiker",    "Kof2003 (PS2 Style Portraits)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, kof2003s49,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "hack",    "Kof2003 (The Selection Interface Changes Randomly)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2003s50,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003b,  ROT0, "hack", "Kof2003 (Combo)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kof2003s51,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  xs02,      ROT0, "hack", "Kof2003 (Hero)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof2003s52,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof2003 (Evo 1.4 2020-02-12)", MACHINE_SUPPORTS_SAVE )
@@ -3689,6 +3735,8 @@ HACK( 2020, kof2003s53,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  neog
 HACK( 2019, kof2003s54,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "hack",    "Kof2003 (PS2 Full Character Edition Simplified 2019-09-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof2003s55,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "hack",    "Kof2003 (Three Artifact Edition Simplified 2020-02-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kof2003s56,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack", "Kof2003 (Dragon Edition Simplified 2020-02-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2003s57,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "hack", "Kof2003 (Plus Original 2020-06-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kof2003s58,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kof2003,   ROT0, "hack", "Kof2003 (Plus Simplified 2020-06-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3pls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "devilfox & BisonSAS", "Kof2004 Plus / Hero (Translation Portuguese)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3pls02,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "Jason", "Kof2004 Plus / Hero (Always Change Ok)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, kf2k3pls03,     kof2003,  neogeo_noslot, neogeo, neogeo_state,  kf2k3pl,   ROT0, "kof1996", "Kof2004 Plus / Hero (Enable Zoom)", MACHINE_SUPPORTS_SAVE )

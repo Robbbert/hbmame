@@ -1,6 +1,58 @@
 ﻿What's new in HBMAME
 ====================
 
+2020-07-29 0.223
+
+New Games
+---------------------------------
+[captcomms93]         Captain Commando (Elite Edition Update 2020-05-18)
+[captcomms94]         Captain Commando (Nightmare Edition Update 2020-05-18)
+[captcomms95]         Captain Commando (Warlord Version 2020-05-18)
+[captcomms96]         Captain Commando (Master Second Edition 2020-05-28)
+[dinos256]            Cadillacs and Dinosaurs (99 Jurassic Enhanced Edition 2020-06-17)
+[dinos257]            Cadillacs and Dinosaurs (99 Jurassic 2020-06-04)
+[dinos258]            Cadillacs and Dinosaurs (JD Versión 2020-06-07)
+[dinos259]            Cadillacs and Dinosaurs (Military Commander Edition 2020-05-28)
+[dinos260]            Cadillacs and Dinosaurs (Triassic Edition 2020-06-07)
+[dinos261]            Cadillacs and Dinosaurs (Tianjiang Edition 2020-06-07)
+[dinos262]            Cadillacs and Dinosaurs (Uranus Edition Update 2020-06-07)
+[dinos263]            Cadillacs and Dinosaurs (Demon God Dance 2020-06-09)
+[dinos264]            Cadillacs and Dinosaurs (The Warriors Edition Update 2020-06-07)
+[ffightj2s03]         Final Fight (Musou Edition 2020-05-30)
+[kof2k2s108]          Kof2002 (Resurgence Strengthens 2014 2020-06-11)
+[kof2k2s109]          Kof2002 (PlayStation 2 Resurgence 2017 2020-02-22)
+[kof97s183]           Kof'97 (14 Windbreaker Eight Gods Second Impact Original 2020-06-12)
+[kof97s184]           Kof'97 (14 Windbreaker Eight Gods Second Impact Simplified 2020-06-12)
+[kof97s185]           Kof'97 (SP Special Edition 2015 2020-06-18)
+[kof97s186]           Kof'97 (Windbreaker Eight Gods Second Shock 2020-06-02)
+[kof98hh131]          Kof'98 (Combo Plus Combo Enhanced Version 2020-02-23)
+[kof98hh132]          Kof'98 (ECK Dragon Edition 2020-04-09)
+[kof2000s64]          Kof2000 (OTC Original 2020-06-17)
+[kof2000s65]          Kof2000 (OTC Simplified 2020-06-17)
+[kof2003s57]          Kof2003 (Plus Original 2020-06-11)
+[kof2003s58]          Kof2003 (Plus Simplified 2020-06-11)
+[kov2h23]             Knights of Valour 2 (Green Edition 2020-05-18)
+[kovpluss369]         Knights of Valour Plus 2012 (Heroes Dance 2020 2020-06-17)
+[kovpluss370]         Knights of Valour Plus 2012 (Heroes Dance 2020 2020-06-02)
+[kovshs123]           Knights of Valour Super Heroes (The Storm Resurrected 2020-06-23)
+[mk2s01]              Mortal Kombat II (Friendly Kaillera 2020-06-01)
+[mslugxz86]           Metal Slug X (2R Version 2020-04-27)
+[mslugxz87]           Metal Slug X (2R Version Generation 1V2 2020-05-18)
+[mslugxz88]           Metal Slug X (2R Version Green Edition 2020-05-19)
+[mslugxz89]           Metal Slug X (2R Version Burst Enhanced 2020-06-02)
+[mslugxz90]           Metal Slug X (2R Version Generation 1V2 2020-05-18/19)
+[mslugxz91]           Metal Slug X (2R Version Green Edition 2020-05-19/20)
+[mslugxz92]           Metal Slug X (2R Version 2020-04-27/28)
+[olds100ass169]       Oriental Legend Special (Tour Dance Edition 2020-06-10)[NOT WORKING]
+[olds100ass170]       Oriental Legend Special (Dream Survival 2015 Final 2020-06-10)
+[orlegendcs102]       Oriental Legend (Marriage Together Edition 2020-05-15)
+[punishers09]         The Punisher (Multi-Mode Enhancement 2020-06-14)
+[punishers10]         The Punisher (Multi-Mode Enhancement 2020-06-07)
+[samsh5sp25]          Samurai Shodown V Special (Edition Final, location test 2020-06-16)
+[umk3uc20200608]      Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-06-08)
+
+
+
 2020-06-24 0.222
 
 - Metal Slug 1,2,3,4,5 and X the roms remix generated a cleanup and has been updated
