@@ -4204,7 +4204,6 @@ mslug2ps26
 mslug2ps27
 mslug2ps28
 mslug2ps29
-mslug2ps31
 mslug2ps34
 mslug2ps35
 mslug2ps36
@@ -4220,6 +4219,11 @@ mslug2erv03
 mslug2erv04
 mslug2erv05
 mslug2erv06
+mslug2tub01
+mslug2tub02
+mslug2tub03
+mslug2tub04
+mslug2tub05
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -4299,6 +4303,7 @@ ms6s09
 ms6s10
 ms6s11
 ms6s12
+ms6s13
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -5063,6 +5068,7 @@ mslugx2r04
 mslugx2r05
 mslugx2r06
 mslugx2r07
+mslugx2r08
 mslugxesp01
 mslugxesp02
 mslugxesp03

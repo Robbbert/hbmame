@@ -1249,7 +1249,7 @@ ROM_END
 ROM_START( ms6s11 ) //mslug3n6mp
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "299-p1_ps11.p1", 0x000000, 0x100000, CRC(0908bffe) SHA1(6cfd0deed6899f458fce26f77e8fa813ade09f5e) )
-	ROM_LOAD16_WORD_SWAP( "299-p2_ps01.p2", 0x100000, 0x400000, CRC(7610b94d) SHA1(e2a016a1136ad91ef25577b5036b0d3e0fe70dce) )
+	ROM_LOAD16_WORD_SWAP( "299ps05.p2", 0x100000, 0x400000, CRC(bf4a80af) SHA1(514f97892375a636b84fb8388261eea645a8da1a) )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
@@ -1275,7 +1275,33 @@ ROM_END
 ROM_START( ms6s12 ) //mslug3n6mp
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "299-p1_ps12.p1", 0x000000, 0x100000, CRC(e394087c) SHA1(58d08bb8721faf286148513988e1e9bccf9968dd) )
-	ROM_LOAD16_WORD_SWAP( "299-p2_ps01.p2", 0x100000, 0x400000, CRC(7610b94d) SHA1(e2a016a1136ad91ef25577b5036b0d3e0fe70dce) )
+	ROM_LOAD16_WORD_SWAP( "299ps05.p2", 0x100000, 0x400000, CRC(bf4a80af) SHA1(514f97892375a636b84fb8388261eea645a8da1a) )
+
+	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
+
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
+	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
+	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
+	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "256d.c1",  0x0000000, 0x800000, CRC(3540398c) SHA1(0a96f2360eb26c66bf02bbc6f52230b55cc95e4e) )
+	ROM_LOAD16_BYTE( "256d.c2",  0x0000001, 0x800000, CRC(bdd220f0) SHA1(f52851023f3bc120b05f622af0e0ab1bedc41604) )
+	ROM_LOAD16_BYTE( "256d.c3",  0x1000000, 0x800000, CRC(bfaade82) SHA1(66b07e592c9a9b35567fe463496f8f75c32a7db9) )
+	ROM_LOAD16_BYTE( "256d.c4",  0x1000001, 0x800000, CRC(1463add6) SHA1(4db91b46d6430da272d27d00a6dc0eb25949bea1) )
+	ROM_LOAD16_BYTE( "256d.c5",  0x2000000, 0x800000, CRC(48ca7f28) SHA1(e903876be5fb4fa582c988d74c6bef1c3b9c7083) )
+	ROM_LOAD16_BYTE( "256d.c6",  0x2000001, 0x800000, CRC(806eb36f) SHA1(a412a9cab80c326733dde7652d1db2a46afb3ebb) )
+	ROM_LOAD16_BYTE( "299ds16.c7", 0x3000000, 0x800000, CRC(f53108fe) SHA1(ee5a60410221c9e5139cc5bcffe19bb99f4745bc) )
+	ROM_LOAD16_BYTE( "299ds16.c8", 0x3000001, 0x800000, CRC(64c33010) SHA1(6b1ef285228720fd828cf317ebfc17cace0bc5cd) )
+ROM_END
+
+ROM_START( ms6s13 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "299-p1_ps12.p1", 0x000000, 0x100000, CRC(e394087c) SHA1(58d08bb8721faf286148513988e1e9bccf9968dd) )
+	ROM_LOAD16_WORD_SWAP( "299ps06.p2", 0x100000, 0x400000, CRC(73916391) SHA1(f5ae6afdc4b543937a016c1e98b8fd15bef717ca) )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
@@ -7783,22 +7809,23 @@ HACK( 2019, ms6s02,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6
 HACK( 2019, ms6s03,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, ms6s04,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-04-17)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, ms6s05,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ms6s06,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Gaston90",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, ms6s07,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Gaston90",     "Metal Slug 6 (Enemy Soldier Reset Prototype + Summon Mount Edition 2018-07-21)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //The mods is unstable sometimes generates crashing
-HACK( 2019, ms6s08,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version + Summon Mount Edition 2019-07-20)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //The mods is unstable sometimes generates crashing
-HACK( 2019, ms6s09,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Summon Mount Edition 2019-02-19)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //The mods is unstable sometimes generates crashing
+HACK( 2018, ms6s06,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Gaston90",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)", MACHINE_SUPPORTS_SAVE ) //2018-07-21
+HACK( 2018, ms6s07,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Gaston90",     "Metal Slug 6 (Enemy Soldier Reset Prototype Summon Mount Edition 2019-02-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, ms6s08,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Summon Mount Edition 2019-02-28)", MACHINE_SUPPORTS_SAVE ) //2019-07-20
+HACK( 2019, ms6s09,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Summon Mount Edition 2019-02-19)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2015, ms6s10,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3b6,  ROT0, "hack",     "Metal Slug 6 (Super Enhanced Edition 2015-05-15)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6s11,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-02-12 + Burst Enhanced Edition 2020-03-29)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6s12,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-02-12 + Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px01,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Revised Version Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px02,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Revised Version Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px03,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Revised Version Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px04,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Revised Version Zombie Mode Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px05,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Revised Version Zombie Mode Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px06,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Revised Version Zombie Mode Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px07,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Revised Version Mummy Mode Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px08,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Revised Version Mummy Mode Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, ms6sre6px09,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Revised Version Mummy Mode Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6s11,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Summon Mount Burst Enhanced Edition 2020-03-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6s12,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Summon Mount Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6s13,          mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Summon Mount Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px01,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Revised Version Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px02,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Revised Version Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px03,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Revised Version Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px04,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Revised Version Zombie Players Mode Edition Extreme Mix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px05,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Revised Version Zombie Players Mode Edition Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px06,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Revised Version Zombie Players Mode Edition Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px07,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Revised Version Mummy Players Mode Edition Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px08,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ)",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Revised Version Mummy Players Mode Edition Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, ms6sre6px09,     mslug3,   neogeo_noslot, neogeo, neogeo_state,  ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Revised Version Mummy Players Mode Edition Extreme Remix [2020-05-31])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug3h01,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Robert/Gaston90",    "Metal Slug 3 (Zombie Players Mode Edition 2020-05-31)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h02,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis",      "Metal Slug 3 (Big Fat Mode)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h03,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Jump In Mid Air)" ,  MACHINE_SUPPORTS_SAVE )

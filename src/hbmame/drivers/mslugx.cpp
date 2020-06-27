@@ -3243,6 +3243,29 @@ ROM_START( mslugx2r07 )
 	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
 ROM_END
 
+ROM_START( mslugx2r08 ) //mslugx2reb
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "250x2r08.p1", 0x000000, 0x100000, CRC(033bb19b) SHA1(293ebeb7e08fe3e25a803684b0fba0fd6c416962) )
+	ROM_LOAD16_WORD_SWAP( "250x2r04.p2", 0x100000, 0x400000, CRC(64726985) SHA1(0d72c787fd225c9f9df103f1078804c662447d29) )
+
+	NEO_SFIX_128K( "250.s1", CRC(fb6f441d) SHA1(2cc392ecde5d5afb28ddbaa1030552b48571dcfb) )
+
+	NEO_BIOS_AUDIO_128K( "250.m1", CRC(fd42a842) SHA1(55769bad4860f64ef53a333e0da9e073db483d6a) )
+
+	ROM_REGION( 0xa00000, "ymsnd", 0 )
+	ROM_LOAD( "250.v1", 0x000000, 0x400000, CRC(c79ede73) SHA1(ebfcc67204ff9677cf7972fd5b6b7faabf07280c) )
+	ROM_LOAD( "250.v2", 0x400000, 0x400000, CRC(ea9aabe1) SHA1(526c42ca9a388f7435569400e2f132e2724c71ff) )
+	ROM_LOAD( "250.v3", 0x800000, 0x200000, CRC(2ca65102) SHA1(45979d1edb1fc774a415d9386f98d7cb252a2043) )
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "250.c1", 0x0000000, 0x800000, CRC(09a52c6f) SHA1(c3e8a8ccdac0f8bddc4c3413277626532405fae2) )
+	ROM_LOAD16_BYTE( "250.c2", 0x0000001, 0x800000, CRC(31679821) SHA1(554f600a3aa09c16c13c625299b087a79d0d15c5) )
+	ROM_LOAD16_BYTE( "250.c3", 0x1000000, 0x800000, CRC(fd602019) SHA1(c56646c62387bc1439d46610258c755beb8d7dd8) )
+	ROM_LOAD16_BYTE( "250.c4", 0x1000001, 0x800000, CRC(31354513) SHA1(31be8ea2498001f68ce4b06b8b90acbf2dcab6af) )
+	ROM_LOAD16_BYTE( "250.c5", 0x2000000, 0x800000, CRC(a4b56124) SHA1(d41069856df990a1a99d39fb263c8303389d5475) )
+	ROM_LOAD16_BYTE( "250.c6", 0x2000001, 0x800000, CRC(83e3e69d) SHA1(39be66287696829d243fb71b3fb8b7dc2bc3298f) )
+ROM_END
+
 ROM_START( mslugxesp01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250z01.p1",  0x000000, 0x100000, CRC(89ed05b3) SHA1(4fe9a8acbdde949be14c6a3a506ef0ed40718c25) )
@@ -5680,7 +5703,7 @@ ROM_END
 ROM_START( mslugxrm5s08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "250rm5s01.p1",  0x000000, 0x100000, CRC(ed9efb98) SHA1(ddde267a75644ce357fc2413b933da8b89ef034e) )
-	ROM_LOAD16_WORD_SWAP( "250z81.p2", 0x100000, 0x400000, CRC(35c69729) SHA1(80cfc668bab74e239022b6642d3f8bff9844e386) )
+	ROM_LOAD16_WORD_SWAP( "250xat07.p2", 0x100000, 0x400000, CRC(6128e6d5) SHA1(86f70423c5c3bfcc1af8c83ee131530b1eda4376) )
 
 	NEO_SFIX_128K( "250bfs.s1", CRC(a2bb2551) SHA1(fa22568bf15ac41afdf5e2bd7dc2dec4fe813f02) )
 
@@ -6786,11 +6809,12 @@ HACK( 2020, mslugxat06,   mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx
 HACK( 2020, mslugxat07,   mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Gaston90/Azstar China Soda",         "Metal Slug X (Apocalyptic Time 3.0 2020-05-21)(Big Heavy Machine Gun Flame Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugx2r01,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Gotvg/Azstar China Soda",     "Metal Slug X (2R Version 2020-05-18)(Generation 1V2/Set 1)", MACHINE_SUPPORTS_SAVE ) //Roms official
 HACK( 2020, mslugx2r02,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Fbneo/Azstar China Soda",     "Metal Slug X (2R Version 2020-05-18)(Generation 1V2/Set 2)", MACHINE_SUPPORTS_SAVE ) //Roms official
-HACK( 2020, mslugx2r03,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Gotvg/Azstar China Soda",     "Metal Slug X (2R Version 2020-05-19)(Green Edition/Set 1)", MACHINE_SUPPORTS_SAVE ) //Roms official
-HACK( 2020, mslugx2r04,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Fbneo/Azstar China Soda",     "Metal Slug X (2R Version 2020-05-19)(Green Edition/Set 2)", MACHINE_SUPPORTS_SAVE ) //Roms official
+HACK( 2020, mslugx2r03,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Gotvg/Azstar China Soda",     "Metal Slug X (2R Version 2020-05-19)(Blue Edition/Set 1)", MACHINE_SUPPORTS_SAVE ) //Roms official
+HACK( 2020, mslugx2r04,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Fbneo/Azstar China Soda",     "Metal Slug X (2R Version 2020-05-19)(Blue Edition/Set 2)", MACHINE_SUPPORTS_SAVE ) //Roms official
 HACK( 2020, mslugx2r05,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Fbneo/Azstar China Soda",     "Metal Slug X (2R Version 2020-06-02)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Roms official
 HACK( 2020, mslugx2r06,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Azstar China Soda",           "Metal Slug X (2R Version 2020-04-26)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugx2r07,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Gaston90/Azstar China Soda",  "Metal Slug X (2R Version 2020-04-26)(Big Heavy Machine Gun Flame Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugx2r08,    mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Azstar China Soda",  "Metal Slug X (2R Version 2020-06-24)(Blue Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxesp01,   mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China/Azstar China Soda",    "Metal Slug X (Enemy Soldiers Psycho 2R Edition 2020-06-11)(Extreme Blue)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxesp02,   mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China/Azstar China Soda",    "Metal Slug X (Enemy Soldiers Psycho 2R Edition 2020-06-11)(Qing Youlan Second Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxesp03,   mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "PlayerX China/Azstar China Soda",    "Metal Slug X (Enemy Soldiers Psycho 2R Edition 2020-06-11)(Green Blue 7.19)", MACHINE_SUPPORTS_SAVE )
@@ -6808,7 +6832,7 @@ HACK( 2020, mslugxhme07,   mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslug
 HACK( 2020, mslugxmrhbs01, mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,PlayerX China,Azstar China Soda)",    "Metal Slug X (Enemy Heavy Plate 2R Edition 2013-06-18)(Revised Version Hybrid Bullets Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxmrhbs02, mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,PlayerX China,Azstar China Soda)",    "Metal Slug X (Enemy Soldiers Remake 2R Version 3)(Revised Version Hybrid Bullets Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxmrhbs03, mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,PlayerX China,Azstar China Soda)",    "Metal Slug X (Level Reset Special 2R Edition 2014-11-08)(Revised Version Hybrid Bullets Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxmrhbs04, mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,PlayerX China,Azstar China Soda)",    "Metal Slug X (Revised Version Hybrid Bullets 2R Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxmrhbs04, mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,PlayerX China,Azstar China Soda)",    "Metal Slug X (Revised 2R Version Hybrid Bullets Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxmrhbs05, mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,METROID)",                            "Metal Slug X (Multi-Carrier Version 2013-01-05)(Revised Version Hybrid Bullets Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrm0s01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,Azstar China Soda,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Revised 2R Version Big Flame Shot Extreme Remix V1.0 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrm0s02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,Azstar China Soda,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Revised 2R Version Big Flame Shot Extreme Remix V1.1 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
@@ -6866,17 +6890,17 @@ HACK( 2020, mslugxrm3s11,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslug
 HACK( 2020, mslugxrm3s12,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Apocalyptic Time 3.0 2020-05-21)(Revised Version Enemy Chaser Extreme Remix V1.1 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrm3s13,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Apocalyptic Time 3.0 2020-05-21)(Revised Version Super Grenade Extreme Remix V1.0 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrm3s14,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Apocalyptic Time 3.0 2020-05-21)(Revised Version Super Grenade Extreme Remix V1.1 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                                    "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                                    "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s03,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(Enemy Heavy Plate 2R Edition 2013-06-18)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s04,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(Enemy Soldiers Remake 2R Version 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s05,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(World Of Glitcher 2R Edition 2020-06-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s06,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(Level Reset Special 2R Edition 2014-11-08)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s07,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(The Fallen Angels 2R Edition 2020-03-23)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s08,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(Apocalyptic Time 2.2 2020-05-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s09,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(2R Version 2020-04-26)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s10,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(The Hungry Meteorite 2R Edition 2020-06-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugxrm5s11,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)(Enemy Soldiers Psycho 2R Edition 2020-06-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Hybrid Bullets Version)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s03,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Enemy Heavy Plate 2R Edition 2013-06-18)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s04,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Enemy Soldiers Remake 2R Version 3)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s05,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (World Of Glitcher 2R Edition 2020-06-11)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s06,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Level Reset Special 2R Edition 2014-11-08)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s07,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (The Fallen Angels 2R Edition 2020-03-23)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s08,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Apocalyptic Time 3.0 2020-05-21)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s09,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (2R Version 2020-04-26)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s10,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (The Hungry Meteorite 2R Edition 2020-06-11)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugxrm5s11,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,Azstar China Soda,Shyma.X,kof1996,DDJ,julee,Creamymami [EGCG])",                  "Metal Slug X (Enemy Soldiers Psycho 2R Edition 2020-06-11)(Big Heavy Machine Gun Flame Edition Extreme Remix 2020-06-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrmmpv01,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,METROID,kof1996,Shyma.X,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Multi-Carrier Version 2013-01-05)(Revised Version Big Flame Shot Extreme Remix V1.0 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrmmpv02,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,METROID,kof1996,Shyma.X,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Multi-Carrier Version 2013-01-05)(Revised Version Big Flame Shot Extreme Remix V1.1 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugxrmmpv03,  mslugx,   neogeo_noslot, neogeo, neogeo_state,  mslugx,    ROT0, "Team Remix(Gaston90,METROID,kof1996,Shyma.X,DDJ,julee,Creamymami [EGCG])",    "Metal Slug X (Multi-Carrier Version 2013-01-05)(Revised Version Big Heavy Machine Gun Extreme Remix V1.0 [2020-06-01])", MACHINE_SUPPORTS_SAVE )
