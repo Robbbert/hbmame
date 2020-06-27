@@ -69,178 +69,179 @@ NUM TITLES
 
 
 
-********************** 300 to 399 **********************************
+********************** Official? Titles **********************************
 
-NUM YEAR COMPANY          TITLE
---- ---- ---------------- -------------------------------------------
-300*                      Baseball Stars 3
-301*                      Death Match
-302*                      Fire Suplex 2
-303*                      Heavy Glove Boxing
-304*                      Magician Lord 2
-305*                      Ninja Gaiden (This may be Ninja Gaiden II, 1994, Tecmo)
-306*                      Reactor
-307*                      World Heroes Link-up
-308*1990 Alpha Denshi     Sun Shine / Block Paradise
-309*1991 Sammy            Dunk Star
-310*1991 Alpha Denshi     Mystic Wand
-311*1991 Alpha Denshi     Fun Fun Brothers
-312*1994 Visco            Crystal Legacy  (this may be an early name for Breakers)
-313*1994 Video System Co  Super Volley 94 (this may be an early name for Power Spikes 2)
-314*1994 Mahou            All Stars Volley
-315*1994 Visco            Puzzlekko Club
-316 1994 Face             Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
-317*1995 Face             Ultimate 4 / King of Athlete
-318*1995 Monolith         Last Odyssey Pinball Fantasia
-319*1995 MAX              Maseki Taisen Stoon
-320*1995 Astec            Warlocks of the Fates
-321*1995 Yumekobo         The Karate Ninja Show
-322*1996 Sunsoft          Hebereke's Pair Pair Wars
-323*1996 Viccom           The Eye of Typhoon
-324*1996 Kigyo            Action Pac
-325*1996 SNK              Kizuna Encounter Special Edition (could be "Kizuna Encounter 4way Battle") (could be "Fu'un Super Tag Battle Link-up")
-326*1996 Saurus           Mahou Juku Magic Master
-327*1997 Saurus           Neo Pool Master
-328*1997 Success          Q.P.
-329*1997 Gapporin         Ookiku Fukuramasete Gapporn
-330*2000 SNK              Garou 2 / Mark of the Wolves Special
-331 2001 Brezzasoft       Jockey Grand Prix
-332 2001 Brezzasoft       V-Liner
-333*2002 Sun Amusement    Poker Kingdom / Bingo Island
-334*2002 ADK              Dance RhythMIX
-335*2002 ADK              World Heroes 3
-336      Face             Dragon's Heaven
-337*2000 Vektorlogic      Neo Sparks (cancelled)
-338 2004 Vektorlogic      Super Bubble Pop
-339*     Vektorlogic      TommyK (cancelled)
-350*                      Neo Dev Cart
-351*                      MVS Test Cart
-360 2003 PhenixSoft       Crouching Tiger Hidden Dragon (hack of kof2001) (original number 5003)
-361 2003 SNK?             King of Gladiator (hack of kof97) (original number 5232)
-362 2004 Saurus/SNK       Lansquenet 2004 (hack of Shock Troopers 2nd squad)
-363 2004 SNK?             King of Fighters 10th Anniversary (hack of kof2002) (original number 5004,5008)
-364 2004 SNK?             King of Fighters 2004 EX (hack of kof2003)
-365 2004 Dragon Co, Ltd   King of Fighters Special Edition 2004 (hack of kof2002)
-366 2008 SNK?             King of Fighters 10th Anniversary 2008 (hack of kof10th) (original number 5009)
-367 2005 SNK?             King of Fighters 10th Anniversary 2005 (hack of kof10th) (original number 5006)
+NUM GAME YEAR COMPANY          TITLE
+--- ---- ---- ---------------- -------------------------------------------
+008*     1990 Alpha Denshi     Sun Shine / Block Paradise
+026*     1991 Alpha Denshi     Fun Fun Brothers
+028*     1991 Sammy            Dunk Star
+035*     1991 Alpha Denshi     Mystic Wand
+072*     1995 Yumekobo         The Karate Ninja Show
+077*     1995 Astec            Warlocks of the Fates
+204*     1997 Success          Q.P.
+210*     1995 Monolith         Last Odyssey Pinball Fantasia
+226*     1996 Sunsoft          Hebereke's Pair Pair Wars
+258*     2002 ADK              Dance RhythMIX
+300*                           Baseball Stars 3
+301*                           Death Match
+302*                           Fire Suplex 2
+303*                           Heavy Glove Boxing
+304*                           Magician Lord 2
+305*                           Ninja Gaiden (This may be Ninja Gaiden II, 1994, Tecmo)
+306*                           Reactor
+307*                           World Heroes Link-up
+312*     1994 Visco            Crystal Legacy  (this may be an early name for Breakers)
+313*     1994 Video System Co  Super Volley 94 (this may be an early name for Power Spikes 2)
+314*     1994 Mahou            All Stars Volley
+315*     1994 Visco            Puzzlekko Club
+316 0048 1994 Face             Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
+317*     1995 Face             Ultimate 4 / King of Athlete
+319*     1995 MAX              Maseki Taisen Stoon
+323*     1996 Viccom           The Eye of Typhoon
+324*     1996 Kigyo            Action Pac
+325*     1996 SNK              Kizuna Encounter Special Edition (could be "Kizuna Encounter 4way Battle") (could be "Fu'un Super Tag Battle Link-up")
+326*     1996 Saurus           Mahou Juku Magic Master
+327*     1997 Saurus           Neo Pool Master
+329*     1997 Gapporin         Ookiku Fukuramasete Gapporn
+330*     2000 SNK              Garou 2 / Mark of the Wolves Special
+331 0008 2001 Brezzasoft       Jockey Grand Prix
+332 03E7 2001 Brezzasoft       V-Liner
+333*     2002 Sun Amusement    Poker Kingdom / Bingo Island
+335*     2002 ADK              World Heroes 3
+336 0094      Face             Dragon's Heaven
+337*     2000 Vektorlogic      Neo Sparks (cancelled)
+338 FEDC 2004 Vektorlogic      Super Bubble Pop
+339*          Vektorlogic      TommyK (cancelled)
+350*                           Neo Dev Cart
+351*                           MVS Test Cart
+360 5003 2003 PhenixSoft       Crouching Tiger Hidden Dragon (hack of kof2001)
+361 5232 2003 SNK?             King of Gladiator (hack of kof97)
+362 5246 2004 Saurus/SNK       Lansquenet 2004 (hack of Shock Troopers 2nd squad)
+363 0275 2004 SNK?             King of Fighters 10th Anniversary (hack of kof2002) (original number 5004,5008)
+364 0271 2004 SNK?             King of Fighters 2004 EX (hack of kof2003)
+365 0265 2004 Dragon Co, Ltd   King of Fighters Special Edition 2004 (hack of kof2002)
+366 0275 2008 SNK?             King of Fighters 10th Anniversary 2008 (hack of kof10th) (original number 5009)
+367 0275 2005 SNK?             King of Fighters 10th Anniversary 2005 (hack of kof10th) (original number 5006)
 
 
 
 ********************** 400 to 499 **********************************
 (n/r) = not released (yet)
+GAME = Game number inside the rom
 
-NUM YEAR COMPANY                 TITLE
+NUM GAME YEAR COMPANY                 TITLE
 --- ---- ----------------------- -------------------------------------------
-400 1999 Kyle Hodgetts           Digger Man
-401 2002 Jeff Kurtz              Shadow of the Beast demo (original number 2002)
-402*     Neobitz                 Neobitz demo (Jeff M. Kurtz is Neobitz)
-403 2003 Neobitz                 Poker Night (original number 2003)
-404 2004 Neobitz                 Columns (original number 2000)
-405*2005 Neobitz                 Neo-Pac (pacman game)
-406 2000 Blastar                 System Check
-407 2002 Blastar                 Neo no Panepon
-408 2004 Blastar                 Neo 2500 demo
-409 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
-410 2006 Blastar                 Codename: Blut Engel
-411 2006 Blastar                 NGEM2K
-412 2018 Blastar                 NGYM2610
-413 2001 Rastersoft              WW2 demo
-414 2005 Rastersoft              Frog Feast demo
-415 2006 Rastersoft              Frog Feast
-416 2003 Charles Doty            Neogeo Demo
-417 2011 Furrtek                 Nyan Cat demo
-418 2008 Crim                    Neogeo 2-player Tetris
-419 2011 Sebastian Mihai         Neo Thunder
-420 2004 BarfHappy               Neo Castlevania demo
-421 2012 Oxygene                 Neo 3D demo
-422 2012 NeoGeoFreak             Time's Up! demo
+400 0066 1999 Kyle Hodgetts           Digger Man
+401 2002 2002 Jeff Kurtz              Shadow of the Beast demo
+402*          Neobitz                 Neobitz demo (Jeff M. Kurtz is Neobitz)
+403 2003 2003 Neobitz                 Poker Night
+404 2000 2004 Neobitz                 Columns
+405*     2005 Neobitz                 Neo-Pac (pacman game)
+406 FFFF 2000 Blastar                 System Check
+407 2000 2002 Blastar                 Neo no Panepon
+408 2500 2004 Blastar                 Neo 2500 demo
+409 FFFF 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
+410 FFFF 2006 Blastar                 Codename: Blut Engel
+411 FFFF 2006 Blastar                 NGEM2K
+412 09CC 2018 Blastar                 NGYM2610
+413 0202 2001 Rastersoft              WW2 demo
+414 0202 2005 Rastersoft              Frog Feast demo
+415 0273 2006 Rastersoft              Frog Feast
+416 0202 2003 Charles Doty            Neogeo Demo
+417 0052 2011 Furrtek                 Nyan Cat demo
+418 1234 2008 Crim                    Neogeo 2-player Tetris
+419 1234 2011 Sebastian Mihai         Neo Thunder
+420 1234 2004 BarfHappy               Neo Castlevania demo
+421 0052 2012 Oxygene                 Neo 3D demo
+422 0275 2012 NeoGeoFreak             Time's Up! demo
 423
-424 2012 NeoGeoFreak             Transparency demo
-425 2009 Raregame                Chip n Dale intro
-426 2009 Raregame                Darkwing Duck intro
-427 2009 Raregame                Ghostbusters intro
-428 2009 Raregame                Robocop intro
-429 2009 Raregame                Spiderman intro
-430 2009 Raregame                Teenage Mutant Ninja Turtles intro
-431 2009 Raregame                Duck Tales Intro
-432 2016 Blastar                 Christmas/Happy New Year 2017 demo
+424 0275 2012 NeoGeoFreak             Transparency demo
+425 0269 2009 Raregame                Chip n Dale intro
+426 0269 2009 Raregame                Darkwing Duck intro
+427 0245 2009 Raregame                Ghostbusters intro
+428 0269 2009 Raregame                Robocop intro
+429 0245 2009 Raregame                Spiderman intro
+430 0269 2009 Raregame                Teenage Mutant Ninja Turtles intro
+431 0269 2009 Raregame                Duck Tales Intro
+432 09C8 2016 Blastar                 Christmas/Happy New Year 2017 demo
 433
-434*2010 CeL                     Hello World
-435 2010 CeL                     Neorom Jukebox
-436*2010 CeL                     Neo Pang
-437 2013 Le Cortex               Crouching Pony Hidden Dragon demo
-438 2002 <unknown>               Neo Bubble
-439 2013 Cristiano Bei           Primo demo
-440 2013 Cristiano Bei           Neo Geo Galaga demo
-441 2013 Cristiano Bei           Neo Geo Sound Test
-442 2017 Cristiano Bei           Bad Apple demo
-443 2012 M.Priewe                Santaball
-444 2018 kl3mousse               Sea Fighter
-445*2014 M.Priewe                Doom in the Deep (in development or cancelled)
-446 2014 M.Priewe                Monitor Test Tool
-447*2016 M.Priewe                Hypernoid (in development or cancelled)
+434*     2010 CeL                     Hello World
+435 1234 2010 CeL                     Neorom Jukebox
+436*     2010 CeL                     Neo Pang
+437 0400 2013 Le Cortex               Crouching Pony Hidden Dragon demo
+438 1000 2002 <unknown>               Neo Bubble
+439 1234 2013 Cristiano Bei           Primo demo
+440 1234 2013 Cristiano Bei           Neo Geo Galaga demo
+441 0017 2013 Cristiano Bei           Neo Geo Sound Test
+442 7777 2017 Cristiano Bei           Bad Apple demo (badappleb = BADA)
+443 1234 2012 M.Priewe                Santaball
+444 1234 2018 kl3mousse               Sea Fighter
+445*     2014 M.Priewe                Doom in the Deep (in development or cancelled)
+446 7777 2014 M.Priewe                Monitor Test Tool
+447*     2016 M.Priewe                Hypernoid (in development or cancelled)
 448
 449
-450*2012 RKGAMES                 Neo-sprite demo (CD only)
-451*2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
-452*2011 Furrtek                 VUmeter (CD only) [nebula]
+450*     2012 RKGAMES                 Neo-sprite demo (CD only)
+451*     2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
+452*     2011 Furrtek                 VUmeter (CD only) [nebula]
 453
-454*2013 Cristiano Bei           NGPhoenix (CD only)
-455*2004 Blastar                 Neo Puzzle League (CD only) [nebula]
-456*2013 Jeff Ferrier            Neo Geo Manic Panic
-457      Furrtek                 MVSTest01
-458      Furrtek                 KnackiBalls
-459*n/r  Furrtek                 Unleashed (in development or cancelled)
-460*n/r  Furrtek                 Astrosmash (in development or cancelled)
-461*n/r  RiKo                    Cosmic Tower (in development or cancelled)
-462 2009 Elrayzeur               Puzzle Bobble Crazy
-463*     NGD                     NGD::ARK (Arkanoid port)
-464*     NGD                     NGD::AIR (ngdevgroup.com [dead])
-465*     NGD                     NGD::FIGHT
-466*                             4-player input test
-467 2011 Furrtek                 Sprite Experimenter
-468*n/r  Neobitz                 Submarine Shooter (in development or cancelled)
-469 2002 Neodev                  Neo Pong
-470 2015 freem                   ADPCM-B Playback Demo
-471*n/r  tcdev                   Donkey Kong (in development or cancelled)
-472 2015 freem                   ADPCM-A Playback Demo
-473 2015 Blastar                 Twister in a mirror intro
-474 2015 freem                   Sound-Loop Demo
-475 2016 Kannagi                 Ennemi Sprite Demo
-476 2015 Kannagi                 Neo Fight
-477 2016 Mega Shocked            DatImage demo
-478 2016 Mega Shocked            Demo
-479*2016 Luis Miguel Mayor       Tech Demo #1 (Street Fighter 2)
-480 2016 Luis Miguel Mayor       Tech Demo #2
-481 2018 Vasily Familiya         Operation I.G.L.A. demo
-482 2018 Vasily Familiya         Team Lernit
-483 2018 Vasily Familiya         Everlasting Summer: Samantha
-484 2018 Vasily Familiya         Vlad2000
-485 2018 Vasily Familiya         Raroggame
-486 2018 Blastar                 Codename: Blut Engel 2018
-487 2018 Vasily Familiya         Double Dragon SpritePool Demo
-488 2018 Vasily Familiya         Shaman King demo
-489 2019 Vasily Familiya         Venus Wars demo
-490*n/r  Hine62/SAOH             Neo Geo Space Invaders
-491 2019 Totologic               Neotris
-492 2019 Fullset                 Project Neon Caravan Edition
+454*     2013 Cristiano Bei           NGPhoenix (CD only)
+455*     2004 Blastar                 Neo Puzzle League (CD only) [nebula]
+456*     2013 Jeff Ferrier            Neo Geo Manic Panic
+457 0052      Furrtek                 MVSTest01
+458 0052      Furrtek                 KnackiBalls
+459*     n/r  Furrtek                 Unleashed (in development or cancelled)
+460*     n/r  Furrtek                 Astrosmash (in development or cancelled)
+461*     n/r  RiKo                    Cosmic Tower (in development or cancelled)
+462 0083 2009 Elrayzeur               Puzzle Bobble Crazy
+463*          NGD                     NGD::ARK (Arkanoid port)
+464*          NGD                     NGD::AIR (ngdevgroup.com [dead])
+465*          NGD                     NGD::FIGHT
+466*                                  4-player input test
+467 0052 2011 Furrtek                 Sprite Experimenter
+468*     n/r  Neobitz                 Submarine Shooter (in development or cancelled)
+469 9999 2002 Neodev                  Neo Pong (neoponga = 0202)
+470 3CFB 2015 freem                   ADPCM-B Playback Demo
+471*     n/r  tcdev                   Donkey Kong (in development or cancelled)
+472 3CFB 2015 freem                   ADPCM-A Playback Demo
+473 09C5 2015 Blastar                 Twister in a mirror intro
+474 0FAB 2015 freem                   Sound-Loop Demo
+475 0052 2016 Kannagi                 Ennemi Sprite Demo
+476 0052 2015 Kannagi                 Neo Fight
+477 7777 2016 Mega Shocked            DatImage demo
+478 7777 2016 Mega Shocked            Demo
+479*     2016 Luis Miguel Mayor       Tech Demo #1 (Street Fighter 2)
+480 7777 2016 Luis Miguel Mayor       Tech Demo #2
+481      2018 Vasily Familiya         Operation I.G.L.A. demo
+482 7777 2018 Vasily Familiya         Team Lernit
+483 7777 2018 Vasily Familiya         Everlasting Summer: Samantha
+484 7777 2018 Vasily Familiya         Vlad2000
+485      2018 Vasily Familiya         Raroggame
+486 FFFF 2018 Blastar                 Codename: Blut Engel 2018
+487 7777 2018 Vasily Familiya         Double Dragon SpritePool Demo
+488 7777 2018 Vasily Familiya         Shaman King demo
+489      2019 Vasily Familiya         Venus Wars demo
+490*     n/r  Hine62/SAOH             Neo Geo Space Invaders
+491 0539 2019 Totologic               Neotris
+492 7777 2019 Fullset                 Project Neon Caravan Edition
 
 
 ********************** 800 to 899 **********************************
 
-NUM YEAR COMPANY                 TITLE
---- ---- ----------------------- -------------------------------------------
-800*2012 NeoGeoFreak             Time's Up!
-801*2013 Le Cortex               Crouching Pony Hidden Dragon
-802 2006 NG:DEV.Team             Last Hope
-803*2010 NG:DEV.Team             Fast Striker
-804*2011 NG:DEV.Team             Last Hope Pink Bullets
-805*2012 NG:DEV.Team             Gunlord
-806*2013 NG:DEV.Team             NEO XYX
-807*2013 Neobitz                 Knight's Chance
-808*2014 NG:DEV.Team             Razion
-809*2015 NG:DEV.Team             Kraut Buster
-810*2018 Bitmap Bureau           Xeno Crisis
+NUM GAME YEAR COMPANY                 TITLE
+--- ---- ---- ----------------------- -------------------------------------------
+800*     2012 NeoGeoFreak             Time's Up!
+801*     2013 Le Cortex               Crouching Pony Hidden Dragon
+802 0300 2006 NG:DEV.Team             Last Hope
+803*     2010 NG:DEV.Team             Fast Striker
+804*     2011 NG:DEV.Team             Last Hope Pink Bullets
+805*     2012 NG:DEV.Team             Gunlord
+806*     2013 NG:DEV.Team             NEO XYX
+807*     2013 Neobitz                 Knight's Chance
+808*     2014 NG:DEV.Team             Razion
+809*     2015 NG:DEV.Team             Kraut Buster
+810*     2018 Bitmap Bureau           Xeno Crisis
 
 
 *********************************************************************************************************/
