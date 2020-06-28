@@ -1073,7 +1073,6 @@ void neogeo_state::machine_start()
 	m_sprgen->set_screen(m_screen);
 	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
-
 }
 
 
@@ -1103,6 +1102,9 @@ void neogeo_state::machine_reset()
 	update_interrupts();
 
 	m_recurse = false;
+
+	u16 game = cpuregion[0x109] * 256 + cpuregion[0x108];
+	printf("Game number = %04X\n", game);
 }
 
 u16 neogeo_state::banked_vectors_r(offs_t offset)
