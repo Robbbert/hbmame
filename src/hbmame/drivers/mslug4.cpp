@@ -1744,6 +1744,31 @@ ROM_START( mslug4hh57 )
 	ROM_LOAD16_BYTE( "263.c6",   0x2000001, 0x800000, CRC(5c8ba116) SHA1(6034db09c8706d4ddbcefc053efbc47a0953eb92) )
 ROM_END
 
+ROM_START( mslug4hh58 )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263hh58.p1",   0x000000, 0x100000, CRC(022c251d) SHA1(2e92025c1e7414624f7356346e14c8d1b53029e7) )
+	ROM_LOAD16_WORD_SWAP( "263.p2", 0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+
+	NEO_SFIX_128K( "263.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
+
+	NEO_BIOS_AUDIO_128K( "263lw.m1", CRC(49b1453e) SHA1(e6296e1d6bb604f1a15cf8d1b273e97b6eb7cced) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263lw.v1", 0x000000, 0x400000, CRC(8cb5a9ef) SHA1(272ad312f8694acf9190ebf48d1c8a5fec73c130) )
+	ROM_LOAD( "263lwl.v2", 0x400000, 0x400000, CRC(c9572c14) SHA1(4338aaceada29ea1cd2baf0d6ada4911246f5b09) )
+	ROM_LOAD( "263lwl.v3", 0x800000, 0x400000, CRC(e7c14624) SHA1(1d17f7e7cfe9bb03f1a374b31427c4e5203433f2) )
+	ROM_LOAD( "263lwl.v4", 0xc00000, 0x400000, CRC(b1e5ac70) SHA1(0d6eea68085c0e6cd7c7e29edb06f05a712f6d62) )
+	ROM_IGNORE(0x400000)
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263lw.c3", 0x1000000, 0x800000, CRC(e296612c) SHA1(57eb1861b738247aaf0643641268f676b71ed025) )
+	ROM_LOAD16_BYTE( "263lw.c4", 0x1000001, 0x800000, CRC(c22e3ad0) SHA1(11ce301d4e5b4b1b76e2b82d18c4a9b8b56eeb20) )
+	ROM_LOAD16_BYTE( "263lw.c5", 0x2000000, 0x400000, CRC(288cd91f) SHA1(a195be13d4ef19705cd3f08be1ec8cdacb29f159) )
+	ROM_LOAD16_BYTE( "263lw.c6", 0x2000001, 0x400000, CRC(b015aeee) SHA1(24e12e72b82eea9e52a4cefc774efb3bd7db822f) )
+ROM_END
+
 ROM_START( mslug4erms01 )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263erms01.p1",  0x000000, 0x100000, CRC(094c778d) SHA1(185d878547162f2c7774fdcb9d7e3f8cdad4ef8b) )
@@ -4026,23 +4051,24 @@ GAME( 2002, mslug4hh39,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ini
 GAME( 2016, mslug4hh40,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack", "Metal Slug 4 (Ammunition Random Edition 2016-07-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, mslug4hh41,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-01-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, mslug4hh42,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2019-02-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4hh43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "Gaston90",       "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4hh44,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "XiaShuiDaoMeiRenYu",       "Metal Slug 4 (Enemies Resetting Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug4hh43,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Gaston90",       "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)", MACHINE_SUPPORTS_SAVE ) // Cannot update the current version anymore causes crashing
+GAME( 2019, mslug4hh44,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",       "Metal Slug 4 (Enemies Resetting Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, mslug4hh45,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",       "Metal Slug 4 (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4hh46,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-04-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4hh47,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "GOTVG", "Metal Slug 4 (Fully Decrypted [?] Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4hh48,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-07-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug4hh49,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb, ROT0, "hack", "Metal Slug 4 (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4hh50,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-11-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug4hh46,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-04-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug4hh47,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "GOTVG", "Metal Slug 4 (Fully Decrypted [?] Version)", MACHINE_SUPPORTS_SAVE ) //FBADROID
+GAME( 2019, mslug4hh48,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-07-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug4hh49,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack", "Metal Slug 4 (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug4hh50,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 4 (Enemies Resetting Version 2019-11-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, mslug4hh51,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Multi-Function Version 2018-10-05)", MACHINE_SUPPORTS_SAVE ) //The date of the ips is taken into account
 GAME( 2020, mslug4hh52,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2020-02-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug4hh53,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Edition 2020-03-17)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug4hh54,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Edition 2020-03-29)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug4hh55,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Edition 2020-04-28)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug4hh53,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Edition 2020-03-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug4hh54,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Edition 2020-03-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug4hh55,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, mslug4hh56,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Super Enhanced Version 2020-04-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug4hh57,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack",             "Metal Slug 4 (Burst Enhanced Version 2020-03-27)[Version Original]", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug4erms01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.0 (2019-04-19))", MACHINE_SUPPORTS_SAVE )// Cannot update the current version anymore causes crashing
-GAME( 2019, mslug4erms02,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,  ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.1 (2019-04-19))", MACHINE_SUPPORTS_SAVE )// Cannot update the current version anymore causes crashing
+GAME( 2020, mslug4hh58,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2020-02-10)(Generation 1V2 2020-06-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug4erms01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.0 (2019-04-19))", MACHINE_SUPPORTS_SAVE )// Cannot update the current version anymore causes crashing
+GAME( 2019, mslug4erms02,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Team Remix(Gaston90,Unknown,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.1 (2019-04-19))", MACHINE_SUPPORTS_SAVE )// Cannot update the current version anymore causes crashing
 GAME( 2020, mslug4hqyvs01,   mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG])",        "Metal Slug 4 (Multi-Function Version 2017-12-25)(Revised Version Remix 1.0 (2020-06-01))", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug4hqyvs02,   mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Team Remix(Gaston90,Shyma.X,Creamymami[EGCG])",        "Metal Slug 4 (Multi-Function Version 2017-12-25)(Revised Version Remix 1.1 (2020-06-01))", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug4rma01,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Team Remix(XiaShuiDaoMeiRenYu,Gaston90,Creamymami[EGCG],DDJ)",    "Metal Slug 4 (Revised Version Big Flame Shot Extreme Remix 1.0 (2020-06-01))", MACHINE_SUPPORTS_SAVE )
