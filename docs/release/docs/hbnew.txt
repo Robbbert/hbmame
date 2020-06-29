@@ -61,6 +61,8 @@ New Games
 [mslug3esrp09]        Metal Slug 3 (Enemy Soldier Reset Prototype 2018-07-21)(Mummy Players Mode Edition)
 [mslug3esrp10]        Metal Slug 3 (Enemy Soldier Reset Prototype 2018-07-21)(Crazy Fire Version V1.1)
 [mslug3esrp11]        Metal Slug 3 (Enemy Soldier Reset Prototype 2018-07-21)(Super D version)
+[mslug5dh71]          Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)
+[mslug5dh72]          Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)
 [mslugxz78]           Metal Slug X (2R Version 2020-04-27/Set 1)
 [mslugxz79]           Metal Slug X (2R Version 2020-04-27/Set 2)
 [mslugxz80]           Metal Slug X (Apocalyptic Time 3.0 2020-05-21)
