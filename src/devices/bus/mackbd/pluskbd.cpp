@@ -4,17 +4,17 @@
 
     Apple M0110A keyboard with integrated keypad
 
-    This keyboard was only available in U.S./ANSI layout.  International
-    markets continued to receive the M0110/M0120 keyboard/keypad.
+    This keyboard emulates an M0120 keypad with an M0110 keyboard
+    plugged in to it.  Keypad keys and arrow keys produce scan codes
+    with the 0x79 prefix.  The keyboard simulates holding shift when
+    pressing the = / * + keys on the keypad.
 
-    A version was made with katakana labels on the key caps in addition
-    to the Latin labels, ¥ (Yen) replacing \ (backslash), and カナ
-    (kana) replacing Caps Lock.  It is still has the ANSI "typewriter
-    shift" arrangement for Latin characters and ASCII punctuation (it
-    doesn't use the JIS "bit shift" arrangement), all keys are in the
-    same positions, and there are no additional keys.  It's functionally
-    identical to the U.S. version (including the kana key mechanically
-    locking like Caps Lock).
+    This keyboard was only available in ANSI layout, no ISO layout
+    variants were made.  International markets continued to receive the
+    M0110/M0120 keyboard/keypad.  International variants of the M0110A
+    were eventually produced, differing only in key cap labels.  All
+    keys have the same shapes, sizes, positions and scan codes as they
+    do on the U.S. version.
 
     Emulation based entirely on examining the MPU program and observing
     behaviour.  There may be additional hardware in the keyboard that is
@@ -63,6 +63,17 @@
     | DB6 |  2     3     4     5     6     7     8     9     `     1  |
     | DB7 |  V     B     N     M     ,     .     /           X     C  |
     +-----+-----------------------------------------------------------+
+
+    Known part numbers:
+    * M0110A (U.S.)
+    * M0110A F (French)
+    * M0110A J (Japanese)
+
+    The Japanese version has katakana labels on the key caps in addition
+    to the Latin labels, ¥ (Yen) replacing \ (backslash), and カナ
+    (kana) replacing Caps Lock.  It is still has the ANSI "typewriter
+    shift" arrangement for Latin characters and ASCII punctuation (it
+    doesn't use the JIS "bit shift" arrangement).
 
 ***************************************************************************/
 
@@ -118,6 +129,7 @@ protected:
 	virtual void device_add_mconfig(machine_config &config) override
 	{
 		I8048(config, m_mpu, 6_MHz_XTAL); // NEC 8048HC517 341-0332-A with ceramic resonator
+		m_mpu->set_addrmap(AS_IO, &m0110a_device::mpu_io);
 		m_mpu->p1_out_cb().set(FUNC(m0110a_device::p1_w));
 		m_mpu->p2_in_cb().set_ioport("P2");
 		m_mpu->p2_out_cb().set(FUNC(m0110a_device::p2_w));
@@ -178,6 +190,12 @@ private:
 		}
 		LOGMATRIX("read matrix: row drive = %X, result = %X\n", m_row_drive, result);
 		return result;
+	}
+
+	void mpu_io(address_map &map)
+	{
+		// MPU writes 0xff to these addresses before reading columns to ensure the bus pins aren't pulled down
+		map(0x2a, 0x33).nopw();
 	}
 
 	TIMER_CALLBACK_MEMBER(update_host_data)
