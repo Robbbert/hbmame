@@ -474,6 +474,7 @@ MACHINES["CDP1879"] = true
 MACHINES["CHESSMACHINE"] = true
 MACHINES["CMOS40105"] = true
 MACHINES["COM8116"] = true
+MACHINES["COP452"] = true
 MACHINES["CR589"] = true
 MACHINES["CS4031"] = true
 MACHINES["CS8221"] = true
@@ -1966,7 +1967,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/mikro80.cpp",
 	MAME_DIR .. "src/mame/includes/mikro80.h",
 	MAME_DIR .. "src/mame/machine/mikro80.cpp",
-	MAME_DIR .. "src/mame/video/mikro80.cpp",
 	MAME_DIR .. "src/mame/drivers/okean240.cpp",
 	MAME_DIR .. "src/mame/drivers/pk8000.cpp",
 	MAME_DIR .. "src/mame/includes/pk8000.h",
@@ -3205,9 +3205,6 @@ files {
 	MAME_DIR .. "src/mame/includes/galeb.h",
 	MAME_DIR .. "src/mame/video/galeb.cpp",
 	MAME_DIR .. "src/mame/drivers/orao.cpp",
-	MAME_DIR .. "src/mame/includes/orao.h",
-	MAME_DIR .. "src/mame/machine/orao.cpp",
-	MAME_DIR .. "src/mame/video/orao.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "philips")
