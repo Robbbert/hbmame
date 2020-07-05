@@ -100,6 +100,8 @@ namespace plib {
 				{ rc.m_cmd = IF; stk -= 2; }
 			else if (cmd == "pow")
 				{ rc.m_cmd = POW; stk -= 1; }
+			else if (cmd == "log")
+				{ rc.m_cmd = LOG; stk -= 0; }
 			else if (cmd == "sin")
 				{ rc.m_cmd = SIN; stk -= 0; }
 			else if (cmd == "cos")
@@ -293,6 +295,8 @@ namespace plib {
 			postfix.push_back(opstk.top());
 			opstk.pop();
 		}
+		//for (auto &e : postfix)
+		//	printf("\t %s\n", e.c_str());
 		compile_postfix(inputs, postfix, expr);
 	}
 
@@ -318,9 +322,9 @@ namespace plib {
 		return narrow_cast<NT>(lfsr);
 	}
 
+	#define ST0 stack[ptr+1]
 	#define ST1 stack[ptr]
 	#define ST2 stack[ptr-1]
-	#define ST3 stack[ptr-2]
 
 	#define OP(OP, ADJ, EXPR) \
 	case OP: \
@@ -348,8 +352,9 @@ namespace plib {
 				OP(LT,   1, ST2 < ST1 ? 1.0 : 0.0)
 				OP(LE,   1, ST2 <= ST1 ? 1.0 : 0.0)
 				OP(GE,   1, ST2 >= ST1 ? 1.0 : 0.0)
-				OP(IF,   1, (ST3 != 0.0) ? ST2 : ST1)
+				OP(IF,   2, (ST2 != 0.0) ? ST1 : ST0)
 				OP(POW,  1, plib::pow(ST2, ST1))
+				OP(LOG,  0, plib::log(ST2))
 				OP(SIN,  0, plib::sin(ST2))
 				OP(COS,  0, plib::cos(ST2))
 				OP(MAX,  1, std::max(ST2, ST1))

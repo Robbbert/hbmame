@@ -3202,8 +3202,6 @@ files {
 createMESSProjects(_target, _subtarget, "pel")
 files {
 	MAME_DIR .. "src/mame/drivers/galeb.cpp",
-	MAME_DIR .. "src/mame/includes/galeb.h",
-	MAME_DIR .. "src/mame/video/galeb.cpp",
 	MAME_DIR .. "src/mame/drivers/orao.cpp",
 }
 
@@ -3778,7 +3776,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/ondra.cpp",
 	MAME_DIR .. "src/mame/includes/ondra.h",
 	MAME_DIR .. "src/mame/machine/ondra.cpp",
-	MAME_DIR .. "src/mame/video/ondra.cpp",
 	MAME_DIR .. "src/mame/drivers/pmd85.cpp",
 	MAME_DIR .. "src/mame/includes/pmd85.h",
 	MAME_DIR .. "src/mame/machine/pmd85.cpp",
@@ -4018,6 +4015,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/actions_atj2279b.cpp",
 	MAME_DIR .. "src/mame/drivers/pubint_storyreader.cpp",
 	MAME_DIR .. "src/mame/drivers/magiceyes_pollux_vr3520f.cpp",
+	MAME_DIR .. "src/mame/drivers/monkey_king_3b.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "ultimachine")
