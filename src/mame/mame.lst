@@ -11768,6 +11768,7 @@ lah_106c                        //
 lah_107                         //
 lah_110                         //
 lah_112                         //
+lah_f104                        //
 lah_l104                        //
 lah_l108                        //
 lw3_200                         //
@@ -31759,6 +31760,7 @@ zdog
 otrail
 denv150
 techni4
+duetpp
 ablmini
 senwld
 
@@ -37541,6 +37543,7 @@ zone3d
 
 @source:spg29x_lexibook_jg7425.cpp
 lx_jg7425
+lx_aven
 
 @source:spg2xx.cpp
 rad_skat                        //
@@ -37550,6 +37553,7 @@ rad_fb2                         //
 mattelcs                        //
 comil                           //
 abltenni                        //
+totspies
 fordrace
 tvsprt10                        //
 decathln
@@ -37561,6 +37565,7 @@ guitarss
 guitarssa
 tmntbftc
 gssytts
+senwfit
 jjstrip
 vtechtvssp                      // (c) 2006 VTech
 vtechtvsgr                      // (c) 2006 VTech
@@ -37633,7 +37638,9 @@ mgt20in1
 @source:spg2xx_pdc.cpp
 pdc100
 pdc50
+pdc200
 pdc40t
+pdc150t
 tmntpdc
 dorapdc
 vjpp2
@@ -37680,6 +37687,7 @@ foxsport
 lexifit
 marc101
 marc250
+guitrbus
 
 @source:spg2xx_zone.cpp
 wirels60                        // Wireless 60
