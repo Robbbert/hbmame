@@ -9250,7 +9250,6 @@ bishi                           // GX575 (c) 1996 (Japan)
 sbishi                          // GX675 (c) 1998 (Japan)
 sbishik                         // GX675 (c) 1998 (Korea)
 sbishika                        // GX675 (c) 1998 (Korea)
-dobouchn                        //
 
 @source:bitel.cpp
 feap90                          //
@@ -14972,7 +14971,6 @@ swisspkr                        // (c) 1990 Golden Games
 
 @source:goldnpkr.cpp
 animpkr                         // 198?, Unknown
-animpkra                        // 198?, Unknown
 bchancep                        // 198?, Unknown
 bchanceq                        // 198?, Unknown
 bonuspkr                        // 1984, Galanthis Inc.
@@ -15913,6 +15911,7 @@ gnw_chef                        // Nintendo
 gnw_climber                     // Nintendo
 gnw_climbern                    // Nintendo
 gnw_dkcirc                      // Nintendo
+gnw_dkhockey                    // Nintendo
 gnw_dkjr                        // Nintendo
 gnw_dkjrp                       // Nintendo
 gnw_dkong                       // Nintendo
@@ -18904,11 +18903,12 @@ tsukande
 mariorou
 
 @source:konmedal68k.cpp
-kzaurus
+dobouchn
+kattobas
 koropens
+kzaurus
 pwrchanc
 ymcapsul
-kattobas
 
 @source:quickpick5.cpp
 quickp5
@@ -28914,9 +28914,11 @@ m4elite                         // Elite (Barcrest)
 
 @source:mpu4vid.cpp
 v4addlad                        // Adders and Ladders
+v4addladd                       //
 v4addlad20                      //
 v4barqs2                        // Barquest 2 (v0.3)
-v4barqst                        // Barquest (v2.6d)
+v4barqst                        // Barquest (v2.6)
+v4barqstd                       //
 v4big40                         // Big 40
 v4bigfrt                        // Big Fruits
 v4bios                          // MPU4 Video Firmware
@@ -32356,11 +32358,11 @@ mrtnt                           // (c) 1983 Telko
 mschamp                         // hack by RAYGLO MFG "Zola-Puc" (c) 1992/1993
 mschamps                        // hack (hack of the Rayglo hack?)
 msheartb                        // hack
-mspacmbmc                       // bootleg (Marti Colls / Falgas)
 mspacii                         // bootleg
 mspacii2                        // bootleg
 mspacmab                        // bootleg
 mspacmab2                       // bootleg
+mspacmab3                       // bootleg
 mspacman                        // (c) 1981 Midway  // made by General Computer
 mspacmanbcc                     // bootleg
 mspacmanbco                     // bootleg
@@ -32373,6 +32375,8 @@ mspacmanbi                      // bootleg
 mspacmancr                      // bootleg on Crush Roller board
 mspacmat                        // hack
 mspacmbe                        // bootleg
+mspacmbmc                       // bootleg (Marti Colls / Falgas)
+mspacmbn                        // bootleg
 mspacmnf                        // hack
 mspacpls                        // hack
 newpuc2                         // hack
