@@ -102,7 +102,8 @@ undoukai                        // A17 (c) 1984 Taito
 
 @source:4enlinea.cpp
 4enlinea                        // (c) 1991 System Compumatic
-k7_olym                         //
+k7_olym                         // (c) 1994 K7 Kursaal
+sprtdart                        // (c) 1993 Compumatic / Desarrollos y Recambios S.L.
 
 @source:4enraya.cpp
 4enraya                         // (c) 1990 IDSA
@@ -13042,6 +13043,15 @@ emu2                            //
 emax2                           //
 emu3                            //
 
+@source:emu68k.cpp
+carnaval                        //
+orbit9090                       //
+phatt                           //
+procuss                         //
+proteus1                        //
+proteusxr                       //
+vintkeys                        //
+
 @source:enigma2.cpp
 enigma2                         // (c) 1981 Game Plan (Zilec Electronics license)
 enigma2a                        // (c) 1984 Zilec Electronics (bootleg?)
@@ -13304,6 +13314,9 @@ attckexd2                       // (c) 1977 Exidy
 deathrac                        // (c) 1976 Exidy
 destdrby                        // (c) 1976 Exidy
 rhunting                        // bootleg of deathrac
+
+@source:exorterm.cpp
+exorterm155                     // (c) 1979 Motorola
 
 @source:exp85.cpp
 exp85                           //
@@ -31779,6 +31792,7 @@ exsprt48
 itvg48
 wowwg
 110dance
+lxts3
 
 @source:newbrain.cpp
 newbrain                        //
@@ -41385,11 +41399,12 @@ rugrats                         // (c) 1983
 wiping                          // (c) 1982
 
 @source:witch.cpp
+keirinou                        // (c) 1987 Excellent System
 pbchmp95                        // (c) 1995 Veltmeijer Automaten
 witch                           // (c) 1992 Excellent System
 witchb                          // (c) 1992 Excellent System
 witchs                          // (c) 1992 Sega / Vic Tokai license
-keirinou
+witchstar                       // (c) 1994 Fovis Korea Co. Ltd.
 
 @source:wiz.cpp
 kungfut                         // (c) 1984 Seibu Kaihatsu

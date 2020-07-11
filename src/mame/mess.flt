@@ -257,6 +257,7 @@ emate.cpp
 emma2.cpp
 emu2.cpp
 emu3.cpp
+emu68k.cpp
 enmirage.cpp
 ep64.cpp
 epic14e.cpp
@@ -276,6 +277,7 @@ eva.cpp
 evmbug.cpp
 excali64.cpp
 exelv.cpp
+exorterm.cpp
 exp85.cpp
 facit4440.cpp
 falco5220.cpp
