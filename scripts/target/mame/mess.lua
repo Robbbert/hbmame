@@ -1085,6 +1085,7 @@ FORMATS["SPC1000_CAS"] = true
 FORMATS["ST_DSK"] = true
 FORMATS["SVI_CAS"] = true
 FORMATS["SVI_DSK"] = true
+FORMATS["SWD_DSK"] = true
 FORMATS["TANDY2K_DSK"] = true
 FORMATS["THOM_CAS"] = true
 FORMATS["THOM_DSK"] = true
@@ -2501,6 +2502,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/68ksbc.cpp",
 	MAME_DIR .. "src/mame/drivers/lft_chiptune.cpp",
 	MAME_DIR .. "src/mame/drivers/lft_craft.cpp",
+	MAME_DIR .. "src/mame/drivers/lft_phasor.cpp",
 	MAME_DIR .. "src/mame/drivers/dcebridge.cpp",
 	MAME_DIR .. "src/mame/drivers/homez80.cpp",
 	MAME_DIR .. "src/mame/drivers/p112.cpp",
