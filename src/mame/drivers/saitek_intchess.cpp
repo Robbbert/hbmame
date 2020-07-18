@@ -18,8 +18,8 @@ Hardware notes:
 - 4-digit 7seg display
 
 TODO:
-- cassette data input doesn't work
-- NMI is from the cassette deck, maybe for mixing microphone input?
+- 6502 CPU core NMI isn't working properly at the moment, it acts like a hold_line,
+  m_nmistate can be removed once that is fixed
 - colors are estimated from photos (black and white are obvious, but the green
   and cyan are not standard 0x00ff00 / 0x00ffff)
 - video timing is unknown, sprite offsets are estimated from photos
@@ -101,6 +101,7 @@ private:
 
 	u8 m_select = 0;
 	u8 m_7seg_data = 0;
+	bool m_nmistate = false;
 };
 
 void intchess_state::machine_start()
@@ -108,6 +109,7 @@ void intchess_state::machine_start()
 	// register for savestates
 	save_item(NAME(m_select));
 	save_item(NAME(m_7seg_data));
+	save_item(NAME(m_nmistate));
 }
 
 INPUT_CHANGED_MEMBER(intchess_state::reset_button)
@@ -192,7 +194,7 @@ void intchess_state::control_w(u8 data)
 	// PB5: speaker
 	m_dac->write(BIT(data, 5));
 
-	// PB6: cassette input?
+	// PB6: ?
 	// PB7: cassette output
 	m_cass->output(BIT(data, 7) ? +1.0 : -1.0);
 }
@@ -205,7 +207,14 @@ u8 intchess_state::control_r()
 
 TIMER_DEVICE_CALLBACK_MEMBER(intchess_state::cass_input)
 {
-	m_via->write_pb6((m_cass->input() > +0.04) ? 1 : 0);
+	// cassette input is tied to NMI
+	bool state = ((m_cass->get_state() & CASSETTE_MASK_UISTATE) == CASSETTE_PLAY) && (m_cass->input() < -0.04);
+
+	if (state != m_nmistate)
+	{
+		m_maincpu->set_input_line(INPUT_LINE_NMI, state ? ASSERT_LINE : CLEAR_LINE);
+		m_nmistate = state;
+	}
 }
 
 
