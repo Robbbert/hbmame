@@ -552,6 +552,7 @@ MACHINES["LSI53C810"] = true
 MACHINES["M3002"] = true
 MACHINES["M68307"] = true
 MACHINES["M68340"] = true
+MACHINES["M68SFDC"] = true
 MACHINES["M6M80011AP"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB3773"] = true
@@ -1043,6 +1044,7 @@ FORMATS["LVIV_LVT"] = true
 FORMATS["M20_DSK"] = true
 FORMATS["M5_DSK"] = true
 FORMATS["MBEE_CAS"] = true
+FORMATS["MDOS_DSK"] = true
 FORMATS["MFM_HD"] = true
 FORMATS["MM_DSK"] = true
 FORMATS["MS0515_DSK"] = true
@@ -2902,6 +2904,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "motorola")
 files {
+	MAME_DIR .. "src/mame/drivers/exorciser.cpp",
 	MAME_DIR .. "src/mame/drivers/m6805evs.cpp",
 	MAME_DIR .. "src/mame/drivers/m68705prg.cpp",
 	MAME_DIR .. "src/mame/drivers/mekd1.cpp",
@@ -3374,6 +3377,7 @@ files {
 
 createMESSProjects(_target, _subtarget, "saitek")
 files {
+	MAME_DIR .. "src/mame/drivers/saitek_ccompan.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_chesstrv.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_cp2000.cpp",
 	MAME_DIR .. "src/mame/drivers/saitek_delta1.cpp",

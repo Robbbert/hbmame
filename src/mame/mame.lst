@@ -13317,6 +13317,9 @@ deathrac                        // (c) 1976 Exidy
 destdrby                        // (c) 1976 Exidy
 rhunting                        // bootleg of deathrac
 
+@source:exorciser.cpp
+exorciser                       // 1975 Motorola
+
 @source:exorterm.cpp
 exorterm155                     // (c) 1979 Motorola
 
@@ -13990,6 +13993,10 @@ speedup                         // (c) 1996 - Ref ???
 speedup10                       // (c) 1996 - Ref ???
 surfplnt                        // (c) 1997 - Ref 971223
 surfplnt40                      // (c) 1997 - Ref 970514
+
+@source:gaelcof3.cpp
+autopapa                        //
+susanita                        //
 
 @source:gaelcopc.cpp
 rriders                         //
@@ -35360,6 +35367,9 @@ sag
 @source:sage2.cpp
 sage2
 
+@source:saitek_ccompan.cpp
+ccompan
+
 @source:saitek_chesstrv.cpp
 chesstrv
 
@@ -38660,6 +38670,7 @@ cosmic                          //
 drakor                          //
 fireact                         //
 fireactd                        //
+football                        //
 gemini2k                        //
 gemini2k1                       //
 gork                            //
@@ -39263,6 +39274,9 @@ tkdenshoa                       // (c) 1996 Tecmo
 
 @source:tecnbras.cpp
 tecnbras                        //
+
+@source:tecnodar.cpp
+tecnodar                        //
 
 @source:tehkanwc.cpp
 gridiron                        // (c) 1985 Tehkan
@@ -41566,11 +41580,13 @@ bop_l7                          //
 dd_p06                          //
 dd_p7                           //
 fh_905h                         //
+fh_l2                           //
 fh_l3                           //
 fh_l4                           //
 fh_l5                           //
 fh_l9                           //
 fh_l9b                          //
+fh_pa1                          //
 hd_l1                           //
 hd_l2                           //
 hd_l3                           //
