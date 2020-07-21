@@ -123,6 +123,7 @@ New Games
 [mslugxhme04]         Metal Slug X (The Hungry Meteorite 2R Edition 2020-06-11)(Burst Enhanced Edition)
 [mslugxhme05]         Metal Slug X (The Hungry Meteorite 2R Edition 2020-06-11)(Generation 1V2)
 [mslugxhme06]         Metal Slug X (The Hungry Meteorite 2R Edition 2020-06-11)(Hybrid Bullets Version)
+[neotrisd2]           Neo Tris (free beta version)
 [olds100ass169]       Oriental Legend Special (Tour Dance Edition 2020-06-10)[NOT WORKING]
 [olds100ass170]       Oriental Legend Special (Dream Survival 2015 Final 2020-06-10)
 [olds100ass171]       Oriental Legend Special (Return of the Great Saint 2020-07-04)
