@@ -8158,6 +8158,9 @@ outrunen0
 outrunen1
 outrunen2
 outrunm
+outrunt1
+toutrun					//parent
+toutrundt1
 
 @source:segag80r.cpp
 astrob					//parent
