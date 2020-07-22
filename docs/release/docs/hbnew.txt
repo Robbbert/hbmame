@@ -134,7 +134,9 @@ New Games
 [punishers09]         The Punisher (Multi-Mode Enhancement 2020-06-14)
 [punishers10]         The Punisher (Multi-Mode Enhancement 2020-06-07)
 [samsh5sp25]          Samurai Shodown V Special (Edition Final, location test 2020-06-16)
+[sf2celw]             Street Fighter II': Champion Edition (Wifebeater parody)
 [umk3uc20200608]      Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-06-08)
+[willowp]             Willow (Portuguese)
 
 
 

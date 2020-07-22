@@ -2540,7 +2540,7 @@ GAME( 2010, neoromjb,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2013, neotest,      neogal1,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Neo Geo Sound Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, neothund,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Sebastian Mihai", "Neo Thunder", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, neotrisd1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 1", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, neotrisd2,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, neotrisd2,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta 2006-01-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )

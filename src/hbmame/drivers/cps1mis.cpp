@@ -2790,6 +2790,38 @@ ROM_START( sf2cejem )
 	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
+ROM_START( sf2celw )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sf2celw.8f",  0x000000, 0x80000, CRC(22a4c364) SHA1(311a1fd2101ea68c3c8570ef65b11175921a1491) )
+	ROM_LOAD16_WORD_SWAP( "sf2celw.7f",  0x080000, 0x80000, CRC(779b8751) SHA1(d4e52efaed3caef45f1ab246f5320a82d4d2d930) )
+	ROM_LOAD16_WORD_SWAP( "s92_21a.6f",  0x100000, 0x80000, CRC(925a7877) SHA1(1960dca35f0ca6f2b399a9fccfbc0132ac6425d1) )
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROMX_LOAD( "s92-1m.3a",   0x000000, 0x80000, CRC(03b0d852) SHA1(f370f25c96ad2b94f8c53d6b7139100285a25bef) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "s92-3m.5a",   0x000002, 0x80000, CRC(840289ec) SHA1(2fb42a242f60ba7e74009b5a90eb26e035ba1e82) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "s92-2m.4a",   0x000004, 0x80000, CRC(cdb5f027) SHA1(4c7d944fef200fdfcaf57758b901b5511188ed2e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "s92-4m.6a",   0x000006, 0x80000, CRC(e2799472) SHA1(27d3796429338d82a8de246a0ea06dd487a87768) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.7a",  0x200000, 0x80000, CRC(2e8de444) SHA1(29e2a70b299aa12da5f9bfa5ac9e29f74a469900) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.9a",  0x200002, 0x80000, CRC(e414f027) SHA1(ffc5cde2e61b9c9c4d69243b8d4443fcb495aee3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.8a",  0x200004, 0x80000, CRC(6b4e8fd5) SHA1(253b6bbd6cb76b45ae7debdd40c36a8df82bc90d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.10a", 0x200006, 0x80000, CRC(d5078f30) SHA1(af326cdef5168a1adf72d778242eadd86e8b2250) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.3c",  0x400000, 0x80000, CRC(12b79102) SHA1(61dc50c722d6e712d91bf14957fa9b61262e60af) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.5c",  0x400002, 0x80000, CRC(cfbd83ee) SHA1(95e0d8d997e7385e410f85838a8bedd9e0937309) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.4c",  0x400004, 0x80000, CRC(73c40b6d) SHA1(e73f1a4d73a591df124f0e1298eed074adeee3cd) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2celw.6c",  0x400006, 0x80000, CRC(ff75a7cf) SHA1(7983773b1cb87d47192c0b4e478ed59693971bf7) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 ) /* 64k for the audio CPU (+banks) */
+	ROM_LOAD( "s92_09.11a",  0x00000, 0x08000, CRC(08f6b60e) SHA1(8258fcaca4ac419312531eec67079b97f471179c) )
+	ROM_CONTINUE(            0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 ) /* Samples */
+	ROM_LOAD( "s92_18.11c",  0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
+	ROM_LOAD( "s92_19.12c",  0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
+ROM_END
+
 ROM_START( sf2h9 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "sf3a-1.040", 0x000000, 0x80000, CRC(9e6d058a) SHA1(8c9adca7b65dc929c325c0a62304d24dc0902c08) )
@@ -5841,6 +5873,39 @@ ROM_START( wofud )
 	ROM_LOAD ( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
+ROM_START( willowp )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "wle_30.11f",   0x000000, 0x20000, CRC(05814ce1) SHA1(0da3d908117adb6d505ba843b914aa54597d3cff) )
+	ROM_LOAD16_BYTE( "wle_35.11h",   0x000001, 0x20000, CRC(48bdd898) SHA1(851735cfc4d40bf533fc8199002c85c6ac9dcca8) )
+	ROM_LOAD16_BYTE( "wlu_31.12f",   0x040000, 0x20000, CRC(b188553b) SHA1(49a0dfe97e1d2810bda891d5464d2634254f0247) )
+	ROM_LOAD16_BYTE( "wlu_36.12h",   0x040001, 0x20000, CRC(8bba3252) SHA1(565a0119cc48628f6cb568c3db23f5a1f9d05d23) )
+	ROM_LOAD16_WORD_SWAP( "wlm-32.8h",    0x080000, 0x80000, CRC(a64d6469) SHA1(b95cf4696767742505809a3d2b0767856e5a46d2) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "wlm-7.7a", 0x000000, 0x80000, CRC(0264d809) SHA1(a920da936294c1f861d0c38dd6630410ec14c5b1) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "wlm-5.9a", 0x000002, 0x80000, CRC(44da08d9) SHA1(ff8067c9035f9f4c702739bfc1b1127dc9503259) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "wlm-3.3a", 0x000004, 0x80000, CRC(3f54884c) SHA1(2eea03c189fe5cf542bab29b3302dc99680079c1) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "wlm-1.5a", 0x000006, 0x80000, CRC(8fd41c4e) SHA1(4a066169719ccb88abf35f499791dab7350e4c34) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "wl_24.7d", 0x200000, 0x20000, CRC(c4d86fb2) SHA1(04df9c3c08c4325eeb03645715af2b75d5b4d199) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_14.7c", 0x200001, 0x20000, CRC(fa45c4d4) SHA1(d6c1e2e578bf631b728fc01340abdfcf8778cce3) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_26.9d", 0x200002, 0x20000, CRC(282f95b0) SHA1(afca63f4a501ea8c83464fd3b89f21a5df2435e3) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_16.9c", 0x200003, 0x20000, CRC(bf6a9d5c) SHA1(e10b5932b7c404933ec320799f6b5ceaa2359db9) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_20.3d", 0x200004, 0x20000, CRC(08cfa420) SHA1(030390e4368781ab9b12c53474477692a5baa4ad) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_10.3c", 0x200005, 0x20000, CRC(3cb28fed) SHA1(e8d5bd6ec36f7b0bee304a01b094f6061aad68e4) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_22.5d", 0x200006, 0x20000, CRC(ccebdbe6) SHA1(d05b349ce2a5238a0feb7ac0427e99b34778f2f5) , ROM_SKIP(7) )
+	ROMX_LOAD( "wl_12.5c", 0x200007, 0x20000, CRC(332ecf17) SHA1(581ddc4b0ba0baa7b1eb504a785d23f9d3ce1e8d) , ROM_SKIP(7) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "wl_09.12b", 0x00000, 0x08000, CRC(f6b3d060) SHA1(0ed2e2f64ba53ba2c371b66ab1e52e40b16d8baf) )
+	ROM_CONTINUE(          0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "wl_18.11c", 0x00000, 0x20000, CRC(bde23d4d) SHA1(d1fee2f99c858dfb07edcd600da491c7b656afe0) )
+	ROM_LOAD( "wl_19.12c", 0x20000, 0x20000, CRC(683898f5) SHA1(316a77b663d78c8b9ff6d85756cb05aaaeef4003) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "willow.key", 0x00, 0x80, CRC(ad3640c3) SHA1(0d9ffb6bc15f6207d154ded582d81c2cde0a396f) )
+ROM_END
 
 
 /***************************************************************************
@@ -5915,6 +5980,7 @@ HACK( 2012, sf2ceda,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     RO
 HACK( 2009, sf2cehk,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Kawada7278", "Street Fighter II': Champion Edition (Without Using Force)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sf2cehp,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Pipi899", "Street Fighter II': Champion Edition (Moves hack 2009-01-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, sf2cejem,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Blackheart", "Street Fighter II': Champion Edition (Easy Moves 2009-07-30)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, sf2celw,     sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "A Goon", "Street Fighter II': Champion Edition (Lowtax is a Wifebeater parody)", MACHINE_SUPPORTS_SAVE )
 HACK( 2014, sf2jbh,      sf2,      cps1_10MHz, sf2j,     cps_state, cps1,     ROT0,   "Yumeji", "Street Fighter II: The World Warrior (Edition Plus 2014)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, sf2koryuh,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
 HACK( 1992, sf2h9,       sf2ce,    cps1_12MHz, sf2,      cps_state, sf2h9,    ROT0,   "Mega Co", "Street Fighter II': Champion Edition (bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
@@ -6014,6 +6080,7 @@ HACK( 2003, woffr,       wof,      qsound,     wof,      cps_state, wof,      RO
 HACK( 1992, wofr1h,      wof,      qsound,     wof,      cps_state, wof,      ROT0,   "Katana", "Warriors of Fate (Double Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, wofsf2,      wof,      wofsf2,     wof,      cps_state, cps1,     ROT0,   "hack", "Warriors of Fate (conversion for SF2 HW)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, wofud,       wof,      qsound,     wof,      cps_state, wof,      ROT0,   "hack", "Warriors of Fate (USA 921031 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, willowp,     willow,   cps1_10MHz, willow,   cps_state, cps1,     ROT0,   "Antigeno", "Willow (Portuguese)", MACHINE_SUPPORTS_SAVE )
 
 /*************************************************************************************************************************/
 
