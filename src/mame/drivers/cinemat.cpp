@@ -1149,7 +1149,7 @@ void cinemat_64level_state::solarq(machine_config &config)
 void cinemat_color_state::boxingb(machine_config &config)
 {
 	cinemat_jmi_32k(config);
-	BOXING_BUGS_AUDIO(config, "soundboard", 0).configure_latch_inputs(*m_outlatch);
+	//BOXING_BUGS_AUDIO(config, "soundboard", 0).configure_latch_inputs(*m_outlatch);
 	m_screen->set_visarea(0, 1024, 0, 788);
 	m_outlatch->q_out_cb<7>().append(FUNC(cinemat_state::mux_select_w));
 }
