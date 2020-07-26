@@ -9237,6 +9237,7 @@ bingor2                         // (c) 2002 Unknown
 bingor3                         // (c) 2002 Unknown
 bingor4                         // (c) 2002 Unknown
 bingor5                         // (c) 2002 Unknown
+bingor6                         // (c) 1991 AWR Hard & Soft
 vip2000                         // (c) Paloma-Elektronik
 
 @source:bingowav.cpp
@@ -19887,10 +19888,14 @@ magicardb                       // (c) 199? Impera
 magicarde                       // (c) 1994 Impera
 magicardf                       // (c) 199? Impera
 magicardj                       // (c) 1998 Impera
+magicardw                       // (c) 1993 Impera
 magicle                         // (c) 2001 Impera
 quingo                          // (c) 1999 Impera
 belslots                        // (c) 1999 Impera
 bigdeal0                        // (c) 2001 Impera
+puzzleme                        // (c) 199? Impera
+unkte06                         // (c) 199? Impera
+lucky7i                         // (c) 199? Impera
 
 @source:magiceyes_pollux_vr3520f.cpp
 didj                            // (c) 2008 Leapfrog
@@ -32466,6 +32471,7 @@ sfortea1                        //
 sfortea2                        //
 sforteb                         //
 sfortec                         //
+sfortec1                        //
 
 @source:novag_supremo.cpp
 supremo
@@ -40235,6 +40241,7 @@ pipibibs                        // TP-025
 pipibibsa                       // TP-025
 pipibibsbl                      // (c) 1991 Ryouta Kikaku (bootleg)
 pipibibsbl2                     // bootleg
+pipibibsbl3                     // (c) 1991 Ryouta Kikaku (bootleg)
 pipibibsp                       // TP-025
 pwrkick                         // (c) 1994 Sunwise
 shippumd                        // (c) 1994 Raizing/8ing

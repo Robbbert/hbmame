@@ -11,14 +11,7 @@
 //
 // Known problems/issues:
 //
-//    * The core noise source is supposed to be created via a
-//       pair of transistors, one with an open base. Because this
-//       does not model correctly, this part of the circuit is
-//       replaced with a generic noise device. The characteristics
-//       of this noise are pretty different compared to recordings
-//       of the original, and affects all the sounds.
-//
-//    * Poor performance when the explosion is triggered.
+//    * None.
 //
 
 #include "netlist/devices/net_lib.h"
@@ -193,7 +186,7 @@ NETLIST_START(spacewar)
 	NET_C(NOISE_CLOCK.GND, GND)
 	NET_C(NOISE_CLOCK.VCC, I_V5)
 
-	SYS_NOISE_MT_U(NOISE, 3)
+	SYS_NOISE_MT_N(NOISE, 0.0001)
 	NET_C(NOISE.I, NOISE_CLOCK.Q)
 	NET_C(NOISE.1, GND)
 	NET_C(NOISE.2, C1.1)
