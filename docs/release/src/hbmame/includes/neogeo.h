@@ -559,3 +559,6 @@ INPUT_PORTS_EXTERN(dualbios);
 
 #define NEO_SFIX_128K(name, hash) \
 	NEO_SFIX( 0x20000, name, hash )
+
+#define NEO_SFIX_512K(name, hash) \
+	NEO_SFIX( 0x80000, name, hash )

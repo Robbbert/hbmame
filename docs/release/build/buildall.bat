@@ -13,7 +13,7 @@ echo 4. MAMEUI - CLEAN, update MAKEFILE, update VERSION.CPP
 echo.
 echo 5. When this is all done, then
 pause
-
+goto arcade
 
 c:
 

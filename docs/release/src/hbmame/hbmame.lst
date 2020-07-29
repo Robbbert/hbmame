@@ -302,6 +302,7 @@ sf2ceda
 sf2cehp
 sf2cehk
 sf2cejem
+sf2celw
 sf2jbh			// sf2jbh2014
 sf2koryuh
 sf2h9
@@ -563,6 +564,7 @@ wofr1h
 woffr
 wofsf2
 wofud
+willowp
 3wonders01
 3wonders02
 captcommh01
@@ -655,6 +657,10 @@ captcomms89
 captcomms90
 captcomms91
 captcomms92
+captcomms93
+captcomms94
+captcomms95
+captcomms96
 dinos01
 dinos02
 dinos03
@@ -893,10 +899,27 @@ dinos252
 dinos253
 dinos254
 dinos255
+dinos256
+dinos257
+dinos258
+dinos259
+dinos260
+dinos261
+dinos262
+dinos263
+dinos264
+dinos265
+dinos266
+dinos267
+dinos268
+dinos269
+dinos270
 ffights01
 ffights02
 ffightj2s01
 ffightj2s02
+ffightj2s03
+ffightj2s04
 ffightj1s01
 koduhc01
 koduhc02
@@ -933,6 +956,8 @@ punishers05
 punishers06
 punishers07
 //punishers08 //Encrypted
+punishers09
+punishers10
 punisherjs01
 punisherjs02
 punisherjs03
@@ -2145,6 +2170,18 @@ kof97s179
 kof97s180
 kof97s181
 kof97s182
+kof97s183
+kof97s184
+kof97s185
+kof97s186
+kof97s187
+kof97s188
+kof97s189
+kof97s190
+kof97s191
+kof97s192
+kof97s193
+kof97s194
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2778,6 +2815,8 @@ kof98hh127
 kof98hh128
 kof98hh129
 kof98hh130
+kof98hh131
+kof98hh132
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3110,6 +3149,10 @@ kof2000s60
 kof2000s61
 kof2000s62
 kof2000s63
+kof2000s64
+kof2000s65
+kof2000s66
+kof2000s67
 
 @source:kof2001.cpp
 kof2001d
@@ -3723,6 +3766,8 @@ kof2k2s104
 kof2k2s105
 kof2k2s106
 kof2k2s107
+kof2k2s108
+kof2k2s109
 
 @source:kof2003.cpp
 kof2003d
@@ -3805,6 +3850,8 @@ kof2003s53
 kof2003s54
 kof2003s55
 kof2003s56
+kof2003s57
+kof2003s58
 kf2k3pls01
 kf2k3pls02
 kf2k3pls03
@@ -4046,6 +4093,7 @@ umk2te51			// Ultimate MKII Tournament Edition r5.0.051
 umk2te52			// Ultimate MKII Tournament Edition r5.0.052
 umk2te53			// Ultimate MKII Tournament Edition r5.0.053
 mks01
+mk2s01
 
 @source:midwunit.cpp
 umk3				//parent
@@ -4073,6 +4121,7 @@ umk3uc20200204
 umk3uc20200226
 umk3uc20200506
 umk3uc20200519
+umk3uc20200608
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -4169,16 +4218,11 @@ mslug2ps20
 mslug2ps21
 mslug2ps22
 mslug2ps23
-mslug2ps24
 mslug2ps25
 mslug2ps26
 mslug2ps27
 mslug2ps28
 mslug2ps29
-mslug2ps30
-mslug2ps31
-mslug2ps32
-mslug2ps33
 mslug2ps34
 mslug2ps35
 mslug2ps36
@@ -4188,6 +4232,17 @@ mslug2ps39
 mslug2ps40
 mslug2ps41
 mslug2ps42
+mslug2erv01
+mslug2erv02
+mslug2erv03
+mslug2erv04
+mslug2erv05
+mslug2erv06
+mslug2tub01
+mslug2tub02
+mslug2tub03
+mslug2tub04
+mslug2tub05
 mslug2erss01
 mslug2erss02
 mslug2erss03
@@ -4267,6 +4322,7 @@ ms6s09
 ms6s10
 ms6s11
 ms6s12
+ms6s13
 ms6sre6px01
 ms6sre6px02
 ms6sre6px03
@@ -4334,22 +4390,33 @@ mslug3h55
 mslug3h56
 mslug3h57
 mslug3h58
-//mslug3h59
+mslug3h59
 mslug3h60
 mslug3h61
 mslug3h62
 mslug3h63
-mslug3h64
-mslug3h65
-mslug3h66
-mslug3h67
-mslug3h68
-mslug3h69
-mslug3h70
-mslug3h71
-mslug3h72
-mslug3h73
-mslug3h74
+mslug3ern01
+mslug3ern02
+mslug3ern03
+mslug3ern04
+mslug3ern05
+mslug3ern06
+mslug3ern07
+mslug3ern08
+mslug3ern09
+mslug3ern10
+mslug3ern11
+mslug3esrp01
+mslug3esrp02
+mslug3esrp03
+mslug3esrp04
+mslug3esrp05
+mslug3esrp06
+mslug3esrp07
+mslug3esrp08
+mslug3esrp09
+mslug3esrp10
+mslug3esrp11
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4545,6 +4612,7 @@ mslug4hh54
 mslug4hh55
 mslug4hh56
 mslug4hh57
+mslug4hh58
 mslug4erms01
 mslug4erms02
 mslug4hqyvs01
@@ -4704,6 +4772,8 @@ mslug5dh67
 mslug5dh68
 mslug5dh69
 mslug5dh70
+mslug5dh71
+mslug5dh72
 mslug5rmtnc01
 mslug5rmtnc02
 mslug5rmtnc03
@@ -4974,30 +5044,68 @@ mslugxz78
 mslugxz79
 mslugxz80
 mslugxz81
-mslugxz82
-mslugxz83
-mslugxz84
-mslugxz85
-mslugxhbs01
-mslugxhbs02
-mslugxhbs03
-mslugxhbs04
-mslugxhbs05
-mslugxhbs06
+mslugxwog01
+mslugxwog02
+mslugxwog03
+mslugxwog04
+mslugxwog05
+mslugxwog06
+mslugxwog07
+mslugxese01
 mslugxmcv01
 mslugxmcv02
+mslugxmcv03
+mslugxmcv04
 mslugxlrse01
 mslugxlrse02
 mslugxlrse03
+mslugxlrse04
+mslugxlrse05
+mslugxlrse06
+mslugxlrse07
 mslugxesrv01
 mslugxesrv02
 mslugxesrv03
+mslugxesrv04
+mslugxesrv05
+mslugxesrv06
+mslugxesrv07
 mslugxehp01
 mslugxehp02
 mslugxehp03
+mslugxehp04
+mslugxehp05
+mslugxehp06
+mslugxehp07
 mslugxat01
 mslugxat02
 mslugxat03
+mslugxat04
+mslugxat05
+mslugxat06
+mslugxat07
+mslugx2r01
+mslugx2r02
+mslugx2r03
+mslugx2r04
+mslugx2r05
+mslugx2r06
+mslugx2r07
+mslugx2r08
+mslugxesp01
+mslugxesp02
+mslugxesp03
+mslugxesp04
+mslugxesp05
+mslugxesp06
+mslugxesp07
+mslugxhme01
+mslugxhme02
+mslugxhme03
+mslugxhme04
+mslugxhme05
+mslugxhme06
+mslugxhme07
 mslugxmrhbs01
 mslugxmrhbs02
 mslugxmrhbs03
@@ -5522,6 +5630,7 @@ neoromjb	// CeL
 neotest		// BEY
 neothund	// Sebastian Mihai
 neotrisd1
+neotrisd2
 ngem2k
 ngftdemo	// CeL
 ngmontst
@@ -6346,6 +6455,7 @@ samsh5sp21
 samsh5sp22
 samsh5sp23
 samsh5sp24
+samsh5sp25
 
 @source:ngsengoku.cpp
 sengokucd
@@ -6908,6 +7018,9 @@ kov2p204s95
 kov2p204s96
 kov2p204s97
 kov2p204s98
+kov2p204s99
+kov2p204s100
+kov2p204s101
 kov2h01
 kov2h02
 kov2h03
@@ -6930,6 +7043,9 @@ kov2h19
 kov2h20
 kov2h21
 kov2h22
+kov2h23
+kov2h24
+kov2h25
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7295,6 +7411,13 @@ kovpluss365
 kovpluss366
 kovpluss367
 kovpluss368
+kovpluss369
+kovpluss370
+kovpluss371
+kovpluss372
+kovpluss373
+kovpluss374
+kovpluss375
 kovplusas01
 kovshs01
 kovshs02
@@ -7417,6 +7540,7 @@ kovshs119
 kovshs120
 kovshs121
 kovshs122
+kovshs123
 kovsgqyzs01
 kovqhsgs01
 kovqhsgs02
@@ -7777,6 +7901,10 @@ olds100ass165
 olds100ass166
 olds100ass167
 olds100ass168
+olds100ass169
+olds100ass170
+olds100ass171
+olds100ass172
 oldsplus01
 oldsplus02
 oldsplus03
@@ -7802,6 +7930,8 @@ oldsplus22
 oldsplus23
 oldsplus24
 oldsplus25
+oldsplus26
+oldsplus27
 orlegends01
 orlegends02 //  Unstable game in the emulator (ingame crash)
 orlegends03
@@ -7910,6 +8040,7 @@ orlegendcs98
 orlegendcs99
 orlegendcs100
 orlegendcs101
+orlegendcs102
 theglads01
 theglads02
 theglads03
@@ -8027,6 +8158,9 @@ outrunen0
 outrunen1
 outrunen2
 outrunm
+outrunt1
+toutrun					//parent
+toutrundt1
 
 @source:segag80r.cpp
 astrob					//parent
@@ -8415,4 +8549,3 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
-

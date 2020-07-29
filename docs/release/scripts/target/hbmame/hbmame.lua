@@ -425,6 +425,19 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/cinemat.cpp",
 	MAME_DIR .. "src/mame/audio/cinemat.cpp",
 	MAME_DIR .. "src/mame/video/cinemat.cpp",
+	MAME_DIR .. "src/mame/audio/nl_armora.cpp",    -- not used
+	MAME_DIR .. "src/mame/audio/nl_barrier.cpp",   -- not used
+	MAME_DIR .. "src/mame/audio/nl_boxingb.cpp",
+	MAME_DIR .. "src/mame/audio/nl_cinemat_common.h",
+	MAME_DIR .. "src/mame/audio/nl_ripoff.cpp",    -- not used
+	MAME_DIR .. "src/mame/audio/nl_solarq.cpp",    -- not used
+	MAME_DIR .. "src/mame/audio/nl_spacewar.cpp",  -- not used
+	MAME_DIR .. "src/mame/audio/nl_speedfrk.cpp",  -- not used
+	MAME_DIR .. "src/mame/audio/nl_starcas.cpp",   -- not used
+	MAME_DIR .. "src/mame/audio/nl_starhawk.cpp",  -- not used
+	MAME_DIR .. "src/mame/audio/nl_sundance.cpp",  -- not used
+	MAME_DIR .. "src/mame/audio/nl_tailg.cpp",     -- not used
+	MAME_DIR .. "src/mame/audio/nl_warrior.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "dataeast")
