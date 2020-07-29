@@ -3,6 +3,20 @@
 
 #include "netlist/devices/net_lib.h"
 
+#ifndef NL_USE_TRUTHTABLE_74107
+#define NL_USE_TRUTHTABLE_74107 0
+#endif
+
+#ifndef NL_USE_TRUTHTABLE_7448
+#define NL_USE_TRUTHTABLE_7448 0
+#endif
+
+#if 1
+//
+#elif %&/()
+//
+#endif
+
 /*
  *  DM7400: Quad 2-Input NAND Gates
  *
@@ -133,6 +147,37 @@ static NETLIST_START(TTL_7406_DIP)
 	TTL_7406_GATE(D)
 	TTL_7406_GATE(E)
 	TTL_7406_GATE(F)
+
+	NET_C(A.VCC, B.VCC, C.VCC, D.VCC, E.VCC, F.VCC)
+	NET_C(A.GND, B.GND, C.GND, D.GND, E.GND, F.GND)
+
+	DIPPINS(  /*       +--------------+      */
+		A.A,  /*    A1 |1     ++    14| VCC  */ A.VCC,
+		A.Y,  /*    Y1 |2           13| A6   */ F.A,
+		B.A,  /*    A2 |3           12| Y6   */ F.Y,
+		B.Y,  /*    Y2 |4    7406   11| A5   */ E.A,
+		C.A,  /*    A3 |5           10| Y5   */ E.Y,
+		C.Y,  /*    Y3 |6            9| A4   */ D.A,
+		A.GND,/*   GND |7            8| Y4   */ D.Y
+			  /*       +--------------+      */
+	)
+NETLIST_END()
+
+/*
+ *   DM7407: Hex Buffers with
+ *           High Voltage Open-Collector Outputs
+ *
+ *  Naming conventions follow Fairchild Semiconductor datasheet
+ *
+ */
+
+static NETLIST_START(TTL_7407_DIP)
+	TTL_7407_GATE(A)
+	TTL_7407_GATE(B)
+	TTL_7407_GATE(C)
+	TTL_7407_GATE(D)
+	TTL_7407_GATE(E)
+	TTL_7407_GATE(F)
 
 	NET_C(A.VCC, B.VCC, C.VCC, D.VCC, E.VCC, F.VCC)
 	NET_C(A.GND, B.GND, C.GND, D.GND, E.GND, F.GND)
@@ -1139,9 +1184,8 @@ NETLIST_END()
  *  Naming conventions follow Fairchild Semiconductor datasheet
  *
  */
-
-#if !NL_AUTO_DEVICES
 #ifndef __PLIB_PREPROCESSOR__
+#if !NL_AUTO_DEVICES
 #define TTL_74279A(name)                                                         \
 		NET_REGISTER_DEV(TTL_74279A, name)
 #define TTL_74279B(name)                                                         \
@@ -1299,13 +1343,8 @@ NETLIST_END()
  *
  */
 
-#ifndef __PLIB_PREPROCESSOR__
-#define DM9312_TT(name)     \
-		NET_REGISTER_DEV(DM9312, name)
-#endif
-
 static NETLIST_START(DM9312_DIP)
-	DM9312_TT(s)
+	DM9312(s)
 
 	DIPPINS(    /*     +--------------+     */
 		s.D0,   /*  D0 |1     ++    16| VCC */ s.VCC,
@@ -1419,6 +1458,14 @@ NETLIST_START(TTL74XX_lib)
 		TT_HEAD("A|Y ")
 		TT_LINE("0|1|15")
 		TT_LINE("1|0|23")
+		/* Open Collector */
+		TT_FAMILY("74XXOC")
+	TRUTHTABLE_END()
+
+	TRUTHTABLE_START(TTL_7407_GATE, 1, 1, "")
+		TT_HEAD("A|Y ")
+		TT_LINE("0|0|15")
+		TT_LINE("1|1|23")
 		/* Open Collector */
 		TT_FAMILY("74XXOC")
 	TRUTHTABLE_END()
@@ -1878,6 +1925,7 @@ NETLIST_START(TTL74XX_lib)
 	LOCAL_LIB_ENTRY(TTL_7402_DIP)
 	LOCAL_LIB_ENTRY(TTL_7404_DIP)
 	LOCAL_LIB_ENTRY(TTL_7406_DIP)
+	LOCAL_LIB_ENTRY(TTL_7407_DIP)
 	LOCAL_LIB_ENTRY(TTL_7408_DIP)
 	LOCAL_LIB_ENTRY(TTL_7410_DIP)
 	LOCAL_LIB_ENTRY(TTL_7411_DIP)

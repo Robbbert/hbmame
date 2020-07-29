@@ -10347,6 +10347,9 @@ wildplt                         // (c) 1992 Jaleco
 @source:cit101.cpp
 cit101                          // (c) 1980 C. Itoh
 
+@source:cit101xl.cpp
+cit101xl                        //
+
 @source:cit220.cpp
 cit220p                         // (c) 1984 C. Itoh
 vp122                           //
@@ -15180,6 +15183,8 @@ cmasterf                        // (c) 1991 Dyna Electronics
 cmasterg                        // (c) 1991 Dyna Electronics
 cmasterh                        // (c) 1991 Dyna Electronics
 cmasteri                        // (c) 1991 Dyna Electronics
+cmasterj                        // (c) 1991 Dyna Electronics
+cmasterk                        // (c) 1991 Dyna Electronics
 cmezspin                        // (c) 1991 Dyna Electronics
 cmfun                           // (c) 1995 Dyna Electronics
 cmpacman                        //
@@ -22128,6 +22133,7 @@ megajet                         // 1993 Sega Mega Jet (Japan)
 
 @source:megadriv_acbl.cpp
 aladmdb                         // MegaDrive-based hack
+barek2mb                        // MegaDrive-based hack
 barek3mb                        // MegaDrive-based hack
 jparkmb                         // MegaDrive-based hack
 mk3mdb                          // MegaDrive-based hack
@@ -34906,6 +34912,7 @@ slithera                        // (c) 1982 Century II
 zookeep                         // ZA  (c) 1982 Taito America Corporation
 zookeep2                        // ZA  (c) 1982 Taito America Corporation
 zookeep3                        // ZA  (c) 1982 Taito America Corporation
+zookeepbl                       // bootleg
 
 @source:ql.cpp
 ql                              // 1984 Sinclair QL (UK)

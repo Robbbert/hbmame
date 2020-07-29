@@ -1,8 +1,6 @@
 // license:GPL-2.0+
 // copyright-holders:Couriersud
-#include "netlist/nl_setup.h"
 #include "netlist/devices/net_lib.h"
-#include "nlm_base.h"
 
 /* ----------------------------------------------------------------------------
  *  Diode Models
