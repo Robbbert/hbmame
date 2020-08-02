@@ -661,6 +661,9 @@ captcomms93
 captcomms94
 captcomms95
 captcomms96
+captcomms97
+captcomms98
+captcomms99
 dinos01
 dinos02
 dinos03
@@ -914,6 +917,7 @@ dinos267
 dinos268
 dinos269
 dinos270
+dinos271
 ffights01
 ffights02
 ffightj2s01
@@ -1012,6 +1016,7 @@ sf2ces29
 sf2ces30
 sf2ces31
 sf2ces32
+sf2ces33
 sf2js01
 sf2js02
 sf2s01
@@ -1022,6 +1027,7 @@ sf2s05
 sf2s06
 sf2s07
 sf2s08
+sf2s09
 sf2koryus01
 sf2koryus02
 sf2koryus03
@@ -2182,6 +2188,14 @@ kof97s191
 kof97s192
 kof97s193
 kof97s194
+kof97s195
+kof97s196
+kof97s197
+kof97s198
+kof97s199
+kof97s200
+kof97s201
+kof97s202
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2817,6 +2831,8 @@ kof98hh129
 kof98hh130
 kof98hh131
 kof98hh132
+kof98hh133
+kof98hh134
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3768,6 +3784,10 @@ kof2k2s106
 kof2k2s107
 kof2k2s108
 kof2k2s109
+kof2k2s110
+kof2k2s111
+kof2k2s112
+kof2k2s113
 
 @source:kof2003.cpp
 kof2003d
@@ -4093,9 +4113,13 @@ umk2te51			// Ultimate MKII Tournament Edition r5.0.051
 umk2te52			// Ultimate MKII Tournament Edition r5.0.052
 umk2te53			// Ultimate MKII Tournament Edition r5.0.053
 mks01
+mks02
 mk2s01
+mk2s02
 
 @source:midwunit.cpp
+mk3 				//parent
+mk3k
 umk3				//parent
 umk3j				/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3r13b1			/* UMK3 1.3 public beta 1 */
@@ -4122,6 +4146,7 @@ umk3uc20200226
 umk3uc20200506
 umk3uc20200519
 umk3uc20200608
+umk3uc20200802
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -6551,6 +6576,8 @@ svchs33
 svchs34
 svchs35
 svchs36
+svchs37
+svchs38
 svcpluss01
 svcpluss02
 svcpluss03
@@ -7021,6 +7048,7 @@ kov2p204s98
 kov2p204s99
 kov2p204s100
 kov2p204s101
+kov2p204s102
 kov2h01
 kov2h02
 kov2h03
@@ -7046,6 +7074,7 @@ kov2h22
 kov2h23
 kov2h24
 kov2h25
+kov2h26
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7418,6 +7447,7 @@ kovpluss372
 kovpluss373
 kovpluss374
 kovpluss375
+kovpluss376
 kovplusas01
 kovshs01
 kovshs02
@@ -7727,6 +7757,8 @@ kovsho184
 kovsho185
 kovsho186
 kovsho187
+kovsho188
+kovsho189
 kovshxass01
 kovshxass02
 kovshxass03
@@ -7905,6 +7937,9 @@ olds100ass169
 olds100ass170
 olds100ass171
 olds100ass172
+olds100ass173
+olds100ass174
+olds100ass175
 oldsplus01
 oldsplus02
 oldsplus03
