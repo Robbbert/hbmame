@@ -39,6 +39,35 @@ static NETLIST_START(CD4001_DIP)
 
 NETLIST_END()
 
+/*
+ *  CD4006: CMOS 18-Stage Static Register
+ *
+ *            +--------------+
+ *         D1 |1     ++    14| VDD
+ *      D1+4' |2           13| D1+4
+ *      CLOCK |3           12| D2+5
+ *         D2 |4    4006   11| D2+4
+ *         D3 |5           10| D3+4
+ *         D4 |6            9| D4+5
+ *        VSS |7            8| D4+4
+ *            +--------------+
+ */
+
+static NETLIST_START(CD4006_DIP)
+	CD4006(A)
+
+	DIPPINS(     /*       +--------------+      */
+		   A.D1, /*    D1 |1     ++    14| VDD  */ A.VDD,
+		A.D1P4S, /* D1+4' |2           13| D1+4 */ A.D1P4,
+		A.CLOCK, /* CLOCK |3           12| D2+5 */ A.D2P5,
+		   A.D2, /*    D2 |4    4006   11| D2+4 */ A.D2P4,
+		   A.D3, /*    D3 |5           10| D3+4 */ A.D3P4,
+		   A.D4, /*    D4 |6            9| D4+5 */ A.D4P5,
+		  A.VSS, /*   VSS |7            8| D4+4 */ A.D4P4
+			     /*       +--------------+      */
+	)
+NETLIST_END()
+
 /*  CD4011: Quad 2-Input NAND Gates
  *
  *        +--------------+
@@ -51,31 +80,28 @@ NETLIST_END()
  *    VSS |7            8| E
  *        +--------------+
  *
- *  Naming conventions follow National Semiconductor datasheet
- *
- *  FIXME: Timing depends on VDD-VSS
- *         This needs a cmos d-a/a-d proxy implementation.
+ *  Naming conventions follow National Semiconductor datashee
  */
 
 static NETLIST_START(CD4011_DIP)
-	CD4011_GATE(A)
-	CD4011_GATE(B)
-	CD4011_GATE(C)
-	CD4011_GATE(D)
+       CD4011_GATE(A)
+       CD4011_GATE(B)
+       CD4011_GATE(C)
+       CD4011_GATE(D)
 
-	NET_C(A.VDD, B.VDD, C.VDD, D.VDD)
-	NET_C(A.VSS, B.VSS, C.VSS, D.VSS)
+       NET_C(A.VDD, B.VDD, C.VDD, D.VDD)
+       NET_C(A.VSS, B.VSS, C.VSS, D.VSS)
 
-	DIPPINS(  /*       +--------------+      */
-		A.A,  /*     A |1     ++    14| VDD  */ A.VDD,
-		A.B,  /*     B |2           13| H    */ D.B,
-		A.Q,  /*     J |3           12| G    */ D.A,
-		B.Q,  /*     K |4    4011   11| M    */ D.Q,
-		B.A,  /*     C |5           10| L    */ C.Q,
-		B.B,  /*     D |6            9| F    */ C.B,
-		A.VSS,/*   VSS |7            8| E    */ C.A
-			  /*       +--------------+      */
-	)
+       DIPPINS(    /*       +--------------+      */
+			  A.A, /*     A |1     ++    14| VDD  */ A.VDD,
+			  A.B, /*     B |2           13| H    */ D.B,
+			  A.Q, /*     J |3           12| G    */ D.A,
+			  B.Q, /*     K |4    4011   11| M    */ D.Q,
+			  B.A, /*     C |5           10| L    */ C.Q,
+			  B.B, /*     D |6            9| F    */ C.B,
+			A.VSS, /*   VSS |7            8| E    */ C.A
+				   /*       +--------------+      */
+	   )
 NETLIST_END()
 
 /*  CD4013: Dual Positive-Edge-Triggered D Flip-Flops
@@ -110,6 +136,68 @@ static NETLIST_START(CD4013_DIP)
 		  A.SET, /*    SET1 |6            9| DATA2  */ B.DATA,
 		  A.VSS, /*     VSS |7            8| SET2   */ B.SET
 			     /*         +--------------+        */
+	)
+NETLIST_END()
+
+/*
+ *  CD4017: Decade Counter/Divider with 10 Decoded Outputs
+ *
+ *          +--------------+
+ *       Q5 |1     ++    16| VDD
+ *       Q1 |2           15| RESET
+ *       Q0 |3           14| CLOCK
+ *       Q2 |4    4017   13| CLOCK ENABLE
+ *       Q6 |5           12| CARRY OUT
+ *       Q7 |6           11| Q9
+ *       Q3 |7           10| Q4
+ *      VSS |8            9| Q8
+ *          +--------------+
+ *
+ *
+ *  CD4022: Divide-by-8 Counter/Divider with 8 Decoded Outputs
+ *
+ *          +--------------+
+ *       Q1 |1     ++    16| VDD
+ *       Q0 |2           15| RESET
+ *       Q2 |3           14| CLOCK
+ *       Q5 |4    4022   13| CLOCK ENABLE
+ *       Q6 |5           12| CARRY OUT
+ *       NC |6           11| Q4
+ *       Q3 |7           10| Q7
+ *      VSS |8            9| NC
+ *          +--------------+
+ */
+
+static NETLIST_START(CD4017_DIP)
+	CD4017(A)
+
+	DIPPINS(  /*        +--------------+              */
+		 A.Q5, /*    Q5 |1     ++    16| VDD          */ A.VDD,
+		 A.Q1, /*    Q1 |2           15| RESET        */ A.RESET,
+		 A.Q0, /*    Q0 |3           14| CLOCK        */ A.CLK,
+		 A.Q2, /*    Q2 |4    4017   13| CLOCK ENABLE */ A.CLKEN,
+		 A.Q6, /*    Q6 |5           12| CARRY OUT    */ A.CO,
+		 A.Q7, /*    Q7 |6           11| Q9           */ A.Q9,
+		 A.Q3, /*    Q3 |7           10| Q4           */ A.Q4,
+		A.VSS, /*   VSS |8            9| Q8           */ A.Q8
+			   /*       +--------------+              */
+	)
+NETLIST_END()
+
+static NETLIST_START(CD4022_DIP)
+	CD4022(A)
+	NC_PIN(NC)
+
+	DIPPINS(  /*        +--------------+              */
+		 A.Q1, /*    Q1 |1     ++    16| VDD          */ A.VDD,
+		 A.Q0, /*    Q0 |2           15| RESET        */ A.RESET,
+		 A.Q2, /*    Q2 |3           14| CLOCK        */ A.CLK,
+		 A.Q5, /*    Q5 |4    4022   13| CLOCK ENABLE */ A.CLKEN,
+		 A.Q6, /*    Q6 |5           12| CARRY OUT    */ A.CO,
+		 NC.I, /*    NC |6           11| Q4           */ A.Q4,
+		 A.Q3, /*    Q3 |7           10| Q7           */ A.Q7,
+		A.VSS, /*   VSS |8            9| NC           */ NC.I
+			   /*       +--------------+              */
 	)
 NETLIST_END()
 
@@ -507,7 +595,10 @@ NETLIST_START(CD4XXX_lib)
 	LOCAL_LIB_ENTRY(CD4070_DIP)
 
 	/* DIP ONLY */
+	LOCAL_LIB_ENTRY(CD4006_DIP)
 	LOCAL_LIB_ENTRY(CD4013_DIP)
+	LOCAL_LIB_ENTRY(CD4017_DIP)
+	LOCAL_LIB_ENTRY(CD4022_DIP)
 	LOCAL_LIB_ENTRY(CD4020_DIP)
 	LOCAL_LIB_ENTRY(CD4024_DIP)
 	LOCAL_LIB_ENTRY(CD4053_DIP)

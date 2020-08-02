@@ -245,6 +245,10 @@
 		NET_REGISTER_DEV(TTL_7437_DIP, name)
 
 
+#define TTL_7442_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7442_DIP, name)
+
+
 #if (NL_USE_TRUTHTABLE_7448)
 #define TTL_7448(name, cA0, cA1, cA2, cA3, cLTQ, cBIQ, cRBIQ)                  \
 		NET_REGISTER_DEV(TTL_7448, name)                                       \
@@ -257,11 +261,34 @@
 		NET_CONNECT(name, LTQ, cLTQ)                                           \
 		NET_CONNECT(name, BIQ, cBIQ)                                           \
 		NET_CONNECT(name, RBIQ, cRBIQ)
+#endif
 
 #define TTL_7448_DIP(name)                                                     \
 		NET_REGISTER_DEV(TTL_7448_DIP, name)
 
-#endif
+#define TTL_7450_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7450_DIP, name)
+
+#define TTL_7473_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7473_DIP, name)
+
+#define TTL_7473A_DIP(name)                                                    \
+		NET_REGISTER_DEV(TTL_7473A_DIP, name)
+
+#define TTL_7474_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7474_DIP, name)
+
+#define TTL_7475_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7475_DIP, name)
+
+#define TTL_7477_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7477_DIP, name)
+
+#define TTL_7483_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7483_DIP, name)
+
+#define TTL_7485_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7485_DIP, name)
 
 #define TTL_7486_GATE(name)                                                    \
 		NET_REGISTER_DEV(TTL_7486_GATE, name)
@@ -276,20 +303,35 @@
 #define TTL_7486_DIP(name)                                                     \
 		NET_REGISTER_DEV(TTL_7486_DIP, name)
 
+#define TTL_7490_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7490_DIP, name)
+
+#define TTL_7492_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7492_DIP, name)
+
+#define TTL_7493_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7493_DIP, name)
+
+#define TTL_7497_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_7497_DIP, name)
+
 #if (NL_USE_TRUTHTABLE_74107)
-#define TTL_74107(name, cCLK, cJ, cK, cCLRQ)                                   \
-		NET_REGISTER_DEV(TTL_74107, name)                                      \
-		NET_CONNECT(name, GND, GND)                                            \
-		NET_CONNECT(name, VCC, VCC)                                            \
-		NET_CONNECT(name, CLK, cCLK)                                           \
-		NET_CONNECT(name, J, cJ)                                               \
-		NET_CONNECT(name, K, cK)                                               \
-		NET_CONNECT(name, CLRQ, cCLRQ)
+// usage: TTL_74107(name, cCLK, cJ, cK, cCLRQ)
+#define TTL_74107(...)                                                         \
+		NET_REGISTER_DEVEXT(TTL_74107_TT, __VA_ARGS__)
+#endif
 
 #define TTL_74107_DIP(name)                                                    \
 		NET_REGISTER_DEV(TTL_74107_DIP, name)
 
-#endif
+#define TTL_74107A_DIP(name)                                                   \
+		NET_REGISTER_DEV(TTL_74107A_DIP, name)
+
+#define TTL_74113_DIP(name)                                                    \
+		NET_REGISTER_DEV(TTL_74113_DIP, name)
+
+#define TTL_74113A_DIP(name)                                                   \
+		NET_REGISTER_DEV(TTL_74113A_DIP, name)
 
 #define TTL_74121_DIP(name)                                                    \
 		NET_REGISTER_DEV(TTL_74121_DIP, name)
@@ -303,6 +345,9 @@
 #define TTL_74125_DIP(name)                                                    \
 		NET_REGISTER_DEV(TTL_74125_DIP, name)
 
+#define TTL_74153_DIP(name)                                                    \
+		NET_REGISTER_DEV(TTL_74153_DIP, name)
+
 #define TTL_74155_DIP(name)                                                    \
 		NET_REGISTER_DEV(TTL_74155_DIP, name)
 
@@ -311,6 +356,24 @@
 
 #define TTL_74157_DIP(name)                                                    \
 		NET_REGISTER_DEV(TTL_74157_DIP, name)
+
+#define TTL_74161_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_74161_DIP, name)
+
+#define TTL_74163_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_74163_DIP, name)
+
+#define TTL_74164_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_74164_DIP, name)
+
+#define TTL_74165_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_74165_DIP, name)
+
+#define TTL_74166_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_74166_DIP, name)
+
+#define TTL_74174_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_74174_DIP, name)
 
 #define TTL_74260_GATE(name)                                                   \
 		NET_REGISTER_DEV(TTL_74260_GATE, name)
@@ -340,11 +403,23 @@
 #define TTL_74379_DIP(name)                                                    \
 		NET_REGISTER_DEV(TTL_74379_DIP, name)
 
+#define TTL_74393_DIP(name)                                                    \
+		NET_REGISTER_DEV(TTL_74393_DIP, name)
+
 #define DM9312(...)                                                            \
 		NET_REGISTER_DEVEXT(DM9312, __VA_ARGS__)
 
 #define DM9312_DIP(name)                                                       \
 		NET_REGISTER_DEV(DM9312_DIP, name)
+
+#define TTL_9310_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_9310_DIP, name)
+
+#define TTL_9316_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_9316_DIP, name)
+
+#define TTL_9322_DIP(name)                                                     \
+		NET_REGISTER_DEV(TTL_9322_DIP, name)
 
 #endif // NL_AUTO_DEVICES
 

@@ -683,6 +683,258 @@ static NETLIST_START(TTL_7437_DIP)
 NETLIST_END()
 
 /*
+ *  DM7450: DUAL 2-WIDE 2-INPUT AND-OR-INVERT GATES (ONE GATE EXPANDABLE)
+ *
+ *          +--------------+
+ *       1A |1     ++    14| VCC
+ *       2A |2           13| 1B
+ *       2B |3           12| 1XQ
+ *       2C |4    7450   11| 1X
+ *       2D |5           10| 1D
+ *       2Y |6            9| 1C
+ *      GND |7            8| 1Y
+ *          +--------------+
+*/
+
+static NETLIST_START(TTL_7450_DIP)
+	TTL_7450_ANDORINVERT(A)
+	TTL_7450_ANDORINVERT(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+	NC_PIN(NC)
+
+	DIPPINS(  /*       +--------------+      */
+		A.A,  /*    1A |1     ++    14| VCC  */ A.VCC,
+		B.A,  /*    2A |2           13| 1B   */ A.B,
+		B.B,  /*    2B |3           12| 1XQ  */ NC.I,
+		B.C,  /*    2C |4    7450   11| 1X   */ NC.I,
+		B.D,  /*    2D |5           10| 1D   */ A.D,
+		B.Q,  /*    2Y |6            9| 1C   */ A.C,
+		A.GND,/*   GND |7            8| 1Y   */ A.Q
+			  /*       +--------------+      */
+	)
+NETLIST_END()
+
+/*
+ *  7473: Dual Master-Slave J-K Flip-Flops with Clear and Complementary Outputs
+ *  7473A: Dual Negative-Edge-Triggered Master-Slave J-K Flip-Flops with Clear and Complementary Outputs
+ *
+ *          +----------+
+ *     1CLK |1   ++  14| 1J
+ *    1CLRQ |2       13| 1QQ
+ *       1K |3       12| 1Q
+ *      VCC |4  7473 11| GND
+ *     2CLK |5       10| 2K
+ *    2CLRQ |6        9| 2Q
+ *       2J |7        8| 2QQ
+ *          +----------+
+ */
+
+static NETLIST_START(TTL_7473_DIP)
+	TTL_7473(A)
+	TTL_7473(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(    /*       +----------+     */
+		 A.CLK, /*  1CLK |1   ++  14| 1J  */ A.J,
+		A.CLRQ, /* 1CLRQ |2       13| 1QQ */ A.QQ,
+		   A.K, /*    1K |3       12| 1Q  */ A.Q,
+		 A.VCC, /*   VCC |4  7473 11| GND */ A.GND,
+		 B.CLK, /*  2CLK |5       10| 2K  */ B.K,
+		B.CLRQ, /* 2CLRQ |6        9| 2Q  */ B.Q,
+		   B.J, /*    2J |7        8| 2QQ */ B.QQ
+			    /*       +----------+     */
+	)
+NETLIST_END()
+
+static NETLIST_START(TTL_7473A_DIP)
+	TTL_7473A(A)
+	TTL_7473A(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(    /*       +----------+     */
+		 A.CLK, /*  1CLK |1   ++  14| 1J  */ A.J,
+		A.CLRQ, /* 1CLRQ |2       13| 1QQ */ A.QQ,
+		   A.K, /*    1K |3       12| 1Q  */ A.Q,
+		 A.VCC, /*   VCC |4 7473A 11| GND */ A.GND,
+		 B.CLK, /*  2CLK |5       10| 2K  */ B.K,
+		B.CLRQ, /* 2CLRQ |6        9| 2Q  */ B.Q,
+		   B.J, /*    2J |7        8| 2QQ */ B.QQ
+			    /*       +----------+     */
+	)
+NETLIST_END()
+
+/*
+ *  DM7474: Dual Positive-Edge-Triggered D Flip-Flops
+ *          with Preset, Clear and Complementary Outputs
+ *
+ *          +--------------+
+ *     CLR1 |1     ++    14| VCC
+ *       D1 |2           13| CLR2
+ *     CLK1 |3           12| D2
+ *      PR1 |4    7474   11| CLK2
+ *       Q1 |5           10| PR2
+ *      Q1Q |6            9| Q2
+ *      GND |7            8| Q2Q
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_7474_DIP)
+	TTL_7474(A)
+	TTL_7474(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(    /*       +--------------+       */
+		A.CLRQ, /*  CLR1 |1     ++    14| VCC   */ A.VCC,
+		   A.D, /*    D1 |2           13| CLR2  */ B.CLRQ,
+		 A.CLK, /*  CLK1 |3           12| D2    */ B.D,
+		A.PREQ, /*   PR1 |4    7474   11| CLK2  */ B.CLK,
+		   A.Q, /*    Q1 |5           10| PR2   */ B.PREQ,
+		  A.QQ, /*   Q1Q |6            9| Q2    */ B.Q,
+		 A.GND, /*   GND |7            8| Q2Q   */ B.QQ
+			    /*       +-------------+        */
+	)
+NETLIST_END()
+
+/*
+ *  7475: 4-Bit Bistable Latches with Complementary Outputs
+ *  7477: 4-Bit Bistable Latches
+ *
+ *          +----------+               +----------+
+ *      1QQ |1   ++  16| 1Q         1D |1   ++  14| 1Q
+ *       1D |2       15| 2Q         2D |2       13| 2Q
+ *       2D |3       14| 2QQ      3C4C |3       12| 1C2C
+ *     3C4C |4  7475 13| 1C2C      VCC |4  7477 11| GND
+ *      VCC |5       12| GND        3D |5       10| NC
+ *       3D |6       11| 3QQ        4D |6        9| 3Q
+ *       4D |7       10| 3Q         NC |7        8| 4Q
+ *      4QQ |8        9| 4Q            +----------+
+ *          +----------+
+ */
+
+static NETLIST_START(TTL_7475_DIP)
+	TTL_7475_GATE(A)
+	TTL_7475_GATE(B)
+	TTL_7475_GATE(C)
+	TTL_7475_GATE(D)
+
+	NET_C(A.VCC, B.VCC, C.VCC, D.VCC)
+	NET_C(A.GND, B.GND, C.GND, D.GND)
+
+	NET_C(A.CLK, B.CLK)
+	NET_C(C.CLK, D.CLK)
+
+	DIPPINS(   /*       +----------+       */
+		 A.QQ, /*   1QQ |1   ++  16| 1Q    */ A.Q,
+		  A.D, /*    1D |2       15| 2Q    */ B.Q,
+		  B.D, /*    2D |3       14| 2QQ   */ B.QQ,
+		C.CLK, /*  3C4C |4  7475 13| 1C2C  */ A.CLK,
+		A.VCC, /*   VCC |5       12| GND   */ A.GND,
+		  C.D, /*    3D |6       11| 3QQ   */ C.QQ,
+		  D.D, /*    4D |7       10| 3Q    */ C.Q,
+		 D.QQ, /*   4QQ |8        9| 4Q    */ D.Q
+			   /*       +----------+       */
+	)
+NETLIST_END()
+
+static NETLIST_START(TTL_7477_DIP)
+	TTL_7477_GATE(A)
+	TTL_7477_GATE(B)
+	TTL_7477_GATE(C)
+	TTL_7477_GATE(D)
+
+	NET_C(A.VCC, B.VCC, C.VCC, D.VCC)
+	NET_C(A.GND, B.GND, C.GND, D.GND)
+
+	NET_C(A.CLK, B.CLK)
+	NET_C(C.CLK, D.CLK)
+
+	NC_PIN(NC)
+
+	DIPPINS(   /*       +----------+       */
+		  A.D, /*    1D |1   ++  14| 1Q    */ A.Q,
+		  B.D, /*    2D |2       13| 2Q    */ B.Q,
+		C.CLK, /*  3C4C |3       12| 1C2C  */ A.CLK,
+		A.VCC, /*   VCC |4  7477 11| GND   */ A.GND,
+		  C.D, /*    3D |5       10| NC    */ NC.I,
+		  D.D, /*    4D |6        9| 3Q    */ C.Q,
+		 NC.I, /*    NC |7        8| 4Q    */ D.Q
+			   /*       +----------+       */
+	)
+NETLIST_END()
+
+/*
+ *  DM7483: 4-Bit Binary Adder with Fast Carry
+ *
+ *          +--------------+
+ *       A4 |1     ++    16| B4
+ *       S3 |2           15| S4
+ *       A3 |3           14| C4
+ *       B3 |4    7483   13| C0
+ *      VCC |5           12| GND
+ *       S2 |6           11| B1
+ *       B2 |7           10| A1
+ *       A2 |8            9| S1
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_7483_DIP)
+	TTL_7483(A)
+
+	DIPPINS(   /*      +--------------+     */
+		 A.A4, /*   A4 |1     ++    16| B4  */ A.B4,
+		 A.S3, /*   S3 |2           15| S4  */ A.S4,
+		 A.A3, /*   A3 |3           14| C4  */ A.C4,
+		 A.B3, /*   B3 |4    7483   13| C0  */ A.C0,
+		A.VCC, /*  VCC |5           12| GND */ A.GND,
+		 A.S2, /*   S2 |6           11| B1  */ A.B1,
+		 A.B2, /*   B2 |7           10| A1  */ A.A1,
+		 A.A2, /*   A2 |8            9| S1  */ A.S1
+			   /*      +--------------+     */
+	)
+NETLIST_END()
+
+/*
+ *  DM7485: 4-bit Magnitude Comparators
+ *
+ *          +------------+
+ *       B3 |1    ++   16| VCC
+ *     LTIN |2         15| A3
+ *     EQIN |3         14| B2
+ *     GTIN |4   7485  13| A2
+ *    GTOUT |5         12| A1
+ *    EQOUT |6         11| B1
+ *    LTOUT |7         10| A0
+ *      GND |8          9| B0
+ *          +------------+
+ *
+ *  Naming convention attempts to follow Texas Instruments datasheet
+ */
+
+static NETLIST_START(TTL_7485_DIP)
+	TTL_7485(A)
+
+	DIPPINS(     /*       +------------+      */
+		   A.B3, /*    B3 |1    ++   16| VCC  */ A.VCC,
+		 A.LTIN, /*  LTIN |2         15| A3   */ A.A3,
+		 A.EQIN, /*  EQIN |3         14| B2   */ A.B2,
+		 A.GTIN, /*  GTIN |4   7485  13| A2   */ A.A2,
+		A.GTOUT, /* GTOUT |5         12| A1   */ A.A1,
+		A.EQOUT, /* EQOUT |6         11| B1   */ A.B1,
+		A.LTOUT, /* LTOUT |7         10| A0   */ A.A0,
+		  A.GND, /*   GND |8          9| B0   */ A.B0
+			     /*       +------------+      */
+	)
+NETLIST_END()
+
+/*
  *  DM7486: Quad 2-Input Exclusive-OR Gates
  *
  *             Y = A+B
@@ -720,32 +972,238 @@ static NETLIST_START(TTL_7486_DIP)
 	)
 NETLIST_END()
 
-#if (NL_USE_TRUTHTABLE_74107)
-#ifndef __PLIB_PREPROCESSOR__
-#define TTL_74107_TT(name)                                                         \
-		NET_REGISTER_DEV(TTL_74107, name)
-#endif
+/*
+ *  DM7490: Decade Counters
+ *
+ *          +--------------+
+ *        B |1     ++    14| A
+ *      R01 |2           13| NC
+ *      R02 |3           12| QA
+ *       NC |4    7490   11| QD
+ *      VCC |5           10| GND
+ *      R91 |6            9| QB
+ *      R92 |7            8| QC
+ *          +--------------+
+ */
+
+ static NETLIST_START(TTL_7490_DIP)
+	TTL_7490(A)
+	NC_PIN(NC)
+
+	DIPPINS(   /*     +--------------+     */
+		  A.B, /*   B |1     ++    14| A   */ A.A,
+		 A.R1, /*  R1 |2           13| NC  */ NC.I,
+		 A.R2, /*  R2 |3           12| QA  */ A.QA,
+		 NC.I, /*  NC |4    7490   11| QD  */ A.QD,
+		A.VCC, /* VCC |5           10| GND */ A.GND,
+		A.R91, /* R91 |6            9| QB  */ A.QB,
+		A.R92, /* R92 |7            8| QC  */ A.QC
+			   /*     +--------------+     */
+	)
+NETLIST_END()
+
+/*
+ *  SN7492: Divide-by-12 Counter
+ *
+ *          +--------------+
+ *        B |1     ++    14| A
+ *       NC |2           13| NC
+ *       NC |3           12| QA
+ *       NC |4    7492   11| QD
+ *      VCC |5           10| GND
+ *      R01 |6            9| QB
+ *      R02 |7            8| QC
+ *          +--------------+
+ */
+
+ static NETLIST_START(TTL_7492_DIP)
+	TTL_7492(A)
+	NC_PIN(NC)
+
+	DIPPINS(   /*     +--------------+     */
+		  A.B, /*   B |1     ++    14| A   */ A.A,
+		 NC.I, /*  NC |2           13| NC  */ NC.I,
+		 NC.I, /*  NC |3           12| QA  */ A.QA,
+		 NC.I, /*  NC |4    7492   11| QD  */ A.QD,
+		A.VCC, /* VCC |5           10| GND */ A.GND,
+		 A.R1, /* R01 |6            9| QB  */ A.QB,
+		 A.R2, /* R02 |7            8| QC  */ A.QC
+			   /*     +--------------+     */
+	)
+NETLIST_END()
+
+/*
+ *  DM7493: Binary Counters
+ *
+ *          +--------------+
+ *     CLKB |1     ++    14| CLKA
+ *      R01 |2           13| NC
+ *      R02 |3           12| QA
+ *       NC |4    7493   11| QD
+ *      VCC |5           10| GND
+ *       NC |6            9| QB
+ *       NC |7            8| QC
+ *          +--------------+
+ */
+
+ static NETLIST_START(TTL_7493_DIP)
+	TTL_7493(A)
+	NC_PIN(NC)
+
+	DIPPINS(    /*      +--------------+      */
+		A.CLKB, /* CLKB |1     ++    14| CLKA */ A.CLKA,
+		  A.R1, /*  R01 |2           13| NC   */ NC.I,
+		  A.R2, /*  R02 |3           12| QA   */ A.QA,
+		  NC.I, /*   NC |4    7493   11| QD   */ A.QD,
+		 A.VCC, /*  VCC |5           10| GND  */ A.GND,
+		  NC.I, /*   NC |6            9| QB   */ A.QB,
+		  NC.I, /*   NC |7            8| QC   */ A.QC
+		 	    /*      +--------------+      */
+	)
+NETLIST_END()
+
+/*
+ *  SN7497: Synchronous 6-Bit Binary Rate Multiplier
+ *
+ *          +--------------+
+ *       B1 |1           16| VCC
+ *       B4 |2           15| B3
+ *       B5 |3           14| B2
+ *       B0 |4    7497   13| CLR
+ *        Z |5           12| UNITY/CAS
+ *        Y |6           11| ENin (EN)
+ *    ENout |7           10| STRB
+ *      GND |8            9| CLK
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_7497_DIP)
+	TTL_7497(A)
+
+	DIPPINS(     /*       +--------------+ */
+		    A.B1, /*    B1 |1           16| VCC       */ A.VCC,
+		    A.B4, /*    B4 |2           15| B3        */ A.B3,
+		    A.B5, /*    B5 |3           14| B2        */ A.B2,
+		    A.B0, /*    B0 |4    7497   13| CLR       */ A.CLR,
+		    A.ZQ, /*     Z |5           12| UNITY/CAS */ A.UNITYQ,
+		     A.Y, /*     Y |6           11| ENin (EN) */ A.ENQ,
+		A.ENOUTQ, /* ENout |7           10| STRB      */ A.STRBQ,
+		   A.GND, /*   GND |8            9| CLK       */ A.CLK
+			      /*       +--------------+           */
+	)
+NETLIST_END()
+
+/*
+ *  DM74107: DUAL J-K FLIP-FLOPS WITH CLEAR
+ *
+ *          +--------------+
+ *       1J |1     ++    14| VCC
+ *      1QQ |2           13| 1CLRQ
+ *       1Q |3           12| 1CLK
+ *       1K |4    74107  11| 2K
+ *       2Q |5           10| 2CLRQ
+ *      2QQ |6            9| 2CLK
+ *      GND |7            8| 2J
+ *          +--------------+
+ */
 
 static NETLIST_START(TTL_74107_DIP)
+#if (NL_USE_TRUTHTABLE_74107)
 	TTL_74107_TT(A)
 	TTL_74107_TT(B)
+#else
+	TTL_74107(A)
+	TTL_74107(B)
+#endif
 
 	NET_C(A.VCC, B.VCC)
 	NET_C(A.GND, B.GND)
 
-	DIPPINS(    /*          +--------------+        */
-		A.J,    /*       1J |1     ++    14| VCC    */ A.VCC,
-		A.QQ,   /*      1QQ |2           13| 1CLRQ  */ A.CLRQ,
-		A.Q,    /*       1Q |3           12| 1CLK   */ A.CLK,
-		A.K,    /*       1K |4    74107  11| 2K     */ B.K,
-		B.Q,    /*       2Q |5           10| 2CLRQ  */ B.CLRQ,
-		B.QQ,   /*      2QQ |6            9| 2CLK   */ B.CLK,
-		B.GND,  /*      GND |7            8| 2J     */ B.J
-				/*          +--------------+        */
+	DIPPINS(   /*     +--------------+       */
+		  A.J, /*  1J |1     ++    14| VCC   */ A.VCC,
+		 A.QQ, /* 1QQ |2           13| 1CLRQ */ A.CLRQ,
+		  A.Q, /*  1Q |3           12| 1CLK  */ A.CLK,
+		  A.K, /*  1K |4    74107  11| 2K    */ B.K,
+		  B.Q, /*  2Q |5           10| 2CLRQ */ B.CLRQ,
+		 B.QQ, /* 2QQ |6            9| 2CLK  */ B.CLK,
+		B.GND, /* GND |7            8| 2J    */ B.J
+			   /*     +--------------+       */
 	)
-
 NETLIST_END()
-#endif
+
+static NETLIST_START(TTL_74107A_DIP)
+	TTL_74107A(A)
+	TTL_74107A(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(   /*     +--------------+       */
+		  A.J, /*  1J |1     ++    14| VCC   */ A.VCC,
+		 A.QQ, /* 1QQ |2           13| 1CLRQ */ A.CLRQ,
+		  A.Q, /*  1Q |3           12| 1CLK  */ A.CLK,
+		  A.K, /*  1K |4    74107  11| 2K    */ B.K,
+		  B.Q, /*  2Q |5           10| 2CLRQ */ B.CLRQ,
+		 B.QQ, /* 2QQ |6            9| 2CLK  */ B.CLK,
+		B.GND, /* GND |7            8| 2J    */ B.J
+			   /*     +--------------+       */
+	)
+NETLIST_END()
+
+/*
+ * nld_74113.h
+ *
+ *  74113: Dual Master-Slave J-K Flip-Flops with Set and Complementary Outputs
+ *  74113A: Dual Negative-Edge-Triggered Master-Slave J-K Flip-Flops with Set and Complementary Outputs
+ *
+ *          +----------+
+ *     1CLK |1   ++  14| VCC
+ *       1K |2       13| 2CLK
+ *       1J |3       12| 2K
+ *    1SETQ |4 74113 11| 2J
+ *       1Q |5       10| 2SETQ
+ *      1QQ |6        9| 2Q
+ *      GND |7        8| 2QQ
+ *          +----------+
+ */
+
+static NETLIST_START(TTL_74113_DIP)
+	TTL_74113(A)
+	TTL_74113(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(    /*       +----------+       */
+		 A.CLK, /*  1CLK |1   ++  14| VCC   */ A.VCC,
+		   A.K, /*    1K |2       13| 2CLK  */ B.CLK,
+		   A.J, /*    1J |3       12| 2K    */ B.K,
+		A.SETQ, /* 1SETQ |4 74113 11| 2J    */ B.J,
+		   A.Q, /*    1Q |5       10| 2SETQ */ B.SETQ,
+		  A.QQ, /*   1QQ |6        9| 2Q    */ B.Q,
+		 A.GND, /*   GND |7        8| 2QQ   */ B.QQ
+			    /*       +----------+       */
+	)
+NETLIST_END()
+
+static NETLIST_START(TTL_74113A_DIP)
+	TTL_74113A(A)
+	TTL_74113A(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(    /*       +----------+       */
+		 A.CLK, /*  1CLK |1   ++  14| VCC   */ A.VCC,
+		   A.K, /*    1K |2       13| 2CLK  */ B.CLK,
+		   A.J, /*    1J |3       12| 2K    */ B.K,
+		A.SETQ, /* 1SETQ |4 74113 11| 2J    */ B.J,
+		   A.Q, /*    1Q |5       10| 2SETQ */ B.SETQ,
+		  A.QQ, /*   1QQ |6        9| 2Q    */ B.Q,
+		 A.GND, /*   GND |7        8| 2QQ   */ B.QQ
+			    /*       +----------+       */
+	)
+NETLIST_END()
 
 //- Identifier:  TTL_74121_DIP
 //- Title: DM74121 One-Shot with Clear and Complementary Outputs
@@ -865,7 +1323,7 @@ NETLIST_END()
 //-   independent of input transition times. When input conditions for triggering are met, a new cycle starts and the
 //-   external capacitor is allowed to rapidly discharge and then
 //-   charge again. The retriggerable feature permits output
-//-   pulse widths to be extended. In fact a continuous true output can be maintained by having an input cycle time which
+//-   pulse widths to be extended. In fact a continuous true output can be maintained by having an input cycle time whih
 //-   is shorter than the output cycle time. The output pulse may
 //-   then be terminated at any time by applying a LOW logic
 //-   level to the RESET pin. Retriggering may be inhibited by
@@ -1012,6 +1470,45 @@ static NETLIST_START(TTL_74126_DIP)
 NETLIST_END()
 
 /*
+ *  DM74153: Dual 4-Line to 1-Line Data Selectors Multiplexers
+ *
+ *          +--------------+
+ *       G1 |1     ++    16| VCC
+ *        B |2           15| G2
+ *      1C3 |3           14| A
+ *      1C2 |4   74153   13| 2C3
+ *      1C1 |5           12| 2C2
+ *      1C0 |6           11| 2C1
+ *       Y1 |7           10| 2C0
+ *      GND |8            9| Y2
+ *          +--------------+
+ *
+ */
+
+static NETLIST_START(TTL_74153_DIP)
+	NET_REGISTER_DEV(TTL_74153, A)
+	NET_REGISTER_DEV(TTL_74153, B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	NET_C(A.A, B.A)
+	NET_C(A.B, B.B)
+
+	DIPPINS(   /*     +--------------+     */
+		  A.G, /*  G1 |1     ++    16| VCC */ A.VCC,
+		  A.B, /*   B |2           15| G2  */ B.G,
+		 A.C3, /* 1C3 |3           14| A   */ A.A,
+		 A.C2, /* 1C2 |4   74153   13| 2C3 */ B.C3,
+		 A.C1, /* 1C1 |5           12| 2C2 */ B.C2,
+		 A.C0, /* 1C0 |6           11| 2C1 */ B.C1,
+		 A.AY, /*  Y1 |7           10| 2C0 */ B.C0,
+		A.GND, /* GND |8            9| Y2  */ B.AY
+			   /*     +--------------+     */
+	)
+NETLIST_END()
+
+/*
  * DM74155/DM74156: Dual 2-Line to 4-Line Decoders/Demultiplexers
  *
  *      +-----+-------++-----------------+
@@ -1125,6 +1622,180 @@ static NETLIST_START(TTL_74157_DIP)
 		B.O,  /*    Zb |7           10| I1d  */ D.J,
 		A.GND,/*   GND |8            9| Zd   */ D.O
 			  /*       +--------------+      */
+	)
+NETLIST_END()
+
+/*
+ *  DM74161/74163: Synchronous 4-Bit Counters
+ *
+ *          +--------------+
+ *    CLEAR |1     ++    16| VCC
+ *    CLOCK |2           15| RC (Ripple Carry)
+ *        A |3           14| QA
+ *        B |4   74161   13| QB
+ *        C |5   74163   12| QC
+ *        D |6           11| QD
+ * Enable P |7           10| Enable T
+ *      GND |8            9| LOAD
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_74161_DIP)
+	TTL_74161(A)
+
+	DIPPINS(    /*          +--------------+          */
+		A.CLRQ, /*   /CLEAR |1     ++    16| VCC      */ A.VCC,
+		 A.CLK, /*    CLOCK |2           15| RC       */ A.RC,
+		   A.A, /*        A |3           14| QA       */ A.QA,
+		   A.B, /*        B |4   74161   13| QB       */ A.QB,
+		   A.C, /*        C |5           12| QC       */ A.QC,
+		   A.D, /*        D |6           11| QD       */ A.QD,
+		 A.ENP, /* Enable P |7           10| Enable T */ A.ENT,
+		 A.GND, /*      GND |8            9| /LOAD    */ A.LOADQ
+			    /*          +--------------+          */
+	)
+NETLIST_END()
+
+static NETLIST_START(TTL_74163_DIP)
+	TTL_74163(A)
+
+	DIPPINS(    /*          +--------------+          */
+		A.CLRQ, /*   /CLEAR |1     ++    16| VCC      */ A.VCC,
+		 A.CLK, /*    CLOCK |2           15| RC       */ A.RC,
+		   A.A, /*        A |3           14| QA       */ A.QA,
+		   A.B, /*        B |4   74163   13| QB       */ A.QB,
+		   A.C, /*        C |5           12| QC       */ A.QC,
+		   A.D, /*        D |6           11| QD       */ A.QD,
+		 A.ENP, /* Enable P |7           10| Enable T */ A.ENT,
+		 A.GND, /*      GND |8            9| /LOAD    */ A.LOADQ
+			    /*          +--------------+          */
+	)
+NETLIST_END()
+
+/*
+ *  DM74164: 8-bit parallel-out serial shift registers
+ *
+ *      +------------+
+ *    A |1    ++   14| VCC
+ *    B |2         13| QH
+ *   QA |3         12| QG
+ *   QB |4  74164  11| QF
+ *   QC |5         10| QE
+ *   QD |6          9| CLRQ
+ *  GND |7          8| CLK
+ *      +------------+
+ */
+
+static NETLIST_START(TTL_74164_DIP)
+	TTL_74164(A)
+
+	DIPPINS(    /*     +------------+      */
+		   A.A, /*   A |1    ++   14| VCC  */ A.VCC,
+		   A.B, /*   B |2         13| QH   */ A.QH,
+		  A.QA, /*  QA |3         12| QG   */ A.QG,
+		  A.QB, /*  QB |4  74164  11| QF   */ A.QF,
+		  A.QC, /*  QC |5         10| QE   */ A.QE,
+		  A.QD, /*  QD |6          9| CLRQ */ A.CLRQ,
+		 A.GND, /* GND |7          8| CLK  */ A.CLK
+			    /*     +------------+      */
+	)
+NETLIST_END()
+
+/*
+ *  74165: Parallel-Load 8-Bit Shift Register
+ *
+ *          +--------------+
+ *   SH/LDQ |1     ++    16| VCC
+ *      CLK |2           15| CLKINH
+ *        E |3           14| D
+ *        F |4    74165  13| C
+ *        G |5           12| B
+ *        H |6           11| A
+ *      QHQ |7           10| SER
+ *      GND |8            9| QH
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_74165_DIP)
+	TTL_74165(A)
+
+	DIPPINS(      /*        +--------------+        */
+		A.SH_LDQ, /* SH/LDQ |1     ++    16| VCC    */ A.VCC,
+		   A.CLK, /*    CLK |2           15| CLKINH */ A.CLKINH,
+		     A.E, /*      E |3           14| D      */ A.D,
+		     A.F, /*      F |4    74165  13| C      */ A.C,
+		     A.G, /*      G |5           12| B      */ A.B,
+		     A.H, /*      H |6           11| A      */ A.A,
+		   A.QHQ, /*    QHQ |7           10| SER    */ A.SER,
+		   A.GND, /*    GND |8            9| QH     */ A.QH
+			      /*        +--------------+        */
+	)
+NETLIST_END()
+
+/*
+ *  74166: Parallel-Load 8-Bit Shift Register
+ *
+ *          +--------------+
+ *      SER |1     ++    16| VCC
+ *        A |2           15| SH/LDQ
+ *        B |3           14| H
+ *        C |4    74166  13| QH
+ *        D |5           12| G
+ *   CLKINH |6           11| F
+ *      CLK |7           10| E
+ *      GND |8            9| CLRQ
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_74166_DIP)
+	TTL_74166(A)
+
+	DIPPINS(      /*        +--------------+        */
+		   A.SER, /*    SER |1     ++    16| VCC    */ A.VCC,
+		     A.A, /*      A |2           15| SH/LDQ */ A.SH_LDQ,
+		     A.B, /*      B |3           14| H      */ A.H,
+		     A.C, /*      C |4    74166  13| QH     */ A.QH,
+		     A.D, /*      D |5           12| G      */ A.G,
+		A.CLKINH, /* CLKINH |6           11| F      */ A.F,
+		   A.CLK, /*    CLK |7           10| E      */ A.E,
+		   A.GND, /*    GND |8            9| CLRQ   */ A.CLRQ
+			      /*        +--------------+        */
+	)
+NETLIST_END()
+
+/*
+ *  DM74174: Hex D Flip-Flops with Clear
+ *
+ *          +--------------+
+ *      CLR |1     ++    16| VCC
+ *       Q1 |2           15| Q6
+ *       D1 |3           14| D6
+ *       D2 |4   74174   13| D5
+ *       Q2 |5           12| Q5
+ *       D3 |6           11| D4
+ *       Q3 |7           10| Q4
+ *      GND |8            9| CLK
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_74174_DIP)
+	TTL_74174_GATE(A)
+	TTL_74174_GATE(B)
+	TTL_74174_GATE(C)
+	TTL_74174_GATE(D)
+	TTL_74174_GATE(E)
+	TTL_74174_GATE(F)
+
+	DIPPINS(    /*     +--------------+     */
+		A.CLRQ, /* CLR |1     ++    16| VCC */ A.VCC,
+		   A.Q, /*  Q1 |2           15| Q6  */ F.Q,
+		   A.D, /*  D1 |3           14| D6  */ F.D,
+		   B.D, /*  D2 |4   74174   13| D5  */ E.D,
+		   B.Q, /*  Q2 |5           12| Q5  */ E.Q,
+		   C.D, /*  D3 |6           11| D4  */ D.D,
+		   C.Q, /*  Q3 |7           10| Q4  */ D.Q,
+		 A.GND, /* GND |8            9| CLK */ A.CLK
+			    /*     +--------------+     */
 	)
 NETLIST_END()
 
@@ -1312,6 +1983,80 @@ static NETLIST_START(TTL_74379_DIP)
 NETLIST_END()
 
 /*
+ *  DM74393: Dual 4-Stage Binary Counter
+ *
+ *          +--------------+
+ *      /CP |1     ++    14| VCC
+ *       MR |2           13| /CP
+ *       Q0 |3           12| MR
+ *       Q1 |4    74393  11| Q0
+ *       Q2 |5           10| Q1
+ *       Q3 |6            9| Q2
+ *      GND |7            8| Q3
+ *          +--------------+
+ *
+ *  Naming conventions follow Motorola datasheet
+ */
+
+static NETLIST_START(TTL_74393_DIP)
+	TTL_74393(A)
+	TTL_74393(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(   /*     +------------+     */
+		 A.CP, /* /CP |1   ++    14| VCC */ A.VCC,
+		 A.MR, /*  MR |2         13| /CP */ B.CP,
+		 A.Q0, /*  Q0 |3         12| MR  */ B.MR,
+		 A.Q1, /*  Q1 |4  74393  11| Q0  */ B.Q0,
+		 A.Q2, /*  Q2 |5         10| Q1  */ B.Q1,
+		 A.Q3, /*  Q3 |6          9| Q2  */ B.Q2,
+		A.GND, /* GND |7          8| Q3  */ B.Q3
+			   /*     +------------+     */
+	)
+NETLIST_END()
+
+
+/*
+ *  SN74LS629: VOLTAGE-CONTROLLED OSCILLATORS
+ *
+ *          +--------------+
+ *      2FC |1     ++    16| VCC
+ *      1FC |2           15| QSC VCC
+ *     1RNG |3           14| 2RNG
+ *     1CX1 |4  74LS629  13| 2CX1
+ *     1CX2 |5           12| 2CX2
+ *     1ENQ |6           11| 2ENQ
+ *       1Y |7           10| 2Y
+ *  OSC GND |8            9| GND
+ *          +--------------+
+ */
+
+static NETLIST_START(SN74LS629_DIP)
+	SN74LS629(A, CAP_U(1))
+	SN74LS629(B, CAP_U(1))
+
+	NET_C(A.GND, B.GND)
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.OSCGND, B.OSCGND)
+	NET_C(A.OSCVCC, B.OSCVCC)
+	NC_PIN(NC)
+
+	DIPPINS(   /*          +--------------+         */
+		 B.FC, /*      2FC |1     ++    16| VCC     */ A.VCC,
+		 A.FC, /*      1FC |2           15| OSC VCC */ A.OSCVCC,
+		A.RNG, /*     1RNG |3           14| 2RNG    */ B.RNG,
+		 NC.I, /*     1CX1 |4  74LS629  13| 2CX1    */ NC.I,
+		 NC.I, /*     1CX2 |5           12| 2CX2    */ NC.I,
+		A.ENQ, /*     1ENQ |6           11| 2ENQ    */ B.ENQ,
+		  B.Y, /*       1Y |7           10| 2Y      */ B.Y,
+	 A.OSCGND, /*  OSC GND |8            9| GND     */ A.GND
+			   /*          +--------------+         */
+	)
+NETLIST_END()
+
+/*
  *  DM9312: One of Eight Line Data Selectors/Multiplexers
  *
  *          +--------------+
@@ -1359,7 +2104,122 @@ static NETLIST_START(DM9312_DIP)
 	)
 NETLIST_END()
 
-#if (NL_USE_TRUTHTABLE_7448)
+/*
+ *  DM9310/9316: Synchronous 4-Bit Counters
+ *
+ *          +--------------+
+ *    CLEAR |1     ++    16| VCC
+ *    CLOCK |2           15| RC (Ripple Carry)
+ *        A |3           14| QA
+ *        B |4    9310   13| QB
+ *        C |5    9316   12| QC
+ *        D |6           11| QD
+ * Enable P |7           10| Enable T
+ *      GND |8            9| LOAD
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_9310_DIP)
+	TTL_9310(A)
+
+	DIPPINS(    /*          +--------------+          */
+		A.CLRQ, /*   /CLEAR |1     ++    16| VCC      */ A.VCC,
+		 A.CLK, /*    CLOCK |2           15| RC       */ A.RC,
+		   A.A, /*        A |3           14| QA       */ A.QA,
+		   A.B, /*        B |4    9310   13| QB       */ A.QB,
+		   A.C, /*        C |5           12| QC       */ A.QC,
+		   A.D, /*        D |6           11| QD       */ A.QD,
+		 A.ENP, /* Enable P |7           10| Enable T */ A.ENT,
+		 A.GND, /*      GND |8            9| /LOAD    */ A.LOADQ
+			    /*          +--------------+          */
+	)
+NETLIST_END()
+
+static NETLIST_START(TTL_9316_DIP)
+	TTL_9316(A)
+
+	DIPPINS(    /*          +--------------+          */
+		A.CLRQ, /*   /CLEAR |1     ++    16| VCC      */ A.VCC,
+		 A.CLK, /*    CLOCK |2           15| RC       */ A.RC,
+		   A.A, /*        A |3           14| QA       */ A.QA,
+		   A.B, /*        B |4    9316   13| QB       */ A.QB,
+		   A.C, /*        C |5           12| QC       */ A.QC,
+		   A.D, /*        D |6           11| QD       */ A.QD,
+		 A.ENP, /* Enable P |7           10| Enable T */ A.ENT,
+		 A.GND, /*      GND |8            9| /LOAD    */ A.LOADQ
+			    /*          +--------------+          */
+	)
+NETLIST_END()
+
+/*
+ *  9322: Quad 2-Line to 1-Line Data Selectors/Multiplexers
+ *
+ *          +------------+
+ *   SELECT |1    ++   16| VCC
+ *       A1 |2         15| STROBE
+ *       B1 |3         14| A4
+ *       Y1 |4   9322  13| B4
+ *       A2 |5         12| Y4
+ *       B2 |6         11| A3
+ *       Y2 |7         10| B3
+ *      GND |8          9| Y3
+ *          +------------+
+ */
+
+static NETLIST_START(TTL_9322_DIP)
+	TTL_9322_GATE(A)
+	TTL_9322_GATE(B)
+	TTL_9322_GATE(C)
+	TTL_9322_GATE(D)
+
+	NET_C(A.SELECT, B.SELECT, C.SELECT, D.SELECT)
+	NET_C(A.STROBE, B.STROBE, C.STROBE, D.STROBE)
+	NET_C(A.VCC, B.VCC, C.VCC, D.VCC)
+	NET_C(A.GND, B.GND, C.GND, D.GND)
+
+	DIPPINS(      /*        +------------+        */
+		A.SELECT, /* SELECT |1    ++   16| VCC    */ A.VCC,
+		     A.A, /*     A1 |2         15| STROBE */ A.STROBE,
+		     A.B, /*     B1 |3         14| A4     */ D.A,
+		     A.Y, /*     Y1 |4   9322  13| B4     */ D.B,
+		     B.A, /*     A2 |5         12| Y4     */ D.Y,
+		     B.B, /*     B2 |6         11| A3     */ C.A,
+		     B.Y, /*     Y2 |7         10| B3     */ C.B,
+		   A.GND, /*    GND |8          9| Y3     */ C.Y
+			      /*        +------------+        */
+	)
+NETLIST_END()
+
+/*  SN7442: 4-Line BCD to 10-Line Decimal Decoder
+ *
+ *          +--------------+
+ *        0 |1     ++    16| VCC
+ *        1 |2           15| A
+ *        2 |3           14| B
+ *        3 |4           13| C
+ *        4 |5    7442   12| D
+ *        5 |6           11| 9
+ *        6 |7           10| 8
+ *      GND |8            9| 7
+ *          +--------------+
+ */
+
+static NETLIST_START(TTL_7442_DIP)
+	NET_REGISTER_DEV(TTL_7442, A)
+
+	DIPPINS(    /*      +--------------+     */
+		  A.Q0, /*    0 |1     ++    16| VCC */ A.VCC,
+		  A.Q1, /*    1 |2           15| A   */ A.A,
+		  A.Q2, /*    2 |3           14| B   */ A.B,
+		  A.Q3, /*    3 |4           13| C   */ A.C,
+		  A.Q4, /*    4 |5    7442   12| D   */ A.D,
+		  A.Q5, /*    5 |6           11| 9   */ A.Q9,
+		  A.Q6, /*    6 |7           10| 8   */ A.Q8,
+		 A.GND, /*  GND |8            9| 7   */ A.Q7
+				/*      +--------------+     */
+	)
+NETLIST_END()
+
 
 /*
  *  DM7448: BCD to 7-Segment decoders/drivers
@@ -1375,31 +2235,30 @@ NETLIST_END()
  *       GND |8            9| e
  *           +--------------+
  *
- *
  *  Naming conventions follow National Semiconductor datasheet
  *
  */
-#ifndef __PLIB_PREPROCESSOR__
-#define TTL_7448_TT(name)     \
-		NET_REGISTER_DEV(TTL_7448_TT, name)
-#endif
 
 static NETLIST_START(TTL_7448_DIP)
-	TTL_7448_TT(s)
+
+#if (NL_USE_TRUTHTABLE_7448)
+	NET_REGISTER_DEV(TTL_7448_TT, A)
+#else
+	NET_REGISTER_DEV(TTL_7448, A)
+#endif
 
 	DIPPINS(    /*      +--------------+     */
-		s.B,    /* B    |1     ++    16| VCC */ s.VCC,
-		s.C,    /* C    |2           15| f   */ s.f,
-		s.LTQ,  /* LTQ  |3           14| g   */ s.g,
-		s.BIQ,  /* BIQ  |4    7448   13| a   */ s.a,
-		s.RBIQ, /* RBIQ |5           12| b   */ s.b,
-		s.D,    /* D    |6           11| c   */ s.c,
-		s.A,    /* A    |7           10| d   */ s.d,
-		s.GND,  /* GND  |8            9| e   */ s.e
+		A.B,    /* B    |1     ++    16| VCC */ A.VCC,
+		A.C,    /* C    |2           15| f   */ A.f,
+		A.LTQ,  /* LTQ  |3           14| g   */ A.g,
+		A.BIQ,  /* BIQ  |4    7448   13| a   */ A.a,
+		A.RBIQ, /* RBIQ |5           12| b   */ A.b,
+		A.D,    /* D    |6           11| c   */ A.c,
+		A.A,    /* A    |7           10| d   */ A.d,
+		A.GND,  /* GND  |8            9| e   */ A.e
 				/*      +--------------+     */
 	)
 NETLIST_END()
-#endif
 
 NETLIST_START(TTL74XX_lib)
 	NET_MODEL("DM7414         SCHMITT_TRIGGER(VTP=1.7 VTM=0.9 VI=4.35 RI=6.15k VOH=3.5 ROH=120 VOL=0.1 ROL=37.5 TPLH=15 TPHL=15)")
@@ -1664,6 +2523,22 @@ NETLIST_START(TTL74XX_lib)
 		TT_FAMILY("74XX")
 	TRUTHTABLE_END()
 
+	TRUTHTABLE_START(TTL_7442, 4, 10, "")
+		TT_HEAD("D,C,B,A|0,1,2,3,4,5,6,7,8,9")
+		TT_LINE("0,0,0,0|0,1,1,1,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,0,0,1|1,0,1,1,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,0,1,0|1,1,0,1,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,0,1,1|1,1,1,0,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,1,0,0|1,1,1,1,0,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,1,0,1|1,1,1,1,1,0,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,1,1,0|1,1,1,1,1,1,0,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("0,1,1,1|1,1,1,1,1,1,1,0,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("1,0,0,0|1,1,1,1,1,1,1,1,0,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("1,0,0,1|1,1,1,1,1,1,1,1,1,0|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("1,0,1,X|1,1,1,1,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+		TT_LINE("1,1,X,X|1,1,1,1,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
+	TRUTHTABLE_END()
+
 #if (NL_USE_TRUTHTABLE_7448)
 	TRUTHTABLE_START(TTL_7448, 7, 7, "+A,+B,+C,+D,+LTQ,+BIQ,+RBIQ,@VCC,@GND")
 		TT_HEAD(" LTQ,BIQ,RBIQ, A , B , C , D | a, b, c, d, e, f, g")
@@ -1768,7 +2643,7 @@ NETLIST_START(TTL74XX_lib)
 	 *          |  1  |  *  |  1  | 1 || TOGGLE  |
 	 *          +-----+-----+-----+---++---+-----+
 	 */
-	TRUTHTABLE_START(TTL_74107, 6, 4, "+CLK,+J,+K,+CLRQ,@VCC,@GND")
+	TRUTHTABLE_START(TTL_74107_TT, 6, 4, "+CLK,+J,+K,+CLRQ,@VCC,@GND")
 		TT_HEAD("CLRQ, CLK, _CO,  J, K,_QX | Q, QQ, CO, QX")
 		TT_LINE("  0,   0,    X,  X, X,  X | 0,  1,  0,  0 | 16, 25, 1, 1")
 		TT_LINE("  0,   1,    X,  X, X,  X | 0,  1,  1,  0 | 16, 25, 1, 1")
@@ -1941,25 +2816,49 @@ NETLIST_START(TTL74XX_lib)
 	LOCAL_LIB_ENTRY(TTL_7430_DIP)
 	LOCAL_LIB_ENTRY(TTL_7432_DIP)
 	LOCAL_LIB_ENTRY(TTL_7437_DIP)
-#if (NL_USE_TRUTHTABLE_7448)
+	LOCAL_LIB_ENTRY(TTL_7442_DIP)
 	LOCAL_LIB_ENTRY(TTL_7448_DIP)
-#endif
+	LOCAL_LIB_ENTRY(TTL_7450_DIP)
+	LOCAL_LIB_ENTRY(TTL_7473_DIP)
+	LOCAL_LIB_ENTRY(TTL_7473A_DIP)
+	LOCAL_LIB_ENTRY(TTL_7474_DIP)
+	LOCAL_LIB_ENTRY(TTL_7475_DIP)
+	LOCAL_LIB_ENTRY(TTL_7477_DIP)
+	LOCAL_LIB_ENTRY(TTL_7483_DIP)
+	LOCAL_LIB_ENTRY(TTL_7485_DIP)
 	LOCAL_LIB_ENTRY(TTL_7486_DIP)
+	LOCAL_LIB_ENTRY(TTL_7490_DIP)
+	LOCAL_LIB_ENTRY(TTL_7492_DIP)
+	LOCAL_LIB_ENTRY(TTL_7493_DIP)
+	LOCAL_LIB_ENTRY(TTL_7497_DIP)
+	LOCAL_LIB_ENTRY(TTL_74107_DIP)
+	LOCAL_LIB_ENTRY(TTL_74107A_DIP)
+	LOCAL_LIB_ENTRY(TTL_74113_DIP)
+	LOCAL_LIB_ENTRY(TTL_74113A_DIP)
 	LOCAL_LIB_ENTRY(TTL_74121_DIP)
 	LOCAL_LIB_ENTRY(TTL_74123_DIP)
 	LOCAL_LIB_ENTRY(TTL_9602_DIP)
 	LOCAL_LIB_ENTRY(TTL_74125_DIP)
 	LOCAL_LIB_ENTRY(TTL_74126_DIP)
-#if (NL_USE_TRUTHTABLE_74107)
-	LOCAL_LIB_ENTRY(TTL_74107_DIP)
-#endif
+	LOCAL_LIB_ENTRY(TTL_74153_DIP)
 	LOCAL_LIB_ENTRY(TTL_74155_DIP)
 	LOCAL_LIB_ENTRY(TTL_74156_DIP)
 	LOCAL_LIB_ENTRY(TTL_74157_DIP)
+	LOCAL_LIB_ENTRY(TTL_74161_DIP)
+	LOCAL_LIB_ENTRY(TTL_74163_DIP)
+	LOCAL_LIB_ENTRY(TTL_74164_DIP)
+	LOCAL_LIB_ENTRY(TTL_74165_DIP)
+	LOCAL_LIB_ENTRY(TTL_74166_DIP)
+	LOCAL_LIB_ENTRY(TTL_74174_DIP)
 	LOCAL_LIB_ENTRY(TTL_74260_DIP)
 	LOCAL_LIB_ENTRY(TTL_74279_DIP)
 	LOCAL_LIB_ENTRY(TTL_74377_DIP)
 	LOCAL_LIB_ENTRY(TTL_74378_DIP)
 	LOCAL_LIB_ENTRY(TTL_74379_DIP)
+	LOCAL_LIB_ENTRY(TTL_74393_DIP)
+	LOCAL_LIB_ENTRY(SN74LS629_DIP)
 	LOCAL_LIB_ENTRY(DM9312_DIP)
+	LOCAL_LIB_ENTRY(TTL_9310_DIP)
+	LOCAL_LIB_ENTRY(TTL_9316_DIP)
+	LOCAL_LIB_ENTRY(TTL_9322_DIP)
 NETLIST_END()

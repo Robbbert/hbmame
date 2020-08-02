@@ -10346,6 +10346,7 @@ wildplt                         // (c) 1992 Jaleco
 
 @source:cit101.cpp
 cit101                          // (c) 1980 C. Itoh
+cit101e                         // (c) 1983 C. Itoh
 
 @source:cit101xl.cpp
 cit101xl                        //
@@ -13871,12 +13872,14 @@ jolycdie                        // 1990 bootleg
 jolycdif                        // 1990 bootleg
 jolycdig                        // 1993 bootleg
 jolycdih                        // 1990 bootleg
+jolycdii                        // 1993 bootleg
 jolycdit                        // 199? bootleg
 jolycdsp                        // (c) 1992 TAB-Austria
 jolycmzs                        // (c) 1993 MZS Tech
 jolyjokr                        // (c) 198? Impera
 jolyjokra                       // (c) 198? Impera
-jolyjokrb                       // (c) 198? Impera
+jolyjokrb1                      // (c) 1985 Impera
+jolyjokrb2                      // (c) 1985 Impera
 jolyjokrc                       // (c) 198? Apple Time
 jolyjokrm                       // (c) 198? Impera
 jolyjokro                       // (c) 198? Impera
@@ -13894,6 +13897,7 @@ megacard                        // (c) 1993 Fun World
 mongolnw                        // 199? bootleg
 multiwin                        // (c) 1992 Fun World
 nevadafw                        // 199? unknown
+nkoulit                         // 1995 JK Amusement
 novoplay                        // (c) 1986 Novomatic
 pool10                          // (c) 1996 C.M.C.
 pool10b                         // (c) 1996 C.M.C.
@@ -13909,6 +13913,7 @@ biliard                         // 1998 bootleg.
 potgame                         // (c) 1996 C.M.C.
 powercrd                        // (c) 1993 Fun World
 rcdino4                         // 1998 unknown
+reflexcrd                       // (c) 1999 TAB-Austria
 royal                           // 2001, hack.
 royalcdfr                       // (c) 1991 TAB-Austria
 royalcrd                        // (c) 1991 TAB-Austria
@@ -14798,6 +14803,7 @@ smartfps
 gormiti
 tkmag220                        //
 myac220
+imgame
 
 @source:generalplus_gpl16250_romram.cpp
 paccon
@@ -15856,6 +15862,8 @@ hec2hrx                         //
 hec2mdhrx                       //
 hec2mx40                        //
 hec2mx80                        //
+hector1                         //
+interact                        //
 victor                          //
 
 @source:hektor.cpp
@@ -16698,10 +16706,6 @@ intlc440                        //
 
 @source:intellect02.cpp
 intel02                         //
-
-@source:interact.cpp
-hector1                         //
-interact                        //
 
 @source:interpro.cpp
 ip2000                          // Intergraph InterPro/InterServe 20x0
@@ -32067,6 +32071,7 @@ ts_handy11
 ablwikid
 maxx5in1
 maxx6in1
+max10in1
 
 @source:nes_vt.cpp
 vdogdeme
@@ -32085,6 +32090,8 @@ lxcmcysw
 lxcmcyfz
 lxcmcydp
 lxcmcysp
+lxcmcypp
+lxcmcycr
 lxccminn
 lxccplan
 rtvgc300
@@ -32174,6 +32181,8 @@ xing48
 wowwg
 110dance
 lxts3
+unk1682
+njp60in1
 
 @source:newbrain.cpp
 newbrain                        //
@@ -32557,7 +32566,8 @@ g7400                           // 1983 Videopac Plus G7400
 jopac                           // 1983 Jopac JO7400
 odyssey2                        // Magnavox Odyssey 2 - 1978-1983
 odyssey3                        // Magnavox Odyssey 3 / Command Center (prototype)
-videopac                        // 1979 Videopac G7000/C52
+videopac                        // 1979 Videopac G7000
+videopacf                       // 1979 Videopac C52
 
 @source:offtwall.cpp
 offtwall                        // 136090           (c) 1991
@@ -37633,6 +37643,7 @@ snespal                         // Nintendo Super Nintendo PAL
 @source:snesb51.cpp
 mk3snes
 snes4sl
+snes4sln
 
 @source:snesb.cpp
 denseib                         // bootleg
@@ -37998,6 +38009,8 @@ pballpup
 swclone
 dreamlss
 senspeed
+ordentv
+wfcentro
 
 @source:spg2xx_digimake.cpp
 rad_digi
@@ -38127,6 +38140,7 @@ react
 
 @source:spg2xx_zone_32bit.cpp
 mywicodx                        //
+mywicogt
 zon32bit                        // Zone 32-bit
 oplayer
 dnv200fs
