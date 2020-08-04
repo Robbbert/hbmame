@@ -1672,6 +1672,56 @@ ROM_START( svchs36 ) //svckoryu
 	ROM_LOAD16_BYTE( "269d.c8", 0x3000001, 0x800000, CRC(de99e613) SHA1(F28C6AF4A31A937E5B441D4B860E3CCCA725F27A) )
 ROM_END
 
+ROM_START( svchs37 ) //svcpluswds
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "269s37.p1", 0x000000, 0x600000, CRC(d24da2c3) SHA1(2cd41ab461a988eeb7a81dfdcb8377e7583bdb76) )
+
+	NEO_SFIX_128K( "269s37.s1", CRC(470d4fb1) SHA1(199a8b2ef38991f51944db7f8c899683c83ea2d2) )
+
+	NEO_BIOS_AUDIO_128K( "269s37.m1", CRC(9af84708) SHA1(16f998fc344f13703ada5a69a22bc00aac97116c) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "269h.v1", 0x000000, 0x400000, CRC(e7203930) SHA1(c6753df1db87d223ee39ffac920da449127dbcdf) )
+	ROM_LOAD( "269h.v2", 0x400000, 0x400000, CRC(675159c3) SHA1(c3a4f6db61dfab5bc31bfe94e1c3915676347031) )
+	ROM_LOAD( "269h.v3", 0x800000, 0x400000, CRC(f8810665) SHA1(fc1e94629a5124076959938257a80d04b2e871eb) )
+	ROM_LOAD( "269h.v4", 0xc00000, 0x400000, CRC(b57b4ea3) SHA1(873dc7f5eae687bc70af01ea310e935287de0ebf) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "269d.c1", 0x0000000, 0x800000, CRC(465d473b) SHA1(0B2BE2B2657C2AE021EC91515D1D6306179751D5) )
+	ROM_LOAD16_BYTE( "269d.c2", 0x0000001, 0x800000, CRC(3eb28f78) SHA1(DF1B096FE95796DB1515B69F74266ED13DD9EE56) )
+	ROM_LOAD16_BYTE( "269d.c3", 0x1000000, 0x800000, CRC(f4d4ab2b) SHA1(A19788435173540469FE5D07429A83DDE6D701A0) )
+	ROM_LOAD16_BYTE( "269d.c4", 0x1000001, 0x800000, CRC(a69d523a) SHA1(98D8DAC2E40F71B5B8426D3C77476A0A20783181) )
+	ROM_LOAD16_BYTE( "269d.c5", 0x2000000, 0x800000, CRC(ba2a7892) SHA1(EED45E1330DCC9F610598DC53977BF3A81DD161A) )
+	ROM_LOAD16_BYTE( "269d.c6", 0x2000001, 0x800000, CRC(37371ca1) SHA1(8AAA1B9EA34470085D9944C9AD64CFB0FFE09859) )
+	ROM_LOAD16_BYTE( "269s37.c7", 0x3000000, 0x800000, CRC(fc3d05e4) SHA1(4d5b529832e34f9b36daf735da1c18c2bb6f24fc) )
+	ROM_LOAD16_BYTE( "269s37.c8", 0x3000001, 0x800000, CRC(d7b6328e) SHA1(324d8c211267f1962fe6a0ed835a6cefa7ee2d9f) )
+ROM_END
+
+ROM_START( svchs38 ) //svcpluswds
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "269s38.p1", 0x000000, 0x600000, CRC(f13aefbe) SHA1(4d9d8cfd99c064973ba56589b5f2e0d304f49f5a) )
+
+	NEO_SFIX_128K( "269s37.s1", CRC(470d4fb1) SHA1(199a8b2ef38991f51944db7f8c899683c83ea2d2) )
+
+	NEO_BIOS_AUDIO_128K( "269s37.m1", CRC(9af84708) SHA1(16f998fc344f13703ada5a69a22bc00aac97116c) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "269h.v1", 0x000000, 0x400000, CRC(e7203930) SHA1(c6753df1db87d223ee39ffac920da449127dbcdf) )
+	ROM_LOAD( "269h.v2", 0x400000, 0x400000, CRC(675159c3) SHA1(c3a4f6db61dfab5bc31bfe94e1c3915676347031) )
+	ROM_LOAD( "269h.v3", 0x800000, 0x400000, CRC(f8810665) SHA1(fc1e94629a5124076959938257a80d04b2e871eb) )
+	ROM_LOAD( "269h.v4", 0xc00000, 0x400000, CRC(b57b4ea3) SHA1(873dc7f5eae687bc70af01ea310e935287de0ebf) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "269d.c1", 0x0000000, 0x800000, CRC(465d473b) SHA1(0B2BE2B2657C2AE021EC91515D1D6306179751D5) )
+	ROM_LOAD16_BYTE( "269d.c2", 0x0000001, 0x800000, CRC(3eb28f78) SHA1(DF1B096FE95796DB1515B69F74266ED13DD9EE56) )
+	ROM_LOAD16_BYTE( "269d.c3", 0x1000000, 0x800000, CRC(f4d4ab2b) SHA1(A19788435173540469FE5D07429A83DDE6D701A0) )
+	ROM_LOAD16_BYTE( "269d.c4", 0x1000001, 0x800000, CRC(a69d523a) SHA1(98D8DAC2E40F71B5B8426D3C77476A0A20783181) )
+	ROM_LOAD16_BYTE( "269d.c5", 0x2000000, 0x800000, CRC(ba2a7892) SHA1(EED45E1330DCC9F610598DC53977BF3A81DD161A) )
+	ROM_LOAD16_BYTE( "269d.c6", 0x2000001, 0x800000, CRC(37371ca1) SHA1(8AAA1B9EA34470085D9944C9AD64CFB0FFE09859) )
+	ROM_LOAD16_BYTE( "269s37.c7", 0x3000000, 0x800000, CRC(fc3d05e4) SHA1(4d5b529832e34f9b36daf735da1c18c2bb6f24fc) )
+	ROM_LOAD16_BYTE( "269s37.c8", 0x3000001, 0x800000, CRC(d7b6328e) SHA1(324d8c211267f1962fe6a0ed835a6cefa7ee2d9f) )
+ROM_END
+
 ROM_START( svcpluss01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "svchx01-p1p.bin", 0x000000, 0x200000, CRC(e0bd007e) SHA1(6e593e740a7cfcf252b619292b2a6aeb10d5d32a) )
@@ -3334,8 +3384,10 @@ HACK( 2003, svchs31,        svc,      neogeo_noslot, neogeo, neogeo_state,  svch
 HACK( 2003, svchs32,        svc,      neogeo_noslot, neogeo, neogeo_state,  svcboot,  ROT0,   "hack",    "SvC Chaos (Fixed Sound Bugs With Original M1 Data)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svchs33,        svc,      neogeo_noslot, neogeo, neogeo_state,  svcboot,  ROT0,  "Jason[FGCH]",    "SvC Chaos (Remix 2010-02-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svchs34,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "Playmore", "SvC Chaos (MVS / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, svchs35,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0,  "bootleg", "SvC Chaos (Bootleg, set 3)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, svchs36,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,  ROT0,  "hack", "SvC Chaos (Dragon version simplified 2020-02-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2003, svchs35,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "bootleg", "SvC Chaos (Bootleg, set 3)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, svchs36,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "hack", "SvC Chaos (Dragon Version Simplified 2020-02-29)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, svchs37,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "hack", "SvC Chaos (Storm Bai Luo Original 2018-11-21)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, svchs38,        svc,      neogeo_noslot, neogeo, neogeo_state,  neogeo,   ROT0,  "hack", "SvC Chaos (Storm Bai Luo Simplified 2020-02-29)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svcpluss01,     svc,      neogeo_noslot, neogeo, neogeo_state,   svcplus, ROT0,  "kawada7278",    "SvC Chaos Plus (Subdue The Dragon Super Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svcpluss02,     svc,      neogeo_noslot, neogeo, neogeo_state,   svcplus, ROT0,  "Eddids",    "SvC Chaos Plus (PlayStation 2 Final)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, svcpluss03,     svc,      neogeo_noslot, neogeo, neogeo_state,   svcplus, ROT0,  "Jason[FGCH]",    "SvC Chaos Plus (Remix Ultra v1.2)", MACHINE_SUPPORTS_SAVE )

@@ -1,6 +1,48 @@
 ﻿What's new in HBMAME
 ====================
 
+2020-08-26 0.224
+
+New Games
+---------------------------------
+[captcomms97]         Captain Commando (Elite Edition Update 2020-07-13)
+[captcomms98]         Captain Commando (Elite Edition Update 2020-07-22)
+[captcomms99]         Captain Commando (Warlord Version 2020-07-21)
+[dinos271]            Cadillacs and Dinosaurs (Uranus Edition Update 2020-06-14)
+[kof2k2s110]          Kof2002 (PlayStation 2 Enhanced Edition Original (Iori Bailu k9999 Diamond)
+[kof2k2s111]          Kof2002 (PlayStation 2 Enhanced Edition Extremely simplified (Iori Bailu k9999 Diamond)
+[kof2k2s112]          Kof2002 (PlayStation 2 Female Storm Edition Original 2019-03-19)
+[kof2k2s113]          Kof2002 (PlayStation 2 Female Storm Edition Extremely simplified 2019-03-19)
+[kof97s195]           Kof'97 (YK World Buwu 83 Modified Edition Original 2020-07-15)
+[kof97s196]           Kof'97 (YK World Buwu 83 Modified Edition Simplify 2020-07-15)
+[kof97s197]           Kof'97 (YK World Buwu 85 Modified Edition Original 2020-07-15)
+[kof97s198]           Kof'97 (YK World Buwu 85 Modified Edition Simplify 2020-07-15)
+[kof97s199]           Kof'97 (YK Clone Zero Modified Version Original 2020-07-08)
+[kof97s200]           Kof'97 (YK Clone Zero Modified Version Simplify 2020-07-08)
+[kof97s201]           Kof'97 (10th Anniversary Original 2020-07-12)
+[kof97s202]           Kof'97 (10th Anniversary Simplify 2020-07-12)
+[kof98hh133]          Kof'98 (Anger Enhanced Edition 2009-04-15)
+[kof98hh134]          Kof'98 (Cosmic Simplify 2020-07-25)
+[kov2h26]             Knights of Valour 2 (Green Edition 2020-07-15)
+[kov2p204s102]        Knights of Valour 2 Plus (Phoenix Dance Dragon Song 2020-07-22)[NOT WORKING]
+[kovpluss376]         Knights of Valour Plus 2012 (Warriors Edition 2020-07-14)
+[kovsho188]           Knights of Valour Super Heroes Plus (God of War 2020-07-10)
+[kovsho189]           Knights of Valour Super Heroes Plus (You Ju Edition 2020-03-07)
+[mks02]               Mortal Kombat (Revision 5.0 Kaillera Friendly 2018-02-20)
+[mk2s02]              Ultimate Mortal Kombat II (Tournament Edition 2020-07-23)
+[mk3k]                Mortal Kombat 3 (Revision 2.1 Kaillera Friendly 2018-02-20)
+[olds100ass173]       Oriental Legend Special (Zero 2020-07-12)
+[olds100ass174]       Oriental Legend Special (Return of the Great Saint 2020-07-21)
+[olds100ass175]       Oriental Legend Special (Dreaming of Spiritual Mountain 2020-07-22)
+[sf2ces33]            Street Fighter II': Champion Edition (Chinese Voice Version Simplified 2020-06-30)
+[sf2s09]              Street Fighter II: The World Warrior (Chinese Voice Version Simplified 2020-06-30)
+[svchs37]             SvC Chaos (Storm Bai Luo Original 2018-11-21)
+[svchs38]             SvC Chaos (Storm Bai Luo Simplified 2020-02-29)
+[umk3uc20200802]      Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-08-02)
+
+
+
+
 2020-07-29 0.223
 
 New Games
