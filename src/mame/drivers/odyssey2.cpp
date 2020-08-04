@@ -5,17 +5,12 @@
 Driver file to handle emulation of the Odyssey2.
 
 TODO:
-- odyssey3 cpu/video should have different clocks
-- 4in1(4 in a row)/musician needs a new mappertype to work: 3KB program ROM
-  and 1KB bankswitched data ROM
-- backgam does not work, it only shows the background graphics
-- chess has graphics issues near the screen borders: missing A-H at bottom,
-  rightmost column is not erased properly, wrongly places chars at top
-- qbert has major graphics problems, similar to chess?
-- missing questionmark graphics in turtles
+- odyssey3 cpu/video should probably have a different XTAL
+- backgamm has display timing problems (it does a lot of partial screen updates)
 - homecomp does not work, needs new slot device
+- g7400 EF9341 R/W is connected to CPU A2, what happens if it is disobeyed?
 - a lot more issues, probably, this TODO list was written by someone with
-  no knowledge on odyssey2
+  not much knowledge on odyssey2
 
 ***************************************************************************/
 
@@ -50,12 +45,9 @@ public:
 	void videopac(machine_config &config);
 	void videopacf(machine_config &config);
 
-	void init_odyssey2();
-
 	uint32_t screen_update_odyssey2(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 protected:
-
 	required_device<i8048_device> m_maincpu;
 	required_device<i8244_device> m_i8244;
 	required_device<o2_cart_slot_device> m_cart;
@@ -64,7 +56,6 @@ protected:
 	uint8_t m_p1;
 	uint8_t m_p2;
 	uint8_t m_lum;
-
 
 	DECLARE_READ_LINE_MEMBER(t1_read);
 	void odyssey2_palette(palette_device &palette) const;
@@ -296,18 +287,11 @@ void g7400_state::g7400_palette(palette_device &palette) const
 	palette.set_pen_colors(0, g7400_colors);
 }
 
-void odyssey2_state::init_odyssey2()
-{
-	memset(m_ram, 0, 0x80);
-
-	uint8_t *gfx = memregion("gfx1")->base();
-	for (int i = 0; i < 256; i++)
-		gfx[i] = i; /* TODO: Why i and not 0? */
-}
-
 
 void odyssey2_state::machine_start()
 {
+	memset(m_ram, 0, 0x80);
+
 	save_item(NAME(m_ram));
 	save_item(NAME(m_p1));
 	save_item(NAME(m_p2));
@@ -317,12 +301,6 @@ void odyssey2_state::machine_start()
 
 void odyssey2_state::machine_reset()
 {
-	m_lum = 0;
-
-	/* jump to "last" bank, will work for all sizes due to being mirrored */
-	m_p1 = 0xff;
-	m_p2 = 0xff;
-	m_cart->write_bank(m_p1);
 }
 
 
@@ -350,18 +328,12 @@ void g7400_state::machine_reset()
 
 uint8_t odyssey2_state::io_read(offs_t offset)
 {
-	u8 data = 0;
+	u8 data = m_cart->io_read(offset);
+	if (!(m_p1 & P1_EXT_RAM_ENABLE) && ~offset & 0x80)
+		data &= m_ram[offset];
 
 	if ((m_p1 & (P1_VDC_COPY_MODE_ENABLE | P1_VDC_ENABLE)) == 0)
-	{
-		data = m_i8244->read(offset);
-	}
-	else if (!(m_p1 & P1_EXT_RAM_ENABLE))
-	{
-		data = m_cart->io_read(offset);
-		if (~offset & 0x80)
-			data &= m_ram[offset];
-	}
+		data &= m_i8244->read(offset);
 
 	return data;
 }
@@ -369,37 +341,24 @@ uint8_t odyssey2_state::io_read(offs_t offset)
 
 void odyssey2_state::io_write(offs_t offset, uint8_t data)
 {
-	if ((m_p1 & (P1_EXT_RAM_ENABLE | P1_VDC_COPY_MODE_ENABLE)) == 0x00)
+	if (!(m_p1 & P1_VDC_COPY_MODE_ENABLE))
 	{
-		if (~offset & 0x80)
-			m_ram[offset] = data;
 		m_cart->io_write(offset, data);
+		if (!(m_p1 & P1_EXT_RAM_ENABLE) && ~offset & 0x80)
+			m_ram[offset] = data;
 	}
-	else if (!(m_p1 & P1_VDC_ENABLE))
-	{
+
+	if (!(m_p1 & P1_VDC_ENABLE))
 		m_i8244->write(offset, data);
-	}
 }
 
 
 uint8_t g7400_state::io_read(offs_t offset)
 {
-	u8 data = 0;
+	u8 data = odyssey2_state::io_read(offset);
 
-	if ((m_p1 & (P1_VDC_COPY_MODE_ENABLE | P1_VDC_ENABLE)) == 0)
-	{
-		data = m_i8244->read(offset);
-	}
-	else if (!(m_p1 & P1_EXT_RAM_ENABLE))
-	{
-		data = m_cart->io_read(offset);
-		if (~offset & 0x80)
-			data &= m_ram[offset];
-	}
-	else if (!(m_p1 & P1_VPP_ENABLE))
-	{
-		data = m_ef9340_1->ef9341_read( offset & 0x02, offset & 0x01 );
-	}
+	if (!(m_p1 & P1_VPP_ENABLE) && offset & 4)
+		data &= m_ef9340_1->ef9341_read( offset & 0x02, offset & 0x01 );
 
 	return data;
 }
@@ -407,20 +366,10 @@ uint8_t g7400_state::io_read(offs_t offset)
 
 void g7400_state::io_write(offs_t offset, uint8_t data)
 {
-	if ((m_p1 & (P1_EXT_RAM_ENABLE | P1_VDC_COPY_MODE_ENABLE)) == 0x00)
-	{
-		if (~offset & 0x80)
-			m_ram[offset] = data;
-		m_cart->io_write(offset, data);
-	}
-	else if (!(m_p1 & P1_VDC_ENABLE))
-	{
-		m_i8244->write(offset, data);
-	}
-	else if (!(m_p1 & P1_VPP_ENABLE))
-	{
+	odyssey2_state::io_write(offset, data);
+
+	if (!(m_p1 & P1_VPP_ENABLE) && ~offset & 4)
 		m_ef9340_1->ef9341_write( offset & 0x02, offset & 0x01, data );
-	}
 }
 
 
@@ -509,7 +458,7 @@ void odyssey2_state::p1_write(uint8_t data)
 {
 	m_p1 = data;
 	m_lum = ( data & 0x80 ) >> 4;
-	m_cart->write_bank(m_p1);
+	m_cart->write_p1(m_p1 & 0x13);
 }
 
 
@@ -553,12 +502,13 @@ uint8_t odyssey2_state::p2_read()
 void odyssey2_state::p2_write(uint8_t data)
 {
 	m_p2 = data;
+	m_cart->write_p2(m_p2 & 0x0f);
 }
 
 
 void g7400_state::p2_write(uint8_t data)
 {
-	m_p2 = data;
+	odyssey2_state::p2_write(data);
 	m_i8243->p2_w(m_p2 & 0x0f);
 }
 
@@ -635,51 +585,6 @@ void g7400_state::i8243_p7_w(uint8_t data)
 }
 
 
-static const gfx_layout odyssey2_graphicslayout =
-{
-	8,1,
-	256,                                    /* 256 characters */
-	1,                      /* 1 bits per pixel */
-	{ 0 },                  /* no bitplanes; 1 bit per pixel */
-	/* x offsets */
-	{
-	0,
-	1,
-	2,
-	3,
-	4,
-	5,
-	6,
-	7,
-	},
-	/* y offsets */
-	{ 0 },
-	1*8
-};
-
-
-static const gfx_layout odyssey2_spritelayout =
-{
-	8,1,
-	256,                                    /* 256 characters */
-	1,                      /* 1 bits per pixel */
-	{ 0 },                  /* no bitplanes; 1 bit per pixel */
-	/* x offsets */
-	{
-	7,6,5,4,3,2,1,0
-	},
-	/* y offsets */
-	{ 0 },
-	1*8
-};
-
-
-static GFXDECODE_START( gfx_odyssey2 )
-	GFXDECODE_ENTRY( "gfx1", 0x0000, odyssey2_graphicslayout, 0, 2 )
-	GFXDECODE_ENTRY( "gfx1", 0x0000, odyssey2_spritelayout, 0, 2 )
-GFXDECODE_END
-
-
 
 void odyssey2_state::odyssey2(machine_config &config)
 {
@@ -701,7 +606,6 @@ void odyssey2_state::odyssey2(machine_config &config)
 	screen.set_screen_update(FUNC(odyssey2_state::screen_update_odyssey2));
 	screen.set_palette("palette");
 
-	GFXDECODE(config, "gfxdecode", "palette", gfx_odyssey2);
 	PALETTE(config, "palette", FUNC(odyssey2_state::odyssey2_palette), 16);
 
 	SPEAKER(config, "mono").front_center();
@@ -762,7 +666,6 @@ void g7400_state::g7400(machine_config &config)
 	screen.set_screen_update(FUNC(odyssey2_state::screen_update_odyssey2));
 	screen.set_palette("palette");
 
-	GFXDECODE(config, "gfxdecode", "palette", gfx_odyssey2);
 	PALETTE(config, "palette", FUNC(g7400_state::g7400_palette), 16);
 
 	I8243(config, m_i8243);
@@ -802,46 +705,40 @@ void g7400_state::odyssey3(machine_config &config)
 ROM_START (odyssey2)
 	ROM_REGION(0x0400,"maincpu",0)
 	ROM_LOAD ("o2bios.rom", 0x0000, 0x0400, CRC(8016a315) SHA1(b2e1955d957a475de2411770452eff4ea19f4cee))
-	ROM_REGION(0x100, "gfx1", ROMREGION_ERASEFF)
 ROM_END
 
 ROM_START (videopac)
 	ROM_REGION(0x0400,"maincpu",0)
 	ROM_LOAD ("o2bios.rom", 0x0000, 0x0400, CRC(8016a315) SHA1(b2e1955d957a475de2411770452eff4ea19f4cee))
-	ROM_REGION(0x100, "gfx1", ROMREGION_ERASEFF)
 ROM_END
 
 ROM_START (videopacf)
 	ROM_REGION(0x0400,"maincpu",0)
 	ROM_LOAD ("c52.rom", 0x0000, 0x0400, CRC(a318e8d6) SHA1(a6120aed50831c9c0d95dbdf707820f601d9452e))
-	ROM_REGION(0x100, "gfx1", ROMREGION_ERASEFF)
 ROM_END
 
 
 ROM_START (g7400)
 	ROM_REGION(0x0400,"maincpu",0)
 	ROM_LOAD ("g7400.bin", 0x0000, 0x0400, CRC(e20a9f41) SHA1(5130243429b40b01a14e1304d0394b8459a6fbae))
-	ROM_REGION(0x100, "gfx1", ROMREGION_ERASEFF)
 ROM_END
 
 ROM_START (jopac)
 	ROM_REGION(0x0400,"maincpu",0)
 	ROM_LOAD ("jopac.bin", 0x0000, 0x0400, CRC(11647ca5) SHA1(54b8d2c1317628de51a85fc1c424423a986775e4))
-	ROM_REGION(0x100, "gfx1", ROMREGION_ERASEFF)
 ROM_END
 
 ROM_START (odyssey3)
 	ROM_REGION(0x0400, "maincpu", 0)
 	ROM_LOAD ("odyssey3.bin", 0x0000, 0x0400, CRC(e2b23324) SHA1(0a38c5f2cea929d2fe0a23e5e1a60de9155815dc))
-	ROM_REGION(0x100, "gfx1", ROMREGION_ERASEFF)
 ROM_END
 
 
-/*    YEAR  NAME       PARENT    COMPAT  MACHINE    INPUT     CLASS           INIT           COMPANY, FULLNAME, FLAGS */
-COMP( 1978, odyssey2,  0,        0,      odyssey2,  odyssey2, odyssey2_state, init_odyssey2, "Magnavox", "Odyssey 2 (US)", 0 )
-COMP( 1979, videopac,  odyssey2, 0,      videopac,  odyssey2, odyssey2_state, init_odyssey2, "Philips", "Videopac G7000 (Europe)", 0 )
-COMP( 1979, videopacf, odyssey2, 0,      videopacf, odyssey2, odyssey2_state, init_odyssey2, "Philips", "Videopac C52 (France)", 0 )
+/*    YEAR  NAME       PARENT    COMPAT  MACHINE    INPUT     CLASS           INIT        COMPANY, FULLNAME, FLAGS */
+COMP( 1979, odyssey2,  0,        0,      odyssey2,  odyssey2, odyssey2_state, empty_init, "Magnavox", "Odyssey 2 (US)", 0 )
+COMP( 1979, videopac,  odyssey2, 0,      videopac,  odyssey2, odyssey2_state, empty_init, "Philips", "Videopac G7000 (Europe)", 0 )
+COMP( 1979, videopacf, odyssey2, 0,      videopacf, odyssey2, odyssey2_state, empty_init, "Philips", "Videopac C52 (France)", 0 )
 
-COMP( 1983, g7400,     0,        0,      g7400,     odyssey2, g7400_state,    init_odyssey2, "Philips", "Videopac Plus G7400 (Europe)", MACHINE_IMPERFECT_GRAPHICS )
-COMP( 1983, jopac,     g7400,    0,      g7400,     odyssey2, g7400_state,    init_odyssey2, "Philips (Brandt license)", "Jopac JO7400 (France)", MACHINE_IMPERFECT_GRAPHICS )
-COMP( 1983, odyssey3,  g7400,    0,      odyssey3,  odyssey2, g7400_state,    init_odyssey2, "Magnavox", "Odyssey 3 Command Center (US, prototype)", MACHINE_IMPERFECT_GRAPHICS )
+COMP( 1983, g7400,     0,        0,      g7400,     odyssey2, g7400_state,    empty_init, "Philips", "Videopac Plus G7400 (Europe)", MACHINE_IMPERFECT_GRAPHICS )
+COMP( 1983, jopac,     g7400,    0,      g7400,     odyssey2, g7400_state,    empty_init, "Philips (Brandt license)", "Jopac JO7400 (France)", MACHINE_IMPERFECT_GRAPHICS )
+COMP( 1983, odyssey3,  g7400,    0,      odyssey3,  odyssey2, g7400_state,    empty_init, "Magnavox", "Odyssey 3 Command Center (US, prototype)", MACHINE_IMPERFECT_GRAPHICS )
