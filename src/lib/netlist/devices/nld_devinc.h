@@ -601,6 +601,13 @@
 	NET_REGISTER_DEVEXT(CD4006, __VA_ARGS__)
 
 // ---------------------------------------------------------------------
+// Source: src/lib/netlist/devices/nld_4013.cpp
+// ---------------------------------------------------------------------
+// usage       : CD4013(name)
+#define CD4013(...)                                                    \
+	NET_REGISTER_DEVEXT(CD4013, __VA_ARGS__)
+
+// ---------------------------------------------------------------------
 // Source: src/lib/netlist/devices/nld_4017.cpp
 // ---------------------------------------------------------------------
 // usage       : CD4017(name)
@@ -1045,10 +1052,10 @@
 #define TTL_74279B(...)                                                \
 	NET_REGISTER_DEVEXT(TTL_74279B, __VA_ARGS__)
 
-// usage       : DM9312(name, pA, pB, pC, pG, pD0, pD1, pD2, pD3, pD4, pD5, pD6, pD7)
+// usage       : TTL_9312(name, pA, pB, pC, pG, pD0, pD1, pD2, pD3, pD4, pD5, pD6, pD7)
 // auto connect: VCC, GND
-#define DM9312(...)                                                    \
-	NET_REGISTER_DEVEXT(DM9312, __VA_ARGS__)
+#define TTL_9312(...)                                                  \
+	NET_REGISTER_DEVEXT(TTL_9312, __VA_ARGS__)
 
 // ---------------------------------------------------------------------
 // Source: parser: TTL74XX_lib
@@ -1209,9 +1216,9 @@
 #define SN74LS629_DIP(...)                                             \
 	NET_REGISTER_DEVEXT(SN74LS629_DIP, __VA_ARGS__)
 
-// usage       : DM9312_DIP(name)
-#define DM9312_DIP(...)                                                \
-	NET_REGISTER_DEVEXT(DM9312_DIP, __VA_ARGS__)
+// usage       : TTL_9312_DIP(name)
+#define TTL_9312_DIP(...)                                                \
+	NET_REGISTER_DEVEXT(TTL_9312_DIP, __VA_ARGS__)
 
 // usage       : TTL_9310_DIP(name)
 #define TTL_9310_DIP(...)                                              \
@@ -1338,6 +1345,10 @@
 #define MB3614_DIP(...)                                                \
 	NET_REGISTER_DEVEXT(MB3614_DIP, __VA_ARGS__)
 
+// usage       : MC3340_DIP(name)
+#define MC3340_DIP(...)                                                \
+	NET_REGISTER_DEVEXT(MC3340_DIP, __VA_ARGS__)
+
 // usage       : TL081_DIP(name)
 #define TL081_DIP(...)                                                 \
 	NET_REGISTER_DEVEXT(TL081_DIP, __VA_ARGS__)
@@ -1369,6 +1380,10 @@
 // usage       : UA741_DIP14(name)
 #define UA741_DIP14(...)                                               \
 	NET_REGISTER_DEVEXT(UA741_DIP14, __VA_ARGS__)
+
+// usage       : MC1558_DIP(name)
+#define MC1558_DIP(...)                                                 \
+	NET_REGISTER_DEVEXT(MC1558_DIP, __VA_ARGS__)
 
 // usage       : LM747_DIP(name)
 #define LM747_DIP(...)                                                 \

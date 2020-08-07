@@ -356,7 +356,6 @@ void netlist_mame_analog_input_device::write(const double val)
 	m_value_for_device_timer = val * m_mult + m_offset;
 	if (m_value_for_device_timer != (*m_param)())
 	{
-		LOGDEBUG("write %s\n", this->tag());
 		synchronize(0, 0, &m_value_for_device_timer);
 }
 }
@@ -384,7 +383,7 @@ void netlist_mame_logic_input_device::write(const uint32_t val)
 	{
 		LOGDEBUG("write %s\n", this->tag());
 		synchronize(0, v);
-}
+	}
 }
 
 void netlist_mame_int_input_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
@@ -978,8 +977,8 @@ std::unique_ptr<netlist::netlist_state_t> netlist_mame_device::base_validity_che
 {
 	try
 	{
-		//plib::chrono::timer<plib::chrono::system_ticks> t;
-		//t.start();
+		plib::chrono::timer<plib::chrono::system_ticks> t;
+		t.start();
 		auto lnetlist = std::make_unique<netlist::netlist_state_t>("netlist",
 			plib::make_unique<netlist_validate_callbacks_t, netlist::host_arena>());
 		// enable validation mode
@@ -997,7 +996,7 @@ std::unique_ptr<netlist::netlist_state_t> netlist_mame_device::base_validity_che
 			}
 		}
 
-		//t.stop();
+		t.stop();
 		//printf("time %s %f\n", this->mconfig().gamedrv().name, t.as_seconds<double>());
 		return lnetlist;
 	}
