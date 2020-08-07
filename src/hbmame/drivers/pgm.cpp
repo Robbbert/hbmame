@@ -6389,10 +6389,10 @@ ROM_START( kov2h22 ) //kov2100v3
 
 	ROM_REGION16_LE( 0x4000000, "sprcol", 0 )
 	ROM_LOAD( "a1200.rom",    0x0000000, 0x0800000, CRC(ceeb81d8) SHA1(5476729443fc1bc9593ae10fbf7cbc5d7290b017) )
-	ROM_LOAD( "a1201.rom",    0x0800000, 0x0800000, CRC(21063ca7) SHA1(cf561b44902425a920d5cbea5bf65dd9530b2289) )
+	ROM_LOAD( "a1201-p10.rom",    0x0800000, 0x0800000, CRC(82f0a878) SHA1(ddd13e404252a71de1b2b3b974b910f899f51c38) )
 	ROM_LOAD( "a1202.rom",    0x1000000, 0x0800000, CRC(4bb92fae) SHA1(f0b6d72ed425de1c69dc8f8d5795ea760a4a59b0) )
 	ROM_LOAD( "a1203.rom",    0x1800000, 0x0800000, CRC(e73cb627) SHA1(4c6e48b845a5d1e8f9899010fbf273d54c2b8899) )
-	ROM_LOAD( "a1204.rom",    0x2000000, 0x0200000, CRC(14b4b5bb) SHA1(d7db5740eec971f2782fb2885ee3af8f2a796550) )
+	ROM_LOAD( "a1204-p04.rom",    0x2000000, 0x0800000, CRC(27527099) SHA1(e23cf366bdeaca1e009a5cec6b13164310a34384) )
 
 	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
 	ROM_LOAD( "b1200.rom",   0x0000000, 0x0800000,  CRC(bed7d994) SHA1(019dfba8154256d64cd249eb0fa4c451edce34b8) )
@@ -25426,6 +25426,34 @@ ROM_START( kovsho189 ) //kovytzyjb
 	ROM_LOAD( "m0600_po117.rom",    0x400000, 0x400041, CRC(858ab94e) SHA1(9674110a943dd2cd0408a4cdeb0b08b9e6f3ce9f) )
 ROM_END
 
+ROM_START( kovsho190 ) //kovytzyftxq
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "p0600h_101_po190.rom",    0x100000, 0x400000, CRC(b2e375cb) SHA1(4a2f272eadbdff7a04d2f4ff98ed4a4731d7c651) )
+
+	ROM_REGION( 0x4000, "prot", 0 )
+	ROM_LOAD( "kovsh_v100_china_pw148.asic", 0x000000, 0x04000,  CRC(36a4ecc8) SHA1(c1475b56dc5de44c2c9de8717dfe92ebc3221b95) )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "t0600.rom",    0x180000, 0x800000, CRC(4acc1ad6) SHA1(0668dbd5e856c2406910c6b7382548b37c631780) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "a0600.rom",    0x0000000, 0x0800000, CRC(d8167834) SHA1(fa55a99629d03b2ea253392352f70d2c8639a991) )
+	ROM_LOAD( "a0601.rom",    0x0800000, 0x0800000, CRC(ff7a4373) SHA1(7def9fca7513ad5a117da230bebd2e3c78679041) )
+	ROM_LOAD( "a0602_po112.rom",    0x1000000, 0x0800000, CRC(f25b6930) SHA1(b29bf150ba7cee93a345cbf931ae108628d3bd83) )
+	ROM_LOAD( "a0540_pw190.rom",    0x1800000, 0x0800000, CRC(0acdd7f2) SHA1(382649c6798195527cf96768e7df12f931b29d7e) )
+
+	ROM_REGION16_LE( 0x2000000, "sprmask", 0 )
+	ROM_LOAD( "b0600.rom",          0x0000000, 0x0800000, CRC(7d3cd059) SHA1(00cf994b63337e0e4ebe96453daf45f24192af1c) )
+	ROM_LOAD( "b0540_pw190.rom",    0x0800000, 0x0800000, CRC(767bf47a) SHA1(15d2ce1a720d52e2c01e32771f0d7e0300a5a360) )
+	ROM_LOAD( "b0601.rom",          0x1000000, 0x0400000, CRC(a0bb1c2f) SHA1(0542348c6e27779e0a98de16f04f9c18158f2b28) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "m0600_po92.rom",    0x400000, 0x400000, CRC(1f981f2c) SHA1(da3949e38e6ff8e6f84704ac9edff19dab2b8964) )
+ROM_END
+
  /************
  Aoshi Sanguo
 **************/
@@ -36656,7 +36684,7 @@ HACK( 2019, kovsho144,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2019, kovsho145,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Ginger Iron Horse 2019-12-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho146,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (God of War 2019-07-20)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho147,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2.7s 2019-09-15)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, kovsho148,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Central Plains Green Edition 2019-09-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, kovsho148,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Green Edition 2019-09-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, kovsho149,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Journey To The West 2019 2019-08-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho150,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Heavenly King Edition 2.7s 2020-01-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, kovsho151,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (Super Hero The Road to Survival 2017-10-02)", MACHINE_SUPPORTS_SAVE )
@@ -36698,6 +36726,7 @@ HACK( 2020, kovsho186,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1
 HACK( 2020, kovsho187,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Warriors Edition 2020-03-13)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho188,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Knights of Valour Super Heroes Plus (God of War 2020-07-10)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, kovsho189,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (You Ju Edition 2020-03-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, kovsho190,    kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshp,     ROT0,   "hack", "Knights of Valour Super Heroes Plus (Green Edition Version A 2020-07-31)", MACHINE_SUPPORTS_SAVE )
 // Aoshi Sanguo
 HACK( 2004, kovshxass01,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Troubled Hero)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )
 HACK( 2004, kovshxass02,  kovshp,    pgm_arm_type1,      kovsh,    pgm_arm_type1_state, kovshxas,   ROT0,   "hack", "Aoshi Sanguo (Metamorphosis V0.1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_SUPPORTS_SAVE )

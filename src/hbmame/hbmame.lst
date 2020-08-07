@@ -945,6 +945,8 @@ knightsh14
 knightsh15
 knightsh16
 knightsh17
+knightsh18
+knightsh19
 knightsjs01
 mercs01
 mercjs01
@@ -1017,6 +1019,7 @@ sf2ces30
 sf2ces31
 sf2ces32
 sf2ces33
+sf2ces34
 sf2js01
 sf2js02
 sf2s01
@@ -2196,6 +2199,8 @@ kof97s199
 kof97s200
 kof97s201
 kof97s202
+kof97s203
+kof97s204
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3788,6 +3793,8 @@ kof2k2s110
 kof2k2s111
 kof2k2s112
 kof2k2s113
+kof2k2s114
+kof2k2s115
 
 @source:kof2003.cpp
 kof2003d
@@ -5069,6 +5076,9 @@ mslugxz78
 mslugxz79
 mslugxz80
 mslugxz81
+mslugxz82
+mslugxz83
+mslugxz84
 mslugxwog01
 mslugxwog02
 mslugxwog03
@@ -7759,6 +7769,7 @@ kovsho186
 kovsho187
 kovsho188
 kovsho189
+kovsho190
 kovshxass01
 kovshxass02
 kovshxass03
@@ -8155,8 +8166,8 @@ rabbits04
 @source:raiden2.cpp
 zeroteam					//parent
 zeroteamcs01
+zeroteamcs02
 zeroteamss01
-zeroteamss02
 
 @source:rallyx.cpp
 rallyx			//parent
