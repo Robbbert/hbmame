@@ -11073,6 +11073,7 @@ pzloop2jr1                      // 05/02/2001 (c) 2001 Mitchell (Japan)
 qndream                         // 26/08/1996 (c) 1996 (Japan)
 ringdest                        // 02/09/1994 (c) 1994 (Euro)
 ringdesta                       // 31/08/1994 (c) 1994 (Asia)
+ringdestb                       // 02/09/1994 (c) 1994 (Brazil) - factory region hack?
 ringdesth                       // 02/09/1994 (c) 1994 (Hispanic)
 ringdstd                        //
 rmancp2j                        // 22/09/1995 (c) 1995 (Japan)
@@ -14016,6 +14017,7 @@ surfplnt40                      // (c) 1997 - Ref 970514
 
 @source:gaelcof3.cpp
 autopapa                        //
+donpepito                       //
 susanita                        //
 
 @source:gaelcopc.cpp
@@ -23072,7 +23074,8 @@ daytonat                        // 1994?   Kyle Hodgetts hack
 daytonata                       // 1994?   Kyle Hodgetts hack
 daytonagtx                      // 2004    Kyle Hodgetts hack
 desert                          // 1994.07 Desert Tank
-doa                             // 1996.11 Dead or Alive (Revision B)
+doa                             // 1997.01 Dead or Alive (Revision C)
+doab                            // 1996.12 Dead or Alive (Revision B)
 doaa                            // 1996.11 Dead or Alive (Revision A)
 dynabb                          // 1996.08 Dynamite Baseball
 dynabb97                        // 1997.04 Dynamite Baseball 97 (Revision A)
@@ -29145,9 +29148,12 @@ v4montec
 v4monted
 v4montee
 v4monteg
-v4monteh
-v4montei
-v4montej
+v4monteb
+v4monteba
+v4montebb
+v4monte5
+v4monte5a
+v4monte5b
 v4montek
 v4montel
 v4montem
