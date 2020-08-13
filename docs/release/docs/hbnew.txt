@@ -3,6 +3,8 @@
 
 2020-08-26 0.224
 
+- Metal Slug 4 and X the remix has been updated
+
 New Games
 ---------------------------------
 - [captcomms97]         Captain Commando (Elite Edition Update 2020-07-13)
@@ -45,23 +47,36 @@ New Games
 - [mks02]               Mortal Kombat (Revision 5.0 Kaillera Friendly 2018-02-20)
 - [mk2s02]              Ultimate Mortal Kombat II (Tournament Edition 2020-07-23)
 - [mk3k]                Mortal Kombat 3 (Revision 2.1 Kaillera Friendly 2018-02-20)
+- [mslug3h01]           Metal Slug 3 (Zombie Players Mode Edition 2020-05-31)
+- [mslug3h09]           Metal Slug 3 (Mummy Players Mode Edition 2020-05-31)
 - [mslug4hh59]          Metal Slug 4 (Zombie Crisis 2020-08-03)
 - [mslug4hh60]          Metal Slug 4 (Rise Of The Apes 2020-08-03)
-- [mslug4zb01]          Metal Slug 4 (Zombie Players Mode Edition 2020-08-07)
-- [mslug4zb02]          Metal Slug 4 (Zombie Players Mode Multi-Function Edition 2020-08-07)
-- [mslug4zb03]          Metal Slug 4 (Zombie Players Mode Enemies Resetting Edition 2020-08-07)
-- [mslug4zb04]          Metal Slug 4 (Zombie Players Mode Enemies Resetting Multi-Function Edition 2020-08-07)
-- [mslug4mk01]          Metal Slug 4 (Monkeys Players Mode Edition 2020-08-07)
-- [mslug4mk02]          Metal Slug 4 (Monkeys Players Mode Multi-Function Edition 2020-08-07)
-- [mslug4mk03]          Metal Slug 4 (Monkeys Players Mode Enemies Resetting Edition 2020-08-07)
-- [mslug4mk04]          Metal Slug 4 (Monkeys Players Mode Enemies Resetting Multi-Function Edition 2020-08-07)
-- [mslug4mb01]          Metal Slug 4 (Momia Players Mode Edition 2020-08-07)
-- [mslug4mb02]          Metal Slug 4 (Momia Players Mode Multi-Function Edition 2020-08-07)
-- [mslug4mb03]          Metal Slug 4 (Momia Players Mode Enemies Resetting Edition 2020-08-07)
+- [mslug4zb01]          Metal Slug 4 (Zombie Players Mode Edition 2020-08-10)
+- [mslug4zb02]          Metal Slug 4 (Zombie Players Mode Multi-Function Edition 2020-08-10)
+- [mslug4zb03]          Metal Slug 4 (Zombie Players Mode Enemies Resetting Edition 2020-08-10)
+- [mslug4zb04]          Metal Slug 4 (Zombie Players Mode Enemies Resetting Multi-Function Edition 2020-08-10)
+- [mslug4mk01]          Metal Slug 4 (Monkeys Players Mode Edition 2020-08-10)
+- [mslug4mk02]          Metal Slug 4 (Monkeys Players Mode Multi-Function Edition 2020-08-10)
+- [mslug4mk03]          Metal Slug 4 (Monkeys Players Mode Enemies Resetting Edition 2020-08-10)
+- [mslug4mk04]          Metal Slug 4 (Monkeys Players Mode Enemies Resetting Multi-Function Edition 2020-08-10)
+- [mslug4mb01]          Metal Slug 4 (Momia Players Mode Edition 2020-08-10)
+- [mslug4mb02]          Metal Slug 4 (Momia Players Mode Multi-Function Edition 2020-08-10)
+- [mslug4mb03]          Metal Slug 4 (Momia Players Mode Enemies Resetting Edition 2020-08-10)
 - [mslug4mb04]          Metal Slug 4 (Momia Players Mode Enemies Resetting Multi-Function Edition 2020-08-07)
-- [mslugxz82]           Metal Slug X (Apocalyptic Time 4.0 2020-06-23)[HomeBrew Exclusive]
+- [mslugxz82]           Metal Slug X (Apocalyptic Time 4.0 2R Edition 2020-06-23)[HomeBrew Exclusive]
 - [mslugxz83]           Metal Slug X (Allen O'Neil See You In Hell 2020-07-16)[TEST DEMO][HomeBrew Exclusive]
-- [mslugxz84]           Metal Slug X (Apocalyptic Time 5.0 2020-08-04)[HomeBrew Exclusive]
+- [mslugxz84]           Metal Slug X (Apocalyptic Time 5.0 2R Edition 2020-08-04)[HomeBrew Exclusive]
+- [mslugxz85]           Metal Slug X (Multi-Carrier 2R Edition 2013-01-05)
+- [mslugxz86]           Metal Slug X (Extreme Space 2R Edition 2015-04-10)
+- [mslugxese01]         Metal Slug X (Extreme Space 2R Edition 2015-04-10)(Generation 1V2)
+- [mslugxmcv05]         Metal Slug X (Multi-Carrier 2R Edition 2013-01-05)(Generation 1V2)
+- [mslugxans01]         Metal Slug X (Allen O'Neil See You In Hell 2R Edition 2020-07-16)[TEST DEMO])(Extreme Blue)
+- [mslugxans02]         Metal Slug X (Allen O'Neil See You In Hell 2R Edition 2020-07-16)[TEST DEMO])(Qing Youlan Second Edition)
+- [mslugxans03]         Metal Slug X (Allen O'Neil See You In Hell 2R Edition 2020-07-16)[TEST DEMO])(Green Blue 7.19)
+- [mslugxans04]         Metal Slug X (Allen O'Neil See You In Hell 2R Edition 2020-07-16)[TEST DEMO])(Burst Enhanced Edition)
+- [mslugxans05]         Metal Slug X (Allen O'Neil See You In Hell 2R Edition 2020-07-16)[TEST DEMO])(Generation 1V2)
+- [mslugxans06]         Metal Slug X (Allen O'Neil See You In Hell 2R Edition 2020-07-16)[TEST DEMO])(Hybrid Bullets Version)
+- [mslugxat07]          Metal Slug X (Apocalyptic Time 5.0 2R Edition 2020-08-04)(Big Heavy Machine Gun Flame Edition)
 - [olds100ass173]       Oriental Legend Special (Zero 2020-07-12)
 - [olds100ass174]       Oriental Legend Special (Return of the Great Saint 2020-07-21)
 - [olds100ass175]       Oriental Legend Special (Dreaming of Spiritual Mountain 2020-07-22)
