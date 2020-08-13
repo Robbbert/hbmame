@@ -8651,7 +8651,7 @@ ROM_START( captcomms60 ) //captcommu
 	ROM_LOAD ( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
-ROM_START( captcomms61 )
+ROM_START( captcomms61 ) //captcommpjy
 	ROM_REGION( 0X400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ccs61.10f", 0x000000, 0x300000, CRC(87157218) SHA1(79217809f4868a9dfb893929f9cb51eff01dc89f) )
 
@@ -8677,7 +8677,7 @@ ROM_START( captcomms61 )
 	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
-ROM_START( captcomms62 )
+ROM_START( captcomms62 ) //captcommpmy
 	ROM_REGION( 0X400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ccs62.10f", 0x000000, 0x300000, CRC(1f8f4d38) SHA1(40a74a6775ae52f3f3e905a5b2105088f106ef31) )
 	ROM_IGNORE( 0x24DA )
@@ -8704,7 +8704,7 @@ ROM_START( captcomms62 )
 	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
-ROM_START( captcomms63 )
+ROM_START( captcomms63 ) //captcommr1bs
 	ROM_REGION( 0X400000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ccs63.10f", 0x000000, 0x300000, CRC(3edc20bc) SHA1(fbdeaa2992c8e757650158ea1e8eeda2045b9ab7) )
 
@@ -25760,7 +25760,7 @@ ROM_START( tk2h139 ) //wofjmv3
 	ROM_LOAD ( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
-ROM_START( tk2h140 )
+ROM_START( tk2h140 ) //wofdr
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2h140.10f", 0x000000, 0x200000, CRC(d31c8b42) SHA1(a4b71c951f4e36f8702ccc64896bc9d19fe4567a) )
 
@@ -25788,7 +25788,7 @@ ROM_START( tk2h140 )
 	ROM_LOAD ( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
-ROM_START( tk2h141 )
+ROM_START( tk2h141 ) //wofdz
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2h141.10f", 0x000000, 0x200000, CRC(68c9fae1) SHA1(cf0d35ac3dc36012aaefa8f90e7ed923aab4de7e) )
 
