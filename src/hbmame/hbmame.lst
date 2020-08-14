@@ -666,6 +666,8 @@ captcomms98
 captcomms99
 captcomms100
 captcomms101
+captcomms102
+captcomms103
 dinos01
 dinos02
 dinos03
@@ -922,6 +924,9 @@ dinos270
 dinos271
 dinos272
 dinos273
+dinos274
+dinos275
+dinos276
 ffights01
 ffights02
 ffightj2s01
@@ -951,6 +956,7 @@ knightsh16
 knightsh17
 knightsh18
 knightsh19
+knightsh20
 knightsjs01
 mercs01
 mercjs01
@@ -991,6 +997,7 @@ punisherjs20
 punisherjs21
 punisherjs22
 punisherjs23
+punisherjs24
 punisherbzs01
 sf2ces01
 sf2ces02
@@ -2207,6 +2214,8 @@ kof97s201
 kof97s202
 kof97s203
 kof97s204
+kof97s205
+kof97s206
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3802,6 +3811,7 @@ kof2k2s112
 kof2k2s113
 kof2k2s114
 kof2k2s115
+kof2k2s116
 
 @source:kof2003.cpp
 kof2003d
@@ -4827,6 +4837,7 @@ mslug5dh69
 mslug5dh70
 mslug5dh71
 mslug5dh72
+mslug5dh73
 mslug5rmtnc01
 mslug5rmtnc02
 mslug5rmtnc03
@@ -8646,3 +8657,4 @@ sfex2p		//parent
 sfex2ps01
 sfexp 		//parent
 sfexps01
+
