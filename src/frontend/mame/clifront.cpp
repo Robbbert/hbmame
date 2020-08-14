@@ -1743,7 +1743,7 @@ void cli_frontend::display_help(const char *exename)
 			"        %1$s -showusage    for a list of options\n"
 			"        %1$s -showconfig   to show current configuration in %4$s.ini format\n"
 			"        %1$s -createconfig to create a %4$s.ini file\n"
-			"\n"
+			"\n",
 			exename,
 			build_version,
 			emulator_info::get_appname(),
