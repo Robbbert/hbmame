@@ -22,9 +22,6 @@ ef9340_1_device::ef9340_1_device(const machine_config &mconfig, const char *tag,
 	, device_video_interface(mconfig, *this)
 	, m_line_timer(nullptr)
 	, m_charset(*this, "ef9340_1")
-//, m_start_vpos(START_Y)
-	//, m_start_vblank(START_Y + SCREEN_HEIGHT)
-	//, m_screen_lines(LINES)
 {
 }
 
@@ -279,10 +276,15 @@ void ef9340_1_device::ef9340_scanline(int vpos)
 		0x00, 0x04, 0x02, 0x06, 0x01, 0x05, 0x03, 0x07
 	};
 
-	if ( vpos < m_ef9340.max_vpos )
+	for ( int i = 0; i < 40 * 8; i++ )
+		m_tmp_bitmap.pix16(vpos, i) = 0;
+
+	if ( m_ef9340.R & 0x01 && vpos < m_ef9340.max_vpos )
 	{
 		int y = vpos - 0;
 		int y_row, slice;
+		uint8_t fg = 0;
+		uint8_t bg = 0;
 
 		if ( y < 10 )
 		{
@@ -296,10 +298,6 @@ void ef9340_1_device::ef9340_scanline(int vpos)
 			else
 			{
 				// Service row is disabled
-				for ( int i = 0; i < 40 * 8; i++ )
-				{
-					m_tmp_bitmap.pix16(vpos, 0 + i ) = 24;
-				}
 				return;
 			}
 		}
@@ -315,8 +313,6 @@ void ef9340_1_device::ef9340_scanline(int vpos)
 			uint16_t addr = ef9340_get_c_addr( x, y_row );
 			uint8_t a = m_ef934x_ram_a[addr];
 			uint8_t b = m_ef934x_ram_b[addr];
-			uint8_t fg = 0;
-			uint8_t bg = 0;
 			uint8_t char_data = 0x00;
 
 			if ( a & 0x80 )
@@ -331,6 +327,10 @@ void ef9340_1_device::ef9340_scanline(int vpos)
 						fg = bgr2rgb[ a & 0x07 ];
 						bg = bgr2rgb[ ( a >> 4 ) & 0x07 ];
 					}
+					else
+					{
+						// Illegal
+					}
 				}
 				else
 				{
@@ -342,47 +342,38 @@ void ef9340_1_device::ef9340_scanline(int vpos)
 			}
 			else
 			{
-				// Alphannumeric
+				// Alphanumeric
 				if ( b & 0x80 )
 				{
 					if ( b & 0x60 )
 					{
 						// Extension
 						char_data = m_ef934x_ext_char_ram[ external_chargen_address( b & 0x7f, slice ) ];
-
 						if ( a & 0x40 )
-						{
-							fg = bg;
-							bg = bgr2rgb[ a & 0x07 ];
-						}
-						else
-						{
-							fg = bgr2rgb[ a & 0x07 ];
-						}
+							char_data ^= 0xff;
+						fg = bgr2rgb[ a & 0x07 ];
 					}
 					else
 					{
 						// DEL
 						char_data = 0xff;
 						fg = bgr2rgb[ a & 0x07 ];
+						bg = bgr2rgb[ ( a >> 4 ) & 0x07 ];
 					}
 				}
 				else
 				{
 					// Normal
 					char_data = m_charset[((b & 0x7f) * 10) + slice];
-
 					if ( a & 0x40 )
-					{
-						fg = bg;
-						bg = bgr2rgb[ a & 0x07 ];
-					}
-					else
-					{
-						fg = bgr2rgb[ a & 0x07 ];
-					}
+						char_data ^= 0xff;
+					fg = bgr2rgb[ a & 0x07 ];
 				}
 			}
+
+			// Cursor is enabled
+			if ( m_ef9340.R & 0x10 && x == m_ef9340.X && y_row == m_ef9340.Y )
+				char_data ^= 0xff;
 
 			for ( int i = 0; i < 8; i++ )
 			{
