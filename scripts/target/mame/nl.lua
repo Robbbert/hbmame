@@ -156,6 +156,8 @@ files{
 	MAME_DIR .. "src/mame/machine/nl_stuntcyc.h",
 	MAME_DIR .. "src/mame/machine/nl_gtrak10.cpp",
 	MAME_DIR .. "src/mame/machine/nl_gtrak10.h",
+	MAME_DIR .. "src/mame/machine/nl_tank.cpp",
+	MAME_DIR .. "src/mame/machine/nl_tank.h",
 
 	MAME_DIR .. "src/mame/audio/nl_flyball.cpp",
 	MAME_DIR .. "src/mame/audio/nl_flyball.h",
@@ -209,6 +211,13 @@ files{
 	MAME_DIR .. "src/mame/audio/nl_gunfight.h",
 	MAME_DIR .. "src/mame/audio/nl_280zzzap.cpp",
 	MAME_DIR .. "src/mame/audio/nl_280zzzap.h",
+
+	MAME_DIR .. "src/mame/drivers/sspeedr.cpp",
+	MAME_DIR .. "src/mame/includes/sspeedr.h",
+	MAME_DIR .. "src/mame/video/sspeedr.cpp",
+
+	MAME_DIR .. "src/mame/audio/nl_sspeedr.cpp",
+	MAME_DIR .. "src/mame/audio/nl_sspeedr.h",
 
 	MAME_DIR .. "src/mame/audio/cheekyms.cpp",
 	MAME_DIR .. "src/mame/audio/cheekyms.h",

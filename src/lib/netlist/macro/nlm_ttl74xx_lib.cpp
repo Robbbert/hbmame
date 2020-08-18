@@ -3,20 +3,6 @@
 
 #include "netlist/devices/net_lib.h"
 
-#ifndef NL_USE_TRUTHTABLE_74107
-#define NL_USE_TRUTHTABLE_74107 0
-#endif
-
-#ifndef NL_USE_TRUTHTABLE_7448
-#define NL_USE_TRUTHTABLE_7448 0
-#endif
-
-#if 1
-//
-#elif %&/()
-//
-#endif
-
 //- Identifier: TTL_7400_DIP
 //- Title: 5400/DM5400/DM7400 Quad 2-Input NAND Gates
 //- Description: This device contains four independent gates each of which performs the logic NAND function.
@@ -826,11 +812,7 @@ NETLIST_END()
 //-
 static NETLIST_START(TTL_7448_DIP)
 
-#if (NL_USE_TRUTHTABLE_7448)
-	NET_REGISTER_DEV(TTL_7448_TT, A)
-#else
-	NET_REGISTER_DEV(TTL_7448, A)
-#endif
+	TTL_7448(A)
 
 	DIPPINS(    /*      +--------------+     */
 		A.B,    /* B    |1     ++    16| VCC */ A.VCC,
@@ -1490,13 +1472,8 @@ NETLIST_END()
 //-         +------+-------+---+---++---+----+
 //-
 static NETLIST_START(TTL_74107_DIP)
-#if (NL_USE_TRUTHTABLE_74107)
-	TTL_74107_TT(A)
-	TTL_74107_TT(B)
-#else
 	TTL_74107(A)
 	TTL_74107(B)
-#endif
 
 	NET_C(A.VCC, B.VCC)
 	NET_C(A.GND, B.GND)
@@ -2846,6 +2823,32 @@ static NETLIST_START(TTL_9322_DIP)
 	)
 NETLIST_END()
 
+//- Identifier: TTL_9321_DIP
+//- Title: DM9321/DM8321 Dual 4-Line to 1-Line Data Selectors/Multiplexers
+//- Pinalias: AE,AA0,AA1,AD0,AD1,AD2,AD3,GND,BD3,BD2,BD1,BD0,BA1,BA0,BE,VCC
+//- Package: DIP
+//- NamingConvention: Naming conventions follow National Semiconductor datasheet
+//-
+static NETLIST_START(TTL_9321_DIP)
+	TTL_9321_GATE(A)
+	TTL_9321_GATE(B)
+
+	NET_C(A.VCC, B.VCC)
+	NET_C(A.GND, B.GND)
+
+	DIPPINS(      /*        +--------------+        */
+		     A.E, /*     /E |1     ++    16| VCC    */ A.VCC,
+		    A.A0, /*     A0 |2           15| /E     */ B.E,
+		    A.A1, /*     A1 |3           14| A0     */ B.A0,
+		    A.D0, /*    /D0 |4    9321   13| A1     */ B.A1,
+		    A.D1, /*    /D1 |5           12| /D0    */ B.D0,
+		    A.D2, /*    /D2 |6           11| /D1    */ B.D1,
+		    A.D3, /*    /D3 |7           10| /D2    */ B.D2,
+		   A.GND, /*    GND |8            9| /D3    */ B.D3
+			      /*        +--------------+        */
+	)
+NETLIST_END()
+
 //- Identifier: TTL_9602_DIP
 //- Title: DM9602/DM6802 Dual Retriggerable, Resettable One Shots
 //- Description: These dual resettable, retriggerable one shots have two
@@ -3175,72 +3178,6 @@ NETLIST_START(ttl74xx_lib)
 		TT_LINE("1,1,X,X|1,1,1,1,1,1,1,1,1,1|30,30,30,30,30,30,30,30,30,30")
 	TRUTHTABLE_END()
 
-#if (NL_USE_TRUTHTABLE_7448)
-	TRUTHTABLE_START(TTL_7448, 7, 7, "+A,+B,+C,+D,+LTQ,+BIQ,+RBIQ,@VCC,@GND")
-		TT_HEAD(" LTQ,BIQ,RBIQ, A , B , C , D | a, b, c, d, e, f, g")
-
-		TT_LINE("  1,  1,  1,   0,  0,  0,  0 | 1, 1, 1, 1, 1, 1, 0|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  0,  0 | 0, 1, 1, 0, 0, 0, 0|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  0,  0 | 1, 1, 0, 1, 1, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  0,  0 | 1, 1, 1, 1, 0, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  0,  1,  0 | 0, 1, 1, 0, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  1,  0 | 1, 0, 1, 1, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  1,  0 | 0, 0, 1, 1, 1, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  1,  0 | 1, 1, 1, 0, 0, 0, 0|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  0,  0,  1 | 1, 1, 1, 1, 1, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  0,  1 | 1, 1, 1, 0, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  0,  1 | 0, 0, 0, 1, 1, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  0,  1 | 0, 0, 1, 1, 0, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  0,  1,  1 | 0, 1, 0, 0, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  1,  1 | 1, 0, 0, 1, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  1,  1 | 0, 0, 0, 1, 1, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  1,  1 | 0, 0, 0, 0, 0, 0, 0|100,100,100,100,100,100,100")
-
-		// BI/RBO is input output. In the next case it is used as an input will go low.
-		TT_LINE("  1,  1,  0,   0,  0,  0,  0 | 0, 0, 0, 0, 0, 0, 0|100,100,100,100,100,100,100") // RBI
-
-		TT_LINE("  0,  1,  X,   X,  X,  X,  X | 1, 1, 1, 1, 1, 1, 1|100,100,100,100,100,100,100") // LT
-
-		// This condition has precedence
-		TT_LINE("  X,  0,  X,   X,  X,  X,  X | 0, 0, 0, 0, 0, 0, 0|100,100,100,100,100,100,100") // BI
-		TT_FAMILY("74XX")
-
-	TRUTHTABLE_END()
-
-	// FIXME: We need a more elegant solution than defining twice
-	TRUTHTABLE_START(TTL_7448_TT, 7, 7, "")
-		TT_HEAD(" LTQ,BIQ,RBIQ, A , B , C , D | a, b, c, d, e, f, g")
-
-		TT_LINE("  1,  1,  1,   0,  0,  0,  0 | 1, 1, 1, 1, 1, 1, 0|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  0,  0 | 0, 1, 1, 0, 0, 0, 0|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  0,  0 | 1, 1, 0, 1, 1, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  0,  0 | 1, 1, 1, 1, 0, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  0,  1,  0 | 0, 1, 1, 0, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  1,  0 | 1, 0, 1, 1, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  1,  0 | 0, 0, 1, 1, 1, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  1,  0 | 1, 1, 1, 0, 0, 0, 0|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  0,  0,  1 | 1, 1, 1, 1, 1, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  0,  1 | 1, 1, 1, 0, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  0,  1 | 0, 0, 0, 1, 1, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  0,  1 | 0, 0, 1, 1, 0, 0, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  0,  1,  1 | 0, 1, 0, 0, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  0,  1,  1 | 1, 0, 0, 1, 0, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   0,  1,  1,  1 | 0, 0, 0, 1, 1, 1, 1|100,100,100,100,100,100,100")
-		TT_LINE("  1,  1,  X,   1,  1,  1,  1 | 0, 0, 0, 0, 0, 0, 0|100,100,100,100,100,100,100")
-
-		// BI/RBO is input output. In the next case it is used as an input will go low.
-		TT_LINE("  1,  1,  0,   0,  0,  0,  0 | 0, 0, 0, 0, 0, 0, 0|100,100,100,100,100,100,100") // RBI
-
-		TT_LINE("  0,  1,  X,   X,  X,  X,  X | 1, 1, 1, 1, 1, 1, 1|100,100,100,100,100,100,100") // LT
-
-		// This condition has precedence
-		TT_LINE("  X,  0,  X,   X,  X,  X,  X | 0, 0, 0, 0, 0, 0, 0|100,100,100,100,100,100,100") // BI
-		TT_FAMILY("74XX")
-
-	TRUTHTABLE_END()
-
-#endif
-
 	TRUTHTABLE_START(TTL_7437_NAND, 2, 1, "+A,+B")
 		TT_HEAD("A,B|Q ")
 		TT_LINE("0,X|1|22")
@@ -3267,52 +3204,6 @@ NETLIST_START(ttl74xx_lib)
 		TT_FAMILY("74XX")
 	TRUTHTABLE_END()
 
-#if (NL_USE_TRUTHTABLE_74107)
-	/*
-	 *          +-----+-----+-----+---++---+-----+
-	 *          | CLRQ| CLK |  J  | K || Q | QQ  |
-	 *          +=====+=====+=====+===++===+=====+
-	 *          |  0  |  X  |  X  | X || 0 |  1  |
-	 *          |  1  |  *  |  0  | 0 || Q0| Q0Q |
-	 *          |  1  |  *  |  1  | 0 || 1 |  0  |
-	 *          |  1  |  *  |  0  | 1 || 0 |  1  |
-	 *          |  1  |  *  |  1  | 1 || TOGGLE  |
-	 *          +-----+-----+-----+---++---+-----+
-	 */
-	TRUTHTABLE_START(TTL_74107_TT, 6, 4, "+CLK,+J,+K,+CLRQ,@VCC,@GND")
-		TT_HEAD("CLRQ, CLK, _CO,  J, K,_QX | Q, QQ, CO, QX")
-		TT_LINE("  0,   0,    X,  X, X,  X | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  0,   1,    X,  X, X,  X | 0,  1,  1,  0 | 16, 25, 1, 1")
-
-		TT_LINE("  1,   0,    X,  0, 0,  0 | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   1,    X,  0, 0,  0 | 0,  1,  1,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   0,    X,  0, 0,  1 | 1,  0,  0,  1 | 25, 16, 1, 1")
-		TT_LINE("  1,   1,    X,  0, 0,  1 | 1,  0,  1,  1 | 25, 16, 1, 1")
-
-		TT_LINE("  1,   0,    1,  1, 0,  X | 1,  0,  0,  1 | 25, 16, 1, 1")
-		TT_LINE("  1,   0,    0,  1, 0,  0 | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   0,    0,  1, 0,  1 | 1,  0,  0,  1 | 25, 16, 1, 1")
-		TT_LINE("  1,   1,    X,  1, 0,  0 | 0,  1,  1,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   1,    X,  1, 0,  1 | 1,  0,  1,  1 | 25, 16, 1, 1")
-
-		TT_LINE("  1,   0,    1,  0, 1,  X | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   0,    0,  0, 1,  0 | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   0,    0,  0, 1,  1 | 1,  0,  0,  1 | 25, 16, 1, 1")
-		TT_LINE("  1,   1,    X,  0, 1,  0 | 0,  1,  1,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   1,    X,  0, 1,  1 | 1,  0,  1,  1 | 25, 16, 1, 1")
-
-		// Toggle
-		TT_LINE("  1,   0,    0,  1, 1,  0 | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   0,    0,  1, 1,  1 | 1,  0,  0,  1 | 25, 16, 1, 1")
-		TT_LINE("  1,   1,    0,  1, 1,  0 | 0,  1,  1,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   1,    0,  1, 1,  1 | 1,  0,  1,  1 | 25, 16, 1, 1")
-		TT_LINE("  1,   1,    1,  1, 1,  0 | 0,  1,  1,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   1,    1,  1, 1,  1 | 1,  0,  1,  1 | 25, 16, 1, 1")
-
-		TT_LINE("  1,   0,    1,  1, 1,  1 | 0,  1,  0,  0 | 16, 25, 1, 1")
-		TT_LINE("  1,   0,    1,  1, 1,  0 | 1,  0,  0,  1 | 25, 16, 1, 1")
-	TRUTHTABLE_END()
-#endif
 
 	TRUTHTABLE_START(TTL_74155A_GATE, 4, 4, "")
 		TT_HEAD("B,A,G,C|0,1,2,3")
@@ -3496,5 +3387,6 @@ NETLIST_START(ttl74xx_lib)
 	LOCAL_LIB_ENTRY(TTL_9312_DIP)
 	LOCAL_LIB_ENTRY(TTL_9310_DIP)
 	LOCAL_LIB_ENTRY(TTL_9316_DIP)
+	LOCAL_LIB_ENTRY(TTL_9321_DIP)
 	LOCAL_LIB_ENTRY(TTL_9322_DIP)
 NETLIST_END()
