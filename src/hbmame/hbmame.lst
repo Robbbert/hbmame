@@ -8176,6 +8176,97 @@ pc_dk			/* NES->PC-10 */
 pc_pacm			/* NES->PC-10 */
 pc_gyrus		/* NES->PC-10 */
 pc_skykd		/* NES->PC-10 */
+pc_smb      //parent
+pc_smb_ps01
+pc_smb_ps02
+pc_smb_ps03
+pc_smb_ps04
+pc_smb_ps05
+pc_smb_ps06
+pc_smb_ps07
+pc_smb_ps08
+pc_smb_ps09
+pc_smb_ps10
+pc_smb_ps11
+pc_smb_ps12
+pc_smb_ps13
+pc_smb_ps14
+pc_smb_ps15
+pc_smb_ps16
+pc_smb_ps17
+pc_smb_ps18
+pc_smb_ps19
+pc_smb_ps20
+pc_smb_ps21
+pc_smb_ps22
+pc_smb_ps23
+pc_smb_ps24
+pc_smb_ps25
+pc_smb_ps26
+pc_smb_ps27
+pc_smb_ps28
+pc_smb_ps29
+pc_smb_ps30
+pc_smb_ps31
+pc_smb_ps32
+pc_smb_ps33
+pc_smb_ps34
+pc_smb_ps35
+pc_smb_ps36
+pc_smb_ps37
+pc_smb_ps38
+pc_smb_ps39
+pc_smb_ps40
+pc_smb_ps41
+pc_smb_ps42
+pc_smb_ps43
+pc_smb_ps44
+pc_smb_ps45
+pc_smb_ps46
+pc_smb_ps47
+pc_smb_ps48
+pc_smb_ps49
+pc_smb_ps50
+pc_smb_ps51
+pc_smb_ps52
+pc_smb_ps53
+pc_smb_ps54
+pc_smb_ps55
+pc_smb_ps56
+pc_smb_ps57
+pc_smb_ps58
+pc_smb_ps59
+pc_smb_ps60
+pc_smb_ps61
+pc_smb_ps62
+pc_smb_ps63
+pc_smb_ps64
+pc_smb_ps65
+pc_smb_ps66
+pc_smb_ps67
+pc_smb_ps68
+pc_smb_ps69
+pc_smb_ps70
+pc_smb_ps71
+pc_smb_ps72
+pc_smb_ps73
+pc_smb_ps74
+pc_smb2     //parent
+pc_smb2_ps01
+pc_smb2_ps02
+pc_smb2_ps03
+pc_smb2_ps04
+pc_smb2_ps05
+pc_smb2_ps06
+pc_smb2_ps07
+pc_smb2_ps08
+pc_smb3     //parent
+pc_smb3_ps01
+pc_smb3_ps02
+pc_smb3_ps03
+pc_smb3_ps04
+pc_smb3_ps05
+pc_smb3_ps06
 
 @source:polepos.cpp
 polepos					//parent
