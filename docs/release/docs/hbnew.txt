@@ -188,6 +188,7 @@ New Games
 - [punisherjs24]        The Punisher (Wushuang Jianglong Edition 2020-08-11)
 - [sf2ces33]            Street Fighter II': Champion Edition (Chinese Voice Version Simplified 2020-06-30)
 - [sf2ces34]            Street Fighter II': Champion Edition (Lowtax is a Wifebeater parody Simplified 2020-08-03)
+- [sf2r3]               Street Fighter II: The World Warrior (unknown what is different)
 - [sf2s09]              Street Fighter II: The World Warrior (Chinese Voice Version Simplified 2020-06-30)
 - [svchs37]             SvC Chaos (Storm Bai Luo Original 2018-11-21)
 - [svchs38]             SvC Chaos (Storm Bai Luo Simplified 2020-02-29)

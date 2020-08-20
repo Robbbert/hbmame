@@ -3089,6 +3089,40 @@ ROM_START( sf2pun ) //sf2ceub
 	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
+// There is something special about this version but I don't remember what. The region can be
+// selected via the dipswitches: Region DIP: 7-8 On On ETC, Off Off JPN, Off On USA
+// Tested: stays in Japan region
+ROM_START( sf2r3 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sf2r3.23", 0x00000, 0x80000, CRC(ca331c3c) SHA1(e6ff34f76256c2eff9a7677051d3e7279dc83550) )
+	ROM_LOAD16_WORD_SWAP( "sf2r3.22", 0x80000, 0x80000, CRC(e446d96a) SHA1(68e39c6c1f89ce223366d37268041c5f1f56531c) )
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROMX_LOAD( "sf2-5m.4a",  0x000000, 0x80000, CRC(22c9cc8e) SHA1(b9194fb337b30502c1c9501cd6c64ae4035544d4) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-7m.6a",  0x000002, 0x80000, CRC(57213be8) SHA1(3759b851ac0904ec79cbb67a2264d384b6f2f9f9) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-1m.3a",  0x000004, 0x80000, CRC(ba529b4f) SHA1(520840d727161cf09ca784919fa37bc9b54cc3ce) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-3m.5a",  0x000006, 0x80000, CRC(4b1b33a8) SHA1(2360cff890551f76775739e2d6563858bff80e41) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-6m.4c",  0x200000, 0x80000, CRC(2c7e2229) SHA1(357c2275af9133fd0bd6fbb1fa9ad5e0b490b3a2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-8m.6c",  0x200002, 0x80000, CRC(b5548f17) SHA1(baa92b91cf616bc9e2a8a66adc777ffbf962a51b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-2m.3c",  0x200004, 0x80000, CRC(14b84312) SHA1(2eea16673e60ba7a10bd4d8f6c217bb2441a5b0e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2-4m.5c",  0x200006, 0x80000, CRC(5e9cd89a) SHA1(f787aab98668d4c2c54fc4ba677c0cb808e4f31e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2bh_25.8d",  0x400000, 0x80000, CRC(4267b696) SHA1(af65e3b2cc3b7a7f39d5e7e598da7f4c9d351eea) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2bh_27.10d", 0x400002, 0x80000, CRC(df9b9146) SHA1(2029aa59c1646af0fd7fa06f353edcbf7f7792de) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2bh_24.7d",  0x400004, 0x80000, CRC(a08a9786) SHA1(80a79e45c003fbc95cc5cd0d037b55f2f7fec64c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sf2bh_26.9d",  0x400006, 0x80000, CRC(80feac31) SHA1(f16ce88634d2328eae93f8128423bb311cac88e6) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "sf2_9.12a",  0x00000, 0x08000, CRC(a4823a1b) SHA1(7b6bf59dfd578bfbbdb64c27988796783442d659) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "sf2_18.11c",  0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
+	ROM_LOAD( "sf2_19.12c",  0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sf2.key",  0x00, 0x80, CRC(3cf6f06f) SHA1(7512a185d461f2b37edfc19e31a45d53600fbe44) )
+ROM_END
+
 ROM_START( sf2sl73a )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sf2sl73a.23",    0x000000, 0x80000, CRC(190f5419) SHA1(7fc7f3b6788d25b190bda3b3b6cf76a396d7d586) )
@@ -5989,6 +6023,7 @@ HACK( 1992, sf2h11,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     RO
 HACK( 1992, sf2h12,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow bootleg set 5, 920322 Japan)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sf2h13,      sf2ce,    cps1_12MHz, sf2j,     cps_state, sf2h13,   ROT0,   "hack", "Street Fighter II' Turbo: Hyper Fighting (bootleg set 1, 921209 Japan)", MACHINE_SUPPORTS_SAVE ) // bad tile for Blanka on player select screen
 HACK( 2012, sf2pun,      sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Simplified Edition v1 Final 2012-04-10)", MACHINE_SUPPORTS_SAVE )
+HACK( 1992, sf2r3,       sf2,      cps1_10MHz, sf2j,     cps_state, cps1,     ROT0,   "hack", "Street Fighter II': The World Warrior (3-region version)", MACHINE_SUPPORTS_SAVE )
 HACK( 2013, sf2sl73a,    sf2ce,    cps1_12MHz, sf2,      cps_state, cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sf2th,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "hack", "Street Fighter II': Champion Edition (Turbo set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
 HACK( 1992, sf2tha,      sf2ce,    cps1_12MHz, sf2hack,  cps_state, sf2hack,  ROT0,   "hack", "Street Fighter II': Champion Edition (Turbo set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
