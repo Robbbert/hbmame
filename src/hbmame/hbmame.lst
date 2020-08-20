@@ -4118,6 +4118,9 @@ mhavoc				//parent
 mhavocrv			//HB Jess M. Askey
 mhavocpex			//HB Jess M. Askey
 mhavocpex2			//HB Jess M. Askey
+mhavocpex3			//HB Jess M. Askey
+mhavocpex4			//HB Jess M. Askey
+mhavocpex5			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk					//parent
