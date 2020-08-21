@@ -855,7 +855,14 @@ files {
 	MAME_DIR .. "src/mame/machine/segaic16.cpp",
 	MAME_DIR .. "src/mame/machine/segacrpt_device.cpp",
 	MAME_DIR .. "src/mame/machine/segacrp2_device.cpp",
-	MAME_DIR .. "src/mame/audio/segasnd.cpp",
+	MAME_DIR .. "src/mame/audio/segaspeech.cpp",
+	MAME_DIR .. "src/mame/audio/segausb.cpp",
+	MAME_DIR .. "src/mame/audio/nl_segausb.cpp",
+	MAME_DIR .. "src/mame/audio/nl_segaspeech.cpp",
+	MAME_DIR .. "src/mame/audio/segag80.cpp",
+	MAME_DIR .. "src/mame/audio/nl_astrob.cpp",
+	MAME_DIR .. "src/mame/audio/nl_elim.cpp",      -- not used
+	MAME_DIR .. "src/mame/audio/nl_spacfury.cpp",  -- not used
 	MAME_DIR .. "src/mame/video/segaic16.cpp",
 	MAME_DIR .. "src/mame/video/segaic16_road.cpp",
 	MAME_DIR .. "src/mame/video/sega16sp.cpp",
