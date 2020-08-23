@@ -79,7 +79,7 @@ namespace netlist
 				m_cnt = 0;
 				m_IP.inactivate();
 				/* static */ const netlist_time reset_time = netlist_time::from_nsec(140);
-				for (int i = 0; i < _TotalBits; i++)
+				for (unsigned i = 0; i < _TotalBits; i++)
 					if (((_LiveBitmask >> i) & 1) != 0)
 						m_Q[i].push(0, reset_time);
 			}
@@ -100,7 +100,7 @@ namespace netlist
 					NLTIME_FROM_NS(1380), NLTIME_FROM_NS(1480),
 			};
 
-			for (int i = 0; i < _TotalBits; i++)
+			for (unsigned i = 0; i < _TotalBits; i++)
 				if (((_LiveBitmask >> i) & 1) != 0)
 					m_Q[i].push((cnt >> i) & 1, out_delayQn[i]);
 		}
@@ -167,8 +167,7 @@ namespace netlist
 
 
 
-	NETLIB_DEVICE_IMPL(CD4020,         "CD4020", "")
-	NETLIB_DEVICE_IMPL_ALIAS(CD4020_WI, CD4020, "CD4020_WI", "+IP,+RESET,+VDD,+VSS")
+	NETLIB_DEVICE_IMPL(CD4020,         "CD4020", "+IP,+RESET,+VDD,+VSS")
 
 	NETLIB_DEVICE_IMPL(CD4024,         "CD4024", "")
 
