@@ -16,12 +16,12 @@ ROM_START( terracrc )
 	ROM_FILL(0x1c17,1,0x1c) // bypass rom checksum - one of the roms might be bad
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "bk2_11.15b",   0x0000, 0x4000, CRC(604c3b11) SHA1(c01d1ddae40fa8b65dfc72f959942cb9664a548b) )
+	ROM_LOAD( "11.15b",   0x0000, 0x4000, CRC(604c3b11) SHA1(c01d1ddae40fa8b65dfc72f959942cb9664a548b) )
 	ROM_LOAD( "terracrc.19",  0x4000, 0x4000, CRC(20fd3b53) SHA1(baf494f64a66fc4ae9d2fef12ae7c6f61ad82d94) )
-	ROM_LOAD( "bk2_13.18b",   0x8000, 0x4000, CRC(302dc0ab) SHA1(4db8f12e70f9adf1eb993c6a8af68b5edbf79773) )
+	ROM_LOAD( "13.18b",   0x8000, 0x4000, CRC(302dc0ab) SHA1(4db8f12e70f9adf1eb993c6a8af68b5edbf79773) )
 
 	ROM_REGION( 0x02000, "gfx1", 0 )
-	ROM_LOAD( "bk2_14.16g",   0x00000, 0x2000, CRC(591a3804) SHA1(e1b46f5652e7f9677d75f01c6132975ace4facdd) )
+	ROM_LOAD( "14.16g",   0x00000, 0x2000, CRC(591a3804) SHA1(e1b46f5652e7f9677d75f01c6132975ace4facdd) )
 
 	ROM_REGION( 0x10000, "gfx2", 0 )
 	ROM_LOAD( "terracrc.4",   0x0000, 0x4000, CRC(3597f737) SHA1(443ad8b868a20a28a739df2f677803cb94012919) )
@@ -30,21 +30,21 @@ ROM_START( terracrc )
 	ROM_LOAD( "terracrc.1",   0xc000, 0x4000, CRC(55f80572) SHA1(a32749f8539a2a908532365f7f5650c92fc19f42) )
 
 	ROM_REGION( 0x10000, "gfx3", 0 )
-	ROM_LOAD( "bk2_7.6e",     0x00000, 0x4000, CRC(bcf7740b) SHA1(8701862c35eb8fb1ec239253136a3858ebea4d0c) )
-	ROM_LOAD( "bk2_8.7e",     0x04000, 0x4000, CRC(a70b565c) SHA1(153e5f5a9927c294660dd0d636a9f651d4984d6d) )
-	ROM_LOAD( "bk2_9.6g",     0x08000, 0x4000, CRC(4a9ec3e6) SHA1(0a35b82fb49ecf7edafd02744a48490e744c0a00) )
-	ROM_LOAD( "bk2_10.7g",    0x0c000, 0x4000, CRC(450749fc) SHA1(376ab98ab8db56ed45f7d97a221dfd52e389cb5a) )
+	ROM_LOAD( "7.6e",     0x00000, 0x4000, CRC(bcf7740b) SHA1(8701862c35eb8fb1ec239253136a3858ebea4d0c) )
+	ROM_LOAD( "8.7e",     0x04000, 0x4000, CRC(a70b565c) SHA1(153e5f5a9927c294660dd0d636a9f651d4984d6d) )
+	ROM_LOAD( "9.6g",     0x08000, 0x4000, CRC(4a9ec3e6) SHA1(0a35b82fb49ecf7edafd02744a48490e744c0a00) )
+	ROM_LOAD( "10.7g",    0x0c000, 0x4000, CRC(450749fc) SHA1(376ab98ab8db56ed45f7d97a221dfd52e389cb5a) )
 
 	ROM_REGION( 0x0504, "proms", 0 ) /* first 4 not supplied - using from terracre */
-	ROM_LOAD( "bk1_3.10f",    0x0000, 0x0100, CRC(ce07c544) SHA1(c3691cb420c88f1887a55e3035b5d017decbc17a) )
-	ROM_LOAD( "bk1_2.11f",    0x0100, 0x0100, CRC(566d323a) SHA1(fe83585a0d9c7f942a5e54620b627a5a17a0fcf4) )
-	ROM_LOAD( "bk1_1.12f",    0x0200, 0x0100, CRC(7ea63946) SHA1(d7b89694a80736c7605b5c83d25d8b706f4504ab) )
-	ROM_LOAD( "bk2_4.2g",     0x0300, 0x0100, CRC(08609bad) SHA1(e5daee3c3fea6620e3c2b91becd93bc4d3cdf011) )
+	ROM_LOAD( "3.10f",    0x0000, 0x0100, CRC(ce07c544) SHA1(c3691cb420c88f1887a55e3035b5d017decbc17a) )
+	ROM_LOAD( "2.11f",    0x0100, 0x0100, CRC(566d323a) SHA1(fe83585a0d9c7f942a5e54620b627a5a17a0fcf4) )
+	ROM_LOAD( "1.12f",    0x0200, 0x0100, CRC(7ea63946) SHA1(d7b89694a80736c7605b5c83d25d8b706f4504ab) )
+	ROM_LOAD( "4.2g",     0x0300, 0x0100, CRC(08609bad) SHA1(e5daee3c3fea6620e3c2b91becd93bc4d3cdf011) )
 	/* This came with dump - no idea what it does - not hooked up */
 	ROM_LOAD_OPTIONAL( "pal16r4.bin", 0x0400, 0x0104, CRC(119ef878) SHA1(4cc68200c755d646789f6af1c7a52273f07f597c) )
 
 	ROM_REGION( 0x0100, "user1", 0 ) /* not supplied - using from terracre */
-	ROM_LOAD( "bk2_5.4e",     0x0000, 0x0100, CRC(2c43991f) SHA1(312112832bee511b0545524295aa9bc2e756db0f) )
+	ROM_LOAD( "5.4e",     0x0000, 0x0100, CRC(2c43991f) SHA1(312112832bee511b0545524295aa9bc2e756db0f) )
 ROM_END
 
 GAME( 1985, terracrc, terracre, ym3526, terracre, terracre_state, empty_init, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )
