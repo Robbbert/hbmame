@@ -1,4 +1,4 @@
-// license:GPL-2.0+
+// license:CC0
 // copyright-holders:Couriersud
 #ifndef NLM_BASE_H_
 #define NLM_BASE_H_
@@ -13,7 +13,7 @@
 
 #ifndef __PLIB_PREPROCESSOR__
 
-#include "netlist/nl_setup.h"
+#include "../nl_setup.h"
 
 /* ----------------------------------------------------------------------------
  *  Netlist Macros

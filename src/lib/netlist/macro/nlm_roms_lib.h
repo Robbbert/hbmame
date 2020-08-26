@@ -1,4 +1,4 @@
-// license:GPL-2.0+
+// license:CC0
 // copyright-holders:Couriersud
 
 #ifndef NLM_ROMS_H_
@@ -8,7 +8,7 @@
 /// \file nlm_roms.h
 ///
 
-#include "netlist/nl_setup.h"
+#include "../nl_setup.h"
 
 #ifndef __PLIB_PREPROCESSOR__
 

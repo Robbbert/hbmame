@@ -1,4 +1,4 @@
-// license:GPL-2.0+
+// license:CC0
 // copyright-holders:Couriersud
 
 #ifndef NLM_TTL74XX_H_
@@ -8,7 +8,7 @@
 /// \file nlm_ttl74xx.h
 ///
 
-#include "netlist/nl_setup.h"
+#include "../nl_setup.h"
 
 #ifndef __PLIB_PREPROCESSOR__
 
