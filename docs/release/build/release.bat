@@ -23,9 +23,9 @@ call make32 -j4 %1 %2 %3
 rem --- 64bit ---
 del hbmameui64.exe
 del hbmameui64.sym
-call make64 -j4 "OSD=winui" %1 %2 %3
+call make64 -j4 "OSD=winui" "REGENIE=1" %1 %2 %3
 if not exist hbmameui64.exe goto end
 del hbmame64.exe
 del hbmame64.sym
-call make64 -j4 %1 %2 %3
+call make64 -j4 "ARCHOPTS='-fuse-ld=lld'" "REGENIE=1" %1 %2 %3
 :end

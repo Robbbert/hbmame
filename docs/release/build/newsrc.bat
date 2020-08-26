@@ -15,6 +15,7 @@ copy /Y %from%\src\version.cpp %to%\src
 
 md %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\audit.*            %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\clifront.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame

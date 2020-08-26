@@ -1632,7 +1632,7 @@ ROM_END
 
 ROM_START( mslug3h01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h01.p1",   0x000000, 0x100000, CRC(7d09f6fa) SHA1(5d9acbb194d071f0a6e218741c1f0d9828dc15dd) )
+	ROM_LOAD16_WORD_SWAP( "256h01.p1",   0x000000, 0x100000, CRC(00a950df) SHA1(d1bdf8f09ed552a68dd3a1b3e562c9fd8453916d) )
 	ROM_LOAD16_WORD_SWAP( "256h.p2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
@@ -1840,7 +1840,7 @@ ROM_END
 
 ROM_START( mslug3h09 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h09.p1",   0x000000, 0x100000, CRC(c99146dc) SHA1(ca6d7567a82981daaeec4d3d990258c531189736) )
+	ROM_LOAD16_WORD_SWAP( "256h09.p1",   0x000000, 0x100000, CRC(b431e0f9) SHA1(6d19867d004c44a3bbab15ce239b2b547f429841) )
 	ROM_LOAD16_WORD_SWAP( "256h.p2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
 
 	NEO_SFIX_MT_512K
@@ -3450,7 +3450,7 @@ ROM_END
 
 ROM_START( mslug3ern08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h01.p1",   0x000000, 0x100000, CRC(7d09f6fa) SHA1(5d9acbb194d071f0a6e218741c1f0d9828dc15dd) )
+	ROM_LOAD16_WORD_SWAP( "256h01.p1",   0x000000, 0x100000, CRC(00a950df) SHA1(d1bdf8f09ed552a68dd3a1b3e562c9fd8453916d) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(b948a472) SHA1(e0135911f7d7e21285e6965cc6b4446277eea405) )
 
 	NEO_SFIX_MT_512K
@@ -3476,7 +3476,7 @@ ROM_END
 
 ROM_START( mslug3ern09 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h09.p1",   0x000000, 0x100000, CRC(c99146dc) SHA1(ca6d7567a82981daaeec4d3d990258c531189736) )
+	ROM_LOAD16_WORD_SWAP( "256h09.p1",   0x000000, 0x100000, CRC(b431e0f9) SHA1(6d19867d004c44a3bbab15ce239b2b547f429841) )
 	ROM_LOAD16_WORD_SWAP( "256h60.p2", 0x100000, 0x400000, CRC(b948a472) SHA1(e0135911f7d7e21285e6965cc6b4446277eea405) )
 
 	NEO_SFIX_MT_512K
@@ -3712,7 +3712,7 @@ ROM_END
 
 ROM_START( mslug3esrp08 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h01.p1",   0x000000, 0x100000, CRC(7d09f6fa) SHA1(5d9acbb194d071f0a6e218741c1f0d9828dc15dd) )
+	ROM_LOAD16_WORD_SWAP( "256h01.p1",   0x000000, 0x100000, CRC(00a950df) SHA1(d1bdf8f09ed552a68dd3a1b3e562c9fd8453916d) )
 	ROM_LOAD16_WORD_SWAP( "256h50.p2", 0x100000, 0x400000, CRC(7593474c) SHA1(fcdd76013069eff64dc6842c672870854a53c0f2) )
 
 	NEO_SFIX_128K( "256sold.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
@@ -3734,7 +3734,7 @@ ROM_END
 
 ROM_START( mslug3esrp09 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h09.p1",   0x000000, 0x100000, CRC(c99146dc) SHA1(ca6d7567a82981daaeec4d3d990258c531189736) )
+	ROM_LOAD16_WORD_SWAP( "256h09.p1",   0x000000, 0x100000, CRC(b431e0f9) SHA1(6d19867d004c44a3bbab15ce239b2b547f429841) )
 	ROM_LOAD16_WORD_SWAP( "256h50.p2", 0x100000, 0x400000, CRC(7593474c) SHA1(fcdd76013069eff64dc6842c672870854a53c0f2) )
 
 	NEO_SFIX_128K( "256sold.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
@@ -7893,7 +7893,7 @@ HACK( 2019, mslug3ern01,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc4
 HACK( 2019, mslug3ern02,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "XiaShuiDaoMeiRenYu/Gaston90",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(Ghost Wu Zuoma Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3ern03,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/Gaston90",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(Summon Mount Edition)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3ern04,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/Gaston90",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(Store Version)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug3ern05,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/PlayerX China/Gaston90",    "Metal Slug 3 (Enemies Resetting 2019-07-20)(Green Blue Version)" , MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug3ern05,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/PlayerX China/Gaston90",    "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(Green Blue Version)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3ern06,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/Gaston90",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(SE Special Edition)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3ern07,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/Gaston90",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(Burst Enhanced Edition)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug3ern08,    mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu/Gaston90",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)(Zombie Players Mode Edition)" , MACHINE_SUPPORTS_SAVE )

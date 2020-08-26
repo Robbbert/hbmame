@@ -3,17 +3,17 @@
 
 ---------------------------------------------------------------------------
 --
---   tiny.lua
+--   ci.lua
 --
---   Small driver-specific example makefile
---   Use make SUBTARGET=tiny to build
+--   Small driver-specific example makefile for use in CI
+--   Use make SUBTARGET=ci to build
 --
 ---------------------------------------------------------------------------
 
 
 --------------------------------------------------
 -- Specify all the CPU cores necessary for the
--- drivers referenced in tiny.lst.
+-- drivers referenced in ci.lst.
 --------------------------------------------------
 
 CPUS["Z80"] = true
@@ -26,10 +26,13 @@ CPUS["M6809"] = true
 CPUS["M680X0"] = true
 CPUS["TMS9900"] = true
 CPUS["COP400"] = true
+CPUS["MIPS3"] = true
+CPUS["ADSP21XX"] = true
+CPUS["FR"] = true
 
 --------------------------------------------------
 -- Specify all the sound cores necessary for the
--- drivers referenced in tiny.lst.
+-- drivers referenced in ci.lst.
 --------------------------------------------------
 
 SOUNDS["SAMPLES"] = true
@@ -45,10 +48,16 @@ SOUNDS["YM3812"] = true
 SOUNDS["CEM3394"] = true
 SOUNDS["VOTRAX"] = true
 SOUNDS["VOLT_REG"] = true
+SOUNDS["DMADAC"] = true
+SOUNDS["CDDA"] = true
+SOUNDS["POKEY"] = true
 
 --------------------------------------------------
 -- specify available video cores
 --------------------------------------------------
+
+VIDEOS["PS2GIF"] = true
+VIDEOS["PS2GS"] = true
 
 --------------------------------------------------
 -- specify available machine cores
@@ -74,25 +83,28 @@ MACHINES["TICKET"] = true
 MACHINES["WATCHDOG"] = true
 MACHINES["Z80DAISY"] = true
 MACHINES["NETLIST"] = true
-
+MACHINES["IDECTRL"] = true
+MACHINES["PS2INTC"] = true
+MACHINES["ER2055"] = true
 
 --------------------------------------------------
 -- specify available bus cores
 --------------------------------------------------
 
 BUSES["CENTRONICS"] = true
+BUSES["ATA"] = true
 
 --------------------------------------------------
 -- This is the list of files that are necessary
 -- for building all of the drivers referenced
--- in tiny.lst
+-- in ci.lst
 --------------------------------------------------
 
-function createProjects_mame_tiny(_target, _subtarget)
-	project ("mame_tiny")
+function createProjects_mame_ci(_target, _subtarget)
+	project ("mame_ci")
 	targetsubdir(_target .."_" .. _subtarget)
 	kind (LIBTYPE)
-	uuid (os.uuid("drv-mame-tiny"))
+	uuid (os.uuid("drv-mame-ci"))
 	addprojectflags()
 	precompiledheaders_novs()
 
@@ -125,11 +137,11 @@ files{
 	MAME_DIR .. "src/mame/video/exidy.cpp",
 	MAME_DIR .. "src/mame/audio/exidy440.cpp",
 	MAME_DIR .. "src/mame/audio/exidy440.h",
+	MAME_DIR .. "src/mame/drivers/starfire.cpp",
 	MAME_DIR .. "src/mame/audio/nl_fireone.h",
 	MAME_DIR .. "src/mame/audio/nl_fireone.cpp",
 	MAME_DIR .. "src/mame/audio/nl_starfire.h",
 	MAME_DIR .. "src/mame/audio/nl_starfire.cpp",
-	MAME_DIR .. "src/mame/drivers/starfire.cpp",
 	MAME_DIR .. "src/mame/includes/starfire.h",
 	MAME_DIR .. "src/mame/video/starfire.cpp",
 	MAME_DIR .. "src/mame/drivers/vertigo.cpp",
@@ -167,11 +179,15 @@ files{
 	MAME_DIR .. "src/mame/machine/gaelco_ds5002fp.h",
 	MAME_DIR .. "src/mame/drivers/looping.cpp",
 	MAME_DIR .. "src/mame/drivers/supertnk.cpp",
+	MAME_DIR .. "src/mame/drivers/kinst.cpp",
+	MAME_DIR .. "src/mame/audio/dcs.cpp",
+	MAME_DIR .. "src/mame/audio/dcs.h",
+	MAME_DIR .. "src/mame/drivers/akkaarrh.cpp",
 }
 end
 
-function linkProjects_mame_tiny(_target, _subtarget)
+function linkProjects_mame_ci(_target, _subtarget)
 	links {
-		"mame_tiny",
+		"mame_ci",
 	}
 end
