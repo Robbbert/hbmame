@@ -558,6 +558,7 @@ tk2h158
 tk2h159
 tk2h160
 tk2h161
+tk2h162
 wofb
 wofch		// tk2p1
 wofes
@@ -669,6 +670,9 @@ captcomms100
 captcomms101
 captcomms102
 captcomms103
+captcomms104
+captcomms105
+captcomms106
 dinos01
 dinos02
 dinos03
@@ -928,6 +932,7 @@ dinos273
 dinos274
 dinos275
 dinos276
+dinos277
 ffights01
 ffights02
 ffightj2s01
@@ -2855,6 +2860,7 @@ kof98hh132
 kof98hh133
 kof98hh134
 kof98hh135
+kof98hh136
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3813,6 +3819,8 @@ kof2k2s113
 kof2k2s114
 kof2k2s115
 kof2k2s116
+kof2k2s117
+kof2k2s118
 
 @source:kof2003.cpp
 kof2003d
@@ -7121,6 +7129,7 @@ kov2p204s100
 kov2p204s101
 kov2p204s102
 kov2p204s103
+kov2p204s104
 kov2h01
 kov2h02
 kov2h03
@@ -7147,6 +7156,8 @@ kov2h23
 kov2h24
 kov2h25
 kov2h26
+kov2h27
+kov2h28
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7521,6 +7532,7 @@ kovpluss374
 kovpluss375
 kovpluss376
 kovpluss377
+kovpluss378
 kovplusas01
 kovshs01
 kovshs02
@@ -8414,6 +8426,7 @@ grdianss14
 grdianss15
 grdianss16
 grdianss17
+grdianss18
 
 @source:sf.cpp
 sf						//parent

@@ -9811,6 +9811,84 @@ ROM_START( captcomms103 ) //captcommr2y
 	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
+ROM_START( captcomms104 ) //captcommr1jy
+	ROM_REGION( 0X400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "ccs104.10f", 0x000000, 0x300000, CRC(d10acced) SHA1(5175da267c3ccd4b45225027e9a3b6d763c5b2d6) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcomms105 ) //captcommr1pmy
+	ROM_REGION( 0X400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "ccs105.10f", 0x000000, 0x3024FA, CRC(a87eb50a) SHA1(7fdb9cc76b6d79d0e63d994dc400c5703019454c) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
+ROM_START( captcomms106 ) //captcommr1zs
+	ROM_REGION( 0X400000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "ccs106.10f", 0x000000, 0x302532, CRC(511fff26) SHA1(39bad01c2e11ccd049659be52f4f3586a748fd46) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cc-5m.3a",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-7m.5a",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-1m.4a",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-3m.6a",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-6m.7a",  0x200000, 0x80000, CRC(28718bed) SHA1(dfdc4dd14dc609783bad94d608a9e9b137dea944) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-8m.9a",  0x200002, 0x80000, CRC(d4acc53a) SHA1(d03282ebbde362e679cc97f772aa9baf163d7606) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-2m.8a",  0x200004, 0x80000, CRC(0c69f151) SHA1(a170b8e568439e4a26d84376d53560e4248e4e2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cc-4m.10a", 0x200006, 0x80000, CRC(1f9ebb97) SHA1(023d00cb7b6a52d1b29e2052abe08ef34cb0c55c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "cc_09.11a",  0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "cc_18.11c",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "cc_19.12c",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
 /************************
  Cadillacs And Dinosaurs
 **************************/
@@ -17475,6 +17553,36 @@ ROM_START( dinos276 ) //dinozsj
 	ROM_LOAD16_WORD_SWAP( "cdes276.8f", 0x000000, 0x80000, CRC(4e857677) SHA1(74d59d4a80a28d44e739c5bbb3f2a539fad873ad) )
 	ROM_LOAD16_WORD_SWAP( "cdes276.7f", 0x080000, 0x80000, CRC(ffabef5a) SHA1(13522de6a3d5697cd32254f744cf5a859f53542a) )
 	ROM_LOAD16_WORD_SWAP( "cdes276.6f", 0x100000, 0x80000, CRC(35d48739) SHA1(6ed059f1c322e8c8ea7da30e29aef05793bf1560) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
+ROM_START( dinos277 ) //dinowjb2
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "cdes277.8f", 0x000000, 0x80000, CRC(bda42e9c) SHA1(4c6f0125a8a659d6ca31be223072ea3ae0f30eac) )
+	ROM_LOAD16_WORD_SWAP( "cdes255.7f", 0x080000, 0x80000, CRC(74f32a30) SHA1(b50172c8fc68ee460dc08528f249e377d2987246) )
+	ROM_LOAD16_WORD_SWAP( "cdes255.6f", 0x100000, 0x80000, CRC(df41f884) SHA1(527ae190df3d17c86dac14ea8a64dfb24e400920) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -26626,6 +26734,34 @@ ROM_START( tk2h161 ) //wofdr
 	ROM_LOAD ( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
+ROM_START( tk2h162 ) //wofjdr
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "tk2h162.10f", 0x000000, 0x200000, CRC(88c9dbb8) SHA1(4e4c9e441ab636c9fca1a01e4b0a5e5ae52d75e4) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-3m.5a",  0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-2m.4a",  0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2-4m.6a",  0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2h140.7a",    0x200000, 0x80000, CRC(e3c8c198) SHA1(f31f9f5c41d94ff84d29ed787d9104ee3fc1a7aa) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2h140.8a",    0x200002, 0x80000, CRC(5e3c0642) SHA1(8ee6834b1d497c4e4724b1db48d61df558fd0e93) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2h140.9a",    0x200004, 0x80000, CRC(d65a91d9) SHA1(4e1fa66c25fb4e28e49a458500089094cb54a308) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tk2h140.10a",   0x200006, 0x80000, CRC(675d490e) SHA1(180deb2aff5c2e35cc0eaaed8e6d5d490beaa5ea) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "tk2_qa.5k",   0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(            0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "tk2-q1.1k",   0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "tk2-q2.2k",   0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "tk2-q3.3k",   0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "tk2-q4.4k",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
+ROM_END
+
 /********************
   Tenchi wo Kurau II
 *********************/
@@ -28880,6 +29016,9 @@ HACK( 2020, captcomms100,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,   
 HACK( 2020, captcomms101,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Warlord Version 2020-08-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, captcomms102,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Journey Version 2020-08-12)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2020, captcomms103,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Master Second Edition 2020-08-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, captcomms104,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Elite Edition Update 2020-08-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, captcomms105,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Nightmare Edition Update 2020-08-12)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, captcomms106,  captcomm, cps1_10MHz, captcomm, cps_state,   cps1,     ROT0,   "hack", "Captain Commando (Warlord Version 2020-08-12)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 HACK( 1993, dinos01,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Bazooka)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, dinos02,       dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Club)", MACHINE_SUPPORTS_SAVE )
@@ -29140,6 +29279,7 @@ HACK( 2020, dinos273,      dino,     qsound,     dino,     cps_state,   dino,   
 HACK( 2020, dinos274,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Multi-Mode Enhanced Edition 2020-08-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, dinos275,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Wushuang Jianglong Edition 2020-08-11)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, dinos276,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (God of War Edition japanese 2020-08-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, dinos277,      dino,     qsound,     dino,     cps_state,   dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Demon God Dance 2020-08-23)", MACHINE_SUPPORTS_SAVE )
 // Final Fight
 HACK( 1990, ffights01,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "ckc7213", "Final Fight (Change Fighter)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, ffights02,     ffight,   cps1_10MHz, ffight,   cps_state,   cps1,     ROT0,   "hack", "Final Fight (1VS2 Enhanced Version 2016-08-17)", MACHINE_SUPPORTS_SAVE )
@@ -29445,6 +29585,7 @@ HACK( 2020, tk2h158,       wof,      qsound,     wof,      cps_state,   wof,    
 HACK( 2020, tk2h159,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "hack", "Tenchi wo Kurau II (Three Sword Saints Chinese Version 2020-04-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, tk2h160,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "hack", "Tenchi wo Kurau II (Dared Evil Boss Edition 2020-04-23)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, tk2h161,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bindi", "Tenchi wo Kurau II (Master Edition Update 2020-05-15)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, tk2h162,       wof,      qsound,     wof,      cps_state,   wof,      ROT0,   "Bindi", "Tenchi wo Kurau II (Master Edition Update 2020-08-11)", MACHINE_SUPPORTS_SAVE )
 // Tenchi wo Kurau II (wofch)
 HACK( 1994, tk2p02,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, tk2p03,      wofch,    qsound,     wofch,    cps_state,   wof,      ROT0,   "Katana", "Tenchi wo Kurau II (Boss Rush Extreme 2018-06-18)", MACHINE_SUPPORTS_SAVE )
