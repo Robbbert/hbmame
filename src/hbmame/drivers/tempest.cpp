@@ -15,7 +15,7 @@ static INPUT_PORTS_START( aliensv )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("avg", avg_tempest_device, done_r)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(tempest_state, clock_r)
 
-	PORT_START("IN1/DSW0")
+	PORT_START("IN1_DSW0")
 	PORT_BIT( 0x0f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(tempest_state,tempest_knob_r)
 	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Cabinet ) )
 	PORT_DIPSETTING(    0x10, DEF_STR( Upright ) )
@@ -62,7 +62,7 @@ static INPUT_PORTS_START( aliensv )
 	PORT_DIPSETTING(    0xc0, "Freeze Mode" )
 	PORT_DIPSETTING(    0xe0, "Freeze Mode" )
 
-	PORT_START("DSW2")			/* DSW2 all dips verified */
+	PORT_START("DSW2")  /* DSW2 all dips verified */
 	PORT_DIPNAME( 0x01, 0x00, "Minimum" )
 	PORT_DIPSETTING(    0x00, "1 Credit" )
 	PORT_DIPSETTING(    0x01, "2 Credit" )
@@ -82,7 +82,7 @@ static INPUT_PORTS_START( aliensv )
 	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Unknown ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x40, DEF_STR( On ) )
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )	// if high it freezes
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED ) // if high it freezes
 
 	PORT_START(TEMPEST_KNOB_P1_TAG )
 	/* This is the Tempest spinner input. It only uses 4 bits. */
