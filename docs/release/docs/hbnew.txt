@@ -9,14 +9,23 @@ New Games
 - [captcomms105]        Captain Commando (Nightmare Edition Update 2020-08-12)
 - [captcomms106]        Captain Commando (Warlord Version 2020-08-12)
 - [dinos277]            Cadillacs and Dinosaurs (Demon God Dance 2020-08-23)
+- [dinos278]            Cadillacs and Dinosaurs (God of War Edition Update 2020-07-30)
 - [grdianss18]          Guardians (Warriors Edition 2020-04-01)
 - [kof2k2s117]          Kof2002 (PlayStation 2 Original 2018-04-17)
 - [kof2k2s118]          Kof2002 (PlayStation 2 Extremely Simplified 2020-08-24
+- [kof97s207]           Kof'97 (Chaos Edition 1.7 Original 2020-08-25)
+- [kof97s208]           Kof'97 (Chaos Edition 1.7 Simplified 2020-08-25)
 - [kof98hh136]          Kof'98 (Kingdom Protoss Terminator Edition 2020-08-19)
+- [kof99s104]           Kof'99 (Imitation PS Enhanced Edition Original 2020-08-24)
+- [kof99s105]           Kof'99 (Imitation PS Enhanced Edition Simplified 2020-08-24)
 - [kov2h27]             Knights of Valour 2 (Green Edition 2020-08-23)
 - [kov2h28]             Knights of Valour 2 (1V4 Edition 2020-07-02)
 - [kov2p204s104]        Knights of Valour 2 Plus (Martial Universe 2020-08-19)
+- [kov2p204s105]        Knights ofValour 2 Plus (Phoenix Dance Dragon Song 2020-08-05)
 - [kovpluss378]         Knights of Valour Plus 2012 (You Ju Restored Version 2020-08-15)
+- [ms6s14]              Metal Slug 6 (Fatty War 2020-08-25)  
+- [mslug3h64]           Metal Slug 3 (Ultimate Simplified Edition 2020-08-25)
+- [mslug5dh74]          Metal Slug 5 (Ultimate Simplified Edition 2020-08-01)
 - [tk2h162]             Tenchi wo Kurau II (Master Edition Update 2020-08-11)
 
 
