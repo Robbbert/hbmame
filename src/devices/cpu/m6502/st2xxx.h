@@ -57,6 +57,9 @@ public:
 		ST_LFRA,
 		ST_LAC,
 		ST_LPWM,
+		ST_UCTR,
+		ST_USR,
+		ST_IRCTR,
 		ST_BCTR,
 		ST_BRS,
 		ST_BDIV
@@ -103,6 +106,7 @@ protected:
 	virtual u8 st2xxx_lckr_mask() const = 0;
 	virtual u8 st2xxx_lpwm_mask() const = 0;
 	virtual unsigned st2xxx_lfr_clocks() const = 0;
+	virtual u8 st2xxx_uctr_mask() const = 0;
 	virtual u8 st2xxx_bctr_mask() const = 0;
 
 	class mi_st2xxx : public memory_interface {
@@ -212,6 +216,16 @@ protected:
 	void lac_w(u8 data);
 	u8 lpwm_r();
 	void lpwm_w(u8 data);
+
+	u8 uctr_r();
+	void uctr_w(u8 data);
+	u8 usr_r();
+	void ustr_trg_w(u8 data);
+	void usr_clr_w(u8 data);
+	u8 irctr_r();
+	void irctr_w(u8 data);
+	u8 udata_r();
+	void udata_w(u8 data);
 	u8 bctr_r();
 	void bctr_w(u8 data);
 	u8 brs_r();
@@ -270,6 +284,9 @@ protected:
 	u16 m_lcd_ireq;
 	emu_timer *m_lcd_timer;
 
+	u8 m_uctr;
+	u8 m_usr;
+	u8 m_irctr;
 	u8 m_bctr;
 	u8 m_brs;
 	u8 m_bdiv;

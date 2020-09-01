@@ -22781,6 +22781,7 @@ crusnusa                        // (c) 1994 Midway
 crusnusa21                      // (c) 1994 Midway
 crusnusa40                      // (c) 1994 Midway
 crusnusa41                      // (c) 1994 Midway
+crusnusa44                      // (c) 1994 Midway
 crusnwld                        // (c) 1996 Midway
 crusnwld13                      // (c) 1996 Midway
 crusnwld17                      // (c) 1996 Midway
@@ -32206,25 +32207,6 @@ ablmini
 senwld
 zonefusn
 
-@source:vt1682.cpp
-ii8in1
-ii32in1
-zone7in1
-zone7in1p
-dance555
-miwi2_16
-miwi2_7
-intact89
-intg5410
-exsprt48
-itvg48
-xing48
-wowwg
-110dance
-lxts3
-unk1682
-njp60in1
-
 @source:newbrain.cpp
 newbrain                        //
 newbraina                       //
@@ -35405,6 +35387,9 @@ sc88vl                          //
 @source:roland_tb303.cpp
 tb303                           // Roland
 
+@source:roland_tr505.cpp
+tr505                           //
+
 @source:roland_tr606.cpp
 tr606                           // Roland
 
@@ -38187,6 +38172,8 @@ lexifit
 marc101
 marc250
 guitrbus
+ddmsup
+ddmmeg12
 
 @source:spg2xx_zone.cpp
 wirels60                        // Wireless 60
@@ -40440,6 +40427,7 @@ shtridera                       // (c) 1984 Seibu Kaihatsu
 shtriderb                       // bootleg
 travrusa                        // (c) 1983
 travrusab                       // (c) 1983 I.P. (bootleg)
+travrusab2                      //
 
 @source:tricep.cpp
 tricep                          //
@@ -41325,6 +41313,28 @@ vstennisa                       // (c) 1984 Nintendo Co., Ltd. / Nintendo of Ame
 vstennisb                       // (c) 1984 Nintendo Co., Ltd. / Nintendo of America
 vstetris                        // (c) 1988 Atari
 wrecking                        // (c) 1984 Nintendo
+
+@source:vt_unknown.cpp
+dgun2572
+
+@source:vt1682.cpp
+ii8in1
+ii32in1
+zone7in1
+zone7in1p
+dance555
+miwi2_16
+miwi2_7
+intact89
+intg5410
+exsprt48
+itvg48
+xing48
+wowwg
+110dance
+lxts3
+unk1682
+njp60in1
 
 @source:vt52.cpp
 vt52                            // 1975 Digital Equipment Corporation
