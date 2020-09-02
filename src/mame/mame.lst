@@ -22973,8 +22973,10 @@ bublpong                        // bootleg on enhanced hardware
 missb2                          // bootleg on enhanced hardware
 
 @source:missbamby.cpp
-gwinner                         //
-msbamby                         // 198?
+gwinner                         // (c) 1983 Reben
+luckyplr                        // (c) 1981 Cirsa
+minisupf                        // (c) 1981 Cirsa
+msbamby                         // (c) 198? Automatics Pasqual
 
 @source:missile.cpp
 mcombat                         // bootleg
@@ -41224,6 +41226,10 @@ volfiedjo                       // C04 (c) 1989 Taito Corporation (Japan)
 volfiedo                        // C04 (c) 1989 Taito Corporation Japan (World)
 volfiedu                        // C04 (c) 1989 Taito America Corporation (US)
 volfieduo                       // C04 (c) 1989 Taito America Corporation (US)
+
+@source:votrhv.cpp
+hc110                           // 1978 Votrax/Phonic Mirror HandiVoice HC-110
+hc120                           // 1978 Votrax/Phonic Mirror HandiVoice HC-120
 
 @source:votrpss.cpp
 votrpss                         // 1982 Votrax Personal Speech System
