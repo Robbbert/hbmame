@@ -981,6 +981,7 @@ punishers07
 //punishers08 //Encrypted
 punishers09
 punishers10
+punishers11
 punisherjs01
 punisherjs02
 punisherjs03
@@ -1293,15 +1294,20 @@ xmvsfu1d
 19xxjrs01
 1944s01
 armwars01
+armwars02
 avspus01
 avspus02
 avspus03
+avspus04
+avspus05
 batcirds01
 csclubs01
 cybotsjs01
 ddsomjs01
+ddsomjs02
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
 ddsomuds02
+ddtods01
 dstlks01
 gigawings01
 mshs01
@@ -3826,6 +3832,7 @@ kof2k2s115
 kof2k2s116
 kof2k2s117
 kof2k2s118
+kof2k2s119
 
 @source:kof2003.cpp
 kof2003d
@@ -4620,7 +4627,6 @@ mslug4dh	/* Super D version */
 mslug4eho
 mslug4fr
 mslug4i
-mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
 mslug4hh01
@@ -4683,6 +4689,8 @@ mslug4hh57
 mslug4hh58
 mslug4hh59
 mslug4hh60
+mslug4hh61
+mslug4hh62
 mslug4zb01
 mslug4zb02
 mslug4zb03
@@ -4858,6 +4866,8 @@ mslug5dh71
 mslug5dh72
 mslug5dh73
 mslug5dh74
+mslug5dh75
+mslug5dh76
 mslug5rmtnc01
 mslug5rmtnc02
 mslug5rmtnc03
@@ -8345,6 +8355,7 @@ zeroteam					//parent
 zeroteamcs01
 zeroteamcs02
 zeroteamss01
+zeroteamss02
 
 @source:rallyx.cpp
 rallyx			//parent

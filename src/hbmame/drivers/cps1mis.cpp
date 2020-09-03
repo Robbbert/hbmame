@@ -19204,6 +19204,42 @@ ROM_START( punishers10 ) //punisherbs
 	ROM_LOAD ( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
+ROM_START( punishers11 ) //punisherkd
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )    
+	ROM_LOAD16_BYTE( "pse_26_ps11.11e",    0x000000, 0x20000, CRC(35ced524) SHA1(1e799fff30291809342b5b319813504cd5c80dab) )
+	ROM_LOAD16_BYTE( "pse_30_ps11.11f",    0x000001, 0x20000, CRC(35bcd40b) SHA1(21befd721b396b15294333ef0ed4b4943bd130ca) )
+	ROM_LOAD16_BYTE( "pse_27.12e",    0x040000, 0x20000, CRC(3eb181c3) SHA1(a2442449f4bbe3be03d2be7d4e2cbb69f9741dac) )
+	ROM_LOAD16_BYTE( "pse_31.12f",    0x040001, 0x20000, CRC(37108e7b) SHA1(78aaa6e2913e6b1b852b39416557ac4a394d7d8b) )
+	ROM_LOAD16_BYTE( "pse_24.9e",     0x080000, 0x20000, CRC(0f434414) SHA1(aaacf835a93551fc792571d6e824a01f3c5d4469) )
+	ROM_LOAD16_BYTE( "pse_28.9f",     0x080001, 0x20000, CRC(b732345d) SHA1(472d84f846e9f73f129562d78352376194e0211e) )
+	ROM_LOAD16_BYTE( "pse_25_ps11.10e",    0x0c0000, 0x20000, CRC(4b4e7176) SHA1(b3f812bd3fa8d90b72103112afaa141ef463e2e5) )
+	ROM_LOAD16_BYTE( "pse_29_ps11.10f",    0x0c0001, 0x20000, CRC(86142691) SHA1(8d70e1708ef6a6835974ba80d683f2ac9e9ee9d3) )
+	ROM_LOAD16_WORD_SWAP( "ps_21_ps11.6f", 0x100000, 0x80000, CRC(0dd33834) SHA1(48cd9211d586b77e3dc5c926ee76d60947c996b3) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "ps-1m.3a",  0x000000, 0x80000, CRC(77b7ccab) SHA1(e08e5d55a79e4c0c8ca819d6d7d2a14f753c6ec3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-3m.5a",  0x000002, 0x80000, CRC(0122720b) SHA1(5f0d3097e097f64106048156fbb0d343fe78fffa) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-2m.4a",  0x000004, 0x80000, CRC(64fa58d4) SHA1(d4a774285ed15273195b6b26d2965ce370e54e73) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-4m.6a",  0x000006, 0x80000, CRC(60da42c8) SHA1(95eec4a58d9628a2d9764951dd8dc11e4860a899) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-5m.7a",  0x200000, 0x80000, CRC(c54ea839) SHA1(0733f37329edd9d0cace1319a7544b40aa7ecb0b) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-7m.9a",  0x200002, 0x80000, CRC(04c5acbd) SHA1(fddc94b0f36d4d22d7c357856ae15b7514c342d3) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-6m.8a",  0x200004, 0x80000, CRC(a544f4cc) SHA1(9552df8934ba25f19a22f2e07783712d8c8ef03c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "ps-8m.10a", 0x200006, 0x80000, CRC(8f02f436) SHA1(a2f0ebb7e9593469c7b843f8962a66f3d77f79e5) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "ps_q.5k",    0x00000, 0x08000, CRC(49ff4446) SHA1(87af12f87a940a6c5428b4574ad44a4b54867bc3) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "ps-q1.1k",   0x000000, 0x80000, CRC(31fd8726) SHA1(1d73a76682e9fb908db0c55b9a18163f7539fea1) )
+	ROM_LOAD( "ps-q2.2k",   0x080000, 0x80000, CRC(980a9eef) SHA1(36571381f349bc726508a7e618ba1c635ec9d271) )
+	ROM_LOAD( "ps-q3.3k",   0x100000, 0x80000, CRC(0dd44491) SHA1(903cea1d7f3120545ea3229d30fbd687d11ad68f) )
+	ROM_LOAD( "ps-q4.4k",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+ROM_END
+
 ROM_START( punisherjs01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "psj_23.8f", 0x000000, 0x80000, CRC(6b2fda52) SHA1(5f95a79b7b802609ae9ddd6641cc52610d428bf4) )
@@ -29362,6 +29398,7 @@ HACK( 2019, punishers07,   punisher, qsound,     punisher, cps_state,   punisher
 HACK( 2018, punishers08,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Flame Edition 2018-06-18)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 HACK( 2020, punishers09,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Multi-Mode Enhancement 2020-06-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, punishers10,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Multi-Mode Enhancement 2020-06-07)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, punishers11,   punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (Warriors Fighting Dragon Edition 2020-09-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 1993, punisherjs01,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "e107", "The Punisher (Time No Decrease)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, punisherjs02,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "e107",  "The Punisher (100 Second For Every Scene 2017-12-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, punisherjs03,  punisher, qsound,     punisher, cps_state,   punisher, ROT0,   "hack", "The Punisher (1V2 Unparalleled Version 2016-02-18)", MACHINE_SUPPORTS_SAVE )

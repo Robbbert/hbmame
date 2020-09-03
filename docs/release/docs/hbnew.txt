@@ -5,14 +5,20 @@
 
 New Games
 ---------------------------------
+- [armwars02]           Armored Warriors (Full Attack Edition 2020-08-30)
+- [avspus04]            Alien vs. Predator (Ultimate Evolution Edition 2020-09-01)
+- [avspus05]            Alien vs. Predator (Modified Edition 2020-08-30)
 - [captcomms104]        Captain Commando (Elite Edition Update 2020-08-12)
 - [captcomms105]        Captain Commando (Nightmare Edition Update 2020-08-12)
 - [captcomms106]        Captain Commando (Warlord Version 2020-08-12)
+- [ddsomjs02]           Dungeons & Dragons: Shadow over Mystara (Full Attack Edition 2020-08-31)
+- [ddtods01]            Dungeons & Dragons: Tower of Doom (Full Attack Edition 2020-08-31)
 - [dinos277]            Cadillacs and Dinosaurs (Demon God Dance 2020-08-23)
 - [dinos278]            Cadillacs and Dinosaurs (God of War Edition Update 2020-07-30)
 - [grdianss18]          Guardians (Warriors Edition 2020-04-01)
 - [kof2k2s117]          Kof2002 (PlayStation 2 Original 2018-04-17)
 - [kof2k2s118]          Kof2002 (PlayStation 2 Extremely Simplified 2020-08-24
+- [kof2k2s119]          Kof2002 (PlayStation 2 Final Edition BC 2020-08-24)
 - [kof97s207]           Kof'97 (Chaos Edition 1.7 Original 2020-08-25)
 - [kof97s208]           Kof'97 (Chaos Edition 1.7 Simplified 2020-08-25)
 - [kof98hh136]          Kof'98 (Kingdom Protoss Terminator Edition 2020-08-19)
@@ -25,8 +31,14 @@ New Games
 - [kovpluss378]         Knights of Valour Plus 2012 (You Ju Restored Version 2020-08-15)
 - [ms6s14]              Metal Slug 6 (Fatty War 2020-08-25)  
 - [mslug3h64]           Metal Slug 3 (Ultimate Simplified Edition 2020-08-25)
+- [mslug4hh61]          Metal Slug 4 (Last Bullet 2017-07-27)
+- [mslug4hh62]          Metal Slug 4 (Last Bullet Enhanced Edition 2017-11-02)
 - [mslug5dh74]          Metal Slug 5 (Ultimate Simplified Edition 2020-08-01)
+- [mslug5dh75]          Metal Slug 5 (Stone Tortoise Edition 2020-08-29)
+- [mslug5dh76]          Metal Slug 5 (Fatty War 2020-09-02)
 - [tk2h162]             Tenchi wo Kurau II (Master Edition Update 2020-08-11)
+- [punishers11]         The Punisher (Warriors Fighting Dragon Edition 2020-09-01)
+- [zeroteamss02]        Zero Team Selection (Yanshen Edition 2020-08-27)
 
 
 
