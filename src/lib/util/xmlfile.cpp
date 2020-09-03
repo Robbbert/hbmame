@@ -8,13 +8,12 @@
 
 ***************************************************************************/
 
-#include <cassert>
-
 #include "xmlfile.h"
 
 #include <expat.h>
 
 #include <algorithm>
+#include <cassert>
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
@@ -269,14 +268,24 @@ void data_node::trim_whitespace()
     number of child nodes
 -------------------------------------------------*/
 
-int data_node::count_children() const
+std::size_t data_node::count_children() const
 {
-	int count = 0;
-
 	/* loop over children and count */
+	std::size_t count = 0;
 	for (data_node const *node = get_first_child(); node; node = node->get_next_sibling())
 		count++;
 	return count;
+}
+
+
+/*-------------------------------------------------
+    data_node::count_children - count the
+    number of child nodes
+-------------------------------------------------*/
+
+std::size_t data_node::count_attributes() const
+{
+	return m_attributes.size();
 }
 
 
@@ -582,7 +591,7 @@ const char *data_node::get_attribute_string(const char *attribute, const char *d
     found, return = the provided default
 -------------------------------------------------*/
 
-int data_node::get_attribute_int(const char *attribute, int defvalue) const
+long long data_node::get_attribute_int(const char *attribute, long long defvalue) const
 {
 	char const *const string = get_attribute_string(attribute, nullptr);
 	if (!string)
@@ -590,20 +599,20 @@ int data_node::get_attribute_int(const char *attribute, int defvalue) const
 
 	std::istringstream stream;
 	stream.imbue(f_portable_locale);
-	int result;
+	long long result;
 	if (string[0] == '$')
 	{
 		stream.str(&string[1]);
-		unsigned uvalue;
+		unsigned long long uvalue;
 		stream >> std::hex >> uvalue;
-		result = int(uvalue);
+		result = static_cast<long long>(uvalue);
 	}
 	else if ((string[0] == '0') && ((string[1] == 'x') || (string[1] == 'X')))
 	{
 		stream.str(&string[2]);
-		unsigned uvalue;
+		unsigned long long uvalue;
 		stream >> std::hex >> uvalue;
-		result = int(uvalue);
+		result = static_cast<long long>(uvalue);
 	}
 	else if (string[0] == '#')
 	{
@@ -690,7 +699,7 @@ void data_node::set_attribute(const char *name, const char *value)
     integer value on the node
 -------------------------------------------------*/
 
-void data_node::set_attribute_int(const char *name, int value)
+void data_node::set_attribute_int(const char *name, long long value)
 {
 	set_attribute(name, string_format(f_portable_locale, "%d", value).c_str());
 }
