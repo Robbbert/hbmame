@@ -1227,6 +1227,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"ibm6580",
 		"ie15",
 		"imp",
+		"informer",
 		"intel",
 		"interpro",
 		"interton",
@@ -2596,6 +2597,15 @@ files {
 createMESSProjects(_target, _subtarget, "ie15")
 files {
 	MAME_DIR .. "src/mame/drivers/ie15.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "informer")
+files {
+	MAME_DIR .. "src/mame/drivers/informer_207_100.cpp",
+	MAME_DIR .. "src/mame/drivers/informer_207_376.cpp",
+	MAME_DIR .. "src/mame/drivers/informer_213ae.cpp",
+	MAME_DIR .. "src/mame/machine/informer_207_376_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/informer_207_376_kbd.h",
 }
 
 createMESSProjects(_target, _subtarget, "intel")
@@ -4338,7 +4348,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/e100.cpp",
 	MAME_DIR .. "src/mame/drivers/eacc.cpp",
 	MAME_DIR .. "src/mame/drivers/elwro800.cpp",
-	MAME_DIR .. "src/mame/drivers/emate.cpp",
 	MAME_DIR .. "src/mame/drivers/epic14e.cpp",
 	MAME_DIR .. "src/mame/drivers/esprit.cpp",
 	MAME_DIR .. "src/mame/drivers/eti660.cpp",
@@ -4425,6 +4434,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/mx2178.cpp",
 	MAME_DIR .. "src/mame/drivers/mycom.cpp",
 	MAME_DIR .. "src/mame/drivers/myvision.cpp",
+	MAME_DIR .. "src/mame/drivers/newton.cpp",
 	MAME_DIR .. "src/mame/machine/nl_hazelvid.cpp",
 	MAME_DIR .. "src/mame/machine/nl_hazelvid.h",
 	MAME_DIR .. "src/mame/drivers/notetaker.cpp",

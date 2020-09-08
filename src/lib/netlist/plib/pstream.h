@@ -367,17 +367,15 @@ public:
 		pstring_t<pwchar_traits>, pstring_t<putf8_traits>>::type;
 
 	template <typename T>
-	explicit ifstream(const pstring_t<T> name, ios_base::openmode mode = ios_base::in)
+	explicit ifstream(const pstring_t<T> &name, ios_base::openmode mode = ios_base::in)
 	: std::ifstream(filename_type(name).c_str(), mode)
 	{
 	}
 
-#if 0
-	explicit ifstream(const std::string name, ios_base::openmode mode = ios_base::in)
-	: std::ifstream(filename_type(name).c_str(), mode)
+	explicit ifstream(const std::string &name, ios_base::openmode mode = ios_base::in)
+	: std::ifstream(filename_type(putf8string(name)).c_str(), mode)
 	{
 	}
-#endif
 };
 
 ///
@@ -390,17 +388,15 @@ public:
 		pstring_t<pwchar_traits>, pstring_t<putf8_traits>>::type;
 
 	template <typename T>
-	explicit ofstream(const pstring_t<T> name, ios_base::openmode mode = ios_base::out | ios_base::trunc)
+	explicit ofstream(const pstring_t<T> &name, ios_base::openmode mode = ios_base::out | ios_base::trunc)
 	: std::ofstream(filename_type(name).c_str(), mode)
 	{
 	}
 
-#if 0
-	explicit ofstream(const std::string name, ios_base::openmode mode = ios_base::out | ios_base::trunc)
-	: std::ofstream(filename_type(name).c_str(), mode)
+	explicit ofstream(const std::string &name, ios_base::openmode mode = ios_base::out | ios_base::trunc)
+	: std::ofstream(filename_type(putf8string(name)).c_str(), mode)
 	{
 	}
-#endif
 };
 
 

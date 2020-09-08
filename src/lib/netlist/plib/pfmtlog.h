@@ -9,9 +9,9 @@
 #define PFMTLOG_H_
 
 #include "penum.h"
+#include "ppmf.h"
 #include "pstring.h"
 #include "ptypes.h"
-#include "ppmf.h"
 
 #include <limits>
 #include <locale>
@@ -180,6 +180,17 @@ namespace plib {
 		{
 			const putf16string su16(v);
 			s << putf8string(su16).c_str();
+		}
+	};
+
+	template<>
+	struct ptype_traits<const char32_t *> : ptype_traits_base<const char32_t *>
+	{
+		static char32_t fmt_spec() { return 's'; }
+		static inline void streamify(std::ostream &s, const char32_t *v)
+		{
+			const putf32string su32(v);
+			s << putf8string(su32).c_str();
 		}
 	};
 

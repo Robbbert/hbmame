@@ -1067,7 +1067,7 @@ unsigned render_target::configured_view(const char *viewname, int targetindex, i
 	if (strcmp(viewname, "auto") != 0)
 	{
 		// scan for a matching view name
-		size_t viewlen = strlen(viewname);
+		size_t const viewlen = strlen(viewname);
 		for (unsigned i = 0; !view && (m_views.size() > i); ++i)
 			if (!core_strnicmp(m_views[i].first.get().name().c_str(), viewname, viewlen))
 				view = &m_views[i].first.get();
@@ -1082,21 +1082,22 @@ unsigned render_target::configured_view(const char *viewname, int targetindex, i
 		// if we have enough targets to be one per screen, assign in order
 		if (numtargets >= screens.size())
 		{
-			int const ourindex = index() % screens.size();
-			screen_device &screen = screens[ourindex];
-
 			// find the first view with this screen and this screen only
-			unsigned viewindex;
-			for (view = view_by_index(viewindex = 0); view != nullptr; view = view_by_index(++viewindex))
+			screen_device const &screen = screens[index() % screens.size()];
+			for (unsigned i = 0; !view && (m_views.size() > i); ++i)
 			{
-				auto const &viewscreens = view->screens();
-				if (viewscreens.empty())
+				for (screen_device const &viewscreen : m_views[i].first.get().screens())
 				{
-					view = nullptr;
-					break;
+					if (&viewscreen == &screen)
+					{
+						view = &m_views[i].first.get();
+					}
+					else
+					{
+						view = nullptr;
+						break;
+					}
 				}
-				else if (std::find_if(viewscreens.begin(), viewscreens.end(), [&screen] (auto const &scr) { return &scr.get() != &screen; }) == viewscreens.end())
-					break;
 			}
 		}
 
@@ -1105,18 +1106,10 @@ unsigned render_target::configured_view(const char *viewname, int targetindex, i
 		{
 			for (unsigned i = 0; !view && (m_views.size() > i); ++i)
 			{
-				view = &m_views[i].first.get();
-				if (view->screen_count() >= screens.size())
-				{
-					for (screen_device &screen : screens)
-					{
-						if (!view->has_screen(screen))
-						{
-							view = nullptr;
-							break;
-						}
-					}
-				}
+				layout_view &curview = m_views[i].first;
+				if (curview.screen_count() >= screens.size())
+					if (std::find_if(screens.begin(), screens.end(), [&curview] (screen_device &screen) { return !curview.has_screen(screen); }) == screens.end())
+						view = &curview;
 			}
 		}
 	}
@@ -1693,10 +1686,21 @@ void render_target::load_additional_layout_files(const char *basename, bool have
 	screen_device_iterator iter(m_manager.machine().root_device());
 	std::vector<screen_info> const screens(std::begin(iter), std::end(iter));
 
+	// need this because views aren't fully set up yet
+	auto const nth_view =
+		[this] (unsigned n) -> layout_view *
+		{
+			for (layout_file &file : m_filelist)
+				for (layout_view &view : file.views())
+					if (!(m_flags & RENDER_CREATE_NO_ART) || !view.has_art())
+						if (n-- == 0)
+							return &view;
+			return nullptr;
+		};
 
 	if (screens.empty()) // ensure the fallback view for systems with no screens is loaded if necessary
 	{
-		if (!view_by_index(0))
+		if (!nth_view(0))
 		{
 			load_layout_file(nullptr, layout_noscreens);
 			if (m_filelist.empty())
@@ -1807,7 +1811,7 @@ void render_target::load_additional_layout_files(const char *basename, bool have
 		{
 			need_tiles = true;
 			int viewindex(0);
-			for (layout_view *view = view_by_index(viewindex); need_tiles && view; view = view_by_index(++viewindex))
+			for (layout_view *view = nth_view(viewindex); need_tiles && view; view = nth_view(++viewindex))
 			{
 				if (view->screen_count() >= screens.size())
 				{
@@ -2631,7 +2635,7 @@ void render_target::config_load(util::xml::data_node const &targetnode)
 		if (m_views.end() == view)
 			continue;
 
-		for (util::xml::data_node const *vistogglenode = viewnode->get_child("vistoggle"); vistogglenode; vistogglenode = vistogglenode->get_next_sibling("vistoggle"))
+		for (util::xml::data_node const *vistogglenode = viewnode->get_child("collection"); vistogglenode; vistogglenode = vistogglenode->get_next_sibling("collection"))
 		{
 			char const *const vistogglename = vistogglenode->get_attribute_string("name", nullptr);
 			if (!vistogglename)
@@ -2642,7 +2646,7 @@ void render_target::config_load(util::xml::data_node const &targetnode)
 			if (vistoggles.end() == vistoggle)
 				continue;
 
-			int const enable = vistogglenode->get_attribute_int("enabled", -1);
+			int const enable = vistogglenode->get_attribute_int("visible", -1);
 			if (0 <= enable)
 			{
 				if (enable)
@@ -2716,9 +2720,9 @@ bool render_target::config_save(util::xml::data_node &targetnode)
 						viewnode = targetnode.add_child("view", nullptr);
 						viewnode->set_attribute("name", view.first.get().name().c_str());
 					}
-					util::xml::data_node *const vistogglenode = viewnode->add_child("vistoggle", nullptr);
+					util::xml::data_node *const vistogglenode = viewnode->add_child("collection", nullptr);
 					vistogglenode->set_attribute("name", toggle.name().c_str());
-					vistogglenode->set_attribute_int("enabled", BIT(view.second, i));
+					vistogglenode->set_attribute_int("visible", BIT(view.second, i));
 					changed = true;
 				}
 				++i;
