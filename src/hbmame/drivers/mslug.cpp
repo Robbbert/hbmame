@@ -445,6 +445,14 @@ ROM_START( mslugps18 )
 	ROM_LOAD16_BYTE( "201.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
 ROM_END
 
+/*******************************
+ Game only exclusive at HBMAME
+**********************************/
+
+/**************
+ Remix Extreme
+****************/
+
 ROM_START( mslugrmpl01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "201rmpl01.p1", 0x100000, 0x100000, CRC(888be633) SHA1(3597f2f6a7628a07a71c851e066e303f662f81cf) )
@@ -671,7 +679,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Metal Slug
-HACK( 2020, mslugps01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis/Gaston90",         "Metal Slug (248 grenades 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugps01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",      "Metal Slug (248 grenades 2020-06-01)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, mslugps02,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Heavy Machine Gun Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, mslugps03,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Flame Shot Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 1996, mslugps04,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Rocket Launcher Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
@@ -689,6 +697,8 @@ HACK( 1996, mslugps15,      mslug,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2018, mslugps16,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Multi-Function Version 2018-04-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugps17,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-05-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-03-26)[Version Original]", MACHINE_SUPPORTS_SAVE )
+// Game only exclusive at HBMAME
+// Extreme Remixes
 HACK( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Rocket Launcher Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Shotgun Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
