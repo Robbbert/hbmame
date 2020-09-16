@@ -79,6 +79,7 @@ New Games
 - [mslug5dh51]          Metal Slug 5 (Hybrid Bullets Version 2020-09-14)
 - [mslug4hh61]          Metal Slug 4 (Last Bullet 2017-07-27)
 - [mslug4hh62]          Metal Slug 4 (Last Bullet Enhanced Edition 2017-11-02)
+- [mslug4lwp02]         Metal Slug 4 (Last Bullet Multi-Function 2017-07-27 (Prototype))
 - [mslug5dh71]          Metal Slug 5 (Final Edition 2020-09-05)
 - [mslug5dh72]          Metal Slug 5 (Crazy Fire Edition 2020-09-02)[NOT WORKING]
 - [mslug5dh74]          Metal Slug 5 (Ultimate Simplified Edition 2020-08-01)
@@ -99,9 +100,10 @@ New Games
 - [mslug6he02]          Metal Slug 6 (Enemy Soldier Reset #1 2020-09-05)(Summon Mount Edition)[NOT WORKING]
 - [mslug6he03]          Metal Slug 6 (Enemy Soldier Reset #1 2020-09-05)(Burst Enhanced Edition)
 - [mslug6he04]          Metal Slug 6 (Enemy Soldier Reset #1 2020-09-05)(Hybrid Bullets Version)
-- [theglad100s02]       The Gladiator (Full Attack Enhanced Edition 2020 2020-09-06)
-- [tk2h162]             Tenchi wo Kurau II (Master Edition Update 2020-08-11)
 - [punishers11]         The Punisher (Warriors Fighting Dragon Edition 2020-09-01)
+- [theglad100s02]       The Gladiator (Full Attack Enhanced Edition 2020 2020-09-06)
+- [umk3uc20200915]      Ultimate Mortal Kombat 3 (Ultimate Cup Edition 2020-09-15)
+- [tk2h162]             Tenchi wo Kurau II (Master Edition Update 2020-08-11)
 - [zeroteamss02]        Zero Team Selection (Yanshen Edition 2020-08-27)
 
 

@@ -2124,6 +2124,31 @@ ROM_START( mslug4lwp01 )
 	ROM_LOAD16_BYTE( "263lw.c6", 0x2000001, 0x400000, CRC(b015aeee) SHA1(24e12e72b82eea9e52a4cefc774efb3bd7db822f) )
 ROM_END
 
+ROM_START( mslug4lwp02 ) 
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "263lwp02.p1", 0x000000, 0x100000, CRC(dec382a1) SHA1(829f3ad224ef6f248cb72ee65fd2c6eaa02122af) )
+	ROM_LOAD16_WORD_SWAP( "263hh29.p2", 0x100000, 0x800000, CRC(1d268350) SHA1(296ae402c9ff1c6cfc70629aacba539dfd479cfd) )
+
+	NEO_SFIX_128K( "263.s1", CRC(a9446774) SHA1(c5a309fd8ee6d6750a15c82e710218a3755e38b2) )
+
+	NEO_BIOS_AUDIO_128K( "263lw.m1", CRC(49b1453e) SHA1(e6296e1d6bb604f1a15cf8d1b273e97b6eb7cced) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "263lw.v1", 0x000000, 0x400000, CRC(8cb5a9ef) SHA1(272ad312f8694acf9190ebf48d1c8a5fec73c130) )
+	ROM_LOAD( "263lwl.v2", 0x400000, 0x400000, CRC(c9572c14) SHA1(4338aaceada29ea1cd2baf0d6ada4911246f5b09) )
+	ROM_LOAD( "263lwl.v3", 0x800000, 0x400000, CRC(e7c14624) SHA1(1d17f7e7cfe9bb03f1a374b31427c4e5203433f2) )
+	ROM_LOAD( "263lwl.v4", 0xc00000, 0x400000, CRC(b1e5ac70) SHA1(0d6eea68085c0e6cd7c7e29edb06f05a712f6d62) )
+	ROM_IGNORE(0x400000)
+
+	ROM_REGION( 0x3000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "263nd.c1", 0x0000000, 0x800000, CRC(361ddda6) SHA1(95f329019660f1ec7f15f6ea1e0c2bfc84b02ca8) )
+	ROM_LOAD16_BYTE( "263nd.c2", 0x0000001, 0x800000, CRC(15d192c4) SHA1(0b9afb62a1d4d764d616408b09e17a05fc4a87e7) )
+	ROM_LOAD16_BYTE( "263lw.c3", 0x1000000, 0x800000, CRC(e296612c) SHA1(57eb1861b738247aaf0643641268f676b71ed025) )
+	ROM_LOAD16_BYTE( "263lw.c4", 0x1000001, 0x800000, CRC(c22e3ad0) SHA1(11ce301d4e5b4b1b76e2b82d18c4a9b8b56eeb20) )
+	ROM_LOAD16_BYTE( "263lw.c5", 0x2000000, 0x400000, CRC(288cd91f) SHA1(a195be13d4ef19705cd3f08be1ec8cdacb29f159) )
+	ROM_LOAD16_BYTE( "263lw.c6", 0x2000001, 0x400000, CRC(b015aeee) SHA1(24e12e72b82eea9e52a4cefc774efb3bd7db822f) )
+ROM_END
+
 /******************
  Extreme Remixes
 ********************/
@@ -4444,6 +4469,7 @@ GAME( 2020, mslug4mb04,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  ini
 GAME( 2019, mslug4erd01,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Gaston90",                     "Metal Slug 4 (Enemies Resetting Version 2019-04-15)(Multi-Function)", MACHINE_SUPPORTS_SAVE ) // Cannot update the current version anymore causes crashing
 GAME( 2020, mslug4erd02,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 4 (Enemies Resetting Version 2020-02-10)(Generation 1V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, mslug4lwp01,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Gaston90",                     "Metal Slug 4 (Last Bullet Multi-Function 2016-10-16 (Prototype))", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug4lwp02,     mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Gaston90",                     "Metal Slug 4 (Last Bullet Multi-Function 2017-07-27 (Prototype))", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 
 // Extreme Remixes
 GAME( 2019, mslug4erms01,    mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Team Remix(Gaston90,Creamymami[EGCG])",          "Metal Slug 4 (Enemies Resetting Multi-Function Version 2019-04-15)(Revised Version Remix 1.0 (2019-04-19))", MACHINE_SUPPORTS_SAVE )// Cannot update the current version anymore causes crashing
