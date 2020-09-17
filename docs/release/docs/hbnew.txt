@@ -32,6 +32,7 @@ New Games
 - [kovpluss378]         Knights of Valour Plus 2012 (You Ju Restored Version 2020-08-15)
 - [kovpluss379]         Knights of Valour Plus 2012 (Warriors Edition 2020-09-10)
 - [kovpluss380]         Knights of Valour Plus 2012 (Heroes Dance 2020 2020-09-10)
+- [nsmb]                Neo Super Mario Bros Demo!
 - [mslug2ps24]          Metal Slug 2 (Crazy Fire Edition 2020-09-05)[NOT WORKING]
 - [mslug3h64]           Metal Slug 3 (Ultimate Simplified Edition 2020-08-25)
 - [mslug3h65]           Metal Slug 3 (Hybrid Bullets Version 2020-09-12)

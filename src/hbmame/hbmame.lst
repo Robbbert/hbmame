@@ -5830,6 +5830,7 @@ ngmontst
 ngtd2
 ngtetris
 ngym2610
+nsmb
 nyan
 nyana
 pcmademo	// 2015 freem
@@ -5870,6 +5871,7 @@ zintrkcd	/* 211 (c) 1996 ADK / SNK */
 zintrkcd1
 zintrkm
 zintricks01
+
 
 @source:neogeo1.cpp
 2020bbcd
