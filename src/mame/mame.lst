@@ -14809,6 +14809,7 @@ mobigo2
 @source:generalplus_gpl16250_nand.cpp
 wlsair60                        // Wireless Air 60
 kiugames
+jak_camp
 jak_car2
 jak_gtg
 jak_sspop
@@ -16726,7 +16727,8 @@ in207100                        // Informer 207/100
 @source:informer_207_376.cpp
 in207376                        // Informer 207/376
 
-@source:informer_213ae.cpp
+@source:informer_213.cpp
+in213                           // Informer 213
 in213ae                         // Informer 213 AE
 
 @source:instantm.cpp
@@ -35396,6 +35398,9 @@ d110                            //
 d50                             //
 d50o                            //
 d550                            //
+
+@source:roland_jd800.cpp
+jd800                           //
 
 @source:roland_jv80.cpp
 jv880                           //
