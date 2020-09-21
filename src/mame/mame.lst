@@ -9930,6 +9930,7 @@ mazinger                        // (c) 1994 Banpresto (country is in EEPROM)
 mazingerj                       // (c) 1994 Banpresto (country is in EEPROM)
 metmqstr                        // (c) 1995 Banpresto / Pandorabox
 nmaster                         // (c) 1995 Banpresto / Pandorabox
+paccarn                         // (c) 1996 Namco
 paceight                        // (c) 1996 Namco
 pacslot                         // (c) 1996 Namco
 plegends                        // (c) 1994 Atlus
@@ -22216,6 +22217,7 @@ rad_gen1                        // (c)2004 Radica
 rad_gen2                        // (c)2004 Radica
 rad_ssoc                        // (c)2004 Radica
 rad_sonic
+rad_orun
 
 @source:megaphx.cpp
 megaphx                         // (c) 1991 Dinamic / Inder
@@ -32251,8 +32253,11 @@ zdog
 otrail
 denv150
 techni4
-duetpp
+sporzpp
 sporzbx
+sporztn
+wldsoctv
+solargm	
 ablmini
 senwld
 zonefusn
@@ -38126,6 +38131,7 @@ senspeed
 ordentv
 wfcentro
 tiktokmm
+jouet
 
 @source:spg2xx_digimake.cpp
 rad_digi
