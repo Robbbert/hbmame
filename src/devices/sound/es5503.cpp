@@ -127,20 +127,19 @@ void es5503_device::halt_osc(int onum, int type, uint32_t *accumulator, int ress
 		m_irq_func(1);
 	}
 }
-
 void es5503_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
+	static int32_t mix[(44100/60)*2*8];
 	int32_t *mixp;
 	int osc, snum, i;
 	uint32_t ramptr;
+	int samples = outputs[0].samples();
 
-	if (m_mix_buffer.size() < outputs[0].samples())
-		m_mix_buffer.resize(outputs[0].samples());
+	assert(samples < (44100/60)*2);
+	memset(mix, 0, sizeof(mix));
 
 	for (int chan = 0; chan < output_channels; chan++)
 	{
-		std::fill_n(&m_mix_buffer[0], outputs[0].samples(), 0);
-
 		for (osc = 0; osc < (oscsenabled+1); osc++)
 		{
 			ES5503Osc *pOsc = &oscillators[osc];
@@ -156,9 +155,9 @@ void es5503_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 				int8_t data = -128;
 				int resshift = resshifts[pOsc->resolution] - pOsc->wavetblsize;
 				uint32_t sizemask = accmasks[pOsc->wavetblsize];
-				mixp = &m_mix_buffer[0];
+				mixp = &mix[0] + chan;
 
-				for (snum = 0; snum < outputs[0].samples(); snum++)
+				for (snum = 0; snum < samples; snum++)
 				{
 					altram = acc >> resshift;
 					ramptr = altram & sizemask;
@@ -176,7 +175,7 @@ void es5503_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 					else
 					{
 						*mixp += data * vol;
-						mixp++;
+						mixp += output_channels;
 
 						if (altram >= wtsize)
 						{
@@ -197,12 +196,12 @@ void es5503_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 				pOsc->data = data ^ 0x80;
 			}
 		}
-
-		mixp = &m_mix_buffer[0];
-		constexpr stream_buffer::sample_t sample_scale = 1.0 / (32768.0 * 8.0);
+	}
+	mixp = &mix[0];
+	constexpr stream_buffer::sample_t sample_scale = 1.0 / (32768.0 * 8.0);
+	for (int chan = 0; chan < output_channels; chan++)
 		for (i = 0; i < outputs[chan].samples(); i++)
 			outputs[chan].put(i, stream_buffer::sample_t(*mixp++) * sample_scale);
-	}
 }
 
 

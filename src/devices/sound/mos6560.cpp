@@ -884,7 +884,7 @@ void mos6560_device::device_timer(emu_timer &timer, device_timer_id id, int para
 }
 
 //-------------------------------------------------
-//  sound_stream_update_legacy - handle a stream update
+//  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
 void mos6560_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
@@ -892,7 +892,6 @@ void mos6560_device::sound_stream_update(sound_stream &stream, std::vector<read_
 	int i, v;
 	auto &buffer = outputs[0];
 
-	constexpr stream_buffer::sample_t sample_scale = 1.0 / 8192.0;
 	for (i = 0; i < buffer.samples(); i++)
 	{
 		v = 0;
@@ -958,6 +957,6 @@ void mos6560_device::sound_stream_update(sound_stream &stream, std::vector<read_
 			v = 8191;
 		else if (v < -8191)
 			v = -8191;
-		buffer.put(i, stream_buffer::sample_t(v) * sample_scale);
+		buffer.put_int(i, v, 8192);
 	}
 }

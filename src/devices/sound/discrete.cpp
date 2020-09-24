@@ -862,7 +862,7 @@ discrete_device::~discrete_device(void)
 void discrete_device::device_start()
 {
 	// create the stream
-	//m_stream = stream_alloc_legacy(0, 2, 22257);
+	//m_stream = stream_alloc(0, 2, 22257);
 
 	const discrete_block *intf_start = m_intf;
 
@@ -1060,7 +1060,7 @@ void discrete_device::process(int samples)
 }
 
 //-------------------------------------------------
-//  sound_stream_update_legacy - handle update requests for
+//  sound_stream_update - handle update requests for
 //  our sound stream
 //-------------------------------------------------
 

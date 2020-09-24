@@ -779,6 +779,7 @@ MACHINES["XC1700E"] = true
 MACHINES["EDLC"] = true
 MACHINES["WTL3132"] = true
 MACHINES["CXD1185"] = true
+MACHINES["BL_HANDHELDS_MENUCONTROL"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -1862,10 +1863,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/rx78.cpp",
 	MAME_DIR .. "src/mame/drivers/tamag1.cpp",
 	MAME_DIR .. "src/mame/drivers/wswan.cpp",
-	MAME_DIR .. "src/mame/includes/wswan.h",
 	MAME_DIR .. "src/mame/audio/wswan.cpp",
 	MAME_DIR .. "src/mame/audio/wswan.h",
-	MAME_DIR .. "src/mame/machine/wswan.cpp",
 	MAME_DIR .. "src/mame/video/wswan.cpp",
 	MAME_DIR .. "src/mame/video/wswan.h",
 	MAME_DIR .. "src/mame/drivers/bandai_design_master.cpp",
@@ -2609,6 +2608,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/informer_213.cpp",
 	MAME_DIR .. "src/mame/machine/informer_207_376_kbd.cpp",
 	MAME_DIR .. "src/mame/machine/informer_207_376_kbd.h",
+	MAME_DIR .. "src/mame/machine/informer_213_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/informer_213_kbd.h",
 }
 
 createMESSProjects(_target, _subtarget, "intel")
@@ -4281,6 +4282,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/aaa.cpp",
 	MAME_DIR .. "src/mame/drivers/acd.cpp",
 	MAME_DIR .. "src/mame/drivers/aceex.cpp",
+	MAME_DIR .. "src/mame/drivers/adacp150.cpp",
 	MAME_DIR .. "src/mame/drivers/aid80f.cpp",
 	MAME_DIR .. "src/mame/drivers/akaiax80.cpp",
 	MAME_DIR .. "src/mame/drivers/alcat7100.cpp",

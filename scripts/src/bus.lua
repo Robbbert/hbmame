@@ -597,6 +597,8 @@ if (BUSES["BBC_USERPORT"]~=null) then
 		MAME_DIR .. "src/devices/bus/bbc/userport/beebspch.h",
 		MAME_DIR .. "src/devices/bus/bbc/userport/lcd.cpp",
 		MAME_DIR .. "src/devices/bus/bbc/userport/lcd.h",
+		MAME_DIR .. "src/devices/bus/bbc/userport/m4000.cpp",
+		MAME_DIR .. "src/devices/bus/bbc/userport/m4000.h",
 		MAME_DIR .. "src/devices/bus/bbc/userport/palext.cpp",
 		MAME_DIR .. "src/devices/bus/bbc/userport/palext.h",
 		MAME_DIR .. "src/devices/bus/bbc/userport/pointer.cpp",
@@ -2378,6 +2380,8 @@ if (BUSES["A2BUS"]~=null) then
 		MAME_DIR .. "src/devices/bus/a2bus/cmsscsi.h",
 		MAME_DIR .. "src/devices/bus/a2bus/uthernet.cpp",
 		MAME_DIR .. "src/devices/bus/a2bus/uthernet.h",
+		MAME_DIR .. "src/devices/bus/a2bus/sider.cpp",
+		MAME_DIR .. "src/devices/bus/a2bus/sider.h",
 	}
 end
 

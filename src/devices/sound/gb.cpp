@@ -1211,14 +1211,13 @@ void cgb04_apu_device::apu_power_off()
 
 
 //-------------------------------------------------
-//  sound_stream_update_legacy - handle a stream update
+//  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
 void gameboy_sound_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
 	auto &outputl = outputs[0];
 	auto &outputr = outputs[1];
-	constexpr stream_buffer::sample_t sample_scale = 1.0 / (32768.0 / 64.0);
 	for (int sampindex = 0; sampindex < outputl.samples(); sampindex++)
 	{
 		s32 sample;
@@ -1271,7 +1270,7 @@ void gameboy_sound_device::sound_stream_update(sound_stream &stream, std::vector
 		right *= m_snd_control.vol_right;
 
 		/* Update the buffers */
-		outputl.put(sampindex, stream_buffer::sample_t(left) * sample_scale);
-		outputr.put(sampindex, stream_buffer::sample_t(right) * sample_scale);
+		outputl.put_int(sampindex, left, 32768 / 64);
+		outputr.put_int(sampindex, right, 32768 / 64);
 	}
 }

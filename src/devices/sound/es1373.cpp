@@ -230,13 +230,13 @@ void es1373_device::device_timer(emu_timer &timer, device_timer_id tid, int para
 }
 
 //-------------------------------------------------
-//  sound_stream_update_legacy - handle update requests for
+//  sound_stream_update - handle update requests for
 //  our sound stream
 //-------------------------------------------------
 void es1373_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
 	if (m_dac1.enable) {
-		logerror("%s: sound_stream_update_legacy DAC1 not implemented yet\n", tag());
+		logerror("%s: sound_stream_update DAC1 not implemented yet\n", tag());
 	}
 
 	if (m_dac2.enable) {
@@ -248,7 +248,7 @@ void es1373_device::sound_stream_update(sound_stream &stream, std::vector<read_s
 
 	if (m_adc.enable) {
 		if (m_adc.format!=SCTRL_16BIT_MONO) {
-			logerror("%s: sound_stream_update_legacy Only SCTRL_16BIT_MONO recorded supported\n", tag());
+			logerror("%s: sound_stream_update Only SCTRL_16BIT_MONO recorded supported\n", tag());
 		} else {
 			for (int i=0; i<outputs[0].samples(); i++) {
 				if (m_adc.buf_count<=m_adc.buf_size) {
@@ -306,7 +306,6 @@ void es1373_device::send_audio_out(chan_info& chan, uint32_t intr_mask, write_st
 	//uint32_t sample_size = calc_size(chan.format);
 	// Send data to sound stream
 	bool buf_row_done;
-	constexpr stream_buffer::sample_t sample_scale = 1.0 / 32768.0;
 	for (int i=0; i<outL.samples(); i++) {
 		buf_row_done = false;
 		int16_t lsamp = 0, rsamp = 0;
@@ -350,7 +349,7 @@ void es1373_device::send_audio_out(chan_info& chan, uint32_t intr_mask, write_st
 			}
 			if (LOG_ES_FILE && m_tempCount<1000000) {
 				m_tempCount++;
-				//logerror("es1373_device::sound_stream_update_legacy count: %i samp16: %X\n", i, samp16);
+				//logerror("es1373_device::sound_stream_update count: %i samp16: %X\n", i, samp16);
 				//if (LOG_ES_FILE && m_eslog)
 					//fprintf(m_eslog, "%i\n", samp16);
 			}
@@ -374,8 +373,8 @@ void es1373_device::send_audio_out(chan_info& chan, uint32_t intr_mask, write_st
 				chan.buf_rptr -= 0x10;
 			}
 		}
-		outL.put(i, stream_buffer::sample_t(lsamp) * sample_scale);
-		outR.put(i, stream_buffer::sample_t(rsamp) * sample_scale);
+		outL.put_int(i, lsamp, 32768);
+		outR.put_int(i, rsamp, 32768);
 	}
 }
 

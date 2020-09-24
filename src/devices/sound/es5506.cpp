@@ -1042,9 +1042,8 @@ void es5506_device::generate_samples(std::vector<write_stream_view> &outputs)
 			generate_irq(voice, v);
 		}
 
-		constexpr stream_buffer::sample_t sample_scale = 1.0 / 32768.0;
 		for (int c = 0; c < outputs.size(); c++)
-			outputs[c].put(sampindex, stream_buffer::sample_t(cursample[c]) * sample_scale);
+			outputs[c].put_int(sampindex, cursample[c], 32768);
 	}
 }
 
@@ -1081,9 +1080,8 @@ void es5505_device::generate_samples(std::vector<write_stream_view> &outputs)
 			generate_irq(voice, v);
 		}
 
-		constexpr stream_buffer::sample_t sample_scale = 1.0 / 32768.0;
 		for (int c = 0; c < outputs.size(); c++)
-			outputs[c].put(sampindex, stream_buffer::sample_t(cursample[c]) * sample_scale);
+			outputs[c].put_int(sampindex, cursample[c], 32768);
 	}
 }
 
@@ -2094,7 +2092,7 @@ u16 es5505_device::read(offs_t offset)
 
 
 //-------------------------------------------------
-//  sound_stream_update_legacy - handle a stream update
+//  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
 void es550x_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)

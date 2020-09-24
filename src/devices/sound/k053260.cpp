@@ -301,14 +301,6 @@ void k053260_device::write(offs_t offset, u8 data)
 	}
 }
 
-static inline int limit(int val, int max, int min)
-{
-	return std::max(min, std::min(max, val));
-}
-
-static constexpr s32 MAXOUT = 0x7fff;
-static constexpr s32 MINOUT = -0x8000;
-
 //-------------------------------------------------
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
@@ -317,7 +309,6 @@ void k053260_device::sound_stream_update(sound_stream &stream, std::vector<read_
 {
 	if (m_mode & 2)
 	{
-		constexpr stream_buffer::sample_t sample_scale = 1.0f / stream_buffer::sample_t(MAXOUT);
 		for ( int j = 0; j < outputs[0].samples(); j++ )
 		{
 			stream_sample_t buffer[2] = {0, 0};
@@ -328,8 +319,8 @@ void k053260_device::sound_stream_update(sound_stream &stream, std::vector<read_
 					voice.play(buffer);
 			}
 
-			outputs[0].put(j, stream_buffer::sample_t(limit( buffer[0], MAXOUT, MINOUT )) * sample_scale);
-			outputs[1].put(j, stream_buffer::sample_t(limit( buffer[1], MAXOUT, MINOUT )) * sample_scale);
+			outputs[0].put_int_clamp(j, buffer[0], 32768);
+			outputs[1].put_int_clamp(j, buffer[1], 32768);
 		}
 	}
 	else
@@ -430,7 +421,7 @@ void k053260_device::KDSC_Voice::update_pan_volume()
 void k053260_device::KDSC_Voice::key_on()
 {
 	m_position = m_kadpcm ? 1 : 0; // for kadpcm low bit is nybble offset, so must start at 1 due to preincrement
-	m_counter = 0x1000 - CLOCKS_PER_SAMPLE; // force update on next sound_stream_update_legacy
+	m_counter = 0x1000 - CLOCKS_PER_SAMPLE; // force update on next sound_stream_update
 	m_output = 0;
 	m_playing = true;
 	if (LOG) m_device.logerror("K053260: start = %06x, length = %06x, pitch = %04x, vol = %02x:%x, loop = %s, %s\n",
