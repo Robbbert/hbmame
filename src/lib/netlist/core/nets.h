@@ -17,6 +17,12 @@
 #include "../plib/plists.h"
 #include "../plib/pstring.h"
 
+// Enable the setting below to avoid queue pushes were at execution
+// no action will be taken. This is academically cleaner, but slower than
+// allowing this to happen and filter it during during "process".
+
+#define AVOID_NOOP_QUEUE_PUSHES	(0)
+
 namespace netlist
 {
 
@@ -68,7 +74,14 @@ namespace netlist
 
 					const auto nst(exec().time() + delay);
 					m_next_scheduled_time = nst;
-
+#if (AVOID_NOOP_QUEUE_PUSHES)
+					m_in_queue = (m_list_active.empty() ? queue_status::DELAYED_DUE_TO_INACTIVE
+						: (m_new_Q != m_cur_Q ? queue_status::QUEUED : queue_status::DELIVERED));
+					if (m_in_queue == queue_status::QUEUED)
+						exec().qpush(nst, this);
+					else
+						update_inputs();
+#else
 					if (!m_list_active.empty())
 					{
 						m_in_queue = queue_status::QUEUED;
@@ -79,17 +92,21 @@ namespace netlist
 						m_in_queue = queue_status::DELAYED_DUE_TO_INACTIVE;
 						update_inputs();
 					}
+#endif
 				}
 			}
 			NVCC_CONSTEXPR bool is_queued() const noexcept { return m_in_queue == queue_status::QUEUED; }
 
 			template <bool KEEP_STATS>
-			inline void update_devs() noexcept
+			void update_devs() noexcept
 			{
 				nl_assert(this->is_rail_net());
 
 				m_in_queue = queue_status::DELIVERED; // mark as taken ...
+
+#if (!AVOID_NOOP_QUEUE_PUSHES)
 				if (m_new_Q ^ m_cur_Q)
+#endif
 				{
 					process<KEEP_STATS>((m_new_Q << core_terminal_t::INP_LH_SHIFT)
 						| (m_cur_Q << core_terminal_t::INP_HL_SHIFT), m_new_Q);
@@ -117,7 +134,12 @@ namespace netlist
 					railterminal().device().do_inc_active();
 					if (m_in_queue == queue_status::DELAYED_DUE_TO_INACTIVE)
 					{
+#if (AVOID_NOOP_QUEUE_PUSHES)
+						if (m_next_scheduled_time > exec().time() 
+							&& (m_cur_Q != m_new_Q))
+#else
 						if (m_next_scheduled_time > exec().time())
+#endif
 						{
 							m_in_queue = queue_status::QUEUED;     // pending
 							exec().qpush(m_next_scheduled_time, this);
@@ -139,7 +161,16 @@ namespace netlist
 				gsl_Expects(!m_list_active.empty());
 				m_list_active.remove(&term);
 				if (m_list_active.empty())
+				{
+#if (AVOID_NOOP_QUEUE_PUSHES)
+					if (!!is_queued())
+					{
+						exec().qremove(this);
+						m_in_queue = queue_status::DELAYED_DUE_TO_INACTIVE;
+					}
+#endif
 					railterminal().device().do_dec_active();
+				}
 			}
 
 			// -----------------------------------------------------------------------------
@@ -165,7 +196,7 @@ namespace netlist
 		protected:
 
 			// only used for logic nets
-			NVCC_CONSTEXPR netlist_sig_t Q() const noexcept { return m_cur_Q; }
+			NVCC_CONSTEXPR const netlist_sig_t &Q() const noexcept { return m_cur_Q; }
 
 			// only used for logic nets
 			void initial(netlist_sig_t val) noexcept
@@ -175,7 +206,7 @@ namespace netlist
 			}
 
 			// only used for logic nets
-			inline void set_Q_and_push(const netlist_sig_t &newQ, const netlist_time &delay) noexcept
+			void set_Q_and_push(const netlist_sig_t &newQ, const netlist_time &delay) noexcept
 			{
 				if (newQ != m_new_Q)
 				{
@@ -185,7 +216,7 @@ namespace netlist
 			}
 
 			// only used for logic nets
-			inline void set_Q_time(const netlist_sig_t &newQ, const netlist_time_ext &at) noexcept
+			void set_Q_time(const netlist_sig_t &newQ, const netlist_time_ext &at) noexcept
 			{
 				if (newQ != m_new_Q)
 				{
@@ -216,7 +247,7 @@ namespace netlist
 			// -----------------------------------------------------------------------------
 
 			template <bool KEEP_STATS, typename T, typename S>
-			void process(T mask, const S &sig) noexcept
+			void process(const T &mask, const S &sig) noexcept
 			{
 				m_cur_Q = sig;
 

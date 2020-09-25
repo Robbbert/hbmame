@@ -76,7 +76,7 @@ namespace netlist
 		/// \return vector with pointers to devices
 
 		template<class C>
-		inline std::vector<C *> get_device_list() const
+		std::vector<C *> get_device_list() const
 		{
 			std::vector<C *> tmp;
 			for (const auto &d : m_devices)
@@ -112,13 +112,13 @@ namespace netlist
 		template<typename O, typename C>
 		void save(O &owner, C &state, const pstring &module, const pstring &stname)
 		{
-			this->run_state_manager().save_item(static_cast<void *>(&owner), state, module + "." + stname);
+			this->run_state_manager().save_item(plib::void_ptr_cast(&owner), state, module + "." + stname);
 		}
 
 		template<typename O, typename C>
 		void save(O &owner, C *state, const pstring &module, const pstring &stname, const std::size_t count)
 		{
-			this->run_state_manager().save_state_ptr(static_cast<void *>(&owner), module + "." + stname, plib::state_manager_t::dtype<C>(), count, state);
+			this->run_state_manager().save_state_ptr(plib::void_ptr_cast(&owner), module + "." + stname, plib::state_manager_t::dtype<C>(), count, state);
 		}
 
 		// FIXME: only used by queue_t save state
