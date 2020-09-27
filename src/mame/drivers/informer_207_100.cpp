@@ -8,15 +8,15 @@
 
     Hardware:
     - HD68B09EP
-	- 3x HM6116LP-4 (+ 3 empty sockets), 2x TC5517BPL-20
+    - 3x HM6116LP-4 (+ 3 empty sockets), 2x TC5517BPL-20
     - R6545-1AP CRTC
-	- MC2681P DUART
+    - MC2681P DUART
     - MC68B50P ACIA
     - M58321 RTC
-	- 19.7184 MHz XTAL, 3.6864 MHz XTAL
+    - 19.7184 MHz XTAL, 3.6864 MHz XTAL
 
     TODO:
-	- Redump ROM 207_100_2.bin
+    - Redump ROM 207_100_2.bin
 
 ***************************************************************************/
 
@@ -108,11 +108,11 @@ MC6845_ON_UPDATE_ADDR_CHANGED( informer_207_100_state::crtc_addr )
 
 MC6845_UPDATE_ROW( informer_207_100_state::crtc_update_row )
 {
-	const pen_t *pen = m_palette->pens();
+	pen_t const *const pen = m_palette->pens();
 
 	for (int x = 0; x < x_count; x++)
 	{
-//		uint8_t attr = m_ram[ma + x * 2 + 0];
+//      uint8_t attr = m_ram[ma + x * 2 + 0];
 		uint8_t code = m_ram[ma + x * 2 + 1];
 		uint8_t data = m_chargen[(code << 4) + ra];
 
@@ -120,14 +120,14 @@ MC6845_UPDATE_ROW( informer_207_100_state::crtc_update_row )
 			data = 0xff;
 
 		// draw 8 pixels of the character
-		bitmap.pix32(y, x * 8 + 7) = pen[BIT(data, 0)];
-		bitmap.pix32(y, x * 8 + 6) = pen[BIT(data, 1)];
-		bitmap.pix32(y, x * 8 + 5) = pen[BIT(data, 2)];
-		bitmap.pix32(y, x * 8 + 4) = pen[BIT(data, 3)];
-		bitmap.pix32(y, x * 8 + 3) = pen[BIT(data, 4)];
-		bitmap.pix32(y, x * 8 + 2) = pen[BIT(data, 5)];
-		bitmap.pix32(y, x * 8 + 1) = pen[BIT(data, 6)];
-		bitmap.pix32(y, x * 8 + 0) = pen[BIT(data, 7)];
+		bitmap.pix(y, x * 8 + 7) = pen[BIT(data, 0)];
+		bitmap.pix(y, x * 8 + 6) = pen[BIT(data, 1)];
+		bitmap.pix(y, x * 8 + 5) = pen[BIT(data, 2)];
+		bitmap.pix(y, x * 8 + 4) = pen[BIT(data, 3)];
+		bitmap.pix(y, x * 8 + 3) = pen[BIT(data, 4)];
+		bitmap.pix(y, x * 8 + 2) = pen[BIT(data, 5)];
+		bitmap.pix(y, x * 8 + 1) = pen[BIT(data, 6)];
+		bitmap.pix(y, x * 8 + 0) = pen[BIT(data, 7)];
 	}
 }
 
