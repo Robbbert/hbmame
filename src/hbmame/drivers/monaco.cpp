@@ -1509,7 +1509,7 @@ void monaco_state::monaco(machine_config &config)
 	SAMPLES(config, m_samples);
 	m_samples->set_channels(5);
 	m_samples->set_samples_names(monaco_sample_names);
-	m_samples->add_route(ALL_OUTPUTS, "mono", 0.90);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.5);
 }
 
 /*****************************************************************/
@@ -1668,7 +1668,7 @@ void monaco_state::draw_strip( bitmap_ind16 &bitmap, int sy, int x0, int x1, int
 	for( sx=x0; sx<x1; sx++ )
 		do
 		{
-			bitmap.pix16(sy, sx) = pen;
+			bitmap.pix(sy, sx) = pen;
 		}
 		while (0);
 }

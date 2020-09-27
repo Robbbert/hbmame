@@ -316,9 +316,9 @@ u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitma
 		pen_t pen = (video_data & 0x01) ? rgb_t(255,255,255) : rgb_t(0,0,0);
 
 		if (flip)
-			bitmap.pix32(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - x) = pen;
+			bitmap.pix(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - x) = pen;
 		else
-			bitmap.pix32(y - MW8080BW_VCOUNTER_START_NO_VBLANK, x) = pen;
+			bitmap.pix(y - MW8080BW_VCOUNTER_START_NO_VBLANK, x) = pen;
 
 		/* next pixel */
 		video_data = video_data >> 1;
@@ -335,9 +335,9 @@ u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitma
 				pen = (video_data & 0x01) ? rgb_t(255,255,255) : rgb_t(0,0,0);
 
 				if (flip)
-					bitmap.pix32(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - (256 + i)) = pen;
+					bitmap.pix(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - (256 + i)) = pen;
 				else
-					bitmap.pix32(y - MW8080BW_VCOUNTER_START_NO_VBLANK, 256 + i) = pen;
+					bitmap.pix(y - MW8080BW_VCOUNTER_START_NO_VBLANK, 256 + i) = pen;
 
 				video_data = video_data >> 1;
 			}
@@ -425,10 +425,10 @@ void sm_state::spacmissx(machine_config &config)
 	SAMPLES(config, m_samples);
 	m_samples->set_channels(6);
 	m_samples->set_samples_names(invaders_sample_names);
-	m_samples->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.50);
 
 	DISCRETE(config, m_discrete, spacmissx_disc);
-	m_discrete->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_discrete->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
 
