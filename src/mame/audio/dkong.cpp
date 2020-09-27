@@ -1349,7 +1349,7 @@ void dkong_state::dkong2b_audio(machine_config &config)
 	m_soundcpu->t1_in_cb().set("ls259.6h", FUNC(latch8_device::bit4_q_r));
 
 	SPEAKER(config, "mono").front_center();
-	DISCRETE(config, "discrete", dkong2b_discrete).add_route(ALL_OUTPUTS, "mono", 1.0);
+	DISCRETE(config, "discrete", dkong2b_discrete).add_route(ALL_OUTPUTS, "mono", 0.50); // HBMAME - turn volume down
 }
 
 void dkong_state::radarscp_audio(machine_config &config)

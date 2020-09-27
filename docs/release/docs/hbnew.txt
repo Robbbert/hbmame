@@ -15,6 +15,7 @@ New Games
 - [ddtods01]            Dungeons & Dragons: Tower of Doom (Full Attack Edition 2020-08-31)
 - [dinos277]            Cadillacs and Dinosaurs (Demon God Dance 2020-08-23)
 - [dinos278]            Cadillacs and Dinosaurs (God of War Edition Update 2020-07-30)
+- [dkongitd]            Donkey Kong In The Dark v1.00
 - [grdianss18]          Guardians (Warriors Edition 2020-04-01)
 - [kof2k2s117]          Kof2002 (PlayStation 2 Original 2018-04-17)
 - [kof2k2s118]          Kof2002 (PlayStation 2 Extremely Simplified 2020-08-24
