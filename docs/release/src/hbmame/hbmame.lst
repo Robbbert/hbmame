@@ -558,6 +558,7 @@ tk2h158
 tk2h159
 tk2h160
 tk2h161
+tk2h162
 wofb
 wofch		// tk2p1
 wofes
@@ -669,6 +670,9 @@ captcomms100
 captcomms101
 captcomms102
 captcomms103
+captcomms104
+captcomms105
+captcomms106
 dinos01
 dinos02
 dinos03
@@ -928,6 +932,8 @@ dinos273
 dinos274
 dinos275
 dinos276
+dinos277
+dinos278
 ffights01
 ffights02
 ffightj2s01
@@ -975,6 +981,7 @@ punishers07
 //punishers08 //Encrypted
 punishers09
 punishers10
+punishers11
 punisherjs01
 punisherjs02
 punisherjs03
@@ -1287,15 +1294,20 @@ xmvsfu1d
 19xxjrs01
 1944s01
 armwars01
+armwars02
 avspus01
 avspus02
 avspus03
+avspus04
+avspus05
 batcirds01
 csclubs01
 cybotsjs01
 ddsomjs01
+ddsomjs02
 //ddsomuds01  // not working: unknown decryption key, emulator freezes
 ddsomuds02
+ddtods01
 dstlks01
 gigawings01
 mshs01
@@ -1514,6 +1526,7 @@ nadkong
 dkcbarrel
 dkfreerun
 dkongotr
+dkongitd
 //dk_remix
 
 @source:docastle.cpp
@@ -2217,6 +2230,9 @@ kof97s203
 kof97s204
 kof97s205
 kof97s206
+kof97s207
+kof97s208
+kof97s209
 kof97hx01
 kof97hx02
 kof97hx03
@@ -2855,6 +2871,7 @@ kof98hh132
 kof98hh133
 kof98hh134
 kof98hh135
+kof98hh136
 kof98xz01
 kof98xz02
 kof98xz03
@@ -3082,6 +3099,8 @@ kof99s100
 kof99s101
 kof99s102
 kof99s103
+kof99s104
+kof99s105
 
 @source:kof2000.cpp
 kof2000d
@@ -3813,6 +3832,9 @@ kof2k2s113
 kof2k2s114
 kof2k2s115
 kof2k2s116
+kof2k2s117
+kof2k2s118
+kof2k2s119
 
 @source:kof2003.cpp
 kof2003d
@@ -4175,6 +4197,7 @@ umk3uc20200506
 umk3uc20200519
 umk3uc20200608
 umk3uc20200802
+umk3uc20200915
 umk3tm
 umk3tm20190417
 umk3plus20190921
@@ -4271,6 +4294,7 @@ mslug2ps20
 mslug2ps21
 mslug2ps22
 mslug2ps23
+mslug2ps24
 mslug2ps25
 mslug2ps26
 mslug2ps27
@@ -4363,28 +4387,6 @@ mslug3fro
 mslug3hev
 mslug3nd
 mslug3v		/* EEZEZY Violence Edition */
-ms6s01
-ms6s02
-ms6s03
-ms6s04
-ms6s05
-ms6s06
-ms6s07
-ms6s08
-ms6s09
-ms6s10
-ms6s11
-ms6s12
-ms6s13
-ms6sre6px01
-ms6sre6px02
-ms6sre6px03
-ms6sre6px04
-ms6sre6px05
-ms6sre6px06
-ms6sre6px07
-ms6sre6px08
-ms6sre6px09
 mslug3h01
 mslug3h02
 mslug3h03
@@ -4448,6 +4450,12 @@ mslug3h60
 mslug3h61
 mslug3h62
 mslug3h63
+mslug3h64
+mslug3h65
+mslug3h66
+mslug3h67
+mslug3h68
+mslug3h69
 mslug3ern01
 mslug3ern02
 mslug3ern03
@@ -4459,17 +4467,42 @@ mslug3ern08
 mslug3ern09
 mslug3ern10
 mslug3ern11
-mslug3esrp01
-mslug3esrp02
-mslug3esrp03
-mslug3esrp04
-mslug3esrp05
-mslug3esrp06
-mslug3esrp07
-mslug3esrp08
-mslug3esrp09
-mslug3esrp10
-mslug3esrp11
+mslug3esra01
+mslug3esra02
+mslug3esra03
+mslug3esra04
+mslug3esra05
+mslug3esra06
+mslug3esra07
+mslug3esra08
+mslug3esra09
+mslug3esra10
+mslug3esra11
+mslug3esra12
+mslug3esrb01
+mslug3esrb02
+mslug3esrb03
+mslug3esrb04
+mslug3esrb05
+mslug3esrb06
+mslug3esrb07
+mslug3esrb08
+mslug3esrb09
+mslug3esrb10
+mslug3esrb11
+mslug3esrb12
+mslug3esrc01
+mslug3esrc02
+mslug3esrc03
+mslug3esrc04
+mslug3esrc05
+mslug3esrc06
+mslug3esrc07
+mslug3esrc08
+mslug3esrc09
+mslug3esrc10
+mslug3esrc11
+mslug3esrc12
 mslug3rmx01
 mslug3rmx02
 mslug3rmx03
@@ -4590,6 +4623,60 @@ mslug3rmf17
 mslug3rmf18
 mslug3rmf19
 mslug3rmf20
+mslug3rmg01
+mslug3rmg02
+mslug3rmg03
+mslug3rmg04
+mslug3rmg05
+mslug6h01
+mslug6h02
+mslug6h03
+mslug6h04
+mslug6h05
+mslug6h06
+mslug6h07
+mslug6h08
+mslug6ha01
+mslug6ha02
+mslug6ha03
+mslug6ha04
+mslug6hb01
+mslug6hb02
+mslug6hb03
+mslug6hb04
+mslug6hb05
+mslug6hb06
+mslug6hc01
+mslug6hc02
+mslug6hc03
+mslug6hc04
+mslug6hd01
+mslug6hd02
+mslug6hd03
+mslug6hd04
+mslug6he01
+mslug6he02
+mslug6he03
+mslug6he04
+mslug6pa01
+mslug6pa02
+mslug6pa03
+mslug6pb01
+mslug6pb02
+mslug6pb03
+mslug6pb04
+mslug6pc01
+mslug6pc02
+mslug6pc03
+mslug6pc04
+mslug6pd01
+mslug6pd02
+mslug6pd03
+mslug6pd04
+mslug6pe01
+mslug6pe02
+mslug6pe03
+mslug6pe04
 
 @source:mslug4.cpp
 mslug4eh2
@@ -4605,7 +4692,6 @@ mslug4dh	/* Super D version */
 mslug4eho
 mslug4fr
 mslug4i
-mslug4lw // encrypted p roms; not working(You still can not find the corresponding roms)
 mslug4nd
 mslug4sp
 mslug4hh01
@@ -4636,7 +4722,6 @@ mslug4hh25
 mslug4hh26
 mslug4hh27
 mslug4hh28
-mslug4hh29
 mslug4hh30
 mslug4hh31
 mslug4hh32
@@ -4650,7 +4735,6 @@ mslug4hh39
 mslug4hh40
 mslug4hh41
 mslug4hh42
-mslug4hh43
 mslug4hh44
 mslug4hh45
 mslug4hh46
@@ -4665,9 +4749,10 @@ mslug4hh54
 mslug4hh55
 mslug4hh56
 mslug4hh57
-mslug4hh58
 mslug4hh59
 mslug4hh60
+mslug4hh61
+mslug4hh62
 mslug4zb01
 mslug4zb02
 mslug4zb03
@@ -4680,6 +4765,10 @@ mslug4mb01
 mslug4mb02
 mslug4mb03
 mslug4mb04
+mslug4erd01
+mslug4erd02
+mslug4lwp01
+mslug4lwp02
 mslug4erms01
 mslug4erms02
 mslug4hqyvs01
@@ -4842,6 +4931,14 @@ mslug5dh70
 mslug5dh71
 mslug5dh72
 mslug5dh73
+mslug5dh74
+mslug5dh75
+mslug5dh76
+mslug5dh77
+mslug5ese01
+mslug5ese02
+mslug5erv01
+mslug5erv02
 mslug5rmtnc01
 mslug5rmtnc02
 mslug5rmtnc03
@@ -5040,6 +5137,7 @@ mslugxeh
 mslugxsvb
 mslugxz01
 mslugxz02
+mslugxz03
 mslugxz04
 mslugxz05
 mslugxz06
@@ -5059,8 +5157,10 @@ mslugxz19
 mslugxz20
 mslugxz21
 mslugxz22
+mslugxz23
 mslugxz24
 mslugxz25
+mslugxz26
 mslugxz27
 mslugxz28
 mslugxz29
@@ -5080,6 +5180,8 @@ mslugxz42
 mslugxz43
 mslugxz44
 mslugxz45
+mslugxz46
+mslugxz47
 mslugxz48
 mslugxz49
 mslugxz50
@@ -5103,20 +5205,16 @@ mslugxz69
 mslugxz70
 mslugxz71
 mslugxz72
-mslugxz73
-mslugxz74
-mslugxz75
-mslugxz76
-mslugxz77
-mslugxz78
-mslugxz79
-mslugxz80
-mslugxz81
-mslugxz82
-mslugxz83
-mslugxz84
-mslugxz85
-mslugxz86
+mslugxate01
+mslugxate02
+mslugxate03
+mslugxate04
+mslugxate05
+mslugxate06
+mslugxate07
+mslugxate08
+mslugx2r01
+mslugxwog00
 mslugxwog01
 mslugxwog02
 mslugxwog03
@@ -5124,12 +5222,15 @@ mslugxwog04
 mslugxwog05
 mslugxwog06
 mslugxwog07
+mslugxese00
 mslugxese01
+mslugxmcv00
 mslugxmcv01
 mslugxmcv02
 mslugxmcv03
 mslugxmcv04
 mslugxmcv05
+mslugxlrse00
 mslugxlrse01
 mslugxlrse02
 mslugxlrse03
@@ -5137,6 +5238,7 @@ mslugxlrse04
 mslugxlrse05
 mslugxlrse06
 mslugxlrse07
+mslugxesrv00
 mslugxesrv01
 mslugxesrv02
 mslugxesrv03
@@ -5144,6 +5246,7 @@ mslugxesrv04
 mslugxesrv05
 mslugxesrv06
 mslugxesrv07
+mslugxehp00
 mslugxehp01
 mslugxehp02
 mslugxehp03
@@ -5157,14 +5260,7 @@ mslugxat03
 mslugxat04
 mslugxat06
 mslugxat07
-mslugx2r01
-mslugx2r02
-mslugx2r03
-mslugx2r04
-mslugx2r05
-mslugx2r06
-mslugx2r07
-mslugx2r08
+mslugxesp00
 mslugxesp01
 mslugxesp02
 mslugxesp03
@@ -5172,6 +5268,7 @@ mslugxesp04
 mslugxesp05
 mslugxesp06
 mslugxesp07
+mslugxhme00
 mslugxhme01
 mslugxhme02
 mslugxhme03
@@ -5179,6 +5276,7 @@ mslugxhme04
 mslugxhme05
 mslugxhme06
 mslugxhme07
+mslugxans00
 mslugxans01
 mslugxans02
 mslugxans03
@@ -5733,6 +5831,7 @@ ngmontst
 ngtd2
 ngtetris
 ngym2610
+nsmb
 nyan
 nyana
 pcmademo	// 2015 freem
@@ -5773,6 +5872,7 @@ zintrkcd	/* 211 (c) 1996 ADK / SNK */
 zintrkcd1
 zintrkm
 zintricks01
+
 
 @source:neogeo1.cpp
 2020bbcd
@@ -7121,6 +7221,8 @@ kov2p204s100
 kov2p204s101
 kov2p204s102
 kov2p204s103
+kov2p204s104
+kov2p204s105
 kov2h01
 kov2h02
 kov2h03
@@ -7147,6 +7249,8 @@ kov2h23
 kov2h24
 kov2h25
 kov2h26
+kov2h27
+kov2h28
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7521,6 +7625,9 @@ kovpluss374
 kovpluss375
 kovpluss376
 kovpluss377
+kovpluss378
+kovpluss379
+kovpluss380
 kovplusas01
 kovshs01
 kovshs02
@@ -8157,6 +8264,7 @@ theglads02
 theglads03
 theglads04
 theglad100s01
+theglad100s02
 theglad101s01
 
 @source:phoenix.cpp
@@ -8324,6 +8432,7 @@ zeroteam					//parent
 zeroteamcs01
 zeroteamcs02
 zeroteamss01
+zeroteamss02
 
 @source:rallyx.cpp
 rallyx			//parent
@@ -8414,6 +8523,7 @@ grdianss14
 grdianss15
 grdianss16
 grdianss17
+grdianss18
 
 @source:sf.cpp
 sf						//parent

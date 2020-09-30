@@ -180,7 +180,8 @@ There is a bunch more things to be done
 #define SCREEN_WIDTH	384 /* 12 car lengths */
 #define SCREEN_HEIGHT	240 /* 15 car widths */
 #define BRIDGE_YPOS	((SCREEN_HEIGHT-16)/2-8)
-#define PAGE_SIZE		(14*32)
+#define PAGE_SIZE		448
+ // == (14*32)
 #define NUM_COMPUTER_CARS 4
 
 /* red */
@@ -1424,12 +1425,60 @@ static const char *const monaco_sample_names[] =
 
 void monaco_state::machine_reset()
 {
-	u16 i;
+	m_rank = 0;
+	m_rank_display = 0;
+	m_bonus_score = 0;
+	m_in_ext_play = 0;
+	m_lives = 0;
+	m_bShaking = 0;
+	m_speed = 0;
+	m_player_ypos = 0;
+	m_rescue_xpos = 0;
+	m_pool_xpos = 0;
+	m_scroll = 0;
+	m_distance = 0;
+	m_ticks = 0;
+	m_page_current = 0;
+	m_page_next = 0;
+	m_page_next2 = 0;
+	m_bSignalVisible = 0;
+	m_left_text = 0;
+	m_right_text = 0;
+	m_bExtendedPlay = 0;
+	m_left_page = 0;
+	m_right_page = 0;
+	m_top_inset = 0;
+	m_bottom_inset = 0;
+	m_player_x = 0;
+	m_player_y = 0;
+	m_player_tile = 0;
+	m_player_splash = 0;
+	m_pool_x = 0;
+	m_pool_y = 0;
+	m_rescue_x = 0;
+	m_rescue_y = 0;
+	m_rescue_tile = 0;
+	m_x[NUM_COMPUTER_CARS] = 0;
+	m_y[NUM_COMPUTER_CARS] = 0;
+	m_tile[NUM_COMPUTER_CARS] = 0;
+	m_color[NUM_COMPUTER_CARS] = 0;
+	m_led_high1 = 0;
+	m_led_high2 = 0;
+	m_led_high3 = 0;
+	m_led_high4 = 0;
+	m_led_high5 = 0;
+	m_led_score = 0;
+	m_led_time = 0;
+	m_led_rank = 0;
+	m_led_plays = 0;
+	m_led_lives = 0;
+	m_led_gear = 0;
+	m_led_speed = 0;
 	m_time = 0;			/* time remaining = 0 */
 	m_score = 0;		/* player score = 0 */
 	m_gear = 0;			/* low gear */
 	m_plays = 0;		/* no games played */
-	for (i = 0;i < 1000;i++)
+	for (u16 i = 0;i < 1000;i++)
 		monaco_word_w (i, 0);	/* delete all scores from RAM */
 	GameOver();
 }
@@ -1460,7 +1509,7 @@ void monaco_state::monaco(machine_config &config)
 	SAMPLES(config, m_samples);
 	m_samples->set_channels(5);
 	m_samples->set_samples_names(monaco_sample_names);
-	m_samples->add_route(ALL_OUTPUTS, "mono", 0.90);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.5);
 }
 
 /*****************************************************************/
@@ -1508,7 +1557,6 @@ ROM_END
 
 void monaco_state::init_monaco()
 {
-	int i;
 	const double dy_table[5] =
 	{
 		0.75,
@@ -1525,7 +1573,7 @@ void monaco_state::init_monaco()
 	m_track_top_delta = 1;
 
 	/* computer car */
-	for( i=0; i<NUM_COMPUTER_CARS; i++ )
+	for( u8 i=0; i<NUM_COMPUTER_CARS; i++ )
 	{
 		m_xpos[i] = i*32*3 + ((i>1)?192:0);
 		m_ypos[i] = (SCREEN_HEIGHT-16)/2;
@@ -1542,43 +1590,21 @@ GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, init_monaco, ROT90, "Sega"
 /* Monaco GP video hardware simulation */
 
 
-#define plot_pixel(bitmap,x,y,col)	do { bitmap.pix16(y, x) = col; } while (0)
-
 void monaco_state::draw_computer( bitmap_ind16 &bitmap, const rectangle clip )
 {
 	int i;
 
 	for( i=0; i<NUM_COMPUTER_CARS; i++ )
 	{
-		m_gfxdecode->gfx(GFX_COMPUTER)->transpen(
-			bitmap, clip,
-			m_tile[i],
-			m_color[i],
-			0,0,
-			m_x[i],
-			m_y[i],
-			0 );
+		m_gfxdecode->gfx(GFX_COMPUTER)->transpen(bitmap, clip,m_tile[i],m_color[i],0,0,m_x[i],m_y[i],0 );
 	}
 
-	m_gfxdecode->gfx(GFX_RESCUE_CAR)->transpen(
-		bitmap, clip,
-		m_rescue_tile,
-		0, /* color */
-		0,0,
-		m_rescue_x,
-		m_rescue_y,
-		0 );
+	m_gfxdecode->gfx(GFX_RESCUE_CAR)->transpen(bitmap, clip,m_rescue_tile,0,0,0,m_rescue_x,m_rescue_y,0 );
 }
 
 void monaco_state::draw_pool( bitmap_ind16 &bitmap, const rectangle clip )
 {
-	m_gfxdecode->gfx(GFX_POOL)->transpen(
-		bitmap, clip,
-		0,0, /* tile,color */
-		0,0, /* flip */
-		m_pool_x,
-		m_pool_y,
-		0 );
+	m_gfxdecode->gfx(GFX_POOL)->transpen(bitmap, clip, 0, 0, 0, 0, m_pool_x, m_pool_y, 0 );
 }
 
 void monaco_state::draw_player( bitmap_ind16 &bitmap, const rectangle clip )
@@ -1589,28 +1615,12 @@ void monaco_state::draw_player( bitmap_ind16 &bitmap, const rectangle clip )
 	switch( m_player_splash )
 	{
 	case 0:
-		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip,
-			2,0,0,0,
-			m_player_x,
-			m_player_y+32-8,
-			0);
-		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip,
-			0,0,0,0,
-			m_player_x,
-			m_player_y-32+8,
-			0);
+		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip, 2, 0, 0, 0, m_player_x, m_player_y+32-8, 0);
+		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip, 0, 0, 0, 0, m_player_x, m_player_y-32+8, 0);
 		break;
 	case 1:
-		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip,
-			3,0,0,0,
-			m_player_x,
-			m_player_y+32-8,
-			0);
-		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip,
-			1,0,0,0,
-			m_player_x,
-			m_player_y-32+8,
-			0);
+		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip, 3, 0, 0, 0, m_player_x, m_player_y+32-8, 0);
+		m_gfxdecode->gfx(GFX_SPRAY)->transpen( bitmap, clip, 1, 0, 0, 0, m_player_x, m_player_y-32+8, 0);
 		break;
 	}
 
@@ -1638,12 +1648,7 @@ void monaco_state::draw_player( bitmap_ind16 &bitmap, const rectangle clip )
 		case 11: gfx = GFX_SHAKE; tile -= 10; break;
 		}
 
-		m_gfxdecode->gfx(gfx)->transpen( bitmap, clip,
-			tile,0,
-			0,0,
-			m_player_x,
-			m_player_y,
-			0);
+		m_gfxdecode->gfx(gfx)->transpen( bitmap, clip, tile, 0, 0, 0, m_player_x, m_player_y, 0);
 	}
 }
 
@@ -1652,16 +1657,25 @@ void monaco_state::draw_player( bitmap_ind16 &bitmap, const rectangle clip )
 void monaco_state::draw_strip( bitmap_ind16 &bitmap, int sy, int x0, int x1, int xpos, int pen )
 {
 	int sx;
-	if( x0<xpos ) x0 = xpos;
-	if( x1>xpos+PAGE_SIZE ) x1 = xpos+PAGE_SIZE;
-	if( x0<0 ) x0 = 0;
-	if( x1>SCREEN_WIDTH ) x1 = SCREEN_WIDTH;
-	for( sx=x0; sx<x1; sx++ ) plot_pixel( bitmap,sx,sy,pen );
+	if( x0 < xpos )
+		x0 = xpos;
+	if( x1 > (xpos+PAGE_SIZE) )
+		x1 = xpos+PAGE_SIZE;
+	if( x0 < 0 )
+		x0 = 0;
+	if( x1 > SCREEN_WIDTH )
+		x1 = SCREEN_WIDTH;
+	for( sx=x0; sx<x1; sx++ )
+		do
+		{
+			bitmap.pix(sy, sx) = pen;
+		}
+		while (0);
 }
 
 void monaco_state::DrawSmoothZone( bitmap_ind16 &bitmap, const rectangle clip, int xpos )
 {
-	const u8 data[14] =
+	static const u8 data[14] =
 	{
 		GFX_GRASS,GFX_GRASS,GFX_GRASS,
 		GFX_TREE,GFX_GRASS,GFX_TREE,
@@ -1671,39 +1685,26 @@ void monaco_state::DrawSmoothZone( bitmap_ind16 &bitmap, const rectangle clip, i
 	};
 	int top_inset = m_top_inset;
 	int bottom_inset = m_bottom_inset;
-	int i;
 
 	draw_strip( bitmap, top_inset, xpos, xpos+PAGE_SIZE, xpos, YELLOW_PEN );
 	draw_strip( bitmap, SCREEN_HEIGHT-1 - bottom_inset, xpos, xpos+PAGE_SIZE, xpos, YELLOW_PEN );
 
-	for( i=0; i<14; i++ )
+	for( u8 i=0; i<14; i++ )
 	{
 		int code = data[i];
 		gfx_element *gfx = m_gfxdecode->gfx(code);
 		gfx_element *belt = m_gfxdecode->gfx((code==GFX_HOUSE)?GFX_DUMMY:GFX_BELT);
-		int j;
 
-		for( j=0; j<3; j++ )
+		for( u8 j=0; j<3; j++ )
 		{
-			gfx->opaque( bitmap, clip,
-				0,0, /* number, color */
-				0,0, /* no flip */
-				xpos, m_top_inset-32-16-j*32 );
+			gfx->opaque( bitmap, clip, 0, 0, 0, 0, xpos, m_top_inset-32-16-j*32 );
 
-			gfx->opaque( bitmap, clip,
-				0,0, /* number, color */
-				0,0, /* no flip */
-				xpos,SCREEN_HEIGHT-m_bottom_inset+j*32+16-8 );
+			gfx->opaque( bitmap, clip, 0, 0, 0, 0, xpos,SCREEN_HEIGHT-m_bottom_inset+j*32+16-8 );
 		}
-		belt->opaque( bitmap, clip,
-			0,0, /* number, color */
-			0,0, /* no flip */
-			xpos, m_top_inset-16 );
 
-		belt->opaque( bitmap, clip,
-			0,0, /* number, color */
-			0,0, /* no flip */
-			xpos,SCREEN_HEIGHT-m_bottom_inset );
+		belt->opaque( bitmap, clip, 0, 0, 0, 0, xpos, m_top_inset-16 );
+
+		belt->opaque( bitmap, clip, 0, 0, 0, 0, xpos,SCREEN_HEIGHT-m_bottom_inset );
 
 		xpos += 32;
 	}
@@ -1711,7 +1712,7 @@ void monaco_state::DrawSmoothZone( bitmap_ind16 &bitmap, const rectangle clip, i
 
 void monaco_state::DrawSlipZone( bitmap_ind16 &bitmap, const rectangle clip, int xpos )
 {
-	const u8 data[14] =
+	static const u8 data[14] =
 	{
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
@@ -1722,38 +1723,26 @@ void monaco_state::DrawSlipZone( bitmap_ind16 &bitmap, const rectangle clip, int
 
 	int top_inset = m_top_inset;
 	int bottom_inset = m_bottom_inset;
-	int i;
 
 	draw_strip( bitmap, top_inset, xpos, xpos+PAGE_SIZE, xpos, YELLOW_PEN );
 	draw_strip( bitmap, SCREEN_HEIGHT-1 - bottom_inset, xpos, xpos+PAGE_SIZE, xpos, YELLOW_PEN );
 
-	for( i=0; i<14; i++ ){
+	for( u8 i=0; i<14; i++ )
+	{
 		int code = data[i];
 		gfx_element *gfx = m_gfxdecode->gfx(code);
 		gfx_element *belt = m_gfxdecode->gfx((code==GFX_HOUSE)?GFX_DUMMY:GFX_BELT);
-		int j;
 
-		for( j=0; j<3; j++ ){
-			gfx->opaque( bitmap, clip,
-				0,0, /* number, color */
-				0,0, /* no flip */
-				xpos, top_inset-32-j*32-16 );
+		for( u8 j=0; j<3; j++ )
+		{
+			gfx->opaque( bitmap, clip, 0, 0, 0, 0, xpos, top_inset-32-j*32-16 );
 
-			gfx->opaque( bitmap, clip,
-				0,0, /* number, color */
-				0,0, /* no flip */
-				xpos,SCREEN_HEIGHT-bottom_inset+j*32+16-8 );
+			gfx->opaque( bitmap, clip, 0, 0, 0, 0, xpos,SCREEN_HEIGHT-bottom_inset+j*32+16-8 );
 		}
 
-		belt->opaque( bitmap, clip,
-			0,0, /* number, color */
-			0,0, /* no flip */
-			xpos, top_inset-16 );
+		belt->opaque( bitmap, clip, 0, 0, 0, 0, xpos, top_inset-16 );
 
-		belt->opaque( bitmap, clip,
-			0,0, /* number, color */
-			0,0, /* no flip */
-			xpos,SCREEN_HEIGHT-bottom_inset );
+		belt->opaque( bitmap, clip, 0, 0, 0, 0, xpos,SCREEN_HEIGHT-bottom_inset );
 
 		xpos += 32;
 	}
@@ -1761,7 +1750,7 @@ void monaco_state::DrawSlipZone( bitmap_ind16 &bitmap, const rectangle clip, int
 
 void monaco_state::DrawGravelZone( bitmap_ind16 &bitmap, const rectangle clip, int xpos )
 {
-	const u8 data[14] = {
+	static const u8 data[14] = {
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
 		GFX_SHRUB,GFX_SHRUB,GFX_SHRUB,
 		GFX_SHRUB,GFX_HOUSE,
@@ -1770,63 +1759,43 @@ void monaco_state::DrawGravelZone( bitmap_ind16 &bitmap, const rectangle clip, i
 	};
 	int top_inset = m_top_inset;
 	int bottom_inset = m_bottom_inset;
-	int i;
 	int xpos0 = xpos;
 
-	for( i=0; i<14; i++ )
+	for( u8 i=0; i<14; i++ )
 	{
 		int code = data[i];
 		gfx_element *gfx = m_gfxdecode->gfx(code);
 		gfx_element *belt = m_gfxdecode->gfx((code==GFX_HOUSE)?GFX_DUMMY:GFX_BELT);
-		int j;
 		int ypos;
 
 		/* draw gravel */
 		if( data[i]!=GFX_HOUSE )
 		{
 			ypos = SCREEN_HEIGHT-bottom_inset-32;
-			m_gfxdecode->gfx(GFX_BELT)->opaque( bitmap, clip,
-				1,1, /* number, color */
-				0,0, /* no flip */
-				xpos, ypos+32-8 );
+			m_gfxdecode->gfx(GFX_BELT)->opaque( bitmap, clip, 1, 1, 0, 0, xpos, ypos+32-8 );
 			ypos-=24;
-			while( ypos>0 ){
-				m_gfxdecode->gfx(GFX_BELT)->opaque( bitmap, clip,
-					1,1, /* number, color */
-					0,0, /* no flip */
-					xpos, ypos );
+			while( ypos>0 )
+			{
+				m_gfxdecode->gfx(GFX_BELT)->opaque( bitmap, clip, 1, 1, 0, 0, xpos, ypos );
 				ypos -= 16;
 			}
 		}
 
-		for( j=0; j<3; j++ )
+		for( u8 j=0; j<3; j++ )
 		{
 			ypos = SCREEN_HEIGHT-bottom_inset+16+j*32-8;
-			gfx->opaque( bitmap, clip,
-				0,0, /* number, color */
-				0,0, /* no flip */
-				xpos, ypos );
+			gfx->opaque( bitmap, clip, 0, 0, 0, 0, xpos, ypos );
 		}
 
-		for( j=0; j<3; j++ )
+		for( u8 j=0; j<3; j++ )
 		{
 			ypos = top_inset-32-16-j*32;
-			gfx->opaque( bitmap, clip,
-				0,0, /* number, color */
-				0,0, /* no flip */
-				xpos, ypos );
+			gfx->opaque( bitmap, clip, 0, 0, 0, 0, xpos, ypos );
 		}
 
-		belt->opaque( bitmap, clip,
-			0,0, /* number, color */
-			0,0, /* no flip */
-			xpos, top_inset-16 );
+		belt->opaque( bitmap, clip, 0, 0, 0, 0, xpos, top_inset-16 );
 
-		belt->opaque( bitmap, clip,
-			0,0, /* number, color */
-			0,0, /* no flip */
-			xpos,SCREEN_HEIGHT-bottom_inset );
-
+		belt->opaque( bitmap, clip, 0, 0, 0, 0, xpos,SCREEN_HEIGHT-bottom_inset );
 
 		xpos += 32;
 	}
@@ -1839,30 +1808,21 @@ void monaco_state::DrawBridgeZone( bitmap_ind16 &bitmap, const rectangle clip, i
 	gfx_element *gfx1 = m_gfxdecode->gfx(GFX_BRIDGE1);
 	gfx_element *gfx2 = m_gfxdecode->gfx(GFX_BRIDGE2);
 
-	int i;
-	for( i=0; i<14; i++ )
+	for( u8 i=0; i<14; i++ )
 	{
-		int j;
-		gfx_element *gfx = (i==0)?gfx2:gfx1;
-		for( j=0; j<7; j++ )
+		gfx_element *gfx = (i==0) ? gfx2 : gfx1;
+		for( u8 j=0; j<7; j++ )
 		{
-			int flip;
-			for( flip=0; flip<=1; flip++ )
+			for( int flip=0; flip<=1; flip++ )
 			{
-				int ypos = flip?(SCREEN_HEIGHT-16-j*16)+8:j*16-8;
+				int ypos = flip ? (SCREEN_HEIGHT-16-j*16)+8 : j*16-8;
 				if( j<5 )
 				{ /* water */
-					gfx1->opaque( bitmap, clip,
-						0,0, /* number, color */
-						0,flip,
-						xpos, ypos );
+					gfx1->opaque( bitmap, clip, 0, 0, 0, flip, xpos, ypos );
 				}
 				else
 				{ /* edge of bridge */
-					gfx->opaque( bitmap, clip,
-						j-5,0, /* number, color */
-						0,flip,
-						xpos, ypos );
+					gfx->opaque( bitmap, clip, j-5, 0, 0, flip, xpos, ypos );
 				}
 			}
 		}
@@ -1885,27 +1845,19 @@ void monaco_state::DrawTunnelWall( bitmap_ind16 &bitmap, const rectangle clip, i
 	gfx_element *gfx = m_gfxdecode->gfx(GFX_TUNNEL);
 	int top_inset = m_top_inset - 16;
 	int bottom_inset = m_bottom_inset - 16;
-	int i;
 
 	clip2.min_x = clip.min_x;
 	clip2.max_x = clip.max_x;
 	clip2.max_y = clip.max_y;
 	clip2.min_y = SCREEN_HEIGHT-bottom_inset;
 
-	for( i=0; i<14; i++ )
+	for( u8 i=0; i<14; i++ )
 	{
-		int j;
-		for( j=0; j<2; j++ )
+		for( u8 j=0; j<2; j++ )
 		{
-			gfx->transpen( bitmap, clip,
-				1,0, /* number, color */
-				0,0, /* no flip */
-				xpos, top_inset-32-j*32, 0 );
+			gfx->transpen( bitmap, clip, 1, 0, 0, 0, xpos, top_inset-32-j*32, 0 );
 
-			gfx->transpen( bitmap, clip,
-				1,0, /* number, color */
-				0,0, /* no flip */
-				xpos, SCREEN_HEIGHT-bottom_inset+j*32 - 8, 0 );
+			gfx->transpen( bitmap, clip, 1, 0, 0, 0, xpos, SCREEN_HEIGHT-bottom_inset+j*32 - 8, 0 );
 		}
 		xpos += 32;
 	}
@@ -1917,8 +1869,8 @@ void monaco_state::draw_light_helper( bitmap_ind16 &bitmap, int xpos )
 	const unsigned char *source = memregion( "gfx1" )->base();
 	int x0 = m_player_x-128;
 	int y0 = m_player_y-48;
-	int sy;
-	for( sy=0; sy<SCREEN_HEIGHT; sy++ )
+
+	for( int sy=0; sy<SCREEN_HEIGHT; sy++ )
 	{
 		int i = sy-y0;
 		if( i<0 || i>=128 )
@@ -1987,13 +1939,9 @@ void monaco_state::draw_page( bitmap_ind16 &bitmap, const rectangle clip, int wh
 
 void monaco_state::draw_background( bitmap_ind16 &bitmap, const rectangle clip )
 {
-	draw_page(bitmap, clip,
-		m_right_page,
-		SCREEN_WIDTH-14*32+m_scroll );
+	draw_page(bitmap, clip, m_right_page, SCREEN_WIDTH-14*32+m_scroll );
 
-	draw_page(bitmap, clip,
-		m_left_page,
-		SCREEN_WIDTH-14*32*2+m_scroll );
+	draw_page(bitmap, clip, m_left_page, SCREEN_WIDTH-14*32*2+m_scroll );
 }
 
 void monaco_state::draw_text( bitmap_ind16 &bitmap, const rectangle clip )
@@ -2003,22 +1951,12 @@ void monaco_state::draw_text( bitmap_ind16 &bitmap, const rectangle clip )
 
 	if( m_left_text != -1 )
 	{
-		m_gfxdecode->gfx(GFX_TEXT)->zoom_transpen( bitmap, clip,
-			m_left_text,0,
-			0,0, /* flip */
-			sx-96,sy,
-			1<<16, 2<<16, 0
-		);
+		m_gfxdecode->gfx(GFX_TEXT)->zoom_transpen( bitmap, clip, m_left_text, 0, 0, 0, sx-96, sy, 1<<16, 2<<16, 0 );
 	}
 
 	if( m_right_text != -1 )
 	{
-		m_gfxdecode->gfx(GFX_TEXT)->zoom_transpen( bitmap, clip,
-			m_right_text,1,
-			0,0, /* flip */
-			SCREEN_WIDTH-32,sy,
-			1<<16, 2<<16, 0
-		);
+		m_gfxdecode->gfx(GFX_TEXT)->zoom_transpen( bitmap, clip, m_right_text, 1, 0, 0, SCREEN_WIDTH-32, sy, 1<<16, 2<<16, 0 );
 	}
 }
 

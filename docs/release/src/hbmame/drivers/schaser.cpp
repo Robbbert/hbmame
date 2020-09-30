@@ -462,9 +462,9 @@ u32 sc_state::screen_update_schasercv(screen_device &screen, bitmap_rgb32 &bitma
 			if (y >= MW8080BW_VCOUNTER_START_NO_VBLANK)
 			{
 				if (m_flip_screen)
-					bitmap.pix32(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - x) = pens[color];
+					bitmap.pix(MW8080BW_VBSTART - 1 - (y - MW8080BW_VCOUNTER_START_NO_VBLANK), MW8080BW_HPIXCOUNT - 1 - x) = pens[color];
 				else
-					bitmap.pix32(y - MW8080BW_VCOUNTER_START_NO_VBLANK, x) = pens[color];
+					bitmap.pix(y - MW8080BW_VCOUNTER_START_NO_VBLANK, x) = pens[color];
 			}
 
 			x++;
@@ -582,7 +582,7 @@ void sc_state::schasercv(machine_config &config)
 	snsnd.add_route(0, "discrete", 1.0, 0);
 
 	DISCRETE(config, m_discrete, schaser_discrete);
-	m_discrete->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_discrete->add_route(ALL_OUTPUTS, "mono", 0.50);
 
 	TIMER(config, "schaser_sh_555").configure_generic(FUNC(sc_state::schaser_effect_555_cb));
 }

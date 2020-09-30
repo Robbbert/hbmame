@@ -1201,7 +1201,7 @@ void cps2_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap,
 				col = ((col & 0xe0) >> 1) + (screen.frame_number() / 16 & 0x0f);
 
 				if (cliprect.contains(sx, sy))
-					bitmap.pix16(sy, sx) = 0xa00 + col;
+					bitmap.pix(sy, sx) = 0xa00 + col;
 			}
 		}
 	}
@@ -1226,7 +1226,7 @@ void cps2_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap,
 				col = ((col & 0xe0) >> 1) + (screen.frame_number() / 16 & 0x0f);
 
 				if (cliprect.contains(sx, sy))
-					bitmap.pix16(sy, sx) = 0x800 + col;
+					bitmap.pix(sy, sx) = 0x800 + col;
 			}
 		}
 	}

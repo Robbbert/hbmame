@@ -13,12 +13,12 @@
 	</view>
 
 	<view name="Screen 0 Cropped (304x224)">
-		<bezel name="blank" element="blank">
+		<element name="blank" ref="blank">
 			<bounds left="0" top="0" right="0.1" bottom="3" />
-		</bezel>
-		<bezel name="blank" element="blank">
+		</element>
+		<element name="blank" ref="blank">
 			<bounds left="3.9" top="0" right="4" bottom="3" />
-		</bezel>
+		</element>
 		<screen index="0">
 			<bounds left="0" top="0" right="4" bottom="3" />
 		</screen>

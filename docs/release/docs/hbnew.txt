@@ -3,6 +3,10 @@
 
 2020-09-30 0.225
 
+Converted external artwork (gnw_bride.zip, gnw_squeeze.zip, monaco.zip)
+to latest code, and included them in the download package.
+
+
 New Games
 ---------------------------------
 - [armwars02]           Armored Warriors (Full Attack Edition 2020-08-30)
