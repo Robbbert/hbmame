@@ -6,10 +6,10 @@
 #include "devices/nlid_proxy.h"
 #include "devices/nlid_truthtable.h"
 #include "nl_base.h"
+#include "nl_errstr.h"
 #include "nl_factory.h"
 #include "nl_parser.h"
 #include "nl_setup.h"
-#include "nl_errstr.h"
 #include "plib/penum.h"
 #include "plib/pstonum.h"
 #include "plib/pstrutil.h"
@@ -552,10 +552,10 @@ void setup_t::register_term(detail::core_terminal_t &term)
 	}
 }
 
-void setup_t::register_term(terminal_t &term, terminal_t &other_term)
+void setup_t::register_term(terminal_t &term, terminal_t *other_term, const std::array<terminal_t *, 2> &splitter_terms)
 {
 	this->register_term(term);
-	m_connected_terminals.insert({&term, &other_term});
+	m_connected_terminals.insert({&term, {other_term, splitter_terms[0], splitter_terms[1], nullptr}});
 }
 
 void setup_t::register_param_t(param_t &param)
@@ -1733,7 +1733,7 @@ plib::istream_uptr source_file_t::stream(const pstring &name)
 
 plib::istream_uptr source_pattern_t::stream(const pstring &name)
 {
-	pstring filename = plib::pfmt(m_pattern)(name);
+	pstring filename = plib::pfmt(m_pattern)(m_force_lowercase ? plib::lcase(name) : name);
 	auto f = std::make_unique<plib::ifstream>(plib::filesystem::u8path(filename));
 	if (f->is_open())
 	{
