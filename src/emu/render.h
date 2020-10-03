@@ -411,8 +411,8 @@ private:
 	// a scaled_texture contains a single scaled entry for a texture
 	struct scaled_texture
 	{
-		bitmap_argb32 *     bitmap;                 // final bitmap
-		u32                 seqid;                  // sequence number
+		std::unique_ptr<bitmap_argb32>  bitmap;     // final bitmap
+		u32                             seqid;      // sequence number
 	};
 
 	// internal state
@@ -901,16 +901,17 @@ public:
 
 	// getters
 	item_list &items() { return m_items; }
+	bool has_screen(screen_device &screen);
 	const std::string &name() const { return m_name; }
-	size_t screen_count() const { return m_screens.size(); }
+	size_t visible_screen_count() const { return m_screens.size(); }
 	float effective_aspect() const { return m_effaspect; }
 	const render_bounds &bounds() const { return m_bounds; }
-	bool has_screen(screen_device &screen) const;
-	const item_ref_vector &screen_items() const { return m_screen_items; }
+	bool has_visible_screen(screen_device &screen) const;
+	const item_ref_vector &visible_screen_items() const { return m_screen_items; }
 	const item_ref_vector &interactive_items() const { return m_interactive_items; }
 	const edge_vector &interactive_edges_x() const { return m_interactive_edges_x; }
 	const edge_vector &interactive_edges_y() const { return m_interactive_edges_y; }
-	const screen_ref_vector &screens() const { return m_screens; }
+	const screen_ref_vector &visible_screens() const { return m_screens; }
 	const visibility_toggle_vector &visibility_toggles() const { return m_vistoggles; }
 	u32 default_visibility_mask() const { return m_defvismask; }
 	bool has_art() const { return m_has_art; }
@@ -1192,8 +1193,7 @@ public:
 	void texture_free(render_texture *texture);
 
 	// fonts
-	render_font *font_alloc(const char *filename = nullptr);
-	void font_free(render_font *font);
+	std::unique_ptr<render_font> font_alloc(const char *filename = nullptr);
 
 	// reference tracking
 	void invalidate_all(void *refptr);

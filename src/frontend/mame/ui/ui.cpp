@@ -163,7 +163,7 @@ static uint32_t const mouse_bitmap[32*32] =
 
 mame_ui_manager::mame_ui_manager(running_machine &machine)
 	: ui_manager(machine)
-	, m_font(nullptr)
+	, m_font()
 	, m_handler_callback(nullptr)
 	, m_handler_callback_type(ui_callback_type::GENERAL)
 	, m_handler_param(0)
@@ -245,11 +245,7 @@ void mame_ui_manager::exit()
 	m_mouse_arrow_texture = nullptr;
 
 	// free the font
-	if (m_font != nullptr)
-	{
-		machine().render().font_free(m_font);
-		m_font = nullptr;
-	}
+	m_font.reset();
 }
 
 
@@ -642,9 +638,9 @@ void mame_ui_manager::update_and_render(render_container &container)
 render_font *mame_ui_manager::get_font()
 {
 	// allocate the font and messagebox string
-	if (m_font == nullptr)
+	if (!m_font)
 		m_font = machine().render().font_alloc(machine().options().ui_font());
-	return m_font;
+	return m_font.get();
 }
 
 
