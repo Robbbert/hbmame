@@ -980,7 +980,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	manager->start_luaengine();
 	manager->execute();
 	osd_output::pop(&winerror);
-	global_free(manager);
+	delete manager;
 	// Calc the duration
 	time(&end);
 	elapsedtime = end - start;
