@@ -561,6 +561,7 @@ tk2h160
 tk2h161
 tk2h162
 tk2h163
+tk2h164
 wofb
 wofch		// tk2p1
 wofes
@@ -2239,6 +2240,10 @@ kof97s210
 kof97s211
 kof97s212
 kof97s213
+kof97s214
+kof97s215
+kof97s216
+kof97s217
 kof97hx01
 kof97hx02
 kof97hx03
@@ -3107,6 +3112,7 @@ kof99s102
 kof99s103
 kof99s104
 kof99s105
+kof99s106
 
 @source:kof2000.cpp
 kof2000d
@@ -4986,6 +4992,7 @@ mslug5dh77
 mslug5dh78
 mslug5dh79
 mslug5dh80
+mslug5dh81
 mslug5ese01
 mslug5ese02
 mslug5erv01
@@ -5859,6 +5866,7 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
+proneon
 //raroggame
 rci			/* Robocop intro */
 samantha
@@ -7245,6 +7253,8 @@ kov2p204s103
 kov2p204s104
 kov2p204s105
 kov2p204s106
+kov2p204s107
+kov2p204s108
 kov2h01
 kov2h02
 kov2h03
@@ -7651,6 +7661,8 @@ kovpluss377
 kovpluss378
 kovpluss379
 kovpluss380
+kovpluss381
+kovpluss382
 kovplusas01
 kovshs01
 kovshs02
@@ -7963,6 +7975,8 @@ kovsho187
 kovsho188
 kovsho189
 kovsho190
+kovsho191
+kovsho192
 kovshxass01
 kovshxass02
 kovshxass03
