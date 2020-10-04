@@ -445,9 +445,73 @@ ROM_START( mslugps18 )
 	ROM_LOAD16_BYTE( "201.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
 ROM_END
 
+ROM_START( mslugps19 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "201_ps19.p1", 0x100000, 0x100000, CRC(8b5f601e) SHA1(44920e6a70e1434f8a27b07d39bbce42ce500b1f) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
+
+	NEO_BIOS_AUDIO_128K( "201.m1", CRC(c28b3253) SHA1(fd75bd15aed30266a8b3775f276f997af57d1c06) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "201.v1", 0x000000, 0x400000, CRC(23d22ed1) SHA1(cd076928468ad6bcc5f19f88cb843ecb5e660681) )
+	ROM_LOAD( "201.v2", 0x400000, 0x400000, CRC(472cf9db) SHA1(5f79ea9286d22ed208128f9c31ca75552ce08b57) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "201.c1", 0x000000, 0x400000, CRC(72813676) SHA1(7b045d1a48980cb1a140699011cb1a3d4acdc4d1) )
+	ROM_LOAD16_BYTE( "201.c2", 0x000001, 0x400000, CRC(96f62574) SHA1(cb7254b885989223bba597b8ff0972dfa5957816) )
+	ROM_LOAD16_BYTE( "201.c3", 0x800000, 0x400000, CRC(5121456a) SHA1(0a7a27d603d1bb2520b5570ebf5b34a106e255a6) )
+	ROM_LOAD16_BYTE( "201.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
+ROM_END
+
+ROM_START( mslugps20 ) //mslugp
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "201_ps20.p1", 0x000000, 0x200000, CRC(8e4ffcce) SHA1(75c0d428c6899849f1cb340647383595e220c983) )
+
+	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
+
+	NEO_BIOS_AUDIO_512K( "201_ps17.m1", CRC(d62d0bb0) SHA1(c88cbca937fafe05fdf1eaa3adcafa1dffdfca2c) )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "201_ps17.v1", 0x000000, 0x800000, CRC(14cf8459) SHA1(d03f0c513cf5b76ae6193f619eb0b08d435e243a) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "201_ps17.c1", 0x000000, 0x800000, CRC(3baf9125) SHA1(42cec2d5a8a471fc98f342a5142774f2911cba7b) )
+	ROM_LOAD16_BYTE( "201_ps17.c2", 0x000001, 0x800000, CRC(f24190fe) SHA1(f63909f4bf7fed19740e249432b019e0a4457130) )
+ROM_END
+
 /*******************************
  Game only exclusive at HBMAME
 **********************************/
+
+ROM_START( mslughp01 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "201hp01.p1", 0x100000, 0x100000, CRC(77c0999f) SHA1(3359ce28c3ae6796a9a80add91618c5523facd02) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
+
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "201.m1", 0x00000, 0x20000, CRC(c28b3253) SHA1(fd75bd15aed30266a8b3775f276f997af57d1c06) )
+	ROM_RELOAD(     0x10000, 0x20000 )
+
+	ROM_REGION( 0x800000, "ymsnd", 0 )
+	ROM_LOAD( "201.v1", 0x000000, 0x400000, CRC(23d22ed1) SHA1(cd076928468ad6bcc5f19f88cb843ecb5e660681) )
+	ROM_LOAD( "201.v2", 0x400000, 0x400000, CRC(472cf9db) SHA1(5f79ea9286d22ed208128f9c31ca75552ce08b57) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "201.c1", 0x000000, 0x400000, CRC(72813676) SHA1(7b045d1a48980cb1a140699011cb1a3d4acdc4d1) )
+	ROM_LOAD16_BYTE( "201.c2", 0x000001, 0x400000, CRC(96f62574) SHA1(cb7254b885989223bba597b8ff0972dfa5957816) )
+	ROM_LOAD16_BYTE( "201.c3", 0x800000, 0x400000, CRC(5121456a) SHA1(0a7a27d603d1bb2520b5570ebf5b34a106e255a6) )
+	ROM_LOAD16_BYTE( "201.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
+ROM_END
 
 /**************
  Remix Extreme
@@ -455,7 +519,7 @@ ROM_END
 
 ROM_START( mslugrmpl01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl01.p1", 0x100000, 0x100000, CRC(888be633) SHA1(3597f2f6a7628a07a71c851e066e303f662f81cf) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl01.p1", 0x100000, 0x100000, CRC(4e3c6924) SHA1(1fb4ea1816c5ef1254e720008fd544610e97591e) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -483,7 +547,7 @@ ROM_END
 
 ROM_START( mslugrmpl02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl02.p1", 0x100000, 0x100000, CRC(a581f99c) SHA1(ecfdc4db2cbe26221e5bc4d6793ae9dfa6d5e74a) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl02.p1", 0x100000, 0x100000, CRC(6336768b) SHA1(df192e47bcc2d4483a15da4abb2898cd2396ebe6) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -511,7 +575,7 @@ ROM_END
 
 ROM_START( mslugrmpl03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl03.p1", 0x100000, 0x100000, CRC(fe96f1f5) SHA1(3a0d925afe8c90f9d117deb4e409b21295b851aa) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl03.p1", 0x100000, 0x100000, CRC(38217ee2) SHA1(eb8855cd6e740a5f8c1bb3e40887dde23624812f) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -539,7 +603,7 @@ ROM_END
 
 ROM_START( mslugrmpl04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl04.p1", 0x100000, 0x100000, CRC(13afe94e) SHA1(f63770d72f8eef4b387064be1cbf77801e30e87a) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl04.p1", 0x100000, 0x100000, CRC(d5186659) SHA1(5c0522d693e1009cc7da9196f289ab871bb4004d) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -567,7 +631,7 @@ ROM_END
 
 ROM_START( mslugrmhp01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp01.p1", 0x100000, 0x100000, CRC(1d2d7f79) SHA1(6569eb6b1f1a9e02f88a6e9e6472237c226b2fbe) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp01.p1", 0x100000, 0x100000, CRC(db9af06e) SHA1(61ad4de1d56979f4f2b602516dec604cccba320d) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -595,7 +659,7 @@ ROM_END
 
 ROM_START( mslugrmhp02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp02.p1", 0x100000, 0x100000, CRC(302760d6) SHA1(c0ecf24e9743103dc664284e763ed536e8469724) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp02.p1", 0x100000, 0x100000, CRC(f690efc1) SHA1(eef262084bd207b9fd85c5337da8c63641839dd2) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -623,7 +687,7 @@ ROM_END
 
 ROM_START( mslugrmhp03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp03.p1", 0x100000, 0x100000, CRC(6b3068bf) SHA1(568822ea4cc1300a6aaa0ea2f0fd0793be80af25) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp03.p1", 0x100000, 0x100000, CRC(ad87e7a8) SHA1(ab202635c71d5f59407135efa82820e7a24a9302) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -651,7 +715,7 @@ ROM_END
 
 ROM_START( mslugrmhp04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp04.p1", 0x100000, 0x100000, CRC(86097004) SHA1(a1fb1794b21494cffc4fe7ac7019f480ee4745ec) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp04.p1", 0x100000, 0x100000, CRC(40beff13) SHA1(0fd00fca439d6fd526cb9781fce880aacc611113) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -696,14 +760,19 @@ HACK( 1996, mslugps14,      mslug,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1996, mslugps15,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (War Chariot)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslugps16,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Multi-Function Version 2018-04-30)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugps17,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-05-04)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-03-26)[Version Original]", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugps19,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugps20,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-09-19)", MACHINE_SUPPORTS_SAVE )
+
 // Game only exclusive at HBMAME
+HACK( 2020, mslughp01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/I love Nimes",          "Metal Slug (Multi-Function Version 2018-04-30)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
+
 // Extreme Remixes
-HACK( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Rocket Launcher Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Shotgun Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmpl04,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Revised Version Super Flame Shot Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Heavy Machine Gun Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Rocket Launcher Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Shotgun Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp04,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Super Flame Shot Extreme Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmpl04,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Super Flame Shot Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmhp01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmhp02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmhp03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslugrmhp04,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Super Flame Shot Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )

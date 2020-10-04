@@ -1,6 +1,26 @@
 ﻿What's new in HBMAME
 ====================
 
+2020-10-28 0.226
+
+New Games
+---------------------------------
+- [kof2k2s120]          Kof2002 (Combo Simplified Edition 2020-09-18)
+- [kof97s210]           Kof'97 (Angry Athena-Snake Slayer War Original 2020-09-16)
+- [kof97s211]           Kof'97 (Angry Athena-Snake Slayer War Simplified 2020-09-16)
+- [kof97s212]           Kof'97 (Chaos Edition 1.9 Original 2020-08-26)
+- [kof97s213]           Kof'97 (Chaos Edition 1.9 Simplified 2020-08-26)
+- [kov2h29]             Knights of Valour 2 (Green Edition 2020-09-16)
+- [kov2p204s106]        Knights of Valour 2 Plus (God of War Musou 2020-09-14)
+- [mslug4hh29]          Metal Slug 4 (Mummy Edition 2020-08-31)
+- [sailormnts06]        Pretty Soldier Sailor Moon (Rabbit Edition 2020-09-17)
+- [sengoku3s15]         Sengoku 3 (Full Attack Enhanced Edition 2020-09-18)
+- [theglad100s03]       The Gladiator (Full Attack Enhanced Edition 2020 2020-09-18)
+- [tk2h163]             Tenchi wo Kurau II (Master Edition Update 2020-09-13)
+
+
+
+
 2020-09-30 0.225
 
 Converted external artwork (gnw_bride.zip, gnw_squeeze.zip, monaco.zip)
