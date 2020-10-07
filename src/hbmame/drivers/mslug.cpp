@@ -492,15 +492,7 @@ ROM_START( mslughp01 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x30000, "audiocpu", 0 )
-	ROM_LOAD( "201.m1", 0x00000, 0x20000, CRC(c28b3253) SHA1(fd75bd15aed30266a8b3775f276f997af57d1c06) )
-	ROM_RELOAD(     0x10000, 0x20000 )
+	NEO_BIOS_AUDIO_128K( "201.m1", CRC(c28b3253) SHA1(fd75bd15aed30266a8b3775f276f997af57d1c06) )
 
 	ROM_REGION( 0x800000, "ymsnd", 0 )
 	ROM_LOAD( "201.v1", 0x000000, 0x400000, CRC(23d22ed1) SHA1(cd076928468ad6bcc5f19f88cb843ecb5e660681) )
@@ -764,8 +756,17 @@ HACK( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2020, mslugps19,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugps20,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-09-19)", MACHINE_SUPPORTS_SAVE )
 
+/*********************************************************************************
+* This game is exclusive to HBMAME, its modifications are personalized, as well as 
+  the files that load the 201.p1, we have been working to optimize 
+  the performance and avoid any type of crashing that occurs through the game. 
+  This simply means that there are some details of the roms that still need to be 
+  improved, things to add and things that could later be updated or permanently eliminated 
+  if some type of problems are detected that cannot be solved.
+********************************************************************************************/
+
 // Game only exclusive at HBMAME
-HACK( 2020, mslughp01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/I love Nimes",          "Metal Slug (Multi-Function Version 2018-04-30)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslughp01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/I love Nimes",                          "Metal Slug (Multi-Function Version 2018-04-30)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
 
 // Extreme Remixes
 HACK( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )

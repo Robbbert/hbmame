@@ -1701,17 +1701,17 @@ ROM_END
 
 ROM_START( mslug5dh47 ) //ms5plusd
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "268dh47.p1", 0x000000, 0x100000, CRC(76af334f) SHA1(cbd890a9c14d42acd1923bb5074fb560a306cce3) )
+	ROM_LOAD16_WORD_SWAP( "268dh47.p1",  0x000000, 0x100000, CRC(76af334f) SHA1(cbd890a9c14d42acd1923bb5074fb560a306cce3) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p2p.bin", 0x100000, 0x200000, CRC(d6a458e8) SHA1(c0a8bdae06d62859fb6734766ccc190eb2a809a4) )
 	ROM_LOAD16_WORD_SWAP( "ms5-p3p.bin", 0x300000, 0x200000, CRC(439ec031) SHA1(f0ad8f9be7d26bc504593c1321bd23c286a221f0) )
 
 	NEO_SFIX_128K("268dh47.s1", CRC(99ef577b) SHA1(82f30b61ea4439a6673e0b70b7a9aceaaafd8943) )
 
-	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
+    NEO_BIOS_AUDIO_512K( "268dh47.m1", CRC(39f3cbba) SHA1(56f9ba6a1ecfc28733b7b88c9796415cba0461f2) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "268.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
-	ROM_LOAD( "268.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
+	ROM_LOAD( "268fr.v1", 0x000000, 0x800000, CRC(7ff6ca47) SHA1(e36c4e6a349dd9fd38d1a36b6760bbd943c2a42f) )
+	ROM_LOAD( "268fr.v2", 0x800000, 0x800000, CRC(696cce3b) SHA1(538d4a25befa4ffd25a48df97380469c13980f7a) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "268hd.c1", 0x0000000, 0x800000, CRC(e8239365) SHA1(E0A75902A783110049730B66AD3CBCCDD804BF62) )
@@ -1724,7 +1724,7 @@ ROM_START( mslug5dh47 ) //ms5plusd
 	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
 ROM_END
 
-ROM_START( mslug5dh48 ) //mslug5nd
+ROM_START( mslug5dh48 ) //mslug5n
 	ROM_REGION( 0x600000, "maincpu", 0 )
     ROM_LOAD16_WORD_SWAP( "268dh48.p1", 0x000000, 0x600000, CRC(975eb06a) SHA1(d3d4824a0b9f077c6503959da54edb53820e6a8d) )
 
@@ -1747,29 +1747,32 @@ ROM_START( mslug5dh48 ) //mslug5nd
 	ROM_LOAD16_BYTE( "268hd.c8", 0x3000001, 0x800000, CRC(fafc3eb9) SHA1(F4F73194CC7FD151BE3CA2561F993B5BE7628369) )
 ROM_END
 
-ROM_START( mslug5dh49 ) //mslug5b
-	ROM_REGION( 0x800000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "268dh49.p1", 0x000000, 0x800000, CRC(3f1cf3d2) SHA1(2c85eb5acdede4816675b91f8989c9e13c1573f8) )
-
+ROM_START( mslug5dh49 ) //mslug5ba
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "268dh49.p1", 0x000000, 0x100000, CRC(3f1cf3d2) SHA1(2c85eb5acdede4816675b91f8989c9e13c1573f8) )
+	ROM_IGNORE( 0x300000 )
+	ROM_CONTINUE( 0x200000, 0x100000 )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_CONTINUE( 0x300000, 0x100000 )
+	ROM_CONTINUE( 0x500000, 0x100000 )
+	
 	NEO_SFIX_MT_128K
 
-	NEO_BIOS_AUDIO_128K( "268nd.m1", CRC(6FA01C9A) SHA1(3DAB7593BFCCE318D22EC3DF672EE3B4AB73DCF5) )
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
 
 	ROM_REGION( 0x1000000, "ymsnd", 0 )
-	ROM_LOAD( "268boot.v1", 0x000000, 0x400000, CRC(c3540e0d) SHA1(bf7ca3abe291b28a4cfaef791f0c556cc98ad8d8) )
-	ROM_LOAD( "268boot.v2", 0x400000, 0x400000, CRC(077bd2f4) SHA1(1699959d17f8c7113cebdb9da2e1cd18ce48486c) )
-	ROM_LOAD( "268boot.v3", 0x800000, 0x400000, CRC(39b14567) SHA1(1658612a93ba30130f9260bc41d3f18f6b90c1e7) )
-	ROM_LOAD( "268boot.v4", 0xc00000, 0x400000, CRC(969ff3b2) SHA1(50feceb741a1c08b000b077a33151ab1352eb798) )
+	ROM_LOAD( "268.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "268d.c1", 0x0000000, 0x800000, CRC(969c0d62) SHA1(DE3C5CFA980CCA2FAB0416AC0D292948B5D4C9C3) )
-	ROM_LOAD16_BYTE( "268d.c2", 0x0000001, 0x800000, CRC(c69ae867) SHA1(3198EE5C7C2C7563B49EBD9F7BA95D9B0B303F6C) )
-	ROM_LOAD16_BYTE( "268d.c3", 0x1000000, 0x800000, CRC(d7beaeaf) SHA1(99443EA4C1BAB45F1977A390EB7E1A0163915110) )
-	ROM_LOAD16_BYTE( "268nd.c4", 0x1000001, 0x800000, CRC(E1B1131B) SHA1(68A36D336582069E79AD481638D92F57C4CD6523) )
-	ROM_LOAD16_BYTE( "268d.c5", 0x2000000, 0x800000, CRC(2fa1a5ad) SHA1(4AE15D29BA979601598EDDF8905072FE1D9E0A98) )
-	ROM_LOAD16_BYTE( "268d.c6", 0x2000001, 0x800000, CRC(6de89589) SHA1(86A6C036BF51AF516FEA83A30874026EC1586A83) )
-	ROM_LOAD16_BYTE( "268d.c7", 0x3000000, 0x800000, CRC(97bd0c0a) SHA1(30F3280FE527098ECF46541CC645A59B366105EA) )
-	ROM_LOAD16_BYTE( "268d.c8", 0x3000001, 0x800000, CRC(c0d5bc20) SHA1(B5D0D81D5CC624538B0651C568295E578A1330D1) )
+	ROM_LOAD16_BYTE( "268.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
+	ROM_LOAD16_BYTE( "268.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
+	ROM_LOAD16_BYTE( "268.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
+	ROM_LOAD16_BYTE( "268.c4", 0x1000001, 0x800000, CRC(c329c373) SHA1(5073d4079958a0ef5426885af2c9e3178f37d5e0) )
+	ROM_LOAD16_BYTE( "268.c5", 0x2000000, 0x800000, CRC(959c8177) SHA1(889bda7c65d71172e7d89194d1269561888fe789) )
+	ROM_LOAD16_BYTE( "268.c6", 0x2000001, 0x800000, CRC(010a831b) SHA1(aec140661e3ae35d264df416478ba15188544d91) )
+	ROM_LOAD16_BYTE( "268.c7", 0x3000000, 0x800000, CRC(6d72a969) SHA1(968dd9a4d1209b770b9b85ea6532fa24d262a262) )
+	ROM_LOAD16_BYTE( "268.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
 ROM_END
 
 ROM_START( mslug5dh50 ) //mslug5st
@@ -7775,9 +7778,9 @@ HACK( 2018, mslug5dh43,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo
 HACK( 2018, mslug5dh44,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2018-12-19)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug5dh45,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "YouGuDuoLa", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-11-05)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug5dh46,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 5 (Enemy Soldiers Magic Version 2019-04-15)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //You cannot go beyond the fourth level
-HACK( 2003, mslug5dh47,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, ms5plus,  ROT0, "bootleg", "Metal Slug 5 Plus (Bootleg, Fully decrypted)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug5dh47,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "bootleg", "Metal Slug 5 Plus (Bootleg, Fully decrypted)", MACHINE_SUPPORTS_SAVE )
 HACK( 2003, mslug5dh48,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Full Encrypted)", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, mslug5dh49,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "bootleg", "Metal Slug 5 (Bootleg/Alt)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2003, mslug5dh49,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5b,  ROT0, "bootleg", "Metal Slug 5 (Bootleg, set 2)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5dh50,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 5 (Stone Tortoise Edition 2020-09-04)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5dh51,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 5 (Hybrid Bullets Version 2020-09-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug5dh52,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2019-03-07)", MACHINE_SUPPORTS_SAVE )
@@ -7808,14 +7811,23 @@ HACK( 2020, mslug5dh76,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo
 HACK( 2020, mslug5dh77,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "Xiao Zhang Bing", "Metal Slug 5 (Remake 2 2020-09-03)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5dh78,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "I love Nimes", "Metal Slug 5 (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5dh79,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 5 (Burst Enhanced Edition 2020-09-19)",  MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5dh80,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Full Decrypt)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5dh80,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Full Encrypted D)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5dh81,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, neogeo,   ROT0, "hack", "Metal Slug 5 (Final Edition 2020-09-19)",  MACHINE_SUPPORTS_SAVE )
+
+/*********************************************************************************
+* This game is exclusive to HBMAME, its modifications are personalized, as well as 
+  the files that load the 268.p1 and 268.p2, we have been working to optimize 
+  the performance and avoid any type of crashing that occurs through the game. 
+  This simply means that there are some details of the roms that still need to be 
+  improved, things to add and things that could later be updated or permanently eliminated 
+  if some type of problems are detected that cannot be solved.
+********************************************************************************************/
 
 //Game only exclusive at HBMAME
 HACK( 2020, mslug5ese01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Gaston90/YouGuDuoLa/C.B/I love Nimes", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-07-31)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 HACK( 2020, mslug5ese02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Gaston90/YouGuDuoLa/C.B/I love Nimes", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-11-05)(Summon Slug Edition)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
-HACK( 2020, mslug5erv01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "XiaShuiDaoMeiRenYu/Gaston90/C.B/I love Nimes", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
-HACK( 2020, mslug5erv02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "XiaShuiDaoMeiRenYu/Gaston90/C.B/I love Nimes", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(Summon Slug Edition)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
+HACK( 2020, mslug5erv01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Gaston90/XiaShuiDaoMeiRenYu/C.B/I love Nimes", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
+HACK( 2020, mslug5erv02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Gaston90/XiaShuiDaoMeiRenYu/C.B/I love Nimes", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(Summon Slug Edition)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 
 // Extreme Remixes
 HACK( 2020, mslug5rmtnc01,    mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,C.B,Creamymami[EGCG],remikare)", "Metal Slug 5 (Fighting Machine Latest Version 2015-01-20)(Revised Version Big Flame Shot Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
@@ -7915,37 +7927,37 @@ HACK( 2020, mslug5ervn14,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, s
 HACK( 2020, mslug5ervn15,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Magic Version 2019-12-07)(Revised Version Super Grenade Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5ervn16,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Magic Version 2019-12-07)(Revised Version Super Grenade Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5xsn01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Flame Shot Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Flame Shot Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn03,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn04,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Heavy Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn05,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Laser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn06,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Laser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn07,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Rocket Launcher Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn08,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Rocket Launcher Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn09,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Shotgun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn10,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Shotgun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn11,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Dual Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn12,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Dual Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn13,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Enemy Chaser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn14,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Enemy Chaser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn15,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Super Grenade Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsn16,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Super Grenade Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Flame Shot Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Flame Shot Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm03,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm04,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Heavy Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm05,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Laser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm06,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Laser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm07,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Rocket Launcher Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm08,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Rocket Launcher Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm09,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Shotgun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm10,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Shotgun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm11,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Dual Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm12,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Dual Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm13,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Enemy Chaser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm14,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Enemy Chaser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm15,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Super Grenade Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug5xsm16,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Super Grenade Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Flame Shot Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn03,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn04,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Heavy Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn05,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Laser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn06,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Laser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn07,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Rocket Launcher Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn08,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Rocket Launcher Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn09,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Shotgun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn10,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Big Shotgun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn11,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Dual Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn12,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Dual Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn13,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Enemy Chaser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn14,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Enemy Chaser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn15,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Super Grenade Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsn16,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Summon Slug Edition 2018-11-05)(Revised Version Super Grenade Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Flame Shot Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Flame Shot Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm03,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm04,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Heavy Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm05,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Laser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm06,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Laser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm07,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Rocket Launcher Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm08,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Rocket Launcher Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm09,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Shotgun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm10,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Big Shotgun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm11,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Dual Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm12,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Dual Machine Gun Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm13,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Enemy Chaser Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm14,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Enemy Chaser Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm15,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Super Grenade Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug5xsm16,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,YouGuDuoLa,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemy Soldiers Enhanced Multi-Function Version 2018-07-31)(Revised Version Super Grenade Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5ervx01,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Big Flame Shot Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5ervx02,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Big Flame Shot Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug5ervx03,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-01])", MACHINE_SUPPORTS_SAVE )

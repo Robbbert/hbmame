@@ -245,11 +245,6 @@ HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
  /********************************************
       Proyecto Shadows Mame Build Plus
 **********************************************/
-/*
-  The roms that are implemented Version Hybrid Bullets, have a problem that generates a bug in mission 2, which manifests itself by disappearing 
-  the half body will not allow you to continue playing which the game will restart from scratch.
-  Name roms: mslug2erss01, mslug2erss04, mslug2rmhbv01, mslug2rmhbv02, mslug2rmhbhv01, mslug2rmhbhv02.
- */
  
 /*************
  Metal Slug 2
@@ -1221,7 +1216,7 @@ ROM_END
 
 ROM_START( mslug2tub03 ) 
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "241_tub03.p1",   0x000000, 0x100000, CRC(36e1470a) SHA1(cbca5c9d33c873f4d2af4754c90f6b4a0e3ed073) )
+	ROM_LOAD16_WORD_SWAP( "241_tub03.p1",   0x000000, 0x100000, CRC(f5b1bc7e) SHA1(ac605e09ff5e030a2ee906f2ae839b02c596b697) )
 	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
 	NEO_SFIX_128K( "241.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
@@ -1241,7 +1236,7 @@ ROM_END
 
 ROM_START( mslug2tub04 ) 
 	ROM_REGION( 0x300000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "241_tub04.p1",   0x000000, 0x100000, CRC(679133c6) SHA1(2323ec96a32325d999044e71857cd73ba970212e) )
+	ROM_LOAD16_WORD_SWAP( "241_tub04.p1",   0x000000, 0x100000, CRC(a4c1c8b2) SHA1(d4b2dbafb02433e02cc8752023ac76a2e2b30cfd) )
 	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
 
 	NEO_SFIX_128K( "241.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
@@ -2222,18 +2217,37 @@ HACK( 2020, mslug2ps41,      mslug2,   neogeo_noslot, neogeo, neogeo_state,     
 HACK( 2020, mslug2ps42,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",    "Metal Slug 2 (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug2ps43,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",    "Metal Slug 2 (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 
+/*********************************************************************************
+* This game is exclusive to HBMAME, its modifications are personalized, as well as 
+  the files that load the 241.p1 and 241.p2, we have been working to optimize 
+  the performance and avoid any type of crashing that occurs through the game. 
+  This simply means that there are some details of the roms that still need to be 
+  improved, things to add and things that could later be updated or permanently eliminated 
+  if some type of problems are detected that cannot be solved.
+********************************************************************************************/
+/*********************************************************************************************************
+  The roms hacks called Version Hybrid Bullets, have a serious problem that generates a crash 
+  in mission 2 / phase 2, their way of manifesting is to disappear the torso of the body which 
+  if one presses the fire button the game immediately crashes and will restart the game and which 
+  will not allow you to continue playing level 2.
+  The precarious solutions that have been found is the selection of levels and skipping level 2 
+  is that the only level that arrogantly causes the error.
+  Roms with these names with carry the error: mslug2erss01, mslug2erss04, mslug2rmhbv01, mslug2rmhbv02,
+  mslug2rmhbhv01, mslug2rmhbhv02.
+ ***********************************************************************************************************/
+
 //Game only exclusive at HBMAME
-HACK( 2017, mslug2erv01,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)", MACHINE_SUPPORTS_SAVE )
-HACK( 2019, mslug2erv02,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Survival Version)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-HACK( 2017, mslug2erv03,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug2erv04,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",                  "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Generation 1V2)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug2erv05,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",                  "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Hybrid Bullets Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug2erv06,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",                  "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug2tub01,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Multi-Function Version 2017-05-09)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslug2tub02,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Survival Version 2018-07-31)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-HACK( 2019, mslug2tub03,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
-HACK( 2008, mslug2tub04,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Hybrid Bullets Version 2008-12-04)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslug2tub05,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "System11/Gaston90",     "Metal Slug 2 Turbo (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug2erv01,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)", MACHINE_SUPPORTS_SAVE )
+HACK( 2019, mslug2erv02,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Survival Version)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+HACK( 2017, mslug2erv03,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug2erv04,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Generation 1V2)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug2erv05,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Hybrid Bullets Version)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug2erv06,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug2tub01,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Multi-Function Version 2017-05-09)", MACHINE_SUPPORTS_SAVE )
+HACK( 2018, mslug2tub02,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Survival Version 2018-07-31)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+HACK( 2019, mslug2tub03,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE )
+HACK( 2008, mslug2tub04,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Hybrid Bullets Version 2008-12-04)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2020, mslug2tub05,     mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
 
 // Extreme Remixes
 HACK( 2020, mslug2erss01,    mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Version Remix [2020-06-01])", MACHINE_SUPPORTS_SAVE ) //To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
