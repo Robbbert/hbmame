@@ -202,7 +202,7 @@ static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETT
     PNG graphics handling functions
 ***************************************************************************/
 
-static BOOL AllocatePNG(png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
+static BOOL AllocatePNG(util::png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
 {
 	int nColors = 0;
 	copy_size = 0;
@@ -306,8 +306,8 @@ inline void store_pixels(UINT8 *buf, int len)
    logerror doesn't work here... changed to printf */
 static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
 {
-	png_info p;
-	if (p.read_file(mfile) != PNGERR_NONE)
+	util::png_info p;
+	if (p.read_file(mfile) != util::png_error::NONE)
 		return false;
 
 	if (p.color_type != 3 && p.color_type != 2)
