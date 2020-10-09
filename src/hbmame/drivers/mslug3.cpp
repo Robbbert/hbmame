@@ -3413,7 +3413,7 @@ ROM_END
 ROM_START( mslug3esra03 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256ern03.p1", 0x000000, 0x100000, CRC(aa35973b) SHA1(cd1fedbdc7ec638987085a55f098c15a3b89bc6b) )
-	ROM_LOAD16_WORD_SWAP( "256esra03.p2", 0x100000, 0x400000, CRC(37731920) SHA1(8e8ec9e522a157f119844e9fb0526f50c8c0733d) )
+	ROM_LOAD16_WORD_SWAP( "256esra03.p2", 0x100000, 0x400000, CRC(298bcf4f) SHA1(09e9990f7086decbfcd1eee1e216c69273eb19fe) )
 
 	NEO_SFIX_MT_512K
 
@@ -10489,7 +10489,7 @@ HACK( 2000, mslug3h10,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2000, mslug3h11,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Stone Bomb)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h12,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Change Character)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h13,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Change Weapon)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-HACK( 2000, mslug3h14,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Robert",    "Metal Slug 3 (Change Zombie)",  MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+HACK( 2000, mslug3h14,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Change Zombie)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h15,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h16,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mslug3h17,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Eddids[FGCH]",    "Metal Slug 3 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
@@ -10522,7 +10522,7 @@ HACK( 2004, mslug3h43,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslu
 HACK( 2020, mslug3h44,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslug3h45,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "Ydmis/Gaston90",    "Metal Slug 3 (248 grenades 2020-05-31)", MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h46,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",  "Metal Slug 3 (Ghost Wu Zuoma 2018-05-29)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-HACK( 2017, mslug3h47,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.1)", MACHINE_SUPPORTS_SAVE )
+HACK( 2017, mslug3h47,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.1 2017-10-09)", MACHINE_SUPPORTS_SAVE )
 HACK( 2019, mslug3h48,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)" , MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h49,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enhanced Edition 2018-05-09)" ,  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 HACK( 2018, mslug3h50,      mslug3,   neogeo_noslot, neogeo, neogeo_state,  neogeo,    ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 1.0.1 2018-07-21)" , MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
