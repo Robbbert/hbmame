@@ -53,7 +53,7 @@ A.  In the Dipswitch menu, turn on the Service switch.
 A.  Start Vector Breakout, then hold down 1 and press F3.
 
 13. I can't get all the dots in PAC RABBIT.
-A.  Rabbits can jump. And yes, it is possible to jump over a monster. Watch out for the mad fox.
+A.  Rabbits can jump. Press 1. And yes, it is possible to jump over a monster. Watch out for the mad fox.
 
 14. The cartoons (TMNTI, etc) don't work.
 A.  They need to be set to Japan Console-AES mode. When you see the Unibios screen, press the keys
