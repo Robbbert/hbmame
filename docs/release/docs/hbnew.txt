@@ -4,9 +4,13 @@
 2020-10-28 0.226
 
 - Metal Slug 1,2,3,4,5 and X remix has been massively updated
+- The Metal slug 3 Ghost Wu Zuoma / The Random Enemies Resetting Version 1.0 
+  roms have been made working and compatible with the emulator.
+
 
 New Games
 ---------------------------------
+- [doubledrs09]         Double Dragon (Edition Language China 2015-04-06)
 - [kof2k2s120]          Kof2002 (Combo Simplified Edition 2020-09-18)
 - [kof97s210]           Kof'97 (Angry Athena-Snake Slayer War Original 2020-09-16)
 - [kof97s211]           Kof'97 (Angry Athena-Snake Slayer War Simplified 2020-09-16)
@@ -16,17 +20,26 @@ New Games
 - [kof97s215]           Kof'97 (Mad Dragon Edition Simplified 2020-09-30)
 - [kof97s216]           Kof'97 (Imitation 13 Flash Version Original 2020-09-30)
 - [kof97s217]           Kof'97 (Imitation 13 Flash Version Simplified 2020-09-30)
+- [kof97s218]           Kof'97 (Chaos Edition 2.0 Original 2020-09-05)
+- [kof97s219]           Kof'97 (Chaos Edition 2.0 Simplified 2020-10-14)
 - [kof99s106]           Kof'99 (Imitation 14 BC Version (AC open BC) 2020-09-30)
 - [kov2h29]             Knights of Valour 2 (Green Edition 2020-09-16)
+- [kov2h30]             Knights of Valour 2 (Green Edition 2020-10-15)
 - [kov2p204s106]        Knights of Valour 2 Plus (God of War Musou 2020-09-14)
 - [kov2p204s107]        Knights of Valour 2 Plus (Mingyue Huacai 2019-03-21)
 - [kov2p204s108]        Knights of Valour 2 Plus (Tianhuo Mingming 2019-10-17)
+- [kov2p204s109]        Knights of Valour 2 Plus (Evil Phoenix Tianchi 2017-07-26)
 - [kovpluss381]         Knights of Valour Plus 2012 (Warriors Classic Edition 2020-09-17)
 - [kovpluss382]         Knights of Valour Plus 2012 (World Unification 2020-09-20)
+- [kovpluss383]         Knights of Valour Plus 2012 (Warriors Edition 2020-10-10)
+- [kovpluss384]         Knights of Valour Plus 2012 (Heroes Dance 2020 2020-10-11)[NOT WORKING]
+- [kovpluss385]         Knights of Valour Plus 2012 (Heroes Dance 2020 Special Edition 2020-10-11)
+- [kovpluss386]         Knights of Valour Plus 2012 (Heroes Dance 2 2020 Special Edition 2020-10-16)[NOT WORKING]
 - [kovsho191]           Knights of Valour Super Heroes Plus (Random Edition 2020-09-17)
 - [kovsho192]           Knights of Valour Super Heroes Plus (Zhao Yun Dead World Edition 2020-09-19)
 - [mslug4hh29]          Metal Slug 4 (Mummy Edition 2020-08-31)
 - [mslug5dh81]          Metal Slug 5 (Final Edition 2020-09-19)
+- [olds100ass178]       Oriental Legend Special (Return of the Great Saint 2020-10-14)
 - [proneon]             Neon plan
 - [sailormnts06]        Pretty Soldier Sailor Moon (Rabbit Edition 2020-09-17)
 - [sengoku3s15]         Sengoku 3 (Full Attack Enhanced Edition 2020-09-18)

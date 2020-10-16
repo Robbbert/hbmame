@@ -490,6 +490,30 @@ ROM_START( doubledrs08 )
 	ROM_LOAD16_BYTE( "082.c8", 0xc00001, 0x100000, CRC(69a5fa37) SHA1(020e70e0e8b3c5d00a40fe97e418115a3187e50a) )
 ROM_END
 
+ROM_START( doubledrs09 ) //doubledrcn
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "082.p1", 0x100000, 0x100000, CRC(34ab832a) SHA1(fbb1bd195f5653f7b9c89648649f838eaf83cbe4) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "082s09.s1", CRC(8d99684b) SHA1(4cea5bb537a2768f73d0b0c2ff9997ea4163c18b) )
+
+	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
+	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
+
+	ROM_REGION( 0xe00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "082s09.c1", 0x000000, 0x200000, CRC(3318463d) SHA1(34f65349cad2931988d39f2de9f3b955effa306a) )
+	ROM_LOAD16_BYTE( "082s09.c2", 0x000001, 0x200000, CRC(73d73a11) SHA1(01a328dc01cd761cfa7fb371fe9c711d1c4a0845) )
+	ROM_LOAD16_BYTE( "082s09.c3", 0x400000, 0x200000, CRC(eb8d33f1) SHA1(4eeadfecc59ca9ca7f4006da025b6a9e6478914f) )
+	ROM_LOAD16_BYTE( "082s09.c4", 0x400001, 0x200000, CRC(d823f351) SHA1(6b8e1c7dc78da04e72c3be063800bb5dede4e3a9) )
+	ROM_LOAD16_BYTE( "082s09.c5", 0x800000, 0x200000, CRC(ce6756e9) SHA1(1d85dadfedd73e1569085cfc711773804e107eae) )
+	ROM_LOAD16_BYTE( "082s09.c6", 0x800001, 0x200000, CRC(2357d930) SHA1(89c8a3eb8e2a8ff928615d0c239c0b0d045185f2) )
+	ROM_LOAD16_BYTE( "082s09.c7", 0xc00000, 0x100000, CRC(fbdf60a1) SHA1(1297b64cabf7a44968200e3d5a89c8efdb0e1625) )
+	ROM_LOAD16_BYTE( "082s09.c8", 0xc00001, 0x100000, CRC(bca22b14) SHA1(399ab7689387878fb534ddff675540936149954d) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
  // Double Dragon
 HACK( 1995, doubledrs01,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "yumeji",    "Double Dragon (Enable Hidden Characters v2)", MACHINE_SUPPORTS_SAVE )
@@ -500,4 +524,5 @@ HACK( 1995, doubledrs05,    doubledr, neogeo_noslot, neogeo, neogeo_state,      
 HACK( 1995, doubledrs06,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Double Dragon (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 HACK( 1995, doubledrs07,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Double Dragon (Super Remix Edition 1.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 2017, doubledrs08,    doubledr, gsc,           neogeo, neogeo_state,         neogeo,    ROT0, "GSC2007",    "Double Dragon (Special 2017 v1.X 2017-03-08)", MACHINE_SUPPORTS_SAVE )
+HACK( 2020, doubledrs09,    doubledr, neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",       "Double Dragon (Edition Language China 2015-04-06)", MACHINE_SUPPORTS_SAVE )
 

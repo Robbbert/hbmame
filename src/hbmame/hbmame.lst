@@ -2244,6 +2244,8 @@ kof97s214
 kof97s215
 kof97s216
 kof97s217
+kof97s218
+kof97s219
 kof97hx01
 kof97hx02
 kof97hx03
@@ -6154,6 +6156,7 @@ doubledrs05
 doubledrs06
 doubledrs07
 doubledrs08
+doubledrs09
 
 @source:nggaroup.cpp
 garoub
@@ -7259,6 +7262,7 @@ kov2p204s105
 kov2p204s106
 kov2p204s107
 kov2p204s108
+kov2p204s109
 kov2h01
 kov2h02
 kov2h03
@@ -7288,6 +7292,7 @@ kov2h26
 kov2h27
 kov2h28
 kov2h29
+kov2h30
 kovpluss01
 kovpluss02  // Unstable game in the emulator (ingame crash)
 kovpluss03
@@ -7667,6 +7672,10 @@ kovpluss379
 kovpluss380
 kovpluss381
 kovpluss382
+kovpluss383
+kovpluss384
+kovpluss385
+kovpluss386
 kovplusas01
 kovshs01
 kovshs02
@@ -8164,6 +8173,7 @@ olds100ass174
 olds100ass175
 olds100ass176
 olds100ass177
+olds100ass178
 oldsplus01
 oldsplus02
 oldsplus03
