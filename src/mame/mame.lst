@@ -22765,7 +22765,9 @@ tankbatl                        // (c) 1992 Microprose Games Inc.
 dm3270                          //
 
 @source:microdar.cpp
-dibifuca                        //
+dibifuca                        // (c) 199? Compumatic
+dibif743                        // (c) 199? Compumatic
+dibif727                        // (c) 199? Compumatic
 cfarwest                        // (c) 1997 Compumatic
 prospdp                         // (c) 1997 Compumatic
 diolakoa                        // (c) 1997 Compumatic
@@ -32661,8 +32663,8 @@ racingj                         // GX676 (c)1998
 racingj2                        // GX888 (c)1999 (EAE)
 racingj2j                       // GX888 (c)1999 (JAE)
 thrilld                         // GX713 (c)1998 Japan JAE
-thrilldae                       // GX713 (c)1998 Europe EAA
 thrilldb                        // GX713 (c)1998 Japan JAB
+thrilldbe                       // GX713 (c)1998 Europe EAB
 
 @source:nycaptor.cpp
 bronx                           // bootleg
