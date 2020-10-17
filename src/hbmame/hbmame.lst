@@ -1508,6 +1508,7 @@ dkongbcc				// Jeff's Rom Hacks
 dkongex					// Jeff's Hack with Foundry Level
 dkongf
 dkongst
+dkongst2
 dkongss
 dkongp					// Fix for level 22 kill screen by Don Hodges
 dkongpac				// Tim Appleton - Donkey Kong with Pacman graphics
@@ -5858,13 +5859,14 @@ neotest		// BEY
 neothund	// Sebastian Mihai
 neotrisd1
 neotrisd2
+neotrisd3
 ngem2k
 ngftdemo	// CeL
 ngmontst
 ngtd2
 ngtetris
 ngym2610
-nsmb
+nsmbd			// unplayable demo
 nyan
 nyana
 pcmademo	// 2015 freem
@@ -5872,7 +5874,6 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
-proneon
 //raroggame
 rci			/* Robocop intro */
 samantha

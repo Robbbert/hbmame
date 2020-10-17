@@ -10,6 +10,7 @@
 
 New Games
 ---------------------------------
+- [dkongst2]            Donkey Kong Springs Trainer 2
 - [doubledrs09]         Double Dragon (Edition Language China 2015-04-06)
 - [kof2k2s120]          Kof2002 (Combo Simplified Edition 2020-09-18)
 - [kof97s210]           Kof'97 (Angry Athena-Snake Slayer War Original 2020-09-16)
@@ -39,8 +40,8 @@ New Games
 - [kovsho192]           Knights of Valour Super Heroes Plus (Zhao Yun Dead World Edition 2020-09-19)
 - [mslug4hh29]          Metal Slug 4 (Mummy Edition 2020-08-31)
 - [mslug5dh81]          Metal Slug 5 (Final Edition 2020-09-19)
+- [neotrisd3]           Neo Tris (beta 2)
 - [olds100ass178]       Oriental Legend Special (Return of the Great Saint 2020-10-14)
-- [proneon]             Neon plan
 - [sailormnts06]        Pretty Soldier Sailor Moon (Rabbit Edition 2020-09-17)
 - [sengoku3s15]         Sengoku 3 (Full Attack Enhanced Edition 2020-09-18)
 - [theglad100s03]       The Gladiator (Full Attack Enhanced Edition 2020 2020-09-18)
