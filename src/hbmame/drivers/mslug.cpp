@@ -481,13 +481,13 @@ ROM_START( mslugps20 ) //mslugp
 	ROM_LOAD16_BYTE( "201_ps17.c2", 0x000001, 0x800000, CRC(f24190fe) SHA1(f63909f4bf7fed19740e249432b019e0a4457130) )
 ROM_END
 
-/*******************************
- Game only exclusive at HBMAME
-**********************************/
+/**************
+  Metal Slug 1
+*****************/
 
 ROM_START( mslughp01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201hp01.p1", 0x100000, 0x100000, CRC(201839b3) SHA1(ebdec3c4ddc00f2da07a9efd396d0a917e7c6504) )
+	ROM_LOAD16_WORD_SWAP( "201hp01.p1", 0x100000, 0x100000, CRC(77c0999f) SHA1(3359ce28c3ae6796a9a80add91618c5523facd02) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -505,13 +505,9 @@ ROM_START( mslughp01 )
 	ROM_LOAD16_BYTE( "201.c4", 0x800001, 0x400000, CRC(f4ad59a3) SHA1(4e94fda8ee63abf0f92afe08060a488546e5c280) )
 ROM_END
 
-/**************
- Remix Extreme
-****************/
-
 ROM_START( mslugrmpl01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl01.p1", 0x100000, 0x100000, CRC(19e4c908) SHA1(919c4c746d1b4318f0da3add569a5dfba6a2a7a6) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl01.p1", 0x100000, 0x100000, CRC(4e3c6924) SHA1(1fb4ea1816c5ef1254e720008fd544610e97591e) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -539,7 +535,7 @@ ROM_END
 
 ROM_START( mslugrmpl02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl02.p1", 0x100000, 0x100000, CRC(34eed6a7) SHA1(15139ecfe8e114f5903bd0287c842ac653557160) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl02.p1", 0x100000, 0x100000, CRC(6336768b) SHA1(df192e47bcc2d4483a15da4abb2898cd2396ebe6) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -567,7 +563,7 @@ ROM_END
 
 ROM_START( mslugrmpl03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl03.p1", 0x100000, 0x100000, CRC(6ff9dece) SHA1(92d7567238a4203f8216514bb98902ad3951ecd1) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl03.p1", 0x100000, 0x100000, CRC(38217ee2) SHA1(eb8855cd6e740a5f8c1bb3e40887dde23624812f) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -595,7 +591,7 @@ ROM_END
 
 ROM_START( mslugrmpl04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmpl04.p1", 0x100000, 0x100000, CRC(82c0c675) SHA1(696f2eb0e953ff74d2685a570d6d43c2feabab9f) )
+	ROM_LOAD16_WORD_SWAP( "201rmpl04.p1", 0x100000, 0x100000, CRC(d5186659) SHA1(5c0522d693e1009cc7da9196f289ab871bb4004d) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -623,7 +619,7 @@ ROM_END
 
 ROM_START( mslugrmhp01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp01.p1", 0x100000, 0x100000, CRC(8c425042) SHA1(eb8ec8ebb54c1548eb97c0860da5b0ae8860d236) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp01.p1", 0x100000, 0x100000, CRC(db9af06e) SHA1(61ad4de1d56979f4f2b602516dec604cccba320d) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -651,7 +647,7 @@ ROM_END
 
 ROM_START( mslugrmhp02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp02.p1", 0x100000, 0x100000, CRC(a1484fed) SHA1(70294014b0cd6dcf69165dbc7e0164657d1e1d90) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp02.p1", 0x100000, 0x100000, CRC(f690efc1) SHA1(eef262084bd207b9fd85c5337da8c63641839dd2) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -679,7 +675,7 @@ ROM_END
 
 ROM_START( mslugrmhp03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp03.p1", 0x100000, 0x100000, CRC(fa5f4784) SHA1(3e3eca8117e8cfbb6005a0126006f8ccfb2d2fbf) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp03.p1", 0x100000, 0x100000, CRC(ad87e7a8) SHA1(ab202635c71d5f59407135efa82820e7a24a9302) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -707,7 +703,7 @@ ROM_END
 
 ROM_START( mslugrmhp04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "201rmhp04.p1", 0x100000, 0x100000, CRC(17665f3f) SHA1(05adcd3a3ffcb9c140a62e9dac9c2df680e373bf) )
+	ROM_LOAD16_WORD_SWAP( "201rmhp04.p1", 0x100000, 0x100000, CRC(40beff13) SHA1(0fd00fca439d6fd526cb9781fce880aacc611113) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "201.s1", CRC(2f55958d) SHA1(550b53628daec9f1e1e11a398854092d90f9505a) )
@@ -756,19 +752,11 @@ HACK( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state,      
 HACK( 2020, mslugps19,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugps20,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-09-19)", MACHINE_SUPPORTS_SAVE )
 
-/*********************************************************************************
-* This game is exclusive to HBMAME, its modifications are personalized, as well as 
-  the files that load the 201.p1, we have been working to optimize 
-  the performance and avoid any type of crashing that occurs through the game. 
-  This simply means that there are some details of the roms that still need to be 
-  improved, things to add and things that could later be updated or permanently eliminated 
-  if some type of problems are detected that cannot be solved.
-********************************************************************************************/
-
-// Game only exclusive at HBMAME
+/**************
+  Metal Slug 1
+*****************/
 HACK( 2020, mslughp01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/I love Nimes",                          "Metal Slug (Multi-Function Version 2018-04-30)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
 
-// Extreme Remixes
 HACK( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
 HACK( 2020, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
