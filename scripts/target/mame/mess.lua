@@ -295,7 +295,6 @@ SOUNDS["L7A1045"] = true
 SOUNDS["UPD1771"] = true
 SOUNDS["GB_SOUND"] = true
 SOUNDS["PCD3311"] = true
-SOUNDS["VOLT_REG"] = true
 SOUNDS["MEA8000"] = true
 --SOUNDS["DAC76"] = true
 --SOUNDS["MM5837"] = true
@@ -3051,7 +3050,9 @@ files {
 	MAME_DIR .. "src/mame/includes/nes.h",
 	MAME_DIR .. "src/mame/machine/nes.cpp",
 	MAME_DIR .. "src/mame/video/nes.cpp",
-	MAME_DIR .. "src/mame/drivers/nes_vt.cpp",
+	MAME_DIR .. "src/mame/drivers/nes_vt02_vt03.cpp",
+	MAME_DIR .. "src/mame/drivers/nes_vt09.cpp",
+	MAME_DIR .. "src/mame/drivers/nes_vt32_vt369.cpp",
 	MAME_DIR .. "src/mame/machine/nes_vt_soc.cpp",
 	MAME_DIR .. "src/mame/machine/nes_vt_soc.h",
 	MAME_DIR .. "src/mame/drivers/nes_sh6578.cpp",
