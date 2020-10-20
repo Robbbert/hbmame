@@ -38,9 +38,10 @@
 
 #define LOG_GROUP_BOUNDS_RESOLUTION (1U << 1)
 #define LOG_INTERACTIVE_ITEMS       (1U << 2)
-#define LOG_IMAGE_LOAD              (1U << 3)
+#define LOG_DISK_DRAW               (1U << 3)
+#define LOG_IMAGE_LOAD              (1U << 4)
 
-//#define VERBOSE (LOG_GROUP_BOUNDS_RESOLUTION | LOG_INTERACTIVE_ITEMS | LOG_IMAGE_LOAD)
+//#define VERBOSE (LOG_GROUP_BOUNDS_RESOLUTION | LOG_INTERACTIVE_ITEMS | LOG_DISK_DRAW | LOG_IMAGE_LOAD)
 #define LOG_OUTPUT_FUNC osd_printf_verbose
 #include "logmacro.h"
 
@@ -2041,6 +2042,8 @@ public:
 		float const yradius = curbounds.height() * float(dest.height()) * 0.5F;
 		s32 const miny = s32(curbounds.y0 * float(dest.height()));
 		s32 const maxy = s32(std::ceil(curbounds.y1 * float(dest.height()))) - 1;
+		LOGMASKED(LOG_DISK_DRAW, "Draw disk: bounds (%s %s %s %s); (((x - %s) ** 2) / (%s ** 2) + ((y - %s) ** 2) / (%s ** 2)) = 1; rows [%s %s]\n",
+				curbounds.x0, curbounds.y0, curbounds.x1, curbounds.y1, xcenter, xradius, ycenter, yradius, miny, maxy);
 
 		if (miny == maxy)
 		{
@@ -2115,17 +2118,18 @@ public:
 			// draw rows above the axis
 			s32 y = miny + 1;
 			float ycoord1 = ycenter - float(y);
-			float xval1 = xradius * std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
-			float l1 = xcenter - xval1;
-			float r1 = xcenter + xval1;
+			float xval1 = std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
+			float l1 = xcenter - (xval1 * xradius);
+			float r1 = xcenter + (xval1 * xradius);
 			for ( ; (maxy > y) && (float(y + 1) <= ycenter); ++y)
 			{
+				float const xval0 = xval1;
 				float const l0 = l1;
 				float const r0 = r1;
 				ycoord1 = ycenter - float(y + 1);
-				xval1 = xradius * std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
-				l1 = xcenter - xval1;
-				r1 = xcenter + xval1;
+				xval1 = std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
+				l1 = xcenter - (xval1 * xradius);
+				r1 = xcenter + (xval1 * xradius);
 				s32 minx = int(l1);
 				s32 maxx = int(std::ceil(r1)) - 1;
 				u32 *dst = &dest.pix(y, minx);
@@ -2142,13 +2146,13 @@ public:
 					{
 						float val = 0.0F;
 						if (float(x + 1) <= l0)
-							val += integral((xcenter - float(x + 1)) / xradius, (xcenter - (std::max)(float(x), l1)) / xradius);
+							val += integral((std::max)((float(x) - xcenter) / xradius, -xval1), (float(x + 1) - xcenter) / xradius);
 						else if (float(x) <= l0)
-							val += integral((xcenter - l0) / xradius, (xcenter - (std::max)(float(x), l1)) / xradius);
+							val += integral((std::max)((float(x) - xcenter) / xradius, -xval1), -xval0);
 						else if (float(x) >= r0)
-							val += integral((float(x) - xcenter) / xradius, ((std::min)(float(x + 1), r1) - xcenter) / xradius);
+							val += integral((float(x) - xcenter) / xradius, (std::min)((float(x + 1) - xcenter) / xradius, xval1));
 						else if (float(x + 1) >= r0)
-							val += integral((r0 - xcenter) / xradius, ((std::min)(float(x + 1), r1) - xcenter) / xradius);
+							val += integral(xval0, (std::min)((float(x + 1) - xcenter) / xradius, xval1));
 						val *= scale;
 						if (float(x) <= l0)
 							val -= ((std::min)(float(x + 1), l0) - (std::max)(float(x), l1)) * ycoord1;
@@ -2163,12 +2167,13 @@ public:
 			// row spanning the axis
 			if ((maxy > y) && (float(y) < ycenter))
 			{
+				float const xval0 = xval1;
 				float const l0 = l1;
 				float const r0 = r1;
 				ycoord1 = float(y + 1) - ycenter;
-				xval1 = xradius * std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
-				l1 = xcenter - xval1;
-				r1 = xcenter + xval1;
+				xval1 = std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
+				l1 = xcenter - (xval1 * xradius);
+				r1 = xcenter + (xval1 * xradius);
 				s32 const minx = int(curbounds.x0 * float(dest.width()));
 				s32 const maxx = int(std::ceil(curbounds.x1 * float(dest.width()))) - 1;
 				u32 *dst = &dest.pix(y, minx);
@@ -2187,19 +2192,19 @@ public:
 						if (float(x + 1) <= l0)
 							val += integral((xcenter - float(x + 1)) / xradius, (std::min)((xcenter - float(x)) / xradius, 1.0F));
 						else if (float(x) <= l0)
-							val += integral((xcenter - l0) / xradius, (std::min)((xcenter - float(x)) / xradius, 1.0F));
+							val += integral(xval0, (std::min)((xcenter - float(x)) / xradius, 1.0F));
 						else if (float(x) >= r0)
 							val += integral((float(x) - xcenter) / xradius, (std::min)((float(x + 1) - xcenter) / xradius, 1.0F));
 						else if (float(x + 1) >= r0)
-							val += integral((r0 - xcenter) / xradius, (std::min)((float(x + 1) - xcenter) / xradius, 1.0F));
+							val += integral(xval0, (std::min)((float(x + 1) - xcenter) / xradius, 1.0F));
 						if (float(x + 1) <= l1)
 							val += integral((xcenter - float(x + 1)) / xradius, (std::min)((xcenter - float(x)) / xradius, 1.0F));
 						else if (float(x) <= l1)
-							val += integral((xcenter - l1) / xradius, (std::min)((xcenter - float(x)) / xradius, 1.0F));
+							val += integral(xval1, (std::min)((xcenter - float(x)) / xradius, 1.0F));
 						else if (float(x) >= r1)
 							val += integral((float(x) - xcenter) / xradius, (std::min)((float(x + 1) - xcenter) / xradius, 1.0F));
 						else if (float(x + 1) >= r1)
-							val += integral((r1 - xcenter) / xradius, (std::min)((float(x + 1) - xcenter) / xradius, 1.0F));
+							val += integral(xval1, (std::min)((float(x + 1) - xcenter) / xradius, 1.0F));
 						val *= scale;
 						val += (std::max)(((std::min)(float(x + 1), r0) - (std::max)(float(x), l0)), 0.0F) * (ycenter - float(y));
 						val += (std::max)(((std::min)(float(x + 1), r1) - (std::max)(float(x), l1)), 0.0F) * (float(y + 1) - ycenter);
@@ -2213,12 +2218,13 @@ public:
 			for ( ; maxy > y; ++y)
 			{
 				float const ycoord0 = ycoord1;
+				float const xval0 = xval1;
 				float const l0 = l1;
 				float const r0 = r1;
 				ycoord1 = float(y + 1) - ycenter;
-				xval1 = xradius * std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
-				l1 = xcenter - xval1;
-				r1 = xcenter + xval1;
+				xval1 = std::sqrt((std::max)(1.0F - (ycoord1 * ycoord1) * ooyradius2, 0.0F));
+				l1 = xcenter - (xval1 * xradius);
+				r1 = xcenter + (xval1 * xradius);
 				s32 minx = int(l0);
 				s32 maxx = int(std::ceil(r0)) - 1;
 				u32 *dst = &dest.pix(y, minx);
@@ -2235,13 +2241,13 @@ public:
 					{
 						float val = 0.0F;
 						if (float(x + 1) <= l1)
-							val += integral((xcenter - float(x + 1)) / xradius, (xcenter - (std::max)(float(x), l0)) / xradius);
+							val += integral((std::max)((float(x) - xcenter) / xradius, -xval0), (float(x + 1) - xcenter) / xradius);
 						else if (float(x) <= l1)
-							val += integral((xcenter - l1) / xradius, (xcenter - (std::max)(float(x), l0)) / xradius);
+							val += integral((std::max)((float(x) - xcenter) / xradius, -xval0), -xval1);
 						else if (float(x) >= r1)
-							val += integral((float(x) - xcenter) / xradius, ((std::min)(float(x + 1), r0) - xcenter) / xradius);
+							val += integral((float(x) - xcenter) / xradius, (std::min)((float(x + 1) - xcenter) / xradius, xval0));
 						else if (float(x + 1) >= r1)
-							val += integral((r1 - xcenter) / xradius, ((std::min)(float(x + 1), r0) - xcenter) / xradius);
+							val += integral(xval1, (std::min)((float(x + 1) - xcenter) / xradius, xval0));
 						val *= scale;
 						if (float(x) <= l1)
 							val -= ((std::min)(float(x + 1), l1) - (std::max)(float(x), l0)) * ycoord0;

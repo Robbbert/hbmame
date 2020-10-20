@@ -980,6 +980,7 @@ FORMATS["APOLLO_DSK"] = true
 FORMATS["APPLIX_DSK"] = true
 FORMATS["APRIDISK"] = true
 FORMATS["AP_DSK35"] = true
+FORMATS["AQUARIUS_CAQ"] = true
 FORMATS["ASST128_DSK"] = true
 FORMATS["ASTROCADE_WAV"] = true
 FORMATS["ATARI_DSK"] = true
@@ -1754,6 +1755,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/lwriter.cpp",
 	MAME_DIR .. "src/mame/drivers/mac128.cpp",
 	MAME_DIR .. "src/mame/drivers/macquadra700.cpp",
+	MAME_DIR .. "src/mame/drivers/macprtb.cpp",
+	MAME_DIR .. "src/mame/drivers/macpwrbk030.cpp",
 	MAME_DIR .. "src/mame/drivers/mac.cpp",
 	MAME_DIR .. "src/mame/includes/mac.h",
 	MAME_DIR .. "src/mame/machine/egret.cpp",
