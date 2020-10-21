@@ -3368,6 +3368,11 @@ bestleaw                        // bootleg
 @source:beta.cpp
 beta                            //
 
+@source:betacam.cpp
+uvw1200                         // 199? Sony Betacam-SP UVW-1200
+uvw1600                         // 199? Sony Betacam-SP UVW-1600
+uvw1800                         // 199? Sony Betacam-SP UVW-1800
+
 @source:bfcobra.cpp
 beeline                         // 1991 BFM
 brkball                         // 1994 BFM / ATOD
@@ -12113,6 +12118,9 @@ destroyr1                       // 030131-030136    1977/10 [6800]
 dfruit                          //
 gemcrush
 
+@source:dfs500.cpp
+dfs500                          // 1994 Sony DFS-500 Video Mixer
+
 @source:dg680.cpp
 dg680                           //
 
@@ -13072,6 +13080,11 @@ elf2                            //
 @source:elwro800.cpp
 elwro800                        //
 
+@source:emax.cpp
+emax                            //
+emax2                           //
+emaxp                           //
+
 @source:embargo.cpp
 embargo                         //
 
@@ -13082,7 +13095,6 @@ emma2                           // 1979 L.J.Technical Systems
 emu2                            //
 
 @source:emu3.cpp
-emax2                           //
 emu3                            //
 
 @source:emu68k.cpp
@@ -32655,7 +32667,9 @@ ns5652                          //
 pitchhit                        //
 
 @source:nsm.cpp
+cosflnsm                        //
 firebird                        //
+gamesnsm                        //
 
 @source:nsmpoker.cpp
 nsmpoker                        //
@@ -37662,6 +37676,8 @@ sitcomtmr                       //
 
 @source:sk1.cpp
 sk1                             //
+sk2                             //
+sk10                            //
 
 @source:sk101bl.cpp
 sk101bl                         //
@@ -40905,6 +40921,9 @@ ultratnk                        // 009801           1978/02 [6502]
 
 @source:ultrsprt.cpp
 fiveside                        // GX479 (c)1995
+
+@source:umatic.cpp
+vo5850pm                        // Sony U-Matic VO-5850PM
 
 @source:umipoker.cpp
 saiyukip                        //
