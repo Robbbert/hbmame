@@ -126,14 +126,14 @@ void a2bus_grapplerplus_device::write_c0nx(u8 offset, u8 data)
 		}
 		else
 		{
-			LOG("/ACK asserted, not clearing acknowledge latch\n", data);
+			LOG("/ACK asserted, not clearing acknowledge latch\n");
 		}
 
 		// generate strobe pulse after one clock cycle
 		m_next_strobe = 0U;
 		if (!m_strobe_timer->enabled())
 		{
-			LOG("Start strobe timer\n", m_next_strobe);
+			LOG("Start strobe timer\n");
 			m_strobe_timer->adjust(attotime::from_ticks(1, clock()));
 		}
 	}
@@ -156,6 +156,7 @@ void a2bus_grapplerplus_device::write_c0nx(u8 offset, u8 data)
 		m_irq_disable = 1U;
 		if (m_irq)
 		{
+			assert(m_ack_latch);
 			LOG("Releasing slot IRQ\n");
 			m_irq = 0x00U;
 			lower_slot_irq();
@@ -187,6 +188,16 @@ u8 a2bus_grapplerplus_device::read_cnxx(u8 offset)
 		m_rom_bank = 0x0000U;
 	}
 	return m_rom[(!m_ack_latch && BIT(offset, 7)) ? (offset & 0xbfU) : offset];
+}
+
+
+void a2bus_grapplerplus_device::write_cnxx(u8 offset, u8 data)
+{
+	LOG("Write Cn%02X=%02X (bus conflict)\n", offset, data);
+
+	if (m_rom_bank)
+		LOG("Select low ROM bank\n");
+	m_rom_bank = 0x0000U;
 }
 
 
@@ -329,7 +340,7 @@ TIMER_CALLBACK_MEMBER(a2bus_grapplerplus_device::update_strobe)
 	m_printer_conn->write_strobe(m_next_strobe);
 	if (!m_next_strobe)
 	{
-		LOG("Start strobe timer\n", m_next_strobe);
+		LOG("Start strobe timer\n");
 		m_next_strobe = 1U;
 		m_strobe_timer->adjust(attotime::from_ticks(1, clock()));
 	}
