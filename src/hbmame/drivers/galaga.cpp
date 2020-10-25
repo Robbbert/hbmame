@@ -242,7 +242,7 @@ ROM_START( galagaf )
 ROM_END
 
 /* This set has the fix proposed by Don Hodges at the page:
-	http://donhodges.com/galaga_stage_256_fix.htm */
+    http://donhodges.com/galaga_stage_256_fix.htm */
 ROM_START( galagap )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "gg1_1b.3p",    0x0000, 0x1000, CRC(ab036c9f) SHA1(ca7f5da42d4e76fd89bb0b35198a23c01462fbfe) )
@@ -325,7 +325,7 @@ ROM_START( galagost )
 	ROM_REGION( 0x2000, "gfx2", 0 )
 	ROM_LOAD( "gost_07e_g10.bin",  0x0000, 0x1000, CRC(0758b90f) SHA1(89cc8db9457fa5f56b49930590f32aba1bc55323) )
 	ROM_LOAD( "gost_07h_g09.bin",  0x1000, 0x1000, CRC(53f1332b) SHA1(04136e52008c4ad4813529d633fd9b8c71e6ccc0) )
-	
+
 	ROM_REGION( 0x0320, "proms", 0 )
 	ROM_LOAD( "prom-5.5n",    0x0000, 0x0020, CRC(54603c6b) SHA1(1a6dea13b4af155d9cb5b999a75d4f1eb9c71346) )
 	ROM_LOAD( "2n.bin",       0x0020, 0x0100, CRC(a547d33b) SHA1(7323084320bb61ae1530d916f5edd8835d4d2461) )
@@ -355,7 +355,7 @@ ROM_START( galagosb )
 	ROM_REGION( 0x2000, "gfx2", 0 )
 	ROM_LOAD( "gost_07e_g10.bin",  0x0000, 0x1000, CRC(0758b90f) SHA1(89cc8db9457fa5f56b49930590f32aba1bc55323) )
 	ROM_LOAD( "gosb_07h_g09.bin",  0x1000, 0x1000, CRC(0339291c) SHA1(4958a78b6afb9f2b4f46d3c0f654843c077686a9) )
-	
+
 	ROM_REGION( 0x0320, "proms", 0 )
 	ROM_LOAD( "prom-5.5n",    0x0000, 0x0020, CRC(54603c6b) SHA1(1a6dea13b4af155d9cb5b999a75d4f1eb9c71346) )
 	ROM_LOAD( "2n.bin",       0x0020, 0x0100, CRC(a547d33b) SHA1(7323084320bb61ae1530d916f5edd8835d4d2461) )
@@ -375,7 +375,7 @@ ROM_START( galaped )
 
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "3600fast.bin", 0x0000, 0x1000, CRC(23d586e5) SHA1(43346c69385e9091e64cff6c027ac2689cafcbb9) )
-	
+
 	ROM_REGION( 0x10000, "sub2", 0 )
 	ROM_LOAD( "3700g.bin",    0x0000, 0x1000, CRC(b07f0aa4) SHA1(7528644a8480d0be2d0d37069515ed319e94778f) )
 
@@ -822,7 +822,7 @@ ROM_START( xeviousp )
 
 	ROM_REGION( 0x10000, "sub2", 0 )
 	ROM_LOAD( "xvi_7.2c",     0x0000, 0x1000, CRC(dd35cf1c) SHA1(f8d1f8e019d8198308443c2e7e815d0d04b23d14) )
-	
+
 	ROM_REGION( 0x1000, "gfx1", 0 )
 	ROM_LOAD( "xvip_12.3b",   0x0000, 0x1000, CRC(08f184f1) SHA1(bcbf89b92c311a78db516b557b982ed51907c49d) )
 
@@ -1085,13 +1085,13 @@ GAME( 2002, xviousah, xevious, xevious,  xeviousa, xevious_state, init_xevious, 
 *********/
 
 ROM_START( sxeviouss01 )
-	ROM_REGION( 0x10000, "maincpu", 0 ) 
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "cpu_3phc01.rom",   0x0000, 0x1000, CRC(e3b9ac69) SHA1(6a7a75e69b06455cef6f3a0d57c1aef5a8c10640) )
 	ROM_LOAD( "xvip_2.3m",    0x1000, 0x1000, CRC(a2cf842d) SHA1(9bb24b3527f2cad8c9b916f9a815ea4f747dc337) )
 	ROM_LOAD( "xvip_3.2m",    0x2000, 0x1000, CRC(7ab657cd) SHA1(a27ad33b2808417dff8e27d0e2b503092f505bb0) )
 	ROM_LOAD( "xv3_4hc01.2l",     0x3000, 0x1000, CRC(98a6a475) SHA1(ae098d47c8a6fe9b2368ecaa9aec1cf084b9d25b) )
 
-	ROM_REGION( 0x10000, "sub", 0 ) 
+	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "xv3_5hc01.3f",     0x0000, 0x1000, CRC(7a963207) SHA1(d15233ac9ac5c2f6b337b8f408852eba5359a414) )
 	ROM_LOAD( "xv3_6hc01.3j",     0x1000, 0x1000, CRC(02de74e6) SHA1(326d2a81fbf4c0b0b371483bef6ccf7a1f93960f) )
 
@@ -1102,13 +1102,13 @@ ROM_START( sxeviouss01 )
 	ROM_LOAD( "xvip_12.3b",   0x0000, 0x1000, CRC(08f184f1) SHA1(bcbf89b92c311a78db516b557b982ed51907c49d) )
 
 	ROM_REGION( 0x2000, "gfx2", 0 )
-	ROM_LOAD( "xvi_13.3c",    0x0000, 0x1000, CRC(de60ba25) SHA1(32bc09be5ff8b52ee3a26e0ac3ebc2d4107badb7) )    
-	ROM_LOAD( "xvi_14.3d",    0x1000, 0x1000, CRC(535cdbbc) SHA1(fb9ffe5fc43e0213231267e98d605d43c15f61e8) ) 
+	ROM_LOAD( "xvi_13.3c",    0x0000, 0x1000, CRC(de60ba25) SHA1(32bc09be5ff8b52ee3a26e0ac3ebc2d4107badb7) )
+	ROM_LOAD( "xvi_14.3d",    0x1000, 0x1000, CRC(535cdbbc) SHA1(fb9ffe5fc43e0213231267e98d605d43c15f61e8) )
 
 	ROM_REGION( 0xa000, "gfx3", 0 )
-	ROM_LOAD( "xvi_15.4m",    0x0000, 0x2000, CRC(dc2c0ecb) SHA1(19ddbd9805f77f38c9a9a1bb30dba6c720b8609f) )  
-	ROM_LOAD( "xvi_17.4p",    0x2000, 0x2000, CRC(dfb587ce) SHA1(acff2bf5cde85a16cdc98a52cdea11f77fadf25a) ) 
-	ROM_LOAD( "xvi_16.4n",    0x4000, 0x1000, CRC(605ca889) SHA1(3bf380ef76c03822a042ecc73b5edd4543c268ce) ) 
+	ROM_LOAD( "xvi_15.4m",    0x0000, 0x2000, CRC(dc2c0ecb) SHA1(19ddbd9805f77f38c9a9a1bb30dba6c720b8609f) )
+	ROM_LOAD( "xvi_17.4p",    0x2000, 0x2000, CRC(dfb587ce) SHA1(acff2bf5cde85a16cdc98a52cdea11f77fadf25a) )
+	ROM_LOAD( "xvi_16.4n",    0x4000, 0x1000, CRC(605ca889) SHA1(3bf380ef76c03822a042ecc73b5edd4543c268ce) )
 	ROM_LOAD( "xvip_16.4n",   0x5000, 0x1000, CRC(00babaa1) SHA1(b946510a9c5b6c1dd6e6bab1ba3217a9d449a477) )
 	ROM_FILL(                 0x9000, 0x1000, 0x00 )
 
@@ -1121,14 +1121,14 @@ ROM_START( sxeviouss01 )
 	ROM_LOAD( "xvi-8.6a",     0x0000, 0x0100, CRC(5cc2727f) SHA1(0dc1e63a47a4cb0ba75f6f1e0c15e408bb0ee2a1) )
 	ROM_LOAD( "xvi-9.6d",     0x0100, 0x0100, CRC(5c8796cc) SHA1(63015e3c0874afc6b1ca032f1ffb8f90562c77c8) )
 	ROM_LOAD( "xvi-10.6e",    0x0200, 0x0100, CRC(3cb60975) SHA1(c94d5a5dd4d8a08d6d39c051a4a722581b903f45) )
-	ROM_LOAD( "xvi-7.4h",     0x0300, 0x0200, CRC(22d98032) SHA1(ec6626828c79350417d08b98e9631ad35edd4a41) ) 
+	ROM_LOAD( "xvi-7.4h",     0x0300, 0x0200, CRC(22d98032) SHA1(ec6626828c79350417d08b98e9631ad35edd4a41) )
 	ROM_LOAD( "xvi-6.4f",     0x0500, 0x0200, CRC(3a7599f0) SHA1(a4bdf58c190ca16fc7b976c97f41087a61fdb8b8) )
 	ROM_LOAD( "xvi-4.3l",     0x0700, 0x0200, CRC(fd8b9d91) SHA1(87ddf0b9d723aabb422d6d416aa9ec6bc246bf34) )
 	ROM_LOAD( "xvi-5.3m",     0x0900, 0x0200, CRC(bf906d82) SHA1(776168a73d3b9f0ce05610acc8a623deae0a572b) )
 
-	ROM_REGION( 0x0200, "namco", 0 )  
+	ROM_REGION( 0x0200, "namco", 0 )
 	ROM_LOAD( "xvi-2.7n",     0x0000, 0x0100, CRC(550f06bc) SHA1(816a0fafa0b084ac11ae1af70a5186539376fc2a) )
-	ROM_LOAD( "xvi-1.5n",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) 
+	ROM_LOAD( "xvi-1.5n",     0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */

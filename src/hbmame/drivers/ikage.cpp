@@ -3,21 +3,21 @@
 #include "../mame/drivers/lkage.cpp"
 
 /***************************************
-	Proyecto Shadows Mame Build Plus
+    Proyecto Shadows Mame Build Plus
 ***************************************/
 
 /******************************************************************************************
-   Muchos Roms De Mi Proyecto Shadow Se Estará Deshabilitado. Por
-   Los Motivo Es Que Se Empezó Agregar En El HBMame Oficial, Lo Cual Me Veré
-   Obligado Deshabilitando Porque Si No Se Estaría Duplicado Archivo De Roms.
+   Muchos Roms De Mi Proyecto Shadow Se Estarï¿½ Deshabilitado. Por
+   Los Motivo Es Que Se Empezï¿½ Agregar En El HBMame Oficial, Lo Cual Me Verï¿½
+   Obligado Deshabilitando Porque Si No Se Estarï¿½a Duplicado Archivo De Roms.
 ******************************************************************************************/
 
 /*****************************************
  *
- *         ROM Definición(s)
+ *         ROM Definiciï¿½n(s)
  *
  ****************************************/
- 
+
   /****************************************
           The Legend of Kage
 *****************************************/

@@ -29,7 +29,7 @@ void pacman_state::hackypac_rombank_w(u8 data)
 	data &= 0x1f;
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
-	multipac_palbank_w(1, banks[data]);	/* convert to a palette bank and switch to it */
+	multipac_palbank_w(1, banks[data]); /* convert to a palette bank and switch to it */
 }
 
 void pacman_state::madpac_rombank_w(u8 data)
@@ -42,11 +42,11 @@ void pacman_state::madpac_rombank_w(u8 data)
 
 void pacman_state::multipac_rombank_w(u8 data)
 {
-	u8 temp = bitswap<8>(data, 7, 6, 5, 3, 2, 1, 0, 4);  //((data & 0x0f) << 1) + ((data & 0x10) >> 4);	/* rearrange bits */
-	membank("bank1")->set_entry(temp);				/* select rom bank */
+	u8 temp = bitswap<8>(data, 7, 6, 5, 3, 2, 1, 0, 4);  //((data & 0x0f) << 1) + ((data & 0x10) >> 4); /* rearrange bits */
+	membank("bank1")->set_entry(temp);              /* select rom bank */
 	if (!m_maincpu->space(AS_PROGRAM).read_byte(0xa007))
-		membank("bank2")->set_entry(temp << 1);	/* Ms Pacman needs more roms */
-	m_maincpu->set_pc(0);					/* Set PC <- 0000 needed for Lizard Wizard */
+		membank("bank2")->set_entry(temp << 1); /* Ms Pacman needs more roms */
+	m_maincpu->set_pc(0);                   /* Set PC <- 0000 needed for Lizard Wizard */
 }
 
 void pacman_state::pm4n1_rombank_w(offs_t offset, u8 data)
@@ -131,7 +131,7 @@ static u8 curr_bank = 0;
 MACHINE_RESET_MEMBER( pacman_state, mspaceur )
 {
 	membank("bank2")->set_entry(curr_bank);
-	curr_bank ^= 1;		/* toggle between 0 and 1 */
+	curr_bank ^= 1;     /* toggle between 0 and 1 */
 }
 
 MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
@@ -372,7 +372,7 @@ void pacman_state::superabc_map(address_map &map) {
  *************************************/
 
 INPUT_PORTS_START( 96in1 )
-	PORT_START ("IN0")	/* IN0 */
+	PORT_START ("IN0")  /* IN0 */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
@@ -381,22 +381,22 @@ INPUT_PORTS_START( 96in1 )
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Finish Level (Cheat)") PORT_CODE(KEYCODE_8)
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN3 )	/* Alien Armada only */
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN3 )  /* Alien Armada only */
 
-	PORT_START ("IN1")	/* IN1 */
+	PORT_START ("IN1")  /* IN1 */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN  ) PORT_4WAY PORT_COCKTAIL
 	/* Hold this down while starting pacman to get service settings */
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Service") PORT_CODE(KEYCODE_9)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 )	/* Also used as the fire button */
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 ) /* Also used as the fire button */
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_DIPNAME(0x80, 0x80, DEF_STR( Cabinet ) )
 	PORT_DIPSETTING(   0x80, DEF_STR( Upright ) )
 	PORT_DIPSETTING(   0x00, DEF_STR( Cocktail ) )
 
-	PORT_START ("DSW1")	/* DSW 1 */
+	PORT_START ("DSW1") /* DSW 1 */
 	PORT_DIPNAME( 0x01, 0x01, "DIP 1:  Simple Menu" )
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -422,7 +422,7 @@ INPUT_PORTS_START( 96in1 )
 	PORT_DIPSETTING(    0x80, DEF_STR( Normal ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Alternate ) )
 
-	PORT_START ("DSW2")	/* DSW 2 */
+	PORT_START ("DSW2") /* DSW 2 */
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START ("FAKE")
@@ -454,29 +454,29 @@ INPUT_PORTS_START( mschamp )
 INPUT_PORTS_END
 
 INPUT_PORTS_START( multipac )
-	PORT_START ("IN0")	/* IN0 */
+	PORT_START ("IN0")  /* IN0 */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_4WAY
-	PORT_SERVICE( 0x10, IP_ACTIVE_LOW )	/* service for eyes and lizwiz */
+	PORT_SERVICE( 0x10, IP_ACTIVE_LOW ) /* service for eyes and lizwiz */
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE1 )
 
-	PORT_START ("IN1")	/* IN1 */
+	PORT_START ("IN1")  /* IN1 */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN  ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_SERVICE2 )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 )	/* also used as the fire button (eyes, lizwiz) */
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 ) /* also used as the fire button (eyes, lizwiz) */
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_DIPNAME(0x80, 0x80, DEF_STR( Cabinet ) )
 	PORT_DIPSETTING(   0x80, DEF_STR( Upright ) )
 	PORT_DIPSETTING(   0x00, DEF_STR( Cocktail ) )
 
-	PORT_START ("DSW1")	/* DSW 1 */
+	PORT_START ("DSW1") /* DSW 1 */
 	PORT_DIPNAME( 0x03, 0x01, DEF_STR( Coinage ) )
 	PORT_DIPSETTING(    0x03, DEF_STR( 2C_1C ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( 1C_1C ) )
@@ -499,17 +499,17 @@ INPUT_PORTS_START( multipac )
 	PORT_DIPSETTING(    0x80, DEF_STR( Normal ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Alternate ) )
 
-	PORT_START ("DSW2")	/* DSW 2 */
+	PORT_START ("DSW2") /* DSW 2 */
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-//	PORT_START ("FAKE")
+//  PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat if it is. */
-//	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
-//	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
-//	PORT_DIPSETTING(    0x00, "Disabled" )
-//	PORT_DIPSETTING(    0x02, "Enabled with Button" )
-//	PORT_DIPSETTING(    0x04, "Enabled Always" )
+//  PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
+//  PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
+//  PORT_DIPSETTING(    0x00, "Disabled" )
+//  PORT_DIPSETTING(    0x02, "Enabled with Button" )
+//  PORT_DIPSETTING(    0x04, "Enabled Always" )
 INPUT_PORTS_END
 
 /* Start Official documentation for SuperABC - http://www.twobits.com/sabcinst99.htm
@@ -558,7 +558,7 @@ Normal- Must be off for game play   *|     |     |     |     |     |     |     |
 Note: SW7 and SW8 are not part of DSW1 in the input settings below */
 
 INPUT_PORTS_START( superabc )
-	PORT_START ("IN0")	/* IN0 */
+	PORT_START ("IN0")  /* IN0 */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
@@ -569,7 +569,7 @@ INPUT_PORTS_START( superabc )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE1 )
 
-	PORT_START ("IN1")	/* IN1 */
+	PORT_START ("IN1")  /* IN1 */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_COCKTAIL
@@ -581,7 +581,7 @@ INPUT_PORTS_START( superabc )
 	PORT_DIPSETTING(   0x80, DEF_STR( Upright ) )
 	PORT_DIPSETTING(   0x00, DEF_STR( Cocktail ) )
 
-	PORT_START ("DSW1")	/* DSW 1 */
+	PORT_START ("DSW1") /* DSW 1 */
 	PORT_DIPNAME( 0x03, 0x01, DEF_STR( Coinage ) )
 	PORT_DIPSETTING(    0x03, DEF_STR( 2C_1C ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( 1C_1C ) )
@@ -605,7 +605,7 @@ INPUT_PORTS_START( superabc )
 	PORT_DIPSETTING(    0x80, DEF_STR( Normal ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Alternate ) )
 
-	PORT_START ("DSW2")	/* DSW 2 */
+	PORT_START ("DSW2") /* DSW 2 */
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
@@ -639,10 +639,10 @@ void pacman_state::init_mspaceur()
 void pacman_state::init_multipac()
 {
 	u8 *RAM = memregion("maincpu")->base();
-	RAM[0x10000] = 0xED;	/* It seems that IM0 is not working properly in MAME */
-	RAM[0x10001] = 0x56;	/* and, the interrupt mode is not being reset when a */
-	RAM[0x10002] = 0xC3;	/* machine reset is done. So, inserting some code so */
-	RAM[0x10003] = 0x00;	/* that the game can fix the problem */
+	RAM[0x10000] = 0xED;    /* It seems that IM0 is not working properly in MAME */
+	RAM[0x10001] = 0x56;    /* and, the interrupt mode is not being reset when a */
+	RAM[0x10002] = 0xC3;    /* machine reset is done. So, inserting some code so */
+	RAM[0x10003] = 0x00;    /* that the game can fix the problem */
 	RAM[0x10004] = 0x01;
 	membank("bank1")->configure_entries(0, 32, &RAM[0x10000], 0x4000);
 	membank("bank2")->configure_entries(0, 64, &RAM[0x14000], 0x2000);
@@ -995,30 +995,30 @@ ROM_START( 96in1b )
 	ROM_REGION( 0x1b00, "proms", 0 )
 	ROM_LOAD( "96in1b.7f",    0x1000, 0x0160, CRC(58deb197) SHA1(2b10b9f21b4d498b9284e1308793dc773e9db874) )
 	ROM_IGNORE(               0x3fea0 )
-	ROM_COPY( "proms",        0x1000, 0x0000, 0x10 )	/* pacman and mspacman */
-	ROM_COPY( "proms",        0x1000, 0x0020, 0x10 )	/* 08. pacplus */
-	ROM_COPY( "proms",        0x1100, 0x00e0, 0x10 )	/* 10. naughty mouse */
-	ROM_COPY( "proms",        0x1110, 0x0080, 0x10 )	/* 11. beastie feastie */
-	ROM_COPY( "proms",        0x1120, 0x0040, 0x10 )	/* 12. make trax */
-	ROM_COPY( "proms",        0x1130, 0x0060, 0x10 )	/* 13. lizard wizard */
-	ROM_COPY( "proms",        0x1140, 0x00a0, 0x10 )	/* 14. atlantic city action */
-	ROM_COPY( "proms",        0x1150, 0x00c0, 0x10 )	/* 15. jump shot */
+	ROM_COPY( "proms",        0x1000, 0x0000, 0x10 )    /* pacman and mspacman */
+	ROM_COPY( "proms",        0x1000, 0x0020, 0x10 )    /* 08. pacplus */
+	ROM_COPY( "proms",        0x1100, 0x00e0, 0x10 )    /* 10. naughty mouse */
+	ROM_COPY( "proms",        0x1110, 0x0080, 0x10 )    /* 11. beastie feastie */
+	ROM_COPY( "proms",        0x1120, 0x0040, 0x10 )    /* 12. make trax */
+	ROM_COPY( "proms",        0x1130, 0x0060, 0x10 )    /* 13. lizard wizard */
+	ROM_COPY( "proms",        0x1140, 0x00a0, 0x10 )    /* 14. atlantic city action */
+	ROM_COPY( "proms",        0x1150, 0x00c0, 0x10 )    /* 15. jump shot */
 
 	ROM_LOAD( "96in1b.4a",    0x1000, 0x0b00, CRC(fb1acbea) SHA1(bf344c46adea405125d67b3bf8a14d51316d3e12) )
 	ROM_IGNORE(               0x3f500 )
-	ROM_FILL(                 0x1068, 0x0001, 0x00 )	/* pacman - remove red bit outside monster lair */
-	ROM_FILL(                 0x106c, 0x0001, 0x00 )	/* pacman - remove pink bits at top and bottom */
-	ROM_COPY( "proms",        0x1000, 0x0100, 0x80 )	/* pacman and mspacman */
-	ROM_COPY( "proms",        0x1000, 0x0180, 0x80 )	/* pacplus */
-	ROM_COPY( "proms",        0x1800, 0x0480, 0x80 )	/* naughty mouse */
-	ROM_COPY( "proms",        0x1880, 0x0300, 0x80 )	/* beastie feastie */
-	ROM_COPY( "proms",        0x1900, 0x0200, 0x80 )	/* make trax */
-	ROM_COPY( "proms",        0x1980, 0x0280, 0x80 )	/* lizard wizard */
-	ROM_COPY( "proms",        0x1a00, 0x0380, 0x80 )	/* atlantic city action */
-	ROM_COPY( "proms",        0x1a80, 0x0400, 0x80 )	/* jump shot */
-	ROM_FILL(                 0x01c3, 0x0001, 0x0d )	/* pacplus - walls - make green */
-	ROM_FILL(                 0x01eb, 0x0001, 0x0d )	/* pacplus - walls outside monster house - make green */
-	ROM_FILL(                 0x01ef, 0x0001, 0x0d )	/* pacplus - corner bits at bottom - make green */
+	ROM_FILL(                 0x1068, 0x0001, 0x00 )    /* pacman - remove red bit outside monster lair */
+	ROM_FILL(                 0x106c, 0x0001, 0x00 )    /* pacman - remove pink bits at top and bottom */
+	ROM_COPY( "proms",        0x1000, 0x0100, 0x80 )    /* pacman and mspacman */
+	ROM_COPY( "proms",        0x1000, 0x0180, 0x80 )    /* pacplus */
+	ROM_COPY( "proms",        0x1800, 0x0480, 0x80 )    /* naughty mouse */
+	ROM_COPY( "proms",        0x1880, 0x0300, 0x80 )    /* beastie feastie */
+	ROM_COPY( "proms",        0x1900, 0x0200, 0x80 )    /* make trax */
+	ROM_COPY( "proms",        0x1980, 0x0280, 0x80 )    /* lizard wizard */
+	ROM_COPY( "proms",        0x1a00, 0x0380, 0x80 )    /* atlantic city action */
+	ROM_COPY( "proms",        0x1a80, 0x0400, 0x80 )    /* jump shot */
+	ROM_FILL(                 0x01c3, 0x0001, 0x0d )    /* pacplus - walls - make green */
+	ROM_FILL(                 0x01eb, 0x0001, 0x0d )    /* pacplus - walls outside monster house - make green */
+	ROM_FILL(                 0x01ef, 0x0001, 0x0d )    /* pacplus - corner bits at bottom - make green */
 
 	PACMAN_SOUND_PROMS
 ROM_END
@@ -1071,7 +1071,7 @@ ROM_START( hackypac )
 	ROM_REGION( 0x80000, "gfx1", 0 )
 	ROM_LOAD( "hackypac.gfx", 0x00000, 0x1000, CRC(42a61854) SHA1(0968721abccf7d04d205d13d150d014e4e658d16) )
 	ROM_CONTINUE(             0x40000, 0x1000 )
-	ROM_CONTINUE(             0x01000, 0x1000 )	/* rearrange so that all gfx then all sprites */
+	ROM_CONTINUE(             0x01000, 0x1000 ) /* rearrange so that all gfx then all sprites */
 	ROM_CONTINUE(             0x41000, 0x1000 )
 	ROM_CONTINUE(             0x02000, 0x1000 )
 	ROM_CONTINUE(             0x42000, 0x1000 )
@@ -1220,8 +1220,8 @@ ROM_START( hackypac )
 	ROM_LOAD( "4a.rom",       0x0520, 0x0080, CRC(81a6b30f) SHA1(60c767fd536c325151a2b759fdbce4ba41e0c78f) ) /* shoot bull */
 	ROM_IGNORE(                       0x0080 )
 	/* There are a number of minor colour errors in Lizard Wizard, 2 of which are fixed below */
-	ROM_FILL( 0x43d, 1, 4 )		/* dragon wing = red */
-	ROM_FILL( 0x43e, 1, 6 )		/* dragon body = green */
+	ROM_FILL( 0x43d, 1, 4 )     /* dragon wing = red */
+	ROM_FILL( 0x43e, 1, 6 )     /* dragon body = green */
 
 	PACMAN_SOUND_PROMS
 ROM_END
@@ -1303,33 +1303,33 @@ ROM_START( madpac )
 	ROM_REGION( 0x41000, "proms", 0 )
 	/* palette comes as banks of 16 - we change it to banks of 32, and remove banks 1 to 0xf (they are same as bank 0) */
 	ROM_LOAD( "madpac.7f",    0x1000, 0x40000, CRC(63e60ac6) SHA1(03b7035eb0a7e62f21793661c09b449113562ebb) )
-	ROM_COPY( "proms",        0x1000, 0x0000, 0x10 )	/* pacman and mspacman */
-	ROM_COPY( "proms",        0x1100, 0x0020, 0x10 )	/* 10. balloon ace */
-	ROM_COPY( "proms",        0x1110, 0x0040, 0x10 )	/* 11. beastie feastie */
-	ROM_COPY( "proms",        0x1120, 0x0060, 0x10 )	/* 12. make trax */
-	ROM_COPY( "proms",        0x1130, 0x0080, 0x10 )	/* 13. lizard wizard */
-	ROM_COPY( "proms",        0x1140, 0x00a0, 0x10 )	/* 14. atlantic city action */
-	ROM_COPY( "proms",        0x1150, 0x00c0, 0x10 )	/* 15. jump shot */
-	ROM_COPY( "proms",        0x1160, 0x00e0, 0x10 )	/* 16. ladybug */
-	ROM_COPY( "proms",        0x1170, 0x0100, 0x10 )	/* 17. zig zag */
-	ROM_COPY( "proms",        0x1180, 0x0120, 0x10 )	/* 18. chicken */
-	ROM_COPY( "proms",        0x1190, 0x0140, 0x10 )	/* 19. pacplus */
-	ROM_COPY( "proms",        0x11a0, 0x0160, 0x10 )	/* 1A. naughty mouse */
-	ROM_COPY( "proms",        0x11b0, 0x0180, 0x10 )	/* 1B. cycle battle */
-	ROM_COPY( "proms",        0x11c0, 0x01a0, 0x10 )	/* 1C. eggor */
-	ROM_COPY( "proms",        0x11d0, 0x01c0, 0x10 )	/* 1D. gorkans */
-	ROM_COPY( "proms",        0x11e0, 0x01e0, 0x10 )	/* 1E. homercide */
+	ROM_COPY( "proms",        0x1000, 0x0000, 0x10 )    /* pacman and mspacman */
+	ROM_COPY( "proms",        0x1100, 0x0020, 0x10 )    /* 10. balloon ace */
+	ROM_COPY( "proms",        0x1110, 0x0040, 0x10 )    /* 11. beastie feastie */
+	ROM_COPY( "proms",        0x1120, 0x0060, 0x10 )    /* 12. make trax */
+	ROM_COPY( "proms",        0x1130, 0x0080, 0x10 )    /* 13. lizard wizard */
+	ROM_COPY( "proms",        0x1140, 0x00a0, 0x10 )    /* 14. atlantic city action */
+	ROM_COPY( "proms",        0x1150, 0x00c0, 0x10 )    /* 15. jump shot */
+	ROM_COPY( "proms",        0x1160, 0x00e0, 0x10 )    /* 16. ladybug */
+	ROM_COPY( "proms",        0x1170, 0x0100, 0x10 )    /* 17. zig zag */
+	ROM_COPY( "proms",        0x1180, 0x0120, 0x10 )    /* 18. chicken */
+	ROM_COPY( "proms",        0x1190, 0x0140, 0x10 )    /* 19. pacplus */
+	ROM_COPY( "proms",        0x11a0, 0x0160, 0x10 )    /* 1A. naughty mouse */
+	ROM_COPY( "proms",        0x11b0, 0x0180, 0x10 )    /* 1B. cycle battle */
+	ROM_COPY( "proms",        0x11c0, 0x01a0, 0x10 )    /* 1C. eggor */
+	ROM_COPY( "proms",        0x11d0, 0x01c0, 0x10 )    /* 1D. gorkans */
+	ROM_COPY( "proms",        0x11e0, 0x01e0, 0x10 )    /* 1E. homercide */
 	/* lookup table is already at banks of 128 */
 	ROM_LOAD( "madpac.4a",    0x0280, 0x0800, CRC(16057dac) SHA1(8dfa69f3847140dd5fa8514e9bf49962f5f9f0c0) )
-	ROM_COPY( "proms",        0x0280, 0x0200, 0x80 )	/* pacman and mspacman */
+	ROM_COPY( "proms",        0x0280, 0x0200, 0x80 )    /* pacman and mspacman */
 
 	PACMAN_SOUND_PROMS
 ROM_END
 
 /* E253 - no proms were supplied - using standard pacman ones.
-	  While the roms of the 2 games are different, I cannot discern any difference in gameplay */
+      While the roms of the 2 games are different, I cannot discern any difference in gameplay */
 ROM_START( mspaceur )
-	ROM_REGION( 0x18000, "maincpu", 0 )	
+	ROM_REGION( 0x18000, "maincpu", 0 )
 	ROM_LOAD( "mspaceur.cpu", 0x00000, 0x4000, CRC(03905a76) SHA1(1780ef598c6150ffa44bf467479670f7ca50d512) )
 	ROM_CONTINUE(             0x10000, 0x4000 )
 	/* fix some corrupt bytes that stop the game from working. This makes it identical to mspacmbg. */
@@ -1344,7 +1344,7 @@ ROM_START( mspaceur )
 	ROM_CONTINUE(             0x1000, 0x0800 )
 	ROM_CONTINUE(             0x0800, 0x0800 )
 	ROM_CONTINUE(             0x1800, 0x0800 )
-	ROM_IGNORE(		  0x2000 )
+	ROM_IGNORE(       0x2000 )
 
 	PACMAN_PROMS
 ROM_END
@@ -1611,7 +1611,7 @@ ROM_START( multi15 )
 	ROM_REGION( 0x0480, "proms", 0)
 	/* this rom has 4 banks of (the 16 colours in the palette + 16 blanks) */
 	ROM_LOAD( "multipac.7f",  0x0000, 0x0100, CRC(40a5c3d9) SHA1(c159fe5ab64b9eb51a28ccd051fae219d2125577) )
-	ROM_COPY( "proms",        0x0000, 0x0040, 0x0020 )	/* crush roller */
+	ROM_COPY( "proms",        0x0000, 0x0040, 0x0020 )  /* crush roller */
 	/* this rom has 4 banks of (the 128 lookup colour codes + 128 blanks) */
 	ROM_LOAD( "multipac.4a",  0x0080, 0x0400, CRC(562a66de) SHA1(1281a7585f833b9f93269b14369e1c8df09f2292) )
 	/* we move the tables down, to remove the blanks */
@@ -1623,138 +1623,138 @@ ROM_START( multi15 )
 ROM_END
 
 ROM_START( pm4n1 )
-	ROM_REGION( 0x34000, "maincpu", 0 )	
+	ROM_REGION( 0x34000, "maincpu", 0 )
 	ROM_LOAD( "pm4n1.cpu",    0x10000, 0x24000, CRC(248f3153) SHA1(c36fb95c38619ec4947017a686f7d5feb643d269) )
 	ROM_FILL(0x303fe, 1, 0xcd)
-	ROM_FILL(0x303ff, 1, 0xa1)	/* These bytes allow Pacman to start up */
+	ROM_FILL(0x303ff, 1, 0xa1)  /* These bytes allow Pacman to start up */
 	ROM_FILL(0x30400, 1, 0x2b)
 
 	ROM_REGION( 0x0a000, "gfx1", 0 )
 	ROM_LOAD( "96in1a.gfx",   0x00000, 0x1000, CRC(f4ce2dca) SHA1(b0515ee98766225d4d4a1368949942324703e865) )
-	ROM_CONTINUE(             0x05000, 0x1000 )	/* piranha, don't want */
+	ROM_CONTINUE(             0x05000, 0x1000 ) /* piranha, don't want */
 	ROM_CONTINUE(             0x00000, 0x1000 )
-	ROM_CONTINUE(             0x05000, 0x1000 )	/* menu */
+	ROM_CONTINUE(             0x05000, 0x1000 ) /* menu */
 	ROM_CONTINUE(             0x01000, 0x1000 )
-	ROM_CONTINUE(             0x06000, 0x1000 )	/* fast pacman */
+	ROM_CONTINUE(             0x06000, 0x1000 ) /* fast pacman */
 	ROM_CONTINUE(             0x04000, 0x1000 )
-	ROM_CONTINUE(             0x09000, 0x1000 )	/* pacman */
+	ROM_CONTINUE(             0x09000, 0x1000 ) /* pacman */
 	/* 4 dummy reads because rom_ignore doesn't work properly */
 	ROM_CONTINUE(             0x02000, 0x1000 )
 	ROM_CONTINUE(             0x07000, 0x1000 )
 	ROM_CONTINUE(             0x03000, 0x1000 )
 	ROM_CONTINUE(             0x08000, 0x1000 )
 	ROM_CONTINUE(             0x02000, 0x1000 )
-	ROM_CONTINUE(             0x07000, 0x1000 )	/* mspacman */
+	ROM_CONTINUE(             0x07000, 0x1000 ) /* mspacman */
 	ROM_CONTINUE(             0x03000, 0x1000 )
-	ROM_CONTINUE(             0x08000, 0x1000 )	/* fast mspacman */
+	ROM_CONTINUE(             0x08000, 0x1000 ) /* fast mspacman */
 	ROM_IGNORE( 0x10000)
 
 	PACMAN_PROMS
 ROM_END
 
 ROM_START( pm4n1a )
-	ROM_REGION( 0x34000, "maincpu", 0 )	
+	ROM_REGION( 0x34000, "maincpu", 0 )
 	ROM_LOAD( "pm4n1a.cpu",   0x10000, 0x24000, CRC(cdc319bb) SHA1(0f7b9956a67e46d5f3cb0bd84c350662668fd02d) )
 
 	ROM_REGION( 0x0a000, "gfx1", 0 )
 	ROM_LOAD( "96in1a.gfx",   0x00000, 0x1000, CRC(f4ce2dca) SHA1(b0515ee98766225d4d4a1368949942324703e865) )
-	ROM_CONTINUE(             0x05000, 0x1000 )	/* piranha, don't want */
+	ROM_CONTINUE(             0x05000, 0x1000 ) /* piranha, don't want */
 	ROM_CONTINUE(             0x00000, 0x1000 )
-	ROM_CONTINUE(             0x05000, 0x1000 )	/* menu */
+	ROM_CONTINUE(             0x05000, 0x1000 ) /* menu */
 	ROM_CONTINUE(             0x01000, 0x1000 )
-	ROM_CONTINUE(             0x06000, 0x1000 )	/* fast pacman */
+	ROM_CONTINUE(             0x06000, 0x1000 ) /* fast pacman */
 	ROM_CONTINUE(             0x04000, 0x1000 )
-	ROM_CONTINUE(             0x09000, 0x1000 )	/* pacman */
+	ROM_CONTINUE(             0x09000, 0x1000 ) /* pacman */
 	/* 4 dummy reads because rom_ignore doesn't work properly */
 	ROM_CONTINUE(             0x02000, 0x1000 )
 	ROM_CONTINUE(             0x07000, 0x1000 )
 	ROM_CONTINUE(             0x03000, 0x1000 )
 	ROM_CONTINUE(             0x08000, 0x1000 )
 	ROM_CONTINUE(             0x02000, 0x1000 )
-	ROM_CONTINUE(             0x07000, 0x1000 )	/* mspacman */
+	ROM_CONTINUE(             0x07000, 0x1000 ) /* mspacman */
 	ROM_CONTINUE(             0x03000, 0x1000 )
-	ROM_CONTINUE(             0x08000, 0x1000 )	/* fast mspacman */
+	ROM_CONTINUE(             0x08000, 0x1000 ) /* fast mspacman */
 	ROM_IGNORE( 0x10000)
 
 	PACMAN_PROMS
 ROM_END
 
 ROM_START( pm4n1b )
-	ROM_REGION( 0x40000, "maincpu", 0 )	
+	ROM_REGION( 0x40000, "maincpu", 0 )
 	ROM_LOAD( "pm4n1b.cpu",   0x10000, 0x30000, CRC(31ea8134) SHA1(61bd5589ed1d304cfef90ccf9af95f2a6743782e) )
 	/* Alternative working rom */
 	//ROM_LOAD( "pm4n1ba.cpu",   0x10000, 0x24000, CRC(2709642c) SHA1(5e2984a9ff5db416ee065651765bf05c070ca052) )
 
 	ROM_REGION( 0xa000, "gfx1", 0 )
 	ROM_LOAD( "pm4n1b.gfx",   0x0000, 0x1000, CRC(949a50a2) SHA1(2b661e584b35740ce8b530f51485865a620354e6) )
-	ROM_CONTINUE(             0x5000, 0x1000 )	/* menu */
+	ROM_CONTINUE(             0x5000, 0x1000 )  /* menu */
 	ROM_CONTINUE(             0x2000, 0x1000 )
-	ROM_CONTINUE(             0x7000, 0x1000 )	/* mspacman */
+	ROM_CONTINUE(             0x7000, 0x1000 )  /* mspacman */
 	ROM_COPY( "gfx1", 0x0000, 0x1000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )	/* copy menu to fast pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )  /* copy menu to fast pacman */
 	ROM_COPY( "gfx1", 0x0000, 0x4000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )	/* copy menu to pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )  /* copy menu to pacman */
 	ROM_COPY( "gfx1", 0x2000, 0x3000, 0x1000 )
-	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )	/* copy mspacman to fast mspacman */
+	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )  /* copy mspacman to fast mspacman */
 
 	PACMAN_PROMS
 ROM_END
 
 ROM_START( pm4n1c )
-	ROM_REGION( 0x38000, "maincpu", 0 )	
+	ROM_REGION( 0x38000, "maincpu", 0 )
 	ROM_LOAD( "pm4n1c.cpu",   0x10000, 0x28000, CRC(48cafb4e) SHA1(8ff42c3524020f5f599f8f3c76f279b1af9983a9) )
 
 	ROM_REGION( 0xa000, "gfx1", 0 )
 	ROM_LOAD( "pm4n1b.gfx",   0x0000, 0x1000, CRC(949a50a2) SHA1(2b661e584b35740ce8b530f51485865a620354e6) )
-	ROM_CONTINUE(             0x5000, 0x1000 )	/* menu */
+	ROM_CONTINUE(             0x5000, 0x1000 )  /* menu */
 	ROM_CONTINUE(             0x2000, 0x1000 )
-	ROM_CONTINUE(             0x7000, 0x1000 )	/* mspacman */
+	ROM_CONTINUE(             0x7000, 0x1000 )  /* mspacman */
 	ROM_COPY( "gfx1", 0x0000, 0x1000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )	/* copy menu to fast pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )  /* copy menu to fast pacman */
 	ROM_COPY( "gfx1", 0x0000, 0x4000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )	/* copy menu to pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )  /* copy menu to pacman */
 	ROM_COPY( "gfx1", 0x2000, 0x3000, 0x1000 )
-	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )	/* copy mspacman to fast mspacman */
+	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )  /* copy mspacman to fast mspacman */
 
 	PACMAN_PROMS
 ROM_END
 
 ROM_START( pm4n1d )
-	ROM_REGION( 0x30000, "maincpu", 0 )	
-//	ROM_LOAD( "pm4n1d.cpu",   0x10000, 0x20000, CRC(28f95683) SHA1(297ff0fb2d12293830cef9a4cc77629d658a96f9) )
+	ROM_REGION( 0x30000, "maincpu", 0 )
+//  ROM_LOAD( "pm4n1d.cpu",   0x10000, 0x20000, CRC(28f95683) SHA1(297ff0fb2d12293830cef9a4cc77629d658a96f9) )
 	ROM_LOAD( "pm4n1d.cpu",   0x10000, 0x10000, CRC(9bab691e) SHA1(d90ee5e5b345c9feabe5f629132bd5f2b83c9c4f) )
 
 	ROM_REGION( 0xa000, "gfx1", 0 )
 	ROM_LOAD( "pm4n1b.gfx",   0x0000, 0x1000, CRC(949a50a2) SHA1(2b661e584b35740ce8b530f51485865a620354e6) )
-	ROM_CONTINUE(             0x5000, 0x1000 )	/* menu */
+	ROM_CONTINUE(             0x5000, 0x1000 )  /* menu */
 	ROM_CONTINUE(             0x2000, 0x1000 )
-	ROM_CONTINUE(             0x7000, 0x1000 )	/* mspacman */
+	ROM_CONTINUE(             0x7000, 0x1000 )  /* mspacman */
 	ROM_COPY( "gfx1", 0x0000, 0x1000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )	/* copy menu to fast pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )  /* copy menu to fast pacman */
 	ROM_COPY( "gfx1", 0x0000, 0x4000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )	/* copy menu to pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )  /* copy menu to pacman */
 	ROM_COPY( "gfx1", 0x2000, 0x3000, 0x1000 )
-	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )	/* copy mspacman to fast mspacman */
+	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )  /* copy mspacman to fast mspacman */
 
 	PACMAN_PROMS
 ROM_END
 
 ROM_START( pm4n1e )
-	ROM_REGION( 0x30000, "maincpu", 0 )	
-//	ROM_LOAD( "pm4n1e.cpu",   0x10000, 0x20000, CRC(82035513) SHA1(9d05e5a07b47a2668e497a66cd6ceb29bbcab659) )
+	ROM_REGION( 0x30000, "maincpu", 0 )
+//  ROM_LOAD( "pm4n1e.cpu",   0x10000, 0x20000, CRC(82035513) SHA1(9d05e5a07b47a2668e497a66cd6ceb29bbcab659) )
 	ROM_LOAD( "pm4n1e.cpu",   0x10000, 0x10000, CRC(5bbf374a) SHA1(426451a9cd4e8680ab19c2ce635435c0b43cba95) )
 
 	ROM_REGION( 0xa000, "gfx1", 0 )
 	ROM_LOAD( "pm4n1b.gfx",   0x0000, 0x1000, CRC(949a50a2) SHA1(2b661e584b35740ce8b530f51485865a620354e6) )
-	ROM_CONTINUE(             0x5000, 0x1000 )	/* menu */
+	ROM_CONTINUE(             0x5000, 0x1000 )  /* menu */
 	ROM_CONTINUE(             0x2000, 0x1000 )
-	ROM_CONTINUE(             0x7000, 0x1000 )	/* mspacman */
+	ROM_CONTINUE(             0x7000, 0x1000 )  /* mspacman */
 	ROM_COPY( "gfx1", 0x0000, 0x1000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )	/* copy menu to fast pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x6000, 0x1000 )  /* copy menu to fast pacman */
 	ROM_COPY( "gfx1", 0x0000, 0x4000, 0x1000 )
-	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )	/* copy menu to pacman */
+	ROM_COPY( "gfx1", 0x5000, 0x9000, 0x1000 )  /* copy menu to pacman */
 	ROM_COPY( "gfx1", 0x2000, 0x3000, 0x1000 )
-	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )	/* copy mspacman to fast mspacman */
+	ROM_COPY( "gfx1", 0x7000, 0x8000, 0x1000 )  /* copy mspacman to fast mspacman */
 
 	PACMAN_PROMS
 ROM_END
@@ -1876,7 +1876,7 @@ HACK( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT
 HACK( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
 HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )	// arcade.souzaonline.com/downloads.html
+HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )  // arcade.souzaonline.com/downloads.html
 HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
 HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
 HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )

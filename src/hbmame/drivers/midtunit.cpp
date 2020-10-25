@@ -440,7 +440,7 @@ GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT
 *****************************************************/
 
  /*************
- Mortal Kombat 
+ Mortal Kombat
 ****************/
 
 ROM_START( mks01 )

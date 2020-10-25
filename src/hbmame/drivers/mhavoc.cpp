@@ -51,7 +51,7 @@ void mhavoc_state::alphape_map(address_map &map)
 	map(0x6000, 0x7fff).bankr("bank3");                     /* Paged Vector ROM */
 	map(0x8000, 0xffff).rom();                              /* Program ROM (32K) */
 }
-//	membank("bank3")->set_entry(m_map);
+//  membank("bank3")->set_entry(m_map);
 
 void mhavoc_state::mhavocpe(machine_config &config)
 {

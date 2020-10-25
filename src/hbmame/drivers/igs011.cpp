@@ -7,7 +7,7 @@
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
- 
+
  /***************
  Long Hu Bang II
 ******************/
@@ -41,7 +41,7 @@ ROM_START( wlccs01 ) //wlccc
 
 	ROM_REGION( 0x80000, "oki", 0 )
 	ROM_LOAD( "m0202.snd", 0x00000, 0x80000, CRC(220949aa) SHA1(1e0dba168a0687d32aaaed42714ae24358f4a3e7) )
-	ROM_CONTINUE(             0x00000, 0x80000 ) 
+	ROM_CONTINUE(             0x00000, 0x80000 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */

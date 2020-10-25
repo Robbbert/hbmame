@@ -220,10 +220,10 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
 	PORT_DIPSETTING(    0x04, "Enabled Always" )
 
-//	PORT_START ("CONFIG")
-//	PORT_CONFNAME( 0x01, 0x01, "Level" )
-//	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-//	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
+//  PORT_START ("CONFIG")
+//  PORT_CONFNAME( 0x01, 0x01, "Level" )
+//  PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
+//  PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 

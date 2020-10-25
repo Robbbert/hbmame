@@ -218,29 +218,29 @@ void sc_state::port03_w(u8 data)
 	m_explosion = BIT(data, 4);
 	if (!m_explosion) m_discrete->write(SCHASER_DOT_EN, BIT(data, 1));      /* prevents beep during explosion */
 
-	if (!m_sound_enabled)				/* sound disabled */
+	if (!m_sound_enabled)               /* sound disabled */
 		m_sound_seq=0;
 	else
-	if ((m_sound_seq == 0) && (m_sound_enabled))		/* normal play */
+	if ((m_sound_seq == 0) && (m_sound_enabled))        /* normal play */
 		m_sound_seq=1;
 	else
-	if ((m_sound_seq == 1) && (byte == 0x28))			/* going faster... */
+	if ((m_sound_seq == 1) && (byte == 0x28))           /* going faster... */
 		m_sound_seq=2;
 	else
-	if ((m_sound_seq == 2) && (byte == 0x24))			/* and faster... */
+	if ((m_sound_seq == 2) && (byte == 0x24))           /* and faster... */
 		m_sound_seq=3;
 	else
-	if ((m_sound_seq < 4) && (byte == 0x2c))			/* died */
+	if ((m_sound_seq < 4) && (byte == 0x2c))            /* died */
 		m_sound_seq=4;
 	else
-	if ((m_sound_seq > 2) && (byte == 0))				/* finished stage, and the pause before a stage starts */
+	if ((m_sound_seq > 2) && (byte == 0))               /* finished stage, and the pause before a stage starts */
 		m_sound_seq=5;
 
-	if (m_sound_seq == 1) effect=4;					/* normal speed */
+	if (m_sound_seq == 1) effect=4;                 /* normal speed */
 	else
-	if (m_sound_seq == 2) effect=2;					/* going faster... */
+	if (m_sound_seq == 2) effect=2;                 /* going faster... */
 	else
-	if (m_sound_seq == 3) effect=1;					/* and faster... */
+	if (m_sound_seq == 3) effect=1;                 /* and faster... */
 				/* effect = 0 when no missile on screen, or in attract mode */
 
 
@@ -290,7 +290,7 @@ void sc_state::port05_w(u8 data)
 	   bit 4 - Sound Enable
 	   bit 5 - Flip Screen
 	There are no field control bits. Therefore the green mask can never appear.
-        The sound is enabled early on the stages that should have the mask. */
+	    The sound is enabled early on the stages that should have the mask. */
 
 	m_discrete->write(SCHASER_MUSIC_BIT, BIT(data, 0));
 

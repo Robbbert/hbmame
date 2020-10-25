@@ -172,7 +172,7 @@ void pacman_state::multipac_palette(palette_device &palette) const
 	const u8 *m_p_prom = machine().root_device().memregion("proms")->base() + entries;
 
 	/* compute the color output resistor weights */
-	compute_resistor_weights(0,	255, -1.0,
+	compute_resistor_weights(0, 255, -1.0,
 			3, &resistances[0], rweights, 0, 0,
 			3, &resistances[0], gweights, 0, 0,
 			2, &resistances[1], bweights, 0, 0);
@@ -330,7 +330,7 @@ void pacman_state::multipac_palbank_w(offs_t offset, u8 data)
 
 
 /* =============================================
-	96in1 / Mad Pac by Robbbert, July 2007
+    96in1 / Mad Pac by Robbbert, July 2007
    ============================================= */
 
 

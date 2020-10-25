@@ -239,10 +239,10 @@ static void options_set_color_default(const char *name, COLORREF value, int defa
 static input_seq *options_get_input_seq(const char *name)
 {
 /*
-	static input_seq seq;
-	string val = settings.getter(name);
-	input_seq_from_tokens(NULL, seq_string.c_str(), &seq);  // HACK
-	return &seq;*/
+    static input_seq seq;
+    string val = settings.getter(name);
+    input_seq_from_tokens(NULL, seq_string.c_str(), &seq);  // HACK
+    return &seq;*/
 	return NULL;
 }
 
@@ -858,13 +858,13 @@ void SetSampleDirs(const char* paths)
 const char * GetIniDir(void)
 {
 	const char *ini_dir;
-//	const char *s;
+//  const char *s;
 
-//	ini_dir = global.value(OPTION_INIPATH);
-//	while((s = strchr(ini_dir, ';')) != NULL)
-//	{
-//		ini_dir = s + 1;
-//	}
+//  ini_dir = global.value(OPTION_INIPATH);
+//  while((s = strchr(ini_dir, ';')) != NULL)
+//  {
+//      ini_dir = s + 1;
+//  }
 	ini_dir = "ini\0";
 	return ini_dir;
 
@@ -2344,10 +2344,10 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 	{
 		SetDirectories(opts);
 		SaveSettingsFile(opts, filepath.c_str());
-//		printf("Settings saved to %s\n",filepath.c_str());
+//      printf("Settings saved to %s\n",filepath.c_str());
 	}
-//	else
-//		printf("Unable to save settings\n");
+//  else
+//      printf("Unable to save settings\n");
 }
 
 

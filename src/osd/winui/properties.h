@@ -28,7 +28,7 @@ const char* GameInfoStatus(int driver_index, BOOL bRomStatus);
 typedef struct
 {
 	BOOL bOnDefaultPage;
-//	BOOL (*pfnFilterProc)(const machine_config *drv, const game_driver *gamedrv);
+//  BOOL (*pfnFilterProc)(const machine_config *drv, const game_driver *gamedrv);
 	BOOL (*pfnFilterProc)(uint32_t driver_index);
 	DWORD dwDlgID;
 	DLGPROC pfnDlgProc;

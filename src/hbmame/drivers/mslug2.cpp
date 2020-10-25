@@ -245,7 +245,7 @@ HACK( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state,        neo
  /********************************************
       Proyecto Shadows Mame Build Plus
 **********************************************/
- 
+
 /*************
  Metal Slug 2
 ***************/
@@ -850,7 +850,7 @@ ROM_START( mslug2ps30 ) //mslug2t
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2ps34 ) 
+ROM_START( mslug2ps34 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_ps34.p1",   0x000000, 0x100000, CRC(c3efed6c) SHA1(ae11a5abf75548271bf26acb645e8b0e5fc22eaa) )
 	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
@@ -870,7 +870,7 @@ ROM_START( mslug2ps34 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2ps35 ) 
+ROM_START( mslug2ps35 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_ps35.p1",   0x000000, 0x100000, CRC(f680d167) SHA1(ebeed513de07928679ac4083fd705af51e21078d) )
 	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
@@ -890,7 +890,7 @@ ROM_START( mslug2ps35 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2ps36 ) 
+ROM_START( mslug2ps36 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_ps36.p1",   0x000000, 0x100000, CRC(be3c7889) SHA1(dbbed49ce385739e316d12cc3a22d6f1bb813ce3) )
 	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
@@ -1054,7 +1054,7 @@ ROM_END
   Metal Slug 2
 *****************/
 
-ROM_START( mslug2erv01 ) 
+ROM_START( mslug2erv01 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p1",   0x000000, 0x100000, CRC(bb1fa9d2) SHA1(e2f076f26e093d63d4d8518b41705fef0b6c8bcb) )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p2", 0x100000, 0x200000, CRC(bfc9a39f) SHA1(444700001e620917ecea888e2472d2fa91ec8f71) )
@@ -1094,7 +1094,7 @@ ROM_START( mslug2erv02 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2erv03 ) 
+ROM_START( mslug2erv03 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_erv03.p1",   0x000000, 0x100000, CRC(1618fc3d) SHA1(2e1a54138bdefeb93f36ac2544363bfbbd8e6a6f) )
 	ROM_LOAD16_WORD_SWAP( "241_erv03.p2", 0x100000, 0x200000, CRC(9cb72df1) SHA1(e99ff7122cd684f1d4f5f278e3899f567631fcbe) )
@@ -1114,7 +1114,7 @@ ROM_START( mslug2erv03 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2erv04 ) 
+ROM_START( mslug2erv04 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_erv04.p1",   0x000000, 0x100000, CRC(52a38164) SHA1(277d8c3f801b9611097a5e7068cd89a7b59be051) )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p2", 0x100000, 0x200000, CRC(bfc9a39f) SHA1(444700001e620917ecea888e2472d2fa91ec8f71) )
@@ -1134,7 +1134,7 @@ ROM_START( mslug2erv04 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2erv05 ) 
+ROM_START( mslug2erv05 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_erv05.p1",   0x000000, 0x100000, CRC(f6dd5fce) SHA1(7f3b524eb98521af06a0a601917cd65ba1a8a69d) )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p2", 0x100000, 0x200000, CRC(bfc9a39f) SHA1(444700001e620917ecea888e2472d2fa91ec8f71) )
@@ -1154,7 +1154,7 @@ ROM_START( mslug2erv05 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2erv06 ) 
+ROM_START( mslug2erv06 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_erv06.p1",   0x000000, 0x100000, CRC(61cb0629) SHA1(2533f93253498b817beb152f1923d0a6368ae6d3) )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p2", 0x100000, 0x200000, CRC(bfc9a39f) SHA1(444700001e620917ecea888e2472d2fa91ec8f71) )
@@ -1174,7 +1174,7 @@ ROM_START( mslug2erv06 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2tub01 ) 
+ROM_START( mslug2tub01 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_tub01.p1",   0x000000, 0x100000, CRC(f5caff81) SHA1(7958db21121b244a0a6f697b61e796ac7d30f2ab) )
 	ROM_LOAD16_WORD_SWAP( "241_erv03.p2", 0x100000, 0x200000, CRC(9cb72df1) SHA1(e99ff7122cd684f1d4f5f278e3899f567631fcbe) )
@@ -1214,7 +1214,7 @@ ROM_START( mslug2tub02 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2tub03 ) 
+ROM_START( mslug2tub03 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_tub03.p1",   0x000000, 0x100000, CRC(43226ac7) SHA1(6d2474513d17fd6101b109b62079bb41749f1330) )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p2", 0x100000, 0x200000, CRC(bfc9a39f) SHA1(444700001e620917ecea888e2472d2fa91ec8f71) )
@@ -1234,7 +1234,7 @@ ROM_START( mslug2tub03 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2tub04 ) 
+ROM_START( mslug2tub04 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241_tub04.p1",   0x000000, 0x100000, CRC(12521e0b) SHA1(6696dc9dca900cb0a6bdb524488d003bdd17c6b8) )
 	ROM_LOAD16_WORD_SWAP( "241_erv01.p2", 0x100000, 0x200000, CRC(bfc9a39f) SHA1(444700001e620917ecea888e2472d2fa91ec8f71) )
@@ -1386,7 +1386,7 @@ ROM_START( mslug2erss04 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2erms01 ) 
+ROM_START( mslug2erms01 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241erms01.p1",   0x000000, 0x100000, CRC(d05ad014) SHA1(8d8bb665651df59f3a2ce2b25b4931fe6f19b075) )
 	ROM_LOAD16_WORD_SWAP( "241_erv03.p2", 0x100000, 0x200000, CRC(9cb72df1) SHA1(e99ff7122cd684f1d4f5f278e3899f567631fcbe) )
@@ -1414,7 +1414,7 @@ ROM_START( mslug2erms01 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
-ROM_START( mslug2erms02 ) 
+ROM_START( mslug2erms02 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241erms02.p1",   0x000000, 0x100000, CRC(80118dcc) SHA1(cedee50e9ff72eb5082f8cb592584ae9250dbc41) )
 	ROM_LOAD16_WORD_SWAP( "241_erv03.p2", 0x100000, 0x200000, CRC(9cb72df1) SHA1(e99ff7122cd684f1d4f5f278e3899f567631fcbe) )
@@ -2171,7 +2171,7 @@ ROM_START( mslug2rmhbhv02 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Metal Slug 2 
+// Metal Slug 2
 HACK( 2014, mslug2ps01,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",     "Metal Slug 2 (Enemies Resetting Version 2014-09-14)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps02,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Flame Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps03,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Heavy Machine Gun With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
@@ -2186,7 +2186,7 @@ HACK( 2017, mslug2ps11,      mslug2,   neogeo_noslot, neogeo, neogeo_state,     
 HACK( 1998, mslug2ps12,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Siromezm", "Metal Slug 2 (Fire Bomb)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps13,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90", "Metal Slug 2 (248 grenades 2020-10-12)", MACHINE_SUPPORTS_SAVE )
 HACK( 2016, mslug2ps14,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Prisoner Never Lost)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, mslug2ps15,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",     "Metal Slug 2 (Ward Charior Rev.1)", MACHINE_SUPPORTS_SAVE ) 
+HACK( 1998, mslug2ps15,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",     "Metal Slug 2 (Ward Charior Rev.1)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps16,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Change Character)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps17,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Change Weapon And Mummy)", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, mslug2ps18,      mslug2,   neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",      "Metal Slug 2 (Circulation For The Gun)", MACHINE_SUPPORTS_SAVE )

@@ -3,8 +3,8 @@
 #include "../mame/drivers/segac2.cpp"
 
 /* http://frogfeast.rastersoft.net/SegaC2.html
-	It appears from the source that the sound is going through a Z80 - but the C2 hardware doesn't have one...
-	Also there are unmapped writes to A00000-A00100, A11100, A11200. */
+    It appears from the source that the sound is going through a Z80 - but the C2 hardware doesn't have one...
+    Also there are unmapped writes to A00000-A00100, A11100, A11200. */
 
 ROM_START( c2frog )
 	ROM_REGION( 0x1000000, "maincpu", 0 )

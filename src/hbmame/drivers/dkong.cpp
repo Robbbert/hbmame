@@ -70,12 +70,12 @@ ROM_START( dkongex )
 	ROM_REGION( 0x0300, "proms", 0 )
 	ROM_LOAD( "c-2k.bpr",      0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
 	ROM_LOAD( "c-2j.bpr",      0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
-	ROM_LOAD( "v-5e.bpr",  	   0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+	ROM_LOAD( "v-5e.bpr",      0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
 ROM_END
 
 
 /* This set has the fixes proposed by Don Hodges at the page:
-	http://donhodges.com/how_high_can_you_get.htm */
+    http://donhodges.com/how_high_can_you_get.htm */
 ROM_START( dkongp )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "dkongp_c_5et",  0x0000, 0x1000, CRC(2066139d) SHA1(2eaf4cd6eb18eacb210892a85147e70db58bee48) )

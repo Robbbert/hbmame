@@ -5,9 +5,9 @@
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
- 
+
  /*************
- Dragoon Might 
+ Dragoon Might
 ****************/
 
 ROM_START( mtlchamps01 )
@@ -38,12 +38,12 @@ ROM_START( mtlchamps01 )
 	ROM_LOAD( "234a06.2d", 0x000000, 2*1024*1024, CRC(12d32384) SHA1(ecd6cd752b0e20339e17a7652ed843fbb43f7595) )
 	ROM_LOAD( "234a07.1d", 0x200000, 2*1024*1024, CRC(05ee239f) SHA1(f4e6e7568dc73666a2b5e0c3fe743432e0436464) )
 
-	ROM_REGION( 0x80, "eeprom", 0 ) 
+	ROM_REGION( 0x80, "eeprom", 0 )
 	ROM_LOAD( "mtlchamp.nv", 0x0000, 0x080, CRC(cd47858e) SHA1(8effdcd631516d537f956509111cb3d4d18040db) )
 ROM_END
 
  /*************
- Monster Maulers 
+ Monster Maulers
 ****************/
 
 ROM_START( mmaulerss01 )

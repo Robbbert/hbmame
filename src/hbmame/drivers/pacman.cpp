@@ -32,8 +32,8 @@
  Clones include most hacks
 
  See the MAME source code for hardware information.
- 
- 
+
+
  Notes for the speedup cheat.
  - Only applies to games that run at normal speed
  - Only applies if the rom has the bytes in the usual place
@@ -60,18 +60,18 @@
  *
  *************************************/
 
-#define MASTER_CLOCK		18432000
+#define MASTER_CLOCK        18432000
 
-#define PIXEL_CLOCK		(MASTER_CLOCK/3)
+#define PIXEL_CLOCK     (MASTER_CLOCK/3)
 
 /* H counts from 128->511, HBLANK starts at 144 and ends at 240 */
-#define HTOTAL			(384)
-#define HBEND			(0)		/*(96+16)*/
-#define HBSTART			(288)	/*(16)*/
+#define HTOTAL          (384)
+#define HBEND           (0)     /*(96+16)*/
+#define HBSTART         (288)   /*(16)*/
 
-#define VTOTAL			(264)
-#define VBEND			(0)		/*(16)*/
-#define VBSTART			(224)	/*(224+16)*/
+#define VTOTAL          (264)
+#define VBEND           (0)     /*(16)*/
+#define VBSTART         (224)   /*(224+16)*/
 
 
 
@@ -261,8 +261,8 @@ INPUT_PORTS_START( mspacpls )
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_4WAY PORT_COCKTAIL
 	PORT_SERVICE( 0x10, IP_ACTIVE_LOW )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 )	/* Also invincibility when playing */
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START2 )	/* Also speed-up when playing */
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 ) /* Also invincibility when playing */
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START2 ) /* Also speed-up when playing */
 	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Cabinet ) ) PORT_DIPLOCATION("SW1:1")
 	PORT_DIPSETTING(    0x80, DEF_STR( Upright ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Cocktail ) )
@@ -376,7 +376,7 @@ INPUT_PORTS_END
 
 static const gfx_layout tilelayout =
 {
-	8,8,	/* 8*8 characters */
+	8,8,    /* 8*8 characters */
 	RGN_FRAC(1,2),    /* 256 characters */
 	2,  /* 2 bits per pixel */
 	{ 0, 4 },   /* the two bitplanes for 4 pixels are packed into one byte */
@@ -388,19 +388,19 @@ static const gfx_layout tilelayout =
 
 static const gfx_layout spritelayout =
 {
-	16,16,	/* 16*16 sprites */
-	RGN_FRAC(1,2),	/* 64 sprites */
-	2,	/* 2 bits per pixel */
-	{ 0, 4 },	/* the two bitplanes for 4 pixels are packed into one byte */
+	16,16,  /* 16*16 sprites */
+	RGN_FRAC(1,2),  /* 64 sprites */
+	2,  /* 2 bits per pixel */
+	{ 0, 4 },   /* the two bitplanes for 4 pixels are packed into one byte */
 	{ 8*8, 8*8+1, 8*8+2, 8*8+3, 16*8+0, 16*8+1, 16*8+2, 16*8+3, 24*8+0, 24*8+1, 24*8+2, 24*8+3, 0, 1, 2, 3 },
 	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8, 32*8, 33*8, 34*8, 35*8, 36*8, 37*8, 38*8, 39*8 },
-	64*8	/* every sprite takes 64 bytes */
+	64*8    /* every sprite takes 64 bytes */
 };
 
 
 static gfx_layout xtilelayout =
 {
-	16,16,	/* 16*16 characters */
+	16,16,  /* 16*16 characters */
 	RGN_FRAC(1,2),    /* 256 characters */
 	2,  /* 2 bits per pixel */
 	{ 0, 4 },   /* the two bitplanes for 4 pixels are packed into one byte */
@@ -412,16 +412,16 @@ static gfx_layout xtilelayout =
 
 static gfx_layout xspritelayout =
 {
-	32,32,	/* 32*32 sprites */
-	RGN_FRAC(1,2),	/* 64 sprites */
-	2,	/* 2 bits per pixel */
-	{ 0, 4 },	/* the two bitplanes for 4 pixels are packed into one byte */
+	32,32,  /* 32*32 sprites */
+	RGN_FRAC(1,2),  /* 64 sprites */
+	2,  /* 2 bits per pixel */
+	{ 0, 4 },   /* the two bitplanes for 4 pixels are packed into one byte */
 	{ 0, 1, 2, 3, 256, 257, 258, 259, 512, 513, 514, 515, 768, 769, 770, 771,
 			1024+0, 1024+1, 1024+2, 1024+3, 1024+256, 1024+257, 1024+258, 1024+259,
-			1024+512, 1024+513, 1024+514, 1024+515,	1024+768, 1024+769, 1024+770, 1024+771 },
+			1024+512, 1024+513, 1024+514, 1024+515, 1024+768, 1024+769, 1024+770, 1024+771 },
 	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8, 8*8, 9*8, 10*8, 11*8, 12*8, 13*8, 14*8, 15*8,
-			16*8, 17*8, 18*8, 19*8, 20*8, 21*8, 22*8, 23*8,	24*8, 25*8, 26*8, 27*8, 28*8, 29*8, 30*8, 31*8 },
-	256*8	/* every sprite takes 256 bytes */
+			16*8, 17*8, 18*8, 19*8, 20*8, 21*8, 22*8, 23*8, 24*8, 25*8, 26*8, 27*8, 28*8, 29*8, 30*8, 31*8 },
+	256*8   /* every sprite takes 256 bytes */
 };
 
 
@@ -682,7 +682,7 @@ ROM_START( brakman )
 ROM_END
 
 ROM_START( bucaneerx )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "puckmanb.6e",  0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
 	ROM_LOAD( "puckmanb.6f",  0x1000, 0x1000, CRC(39d1fc83) SHA1(326dbbf94c6fa2e96613dedb53702f8832b47d59) )
 	ROM_LOAD( "newpuck2.6h",  0x2000, 0x1000, CRC(197443f8) SHA1(119aab12a9e1052c7b9a1f81e563740b41429a8c) )
@@ -981,7 +981,7 @@ ROM_END
 ROM_START( hangly3 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly3.6e",   0x0000, 0x0800, CRC(9d027c4a) SHA1(88e094880057451a75cdc2ce9477403021813982) )
-	ROM_LOAD( "hangly3.6k",	  0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
+	ROM_LOAD( "hangly3.6k",   0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
 	ROM_LOAD( "hangly2.6f",   0x1000, 0x0800, CRC(5ba228bb) SHA1(b0e902cdf98bee72d6ec8069eec96adce3245074) )
 	ROM_LOAD( "hangly2.6m",   0x1800, 0x0800, CRC(baf5461e) SHA1(754586a6449fd54a342f260e572c1cd60ab70815) )
 	ROM_LOAD( "hangly3.6h",   0x2000, 0x0800, CRC(08419c4a) SHA1(7e5001adad401080c788737c1d2349f218750442) )
@@ -999,7 +999,7 @@ ROM_START( hangly3 )
 ROM_END
 
 ROM_START( hanglyad )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly.6e",    0x0000, 0x1000, CRC(5fe8610a) SHA1(d63eaebd85e10aa6c27bb7f47642dd403eeb6934) )
 	ROM_LOAD( "hangly.6f",    0x1000, 0x1000, CRC(73726586) SHA1(cedddc5194589039dd8b64f07ab6320d7d4f55f9) )
 	ROM_LOAD( "hangly.6h",    0x2000, 0x1000, CRC(4e7ef99f) SHA1(bd42e68b29b4d654dc817782ba00db69b7d2dfe2) )
@@ -1045,7 +1045,7 @@ ROM_END
 ROM_START( hangly3x )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly3.6e",   0x0000, 0x0800, CRC(9d027c4a) SHA1(88e094880057451a75cdc2ce9477403021813982) )
-	ROM_LOAD( "hangly3.6k",	  0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
+	ROM_LOAD( "hangly3.6k",   0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
 	ROM_LOAD( "hangly2.6f",   0x1000, 0x0800, CRC(5ba228bb) SHA1(b0e902cdf98bee72d6ec8069eec96adce3245074) )
 	ROM_LOAD( "hangly2.6m",   0x1800, 0x0800, CRC(baf5461e) SHA1(754586a6449fd54a342f260e572c1cd60ab70815) )
 	ROM_LOAD( "hangly3.6h",   0x2000, 0x0800, CRC(08419c4a) SHA1(7e5001adad401080c788737c1d2349f218750442) )
@@ -1682,7 +1682,7 @@ ROM_START( pacjail )
 ROM_END
 
 ROM_START( pacjr1 )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacm255.6h",   0x2000, 0x1000, CRC(d3640977) SHA1(2cc05c16c0cf6f516c69ab0b6e1a83bdd3010798) )
@@ -1696,7 +1696,7 @@ ROM_START( pacjr1 )
 ROM_END
 
 ROM_START( pacjr2 )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacm255.6h",   0x2000, 0x1000, CRC(d3640977) SHA1(2cc05c16c0cf6f516c69ab0b6e1a83bdd3010798) )
@@ -1710,7 +1710,7 @@ ROM_START( pacjr2 )
 ROM_END
 
 ROM_START( pacjr3 )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacm255.6h",   0x2000, 0x1000, CRC(d3640977) SHA1(2cc05c16c0cf6f516c69ab0b6e1a83bdd3010798) )
@@ -1724,7 +1724,7 @@ ROM_START( pacjr3 )
 ROM_END
 
 ROM_START( pacjr4 )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacm255.6h",   0x2000, 0x1000, CRC(d3640977) SHA1(2cc05c16c0cf6f516c69ab0b6e1a83bdd3010798) )
@@ -1738,7 +1738,7 @@ ROM_START( pacjr4 )
 ROM_END
 
 ROM_START( packetman ) // real dump, hanglyman with the manufacturer name hacked out
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly.6e",    0x0000, 0x1000, CRC(5fe8610a) SHA1(d63eaebd85e10aa6c27bb7f47642dd403eeb6934) )
 	ROM_LOAD( "puckmanh.6f",  0x1000, 0x1000, CRC(61d38c6c) SHA1(1406aacdc9c8a3776e5853d214380ad3124408f4) )
 	ROM_LOAD( "hangly.6h",    0x2000, 0x1000, CRC(4e7ef99f) SHA1(bd42e68b29b4d654dc817782ba00db69b7d2dfe2) )
@@ -1780,7 +1780,7 @@ ROM_START( pacman )
 ROM_END
 
 ROM_START( pacman25 )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "puckmanb.6e",  0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
 	ROM_LOAD( "namcosil.6f",  0x1000, 0x1000, CRC(c5ec2352) SHA1(86178b16dabb90005b132febc1a261651a73018d) )
 	ROM_LOAD( "pacman25.3",   0x2000, 0x1000, CRC(92cd89b9) SHA1(c3a0141480341c550a889b58692c8c90b322ee67) )
@@ -1790,8 +1790,8 @@ ROM_START( pacman25 )
 	ROM_LOAD( "pacman25.7",   0xa000, 0x1000, CRC(c626ea9c) SHA1(3cd3f20e002845937a43f323b685425c95881d9e) )
 	ROM_LOAD( "pacman25.8",   0xb000, 0x1000, CRC(f5ba954d) SHA1(eba18f9a7f6d50f167ed37bff0adec43f52b49a0) )
 	/* This colour table is configurable to whatever you want */
-	ROM_FILL(0x8fc0, 1, 0x01)	// level 1
-	ROM_FILL(0x8fc1, 1, 0x11)	// level 2
+	ROM_FILL(0x8fc0, 1, 0x01)   // level 1
+	ROM_FILL(0x8fc1, 1, 0x11)   // level 2
 	ROM_FILL(0x8fc2, 1, 0x03)
 	ROM_FILL(0x8fc3, 1, 0x12)
 	ROM_FILL(0x8fc4, 1, 0x09)
@@ -1805,8 +1805,8 @@ ROM_START( pacman25 )
 	ROM_FILL(0x8fcc, 1, 0x10)
 	ROM_FILL(0x8fcd, 1, 0x1d)
 	ROM_FILL(0x8fce, 1, 0x1f)
-	ROM_FILL(0x8fcf, 1, 0x07)	// level 16
-	ROM_COPY( "maincpu", 0x8fc0, 0x8fd0, 0x10 )	/* copy the above to levels 17-32 */
+	ROM_FILL(0x8fcf, 1, 0x07)   // level 16
+	ROM_COPY( "maincpu", 0x8fc0, 0x8fd0, 0x10 ) /* copy the above to levels 17-32 */
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacman25.5e",  0x0000, 0x1000, CRC(11d47ae1) SHA1(fbd47432f258e56f1323766d5b2844f4a2e6e7ac) )
@@ -1873,10 +1873,10 @@ ROM_START( pacmanfx )
 ROM_END
 
 /* This set has the fixes proposed by Don Hodges at the pages:
-	http://donhodges.com/how_high_can_you_get2.htm
-	http://donhodges.com/pacman_pinky_explanation.htm
-	These are: AI fixes for Pinky and Inky; fix for the kill screen on level 256.
-	Patches invented by Don Hodges; coded into a ROM by Krick. */
+    http://donhodges.com/how_high_can_you_get2.htm
+    http://donhodges.com/pacman_pinky_explanation.htm
+    These are: AI fixes for Pinky and Inky; fix for the kill screen on level 256.
+    Patches invented by Don Hodges; coded into a ROM by Krick. */
 ROM_START( pacmanp )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -1906,7 +1906,7 @@ ROM_START( pacmanx )
 ROM_END
 
 ROM_START( pacmar )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
@@ -1915,7 +1915,7 @@ ROM_START( pacmar )
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacmar.5e",    0x0000, 0x1000, CRC(7ccdfa59) SHA1(ed8e7f2e7b496a6f3246e1cc3966382e748ab1c3) )
 	ROM_LOAD( "pacmar.5f",    0x1000, 0x1000, CRC(51af9fc5) SHA1(0fe657bee3a811043663595f7f9e7e05cc71da84) )
-	ROM_COPY( "gfx1",    0x1b00, 0x1c00, 0x40 )		/* show mario at start of level */
+	ROM_COPY( "gfx1",    0x1b00, 0x1c00, 0x40 )     /* show mario at start of level */
 
 	PACMAN_PROMS
 ROM_END
@@ -2125,7 +2125,7 @@ ROM_START( pacmulti )
 	ROM_LOAD( "pacmulti.6j",  0x3000, 0x1000, CRC(29ba4b53) SHA1(f907641bb583342fa19f02de23639ba730123792) )
 	ROM_LOAD( "pacmulti.8",   0x8000, 0x1000, CRC(5a4b59dc) SHA1(09b21036cf40decf4ee00898eb44673599c65b05) )
 	ROM_LOAD( "pacmulti.9",   0x9000, 0x1000, CRC(3b939b12) SHA1(40333555af024f505064018a9b76dd284ecbf9a6) )
-	ROM_FILL(0x3f83, 3, 0)		/* remove unneeeded subroutine call - this fixes a major bug */
+	ROM_FILL(0x3f83, 3, 0)      /* remove unneeeded subroutine call - this fixes a major bug */
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacmulti.5e",  0x0000, 0x1000, CRC(46cdda4a) SHA1(2c38050a4f5d0c9e1b4f3e054dcac25cde63ae2a) )
@@ -2312,7 +2312,7 @@ ROM_START( pheartb )
 	ROM_LOAD( "newpuc2.6n",   0x2800, 0x0800, CRC(3f250c58) SHA1(53bf2270c26f10f7e97960cd4c96e09e16b9bdf3) )
 	ROM_LOAD( "pheartb.6j",   0x3000, 0x0800, CRC(01d13602) SHA1(dfec0784d005f82a6b2ee55923b510d2daeb9965) )
 	ROM_LOAD( "newpuc2.6p",   0x3800, 0x0800, CRC(1f81e765) SHA1(442d8a82e79ae842f1ffb46369c632c1d0b83161) )
-	ROM_FILL( 0x3fd5, 1, 0xc9 )		/* allow protection check to work - 0x36 or 0xc9 is ok */
+	ROM_FILL( 0x3fd5, 1, 0xc9 )     /* allow protection check to work - 0x36 or 0xc9 is ok */
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacheart.5e",  0x0000, 0x0800, CRC(c62bbabf) SHA1(f6f28ae33c2ab274105283b22b49ad243780a95e) )
@@ -2452,7 +2452,7 @@ ROM_START( pm7000p )
 
 	PACMAN_PROMS
 ROM_END
-	
+
 ROM_START( pmad )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -3038,7 +3038,7 @@ ROM_END
 ROM_START( spuckman )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly3.6e",   0x0000, 0x0800, CRC(9d027c4a) SHA1(88e094880057451a75cdc2ce9477403021813982) )
-	ROM_LOAD( "hangly3.6k",	  0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
+	ROM_LOAD( "hangly3.6k",   0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
 	ROM_LOAD( "hangly2.6f",   0x1000, 0x0800, CRC(5ba228bb) SHA1(b0e902cdf98bee72d6ec8069eec96adce3245074) )
 	ROM_LOAD( "hangly2.6m",   0x1800, 0x0800, CRC(baf5461e) SHA1(754586a6449fd54a342f260e572c1cd60ab70815) )
 	ROM_LOAD( "pheartb.6h",   0x2000, 0x0800, CRC(b42416d1) SHA1(3714efae24f35fe63dd89f0d7b82e4564c5405d3) )
@@ -3257,7 +3257,7 @@ ROM_START( vectxens )
 ROM_END
 
 ROM_START( vhangly )
-	ROM_REGION( 0x10000, "maincpu", 0 )	
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly.6e",    0x0000, 0x1000, CRC(5fe8610a) SHA1(d63eaebd85e10aa6c27bb7f47642dd403eeb6934) )
 	ROM_LOAD( "hangly.6f",    0x1000, 0x1000, CRC(73726586) SHA1(cedddc5194589039dd8b64f07ab6320d7d4f55f9) )
 	ROM_LOAD( "hangly.6h",    0x2000, 0x1000, CRC(4e7ef99f) SHA1(bd42e68b29b4d654dc817782ba00db69b7d2dfe2) )
@@ -3274,7 +3274,7 @@ ROM_END
 ROM_START( vhangly3 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hangly3.6e",   0x0000, 0x0800, CRC(9d027c4a) SHA1(88e094880057451a75cdc2ce9477403021813982) )
-	ROM_LOAD( "hangly3.6k",	  0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
+	ROM_LOAD( "hangly3.6k",   0x0800, 0x0800, CRC(194c7189) SHA1(fd423bac2810015313841c7b935054565390fbd0) )
 	ROM_LOAD( "hangly2.6f",   0x1000, 0x0800, CRC(5ba228bb) SHA1(b0e902cdf98bee72d6ec8069eec96adce3245074) )
 	ROM_LOAD( "hangly2.6m",   0x1800, 0x0800, CRC(baf5461e) SHA1(754586a6449fd54a342f260e572c1cd60ab70815) )
 	ROM_LOAD( "hangly3.6h",   0x2000, 0x0800, CRC(08419c4a) SHA1(7e5001adad401080c788737c1d2349f218750442) )
@@ -3595,7 +3595,7 @@ HACK( 1998, chtpac3d, puckman,  pacman,   pacman0,  pacman_state, 0,        ROT9
 HACK( 2000, eltonpac, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "Elton Pac", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, mazeman,  puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "Maze Man", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, namcosil, puckman,  pacman,   pacman0,  pacman_state, 0,        ROT90, "Marcel Silvius", "Pacman (Namco) (Sil hack) [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, newpuck3, puckman,	pacman,   pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "New Puck-3", MACHINE_SUPPORTS_SAVE )
+HACK( 1998, newpuck3, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "New Puck-3", MACHINE_SUPPORTS_SAVE )
 HACK( 1998, pacman3d, puckman,  pacman,   pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "Pacman 3D", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacman6,  puckman,  woodpek,  pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "Pacman 6", MACHINE_SUPPORTS_SAVE )
 HACK( 2000, pacmn6m2, puckman,  woodpek,  pacman,   pacman_state, 0,        ROT90, "Marcel Silvius", "Pacman 2000 (Set 2)", MACHINE_SUPPORTS_SAVE )

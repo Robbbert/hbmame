@@ -5,7 +5,7 @@
 /***************************************************************************
 
   Screenshot.cpp
-  
+
   Displays snapshots, control panels and other pictures.
   Files must be of type .PNG, .JPG or .JPEG .
   If Software tab is chosen, software-specific pictures can be displayed.

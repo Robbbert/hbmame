@@ -40,7 +40,7 @@ GAME( 2009, dbz2h01, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "pipi899", "Dr
 *****************************************************/
 
  /************
- Dragon Ball Z 
+ Dragon Ball Z
 ****************/
 
 ROM_START( dbzs01 )
@@ -49,7 +49,7 @@ ROM_START( dbzs01 )
 	ROM_IGNORE(0x3D4F47)
 	ROM_LOAD16_BYTE( "222b12_ps01.9f", 0x000001, 0x80000, CRC(64e3d243) SHA1(25f3022e50e1142a09fd5c5fda983a52d13ef13a) )
 	ROM_IGNORE(0x3D4F47)
-	
+
 	ROM_REGION( 0x010000, "audiocpu", 0 )
 	ROM_LOAD("222a10.5e", 0x000000, 0x08000, CRC(1c93e30a) SHA1(8545a0ac5126b3c855e1901b186f57820699895d) )
 

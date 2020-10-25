@@ -340,7 +340,7 @@ HACK( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_state, sengoku3
 **********************************************/
 
  /*********
- Sengoku 3 
+ Sengoku 3
 ************/
 
 ROM_START( sengoku3s01 )
@@ -654,7 +654,7 @@ ROM_START( sengoku3s15 ) //sengoku3a
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "261hc15-ph1.p1", 0x100000, 0x100000, CRC(9a76c011) SHA1(d65d108adec207ce614f34843952b62596504f13) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
-	
+
 	NEO_SFIX_MT_128K
 
 	NEO_BIOS_AUDIO_512K( "261.m1", CRC(7d501c39) SHA1(8e6bcc428f5ac7532d9c9be7e07ad0821461a080) )

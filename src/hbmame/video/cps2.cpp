@@ -134,7 +134,7 @@ MACHINE_RESET_MEMBER(cps2_state,cps)
 			m_bank_type[i] = 0;
 		const struct gfx_range *range = m_game_config->bank_mapper;
 		u8 tu = 0;
-		while ((range->type) && (tu < 32)) 
+		while ((range->type) && (tu < 32))
 		{
 			m_bank_type[tu++] = range->type;
 			m_bank_type[tu++] = range->start;

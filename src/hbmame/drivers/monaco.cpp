@@ -15,78 +15,78 @@ To Do:
 - extended play colors
 
 General:
-	Score Increases as a function of the player's speed.
-	Speed of Terrain scrolling is independent.
+    Score Increases as a function of the player's speed.
+    Speed of Terrain scrolling is independent.
 
 Computer Cars:
-	The bridge section is different from the others (besides all the cars going
-	faster after so many points(6K and 8K).
+    The bridge section is different from the others (besides all the cars going
+    faster after so many points(6K and 8K).
 
 Display Panel:
-	The cockpit model displays TIME (2 digit), top 5 scores (4 digits each),
-	your Score (4 digits), Players to Date (3 digits)(daily), and
-	Ranking (3 digits) (this is final score ranking, not position during the game).
+    The cockpit model displays TIME (2 digit), top 5 scores (4 digits each),
+    your Score (4 digits), Players to Date (3 digits)(daily), and
+    Ranking (3 digits) (this is final score ranking, not position during the game).
 
-	The top 999 high scores are internally recorded in a RAM.
-	The player's ranking is updated only after gamplay is finished (during the
-	fanfare).
+    The top 999 high scores are internally recorded in a RAM.
+    The player's ranking is updated only after gamplay is finished (during the
+    fanfare).
 
 Timed Play:
-	X000-X295	A-Smooth Zone
-	X295-X450	B-Slip Zone
-	X450-X795	A-Smooth Zone
-	X795-X000	C-Tunnel
+    X000-X295   A-Smooth Zone
+    X295-X450   B-Slip Zone
+    X450-X795   A-Smooth Zone
+    X795-X000   C-Tunnel
 
 Extended Play:
-	X000-X095	A-Smooth Zone
-	X095-X150	D-Gravel Zone
-	X150-X295	A-Smooth Zone
-	X295-X475	B-Slip Zone
-	X475-X595	A-Smooth Zone
-	X595-X635	E-Bridge Zone
-	X635-X795	A-Smooth Zone
-	X795-X000	C-Tunnel Zone
+    X000-X095   A-Smooth Zone
+    X095-X150   D-Gravel Zone
+    X150-X295   A-Smooth Zone
+    X295-X475   B-Slip Zone
+    X475-X595   A-Smooth Zone
+    X595-X635   E-Bridge Zone
+    X635-X795   A-Smooth Zone
+    X795-X000   C-Tunnel Zone
 
 Oil Slicks (pool):
-	X185		(during zone A)
-	X685		(during zone A)
-	After 8000 points, two pools come out in succession
-	(the second about 20-30 points from the first).
+    X185        (during zone A)
+    X685        (during zone A)
+    After 8000 points, two pools come out in succession
+    (the second about 20-30 points from the first).
 
 Rescue Car (firetruck)
-	The rescue car only appears during Extended play.  Tolerance -50 (not+)
-	X000
-	X075
-	X125
-	X250
-	X500
+    The rescue car only appears during Extended play.  Tolerance -50 (not+)
+    X000
+    X075
+    X125
+    X250
+    X500
 
-	The rescue car appears in a mid-right lane.  It does not move side to side,
-	it just moves slowly up the screen until it goes off the screen.
+    The rescue car appears in a mid-right lane.  It does not move side to side,
+    it just moves slowly up the screen until it goes off the screen.
 
-	In extended play, the rescue car was observed to come out AT LEAST ONCE
-	during each 1000 points cycle.  I have observed the rescue car coming
-	out as much a 3 TIMES in one 1000 point cycle.
-	I could not find a pattern in the time or count interval between the
-	rescue cars.  However, 72% were between 750 and 1250 point intervals
-	(most around 875) while the remaining 28% were 500 point intervals or
-	lower.  Therfore, we can narrow down WHERE the rescue cars appear, but
-	IF it is going to appear seems to have some randomness to it.
+    In extended play, the rescue car was observed to come out AT LEAST ONCE
+    during each 1000 points cycle.  I have observed the rescue car coming
+    out as much a 3 TIMES in one 1000 point cycle.
+    I could not find a pattern in the time or count interval between the
+    rescue cars.  However, 72% were between 750 and 1250 point intervals
+    (most around 875) while the remaining 28% were 500 point intervals or
+    lower.  Therfore, we can narrow down WHERE the rescue cars appear, but
+    IF it is going to appear seems to have some randomness to it.
 
 
 notes:
-	when the player first appears (game start, after a spinout, after
-	a crash), the player's car shows up on the extreme right of the
-	screen and is totally invulnerable (even if over water on the
-	bridge scene!).  The road doesn't scroll at all until you give the
-	car some gas.  Note that once you start moving, you can never
-	completely come to a stop.
+    when the player first appears (game start, after a spinout, after
+    a crash), the player's car shows up on the extreme right of the
+    screen and is totally invulnerable (even if over water on the
+    bridge scene!).  The road doesn't scroll at all until you give the
+    car some gas.  Note that once you start moving, you can never
+    completely come to a stop.
 
-	Once you move to left onto the center part of the
-	road, normal collision behavior takes over.  You earn no points
-	while in the invulnerable state.  The player can remain in this
-	state forever during timed play (until time runs out).  In extended
-	play, the player's car will explode after several seconds of driving.
+    Once you move to left onto the center part of the
+    road, normal collision behavior takes over.  You earn no points
+    while in the invulnerable state.  The player can remain in this
+    state forever during timed play (until time runs out).  In extended
+    play, the player's car will explode after several seconds of driving.
 
 ---------------------------------------------------------------------------
 
@@ -101,42 +101,42 @@ Board Assy A
 - sends the signals for the sounds to the Oscillator board
 - outputs to the L.E.D. score display board
 - directly interacts with Board Assy B
-	Components:
-		Start Timer Control
-		Player Control (pedal, steering, shifter)
-		My Car light control, explosion, and pool (oil slick) skid
-		Other Car Control
+    Components:
+        Start Timer Control
+        Player Control (pedal, steering, shifter)
+        My Car light control, explosion, and pool (oil slick) skid
+        Other Car Control
 
 Board Assy B
 - outputs the video
 - outputs to the L.E.D. score display board
 - directly interacts with Board Assy A.
-	Components:
-		Display of Letter
-		Road Movement Horizontal
-		Road Movement Vertical (Right and Left)
-		Background (sprite) coloring
-		Road Object (tunnel, bridge, water) control
-		Signal Sync
-		Rescue Car, Player Car, Bridge--Video and Control
+    Components:
+        Display of Letter
+        Road Movement Horizontal
+        Road Movement Vertical (Right and Left)
+        Background (sprite) coloring
+        Road Object (tunnel, bridge, water) control
+        Signal Sync
+        Rescue Car, Player Car, Bridge--Video and Control
 
-	(On the second set, boards A and B have different part numbers
-	(97091X and 97092X) and two less roms.  These boards were made
-	later then the first set.  I have interchanged these boards with
-	each other, and they seem to be interchangable, the only
-	difference seems to be the rom size, which only 2 of the roms
-	utilize the full 1024 bytes (second set).)
+    (On the second set, boards A and B have different part numbers
+    (97091X and 97092X) and two less roms.  These boards were made
+    later then the first set.  I have interchanged these boards with
+    each other, and they seem to be interchangable, the only
+    difference seems to be the rom size, which only 2 of the roms
+    utilize the full 1024 bytes (second set).)
 
 Oscillator Board 96598
-ROM ID		IC#
-PRm-40		IC21			PRm-40		<both type 6331-1, 16 pin>
-	engine (constant; pitch varies with speed)
-	passing (two variations)
-	bonus (chimes)
-	fanfare
-	explosion
-	slip zone
-	siren (rescue car)
+ROM ID      IC#
+PRm-40      IC21            PRm-40      <both type 6331-1, 16 pin>
+    engine (constant; pitch varies with speed)
+    passing (two variations)
+    bonus (chimes)
+    fanfare
+    explosion
+    slip zone
+    siren (rescue car)
 */
 
 /* The following changes were done by Robbbert on 2007-Dec-08:
@@ -177,20 +177,20 @@ There is a bunch more things to be done
 
 
 #define kRESCUE_CAR_SPEED (1.75)
-#define SCREEN_WIDTH	384 /* 12 car lengths */
-#define SCREEN_HEIGHT	240 /* 15 car widths */
-#define BRIDGE_YPOS	((SCREEN_HEIGHT-16)/2-8)
-#define PAGE_SIZE		448
+#define SCREEN_WIDTH    384 /* 12 car lengths */
+#define SCREEN_HEIGHT   240 /* 15 car widths */
+#define BRIDGE_YPOS ((SCREEN_HEIGHT-16)/2-8)
+#define PAGE_SIZE       448
  // == (14*32)
 #define NUM_COMPUTER_CARS 4
 
 /* red */
-#define TEXT_GAMEOVER		2
-#define TEXT_EXTENDEDPLAY	0
+#define TEXT_GAMEOVER       2
+#define TEXT_EXTENDEDPLAY   0
 
 /* blue */
-#define TEXT_DEPOSITCOIN	3
-#define TEXT_START		1
+#define TEXT_DEPOSITCOIN    3
+#define TEXT_START      1
 
 enum
 {
@@ -204,24 +204,24 @@ enum
 
 enum
 {
-	CYAN_PEN	= 0x91,
-	BLACK_PEN	= 0x94,
-	YELLOW_PEN	= 0x95,
-	GREY_PEN	= 0x96
+	CYAN_PEN    = 0x91,
+	BLACK_PEN   = 0x94,
+	YELLOW_PEN  = 0x95,
+	GREY_PEN    = 0x96
 };
 
 enum
 {
-	RESCUE_CLUT	= 0x50,
-	HOUSE_CLUT	= 0x60,
-	WATER_CLUT	= 0x70,
-	PLAYER_CLUT	= 0x80,
-	TREE_CLUT	= 0x84,
-	SHRUB_CLUT	= 0x88,
-	GRASS_CLUT	= 0x8c,
-	CYAN_CLUT	= 0x90,
-	RED_CLUT	= 0x92,
-	YELLOW_CLUT	= 0x94
+	RESCUE_CLUT = 0x50,
+	HOUSE_CLUT  = 0x60,
+	WATER_CLUT  = 0x70,
+	PLAYER_CLUT = 0x80,
+	TREE_CLUT   = 0x84,
+	SHRUB_CLUT  = 0x88,
+	GRASS_CLUT  = 0x8c,
+	CYAN_CLUT   = 0x90,
+	RED_CLUT    = 0x92,
+	YELLOW_CLUT = 0x94
 };
 
 enum
@@ -250,16 +250,16 @@ enum
 enum monaco_mode
 {
 	MODE_ATTRACT,
-	/*	cars zoom up the screen (max 2 on the screen at a time)
-	 *	player's car is not visible
-	 *	"GAME OVER" is centered near the middle-top
-	 *	"DEPOSIT COIN" is centered near the bottom
+	/*  cars zoom up the screen (max 2 on the screen at a time)
+	 *  player's car is not visible
+	 *  "GAME OVER" is centered near the middle-top
+	 *  "DEPOSIT COIN" is centered near the bottom
 	 */
 	MODE_START,
 	MODE_INVULNERABLE,
-	MODE_NORMAL,	/* driving */
+	MODE_NORMAL,    /* driving */
 	MODE_GRAVEL,
-	MODE_SLIP1,		/* skidding */
+	MODE_SLIP1,     /* skidding */
 	MODE_SLIP2,
 	MODE_SPINOUT1,
 	MODE_SPINOUT2,
@@ -332,7 +332,7 @@ private:
 	/* LED display */
 	u16 m_plays;
 	u16 m_rank;
-	u16 m_rank_display;	// shows 0 until game ends
+	u16 m_rank_display; // shows 0 until game ends
 	u32 m_score;
 	u32 m_bonus_score;
 	u8 m_in_ext_play;
@@ -403,22 +403,22 @@ enum
 	eSAMPLE_FANFARE,
 	eSAMPLE_SIREN,
 	eSAMPLE_SLIP,
-//	eSAMPLE_GRAVEL
+//  eSAMPLE_GRAVEL
 };
 
-#define DOWN	0x01
-#define UP	0x02
-#define RIGHT	0x04
-#define LEFT	0x08
-#define COIN	0x10
-#define ACCEL1	0x20
-#define ACCEL2	0x40
-#define ACCEL3	0x80
+#define DOWN    0x01
+#define UP  0x02
+#define RIGHT   0x04
+#define LEFT    0x08
+#define COIN    0x10
+#define ACCEL1  0x20
+#define ACCEL2  0x40
+#define ACCEL3  0x80
 
-#define IS_PRESSED(key)		(ioport("IN0")->read() & key)
+#define IS_PRESSED(key)     (ioport("IN0")->read() & key)
 
-#define EXT_SCORE (2000<<8)			// number of points needed to get extended play, 2000
-#define FIRST_TIME (90<<8)			// number of seconds when coin inserted, 90
+#define EXT_SCORE (2000<<8)         // number of points needed to get extended play, 2000
+#define FIRST_TIME (90<<8)          // number of seconds when coin inserted, 90
 
 
 u8 monaco_state::monaco_ram_r(offs_t offset)
@@ -473,7 +473,7 @@ void monaco_state::handle_collision( int sx, int sy, int width, int height, int 
 		{
 			m_samples->start( 3, eSAMPLE_CRASH );
 			m_anim_timer = 0;
-			m_speed = 15;		/* you almost stop when you crash */
+			m_speed = 15;       /* you almost stop when you crash */
 			if( type == COLLISION_CRASH )
 			{
 				if( !m_in_ext_play )
@@ -542,7 +542,7 @@ void monaco_state::update_player_speed()
 		if( accel ) m_monaco_mode = MODE_INVULNERABLE;
 		else return;
 	}
-	
+
 	if (m_speed)
 		min_speed = m_gear?0.5:0.25;
 	else
@@ -660,15 +660,15 @@ void monaco_state::HandlePool( void )
 
 void monaco_state::GameOver()
 {
-	m_monaco_mode = MODE_ATTRACT;			/* this causes speed to be zero */
-	m_rank_display = m_rank;		/* show rank on led display */
-	monaco_word_w (m_rank, m_score);	/* save players score in RAM */
+	m_monaco_mode = MODE_ATTRACT;           /* this causes speed to be zero */
+	m_rank_display = m_rank;        /* show rank on led display */
+	monaco_word_w (m_rank, m_score);    /* save players score in RAM */
 	m_led_high1 = monaco_word_r(1);
 	m_led_high2 = monaco_word_r(2);
-	m_led_high3 = monaco_word_r(3);	/* show the 5 highest scores on led display */
+	m_led_high3 = monaco_word_r(3); /* show the 5 highest scores on led display */
 	m_led_high4 = monaco_word_r(4);
 	m_led_high5 = monaco_word_r(5);
-	m_samples->stop(0);				/* turn off engine sounds */
+	m_samples->stop(0);             /* turn off engine sounds */
 	m_samples->stop(1);
 	m_samples->stop(2);
 }
@@ -689,7 +689,7 @@ void monaco_state::HandleEvents()
 	if( m_in_ext_play )
 	{
 		/* Extended Play */
-		if(	m_rescue_xpos<= -64 &&
+		if( m_rescue_xpos<= -64 &&
 			(machine().rand()&3) == 0 &&
 			(event == 0 || event == 75 || event == 125 || event == 250 || event == 500) )
 		{
@@ -721,7 +721,7 @@ void monaco_state::HandleEvents()
 		{
 			/* Turn On Extended Play */
 			m_in_ext_play = 1;
-//			m_samples->start( 2, eSAMPLE_EXTEND );
+//          m_samples->start( 2, eSAMPLE_EXTEND );
 		}
 		else
 			m_lives = 0;
@@ -791,7 +791,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 			m_samples->start( 0, eSAMPLE_ENGINE, 1/*loop*/ );
 			m_score = 0;
 			m_bonus_score = 0;
-			m_rank_display = 0xffff;	/* rank is blank till game ends */
+			m_rank_display = 0xffff;    /* rank is blank till game ends */
 			m_lives = 1;
 			if (m_plays < 999) m_plays++;
 			m_rank = m_plays;
@@ -814,7 +814,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 
 	m_ticks++; /* for animation */
 
-	if(	m_page_next != PAGE_TUNNEL && m_page_current != PAGE_TUNNEL &&
+	if( m_page_next != PAGE_TUNNEL && m_page_current != PAGE_TUNNEL &&
 		m_page_next != PAGE_BRIDGE && m_page_current != PAGE_BRIDGE )
 	{
 		/* delta: player speed */
@@ -865,7 +865,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 		break;
 
 	case MODE_GRAVEL:
-//		m_samples->start (1, eSAMPLE_GRAVEL);  There is no code to make this mode occur
+//      m_samples->start (1, eSAMPLE_GRAVEL);  There is no code to make this mode occur
 		break;
 
 	case MODE_SLIP1:
@@ -984,7 +984,7 @@ INTERRUPT_GEN_MEMBER( monaco_state::monaco_interrupt )
 	m_led_lives = m_lives;
 	m_led_time = m_time;
 	m_led_rank = m_rank_display;
-	//	m_led_rank = m_rank;	/* test to display real-time ranking */
+	//  m_led_rank = m_rank;    /* test to display real-time ranking */
 	m_led_plays = m_plays;
 	m_led_speed = m_speed;
 	m_right_page = m_page_current;
@@ -1383,27 +1383,27 @@ static gfx_layout belt_layout = {
 };
 
 static GFXDECODE_START( gfx_monaco )
-	GFXDECODE_ENTRY( "gfx1", 0x0100, unknown_layout,  0x00, 1)	/* PR125: unused; police car? */
-	GFXDECODE_ENTRY( "gfx1", 0x0200, explode_layout,  RED_CLUT, 2)	/* PR126: explosion */
-	GFXDECODE_ENTRY( "gfx1", 0x0400, player_layout,   PLAYER_CLUT, 1)	/* PR127: player's car */
-	GFXDECODE_ENTRY( "gfx1", 0x0600, player_layout,   PLAYER_CLUT, 1)	/* PR128: swerving (rough road) */
-	GFXDECODE_ENTRY( "gfx1", 0x0800, player_layout,   PLAYER_CLUT, 1)	/* PR129: spinout1 */
-	GFXDECODE_ENTRY( "gfx1", 0x0a00, player_layout,   PLAYER_CLUT, 1)	/* PR130: spinout2 */
-	GFXDECODE_ENTRY( "gfx1", 0x0c00, explode_layout,  CYAN_CLUT, 1)	/* PR131: spray */
-	GFXDECODE_ENTRY( "gfx1", 0x0e00, computer_layout, 0x00, 5)	/* PR132: computer car A,B */
-	GFXDECODE_ENTRY( "gfx1", 0x1000, text_layout,     CYAN_CLUT, 2)	/* PR133: text */
-	GFXDECODE_ENTRY( "gfx1", 0x1200, tree_layout,     TREE_CLUT, 1)	/* PR134: tree */
-	GFXDECODE_ENTRY( "gfx1", 0x1300, tree_layout,     TREE_CLUT, 1)	/* PR134: grass */
-	GFXDECODE_ENTRY( "gfx1", 0x1400, tree_layout,     SHRUB_CLUT, 1)	/* PR135: shrub */
-	GFXDECODE_ENTRY( "gfx1", 0x1600, house_layout,    HOUSE_CLUT, 1)	/* PR136: house */
-	GFXDECODE_ENTRY( "gfx1", 0x1800, tunnel_layout,   RED_CLUT, 1)	/* PR137: tunnel */
-	GFXDECODE_ENTRY( "gfx1", 0x1900, pool_layout,     CYAN_CLUT, 1)	/* PR137: pool (oil slick) */
-	GFXDECODE_ENTRY( "gfx1", 0x1900, belt_layout,     GRASS_CLUT, 2)	/* PR137: red/green belt */
-	GFXDECODE_ENTRY( "gfx1", 0x1a00, rescue_layout,   RESCUE_CLUT, 1)	/* PR138: rescue car */
-	GFXDECODE_ENTRY( "gfx1", 0x1c00, signal_layout,   YELLOW_CLUT, 1)	/* PR139: bridge signal (yellow on black)*/
-	GFXDECODE_ENTRY( "gfx1", 0x1c00, dummy_layout,    PLAYER_CLUT, 1)	/* PR139: dummy car */
-	GFXDECODE_ENTRY( "gfx1", 0x1e00, bridge_layout,   WATER_CLUT, 1)	/* PR140: bridge-water */
-	GFXDECODE_ENTRY( "gfx1", 0x2000, bridge_layout,   WATER_CLUT, 1)	/* PR141: bridge-pillar */
+	GFXDECODE_ENTRY( "gfx1", 0x0100, unknown_layout,  0x00, 1)  /* PR125: unused; police car? */
+	GFXDECODE_ENTRY( "gfx1", 0x0200, explode_layout,  RED_CLUT, 2)  /* PR126: explosion */
+	GFXDECODE_ENTRY( "gfx1", 0x0400, player_layout,   PLAYER_CLUT, 1)   /* PR127: player's car */
+	GFXDECODE_ENTRY( "gfx1", 0x0600, player_layout,   PLAYER_CLUT, 1)   /* PR128: swerving (rough road) */
+	GFXDECODE_ENTRY( "gfx1", 0x0800, player_layout,   PLAYER_CLUT, 1)   /* PR129: spinout1 */
+	GFXDECODE_ENTRY( "gfx1", 0x0a00, player_layout,   PLAYER_CLUT, 1)   /* PR130: spinout2 */
+	GFXDECODE_ENTRY( "gfx1", 0x0c00, explode_layout,  CYAN_CLUT, 1) /* PR131: spray */
+	GFXDECODE_ENTRY( "gfx1", 0x0e00, computer_layout, 0x00, 5)  /* PR132: computer car A,B */
+	GFXDECODE_ENTRY( "gfx1", 0x1000, text_layout,     CYAN_CLUT, 2) /* PR133: text */
+	GFXDECODE_ENTRY( "gfx1", 0x1200, tree_layout,     TREE_CLUT, 1) /* PR134: tree */
+	GFXDECODE_ENTRY( "gfx1", 0x1300, tree_layout,     TREE_CLUT, 1) /* PR134: grass */
+	GFXDECODE_ENTRY( "gfx1", 0x1400, tree_layout,     SHRUB_CLUT, 1)    /* PR135: shrub */
+	GFXDECODE_ENTRY( "gfx1", 0x1600, house_layout,    HOUSE_CLUT, 1)    /* PR136: house */
+	GFXDECODE_ENTRY( "gfx1", 0x1800, tunnel_layout,   RED_CLUT, 1)  /* PR137: tunnel */
+	GFXDECODE_ENTRY( "gfx1", 0x1900, pool_layout,     CYAN_CLUT, 1) /* PR137: pool (oil slick) */
+	GFXDECODE_ENTRY( "gfx1", 0x1900, belt_layout,     GRASS_CLUT, 2)    /* PR137: red/green belt */
+	GFXDECODE_ENTRY( "gfx1", 0x1a00, rescue_layout,   RESCUE_CLUT, 1)   /* PR138: rescue car */
+	GFXDECODE_ENTRY( "gfx1", 0x1c00, signal_layout,   YELLOW_CLUT, 1)   /* PR139: bridge signal (yellow on black)*/
+	GFXDECODE_ENTRY( "gfx1", 0x1c00, dummy_layout,    PLAYER_CLUT, 1)   /* PR139: dummy car */
+	GFXDECODE_ENTRY( "gfx1", 0x1e00, bridge_layout,   WATER_CLUT, 1)    /* PR140: bridge-water */
+	GFXDECODE_ENTRY( "gfx1", 0x2000, bridge_layout,   WATER_CLUT, 1)    /* PR141: bridge-pillar */
 GFXDECODE_END
 
 static const char *const monaco_sample_names[] =
@@ -1417,7 +1417,7 @@ static const char *const monaco_sample_names[] =
 	"6fanfare",
 	"6siren",
 	"6slip",
-//	"gravel",
+//  "gravel",
 	0
 };
 
@@ -1474,12 +1474,12 @@ void monaco_state::machine_reset()
 	m_led_lives = 0;
 	m_led_gear = 0;
 	m_led_speed = 0;
-	m_time = 0;			/* time remaining = 0 */
-	m_score = 0;		/* player score = 0 */
-	m_gear = 0;			/* low gear */
-	m_plays = 0;		/* no games played */
+	m_time = 0;         /* time remaining = 0 */
+	m_score = 0;        /* player score = 0 */
+	m_gear = 0;         /* low gear */
+	m_plays = 0;        /* no games played */
 	for (u16 i = 0;i < 1000;i++)
-		monaco_word_w (i, 0);	/* delete all scores from RAM */
+		monaco_word_w (i, 0);   /* delete all scores from RAM */
 	GameOver();
 }
 
@@ -1543,13 +1543,13 @@ ROM_START( monaco )
 //  ROM_LOAD( "prm-40", 2*32, 32, CRC(8030dac8) )
 /*  PR40 is in the Fanfare sound circuit and seems to access the particular
  *  notes for the fanfare sound (so PR40 may contain timing and pointer info
- *  on the melody).  The switch (SW1) I mentioned before that helped in tuning
+ *  on the melody).ï¿½ The switch (SW1) I mentioned before that helped in tuning
  *  the fanfare sound with the 6 pots seems to help in making the tuning of each
  *  pot for output of one of three audio frequencies (262, 330, 392 Hz),
  *  instead of having to tune to 6 different frequencies (a production/test
  *  equipment issue).
  *  In any case, if we get a good sample of this fanfare sound, we will not
- *  need to bother with this circuit or PR40.  As far a I have seen, the
+ *  need to bother with this circuit or PR40.ï¿½ As far a I have seen, the
  *  fanfare sound only comes up at the end of the game if you have a top five
  *  score and possibly when you plug in the game.
  */
@@ -1970,17 +1970,17 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	int i; // must be signed
 	u32 data;
 
-//	data = m_speed;
-//	for( i=2; i>=0; i-- )
-//	{
-//		drawgfx_transpen( bitmap, led_font,
-//			data%10,0, /* number, color */
-//			0,1, /* no flip */
-//			9,SCREEN_HEIGHT-6-i*6,
-//			NULL, TRANSPARENCY_NONE,0 );
+//  data = m_speed;
+//  for( i=2; i>=0; i-- )
+//  {
+//      drawgfx_transpen( bitmap, led_font,
+//          data%10,0, /* number, color */
+//          0,1, /* no flip */
+//          9,SCREEN_HEIGHT-6-i*6,
+//          NULL, TRANSPARENCY_NONE,0 );
 //
-//		data = data/10;
-//	}
+//      data = data/10;
+//  }
 
 	data = m_led_high1>>8;
 	for( i=3; i>=0; i-- )
@@ -2020,11 +2020,11 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	data = m_led_score>>8;
 	for( i=3; i>=0; i-- )
 	{
-//		drawgfx_transpen( bitmap, led_font,
-//			data%10,0, /* number, color */
-//			0,1, /* no flip */
-//			0,SCREEN_HEIGHT-6-i*6,
-//			NULL, TRANSPARENCY_NONE,0 );
+//      drawgfx_transpen( bitmap, led_font,
+//          data%10,0, /* number, color */
+//          0,1, /* no flip */
+//          0,SCREEN_HEIGHT-6-i*6,
+//          NULL, TRANSPARENCY_NONE,0 );
 
 		m_out_digit[i] = led_map[data%10];
 		data = data/10;
@@ -2054,11 +2054,11 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	data = m_led_speed;
 	for( i=2; i>=0; i-- )
 	{
-//		drawgfx_transpen( bitmap, led_font,
-//			data%10,0, /* number, color */
-//			0,1, /* no flip */
-//			9,SCREEN_HEIGHT-6-i*6,
-//			NULL, TRANSPARENCY_NONE,0 );
+//      drawgfx_transpen( bitmap, led_font,
+//          data%10,0, /* number, color */
+//          0,1, /* no flip */
+//          9,SCREEN_HEIGHT-6-i*6,
+//          NULL, TRANSPARENCY_NONE,0 );
 //
 		m_out_digit[80+i] = led_map[data%10];
 		data = data/10;
@@ -2081,10 +2081,10 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 	data = m_led_time>>8;
 	for( i=1; i>=0; i-- )
 	{
-//		drawgfx_opaque( bitmap, NULL, led_font,
-//			data%10,0, /* number, color */
-//			0,1, /* no flip */
-//			18,SCREEN_HEIGHT-6-i*6 );
+//      drawgfx_opaque( bitmap, NULL, led_font,
+//          data%10,0, /* number, color */
+//          0,1, /* no flip */
+//          18,SCREEN_HEIGHT-6-i*6 );
 
 		m_out_digit[i+4] = led_map[data%10];
 		data = data/10;
@@ -2095,11 +2095,11 @@ void monaco_state::draw_signal( bitmap_ind16 &bitmap )
 {
 	if( m_bSignalVisible )
 	{
-//		drawgfx_opaque(
-//			bitmap, NULL, machine().gfx[GFX_SIGNAL],
-//			0,0, /* number, color */
-//			0,0, /* no flip */
-//			32,(SCREEN_HEIGHT - 32)/2 );
+//      drawgfx_opaque(
+//          bitmap, NULL, machine().gfx[GFX_SIGNAL],
+//          0,0, /* number, color */
+//          0,0, /* no flip */
+//          32,(SCREEN_HEIGHT - 32)/2 );
 	}
 }
 

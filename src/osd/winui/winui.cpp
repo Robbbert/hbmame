@@ -89,12 +89,12 @@
 
 #ifndef ListView_CreateDragImage
 #define ListView_CreateDragImage(hwnd, i, lpptUpLeft) \
-    (HIMAGELIST)(LRESULT)(int)SendMessage((hwnd), LVM_CREATEDRAGIMAGE, (WPARAM)(int)(i), (LPARAM)(LPPOINT)(lpptUpLeft))
+	(HIMAGELIST)(LRESULT)(int)SendMessage((hwnd), LVM_CREATEDRAGIMAGE, (WPARAM)(int)(i), (LPARAM)(LPPOINT)(lpptUpLeft))
 #endif // ListView_CreateDragImage
 
 #ifndef TreeView_EditLabel
 #define TreeView_EditLabel(w, i) \
-    SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
+	SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
 #endif // TreeView_EditLabel
 
 #ifndef HDF_SORTUP
@@ -186,12 +186,12 @@ typedef struct tagLVBKIMAGEW
 
 #ifndef ListView_SetBkImage
 #define ListView_SetBkImage(hwnd, plvbki) \
-    (BOOL)SNDMSG((hwnd), LVM_SETBKIMAGE, 0, (LPARAM)(plvbki))
+	(BOOL)SNDMSG((hwnd), LVM_SETBKIMAGE, 0, (LPARAM)(plvbki))
 #endif // ListView_SetBkImage
 
 #ifndef ListView_GetBkImage
 #define ListView_GetBkImage(hwnd, plvbki) \
-    (BOOL)SNDMSG((hwnd), LVM_GETBKIMAGE, 0, (LPARAM)(plvbki))
+	(BOOL)SNDMSG((hwnd), LVM_GETBKIMAGE, 0, (LPARAM)(plvbki))
 #endif // ListView_GetBkImage
 
 #define MM_PLAY_GAME (WM_APP + 15000)
@@ -400,7 +400,7 @@ typedef struct
 typedef struct
 {
 	int         type;       /* Either RA_ID or RA_HWND, to indicate which member of u is used; or RA_END
-                               to signify last entry */
+	                           to signify last entry */
 	union                   /* Can identify a child window by control id or by handle */
 	{
 		int     id;         /* Window control id */
@@ -434,8 +434,8 @@ typedef struct tagPOPUPSTRING
 
 #define MAX_MENUS 3
 
-#define SPLITTER_WIDTH	4
-#define MIN_VIEW_WIDTH	10
+#define SPLITTER_WIDTH  4
+#define MIN_VIEW_WIDTH  10
 
 // Struct needed for Game Window Communication
 
@@ -484,8 +484,8 @@ static BOOL bShowTabCtrl   = 1;
 static BOOL bProgressShown = false;
 static BOOL bListReady     = false;
 
-#define	WM_MAME32_FILECHANGED (WM_USER + 0)
-#define	WM_MAME32_AUDITGAME   (WM_USER + 1)
+#define WM_MAME32_FILECHANGED (WM_USER + 0)
+#define WM_MAME32_AUDITGAME   (WM_USER + 1)
 
 static PDIRWATCHER s_pWatcher;
 
@@ -508,119 +508,119 @@ static char g_SearchText[256];
 static const int win_key_trans_table[][4] =
 {
 	// MAME key             dinput key          virtual key     ascii
-	{ ITEM_ID_ESC,			DIK_ESCAPE,			VK_ESCAPE,		27 },
-	{ ITEM_ID_1,			DIK_1,				'1',			'1' },
-	{ ITEM_ID_2,			DIK_2,				'2',			'2' },
-	{ ITEM_ID_3,			DIK_3,				'3',			'3' },
-	{ ITEM_ID_4,			DIK_4,				'4',			'4' },
-	{ ITEM_ID_5,			DIK_5,				'5',			'5' },
-	{ ITEM_ID_6,			DIK_6,				'6',			'6' },
-	{ ITEM_ID_7,			DIK_7,				'7',			'7' },
-	{ ITEM_ID_8,			DIK_8,				'8',			'8' },
-	{ ITEM_ID_9,			DIK_9,				'9',			'9' },
-	{ ITEM_ID_0,			DIK_0,				'0',			'0' },
-	{ ITEM_ID_BACKSPACE,	DIK_BACK,			VK_BACK,		8 },
-	{ ITEM_ID_TAB,			DIK_TAB,			VK_TAB, 		9 },
-	{ ITEM_ID_Q,			DIK_Q,				'Q',			'Q' },
-	{ ITEM_ID_W,			DIK_W,				'W',			'W' },
-	{ ITEM_ID_E,			DIK_E,				'E',			'E' },
-	{ ITEM_ID_R,			DIK_R,				'R',			'R' },
-	{ ITEM_ID_T,			DIK_T,				'T',			'T' },
-	{ ITEM_ID_Y,			DIK_Y,				'Y',			'Y' },
-	{ ITEM_ID_U,			DIK_U,				'U',			'U' },
-	{ ITEM_ID_I,			DIK_I,				'I',			'I' },
-	{ ITEM_ID_O,			DIK_O,				'O',			'O' },
-	{ ITEM_ID_P,			DIK_P,				'P',			'P' },
-	{ ITEM_ID_OPENBRACE,	DIK_LBRACKET,		VK_OEM_4,		'[' },
-	{ ITEM_ID_CLOSEBRACE,	DIK_RBRACKET,		VK_OEM_6,		']' },
-	{ ITEM_ID_ENTER,		DIK_RETURN, 		VK_RETURN,		13 },
-	{ ITEM_ID_LCONTROL, 	DIK_LCONTROL,		VK_LCONTROL,	0 },
-	{ ITEM_ID_A,			DIK_A,				'A',			'A' },
-	{ ITEM_ID_S,			DIK_S,				'S',			'S' },
-	{ ITEM_ID_D,			DIK_D,				'D',			'D' },
-	{ ITEM_ID_F,			DIK_F,				'F',			'F' },
-	{ ITEM_ID_G,			DIK_G,				'G',			'G' },
-	{ ITEM_ID_H,			DIK_H,				'H',			'H' },
-	{ ITEM_ID_J,			DIK_J,				'J',			'J' },
-	{ ITEM_ID_K,			DIK_K,				'K',			'K' },
-	{ ITEM_ID_L,			DIK_L,				'L',			'L' },
-	{ ITEM_ID_COLON,		DIK_SEMICOLON,		VK_OEM_1,		';' },
-	{ ITEM_ID_QUOTE,		DIK_APOSTROPHE,		VK_OEM_7,		'\'' },
-	{ ITEM_ID_TILDE,		DIK_GRAVE,			VK_OEM_3,		'`' },
-	{ ITEM_ID_LSHIFT,		DIK_LSHIFT, 		VK_LSHIFT,		0 },
-	{ ITEM_ID_BACKSLASH,	DIK_BACKSLASH,		VK_OEM_5,		'\\' },
-	{ ITEM_ID_Z,			DIK_Z,				'Z',			'Z' },
-	{ ITEM_ID_X,			DIK_X,				'X',			'X' },
-	{ ITEM_ID_C,			DIK_C,				'C',			'C' },
-	{ ITEM_ID_V,			DIK_V,				'V',			'V' },
-	{ ITEM_ID_B,			DIK_B,				'B',			'B' },
-	{ ITEM_ID_N,			DIK_N,				'N',			'N' },
-	{ ITEM_ID_M,			DIK_M,				'M',			'M' },
-	{ ITEM_ID_SLASH,		DIK_SLASH,			VK_OEM_2,		'/' },
-	{ ITEM_ID_RSHIFT,		DIK_RSHIFT, 		VK_RSHIFT,		0 },
-	{ ITEM_ID_ASTERISK, 	DIK_MULTIPLY,		VK_MULTIPLY,	'*' },
-	{ ITEM_ID_LALT, 		DIK_LMENU,			VK_LMENU,		0 },
-	{ ITEM_ID_SPACE,		DIK_SPACE,			VK_SPACE,		' ' },
-	{ ITEM_ID_CAPSLOCK, 	DIK_CAPITAL,		VK_CAPITAL, 	0 },
-	{ ITEM_ID_F1,			DIK_F1,				VK_F1,			0 },
-	{ ITEM_ID_F2,			DIK_F2,				VK_F2,			0 },
-	{ ITEM_ID_F3,			DIK_F3,				VK_F3,			0 },
-	{ ITEM_ID_F4,			DIK_F4,				VK_F4,			0 },
-	{ ITEM_ID_F5,			DIK_F5,				VK_F5,			0 },
-	{ ITEM_ID_F6,			DIK_F6,				VK_F6,			0 },
-	{ ITEM_ID_F7,			DIK_F7,				VK_F7,			0 },
-	{ ITEM_ID_F8,			DIK_F8,				VK_F8,			0 },
-	{ ITEM_ID_F9,			DIK_F9,				VK_F9,			0 },
-	{ ITEM_ID_F10,			DIK_F10,			VK_F10, 		0 },
-	{ ITEM_ID_NUMLOCK,		DIK_NUMLOCK,		VK_NUMLOCK, 	0 },
-	{ ITEM_ID_SCRLOCK,		DIK_SCROLL,			VK_SCROLL,		0 },
-	{ ITEM_ID_7_PAD,		DIK_NUMPAD7,		VK_NUMPAD7, 	0 },
-	{ ITEM_ID_8_PAD,		DIK_NUMPAD8,		VK_NUMPAD8, 	0 },
-	{ ITEM_ID_9_PAD,		DIK_NUMPAD9,		VK_NUMPAD9, 	0 },
-	{ ITEM_ID_MINUS_PAD,	DIK_SUBTRACT,		VK_SUBTRACT,	0 },
-	{ ITEM_ID_4_PAD,		DIK_NUMPAD4,		VK_NUMPAD4, 	0 },
-	{ ITEM_ID_5_PAD,		DIK_NUMPAD5,		VK_NUMPAD5, 	0 },
-	{ ITEM_ID_6_PAD,		DIK_NUMPAD6,		VK_NUMPAD6, 	0 },
-	{ ITEM_ID_PLUS_PAD, 	DIK_ADD,			VK_ADD, 		0 },
-	{ ITEM_ID_1_PAD,		DIK_NUMPAD1,		VK_NUMPAD1, 	0 },
-	{ ITEM_ID_2_PAD,		DIK_NUMPAD2,		VK_NUMPAD2, 	0 },
-	{ ITEM_ID_3_PAD,		DIK_NUMPAD3,		VK_NUMPAD3, 	0 },
-	{ ITEM_ID_0_PAD,		DIK_NUMPAD0,		VK_NUMPAD0, 	0 },
-	{ ITEM_ID_DEL_PAD,		DIK_DECIMAL,		VK_DECIMAL, 	0 },
-	{ ITEM_ID_F11,			DIK_F11,			VK_F11, 		0 },
-	{ ITEM_ID_F12,			DIK_F12,			VK_F12, 		0 },
-	{ ITEM_ID_F13,			DIK_F13,			VK_F13, 		0 },
-	{ ITEM_ID_F14,			DIK_F14,			VK_F14, 		0 },
-	{ ITEM_ID_F15,			DIK_F15,			VK_F15, 		0 },
-	{ ITEM_ID_ENTER_PAD,	DIK_NUMPADENTER,	VK_RETURN,		0 },
-	{ ITEM_ID_RCONTROL, 	DIK_RCONTROL,		VK_RCONTROL,	0 },
-	{ ITEM_ID_SLASH_PAD,	DIK_DIVIDE,			VK_DIVIDE,		0 },
-	{ ITEM_ID_PRTSCR,		DIK_SYSRQ,			0,				0 },
-	{ ITEM_ID_RALT, 		DIK_RMENU,			VK_RMENU,		0 },
-	{ ITEM_ID_HOME, 		DIK_HOME,			VK_HOME,		0 },
-	{ ITEM_ID_UP,			DIK_UP,				VK_UP,			0 },
-	{ ITEM_ID_PGUP, 		DIK_PRIOR,			VK_PRIOR,		0 },
-	{ ITEM_ID_LEFT, 		DIK_LEFT,			VK_LEFT,		0 },
-	{ ITEM_ID_RIGHT,		DIK_RIGHT,			VK_RIGHT,		0 },
-	{ ITEM_ID_END,			DIK_END,			VK_END, 		0 },
-	{ ITEM_ID_DOWN, 		DIK_DOWN,			VK_DOWN,		0 },
-	{ ITEM_ID_PGDN, 		DIK_NEXT,			VK_NEXT,		0 },
-	{ ITEM_ID_INSERT,		DIK_INSERT,			VK_INSERT,		0 },
-	{ ITEM_ID_DEL,			DIK_DELETE,			VK_DELETE,		0 },
-	{ ITEM_ID_LWIN, 		DIK_LWIN,			VK_LWIN,		0 },
-	{ ITEM_ID_RWIN, 		DIK_RWIN,			VK_RWIN,		0 },
-	{ ITEM_ID_MENU, 		DIK_APPS,			VK_APPS,		0 },
-	{ ITEM_ID_PAUSE,		DIK_PAUSE,			VK_PAUSE,		0 },
-	{ ITEM_ID_CANCEL,		0,					VK_CANCEL,		0 },
+	{ ITEM_ID_ESC,          DIK_ESCAPE,         VK_ESCAPE,      27 },
+	{ ITEM_ID_1,            DIK_1,              '1',            '1' },
+	{ ITEM_ID_2,            DIK_2,              '2',            '2' },
+	{ ITEM_ID_3,            DIK_3,              '3',            '3' },
+	{ ITEM_ID_4,            DIK_4,              '4',            '4' },
+	{ ITEM_ID_5,            DIK_5,              '5',            '5' },
+	{ ITEM_ID_6,            DIK_6,              '6',            '6' },
+	{ ITEM_ID_7,            DIK_7,              '7',            '7' },
+	{ ITEM_ID_8,            DIK_8,              '8',            '8' },
+	{ ITEM_ID_9,            DIK_9,              '9',            '9' },
+	{ ITEM_ID_0,            DIK_0,              '0',            '0' },
+	{ ITEM_ID_BACKSPACE,    DIK_BACK,           VK_BACK,        8 },
+	{ ITEM_ID_TAB,          DIK_TAB,            VK_TAB,         9 },
+	{ ITEM_ID_Q,            DIK_Q,              'Q',            'Q' },
+	{ ITEM_ID_W,            DIK_W,              'W',            'W' },
+	{ ITEM_ID_E,            DIK_E,              'E',            'E' },
+	{ ITEM_ID_R,            DIK_R,              'R',            'R' },
+	{ ITEM_ID_T,            DIK_T,              'T',            'T' },
+	{ ITEM_ID_Y,            DIK_Y,              'Y',            'Y' },
+	{ ITEM_ID_U,            DIK_U,              'U',            'U' },
+	{ ITEM_ID_I,            DIK_I,              'I',            'I' },
+	{ ITEM_ID_O,            DIK_O,              'O',            'O' },
+	{ ITEM_ID_P,            DIK_P,              'P',            'P' },
+	{ ITEM_ID_OPENBRACE,    DIK_LBRACKET,       VK_OEM_4,       '[' },
+	{ ITEM_ID_CLOSEBRACE,   DIK_RBRACKET,       VK_OEM_6,       ']' },
+	{ ITEM_ID_ENTER,        DIK_RETURN,         VK_RETURN,      13 },
+	{ ITEM_ID_LCONTROL,     DIK_LCONTROL,       VK_LCONTROL,    0 },
+	{ ITEM_ID_A,            DIK_A,              'A',            'A' },
+	{ ITEM_ID_S,            DIK_S,              'S',            'S' },
+	{ ITEM_ID_D,            DIK_D,              'D',            'D' },
+	{ ITEM_ID_F,            DIK_F,              'F',            'F' },
+	{ ITEM_ID_G,            DIK_G,              'G',            'G' },
+	{ ITEM_ID_H,            DIK_H,              'H',            'H' },
+	{ ITEM_ID_J,            DIK_J,              'J',            'J' },
+	{ ITEM_ID_K,            DIK_K,              'K',            'K' },
+	{ ITEM_ID_L,            DIK_L,              'L',            'L' },
+	{ ITEM_ID_COLON,        DIK_SEMICOLON,      VK_OEM_1,       ';' },
+	{ ITEM_ID_QUOTE,        DIK_APOSTROPHE,     VK_OEM_7,       '\'' },
+	{ ITEM_ID_TILDE,        DIK_GRAVE,          VK_OEM_3,       '`' },
+	{ ITEM_ID_LSHIFT,       DIK_LSHIFT,         VK_LSHIFT,      0 },
+	{ ITEM_ID_BACKSLASH,    DIK_BACKSLASH,      VK_OEM_5,       '\\' },
+	{ ITEM_ID_Z,            DIK_Z,              'Z',            'Z' },
+	{ ITEM_ID_X,            DIK_X,              'X',            'X' },
+	{ ITEM_ID_C,            DIK_C,              'C',            'C' },
+	{ ITEM_ID_V,            DIK_V,              'V',            'V' },
+	{ ITEM_ID_B,            DIK_B,              'B',            'B' },
+	{ ITEM_ID_N,            DIK_N,              'N',            'N' },
+	{ ITEM_ID_M,            DIK_M,              'M',            'M' },
+	{ ITEM_ID_SLASH,        DIK_SLASH,          VK_OEM_2,       '/' },
+	{ ITEM_ID_RSHIFT,       DIK_RSHIFT,         VK_RSHIFT,      0 },
+	{ ITEM_ID_ASTERISK,     DIK_MULTIPLY,       VK_MULTIPLY,    '*' },
+	{ ITEM_ID_LALT,         DIK_LMENU,          VK_LMENU,       0 },
+	{ ITEM_ID_SPACE,        DIK_SPACE,          VK_SPACE,       ' ' },
+	{ ITEM_ID_CAPSLOCK,     DIK_CAPITAL,        VK_CAPITAL,     0 },
+	{ ITEM_ID_F1,           DIK_F1,             VK_F1,          0 },
+	{ ITEM_ID_F2,           DIK_F2,             VK_F2,          0 },
+	{ ITEM_ID_F3,           DIK_F3,             VK_F3,          0 },
+	{ ITEM_ID_F4,           DIK_F4,             VK_F4,          0 },
+	{ ITEM_ID_F5,           DIK_F5,             VK_F5,          0 },
+	{ ITEM_ID_F6,           DIK_F6,             VK_F6,          0 },
+	{ ITEM_ID_F7,           DIK_F7,             VK_F7,          0 },
+	{ ITEM_ID_F8,           DIK_F8,             VK_F8,          0 },
+	{ ITEM_ID_F9,           DIK_F9,             VK_F9,          0 },
+	{ ITEM_ID_F10,          DIK_F10,            VK_F10,         0 },
+	{ ITEM_ID_NUMLOCK,      DIK_NUMLOCK,        VK_NUMLOCK,     0 },
+	{ ITEM_ID_SCRLOCK,      DIK_SCROLL,         VK_SCROLL,      0 },
+	{ ITEM_ID_7_PAD,        DIK_NUMPAD7,        VK_NUMPAD7,     0 },
+	{ ITEM_ID_8_PAD,        DIK_NUMPAD8,        VK_NUMPAD8,     0 },
+	{ ITEM_ID_9_PAD,        DIK_NUMPAD9,        VK_NUMPAD9,     0 },
+	{ ITEM_ID_MINUS_PAD,    DIK_SUBTRACT,       VK_SUBTRACT,    0 },
+	{ ITEM_ID_4_PAD,        DIK_NUMPAD4,        VK_NUMPAD4,     0 },
+	{ ITEM_ID_5_PAD,        DIK_NUMPAD5,        VK_NUMPAD5,     0 },
+	{ ITEM_ID_6_PAD,        DIK_NUMPAD6,        VK_NUMPAD6,     0 },
+	{ ITEM_ID_PLUS_PAD,     DIK_ADD,            VK_ADD,         0 },
+	{ ITEM_ID_1_PAD,        DIK_NUMPAD1,        VK_NUMPAD1,     0 },
+	{ ITEM_ID_2_PAD,        DIK_NUMPAD2,        VK_NUMPAD2,     0 },
+	{ ITEM_ID_3_PAD,        DIK_NUMPAD3,        VK_NUMPAD3,     0 },
+	{ ITEM_ID_0_PAD,        DIK_NUMPAD0,        VK_NUMPAD0,     0 },
+	{ ITEM_ID_DEL_PAD,      DIK_DECIMAL,        VK_DECIMAL,     0 },
+	{ ITEM_ID_F11,          DIK_F11,            VK_F11,         0 },
+	{ ITEM_ID_F12,          DIK_F12,            VK_F12,         0 },
+	{ ITEM_ID_F13,          DIK_F13,            VK_F13,         0 },
+	{ ITEM_ID_F14,          DIK_F14,            VK_F14,         0 },
+	{ ITEM_ID_F15,          DIK_F15,            VK_F15,         0 },
+	{ ITEM_ID_ENTER_PAD,    DIK_NUMPADENTER,    VK_RETURN,      0 },
+	{ ITEM_ID_RCONTROL,     DIK_RCONTROL,       VK_RCONTROL,    0 },
+	{ ITEM_ID_SLASH_PAD,    DIK_DIVIDE,         VK_DIVIDE,      0 },
+	{ ITEM_ID_PRTSCR,       DIK_SYSRQ,          0,              0 },
+	{ ITEM_ID_RALT,         DIK_RMENU,          VK_RMENU,       0 },
+	{ ITEM_ID_HOME,         DIK_HOME,           VK_HOME,        0 },
+	{ ITEM_ID_UP,           DIK_UP,             VK_UP,          0 },
+	{ ITEM_ID_PGUP,         DIK_PRIOR,          VK_PRIOR,       0 },
+	{ ITEM_ID_LEFT,         DIK_LEFT,           VK_LEFT,        0 },
+	{ ITEM_ID_RIGHT,        DIK_RIGHT,          VK_RIGHT,       0 },
+	{ ITEM_ID_END,          DIK_END,            VK_END,         0 },
+	{ ITEM_ID_DOWN,         DIK_DOWN,           VK_DOWN,        0 },
+	{ ITEM_ID_PGDN,         DIK_NEXT,           VK_NEXT,        0 },
+	{ ITEM_ID_INSERT,       DIK_INSERT,         VK_INSERT,      0 },
+	{ ITEM_ID_DEL,          DIK_DELETE,         VK_DELETE,      0 },
+	{ ITEM_ID_LWIN,         DIK_LWIN,           VK_LWIN,        0 },
+	{ ITEM_ID_RWIN,         DIK_RWIN,           VK_RWIN,        0 },
+	{ ITEM_ID_MENU,         DIK_APPS,           VK_APPS,        0 },
+	{ ITEM_ID_PAUSE,        DIK_PAUSE,          VK_PAUSE,       0 },
+	{ ITEM_ID_CANCEL,       0,                  VK_CANCEL,      0 },
 };
 
 
 
 typedef struct
 {
-	char		name[40];	    // functionality name (optional)
-	input_seq	is;				// the input sequence (the keys pressed)
-	UINT		func_id;        // the identifier
+	char        name[40];       // functionality name (optional)
+	input_seq   is;             // the input sequence (the keys pressed)
+	UINT        func_id;        // the identifier
 	input_seq* (*const getiniptr)(void);// pointer to function to get the value from .ini file
 } GUISequence;
 
@@ -820,12 +820,12 @@ extern const LPCTSTR column_names[COLUMN_MAX] =
 
 #ifndef StatusBar_GetItemRect
 #define StatusBar_GetItemRect(hWnd, iPart, lpRect) \
-    SendMessage(hWnd, SB_GETRECT, (WPARAM) iPart, (LPARAM) (LPRECT) lpRect)
+	SendMessage(hWnd, SB_GETRECT, (WPARAM) iPart, (LPARAM) (LPRECT) lpRect)
 #endif
 
 #ifndef ToolBar_CheckButton
 #define ToolBar_CheckButton(hWnd, idButton, fCheck) \
-    SendMessage(hWnd, TB_CHECKBUTTON, (WPARAM)idButton, (LPARAM)MAKELONG(fCheck, 0))
+	SendMessage(hWnd, TB_CHECKBUTTON, (WPARAM)idButton, (LPARAM)MAKELONG(fCheck, 0))
 #endif
 
 //============================================================
@@ -878,8 +878,8 @@ public:
 					hMain, buffer, MAMEUINAME, (BIT(s_action, 0) ? MB_ICONINFORMATION : MB_ICONERROR) | MB_OK);
 		}
 
-//		else
-//			chain_output(channel, msg, args);   // goes down the black hole
+//      else
+//          chain_output(channel, msg, args);   // goes down the black hole
 		// LOG all messages
 		FILE *pFile;
 		pFile = fopen("winui.log", "a");
@@ -887,19 +887,19 @@ public:
 		fflush(pFile);
 		fclose (pFile);
 /*  List of output types:
-		case OSD_OUTPUT_CHANNEL_ERROR:
-		case OSD_OUTPUT_CHANNEL_WARNING:
-			vfprintf(stderr, msg, args);     // send errors and warnings to standard error (=console)
-			break;
-		case OSD_OUTPUT_CHANNEL_INFO:
-		case OSD_OUTPUT_CHANNEL_LOG:
-			vfprintf(stdout, msg, args);     // send info and logging to standard output (=console)
-			break;
-		case OSD_OUTPUT_CHANNEL_VERBOSE:
-			if (verbose()) vfprintf(stdout, msg, args);      // send verbose (2nd half) to console if enabled (first half lost)
-			break;
-		case OSD_OUTPUT_CHANNEL_DEBUG:   // only for debug builds
-			vfprintf(stdout, msg, args);
+        case OSD_OUTPUT_CHANNEL_ERROR:
+        case OSD_OUTPUT_CHANNEL_WARNING:
+            vfprintf(stderr, msg, args);     // send errors and warnings to standard error (=console)
+            break;
+        case OSD_OUTPUT_CHANNEL_INFO:
+        case OSD_OUTPUT_CHANNEL_LOG:
+            vfprintf(stdout, msg, args);     // send info and logging to standard output (=console)
+            break;
+        case OSD_OUTPUT_CHANNEL_VERBOSE:
+            if (verbose()) vfprintf(stdout, msg, args);      // send verbose (2nd half) to console if enabled (first half lost)
+            break;
+        case OSD_OUTPUT_CHANNEL_DEBUG:   // only for debug builds
+            vfprintf(stdout, msg, args);
 */
 	}
 };
@@ -907,7 +907,7 @@ public:
 static std::wstring s2ws(const string& s)
 {
 	int slength = (int)s.length() + 1;
-	int len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0); 
+	int len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
 	wchar_t* buf = new wchar_t[len];
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	std::wstring r(buf);
@@ -1628,15 +1628,15 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 		static const struct TabViewCallbacks s_tabviewCallbacks =
 		{
-			GetShowTabCtrl,			// pfnGetShowTabCtrl
-			SetCurrentTab,			// pfnSetCurrentTab
-			GetCurrentTab,			// pfnGetCurrentTab
-			SetShowTab,				// pfnSetShowTab
-			GetShowTab,				// pfnGetShowTab
+			GetShowTabCtrl,         // pfnGetShowTabCtrl
+			SetCurrentTab,          // pfnSetCurrentTab
+			GetCurrentTab,          // pfnGetCurrentTab
+			SetShowTab,             // pfnSetShowTab
+			GetShowTab,             // pfnGetShowTab
 
-			GetImageTabShortName,	// pfnGetTabShortName
-			GetImageTabLongName,	// pfnGetTabLongName
-			UpdateScreenShot		// pfnOnSelectionChanged
+			GetImageTabShortName,   // pfnGetTabShortName
+			GetImageTabLongName,    // pfnGetTabLongName
+			UpdateScreenShot        // pfnOnSelectionChanged
 		};
 
 		memset(&opts, 0, sizeof(opts));
@@ -1676,17 +1676,17 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	main_resize_items[1].u.hwnd = hStatusBar;
 
 	/* In order to handle 'Large Fonts' as the Windows
-     * default setting, we need to make the dialogs small
-     * enough to fit in our smallest window size with
-     * large fonts, then resize the picker, tab and button
-     * controls to fill the window, no matter which font
-     * is currently set.  This will still look like bad
-     * if the user uses a bigger default font than 125%
-     * (Large Fonts) on the Windows display setting tab.
-     *
-     * NOTE: This has to do with Windows default font size
-     * settings, NOT our picker font size.
-     */
+	 * default setting, we need to make the dialogs small
+	 * enough to fit in our smallest window size with
+	 * large fonts, then resize the picker, tab and button
+	 * controls to fill the window, no matter which font
+	 * is currently set.  This will still look like bad
+	 * if the user uses a bigger default font than 125%
+	 * (Large Fonts) on the Windows display setting tab.
+	 *
+	 * NOTE: This has to do with Windows default font size
+	 * settings, NOT our picker font size.
+	 */
 
 	GetClientRect(hMain, &rect);
 
@@ -1801,10 +1801,10 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (GetHideMouseOnStartup())
 	{
 		/*  For some reason the mouse is centered when a game is exited, which of
-            course causes a WM_MOUSEMOVE event that shows the mouse. So we center
-            it now, before the startup coords are initilized, and that way the mouse
-            will still be hidden when exiting from a game (i hope) :)
-        */
+		    course causes a WM_MOUSEMOVE event that shows the mouse. So we center
+		    it now, before the startup coords are initilized, and that way the mouse
+		    will still be hidden when exiting from a game (i hope) :)
+		*/
 		SetCursorPos(GetSystemMetrics(SM_CXSCREEN)/2,GetSystemMetrics(SM_CYSCREEN)/2);
 
 		// Then hide it
@@ -2029,8 +2029,8 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			state = wndpl.showCmd;
 
 			/* Restore the window before we attempt to save parameters,
-             * This fixed the lost window on startup problem, among other problems
-             */
+			 * This fixed the lost window on startup problem, among other problems
+			 */
 			if (state == SW_MINIMIZE || state == SW_SHOWMINIMIZED || state == SW_MAXIMIZE)
 			{
 				if( wndpl.flags & WPF_RESTORETOMAXIMIZED || state == SW_MAXIMIZE)
@@ -2082,19 +2082,19 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 		break;
 
 		/*
-          Check to see if the mouse has been moved by the user since
-          startup. I'd like this checking to be done only in the
-          main WinProc (here), but somehow the WM_MOUSEDOWN messages
-          are eaten up before they reach MameWindowProc. That's why
-          there is one check for each of the subclassed windows too.
+		  Check to see if the mouse has been moved by the user since
+		  startup. I'd like this checking to be done only in the
+		  main WinProc (here), but somehow the WM_MOUSEDOWN messages
+		  are eaten up before they reach MameWindowProc. That's why
+		  there is one check for each of the subclassed windows too.
 
-          POSSIBLE BUGS:
-          I've included this check in the subclassed windows, but a
-          mose move in either the title bar, the menu, or the
-          toolbar will not generate a WM_MOUSEOVER message. At least
-          not one that I know how to pick up. A solution could maybe
-          be to subclass those too, but that's too much work :)
-        */
+		  POSSIBLE BUGS:
+		  I've included this check in the subclassed windows, but a
+		  mose move in either the title bar, the menu, or the
+		  toolbar will not generate a WM_MOUSEOVER message. At least
+		  not one that I know how to pick up. A solution could maybe
+		  be to subclass those too, but that's too much work :)
+		*/
 
 	case WM_MOUSEMOVE:
 	{
@@ -2245,7 +2245,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			}
 
 			memset(&lvfi, 0, sizeof(lvfi));
-			lvfi.flags	= LVFI_PARAM;
+			lvfi.flags  = LVFI_PARAM;
 			lvfi.lParam = nGameIndex;
 
 			i = ListView_FindItem(hwndList, -1, &lvfi);
@@ -2433,7 +2433,7 @@ static BOOL GameCheck(void)
 		changed = true;
 	}
 
-	lvfi.flags	= LVFI_PARAM;
+	lvfi.flags  = LVFI_PARAM;
 	lvfi.lParam = game_index;
 
 	i = ListView_FindItem(hwndList, -1, &lvfi);
@@ -2838,7 +2838,7 @@ static LRESULT Statusbar_MenuSelect(HWND hwnd, WPARAM wParam, LPARAM lParam)
 
 	/* Handle non-system popup menu descriptions. */
 	if (  (fuFlags & MF_POPUP)
-	&&	(!(fuFlags & MF_SYSMENU)))
+	&&  (!(fuFlags & MF_SYSMENU)))
 	{
 		for (iMenu = 1; iMenu < MAX_MENUS; iMenu++)
 		{
@@ -2869,8 +2869,8 @@ static LRESULT Statusbar_MenuSelect(HWND hwnd, WPARAM wParam, LPARAM lParam)
 static void UpdateStatusBar()
 {
 	LPTREEFOLDER lpFolder = GetCurrentFolder();
-	int 		 games_shown = 0;
-	int 		 i = -1;
+	int          games_shown = 0;
+	int          i = -1;
 
 	if (!lpFolder)
 		return;
@@ -2985,11 +2985,11 @@ static void EnableSelection(int nGame)
 		return;
 
 	_sntprintf(buf, sizeof(buf) / sizeof(buf[0]), g_szPlayGameString, t_description);
-	mmi.cbSize	   = sizeof(mmi);
-	mmi.fMask	   = MIIM_TYPE;
-	mmi.fType	   = MFT_STRING;
+	mmi.cbSize     = sizeof(mmi);
+	mmi.fMask      = MIIM_TYPE;
+	mmi.fType      = MFT_STRING;
 	mmi.dwTypeData = buf;
-	mmi.cch 	   = _tcslen(mmi.dwTypeData);
+	mmi.cch        = _tcslen(mmi.dwTypeData);
 	SetMenuItemInfo(hMenu, ID_FILE_PLAY, false, &mmi);
 
 	pText = ModifyThe(driver_list::driver(nGame).type.fullname());
@@ -3001,8 +3001,8 @@ static void EnableSelection(int nGame)
 
 	/* If doing updating game status and the game name is NOT pacman.... */
 
-	EnableMenuItem(hMenu, ID_FILE_PLAY, 		   MF_ENABLED);
-	EnableMenuItem(hMenu, ID_FILE_PLAY_RECORD,	   MF_ENABLED);
+	EnableMenuItem(hMenu, ID_FILE_PLAY,            MF_ENABLED);
+	EnableMenuItem(hMenu, ID_FILE_PLAY_RECORD,     MF_ENABLED);
 
 	if (!oldControl)
 		EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_ENABLED);
@@ -3019,13 +3019,13 @@ static void EnableSelection(int nGame)
 
 static void PaintBackgroundImage(HWND hWnd, HRGN hRgn, int x, int y)
 {
-	RECT		rcClient;
-	HRGN		rgnBitmap;
-	HPALETTE	hPAL;
-	HDC 		hDC = GetDC(hWnd);
-	int 		i, j;
-	HDC 		htempDC;
-	HBITMAP 	oldBitmap;
+	RECT        rcClient;
+	HRGN        rgnBitmap;
+	HPALETTE    hPAL;
+	HDC         hDC = GetDC(hWnd);
+	int         i, j;
+	HDC         htempDC;
+	HBITMAP     oldBitmap;
 
 	/* x and y are offsets within the background image that should be at 0,0 in hWnd */
 
@@ -3094,7 +3094,7 @@ static BOOL TreeViewNotify(LPNMHDR nm)
 	case TVN_SELCHANGED :
 	{
 		HTREEITEM hti = TreeView_GetSelection(hTreeView);
-		TVITEM	  tvi;
+		TVITEM    tvi;
 
 		tvi.mask  = TVIF_PARAM | TVIF_HANDLE;
 		tvi.hItem = hti;
@@ -3171,9 +3171,9 @@ static void GamePicker_OnHeaderContextMenu(POINT pt, int nColumn)
 char* ConvertAmpersandString(const char *s)
 {
 	/* takes a string and changes any ampersands to double ampersands,
-       for setting text of window controls that don't allow us to disable
-       the ampersand underlining.
-     */
+	   for setting text of window controls that don't allow us to disable
+	   the ampersand underlining.
+	 */
 	/* returns a static buffer--use before calling again */
 
 	static char buf[200];
@@ -3536,10 +3536,10 @@ static void SetView(int menu_id)
 
 static void ResetListView()
 {
-	int 	i;
-	int 	current_game;
+	int     i;
+	int     current_game;
 	LV_ITEM lvi;
-	BOOL	no_selection = false;
+	BOOL    no_selection = false;
 	LPTREEFOLDER lpFolder = GetCurrentFolder();
 	HRESULT res;
 	BOOL b_res;
@@ -3575,11 +3575,11 @@ static void ResetListView()
 			if (GameFiltered(i, lpFolder->m_dwFlags))
 				continue;
 
-			lvi.iItem	 = i;
+			lvi.iItem    = i;
 			lvi.iSubItem = 0;
-			lvi.lParam	 = i;
+			lvi.lParam   = i;
 			lvi.pszText  = LPSTR_TEXTCALLBACK;
-			lvi.iImage	 = I_IMAGECALLBACK;
+			lvi.iImage   = I_IMAGECALLBACK;
 			res = ListView_InsertItem(hwndList, &lvi);
 		}
 	} while (i != -1);
@@ -3588,7 +3588,7 @@ static void ResetListView()
 
 	if (bListReady)
 	{
-	    /* If last folder was empty, select the first item in this folder */
+		/* If last folder was empty, select the first item in this folder */
 		if (no_selection)
 			Picker_SetSelectedPick(hwndList, 0);
 		else
@@ -3596,8 +3596,8 @@ static void ResetListView()
 	}
 
 	/*RS Instead of the Arrange Call that was here previously on all Views
-         We now need to set the ViewMode for SmallIcon again,
-         for an explanation why, see SetView*/
+	     We now need to set the ViewMode for SmallIcon again,
+	     for an explanation why, see SetView*/
 	if (GetViewMode() == VIEW_SMALL_ICONS)
 		SetView(ID_VIEW_SMALL_ICON);
 
@@ -3713,7 +3713,7 @@ static void PickFont(void)
 	cf.lpLogFont   = &font;
 	cf.lpfnHook = &CFHookProc;
 	cf.rgbColors   = GetListFontColor();
-	cf.Flags	   = CF_SCREENFONTS | CF_INITTOLOGFONTSTRUCT | CF_EFFECTS | CF_ENABLEHOOK;
+	cf.Flags       = CF_SCREENFONTS | CF_INITTOLOGFONTSTRUCT | CF_EFFECTS | CF_ENABLEHOOK;
 	if (!ChooseFont(&cf))
 		return;
 
@@ -3940,10 +3940,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 		/*
-          Switches to fullscreen mode. No check mark handling
-          for this item cause in fullscreen mode the menu won't
-          be visible anyways.
-        */
+		  Switches to fullscreen mode. No check mark handling
+		  for this item cause in fullscreen mode the menu won't
+		  be visible anyways.
+		*/
 	case ID_VIEW_FULLSCREEN:
 		SwitchFullScreenMode();
 		break;
@@ -4119,7 +4119,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		else
 		{
 			/*it was sent after a refresh (F5) was done, we only reset the View if "available" is the selected folder
-              as it doesn't affect the others*/
+			  as it doesn't affect the others*/
 			folder = GetSelectedFolder();
 			if( folder )
 				if (folder->m_nFolderId == FOLDER_AVAILABLE )
@@ -4505,10 +4505,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				}
 				else
 				if (g_helpInfo[i].bIsHtmlHelp)
-//					HelpFunction(hMain, g_helpInfo[i].lpFile, HH_DISPLAY_TOPIC, 0);
+//                  HelpFunction(hMain, g_helpInfo[i].lpFile, HH_DISPLAY_TOPIC, 0);
 					ShellExecute(hMain, TEXT("open"), g_helpInfo[i].lpFile, TEXT(""), NULL, SW_SHOWNORMAL);
-//				else
-//					DisplayTextFile(hMain, g_helpInfo[i].lpFile);
+//              else
+//                  DisplayTextFile(hMain, g_helpInfo[i].lpFile);
 				return false;
 			}
 		}
@@ -4689,31 +4689,31 @@ static void InitListView()
 
 	static const struct PickerCallbacks s_gameListCallbacks =
 	{
-		SetSortColumn,				/* pfnSetSortColumn */
-		GetSortColumn,				/* pfnGetSortColumn */
-		SetSortReverse,				/* pfnSetSortReverse */
-		GetSortReverse,				/* pfnGetSortReverse */
-		SetViewMode,				/* pfnSetViewMode */
-		GetViewMode,				/* pfnGetViewMode */
-		SetColumnWidths,			/* pfnSetColumnWidths */
-		GetColumnWidths,			/* pfnGetColumnWidths */
-		SetColumnOrder,				/* pfnSetColumnOrder */
-		GetColumnOrder,				/* pfnGetColumnOrder */
-		SetColumnShown,				/* pfnSetColumnShown */
-		GetColumnShown,				/* pfnGetColumnShown */
-		GetOffsetClones,			/* pfnGetOffsetChildren */
+		SetSortColumn,              /* pfnSetSortColumn */
+		GetSortColumn,              /* pfnGetSortColumn */
+		SetSortReverse,             /* pfnSetSortReverse */
+		GetSortReverse,             /* pfnGetSortReverse */
+		SetViewMode,                /* pfnSetViewMode */
+		GetViewMode,                /* pfnGetViewMode */
+		SetColumnWidths,            /* pfnSetColumnWidths */
+		GetColumnWidths,            /* pfnGetColumnWidths */
+		SetColumnOrder,             /* pfnSetColumnOrder */
+		GetColumnOrder,             /* pfnGetColumnOrder */
+		SetColumnShown,             /* pfnSetColumnShown */
+		GetColumnShown,             /* pfnGetColumnShown */
+		GetOffsetClones,            /* pfnGetOffsetChildren */
 
-		GamePicker_Compare,			/* pfnCompare */
-		MamePlayGame,				/* pfnDoubleClick */
-		GamePicker_GetItemString,		/* pfnGetItemString */
-		GamePicker_GetItemImage,		/* pfnGetItemImage */
-		GamePicker_LeavingItem,			/* pfnLeavingItem */
-		GamePicker_EnteringItem,		/* pfnEnteringItem */
-		BeginListViewDrag,			/* pfnBeginListViewDrag */
-		GamePicker_FindItemParent,		/* pfnFindItemParent */
-		OnIdle,					/* pfnIdle */
-		GamePicker_OnHeaderContextMenu,		/* pfnOnHeaderContextMenu */
-		GamePicker_OnBodyContextMenu		/* pfnOnBodyContextMenu */
+		GamePicker_Compare,         /* pfnCompare */
+		MamePlayGame,               /* pfnDoubleClick */
+		GamePicker_GetItemString,       /* pfnGetItemString */
+		GamePicker_GetItemImage,        /* pfnGetItemImage */
+		GamePicker_LeavingItem,         /* pfnLeavingItem */
+		GamePicker_EnteringItem,        /* pfnEnteringItem */
+		BeginListViewDrag,          /* pfnBeginListViewDrag */
+		GamePicker_FindItemParent,      /* pfnFindItemParent */
+		OnIdle,                 /* pfnIdle */
+		GamePicker_OnHeaderContextMenu,     /* pfnOnHeaderContextMenu */
+		GamePicker_OnBodyContextMenu        /* pfnOnBodyContextMenu */
 	};
 
 	struct PickerOptions opts;
@@ -5595,10 +5595,10 @@ static void AdjustMetrics(void)
 	/* WM_SETTINGCHANGE also */
 	int xtraX  = GetSystemMetrics(SM_CXFIXEDFRAME); /* Dialog frame width */
 	int xtraY  = GetSystemMetrics(SM_CYFIXEDFRAME); /* Dialog frame height */
-	xtraY += GetSystemMetrics(SM_CYMENUSIZE);	/* Menu height */
-	xtraY += GetSystemMetrics(SM_CYCAPTION);	/* Caption Height */
-	int maxX   = GetSystemMetrics(SM_CXSCREEN); 	/* Screen Width */
-	int maxY   = GetSystemMetrics(SM_CYSCREEN); 	/* Screen Height */
+	xtraY += GetSystemMetrics(SM_CYMENUSIZE);   /* Menu height */
+	xtraY += GetSystemMetrics(SM_CYCAPTION);    /* Caption Height */
+	int maxX   = GetSystemMetrics(SM_CXSCREEN);     /* Screen Width */
+	int maxY   = GetSystemMetrics(SM_CYSCREEN);     /* Screen Height */
 
 	TEXTMETRIC tm;
 	HDC hDC = GetDC(hMain);
@@ -5696,8 +5696,8 @@ static int GetIconForDriver(int nItem)
 	// iconRoms is now either 0 (no roms), 1 (roms), or 2 (unknown)
 
 	/* these are indices into icon_names, which maps into our image list
-     * also must match IDI_WIN_NOROMS + iconRoms
-     */
+	 * also must match IDI_WIN_NOROMS + iconRoms
+	 */
 
 	if (iconRoms == 1)
 	{
@@ -5860,12 +5860,12 @@ static void UpdateMenu(HMENU hMenu)
 
 	if (lpFolder->m_dwFlags & F_CUSTOM)
 	{
-	    EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_ENABLED);
+		EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_ENABLED);
 		EnableMenuItem(hMenu,ID_CONTEXT_RENAME_CUSTOM,MF_ENABLED);
 	}
 	else
 	{
-	    EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_GRAYED);
+		EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_GRAYED);
 		EnableMenuItem(hMenu,ID_CONTEXT_RENAME_CUSTOM,MF_GRAYED);
 	}
 	//pParent = GetFolderNameByID(lpFolder->m_nParent+1);
@@ -6263,7 +6263,7 @@ static void BeginListViewDrag(NM_LISTVIEW *pnmv)
 {
 	LV_ITEM lvi;
 	lvi.iItem = pnmv->iItem;
-	lvi.mask	 = LVIF_PARAM;
+	lvi.mask     = LVIF_PARAM;
 	BOOL res = ListView_GetItem(hwndList, &lvi);
 	res++;
 
@@ -6493,7 +6493,7 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 		if (destW > rWidth || destH > rHeight)
 		{
 			if (destW > rWidth)
-				scale = (double)rWidth	/ destW;
+				scale = (double)rWidth  / destW;
 			else
 				scale = (double)rHeight / destH;
 
@@ -6524,7 +6524,7 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 			if (destW > rWidth || destH > rHeight)
 			{
 				if (destW > rWidth)
-					scale = (double)rWidth	/ destW;
+					scale = (double)rWidth  / destW;
 				else
 					scale = (double)rHeight / destH;
 

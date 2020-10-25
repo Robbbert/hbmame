@@ -9,7 +9,7 @@
 *****************************************************/
 
  /*******************
- The FairyLand Story   
+ The FairyLand Story
 **********************/
 
 ROM_START( flstoryjs01 )
@@ -18,11 +18,11 @@ ROM_START( flstoryjs01 )
 	ROM_LOAD( "cpu-a45_ps01.16",   0x4000, 0x4000, CRC(74b3f227) SHA1(f8ba5c5db92cda691febecdf62b148157adf744a) )
 	ROM_LOAD( "cpu-a45_ps01.17",   0x8000, 0x4000, CRC(1309b079) SHA1(0b82af55273aba6433a789b1d6cfbda650ab85c9) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 ) 
+	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "a45_12.8",     0x0000, 0x2000, CRC(d6f593fb) SHA1(8551ef22c2cdd9df8d7949a178883f56ea56a4a2) )
 	ROM_LOAD( "a45_13.9",     0x2000, 0x2000, CRC(451f92f9) SHA1(f4196e6d3420983b74001303936d086a48b10827) )
 
-	ROM_REGION( 0x0800, "bmcu:mcu", 0 ) 
+	ROM_REGION( 0x0800, "bmcu:mcu", 0 )
 	ROM_LOAD( "a45-20.mcu",   0x0000, 0x0800, CRC(7d2cdd9b) SHA1(b9a7b4c7d9d58b4b7cab1304beaa9d17f9559419) )
 
 	ROM_REGION( 0x20000, "gfx1", ROMREGION_INVERT )

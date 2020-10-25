@@ -19,7 +19,7 @@
 
 #undef TreeView_HitTest
 #define TreeView_HitTest(hwnd, lpht) \
-    (HTREEITEM)(LRESULT)(int)SNDMSG((hwnd), TVM_HITTEST, 0, (LPARAM)(LPTV_HITTESTINFO)(lpht))
+	(HTREEITEM)(LRESULT)(int)SNDMSG((hwnd), TVM_HITTEST, 0, (LPARAM)(LPTV_HITTESTINFO)(lpht))
 
 /* fix wrong return type */
 #undef  TreeView_Select
@@ -27,7 +27,7 @@
 
 #undef TreeView_EditLabel
 #define TreeView_EditLabel(w, i) \
-    SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
+	SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
 
 #endif /* defined(__GNUC__) */
 #include "bitmask.h"
@@ -55,10 +55,10 @@ typedef const FOLDERDATA *LPCFOLDERDATA;
 
 typedef struct
 {
-	DWORD m_dwFilterType;				/* Filter value */
-	DWORD m_dwCtrlID;					/* Control ID that represents it */
-	BOOL (*m_pfnQuery)(uint32_t nDriver);	/* Query function */
-	BOOL m_bExpectedResult;				/* Expected query result */
+	DWORD m_dwFilterType;               /* Filter value */
+	DWORD m_dwCtrlID;                   /* Control ID that represents it */
+	BOOL (*m_pfnQuery)(uint32_t nDriver);   /* Query function */
+	BOOL m_bExpectedResult;             /* Expected query result */
 } FILTER_ITEM, *LPFILTER_ITEM;
 
 typedef const FILTER_ITEM *LPCFILTER_ITEM;

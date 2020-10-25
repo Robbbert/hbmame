@@ -125,8 +125,8 @@ extern const FILTER_ITEM g_filterList[] =
 	{ F_MECHANICAL,   IDC_FILTER_MECHANICAL,  DriverIsMechanical, TRUE },
 	{ F_ARCADE,       IDC_FILTER_ARCADE,      DriverIsArcade, TRUE },
 	{ F_MESS,         IDC_FILTER_MESS,        DriverIsArcade, FALSE },
-//	{ F_MODIFIED,     IDC_FILTER_MODIFIED,    DriverIsModified, TRUE },
-//	{ F_AVAILABLE,    IDC_FILTER_AVAILABLE,   FilterAvailable, TRUE },
+//  { F_MODIFIED,     IDC_FILTER_MODIFIED,    DriverIsModified, TRUE },
+//  { F_AVAILABLE,    IDC_FILTER_AVAILABLE,   FilterAvailable, TRUE },
 	{ 0 }
 };
 #else

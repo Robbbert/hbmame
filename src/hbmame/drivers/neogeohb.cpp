@@ -16,7 +16,7 @@ prototype of another title. Corrected info is welcome.
 800-899 highly-priced limited edition homebrew carts, and are not to be emulated until after the maker
         has discontinued the item.
 
-We want the MVS or AES roms for any game marked with * after the number. 
+We want the MVS or AES roms for any game marked with * after the number.
 
 Please note: It is planned to move this list to the HBMAME website sometime this year.
 
@@ -273,7 +273,7 @@ void neogeo_state::init_fr2ch()
 	memcpy(dst, dst + 0x600, 0x140);
 
 	// Patch out neogeo intro (because of above line)
-//	mem16[0x114 /2]=0x200;
+//  mem16[0x114 /2]=0x200;
 
 
 //// Optional stuff
@@ -1036,7 +1036,7 @@ ROM_END
 
 
 // 425 : Chip n Dale intro from Raregame
-ROM_START( cndi )	/* you must use unibios to select Japan Console */
+ROM_START( cndi )   /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "425.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
 
@@ -1067,7 +1067,7 @@ ROM_START( cndi )	/* you must use unibios to select Japan Console */
 ROM_END
 
 // 425 : Chip n Dale intro from Raregame
-ROM_START( cndia )	/* you must use unibios to select Japan Console */
+ROM_START( cndia )  /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "425.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
 
@@ -1099,7 +1099,7 @@ ROM_END
 
 
 // 426 : Darkwing Duck intro from Raregame
-ROM_START( dwi )	/* you must use unibios to select Japan Console */
+ROM_START( dwi )    /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "426.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
 
@@ -1130,7 +1130,7 @@ ROM_START( dwi )	/* you must use unibios to select Japan Console */
 ROM_END
 
 // 426 : Darkwing Duck intro from Raregame
-ROM_START( dwia )	/* you must use unibios to select Japan Console */
+ROM_START( dwia )   /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "426.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
 
@@ -1161,7 +1161,7 @@ ROM_START( dwia )	/* you must use unibios to select Japan Console */
 ROM_END
 
 // 427 : Ghostbusters intro from Raregame
-ROM_START( gbi )	/* you must use unibios to select Japan Console */
+ROM_START( gbi )    /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "427.p1", 0x000000, 0x100000, CRC(af69ef5f) SHA1(e218d1c99e491afcf1887ef9f5bed3e7a5e53fe4) )
 	ROM_LOAD16_WORD_SWAP( "427.p2", 0x100000, 0x400000, CRC(f57e393f) SHA1(4e4ac08db6cc28bcc47808854b1ceb407a486fe5) )
@@ -1192,7 +1192,7 @@ ROM_END
 
 
 // 428 : Robocop intro from Raregame
-ROM_START( rci )	/* you must use unibios to select Japan Console */
+ROM_START( rci )    /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "428.p1", 0x000000, 0x800000, CRC(adcb4fe0) SHA1(596242e344d1e171eed7ef242c10aec1a0090acf) )
 
@@ -1224,7 +1224,7 @@ ROM_END
 
 
 // 429 : Spiderman intro from Raregame
-ROM_START( smi )	/* you must use unibios to select Japan Console */
+ROM_START( smi )    /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "429.p1", 0x000000, 0x100000, CRC(66b5cfe8) SHA1(65754292a085fce07a04fbe8b91a62c42a9695b1) )
 	ROM_LOAD16_WORD_SWAP( "429.p2", 0x100000, 0x400000, CRC(72082aea) SHA1(a56a8d9196c7d6cc5d66204623cce964e1feda05) )
@@ -1317,7 +1317,7 @@ ROM_END
 
 
 // 431 : Duck Tales intro from Raregame
-ROM_START( dti )	/* you must use unibios to select Japan Console */
+ROM_START( dti )    /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "431.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
 
@@ -1348,7 +1348,7 @@ ROM_START( dti )	/* you must use unibios to select Japan Console */
 ROM_END
 
 // 431 : Duck Tales intro from Raregame
-ROM_START( dtia )	/* you must use unibios to select Japan Console */
+ROM_START( dtia )   /* you must use unibios to select Japan Console */
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "431.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
 
