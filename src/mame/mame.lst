@@ -11819,6 +11819,7 @@ lah_l104                        //
 lah_l108                        //
 lw3_200                         //
 lw3_203                         //
+lw3_204                         // (c) 1992 Data East
 lw3_205                         //
 lw3_207                         //
 lw3_207c                        //
@@ -16994,7 +16995,7 @@ wcbowl16                        // (c) 1995 Incredible Technologies
 wcbowl161                       // (c) 1995 Incredible Technologies
 wcbowl165                       // (c) 1995 Incredible Technologies
 wcbowldx                        // (c) 1999 Incredible Technologies
-shoottv							// (c) 199? Incredible Technologies
+shoottv                         // (c) 199? Incredible Technologies
 
 @source:itech8.cpp
 arlingtn                        // (c) 1991 Strata/Incredible Technologies
