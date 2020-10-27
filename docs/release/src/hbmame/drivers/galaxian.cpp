@@ -379,11 +379,11 @@ ROM_END
 
 
 /* E78 - The dump was missing one rom (position "fake" below), I found that the equivalent code from fantazia
-		works perfectly well. The rom still fails the checksum test, which is why the test is patched. So
-		take note: It is a FAKE rom!!!
+        works perfectly well. The rom still fails the checksum test, which is why the test is patched. So
+        take note: It is a FAKE rom!!!
 
-		The colour prom supplied produced terrible colours, with most enemies barely visible. Substituting
-		the normal mooncrst prom fixes all the problems. */
+        The colour prom supplied produced terrible colours, with most enemies barely visible. Substituting
+        the normal mooncrst prom fixes all the problems. */
 
 ROM_START( mooncrs5f )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -403,7 +403,7 @@ ROM_START( mooncrs5f )
 	ROM_CONTINUE(            0x1000, 0x0800 )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-//	ROM_LOAD( "6l.bpr",      0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+//  ROM_LOAD( "6l.bpr",      0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 	ROM_LOAD( "mmi6331.6l",  0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
 ROM_END
 

@@ -25,7 +25,7 @@
  *      - Software comes first, followed by Game then Source.
 ***************************************************************************/
 // license:BSD-3-Clause
-// copyright-holders:Chris Kirmse, Mike Haaland, René Single, Mamesick, Robbbert
+// copyright-holders:Chris Kirmse, Mike Haaland, Renï¿½ Single, Mamesick, Robbbert
 
 #include <windows.h>
 #include <fstream>
@@ -147,9 +147,9 @@ static bool create_index(std::ifstream &fp, int filenum)
 		position += (file_line.size() + 2);
 	}
 	// check contents
-//	if (filenum == 0)
-//	for (auto const &it : mymap[filenum])
-//		printf("%s = %X\n", it.first.c_str(), int(it.second));
+//  if (filenum == 0)
+//  for (auto const &it : mymap[filenum])
+//      printf("%s = %X\n", it.first.c_str(), int(it.second));
 	return true;
 }
 

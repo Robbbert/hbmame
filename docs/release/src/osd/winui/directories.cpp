@@ -660,8 +660,8 @@ static BOOL Directories_OnNotify(HWND hDlg, int id, NMHDR* pNMHDR)
 static int CALLBACK BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
 	/*
-        Called just after the dialog is initialized
-        Select the dir passed in BROWSEINFO.lParam
+	    Called just after the dialog is initialized
+	    Select the dir passed in BROWSEINFO.lParam
 	*/
 	if (uMsg == BFFM_INITIALIZED)
 	{

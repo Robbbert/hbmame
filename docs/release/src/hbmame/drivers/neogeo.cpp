@@ -1289,25 +1289,25 @@ INPUT_PORTS_END
 // Fixed
 const gfx_layout charlayout =
 {
-	8,8,			/* 8 x 8 chars */
+	8,8,            /* 8 x 8 chars */
 	RGN_FRAC(1,1),
-	4,				/* 4 bits per pixel */
+	4,              /* 4 bits per pixel */
 	{ 0, 1, 2, 3 },    /* planes are packed in a nibble */
 	{ 33*4, 32*4, 49*4, 48*4, 1*4, 0*4, 17*4, 16*4 },
 	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8 },
-	32*8	/* 32 bytes per char */
+	32*8    /* 32 bytes per char */
 };
 
 // Sprites
 const gfx_layout tilelayout =
 {
-	16,16,	 /* 16*16 sprites */
+	16,16,   /* 16*16 sprites */
 	RGN_FRAC(1,1),
 	4,
 	{ GFX_RAW },
-	{ 0 },		/* org displacement */
-	{ 8*8 },	/* line modulo */
-	128*8		/* char modulo */
+	{ 0 },      /* org displacement */
+	{ 8*8 },    /* line modulo */
+	128*8       /* char modulo */
 };
 
 GFXDECODE_START( gfx_neogeo )

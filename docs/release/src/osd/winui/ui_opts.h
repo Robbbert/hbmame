@@ -293,7 +293,7 @@ public:
 			m_list[option_entries[i].name] = option_entries[i].value;
 		//printf("*** START DUMP OF DEFAULT ***\n");
 		//for (auto const &it : m_list)
-		//	printf("%s = %s\n", it.first.c_str(), it.second.c_str());
+		//  printf("%s = %s\n", it.first.c_str(), it.second.c_str());
 		//printf("*** END DUMP OF DEFAULT ***\n");
 	}
 
@@ -340,8 +340,8 @@ public:
 	// cannot be "setter" otherwise most strings use it, causing "1" to be saved.
 	//void bool_setter(const char* name, bool value)
 	//{
-	//	m_list[name] = value ? "1" : "0";
-	//	save_file(m_filename);
+	//  m_list[name] = value ? "1" : "0";
+	//  save_file(m_filename);
 	//}
 
 	void setter(const char* name, int value)

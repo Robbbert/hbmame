@@ -51,7 +51,7 @@ ROM_START( cclimbrm )
 ROM_END
 
 /* E376 and E449 are basically the same bootleg of "ckonga". One gfx rom in E376 is changed, and we use it here.
-	Changes: One less life than normal, and gfx corruptions on the stage with the incinerator in the middle. */
+    Changes: One less life than normal, and gfx corruptions on the stage with the incinerator in the middle. */
 ROM_START( ckonga2 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "ckonga2.07",   0x0000, 0x1000, CRC(1c21386f) SHA1(ce1a0c469dd09d81485cede6c8fbaf6299a9decf) )
@@ -82,7 +82,7 @@ ROM_START( ckonga2 )
 ROM_END
 
 /* E448 and E589 are basically the same bootleg of "ckonga". One prom in E448 is changed, and we use it here.
-	Changes: Two less lives than normal. */
+    Changes: Two less lives than normal. */
 ROM_START( ckonga3 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "ckonga4.07",   0x0000, 0x1000, CRC(9b5e7592) SHA1(c2b44765eef7d6a8f9f1fb8a7cefd011ebf2a330) )
@@ -156,7 +156,7 @@ ROM_START( tongypac )
 	ROM_LOAD( "tpac5.bin",    0x1000, 0x1000, CRC(2bbc69e7) SHA1(5741aa6944e9b936289368d533c2b19d34320260) )
 	ROM_LOAD( "tpac4.bin",    0x2000, 0x1000, CRC(8d5890b6) SHA1(92d48d75084df2e2a3fa9d92a3c6c059f0781d81) )
 	ROM_LOAD( "tpac3.bin",    0x3000, 0x1000, CRC(6b16145b) SHA1(ef17fad07b81c9dae5c6e16a86afc4a8f6a7ff8c) )
-	
+
 	ROM_REGION( 0x1000, "gfx2", 0 )
 	ROM_LOAD( "falcon2",      0x0000, 0x0800, CRC(f67c80f1) SHA1(d1fbcce1b6242f810e106ff50812636e3168ebc1) )
 	ROM_LOAD( "falcon1",      0x0800, 0x0800, CRC(80eb517d) SHA1(fef4111f656c58b28e7eac5aa5b5cc7e07ccb2fd) )
@@ -166,9 +166,9 @@ ROM_START( tongypac )
 	ROM_LOAD( "ck6u.bin",     0x0020, 0x0020, CRC(ab1940fa) SHA1(8d98e05cbaa6f55770c12e0a9a8ed9c73cc54423) )
 	ROM_LOAD( "ck6t.bin",     0x0040, 0x0020, CRC(b4e827a5) SHA1(31a5a5ad54417a474d22bb16c473415d99a2b6f1) )
 	// These colours are better but far from perfect
-//	ROM_LOAD( "prom.v6",      0x0000, 0x0020, CRC(b3fc1505) SHA1(5b94adde0428a26b815c7eb9b3f3716470d349c7) )
-//	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
-//	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
+//  ROM_LOAD( "prom.v6",      0x0000, 0x0020, CRC(b3fc1505) SHA1(5b94adde0428a26b815c7eb9b3f3716470d349c7) )
+//  ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
+//  ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
 	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )

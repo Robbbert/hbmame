@@ -10,6 +10,8 @@ ROM_START( gnw_bride )
 	ROM_LOAD( "gnw_bride.svg", 0x00000, 0x2faa7, CRC(186e4806) SHA1(b29928d0dcc167e24c278c4930bc9d5a09649d53) )
 ROM_END
 
+CONS( 2018, gnw_bride,   0, 0, gnw_dkjr,    gnw_dkjr,    gnw_dkjr_state,    empty_init, "Montrose", "Game & Watch: Bride", MACHINE_SUPPORTS_SAVE )
+
 
 ROM_START( gnw_squeeze )
 	ROM_REGION( 0x1000, "maincpu", 0 )
@@ -22,9 +24,7 @@ ROM_START( gnw_squeeze )
 	ROM_LOAD( "gnw_squeeze_bottom.svg", 0x0000, 0x27f8, CRC(32bdfedd) SHA1(5cd423e1481165460a7a1b59ed2d8abb2587d3df) )
 ROM_END
 
-
-CONS( 2018, gnw_bride,   0, 0, gnw_dkjr,    gnw_dkjr,    gnw_dkjr_state,    empty_init, "Montrose", "Game & Watch: Bride", MACHINE_SUPPORTS_SAVE )
-CONS( 2018, gnw_squeeze, 0, 0, gnw_mickdon, gnw_mickdon, gnw_mickdon_state, empty_init, "Montrose", "Game & Watch: Squeeze", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+CONS( 2018, gnw_squeeze, 0, 0, gnw_mickdon, gnw_mickdon, gnw_mickdon_state, empty_init, "Montrose", "Game & Watch: Squeeze", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 
 //  http://montrose.is/games/
 

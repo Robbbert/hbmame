@@ -1126,99 +1126,99 @@ static const struct CPS1config cps1_config_table[]=
 	{"kenseim",     CPS_B_21_DEF, mapper_KNM10B },  // wrong, need to convert equations from PAL
 
 // HBMAME
-	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },							// nw
-	{"kodd",        CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },			// nw
-	{"kodud",       CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },			// nw
+	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },                           // nw
+	{"kodd",        CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },            // nw
+	{"kodud",       CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },            // nw
 #if 0
-	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },							//works
-	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },		//works
-	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },			// no sprites here, ok in fcrash.cpp
-	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },			//works
-	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },			//works
-	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"cps1testa",   CPS_B_21_DEF, mapper_RCM63B },							//works
-	{"daimakb",     HACK_H_5,     mapper_DM22A },							//works
-	{"dino08h2",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dino08h3",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dino08hp",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinob",       CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },			//works
-	{"dinobt",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinobtpp",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinocgba",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinocgbb",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinocgbc",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoeh",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoex",      CPS_B_21_DEF, mapper_CD63B },							//works
-	{"dinoh",       CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
-	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
-	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },			//works
-	{"dinohp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinohx",      CPS_B_21_DEF, mapper_CD63B, 0x36 },						//works
-	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinorp",      CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },							//works
-	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },							//works
-	{"ffightb",     CPS_B_01,     mapper_S224B },							//works
-	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			// a rom is unobtainable
-	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 }, 		//works
-	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works (intro screen is crap)
-	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"knightud",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },			//works
-	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },			//works
-	{"kodsp",       CPS_B_21_BT2, mapper_KD29B, 0x36, 0, 0x34 },			//works
-	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },							//works
-	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },			//works
-	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherje1", CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherjh1", CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherjha", CPS_B_21_QS3, mapper_PS63B },							//works
-	{"punisherud1", CPS_B_21_DEF, mapper_PS63B },							//works
-	{"punisherud2", CPS_B_21_DEF, mapper_PS63B },							//works
-	{"sf2bhj",      CPS_B_12,     mapper_STF29,  0x36 },					//works
-	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },					//works
-	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2cehk",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2cehp",     CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2cejem",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2h13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2sl73a",    CPS_B_21_DEF, mapper_S9263B, 0x36 },					//works
-	{"sf2th",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tha",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2tlonc",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2yyc3d5",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2yyc3g",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"sf2yyc6",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },		//works
-	{"slammastud",  CPS_B_21_DEF, mapper_MB63B },							//works
-	{"stridergf",   CPS_B_01,     mapper_ST24M1 },							//works
-	{"stridergh",   CPS_B_01,     mapper_ST24M1 },							//works
-	{"tk2h5",       CPS_B_21_QS1, mapper_TK263B },							// problem with chinese language roms
-	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },			//works
-	{"wofb",        CPS_B_21_DEF, mapper_TK263B },							//works
-	{"wofes",       CPS_B_21_DEF, mapper_TK263B },							//works
-	{"woffr",       CPS_B_21_DEF, mapper_sfzch },							//works
-	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },							//works
-	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },					//works
-	{"wofud",       CPS_B_21_DEF, mapper_TK263B },							//works
+	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },                           //works
+	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },          // no sprites here, ok in fcrash.cpp
+	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },            //works
+	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },            //works
+	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"cps1testa",   CPS_B_21_DEF, mapper_RCM63B },                          //works
+	{"daimakb",     HACK_H_5,     mapper_DM22A },                           //works
+	{"dino08h2",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dino08h3",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dino08hp",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinob",       CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },            //works
+	{"dinobt",      CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinobtpp",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinocgba",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinocgbb",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinocgbc",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinoeh",      CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinoex",      CPS_B_21_DEF, mapper_CD63B },                           //works
+	{"dinoh",       CPS_B_21_DEF, mapper_CD63B, 0x36 },                     //works
+	{"dinoha",      CPS_B_21_DEF, mapper_CD63B, 0x36 },                     //works
+	{"dinohb",      CPS_B_21_QS2, mapper_CD63B, 0, 0, 0, 0x0F },            //works
+	{"dinohp",      CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinohx",      CPS_B_21_DEF, mapper_CD63B, 0x36 },                     //works
+	{"dinojp",      CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinorp",      CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinoslice",   CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinouphp",    CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },                           //works
+	{"ffightb",     CPS_B_01,     mapper_S224B },                           //works
+	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },            //works
+	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },          // a rom is unobtainable
+	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 },      //works
+	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },            //works (intro screen is crap)
+	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },            //works
+	{"knightsjb",   CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },            //works
+	{"knightsro",   CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },            //works
+	{"knightud",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },            //works
+	{"kodh",        CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },            //works
+	{"kodsp",       CPS_B_21_BT2, mapper_KD29B, 0x36, 0, 0x34 },            //works
+	{"pnicku",      CPS_B_21_DEF, mapper_PKB10B },                          //works
+	{"punisherb",   CPS_B_21_QS3, mapper_PS63B, 0, 0, 0, 0x0E },            //works
+	{"punisherf",   CPS_B_21_QS3, mapper_PS63B },                           //works
+	{"punisherje1", CPS_B_21_QS3, mapper_PS63B },                           //works
+	{"punisherjh",  CPS_B_21_QS3, mapper_PS63B },                           //works
+	{"punisherjh1", CPS_B_21_QS3, mapper_PS63B },                           //works
+	{"punisherjha", CPS_B_21_QS3, mapper_PS63B },                           //works
+	{"punisherud1", CPS_B_21_DEF, mapper_PS63B },                           //works
+	{"punisherud2", CPS_B_21_DEF, mapper_PS63B },                           //works
+	{"sf2bhj",      CPS_B_12,     mapper_STF29,  0x36 },                    //works
+	{"sf2c",        CPS_B_13,     mapper_STF29,  0x36 },                    //works
+	{"sf2cebr",     CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2ced",      CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2ceda",     CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2ceh",      CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2cehk",     CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2cehp",     CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2cejem",    CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2koryuh",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2h9",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2h10",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2h11",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2h12",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2h13",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2pun",      CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2sl73a",    CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
+	{"sf2th",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2tha",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2tlona",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2tlonb",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2tlonc",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2turyu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2yyc3d5",   CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2yyc3g",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"sf2yyc6",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },        //works
+	{"slammastud",  CPS_B_21_DEF, mapper_MB63B },                           //works
+	{"stridergf",   CPS_B_01,     mapper_ST24M1 },                          //works
+	{"stridergh",   CPS_B_01,     mapper_ST24M1 },                          //works
+	{"tk2h5",       CPS_B_21_QS1, mapper_TK263B },                          // problem with chinese language roms
+	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },            //works
+	{"wofb",        CPS_B_21_DEF, mapper_TK263B },                          //works
+	{"wofes",       CPS_B_21_DEF, mapper_TK263B },                          //works
+	{"woffr",       CPS_B_21_DEF, mapper_sfzch },                           //works
+	{"wofr1h",      CPS_B_21_DEF, mapper_TK263B },                          //works
+	{"wofsf2",      CPS_B_21_QS1, mapper_TK263B, 0x36 },                    //works
+	{"wofud",       CPS_B_21_DEF, mapper_TK263B },                          //works
 #endif
 	// HBMAME end
 	{nullptr}     /* End of table */
@@ -1370,7 +1370,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 			m_bank_type[i] = 0;
 		const struct gfx_range *range = m_game_config->bank_mapper;
 		u8 tu = 0;
-		while ((range->type) && (tu < 32)) 
+		while ((range->type) && (tu < 32))
 		{
 			m_bank_type[tu++] = range->type;
 			m_bank_type[tu++] = range->start;

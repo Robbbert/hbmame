@@ -5,8 +5,8 @@
 /* 2020-03-29: Modified sega16sp to not freeze when sprite ram is written to.
 
    To run this program without sprites, you need to do this:
-	ROM_FILL(0x686, 1, 0x4e)
-	ROM_FILL(0x687, 1, 0x71)
+    ROM_FILL(0x686, 1, 0x4e)
+    ROM_FILL(0x687, 1, 0x71)
 
   Note that this demo doesn't have any sound programmed in.
 

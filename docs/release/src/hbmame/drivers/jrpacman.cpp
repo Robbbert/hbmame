@@ -220,10 +220,10 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
 	PORT_DIPSETTING(    0x04, "Enabled Always" )
 
-//	PORT_START ("CONFIG")
-//	PORT_CONFNAME( 0x01, 0x01, "Level" )
-//	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-//	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
+//  PORT_START ("CONFIG")
+//  PORT_CONFNAME( 0x01, 0x01, "Level" )
+//  PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
+//  PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
@@ -313,7 +313,7 @@ void jrpacman_state::jrpacman(machine_config &config)
 
 	NAMCO(config, m_namco_sound, 3072000/32);
 	m_namco_sound->set_voices(3);
-	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
 

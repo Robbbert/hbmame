@@ -66,17 +66,17 @@ static bool bFirst = true;
 
 enum
 {
-	DRIVER_CACHE_SCREEN		= 0x000F,
-	DRIVER_CACHE_ROMS		= 0x0010,
-	DRIVER_CACHE_CLONE		= 0x0020,
-	DRIVER_CACHE_STEREO		= 0x0040,
-	DRIVER_CACHE_BIOS		= 0x0080,
-	DRIVER_CACHE_TRACKBALL	= 0x0100,
-	DRIVER_CACHE_HARDDISK	= 0x0200,
-	DRIVER_CACHE_SAMPLES	= 0x0400,
-	DRIVER_CACHE_LIGHTGUN	= 0x0800,
-	DRIVER_CACHE_VECTOR		= 0x1000,
-	DRIVER_CACHE_MOUSE		= 0x2000,
+	DRIVER_CACHE_SCREEN     = 0x000F,
+	DRIVER_CACHE_ROMS       = 0x0010,
+	DRIVER_CACHE_CLONE      = 0x0020,
+	DRIVER_CACHE_STEREO     = 0x0040,
+	DRIVER_CACHE_BIOS       = 0x0080,
+	DRIVER_CACHE_TRACKBALL  = 0x0100,
+	DRIVER_CACHE_HARDDISK   = 0x0200,
+	DRIVER_CACHE_SAMPLES    = 0x0400,
+	DRIVER_CACHE_LIGHTGUN   = 0x0800,
+	DRIVER_CACHE_VECTOR     = 0x1000,
+	DRIVER_CACHE_MOUSE      = 0x2000,
 	DRIVER_CACHE_RAM        = 0x4000,
 };
 
@@ -259,9 +259,9 @@ LONG GetCommonControlVersion()
 				pDllGetVersion = (DLLGETVERSIONPROC)GetProcAddress(hModule, "DllGetVersion");
 
 				/* Because some DLLs might not implement this function, you
-                   must test for it explicitly. Depending on the particular
-                   DLL, the lack of a DllGetVersion function can be a useful
-                   indicator of the version. */
+				   must test for it explicitly. Depending on the particular
+				   DLL, the lack of a DllGetVersion function can be a useful
+				   indicator of the version. */
 
 				if(pDllGetVersion)
 				{

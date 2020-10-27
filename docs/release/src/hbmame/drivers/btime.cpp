@@ -10,7 +10,7 @@ ROM_START( bnjr )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "bnj6c.bin",   0xe000, 0x1000, CRC(8c02f662) SHA1(1279d564e65fd3ccac25b1f9fbb40d910de2b544) )
-	
+
 	ROM_REGION( 0x6000, "gfx1", 0 )
 	ROM_LOAD( "bnjr4e.bin",  0x0000, 0x2000, CRC(876cc672) SHA1(860cfc92752f312ce167fdfb7752fb5e7d7d8817) )
 	ROM_LOAD( "bnjr4f.bin",  0x2000, 0x2000, CRC(e5e95e3f) SHA1(c16e03e29229fa7dcc9ed01b43b645fbcc79cc97) )
@@ -38,7 +38,7 @@ ROM_START( pnc )
 	ROM_LOAD( "pnc-s7-13m",   0x3000, 0x1000, CRC(8911a546) SHA1(e78ff510af33789e6a25227afa269008c049b553) )
 	ROM_LOAD( "pnc-s8-15l",   0x4000, 0x1000, CRC(1c8f5112) SHA1(01601dc443e1db13f9fb9b32cc5180d5d19b4c10) )
 	ROM_LOAD( "pnc-s9-15m",   0x5000, 0x1000, CRC(b919e43b) SHA1(1bb22f48a7914afc8b4eb8d90b9c6a4d93ae2b24) )
-	
+
 	ROM_REGION( 0x0040, "proms", 0 )
 	ROM_LOAD( "sc-5m",        0x0000, 0x0020, CRC(2a976ebe) SHA1(f3c1b0d98f431f9cd0d5fa009fafa1115aabe6e5) )
 	ROM_LOAD( "sb-4c",        0x0020, 0x0020, CRC(a29b4204) SHA1(7f15cae5c4aaa29638fb45029782dafd2b3d1484) )
@@ -89,7 +89,7 @@ ROM_START( vecbtime )
 	ROM_LOAD( "vec_ab11.12k",     0x3000, 0x1000, CRC(a98fea41) SHA1(1ddbb8b26bca2b8c6ab4d9b1bfd8b21db2b2d97b) )
 	ROM_LOAD( "vec_ab8.13k",      0x4000, 0x1000, CRC(0ca7828f) SHA1(eb7db2607b10e8276a97a20030bdbeeeb7b6935b) )
 	ROM_LOAD( "vec_ab9.15k",      0x5000, 0x1000, CRC(1e460ff7) SHA1(6ac3ec08e3c79490262324fd4a93a6eb1188554b) )
-	
+
 	ROM_REGION( 0x1800, "gfx2", 0 )
 	ROM_LOAD( "vec_ab00.1b",      0x0000, 0x0800, CRC(03dbe9b6) SHA1(4844d490a767d15ed5230868cbd25dadf70cf1e3) )
 	ROM_LOAD( "vec_ab01.3b",      0x0800, 0x0800, CRC(698089da) SHA1(6b6e61536d1247a8784a4657cdc50e48b002335d) )

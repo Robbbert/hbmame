@@ -7,7 +7,7 @@
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
- 
+
  /***************************
  Mahjong The Dai Chuuka Ken
 ******************************/
@@ -30,11 +30,11 @@ ROM_END
 ******************************/
 
 ROM_START( mjmysters01 ) //mjmysterc
-	ROM_REGION( 0x90000 + 0x1000*8, "maincpu", 0 ) 
+	ROM_REGION( 0x90000 + 0x1000*8, "maincpu", 0 )
 	ROM_LOAD( "77t2_ps01.c3", 0x00000, 0x40000, CRC(fd78e257) SHA1(74ebae00a3de7c52cd861cb983d2f5a99afe5d06) )
 	ROM_RELOAD(          0x10000, 0x40000 )
 
-	ROM_REGION( 0x1a0000, "blitter", ROMREGION_ERASE00 )  
+	ROM_REGION( 0x1a0000, "blitter", ROMREGION_ERASE00 )
 	ROM_LOAD( "77t6.b12", 0x000000, 0x080000, CRC(a287589a) SHA1(58659dd7e019d1d32efeaec548c84a7ded637c50) )
 	ROM_LOAD( "77t5.b11", 0x080000, 0x080000, CRC(a3475059) SHA1(ec86dcea3314b65d391a970680c021899c16449e) )
 	ROM_LOAD( "77t4.b10", 0x100000, 0x080000, CRC(f45c24d6) SHA1(0eca68f2ca5722717f27ac0839359966daa2715b) )
@@ -49,7 +49,7 @@ ROM_END
 ************************/
 
 ROM_START( mjreach1s01 ) //mjreach1c
-	ROM_REGION( 0x90000+16*0x1000, "maincpu", 0 ) 
+	ROM_REGION( 0x90000+16*0x1000, "maincpu", 0 )
 	ROM_LOAD( "s01.5b",   0x00000, 0x80000, CRC(f264cd14) SHA1(7c58eb04e021cee8b37b083e4b88faf9764fe8d2) )
 	ROM_RELOAD(               0x10000, 0x80000 )
 

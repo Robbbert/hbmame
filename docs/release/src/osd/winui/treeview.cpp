@@ -71,23 +71,23 @@ typedef struct
 
 static TREEICON treeIconNames[] =
 {
-	{ IDI_FOLDER_OPEN,		"foldopen" },
-	{ IDI_FOLDER,			"folder" },
-	{ IDI_FOLDER_AVAILABLE,		"foldavail" },
-	{ IDI_FOLDER_MANUFACTURER,	"foldmanu" },
-	{ IDI_FOLDER_UNAVAILABLE,	"foldunav" },
-	{ IDI_FOLDER_YEAR,		"foldyear" },
-	{ IDI_FOLDER_SOURCE,		"foldsrc" },
-	{ IDI_FOLDER_HORIZONTAL,	"horz" },
-	{ IDI_FOLDER_VERTICAL,		"vert" },
-	{ IDI_MANUFACTURER,		"manufact" },
-	{ IDI_WORKING,			"working" },
-	{ IDI_NONWORKING,		"nonwork" },
-	{ IDI_YEAR,			"year" },
-	{ IDI_SOUND,			"sound" },
-	{ IDI_CPU,			"cpu" },
-	{ IDI_HARDDISK,			"harddisk" },
-	{ IDI_SOURCE,			"source" }
+	{ IDI_FOLDER_OPEN,      "foldopen" },
+	{ IDI_FOLDER,           "folder" },
+	{ IDI_FOLDER_AVAILABLE,     "foldavail" },
+	{ IDI_FOLDER_MANUFACTURER,  "foldmanu" },
+	{ IDI_FOLDER_UNAVAILABLE,   "foldunav" },
+	{ IDI_FOLDER_YEAR,      "foldyear" },
+	{ IDI_FOLDER_SOURCE,        "foldsrc" },
+	{ IDI_FOLDER_HORIZONTAL,    "horz" },
+	{ IDI_FOLDER_VERTICAL,      "vert" },
+	{ IDI_MANUFACTURER,     "manufact" },
+	{ IDI_WORKING,          "working" },
+	{ IDI_NONWORKING,       "nonwork" },
+	{ IDI_YEAR,         "year" },
+	{ IDI_SOUND,            "sound" },
+	{ IDI_CPU,          "cpu" },
+	{ IDI_HARDDISK,         "harddisk" },
+	{ IDI_SOURCE,           "source" }
 };
 
 /***************************************************************************
@@ -96,13 +96,13 @@ static TREEICON treeIconNames[] =
 
 /* this has an entry for every folder eventually in the UI, including subfolders */
 static TREEFOLDER **treeFolders = 0;
-static UINT numFolders  = 0;		/* Number of folder in the folder array */
+static UINT numFolders  = 0;        /* Number of folder in the folder array */
 static UINT next_folder_id = MAX_FOLDERS;
 static UINT folderArrayLength = 0;  /* Size of the folder array */
-static LPTREEFOLDER lpCurrentFolder = nullptr;	/* Currently selected folder */
-static UINT nCurrentFolder = 0;	/* Current folder ID */
-static WNDPROC g_lpTreeWndProc = 0;	/* for subclassing the TreeView */
-static HIMAGELIST hTreeSmall = 0;		/* TreeView Image list of icons */
+static LPTREEFOLDER lpCurrentFolder = nullptr;  /* Currently selected folder */
+static UINT nCurrentFolder = 0; /* Current folder ID */
+static WNDPROC g_lpTreeWndProc = 0; /* for subclassing the TreeView */
+static HIMAGELIST hTreeSmall = 0;       /* TreeView Image list of icons */
 
 /* this only has an entry for each TOP LEVEL extra folder + SubFolders*/
 LPEXFOLDERDATA ExtraFolderData[MAX_EXTRA_FOLDERS * MAX_EXTRA_SUBFOLDERS];
@@ -349,8 +349,8 @@ BOOL GameFiltered(int nGame, DWORD dwMask)
 	//Filter out the Bioses on all Folders, except for the Bios Folder
 	if (lpFolder != nullptr && lpFolder->m_nFolderId != FOLDER_BIOS)
 	{
-//	if( !( (driver_list::driver(nGame).flags & MACHINE_IS_BIOS_ROOT ) == 0) )
-//		return TRUE;
+//  if( !( (driver_list::driver(nGame).flags & MACHINE_IS_BIOS_ROOT ) == 0) )
+//      return TRUE;
 		if( driver_list::driver(nGame).name[0] == '_' )
 			return TRUE;
 	}
@@ -437,7 +437,7 @@ LPCFILTER_ITEM GetFilterList(void)
 }
 
 /***************************************************************************
-	private functions
+    private functions
  ***************************************************************************/
 
 void CreateSourceFolders(int parent_index)
@@ -1329,7 +1329,7 @@ void ResetTreeViewFolders(void)
 	HWND hTreeView = GetTreeView();
 	int i;
 	TVITEM tvi;
-	TVINSERTSTRUCT	tvs;
+	TVINSERTSTRUCT  tvs;
 	BOOL res;
 
 	HTREEITEM shti; // for current child branches
@@ -1661,8 +1661,8 @@ BOOL InitFolders(void)
 // create iconlist and Treeview control
 static BOOL CreateTreeIcons()
 {
-	HICON	hIcon;
-	INT 	i;
+	HICON   hIcon;
+	INT     i;
 	HINSTANCE hInst = GetModuleHandle(0);
 
 	int numIcons = ICON_MAX + numExtraIcons;
@@ -2020,9 +2020,9 @@ static int InitExtraFolders(void)
 
 						strncpy(ExtraFolderData[count]->m_szTitle, buf, 63);
 						ExtraFolderData[count]->m_nFolderId   = next_folder_id++;
-						ExtraFolderData[count]->m_nParent	= -1;
-						ExtraFolderData[count]->m_dwFlags	= F_CUSTOM;
-						ExtraFolderData[count]->m_nIconId	= icon[0] ? -icon[0] : IDI_FOLDER;
+						ExtraFolderData[count]->m_nParent   = -1;
+						ExtraFolderData[count]->m_dwFlags   = F_CUSTOM;
+						ExtraFolderData[count]->m_nIconId   = icon[0] ? -icon[0] : IDI_FOLDER;
 						ExtraFolderData[count]->m_nSubIconId  = icon[1] ? -icon[1] : IDI_FOLDER;
 						//dprintf("extra folder with icon %i, subicon %i\n",
 						//ExtraFolderData[count]->m_nIconId,
@@ -2375,7 +2375,7 @@ BOOL TrySaveExtraFolder(LPTREEFOLDER lpFolder)
 	}
 
 	/* need to loop over all our TREEFOLDERs--first the root one, then each child.
-		start with the root */
+	    start with the root */
 
 	folder_data = root_folder;
 

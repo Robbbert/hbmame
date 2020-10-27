@@ -43,29 +43,29 @@
 
 static struct ComboBoxHistoryTab
 {
-	const wchar_t*	m_pText;
-	const int		m_pData;
-} g_ComboBoxHistoryTab[] = 
+	const wchar_t*  m_pText;
+	const int       m_pData;
+} g_ComboBoxHistoryTab[] =
 {
-	{ TEXT("Artwork"),			TAB_ARTWORK },
-	{ TEXT("Boss"),				TAB_BOSSES },
-	{ TEXT("Cabinet"),			TAB_CABINET },
-	{ TEXT("Control Panel"),	TAB_CONTROL_PANEL },
-	{ TEXT("Cover"),			TAB_COVER },
-	{ TEXT("End"),				TAB_ENDS },
-	{ TEXT("Flyer"),			TAB_FLYER },
-	{ TEXT("Game Over"),		TAB_GAMEOVER },
-	{ TEXT("How To"),			TAB_HOWTO },
-	{ TEXT("Logo"),				TAB_LOGO },
-	{ TEXT("Marquee"),			TAB_MARQUEE },
-	{ TEXT("PCB"),				TAB_PCB },
-	{ TEXT("Scores"),			TAB_SCORES },
-	{ TEXT("Select"),			TAB_SELECT },
-	{ TEXT("Snapshot"),			TAB_SCREENSHOT },
-	{ TEXT("Title"),			TAB_TITLE },
-	{ TEXT("Versus"),			TAB_VERSUS },
-	{ TEXT("All"),				TAB_ALL },
-	{ TEXT("None"),				TAB_NONE }
+	{ TEXT("Artwork"),          TAB_ARTWORK },
+	{ TEXT("Boss"),             TAB_BOSSES },
+	{ TEXT("Cabinet"),          TAB_CABINET },
+	{ TEXT("Control Panel"),    TAB_CONTROL_PANEL },
+	{ TEXT("Cover"),            TAB_COVER },
+	{ TEXT("End"),              TAB_ENDS },
+	{ TEXT("Flyer"),            TAB_FLYER },
+	{ TEXT("Game Over"),        TAB_GAMEOVER },
+	{ TEXT("How To"),           TAB_HOWTO },
+	{ TEXT("Logo"),             TAB_LOGO },
+	{ TEXT("Marquee"),          TAB_MARQUEE },
+	{ TEXT("PCB"),              TAB_PCB },
+	{ TEXT("Scores"),           TAB_SCORES },
+	{ TEXT("Select"),           TAB_SELECT },
+	{ TEXT("Snapshot"),         TAB_SCREENSHOT },
+	{ TEXT("Title"),            TAB_TITLE },
+	{ TEXT("Versus"),           TAB_VERSUS },
+	{ TEXT("All"),              TAB_ALL },
+	{ TEXT("None"),             TAB_NONE }
 };
 
 
@@ -419,7 +419,7 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 				if( lpParent )
 				{
 					/* Check the Parent Filters and inherit them on child,
-                     * No need to promote all games to parent folder, works as is */
+					 * No need to promote all games to parent folder, works as is */
 					dwpFilters = lpParent->m_dwFlags & F_MASK;
 					/*Check all possible Filters if inherited solely from parent, e.g. not being set explicitly on our folder*/
 					if( (dwpFilters & F_CLONES) && !(dwFilters & F_CLONES) )

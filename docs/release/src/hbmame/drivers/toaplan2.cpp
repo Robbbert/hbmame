@@ -68,14 +68,14 @@ ROM_END
 ROM_START( mahoudcn )
 	ROM_REGION( 0x080000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "ra_ma_01_01.u65", 0x000000, 0x080000, CRC(970ccc5c) SHA1(c87cab83bde0284e631f02e50068407fee81d941) )
-	
+
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "ra-ma-01_02.u66", 0x00000, 0x10000, CRC(eabfa46d) SHA1(402c99ebf88f9025f74f0a28ced22b7882a65eb3) )
 
 	ROM_REGION( 0x200000, "gp9001_0", 0 )
 	ROM_LOAD( "ra_ma_01_cn.03",  0x000000, 0x100000, CRC(7441e469) SHA1(ba1b127b6878ec45054c7220510a1ec0a8c06a0a) )
 	ROM_LOAD( "ra_ma_01_cn.04",  0x100000, 0x100000, CRC(eb9f8159) SHA1(db8e10b847b0fbb34136c1a320ca0a160ac2646e) )
-	
+
 	ROM_REGION( 0x008000, "text", 0 )
 	ROM_LOAD( "ra_ma_01_05.u81",  0x000000, 0x008000, CRC(c00d1e80) SHA1(53e64c4c0c6309130b37597d13b44a9e95b717d8) )
 
@@ -179,11 +179,11 @@ ROM_END
 **************/
 
 ROM_START( pipibibss01 )
-	ROM_REGION( 0x040000, "maincpu", 0 )         
+	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "tp025-1_ps01.bin", 0x000000, 0x020000, CRC(38da1e2f) SHA1(890c5cc8e45ad709f48167c47dac0543da448175) )
 	ROM_LOAD16_BYTE( "tp025-2_ps01.bin", 0x000001, 0x020000, CRC(7f6f32b3) SHA1(39b4ff18c266b6c9c86760379740618a0a479242) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )       
+	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "tp025-5.bin", 0x0000, 0x8000, CRC(bf8ffde5) SHA1(79c09cc9a0ea979f5af5a7e5ad671ea486f5f43e) )
 
 	ROM_REGION( 0x200000, "gp9001_0", 0 )
@@ -192,11 +192,11 @@ ROM_START( pipibibss01 )
 ROM_END
 
 ROM_START( pipibibss02 )
-	ROM_REGION( 0x040000, "maincpu", 0 )         
+	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "tp025-1_ps02.bin", 0x000000, 0x020000, CRC(28cec0bf) SHA1(f08a33249df902c76bbe717dbb8c25e9be2497eb) )
 	ROM_LOAD16_BYTE( "tp025-2_ps02.bin", 0x000001, 0x020000, CRC(f3df3f3f) SHA1(96245fab49f23af4957e163509afdae7f51d11e7) )
 
-	ROM_REGION( 0x10000, "audiocpu", 0 )       
+	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "tp025-5.bin", 0x0000, 0x8000, CRC(bf8ffde5) SHA1(79c09cc9a0ea979f5af5a7e5ad671ea486f5f43e) )
 
 	ROM_REGION( 0x200000, "gp9001_0", 0 )
@@ -205,7 +205,7 @@ ROM_START( pipibibss02 )
 ROM_END
 
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
-// Mahou Daisakusen 
+// Mahou Daisakusen
 GAME( 1993, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state, empty_init, ROT270, "liujunusa", "Mahou Daisakusen (Translation-Chinese V1a)", MACHINE_SUPPORTS_SAVE )
 // Shippu Mahou Daisakusen
 GAME( 1994, shippumds01,  kingdmgp,        shippumd, shippumd, toaplan2_state, empty_init, ROT270, "NeilCorlett", "Shippu Mahou Daisakusen (Translation English)", MACHINE_SUPPORTS_SAVE )

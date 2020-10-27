@@ -68,7 +68,7 @@ ROM_START( mrpac )
 	ROM_REGION( 0x2000, "gfx2", 0 ) // from mrdo
 	ROM_LOAD( "r8-08.bin",    0x0000, 0x1000, CRC(dbdc9ffa) SHA1(93f29fc106283eecbba3fd69cf3c4658aa38ab9f) )
 	ROM_LOAD( "n8-07.bin",    0x1000, 0x1000, CRC(4b9973db) SHA1(8766c51a345a5e63446e65614c6f665ab5fbe0d7) )
-	
+
 	ROM_REGION( 0x2000, "gfx3", 0 )
 	ROM_LOAD( "mrpac-h5-05",  0x0000, 0x1000, CRC(de213e01) SHA1(61f3d3081dded0cc753640632127e52e4ddf0a75) )
 	ROM_LOAD( "mrpac-k5-06",  0x1000, 0x1000, CRC(c2e376a4) SHA1(d7e5fbdcd2b66ec56524e37eee18f91af96443dd) )
@@ -94,7 +94,7 @@ ROM_START( mrpacb ) // same as mrpac except for gfx1 roms
 	ROM_REGION( 0x2000, "gfx2", 0 )
 	ROM_LOAD( "r8-08.bin",    0x0000, 0x1000, CRC(dbdc9ffa) SHA1(93f29fc106283eecbba3fd69cf3c4658aa38ab9f) )
 	ROM_LOAD( "n8-07.bin",    0x1000, 0x1000, CRC(4b9973db) SHA1(8766c51a345a5e63446e65614c6f665ab5fbe0d7) )
-	
+
 	ROM_REGION( 0x2000, "gfx3", 0 )
 	ROM_LOAD( "mrpac-h5-05",  0x0000, 0x1000, CRC(de213e01) SHA1(61f3d3081dded0cc753640632127e52e4ddf0a75) )
 	ROM_LOAD( "mrpac-k5-06",  0x1000, 0x1000, CRC(c2e376a4) SHA1(d7e5fbdcd2b66ec56524e37eee18f91af96443dd) )

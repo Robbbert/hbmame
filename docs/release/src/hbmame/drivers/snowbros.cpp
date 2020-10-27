@@ -8,7 +8,7 @@
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
- 
+
  /*********
  Snow Bros
 ************/
@@ -30,7 +30,7 @@ ROM_START( snowbross02 )
 	ROM_LOAD16_BYTE( "sn6hc02.bin",  0x00000, 0x20000, CRC(f756cd9d) SHA1(99a43d9233501c1c28cf74829138527bf990a3d7) )
 	ROM_LOAD16_BYTE( "sn5hc02.bin",  0x00001, 0x20000, CRC(cdaa04ed) SHA1(d2bde893aa82b84783712c3156aa7f23322f76bf) )
 
-	ROM_REGION( 0x10000, "soundcpu", 0 ) 
+	ROM_REGION( 0x10000, "soundcpu", 0 )
 	ROM_LOAD( "sbros-4.29",   0x0000, 0x8000, CRC(e6eab4e4) SHA1(d08187d03b21192e188784cb840a37a7bdb5ad32) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
@@ -42,7 +42,7 @@ ROM_START( snowbross03 ) //snowbrosa
 	ROM_LOAD16_BYTE( "sn6hc03.bin",  0x00000, 0x20000, CRC(090800df) SHA1(02cdb6a07a9043ef26f4abb6769928be8324db85) )
 	ROM_LOAD16_BYTE( "sn5hc03.bin",  0x00001, 0x20000, CRC(b7ebd161) SHA1(66cb4baf3eb341dddb9381b6b4e1873f5678a916) )
 
-	ROM_REGION( 0x10000, "soundcpu", 0 ) 
+	ROM_REGION( 0x10000, "soundcpu", 0 )
 	ROM_LOAD( "sbros-4.29",   0x0000, 0x8000, CRC(e6eab4e4) SHA1(d08187d03b21192e188784cb840a37a7bdb5ad32) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )
@@ -54,7 +54,7 @@ ROM_START( snowbross04 ) //snowbrosb
 	ROM_LOAD16_BYTE( "sn6hc04.bin",  0x00000, 0x20000, CRC(9a0f2016) SHA1(6486e197a3d3e260a736f56cec3fe02be9747353) )
 	ROM_LOAD16_BYTE( "sn5hc04.bin",  0x00001, 0x20000, CRC(0f83e900) SHA1(bc39f53a95240ef04c4c45ac7cafc8e04f5d8912) )
 
-	ROM_REGION( 0x10000, "soundcpu", 0 ) 
+	ROM_REGION( 0x10000, "soundcpu", 0 )
 	ROM_LOAD( "sbros-4.29",   0x0000, 0x8000, CRC(e6eab4e4) SHA1(d08187d03b21192e188784cb840a37a7bdb5ad32) )
 
 	ROM_REGION( 0x80000, "gfx1", 0 )

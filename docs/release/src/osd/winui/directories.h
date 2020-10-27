@@ -56,7 +56,7 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "HLSL",                  GetHLSLDir,         SetHLSLDir,         false, 0 },
 	{ "How To",                GetHowToDir,        SetHowToDir,        true, 0 },
 	{ "Icons",                 GetIconsDir,        SetIconsDir,        false, 0 },
-//	{ "Ini Files",             GetIniDir,          SetIniDir,          false, DIRDLG_INI },  // 2017-02-03 hardcoded to 'ini' now
+//  { "Ini Files",             GetIniDir,          SetIniDir,          false, DIRDLG_INI },  // 2017-02-03 hardcoded to 'ini' now
 	{ "Input files",           GetInpDir,          SetInpDir,          true, DIRDLG_INP },
 	{ "Language",              GetLangDir,         SetLangDir,         false, 0 },
 	{ "Logos",                 GetLogoDir,         SetLogoDir,         true, 0 },

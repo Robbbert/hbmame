@@ -13,7 +13,7 @@ ROM_START( crackhea )
 
 	ROM_REGION( 0x1000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "crackh3b.32",  0x0000, 0x1000, CRC(912ffa7e) SHA1(e2fc4992ef7214e62acdcda6605a1e27b2739cbf) )
-	
+
 	ROM_REGION( 0x4000, "gfx2", 0 )
 	ROM_LOAD( "crackh3m.64",  0x0000, 0x2000, CRC(a263d078) SHA1(344fae10fab0f9646f5a2b39cac09faa9745ec9b) )
 	ROM_LOAD( "crackh3n.64",  0x2000, 0x2000, CRC(3758ceb2) SHA1(152ba5a14514c0c160886d5c9a1296dea7a298aa) )

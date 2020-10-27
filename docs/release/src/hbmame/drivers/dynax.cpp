@@ -7,7 +7,7 @@
  /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
- 
+
  /**********************
  Mahjong Electron Base
 *************************/
@@ -20,7 +20,7 @@ ROM_START( mjelct3s01 ) //mjelct3h
 	ROM_CONTINUE(        0x20000, 0x08000 )
 	ROM_CONTINUE(        0x18000, 0x08000 )
 
-	ROM_REGION( 0x200000, "blitter", 0 ) 
+	ROM_REGION( 0x200000, "blitter", 0 )
 	ROM_LOAD( "eb-01.rom", 0x000000, 0x100000, CRC(e5c41448) SHA1(b8322e32b0cb3d771316c9c4f7be91de6e422a24) )
 	ROM_LOAD( "eb-02.rom", 0x100000, 0x080000, CRC(e1f1b431) SHA1(04a612aff4c30cb8ea741f228bfa7e4289acfee8) )
 ROM_END
