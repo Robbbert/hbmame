@@ -1347,6 +1347,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"tasc",
 		"tatung",
 		"teamconc",
+		"tectoy",
 		"tektroni",
 		"telenova",
 		"telercas",
@@ -2762,6 +2763,7 @@ createMESSProjects(_target, _subtarget, "leapfrog")
 files {
 	MAME_DIR .. "src/mame/drivers/leapster.cpp",
 	MAME_DIR .. "src/mame/drivers/leapfrog_leappad.cpp",
+	MAME_DIR .. "src/mame/drivers/leapfrog_iquest.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "lsi")
@@ -3478,6 +3480,8 @@ files {
 	MAME_DIR .. "src/mame/includes/megadriv.h",
 	MAME_DIR .. "src/mame/drivers/megadriv_rad.cpp",
 	MAME_DIR .. "src/mame/includes/megadriv_rad.h",
+	MAME_DIR .. "src/mame/drivers/megadriv_vt_hybrid.cpp",
+	MAME_DIR .. "src/mame/drivers/megadriv_sunplus_hybrid.cpp",
 	MAME_DIR .. "src/mame/drivers/segapico.cpp",
 	MAME_DIR .. "src/mame/drivers/sega_sawatte.cpp",
 	MAME_DIR .. "src/mame/drivers/sega_beena.cpp",
@@ -3780,6 +3784,11 @@ files {
 	MAME_DIR .. "src/mame/drivers/comquest.cpp",
 	MAME_DIR .. "src/mame/includes/comquest.h",
 	MAME_DIR .. "src/mame/video/comquest.cpp",
+}
+
+createMESSProjects(_target, _subtarget, "tectoy")
+files {
+	MAME_DIR .. "src/mame/drivers/pensebem.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "tektroni")
