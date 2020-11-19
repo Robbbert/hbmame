@@ -3,11 +3,12 @@
 //****************************************************************************
 
 #pragma once
-
-#ifndef HISTORY_H
-#define HISTORY_H
+ 
+#ifndef WINUI_HISTORY_H
+#define WINUI_HISTORY_H
 
 char * GetGameHistory(int driver_index);  // Arcade-only builds (HBMAME, ARCADE)
 char * GetGameHistory(int driver_index, std::string software); // Builds with software support (MESSUI, MAMEUI)
 
 #endif
+

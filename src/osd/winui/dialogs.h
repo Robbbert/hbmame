@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
 
-#ifndef DIALOGS_H
-#define DIALOGS_H
+#ifndef WINUI_DIALOGS_H
+#define WINUI_DIALOGS_H
 
 const char * GetFilterText(void);
 

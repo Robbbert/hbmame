@@ -25,7 +25,7 @@
  *      - Software comes first, followed by Game then Source.
 ***************************************************************************/
 // license:BSD-3-Clause
-// copyright-holders:Chris Kirmse, Mike Haaland, Ren� Single, Mamesick, Robbbert
+// copyright-holders:Chris Kirmse, Mike Haaland, René Single, Mamesick, Robbbert
 
 #include <windows.h>
 #include <fstream>
@@ -37,6 +37,7 @@
 #include "drivenum.h"
 #include "mui_util.h"
 #include "mui_opts.h"
+#include "emu_opts.h"
 #include "sound/samples.h"
 
 #define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
@@ -147,9 +148,9 @@ static bool create_index(std::ifstream &fp, int filenum)
 		position += (file_line.size() + 2);
 	}
 	// check contents
-//  if (filenum == 0)
-//  for (auto const &it : mymap[filenum])
-//      printf("%s = %X\n", it.first.c_str(), int(it.second));
+//	if (filenum == 0)
+//	for (auto const &it : mymap[filenum])
+//		printf("%s = %X\n", it.first.c_str(), int(it.second));
 	return true;
 }
 
@@ -595,7 +596,7 @@ char * GetGameHistory(int driver_index, std::string software)
 	if (validate_datfiles())
 	{
 		// Get the path to dat files
-		std::string t = GetDatsDir();
+		std::string t = dir_get_value(23);
 		char buf[t.size()+1];
 		strcpy(buf, t.c_str());
 		// only want first path
@@ -638,7 +639,7 @@ char * GetGameHistory(int driver_index)
 
 	if (validate_datfiles())
 	{
-		std::string t = GetDatsDir();
+		std::string t = dir_get_value(23);
 		char buf[t.size()+1];
 		strcpy(buf, t.c_str());
 		// only want first path

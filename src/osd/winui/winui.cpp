@@ -34,9 +34,6 @@
 #include <time.h>
 #include <tchar.h>
 
-/* Uncomment to add Direct Draw support (has to be added back to the core too) */
-//#define UI_DIRECTDRAW
-
 // MAME/MAMEUI headers
 #include "emu.h"
 #include "mame.h"
@@ -68,9 +65,6 @@
 #include "help.h"
 #include "history.h"
 #include "dialogs.h"
-#ifdef UI_DIRECTDRAW
-#include "directdraw.h"
-#endif
 #include "directinput.h"
 #include "dijoystick.h"     /* For DIJoystick availability. */
 
@@ -679,7 +673,6 @@ static HWND hStatusBar = 0;
 static HWND s_hToolBar   = 0;
 
 /* Column Order as Displayed */
-static BOOL oldControl = false;
 static BOOL xpControl = false;
 
 /* Used to recalculate the main window layout */
@@ -844,11 +837,11 @@ public:
 		const char* buffer = s.c_str();
 		if (channel == OSD_OUTPUT_CHANNEL_VERBOSE)
 		{
-			FILE *pFile;
-			pFile = fopen("verbose.log", "a");
-			fputs(buffer, pFile);
-			fflush(pFile);
-			fclose (pFile);
+//			FILE *pFile;
+//			pFile = fopen("verbose.log", "a");
+//			fputs(buffer, pFile);
+//			fflush(pFile);
+//			fclose (pFile);
 			return;
 		}
 
@@ -1068,15 +1061,12 @@ void GetRealColumnOrder(int order[])
 	int nColumnMax = Picker_GetNumColumns(hwndList);
 
 	/* Get the Column Order and save it */
-	if (!oldControl)
-	{
-		int tmpOrder[COLUMN_MAX];
-		BOOL res = ListView_GetColumnOrderArray(hwndList, nColumnMax, tmpOrder);
-		res++;
+	int tmpOrder[COLUMN_MAX];
+	BOOL res = ListView_GetColumnOrderArray(hwndList, nColumnMax, tmpOrder);
+	res++;
 
-		for (int i = 0; i < nColumnMax; i++)
-			order[i] = Picker_GetRealColumnFromViewColumn(hwndList, tmpOrder[i]);
-	}
+	for (int i = 0; i < nColumnMax; i++)
+		order[i] = Picker_GetRealColumnFromViewColumn(hwndList, tmpOrder[i]);
 }
 
 /*
@@ -1167,7 +1157,7 @@ HICON LoadIconFromFile(const char *iconname)
 	PBYTE bufferPtr = 0;
 	util::archive_file::ptr zip;
 
-	const string t = GetIconsDir();
+	const string t = dir_get_value(40);
 	sprintf(tmpStr, "%s/%s.ico", t.c_str(), iconname);
 	if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
 	{
@@ -1490,11 +1480,6 @@ MYBITMAPINFO *GetBackgroundInfo(void)
 	return &bmDesc;
 }
 
-BOOL GetUseOldControl(void)
-{
-	return oldControl;
-}
-
 BOOL GetUseXPControl(void)
 {
 	return xpControl;
@@ -1562,9 +1547,8 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	LONG common_control_version = GetCommonControlVersion();
 	int validity_failed = 0;
 	LONG_PTR l;
-
-	if (!OptionsInit())
-		return false;
+	OptionsInit();
+	emu_opts_init(0);
 
 	// create the memory pool
 	mameui_pool = pool_alloc_lib(memory_error);
@@ -1579,7 +1563,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	wndclass.cbClsExtra    = 0;
 	wndclass.cbWndExtra    = DLGWINDOWEXTRA;
 	wndclass.hInstance     = hInstance;
-	wndclass.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAMEUI_ICON));
+	wndclass.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAMEUI));
 	wndclass.hCursor       = NULL;
 	wndclass.hbrBackground = (HBRUSH)(COLOR_3DFACE + 1);
 	wndclass.lpszMenuName  = MAKEINTRESOURCE(IDR_UI_MENU);
@@ -1592,12 +1576,11 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	// Are we using an Old comctl32.dll?
 	dprintf("common controlversion %ld %ld\n",common_control_version >> 16, common_control_version & 0xffff);
 
-	oldControl = (common_control_version < PACKVERSION(4,71));
 	xpControl = (common_control_version >= PACKVERSION(6,0));
-	if (oldControl)
+	if (common_control_version < PACKVERSION(4,71))
 	{
 		char buf[] = MAMEUINAME " has detected an old version of comctl32.dll.\n\n"
-					"Various features are not available without an updated DLL.\n\n";
+					"Unable to proceed.\n\n";
 
 		win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Error", MB_OK | MB_ICONWARNING);
 		return false;
@@ -1605,7 +1588,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 	HelpInit();
 
-	hMain = NULL;
 	hMain = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), 0, NULL);
 	if (hMain == NULL)
 	{
@@ -1616,8 +1598,8 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	s_pWatcher = DirWatcher_Init(hMain, WM_MAME32_FILECHANGED);
 	if (s_pWatcher)
 	{
-		DirWatcher_Watch(s_pWatcher, 0, GetRomDirs(), true);
-		DirWatcher_Watch(s_pWatcher, 1, GetSampleDirs(), true);
+		DirWatcher_Watch(s_pWatcher, 0, dir_get_value(2), true);  // roms
+		DirWatcher_Watch(s_pWatcher, 1, dir_get_value(4), true);  // samples
 	}
 
 	SetMainTitle();
@@ -1731,22 +1713,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_STATUS, (bShowStatusBar) ? MF_CHECKED : MF_UNCHECKED);
 	ShowWindow(hStatusBar, (bShowStatusBar) ? SW_SHOW : SW_HIDE);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_PAGETAB, (bShowTabCtrl) ? MF_CHECKED : MF_UNCHECKED);
-
-	if (oldControl)
-	{
-		EnableMenuItem(GetMenu(hMain), ID_CUSTOMIZE_FIELDS, MF_GRAYED);
-		EnableMenuItem(GetMenu(hMain), ID_GAME_PROPERTIES, MF_GRAYED);
-		EnableMenuItem(GetMenu(hMain), ID_OPTIONS_DEFAULTS, MF_GRAYED);
-	}
-
-#ifdef UI_DIRECTDRAW
-	/* Init DirectDraw */
-	if (!DirectDraw_Initialize())
-	{
-		DialogBox(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_DIRECTX), NULL, DirectXDialogProc);
-		return false;
-	}
-#endif
 
 	LoadBackgroundBitmap();
 
@@ -1909,14 +1875,11 @@ static void Win32UI_exit()
 	DestroyAcceleratorTable(hAccel);
 
 	DirectInputClose();
-#ifdef UI_DIRECTDRAW
-	DirectDraw_Close();
-#endif
 
 	SetSavedFolderID(GetCurrentFolderID());
 	SaveGameListOptions();
-	//SaveDefaultOptions();
-	SaveOptions();
+	mui_save_ini();
+	ui_save_ini();
 
 	FreeFolders();
 
@@ -3004,8 +2967,7 @@ static void EnableSelection(int nGame)
 	EnableMenuItem(hMenu, ID_FILE_PLAY,            MF_ENABLED);
 	EnableMenuItem(hMenu, ID_FILE_PLAY_RECORD,     MF_ENABLED);
 
-	if (!oldControl)
-		EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_ENABLED);
+	EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_ENABLED);
 
 	if (bProgressShown && bListReady == true)
 		SetDefaultGame(nGame);
@@ -3984,7 +3946,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_GAME_AUDIT:
 		InitGameAudit(0);
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 			InitPropertyPageToPage(hInst, hwnd, GetSelectedPickItemIcon(), OPTIONS_GAME, -1, current_game, AUDIT_PAGE);
 
 		/* Just in case the toggle MMX on/off */
@@ -4106,8 +4068,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_CUSTOMIZE_FIELDS:
-		if (DialogBox(GetModuleHandle(NULL),
-			MAKEINTRESOURCE(IDD_COLUMNS), hMain, ColumnDialogProc) == true)
+		if (DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_COLUMNS), hMain, ColumnDialogProc) == true)
 			ResetColumnDisplay(false);
 		SetFocus(hwndList);
 		return true;
@@ -4128,33 +4089,30 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_GAME_PROPERTIES:
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 			InitPropertyPageToPage(hInst, hwnd, GetSelectedPickItemIcon(), OPTIONS_GAME, -1, current_game, PROPERTIES_PAGE);
 
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
 		break;
 
-	// NOT WORKING
 	case ID_FOLDER_PROPERTIES:
-		if (!oldControl && (current_game >= 0))
 		{
-			OPTIONS_TYPE curOptType = OPTIONS_SOURCE;
 			folder = GetSelectedFolder();
 			if (folder)
-			{
-				if(folder->m_nFolderId == FOLDER_VECTOR)
-					curOptType = OPTIONS_VECTOR;
-
-				InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), curOptType, folder->m_nFolderId, current_game);
-			}
+				if (folder->m_dwFlags & F_INIEDIT)
+				{
+					LPCFOLDERDATA data = FindFilter(folder->m_nFolderId);
+					if (data)
+						if (data->m_opttype < OPTIONS_MAX)
+							InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), data->m_opttype, folder->m_nFolderId, -1);
+				}
 		}
-		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
 		break;
 
 	case ID_FOLDER_SOURCEPROPERTIES:
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 		{
 			//InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), (folder->m_nFolderId == FOLDER_VECTOR) ? OPTIONS_VECTOR : OPTIONS_SOURCE , -1, current_game);
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), OPTIONS_SOURCE, -1, current_game);
@@ -4164,7 +4122,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_FOLDER_VECTORPROPERTIES:
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 		{
 			folder = GetFolderByID( FOLDER_VECTOR );
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), OPTIONS_VECTOR, folder->m_nFolderId, current_game);
@@ -4201,22 +4159,17 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_OPTIONS_DEFAULTS:
 		/* Check the return value to see if changes were applied */
-		if (!oldControl)
-		{
-			InitDefaultPropertyPage(hInst, hwnd);
-		}
+		InitDefaultPropertyPage(hInst, hwnd);
 		SetFocus(hwndList);
 		return true;
 
 	case ID_OPTIONS_DIR:
 		{
-			int nResult = DialogBox(GetModuleHandle(NULL),
-					MAKEINTRESOURCE(IDD_DIRECTORIES),
-					hMain,
-					DirectoriesDialogProc);
+			int nResult = DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIRECTORIES), hMain, DirectoriesDialogProc);
 
-			SaveDefaultOptions();
-			SaveOptions();
+			global_save_ini();
+			mui_save_ini();
+			ui_save_ini();
 
 			BOOL bUpdateRoms    = ((nResult & DIRDLG_ROMS) == DIRDLG_ROMS) ? true : false;
 			BOOL bUpdateSamples = ((nResult & DIRDLG_SAMPLES) == DIRDLG_SAMPLES) ? true : false;
@@ -4224,9 +4177,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			if (s_pWatcher)
 			{
 				if (bUpdateRoms)
-					DirWatcher_Watch(s_pWatcher, 0, GetRomDirs(), true);
+					DirWatcher_Watch(s_pWatcher, 0, dir_get_value(2), true);
 				if (bUpdateSamples)
-					DirWatcher_Watch(s_pWatcher, 1, GetSampleDirs(), true);
+					DirWatcher_Watch(s_pWatcher, 1, dir_get_value(4), true);
 			}
 
 			/* update game list */
@@ -4241,8 +4194,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		if (DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_RESET), hMain, ResetDialogProc) == true)
 		{
 			// these may have been changed
-			SaveDefaultOptions();
-			SaveOptions();
+			global_save_ini();
+			mui_save_ini();
+			ui_save_ini();
 			DestroyWindow(hwnd);
 			PostQuitMessage(0);
 		}
@@ -4255,7 +4209,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_OPTIONS_INTERFACE:
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INTERFACE_OPTIONS), hMain, InterfaceDialogProc);
-		SaveOptions();
+		global_save_ini();
+		mui_save_ini();
+		ui_save_ini();
 
 		KillTimer(hMain, SCREENSHOT_TIMER);
 		if( GetCycleScreenshot() > 0)
@@ -4964,52 +4920,20 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 	int value = 0;  /* Default to 0, for unknown case */
 	const char *name1 = NULL;
 	const char *name2 = NULL;
-	char file1[20];
-	char file2[20];
-	int nTemp1, nTemp2;
+	char file1[MAX_PATH];
+	char file2[MAX_PATH];
+	int nTemp1=0, nTemp2=0;
 
 	switch (sort_subitem)
 	{
 	case COLUMN_GAMES:
-		return core_stricmp(ModifyThe(driver_list::driver(index1).type.fullname()), ModifyThe(driver_list::driver(index2).type.fullname()));
+		return core_stricmp(ModifyThe(driver_list::driver(index1).type.fullname()),
+			ModifyThe(driver_list::driver(index2).type.fullname()));
 
 	case COLUMN_ORIENTATION:
 		nTemp1 = DriverIsVertical(index1) ? 1 : 0;
 		nTemp2 = DriverIsVertical(index2) ? 1 : 0;
 		value = nTemp1 - nTemp2;
-		break;
-
-	case COLUMN_SAMPLES:
-		nTemp1 = -1;
-		if (DriverUsesSamples(index1))
-		{
-			int audit_result = GetSampleAuditResults(index1);
-			if (IsAuditResultKnown(audit_result))
-			{
-				if (IsAuditResultYes(audit_result))
-					nTemp1 = 1;
-				else
-					nTemp1 = 0;
-			}
-			else
-				nTemp1 = 2;
-		}
-
-		nTemp2 = -1;
-		if (DriverUsesSamples(index2))
-		{
-			int audit_result = GetSampleAuditResults(index1);
-			if (IsAuditResultKnown(audit_result))
-			{
-				if (IsAuditResultYes(audit_result))
-					nTemp2 = 1;
-				else
-					nTemp2 = 0;
-			}
-			else
-				nTemp2 = 2;
-		}
-		value = nTemp2 - nTemp1;
 		break;
 
 	case COLUMN_DIRECTORY:
@@ -5026,11 +4950,21 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		value = GetPlayTime(index1) - GetPlayTime(index2);
 		break;
 
-	case COLUMN_TYPE:
-	{
-		value = DriverIsVector(index1) - DriverIsVector(index2);
+	case COLUMN_ROMS:
+		value = GetRomAuditResults(index1) - GetRomAuditResults(index2);
 		break;
-	}
+
+	case COLUMN_SAMPLES:
+		value = GetSampleAuditResults(index1) - GetSampleAuditResults(index2);
+		break;
+
+	case COLUMN_TYPE:
+		{
+			machine_config config1(driver_list::driver(index1),MameUIGlobal());
+			machine_config config2(driver_list::driver(index2),MameUIGlobal());
+			value = isDriverVector(&config1) - isDriverVector(&config2);
+		}
+		break;
 
 	case COLUMN_TRACKBALL:
 		value = DriverUsesTrackball(index1) - DriverUsesTrackball(index2);
@@ -5070,9 +5004,7 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 
 	// Handle same comparisons here
 	if (0 == value && COLUMN_GAMES != sort_subitem)
-	{
 		value = GamePicker_Compare(hwndPicker, index1, index2, COLUMN_GAMES);
-	}
 
 	return value;
 }
@@ -5129,43 +5061,51 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	case FILETYPE_INPUT_FILES :
 		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip,*.7z)\0*.inp;*.zip;*.7z\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("inp");
-		dirname = GetInpDir();
+		dirname = dir_get_value(16);
 		break;
 	case FILETYPE_SAVESTATE_FILES :
 		ofn.lpstrFilter   = TEXT("savestate files (*.sta)\0*.sta;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("sta");
-		dirname = GetStateDir();
+		dirname = dir_get_value(17);
 		break;
 	case FILETYPE_WAVE_FILES :
 		ofn.lpstrFilter   = TEXT("sounds (*.wav)\0*.wav;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("wav");
-		dirname = GetImgDir();
+		dirname = dir_get_value(18);
 		break;
 	case FILETYPE_MNG_FILES :
 		ofn.lpstrFilter   = TEXT("videos (*.mng)\0*.mng;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("mng");
-		dirname = GetImgDir();
+		dirname = dir_get_value(18);
 		break;
 	case FILETYPE_AVI_FILES :
 		ofn.lpstrFilter   = TEXT("videos (*.avi)\0*.avi;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("avi");
-		dirname = GetImgDir();
+		dirname = dir_get_value(18);
 		break;
 	case FILETYPE_EFFECT_FILES :
 		ofn.lpstrFilter   = TEXT("effects (*.png)\0*.png;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("png");
-		dirname = GetArtDir();
+		dirname = dir_get_value(5);
 		break;
-	case FILETYPE_JOYMAP_FILES :
-		ofn.lpstrFilter   = TEXT("maps (*.map,*.txt)\0*.map;*.txt;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("map");
-		dirname = GetCtrlrDir();
+	case FILETYPE_SHADER_FILES :
+		ofn.lpstrFilter   = TEXT("shaders (*.vsh)\0*.vsh;\0");
+		ofn.lpstrDefExt   = TEXT("vsh");
+		dirname = dir_get_value(22); // + PATH_SEPARATOR + "glsl";
+//		ofn.lpstrTitle  = TEXT("Select a GLSL shader file");
 		break;
-	case FILETYPE_DEBUGSCRIPT_FILES :
-		ofn.lpstrFilter   = TEXT("scripts (*.txt,*.dat)\0*.txt;*.dat;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("txt");
-		dirname = GetInpDir();
+	case FILETYPE_BGFX_FILES :
+		ofn.lpstrFilter   = TEXT("bgfx (*.json)\0*.json;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("json");
+		dirname = dir_get_value(21) + PATH_SEPARATOR + "chains";
 		break;
+	case FILETYPE_LUASCRIPT_FILES :
+		ofn.lpstrFilter   = TEXT("scripts (*.lua)\0*.lua;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("lua");
+		dirname = ".";
+		break;
+	default:
+		return false;
 	}
 	ofn.lpstrCustomFilter = NULL;
 	ofn.nMaxCustFilter    = 0;
@@ -5849,13 +5789,6 @@ static void UpdateMenu(HMENU hMenu)
 		EnableMenuItem(hMenu, ID_FILE_PLAY_RECORD, MF_GRAYED);
 		EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_GRAYED);
 		EnableMenuItem(hMenu, ID_CONTEXT_SELECT_RANDOM, MF_GRAYED);
-	}
-
-	if (oldControl)
-	{
-		EnableMenuItem(hMenu, ID_CUSTOMIZE_FIELDS, MF_GRAYED);
-		EnableMenuItem(hMenu, ID_GAME_PROPERTIES,  MF_GRAYED);
-		EnableMenuItem(hMenu, ID_OPTIONS_DEFAULTS, MF_GRAYED);
 	}
 
 	if (lpFolder->m_dwFlags & F_CUSTOM)
