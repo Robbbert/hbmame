@@ -75,5 +75,5 @@ ROM_START( sfs01 )
 ROM_END
 
 //    YEAR  NAME     PARENT  MACHINE INPUT   CLASS    INIT   MONITOR COMPANY    FULLNAME                            FLAGS
-GAME( 1987, sfs01,   sf,      sfus,   sfus, sf_state, init_0, ROT0,   "hack", "Street Fighter (Plus)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1987, sfs01,   sf,      sfus,   sfus, sf_state, empty_init, ROT0,   "hack", "Street Fighter (Plus)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 

@@ -164,27 +164,6 @@ driver_device_creator< \
 		game_driver::unemulated_features(FLAGS), \
 		game_driver::imperfect_features(FLAGS)>
 
-// HBMAME start
-// standard GAME() macro
-#define HACK(YEAR,NAME,PARENT,MACHINE,INPUT,CLASS,INIT,MONITOR,COMPANY,FULLNAME,FLAGS) \
-GAME_DRIVER_TRAITS(NAME,FULLNAME)                                       \
-extern game_driver const GAME_NAME(NAME)                                \
-{                                                                       \
-	GAME_DRIVER_TYPE(NAME, CLASS, FLAGS),                               \
-	#PARENT,                                                            \
-	#YEAR,                                                              \
-	COMPANY,                                                            \
-	[] (machine_config &config, device_t &owner) { downcast<CLASS &>(owner).MACHINE(config); }, \
-	INPUT_PORTS_NAME(INPUT),                                            \
-	[] (device_t &owner) { downcast<CLASS &>(owner).init_##INIT(); },   \
-	ROM_NAME(NAME),                                                     \
-	nullptr,                                                            \
-	nullptr,                                                            \
-	machine_flags::type(u32((MONITOR) | (FLAGS) | MACHINE_TYPE_ARCADE)),\
-	#NAME                                                               \
-};
-// HBMAME end
-
 // standard GAME() macro
 #define GAME(YEAR,NAME,PARENT,MACHINE,INPUT,CLASS,INIT,MONITOR,COMPANY,FULLNAME,FLAGS) \
 GAME_DRIVER_TRAITS(NAME,FULLNAME)                                       \

@@ -104,7 +104,6 @@ public:
 
 	// dummy driver_init callback
 	void empty_init();
-	void init_0() { }     // HBMAME
 
 	// output heler
 	output_manager &output() const { return machine().output(); }
