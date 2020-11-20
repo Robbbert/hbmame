@@ -1854,31 +1854,31 @@ ROM_END
  *
  *************************************/
 
-HACK( 1995, mschamp,  mspacman, mschamp,  mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-HACK( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  0,        ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mschamp,  mspacman, mschamp,  mschamp,  pacman_state,  empty_init,   ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  empty_init,   ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
 
 /* Dave Widel's Games - http://www.widel.com */
 
-HACK( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state,  96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state,  madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state,  madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
-HACK( 2005, madpac,   0,        madpac,   96in1,    pacman_state,  madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state, init_madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state, init_madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state, init_madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
 
 /* Other Misc Hacks */
 
-HACK( 1993, mspaceur, mspacman, mspaceur, mspacman, pacman_state,  mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, multi10,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, multi11,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, multi13,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, multi14,  multi15,  multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, multi15,  0,        multipac, multipac, pacman_state,  multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )  // arcade.souzaonline.com/downloads.html
-HACK( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
-HACK( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state,  pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, superabc, 0,        superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, superabco,superabc, superabc, superabc, pacman_state,  superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mspaceur, mspacman, mspaceur, mspacman, pacman_state, init_mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi10,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi11,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi13,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi14,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi15,  0,        multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )  // arcade.souzaonline.com/downloads.html
+GAME( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superabc, 0,        superabc, superabc, pacman_state, init_superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superabco,superabc, superabc, superabc, pacman_state, init_superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )

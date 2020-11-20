@@ -308,17 +308,17 @@ ROM_START( garoupeh )
 	ROM_LOAD16_BYTE( "proto_253.c8", 0x3000001, 0x800000, CRC(f778fe99) SHA1(c963f6ba90a36d02991728b44ffcf174ca18268a) )
 ROM_END
 
-HACK( 1999, garoub,    garou,    neogeo_noslot, neogeo, neogeo_state,        garou,  ROT0, "Ydmis", "Garou - Mark of the Wolves (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_state,        garoud, ROT0, "hack","Garou - Mark of the Wolves (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "MU", "Garou - Mark of the Wolves (Approach to Arcade v5.0a)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupf,   garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Fixed Bug Patch V1 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupfu,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Fixed Bug Patch V2 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupfp,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Rom Fix - Fix Plus)", MACHINE_SUPPORTS_SAVE )
-HACK( 2011, garoupx11, garoupy,  neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Xtreme Plus)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupy,   neogeo,   neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (P1 Add Char)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Add selection boss V1)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoupeh,  garou,    neogeo_noslot, neogeo, neogeo_state,        neogeo, ROT0, "Misfit Ydmis", "Garou - Mark of the Wolves (Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoub,    garou,    neogeo_noslot, neogeo, neogeo_state,        init_garou,  ROT0, "Ydmis", "Garou - Mark of the Wolves (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoud,    garou,    neogeo_noslot, neogeo, neogeo_state,        init_garoud, ROT0, "hack","Garou - Mark of the Wolves (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupamu, garoupy,  neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "MU", "Garou - Mark of the Wolves (Approach to Arcade v5.0a)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupehc, garoupy,  neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "Creamymami and Ydmis", "Garou - Mark of the Wolves (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupf,   garoupy,  neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Fixed Bug Patch V1 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupfu,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Fixed Bug Patch V2 winning message, sprites and some bugs)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupfp,  garoupy,  neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Rom Fix - Fix Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, garoupx11, garoupy,  neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Xtreme Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupy,   neogeo,   neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "Ydmis", "Garou - Mark of the Wolves (P1 Add Char)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "hack", "Garou - Mark of the Wolves (Add selection boss V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoupeh,  garou,    neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "Misfit Ydmis", "Garou - Mark of the Wolves (Add Char)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -440,9 +440,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Garou
-HACK( 1999, garoups01,     garou,    neogeo_noslot, neogeo, neogeo_state,         garou,     ROT0, "Creamymami[EGCG]",    "Garou - Mark of the Wolves (Infinite Power)", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, garoups02,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "feiyang001597",    "Garou - Mark of the Wolves (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, garoups03,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
-HACK( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",    "Garou - Mark of the Wolves (Resurgence Lite 2015-03-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoups01,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_garou,     ROT0, "Creamymami[EGCG]",    "Garou - Mark of the Wolves (Infinite Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, garoups02,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "feiyang001597",    "Garou - Mark of the Wolves (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, garoups03,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "Gaston90",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "hack",    "Garou - Mark of the Wolves (Resurgence Lite 2015-03-10)", MACHINE_SUPPORTS_SAVE )
 
 

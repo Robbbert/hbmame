@@ -75,8 +75,8 @@ ROM_START( mslugeh ) /* Metal Slug - Enhance by Ydmis - (New standard weapon sho
 ROM_END
 
 // Metal Slug
-HACK( 2005, msboot,    mslug,    neogeo_noslot, neogeo, neogeo_state,        neogeo,   ROT0, "Nazca", "Metal Slug (Bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugeh,     mslug,    neogeo_noslot,   neogeo, neogeo_state,   neogeo,   ROT0, "Ydmis", "Metal Slug (Enhanced)", MACHINE_SUPPORTS_SAVE ) // New standard weapon shotgun - 20 bombs instead of 10
+GAME( 2005, msboot,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Nazca", "Metal Slug (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugeh,     mslug,    neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug (Enhanced)", MACHINE_SUPPORTS_SAVE ) // New standard weapon shotgun - 20 bombs instead of 10
 
 
 //PSmame (c) gaston90 used with permission
@@ -731,37 +731,37 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Metal Slug
-HACK( 2020, mslugps01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90",      "Metal Slug (248 grenades 2020-06-01)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps02,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Heavy Machine Gun Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps03,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Flame Shot Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps04,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Rocket Launcher Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps05,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Super Flame Shot Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps06,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Shotgun Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps07,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Siro",          "Metal Slug (Credits 99 In Console Mode)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps08,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (Change weapon)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps09,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (Circulation For The Gun)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps10,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Ydmis",         "Metal Slug (No Lose Prisioner)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps11,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "kof1996",       "Metal Slug (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps12,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (Jump In Mid Air)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps13,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps14,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Eddids[FGCH]",  "Metal Slug (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-HACK( 1996, mslugps15,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "DDJ",           "Metal Slug (War Chariot)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, mslugps16,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Multi-Function Version 2018-04-30)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugps17,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-05-04)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugps19,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugps20,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-09-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugps01,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",      "Metal Slug (248 grenades 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps02,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Heavy Machine Gun Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps03,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Flame Shot Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps04,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Rocket Launcher Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps05,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Super Flame Shot Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps06,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",         "Metal Slug (Weapons Shotgun Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps07,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Siro",          "Metal Slug (Credits 99 In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps08,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "DDJ",           "Metal Slug (Change weapon)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps09,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "DDJ",           "Metal Slug (Circulation For The Gun)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps10,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",         "Metal Slug (No Lose Prisioner)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps11,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "kof1996",       "Metal Slug (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps12,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "DDJ",           "Metal Slug (Jump In Mid Air)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps13,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "DDJ",           "Metal Slug (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps14,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids[FGCH]",  "Metal Slug (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, mslugps15,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "DDJ",           "Metal Slug (War Chariot)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslugps16,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",          "Metal Slug (Multi-Function Version 2018-04-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugps17,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-05-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugps18,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugps19,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "I love Nimes",  "Metal Slug (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugps20,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",          "Metal Slug (Burst Enhanced Edition 2020-09-19)", MACHINE_SUPPORTS_SAVE )
 
 /**************
   Metal Slug 1
 *****************/
-HACK( 2020, mslughp01,      mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Gaston90/I love Nimes",                          "Metal Slug (Multi-Function Version 2018-04-30)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslughp01,      mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/I love Nimes",                          "Metal Slug (Multi-Function Version 2018-04-30)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
 
-HACK( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmpl04,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Super Flame Shot Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp01,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp02,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp03,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, mslugrmhp04,    mslug,    neogeo_noslot, neogeo, neogeo_state,         neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Super Flame Shot Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmpl01,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmpl02,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmpl03,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmpl04,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Revised Version Super Flame Shot Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmhp01,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Heavy Machine Gun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmhp02,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Rocket Launcher Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmhp03,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Shotgun Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslugrmhp04,    mslug,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",    "Metal Slug (Multi-Function Version 2018-04-30)(Revised Version Super Flame Shot Extreme Remix [2020-09-19])", MACHINE_SUPPORTS_SAVE )

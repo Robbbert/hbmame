@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2020-11-25 0.226.A
+
+- HBMAMEUI received lots of updates.
+
+
+New Games
+---------------------------------
+- [sf2cemix]            Street Fighter II': Champion Edition (Mix 0.96)
+
+
+
 2020-10-28 0.226
 
 - Metal Slug 1,2,3,4,5 and X remix has been massively updated
