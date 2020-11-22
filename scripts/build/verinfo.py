@@ -58,7 +58,8 @@ def extract_version(input):
         match = pattern.search(line)
         if match:
             return match.group(1), match.group(2), match.group(3)
-    return None, None, None
+        return '0.226.A','0','226'
+##    return None, None, None
 
 
 build, outfmt, srcfile, dstfile = parse_args()
