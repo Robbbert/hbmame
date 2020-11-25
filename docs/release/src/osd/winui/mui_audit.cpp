@@ -433,7 +433,7 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 	// so see which one's currently instantiated
 	HWND hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
 	if (hEdit ==  NULL)
-		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP);
+		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP0);
 
 	if (hEdit == NULL)
 	{

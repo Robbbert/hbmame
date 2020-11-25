@@ -19,15 +19,12 @@
 
 // MAME/MAMEUI headers
 #include "emu.h"
-#include "ui/moptions.h"
 #include "ui/info.h"
 #include "drivenum.h"
-#include "winui.h"
 #include "mui_opts.h"
 #include <fstream>      // for *_opts.h (below)
 #include "game_opts.h"
 #include "ui_opts.h"
-//#include "ini_opts.h"   // not ready yet
 #include "mui_util.h"
 #include "treeview.h"
 #include "splitters.h"
@@ -36,15 +33,13 @@
 #define snprintf _snprintf
 #endif
 
+typedef std::string string;
+
 /***************************************************************************
     Internal function prototypes
  ***************************************************************************/
 
 // static void LoadFolderFilter(int folder_index,int filters);
-
-static void LoadSettingsFile(windows_options &opts, const char *filename);
-static void SaveSettingsFile(windows_options &opts, const char *filename);
-static void LoadSettingsFile(ui_options &opts, const char *filename); // mewui
 
 static string CusColorEncodeString(const COLORREF *value);
 static void CusColorDecodeString(string ss, COLORREF *value);
@@ -61,8 +56,6 @@ static void TabFlagsDecodeString(string ss, int *data);
 static string ColumnEncodeStringWithCount(const int *value, int count);
 static void ColumnDecodeStringWithCount(string ss, int *value, int count);
 
-static void ResetToDefaults(windows_options &opts, int priority);
-
 
 
 /***************************************************************************
@@ -70,8 +63,6 @@ static void ResetToDefaults(windows_options &opts, int priority);
  ***************************************************************************/
 
 #define GAMEINFO_INI_FILENAME                    MAMENAME "_g.ini"
-#define MEWUI_FILENAME                           "ini\\ui.ini"
-
 
 
 /***************************************************************************
@@ -82,10 +73,7 @@ static void ResetToDefaults(windows_options &opts, int priority);
     Internal variables
  ***************************************************************************/
 
-static emu_options mameopts; // core options
-static ui_options mewui; // ui.ini
 static winui_ui_options settings; // mameui.ini
-static windows_options global; // Global 'default' options
 static winui_game_options game_opts;    // game stats
 
 
@@ -140,12 +128,6 @@ static const char *const image_tabs_short_name[MAX_TAB_TYPES] =
 /***************************************************************************
     External functions
  ***************************************************************************/
-void SetSystemName(windows_options &opts, OPTIONS_TYPE opt_type, int driver_index)
-{
-	if (driver_index >= 0)
-		mameopts.set_system_name(driver_list::driver(driver_index).name);
-}
-
 string GetGameName(uint32_t driver_index)
 {
 	if (driver_index < driver_list::total())
@@ -154,30 +136,21 @@ string GetGameName(uint32_t driver_index)
 		return "0";
 }
 
-BOOL OptionsInit()
+void OptionsInit()
 {
 	// set up global options
-	printf("OptionsInit: About to load %s\n",UI_INI_FILENAME);fflush(stdout);
-	settings.load_file(UI_INI_FILENAME);                    // parse MAMEUI.ini
-	printf("OptionsInit: About to load %s\n",MEWUI_FILENAME);fflush(stdout);
-	LoadSettingsFile(mewui, MEWUI_FILENAME);                // parse UI.INI
+	printf("OptionsInit: About to load %s\n",MUI_INI_FILENAME);fflush(stdout);
+	settings.load_file(MUI_INI_FILENAME);                    // parse MAMEUI.ini
 	printf("OptionsInit: About to load %s\n",GAMEINFO_INI_FILENAME);fflush(stdout);
 	game_opts.load_file(GAMEINFO_INI_FILENAME);             // parse MAME_g.ini
-	printf("OptionsInit: About to load Global Options\n");fflush(stdout);
-	load_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS, 0);   // parse MAME.INI
 	printf("OptionsInit: Finished\n");fflush(stdout);
-	return TRUE;
-}
-
-windows_options & MameUIGlobal(void)
-{
-	return global;
+	return;
 }
 
 // Restore ui settings to factory
 void ResetGUI(void)
 {
-	settings.reset_and_save(UI_INI_FILENAME);
+	settings.reset_and_save(MUI_INI_FILENAME);
 }
 
 const char * GetImageTabLongName(int tab_index)
@@ -239,10 +212,10 @@ static void options_set_color_default(const char *name, COLORREF value, int defa
 static input_seq *options_get_input_seq(const char *name)
 {
 /*
-    static input_seq seq;
-    string val = settings.getter(name);
-    input_seq_from_tokens(NULL, seq_string.c_str(), &seq);  // HACK
-    return &seq;*/
+	static input_seq seq;
+	string val = settings.getter(name);
+	input_seq_from_tokens(NULL, seq_string.c_str(), &seq);  // HACK
+	return &seq;*/
 	return NULL;
 }
 
@@ -723,20 +696,6 @@ BOOL GetSortReverse(void)
 	return settings.bool_value( MUIOPTION_SORT_REVERSED);
 }
 
-const string GetIconsDir(void)
-{
-	string t = settings.getter(MUIOPTION_ICONS_DIRECTORY);
-	if (t.empty())
-		return "icons";
-	else
-		return settings.getter(MUIOPTION_ICONS_DIRECTORY);
-}
-
-void SetIconsDir(const char* path)
-{
-	settings.setter(MUIOPTION_ICONS_DIRECTORY, path);
-}
-
 const string GetBgDir (void)
 {
 	string t = settings.getter(MUIOPTION_BACKGROUND_DIRECTORY);
@@ -749,24 +708,6 @@ const string GetBgDir (void)
 void SetBgDir (const char* path)
 {
 	settings.setter(MUIOPTION_BACKGROUND_DIRECTORY, path);
-}
-
-const string GetDatsDir(void)
-{
-	string t = settings.getter(MUIOPTION_DATS_DIRECTORY);
-	if (t.empty())
-		return "dats";
-	else
-		return settings.getter(MUIOPTION_DATS_DIRECTORY);
-	//return mewui.value(OPTION_HISTORY_PATH);
-}
-
-void SetDatsDir(const char *path)
-{
-	char t1[strlen(path)+1];
-	strcpy(t1, path);
-	settings.setter(MUIOPTION_DATS_DIRECTORY, path);
-	mewui.set_value(OPTION_HISTORY_PATH, t1, OPTION_PRIORITY_CMDLINE);
 }
 
 const string GetVideoDir(void)
@@ -795,543 +736,6 @@ const string GetManualsDir(void)
 void SetManualsDir(const char *path)
 {
 	settings.setter(MUIOPTION_MANUALS_DIRECTORY, path);
-}
-
-// ***************************************************************** MAME.INI settings **************************************************************************
-const char* GetLanguageUI(void)
-{
-	return global.value(OPTION_LANGUAGE);
-}
-
-bool GetEnablePlugins(void)
-{
-	return global.bool_value(OPTION_PLUGINS);
-}
-
-const char* GetPlugins(void)
-{
-	return global.value(OPTION_PLUGIN);
-}
-
-const string GetRomDirs(void)
-{
-	const char* t = global.value(OPTION_MEDIAPATH);
-	if (t)
-		return string(global.value(OPTION_MEDIAPATH));
-	else
-		return "roms";
-}
-
-void SetRomDirs(const char* paths)
-{
-	global.set_value(OPTION_MEDIAPATH, paths, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetHashDirs(void)
-{
-	const char* t = global.value(OPTION_HASHPATH);
-	if (t)
-		return string(global.value(OPTION_HASHPATH));
-	else
-		return "hash";
-}
-
-void SetHashDirs(const char* paths)
-{
-	global.set_value(OPTION_HASHPATH, paths, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetSampleDirs(void)
-{
-	const char* t = global.value(OPTION_SAMPLEPATH);
-	if (t)
-		return string(global.value(OPTION_SAMPLEPATH));
-	else
-		return "samples";
-}
-
-void SetSampleDirs(const char* paths)
-{
-	global.set_value(OPTION_SAMPLEPATH, paths, OPTION_PRIORITY_CMDLINE);
-}
-
-const char * GetIniDir(void)
-{
-	const char *ini_dir;
-//  const char *s;
-
-//  ini_dir = global.value(OPTION_INIPATH);
-//  while((s = strchr(ini_dir, ';')) != NULL)
-//  {
-//      ini_dir = s + 1;
-//  }
-	ini_dir = "ini\0";
-	return ini_dir;
-
-}
-
-void SetIniDir(const char *path)
-{
-	global.set_value(OPTION_INIPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetCtrlrDir(void)
-{
-	const char* t = global.value(OPTION_CTRLRPATH);
-	if (t)
-		return string(global.value(OPTION_CTRLRPATH));
-	else
-		return "ctrlr";
-}
-
-void SetCtrlrDir(const char* path)
-{
-	global.set_value(OPTION_CTRLRPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetSWDir(void)
-{
-	const char* t = global.value(OPTION_SWPATH);
-	if (t)
-		return string(global.value(OPTION_SWPATH));
-	else
-		return "";
-}
-
-void SetSWDir(const char* path)
-{
-	global.set_value(OPTION_SWPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetCfgDir(void)
-{
-	const char* t = global.value(OPTION_CFG_DIRECTORY);
-	if (t)
-		return string(global.value(OPTION_CFG_DIRECTORY));
-	else
-		return "cfg";
-}
-
-void SetCfgDir(const char* path)
-{
-	global.set_value(OPTION_CFG_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetNvramDir(void)
-{
-	const char* t = global.value(OPTION_NVRAM_DIRECTORY);
-	if (t)
-		return string(global.value(OPTION_NVRAM_DIRECTORY));
-	else
-		return "nvram";
-}
-
-void SetNvramDir(const char* path)
-{
-	global.set_value(OPTION_NVRAM_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetInpDir(void)
-{
-	const char* t = global.value(OPTION_INPUT_DIRECTORY);
-	if (t)
-		return string(global.value(OPTION_INPUT_DIRECTORY));
-	else
-		return "inp";
-}
-
-void SetInpDir(const char* path)
-{
-	global.set_value(OPTION_INPUT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetImgDir(void)
-{
-	const char* t = global.value(OPTION_SNAPSHOT_DIRECTORY);
-	if (t)
-		return string(global.value(OPTION_SNAPSHOT_DIRECTORY));
-	else
-		return "snap";
-}
-
-void SetImgDir(const char* path)
-{
-	global.set_value(OPTION_SNAPSHOT_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetStateDir(void)
-{
-	const char* t = global.value(OPTION_STATE_DIRECTORY);
-	if (t)
-		return string(global.value(OPTION_STATE_DIRECTORY));
-	else
-		return "sta";
-}
-
-void SetStateDir(const char* path)
-{
-	global.set_value(OPTION_STATE_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetArtDir(void)
-{
-	const char* t = global.value(OPTION_ARTPATH);
-	if (t)
-		return string(global.value(OPTION_ARTPATH));
-	else
-		return "artwork";
-}
-
-void SetArtDir(const char* path)
-{
-	global.set_value(OPTION_ARTPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetFontDir(void)
-{
-	const char* t = global.value(OPTION_FONTPATH);
-	if (t)
-		return string(global.value(OPTION_FONTPATH));
-	else
-		return ".";
-}
-
-void SetFontDir(const char* paths)
-{
-	global.set_value(OPTION_FONTPATH, paths, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetCrosshairDir(void)
-{
-	const char* t = global.value(OPTION_CROSSHAIRPATH);
-	if (t)
-		return string(global.value(OPTION_CROSSHAIRPATH));
-	else
-		return "crosshair";
-}
-
-void SetCrosshairDir(const char* paths)
-{
-	global.set_value(OPTION_CROSSHAIRPATH, paths, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetPluginsDir(void)
-{
-	const char* t = global.value(OPTION_PLUGINSPATH);
-	if (t)
-		return string(global.value(OPTION_PLUGINSPATH));
-	else
-		return "plugins";
-}
-
-void SetPluginsDir(const char* path)
-{
-	global.set_value(OPTION_PLUGINSPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetLangDir(void)
-{
-	const char* t = global.value(OPTION_LANGUAGEPATH);
-	if (t)
-		return string(global.value(OPTION_LANGUAGEPATH));
-	else
-		return "language";
-}
-
-void SetLangDir(const char* path)
-{
-	global.set_value(OPTION_LANGUAGEPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetDiffDir(void)
-{
-	const char* t = global.value(OPTION_DIFF_DIRECTORY);
-	if (t)
-		return string(global.value(OPTION_DIFF_DIRECTORY));
-	else
-		return "diff";
-}
-
-void SetDiffDir(const char* path)
-{
-	global.set_value(OPTION_DIFF_DIRECTORY, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetCheatDir(void)
-{
-	const char* t = global.value(OPTION_CHEATPATH);
-	if (t)
-		return string(global.value(OPTION_CHEATPATH));
-	else
-		return "cheat";
-}
-
-void SetCheatDir(const char* path)
-{
-	global.set_value(OPTION_CHEATPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetHLSLDir(void)
-{
-	const char* t = global.value(WINOPTION_HLSLPATH);
-	if (t)
-		return string(global.value(WINOPTION_HLSLPATH));
-	else
-		return "hlsl";
-}
-
-void SetHLSLDir(const char* path)
-{
-	global.set_value(WINOPTION_HLSLPATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const char* GetSnapName(void)
-{
-	return global.value(OPTION_SNAPNAME);
-}
-
-void SetSnapName(const char* pattern)
-{
-	global.set_value(OPTION_SNAPNAME, pattern, OPTION_PRIORITY_CMDLINE);
-}
-
-// ***************************************************************** UI.INI settings **************************************************************************
-const string GetScoresDir(void)
-{
-	const char* t = mewui.value(OPTION_SCORES_PATH);
-	if (t)
-		return string(mewui.value(OPTION_SCORES_PATH));
-	else
-		return "scores";
-}
-
-void SetScoresDir(const char *path)
-{
-	mewui.set_value(OPTION_SCORES_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetBossesDir(void)
-{
-	const char* t = mewui.value(OPTION_BOSSES_PATH);
-	if (t)
-		return string(mewui.value(OPTION_BOSSES_PATH));
-	else
-		return "bosses";
-}
-
-void SetBossesDir(const char *path)
-{
-	mewui.set_value(OPTION_BOSSES_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetCoversDir(void)
-{
-	const char* t = mewui.value(OPTION_COVER_PATH);
-	if (t)
-		return string(mewui.value(OPTION_COVER_PATH));
-	else
-		return "covers";
-}
-
-void SetCoversDir(const char *path)
-{
-	mewui.set_value(OPTION_COVER_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetVersusDir(void)
-{
-	const char* t = mewui.value(OPTION_VERSUS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_VERSUS_PATH));
-	else
-		return "versus";
-}
-
-void SetVersusDir(const char *path)
-{
-	mewui.set_value(OPTION_VERSUS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetEndsDir(void)
-{
-	const char* t = mewui.value(OPTION_ENDS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_ENDS_PATH));
-	else
-		return "ends";
-}
-
-void SetEndsDir(const char *path)
-{
-	mewui.set_value(OPTION_ENDS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetGameOverDir(void)
-{
-	const char* t = mewui.value(OPTION_GAMEOVER_PATH);
-	if (t)
-		return string(mewui.value(OPTION_GAMEOVER_PATH));
-	else
-		return "gameover";
-}
-
-void SetGameOverDir(const char *path)
-{
-	mewui.set_value(OPTION_GAMEOVER_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetHowToDir(void)
-{
-	const char* t = mewui.value(OPTION_HOWTO_PATH);
-	if (t)
-		return string(mewui.value(OPTION_HOWTO_PATH));
-	else
-		return "howto";
-}
-
-void SetHowToDir(const char *path)
-{
-	mewui.set_value(OPTION_HOWTO_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetSelectDir(void)
-{
-	const char* t = mewui.value(OPTION_SELECT_PATH);
-	if (t)
-		return string(mewui.value(OPTION_SELECT_PATH));
-	else
-		return "select";
-}
-
-void SetSelectDir(const char *path)
-{
-	mewui.set_value(OPTION_SELECT_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetLogoDir(void)
-{
-	const char* t = mewui.value(OPTION_LOGOS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_LOGOS_PATH));
-	else
-		return "logo";
-}
-
-void SetLogoDir(const char *path)
-{
-	mewui.set_value(OPTION_LOGOS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetArtworkDir(void)
-{
-	const char* t = mewui.value(OPTION_ARTPREV_PATH);
-	if (t)
-		return string(mewui.value(OPTION_ARTPREV_PATH));
-	else
-		return "artpreview";
-}
-
-void SetArtworkDir(const char *path)
-{
-	mewui.set_value(OPTION_ARTPREV_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetFlyerDir(void)
-{
-	const char* t = mewui.value(OPTION_FLYERS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_FLYERS_PATH));
-	else
-		return "flyers";
-}
-
-void SetFlyerDir(const char* path)
-{
-	mewui.set_value(OPTION_FLYERS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetCabinetDir(void)
-{
-	const char* t = mewui.value(OPTION_CABINETS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_CABINETS_PATH));
-	else
-		return "cabinets";
-}
-
-void SetCabinetDir(const char* path)
-{
-	mewui.set_value(OPTION_CABINETS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetMarqueeDir(void)
-{
-	const char* t = mewui.value(OPTION_MARQUEES_PATH);
-	if (t)
-		return string(mewui.value(OPTION_MARQUEES_PATH));
-	else
-		return "marquees";
-}
-
-void SetMarqueeDir(const char* path)
-{
-	mewui.set_value(OPTION_MARQUEES_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetTitlesDir(void)
-{
-	const char* t = mewui.value(OPTION_TITLES_PATH);
-	if (t)
-		return string(mewui.value(OPTION_TITLES_PATH));
-	else
-		return "titles";
-}
-
-void SetTitlesDir(const char* path)
-{
-	mewui.set_value(OPTION_TITLES_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetControlPanelDir(void)
-{
-	const char* t = mewui.value(OPTION_CPANELS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_CPANELS_PATH));
-	else
-		return "cpanel";
-}
-
-void SetControlPanelDir(const char *path)
-{
-	mewui.set_value(OPTION_CPANELS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetPcbDir(void)
-{
-	const char* t = mewui.value(OPTION_PCBS_PATH);
-	if (t)
-		return string(mewui.value(OPTION_PCBS_PATH));
-	else
-		return "pcb";
-}
-
-void SetPcbDir(const char *path)
-{
-	mewui.set_value(OPTION_PCBS_PATH, path, OPTION_PRIORITY_CMDLINE);
-}
-
-const string GetFolderDir(void)
-{
-	const char* t = mewui.value(OPTION_CATEGORYINI_PATH);
-	if (t)
-		return string(mewui.value(OPTION_CATEGORYINI_PATH));
-	else
-		return "folders";
-}
-
-void SetFolderDir(const char* path)
-{
-	mewui.set_value(OPTION_CATEGORYINI_PATH, path, OPTION_PRIORITY_CMDLINE);
 }
 
 // ***************************************************************** MAME_g.INI settings **************************************************************************
@@ -2011,111 +1415,6 @@ static void TabFlagsDecodeString(string ss, int *data)
 	}
 }
 
-// load mewui settings
-static void LoadSettingsFile(ui_options &opts, const char *filename)
-{
-	osd_file::error filerr;
-	util::core_file::ptr file;
-
-	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
-	if (filerr == osd_file::error::NONE)
-	{
-		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
-		file.reset();
-	}
-}
-
-// load a game ini
-static void LoadSettingsFile(windows_options &opts, const char *filename)
-{
-	osd_file::error filerr;
-	util::core_file::ptr file;
-
-	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
-	if (filerr == osd_file::error::NONE)
-	{
-		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
-		file.reset();
-	}
-}
-
-// This saves changes to UI.INI only
-static void SaveSettingsFile(ui_options &opts, const char *filename)
-{
-	osd_file::error filerr = osd_file::error::NONE;
-	util::core_file::ptr file;
-
-	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
-
-	if (filerr == osd_file::error::NONE)
-	{
-		string inistring = opts.output_ini();
-		file->puts(inistring.c_str());
-		file.reset();
-	}
-}
-
-
-
-// This saves changes to <game>.INI or MAME.INI only
-static void SaveSettingsFile(windows_options &opts, const char *filename)
-{
-	osd_file::error filerr = osd_file::error::NONE;
-	util::core_file::ptr file;
-
-	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
-
-	if (filerr == osd_file::error::NONE)
-	{
-		string inistring = opts.output_ini();
-		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
-		file->puts(inistring.c_str());
-		file.reset();
-	}
-}
-
-
-
-void ResetGameOptions(int driver_index)
-{
-	//save_options(NULL, OPTIONS_GAME, driver_index);
-}
-
-void ResetGameDefaults(void)
-{
-	// Walk the global settings and reset everything to defaults;
-	ResetToDefaults(global, OPTION_PRIORITY_CMDLINE);
-	save_options(global, OPTIONS_GLOBAL, GLOBAL_OPTIONS);
-}
-
-/*
- * Reset all game, vector and source options to defaults.
- * No reason to reboot if this is done.
- */
-void ResetAllGameOptions(void)
-{
-	for (int i = 0; i < driver_list::total(); i++)
-		ResetGameOptions(i);
-}
-
-void SetDirectories(windows_options &opts)
-{
-	opts.set_value(OPTION_MEDIAPATH, GetRomDirs(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_SAMPLEPATH, GetSampleDirs(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_INIPATH, GetIniDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_CFG_DIRECTORY, GetCfgDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_SNAPSHOT_DIRECTORY, GetImgDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_INPUT_DIRECTORY, GetInpDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_STATE_DIRECTORY, GetStateDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_ARTPATH, GetArtDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_NVRAM_DIRECTORY, GetNvramDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_CTRLRPATH, GetCtrlrDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_CHEATPATH, GetCheatDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_CROSSHAIRPATH, GetCrosshairDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_FONTPATH, GetFontDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_DIFF_DIRECTORY, GetDiffDir(), OPTION_PRIORITY_CMDLINE);
-	opts.set_value(OPTION_SNAPNAME, GetSnapName(), OPTION_PRIORITY_CMDLINE);
-}
 
 // not used
 #if 0
@@ -2249,12 +1548,11 @@ static void AddFolderFlags()
 }
 
 // Save MAMEUI.ini
-void SaveOptions(void)
+void mui_save_ini(void)
 {
 	// Add the folder flag to settings.
 	AddFolderFlags();
-	settings.save_file(UI_INI_FILENAME);
-	SaveSettingsFile(mewui, MEWUI_FILENAME);
+	settings.save_file(MUI_INI_FILENAME);
 }
 
 void SaveGameListOptions(void)
@@ -2263,118 +1561,9 @@ void SaveGameListOptions(void)
 	game_opts.save_file(GAMEINFO_INI_FILENAME);
 }
 
-void SaveDefaultOptions(void)
-{
-	string fname = string(GetIniDir()) + PATH_SEPARATOR + string(emulator_info::get_configname()).append(".ini");
-	SaveSettingsFile(global, fname.c_str());
-}
-
 const char * GetVersionString(void)
 {
 	return emulator_info::get_build_version();
-}
-
-
-/*  get options, based on passed in game number. */
-void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num, bool set_system_name)
-{
-	const game_driver *driver = NULL;
-	if (game_num > -1)
-		driver = &driver_list::driver(game_num);
-
-	// Try base ini first
-	string fname = string(emulator_info::get_configname()).append(".ini");
-	LoadSettingsFile(opts, fname.c_str());
-
-	if (opt_type == OPTIONS_SOURCE)
-	{
-		fname = string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->type.source(), true) + ".ini";
-		LoadSettingsFile(opts, fname.c_str());
-		return;
-	}
-
-	if (game_num > -2)
-	{
-		// Now try global ini
-		fname = string(GetIniDir()) + PATH_SEPARATOR + string(emulator_info::get_configname()).append(".ini");
-		LoadSettingsFile(opts, fname.c_str());
-
-		if (game_num > -1)
-		{
-			// Lastly, gamename.ini
-			if (driver)
-			{
-				fname = string(GetIniDir()) + PATH_SEPARATOR + string(driver->name).append(".ini");
-				if (set_system_name)
-					opts.set_value(OPTION_SYSTEMNAME, driver->name, OPTION_PRIORITY_CMDLINE);
-				LoadSettingsFile(opts, fname.c_str());
-			}
-		}
-	}
-	SetDirectories(opts);
-}
-
-/* Save ini file based on game_number. */
-void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
-{
-	const game_driver *driver = NULL;
-	string filename, filepath;
-
-	if (game_num >= 0)
-	{
-		driver = &driver_list::driver(game_num);
-		if (driver)
-		{
-			filename.assign(driver->name);
-			if (opt_type == OPTIONS_SOURCE)
-				filepath = string(GetIniDir()) + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->type.source(), true) + ".ini";
-		}
-	}
-	else
-	if (game_num == -1)
-		filename = string(emulator_info::get_configname());
-
-	if (!filename.empty() && filepath.empty())
-		filepath = string(GetIniDir()).append(PATH_SEPARATOR).append(filename.c_str()).append(".ini");
-
-	if (game_num == -2)
-		filepath = string(emulator_info::get_configname()).append(".ini");
-
-	if (!filepath.empty())
-	{
-		SetDirectories(opts);
-		SaveSettingsFile(opts, filepath.c_str());
-//      printf("Settings saved to %s\n",filepath.c_str());
-	}
-//  else
-//      printf("Unable to save settings\n");
-}
-
-
-// See if this driver has software support
-bool DriverHasSoftware(uint32_t drvindex)
-{
-	if (drvindex < driver_list::total())
-	{
-		windows_options o;
-		load_options(o, OPTIONS_GAME, drvindex, 1);
-		machine_config config(driver_list::driver(drvindex), o);
-
-		for (device_image_interface &img : image_interface_iterator(config.root_device()))
-			if (img.user_loadable())
-				return 1;
-	}
-
-	return 0;
-}
-
-
-// Reset the given windows_options to their default settings.
-static void ResetToDefaults(windows_options &opts, int priority)
-{
-	// iterate through the options setting each one back to the default value.
-	windows_options dummy;
-	OptionsCopy(dummy, opts);
 }
 
 uint32_t GetDriverCacheLower(uint32_t driver_index)
@@ -2530,28 +1719,6 @@ BOOL GetSWSortReverse(void)
 }
 
 
-void SetSelectedSoftware(int driver_index, string opt_name, const char *software)
-{
-	const char *s = opt_name.c_str();
-
-	if (LOG_SOFTWARE)
-	{
-		printf("SetSelectedSoftware(): slot=%s driver=%s software='%s'\n", s, driver_list::driver(driver_index).name, software);
-	}
-
-	if (s)
-	{
-		printf("About to load %s into slot %s\n",software,s);
-		windows_options o;
-		//o.set_value(OPTION_SYSTEMNAME, driver_list::driver(driver_index).name, OPTION_PRIORITY_CMDLINE);
-		load_options(o, OPTIONS_GAME, driver_index, 1);
-		o.set_value(s, software, OPTION_PRIORITY_CMDLINE);
-		//o.image_option(opt_name).specify(software);
-		printf("Done\n");
-		save_options(o, OPTIONS_GAME, driver_index);
-	}
-}
-
 void SetCurrentSoftwareTab(int val)
 {
 	settings.setter(MESSUI_SOFTWARE_TAB, val);
@@ -2562,41 +1729,3 @@ int GetCurrentSoftwareTab(void)
 	return settings.int_value(MESSUI_SOFTWARE_TAB);
 }
 
-bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
-{
-	for (auto &curentry : opts1.entries())
-	{
-		if (curentry->type() != OPTION_HEADER)
-		{
-			const char *value = curentry->value();
-			const char *comp = opts2.value(curentry->name().c_str());
-			if (!value && !comp) // both empty, they are the same
-			{}
-			else
-			if (!value || !comp) // only one empty, they are different
-				return false;
-			else
-			if (strcmp(value, comp) != 0) // both not empty, do proper compare
-				return false;
-		}
-	}
-	return true;
-}
-
-void OptionsCopy(windows_options &source, windows_options &dest)
-{
-	for (auto &dest_entry : source.entries())
-	{
-		if (dest_entry->names().size() > 0)
-		{
-			// identify the source entry
-			const core_options::entry::shared_ptr source_entry = source.get_entry(dest_entry->name());
-			if (source_entry)
-			{
-				const char *value = source_entry->value();
-				if (value)
-					dest_entry->set_value(value, source_entry->priority(), true);
-			}
-		}
-	}
-}

@@ -38,7 +38,7 @@ call newsrc.bat
 rem --- ARCADE 64bit ---
 del arcade64.exe
 del arcade64.sym
-call make64 -j4 %1 %2 %3
+call make64 -j8 %1 %2 %3
 if not exist arcade64.exe goto end
 
 :messui
@@ -58,7 +58,7 @@ call newsrc.bat
 rem --- MAMEUI 64bit ---
 del mameui64.exe
 del mameui64.sym
-call make64 -j4 %1 %2 %3
+call make64 -j8 %1 %2 %3
 if not exist mameui64.exe goto end
 
 :end

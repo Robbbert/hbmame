@@ -1,5 +1,6 @@
 @if exist scripts\minimaws\minimaws.sqlite3 del scripts\minimaws\minimaws.sqlite3
 @del hbmameui64.sym
+del build\generated\resource\hbmamevers.rc
 :start
 del hbmameui64.exe
 if exist hbmameui64.exe goto start

@@ -7,11 +7,9 @@ md %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src\version.cpp
 copy /Y %from%\src\emu\validity.cpp %to%\src\emu
 copy /Y %from%\src\emu\digfx.h %to%\src\emu
-copy /Y %from%\src\emu\driver.h %to%\src\emu
 copy /Y %from%\src\emu\emuopts.* %to%\src\emu
-copy /Y %from%\src\emu\gamedrv.h %to%\src\emu
+copy /Y %from%\src\emu\romload.cpp %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
-copy /Y %from%\src\version.cpp %to%\src
 
 md %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\audit.*            %to%\src\frontend\mame

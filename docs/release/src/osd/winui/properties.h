@@ -1,9 +1,10 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
 
-#ifndef PROPERTIES_H
-#define PROPERTIES_H
+#ifndef WINUI_PROPERTIES_H
+#define WINUI_PROPERTIES_H
 
+#include "emu_opts.h"
 /* Get title string to display in the top of the property page,
  * Called also in ui_audit.cpp
  */
@@ -28,7 +29,7 @@ const char* GameInfoStatus(int driver_index, BOOL bRomStatus);
 typedef struct
 {
 	BOOL bOnDefaultPage;
-//  BOOL (*pfnFilterProc)(const machine_config *drv, const game_driver *gamedrv);
+//	BOOL (*pfnFilterProc)(const machine_config *drv, const game_driver *gamedrv);
 	BOOL (*pfnFilterProc)(uint32_t driver_index);
 	DWORD dwDlgID;
 	DLGPROC pfnDlgProc;

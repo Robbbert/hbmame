@@ -5,7 +5,7 @@
 /***************************************************************************
 
   Screenshot.cpp
-
+  
   Displays snapshots, control panels and other pictures.
   Files must be of type .PNG, .JPG or .JPEG .
   If Software tab is chosen, software-specific pictures can be displayed.
@@ -23,6 +23,7 @@
 #include "png.h"
 #include "unzip.h"
 #include "mui_opts.h"
+#include "emu_opts.h"
 #include "mui_util.h"  // for DriverIsClone
 #include "drivenum.h"
 #include "libjpeg/jpeglib.h"
@@ -449,71 +450,71 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	switch (pic_type)
 	{
 		case TAB_ARTWORK:
-			t = GetArtworkDir();
+			t = dir_get_value(5);
 			zip_name = "artpreview";
 			break;
 		case TAB_BOSSES:
-			t = GetBossesDir();
+			t = dir_get_value(33);
 			zip_name = "bosses";
 			break;
 		case TAB_CABINET:
-			t = GetCabinetDir();
+			t = dir_get_value(25);
 			zip_name = "cabinets";
 			break;
 		case TAB_CONTROL_PANEL:
-			t = GetControlPanelDir();
+			t = dir_get_value(26);
 			zip_name = "cpanel";
 			break;
 		case TAB_COVER:
-			t = GetCoversDir();
+			t = dir_get_value(41);
 			zip_name = "covers";
 			break;
 		case TAB_ENDS:
-			t = GetEndsDir();
+			t = dir_get_value(30);
 			zip_name = "ends";
 			break;
 		case TAB_FLYER:
-			t = GetFlyerDir();
+			t = dir_get_value(28);
 			zip_name = "flyers";
 			break;
 		case TAB_GAMEOVER:
-			t = GetGameOverDir();
+			t = dir_get_value(37);
 			zip_name = "gameover";
 			break;
 		case TAB_HOWTO:
-			t = GetHowToDir();
+			t = dir_get_value(38);
 			zip_name = "howto";
 			break;
 		case TAB_LOGO:
-			t = GetLogoDir();
+			t = dir_get_value(34);
 			zip_name = "logo";
 			break;
 		case TAB_MARQUEE:
-			t = GetMarqueeDir();
+			t = dir_get_value(31);
 			zip_name = "marquees";
 			break;
 		case TAB_PCB:
-			t = GetPcbDir();
+			t = dir_get_value(27);
 			zip_name = "pcb";
 			break;
 		case TAB_SCORES:
-			t = GetScoresDir();
+			t = dir_get_value(35);
 			zip_name = "scores";
 			break;
 		case TAB_SCREENSHOT:
-			t = GetImgDir();
+			t = dir_get_value(18);
 			zip_name = "snap";
 			break;
 		case TAB_SELECT:
-			t = GetSelectDir();
+			t = dir_get_value(39);
 			zip_name = "select";
 			break;
 		case TAB_TITLE:
-			t = GetTitlesDir();
+			t = dir_get_value(29);
 			zip_name = "titles";
 			break;
 		case TAB_VERSUS:
-			t = GetVersusDir();
+			t = dir_get_value(36);
 			zip_name = "versus";
 			break;
 		default :

@@ -42,7 +42,7 @@ ROM_START( powernbr )
 	ROM_LOAD( "20.u54",       0x000100, 0x0100, CRC(38bd0e2f) SHA1(20d311869642cd96bb831fdf4a458e0d872f03eb) )
 ROM_END
 
-HACK( 2006, powernbr,  powerins, powerins, powerins, powerins_state, 0, ROT0, "devilfox & BisonSAS", "Power Instinct (Brazilian translation)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
+GAME( 2006, powernbr,  powerins, powerins, powerins, powerins_state, empty_init, ROT0, "devilfox & BisonSAS", "Power Instinct (Brazilian translation)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
 
 
 // PSmame (c) gaston90 used with permission
@@ -257,11 +257,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY         FULLNAME FLAGS */
 //Power Instinct
-HACK( 2015, powerns01,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "hack ", "Power Instinct (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
-HACK( 2017, powerns02,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "hack ", "Power Instinct (Unknown Hack 2017-07-01)", MACHINE_SUPPORTS_SAVE )
-HACK( 2006, powerns03,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "0 DAY-S", "Power Instinct (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
-HACK( 2018, powerns04,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "hack", "Power Instinct (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
-HACK( 2020, powerns05,      powerins, powerins,      powerins,   powerins_state,   0,     ROT0,          "hack", "Power Instinct (Optimized Edition 2020-05-15)", MACHINE_SUPPORTS_SAVE )
-
-
+GAME( 2015, powerns01,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "hack", "Power Instinct (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, powerns02,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "hack", "Power Instinct (Unknown Hack 2017-07-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, powerns03,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "0 DAY-S", "Power Instinct (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, powerns04,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "hack", "Power Instinct (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, powerns05,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "hack", "Power Instinct (Optimised Edition 2020-05-15)", MACHINE_SUPPORTS_SAVE )
 

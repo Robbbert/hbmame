@@ -31,6 +31,7 @@
 #include "treeview.h"
 #include "resource.h"
 #include "mui_opts.h"
+#include "emu_opts.h"
 #include "help.h"
 #include "properties.h"  // For GetHelpIDs
 
@@ -43,29 +44,29 @@
 
 static struct ComboBoxHistoryTab
 {
-	const wchar_t*  m_pText;
-	const int       m_pData;
-} g_ComboBoxHistoryTab[] =
+	const wchar_t*	m_pText;
+	const int		m_pData;
+} g_ComboBoxHistoryTab[] = 
 {
-	{ TEXT("Artwork"),          TAB_ARTWORK },
-	{ TEXT("Boss"),             TAB_BOSSES },
-	{ TEXT("Cabinet"),          TAB_CABINET },
-	{ TEXT("Control Panel"),    TAB_CONTROL_PANEL },
-	{ TEXT("Cover"),            TAB_COVER },
-	{ TEXT("End"),              TAB_ENDS },
-	{ TEXT("Flyer"),            TAB_FLYER },
-	{ TEXT("Game Over"),        TAB_GAMEOVER },
-	{ TEXT("How To"),           TAB_HOWTO },
-	{ TEXT("Logo"),             TAB_LOGO },
-	{ TEXT("Marquee"),          TAB_MARQUEE },
-	{ TEXT("PCB"),              TAB_PCB },
-	{ TEXT("Scores"),           TAB_SCORES },
-	{ TEXT("Select"),           TAB_SELECT },
-	{ TEXT("Snapshot"),         TAB_SCREENSHOT },
-	{ TEXT("Title"),            TAB_TITLE },
-	{ TEXT("Versus"),           TAB_VERSUS },
-	{ TEXT("All"),              TAB_ALL },
-	{ TEXT("None"),             TAB_NONE }
+	{ TEXT("Artwork"),			TAB_ARTWORK },
+	{ TEXT("Boss"),				TAB_BOSSES },
+	{ TEXT("Cabinet"),			TAB_CABINET },
+	{ TEXT("Control Panel"),	TAB_CONTROL_PANEL },
+	{ TEXT("Cover"),			TAB_COVER },
+	{ TEXT("End"),				TAB_ENDS },
+	{ TEXT("Flyer"),			TAB_FLYER },
+	{ TEXT("Game Over"),		TAB_GAMEOVER },
+	{ TEXT("How To"),			TAB_HOWTO },
+	{ TEXT("Logo"),				TAB_LOGO },
+	{ TEXT("Marquee"),			TAB_MARQUEE },
+	{ TEXT("PCB"),				TAB_PCB },
+	{ TEXT("Scores"),			TAB_SCORES },
+	{ TEXT("Select"),			TAB_SELECT },
+	{ TEXT("Snapshot"),			TAB_SCREENSHOT },
+	{ TEXT("Title"),			TAB_TITLE },
+	{ TEXT("Versus"),			TAB_VERSUS },
+	{ TEXT("All"),				TAB_ALL },
+	{ TEXT("None"),				TAB_NONE }
 };
 
 
@@ -167,15 +168,20 @@ INT_PTR CALLBACK ResetDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 						ResetGUI();
 						EndDialog(hDlg, 1);
 						return true;
-					} else {
+					}
+					else
+					{
 						EndDialog(hDlg, 0);
 						return true;
 					}
-				} else {
+				}
+				else
+				{
 					// Give the user a chance to change what they want to reset.
 					break;
 				}
 			}
+			[[fallthrough]];
 		// Nothing was selected but OK, just fall through
 		case IDCANCEL :
 			EndDialog(hDlg, 0);
@@ -204,6 +210,7 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 		Button_SetCheck(GetDlgItem(hDlg,IDC_START_GAME_CHECK),GetGameCheck());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_JOY_GUI),GetJoyGUI());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_KEY_GUI),GetKeyGUI());
+		Button_SetCheck(GetDlgItem(hDlg,IDC_UI_SKIP_WARNINGS),GetSkipWarnings());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_OVERRIDE_REDX),GetOverrideRedX());
 		Button_SetCheck(GetDlgItem(hDlg,IDC_HIDE_MOUSE),GetHideMouseOnStartup());
 
@@ -308,6 +315,7 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 			SetGameCheck(Button_GetCheck(GetDlgItem(hDlg, IDC_START_GAME_CHECK)));
 			SetJoyGUI(Button_GetCheck(GetDlgItem(hDlg, IDC_JOY_GUI)));
 			SetKeyGUI(Button_GetCheck(GetDlgItem(hDlg, IDC_KEY_GUI)));
+			SetSkipWarnings(Button_GetCheck(GetDlgItem(hDlg, IDC_UI_SKIP_WARNINGS)));
 			SetOverrideRedX(Button_GetCheck(GetDlgItem(hDlg, IDC_OVERRIDE_REDX)));
 			SetHideMouseOnStartup(Button_GetCheck(GetDlgItem(hDlg,IDC_HIDE_MOUSE)));
 
@@ -350,11 +358,11 @@ INT_PTR CALLBACK InterfaceDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM 
 				PostMessage(GetMainWindow(),WM_COMMAND, MAKEWPARAM(ID_VIEW_LINEUPICONS, false),(LPARAM)NULL);
 			}
 			nCurSelection = ComboBox_GetCurSel(GetDlgItem(hDlg,IDC_SNAPNAME));
-			if (nCurSelection != CB_ERR) {
+			if (nCurSelection != CB_ERR)
+			{
 				const char* snapname_selection = (const char*)ComboBox_GetItemData(GetDlgItem(hDlg,IDC_SNAPNAME), nCurSelection);
-				if (snapname_selection) {
+				if (snapname_selection)
 					SetSnapName(snapname_selection);
-				}
 			}
 			EndDialog(hDlg, 0);
 
