@@ -254,7 +254,10 @@ void namcofl_state::mcu_shared_w(offs_t offset, uint16_t data, uint16_t mem_mask
 	}
 #endif
 
-	COMBINE_DATA(&m_shareram[offset]);
+	if (offset & 1)
+		m_shareram[offset >> 1] = (m_shareram[offset >> 1] & ~(uint32_t(mem_mask) << 16)) | ((data & mem_mask) << 16);
+	else
+		m_shareram[offset >> 1] = (m_shareram[offset >> 1] & ~uint32_t(mem_mask)) | (data & mem_mask);
 
 	// C75 BIOS has a very short window on the CPU sync signal, so immediately let the i960 at it
 	if ((offset == 0x6000/2) && (data & 0x80))
@@ -263,6 +266,13 @@ void namcofl_state::mcu_shared_w(offs_t offset, uint16_t data, uint16_t mem_mask
 	}
 }
 
+uint16_t namcofl_state::mcu_shared_r(offs_t offset)
+{
+	if(offset & 1)
+		return m_shareram[offset >> 1] >> 16;
+	else
+		return m_shareram[offset >> 1];
+}
 
 uint8_t namcofl_state::port6_r()
 {
@@ -321,7 +331,7 @@ uint8_t namcofl_state::dac0_r(){ return 0xff; }
 void namcofl_state::namcoc75_am(address_map &map)
 {
 	map(0x002000, 0x002fff).rw("c352", FUNC(c352_device::read), FUNC(c352_device::write));
-	map(0x004000, 0x00bfff).ram().w(FUNC(namcofl_state::mcu_shared_w)).share("shareram");
+	map(0x004000, 0x00bfff).ram().rw(FUNC(namcofl_state::mcu_shared_r), FUNC(namcofl_state::mcu_shared_w));
 	map(0x200000, 0x27ffff).rom().region("c75data", 0);
 }
 
@@ -486,7 +496,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(namcofl_state::mcu_irq2_cb)
 }
 
 
-MACHINE_START_MEMBER(namcofl_state,namcofl)
+void namcofl_state::machine_start()
 {
 	m_raster_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(namcofl_state::raster_interrupt_callback),this));
 	m_network_interrupt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(namcofl_state::network_interrupt_callback),this));
@@ -494,7 +504,7 @@ MACHINE_START_MEMBER(namcofl_state,namcofl)
 }
 
 
-MACHINE_RESET_MEMBER(namcofl_state,namcofl)
+void namcofl_state::machine_reset()
 {
 	m_network_interrupt_timer->adjust(m_screen->time_until_pos(m_screen->visible_area().max_y + 3));
 	m_vblank_interrupt_timer->adjust(m_screen->time_until_pos(m_screen->visible_area().max_y + 1));
@@ -534,8 +544,6 @@ void namcofl_state::namcofl(machine_config &config)
 	TIMER(config, "mcu_irq0").configure_periodic(FUNC(namcofl_state::mcu_irq0_cb), attotime::from_hz(60));
 	TIMER(config, "mcu_irq2").configure_periodic(FUNC(namcofl_state::mcu_irq2_cb), attotime::from_hz(60));
 
-	MCFG_MACHINE_START_OVERRIDE(namcofl_state,namcofl)
-	MCFG_MACHINE_RESET_OVERRIDE(namcofl_state,namcofl)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1);
 
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
@@ -567,8 +575,6 @@ void namcofl_state::namcofl(machine_config &config)
 
 	NAMCO_C116(config, m_c116, 0);
 	m_c116->enable_shadows();
-
-	MCFG_VIDEO_START_OVERRIDE(namcofl_state,namcofl)
 
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();

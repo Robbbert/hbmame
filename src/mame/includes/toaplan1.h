@@ -27,7 +27,7 @@ public:
 		m_sharedram(*this, "sharedram"),
 		m_dswb_io(*this, "DSWB"),
 		m_tjump_io(*this, "TJUMP"),
-		m_spriteram(*this, "spriteram"),
+		m_spriteram(*this, "spriteram", 0x800, ENDIANNESS_BIG),
 		m_maincpu(*this, "maincpu"),
 		m_audiocpu(*this, "audiocpu"),
 		m_ymsnd(*this, "ymsnd"),
@@ -66,7 +66,7 @@ protected:
 	std::unique_ptr<u16[]> m_tilevram[0];   //  \/
 	*/
 
-	optional_shared_ptr<u16> m_spriteram;
+	memory_share_creator<u16> m_spriteram;
 	std::unique_ptr<u16[]> m_buffered_spriteram;
 	std::unique_ptr<u16[]> m_spritesizeram;
 	std::unique_ptr<u16[]> m_buffered_spritesizeram;
@@ -133,10 +133,7 @@ protected:
 	void set_scrolls();
 	void register_common();
 	void log_vram();
-	void draw_sprites(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect );
-	void draw_sprite_custom(screen_device &screen, bitmap_rgb32 &dest_bmp, const rectangle &clip, gfx_element *gfx,
-		u32 code, u32 color, int flipx, int flipy, int sx, int sy,
-		int priority);
+	void draw_sprites(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void reset_sound();
 	DECLARE_WRITE_LINE_MEMBER(reset_callback);
 	required_device<m68000_device> m_maincpu;

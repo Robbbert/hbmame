@@ -936,7 +936,7 @@ void CreateCPUFolders(int parent_index)
 		machine_config config(driver_list::driver(i),MameUIGlobal());
 
 		// enumerate through all devices
-		for (device_execute_interface &device : execute_interface_iterator(config.root_device()))
+		for (device_execute_interface &device : execute_interface_enumerator(config.root_device()))
 		{
 			// get the name
 			std::string dev_name = device.device().name();
@@ -992,7 +992,7 @@ void CreateSoundFolders(int parent_index)
 
 		// enumerate through all devices
 
-		for (device_sound_interface &device : sound_interface_iterator(config.root_device()))
+		for (device_sound_interface &device : sound_interface_enumerator(config.root_device()))
 		{
 			// get the name
 			std::string dev_name = device.device().name();
@@ -1217,7 +1217,7 @@ void CreateDumpingFolders(int parent_index)
 		/* Allocate machine config */
 		machine_config config(*gamedrv,MameUIGlobal());
 
-		for (device_t &device : device_iterator(config.root_device()))
+		for (device_t &device : device_enumerator(config.root_device()))
 		{
 			for (const rom_entry *region = rom_first_region(device); region; region = rom_next_region(region))
 			{
@@ -1321,13 +1321,13 @@ void CreateResolutionFolders(int parent_index)
 			sprintf(Screen, "Vector");
 		else
 		{
-			screen_device_iterator iter(config.root_device());
+			screen_device_enumerator iter(config.root_device());
 			const screen_device *screen = iter.first();
 			if (screen == NULL)
 				strcpy(Screen, "Screenless Game");
 			else
 			{
-				for (screen_device &screen : screen_device_iterator(config.root_device()))
+				for (screen_device &screen : screen_device_enumerator(config.root_device()))
 				{
 					const rectangle &visarea = screen.visible_area();
 
@@ -1390,13 +1390,13 @@ void CreateFPSFolders(int parent_index)
 			sprintf(Screen, "Vector");
 		else
 		{
-			screen_device_iterator iter(config.root_device());
+			screen_device_enumerator iter(config.root_device());
 			const screen_device *screen = iter.first();
 			if (screen == NULL)
 				strcpy(Screen, "Screenless Game");
 			else
 			{
-				for (screen_device &screen : screen_device_iterator(config.root_device()))
+				for (screen_device &screen : screen_device_enumerator(config.root_device()))
 				{
 					sprintf(Screen,"%f Hz", ATTOSECONDS_TO_HZ(screen.refresh_attoseconds()));
 

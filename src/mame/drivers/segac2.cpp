@@ -101,6 +101,7 @@ namespace {
 
 typedef device_delegate<int (int in)> segac2_prot_delegate;
 
+// does this need to inherit from md_base? really we only need the VDP and some basics like the maincpu
 class segac2_state : public md_base_state
 {
 public:
@@ -150,6 +151,10 @@ public:
 	void init_pclubjv4();
 	void init_pclubjv5();
 
+protected:
+	virtual void machine_start() override;
+	virtual void machine_reset() override;
+
 private:
 	// for Print Club only
 	int m_cam_data;
@@ -174,9 +179,7 @@ private:
 	uint8_t       m_sound_banks;      /* number of sound banks */
 
 	void segac2_common_init(segac2_prot_delegate prot_func);
-	DECLARE_VIDEO_START(segac2_new);
-	DECLARE_MACHINE_START(segac2);
-	DECLARE_MACHINE_RESET(segac2);
+
 
 	uint32_t screen_update_segac2_new(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	int m_segac2_bg_pal_lookup[4];
@@ -251,7 +254,7 @@ public:
 
 ******************************************************************************/
 
-MACHINE_START_MEMBER(segac2_state,segac2)
+void segac2_state::machine_start()
 {
 	save_item(NAME(m_prot_write_buf));
 	save_item(NAME(m_prot_read_buf));
@@ -260,7 +263,7 @@ MACHINE_START_MEMBER(segac2_state,segac2)
 }
 
 
-MACHINE_RESET_MEMBER(segac2_state,segac2)
+void segac2_state::machine_reset()
 {
 //  megadriv_scanline_timer = machine().device<timer_device>("md_scan_timer");
 //  megadriv_scanline_timer->adjust(attotime::zero);
@@ -1324,15 +1327,13 @@ static INPUT_PORTS_START( bloxeedc )
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNUSED )     /* Button 3 Unused */
 
 	PORT_MODIFY("DSW")
-	PORT_DIPNAME( 0x07, 0x07, DEF_STR( Coinage ) )      PORT_DIPLOCATION("SW2:1,2,3") // needs to be double checked
-	PORT_DIPSETTING(    0x00, "0" )
-	PORT_DIPSETTING(    0x01, "1" )
-	PORT_DIPSETTING(    0x02, "2" )
-	PORT_DIPSETTING(    0x03, "3" )
-	PORT_DIPSETTING(    0x04, "4" )
-	PORT_DIPSETTING(    0x05, "5" )
-	PORT_DIPSETTING(    0x06, "6" )
-	PORT_DIPSETTING(    0x07, "7" )
+	PORT_DIPNAME( 0x01, 0x01, "Credits to Start (VS)" ) PORT_DIPLOCATION("SW2:1")
+	PORT_DIPSETTING(    0x00, "Same as Normal" )
+	PORT_DIPSETTING(    0x01, "Double" )
+	PORT_DIPNAME( 0x02, 0x02, "Credits to Start (Normal)" )  PORT_DIPLOCATION("SW2:2")
+	PORT_DIPSETTING(    0x02, "1" )
+	PORT_DIPSETTING(    0x00, "2" )
+	//"SW2:3" unused
 	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Demo_Sounds ) )  PORT_DIPLOCATION("SW2:4")
 	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -1341,12 +1342,20 @@ static INPUT_PORTS_START( bloxeedc )
 	PORT_DIPSETTING(    0x30, DEF_STR( Normal ) )
 	PORT_DIPSETTING(    0x10, DEF_STR( Hard ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Hardest ) )
-	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Unknown ) )      PORT_DIPLOCATION("SW2:7") // ?
-	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	//"SW2:7" unused
 	PORT_DIPNAME( 0x80, 0x00, "High Speed Mode" )       PORT_DIPLOCATION("SW2:8")
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( bloxeedu )
+	PORT_INCLUDE( bloxeedc )
+
+	PORT_MODIFY("DSW") //"SW2:1" has opposite effect in US version
+	PORT_DIPNAME( 0x01, 0x00, "Credits to Start (VS)" ) PORT_DIPLOCATION("SW2:1")
+	PORT_DIPSETTING(    0x01, "Same as Normal" )
+	PORT_DIPSETTING(    0x00, "Double" )
 INPUT_PORTS_END
 
 
@@ -1497,11 +1506,6 @@ WRITE_LINE_MEMBER(segac2_state::segac2_irq2_interrupt)
 
 ******************************************************************************/
 
-VIDEO_START_MEMBER(segac2_state,segac2_new)
-{
-	VIDEO_START_CALL_MEMBER(megadriv);
-}
-
 // C2 doesn't use the internal VDP CRAM, instead it uses the digital output of the chip
 //  and applies it's own external colour circuity
 uint32_t segac2_state::screen_update_segac2_new(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
@@ -1598,9 +1602,6 @@ void segac2_state::segac(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &segac2_state::main_map);
 	m_maincpu->set_irq_acknowledge_callback(FUNC(md_base_state::genesis_int_callback));
 
-	MCFG_MACHINE_START_OVERRIDE(segac2_state,segac2)
-	MCFG_MACHINE_RESET_OVERRIDE(segac2_state,segac2)
-
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_1); // borencha requires 0xff fill or there is no sound (it lacks some of the init code of the borench set)
 
 	SEGA_315_5296(config, m_io, XL2_CLOCK/6); // clock divider guessed
@@ -1635,8 +1636,6 @@ void segac2_state::segac(machine_config &config)
 	screen.screen_vblank().set(FUNC(segac2_state::screen_vblank_megadriv));
 
 	PALETTE(config, m_palette).set_entries(2048*3);
-
-	MCFG_VIDEO_START_OVERRIDE(segac2_state,segac2_new)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -2647,7 +2646,7 @@ void segac2_state::init_pclubjv5()
 //    YEAR, NAME,      PARENT,   MACHINE,INPUT,    INIT,     MONITOR,COMPANY,FULLNAME,FLAGS
 /* System C Games */
 GAME( 1989, bloxeedc,  bloxeed,  segac,  bloxeedc,        segac2_state,    init_bloxeedc, ROT0,   "Sega / Elorg", "Bloxeed (World, C System)", 0 )
-GAME( 1989, bloxeedu,  bloxeed,  segac,  bloxeedc,        segac2_state,    init_bloxeedc, ROT0,   "Sega / Elorg", "Bloxeed (US, C System, Rev A)", 0 )
+GAME( 1989, bloxeedu,  bloxeed,  segac,  bloxeedu,        segac2_state,    init_bloxeedc, ROT0,   "Sega / Elorg", "Bloxeed (US, C System, Rev A)", 0 )
 
 GAME( 1990, columns,   0,        segac,  columns,         segac2_state,    init_columns,  ROT0,   "Sega", "Columns (World)", 0 )
 GAME( 1990, columnsu,  columns,  segac,  columnsu,        segac2_state,    init_columns,  ROT0,   "Sega", "Columns (US, cocktail, Rev A)", 0 ) // has cocktail mode dsw

@@ -84,6 +84,7 @@ public:
 		, m_sbp_prot(*this, "sbp_prot")
 		, m_kog_prot(*this, "kog_prot")
 		, m_out_digit(*this, "digit%u", 0U)
+		, m_bios_bank(*this, "bankedbios")
 	{ }
 
 	void hbmame_kog(machine_config &config);
@@ -351,6 +352,8 @@ private:
 	optional_device<sbp_prot_device> m_sbp_prot;
 	optional_device<kog_prot_device> m_kog_prot;
 	output_finder<5> m_out_digit;
+	memory_bank_creator m_bios_bank;
+	std::unique_ptr<uint16_t[]> m_extra_ram;
 };
 
 /*----------- defined in drivers/neogeo.c -----------*/

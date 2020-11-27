@@ -14,10 +14,14 @@
 ---------------------------------------------------
 
 CPUS["Z80"] = true
+CPUS["KC80"] = true
 CPUS["Z180"] = true
 CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["M6502"] = true
+--CPUS["ST2XXX"] = true
+--CPUS["XAVIX"] = true
+--CPUS["XAVIX2000"] = true
 CPUS["H6280"] = true
 CPUS["I86"] = true
 CPUS["I386"] = true
@@ -93,7 +97,8 @@ CPUS["APEXC"] = true
 CPUS["CP1610"] = true
 CPUS["F8"] = true
 CPUS["LH5801"] = true
-CPUS["PDP1"] = true
+--CPUS["PDP1"] = true
+--CPUS["TX0"] = true
 CPUS["SATURN"] = true
 CPUS["SC61860"] = true
 CPUS["LR35902"] = true
@@ -336,6 +341,7 @@ VIDEOS["I4100"] = true
 VIDEOS["I8275"] = true
 VIDEOS["JANGOU_BLITTER"] = true
 --VIDEOS["LC7582"] = true
+--VIDEOS["LC7985"] = true
 VIDEOS["M50458"] = true
 VIDEOS["MB90082"] = true
 VIDEOS["MB_VCU"] = true
@@ -2308,6 +2314,8 @@ files {
 	MAME_DIR .. "src/mame/video/ms1_tmap.h",
 	MAME_DIR .. "src/mame/video/ms32_sprite.cpp",
 	MAME_DIR .. "src/mame/video/ms32_sprite.h",
+	MAME_DIR .. "src/mame/machine/jaleco_ms32_sysctrl.cpp",
+	MAME_DIR .. "src/mame/machine/jaleco_ms32_sysctrl.h",
 }
 
 createMAMEProjects(_target, _subtarget, "jpm")
@@ -2501,6 +2509,7 @@ files {
 	MAME_DIR .. "src/mame/video/3dom2_te.cpp",
 	MAME_DIR .. "src/mame/video/3dom2_te.h",
 	MAME_DIR .. "src/mame/drivers/konblands.cpp",
+	MAME_DIR .. "src/mame/drivers/kongs470.cpp",
 	MAME_DIR .. "src/mame/drivers/konmedal.cpp",
 	MAME_DIR .. "src/mame/drivers/konmedal68k.cpp",
 	MAME_DIR .. "src/mame/drivers/kontest.cpp",

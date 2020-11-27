@@ -90,6 +90,8 @@ Sonic Hedgehog 2           171-6215A   837-6963-62       610-0239-62         MPR
 
 
 
+namespace {
+
 class mtech_state : public md_base_state
 {
 public:
@@ -408,9 +410,6 @@ void mtech_state::set_genz80_as_md()
 {
 	address_space &prg = m_z80snd->space(AS_PROGRAM);
 
-	prg.install_readwrite_bank(0x0000, 0x1fff, "bank1");
-	machine().root_device().membank("bank1")->set_base(m_genz80.z80_prgram.get());
-
 	prg.install_ram(0x0000, 0x1fff, m_genz80.z80_prgram.get());
 
 	prg.install_readwrite_handler(0x4000, 0x4003, read8sm_delegate(*m_ymsnd, FUNC(ym2612_device::read)), write8sm_delegate(*m_ymsnd, FUNC(ym2612_device::write)));
@@ -651,25 +650,27 @@ void mtech_state::machine_reset()
 	m_mt_bank_addr = 0;
 	md_base_state::machine_reset();
 
-	std::string region_tag;
+	for (int i = 0; i < 8; i++)
+		m_cart_reg[i] = nullptr;
+
 	if (m_cart1->get_rom_size() > 0)
-		m_cart_reg[0] = memregion(region_tag.assign(m_cart1->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[0] = memregion(std::string(m_cart1->tag()) + GENERIC_ROM_REGION_TAG);
 	else
 		m_cart_reg[0] = memregion(":mt_slot1:cart");
 	if (m_cart2)
-		m_cart_reg[1] = memregion(region_tag.assign(m_cart2->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[1] = memregion(std::string(m_cart2->tag()) + GENERIC_ROM_REGION_TAG);
 	if (m_cart3)
-		m_cart_reg[2] = memregion(region_tag.assign(m_cart3->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[2] = memregion(std::string(m_cart3->tag()) + GENERIC_ROM_REGION_TAG);
 	if (m_cart4)
-		m_cart_reg[3] = memregion(region_tag.assign(m_cart4->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[3] = memregion(std::string(m_cart4->tag()) + GENERIC_ROM_REGION_TAG);
 	if (m_cart5)
-		m_cart_reg[4] = memregion(region_tag.assign(m_cart5->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[4] = memregion(std::string(m_cart5->tag()) + GENERIC_ROM_REGION_TAG);
 	if (m_cart6)
-		m_cart_reg[5] = memregion(region_tag.assign(m_cart6->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[5] = memregion(std::string(m_cart6->tag()) + GENERIC_ROM_REGION_TAG);
 	if (m_cart7)
-		m_cart_reg[6] = memregion(region_tag.assign(m_cart7->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[6] = memregion(std::string(m_cart7->tag()) + GENERIC_ROM_REGION_TAG);
 	if (m_cart8)
-		m_cart_reg[7] = memregion(region_tag.assign(m_cart8->tag()).append(GENERIC_ROM_REGION_TAG));
+		m_cart_reg[7] = memregion(std::string(m_cart8->tag()) + GENERIC_ROM_REGION_TAG);
 
 	switch_cart(0);
 }
@@ -1410,6 +1411,8 @@ ROM_START( mt_soni2 ) /* Sonic The Hedgehog 2 */
 
 	ROM_REGION( 0x01, "sms_pin", ROMREGION_ERASE00 )
 ROM_END
+
+} // Anonymous namespace
 
 
 

@@ -82,6 +82,7 @@ public:
 		, m_videoram(*this, "videoram")
 		, m_decrypted_opcodes(*this, "decrypted_opcodes")
 		, m_lamps(*this, "lamp%u", 0U)
+		, m_bank1(*this, "bank1")
 	{ }
 
 	/* video extension callbacks */
@@ -352,12 +353,14 @@ public:
 	void scorpnmc(machine_config &config);
 	void fourplay(machine_config &config);
 	void videight(machine_config &config);
+	void astroamb(machine_config &config);
 
 protected:
 	void amigo2_map(address_map &map);
 	void anteaterg_map(address_map &map);
 	void anteatergg_map(address_map &map);
 	void anteateruk_map(address_map &map);
+	void astroamb_map(address_map &map);
 	void checkmaj_sound_map(address_map &map);
 	void checkman_sound_map(address_map &map);
 	void checkman_sound_portmap(address_map &map);
@@ -437,6 +440,8 @@ protected:
 	required_shared_ptr<uint8_t> m_videoram;
 	optional_shared_ptr<uint8_t> m_decrypted_opcodes;
 	output_finder<2> m_lamps;
+
+	memory_bank_creator m_bank1;
 
 	int m_bullets_base;
 	int m_sprites_base;

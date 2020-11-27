@@ -1014,6 +1014,12 @@ void pacman_state::pacman_map(address_map &map)
 	map(0x50c0, 0x50c0).mirror(0xaf3f).portr("DSW2");
 }
 
+void pacman_state::cannonbp_map(address_map &map)
+{
+	pacman_map(map);
+	map(0x4800, 0x4bff).ram();
+	map(0x3000, 0x3fff).r(FUNC(pacman_state::cannonbp_protection_r));
+}
 
 void pacman_state::birdiy_map(address_map &map)
 {
@@ -1220,14 +1226,14 @@ void pacman_state::s2650games_map(address_map &map)
 	map(0x0000, 0x0fff).bankr("bank1");
 	map(0x1000, 0x13ff).mirror(0x6000).w(FUNC(pacman_state::s2650games_colorram_w)).share("colorram");
 	map(0x1400, 0x141f).mirror(0x6000).w(FUNC(pacman_state::s2650games_scroll_w));
-	map(0x1420, 0x148f).mirror(0x6000).writeonly();
+	map(0x1420, 0x148f).mirror(0x6000).writeonly().share("unk_1420");
 	map(0x1490, 0x149f).mirror(0x6000).writeonly().share("s2650_spriteram");
 	map(0x14a0, 0x14bf).mirror(0x6000).w(FUNC(pacman_state::s2650games_tilesbank_w)).share("s2650_tileram");
-	map(0x14c0, 0x14ff).mirror(0x6000).writeonly();
+	map(0x14c0, 0x14ff).mirror(0x6000).writeonly().share("unk_14c0");
 	map(0x1500, 0x1507).mirror(0x6000).w(m_mainlatch, FUNC(ls259_device::write_d0));
-	map(0x1508, 0x155f).mirror(0x6000).writeonly();
+	map(0x1508, 0x155f).mirror(0x6000).writeonly().share("unk_1508");
 	map(0x1560, 0x156f).mirror(0x6000).writeonly().share("spriteram2");
-	map(0x1570, 0x157f).mirror(0x6000).writeonly();
+	map(0x1570, 0x157f).mirror(0x6000).writeonly().share("unk_1570");
 	map(0x1586, 0x1587).mirror(0x6000).nopw();
 	map(0x15c0, 0x15c0).mirror(0x6000).w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
 	map(0x15c7, 0x15c7).mirror(0x6000).w(FUNC(pacman_state::porky_banking_w));
@@ -4008,6 +4014,11 @@ void pacman_state::crushs(machine_config &config)
 	AY8912(config, "ay8912", 1789750).add_route(ALL_OUTPUTS, "mono", 0.75);
 }
 
+void pacman_state::cannonbp(machine_config &config)
+{
+	pacman(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::cannonbp_map);
+}
 
 
 /*************************************
@@ -6622,6 +6633,33 @@ ROM_START( theglobme )
 ROM_END
 
 
+ROM_START( theglobpb )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "8.bin", 0x0000, 0x0800, CRC(3fb1ab3d) SHA1(29b8600c86a5161c90e1797cfec86875c948cf5d) )
+	ROM_LOAD( "4.bin", 0x0800, 0x0800, CRC(554a0461) SHA1(149a0e317d91465c09fb3406073c331cc4e4aa95) )
+	ROM_LOAD( "7.bin", 0x1000, 0x0800, CRC(07a2faf7) SHA1(7f1e95ae94fc404b65ef4465e7f147dbd3093ffb) )
+	ROM_LOAD( "3.bin", 0x1800, 0x0800, CRC(b097cb29) SHA1(bfe750dffebcf6bc1b0acf5a4147fb445559b926) )
+	ROM_LOAD( "6.bin", 0x2000, 0x0800, CRC(b459ba66) SHA1(563259523a4e525eeb01c733fb3c192897725a45) )
+	ROM_LOAD( "2.bin", 0x2800, 0x0800, CRC(d8ef9f98) SHA1(caaefdda74d7415be28abacc192b57a87a72baf7) )
+	ROM_LOAD( "5.bin", 0x3000, 0x0800, CRC(7204e11d) SHA1(ca680a835edad78859b0b3bf54360b1963795850) )
+	ROM_LOAD( "1.bin", 0x3800, 0x0800, CRC(edac5b91) SHA1(8a6f29442370cca8114e7941a36747aa96e4f1bc) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "9.bin",  0x0000, 0x0800, CRC(36408c76) SHA1(f5bb18e38de57adc2aed6211048d9f0ee0e58df7) )
+	ROM_LOAD( "11.bin", 0x0800, 0x0800, CRC(b8ba069c) SHA1(f8d8e40afd8214a6d951af8de2761703b0651f79) )
+	ROM_LOAD( "10.bin", 0x1000, 0x0800, CRC(e0478b4e) SHA1(9697c7fd92752d052aea4c46292b1b7cae28f606) )
+	ROM_LOAD( "12.bin", 0x1800, 0x0800, CRC(7c4456a4) SHA1(74f55ae921cdf8f1f7a866d75a63244187426f17) )
+
+	ROM_REGION( 0x0120, "proms", 0 ) // Sound PROMs, not dumped for this set
+	ROM_LOAD( "n82s123an_a.7f", 0x0000, 0x0020, BAD_DUMP CRC(1f617527) SHA1(448845cab63800a05fcb106897503d994377f78f) )
+	ROM_LOAD( "n82s129n_b.4a",  0x0020, 0x0100, BAD_DUMP CRC(28faa769) SHA1(7588889f3102d4e0ca7918f536556209b2490ea1) )
+
+	ROM_REGION( 0x0200, "namco", 0 ) // Sound PROMs, not dumped for this set
+	ROM_LOAD( "63s141_b.1m",    0x0000, 0x0100, BAD_DUMP CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
+	ROM_LOAD( "63s141_b.3m",    0x0100, 0x0100, BAD_DUMP CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )    // Timing - not used
+ROM_END
+
+
 ROM_START( beastfp )
 	ROM_REGION( 0x20000, "maincpu", 0 )
 	ROM_LOAD( "bf-u2.bin",    0x0000, 0x2000, CRC(3afc517b) SHA1(5b74bca9e9cd4d8bcf94a340f8f0e53fe1dcfc1d) )
@@ -7763,16 +7801,6 @@ uint8_t pacman_state::cannonbp_protection_r(offs_t offset)
 	}
 }
 
-
-void pacman_state::init_cannonbp()
-{
-	/* extra memory */
-	m_maincpu->space(AS_PROGRAM).install_ram(0x4800, 0x4bff);
-
-	/* protection? */
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x3000, 0x3fff, read8sm_delegate(*this, FUNC(pacman_state::cannonbp_protection_r)));
-}
-
 void pacman_state::init_pengomc1()
 {
 	uint8_t *romdata = memregion("maincpu")->base();
@@ -7944,6 +7972,7 @@ GAME( 1983, bwcasino, 0,        acitya,   bwcasino, epospm_state,  empty_init,  
 GAME( 1983, acitya,   bwcasino, acitya,   acitya,   epospm_state,  empty_init,    ROT90,  "Epos Corporation", "Atlantic City Action", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1983, theglobp, suprglob, theglobp, theglobp, epospm_state,  empty_init,    ROT90,  "Epos Corporation",         "The Glob (Pac-Man hardware)",                                MACHINE_SUPPORTS_SAVE )
+GAME( 1983, theglobpb,suprglob, pacman,   theglobp, epospm_state,  empty_init,    ROT90,  "bootleg",                  "The Glob (Pac-Man hardware, bootleg)",                       MACHINE_SUPPORTS_SAVE )
 GAME( 1983, sprglobp, suprglob, theglobp, theglobp, epospm_state,  empty_init,    ROT90,  "Epos Corporation",         "Super Glob (Pac-Man hardware)",                              MACHINE_SUPPORTS_SAVE )
 GAME( 1984, sprglbpg, suprglob, pacman,   theglobp, epospm_state,  empty_init,    ROT90,  "bootleg (Software Labor)", "Super Glob (Pac-Man hardware) (German bootleg)",             MACHINE_SUPPORTS_SAVE )
 GAME( 1983, theglobme,suprglob, woodpek,  theglobp, epospm_state,  empty_init,    ROT90,  "Magic Electronics Inc.",   "The Glob (Pacman hardware, Magic Electronics Inc. license)", MACHINE_SUPPORTS_SAVE )
@@ -7962,7 +7991,7 @@ GAME( 1986, bigbucks, 0,        bigbucks, bigbucks, pacman_state,  empty_init,  
 
 GAME( 1983, numcrash, 0,        numcrash, numcrash, pacman_state,  empty_init,    ROT90,  "Hanshin Goraku / Peni", "Number Crash", MACHINE_SUPPORTS_SAVE ) // "Peni soft" related?
 
-GAME( 1985, cannonbp, 0,        pacman,   cannonbp, pacman_state,  init_cannonbp, ROT90,  "Novomatic", "Cannon Ball (Pac-Man Hardware)", MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 1985, cannonbp, 0,        cannonbp, cannonbp, pacman_state,  empty_init,    ROT90,  "Novomatic", "Cannon Ball (Pac-Man Hardware)", MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
 
 GAME( 1999, superabc, 0,        superabc, superabc, pacman_state,  init_superabc, ROT90,  "hack (Two-Bit Score)", "Super ABC (Pac-Man multigame kit, Sep. 03 1999)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, superabco,superabc, superabc, superabc, pacman_state,  init_superabc, ROT90,  "hack (Two-Bit Score)", "Super ABC (Pac-Man multigame kit, Mar. 08 1999)", MACHINE_SUPPORTS_SAVE )

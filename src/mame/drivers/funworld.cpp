@@ -4660,6 +4660,27 @@ ROM_START( cuoreunoa ) // same as pool10b but with cuoreuno GFX ROMs
 	ROM_LOAD( "palce20v8h.u23", 0x0400, 0x0157, NO_DUMP )  // PLD is read protected
 ROM_END
 
+ROM_START( cuoreunob )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pool10tk.u2", 0x8000, 0x8000, CRC(837559be) SHA1(12b72c06cdf563c721544e6d96cac8fe3408ac50) )
+
+	ROM_REGION( 0x10000, "gfx1", 0 )
+	ROM_LOAD( "b.u21", 0x0000, 0x8000, CRC(4b7d90b2) SHA1(1c3b022ebb71ed23bfd5da511525b1850f791941) ) // 1ST AND 2ND HALF IDENTICAL
+	ROM_IGNORE(                0x8000 )
+	ROM_LOAD( "c.u20", 0x8000, 0x8000, CRC(e9d107ce) SHA1(3b05cc6f52ac59b432ad1353e9a4a6534e40d2f1) ) // 1ST AND 2ND HALF IDENTICAL
+	ROM_IGNORE(                0x8000 )
+
+	ROM_REGION( 0x0800, "nvram", 0 )    // default NVRAM
+	ROM_LOAD( "cuoreunob_nvram.bin",   0x0000, 0x0800, CRC(0f1ca7ac) SHA1(ea7c353ff8ffde632cbd900eb61a4cb982a4539e) )
+
+	ROM_REGION( 0x0200, "proms", 0 ) // not dumped for this set
+	ROM_LOAD( "am27s29pc.u25",   0x0000, 0x0200, BAD_DUMP CRC(1de03d14) SHA1(d8eda20865c1d885a428931f4380032e103b252c) )
+
+	ROM_REGION( 0x0600, "plds", 0 )
+	ROM_LOAD( "palce16v8h.u5",  0x0000, 0x0117, NO_DUMP )  // PLD is read protected
+	ROM_LOAD( "gal20v8qs.u22",  0x0200, 0x0157, NO_DUMP )  // PLD is read protected
+	ROM_LOAD( "gal20v8qs.u23",  0x0400, 0x0157, NO_DUMP )  // PLD is read protected
+ROM_END
 
 /*
     Elephant Family (italian, old)
@@ -5113,6 +5134,32 @@ ROM_START( pool10j )
 
 	ROM_REGION( 0x0600, "plds", 0 ) // all read protected
 	ROM_LOAD( "palce16v8h.u5",  0x0000, 0x0117, NO_DUMP )
+	ROM_LOAD( "palce20v8h.u22", 0x0200, 0x0157, NO_DUMP )
+	ROM_LOAD( "palce20v8h.u23", 0x0400, 0x0157, NO_DUMP )
+ROM_END
+
+ROM_START( pool10k ) // found on two PCBs
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "eagle1.u2", 0x8000, 0x8000, CRC(1fdddc4e) SHA1(5c36374b7e36b615f051e20b684c5e058e82efce) ) // 0xxxxxxxxxxxxxxx = 0xFF
+	ROM_CONTINUE(          0x8000, 0x2000 )
+	ROM_CONTINUE(          0xc000, 0x2000 )
+	ROM_CONTINUE(          0xa000, 0x2000 )
+	ROM_CONTINUE(          0xe000, 0x2000 )
+
+	ROM_REGION( 0x10000, "gfx1", 0 )
+	ROM_LOAD( "eagle2.u21", 0x0000, 0x8000, CRC(581c4878) SHA1(5ae61af090feea1745e22f46b33b2c01e6013fbe) )
+	ROM_IGNORE(                0x8000 )     // Identical halves. Discarding 2nd half
+	ROM_LOAD( "eagle3.u20", 0x8000, 0x8000, CRC(3bdf1106) SHA1(fa21cbd49bb27ea4a784cf4e4b3fbd52650a285b) )
+	ROM_IGNORE(                0x8000 )     // Identical halves. Discarding 2nd half
+
+	ROM_REGION( 0x0800, "nvram", 0 )    // default NVRAM
+	ROM_LOAD( "pool10k_nvram.bin",  0x0000, 0x0800, CRC(fb0e9e6a) SHA1(97fbcff4d615983321bf5d53884f7ed56f8a8998) )
+
+	ROM_REGION( 0x0200, "proms", 0 )
+	ROM_LOAD( "am27s29pc.u25", 0x0000, 0x0200, CRC(1de03d14) SHA1(d8eda20865c1d885a428931f4380032e103b252c) )
+
+	ROM_REGION( 0x0600, "plds", 0 ) // all read protected
+	ROM_LOAD( "gal16v8ah.u5",   0x0000, 0x0117, NO_DUMP )
 	ROM_LOAD( "palce20v8h.u22", 0x0200, 0x0157, NO_DUMP )
 	ROM_LOAD( "palce20v8h.u23", 0x0400, 0x0157, NO_DUMP )
 ROM_END
@@ -8244,6 +8291,7 @@ GAMEL( 1986, bigdealb,   bonuscrd, fw2ndpal, bigdeal,   funworld_state, empty_in
 // CMC Italian jamma PCB's...
 GAMEL( 1996, cuoreuno,   0,        cuoreuno, cuoreuno,  funworld_state, empty_init,    ROT0, "C.M.C.",            "Cuore 1 (Italian, set 1)",                        0,                       layout_jollycrd )
 GAMEL( 1996, cuoreunoa,  cuoreuno, cuoreuno, cuoreuno,  funworld_state, empty_init,    ROT0, "C.M.C.",            "Cuore 1 (Italian, set 2)",                        0,                       layout_jollycrd )
+GAMEL( 1996, cuoreunob,  cuoreuno, cuoreuno, cuoreuno,  funworld_state, empty_init,    ROT0, "C.M.C.",            "Cuore 1 (Italian, set 3)",                        0,                       layout_jollycrd )
 GAMEL( 1997, elephfam,   0,        cuoreuno, cuoreuno,  funworld_state, empty_init,    ROT0, "C.M.C.",            "Elephant Family (Italian, new)",                  0,                       layout_jollycrd )
 GAMEL( 1996, elephfmb,   elephfam, cuoreuno, cuoreuno,  funworld_state, empty_init,    ROT0, "C.M.C.",            "Elephant Family (Italian, old)",                  0,                       layout_jollycrd )
 GAMEL( 1996, pool10,     0,        cuoreuno, pool10,    funworld_state, empty_init,    ROT0, "C.M.C.",            "Pool 10 (Italian, set 1)",                        0,                       layout_jollycrd )
@@ -8255,6 +8303,7 @@ GAMEL( 1996, pool10g,    pool10,   cuoreuno, cuoreuno,  funworld_state, empty_in
 GAMEL( 1996, pool10h,    pool10,   cuoreuno, pool10,    funworld_state, empty_init,    ROT0, "C.M.C.",            "Pool 10 (Italian, set 7)",                        0,                       layout_jollycrd )
 GAMEL( 1997, pool10i,    pool10,   cuoreuno, pool10,    funworld_state, empty_init,    ROT0, "C.M.C.",            "Pool 10 (Italian, set 8)",                        0,                       layout_jollycrd )
 GAMEL( 1996, pool10j,    pool10,   cuoreuno, pool10,    funworld_state, empty_init,    ROT0, "bootleg (R.B.)",    "Pool 10 (Italian, set 9)",                        0,                       layout_jollycrd )
+GAMEL( 1997, pool10k,    pool10,   cuoreuno, pool10,    funworld_state, empty_init,    ROT0, "C.M.C.",            "Pool 10 (Italian, set 10)",                       0,                       layout_jollycrd )
 GAMEL( 1998, biliard,    pool10,   cuoreuno, pool10,    funworld_state, empty_init,    ROT0, "bootleg",           "New Biliard 98 (Pool 10 hack)",                   0,                       layout_jollycrd )
 GAMEL( 2001, royal,      pool10,   royalcd1, royal,     funworld_state, empty_init,    ROT0, "<unknown>",         "Royal (Pool 10 hack)",                            0,                       layout_jollycrd )
 GAMEL( 1997, tortufam,   0,        cuoreuno, cuoreuno,  funworld_state, empty_init,    ROT0, "C.M.C.",            "Tortuga Family (Italian)",                        0,                       layout_jollycrd )

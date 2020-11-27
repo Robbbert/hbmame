@@ -395,7 +395,7 @@ const char * GetDriverFilename(uint32_t nIndex)
 
 BOOL isDriverVector(const machine_config *config)
 {
-	const screen_device *screen = screen_device_iterator(config->root_device()).first();
+	const screen_device *screen = screen_device_enumerator(config->root_device()).first();
 
 	if (screen)
 		if (SCREEN_TYPE_VECTOR == screen->screen_type())
@@ -406,13 +406,13 @@ BOOL isDriverVector(const machine_config *config)
 
 int numberOfScreens(const machine_config *config)
 {
-	screen_device_iterator scriter(config->root_device());
+	screen_device_enumerator scriter(config->root_device());
 	return scriter.count();
 }
 
 int numberOfSpeakers(const machine_config *config)
 {
-	speaker_device_iterator iter(config->root_device());
+	speaker_device_enumerator iter(config->root_device());
 	return iter.count();
 }
 
@@ -488,10 +488,10 @@ static void InitDriversInfo(void)
 		gameinfo->isHarddisk = false;
 		gameinfo->isVertical = BIT(cache, 2);  //ORIENTATION_SWAP_XY
 
-		ram_device_iterator iter1(config.root_device());
+		ram_device_enumerator iter1(config.root_device());
 		gameinfo->hasRam = (iter1.first() );
 
-		for (device_t &device : device_iterator(config.root_device()))
+		for (device_t &device : device_enumerator(config.root_device()))
 			for (region = rom_first_region(device); region; region = rom_next_region(region))
 				if (ROMREGION_ISDISKDATA(region))
 					gameinfo->isHarddisk = true;
@@ -511,12 +511,12 @@ static void InitDriversInfo(void)
 		gameinfo->screenCount = numberOfScreens(&config);
 		gameinfo->isVector = isDriverVector(&config); // ((drv.video_attributes & VIDEO_TYPE_VECTOR) != 0);
 		gameinfo->usesRoms = false;
-		for (device_t &device : device_iterator(config.root_device()))
+		for (device_t &device : device_enumerator(config.root_device()))
 			for (region = rom_first_region(device); region; region = rom_next_region(region))
 				for (rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 					gameinfo->usesRoms = true;
 
-		samples_device_iterator iter(config.root_device());
+		samples_device_enumerator iter(config.root_device());
 		gameinfo->usesSamples = iter.count() ? true : false;
 
 		gameinfo->usesTrackball = false;
@@ -527,7 +527,7 @@ static void InitDriversInfo(void)
 		{
 			ioport_list portlist;
 			std::string errors;
-			for (device_t &cfg : device_iterator(config.root_device()))
+			for (device_t &cfg : device_enumerator(config.root_device()))
 				if (cfg.input_ports())
 					portlist.append(cfg, errors);
 

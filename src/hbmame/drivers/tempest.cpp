@@ -119,8 +119,9 @@ ROM_START( temped )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(               0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -155,8 +156,9 @@ ROM_START( tempm )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(               0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -191,8 +193,9 @@ ROM_START( tempall )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(               0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -227,8 +230,9 @@ ROM_START( temptwst )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(               0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -263,8 +267,9 @@ ROM_START( temptwsta )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(               0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -299,8 +304,9 @@ ROM_START( temptwst2 )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -335,8 +341,9 @@ ROM_START( temptwst3 )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -371,8 +378,9 @@ ROM_START( temptwst4 )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -402,8 +410,9 @@ ROM_START( vbrakout )
 	ROM_LOAD( "vbrakout.122",   0xd800, 0x0800, CRC(1ae2dd53) SHA1(b908ba6b59195aea853380a56a243aa8fa2fba71) )
 	ROM_RELOAD(              0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -438,8 +447,9 @@ ROM_START( temptlm )
 	ROM_LOAD( "136002.222",   0xd800, 0x0800, CRC(707bd5c3) SHA1(2f0af6fb7154c244c794f7247e5c16a1e06ddf7d) )
 	ROM_RELOAD(               0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "136002-123.np3",  0x3000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_LOAD( "136002-124.r3",   0x3800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -478,8 +488,9 @@ ROM_START( tvortex ) /* rev 1 */
 	ROM_LOAD( "r1.bin",    0xd800, 0x0800, CRC(67cafbb1) SHA1(467515733d843398e6fe29661002536a1e6c8fc9) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "n3.bin",    0x3000, 0x0800, CRC(29c6a1cb) SHA1(290702a1c0942a68e288b37963e51eba02177a3f) )
-	ROM_LOAD( "r3.bin",    0x3800, 0x0800, CRC(7fbe5e21) SHA1(e5de6c3af82e64444b0ddcda559e9cb4fbf6c1da) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "n3.bin",    0x0000, 0x0800, CRC(29c6a1cb) SHA1(290702a1c0942a68e288b37963e51eba02177a3f) )
+	ROM_LOAD( "r3.bin",    0x0800, 0x0800, CRC(7fbe5e21) SHA1(e5de6c3af82e64444b0ddcda559e9cb4fbf6c1da) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -514,8 +525,9 @@ ROM_START( tvortexa ) /* rev 2? */
 	ROM_LOAD( "r1_alt.bin",    0xd800, 0x0800, CRC(2711c2cc) SHA1(f5e43dd46c24828e733b70f7bd678522c34e318a) )
 	ROM_RELOAD(             0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "n3.bin",    0x3000, 0x0800, CRC(29c6a1cb) SHA1(290702a1c0942a68e288b37963e51eba02177a3f) )
-	ROM_LOAD( "r3.bin",    0x3800, 0x0800, CRC(7fbe5e21) SHA1(e5de6c3af82e64444b0ddcda559e9cb4fbf6c1da) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "n3.bin",    0x0000, 0x0800, CRC(29c6a1cb) SHA1(290702a1c0942a68e288b37963e51eba02177a3f) )
+	ROM_LOAD( "r3.bin",    0x0800, 0x0800, CRC(7fbe5e21) SHA1(e5de6c3af82e64444b0ddcda559e9cb4fbf6c1da) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -550,8 +562,9 @@ ROM_START( aliensv ) /* rev 1 */
 	ROM_LOAD( "aliens.r1",   0xd800, 0x0800, CRC(555c3070) SHA1(032f03af23c7ccac8a2bf50c3c646e141921ffee) )
 	ROM_RELOAD(              0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "aliens.n3",   0x3000, 0x0800, CRC(5c8fd38b) SHA1(bb0d6bd062eba53b5d64b3f444d5ce0a34728bf5) )
-	ROM_LOAD( "aliens.r3",   0x3800, 0x0800, CRC(6cabcd08) SHA1(e3950de50f3dfbc4d4d2f4fe26625d8ef94c0819) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "aliens.n3",   0x0000, 0x0800, CRC(5c8fd38b) SHA1(bb0d6bd062eba53b5d64b3f444d5ce0a34728bf5) )
+	ROM_LOAD( "aliens.r3",   0x0800, 0x0800, CRC(6cabcd08) SHA1(e3950de50f3dfbc4d4d2f4fe26625d8ef94c0819) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -586,8 +599,9 @@ ROM_START( aliensva ) /* rev 2? */
 	ROM_LOAD( "aliensa.r1",  0xd800, 0x0800, CRC(4da6627d) SHA1(01d8eea45373e3e87c81bc3b31d85ba8c7f4fcb3) )
 	ROM_RELOAD(              0xf800, 0x0800 ) /* for reset/interrupt vectors */
 	/* Vector ROM */
-	ROM_LOAD( "aliens.n3",   0x3000, 0x0800, CRC(5c8fd38b) SHA1(bb0d6bd062eba53b5d64b3f444d5ce0a34728bf5) )
-	ROM_LOAD( "aliens.r3",   0x3800, 0x0800, CRC(6cabcd08) SHA1(e3950de50f3dfbc4d4d2f4fe26625d8ef94c0819) )
+	ROM_REGION( 0x1000, "vectorrom", 0 )
+	ROM_LOAD( "aliens.n3",   0x0000, 0x0800, CRC(5c8fd38b) SHA1(bb0d6bd062eba53b5d64b3f444d5ce0a34728bf5) )
+	ROM_LOAD( "aliens.r3",   0x0800, 0x0800, CRC(6cabcd08) SHA1(e3950de50f3dfbc4d4d2f4fe26625d8ef94c0819) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )
@@ -636,7 +650,11 @@ void tempmg_state::rombank_w(u8 data)
 	membank("bank1")->set_entry(data);
 	membank("bank2")->set_entry(data);
 	/* standard rom banking would not work here, using memcpy instead */
-	if (data < 4) memcpy(&RAM[0x3000], &RAM[0x16000+(data<<15)],0x1000);
+	u8 *vec = memregion("vectorrom")->base();
+	if (data < 4)
+		memcpy(&RAM[0x3000], &vec[data*0x1000],0x1000);
+	else
+		memcpy(&RAM[0x3000], &vec[0],0x1000);
 }
 
 MACHINE_RESET_MEMBER( tempmg_state, tempmg )
@@ -648,7 +666,7 @@ void tempmg_state::init_tempmg()
 {
 	uint8_t *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x11000], 0x8000); // main roms
-	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000); // vectors
+	membank("bank2")->configure_entries(0, 8, &RAM[0x17800], 0x8000); // boot vectors
 }
 
 void tempmg_state::tempmg_map(address_map &map) {
@@ -657,7 +675,7 @@ void tempmg_state::tempmg_map(address_map &map) {
 	map(0x0c00, 0x0c00).portr("IN0");
 	map(0x0d00, 0x0d00).portr("DSW1");
 	map(0x0e00, 0x0e00).portr("DSW2");
-	map(0x2000, 0x2fff).ram().share("avg:vectorram").region("maincpu",0x2000);
+	map(0x2000, 0x2fff).ram();
 	map(0x3000, 0x3fff).rom();
 	map(0x4000, 0x4000).w(FUNC(tempmg_state::tempest_coin_w));
 	map(0x4800, 0x4800).w(m_avg,FUNC(avg_tempest_device::go_w));
@@ -770,15 +788,17 @@ ROM_START( tempmg )
 	ROM_RELOAD(                  0x13800, 0x0800 )
 	ROM_LOAD( "136002-122.r1",   0x3d800, 0x0800, CRC(796a9918) SHA1(c862a0d4ea330161e4c3cc8e5e9ad38893fffbd4) )
 	ROM_RELOAD(                  0x3f800, 0x0800 )
+
 	/* Vector ROMs */
-	ROM_LOAD( "136002-123.np3",  0x16000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
-	ROM_RELOAD(                  0x26000, 0x0800 )
-	ROM_LOAD( "136002-124.r3",   0x16800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
-	ROM_RELOAD(                  0x26800, 0x0800 )
-	ROM_LOAD( "aliens.n3",       0x1e000, 0x0800, CRC(5c8fd38b) SHA1(bb0d6bd062eba53b5d64b3f444d5ce0a34728bf5) )
-	ROM_LOAD( "aliens.r3",       0x1e800, 0x0800, CRC(6cabcd08) SHA1(e3950de50f3dfbc4d4d2f4fe26625d8ef94c0819) )
-	ROM_LOAD( "n3.bin",          0x2e000, 0x0800, CRC(29c6a1cb) SHA1(290702a1c0942a68e288b37963e51eba02177a3f) )
-	ROM_LOAD( "r3.bin",          0x2e800, 0x0800, CRC(7fbe5e21) SHA1(e5de6c3af82e64444b0ddcda559e9cb4fbf6c1da) )
+	ROM_REGION( 0x4000, "vectorrom", 0 )
+	ROM_LOAD( "136002-123.np3",  0x0000, 0x0800, CRC(29f7e937) SHA1(686c8b9b8901262e743497cee7f2f7dd5cb3af7e) )
+	ROM_RELOAD(                  0x2000, 0x0800 )
+	ROM_LOAD( "136002-124.r3",   0x0800, 0x0800, CRC(c16ec351) SHA1(a30a3662c740810c0f20e3712679606921b8ca06) )
+	ROM_RELOAD(                  0x2800, 0x0800 )
+	ROM_LOAD( "aliens.n3",       0x1000, 0x0800, CRC(5c8fd38b) SHA1(bb0d6bd062eba53b5d64b3f444d5ce0a34728bf5) )
+	ROM_LOAD( "aliens.r3",       0x1800, 0x0800, CRC(6cabcd08) SHA1(e3950de50f3dfbc4d4d2f4fe26625d8ef94c0819) )
+	ROM_LOAD( "n3.bin",          0x3000, 0x0800, CRC(29c6a1cb) SHA1(290702a1c0942a68e288b37963e51eba02177a3f) )
+	ROM_LOAD( "r3.bin",          0x3800, 0x0800, CRC(7fbe5e21) SHA1(e5de6c3af82e64444b0ddcda559e9cb4fbf6c1da) )
 
 	/* AVG PROM */
 	ROM_REGION( 0x100, "avg:prom", 0 )

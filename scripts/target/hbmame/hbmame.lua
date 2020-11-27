@@ -29,6 +29,7 @@ CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["I86"] = true
 CPUS["I960"] = true -- model2
+CPUS["KC80"] = true -- ddenlovr
 CPUS["M37710"] = true -- namcona1
 CPUS["M6502"] = true
 CPUS["M6800"] = true

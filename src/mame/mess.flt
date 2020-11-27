@@ -36,12 +36,14 @@ aid80f.cpp
 aim65.cpp
 aim65_40.cpp
 akaiax80.cpp
+akaivx600.cpp
 alcat7100.cpp
 alesis.cpp
 alesis_qs.cpp
 alfaskop41xx.cpp
 alphajuno.cpp
 alphasma.cpp
+alphatan.cpp
 alphatpc16.cpp
 alphatpx.cpp
 alphatro.cpp
@@ -119,6 +121,7 @@ binbug.cpp
 bitel.cpp
 bitgraph.cpp
 bk.cpp
+blit.cpp
 blw700i.cpp
 bmjr.cpp
 bml3.cpp
@@ -220,6 +223,7 @@ debut.cpp
 decstation.cpp
 dectalk.cpp
 decwritr.cpp
+design.cpp
 dfs500.cpp
 dg680.cpp
 dgn_beta.cpp
@@ -429,6 +433,7 @@ indy_indigo2.cpp
 informer_207_100.cpp
 informer_207_376.cpp
 informer_213.cpp
+innotv_innotabmax.cpp
 instruct.cpp
 inteladv.cpp
 intellec4.cpp
@@ -929,6 +934,7 @@ spg2xx_pdc.cpp
 spg2xx_playvision.cpp
 spg2xx_senario.cpp
 spg2xx_senario_poker.cpp
+spg2xx_senca.cpp
 spg2xx_shredmjr.cpp
 spg2xx_skannerztv.cpp
 spg2xx_smarttv.cpp
@@ -937,7 +943,6 @@ spg2xx_tvgogo.cpp
 spg2xx_vii.cpp
 spg2xx_wiwi.cpp
 spg2xx_zone.cpp
-spg2xx_zone_32bit.cpp
 squale.cpp
 ssem.cpp
 st17xx.cpp
@@ -1109,6 +1114,7 @@ vtech2.cpp
 vtech_eu3a12.cpp
 wangpc.cpp
 wicat.cpp
+wizard.cpp
 wrinkles.cpp
 wswan.cpp
 wxstar4000.cpp
@@ -1133,8 +1139,10 @@ xerox820.cpp
 xor100.cpp
 ymdx11.cpp
 ymmu100.cpp
+ymmu5.cpp
 ymmu50.cpp
 ymmu80.cpp
+ympsr340.cpp
 ymtx81z.cpp
 ymvl70.cpp
 z100.cpp

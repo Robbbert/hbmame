@@ -13,7 +13,9 @@ void neogeo_state::init_jckeygpd()
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 
 	/* install some extra RAM */
-	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
+	m_extra_ram = std::make_unique<uint16_t[]>(0x1000);
+	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff, m_extra_ram.get());
+	save_pointer(NAME(m_extra_ram), 0x1000);
 }
 
 void neogeo_state::init_matrima()
