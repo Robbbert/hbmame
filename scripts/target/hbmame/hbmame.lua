@@ -495,7 +495,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/exidy.cpp",
 	MAME_DIR .. "src/mame/audio/exidy.cpp",
 	MAME_DIR .. "src/mame/video/exidy.cpp",
-	MAME_DIR .. "src/mame/audio/targ.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "fuuki")
@@ -925,6 +924,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/ssv.cpp",
 	MAME_DIR .. "src/mame/video/ssv.cpp",
 	MAME_DIR .. "src/mame/video/st0020.cpp",
+	MAME_DIR .. "src/mame/video/x1_012.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "snk")
