@@ -181,7 +181,7 @@ NUM GAME YEAR COMPANY                 TITLE
 446 7777 2014 M.Priewe                Monitor Test Tool
 447*     2016 M.Priewe                Hypernoid (in development or cancelled)
 448
-449
+449*     n/r  RiKo                    Cosmic Tower (in development or cancelled)
 450*     2012 RKGAMES                 Neo-sprite demo (CD only)
 451*     2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
 452*     2011 Furrtek                 VUmeter (CD only) [nebula]
@@ -193,8 +193,8 @@ NUM GAME YEAR COMPANY                 TITLE
 458 0052      Furrtek                 KnackiBalls
 459*     n/r  Furrtek                 Unleashed (in development or cancelled)
 460*     n/r  Furrtek                 Astrosmash (in development or cancelled)
-461*     n/r  RiKo                    Cosmic Tower (in development or cancelled)
-462 0083 2009 Elrayzeur               Puzzle Bobble Crazy
+461 0280 2020 Elrayzeur               Puzzle Crazy
+462 0083 2009 Elrayzeur               Puzzle Bobble Crazy beta
 463*          NGD                     NGD::ARK (Arkanoid port)
 464*          NGD                     NGD::AIR (ngdevgroup.com [dead])
 465*          NGD                     NGD::FIGHT
