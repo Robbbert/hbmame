@@ -226,6 +226,7 @@ NUM GAME YEAR COMPANY                 TITLE
 491 0539 2019 Totologic               Neotris
 492 7777 2019 Fullset                 Project Neon Caravan Edition
 493 1234 2020 OzzyOuzo                New! Super Mario Bros Demo
+494 0539 2020 Totologic               Bonus Stage
 
 
 ********************** 800 to 899 **********************************
@@ -2454,6 +2455,23 @@ ROM_START( nsmbd )
 ROM_END
 
 
+// 494 : Bonus Stage by Totologic
+ROM_START( bonusstage )
+	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "494.p1", 0x000000, 0x080000, CRC(de637e0b) SHA1(08f902bca19c815e7c69a0b9d3e5366eb82b944c) )
+
+	NEO_SFIX_128K( "494.s1", CRC(a12d8990) SHA1(969db205d77cc80a1ebb88be6a265112142533ec) )
+
+	NEO_BIOS_AUDIO_64K( "494.m1", CRC(dee563b2) SHA1(75e0fca36e8c23922ed9b54942ec11170b9b505a) )
+
+	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_LOAD( "494.v1", 0x000000, 0x400000, CRC(87bdd5fa) SHA1(e7ccc9a56aeaf1f4f79d2265fc5f19a0894dd96b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "494.c1", 0x000000, 0x400000, CRC(bfe4eb8d) SHA1(e03ccfc50cf4813833a23b152bc0e47f453532a4) )
+	ROM_LOAD16_BYTE( "494.c2", 0x000001, 0x400000, CRC(41fab784) SHA1(9d86d1362ed3981b9dedbd0bc9707a515260ce25) )
+ROM_END
+
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
 ROM_START( lhcdb )
@@ -2597,6 +2615,7 @@ GAME( 2012, neothund,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2019, neotrisd1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 1", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, neotrisd2,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, neotrisd3,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 3", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta 2006-01-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
