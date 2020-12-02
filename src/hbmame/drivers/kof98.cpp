@@ -3876,6 +3876,39 @@ ROM_START( kof98ul )
 	ROM_LOAD16_BYTE( "242.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
+ROM_START( kof98ult ) // all confirmed.
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242ult.p1", 0x000000, 0x100000, CRC(9c450313) SHA1(447e4d422af94ededad84a382a5a762234a9c8ab) )
+	ROM_LOAD16_WORD_SWAP( "242ult.p2", 0x100000, 0x600000, CRC(6d109dc7) SHA1(57cefc9383d0261fd6258ac5109683f3b0339d65) )
+
+	NEO_SFIX( 0x40000, "242ult.s1", CRC(71d1b3ca) SHA1(88cba88e3fc3ff34655eced7f3fbedcf279e982b) )
+
+	NEO_BIOS_AUDIO_256K( "242ae.m1", CRC(9ade0528) SHA1(67d0c3b146d369416b84c081544fe51fc6c2a140) )
+
+	ROM_REGION( 0x1000000, "ymsnd", 0 )
+	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+
+	ROM_REGION( 0x1000000, "ymsnd.deltat", 0 )
+	ROM_LOAD( "242hx131.v5", 0x000000, 0x400000, CRC(afdd9660) SHA1(0d67fb61111256c0d74d4f2b473ab5a42d1909b9) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242ult.c1",  0x0000000, 0x800000, CRC(8e297a35) SHA1(8177d37dba3e1e3aea74d255d0a292d03c430c0b) )
+	ROM_LOAD16_BYTE( "242ult.c2",  0x0000001, 0x800000, CRC(d8a4b216) SHA1(7a8aee14008ee9ccef0d76f710d6d4029098548d) )
+	ROM_LOAD16_BYTE( "242.c3",     0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242.c4",     0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
+	ROM_LOAD16_BYTE( "242ae.c5",   0x2000000, 0x800000, CRC(71641718) SHA1(b88a00aca2fc34230d2d2da0b235195a5eb1ecf0) )
+	ROM_LOAD16_BYTE( "242ae.c6",   0x2000001, 0x800000, CRC(982ba2b3) SHA1(232ce3be7beaad13b35865da770157ef4b29a7a9) )
+	ROM_LOAD16_BYTE( "242ae.c7",   0x3000000, 0x800000, CRC(8d495552) SHA1(20ff76b681b2e544c5a57060bb98ab6bb91bea3c) )
+	ROM_LOAD16_BYTE( "242ae.c8",   0x3000001, 0x800000, CRC(8bfc3417) SHA1(38bb85563d0a7f008a64cf76d71d82b935cd98e5) )
+	ROM_LOAD16_BYTE( "242ult.c9",  0x4000000, 0x800000, CRC(de7e8582) SHA1(a257beff275dffc960eb5f2df3bcbf579be64a89) )
+	ROM_LOAD16_BYTE( "242ult.c10", 0x4000001, 0x800000, CRC(76c7b038) SHA1(1a2fca5103749ada63876cbd661c3c6f2bf68bc5) )
+	ROM_LOAD16_BYTE( "242aea.c11", 0x5000000, 0x800000, CRC(56d361cb) SHA1(594826cf58b7cd3b0bee05cdab1265d03c057b58) )
+	ROM_LOAD16_BYTE( "242aea.c12", 0x5000001, 0x800000, CRC(f8cb115b) SHA1(ba8a152a59acfcf72c73c6e29cd6e133630e100d) )
+ROM_END
+
 ROM_START( kof98ur )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242ur.p1", 0x000000, 0x100000, CRC(8c41b391) SHA1(fef64fc10d95c5e4eeeac758f3f2d3ccacb3899b) )
@@ -4284,6 +4317,7 @@ GAME( 1998, kof98sr,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 1998, kof98sv,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_kof98,    ROT0, "hack", "Kof'98 (Silver Style Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98tim,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "EGHT, Creamymami, Raymonose", "Kof'98 (Triple Impact Remix)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ul,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Ultra Leona Rev.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, kof98ult,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Kof'98 (Ultimate Match)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ur,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Yashional", "Kof'98 (Ultra Rugal)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98urf,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Yashional", "Kof'98 (Ultra Rugal Final Version Rev.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98wh,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Wesker", "Kof'98 (Style changes for Kyo to 95' Kyo)", MACHINE_SUPPORTS_SAVE )
