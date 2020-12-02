@@ -236,7 +236,7 @@ NUM GAME YEAR COMPANY                 TITLE
 --- ---- ---- ----------------------- -------------------------------------------
 800*     2012 NeoGeoFreak             Time's Up!
 801*     2013 Le Cortex               Crouching Pony Hidden Dragon
-802 0300 2006 NG:DEV.Team             Last Hope
+802 0300 2006 NG:DEV.Team             Last Hope (lhbb = 0301)
 803*     2010 NG:DEV.Team             Fast Striker
 804*     2011 NG:DEV.Team             Last Hope Pink Bullets
 805*     2012 NG:DEV.Team             Gunlord
@@ -2575,6 +2575,26 @@ ROM_START( lhopecdh ) // hack of the above, does not work
 	ROM_LOAD16_BYTE( "802cdb.c2", 0x000001, 0x200000, CRC(a93eba1f) SHA1(da313b0ac97480cc451ba4678a819a4fab0bd5b3) )
 ROM_END
 
+ROM_START( lhbb )  // Last Hope with Blue Bullets
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "802bb.p1", 0x000000, 0x100000, CRC(a5e6f24b) SHA1(d5a39d146982b4847e9008600f4ea9d38a1226e0) )
+
+	NEO_SFIX_64K( "802.s1", CRC(0c0ff9e6) SHA1(c87d1ea8731ac1e63ab960b8182dd1043bcc10bb) )
+
+	NEO_BIOS_AUDIO_128K( "802.m1", CRC(113c870f) SHA1(854425eb4be0d7fa088a6c3bf6078fdd011707f5) )
+
+	ROM_REGION( 0x600000, "ymsnd", 0 )
+	ROM_LOAD( "802.v1", 0x000000, 0x200000, CRC(b765bafe) SHA1(b2048c44089bf250c8dcfabb27c7981e9ee5002a) )
+	ROM_LOAD( "802.v2", 0x200000, 0x200000, CRC(9fd0d559) SHA1(09e70d5e1c6e172a33f48feb3e442515c34a8f3d) )
+	ROM_LOAD( "802.v3", 0x400000, 0x200000, CRC(6d5107e2) SHA1(4ba74836e3d0421a28af47d3d8341ac16af1d7d7) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "802.c1", 0x000000, 0x400000, CRC(53ef41b5) SHA1(a8f1fe546403b609e12f0df211c05d7ac479d98d) )
+	ROM_LOAD16_BYTE( "802.c2", 0x000001, 0x400000, CRC(f9b15ab3) SHA1(d8ff2f43686bfc8c2f7ead3ef445e51c15dfbf16) )
+	ROM_LOAD16_BYTE( "802.c3", 0x800000, 0x400000, CRC(50cc21cf) SHA1(0350aaef480c5fa12e68e540a4c974dbf5870add) )
+	ROM_LOAD16_BYTE( "802.c4", 0x800001, 0x400000, CRC(8486ad9e) SHA1(19a2a73c825687e0cb9fd62bde00db91b5409529) )
+ROM_END
+
 
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, csw2,         crswd2bl, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
@@ -2614,6 +2634,7 @@ GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope (Neo CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
