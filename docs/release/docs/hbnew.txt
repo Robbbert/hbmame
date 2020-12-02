@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [bonusstage]          Bonus Stage
 - [kof98ult]            Kof'98 (Ultimate Match)
+- [nsmb]                New! Super Mario Bros.
 - [pzlcrz]              Puzzle Crazy
 - [samsh5pf]            Samurai Shodown V Perfect
 - [sf2cemix97]          Street Fighter II': Champion Edition (Mix 0.97)
