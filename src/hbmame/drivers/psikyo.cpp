@@ -35,7 +35,7 @@ ROM_START( tengais01 )  // hack of tengai
 	ROM_LOAD( "u61.bin",  0x000000, 0x200000, CRC(a63633c5) SHA1(89e75a40518926ebcc7d88dea86c01ba0bb496e5) )
 	ROM_LOAD( "u62.bin",  0x200000, 0x200000, CRC(3ad0c357) SHA1(35f78cfa2eafa93ab96b24e336f569ee84af06b6) )
 
-	ROM_REGION( 0x040000, "spritelut", 0 )
+	ROM_REGION16_LE( 0x040000, "spritelut", 0 )
 	ROM_LOAD( "u1.bin",  0x000000, 0x040000, CRC(681d7d55) SHA1(b0b28471440d747adbc4d22d1918f89f6ede1615) )
 ROM_END
 
@@ -62,7 +62,7 @@ ROM_START( tengais02 )  // hack of tengaij (Sengoku Ace Episode II)
 	ROM_LOAD( "u61.bin",  0x000000, 0x200000, CRC(a63633c5) SHA1(89e75a40518926ebcc7d88dea86c01ba0bb496e5) )
 	ROM_LOAD( "u62.bin",  0x200000, 0x200000, CRC(3ad0c357) SHA1(35f78cfa2eafa93ab96b24e336f569ee84af06b6) )
 
-	ROM_REGION( 0x040000, "spritelut", 0 )
+	ROM_REGION16_LE( 0x040000, "spritelut", 0 )
 	ROM_LOAD( "u1.bin",  0x000000, 0x040000, CRC(681d7d55) SHA1(b0b28471440d747adbc4d22d1918f89f6ede1615) )
 ROM_END
 
