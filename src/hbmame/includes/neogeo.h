@@ -143,6 +143,7 @@ public:
 	void init_kof2001();
 	void init_kof2002();
 	void init_kof2002b();
+	void init_kof2002s20();
 	void init_kof2003();
 	void init_kof2003h();
 	void init_kof2003b();
