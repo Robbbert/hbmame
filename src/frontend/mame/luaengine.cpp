@@ -538,6 +538,7 @@ void lua_engine::initialize()
 		{ "end", SEEK_END }
 	};
 
+
 /*  emu library
  *
  * emu.app_name() - return application name
@@ -979,7 +980,46 @@ void lua_engine::initialize()
 		}));
 
 
-/*  core_options::entry library
+/* emu_options library
+ *
+ * manager:options()
+ * manager:machine():options()
+ *
+ * options:slot_option() - retrieves a specific slot option
+ */
+
+	auto emu_options_type = sol().registry().new_usertype<emu_options>("emu_options", sol::no_constructor, sol::base_classes, sol::bases<core_options>());
+	emu_options_type["slot_option"] = [] (emu_options &opts, std::string const &name) { return opts.find_slot_option(name); };
+
+
+/* slot_option library
+ *
+ * manager:options():slot_option("name")
+ * manager:machine():options():slot_option("name")
+ *
+ * slot_option:specify(card, bios) - specifies the value of the slot, potentially causing a recalculation
+ *
+ * slot_option.value - the actual value of the option, after being interpreted
+ * slot_option.specified_value - the value of the option, as specified from outside
+ * slot_option.bios - the bios, if any, associated with the slot
+ * slot_option.default_card_software - the software list item that is associated with this option, by default
+ */
+
+	auto slot_option_type = sol().registry().new_usertype<slot_option>("slot_option", sol::no_constructor);
+	slot_option_type["specify"] =
+		[] (slot_option &opt, std::string &&text, char const *bios)
+		{
+			opt.specify(std::move(text));
+			if (bios)
+				opt.set_bios(bios);
+		};
+	slot_option_type["value"] = sol::property(&slot_option::value);
+	slot_option_type["specified_value"] = sol::property(&slot_option::specified_value);
+	slot_option_type["bios"] = sol::property(&slot_option::bios);
+	slot_option_type["default_card_software"] = sol::property(&slot_option::default_card_software);
+
+
+/* core_options::entry library
  *
  * options.entries[entry_name]
  *
@@ -1040,7 +1080,7 @@ void lua_engine::initialize()
 	core_options_entry_type.set("has_range", &core_options::entry::has_range);
 
 
-/*  running_machine library
+/* running_machine library
  *
  * manager:machine()
  *
@@ -1061,7 +1101,7 @@ void lua_engine::initialize()
  * machine:ioport() - get ioport_manager
  * machine:parameters() - get parameter_manager
  * machine:memory() - get memory_manager
- * machine:options() - get machine core_options
+ * machine:options() - get machine emu_options
  * machine:outputs() - get output_manager
  * machine:input() - get input_manager
  * machine:uiinput() - get ui_input_manager
@@ -1119,7 +1159,7 @@ void lua_engine::initialize()
 	machine_type["ioport"] = &running_machine::ioport;
 	machine_type["parameters"] = &running_machine::parameters;
 	machine_type["memory"] = &running_machine::memory;
-	machine_type["options"] = [] (running_machine &m) { return static_cast<core_options *>(&m.options()); };
+	machine_type["options"] = &running_machine::options;
 	machine_type["outputs"] = &running_machine::output;
 	machine_type["input"] = &running_machine::input;
 	machine_type["uiinput"] = &running_machine::ui_input;
@@ -1138,6 +1178,7 @@ void lua_engine::initialize()
 	machine_type["screens"] = sol::property([] (running_machine &m) { return devenum<screen_device_enumerator>(m.root_device()); });
 	machine_type["cassettes"] = sol::property([] (running_machine &m) { return devenum<cassette_device_enumerator>(m.root_device()); });
 	machine_type["images"] = sol::property([] (running_machine &m) { return devenum<image_interface_enumerator>(m.root_device()); });
+	machine_type["slots"] = sol::property([](running_machine &m) { return devenum<slot_interface_enumerator>(m.root_device()); });
 	machine_type["popmessage"] = sol::overload(
 			[](running_machine &m, const char *str) { m.popmessage("%s", str); },
 			[](running_machine &m) { m.popmessage(); });
@@ -1475,9 +1516,6 @@ void lua_engine::initialize()
  * screen:snapshot([opt] filename) - save snap shot
  * screen:type() - screen drawing type
  * screen:frame_number() - screen frame count
- * screen:name() - screen device full name
- * screen:shortname() - screen device short name
- * screen:tag() - screen device tag
  * screen:xscale() - screen x scale factor
  * screen:yscale() - screen y scale factor
  * screen:pixel(x, y) - get pixel at (x, y) as packed RGB in a u32
@@ -1485,7 +1523,10 @@ void lua_engine::initialize()
  * screen:time_until_pos(vpos, hpos) - get the time until this screen pos is reached
  */
 
-	auto screen_dev_type = sol().registry().new_usertype<screen_device>("screen_dev", "new", sol::no_constructor);
+	auto screen_dev_type = sol().registry().new_usertype<screen_device>(
+			"screen_dev",
+			sol::no_constructor,
+			sol::base_classes, sol::bases<device_t>());
 	screen_dev_type.set("draw_box", [](screen_device &sdev, float x1, float y1, float x2, float y2, uint32_t bgcolor, uint32_t fgcolor) {
 			int sc_width = sdev.visible_area().width();
 			int sc_height = sdev.visible_area().height();
@@ -1595,9 +1636,6 @@ void lua_engine::initialize()
 			return "unknown";
 		});
 	screen_dev_type.set("frame_number", &screen_device::frame_number);
-	screen_dev_type.set("name", &screen_device::name);
-	screen_dev_type.set("shortname", &screen_device::shortname);
-	screen_dev_type.set("tag", &screen_device::tag);
 	screen_dev_type.set("xscale", &screen_device::xscale);
 	screen_dev_type.set("yscale", &screen_device::yscale);
 	screen_dev_type.set("pixel", [](screen_device &sdev, float x, float y) { return sdev.pixel((s32)x, (s32)y); });
@@ -1678,7 +1716,7 @@ void lua_engine::initialize()
 	dev_state_type.set("is_divider", &device_state_entry::divider);
 
 
-/*  rom_entry library
+/* rom_entry library
  *
  * manager:machine().devices[device_tag].roms[rom]
  *
@@ -1697,7 +1735,7 @@ void lua_engine::initialize()
 	rom_entry_type.set("flags", &rom_entry::get_flags);
 
 
-/*  output_manager library
+/* output_manager library
  *
  * manager:machine():outputs()
  *
@@ -1722,7 +1760,7 @@ void lua_engine::initialize()
 	output_type.set("id_to_name", &output_manager::id_to_name);
 
 
-/*  device_image_interface library
+/* device_image_interface library
  *
  * manager:machine().images[image_type]
  *
@@ -1779,9 +1817,41 @@ void lua_engine::initialize()
 	image_type.set("must_be_loaded", sol::property(&device_image_interface::must_be_loaded));
 
 
-/*  cassette_image_device
+/* device_slot_interface library
  *
- * device.cassette
+ * manager:machine().slots[slot_name]
+ *
+ * slot.fixed - whether this slot is fixed, and hence not selectable by the user
+ * slot.has_selectable_options - does this slot have any selectable options at all?
+ * slot.default_option - returns the default option if one exists
+ * slot.options[] - get options table (k=name, v=device_slot_interface::slot_option)
+ */
+
+	auto slot_type = sol().registry().new_usertype<device_slot_interface>("slot", sol::no_constructor);
+	slot_type["fixed"] = sol::property(&device_slot_interface::fixed);
+	slot_type["has_selectable_options"] = sol::property(&device_slot_interface::has_selectable_options);
+	slot_type["default_option"] = sol::property(&device_slot_interface::default_option);
+	slot_type["options"] = sol::property([] (device_slot_interface const &slot) { return standard_tag_object_ptr_map<device_slot_interface::slot_option>(slot.option_list()); });
+
+
+/* device_slot_interface::slot_option library
+ *
+ * manager:machine().slots[slot_name].options[option_name]
+ *
+ * slot_option.selectable - is this item selectable by the user?
+ * slot_option.default_bios - the default bios for this option
+ * slot_option.clock - the clock speed associated with this option
+ */
+
+	auto dislot_option_type = sol().registry().new_usertype<device_slot_interface::slot_option>("dislot_option", sol::no_constructor);
+	dislot_option_type["selectable"] = sol::property(&device_slot_interface::slot_option::selectable);
+	dislot_option_type["default_bios"] = sol::property(static_cast<char const * (device_slot_interface::slot_option::*)() const>(&device_slot_interface::slot_option::default_bios));
+	dislot_option_type["clock"] = sol::property(static_cast<u32 (device_slot_interface::slot_option::*)() const>(&device_slot_interface::slot_option::clock));
+
+
+/* cassette_image_device library
+ *
+ * manager:machine().cassettes[cass_name]
  *
  * cass:play()
  * cass:stop()
@@ -1800,10 +1870,16 @@ void lua_engine::initialize()
  * cass.image - get the device_image_interface for this cassette device
  */
 
-	auto cass_type = sol().registry().new_usertype<cassette_image_device>("cassette", sol::no_constructor);
+	auto cass_type = sol().registry().new_usertype<cassette_image_device>(
+			"cassette",
+			sol::no_constructor,
+			sol::base_classes, sol::bases<device_t>());
 	cass_type["stop"] = [] (cassette_image_device &c) { c.change_state(CASSETTE_STOPPED, CASSETTE_MASK_UISTATE); };
 	cass_type["play"] = [] (cassette_image_device &c) { c.change_state(CASSETTE_PLAY, CASSETTE_MASK_UISTATE); };
 	cass_type["record"] = [] (cassette_image_device &c) { c.change_state(CASSETTE_RECORD, CASSETTE_MASK_UISTATE); };
+	cass_type["forward"] = &cassette_image_device::go_forward;
+	cass_type["reverse"] = &cassette_image_device::go_reverse;
+	cass_type["seek"] = [] (cassette_image_device &c, double time, const char* origin) { if (c.exists()) c.seek(time, s_seek_parser(origin)); };
 	cass_type["is_stopped"] = sol::property(&cassette_image_device::is_stopped);
 	cass_type["is_playing"] = sol::property(&cassette_image_device::is_playing);
 	cass_type["is_recording"] = sol::property(&cassette_image_device::is_recording);
@@ -1811,9 +1887,6 @@ void lua_engine::initialize()
 	cass_type["speaker_state"] = sol::property(&cassette_image_device::speaker_on, &cassette_image_device::set_speaker);
 	cass_type["position"] = sol::property(&cassette_image_device::get_position);
 	cass_type["length"] = sol::property([] (cassette_image_device &c) { if (c.exists()) return c.get_length(); return 0.0; });
-	cass_type["forward"] = &cassette_image_device::go_forward;
-	cass_type["reverse"] = &cassette_image_device::go_reverse;
-	cass_type["seek"] = [] (cassette_image_device &c, double time, const char* origin) { if (c.exists()) c.seek(time, s_seek_parser(origin)); };
 	cass_type["image"] = sol::property([] (cassette_image_device &c) { return dynamic_cast<device_image_interface *>(&c); });
 
 
@@ -1823,14 +1896,14 @@ void lua_engine::initialize()
  * mame_manager - alias of manager
  *
  * manager:machine() - running machine
- * manager:options() - core options
+ * manager:options() - emu options
  * manager:plugins() - plugin options
  * manager:ui() - mame ui manager
  */
 
 	sol().registry().new_usertype<mame_machine_manager>("manager", "new", sol::no_constructor,
 			"machine", &machine_manager::machine,
-			"options", [](mame_machine_manager &m) { return static_cast<core_options *>(&m.options()); },
+			"options", &machine_manager::options,
 			"plugins", [this](mame_machine_manager &m) {
 				sol::table table = sol().create_table();
 				for (auto &curentry : m.plugins().plugins())
