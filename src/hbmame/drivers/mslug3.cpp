@@ -10846,7 +10846,7 @@ GAME( 2020, mslug6h05,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, mslug6h06,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Summon Mount Burst Enhanced Edition 2020-04-28)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug6h07,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Fatty War 2020-08-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug6h08,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Crazy Fire Edición 2020-09-03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6h09,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",     "Metal Slug 6 (unknown 2019-09-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6h09,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-09-30)", MACHINE_SUPPORTS_SAVE )
 
 /**************
   Metal Slug 3

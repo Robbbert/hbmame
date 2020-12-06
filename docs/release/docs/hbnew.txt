@@ -10,7 +10,7 @@ New Games
 - [bonusstage]          Bonus Stage
 - [kof98ult]            Kof'98 (Ultimate Match)
 - [lhbb]                Last Hope (Blue Bullets)
-- [mslug6h09]           Metal Slug 6 (unknown 2019-09-30)
+- [mslug6h09]           Metal Slug 6 (Enemies Resetting Version 2019-09-30)
 - [nsmb]                New! Super Mario Bros.
 - [pzlcrz]              Puzzle Crazy
 - [samsh5pf]            Samurai Shodown V Perfect
