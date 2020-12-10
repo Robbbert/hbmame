@@ -15,6 +15,7 @@ New Games
 - [pzlcrz]              Puzzle Crazy
 - [samsh5pf]            Samurai Shodown V Perfect
 - [sf2cemix97]          Street Fighter II': Champion Edition (Mix 0.97)
+- [theglobpb]           The Glob (English translation of German sprglbpg)
 
 
 
