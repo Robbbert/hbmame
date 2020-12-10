@@ -378,8 +378,6 @@ bool lua_engine::menu_callback(const std::string &menu, int index, const std::st
 
 void lua_engine::set_machine(running_machine *machine)
 {
-	if (!machine || (machine != m_machine))
-		m_seq_poll.reset();
 	m_machine = machine;
 }
 
@@ -557,7 +555,7 @@ void lua_engine::initialize()
  * emu.keypost(keys) - post keys to natural keyboard
  * emu.wait(len) - wait for len within coroutine
  * emu.lang_translate(str) - get translation for str if available
- * emu.subst_env(str) - substitute environment variables with values for str
+ * emu.subst_env(str) - substitute environment variables with values for str (semantics are OS-specific)
  *
  * emu.register_prestart(callback) - register callback before reset
  * emu.register_start(callback) - register callback after reset
