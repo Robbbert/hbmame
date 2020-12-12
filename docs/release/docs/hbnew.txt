@@ -11,6 +11,7 @@ New Games
 - [kof98ult]            Kof'98 (Ultimate Match)
 - [lhbb]                Last Hope (Blue Bullets)
 - [mslug6h09]           Metal Slug 6 (Enemies Resetting Version 2019-09-30)
+- [nblktiger]           Neo Black Tiger (incomplete)
 - [nsmb]                New! Super Mario Bros.
 - [pzlcrz]              Puzzle Crazy
 - [samsh5pf]            Samurai Shodown V Perfect
@@ -33,7 +34,7 @@ New Games
 2020-10-28 0.226
 
 - Metal Slug 1,2,3,4,5 and X remix has been massively updated
-- The Metal slug 3 Ghost Wu Zuoma / The Random Enemies Resetting Version 1.0 
+- The Metal slug 3 Ghost Wu Zuoma / The Random Enemies Resetting Version 1.0
   roms have been made working and compatible with the emulator.
 - Removed on-screen messages about bad_dumps and no_dumps.
 - Removed on-screen messages about game having no sound hardware.
