@@ -8,18 +8,18 @@
 #define mspacman_disable_decode_latch(m) m.root_device().membank("bank1")->set_entry(0)
 
 // any access to these ROM addresses disables the decoder, and all you see is the original Pac-Man code
-u8 pacman_state::mspacman_disable_decode_r_0x0038(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x0038]; }
-u8 pacman_state::mspacman_disable_decode_r_0x03b0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x03b0]; }
-u8 pacman_state::mspacman_disable_decode_r_0x1600(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x1600]; }
-u8 pacman_state::mspacman_disable_decode_r_0x2120(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x2120]; }
-u8 pacman_state::mspacman_disable_decode_r_0x3ff0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff0]; }
-u8 pacman_state::mspacman_disable_decode_r_0x8000(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x8000]; }
-u8 pacman_state::mspacman_disable_decode_r_0x97f0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x97f0]; }
-void pacman_state::mspacman_disable_decode_w(u8 data){ mspacman_disable_decode_latch(machine()); }
+u8 puckman_state::mspacman_disable_decode_r_0x0038(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x0038]; }
+u8 puckman_state::mspacman_disable_decode_r_0x03b0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x03b0]; }
+u8 puckman_state::mspacman_disable_decode_r_0x1600(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x1600]; }
+u8 puckman_state::mspacman_disable_decode_r_0x2120(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x2120]; }
+u8 puckman_state::mspacman_disable_decode_r_0x3ff0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff0]; }
+u8 puckman_state::mspacman_disable_decode_r_0x8000(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x8000]; }
+u8 puckman_state::mspacman_disable_decode_r_0x97f0(offs_t offset){ mspacman_disable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x97f0]; }
+void puckman_state::mspacman_disable_decode_w(u8 data){ mspacman_disable_decode_latch(machine()); }
 
 // any access to these ROM addresses enables the decoder, and you'll see the Ms. Pac-Man code
-u8 pacman_state::mspacman_enable_decode_r_0x3ff8(offs_t offset){ mspacman_enable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff8+0x10000]; }
-void pacman_state::mspacman_enable_decode_w(u8 data){ mspacman_enable_decode_latch(machine()); }
+u8 puckman_state::mspacman_enable_decode_r_0x3ff8(offs_t offset){ mspacman_enable_decode_latch(machine()); return memregion("maincpu")->base()[offset+0x3ff8+0x10000]; }
+void puckman_state::mspacman_enable_decode_w(u8 data){ mspacman_enable_decode_latch(machine()); }
 
 #define BITSWAP12(val,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \
 	bitswap<16>(val,15,14,13,12,B11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)
@@ -27,7 +27,7 @@ void pacman_state::mspacman_enable_decode_w(u8 data){ mspacman_enable_decode_lat
 #define BITSWAP11(val,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0) \
 	bitswap<16>(val,15,14,13,12,11,B10,B9,B8,B7,B6,B5,B4,B3,B2,B1,B0)
 
-void pacman_state::mspacman_install_patches(u8 *ROM)
+void puckman_state::mspacman_install_patches(u8 *ROM)
 {
 	int i;
 
@@ -79,7 +79,7 @@ void pacman_state::mspacman_install_patches(u8 *ROM)
 	}
 }
 
-void pacman_state::init_mspacman()
+void puckman_state::init_mspacman()
 {
 	int i;
 	u8 *ROM, *DROM;
@@ -132,21 +132,21 @@ void pacman_state::init_mspacman()
 
 
 /* used by extra routine at $3FE, bit 4 of 504d needs to be low, and of 504e to be high */
-u8 pacman_state::mspacii_prot_r(offs_t offset)
+u8 puckman_state::mspacii_prot_r(offs_t offset)
 {
 	return offset<<4;
 }
 
 /* For Zola's timer */
 
-u8 pacman_state::zolatimer_r()
+u8 puckman_state::zolatimer_r()
 {
 	u8 timernow = m_timerthing;
 	m_timerthing++;
 	return timernow;
 }
 
-void pacman_state::zolatimer_w(u8 data) /* to stop it hanging when game reset */
+void puckman_state::zolatimer_w(u8 data) /* to stop it hanging when game reset */
 {
 	m_timerthing = data;
 }
@@ -158,10 +158,10 @@ void pacman_state::zolatimer_w(u8 data) /* to stop it hanging when game reset */
 
 
 /* Same as woodhack, plus it has nvram, and some extra ram at fffc */
-void pacman_state::mspachi_map(address_map &map) {
+void puckman_state::mspachi_map(address_map &map) {
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x4bff).mirror(0xa000).ram().share("nvram");
 	map(0x4c00,0x4fef).mirror(0xa000).ram();
 	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
@@ -179,12 +179,12 @@ void pacman_state::mspachi_map(address_map &map) {
 	map(0xfffc,0xffff).ram();
 }
 
-void pacman_state::mspacii_map(address_map &map) {
+void puckman_state::mspacii_map(address_map &map) {
 	/* do not use UNMAP_HIGH (protection issues) */
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(puckman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0xa000).ram();
 	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
 	map(0x5000,0x5007).mirror(0x8000).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -194,21 +194,21 @@ void pacman_state::mspacii_map(address_map &map) {
 	map(0x50c0,0x50c0).w("watchdog",FUNC(watchdog_timer_device::reset_w));
 	map(0x5000,0x5000).mirror(0x8000).portr("IN0");
 	map(0x5040,0x5040).mirror(0x8000).portr("IN1");
-	map(0x504d,0x506f).r(FUNC(pacman_state::mspacii_prot_r));
+	map(0x504d,0x506f).r(FUNC(puckman_state::mspacii_prot_r));
 	map(0x5080,0x5080).mirror(0x8000).portr("DSW1");
 	map(0x50c0,0x50c0).mirror(0x8000).portr("DSW2");
 	map(0x8000,0x9fff).rom();
 	map(0xfffc,0xffff).nopw();
 }
 
-void pacman_state::mspacman_map(address_map &map) {
+void puckman_state::mspacman_map(address_map &map) {
 	/* start with 0000-3fff and 8000-bfff mapped to the ROMs */
 	map(0x0000,0xffff).bankr("bank1");
 	map(0x4000,0x7fff).mirror(0x8000);
 
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(puckman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0xa000).ram();
 	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
 	map(0x5000,0x5007).mirror(0xaf38).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -223,24 +223,24 @@ void pacman_state::mspacman_map(address_map &map) {
 	map(0x50c0,0x50c0).mirror(0xaf3f).portr("DSW2");
 
 	/* overlay decode enable/disable on top */
-	map(0x0038,0x003f).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x0038),FUNC(pacman_state::mspacman_disable_decode_w));
-	map(0x03b0,0x03b7).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x03b0),FUNC(pacman_state::mspacman_disable_decode_w));
-	map(0x1600,0x1607).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x1600),FUNC(pacman_state::mspacman_disable_decode_w));
-	map(0x2120,0x2127).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x2120),FUNC(pacman_state::mspacman_disable_decode_w));
-	map(0x3ff0,0x3ff7).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x3ff0),FUNC(pacman_state::mspacman_disable_decode_w));
-	map(0x3ff8,0x3fff).rw(FUNC(pacman_state::mspacman_enable_decode_r_0x3ff8),FUNC(pacman_state::mspacman_enable_decode_w));
-	map(0x8000,0x8007).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x8000),FUNC(pacman_state::mspacman_disable_decode_w));
-	map(0x97f0,0x97f7).rw(FUNC(pacman_state::mspacman_disable_decode_r_0x97f0),FUNC(pacman_state::mspacman_disable_decode_w));
+	map(0x0038,0x003f).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x0038),FUNC(puckman_state::mspacman_disable_decode_w));
+	map(0x03b0,0x03b7).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x03b0),FUNC(puckman_state::mspacman_disable_decode_w));
+	map(0x1600,0x1607).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x1600),FUNC(puckman_state::mspacman_disable_decode_w));
+	map(0x2120,0x2127).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x2120),FUNC(puckman_state::mspacman_disable_decode_w));
+	map(0x3ff0,0x3ff7).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x3ff0),FUNC(puckman_state::mspacman_disable_decode_w));
+	map(0x3ff8,0x3fff).rw(FUNC(puckman_state::mspacman_enable_decode_r_0x3ff8),FUNC(puckman_state::mspacman_enable_decode_w));
+	map(0x8000,0x8007).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x8000),FUNC(puckman_state::mspacman_disable_decode_w));
+	map(0x97f0,0x97f7).rw(FUNC(puckman_state::mspacman_disable_decode_r_0x97f0),FUNC(puckman_state::mspacman_disable_decode_w));
 }
 
 
 /* For Dave Widel's hacks */
-void pacman_state::widel_map(address_map &map) {
+void puckman_state::widel_map(address_map &map) {
 	/* bace and dderby set 5000-5FFF to zero for no apparent reason */
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -260,11 +260,11 @@ void pacman_state::widel_map(address_map &map) {
 	map(0xf000,0xffff).ram();
 }
 
-void pacman_state::zolapac_io(address_map &map) {
+void puckman_state::zolapac_io(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).r(FUNC(pacman_state::zolatimer_r));
+	map(0x00,0x00).r(FUNC(puckman_state::zolatimer_r));
 	map(0x10,0x10).nopw();  /* writes 0 at reset */
-	map(0x11,0x11).w(FUNC(pacman_state::zolatimer_w));
+	map(0x11,0x11).w(FUNC(puckman_state::zolatimer_w));
 }
 
 
@@ -275,60 +275,60 @@ void pacman_state::zolapac_io(address_map &map) {
  *************************************/
 
 /* only for encrypted sets with 20000 in cpu1 */
-void pacman_state::mspacman(machine_config &config)
+void puckman_state::mspacman(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspacman_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mspacman_map);
 }
 
 /* Hires mspacman */
-void pacman_state::mspacmnx(machine_config &config)
+void puckman_state::mspacmnx(machine_config &config)
 {
 	pacmanx(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspacman_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mspacman_map);
 }
 
 /* Hires hacks */
-void pacman_state::woodpekx(machine_config &config)
+void puckman_state::woodpekx(machine_config &config)
 {
 	pacmanx(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::woodpek_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::woodpek_map);
 }
 
 /* MSPacman with modified memory maps */
 
-void pacman_state::mspacii(machine_config &config)
+void puckman_state::mspacii(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspacii_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mspacii_map);
 }
 
-void pacman_state::zolapac(machine_config &config)
+void puckman_state::zolapac(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::woodpek_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::zolapac_io);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::woodpek_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::zolapac_io);
 }
 
 /* These drivers need the watchdog to be removed in order to work */
 
-void pacman_state::pachack(machine_config &config)
+void puckman_state::pachack(machine_config &config)
 {
 	pacman(config);
 	subdevice<watchdog_timer_device>("watchdog")->set_vblank_count("screen", 0);
 }
 
-void pacman_state::mspachi(machine_config &config)
+void puckman_state::mspachi(machine_config &config)
 {
 	pachack(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspachi_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mspachi_map);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 }
 
-void pacman_state::widel(machine_config &config)
+void puckman_state::widel(machine_config &config)
 {
 	pachack(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::widel_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::widel_map);
 }
 
 
@@ -342,7 +342,7 @@ void pacman_state::widel(machine_config &config)
 /* The encryption is provided by a 74298 sitting on top of the rom at 6f.
 The select line is tied to a2; a0 and a1 of the eprom are are left out of
 socket and run through the 74298.  Clock is tied to system clock.  */
-void pacman_state::init_mspacmbe()
+void puckman_state::init_mspacmbe()
 {
 	u8 temp;
 	u8 *RAM = machine().root_device().memregion("maincpu")->base();
@@ -2609,171 +2609,171 @@ ROM_END
 /* MAME */
 
 /*          rom       parent    machine   inp       init */
-GAME( 1981, mspacman, 0,        mspacman, mspacpls, pacman_state, init_mspacman,    ROT90, "Midway", "Ms. Pacman", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmat, mspacman, mspacman, mspacman, pacman_state, init_mspacman,    ROT90, "hack", "Ms. Pac Attack", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmab, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "bootleg", "Ms. Pacman (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmbe, mspacman, woodpek,  mspacman, pacman_state, init_mspacmbe,    ROT90, "bootleg", "Ms. Pacman (bootleg, (encrypted))", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmnf, mspacman, mspacman, mspacman, pacman_state, init_mspacman,    ROT90, "Midway", "Ms. Pacman (with speedup hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacpls, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "hack", "Ms. Pacman Plus", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, pacgal,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "hack", "Pac-Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmabscre, mspacman, woodpek,  mspacman, pacman_state, empty_init, ROT90, "Mameplus", "Ms. Pacman (Split Screen Solved)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacman, 0,        mspacman, mspacpls, puckman_state, init_mspacman,    ROT90, "Midway", "Ms. Pacman", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmat, mspacman, mspacman, mspacman, puckman_state, init_mspacman,    ROT90, "hack", "Ms. Pac Attack", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmab, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "bootleg", "Ms. Pacman (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmbe, mspacman, woodpek,  mspacman, puckman_state, init_mspacmbe,    ROT90, "bootleg", "Ms. Pacman (bootleg, (encrypted))", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmnf, mspacman, mspacman, mspacman, puckman_state, init_mspacman,    ROT90, "Midway", "Ms. Pacman (with speedup hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacpls, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "hack", "Ms. Pacman Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, pacgal,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "hack", "Pac-Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmabscre, mspacman, woodpek,  mspacman, puckman_state, empty_init, ROT90, "Mameplus", "Ms. Pacman (Split Screen Solved)", MACHINE_SUPPORTS_SAVE )
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2003, mrmrspac, mspacman, widel,    mspacpls, pacman_state, empty_init,  ROT90, "David Widel", "Mr and Mrs Pacman (MR MRS PAC-MAN)[c]", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mspachi,  mspacman, mspachi,  mspacpls, pacman_state, empty_init,  ROT90, "David Widel", "Ms. Pacman[h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, pacatk,   mspacman, mspacman, mspacpls, pacman_state, init_mspacman,    ROT90, "David Widel", "Ms. Pacman Plus (Fruit)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mrmrspac, mspacman, widel,    mspacpls, puckman_state, empty_init,  ROT90, "David Widel", "Mr and Mrs Pacman (MR MRS PAC-MAN)[c]", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mspachi,  mspacman, mspachi,  mspacpls, puckman_state, empty_init,  ROT90, "David Widel", "Ms. Pacman[h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, pacatk,   mspacman, mspacman, mspacpls, puckman_state, init_mspacman,    ROT90, "David Widel", "Ms. Pacman Plus (Fruit)", MACHINE_SUPPORTS_SAVE )
 
 /* Blue Justice's Hacks */
 
-GAME( 2001, ms1000,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 1000 (MS PAC-MAN 1000)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, ms2000,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 2000 (MS PAC-MAN 2000)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, ms3000,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 3000 (MS PAC-MAN 3000)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, ms4000p,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 4000 Plus (MSPAC-MAN 4000PLUS)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, ms5000,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 5000 (MS PAC-MAN 5000)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, ms5000p,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 5000 Plus (MSPAC-MAN 5000PLUS)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, mscrzyma, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes (MS PAC CRAZY MAZES)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, mscrzymp, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes Plus (MS PAC-MAN CRAZYPLUS)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msextra,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Extra (MS PAC-MAN EXTRA)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msextrap, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Extra Plus (MS PAC-MAN EXTRAPLUS)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msmspac,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Ms. Pac (MS PAC-MAN MS PAC)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, mspacdel, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Deluxe (MS PAC-MAN DELUXE)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, mspamsba, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Ms. Babies (MS PAC-MAN MS BABIES)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, mspacp,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Plus (MS PAC-MAN PLUS)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msplus,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Ms Plus (MS PAC-MAN MS PLUS)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msstrmaz, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Strange Mazes (MS PAC STRANGE MAZES)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ms1000,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 1000 (MS PAC-MAN 1000)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ms2000,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 2000 (MS PAC-MAN 2000)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ms3000,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 3000 (MS PAC-MAN 3000)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ms4000p,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 4000 Plus (MSPAC-MAN 4000PLUS)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ms5000,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 5000 (MS PAC-MAN 5000)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, ms5000p,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman 5000 Plus (MSPAC-MAN 5000PLUS)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, mscrzyma, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes (MS PAC CRAZY MAZES)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, mscrzymp, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Crazy Mazes Plus (MS PAC-MAN CRAZYPLUS)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msextra,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Extra (MS PAC-MAN EXTRA)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msextrap, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Extra Plus (MS PAC-MAN EXTRAPLUS)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msmspac,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Ms. Pac (MS PAC-MAN MS PAC)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, mspacdel, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Deluxe (MS PAC-MAN DELUXE)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, mspamsba, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Ms. Babies (MS PAC-MAN MS BABIES)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, mspacp,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Plus (MS PAC-MAN PLUS)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msplus,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Ms Plus (MS PAC-MAN MS PLUS)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msstrmaz, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Blue Justice", "Ms. Pacman Strange Mazes (MS PAC STRANGE MAZES)", MACHINE_SUPPORTS_SAVE )
 
 /* T-Bone Hacks */
 
-GAME( 2000, ms2600,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman 2600", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msbaby,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Baby Pacman", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msmini,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pac-Mini", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msminia,  mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pac-Attack Mini [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes4a,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (Tall Alternate)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes62,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES (Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes63,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES (Set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes6m,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES (6 maps)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes6m2, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (New Mazes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes6m3, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (Regular / Tall)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msnes6m4, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (Regular)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mspacnes, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacren, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman Renaissance", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspc6mad, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman After Dark (6 Mazes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msvctr6m, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "T-Bone", "Vector Ms. Pacman (6 Mazes)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, ms2600,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman 2600", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msbaby,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Baby Pacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msmini,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pac-Mini", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msminia,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pac-Attack Mini [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes4a,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (Tall Alternate)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes62,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES (Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes63,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES (Set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes6m,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES (6 maps)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes6m2, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (New Mazes)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes6m3, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (Regular / Tall)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msnes6m4, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman SNES (Regular)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mspacnes, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman NES", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacren, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman Renaissance", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspc6mad, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Ms. Pacman After Dark (6 Mazes)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msvctr6m, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "T-Bone", "Vector Ms. Pacman (6 Mazes)", MACHINE_SUPPORTS_SAVE )
 
 /* Jerronimo's Progs - www.umlautllama.com */
 
-GAME( 2004, horizpab, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT0,  "Scott Lawrence", "Horiz Pac (v1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, horizpac, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT0,  "Scott Lawrence", "Horiz Pac", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pacgent,  mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Pac Gentleman [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ramsnoop, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Miss Snoop v1.3 [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ottop1,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P1", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ottop2,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P2", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ottop3,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P3", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ottopz,   mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project PZ", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, ottopza,  mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "hack", "Crazy Otto - The Original Ms Pacman (hack of ottopz)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, superp4g, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P4G", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, superp4m, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P4M", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, womanp5,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P5", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, horizpab, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT0,  "Scott Lawrence", "Horiz Pac (v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, horizpac, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT0,  "Scott Lawrence", "Horiz Pac", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pacgent,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Pac Gentleman [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ramsnoop, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Miss Snoop v1.3 [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ottop1,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P1", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ottop2,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P2", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ottop3,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P3", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ottopz,   mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project PZ", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, ottopza,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "hack", "Crazy Otto - The Original Ms Pacman (hack of ottopz)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, superp4g, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P4G", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, superp4m, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P4M", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, womanp5,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Scott Lawrence", "Otto Project P5", MACHINE_SUPPORTS_SAVE )
 
 /* Grendal74's Hacks */
 
-GAME( 2001, msdroid,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Grendal74", "Ms. Pacman Android", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msgrkatk, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Grendal74", "Ms. Pac Attack Greek [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, msgrkb,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Grendal74", "Ms. Pacman Greek", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msdroid,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Grendal74", "Ms. Pacman Android", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msgrkatk, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Grendal74", "Ms. Pac Attack Greek [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, msgrkb,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Grendal74", "Ms. Pacman Greek", MACHINE_SUPPORTS_SAVE )
 
 /* Medragon's Hacks */
 
-GAME( 2000, mrpacman, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Tim Appleton", "Mr. Pacman - Another Kind of Role Reversal", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacfnt, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Tim Appleton", "Ms. Pacman with Pacman font", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacwf,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Tim Appleton", "Ms Weird Fruit Pac", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msrumble, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Tim Appleton", "Ms. Pac Rumble", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mrpacman, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Tim Appleton", "Mr. Pacman - Another Kind of Role Reversal", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacfnt, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Tim Appleton", "Ms. Pacman with Pacman font", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacwf,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Tim Appleton", "Ms Weird Fruit Pac", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msrumble, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Tim Appleton", "Ms. Pac Rumble", MACHINE_SUPPORTS_SAVE )
 
 /* Sil's Hacks */
 
-GAME( 2000, mselton,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Elton", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msf1pac,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. F1 Pacman", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msindy,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Indy", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, mspac6m,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman 6M (Six Maze)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, mspac6m2, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman 6M (Six Maze) (Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacad,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman After Dark", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacat2, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman Plus / Attack [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mselton,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Elton", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msf1pac,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. F1 Pacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msindy,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Indy", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mspac6m,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman 6M (Six Maze)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, mspac6m2, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman 6M (Six Maze) (Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacad,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman After Dark", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacat2, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Marcel Silvius", "Ms. Pacman Plus / Attack [c]", MACHINE_SUPPORTS_SAVE )
 
 /* Bobby Tribble's Hacks */
 
-GAME( 2000, msberzk,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Bobby Tribble", "Ms. Pacman Berzerk", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msberzk,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Bobby Tribble", "Ms. Pacman Berzerk", MACHINE_SUPPORTS_SAVE )
 
 /* Hires hacks */
 
-GAME( 1981, mspacatx, mspacmnx, mspacmnx, mspacpls, pacman_state, init_mspacman,    ROT90, "hack", "Ms. Pac Attack (hires hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmbx, mspacmnx, woodpekx, mspacman, pacman_state, empty_init,  ROT90, "bootleg", "Ms. Pac-Man (bootleg) (hires hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmfx, mspacmnx, mspacmnx, mspacpls, pacman_state, init_mspacman,    ROT90, "Midway", "Ms. Pac-Man (hires hack) [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmnx, 0,        mspacmnx, mspacpls, pacman_state, init_mspacman,    ROT90, "Midway", "Ms. Pac-Man (hires hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacplx, mspacmnx, woodpekx, mspacpls, pacman_state, empty_init,  ROT90, "hack", "Ms. Pac-Man Plus (hires hack) [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, pacgalx,  mspacmnx, woodpekx, mspacman, pacman_state, empty_init,  ROT90, "hack", "Pac-Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacatx, mspacmnx, mspacmnx, mspacpls, puckman_state, init_mspacman,    ROT90, "hack", "Ms. Pac Attack (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmbx, mspacmnx, woodpekx, mspacman, puckman_state, empty_init,  ROT90, "bootleg", "Ms. Pac-Man (bootleg) (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmfx, mspacmnx, mspacmnx, mspacpls, puckman_state, init_mspacman,    ROT90, "Midway", "Ms. Pac-Man (hires hack) [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmnx, 0,        mspacmnx, mspacpls, puckman_state, init_mspacman,    ROT90, "Midway", "Ms. Pac-Man (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacplx, mspacmnx, woodpekx, mspacpls, puckman_state, empty_init,  ROT90, "hack", "Ms. Pac-Man Plus (hires hack) [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, pacgalx,  mspacmnx, woodpekx, mspacman, puckman_state, empty_init,  ROT90, "hack", "Pac-Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
 
 /* Misc MsPacman Hacks */
 
-GAME( 2000, chtmsatk, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, chtmspa,  mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, cookiem,  mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Nic", "Cookie-Mon! [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, cottoh,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Gatinho", "Crazy Otto simulation", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, cottoh2,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Gatinho", "Crazy Otto simulation Ver 2", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, fasthear, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "PacHack", "Ms. Heart Burn [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, fastmspa, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, faststrm, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Desert Storm [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, fstmsatk, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Attack [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, heartbn2, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "PacHack", "Ms. Heart Burn", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, heartbrn, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "TwoBit Score", "Ms. Heart Burn (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msatk2ad, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus / Attack After Dark [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msatkad,  mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus After Dark [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msdstorm, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Mike Naylor", "Ms. Desert Storm", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mshangly, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Hangly Man", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msheartb, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Hearts (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mshearts, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Hearts", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspac1,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman (single rom set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacatb, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus (Set B) [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, mspacde,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman -1", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mspacii,  mspacman, mspacii,  mspacman, pacman_state, empty_init,  ROT90, "Orca", "Ms. Pacman II", MACHINE_SUPPORTS_SAVE )
-GAME( 1983, mspacit,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman -2", MACHINE_SUPPORTS_SAVE )
-GAME( 1983, mspacit2, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman -3", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacj,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman (Jamma? Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mspacmanl,mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90,  "hack", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mspacmap, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90,  "Don Hodges", "Ms. Pacman (patched)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacmbg, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman (single rom)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, mspacpbl, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Dav/PMP", "Ms. Pac Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacpbla,mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Mameplus", "Ms. Pac Man (Super) Plus", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacrip, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "R3mer", "Ms. Pac-Mortem", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, pacandroid, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Mameplus", "Pac Android", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mspacsup, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Super Ms. Pac-Man", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mssilad,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman After Dark (Sil)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msultra,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "PacFan", "Ms. Ultra Pacman", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msvectr,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Vector Ms. Pacman", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, msyakman, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Jeff Minter", "Ms. Yak Man", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, pacgalu,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Uchida", "Pac-Gal (Hearts)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, petshops,  mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "Weirdness Inc", "Pet Shop Freak-Out!", MACHINE_SUPPORTS_SAVE ) //The roms of the aristmk5 system have the same name.
-GAME( 2002, piranha2, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "US Billiards", "Piranha 2 Revenge!", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, sueworld, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "PacFay", "Sue's World", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, sueworlb, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "PacFay", "Sue's World (Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, supmspac, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "Spedic Vending", "Super Ms Pac-man [f]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, vectratk, mspacman, woodpek,  mspacpls, pacman_state, empty_init,  ROT90, "[Midway]", "Vector Attack [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolaad,   mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal After Dark", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolaatk,  mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal Attack", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolamaze, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman No Exit", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolapac,  mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolaslow, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Slow)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolatunl, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Tunnels)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, zolavect, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Tqwn Amusement", "Vector Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans01, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (hack s01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans02, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Fast)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans03, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mspacmans04, mspacman, zolapac,  mspacman, pacman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, chtmsatk, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, chtmspa,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, cookiem,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Nic", "Cookie-Mon! [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, cottoh,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Gatinho", "Crazy Otto simulation", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, cottoh2,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Gatinho", "Crazy Otto simulation Ver 2", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, fasthear, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "PacHack", "Ms. Heart Burn [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, fastmspa, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, faststrm, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Desert Storm [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, fstmsatk, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Attack [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, heartbn2, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "PacHack", "Ms. Heart Burn", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, heartbrn, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "TwoBit Score", "Ms. Heart Burn (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msatk2ad, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus / Attack After Dark [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msatkad,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus After Dark [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msdstorm, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Mike Naylor", "Ms. Desert Storm", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mshangly, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Hangly Man", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msheartb, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Hearts (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mshearts, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Hearts", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspac1,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman (single rom set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacatb, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus (Set B) [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, mspacde,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman -1", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mspacii,  mspacman, mspacii,  mspacman, puckman_state, empty_init,  ROT90, "Orca", "Ms. Pacman II", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, mspacit,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman -2", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, mspacit2, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman -3", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacj,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman (Jamma? Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mspacmanl,mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90,  "hack", "Ms. Pacman (large roms)[f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mspacmap, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90,  "Don Hodges", "Ms. Pacman (patched)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacmbg, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman (single rom)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mspacpbl, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Dav/PMP", "Ms. Pac Plus (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacpbla,mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Mameplus", "Ms. Pac Man (Super) Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacrip, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "R3mer", "Ms. Pac-Mortem", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, pacandroid, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Pac Android", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mspacsup, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Super Ms. Pac-Man", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mssilad,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman After Dark (Sil)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msultra,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "PacFan", "Ms. Ultra Pacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msvectr,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Vector Ms. Pacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, msyakman, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Jeff Minter", "Ms. Yak Man", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, pacgalu,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Uchida", "Pac-Gal (Hearts)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, petshops,  mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Weirdness Inc", "Pet Shop Freak-Out!", MACHINE_SUPPORTS_SAVE ) //The roms of the aristmk5 system have the same name.
+GAME( 2002, piranha2, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "US Billiards", "Piranha 2 Revenge!", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, sueworld, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "PacFay", "Sue's World", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, sueworlb, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "PacFay", "Sue's World (Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, supmspac, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Spedic Vending", "Super Ms Pac-man [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, vectratk, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Vector Attack [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolaad,   mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal After Dark", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolaatk,  mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal Attack", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolamaze, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman No Exit", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolapac,  mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolaslow, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Slow)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolatunl, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Super Zola Pac Gal (Tunnels)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, zolavect, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Tqwn Amusement", "Vector Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans01, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (hack s01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans02, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Fast)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans03, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mspacmans04, mspacman, zolapac,  mspacman, puckman_state, empty_init,  ROT90, "Mameplus", "Ms Pacman (Brazil Fast)", MACHINE_SUPPORTS_SAVE )
 
 /* Others Hacks */
-GAME( 2018, mspacmadp,   mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Pac Droid Plus)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mspacatttur, mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "MamePlus", "Ms. Pac Attack Plus Turbo", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mspacii2,    mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Pink Plus)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, ms2600a,     mspacman, woodpek,  mspacman, pacman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Atari look)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mspacmadp,   mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Pac Droid Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mspacatttur, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pac Attack Plus Turbo", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mspacii2,    mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Pink Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, ms2600a,     mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Atari look)", MACHINE_SUPPORTS_SAVE )
 
 
 
@@ -2810,12 +2810,12 @@ GAME( 2018, ms2600a,     mspacman, woodpek,  mspacman, pacman_state, empty_init,
 
 */
 
-void pacman_state::otto1012_map(address_map &map)
+void puckman_state::otto1012_map(address_map &map)
 {
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0xa000).r(FUNC(puckman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0xa000).ram();
 	map(0x4ff0,0x4fff).mirror(0xa000).ram().share("spriteram");
 	map(0x5000,0x5007).mirror(0xaf38).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -2830,10 +2830,10 @@ void pacman_state::otto1012_map(address_map &map)
 	map(0x8000,0xbfff).rom();
 }
 
-void pacman_state::otto1012(machine_config &config)
+void puckman_state::otto1012(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::otto1012_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::otto1012_map);
 }
 
 ROM_START( otto1012 )
@@ -2931,17 +2931,17 @@ ROM_START( sp4o1029 )
 	PACMAN_PROMS
 ROM_END
 
-void pacman_state::init_otto1029()
+void puckman_state::init_otto1029()
 {
 	u8 *ROM = machine().root_device().memregion("maincpu")->base();
 
 	mspacman_install_patches(ROM);
 }
 
-GAME( 1981, otto1012, 0,        otto1012, mspacman, pacman_state, empty_init,    ROT90,  "General Computer", "Crazy Otto (prototype of 12 Oct 1981)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, otto1020, otto1012, otto1012, mspacman, pacman_state, empty_init,    ROT90,  "General Computer", "Crazy Otto (prototype of ~20 Oct 1981)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, otto1029, otto1012, otto1012, mspacman, pacman_state, init_otto1029, ROT90,  "General Computer", "Crazy Otto (prototype of 29 Oct 1981)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, sp4n1029, otto1012, otto1012, mspacman, pacman_state, init_otto1029, ROT90,  "General Computer", "Super Pac-Man (prototype of 29 Oct 1981 with Crazy Otto monsters)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, sp4o1029, otto1012, otto1012, mspacman, pacman_state, init_otto1029, ROT90,  "General Computer", "Super Pac-Man (prototype of 29 Oct 1981 with Pac-Man monsters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, otto1012, 0,        otto1012, mspacman, puckman_state, empty_init,    ROT90,  "General Computer", "Crazy Otto (prototype of 12 Oct 1981)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, otto1020, otto1012, otto1012, mspacman, puckman_state, empty_init,    ROT90,  "General Computer", "Crazy Otto (prototype of ~20 Oct 1981)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, otto1029, otto1012, otto1012, mspacman, puckman_state, init_otto1029, ROT90,  "General Computer", "Crazy Otto (prototype of 29 Oct 1981)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, sp4n1029, otto1012, otto1012, mspacman, puckman_state, init_otto1029, ROT90,  "General Computer", "Super Pac-Man (prototype of 29 Oct 1981 with Crazy Otto monsters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, sp4o1029, otto1012, otto1012, mspacman, puckman_state, init_otto1029, ROT90,  "General Computer", "Super Pac-Man (prototype of 29 Oct 1981 with Pac-Man monsters)", MACHINE_SUPPORTS_SAVE )
 
 

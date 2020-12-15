@@ -6,7 +6,7 @@
  *
  *************************************/
 
-void pacman_state::maketrax_protection_w(u8 data)
+void puckman_state::maketrax_protection_w(u8 data)
 {
 	if (data == 0) // disable protection / reset?
 	{
@@ -32,7 +32,7 @@ void pacman_state::maketrax_protection_w(u8 data)
 	}
 }
 
-u8 pacman_state::maketrax_special_port2_r(offs_t offset)
+u8 puckman_state::maketrax_special_port2_r(offs_t offset)
 {
 	u8 data = ioport("DSW1")->read() & 0x3f;
 
@@ -53,7 +53,7 @@ u8 pacman_state::maketrax_special_port2_r(offs_t offset)
 	return data;
 }
 
-u8 pacman_state::maketrax_special_port3_r(offs_t offset)
+u8 puckman_state::maketrax_special_port3_r(offs_t offset)
 {
 
 	if (m_maketrax_disable_protection == 0)
@@ -72,7 +72,7 @@ u8 pacman_state::maketrax_special_port3_r(offs_t offset)
 	}
 }
 
-void pacman_state::piranha_interrupt_vector_w(u8 data)
+void puckman_state::piranha_interrupt_vector_w(u8 data)
 {
 	if (data == 0xfa)
 		data = 0x78;
@@ -94,9 +94,9 @@ void pacman_state::piranha_interrupt_vector_w(u8 data)
  *
  *************************************/
 
-void pacman_state::piranha_writeport(address_map &map) {
+void puckman_state::piranha_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(FUNC(pacman_state::piranha_interrupt_vector_w));
+	map(0x00,0x00).w(FUNC(puckman_state::piranha_interrupt_vector_w));
 }
 
 
@@ -214,16 +214,16 @@ INPUT_PORTS_END
  *
  *************************************/
 
-void pacman_state::maketrax(machine_config &config)
+void puckman_state::maketrax(machine_config &config)
 {
 	pacman(config);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state,maketrax)
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state,maketrax)
 }
 
-void pacman_state::piranha(machine_config &config)
+void puckman_state::piranha(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::piranha_writeport);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::piranha_writeport);
 }
 
 
@@ -233,19 +233,19 @@ void pacman_state::piranha(machine_config &config)
  *
  *************************************/
 
-MACHINE_RESET_MEMBER(pacman_state,maketrax)
+MACHINE_RESET_MEMBER(puckman_state,maketrax)
 {
 	m_maketrax_counter = 0;
 	m_maketrax_offset = 0;
 	m_maketrax_disable_protection = 0;
 }
 
-void pacman_state::init_maketrax()
+void puckman_state::init_maketrax()
 {
 	/* set up protection handlers */
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5004, 0x5004, write8smo_delegate(*this, FUNC(pacman_state::maketrax_protection_w)));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50bf, read8sm_delegate(*this, FUNC(pacman_state::maketrax_special_port2_r)));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x50c0, 0x50ff, read8sm_delegate(*this, FUNC(pacman_state::maketrax_special_port3_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x5004, 0x5004, write8smo_delegate(*this, FUNC(puckman_state::maketrax_protection_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x5080, 0x50bf, read8sm_delegate(*this, FUNC(puckman_state::maketrax_special_port2_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x50c0, 0x50ff, read8sm_delegate(*this, FUNC(puckman_state::maketrax_special_port3_r)));
 
 	save_item(NAME(m_maketrax_disable_protection));
 	save_item(NAME(m_maketrax_offset));
@@ -849,54 +849,54 @@ ROM_END
 /* Official MAME */
 
 /*          rom        parent    machine   inp       init */
-GAME( 1981, abscam,    puckman,  piranha,  mspacman, pacman_state, init_eyes,       ROT90,  "GL (US Billiards License)", "Abscam", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, eyes,      0,        pacman,   eyes,     pacman_state, init_eyes,       ROT90,  "Digitrex Techstar (Rock-ola license)", "Eyes (Digitrex Techstar)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, piranha,   puckman,  piranha,  mspacman, pacman_state, init_eyes,       ROT90,  "GL (US Billiards License)", "Piranha", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, piranhah,  puckman,  pacman,   mspacman, pacman_state, empty_init,      ROT90,  "hack", "Piranha (hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, piranhao,  puckman,  piranha,  mspacman, pacman_state, init_eyes,       ROT90,  "GL (US Billiards License)", "Piranha (older)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, abscam,    puckman,  piranha,  mspacman, puckman_state, init_eyes,       ROT90,  "GL (US Billiards License)", "Abscam", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, eyes,      0,        pacman,   eyes,     puckman_state, init_eyes,       ROT90,  "Digitrex Techstar (Rock-ola license)", "Eyes (Digitrex Techstar)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, piranha,   puckman,  piranha,  mspacman, puckman_state, init_eyes,       ROT90,  "GL (US Billiards License)", "Piranha", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, piranhah,  puckman,  pacman,   mspacman, puckman_state, empty_init,      ROT90,  "hack", "Piranha (hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, piranhao,  puckman,  piranha,  mspacman, puckman_state, init_eyes,       ROT90,  "GL (US Billiards License)", "Piranha (older)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2003, aa,        0,        widel,    mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Alien Armada", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, bace,      0,        widel,    mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Balloon Ace", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, dderby,    0,        widel,    mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Death Derby", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kangaroh,  0,        woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Kagaroo (Qbertish) (incomplete)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ladybugh,  lazybug,  woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Ladybug on Pacman Hardware", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, lazybug,   0,        woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Lazy Bug", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, lazybug1,  lazybug,  woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Lazy Bug (Slower)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, pactest,   0,        woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Test - Pacman board test", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ppong,     0,        woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Ping Pong demo (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ppong2,    ppong,    woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Ping Pong demo (Pacman Hardware) v2", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, rainboh,   0,        pacman,   mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Rainbow (Incomplete)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 1981, wavybug,   lazybug,  woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Wavy Bug", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, zap,       0,        woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "David Widel", "Space Zap Tribute", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, aa,        0,        widel,    mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Alien Armada", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, bace,      0,        widel,    mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Balloon Ace", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, dderby,    0,        widel,    mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Death Derby", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kangaroh,  0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Kagaroo (Qbertish) (incomplete)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ladybugh,  lazybug,  woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Ladybug on Pacman Hardware", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, lazybug,   0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Lazy Bug", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, lazybug1,  lazybug,  woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Lazy Bug (Slower)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, pactest,   0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Test - Pacman board test", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ppong,     0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Ping Pong demo (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ppong2,    ppong,    woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Ping Pong demo (Pacman Hardware) v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, rainboh,   0,        pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Rainbow (Incomplete)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 1981, wavybug,   lazybug,  woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Wavy Bug", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, zap,       0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Space Zap Tribute", MACHINE_SUPPORTS_SAVE )
 
 /* Jerronimo's Progs - www.umlautllama.com */
 
-GAME( 2006, absurd,    0,        pacman,   mspacman, pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Absurd!/QuadBlok (non-working alpha ver 3)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2003, alpaca7,   alpaca8,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Alpaca v0.7 (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, alpaca8,   0,        pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Alpaca v0.8 (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, pachello,  0,        pachack,  pacman0,  pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Hello, World!", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, pacmatri,  0,        pachack,  pacman0,  pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Matrix Effect", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, seq1,      0,        pachack,  pacman0,  pacman_state, empty_init,          ROT90,  "Scott Lawrence", "16 Step Simple Sequencer", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, seq2,      seq1,     pachack,  pacman0,  pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Sequencer and Music Player", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, tinyworld, 0,        pacman,   mspacman, pacman_state, empty_init,          ROT90,  "Scott Lawrence", "Tiny World 82 (demo)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2006, absurd,    0,        pacman,   mspacman, puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Absurd!/QuadBlok (non-working alpha ver 3)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2003, alpaca7,   alpaca8,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Alpaca v0.7 (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, alpaca8,   0,        pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Alpaca v0.8 (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, pachello,  0,        pachack,  pacman0,  puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Hello, World!", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, pacmatri,  0,        pachack,  pacman0,  puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Matrix Effect", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, seq1,      0,        pachack,  pacman0,  puckman_state, empty_init,          ROT90,  "Scott Lawrence", "16 Step Simple Sequencer", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, seq2,      seq1,     pachack,  pacman0,  puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Sequencer and Music Player", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, tinyworld, 0,        pacman,   mspacman, puckman_state, empty_init,          ROT90,  "Scott Lawrence", "Tiny World 82 (demo)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 
 /* Other Misc Hacks */
 
-GAME( 2002, alienres,  0,        pacman,   pacman,   pacman_state, empty_init,          ROT90,  "MonstersGoBoom", "Alien Rescue", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, crashh,    0,        woodpek,  mspacpls, pacman_state, empty_init,          ROT90,  "hack", "Crash (Pac-Man)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mtturbo,   0,        maketrax, maketrax, pacman_state, init_maketrax,   ROT270, "Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
-GAME( 1999, tst_pacm,  0,        pacman,   mspacpls, pacman_state, empty_init,          ROT90,  "David Caldwell", "Test - Pacman Hardware", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
-GAME( 1982, eyesb,     eyes,     pacman,   eyes,     pacman_state, init_eyes,       ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, ghohunt,   puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Hurray Banana", "Ghost Hunt", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, pactetris, puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Ben Leperchey", "Tetris on Pacman hardware (incomplete)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, deathstar, puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, deathstar2,puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star v2", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, scroller,  puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Hurray Banana", "Scroller", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, snakes,    puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, snakes2,   puckman,  pacman,   pacman0,  pacman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, alienres,  0,        pacman,   pacman,   puckman_state, empty_init,          ROT90,  "MonstersGoBoom", "Alien Rescue", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, crashh,    0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "hack", "Crash (Pac-Man)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, mtturbo,   0,        maketrax, maketrax, puckman_state, init_maketrax,   ROT270, "Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
+GAME( 1999, tst_pacm,  0,        pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "David Caldwell", "Test - Pacman Hardware", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
+GAME( 1982, eyesb,     eyes,     pacman,   eyes,     puckman_state, init_eyes,       ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, ghohunt,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Ghost Hunt", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, pactetris, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Ben Leperchey", "Tetris on Pacman hardware (incomplete)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, deathstar, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, deathstar2,puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, scroller,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Scroller", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, snakes2,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes v2", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/
@@ -983,5 +983,5 @@ ROM_START( theglobpb )
 	PACMAN_SOUND_PROMS
 ROM_END
 
-GAME( 1999, theglobpb, 0, pacman, theglobp, pacman_state,  empty_init,    ROT90,  "chaneman", "Super Glob (English conversion of sprglbpg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, theglobpb, 0, pacman, theglobp, puckman_state,  empty_init,    ROT90,  "chaneman", "Super Glob (English conversion of sprglbpg)", MACHINE_SUPPORTS_SAVE )
 

@@ -285,9 +285,9 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"nichibut",
 		"nintendo",
 		"nmk",
-		"pacman",
 		"phoenix",
 		"psikyo",
+		"puckman",
 		"sega",
 		"seibu",
 		"seta",
@@ -805,11 +805,11 @@ files {
 	MAME_DIR .. "src/mame/audio/seibu.cpp",
 }
 
-createHBMAMEProjects(_target, _subtarget, "pacman")
+createHBMAMEProjects(_target, _subtarget, "puckman")
 files {
 	MAME_DIR .. "src/hbmame/drivers/jrpacman.cpp",
-	MAME_DIR .. "src/hbmame/drivers/pacman.cpp",
-	MAME_DIR .. "src/hbmame/video/pacman.cpp",
+	MAME_DIR .. "src/hbmame/drivers/puckman.cpp",
+	MAME_DIR .. "src/hbmame/video/puckman.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pengo.cpp",
 }
 

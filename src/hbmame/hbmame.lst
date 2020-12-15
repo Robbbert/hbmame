@@ -6902,177 +6902,6 @@ mariopac
 paclandb
 paclandd	/* Blue Justice */
 
-@source:pacman.cpp
-abortman 	/* Paul C Copeland hack of Puckman */
-baby2		/* T-Bone hack */
-baby3		/* T-Bone hack */
-baby4		/* T-Bone hack */
-brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
-bucaneerx	/* PacMAME Hacks */
-caterpil
-chtpac
-chtpac3d
-chtpman2
-chtpop
-chtpuck
-crazypac
-dizzy
-eltonpac	/* Sil hack of Pac-Man (Midway) */
-europac		/* Stefano 'Jojo' Priore hack of Pac-Man (Midway) */
-fpnleash
-hanglyad
-hmhearts	/* hack */
-hearts
-hellowp		// cmonkey UKVAC
-hm1000		/* Blue Justice */
-hm2000		/* Blue Justice */
-hmba5000	/* Blue Justice */
-hmba7000	/* Blue Justice */
-hmbabymz	/* Blue Justice */
-hmbluep		/* Blue Justice */
-hmgrenp		/* Blue Justice */
-hmpopey		/*  */
-hmplus		/* Blue Justice */
-homercid	/* David Widel */
-jacman
-jpmmunch	/* JPM bootleg */
-mazeman		/* Sil hack of Pac-Man */
-muckpan
-namcosil	/* Sil hack of Pac-Man (Namco) */
-newpuck2	/* Scotty hack of Pac-Man */
-newpuck3
-nwpuc2b
-pac2600		/* Bobby Tribble hack of Pac-Man (Midway) */
-pac2600a
-pacbaby
-pacbaby2
-pacbaby3
-pacbell
-pacelec
-pacfnt
-pacinvis
-pacjail
-pacjr1
-pacjr2
-pacjr3
-pacjr4
-packetman
-pacm255		/* Mark Spaeth patch for level 256 */
-pacman25	/* Jerronimo v1.0 2004 */
-pacman3d	/* Sil hack of Pac-Man (Midway) */
-pacman6
-pacmanp		/* Don Hodges patch for level 256 */
-pacmar		/* PacMAME Hacks */
-pacminer
-pacmini		/* Bobby Tribble hack of Pac-Man (Midway) */
-pacmini2	/* Bobby Tribble hack of Pac-Man (Midway) */
-pacmn6m2
-pacms1
-pacms2
-pacms3
-pacms4
-pacmsa1
-pacmsa2
-pacmsa3
-pacmsa4
-pacmulti
-puck255
-pacplusc
-pacpopey	/* unknown hack of Pac-Man (Namco) */
-pacshuf
-pacspeed
-pacweird
-pacwf		/* Tim Appleton - Weird Fruit */
-pcrunchy
-pengman		/* Jerry Lawrence hack of Pac-Man (Midway) */
-pm1000		/* Blue Justice */
-pm2000		/* Blue Justice */
-pm3000		/* Blue Justice */
-pm4000p		/* Blue Justice */
-pm5000p		/* Blue Justice */
-pm6000		/* Blue Justice */
-pm7000		/* Blue Justice */
-pm7000p		/* Blue Justice */
-pmad		/* SirScotty and Sil hack of Pac-Man (Midway) */
-pmad00
-pmad6m		/* T-Bone hack */
-pmada
-pmba2000	/* Blue Justice */
-pmba3000	/* Blue Justice */
-pmba4000	/* Blue Justice */
-pmba6000	/* Blue Justice */
-pmba8000	/* Blue Justice */
-pmbamaz		/* Blue Justice */
-pmbaplus	/* Blue Justice */
-pmbluep		/* Blue Justice */
-pmdeluxe	/* Blue Justice */
-pmextra		/* Blue Justice */
-pmextrap	/* Blue Justice */
-pmfever		/* Blue Justice */
-pmgrenp		/* Blue Justice */
-pmheart
-newpuc1		/* Italian dump */
-pplusad
-puckman		//our parent (not same as mame)
-puckmano
-puckmoti
-puckmot1
-puckren
-puckrenc
-punleash
-roboman
-snakeyes	/* T-Bone hack */
-snowpac		/* T-Bone hack */
-spuckman
-sumeltob
-sumelton
-tbone		/* T-Bone hack */
-ultra2		/* PacMAME Hacks */
-ultrapac
-vcrunchy
-vecbaby
-vecbaby2
-vecbaby3
-vecpac		/* T-Bone hack of Pac-Man (Midway) */
-vectplus
-vectr6m		/* T-Bone hack */
-vectr6tb	/* T-Bone hack */
-vectxens
-vhangly
-vhangly3
-vpacbell
-vpacelec
-vpacjail
-vpacms1
-vpacms2
-vpacms3
-vpacms4
-vpacmsa1
-vpacmsa2
-vpacmsa3
-vpacmsa4
-vpacshuf
-vpspeed
-xensad
-xensrev
-	/* "Pacman hardware" games (hires hacks) */
-puckmanx
-puckmnax
-puckmnfx
-puckmnhx
-pacmanx
-pacmanfx
-puckmodx
-pacmodx
-newpuc2x
-nwpuc2bx
-nwpuckxx
-hanglyx
-hangly2x
-hangly3x
-pacplusx
-pheartx
-
 @source:pcktgal.cpp
 pcktgal		//parent
 pckgalgr	/* Vag @ GreekRoms */
@@ -8493,6 +8322,177 @@ s1945iiis01
 s1945iiis02
 soldivid		//parent
 soldivids01
+
+@source:puckman.cpp
+abortman 	/* Paul C Copeland hack of Puckman */
+baby2		/* T-Bone hack */
+baby3		/* T-Bone hack */
+baby4		/* T-Bone hack */
+brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
+bucaneerx	/* PacMAME Hacks */
+caterpil
+chtpac
+chtpac3d
+chtpman2
+chtpop
+chtpuck
+crazypac
+dizzy
+eltonpac	/* Sil hack of Pac-Man (Midway) */
+europac		/* Stefano 'Jojo' Priore hack of Pac-Man (Midway) */
+fpnleash
+hanglyad
+hmhearts	/* hack */
+hearts
+hellowp		// cmonkey UKVAC
+hm1000		/* Blue Justice */
+hm2000		/* Blue Justice */
+hmba5000	/* Blue Justice */
+hmba7000	/* Blue Justice */
+hmbabymz	/* Blue Justice */
+hmbluep		/* Blue Justice */
+hmgrenp		/* Blue Justice */
+hmpopey		/*  */
+hmplus		/* Blue Justice */
+homercid	/* David Widel */
+jacman
+jpmmunch	/* JPM bootleg */
+mazeman		/* Sil hack of Pac-Man */
+muckpan
+namcosil	/* Sil hack of Pac-Man (Namco) */
+newpuck2	/* Scotty hack of Pac-Man */
+newpuck3
+nwpuc2b
+pac2600		/* Bobby Tribble hack of Pac-Man (Midway) */
+pac2600a
+pacbaby
+pacbaby2
+pacbaby3
+pacbell
+pacelec
+pacfnt
+pacinvis
+pacjail
+pacjr1
+pacjr2
+pacjr3
+pacjr4
+packetman
+pacm255		/* Mark Spaeth patch for level 256 */
+pacman25	/* Jerronimo v1.0 2004 */
+pacman3d	/* Sil hack of Pac-Man (Midway) */
+pacman6
+pacmanp		/* Don Hodges patch for level 256 */
+pacmar		/* PacMAME Hacks */
+pacminer
+pacmini		/* Bobby Tribble hack of Pac-Man (Midway) */
+pacmini2	/* Bobby Tribble hack of Pac-Man (Midway) */
+pacmn6m2
+pacms1
+pacms2
+pacms3
+pacms4
+pacmsa1
+pacmsa2
+pacmsa3
+pacmsa4
+pacmulti
+puck255
+pacplusc
+pacpopey	/* unknown hack of Pac-Man (Namco) */
+pacshuf
+pacspeed
+pacweird
+pacwf		/* Tim Appleton - Weird Fruit */
+pcrunchy
+pengman		/* Jerry Lawrence hack of Pac-Man (Midway) */
+pm1000		/* Blue Justice */
+pm2000		/* Blue Justice */
+pm3000		/* Blue Justice */
+pm4000p		/* Blue Justice */
+pm5000p		/* Blue Justice */
+pm6000		/* Blue Justice */
+pm7000		/* Blue Justice */
+pm7000p		/* Blue Justice */
+pmad		/* SirScotty and Sil hack of Pac-Man (Midway) */
+pmad00
+pmad6m		/* T-Bone hack */
+pmada
+pmba2000	/* Blue Justice */
+pmba3000	/* Blue Justice */
+pmba4000	/* Blue Justice */
+pmba6000	/* Blue Justice */
+pmba8000	/* Blue Justice */
+pmbamaz		/* Blue Justice */
+pmbaplus	/* Blue Justice */
+pmbluep		/* Blue Justice */
+pmdeluxe	/* Blue Justice */
+pmextra		/* Blue Justice */
+pmextrap	/* Blue Justice */
+pmfever		/* Blue Justice */
+pmgrenp		/* Blue Justice */
+pmheart
+newpuc1		/* Italian dump */
+pplusad
+puckman		//our parent (not same as mame)
+puckmano
+puckmoti
+puckmot1
+puckren
+puckrenc
+punleash
+roboman
+snakeyes	/* T-Bone hack */
+snowpac		/* T-Bone hack */
+spuckman
+sumeltob
+sumelton
+tbone		/* T-Bone hack */
+ultra2		/* PacMAME Hacks */
+ultrapac
+vcrunchy
+vecbaby
+vecbaby2
+vecbaby3
+vecpac		/* T-Bone hack of Pac-Man (Midway) */
+vectplus
+vectr6m		/* T-Bone hack */
+vectr6tb	/* T-Bone hack */
+vectxens
+vhangly
+vhangly3
+vpacbell
+vpacelec
+vpacjail
+vpacms1
+vpacms2
+vpacms3
+vpacms4
+vpacmsa1
+vpacmsa2
+vpacmsa3
+vpacmsa4
+vpacshuf
+vpspeed
+xensad
+xensrev
+	/* "Pacman hardware" games (hires hacks) */
+puckmanx
+puckmnax
+puckmnfx
+puckmnhx
+pacmanx
+pacmanfx
+puckmodx
+pacmodx
+newpuc2x
+nwpuc2bx
+nwpuckxx
+hanglyx
+hangly2x
+hangly3x
+pacplusx
+pheartx
 
 @source:r2dx_v33.cpp
 nzeroteama					//parent
