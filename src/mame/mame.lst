@@ -10368,6 +10368,9 @@ circusc4                        // GX380 (c) 1984
 circuscc                        // GX380 (c) 1984 + Centuri license
 circusce                        // GX380 (c) 1984 + Centuri license
 
+@source:cirsa820xxx.cpp
+unk820501
+
 @source:cischeat.cpp
 armchmp2                        // (c) 1992 Jaleco
 armchmp2o                       // (c) 1992 Jaleco
@@ -19106,6 +19109,7 @@ kzaurus
 pwrchanc
 ymcapsul
 spcpokan
+unkkonmd
 
 @source:quickpick5.cpp
 quickp5
@@ -22339,6 +22343,7 @@ rad_sonicp
 rad_orun
 msi_sf2
 dgunl3227
+ra145
 
 @source:megadriv_sunplus_hybrid.cpp
 reactmd
@@ -32372,6 +32377,10 @@ ppgc200g
 dgun2869
 
 @source:nes_vt09.cpp
+cybar120
+dturbogt
+jl2050
+joypad65
 msiwwe
 msiwwea
 msidd
@@ -32379,16 +32388,13 @@ msimpac
 msimm2
 msisinv
 msifrog
-cybar120
-vsmaxtx2
-senario25
 rcapnp
-dturbogt
+senario25
 ventur25
-vgpocket
-vgpmini
 vgtablet
-joypad65
+vgpmini
+vgpocket
+vsmaxtx2
 
 @source:nes_vt32.cpp
 dgun2573
@@ -32476,6 +32482,7 @@ mp2100
 
 @source:next.cpp
 next                            //
+nextc                           //
 nextct                          //
 nextctc                         //
 nexts                           //
@@ -38136,6 +38143,7 @@ sorcererd                       // Sorcerer with Micropolis fdc
 
 @source:st22xx_bbl338.cpp
 bbl338
+dphh8213
 
 @source:storio.cpp
 innotab2                        // (c) 2011 V.Tech
