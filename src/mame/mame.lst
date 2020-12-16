@@ -11638,6 +11638,7 @@ dbox                            // (c) 1996 Nokia Multimedia
 @source:dbz.cpp
 dbz                             // (c) 1993 Banpresto
 dbz2                            // (c) 1994 Banpresto
+dbz2bl                          // bootleg
 dbza                            // (c) 1993 Banpresto
 
 @source:dccons.cpp
@@ -38113,6 +38114,7 @@ toto                            //
 twinadv                         // (c) 1995 Barko Corp
 twinadvk                        // (c) 1995 Barko Corp
 twinkle                         // (c) 1997 SemiCom
+twinklea                        // (c) 1997 SemiCom
 wintbob                         // bootleg
 yutnori                         // (c) 199? yutnori
 
@@ -40989,6 +40991,9 @@ miaj                            // GX808 (c) 1989 (Japan)
 vulcan                          // GX785 (c) 1988
 vulcana                         // GX785 (c) 1988
 vulcanb                         // GX785 (c) 1988
+
+@source:twinbskt.cpp
+twinbskt                        // (c) 1995 Recreativos Pasqual
 
 @source:twincobr.cpp
 fnshark                         // bootleg
