@@ -22,6 +22,7 @@
 #include <shellapi.h>
 #include <commctrl.h>
 #include <wingdi.h>
+#include <uxtheme.h>
 
 // standard C headers
 #include <stdio.h>
@@ -345,6 +346,13 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 
 BOOL MouseHasBeenMoved(void);
 static void SwitchFullScreenMode(void);
+
+static HBRUSH hBrush = NULL;
+//static HBRUSH hBrushDlg = NULL;
+static HDC hDC = NULL;
+static HWND	hSplash = NULL;
+static HWND	hProgress = NULL;
+static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 /***************************************************************************
     External variables
@@ -1029,7 +1037,13 @@ int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 	printf("HBMAMEUI starting\n");fflush(stdout);
 
-	if (!Win32UI_init(hInstance, lpCmdLine, nCmdShow))
+	hSplash = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_STARTUP), hMain, StartupProc);
+	SetActiveWindow(hSplash);
+	SetForegroundWindow(hSplash);
+
+	bool res = Win32UI_init(hInstance, lpCmdLine, nCmdShow);
+	DestroyWindow(hSplash);
+	if (!res)
 		return 1;
 
 	// pump message, but quit on WM_QUIT
@@ -1536,8 +1550,43 @@ static void memory_error(const char *message)
 	exit(-1);
 }
 
+static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+		case WM_INITDIALOG:
+		{
+			// Need a correctly-sized bitmap
+			HBITMAP hBmp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_SPLASH), IMAGE_BITMAP, 0, 0, LR_SHARED);
+			SendMessage(GetDlgItem(hDlg, IDC_SPLASH), STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hBmp);
+			hBrush = GetSysColorBrush(COLOR_3DFACE);
+			hProgress = CreateWindowEx(0, PROGRESS_CLASS, NULL, WS_CHILD | WS_VISIBLE, 0, 136, 526, 18, hDlg, NULL, hInst, NULL);
+			SetWindowTheme(hProgress, L" ", L" ");
+			SendMessage(hProgress, PBM_SETBKCOLOR, 0, GetSysColor(COLOR_3DFACE));
+			SendMessage(hProgress, PBM_SETRANGE, 0, MAKELPARAM(0, 120));
+			SendMessage(hProgress, PBM_SETPOS, 0, 0);
+			return true;
+		}
+
+		case WM_CTLCOLORDLG:
+			return (LRESULT) hBrush;
+
+		case WM_CTLCOLORSTATIC:
+			hDC = (HDC)wParam;
+			SetBkMode(hDC, TRANSPARENT);
+			SetTextColor(hDC, GetSysColor(COLOR_HIGHLIGHT));
+			return (LRESULT) hBrush;
+	}
+
+	return false;
+}
+
+
 static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
+	win_set_window_text_utf8(GetDlgItem(hSplash, IDC_PROGBAR), "Please wait...");
+	SendMessage(hProgress, PBM_SETPOS, 10, 0);
+
 	extern int mame_validitychecks(int game);
 	WNDCLASS wndclass;
 	RECT rect;
@@ -1548,7 +1597,9 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	int validity_failed = 0;
 	LONG_PTR l;
 	OptionsInit();
+	SendMessage(hProgress, PBM_SETPOS, 20, 0);
 	emu_opts_init(0);
+	SendMessage(hProgress, PBM_SETPOS, 40, 0);
 
 	// create the memory pool
 	mameui_pool = pool_alloc_lib(memory_error);
@@ -1572,6 +1623,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	RegisterClass(&wndclass);
 
 	InitCommonControls();
+	SendMessage(hProgress, PBM_SETPOS, 55, 0);
 
 	// Are we using an Old comctl32.dll?
 	dprintf("common controlversion %ld %ld\n",common_control_version >> 16, common_control_version & 0xffff);
@@ -1604,6 +1656,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 	SetMainTitle();
 	hTabCtrl = GetDlgItem(hMain, IDC_SSTAB);
+	SendMessage(hProgress, PBM_SETPOS, 70, 0);
 
 	{
 		struct TabViewOptions opts;
@@ -1678,6 +1731,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (!InitSplitters())
 		return false;
 
+	SendMessage(hProgress, PBM_SETPOS, 85, 0);
 	nSplitterCount = GetSplitterCount();
 	for (i = 0; i < nSplitterCount; i++)
 	{
@@ -1719,6 +1773,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	dprintf("about to init tree\n");
 	InitTree(g_folderData, g_filterList);
 	dprintf("did init tree\n");
+	SendMessage(hProgress, PBM_SETPOS, 100, 0);
 
 	/* Initialize listview columns */
 	InitListView();

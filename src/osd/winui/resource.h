@@ -176,6 +176,7 @@
 #define IDB_WEB_PAGE                    272
 #define IDA_TAB_KEYS                    300
 #define IDD_MAIN                        301
+#define IDD_STARTUP                     302
 #define IDD_ABOUT                       308
 #define IDD_DIRECTX                     314
 #define IDD_AUDIT                       315
@@ -423,6 +424,8 @@
 #define IDC_SNAPSIZEX                   1253
 #define IDC_FILTER_MECHANICAL           1254
 #define IDC_LOWLATENCY                  1257
+#define IDC_PROGBAR                     1265
+#define IDC_SPLASH                      1266
 #define IDC_HLSL_ON                     1279
 #define IDC_SNAPBURNIN                  1280
 #define IDC_PORTAUDIO_LATENCY           1281
