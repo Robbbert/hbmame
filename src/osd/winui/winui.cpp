@@ -1563,7 +1563,7 @@ static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 			hProgress = CreateWindowEx(0, PROGRESS_CLASS, NULL, WS_CHILD | WS_VISIBLE, 0, 136, 526, 18, hDlg, NULL, hInst, NULL);
 			SetWindowTheme(hProgress, L" ", L" ");
 			SendMessage(hProgress, PBM_SETBKCOLOR, 0, GetSysColor(COLOR_3DFACE));
-			SendMessage(hProgress, PBM_SETRANGE, 0, MAKELPARAM(0, 120));
+			//SendMessage(hProgress, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 			SendMessage(hProgress, PBM_SETPOS, 0, 0);
 			return true;
 		}
@@ -1597,7 +1597,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	int validity_failed = 0;
 	LONG_PTR l;
 	OptionsInit();
-	SendMessage(hProgress, PBM_SETPOS, 20, 0);
+	SendMessage(hProgress, PBM_SETPOS, 25, 0);
 	emu_opts_init(0);
 	SendMessage(hProgress, PBM_SETPOS, 40, 0);
 
@@ -1731,7 +1731,6 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (!InitSplitters())
 		return false;
 
-	SendMessage(hProgress, PBM_SETPOS, 85, 0);
 	nSplitterCount = GetSplitterCount();
 	for (i = 0; i < nSplitterCount; i++)
 	{
@@ -1770,6 +1769,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 	LoadBackgroundBitmap();
 
+	SendMessage(hProgress, PBM_SETPOS, 85, 0);
 	dprintf("about to init tree\n");
 	InitTree(g_folderData, g_filterList);
 	dprintf("did init tree\n");
@@ -1785,7 +1785,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 		GetListFont(&logfont);
 		if (hFont ) {
-			//Clenaup old Font, otherwise we have a GDI handle leak
+			//Cleanup old Font, otherwise we have a GDI handle leak
 			DeleteFont(hFont);
 		}
 		hFont = CreateFontIndirect(&logfont);
