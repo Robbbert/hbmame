@@ -2221,7 +2221,8 @@ ROM_START( killbldps01 )
 	ROM_LOAD( "killbldp_igs027a_alt.bin", 0x000000, 0x04000, CRC(98316b06) SHA1(09be9fad24d68980a0a5beae60ced48012286216) )
 
 	ROM_REGION32_LE( 0x800000, "user1", 0 )
-	ROM_LOAD( "v300x_ps01.u26", 0x000000, 0x200004,  CRC(144388c8) SHA1(9db146cc4434e90b5d931a9b15b5c3f1e7474a88) )
+	//ROM_LOAD( "v300x_ps01.u26", 0x000000, 0x200004,  CRC(144388c8) SHA1(9db146cc4434e90b5d931a9b15b5c3f1e7474a88) ) // crc collision
+	ROM_LOAD( "v300x_ps01.u26", 0x000000, 0x200000,  CRC(222488cc) SHA1(c5e74be25d86d4230da982c037f9da75d12b145f) )
 
 	ROM_REGION( 0xa00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
@@ -14704,8 +14705,9 @@ ROM_END
 ROM_START( kovpluss291 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p0600h_ph291.119",    0x100000, 0x400000, CRC(e4b0875d) SHA1(b85cd73573b47fa82383ccf22c89d7d7a6b77240) )
-	ROM_IGNORE( 0x04 )
+	//ROM_LOAD16_WORD_SWAP( "p0600h_ph291.119",    0x100000, 0x400000, CRC(e4b0875d) SHA1(b85cd73573b47fa82383ccf22c89d7d7a6b77240) ) // crc collision
+	//ROM_IGNORE( 0x04 )
+	ROM_LOAD16_WORD_SWAP( "p0600h_ph291.119",    0x100000, 0x400000, CRC(2c743737) SHA1(b083b07861fd6970f687fc2148ec4a7944bd3409) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
 	ROM_LOAD( "kov_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
@@ -36760,7 +36762,7 @@ GAME( 1998, killblds03,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_st
 GAME( 2018, killblds04,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state, init_killbld,    ROT0,   "hack", "The Killing Blade (Qun Ying Edition 2018-06-22)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, killblds05,  killbld,   pgm_022_025_killbld,killbld,  pgm_022_025_state, init_killbld,    ROT0,   "hack", "The Killing Blade (Simplified 2018-08-24)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // The Killing Blade Plus
-GAME( 2005, killbldps01, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, init_killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Easy Move)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2005, killbldps01, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, init_killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Easy Move)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2005, killbldps02, killbldp,  pgm_arm_type3,      pgm,      pgm_arm_type3_state, init_killbldp,   ROT0,   "DDJ", "The Killing Blade Plus (Always Have Super Move)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // Knights of Valour
 GAME( 2018, kov115s01,   kov,       pgm_arm_type1_sim,  sango,    pgm_arm_type1_state, init_kov,        ROT0,   "Creamymami", "Knights of Valour (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
