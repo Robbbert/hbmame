@@ -505,8 +505,8 @@ tk2h100
 tk2h101
 tk2h102
 tk2h103
-tk2h104  // rom problem
-tk2h105  // rom problem
+tk2h104
+tk2h105
 tk2h106
 tk2h107
 tk2h108
@@ -2560,7 +2560,7 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
-kof97plss13 // The roms has problems
+kof97plss13 // Freezes in intro
 
 @source:kof98.cpp
 kof98aas
@@ -4923,7 +4923,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-//mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
+//mslug5fu // encrypted p roms; not working
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -7460,7 +7460,7 @@ kovpluss314
 kovpluss315
 kovpluss316
 kovpluss317
-kovpluss318  // The roms has problems
+kovpluss318  // Freeze during intro
 kovpluss319
 kovpluss320
 kovpluss321
@@ -7785,14 +7785,14 @@ kovsho132
 kovsho133
 kovsho134
 kovsho135
-kovsho136 // The roms has problems
+kovsho136 // Illegal instruction before intro
 kovsho137 // Boot bios 1
 kovsho138 // Boot bios 1
-kovsho139 // The roms has problems
+kovsho139 // Illegal instruction before intro
 kovsho140
 kovsho141
 kovsho142
-kovsho143 //Illegal Intruction     
+kovsho143 // Illegal instruction before intro
 kovsho144
 kovsho145
 kovsho146 // Boot bios 1
@@ -7801,25 +7801,25 @@ kovsho148
 kovsho149
 kovsho150
 kovsho151
-kovsho152 //
-kovsho153 //
+kovsho152
+kovsho153
 kovsho154
 kovsho155
 kovsho156
 kovsho157
-kovsho158 //
-kovsho159 //
-kovsho160 // Hardware 27 Error
-kovsho161 //
+kovsho158 // Freezes during attract mode
+kovsho159
+kovsho160 // Resource Error, Bad gfx
+kovsho161 // Hardware 27 Error, Bad gfx
 kovsho162
 kovsho163
 kovsho164
 kovsho165
 kovsho166
 kovsho167
-kovsho168 //
-kovsho169 //
-kovsho170 //
+kovsho168 // Path Command Error, Bad gfx
+kovsho169 // Hardware 27 Error, Bad gfx
+kovsho170 // Hardware 27 Error, Bad gfx
 kovsho171
 kovsho172
 kovsho173
@@ -8054,7 +8054,7 @@ oldsplus25
 oldsplus26
 oldsplus27
 orlegends01
-orlegends02 //  Unstable game in the emulator (ingame crash)
+orlegends02 //  Illegal instruction
 orlegends03
 orlegends04
 orlegends05
@@ -8127,7 +8127,7 @@ orlegendcs64
 orlegendcs65
 orlegendcs66
 orlegendcs67
-orlegendcs68   //  Unstable game in the emulator (ingame crash)
+orlegendcs68   // stuck in setup menu
 orlegendcs69
 orlegendcs70   // stuck in setup menu
 orlegendcs71
