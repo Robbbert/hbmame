@@ -2826,7 +2826,8 @@ ROM_END
 ROM_START( kov2p204s08 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "v204-32m-p08.rom",    0x100000, 0x400000, CRC(583e0650) SHA1(b6fb616fbbad1aba710e6a43e37ab6dcf3f0d82c) )
+	//ROM_LOAD16_WORD_SWAP( "v204-32m-p08.rom",    0x100000, 0x400000, CRC(583e0650) SHA1(b6fb616fbbad1aba710e6a43e37ab6dcf3f0d82c) ) // crc collision
+	ROM_LOAD16_WORD_SWAP( "v204-32m-p08.rom",    0x100000, 0x400000, CRC(50e13216) SHA1(37fce0b64f3c3d870993eb229df8b6a4bab6173f) )
 
 	ROM_REGION( 0x4000, "prot", 0 )
 	ROM_LOAD( "kov2p_igs027a_china.bin", 0x000000, 0x04000, CRC(19a0bd95) SHA1(83e9f22512832a51d41c588debe8be7adb3b1df7) )
@@ -35230,7 +35231,8 @@ ROM_END
 ROM_START( orlegendcs54 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p0101_po54.160",    0x100000, 0x200000, CRC(b24f0c1e) SHA1(78070ea538c421d76ea382f7da6dfd62c0427333) )
+	//ROM_LOAD16_WORD_SWAP( "p0101_po54.160",    0x100000, 0x200000, CRC(b24f0c1e) SHA1(78070ea538c421d76ea382f7da6dfd62c0427333) ) // crc collision
+	ROM_LOAD16_WORD_SWAP( "p0101_po54.160",    0x100000, 0x200000, CRC(3681fe21) SHA1(2408c2aa0d8b7f6d273f83be60374c3bb4256208) )
 
 	ROM_REGION( 0x800000, "tiles",  0 )
 	PGM_VIDEO_BIOS
@@ -37911,7 +37913,7 @@ GAME( 1997, orlegendcs50, orlegend,  pgm_asic3,          orlegend, pgm_asic3_sta
 GAME( 1997, orlegendcs51, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Small Work)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, orlegendcs52, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Hide The Conversation)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, orlegendcs53, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Wukong Legend)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, orlegendcs54, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Return Of Evil Winds)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, orlegendcs54, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Return Of Evil Winds)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1997, orlegendcs55, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Instructional Simplified Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, orlegendcs56, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Gold Fish)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, orlegendcs57, orlegend,  pgm_asic3,          orlegend, pgm_asic3_state, init_orlegend,   ROT0,   "hack", "Oriental Legend (Full-Featured Pig Journey)", MACHINE_SUPPORTS_SAVE )
