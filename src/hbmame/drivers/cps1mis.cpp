@@ -23442,12 +23442,14 @@ ROM_START( tk2h35 )
 	ROM_LOAD( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
-ROM_START( tk2h37 ) // wofjxe Reviewed 30-05-2018
+ROM_START( tk2h37 ) // wofjxe Reviewed 30-05-2018 : Error 1111 in attract mode
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "tk2jtkh19.8f", 0x000000, 0x80000, CRC(9b215a68) SHA1(09071a19c6d46006476b895cf147f985c76b7cdb) )
-	ROM_IGNORE(0x3d4f65)
-	ROM_LOAD16_WORD_SWAP( "tk2jtkh19.7f", 0x080000, 0x80000, CRC(b74b09ac) SHA1(932891fb6f2dd279319d5296b70217e25cf1f221) )
-	ROM_IGNORE(0x3d4f4b)
+	//ROM_LOAD16_WORD_SWAP( "tk2jtkh19.8f", 0x000000, 0x80000, CRC(9b215a68) SHA1(09071a19c6d46006476b895cf147f985c76b7cdb) ) // crc collision
+	//ROM_IGNORE(0x3d4f65)
+	//ROM_LOAD16_WORD_SWAP( "tk2jtkh19.7f", 0x080000, 0x80000, CRC(b74b09ac) SHA1(932891fb6f2dd279319d5296b70217e25cf1f221) ) // crc collision
+	//ROM_IGNORE(0x3d4f4b)
+	ROM_LOAD16_WORD_SWAP( "tk2jtkh19.8f", 0x000000, 0x80000, CRC(8c60a0dd) SHA1(0bdd3a9a2b8d697422802efeedbcb5e3fcb89be8) )
+	ROM_LOAD16_WORD_SWAP( "tk2jtkh19.7f", 0x080000, 0x80000, CRC(b464d26d) SHA1(0d291a4ae33e78772881d4f60beda7d6e5681b6b) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -25402,8 +25404,9 @@ ROM_START( tk2h104 ) //wofjxb
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2jtkh86.8f", 0x000000, 0x80000, CRC(c70a7931) SHA1(6c724f0d1821b35f6ec034bc25fce4afd2338462) )
 	ROM_IGNORE(0x3d4f69)
-	ROM_LOAD16_WORD_SWAP( "tk2jtkh86.7f", 0x080000, 0x80000, CRC(b74b09ac) SHA1(4fed5f2a62351acb4f37a1cae215a22272bd7ad1) )
-	ROM_IGNORE(0x3d4f68)
+	//ROM_LOAD16_WORD_SWAP( "tk2jtkh86.7f", 0x080000, 0x80000, CRC(b74b09ac) SHA1(4fed5f2a62351acb4f37a1cae215a22272bd7ad1) ) // crc collision
+	//ROM_IGNORE(0x3d4f68)
+	ROM_LOAD16_WORD_SWAP( "tk2jtkh86.7f", 0x080000, 0x80000, CRC(b5f39ae9) SHA1(2345a94dee3691c2d12bebbad5145887fc6ecc88) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -25431,8 +25434,10 @@ ROM_END
 
 ROM_START( tk2h105 ) //wofjxa
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "tk2jtkh87.8f", 0x000000, 0x80004, CRC(9b215a68) SHA1(20149a01cce5254f260dfc7c1b6f89d372f69a5d) )
-	ROM_LOAD16_WORD_SWAP( "tk2jtkh87.7f", 0x080000, 0x80004, CRC(b74b09ac) SHA1(20a4c54b09e04f0f2c660bde45a4e5ab22f7894e) )
+	//ROM_LOAD16_WORD_SWAP( "tk2jtkh87.8f", 0x000000, 0x80004, CRC(9b215a68) SHA1(20149a01cce5254f260dfc7c1b6f89d372f69a5d) ) // crc collision
+	//ROM_LOAD16_WORD_SWAP( "tk2jtkh87.7f", 0x080000, 0x80004, CRC(b74b09ac) SHA1(20a4c54b09e04f0f2c660bde45a4e5ab22f7894e) ) // crc collision
+	ROM_LOAD16_WORD_SWAP( "tk2jtkh87.8f", 0x000000, 0x80000, CRC(3538cdd7) SHA1(3c143e45dbccf575eb4ec6ddfeae602f8ddbe7e6) )
+	ROM_LOAD16_WORD_SWAP( "tk2jtkh87.7f", 0x080000, 0x80000, CRC(126eabce) SHA1(8f7c5c7fb5ac09d4a282c9a028fba7d7d681f034) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
 	ROMX_LOAD( "tk2-1m.3a",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) , ROM_GROUPWORD | ROM_SKIP(6) )
@@ -29802,7 +29807,7 @@ GAME( 1992, tk2h31,        wof,      qsound,     wof,      cps_state, init_wof, 
 GAME( 2016, tk2h32,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (The Battle Of Chibi - The True Of Warriors 2016-02-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, tk2h33,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Unknown Hack Rev.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, tk2h35,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Unknown Hack Rev.3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, tk2h37,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition 2016-03-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, tk2h37,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition 2016-03-01)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, tk2h38,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition 2016-02-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, tk2h39,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Boss Cho Unparalleled Edition 2016-02-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, tk2h40,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "hack", "Tenchi wo Kurau II (Chibi Battle 2016 Real World Unparalleled 2016-03-04)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
