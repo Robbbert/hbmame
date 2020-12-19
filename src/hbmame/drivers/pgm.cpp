@@ -25466,7 +25466,7 @@ ROM_START( kovsho168 ) //kovshy
 	ROM_REGION( 0x4000, "prot", 0 )
 	//ROM_LOAD( "kovsh_v100_china_pw168.asic", 0x000000, 0x04000,  CRC(70e33f5e) SHA1(b040e81f00f46075e574070f8a526d1500065355) ) // crc collision
 	//ROM_IGNORE( 0x4 )
-	ROM_LOAD( "kovsh_v100_china_pw168.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
+	ROM_LOAD( "kovsh_v100_china.asic", 0x000000, 0x04000,  CRC(0f09a5c1) SHA1(621b38c05f33277608d58b49822aebc930ae4870) )
 
 	ROM_REGION( 0xc00000, "tiles", 0 )
 	PGM_VIDEO_BIOS
