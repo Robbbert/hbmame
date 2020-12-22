@@ -14197,6 +14197,8 @@ atlantis                        // (c) 1981 Comsoft
 atlantis2                       // (c) 1981 Comsoft
 atlantisb                       // bootleg
 azurian                         // (c) 1982 Rait Electronics Ltd
+bagmanm2                        // (c) 1984 Valadon Automation / GIB
+bagmanmc                        // bootleg
 batman2                         // bootleg
 blkhole                         // TDS (Tokyo Denshi Sekkei) & MINTS
 bomber                          //
@@ -14423,8 +14425,6 @@ zigzagb2                        // (c) 1982 LAX (bootleg)
 
 @source:galaxold.cpp
 4in1                            // (c) 1981 Armenia / Food and Fun
-bagmanm2                        // (c) 1984 Valadon Automation / GIB
-bagmanmc                        // bootleg
 bullsdrtg                       // 1985 Senko
 dkongjrm                        // bootleg
 dkongjrmc                       // bootleg (Centromatic)
@@ -22150,6 +22150,9 @@ greatgun                        // (c) 1983
 mazerbla                        // (c) 1983
 mazerblaa                       // (c) 1983
 
+@source:mbc020.cpp
+mbc020                          //
+
 @source:mbc200.cpp
 mbc200                          //
 
@@ -23031,6 +23034,7 @@ mkyturboe                       // hack
 narc                            // (c) 1988 Williams
 narc2                           // (c) 1988 Williams
 narc3                           // (c) 1988 Williams
+narc4                           // (c) 1988 Williams
 shimpact                        // (c) 1991 Midway
 shimpactp4                      // (c) 1991 Midway
 shimpactp5                      // (c) 1991 Midway
