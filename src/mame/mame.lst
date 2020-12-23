@@ -23032,6 +23032,7 @@ mkyawdim4                       // bootleg
 mkyturbo                        // hack
 mkyturboe                       // hack
 narc                            // (c) 1988 Williams
+narc1                           // (c) 1988 Williams
 narc2                           // (c) 1988 Williams
 narc3                           // (c) 1988 Williams
 narc4                           // (c) 1988 Williams
@@ -23217,6 +23218,9 @@ spangj                          // --/--/1990 (c) 1990 Mitchell (Japan)
 
 @source:mits680b.cpp
 mits680b                        //
+
+@source:miuchiz.cpp
+miuchiz                         // (c) 2006 MGA Entertainment
 
 @source:mjkjidai.cpp
 mjkjidai                        // (c) 1986 Sanritsu
@@ -32787,6 +32791,9 @@ sfortea2                        //
 sforteb                         //
 sfortec                         //
 sfortec1                        //
+
+@source:novag_snova.cpp
+nsnova
 
 @source:novag_supremo.cpp
 supremo
