@@ -1172,33 +1172,18 @@ HICON LoadIconFromFile(const char *iconname)
 	util::archive_file::ptr zip;
 
 	const string t = dir_get_value(40);
+	char s[t.length()+1];
+	strcpy(s, t.c_str());
 	sprintf(tmpStr, "%s/%s.ico", t.c_str(), iconname);
 	if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
 	{
-		sprintf(tmpStr, "%s/icons.zip", t.c_str());
-		sprintf(tmpIcoName, "%s.ico", iconname);
-
-		if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
+		char* s1 = strtok(s, ";");
+		while (s1 && !hIcon)
 		{
-			if (zip->search(tmpIcoName, false) >= 0)
-			{
-				bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
-				if (bufferPtr)
-				{
-					if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
-						hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
-
-					free(bufferPtr);
-				}
-			}
-			zip.reset();
-		}
-		else
-		{
-			sprintf(tmpStr, "%s/icons.7z", t.c_str());
+			sprintf(tmpStr, "%s/icons.zip", s1);
 			sprintf(tmpIcoName, "%s.ico", iconname);
 
-			if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
+			if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
 			{
 				if (zip->search(tmpIcoName, false) >= 0)
 				{
@@ -1213,6 +1198,28 @@ HICON LoadIconFromFile(const char *iconname)
 				}
 				zip.reset();
 			}
+			else
+			{
+				sprintf(tmpStr, "%s/icons.7z", s1);
+				sprintf(tmpIcoName, "%s.ico", iconname);
+
+				if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
+				{
+					if (zip->search(tmpIcoName, false) >= 0)
+					{
+						bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
+						if (bufferPtr)
+						{
+							if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
+								hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
+
+							free(bufferPtr);
+						}
+					}
+					zip.reset();
+				}
+			}
+			s1 = strtok(NULL, ";");
 		}
 	}
 	return hIcon;

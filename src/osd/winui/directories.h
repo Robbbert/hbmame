@@ -56,7 +56,7 @@ const DIRECTORYINFO g_directoryInfo[] =
 	{ "Hard Drive Difference", nullptr,            nullptr,            19, true, 0 },
 	{ "HLSL",                  nullptr,            nullptr,            22, false, 0 },
 	{ "How To",                nullptr,            nullptr,            38, true, 0 },
-	{ "Icons",                 nullptr,            nullptr,            40, false, 0 },
+	{ "Icons",                 nullptr,            nullptr,            40, true, 0 },
 //	{ "Ini Files",             GetIniDir,          nullptr,            7,  false, DIRDLG_INI },  // 2017-02-03 hardcoded to 'ini' now
 	{ "Input files",           nullptr,            nullptr,            16, true, 0 }, //DIRDLG_INP },  //not used anywhere
 	{ "Language",              nullptr,            nullptr,            12, false, 0 },
