@@ -1174,11 +1174,11 @@ HICON LoadIconFromFile(const char *iconname)
 	const string t = dir_get_value(40);
 	char s[t.length()+1];
 	strcpy(s, t.c_str());
-	sprintf(tmpStr, "%s/%s.ico", t.c_str(), iconname);
-	if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
+	char* s1 = strtok(s, ";");
+	while (s1 && !hIcon)
 	{
-		char* s1 = strtok(s, ";");
-		while (s1 && !hIcon)
+		sprintf(tmpStr, "%s/%s.ico", s1, iconname);
+		if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
 		{
 			sprintf(tmpStr, "%s/icons.zip", s1);
 			sprintf(tmpIcoName, "%s.ico", iconname);
@@ -1219,8 +1219,8 @@ HICON LoadIconFromFile(const char *iconname)
 					zip.reset();
 				}
 			}
-			s1 = strtok(NULL, ";");
 		}
+		s1 = strtok(NULL, ";");
 	}
 	return hIcon;
 }
