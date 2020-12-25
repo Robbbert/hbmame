@@ -364,6 +364,7 @@ VIDEOS["SCN2674"] = true
 VIDEOS["PWM_DISPLAY"] = true
 --VIDEOS["SED1200"] = true
 --VIDEOS["SED1330"] = true
+--VIDEOS["SED1356"] = true
 --VIDEOS["SED1500"] = true
 --VIDEOS["SED1520"] = true
 VIDEOS["SNES_PPU"] = true
@@ -489,6 +490,7 @@ MACHINES["EEPROMDEV"] = true
 --MACHINES["ER1400"] = true
 MACHINES["ER2055"] = true
 MACHINES["F3853"] = true
+--MACHINES["F4702"] = true
 --MACHINES["HD63450"] = true
 --MACHINES["HD64610"] = true
 MACHINES["I2CMEM"] = true
@@ -622,6 +624,7 @@ MACHINES["S3520CF"] = true
 MACHINES["S3C24XX"] = true
 --MACHINES["S3C44B0"] = true
 --MACHINES["SA1110"] = true
+--MACHINES["SA1111"] = true
 MACHINES["SATURN"] = true
 MACHINES["SCC68070"] = true
 MACHINES["SCN_PCI"] = true
@@ -5049,6 +5052,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/rbmk.cpp",
 	MAME_DIR .. "src/mame/drivers/rcorsair.cpp",
 	MAME_DIR .. "src/mame/drivers/re900.cpp",
+	MAME_DIR .. "src/mame/drivers/rf51w14cg.cpp",
 	MAME_DIR .. "src/mame/drivers/rfslots8085.cpp",
 	MAME_DIR .. "src/mame/drivers/rfslotspcpent.cpp",
 	MAME_DIR .. "src/mame/drivers/rgum.cpp",

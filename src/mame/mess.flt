@@ -214,6 +214,7 @@ d6800.cpp
 d6809.cpp
 dai.cpp
 daruma.cpp
+datacast.cpp
 datum.cpp
 dbox.cpp
 dccons.cpp
@@ -463,6 +464,7 @@ jade.cpp
 jazz.cpp
 jensen.cpp
 jonos.cpp
+jornada.cpp
 jr100.cpp
 jr200.cpp
 jtc.cpp
@@ -951,7 +953,8 @@ spg2xx_zone.cpp
 squale.cpp
 ssem.cpp
 st17xx.cpp
-st22xx_bbl338.cpp
+st2302u_bbl_rom.cpp
+st2302u_bbl_spi.cpp
 storio.cpp
 studio2.cpp
 sun1.cpp
@@ -1069,7 +1072,6 @@ unior.cpp
 unistar.cpp
 univac.cpp
 unixpc.cpp
-unk6502_st2xxx.cpp
 ut88.cpp
 uzebox.cpp
 v100.cpp

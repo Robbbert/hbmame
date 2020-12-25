@@ -1298,6 +1298,18 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/machine/f4702.h,MACHINES["F4702"] = true
+---------------------------------------------------
+
+if (MACHINES["F4702"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/f4702.cpp",
+		MAME_DIR .. "src/devices/machine/f4702.h",
+	}
+end
+
+---------------------------------------------------
+--
 --@src/devices/machine/fga002.h,MACHINES["FGA002"] = true
 ---------------------------------------------------
 
@@ -2871,6 +2883,18 @@ if (MACHINES["SA1110"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/machine/sa1110.cpp",
 		MAME_DIR .. "src/devices/machine/sa1110.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/machine/sa1111.h,MACHINES["SA1111"] = true
+---------------------------------------------------
+
+if (MACHINES["SA1111"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/machine/sa1111.cpp",
+		MAME_DIR .. "src/devices/machine/sa1111.h",
 	}
 end
 
