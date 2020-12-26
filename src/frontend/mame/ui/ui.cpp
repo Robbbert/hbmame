@@ -994,7 +994,7 @@ void mame_ui_manager::process_natural_keyboard()
 	{
 		// if this was a UI_EVENT_CHAR event, post it
 		if (event.event_type == ui_event::type::IME_CHAR)
-			machine().ioport().natkeyboard().post_char(event.ch);
+			machine().natkeyboard().post_char(event.ch);
 	}
 
 	// process natural keyboard keys that don't get UI_EVENT_CHARs
@@ -1017,7 +1017,7 @@ void mame_ui_manager::process_natural_keyboard()
 			*key_down_ptr |= key_down_mask;
 
 			// post the key
-			machine().ioport().natkeyboard().post_char(UCHAR_MAMEKEY_BEGIN + code.item_id());
+			machine().natkeyboard().post_char(UCHAR_MAMEKEY_BEGIN + code.item_id());
 		}
 		else if (!pressed && (*key_down_ptr & key_down_mask))
 		{
@@ -1246,14 +1246,14 @@ uint32_t mame_ui_manager::handler_ingame(render_container &container)
 	}
 
 	// is the natural keyboard enabled?
-	if (machine().ioport().natkeyboard().in_use() && (machine().phase() == machine_phase::RUNNING))
+	if (machine().natkeyboard().in_use() && (machine().phase() == machine_phase::RUNNING))
 		process_natural_keyboard();
 
 	if (!ui_disabled)
 	{
 		// paste command
 		if (machine().ui_input().pressed(IPT_UI_PASTE))
-			machine().ioport().natkeyboard().paste();
+			machine().natkeyboard().paste();
 	}
 
 	image_handler_ingame();
@@ -1383,7 +1383,7 @@ uint32_t mame_ui_manager::handler_ingame(render_container &container)
 
 	// toggle throttle?
 	if (machine().ui_input().pressed(IPT_UI_THROTTLE))
-		machine().video().toggle_throttle();
+		machine().video().set_throttled(!machine().video().throttled());
 
 	// check for fast forward
 	if (machine().ioport().type_pressed(IPT_UI_FAST_FORWARD))
