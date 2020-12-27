@@ -62,8 +62,8 @@ private:
 	void spacmissx_03_w(u8 data);
 	void spacmissx_05_w(u8 data);
 	void spacmissx_07_w(u8 data);
-	DECLARE_MACHINE_START(sm);
-	DECLARE_MACHINE_RESET(sm);
+	void machine_start() override;
+	void machine_reset() override;
 	u8 vpos_to_vysnc_chain_counter( int vpos );
 	int vysnc_chain_counter_to_vpos( u8 counter, int vblank );
 	u32 screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -284,7 +284,7 @@ void sm_state::mw8080bw_start_interrupt_timer(  )
  *
  *************************************/
 
-MACHINE_START_MEMBER( sm_state, sm )
+void sm_state::machine_start()
 {
 	mw8080bw_create_interrupt_timer();
 }
@@ -296,7 +296,7 @@ MACHINE_START_MEMBER( sm_state, sm )
  *
  *************************************/
 
-MACHINE_RESET_MEMBER( sm_state, sm )
+void sm_state::machine_reset()
 {
 	mw8080bw_start_interrupt_timer();
 }
@@ -322,7 +322,7 @@ u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitma
 
 		/* next pixel */
 		video_data = video_data >> 1;
-		x = x + 1;
+		x++;
 
 		/* end of line? */
 		if (x == 0)
@@ -408,9 +408,6 @@ void sm_state::spacmissx(machine_config &config)
 	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
 	m_maincpu->set_addrmap(AS_PROGRAM, &sm_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &sm_state::io_map);
-
-	MCFG_MACHINE_START_OVERRIDE(sm_state, sm)
-	MCFG_MACHINE_RESET_OVERRIDE(sm_state, sm)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
