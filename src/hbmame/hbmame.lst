@@ -8539,7 +8539,9 @@ schasrcv		// extra sounds
 
 @source:segac2.cpp
 c2frog					// HB
-//more...
+headonch
+//ooparts
+//ssonicbr
 
 @source:segaorun.cpp
 outrun					//parent

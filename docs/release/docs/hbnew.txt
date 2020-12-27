@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [bonusstage]          Bonus Stage
 - [frombelow]           Vs. From Below (beta 0.8.0 2020-12-21)
+- [headonch]            Head On Channel
 - [kof98ult]            Kof'98 (Ultimate Match)
 - [lhbb]                Last Hope (Blue Bullets)
 - [mslug6h09]           Metal Slug 6 (Enemies Resetting Version 2019-09-30)
