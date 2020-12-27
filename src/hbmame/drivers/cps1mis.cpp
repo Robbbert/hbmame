@@ -607,6 +607,18 @@ static INPUT_PORTS_START( sk2h31 )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, cs_write)
 INPUT_PORTS_END
 
+INPUT_PORTS_START( sf2cemix )
+	PORT_INCLUDE( sf2 )
+	PORT_MODIFY("DSWA")
+	PORT_DIPNAME( 0x80, 0x80, "Win Quotes" )   PORT_DIPLOCATION("SW(A):8")
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_MODIFY("DSWB")
+	PORT_DIPNAME( 0x08, 0x08, "False 3D, Car in India, Random Bonus Stages" )   PORT_DIPLOCATION("SW(B):4")
+	PORT_DIPSETTING(    0x08, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+INPUT_PORTS_END
+
 /********************************************************************
 *
 *  Machine Driver macro
@@ -6207,12 +6219,12 @@ GAME( 2009, sf2cehk,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,  
 GAME( 2009, sf2cehp,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Pipi899", "Street Fighter II': Champion Edition (Moves hack 2009-01-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sf2cejem,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Blackheart", "Street Fighter II': Champion Edition (Easy Moves 2009-07-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sf2celw,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "A Goon", "Street Fighter II': Champion Edition (Lowtax is a Wifebeater parody)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sf2cemix96,  sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.96)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sf2cemix97,  sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.97)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sf2cemix98,  sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sf2cemix98a, sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sf2cemix98b, sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98b)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sf2cemix98c, sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98c)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2cemix96,  sf2ce,    cps1_12MHz, sf2cemix, cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.96)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2cemix97,  sf2ce,    cps1_12MHz, sf2cemix, cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.97)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2cemix98,  sf2ce,    cps1_12MHz, sf2cemix, cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2cemix98a, sf2ce,    cps1_12MHz, sf2cemix, cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98a)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2cemix98b, sf2ce,    cps1_12MHz, sf2cemix, cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98b)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sf2cemix98c, sf2ce,    cps1_12MHz, sf2cemix, cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II': Champion Edition (Mix 0.98c)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, sf2jbh,      sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0,   "Yumeji", "Street Fighter II: The World Warrior (Edition Plus 2014)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, sf2koryuh,   sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_cps1,     ROT0,   "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
 GAME( 1992, sf2h9,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2h9,    ROT0,   "Mega Co", "Street Fighter II': Champion Edition (bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
