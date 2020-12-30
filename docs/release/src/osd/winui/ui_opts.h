@@ -40,7 +40,6 @@
 #define MUIOPTION_SPLITTERS                      "splitters"
 #define MUIOPTION_SORT_COLUMN                    "sort_column"
 #define MUIOPTION_SORT_REVERSED                  "sort_reversed"
-#define MUIOPTION_ICONS_DIRECTORY                "icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY           "background_directory"
 #define MUIOPTION_DATS_DIRECTORY                 "dats_directory"
 #define MUIOPTION_VIDEO_DIRECTORY                "video_directory"
@@ -183,7 +182,6 @@ const WINUIOPTS option_entries[] =
 	{ MUIOPTION_EXEC_COMMAND,                 "",         OPTION_STRING,                 NULL },
 	{ MUIOPTION_EXEC_WAIT,                    "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground\\bkground.png", OPTION_STRING,                 NULL },
-	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
 	{ MUIOPTION_VIDEO_DIRECTORY,              "video",     OPTION_STRING,                 NULL },
 	{ MUIOPTION_MANUALS_DIRECTORY,            "manuals",     OPTION_STRING,                 NULL },

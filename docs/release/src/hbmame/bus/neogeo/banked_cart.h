@@ -16,7 +16,7 @@ public:
 	// construction/destruction
 	neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
-	memory_bank*   m_bank_cartridge;
+	memory_bank_creator    m_bank_cartridge;
 	u32     m_main_cpu_bank_address;
 	u8* m_region;
 	u32 m_region_size;

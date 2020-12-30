@@ -657,7 +657,7 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 static char *GameInfoCPU(int nIndex)
 {
 	machine_config config(driver_list::driver(nIndex), MameUIGlobal());
-	execute_interface_iterator cpuiter(config.root_device());
+	execute_interface_enumerator cpuiter(config.root_device());
 	std::unordered_set<std::string> exectags;
 	static char buffer[1024];
 
@@ -701,7 +701,7 @@ static char *GameInfoCPU(int nIndex)
 static char *GameInfoSound(int nIndex)
 {
 	machine_config config(driver_list::driver(nIndex), MameUIGlobal());
-	sound_interface_iterator sounditer(config.root_device());
+	sound_interface_enumerator sounditer(config.root_device());
 	std::unordered_set<std::string> soundtags;
 	static char buffer[1024];
 
@@ -759,13 +759,13 @@ static char *GameInfoScreen(UINT nIndex)
 		strcpy(buf, "Vector Game");
 	else
 	{
-		screen_device_iterator iter(config.root_device());
+		screen_device_enumerator iter(config.root_device());
 		const screen_device *screen = iter.first();
 		if (screen == NULL)
 			strcpy(buf, "Screenless Game");
 		else
 		{
-			for (screen_device &screen : screen_device_iterator(config.root_device()))
+			for (screen_device &screen : screen_device_enumerator(config.root_device()))
 			{
 				char tmpbuf[2048];
 				const rectangle &visarea = screen.visible_area();
@@ -2746,7 +2746,7 @@ static void SetSamplesEnabled(HWND hWnd, int nIndex, BOOL bSoundEnabled)
 		{
 			machine_config config(driver_list::driver(nIndex),m_CurrentOpts);
 
-			for (device_sound_interface &sound : sound_interface_iterator(config.root_device()))
+			for (device_sound_interface &sound : sound_interface_enumerator(config.root_device()))
 				if (sound.device().type() == SAMPLES)
 					enabled = true;
 		}
@@ -3880,7 +3880,7 @@ static BOOL DriverHasDevice(const game_driver *gamedrv, iodevice_t type)
 	// allocate the machine config
 	machine_config config(*gamedrv,MameUIGlobal());
 
-	for (device_image_interface &dev : image_interface_iterator(config.root_device()))
+	for (device_image_interface &dev : image_interface_enumerator(config.root_device()))
 	{
 		if (!dev.user_loadable())
 			continue;
@@ -3895,7 +3895,7 @@ static BOOL DriverHasDevice(const game_driver *gamedrv, iodevice_t type)
 
 BOOL PropSheetFilter_Config(const machine_config *drv, const game_driver *gamedrv)
 {
-	ram_device_iterator iter(drv->root_device());
+	ram_device_enumerator iter(drv->root_device());
 	return (iter.first()) || DriverHasDevice(gamedrv, IO_PRINTER);
 }
 
@@ -4035,7 +4035,7 @@ static BOOL RamPopulateControl(datamap *map, HWND dialog, HWND control, windows_
 	machine_config cfg(*gamedrv,*o);
 
 	// identify how many options that we have
-	ram_device_iterator iter(cfg.root_device());
+	ram_device_enumerator iter(cfg.root_device());
 	ram_device *device = iter.first();
 
 	EnableWindow(control, (device != NULL));

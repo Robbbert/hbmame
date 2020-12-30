@@ -7,7 +7,7 @@
      Game choice is done via a menu
 **********************************************/
 
-void pacman_state::m96in1_rombank_w(u8 data)
+void puckman_state::m96in1_rombank_w(u8 data)
 {
 	data &= 0x0f;
 	membank("bank1")->set_entry(data);
@@ -15,7 +15,7 @@ void pacman_state::m96in1_rombank_w(u8 data)
 	multipac_gfxbank_w(data);
 }
 
-void pacman_state::m96in1b_rombank_w(u8 data)
+void puckman_state::m96in1b_rombank_w(u8 data)
 {
 	data &= 0x1f;
 	membank("bank1")->set_entry(data);
@@ -23,7 +23,7 @@ void pacman_state::m96in1b_rombank_w(u8 data)
 	m96in1b_gfxbank_w( data );
 }
 
-void pacman_state::hackypac_rombank_w(u8 data)
+void puckman_state::hackypac_rombank_w(u8 data)
 {
 	u8 banks[] = { 0, 0, 0, 0, 0, 0, 4, 0, 7, 0, 0, 0, 8, 6, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 3 };
 	data &= 0x1f;
@@ -32,7 +32,7 @@ void pacman_state::hackypac_rombank_w(u8 data)
 	multipac_palbank_w(1, banks[data]); /* convert to a palette bank and switch to it */
 }
 
-void pacman_state::madpac_rombank_w(u8 data)
+void puckman_state::madpac_rombank_w(u8 data)
 {
 	data &= 0x1f;
 	membank("bank1")->set_entry(data);
@@ -40,7 +40,7 @@ void pacman_state::madpac_rombank_w(u8 data)
 	madpac_gfxbank_w( data );
 }
 
-void pacman_state::multipac_rombank_w(u8 data)
+void puckman_state::multipac_rombank_w(u8 data)
 {
 	u8 temp = bitswap<8>(data, 7, 6, 5, 3, 2, 1, 0, 4);  //((data & 0x0f) << 1) + ((data & 0x10) >> 4); /* rearrange bits */
 	membank("bank1")->set_entry(temp);              /* select rom bank */
@@ -49,7 +49,7 @@ void pacman_state::multipac_rombank_w(u8 data)
 	m_maincpu->set_pc(0);                   /* Set PC <- 0000 needed for Lizard Wizard */
 }
 
-void pacman_state::pm4n1_rombank_w(offs_t offset, u8 data)
+void puckman_state::pm4n1_rombank_w(offs_t offset, u8 data)
 {
 	static u8 pm4n1_temp = 0;
 	u8 banks[] = { 0, 4, 2, 0, 1, 0, 3, 0 };
@@ -60,7 +60,7 @@ void pacman_state::pm4n1_rombank_w(offs_t offset, u8 data)
 	multipac_gfxbank_w(banks[pm4n1_temp]);
 }
 
-void pacman_state::pm4n1d_rombank_w(offs_t offset, u8 data)
+void puckman_state::pm4n1d_rombank_w(offs_t offset, u8 data)
 {
 	if (offset==1)
 	{
@@ -70,7 +70,7 @@ void pacman_state::pm4n1d_rombank_w(offs_t offset, u8 data)
 	}
 }
 
-void pacman_state::superabc_rombank_w(u8 data)
+void puckman_state::superabc_rombank_w(u8 data)
 {
 	data = data >> 4;
 	membank("bank1")->set_entry(data);
@@ -86,26 +86,26 @@ void pacman_state::superabc_rombank_w(u8 data)
  *
  *************************************/
 
-MACHINE_RESET_MEMBER( pacman_state, 96in1 )
+MACHINE_RESET_MEMBER( puckman_state, 96in1 )
 {
 	m96in1_rombank_w(0);
 	m_namco_sound->sound_enable_w(0);
 }
 
-MACHINE_RESET_MEMBER( pacman_state, hackypac )
+MACHINE_RESET_MEMBER( puckman_state, hackypac )
 {
 	multipac_gfxbank_w(0);
 	hackypac_rombank_w(0);
 	m_namco_sound->sound_enable_w(0);
 }
 
-MACHINE_RESET_MEMBER( pacman_state, madpac )
+MACHINE_RESET_MEMBER( puckman_state, madpac )
 {
 	madpac_rombank_w(0);
 	m_namco_sound->sound_enable_w(0);
 }
 
-MACHINE_RESET_MEMBER( pacman_state, mschamp )
+MACHINE_RESET_MEMBER( puckman_state, mschamp )
 {
 	u8 *rom = memregion("maincpu")->base() + 0x10000;
 	u8 data = ioport("GAME")->read() & 1;
@@ -117,7 +117,7 @@ MACHINE_RESET_MEMBER( pacman_state, mschamp )
 	membank("bank2")->set_entry(data);
 }
 
-MACHINE_RESET_MEMBER( pacman_state, multipac )
+MACHINE_RESET_MEMBER( puckman_state, multipac )
 {
 	multipac_rombank_w(0);
 	multipac_gfxbank_w(0);
@@ -128,13 +128,13 @@ MACHINE_RESET_MEMBER( pacman_state, multipac )
 static u8 curr_bank = 0;
 
 /* select next game when F3 pressed */
-MACHINE_RESET_MEMBER( pacman_state, mspaceur )
+MACHINE_RESET_MEMBER( puckman_state, mspaceur )
 {
 	membank("bank2")->set_entry(curr_bank);
 	curr_bank ^= 1;     /* toggle between 0 and 1 */
 }
 
-MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
+MACHINE_RESET_MEMBER( puckman_state, pm4n1 )
 {
 	pm4n1_rombank_w(0, 0);
 	pm4n1_rombank_w(1, 0);
@@ -144,23 +144,23 @@ MACHINE_RESET_MEMBER( pacman_state, pm4n1 )
 
 
 
-void pacman_state::_96in1_writeport(address_map &map) {
+void puckman_state::_96in1_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(FUNC(pacman_state::m96in1_rombank_w));
+	map(0x00,0x00).w(FUNC(puckman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(puckman_state::m96in1_rombank_w));
 }
 
-void pacman_state::_96in1b_writeport(address_map &map) {
+void puckman_state::_96in1b_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(FUNC(pacman_state::m96in1b_rombank_w));
+	map(0x00,0x00).w(FUNC(puckman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(puckman_state::m96in1b_rombank_w));
 }
 
-void pacman_state::hackypac_map(address_map &map) {
+void puckman_state::hackypac_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -177,20 +177,20 @@ void pacman_state::hackypac_map(address_map &map) {
 	map(0xfffc,0xffff).ram();
 }
 
-void pacman_state::hackypac_writeport(address_map &map) {
+void puckman_state::hackypac_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(FUNC(pacman_state::hackypac_rombank_w));
-	map(0x02,0x02).w(FUNC(pacman_state::multipac_gfxbank_w));
+	map(0x00,0x00).w(FUNC(puckman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(puckman_state::hackypac_rombank_w));
+	map(0x02,0x02).w(FUNC(puckman_state::multipac_gfxbank_w));
 	map(0x04,0x04).nopw();  /* colorbank select, not used due to a bug */
 }
 
-void pacman_state::madpac_map(address_map &map) {
+void puckman_state::madpac_map(address_map &map) {
 	/* Mirrors in the 50xx range are needed by Zigzag */
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -207,18 +207,18 @@ void pacman_state::madpac_map(address_map &map) {
 	map(0xf800,0xffff).ram();  /* various games use this */
 }
 
-void pacman_state::madpac_writeport(address_map &map) {
+void puckman_state::madpac_writeport(address_map &map) {
 	map.global_mask(0xff);
-	map(0x00,0x00).w(FUNC(pacman_state::pacman_interrupt_vector_w));
-	map(0x01,0x01).w(FUNC(pacman_state::madpac_rombank_w));
+	map(0x00,0x00).w(FUNC(puckman_state::pacman_interrupt_vector_w));
+	map(0x01,0x01).w(FUNC(puckman_state::madpac_rombank_w));
 }
 
 
-void pacman_state::mspaceur_map(address_map &map) {
+void puckman_state::mspaceur_map(address_map &map) {
 	map(0x0000,0x3fff).rom();
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -235,11 +235,11 @@ void pacman_state::mspaceur_map(address_map &map) {
 }
 
 
-void pacman_state::mschamp_map(address_map &map) {
+void puckman_state::mschamp_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop));
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop));
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -257,11 +257,11 @@ void pacman_state::mschamp_map(address_map &map) {
 }
 
 
-void pacman_state::multipac_map(address_map &map) {
+void puckman_state::multipac_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
@@ -274,23 +274,23 @@ void pacman_state::multipac_map(address_map &map) {
 	map(0x5080,0x5080).portr("DSW1");
 	map(0x50c0,0x50c0).portr("DSW2");
 	map(0x8000,0x9fff).bankr("bank2");  /* Ms. Pacman */
-	map(0xa000,0xa000).w(FUNC(pacman_state::multipac_rombank_w));
-	map(0xa001,0xa001).w(FUNC(pacman_state::multipac_gfxbank_w));
-	map(0xa002,0xa003).w(FUNC(pacman_state::multipac_palbank_w));
+	map(0xa000,0xa000).w(FUNC(puckman_state::multipac_rombank_w));
+	map(0xa001,0xa001).w(FUNC(puckman_state::multipac_gfxbank_w));
+	map(0xa002,0xa003).w(FUNC(puckman_state::multipac_palbank_w));
 	map(0xa007,0xa007).ram();  /* 0 = get ready to activate rombank(2) */
 	map(0xf000,0xffff).ram();
 }
 
 
-void pacman_state::pm4n1_map(address_map &map) {
+void puckman_state::pm4n1_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
-	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(pacman_state::pacman_read_nop)).nopw();
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
+	map(0x4800,0x4bff).mirror(0x8000).r(FUNC(puckman_state::pacman_read_nop)).nopw();
 	map(0x4c00,0x4fef).mirror(0x8000).ram();
 	map(0x4ff0,0x4fff).mirror(0x8000).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
+	map(0x5004,0x5006).w(FUNC(puckman_state::pm4n1_rombank_w));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -302,15 +302,15 @@ void pacman_state::pm4n1_map(address_map &map) {
 }
 
 
-void pacman_state::pm4n1c_map(address_map &map) {
+void puckman_state::pm4n1c_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x4bff).ram().share("nvram");
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1_rombank_w));
+	map(0x5004,0x5006).w(FUNC(puckman_state::pm4n1_rombank_w));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -323,15 +323,15 @@ void pacman_state::pm4n1c_map(address_map &map) {
 }
 
 
-void pacman_state::pm4n1d_map(address_map &map) {
+void puckman_state::pm4n1d_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0x8000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x4bff).ram().share("nvram");
 	map(0x4c00,0x4fef).ram();
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5004,0x5006).w(FUNC(pacman_state::pm4n1d_rombank_w));
+	map(0x5004,0x5006).w(FUNC(puckman_state::pm4n1d_rombank_w));
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -343,15 +343,15 @@ void pacman_state::pm4n1d_map(address_map &map) {
 	map(0xe004,0xe006).nopw();  // mirror of 5004-5006
 }
 
-void pacman_state::superabc_map(address_map &map) {
+void puckman_state::superabc_map(address_map &map) {
 	map(0x0000,0x3fff).bankr("bank1");
-	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_videoram_w)).share("videoram");
-	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(pacman_state::pacman_colorram_w)).share("colorram");
+	map(0x4000,0x43ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_videoram_w)).share("videoram");
+	map(0x4400,0x47ff).mirror(0xa000).ram().w(FUNC(puckman_state::pacman_colorram_w)).share("colorram");
 	map(0x4800,0x49ff).ram().share("nvram");  /* high scores and work area */
 	map(0x4c00,0x4fef).ram();  /* system ram */
 	map(0x4ff0,0x4fff).ram().share("spriteram");
 	map(0x5000,0x5007).w("mainlatch",FUNC(addressable_latch_device::write_d0));
-	map(0x5006,0x5006).w(FUNC(pacman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
+	map(0x5006,0x5006).w(FUNC(puckman_state::superabc_rombank_w));  /* bit 0 = coin lockout, bits 4,5,6 = bank select */
 	map(0x5040,0x505f).w("namco",FUNC(namco_device::pacman_sound_w));
 	map(0x5060,0x506f).writeonly().share("spriteram2");
 	map(0x5070,0x507f).nopw();
@@ -616,27 +616,27 @@ INPUT_PORTS_END
  *
  *************************************/
 
-void pacman_state::init_96in1()
+void puckman_state::init_96in1()
 {
 	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 16, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 16, &RAM[0x14000], 0x8000);
 }
 
-void pacman_state::init_madpac()
+void puckman_state::init_madpac()
 {
 	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 32, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 32, &RAM[0x14000], 0x8000);
 }
 
-void pacman_state::init_mspaceur()
+void puckman_state::init_mspaceur()
 {
 	u8 *RAM = memregion("maincpu")->base();
 	membank("bank2")->configure_entries(0, 2, &RAM[0x10000], 0x2000);
 }
 
-void pacman_state::init_multipac()
+void puckman_state::init_multipac()
 {
 	u8 *RAM = memregion("maincpu")->base();
 	RAM[0x10000] = 0xED;    /* It seems that IM0 is not working properly in MAME */
@@ -649,14 +649,14 @@ void pacman_state::init_multipac()
 	membank("bank1")->set_entry(0);
 }
 
-void pacman_state::init_pm4n1()
+void puckman_state::init_pm4n1()
 {
 	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 5, &RAM[0x10000], 0x8000);
 	membank("bank2")->configure_entries(0, 5, &RAM[0x14000], 0x8000);
 }
 
-void pacman_state::init_superabc()
+void puckman_state::init_superabc()
 {
 	u8 *RAM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &RAM[0x10000], 0x10000);
@@ -716,119 +716,119 @@ GFXDECODE_END
 
 /* These drivers are for multiple games in one package */
 
-void pacman_state::_96in1(machine_config &config)
+void puckman_state::_96in1(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::madpac_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::_96in1_writeport);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, 96in1)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::madpac_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::_96in1_writeport);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, 96in1)
 	m_gfxdecode->set_info(gfx_96in1);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
-	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
+	MCFG_VIDEO_START_OVERRIDE(puckman_state, multipac)
 }
 
-void pacman_state::_96in1b(machine_config &config)
+void puckman_state::_96in1b(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::madpac_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::_96in1b_writeport);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::madpac_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::_96in1b_writeport);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, madpac)
 	m_gfxdecode->set_info(gfx_96in1b);
-	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*8, 32*8);
-	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
+	PALETTE(config.replace(), m_palette, FUNC(puckman_state::multipac_palette), 128*8, 32*8);
+	MCFG_VIDEO_START_OVERRIDE(puckman_state, multipac)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
-	m_screen->set_screen_update(FUNC(pacman_state::screen_update_multipac));
+	m_screen->set_screen_update(FUNC(puckman_state::screen_update_multipac));
 }
 
-void pacman_state::hackypac(machine_config &config)
+void puckman_state::hackypac(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::hackypac_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::hackypac_writeport);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, hackypac)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::hackypac_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::hackypac_writeport);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, hackypac)
 	m_gfxdecode->set_info(gfx_hackypac);
-	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*9, 32*9);  // colour banks * 128 colour lookup codes (4a rom)
-	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
-	m_screen->set_screen_update(FUNC(pacman_state::screen_update_multipac));
+	PALETTE(config.replace(), m_palette, FUNC(puckman_state::multipac_palette), 128*9, 32*9);  // colour banks * 128 colour lookup codes (4a rom)
+	MCFG_VIDEO_START_OVERRIDE(puckman_state, multipac)
+	m_screen->set_screen_update(FUNC(puckman_state::screen_update_multipac));
 }
 
-void pacman_state::madpac(machine_config &config)
+void puckman_state::madpac(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::madpac_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::madpac_writeport);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, madpac)
-	m_screen->set_screen_update(FUNC(pacman_state::screen_update_multipac));
-	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
-	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*16, 32*16);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::madpac_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::madpac_writeport);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, madpac)
+	m_screen->set_screen_update(FUNC(puckman_state::screen_update_multipac));
+	MCFG_VIDEO_START_OVERRIDE(puckman_state, multipac)
+	PALETTE(config.replace(), m_palette, FUNC(puckman_state::multipac_palette), 128*16, 32*16);
 	m_gfxdecode->set_info(gfx_madpac);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 }
 
-void pacman_state::mspaceur(machine_config &config)
+void puckman_state::mspaceur(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mspaceur_map);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mspaceur)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mspaceur_map);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, mspaceur)
 }
 
-void pacman_state::mschamp(machine_config &config)
+void puckman_state::mschamp(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mschamp_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::zolapac_io);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mschamp_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::zolapac_io);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, mschamp)
 }
 
-void pacman_state::mschampx(machine_config &config)
+void puckman_state::mschampx(machine_config &config)
 {
 	pacmanx(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::mschamp_map);
-	m_maincpu->set_addrmap(AS_IO, &pacman_state::zolapac_io);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, mschamp)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::mschamp_map);
+	m_maincpu->set_addrmap(AS_IO, &puckman_state::zolapac_io);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, mschamp)
 }
 
-void pacman_state::multipac(machine_config &config)
+void puckman_state::multipac(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::multipac_map);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, multipac)
-	m_screen->set_screen_update(FUNC(pacman_state::screen_update_multipac));
-	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
-	PALETTE(config.replace(), m_palette, FUNC(pacman_state::multipac_palette), 128*4, 32*4);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::multipac_map);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, multipac)
+	m_screen->set_screen_update(FUNC(puckman_state::screen_update_multipac));
+	MCFG_VIDEO_START_OVERRIDE(puckman_state, multipac)
+	PALETTE(config.replace(), m_palette, FUNC(puckman_state::multipac_palette), 128*4, 32*4);
 	m_gfxdecode->set_info(gfx_multipac);
 }
 
-void pacman_state::pm4n1(machine_config &config)
+void puckman_state::pm4n1(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::pm4n1_map);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::pm4n1_map);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, pm4n1)
 	m_gfxdecode->set_info(gfx_pm4n1);
 }
 
-void pacman_state::pm4n1c(machine_config &config)
+void puckman_state::pm4n1c(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::pm4n1c_map);
-	MCFG_MACHINE_RESET_OVERRIDE(pacman_state, pm4n1)
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::pm4n1c_map);
+	MCFG_MACHINE_RESET_OVERRIDE(puckman_state, pm4n1)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	m_gfxdecode->set_info(gfx_pm4n1);
 }
 
-void pacman_state::pm4n1d(machine_config &config)
+void puckman_state::pm4n1d(machine_config &config)
 {
 	pm4n1c(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::pm4n1d_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::pm4n1d_map);
 }
 
-void pacman_state::superabc(machine_config &config)
+void puckman_state::superabc(machine_config &config)
 {
 	pacman(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &pacman_state::superabc_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &puckman_state::superabc_map);
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 	m_gfxdecode->set_info(gfx_superabc);
-	MCFG_VIDEO_START_OVERRIDE(pacman_state, multipac)
+	MCFG_VIDEO_START_OVERRIDE(puckman_state, multipac)
 }
 
 
@@ -1854,31 +1854,31 @@ ROM_END
  *
  *************************************/
 
-GAME( 1995, mschamp,  mspacman, mschamp,  mschamp,  pacman_state,  empty_init,   ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  pacman_state,  empty_init,   ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mschamp,  mspacman, mschamp,  mschamp,  puckman_state,  empty_init,   ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, mschampx, mspacmnx, mschampx, mschamp,  puckman_state,  empty_init,   ROT90, "hack", "Ms. Pacman Champion Edition / Super Zola Pac Gal (hires hack)", MACHINE_SUPPORTS_SAVE )
 
 /* Dave Widel's Games - http://www.widel.com */
 
-GAME( 2005, 96in1,    madpac,   _96in1,   96in1,    pacman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1c,   madpac,   _96in1,   96in1,    pacman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1a,   madpac,   _96in1,   96in1,    pacman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, 96in1b,   madpac,   _96in1b,  96in1,    pacman_state, init_madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, hackypac, madpac,   hackypac, pacman0,  pacman_state, init_madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, madpac,   0,        madpac,   96in1,    pacman_state, init_madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1,    madpac,   _96in1,   96in1,    puckman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v3 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1c,   madpac,   _96in1,   96in1,    puckman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v1 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1a,   madpac,   _96in1,   96in1,    puckman_state, init_96in1,    ROT90, "David Widel", "96 in 1 v2 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, 96in1b,   madpac,   _96in1b,  96in1,    puckman_state, init_madpac,   ROT90, "David Widel", "96 in 1 v4 [h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, hackypac, madpac,   hackypac, pacman0,  puckman_state, init_madpac,   ROT90, "David Widel", "Hacky Pac", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, madpac,   0,        madpac,   96in1,    puckman_state, init_madpac,   ROT90, "David Widel", "Mad Pac [h]", MACHINE_SUPPORTS_SAVE )
 
 /* Other Misc Hacks */
 
-GAME( 1993, mspaceur, mspacman, mspaceur, mspacman, pacman_state, init_mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi10,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi11,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi13,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi14,  multi15,  multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, multi15,  0,        multipac, multipac, pacman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )  // arcade.souzaonline.com/downloads.html
-GAME( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  pacman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, superabc, 0,        superabc, superabc, pacman_state, init_superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, superabco,superabc, superabc, superabc, pacman_state, init_superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mspaceur, mspacman, mspaceur, mspacman, puckman_state, init_mspaceur, ROT90, "ImpEuropeX Corp", "Ms. Pac-man", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi10,  multi15,  multipac, multipac, puckman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi11,  multi15,  multipac, multipac, puckman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi13,  multi15,  multipac, multipac, puckman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.3", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi14,  multi15,  multipac, multipac, puckman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.4", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, multi15,  0,        multipac, multipac, puckman_state, init_multipac, ROT90, "Clay Cowgill", "Multipac 1.5", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pm4n1,    puckman,  pm4n1,    pacman0,  puckman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.0 [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pm4n1a,   puckman,  pm4n1,    pacman0,  puckman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.1 [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, pm4n1b,   puckman,  pm4n1,    pacman0,  puckman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v1.2 [c]", MACHINE_SUPPORTS_SAVE )  // arcade.souzaonline.com/downloads.html
+GAME( 2008, pm4n1c,   puckman,  pm4n1c,   pacman0,  puckman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v2.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, pm4n1d,   puckman,  pm4n1d,   pacman0,  puckman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.0 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, pm4n1e,   puckman,  pm4n1d,   pacman0,  puckman_state, init_pm4n1,    ROT90, "Jason Souza", "Pacman 4in1 v3.3 [c][h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superabc, 0,        superabc, superabc, puckman_state, init_superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-09-03)[h]", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, superabco,superabc, superabc, superabc, puckman_state, init_superabc, ROT90, "TwoBit Score", "Pacman SuperABC (1999-03-08)[h]", MACHINE_SUPPORTS_SAVE )

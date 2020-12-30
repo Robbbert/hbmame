@@ -102,15 +102,15 @@
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
-#include "includes/pacman.h"
+#include "includes/puckman.h"
 #include "sound/namco.h"
 #include "speaker.h"
 
 
-class jrpacman_state : public pacman_state
+class jrpacman_state : public puckman_state
 {
 public:
-	using pacman_state::pacman_state;
+	using puckman_state::puckman_state;
 
 	void jrpacman(machine_config &config);
 	void init_jrpacman();

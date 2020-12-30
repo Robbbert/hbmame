@@ -46,9 +46,10 @@ void mhavoc_state::alphape_map(address_map &map)
 	map(0x17c0, 0x17c0).w(FUNC(mhavoc_state::mhavoc_gamma_w));          /* Gamma Communication Write Port */
 	map(0x1800, 0x1fff).ram();                              /* Shared Beta Ram */
 	map(0x2000, 0x3fff).bankr("bank2");                     /* Paged Program ROM (32K) */
-	map(0x4000, 0x4fff).ram().share("avg:vectorram").region("alpha", 0x4000);    /* Vector Generator RAM */
-	map(0x5000, 0x5fff).rom();                              /* Vector ROM */
-	map(0x6000, 0x7fff).bankr("bank3");                     /* Paged Vector ROM */
+	map(0x4000, 0x4fff).ram();    /* Vector Generator RAM */
+	map(0x5000, 0x5fff).rom().region("vectorrom", 0x0000);                              /* Vector ROM */
+	map(0x6000, 0x6fff).rom().region("vectorrom", 0x1000).mirror(0x1000);               /* Vector ROM */
+	//map(0x6000, 0x7fff).bankr("bank3");                     /* Paged Vector ROM */
 	map(0x8000, 0xffff).rom();                              /* Program ROM (32K) */
 }
 //  membank("bank3")->set_entry(m_map);
@@ -64,12 +65,12 @@ void mhavoc_state::mhavocpe(machine_config &config)
 
 
 ROM_START( mhavocpex )
-	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhpe.6kl",   0x05000, 0x2000, CRC(4c05b1a8) SHA1(89b524182fcfd966d6a7e3188235c957c451b8a9) )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhpe.6kl",   0x00000, 0x2000, CRC(4c05b1a8) SHA1(89b524182fcfd966d6a7e3188235c957c451b8a9) )
 
+	ROM_REGION( 0x20000, "alpha", 0 )
 	ROM_LOAD( "mhpe.1mn",   0x08000, 0x4000, CRC(3b691eff) SHA1(e8227d1458e3ed4d0e8444ec23f2c2d45a0d93b8) )
 	ROM_LOAD( "mhpe.1l",    0x0c000, 0x4000, CRC(fb53dae6) SHA1(08e9bd60e801778d3521d64817a10ba1ed74f4ff) )
-
 	ROM_LOAD( "mhpe.1q",    0x10000, 0x8000, CRC(660e3d57) SHA1(6eddf1335c536406080eab73f5501a202fb0583d) )
 	ROM_LOAD( "mhpe.1np",   0x18000, 0x8000, CRC(c1a70bad) SHA1(0b72b6817e2f00d2c001ac61ebd2cd42ff7785c9) )
 
@@ -85,12 +86,12 @@ ROM_START( mhavocpex )
 ROM_END
 
 ROM_START( mhavocpex2 )
-	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhpe2.6kl",  0x05000, 0x2000, CRC(3804822b) SHA1(78ca5ad3ac9ce9f6ce6ca497f70c7233adc52502) )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhpe2.6kl",  0x00000, 0x2000, CRC(3804822b) SHA1(78ca5ad3ac9ce9f6ce6ca497f70c7233adc52502) )
 
+	ROM_REGION( 0x20000, "alpha", 0 )
 	ROM_LOAD( "mhpe2.1mn",  0x08000, 0x4000, CRC(2b505cae) SHA1(1ca14c6c810a3dec964eae63e9941e411d3ec546) )
 	ROM_LOAD( "mhpe2.1l",   0x0c000, 0x4000, CRC(8c078dcf) SHA1(b4681eb4930938a93e74c313ee1031ad1a71e198) )
-
 	ROM_LOAD( "mhpe2.1q",   0x10000, 0x8000, CRC(7602fccd) SHA1(9073c5e2a70f23c7bab2927936ee5a22e2adb57a) )
 	ROM_LOAD( "mhpe2.1np",  0x18000, 0x8000, CRC(bc6775e1) SHA1(a59a93d4414a0318e37c1e50ef139b6611e4233f) )
 
@@ -106,12 +107,12 @@ ROM_START( mhavocpex2 )
 ROM_END
 
 ROM_START( mhavocpex3 )
-	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhpe3.6kl",  0x05000, 0x2000, CRC(0bebf550) SHA1(043dd185a40208de8f7952026f1645799eb3445f) )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhpe3.6kl",  0x00000, 0x2000, CRC(0bebf550) SHA1(043dd185a40208de8f7952026f1645799eb3445f) )
 
+	ROM_REGION( 0x20000, "alpha", 0 )
 	ROM_LOAD( "mhpe3.1mn",  0x08000, 0x4000, CRC(b3a485e8) SHA1(47e20e02a69675d5df51e68d33bc407b441d621c) )
 	ROM_LOAD( "mhpe3.1l",   0x0c000, 0x4000, CRC(baa2d31a) SHA1(d6337763e4d6cc86c95d2abf54955a7b413c9846) )
-
 	ROM_LOAD( "mhpe3.1q",   0x10000, 0x8000, CRC(ebb47bb5) SHA1(e73ea9bde6c525b644824deb73a4caa3f9a7e28f) )
 	ROM_LOAD( "mhpe3.1np",  0x18000, 0x8000, CRC(793b480d) SHA1(9a0398dad5b8634190d9432e1b94a786054b4e6e) )
 
@@ -127,12 +128,12 @@ ROM_START( mhavocpex3 )
 ROM_END
 
 ROM_START( mhavocpex4 )
-	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhpe4.6kl",  0x05000, 0x2000, CRC(75ab6d18) SHA1(874f4a15532f257480c8f6ca0cf9b3cd7ea39908) )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhpe4.6kl",  0x00000, 0x2000, CRC(75ab6d18) SHA1(874f4a15532f257480c8f6ca0cf9b3cd7ea39908) )
 
+	ROM_REGION( 0x20000, "alpha", 0 )
 	ROM_LOAD( "mhpe4.1mn",  0x08000, 0x4000, CRC(120b00f0) SHA1(b8546c81ecc8e16f5e0afb7ce9b941623d862d31) )
 	ROM_LOAD( "mhpe4.1l",   0x0c000, 0x4000, CRC(ffcb7a73) SHA1(ec284426c381da3c15ec50c3bbbdf38fb15efcb2) )
-
 	ROM_LOAD( "mhpe4.1q",   0x10000, 0x8000, CRC(dc85e7b3) SHA1(c9cbe410915686f470c033cc5ccacf76f81c46ba) )
 	ROM_LOAD( "mhpe4.1np",  0x18000, 0x8000, CRC(134d84f9) SHA1(4933dda173c9abc813edf6cd0bcef24977b6fe1a) )
 
@@ -148,12 +149,12 @@ ROM_START( mhavocpex4 )
 ROM_END
 
 ROM_START( mhavocpex5 )
-	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhpe5.6kl",  0x05000, 0x2000, CRC(025ae0de) SHA1(5390dee62e5499c8767b4fc34f38fef49579d05b) )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhpe5.6kl",  0x00000, 0x2000, CRC(025ae0de) SHA1(5390dee62e5499c8767b4fc34f38fef49579d05b) )
 
+	ROM_REGION( 0x20000, "alpha", 0 )
 	ROM_LOAD( "mhpe5.1mn",  0x08000, 0x4000, CRC(b2b3067e) SHA1(209a5d6d53825164ba7c92cff67e69571c6a0b32) )
 	ROM_LOAD( "mhpe5.1l",   0x0c000, 0x4000, CRC(367c0028) SHA1(e2f153d4c1b3ba19b48a34d1bd776318499513c9) )
-
 	ROM_LOAD( "mhpe5.1q",   0x10000, 0x8000, CRC(04e4476b) SHA1(b9ac489e2b3ea8c04e6c907b3dbf6dfdbba976af) )
 	ROM_LOAD( "mhpe5.1np",  0x18000, 0x8000, CRC(8c8ca853) SHA1(12d1dbd3f76e85021ba2226defd194de8543c9ac) )
 

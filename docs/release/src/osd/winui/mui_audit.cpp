@@ -404,6 +404,7 @@ static void ProcessNextSample()
 			SendDlgItemMessage(hAudit, IDC_SAMPLES_TOTAL, WM_SETTEXT, 0, (LPARAM)buffer);
 			break;
 		}
+		[[fallthrough]];
 	default:
 		if ((DriverUsesSamples(sample_index)) || (m_choice == 1))
 		{

@@ -371,6 +371,7 @@ void cps_state::sf2m1_layer_w(offs_t offset, u16 data)
 				data = 0x0b4e;
 				break;
 			}
+			[[fallthrough]];
 	case 0xb3:
 			m_cps_b_regs[m_layer_enable_reg / 2] = data;
 			break;

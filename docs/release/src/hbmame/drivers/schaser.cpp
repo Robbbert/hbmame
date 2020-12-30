@@ -74,8 +74,8 @@ private:
 	void port03_w(u8 data);
 	void port05_w(u8 data);
 	void colour_w(offs_t offset, u8 data);
-	DECLARE_MACHINE_START(sc);
-	DECLARE_MACHINE_RESET(sc);
+	void machine_start() override;
+	void machine_reset() override;
 	TIMER_DEVICE_CALLBACK_MEMBER(schaser_effect_555_cb);
 	TIMER_CALLBACK_MEMBER(mw8080bw_interrupt_callback);
 	void mem_map(address_map &map);
@@ -241,6 +241,8 @@ void sc_state::port03_w(u8 data)
 	if (m_sound_seq == 2) effect=2;                 /* going faster... */
 	else
 	if (m_sound_seq == 3) effect=1;                 /* and faster... */
+	else
+		effect = 0;
 				/* effect = 0 when no missile on screen, or in attract mode */
 
 
@@ -296,7 +298,7 @@ void sc_state::port05_w(u8 data)
 
 	m_sound_enabled = BIT(data, 4);
 	m_discrete->write(SCHASER_SND_EN, m_sound_enabled);
-	machine().sound().system_enable(m_sound_enabled);
+	machine().sound().system_mute(!m_sound_enabled);
 
 	machine().bookkeeping().coin_lockout_global_w(BIT(data, 2));
 
@@ -335,7 +337,7 @@ void sc_state::schaser_reinit_555_time_remain()
 }
 
 
-MACHINE_START_MEMBER( sc_state, sc )
+void sc_state::machine_start()
 {
 	save_item(NAME(m_flip_screen));
 	save_item(NAME(m_sound_enabled));
@@ -349,7 +351,7 @@ MACHINE_START_MEMBER( sc_state, sc )
 }
 
 
-MACHINE_RESET_MEMBER( sc_state, sc )
+void sc_state::machine_reset()
 {
 	m_flip_screen = 0;
 	m_sound_enabled = 0;
@@ -550,9 +552,6 @@ void sc_state::schasercv(machine_config &config)
 	I8080(config, m_maincpu, MW8080BW_CPU_CLOCK);
 	m_maincpu->set_addrmap(AS_PROGRAM, &sc_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &sc_state::io_map);
-
-	MCFG_MACHINE_START_OVERRIDE(sc_state, sc)
-	MCFG_MACHINE_RESET_OVERRIDE(sc_state, sc)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);

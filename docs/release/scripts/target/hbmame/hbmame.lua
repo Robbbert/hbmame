@@ -29,6 +29,7 @@ CPUS["I8085"] = true
 CPUS["I8089"] = true
 CPUS["I86"] = true
 CPUS["I960"] = true -- model2
+CPUS["KC80"] = true -- ddenlovr
 CPUS["M37710"] = true -- namcona1
 CPUS["M6502"] = true
 CPUS["M6800"] = true
@@ -284,9 +285,9 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"nichibut",
 		"nintendo",
 		"nmk",
-		"pacman",
 		"phoenix",
 		"psikyo",
+		"puckman",
 		"sega",
 		"seibu",
 		"seta",
@@ -494,7 +495,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/exidy.cpp",
 	MAME_DIR .. "src/mame/audio/exidy.cpp",
 	MAME_DIR .. "src/mame/video/exidy.cpp",
-	MAME_DIR .. "src/mame/audio/targ.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "fuuki")
@@ -805,11 +805,11 @@ files {
 	MAME_DIR .. "src/mame/audio/seibu.cpp",
 }
 
-createHBMAMEProjects(_target, _subtarget, "pacman")
+createHBMAMEProjects(_target, _subtarget, "puckman")
 files {
 	MAME_DIR .. "src/hbmame/drivers/jrpacman.cpp",
-	MAME_DIR .. "src/hbmame/drivers/pacman.cpp",
-	MAME_DIR .. "src/hbmame/video/pacman.cpp",
+	MAME_DIR .. "src/hbmame/drivers/puckman.cpp",
+	MAME_DIR .. "src/hbmame/video/puckman.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pengo.cpp",
 }
 
@@ -924,6 +924,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/ssv.cpp",
 	MAME_DIR .. "src/mame/video/ssv.cpp",
 	MAME_DIR .. "src/mame/video/st0020.cpp",
+	MAME_DIR .. "src/mame/video/x1_012.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "snk")

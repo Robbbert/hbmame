@@ -1,7 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Nicola Salmoria
-#ifndef MAME_INCLUDES_PACMAN_H
-#define MAME_INCLUDES_PACMAN_H
+#ifndef INCLUDES_PUCKMAN_H
+#define INCLUDES_PUCKMAN_H
 
 #pragma once
 
@@ -13,14 +13,14 @@
 
 /*************************************************************************
 
-    Namco PuckMan
+    Namco PacMan
 
 **************************************************************************/
 
-class pacman_state : public driver_device
+class puckman_state : public driver_device
 {
 public:
-	pacman_state(const machine_config &mconfig, device_type type, const char *tag)
+	puckman_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
 		, m_mainlatch(*this, "mainlatch")
@@ -93,7 +93,8 @@ protected:
 	u8 m_maketrax_counter;
 	u8 m_maketrax_offset;
 	int m_maketrax_disable_protection;
-	u8 m_irq_mask;
+	bool m_irq_mask;
+	u8 m_interrupt_vector;
 
 	void pacman_interrupt_vector_w(u8 data);
 	void piranha_interrupt_vector_w(u8 data);
@@ -254,4 +255,5 @@ protected:
 // END HBMAME
 };
 
-#endif // MAME_INCLUDES_PACMAN_H
+#endif
+

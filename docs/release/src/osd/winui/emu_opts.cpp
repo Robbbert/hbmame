@@ -558,7 +558,7 @@ bool DriverHasSoftware(uint32_t drvindex)
 		load_options(o, OPTIONS_GAME, drvindex, 1);
 		machine_config config(driver_list::driver(drvindex), o);
 
-		for (device_image_interface &img : image_interface_iterator(config.root_device()))
+		for (device_image_interface &img : image_interface_enumerator(config.root_device()))
 			if (img.user_loadable())
 				return 1;
 	}

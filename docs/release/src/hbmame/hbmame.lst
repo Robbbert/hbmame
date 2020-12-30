@@ -304,7 +304,12 @@ sf2cehp
 sf2cehk
 sf2cejem
 sf2celw
-sf2cemix
+sf2cemix96
+sf2cemix97
+sf2cemix98
+sf2cemix98a
+sf2cemix98b
+sf2cemix98c
 sf2jbh			// sf2jbh2014
 sf2koryuh
 sf2h9
@@ -503,8 +508,8 @@ tk2h100
 tk2h101
 tk2h102
 tk2h103
-tk2h104  // rom problem
-tk2h105  // rom problem
+tk2h104
+tk2h105
 tk2h106
 tk2h107
 tk2h108
@@ -549,10 +554,8 @@ tk2h147
 tk2h148
 tk2h149
 tk2h150
-tk2h151
 tk2h152
 tk2h153
-tk2h154
 tk2h155
 tk2h156
 //tk2h157     // roms not decided?
@@ -2560,7 +2563,7 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
-kof97plss13 // The roms has problems
+kof97plss13 // Freezes in intro
 
 @source:kof98.cpp
 kof98aas
@@ -2570,8 +2573,7 @@ kof98ae1 //black splashes all over fight scene where cars speed past
 kof98ae2 //black splashes all over fight scene where cars speed past
 kof98ae3 //black splashes all over fight scene where cars speed past
 kof98ae20160308 //black splashes all over fight scene where cars speed past
-kof98ae20160827 //black splashes all over fight scene where cars speed past
-kof98ae20160902 //crashea
+kof98ae20160902 //black splashes all over fight scene where cars speed past (same roms as kof98ae20160827)
 kof98bge
 kof98bh
 kof98bvi   // reboots in first demo
@@ -2709,6 +2711,7 @@ kof98sr
 kof98sv
 kof98tim
 kof98ul
+kof98ult
 kof98ur
 kof98urf
 kof98wh
@@ -4087,6 +4090,7 @@ seq1			/* HB - Jerronimo */
 seq2			/* HB - Jerronimo */
 snakes			// HB
 snakes2			// HB
+theglobpb
 tst_pacm		// HB
 wavybug
 zap				/* HB - Widel's Games */
@@ -4683,6 +4687,7 @@ mslug6h05
 mslug6h06
 mslug6h07
 mslug6h08
+mslug6h09
 mslug6ha01
 mslug6hb01
 mslug6hb02
@@ -4921,7 +4926,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-//mslug5fu // encrypted p roms; not working(You still can not find the corresponding roms)
+//mslug5fu // encrypted p roms; not working
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -5845,6 +5850,7 @@ gbi			/* Ghostbusters Intro */
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
 lernit
+lhbb
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
 lhopecd //broken; not working
@@ -5874,12 +5880,15 @@ neothund	// Sebastian Mihai
 neotrisd1
 neotrisd2
 neotrisd3
+bonusstage
+nblktiger
 ngem2k
 ngftdemo	// CeL
 ngmontst
 ngtd2
 ngtetris
 ngym2610
+nsmb
 nsmbd			// unplayable demo
 nyan
 nyana
@@ -5906,6 +5915,7 @@ smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
 syscheck
+teotd
 test01		// MVS Test 01 by Furrtek
 timesupd	// CeL
 tmnti		/* TMNT intro */
@@ -6010,6 +6020,7 @@ nitdsp
 nitdsp1		// Spanish.Rev2
 nitdsp2
 nitdfro2
+pzlcrz
 pbcrazyb1
 pbcrazyb2
 pbobblenba
@@ -6579,6 +6590,7 @@ samsho5s2
 samsho5x
 samsho5zk
 samsh5fe
+samsh5pf
 samsh5spd
 samsh5spd1
 samsh5spd2
@@ -6890,177 +6902,6 @@ pacland		//parent
 mariopac
 paclandb
 paclandd	/* Blue Justice */
-
-@source:pacman.cpp
-abortman 	/* Paul C Copeland hack of Puckman */
-baby2		/* T-Bone hack */
-baby3		/* T-Bone hack */
-baby4		/* T-Bone hack */
-brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
-bucaneerx	/* PacMAME Hacks */
-caterpil
-chtpac
-chtpac3d
-chtpman2
-chtpop
-chtpuck
-crazypac
-dizzy
-eltonpac	/* Sil hack of Pac-Man (Midway) */
-europac		/* Stefano 'Jojo' Priore hack of Pac-Man (Midway) */
-fpnleash
-hanglyad
-hmhearts	/* hack */
-hearts
-hellowp		// cmonkey UKVAC
-hm1000		/* Blue Justice */
-hm2000		/* Blue Justice */
-hmba5000	/* Blue Justice */
-hmba7000	/* Blue Justice */
-hmbabymz	/* Blue Justice */
-hmbluep		/* Blue Justice */
-hmgrenp		/* Blue Justice */
-hmpopey		/*  */
-hmplus		/* Blue Justice */
-homercid	/* David Widel */
-jacman
-jpmmunch	/* JPM bootleg */
-mazeman		/* Sil hack of Pac-Man */
-muckpan
-namcosil	/* Sil hack of Pac-Man (Namco) */
-newpuck2	/* Scotty hack of Pac-Man */
-newpuck3
-nwpuc2b
-pac2600		/* Bobby Tribble hack of Pac-Man (Midway) */
-pac2600a
-pacbaby
-pacbaby2
-pacbaby3
-pacbell
-pacelec
-pacfnt
-pacinvis
-pacjail
-pacjr1
-pacjr2
-pacjr3
-pacjr4
-packetman
-pacm255		/* Mark Spaeth patch for level 256 */
-pacman25	/* Jerronimo v1.0 2004 */
-pacman3d	/* Sil hack of Pac-Man (Midway) */
-pacman6
-pacmanp		/* Don Hodges patch for level 256 */
-pacmar		/* PacMAME Hacks */
-pacminer
-pacmini		/* Bobby Tribble hack of Pac-Man (Midway) */
-pacmini2	/* Bobby Tribble hack of Pac-Man (Midway) */
-pacmn6m2
-pacms1
-pacms2
-pacms3
-pacms4
-pacmsa1
-pacmsa2
-pacmsa3
-pacmsa4
-pacmulti
-puck255
-pacplusc
-pacpopey	/* unknown hack of Pac-Man (Namco) */
-pacshuf
-pacspeed
-pacweird
-pacwf		/* Tim Appleton - Weird Fruit */
-pcrunchy
-pengman		/* Jerry Lawrence hack of Pac-Man (Midway) */
-pm1000		/* Blue Justice */
-pm2000		/* Blue Justice */
-pm3000		/* Blue Justice */
-pm4000p		/* Blue Justice */
-pm5000p		/* Blue Justice */
-pm6000		/* Blue Justice */
-pm7000		/* Blue Justice */
-pm7000p		/* Blue Justice */
-pmad		/* SirScotty and Sil hack of Pac-Man (Midway) */
-pmad00
-pmad6m		/* T-Bone hack */
-pmada
-pmba2000	/* Blue Justice */
-pmba3000	/* Blue Justice */
-pmba4000	/* Blue Justice */
-pmba6000	/* Blue Justice */
-pmba8000	/* Blue Justice */
-pmbamaz		/* Blue Justice */
-pmbaplus	/* Blue Justice */
-pmbluep		/* Blue Justice */
-pmdeluxe	/* Blue Justice */
-pmextra		/* Blue Justice */
-pmextrap	/* Blue Justice */
-pmfever		/* Blue Justice */
-pmgrenp		/* Blue Justice */
-pmheart
-newpuc1		/* Italian dump */
-pplusad
-puckman		//our parent (not same as mame)
-puckmano
-puckmoti
-puckmot1
-puckren
-puckrenc
-punleash
-roboman
-snakeyes	/* T-Bone hack */
-snowpac		/* T-Bone hack */
-spuckman
-sumeltob
-sumelton
-tbone		/* T-Bone hack */
-ultra2		/* PacMAME Hacks */
-ultrapac
-vcrunchy
-vecbaby
-vecbaby2
-vecbaby3
-vecpac		/* T-Bone hack of Pac-Man (Midway) */
-vectplus
-vectr6m		/* T-Bone hack */
-vectr6tb	/* T-Bone hack */
-vectxens
-vhangly
-vhangly3
-vpacbell
-vpacelec
-vpacjail
-vpacms1
-vpacms2
-vpacms3
-vpacms4
-vpacmsa1
-vpacmsa2
-vpacmsa3
-vpacmsa4
-vpacshuf
-vpspeed
-xensad
-xensrev
-	/* "Pacman hardware" games (hires hacks) */
-puckmanx
-puckmnax
-puckmnfx
-puckmnhx
-pacmanx
-pacmanfx
-puckmodx
-pacmodx
-newpuc2x
-nwpuc2bx
-nwpuckxx
-hanglyx
-hangly2x
-hangly3x
-pacplusx
-pheartx
 
 @source:pcktgal.cpp
 pcktgal		//parent
@@ -7623,7 +7464,7 @@ kovpluss314
 kovpluss315
 kovpluss316
 kovpluss317
-kovpluss318  // The roms has problems
+kovpluss318  // Freeze during intro
 kovpluss319
 kovpluss320
 kovpluss321
@@ -7948,14 +7789,14 @@ kovsho132
 kovsho133
 kovsho134
 kovsho135
-kovsho136 // The roms has problems
+kovsho136 // Illegal instruction before intro
 kovsho137 // Boot bios 1
 kovsho138 // Boot bios 1
-kovsho139 // The roms has problems
+kovsho139 // Illegal instruction before intro
 kovsho140
 kovsho141
 kovsho142
-kovsho143 //Illegal Intruction     
+kovsho143 // Illegal instruction before intro
 kovsho144
 kovsho145
 kovsho146 // Boot bios 1
@@ -7964,25 +7805,25 @@ kovsho148
 kovsho149
 kovsho150
 kovsho151
-kovsho152 //
-kovsho153 //
+kovsho152
+kovsho153
 kovsho154
 kovsho155
 kovsho156
 kovsho157
-kovsho158 //
-kovsho159 //
-kovsho160 // Hardware 27 Error
-kovsho161 //
+kovsho158 // Freezes during attract mode
+kovsho159
+kovsho160 // Resource Error, Bad gfx
+kovsho161 // Hardware 27 Error, Bad gfx
 kovsho162
 kovsho163
 kovsho164
 kovsho165
 kovsho166
 kovsho167
-kovsho168 //
-kovsho169 //
-kovsho170 //
+kovsho168 // Path Command Error, Bad gfx
+kovsho169 // Hardware 27 Error, Bad gfx
+kovsho170 // Hardware 27 Error, Bad gfx
 kovsho171
 kovsho172
 kovsho173
@@ -8217,7 +8058,7 @@ oldsplus25
 oldsplus26
 oldsplus27
 orlegends01
-orlegends02 //  Unstable game in the emulator (ingame crash)
+orlegends02 //  Illegal instruction
 orlegends03
 orlegends04
 orlegends05
@@ -8290,7 +8131,7 @@ orlegendcs64
 orlegendcs65
 orlegendcs66
 orlegendcs67
-orlegendcs68   //  Unstable game in the emulator (ingame crash)
+orlegendcs68   // stuck in setup menu
 orlegendcs69
 orlegendcs70   // stuck in setup menu
 orlegendcs71
@@ -8483,6 +8324,177 @@ s1945iiis02
 soldivid		//parent
 soldivids01
 
+@source:puckman.cpp
+abortman 	/* Paul C Copeland hack of Puckman */
+baby2		/* T-Bone hack */
+baby3		/* T-Bone hack */
+baby4		/* T-Bone hack */
+brakman		/* Jerry Lawrence hack of Pac-Man (Midway) */
+bucaneerx	/* PacMAME Hacks */
+caterpil
+chtpac
+chtpac3d
+chtpman2
+chtpop
+chtpuck
+crazypac
+dizzy
+eltonpac	/* Sil hack of Pac-Man (Midway) */
+europac		/* Stefano 'Jojo' Priore hack of Pac-Man (Midway) */
+fpnleash
+hanglyad
+hmhearts	/* hack */
+hearts
+hellowp		// cmonkey UKVAC
+hm1000		/* Blue Justice */
+hm2000		/* Blue Justice */
+hmba5000	/* Blue Justice */
+hmba7000	/* Blue Justice */
+hmbabymz	/* Blue Justice */
+hmbluep		/* Blue Justice */
+hmgrenp		/* Blue Justice */
+hmpopey		/*  */
+hmplus		/* Blue Justice */
+homercid	/* David Widel */
+jacman
+jpmmunch	/* JPM bootleg */
+mazeman		/* Sil hack of Pac-Man */
+muckpan
+namcosil	/* Sil hack of Pac-Man (Namco) */
+newpuck2	/* Scotty hack of Pac-Man */
+newpuck3
+nwpuc2b
+pac2600		/* Bobby Tribble hack of Pac-Man (Midway) */
+pac2600a
+pacbaby
+pacbaby2
+pacbaby3
+pacbell
+pacelec
+pacfnt
+pacinvis
+pacjail
+pacjr1
+pacjr2
+pacjr3
+pacjr4
+packetman
+pacm255		/* Mark Spaeth patch for level 256 */
+pacman25	/* Jerronimo v1.0 2004 */
+pacman3d	/* Sil hack of Pac-Man (Midway) */
+pacman6
+pacmanp		/* Don Hodges patch for level 256 */
+pacmar		/* PacMAME Hacks */
+pacminer
+pacmini		/* Bobby Tribble hack of Pac-Man (Midway) */
+pacmini2	/* Bobby Tribble hack of Pac-Man (Midway) */
+pacmn6m2
+pacms1
+pacms2
+pacms3
+pacms4
+pacmsa1
+pacmsa2
+pacmsa3
+pacmsa4
+pacmulti
+puck255
+pacplusc
+pacpopey	/* unknown hack of Pac-Man (Namco) */
+pacshuf
+pacspeed
+pacweird
+pacwf		/* Tim Appleton - Weird Fruit */
+pcrunchy
+pengman		/* Jerry Lawrence hack of Pac-Man (Midway) */
+pm1000		/* Blue Justice */
+pm2000		/* Blue Justice */
+pm3000		/* Blue Justice */
+pm4000p		/* Blue Justice */
+pm5000p		/* Blue Justice */
+pm6000		/* Blue Justice */
+pm7000		/* Blue Justice */
+pm7000p		/* Blue Justice */
+pmad		/* SirScotty and Sil hack of Pac-Man (Midway) */
+pmad00
+pmad6m		/* T-Bone hack */
+pmada
+pmba2000	/* Blue Justice */
+pmba3000	/* Blue Justice */
+pmba4000	/* Blue Justice */
+pmba6000	/* Blue Justice */
+pmba8000	/* Blue Justice */
+pmbamaz		/* Blue Justice */
+pmbaplus	/* Blue Justice */
+pmbluep		/* Blue Justice */
+pmdeluxe	/* Blue Justice */
+pmextra		/* Blue Justice */
+pmextrap	/* Blue Justice */
+pmfever		/* Blue Justice */
+pmgrenp		/* Blue Justice */
+pmheart
+newpuc1		/* Italian dump */
+pplusad
+puckman		//our parent (not same as mame)
+puckmano
+puckmoti
+puckmot1
+puckren
+puckrenc
+punleash
+roboman
+snakeyes	/* T-Bone hack */
+snowpac		/* T-Bone hack */
+spuckman
+sumeltob
+sumelton
+tbone		/* T-Bone hack */
+ultra2		/* PacMAME Hacks */
+ultrapac
+vcrunchy
+vecbaby
+vecbaby2
+vecbaby3
+vecpac		/* T-Bone hack of Pac-Man (Midway) */
+vectplus
+vectr6m		/* T-Bone hack */
+vectr6tb	/* T-Bone hack */
+vectxens
+vhangly
+vhangly3
+vpacbell
+vpacelec
+vpacjail
+vpacms1
+vpacms2
+vpacms3
+vpacms4
+vpacmsa1
+vpacmsa2
+vpacmsa3
+vpacmsa4
+vpacshuf
+vpspeed
+xensad
+xensrev
+	/* "Pacman hardware" games (hires hacks) */
+puckmanx
+puckmnax
+puckmnfx
+puckmnhx
+pacmanx
+pacmanfx
+puckmodx
+pacmodx
+newpuc2x
+nwpuc2bx
+nwpuckxx
+hanglyx
+hangly2x
+hangly3x
+pacplusx
+pheartx
+
 @source:r2dx_v33.cpp
 nzeroteama					//parent
 nzeroteamas01
@@ -8527,7 +8539,9 @@ schasrcv		// extra sounds
 
 @source:segac2.cpp
 c2frog					// HB
-//more...
+headonch
+//ooparts
+//ssonicbr
 
 @source:segaorun.cpp
 outrun					//parent
@@ -8833,7 +8847,6 @@ samesamenh	// Trap15
 @source:toaplan2.cpp
 kingdmgp	//parent
 kgpe		/* Neill Corlett hack */
-shippumds01	// bad gfx on title
 sstriker	//parent
 mahoudcn
 mahoudais01
@@ -8873,6 +8886,7 @@ mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 drmario					//parent
 drmarios01
+frombelow
 
 @source:vsystem.cpp
 karatblz			//parent
