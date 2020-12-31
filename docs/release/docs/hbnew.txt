@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [endurorrc]           Enduro Racer (RetroClinic bootleg)
+- [ooparts]             Ooparts
 
 
 

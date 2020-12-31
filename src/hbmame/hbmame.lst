@@ -8540,7 +8540,7 @@ schasrcv		// extra sounds
 @source:segac2.cpp
 c2frog					// HB
 headonch
-//ooparts
+ooparts
 //ssonicbr
 
 @source:segahang.cpp
