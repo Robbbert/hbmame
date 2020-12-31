@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [endurorrc]           Enduro Racer (RetroClinic bootleg)
 - [ooparts]             Ooparts
+- [sf2cemix99]          Street Fighter II': Champion Edition (Mix 0.99)
 
 
 
