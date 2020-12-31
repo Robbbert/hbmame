@@ -887,6 +887,8 @@ files {
 	MAME_DIR .. "src/mame/machine/315-5881_crypt.cpp",
 	MAME_DIR .. "src/mame/machine/315-5838_317-0229_comp.cpp",
 	MAME_DIR .. "src/mame/machine/model1io.cpp",
+	MAME_DIR .. "src/hbmame/drivers/segahang.cpp",
+	MAME_DIR .. "src/mame/video/segahang.cpp",
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
 	MAME_DIR .. "src/mame/machine/stvprot.cpp",

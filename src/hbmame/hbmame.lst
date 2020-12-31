@@ -8543,6 +8543,10 @@ headonch
 //ooparts
 //ssonicbr
 
+@source:segahang.cpp
+enduror						//parent
+endurorrc
+
 @source:segaorun.cpp
 outrun					//parent
 outrunen
