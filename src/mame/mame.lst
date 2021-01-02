@@ -9252,6 +9252,7 @@ tripjok                         //
 
 @source:bingoc.cpp
 bingoc                          // (c) 1989 Sega
+bingoct                         // (c) 1989 Sega
 
 @source:bingoman.cpp
 bingoman                        //
@@ -16002,6 +16003,9 @@ victor                          //
 hektor                          // Hektor
 hektor2                         // Hektor II
 hektor3                         // Hektor III
+
+@source:heromem.cpp
+heromem                         //
 
 @source:hexion.cpp
 hexion                          // GX122 (c) 1992
