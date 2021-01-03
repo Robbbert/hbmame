@@ -9,8 +9,9 @@ New Games
 ---------------------------------
 - [endurorrc]           Enduro Racer (RetroClinic bootleg)
 - [ooparts]             Ooparts
-- [sf2cemix99]          Street Fighter II': Champion Edition (Mix 0.99)
-- [sf2cemix99a]         Street Fighter II': Champion Edition (Mix 0.99a)
+- [sf2mix96d]           Street Fighter II: Champion Edition (Mix 0.96d)
+- [sf2mix99]            Street Fighter II: Champion Edition (Mix 0.99)
+- [sf2mix99a]           Street Fighter II: Champion Edition (Mix 0.99a)
 
 
 
@@ -30,11 +31,11 @@ New Games
 - [nsmb]                New! Super Mario Bros.
 - [pzlcrz]              Puzzle Crazy
 - [samsh5pf]            Samurai Shodown V Perfect
-- [sf2cemix97]          Street Fighter II': Champion Edition (Mix 0.97)
-- [sf2cemix98]          Street Fighter II': Champion Edition (Mix 0.98)
-- [sf2cemix98a]         Street Fighter II': Champion Edition (Mix 0.98a)
-- [sf2cemix98b]         Street Fighter II': Champion Edition (Mix 0.98b)
-- [sf2cemix98c]         Street Fighter II': Champion Edition (Mix 0.98c)
+- [sf2cemix97]          Street Fighter II: Champion Edition (Mix 0.97)
+- [sf2cemix98]          Street Fighter II: Champion Edition (Mix 0.98)
+- [sf2cemix98a]         Street Fighter II: Champion Edition (Mix 0.98a)
+- [sf2cemix98b]         Street Fighter II: Champion Edition (Mix 0.98b)
+- [sf2cemix98c]         Street Fighter II: Champion Edition (Mix 0.98c)
 - [teotd]               The Eye of Typhoon (Tsunami Edition, demo)
 - [theglobpb]           The Glob (English translation of German sprglbpg)
 
@@ -47,7 +48,7 @@ New Games
 
 New Games
 ---------------------------------
-- [sf2cemix]            Street Fighter II': Champion Edition (Mix 0.96)
+- [sf2cemix]            Street Fighter II: Champion Edition (Mix 0.96)
 
 
 
