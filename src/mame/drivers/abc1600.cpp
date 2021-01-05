@@ -104,6 +104,16 @@ enum
 //**************************************************************************
 
 //-------------------------------------------------
+//  fc_r -
+//-------------------------------------------------
+
+uint8_t abc1600_state::fc_r()
+{
+	return m_maincpu->get_fc() & 0x07;
+}
+
+
+//-------------------------------------------------
 //  bus_r -
 //-------------------------------------------------
 
@@ -865,7 +875,8 @@ void abc1600_state::abc1600(machine_config &config)
 	// devices
 	ABC1600_MAC(config, m_mac, 0);
 	m_mac->set_addrmap(AS_PROGRAM, &abc1600_state::mac_mem);
-	m_mac->set_cpu_tag(m_maincpu);
+	m_mac->fc_cb().set(FUNC(abc1600_state::fc_r));
+	m_mac->buserr_cb().set_inputline(m_maincpu, M68K_LINE_BUSERROR);
 
 	Z80DMA(config, m_dma0, 64_MHz_XTAL / 16);
 	m_dma0->out_busreq_callback().set(FUNC(abc1600_state::dbrq_w));
@@ -983,7 +994,7 @@ void abc1600_state::abc1600(machine_config &config)
 	RAM(config, RAM_TAG).set_default_size("1M");
 
 	// software list
-	SOFTWARE_LIST(config, "flop_list").set_original("abc1600");
+	SOFTWARE_LIST(config, "flop_list").set_original("abc1600_flop");
 }
 
 
