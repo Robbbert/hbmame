@@ -5,7 +5,7 @@
 #include "includes/neogeo.h"
 
 
-ROM_START( fatfurspb )
+ROM_START( fatfurspb2 )
 	ROM_REGION( 0x180000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "058b.p1", 0x000000, 0x100000, CRC(1222cf0a) SHA1(dab98ef9464e8759433958663f2625912295822b) )
 	ROM_LOAD16_WORD_SWAP( "058.p2", 0x100000, 0x080000, CRC(d7c71a6b) SHA1(b3428063031a2e5857da40a5d2ffa87fb550c1bb) )
@@ -655,7 +655,7 @@ ROM_START( rbff2y ) /* Real Bout Fatal Fury 2 - Hack by Ydmis - (Player 2 goes t
 	ROM_LOAD16_BYTE( "240.c6", 0x2000001, 0x800000, CRC(4609e507) SHA1(bb17f50a377dddb77c1eeda5944a7bcbf0cca5f7) )
 ROM_END
 
-GAME( 1993, fatfurspb,     fatfursp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG]", "Fatal Fury Special (Optional Hidden Characters First Rdition)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, fatfurspb2,    fatfursp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG]", "Fatal Fury Special (Optional Hidden Characters First Rdition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfurspbs,    fatfursp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Fatal Fury Special (Optional Hidden Character Third Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfurspbt,    fatfursp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "PPX team", "Fatal Fury Special (BT Version PPX)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, fatfurspeh,    fatfursp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang", "Fatal Fury Special (Optional Hidden Character Second Edition)", MACHINE_SUPPORTS_SAVE )
