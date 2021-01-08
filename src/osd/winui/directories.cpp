@@ -408,7 +408,7 @@ static void Directories_OnOk(HWND hDlg)
 		if (IsMultiDir(i))
 			nResult |= RetrieveDirList(i, g_directoryInfo[i].nDirDlgFlags, g_directoryInfo[i].pfnSetTheseDirs);
 		else
-		if (DirInfo_Modified(g_pDirInfo, i))
+		//if (DirInfo_Modified(g_pDirInfo, i))   // this line only makes sense with multi - TODO - fix this up.
 		{
 			LPTSTR s = FixSlash(DirInfo_Dir(g_pDirInfo, i));
 			char* utf8_s = ui_utf8_from_wstring(s);
