@@ -1177,8 +1177,9 @@ ajuno2                          //
 mks50                           //
 
 @source:alphasma.cpp
-asma2k                          //
-asmapro                         //
+asma2k                          // (c) 1997 Intelligent Peripheral Devices
+asma3k                          // (c) 2000 AlphaSmart, Inc.
+asmapro                         // (c) 1995 Intelligent Peripheral Devices 
 
 @source:alphatan.cpp
 alphatan                        // 1981 AlphaTantel
@@ -35833,7 +35834,7 @@ rtpc010                         // IBM RT PC Model 010
 rtpc015                         // IBM RT PC Model 015
 rtpc020                         // IBM RT PC Model 020
 rtpc025                         // IBM RT PC Model 025
-rtpc025                         // IBM RT PC Model A25
+rtpca25                         // IBM RT PC Model A25
 
 @source:runaway.cpp
 qwak                            // (proto)          (c) 1982
