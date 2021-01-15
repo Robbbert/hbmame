@@ -6365,7 +6365,7 @@ GAME( 2020, sf2mix99,    sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,  
 GAME( 2020, sf2mix99a,   sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0,   "Zero800", "Street Fighter II: Champion Edition (Mix 0.99a)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, sf2pun,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Simplified Edition v1 Final 2012-04-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2r3,       sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0,   "hack", "Street Fighter II': The World Warrior (3-region version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, sf2rbpr,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Rotwang", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 1, protection removed)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, sf2rbpr,     sf2ce,    cps1_12MHz, sf2rb,    cps_state, init_cps1,     ROT0,   "Rotwang", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 1, protection removed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, sf2sl73a,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2th,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "hack", "Street Fighter II': Champion Edition (Turbo set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2tha,      sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "hack", "Street Fighter II': Champion Edition (Turbo set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
