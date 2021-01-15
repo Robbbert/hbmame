@@ -453,6 +453,8 @@ MACHINES["7200FIFO"] = true
 MACHINES["8530SCC"] = true
 MACHINES["AAKARTDEV"] = true
 MACHINES["ACIA6850"] = true
+MACHINES["ACORN_IOC"] = true
+MACHINES["ACORN_MEMC"] = true
 MACHINES["ACORN_VIDC"] = true
 MACHINES["ADC0804"] = true
 MACHINES["ADC0808"] = true
@@ -569,6 +571,7 @@ MACHINES["LSI53C810"] = true
 MACHINES["M3002"] = true
 MACHINES["M68307"] = true
 MACHINES["M68340"] = true
+MACHINES["M950X0"] = true
 MACHINES["M68SFDC"] = true
 MACHINES["M6M80011AP"] = true
 MACHINES["MB14241"] = true
@@ -1615,6 +1618,8 @@ files {
 createMESSProjects(_target, _subtarget, "acorn")
 files {
 	MAME_DIR .. "src/mame/drivers/aa310.cpp",
+	MAME_DIR .. "src/mame/machine/archimedes_keyb.cpp",
+	MAME_DIR .. "src/mame/machine/archimedes_keyb.h",
 	MAME_DIR .. "src/mame/drivers/accomm.cpp",
 	MAME_DIR .. "src/mame/drivers/acrnsys1.cpp",
 	MAME_DIR .. "src/mame/drivers/acrnsys.cpp",
@@ -2600,6 +2605,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/hp2100.cpp",
 	MAME_DIR .. "src/mame/drivers/hp2620.cpp",
 	MAME_DIR .. "src/mame/drivers/hp700.cpp",
+	MAME_DIR .. "src/mame/machine/hp2640_tape.cpp",
+	MAME_DIR .. "src/mame/machine/hp2640_tape.h",
 	MAME_DIR .. "src/mame/drivers/hp2640.cpp",
 	MAME_DIR .. "src/mame/drivers/hp95lx.cpp",
 	MAME_DIR .. "src/mame/drivers/hp9825.cpp",
@@ -3414,6 +3421,8 @@ files {
 	MAME_DIR .. "src/mame/audio/jx8p_synth.h",
 	MAME_DIR .. "src/mame/audio/mb63h114.cpp",
 	MAME_DIR .. "src/mame/audio/mb63h114.h",
+	MAME_DIR .. "src/mame/audio/sa16.cpp",
+	MAME_DIR .. "src/mame/audio/sa16.h",
 	MAME_DIR .. "src/mame/machine/mb62h195.cpp",
 	MAME_DIR .. "src/mame/machine/mb62h195.h",
 	MAME_DIR .. "src/mame/machine/mb63h149.cpp",
