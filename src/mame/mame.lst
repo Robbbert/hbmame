@@ -9329,6 +9329,7 @@ bankroba                        // (c) 1993 Entertainment Technology Corp.
 bankrobb                        // (c) 1993 Blitz Systems Inc.
 cj3play                         // (c) 1998 Cadillac Jack
 cjffruit                        // (c) 1998 Cadillac Jack
+cjplus                          // (c) 1999 Cadillac Jack
 deucesw2                        // (c) 1997
 dualgame                        // (c) 1995 Labtronix Technologies
 hermit                          // (c) 1995 Dugamex
@@ -10406,7 +10407,6 @@ cit101xl                        //
 
 @source:cit220.cpp
 cit220p                         // (c) 1984 C. Itoh
-tabe22                          //
 vp122                           //
 
 @source:cit1500.cpp
@@ -39463,6 +39463,9 @@ tetrisbl                        // (c) 1988 (but bootleg)
 tturfbl                         // (c) 1989 (Datsu bootleg)
 wb3bbl                          // bootleg
 wb3bble                         // bootleg
+
+@source:tabe22.cpp
+tabe22                          // (c) Tab Products
 
 @source:tagteam.cpp
 bigprowr                        // TA-0007 (c) 1983
