@@ -470,6 +470,7 @@ gauntlet.cpp
 gberet.cpp
 gcpinbal.cpp
 gei.cpp
+getaway.cpp
 ggconnie.cpp
 ghosteo.cpp
 giclassic.cpp
@@ -650,6 +651,7 @@ konmedal.cpp
 konmedal68k.cpp
 kontest.cpp
 kopunch.cpp
+kpontoon.cpp
 kpython.cpp
 ksayakyu.cpp
 ksys573.cpp
