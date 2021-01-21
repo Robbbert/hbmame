@@ -27,6 +27,7 @@
 #include "mui_opts.h"
 #include "emu_opts.h"
 #include "drivenum.h"
+#include "corestr.h"
 #include "machine/ram.h"
 
 #include <shlwapi.h>
@@ -388,7 +389,7 @@ char * ConvertToWindowsNewlines(const char *source)
 const char * GetDriverFilename(uint32_t nIndex)
 {
 	static char tmp[2048];
-	std::string driver = core_filename_extract_base(driver_list::driver(nIndex).type.source());
+	string driver = string(core_filename_extract_base(driver_list::driver(nIndex).type.source()));
 	strcpy(tmp, driver.c_str());
 	return tmp;
 }

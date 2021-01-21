@@ -33,6 +33,7 @@
 #include "winutf8.h"
 #include "screen.h"
 #include "drivenum.h"
+#include "corestr.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
@@ -1226,7 +1227,7 @@ void CreateDumpingFolders(int parent_index)
 					if (ROMREGION_ISROMDATA(region) || ROMREGION_ISDISKDATA(region) )
 					{
 						//name = ROM_GETNAME(rom);
-						util::hash_collection hashes(ROM_GETHASHDATA(rom));
+						util::hash_collection hashes(rom->hashdata());
 						if (hashes.flag(util::hash_collection::FLAG_BAD_DUMP))
 							bBadDump = true;
 						if (hashes.flag(util::hash_collection::FLAG_NO_DUMP))

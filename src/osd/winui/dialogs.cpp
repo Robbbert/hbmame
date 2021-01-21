@@ -37,6 +37,7 @@
 
 // MAME headers
 #include "winutf8.h"
+#include "corestr.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf

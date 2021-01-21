@@ -20,6 +20,7 @@
 #include "mui_opts.h"
 #include "datamap.h"
 #include "winutf8.h"
+#include "corestr.h"
 
 
 #ifdef _MSC_VER
