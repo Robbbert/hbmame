@@ -227,6 +227,7 @@ MACHINES["TMS6100"] = true
 MACHINES["TTL74153"] = true
 MACHINES["TTL74157"] = true
 MACHINES["TTL74259"] = true
+MACHINES["TTL7474"] = true -- scramble
 MACHINES["UPD1990A"] = true
 MACHINES["UPD4701"] = true
 MACHINES["UPD4992"] = true
@@ -586,6 +587,12 @@ files {
 	MAME_DIR .. "src/mame/video/nemesis.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pooyan.cpp",
 	MAME_DIR .. "src/mame/video/pooyan.cpp",
+	MAME_DIR .. "src/hbmame/drivers/scramble.cpp",
+	MAME_DIR .. "src/mame/machine/scramble.cpp",
+	MAME_DIR .. "src/mame/audio/scramble.cpp",
+	MAME_DIR .. "src/mame/drivers/galaxold.cpp",
+	MAME_DIR .. "src/mame/machine/galaxold.cpp",
+	MAME_DIR .. "src/mame/video/galaxold.cpp",
 	MAME_DIR .. "src/hbmame/drivers/shaolins.cpp",
 	MAME_DIR .. "src/mame/video/shaolins.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timeplt.cpp",

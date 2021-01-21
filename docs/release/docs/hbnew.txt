@@ -13,6 +13,7 @@ New Games
 - [sf2mix99]            Street Fighter II: Champion Edition (Mix 0.99)
 - [sf2mix99a]           Street Fighter II: Champion Edition (Mix 0.99a)
 - [sf2rbpr]             Street Fighter II': Champion Edition (Rainbow, bootleg, set 1, protection removed) by Rotwang
+- [troopyx]             Troopy (improved graphics)
 
 
 

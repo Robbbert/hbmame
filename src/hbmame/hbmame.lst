@@ -8541,6 +8541,10 @@ schmeisrs01
 @source:schaser.cpp
 schasrcv		// extra sounds
 
+@source:scramble.cpp
+mrkougar                 //parent
+troopyx
+
 @source:segac2.cpp
 c2frog					// HB
 headonch
