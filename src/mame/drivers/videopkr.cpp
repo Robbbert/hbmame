@@ -282,11 +282,11 @@
 #include "machine/timer.h"
 #include "sound/ay8910.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 #include "babydad.lh"
 #include "babypkr.lh"
@@ -315,30 +315,30 @@ public:
 		, m_lamps(*this, "lamp%u", 0U)
 	{ }
 
-	void babypkr(machine_config &config);
-	void videodad(machine_config &config);
 	void videopkr(machine_config &config);
-	void fortune1(machine_config &config);
 	void blckjack(machine_config &config);
+	void videodad(machine_config &config);
+	void babypkr(machine_config &config);
+	void fortune1(machine_config &config);
 	void bpoker(machine_config &config);
 
 private:
-	DECLARE_READ8_MEMBER(videopkr_io_r);
-	DECLARE_WRITE8_MEMBER(videopkr_io_w);
-	DECLARE_READ8_MEMBER(videopkr_p1_data_r);
-	DECLARE_READ8_MEMBER(videopkr_p2_data_r);
-	DECLARE_WRITE8_MEMBER(videopkr_p1_data_w);
-	DECLARE_WRITE8_MEMBER(videopkr_p2_data_w);
+	uint8_t videopkr_io_r(offs_t offset);
+	void videopkr_io_w(offs_t offset, uint8_t data);
+	uint8_t videopkr_p1_data_r();
+	uint8_t videopkr_p2_data_r();
+	void videopkr_p1_data_w(uint8_t data);
+	void videopkr_p2_data_w(uint8_t data);
 	DECLARE_READ_LINE_MEMBER(videopkr_t0_latch);
 	DECLARE_WRITE_LINE_MEMBER(prog_w);
-	DECLARE_READ8_MEMBER(sound_io_r);
-	DECLARE_WRITE8_MEMBER(sound_io_w);
-	DECLARE_READ8_MEMBER(sound_p2_r);
-	DECLARE_WRITE8_MEMBER(sound_p2_w);
-	DECLARE_READ8_MEMBER(baby_sound_p0_r);
-	DECLARE_WRITE8_MEMBER(baby_sound_p0_w);
-	DECLARE_READ8_MEMBER(baby_sound_p1_r);
-	DECLARE_WRITE8_MEMBER(baby_sound_p3_w);
+	uint8_t sound_io_r();
+	void sound_io_w(uint8_t data);
+	uint8_t sound_p2_r();
+	void sound_p2_w(uint8_t data);
+	uint8_t baby_sound_p0_r();
+	void baby_sound_p0_w(uint8_t data);
+	uint8_t baby_sound_p1_r();
+	void baby_sound_p3_w(uint8_t data);
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
 	void videopkr_palette(palette_device &palette) const;
 	DECLARE_VIDEO_START(vidadcba);
@@ -521,18 +521,18 @@ TILE_GET_INFO_MEMBER(videopkr_state::get_bg_tile_info)
 	int attr = m_color_ram[offs] + ioport("IN2")->read(); /* Color Switch Action */
 	int code = m_video_ram[offs];
 	int color = attr;
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 
 void videopkr_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(videopkr_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(videopkr_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 }
 
 VIDEO_START_MEMBER(videopkr_state,vidadcba)
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(videopkr_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 16, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(videopkr_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 16, 8, 32, 32);
 }
 
 
@@ -548,7 +548,7 @@ uint32_t videopkr_state::screen_update_videopkr(screen_device &screen, bitmap_in
 *      R/W Handlers      *
 *************************/
 
-READ8_MEMBER(videopkr_state::videopkr_io_r)
+uint8_t videopkr_state::videopkr_io_r(offs_t offset)
 {
 	uint8_t valor = 0, hf, co;
 
@@ -628,7 +628,7 @@ READ8_MEMBER(videopkr_state::videopkr_io_r)
 	return valor;
 }
 
-WRITE8_MEMBER(videopkr_state::videopkr_io_w)
+void videopkr_state::videopkr_io_w(offs_t offset, uint8_t data)
 {
 	switch (m_p2)
 	{
@@ -697,17 +697,17 @@ WRITE8_MEMBER(videopkr_state::videopkr_io_w)
 	}
 }
 
-READ8_MEMBER(videopkr_state::videopkr_p1_data_r)
+uint8_t videopkr_state::videopkr_p1_data_r()
 {
 	return m_p1;
 }
 
-READ8_MEMBER(videopkr_state::videopkr_p2_data_r)
+uint8_t videopkr_state::videopkr_p2_data_r()
 {
 	return m_p2;
 }
 
-WRITE8_MEMBER(videopkr_state::videopkr_p1_data_w)
+void videopkr_state::videopkr_p1_data_w(uint8_t data)
 {
 	m_p1 = data;
 
@@ -749,7 +749,7 @@ WRITE8_MEMBER(videopkr_state::videopkr_p1_data_w)
 	m_ant_jckp = m_jckp;
 }
 
-WRITE8_MEMBER(videopkr_state::videopkr_p2_data_w)
+void videopkr_state::videopkr_p2_data_w(uint8_t data)
 {
 	m_p2 = data;
 }
@@ -801,7 +801,7 @@ WRITE_LINE_MEMBER(videopkr_state::prog_w)
 
 */
 
-READ8_MEMBER(videopkr_state::sound_io_r)
+uint8_t videopkr_state::sound_io_r()
 {
 	switch (m_vp_sound_p2)
 	{
@@ -823,7 +823,7 @@ READ8_MEMBER(videopkr_state::sound_io_r)
 	return m_sound_latch;
 }
 
-WRITE8_MEMBER(videopkr_state::sound_io_w)
+void videopkr_state::sound_io_w(uint8_t data)
 {
 	if (m_vp_sound_p2 == 0x5f || m_vp_sound_p2 == 0xdf)
 	{
@@ -832,12 +832,12 @@ WRITE8_MEMBER(videopkr_state::sound_io_w)
 	}
 }
 
-READ8_MEMBER(videopkr_state::sound_p2_r)
+uint8_t videopkr_state::sound_p2_r()
 {
 	return m_vp_sound_p2;
 }
 
-WRITE8_MEMBER(videopkr_state::sound_p2_w)
+void videopkr_state::sound_p2_w(uint8_t data)
 {
 	m_vp_sound_p2 = data;
 
@@ -869,17 +869,17 @@ WRITE8_MEMBER(videopkr_state::sound_p2_w)
 
 /* Baby Sound Handlers */
 
-READ8_MEMBER(videopkr_state::baby_sound_p0_r)
+uint8_t videopkr_state::baby_sound_p0_r()
 {
 	return m_sbp0;
 }
 
-WRITE8_MEMBER(videopkr_state::baby_sound_p0_w)
+void videopkr_state::baby_sound_p0_w(uint8_t data)
 {
 	m_sbp0 = data;
 }
 
-READ8_MEMBER(videopkr_state::baby_sound_p1_r)
+uint8_t videopkr_state::baby_sound_p1_r()
 {
 	m_c_io = (m_p1 >> 5) & 1;
 	m_hp_1 = (~m_p24_data >> 6) & 1;
@@ -889,7 +889,7 @@ READ8_MEMBER(videopkr_state::baby_sound_p1_r)
 	return m_c_io | (m_hp_1 << 1) | (m_hp_2 << 2) | (m_bell << 3) | (m_aux3 << 4) | 0xe0;
 }
 
-WRITE8_MEMBER(videopkr_state::baby_sound_p3_w)
+void videopkr_state::baby_sound_p3_w(uint8_t data)
 {
 	uint8_t lmp_ports, ay_intf;
 	lmp_ports = data >> 1 & 0x07;
@@ -956,10 +956,10 @@ void videopkr_state::i8751_io_port(address_map &map)
 {
 	map(0x0000, 0x0fff).ram(); // NVRAM?
 	map(0x8000, 0x8000).noprw(); // ???
-	map(0x9000, 0x9000).writeonly(); // ???
+	map(0x9000, 0x9000).nopw(); // ???
 	map(0xa000, 0xbfff).ram(); // video RAM?
 	map(0xc000, 0xc003).rw("ppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
-	map(0xf000, 0xf000).writeonly(); // ???
+	map(0xf000, 0xf000).nopw(); // ???
 }
 
 void videopkr_state::i8039_sound_mem(address_map &map)
@@ -994,7 +994,7 @@ static INPUT_PORTS_START( videopkr )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_GAMBLE_BOOK ) PORT_NAME("Books")
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_COIN1 ) PORT_IMPULSE(2)
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Start")
-	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Discard") PORT_CODE(KEYCODE_2)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_GAMBLE_DEAL ) PORT_NAME("Discard")
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_POKER_CANCEL )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POKER_HOLD1 )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_POKER_HOLD2 )
@@ -1103,7 +1103,7 @@ static INPUT_PORTS_START( babypkr )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_GAMBLE_BOOK ) PORT_NAME("Books")
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_COIN1 ) PORT_IMPULSE(2)
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_START1 ) PORT_NAME("Start")
-	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_GAMBLE_D_UP ) PORT_NAME("Double / Discard") PORT_CODE(KEYCODE_3)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_GAMBLE_DEAL ) PORT_NAME("Double / Discard")
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_POKER_CANCEL ) PORT_NAME("Cancel / Take")
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_POKER_HOLD1 )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_POKER_HOLD2 )
@@ -1260,9 +1260,6 @@ void videopkr_state::videopkr(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
 	MC1408(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.275);
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 
@@ -1338,6 +1335,7 @@ void videopkr_state::fortune1(machine_config &config)
 void videopkr_state::bpoker(machine_config &config)
 {
 	babypkr(config);
+
 	i8751_device &maincpu(I8751(config.replace(), m_maincpu, XTAL(6'000'000)));
 	maincpu.set_addrmap(AS_PROGRAM, &videopkr_state::i8751_map);
 	maincpu.set_addrmap(AS_IO, &videopkr_state::i8751_io_port);

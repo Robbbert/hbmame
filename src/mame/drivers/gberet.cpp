@@ -115,14 +115,14 @@ TIMER_DEVICE_CALLBACK_MEMBER(gberet_state::gberet_interrupt_tick)
  *
  *************************************/
 
-WRITE8_MEMBER(gberet_state::gberet_coin_counter_w)
+void gberet_state::gberet_coin_counter_w(uint8_t data)
 {
 	/* bits 0/1 = coin counters */
 	machine().bookkeeping().coin_counter_w(0, data & 1);
 	machine().bookkeeping().coin_counter_w(1, data & 2);
 }
 
-WRITE8_MEMBER(gberet_state::mrgoemon_coin_counter_w)
+void gberet_state::mrgoemon_coin_counter_w(uint8_t data)
 {
 	/* bits 0/1 = coin counters */
 	machine().bookkeeping().coin_counter_w(0, data & 1);
@@ -132,7 +132,7 @@ WRITE8_MEMBER(gberet_state::mrgoemon_coin_counter_w)
 	membank("bank1")->set_entry(((data & 0xe0) >> 5));
 }
 
-WRITE8_MEMBER(gberet_state::gberet_flipscreen_w)
+void gberet_state::gberet_flipscreen_w(uint8_t data)
 {
 	/* bits 0/1/2 = interrupt enable */
 	uint8_t ack_mask = ~data & m_interrupt_mask; // 1->0
@@ -149,7 +149,7 @@ WRITE8_MEMBER(gberet_state::gberet_flipscreen_w)
 	flip_screen_set(data & 8);
 }
 
-WRITE8_MEMBER(gberet_state::gberet_sound_w)
+void gberet_state::gberet_sound_w(uint8_t data)
 {
 	m_sn->write(*m_soundlatch);
 }
@@ -198,18 +198,18 @@ void gberet_state::mrgoemon_map(address_map &map)
 }
 
 
-WRITE8_MEMBER(gberet_state::gberetb_flipscreen_w)
+void gberet_state::gberetb_flipscreen_w(uint8_t data)
 {
 	flip_screen_set(data & 8);
 }
 
-READ8_MEMBER(gberet_state::gberetb_irq_ack_r)
+uint8_t gberet_state::gberetb_irq_ack_r()
 {
 	m_maincpu->set_input_line(0, CLEAR_LINE);
 	return 0xff;
 }
 
-WRITE8_MEMBER(gberet_state::gberetb_nmi_ack_w)
+void gberet_state::gberetb_nmi_ack_w(uint8_t data)
 {
 	m_maincpu->set_input_line(INPUT_LINE_NMI, CLEAR_LINE);
 }
@@ -394,14 +394,14 @@ GFXDECODE_END
  *
  *************************************/
 
-MACHINE_START_MEMBER(gberet_state,gberet)
+void gberet_state::machine_start()
 {
 	save_item(NAME(m_interrupt_mask));
 	save_item(NAME(m_interrupt_ticks));
 	save_item(NAME(m_spritebank));
 }
 
-MACHINE_RESET_MEMBER(gberet_state,gberet)
+void gberet_state::machine_reset()
 {
 	m_interrupt_mask = 0;
 	m_interrupt_ticks = 0;
@@ -416,9 +416,6 @@ void gberet_state::gberet(machine_config &config)
 	TIMER(config, "scantimer").configure_scanline(FUNC(gberet_state::gberet_interrupt_tick), "screen", 0, 16);
 	WATCHDOG_TIMER(config, "watchdog");
 
-	MCFG_MACHINE_START_OVERRIDE(gberet_state,gberet)
-	MCFG_MACHINE_RESET_OVERRIDE(gberet_state,gberet)
-
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
 	screen.set_refresh_hz(60.60);
@@ -430,7 +427,6 @@ void gberet_state::gberet(machine_config &config)
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_gberet);
 	PALETTE(config, m_palette, FUNC(gberet_state::gberet_palette), 2*16*16, 32);
-	MCFG_VIDEO_START_OVERRIDE(gberet_state,gberet)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -454,9 +450,6 @@ void gberet_state::gberetb(machine_config &config)
 	m_maincpu->set_vblank_int("screen", FUNC(gberet_state::irq0_line_assert));
 	m_maincpu->set_periodic_int(FUNC(gberet_state::nmi_line_assert), attotime::from_hz(XTAL(20'000'000)/0x8000)); // divider guessed
 
-	MCFG_MACHINE_START_OVERRIDE(gberet_state,gberet)
-	MCFG_MACHINE_RESET_OVERRIDE(gberet_state,gberet)
-
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
 	screen.set_refresh_hz(60);
@@ -468,7 +461,6 @@ void gberet_state::gberetb(machine_config &config)
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_gberetb);
 	PALETTE(config, m_palette, FUNC(gberet_state::gberet_palette), 2*16*16, 32);
-	MCFG_VIDEO_START_OVERRIDE(gberet_state,gberet)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

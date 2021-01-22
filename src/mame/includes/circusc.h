@@ -14,6 +14,7 @@
 #include "sound/sn76496.h"
 #include "sound/discrete.h"
 #include "emupal.h"
+#include "tilemap.h"
 
 class circusc_state : public driver_device
 {
@@ -58,14 +59,14 @@ public:
 
 	bool             m_irq_mask;
 
-	DECLARE_READ8_MEMBER(circusc_sh_timer_r);
-	DECLARE_WRITE8_MEMBER(circusc_sh_irqtrigger_w);
+	uint8_t circusc_sh_timer_r();
+	void circusc_sh_irqtrigger_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(coin_counter_1_w);
 	DECLARE_WRITE_LINE_MEMBER(coin_counter_2_w);
-	DECLARE_WRITE8_MEMBER(circusc_sound_w);
+	void circusc_sound_w(offs_t offset, uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(irq_mask_w);
-	DECLARE_WRITE8_MEMBER(circusc_videoram_w);
-	DECLARE_WRITE8_MEMBER(circusc_colorram_w);
+	void circusc_videoram_w(offs_t offset, uint8_t data);
+	void circusc_colorram_w(offs_t offset, uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(flipscreen_w);
 	DECLARE_WRITE_LINE_MEMBER(spritebank_w);
 	void init_circusc();

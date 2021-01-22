@@ -18,6 +18,9 @@
 #include "vbiparse.h"
 #include "avhuff.h"
 
+#include <type_traits>
+#include <utility>
+
 
 //**************************************************************************
 //  CONSTANTS
@@ -122,25 +125,15 @@ public:
 	void set_overlay_config(const laserdisc_overlay_config &config) { static_cast<laserdisc_overlay_config &>(*this) = config; }
 
 	// configuration helpers
-	template <typename... T> void set_get_disc(T &&... args) { m_getdisc_callback = get_disc_delegate(std::forward<T>(args)...); }
-	template <typename... T> void set_audio(T &&... args) { m_audio_callback = audio_delegate(std::forward<T>(args)...); }
-	// FIXME: these should be aware of current device for resolving the tag
-	template <class FunctionClass>
-	void set_overlay(uint32_t width, uint32_t height, u32 (FunctionClass::*callback)(screen_device &, bitmap_rgb32 &, const rectangle &), const char *name)
-	{
-		set_overlay(width, height, screen_update_rgb32_delegate(callback, name, nullptr, static_cast<FunctionClass *>(nullptr)));
-	}
-	template <class FunctionClass>
-	void set_overlay(uint32_t width, uint32_t height, const char *devname, u32 (FunctionClass::*callback)(screen_device &, bitmap_rgb32 &, const rectangle &), const char *name)
-	{
-		set_overlay(width, height, screen_update_rgb32_delegate(callback, name, devname, static_cast<FunctionClass *>(nullptr)));
-	}
-	void set_overlay(uint32_t width, uint32_t height, screen_update_rgb32_delegate &&update)
+	template <typename... T> void set_get_disc(T &&... args) { m_getdisc_callback.set(std::forward<T>(args)...); }
+	template <typename... T> void set_audio(T &&... args) { m_audio_callback.set(std::forward<T>(args)...); }
+	template <typename... T>
+	void set_overlay(uint32_t width, uint32_t height, T &&... args)
 	{
 		m_overwidth = width;
 		m_overheight = height;
 		m_overclip.set(0, width - 1, 0, height - 1);
-		m_overupdate_rgb32 = std::move(update);
+		m_overupdate_rgb32.set(std::forward<T>(args)...);
 	}
 	void set_overlay_clip(int32_t minx, int32_t maxx, int32_t miny, int32_t maxy) { m_overclip.set(minx, maxx, miny, maxy); }
 	void set_overlay_position(float posx, float posy)
@@ -227,7 +220,7 @@ protected:
 	virtual void device_validity_check(validity_checker &valid) const override;
 
 	// device_sound_interface overrides
-	virtual void sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples) override;
+	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
 
 	// subclass helpers
 	void set_audio_squelch(bool squelchleft, bool squelchright) { m_stream->update(); m_audiosquelch = (squelchleft ? 1 : 0) | (squelchright ? 2 : 0); }
@@ -284,28 +277,29 @@ private:
 	std::vector<uint8_t>      m_vbidata;              // pointer to precomputed VBI data
 	int                 m_width;                // width of video
 	int                 m_height;               // height of video
-	uint32_t              m_fps_times_1million;   // frame rate of video
+	uint32_t            m_fps_times_1million;   // frame rate of video
 	int                 m_samplerate;           // audio samplerate
 	int                 m_readresult;           // result of the most recent read
-	uint32_t              m_chdtracks;            // number of tracks in the CHD
-	avhuff_decompress_config m_avhuff_config;   // decompression configuration
+	uint32_t            m_chdtracks;            // number of tracks in the CHD
+	bitmap_yuy16        m_avhuff_video;         // decompresed frame buffer
+	avhuff_decoder::config m_avhuff_config;     // decompression configuration
 
 	// async operations
 	osd_work_queue *    m_work_queue;           // work queue
-	uint32_t              m_queued_hunknum;       // queued hunk
+	uint32_t            m_queued_hunknum;       // queued hunk
 
 	// core states
-	uint8_t               m_audiosquelch;         // audio squelch state: bit 0 = audio 1, bit 1 = audio 2
-	uint8_t               m_videosquelch;         // video squelch state: bit 0 = on/off
-	uint8_t               m_fieldnum;             // field number (0 or 1)
-	int32_t               m_curtrack;             // current track at this end of this vsync
-	uint32_t              m_maxtrack;             // maximum track number
+	uint8_t             m_audiosquelch;         // audio squelch state: bit 0 = audio 1, bit 1 = audio 2
+	uint8_t             m_videosquelch;         // video squelch state: bit 0 = on/off
+	uint8_t             m_fieldnum;             // field number (0 or 1)
+	int32_t             m_curtrack;             // current track at this end of this vsync
+	uint32_t            m_maxtrack;             // maximum track number
 	attoseconds_t       m_attospertrack;        // attoseconds per track, or 0 if not moving
 	attotime            m_sliderupdate;         // time of last slider update
 
 	// video data
 	frame_data          m_frame[3];             // circular list of frames
-	uint8_t               m_videoindex;           // index of the current video buffer
+	uint8_t             m_videoindex;           // index of the current video buffer
 	bitmap_yuy16        m_emptyframe;           // blank frame
 
 	// audio data
@@ -333,7 +327,7 @@ private:
 };
 
 // iterator - interface iterator works for subclasses too
-typedef device_interface_iterator<laserdisc_device> laserdisc_device_iterator;
+typedef device_interface_enumerator<laserdisc_device> laserdisc_device_enumerator;
 
 
 

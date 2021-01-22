@@ -65,11 +65,12 @@ enum {
 DEFINE_DEVICE_TYPE(HP98046_IO_CARD, hp98046_io_card_device , "hp98046" , "HP98046 card")
 
 hp98046_io_card_device::hp98046_io_card_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: hp9845_io_card_device(mconfig , HP98046_IO_CARD , tag , owner , clock)
-	, m_cpu(*this , "cpu")
-	, m_sio(*this , "sio")
-	, m_rs232(*this , "rs232")
-	, m_loopback_en(*this , "loop")
+	: device_t(mconfig, HP98046_IO_CARD, tag, owner, clock)
+	, device_hp9845_io_interface(mconfig, *this)
+	, m_cpu(*this, "cpu")
+	, m_sio(*this, "sio")
+	, m_rs232(*this, "rs232")
+	, m_loopback_en(*this, "loop")
 {
 }
 
@@ -77,7 +78,7 @@ hp98046_io_card_device::~hp98046_io_card_device()
 {
 }
 
-READ16_MEMBER(hp98046_io_card_device::reg_r)
+uint16_t hp98046_io_card_device::reg_r(address_space &space, offs_t offset)
 {
 	uint16_t res = 0;
 
@@ -128,7 +129,7 @@ READ16_MEMBER(hp98046_io_card_device::reg_r)
 	return res;
 }
 
-WRITE16_MEMBER(hp98046_io_card_device::reg_w)
+void hp98046_io_card_device::reg_w(address_space &space, offs_t offset, uint16_t data)
 {
 	LOG_CPU("wr R%u=%04x\n" , offset + 4 , data);
 
@@ -194,7 +195,7 @@ void hp98046_io_card_device::device_add_mconfig(machine_config &config)
 	m_rs232->dcd_handler().set(FUNC(hp98046_io_card_device::rs232_dcd_w));
 	m_rs232->dsr_handler().set(FUNC(hp98046_io_card_device::rs232_dsr_w));
 	m_rs232->cts_handler().set(FUNC(hp98046_io_card_device::rs232_cts_w));
-	config.m_minimum_quantum = attotime::from_hz(5000);
+	config.set_maximum_quantum(attotime::from_hz(5000));
 }
 
 static INPUT_PORTS_START(hp98046_port)
@@ -290,12 +291,12 @@ void hp98046_io_card_device::cpu_io_map(address_map &map)
 	map(0 , 0xff).rw(FUNC(hp98046_io_card_device::cpu_r) , FUNC(hp98046_io_card_device::cpu_w));
 }
 
-READ8_MEMBER(hp98046_io_card_device::ram_r)
+uint8_t hp98046_io_card_device::ram_r(offs_t offset)
 {
 	return m_ram[ offset ];
 }
 
-READ8_MEMBER(hp98046_io_card_device::cpu_r)
+uint8_t hp98046_io_card_device::cpu_r(offs_t offset)
 {
 	if (BIT(m_port_2 , 2)) {
 		return m_ram[ (offset & 0xff) | (uint16_t(m_port_2 & 3) << 8) ];
@@ -341,7 +342,7 @@ READ8_MEMBER(hp98046_io_card_device::cpu_r)
 	}
 }
 
-WRITE8_MEMBER(hp98046_io_card_device::cpu_w)
+void hp98046_io_card_device::cpu_w(offs_t offset, uint8_t data)
 {
 	if (BIT(m_port_2 , 2)) {
 		m_ram[ (offset & 0xff) | (uint16_t(m_port_2 & 3) << 8) ] = data;
@@ -413,7 +414,7 @@ WRITE8_MEMBER(hp98046_io_card_device::cpu_w)
 	}
 }
 
-READ8_MEMBER(hp98046_io_card_device::p1_r)
+uint8_t hp98046_io_card_device::p1_r()
 {
 	uint8_t res = 0;
 	// b7: b8 of word @ txFIFO head
@@ -452,7 +453,7 @@ READ8_MEMBER(hp98046_io_card_device::p1_r)
 	return res;
 }
 
-WRITE8_MEMBER(hp98046_io_card_device::p2_w)
+void hp98046_io_card_device::p2_w(uint8_t data)
 {
 	LOG_MCU("p2=%02x\n" , data);
 	uint8_t diff = data ^ m_port_2;

@@ -209,6 +209,7 @@ A Note about Best Bet Products.
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 #include "peplus.lh"
 #include "pe_schip.lh"
@@ -237,8 +238,8 @@ public:
 		m_bp(*this, "BP"),
 		m_touch_x(*this, "TOUCH_X"),
 		m_touch_y(*this, "TOUCH_Y"),
+		m_inp_bank(*this, "IN_BANK%u", 1U),
 		m_cmos_ram(*this, "cmos"),
-		m_program_ram(*this, "prograram"),
 		m_s3000_ram(*this, "s3000_ram"),
 		m_s5000_ram(*this, "s5000_ram"),
 		m_videoram(*this, "videoram"),
@@ -260,7 +261,7 @@ public:
 	void init_pepluss64();
 	void init_peplussbw();
 
-	DECLARE_CUSTOM_INPUT_MEMBER(input_r);
+	template <int N> DECLARE_CUSTOM_INPUT_MEMBER(input_r);
 
 protected:
 	virtual void machine_start() override;
@@ -282,9 +283,9 @@ private:
 	optional_ioport m_bp;
 	optional_ioport m_touch_x;
 	optional_ioport m_touch_y;
+	optional_ioport_array<2> m_inp_bank;
 
 	required_shared_ptr<uint8_t> m_cmos_ram;
-	required_shared_ptr<uint8_t> m_program_ram;
 	required_shared_ptr<uint8_t> m_s3000_ram;
 	required_shared_ptr<uint8_t> m_s5000_ram;
 	required_shared_ptr<uint8_t> m_videoram;
@@ -326,23 +327,23 @@ private:
 	uint8_t m_paldata[2];
 	emu_timer *m_assert_lp_timer;
 
-	DECLARE_WRITE8_MEMBER(bgcolor_w);
-	template<uint8_t Which> DECLARE_WRITE8_MEMBER(paldata_w);
-	DECLARE_WRITE8_MEMBER(crtc_display_w);
-	DECLARE_WRITE8_MEMBER(duart_w);
-	DECLARE_WRITE8_MEMBER(cmos_w);
-	DECLARE_WRITE8_MEMBER(output_bank_a_w);
-	DECLARE_WRITE8_MEMBER(output_bank_b_w);
-	DECLARE_WRITE8_MEMBER(output_bank_c_w);
-	DECLARE_READ8_MEMBER(duart_r);
-	DECLARE_READ8_MEMBER(bgcolor_r);
-	DECLARE_READ8_MEMBER(dropdoor_r);
-	DECLARE_READ8_MEMBER(watchdog_r);
-	DECLARE_WRITE8_MEMBER(crtc_mode_w);
+	void bgcolor_w(uint8_t data);
+	template<uint8_t Which> void paldata_w(uint8_t data);
+	void crtc_display_w(uint8_t data);
+	void duart_w(uint8_t data);
+	void cmos_w(offs_t offset, uint8_t data);
+	void output_bank_a_w(uint8_t data);
+	void output_bank_b_w(uint8_t data);
+	void output_bank_c_w(uint8_t data);
+	uint8_t duart_r();
+	uint8_t bgcolor_r();
+	uint8_t dropdoor_r();
+	uint8_t watchdog_r();
+	void crtc_mode_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(crtc_vsync);
-	DECLARE_WRITE8_MEMBER(i2c_nvram_w);
-	DECLARE_READ8_MEMBER(input_bank_a_r);
-	DECLARE_READ8_MEMBER(input0_r);
+	void i2c_nvram_w(uint8_t data);
+	uint8_t input_bank_a_r();
+	uint8_t input0_r();
 	TIMER_CALLBACK_MEMBER(assert_lp);
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
 	MC6845_ON_UPDATE_ADDR_CHANGED(crtc_addr);
@@ -381,7 +382,7 @@ void peplus_state::load_superdata(const char *bank_name)
 * Write Handlers *
 ******************/
 
-WRITE8_MEMBER(peplus_state::bgcolor_w)
+void peplus_state::bgcolor_w(uint8_t data)
 {
 	for (int i = 0; i < m_palette->entries() / 16; i++)
 	{
@@ -416,7 +417,7 @@ MC6845_ON_UPDATE_ADDR_CHANGED(peplus_state::crtc_addr)
 }
 
 
-WRITE8_MEMBER(peplus_state::crtc_mode_w)
+void peplus_state::crtc_mode_w(uint8_t data)
 {
 	/* Reset timing logic */
 }
@@ -445,12 +446,12 @@ WRITE_LINE_MEMBER(peplus_state::crtc_vsync)
 }
 
 template<uint8_t Which>
-WRITE8_MEMBER(peplus_state::paldata_w)
+void peplus_state::paldata_w(uint8_t data)
 {
 	m_paldata[Which] = data;
 }
 
-WRITE8_MEMBER(peplus_state::crtc_display_w)
+void peplus_state::crtc_display_w(uint8_t data)
 {
 	m_videoram[m_vid_address] = data;
 	m_palette_ram[0][m_vid_address] = m_paldata[0];
@@ -462,12 +463,12 @@ WRITE8_MEMBER(peplus_state::crtc_display_w)
 	m_crtc->register_r();
 }
 
-WRITE8_MEMBER(peplus_state::duart_w)
+void peplus_state::duart_w(uint8_t data)
 {
 	// Used for Slot Accounting System Communication
 }
 
-WRITE8_MEMBER(peplus_state::cmos_w)
+void peplus_state::cmos_w(offs_t offset, uint8_t data)
 {
 	char bank_name[6];
 
@@ -481,7 +482,7 @@ WRITE8_MEMBER(peplus_state::cmos_w)
 	m_cmos_ram[offset] = data;
 }
 
-WRITE8_MEMBER(peplus_state::output_bank_a_w)
+void peplus_state::output_bank_a_w(uint8_t data)
 {
 /*
 bits
@@ -503,7 +504,7 @@ x--- ---- specific to a kind of machine
 		m_coin_out_state = 3;
 }
 
-WRITE8_MEMBER(peplus_state::output_bank_b_w)
+void peplus_state::output_bank_b_w(uint8_t data)
 {
 /*
 bits
@@ -521,7 +522,7 @@ x--- ---- specific to a kind of machine
 		m_bnkb[i] = BIT(data, i);
 }
 
-WRITE8_MEMBER(peplus_state::output_bank_c_w)
+void peplus_state::output_bank_c_w(uint8_t data)
 {
 /*
 bits
@@ -541,7 +542,7 @@ x--- ---- Game Meter
 	m_bv_enable_state = (data >> 4) & 1;
 }
 
-WRITE8_MEMBER(peplus_state::i2c_nvram_w)
+void peplus_state::i2c_nvram_w(uint8_t data)
 {
 	m_i2cmem->write_scl(BIT(data, 2));
 	m_sda_dir = BIT(data, 1);
@@ -553,29 +554,29 @@ WRITE8_MEMBER(peplus_state::i2c_nvram_w)
 * Read Handlers *
 ****************/
 
-READ8_MEMBER(peplus_state::duart_r)
+uint8_t peplus_state::duart_r()
 {
 	// Used for Slot Accounting System Communication
 	return 0x00;
 }
 
 /* Last Color in Every Palette is bgcolor */
-READ8_MEMBER(peplus_state::bgcolor_r)
+uint8_t peplus_state::bgcolor_r()
 {
 	return m_palette->pen_color(15); // Return bgcolor from First Palette
 }
 
-READ8_MEMBER(peplus_state::dropdoor_r)
+uint8_t peplus_state::dropdoor_r()
 {
 	return 0x00; // Drop Door 0x00=Closed 0x02=Open
 }
 
-READ8_MEMBER(peplus_state::watchdog_r)
+uint8_t peplus_state::watchdog_r()
 {
 	return 0x00; // Watchdog
 }
 
-READ8_MEMBER(peplus_state::input0_r)
+uint8_t peplus_state::input0_r()
 {
 /*
         PE+ bill validators have a dip switch setting to switch between ID-022 and ID-023 protocols.
@@ -826,7 +827,7 @@ READ8_MEMBER(peplus_state::input0_r)
 	}
 }
 
-READ8_MEMBER(peplus_state::input_bank_a_r)
+uint8_t peplus_state::input_bank_a_r()
 {
 /*
         Bit 0 = COIN DETECTOR A
@@ -949,12 +950,12 @@ TILE_GET_INFO_MEMBER(peplus_state::get_bg_tile_info)
 		color += 0x10;
 	}
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 void peplus_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(peplus_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 40, 25);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(peplus_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 40, 25);
 	m_palette_ram[0] = std::make_unique<uint8_t[]>(0x3000);
 	memset(m_palette_ram[0].get(), 0, 0x3000);
 	m_palette_ram[1] = std::make_unique<uint8_t[]>(0x3000);
@@ -1024,7 +1025,7 @@ GFXDECODE_END
 
 void peplus_state::main_map(address_map &map)
 {
-	map(0x0000, 0xffff).rom().share(m_program_ram);
+	map(0x0000, 0xffff).rom();
 }
 
 void peplus_state::main_iomap(address_map &map)
@@ -1087,10 +1088,11 @@ void peplus_state::main_iomap(address_map &map)
 *      Input ports       *
 *************************/
 
+template <int N>
 CUSTOM_INPUT_MEMBER(peplus_state::input_r)
 {
 	uint8_t inp_ret = 0x00;
-	uint8_t inp_read = ioport((const char *)param)->read();
+	uint8_t inp_read = m_inp_bank[N]->read();
 
 	if (inp_read & 0x01) inp_ret = 0x01;
 	if (inp_read & 0x02) inp_ret = 0x02;
@@ -1164,9 +1166,9 @@ static INPUT_PORTS_START( peplus_schip )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_UNKNOWN )
 
 	PORT_START("IN0")
-	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK1")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<0>)
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK2")
+	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Card Cage") PORT_CODE(KEYCODE_M) PORT_TOGGLE
 INPUT_PORTS_END
 
@@ -1192,9 +1194,9 @@ static INPUT_PORTS_START( nonplus_poker )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_OTHER ) // Bill Acceptor
 
 	PORT_START("IN0")
-	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK1")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<0>)
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK2")
+	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Card Cage") PORT_CODE(KEYCODE_M) PORT_TOGGLE
 
 	PORT_MODIFY("SW1")
@@ -1242,9 +1244,9 @@ static INPUT_PORTS_START( peplus_poker )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_OTHER ) // Bill Acceptor
 
 	PORT_START("IN0")
-	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK1")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<0>)
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK2")
+	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Card Cage") PORT_CODE(KEYCODE_M) PORT_TOGGLE
 INPUT_PORTS_END
 
@@ -1270,9 +1272,9 @@ static INPUT_PORTS_START( peplus_bjack )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON15 ) // Bill Acceptor
 
 	PORT_START("IN0")
-	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK1")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<0>)
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK2")
+	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Card Cage") PORT_CODE(KEYCODE_M) PORT_TOGGLE
 INPUT_PORTS_END
 
@@ -1303,9 +1305,9 @@ static INPUT_PORTS_START( peplus_keno )
 	PORT_BIT( 0xffff, 0x200, IPT_LIGHTGUN_Y ) PORT_MINMAX(0x00, 1024) PORT_CROSSHAIR(Y, 1.0, 0.0, 0) PORT_SENSITIVITY(25) PORT_KEYDELTA(13)
 
 	PORT_START("IN0")
-	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK1")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<0>)
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("Light Pen") PORT_CODE(KEYCODE_A)
-	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK2")
+	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Card Cage") PORT_CODE(KEYCODE_M) PORT_TOGGLE
 INPUT_PORTS_END
 
@@ -1331,9 +1333,9 @@ static INPUT_PORTS_START( peplus_slots )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_BUTTON15 ) // Bill Acceptor
 
 	PORT_START("IN0")
-	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK1")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<0>)
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, peplus_state, input_r, "IN_BANK2")
+	PORT_BIT( 0x70, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(peplus_state, input_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Card Cage") PORT_CODE(KEYCODE_M) PORT_TOGGLE
 INPUT_PORTS_END
 
@@ -1396,7 +1398,7 @@ void peplus_state::peplus(machine_config &config)
 	m_crtc->set_screen(m_screen);
 	m_crtc->set_show_border_area(false);
 	m_crtc->set_char_width(8);
-	m_crtc->set_on_update_addr_change_callback(FUNC(peplus_state::crtc_addr), this);
+	m_crtc->set_on_update_addr_change_callback(FUNC(peplus_state::crtc_addr));
 	m_crtc->out_vsync_callback().set(FUNC(peplus_state::crtc_vsync));
 
 	I2C_X2404P(config, m_i2cmem);
@@ -1564,7 +1566,7 @@ ROM_START( peset100 ) /* Normal board : Set Chip (Set100) - PE+ Set Denomination
 	ROM_LOAD( "cap740.u50", 0x0000, 0x0100, CRC(6fe619c4) SHA1(49e43dafd010ce0fe9b2a63b96a4ddedcb933c6d) )
 ROM_END
 
-ROM_START( peset117 ) /* Normal board : Set Chip (Set100) - PE+ Set Denomination / Enable Validator */
+ROM_START( peset117 ) /* Normal board : Set Chip (Set117) - PE+ Set Denomination / Enable Validator */
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "set117.u68",   0x00000, 0x10000, CRC(91f6e10e) SHA1(905ea19b2d031cdb4b4a51578ca42008c29c3e19) )
 
@@ -6986,10 +6988,10 @@ Currently errors out with CCOM LINK DOWN as CCOM linking is not supported
 	ROM_LOAD( "pp0596_a41-a5y.u68",   0x00000, 0x10000, CRC(18475dfe) SHA1(98b8dfd98ce163e78e5c6e80b31dcc58d3ee74e6) ) /* Game Version: A45, Library Version: A5Y, Video Lib Ver: A4N - 09/05/95   @ IGT NJ */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
-	ROM_LOAD( "mro-cg2093.u72",   0x00000, 0x8000, BAD_DUMP CRC(1380bfa6) SHA1(4c3512770afee29d1d9b384a2ea2ad59018f1d4e) ) /* corruption in some graphics */
-	ROM_LOAD( "mgo-cg2093.u73",   0x08000, 0x8000, BAD_DUMP CRC(8bf73e80) SHA1(25ee0a6fe61d1f92a47fd9408c36111b1ed73a56) )
-	ROM_LOAD( "mbo-cg2093.u74",   0x10000, 0x8000, BAD_DUMP CRC(907400f2) SHA1(56ceb960a08b2d3f87e4acb720675cbbfb39d012) )
-	ROM_LOAD( "mxo-cg2093.u75",   0x18000, 0x8000, BAD_DUMP CRC(b6c3e987) SHA1(97f71792cb584a659615d1fe78228ac11fe32571) )
+	ROM_LOAD( "mro-cg2093.u72",   0x00000, 0x8000, CRC(1380bfa6) SHA1(4c3512770afee29d1d9b384a2ea2ad59018f1d4e) ) /*   09/02/94   @ IGT  NJ  */
+	ROM_LOAD( "mgo-cg2093.u73",   0x08000, 0x8000, CRC(8bf73e80) SHA1(25ee0a6fe61d1f92a47fd9408c36111b1ed73a56) )
+	ROM_LOAD( "mbo-cg2093.u74",   0x10000, 0x8000, CRC(907400f2) SHA1(56ceb960a08b2d3f87e4acb720675cbbfb39d012) )
+	ROM_LOAD( "mxo-cg2093.u75",   0x18000, 0x8000, CRC(04712ef6) SHA1(8dde637baa31b17d2949cb2006123e70b32b8f48) )
 
 	ROM_REGION( 0x100, "proms", 0 )
 	ROM_LOAD( "cap779.u50", 0x0000, 0x0100, CRC(b04a98fd) SHA1(4788c7cb88aa692a55855ca65e092df43506e55a) )
@@ -7012,10 +7014,10 @@ Currently errors out with CCOM LINK DOWN as CCOM linking is not supported
 	ROM_LOAD( "pp0598_a41-a96.u68",   0x00000, 0x10000, CRC(075295db) SHA1(7cb238d4df7be7e393dcfe7102aeffa13b1454d9) ) /* Game Version: A45, Library Version: A96, Video Lib Ver: A4N - 12/21/95   @ IGT MS */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
-	ROM_LOAD( "mro-cg2093.u72",   0x00000, 0x8000, BAD_DUMP CRC(1380bfa6) SHA1(4c3512770afee29d1d9b384a2ea2ad59018f1d4e) ) /* corruption in some graphics */
-	ROM_LOAD( "mgo-cg2093.u73",   0x08000, 0x8000, BAD_DUMP CRC(8bf73e80) SHA1(25ee0a6fe61d1f92a47fd9408c36111b1ed73a56) )
-	ROM_LOAD( "mbo-cg2093.u74",   0x10000, 0x8000, BAD_DUMP CRC(907400f2) SHA1(56ceb960a08b2d3f87e4acb720675cbbfb39d012) )
-	ROM_LOAD( "mxo-cg2093.u75",   0x18000, 0x8000, BAD_DUMP CRC(b6c3e987) SHA1(97f71792cb584a659615d1fe78228ac11fe32571) )
+	ROM_LOAD( "mro-cg2093.u72",   0x00000, 0x8000, CRC(1380bfa6) SHA1(4c3512770afee29d1d9b384a2ea2ad59018f1d4e) ) /*   09/02/94   @ IGT  NJ  */
+	ROM_LOAD( "mgo-cg2093.u73",   0x08000, 0x8000, CRC(8bf73e80) SHA1(25ee0a6fe61d1f92a47fd9408c36111b1ed73a56) )
+	ROM_LOAD( "mbo-cg2093.u74",   0x10000, 0x8000, CRC(907400f2) SHA1(56ceb960a08b2d3f87e4acb720675cbbfb39d012) )
+	ROM_LOAD( "mxo-cg2093.u75",   0x18000, 0x8000, CRC(04712ef6) SHA1(8dde637baa31b17d2949cb2006123e70b32b8f48) )
 
 	ROM_REGION( 0x100, "proms", 0 )
 	ROM_LOAD( "cap779.u50", 0x0000, 0x0100, CRC(b04a98fd) SHA1(4788c7cb88aa692a55855ca65e092df43506e55a) )
@@ -7030,7 +7032,7 @@ PayTable   Js+  2PR  3K   STR  FL  FH  4K  SF  RF  (Bonus)
      Programs Available: PP0451, X000451P & PP0711 - Non Double-up Only
 */
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "pp0713_a45-a74.u68",   0x00000, 0x10000, CRC(d3cfa1f2) SHA1(ddab79f559c33d7e2774c29dad12008df1343025) ) /* Game Version: A45, Library Version: A74 */
+	ROM_LOAD( "pp0711_a45-a74.u68",   0x00000, 0x10000, CRC(d3cfa1f2) SHA1(ddab79f559c33d7e2774c29dad12008df1343025) ) /* Game Version: A45, Library Version: A74 */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
 	ROM_LOAD( "mro-cg2004.u72",  0x00000, 0x8000, CRC(e5e40ea5) SHA1(e0d9e50b30cc0c25c932b2bf444990df1fb2c38c) ) /*  08/31/94   @ IGT  L95-0146  */
@@ -8706,6 +8708,64 @@ ROM_START( peps0722 ) /* Normal board : River Gambler Slots (PS0722) - Payout 90
 	ROM_LOAD( "cap2266.u50", 0x0000, 0x0100, CRC(5aaff103) SHA1(9cfda9c095cb77a8bb761c131a0f358e79b97abc) )
 ROM_END
 
+// Imperial boards (New Zealand)
+
+ROM_START( im1p1952 ) // Imperial Blue Moon - Payout 90.30%
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "gmo-1p1952iz.u65",   0x00000, 0x10000, CRC(86d0cf2c) SHA1(a0b98c811a589777a95d1b352a573c3165dc49af) )
+
+	ROM_REGION( 0x020000, "gfx1", 0 )
+	ROM_LOAD( "mro-cf275.u69",  0x00000, 0x8000, CRC(d2b77f8f) SHA1(064b8fd6752f81d9f86d5cd8d5451e473e44ae30) )
+	ROM_LOAD( "mgo-cf275.u70",  0x08000, 0x8000, CRC(6f646a91) SHA1(0bf2b6486a7cb0f95a83692a6c74635149d965f5) )
+	ROM_LOAD( "mbo-cf275.u71",  0x10000, 0x8000, CRC(978e8c18) SHA1(581ac4f2a273b40be56e4201b31320e8d53037e8) )
+	ROM_LOAD( "mxo-cf275.u72",  0x18000, 0x8000, CRC(3589611d) SHA1(2410e79cd7032b359882fe2ac4b8c1fec2446daf) )
+
+	ROM_REGION( 0x100, "proms", 0 )
+	ROM_LOAD( "cap916.u50", 0x0000, 0x0100, BAD_DUMP CRC(b9a5ee21) SHA1(d3c952f594baca9dc234602d90c506dd537c4dcc) ) // borrowed from other sets, no dump available
+ROM_END
+
+ROM_START( im1p19s1 ) // Imperial Sheer Magic - Payout 88.43%
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "gmo-1p19s1iz.u65",   0x00000, 0x10000, CRC(c9b2879e) SHA1(fad26a3ce626612939b6adcff2fb7d4fce7046ee) )
+
+	ROM_REGION( 0x020000, "gfx1", 0 )
+	ROM_LOAD( "mro-cf278.u69",  0x00000, 0x8000, CRC(f706f1e5) SHA1(a86e0d57b90ac73d54994fa33929c60e54e3d84b) )
+	ROM_LOAD( "mgo-cf278.u70",  0x08000, 0x8000, CRC(c558e866) SHA1(b199676160e9fe5c881ed10f0e65b08294107aea) )
+	ROM_LOAD( "mbo-cf278.u71",  0x10000, 0x8000, CRC(e85ce9af) SHA1(6cbbfdb22fb9e2d5f3abbcfa92c4056d965d80a0) )
+	ROM_LOAD( "mxo-cf278.u72",  0x18000, 0x8000, CRC(dc911aa0) SHA1(6f08d976b594fb5daee580209a67d6ad16928aec) )
+
+	ROM_REGION( 0x100, "proms", 0 )
+	ROM_LOAD( "cap916.u50", 0x0000, 0x0100, BAD_DUMP CRC(b9a5ee21) SHA1(d3c952f594baca9dc234602d90c506dd537c4dcc) ) // borrowed from other sets, no dump available
+ROM_END
+
+ROM_START( im2p1929 ) // Imperial Castaway Stampede - Payout 90.47%
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "gmo-2p1929iz.u65",   0x00000, 0x10000, CRC(a0d99772) SHA1(e42dcf0593289c0f175475729763d4f7af34d0e9) )
+
+	ROM_REGION( 0x020000, "gfx1", 0 )
+	ROM_LOAD( "mro-cf280.u69",  0x00000, 0x8000, CRC(d5fe1cc2) SHA1(d43746ad33ea8e4ee9ad86dd6de71820203168f4) )
+	ROM_LOAD( "mgo-cf280.u70",  0x08000, 0x8000, CRC(310ee9a8) SHA1(8263e60e8243a1a4e8c8adecb89697e01ded4b35) )
+	ROM_LOAD( "mbo-cf280.u71",  0x10000, 0x8000, CRC(fe506abc) SHA1(694e43442b5e657d05af561b856dfc0042088c6f) )
+	ROM_LOAD( "mxo-cf280.u72",  0x18000, 0x8000, CRC(beabe920) SHA1(a2d57aa219043fd785104b1924fdb8914a7e3a90) )
+
+	ROM_REGION( 0x100, "proms", 0 )
+	ROM_LOAD( "cap916.u50", 0x0000, 0x0100, BAD_DUMP CRC(b9a5ee21) SHA1(d3c952f594baca9dc234602d90c506dd537c4dcc) ) // borrowed from other sets, no dump available
+ROM_END
+
+ROM_START( im3p1940 ) // Imperial Cashline D Bucks - Payout 90.40%
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "gmo-3p1940iz.u65",   0x00000, 0x10000, CRC(a891bf0d) SHA1(8c85f356ef3642589544344b4ebcbb7010107a11) )
+
+	ROM_REGION( 0x020000, "gfx1", 0 )
+	ROM_LOAD( "mro-cf291.u69",  0x00000, 0x8000, CRC(510d293a) SHA1(4551f75d2927a5a6a60f61803a5a76968f0c3969) )
+	ROM_LOAD( "mgo-cf291.u70",  0x08000, 0x8000, CRC(fa788dbe) SHA1(ea024a412c1dfa93d259f88ad59d2ab0b0495671) )
+	ROM_LOAD( "mbo-cf291.u71",  0x10000, 0x8000, CRC(8a44d14d) SHA1(1103fb37d8fa03c9592b3ffb95f759efce27a91e) )
+	ROM_LOAD( "mxo-cf291.u72",  0x18000, 0x8000, CRC(3204fe6c) SHA1(aee72fd9a91cc8f8228c78e428ffad134579ef3d) )
+
+	ROM_REGION( 0x100, "proms", 0 )
+	ROM_LOAD( "cap916.u50", 0x0000, 0x0100, BAD_DUMP CRC(b9a5ee21) SHA1(d3c952f594baca9dc234602d90c506dd537c4dcc) ) // borrowed from other sets, no dump available
+ROM_END
+
 ROM_START( pex0002p ) /* Superboard : Standard Draw Poker (X000002P+XP000038) - PSR Verified */
 /*
 PayTable   Js+  2PR  3K   STR  FL  FH  4K  SF  RF  (Bonus)
@@ -9624,6 +9684,31 @@ PayTable   3K   STR  FL  FH  4K  SF  5K  RF  4D  RF  (Bonus)
 
 	ROM_REGION( 0x200, "proms", 0 )
 	ROM_LOAD( "capx2234.u43", 0x0000, 0x0200, CRC(519000fa) SHA1(31cd72643ca74a778418f944045e9e03937143d6) )
+ROM_END
+
+ROM_START( pex0057pg ) /* Superboard : Deuces Wild Poker (X000057P+XP000038) */
+/*
+                                        w/D     w/oD
+PayTable   3K   STR  FL  FH  4K  SF  5K  RF  4D  RF  (Bonus)
+------------------------------------------------------------
+  P34A      1    2    2   3   5   9  15  25 200 250    800
+  % Range: 96.8-98.8%  Optimum: 100.8%  Hit Frequency: 45.3%
+     Programs Available: PP0057, X000057P
+*/
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "xp000038.u67",   0x00000, 0x10000, CRC(8707ab9e) SHA1(3e00a2ad8017e1495c6d6fe900d0efa68a1772b8) ) /*  09/05/95   @ IGT  L95-2452 */
+
+	ROM_REGION( 0x10000, "user1", 0 )
+	ROM_LOAD( "x000057p.u66",   0x00000, 0x10000, CRC(2046710a) SHA1(3fcc7c3069ea54d0e4982814aca1d7b327bb2074) ) /* Deuces Wild Poker - 05/04/95   @ IGT  L95-1143 */
+
+	ROM_REGION( 0x020000, "gfx1", 0 )
+	ROM_LOAD( "mro-cg2319.u77",  0x00000, 0x8000, CRC(fc212494) SHA1(7f07ca7c8d940bf15ed2b56640f7e624dbad862d) ) /* Custom MGM Grand Casino card backs - 12/04/96   @ IGT  L97-0476   */
+	ROM_LOAD( "mgo-cg2319.u78",  0x08000, 0x8000, CRC(11a305db) SHA1(a8418e1c239c8b41f80bd545b31e7044fdad863d) ) /* Compatible with most "standard" game sets */
+	ROM_LOAD( "mbo-cg2319.u79",  0x10000, 0x8000, CRC(d394fe2f) SHA1(dbed51bd4a7578471a9dec49dcfc2335a0299274) )
+	ROM_LOAD( "mxo-cg2319.u80",  0x18000, 0x8000, CRC(45e6399c) SHA1(39f3953a45917ce896c8d6541d03767e729d2a25) )
+
+	ROM_REGION( 0x200, "proms", 0 )
+	ROM_LOAD( "capx2319.u43", 0x0000, 0x0200, CRC(3c8d089b) SHA1(96bb1691dd561bdbc541c6c5b5bca97bd3818b69) )
 ROM_END
 
 ROM_START( pex0060p ) /* Superboard : Standard Draw Poker (X000060P+XP000038) - PSR Verified */
@@ -13970,7 +14055,7 @@ Double Bonus Poker   P323A     99.10%
 	ROM_LOAD( "xm00006p.u66",   0x00000, 0x10000, CRC(b464ee79) SHA1(8768e52c66881c8f327055124ff31bcad79fd027) ) /*  03/08/96   @ IGT  L96-0684  */
 
 	ROM_REGION( 0x020000, "gfx1", 0 )
-	ROM_LOAD( "mro-cg2294.u77",  0x00000, 0x8000, CRC(2f707abc) SHA1(3ed14b165cc1c6ad1a0c8ceddbe6d10666de7a1e) ) /* Custom The Orleans graphics */
+	ROM_LOAD( "mro-cg2294.u77",  0x00000, 0x8000, CRC(2f707abc) SHA1(3ed14b165cc1c6ad1a0c8ceddbe6d10666de7a1e) ) /* Custom The Orleans card backs - 09/13/96   @ IGT  L96-2292 */
 	ROM_LOAD( "mgo-cg2294.u78",  0x08000, 0x8000, CRC(3dc48f1a) SHA1(d0c4861eba3f37064c6a1b62488764e18a762461) ) /* Compatible with XM00001P, XM00002P, XM00003P & XM00006P */
 	ROM_LOAD( "mbo-cg2294.u79",  0x10000, 0x8000, CRC(ce8aebdb) SHA1(0c08561016aeadee95e843299cccff3114d839e2) )
 	ROM_LOAD( "mxo-cg2294.u80",  0x18000, 0x8000, CRC(5fba4c90) SHA1(259359b11af9a554364ae90989a23fc2c848d16c) )
@@ -14732,6 +14817,12 @@ GAMEL( 1996, peps0708,  0,        peplus, peplus_slots,  peplus_state, init_pepl
 GAMEL( 1996, peps0716,  0,        peplus, peplus_slots,  peplus_state, init_peplus,   ROT0, "IGT - International Game Technology", "Player's Edge Plus (PS0716) River Gambler Slots",              MACHINE_SUPPORTS_SAVE, layout_pe_slots )
 GAMEL( 1996, peps0722,  peps0716, peplus, peplus_slots,  peplus_state, init_peplus,   ROT0, "IGT - International Game Technology", "Player's Edge Plus (PS0722) River Gambler Slots",              MACHINE_SUPPORTS_SAVE, layout_pe_slots )
 
+// IGT Imperial slots (New Zealand)
+GAMEL( 1995, im1p1952,  0,        peplus, peplus_slots,  peplus_state, init_peplus,   ROT0, "IGT - International Game Technology", "Imperial (1P1952IZ) Blue Moon",                                MACHINE_WRONG_COLORS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_pe_slots ) // stuck during initialization, CAP not dumped
+GAMEL( 1995, im1p19s1,  0,        peplus, peplus_slots,  peplus_state, init_peplus,   ROT0, "IGT - International Game Technology", "Imperial (1P19S1IZ) Sheer Magic",                              MACHINE_WRONG_COLORS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_pe_slots ) // stuck during initialization, CAP not dumped
+GAMEL( 1995, im2p1929,  0,        peplus, peplus_slots,  peplus_state, init_peplus,   ROT0, "IGT - International Game Technology", "Imperial (2P1929IZ) Castaway Stampede",                        MACHINE_WRONG_COLORS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_pe_slots ) // stuck during initialization, CAP not dumped
+GAMEL( 1995, im3p1940,  0,        peplus, peplus_slots,  peplus_state, init_peplus,   ROT0, "IGT - International Game Technology", "Imperial (3P1940IZ) Cashline D Bucks",                         MACHINE_WRONG_COLORS | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE, layout_pe_slots ) // stuck during initialization, CAP not dumped
+
 /* Superboard : Poker */
 GAMEL( 1995, pex0002p,  0,        peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000002P+XP000038) Standard Draw Poker", MACHINE_SUPPORTS_SAVE, layout_pe_poker )
 GAMEL( 1995, pex0002pa, pex0002p, peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000002P+XP000006) Standard Draw Poker", MACHINE_SUPPORTS_SAVE, layout_pe_poker )
@@ -14770,6 +14861,7 @@ GAMEL( 1995, pex0057pc, pex0057p, peplus, peplus_poker,  peplus_state, init_pepl
 GAMEL( 1995, pex0057pd, pex0057p, peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000057P+XP000038) Deuces Wild Poker (The Wild Wild West Casino)", MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE, layout_pe_poker ) /* CAPX2389 not dumped */
 GAMEL( 1995, pex0057pe, pex0057p, peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000057P+XP000038) Deuces Wild Poker (Sunset Station Hotel-Casino)", MACHINE_SUPPORTS_SAVE, layout_pe_poker )
 GAMEL( 1995, pex0057pf, pex0057p, peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000057P+XP000038) Deuces Wild Poker (Stratosphere Players Club)", MACHINE_SUPPORTS_SAVE, layout_pe_poker )
+GAMEL( 1995, pex0057pg, pex0057p, peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000057P+XP000038) Deuces Wild Poker (MGM Grand Casino)", MACHINE_SUPPORTS_SAVE, layout_pe_poker )
 GAMEL( 1995, pex0060p,  0,        peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000060P+XP000038) Standard Draw Poker", MACHINE_SUPPORTS_SAVE, layout_pe_poker )
 GAMEL( 1995, pex0124p,  0,        peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000124P+XP000038) Deuces Wild Poker",   MACHINE_SUPPORTS_SAVE, layout_pe_poker )
 GAMEL( 1995, pex0150p,  0,        peplus, peplus_poker,  peplus_state, init_peplussb, ROT0, "IGT - International Game Technology", "Player's Edge Plus (X000150P+XP000038) Standard Draw Poker", MACHINE_SUPPORTS_SAVE, layout_pe_poker )

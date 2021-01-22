@@ -10,6 +10,7 @@
 #include "emu.h"
 #include "drivenum.h"
 #include "render.h"
+#include "rendlay.h"
 #include "rendutil.h"
 #include "emuopts.h"
 #include "aviio.h"
@@ -114,8 +115,8 @@ public:
 
 		for (int y = 0; y < m_height; y++)
 		{
-			DWORD *src = (DWORD *)((BYTE *)rect.pBits + y * rect.Pitch);
-			uint32_t *dst = &m_frame.pix32(y);
+			auto *src = (DWORD *)((BYTE *)rect.pBits + y * rect.Pitch);
+			uint32_t *dst = &m_frame.pix(y);
 
 			for (int x = 0; x < m_width; x++)
 			{
@@ -223,7 +224,7 @@ shaders::~shaders()
 
 	if (options != nullptr)
 	{
-		global_free(options);
+		delete options;
 		options = nullptr;
 	}
 }
@@ -342,8 +343,8 @@ void shaders::render_snapshot(IDirect3DSurface9 *surface)
 
 	for (int y = 0; y < height; y++)
 	{
-		DWORD *src = (DWORD *)((BYTE *)rect.pBits + y * rect.Pitch);
-		uint32_t *dst = &snapshot.pix32(y);
+		auto *src = (DWORD *)((BYTE *)rect.pBits + y * rect.Pitch);
+		uint32_t *dst = &snapshot.pix(y);
 
 		for (int x = 0; x < width; x++)
 		{
@@ -359,14 +360,14 @@ void shaders::render_snapshot(IDirect3DSurface9 *surface)
 	// add two text entries describing the image
 	std::string text1 = std::string(emulator_info::get_appname()).append(" ").append(emulator_info::get_build_version());
 	std::string text2 = std::string(machine->system().manufacturer).append(" ").append(machine->system().type.fullname());
-	png_info pnginfo;
-	pnginfo.add_text("Software", text1.c_str());
-	pnginfo.add_text("System", text2.c_str());
+	util::png_info pnginfo;
+	pnginfo.add_text("Software", text1);
+	pnginfo.add_text("System", text2);
 
 	// now do the actual work
-	png_error error = png_write_bitmap(file, &pnginfo, snapshot, 1 << 24, nullptr);
-	if (error != PNGERR_NONE)
-		osd_printf_error("Error generating PNG for HLSL snapshot: png_error = %d\n", error);
+	util::png_error error = util::png_write_bitmap(file, &pnginfo, snapshot, 1 << 24, nullptr);
+	if (error != util::png_error::NONE)
+		osd_printf_error("Error generating PNG for HLSL snapshot: png_error = %d\n", std::underlying_type_t<util::png_error>(error));
 
 	result = snap_copy_target->UnlockRect();
 	if (FAILED(result))
@@ -492,14 +493,14 @@ bool shaders::init(d3d_base *d3dintf, running_machine *machine, renderer_d3d9 *r
 
 	enumerate_screens();
 
-	windows_options &winoptions = downcast<windows_options &>(machine->options());
+	auto &winoptions = downcast<windows_options &>(machine->options());
 
 	post_fx_enable = winoptions.d3d_hlsl_enable();
 	oversampling_enable = winoptions.d3d_hlsl_oversampling();
 	snap_width = winoptions.d3d_snap_width();
 	snap_height = winoptions.d3d_snap_height();
 
-	this->options = (hlsl_options*)global_alloc_clear<hlsl_options>();
+	this->options = make_unique_clear<hlsl_options>().release();
 	this->options->params_init = false;
 
 	// copy last options if initialized
@@ -721,7 +722,11 @@ int shaders::create_resources()
 		osd_printf_verbose("Direct3D: Error %08lX during device SetRenderTarget call\n", result);
 
 	emu_file file(machine->options().art_path(), OPEN_FLAG_READ);
-	render_load_png(shadow_bitmap, file, nullptr, options->shadow_mask_texture);
+	if (file.open(options->shadow_mask_texture) == osd_file::error::NONE)
+	{
+		render_load_png(shadow_bitmap, file);
+		file.close();
+	}
 
 	// experimental: if we have a shadow bitmap, create a texture for it
 	if (shadow_bitmap.valid())
@@ -742,7 +747,11 @@ int shaders::create_resources()
 		d3d->get_texture_manager()->m_texture_list.push_back(std::move(tex));
 	}
 
-	render_load_png(lut_bitmap, file, nullptr, options->lut_texture);
+	if (file.open(options->lut_texture) == osd_file::error::NONE)
+	{
+		render_load_png(lut_bitmap, file);
+		file.close();
+	}
 	if (lut_bitmap.valid())
 	{
 		render_texinfo texture;
@@ -761,7 +770,11 @@ int shaders::create_resources()
 		d3d->get_texture_manager()->m_texture_list.push_back(std::move(tex));
 	}
 
-	render_load_png(ui_lut_bitmap, file, nullptr, options->ui_lut_texture);
+	if (file.open(options->ui_lut_texture) == osd_file::error::NONE)
+	{
+		render_load_png(ui_lut_bitmap, file);
+		file.close();
+	}
 	if (ui_lut_bitmap.valid())
 	{
 		render_texinfo texture;
@@ -1151,7 +1164,7 @@ int shaders::scanline_pass(d3d_render_target *rt, int source_index, poly_info *p
 		return next_index;
 
 	auto win = d3d->assert_window();
-	screen_device_iterator screen_iterator(machine->root_device());
+	screen_device_enumerator screen_iterator(machine->root_device());
 	screen_device *screen = screen_iterator.byindex(curr_screen);
 	render_container &screen_container = screen->container();
 	float xscale = 1.0f / screen_container.xscale();
@@ -1232,7 +1245,7 @@ int shaders::post_pass(d3d_render_target *rt, int source_index, poly_info *poly,
 
 	auto win = d3d->assert_window();
 
-	screen_device_iterator screen_iterator(machine->root_device());
+	screen_device_enumerator screen_iterator(machine->root_device());
 	screen_device *screen = screen_iterator.byindex(curr_screen);
 	render_container &screen_container = screen->container();
 
@@ -1782,7 +1795,7 @@ bool shaders::add_render_target(renderer_d3d9* d3d, render_primitive *prim, int 
 //============================================================
 void shaders::enumerate_screens()
 {
-	screen_device_iterator iter(machine->root_device());
+	screen_device_enumerator iter(machine->root_device());
 	num_screens = iter.count();
 }
 
@@ -1976,7 +1989,7 @@ static void get_vector(const char *data, int count, float *out, bool report_erro
 
 std::unique_ptr<slider_state> shaders::slider_alloc(int id, const char *title, int32_t minval, int32_t defval, int32_t maxval, int32_t incval, void *arg)
 {
-	auto state = make_unique_clear<slider_state>();
+	auto state = std::make_unique<slider_state>();
 
 	state->minval = minval;
 	state->defval = defval;
@@ -2013,7 +2026,7 @@ int32_t slider::update(std::string *str, int32_t newval)
 	{
 		case SLIDER_INT_ENUM:
 		{
-			int32_t *val_ptr = reinterpret_cast<int32_t *>(m_value);
+			auto *val_ptr = reinterpret_cast<int32_t *>(m_value);
 			if (newval != SLIDER_NOCHANGE)
 			{
 				*val_ptr = newval;
@@ -2041,7 +2054,7 @@ int32_t slider::update(std::string *str, int32_t newval)
 
 		default:
 		{
-			float *val_ptr = reinterpret_cast<float *>(m_value);
+			auto *val_ptr = reinterpret_cast<float *>(m_value);
 			if (newval != SLIDER_NOCHANGE)
 			{
 				*val_ptr = (float)newval * m_desc->scale;
@@ -2324,7 +2337,7 @@ void shaders::init_slider_list()
 	}
 	internal_sliders.clear();
 
-	const screen_device *first_screen = screen_device_iterator(machine->root_device()).first();;
+	const screen_device *first_screen = screen_device_enumerator(machine->root_device()).first();;
 	if (first_screen == nullptr)
 	{
 		return;
@@ -2354,7 +2367,7 @@ void shaders::init_slider_list()
 
 			for (int j = 0; j < count; j++)
 			{
-				slider* slider_arg = new slider(desc, get_slider_option(desc->id, j), &options->params_dirty);
+				auto* slider_arg = new slider(desc, get_slider_option(desc->id, j), &options->params_dirty);
 				internal_sliders.push_back(slider_arg);
 				std::string name = desc->name;
 				switch (desc->slider_type)
@@ -2415,7 +2428,7 @@ void uniform::update()
 	renderer_d3d9 *d3d = shadersys->d3d;
 
 	auto win = d3d->assert_window();
-	const screen_device *first_screen = screen_device_iterator(win->machine().root_device()).first();
+	const screen_device *first_screen = screen_device_enumerator(win->machine().root_device()).first();
 
 	bool vector_screen =
 		first_screen != nullptr &&
@@ -2431,7 +2444,7 @@ void uniform::update()
 		}
 		case CU_SCREEN_COUNT:
 		{
-			int screen_count = win->target()->current_view()->screens().count();
+			int screen_count = win->target()->current_view().visible_screen_count();
 			m_shader->set_int("ScreenCount", screen_count);
 			break;
 		}
@@ -2587,6 +2600,7 @@ void uniform::update()
 			break;
 		case CU_CHROMA_CONVERSION_GAIN:
 			m_shader->set_vector("ConversionGain", 3, &options->chroma_conversion_gain[0]);
+			break;
 		case CU_CHROMA_Y_GAIN:
 			m_shader->set_vector("YGain", 3, &options->chroma_y_gain[0]);
 			break;

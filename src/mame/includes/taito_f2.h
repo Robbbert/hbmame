@@ -105,11 +105,11 @@ protected:
 
 	struct f2_tempsprite
 	{
-		u32 code, color;
-		bool flipx, flipy;
-		int x, y;
-		int zoomx, zoomy;
-		u32 primask;
+		u32 code = 0, color = 0;
+		bool flipx = false, flipy = false;
+		int x = 0, y = 0;
+		int zoomx = 0, zoomy = 0;
+		u64 primask = 0;
 	};
 	/* memory pointers */
 	optional_shared_ptr<u16> m_sprite_extension;
@@ -118,7 +118,7 @@ protected:
 	std::unique_ptr<u16[]>   m_spriteram_delayed;
 
 	/* video-related */
-	std::unique_ptr<struct f2_tempsprite[]> m_spritelist;
+	std::unique_ptr<f2_tempsprite[]> m_spritelist;
 	int           m_sprite_type;
 
 	u16           m_spritebank[8];
@@ -243,13 +243,13 @@ protected:
 	INTERRUPT_GEN_MEMBER(megab_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(cchip_irq_clear_cb);
 	void core_vh_start(int sprite_type, int hide, int flip_hide);
-	void draw_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, u32 *primasks, int uses_tc360_mixer);
+	void draw_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, u64 *primasks, int uses_tc360_mixer);
 	void update_spritebanks();
 	void handle_sprite_buffering();
 	void update_sprites_active_area();
 	void draw_roz_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, u8 priority, u8 priority_mask = 0xff);
 	void taito_f2_tc360_spritemixdraw(screen_device &screen, bitmap_ind16 &dest_bmp, const rectangle &clip, gfx_element *gfx,
-	u32 code, u32 color, int flipx, int flipy, int sx, int sy, int scalex, int scaley);
+	u32 code, u32 color, int flipx, int flipy, int sx, int sy, int scalex, int scaley, u64 primask = 0, bool use_mixer = false);
 
 	void cameltry_map(address_map &map);
 	void cameltrya_map(address_map &map);

@@ -33,6 +33,7 @@
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 
 class limenko_state : public driver_device
@@ -53,6 +54,7 @@ public:
 		, m_spriteram(*this, "spriteram")
 		, m_videoreg(*this, "videoreg")
 		, m_gfx_region(*this, "gfx")
+		, m_qs1000_bank(*this, "qs1000_bank")
 	{
 	}
 
@@ -65,7 +67,7 @@ public:
 	void init_legendoh();
 	void init_spotty();
 
-	DECLARE_CUSTOM_INPUT_MEMBER(spriteram_bit_r);
+	DECLARE_READ_LINE_MEMBER(spriteram_bit_r);
 
 protected:
 	virtual void video_start() override;
@@ -86,6 +88,8 @@ private:
 	required_shared_ptr<u32> m_videoreg;
 	required_region_ptr<u8> m_gfx_region;
 
+	memory_bank_creator m_qs1000_bank;
+
 	tilemap_t *m_bg_tilemap;
 	tilemap_t *m_md_tilemap;
 	tilemap_t *m_fg_tilemap;
@@ -94,20 +98,18 @@ private:
 	bitmap_ind16 m_sprites_bitmap;
 	bitmap_ind8 m_sprites_bitmap_pri;
 	int m_prev_sprites_count;
-	u8 m_spotty_sound_cmd;
 
 	void coincounter_w(u32 data);
 	void bg_videoram_w(offs_t offset, u32 data, u32 mem_mask = ~0);
 	void md_videoram_w(offs_t offset, u32 data, u32 mem_mask = ~0);
 	void fg_videoram_w(offs_t offset, u32 data, u32 mem_mask = ~0);
 	void spriteram_buffer_w(u32 data);
-	void spotty_sound_cmd_w(u8 data);
-	u8 spotty_sound_cmd_r();
-	u8 spotty_sound_r();
-	DECLARE_READ32_MEMBER(dynabomb_speedup_r);
-	DECLARE_READ32_MEMBER(legendoh_speedup_r);
-	DECLARE_READ32_MEMBER(sb2003_speedup_r);
-	DECLARE_READ32_MEMBER(spotty_speedup_r);
+
+	u32 dynabomb_speedup_r();
+	u32 legendoh_speedup_r();
+	u32 sb2003_speedup_r();
+	u32 spotty_speedup_r();
+
 	void qs1000_p1_w(u8 data);
 	void qs1000_p2_w(u8 data);
 	void qs1000_p3_w(u8 data);
@@ -121,10 +123,20 @@ private:
 							u8 transparent_color, u8 priority);
 	void draw_sprites();
 	void copy_sprites(bitmap_ind16 &bitmap, bitmap_ind16 &sprites_bitmap, bitmap_ind8 &priority_bitmap, const rectangle &cliprect);
+
 	void limenko_io_map(address_map &map);
 	void limenko_map(address_map &map);
 	void spotty_io_map(address_map &map);
 	void spotty_map(address_map &map);
+
+	// spotty audiocpu
+	uint8_t audiocpu_p1_r();
+	void audiocpu_p1_w(uint8_t data);
+	uint8_t audiocpu_p3_r();
+	void audiocpu_p3_w(uint8_t data);
+
+	uint8_t m_audiocpu_p1;
+	uint8_t m_audiocpu_p3;
 };
 
 /*****************************************************************************************************
@@ -155,7 +167,7 @@ void limenko_state::fg_videoram_w(offs_t offset, u32 data, u32 mem_mask)
 	m_fg_tilemap->mark_tile_dirty(offset);
 }
 
-CUSTOM_INPUT_MEMBER(limenko_state::spriteram_bit_r)
+READ_LINE_MEMBER(limenko_state::spriteram_bit_r)
 {
 	return m_spriteram_bit;
 }
@@ -191,10 +203,48 @@ void limenko_state::qs1000_p3_w(u8 data)
 	// ...x .... - ?
 	// ..x. .... - /IRQ clear
 
-	membank("qs1000:bank")->set_entry(data & 0x07);
+	m_qs1000_bank->set_entry(data & 0x07);
 
 	if (!BIT(data, 5))
 		m_soundlatch->acknowledge_w();
+}
+
+// spotty audio
+
+uint8_t limenko_state::audiocpu_p1_r()
+{
+	return m_audiocpu_p1;
+}
+
+void limenko_state::audiocpu_p1_w(uint8_t data)
+{
+	m_audiocpu_p1 = data;
+}
+
+// 7-------  msm select
+// -654----  unused
+// ----3---  read latch maincpu
+// -----2--  latch maincpu new data available
+// ------1-  write msm
+// -------0  read msm
+
+uint8_t limenko_state::audiocpu_p3_r()
+{
+	return (m_soundlatch->pending_r() ? 0 : 1) << 2;
+}
+
+void limenko_state::audiocpu_p3_w(uint8_t data)
+{
+	if (BIT(m_audiocpu_p3, 0) == 1 && BIT(data, 0) == 0 && BIT(data, 7) == 0)
+		m_audiocpu_p1 = m_oki->read();
+
+	if (BIT(m_audiocpu_p3, 1) == 1 && BIT(data, 1) == 0 && BIT(data, 7) == 0)
+		m_oki->write(m_audiocpu_p1);
+
+	if (BIT(m_audiocpu_p3, 3) == 1 && BIT(data, 3) == 0)
+		m_audiocpu_p1 = m_soundlatch->read();
+
+	m_audiocpu_p3 = data;
 }
 
 /*****************************************************************************************************
@@ -254,25 +304,6 @@ void limenko_state::spotty_io_map(address_map &map)
 	map(0x5000, 0x5003).w(m_soundlatch, FUNC(generic_latch_8_device::write)).umask32(0x00ff0000).cswidth(32);
 }
 
-void limenko_state::spotty_sound_cmd_w(u8 data)
-{
-	m_spotty_sound_cmd = data;
-}
-
-u8 limenko_state::spotty_sound_cmd_r()
-{
-	return 0; //??? some status bit? if set it executes a jump in the code
-}
-
-u8 limenko_state::spotty_sound_r()
-{
-	// check m_spotty_sound_cmd bits...
-
-	if (m_spotty_sound_cmd == 0xf7)
-		return m_soundlatch->read();
-	else
-		return m_oki->read();
-}
 
 /*****************************************************************************************************
   VIDEO HARDWARE EMULATION
@@ -282,21 +313,21 @@ TILE_GET_INFO_MEMBER(limenko_state::get_bg_tile_info)
 {
 	const u32 tile  = m_bg_videoram[tile_index] & 0x7ffff;
 	const u32 color = (m_bg_videoram[tile_index]>>28) & 0xf;
-	SET_TILE_INFO_MEMBER(0, tile, color, 0);
+	tileinfo.set(0, tile, color, 0);
 }
 
 TILE_GET_INFO_MEMBER(limenko_state::get_md_tile_info)
 {
 	const u32 tile  = m_md_videoram[tile_index] & 0x7ffff;
 	const u32 color = (m_md_videoram[tile_index]>>28) & 0xf;
-	SET_TILE_INFO_MEMBER(0, tile, color, 0);
+	tileinfo.set(0, tile, color, 0);
 }
 
 TILE_GET_INFO_MEMBER(limenko_state::get_fg_tile_info)
 {
 	const u32 tile  = m_fg_videoram[tile_index] & 0x7ffff;
 	const u32 color = (m_fg_videoram[tile_index]>>28) & 0xf;
-	SET_TILE_INFO_MEMBER(0, tile, color, 0);
+	tileinfo.set(0, tile, color, 0);
 }
 
 void limenko_state::draw_single_sprite(bitmap_ind16 &dest_bmp,const rectangle &clip,u8 width, u8 height,
@@ -347,9 +378,9 @@ void limenko_state::draw_single_sprite(bitmap_ind16 &dest_bmp,const rectangle &c
 	{ // skip if inner loop doesn't draw anything
 		for (int y = sy; y < ey; y++)
 		{
-			const u8 *source = source_base + y_index * width;
-			u16 *dest = &dest_bmp.pix16(y);
-			u8 *pri = &m_sprites_bitmap_pri.pix8(y);
+			u8 const *const source = source_base + y_index * width;
+			u16 *const dest = &dest_bmp.pix(y);
+			u8 *const pri = &m_sprites_bitmap_pri.pix(y);
 			int x_index = x_index_base;
 			for (int x = sx; x < ex; x++)
 			{
@@ -424,10 +455,10 @@ void limenko_state::copy_sprites(bitmap_ind16 &bitmap, bitmap_ind16 &sprites_bit
 {
 	for (int y = cliprect.min_y; y <= cliprect.max_y; y++)
 	{
-		u16 *source = &sprites_bitmap.pix16(y);
-		u16 *dest = &bitmap.pix16(y);
-		u8 *dest_pri = &priority_bitmap.pix8(y);
-		u8 *source_pri = &m_sprites_bitmap_pri.pix8(y);
+		u16 const *const source = &sprites_bitmap.pix(y);
+		u16 *const dest = &bitmap.pix(y);
+		u8 const *const dest_pri = &priority_bitmap.pix(y);
+		u8 const *const source_pri = &m_sprites_bitmap_pri.pix(y);
 
 		for (int x = cliprect.min_x; x <= cliprect.max_x; x++)
 		{
@@ -442,9 +473,9 @@ void limenko_state::copy_sprites(bitmap_ind16 &bitmap, bitmap_ind16 &sprites_bit
 
 void limenko_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(limenko_state::get_bg_tile_info),this),TILEMAP_SCAN_ROWS,8,8,128,64);
-	m_md_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(limenko_state::get_md_tile_info),this),TILEMAP_SCAN_ROWS,8,8,128,64);
-	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(limenko_state::get_fg_tile_info),this),TILEMAP_SCAN_ROWS,8,8,128,64);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(limenko_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8,8,128,64);
+	m_md_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(limenko_state::get_md_tile_info)), TILEMAP_SCAN_ROWS, 8,8,128,64);
+	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(limenko_state::get_fg_tile_info)), TILEMAP_SCAN_ROWS, 8,8,128,64);
 
 	m_md_tilemap->set_transparent_pen(0);
 	m_fg_tilemap->set_transparent_pen(0);
@@ -544,7 +575,7 @@ static INPUT_PORTS_START(legendoh)
 	PORT_DIPNAME(0x20000000, 0x00000000, "Sound Enable")
 	PORT_DIPSETTING(         0x20000000, DEF_STR(Off))
 	PORT_DIPSETTING(         0x00000000, DEF_STR(On))
-	PORT_BIT(0x80000000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_CUSTOM_MEMBER(DEVICE_SELF, limenko_state,spriteram_bit_r, nullptr) //changes spriteram location
+	PORT_BIT(0x80000000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_READ_LINE_MEMBER(limenko_state, spriteram_bit_r) //changes spriteram location
 	PORT_BIT(0x4000ffff, IP_ACTIVE_LOW, IPT_UNUSED)
 
 	PORT_START("EEPROMOUT")
@@ -588,7 +619,7 @@ static INPUT_PORTS_START(sb2003)
 	PORT_DIPNAME(0x20000000, 0x00000000, "Sound Enable")
 	PORT_DIPSETTING(         0x20000000, DEF_STR(Off))
 	PORT_DIPSETTING(         0x00000000, DEF_STR(On))
-	PORT_BIT(0x80000000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_CUSTOM_MEMBER(DEVICE_SELF, limenko_state,spriteram_bit_r, nullptr) //changes spriteram location
+	PORT_BIT(0x80000000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_READ_LINE_MEMBER(limenko_state, spriteram_bit_r) //changes spriteram location
 	PORT_BIT(0x00100000, IP_ACTIVE_LOW, IPT_SERVICE1) // checked in dynabomb I/O test, but doesn't work in game
 	PORT_BIT(0x5f00ffff, IP_ACTIVE_LOW, IPT_UNUSED)
 
@@ -626,7 +657,7 @@ static INPUT_PORTS_START(spotty)
 	PORT_BIT(0x00010000, IP_ACTIVE_LOW, IPT_START1)
 	PORT_BIT(0x00020000, IP_ACTIVE_LOW, IPT_UNUSED)
 	PORT_BIT(0x00040000, IP_ACTIVE_LOW, IPT_COIN1)
-	PORT_BIT(0x00080000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_CUSTOM_MEMBER(DEVICE_SELF, limenko_state,spriteram_bit_r, nullptr) //changes spriteram location
+	PORT_BIT(0x00080000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_READ_LINE_MEMBER(limenko_state, spriteram_bit_r) //changes spriteram location
 	PORT_SERVICE_NO_TOGGLE(0x00200000, IP_ACTIVE_LOW)
 	PORT_BIT(0x00400000, IP_ACTIVE_LOW, IPT_CUSTOM) //security bit
 	PORT_BIT(0x00800000, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, do_read)
@@ -648,19 +679,8 @@ INPUT_PORTS_END
 *****************************************************************************************************/
 
 
-static const gfx_layout tile_layout =
-{
-	8,8,
-	RGN_FRAC(1,1),
-	8,
-	{ STEP8(0,1) },
-	{ STEP8(0,8) },
-	{ STEP8(0,8*8) },
-	8*8*8,
-};
-
 static GFXDECODE_START(gfx_limenko)
-	GFXDECODE_ENTRY("gfx", 0, tile_layout, 0, 16) /* tiles */
+	GFXDECODE_ENTRY("gfx", 0, gfx_8x8x8_raw, 0, 16) /* tiles */
 GFXDECODE_END
 
 
@@ -714,11 +734,11 @@ void limenko_state::spotty(machine_config &config)
 	m_maincpu->set_addrmap(AS_IO, &limenko_state::spotty_io_map);
 	m_maincpu->set_vblank_int("screen", FUNC(limenko_state::irq0_line_hold));
 
-	at89c4051_device &audiocpu(AT89C4051(config, "audiocpu", 4000000));    /* 4 MHz */
-	audiocpu.port_in_cb<1>().set(FUNC(limenko_state::spotty_sound_r));
-	audiocpu.port_out_cb<1>().set("oki", FUNC(okim6295_device::write)); //? sound latch and ?
-	audiocpu.port_in_cb<3>().set(FUNC(limenko_state::spotty_sound_cmd_r));
-	audiocpu.port_out_cb<3>().set(FUNC(limenko_state::spotty_sound_cmd_w)); //not sure about anything...
+	at89c4051_device &audiocpu(AT89C4051(config, "audiocpu", 4000000));
+	audiocpu.port_in_cb<1>().set(FUNC(limenko_state::audiocpu_p1_r));
+	audiocpu.port_out_cb<1>().set(FUNC(limenko_state::audiocpu_p1_w));
+	audiocpu.port_in_cb<3>().set(FUNC(limenko_state::audiocpu_p3_r));
+	audiocpu.port_out_cb<3>().set(FUNC(limenko_state::audiocpu_p3_w));
 
 	EEPROM_93C46_16BIT(config, "eeprom");
 
@@ -1011,7 +1031,7 @@ ROM_END
 
 
 
-READ32_MEMBER(limenko_state::dynabomb_speedup_r)
+u32 limenko_state::dynabomb_speedup_r()
 {
 	if (m_maincpu->pc() == 0xc25b8)
 	{
@@ -1021,7 +1041,7 @@ READ32_MEMBER(limenko_state::dynabomb_speedup_r)
 	return m_mainram[0xe2784/4];
 }
 
-READ32_MEMBER(limenko_state::legendoh_speedup_r)
+u32 limenko_state::legendoh_speedup_r()
 {
 	if (m_maincpu->pc() == 0x23e32)
 	{
@@ -1031,7 +1051,7 @@ READ32_MEMBER(limenko_state::legendoh_speedup_r)
 	return m_mainram[0x32ab0/4];
 }
 
-READ32_MEMBER(limenko_state::sb2003_speedup_r)
+u32 limenko_state::sb2003_speedup_r()
 {
 	if (m_maincpu->pc() == 0x26da4)
 	{
@@ -1041,7 +1061,7 @@ READ32_MEMBER(limenko_state::sb2003_speedup_r)
 	return m_mainram[0x135800/4];
 }
 
-READ32_MEMBER(limenko_state::spotty_speedup_r)
+u32 limenko_state::spotty_speedup_r()
 {
 	if (m_maincpu->pc() == 0x8560)
 	{
@@ -1054,29 +1074,29 @@ READ32_MEMBER(limenko_state::spotty_speedup_r)
 void limenko_state::init_common()
 {
 	// Set up the QS1000 program ROM banking, taking care not to overlap the internal RAM
-	m_qs1000->cpu().space(AS_IO).install_read_bank(0x0100, 0xffff, "bank");
-	membank("qs1000:bank")->configure_entries(0, 8, memregion("qs1000:cpu")->base()+0x100, 0x10000);
+	m_qs1000->cpu().space(AS_IO).install_read_bank(0x0100, 0xffff, m_qs1000_bank);
+	m_qs1000_bank->configure_entries(0, 8, memregion("qs1000:cpu")->base()+0x100, 0x10000);
 
 	m_spriteram_bit = 1;
 }
 
 void limenko_state::init_dynabomb()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0xe2784, 0xe2787, read32_delegate(FUNC(limenko_state::dynabomb_speedup_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0xe2784, 0xe2787, read32smo_delegate(*this, FUNC(limenko_state::dynabomb_speedup_r)));
 
 	init_common();
 }
 
 void limenko_state::init_legendoh()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x32ab0, 0x32ab3, read32_delegate(FUNC(limenko_state::legendoh_speedup_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x32ab0, 0x32ab3, read32smo_delegate(*this, FUNC(limenko_state::legendoh_speedup_r)));
 
 	init_common();
 }
 
 void limenko_state::init_sb2003()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x135800, 0x135803, read32_delegate(FUNC(limenko_state::sb2003_speedup_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x135800, 0x135803, read32smo_delegate(*this, FUNC(limenko_state::sb2003_speedup_r)));
 
 	init_common();
 }
@@ -1096,11 +1116,12 @@ void limenko_state::init_spotty()
 		dst[x+2] = (src[x+1]&0x0f) >> 0;
 	}
 
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x6626c, 0x6626f, read32_delegate(FUNC(limenko_state::spotty_speedup_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x6626c, 0x6626f, read32smo_delegate(*this, FUNC(limenko_state::spotty_speedup_r)));
 
 	m_spriteram_bit = 1;
 
-	save_item(NAME(m_spotty_sound_cmd));
+	save_item(NAME(m_audiocpu_p1));
+	save_item(NAME(m_audiocpu_p3));
 }
 
 GAME(2000, dynabomb, 0,      limenko, sb2003,   limenko_state, init_dynabomb, ROT0, "Limenko",    "Dynamite Bomber (Korea, Rev 1.5)",   MACHINE_SUPPORTS_SAVE)
@@ -1109,4 +1130,4 @@ GAME(2003, sb2003,   0,      limenko, sb2003,   limenko_state, init_sb2003,   RO
 GAME(2003, sb2003a,  sb2003, limenko, sb2003,   limenko_state, init_sb2003,   ROT0, "Limenko",    "Super Bubble 2003 (Asia, Ver 1.0)",  MACHINE_SUPPORTS_SAVE)
 
 // this game only uses the same graphics chip used in Limenko's system
-GAME(2001, spotty,   0,      spotty,  spotty,   limenko_state, init_spotty,   ROT0, "Prince Co.", "Spotty (Ver. 2.0.2)",                MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE)
+GAME(2001, spotty,   0,      spotty,  spotty,   limenko_state, init_spotty,   ROT0, "Prince Co.", "Spotty (Ver. 2.0.2)",                MACHINE_SUPPORTS_SAVE)

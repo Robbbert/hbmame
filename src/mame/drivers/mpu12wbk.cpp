@@ -213,6 +213,7 @@
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 
 #define MASTER_CLOCK    XTAL(8'000'000)
@@ -243,8 +244,8 @@ private:
 	required_device<cpu_device> m_maincpu;
 	required_device<gfxdecode_device> m_gfxdecode;
 
-	DECLARE_WRITE8_MEMBER(mpu12wbk_videoram_w);
-	DECLARE_WRITE8_MEMBER(mpu12wbk_colorram_w);
+	void mpu12wbk_videoram_w(offs_t offset, uint8_t data);
+	void mpu12wbk_colorram_w(offs_t offset, uint8_t data);
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
 	void mpu12wbk_palette(palette_device &palette) const;
 	uint32_t screen_update_mpu12wbk(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -257,14 +258,14 @@ private:
 *************************/
 
 
-WRITE8_MEMBER(mpu12wbk_state::mpu12wbk_videoram_w)
+void mpu12wbk_state::mpu12wbk_videoram_w(offs_t offset, uint8_t data)
 {
 	m_videoram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
 
-WRITE8_MEMBER(mpu12wbk_state::mpu12wbk_colorram_w)
+void mpu12wbk_state::mpu12wbk_colorram_w(offs_t offset, uint8_t data)
 {
 	m_colorram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
@@ -282,14 +283,14 @@ TILE_GET_INFO_MEMBER(mpu12wbk_state::get_bg_tile_info)
 //  int code = m_videoram[tile_index] | ((attr & 0xc0) << 2);
 //  int color = (attr & 0x0f);
 
-//  SET_TILE_INFO_MEMBER(0, code, color, 0);
-	SET_TILE_INFO_MEMBER(0, 0 ,0 ,0);
+//  tileinfo.set(0, code, color, 0);
+	tileinfo.set(0, 0 ,0 ,0);
 }
 
 
 void mpu12wbk_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(mpu12wbk_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(mpu12wbk_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 }
 
 

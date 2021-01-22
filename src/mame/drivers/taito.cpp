@@ -51,7 +51,6 @@ ToDO:
 #include "sound/ay8910.h"
 #include "sound/dac.h"
 #include "sound/votrax.h"
-#include "sound/volt_reg.h"
 #include "speaker.h"
 
 #include "taito.lh"
@@ -80,10 +79,10 @@ public:
 	void init_taito();
 
 private:
-	DECLARE_READ8_MEMBER(io_r);
-	DECLARE_WRITE8_MEMBER(io_w);
-	DECLARE_READ8_MEMBER(pia_pb_r);
-	DECLARE_WRITE8_MEMBER(pia_pb_w);
+	uint8_t io_r(offs_t offset);
+	void io_w(offs_t offset, uint8_t data);
+	uint8_t pia_pb_r();
+	void pia_pb_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(pia_cb2_w);
 	DECLARE_WRITE_LINE_MEMBER(votrax_request);
 	TIMER_DEVICE_CALLBACK_MEMBER(timer_a);
@@ -140,7 +139,6 @@ void taito_state::taito_map(address_map &map)
 void taito_state::taito_sub_map(address_map &map)
 {
 	map.global_mask(0x1fff);
-	map(0x0000, 0x007f).ram(); // internal to the cpu
 	map(0x0400, 0x0403).rw(m_pia, FUNC(pia6821_device::read), FUNC(pia6821_device::write));
 	map(0x0800, 0x1fff).rom().region("cpu2", 0x0800);
 }
@@ -148,7 +146,6 @@ void taito_state::taito_sub_map(address_map &map)
 void taito_state::taito_sub_map2(address_map &map)
 {
 	map.global_mask(0x3fff);
-	map(0x0000, 0x007f).ram(); // internal to the cpu
 	map(0x0400, 0x0403).rw(m_pia, FUNC(pia6821_device::read), FUNC(pia6821_device::write));
 	map(0x2000, 0x3fff).rom().region("cpu2", 0x2000);
 }
@@ -156,7 +153,6 @@ void taito_state::taito_sub_map2(address_map &map)
 void taito_state::taito_sub_map5(address_map &map)
 {
 	map.global_mask(0x7fff);
-	map(0x0000, 0x007f).ram(); // internal to the cpu
 	map(0x0400, 0x0403).rw(m_pia, FUNC(pia6821_device::read), FUNC(pia6821_device::write));
 	map(0x1000, 0x1000).w("aysnd_0", FUNC(ay8910_device::address_w));
 	map(0x1003, 0x1003).w("aysnd_0", FUNC(ay8910_device::address_w));
@@ -194,7 +190,6 @@ void taito_state::shock_map(address_map &map)
 void taito_state::shock_sub_map(address_map &map)
 {
 	map.global_mask(0x0fff);
-	map(0x0000, 0x007f).ram(); // internal to the cpu
 	map(0x0400, 0x0403).rw(m_pia, FUNC(pia6821_device::read), FUNC(pia6821_device::write));
 	map(0x0800, 0x0fff).rom().region("cpu2", 0);
 }
@@ -291,12 +286,12 @@ static INPUT_PORTS_START( taito )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_OTHER )
 INPUT_PORTS_END
 
-READ8_MEMBER( taito_state::io_r )
+uint8_t taito_state::io_r(offs_t offset)
 {
 	return m_io[offset];
 }
 
-WRITE8_MEMBER( taito_state::io_w )
+void taito_state::io_w(offs_t offset, uint8_t data)
 {
 	m_io[offset] = data;
 
@@ -316,12 +311,12 @@ WRITE_LINE_MEMBER( taito_state::pia_cb2_w )
 	m_votrax->write(m_votrax_cmd);
 }
 
-READ8_MEMBER( taito_state::pia_pb_r )
+uint8_t taito_state::pia_pb_r()
 {
 	return ~m_sndcmd;
 }
 
-WRITE8_MEMBER( taito_state::pia_pb_w )
+void taito_state::pia_pb_w(uint8_t data)
 {
 	m_votrax_cmd = data;
 }
@@ -366,9 +361,6 @@ void taito_state::taito(machine_config &config)
 
 	SPEAKER(config, "speaker").front_center();
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.475); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 
 	PIA6821(config, m_pia);
 	//m_pia->readpa_handler().set(FUNC(taito_state::pia_pa_r));
@@ -545,6 +537,18 @@ ROM_END
 /*--------------------------------
 / Football
 /-------------------------------*/
+ROM_START(football)
+	ROM_REGION(0x2000, "roms", 0)
+	ROM_LOAD( "fb1.bin", 0x0000, 0x0400, NO_DUMP)
+	ROM_LOAD( "fb2.bin", 0x0400, 0x0400, NO_DUMP)
+	ROM_LOAD( "fb3.bin", 0x0800, 0x0400, NO_DUMP)
+	ROM_LOAD( "fb4.bin", 0x0c00, 0x0400, NO_DUMP)
+	ROM_LOAD( "fb5.bin", 0x1800, 0x0400, NO_DUMP)
+
+	ROM_REGION(0x0800, "cpu2", 0)
+	ROM_LOAD("fb_s2.bin", 0x0000, 0x0400, CRC(48c0e50a) SHA1(dc8d951a84a9ef27882ddc205caeeb92b18ba462))
+	ROM_LOAD("fb_s1.bin", 0x0400, 0x0400, CRC(457c9b78) SHA1(8c17dff49ad397f0c0d90f5fb45f12920335e25b))
+ROM_END
 
 /*--------------------------------
 / Gemini 2000
@@ -720,6 +724,19 @@ ROM_START(obaoba1)
 	ROM_REGION(0x2000, "cpu2", 0)
 	ROM_LOAD("ob_s2a.bin", 0x1000, 0x0800, CRC(08d22ca7) SHA1(9121f0d21a796c10adf443b63e1c5451468d9f9f))
 	ROM_LOAD("ob_s1a.bin", 0x1800, 0x0800, CRC(fa106de6) SHA1(be4dee9c2f10cf64a3b71cf65386e02323f040c7))
+ROM_END
+
+ROM_START(obaobao)
+	ROM_REGION(0x2000, "roms", 0)
+	ROM_LOAD( "oba01.bin", 0x0000, 0x0400, CRC(fd5d5b73) SHA1(06996254637a71a0543b66e87516372ccea1cfd6))
+	ROM_LOAD( "oba02.bin", 0x0400, 0x0400, CRC(068b84c7) SHA1(622bd3b24df175cd783cdf46e5b7e910159d2bea))
+	ROM_LOAD( "oba03.bin", 0x0800, 0x0400, CRC(a7f0e116) SHA1(bdb5d6120f7802ce4e1dad434158010b3150233a))
+	ROM_LOAD( "oba04.bin", 0x0c00, 0x0400, CRC(efede794) SHA1(7efb5e13f8dd631a65bc47e2d765308fe7d1a82b))
+	ROM_LOAD( "oba05.bin", 0x1800, 0x0400, CRC(838f7323) SHA1(84636a237014231c056e7eb80bd3f4013f4c6579))
+
+	ROM_REGION(0x2000, "cpu2", 0)
+	ROM_LOAD("ob_s2.bin", 0x1000, 0x0800, CRC(f7dbb715) SHA1(70d1331612fe497f48520726c5f39accdcbdb205))
+	ROM_LOAD("ob_s1.bin", 0x1800, 0x0800, CRC(812a362b) SHA1(22b5f5f2d467ca1b0ab55db2e01ef6579f8ee390))
 ROM_END
 
 /*--------------------------------
@@ -1003,6 +1020,7 @@ GAME(198?,  taitest,    0,          taito,  taito, taito_state, init_taito,  ROT
 GAME(1979,  shock,      0,          shock,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Shock",                         MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1980,  obaoba,     0,          taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Oba-Oba (set 1)",               MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1980,  obaoba1,    obaoba,     taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Oba-Oba (set 2)",               MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1980,  obaobao,    obaoba,     shock,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Oba-Oba (old hardware)",        MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1980,  drakor,     0,          taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Drakor",                        MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1980,  meteort,    0,          taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Meteor (Taito)",                MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1981,  sureshop,   0,          taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Sure Shot (Pinball)",           MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
@@ -1016,6 +1034,7 @@ GAME(1982,  sharkt,     0,          taito2, taito, taito_state, init_taito,  ROT
 GAME(1982,  stest,      0,          taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Speed Test",                    MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1982,  lunelle,    0,          taito2, taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Lunelle",                       MACHINE_IS_SKELETON_MECHANICAL)
 GAME(1980,  rally,      0,          taito,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Rally",                         MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1981,  football,   0,          shock,  taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Football",                      MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 
 // dac and vox (sintevox)
 GAME(1981,  fireact,    0,          taito4, taito, taito_state, init_taito,  ROT0,   "Taito do Brasil",  "Fire Action",                   MACHINE_IS_SKELETON_MECHANICAL)

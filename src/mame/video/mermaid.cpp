@@ -54,19 +54,19 @@ void mermaid_state::rougien_palette(palette_device &palette) const
 }
 
 
-WRITE8_MEMBER(mermaid_state::mermaid_videoram2_w)
+void mermaid_state::mermaid_videoram2_w(offs_t offset, uint8_t data)
 {
 	m_videoram2[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
-WRITE8_MEMBER(mermaid_state::mermaid_videoram_w)
+void mermaid_state::mermaid_videoram_w(offs_t offset, uint8_t data)
 {
 	m_videoram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset);
 }
 
-WRITE8_MEMBER(mermaid_state::mermaid_colorram_w)
+void mermaid_state::mermaid_colorram_w(offs_t offset, uint8_t data)
 {
 	m_colorram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset);
@@ -82,13 +82,13 @@ WRITE_LINE_MEMBER(mermaid_state::flip_screen_y_w)
 	flip_screen_y_set(state);
 }
 
-WRITE8_MEMBER(mermaid_state::mermaid_bg_scroll_w)
+void mermaid_state::mermaid_bg_scroll_w(offs_t offset, uint8_t data)
 {
 	m_bg_scrollram[offset] = data;
 	m_bg_tilemap->set_scrolly(offset, data);
 }
 
-WRITE8_MEMBER(mermaid_state::mermaid_fg_scroll_w)
+void mermaid_state::mermaid_fg_scroll_w(offs_t offset, uint8_t data)
 {
 	m_fg_scrollram[offset] = data;
 	m_fg_tilemap->set_scrolly(offset, data);
@@ -104,7 +104,7 @@ WRITE_LINE_MEMBER(mermaid_state::rougien_gfxbankswitch2_w)
 	m_rougien_gfxbank2 = state;
 }
 
-READ8_MEMBER(mermaid_state::mermaid_collision_r)
+uint8_t mermaid_state::mermaid_collision_r()
 {
 	/*
 	    collision register active LOW:
@@ -138,7 +138,7 @@ TILE_GET_INFO_MEMBER(mermaid_state::get_bg_tile_info)
 	int sx = tile_index % 32;
 	int color = (sx >= 26) ? 0 : 1;
 
-	SET_TILE_INFO_MEMBER(2, code, color, 0);
+	tileinfo.set(2, code, color, 0);
 }
 
 TILE_GET_INFO_MEMBER(mermaid_state::get_fg_tile_info)
@@ -151,15 +151,15 @@ TILE_GET_INFO_MEMBER(mermaid_state::get_fg_tile_info)
 	code |= m_rougien_gfxbank1 * 0x2800;
 	code |= m_rougien_gfxbank2 * 0x2400;
 
-	SET_TILE_INFO_MEMBER(0, code, color, flags);
+	tileinfo.set(0, code, color, flags);
 }
 
 void mermaid_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(mermaid_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(mermaid_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 	m_bg_tilemap->set_scroll_cols(32);
 
-	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(mermaid_state::get_fg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(mermaid_state::get_fg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 	m_fg_tilemap->set_scroll_cols(32);
 	m_fg_tilemap->set_transparent_pen(0);
 
@@ -220,18 +220,14 @@ uint8_t mermaid_state::collision_check( rectangle& rect )
 {
 	uint8_t data = 0;
 
-	int x;
-	int y;
-
-	for (y = rect.top(); y <= rect.bottom(); y++)
-		for (x = rect.left(); x <= rect.right(); x++)
+	for (int y = rect.top(); y <= rect.bottom(); y++)
+		for (int x = rect.left(); x <= rect.right(); x++)
 		{
-			uint16_t a = m_palette->pen_indirect(m_helper.pix16(y, x)) & 0x3f;
-			uint16_t b = m_palette->pen_indirect(m_helper2.pix16(y, x)) & 0x3f;
+			uint16_t const a = m_palette->pen_indirect(m_helper.pix(y, x)) & 0x3f;
+			uint16_t const b = m_palette->pen_indirect(m_helper2.pix(y, x)) & 0x3f;
 
-			if (b)
-				if (a)
-					data |= 0x01;
+			if (b && a)
+				data |= 0x01;
 		}
 
 	return data;

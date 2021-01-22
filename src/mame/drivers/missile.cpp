@@ -351,6 +351,7 @@ Super Missile Attack Board Layout
 
 #include "emu.h"
 #include "cpu/m6502/m6502.h"
+#include "machine/rescap.h"
 #include "machine/watchdog.h"
 #include "sound/pokey.h"
 #include "sound/ay8910.h"
@@ -387,13 +388,13 @@ public:
 	void init_missilem();
 	void init_suprmatk();
 
-	DECLARE_CUSTOM_INPUT_MEMBER(get_vblank);
+	DECLARE_READ_LINE_MEMBER(vblank_r);
 
 private:
-	DECLARE_WRITE8_MEMBER(missile_w);
-	DECLARE_READ8_MEMBER(missile_r);
-	DECLARE_WRITE8_MEMBER(bootleg_w);
-	DECLARE_READ8_MEMBER(bootleg_r);
+	void missile_w(address_space &space, offs_t offset, uint8_t data);
+	uint8_t missile_r(address_space &space, offs_t offset);
+	void bootleg_w(address_space &space, offs_t offset, uint8_t data);
+	uint8_t bootleg_r(address_space &space, offs_t offset);
 	uint32_t screen_update_missile(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	inline int scanline_to_v(int scanline);
@@ -505,7 +506,7 @@ TIMER_CALLBACK_MEMBER(missile_state::clock_irq)
 }
 
 
-CUSTOM_INPUT_MEMBER(missile_state::get_vblank)
+READ_LINE_MEMBER(missile_state::vblank_r)
 {
 	int v = scanline_to_v(m_screen->vpos());
 	return v < 24;
@@ -682,24 +683,21 @@ uint8_t missile_state::read_vram(address_space &space, offs_t address)
 
 uint32_t missile_state::screen_update_missile(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	uint8_t *videoram = m_videoram;
-	int x, y;
-
 	// draw the bitmap to the screen, looping over Y
-	for (y = cliprect.top(); y <= cliprect.bottom(); y++)
+	for (int y = cliprect.top(); y <= cliprect.bottom(); y++)
 	{
-		uint16_t *dst = &bitmap.pix16(y);
+		uint16_t *const dst = &bitmap.pix(y);
 
-		int effy = m_flipscreen ? ((256+24 - y) & 0xff) : y;
-		uint8_t *src = &videoram[effy * 64];
-		uint8_t *src3 = nullptr;
+		int const effy = m_flipscreen ? ((256+24 - y) & 0xff) : y;
+		uint8_t const *const src = &m_videoram[effy * 64];
+		uint8_t const *src3 = nullptr;
 
 		// compute the base of the 3rd pixel row
 		if (effy >= 224)
-			src3 = &videoram[get_bit3_addr(effy << 8)];
+			src3 = &m_videoram[get_bit3_addr(effy << 8)];
 
 		// loop over X
-		for (x = cliprect.left(); x <= cliprect.right(); x++)
+		for (int x = cliprect.left(); x <= cliprect.right(); x++)
 		{
 			uint8_t pix = src[x / 4] >> (x & 3);
 			pix = ((pix >> 2) & 4) | ((pix << 1) & 2);
@@ -722,7 +720,7 @@ uint32_t missile_state::screen_update_missile(screen_device &screen, bitmap_ind1
  *
  *************************************/
 
-WRITE8_MEMBER(missile_state::missile_w)
+void missile_state::missile_w(address_space &space, offs_t offset, uint8_t data)
 {
 	/* if this is a MADSEL cycle, write to video RAM */
 	if (get_madsel())
@@ -781,7 +779,7 @@ WRITE8_MEMBER(missile_state::missile_w)
 }
 
 
-READ8_MEMBER(missile_state::missile_r)
+uint8_t missile_state::missile_r(address_space &space, offs_t offset)
 {
 	uint8_t result = 0xff;
 
@@ -842,7 +840,7 @@ READ8_MEMBER(missile_state::missile_r)
 }
 
 
-WRITE8_MEMBER(missile_state::bootleg_w)
+void missile_state::bootleg_w(address_space &space, offs_t offset, uint8_t data)
 {
 	/* if this is a MADSEL cycle, write to video RAM */
 	if (get_madsel())
@@ -894,7 +892,7 @@ WRITE8_MEMBER(missile_state::bootleg_w)
 }
 
 
-READ8_MEMBER(missile_state::bootleg_r)
+uint8_t missile_state::bootleg_r(address_space &space, offs_t offset)
 {
 	uint8_t result = 0xff;
 
@@ -991,7 +989,7 @@ static INPUT_PORTS_START( missile )
 	PORT_BIT( 0x18, IP_ACTIVE_HIGH, IPT_CUSTOM )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_TILT )
 	PORT_SERVICE( 0x40, IP_ACTIVE_LOW )
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, missile_state,get_vblank, nullptr)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(missile_state, vblank_r)
 
 	PORT_START("R10")   /* IN2 */
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Coinage ) ) PORT_DIPLOCATION("R10:1,2")
@@ -1081,7 +1079,7 @@ static INPUT_PORTS_START( suprmatk )
 	PORT_BIT( 0x18, IP_ACTIVE_HIGH, IPT_CUSTOM )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_TILT )
 	PORT_SERVICE( 0x40, IP_ACTIVE_LOW )
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, missile_state,get_vblank, nullptr)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(missile_state, vblank_r)
 
 	PORT_START("R10")   /* IN2 */
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Coinage ) ) PORT_DIPLOCATION("R10:1,2")
@@ -1507,7 +1505,7 @@ GAME( 1981, suprmatk, missile, missile, suprmatk, missile_state,  init_suprmatk,
 GAME( 1981, suprmatkd,missile, missile, suprmatk, missile_state,     empty_init, ROT0, "Atari / General Computer Corporation", "Super Missile Attack (not encrypted)", MACHINE_SUPPORTS_SAVE )
 
 /* the following bootleg has extremely similar program ROMs to missile1, but has different unknown sound hardware and 2 more ROMs */
-GAME( 1981, missilea, missile, missilea, missile, missile_state,     empty_init, ROT0, "bootleg (Ugames)", "Missile Attack", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1981, missilea, missile, missilea, missile, missile_state,     empty_init, ROT0, "bootleg (U.Games)", "Missile Attack (U.Games bootleg of Missile Command)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 
 /* the following bootlegs are on different hardware and don't work */
 GAME( 1980, mcombat,  missile, missileb, missileb, missile_state,    empty_init, ROT0, "bootleg (Videotron)", "Missile Combat (Videotron bootleg, set 1)", MACHINE_NOT_WORKING )

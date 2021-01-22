@@ -1,18 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
-
-<!-- Fujitsu FM-7 cassette images -->
-<!-- Multi-image games are currently untested -->
-
 <!--
+license:CC0
+
+Fujitsu FM-7 cassette images
+Multi-image games are currently untested
 
 Titles, serial #s, publishers and release dates taken from:
   - Oh!FM-7 ( http://retropc.net/fm-7/ )
 
--->
 
-
-<!--
     Loading instructions:
     At the F-Basic Ready prompt, type run"" and press Return.
     If a Bad File Mode error occurs, then you must type loadm"",r and press Return.  Once the loader has loaded,
@@ -970,6 +967,18 @@ Titles, serial #s, publishers and release dates taken from:
 		<part name="cass3" interface="fm7_cass">
 			<dataarea name="cass" size="2812446">
 				<rom name="hydlide2_2.t77" size="2812446" crc="2ad9aaab" sha1="35e4c337fabe81228b6ba919e4e47c07ed9c913b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="inoue">
+		<description>Inoue's Dragon Slayer</description>
+		<year>1985</year>
+		<publisher>Tadanobu Inoue</publisher>
+		<info name="alt_title" value="井上のドラスレ"/>
+		<part name="cass1" interface="fm7_cass">
+			<dataarea name="cass" size="1270216">
+				<rom name="inoue.t77" size="1270216" crc="571b270e" sha1="1176818e42976a04ec6800c91ac97b6f0f6ffb37"/>
 			</dataarea>
 		</part>
 	</software>

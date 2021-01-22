@@ -13,6 +13,8 @@
 #pragma once
 
 #include "emupal.h"
+#include "tilemap.h"
+
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -20,7 +22,7 @@
 
 // ======================> orca_ovg_40c_device
 
-class orca_ovg_40c_device : public device_t, public device_gfx_interface
+class orca_ovg_40c_device : public device_t, public device_gfx_interface, public device_video_interface
 {
 public:
 	// construction/destruction
@@ -30,14 +32,15 @@ public:
 	void set_percuss_hardware(bool percuss_hardware) { m_percuss_hardware = percuss_hardware; }
 
 	// memory handlers
-	DECLARE_WRITE8_MEMBER(videoram_w);
-	DECLARE_WRITE8_MEMBER(videoram2_w);
-	DECLARE_WRITE8_MEMBER(attributes_w);
-	DECLARE_WRITE8_MEMBER(flipscreen_w);
+	void videoram_w(offs_t offset, uint8_t data);
+	void videoram2_w(offs_t offset, uint8_t data);
+	void attributes_w(offs_t offset, uint8_t data);
+	void flipscreen_w(uint8_t data);
 
 protected:
 	// device-level overrides
 	virtual void device_start() override;
+	virtual void device_config_complete() override;
 	virtual void device_add_mconfig(machine_config &config) override;
 
 private:
@@ -47,9 +50,6 @@ private:
 	required_shared_ptr<uint8_t> m_attributeram;
 	required_shared_ptr<uint8_t> m_spriteram;
 	required_shared_ptr<uint8_t> m_bulletsram;
-
-	// devices
-	required_device<palette_device> m_palette;
 
 	// configuration
 	bool m_percuss_hardware;
@@ -68,9 +68,9 @@ private:
 	void palette_init(palette_device &palette);
 
 	// drawing control
-	void draw_bullets(bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect);
-	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	void draw_bullets(bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void draw_sprites(bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 };
 
 // device type definition

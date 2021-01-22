@@ -47,8 +47,8 @@ public:
 
 private:
 	DECLARE_READ_LINE_MEMBER(clear_r);
-	DECLARE_WRITE8_MEMBER(ram_w);
-	DECLARE_READ8_MEMBER(ram_r);
+	void ram_w(offs_t offset, uint8_t data);
+	uint8_t ram_r(offs_t offset);
 
 	void microkit_io(address_map &map);
 	void microkit_mem(address_map &map);
@@ -80,9 +80,9 @@ void microkit_state::microkit_io(address_map &map)
 
 static INPUT_PORTS_START( microkit )
 	PORT_START("RESET")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RESET") PORT_CODE(KEYCODE_F3) PORT_CHANGED_MEMBER(DEVICE_SELF, microkit_state, reset_button, nullptr)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RUN P") PORT_CODE(KEYCODE_F2) PORT_CHANGED_MEMBER(DEVICE_SELF, microkit_state, runp_button, nullptr)
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RUN U") PORT_CODE(KEYCODE_F1) PORT_CHANGED_MEMBER(DEVICE_SELF, microkit_state, runu_button, nullptr)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RESET") PORT_CODE(KEYCODE_F3) PORT_CHANGED_MEMBER(DEVICE_SELF, microkit_state, reset_button, 0)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RUN P") PORT_CODE(KEYCODE_F2) PORT_CHANGED_MEMBER(DEVICE_SELF, microkit_state, runp_button, 0)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RUN U") PORT_CODE(KEYCODE_F1) PORT_CHANGED_MEMBER(DEVICE_SELF, microkit_state, runu_button, 0)
 INPUT_PORTS_END
 
 INPUT_CHANGED_MEMBER(microkit_state::reset_button)
@@ -119,7 +119,7 @@ READ_LINE_MEMBER( microkit_state::clear_r )
 	return 1;
 }
 
-READ8_MEMBER( microkit_state::ram_r )
+uint8_t microkit_state::ram_r(offs_t offset)
 {
 	if (m_a15)
 		return m_rom->base()[offset];
@@ -127,7 +127,7 @@ READ8_MEMBER( microkit_state::ram_r )
 		return m_ram[offset];
 }
 
-WRITE8_MEMBER( microkit_state::ram_w )
+void microkit_state::ram_w(offs_t offset, uint8_t data)
 {
 	m_ram[offset] = data;
 }

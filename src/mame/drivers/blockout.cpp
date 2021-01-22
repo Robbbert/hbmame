@@ -79,12 +79,12 @@
 #define MAIN_CLOCK XTAL(10'000'000)
 #define AUDIO_CLOCK XTAL(3'579'545)
 
-WRITE16_MEMBER(blockout_state::blockout_irq6_ack_w)
+void blockout_state::blockout_irq6_ack_w(uint16_t data)
 {
 	m_maincpu->set_input_line(6, CLEAR_LINE);
 }
 
-WRITE16_MEMBER(blockout_state::blockout_irq5_ack_w)
+void blockout_state::blockout_irq5_ack_w(uint16_t data)
 {
 	m_maincpu->set_input_line(5, CLEAR_LINE);
 }
@@ -107,7 +107,7 @@ void blockout_state::main_map(address_map &map)
 	map(0x100012, 0x100013).w(FUNC(blockout_state::blockout_irq5_ack_w));
 	map(0x100015, 0x100015).w(m_soundlatch, FUNC(generic_latch_8_device::write));
 	map(0x100016, 0x100017).nopw();    /* don't know, maybe reset sound CPU */
-	map(0x180000, 0x1bffff).rw(FUNC(blockout_state::videoram_r), FUNC(blockout_state::videoram_w)).share("videoram");
+	map(0x180000, 0x1bffff).rw(FUNC(blockout_state::videoram_r), FUNC(blockout_state::videoram_w));
 	map(0x1d4000, 0x1dffff).ram(); /* work RAM */
 	map(0x1f4000, 0x1fffff).ram(); /* work RAM */
 	map(0x200000, 0x207fff).ram().share("frontvideoram");
@@ -128,7 +128,7 @@ void blockout_state::agress_map(address_map &map)
 	map(0x100012, 0x100013).w(FUNC(blockout_state::blockout_irq5_ack_w));
 	map(0x100015, 0x100015).w(m_soundlatch, FUNC(generic_latch_8_device::write));
 	map(0x100016, 0x100017).nopw();    /* don't know, maybe reset sound CPU */
-	map(0x180000, 0x1bffff).rw(FUNC(blockout_state::videoram_r), FUNC(blockout_state::videoram_w)).share("videoram");
+	map(0x180000, 0x1bffff).rw(FUNC(blockout_state::videoram_r), FUNC(blockout_state::videoram_w));
 	map(0x1d4000, 0x1dffff).ram(); /* work RAM */
 	map(0x1f4000, 0x1fffff).ram(); /* work RAM */
 	map(0x200000, 0x207fff).ram().share("frontvideoram");
@@ -382,19 +382,19 @@ ROM_START( blockout2 )
 	ROM_LOAD( "mb7114h.25",   0x0000, 0x0100, CRC(b25bbda7) SHA1(840f1470886bd0019db3cd29e3d1d80205a65f48) )    /* unknown */
 ROM_END
 
-ROM_START( blockoutj )
+ROM_START( blockout3 )
 	ROM_REGION( 0x40000, "maincpu", 0 ) /* 2*128k for 68000 code */
-	ROM_LOAD16_BYTE( "2.bin",         0x00000, 0x20000, CRC(e16cf065) SHA1(541b30b054cf08f10d6ca4746423759f4326c005) )
-	ROM_LOAD16_BYTE( "1.bin",         0x00001, 0x20000, CRC(950b28a3) SHA1(7d1635ac2a3fc1efdd2f78cd6038bd7b4c907b1b) )
+	ROM_LOAD16_BYTE( "blockout-1-27c010-ic81.bin", 0x00000, 0x20000, CRC(36fc13a0) SHA1(d7a7b5fb0c7c0ae2e61b94e313c3a972babc78c9) )
+	ROM_LOAD16_BYTE( "blockout-2-27c010-ic91.bin", 0x00001, 0x20000, CRC(48916a07) SHA1(e3d9907cb5333f41ed4811112aefe1424b0b3d32) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "bo29e3-0.bin", 0x0000, 0x8000, CRC(3ea01f78) SHA1(5fc4ad4d9f03d7c26d2afc3e7ede75589e40b0d8) )
+	ROM_LOAD( "blockout-3-27256-ic73.bin", 0x0000, 0x8000, CRC(3ea01f78) SHA1(5fc4ad4d9f03d7c26d2afc3e7ede75589e40b0d8) )
 
 	ROM_REGION( 0x40000, "oki", 0 ) /* 128k for ADPCM samples - sound chip is OKIM6295 */
-	ROM_LOAD( "bo29e2-0.bin", 0x0000, 0x20000, CRC(15c5a99d) SHA1(89091eda454a028fd1f17501584bd589baf6d523) )
+	ROM_LOAD( "blockout-4-27c010-ic78.bin", 0x0000, 0x20000, CRC(15c5a99d) SHA1(89091eda454a028fd1f17501584bd589baf6d523) )
 
 	ROM_REGION( 0x0100, "proms", 0 )
-	ROM_LOAD( "mb7114h.25",   0x0000, 0x0100, CRC(b25bbda7) SHA1(840f1470886bd0019db3cd29e3d1d80205a65f48) )    /* unknown */
+	ROM_LOAD( "blockout-82s129-ic25.bin",   0x0000, 0x0100, CRC(b25bbda7) SHA1(840f1470886bd0019db3cd29e3d1d80205a65f48) )    /* unknown */
 ROM_END
 
 ROM_START( agress )
@@ -410,6 +410,21 @@ ROM_START( agress )
 
 	ROM_REGION( 0x0100, "proms", 0 )
 	ROM_LOAD( "82s129pr.25",   0x0000, 0x0100, CRC(b25bbda7) SHA1(840f1470886bd0019db3cd29e3d1d80205a65f48) )   /* unknown */
+ROM_END
+
+ROM_START( blockoutj )
+	ROM_REGION( 0x40000, "maincpu", 0 ) /* 2*128k for 68000 code */
+	ROM_LOAD16_BYTE( "2.bin",         0x00000, 0x20000, CRC(e16cf065) SHA1(541b30b054cf08f10d6ca4746423759f4326c005) )
+	ROM_LOAD16_BYTE( "1.bin",         0x00001, 0x20000, CRC(950b28a3) SHA1(7d1635ac2a3fc1efdd2f78cd6038bd7b4c907b1b) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "bo29e3-0.bin", 0x0000, 0x8000, CRC(3ea01f78) SHA1(5fc4ad4d9f03d7c26d2afc3e7ede75589e40b0d8) )
+
+	ROM_REGION( 0x40000, "oki", 0 ) /* 128k for ADPCM samples - sound chip is OKIM6295 */
+	ROM_LOAD( "bo29e2-0.bin", 0x0000, 0x20000, CRC(15c5a99d) SHA1(89091eda454a028fd1f17501584bd589baf6d523) )
+
+	ROM_REGION( 0x0100, "proms", 0 )
+	ROM_LOAD( "mb7114h.25",   0x0000, 0x0100, CRC(b25bbda7) SHA1(840f1470886bd0019db3cd29e3d1d80205a65f48) )    /* unknown */
 ROM_END
 
 // this is probably an original English version with copyright year hacked
@@ -457,6 +472,7 @@ void blockout_state::init_agress()
 
 GAME( 1989, blockout,  0,        blockout, blockout,  blockout_state, empty_init,  ROT0, "Technos Japan / California Dreams", "Block Out (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, blockout2, blockout, blockout, blockout,  blockout_state, empty_init,  ROT0, "Technos Japan / California Dreams", "Block Out (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, blockout3, blockout, blockout, blockout,  blockout_state, empty_init,  ROT0, "Technos Japan / California Dreams", "Block Out (Europe and Oceania)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, blockoutj, blockout, blockout, blockoutj, blockout_state, empty_init,  ROT0, "Technos Japan / California Dreams", "Block Out (Japan)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, agress,    0,        agress,   agress,    blockout_state, init_agress, ROT0, "Palco",   "Agress - Missile Daisenryaku (Japan)",           MACHINE_SUPPORTS_SAVE )
 GAME( 2003, agressb,   agress,   agress,   agress,    blockout_state, init_agress, ROT0, "bootleg", "Agress - Missile Daisenryaku (English bootleg)", MACHINE_SUPPORTS_SAVE )

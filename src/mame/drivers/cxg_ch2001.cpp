@@ -3,8 +3,15 @@
 // thanks-to:Berger
 /******************************************************************************
 
-CXG Chess 2001, also sold by Hanimex as HCG 1900 and by CGL as Computachess Champion.
+CXG Chess 2001, also sold by Hanimex as Computachess (model HCG 1900),
+and by CGL as Computachess Champion.
 CXG Chess 3000 is assumed to be on similar hardware as this.
+
+The chess engine is by Richard Lang, based on Cyrus.
+
+CXG Systems S.A. and Newcrest Technology Ltd. are related companies, with
+Eric White at the steering wheel. Newcrest(1984-1991) is probably a rename of
+"White & Allcock"(1981-1984).
 
 Hardware notes:
 - Zilog Z8400APS @ 4 MHz (8MHz XTAL)
@@ -18,7 +25,6 @@ Hardware notes:
 #include "machine/sensorboard.h"
 #include "machine/timer.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 #include "video/pwm.h"
 #include "speaker.h"
 
@@ -41,7 +47,7 @@ public:
 		m_inputs(*this, "IN.%u", 0)
 	{ }
 
-	// machine drivers
+	// machine configs
 	void ch2001(machine_config &config);
 
 protected:
@@ -64,20 +70,16 @@ private:
 	void main_map(address_map &map);
 
 	// I/O handlers
-	DECLARE_WRITE8_MEMBER(speaker_w);
-	DECLARE_WRITE8_MEMBER(leds_w);
-	DECLARE_READ8_MEMBER(input_r);
+	void speaker_w(u8 data);
+	void leds_w(u8 data);
+	u8 input_r();
 
-	u16 m_inp_mux;
-	int m_dac_data;
+	u16 m_inp_mux = 0;
+	int m_dac_data = 0;
 };
 
 void ch2001_state::machine_start()
 {
-	// zerofill
-	m_inp_mux = 0;
-	m_dac_data = 0;
-
 	// register for savestates
 	save_item(NAME(m_inp_mux));
 	save_item(NAME(m_dac_data));
@@ -91,14 +93,14 @@ void ch2001_state::machine_start()
 
 // TTL
 
-WRITE8_MEMBER(ch2001_state::speaker_w)
+void ch2001_state::speaker_w(u8 data)
 {
 	// 74ls109 toggle to speaker
 	m_dac_data ^= 1;
 	m_dac->write(m_dac_data);
 }
 
-WRITE8_MEMBER(ch2001_state::leds_w)
+void ch2001_state::leds_w(u8 data)
 {
 	// d0-d7: 74ls273 (WR to CLK)
 	// 74ls273 Q1-Q4: 74ls145 A-D
@@ -112,7 +114,7 @@ WRITE8_MEMBER(ch2001_state::leds_w)
 	m_display->matrix(sel, led_data);
 }
 
-READ8_MEMBER(ch2001_state::input_r)
+u8 ch2001_state::input_r()
 {
 	u8 data = 0;
 
@@ -173,7 +175,7 @@ INPUT_PORTS_END
 
 
 /******************************************************************************
-    Machine Drivers
+    Machine Configs
 ******************************************************************************/
 
 void ch2001_state::ch2001(machine_config &config)
@@ -182,7 +184,7 @@ void ch2001_state::ch2001(machine_config &config)
 	Z80(config, m_maincpu, 8_MHz_XTAL/2);
 	m_maincpu->set_addrmap(AS_PROGRAM, &ch2001_state::main_map);
 
-	const attotime irq_period = attotime::from_hz(533); // theoretical frequency from 555 timer (20nF, 100K+33K, 1K2), measurement was 568Hz
+	const attotime irq_period = attotime::from_hz(568); // 555 timer (20nF, 100K+33K, 1K2), measured 568Hz
 	TIMER(config, m_irq_on).configure_periodic(FUNC(ch2001_state::irq_on<INPUT_LINE_IRQ0>), irq_period);
 	m_irq_on->set_start_delay(irq_period - attotime::from_nsec(16600)); // active for 16.6us
 	TIMER(config, "irq_off").configure_periodic(FUNC(ch2001_state::irq_off<INPUT_LINE_IRQ0>), irq_period);
@@ -198,7 +200,6 @@ void ch2001_state::ch2001(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
 	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
-	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 }
 
 
@@ -220,5 +221,5 @@ ROM_END
     Drivers
 ******************************************************************************/
 
-/*    YEAR  NAME    PARENT  COMPAT  MACHINE  INPUT   CLASS         INIT        COMPANY  FULLNAME      FLAGS */
-CONS( 1984, ch2001, 0,      0,      ch2001,  ch2001, ch2001_state, empty_init, "CXG",   "Chess 2001", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+/*    YEAR  NAME    PARENT  COMPAT  MACHINE  INPUT   CLASS         INIT        COMPANY, FULLNAME, FLAGS */
+CONS( 1984, ch2001, 0,      0,      ch2001,  ch2001, ch2001_state, empty_init, "CXG Systems / Newcrest Technology", "Chess 2001", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )

@@ -13,6 +13,7 @@
 #include "machine/timer.h"
 #include "sound/sn76496.h"
 #include "emupal.h"
+#include "tilemap.h"
 
 class gberet_state : public driver_device
 {
@@ -37,6 +38,11 @@ public:
 
 	void init_mrgoemon();
 
+protected:
+	virtual void machine_start() override;
+	virtual void machine_reset() override;
+	virtual void video_start() override;
+
 private:
 	/* memory pointers */
 	required_shared_ptr<uint8_t> m_colorram;
@@ -56,22 +62,19 @@ private:
 	/* misc */
 	uint8_t       m_interrupt_mask;
 	uint8_t       m_interrupt_ticks;
-	DECLARE_WRITE8_MEMBER(gberet_coin_counter_w);
-	DECLARE_WRITE8_MEMBER(mrgoemon_coin_counter_w);
-	DECLARE_WRITE8_MEMBER(gberet_flipscreen_w);
-	DECLARE_WRITE8_MEMBER(gberet_sound_w);
-	DECLARE_WRITE8_MEMBER(gberetb_flipscreen_w);
-	DECLARE_READ8_MEMBER(gberetb_irq_ack_r);
-	DECLARE_WRITE8_MEMBER(gberetb_nmi_ack_w);
-	DECLARE_WRITE8_MEMBER(gberet_videoram_w);
-	DECLARE_WRITE8_MEMBER(gberet_colorram_w);
-	DECLARE_WRITE8_MEMBER(gberet_scroll_w);
-	DECLARE_WRITE8_MEMBER(gberet_sprite_bank_w);
-	DECLARE_WRITE8_MEMBER(gberetb_scroll_w);
+	void gberet_coin_counter_w(uint8_t data);
+	void mrgoemon_coin_counter_w(uint8_t data);
+	void gberet_flipscreen_w(uint8_t data);
+	void gberet_sound_w(uint8_t data);
+	void gberetb_flipscreen_w(uint8_t data);
+	uint8_t gberetb_irq_ack_r();
+	void gberetb_nmi_ack_w(uint8_t data);
+	void gberet_videoram_w(offs_t offset, uint8_t data);
+	void gberet_colorram_w(offs_t offset, uint8_t data);
+	void gberet_scroll_w(offs_t offset, uint8_t data);
+	void gberet_sprite_bank_w(uint8_t data);
+	void gberetb_scroll_w(offs_t offset, uint8_t data);
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
-	DECLARE_MACHINE_START(gberet);
-	DECLARE_MACHINE_RESET(gberet);
-	DECLARE_VIDEO_START(gberet);
 	void gberet_palette(palette_device &palette) const;
 	uint32_t screen_update_gberet(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_gberetb(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);

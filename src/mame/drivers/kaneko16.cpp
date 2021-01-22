@@ -58,8 +58,10 @@ To Do:
   relevant registers aren't changed throughout the game (?)
 
 [gtmr2]
-- Finish the Inputs (different wheels and pedals)
-- Find infos about the communication stuff (even if it won't be supported)
+- Finish the Inputs (different wheels and pedals);
+- Implement LAN comms;
+- Selecting Italian in the service mode settings causes no voice samples being played
+  (with lots of OKI invalid samples in logerror), sound bank bug or btanb?
 
 [brapboys / shogwarr]
 
@@ -84,7 +86,6 @@ Dip locations verified from manual for:
 
 [general]
 - interrupt timing/behaviour
-- replace sample bank copying with new ADDRESS MAP system for OKI and do banking like CPUs
 
 Non-Bugs (happen on real PCB)
 
@@ -306,9 +307,7 @@ void kaneko16_state::bakubrkr_map(address_map &map)
 {
 	map(0x000000, 0x07ffff).rom();     // ROM
 	map(0x100000, 0x10ffff).ram();     // Work RAM
-	map(0x400000, 0x40001f).r(FUNC(kaneko16_state::ym2149_r<0>)); // Sound
-	map(0x400000, 0x40001d).w(FUNC(kaneko16_state::ym2149_w<0>));
-	map(0x40001f, 0x40001f).w(FUNC(kaneko16_state::oki_bank0_w<7>)); // OKI bank Switch
+	map(0x400000, 0x40001f).rw(FUNC(kaneko16_state::ym2149_r<0>), FUNC(kaneko16_state::ym2149_w<0>)); // Sound
 	map(0x400200, 0x40021f).rw(FUNC(kaneko16_state::ym2149_r<1>), FUNC(kaneko16_state::ym2149_w<1>));          // Sound
 	map(0x400401, 0x400401).rw(m_oki[0], FUNC(okim6295_device::read), FUNC(okim6295_device::write));  //
 	map(0x500000, 0x503fff).m(m_view2[0], FUNC(kaneko_view2_tilemap_device::vram_map));
@@ -350,7 +349,7 @@ void kaneko16_state::blazeon_map(address_map &map)
 	map(0xe00000, 0xe00001).nopr(); // Read = IRQ Ack ?
 	map(0xe00000, 0xe00000).w(m_soundlatch, FUNC(generic_latch_8_device::write));
 	map(0xe40000, 0xe40001).nopr(); // IRQ Ack ?
-//  map(0xe80000, 0xe80001) AM_READNOP // IRQ Ack ?
+//  map(0xe80000, 0xe80001).nopr(); // IRQ Ack ?
 	map(0xec0000, 0xec0001).nopr(); // Lev 4 IRQ Ack ?
 }
 
@@ -546,7 +545,7 @@ void kaneko16_gtmr_state::gtmr2_map(address_map &map)
 	map(0xa00000, 0xa00001).rw(m_watchdog, FUNC(watchdog_timer_device::reset16_r), FUNC(watchdog_timer_device::reset16_w));   // Watchdog
 
 	map(0xb00000, 0xb00001).portr("P1");
-//  map(0xb00002, 0xb00003) AM_READ_PORT("P2")
+//  map(0xb00002, 0xb00003).portr("P2");
 	map(0xb00002, 0xb00003).r(FUNC(kaneko16_gtmr_state::gtmr2_IN1_r));
 	map(0xb00004, 0xb00005).portr("SYSTEM");
 	map(0xb00006, 0xb00007).portr("EXTRA");
@@ -1536,6 +1535,8 @@ static INPUT_PORTS_START( shogwarr )
 	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
+    // dip defaults confirmed by manual ("Bolr (sic) face indicate standard setting")
+    // including Demo Sounds
 	PORT_START("DSW1")      /* from the MCU - 102e15.b <- 200059.b */
 	PORT_DIPNAME( 0x01, 0x01, DEF_STR( Flip_Screen ) ) PORT_DIPLOCATION("SW1:1")
 	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
@@ -1544,7 +1545,7 @@ static INPUT_PORTS_START( shogwarr )
 	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Demo_Sounds ) ) PORT_DIPLOCATION("SW1:3")
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
-	PORT_DIPNAME( 0x38, 0x38, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW1:4,5,6")
+	PORT_DIPNAME( 0x38, 0x20, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW1:4,5,6")
 	PORT_DIPSETTING(    0x38, "1 Easy" )
 	PORT_DIPSETTING(    0x30, "2" )
 	PORT_DIPSETTING(    0x28, "3" )
@@ -1554,8 +1555,10 @@ static INPUT_PORTS_START( shogwarr )
 	PORT_DIPSETTING(    0x08, "7" )
 	PORT_DIPSETTING(    0x00, "8 Hard" )
 	PORT_DIPNAME( 0x40, 0x40, "Can Join During Game" ) PORT_DIPLOCATION("SW1:7")
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )  //  2 credits       winner vs computer
-	PORT_DIPSETTING(    0x40, DEF_STR( On ) )   //  1 credit        game over
+    // 1p vs 2p is allowed only at title screen with a single credit by pressing 2p start. akin to an "event mode"
+	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )  //  "impossible", vs.play 1 credit, game over aftewards
+    // "normal mode"
+	PORT_DIPSETTING(    0x40, DEF_STR( On ) )   //  "possible", vs.play 2 credits, winner plays against CPU afterwards
 	PORT_DIPNAME( 0x80, 0x80, "Continue Coin" ) PORT_DIPLOCATION("SW1:8")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -1657,6 +1660,8 @@ TIMER_DEVICE_CALLBACK_MEMBER(kaneko16_state::interrupt)
 	// main vblank interrupt
 	if (scanline == 224)
 	{
+		// 2 frame delayed normaly; differs per PCB?
+		m_kaneko_spr->render_sprites(m_screen->visible_area(), m_spriteram->buffer(), m_spriteram->bytes());
 		m_spriteram->copy();
 		m_maincpu->set_input_line(5, HOLD_LINE);
 	}
@@ -1787,6 +1792,7 @@ void kaneko16_state::bakubrkr(machine_config &config)
 
 	YM2149(config, m_ym2149[0], XTAL(12'000'000)/6); /* verified on pcb */
 	m_ym2149[0]->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_ym2149[0]->port_b_write_callback().set(FUNC(kaneko16_state::oki_bank0_w<7>)); /* outputs B:  OKI bank Switch */
 
 	YM2149(config, m_ym2149[1], XTAL(12'000'000)/6); /* verified on pcb */
 	m_ym2149[1]->add_route(ALL_OUTPUTS, "mono", 1.0);
@@ -2137,8 +2143,8 @@ TIMER_DEVICE_CALLBACK_MEMBER(kaneko16_shogwarr_state::shogwarr_interrupt)
 
 	if (scanline == 224)
 	{
-		m_spriteram->copy(); // TODO : shogwarr sprites are 1 frame delayed? reference : https://youtu.be/aj4ayOc4MuI
-		// the code for this interrupt is provided by the MCU..
+		m_kaneko_spr->render_sprites(m_screen->visible_area(), m_spriteram->buffer(), m_spriteram->bytes());
+		m_spriteram->copy();
 		m_maincpu->set_input_line(4, HOLD_LINE);
 	}
 
@@ -2921,7 +2927,6 @@ ROM_START( bloodwar )
 
 	ROM_REGION( 0x020000, "mcudata", 0 )            /* MCU Code */
 	ROM_LOAD16_WORD_SWAP( "ofd0x3.124",  0x000000, 0x020000, CRC(399f2005) SHA1(ff0370724770c35963953fd9596d9f808ba87d8f) )
-
 
 	ROM_REGION( 0x1e00000, "kan_spr", 0 )  /* Sprites */
 	ROM_LOAD       ( "of-200-0201.8",   0x0000000, 0x200000, CRC(bba63025) SHA1(daec5285469ee953f6f838fe3cb3903524e9ac39) )
@@ -4296,7 +4301,7 @@ GAME( 1993, wingforc,   0,        wingforc, wingforc,  kaneko16_state,          
 GAME( 1994, bonkadv,    0,        bonkadv,  bonkadv,   kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "B.C. Kid / Bonk's Adventure / Kyukyoku!! PC Genjin", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, bloodwar,   0,        bloodwar, bloodwar,  kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "Blood Warrior", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, oedfight,   bloodwar, bloodwar, bloodwar,  kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "Oedo Fight (Japan Bloodshed Ver.)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, gtmr,       0,        gtmr,     gtmr,      kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "1000 Miglia: Great 1000 Miles Rally (94/07/18)", MACHINE_SUPPORTS_SAVE ) // this set shows 'PCB by Jinwei Co Ltd. ROC'
+GAME( 1994, gtmr,       0,        gtmr,     gtmr,      kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "1000 Miglia: Great 1000 Miles Rally (Taiwan 94/07/18)", MACHINE_SUPPORTS_SAVE ) // this set shows 'PCB by Jinwei Co Ltd. ROC', bootleg?
 GAME( 1994, gtmra,      gtmr,     gtmr,     gtmr,      kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "1000 Miglia: Great 1000 Miles Rally (94/06/13)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, gtmrb,      gtmr,     gtmr,     gtmr,      kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "1000 Miglia: Great 1000 Miles Rally (94/05/26)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, gtmro,      gtmr,     gtmr,     gtmr,      kaneko16_gtmr_state,     init_gtmr,     ROT0,  "Kaneko", "1000 Miglia: Great 1000 Miles Rally (94/05/10)", MACHINE_SUPPORTS_SAVE ) // possible prototype

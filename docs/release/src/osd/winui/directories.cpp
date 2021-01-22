@@ -20,6 +20,7 @@
 #include "directories.h"
 #include "resource.h"
 #include "mui_util.h"
+#include "emu_opts.h"
 
 // SHELL DIR header
 #include <shlobj.h>
@@ -141,12 +142,12 @@ static void DirInfo_SetDir(tDirInfo *pInfo, int nType, int nItem, LPCTSTR pText)
 	else
 	{
 		t_s = win_tstring_strdup(pText);
-		if (!t_s)
-			return;
 		t_pOldText = pInfo[nType].m_tDirectory;
 		if (t_pOldText)
 			free(t_pOldText);
-		pInfo[nType].m_tDirectory = t_s; // don't free t_s else directory name is corrupted
+		if (!t_s)
+			return;
+		pInfo[nType].m_tDirectory = t_s;
 	}
 }
 
@@ -291,7 +292,10 @@ static BOOL Directories_OnInitDialog(HWND hDlg, HWND hwndFocus, LPARAM lParam)
 	/* Keep a temporary copy of the directory strings in g_pDirInfo. */
 	for (i = 0; i < nDirInfoCount; i++)
 	{
-		s = g_directoryInfo[i].pfnGetTheseDirs();
+		if (g_directoryInfo[i].dir_index)
+			s = dir_get_value(g_directoryInfo[i].dir_index);
+		else
+			s = g_directoryInfo[i].pfnGetTheseDirs();
 		t_s = ui_wstring_from_utf8(s.c_str());
 		if( !t_s )
 			return false;
@@ -381,7 +385,13 @@ static int RetrieveDirList(int nDir, int nFlagResult, void (*SetTheseDirs)(const
 				_tcscat(buf, TEXT(";"));
 		}
 		char* utf8_buf = ui_utf8_from_wstring(buf);
-		SetTheseDirs(utf8_buf);
+		if (g_directoryInfo[nDir].dir_index)
+		{
+			string svalue = string(utf8_buf);
+			dir_set_value(g_directoryInfo[nDir].dir_index, svalue);
+		}
+		else
+			SetTheseDirs(utf8_buf);
 		free(utf8_buf);
 
 		nResult |= nFlagResult;
@@ -398,10 +408,17 @@ static void Directories_OnOk(HWND hDlg)
 		if (IsMultiDir(i))
 			nResult |= RetrieveDirList(i, g_directoryInfo[i].nDirDlgFlags, g_directoryInfo[i].pfnSetTheseDirs);
 		else
+		if (DirInfo_Modified(g_pDirInfo, i))
 		{
 			LPTSTR s = FixSlash(DirInfo_Dir(g_pDirInfo, i));
 			char* utf8_s = ui_utf8_from_wstring(s);
-			g_directoryInfo[i].pfnSetTheseDirs(utf8_s);
+			if (g_directoryInfo[i].dir_index)
+			{
+				string svalue = string(utf8_s);
+				dir_set_value(g_directoryInfo[i].dir_index, svalue);
+			}
+			else
+				g_directoryInfo[i].pfnSetTheseDirs(utf8_s);
 			free(utf8_s);
 		}
 	}
@@ -418,8 +435,9 @@ static void Directories_OnInsert(HWND hDlg)
 	HWND hList = GetDlgItem(hDlg, IDC_DIR_LIST);
 	int nItem = ListView_GetNextItem(hList, -1, LVNI_SELECTED);
 
-	TCHAR buf[MAX_PATH];
-	if (BrowseForDirectory(hDlg, NULL, buf) == true)
+	TCHAR inbuf[MAX_PATH], outbuf[MAX_PATH];
+	ListView_GetItemText(hList, nItem, 0, inbuf, MAX_PATH);
+	if (BrowseForDirectory(hDlg, inbuf, outbuf) == true)
 	{
 		/* list was empty */
 		if (nItem == -1)
@@ -434,7 +452,7 @@ static void Directories_OnInsert(HWND hDlg)
 			for (int i = DirInfo_NumDir(g_pDirInfo, nType); nItem < i; i--)
 				_tcscpy(DirInfo_Path(g_pDirInfo, nType, i), DirInfo_Path(g_pDirInfo, nType, i - 1));
 
-			_tcscpy(DirInfo_Path(g_pDirInfo, nType, nItem), buf);
+			_tcscpy(DirInfo_Path(g_pDirInfo, nType, nItem), outbuf);
 			DirInfo_NumDir(g_pDirInfo, nType)++;
 			DirInfo_SetModified(g_pDirInfo, nType, true);
 		}

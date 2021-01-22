@@ -76,12 +76,13 @@
 
 
 #include "emu.h"
-#include "cpu/z180/z180.h"
+#include "cpu/z180/hd647180x.h"
 #include "machine/msm6242.h"
 #include "video/mc6845.h"
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 #include "luckgrln.lh"
 #include "7smash.lh"
@@ -115,7 +116,7 @@ private:
 	required_shared_ptr_array<uint8_t, 4> m_reel_scroll;
 	required_shared_ptr_array<uint8_t, 3> m_luck_vram;
 
-	required_device<cpu_device> m_maincpu;
+	required_device<hd647180x_device> m_maincpu;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 	output_finder<12> m_lamps;
@@ -125,16 +126,16 @@ private:
 	int m_palette_count;
 	uint8_t m_palette_ram[0x10000];
 
-	template<uint8_t Reel> DECLARE_WRITE8_MEMBER(reel_ram_w);
-	template<uint8_t Reel> DECLARE_WRITE8_MEMBER(reel_attr_w);
-	DECLARE_WRITE8_MEMBER(output_w);
-	DECLARE_WRITE8_MEMBER(palette_offset_low_w);
-	DECLARE_WRITE8_MEMBER(palette_offset_high_w);
-	DECLARE_WRITE8_MEMBER(palette_w);
-	DECLARE_WRITE8_MEMBER(lamps_a_w);
-	DECLARE_WRITE8_MEMBER(lamps_b_w);
-	DECLARE_WRITE8_MEMBER(counters_w);
-	DECLARE_READ8_MEMBER(test_r);
+	template<uint8_t Reel> void reel_ram_w(offs_t offset, uint8_t data);
+	template<uint8_t Reel> void reel_attr_w(offs_t offset, uint8_t data);
+	void output_w(uint8_t data);
+	void palette_offset_low_w(uint8_t data);
+	void palette_offset_high_w(uint8_t data);
+	void palette_w(uint8_t data);
+	void lamps_a_w(uint8_t data);
+	void lamps_b_w(uint8_t data);
+	void counters_w(uint8_t data);
+	uint8_t test_r();
 	template<uint8_t Reel> TILE_GET_INFO_MEMBER(get_reel_tile_info);
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	INTERRUPT_GEN_MEMBER(irq);
@@ -155,14 +156,14 @@ void luckgrln_state::machine_start()
 }
 
 template<uint8_t Reel>
-WRITE8_MEMBER(luckgrln_state::reel_ram_w)
+void luckgrln_state::reel_ram_w(offs_t offset, uint8_t data)
 {
 	m_reel_ram[Reel][offset] = data;
 	m_reel_tilemap[Reel]->mark_tile_dirty(offset);
 }
 
 template<uint8_t Reel>
-WRITE8_MEMBER(luckgrln_state::reel_attr_w)
+void luckgrln_state::reel_attr_w(offs_t offset, uint8_t data)
 {
 	m_reel_attr[Reel][offset] = data;
 	m_reel_tilemap[Reel]->mark_tile_dirty(offset);
@@ -178,7 +179,7 @@ TILE_GET_INFO_MEMBER(luckgrln_state::get_reel_tile_info)
 	code |= (attr & 0xe0)<<3;
 
 
-	SET_TILE_INFO_MEMBER(1,
+	tileinfo.set(1,
 			code,
 			col,
 			0);
@@ -187,10 +188,10 @@ TILE_GET_INFO_MEMBER(luckgrln_state::get_reel_tile_info)
 
 void luckgrln_state::video_start()
 {
-	m_reel_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(luckgrln_state::get_reel_tile_info<0>), this), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
-	m_reel_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(luckgrln_state::get_reel_tile_info<1>), this), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
-	m_reel_tilemap[2] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(luckgrln_state::get_reel_tile_info<2>), this), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
-	m_reel_tilemap[3] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(luckgrln_state::get_reel_tile_info<3>), this), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
+	m_reel_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(luckgrln_state::get_reel_tile_info<0>)), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
+	m_reel_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(luckgrln_state::get_reel_tile_info<1>)), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
+	m_reel_tilemap[2] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(luckgrln_state::get_reel_tile_info<2>)), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
+	m_reel_tilemap[3] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(luckgrln_state::get_reel_tile_info<3>)), TILEMAP_SCAN_ROWS, 8, 32, 64, 8);
 
 	for (uint8_t i = 0; i < 4; i++)
 	{
@@ -298,7 +299,6 @@ uint32_t luckgrln_state::screen_update(screen_device &screen, bitmap_rgb32 &bitm
 
 void luckgrln_state::mainmap(address_map &map)
 {
-	map(0x00000, 0x03fff).rom();
 	map(0x10000, 0x1ffff).rom().region("rom_data", 0x10000);
 	map(0x20000, 0x2ffff).rom().region("rom_data", 0x00000);
 
@@ -318,8 +318,7 @@ void luckgrln_state::mainmap(address_map &map)
 	map(0x0ce00, 0x0cfff).ram().w(FUNC(luckgrln_state::reel_attr_w<3>)).share("reel_attr.3");
 	map(0x0d600, 0x0d63f).ram().share("reel_scroll.3");
 
-//  AM_RANGE(0x0d200, 0x0d2ff) AM_RAM
-
+//  map(0x0d200, 0x0d2ff).ram();
 
 	map(0x0d800, 0x0dfff).ram(); // nvram
 
@@ -340,8 +339,10 @@ void luckgrln_state::_7smash_map(address_map &map)
 	map(0xf0000, 0xfffff).unmaprw();
 }
 
-WRITE8_MEMBER(luckgrln_state::output_w)
+void luckgrln_state::output_w(uint8_t data)
 {
+	data &= 0xc7;
+
 	/* correct? */
 	if (data==0x84)
 		m_nmi_enable = 0;
@@ -353,17 +354,17 @@ WRITE8_MEMBER(luckgrln_state::output_w)
 
 
 
-WRITE8_MEMBER(luckgrln_state::palette_offset_low_w)
+void luckgrln_state::palette_offset_low_w(uint8_t data)
 {
 	m_palette_count = data<<1;
 }
-WRITE8_MEMBER(luckgrln_state::palette_offset_high_w)
+void luckgrln_state::palette_offset_high_w(uint8_t data)
 {
 	m_palette_count = m_palette_count | data<<9;
 }
 
 
-WRITE8_MEMBER(luckgrln_state::palette_w)
+void luckgrln_state::palette_w(uint8_t data)
 {
 	m_palette_ram[m_palette_count] = data;
 
@@ -385,7 +386,7 @@ WRITE8_MEMBER(luckgrln_state::palette_w)
 }
 
 /* Analyzing the lamps, the game should have a 12-buttons control layout */
-WRITE8_MEMBER(luckgrln_state::lamps_a_w)
+void luckgrln_state::lamps_a_w(uint8_t data)
 {
 /*  LAMPS A:
 
@@ -405,7 +406,7 @@ WRITE8_MEMBER(luckgrln_state::lamps_a_w)
 		m_lamps[i] = BIT(data, i);
 }
 
-WRITE8_MEMBER(luckgrln_state::lamps_b_w)
+void luckgrln_state::lamps_b_w(uint8_t data)
 {
 /*  LAMPS B:
 
@@ -422,7 +423,7 @@ WRITE8_MEMBER(luckgrln_state::lamps_b_w)
 		m_lamps[i + 8] = BIT(data, i);
 }
 
-WRITE8_MEMBER(luckgrln_state::counters_w)
+void luckgrln_state::counters_w(uint8_t data)
 {
 /*  COUNTERS:
 
@@ -445,8 +446,7 @@ WRITE8_MEMBER(luckgrln_state::counters_w)
 void luckgrln_state::common_portmap(address_map &map)
 {
 	map.global_mask(0xff);
-	map(0x0000, 0x003f).ram(); // Z180 internal regs
-	map(0x0060, 0x0060).w(FUNC(luckgrln_state::output_w));
+	map(0x0000, 0x007f).noprw(); // Z180 internal regs
 
 	map(0x00a0, 0x00a0).w(FUNC(luckgrln_state::palette_offset_low_w));
 	map(0x00a1, 0x00a1).w(FUNC(luckgrln_state::palette_offset_high_w));
@@ -479,7 +479,7 @@ void luckgrln_state::common_portmap(address_map &map)
 	map(0x00f8, 0x00f8).portr("DSW2");
 	map(0x00f9, 0x00f9).portr("DSW3");
 	map(0x00fa, 0x00fa).portr("DSW4");
-	map(0x00fb, 0x00fb).portr("DSW5"); //AM_WRITENOP
+	map(0x00fb, 0x00fb).portr("DSW5"); //.nopw();
 	map(0x00fc, 0x00fc).nopw();
 	map(0x00fd, 0x00fd).nopw();
 	map(0x00fe, 0x00fe).nopw();
@@ -502,7 +502,7 @@ void luckgrln_state::luckgrln_io(address_map &map)
 }
 
 /* reads a bit 1 status there after every round played */
-READ8_MEMBER(luckgrln_state::test_r)
+uint8_t luckgrln_state::test_r()
 {
 	return 0xff;
 }
@@ -510,7 +510,6 @@ READ8_MEMBER(luckgrln_state::test_r)
 void luckgrln_state::_7smash_io(address_map &map)
 {
 	common_portmap(map);
-	map(0x66, 0x66).r(FUNC(luckgrln_state::test_r));
 }
 
 static INPUT_PORTS_START( luckgrln )
@@ -863,12 +862,13 @@ INTERRUPT_GEN_MEMBER(luckgrln_state::irq)
 
 void luckgrln_state::luckgrln(machine_config &config)
 {
-	Z180(config, m_maincpu, 8000000);
+	HD647180X(config, m_maincpu, 16000000);
 	m_maincpu->set_addrmap(AS_PROGRAM, &luckgrln_state::mainmap);
 	m_maincpu->set_addrmap(AS_IO, &luckgrln_state::luckgrln_io);
 	m_maincpu->set_vblank_int("screen", FUNC(luckgrln_state::irq));
+	m_maincpu->out_pa_callback().set(FUNC(luckgrln_state::output_w));
 
-	hd6845s_device &crtc(HD6845S(config, "crtc", 6000000/4)); /* HD6845SP; unknown clock, hand tuned to get ~60 fps */
+	hd6845s_device &crtc(HD6845S(config, "crtc", 12_MHz_XTAL / 8)); /* HD6845SP; unknown clock, hand tuned to get ~60 fps */
 	crtc.set_screen("screen");
 	crtc.set_show_border_area(false);
 	crtc.set_char_width(8);
@@ -893,6 +893,7 @@ void luckgrln_state::_7smash(machine_config &config)
 	luckgrln(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &luckgrln_state::_7smash_map);
 	m_maincpu->set_addrmap(AS_IO, &luckgrln_state::_7smash_io);
+	m_maincpu->in_pg_callback().set(FUNC(luckgrln_state::test_r));
 
 	config.device_remove("rtc");
 }

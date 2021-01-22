@@ -28,8 +28,7 @@ public:
 	enum kbdc8042_type_t
 	{
 		KBDC8042_STANDARD,
-		KBDC8042_PS2,       /* another timing of integrated controller */
-		KBDC8042_AT386      /* hack for at386 driver */
+		KBDC8042_PS2
 	};
 
 	// construction/destruction
@@ -42,8 +41,8 @@ public:
 	auto output_buffer_empty_callback() { return m_output_buffer_empty_cb.bind(); }
 	auto speaker_callback() { return m_speaker_cb.bind(); }
 
-	DECLARE_READ8_MEMBER( data_r );
-	DECLARE_WRITE8_MEMBER( data_w );
+	uint8_t data_r(offs_t offset);
+	void data_w(offs_t offset, uint8_t data);
 
 	DECLARE_WRITE_LINE_MEMBER( write_out2 );
 
@@ -98,9 +97,9 @@ private:
 	int m_poll_delay;
 
 	required_device<at_keyboard_device> m_keyboard_dev;
-	required_ioport m_mousex_port;
-	required_ioport m_mousey_port;
-	required_ioport m_mousebtn_port;
+	optional_ioport m_mousex_port;
+	optional_ioport m_mousey_port;
+	optional_ioport m_mousebtn_port;
 
 	kbdc8042_type_t     m_keybtype;
 

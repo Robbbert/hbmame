@@ -62,6 +62,12 @@ FIX:  csk227it has video issues, as after Ability game, bg_tilemap is not reset
 FIX: PK Tetris have an input named AMUSE which I couldn't map.  Maybe it is
     necessary for the Amuse game, because I can't understand how to play it.
 
+TODO:
+
+- Sets cpoker & cpokert spit 660K of whatever they have in the hopper when keyout...
+- Check if the cpoker sets still lock at some point due to protection.
+- Fix lamps to cpoker101.
+
 *****************************************************************************/
 
 #include "emu.h"
@@ -73,6 +79,7 @@ FIX: PK Tetris have an input named AMUSE which I couldn't map.  Maybe it is
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 #include "igspoker.lh"
 
@@ -109,26 +116,28 @@ public:
 	void init_pktet346();
 	void init_tet341();
 	void init_cpokert();
+	void init_cpoker101();
 	void init_chleague();
 	void init_cska();
 	void init_cpoker();
+	void init_cpoker300us();
 	void init_igs_ncs2();
 	void init_cpokerpk();
 	void init_kungfu();
 
-	DECLARE_CUSTOM_INPUT_MEMBER(hopper_r);
+	DECLARE_READ_LINE_MEMBER(hopper_r);
 
 private:
-	DECLARE_READ8_MEMBER(igs_irqack_r);
-	DECLARE_WRITE8_MEMBER(igs_irqack_w);
-	DECLARE_WRITE8_MEMBER(bg_tile_w);
-	DECLARE_WRITE8_MEMBER(fg_tile_w);
-	DECLARE_WRITE8_MEMBER(fg_color_w);
-	DECLARE_WRITE8_MEMBER(igs_nmi_and_coins_w);
-	DECLARE_WRITE8_MEMBER(igs_lamps_w);
-	DECLARE_READ8_MEMBER(custom_io_r);
-	DECLARE_WRITE8_MEMBER(custom_io_w);
-	DECLARE_READ8_MEMBER(exp_rom_r);
+	uint8_t igs_irqack_r();
+	void igs_irqack_w(uint8_t data);
+	void bg_tile_w(offs_t offset, uint8_t data);
+	void fg_tile_w(offs_t offset, uint8_t data);
+	void fg_color_w(offs_t offset, uint8_t data);
+	void igs_nmi_and_coins_w(uint8_t data);
+	void igs_lamps_w(uint8_t data);
+	uint8_t custom_io_r();
+	void custom_io_w(uint8_t data);
+	uint8_t exp_rom_r(offs_t offset);
 	void show_out();
 
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
@@ -189,13 +198,13 @@ TIMER_DEVICE_CALLBACK_MEMBER(igspoker_state::igs_interrupt)
 }
 
 
-READ8_MEMBER(igspoker_state::igs_irqack_r)
+uint8_t igspoker_state::igs_irqack_r()
 {
 	m_maincpu->set_input_line(0, CLEAR_LINE);
 	return 0;
 }
 
-WRITE8_MEMBER(igspoker_state::igs_irqack_w)
+void igspoker_state::igs_irqack_w(uint8_t data)
 {
 //  m_maincpu->set_input_line(0, CLEAR_LINE);
 }
@@ -204,29 +213,29 @@ WRITE8_MEMBER(igspoker_state::igs_irqack_w)
 TILE_GET_INFO_MEMBER(igspoker_state::get_bg_tile_info)
 {
 	int code = m_bg_tile_ram[tile_index];
-	SET_TILE_INFO_MEMBER(1 + (tile_index & 3), code, 0, 0);
+	tileinfo.set(1 + (tile_index & 3), code, 0, 0);
 }
 
 TILE_GET_INFO_MEMBER(igspoker_state::get_fg_tile_info)
 {
 	int code = m_fg_tile_ram[tile_index] | (m_fg_color_ram[tile_index] << 8);
 	int tile = code & 0x1fff;
-	SET_TILE_INFO_MEMBER(0, code, tile != 0x1fff ? ((code >> 12) & 0xe) + 1 : 0, 0);
+	tileinfo.set(0, code, tile != 0x1fff ? ((code >> 12) & 0xe) + 1 : 0, 0);
 }
 
-WRITE8_MEMBER(igspoker_state::bg_tile_w)
+void igspoker_state::bg_tile_w(offs_t offset, uint8_t data)
 {
 	m_bg_tile_ram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
-WRITE8_MEMBER(igspoker_state::fg_tile_w)
+void igspoker_state::fg_tile_w(offs_t offset, uint8_t data)
 {
 	m_fg_tile_ram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset);
 }
 
-WRITE8_MEMBER(igspoker_state::fg_color_w)
+void igspoker_state::fg_color_w(offs_t offset, uint8_t data)
 {
 	m_fg_color_ram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset);
@@ -234,8 +243,8 @@ WRITE8_MEMBER(igspoker_state::fg_color_w)
 
 void igspoker_state::video_start()
 {
-	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(igspoker_state::get_fg_tile_info),this), TILEMAP_SCAN_ROWS,   8,  8,  64, 32);
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(igspoker_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS,   8,  32, 64, 8);
+	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(igspoker_state::get_fg_tile_info)), TILEMAP_SCAN_ROWS,   8,  8,  64, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(igspoker_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS,   8,  32, 64, 8);
 
 	m_fg_tilemap->set_transparent_pen(0);
 }
@@ -254,7 +263,7 @@ uint32_t igspoker_state::screen_update_igs_video(screen_device &screen, bitmap_i
 
 VIDEO_START_MEMBER(igspoker_state,cpokerpk)
 {
-	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(igspoker_state::get_fg_tile_info),this), TILEMAP_SCAN_ROWS,   8,  8,  64, 32);
+	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(igspoker_state::get_fg_tile_info)), TILEMAP_SCAN_ROWS,   8,  8,  64, 32);
 }
 
 uint32_t igspoker_state::screen_update_cpokerpk(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
@@ -272,7 +281,7 @@ void igspoker_state::show_out()
 #endif
 }
 
-WRITE8_MEMBER(igspoker_state::igs_nmi_and_coins_w)
+void igspoker_state::igs_nmi_and_coins_w(uint8_t data)
 {
 	machine().bookkeeping().coin_counter_w(0,        data & 0x01);   // coin_a
 	machine().bookkeeping().coin_counter_w(1,        data & 0x04);   // coin_c
@@ -290,7 +299,7 @@ WRITE8_MEMBER(igspoker_state::igs_nmi_and_coins_w)
 	show_out();
 }
 
-WRITE8_MEMBER(igspoker_state::igs_lamps_w)
+void igspoker_state::igs_lamps_w(uint8_t data)
 {
 /*
     - Lbits -
@@ -332,7 +341,7 @@ WRITE8_MEMBER(igspoker_state::igs_lamps_w)
 
 
 
-READ8_MEMBER(igspoker_state::custom_io_r)
+uint8_t igspoker_state::custom_io_r()
 {
 #if VERBOSE
 	logerror("PC %06X: Protection read %02x\n",m_maincpu->pc(), m_protection_res);
@@ -340,7 +349,7 @@ READ8_MEMBER(igspoker_state::custom_io_r)
 	return m_protection_res;
 }
 
-WRITE8_MEMBER(igspoker_state::custom_io_w)
+void igspoker_state::custom_io_w(uint8_t data)
 {
 #if VERBOSE
 	logerror("PC %06X: Protection write %02x\n",m_maincpu->pc(),data);
@@ -385,13 +394,13 @@ WRITE8_MEMBER(igspoker_state::custom_io_w)
 	}
 }
 
-CUSTOM_INPUT_MEMBER(igspoker_state::hopper_r)
+READ_LINE_MEMBER(igspoker_state::hopper_r)
 {
 	if (m_hopper) return !(m_screen->frame_number()%10);
 	return machine().input().code_pressed(KEYCODE_H);
 }
 
-READ8_MEMBER(igspoker_state::exp_rom_r)
+uint8_t igspoker_state::exp_rom_r(offs_t offset)
 {
 	uint8_t *rom = memregion("maincpu")->base();
 	return rom[offset+0x10000];
@@ -400,7 +409,7 @@ READ8_MEMBER(igspoker_state::exp_rom_r)
 void igspoker_state::igspoker_prg_map(address_map &map)
 {
 	map(0x0000, 0xefff).rom();
-	map(0xf000, 0xffff).ram().region("maincpu", 0xf000);
+	map(0xf000, 0xffff).ram();
 }
 
 void igspoker_state::igspoker_io_map(address_map &map)
@@ -533,7 +542,7 @@ static INPUT_PORTS_START( cpoker )
 	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNUSED )
 
 	PORT_START("SERVICE")
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -551,11 +560,11 @@ static INPUT_PORTS_START( cpoker )
 
 	PORT_START("BUTTONS2")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_START1 )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_POKER_HOLD1 ) PORT_NAME("Hold 1 / High / Low")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_POKER_HOLD1 ) PORT_NAME("Hold 1 / Low / Black")
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_POKER_HOLD5 ) PORT_NAME("Hold 5 / Bet")
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_POKER_HOLD4 ) PORT_NAME("Hold 4 / Take")
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_POKER_HOLD3 ) PORT_NAME("Hold 3 / W-Up")
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_POKER_HOLD2 ) PORT_NAME("Hold 2 / Red / Black")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_POKER_HOLD2 ) PORT_NAME("Hold 2 / High / Red")
 	PORT_BIT( 0xc0, IP_ACTIVE_LOW, IPT_UNUSED )
 INPUT_PORTS_END
 
@@ -667,7 +676,7 @@ static INPUT_PORTS_START( cpokerx )
 	PORT_START("SERVICE")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_SERVICE ) PORT_CODE(KEYCODE_9) PORT_NAME("Attendent")
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
@@ -832,7 +841,7 @@ static INPUT_PORTS_START( csk227 )
 	PORT_START("SERVICE")
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW")  // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW")  // hopper sensor
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
@@ -977,7 +986,7 @@ static INPUT_PORTS_START( csk234 )
 	PORT_BIT( 0xe0, IP_ACTIVE_LOW, IPT_UNUSED )
 
 	PORT_START("SERVICE")
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW")  // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW")  // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -1129,7 +1138,7 @@ static INPUT_PORTS_START( igs_ncs )
 	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
 
 	PORT_START("SERVICE")
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -1451,7 +1460,7 @@ static INPUT_PORTS_START( cpokerpk )
 	PORT_DIPSETTING(    0x00, "100:1" )
 
 	PORT_START("SERVICE")
-	PORT_BIT( 0x8f, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x8f, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -1586,7 +1595,7 @@ static INPUT_PORTS_START( chleague )
 	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNUSED )
 
 	PORT_START("SERVICE")
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -1725,7 +1734,7 @@ static INPUT_PORTS_START( pktet346 )
 
 	PORT_START("SERVICE")
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_SERVICE ) PORT_CODE(KEYCODE_9)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -1836,7 +1845,7 @@ static INPUT_PORTS_START( igstet341 )
 
 	PORT_START("SERVICE")
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_SERVICE ) PORT_CODE(KEYCODE_9)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_CUSTOM_MEMBER(DEVICE_SELF,igspoker_state, hopper_r, nullptr) PORT_NAME("HPSW") // hopper sensor
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_CUSTOM  ) PORT_READ_LINE_MEMBER(igspoker_state, hopper_r) PORT_NAME("HPSW") // hopper sensor
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_PAYOUT )
 	PORT_SERVICE_NO_TOGGLE( 0x20, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_GAMBLE_BOOK ) PORT_NAME("Statistics")
@@ -2100,6 +2109,37 @@ void igspoker_state::init_cpoker()
 		if ((A & 0x0282) == 0x0282) rom[A] ^= 0x01;
 		if ((A & 0x0940) == 0x0940) rom[A] ^= 0x02;
 	}
+
+/*  Patch to avoid traps at $0eed and $206e
+    that run subs in RAM, operate registers,
+    and finally lock the game at $72c2.
+
+    All these are triggered if RAM contents of $ff18
+    matches the $ff19 (normally 0x20 due to an AND
+    against the $ff1b contents)
+*/
+//      this NOP the $0eed call...
+		rom[0x214a] = 0x00;
+		rom[0x214b] = 0x00;
+		rom[0x214c] = 0x00;
+
+//      this NOP the conditional jump to $206e
+		rom[0x214d] = 0x00;
+		rom[0x214e] = 0x00;
+		rom[0x214f] = 0x00;
+
+}
+
+void igspoker_state::init_cpoker300us()
+{
+	uint8_t *rom = memregion("maincpu")->base();
+	for (int A = 0; A < 0x10000; A++)
+	{
+		rom[A] ^= 0x01;
+		if ((A & 0x00e0) == 0x00a0) rom[A] ^= 0x20;
+		if ((A & 0x0282) == 0x0282) rom[A] ^= 0x01;
+		if ((A & 0x0940) == 0x0940) rom[A] ^= 0x02;
+	}
 }
 
 void igspoker_state::init_cpokert()
@@ -2127,6 +2167,72 @@ void igspoker_state::init_cpokert()
 			rom[i] ^= 0x02;
 		}
 	}
+
+/*  Patch to avoid traps at $0eed and $206e
+    that run subs in RAM, operate registers,
+    and finally lock the game at $72c2.
+
+    All these are triggered if RAM contents of $ff18
+    matches the $ff19 (normally 0x20 due to an AND
+    against the $ff1b contents)
+*/
+//      this NOP the $0eed call...
+		rom[0x214a] = 0x00;
+		rom[0x214b] = 0x00;
+		rom[0x214c] = 0x00;
+
+//      this NOP the conditional jump to $206e
+		rom[0x214d] = 0x00;
+		rom[0x214e] = 0x00;
+		rom[0x214f] = 0x00;
+}
+
+void igspoker_state::init_cpoker101()  // same decryption as cpokert
+{
+	uint8_t *rom = memregion("maincpu")->base();
+	/* decrypt the program ROM */
+	for (int i = 0; i < 0x10000; i++)
+	{
+		if((i & 0x200) && (i & 0x80))
+		{
+			rom[i] ^= ((~i & 2) >> 1);
+		}
+		else
+		{
+			rom[i] ^= 0x01;
+		}
+
+		if((i & 0x30) != 0x10)
+		{
+			rom[i] ^= 0x20;
+		}
+
+		if((i & 0x900) == 0x900 && ((i & 0xc0) == 0x40 || (i & 0xc0) == 0xc0))
+		{
+			rom[i] ^= 0x02;
+		}
+	}
+
+/*  Patch to avoid traps at $0ec5 (cpoker101),
+    $0ef0 (cpoker201f), $0f20 (cpoker210ks) and
+    $206e (cpoker101, cpoker201f & cpoker210ks),
+    that run subs in RAM, operate registers,
+    and finally lock the game at $732e (cpoker101),
+    $72c2 (cpoker201f) & $72c6 (cpoker210ks).
+
+    All these are triggered if RAM contents of $ff18
+    matches the $ff19 (normally 0x20 due to an AND
+    against the $ff1b contents)
+*/
+//      this NOP the $0ec5 call...
+		rom[0x214a] = 0x00;
+		rom[0x214b] = 0x00;
+		rom[0x214c] = 0x00;
+
+//      this NOP the conditional jump to $206e
+		rom[0x214d] = 0x00;
+		rom[0x214e] = 0x00;
+		rom[0x214f] = 0x00;
 }
 
 void igspoker_state::init_cska()
@@ -2916,36 +3022,36 @@ void igspoker_state::init_kungfu()
 }
 
 
-GAMEL( 1993?,cpoker,      0,      igspoker, cpoker,   igspoker_state, init_cpoker,   ROT0, "IGS",                  "Champion Poker (v220I)",                       0, layout_igspoker )
-GAMEL( 1993?,cpokert,     cpoker, igspoker, cpoker,   igspoker_state, init_cpokert,  ROT0, "IGS (Tuning license)", "Champion Poker (v200G)",                       0, layout_igspoker )
-GAMEL( 1993, cpokerx,     cpoker, igspoker, cpokerx,  igspoker_state, init_cpokert,  ROT0, "IGS",                  "Champion Poker (v100)",                        0, layout_igspoker )
-GAMEL( 1993, cpoker101,   cpoker, igspoker, cpokerx,  igspoker_state, init_cpokert,  ROT0, "IGS",                  "Champion Poker (v101)",                        MACHINE_NOT_WORKING, layout_igspoker ) // need to verify protection handling and inputs/outputs on these
-GAMEL( 1993, cpoker201f,  cpoker, igspoker, cpokerx,  igspoker_state, init_cpokert,  ROT0, "IGS",                  "Champion Poker (v201F)",                       MACHINE_NOT_WORKING, layout_igspoker )
-GAMEL( 1993, cpoker210ks, cpoker, igspoker, cpokerx,  igspoker_state, init_cpokert,  ROT0, "IGS",                  "Champion Poker (v210KS)",                      MACHINE_NOT_WORKING, layout_igspoker )
-GAMEL( 1993, cpoker300us, cpoker, igspoker, cpokerx,  igspoker_state, init_cpokert,  ROT0, "IGS",                  "Champion Poker (v300US)",                      MACHINE_NOT_WORKING, layout_igspoker ) // different encryption or mapping?
+GAMEL( 1993?,cpoker,      0,      igspoker, cpoker,   igspoker_state, init_cpoker,      ROT0, "IGS",                  "Champion Poker (v220I)",                       0, layout_igspoker )
+GAMEL( 1993?,cpokert,     cpoker, igspoker, cpoker,   igspoker_state, init_cpokert,     ROT0, "IGS (Tuning license)", "Champion Poker (v200G)",                       0, layout_igspoker )
+GAMEL( 1993, cpokerx,     cpoker, igspoker, cpokerx,  igspoker_state, init_cpokert,     ROT0, "IGS",                  "Champion Poker (v100)",                        0, layout_igspoker )
+GAMEL( 1993, cpoker101,   cpoker, igspoker, cpokerx,  igspoker_state, init_cpoker101,   ROT0, "IGS",                  "Champion Poker (v101)",                        0, layout_igspoker ) // need to fix lamps/layout
+GAMEL( 1993, cpoker201f,  cpoker, igspoker, cpoker,   igspoker_state, init_cpoker101,   ROT0, "IGS",                  "Champion Poker (v201F)",                       0, layout_igspoker )
+GAMEL( 1993, cpoker210ks, cpoker, igspoker, cpokerx,  igspoker_state, init_cpoker101,   ROT0, "IGS",                  "Champion Poker (v210KS)",                      MACHINE_NOT_WORKING, layout_igspoker ) // need to verify protection handling and inputs/outputs
+GAMEL( 1993, cpoker300us, cpoker, igspoker, cpoker,   igspoker_state, init_cpoker300us, ROT0, "IGS",                  "Champion Poker (v300US)",                      MACHINE_NOT_WORKING, layout_igspoker ) // need to verify protection handling and inputs/outputs
 
-GAMEL( 2000, chleague,    0,        igspoker, chleague, igspoker_state, init_chleague, ROT0, "IGS",                  "Champion League (v220I, Poker)",               0, layout_igspoker )
-GAMEL( 2000, chleagul,    chleague, igspoker, chleague, igspoker_state, init_chleague, ROT0, "IGS",                  "Champion League (v220I, Lattine)",             0, layout_igspoker )
-GAMEL( 1998, chleagxa,    chleague, igspoker, chleague, igspoker_state, init_chleague, ROT0, "PlayMark SRL",         "Champion League (v220I, dual program, set 1)", 0, layout_igspoker )
-GAMEL( 1998, chleagxb,    chleague, igspoker, chleague, igspoker_state, init_chleague, ROT0, "PlayMark SRL",         "Champion League (v220I, dual program, set 2)", 0, layout_igspoker )
+GAMEL( 2000, chleague,    0,        igspoker, chleague, igspoker_state, init_chleague,  ROT0, "IGS",                  "Champion League (v220I, Poker)",               0, layout_igspoker )
+GAMEL( 2000, chleagul,    chleague, igspoker, chleague, igspoker_state, init_chleague,  ROT0, "IGS",                  "Champion League (v220I, Lattine)",             0, layout_igspoker )
+GAMEL( 1998, chleagxa,    chleague, igspoker, chleague, igspoker_state, init_chleague,  ROT0, "PlayMark SRL",         "Champion League (v220I, dual program, set 1)", 0, layout_igspoker )
+GAMEL( 1998, chleagxb,    chleague, igspoker, chleague, igspoker_state, init_chleague,  ROT0, "PlayMark SRL",         "Champion League (v220I, dual program, set 2)", 0, layout_igspoker )
 
-GAMEL( 198?, csk227it,    0,        csk227it, csk227,   igspoker_state, init_cska,     ROT0, "IGS",                  "Champion Skill (with Ability)",                0, layout_igspoker ) /* SU 062 */
-GAMEL( 198?, csk234it,    csk227it, csk234it, csk234,   igspoker_state, init_cska,     ROT0, "IGS",                  "Champion Skill (Ability, Poker & Symbols)",    0, layout_igspoker ) /* SU 062 */
+GAMEL( 198?, csk227it,    0,        csk227it, csk227,   igspoker_state, init_cska,      ROT0, "IGS",                  "Champion Skill (with Ability)",                0, layout_igspoker ) /* SU 062 */
+GAMEL( 198?, csk234it,    csk227it, csk234it, csk234,   igspoker_state, init_cska,      ROT0, "IGS",                  "Champion Skill (Ability, Poker & Symbols)",    0, layout_igspoker ) /* SU 062 */
 
-GAMEL( 2000, number10,    0,        number10, number10, igspoker_state, init_number10, ROT0, "PlayMark SRL",         "Number Dieci (Poker)",                         0, layout_igspoker )
-GAMEL( 2000, numbr10l,    number10, number10, number10, igspoker_state, init_number10, ROT0, "PlayMark SRL",         "Number Dieci (Lattine)",                       0, layout_igspoker )
+GAMEL( 2000, number10,    0,        number10, number10, igspoker_state, init_number10,  ROT0, "PlayMark SRL",         "Number Dieci (Poker)",                         0, layout_igspoker )
+GAMEL( 2000, numbr10l,    number10, number10, number10, igspoker_state, init_number10,  ROT0, "PlayMark SRL",         "Number Dieci (Lattine)",                       0, layout_igspoker )
 
-GAMEL( 198?, igs_ncs,     0,        igs_ncs,  igs_ncs,  igspoker_state, init_igs_ncs,  ROT0, "IGS",                  "New Champion Skill (v100n)",                   0, layout_igspoker ) /* SU 062 */
+GAMEL( 198?, igs_ncs,     0,        igs_ncs,  igs_ncs,  igspoker_state, init_igs_ncs,   ROT0, "IGS",                  "New Champion Skill (v100n)",                   0, layout_igspoker ) /* SU 062 */
 
-GAMEL( 199?, cpokerpk,    0,        cpokerpk, cpokerpk, igspoker_state, init_cpokerpk, ROT0, "bootleg (SGS)",        "Champion Italian PK (bootleg, blue board)",    0, layout_igspoker )
-GAMEL( 199?, cpokerpkg,   cpokerpk, cpokerpk, cpokerpk, igspoker_state, init_cpokerpk, ROT0, "bootleg (SGS)",        "Champion Italian PK (bootleg, green board)",   0, layout_igspoker )
-GAMEL( 199?, citalcup,    cpokerpk, cpokerpk, cpokerpk, igspoker_state, init_cpokerpk, ROT0, "bootleg (SGS)",        "Champion Italian Cup (bootleg V220IT)",        0, layout_igspoker )
+GAMEL( 199?, cpokerpk,    0,        cpokerpk, cpokerpk, igspoker_state, init_cpokerpk,  ROT0, "bootleg (SGS)",        "Champion Italian PK (bootleg, blue board)",    0, layout_igspoker )
+GAMEL( 199?, cpokerpkg,   cpokerpk, cpokerpk, cpokerpk, igspoker_state, init_cpokerpk,  ROT0, "bootleg (SGS)",        "Champion Italian PK (bootleg, green board)",   0, layout_igspoker )
+GAMEL( 199?, citalcup,    cpokerpk, cpokerpk, cpokerpk, igspoker_state, init_cpokerpk,  ROT0, "bootleg (SGS)",        "Champion Italian Cup (bootleg V220IT)",        0, layout_igspoker )
 
-GAMEL( 2000, igs_ncs2,    0,        igs_ncs,  igs_ncs,  igspoker_state, init_igs_ncs2, ROT0, "IGS",                  "New Champion Skill (v100n 2000)",              MACHINE_IMPERFECT_GRAPHICS, layout_igspoker )
+GAMEL( 2000, igs_ncs2,    0,        igs_ncs,  igs_ncs,  igspoker_state, init_igs_ncs2,  ROT0, "IGS",                  "New Champion Skill (v100n 2000)",              MACHINE_IMPERFECT_GRAPHICS, layout_igspoker )
 
-GAMEL( 1998, stellecu,    0,        number10, number10, igspoker_state, empty_init,    ROT0, "Sure",                 "Stelle e Cubi (Italy)",                        MACHINE_NOT_WORKING, layout_igspoker )
+GAMEL( 1998, stellecu,    0,        number10, number10, igspoker_state, empty_init,     ROT0, "Sure",                 "Stelle e Cubi (Italy)",                        MACHINE_NOT_WORKING, layout_igspoker )
 
-GAMEL( 1993?,pktet346,    0,        pktetris, pktet346, igspoker_state, init_pktet346, ROT0, "IGS",                  "PK Tetris (v346I)",                            0, layout_igspoker )
-GAMEL( 199?, igstet341,   pktet346, pktetris, igstet341,igspoker_state, init_tet341,   ROT0, "IGS",                  "Tetris (v341R)",                               0, layout_igspoker )
+GAMEL( 1993?,pktet346,    0,        pktetris, pktet346, igspoker_state, init_pktet346,  ROT0, "IGS",                  "PK Tetris (v346I)",                            0, layout_igspoker )
+GAMEL( 199?, igstet341,   pktet346, pktetris, igstet341,igspoker_state, init_tet341,    ROT0, "IGS",                  "Tetris (v341R)",                               0, layout_igspoker )
 
-GAMEL( 1992, kungfu,      0,        igspoker, cpoker,   igspoker_state, init_kungfu,   ROT0, "IGS",                  "Kung Fu (IGS, v100)",                          MACHINE_NOT_WORKING, layout_igspoker )
+GAMEL( 1992, kungfu,      0,        igspoker, cpoker,   igspoker_state, init_kungfu,    ROT0, "IGS",                  "Kung Fu (IGS, v100)",                          MACHINE_NOT_WORKING, layout_igspoker )

@@ -42,14 +42,15 @@ protected:
 private:
 	bool m_bEnabled;
 	bool m_bReadA2ROM;
+	bool m_bIn1MHzMode;
 	emu_timer *m_timer;
 
 	required_device<cpu_device> m_ourcpu;
 	required_region_ptr<uint8_t> m_rom;
 	required_ioport m_dsw1, m_dsw2;
 
-	DECLARE_READ8_MEMBER( dma_r );
-	DECLARE_WRITE8_MEMBER( dma_w );
+	uint8_t dma_r(offs_t offset);
+	void dma_w(offs_t offset, uint8_t data);
 
 	void m65c02_mem(address_map &map);
 

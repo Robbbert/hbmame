@@ -120,7 +120,7 @@ void a2bus_videx80_device::device_add_mconfig(machine_config &config)
 	m_crtc->set_screen(VIDEOTERM_SCREEN_NAME);
 	m_crtc->set_show_border_area(false);
 	m_crtc->set_char_width(9);
-	m_crtc->set_update_row_callback(FUNC(a2bus_videx80_device::crtc_update_row), this);
+	m_crtc->set_update_row_callback(FUNC(a2bus_videx80_device::crtc_update_row));
 }
 
 void a2bus_ap16_device::device_add_mconfig(machine_config &config)
@@ -347,7 +347,7 @@ void a2bus_videx80_device::write_c800(uint16_t offset, uint8_t data)
 
 MC6845_UPDATE_ROW( a2bus_videx80_device::crtc_update_row )
 {
-	uint32_t  *p = &bitmap.pix32(y);
+	uint32_t  *p = &bitmap.pix(y);
 	uint16_t  chr_base = ra; //( ra & 0x08 ) ? 0x800 | ( ra & 0x07 ) : ra;
 
 	for (int i = 0; i < x_count; i++)

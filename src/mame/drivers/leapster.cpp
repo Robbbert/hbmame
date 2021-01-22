@@ -234,12 +234,12 @@ private:
 	uint32_t screen_update_leapster(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
 
-	DECLARE_READ32_MEMBER(leapster_random_r)
+	uint32_t leapster_random_r()
 	{
 		return machine().rand() | (machine().rand()<<16); // there is a loop checking that this is above a certain value
 	}
 
-	DECLARE_WRITE32_MEMBER(leapster_aux004b_w)
+	void leapster_aux004b_w(uint32_t data)
 	{
 		printf("leapster_aux004b_w %04x\n", data);
 	}
@@ -283,10 +283,7 @@ void leapster_state::machine_start()
 
 	if (m_cart_rom)
 	{
-		address_space &space = m_maincpu->space(AS_PROGRAM);
-
-		space.install_readwrite_bank(0x80000000, 0x807fffff, "cartrom");
-		membank("cartrom")->set_base(m_cart_rom->base());
+		m_maincpu->space(AS_PROGRAM).install_rom(0x80000000, 0x807fffff, m_cart_rom->base());
 	}
 }
 
@@ -300,7 +297,7 @@ void leapster_state::leapster_map(address_map &map)
 	map(0x0180D800, 0x0180D803).r(FUNC(leapster_state::leapster_random_r));
 	map(0x03000000, 0x030007ff).ram(); // puts stack here, writes a pointer @ 0x03000000 on startup
 	map(0x3c000000, 0x3c1fffff).ram(); // really ram, or has our code execution gone wrong?
-//  AM_RANGE(0x80000000, 0x807fffff) AM_ROMBANK("cartrom") // game ROM pointers are all to the 80xxxxxx region, so I assume it maps here - installed if a cart is present
+//  map(0x80000000, 0x807fffff).bankr("cartrom"); // game ROM pointers are all to the 80xxxxxx region, so I assume it maps here - installed if a cart is present
 }
 
 void leapster_state::leapster_aux(address_map &map)
@@ -324,7 +321,7 @@ void leapster_state::leapster(machine_config &config)
 	screen.set_screen_update(FUNC(leapster_state::screen_update_leapster));
 
 	/* cartridge */
-	GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "leapster_cart", "bin").set_device_load(FUNC(leapster_state::cart_load), this);
+	GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "leapster_cart", "bin").set_device_load(FUNC(leapster_state::cart_load));
 
 	/* Software lists */
 	SOFTWARE_LIST(config, "cart_list").set_original("leapster");

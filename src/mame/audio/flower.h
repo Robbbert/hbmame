@@ -26,16 +26,10 @@ public:
 	flower_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// I/O operations
-	DECLARE_WRITE8_MEMBER( lower_write );
-	DECLARE_WRITE8_MEMBER( upper_write );
+	void lower_write(offs_t offset, uint8_t data);
+	void upper_write(offs_t offset, uint8_t data);
 //  virtual void lower_map(address_map &map);
 //  virtual void upper_map(address_map &map);
-	DECLARE_WRITE8_MEMBER( frequency_w );
-	DECLARE_WRITE8_MEMBER( repeat_w );
-	DECLARE_WRITE8_MEMBER( unk_w );
-	DECLARE_WRITE8_MEMBER( volume_w );
-	DECLARE_WRITE8_MEMBER( start_address_w );
-	DECLARE_WRITE8_MEMBER( sample_trigger_w );
 
 	void regs_map(address_map &map);
 protected:
@@ -45,7 +39,7 @@ protected:
 	virtual void device_start() override;
 	virtual void device_reset() override;
 	virtual space_config_vector memory_space_config() const override;
-	virtual void sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples) override;
+	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
 
 	address_space *m_iospace;
 private:
@@ -56,9 +50,9 @@ private:
 	static constexpr unsigned MAX_VOICES = 8;
 	static constexpr int defgain = 48;
 
-	std::unique_ptr<int16_t[]> m_mixer_table;
+	std::vector<int16_t> m_mixer_table;
 	int16_t *m_mixer_lookup;
-	std::unique_ptr<short[]> m_mixer_buffer;
+	std::vector<short> m_mixer_buffer;
 
 	struct fl_sound_channel
 	{
@@ -83,6 +77,13 @@ private:
 
 	const uint8_t *m_sample_rom;
 	const uint8_t *m_volume_rom;
+
+	void frequency_w(offs_t offset, uint8_t data);
+	void repeat_w(offs_t offset, uint8_t data);
+	void unk_w(offs_t offset, uint8_t data);
+	void volume_w(offs_t offset, uint8_t data);
+	void start_address_w(offs_t offset, uint8_t data);
+	void sample_trigger_w(offs_t offset, uint8_t data);
 };
 
 

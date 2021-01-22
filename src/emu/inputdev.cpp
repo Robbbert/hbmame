@@ -11,6 +11,7 @@
 #include "emu.h"
 #include "inputdev.h"
 
+#include "corestr.h"
 #include "emuopts.h"
 
 
@@ -31,6 +32,7 @@ public:
 	virtual s32 read_as_switch(input_item_modifier modifier) override;
 	virtual s32 read_as_relative(input_item_modifier modifier) override;
 	virtual s32 read_as_absolute(input_item_modifier modifier) override;
+	virtual bool item_check_axis(input_item_modifier modifiers, s32 memory) override;
 
 	// steadykey helper
 	bool steadykey_changed();
@@ -56,6 +58,7 @@ public:
 	virtual s32 read_as_switch(input_item_modifier modifier) override;
 	virtual s32 read_as_relative(input_item_modifier modifier) override;
 	virtual s32 read_as_absolute(input_item_modifier modifier) override;
+	virtual bool item_check_axis(input_item_modifier modifier, s32 memory) override;
 };
 
 
@@ -72,6 +75,7 @@ public:
 	virtual s32 read_as_switch(input_item_modifier modifier) override;
 	virtual s32 read_as_relative(input_item_modifier modifier) override;
 	virtual s32 read_as_absolute(input_item_modifier modifier) override;
+	virtual bool item_check_axis(input_item_modifier modifier, s32 memory) override;
 };
 
 
@@ -277,7 +281,8 @@ input_device::~input_device()
 
 input_item_id input_device::add_item(const char *name, input_item_id itemid, item_get_state_func getstate, void *internal)
 {
-	assert_always(machine().phase() == machine_phase::INIT, "Can only call input_device::add_item at init time!");
+	if (machine().phase() != machine_phase::INIT)
+		throw emu_fatalerror("Can only call input_device::add_item at init time!");
 	assert(name != nullptr);
 	assert(itemid > ITEM_ID_INVALID && itemid < ITEM_ID_MAXIMUM);
 	assert(getstate != nullptr);
@@ -324,13 +329,10 @@ input_item_id input_device::add_item(const char *name, input_item_id itemid, ite
 //  substring search
 //-------------------------------------------------
 
-bool input_device::match_device_id(const char *deviceid)
+bool input_device::match_device_id(const char *deviceid) const
 {
-	std::string deviceidupper(deviceid);
-	std::string idupper(m_id);
-
-	strmakeupper(deviceidupper);
-	strmakeupper(idupper);
+	std::string deviceidupper(strmakeupper(deviceid));
+	std::string idupper(strmakeupper(m_id));
 
 	return std::string::npos == idupper.find(deviceidupper) ? false : true;
 }
@@ -422,7 +424,7 @@ input_device_joystick::input_device_joystick(input_manager &manager, const char 
 		m_joymap.parse(input_class_joystick::map_8way);
 	}
 	else if (mapstring != input_class_joystick::map_8way)
-		osd_printf_verbose("Input: Default joystick map = %s\n", m_joymap.to_string().c_str());
+		osd_printf_verbose("Input: Default joystick map = %s\n", m_joymap.to_string());
 }
 
 
@@ -494,7 +496,8 @@ input_class::~input_class()
 
 input_device *input_class::add_device(const char *name, const char *id, void *internal)
 {
-	assert_always(machine().phase() == machine_phase::INIT, "Can only call input_class::add_device at init time!");
+	if (machine().phase() != machine_phase::INIT)
+		throw emu_fatalerror("Can only call input_class::add_device at init time!");
 	assert(name != nullptr);
 	assert(id != nullptr);
 
@@ -568,8 +571,7 @@ void input_class::remap_device_index(int oldindex, int newindex)
 	if (nullptr != m_device[newindex].get())
 		m_device[newindex]->set_devindex(newindex);
 
-	// update the maximum index found, since newindex may
-	// exceed current m_maxindex
+	// update the maximum index found, since newindex may exceed current m_maxindex
 	m_maxindex = std::max(m_maxindex, newindex);
 }
 
@@ -646,7 +648,7 @@ bool input_class_joystick::set_global_joystick_map(const char *mapstring)
 	if (!map.parse(mapstring))
 		return false;
 
-	osd_printf_verbose("Input: Changing default joystick map = %s\n", map.to_string().c_str());
+	osd_printf_verbose("Input: Changing default joystick map = %s\n", map.to_string());
 
 	// iterate over joysticks and set the map
 	for (int joynum = 0; joynum <= maxindex(); joynum++)
@@ -671,16 +673,17 @@ input_device_item::input_device_item(input_device &device, const char *name, voi
 		m_itemid(itemid),
 		m_itemclass(itemclass),
 		m_getstate(getstate),
-		m_current(0),
-		m_memory(0)
+		m_current(0)
 {
-	// use a standard token name for know item IDs
 	const char *standard_token = manager().standard_token(itemid);
-	if (standard_token != nullptr)
+	if (standard_token)
+	{
+		// use a standard token name for know item IDs
 		m_token.assign(standard_token);
-
-	// otherwise, create a tokenized name
-	else {
+	}
+	else
+	{
+		// otherwise, create a tokenized name
 		m_token.assign(name);
 		strmakeupper(m_token);
 		strdelchr(m_token, ' ');
@@ -697,6 +700,17 @@ input_device_item::~input_device_item()
 {
 }
 
+
+//-------------------------------------------------
+//  check_axis - see if axis has moved far enough
+//  to trigger a read when polling
+//-------------------------------------------------
+
+bool input_device_item::check_axis(input_item_modifier modifier, s32 memory)
+{
+	// use INVALID_AXIS_VALUE as a short-circuit
+	return (memory != INVALID_AXIS_VALUE) && item_check_axis(modifier, memory);
+}
 
 
 //**************************************************************************
@@ -769,6 +783,17 @@ s32 input_device_switch_item::read_as_absolute(input_item_modifier modifier)
 {
 	// no translation to absolute
 	return 0;
+}
+
+
+//-------------------------------------------------
+//  item_check_axis - see if axis has moved far
+//  enough to trigger a read when polling
+//-------------------------------------------------
+
+bool input_device_switch_item::item_check_axis(input_item_modifier modifier, s32 memory)
+{
+	return false;
 }
 
 
@@ -846,6 +871,20 @@ s32 input_device_relative_item::read_as_absolute(input_item_modifier modifier)
 {
 	// no translation to absolute
 	return 0;
+}
+
+
+//-------------------------------------------------
+//  item_check_axis - see if axis has moved far
+//  enough to trigger a read when polling
+//-------------------------------------------------
+
+bool input_device_relative_item::item_check_axis(input_item_modifier modifier, s32 memory)
+{
+	const s32 curval = read_as_relative(modifier);
+
+	// for relative axes, look for ~20 pixels movement
+	return std::abs(curval - memory) > (20 * INPUT_RELATIVE_PER_PIXEL);
 }
 
 
@@ -945,4 +984,23 @@ s32 input_device_absolute_item::read_as_absolute(input_item_modifier modifier)
 	if (modifier == ITEM_MODIFIER_NEG)
 		result = std::max(-result, 0) * 2 + INPUT_ABSOLUTE_MIN;
 	return result;
+}
+
+
+//-------------------------------------------------
+//  item_check_axis - see if axis has moved far
+//  enough to trigger a read when polling
+//-------------------------------------------------
+
+bool input_device_absolute_item::item_check_axis(input_item_modifier modifier, s32 memory)
+{
+	// ignore min/max for lightguns
+	// so the selection will not be affected by a gun going out of range
+	const s32 curval = read_as_absolute(modifier);
+	if (m_device.devclass() == DEVICE_CLASS_LIGHTGUN &&
+		(curval == INPUT_ABSOLUTE_MAX || curval == INPUT_ABSOLUTE_MIN))
+		return false;
+
+	// for absolute axes, look for 25% of maximum
+	return std::abs(curval - memory) > ((INPUT_ABSOLUTE_MAX - INPUT_ABSOLUTE_MIN) / 4);
 }

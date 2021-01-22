@@ -150,7 +150,8 @@ void arm7_disassembler::WriteRegisterOperand1( std::ostream &stream, uint32_t op
 
 	util::stream_format(
 		stream,
-		", R%d", /* Operand 1 register, Operand 2 register, shift type */
+		",%sR%d", /* Operand 1 register, (optional) sign, Operand 2 register, shift type */
+		(opcode&0x800000)?" ":"-",
 		(opcode >> 0) & 0xf);
 
 	//check for LSL 0
@@ -502,6 +503,7 @@ u32 arm7_disassembler::arm7_disasm( std::ostream &stream, uint32_t pc, uint32_t 
 				/* look for mov pc,lr */
 				if (((opcode >> 12) & 0x0f) == 15 && ((opcode >> 0) & 0x0f) == 14 && (opcode & 0x02000000) == 0)
 					dasmflags = STEP_OUT;
+				[[fallthrough]];
 			case 0x0f:
 				WriteDataProcessingOperand(stream, opcode, 1, 0, 1);
 				break;
@@ -1279,7 +1281,7 @@ u32 arm7_disassembler::thumb_disasm(std::ostream &stream, uint32_t pc, uint16_t 
 						util::stream_format( stream, "INVALID");
 						break;
 					case COND_NV:
-						util::stream_format( stream, "SWI %02x\n", opcode & 0xff);
+						util::stream_format( stream, "SWI %02x", opcode & 0xff);
 						break;
 				}
 				break;

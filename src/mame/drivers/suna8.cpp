@@ -19,7 +19,7 @@ Year + Game         Game     PCB         Epoxy CPU  Samples  Notes
 88  Rough Ranger    K030087  ?           S562008    Yes      Not Encrypted
 89  Spark Man       KRB-16   60136-081   T568009    Yes      Encryption + Protection
 90  Star Fighter    KRB-17   60484-0082  T568009    Yes      Encryption + Protection
-91  Hard Head 2     ?        ?           T568009    -        Encryption + Protection
+91  Hard Head 2     KRB-18   70523-0083  T568009    -        Encryption + Protection
 92  Brick Zone      KRB-19   70523-0084  Yes        -        Encryption + Protection
 --------------------------------------------------------------------------------------
 
@@ -44,7 +44,6 @@ Notes:
 #include "sound/3812intf.h"
 #include "sound/ay8910.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 #include "speaker.h"
 
 
@@ -477,7 +476,7 @@ void suna8_state::init_sparkman()
                                 Hard Head
 ***************************************************************************/
 
-READ8_MEMBER(suna8_state::hardhead_protection_r)
+uint8_t suna8_state::hardhead_protection_r(offs_t offset)
 {
 	uint8_t protection_val = m_protection_val;
 
@@ -490,7 +489,7 @@ READ8_MEMBER(suna8_state::hardhead_protection_r)
 				(((offset ^ protection_val) & 0x01) ?   0x84 : 0);
 }
 
-WRITE8_MEMBER(suna8_state::hardhead_protection_w)
+void suna8_state::hardhead_protection_w(offs_t offset, uint8_t data)
 {
 	if (data & 0x80)    m_protection_val = data;
 	else                m_protection_val = offset & 1;
@@ -509,7 +508,7 @@ WRITE8_MEMBER(suna8_state::hardhead_protection_w)
                                 Hard Head
 ***************************************************************************/
 
-READ8_MEMBER(suna8_state::hardhead_ip_r)
+uint8_t suna8_state::hardhead_ip_r()
 {
 	switch (*m_hardhead_ip)
 	{
@@ -528,7 +527,7 @@ READ8_MEMBER(suna8_state::hardhead_ip_r)
     ---4 ----
     ---- 3210   ROM Bank
 */
-WRITE8_MEMBER(suna8_state::hardhead_bankswitch_w)
+void suna8_state::hardhead_bankswitch_w(uint8_t data)
 {
 	int bank = data & 0x0f;
 
@@ -543,7 +542,7 @@ WRITE8_MEMBER(suna8_state::hardhead_bankswitch_w)
     ---- -2--   Flip Screen
     ---- --10
 */
-WRITE8_MEMBER(suna8_state::hardhead_flipscreen_w)
+void suna8_state::hardhead_flipscreen_w(uint8_t data)
 {
 	flip_screen_set(data & 0x04);
 	machine().bookkeeping().coin_lockout_w(0, data & 0x08);
@@ -584,7 +583,7 @@ void suna8_state::hardhead_io_map(address_map &map)
     ---- 3---
     ---- -210   ROM Bank
 */
-WRITE8_MEMBER(suna8_state::rranger_bankswitch_w)
+void suna8_state::rranger_bankswitch_w(uint8_t data)
 {
 	int bank = data & 0x07;
 	if ((~data & 0x10) && (bank >= 4))  bank += 4;
@@ -606,13 +605,13 @@ WRITE8_MEMBER(suna8_state::rranger_bankswitch_w)
     ---- --1-   1 -> Interlude screens
     ---- ---0
 */
-READ8_MEMBER(suna8_state::rranger_soundstatus_r)
+uint8_t suna8_state::rranger_soundstatus_r()
 {
 	m_soundlatch2->read();
 	return 0x02;
 }
 
-WRITE8_MEMBER(suna8_state::sranger_prot_w)
+void suna8_state::sranger_prot_w(uint8_t data)
 {
 	/* check code at 0x2ce2 (in sranger), protection is so dire that I can't even exactly
 	   estabilish if what I'm doing can be considered or not a kludge... -AS */
@@ -655,7 +654,7 @@ void suna8_state::rranger_io_map(address_map &map)
          ---- --1-
          ---- ---0   Use Cheat 1 and 2 (driver config)
 */
-READ8_MEMBER(suna8_state::brickzn_cheats_r)
+uint8_t suna8_state::brickzn_cheats_r()
 {
 	static uint8_t bit2 = 0;
 	bit2 = 1 - bit2;    // see code at 2b48
@@ -670,7 +669,7 @@ READ8_MEMBER(suna8_state::brickzn_cheats_r)
          ---- --1-   Sprite RAM Bank
          ---- ---0   Flip Screen
 */
-WRITE8_MEMBER(suna8_state::brickzn_sprbank_w)
+void suna8_state::brickzn_sprbank_w(uint8_t data)
 {
 	m_protection_val = data;
 
@@ -686,7 +685,7 @@ WRITE8_MEMBER(suna8_state::brickzn_sprbank_w)
   C060:  7654 ----
          ---- 3210   ROM Bank
 */
-WRITE8_MEMBER(suna8_state::brickzn_rombank_w)
+void suna8_state::brickzn_rombank_w(uint8_t data)
 {
 	int bank = data & 0x0f;
 
@@ -706,7 +705,7 @@ WRITE8_MEMBER(suna8_state::brickzn_rombank_w)
          ---- --1-   Start 2 Led
          ---- ---0   Start 1 Led
 */
-WRITE8_MEMBER(suna8_state::brickzn_leds_w)
+void suna8_state::brickzn_leds_w(uint8_t data)
 {
 	m_leds[0] = BIT(data, 0);
 	m_leds[1] = BIT(data, 1);
@@ -720,7 +719,7 @@ WRITE8_MEMBER(suna8_state::brickzn_leds_w)
   C0A0:  7654 321-
          ---- ---0   Palette RAM Bank
 */
-WRITE8_MEMBER(suna8_state::brickzn_palbank_w)
+void suna8_state::brickzn_palbank_w(uint8_t data)
 {
 	m_palettebank = data & 0x01;
 
@@ -738,7 +737,7 @@ void suna8_state::brickzn11_map(address_map &map)
 	map(0xc060, 0xc060).w(FUNC(suna8_state::brickzn_rombank_w));   // ROM Bank
 	map(0xc080, 0xc080).w(FUNC(suna8_state::brickzn_leds_w));   // Leds
 	map(0xc0a0, 0xc0a0).w(FUNC(suna8_state::brickzn_palbank_w));   // Palette RAM Bank
-//  AM_RANGE(0xc0c0, 0xc0c0) AM_WRITE(brickzn_prot2_w       )   // Protection 2
+//  map(0xc0c0, 0xc0c0).w(FUNC(suna8_state::brickzn_prot2_w));   // Protection 2
 
 	map(0xc100, 0xc100).portr("P1");                 // P1 (Buttons)
 	map(0xc101, 0xc101).portr("P2");                 // P2 (Buttons)
@@ -749,7 +748,7 @@ void suna8_state::brickzn11_map(address_map &map)
 
 	map(0xc140, 0xc140).r(FUNC(suna8_state::brickzn_cheats_r));          // Cheats / Debugging Inputs
 
-	map(0xc600, 0xc7ff).rw(FUNC(suna8_state::banked_paletteram_r), FUNC(suna8_state::brickzn_banked_paletteram_w)).share("paletteram");      // Palette (Banked)
+	map(0xc600, 0xc7ff).rw(FUNC(suna8_state::banked_paletteram_r), FUNC(suna8_state::brickzn_banked_paletteram_w));      // Palette (Banked)
 	map(0xc800, 0xdfff).ram().share("wram");                                            // Work RAM
 	map(0xe000, 0xffff).rw(FUNC(suna8_state::suna8_banked_spriteram_r), FUNC(suna8_state::suna8_banked_spriteram_w));   // Sprites (Banked)
 }
@@ -763,13 +762,13 @@ void suna8_state::brickzn11_map(address_map &map)
 
   C0A0:  Leds
 */
-WRITE8_MEMBER(suna8_state::brickzn_multi_w)
+void suna8_state::brickzn_multi_w(uint8_t data)
 {
 	int protselect = m_protection_val & 0xfc;
 
 	if ((protselect == 0x88) || (protselect == 0x8c))
 	{
-		brickzn_palbank_w(space, offset, data, mem_mask);
+		brickzn_palbank_w(data);
 	}
 	else if (protselect == 0x90)
 	{
@@ -790,7 +789,7 @@ WRITE8_MEMBER(suna8_state::brickzn_multi_w)
 	}
 	else if (protselect == 0x04)
 	{
-		brickzn_leds_w(space, offset, data, mem_mask);
+		brickzn_leds_w(data);
 	}
 	else if (protselect == 0x80)
 	{
@@ -826,7 +825,7 @@ WRITE8_MEMBER(suna8_state::brickzn_multi_w)
   (newer sets only)
   C0C0: two protection values written in rapid succession
 */
-WRITE8_MEMBER(suna8_state::brickzn_prot2_w)
+void suna8_state::brickzn_prot2_w(uint8_t data)
 {
 	// Disable work RAM write, see code at 96a:
 	if ((m_prot2 ^ data) == 0x24)
@@ -848,11 +847,11 @@ WRITE8_MEMBER(suna8_state::brickzn_prot2_w)
 }
 
 // (newer sets only) Disable palette RAM writes, see code at 4990:
-WRITE8_MEMBER(suna8_state::brickzn_enab_palram_w)
+void suna8_state::brickzn_enab_palram_w(uint8_t data)
 {
 	m_paletteram_enab = 1;
 }
-WRITE8_MEMBER(suna8_state::brickzn_disab_palram_w)
+void suna8_state::brickzn_disab_palram_w(uint8_t data)
 {
 	m_paletteram_enab = 0;
 }
@@ -882,7 +881,7 @@ void suna8_state::brickzn_map(address_map &map)
 	// c144 reads?
 	// c14a reads?
 
-	map(0xc600, 0xc7ff).rw(FUNC(suna8_state::banked_paletteram_r), FUNC(suna8_state::brickzn_banked_paletteram_w)).share("paletteram");      // Palette (Banked)
+	map(0xc600, 0xc7ff).rw(FUNC(suna8_state::banked_paletteram_r), FUNC(suna8_state::brickzn_banked_paletteram_w));      // Palette (Banked)
 	map(0xc800, 0xdfff).ram().share("wram");                                            // Work RAM
 	map(0xe000, 0xffff).rw(FUNC(suna8_state::suna8_banked_spriteram_r), FUNC(suna8_state::suna8_banked_spriteram_w));   // Sprites (Banked)
 }
@@ -904,7 +903,7 @@ void suna8_state::brickzn_io_map(address_map &map)
 ***************************************************************************/
 
 /* Probably wrong: */
-WRITE8_MEMBER(suna8_state::hardhea2_nmi_w)
+void suna8_state::hardhea2_nmi_w(uint8_t data)
 {
 	m_nmi_enable = data & 0x01;
 //  if (data & ~0x01)   logerror("CPU #0 - PC %04X: unknown nmi bits: %02X\n",m_maincpu->pc(),data);
@@ -914,13 +913,13 @@ WRITE8_MEMBER(suna8_state::hardhea2_nmi_w)
     7654 321-
     ---- ---0   Flip Screen
 */
-WRITE8_MEMBER(suna8_state::hardhea2_flipscreen_w)
+void suna8_state::hardhea2_flipscreen_w(uint8_t data)
 {
 	flip_screen_set(data & 0x01);
 	if (data & ~0x01)   logerror("CPU #0 - PC %04X: unknown flipscreen bits: %02X\n",m_maincpu->pc(),data);
 }
 
-WRITE8_MEMBER(suna8_state::hardhea2_leds_w)
+void suna8_state::hardhea2_leds_w(uint8_t data)
 {
 	m_leds[0] = BIT(data, 0);
 	m_leds[1] = BIT(data, 1);
@@ -933,7 +932,7 @@ WRITE8_MEMBER(suna8_state::hardhea2_leds_w)
     ---- --1-   Sprite RAM Bank
     ---- ---0   Sprite RAM Bank?
 */
-WRITE8_MEMBER(suna8_state::hardhea2_spritebank_w)
+void suna8_state::hardhea2_spritebank_w(uint8_t data)
 {
 	m_spritebank = (data >> 1) & 1;
 	if (data & ~0x02)   logerror("CPU #0 - PC %04X: unknown spritebank bits: %02X\n",m_maincpu->pc(),data);
@@ -943,7 +942,7 @@ WRITE8_MEMBER(suna8_state::hardhea2_spritebank_w)
     7654 ----
     ---- 3210   ROM Bank
 */
-WRITE8_MEMBER(suna8_state::hardhea2_rombank_w)
+void suna8_state::hardhea2_rombank_w(uint8_t data)
 {
 	int bank = data & 0x0f;
 
@@ -954,21 +953,21 @@ WRITE8_MEMBER(suna8_state::hardhea2_rombank_w)
 	m_rombank = data;
 }
 
-WRITE8_MEMBER(suna8_state::hardhea2_spritebank_0_w)
+void suna8_state::hardhea2_spritebank_0_w(uint8_t data)
 {
 	m_spritebank = 0;
 }
-WRITE8_MEMBER(suna8_state::hardhea2_spritebank_1_w)
+void suna8_state::hardhea2_spritebank_1_w(uint8_t data)
 {
 	m_spritebank = 1;
 }
 
-WRITE8_MEMBER(suna8_state::hardhea2_rambank_0_w)
+void suna8_state::hardhea2_rambank_0_w(uint8_t data)
 {
 	membank("bank2")->set_entry(0);
 }
 
-WRITE8_MEMBER(suna8_state::hardhea2_rambank_1_w)
+void suna8_state::hardhea2_rambank_1_w(uint8_t data)
 {
 	membank("bank2")->set_entry(1);
 }
@@ -1016,6 +1015,19 @@ void suna8_state::hardhea2_map(address_map &map)
 }
 
 
+void suna8_state::hardhea2b_map(address_map &map)
+{
+	hardhea2_map(map);
+
+	map(0x0000, 0x7fff).rom().region("maincpu", 0x8000); // data is in the second half of the ROM
+}
+
+void suna8_state::hardhea2b_decrypted_opcodes_map(address_map &map)
+{
+	map(0x0000, 0x7fff).rom().region("maincpu", 0x0000); // opcodes are in the first half of the ROM
+}
+
+
 /***************************************************************************
                                 Star Fighter
 ***************************************************************************/
@@ -1026,7 +1038,7 @@ void suna8_state::hardhea2_map(address_map &map)
               ---4 ----
               ---- 3210   ROM Bank (Latched)
 */
-WRITE8_MEMBER(suna8_state::starfigh_rombank_latch_w)
+void suna8_state::starfigh_rombank_latch_w(offs_t offset, uint8_t data)
 {
 	logerror("CPU #0 - PC %04X: rom bank latch %04X = %02X\n",m_maincpu->pc(), 0xc280 + offset, data);
 	m_rombank_latch = data;
@@ -1035,7 +1047,7 @@ WRITE8_MEMBER(suna8_state::starfigh_rombank_latch_w)
 /*
   C500:  Sound Latch
 */
-WRITE8_MEMBER(suna8_state::starfigh_sound_latch_w)
+void suna8_state::starfigh_sound_latch_w(uint8_t data)
 {
 	if ( !(m_rombank_latch & 0x20) )
 		m_soundlatch->write(data);
@@ -1044,7 +1056,7 @@ WRITE8_MEMBER(suna8_state::starfigh_sound_latch_w)
 /*
   C080:
 */
-READ8_MEMBER(suna8_state::starfigh_cheats_r)
+uint8_t suna8_state::starfigh_cheats_r()
 {
 	return ioport("CHEATS")->read();
 }
@@ -1052,7 +1064,7 @@ READ8_MEMBER(suna8_state::starfigh_cheats_r)
 /*
   C380-C3FF:
 */
-WRITE8_MEMBER(suna8_state::starfigh_spritebank_latch_w)
+void suna8_state::starfigh_spritebank_latch_w(uint8_t data)
 {
 	// bit 1 = disable RAM writes. See code at 2696, 4e8f
 	m_spritebank_latch  =   (data >> 2) & 1;
@@ -1063,7 +1075,7 @@ WRITE8_MEMBER(suna8_state::starfigh_spritebank_latch_w)
 /*
   C200:
 */
-WRITE8_MEMBER(suna8_state::starfigh_spritebank_w)
+void suna8_state::starfigh_spritebank_w(uint8_t data)
 {
 	m_spritebank = m_spritebank_latch;
 }
@@ -1077,7 +1089,7 @@ WRITE8_MEMBER(suna8_state::starfigh_spritebank_w)
 
   Writes to C400 also set ROM bank from latch
 */
-WRITE8_MEMBER(suna8_state::starfigh_leds_w)
+void suna8_state::starfigh_leds_w(uint8_t data)
 {
 	m_leds[0] = BIT(data, 0);
 	m_leds[1] = BIT(data, 1);
@@ -1130,7 +1142,7 @@ void suna8_state::starfigh_map(address_map &map)
           ------1-   Sprite RAM Bank (Inverted by Sprite Bank Latch)
           -------0   Sprite "chip"   ""
 */
-WRITE8_MEMBER(suna8_state::sparkman_spritebank_w)
+void suna8_state::sparkman_spritebank_w(uint8_t data)
 {
 	m_spritebank = ((data >> 1) & 0x01) | ((data << 1) & 0x02);
 	if ((m_spritebank_latch >> 1) & 0x01)
@@ -1145,7 +1157,7 @@ WRITE8_MEMBER(suna8_state::sparkman_spritebank_w)
            ---4 ----
            ---- 3210   ROM Bank (Latched)
 */
-WRITE8_MEMBER(suna8_state::sparkman_rombank_latch_w)
+void suna8_state::sparkman_rombank_latch_w(offs_t offset, uint8_t data)
 {
 	m_rombank_latch = data;
 	logerror("CPU #0 - PC %04X: rom bank latch %04X = %02X\n",m_maincpu->pc(), 0xc280 + offset, data);
@@ -1158,7 +1170,7 @@ WRITE8_MEMBER(suna8_state::sparkman_rombank_latch_w)
           ---- 321-
           ---- ---0   Flip Screen
 */
-WRITE8_MEMBER(suna8_state::sparkman_spritebank_latch_w)
+void suna8_state::sparkman_spritebank_latch_w(uint8_t data)
 {
 	flip_screen_set(data & 0x01);
 	m_spritebank_latch  =   (data >> 4) & 0x03;
@@ -1171,7 +1183,7 @@ WRITE8_MEMBER(suna8_state::sparkman_spritebank_latch_w)
           ---4321-
           -------0   Work RAM Writes Disable
 */
-WRITE8_MEMBER(suna8_state::sparkman_write_disable_w)
+void suna8_state::sparkman_write_disable_w(uint8_t data)
 {
 	m_write_disable     =   (data >> 0) & 1;    // bit 0 = disable RAM writes. See code at b48, d4d
 	m_nmi_enable        =   (data >> 5) & 1;    // see code at 66
@@ -1179,7 +1191,7 @@ WRITE8_MEMBER(suna8_state::sparkman_write_disable_w)
 }
 
 // RAM writes can be disabled
-WRITE8_MEMBER(suna8_state::suna8_wram_w)
+void suna8_state::suna8_wram_w(offs_t offset, uint8_t data)
 {
 	if (!m_write_disable)
 		m_wram[offset] = data;
@@ -1192,7 +1204,7 @@ WRITE8_MEMBER(suna8_state::suna8_wram_w)
 
   Writes to C400 also set ROM bank from latch
 */
-WRITE8_MEMBER(suna8_state::sparkman_rombank_w)
+void suna8_state::sparkman_rombank_w(uint8_t data)
 {
 	m_leds[0] = BIT(data, 0);
 	m_leds[1] = BIT(data, 1);
@@ -1213,13 +1225,13 @@ WRITE8_MEMBER(suna8_state::sparkman_rombank_w)
     C480: 7654321-
           -------0   Coin Counter
 */
-WRITE8_MEMBER(suna8_state::sparkman_coin_counter_w)
+void suna8_state::sparkman_coin_counter_w(uint8_t data)
 {
 	machine().bookkeeping().coin_counter_w(0, data & 0x01);
 }
 
 // To do: implement this, affects the duration of copyright screen
-READ8_MEMBER(suna8_state::sparkman_c0a3_r)
+uint8_t suna8_state::sparkman_c0a3_r()
 {
 	return (m_screen->frame_number() & 1) ? 0x80 : 0;
 }
@@ -1233,7 +1245,7 @@ void suna8_state::sparkman_map(address_map &map)
 	map(0xc001, 0xc001).portr("P2");                         // P2
 	map(0xc002, 0xc002).portr("DSW1");                       // DSW 1
 	map(0xc003, 0xc003).portr("DSW2");                       // DSW 2
-	map(0xc080, 0xc080).portr("BUTTONS");                    // Buttons
+	map(0xc080, 0xc080).mirror(0x01).portr("BUTTONS");       // Buttons
 	map(0xc0a3, 0xc0a3).r(FUNC(suna8_state::sparkman_c0a3_r));   // ???
 
 	map(0xc200, 0xc27f).w(FUNC(suna8_state::sparkman_spritebank_w));   // Sprite RAM Bank
@@ -1520,7 +1532,7 @@ static INPUT_PORTS_START( brickzn )
 	PORT_DIPSETTING(    0x06, DEF_STR( 1C_2C ) )
 	PORT_DIPSETTING(    0x05, DEF_STR( 1C_3C ) )
 	PORT_DIPSETTING(    0x04, DEF_STR( 1C_4C ) )
-	PORT_DIPNAME( 0x38, 0x18, DEF_STR( Difficulty ) )   PORT_DIPLOCATION("SW-A:4,5,6")
+	PORT_DIPNAME( 0x38, 0x38, DEF_STR( Difficulty ) )   PORT_DIPLOCATION("SW-A:4,5,6")
 	PORT_DIPSETTING(    0x38, DEF_STR( Easiest ) )
 	PORT_DIPSETTING(    0x30, DEF_STR( Very_Easy) )
 	PORT_DIPSETTING(    0x28, DEF_STR( Easy ) )
@@ -1544,7 +1556,7 @@ static INPUT_PORTS_START( brickzn )
 	PORT_DIPNAME( 0x04, 0x04, "Play Together" )     PORT_DIPLOCATION("SW-B:3")
 	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
 	PORT_DIPSETTING(    0x04, DEF_STR( Yes ) )
-	PORT_DIPNAME( 0x38, 0x30, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW-B:4,5,6")
+	PORT_DIPNAME( 0x38, 0x38, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW-B:4,5,6")
 	PORT_DIPSETTING(    0x30, "10K" )
 	PORT_DIPSETTING(    0x28, "30K" )
 	PORT_DIPSETTING(    0x18, "50K, Every 50K" )
@@ -1586,14 +1598,13 @@ static INPUT_PORTS_START( brickzn )
 	PORT_CONFSETTING(    0x40, DEF_STR( Off ) )
 	PORT_CONFSETTING(    0x00, DEF_STR( On ) )
 	PORT_BIT(  0x80, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_NAME("Finish Stage (Cheat)")
-
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( brickznv6 )
 	PORT_INCLUDE(brickzn)
 
 	PORT_MODIFY("DSW2") // DSW 2 - $c103
-	PORT_DIPNAME( 0x18, 0x10, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW-B:4,5")
+	PORT_DIPNAME( 0x18, 0x18, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW-B:4,5")
 	PORT_DIPSETTING(    0x18, "None" )
 	PORT_DIPSETTING(    0x10, "10K" )
 	PORT_DIPSETTING(    0x08, "30K" )
@@ -2044,15 +2055,6 @@ void suna8_state::brickzn11(machine_config &config)
 	DAC_4BIT_R2R(config, "rdac", 0).add_route(ALL_OUTPUTS, "speaker", 0.17);  // unknown DAC
 	DAC_4BIT_R2R(config, "ldac2", 0).add_route(ALL_OUTPUTS, "speaker", 0.17); // unknown DAC
 	DAC_4BIT_R2R(config, "rdac2", 0).add_route(ALL_OUTPUTS, "speaker", 0.17); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.add_route(0, "ldac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "ldac", -1.0, DAC_VREF_NEG_INPUT);
-	vref.add_route(0, "rdac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "rdac", -1.0, DAC_VREF_NEG_INPUT);
-	vref.add_route(0, "ldac2", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "ldac2", -1.0, DAC_VREF_NEG_INPUT);
-	vref.add_route(0, "rdac2", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "rdac2", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 void suna8_state::brickzn(machine_config &config)
@@ -2082,8 +2084,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(suna8_state::hardhea2_interrupt)
 
 MACHINE_RESET_MEMBER(suna8_state,hardhea2)
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	hardhea2_rambank_0_w(space,0,0);
+	hardhea2_rambank_0_w(0);
 }
 
 void suna8_state::hardhea2(machine_config &config)
@@ -2104,7 +2105,8 @@ void suna8_state::hardhea2b(machine_config &config)
 {
 	hardhea2(config);
 	Z80(config.replace(), m_maincpu, SUNA8_MASTER_CLOCK / 4); //bootleg clock not verified (?)
-	m_maincpu->set_addrmap(AS_PROGRAM, &suna8_state::hardhea2_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &suna8_state::hardhea2b_map);
+	m_maincpu->set_addrmap(AS_OPCODES, &suna8_state::hardhea2b_decrypted_opcodes_map);
 }
 
 
@@ -2380,6 +2382,40 @@ ROM_START( hardheadb2 )
 
 	ROM_REGION( 0x8000, "samples", 0 )  /* Samples */
 	ROM_LOAD( "1_14.11m", 0x00000, 0x8000, CRC(41314ac1) SHA1(1ac9213b0ac4ce9fe6256e93875672e128a5d069) ) // = p14
+ROM_END
+
+ROM_START( hardheadb3 ) // almost identical to pop_hh, only unique ROM is p8
+	ROM_REGION( 0x48000+0x8000, "maincpu", 0 ) /* Main Z80 Code */
+	ROM_LOAD( "1_27512.l6",  0x48000, 0x8000, CRC(bb4aa9ac) SHA1(da6310a1034cf610139d74fc30dd13e5fbd1d8dd) )
+	ROM_CONTINUE(            0x00000, 0x8000 )
+	ROM_LOAD( "2_27256.k6",  0x10000, 0x8000, CRC(8fcc1248) SHA1(5da0b7dc63f7bc00e81e9e5bac02ee6b0076ffaa) )
+	ROM_LOAD( "p3",          0x18000, 0x8000, CRC(3d24755e) SHA1(519a179594956f7c3ddfaca362c42b453c928e25) )
+	ROM_LOAD( "p4",          0x20000, 0x8000, CRC(0241ac79) SHA1(b3c3b98fb29836cbc9fd35ac49e02bfefd3b0c79) )
+	ROM_LOAD( "p7",          0x28000, 0x8000, CRC(beba8313) SHA1(20aa4e07ec560a89d07ec73cc93311ceaed899a3) )
+	ROM_LOAD( "p8",          0x30000, 0x8000, CRC(11729c89) SHA1(a8f548891f7d3d620b7eaa71a827cbc19c632ac3) )
+	ROM_LOAD( "p9",          0x38000, 0x8000, CRC(2ad430c4) SHA1(286a5b1042e077c3ae741d01311d4c91f8f87054) )
+	ROM_LOAD( "10_27256.i8", 0x40000, 0x8000, CRC(84fc6574) SHA1(ab33e6c656f25e65bb08d0a2689693df83cab43d) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )        /* Sound Z80 Code */
+	ROM_LOAD( "p13", 0x0000, 0x8000, CRC(493c0b41) SHA1(994a334253e905c39ec912765e8b0f4b1be900bc) )
+
+	ROM_REGION( 0x40000, "gfx1", ROMREGION_INVERT ) /* Sprites */
+	ROM_LOAD( "p5",  0x00000, 0x8000, CRC(e9aa6fba) SHA1(f286727541f08b136a7d45e13975652bdc8fd663) )
+	ROM_RELOAD(      0x08000, 0x8000             )
+	ROM_LOAD( "p6",  0x10000, 0x8000, CRC(15d5f5dd) SHA1(4441344701fcdb2be55bdd76a8a5fd59f5de813c) )
+	ROM_RELOAD(      0x18000, 0x8000             )
+	ROM_LOAD( "11_27256.d8", 0x20000, 0x8000, CRC(3751b99d) SHA1(dc4082e481a79f0389e59b4b38698df8f7b94053) )
+	ROM_RELOAD(      0x28000, 0x8000             )
+	ROM_LOAD( "p12", 0x30000, 0x8000, CRC(9582e6db) SHA1(a2b34d740e07bd35a3184365e7f3ab7476075d70) )
+	ROM_RELOAD(      0x38000, 0x8000             )
+
+	ROM_REGION( 0x8000, "samples", 0 )  /* Samples */
+	ROM_LOAD( "p14", 0x0000, 0x8000, CRC(41314ac1) SHA1(1ac9213b0ac4ce9fe6256e93875672e128a5d069) )
+
+	ROM_REGION( 0x600, "plds", 0 )
+	ROM_LOAD( "cpu-1-pal16l8a.bin", 0x000, 0x104, NO_DUMP )
+	ROM_LOAD( "cpu-2-pal16r4a.bin", 0x200, 0x104, NO_DUMP )
+	ROM_LOAD( "cpu-3-pal16r4a.bin", 0x400, 0x104, NO_DUMP )
 ROM_END
 
 ROM_START( pop_hh )
@@ -3084,7 +3120,8 @@ GAME( 1988, srangerb,  sranger,  rranger,  rranger,  suna8_state, init_suna8,   
 GAME( 1988, hardhead,  0,        hardhead, hardhead, suna8_state, init_hardhead,  ROT0,  "SunA",                       "Hard Head",                   0 )
 GAME( 1988, hardheadb, hardhead, hardhead, hardhead, suna8_state, init_hardhedb,  ROT0,  "bootleg",                    "Hard Head (bootleg, set 1)",  0 )
 GAME( 1988, hardheadb2,hardhead, hardhead, hardhead, suna8_state, init_hardhedb,  ROT0,  "bootleg",                    "Hard Head (bootleg, set 2)",  MACHINE_NOT_WORKING )
-GAME( 1988, pop_hh,    hardhead, hardhead, hardhead, suna8_state, init_hardhedb,  ROT0,  "bootleg",                    "Popper (Hard Head bootleg)",  0 )
+GAME( 1989, hardheadb3,hardhead, hardhead, hardhead, suna8_state, init_hardhedb,  ROT0,  "bootleg",                    "Hard Head (bootleg, set 3)",  0 )
+GAME( 1989, pop_hh,    hardhead, hardhead, hardhead, suna8_state, init_hardhedb,  ROT0,  "bootleg",                    "Popper (Hard Head bootleg)",  0 )
 
 GAME( 1989, sparkman,  0,        sparkman, sparkman, suna8_state, init_sparkman,  ROT0,  "SunA",                       "Spark Man (v2.0, set 1)",     0 )
 GAME( 1989, sparkmana, sparkman, sparkman, sparkman, suna8_state, init_sparkman,  ROT0,  "SunA",                       "Spark Man (v2.0, set 2)",     0 )

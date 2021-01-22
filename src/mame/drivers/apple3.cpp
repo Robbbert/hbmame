@@ -18,7 +18,6 @@
 
 #include "emu.h"
 #include "includes/apple3.h"
-#include "sound/volt_reg.h"
 #include "formats/ap2_dsk.h"
 
 #include "bus/a2bus/a2cffa.h"
@@ -26,6 +25,7 @@
 #include "bus/a2bus/a2thunderclock.h"
 #include "bus/a2bus/mouse.h"
 #include "bus/a2bus/a2zipdrive.h"
+#include "bus/a2bus/cmsscsi.h"
 
 #include "bus/rs232/rs232.h"
 
@@ -41,11 +41,12 @@ void apple3_state::apple3_map(address_map &map)
 
 static void apple3_cards(device_slot_interface &device)
 {
-	device.option_add("cffa2", A2BUS_CFFA2_6502);       // CFFA2000 Compact Flash for Apple II (www.dreher.net), 6502 firmware
+	device.option_add("cffa2", A2BUS_CFFA2_6502);       // CFFA2.0 Compact Flash for Apple II (www.dreher.net), 6502 firmware
 	device.option_add("applicard", A2BUS_APPLICARD);    // PCPI Applicard
 	device.option_add("thclock", A2BUS_THUNDERCLOCK);   // ThunderWare ThunderClock Plus - driver assumes slot 2 by default
 	device.option_add("mouse", A2BUS_MOUSE);            // Apple II Mouse Card
 	device.option_add("focusdrive", A2BUS_FOCUSDRIVE);  // Focus Drive IDE card
+	device.option_add("cmsscsi", A2BUS_CMSSCSI);        // CMS Apple II SCSI Card
 }
 
 static void a3_floppies(device_slot_interface &device)
@@ -64,7 +65,7 @@ void apple3_state::apple3(machine_config &config)
 	m_maincpu->sync_cb().set(FUNC(apple3_state::apple3_sync_w));
 	m_maincpu->set_addrmap(AS_PROGRAM, &apple3_state::apple3_map);
 
-	config.m_minimum_quantum = attotime::from_hz(60);
+	config.set_maximum_quantum(attotime::from_hz(60));
 
 	input_merger_device &mainirq(INPUT_MERGER_ANY_HIGH(config, "mainirq"));
 	mainirq.output_handler().set_inputline(m_maincpu, m6502_device::IRQ_LINE);
@@ -101,7 +102,7 @@ void apple3_state::apple3(machine_config &config)
 	m_a2bus->set_space(m_maincpu, AS_PROGRAM);
 	m_a2bus->irq_w().set(FUNC(apple3_state::a2bus_irq_w));
 	m_a2bus->nmi_w().set(FUNC(apple3_state::a2bus_nmi_w));
-	//m_a2bus->inh_w().set(FUNC(apple3_state::a2bus_inh_w));
+	m_a2bus->inh_w().set(FUNC(apple3_state::a2bus_inh_w));
 	m_a2bus->dma_w().set_inputline(m_maincpu, INPUT_LINE_HALT);
 	A2BUS_SLOT(config, "sl1", m_a2bus, apple3_cards, nullptr);
 	A2BUS_SLOT(config, "sl2", m_a2bus, apple3_cards, nullptr);
@@ -137,6 +138,7 @@ void apple3_state::apple3(machine_config &config)
 
 	/* rtc */
 	MM58167(config, m_rtc, 32.768_kHz_XTAL);
+	m_rtc->irq().set(m_via[1], FUNC(via6522_device::write_ca1));
 
 	/* via */
 	VIA6522(config, m_via[0], 14.318181_MHz_XTAL / 14);
@@ -153,10 +155,6 @@ void apple3_state::apple3(machine_config &config)
 	SPEAKER(config, "speaker").front_center();
 	DAC_1BIT(config, m_bell, 0).add_route(ALL_OUTPUTS, "speaker", 0.99);
 	DAC_6BIT_BINARY_WEIGHTED(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.125); // 6522.b5(pb0-pb5) + 320k,160k,80k,40k,20k,10k
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.add_route(0, "bell", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 
 	TIMER(config, "c040").configure_periodic(FUNC(apple3_state::apple3_c040_tick), attotime::from_hz(2000));
 
@@ -215,14 +213,14 @@ static INPUT_PORTS_START( apple3 )
 	PORT_START("X0")
 	PORT_BIT(0x001, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Esc")      PORT_CODE(KEYCODE_ESC)      PORT_CHAR(27)
 	PORT_BIT(0x002, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_1)      PORT_CHAR('1') PORT_CHAR('!')
-	PORT_BIT(0x004, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_2)  PORT_CHAR('2') PORT_CHAR('\"')
+	PORT_BIT(0x004, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_2)  PORT_CHAR('2') PORT_CHAR('@')
 	PORT_BIT(0x008, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_3)  PORT_CHAR('3') PORT_CHAR('#')
 	PORT_BIT(0x010, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_4)  PORT_CHAR('4') PORT_CHAR('$')
 	PORT_BIT(0x020, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_5)  PORT_CHAR('5') PORT_CHAR('%')
-	PORT_BIT(0x040, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_6)  PORT_CHAR('6') PORT_CHAR('&')
-	PORT_BIT(0x080, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_7)  PORT_CHAR('7') PORT_CHAR('\'')
-	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_8)  PORT_CHAR('8') PORT_CHAR('(')
-	PORT_BIT(0x200, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_9)  PORT_CHAR('9') PORT_CHAR(')')
+	PORT_BIT(0x040, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_6)  PORT_CHAR('6') PORT_CHAR('^')
+	PORT_BIT(0x080, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_7)  PORT_CHAR('7') PORT_CHAR('&')
+	PORT_BIT(0x100, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_8)  PORT_CHAR('8') PORT_CHAR('*')
+	PORT_BIT(0x200, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_CODE(KEYCODE_9)  PORT_CHAR('9') PORT_CHAR('(')
 
 	PORT_START("X1")
 	PORT_BIT(0x001, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Tab")      PORT_CODE(KEYCODE_TAB)      PORT_CHAR(9)
@@ -354,7 +352,11 @@ INPUT_PORTS_END
 
 ROM_START(apple3)
 	ROM_REGION(0x1000,"maincpu",0)
-	ROM_LOAD( "apple3.rom", 0x0000, 0x1000, CRC(55e8eec9) SHA1(579ee4cd2b208d62915a0aa482ddc2744ff5e967))
+	ROM_SYSTEM_BIOS(0, "original", "Apple /// boot ROM")
+	ROMX_LOAD( "apple3.rom", 0x0000, 0x1000, CRC(55e8eec9) SHA1(579ee4cd2b208d62915a0aa482ddc2744ff5e967), ROM_BIOS(0))
+
+	ROM_SYSTEM_BIOS(1, "soshd", "Rob Justice SOSHDBOOT")
+	ROMX_LOAD( "soshdboot.bin", 0x000000, 0x001000, CRC(fd5ac9e2) SHA1(ba466a54ddb7f618c4f18f344754343c5945b417), ROM_BIOS(1))
 ROM_END
 
 /*    YEAR  NAME    PARENT  COMPAT  MACHINE  INPUT   CLASS         INIT         COMPANY           FULLNAME */

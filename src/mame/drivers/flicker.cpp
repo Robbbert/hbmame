@@ -67,10 +67,10 @@ public:
 private:
 	virtual void driver_start() override;
 
-	DECLARE_WRITE8_MEMBER(ram0_out) { m_ram0_output = data; }
-	DECLARE_WRITE8_MEMBER(rom0_out) { m_rom0_output = data; }
-	DECLARE_WRITE8_MEMBER(rom1_out) { m_rom1_output = data; }
-	DECLARE_READ8_MEMBER(rom2_in);
+	void ram0_out(u8 data) { m_ram0_output = data; }
+	void rom0_out(u8 data) { m_rom0_output = data; }
+	void rom1_out(u8 data) { m_rom1_output = data; }
+	u8 rom2_in();
 
 	DECLARE_WRITE_LINE_MEMBER(cm_ram1_w);
 	DECLARE_WRITE_LINE_MEMBER(cm_ram2_w);
@@ -123,24 +123,24 @@ void flicker_state::flicker_ram_ports(address_map &map)
 static INPUT_PORTS_START( flicker )
 	PORT_START("TEST")
 	PORT_BIT(0x0001, IP_ACTIVE_HIGH, IPT_UNUSED)
-	PORT_BIT(0x0002, IP_ACTIVE_HIGH, IPT_OTHER)    PORT_NAME("Door Slam")     PORT_CODE(KEYCODE_HOME) PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, nullptr)
+	PORT_BIT(0x0002, IP_ACTIVE_HIGH, IPT_OTHER)    PORT_NAME("Door Slam")     PORT_CODE(KEYCODE_HOME) PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, 0)
 	PORT_BIT(0x001c, IP_ACTIVE_HIGH, IPT_UNKNOWN)  // called "two coins", "three coins", "four coins" in patent, purpose unknown
-	PORT_BIT(0x07e0, IP_ACTIVE_HIGH, IPT_CUSTOM)  PORT_CUSTOM_MEMBER(DEVICE_SELF, flicker_state, coins_in, nullptr)
+	PORT_BIT(0x07e0, IP_ACTIVE_HIGH, IPT_CUSTOM)  PORT_CUSTOM_MEMBER(flicker_state, coins_in)
 	PORT_BIT(0x0800, IP_ACTIVE_HIGH, IPT_TILT)
-	PORT_BIT(0x1000, IP_ACTIVE_HIGH, IPT_START)    PORT_NAME("Credit Button")                         PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, nullptr)
+	PORT_BIT(0x1000, IP_ACTIVE_HIGH, IPT_START)    PORT_NAME("Credit Button")                         PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, 0)
 	PORT_BIT(0x6000, IP_ACTIVE_HIGH, IPT_UNUSED)
-	PORT_BIT(0x8000, IP_ACTIVE_HIGH, IPT_SERVICE1) PORT_NAME("Test")                                  PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, nullptr)
+	PORT_BIT(0x8000, IP_ACTIVE_HIGH, IPT_SERVICE1) PORT_NAME("Test")                                  PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, 0)
 
 	// The coin slot would be connected to one of the lines via a wire jumper on a terminal strip
 	PORT_START("COIN")
-	PORT_CONFNAME(0x3f, 0x01, DEF_STR(Coinage)) PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, nullptr)
+	PORT_CONFNAME(0x3f, 0x01, DEF_STR(Coinage)) PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, 0)
 	PORT_CONFSETTING(   0x01, DEF_STR(1C_1C))
 	PORT_CONFSETTING(   0x02, DEF_STR(1C_2C))
 	PORT_CONFSETTING(   0x04, DEF_STR(1C_3C))
 	PORT_CONFSETTING(   0x08, DEF_STR(1C_4C))
 	PORT_CONFSETTING(   0x10, DEF_STR(1C_5C))
 	PORT_CONFSETTING(   0x20, DEF_STR(1C_6C))
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_COIN1)   PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, nullptr)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_COIN1)   PORT_CHANGED_MEMBER(DEVICE_SELF, flicker_state, test_changed, 0)
 
 	PORT_START("SWITCH.0")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_OTHER)  PORT_NAME("Left Lane Target") PORT_CODE(KEYCODE_W)
@@ -280,7 +280,7 @@ static INPUT_PORTS_START( flicker )
 INPUT_PORTS_END
 
 
-READ8_MEMBER(flicker_state::rom2_in)
+u8 flicker_state::rom2_in()
 {
 	return (m_switch.size() > m_mux_col) ? m_switch[m_mux_col]->read() : 0;
 }
@@ -288,7 +288,7 @@ READ8_MEMBER(flicker_state::rom2_in)
 
 WRITE_LINE_MEMBER(flicker_state::cm_ram1_w)
 {
-	static constexpr uint8_t led_digits[16] = { 0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0, 0, 0, 0, 0, 0 };
+	static constexpr u8 led_digits[16] = { 0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0, 0, 0, 0, 0, 0 };
 	static constexpr char const *const lamp_matrix[][4] = {
 			{ nullptr,                "lamp_credit_lamp",  "lamp_flippers",    "lamp_special"            },
 			{ "lamp_a_lamp",          "lamp_b_lamp",       "lamp_c_lamp",      "lamp_d_lamp"             },

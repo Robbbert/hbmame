@@ -14,7 +14,7 @@
 #include "keyboard.h"
 
 
-namespace bus { namespace amiga { namespace keyboard {
+namespace bus::amiga::keyboard {
 
 //**************************************************************************
 //  TYPE DECLARATIONS
@@ -33,9 +33,9 @@ protected:
 	a2000_kbd_g80_device(machine_config const &mconfig, device_type type, char const *tag, device_t *owner, uint32_t clock);
 
 	// MCU I/O
-	DECLARE_READ8_MEMBER(mcu_bus_r);
-	DECLARE_WRITE8_MEMBER(mcu_p1_w);
-	DECLARE_WRITE8_MEMBER(mcu_p2_w);
+	u8 mcu_bus_r(offs_t offset);
+	void mcu_p1_w(u8 data);
+	void mcu_p2_w(u8 data);
 
 	virtual const tiny_rom_entry *device_rom_region() const override;
 	virtual void device_add_mconfig(machine_config &config) override;
@@ -49,6 +49,7 @@ protected:
 private:
 	required_ioport_array<13>   m_rows;
 	required_device<cpu_device> m_mcu;
+	output_finder<>             m_led_kbd_caps;
 
 	uint16_t                    m_row_drive;
 	bool                        m_host_kdat, m_mcu_kdat, m_mcu_kclk;
@@ -109,7 +110,7 @@ protected:
 	virtual ioport_constructor device_input_ports() const override;
 };
 
-} } } // namespace bus::amiga::keyboard
+} // namespace bus::amiga::keyboard
 
 
 //**************************************************************************

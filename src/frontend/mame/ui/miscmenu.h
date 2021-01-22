@@ -7,11 +7,12 @@
     Internal MAME menus for the user interface.
 
 ***************************************************************************/
-
 #ifndef MAME_FRONTEND_UI_MISCMENU_H
 #define MAME_FRONTEND_UI_MISCMENU_H
 
 #pragma once
+
+#include "ui/menu.h"
 
 #include "crsshair.h"
 #include "emuopts.h"
@@ -19,18 +20,8 @@
 #include <utility>
 #include <vector>
 
+
 namespace ui {
-
-class menu_keyboard_mode : public menu
-{
-public:
-	menu_keyboard_mode(mame_ui_manager &mui, render_container &container);
-	virtual ~menu_keyboard_mode();
-
-private:
-	virtual void populate(float &customtop, float &custombottom) override;
-	virtual void handle() override;
-};
 
 class menu_network_devices : public menu
 {
@@ -69,23 +60,24 @@ private:
 		CROSSHAIR_ITEM_AUTO_TIME
 	};
 
-	// FIXME: use std::string instead of fixed-length arrays
-	constexpr static int CROSSHAIR_PIC_NAME_LENGTH = 12;
-
 	/* internal crosshair menu item data */
 	struct crosshair_item_data
 	{
-		uint8_t   type;
-		uint8_t   player;
-		uint8_t   min, max;
-		uint8_t   cur;
-		uint8_t   defvalue;
-		char    last_name[CROSSHAIR_PIC_NAME_LENGTH + 1];
-		char    next_name[CROSSHAIR_PIC_NAME_LENGTH + 1];
+		render_crosshair *crosshair = nullptr;
+		uint8_t     type = 0U;
+		uint8_t     player = 0U;
+		uint8_t     min = 0U, max = 0U;
+		uint32_t    cur = 0U;
+		uint8_t     defvalue = 0U;
+		std::string last_name;
+		std::string next_name;
 	};
 
 	virtual void populate(float &customtop, float &custombottom) override;
 	virtual void handle() override;
+
+	std::vector<crosshair_item_data> m_data;
+	std::vector<std::string> m_pics;
 };
 
 class menu_quit_game : public menu

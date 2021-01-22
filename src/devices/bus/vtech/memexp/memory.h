@@ -74,13 +74,14 @@ public:
 	// construction/destruction
 	vtech_laser_64k_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
-	DECLARE_WRITE8_MEMBER( bankswitch_w );
+	void bankswitch_w(uint8_t data);
 
 protected:
 	virtual void device_start() override;
 	virtual void device_reset() override;
 
 private:
+	memory_bank_creator m_bank;
 	std::vector<uint8_t> m_ram;
 };
 

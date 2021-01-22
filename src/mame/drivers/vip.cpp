@@ -224,10 +224,13 @@ Usage:
       (you will see the memory editor) then choose a command (0 for example).
     - If you load a chip-8 cart, press R twice. If it doesn't do anything you may
       need to do a hard reset, then hit R twice. R toggles between the CPU running
-      or stopped.
-    - There's also support for Super-Chip8 carts, but none seem to work.
+      or stopped. Most chip-8 (.c8) programs work, but make sure 4k RAM is enabled.
     - There's a slot option to use Tiny Basic, this starts up, but unable to type
       anything.
+    - Not known if (.bin) files work - don't have any for this machine.
+    - (.c8x) files do not work.
+    - Cassette records and plays back, however about 10% of the data is
+      consistently loaded wrongly.
 
 */
 
@@ -276,7 +279,7 @@ void vip_state::update_interrupts()
 //  read -
 //-------------------------------------------------
 
-READ8_MEMBER(vip_state::read)
+uint8_t vip_state::read(offs_t offset)
 {
 	int cs = BIT(offset, 15) || m_8000;
 	int cdef = !((offset >= 0xc00) && (offset < 0x1000));
@@ -301,7 +304,7 @@ READ8_MEMBER(vip_state::read)
 //  write -
 //-------------------------------------------------
 
-WRITE8_MEMBER(vip_state::write)
+void vip_state::write(offs_t offset, uint8_t data)
 {
 	int cs = BIT(offset, 15) || m_8000;
 	int cdef = !((offset >= 0xc00) && (offset < 0x1000));
@@ -320,7 +323,7 @@ WRITE8_MEMBER(vip_state::write)
 //  io_r -
 //-------------------------------------------------
 
-READ8_MEMBER(vip_state::io_r)
+uint8_t vip_state::io_r(offs_t offset)
 {
 	uint8_t data = m_exp->io_r(offset);
 
@@ -349,7 +352,7 @@ READ8_MEMBER(vip_state::io_r)
 //  io_w -
 //-------------------------------------------------
 
-WRITE8_MEMBER(vip_state::io_w)
+void vip_state::io_w(offs_t offset, uint8_t data)
 {
 	m_exp->io_w(offset, data);
 
@@ -554,7 +557,7 @@ static const discrete_555_desc vip_ca555_a =
 
 static DISCRETE_SOUND_START( vip_discrete )
 	DISCRETE_INPUT_LOGIC(NODE_01)
-	DISCRETE_555_ASTABLE_CV(NODE_02, NODE_01, 470, (int) RES_M(1), (int) CAP_P(470), NODE_01, &vip_ca555_a)
+	DISCRETE_555_ASTABLE_CV(NODE_02, NODE_01, 470, RES_M(1), CAP_P(470), NODE_01, &vip_ca555_a)
 	DISCRETE_OUTPUT(NODE_02, 5000)
 DISCRETE_SOUND_END
 
@@ -752,13 +755,14 @@ void vip_state::vip(machine_config &config)
 	m_exp->dma_in_wr_callback().set(FUNC(vip_state::exp_dma_in_w));
 
 	// devices
-	QUICKLOAD(config, "quickload", "bin,c8,c8x").set_load_callback(FUNC(vip_state::quickload_cb), this);
+	quickload_image_device &quickload(QUICKLOAD(config, "quickload", "bin,c8", attotime::from_seconds(2)));
+	quickload.set_load_callback(FUNC(vip_state::quickload_cb));
+	quickload.set_interface("chip8quik");
+	SOFTWARE_LIST(config, "quik_list").set_original("chip8").set_filter("V");
+
 	CASSETTE(config, m_cassette);
 	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_MOTOR_ENABLED | CASSETTE_SPEAKER_ENABLED);
 	m_cassette->set_interface("vip_cass");
-	m_cassette->add_route(ALL_OUTPUTS, "mono", 0.05);
-
-	// software lists
 	SOFTWARE_LIST(config, "cass_list").set_original("vip");
 
 	// internal ram

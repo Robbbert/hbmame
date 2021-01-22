@@ -14,6 +14,7 @@
 #include "ui/ui.h"
 
 #include "audit.h"
+#include "corestr.h"
 #include "drivenum.h"
 
 #include <numeric>
@@ -131,7 +132,7 @@ void menu_audit::custom_render(void *selectedref, float top, float bottom, float
 						driver ? driver->type.fullname() : "",
 						audited + 1,
 						m_total));
-			ui().draw_text_box(container(), text.c_str(), ui::text_layout::CENTER, 0.5f, 0.5f, UI_GREEN_COLOR);
+			ui().draw_text_box(container(), text, ui::text_layout::CENTER, 0.5f, 0.5f, UI_GREEN_COLOR);
 		}
 		break;
 	}
@@ -139,7 +140,7 @@ void menu_audit::custom_render(void *selectedref, float top, float bottom, float
 
 void menu_audit::populate(float &customtop, float &custombottom)
 {
-	item_append(_("Start Audit"), "", 0, ITEMREF_START);
+	item_append(_("Start Audit"), 0, ITEMREF_START);
 	customtop = (ui().get_line_height() * 2.0f) + (ui().box_tb_border() * 3.0f);
 }
 
@@ -228,7 +229,7 @@ void menu_audit::save_available_machines()
 {
 	// attempt to open the output file
 	emu_file file(ui().options().ui_path(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-	if (file.open(emulator_info::get_configname(), "_avail.ini") == osd_file::error::NONE)
+	if (file.open(std::string(emulator_info::get_configname()) + "_avail.ini") == osd_file::error::NONE)
 	{
 		// generate header
 		file.printf("#\n%s%s\n#\n\n", UI_VERSION_TAG, emulator_info::get_bare_build_version());

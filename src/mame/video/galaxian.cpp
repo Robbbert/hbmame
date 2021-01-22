@@ -390,13 +390,13 @@ void galaxian_state::video_start()
 	if (!m_sfx_tilemap)
 	{
 		/* normal galaxian hardware is row-based and individually scrolling columns */
-		m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(galaxian_state::bg_get_tile_info),this), TILEMAP_SCAN_ROWS, m_x_scale*8,8, 32,32);
+		m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(galaxian_state::bg_get_tile_info)), TILEMAP_SCAN_ROWS, m_x_scale*8,8, 32,32);
 		m_bg_tilemap->set_scroll_cols(32);
 	}
 	else
 	{
 		/* sfx hardware is column-based and individually scrolling rows */
-		m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(galaxian_state::bg_get_tile_info),this), TILEMAP_SCAN_COLS, m_x_scale*8,8, 32,32);
+		m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(galaxian_state::bg_get_tile_info)), TILEMAP_SCAN_COLS, m_x_scale*8,8, 32,32);
 		m_bg_tilemap->set_scroll_rows(32);
 	}
 	m_bg_tilemap->set_transparent_pen(0);
@@ -475,32 +475,32 @@ TILE_GET_INFO_MEMBER(galaxian_state::bg_get_tile_info)
 {
 	uint8_t *videoram = m_videoram;
 	uint8_t x = tile_index & 0x1f;
+	uint8_t y = tile_index >> 5;
 
 	uint16_t code = videoram[tile_index];
 	uint8_t attrib = m_spriteram[x*2+1];
 	uint8_t color = attrib & 7;
 
 	if (m_extend_tile_info_ptr != nullptr)
-		(this->*m_extend_tile_info_ptr)(&code, &color, attrib, x);
+		(this->*m_extend_tile_info_ptr)(&code, &color, attrib, x, y);
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 
-WRITE8_MEMBER(galaxian_state::galaxian_videoram_w)
+void galaxian_state::galaxian_videoram_w(offs_t offset, uint8_t data)
 {
-	uint8_t *videoram = m_videoram;
 	/* update any video up to the current scanline */
 //  m_screen->update_now();
 	m_screen->update_partial(m_screen->vpos());
 
 	/* store the data and mark the corresponding tile dirty */
-	videoram[offset] = data;
+	m_videoram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
 
-WRITE8_MEMBER(galaxian_state::galaxian_objram_w)
+void galaxian_state::galaxian_objram_w(offs_t offset, uint8_t data)
 {
 	/* update any video up to the current scanline */
 //  m_screen->update_now();
@@ -650,7 +650,7 @@ void galaxian_state::bullets_draw(bitmap_rgb32 &bitmap, const rectangle &cliprec
  *
  *************************************/
 
-WRITE8_MEMBER(galaxian_state::galaxian_flip_screen_x_w)
+void galaxian_state::galaxian_flip_screen_x_w(uint8_t data)
 {
 	if (m_flipscreen_x != (data & 0x01))
 	{
@@ -667,7 +667,7 @@ WRITE8_MEMBER(galaxian_state::galaxian_flip_screen_x_w)
 	}
 }
 
-WRITE8_MEMBER(galaxian_state::galaxian_flip_screen_y_w)
+void galaxian_state::galaxian_flip_screen_y_w(uint8_t data)
 {
 	if (m_flipscreen_y != (data & 0x01))
 	{
@@ -679,10 +679,10 @@ WRITE8_MEMBER(galaxian_state::galaxian_flip_screen_y_w)
 	}
 }
 
-WRITE8_MEMBER(galaxian_state::galaxian_flip_screen_xy_w)
+void galaxian_state::galaxian_flip_screen_xy_w(uint8_t data)
 {
-	galaxian_flip_screen_x_w(space, offset, data);
-	galaxian_flip_screen_y_w(space, offset, data);
+	galaxian_flip_screen_x_w(data);
+	galaxian_flip_screen_y_w(data);
 }
 
 
@@ -693,7 +693,7 @@ WRITE8_MEMBER(galaxian_state::galaxian_flip_screen_xy_w)
  *
  *************************************/
 
-WRITE8_MEMBER(galaxian_state::galaxian_stars_enable_w)
+void galaxian_state::galaxian_stars_enable_w(uint8_t data)
 {
 	if ((m_stars_enabled ^ data) & 0x01)
 	{
@@ -713,7 +713,7 @@ WRITE8_MEMBER(galaxian_state::galaxian_stars_enable_w)
 }
 
 
-WRITE8_MEMBER(galaxian_state::scramble_background_enable_w)
+void galaxian_state::scramble_background_enable_w(uint8_t data)
 {
 	if ((m_background_enable ^ data) & 0x01)
 	{
@@ -725,7 +725,7 @@ WRITE8_MEMBER(galaxian_state::scramble_background_enable_w)
 }
 
 
-WRITE8_MEMBER(galaxian_state::scramble_background_red_w)
+void galaxian_state::scramble_background_red_w(uint8_t data)
 {
 	if ((m_background_red ^ data) & 0x01)
 	{
@@ -737,7 +737,7 @@ WRITE8_MEMBER(galaxian_state::scramble_background_red_w)
 }
 
 
-WRITE8_MEMBER(galaxian_state::scramble_background_green_w)
+void galaxian_state::scramble_background_green_w(uint8_t data)
 {
 	if ((m_background_green ^ data) & 0x01)
 	{
@@ -749,7 +749,7 @@ WRITE8_MEMBER(galaxian_state::scramble_background_green_w)
 }
 
 
-WRITE8_MEMBER(galaxian_state::scramble_background_blue_w)
+void galaxian_state::scramble_background_blue_w(uint8_t data)
 {
 	if ((m_background_blue ^ data) & 0x01)
 	{
@@ -768,7 +768,7 @@ WRITE8_MEMBER(galaxian_state::scramble_background_blue_w)
  *
  *************************************/
 
-WRITE8_MEMBER(galaxian_state::galaxian_gfxbank_w)
+void galaxian_state::galaxian_gfxbank_w(offs_t offset, uint8_t data)
 {
 	if (m_gfxbank[offset] != data)
 	{
@@ -906,7 +906,7 @@ void galaxian_state::stars_draw_row(bitmap_rgb32 &bitmap, int maxx, int y, uint3
 		if (star_offs >= STAR_RNG_PERIOD)
 			star_offs = 0;
 		if (enable_star && (star & 0x80) != 0 && (star & starmask) != 0)
-			bitmap.pix32(y, m_x_scale*x + 0) = m_star_color[star & 0x3f];
+			bitmap.pix(y, m_x_scale*x + 0) = m_star_color[star & 0x3f];
 
 		/* second RNG clock: two pixels */
 		star = m_stars[star_offs++];
@@ -914,8 +914,8 @@ void galaxian_state::stars_draw_row(bitmap_rgb32 &bitmap, int maxx, int y, uint3
 			star_offs = 0;
 		if (enable_star && (star & 0x80) != 0 && (star & starmask) != 0)
 		{
-			bitmap.pix32(y, m_x_scale*x + 1) = m_star_color[star & 0x3f];
-			bitmap.pix32(y, m_x_scale*x + 2) = m_star_color[star & 0x3f];
+			bitmap.pix(y, m_x_scale*x + 1) = m_star_color[star & 0x3f];
+			bitmap.pix(y, m_x_scale*x + 2) = m_star_color[star & 0x3f];
 		}
 	}
 }
@@ -1151,15 +1151,15 @@ inline void galaxian_state::galaxian_draw_pixel(bitmap_rgb32 &bitmap, const rect
 		x *= m_x_scale;
 		x += m_h0_start;
 		if (x >= cliprect.min_x && x <= cliprect.max_x)
-			bitmap.pix32(y, x) = color;
+			bitmap.pix(y, x) = color;
 
 		x++;
 		if (x >= cliprect.min_x && x <= cliprect.max_x)
-			bitmap.pix32(y, x) = color;
+			bitmap.pix(y, x) = color;
 
 		x++;
 		if (x >= cliprect.min_x && x <= cliprect.max_x)
-			bitmap.pix32(y, x) = color;
+			bitmap.pix(y, x) = color;
 	}
 }
 
@@ -1243,7 +1243,7 @@ void galaxian_state::theend_draw_bullet(bitmap_rgb32 &bitmap, const rectangle &c
  *************************************/
 
 /*** generic ***/
-void galaxian_state::upper_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::upper_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	/* tiles are in the upper half of a larger ROM */
 	*code += 0x100;
@@ -1257,7 +1257,7 @@ void galaxian_state::upper_extend_sprite_info(const uint8_t *base, uint8_t *sx, 
 
 
 /*** Frogger ***/
-void galaxian_state::frogger_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::frogger_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	*color = ((*color >> 1) & 0x03) | ((*color << 2) & 0x04);
 }
@@ -1269,7 +1269,7 @@ void galaxian_state::frogger_extend_sprite_info(const uint8_t *base, uint8_t *sx
 
 
 /*** Ghostmuncher Galaxian ***/
-void galaxian_state::gmgalax_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::gmgalax_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	*code |= m_gfxbank[0] << 9;
 //  *color |= m_gfxbank[0] << 3;
@@ -1283,7 +1283,7 @@ void galaxian_state::gmgalax_extend_sprite_info(const uint8_t *base, uint8_t *sx
 
 
 /*** Pisces ***/
-void galaxian_state::pisces_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::pisces_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	*code |= m_gfxbank[0] << 8;
 }
@@ -1294,8 +1294,20 @@ void galaxian_state::pisces_extend_sprite_info(const uint8_t *base, uint8_t *sx,
 }
 
 
+/*** Mighty Monkey ***/
+void galaxian_state::mimonkey_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
+{
+	*code |= m_gfxbank[0] << 8 | m_gfxbank[2] << 9;
+}
+
+void galaxian_state::mimonkey_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color)
+{
+	*code |= m_gfxbank[0] << 6 | m_gfxbank[2] << 7;
+}
+
+
 /*** Batman Part 2 ***/
-void galaxian_state::batman2_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::batman2_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	if (*code & 0x80)
 		*code |= m_gfxbank[0] << 8;
@@ -1303,7 +1315,7 @@ void galaxian_state::batman2_extend_tile_info(uint16_t *code, uint8_t *color, ui
 
 
 /*** Moon Cresta ***/
-void galaxian_state::mooncrst_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::mooncrst_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	if (m_gfxbank[2] && (*code & 0xc0) == 0x80)
 		*code = (*code & 0x3f) | (m_gfxbank[0] << 6) | (m_gfxbank[1] << 7) | 0x0100;
@@ -1317,7 +1329,7 @@ void galaxian_state::mooncrst_extend_sprite_info(const uint8_t *base, uint8_t *s
 
 
 /*** Moon Quasar ***/
-void galaxian_state::moonqsr_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::moonqsr_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	*code |= (attrib & 0x20) << 3;
 }
@@ -1329,7 +1341,7 @@ void galaxian_state::moonqsr_extend_sprite_info(const uint8_t *base, uint8_t *sx
 
 
 /*** Moon Shuttle ***/
-void galaxian_state::mshuttle_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::mshuttle_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	*code |= (attrib & 0x30) << 4;
 }
@@ -1353,7 +1365,7 @@ void galaxian_state::calipso_extend_sprite_info(const uint8_t *base, uint8_t *sx
 
 
 /*** Jumpbug ***/
-void galaxian_state::jumpbug_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::jumpbug_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	if ((*code & 0xc0) == 0x80 && (m_gfxbank[2] & 0x01))
 		*code += 128 + (( m_gfxbank[0] & 0x01) << 6) +
@@ -1371,6 +1383,62 @@ void galaxian_state::jumpbug_extend_sprite_info(const uint8_t *base, uint8_t *sx
 	}
 }
 
+void galaxian_state::namenayo_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y) // should be in namenayo_state
+{
+	// main game display
+	if ((attrib & 0x01) == 0x00)
+	{
+		int attr = m_exattrram[y & 0x1f];
+		*code += ((attr & 0x38) >> 3) * 0x100;
+		*color = attr & 0x07;
+	}
+	// status bar
+	else
+	{
+		// course map
+		if ((attrib & 0xfe) == 0x20)
+			*code += 0x400;
+	}
+}
+
+void galaxian_state::namenayo_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color)
+{
+	if (base[2] & 0x08)
+		*code += 0x40;
+
+	// sprite colours are from the 2nd PROM
+	*color += 8;
+}
+
+void namenayo_state::namenayo_unk_d800_w(uint8_t data)
+{
+	// seems to be connected to scroll position?
+	// popmessage("namenayo_unk_d800_w %02x", data);
+}
+
+
+void galaxian_state::namenayo_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect)
+{
+	bitmap.fill(rgb_t::black(), cliprect);
+
+	rectangle draw;
+
+	if (m_flipscreen_x)
+	{
+		draw = cliprect;
+		draw.min_x = std::max(draw.min_x, 72 * m_x_scale);
+	}
+	else
+	{
+		draw = cliprect;
+		draw.max_x = std::min(draw.max_x, 184 * m_x_scale - 1);
+	}
+
+	// draw an opaque copy of the tilemap in part of the screen to ensure some of the graphics are correct
+	// this can't extend past the playfield or you get unwanted fill near the status bar
+	// this might not be 100% how the hardware works.
+	m_bg_tilemap->draw(*m_screen, bitmap, draw, TILEMAP_DRAW_OPAQUE, 0);
+}
 
 
 /*************************************
@@ -1380,7 +1448,7 @@ void galaxian_state::jumpbug_extend_sprite_info(const uint8_t *base, uint8_t *sx
  *************************************/
 
 /* gfxbank[4] is used as a cpu bank number, and gfxbank[0] for graphics banking */
-WRITE8_MEMBER( galaxian_state::fourplay_rombank_w )
+void galaxian_state::fourplay_rombank_w(offs_t offset, uint8_t data)
 {
 	m_gfxbank[4] = (m_gfxbank[4] & (2 - offset)) | (data << offset);
 
@@ -1397,7 +1465,7 @@ WRITE8_MEMBER( galaxian_state::fourplay_rombank_w )
  *
  *************************************/
 
-void galaxian_state::videight_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x)
+void galaxian_state::videight_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y)
 {
 	*code |= (m_gfxbank[0] << 8);
 	*color |= (m_gfxbank[4] << 3);
@@ -1411,21 +1479,21 @@ void galaxian_state::videight_extend_sprite_info(const uint8_t *base, uint8_t *s
 
 
 /* This handles the main bankswitching for code and one-bank gfx games */
-WRITE8_MEMBER( galaxian_state::videight_rombank_w )
+void galaxian_state::videight_rombank_w(offs_t offset, uint8_t data)
 {
 	uint8_t gfxbanks[] = { 0, 10, 2, 8, 1, 9, 4, 11 };
 	if (offset == 2)
-		galaxian_stars_enable_w( space, 0, data );
+		galaxian_stars_enable_w( data );
 	else
 	{
 		m_gfxbank[4] = (m_gfxbank[4] & (6 - offset)) | (data << ((offset + 1) >> 1));
-		galaxian_gfxbank_w (space, 0, gfxbanks[m_gfxbank[4]]);
+		galaxian_gfxbank_w (0, gfxbanks[m_gfxbank[4]]);
 		membank("bank1")->set_entry( m_gfxbank[4] );
 	}
 }
 
 /* This handles those games with multiple gfx banks */
-WRITE8_MEMBER( galaxian_state::videight_gfxbank_w )
+void galaxian_state::videight_gfxbank_w(offs_t offset, uint8_t data)
 {
 	/* Moon Cresta (mooncrgx) */
 	if (( data < 2 ) && (m_gfxbank[4] == 3))
@@ -1434,15 +1502,21 @@ WRITE8_MEMBER( galaxian_state::videight_gfxbank_w )
 		if (!offset) m_gfxbank[3] = (m_gfxbank[3] & 6) | data;
 		if (offset == 1) m_gfxbank[3] = (m_gfxbank[3] & 5) | (data << 1);
 		if (offset == 2) m_gfxbank[3] = (m_gfxbank[3] & 3) | (data << 2);
-		galaxian_gfxbank_w(space, 0, gfxbanks[m_gfxbank[3]]);
+		galaxian_gfxbank_w(0, gfxbanks[m_gfxbank[3]]);
 	}
 
 	/* Uniwar S */
 	if (( data < 2 ) && (m_gfxbank[4] == 2) && (offset == 2))
-		galaxian_gfxbank_w( space, 0, data+2 );
+		galaxian_gfxbank_w( 0, data+2 );
 
 	/* Pisces (piscesb) */
 	if (( data < 2 ) && (m_gfxbank[4] == 6) && (offset == 2))
-		galaxian_gfxbank_w( space, 0, data+4 );
+		galaxian_gfxbank_w( 0, data+4 );
 }
 
+void namenayo_state::namenayo_extattr_w(offs_t offset, uint8_t data)
+{
+	m_screen->update_partial(m_screen->vpos());
+	m_exattrram[offset] = data;
+	m_bg_tilemap->mark_all_dirty();
+}

@@ -8,6 +8,9 @@
 #include "emu.h"
 #include "zeus2.h"
 
+#include <algorithm>
+
+
 #define LOG_REGS         1
 // Setting ALWAYS_LOG_FIFO will always log the fifo versus having to hold 'L'
 #define ALWAYS_LOG_FIFO  0
@@ -71,12 +74,12 @@ TIMER_CALLBACK_MEMBER(zeus2_device::int_timer_callback)
 void zeus2_device::device_start()
 {
 	/* allocate memory for "wave" RAM */
-	waveram = auto_alloc_array(machine(), uint32_t, WAVERAM0_WIDTH * WAVERAM0_HEIGHT * 8/4);
+	m_waveram = std::make_unique<uint32_t[]>(WAVERAM0_WIDTH * WAVERAM0_HEIGHT * 8/4);
 	m_frameColor = std::make_unique<uint32_t[]>(WAVERAM1_WIDTH * WAVERAM1_HEIGHT * 2);
 	m_frameDepth = std::make_unique<int32_t[]>(WAVERAM1_WIDTH * WAVERAM1_HEIGHT * 2);
 
 	/* initialize polygon engine */
-	poly = auto_alloc(machine(), zeus2_renderer(this));
+	poly = std::make_unique<zeus2_renderer>(this);
 
 	m_vblank.resolve_safe();
 	m_irq.resolve_safe();
@@ -116,7 +119,7 @@ void zeus2_device::device_start()
 	save_item(NAME(zeus_texbase));
 	save_item(NAME(zeus_quad_size));
 	save_item(NAME(m_useZOffset));
-	save_pointer(NAME(waveram), WAVERAM0_WIDTH * WAVERAM0_HEIGHT * 8 / 4);
+	save_pointer(NAME(m_waveram), WAVERAM0_WIDTH * WAVERAM0_HEIGHT * 8 / 4);
 	save_pointer(NAME(m_frameColor), WAVERAM1_WIDTH * WAVERAM1_HEIGHT * 2);
 	save_pointer(NAME(m_frameDepth), WAVERAM1_WIDTH * WAVERAM1_HEIGHT * 2);
 	save_item(NAME(m_pal_table));
@@ -171,7 +174,7 @@ void zeus2_device::device_stop()
 	myfile.open(fileName.c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
 
 	if (myfile.is_open())
-		myfile.write((char *)waveram, WAVERAM0_WIDTH * WAVERAM0_HEIGHT * 2 * sizeof(uint32_t));
+		myfile.write((char *)m_waveram.get(), WAVERAM0_WIDTH * WAVERAM0_HEIGHT * 2 * sizeof(uint32_t));
 	myfile.close();
 #endif
 
@@ -236,10 +239,7 @@ uint32_t zeus2_device::screen_update(screen_device &screen, bitmap_rgb32 &bitmap
 		for (y = cliprect.min_y; y <= cliprect.max_y; y++)
 		{
 			uint32_t *colorptr = &m_frameColor[frame_addr_from_xy(0, y, false)];
-			uint32_t *dest = &bitmap.pix32(y);
-			for (x = cliprect.min_x; x <= cliprect.max_x; x++) {
-				dest[x] = colorptr[x];
-			}
+			std::copy(colorptr + cliprect.min_x, colorptr + cliprect.max_x + 1, &bitmap.pix(y, cliprect.min_x));
 		}
 	}
 
@@ -265,7 +265,7 @@ uint32_t zeus2_device::screen_update(screen_device &screen, bitmap_rgb32 &bitmap
 		int xoffs = screen.visible_area().min_x;
 		for (y = cliprect.min_y; y <= cliprect.max_y; y++)
 		{
-			uint32_t *dest = &bitmap.pix32(y);
+			uint32_t *const dest = &bitmap.pix(y);
 			for (x = cliprect.min_x; x <= cliprect.max_x; x++)
 			{
 				if (1) {
@@ -291,7 +291,7 @@ uint32_t zeus2_device::screen_update(screen_device &screen, bitmap_rgb32 &bitmap
  *
  *************************************/
 
-READ32_MEMBER( zeus2_device::zeus2_r )
+uint32_t zeus2_device::zeus2_r(offs_t offset)
 {
 	int logit = (offset != 0x00 && offset != 0x01 &&
 		offset != 0x18 && offset != 0x19 && offset != 0x48 && offset != 0x49
@@ -364,7 +364,7 @@ READ32_MEMBER( zeus2_device::zeus2_r )
  *
  *************************************/
 
-WRITE32_MEMBER( zeus2_device::zeus2_w )
+void zeus2_device::zeus2_w(offs_t offset, uint32_t data)
 {
 	int logit = (offset != 0x08 &&
 					 offset != 0x18 && offset != 0x19 && (offset != 0x20 || data != 0) &&
@@ -1107,7 +1107,7 @@ if (subregdata_count[which] < 256)
 			{
 				//int blockNum = ((m_renderRegs[0x9] >> 16) * 1024 + (m_renderRegs[0x9] & 0xffff));
 				int blockNum = m_renderRegs[0x9];
-				void *dataPtr = (void *)(&waveram[blockNum * 2]);
+				void *dataPtr = (void *)(&m_waveram[blockNum * 2]);
 				if (logit)
 					logerror("\t(R%02X) = %06x PAL Control Load Table Byte Addr = %08X", which, value, blockNum * 8);
 				m_curPalTableSrc = m_renderRegs[0x9];
@@ -1205,6 +1205,7 @@ bool zeus2_device::zeus2_fifo_process(const uint32_t *data, int numwords)
 			return true;
 		}
 		// Drop through to 0x05 command
+		[[fallthrough]];
 	/* 0x05: write 32-bit value to low registers */
 	case 0x05:
 		if (numwords < 2)
@@ -1221,7 +1222,7 @@ bool zeus2_device::zeus2_fifo_process(const uint32_t *data, int numwords)
 				return false;
 			zeus_trans[3] = convert_float(data[1]);
 			dataoffs = 1;
-
+			[[fallthrough]];
 		/* 0x07: set matrix and point (crusnexo) */
 		case 0x07:
 			if (numwords < 13)
@@ -1293,6 +1294,7 @@ bool zeus2_device::zeus2_fifo_process(const uint32_t *data, int numwords)
 				}
 				break;
 			}
+			[[fallthrough]];
 		// 0x1b: thegrid
 		// 0x1c: crusnexo (4 words)
 		case 0x1b:
@@ -1470,17 +1472,16 @@ void zeus2_device::zeus2_draw_model(uint32_t baseaddr, uint16_t count, int logit
 					case 0x00: // crusnexo
 						if (logit && curoffs == count)
 							logerror(" end cmd 00\n");
+						[[fallthrough]];
 					case 0x21:  /* thegrid */
 					case 0x22:  /* crusnexo */
-					{
 						// Sets 0x68 (uv float offset) and texture line and mode
 						// In reality this sets internal registers that are used in the
 						// zeus2 microcode to set these registers
 						m_zeusbase[0x68] = (databuffer[0] >> 16) & 0xff;
 						texdata = databuffer[1];
 						if (logit)
-								logerror(" (0x68)=%02X texMode=%08X\n", m_zeusbase[0x68], texdata);
-					}
+							logerror(" (0x68)=%02X texMode=%08X\n", m_zeusbase[0x68], texdata);
 						break;
 
 					case 0x31:  /* thegrid */
@@ -2071,7 +2072,7 @@ void zeus2_device::check_tex(uint32_t &texmode, float &zObj, float &zMat, float 
 		infoStr += tex_info();
 
 		tex_map.insert(std::pair<uint32_t, std::string>(zeus_texbase, infoStr));
-		osd_printf_info("%s\n", infoStr.c_str());
+		osd_printf_info("%s\n", infoStr);
 	}
 }
 

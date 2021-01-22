@@ -10,15 +10,16 @@
 
 ***************************************************************************/
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <time.h>
-#include <stdarg.h>
-#include <assert.h>
+#include <cstdio>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
+#include <ctime>
+#include <cstdarg>
+#include <cassert>
 
 #include "corestr.h"
+#include "osdcomm.h"
 
 #include "formats/mfi_dsk.h"
 #include "formats/dfi_dsk.h"
@@ -38,6 +39,7 @@
 #include "formats/cqm_dsk.h"
 #include "formats/pc_dsk.h"
 #include "formats/naslite_dsk.h"
+#include "formats/ibmxdf_dsk.h"
 
 #include "formats/ap_dsk35.h"
 #include "formats/ap2_dsk.h"
@@ -50,9 +52,18 @@
 #include "formats/applix_dsk.h"
 
 #include "formats/hpi_dsk.h"
+#include "formats/img_dsk.h"
 
 #include "formats/dvk_mx_dsk.h"
 #include "formats/aim_dsk.h"
+#include "formats/m20_dsk.h"
+
+#include "formats/os9_dsk.h"
+
+#include "formats/flex_dsk.h"
+#include "formats/uniflex_dsk.h"
+
+#include "formats/mdos_dsk.h"
 
 
 static floppy_format_type floppy_formats[] = {
@@ -75,6 +86,7 @@ static floppy_format_type floppy_formats[] = {
 	FLOPPY_CQM_FORMAT,
 	FLOPPY_PC_FORMAT,
 	FLOPPY_NASLITE_FORMAT,
+	FLOPPY_IBMXDF_FORMAT,
 
 	FLOPPY_DC42_FORMAT,
 	FLOPPY_A216S_FORMAT,
@@ -94,9 +106,18 @@ static floppy_format_type floppy_formats[] = {
 	FLOPPY_APPLIX_FORMAT,
 
 	FLOPPY_HPI_FORMAT,
+	FLOPPY_IMG_FORMAT,
 
 	FLOPPY_DVK_MX_FORMAT,
-	FLOPPY_AIM_FORMAT
+	FLOPPY_AIM_FORMAT,
+	FLOPPY_M20_FORMAT,
+
+	FLOPPY_OS9_FORMAT,
+
+	FLOPPY_FLEX_FORMAT,
+	FLOPPY_UNIFLEX_FORMAT,
+
+	FLOPPY_MDOS_FORMAT
 };
 
 void CLIB_DECL ATTR_PRINTF(1,2) logerror(const char *format, ...)
@@ -110,6 +131,8 @@ void CLIB_DECL ATTR_PRINTF(1,2) logerror(const char *format, ...)
 enum { FORMAT_COUNT = ARRAY_LENGTH(floppy_formats) };
 
 static floppy_image_format_t *formats[FORMAT_COUNT];
+static std::vector<uint32_t> variants;
+
 
 static void init_formats()
 {
@@ -132,7 +155,7 @@ static floppy_image_format_t *find_format_by_identify(io_generic *image)
 
 	for(int i = 0; i != FORMAT_COUNT; i++) {
 		floppy_image_format_t *fif = formats[i];
-		int score = fif->identify(image, floppy_image::FF_UNKNOWN);
+		int score = fif->identify(image, floppy_image::FF_UNKNOWN, variants);
 		if(score > best) {
 			best = score;
 			best_fif = fif;
@@ -260,12 +283,12 @@ static int convert(int argc, char *argv[])
 	dest_io.filler = 0xff;
 
 	floppy_image image(84, 2, floppy_image::FF_UNKNOWN);
-	if(!source_format->load(&source_io, floppy_image::FF_UNKNOWN, &image)) {
+	if(!source_format->load(&source_io, floppy_image::FF_UNKNOWN, variants, &image)) {
 		fprintf(stderr, "Error: parsing input file as '%s' failed\n", source_format->name());
 		return 1;
 	}
 
-	if(!dest_format->save(&dest_io, &image)) {
+	if(!dest_format->save(&dest_io, variants, &image)) {
 		fprintf(stderr, "Error: writing output file as '%s' failed\n", dest_format->name());
 		return 1;
 	}

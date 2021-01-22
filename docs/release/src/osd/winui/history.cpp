@@ -25,7 +25,7 @@
  *      - Software comes first, followed by Game then Source.
 ***************************************************************************/
 // license:BSD-3-Clause
-// copyright-holders:Chris Kirmse, Mike Haaland, René Single, Mamesick, Robbbert
+// copyright-holders:Chris Kirmse, Mike Haaland, RenÃ© Single, Mamesick, Robbbert
 
 #include <windows.h>
 #include <fstream>
@@ -37,6 +37,7 @@
 #include "drivenum.h"
 #include "mui_util.h"
 #include "mui_opts.h"
+#include "emu_opts.h"
 #include "sound/samples.h"
 
 #define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
@@ -338,7 +339,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	snprintf(name, WINUI_ARRAY_LENGTH(name), " (%s %s)\n\nCPU:\n", drv->manufacturer, drv->year);
 	buffer.append(name);
 	/* iterate over CPUs */
-	execute_interface_iterator cpuiter(config.root_device());
+	execute_interface_enumerator cpuiter(config.root_device());
 	std::unordered_set<std::string> exectags;
 
 	for (device_execute_interface &exec : cpuiter)
@@ -372,7 +373,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	buffer.append("\nSOUND:\n");
 	int has_sound = 0;
 	/* iterate over sound chips */
-	sound_interface_iterator sounditer(config.root_device());
+	sound_interface_enumerator sounditer(config.root_device());
 	std::unordered_set<std::string> soundtags;
 
 	for (device_sound_interface &sound : sounditer)
@@ -413,7 +414,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 
 	if (has_sound)
 	{
-		speaker_device_iterator audioiter(config.root_device());
+		speaker_device_enumerator audioiter(config.root_device());
 		int channels = audioiter.count();
 
 		if(channels == 1)
@@ -425,7 +426,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	}
 
 	buffer.append("\nVIDEO:\n");
-	screen_device_iterator screeniter(config.root_device());
+	screen_device_enumerator screeniter(config.root_device());
 	int scrcount = screeniter.count();
 
 	if (scrcount == 0)
@@ -458,7 +459,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 	if (g != -1)
 		parent = &driver_list::driver(g);
 
-	for (device_t &device : device_iterator(config.root_device()))
+	for (device_t &device : device_enumerator(config.root_device()))
 	{
 		for (const rom_entry *region = rom_first_region(device); region; region = rom_next_region(region))
 		{
@@ -470,7 +471,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 				{
 					machine_config pconfig(*parent, MameUIGlobal());
 
-					for (device_t &device : device_iterator(pconfig.root_device()))
+					for (device_t &device : device_enumerator(pconfig.root_device()))
 					{
 						for (const rom_entry *pregion = rom_first_region(device); pregion; pregion = rom_next_region(pregion))
 						{
@@ -495,7 +496,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 		}
 	}
 
-	for (samples_device &device : samples_device_iterator(config.root_device()))
+	for (samples_device &device : samples_device_enumerator(config.root_device()))
 	{
 		samples_iterator sampiter(device);
 
@@ -595,7 +596,7 @@ char * GetGameHistory(int driver_index, std::string software)
 	if (validate_datfiles())
 	{
 		// Get the path to dat files
-		std::string t = GetDatsDir();
+		std::string t = dir_get_value(23);
 		char buf[t.size()+1];
 		strcpy(buf, t.c_str());
 		// only want first path
@@ -638,7 +639,7 @@ char * GetGameHistory(int driver_index)
 
 	if (validate_datfiles())
 	{
-		std::string t = GetDatsDir();
+		std::string t = dir_get_value(23);
 		char buf[t.size()+1];
 		strcpy(buf, t.c_str());
 		// only want first path

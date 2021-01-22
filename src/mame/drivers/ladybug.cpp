@@ -73,7 +73,7 @@ TODO:
 
 
 // Protection?
-READ8_MEMBER(sraider_state::sraider_8005_r)
+uint8_t sraider_state::sraider_8005_r()
 {
 	// This must return X011111X or cpu #1 will hang
 	// see code at rst $10
@@ -81,7 +81,7 @@ READ8_MEMBER(sraider_state::sraider_8005_r)
 }
 
 // Unknown IO
-WRITE8_MEMBER(sraider_state::sraider_misc_w)
+void sraider_state::sraider_misc_w(offs_t offset, uint8_t data)
 {
 	switch(offset)
 	{
@@ -202,13 +202,13 @@ CUSTOM_INPUT_MEMBER(ladybug_state::ladybug_p2_control_r)
 
 static INPUT_PORTS_START( ladybug )
 	PORT_START("IN0")
-	PORT_BIT( 0x1f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, ladybug_state, ladybug_p1_control_r, nullptr)
+	PORT_BIT( 0x1f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(ladybug_state, ladybug_p1_control_r)
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START1 )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_TILT )
 
 	PORT_START("IN1")
-	PORT_BIT( 0x1f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, ladybug_state, ladybug_p2_control_r, nullptr)
+	PORT_BIT( 0x1f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(ladybug_state, ladybug_p2_control_r)
 	// This should be connected to the 4V clock. I don't think the game uses it.
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	// Note that there are TWO VBlank inputs, one is active low, the other active
@@ -724,15 +724,12 @@ void sraider_state::machine_reset()
 void ladybug_state::ladybug(machine_config &config)
 {
 	/* basic machine hardware */
-	Z80(config, m_maincpu, 4000000);   /* 4 MHz */
+	Z80(config, m_maincpu, 4_MHz_XTAL);   /* 4 MHz */
 	m_maincpu->set_addrmap(AS_PROGRAM, &ladybug_state::ladybug_map);
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_refresh_hz(60);
-	screen.set_vblank_time(ATTOSECONDS_IN_USEC(2500) /* not accurate */);
-	screen.set_size(32*8, 32*8);
-	screen.set_visarea(1*8, 31*8-1, 4*8, 28*8-1);
+	screen.set_raw(9.828_MHz_XTAL / 2, 312, 8, 248, 262, 32, 224);
 	screen.set_screen_update(FUNC(ladybug_state::screen_update_ladybug));
 	screen.set_palette("palette");
 
@@ -747,8 +744,8 @@ void ladybug_state::ladybug(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	SN76489(config, "sn1", 4000000).add_route(ALL_OUTPUTS, "mono", 1.0);
-	SN76489(config, "sn2", 4000000).add_route(ALL_OUTPUTS, "mono", 1.0);
+	SN76489(config, "sn1", 4_MHz_XTAL).add_route(ALL_OUTPUTS, "mono", 1.0);
+	SN76489(config, "sn2", 4_MHz_XTAL).add_route(ALL_OUTPUTS, "mono", 1.0);
 }
 
 void dorodon_state::dorodon(machine_config &config)
@@ -772,10 +769,7 @@ void sraider_state::sraider(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_refresh_hz(60);
-	screen.set_vblank_time(ATTOSECONDS_IN_USEC(2500) /* not accurate */);
-	screen.set_size(32*8, 32*8);
-	screen.set_visarea(1*8, 31*8-1, 4*8, 28*8-1);
+	screen.set_raw(9'828'000 / 2, 312, 8, 248, 262, 32, 224);
 	screen.set_screen_update(FUNC(sraider_state::screen_update_sraider));
 	screen.screen_vblank().set(FUNC(sraider_state::screen_vblank_sraider));
 	screen.set_palette(m_palette);
@@ -1016,7 +1010,7 @@ GAME( 1981, cavenger,  0,       ladybug, cavenger, ladybug_state, empty_init,   
 GAME( 1981, ladybug,   0,       ladybug, ladybug,  ladybug_state, empty_init,   ROT270, "Universal",              "Lady Bug",                                MACHINE_SUPPORTS_SAVE )
 GAME( 1981, ladybugb,  ladybug, ladybug, ladybug,  ladybug_state, empty_init,   ROT270, "bootleg",                "Lady Bug (bootleg set 1)",                MACHINE_SUPPORTS_SAVE )
 GAME( 1981, ladybugb2, ladybug, ladybug, ladybug,  ladybug_state, empty_init,   ROT270, "bootleg (Model Racing)", "Coccinelle (bootleg of Lady Bug, set 2)", MACHINE_SUPPORTS_SAVE ) // title removed, but manual names it Coccinelle
+GAME( 1981, snapjack,  0,       ladybug, snapjack, ladybug_state, empty_init,   ROT0,   "Universal",              "Snap Jack",                               MACHINE_SUPPORTS_SAVE )
 GAME( 1982, dorodon,   0,       dorodon, dorodon,  dorodon_state, init_dorodon, ROT270, "UPL (Falcon license?)",  "Dorodon (set 1)",                         MACHINE_SUPPORTS_SAVE ) // license or bootleg?
 GAME( 1982, dorodon2,  dorodon, dorodon, dorodon,  dorodon_state, init_dorodon, ROT270, "UPL (Falcon license?)",  "Dorodon (set 2)",                         MACHINE_SUPPORTS_SAVE ) // "
-GAME( 1982, snapjack,  0,       ladybug, snapjack, ladybug_state, empty_init,   ROT0,   "Universal",              "Snap Jack",                               MACHINE_SUPPORTS_SAVE )
 GAME( 1982, sraider,   0,       sraider, sraider,  sraider_state, empty_init,   ROT270, "Universal",              "Space Raider",                            MACHINE_SUPPORTS_SAVE )

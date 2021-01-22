@@ -25,14 +25,21 @@ ROM_START( astrob2h ) // same as astrob2 except u2 and u4
 	ROM_LOAD( "905.prom-u18",   0x9000, 0x0800, CRC(4f08f9f4) SHA1(755a825b18ed50caa7bf274a0a5c3a1b00b1c070) )
 	ROM_LOAD( "906.prom-u19",   0x9800, 0x0800, CRC(58149df1) SHA1(2bba56576a225ca47ce31a5b6dcc491546dfffec) )
 
-	ROM_REGION( 0x0800, "audiocpu", 0 )
+	ROM_REGION( 0x0800, "speech:cpu", 0 )
 	ROM_LOAD( "808b.speech-u7", 0x0000, 0x0800, CRC(5988c767) SHA1(3b91a8cd46aa7e714028cc40f700fea32287afb1) )
 
-	ROM_REGION( 0x4000, SEGASND_SEGASPEECH_REGION, 0 )
+	ROM_REGION( 0x0020, "speech:proms", 0 )
+	ROM_LOAD( "pr84.speech-u30",     0x0000, 0x0020, CRC(adcb81d0) SHA1(74b0efc7e8362b0c98e54a6107981cff656d87e1) )
+
+	ROM_REGION( 0x4000, "speech:data", 0 )
 	ROM_LOAD( "809a.speech-u6", 0x0000, 0x0800, CRC(893f228d) SHA1(41c08210d322105f5446cfaa1258c194dd078a34) )
 	ROM_LOAD( "810.speech-u5",  0x0800, 0x0800, CRC(ff0163c5) SHA1(158a12f9bf01d25c7e98f34fce56df51d49e5a85) )
 	ROM_LOAD( "811.speech-u4",  0x1000, 0x0800, CRC(219f3978) SHA1(728edb9251f7cde237fa3b005971366a099c6342) )
 	ROM_LOAD( "812a.speech-u3", 0x1800, 0x0800, CRC(410ad0d2) SHA1(9b5f05bb64a6ecfe3543025a10c6ec67de797333) )
+
+	ROM_REGION( 0x0420, "proms", 0 )
+	ROM_LOAD( "316-0806.video1-u52", 0x0000, 0x0020, CRC(358128b6) SHA1(b6b4b9ecfdcc69b45e69e7a8614153d83be4c62b) )
+	ROM_LOAD( "316-0764.cpu-u15",    0x0400, 0x0020, CRC(c609b79e) SHA1(49dbcbb607079a182d7eb396c0da097166ea91c9) )
 ROM_END
 
 GAME( 1981, astrob2h, astrob, astrob, astrob2, segag80r_state, init_astrob, ROT270, "Clay Cowgill", "Astro Blaster (ver 2 Hack)", 0 )

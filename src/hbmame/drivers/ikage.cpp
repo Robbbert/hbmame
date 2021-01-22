@@ -3,21 +3,21 @@
 #include "../mame/drivers/lkage.cpp"
 
 /***************************************
-	Proyecto Shadows Mame Build Plus
+    Proyecto Shadows Mame Build Plus
 ***************************************/
 
 /******************************************************************************************
-   Muchos Roms De Mi Proyecto Shadow Se Estará Deshabilitado. Por
-   Los Motivo Es Que Se Empezó Agregar En El HBMame Oficial, Lo Cual Me Veré
-   Obligado Deshabilitando Porque Si No Se Estaría Duplicado Archivo De Roms.
+   Muchos Roms De Mi Proyecto Shadow Se Estarï¿½ Deshabilitado. Por
+   Los Motivo Es Que Se Empezï¿½ Agregar En El HBMame Oficial, Lo Cual Me Verï¿½
+   Obligado Deshabilitando Porque Si No Se Estarï¿½a Duplicado Archivo De Roms.
 ******************************************************************************************/
 
 /*****************************************
  *
- *         ROM Definición(s)
+ *         ROM Definiciï¿½n(s)
  *
  ****************************************/
- 
+
   /****************************************
           The Legend of Kage
 *****************************************/
@@ -60,5 +60,5 @@ ROM_END
 // Proyecto Shadows Mame Build Plus
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Legend of Kage
-GAME( 1984, lkages01, lkage, lkage, lkage, lkage_state, init_lkage, ROT0, "Hacks", "The Legend of Kage (Translation Chinese)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1984, lkages01, lkage, lkage, lkage, lkage_state, init_lkage, ROT0, "hack", "The Legend of Kage (Translation Chinese)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 

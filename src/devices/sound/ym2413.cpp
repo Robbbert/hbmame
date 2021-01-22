@@ -2,8 +2,8 @@
 // copyright-holders:Jarek Burczynski, Ernesto Corvi
 /*
 **
-** File: ym2413.c - software implementation of YM2413
-**                  FM sound generator type OPLL
+** File: ym2413.cpp - software implementation of YM2413
+**                    FM sound generator type OPLL
 **
 ** Copyright Jarek Burczynski
 **
@@ -1473,9 +1473,9 @@ void ym2413_device::write_reg(int r, int v)
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void ym2413_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void ym2413_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
-	for(int i=0; i < samples ; i++ )
+	for(int i=0; i < outputs[0].samples() ; i++ )
 	{
 		output[0] = 0;
 		output[1] = 0;
@@ -1496,8 +1496,8 @@ void ym2413_device::sound_stream_update(sound_stream &stream, stream_sample_t **
 			rhythm_calc(&P_CH[0], noise_rng & 1 );
 		}
 
-		outputs[0][i] = limit( output[0] , 32767, -32768 );
-		outputs[1][i] = limit( output[1] , 32767, -32768 );
+		outputs[0].put_int_clamp(i, output[0], 32768);
+		outputs[1].put_int_clamp(i, output[1], 32768);
 
 		advance();
 	}
@@ -1511,7 +1511,7 @@ void ym2413_device::device_start()
 {
 	int rate = clock()/72;
 
-	m_stream = machine().sound().stream_alloc(*this,0,2,rate);
+	m_stream = stream_alloc(0,2,rate);
 
 	for (int x=0; x<TL_RES_LEN; x++)
 	{
@@ -1742,14 +1742,37 @@ ym2413_device::ym2413_device(const machine_config &mconfig, const char *tag, dev
 ym2413_device::ym2413_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, type, tag, owner, clock)
 	, device_sound_interface(mconfig, *this)
+	, eg_cnt(0)
+	, eg_timer(0)
+	, eg_timer_add(0)
+	, eg_timer_overflow(0)
+	, rhythm(0)
+	, LFO_AM(0)
+	, LFO_PM(0)
+	, lfo_am_cnt(0)
+	, lfo_am_inc(0)
+	, lfo_pm_cnt(0)
+	, lfo_pm_inc(0)
+	, noise_rng(0)
+	, noise_p(0)
+	, noise_f(0)
+	, address(0)
+
 {
 	for (int i = 0; i < 19; i++)
 	{
 		std::fill_n(&m_inst_table[i][0], 8, 0);
+		std::fill_n(&inst_tab[i][0], 8, 0);
 	}
+
+	std::fill(std::begin(tl_tab), std::end(tl_tab), 0);
+	std::fill(std::begin(sin_tab), std::end(sin_tab), 0);
+	std::fill(std::begin(instvol_r), std::end(instvol_r), 0);
+	std::fill(std::begin(fn_tab), std::end(fn_tab), 0);
+	std::fill(std::begin(output), std::end(output), 0);
 }
 
-DEFINE_DEVICE_TYPE(VRC7, vrc7snd_device, "vrc7snd", "Konami VRC7 (Sound)")
+DEFINE_DEVICE_TYPE(VRC7, vrc7snd_device, "vrc7snd", "Konami 053982 VRC VII (Sound)") // die label: D51001
 
 vrc7snd_device::vrc7snd_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: ym2413_device(mconfig, VRC7, tag, owner, clock)

@@ -46,7 +46,7 @@ ROM_START( ddragon2b2 )
 	ROM_LOAD( "10_ps",  0x30000, 0x10000, CRC(95885e12) SHA1(518186d329d2ed148d732ad56173ba1cc0406246) )
 
 	ROM_REGION( 0x0200, "proms", 0 )
-	ROM_LOAD( "prom.16",      0x0000, 0x0200, CRC(46339529) SHA1(64f4c42a826d67b7cbaa8a23a45ebc4eb6248891) ) 
+	ROM_LOAD( "prom.16",      0x0000, 0x0200, CRC(46339529) SHA1(64f4c42a826d67b7cbaa8a23a45ebc4eb6248891) )
 ROM_END
 
 GAME( 1988, ddragon2b2,    ddragon2, ddragon2,    ddragon2, ddragon_state,  init_ddragon2,    ROT0, "bootleg",       "Double Dragon II - The Revenge (bootleg)", MACHINE_SUPPORTS_SAVE )

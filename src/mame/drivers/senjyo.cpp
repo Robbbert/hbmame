@@ -83,7 +83,6 @@ I/O read/write
 #include "cpu/z80/z80.h"
 #include "machine/segacrpt_device.h"
 #include "sound/sn76496.h"
-#include "sound/volt_reg.h"
 #include "screen.h"
 #include "speaker.h"
 
@@ -102,18 +101,18 @@ void senjyo_state::machine_reset()
 	m_sound_state = 0;
 }
 
-WRITE8_MEMBER(senjyo_state::irq_ctrl_w)
+void senjyo_state::irq_ctrl_w(uint8_t data)
 {
 	// irq ack is mandatory for senjyo: it's basically used as an irq mask during POST.
 	m_maincpu->set_input_line(0, CLEAR_LINE);
 }
 
-WRITE8_MEMBER(senjyo_state::flip_screen_w)
+void senjyo_state::flip_screen_w(uint8_t data)
 {
 	flip_screen_set(data);
 }
 
-WRITE8_MEMBER(senjyo_state::sound_cmd_w)
+void senjyo_state::sound_cmd_w(uint8_t data)
 {
 	m_sound_cmd = data;
 
@@ -131,22 +130,22 @@ void senjyo_state::senjyo_map(address_map &map)
 	map(0x9c00, 0x9dff).ram().w(m_palette, FUNC(palette_device::write8)).share("palette");
 	map(0x9e00, 0x9e1f).ram().share("fgscroll");
 	map(0x9e20, 0x9e21).ram().share("scrolly3");
-/*  AM_RANGE(0x9e22, 0x9e23) height of the layer (Senjyo only, fixed at 0x380) */
+/*  map(0x9e22, 0x9e23) height of the layer (Senjyo only, fixed at 0x380) */
 	map(0x9e22, 0x9e24).ram();
 	map(0x9e25, 0x9e25).ram().share("scrollx3");
 	map(0x9e26, 0x9e26).ram();
 	map(0x9e27, 0x9e27).ram().share("bgstripesram");  /* controls width of background stripes */
 	map(0x9e28, 0x9e29).ram().share("scrolly2");
-/*  AM_RANGE(0x9e2a, 0x9e2b) height of the layer (Senjyo only, fixed at 0x200) */
+/*  map(0x9e2a, 0x9e2b) height of the layer (Senjyo only, fixed at 0x200) */
 	map(0x9e2a, 0x9e2c).ram();
 	map(0x9e2d, 0x9e2d).ram().share("scrollx2");
 	map(0x9e2e, 0x9e2f).ram();
 	map(0x9e30, 0x9e31).ram().share("scrolly1");
-/*  AM_RANGE(0x9e32, 0x9e33) height of the layer (Senjyo only, fixed at 0x100) */
+/*  map(0x9e32, 0x9e33) height of the layer (Senjyo only, fixed at 0x100) */
 	map(0x9e32, 0x9e34).ram();
 	map(0x9e35, 0x9e35).ram().share("scrollx1");
-/*  AM_RANGE(0x9e38, 0x9e38) probably radar y position (Senjyo only, fixed at 0x61) */
-/*  AM_RANGE(0x9e3d, 0x9e3d) probably radar x position (Senjyo only, 0x00/0xc0 depending on screen flip) */
+/*  map(0x9e38, 0x9e38) probably radar y position (Senjyo only, fixed at 0x61) */
+/*  map(0x9e3d, 0x9e3d) probably radar x position (Senjyo only, 0x00/0xc0 depending on screen flip) */
 	map(0x9e36, 0x9e3f).ram();
 	map(0xa000, 0xa7ff).ram().w(FUNC(senjyo_state::bg3videoram_w)).share("bg3videoram");
 	map(0xa800, 0xafff).ram().w(FUNC(senjyo_state::bg2videoram_w)).share("bg2videoram");
@@ -185,13 +184,13 @@ void senjyo_state::senjyo_sound_io_map(address_map &map)
 /* For the bootleg */
 
 /* are scroll registers 1+2 linked on the bootleg?, only one copy is written */
-WRITE8_MEMBER(senjyo_state::starforb_scrolly2)
+void senjyo_state::starforb_scrolly2(offs_t offset, uint8_t data)
 {
 	m_scrolly2[offset] = data;
 	m_scrolly1[offset] = data;
 }
 
-WRITE8_MEMBER(senjyo_state::starforb_scrollx2)
+void senjyo_state::starforb_scrollx2(offs_t offset, uint8_t data)
 {
 	m_scrollx2[offset] = data;
 	m_scrollx1[offset] = data;
@@ -595,9 +594,6 @@ void senjyo_state::senjyo(machine_config &config)
 	SN76496(config, "sn3", 2000000).add_route(ALL_OUTPUTS, "speaker", 0.5);
 
 	DAC_4BIT_R2R(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.05); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 

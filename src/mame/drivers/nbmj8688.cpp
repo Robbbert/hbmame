@@ -38,8 +38,6 @@ TODO:
 #include "sound/3812intf.h"
 #include "sound/ay8910.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
-#include "rendlay.h"
 #include "screen.h"
 #include "speaker.h"
 
@@ -144,7 +142,7 @@ void nbmj8688_state::bikkuri_map(address_map &map)
 	map(0xf800, 0xffff).rom();
 }
 
-READ8_MEMBER(nbmj8688_state::ff_r)
+uint8_t nbmj8688_state::ff_r()
 {
 	/* possibly because of a bug, reads from port 0xd0 must return 0xff
 	   otherwise apparel doesn't clear the background when you insert a coin */
@@ -166,8 +164,8 @@ void nbmj8688_state::secolove_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::secolove_romsel_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 	map(0xf0, 0xf0).w(FUNC(nbmj8688_state::scrolly_w));
 }
 
@@ -187,7 +185,7 @@ void nbmj8688_state::bikkuri_io_map(address_map &map)
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::secolove_romsel_w));
 }
 
-WRITE8_MEMBER(nbmj8688_state::barline_output_w)
+void nbmj8688_state::barline_output_w(uint8_t data)
 {
 	machine().bookkeeping().coin_lockout_w(0, ~data & 0x80);
 	machine().bookkeeping().coin_counter_w(0, data & 0x02);
@@ -197,7 +195,7 @@ WRITE8_MEMBER(nbmj8688_state::barline_output_w)
 void nbmj8688_state::barline_io_map(address_map &map)
 {
 	map.global_mask(0xff);
-//  AM_RANGE(0x00, 0x7f) AM_DEVREAD("nb1413m3", nb1413m3_device, sndrom_r)
+//  map(0x00, 0x7f).r(m_nb1413m3, FUNC(nb1413m3_device::sndrom_r));
 	map(0x00, 0x00).w(m_nb1413m3, FUNC(nb1413m3_device::sndrombank1_w));
 	map(0x70, 0x70).w(m_nb1413m3, FUNC(nb1413m3_device::nmi_clock_w));
 	map(0x80, 0x81).rw("psg", FUNC(ym3812_device::read), FUNC(ym3812_device::write));
@@ -207,7 +205,7 @@ void nbmj8688_state::barline_io_map(address_map &map)
 	map(0xb0, 0xb0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r)).w(FUNC(nbmj8688_state::barline_output_w));
 	map(0xc0, 0xcf).w(FUNC(nbmj8688_state::clut_w));
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
-//  AM_RANGE(0xd0, 0xd0) AM_DEVWRITE("dac", dac_byte_interface, data_w) //not used
+//  map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w)); //not used
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::secolove_romsel_w));
 	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)).w(FUNC(nbmj8688_state::scrolly_w));
 	map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
@@ -228,9 +226,9 @@ void nbmj8688_state::crystalg_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::crystalg_romsel_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf0, 0xf0) AM_WRITENOP
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf0, 0xf0).nopw();
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 }
 
 
@@ -292,8 +290,8 @@ void nbmj8688_state::iemoto_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::mjsikaku_gfxflag2_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 	map(0xf0, 0xf0).w(FUNC(nbmj8688_state::scrolly_w));
 }
 
@@ -315,8 +313,8 @@ void nbmj8688_state::seiha_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::mjsikaku_gfxflag2_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 	map(0xf0, 0xf0).w(FUNC(nbmj8688_state::scrolly_w));
 }
 
@@ -336,8 +334,8 @@ void nbmj8688_state::mjgaiden_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::mjsikaku_gfxflag2_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 	map(0xf0, 0xf0).w(FUNC(nbmj8688_state::scrolly_w));
 }
 
@@ -362,8 +360,8 @@ void nbmj8688_state::p16bit_LCD_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::secolove_romsel_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 	map(0xf0, 0xf0).w(FUNC(nbmj8688_state::scrolly_w));
 }
 
@@ -407,8 +405,8 @@ void nbmj8688_state::mmsikaku_io_map(address_map &map)
 	map(0xd0, 0xd0).r(FUNC(nbmj8688_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8688_state::mjsikaku_gfxflag2_w));
-//  AM_RANGE(0xf0, 0xf0) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw1_r)
-//  AM_RANGE(0xf1, 0xf1) AM_DEVREAD("nb1413m3", nb1413m3_device, dipsw2_r)
+//  map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));
+//  map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 	map(0xf0, 0xf0).w(FUNC(nbmj8688_state::scrolly_w));
 }
 
@@ -2548,16 +2546,6 @@ static INPUT_PORTS_START( bikkuri )
 	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNKNOWN )
 INPUT_PORTS_END
 
-READ8_MEMBER(nbmj8688_state::dipsw1_r)
-{
-	return m_nb1413m3->dipsw1_r(space,offset);
-}
-
-READ8_MEMBER(nbmj8688_state::dipsw2_r)
-{
-	return m_nb1413m3->dipsw2_r(space,offset);
-}
-
 void nbmj8688_state::NBMJDRV_4096(machine_config &config)
 {
 	/* basic machine hardware */
@@ -2584,14 +2572,11 @@ void nbmj8688_state::NBMJDRV_4096(machine_config &config)
 	SPEAKER(config, "speaker").front_center();
 
 	ay8910_device &psg(AY8910(config, "psg", 1250000));
-	psg.port_a_read_callback().set(FUNC(nbmj8688_state::dipsw1_r));     // DIPSW-A read
-	psg.port_b_read_callback().set(FUNC(nbmj8688_state::dipsw2_r));     // DIPSW-B read
+	psg.port_a_read_callback().set(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));     // DIPSW-A read
+	psg.port_b_read_callback().set(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));     // DIPSW-B read
 	psg.add_route(ALL_OUTPUTS, "speaker", 0.35);
 
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.5); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 void nbmj8688_state::NBMJDRV_256(machine_config &config)
@@ -2702,7 +2687,6 @@ void nbmj8688_state::barline(machine_config &config)
 	YM3812(config.replace(), "psg", 20000000/8).add_route(ALL_OUTPUTS, "speaker", 0.35);
 
 	config.device_remove("dac");
-	config.device_remove("vref");
 }
 
 void nbmj8688_state::mbmj_p16bit(machine_config &config)
@@ -2772,14 +2756,11 @@ void nbmj8688_state::mbmj_p16bit_LCD(machine_config &config)
 	SPEAKER(config, "speaker").front_center();
 
 	ay8910_device &psg(AY8910(config, "psg", 1250000));
-	psg.port_a_read_callback().set(FUNC(nbmj8688_state::dipsw1_r));     // DIPSW-A read
-	psg.port_b_read_callback().set(FUNC(nbmj8688_state::dipsw2_r));     // DIPSW-B read
+	psg.port_a_read_callback().set(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r));     // DIPSW-A read
+	psg.port_b_read_callback().set(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));     // DIPSW-B read
 	psg.add_route(ALL_OUTPUTS, "speaker", 0.35);
 
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.5); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 void nbmj8688_state::bijokkoy(machine_config &config)

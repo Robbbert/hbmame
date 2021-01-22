@@ -23,7 +23,7 @@ memorywin_info::memorywin_info(debugger_windows_interface &debugger) :
 	if (!window())
 		return;
 
-	m_views[0].reset(global_alloc(memoryview_info(debugger, *this, window())));
+	m_views[0].reset(new memoryview_info(debugger, *this, window()));
 	if ((m_views[0] == nullptr) || !m_views[0]->is_valid())
 	{
 		m_views[0].reset();
@@ -178,7 +178,7 @@ void memorywin_info::update_menu()
 {
 	editwin_info::update_menu();
 
-	memoryview_info *const memview = downcast<memoryview_info *>(m_views[0].get());
+	auto *const memview = downcast<memoryview_info *>(m_views[0].get());
 	HMENU const menu = GetMenu(window());
 	CheckMenuItem(menu, ID_1_BYTE_CHUNKS, MF_BYCOMMAND | (memview->data_format() == 1 ? MF_CHECKED : MF_UNCHECKED));
 	CheckMenuItem(menu, ID_2_BYTE_CHUNKS, MF_BYCOMMAND | (memview->data_format() == 2 ? MF_CHECKED : MF_UNCHECKED));
@@ -196,7 +196,7 @@ void memorywin_info::update_menu()
 
 bool memorywin_info::handle_command(WPARAM wparam, LPARAM lparam)
 {
-	memoryview_info *const memview = downcast<memoryview_info *>(m_views[0].get());
+	auto *const memview = downcast<memoryview_info *>(m_views[0].get());
 	switch (HIWORD(wparam))
 	{
 	// combo box selection changed

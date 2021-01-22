@@ -57,13 +57,6 @@
 #include "coco_multi.h"
 
 #include "cococart.h"
-#include "coco_dcmodem.h"
-#include "coco_fdc.h"
-#include "coco_gmc.h"
-#include "coco_orch90.h"
-#include "coco_pak.h"
-#include "coco_rs232.h"
-#include "coco_ssc.h"
 
 #define SLOT1_TAG           "slot1"
 #define SLOT2_TAG           "slot2"
@@ -72,12 +65,21 @@
 
 #define SWITCH_CONFIG_TAG   "switch"
 
+//#define LOG_GENERAL   (1U << 0) //defined in logmacro.h already
+#define LOG_CART   (1U << 1) // shows cart line changes
+#define LOG_SWITCH (1U << 2) // shows switch changes
+//#define VERBOSE (LOG_CART|LOG_SWITCH)
+
+#include "logmacro.h"
+
+#define LOGCART(...)     LOGMASKED(LOG_CART,  __VA_ARGS__)
+#define LOGSWITCH(...)   LOGMASKED(LOG_SWITCH,  __VA_ARGS__)
 
 //**************************************************************************
 //  MACROS / CONSTANTS
 //**************************************************************************
 
-static constexpr uint8_t MULTI_SLOT_LOOKUP[] = {0xcc, 0xdd, 0xee, 0xff};
+static constexpr u8 MULTI_SLOT_LOOKUP[] = {0xcc, 0xdd, 0xee, 0xff};
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -94,7 +96,7 @@ namespace
 	{
 	public:
 		// construction/destruction
-		coco_multipak_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+		coco_multipak_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
 		INPUT_CHANGED_MEMBER( switch_changed );
 
@@ -102,17 +104,17 @@ namespace
 		// device-level overrides
 		virtual void device_start() override;
 		virtual void device_reset() override;
-		virtual READ8_MEMBER(cts_read) override;
-		virtual WRITE8_MEMBER(cts_write) override;
-		virtual READ8_MEMBER(scs_read) override;
-		virtual WRITE8_MEMBER(scs_write) override;
+		virtual u8 cts_read(offs_t offset) override;
+		virtual void cts_write(offs_t offset, u8 data) override;
+		virtual u8 scs_read(offs_t offset) override;
+		virtual void scs_write(offs_t offset, u8 data) override;
 		virtual void set_sound_enable(bool sound_enable) override;
 
 		// optional information overrides
 		virtual void device_add_mconfig(machine_config &config) override;
 
-		virtual uint8_t* get_cart_base() override;
-		virtual uint32_t get_cart_size() override;
+		virtual u8 *get_cart_base() override;
+		virtual u32 get_cart_size() override;
 
 		virtual address_space &cartridge_space() override;
 		virtual ioport_constructor device_input_ports() const override;
@@ -122,8 +124,8 @@ namespace
 		required_device_array<cococart_slot_device, 4> m_slots;
 
 		// internal state
-		uint8_t m_select;
-		uint8_t m_block;
+		u8 m_select;
+		u8 m_block;
 
 		// internal accessors
 		int active_scs_slot_number() const;
@@ -133,9 +135,9 @@ namespace
 		cococart_slot_device &active_cts_slot();
 
 		// methods
-		void set_select(uint8_t new_select);
-		DECLARE_READ8_MEMBER(ff7f_read);
-		DECLARE_WRITE8_MEMBER(ff7f_write);
+		void set_select(u8 new_select);
+		u8 ff7f_read();
+		void ff7f_write(u8 data);
 		void update_line(int slot_number, line ln);
 
 		DECLARE_WRITE_LINE_MEMBER(multi_slot1_cart_w);
@@ -160,26 +162,13 @@ namespace
 
 static void coco_cart_slot1_3(device_slot_interface &device)
 {
-	device.option_add("rs232", COCO_RS232);
-	device.option_add("dcmodem", COCO_DCMODEM);
-	device.option_add("orch90", COCO_ORCH90);
-	device.option_add("ssc", COCO_SSC);
-	device.option_add("games_master", COCO_PAK_GMC);
-	device.option_add("banked_16k", COCO_PAK_BANKED);
-	device.option_add("pak", COCO_PAK);
+	coco_cart_add_basic_devices(device);
 }
+
 static void coco_cart_slot4(device_slot_interface &device)
 {
-	device.option_add("cc2hdb1", COCO2_HDB1);
-	device.option_add("cc3hdb1", COCO3_HDB1);
-	device.option_add("fdcv11", COCO_FDC_V11);
-	device.option_add("rs232", COCO_RS232);
-	device.option_add("dcmodem", COCO_DCMODEM);
-	device.option_add("orch90", COCO_ORCH90);
-	device.option_add("ssc", COCO_SSC);
-	device.option_add("games_master", COCO_PAK_GMC);
-	device.option_add("banked_16k", COCO_PAK_BANKED);
-	device.option_add("pak", COCO_PAK);
+	coco_cart_add_basic_devices(device);
+	coco_cart_add_fdcs(device);
 }
 
 
@@ -205,7 +194,7 @@ void coco_multipak_device::device_add_mconfig(machine_config &config)
 
 INPUT_PORTS_START( coco_multipack )
 	PORT_START( SWITCH_CONFIG_TAG )
-	PORT_CONFNAME( 0x03, 0x03, "Multi-Pak Slot Switch" ) PORT_CHANGED_MEMBER(DEVICE_SELF, coco_multipak_device, switch_changed, nullptr)
+	PORT_CONFNAME( 0x03, 0x03, "Multi-Pak Slot Switch" ) PORT_CHANGED_MEMBER(DEVICE_SELF, coco_multipak_device, switch_changed, 0)
 		PORT_CONFSETTING( 0x00, "Slot 1" )
 		PORT_CONFSETTING( 0x01, "Slot 2" )
 		PORT_CONFSETTING( 0x02, "Slot 3" )
@@ -237,7 +226,7 @@ ioport_constructor coco_multipak_device::device_input_ports() const
 //  coco_multipak_device - constructor
 //-------------------------------------------------
 
-coco_multipak_device::coco_multipak_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+coco_multipak_device::coco_multipak_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, COCO_MULTIPAK, tag, owner, clock)
 	, device_cococart_interface(mconfig, *this)
 	, m_slots(*this, "slot%u", 1), m_select(0), m_block(0)
@@ -252,7 +241,7 @@ coco_multipak_device::coco_multipak_device(const machine_config &mconfig, const 
 void coco_multipak_device::device_start()
 {
 	// install $FF7F handler
-	install_readwrite_handler(0xFF7F, 0xFF7F, read8_delegate(FUNC(coco_multipak_device::ff7f_read), this),write8_delegate(FUNC(coco_multipak_device::ff7f_write), this));
+	install_readwrite_handler(0xFF7F, 0xFF7F, read8smo_delegate(*this, FUNC(coco_multipak_device::ff7f_read)), write8smo_delegate(*this, FUNC(coco_multipak_device::ff7f_write)));
 
 	// initial state
 	m_select = 0xFF;
@@ -351,8 +340,10 @@ cococart_slot_device &coco_multipak_device::active_cts_slot()
 //  set_select
 //-------------------------------------------------
 
-void coco_multipak_device::set_select(uint8_t new_select)
+void coco_multipak_device::set_select(u8 new_select)
 {
+	LOGSWITCH( "set_select: 0x%02X\n", new_select);
+
 	// identify old value for CART, in case this needs to change
 	cococart_slot_device::line_value old_cart = active_cts_slot().get_line_value(line::CART);
 
@@ -372,7 +363,7 @@ void coco_multipak_device::set_select(uint8_t new_select)
 //  ff7f_read
 //-------------------------------------------------
 
-READ8_MEMBER(coco_multipak_device::ff7f_read)
+u8 coco_multipak_device::ff7f_read()
 {
 	return m_select | 0xcc;
 }
@@ -381,7 +372,7 @@ READ8_MEMBER(coco_multipak_device::ff7f_read)
 //  ff7f_write
 //-------------------------------------------------
 
-WRITE8_MEMBER(coco_multipak_device::ff7f_write)
+void coco_multipak_device::ff7f_write(u8 data)
 {
 	m_block = 0xff;
 	set_select(data);
@@ -402,6 +393,7 @@ void coco_multipak_device::update_line(int slot_number, line ln)
 	case line::CART:
 		// only propagate if this is coming from the slot specified
 		propagate = slot_number == active_cts_slot_number();
+		LOGCART( "update_line: slot: %d, line: CART, value: %s, propogate: %s\n", slot_number, owning_slot().line_value_string(slot(slot_number).get_line_value(ln)), propagate ? "yes" : "no" );
 		break;
 
 	case line::NMI:
@@ -437,7 +429,7 @@ void coco_multipak_device::set_sound_enable(bool sound_enable)
 //  get_cart_base
 //-------------------------------------------------
 
-uint8_t* coco_multipak_device::get_cart_base()
+u8 *coco_multipak_device::get_cart_base()
 {
 	return active_cts_slot().get_cart_base();
 }
@@ -447,7 +439,7 @@ uint8_t* coco_multipak_device::get_cart_base()
 //  get_cart_size
 //-------------------------------------------------
 
-uint32_t coco_multipak_device::get_cart_size()
+u32 coco_multipak_device::get_cart_size()
 {
 	return active_cts_slot().get_cart_size();
 }
@@ -457,9 +449,9 @@ uint32_t coco_multipak_device::get_cart_size()
 //  cts_read
 //-------------------------------------------------
 
-READ8_MEMBER(coco_multipak_device::cts_read)
+u8 coco_multipak_device::cts_read(offs_t offset)
 {
-	return active_cts_slot().cts_read(space, offset);
+	return active_cts_slot().cts_read(offset);
 }
 
 
@@ -467,9 +459,9 @@ READ8_MEMBER(coco_multipak_device::cts_read)
 //  cts_write
 //-------------------------------------------------
 
-WRITE8_MEMBER(coco_multipak_device::cts_write)
+void coco_multipak_device::cts_write(offs_t offset, u8 data)
 {
-	active_cts_slot().cts_write(space, offset, data);
+	active_cts_slot().cts_write(offset, data);
 }
 
 
@@ -477,9 +469,9 @@ WRITE8_MEMBER(coco_multipak_device::cts_write)
 //  scs_read
 //-------------------------------------------------
 
-READ8_MEMBER(coco_multipak_device::scs_read)
+u8 coco_multipak_device::scs_read(offs_t offset)
 {
-	return active_scs_slot().scs_read(space, offset);
+	return active_scs_slot().scs_read(offset);
 }
 
 
@@ -487,9 +479,9 @@ READ8_MEMBER(coco_multipak_device::scs_read)
 //  scs_write
 //-------------------------------------------------
 
-WRITE8_MEMBER(coco_multipak_device::scs_write)
+void coco_multipak_device::scs_write(offs_t offset, u8 data)
 {
-	active_scs_slot().scs_write(space, offset, data);
+	active_scs_slot().scs_write(offset, data);
 }
 
 

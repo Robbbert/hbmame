@@ -8,8 +8,8 @@
 
 *********************************************************************/
 
-#include <string.h>
-#include <assert.h>
+#include <cstring>
+#include <cassert>
 
 #include "imageutl.h"
 #include "flopimg.h"
@@ -299,7 +299,7 @@ bool dsk_format::supports_save() const
 	return false;
 }
 
-int dsk_format::identify(io_generic *io, uint32_t form_factor)
+int dsk_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	uint8_t header[16];
 
@@ -344,7 +344,7 @@ struct sector_header
 
 #pragma pack()
 
-bool dsk_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool dsk_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint8_t header[0x100];
 	bool extendformat = false;
@@ -381,7 +381,7 @@ bool dsk_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
 		}
 	}
 	if (heads > img_heads)
-		return false;
+		osd_printf_warning("dsk: Floppy disk has excess of heads for this drive that will be discarded (floppy heads=%d, drive heads=%d).\n", heads, img_heads);
 
 	uint64_t track_offsets[84*2];
 	int cnt =0;
@@ -414,7 +414,7 @@ bool dsk_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
 
 	int counter = 0;
 	for(int track=0; track < tracks; track++) {
-		for(int side=0; side < heads; side++) {
+		for(int side=0; side < std::min(heads, img_heads); side++) {
 			if(track_offsets[(track<<1)+side] >= image_size)
 				continue;
 			track_header tr;

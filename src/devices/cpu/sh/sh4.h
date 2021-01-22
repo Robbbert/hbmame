@@ -261,12 +261,12 @@ protected:
 	virtual void device_reset() override;
 
 	// device_execute_interface overrides
-	virtual uint32_t execute_min_cycles() const override { return 1; }
-	virtual uint32_t execute_max_cycles() const override { return 4; }
-	virtual uint32_t execute_input_lines() const override { return 5; }
+	virtual uint32_t execute_min_cycles() const noexcept override { return 1; }
+	virtual uint32_t execute_max_cycles() const noexcept override { return 4; }
+	virtual uint32_t execute_input_lines() const noexcept override { return 5; }
 	virtual void execute_run() override;
 	virtual void execute_set_input(int inputnum, int state) override;
-	virtual bool execute_input_edge_triggered(int inputnum) const override { return inputnum == INPUT_LINE_NMI; }
+	virtual bool execute_input_edge_triggered(int inputnum) const noexcept override { return inputnum == INPUT_LINE_NMI; }
 
 	// device_memory_interface overrides
 	virtual space_config_vector memory_space_config() const override;
@@ -682,11 +682,11 @@ private:
 class sh3_base_device : public sh34_base_device
 {
 public:
-	DECLARE_WRITE32_MEMBER( sh3_internal_w );
-	DECLARE_READ32_MEMBER( sh3_internal_r );
+	void sh3_internal_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
+	uint32_t sh3_internal_r(offs_t offset, uint32_t mem_mask = ~0);
 
-	DECLARE_WRITE32_MEMBER( sh3_internal_high_w );
-	DECLARE_READ32_MEMBER( sh3_internal_high_r );
+	void sh3_internal_high_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
+	uint32_t sh3_internal_high_r(offs_t offset, uint32_t mem_mask = ~0);
 
 	void sh3_internal_map(address_map &map);
 protected:
@@ -700,15 +700,15 @@ protected:
 class sh4_base_device : public sh34_base_device
 {
 public:
-	DECLARE_WRITE32_MEMBER( sh4_internal_w );
-	DECLARE_READ32_MEMBER( sh4_internal_r );
+	void sh4_internal_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
+	uint32_t sh4_internal_r(offs_t offset, uint32_t mem_mask = ~0);
 
-	DECLARE_READ64_MEMBER( sh4_utlb_address_array_r );
-	DECLARE_WRITE64_MEMBER( sh4_utlb_address_array_w );
-	DECLARE_READ64_MEMBER( sh4_utlb_data_array1_r );
-	DECLARE_WRITE64_MEMBER( sh4_utlb_data_array1_w );
-	DECLARE_READ64_MEMBER( sh4_utlb_data_array2_r );
-	DECLARE_WRITE64_MEMBER( sh4_utlb_data_array2_w );
+	uint64_t sh4_utlb_address_array_r(offs_t offset);
+	void sh4_utlb_address_array_w(offs_t offset, uint64_t data);
+	uint64_t sh4_utlb_data_array1_r(offs_t offset);
+	void sh4_utlb_data_array1_w(offs_t offset, uint64_t data);
+	uint64_t sh4_utlb_data_array2_r(offs_t offset);
+	void sh4_utlb_data_array2_w(offs_t offset, uint64_t data);
 
 	virtual void LDTLB(const uint16_t opcode) override;
 

@@ -22,7 +22,6 @@
 #include "machine/watchdog.h"
 #include "sound/dac.h"
 #include "sound/sn76496.h"
-#include "sound/volt_reg.h"
 
 #include "screen.h"
 #include "speaker.h"
@@ -39,20 +38,20 @@ TIMER_DEVICE_CALLBACK_MEMBER(finalizr_state::finalizr_scanline)
 }
 
 
-WRITE8_MEMBER(finalizr_state::finalizr_videoctrl_w)
+void finalizr_state::finalizr_videoctrl_w(uint8_t data)
 {
 	m_charbank = data & 3;
 	m_spriterambank = data & 8;
 	/* other bits unknown */
 }
 
-WRITE8_MEMBER(finalizr_state::finalizr_coin_w)
+void finalizr_state::finalizr_coin_w(uint8_t data)
 {
 	machine().bookkeeping().coin_counter_w(0, data & 0x01);
 	machine().bookkeeping().coin_counter_w(1, data & 0x02);
 }
 
-WRITE8_MEMBER(finalizr_state::finalizr_flipscreen_w)
+void finalizr_state::finalizr_flipscreen_w(uint8_t data)
 {
 	m_nmi_enable = data & 0x01;
 	m_irq_enable = data & 0x02;
@@ -60,12 +59,12 @@ WRITE8_MEMBER(finalizr_state::finalizr_flipscreen_w)
 	flip_screen_set(~data & 0x08);
 }
 
-WRITE8_MEMBER(finalizr_state::finalizr_i8039_irq_w)
+void finalizr_state::finalizr_i8039_irq_w(uint8_t data)
 {
 	m_audiocpu->set_input_line(0, ASSERT_LINE);
 }
 
-WRITE8_MEMBER(finalizr_state::i8039_irqen_w)
+void finalizr_state::i8039_irqen_w(uint8_t data)
 {
 	/*  bit 0x80 goes active low, indicating that the
 	    external IRQ being serviced is complete
@@ -93,7 +92,7 @@ READ_LINE_MEMBER(finalizr_state::i8039_t1_r)
 	return (!(m_T1_line % 3) && (m_T1_line > 0));
 }
 
-WRITE8_MEMBER(finalizr_state::i8039_t0_w)
+void finalizr_state::i8039_t0_w(uint8_t data)
 {
 	/*  This becomes a clock output at a frequency of 3.072MHz (derived
 	    by internally dividing the main xtal clock input by a factor of 3).
@@ -108,7 +107,7 @@ void finalizr_state::main_map(address_map &map)
 	map(0x0001, 0x0001).writeonly().share("scroll");
 	map(0x0003, 0x0003).w(FUNC(finalizr_state::finalizr_videoctrl_w));
 	map(0x0004, 0x0004).w(FUNC(finalizr_state::finalizr_flipscreen_w));
-//  AM_RANGE(0x0020, 0x003f) AM_WRITEONLY AM_SHARE("scroll")
+//  map(0x0020, 0x003f).writeonly().share("scroll");
 	map(0x0800, 0x0800).portr("DSW3");
 	map(0x0808, 0x0808).portr("DSW2");
 	map(0x0810, 0x0810).portr("SYSTEM");
@@ -274,6 +273,7 @@ void finalizr_state::finalizr(machine_config &config)
 	m_audiocpu->set_addrmap(AS_IO, &finalizr_state::sound_io_map);
 	m_audiocpu->p1_out_cb().set("dac", FUNC(dac_byte_interface::data_w));
 	m_audiocpu->p2_out_cb().set(FUNC(finalizr_state::i8039_irqen_w));
+	//m_audiocpu->set_t0_clk_cb(finalizr_state::i8039_t0_w));
 	m_audiocpu->t1_in_cb().set(FUNC(finalizr_state::i8039_t1_r));
 
 	WATCHDOG_TIMER(config, "watchdog");
@@ -298,9 +298,6 @@ void finalizr_state::finalizr(machine_config &config)
 	SN76489A(config, "snsnd", XTAL(18'432'000)/12).add_route(ALL_OUTPUTS, "speaker", 0.75);
 
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.325); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 

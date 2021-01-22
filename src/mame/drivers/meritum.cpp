@@ -2,22 +2,38 @@
 // copyright-holders:Robbbert
 /***************************************************************************
 
-Mera-Elzab Meritum II (Poland)
+Mera-Elzab Meritum (Poland)
 
 Meritum I was a basic unit with no expansion, expensive, and so very rare.
 Meritum II had all the standard TRS80 expansions, but the i/o is different
 and thus not compatible.
-Meritum III was planned, but seems to have been cancelled before release.
+Meritum III hires graphics mode added; only pre-production units were made.
 
 Split from trs80.cpp on 2018-07-15
 
-It is quite similar to the TRS80 Model 1 Level II, however the extra chips
-are quite different, being Intel ones (i8251, i8253, i8255, i8272, etc).
+It is quite similar to the TRS80 Model 1 Level II, however instead of the
+external interface, Intel peripheral chips were used (i8251, i8253, i8255),
+and 2KB of ROM with new subroutines.
+
+Model II has an additional 8255 to act as a floppy interface, plus it has more
+RAM (32 or 48 KB).
+
+Many variants of ROM existed:
+- initial one without Polish characters
+- with Polish characters in char table
+- translated MEMORY SIZE to ROZMIAR PAO
+- experimental network version made by Silesian University of Technology
+- 8 KiB version with bootstrap code to load program from floppy
+and others.
 
 There's no lowercase, so the shift key will select Polish characters if
 available, as well as the usual standard punctuation.
 The control key appears to do nothing.
 There's also a Reset key, a NMI key, and 2 blank ones.
+
+Serial printer (@1200bps) is supported by default after power-up by all variants.
+If parallel printer (centronics) is to be used press P while system starts (e.g. P and F3 to reset).
+This does not work for model 1 (no parallel printer support in ROM).
 
 Status:
 - Starts up, runs Basic. Cassette works. Quickload mostly works.
@@ -26,13 +42,13 @@ Status:
 - Intel chips need adding, along with the peripherals they control.
 - A speaker has been included (which works), but real machine might not have
   one at that address. To be checked.
+- On meritum1, type SYSTEM then /12288 to enter the Monitor.
 - On meritum_net, type NET to activate the networking features.
 - Add Reset key and 2 blank keys.
 - Need software specific to test the hardware.
 - Need boot disks (MER-DOS, CP/M 2.2)
 
-Depending on which website you read, the following might be for II, or
-perhaps III:
+For Model III:
 - Add 4-colour mode, 4 shades of grey mode, and 512x192 monochrome.
 
 ****************************************************************************/
@@ -57,6 +73,7 @@ public:
 	meritum_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
+		, m_screen(*this, "screen")
 		, m_p_chargen(*this, "chargen")
 		, m_p_videoram(*this, "videoram")
 		, m_speaker(*this, "speaker")
@@ -64,28 +81,33 @@ public:
 		, m_io_keyboard(*this, "LINE%u", 0)
 	{ }
 
-	void meritum(machine_config &config);
+	void meritum1(machine_config &config);
+	void meritum2(machine_config &config);
 
 private:
-	DECLARE_WRITE8_MEMBER(port_ff_w);
-	DECLARE_READ8_MEMBER(port_ff_r);
-	DECLARE_READ8_MEMBER(keyboard_r);
+	void port_ff_w(u8 data);
+	u8 port_ff_r();
+	u8 keyboard_r(offs_t offset);
 
 	TIMER_CALLBACK_MEMBER(cassette_data_callback);
 	DECLARE_QUICKLOAD_LOAD_MEMBER(quickload_cb);
-	uint32_t screen_update_meritum(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	u32 screen_update_meritum1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	u32 screen_update_meritum2(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
+	void mem_map2(address_map &map);
+	void io_map2(address_map &map);
 
 	bool m_mode;
 	bool m_size_store;
 	bool m_cassette_data;
 	emu_timer *m_cassette_data_timer;
 	double m_old_cassette_val;
-	virtual void machine_start() override;
-	virtual void machine_reset() override;
+	void machine_start() override;
+	void machine_reset() override;
 	required_device<cpu_device> m_maincpu;
+	required_device<screen_device> m_screen;
 	required_region_ptr<u8> m_p_chargen;
 	required_shared_ptr<u8> m_p_videoram;
 	required_device<speaker_sound_device> m_speaker;
@@ -98,6 +120,12 @@ void meritum_state::mem_map(address_map &map)
 	map(0x0000, 0x37ff).rom();
 	map(0x3800, 0x38ff).mirror(0x300).r(FUNC(meritum_state::keyboard_r));
 	map(0x3c00, 0x3fff).ram().share(m_p_videoram);
+	map(0x4000, 0x7fff).ram();
+}
+
+void meritum_state::mem_map2(address_map &map)
+{
+	mem_map(map);
 	map(0x4000, 0xffff).ram();
 }
 
@@ -106,12 +134,19 @@ void meritum_state::io_map(address_map &map)
 	map.global_mask(0xff);
 	map.unmap_value_high();
 	map(0x00, 0x03).rw("audiopit", FUNC(pit8253_device::read), FUNC(pit8253_device::write));
-	map(0xf0, 0xf3).rw("flopppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0xf4, 0xf7).rw("mainppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0xf8, 0xfb).rw("mainpit", FUNC(pit8253_device::read), FUNC(pit8253_device::write));
 	map(0xfc, 0xfd).rw("usart", FUNC(i8251_device::read), FUNC(i8251_device::write));
 	// map(0xfe, 0xfe) audio interface
 	map(0xff, 0xff).rw(FUNC(meritum_state::port_ff_r), FUNC(meritum_state::port_ff_w));
+}
+
+void meritum_state::io_map2(address_map &map)
+{
+	map.global_mask(0xff);
+	map.unmap_value_high();
+	io_map(map);
+	map(0xf0, 0xf3).rw("flopppi", FUNC(i8255_device::read), FUNC(i8255_device::write));
 }
 
 
@@ -191,13 +226,12 @@ static INPUT_PORTS_START( meritum )
 	PORT_BIT(0x01, 0x01, IPT_KEYBOARD) PORT_NAME("NMI") PORT_CODE(KEYCODE_BACKSPACE) PORT_WRITE_LINE_DEVICE_MEMBER("nmigate", input_merger_device, in_w<1>)
 INPUT_PORTS_END
 
-uint32_t meritum_state::screen_update_meritum(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
-/* lores characters are in the character generator. Each character is 6x12 (basic characters are 6x7 excluding descenders/ascenders). */
+u32 meritum_state::screen_update_meritum1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	uint8_t y,ra,chr,gfx;
-	uint16_t sy=0,ma=0,x;
-	uint8_t cols = m_mode ? 32 : 64;
-	uint8_t skip = m_mode ? 2 : 1;
+	// lores characters are in the character generator. Each character is 6x12 (basic characters are 6x7 excluding descenders/ascenders).
+	u16 sy=0,ma=0;
+	const u8 cols = m_mode ? 32 : 64;
+	const u8 skip = m_mode ? 2 : 1;
 
 	if (m_mode != m_size_store)
 	{
@@ -205,20 +239,67 @@ uint32_t meritum_state::screen_update_meritum(screen_device &screen, bitmap_ind1
 		screen.set_visible_area(0, cols*6-1, 0, 16*12-1);
 	}
 
-	for (y = 0; y < 16; y++)
+	for (u8 y = 0; y < 16; y++)
 	{
-		for (ra = 0; ra < 12; ra++)
+		for (u8 ra = 0; ra < 12; ra++)
 		{
-			uint16_t *p = &bitmap.pix16(sy++);
+			u16 *p = &bitmap.pix(sy++);
 
-			for (x = ma; x < ma + 64; x+=skip)
+			for (u16 x = ma; x < ma + 64; x+=skip)
 			{
-				chr = m_p_videoram[x];
+				const u8 chr = m_p_videoram[x] & 0xbf;
+				u8 gfx;
 
-				/* get pattern of pixels for that character scanline */
-				gfx = m_p_chargen[(chr<<4) | ra];
+				// shift down comma and semicolon
+				// not sure Meritum I got the circuit for this (like TRS80)
+				// but position of ';' suggests most likely yes
+				if ((chr == 0x2c) && (ra >= 2))
+					gfx = m_p_chargen[0x2be + ra];
+				else if ((chr == 0x3b) && (ra >= 1))
+					gfx = m_p_chargen[0x3af + ra];
+				else
+					gfx = m_p_chargen[(chr<<4) | ra];
 
-				/* Display a scanline of a character (6 pixels) */
+				// Display a scanline of a character (6 pixels)
+				*p++ = BIT(gfx, 5);
+				*p++ = BIT(gfx, 4);
+				*p++ = BIT(gfx, 3);
+				*p++ = BIT(gfx, 2);
+				*p++ = BIT(gfx, 1);
+				*p++ = BIT(gfx, 0);
+			}
+		}
+		ma+=64;
+	}
+	return 0;
+}
+
+u32 meritum_state::screen_update_meritum2(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+{
+	u16 sy=0,ma=0;
+	const u8 cols = m_mode ? 32 : 64;
+	const u8 skip = m_mode ? 2 : 1;
+
+	if (m_mode != m_size_store)
+	{
+		m_size_store = m_mode;
+		screen.set_visible_area(0, cols*6-1, 0, 16*12-1);
+	}
+
+	for (u8 y = 0; y < 16; y++)
+	{
+		for (u8 ra = 0; ra < 12; ra++)
+		{
+			u16 *p = &bitmap.pix(sy++);
+
+			for (u16 x = ma; x < ma + 64; x+=skip)
+			{
+				const u8 chr = m_p_videoram[x];
+
+				// get pattern of pixels for that character scanline
+				const u8 gfx = m_p_chargen[(chr<<4) | ra];
+
+				// Display a scanline of a character (6 pixels)
 				*p++ = BIT(gfx, 5);
 				*p++ = BIT(gfx, 4);
 				*p++ = BIT(gfx, 3);
@@ -243,7 +324,7 @@ TIMER_CALLBACK_MEMBER(meritum_state::cassette_data_callback)
 	m_old_cassette_val = new_val;
 }
 
-READ8_MEMBER( meritum_state::port_ff_r )
+u8 meritum_state::port_ff_r()
 {
 /* ModeSel and cassette data
     d7 cassette data from tape
@@ -252,7 +333,7 @@ READ8_MEMBER( meritum_state::port_ff_r )
 	return (m_mode ? 0 : 0x40) | (m_cassette_data ? 0x80 : 0) | 0x3f;
 }
 
-WRITE8_MEMBER( meritum_state::port_ff_w )
+void meritum_state::port_ff_w(u8 data)
 {
 /* Standard output port of Model I
     d3 ModeSel bit
@@ -260,7 +341,7 @@ WRITE8_MEMBER( meritum_state::port_ff_w )
     d1, d0 Cassette output */
 
 	static const double levels[4] = { 0.0, 1.0, -1.0, 0.0 };
-	static bool init = 0;
+	static bool init = 0; // FIXME: static variable, breaks hard reset and multiple runs from system selection menu
 
 	m_cassette->change_state(BIT(data, 2) ? CASSETTE_MOTOR_ENABLED : CASSETTE_MOTOR_DISABLED, CASSETTE_MASK_MOTOR );
 	m_cassette->output(levels[data & 3]);
@@ -271,13 +352,12 @@ WRITE8_MEMBER( meritum_state::port_ff_w )
 	if (!init)
 	{
 		init = 1;
-		static int16_t speaker_levels[4] = { 0, -32767, 0, 32767 };
+		static double const speaker_levels[4] = { 0.0, -1.0, 0.0, 1.0 };
 		m_speaker->set_levels(4, speaker_levels);
-
 	}
 }
 
-READ8_MEMBER( meritum_state::keyboard_r )
+u8 meritum_state::keyboard_r(offs_t offset)
 {
 	u8 i, result = 0;
 
@@ -292,6 +372,10 @@ void meritum_state::machine_start()
 {
 	m_cassette_data_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(meritum_state::cassette_data_callback),this));
 	m_cassette_data_timer->adjust( attotime::zero, 0, attotime::from_hz(11025) );
+	save_item(NAME(m_mode));
+	save_item(NAME(m_size_store));
+	save_item(NAME(m_cassette_data));
+	save_item(NAME(m_old_cassette_val));
 }
 
 void meritum_state::machine_reset()
@@ -322,9 +406,9 @@ QUICKLOAD_LOAD_MEMBER(meritum_state::quickload_cb)
 {
 	address_space &program = m_maincpu->space(AS_PROGRAM);
 
-	uint8_t type, length;
-	uint8_t data[0x100];
-	uint8_t addr[2];
+	u8 type, length;
+	u8 data[0x100];
+	u8 addr[2];
 	void *ptr;
 
 	while (!image.image_feof())
@@ -373,7 +457,7 @@ QUICKLOAD_LOAD_MEMBER(meritum_state::quickload_cb)
 
 
 /**************************** F4 CHARACTER DISPLAYER ***********************************************************/
-static const gfx_layout meritum_charlayout =
+static const gfx_layout charlayout =
 {
 	6, 12,          /* 6 x 12 characters */
 	256,            /* 256 characters */
@@ -387,12 +471,12 @@ static const gfx_layout meritum_charlayout =
 };
 
 static GFXDECODE_START(gfx_meritum)
-	GFXDECODE_ENTRY( "chargen", 0, meritum_charlayout, 0, 1 )
+	GFXDECODE_ENTRY( "chargen", 0, charlayout, 0, 1 )
 GFXDECODE_END
 
 
 
-void meritum_state::meritum(machine_config &config)
+void meritum_state::meritum1(machine_config &config)
 {
 	/* basic machine hardware */
 	Z80(config, m_maincpu, 10_MHz_XTAL / 4); // U880D @ 2.5 MHz or 1.67 MHz by jumper selection
@@ -420,28 +504,38 @@ void meritum_state::meritum(machine_config &config)
 	i8255_device &mainppi(I8255(config, "mainppi")); // parallel interface
 	mainppi.out_pc_callback().set("nmigate", FUNC(input_merger_device::in_w<0>)).bit(7).invert();
 
-	I8255(config, "flopppi", 0); // floppy disk interface
 	PIT8253(config, "audiopit", 0); // optional audio interface
 
-	/* video hardware */
-	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_raw(10_MHz_XTAL, 107 * 6, 0, 64 * 6, 312, 0, 192);
-	screen.set_screen_update(FUNC(meritum_state::screen_update_meritum));
-	screen.set_palette("palette");
+	// video
+	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
+	m_screen->set_raw(10_MHz_XTAL, 107 * 6, 0, 64 * 6, 312, 0, 192);
+	m_screen->set_screen_update(FUNC(meritum_state::screen_update_meritum1));
+	m_screen->set_palette("palette");
 
 	GFXDECODE(config, "gfxdecode", "palette", gfx_meritum);
 	PALETTE(config, "palette", palette_device::MONOCHROME);
 
-	/* sound hardware */
+	// sound
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, "speaker").add_route(ALL_OUTPUTS, "mono", 0.50);
 
-	/* devices */
+	// media
 	CASSETTE(config, m_cassette);
 	m_cassette->add_route(ALL_OUTPUTS, "mono", 0.05);
 
-	QUICKLOAD(config, "quickload", "cmd", attotime::from_seconds(1)).set_load_callback(FUNC(meritum_state::quickload_cb), this);
+	QUICKLOAD(config, "quickload", "cmd", attotime::from_seconds(1)).set_load_callback(FUNC(meritum_state::quickload_cb));
 }
+
+void meritum_state::meritum2(machine_config &config)
+{
+	meritum1(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &meritum_state::mem_map2);
+	m_maincpu->set_addrmap(AS_IO, &meritum_state::io_map2);
+	I8255(config, "flopppi", 0); // floppy disk interface
+	m_screen->set_screen_update(FUNC(meritum_state::screen_update_meritum2));
+
+}
+
 
 /***************************************************************************
 
@@ -450,7 +544,22 @@ void meritum_state::meritum(machine_config &config)
 ***************************************************************************/
 
 
-ROM_START( meritum)
+ROM_START( meritum1 )
+	ROM_REGION(0x3800, "maincpu",0)
+	ROM_LOAD( "rom_0.bin", 0x0000, 0x0800, CRC(1ecf7205) SHA1(e91cedfe2ce7636d37d5b765e5bbc8168deaba77))
+	ROM_LOAD( "rom_1.bin", 0x0800, 0x0800, CRC(ac297d99) SHA1(ccf31d3f9d02c3b68a0ee3be4984424df0e83ab0))
+	ROM_LOAD( "rom_2.bin", 0x1000, 0x0800, CRC(a21d0d62) SHA1(6dfdf3806ed2b6502e09a1b6922f21494134cc05))
+	ROM_LOAD( "rom_3.bin", 0x1800, 0x0800, CRC(3a5ea239) SHA1(8c489670977892d7f2bfb098f5df0b4dfa8fbba6))
+	ROM_LOAD( "rom_4.bin", 0x2000, 0x0800, CRC(2ba025d7) SHA1(232efbe23c3f5c2c6655466ebc0a51cf3697be9b))
+	ROM_LOAD( "rom_5.bin", 0x2800, 0x0800, CRC(ed547445) SHA1(20102de89a3ee4a65366bc2d62be94da984a156b))
+	ROM_LOAD( "rom_6.bin", 0x3000, 0x0800, CRC(650c0f47) SHA1(05f67fed3c3f69ad210823460bacf40166cbf06e))
+
+	ROM_REGION(0x1000, "chargen", ROMREGION_INVERT)
+	ROM_LOAD( "char_gen.bin", 0x0000, 0x0400, CRC(626fb8b1) SHA1(1274d14efad46e5397bd9952e1277ebee44e0491))
+	ROM_CONTINUE( 0x0800, 0x0400)
+ROM_END
+
+ROM_START( meritum2)
 	ROM_REGION(0x3800, "maincpu",0)
 	ROM_LOAD( "01.bin", 0x0000, 0x0800, CRC(ed705a47) SHA1(dae8b14eb2ddb2a8b4458215180ebc0fb781816a))
 	ROM_LOAD( "02.bin", 0x0800, 0x0800, CRC(ac297d99) SHA1(ccf31d3f9d02c3b68a0ee3be4984424df0e83ab0))
@@ -480,5 +589,6 @@ ROM_END
 
 
 //    YEAR  NAME         PARENT    COMPAT    MACHINE   INPUT      CLASS          INIT             COMPANY              FULLNAME                FLAGS
-COMP( 1985, meritum,     0,        trs80l2,  meritum,  meritum,   meritum_state, empty_init,  "Mera-Elzab", "Meritum I (Model 2)",             0 )
-COMP( 1985, meritum_net, meritum,  0,        meritum,  meritum,   meritum_state, empty_init,  "Mera-Elzab", "Meritum I (Model 2) (network)",   0 )
+COMP( 1983, meritum1,    0,        trs80l2,  meritum1, meritum,   meritum_state, empty_init,  "Mera-Elzab", "Meritum I (Model 1)",           MACHINE_SUPPORTS_SAVE )
+COMP( 1985, meritum2,    meritum1, 0,        meritum2, meritum,   meritum_state, empty_init,  "Mera-Elzab", "Meritum I (Model 2)",           MACHINE_SUPPORTS_SAVE )
+COMP( 1985, meritum_net, meritum1, 0,        meritum2, meritum,   meritum_state, empty_init,  "Mera-Elzab", "Meritum I (Model 2) (network)", MACHINE_SUPPORTS_SAVE )

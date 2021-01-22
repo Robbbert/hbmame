@@ -50,6 +50,7 @@ Note: this is quite clearly a 'Korean bootleg' of Shisensho - Joshiryo-Hen / Mat
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 class onetwo_state : public driver_device
 {
@@ -88,9 +89,9 @@ private:
 	required_device<palette_device> m_palette;
 	required_device<generic_latch_8_device> m_soundlatch;
 
-	DECLARE_WRITE8_MEMBER(fgram_w);
-	DECLARE_WRITE8_MEMBER(cpubank_w);
-	DECLARE_WRITE8_MEMBER(coin_counters_w);
+	void fgram_w(offs_t offset, uint8_t data);
+	void cpubank_w(uint8_t data);
+	void coin_counters_w(uint8_t data);
 	TILE_GET_INFO_MEMBER(get_fg_tile_info);
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	static rgb_t BBBGGGGGxBBRRRRR(uint32_t raw);
@@ -115,12 +116,12 @@ TILE_GET_INFO_MEMBER(onetwo_state::get_fg_tile_info)
 
 	code &= 0x7fff;
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 void onetwo_state::video_start()
 {
-	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(onetwo_state::get_fg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 64, 32);
+	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(onetwo_state::get_fg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 64, 32);
 }
 
 uint32_t onetwo_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
@@ -135,18 +136,18 @@ uint32_t onetwo_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap
  *
  *************************************/
 
-WRITE8_MEMBER(onetwo_state::fgram_w)
+void onetwo_state::fgram_w(offs_t offset, uint8_t data)
 {
 	m_fgram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset / 2);
 }
 
-WRITE8_MEMBER(onetwo_state::cpubank_w)
+void onetwo_state::cpubank_w(uint8_t data)
 {
 	m_mainbank->set_entry(data);
 }
 
-WRITE8_MEMBER(onetwo_state::coin_counters_w)
+void onetwo_state::coin_counters_w(uint8_t data)
 {
 	m_watchdog->watchdog_reset();
 	machine().bookkeeping().coin_counter_w(0, BIT(data, 1));

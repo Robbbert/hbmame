@@ -12,12 +12,12 @@ Sound   :   YM2151 [+ DAC] / 4 x MSM5205
 Video   :   2 x I.G.1BB 48844758V
 
 ------------------------------------------------------------------------------------------------------------------------
-Year + Game             Main CPU    Sound CPU    Sound            Video
+Year + Game             Main CPU  Sound CPU  Sound                         Video
 ------------------------------------------------------------------------------------------------------------------------
->=1987  Born To Fight   V20         8088         4 x MSM5205      2 x I.G.1BB 48844758V
->=1987  Fantasy Land    8086?       8086?        YM2151 + DAC     ?
-1988?   Wheels Runner   V20         Z80          YM3526 + ?       2 x PLCC84 FPGA
-1989    Galaxy Gunners  8088        V20          YM2151           2 x I.G.1BB 48844758V (labeled "INGA 1" and "INGA 2")
+>=1987  Born To Fight   V20       8088       4x MSM5205                    2x I.G.1BB 48844758V
+>=1987  Fantasy Land    8086?     8086?      YM2151 + DAC                  ?
+1988    Wheels Runner   V20       Z80        2x SN76489 + YM3526 + YM3014  2x PLCC84 FPGA (labeled "INGA 1" and "INGA 2")
+1989    Galaxy Gunners  8088      V20        YM2151                        2x I.G.1BB 48844758V (labeled "INGA 1" and "INGA 2")
 ------------------------------------------------------------------------------------------------------------------------
 
 [fantland, galaxygn]
@@ -38,11 +38,6 @@ Year + Game             Main CPU    Sound CPU    Sound            Video
 - Verify sound. Also speech is a bit garbled / low volume (rom 15)
 - Trackball controls don't work well
 
-[wheelrun]
-
-- On a car hit / crash the game tries to produce sound through ports b000 & c000,
-  probably connected to the EP1210. This is not emulated.
-
 ***************************************************************************************/
 
 #include "emu.h"
@@ -53,7 +48,7 @@ Year + Game             Main CPU    Sound CPU    Sound            Video
 #include "cpu/z80/z80.h"
 #include "sound/3526intf.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
+#include "sound/sn76496.h"
 #include "sound/ym2151.h"
 #include "speaker.h"
 
@@ -64,7 +59,7 @@ Year + Game             Main CPU    Sound CPU    Sound            Video
 
 ***************************************************************************/
 
-WRITE8_MEMBER(fantland_state::nmi_enable_w)
+void fantland_state::nmi_enable_w(uint8_t data)
 {
 	m_nmi_enable = data;
 
@@ -72,7 +67,7 @@ WRITE8_MEMBER(fantland_state::nmi_enable_w)
 		logerror("CPU #0 PC = %04X: nmi_enable = %02x\n", m_maincpu->pc(), data);
 }
 
-WRITE8_MEMBER(fantland_state::soundlatch_w)
+void fantland_state::soundlatch_w(uint8_t data)
 {
 	m_soundlatch->write(data);
 	m_audiocpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
@@ -82,22 +77,22 @@ WRITE8_MEMBER(fantland_state::soundlatch_w)
                                 Fantasy Land
 ***************************************************************************/
 
-READ8_MEMBER(fantland_state::spriteram_r)
+uint8_t fantland_state::spriteram_r(offs_t offset)
 {
 	return m_spriteram[offset];
 }
 
-READ8_MEMBER(fantland_state::spriteram2_r)
+uint8_t fantland_state::spriteram2_r(offs_t offset)
 {
 	return m_spriteram2[offset];
 }
 
-WRITE8_MEMBER(fantland_state::spriteram_w)
+void fantland_state::spriteram_w(offs_t offset, uint8_t data, uint8_t mem_mask)
 {
 	COMBINE_DATA(&m_spriteram[offset]);
 }
 
-WRITE8_MEMBER(fantland_state::spriteram2_w)
+void fantland_state::spriteram2_w(offs_t offset, uint8_t data, uint8_t mem_mask)
 {
 	COMBINE_DATA(&m_spriteram2[offset]);
 }
@@ -115,8 +110,8 @@ void fantland_state::fantland_map(address_map &map)
 	map(0xa3002, 0xa3002).w(FUNC(fantland_state::soundlatch_w));
 	map(0xa3002, 0xa3003).portr("a3002");
 
-	map(0xa4000, 0xa67ff).rw(FUNC(fantland_state::spriteram_r), FUNC(fantland_state::spriteram_w)).share("spriteram");
-	map(0xc0000, 0xcffff).rw(FUNC(fantland_state::spriteram2_r), FUNC(fantland_state::spriteram2_w)).share("spriteram2");
+	map(0xa4000, 0xa67ff).rw(FUNC(fantland_state::spriteram_r), FUNC(fantland_state::spriteram_w));
+	map(0xc0000, 0xcffff).rw(FUNC(fantland_state::spriteram2_r), FUNC(fantland_state::spriteram2_w));
 
 	map(0xe0000, 0xfffff).rom().region("maincpu", 0xe0000);
 }
@@ -151,7 +146,7 @@ void fantland_state::galaxygn_map(address_map &map)
 
 // data & 0x31 changes when lightgun fires
 #if 0
-WRITE8_MEMBER(borntofi_state::nmi_enable_w)
+void borntofi_state::nmi_enable_w(uint8_t data)
 {
 	m_nmi_enable = data;
 
@@ -163,7 +158,7 @@ WRITE8_MEMBER(borntofi_state::nmi_enable_w)
 #endif
 
 // Trackball doesn't work correctly
-READ8_MEMBER(borntofi_state::inputs_r)
+uint8_t borntofi_state::inputs_r(offs_t offset)
 {
 	int x, y, f;
 
@@ -176,8 +171,8 @@ READ8_MEMBER(borntofi_state::inputs_r)
 
 	// Trackball
 
-	x = ioport(offset ? "P2 Trackball X" : "P1 Trackball X")->read();
-	y = ioport(offset ? "P2 Trackball Y" : "P1 Trackball Y")->read();
+	x = ioport(offset ? "P2-TRK.X" : "P1-TRK.X")->read();
+	y = ioport(offset ? "P2-TRK.Y" : "P1-TRK.Y")->read();
 	f = m_screen->frame_number();
 
 	m_input_ret[offset] = (m_input_ret[offset] & 0x14) | (ioport(offset ? "P2_TRACK" : "P1_TRACK")->read() & 0xc3);
@@ -231,10 +226,10 @@ void borntofi_state::main_map(address_map &map)
 
 	map(0x54000, 0x567ff).ram().share("spriteram");
 
-	map(0x57000, 0x57000).portr("P1 Lightgun Y");
-	map(0x57001, 0x57001).portr("P1 Lightgun X");
-	map(0x57002, 0x57002).portr("P2 Lightgun Y");
-	map(0x57003, 0x57003).portr("P2 Lightgun X");
+	map(0x57000, 0x57000).portr("P1-GUN.Y");
+	map(0x57001, 0x57001).portr("P1-GUN.X");
+	map(0x57002, 0x57002).portr("P2-GUN.Y");
+	map(0x57003, 0x57003).portr("P2-GUN.X");
 
 	map(0x60000, 0x6ffff).ram().share("spriteram2");
 
@@ -312,7 +307,7 @@ void borntofi_state::adpcm_stop(int voice)
 	m_adpcm_playing[voice] = 0;
 }
 
-WRITE8_MEMBER(borntofi_state::msm5205_w)
+void borntofi_state::msm5205_w(offs_t offset, uint8_t data)
 {
 	int voice = offset / 8;
 	int reg = offset % 8;
@@ -361,7 +356,7 @@ WRITE_LINE_MEMBER(borntofi_state::adpcm_int)
 	}
 	else
 	{
-		m_msm[Voice]->write_data(m_adpcm_rom[start / 2] >> ((start & 1) * 4));
+		m_msm[Voice]->data_w(m_adpcm_rom[start / 2] >> ((start & 1) * 4));
 		m_adpcm_nibble[Voice]++;
 	}
 }
@@ -387,8 +382,8 @@ void fantland_state::wheelrun_sound_map(address_map &map)
 	map(0x8000, 0x87ff).ram();
 	map(0xa000, 0xa001).rw("ymsnd", FUNC(ym3526_device::read), FUNC(ym3526_device::write));
 
-	map(0xb000, 0xb000).nopw();    // on a car crash / hit
-	map(0xc000, 0xc000).nopw();    // ""
+	map(0xb000, 0xb000).w("sn1", FUNC(sn76489a_device::write));
+	map(0xc000, 0xc000).w("sn2", FUNC(sn76489a_device::write));
 
 	map(0xd000, 0xd000).r(m_soundlatch, FUNC(generic_latch_8_device::read));    // during NMI
 }
@@ -659,28 +654,28 @@ static INPUT_PORTS_START( borntofi )
 	PORT_DIPUNUSED_DIPLOC( 0x40, 0x0040, "DSW2:7" )
 	PORT_DIPUNUSED_DIPLOC( 0x80, 0x0080, "DSW2:8" )
 
-	PORT_START("P1 Lightgun Y")     /* 57000 */
+	PORT_START("P1-GUN.Y")     /* 57000 */
 	PORT_BIT( 0xff, 0xb0, IPT_LIGHTGUN_Y ) PORT_CROSSHAIR(Y, (352.0 - 12) / 352, 12.0 / 352, 0) PORT_MINMAX(0x80,0xfc) PORT_SENSITIVITY(100) PORT_KEYDELTA(5) PORT_PLAYER(1)
 
-	PORT_START("P1 Lightgun X")     /* 57001 */
+	PORT_START("P1-GUN.X")     /* 57001 */
 	PORT_BIT( 0xff, 0x60, IPT_LIGHTGUN_X ) PORT_CROSSHAIR(X, 1.0, 0.0, 0) PORT_MINMAX(0x07,0xb7) PORT_SENSITIVITY(100) PORT_KEYDELTA(5) PORT_PLAYER(1)
 
-	PORT_START("P2 Lightgun Y")     /* 57002 */
+	PORT_START("P2-GUN.Y")     /* 57002 */
 	PORT_BIT( 0xff, 0xb0, IPT_LIGHTGUN_Y ) PORT_CROSSHAIR(Y, (352.0 - 12) / 352, 12.0 / 352, 0) PORT_MINMAX(0x80,0xfc) PORT_SENSITIVITY(100) PORT_KEYDELTA(5) PORT_PLAYER(2)
 
-	PORT_START("P2 Lightgun X")     /* 57003 */
+	PORT_START("P2-GUN.X")     /* 57003 */
 	PORT_BIT( 0xff, 0x70, IPT_LIGHTGUN_X ) PORT_CROSSHAIR(X, 1.0, 0.0, 0) PORT_MINMAX(0x07,0xb7) PORT_SENSITIVITY(100) PORT_KEYDELTA(5) PORT_PLAYER(2)
 
-	PORT_START("P1 Trackball Y")    /* 53000 */
+	PORT_START("P1-TRK.Y")    /* 53000 */
 	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(10) PORT_KEYDELTA(5) PORT_PLAYER(1) PORT_RESET
 
-	PORT_START("P1 Trackball X")    /* 53000 */
+	PORT_START("P1-TRK.X")    /* 53000 */
 	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_X ) PORT_SENSITIVITY(10) PORT_KEYDELTA(5) PORT_PLAYER(1) PORT_RESET
 
-	PORT_START("P2 Trackball Y")    /* 53001 */
+	PORT_START("P2-TRK.Y")    /* 53001 */
 	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(10) PORT_KEYDELTA(5) PORT_PLAYER(2)
 
-	PORT_START("P2 Trackball X")    /* 53001 */
+	PORT_START("P2-TRK.X")    /* 53001 */
 	PORT_BIT( 0xff, 0x00, IPT_TRACKBALL_X ) PORT_SENSITIVITY(10) PORT_KEYDELTA(5) PORT_PLAYER(2)
 INPUT_PORTS_END
 
@@ -689,10 +684,10 @@ INPUT_PORTS_END
                            Wheels Runner
 ***************************************************************************/
 
+template <int Player>
 CUSTOM_INPUT_MEMBER(fantland_state::wheelrun_wheel_r)
 {
-	int player = (uintptr_t)param;
-	int delta = ioport(player ? "WHEEL1" : "WHEEL0")->read();
+	int delta = m_wheel[Player]->read();
 	delta = (delta & 0x7f) - (delta & 0x80) + 4;
 
 	if      (delta > 7) delta = 7;
@@ -708,7 +703,7 @@ static INPUT_PORTS_START( wheelrun )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW,  IPT_BUTTON1 ) PORT_PLAYER(1)
 	PORT_BIT( 0x04, IP_ACTIVE_LOW,  IPT_UNKNOWN )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, fantland_state,wheelrun_wheel_r, (void *)0)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(fantland_state, wheelrun_wheel_r<0>)
 	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNKNOWN )
 
 	PORT_START("53001")     /* 53001 */
@@ -716,7 +711,7 @@ static INPUT_PORTS_START( wheelrun )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW,  IPT_BUTTON1 ) PORT_PLAYER(2)
 	PORT_BIT( 0x04, IP_ACTIVE_LOW,  IPT_UNKNOWN )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW,  IPT_UNKNOWN )
-	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, fantland_state,wheelrun_wheel_r, (void *)1)
+	PORT_BIT( 0x70, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(fantland_state, wheelrun_wheel_r<1>)
 	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNKNOWN )
 
 	PORT_START("53002")     /* 53002 */
@@ -820,7 +815,7 @@ void fantland_state::fantland(machine_config &config)
 	m_audiocpu->set_periodic_int(FUNC(fantland_state::fantland_sound_irq), attotime::from_hz(8000));
 	// NMI when soundlatch is written
 
-	config.m_minimum_quantum = attotime::from_hz(8000);  // sound irq must feed the DAC at 8kHz
+	config.set_maximum_quantum(attotime::from_hz(8000));  // sound irq must feed the DAC at 8kHz
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
@@ -843,9 +838,6 @@ void fantland_state::fantland(machine_config &config)
 	YM2151(config, "ymsnd", 3000000).add_route(0, "speaker", 0.35).add_route(1, "speaker", 0.35);
 
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.25); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 
@@ -984,10 +976,10 @@ void borntofi_state::borntofi(machine_config &config)
 void fantland_state::wheelrun(machine_config &config)
 {
 	/* basic machine hardware */
-	V20(config, m_maincpu, XTAL(18'000'000)/2);     // D701080C-8 (V20)
+	V20(config, m_maincpu, XTAL(18'000'000)/3);     // D701080C-8 (V20)
 	m_maincpu->set_addrmap(AS_PROGRAM, &fantland_state::wheelrun_map);
 
-	Z80(config, m_audiocpu, XTAL(18'000'000)/2);    // Z8400BB1 (Z80B)
+	Z80(config, m_audiocpu, XTAL(14'000'000)/4);    // Z8400BB1 (Z80B)
 	m_audiocpu->set_addrmap(AS_PROGRAM, &fantland_state::wheelrun_sound_map);
 	// IRQ by YM3526, NMI when soundlatch is written
 
@@ -1012,6 +1004,10 @@ void fantland_state::wheelrun(machine_config &config)
 	ym3526_device &ymsnd(YM3526(config, "ymsnd", XTAL(14'000'000)/4));
 	ymsnd.irq_handler().set_inputline(m_audiocpu, INPUT_LINE_IRQ0);
 	ymsnd.add_route(ALL_OUTPUTS, "speaker", 1.0);
+
+	SN76489A(config, "sn1", XTAL(14'000'000)/4).add_route(ALL_OUTPUTS, "speaker", 0.75);
+
+	SN76489A(config, "sn2", XTAL(14'000'000)/4).add_route(ALL_OUTPUTS, "speaker", 0.75);
 }
 
 
@@ -1350,19 +1346,18 @@ Wheels Runner by International Games
 PCB:
 (revision 8801)
 
-1x NEC D70108C-8 (NEC V20)
-1x SGS Z8400BB1 (Z80B)
-1x YM3526 (sound)
-1x Y3014B (DAC)
+CPUs:
+1x NEC D70108C-8 (NEC V20) - 5,996MHz(@19)
+1x SGS Z8400BB1 (Z80B) - 3,497MHz(@6)
+2x SN76489AN (sound) - 3,497MHz(@14)
+1x YM3526 (sound) - 48,58kHz(@20) - 874,3kHz(@23) - 3,497MHz(@24)
+1x Y3014B (DAC) - 874,3kHz(@5)
 1x LM324A (sound)
 1x TDA2002 (sound)
 1x oscillator 18.000
 1x oscillator 14.000
-1x ALTERA EP1210PC
-2x INGA (black quad chips with 84 legs, maybe FPGA)
 
 ROMs:
-
 15x M27512
 3x PAL16R6CN (read protected)
 2x PAL20L8aCNS (read protected)
@@ -1371,11 +1366,22 @@ ROMs:
 1x TIBPAL16r8-25CN (read protected)
 eprom location 2,5,6 are empty
 
-Notes:
+RAMs:
+2x TMM2015BP-10 (SRAM 2k x 8)
+2x CY7C128-55PC (SRAM 2k x 8)
+1x TMM2063P-10 (SRAM 8k x 8)
+1x CXK58256PM-12 (SRAM 32k x 8)
+2x HM62256LP-12 (SRAM 32k x 8)
+7x TMS4464-12NL (DRAM 64k x 4)
 
+PLDs:
+2x most probably TPC1020AFN-084C with erased markings, labeled INGA1,INGA2
+1x ALTERA EP1210PC - 5,996MHz(@1)
+
+Notes:
 1x JAMMA edge connector
 1x trimmer (volume)
-2x 8 bit dip switch
+2x 8 DIP switches banks (SW1,SW2)
 
 Hardware info by f205v
 

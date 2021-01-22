@@ -2,7 +2,7 @@
 // copyright-holders:Aaron Giles, Vas Crabb
 /***************************************************************************
 
-    rendfont.c
+    rendfont.cpp
 
     Rendering system font management.
 
@@ -11,10 +11,12 @@
 #include "emu.h"
 #include "rendfont.h"
 #include "emuopts.h"
+#include "corestr.h"
 #include "coreutil.h"
 
 #include "osdepend.h"
 #include "uismall.fh"
+#include "unicode.h"
 
 #include "ui/uicmd14.fh"
 #include "ui/cmddata.h"
@@ -372,35 +374,30 @@ private:
 } // anonymous namespace
 
 
-void convert_command_glyph(std::string &str)
+std::string convert_command_glyph(std::string_view str)
 {
-	str.c_str(); // force NUL-termination - we depend on it later
-	std::size_t const len(str.length());
-	std::vector<char> buf(2 * (len + 1));
+	std::vector<char> buf(2 * (str.length() + 1));
 	std::size_t j(0);
-	for (std::size_t i = 0; len > i; )
+	while (!str.empty())
 	{
 		// decode UTF-8
 		char32_t uchar;
-		int const codelen(uchar_from_utf8(&uchar, &str[i], len - i));
+		int const codelen(uchar_from_utf8(&uchar, str));
 		if (0 >= codelen)
 			break;
-		i += codelen;
+		str.remove_prefix(codelen);
 
 		// check for three metacharacters
 		fix_command_t const *fixcmd(nullptr);
 		switch (uchar)
 		{
 		case COMMAND_CONVERT_TEXT:
-			for (fix_strings_t *fixtext = convert_text; fixtext->glyph_code; ++fixtext)
+			for (fix_strings_t const *fixtext = convert_text; fixtext->glyph_code; ++fixtext)
 			{
-				if (!fixtext->glyph_str_len)
-					fixtext->glyph_str_len = std::strlen(fixtext->glyph_str);
-
-				if (!std::strncmp(fixtext->glyph_str, &str[i], fixtext->glyph_str_len))
+				if (str.substr(0, fixtext->glyph_str.length()) == fixtext->glyph_str)
 				{
 					uchar = fixtext->glyph_code + COMMAND_UNICODE;
-					i += strlen(fixtext->glyph_str);
+					str.remove_prefix(fixtext->glyph_str.length());
 					break;
 				}
 			}
@@ -416,20 +413,20 @@ void convert_command_glyph(std::string &str)
 		}
 
 		// this substitutes a single character
-		if (fixcmd)
+		if (fixcmd && !str.empty())
 		{
-			if (str[i] == uchar)
+			if (str[0] == uchar)
 			{
-				++i;
+				str.remove_prefix(1);
 			}
 			else
 			{
-				while (fixcmd->glyph_code && (fixcmd->glyph_char != str[i]))
+				while (fixcmd->glyph_code && !str.empty() && fixcmd->glyph_char != str[0])
 					++fixcmd;
-				if (fixcmd->glyph_code)
+				if (fixcmd->glyph_code && !str.empty())
 				{
 					uchar = COMMAND_UNICODE + fixcmd->glyph_code;
-					++i;
+					str.remove_prefix(1);
 				}
 			}
 		}
@@ -440,7 +437,7 @@ void convert_command_glyph(std::string &str)
 			break;
 		j += outlen;
 	}
-	str.assign(&buf[0], j);
+	return std::string(&buf[0], j);
 }
 
 
@@ -664,7 +661,7 @@ void render_font::char_expand(char32_t chnum, glyph &gl)
 		for (int y = 0; y < gl.bmheight; y++)
 		{
 			int desty = y + m_height_cmd + m_yoffs_cmd - gl.yoffs - gl.bmheight;
-			u32 *dest = (desty >= 0 && desty < m_height_cmd) ? &gl.bitmap.pix32(desty, 0) : nullptr;
+			u32 *dest = (desty >= 0 && desty < m_height_cmd) ? &gl.bitmap.pix(desty, 0) : nullptr;
 			{
 				for (int x = 0; x < gl.bmwidth; x++)
 				{
@@ -723,7 +720,7 @@ void render_font::char_expand(char32_t chnum, glyph &gl)
 		for (int y = 0; y < gl.bmheight; ++y)
 		{
 			int const desty(y + m_height + m_yoffs - gl.yoffs - gl.bmheight);
-			u32 *dest(((0 <= desty) && (m_height > desty)) ? &gl.bitmap.pix32(desty) : nullptr);
+			u32 *dest(((0 <= desty) && (m_height > desty)) ? &gl.bitmap.pix(desty) : nullptr);
 
 			if (m_format == format::TEXT)
 			{
@@ -856,21 +853,19 @@ float render_font::char_width(float height, float aspect, char32_t ch)
 //  at the given height
 //-------------------------------------------------
 
-float render_font::string_width(float height, float aspect, const char *string)
+float render_font::string_width(float height, float aspect, std::string_view string)
 {
 	// loop over the string and accumulate widths
 	int totwidth = 0;
 
-	const char *ends = string + strlen(string);
-	const char *s = string;
 	char32_t schar;
 
 	// loop over characters
-	while (*s != 0)
+	while (!string.empty())
 	{
-		int scharcount = uchar_from_utf8(&schar, s, ends - s);
+		int scharcount = uchar_from_utf8(&schar, string);
 		totwidth += get_char(schar).width;
-		s += scharcount;
+		string.remove_prefix(scharcount);
 	}
 
 
@@ -884,21 +879,19 @@ float render_font::string_width(float height, float aspect, const char *string)
 //  UTF8-encoded string at the given height
 //-------------------------------------------------
 
-float render_font::utf8string_width(float height, float aspect, const char *utf8string)
+float render_font::utf8string_width(float height, float aspect, std::string_view utf8string)
 {
-	std::size_t const length = std::strlen(utf8string);
-
 	// loop over the string and accumulate widths
-	int count;
 	s32 totwidth = 0;
-	for (std::size_t offset = 0U; offset < length; offset += unsigned(count))
+	while (!utf8string.empty())
 	{
 		char32_t uchar;
-		count = uchar_from_utf8(&uchar, utf8string + offset, length - offset);
+		int count = uchar_from_utf8(&uchar, utf8string);
 		if (count < 0)
 			break;
 
 		totwidth += get_char(uchar).width;
+		utf8string.remove_prefix(count);
 	}
 
 	// scale the final result based on height
@@ -958,7 +951,7 @@ bool render_font::load_cached_bdf(const char *filename)
 	// attempt to open the cached version of the font
 	{
 		emu_file cachefile(m_manager.machine().options().font_path(), OPEN_FLAG_READ);
-		filerr = cachefile.open(cachedname.c_str());
+		filerr = cachefile.open(cachedname);
 		if (filerr == osd_file::error::NONE)
 		{
 			// if we have a cached version, load it
@@ -1531,7 +1524,7 @@ bool render_font::save_cached(const char *filename, u64 length, u32 hash)
 					for (int y = 0; y < gl.bmheight; y++)
 					{
 						int desty = y + m_height + m_yoffs - gl.yoffs - gl.bmheight;
-						const u32 *src = (desty >= 0 && desty < m_height) ? &gl.bitmap.pix32(desty) : nullptr;
+						u32 const *const src = (desty >= 0 && desty < m_height) ? &gl.bitmap.pix(desty) : nullptr;
 						for (int x = 0; x < gl.bmwidth; x++)
 						{
 							if (src != nullptr && rgb_t(src[x]).a() != 0)

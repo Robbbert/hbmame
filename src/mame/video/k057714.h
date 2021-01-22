@@ -14,9 +14,9 @@ public:
 
 	int draw(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
-	DECLARE_READ32_MEMBER(read);
-	DECLARE_WRITE32_MEMBER(write);
-	DECLARE_WRITE32_MEMBER(fifo_w);
+	uint32_t read(offs_t offset);
+	void write(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
+	void fifo_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
 
 	struct framebuffer
 	{
@@ -25,6 +25,7 @@ public:
 		int height;
 		int x;
 		int y;
+		int alpha;
 	};
 
 protected:
@@ -33,6 +34,8 @@ protected:
 	virtual void device_reset() override;
 
 private:
+	enum { VRAM_SIZE = 0x2000000 };
+
 	void execute_command(uint32_t *cmd);
 	void execute_display_list(uint32_t addr);
 	void draw_object(uint32_t *cmd);
@@ -63,6 +66,9 @@ private:
 	uint32_t m_fb_origin_y;
 	uint32_t m_layer_select;
 	uint32_t m_reg_6c;
+
+	uint32_t m_display_width;
+	uint32_t m_display_height;
 
 	devcb_write_line m_irq;
 };

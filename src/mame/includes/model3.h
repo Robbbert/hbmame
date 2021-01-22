@@ -13,11 +13,14 @@
 #include "machine/eepromser.h"
 #include "machine/i8251.h"
 #include "sound/scsp.h"
+#include "machine/315_5649.h"
 #include "machine/315-5881_crypt.h"
+#include "machine/segabill.h"
 #include "machine/msm6242.h"
 #include "machine/timer.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 typedef float MATRIX[4][4];
 typedef float VECTOR[4];
@@ -71,15 +74,18 @@ public:
 		m_eeprom(*this, "eeprom"),
 		m_screen(*this, "screen"),
 		m_rtc(*this, "rtc"),
-		m_adc_ports(*this, "AN%u", 0U),
+		m_io(*this, "io"),
 		m_work_ram(*this, "work_ram"),
+		m_bank_crom(*this, "bank_crom"),
 		m_paletteram64(*this, "paletteram64"),
 		m_dsbz80(*this, DSBZ80_TAG),
 		m_uart(*this, "uart"),
 		m_soundram(*this, "soundram"),
 		m_gfxdecode(*this, "gfxdecode"),
 		m_palette(*this, "palette"),
-		m_cryptdevice(*this, "315_5881")
+		m_cryptdevice(*this, "315_5881"),
+		m_billboard(*this, "billboard"),
+		m_bank2(*this, "bank2")
 	{
 		m_step15_with_mpc106 = false;
 		m_step20_with_old_real3d = false;
@@ -99,7 +105,10 @@ public:
 	void model3_10(machine_config &config);
 	void model3_20(machine_config &config);
 	void model3_21(machine_config &config);
+
+	void getbass(machine_config &config);
 	void scud(machine_config &config);
+	void lostwsga(machine_config &config);
 
 	void init_lemans24();
 	void init_vs298();
@@ -143,10 +152,10 @@ private:
 	required_device<eeprom_serial_93cxx_device> m_eeprom;
 	required_device<screen_device> m_screen;
 	required_device<rtc72421_device> m_rtc;
-
-	optional_ioport_array<8> m_adc_ports;
+	required_device<sega_315_5649_device> m_io;
 
 	required_shared_ptr<uint64_t> m_work_ram;
+	memory_bank_creator m_bank_crom;
 	required_shared_ptr<uint64_t> m_paletteram64;
 	optional_device<dsbz80_device> m_dsbz80;    // Z80-based MPEG Digital Sound Board
 	optional_device<i8251_device> m_uart;
@@ -155,6 +164,9 @@ private:
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 	optional_device<sega_315_5881_crypt_device> m_cryptdevice;
+
+	required_device<sega_billboard_device> m_billboard;
+	memory_bank_creator m_bank2;
 
 	tilemap_t *m_layer4[4];
 	tilemap_t *m_layer8[4];
@@ -246,49 +258,54 @@ private:
 	int m_viewport_tri_index[4];
 	int m_viewport_tri_alpha_index[4];
 
-	DECLARE_READ32_MEMBER(rtc72421_r);
-	DECLARE_WRITE32_MEMBER(rtc72421_w);
-	DECLARE_READ64_MEMBER(model3_char_r);
-	DECLARE_WRITE64_MEMBER(model3_char_w);
-	DECLARE_READ64_MEMBER(model3_tile_r);
-	DECLARE_WRITE64_MEMBER(model3_tile_w);
-	DECLARE_READ64_MEMBER(model3_vid_reg_r);
-	DECLARE_WRITE64_MEMBER(model3_vid_reg_w);
-	DECLARE_WRITE64_MEMBER(model3_palette_w);
-	DECLARE_READ64_MEMBER(model3_palette_r);
-	DECLARE_WRITE64_MEMBER(real3d_display_list_w);
-	DECLARE_WRITE64_MEMBER(real3d_polygon_ram_w);
-	DECLARE_WRITE64_MEMBER(real3d_cmd_w);
-	DECLARE_READ64_MEMBER(mpc105_addr_r);
-	DECLARE_WRITE64_MEMBER(mpc105_addr_w);
-	DECLARE_READ64_MEMBER(mpc105_data_r);
-	DECLARE_WRITE64_MEMBER(mpc105_data_w);
-	DECLARE_READ64_MEMBER(mpc105_reg_r);
-	DECLARE_WRITE64_MEMBER(mpc105_reg_w);
+	uint32_t rtc72421_r(offs_t offset);
+	void rtc72421_w(offs_t offset, uint32_t data);
+	uint64_t model3_char_r(offs_t offset);
+	void model3_char_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t model3_tile_r(offs_t offset);
+	void model3_tile_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t model3_vid_reg_r(offs_t offset);
+	void model3_vid_reg_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void model3_palette_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t model3_palette_r(offs_t offset);
+	void real3d_display_list_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void real3d_polygon_ram_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void real3d_cmd_w(uint64_t data);
+	uint64_t mpc105_addr_r(offs_t offset, uint64_t mem_mask = ~0);
+	void mpc105_addr_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t mpc105_data_r();
+	void mpc105_data_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t mpc105_reg_r(offs_t offset);
+	void mpc105_reg_w(offs_t offset, uint64_t data);
 	void mpc105_init();
-	DECLARE_READ64_MEMBER(mpc106_addr_r);
-	DECLARE_WRITE64_MEMBER(mpc106_addr_w);
-	DECLARE_READ64_MEMBER(mpc106_data_r);
-	DECLARE_WRITE64_MEMBER(mpc106_data_w);
-	DECLARE_READ64_MEMBER(mpc106_reg_r);
-	DECLARE_WRITE64_MEMBER(mpc106_reg_w);
+	uint64_t mpc106_addr_r(offs_t offset, uint64_t mem_mask = ~0);
+	void mpc106_addr_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t mpc106_data_r(offs_t offset, uint64_t mem_mask = ~0);
+	void mpc106_data_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t mpc106_reg_r(offs_t offset);
+	void mpc106_reg_w(offs_t offset, uint64_t data);
 	void mpc106_init();
-	DECLARE_READ64_MEMBER(scsi_r);
-	DECLARE_WRITE64_MEMBER(scsi_w);
-	DECLARE_READ64_MEMBER(real3d_dma_r);
-	DECLARE_WRITE64_MEMBER(real3d_dma_w);
-	DECLARE_READ64_MEMBER(model3_ctrl_r);
-	DECLARE_WRITE64_MEMBER(model3_ctrl_w);
-	DECLARE_READ64_MEMBER(model3_sys_r);
-	DECLARE_WRITE64_MEMBER(model3_sys_w);
-	DECLARE_READ64_MEMBER(model3_rtc_r);
-	DECLARE_WRITE64_MEMBER(model3_rtc_w);
-	DECLARE_READ64_MEMBER(real3d_status_r);
-	DECLARE_READ8_MEMBER(model3_sound_r);
-	DECLARE_WRITE8_MEMBER(model3_sound_w);
+	uint64_t scsi_r(offs_t offset, uint64_t mem_mask = ~0);
+	void scsi_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t real3d_dma_r(offs_t offset, uint64_t mem_mask = ~0);
+	void real3d_dma_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
 
-	DECLARE_WRITE64_MEMBER(daytona2_rombank_w);
-	DECLARE_WRITE16_MEMBER(model3snd_ctrl);
+	void eeprom_w(uint8_t data);
+	uint8_t input_r();
+	void lostwsga_ser1_w(uint8_t data);
+	uint8_t lostwsga_ser2_r();
+	void lostwsga_ser2_w(uint8_t data);
+
+	uint64_t model3_sys_r(offs_t offset, uint64_t mem_mask = ~0);
+	void model3_sys_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t model3_rtc_r(offs_t offset, uint64_t mem_mask = ~0);
+	void model3_rtc_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t real3d_status_r(offs_t offset);
+	uint8_t model3_sound_r(offs_t offset);
+	void model3_sound_w(offs_t offset, uint8_t data);
+
+	void daytona2_rombank_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void model3snd_ctrl(uint16_t data);
 	uint32_t pci_device_get_reg();
 	void pci_device_set_reg(uint32_t value);
 	void configure_fast_ram();
@@ -307,7 +324,7 @@ private:
 	TIMER_CALLBACK_MEMBER(model3_scan_timer_tick);
 	TIMER_DEVICE_CALLBACK_MEMBER(model3_interrupt);
 	void model3_exit();
-	DECLARE_WRITE8_MEMBER(scsp_irq);
+	void scsp_irq(offs_t offset, uint8_t data);
 	void real3d_dma_callback(uint32_t src, uint32_t dst, int length, int byteswap);
 	uint32_t scsi_fetch(uint32_t dsp);
 	void scsi_irq_callback(int state);
@@ -370,6 +387,8 @@ private:
 	void model3_snd(address_map &map);
 	void scsp1_map(address_map &map);
 	void scsp2_map(address_map &map);
+	void getbass_iocpu_mem(address_map &map);
+	void getbass_iocpu_io(address_map &map);
 };
 
 #endif // MAME_INCLUDES_MODEL3_H

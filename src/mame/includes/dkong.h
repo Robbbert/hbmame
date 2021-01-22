@@ -22,6 +22,7 @@
 #include "sound/tms5110.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 
 /*
@@ -133,6 +134,8 @@ public:
 		, m_palette(*this, "palette")
 		, m_z80dma(*this, "z80dma")
 		, m_dma8257(*this, "dma8257")
+		, m_bank1(*this, "bank1")
+		, m_bank2(*this, "bank2")
 	{
 	}
 
@@ -254,44 +257,44 @@ private:
 	required_device<palette_device> m_palette;
 	optional_device<z80dma_device> m_z80dma;
 	optional_device<i8257_device> m_dma8257;
+	memory_bank_creator m_bank1;
+	memory_bank_creator m_bank2;
 
 	/* radarscp_scanline */
 	int m_counter;
 
 	/* reverse address lookup map - hunchbkd */
 	int16_t             m_rev_map[0x200];
-	DECLARE_READ8_MEMBER(hb_dma_read_byte);
-	DECLARE_WRITE8_MEMBER(hb_dma_write_byte);
-	DECLARE_WRITE8_MEMBER(dkong3_coin_counter_w);
-	DECLARE_READ8_MEMBER(dkong_in2_r);
-	DECLARE_READ8_MEMBER(s2650_mirror_r);
-	DECLARE_WRITE8_MEMBER(s2650_mirror_w);
-	DECLARE_READ8_MEMBER(epos_decrypt_rom);
-	DECLARE_WRITE8_MEMBER(s2650_data_w);
+	uint8_t hb_dma_read_byte(offs_t offset);
+	void hb_dma_write_byte(offs_t offset, uint8_t data);
+	void dkong3_coin_counter_w(offs_t offset, uint8_t data);
+	uint8_t dkong_in2_r(offs_t offset);
+	uint8_t epos_decrypt_rom(offs_t offset);
+	void s2650_data_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(s2650_fo_w);
-	DECLARE_READ8_MEMBER(s2650_port0_r);
-	DECLARE_READ8_MEMBER(s2650_port1_r);
-	DECLARE_WRITE8_MEMBER(dkong3_2a03_reset_w);
-	DECLARE_READ8_MEMBER(strtheat_inputport_0_r);
-	DECLARE_READ8_MEMBER(strtheat_inputport_1_r);
-	DECLARE_WRITE8_MEMBER(nmi_mask_w);
-	DECLARE_WRITE8_MEMBER(dk_braze_a15_w);
-	DECLARE_WRITE8_MEMBER(dkong_videoram_w);
-	DECLARE_WRITE8_MEMBER(dkongjr_gfxbank_w);
-	DECLARE_WRITE8_MEMBER(dkong3_gfxbank_w);
-	DECLARE_WRITE8_MEMBER(dkong_palettebank_w);
-	DECLARE_WRITE8_MEMBER(radarscp_grid_enable_w);
-	DECLARE_WRITE8_MEMBER(radarscp_grid_color_w);
-	DECLARE_WRITE8_MEMBER(dkong_flipscreen_w);
-	DECLARE_WRITE8_MEMBER(dkong_spritebank_w);
-	DECLARE_WRITE8_MEMBER(dkong_voice_w);
-	DECLARE_WRITE8_MEMBER(dkong_audio_irq_w);
-	DECLARE_READ8_MEMBER(p8257_ctl_r);
-	DECLARE_WRITE8_MEMBER(p8257_ctl_w);
-	DECLARE_WRITE8_MEMBER(p8257_drq_w);
-	DECLARE_WRITE8_MEMBER(dkong_z80dma_rdy_w);
-	DECLARE_READ8_MEMBER(braze_eeprom_r);
-	DECLARE_WRITE8_MEMBER(braze_eeprom_w);
+	uint8_t s2650_port0_r();
+	uint8_t s2650_port1_r();
+	void dkong3_2a03_reset_w(uint8_t data);
+	uint8_t strtheat_inputport_0_r();
+	uint8_t strtheat_inputport_1_r();
+	void nmi_mask_w(uint8_t data);
+	void dk_braze_a15_w(uint8_t data);
+	void dkong_videoram_w(offs_t offset, uint8_t data);
+	void dkongjr_gfxbank_w(uint8_t data);
+	void dkong3_gfxbank_w(uint8_t data);
+	void dkong_palettebank_w(offs_t offset, uint8_t data);
+	void radarscp_grid_enable_w(uint8_t data);
+	void radarscp_grid_color_w(uint8_t data);
+	void dkong_flipscreen_w(uint8_t data);
+	void dkong_spritebank_w(uint8_t data);
+	void dkong_voice_w(uint8_t data);
+	void dkong_audio_irq_w(uint8_t data);
+	uint8_t p8257_ctl_r();
+	void p8257_ctl_w(uint8_t data);
+	void p8257_drq_w(uint8_t data);
+	void dkong_z80dma_rdy_w(uint8_t data);
+	uint8_t braze_eeprom_r();
+	void braze_eeprom_w(uint8_t data);
 	TILE_GET_INFO_MEMBER(dkong_bg_tile_info);
 	TILE_GET_INFO_MEMBER(radarscp1_bg_tile_info);
 	DECLARE_MACHINE_START(dkong2b);
@@ -309,12 +312,10 @@ private:
 	DECLARE_MACHINE_START(s2650);
 	DECLARE_MACHINE_RESET(strtheat);
 	DECLARE_MACHINE_RESET(drakton);
-	DECLARE_WRITE8_MEMBER(m58817_command_w);
-	DECLARE_READ8_MEMBER(dkong_voice_status_r);
-	DECLARE_READ8_MEMBER(dkong_tune_r);
-	DECLARE_WRITE8_MEMBER(dkong_p1_w);
-	DECLARE_READ8_MEMBER(sound_t0_r);
-	DECLARE_READ8_MEMBER(sound_t1_r);
+	void m58817_command_w(uint8_t data);
+	uint8_t dkong_voice_status_r();
+	uint8_t dkong_tune_r(offs_t offset);
+	void dkong_p1_w(uint8_t data);
 	uint32_t screen_update_dkong(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_pestplce(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_spclforc(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
@@ -326,8 +327,8 @@ private:
 	void braze_decrypt_rom(uint8_t *dest);
 	void dk_braze_decrypt();
 	void drakton_decrypt_rom(uint8_t mod, int offs, int *bs);
-	DECLARE_READ8_MEMBER(memory_read_byte);
-	DECLARE_WRITE8_MEMBER(memory_write_byte);
+	uint8_t memory_read_byte(offs_t offset);
+	void memory_write_byte(offs_t offset, uint8_t data);
 	double CD4049(double x);
 
 	void dkong3_io_map(address_map &map);

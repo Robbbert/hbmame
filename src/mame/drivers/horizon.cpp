@@ -65,7 +65,7 @@ public:
 	void horizon2mhz(machine_config &config);
 
 private:
-	DECLARE_READ8_MEMBER(ff_r);
+	uint8_t ff_r();
 
 	void horizon_io(address_map &map);
 	void horizon_mem(address_map &map);
@@ -128,7 +128,7 @@ void horizon_state::machine_reset()
 	m_maincpu->set_pc(0xe800);
 }
 
-READ8_MEMBER( horizon_state::ff_r )
+uint8_t horizon_state::ff_r()
 {
 	return 0xff;
 }
@@ -152,6 +152,7 @@ DEVICE_INPUT_DEFAULTS_END
 //-------------------------------------------------
 
 // slot devices
+#include "bus/s100/am310.h"
 //#include "bus/s100/dj2db.h"
 //#include "bus/s100/djdma.h"
 //#include "bus/s100/mm65k16s.h"
@@ -170,6 +171,7 @@ static void horizon_s100_cards(device_slot_interface &device)
 	//device.option_add("fpb", S100_FPB);
 	device.option_add("8ksc", S100_8K_SC);
 	device.option_add("8kscbb", S100_8K_SC_BB);
+	device.option_add("am310", S100_AM310);
 }
 
 

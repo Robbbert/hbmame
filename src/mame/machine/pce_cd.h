@@ -40,7 +40,8 @@ enum {
 
 // ======================> pce_cd_device
 
-class pce_cd_device : public device_t
+class pce_cd_device : public device_t,
+					  public device_memory_interface
 {
 public:
 	// construction/destruction
@@ -50,20 +51,61 @@ public:
 
 	void late_setup();
 
-	DECLARE_WRITE8_MEMBER(bram_w);
-	DECLARE_WRITE8_MEMBER(intf_w);
-	DECLARE_WRITE8_MEMBER(acard_w);
-	DECLARE_READ8_MEMBER(bram_r);
-	DECLARE_READ8_MEMBER(intf_r);
-	DECLARE_READ8_MEMBER(acard_r);
+	void bram_w(offs_t offset, uint8_t data);
+	void intf_w(offs_t offset, uint8_t data);
+	void acard_w(offs_t offset, uint8_t data);
+	uint8_t bram_r(offs_t offset);
+	uint8_t intf_r(offs_t offset);
+	uint8_t acard_r(offs_t offset);
 
 protected:
 	// device-level overrides
 	virtual void device_start() override;
 	virtual void device_add_mconfig(machine_config &config) override;
 	virtual void device_reset() override;
+	virtual space_config_vector memory_space_config() const override;
 
 private:
+	const address_space_config m_space_config;
+
+	uint8_t cdc_status_r();
+	void cdc_status_w(uint8_t data);
+	uint8_t cdc_reset_r();
+	void cdc_reset_w(uint8_t data);
+	uint8_t irq_mask_r();
+	void irq_mask_w(uint8_t data);
+	uint8_t irq_status_r();
+	uint8_t cdc_data_r();
+	void cdc_data_w(uint8_t data);
+	uint8_t bram_status_r();
+	void bram_unlock_w(uint8_t data);
+	uint8_t cdda_data_r(offs_t offset);
+	uint8_t cd_data_r();
+	uint8_t adpcm_dma_control_r();
+	void adpcm_dma_control_w(uint8_t data);
+	uint8_t adpcm_status_r();
+	uint8_t adpcm_data_r();
+	void adpcm_data_w(uint8_t data);
+	void adpcm_address_lo_w(uint8_t data);
+	void adpcm_address_hi_w(uint8_t data);
+	uint8_t adpcm_address_control_r();
+	void adpcm_address_control_w(uint8_t data);
+	void adpcm_playback_rate_w(uint8_t data);
+	void fade_register_w(uint8_t data);
+
+	uint8_t m_reset_reg;
+	uint8_t m_irq_mask;
+	uint8_t m_irq_status;
+	uint8_t m_cdc_status;
+	uint8_t m_cdc_data;
+	uint8_t m_bram_status;
+	uint8_t m_adpcm_status;
+	uint16_t m_adpcm_latch_address;
+	uint8_t m_adpcm_control;
+	uint8_t m_adpcm_dma_reg;
+	uint8_t m_fade_reg;
+
+	void regs_map(address_map &map);
 	void adpcm_stop(uint8_t irq_flag);
 	void adpcm_play();
 	void reply_status_byte(uint8_t status);
@@ -94,7 +136,6 @@ private:
 
 	required_device<cpu_device> m_maincpu;
 
-	uint8_t   m_regs[16];
 	std::unique_ptr<uint8_t[]>   m_bram;
 	std::unique_ptr<uint8_t[]>   m_adpcm_ram;
 	int     m_bram_locked;

@@ -11,16 +11,8 @@
      - bcracers: write to undefined PWM register?
      - fifa96 / nbajamte: dies on the gameplay, waiting for a comm change that never occurs;
      - marsch1: doesn't boot, Master / Slave communicates through SCI
-     - nbajamte: missing I2C hookup, startup fails due of that (same I2C type as plain MD version);
-     - nflquart: black screen, missing h irq?
-     - sangoku4: black screen after the Sega logo
-     - soulstar: OSD and player sprite isn't drawn;
      - tempo: intro is too fast, mostly noticeable with the PWM sound that cuts off too early when it gets to the title screen;
      - tmek: gameplay is clearly too fast
-     - vrdxu: has 3d geometry bugs, caused by a SH-2 DRC bug;
-     - vrdxu: crashes if you attempt to enter into main menu;
-     - wwfwre: no 32x gfxs
-     - xmen: black screen after that you choose the level, needs bare minimum SH-2 SCI support
 
 
 32x Marsch tests documentation (keep start pressed at start-up for individual tests):
@@ -199,7 +191,6 @@ GFX check (these don't explicitly fails):
 #include "emu.h"
 #include "machine/mega32x.h"
 #include "machine/timer.h"
-#include "sound/volt_reg.h"
 
 
 // Fifa96 needs the CPUs swapped for the gameplay to enter due to some race conditions
@@ -225,6 +216,8 @@ DEFINE_DEVICE_TYPE(SEGA_32X_PAL,  sega_32x_pal_device,  "sega_32x_pal",  "Sega 3
 sega_32x_device::sega_32x_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, type, tag, owner, clock)
 	, device_palette_interface(mconfig, *this)
+	, device_sound_interface(mconfig, *this)
+	, device_video_interface(mconfig, *this, false)
 	, m_sh2_shared(*this, "sh2_shared")
 	, m_main_cpu(*this, finder_base::DUMMY_TAG)
 	, m_master_cpu(*this, "32x_master_sh2")
@@ -232,6 +225,8 @@ sega_32x_device::sega_32x_device(const machine_config &mconfig, device_type type
 	, m_ldac(*this, "ldac")
 	, m_rdac(*this, "rdac")
 	, m_scan_timer(*this, finder_base::DUMMY_TAG)
+	, m_rombank(*this, "rombank")
+	, m_stream(nullptr)
 {
 }
 
@@ -245,22 +240,22 @@ sega_32x_pal_device::sega_32x_pal_device(const machine_config &mconfig, const ch
 {
 }
 
-READ16_MEMBER( sega_32x_device::m68k_palette_r )
+uint16_t sega_32x_device::m68k_palette_r(offs_t offset)
 {
 	return m_32x_palette[offset];
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_palette_w )
+void sega_32x_device::m68k_palette_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_32x_palette[offset]);
 }
 
-READ16_MEMBER( sega_32x_device::m68k_dram_r )
+uint16_t sega_32x_device::m68k_dram_r(offs_t offset)
 {
 	return m_32x_access_dram[offset];
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_dram_w )
+void sega_32x_device::m68k_dram_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if ((mem_mask&0xffff) == 0xffff)
 	{
@@ -290,12 +285,12 @@ WRITE16_MEMBER( sega_32x_device::m68k_dram_w )
 	}
 }
 
-READ16_MEMBER( sega_32x_device::m68k_dram_overwrite_r )
+uint16_t sega_32x_device::m68k_dram_overwrite_r(offs_t offset)
 {
 	return m_32x_access_dram[offset];
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_dram_overwrite_w )
+void sega_32x_device::m68k_dram_overwrite_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	//COMBINE_DATA(&m_32x_access_dram[offset+0x10000]);
 
@@ -340,7 +335,7 @@ WRITE16_MEMBER( sega_32x_device::m68k_dram_overwrite_w )
 
 
 
-READ16_MEMBER( sega_32x_device::m68k_a15106_r )
+uint16_t sega_32x_device::m68k_a15106_r()
 {
 	uint16_t retval;
 
@@ -351,7 +346,7 @@ READ16_MEMBER( sega_32x_device::m68k_a15106_r )
 	return retval;
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_a15106_w )
+void sega_32x_device::m68k_a15106_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -400,7 +395,7 @@ WRITE16_MEMBER( sega_32x_device::m68k_a15106_w )
 
 
 
-READ16_MEMBER( sega_32x_device::dreq_common_r )
+uint16_t sega_32x_device::dreq_common_r(address_space &space, offs_t offset)
 {
 	address_space& _68kspace = m_main_cpu->space(AS_PROGRAM);
 
@@ -471,7 +466,7 @@ READ16_MEMBER( sega_32x_device::dreq_common_r )
 	return 0x0000;
 }
 
-WRITE16_MEMBER( sega_32x_device::dreq_common_w )
+void sega_32x_device::dreq_common_w(address_space &space, offs_t offset, uint16_t data)
 {
 	address_space& _68kspace = m_main_cpu->space(AS_PROGRAM);
 
@@ -589,12 +584,12 @@ WRITE16_MEMBER( sega_32x_device::dreq_common_w )
 
 
 
-READ16_MEMBER( sega_32x_device::m68k_a1511a_r )
+uint16_t sega_32x_device::m68k_a1511a_r()
 {
 	return m_sega_tv;
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_a1511a_w )
+void sega_32x_device::m68k_a1511a_w(uint16_t data)
 {
 	m_sega_tv = data & 1;
 
@@ -607,18 +602,18 @@ WRITE16_MEMBER( sega_32x_device::m68k_a1511a_w )
 
 
 
-READ16_MEMBER( sega_32x_device::m68k_m_hint_vector_r )
+uint16_t sega_32x_device::m68k_m_hint_vector_r(offs_t offset)
 {
 	return m_hint_vector[offset];
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_m_hint_vector_w )
+void sega_32x_device::m68k_m_hint_vector_w(offs_t offset, uint16_t data)
 {
 	m_hint_vector[offset] = data;
 }
 
 // returns MARS, the system ID of the 32x
-READ16_MEMBER( sega_32x_device::m68k_MARS_r )
+uint16_t sega_32x_device::m68k_MARS_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -640,12 +635,12 @@ READ16_MEMBER( sega_32x_device::m68k_MARS_r )
 
 
 
-READ16_MEMBER( sega_32x_device::m68k_a15100_r )
+uint16_t sega_32x_device::m68k_a15100_r()
 {
 	return (m_32x_access_auth<<15) | 0x0080;
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_a15100_w )
+void sega_32x_device::m68k_a15100_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -662,27 +657,31 @@ WRITE16_MEMBER( sega_32x_device::m68k_a15100_w )
 			m_32x_adapter_enabled = 1;
 			space.install_rom(0x0880000, 0x08fffff, machine().root_device().memregion("gamecart")->base()); // 'fixed' 512kb rom bank
 
-			space.install_read_bank(0x0900000, 0x09fffff, "bank12"); // 'bankable' 1024kb rom bank
-			machine().root_device().membank("bank12")->set_base(machine().root_device().memregion("gamecart")->base()+((m_32x_68k_a15104_reg&0x3)*0x100000) );
+			space.install_read_bank(0x0900000, 0x09fffff, m_rombank); // 'bankable' 1024kb rom bank
+			m_rombank->set_base(machine().root_device().memregion("gamecart")->base()+((m_32x_68k_a15104_reg&0x3)*0x100000) );
 
 			space.install_rom(0x0000000, 0x03fffff, machine().root_device().memregion("32x_68k_bios")->base());
 
 			/* VDP area */
-			space.install_readwrite_handler(0x0a15180, 0x0a1518b, read16_delegate(FUNC(sega_32x_device::common_vdp_regs_r), this),     write16_delegate(FUNC(sega_32x_device::common_vdp_regs_w),this)); // common / shared VDP regs
-			space.install_readwrite_handler(0x0a15200, 0x0a153ff, read16_delegate(FUNC(sega_32x_device::m68k_palette_r), this),         write16_delegate(FUNC(sega_32x_device::m68k_palette_w),this)); // access to 'palette' xRRRRRGGGGGBBBBB
-			space.install_readwrite_handler(0x0840000, 0x085ffff, read16_delegate(FUNC(sega_32x_device::m68k_dram_r), this),            write16_delegate(FUNC(sega_32x_device::m68k_dram_w),this)); // access to 'display ram' (framebuffer)
-			space.install_readwrite_handler(0x0860000, 0x087ffff, read16_delegate(FUNC(sega_32x_device::m68k_dram_overwrite_r),this),   write16_delegate(FUNC(sega_32x_device::m68k_dram_overwrite_w),this)); // access to 'display ram' (framebuffer)
+			space.install_read_handler(0x0a15180, 0x0a1518b, read16sm_delegate(*this, FUNC(sega_32x_device::common_vdp_regs_r))); // common / shared VDP regs
+			space.install_write_handler(0x0a15180, 0x0a1518b, write16_delegate(*this, FUNC(sega_32x_device::common_vdp_regs_w))); // common / shared VDP regs
+			space.install_read_handler(0x0a15200, 0x0a153ff, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_palette_r))); // access to 'palette' xRRRRRGGGGGBBBBB
+			space.install_write_handler(0x0a15200, 0x0a153ff, write16s_delegate(*this, FUNC(sega_32x_device::m68k_palette_w))); // access to 'palette' xRRRRRGGGGGBBBBB
+			space.install_read_handler(0x0840000, 0x085ffff, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_dram_r))); // access to 'display ram' (framebuffer)
+			space.install_write_handler(0x0840000, 0x085ffff, write16s_delegate(*this, FUNC(sega_32x_device::m68k_dram_w))); // access to 'display ram' (framebuffer)
+			space.install_read_handler(0x0860000, 0x087ffff, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_dram_overwrite_r))); // access to 'display ram' (framebuffer)
+			space.install_write_handler(0x0860000, 0x087ffff, write16s_delegate(*this, FUNC(sega_32x_device::m68k_dram_overwrite_w))); // access to 'display ram' (framebuffer)
 
 
 
-			m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0x000070, 0x000073, read16_delegate(FUNC(sega_32x_device::m68k_m_hint_vector_r),this), write16_delegate(FUNC(sega_32x_device::m68k_m_hint_vector_w),this)); // h interrupt vector
+			m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0x000070, 0x000073, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_hint_vector_r)), write16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_hint_vector_w))); // h interrupt vector
 		}
 		else
 		{
 			m_32x_adapter_enabled = 0;
 
 			space.install_rom(0x0000000, 0x03fffff, machine().root_device().memregion("gamecart")->base());
-			m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0x000070, 0x000073, read16_delegate(FUNC(sega_32x_device::m68k_m_hint_vector_r),this), write16_delegate(FUNC(sega_32x_device::m68k_m_hint_vector_w),this)); // h interrupt vector
+			m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0x000070, 0x000073, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_hint_vector_r)), write16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_hint_vector_w))); // h interrupt vector
 		}
 	}
 
@@ -700,13 +699,13 @@ WRITE16_MEMBER( sega_32x_device::m68k_a15100_w )
 
 
 
-READ16_MEMBER( sega_32x_device::m68k_a15102_r )
+uint16_t sega_32x_device::m68k_a15102_r()
 {
 	//printf("_32x_68k_a15102_r\n");
 	return m_32x_68k_a15102_reg;
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_a15102_w )
+void sega_32x_device::m68k_a15102_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -732,12 +731,12 @@ WRITE16_MEMBER( sega_32x_device::m68k_a15102_w )
 /**********************************************************************************************/
 
 
-READ16_MEMBER( sega_32x_device::m68k_a15104_r )
+uint16_t sega_32x_device::m68k_a15104_r()
 {
 	return m_32x_68k_a15104_reg;
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_a15104_w )
+void sega_32x_device::m68k_a15104_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -749,7 +748,7 @@ WRITE16_MEMBER( sega_32x_device::m68k_a15104_w )
 		m_32x_68k_a15104_reg = (m_32x_68k_a15104_reg & 0x00ff) | (data & 0xff00);
 	}
 
-	machine().root_device().membank("bank12")->set_base(machine().root_device().memregion("gamecart")->base()+((m_32x_68k_a15104_reg&0x3)*0x100000) );
+	m_rombank->set_base(machine().root_device().memregion("gamecart")->base()+((m_32x_68k_a15104_reg&0x3)*0x100000) );
 }
 
 /**********************************************************************************************/
@@ -762,14 +761,14 @@ WRITE16_MEMBER( sega_32x_device::m68k_a15104_w )
 /**********************************************************************************************/
 
 // reads
-READ16_MEMBER( sega_32x_device::m68k_m_commsram_r )
+uint16_t sega_32x_device::m68k_m_commsram_r(offs_t offset)
 {
 	if (_32X_COMMS_PORT_SYNC) machine().scheduler().synchronize();
 	return m_commsram[offset];
 }
 
 // writes
-WRITE16_MEMBER( sega_32x_device::m68k_m_commsram_w )
+void sega_32x_device::m68k_m_commsram_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_commsram[offset]);
 	if (_32X_COMMS_PORT_SYNC) machine().scheduler().synchronize();
@@ -826,6 +825,7 @@ TIMER_CALLBACK_MEMBER(sega_32x_device::handle_pwm_callback)
 {
 	if (m_lch_size > 0)
 	{
+		m_stream->update();
 		switch(m_pwm_ctrl & 3)
 		{
 			case 0: /*Speaker OFF*/ break;
@@ -841,6 +841,7 @@ TIMER_CALLBACK_MEMBER(sega_32x_device::handle_pwm_callback)
 
 	if (m_rch_size > 0)
 	{
+		m_stream->update();
 		switch((m_pwm_ctrl & 0xc) >> 2)
 		{
 			case 0: /*Speaker OFF*/ break;
@@ -866,7 +867,7 @@ TIMER_CALLBACK_MEMBER(sega_32x_device::handle_pwm_callback)
 	m_32x_pwm_timer->adjust(attotime::from_hz(clock() / (m_pwm_cycle - 1)));
 }
 
-READ16_MEMBER( sega_32x_device::pwm_r )
+uint16_t sega_32x_device::pwm_r(offs_t offset)
 {
 	switch(offset)
 	{
@@ -881,7 +882,7 @@ READ16_MEMBER( sega_32x_device::pwm_r )
 	return 0xffff;
 }
 
-WRITE16_MEMBER( sega_32x_device::pwm_w )
+void sega_32x_device::pwm_w(offs_t offset, uint16_t data)
 {
 	switch(offset)
 	{
@@ -926,12 +927,18 @@ WRITE16_MEMBER( sega_32x_device::pwm_w )
 	}
 }
 
-WRITE16_MEMBER( sega_32x_device::m68k_pwm_w )
+void sega_32x_device::m68k_pwm_w(offs_t offset, uint16_t data)
 {
 	if(offset == 0/2)
-		pwm_w(space,offset,(data & 0x7f) | (m_pwm_ctrl & 0xff80),mem_mask);
+		pwm_w(offset,(data & 0x7f) | (m_pwm_ctrl & 0xff80));
 	else
-		pwm_w(space,offset,data,mem_mask);
+		pwm_w(offset,data);
+}
+
+void sega_32x_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
+{
+	outputs[0] = inputs[0];
+	outputs[1] = inputs[1];
 }
 
 /**********************************************************************************************/
@@ -942,24 +949,28 @@ WRITE16_MEMBER( sega_32x_device::m68k_pwm_w )
 
 uint16_t sega_32x_device::get_hposition(void)
 {
-	attotime time_elapsed_since_megadriv_scanline_timer;
-	uint16_t value4;
-
-	time_elapsed_since_megadriv_scanline_timer = m_scan_timer->time_elapsed();
-
-	if (time_elapsed_since_megadriv_scanline_timer.attoseconds() < (ATTOSECONDS_PER_SECOND/m_framerate /m_total_scanlines))
+	if (get_framerate() > 0.0)
 	{
-		value4 = (uint16_t)(MAX_HPOSITION*((double)(time_elapsed_since_megadriv_scanline_timer.attoseconds()) / (double)(ATTOSECONDS_PER_SECOND/m_framerate /m_total_scanlines)));
-	}
-	else /* in some cases (probably due to rounding errors) we get some stupid results (the odd huge value where the time elapsed is much higher than the scanline time??!).. hopefully by clamping the result to the maximum we limit errors */
-	{
-		value4 = MAX_HPOSITION;
-	}
+		attotime time_elapsed_since_megadriv_scanline_timer;
+		uint16_t value4;
 
-	return value4;
+		time_elapsed_since_megadriv_scanline_timer = m_scan_timer->time_elapsed();
+
+		if (time_elapsed_since_megadriv_scanline_timer.attoseconds() < (ATTOSECONDS_PER_SECOND/get_framerate() /double(m_total_scanlines)))
+		{
+			value4 = (uint16_t)(MAX_HPOSITION*((double)(time_elapsed_since_megadriv_scanline_timer.attoseconds()) / (double)(ATTOSECONDS_PER_SECOND/get_framerate() /double(m_total_scanlines))));
+		}
+		else /* in some cases (probably due to rounding errors) we get some stupid results (the odd huge value where the time elapsed is much higher than the scanline time??!).. hopefully by clamping the result to the maximum we limit errors */
+		{
+			value4 = MAX_HPOSITION;
+		}
+
+		return value4;
+	}
+	return MAX_HPOSITION;
 }
 
-READ16_MEMBER( sega_32x_device::common_vdp_regs_r )
+uint16_t sega_32x_device::common_vdp_regs_r(offs_t offset)
 {
 	// what happens if the z80 accesses it, what authorization do we use?
 
@@ -1018,7 +1029,7 @@ READ16_MEMBER( sega_32x_device::common_vdp_regs_r )
 void sega_32x_device::check_framebuffer_swap(bool enabled)
 {
 	// this logic should be correct, but makes things worse?
-	// enabled = (genesis_scanline_counter >= megadrive_irq6_scanline) from video/315_5313.c
+	// enabled = (genesis_scanline_counter >= megadrive_irq6_scanline) from video/315_5313.cpp
 	//if (enabled)
 	{
 		m_32x_a1518a_reg = m_32x_fb_swap & 1;
@@ -1037,7 +1048,7 @@ void sega_32x_device::check_framebuffer_swap(bool enabled)
 }
 
 
-WRITE16_MEMBER( sega_32x_device::common_vdp_regs_w )
+void sega_32x_device::common_vdp_regs_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	// what happens if the z80 accesses it, what authorization do we use? which address space do we get?? the z80 *can* write here and to the framebuffer via the window
 
@@ -1166,7 +1177,7 @@ P = PWM Interrupt Mask (0 masked, 1 allowed)
 /**********************************************************************************************/
 
 /* MASTER */
-READ16_MEMBER( sega_32x_device::master_4000_r )
+uint16_t sega_32x_device::master_4000_r()
 {
 	uint16_t retvalue = 0x0200;
 	retvalue |= m_32x_access_auth << 15;
@@ -1180,7 +1191,7 @@ READ16_MEMBER( sega_32x_device::master_4000_r )
 	return retvalue;
 }
 
-WRITE16_MEMBER( sega_32x_device::master_4000_w )
+void sega_32x_device::master_4000_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -1204,7 +1215,7 @@ WRITE16_MEMBER( sega_32x_device::master_4000_w )
 
 /* SLAVE */
 
-READ16_MEMBER( sega_32x_device::slave_4000_r )
+uint16_t sega_32x_device::slave_4000_r()
 {
 	uint16_t retvalue = 0x0200;
 	retvalue |= m_32x_access_auth << 15;
@@ -1218,7 +1229,7 @@ READ16_MEMBER( sega_32x_device::slave_4000_r )
 }
 
 
-WRITE16_MEMBER( sega_32x_device::slave_4000_w )
+void sega_32x_device::slave_4000_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -1246,13 +1257,13 @@ WRITE16_MEMBER( sega_32x_device::slave_4000_w )
 // Shouldn't be used
 /**********************************************************************************************/
 
-READ16_MEMBER( sega_32x_device::common_4002_r )
+uint16_t sega_32x_device::common_4002_r()
 {
 	printf("reading 4002!\n");
 	return 0x0000;
 }
 
-WRITE16_MEMBER( sega_32x_device::common_4002_w )
+void sega_32x_device::common_4002_w(uint16_t data)
 {
 	printf("write 4002!\n");
 }
@@ -1263,12 +1274,12 @@ WRITE16_MEMBER( sega_32x_device::common_4002_w )
 // H Count Register (H Interrupt)
 // 0 = every line
 /**********************************************************************************************/
-READ16_MEMBER( sega_32x_device::common_4004_r )
+uint16_t sega_32x_device::common_4004_r()
 {
 	return m_32x_hcount_reg;
 }
 
-WRITE16_MEMBER( sega_32x_device::common_4004_w )
+void sega_32x_device::common_4004_w(uint16_t data)
 {
 	m_32x_hcount_reg = data & 0xff;
 }
@@ -1279,13 +1290,13 @@ WRITE16_MEMBER( sega_32x_device::common_4004_w )
 // DReq Control Register
 /**********************************************************************************************/
 
-READ16_MEMBER( sega_32x_device::common_4006_r )
+uint16_t sega_32x_device::common_4006_r()
 {
 	//printf("DREQ read!\n"); // tempo reads it, shut up for now
-	return m68k_a15106_r(space,offset,mem_mask);
+	return m68k_a15106_r();
 }
 
-WRITE16_MEMBER( sega_32x_device::common_4006_w )
+void sega_32x_device::common_4006_w(uint16_t data)
 {
 	printf("DREQ write!\n"); //register is read only on SH-2 side
 }
@@ -1296,24 +1307,24 @@ WRITE16_MEMBER( sega_32x_device::common_4006_w )
 // VRES (md reset button interrupt) clear
 /**********************************************************************************************/
 
-WRITE16_MEMBER( sega_32x_device::master_4014_w ){ m_master_cpu->set_input_line(SH2_VRES_IRQ_LEVEL,CLEAR_LINE);}
-WRITE16_MEMBER( sega_32x_device::slave_4014_w ) { m_slave_cpu->set_input_line(SH2_VRES_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::master_4014_w(uint16_t data){ m_master_cpu->set_input_line(SH2_VRES_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::slave_4014_w(uint16_t data) { m_slave_cpu->set_input_line(SH2_VRES_IRQ_LEVEL,CLEAR_LINE);}
 
 /**********************************************************************************************/
 // SH2 side 4016
 // VINT (vertical interrupt) clear
 /**********************************************************************************************/
 
-WRITE16_MEMBER( sega_32x_device::master_4016_w ){ m_sh2_master_vint_pending = 0; check_irqs(); }
-WRITE16_MEMBER( sega_32x_device::slave_4016_w ) { m_sh2_slave_vint_pending = 0; check_irqs(); }
+void sega_32x_device::master_4016_w(uint16_t data){ m_sh2_master_vint_pending = 0; check_irqs(); }
+void sega_32x_device::slave_4016_w(uint16_t data) { m_sh2_slave_vint_pending = 0; check_irqs(); }
 
 /**********************************************************************************************/
 // SH2 side 4018
 // HINT (horizontal interrupt) clear
 /**********************************************************************************************/
 
-WRITE16_MEMBER( sega_32x_device::master_4018_w ){ m_master_cpu->set_input_line(SH2_HINT_IRQ_LEVEL,CLEAR_LINE);}
-WRITE16_MEMBER( sega_32x_device::slave_4018_w ) { m_slave_cpu->set_input_line(SH2_HINT_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::master_4018_w(uint16_t data){ m_master_cpu->set_input_line(SH2_HINT_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::slave_4018_w(uint16_t data) { m_slave_cpu->set_input_line(SH2_HINT_IRQ_LEVEL,CLEAR_LINE);}
 
 /**********************************************************************************************/
 // SH2 side 401A
@@ -1321,28 +1332,28 @@ WRITE16_MEMBER( sega_32x_device::slave_4018_w ) { m_slave_cpu->set_input_line(SH
 // Note: flag cleared here is a guess, according to After Burner behaviour
 /**********************************************************************************************/
 
-WRITE16_MEMBER( sega_32x_device::master_401a_w ){ m_32x_68k_a15102_reg &= ~1; m_master_cpu->set_input_line(SH2_CINT_IRQ_LEVEL,CLEAR_LINE);}
-WRITE16_MEMBER( sega_32x_device::slave_401a_w ) { m_32x_68k_a15102_reg &= ~2; m_slave_cpu->set_input_line(SH2_CINT_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::master_401a_w(uint16_t data){ m_32x_68k_a15102_reg &= ~1; m_master_cpu->set_input_line(SH2_CINT_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::slave_401a_w(uint16_t data) { m_32x_68k_a15102_reg &= ~2; m_slave_cpu->set_input_line(SH2_CINT_IRQ_LEVEL,CLEAR_LINE);}
 
 /**********************************************************************************************/
 // SH2 side 401C
 // PINT (PWM timer interrupt) clear
 /**********************************************************************************************/
 
-WRITE16_MEMBER( sega_32x_device::master_401c_w ){ m_master_cpu->set_input_line(SH2_PINT_IRQ_LEVEL,CLEAR_LINE);}
-WRITE16_MEMBER( sega_32x_device::slave_401c_w ) { m_slave_cpu->set_input_line(SH2_PINT_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::master_401c_w(uint16_t data){ m_master_cpu->set_input_line(SH2_PINT_IRQ_LEVEL,CLEAR_LINE);}
+void sega_32x_device::slave_401c_w(uint16_t data) { m_slave_cpu->set_input_line(SH2_PINT_IRQ_LEVEL,CLEAR_LINE);}
 
 /**********************************************************************************************/
 // SH2 side 401E
 // ?? unknown / unused
 /**********************************************************************************************/
 
-WRITE16_MEMBER( sega_32x_device::master_401e_w )
+void sega_32x_device::master_401e_w(uint16_t data)
 {
 	printf("master_401e_w\n");
 }
 
-WRITE16_MEMBER( sega_32x_device::slave_401e_w )
+void sega_32x_device::slave_401e_w(uint16_t data)
 {
 	printf("slave_401e_w\n");
 }
@@ -1665,7 +1676,7 @@ const rom_entry *sega_32x_device::device_rom_region() const
 // some games appear to dislike 'perfect' levels of interleave, probably due to
 // non-emulated cache, ram waitstates and other issues?
 #define _32X_INTERLEAVE_LEVEL \
-	config.m_minimum_quantum = attotime::from_hz(1800000);
+	config.set_maximum_quantum(attotime::from_hz(1800000));
 
 void sega_32x_device::device_add_mconfig(machine_config &config)
 {
@@ -1685,12 +1696,6 @@ void sega_32x_device::device_add_mconfig(machine_config &config)
 	m_master_cpu->set_dma_fifo_data_available_callback(FUNC(sega_32x_device::_32x_fifo_available_callback));
 #endif
 
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.add_route(0, "ldac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "ldac", -1.0, DAC_VREF_NEG_INPUT);
-	vref.add_route(0, "rdac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "rdac", -1.0, DAC_VREF_NEG_INPUT);
-
 	_32X_INTERLEAVE_LEVEL
 }
 
@@ -1701,8 +1706,8 @@ void sega_32x_ntsc_device::device_add_mconfig(machine_config &config)
 	m_master_cpu->set_addrmap(AS_PROGRAM, &sega_32x_ntsc_device::sh2_main_map);
 	m_slave_cpu->set_addrmap(AS_PROGRAM, &sega_32x_ntsc_device::sh2_slave_map);
 
-	DAC_12BIT_R2R(config, m_ldac, 0).add_route(ALL_OUTPUTS, ":lspeaker", 0.4); // unknown DAC
-	DAC_12BIT_R2R(config, m_rdac, 0).add_route(ALL_OUTPUTS, ":rspeaker", 0.4); // unknown DAC
+	DAC_12BIT_R2R(config, m_ldac, 0).add_route(ALL_OUTPUTS, *this, 0.4, 0); // unknown DAC
+	DAC_12BIT_R2R(config, m_rdac, 0).add_route(ALL_OUTPUTS, *this, 0.4, 1); // unknown DAC
 }
 
 void sega_32x_pal_device::device_add_mconfig(machine_config &config)
@@ -1712,8 +1717,8 @@ void sega_32x_pal_device::device_add_mconfig(machine_config &config)
 	m_master_cpu->set_addrmap(AS_PROGRAM, &sega_32x_pal_device::sh2_main_map);
 	m_slave_cpu->set_addrmap(AS_PROGRAM, &sega_32x_pal_device::sh2_slave_map);
 
-	DAC_16BIT_R2R(config, m_ldac, 0).add_route(ALL_OUTPUTS, ":lspeaker", 0.4); // unknown DAC
-	DAC_16BIT_R2R(config, m_rdac, 0).add_route(ALL_OUTPUTS, ":rspeaker", 0.4); // unknown DAC
+	DAC_16BIT_R2R(config, m_ldac, 0).add_route(ALL_OUTPUTS, *this, 0.4, 0); // unknown DAC
+	DAC_16BIT_R2R(config, m_rdac, 0).add_route(ALL_OUTPUTS, *this, 0.4, 1); // unknown DAC
 }
 
 
@@ -1728,6 +1733,7 @@ void sega_32x_device::device_start()
 		set_pen_color(i, pal5bit(r), pal5bit(g), pal5bit(b));
 	}
 
+	m_stream = stream_alloc(2, 2, 48000 * 4);
 	m_32x_pwm_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(sega_32x_device::handle_pwm_callback), this));
 
 	m_32x_dram0 = std::make_unique<uint16_t[]>(0x40000/2);
@@ -1798,23 +1804,28 @@ void sega_32x_device::device_reset()
 	if (m_32x_adapter_enabled == 0)
 	{
 		m_main_cpu->space(AS_PROGRAM).install_rom(0x0000000, 0x03fffff, machine().root_device().memregion(":gamecart")->base());
-		m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0x000070, 0x000073, read16_delegate(FUNC(sega_32x_device::m68k_m_hint_vector_r),this), write16_delegate(FUNC(sega_32x_device::m68k_m_hint_vector_w),this)); // h interrupt vector
+		m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0x000070, 0x000073, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_hint_vector_r)), write16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_hint_vector_w))); // h interrupt vector
 	};
 
 
 	m_a15100_reg = 0x0000;
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15100, 0xa15101, read16_delegate(FUNC(sega_32x_device::m68k_a15100_r),this), write16_delegate(FUNC(sega_32x_device::m68k_a15100_w),this)); // framebuffer control regs
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15102, 0xa15103, read16_delegate(FUNC(sega_32x_device::m68k_a15102_r),this), write16_delegate(FUNC(sega_32x_device::m68k_a15102_w),this)); // send irq to sh2
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15104, 0xa15105, read16_delegate(FUNC(sega_32x_device::m68k_a15104_r),this), write16_delegate(FUNC(sega_32x_device::m68k_a15104_w),this)); // 68k BANK rom set
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15106, 0xa15107, read16_delegate(FUNC(sega_32x_device::m68k_a15106_r),this), write16_delegate(FUNC(sega_32x_device::m68k_a15106_w),this)); // dreq stuff
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15108, 0xa15113, read16_delegate(FUNC(sega_32x_device::dreq_common_r),this), write16_delegate(FUNC(sega_32x_device::dreq_common_w),this)); // dreq src / dst / length /fifo
+	m_main_cpu->space(AS_PROGRAM).install_read_handler(0xa15100, 0xa15101, read16smo_delegate(*this, FUNC(sega_32x_device::m68k_a15100_r))); // framebuffer control regs
+	m_main_cpu->space(AS_PROGRAM).install_write_handler(0xa15100, 0xa15101, write16_delegate(*this, FUNC(sega_32x_device::m68k_a15100_w))); // framebuffer control regs
+	m_main_cpu->space(AS_PROGRAM).install_read_handler(0xa15102, 0xa15103, read16smo_delegate(*this, FUNC(sega_32x_device::m68k_a15102_r))); // send irq to sh2
+	m_main_cpu->space(AS_PROGRAM).install_write_handler(0xa15102, 0xa15103, write16s_delegate(*this, FUNC(sega_32x_device::m68k_a15102_w))); // send irq to sh2
+	m_main_cpu->space(AS_PROGRAM).install_read_handler(0xa15104, 0xa15105, read16smo_delegate(*this, FUNC(sega_32x_device::m68k_a15104_r))); // 68k BANK rom set
+	m_main_cpu->space(AS_PROGRAM).install_write_handler(0xa15104, 0xa15105, write16s_delegate(*this, FUNC(sega_32x_device::m68k_a15104_w))); // 68k BANK rom set
+	m_main_cpu->space(AS_PROGRAM).install_read_handler(0xa15106, 0xa15107, read16smo_delegate(*this, FUNC(sega_32x_device::m68k_a15106_r))); // dreq stuff
+	m_main_cpu->space(AS_PROGRAM).install_write_handler(0xa15106, 0xa15107, write16_delegate(*this, FUNC(sega_32x_device::m68k_a15106_w))); // dreq stuff
+	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15108, 0xa15113, read16m_delegate(*this, FUNC(sega_32x_device::dreq_common_r)), write16m_delegate(*this, FUNC(sega_32x_device::dreq_common_w))); // dreq src / dst / length /fifo
 
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa1511a, 0xa1511b, read16_delegate(FUNC(sega_32x_device::m68k_a1511a_r),this), write16_delegate(FUNC(sega_32x_device::m68k_a1511a_w),this)); // SEGA TV
+	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa1511a, 0xa1511b, read16smo_delegate(*this, FUNC(sega_32x_device::m68k_a1511a_r)), write16smo_delegate(*this, FUNC(sega_32x_device::m68k_a1511a_w))); // SEGA TV
 
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15120, 0xa1512f, read16_delegate(FUNC(sega_32x_device::m68k_m_commsram_r),this), write16_delegate(FUNC(sega_32x_device::m68k_m_commsram_w),this)); // comms reg 0-7
-	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15130, 0xa1513f, read16_delegate(FUNC(sega_32x_device::pwm_r),this), write16_delegate(FUNC(sega_32x_device::m68k_pwm_w),this));
+	m_main_cpu->space(AS_PROGRAM).install_read_handler(0xa15120, 0xa1512f, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_m_commsram_r))); // comms reg 0-7
+	m_main_cpu->space(AS_PROGRAM).install_write_handler(0xa15120, 0xa1512f, write16s_delegate(*this, FUNC(sega_32x_device::m68k_m_commsram_w))); // comms reg 0-7
+	m_main_cpu->space(AS_PROGRAM).install_readwrite_handler(0xa15130, 0xa1513f, read16sm_delegate(*this, FUNC(sega_32x_device::pwm_r)), write16sm_delegate(*this, FUNC(sega_32x_device::m68k_pwm_w)));
 
-	m_main_cpu->space(AS_PROGRAM).install_read_handler(0x0a130ec, 0x0a130ef, read16_delegate(FUNC(sega_32x_device::m68k_MARS_r),this)); // system ID
+	m_main_cpu->space(AS_PROGRAM).install_read_handler(0x0a130ec, 0x0a130ef, read16sm_delegate(*this, FUNC(sega_32x_device::m68k_MARS_r))); // system ID
 
 
 
@@ -1833,8 +1844,8 @@ void sega_32x_device::device_reset()
 
 
 // install these now, otherwise we'll get the following (incorrect) warnings on startup..
-//   SH-2 device ':sega32x:32x_slave_sh2': program space memory map entry 0-3FFF references non-existant region ':slave'
-//   SH-2 device ':sega32x:32x_master_sh2': program space memory map entry 0-3FFF references non-existant region ':master'
+//   SH-2 device ':sega32x:32x_slave_sh2': program space memory map entry 0-3FFF references non-existent region ':slave'
+//   SH-2 device ':sega32x:32x_master_sh2': program space memory map entry 0-3FFF references non-existent region ':master'
 	uint8_t* masterbios = (uint8_t*)machine().root_device().memregion(":master")->base();
 	uint8_t* slavebios = (uint8_t*)machine().root_device().memregion(":slave")->base();
 	membank("masterbios")->configure_entries(0, 1, masterbios, 0x4000);

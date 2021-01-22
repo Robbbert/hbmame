@@ -63,7 +63,7 @@ void cybiko_state::cybikov1_mem(address_map &map)
 {
 	map(0x000000, 0x007fff).rom();
 	map(0x600000, 0x600001).rw(FUNC(cybiko_state::cybiko_lcd_r), FUNC(cybiko_state::cybiko_lcd_w));
-//  AM_RANGE( 0xe00000, 0xe07fff ) AM_READ( cybikov1_key_r )
+//  map(0xe00000, 0xe07fff).r(FUNC(cybiko_state::cybikov1_key_r));
 }
 
 /*
@@ -118,12 +118,12 @@ void cybiko_state::cybikoxt_mem(address_map &map)
 	map(0xe00000, 0xefffff).r(FUNC(cybiko_state::cybikoxt_key_r));
 }
 
-WRITE16_MEMBER(cybiko_state::serflash_w)
+void cybiko_state::serflash_w(uint16_t data)
 {
 	m_flash1->cs_w ((data & 0x10) ? 0 : 1);
 }
 
-READ16_MEMBER(cybiko_state::clock_r)
+uint16_t cybiko_state::clock_r()
 {
 	if (m_rtc->sda_r())
 	{
@@ -133,13 +133,13 @@ READ16_MEMBER(cybiko_state::clock_r)
 	return 0x04;
 }
 
-WRITE16_MEMBER(cybiko_state::clock_w)
+void cybiko_state::clock_w(uint16_t data)
 {
 	m_rtc->scl_w((data & 0x02) ? 1 : 0);
 	m_rtc->sda_w((data & 0x01) ? 0 : 1);
 }
 
-READ16_MEMBER(cybiko_state::xtclock_r)
+uint16_t cybiko_state::xtclock_r()
 {
 	if (m_rtc->sda_r())
 	{
@@ -149,30 +149,30 @@ READ16_MEMBER(cybiko_state::xtclock_r)
 	return 0;
 }
 
-WRITE16_MEMBER(cybiko_state::xtclock_w)
+void cybiko_state::xtclock_w(uint16_t data)
 {
 	m_rtc->scl_w((data & 0x02) ? 1 : 0);
 	m_rtc->sda_w((data & 0x40) ? 0 : 1);
 }
 
-READ16_MEMBER(cybiko_state::xtpower_r)
+uint16_t cybiko_state::xtpower_r()
 {
 	// bit 7 = on/off button
 	// bit 6 = battery charged if "1"
 	return 0xc0;
 }
 
-READ16_MEMBER(cybiko_state::adc1_r)
+uint16_t cybiko_state::adc1_r()
 {
 	return 0x01;
 }
 
-READ16_MEMBER(cybiko_state::adc2_r)
+uint16_t cybiko_state::adc2_r()
 {
 	return 0x00;
 }
 
-READ16_MEMBER(cybiko_state::port0_r)
+uint16_t cybiko_state::port0_r()
 {
 	// bit 3 = on/off button
 	return 0x08;
@@ -426,7 +426,7 @@ void cybiko_state::cybikov1_base(machine_config &config)
 	m_debug_serial->set_option_device_input_defaults("pty", DEVICE_INPUT_DEFAULTS_NAME(debug_serial));
 
 	// quickload
-	QUICKLOAD(config, "quickload", "bin,nv").set_load_callback(FUNC(cybiko_state::quickload_cybiko), this);
+	QUICKLOAD(config, "quickload", "bin,nv").set_load_callback(FUNC(cybiko_state::quickload_cybiko));
 }
 
 void cybiko_state::cybikov1_flash(machine_config &config)
@@ -497,7 +497,7 @@ void cybiko_state::cybikoxt(machine_config &config)
 	subdevice<h8_sci_device>("maincpu:sci2")->tx_handler().set("debug_serial", FUNC(rs232_port_device::write_txd));
 
 	// quickload
-	QUICKLOAD(config.replace(), "quickload", "bin,nb").set_load_callback(FUNC(cybiko_state::quickload_cybikoxt), this);
+	QUICKLOAD(config.replace(), "quickload", "bin,nv").set_load_callback(FUNC(cybiko_state::quickload_cybikoxt));
 }
 
 /////////

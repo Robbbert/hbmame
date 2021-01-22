@@ -7,7 +7,6 @@
 
  ***********************************************************************************************************/
 
-
 #include "emu.h"
 #include "slot.h"
 
@@ -27,7 +26,7 @@ DEFINE_DEVICE_TYPE(H21_CART_SLOT,    h21_cart_slot_device,    "h21_cart_slot",  
 //-------------------------------------------------
 
 device_vc4000_cart_interface::device_vc4000_cart_interface(const machine_config &mconfig, device_t &device)
-	: device_slot_card_interface(mconfig, device)
+	: device_interface(device, "vc4000cart")
 	, m_rom(nullptr)
 	, m_rom_size(0)
 {
@@ -86,7 +85,7 @@ vc4000_cart_slot_device::vc4000_cart_slot_device(
 		uint32_t clock)
 	: device_t(mconfig, type, tag, owner, clock)
 	, device_image_interface(mconfig, *this)
-	, device_slot_interface(mconfig, *this)
+	, device_single_card_slot_interface<device_vc4000_cart_interface>(mconfig, *this)
 	, m_type(VC4000_STD)
 	, m_cart(nullptr)
 {
@@ -107,7 +106,7 @@ vc4000_cart_slot_device::~vc4000_cart_slot_device()
 
 void vc4000_cart_slot_device::device_start()
 {
-	m_cart = dynamic_cast<device_vc4000_cart_interface *>(get_card_device());
+	m_cart = get_card_device();
 }
 
 //-------------------------------------------------
@@ -146,7 +145,7 @@ static int vc4000_get_pcb_id(const char *slot)
 {
 	for (auto & elem : slot_list)
 	{
-		if (!core_stricmp(elem.slot_option, slot))
+		if (!strcmp(elem.slot_option, slot))
 			return elem.pcb_id;
 	}
 

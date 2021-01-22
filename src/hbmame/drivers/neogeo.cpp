@@ -482,28 +482,28 @@
 
 void neogeo_state::adjust_display_position_interrupt_timer()
 {
-	attotime period = attotime::from_ticks((uint64_t)m_display_counter + 1, NEOGEO_PIXEL_CLOCK);
+	attotime period = attotime::from_ticks((u64)m_display_counter + 1, NEOGEO_PIXEL_CLOCK);
 	if (LOG_VIDEO_SYSTEM) logerror("adjust_display_position_interrupt_timer  current y: %02x  current x: %02x   target y: %x  target x: %x\n", m_screen->vpos(), m_screen->hpos(), (m_display_counter + 1) / NEOGEO_HTOTAL, (m_display_counter + 1) % NEOGEO_HTOTAL);
 
 	m_display_position_interrupt_timer->adjust(period);
 }
 
 
-void neogeo_state::neogeo_set_display_position_interrupt_control( uint16_t data )
+void neogeo_state::neogeo_set_display_position_interrupt_control( u16  data )
 {
 	m_display_position_interrupt_control = data;
 }
 
 
-void neogeo_state::neogeo_set_display_counter_msb( uint16_t data )
+void neogeo_state::neogeo_set_display_counter_msb( u16  data )
 {
-	m_display_counter = (m_display_counter & 0x0000ffff) | ((uint32_t)data << 16);
+	m_display_counter = (m_display_counter & 0x0000ffff) | ((u32)data << 16);
 
 	if (LOG_VIDEO_SYSTEM) logerror("PC %06x: set_display_counter %08x\n", m_maincpu->pc(), m_display_counter);
 }
 
 
-void neogeo_state::neogeo_set_display_counter_lsb( uint16_t data )
+void neogeo_state::neogeo_set_display_counter_lsb( u16  data )
 {
 	m_display_counter = (m_display_counter & 0xffff0000) | data;
 
@@ -525,7 +525,7 @@ void neogeo_state::update_interrupts()
 }
 
 
-void neogeo_state::neogeo_acknowledge_interrupt( uint16_t data )
+void neogeo_state::neogeo_acknowledge_interrupt( u16  data )
 {
 	if (data & 0x01)
 		m_irq3_pending = 0;
@@ -610,7 +610,7 @@ void neogeo_state::audio_cpu_check_nmi()
 	m_audiocpu->set_input_line(INPUT_LINE_NMI, (m_audio_cpu_nmi_enabled && m_audio_cpu_nmi_pending) ? ASSERT_LINE : CLEAR_LINE);
 }
 
-WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
+void neogeo_state::audio_cpu_enable_nmi_w(offs_t offset, u8 data)
 {
 	// out ($08) enables the nmi, out ($18) disables it
 	m_audio_cpu_nmi_enabled = !(offset & 0x10);
@@ -625,14 +625,14 @@ WRITE8_MEMBER(neogeo_state::audio_cpu_enable_nmi_w)
  *
  *************************************/
 
-READ16_MEMBER(neogeo_state::in0_r)
+u16 neogeo_state::in0_r()
 {
-	return ((m_edge->in0_r(space, offset) & m_ctrl1->ctrl_r(space, offset)) << 8) | m_dsw->read();
+	return ((m_edge->in0_r() & m_ctrl1->read_ctrl()) << 8) | m_dsw->read();
 }
 
-READ16_MEMBER(neogeo_state::in1_r)
+u16 neogeo_state::in1_r()
 {
-	return ((m_edge->in1_r(space, offset) & m_ctrl2->ctrl_r(space, offset)) << 8) | 0xff;
+	return ((m_edge->in1_r() & m_ctrl2->read_ctrl()) << 8) | 0xff;
 }
 
 CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_start_r)
@@ -640,7 +640,7 @@ CUSTOM_INPUT_MEMBER(neogeo_state::kizuna4p_start_r)
 	return (m_edge->read_start_sel() & 0x05) | ~0x05;
 }
 
-WRITE8_MEMBER(neogeo_state::io_control_w)
+void neogeo_state::io_control_w(offs_t offset, u8 data)
 {
 	switch (offset)
 	{
@@ -690,9 +690,9 @@ WRITE8_MEMBER(neogeo_state::io_control_w)
  *
  *************************************/
 
-READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
+u16 neogeo_state::neogeo_unmapped_r(address_space &space)
 {
-	uint16_t ret;
+	u16  ret;
 
 	/* unmapped memory returns the last word on the data bus, which is almost always the opcode
 	   of the next instruction due to prefetch */
@@ -717,13 +717,13 @@ READ16_MEMBER(neogeo_state::neogeo_unmapped_r)
  *
  *************************************/
 
-void neogeo_state::set_save_ram_unlock( uint8_t data )
+void neogeo_state::set_save_ram_unlock( u8 data )
 {
 	m_save_ram_unlocked = data;
 }
 
 
-WRITE16_MEMBER(neogeo_state::save_ram_w)
+void neogeo_state::save_ram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (m_save_ram_unlocked)
 		COMBINE_DATA(&m_save_ram[offset]);
@@ -745,14 +745,14 @@ CUSTOM_INPUT_MEMBER(neogeo_state::get_memcard_status)
 }
 
 
-READ16_MEMBER(neogeo_state::memcard_r)
+u16 neogeo_state::memcard_r(offs_t offset)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
-	uint16_t ret;
+	u16  ret;
 
 	if (m_memcard->present() != -1)
-		ret = m_memcard->read(space, offset) | 0xff00;
+		ret = m_memcard->read(offset) | 0xff00;
 	else
 		ret = 0xffff;
 
@@ -760,14 +760,14 @@ READ16_MEMBER(neogeo_state::memcard_r)
 }
 
 
-WRITE16_MEMBER(neogeo_state::memcard_w)
+void neogeo_state::memcard_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
 	if (ACCESSING_BITS_0_7)
 	{
 		if (m_memcard->present() != -1)
-				m_memcard->write(space, offset, data);
+				m_memcard->write(offset, data);
 	}
 }
 
@@ -777,7 +777,7 @@ WRITE16_MEMBER(neogeo_state::memcard_w)
  *
  *************************************/
 
-WRITE8_MEMBER(neogeo_state::audio_command_w)
+void neogeo_state::audio_command_w(u8 data)
 {
 	m_soundlatch->write(data);
 
@@ -789,9 +789,9 @@ WRITE8_MEMBER(neogeo_state::audio_command_w)
 }
 
 
-READ8_MEMBER(neogeo_state::audio_command_r)
+u8 neogeo_state::audio_command_r()
 {
-	uint8_t ret = m_soundlatch->read();
+	u8 ret = m_soundlatch->read();
 
 	m_audio_cpu_nmi_pending = false;
 	audio_cpu_check_nmi();
@@ -802,7 +802,7 @@ READ8_MEMBER(neogeo_state::audio_command_r)
 
 CUSTOM_INPUT_MEMBER(neogeo_state::get_audio_result)
 {
-	uint8_t ret = m_soundlatch2->read();
+	u8 ret = m_soundlatch2->read();
 
 	return ret;
 }
@@ -827,7 +827,7 @@ void neogeo_state::neogeo_main_cpu_banking_init()
  *
  *************************************/
 
-READ8_MEMBER(neogeo_state::audio_cpu_bank_select_r)
+u8 neogeo_state::audio_cpu_bank_select_r(offs_t offset)
 {
 	m_bank_audio_cart[offset & 3]->set_entry(offset >> 8);
 
@@ -841,8 +841,8 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 
 	int region;
 	int bank;
-	uint8_t *rgn;
-	uint32_t address_mask;
+	u8 *rgn;
+	u32 address_mask;
 
 	rgn = memregion("audiocpu")->base();
 
@@ -868,7 +868,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 	{
 		for (bank = 0xff; bank >= 0; bank--)
 		{
-			uint32_t bank_address = 0x10000 + ((bank << (11 + region)) & address_mask);
+			u32 bank_address = 0x10000 + ((bank << (11 + region)) & address_mask);
 			m_bank_audio_cart[region]->configure_entry(bank, &rgn[bank_address]);
 		}
 	}
@@ -894,9 +894,9 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
  *
  *************************************/
 
-WRITE8_MEMBER(neogeo_state::system_control_w)
+void neogeo_state::system_control_w(offs_t offset, u8 data)
 {
-	uint8_t bit = (offset >> 3) & 0x01;
+	u8 bit = (offset >> 3) & 0x01;
 
 	switch (offset & 0x07)
 	{
@@ -950,7 +950,7 @@ WRITE8_MEMBER(neogeo_state::system_control_w)
 
 void neogeo_state::set_outputs(  )
 {
-	static const uint8_t led_map[0x10] =
+	static const u8 led_map[0x10] =
 		{ 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x58,0x4c,0x62,0x69,0x78,0x00 };
 
 	/* EL */
@@ -966,11 +966,11 @@ void neogeo_state::set_outputs(  )
 }
 
 
-void neogeo_state::set_output_latch( uint8_t data )
+void neogeo_state::set_output_latch( u8 data )
 {
 	/* looks like the LEDs are set on the
 	   falling edge */
-	uint8_t falling_bits = m_output_latch & ~data;
+	u8 falling_bits = m_output_latch & ~data;
 
 	if (falling_bits & 0x08)
 		m_el_value = 16 - (m_output_data & 0x0f);
@@ -990,7 +990,7 @@ void neogeo_state::set_output_latch( uint8_t data )
 }
 
 
-void neogeo_state::set_output_data( uint8_t data )
+void neogeo_state::set_output_data( u8 data )
 {
 	m_output_data = data;
 }
@@ -1010,8 +1010,8 @@ void neogeo_state::init_neogeo()
 	m_sprgen->m_fixed_layer_bank_type = 0;
 
 	// install controllers
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16_delegate(FUNC(neogeo_state::in0_r), this));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16_delegate(FUNC(neogeo_state::in1_r), this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16smo_delegate(*this, FUNC(neogeo_state::in0_r)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16smo_delegate(*this, FUNC(neogeo_state::in1_r)));
 }
 
 
@@ -1073,7 +1073,6 @@ void neogeo_state::machine_start()
 	m_sprgen->set_screen(m_screen);
 	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
-
 }
 
 
@@ -1086,12 +1085,9 @@ void neogeo_state::machine_start()
 
 void neogeo_state::machine_reset()
 {
-	offs_t offs;
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-
 	/* reset system control registers */
-	for (offs = 0; offs < 8; offs++)
-		system_control_w(space, offs, 0);
+	for (offs_t offs = 0; offs < 8; offs++)
+		system_control_w(offs, 0);
 
 	// disable audiocpu nmi
 	m_audio_cpu_nmi_enabled = false;
@@ -1106,33 +1102,36 @@ void neogeo_state::machine_reset()
 	update_interrupts();
 
 	m_recurse = false;
+
+	u16 game = cpuregion[0x109] * 256 + cpuregion[0x108];
+	printf("Game number = %04X\n", game);
 }
 
-READ16_MEMBER(neogeo_state::banked_vectors_r)
+u16 neogeo_state::banked_vectors_r(offs_t offset)
 {
 	if (!m_use_cart_vectors)
 	{
-		uint16_t* bios = (uint16_t*)memregion("mainbios")->base();
+		u16 * bios = (u16 *)memregion("mainbios")->base();
 		return bios[offset];
 	}
 	else
 	{
-		uint16_t* game = (uint16_t*)m_region_maincpu->base();
+		u16 * game = (u16 *)m_region_maincpu->base();
 		return game[offset];
 	}
 
 }
 
-READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_r)
+u16 neogeo_state::neogeo_slot_rom_low_r()
 {
 	return 0;
 }
 
-READ16_MEMBER(neogeo_state::neogeo_slot_rom_low_vectors_r)
+u16 neogeo_state::neogeo_slot_rom_low_vectors_r(offs_t offset)
 {
 	if (!m_use_cart_vectors)
 	{
-		uint16_t* bios = (uint16_t*)memregion("mainbios")->base();
+		u16 * bios = (u16 *)memregion("mainbios")->base();
 		return bios[offset];
 	}
 	else
@@ -1155,7 +1154,7 @@ void neogeo_state::neogeo_main_map(address_map &map)
 	/* some games have protection devices in the 0x200000 region, it appears to map to cart space, not surprising, the ROM is read here too */
 	map(0x300080,0x300081).mirror(0x01ff7e).portr("TEST");
 	map(0x300000,0x300001).mirror(0x01fffe).w("watchdog",FUNC(watchdog_timer_device::reset_w)).umask16(0x00ff);
-	map(0x320000,0x320001).mirror(0x01fffe).portr("AUDIO/COIN");
+	map(0x320000,0x320001).mirror(0x01fffe).portr("AUDIO_COIN");
 	map(0x320000,0x320001).mirror(0x01fffe).w(FUNC(neogeo_state::audio_command_w)).umask16(0xff00);
 	map(0x360000,0x37ffff).r(FUNC(neogeo_state::neogeo_unmapped_r));
 	map(0x380000,0x380001).mirror(0x01fffe).portr("SYSTEM");
@@ -1256,10 +1255,10 @@ INPUT_PORTS_START( neogeo )
 	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Next Game") PORT_CODE(KEYCODE_3)
 	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Previous Game") PORT_CODE(KEYCODE_4)
-	PORT_BIT( 0x7000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state, get_memcard_status, nullptr)
+	PORT_BIT( 0x7000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(neogeo_state, get_memcard_status)
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_CUSTOM ) /* Hardware type (AES=0, MVS=1). Some games check this and show a piracy warning screen if the hardware and BIOS don't match */
 
-	PORT_START("AUDIO/COIN")
+	PORT_START("AUDIO_COIN")
 	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_COIN2 )
 	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_SERVICE1 )
@@ -1268,7 +1267,7 @@ INPUT_PORTS_START( neogeo )
 	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_CUSTOM ) /* what is this? When ACTIVE_HIGH + IN4 bit 6 ACTIVE_LOW MVS-4 slot is detected */
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("upd4990a", upd1990a_device, tp_r)
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("upd4990a", upd1990a_device, data_out_r)
-	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, neogeo_state,get_audio_result, nullptr)
+	PORT_BIT( 0xff00, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(neogeo_state,get_audio_result)
 
 	PORT_START("TEST")
 	PORT_BIT( 0x003f, IP_ACTIVE_HIGH, IPT_UNUSED )
@@ -1290,25 +1289,25 @@ INPUT_PORTS_END
 // Fixed
 const gfx_layout charlayout =
 {
-	8,8,			/* 8 x 8 chars */
+	8,8,            /* 8 x 8 chars */
 	RGN_FRAC(1,1),
-	4,				/* 4 bits per pixel */
+	4,              /* 4 bits per pixel */
 	{ 0, 1, 2, 3 },    /* planes are packed in a nibble */
 	{ 33*4, 32*4, 49*4, 48*4, 1*4, 0*4, 17*4, 16*4 },
 	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8 },
-	32*8	/* 32 bytes per char */
+	32*8    /* 32 bytes per char */
 };
 
 // Sprites
 const gfx_layout tilelayout =
 {
-	16,16,	 /* 16*16 sprites */
+	16,16,   /* 16*16 sprites */
 	RGN_FRAC(1,1),
 	4,
 	{ GFX_RAW },
-	{ 0 },		/* org displacement */
-	{ 8*8 },	/* line modulo */
-	128*8		/* char modulo */
+	{ 0 },      /* org displacement */
+	{ 8*8 },    /* line modulo */
+	128*8       /* char modulo */
 };
 
 GFXDECODE_START( gfx_neogeo )
@@ -1379,8 +1378,8 @@ void neogeo_state::mvs(machine_config &config)
 
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", false);
 
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", false);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", false);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, false);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, false);
 }
 
 void neogeo_state::main_map_noslot(address_map &map)
@@ -1399,8 +1398,8 @@ void neogeo_state::neogeo_noslot(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 
 	MSLUGX_PROT(config, "mslugx_prot");
 	SMA_PROT(config, "sma_prot");
@@ -1423,8 +1422,8 @@ void neogeo_state::neogeo_kog(machine_config &config)
 	NEOGEO_CTRL_EDGE_CONNECTOR(config, m_edge, neogeo_arc_edge, "joy", true);
 
 	//no mahjong controller
-	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "", true);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, nullptr, true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 
 	NGBOOTLEG_PROT(config, "bootleg_prot");
 	KOG_PROT(config, "kog_prot");
@@ -1437,13 +1436,13 @@ void neogeo_state::neogeo_mj(machine_config &config)
 	neogeo_noslot(config);
 
 	//no joystick panel
-	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, "", true);
+	NEOGEO_CTRL_EDGE_CONNECTOR(config.replace(), m_edge, neogeo_arc_edge_fixed, nullptr, true);
 
 	//P1 mahjong controller
 	config.device_remove("ctrl1");
 	config.device_remove("ctrl2");
 	NEOGEO_CONTROL_PORT(config, "ctrl1", neogeo_arc_pin15, "mahjong", false);
-	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, "", true);
+	NEOGEO_CONTROL_PORT(config, "ctrl2", neogeo_arc_pin15, nullptr, true);
 }
 
 void neogeo_state::neogeo_dial(machine_config &config)
@@ -1956,7 +1955,9 @@ void neogeo_state::init_jockeygp()
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 
 	/* install some extra RAM */
-	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
+	m_extra_ram = std::make_unique<uint16_t[]>(0x1000);
+	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff, m_extra_ram.get());
+	save_pointer(NAME(m_extra_ram), 0x1000);
 
 //  m_maincpu->space(AS_PROGRAM).install_read_port(0x280000, 0x280001, "IN5");
 //  m_maincpu->space(AS_PROGRAM).install_read_port(0x2c0000, 0x2c0001, "IN6");
@@ -1968,7 +1969,9 @@ void neogeo_state::init_vliner()
 
 	m_sprgen->m_fixed_layer_bank_type = 0;
 
-	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff);
+	m_extra_ram = std::make_unique<uint16_t[]>(0x1000);
+	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff, m_extra_ram.get());
+	save_pointer(NAME(m_extra_ram), 0x1000);
 
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x300000, 0x300001, 0x01ff7e, "DSW");
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x280000, 0x280001, "IN5");
@@ -2215,14 +2218,14 @@ void neogeo_state::init_kf2k3upl()
 
 void neogeo_state::install_banked_bios()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc00000, 0xc1ffff, 0x0e0000, "bankedbios");
-	membank("bankedbios")->configure_entries(0, 2, memregion("mainbios")->base(), 0x20000);
-	membank("bankedbios")->set_entry(1);
+	m_maincpu->space(AS_PROGRAM).install_read_bank(0xc00000, 0xc1ffff, 0x0e0000, m_bios_bank);
+	m_bios_bank->configure_entries(0, 2, memregion("mainbios")->base(), 0x20000);
+	m_bios_bank->set_entry(1);
 }
 
 INPUT_CHANGED_MEMBER(neogeo_state::select_bios)
 {
-	membank("bankedbios")->set_entry(newval ? 0 : 1);
+	m_bios_bank->set_entry(newval ? 0 : 1);
 }
 
 void neogeo_state::init_ms5pcb()
@@ -2264,14 +2267,14 @@ void neogeo_state::init_kf2k3pcb()
 	init_neogeo();
 	m_pvc_prot->kf2k3pcb_decrypt_68k(cpuregion, cpuregion_size);
 	m_sma_prot->kf2k3pcb_gfx_decrypt(spr_region, spr_region_size);
-	m_sma_prot->kf2k3pcb_sp1_decrypt((uint16_t*)memregion("mainbios")->base());
+	m_sma_prot->kf2k3pcb_sp1_decrypt((u16 *)memregion("mainbios")->base());
 	m_cmc_prot->neogeo_cmc50_m1_decrypt(audiocrypt_region, audiocrypt_region_size, audiocpu_region,audio_region_size);
 
 	/* extra little swap on the m1 - this must be performed AFTER the m1 decrypt
 	   or the m1 checksum (used to generate the key) for decrypting the m1 is
 	   incorrect */
 	{
-		uint8_t* rom = memregion("audiocpu")->base();
+		u8* rom = memregion("audiocpu")->base();
 		for (int i = 0; i < 0x90000; i++)
 			rom[i] = bitswap<8>(rom[i], 5, 6, 1, 4, 3, 0, 7, 2);
 	}

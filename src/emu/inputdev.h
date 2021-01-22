@@ -15,6 +15,21 @@
 
 
 //**************************************************************************
+//  CONSTANTS
+//**************************************************************************
+
+// relative devices return ~512 units per onscreen pixel
+constexpr s32 INPUT_RELATIVE_PER_PIXEL = 512;
+
+// absolute devices return values between -65536 and +65536
+constexpr s32 INPUT_ABSOLUTE_MIN = -65536;
+constexpr s32 INPUT_ABSOLUTE_MAX = 65536;
+
+// invalid memory value for axis polling
+constexpr s32 INVALID_AXIS_VALUE = 0x7fffffff;
+
+
+//**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
 
@@ -90,16 +105,16 @@ public:
 	input_code code() const;
 	const char *token() const { return m_token.c_str(); }
 	s32 current() const { return m_current; }
-	s32 memory() const { return m_memory; }
 
 	// helpers
 	s32 update_value();
-	void set_memory(s32 value) { m_memory = value; }
+	bool check_axis(input_item_modifier modifier, s32 memory);
 
 	// readers
 	virtual s32 read_as_switch(input_item_modifier modifier) = 0;
 	virtual s32 read_as_relative(input_item_modifier modifier) = 0;
 	virtual s32 read_as_absolute(input_item_modifier modifier) = 0;
+	virtual bool item_check_axis(input_item_modifier modifier, s32 memory) = 0;
 
 protected:
 	// internal state
@@ -113,7 +128,6 @@ protected:
 
 	// live state
 	s32                     m_current;              // current raw value
-	s32                     m_memory;               // "memory" value, to remember where we started during polling
 };
 
 
@@ -150,7 +164,7 @@ public:
 
 	// helpers
 	s32 adjust_absolute(s32 value) const { return adjust_absolute_value(value); }
-	bool match_device_id(const char *deviceid);
+	bool match_device_id(const char *deviceid) const;
 
 protected:
 	// specific overrides

@@ -13,6 +13,7 @@
 
 #include "ui/moptions.h"
 
+#include "corestr.h"
 #include "drivenum.h"
 #include "softlist_dev.h"
 
@@ -64,7 +65,7 @@ void inifile_manager::load_ini_category(size_t file, size_t category, std::unord
 	emu_file fp(m_options.categoryini_path(), OPEN_FLAG_READ);
 	if (fp.open(filename) != osd_file::error::NONE)
 	{
-		osd_printf_error("Failed to open category file %s for reading\n", filename.c_str());
+		osd_printf_error("Failed to open category file %s for reading\n", filename);
 		return;
 	}
 
@@ -72,7 +73,7 @@ void inifile_manager::load_ini_category(size_t file, size_t category, std::unord
 	if (fp.seek(offset, SEEK_SET) || (fp.tell() != offset))
 	{
 		fp.close();
-		osd_printf_error("Failed to seek to category offset in file %s\n", filename.c_str());
+		osd_printf_error("Failed to seek to category offset in file %s\n", filename);
 		return;
 	}
 
@@ -298,11 +299,11 @@ void favorite_manager::add_favorite(running_machine &machine)
 
 					// start with simple stuff that can just be copied
 					info.shortname = software->shortname();
-					info.longname = imagedev->longname();
+					info.longname = software->longname();
 					info.parentname = software->parentname();
-					info.year = imagedev->year();
-					info.publisher = imagedev->manufacturer();
-					info.supported = imagedev->supported();
+					info.year = software->year();
+					info.publisher = software->publisher();
+					info.supported = software->supported();
 					info.part = part->name();
 					info.driver = &driver;
 					info.listname = imagedev->software_list_name();
@@ -470,7 +471,7 @@ void favorite_manager::apply_running_machine(running_machine &machine, T &&actio
 	else
 	{
 		bool have_software(false);
-		for (device_image_interface &image_dev : image_interface_iterator(machine.root_device()))
+		for (device_image_interface &image_dev : image_interface_enumerator(machine.root_device()))
 		{
 			software_info const *const sw(image_dev.software_entry());
 			if (image_dev.exists() && image_dev.loaded_through_softlist() && sw)
@@ -570,8 +571,7 @@ void favorite_manager::save_favorites()
 				buf << info.devicetype << '\n';
 				util::stream_format(buf, "%d\n", info.available);
 
-				buf.put('\0');
-				file.puts(&buf.vec()[0]);
+				file.puts(util::buf_to_string_view(buf));
 			}
 		}
 		file.close();

@@ -5,13 +5,12 @@
  *   Xerox AltoII CPU core interface
  *
  *****************************************************************************/
-#ifndef MAME_DEVICES_CPU_ALTO2_H
-#define MAME_DEVICES_CPU_ALTO2_H
+#ifndef MAME_CPU_ALTO2_ALTO2CPU_H
+#define MAME_CPU_ALTO2_ALTO2CPU_H
 
 #pragma once
 
 #include "machine/diablo_hd.h"
-#include "sound/spkrdev.h"
 
 #include "debugger.h"
 
@@ -185,11 +184,11 @@ public:
 	alto2_cpu_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	~alto2_cpu_device();
 
-	//! driver interface to set diablo_hd_device
-	void set_diablo(int unit, diablo_hd_device* ptr);
+	auto kb_read_callback() { return m_kb_read_callback.bind(); }
+	auto utilout_callback() { return m_utilout_callback.bind(); }
 
-	//! driver interface to set a speaker sound device
-	void set_speaker(speaker_sound_device* speaker);
+	//! driver interface to set diablo_hd_device
+	template <typename T> void set_diablo(int unit, T &&tag) { m_drive[unit].set_tag(std::forward<T>(tag)); }
 
 	//! call in for the next sector callback
 	void next_sector(int unit);
@@ -199,11 +198,6 @@ public:
 
 	//! set the vblank bit for the display to synch upon
 	void screen_vblank();
-
-	void ucode_map(address_map &map);
-	void const_map(address_map &map);
-	void iomem_map(address_map &map);
-
 	//! register a mouse motion in x direction
 	DECLARE_INPUT_CHANGED_MEMBER( mouse_motion_x );
 	//! register a mouse motion in y direction
@@ -223,9 +217,9 @@ protected:
 	void interface_post_reset() override;
 
 	//! device_execute_interface overrides
-	virtual uint32_t execute_min_cycles() const override { return 1; }
-	virtual uint32_t execute_max_cycles() const override { return 1; }
-	virtual uint32_t execute_input_lines() const override { return 1; }
+	virtual uint32_t execute_min_cycles() const noexcept override { return 1; }
+	virtual uint32_t execute_max_cycles() const noexcept override { return 1; }
+	virtual uint32_t execute_input_lines() const noexcept override { return 1; }
 	virtual void execute_run() override;
 	virtual void execute_set_input(int inputnum, int state) override;
 
@@ -241,8 +235,8 @@ protected:
 	virtual std::unique_ptr<util::disasm_interface> create_disassembler() override;
 
 private:
-
-	void fatal(int level, const char *format, ...);
+	devcb_read16 m_kb_read_callback;
+	devcb_write16 m_utilout_callback;
 
 	address_space_config m_ucode_config;
 	address_space_config m_const_config;
@@ -261,24 +255,26 @@ private:
 	std::unique_ptr<uint8_t[]> m_ucode_cram;
 	uint8_t* m_const_data;
 
+	void ucode_map(address_map &map);
+	void const_map(address_map &map);
+	void iomem_map(address_map &map);
+
 	//! read microcode CROM or CRAM, depending on m_ucode_ram_base
-	DECLARE_READ32_MEMBER ( crom_cram_r );
+	uint32_t crom_cram_r(offs_t offset);
 
 	//! write microcode CRAM, depending on m_ucode_ram_base (ignore writes to CROM)
-	DECLARE_WRITE32_MEMBER( crom_cram_w );
+	void crom_cram_w(offs_t offset, uint32_t data);
 
 	//! read constants PROM
-	DECLARE_READ16_MEMBER ( const_r );
+	uint16_t const_r(offs_t offset);
 
 	//! read i/o space RAM
-	DECLARE_READ16_MEMBER ( ioram_r );
+	uint16_t ioram_r(offs_t offset);
 
 	//!< write i/o space RAM
-	DECLARE_WRITE16_MEMBER( ioram_w );
+	void ioram_w(offs_t offset, uint16_t data);
 
 	int m_icount;
-
-	speaker_sound_device* m_speaker;
 
 	//! task numbers
 	enum {
@@ -870,20 +866,20 @@ private:
 	void hard_reset();                              //!< reset the various registers
 	void soft_reset();                              //!< soft reset
 
-	void bs_early_bad();                            //! bs dummy early function
-	void bs_late_bad();                             //! bs dummy late function
+	[[noreturn]] void bs_early_bad();               //! bs dummy early function
+	[[noreturn]] void bs_late_bad();                //! bs dummy late function
 
-	void f1_early_bad();                            //! f1 dummy early function
-	void f1_late_bad();                             //! f1 dummy late function
+	[[noreturn]] void f1_early_bad();               //! f1 dummy early function
+	[[noreturn]] void f1_late_bad();                //! f1 dummy late function
 
-	void f2_early_bad();                            //! f2 dummy early function
-	void f2_late_bad();                             //! f2 dummy late function
+	[[noreturn]] void f2_early_bad();               //! f2 dummy early function
+	[[noreturn]] void f2_late_bad();                //! f2 dummy late function
 
-	DECLARE_READ16_MEMBER( noop_r );                //!< read open bus (0177777)
-	DECLARE_WRITE16_MEMBER( noop_w );               //!< write open bus
+	uint16_t noop_r (offs_t offset);                //!< read open bus (0177777)
+	void noop_w(offs_t offset, uint16_t data);      //!< write open bus
 
-	DECLARE_READ16_MEMBER( bank_reg_r );            //!< read bank register in memory mapped I/O range
-	DECLARE_WRITE16_MEMBER( bank_reg_w );           //!< write bank register in memory mapped I/O range
+	uint16_t bank_reg_r(offs_t offset);             //!< read bank register in memory mapped I/O range
+	void bank_reg_w(offs_t offset, uint16_t data);  //!< write bank register in memory mapped I/O range
 
 	void bs_early_read_r();                         //!< bus source: drive bus by R register
 	void bs_early_load_r();                         //!< bus source: load R places 0 on the BUS
@@ -939,4 +935,4 @@ private:
 
 DECLARE_DEVICE_TYPE(ALTO2, alto2_cpu_device)
 
-#endif // MAME_DEVICES_CPU_ALTO2_H
+#endif // MAME_CPU_ALTO2_ALTO2CPU_H

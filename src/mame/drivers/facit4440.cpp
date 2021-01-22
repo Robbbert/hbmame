@@ -32,7 +32,7 @@
 #include "machine/clock.h"
 #include "machine/er1400.h"
 #include "machine/z80ctc.h"
-#include "machine/z80dart.h"
+#include "machine/z80sio.h"
 #include "video/mc6845.h"
 #include "screen.h"
 
@@ -148,7 +148,7 @@ WRITE_LINE_MEMBER(facit4440_state::vsync_w)
 MC6845_UPDATE_ROW(facit4440_state::update_row)
 {
 	offs_t base = ma / 5 * 6;
-	u32 *px = &bitmap.pix32(y);
+	u32 *px = &bitmap.pix(y);
 
 	for (int i = 0; i < x_count; i++)
 	{
@@ -264,7 +264,7 @@ void facit4440_state::facit4440(machine_config &config)
 	MC6845(config, m_crtc, FAKE_DOT_CLOCK / CH_WIDTH); // HD46505SP-2
 	m_crtc->set_char_width(CH_WIDTH);
 	m_crtc->set_show_border_area(false);
-	m_crtc->set_update_row_callback(FUNC(facit4440_state::update_row), this);
+	m_crtc->set_update_row_callback(FUNC(facit4440_state::update_row));
 	m_crtc->out_hsync_callback().set("ctc", FUNC(z80ctc_device::trg3));
 	m_crtc->out_vsync_callback().set(FUNC(facit4440_state::vsync_w));
 }

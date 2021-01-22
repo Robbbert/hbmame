@@ -75,11 +75,11 @@ BOOL DirectInputInitialize()
 	if (dic == NULL)
 		return false;
 
-	HRESULT hr = dic(GetModuleHandle(NULL), 0x0700, &di, NULL);	// setup DIRECT INPUT 7 for the GUI
+	HRESULT hr = dic(GetModuleHandle(NULL), 0x0700, &di, NULL); // setup DIRECT INPUT 7 for the GUI
 
 	if (FAILED(hr))
 	{
-		hr = dic(GetModuleHandle(NULL), 0x0500, &di, NULL);	// if failed, try with version 5
+		hr = dic(GetModuleHandle(NULL), 0x0500, &di, NULL); // if failed, try with version 5
 
 		if (FAILED(hr))
 		{

@@ -92,5 +92,5 @@ ROM_START( twintwst )
 	ROM_LOAD( "82s123.b24", 0x240, 0x020, CRC(4fb5df2a) SHA1(506ef2c8e4cf45c256d6831a0a5760732f2de422) )
 ROM_END
 
-GAME( 2002, twincbu2, twincobr, twincobr, twincobru, twincobr_state, init_twincobr, ROT270, "[Hack]", "Twin Cobra (Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, twintwst, twincobr, twincobr, twincobr,  twincobr_state, init_twincobr, ROT270, "[Hack]", "Twin Twist (Twin Cobra Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, twincbu2, twincobr, twincobr, twincobru, twincobr_state, init_twincobr, ROT270, "hack", "Twin Cobra (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, twintwst, twincobr, twincobr, twincobr,  twincobr_state, init_twincobr, ROT270, "hack", "Twin Twist (Twin Cobra Hack)", MACHINE_SUPPORTS_SAVE )

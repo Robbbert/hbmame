@@ -18,10 +18,10 @@ TODO:
 #include "cpu/s2650/s2650.h"
 #include "machine/timer.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 #include "quizshow.lh"
 
 
@@ -62,16 +62,16 @@ private:
 	virtual void video_start() override;
 	void mem_map(address_map &map);
 
-	DECLARE_WRITE8_MEMBER(lamps1_w);
-	DECLARE_WRITE8_MEMBER(lamps2_w);
-	DECLARE_WRITE8_MEMBER(lamps3_w);
-	DECLARE_WRITE8_MEMBER(tape_control_w);
-	DECLARE_WRITE8_MEMBER(audio_w);
-	DECLARE_WRITE8_MEMBER(video_disable_w);
-	DECLARE_READ8_MEMBER(timing_r);
+	void lamps1_w(uint8_t data);
+	void lamps2_w(uint8_t data);
+	void lamps3_w(uint8_t data);
+	void tape_control_w(uint8_t data);
+	void audio_w(uint8_t data);
+	void video_disable_w(uint8_t data);
+	uint8_t timing_r();
 	DECLARE_READ_LINE_MEMBER(tape_signal_r);
 	DECLARE_WRITE_LINE_MEMBER(flag_output_w);
-	DECLARE_WRITE8_MEMBER(main_ram_w);
+	void main_ram_w(offs_t offset, uint8_t data);
 	TILE_GET_INFO_MEMBER(get_tile_info);
 	void quizshow_palette(palette_device &palette) const;
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
@@ -123,12 +123,12 @@ TILE_GET_INFO_MEMBER(quizshow_state::get_tile_info)
 	// d6: blink, d7: invert
 	uint8_t const color = (code & (m_blink_state | 0x80)) >> 6;
 
-	SET_TILE_INFO_MEMBER(0, code & 0x3f, color, 0);
+	tileinfo.set(0, code & 0x3f, color, 0);
 }
 
 void quizshow_state::video_start()
 {
-	m_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(quizshow_state::get_tile_info),this), TILEMAP_SCAN_ROWS, 8, 16, 32, 16);
+	m_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(quizshow_state::get_tile_info)), TILEMAP_SCAN_ROWS, 8, 16, 32, 16);
 }
 
 uint32_t quizshow_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
@@ -144,7 +144,7 @@ uint32_t quizshow_state::screen_update(screen_device &screen, bitmap_ind16 &bitm
 
 ***************************************************************************/
 
-WRITE8_MEMBER(quizshow_state::lamps1_w)
+void quizshow_state::lamps1_w(uint8_t data)
 {
 	// d0-d3: P1 answer button lamps
 	for (int i = 0; i < 4; i++)
@@ -153,7 +153,7 @@ WRITE8_MEMBER(quizshow_state::lamps1_w)
 	// d4-d7: N/C
 }
 
-WRITE8_MEMBER(quizshow_state::lamps2_w)
+void quizshow_state::lamps2_w(uint8_t data)
 {
 	// d0-d3: P2 answer button lamps
 	for (int i = 0; i < 4; i++)
@@ -162,7 +162,7 @@ WRITE8_MEMBER(quizshow_state::lamps2_w)
 	// d4-d7: N/C
 }
 
-WRITE8_MEMBER(quizshow_state::lamps3_w)
+void quizshow_state::lamps3_w(uint8_t data)
 {
 	// d0-d1: start button lamps
 	m_lamps[8] = BIT(data, 0);
@@ -172,7 +172,7 @@ WRITE8_MEMBER(quizshow_state::lamps3_w)
 	// d4-d7: N/C
 }
 
-WRITE8_MEMBER(quizshow_state::tape_control_w)
+void quizshow_state::tape_control_w(uint8_t data)
 {
 	// d2: enable user category select (changes tape head position)
 	m_lamps[10] = BIT(data, 2);
@@ -185,7 +185,7 @@ WRITE8_MEMBER(quizshow_state::tape_control_w)
 	// d4-d7: N/C
 }
 
-WRITE8_MEMBER(quizshow_state::audio_w)
+void quizshow_state::audio_w(uint8_t data)
 {
 	// d1: audio out
 	m_dac->write(BIT(data, 1));
@@ -193,13 +193,13 @@ WRITE8_MEMBER(quizshow_state::audio_w)
 	// d0, d2-d7: N/C
 }
 
-WRITE8_MEMBER(quizshow_state::video_disable_w)
+void quizshow_state::video_disable_w(uint8_t data)
 {
 	// d0: video disable (looked glitchy when I implemented it, maybe there's more to it)
 	// d1-d7: N/C
 }
 
-READ8_MEMBER(quizshow_state::timing_r)
+uint8_t quizshow_state::timing_r()
 {
 	uint8_t ret = 0x80;
 
@@ -230,7 +230,7 @@ WRITE_LINE_MEMBER(quizshow_state::flag_output_w)
 	logerror("Flag output: %d\n", state);
 }
 
-WRITE8_MEMBER(quizshow_state::main_ram_w)
+void quizshow_state::main_ram_w(offs_t offset, uint8_t data)
 {
 	m_main_ram[offset]=data;
 	m_tilemap->mark_tile_dirty(offset);
@@ -278,7 +278,7 @@ INPUT_CHANGED_MEMBER(quizshow_state::category_select)
 
 static INPUT_PORTS_START( quizshow )
 	PORT_START("IN0") // ADR strobe 0
-	PORT_BIT( 0x0f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, quizshow_state, tape_headpos_r, nullptr)
+	PORT_BIT( 0x0f, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(quizshow_state, tape_headpos_r)
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START2 )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_COIN1 )
@@ -343,7 +343,7 @@ static INPUT_PORTS_START( quizshow )
 	PORT_BIT( 0xf0, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("CAT")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Category Select") PORT_CHANGED_MEMBER(DEVICE_SELF, quizshow_state, category_select, nullptr)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON5 ) PORT_NAME("Category Select") PORT_CHANGED_MEMBER(DEVICE_SELF, quizshow_state, category_select, 0)
 
 INPUT_PORTS_END
 
@@ -413,8 +413,6 @@ void quizshow_state::quizshow(machine_config &config)
 	SPEAKER(config, "speaker").front_center();
 
 	DAC_1BIT(config, m_dac, 0).add_route(ALL_OUTPUTS, "speaker", 0.25);
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 }
 
 

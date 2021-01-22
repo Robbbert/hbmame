@@ -24,10 +24,10 @@
 
 */
 #define JOYCODE(joy, stick, axis_or_button, dir) \
-        ((((dir)            & 0x03) << 14) |     \
-         (((axis_or_button) & 0x3f) <<  8) |     \
-         (((stick)          & 0x1f) <<  3) |     \
-         (((joy)            & 0x07) <<  0))
+		((((dir)            & 0x03) << 14) |     \
+		 (((axis_or_button) & 0x3f) <<  8) |     \
+		 (((stick)          & 0x1f) <<  3) |     \
+		 (((joy)            & 0x07) <<  0))
 
 #define GET_JOYCODE_JOY(code)    (((code) >> 0) & 0x07)
 #define GET_JOYCODE_STICK(code)  (((code) >> 3) & 0x1f)

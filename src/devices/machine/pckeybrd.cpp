@@ -286,7 +286,7 @@ pc_keyboard_device::pc_keyboard_device(const machine_config &mconfig, const char
 
 pc_keyboard_device::pc_keyboard_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, type, tag, owner, clock),
-	m_ioport(*this, ":pc_keyboard_%u", 0),
+	m_ioport(*this, "pc_keyboard_%u", 0),
 	m_out_keypress_func(*this)
 {
 }
@@ -320,7 +320,7 @@ void pc_keyboard_device::device_start()
 
 	memset(m_make, 0, sizeof(m_make));
 
-	machine().ioport().natkeyboard().configure(
+	machine().natkeyboard().configure(
 		ioport_queue_chars_delegate(&pc_keyboard_device::queue_chars, this),
 		ioport_accept_char_delegate(&pc_keyboard_device::accept_char, this),
 		ioport_charqueue_empty_delegate(&pc_keyboard_device::charqueue_empty, this));
@@ -360,7 +360,7 @@ void at_keyboard_device::device_reset()
 	m_leds[1] = 0;
 }
 
-WRITE_LINE_MEMBER(pc_keyboard_device::enable)
+void pc_keyboard_device::enable(int state)
 {
 	if(state && !m_on)
 	{
@@ -614,7 +614,7 @@ void pc_keyboard_device::polling(void)
 	}
 }
 
-READ8_MEMBER(pc_keyboard_device::read)
+uint8_t pc_keyboard_device::read()
 {
 	int data;
 	if (m_tail == m_head)
@@ -688,7 +688,7 @@ Note:   each command is acknowledged by FAh (ACK), if not mentioned otherwise.
 SeeAlso: #P046
 */
 
-WRITE8_MEMBER(at_keyboard_device::write)
+void at_keyboard_device::write(uint8_t data)
 {
 	if (LOG_KEYBOARD)
 		logerror("keyboard write %.2x\n",data);
@@ -775,7 +775,7 @@ WRITE8_MEMBER(at_keyboard_device::write)
 			if (data & 0x080)
 			{
 				/* command received instead of code - execute command */
-				write(space, offset, data);
+				write(data);
 			}
 			else
 			{
@@ -799,7 +799,7 @@ WRITE8_MEMBER(at_keyboard_device::write)
 			if (data & 0x080)
 			{
 				/* command received instead of code - execute command */
-				write(space, offset, data);
+				write(data);
 			}
 			else
 			{
@@ -830,7 +830,7 @@ WRITE8_MEMBER(at_keyboard_device::write)
 			if (data & 0x080)
 			{
 				/* command received instead of code - execute command */
-				write(space, offset, data);
+				write(data);
 			}
 			else
 			{
@@ -1117,7 +1117,7 @@ INPUT_PORTS_START( pc_keyboard )
 	PORT_BIT ( 0xff80, 0x0000, IPT_UNUSED )
 INPUT_PORTS_END
 
-INPUT_PORTS_START( at_keyboard )
+static INPUT_PORTS_START( at_keyboard )
 	PORT_START("pc_keyboard_0")
 	PORT_BIT ( 0x0001, 0x0000, IPT_UNUSED )     /* unused scancode 0 */
 	PORT_BIT(0x0002, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Esc") PORT_CODE(KEYCODE_ESC) /* Esc                         01  81 */
@@ -1241,6 +1241,18 @@ INPUT_PORTS_START( at_keyboard )
 	PORT_BIT(0x0001, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Print Screen") PORT_CODE(KEYCODE_PRTSCR) /* Print Screen alternate      77  f7 */
 	PORT_BIT ( 0xfffe, 0x0000, IPT_UNUSED )
 INPUT_PORTS_END
+
+
+ioport_constructor pc_keyboard_device::device_input_ports() const
+{
+	return INPUT_PORTS_NAME(pc_keyboard);
+}
+
+
+ioport_constructor at_keyboard_device::device_input_ports() const
+{
+	return INPUT_PORTS_NAME(at_keyboard);
+}
 
 /***************************************************************************
   Inputx stuff

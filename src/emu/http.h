@@ -2,9 +2,9 @@
 // copyright-holders:Miodrag Milanovic
 /***************************************************************************
 
-http.cpp
+    http.h
 
-HTTP server handling
+    HTTP server handling
 
 ***************************************************************************/
 
@@ -18,7 +18,7 @@ HTTP server handling
 #define MAME_EMU_HTTP_H
 
 #include <thread>
-#include <time.h>
+#include <ctime>
 #include "server_http.hpp"
 #include "server_ws.hpp"
 

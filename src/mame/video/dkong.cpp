@@ -435,7 +435,7 @@ TILE_GET_INFO_MEMBER(dkong_state::dkong_bg_tile_info)
 	int code = m_video_ram[tile_index] + 256 * m_gfx_bank;
 	int color = (m_color_codes[tile_index % 32 + 32 * (tile_index / 32 / 4)] & 0x0f) + 0x10 * m_palette_bank;
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 TILE_GET_INFO_MEMBER(dkong_state::radarscp1_bg_tile_info)
@@ -444,7 +444,7 @@ TILE_GET_INFO_MEMBER(dkong_state::radarscp1_bg_tile_info)
 	int color = (m_color_codes[tile_index % 32] & 0x0f);
 	color = color | (m_palette_bank<<4);
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 /***************************************************************************
@@ -453,7 +453,7 @@ TILE_GET_INFO_MEMBER(dkong_state::radarscp1_bg_tile_info)
 
 ***************************************************************************/
 
-WRITE8_MEMBER(dkong_state::dkong_videoram_w)
+void dkong_state::dkong_videoram_w(offs_t offset, uint8_t data)
 {
 	if (m_video_ram[offset] != data)
 	{
@@ -462,7 +462,7 @@ WRITE8_MEMBER(dkong_state::dkong_videoram_w)
 	}
 }
 
-WRITE8_MEMBER(dkong_state::dkongjr_gfxbank_w)
+void dkong_state::dkongjr_gfxbank_w(uint8_t data)
 {
 	if (m_gfx_bank != (data & 0x01))
 	{
@@ -471,7 +471,7 @@ WRITE8_MEMBER(dkong_state::dkongjr_gfxbank_w)
 	}
 }
 
-WRITE8_MEMBER(dkong_state::dkong3_gfxbank_w)
+void dkong_state::dkong3_gfxbank_w(uint8_t data)
 {
 	if (m_gfx_bank != (~data & 0x01))
 	{
@@ -480,7 +480,7 @@ WRITE8_MEMBER(dkong_state::dkong3_gfxbank_w)
 	}
 }
 
-WRITE8_MEMBER(dkong_state::dkong_palettebank_w)
+void dkong_state::dkong_palettebank_w(offs_t offset, uint8_t data)
 {
 	int newbank;
 
@@ -498,23 +498,23 @@ WRITE8_MEMBER(dkong_state::dkong_palettebank_w)
 	}
 }
 
-WRITE8_MEMBER(dkong_state::radarscp_grid_enable_w)
+void dkong_state::radarscp_grid_enable_w(uint8_t data)
 {
 	m_grid_on = data & 0x01;
 }
 
-WRITE8_MEMBER(dkong_state::radarscp_grid_color_w)
+void dkong_state::radarscp_grid_color_w(uint8_t data)
 {
 	m_grid_col = (data & 0x07) ^ 0x07;
 	/* popmessage("Gridcol: %d", m_grid_col); */
 }
 
-WRITE8_MEMBER(dkong_state::dkong_flipscreen_w)
+void dkong_state::dkong_flipscreen_w(uint8_t data)
 {
 	m_flip = data & 0x01;
 }
 
-WRITE8_MEMBER(dkong_state::dkong_spritebank_w)
+void dkong_state::dkong_spritebank_w(uint8_t data)
 {
 	m_sprite_bank = data & 0x01;
 }
@@ -796,25 +796,22 @@ void dkong_state::radarscp_step(int line_cnt)
 void dkong_state::radarscp_draw_background(bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	const uint8_t     *htable = nullptr;
-	int             x,y;
-	uint8_t           draw_ok;
-	uint16_t          *pixel;
 
 	if (m_hardware_type == HARDWARE_TRS01)
 		htable = m_gfx4;
 
-	y = cliprect.min_y;
+	int y = cliprect.min_y;
 	while (y <= cliprect.max_y)
 	{
-		x = cliprect.min_x;
+		int x = cliprect.min_x;
 		while (x <= cliprect.max_x)
 		{
-			pixel = &bitmap.pix16(y, x);
-			draw_ok = !(*pixel & 0x01) && !(*pixel & 0x02);
+			uint16_t *const pixel = &bitmap.pix(y, x);
+			uint8_t draw_ok = !(*pixel & 0x01) && !(*pixel & 0x02);
 			if (m_hardware_type == HARDWARE_TRS01) /*  Check again from schematics */
 				draw_ok = draw_ok  && !((htable[ (!m_rflip_sig<<7) | (x>>2)] >>2) & 0x01);
 			if (draw_ok)
-				*pixel = *(&m_bg_bits.pix16(y, x));
+				*pixel = m_bg_bits.pix(y, x);
 			x++;
 		}
 		y++;
@@ -823,21 +820,19 @@ void dkong_state::radarscp_draw_background(bitmap_ind16 &bitmap, const rectangle
 
 void dkong_state::radarscp_scanline(int scanline)
 {
-	const uint8_t *table = m_gfx3;
+	uint8_t const *const table = m_gfx3;
 	int         table_len = m_gfx3_len;
-	int             x,y,offset;
-	uint16_t          *pixel;
 	const rectangle &visarea = m_screen->visible_area();
 
-	y = scanline;
+	int y = scanline;
 	radarscp_step(y);
 	if (y <= visarea.min_y || y > visarea.max_y)
 		m_counter = 0;
-	offset = (m_flip ^ m_rflip_sig) ? 0x000 : 0x400;
-	x = 0;
+	int offset = (m_flip ^ m_rflip_sig) ? 0x000 : 0x400;
+	int x = 0;
 	while (x < m_screen->width())
 	{
-		pixel = &m_bg_bits.pix16(y, x);
+		uint16_t *const pixel = &m_bg_bits.pix(y, x);
 		if ((m_counter < table_len) && (x == 4 * (table[m_counter|offset] & 0x7f)))
 		{
 			if ( m_star_ff && (table[m_counter|offset] & 0x80) )    /* star */
@@ -852,7 +847,7 @@ void dkong_state::radarscp_scanline(int scanline)
 			*pixel = RADARSCP_BCK_COL_OFFSET + m_blue_level;
 		x++;
 	}
-	while ((m_counter < table_len) && ( x < 4 * (table[m_counter|offset] & 0x7f)))
+	while ((m_counter < table_len) && (x < 4 * (table[m_counter|offset] & 0x7f)))
 		m_counter++;
 }
 
@@ -950,13 +945,13 @@ VIDEO_START_MEMBER(dkong_state,dkong)
 			m_screen->register_screen_bitmap(m_bg_bits);
 			m_gfx3 = memregion("gfx3")->base();
 			m_gfx3_len = memregion("gfx3")->bytes();
-			/* fall through */
+			[[fallthrough]];
 		case HARDWARE_TKG04:
 		case HARDWARE_TKG02:
-			m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(dkong_state::dkong_bg_tile_info),this), TILEMAP_SCAN_ROWS,  8, 8, 32, 32);
+			m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(dkong_state::dkong_bg_tile_info)), TILEMAP_SCAN_ROWS,  8, 8, 32, 32);
 			break;
 		case HARDWARE_TRS01:
-			m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(dkong_state::radarscp1_bg_tile_info),this), TILEMAP_SCAN_ROWS,  8, 8, 32, 32);
+			m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(dkong_state::radarscp1_bg_tile_info)), TILEMAP_SCAN_ROWS,  8, 8, 32, 32);
 
 			m_screen->register_screen_bitmap(m_bg_bits);
 			m_gfx4 = memregion("gfx4")->base();

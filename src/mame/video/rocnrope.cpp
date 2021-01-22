@@ -80,13 +80,13 @@ void rocnrope_state::rocnrope_palette(palette_device &palette) const
 	}
 }
 
-WRITE8_MEMBER(rocnrope_state::rocnrope_videoram_w)
+void rocnrope_state::rocnrope_videoram_w(offs_t offset, uint8_t data)
 {
 	m_videoram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
-WRITE8_MEMBER(rocnrope_state::rocnrope_colorram_w)
+void rocnrope_state::rocnrope_colorram_w(offs_t offset, uint8_t data)
 {
 	m_colorram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
@@ -104,12 +104,12 @@ TILE_GET_INFO_MEMBER(rocnrope_state::get_bg_tile_info)
 	int color = attr & 0x0f;
 	int flags = ((attr & 0x40) ? TILE_FLIPX : 0) | ((attr & 0x20) ? TILE_FLIPY : 0);
 
-	SET_TILE_INFO_MEMBER(1, code, color, flags);
+	tileinfo.set(1, code, color, flags);
 }
 
 void rocnrope_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(rocnrope_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(rocnrope_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 }
 
 void rocnrope_state::draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect )

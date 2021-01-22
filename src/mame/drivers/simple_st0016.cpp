@@ -54,7 +54,7 @@ void st0016_state::renju_mem(address_map &map)
 }
 
 
-READ8_MEMBER(st0016_state::mux_r)
+uint8_t st0016_state::mux_r()
 {
 /*
     76543210
@@ -78,12 +78,12 @@ READ8_MEMBER(st0016_state::mux_r)
 	return retval;
 }
 
-WRITE8_MEMBER(st0016_state::mux_select_w)
+void st0016_state::mux_select_w(uint8_t data)
 {
 	mux_port=data;
 }
 
-WRITE8_MEMBER(st0016_state::st0016_rom_bank_w)
+void st0016_state::st0016_rom_bank_w(uint8_t data)
 {
 	m_mainbank->set_entry(data);
 	// st0016_rom_bank = data;
@@ -111,14 +111,14 @@ void st0016_state::st0016_io(address_map &map)
 
 static uint32_t latches[8];
 
-READ32_MEMBER(st0016_state::latch32_r)
+uint32_t st0016_state::latch32_r(offs_t offset)
 {
 	if(!offset)
 		latches[2]&=~2;
 	return latches[offset];
 }
 
-WRITE32_MEMBER(st0016_state::latch32_w)
+void st0016_state::latch32_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 {
 	if(!offset)
 		latches[2]|=1;
@@ -126,14 +126,14 @@ WRITE32_MEMBER(st0016_state::latch32_w)
 	machine().scheduler().synchronize();
 }
 
-READ8_MEMBER(st0016_state::latch8_r)
+uint8_t st0016_state::latch8_r(offs_t offset)
 {
 	if(!offset)
 		latches[2]&=~1;
 	return latches[offset];
 }
 
-WRITE8_MEMBER(st0016_state::latch8_w)
+void st0016_state::latch8_w(offs_t offset, uint8_t data)
 {
 	if(!offset)
 		latches[2]|=2;
@@ -498,7 +498,7 @@ void st0016_state::mayjinsn(machine_config &config)
 	V810(config, m_subcpu, 10000000); //25 Mhz ?
 	m_subcpu->set_addrmap(AS_PROGRAM, &st0016_state::v810_mem);
 
-	config.m_minimum_quantum = attotime::from_hz(60);
+	config.set_maximum_quantum(attotime::from_hz(60));
 }
 
 void st0016_state::renju(machine_config &config)
@@ -512,6 +512,7 @@ void st0016_state::renju(machine_config &config)
  *  ROM definition(s)
  *
  *************************************/
+
 /*
 Renjyu Kizoku
 Visco, 1994
@@ -527,8 +528,8 @@ E51-00001-A
 |J        74273                      |
 |A        74273            42.9545MHz|
 |M                                   |
-|M        74245         UNKNOWN      |
-|A        74245          QFP208      |
+|M        74245        *ST-0016      |
+|A        74245         TC6210AF     |
 |         74245                      |
 |         74245                 48MHz|
 |                                    |
@@ -539,38 +540,38 @@ E51-00001-A
 |------------------------------------|
 
 Note:
-      Unknown QFP (surface scratched off) is the CPU
-        + GFX generator - it's possibly NEC V70/V810
+ *ST-0016: was surface scratched to hide it's identity on PCB E51-00001-A
+           On similar PCBs, the chip was unaltered
 */
 
-ROM_START( renju )
+ROM_START( renju ) // PCB E51-00001-A
 	ROM_REGION( 0x280000, "maincpu", 0 )
-	ROM_LOAD( "renjyu-1.u31",0x000000, 0x200000, CRC(e0fdbe9b) SHA1(52d31024d1a88b8fcca1f87366fcaf80e3c387a1) )
-	ROM_LOAD( "rnj2.u32",    0x200000, 0x080000, CRC(2015289c) SHA1(5223b6d3dbe4657cd63cf5b527eaab84cf23587a ) )
+	ROM_LOAD( "renjyu-1.u31", 0x000000, 0x200000, CRC(e0fdbe9b) SHA1(52d31024d1a88b8fcca1f87366fcaf80e3c387a1) )
+	ROM_LOAD( "rnj2.u32",     0x200000, 0x080000, CRC(2015289c) SHA1(5223b6d3dbe4657cd63cf5b527eaab84cf23587a) )
 ROM_END
 
-ROM_START( nratechu )
+ROM_START( nratechu ) // PCB E56-00002 (almost identical to above)
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "sx012-01",   0x000000, 0x080000, CRC(6ca01d57) SHA1(065848f19ecf2dc1f7bbc7ddd87bca502e4b8b16) )
-	ROM_LOAD( "sx012-02",   0x100000, 0x100000, CRC(40a4e354) SHA1(8120ce8deee6805050a5b083a334c3743c09566b) )
+	ROM_LOAD( "sx012-01.u31", 0x000000, 0x080000, CRC(6ca01d57) SHA1(065848f19ecf2dc1f7bbc7ddd87bca502e4b8b16) )
+	ROM_LOAD( "sx012-02.u32", 0x100000, 0x100000, CRC(40a4e354) SHA1(8120ce8deee6805050a5b083a334c3743c09566b) )
+	// U33 not populated
+	// U34 not populated
 ROM_END
 
-/* PCB E51-00001 (almost identical to above) */
-
-ROM_START( dcrown )
+ROM_START( dcrown ) // PCB E51-00001 (almost identical to above)
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "dc1.u31",0x000000, 0x80000, CRC(e55200b8) SHA1(20a968dc895bb636b064c29b4b53c6ffa49fea36) )
-	ROM_LOAD( "dc2.u32",0x080000, 0x80000, CRC(05b6192f) SHA1(6af6e7b2c681f2791a7f89a528a95eb976c8ba84) )
-	ROM_LOAD( "dc3.u33",0x100000, 0x80000, CRC(f23c1975) SHA1(118d6054922a733d23363c53bb331d84c78e50ad) )
-	ROM_LOAD( "dc4.u34",0x180000, 0x80000, CRC(0d1c2c61) SHA1(7e4dc20ab683ce0f61dd939cfd9b17714ba2343a) )
+	ROM_LOAD( "dc1.u31", 0x000000, 0x80000, CRC(e55200b8) SHA1(20a968dc895bb636b064c29b4b53c6ffa49fea36) )
+	ROM_LOAD( "dc2.u32", 0x080000, 0x80000, CRC(05b6192f) SHA1(6af6e7b2c681f2791a7f89a528a95eb976c8ba84) )
+	ROM_LOAD( "dc3.u33", 0x100000, 0x80000, CRC(f23c1975) SHA1(118d6054922a733d23363c53bb331d84c78e50ad) )
+	ROM_LOAD( "dc4.u34", 0x180000, 0x80000, CRC(0d1c2c61) SHA1(7e4dc20ab683ce0f61dd939cfd9b17714ba2343a) )
 ROM_END
 
-ROM_START( dcrowna )
+ROM_START( dcrowna ) // PCB E51-00001 (almost identical to above)
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "dcn-0.1c",     0x000000, 0x080000, CRC(5dd0615d) SHA1(b859994bd79229da4c687deefe1997313724b26e) )
-	ROM_LOAD( "dcn-1.1d",     0x080000, 0x080000, CRC(6c6f14e7) SHA1(2a3474e44420cc78e3ead777eb91481c4bb46eef) )
-	ROM_LOAD( "dcn-2.1e",     0x100000, 0x080000, CRC(e9401a5e) SHA1(db24ebe5a0073c7c1c2da957772e223545f3c778) )
-	ROM_LOAD( "dcn-3.1f",     0x180000, 0x080000, CRC(ec2e88bc) SHA1(2a8deee63e123dae411e2b834eca69be6f646d66) )
+	ROM_LOAD( "dcn-0.u31", 0x000000, 0x080000, CRC(5dd0615d) SHA1(b859994bd79229da4c687deefe1997313724b26e) ) // U31 @ 1C
+	ROM_LOAD( "dcn-1.u32", 0x080000, 0x080000, CRC(6c6f14e7) SHA1(2a3474e44420cc78e3ead777eb91481c4bb46eef) ) // U32 @ 1D
+	ROM_LOAD( "dcn-2.u33", 0x100000, 0x080000, CRC(e9401a5e) SHA1(db24ebe5a0073c7c1c2da957772e223545f3c778) ) // U33 @ 1E
+	ROM_LOAD( "dcn-3.u34", 0x180000, 0x080000, CRC(ec2e88bc) SHA1(2a8deee63e123dae411e2b834eca69be6f646d66) ) // U34 @ 1F
 ROM_END
 
 ROM_START( gostop )
@@ -578,6 +579,7 @@ ROM_START( gostop )
 	ROM_LOAD( "go-stop_rom1.u31",0x000000, 0x80000, CRC(93decaa2) SHA1(a30958b76dfe5752a341ecdc950119c10e864586) )
 	ROM_LOAD( "go-stop_rom2.u32",0x080000, 0x80000, CRC(3c5402ff) SHA1(bdc38922b5cbad0150adf9c6cc0fefc5705a16a2) )
 ROM_END
+
 
 /*
 Koi Koi Shimasho
@@ -615,7 +617,7 @@ ROM_START( koikois )
 	ROM_LOAD16_BYTE( "koi-1.4c", 0x000000, 0x080000, CRC(c79e2b43) SHA1(868174f7ab8e68e31d3302ae94dd742048deed9f) )
 	ROM_LOAD16_BYTE( "koi-4.8c", 0x100001, 0x080000, CRC(ace236df) SHA1(4bf56affe5b6d0ba3cc677eaa91f9be77f26c654) )
 	ROM_LOAD16_BYTE( "koi-3.5c", 0x100000, 0x080000, CRC(6fd88149) SHA1(87b1be32770232eb041e3ef9d1da45282af8a5d4) )
-	ROM_LOAD( "koi-5.2c", 0x200000, 0x200000, CRC(561e12c8) SHA1(a7aedf549bc3141fc01bc4a10c235af265ba4ee9) )
+	ROM_LOAD(        "koi-5.2c", 0x200000, 0x200000, CRC(561e12c8) SHA1(a7aedf549bc3141fc01bc4a10c235af265ba4ee9) )
 ROM_END
 
 
@@ -674,26 +676,26 @@ E52-00001
 
 ROM_START(mayjinsn )
 	ROM_REGION( 0x180000, "maincpu", 0 )
-	ROM_LOAD( "sx003.05d",   0x000000, 0x80000, CRC(2be6d620) SHA1(113db888fb657d45be55708bbbf9a9ac159a9636) )
-	ROM_LOAD( "sx003.06",    0x080000, 0x80000, CRC(f0553386) SHA1(8915cb3ce03b9a12612694caec9bbec6de4dd070) )
-	ROM_LOAD( "sx003.07d",   0x100000, 0x80000, CRC(8db281c3) SHA1(f8b488dd28010f01f789217a4d62ba2116e06e94) )
+	ROM_LOAD( "sx003.05d", 0x000000, 0x80000, CRC(2be6d620) SHA1(113db888fb657d45be55708bbbf9a9ac159a9636) )
+	ROM_LOAD( "sx003.06",  0x080000, 0x80000, CRC(f0553386) SHA1(8915cb3ce03b9a12612694caec9bbec6de4dd070) )
+	ROM_LOAD( "sx003.07d", 0x100000, 0x80000, CRC(8db281c3) SHA1(f8b488dd28010f01f789217a4d62ba2116e06e94) )
 
 	ROM_REGION32_LE( 0x20000*4, "user1", 0 ) /* V810 code */
-	ROM_LOAD32_BYTE( "sx003.04",   0x00003, 0x20000,   CRC(fa15459f) SHA1(4163ab842943705c550f137abbdd2cb51ba5390f) )
-	ROM_LOAD32_BYTE( "sx003.03",   0x00002, 0x20000,   CRC(71a438ea) SHA1(613bab6a59aa1bced2ab37177c61a0fd7ce7e64f) )
-	ROM_LOAD32_BYTE( "sx003.02",   0x00001, 0x20000,   CRC(61911eed) SHA1(1442b3867b85120ba652ec8205d74332addffb67) )
-	ROM_LOAD32_BYTE( "sx003.01",   0x00000, 0x20000,   CRC(d210bfe5) SHA1(96d9f2b198d98125df4bd6b15705646d472a8a87) )
+	ROM_LOAD32_BYTE( "sx003.04", 0x00003, 0x20000, CRC(fa15459f) SHA1(4163ab842943705c550f137abbdd2cb51ba5390f) )
+	ROM_LOAD32_BYTE( "sx003.03", 0x00002, 0x20000, CRC(71a438ea) SHA1(613bab6a59aa1bced2ab37177c61a0fd7ce7e64f) )
+	ROM_LOAD32_BYTE( "sx003.02", 0x00001, 0x20000, CRC(61911eed) SHA1(1442b3867b85120ba652ec8205d74332addffb67) )
+	ROM_LOAD32_BYTE( "sx003.01", 0x00000, 0x20000, CRC(d210bfe5) SHA1(96d9f2b198d98125df4bd6b15705646d472a8a87) )
 ROM_END
 
 ROM_START(mayjisn2 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD( "sx007-05.8b",   0x00000, 0x100000,  CRC(b13ea605) SHA1(75c067df02c988f170c24153d3852c472355fc9d) )
+	ROM_LOAD( "sx007-05.8b", 0x00000, 0x100000, CRC(b13ea605) SHA1(75c067df02c988f170c24153d3852c472355fc9d) )
 
 	ROM_REGION32_LE( 0x20000*4, "user1", 0 ) /* V810 code */
-	ROM_LOAD32_BYTE( "sx007-04.4b",   0x00003, 0x20000,   CRC(fa15459f) SHA1(4163ab842943705c550f137abbdd2cb51ba5390f) )
-	ROM_LOAD32_BYTE( "sx007-03.4j",   0x00002, 0x20000,   CRC(71a438ea) SHA1(613bab6a59aa1bced2ab37177c61a0fd7ce7e64f) )
-	ROM_LOAD32_BYTE( "sx007-02.4m",   0x00001, 0x20000,   CRC(61911eed) SHA1(1442b3867b85120ba652ec8205d74332addffb67) )
-	ROM_LOAD32_BYTE( "sx007-01.4s",   0x00000, 0x20000,   CRC(d210bfe5) SHA1(96d9f2b198d98125df4bd6b15705646d472a8a87) )
+	ROM_LOAD32_BYTE( "sx007-04.4b", 0x00003, 0x20000, CRC(fa15459f) SHA1(4163ab842943705c550f137abbdd2cb51ba5390f) )
+	ROM_LOAD32_BYTE( "sx007-03.4j", 0x00002, 0x20000, CRC(71a438ea) SHA1(613bab6a59aa1bced2ab37177c61a0fd7ce7e64f) )
+	ROM_LOAD32_BYTE( "sx007-02.4m", 0x00001, 0x20000, CRC(61911eed) SHA1(1442b3867b85120ba652ec8205d74332addffb67) )
+	ROM_LOAD32_BYTE( "sx007-01.4s", 0x00000, 0x20000, CRC(d210bfe5) SHA1(96d9f2b198d98125df4bd6b15705646d472a8a87) )
 ROM_END
 
 /*************************************
@@ -704,23 +706,23 @@ ROM_END
 
 void st0016_state::init_renju()
 {
-	m_maincpu->set_st0016_game_flag(0);
+	m_maincpu->set_game_flag(0);
 }
 
 void st0016_state::init_nratechu()
 {
-	m_maincpu->set_st0016_game_flag(1);
+	m_maincpu->set_game_flag(1);
 }
 
 void st0016_state::init_mayjinsn()
 {
-	m_maincpu->set_st0016_game_flag(4 /*| 0x80*/);
+	m_maincpu->set_game_flag(4 /*| 0x80*/);
 	membank("bank2")->set_base(memregion("user1")->base());
 }
 
 void st0016_state::init_mayjisn2()
 {
-	m_maincpu->set_st0016_game_flag(4);
+	m_maincpu->set_game_flag(4);
 	membank("bank2")->set_base(memregion("user1")->base());
 }
 
@@ -739,5 +741,5 @@ GAME( 2001, gostop,     0,      st0016,   gostop,   st0016_state, init_renju,   
 
 /* Not working */
 GAME( 1994, mayjinsn,   0,      mayjinsn, st0016,   st0016_state, init_mayjinsn, ROT0, "Seta",             "Mayjinsen",           MACHINE_IMPERFECT_GRAPHICS|MACHINE_NOT_WORKING|MACHINE_NO_COCKTAIL)
-GAME( 1994, dcrown,     0,      st0016,   renju,    st0016_state, init_renju,    ROT0, "Nippon Data Kiki", "Dream Crown (Set 1)", MACHINE_NOT_WORKING|MACHINE_NO_COCKTAIL) // (c) 1994 Nippon Data Kiki is uploaded near the Japanese Insert coin text
-GAME( 1994, dcrowna,    dcrown, st0016,   renju,    st0016_state, init_renju,    ROT0, "Nippon Data Kiki", "Dream Crown (Set 2)", MACHINE_NOT_WORKING|MACHINE_NO_COCKTAIL) // the Insert Coin text has been translated to English and no (c) is uploaded
+GAME( 1994, dcrown,     0,      st0016,   renju,    st0016_state, init_renju,    ROT0, "Nippon Data Kiki", "Dream Crown (set 1)", MACHINE_NOT_WORKING|MACHINE_NO_COCKTAIL) // (c) 1994 Nippon Data Kiki is uploaded near the Japanese Insert coin text
+GAME( 1994, dcrowna,    dcrown, st0016,   renju,    st0016_state, init_renju,    ROT0, "Nippon Data Kiki", "Dream Crown (set 2)", MACHINE_NOT_WORKING|MACHINE_NO_COCKTAIL) // the Insert Coin text has been translated to English and no (c) is uploaded

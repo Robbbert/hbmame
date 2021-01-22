@@ -53,7 +53,7 @@ A.  In the Dipswitch menu, turn on the Service switch.
 A.  Start Vector Breakout, then hold down 1 and press F3.
 
 13. I can't get all the dots in PAC RABBIT.
-A.  Rabbits can jump. And yes, it is possible to jump over a monster. Watch out for the mad fox.
+A.  Rabbits can jump. Press 1. And yes, it is possible to jump over a monster. Watch out for the mad fox.
 
 14. The cartoons (TMNTI, etc) don't work.
 A.  They need to be set to Japan Console-AES mode. When you see the Unibios screen, press the keys
@@ -99,6 +99,10 @@ A.  The monsters can fire at you!
 
 23. Ironclad - the screen is rather dark.
 A.  Choose Japan or US bios. You still get some Japanese text though.
+
+24. How to get into the config menu in CPS changer games?
+A.  When the title screen shows, hold down F1 and 1 together.
+    If you're asked for a password, press these buttons one at a time: 3,2,1,4,5,6,3 (where 1=ctrl button, etc)
 
 98. I would like to submit a game.
 A.  Send me a PM. Remember, games cannot be included without roms to test with.

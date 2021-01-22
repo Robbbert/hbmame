@@ -8,7 +8,7 @@
 
 **************************************************************************/
 
-#include <assert.h>
+#include <cassert>
 
 #include "formats/coupedsk.h"
 #include "flopimg.h"
@@ -64,7 +64,7 @@ bool mgt_format::supports_save() const
 	return true;
 }
 
-int mgt_format::identify(io_generic *io, uint32_t form_factor)
+int mgt_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	uint64_t size = io_generic_size(io);
 
@@ -74,7 +74,7 @@ int mgt_format::identify(io_generic *io, uint32_t form_factor)
 	return 0;
 }
 
-bool mgt_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool mgt_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint64_t size = io_generic_size(io);
 	int sector_count = size == 737280 ? 9 : 10;
@@ -99,7 +99,7 @@ bool mgt_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
 	return true;
 }
 
-bool mgt_format::save(io_generic *io, floppy_image *image)
+bool mgt_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	int track_count, head_count, sector_count;
 	get_geometry_mfm_pc(image, 2000, track_count, head_count, sector_count);
@@ -115,7 +115,7 @@ bool mgt_format::save(io_generic *io, floppy_image *image)
 	for(int head=0; head < 2; head++) {
 		for(int track=0; track < 80; track++) {
 			get_track_data_mfm_pc(track, head, image, 2000, 512, sector_count, sectdata);
-			io_generic_write(io, sectdata, (head*80 + track)*track_size, track_size);
+			io_generic_write(io, sectdata, (track*2+head)*track_size, track_size);
 		}
 	}
 

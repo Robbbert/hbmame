@@ -21,13 +21,21 @@
 #include "ui/slider.h"
 #include "ui/text.h"
 
+#include <ctime>
 #include <functional>
+#include <set>
+#include <string_view>
+#include <utility>
 #include <vector>
 
+
 namespace ui {
+
 class menu_item;
 class machine_info;
+
 } // namespace ui
+
 
 /***************************************************************************
     CONSTANTS
@@ -91,6 +99,8 @@ enum
 	SLIDER_ID_BEAM_WIDTH_MAX_LAST   = SLIDER_ID_BEAM_WIDTH_MAX + SLIDER_SCREEN_SPACING,
 	SLIDER_ID_BEAM_INTENSITY,
 	SLIDER_ID_BEAM_INTENSITY_LAST   = SLIDER_ID_BEAM_INTENSITY + SLIDER_SCREEN_SPACING,
+	SLIDER_ID_BEAM_DOT_SIZE,
+	SLIDER_ID_BEAM_DOT_SIZE_LAST    = SLIDER_ID_BEAM_DOT_SIZE + SLIDER_SCREEN_SPACING,
 	SLIDER_ID_CROSSHAIR_SCALE,
 	SLIDER_ID_CROSSHAIR_SCALE_LAST  = SLIDER_ID_CROSSHAIR_SCALE + SLIDER_INPUT_SPACING,
 	SLIDER_ID_CROSSHAIR_OFFSET,
@@ -198,14 +208,14 @@ public:
 	render_font *get_font();
 	float get_line_height();
 	float get_char_width(char32_t ch);
-	float get_string_width(const char *s, float text_size = 1.0f);
+	float get_string_width(std::string_view s, float text_size = 1.0f);
 	void draw_outlined_box(render_container &container, float x0, float y0, float x1, float y1, rgb_t backcolor);
 	void draw_outlined_box(render_container &container, float x0, float y0, float x1, float y1, rgb_t fgcolor, rgb_t bgcolor);
-	void draw_text(render_container &container, const char *buf, float x, float y);
-	void draw_text_full(render_container &container, const char *origs, float x, float y, float origwrapwidth, ui::text_layout::text_justify justify, ui::text_layout::word_wrapping wrap, draw_mode draw, rgb_t fgcolor, rgb_t bgcolor, float *totalwidth = nullptr, float *totalheight = nullptr, float text_size = 1.0f);
-	void draw_text_box(render_container &container, const char *text, ui::text_layout::text_justify justify, float xpos, float ypos, rgb_t backcolor);
+	void draw_text(render_container &container, std::string_view buf, float x, float y);
+	void draw_text_full(render_container &container, std::string_view origs, float x, float y, float origwrapwidth, ui::text_layout::text_justify justify, ui::text_layout::word_wrapping wrap, draw_mode draw, rgb_t fgcolor, rgb_t bgcolor, float *totalwidth = nullptr, float *totalheight = nullptr, float text_size = 1.0f);
+	void draw_text_box(render_container &container, std::string_view text, ui::text_layout::text_justify justify, float xpos, float ypos, rgb_t backcolor);
 	void draw_text_box(render_container &container, ui::text_layout &layout, float xpos, float ypos, rgb_t backcolor);
-	void draw_message_window(render_container &container, const char *text);
+	void draw_message_window(render_container &container, std::string_view text);
 
 	// load/save options to file
 	void load_ui_options();
@@ -223,6 +233,7 @@ public:
 	void show_mouse(bool status);
 	virtual bool is_menu_active() override;
 	bool can_paste();
+	bool found_machine_warnings() const { return m_has_warnings; }
 	void image_handler_ingame();
 	void increase_frameskip();
 	void decrease_frameskip();
@@ -235,8 +246,8 @@ public:
 	void start_load_state();
 
 	// config callbacks
-	void config_load(config_type cfg_type, util::xml::data_node const *parentnode);
-	void config_save(config_type cfg_type, util::xml::data_node *parentnode);
+	void config_load_s(config_type cfg_type, util::xml::data_node const *parentnode);
+	void config_save_s(config_type cfg_type, util::xml::data_node *parentnode);
 	void config_apply(void);
 
 	// slider controls
@@ -253,7 +264,7 @@ public:
 	ui::text_layout create_layout(render_container &container, float width = 1.0, ui::text_layout::text_justify justify = ui::text_layout::LEFT, ui::text_layout::word_wrapping wrap = ui::text_layout::WORD);
 
 	// word wrap
-	int wrap_text(render_container &container, const char *origs, float x, float y, float origwrapwidth, std::vector<int> &xstart, std::vector<int> &xend, float text_size = 1.0f);
+	int wrap_text(render_container &container, std::string_view origs, float x, float y, float origwrapwidth, std::vector<int> &xstart, std::vector<int> &xend, float text_size = 1.0f);
 
 	// draw an outlined box with given line color and filled with a texture
 	void draw_textured_box(render_container &container, float x0, float y0, float x1, float y1, rgb_t backcolor, rgb_t linecolor, render_texture *texture = nullptr, uint32_t flags = PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA));
@@ -262,43 +273,50 @@ public:
 	virtual void menu_reset() override;
 
 private:
+	using handler_callback_func = std::function<uint32_t (render_container &)>;
+	using device_feature_set = std::set<std::pair<std::string, std::string> >;
+
 	// instance variables
-	render_font *           m_font;
-	std::function<uint32_t (render_container &)> m_handler_callback;
+	std::unique_ptr<render_font> m_font;
+	handler_callback_func   m_handler_callback;
 	ui_callback_type        m_handler_callback_type;
-	uint32_t                  m_handler_param;
+	uint32_t                m_handler_param;
 	bool                    m_single_step;
 	bool                    m_showfps;
 	osd_ticks_t             m_showfps_end;
 	bool                    m_show_profiler;
 	osd_ticks_t             m_popup_text_end;
-	std::unique_ptr<uint8_t[]> m_non_char_keys_down;
+	std::unique_ptr<uint8_t []> m_non_char_keys_down;
 	bitmap_argb32           m_mouse_bitmap;
 	render_texture *        m_mouse_arrow_texture;
 	bool                    m_mouse_show;
 	ui_options              m_ui_options;
 	ui_colors               m_ui_colors;
 	float                   m_target_font_height;
+	bool                    m_has_warnings;
 
 	std::unique_ptr<ui::machine_info> m_machine_info;
+	device_feature_set      m_unemulated_features;
+	device_feature_set      m_imperfect_features;
+	std::time_t             m_last_launch_time;
+	std::time_t             m_last_warning_time;
 
 	// static variables
 	static std::string      messagebox_text;
 	static std::string      messagebox_poptext;
-	static rgb_t            messagebox_backcolor;
 
 	static std::vector<ui::menu_item> slider_list;
 	static slider_state     *slider_current;
 
 	// UI handlers
-	uint32_t handler_messagebox(render_container &container);
-	uint32_t handler_messagebox_anykey(render_container &container);
 	uint32_t handler_ingame(render_container &container);
 	uint32_t handler_load_save(render_container &container, uint32_t state);
 	uint32_t handler_confirm_quit(render_container &container);
 
 	// private methods
 	void exit();
+	void config_load(config_type cfg_type, util::xml::data_node const *parentnode);
+	void config_save(config_type cfg_type, util::xml::data_node *parentnode);
 	std::unique_ptr<slider_state> slider_alloc(int id, const char *title, int32_t minval, int32_t defval, int32_t maxval, int32_t incval, void *arg);
 
 	// slider controls
@@ -323,6 +341,7 @@ private:
 	int32_t slider_flicker(running_machine &machine, void *arg, int id, std::string *str, int32_t newval);
 	int32_t slider_beam_width_min(running_machine &machine, void *arg, int id, std::string *str, int32_t newval);
 	int32_t slider_beam_width_max(running_machine &machine, void *arg, int id, std::string *str, int32_t newval);
+	int32_t slider_beam_dot_size(running_machine &machine, void *arg, int id, std::string *str, int32_t newval);
 	int32_t slider_beam_intensity_weight(running_machine &machine, void *arg, int id, std::string *str, int32_t newval);
 	std::string slider_get_screen_desc(screen_device &screen);
 	#ifdef MAME_DEBUG

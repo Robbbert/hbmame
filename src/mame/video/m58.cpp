@@ -101,14 +101,14 @@ void m58_state::m58_palette(palette_device &palette) const
  *
  *************************************/
 
-WRITE8_MEMBER(m58_state::videoram_w)
+void m58_state::videoram_w(offs_t offset, uint8_t data)
 {
 	m_videoram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset / 2);
 }
 
 
-WRITE8_MEMBER(m58_state::scroll_panel_w)
+void m58_state::scroll_panel_w(offs_t offset, uint8_t data)
 {
 	int sx = ( offset % 16 );
 	int sy = ( offset / 16 );
@@ -125,8 +125,8 @@ WRITE8_MEMBER(m58_state::scroll_panel_w)
 		col = (data >> i) & 0x11;
 		col = ((col >> 3) | col) & 3;
 
-		m_scroll_panel_bitmap.pix16(sy, sx + i) = 0x100 + (sy & 0xfc) + col;
-		m_scroll_panel_bitmap.pix16(sy, sx + i + 0x2c8) = 0x100 + (sy & 0xfc) + col; // for flipscreen
+		m_scroll_panel_bitmap.pix(sy, sx + i) = 0x100 + (sy & 0xfc) + col;
+		m_scroll_panel_bitmap.pix(sy, sx + i + 0x2c8) = 0x100 + (sy & 0xfc) + col; // for flipscreen
 	}
 }
 
@@ -146,7 +146,7 @@ TILE_GET_INFO_MEMBER(m58_state::get_bg_tile_info)
 	int color = attr & 0x1f;
 	int flags = (attr & 0x20) ? TILE_FLIPX : 0;
 
-	SET_TILE_INFO_MEMBER(0, code, color, flags);
+	tileinfo.set(0, code, color, flags);
 }
 
 
@@ -169,7 +169,7 @@ TILEMAP_MAPPER_MEMBER(m58_state::tilemap_scan_rows)
 
 void m58_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(m58_state::get_bg_tile_info),this), tilemap_mapper_delegate(FUNC(m58_state::tilemap_scan_rows),this), 8, 8, 64, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(m58_state::get_bg_tile_info)), tilemap_mapper_delegate(*this, FUNC(m58_state::tilemap_scan_rows)), 8, 8, 64, 32);
 	m_bg_tilemap->set_scrolldy(32, 32);
 
 	m_screen->register_screen_bitmap(m_scroll_panel_bitmap);
@@ -184,7 +184,7 @@ void m58_state::video_start()
  *
  *************************************/
 
-WRITE8_MEMBER(m58_state::flipscreen_w)
+void m58_state::flipscreen_w(uint8_t data)
 {
 	/* screen flip is handled both by software and hardware */
 	flip_screen_set(BIT(data, 0) ^ BIT(~ioport("DSW2")->read(), 0));

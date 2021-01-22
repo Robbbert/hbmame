@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/winui_license.txt
 //****************************************************************************
 // NOTE: ifdef MESS doesn't work here
-#ifndef TREEVIEW_H
-#define TREEVIEW_H
+#ifndef WINUI_TREEVIEW_H
+#define WINUI_TREEVIEW_H
 
 /* corrections for commctrl.h */
 
@@ -26,12 +26,12 @@
 #define TreeView_Select(w,i,c) (BOOL)(int)SendMessage((w),TVM_SELECTITEM,c,(LPARAM)(HTREEITEM)(i))
 
 #undef TreeView_EditLabel
-#define TreeView_EditLabel(w, i) \
-    SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
+#define TreeView_EditLabel(w, i) SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
 
 #endif /* defined(__GNUC__) */
 #include "bitmask.h"
 #include <stdint.h>
+#include "emu_opts.h"
 
 /***************************************************************************
     Folder And Filter Definitions
@@ -49,6 +49,7 @@ typedef struct
 	void        (*m_pfnCreateFolders)(int parent_index); // Constructor for special folders
 	BOOL        (*m_pfnQuery)(uint32_t nDriver);              // Query function
 	BOOL        m_bExpectedResult;                       // Expected query result
+	OPTIONS_TYPE m_opttype = OPTIONS_MAX;                                // Has an ini file (vector.ini, etc)
 } FOLDERDATA, *LPFOLDERDATA;
 
 typedef const FOLDERDATA *LPCFOLDERDATA;
@@ -210,3 +211,4 @@ void ResetTreeViewFolders(void);
 void SelectTreeViewFolder(int folder_id);
 
 #endif /* TREEVIEW_H */
+

@@ -339,7 +339,6 @@ C - uses sub board with support for player 3 and 4 controls
 #include "includes/namcos1.h"
 
 #include "machine/nvram.h"
-#include "sound/volt_reg.h"
 #include "sound/ym2151.h"
 #include "screen.h"
 #include "speaker.h"
@@ -358,7 +357,7 @@ void namcos1_state::mcu_irq_ack_w(u8 data)
 }
 
 
-READ8_MEMBER(namcos1_state::dsw_r)
+u8 namcos1_state::dsw_r(offs_t offset)
 {
 	// 7654----  not used
 	// ----3---  ls257 dsw selector 1y
@@ -433,7 +432,7 @@ void namcos1_state::sound_map(address_map &map)
 
 void namcos1_state::mcu_map(address_map &map)
 {
-	map(0x0000, 0x001f).rw(m_mcu, FUNC(hd63701_cpu_device::m6801_io_r), FUNC(hd63701_cpu_device::m6801_io_w));
+	map(0x0000, 0x001f).m(m_mcu, FUNC(hd63701v0_cpu_device::m6801_io));
 	map(0x0080, 0x00ff).ram(); /* built in RAM */
 	map(0x1000, 0x1003).r(FUNC(namcos1_state::dsw_r));
 	map(0x1400, 0x1400).portr("CONTROL0");
@@ -1015,7 +1014,7 @@ void namcos1_state::ns1(machine_config &config)
 	MC6809E(config, m_audiocpu, XTAL(49'152'000)/32);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &namcos1_state::sound_map);
 
-	HD63701(config, m_mcu, XTAL(49'152'000)/8);
+	HD63701V0(config, m_mcu, XTAL(49'152'000)/8);
 	m_mcu->set_addrmap(AS_PROGRAM, &namcos1_state::mcu_map);
 	m_mcu->in_p1_cb().set_ioport("COIN");
 	m_mcu->out_p1_cb().set(FUNC(namcos1_state::coin_w));
@@ -1027,7 +1026,7 @@ void namcos1_state::ns1(machine_config &config)
 	m_c117->subres_cb().set(FUNC(namcos1_state::subres_w));
 
 	// heavy sync required to prevent CPUs from fighting for video RAM access and going into deadlocks
-	config.m_minimum_quantum = attotime::from_hz(38400);
+	config.set_maximum_quantum(attotime::from_hz(38400));
 
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 
@@ -1074,12 +1073,6 @@ void namcos1_state::ns1(machine_config &config)
 	DAC_8BIT_R2R(config, m_dac[1], 0); // 10-pin 1Kx8R SIP with HC374 latch
 	m_dac[1]->add_route(ALL_OUTPUTS, "lspeaker", 0.5);
 	m_dac[1]->add_route(ALL_OUTPUTS, "rspeaker", 0.5);
-
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.add_route(0, "dac0", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac0", -1.0, DAC_VREF_NEG_INPUT);
-	vref.add_route(0, "dac1", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac1", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 

@@ -43,12 +43,12 @@ void usgames_state::machine_start()
 	membank("bank1")->configure_entries(0, 16, memregion("maincpu")->base() + 0x10000, 0x4000);
 }
 
-WRITE8_MEMBER(usgames_state::rombank_w)
+void usgames_state::rombank_w(uint8_t data)
 {
 	membank("bank1")->set_entry(data);
 }
 
-WRITE8_MEMBER(usgames_state::lamps1_w)
+void usgames_state::lamps1_w(uint8_t data)
 {
 	/* button lamps */
 	for (int i = 0; i < 4; i++)
@@ -57,7 +57,7 @@ WRITE8_MEMBER(usgames_state::lamps1_w)
 	/* bit 5 toggles all the time - extra lamp? */
 }
 
-WRITE8_MEMBER(usgames_state::lamps2_w)
+void usgames_state::lamps2_w(uint8_t data)
 {
 	/* bit 5 toggles all the time - extra lamp? */
 }
@@ -76,8 +76,8 @@ void usgames_state::usgames_map(address_map &map)
 	map(0x2060, 0x2060).w(FUNC(usgames_state::rombank_w));
 	map(0x2070, 0x2070).portr("UNK2");
 	map(0x2400, 0x2401).w("aysnd", FUNC(ay8912_device::address_data_w));
-	map(0x2800, 0x2fff).ram().w(FUNC(usgames_state::charram_w)).share("charram");
-	map(0x3000, 0x3fff).ram().share("videoram");
+	map(0x2800, 0x2fff).ram().w(FUNC(usgames_state::charram_w)).share(m_charram);
+	map(0x3000, 0x3fff).ram().share(m_videoram);
 	map(0x4000, 0x7fff).bankr("bank1");
 	map(0x8000, 0xffff).rom();
 }
@@ -96,8 +96,8 @@ void usgames_state::usg185_map(address_map &map)
 	map(0x2441, 0x2441).w("crtc", FUNC(mc6845_device::register_w));
 	map(0x2460, 0x2460).w(FUNC(usgames_state::rombank_w));
 	map(0x2470, 0x2470).portr("UNK2");
-	map(0x2800, 0x2fff).ram().w(FUNC(usgames_state::charram_w)).share("charram");
-	map(0x3000, 0x3fff).ram().share("videoram");
+	map(0x2800, 0x2fff).ram().w(FUNC(usgames_state::charram_w)).share(m_charram);
+	map(0x3000, 0x3fff).ram().share(m_videoram);
 	map(0x4000, 0x7fff).bankr("bank1");
 	map(0x8000, 0xffff).rom();
 }
@@ -242,7 +242,7 @@ void usgames_state::usg32(machine_config &config)
 	crtc.set_screen("screen");
 	crtc.set_show_border_area(false);
 	crtc.set_char_width(8);
-	crtc.set_update_row_callback(FUNC(usgames_state::update_row), this);
+	crtc.set_update_row_callback(FUNC(usgames_state::update_row));
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

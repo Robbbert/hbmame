@@ -17,7 +17,6 @@
 #include "machine/wd_fdc.h"
 #include "video/msm6255.h"
 #include "emupal.h"
-#include "rendlay.h"
 
 #define Z80_TAG         "ic1"
 #define I8255A_TAG      "ic4"
@@ -64,13 +63,13 @@ public:
 
 	virtual void machine_start() override;
 
-	DECLARE_READ8_MEMBER( read );
-	DECLARE_WRITE8_MEMBER( write );
+	uint8_t read(offs_t offset);
+	void write(offs_t offset, uint8_t data);
 
-	DECLARE_WRITE8_MEMBER( ppi_pa_w );
-	DECLARE_READ8_MEMBER( ppi_pb_r );
-	DECLARE_WRITE8_MEMBER( ppi_pc_w );
-	DECLARE_READ8_MEMBER( ppi_pc_r );
+	void ppi_pa_w(uint8_t data);
+	uint8_t ppi_pb_r();
+	void ppi_pc_w(uint8_t data);
+	uint8_t  ppi_pc_r();
 
 	DECLARE_WRITE_LINE_MEMBER( mtron_w );
 

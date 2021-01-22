@@ -42,18 +42,17 @@
 
 /******************************************************************************/
 
+template <int Num>
 CUSTOM_INPUT_MEMBER(taito_f3_state::f3_analog_r)
 {
-	const int num = (uintptr_t)param;
-	const int data = m_dial[num]->read();
+	const int data = m_dial[Num]->read();
 	return ((data & 0xf) << 12) | ((data & 0xff0) >> 4);
 }
 
-
+template <int Num>
 CUSTOM_INPUT_MEMBER(taito_f3_state::f3_coin_r)
 {
-	const int num = (uintptr_t)param;
-	return m_coin_word[num];
+	return m_coin_word[Num];
 }
 
 u32 taito_f3_state::f3_control_r(offs_t offset)
@@ -107,12 +106,12 @@ void taito_f3_state::f3_control_w(offs_t offset, u32 data, u32 mem_mask)
 
 void taito_f3_state::sound_reset_0_w(u32 data)
 {
-	m_audiocpu->set_input_line(INPUT_LINE_RESET, CLEAR_LINE);
+	m_taito_en->audiocpu().set_input_line(INPUT_LINE_RESET, CLEAR_LINE);
 }
 
 void taito_f3_state::sound_reset_1_w(u32 data)
 {
-	m_audiocpu->set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
+	m_taito_en->audiocpu().set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
 }
 
 void taito_f3_state::sound_bankswitch_w(offs_t offset, u32 data, u32 mem_mask)
@@ -191,12 +190,12 @@ void taito_f3_state::f3_map(address_map &map)
 	map(0x440000, 0x447fff).ram().w(FUNC(taito_f3_state::palette_24bit_w)).share("paletteram");
 	map(0x4a0000, 0x4a001f).rw(FUNC(taito_f3_state::f3_control_r), FUNC(taito_f3_state::f3_control_w));
 	map(0x4c0000, 0x4c0003).w(FUNC(taito_f3_state::f3_unk_w));
-	map(0x600000, 0x60ffff).rw(FUNC(taito_f3_state::spriteram_r), FUNC(taito_f3_state::spriteram_w)).share("spriteram");
-	map(0x610000, 0x61bfff).rw(FUNC(taito_f3_state::pf_ram_r), FUNC(taito_f3_state::pf_ram_w)).share("pf_ram");
-	map(0x61c000, 0x61dfff).rw(FUNC(taito_f3_state::textram_r), FUNC(taito_f3_state::textram_w)).share("textram");
-	map(0x61e000, 0x61ffff).rw(FUNC(taito_f3_state::charram_r), FUNC(taito_f3_state::charram_w)).share("charram");
-	map(0x620000, 0x62ffff).rw(FUNC(taito_f3_state::lineram_r), FUNC(taito_f3_state::lineram_w)).share("line_ram");
-	map(0x630000, 0x63ffff).rw(FUNC(taito_f3_state::pivot_r), FUNC(taito_f3_state::pivot_w)).share("pivot_ram");
+	map(0x600000, 0x60ffff).rw(FUNC(taito_f3_state::spriteram_r), FUNC(taito_f3_state::spriteram_w));
+	map(0x610000, 0x61bfff).rw(FUNC(taito_f3_state::pf_ram_r), FUNC(taito_f3_state::pf_ram_w));
+	map(0x61c000, 0x61dfff).rw(FUNC(taito_f3_state::textram_r), FUNC(taito_f3_state::textram_w));
+	map(0x61e000, 0x61ffff).rw(FUNC(taito_f3_state::charram_r), FUNC(taito_f3_state::charram_w));
+	map(0x620000, 0x62ffff).rw(FUNC(taito_f3_state::lineram_r), FUNC(taito_f3_state::lineram_w));
+	map(0x630000, 0x63ffff).rw(FUNC(taito_f3_state::pivot_r), FUNC(taito_f3_state::pivot_w));
 	map(0x660000, 0x66000f).w(FUNC(taito_f3_state::control_0_w));
 	map(0x660010, 0x66001f).w(FUNC(taito_f3_state::control_1_w));
 	map(0xc00000, 0xc007ff).rw("taito_en:dpram", FUNC(mb8421_device::left_r), FUNC(mb8421_device::left_w));
@@ -229,12 +228,12 @@ void taito_f3_state::bubsympb_map(address_map &map)
 	map(0x4a001d, 0x4a001d).w(FUNC(taito_f3_state::bubsympb_oki_w));
 	map(0x4a001f, 0x4a001f).rw(m_oki, FUNC(okim6295_device::read), FUNC(okim6295_device::write));
 	map(0x4c0000, 0x4c0003).w(FUNC(taito_f3_state::f3_unk_w));
-	map(0x600000, 0x60ffff).rw(FUNC(taito_f3_state::spriteram_r), FUNC(taito_f3_state::spriteram_w)).share("spriteram");
-	map(0x610000, 0x61bfff).rw(FUNC(taito_f3_state::pf_ram_r), FUNC(taito_f3_state::pf_ram_w)).share("pf_ram");
-	map(0x61c000, 0x61dfff).rw(FUNC(taito_f3_state::textram_r), FUNC(taito_f3_state::textram_w)).share("textram");
-	map(0x61e000, 0x61ffff).rw(FUNC(taito_f3_state::charram_r), FUNC(taito_f3_state::charram_w)).share("charram");
-	map(0x620000, 0x62ffff).rw(FUNC(taito_f3_state::lineram_r), FUNC(taito_f3_state::lineram_w)).share("line_ram");
-	map(0x630000, 0x63ffff).rw(FUNC(taito_f3_state::pivot_r), FUNC(taito_f3_state::pivot_w)).share("pivot_ram");
+	map(0x600000, 0x60ffff).rw(FUNC(taito_f3_state::spriteram_r), FUNC(taito_f3_state::spriteram_w));
+	map(0x610000, 0x61bfff).rw(FUNC(taito_f3_state::pf_ram_r), FUNC(taito_f3_state::pf_ram_w));
+	map(0x61c000, 0x61dfff).rw(FUNC(taito_f3_state::textram_r), FUNC(taito_f3_state::textram_w));
+	map(0x61e000, 0x61ffff).rw(FUNC(taito_f3_state::charram_r), FUNC(taito_f3_state::charram_w));
+	map(0x620000, 0x62ffff).rw(FUNC(taito_f3_state::lineram_r), FUNC(taito_f3_state::lineram_w));
+	map(0x630000, 0x63ffff).rw(FUNC(taito_f3_state::pivot_r), FUNC(taito_f3_state::pivot_w));
 	map(0x660000, 0x66000f).w(FUNC(taito_f3_state::control_0_w));
 	map(0x660010, 0x66001f).w(FUNC(taito_f3_state::control_1_w));
 	map(0xc00000, 0xc007ff).ram();
@@ -273,8 +272,8 @@ static INPUT_PORTS_START( f3 )
 	PORT_BIT( 0x00002000, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0x00004000, IP_ACTIVE_LOW, IPT_START3 )
 	PORT_BIT( 0x00008000, IP_ACTIVE_LOW, IPT_START4 )
-	PORT_BIT( 0x00ff0000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, taito_f3_state,eeprom_read, nullptr)
-	PORT_BIT( 0xff000000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, taito_f3_state,eeprom_read, nullptr)
+	PORT_BIT( 0x00ff0000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(taito_f3_state, eeprom_read)
+	PORT_BIT( 0xff000000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(taito_f3_state, eeprom_read)
 
 	/* MSW: Coin counters/lockouts are readable, LSW: Joysticks (Player 1 & 2) */
 	PORT_START("IN.1")
@@ -287,7 +286,7 @@ static INPUT_PORTS_START( f3 )
 	PORT_BIT( 0x00000040, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_8WAY PORT_PLAYER(2)
 	PORT_BIT( 0x00000080, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_8WAY PORT_PLAYER(2)
 	PORT_BIT( 0x0000ff00, IP_ACTIVE_HIGH, IPT_UNKNOWN ) /* These must be high */
-	PORT_BIT( 0xffff0000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, taito_f3_state,f3_coin_r, (void *)0)
+	PORT_BIT( 0xffff0000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(taito_f3_state, f3_coin_r<0>)
 
 	/* Player 3 & 4 fire buttons (Player 2 top fire buttons in Kaiser Knuckle) */
 	PORT_START("IN.4")
@@ -313,16 +312,16 @@ static INPUT_PORTS_START( f3 )
 	PORT_BIT( 0x00000040, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_8WAY PORT_PLAYER(4)
 	PORT_BIT( 0x00000080, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_8WAY PORT_PLAYER(4)
 	PORT_BIT( 0x0000ff00, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0xffff0000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, taito_f3_state,f3_coin_r, (void *)1)
+	PORT_BIT( 0xffff0000, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(taito_f3_state, f3_coin_r<1>)
 
 	/* Analog control 1 */
 	PORT_START("IN.2")
-	PORT_BIT( 0x0000ffff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, taito_f3_state,f3_analog_r, (void*)0)
+	PORT_BIT( 0x0000ffff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(taito_f3_state, f3_analog_r<0>)
 	PORT_BIT( 0xffff0000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
 	/* Analog control 2 */
 	PORT_START("IN.3")
-	PORT_BIT( 0x0000ffff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, taito_f3_state,f3_analog_r, (void *)1)
+	PORT_BIT( 0x0000ffff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(taito_f3_state, f3_analog_r<1>)
 	PORT_BIT( 0xffff0000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
 	/* These are not read directly, but through PORT_CUSTOMs above */
@@ -433,7 +432,7 @@ void taito_f3_state::device_timer(emu_timer &timer, device_timer_id id, int para
 		m_maincpu->set_input_line(3, HOLD_LINE);    // some signal from video hardware?
 		break;
 	default:
-		assert_always(false, "Unknown id in taito_f3_state::device_timer");
+		throw emu_fatalerror("Unknown id in taito_f3_state::device_timer");
 	}
 }
 
@@ -464,8 +463,8 @@ void taito_f3_state::machine_start()
 void taito_f3_state::machine_reset()
 {
 	/* start with sound m68k off, qtheater relies on it (otherwise main CPU tries to reset it while 68k is working with irq table vectors). */
-	if (m_audiocpu)
-		m_audiocpu->set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
+	if (m_taito_en)
+		m_taito_en->audiocpu().set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
 }
 
 void taito_f3_state::f3(machine_config &config)
@@ -492,7 +491,12 @@ void taito_f3_state::f3(machine_config &config)
 	PALETTE(config, m_palette).set_entries(0x2000);
 
 	/* sound hardware */
+	SPEAKER(config, "lspeaker").front_left();
+	SPEAKER(config, "rspeaker").front_right();
+
 	TAITO_EN(config, m_taito_en, 0);
+	m_taito_en->add_route(0, "lspeaker", 1.0);
+	m_taito_en->add_route(1, "rspeaker", 1.0);
 }
 
 /* These games reprogram the video output registers to display different scanlines,
@@ -624,7 +628,7 @@ ROM_START( ringrage )
 	ROM_LOAD16_BYTE("d21-18.5", 0x100000, 0x20000, CRC(133b55d0) SHA1(feb5c9d0b1adcae3b16eb206c8ac4e73fd88bef4) )
 	ROM_LOAD16_BYTE("d21-19.6", 0x100001, 0x20000, CRC(1f98908f) SHA1(972c8f7e4e417831466714efd0b4cadca1f3e8e5) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d21-01.17", 0x000000, 0x200000, CRC(1fb6f07d) SHA1(a7d21d4b0b0b141c4dbe66554e5362e2c8876067) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d21-05.18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -655,7 +659,7 @@ ROM_START( ringrageu )
 	ROM_LOAD16_BYTE("d21-18.5", 0x100000, 0x20000, CRC(133b55d0) SHA1(feb5c9d0b1adcae3b16eb206c8ac4e73fd88bef4) )
 	ROM_LOAD16_BYTE("d21-19.6", 0x100001, 0x20000, CRC(1f98908f) SHA1(972c8f7e4e417831466714efd0b4cadca1f3e8e5) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d21-01.17", 0x000000, 0x200000, CRC(1fb6f07d) SHA1(a7d21d4b0b0b141c4dbe66554e5362e2c8876067) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d21-05.18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -686,7 +690,7 @@ ROM_START( ringragej )
 	ROM_LOAD16_BYTE("d21-18.5", 0x100000, 0x20000, CRC(133b55d0) SHA1(feb5c9d0b1adcae3b16eb206c8ac4e73fd88bef4) )
 	ROM_LOAD16_BYTE("d21-19.6", 0x100001, 0x20000, CRC(1f98908f) SHA1(972c8f7e4e417831466714efd0b4cadca1f3e8e5) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d21-01.17", 0x000000, 0x200000, CRC(1fb6f07d) SHA1(a7d21d4b0b0b141c4dbe66554e5362e2c8876067) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d21-05.18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -717,7 +721,7 @@ ROM_START( arabianm )
 	ROM_LOAD16_BYTE("d29-18.ic5", 0x100000, 0x20000, CRC(d97780df) SHA1(d0f9d2fd7ce13f620bb44083bf012f67dda4b10b) )
 	ROM_LOAD16_BYTE("d29-19.ic6", 0x100001, 0x20000, CRC(b1ad365c) SHA1(1cd26d8feaaa06b50dfee32e9b7950b8ee92ac55) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d29-01.ic17", 0x000000, 0x200000, CRC(545ac4b3) SHA1(f89513fca8a03cab11160aa1f0a9c3adbc8bda08) )   // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d29-02.ic18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )   // -std-
@@ -759,7 +763,7 @@ ROM_START( arabianmj )
 	ROM_LOAD16_BYTE("d29-18.ic5", 0x100000, 0x20000, CRC(d97780df) SHA1(d0f9d2fd7ce13f620bb44083bf012f67dda4b10b) )
 	ROM_LOAD16_BYTE("d29-19.ic6", 0x100001, 0x20000, CRC(b1ad365c) SHA1(1cd26d8feaaa06b50dfee32e9b7950b8ee92ac55) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d29-01.ic17", 0x000000, 0x200000, CRC(545ac4b3) SHA1(f89513fca8a03cab11160aa1f0a9c3adbc8bda08) )   // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d29-02.ic18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )   // -std-
@@ -801,7 +805,7 @@ ROM_START( arabianmu )
 	ROM_LOAD16_BYTE("d29-18.ic5", 0x100000, 0x20000, CRC(d97780df) SHA1(d0f9d2fd7ce13f620bb44083bf012f67dda4b10b) )
 	ROM_LOAD16_BYTE("d29-19.ic6", 0x100001, 0x20000, CRC(b1ad365c) SHA1(1cd26d8feaaa06b50dfee32e9b7950b8ee92ac55) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d29-01.ic17", 0x000000, 0x200000, CRC(545ac4b3) SHA1(f89513fca8a03cab11160aa1f0a9c3adbc8bda08) )   // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d29-02.ic18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )   // -std-
@@ -841,7 +845,7 @@ ROM_START( ridingf )
 	ROM_LOAD16_BYTE("d34-07.5", 0x100000, 0x20000, CRC(67239e2b) SHA1(8e0268fab53d26cde5c1928326c4787533dc6ffe) )
 	ROM_LOAD16_BYTE("d34-08.6", 0x100001, 0x20000, CRC(2cf20323) SHA1(b2bbac3714ecfd75506ae000c7eec603dfe3e13d) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d34-03.17", 0x000000, 0x200000, CRC(e534ef74) SHA1(532d00e927d3704e7557abd59e35de8b7661c8fa) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d34-04.18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -870,7 +874,7 @@ ROM_START( ridingfj )
 	ROM_LOAD16_BYTE("d34-07.5", 0x100000, 0x20000, CRC(67239e2b) SHA1(8e0268fab53d26cde5c1928326c4787533dc6ffe) )
 	ROM_LOAD16_BYTE("d34-08.6", 0x100001, 0x20000, CRC(2cf20323) SHA1(b2bbac3714ecfd75506ae000c7eec603dfe3e13d) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d34-03.17", 0x000000, 0x200000, CRC(e534ef74) SHA1(532d00e927d3704e7557abd59e35de8b7661c8fa) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d34-04.18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -899,7 +903,7 @@ ROM_START( ridingfu )
 	ROM_LOAD16_BYTE("d34-07.5", 0x100000, 0x20000, CRC(67239e2b) SHA1(8e0268fab53d26cde5c1928326c4787533dc6ffe) )
 	ROM_LOAD16_BYTE("d34-08.6", 0x100001, 0x20000, CRC(2cf20323) SHA1(b2bbac3714ecfd75506ae000c7eec603dfe3e13d) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d34-03.17", 0x000000, 0x200000, CRC(e534ef74) SHA1(532d00e927d3704e7557abd59e35de8b7661c8fa) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d34-04.18", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -932,7 +936,7 @@ ROM_START( gseeker )
 	ROM_LOAD16_BYTE("d40_07.rom", 0x100000, 0x20000, CRC(7e9b26c2) SHA1(d88ad39a9d70b4a5bd3f83e0d4d0725f659f1d2a) )
 	ROM_LOAD16_BYTE("d40_08.rom", 0x100001, 0x20000, CRC(9c926a28) SHA1(9d9ee75eb895edc381c3ab4df5af941f84cd2073) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d40_01.rom", 0x000000, 0x200000, CRC(ee312e95) SHA1(885553950c2b2195d664639bf7e0d1ffa3e8346a) )    // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d40_02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )    // -std-
@@ -965,7 +969,7 @@ ROM_START( gseekerj )
 	ROM_LOAD16_BYTE("d40_07.rom", 0x100000, 0x20000, CRC(7e9b26c2) SHA1(d88ad39a9d70b4a5bd3f83e0d4d0725f659f1d2a) )
 	ROM_LOAD16_BYTE("d40_08.rom", 0x100001, 0x20000, CRC(9c926a28) SHA1(9d9ee75eb895edc381c3ab4df5af941f84cd2073) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d40_01.rom", 0x000000, 0x200000, CRC(ee312e95) SHA1(885553950c2b2195d664639bf7e0d1ffa3e8346a) )    // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d40_02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )    // -std-
@@ -998,7 +1002,7 @@ ROM_START( gseekeru )
 	ROM_LOAD16_BYTE("d40_07.rom", 0x100000, 0x20000, CRC(7e9b26c2) SHA1(d88ad39a9d70b4a5bd3f83e0d4d0725f659f1d2a) )
 	ROM_LOAD16_BYTE("d40_08.rom", 0x100001, 0x20000, CRC(9c926a28) SHA1(9d9ee75eb895edc381c3ab4df5af941f84cd2073) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d40_01.rom", 0x000000, 0x200000, CRC(ee312e95) SHA1(885553950c2b2195d664639bf7e0d1ffa3e8346a) )    // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d40_02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )    // -std-
@@ -1032,7 +1036,7 @@ ROM_START( commandw )
 	ROM_LOAD16_BYTE("cw_spr1.bin", 0x100000, 0x20000, CRC(c8f81c25) SHA1(1c914053826587cc2d5d2c0220a3e29a641fe6f9) )
 	ROM_LOAD16_BYTE("cw_spr0.bin", 0x100001, 0x20000, CRC(2aaa9dfb) SHA1(6d4c36ff54a84035c0ddf40e4f3eafd2adc15a5e) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("cw_pcm_0.bin", 0x000000, 0x200000, CRC(a1e26629) SHA1(0c5899a767f66f67a5d59b8d287d74b54f8c3727) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("cw_pcm_1.bin", 0x400000, 0x200000, CRC(39fc6cf4) SHA1(d43ef294af62765bfec089fac1d67ad81e1b06da) )  // CC -- -std-
 ROM_END
@@ -1065,7 +1069,7 @@ ROM_START( cupfinal )
 	ROM_LOAD16_BYTE("d49-17.32", 0x100000, 0x20000, CRC(f2058eba) SHA1(7faaa94fadf02b6304287b61fb9613f9f4169fef) )
 	ROM_LOAD16_BYTE("d49-18.33", 0x100001, 0x20000, CRC(a0fdd270) SHA1(9b5a2c8d35ea3bc6842e3c328447c3bf641b9237) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1099,7 +1103,7 @@ ROM_START( hthero93 )
 	ROM_LOAD16_BYTE("d49-17.32", 0x100000, 0x20000, CRC(f2058eba) SHA1(7faaa94fadf02b6304287b61fb9613f9f4169fef) )
 	ROM_LOAD16_BYTE("d49-18.33", 0x100001, 0x20000, CRC(a0fdd270) SHA1(9b5a2c8d35ea3bc6842e3c328447c3bf641b9237) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1133,7 +1137,7 @@ ROM_START( hthero93u )
 	ROM_LOAD16_BYTE("d49-17.32", 0x100000, 0x20000, CRC(f2058eba) SHA1(7faaa94fadf02b6304287b61fb9613f9f4169fef) )
 	ROM_LOAD16_BYTE("d49-18.33", 0x100001, 0x20000, CRC(a0fdd270) SHA1(9b5a2c8d35ea3bc6842e3c328447c3bf641b9237) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1183,7 +1187,7 @@ ROM_START( trstar )
 	ROM_LOAD16_BYTE("d53-13.10", 0x100000, 0x20000, CRC(877f0361) SHA1(eda58d71fb06f739bee1451d7aa7e7e6dee10e03) )
 	ROM_LOAD16_BYTE("d53-14.23", 0x100001, 0x20000, CRC(a8664867) SHA1(dffddca469019abac33a1abe41c3fe83fbf553ce) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d53-01.2", 0x000000, 0x200000, CRC(28fd2d9b) SHA1(e08037795952a28e7a5e90437f1b9675aadfa136) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d53-02.3", 0x400000, 0x200000, CRC(8bd4367a) SHA1(9b274fe321c4faedb7d44f7998ae2e37c6899688) )  // CC CD -std-
 ROM_END
@@ -1216,7 +1220,7 @@ ROM_START( trstarj )
 	ROM_LOAD16_BYTE("d53-13.10", 0x100000, 0x20000, CRC(877f0361) SHA1(eda58d71fb06f739bee1451d7aa7e7e6dee10e03) )
 	ROM_LOAD16_BYTE("d53-14.23", 0x100001, 0x20000, CRC(a8664867) SHA1(dffddca469019abac33a1abe41c3fe83fbf553ce) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d53-01.2", 0x000000, 0x200000, CRC(28fd2d9b) SHA1(e08037795952a28e7a5e90437f1b9675aadfa136) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d53-02.3", 0x400000, 0x200000, CRC(8bd4367a) SHA1(9b274fe321c4faedb7d44f7998ae2e37c6899688) )  // CC CD -std-
 ROM_END
@@ -1249,7 +1253,7 @@ ROM_START( prmtmfgt )
 	ROM_LOAD16_BYTE("d53-13.10", 0x100000, 0x20000, CRC(877f0361) SHA1(eda58d71fb06f739bee1451d7aa7e7e6dee10e03) )
 	ROM_LOAD16_BYTE("d53-14.23", 0x100001, 0x20000, CRC(a8664867) SHA1(dffddca469019abac33a1abe41c3fe83fbf553ce) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d53-01.2", 0x000000, 0x200000, CRC(28fd2d9b) SHA1(e08037795952a28e7a5e90437f1b9675aadfa136) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d53-02.3", 0x400000, 0x200000, CRC(8bd4367a) SHA1(9b274fe321c4faedb7d44f7998ae2e37c6899688) )  // CC CD -std-
 ROM_END
@@ -1282,7 +1286,7 @@ ROM_START( trstaro )
 	ROM_LOAD16_BYTE("d53-13.10", 0x100000, 0x20000, CRC(877f0361) SHA1(eda58d71fb06f739bee1451d7aa7e7e6dee10e03) )
 	ROM_LOAD16_BYTE("d53-14.23", 0x100001, 0x20000, CRC(a8664867) SHA1(dffddca469019abac33a1abe41c3fe83fbf553ce) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d53-01.2", 0x000000, 0x200000, CRC(28fd2d9b) SHA1(e08037795952a28e7a5e90437f1b9675aadfa136) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d53-02.3", 0x400000, 0x200000, CRC(8bd4367a) SHA1(9b274fe321c4faedb7d44f7998ae2e37c6899688) )  // CC CD -std-
 ROM_END
@@ -1315,7 +1319,7 @@ ROM_START( trstaroj )
 	ROM_LOAD16_BYTE("d53-13.10", 0x100000, 0x20000, CRC(877f0361) SHA1(eda58d71fb06f739bee1451d7aa7e7e6dee10e03) )
 	ROM_LOAD16_BYTE("d53-14.23", 0x100001, 0x20000, CRC(a8664867) SHA1(dffddca469019abac33a1abe41c3fe83fbf553ce) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d53-01.2", 0x000000, 0x200000, CRC(28fd2d9b) SHA1(e08037795952a28e7a5e90437f1b9675aadfa136) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d53-02.3", 0x400000, 0x200000, CRC(8bd4367a) SHA1(9b274fe321c4faedb7d44f7998ae2e37c6899688) )  // CC CD -std-
 ROM_END
@@ -1348,7 +1352,7 @@ ROM_START( prmtmfgto )
 	ROM_LOAD16_BYTE("d53-13.10", 0x100000, 0x20000, CRC(877f0361) SHA1(eda58d71fb06f739bee1451d7aa7e7e6dee10e03) )
 	ROM_LOAD16_BYTE("d53-14.23", 0x100001, 0x20000, CRC(a8664867) SHA1(dffddca469019abac33a1abe41c3fe83fbf553ce) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d53-01.2", 0x000000, 0x200000, CRC(28fd2d9b) SHA1(e08037795952a28e7a5e90437f1b9675aadfa136) )  // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d53-02.3", 0x400000, 0x200000, CRC(8bd4367a) SHA1(9b274fe321c4faedb7d44f7998ae2e37c6899688) )  // CC CD -std-
 ROM_END
@@ -1378,7 +1382,7 @@ ROM_START( gunlock )
 	ROM_LOAD16_BYTE("d66-23.ic10", 0x100000, 0x40000, CRC(57fb7c49) SHA1(f8709fd1e9ea7cee10ee2288d13339f675a7d3ae) )
 	ROM_LOAD16_BYTE("d66-22.ic23", 0x100001, 0x40000, CRC(83dd7f9b) SHA1(dae21f64232d3e268f22b5e9899e0b726fdc9a9f) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d66-01.ic2", 0x000000, 0x200000, CRC(58c92efa) SHA1(bb207b35b8f9538362bb99a9ec8df206694f00ce) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d66-02.ic3", 0x400000, 0x200000, CRC(dcdafaab) SHA1(c981c7e54a2a9aaa85bb758691858495d623b029) )    // CC CD -std-
 ROM_END
@@ -1413,7 +1417,7 @@ ROM_START( gunlocko )
 	ROM_LOAD16_BYTE("d66-23.ic10", 0x100000, 0x40000, CRC(57fb7c49) SHA1(f8709fd1e9ea7cee10ee2288d13339f675a7d3ae) )
 	ROM_LOAD16_BYTE("d66-22.ic23", 0x100001, 0x40000, CRC(83dd7f9b) SHA1(dae21f64232d3e268f22b5e9899e0b726fdc9a9f) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("snd0.ic8", 0x000000, 0x080000, CRC(6a468f69) SHA1(77424ee26417e232a81a340cd192531cc59f1f50) )
 	ROM_LOAD16_BYTE("snd1.ic7", 0x100000, 0x080000, CRC(332827b5) SHA1(e1a75799e553ca3969e4aa52ec199c0bbdfcc02b) )
 	ROM_LOAD16_BYTE("snd2.ic6", 0x200000, 0x080000, CRC(b5e737dd) SHA1(a056ab589c35657580ea1d58e40ed2089e831112) )
@@ -1449,7 +1453,7 @@ ROM_START( rayforce )
 	ROM_LOAD16_BYTE("d66-23.ic10", 0x100000, 0x40000, CRC(57fb7c49) SHA1(f8709fd1e9ea7cee10ee2288d13339f675a7d3ae) )
 	ROM_LOAD16_BYTE("d66-22.ic23", 0x100001, 0x40000, CRC(83dd7f9b) SHA1(dae21f64232d3e268f22b5e9899e0b726fdc9a9f) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d66-01.ic2", 0x000000, 0x200000, CRC(58c92efa) SHA1(bb207b35b8f9538362bb99a9ec8df206694f00ce) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d66-02.ic3", 0x400000, 0x200000, CRC(dcdafaab) SHA1(c981c7e54a2a9aaa85bb758691858495d623b029) )    // CC CD -std-
 ROM_END
@@ -1479,7 +1483,7 @@ ROM_START( rayforcej )
 	ROM_LOAD16_BYTE("d66-23.ic10", 0x100000, 0x40000, CRC(57fb7c49) SHA1(f8709fd1e9ea7cee10ee2288d13339f675a7d3ae) )
 	ROM_LOAD16_BYTE("d66-22.ic23", 0x100001, 0x40000, CRC(83dd7f9b) SHA1(dae21f64232d3e268f22b5e9899e0b726fdc9a9f) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d66-01.ic2", 0x000000, 0x200000, CRC(58c92efa) SHA1(bb207b35b8f9538362bb99a9ec8df206694f00ce) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d66-02.ic3", 0x400000, 0x200000, CRC(dcdafaab) SHA1(c981c7e54a2a9aaa85bb758691858495d623b029) )    // CC CD -std-
 ROM_END
@@ -1512,7 +1516,7 @@ ROM_START( scfinals ) /* This is the single PCB version */
 	ROM_LOAD16_BYTE("d49-17.ic5", 0x100000, 0x20000, CRC(f2058eba) SHA1(7faaa94fadf02b6304287b61fb9613f9f4169fef) )
 	ROM_LOAD16_BYTE("d49-18.ic6", 0x100001, 0x20000, CRC(a0fdd270) SHA1(9b5a2c8d35ea3bc6842e3c328447c3bf641b9237) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1521,7 +1525,44 @@ ROM_START( scfinals ) /* This is the single PCB version */
 	ROM_LOAD( "scfinals.nv", 0x0000, 0x0080, CRC(f25945fc) SHA1(9eed644767b5bd2a13f9158e81c94fd36ba63d71) )
 ROM_END
 
-ROM_START( scfinalso ) /* Cart version */
+ROM_START( scfinalso ) /* This is the single PCB version of v2.1O */
+	ROM_REGION( 0x200000, "maincpu", 0 ) /* 68020 code */
+	ROM_LOAD32_BYTE("s-final_rom_24_071293.ic24", 0x000000, 0x20000, CRC(466700c8) SHA1(1b41523efd4fccdf07c52181f4dffd13c98edd1b) ) // == d68-01.20 1/2 (27C010 EPROM)
+	ROM_LOAD32_BYTE("s-final_rom_26_071293.ic26", 0x000001, 0x20000, CRC(824092de) SHA1(4ca502ec39112713b83f2d39c1295b920f2bd613) ) // == d68-02.19 1/2 (27C010 EPROM)
+	ROM_LOAD32_BYTE("s-final_rom_37_071293.ic37", 0x000002, 0x20000, CRC(9aa0cca4) SHA1(5d7c819a8830f58aff22b86c4bbfc45af24e4f89) ) // == d68-04.18 1/2 (27C010 EPROM)
+	ROM_LOAD32_BYTE("s-final_rom_35_071293.ic35", 0x000003, 0x20000, CRC(e7a298fa) SHA1(c5fec0a931d2028a58d25b62da3a41e5a9b253a8) ) // == d68-03.17 1/2 (27C010 EPROM)
+
+	ROM_REGION( 0x600000, "sprites" , 0) /* Sprites */
+	ROM_LOAD16_BYTE("d49-01.12", 0x000000, 0x200000, CRC(1dc89f1c) SHA1(9597b1d8c9b447080ca9401aee83bb4a64bb8332) )
+	ROM_LOAD16_BYTE("d49-02.8",  0x000001, 0x200000, CRC(1e4c374f) SHA1(512edc6a934578d0e7371410a041150d3b13aaad) )
+	ROM_LOAD16_BYTE("d49-06.11", 0x400000, 0x100000, CRC(71ef4ee1) SHA1(1d7729dbc77f7201ff574e8aef65a55bd81c25a7) )
+	ROM_LOAD16_BYTE("d49-07.7",  0x400001, 0x100000, CRC(e5655b8f) SHA1(2c21745370bfe9dbf0e95f7ce42ed34a162bff64) )
+
+	ROM_REGION( 0x300000, "sprites_hi", 0 )
+	ROM_LOAD       ("d49-03.4",  0x000000, 0x200000, CRC(cf9a8727) SHA1(f21787fdcdd8be2009c2d481a9b2d7fc03ce782e) )
+	ROM_LOAD       ("d49-08.3",  0x200000, 0x100000, CRC(7d3c6536) SHA1(289b4bf79ebd9cbdf64ab956784d226e6d546654) )
+
+	ROM_REGION( 0x100000, "tilemap" , 0) /* Tiles */
+	ROM_LOAD32_WORD("d49-09.47", 0x000000, 0x080000, CRC(257ede01) SHA1(c36397d95706c5e68a7738c84829a51c5e8f5ef7) )
+	ROM_LOAD32_WORD("d49-10.45", 0x000002, 0x080000, CRC(f587b787) SHA1(22db4904c134756ddd0f753f197419d27e60a827) )
+
+	ROM_REGION( 0x080000, "tilemap_hi", 0 )
+	ROM_LOAD       ("d49-11.43", 0x000000, 0x080000, CRC(11318b26) SHA1(a7153f9f406d52189f59cbe58d65f88f4e2e6fcc) )
+
+	ROM_REGION( 0x140000, "taito_en:audiocpu", 0 ) /* 68000 sound CPU */
+	ROM_LOAD16_BYTE("d49-17.32", 0x100000, 0x20000, CRC(f2058eba) SHA1(7faaa94fadf02b6304287b61fb9613f9f4169fef) )
+	ROM_LOAD16_BYTE("d49-18.33", 0x100001, 0x20000, CRC(a0fdd270) SHA1(9b5a2c8d35ea3bc6842e3c328447c3bf641b9237) )
+
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
+	// half empty
+	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD( "scfinalso.nv", 0x0000, 0x0080, CRC(1319752e) SHA1(7d1890ebc7d4e2074d3e820e3991b5c57756ad92) )
+ROM_END
+
+ROM_START( scfinalsoc ) /* This is the Cart version of v2.1O */
 	ROM_REGION( 0x200000, "maincpu", 0 ) /* 68020 code */
 	ROM_LOAD32_BYTE("d68-01.20", 0x000000, 0x40000, CRC(cb951856) SHA1(c7b0418b957ed0feecc9dffe5a963bd22df0ac4e) )
 	ROM_LOAD32_BYTE("d68-02.19", 0x000001, 0x40000, CRC(4f94413a) SHA1(b46a35ab0150d5d5e53149c53f11978fbfa28159) )
@@ -1549,7 +1590,7 @@ ROM_START( scfinalso ) /* Cart version */
 	ROM_LOAD16_BYTE("d49-17.32", 0x100000, 0x20000, CRC(f2058eba) SHA1(7faaa94fadf02b6304287b61fb9613f9f4169fef) )
 	ROM_LOAD16_BYTE("d49-18.33", 0x100001, 0x20000, CRC(a0fdd270) SHA1(9b5a2c8d35ea3bc6842e3c328447c3bf641b9237) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V1: 2 banks
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V1: 2 banks
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1586,7 +1627,7 @@ ROM_START( lightbr )
 	ROM_LOAD16_BYTE("d69-18.bin", 0x100000, 0x20000, CRC(04600d7b) SHA1(666cfab09b61fd6e0bc4ff277018ebf1cda01b0e) )
 	ROM_LOAD16_BYTE("d69-19.bin", 0x100001, 0x20000, CRC(1484e853) SHA1(4459c18ba005786483c652857e527c6093efb036) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d69-01.bin", 0x000000, 0x200000, CRC(9ac93ac2) SHA1(1c44f6ba95505f85b0c8a90395f09d2a49da3553) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d69-02.bin", 0x400000, 0x200000, CRC(dce28dd7) SHA1(eacfc98349b0608fc1a944c11f0483fb6caa4445) )    // CC CD -std-
 ROM_END
@@ -1619,7 +1660,7 @@ ROM_START( dungeonm )
 	ROM_LOAD16_BYTE("d69-18.bin", 0x100000, 0x20000, CRC(04600d7b) SHA1(666cfab09b61fd6e0bc4ff277018ebf1cda01b0e) )
 	ROM_LOAD16_BYTE("d69-19.bin", 0x100001, 0x20000, CRC(1484e853) SHA1(4459c18ba005786483c652857e527c6093efb036) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d69-01.bin", 0x000000, 0x200000, CRC(9ac93ac2) SHA1(1c44f6ba95505f85b0c8a90395f09d2a49da3553) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d69-02.bin", 0x400000, 0x200000, CRC(dce28dd7) SHA1(eacfc98349b0608fc1a944c11f0483fb6caa4445) )    // CC CD -std-
 ROM_END
@@ -1652,7 +1693,7 @@ ROM_START( dungeonmu )
 	ROM_LOAD16_BYTE("d69-18.bin", 0x100000, 0x20000, CRC(04600d7b) SHA1(666cfab09b61fd6e0bc4ff277018ebf1cda01b0e) )
 	ROM_LOAD16_BYTE("d69-19.bin", 0x100001, 0x20000, CRC(1484e853) SHA1(4459c18ba005786483c652857e527c6093efb036) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d69-01.bin", 0x000000, 0x200000, CRC(9ac93ac2) SHA1(1c44f6ba95505f85b0c8a90395f09d2a49da3553) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d69-02.bin", 0x400000, 0x200000, CRC(dce28dd7) SHA1(eacfc98349b0608fc1a944c11f0483fb6caa4445) )    // CC CD -std-
 ROM_END
@@ -1745,7 +1786,7 @@ ROM_START( lightbrj )
 	ROM_LOAD16_BYTE("d69-18.bin", 0x100000, 0x20000, CRC(04600d7b) SHA1(666cfab09b61fd6e0bc4ff277018ebf1cda01b0e) )
 	ROM_LOAD16_BYTE("d69-19.bin", 0x100001, 0x20000, CRC(1484e853) SHA1(4459c18ba005786483c652857e527c6093efb036) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d69-01.bin", 0x000000, 0x200000, CRC(9ac93ac2) SHA1(1c44f6ba95505f85b0c8a90395f09d2a49da3553) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d69-02.bin", 0x400000, 0x200000, CRC(dce28dd7) SHA1(eacfc98349b0608fc1a944c11f0483fb6caa4445) )    // CC CD -std-
 ROM_END
@@ -1778,7 +1819,7 @@ ROM_START( intcup94 )
 	ROM_LOAD16_BYTE("d78-08.32", 0x100000, 0x20000, CRC(a629d07c) SHA1(b2904e106633a3960ceb2bc58b600ea60034ff0b) )
 	ROM_LOAD16_BYTE("d78-09.33", 0x100001, 0x20000, CRC(1f0efe01) SHA1(7bff748b9fcee170e430d90ee07eb9975d8fba59) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1812,7 +1853,7 @@ ROM_START( hthero94 )
 	ROM_LOAD16_BYTE("d78-08.32", 0x100000, 0x20000, CRC(a629d07c) SHA1(b2904e106633a3960ceb2bc58b600ea60034ff0b) )
 	ROM_LOAD16_BYTE("d78-09.33", 0x100001, 0x20000, CRC(1f0efe01) SHA1(7bff748b9fcee170e430d90ee07eb9975d8fba59) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d49-04.38", 0x000000, 0x200000, CRC(44b365a9) SHA1(14c4a6b193a0069360406c74c500ba24f2a55b62) ) // C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d49-05.41", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) ) // -std-
@@ -1841,7 +1882,7 @@ ROM_START( recalh )
 	ROM_LOAD16_BYTE("rh_spr1.bin", 0x100000, 0x20000, CRC(504cbc1d) SHA1(35a775c1ebc8107c553e43b9d84eb735446c26fd) )
 	ROM_LOAD16_BYTE("rh_spr0.bin", 0x100001, 0x20000, CRC(78fba467) SHA1(4586b061724be7ec413784b820c33cc0d6bbcd0c) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("rh_snd0.bin", 0x000000, 0x200000, CRC(386f5e1b) SHA1(d67d5f057c6db3092643f10ea10f977b1caa662f) )   // C8 CB CA C9
 	// half empty
 	ROM_LOAD16_BYTE("rh_snd1.bin", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )   // -std-
@@ -1884,7 +1925,7 @@ ROM_START( kaiserkn )
 	ROM_LOAD16_BYTE("d84-26.32", 0x100000, 0x40000, CRC(4f5b8563) SHA1(1d4e06cbea7bc73a99d6e30be714fff420151bbc) )
 	ROM_LOAD16_BYTE("d84-27.33", 0x100001, 0x40000, CRC(fb0cb1ba) SHA1(16a79b53651a6131f7636db19738b456b7c28bff) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("d84-01.rom", 0x400000, 0x200000, CRC(9ad22149) SHA1(48055822e0cea228cdecf3d05ac24e50979b6f4d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d84-02.rom", 0x800000, 0x200000, CRC(9e1827e4) SHA1(1840881b0f8f7b6225e6ffa12a8d4b463554988e) )    // CC CD CE CF
@@ -1929,7 +1970,7 @@ ROM_START( kaiserknj )
 	ROM_LOAD16_BYTE("d84-26.32", 0x100000, 0x40000, CRC(4f5b8563) SHA1(1d4e06cbea7bc73a99d6e30be714fff420151bbc) )
 	ROM_LOAD16_BYTE("d84-27.33", 0x100001, 0x40000, CRC(fb0cb1ba) SHA1(16a79b53651a6131f7636db19738b456b7c28bff) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("d84-01.rom", 0x400000, 0x200000, CRC(9ad22149) SHA1(48055822e0cea228cdecf3d05ac24e50979b6f4d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d84-02.rom", 0x800000, 0x200000, CRC(9e1827e4) SHA1(1840881b0f8f7b6225e6ffa12a8d4b463554988e) )    // CC CD CE CF
@@ -1974,7 +2015,7 @@ ROM_START( gblchmp )
 	ROM_LOAD16_BYTE("d84-26.32", 0x100000, 0x40000, CRC(4f5b8563) SHA1(1d4e06cbea7bc73a99d6e30be714fff420151bbc) )
 	ROM_LOAD16_BYTE("d84-27.33", 0x100001, 0x40000, CRC(fb0cb1ba) SHA1(16a79b53651a6131f7636db19738b456b7c28bff) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("d84-01.rom", 0x400000, 0x200000, CRC(9ad22149) SHA1(48055822e0cea228cdecf3d05ac24e50979b6f4d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d84-02.rom", 0x800000, 0x200000, CRC(9e1827e4) SHA1(1840881b0f8f7b6225e6ffa12a8d4b463554988e) )    // CC CD CE CF
@@ -2019,7 +2060,7 @@ ROM_START( dankuga )
 	ROM_LOAD16_BYTE("d84-26.32", 0x100000, 0x40000, CRC(4f5b8563) SHA1(1d4e06cbea7bc73a99d6e30be714fff420151bbc) )
 	ROM_LOAD16_BYTE("d84-27.33", 0x100001, 0x40000, CRC(fb0cb1ba) SHA1(16a79b53651a6131f7636db19738b456b7c28bff) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("d84-01.rom", 0x400000, 0x200000, CRC(9ad22149) SHA1(48055822e0cea228cdecf3d05ac24e50979b6f4d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d84-02.rom", 0x800000, 0x200000, CRC(9e1827e4) SHA1(1840881b0f8f7b6225e6ffa12a8d4b463554988e) )    // CC CD CE CF
@@ -2052,7 +2093,7 @@ ROM_START( dariusg )
 	ROM_LOAD16_BYTE("d87-13.bin", 0x100000, 0x40000, CRC(15b1fff4) SHA1(28692b731ae98a47c2c5e11a8a71b61a813d9a64) )
 	ROM_LOAD16_BYTE("d87-14.bin", 0x100001, 0x40000, CRC(eecda29a) SHA1(6eb238e47bc7bf635ffbdbb25fb06a37db980ef8) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d87-01.bin", 0x000000, 0x200000, CRC(3848a110) SHA1(802e91695a526f665c7fd261f0a7639a0b883c9e) )    // C9 CA CB CC
 	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )    // CD CE CF D0
 ROM_END
@@ -2082,7 +2123,7 @@ ROM_START( dariusgj )
 	ROM_LOAD16_BYTE("d87-13.bin", 0x100000, 0x40000, CRC(15b1fff4) SHA1(28692b731ae98a47c2c5e11a8a71b61a813d9a64) )
 	ROM_LOAD16_BYTE("d87-14.bin", 0x100001, 0x40000, CRC(eecda29a) SHA1(6eb238e47bc7bf635ffbdbb25fb06a37db980ef8) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d87-01.bin", 0x000000, 0x200000, CRC(3848a110) SHA1(802e91695a526f665c7fd261f0a7639a0b883c9e) )    // C9 CA CB CC
 	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )    // CD CE CF D0
 ROM_END
@@ -2112,7 +2153,7 @@ ROM_START( dariusgu )
 	ROM_LOAD16_BYTE("d87-13.bin", 0x100000, 0x40000, CRC(15b1fff4) SHA1(28692b731ae98a47c2c5e11a8a71b61a813d9a64) )
 	ROM_LOAD16_BYTE("d87-14.bin", 0x100001, 0x40000, CRC(eecda29a) SHA1(6eb238e47bc7bf635ffbdbb25fb06a37db980ef8) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d87-01.bin", 0x000000, 0x200000, CRC(3848a110) SHA1(802e91695a526f665c7fd261f0a7639a0b883c9e) )    // C9 CA CB CC
 	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )    // CD CE CF D0
 ROM_END
@@ -2142,7 +2183,7 @@ ROM_START( dariusgx )
 	ROM_LOAD16_BYTE("d87-13.bin", 0x100000, 0x40000, CRC(15b1fff4) SHA1(28692b731ae98a47c2c5e11a8a71b61a813d9a64) )
 	ROM_LOAD16_BYTE("d87-14.bin", 0x100001, 0x40000, CRC(eecda29a) SHA1(6eb238e47bc7bf635ffbdbb25fb06a37db980ef8) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d87-01.bin", 0x000000, 0x200000, CRC(3848a110) SHA1(802e91695a526f665c7fd261f0a7639a0b883c9e) )    // C9 CA CB CC
 	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )    // CD CE CF D0
 ROM_END
@@ -2173,7 +2214,7 @@ ROM_START( bublbob2 )
 	ROM_LOAD16_BYTE("d90-13.ic32", 0x100000, 0x40000, CRC(6762bd90) SHA1(771db0382bc8dab2caf13d0fc20648366c685829) )
 	ROM_LOAD16_BYTE("d90-14.ic33", 0x100001, 0x40000, CRC(8e33357e) SHA1(68b81693c22e6357e37244f2a416818a81338138) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d90-04", 0x000000, 0x200000, CRC(feee5fda) SHA1(b89354013ec4d34bcd51ecded412effa66dd2f2f) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d90-05", 0x400000, 0x200000, CRC(c192331f) SHA1(ebab05b3681c70b373bc06c1826be1cc397d3af7) )    // CC CD -std-
 
@@ -2209,7 +2250,7 @@ ROM_START( bublbob2o )
 	ROM_LOAD16_BYTE("d90-13.ic32", 0x100000, 0x40000, CRC(6762bd90) SHA1(771db0382bc8dab2caf13d0fc20648366c685829) )
 	ROM_LOAD16_BYTE("d90-14.ic33", 0x100001, 0x40000, CRC(8e33357e) SHA1(68b81693c22e6357e37244f2a416818a81338138) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d90-04", 0x000000, 0x200000, CRC(feee5fda) SHA1(b89354013ec4d34bcd51ecded412effa66dd2f2f) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d90-05", 0x400000, 0x200000, CRC(c192331f) SHA1(ebab05b3681c70b373bc06c1826be1cc397d3af7) )    // CC CD -std-
 ROM_END
@@ -2243,7 +2284,7 @@ ROM_START( bublbob2p )
 	ROM_LOAD16_BYTE("snd-h-348f.ic66", 0x100000, 0x20000, CRC(f66e60f2) SHA1(b94c97ccde179a69811137c77730c91924236bfe) )
 	ROM_LOAD16_BYTE("snd-l-4ec1.ic65", 0x100001, 0x20000, CRC(d302d8bc) SHA1(02a2e69d0f4406578b12b05ab25d2abdf5bbba3c) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 )
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE("cq80-snd-data0-7b5f.ic43", 0x000000, 0x080000, CRC(bf8f26d3) SHA1(b165fc62ed30ae56d27caffbb0b16321d3c5ef8b) )    // C8
 	ROM_LOAD16_BYTE("cq80-snd-data1-933b.ic44", 0x100000, 0x080000, CRC(62b00475) SHA1(d2b44940cefca76897b291d83b5ca8ec18dbe1fa) )    // C9
 
@@ -2290,7 +2331,7 @@ ROM_START( bubsymphe )
 	ROM_LOAD16_BYTE("d90-13.ic32", 0x100000, 0x40000, CRC(6762bd90) SHA1(771db0382bc8dab2caf13d0fc20648366c685829) )
 	ROM_LOAD16_BYTE("d90-14.ic33", 0x100001, 0x40000, CRC(8e33357e) SHA1(68b81693c22e6357e37244f2a416818a81338138) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d90-04", 0x000000, 0x200000, CRC(feee5fda) SHA1(b89354013ec4d34bcd51ecded412effa66dd2f2f) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d90-05", 0x400000, 0x200000, CRC(c192331f) SHA1(ebab05b3681c70b373bc06c1826be1cc397d3af7) )    // CC CD -std-
 ROM_END
@@ -2320,7 +2361,7 @@ ROM_START( bubsymphj )
 	ROM_LOAD16_BYTE("d90-13.ic32", 0x100000, 0x40000, CRC(6762bd90) SHA1(771db0382bc8dab2caf13d0fc20648366c685829) )
 	ROM_LOAD16_BYTE("d90-14.ic33", 0x100001, 0x40000, CRC(8e33357e) SHA1(68b81693c22e6357e37244f2a416818a81338138) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d90-04", 0x000000, 0x200000, CRC(feee5fda) SHA1(b89354013ec4d34bcd51ecded412effa66dd2f2f) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d90-05", 0x400000, 0x200000, CRC(c192331f) SHA1(ebab05b3681c70b373bc06c1826be1cc397d3af7) )    // CC CD -std-
 
@@ -2413,7 +2454,7 @@ ROM_START( bubsymphu )
 	ROM_LOAD16_BYTE("d90-13.ic32", 0x100000, 0x40000, CRC(6762bd90) SHA1(771db0382bc8dab2caf13d0fc20648366c685829) )
 	ROM_LOAD16_BYTE("d90-14.ic33", 0x100001, 0x40000, CRC(8e33357e) SHA1(68b81693c22e6357e37244f2a416818a81338138) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d90-04", 0x000000, 0x200000, CRC(feee5fda) SHA1(b89354013ec4d34bcd51ecded412effa66dd2f2f) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d90-05", 0x400000, 0x200000, CRC(c192331f) SHA1(ebab05b3681c70b373bc06c1826be1cc397d3af7) )    // CC CD -std-
 ROM_END
@@ -2441,7 +2482,7 @@ ROM_START( spcinvdj )
 	ROM_LOAD16_BYTE("d93-05.bin", 0x100000, 0x20000, CRC(ff365596) SHA1(4cf2e0d6f42cf3fb69796be6092eff8a47f7f8b9) )
 	ROM_LOAD16_BYTE("d93-06.bin", 0x100001, 0x20000, CRC(ef7ad400) SHA1(01be403d575a543f089b910a5a8c381a6603e67e) )
 
-	ROM_REGION16_BE( 0x400000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("d93-11.38", 0x000000, 0x80000, CRC(df5853de) SHA1(bb1ea604d44819dc7c82848c5bde9612f70f7528) )  // C8
 	ROM_LOAD16_BYTE("d93-12.39", 0x100000, 0x80000, CRC(b0f71d60) SHA1(35fc32764d9b82b1b40c5e9cc8e367cf842531a2) )  // C9
 	ROM_LOAD16_BYTE("d93-13.40", 0x200000, 0x80000, CRC(26312451) SHA1(9f947a11592fd8420fc581914bf16e7ade75390c) )  // -std-
@@ -2476,10 +2517,10 @@ ROM_START( pwrgoal )
 	ROM_LOAD       ("d94-12.bin", 0x000000, 0x100000, CRC(47064189) SHA1(99ceeb326dcc2e1c3acba8ac14d94dcb17c6e032) )
 
 	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 ) /* 68000 sound CPU */
-	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
-	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
+	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) )
+	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d94-10.bin", 0x000000, 0x200000, CRC(a22563ae) SHA1(85f2a4ca5e085ac1d4c15feb737229764697ae85) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d94-11.bin", 0x400000, 0x200000, CRC(61ed83fa) SHA1(f6ca60b7af61fd3ac01a987f949d7a7bc96e43ff) )    // CD CE -std-
 ROM_END
@@ -2512,10 +2553,10 @@ ROM_START( hthero95 )
 	ROM_LOAD       ("d94-12.bin", 0x000000, 0x100000, CRC(47064189) SHA1(99ceeb326dcc2e1c3acba8ac14d94dcb17c6e032) )
 
 	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 ) /* 68000 sound CPU */
-	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
-	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
+	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) )
+	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d94-10.bin", 0x000000, 0x200000, CRC(a22563ae) SHA1(85f2a4ca5e085ac1d4c15feb737229764697ae85) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d94-11.bin", 0x400000, 0x200000, CRC(61ed83fa) SHA1(f6ca60b7af61fd3ac01a987f949d7a7bc96e43ff) )    // CD CE -std-
 ROM_END
@@ -2548,10 +2589,10 @@ ROM_START( hthero95u )
 	ROM_LOAD       ("d94-12.bin", 0x000000, 0x100000, CRC(47064189) SHA1(99ceeb326dcc2e1c3acba8ac14d94dcb17c6e032) )
 
 	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 ) /* 68000 sound CPU */
-	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
-	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
+	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) )
+	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d94-10.bin", 0x000000, 0x200000, CRC(a22563ae) SHA1(85f2a4ca5e085ac1d4c15feb737229764697ae85) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d94-11.bin", 0x400000, 0x200000, CRC(61ed83fa) SHA1(f6ca60b7af61fd3ac01a987f949d7a7bc96e43ff) )    // CD CE -std-
 ROM_END
@@ -2584,10 +2625,10 @@ ROM_START( hthero95a )
 	ROM_LOAD       ("d94-12.bin", 0x000000, 0x100000, CRC(47064189) SHA1(99ceeb326dcc2e1c3acba8ac14d94dcb17c6e032) )
 
 	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 ) /* 68000 sound CPU */
-	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
-	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) ) /* Over dump?? 0x20000-0x3ffff == 0xFF */
+	ROM_LOAD16_BYTE("d94-19.bin", 0x100000, 0x40000, CRC(c93dbcf4) SHA1(413520e652d809651aff9b1b74e6353112d34c12) )
+	ROM_LOAD16_BYTE("d94-20.bin", 0x100001, 0x40000, CRC(f232bf64) SHA1(bbfeae0785fc49c12aa6d9b1bd6ff7c8515f8fe7) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d94-10.bin", 0x000000, 0x200000, CRC(a22563ae) SHA1(85f2a4ca5e085ac1d4c15feb737229764697ae85) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d94-11.bin", 0x400000, 0x200000, CRC(61ed83fa) SHA1(f6ca60b7af61fd3ac01a987f949d7a7bc96e43ff) )    // CD CE -std-
 ROM_END
@@ -2615,7 +2656,7 @@ ROM_START( qtheater )
 	ROM_LOAD16_BYTE("d95-07.32", 0x100000, 0x40000, CRC(3c201d70) SHA1(89fe4d363f4e1a847ba7d2894a2092708b287a33) )
 	ROM_LOAD16_BYTE("d95-08.33", 0x100001, 0x40000, CRC(01c23354) SHA1(7b332edc844b1b1c1513e879215089987645fa3f) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d95-03.38", 0x000000, 0x200000, CRC(4149ea67) SHA1(35fc9e60cd368c6eab20e23deb581aa4f46e164e) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("d95-04.41", 0x400000, 0x200000, CRC(e9049d16) SHA1(ffa7dfc5d1cb82a601bad26b634c993aedda7803) ) // CC CD -std-
 ROM_END
@@ -2645,7 +2686,7 @@ ROM_START( spcinv95u )
 	ROM_LOAD16_BYTE("e06-09.32", 0x100000, 0x40000, CRC(9bcafc87) SHA1(10b3f6da00a41550fe6a705232f0e33fda3c7e7c) )
 	ROM_LOAD16_BYTE("e06-10.33", 0x100001, 0x40000, CRC(b752b61f) SHA1(e948a8af19c70ba8b8e908c869bc88ed0cac8420) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e06-04", 0x000000, 0x200000, CRC(1dac29df) SHA1(ed68a41def148dcf4057cfac87a2a563c6882e1d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )    // CC CD CE CF
 
@@ -2682,7 +2723,7 @@ ROM_START( spcinv95 )
 	ROM_LOAD16_BYTE("e06-09.32", 0x100000, 0x40000, CRC(9bcafc87) SHA1(10b3f6da00a41550fe6a705232f0e33fda3c7e7c) )
 	ROM_LOAD16_BYTE("e06-10.33", 0x100001, 0x40000, CRC(b752b61f) SHA1(e948a8af19c70ba8b8e908c869bc88ed0cac8420) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e06-04", 0x000000, 0x200000, CRC(1dac29df) SHA1(ed68a41def148dcf4057cfac87a2a563c6882e1d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )    // CC CD CE CF
 
@@ -2719,7 +2760,7 @@ ROM_START( akkanvdr )
 	ROM_LOAD16_BYTE("e06-09.32", 0x100000, 0x40000, CRC(9bcafc87) SHA1(10b3f6da00a41550fe6a705232f0e33fda3c7e7c) )
 	ROM_LOAD16_BYTE("e06-10.33", 0x100001, 0x40000, CRC(b752b61f) SHA1(e948a8af19c70ba8b8e908c869bc88ed0cac8420) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e06-04", 0x000000, 0x200000, CRC(1dac29df) SHA1(ed68a41def148dcf4057cfac87a2a563c6882e1d) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )    // CC CD CE CF
 ROM_END
@@ -2834,7 +2875,7 @@ ROM_START( elvactr )
 	ROM_LOAD16_BYTE("e02-13.32", 0x100000, 0x40000, CRC(80932702) SHA1(c468234d03aa31b2aa0c3bd6bec32034216c2ae4) )
 	ROM_LOAD16_BYTE("e02-14.33", 0x100001, 0x40000, CRC(706671a5) SHA1(1ac90647d617e73f12a67274a025ae43a6b3a316) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e02-04.38", 0x000000, 0x200000, CRC(b74307af) SHA1(deb42415049efa2df70e7b25ba8b1b716aa227f1) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e02-05.39", 0x400000, 0x200000, CRC(eb729855) SHA1(85253efe794e8b5ffaf16bcb1123bca831e776a5) ) // CC CD CE CF
 
@@ -2873,7 +2914,7 @@ ROM_START( elvactrj )
 	ROM_LOAD16_BYTE("e02-13.32", 0x100000, 0x40000, CRC(80932702) SHA1(c468234d03aa31b2aa0c3bd6bec32034216c2ae4) )
 	ROM_LOAD16_BYTE("e02-14.33", 0x100001, 0x40000, CRC(706671a5) SHA1(1ac90647d617e73f12a67274a025ae43a6b3a316) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e02-04.38", 0x000000, 0x200000, CRC(b74307af) SHA1(deb42415049efa2df70e7b25ba8b1b716aa227f1) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e02-05.39", 0x400000, 0x200000, CRC(eb729855) SHA1(85253efe794e8b5ffaf16bcb1123bca831e776a5) ) // CC CD CE CF
 ROM_END
@@ -2903,7 +2944,7 @@ ROM_START( elvact2u )
 	ROM_LOAD16_BYTE("e02-13.32", 0x100000, 0x40000, CRC(80932702) SHA1(c468234d03aa31b2aa0c3bd6bec32034216c2ae4) )
 	ROM_LOAD16_BYTE("e02-14.33", 0x100001, 0x40000, CRC(706671a5) SHA1(1ac90647d617e73f12a67274a025ae43a6b3a316) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e02-04.38", 0x000000, 0x200000, CRC(b74307af) SHA1(deb42415049efa2df70e7b25ba8b1b716aa227f1) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e02-05.39", 0x400000, 0x200000, CRC(eb729855) SHA1(85253efe794e8b5ffaf16bcb1123bca831e776a5) ) // CC CD CE CF
 ROM_END
@@ -2935,7 +2976,7 @@ ROM_START( twinqix )
 	ROM_LOAD16_BYTE("spr0-1.b66", 0x100000, 0x40000, CRC(4b20e99d) SHA1(faf184daea0f1131bafa50edb48bd470d4c0b141) )
 	ROM_LOAD16_BYTE("spr0-0.b65", 0x100001, 0x40000, CRC(2569eb30) SHA1(ec804131025e600198cd8342925823340e7ef458) )
 
-	ROM_REGION16_BE( 0x400000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("snd-0.b43",  0x000000, 0x80000, CRC(ad5405a9) SHA1(67ee42498d2c3c00015237b3b5cd020f9a7c4a18) ) // C8
 	ROM_LOAD16_BYTE("snd-1.b44",  0x100000, 0x80000, CRC(274864af) SHA1(47fefee23038bb751bdf6b6f48312ba0b6e38b90) ) // C9
 	ROM_LOAD16_BYTE("snd-14.b10", 0x200000, 0x80000, CRC(26312451) SHA1(9f947a11592fd8420fc581914bf16e7ade75390c) ) // -std-
@@ -2979,7 +3020,7 @@ ROM_START( quizhuhu )
 	ROM_LOAD16_BYTE("e08-18.32", 0x100000, 0x20000, CRC(e695497e) SHA1(9d845b4c0bd9b40471fb4b5ab2f9240058bc324f) )
 	ROM_LOAD16_BYTE("e08-17.33", 0x100001, 0x20000, CRC(fafc7e4e) SHA1(26f46d5900fbf26d25651e7e818e486fc7a878ec) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e08-07.38", 0x400000, 0x200000, CRC(c05dc85b) SHA1(d46ae3f066bbe041edde40358dd54f93e8e195de) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e08-08.39", 0x800000, 0x200000, CRC(3eb94a99) SHA1(e6e8832e87397811dfc40525f2a15fc0415cec68) ) // CC CD CE CF
@@ -3011,7 +3052,7 @@ ROM_START( pbobble2 )
 	ROM_LOAD16_BYTE("e10-12.32", 0x100000, 0x40000, CRC(b92dc8ad) SHA1(0c1428d313507b1ae5a2af3b2fbaaa5650135e1e) )
 	ROM_LOAD16_BYTE("e10-13.33", 0x100001, 0x40000, CRC(87842c13) SHA1(d15b47c7430e677ae172f86fd5be595e4fe72e42) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e10-04.rom", 0x000000, 0x200000, CRC(5c0862a6) SHA1(f916f63b8629239e3221e1e231e1b39962ef38ba) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )    // CC CD CE CF
 
@@ -3045,7 +3086,7 @@ ROM_START( pbobble2o )
 	ROM_LOAD16_BYTE("e10-12.32", 0x100000, 0x40000, CRC(b92dc8ad) SHA1(0c1428d313507b1ae5a2af3b2fbaaa5650135e1e) )
 	ROM_LOAD16_BYTE("e10-13.33", 0x100001, 0x40000, CRC(87842c13) SHA1(d15b47c7430e677ae172f86fd5be595e4fe72e42) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e10-04.rom", 0x000000, 0x200000, CRC(5c0862a6) SHA1(f916f63b8629239e3221e1e231e1b39962ef38ba) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )    // CC CD CE CF
 ROM_END
@@ -3074,7 +3115,7 @@ ROM_START( pbobble2j )
 	ROM_LOAD16_BYTE("e10-12.32", 0x100000, 0x40000, CRC(b92dc8ad) SHA1(0c1428d313507b1ae5a2af3b2fbaaa5650135e1e) )
 	ROM_LOAD16_BYTE("e10-13.33", 0x100001, 0x40000, CRC(87842c13) SHA1(d15b47c7430e677ae172f86fd5be595e4fe72e42) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e10-04.rom", 0x000000, 0x200000, CRC(5c0862a6) SHA1(f916f63b8629239e3221e1e231e1b39962ef38ba) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )    // CC CD CE CF
 ROM_END
@@ -3103,7 +3144,7 @@ ROM_START( pbobble2u )
 	ROM_LOAD16_BYTE("e10-16.32", 0x100000, 0x40000, CRC(765ce77a) SHA1(e2723bd6238da91d28307081909a7172a1825c83) )
 	ROM_LOAD16_BYTE("e10-17.33", 0x100001, 0x40000, CRC(0aec3b1e) SHA1(a76a020cefcfbf86b0d893a6eb8ff93cb571abeb) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e10-04.rom", 0x000000, 0x200000, CRC(5c0862a6) SHA1(f916f63b8629239e3221e1e231e1b39962ef38ba) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )    // CC CD CE CF
 ROM_END
@@ -3132,7 +3173,7 @@ ROM_START( pbobble2x )
 	ROM_LOAD16_BYTE("e10-30.32", 0x100000, 0x40000, CRC(bb090c1e) SHA1(af2ff23d6f9bd56c25530cb9bf9f452b6f5210f5) )
 	ROM_LOAD16_BYTE("e10-31.33", 0x100001, 0x40000, CRC(f4b88d65) SHA1(c74dcb4bed979039fad1d5c7528c14ce4db1d5ec) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e10-04.rom", 0x000000, 0x200000, CRC(5c0862a6) SHA1(f916f63b8629239e3221e1e231e1b39962ef38ba) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )    // CC CD CE CF
 
@@ -3169,7 +3210,7 @@ ROM_START( gekiridn )
 	ROM_LOAD16_BYTE("e11-13.ic32", 0x100000, 0x40000, CRC(f5c5486a) SHA1(4091f3ddb1e6cbc9dc89485e1e784a4b6fa191b7) )
 	ROM_LOAD16_BYTE("e11-14.ic33", 0x100001, 0x40000, CRC(7fa10f96) SHA1(50efefd890535e952022a494c5b4e9b33bb90fad) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e11-04.ic38", 0x000000, 0x200000, CRC(e0ff4fb1) SHA1(81e186e3a692af1da316b8085a729c4f103d9a52) )   // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e11-05.ic41", 0x400000, 0x200000, CRC(a4d08cf1) SHA1(ae2cabef7b7bcb8a788988c73d7af6fa4bb2c444) )   // CC CD -std-
 ROM_END
@@ -3199,7 +3240,7 @@ ROM_START( gekiridnj )
 	ROM_LOAD16_BYTE("e11-13.ic32", 0x100000, 0x40000, CRC(f5c5486a) SHA1(4091f3ddb1e6cbc9dc89485e1e784a4b6fa191b7) )
 	ROM_LOAD16_BYTE("e11-14.ic33", 0x100001, 0x40000, CRC(7fa10f96) SHA1(50efefd890535e952022a494c5b4e9b33bb90fad) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e11-04.ic38", 0x000000, 0x200000, CRC(e0ff4fb1) SHA1(81e186e3a692af1da316b8085a729c4f103d9a52) )   // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e11-05.ic41", 0x400000, 0x200000, CRC(a4d08cf1) SHA1(ae2cabef7b7bcb8a788988c73d7af6fa4bb2c444) )   // CC CD -std-
 ROM_END
@@ -3235,7 +3276,7 @@ ROM_START( tcobra2 )
 	ROM_LOAD16_BYTE("e15-15.ic32", 0x100000, 0x20000, CRC(22126dfb) SHA1(a1af17e5c3440f1bab50d79f92c251f1a4536ca0) )
 	ROM_LOAD16_BYTE("e15-16.ic33", 0x100001, 0x20000, CRC(f8b58ea0) SHA1(c9e196620765efc4c7b535793a5d1f586698ce55) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e15-05.ic38", 0x000000, 0x200000, CRC(3e5da5f6) SHA1(da6fc8b26cd02c45cfc0f1aa5292614e4d28cae4) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e15-06.ic41", 0x400000, 0x200000, CRC(b182a3e1) SHA1(db8569b069911bb84900b2aa5168c45ba3e985c7) )    // CC CD -std-
 
@@ -3274,7 +3315,7 @@ ROM_START( tcobra2u )
 	ROM_LOAD16_BYTE("e15-15.ic32", 0x100000, 0x20000, CRC(22126dfb) SHA1(a1af17e5c3440f1bab50d79f92c251f1a4536ca0) )
 	ROM_LOAD16_BYTE("e15-16.ic33", 0x100001, 0x20000, CRC(f8b58ea0) SHA1(c9e196620765efc4c7b535793a5d1f586698ce55) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e15-05.ic38", 0x000000, 0x200000, CRC(3e5da5f6) SHA1(da6fc8b26cd02c45cfc0f1aa5292614e4d28cae4) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e15-06.ic41", 0x400000, 0x200000, CRC(b182a3e1) SHA1(db8569b069911bb84900b2aa5168c45ba3e985c7) )    // CC CD -std-
 
@@ -3313,7 +3354,7 @@ ROM_START( ktiger2 )
 	ROM_LOAD16_BYTE("e15-15.ic32", 0x100000, 0x20000, CRC(22126dfb) SHA1(a1af17e5c3440f1bab50d79f92c251f1a4536ca0) )
 	ROM_LOAD16_BYTE("e15-16.ic33", 0x100001, 0x20000, CRC(f8b58ea0) SHA1(c9e196620765efc4c7b535793a5d1f586698ce55) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e15-05.ic38", 0x000000, 0x200000, CRC(3e5da5f6) SHA1(da6fc8b26cd02c45cfc0f1aa5292614e4d28cae4) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e15-06.ic41", 0x400000, 0x200000, CRC(b182a3e1) SHA1(db8569b069911bb84900b2aa5168c45ba3e985c7) )    // CC CD -std-
 
@@ -3349,7 +3390,7 @@ ROM_START( bubblem )
 	ROM_LOAD16_BYTE("e21-12.32", 0x100000, 0x40000, CRC(34093de1) SHA1(d69d6b5f10b8fe86f727d739ed5aecceb15e01f7) )
 	ROM_LOAD16_BYTE("e21-13.33", 0x100001, 0x40000, CRC(9e9ec437) SHA1(b0265b688846c642d240b2f3677d2330d31eaa87) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e21-03.rom", 0x000000, 0x200000, CRC(54c5f83d) SHA1(10a993199c8d5a1361bd29a4b92c404451c6da01) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e21-04.rom", 0x400000, 0x200000, CRC(e5af2a2d) SHA1(62a49504decc7160b710260218920d2d6d2af8f0) )    // CC CD -std-
 
@@ -3381,7 +3422,7 @@ ROM_START( bubblemu )
 	ROM_LOAD16_BYTE("e21-12.32", 0x100000, 0x40000, CRC(34093de1) SHA1(d69d6b5f10b8fe86f727d739ed5aecceb15e01f7) )
 	ROM_LOAD16_BYTE("e21-13.33", 0x100001, 0x40000, CRC(9e9ec437) SHA1(b0265b688846c642d240b2f3677d2330d31eaa87) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e21-03.rom", 0x000000, 0x200000, CRC(54c5f83d) SHA1(10a993199c8d5a1361bd29a4b92c404451c6da01) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e21-04.rom", 0x400000, 0x200000, CRC(e5af2a2d) SHA1(62a49504decc7160b710260218920d2d6d2af8f0) )    // CC CD -std-
 
@@ -3413,7 +3454,7 @@ ROM_START( bubblemj )
 	ROM_LOAD16_BYTE("e21-12.32", 0x100000, 0x40000, CRC(34093de1) SHA1(d69d6b5f10b8fe86f727d739ed5aecceb15e01f7) )
 	ROM_LOAD16_BYTE("e21-13.33", 0x100001, 0x40000, CRC(9e9ec437) SHA1(b0265b688846c642d240b2f3677d2330d31eaa87) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e21-03.rom", 0x000000, 0x200000, CRC(54c5f83d) SHA1(10a993199c8d5a1361bd29a4b92c404451c6da01) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e21-04.rom", 0x400000, 0x200000, CRC(e5af2a2d) SHA1(62a49504decc7160b710260218920d2d6d2af8f0) )    // CC CD -std-
 
@@ -3445,7 +3486,47 @@ ROM_START( cleopatr )
 	ROM_LOAD16_BYTE("e28-11.bin", 0x100000, 0x20000, CRC(01a06950) SHA1(94d22cd839f9027e9d45264c366e0cb5d698e0b6) )
 	ROM_LOAD16_BYTE("e28-12.bin", 0x100001, 0x20000, CRC(dc19260f) SHA1(fa0ca03a236326652e4f9898d07cd837c1507a9d) )
 
-	ROM_REGION16_BE( 0x400000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_LOAD16_BYTE("e28-03.bin", 0x000000, 0x200000, CRC(15c7989d) SHA1(7cc63d93e5c1f9f52f889e973bbefd5e6f7ce807) )    // C8 C9 CA CB
+ROM_END
+
+/*
+About cleopatro:
+
+ROMs found in a genuine Taito Cleopatra Fortune cart meant for the Japanese market. It contained a genuine Taito ROM PCB with
+all genuine parts including mask ROMs, PALs, ect.  However the 4 program ROMs were replaced with 4 EPROMs without specific labels.
+
+The replacement ROMs were 27C010 type instead of the standard 27C040 that Taito would normaly use.  In the case of Cleopatra
+Fortune, each original program ROM is 0xFF filled from bytes 0x20000 through 0x7FFFF.
+
+In cleopatro, the program ROMs match the 1st 1/4 of cleopatr program ROMs except for 1 byte in ic17.bin.  0x1FFFF has been
+changed from 0x00 to 0x03, which amounts to a simple region hack.
+*/
+ROM_START( cleopatro )
+	ROM_REGION( 0x200000, "maincpu", 0 ) /* 68020 code */
+	ROM_LOAD32_BYTE("ic20.bin", 0x000000, 0x20000, CRC(80dfc893) SHA1(192e121394825ba982998e831108310c26718ec3) )
+	ROM_LOAD32_BYTE("ic19.bin", 0x000001, 0x20000, CRC(666e8ca6) SHA1(4f75e4510975c04b66b0eeb1a861c47a3442b190) )
+	ROM_LOAD32_BYTE("ic18.bin", 0x000002, 0x20000, CRC(9f2d4f69) SHA1(481e7a525e749deb069adf92d335d1c89497f9ab) )
+	ROM_LOAD32_BYTE("ic17.bin", 0x000003, 0x20000, CRC(f892f60e) SHA1(60f1a6c6e780adfbd17892c783920ae88266f0e2) )   // 1 byte difference in 1st 0x20000 bytes of e28-07.bin (0x1FFFF==03 vs 0x00 for e28-07.bin)
+
+	ROM_REGION( 0x100000, "sprites" , 0) /* Sprites */
+	ROM_LOAD16_BYTE("e28-02.bin", 0x000000, 0x080000, CRC(b20d47cb) SHA1(6888e5564688840fed1c123ab38467066cd59c7f) )
+	ROM_LOAD16_BYTE("e28-01.bin", 0x000001, 0x080000, CRC(4440e659) SHA1(71dece81bac8d638473c6531fed5c32798096af9) )
+
+	EMPTY_SPRITE_HIDATA(0x080000)
+
+	ROM_REGION( 0x200000, "tilemap" , 0) /* Tiles */
+	ROM_LOAD32_WORD("e28-06.bin", 0x000000, 0x100000, CRC(21d0c454) SHA1(f4c815984b19321cfab303fa6f21d9cad35b09f2) )
+	ROM_LOAD32_WORD("e28-05.bin", 0x000002, 0x100000, CRC(2870dbbc) SHA1(4e412b90cbd9a05956cde3d8cff615ebadca9db6) )
+
+	ROM_REGION( 0x100000, "tilemap_hi", 0 )
+	ROM_LOAD       ("e28-04.bin", 0x000000, 0x100000, CRC(57aef029) SHA1(5c07209015d4749d1ffb3e9c1a890e6cfeec8cb0) )
+
+	ROM_REGION( 0x140000, "taito_en:audiocpu", 0 ) /* Sound CPU */
+	ROM_LOAD16_BYTE("e28-11.bin", 0x100000, 0x20000, CRC(01a06950) SHA1(94d22cd839f9027e9d45264c366e0cb5d698e0b6) )
+	ROM_LOAD16_BYTE("e28-12.bin", 0x100001, 0x20000, CRC(dc19260f) SHA1(fa0ca03a236326652e4f9898d07cd837c1507a9d) )
+
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("e28-03.bin", 0x000000, 0x200000, CRC(15c7989d) SHA1(7cc63d93e5c1f9f52f889e973bbefd5e6f7ce807) )    // C8 C9 CA CB
 ROM_END
 
@@ -3473,7 +3554,7 @@ ROM_START( pbobble3 )
 	ROM_LOAD16_BYTE("e29-13.rom", 0x100000, 0x40000, CRC(1ef551ef) SHA1(527defe8f35314304adb4b483285b08cd6ebe865) )
 	ROM_LOAD16_BYTE("e29-14.rom", 0x100001, 0x40000, CRC(7ee7e688) SHA1(d65aa9c449e1d64f10d1be9727a9d93ab1571e65) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e29-03.rom", 0x400000, 0x200000, CRC(a4371658) SHA1(26510a3f6de97f49b10dfc5cb9b7da947a44bfcb) )    // CE CF D0 D1
 	ROM_LOAD16_BYTE("e29-04.rom", 0x800000, 0x200000, CRC(d1f42457) SHA1(2c77be6365deb5ef215da0c66da23b415623bdb1) )    // D2 C8 C9 CA
@@ -3504,7 +3585,7 @@ ROM_START( pbobble3u )
 	ROM_LOAD16_BYTE("e29-13.rom", 0x100000, 0x40000, CRC(1ef551ef) SHA1(527defe8f35314304adb4b483285b08cd6ebe865) )
 	ROM_LOAD16_BYTE("e29-14.rom", 0x100001, 0x40000, CRC(7ee7e688) SHA1(d65aa9c449e1d64f10d1be9727a9d93ab1571e65) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e29-03.rom", 0x400000, 0x200000, CRC(a4371658) SHA1(26510a3f6de97f49b10dfc5cb9b7da947a44bfcb) )    // CE CF D0 D1
 	ROM_LOAD16_BYTE("e29-04.rom", 0x800000, 0x200000, CRC(d1f42457) SHA1(2c77be6365deb5ef215da0c66da23b415623bdb1) )    // D2 C8 C9 CA
@@ -3535,7 +3616,7 @@ ROM_START( pbobble3j )
 	ROM_LOAD16_BYTE("e29-13.ic32", 0x100000, 0x40000, CRC(1ef551ef) SHA1(527defe8f35314304adb4b483285b08cd6ebe865) )
 	ROM_LOAD16_BYTE("e29-14.ic33", 0x100001, 0x40000, CRC(7ee7e688) SHA1(d65aa9c449e1d64f10d1be9727a9d93ab1571e65) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e29-03.ic38", 0x400000, 0x200000, CRC(a4371658) SHA1(26510a3f6de97f49b10dfc5cb9b7da947a44bfcb) )    // CE CF D0 D1
 	ROM_LOAD16_BYTE("e29-04.ic39", 0x800000, 0x200000, CRC(d1f42457) SHA1(2c77be6365deb5ef215da0c66da23b415623bdb1) )    // D2 C8 C9 CA
@@ -3574,7 +3655,7 @@ ROM_START( arkretrn )
 	ROM_REGION( 0x080000, "tilemap_hi", 0 )
 	ROM_LOAD       ("e36-05.43", 0x000000, 0x080000, CRC(db18bce2) SHA1(b6653facc7f5c624f5710a51f2b2abfe640177e2) )
 
-	ROM_REGION16_BE( 0x400000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("e36-04.38", 0x000000, 0x200000, CRC(2250959b) SHA1(06943f1b72bdf325485356a01278d88aeae93d87) )    // C8 C9 CA CB
 
 	ROM_REGION( 0x0a00, "plds", 0 )
@@ -3610,7 +3691,7 @@ ROM_START( arkretrnu )
 	ROM_REGION( 0x080000, "tilemap_hi", 0 )
 	ROM_LOAD       ("e36-05.43", 0x000000, 0x080000, CRC(db18bce2) SHA1(b6653facc7f5c624f5710a51f2b2abfe640177e2) )
 
-	ROM_REGION16_BE( 0x400000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("e36-04.38", 0x000000, 0x200000, CRC(2250959b) SHA1(06943f1b72bdf325485356a01278d88aeae93d87) )    // C8 C9 CA CB
 
 	ROM_REGION( 0x0a00, "plds", 0 )
@@ -3646,7 +3727,7 @@ ROM_START( arkretrnj )
 	ROM_REGION( 0x080000, "tilemap_hi", 0 )
 	ROM_LOAD       ("e36-05.43", 0x000000, 0x080000, CRC(db18bce2) SHA1(b6653facc7f5c624f5710a51f2b2abfe640177e2) )
 
-	ROM_REGION16_BE( 0x400000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("e36-04.38", 0x000000, 0x200000, CRC(2250959b) SHA1(06943f1b72bdf325485356a01278d88aeae93d87) )    // C8 C9 CA CB
 
 	ROM_REGION( 0x0a00, "plds", 0 )
@@ -3689,7 +3770,7 @@ ROM_START( kirameki )
 	ROM_LOAD16_BYTE("e44-21.52",      0x100001, 0x080000, CRC(d31b94b8) SHA1(41ee381d10254dc6e7163c5f353568539a96fc20) )
 	ROM_LOAD16_WORD_SWAP("e44-15.53", 0x200000, 0x200000, CRC(5043b608) SHA1(a328b8cc27ba1620a75a17cdf8571e217c42b9fd) ) /* Banked data */
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	ROM_LOAD16_BYTE("e44-07.38", 0x000000, 0x400000, CRC(a9e28544) SHA1(0dc3e1755a93fda310d26ed5f95dd211c05e579e) ) // D2 C8 C8 C9 CA CB CC CD
 	ROM_LOAD16_BYTE("e44-08.39", 0x800000, 0x400000, CRC(33ba3037) SHA1(b4bbc4198929938607c444edf159ff40f53235d7) ) // CE CF D0 -- -- -- -std-
 
@@ -3725,7 +3806,7 @@ ROM_START( puchicar ) // an Asia cart was dumped and all ROMs match
 	ROM_LOAD16_BYTE("e46-21", 0x100000, 0x40000, CRC(b466cff6) SHA1(0757984f15a6ac9939c1e8625d5b9bfcbc788acc) )
 	ROM_LOAD16_BYTE("e46-22", 0x100001, 0x40000, CRC(c67b767e) SHA1(19f3db6615d7a6ed4d2636b6beabe2f3ed6d0c38) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e46-07", 0x400000, 0x200000, CRC(f20af91e) SHA1(86040ff7ce591418b32c06c3a02fabcbe76281f5) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e46-08", 0x800000, 0x200000, CRC(f7f96e1d) SHA1(8a83ea9036e8647b8dec6b5e144288ed9c025779) )    // CC CD CE CF
@@ -3767,7 +3848,7 @@ ROM_START( puchicarj )
 	ROM_LOAD16_BYTE("e46-19", 0x100000, 0x40000, CRC(2624eba0) SHA1(ba0b13bda241c648c7f8520106acd8c0c888fe29) )
 	ROM_LOAD16_BYTE("e46-20", 0x100001, 0x40000, CRC(065e934f) SHA1(0ec1b5ae33b1c43776b9327c9d380787d64ed5f9) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e46-07", 0x400000, 0x200000, CRC(f20af91e) SHA1(86040ff7ce591418b32c06c3a02fabcbe76281f5) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e46-08", 0x800000, 0x200000, CRC(f7f96e1d) SHA1(8a83ea9036e8647b8dec6b5e144288ed9c025779) )    // CC CD CE CF
@@ -3805,7 +3886,7 @@ ROM_START( pbobble4 )
 	ROM_LOAD16_BYTE("e49-13.32", 0x100000, 0x40000, CRC(83536f7f) SHA1(2252cee00ae260954cc76d92af8eb2a87d23cbfb) )
 	ROM_LOAD16_BYTE("e49-14.33", 0x100001, 0x40000, CRC(19815bdb) SHA1(38ad682236c7df0710055dd8dbdec30d5da0839d) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e49-03", 0x400000, 0x200000, CRC(f64303e0) SHA1(4d5df77047522419d21ff36402076e9b7c5acff8) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e49-04", 0x800000, 0x200000, CRC(09be229c) SHA1(a3a88969b34628d2bf3163bdf85d520feac9a7ac) )    // E7 CD E8 E6
@@ -3843,7 +3924,7 @@ ROM_START( pbobble4j )
 	ROM_LOAD16_BYTE("e49-13.32", 0x100000, 0x40000, CRC(83536f7f) SHA1(2252cee00ae260954cc76d92af8eb2a87d23cbfb) )
 	ROM_LOAD16_BYTE("e49-14.33", 0x100001, 0x40000, CRC(19815bdb) SHA1(38ad682236c7df0710055dd8dbdec30d5da0839d) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e49-03", 0x400000, 0x200000, CRC(f64303e0) SHA1(4d5df77047522419d21ff36402076e9b7c5acff8) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e49-04", 0x800000, 0x200000, CRC(09be229c) SHA1(a3a88969b34628d2bf3163bdf85d520feac9a7ac) )    // E7 CD E8 E6
@@ -3881,7 +3962,7 @@ ROM_START( pbobble4u )
 	ROM_LOAD16_BYTE("e49-13.32", 0x100000, 0x40000, CRC(83536f7f) SHA1(2252cee00ae260954cc76d92af8eb2a87d23cbfb) )
 	ROM_LOAD16_BYTE("e49-14.33", 0x100001, 0x40000, CRC(19815bdb) SHA1(38ad682236c7df0710055dd8dbdec30d5da0839d) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e49-03", 0x400000, 0x200000, CRC(f64303e0) SHA1(4d5df77047522419d21ff36402076e9b7c5acff8) )    // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e49-04", 0x800000, 0x200000, CRC(09be229c) SHA1(a3a88969b34628d2bf3163bdf85d520feac9a7ac) )    // E7 CD E8 E6
@@ -3920,7 +4001,7 @@ ROM_START( popnpopj )
 	ROM_LOAD16_BYTE("e51-13.32", 0x100000, 0x40000, CRC(3b9e3986) SHA1(26340bda0ad2ea580e2395135617966676a71ad5) )
 	ROM_LOAD16_BYTE("e51-14.33", 0x100001, 0x40000, CRC(1f9a5015) SHA1(5da38c5fe2a50bcde6bd46ab1cb9a56dbab1a882) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e51-04.38", 0x000000, 0x200000, CRC(66790f55) SHA1(ac539b2655dbcda1bdffb9f3cf4c96fb05721e9d) ) // C9 CA CB CC
 	ROM_LOAD16_BYTE("e51-05.41", 0x400000, 0x200000, CRC(4d08b26d) SHA1(071a11a1b1ee8b8129d02b15ec0e533912c91b04) ) // CD CE -std-
 
@@ -3957,7 +4038,7 @@ ROM_START( popnpop )
 	ROM_LOAD16_BYTE("e51-13.32", 0x100000, 0x40000, CRC(3b9e3986) SHA1(26340bda0ad2ea580e2395135617966676a71ad5) )
 	ROM_LOAD16_BYTE("e51-14.33", 0x100001, 0x40000, CRC(1f9a5015) SHA1(5da38c5fe2a50bcde6bd46ab1cb9a56dbab1a882) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e51-04.38", 0x000000, 0x200000, CRC(66790f55) SHA1(ac539b2655dbcda1bdffb9f3cf4c96fb05721e9d) ) // C9 CA CB CC
 	ROM_LOAD16_BYTE("e51-05.41", 0x400000, 0x200000, CRC(4d08b26d) SHA1(071a11a1b1ee8b8129d02b15ec0e533912c91b04) ) // CD CE -std-
 
@@ -3994,7 +4075,7 @@ ROM_START( popnpopu )
 	ROM_LOAD16_BYTE("e51-13.32", 0x100000, 0x40000, CRC(3b9e3986) SHA1(26340bda0ad2ea580e2395135617966676a71ad5) )
 	ROM_LOAD16_BYTE("e51-14.33", 0x100001, 0x40000, CRC(1f9a5015) SHA1(5da38c5fe2a50bcde6bd46ab1cb9a56dbab1a882) )
 
-	ROM_REGION16_BE( 0x800000, "ensoniq.0" , ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 ) // V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e51-04.38", 0x000000, 0x200000, CRC(66790f55) SHA1(ac539b2655dbcda1bdffb9f3cf4c96fb05721e9d) ) // C9 CA CB CC
 	ROM_LOAD16_BYTE("e51-05.41", 0x400000, 0x200000, CRC(4d08b26d) SHA1(071a11a1b1ee8b8129d02b15ec0e533912c91b04) ) // CD CE -std-
 
@@ -4073,7 +4154,7 @@ ROM_START( landmakr )
 	ROM_LOAD16_BYTE("e61-14.32", 0x100000, 0x40000, CRC(18961bbb) SHA1(df054def35a49c0754356c15ec15336cbf28b063) )
 	ROM_LOAD16_BYTE("e61-15.33", 0x100001, 0x40000, CRC(2c64557a) SHA1(768007162d5d2cbe650c735bc1af2c10ed13b046) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e61-04.38", 0x400000, 0x200000, CRC(c27aec0c) SHA1(e95da2db07a20a53662ebd45c033966e8a22a15a) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e61-05.39", 0x800000, 0x200000, CRC(83920d9d) SHA1(019e39ae85d1129f6d3b8460c4b1bd925f868ee2) ) // CC CD CE CF
@@ -4112,7 +4193,7 @@ ROM_START( landmakrj )
 	ROM_LOAD16_BYTE("e61-14.32", 0x100000, 0x40000, CRC(18961bbb) SHA1(df054def35a49c0754356c15ec15336cbf28b063) )
 	ROM_LOAD16_BYTE("e61-15.33", 0x100001, 0x40000, CRC(2c64557a) SHA1(768007162d5d2cbe650c735bc1af2c10ed13b046) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("e61-04.38", 0x400000, 0x200000, CRC(c27aec0c) SHA1(e95da2db07a20a53662ebd45c033966e8a22a15a) ) // C8 C9 CA CB
 	ROM_LOAD16_BYTE("e61-05.39", 0x800000, 0x200000, CRC(83920d9d) SHA1(019e39ae85d1129f6d3b8460c4b1bd925f868ee2) ) // CC CD CE CF
@@ -4169,7 +4250,7 @@ ROM_START( landmakrp ) // First 3 roms match parent, mpro-0.63 has bytes 7FFFE &
 	ROM_LOAD16_BYTE("spro-1.66", 0x100000, 0x40000, CRC(18961bbb) SHA1(df054def35a49c0754356c15ec15336cbf28b063) )
 	ROM_LOAD16_BYTE("spro-0.65", 0x100001, 0x40000, CRC(2c64557a) SHA1(768007162d5d2cbe650c735bc1af2c10ed13b046) )
 
-	ROM_REGION16_BE( 0x1000000, "ensoniq.0" , ROMREGION_ERASE00 )    // V2: 4 banks
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )    // V2: 4 banks
 	// empty
 	ROM_LOAD16_BYTE("snd-0.43", 0x400000, 0x80000, CRC(0e5ef5c8) SHA1(e2840c9cedb9361b7eb307e87ea96f3bb6225487) )   // C8
 	ROM_LOAD16_BYTE("snd-1.44", 0x500000, 0x80000, CRC(2998fd65) SHA1(192e32f9934465bb0da5c1ad116c5ea9b286f36a) )   // C9
@@ -4525,101 +4606,103 @@ void taito_f3_state::init_commandw()
 
 /******************************************************************************/
 
-GAME( 1992, ringrage, 0,        f3_224a, f3, taito_f3_state, init_ringrage, ROT0,   "Taito Corporation Japan",   "Ring Rage (Ver 2.3O 1992/08/09)", 0 )
-GAME( 1992, ringragej,ringrage, f3_224a, f3, taito_f3_state, init_ringrage, ROT0,   "Taito Corporation",         "Ring Rage (Ver 2.3J 1992/08/09)", 0 )
-GAME( 1992, ringrageu,ringrage, f3_224a, f3, taito_f3_state, init_ringrage, ROT0,   "Taito America Corporation", "Ring Rage (Ver 2.3A 1992/08/09)", 0 )
-GAME( 1992, arabianm, 0,        f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "Taito Corporation Japan",   "Arabian Magic (Ver 1.0O 1992/07/06)", 0 )
-GAME( 1992, arabianmj,arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "Taito Corporation",         "Arabian Magic (Ver 1.0J 1992/07/06)", 0 )
-GAME( 1992, arabianmu,arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "Taito America Corporation", "Arabian Magic (Ver 1.0A 1992/07/06)", 0 )
-GAME( 1992, ridingf,  0,        f3_224b, f3, taito_f3_state, init_ridingf,  ROT0,   "Taito Corporation Japan",   "Riding Fight (Ver 1.0O)", 0 )
-GAME( 1992, ridingfj, ridingf,  f3_224b, f3, taito_f3_state, init_ridingf,  ROT0,   "Taito Corporation",         "Riding Fight (Ver 1.0J)", 0 )
-GAME( 1992, ridingfu, ridingf,  f3_224b, f3, taito_f3_state, init_ridingf,  ROT0,   "Taito America Corporation", "Riding Fight (Ver 1.0A)", 0 )
-GAME( 1992, gseeker,  0,        f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "Taito Corporation Japan",   "Grid Seeker: Project Storm Hammer (Ver 1.3O)", 0 )
-GAME( 1992, gseekerj, gseeker,  f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "Taito Corporation",         "Grid Seeker: Project Storm Hammer (Ver 1.3J)", 0 )
-GAME( 1992, gseekeru, gseeker,  f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "Taito America Corporation", "Grid Seeker: Project Storm Hammer (Ver 1.3A)", 0 )
-GAME( 1992, commandw, 0,        f3_224b, f3, taito_f3_state, init_commandw, ROT0,   "Taito Corporation",         "Command War - Super Special Battle & War Game (Ver 0.0J, prototype)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1992, ringrage,   0,        f3_224a, f3, taito_f3_state, init_ringrage, ROT0,   "Taito Corporation Japan",   "Ring Rage (Ver 2.3O 1992/08/09)", 0 )
+GAME( 1992, ringragej,  ringrage, f3_224a, f3, taito_f3_state, init_ringrage, ROT0,   "Taito Corporation",         "Ring Rage (Ver 2.3J 1992/08/09)", 0 )
+GAME( 1992, ringrageu,  ringrage, f3_224a, f3, taito_f3_state, init_ringrage, ROT0,   "Taito America Corporation", "Ring Rage (Ver 2.3A 1992/08/09)", 0 )
+GAME( 1992, arabianm,   0,        f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "Taito Corporation Japan",   "Arabian Magic (Ver 1.0O 1992/07/06)", 0 )
+GAME( 1992, arabianmj,  arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "Taito Corporation",         "Arabian Magic (Ver 1.0J 1992/07/06)", 0 )
+GAME( 1992, arabianmu,  arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "Taito America Corporation", "Arabian Magic (Ver 1.0A 1992/07/06)", 0 )
+GAME( 1992, ridingf,    0,        f3_224b, f3, taito_f3_state, init_ridingf,  ROT0,   "Taito Corporation Japan",   "Riding Fight (Ver 1.0O)", 0 )
+GAME( 1992, ridingfj,   ridingf,  f3_224b, f3, taito_f3_state, init_ridingf,  ROT0,   "Taito Corporation",         "Riding Fight (Ver 1.0J)", 0 )
+GAME( 1992, ridingfu,   ridingf,  f3_224b, f3, taito_f3_state, init_ridingf,  ROT0,   "Taito America Corporation", "Riding Fight (Ver 1.0A)", 0 )
+GAME( 1992, gseeker,    0,        f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "Taito Corporation Japan",   "Grid Seeker: Project Storm Hammer (Ver 1.3O)", 0 )
+GAME( 1992, gseekerj,   gseeker,  f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "Taito Corporation",         "Grid Seeker: Project Storm Hammer (Ver 1.3J)", 0 )
+GAME( 1992, gseekeru,   gseeker,  f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "Taito America Corporation", "Grid Seeker: Project Storm Hammer (Ver 1.3A)", 0 )
+GAME( 1992, commandw,   0,        f3_224b, f3, taito_f3_state, init_commandw, ROT0,   "Taito Corporation",         "Command War - Super Special Battle & War Game (Ver 0.0J, prototype)", MACHINE_IMPERFECT_GRAPHICS )
 /* Most of the football games share some GFX roms but shouldn't be considered clones unless they have the same Taito game code for the program roms */
-GAME( 1993, cupfinal, 0,        f3_224a, f3, taito_f3_state, init_cupfinal, ROT0,   "Taito Corporation Japan",   "Taito Cup Finals (Ver 1.0O 1993/02/28)", 0 )
-GAME( 1993, hthero93, cupfinal, f3_224a, f3, taito_f3_state, init_cupfinal, ROT0,   "Taito Corporation",         "Hat Trick Hero '93 (Ver 1.0J 1993/02/28)", 0 )
-GAME( 1993, hthero93u,cupfinal, f3_224a, f3, taito_f3_state, init_cupfinal, ROT0,   "Taito Corporation",         "Hat Trick Hero '93 (Ver 1.0A 1993/02/28)", 0 )
-GAME( 1993, trstar,   0,        f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (Ver 2.1O 1993/05/21) (New Version)", 0 )
-GAME( 1993, trstarj,  trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Ver 2.1J 1993/05/21) (New Version)", 0 )
-GAME( 1993, trstaro,  trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (Ver 2.1O 1993/05/21) (Old Version)", 0 )
-GAME( 1993, trstaroj, trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Ver 2.1J 1993/05/21) (Old Version)", 0 )
-GAME( 1993, prmtmfgt, trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (Ver 2.1A 1993/05/21) (New Version)", 0 )
-GAME( 1993, prmtmfgto,trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (Ver 2.1A 1993/05/21) (Old Version)", 0 )
-GAME( 1993, gunlock,  0,        f3_224a, f3, taito_f3_state, init_gunlock,  ROT90,  "Taito Corporation Japan",   "Gunlock (Ver 2.3O 1994/01/20)", 0 )
-GAME( 1993, gunlocko, gunlock,  f3_224a, f3, taito_f3_state, init_gunlock,  ROT270, "Taito Corporation Japan",   "Gunlock (Ver 2.0O 1993/12/15)", 0 )
-GAME( 1993, rayforcej,gunlock,  f3_224a, f3, taito_f3_state, init_gunlock,  ROT90,  "Taito Corporation",         "Ray Force (Ver 2.3J 1994/01/20)", 0 )
-GAME( 1993, rayforce, gunlock,  f3_224a, f3, taito_f3_state, init_gunlock,  ROT90,  "Taito America Corporation", "Ray Force (Ver 2.3A 1994/01/20)", 0 )
-GAME( 1993, scfinals, 0,        f3_224a, f3, taito_f3_state, init_scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (Ver 2.2O 1994/01/13)", 0 )
-GAME( 1993, scfinalso,scfinals, f3_224a, f3, taito_f3_state, init_scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (Ver 2.1O 1993/11/19)", 0 )
-GAME( 1993, lightbr,  0,        f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito Corporation Japan",   "Light Bringer (Ver 2.2O 1994/04/08)", 0 )
-GAME( 1993, lightbrj, lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito Corporation",         "Light Bringer (Ver 2.1J 1994/02/18)", 0 )
-GAME( 1993, dungeonm, lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito Corporation Japan",   "Dungeon Magic (Ver 2.1O 1994/02/18)", 0 )
-GAME( 1993, dungeonmu,lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito America Corporation", "Dungeon Magic (Ver 2.1A 1994/02/18)", 0 )
-GAME( 1994, intcup94, 0,        f3_224a, f3, taito_f3_state, init_intcup94, ROT0,   "Taito Corporation Japan",   "International Cup '94 (Ver 2.2O 1994/05/26)", 0 )
-GAME( 1994, hthero94, intcup94, f3_224a, f3, taito_f3_state, init_intcup94, ROT0,   "Taito America Corporation", "Hat Trick Hero '94 (Ver 2.2A 1994/05/26)", 0 )
-GAME( 1994, kaiserkn, 0,        f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito Corporation Japan",   "Kaiser Knuckle (Ver 2.1O 1994/07/29)", 0 )
-GAME( 1994, kaiserknj,kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito Corporation",         "Kaiser Knuckle (Ver 2.1J 1994/07/29)", 0 )
-GAME( 1994, gblchmp,  kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito America Corporation", "Global Champion (Ver 2.1A 1994/07/29)", 0 )
-GAME( 1994, dankuga,  0,        f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito Corporation",         "Dan-Ku-Ga (Ver 0.0J 1994/12/13, prototype)", 0 )
-GAME( 1994, dariusg,  0,        f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito Corporation Japan",   "Darius Gaiden - Silver Hawk (Ver 2.5O 1994/09/19)", 0 )
-GAME( 1994, dariusgj, dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk (Ver 2.5J 1994/09/19)", 0 )
-GAME( 1994, dariusgu, dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito America Corporation", "Darius Gaiden - Silver Hawk (Ver 2.5A 1994/09/19)", 0 )
-GAME( 1994, dariusgx, 0,        f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk Extra Version (Ver 2.7J 1995/03/06) (Official Hack)", 0 )
-GAME( 1994, bublbob2, 0,        f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 2.6O 1994/12/16)", 0 )
-GAME( 1994, bublbob2o,bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 2.5O 1994/10/05)", 0 )
-GAME( 1994, bublbob2p,bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 0.0J 1993/12/13, prototype)", 0 )
-GAME( 1994, bubsymphe,bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Symphony (Ver 2.5O 1994/10/05)", 0 )
-GAME( 1994, bubsymphu,bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito America Corporation", "Bubble Symphony (Ver 2.5A 1994/10/05)", 0 )
-GAME( 1994, bubsymphj,bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation",         "Bubble Symphony (Ver 2.5J 1994/10/05)", 0 )
-GAME( 1994, bubsymphb,bublbob2, bubsympb,f3, taito_f3_state, init_bubsympb, ROT0,   "bootleg",                   "Bubble Symphony (bootleg with OKI6295)", MACHINE_NOT_WORKING ) // backgrounds don't display
-GAME( 1994, spcinvdj, spacedx,  f3,      f3, taito_f3_state, init_spcinvdj, ROT0,   "Taito Corporation",         "Space Invaders DX (Ver 2.6J 1994/09/14) (F3 Version)", 0 )
-GAME( 1994, pwrgoal,  0,        f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito Corporation Japan",   "Taito Power Goal (Ver 2.5O 1994/11/03)", 0 )
-GAME( 1994, hthero95, pwrgoal,  f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito Corporation",         "Hat Trick Hero '95 (Ver 2.5J 1994/11/03)", 0 )
-GAME( 1994, hthero95u,pwrgoal,  f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito America Corporation", "Hat Trick Hero '95 (Ver 2.5A 1994/11/03)", 0 )
-GAME( 1994, hthero95a,pwrgoal,  f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito Corporation Japan",   "Hat Trick Hero '95 (Ver 2.6Asia 1994/11/17)", 0 )
-GAME( 1994, qtheater, 0,        f3_224c, f3, taito_f3_state, init_qtheater, ROT0,   "Taito Corporation",         "Quiz Theater - 3tsu no Monogatari (Ver 2.3J 1994/11/10)", 0 )
-GAME( 1994, elvactr,  0,        f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "Taito Corporation Japan",   "Elevator Action Returns (Ver 2.2O 1995/02/20)", 0 )
-GAME( 1994, elvactrj, elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "Taito Corporation",         "Elevator Action Returns (Ver 2.2J 1995/02/20)", 0 )
-GAME( 1994, elvact2u, elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "Taito America Corporation", "Elevator Action II (Ver 2.2A 1995/02/20)", 0 )
+GAME( 1993, cupfinal,   0,        f3_224a, f3, taito_f3_state, init_cupfinal, ROT0,   "Taito Corporation Japan",   "Taito Cup Finals (Ver 1.0O 1993/02/28)", 0 )
+GAME( 1993, hthero93,   cupfinal, f3_224a, f3, taito_f3_state, init_cupfinal, ROT0,   "Taito Corporation",         "Hat Trick Hero '93 (Ver 1.0J 1993/02/28)", 0 )
+GAME( 1993, hthero93u,  cupfinal, f3_224a, f3, taito_f3_state, init_cupfinal, ROT0,   "Taito Corporation",         "Hat Trick Hero '93 (Ver 1.0A 1993/02/28)", 0 )
+GAME( 1993, trstar,     0,        f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (Ver 2.1O 1993/05/21) (New Version)", 0 )
+GAME( 1993, trstarj,    trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Ver 2.1J 1993/05/21) (New Version)", 0 )
+GAME( 1993, trstaro,    trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (Ver 2.1O 1993/05/21) (Old Version)", 0 )
+GAME( 1993, trstaroj,   trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Ver 2.1J 1993/05/21) (Old Version)", 0 )
+GAME( 1993, prmtmfgt,   trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (Ver 2.1A 1993/05/21) (New Version)", 0 )
+GAME( 1993, prmtmfgto,  trstar,   f3,      f3, taito_f3_state, init_trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (Ver 2.1A 1993/05/21) (Old Version)", 0 )
+GAME( 1993, gunlock,    0,        f3_224a, f3, taito_f3_state, init_gunlock,  ROT90,  "Taito Corporation Japan",   "Gunlock (Ver 2.3O 1994/01/20)", 0 )
+GAME( 1993, gunlocko,   gunlock,  f3_224a, f3, taito_f3_state, init_gunlock,  ROT270, "Taito Corporation Japan",   "Gunlock (Ver 2.0O 1993/12/15)", 0 )
+GAME( 1993, rayforcej,  gunlock,  f3_224a, f3, taito_f3_state, init_gunlock,  ROT90,  "Taito Corporation",         "Ray Force (Ver 2.3J 1994/01/20)", 0 )
+GAME( 1993, rayforce,   gunlock,  f3_224a, f3, taito_f3_state, init_gunlock,  ROT90,  "Taito America Corporation", "Ray Force (Ver 2.3A 1994/01/20)", 0 )
+GAME( 1993, scfinals,   0,        f3_224a, f3, taito_f3_state, init_scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (Ver 2.2O 1994/01/13, single PCB)", 0 )
+GAME( 1993, scfinalso,  scfinals, f3_224a, f3, taito_f3_state, init_scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (Ver 2.1O 1993/11/19, single PCB)", 0 )
+GAME( 1993, scfinalsoc, scfinals, f3_224a, f3, taito_f3_state, init_scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (Ver 2.1O 1993/11/19, F3 Cartridge)", 0 )
+GAME( 1993, lightbr,    0,        f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito Corporation Japan",   "Light Bringer (Ver 2.2O 1994/04/08)", 0 )
+GAME( 1993, lightbrj,   lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito Corporation",         "Light Bringer (Ver 2.1J 1994/02/18)", 0 )
+GAME( 1993, dungeonm,   lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito Corporation Japan",   "Dungeon Magic (Ver 2.1O 1994/02/18)", 0 )
+GAME( 1993, dungeonmu,  lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "Taito America Corporation", "Dungeon Magic (Ver 2.1A 1994/02/18)", 0 )
+GAME( 1994, intcup94,   0,        f3_224a, f3, taito_f3_state, init_intcup94, ROT0,   "Taito Corporation Japan",   "International Cup '94 (Ver 2.2O 1994/05/26)", 0 )
+GAME( 1994, hthero94,   intcup94, f3_224a, f3, taito_f3_state, init_intcup94, ROT0,   "Taito America Corporation", "Hat Trick Hero '94 (Ver 2.2A 1994/05/26)", 0 )
+GAME( 1994, kaiserkn,   0,        f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito Corporation Japan",   "Kaiser Knuckle (Ver 2.1O 1994/07/29)", 0 )
+GAME( 1994, kaiserknj,  kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito Corporation",         "Kaiser Knuckle (Ver 2.1J 1994/07/29)", 0 )
+GAME( 1994, gblchmp,    kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito America Corporation", "Global Champion (Ver 2.1A 1994/07/29)", 0 )
+GAME( 1994, dankuga,    0,        f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Taito Corporation",         "Dan-Ku-Ga (Ver 0.0J 1994/12/13, prototype)", 0 )
+GAME( 1994, dariusg,    0,        f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito Corporation Japan",   "Darius Gaiden - Silver Hawk (Ver 2.5O 1994/09/19)", 0 )
+GAME( 1994, dariusgj,   dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk (Ver 2.5J 1994/09/19)", 0 )
+GAME( 1994, dariusgu,   dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito America Corporation", "Darius Gaiden - Silver Hawk (Ver 2.5A 1994/09/19)", 0 )
+GAME( 1994, dariusgx,   0,        f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk Extra Version (Ver 2.7J 1995/03/06) (Official Hack)", 0 )
+GAME( 1994, bublbob2,   0,        f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 2.6O 1994/12/16)", 0 )
+GAME( 1994, bublbob2o,  bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 2.5O 1994/10/05)", 0 )
+GAME( 1994, bublbob2p,  bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 0.0J 1993/12/13, prototype)", 0 )
+GAME( 1994, bubsymphe,  bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Symphony (Ver 2.5O 1994/10/05)", 0 )
+GAME( 1994, bubsymphu,  bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito America Corporation", "Bubble Symphony (Ver 2.5A 1994/10/05)", 0 )
+GAME( 1994, bubsymphj,  bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "Taito Corporation",         "Bubble Symphony (Ver 2.5J 1994/10/05)", 0 )
+GAME( 1994, bubsymphb,  bublbob2, bubsympb,f3, taito_f3_state, init_bubsympb, ROT0,   "bootleg",                   "Bubble Symphony (bootleg with OKI6295)", MACHINE_NOT_WORKING ) // backgrounds don't display
+GAME( 1994, spcinvdj,   spacedx,  f3,      f3, taito_f3_state, init_spcinvdj, ROT0,   "Taito Corporation",         "Space Invaders DX (Ver 2.6J 1994/09/14) (F3 Version)", 0 )
+GAME( 1994, pwrgoal,    0,        f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito Corporation Japan",   "Taito Power Goal (Ver 2.5O 1994/11/03)", 0 )
+GAME( 1994, hthero95,   pwrgoal,  f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito Corporation",         "Hat Trick Hero '95 (Ver 2.5J 1994/11/03)", 0 )
+GAME( 1994, hthero95u,  pwrgoal,  f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito America Corporation", "Hat Trick Hero '95 (Ver 2.5A 1994/11/03)", 0 )
+GAME( 1994, hthero95a,  pwrgoal,  f3_224a, f3, taito_f3_state, init_hthero95, ROT0,   "Taito Corporation Japan",   "Hat Trick Hero '95 (Ver 2.6Asia 1994/11/17)", 0 )
+GAME( 1994, qtheater,   0,        f3_224c, f3, taito_f3_state, init_qtheater, ROT0,   "Taito Corporation",         "Quiz Theater - 3tsu no Monogatari (Ver 2.3J 1994/11/10)", 0 )
+GAME( 1994, elvactr,    0,        f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "Taito Corporation Japan",   "Elevator Action Returns (Ver 2.2O 1995/02/20)", 0 )
+GAME( 1994, elvactrj,   elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "Taito Corporation",         "Elevator Action Returns (Ver 2.2J 1995/02/20)", 0 )
+GAME( 1994, elvact2u,   elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "Taito America Corporation", "Elevator Action II (Ver 2.2A 1995/02/20)", 0 )
 /* There is also a prototype Elevator Action II (US) pcb with the graphics in a different rom format (same program code) */
-GAME( 1994, recalh,   0,        f3_eeprom,f3,taito_f3_state, init_recalh,   ROT0,   "Taito Corporation",         "Recalhorn (Ver 1.42J 1994/5/11, prototype)", 0 )
-GAME( 1995, spcinv95, 0,        f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "Taito Corporation Japan",   "Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5O 1995/06/14)", 0 )
-GAME( 1995, spcinv95u,spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "Taito America Corporation", "Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5A 1995/06/14)", 0 )
-GAME( 1995, akkanvdr, spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "Taito Corporation",         "Akkanbeder (Ver 2.5J 1995/06/14)", 0 )
-GAME( 1995, twinqix,  0,        f3_224a, f3, taito_f3_state, init_twinqix,  ROT0,   "Taito America Corporation", "Twin Qix (Ver 1.0A 1995/01/17, prototype)", 0 )
-GAME( 1995, quizhuhu, 0,        f3,      f3, taito_f3_state, init_quizhuhu, ROT0,   "Taito Corporation",         "Moriguchi Hiroko no Quiz de Hyuu!Hyuu! (Ver 2.2J 1995/05/25)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS ) // quiz text positioning, heavy sprite window usage
-GAME( 1995, pbobble2, 0,        f3,      f3, taito_f3_state, init_pbobbl2p, ROT0,   "Taito Corporation Japan",   "Puzzle Bobble 2 (Ver 2.3O 1995/07/31)", 0 )
-GAME( 1995, pbobble2o,pbobble2, f3,      f3, taito_f3_state, init_pbobble2, ROT0,   "Taito Corporation Japan",   "Puzzle Bobble 2 (Ver 2.2O 1995/07/20)", 0 )
-GAME( 1995, pbobble2j,pbobble2, f3,      f3, taito_f3_state, init_pbobble2, ROT0,   "Taito Corporation",         "Puzzle Bobble 2 (Ver 2.2J 1995/07/20)", 0 )
-GAME( 1995, pbobble2u,pbobble2, f3,      f3, taito_f3_state, init_pbobble2, ROT0,   "Taito America Corporation", "Bust-A-Move Again (Ver 2.3A 1995/07/31)", 0 )
-GAME( 1995, pbobble2x,pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "Taito Corporation",         "Puzzle Bobble 2X (Ver 2.2J 1995/11/11)", 0 )
-GAME( 1995, gekiridn, 0,        f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation",         "Gekirindan (Ver 2.3O 1995/09/21)", 0 )
-GAME( 1995, gekiridnj,gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation",         "Gekirindan (Ver 2.3J 1995/09/21)", 0 )
-GAME( 1995, tcobra2,  0,        f3,      f3, taito_f3_state, init_ktiger2,  ROT270, "Taito Corporation Japan",   "Twin Cobra II (Ver 2.1O 1995/11/30)", 0 )
-GAME( 1995, tcobra2u, tcobra2,  f3,      f3, taito_f3_state, init_ktiger2,  ROT270, "Taito America Corporation", "Twin Cobra II (Ver 2.1A 1995/11/30)", 0 )
-GAME( 1995, ktiger2,  tcobra2,  f3,      f3, taito_f3_state, init_ktiger2,  ROT270, "Taito Corporation",         "Kyukyoku Tiger II (Ver 2.1J 1995/11/30)", 0 )
-GAME( 1995, bubblem,  0,        f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "Taito Corporation Japan",   "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.4O 1996/02/15)", 0 )
-GAME( 1995, bubblemu, bubblem,  f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "Taito America Corporation", "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.5A 1996/02/21)", 0 )
-GAME( 1995, bubblemj, bubblem,  f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "Taito Corporation",         "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.3J 1996/02/07)", 0 )
-GAME( 1996, cleopatr, 0,        f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "Taito Corporation",         "Cleopatra Fortune (Ver 2.1J 1996/09/05)", 0 )
-GAME( 1996, pbobble3, 0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1O 1996/09/27)", 0 )
-GAME( 1996, pbobble3u,pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1A 1996/09/27)", 0 )
-GAME( 1996, pbobble3j,pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1J 1996/09/27)", 0 )
-GAME( 1997, arkretrn, 0,        f3,      f3, taito_f3_state, init_arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02O 1997/02/10)", 0 )
-GAME( 1997, arkretrnu,arkretrn, f3,      f3, taito_f3_state, init_arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02A 1997/02/10)", 0 )
-GAME( 1997, arkretrnj,arkretrn, f3,      f3, taito_f3_state, init_arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02J 1997/02/10)", 0 )
-GAME( 1997, kirameki, 0,        f3_224a, f3, taito_f3_state, init_kirameki, ROT0,   "Taito Corporation",         "Kirameki Star Road (Ver 2.10J 1997/08/29)", 0 )
-GAME( 1997, puchicar, 0,        f3,      f3, taito_f3_state, init_puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Ver 2.02O 1997/10/29)", 0 )
-GAME( 1997, puchicarj,puchicar, f3,      f3, taito_f3_state, init_puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Ver 2.02J 1997/10/29)", 0 )
-GAME( 1997, pbobble4, 0,        f3,      f3, taito_f3_state, init_pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04O 1997/12/19)", 0 )
-GAME( 1997, pbobble4j,pbobble4, f3,      f3, taito_f3_state, init_pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04J 1997/12/19)", 0 )
-GAME( 1997, pbobble4u,pbobble4, f3,      f3, taito_f3_state, init_pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04A 1997/12/19)", 0 )
-GAME( 1997, popnpop,  0,        f3,      f3, taito_f3_state, init_popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07O 1998/02/09)", 0 )
-GAME( 1997, popnpopj, popnpop,  f3,      f3, taito_f3_state, init_popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07J 1998/02/09)", 0 )
-GAME( 1997, popnpopu, popnpop,  f3,      f3, taito_f3_state, init_popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07A 1998/02/09)", 0 )
-GAME( 1998, landmakr, 0,        f3,      f3, taito_f3_state, init_landmakr, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.02O 1998/06/02)", 0 )
-GAME( 1998, landmakrj,landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.01J 1998/06/01)", 0 )
-GAME( 1998, landmakrp,landmakr, f3,      f3, taito_f3_state, init_landmkrp, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.02O 1998/06/02, prototype)", 0 ) // proto or hack/bootleg?
+GAME( 1994, recalh,     0,        f3_eeprom,f3,taito_f3_state, init_recalh,   ROT0,   "Taito Corporation",         "Recalhorn (Ver 1.42J 1994/5/11, prototype)", 0 )
+GAME( 1995, spcinv95,   0,        f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "Taito Corporation Japan",   "Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5O 1995/06/14)", 0 )
+GAME( 1995, spcinv95u,  spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "Taito America Corporation", "Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5A 1995/06/14)", 0 )
+GAME( 1995, akkanvdr,   spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "Taito Corporation",         "Akkanbeder (Ver 2.5J 1995/06/14)", 0 )
+GAME( 1995, twinqix,    0,        f3_224a, f3, taito_f3_state, init_twinqix,  ROT0,   "Taito America Corporation", "Twin Qix (Ver 1.0A 1995/01/17, prototype)", 0 )
+GAME( 1995, quizhuhu,   0,        f3,      f3, taito_f3_state, init_quizhuhu, ROT0,   "Taito Corporation",         "Moriguchi Hiroko no Quiz de Hyuu!Hyuu! (Ver 2.2J 1995/05/25)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS ) // quiz text positioning, heavy sprite window usage
+GAME( 1995, pbobble2,   0,        f3,      f3, taito_f3_state, init_pbobbl2p, ROT0,   "Taito Corporation Japan",   "Puzzle Bobble 2 (Ver 2.3O 1995/07/31)", 0 )
+GAME( 1995, pbobble2o,  pbobble2, f3,      f3, taito_f3_state, init_pbobble2, ROT0,   "Taito Corporation Japan",   "Puzzle Bobble 2 (Ver 2.2O 1995/07/20)", 0 )
+GAME( 1995, pbobble2j,  pbobble2, f3,      f3, taito_f3_state, init_pbobble2, ROT0,   "Taito Corporation",         "Puzzle Bobble 2 (Ver 2.2J 1995/07/20)", 0 )
+GAME( 1995, pbobble2u,  pbobble2, f3,      f3, taito_f3_state, init_pbobble2, ROT0,   "Taito America Corporation", "Bust-A-Move Again (Ver 2.3A 1995/07/31)", 0 )
+GAME( 1995, pbobble2x,  pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "Taito Corporation",         "Puzzle Bobble 2X (Ver 2.2J 1995/11/11)", 0 )
+GAME( 1995, gekiridn,   0,        f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation",         "Gekirindan (Ver 2.3O 1995/09/21)", 0 )
+GAME( 1995, gekiridnj,  gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation",         "Gekirindan (Ver 2.3J 1995/09/21)", 0 )
+GAME( 1995, tcobra2,    0,        f3,      f3, taito_f3_state, init_ktiger2,  ROT270, "Taito Corporation Japan",   "Twin Cobra II (Ver 2.1O 1995/11/30)", 0 )
+GAME( 1995, tcobra2u,   tcobra2,  f3,      f3, taito_f3_state, init_ktiger2,  ROT270, "Taito America Corporation", "Twin Cobra II (Ver 2.1A 1995/11/30)", 0 )
+GAME( 1995, ktiger2,    tcobra2,  f3,      f3, taito_f3_state, init_ktiger2,  ROT270, "Taito Corporation",         "Kyukyoku Tiger II (Ver 2.1J 1995/11/30)", 0 )
+GAME( 1995, bubblem,    0,        f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "Taito Corporation Japan",   "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.4O 1996/02/15)", 0 )
+GAME( 1995, bubblemu,   bubblem,  f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "Taito America Corporation", "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.5A 1996/02/21)", 0 )
+GAME( 1995, bubblemj,   bubblem,  f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "Taito Corporation",         "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.3J 1996/02/07)", 0 )
+GAME( 1996, cleopatr,   0,        f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "Taito Corporation",         "Cleopatra Fortune (Ver 2.1J 1996/09/05)", 0 )
+GAME( 1996, cleopatro,  cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "bootleg",                   "Cleopatra Fortune (Ver 2.1O 1996/09/05, bootleg)", 0 )
+GAME( 1996, pbobble3,   0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1O 1996/09/27)", 0 )
+GAME( 1996, pbobble3u,  pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1A 1996/09/27)", 0 )
+GAME( 1996, pbobble3j,  pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1J 1996/09/27)", 0 )
+GAME( 1997, arkretrn,   0,        f3,      f3, taito_f3_state, init_arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02O 1997/02/10)", 0 )
+GAME( 1997, arkretrnu,  arkretrn, f3,      f3, taito_f3_state, init_arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02A 1997/02/10)", 0 )
+GAME( 1997, arkretrnj,  arkretrn, f3,      f3, taito_f3_state, init_arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02J 1997/02/10)", 0 )
+GAME( 1997, kirameki,   0,        f3_224a, f3, taito_f3_state, init_kirameki, ROT0,   "Taito Corporation",         "Kirameki Star Road (Ver 2.10J 1997/08/29)", 0 )
+GAME( 1997, puchicar,   0,        f3,      f3, taito_f3_state, init_puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Ver 2.02O 1997/10/29)", 0 )
+GAME( 1997, puchicarj,  puchicar, f3,      f3, taito_f3_state, init_puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Ver 2.02J 1997/10/29)", 0 )
+GAME( 1997, pbobble4,   0,        f3,      f3, taito_f3_state, init_pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04O 1997/12/19)", 0 )
+GAME( 1997, pbobble4j,  pbobble4, f3,      f3, taito_f3_state, init_pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04J 1997/12/19)", 0 )
+GAME( 1997, pbobble4u,  pbobble4, f3,      f3, taito_f3_state, init_pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04A 1997/12/19)", 0 )
+GAME( 1997, popnpop,    0,        f3,      f3, taito_f3_state, init_popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07O 1998/02/09)", 0 )
+GAME( 1997, popnpopj,   popnpop,  f3,      f3, taito_f3_state, init_popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07J 1998/02/09)", 0 )
+GAME( 1997, popnpopu,   popnpop,  f3,      f3, taito_f3_state, init_popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07A 1998/02/09)", 0 )
+GAME( 1998, landmakr,   0,        f3,      f3, taito_f3_state, init_landmakr, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.02O 1998/06/02)", 0 )
+GAME( 1998, landmakrj,  landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.01J 1998/06/01)", 0 )
+GAME( 1998, landmakrp,  landmakr, f3,      f3, taito_f3_state, init_landmkrp, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.02O 1998/06/02, prototype)", 0 ) // proto or hack/bootleg?

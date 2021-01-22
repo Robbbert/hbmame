@@ -144,7 +144,7 @@ bits(7:4) and bit(24)), X, and Y:
 
 #include "emu.h"
 #include "voodoo.h"
-#include "vooddefs.h"
+#include "vooddefs.ipp"
 
 #include "screen.h"
 
@@ -156,7 +156,8 @@ bits(7:4) and bit(24)), X, and Y:
  *************************************/
 
 #define DEBUG_DEPTH         (0)
-#define DEBUG_LOD           (0)
+#define DEBUG_BACKBUF       (0)
+#define DEBUG_STATS         (0)
 
 #define LOG_VBLANK_SWAP     (0)
 #define LOG_FIFO            (0)
@@ -175,6 +176,549 @@ bits(7:4) and bit(24)), X, and Y:
 // Need to turn off cycle eating when debugging MIPS drc
 // otherwise timer interrupts won't match nodrc debug mode.
 #define EAT_CYCLES          (1)
+
+
+namespace {
+
+/*************************************
+ *
+ *  Alias map of the first 64
+ *  registers when remapped
+ *
+ *************************************/
+
+const uint8_t register_alias_map[0x40] =
+{
+	vdstatus,     0x004/4,    vertexAx,   vertexAy,
+	vertexBx,   vertexBy,   vertexCx,   vertexCy,
+	startR,     dRdX,       dRdY,       startG,
+	dGdX,       dGdY,       startB,     dBdX,
+	dBdY,       startZ,     dZdX,       dZdY,
+	startA,     dAdX,       dAdY,       startS,
+	dSdX,       dSdY,       startT,     dTdX,
+	dTdY,       startW,     dWdX,       dWdY,
+
+	triangleCMD,0x084/4,    fvertexAx,  fvertexAy,
+	fvertexBx,  fvertexBy,  fvertexCx,  fvertexCy,
+	fstartR,    fdRdX,      fdRdY,      fstartG,
+	fdGdX,      fdGdY,      fstartB,    fdBdX,
+	fdBdY,      fstartZ,    fdZdX,      fdZdY,
+	fstartA,    fdAdX,      fdAdY,      fstartS,
+	fdSdX,      fdSdY,      fstartT,    fdTdX,
+	fdTdY,      fstartW,    fdWdX,      fdWdY
+};
+
+
+/*************************************
+ *
+ *  Table of per-register access rights
+ *
+ *************************************/
+
+const uint8_t voodoo_register_access[0x100] =
+{
+	/* 0x000 */
+	REG_RP,     0,          REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x040 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x080 */
+	REG_WPF,    0,          REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x0c0 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x100 */
+	REG_WPF,    REG_RWPF,   REG_RWPF,   REG_RWPF,
+	REG_RWF,    REG_RWF,    REG_RWF,    REG_RWF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     0,          0,
+
+	/* 0x140 */
+	REG_RWF,    REG_RWF,    REG_RWF,    REG_R,
+	REG_R,      REG_R,      REG_R,      REG_R,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x180 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x1c0 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+
+	/* 0x200 */
+	REG_RW,     REG_R,      REG_RW,     REG_RW,
+	REG_RW,     REG_RW,     REG_RW,     REG_RW,
+	REG_W,      REG_W,      REG_W,      REG_W,
+	REG_W,      0,          0,          0,
+
+	/* 0x240 */
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+
+	/* 0x280 */
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+
+	/* 0x2c0 */
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+
+	/* 0x300 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x340 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x380 */
+	REG_WF
+};
+
+const uint8_t voodoo2_register_access[0x100] =
+{
+	/* 0x000 */
+	REG_RP,     REG_RWPT,   REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x040 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x080 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x0c0 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x100 */
+	REG_WPF,    REG_RWPF,   REG_RWPF,   REG_RWPF,
+	REG_RWF,    REG_RWF,    REG_RWF,    REG_RWF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x140 */
+	REG_RWF,    REG_RWF,    REG_RWF,    REG_R,
+	REG_R,      REG_R,      REG_R,      REG_R,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x180 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x1c0 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_RWT,    REG_RWT,    REG_RWT,    REG_RWT,
+	REG_RWT,    REG_RWT,    REG_RWT,    REG_RW,
+
+	/* 0x200 */
+	REG_RWT,    REG_R,      REG_RWT,    REG_RWT,
+	REG_RWT,    REG_RWT,    REG_RWT,    REG_RWT,
+	REG_WT,     REG_WT,     REG_WF,     REG_WT,
+	REG_WT,     REG_WT,     REG_WT,     REG_WT,
+
+	/* 0x240 */
+	REG_R,      REG_RWT,    REG_RWT,    REG_RWT,
+	0,          0,          REG_R,      REG_R,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x280 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    0,          0,
+	0,          0,          0,          0,
+
+	/* 0x2c0 */
+	REG_RWPF,   REG_RWPF,   REG_RWPF,   REG_RWPF,
+	REG_RWPF,   REG_RWPF,   REG_RWPF,   REG_RWPF,
+	REG_RWPF,   REG_RWPF,   REG_RWPF,   REG_RWPF,
+	REG_RWPF,   REG_RWPF,   REG_RWPF,   REG_WPF,
+
+	/* 0x300 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x340 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x380 */
+	REG_WF
+};
+
+const uint8_t banshee_register_access[0x100] =
+{
+	/* 0x000 */
+	REG_RP,     REG_RWPT,   REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x040 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x080 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x0c0 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x100 */
+	REG_WPF,    REG_RWPF,   REG_RWPF,   REG_RWPF,
+	REG_RWF,    REG_RWF,    REG_RWF,    REG_RWF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x140 */
+	REG_RWF,    REG_RWF,    REG_RWF,    REG_R,
+	REG_R,      REG_R,      REG_R,      REG_R,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x180 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x1c0 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	0,          0,          0,          REG_RWF,
+	REG_RWF,    REG_RWF,    REG_RWF,    0,
+
+	/* 0x200 */
+	REG_RWF,    REG_RWF,    0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+
+	/* 0x240 */
+	0,          0,          0,          REG_WT,
+	REG_RWF,    REG_RWF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_R,      REG_R,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+
+	/* 0x280 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    0,          0,
+	0,          0,          0,          0,
+
+	/* 0x2c0 */
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+	0,          0,          0,          0,
+
+	/* 0x300 */
+	REG_WPF,    REG_WPF,    REG_WPF,    REG_WPF,
+	REG_WPF,    REG_WPF,    REG_WPF,    0,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x340 */
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+	REG_WF,     REG_WF,     REG_WF,     REG_WF,
+
+	/* 0x380 */
+	REG_WF
+};
+
+
+/*************************************
+ *
+ *  Register string table for debug
+ *
+ *************************************/
+
+const char *const voodoo_reg_name[] =
+{
+	/* 0x000 */
+	"status",       "{intrCtrl}",   "vertexAx",     "vertexAy",
+	"vertexBx",     "vertexBy",     "vertexCx",     "vertexCy",
+	"startR",       "startG",       "startB",       "startZ",
+	"startA",       "startS",       "startT",       "startW",
+	/* 0x040 */
+	"dRdX",         "dGdX",         "dBdX",         "dZdX",
+	"dAdX",         "dSdX",         "dTdX",         "dWdX",
+	"dRdY",         "dGdY",         "dBdY",         "dZdY",
+	"dAdY",         "dSdY",         "dTdY",         "dWdY",
+	/* 0x080 */
+	"triangleCMD",  "reserved084",  "fvertexAx",    "fvertexAy",
+	"fvertexBx",    "fvertexBy",    "fvertexCx",    "fvertexCy",
+	"fstartR",      "fstartG",      "fstartB",      "fstartZ",
+	"fstartA",      "fstartS",      "fstartT",      "fstartW",
+	/* 0x0c0 */
+	"fdRdX",        "fdGdX",        "fdBdX",        "fdZdX",
+	"fdAdX",        "fdSdX",        "fdTdX",        "fdWdX",
+	"fdRdY",        "fdGdY",        "fdBdY",        "fdZdY",
+	"fdAdY",        "fdSdY",        "fdTdY",        "fdWdY",
+	/* 0x100 */
+	"ftriangleCMD", "fbzColorPath", "fogMode",      "alphaMode",
+	"fbzMode",      "lfbMode",      "clipLeftRight","clipLowYHighY",
+	"nopCMD",       "fastfillCMD",  "swapbufferCMD","fogColor",
+	"zaColor",      "chromaKey",    "{chromaRange}","{userIntrCMD}",
+	/* 0x140 */
+	"stipple",      "color0",       "color1",       "fbiPixelsIn",
+	"fbiChromaFail","fbiZfuncFail", "fbiAfuncFail", "fbiPixelsOut",
+	"fogTable160",  "fogTable164",  "fogTable168",  "fogTable16c",
+	"fogTable170",  "fogTable174",  "fogTable178",  "fogTable17c",
+	/* 0x180 */
+	"fogTable180",  "fogTable184",  "fogTable188",  "fogTable18c",
+	"fogTable190",  "fogTable194",  "fogTable198",  "fogTable19c",
+	"fogTable1a0",  "fogTable1a4",  "fogTable1a8",  "fogTable1ac",
+	"fogTable1b0",  "fogTable1b4",  "fogTable1b8",  "fogTable1bc",
+	/* 0x1c0 */
+	"fogTable1c0",  "fogTable1c4",  "fogTable1c8",  "fogTable1cc",
+	"fogTable1d0",  "fogTable1d4",  "fogTable1d8",  "fogTable1dc",
+	"{cmdFifoBaseAddr}","{cmdFifoBump}","{cmdFifoRdPtr}","{cmdFifoAMin}",
+	"{cmdFifoAMax}","{cmdFifoDepth}","{cmdFifoHoles}","reserved1fc",
+	/* 0x200 */
+	"fbiInit4",     "vRetrace",     "backPorch",    "videoDimensions",
+	"fbiInit0",     "fbiInit1",     "fbiInit2",     "fbiInit3",
+	"hSync",        "vSync",        "clutData",     "dacData",
+	"maxRgbDelta",  "{hBorder}",    "{vBorder}",    "{borderColor}",
+	/* 0x240 */
+	"{hvRetrace}",  "{fbiInit5}",   "{fbiInit6}",   "{fbiInit7}",
+	"reserved250",  "reserved254",  "{fbiSwapHistory}","{fbiTrianglesOut}",
+	"{sSetupMode}", "{sVx}",        "{sVy}",        "{sARGB}",
+	"{sRed}",       "{sGreen}",     "{sBlue}",      "{sAlpha}",
+	/* 0x280 */
+	"{sVz}",        "{sWb}",        "{sWtmu0}",     "{sS/Wtmu0}",
+	"{sT/Wtmu0}",   "{sWtmu1}",     "{sS/Wtmu1}",   "{sT/Wtmu1}",
+	"{sDrawTriCMD}","{sBeginTriCMD}","reserved2a8", "reserved2ac",
+	"reserved2b0",  "reserved2b4",  "reserved2b8",  "reserved2bc",
+	/* 0x2c0 */
+	"{bltSrcBaseAddr}","{bltDstBaseAddr}","{bltXYStrides}","{bltSrcChromaRange}",
+	"{bltDstChromaRange}","{bltClipX}","{bltClipY}","reserved2dc",
+	"{bltSrcXY}",   "{bltDstXY}",   "{bltSize}",    "{bltRop}",
+	"{bltColor}",   "reserved2f4",  "{bltCommand}", "{bltData}",
+	/* 0x300 */
+	"textureMode",  "tLOD",         "tDetail",      "texBaseAddr",
+	"texBaseAddr_1","texBaseAddr_2","texBaseAddr_3_8","trexInit0",
+	"trexInit1",    "nccTable0.0",  "nccTable0.1",  "nccTable0.2",
+	"nccTable0.3",  "nccTable0.4",  "nccTable0.5",  "nccTable0.6",
+	/* 0x340 */
+	"nccTable0.7",  "nccTable0.8",  "nccTable0.9",  "nccTable0.A",
+	"nccTable0.B",  "nccTable1.0",  "nccTable1.1",  "nccTable1.2",
+	"nccTable1.3",  "nccTable1.4",  "nccTable1.5",  "nccTable1.6",
+	"nccTable1.7",  "nccTable1.8",  "nccTable1.9",  "nccTable1.A",
+	/* 0x380 */
+	"nccTable1.B"
+};
+
+const char *const banshee_reg_name[] =
+{
+	/* 0x000 */
+	"status",       "intrCtrl",     "vertexAx",     "vertexAy",
+	"vertexBx",     "vertexBy",     "vertexCx",     "vertexCy",
+	"startR",       "startG",       "startB",       "startZ",
+	"startA",       "startS",       "startT",       "startW",
+	/* 0x040 */
+	"dRdX",         "dGdX",         "dBdX",         "dZdX",
+	"dAdX",         "dSdX",         "dTdX",         "dWdX",
+	"dRdY",         "dGdY",         "dBdY",         "dZdY",
+	"dAdY",         "dSdY",         "dTdY",         "dWdY",
+	/* 0x080 */
+	"triangleCMD",  "reserved084",  "fvertexAx",    "fvertexAy",
+	"fvertexBx",    "fvertexBy",    "fvertexCx",    "fvertexCy",
+	"fstartR",      "fstartG",      "fstartB",      "fstartZ",
+	"fstartA",      "fstartS",      "fstartT",      "fstartW",
+	/* 0x0c0 */
+	"fdRdX",        "fdGdX",        "fdBdX",        "fdZdX",
+	"fdAdX",        "fdSdX",        "fdTdX",        "fdWdX",
+	"fdRdY",        "fdGdY",        "fdBdY",        "fdZdY",
+	"fdAdY",        "fdSdY",        "fdTdY",        "fdWdY",
+	/* 0x100 */
+	"ftriangleCMD", "fbzColorPath", "fogMode",      "alphaMode",
+	"fbzMode",      "lfbMode",      "clipLeftRight","clipLowYHighY",
+	"nopCMD",       "fastfillCMD",  "swapbufferCMD","fogColor",
+	"zaColor",      "chromaKey",    "chromaRange",  "userIntrCMD",
+	/* 0x140 */
+	"stipple",      "color0",       "color1",       "fbiPixelsIn",
+	"fbiChromaFail","fbiZfuncFail", "fbiAfuncFail", "fbiPixelsOut",
+	"fogTable160",  "fogTable164",  "fogTable168",  "fogTable16c",
+	"fogTable170",  "fogTable174",  "fogTable178",  "fogTable17c",
+	/* 0x180 */
+	"fogTable180",  "fogTable184",  "fogTable188",  "fogTable18c",
+	"fogTable190",  "fogTable194",  "fogTable198",  "fogTable19c",
+	"fogTable1a0",  "fogTable1a4",  "fogTable1a8",  "fogTable1ac",
+	"fogTable1b0",  "fogTable1b4",  "fogTable1b8",  "fogTable1bc",
+	/* 0x1c0 */
+	"fogTable1c0",  "fogTable1c4",  "fogTable1c8",  "fogTable1cc",
+	"fogTable1d0",  "fogTable1d4",  "fogTable1d8",  "fogTable1dc",
+	"reserved1e0",  "reserved1e4",  "reserved1e8",  "colBufferAddr",
+	"colBufferStride","auxBufferAddr","auxBufferStride","reserved1fc",
+	/* 0x200 */
+	"clipLeftRight1","clipTopBottom1","reserved208","reserved20c",
+	"reserved210",  "reserved214",  "reserved218",  "reserved21c",
+	"reserved220",  "reserved224",  "reserved228",  "reserved22c",
+	"reserved230",  "reserved234",  "reserved238",  "reserved23c",
+	/* 0x240 */
+	"reserved240",  "reserved244",  "reserved248",  "swapPending",
+	"leftOverlayBuf","rightOverlayBuf","fbiSwapHistory","fbiTrianglesOut",
+	"sSetupMode",   "sVx",          "sVy",          "sARGB",
+	"sRed",         "sGreen",       "sBlue",        "sAlpha",
+	/* 0x280 */
+	"sVz",          "sWb",          "sWtmu0",       "sS/Wtmu0",
+	"sT/Wtmu0",     "sWtmu1",       "sS/Wtmu1",     "sT/Wtmu1",
+	"sDrawTriCMD",  "sBeginTriCMD", "reserved2a8",  "reserved2ac",
+	"reserved2b0",  "reserved2b4",  "reserved2b8",  "reserved2bc",
+	/* 0x2c0 */
+	"reserved2c0",  "reserved2c4",  "reserved2c8",  "reserved2cc",
+	"reserved2d0",  "reserved2d4",  "reserved2d8",  "reserved2dc",
+	"reserved2e0",  "reserved2e4",  "reserved2e8",  "reserved2ec",
+	"reserved2f0",  "reserved2f4",  "reserved2f8",  "reserved2fc",
+	/* 0x300 */
+	"textureMode",  "tLOD",         "tDetail",      "texBaseAddr",
+	"texBaseAddr_1","texBaseAddr_2","texBaseAddr_3_8","reserved31c",
+	"trexInit1",    "nccTable0.0",  "nccTable0.1",  "nccTable0.2",
+	"nccTable0.3",  "nccTable0.4",  "nccTable0.5",  "nccTable0.6",
+	/* 0x340 */
+	"nccTable0.7",  "nccTable0.8",  "nccTable0.9",  "nccTable0.A",
+	"nccTable0.B",  "nccTable1.0",  "nccTable1.1",  "nccTable1.2",
+	"nccTable1.3",  "nccTable1.4",  "nccTable1.5",  "nccTable1.6",
+	"nccTable1.7",  "nccTable1.8",  "nccTable1.9",  "nccTable1.A",
+	/* 0x380 */
+	"nccTable1.B"
+};
+
+
+/*************************************
+ *
+ *  Register string table for debug
+ *
+ *************************************/
+
+const char *const banshee_io_reg_name[] =
+{
+	/* 0x000 */
+	"status",       "pciInit0",     "sipMonitor",   "lfbMemoryConfig",
+	"miscInit0",    "miscInit1",    "dramInit0",    "dramInit1",
+	"agpInit",      "tmuGbeInit",   "vgaInit0",     "vgaInit1",
+	"dramCommand",  "dramData",     "reserved38",   "reserved3c",
+
+	/* 0x040 */
+	"pllCtrl0",     "pllCtrl1",     "pllCtrl2",     "dacMode",
+	"dacAddr",      "dacData",      "rgbMaxDelta",  "vidProcCfg",
+	"hwCurPatAddr", "hwCurLoc",     "hwCurC0",      "hwCurC1",
+	"vidInFormat",  "vidInStatus",  "vidSerialParallelPort","vidInXDecimDeltas",
+
+	/* 0x080 */
+	"vidInDecimInitErrs","vidInYDecimDeltas","vidPixelBufThold","vidChromaMin",
+	"vidChromaMax", "vidCurrentLine","vidScreenSize","vidOverlayStartCoords",
+	"vidOverlayEndScreenCoord","vidOverlayDudx","vidOverlayDudxOffsetSrcWidth","vidOverlayDvdy",
+	"vga[b0]",      "vga[b4]",      "vga[b8]",      "vga[bc]",
+
+	/* 0x0c0 */
+	"vga[c0]",      "vga[c4]",      "vga[c8]",      "vga[cc]",
+	"vga[d0]",      "vga[d4]",      "vga[d8]",      "vga[dc]",
+	"vidOverlayDvdyOffset","vidDesktopStartAddr","vidDesktopOverlayStride","vidInAddr0",
+	"vidInAddr1",   "vidInAddr2",   "vidInStride",  "vidCurrOverlayStartAddr"
+};
+
+
+/*************************************
+ *
+ *  Register string table for debug
+ *
+ *************************************/
+
+const char *const banshee_agp_reg_name[] =
+{
+	/* 0x000 */
+	"agpReqSize",   "agpHostAddressLow","agpHostAddressHigh","agpGraphicsAddress",
+	"agpGraphicsStride","agpMoveCMD","reserved18",  "reserved1c",
+	"cmdBaseAddr0", "cmdBaseSize0", "cmdBump0",     "cmdRdPtrL0",
+	"cmdRdPtrH0",   "cmdAMin0",     "reserved38",   "cmdAMax0",
+
+	/* 0x040 */
+	"reserved40",   "cmdFifoDepth0","cmdHoleCnt0",  "reserved4c",
+	"cmdBaseAddr1", "cmdBaseSize1", "cmdBump1",     "cmdRdPtrL1",
+	"cmdRdPtrH1",   "cmdAMin1",     "reserved68",   "cmdAMax1",
+	"reserved70",   "cmdFifoDepth1","cmdHoleCnt1",  "reserved7c",
+
+	/* 0x080 */
+	"cmdFifoThresh","cmdHoleInt",   "reserved88",   "reserved8c",
+	"reserved90",   "reserved94",   "reserved98",   "reserved9c",
+	"reserveda0",   "reserveda4",   "reserveda8",   "reservedac",
+	"reservedb0",   "reservedb4",   "reservedb8",   "reservedbc",
+
+	/* 0x0c0 */
+	"reservedc0",   "reservedc4",   "reservedc8",   "reservedcc",
+	"reservedd0",   "reservedd4",   "reservedd8",   "reserveddc",
+	"reservede0",   "reservede4",   "reservede8",   "reservedec",
+	"reservedf0",   "reservedf4",   "reservedf8",   "reservedfc",
+
+	/* 0x100 */
+	"yuvBaseAddress","yuvStride",   "reserved108",  "reserved10c",
+	"reserved110",  "reserved114",  "reserved118",  "reserved11c",
+	"crc1",         "reserved124",  "reserved128",  "reserved12c",
+	"crc2",         "reserved134",  "reserved138",  "reserved13c"
+};
+
+} // anonymous namespace
 
 
 struct voodoo_device::poly_extra_data
@@ -242,7 +786,7 @@ uint32_t voodoo_reciplog[(2 << RECIPLOG_LOOKUP_BITS) + 2];
 #define RASTERIZER_ENTRY(fbzcp, alpha, fog, fbz, tex0, tex1) \
 	RASTERIZER(fbzcp##_##alpha##_##fog##_##fbz##_##tex0##_##tex1, (((tex0) == 0xffffffff) ? 0 : ((tex1) == 0xffffffff) ? 1 : 2), fbzcp, fbz, alpha, fog, tex0, tex1)
 
-#include "voodoo_rast.hxx"
+#include "voodoo_rast.ipp"
 
 #undef RASTERIZER_ENTRY
 
@@ -259,7 +803,7 @@ uint32_t voodoo_reciplog[(2 << RECIPLOG_LOOKUP_BITS) + 2];
 
 const voodoo_device::raster_info voodoo_device::predef_raster_table[] =
 {
-#include "voodoo_rast.hxx"
+#include "voodoo_rast.ipp"
 	{ nullptr }
 };
 
@@ -281,7 +825,6 @@ int voodoo_device::voodoo_update(bitmap_rgb32 &bitmap, const rectangle &cliprect
 {
 	int changed = fbi.video_changed;
 	int drawbuf = fbi.frontbuf;
-	int statskey;
 	int x, y;
 
 	/* reset the video changed flag */
@@ -367,39 +910,45 @@ int voodoo_device::voodoo_update(bitmap_rgb32 &bitmap, const rectangle &cliprect
 	}
 
 	/* debugging! */
-	if (machine().input().code_pressed(KEYCODE_L))
+	if (DEBUG_BACKBUF && machine().input().code_pressed(KEYCODE_L))
 		drawbuf = fbi.backbuf;
 
 	/* copy from the current front buffer */
 	for (y = cliprect.min_y; y <= cliprect.max_y; y++)
 		if (y >= fbi.yoffs)
 		{
-			uint16_t *src = (uint16_t *)(fbi.ram + fbi.rgboffs[drawbuf]) + (y - fbi.yoffs) * fbi.rowpixels - fbi.xoffs;
-			uint32_t *dst = &bitmap.pix32(y);
+			uint16_t const *const src = (uint16_t *)(fbi.ram + fbi.rgboffs[drawbuf]) + (y - fbi.yoffs) * fbi.rowpixels - fbi.xoffs;
+			uint32_t *const dst = &bitmap.pix(y);
 			for (x = cliprect.min_x; x <= cliprect.max_x; x++)
 				dst[x] = fbi.pen[src[x]];
 		}
 
 	/* update stats display */
-	statskey = (machine().input().code_pressed(KEYCODE_BACKSLASH) != 0);
-	if (statskey && statskey != stats.lastkey)
-		stats.display = !stats.display;
-	stats.lastkey = statskey;
+	if (DEBUG_STATS)
+	{
+		int statskey = (machine().input().code_pressed(KEYCODE_BACKSLASH));
+		if (statskey && statskey != stats.lastkey)
+			stats.display = !stats.display;
+		stats.lastkey = statskey;
 
-	/* display stats */
-	if (stats.display)
-		popmessage(stats.buffer, 0, 0);
+		/* display stats */
+		if (stats.display)
+			popmessage(stats.buffer, 0, 0);
+	}
 
 	/* update render override */
-	stats.render_override = machine().input().code_pressed(KEYCODE_ENTER);
-	if (DEBUG_DEPTH && stats.render_override)
+	if (DEBUG_DEPTH)
 	{
-		for (y = cliprect.min_y; y <= cliprect.max_y; y++)
+		stats.render_override = machine().input().code_pressed(KEYCODE_ENTER);
+		if (stats.render_override)
 		{
-			uint16_t *src = (uint16_t *)(fbi.ram + fbi.auxoffs) + (y - fbi.yoffs) * fbi.rowpixels - fbi.xoffs;
-			uint32_t *dst = &bitmap.pix32(y);
-			for (x = cliprect.min_x; x <= cliprect.max_x; x++)
-				dst[x] = ((src[x] << 8) & 0xff0000) | ((src[x] >> 0) & 0xff00) | ((src[x] >> 8) & 0xff);
+			for (y = cliprect.min_y; y <= cliprect.max_y; y++)
+			{
+				uint16_t const *const src = (uint16_t*)(fbi.ram + fbi.auxoffs) + (y - fbi.yoffs) * fbi.rowpixels - fbi.xoffs;
+				uint32_t *const dst = &bitmap.pix(y);
+				for (x = cliprect.min_x; x <= cliprect.max_x; x++)
+					dst[x] = ((src[x] << 8) & 0xff0000) | ((src[x] >> 0) & 0xff00) | ((src[x] >> 8) & 0xff);
+			}
 		}
 	}
 	return changed;
@@ -430,7 +979,7 @@ void voodoo_device::voodoo_set_init_enable(uint32_t newval)
 {
 	pci.init_enable = newval;
 	if (LOG_REGISTERS)
-		logerror("VOODOO.%d.REG:initEnable write = %08X\n", index, newval);
+		logerror("VOODOO.REG:initEnable write = %08X\n", newval);
 }
 
 
@@ -443,8 +992,6 @@ void voodoo_device::voodoo_set_init_enable(uint32_t newval)
 
 void voodoo_device::init_fbi(voodoo_device* vd,fbi_state *f, void *memory, int fbmem)
 {
-	int pen;
-
 	/* allocate frame buffer RAM and set pointers */
 	f->ram = (uint8_t *)memory;
 	f->mask = fbmem - 1;
@@ -461,13 +1008,13 @@ void voodoo_device::init_fbi(voodoo_device* vd,fbi_state *f, void *memory, int f
 	f->clut_dirty = true;
 	if (vd->vd_type <= TYPE_VOODOO_2)
 	{
-		for (pen = 0; pen < 32; pen++)
+		for (int pen = 0; pen < 32; pen++)
 			vd->fbi.clut[pen] = rgb_t(pen, pal5bit(pen), pal5bit(pen), pal5bit(pen));
 		vd->fbi.clut[32] = rgb_t(32,0xff,0xff,0xff);
 	}
 	else
 	{
-		for (pen = 0; pen < 512; pen++)
+		for (int pen = 0; pen < 512; pen++)
 			vd->fbi.clut[pen] = rgb_t(pen,pen,pen);
 	}
 
@@ -534,6 +1081,8 @@ void voodoo_device::tmu_shared_state::init()
 		EXTRACT_4444_TO_8888(val, a, r, g, b);
 		argb4444[val] = rgb_t(a, r, g, b);
 	}
+
+	rgb565 = nullptr;
 }
 
 
@@ -543,7 +1092,7 @@ void voodoo_device::tmu_state::init(uint8_t vdt, tmu_shared_state &share, voodoo
 	ram = reinterpret_cast<uint8_t *>(memory);
 	mask = tmem - 1;
 	reg = r;
-	regdirty = true;
+	regdirty = false;
 	bilinear_mask = (vdt >= TYPE_VOODOO_2) ? 0xff : 0xf0;
 
 	/* mark the NCC tables dirty and configure their registers */
@@ -607,8 +1156,6 @@ void voodoo_device::voodoo_postload()
 
 void voodoo_device::init_save_state(voodoo_device *vd)
 {
-	int index, subindex;
-
 	vd->machine().save().register_postload(save_prepost_delegate(FUNC(voodoo_device::voodoo_postload), vd));
 
 	/* register states: core */
@@ -686,44 +1233,38 @@ void voodoo_device::init_save_state(voodoo_device *vd)
 	vd->save_item(NAME(vd->fbi.lfb_stats.clip_fail));
 	vd->save_item(NAME(vd->fbi.lfb_stats.stipple_count));
 	vd->save_item(NAME(vd->fbi.sverts));
-	for (index = 0; index < ARRAY_LENGTH(vd->fbi.svert); index++)
-	{
-		vd->save_item(NAME(vd->fbi.svert[index].x), index);
-		vd->save_item(NAME(vd->fbi.svert[index].y), index);
-		vd->save_item(NAME(vd->fbi.svert[index].a), index);
-		vd->save_item(NAME(vd->fbi.svert[index].r), index);
-		vd->save_item(NAME(vd->fbi.svert[index].g), index);
-		vd->save_item(NAME(vd->fbi.svert[index].b), index);
-		vd->save_item(NAME(vd->fbi.svert[index].z), index);
-		vd->save_item(NAME(vd->fbi.svert[index].wb), index);
-		vd->save_item(NAME(vd->fbi.svert[index].w0), index);
-		vd->save_item(NAME(vd->fbi.svert[index].s0), index);
-		vd->save_item(NAME(vd->fbi.svert[index].t0), index);
-		vd->save_item(NAME(vd->fbi.svert[index].w1), index);
-		vd->save_item(NAME(vd->fbi.svert[index].s1), index);
-		vd->save_item(NAME(vd->fbi.svert[index].t1), index);
-	}
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, x));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, y));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, a));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, r));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, g));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, b));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, z));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, wb));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, w0));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, s0));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, t0));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, w1));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, s1));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.svert, t1));
 	vd->save_item(NAME(vd->fbi.fifo.size));
 	vd->save_item(NAME(vd->fbi.fifo.in));
 	vd->save_item(NAME(vd->fbi.fifo.out));
-	for (index = 0; index < ARRAY_LENGTH(vd->fbi.cmdfifo); index++)
-	{
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].enable), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].count_holes), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].base), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].end), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].rdptr), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].amin), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].amax), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].depth), index);
-		vd->save_item(NAME(vd->fbi.cmdfifo[index].holes), index);
-	}
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, enable));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, count_holes));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, base));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, end));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, rdptr));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, amin));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, amax));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, depth));
+	vd->save_item(STRUCT_MEMBER(vd->fbi.cmdfifo, holes));
 	vd->save_item(NAME(vd->fbi.fogblend));
 	vd->save_item(NAME(vd->fbi.fogdelta));
 	vd->save_item(NAME(vd->fbi.clut));
 
 	/* register states: tmu */
-	for (index = 0; index < ARRAY_LENGTH(vd->tmu); index++)
+	for (int index = 0; index < ARRAY_LENGTH(vd->tmu); index++)
 	{
 		tmu_state *tmu = &vd->tmu[index];
 		if (tmu->ram == nullptr)
@@ -739,16 +1280,13 @@ void voodoo_device::init_save_state(voodoo_device *vd)
 		vd->save_item(NAME(tmu->dsdy), index);
 		vd->save_item(NAME(tmu->dtdy), index);
 		vd->save_item(NAME(tmu->dwdy), index);
-		for (subindex = 0; subindex < ARRAY_LENGTH(tmu->ncc); subindex++)
-		{
-			vd->save_item(NAME(tmu->ncc[subindex].ir), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-			vd->save_item(NAME(tmu->ncc[subindex].ig), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-			vd->save_item(NAME(tmu->ncc[subindex].ib), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-			vd->save_item(NAME(tmu->ncc[subindex].qr), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-			vd->save_item(NAME(tmu->ncc[subindex].qg), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-			vd->save_item(NAME(tmu->ncc[subindex].qb), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-			vd->save_item(NAME(tmu->ncc[subindex].y), index * ARRAY_LENGTH(tmu->ncc) + subindex);
-		}
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, ir), index);
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, ig), index);
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, ib), index);
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, qr), index);
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, qg), index);
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, qb), index);
+		vd->save_item(STRUCT_MEMBER(tmu->ncc, y), index);
 	}
 
 	/* register states: banshee */
@@ -1079,7 +1617,7 @@ void voodoo_device::recompute_video_memory()
 	}
 	fbi.rowpixels = fbi.tile_width * fbi.x_tiles;
 
-//  logerror("VOODOO.%d.VIDMEM: buffer_pages=%X  fifo=%X-%X  tiles=%X  rowpix=%d\n", index, buffer_pages, fifo_start_page, fifo_last_page, fbi.x_tiles, fbi.rowpixels);
+//  logerror("VOODOO.VIDMEM: buffer_pages=%X  fifo=%X-%X  tiles=%X  rowpix=%d\n", buffer_pages, fifo_start_page, fifo_last_page, fbi.x_tiles, fbi.rowpixels);
 
 	/* first RGB buffer always starts at 0 */
 	fbi.rgboffs[0] = 0;
@@ -1091,8 +1629,8 @@ void voodoo_device::recompute_video_memory()
 	switch (memory_config)
 	{
 		case 3: /* reserved */
-			logerror("VOODOO.%d.ERROR:Unexpected memory configuration in recompute_video_memory!\n", index);
-
+			logerror("VOODOO.ERROR:Unexpected memory configuration in recompute_video_memory!\n");
+			[[fallthrough]];
 		case 0: /* 2 color buffers, 1 aux buffer */
 			fbi.rgboffs[2] = ~0;
 			fbi.auxoffs = 2 * buffer_pages * 0x1000;
@@ -2062,9 +2600,12 @@ void voodoo_device::cmdfifo_w(voodoo_device *vd, cmdfifo_info *f, offs_t offset,
 			vd->pci.op_pending = true;
 			vd->pci.op_end_time = vd->machine().time() + attotime(0, (attoseconds_t)cycles * vd->attoseconds_per_cycle);
 
-			if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:direct write start at %d.%08X%08X end at %d.%08X%08X\n", vd->index,
-				vd->machine().time().seconds(), (uint32_t)(vd->machine().time().attoseconds() >> 32), (uint32_t)vd->machine().time().attoseconds(),
-				vd->pci.op_end_time.seconds(), (uint32_t)(vd->pci.op_end_time.attoseconds() >> 32), (uint32_t)vd->pci.op_end_time.attoseconds());
+			if (LOG_FIFO_VERBOSE)
+			{
+				vd->logerror("VOODOO.FIFO:direct write start at %d.%018d end at %d.%018d\n",
+						vd->machine().time().seconds(), vd->machine().time().attoseconds(),
+						vd->pci.op_end_time.seconds(), vd->pci.op_end_time.attoseconds());
+			}
 		}
 	}
 }
@@ -2120,7 +2661,7 @@ void voodoo_device::check_stalled_cpu(attotime current_time)
 	/* resume if necessary */
 	if (resume || !pci.op_pending)
 	{
-		if (LOG_FIFO) logerror("VOODOO.%d.FIFO:Stall condition cleared; resuming\n", index);
+		if (LOG_FIFO) logerror("VOODOO.FIFO:Stall condition cleared; resuming\n");
 		pci.stall_state = NOT_STALLED;
 
 		/* either call the callback, or trigger the trigger */
@@ -2191,7 +2732,7 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 	/* first make sure this register is readable */
 	if (!(vd->regaccess[regnum] & REGISTER_WRITE))
 	{
-		vd->logerror("VOODOO.%d.ERROR:Invalid attempt to write %s\n", vd->index, vd->regnames[regnum]);
+		vd->logerror("VOODOO.ERROR:Invalid attempt to write %s\n", vd->regnames[regnum]);
 		return 0;
 	}
 
@@ -2210,36 +2751,42 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 		/* Vertex data is 12.4 formatted fixed point */
 		case fvertexAx:
 			data = float_to_int32(data, 4);
+			[[fallthrough]];
 		case vertexAx:
 			if (chips & 1) vd->fbi.ax = (int16_t)data;
 			break;
 
 		case fvertexAy:
 			data = float_to_int32(data, 4);
+			[[fallthrough]];
 		case vertexAy:
 			if (chips & 1) vd->fbi.ay = (int16_t)data;
 			break;
 
 		case fvertexBx:
 			data = float_to_int32(data, 4);
+			[[fallthrough]];
 		case vertexBx:
 			if (chips & 1) vd->fbi.bx = (int16_t)data;
 			break;
 
 		case fvertexBy:
 			data = float_to_int32(data, 4);
+			[[fallthrough]];
 		case vertexBy:
 			if (chips & 1) vd->fbi.by = (int16_t)data;
 			break;
 
 		case fvertexCx:
 			data = float_to_int32(data, 4);
+			[[fallthrough]];
 		case vertexCx:
 			if (chips & 1) vd->fbi.cx = (int16_t)data;
 			break;
 
 		case fvertexCy:
 			data = float_to_int32(data, 4);
+			[[fallthrough]];
 		case vertexCy:
 			if (chips & 1) vd->fbi.cy = (int16_t)data;
 			break;
@@ -2247,72 +2794,84 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 		/* RGB data is 12.12 formatted fixed point */
 		case fstartR:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case startR:
 			if (chips & 1) vd->fbi.startr = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fstartG:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case startG:
 			if (chips & 1) vd->fbi.startg = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fstartB:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case startB:
 			if (chips & 1) vd->fbi.startb = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fstartA:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case startA:
 			if (chips & 1) vd->fbi.starta = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdRdX:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dRdX:
 			if (chips & 1) vd->fbi.drdx = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdGdX:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dGdX:
 			if (chips & 1) vd->fbi.dgdx = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdBdX:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dBdX:
 			if (chips & 1) vd->fbi.dbdx = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdAdX:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dAdX:
 			if (chips & 1) vd->fbi.dadx = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdRdY:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dRdY:
 			if (chips & 1) vd->fbi.drdy = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdGdY:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dGdY:
 			if (chips & 1) vd->fbi.dgdy = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdBdY:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dBdY:
 			if (chips & 1) vd->fbi.dbdy = (int32_t)(data << 8) >> 8;
 			break;
 
 		case fdAdY:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dAdY:
 			if (chips & 1) vd->fbi.dady = (int32_t)(data << 8) >> 8;
 			break;
@@ -2320,18 +2879,21 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 		/* Z data is 20.12 formatted fixed point */
 		case fstartZ:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case startZ:
 			if (chips & 1) vd->fbi.startz = (int32_t)data;
 			break;
 
 		case fdZdX:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dZdX:
 			if (chips & 1) vd->fbi.dzdx = (int32_t)data;
 			break;
 
 		case fdZdY:
 			data = float_to_int32(data, 12);
+			[[fallthrough]];
 		case dZdY:
 			if (chips & 1) vd->fbi.dzdy = (int32_t)data;
 			break;
@@ -2666,7 +3228,7 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 		case fbiInit6:
 			if (vd->vd_type < TYPE_VOODOO_2)
 				break;
-			/* else fall through... */
+			[[fallthrough]];
 
 		/* fbiInitX can only be written if initEnable says we can -- Voodoo/Voodoo2 only */
 		/* most of these affect memory layout, so always recompute that when done */
@@ -2860,21 +3422,26 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 		case texBaseAddr_1:
 		case texBaseAddr_2:
 		case texBaseAddr_3_8:
-			poly_wait(vd->poly, vd->regnames[regnum]);
 			if (chips & 2)
 			{
-				vd->tmu[0].reg[regnum].u = data;
-				vd->tmu[0].regdirty = true;
+				if (vd->tmu[0].reg[regnum].u != data) {
+					poly_wait(vd->poly, vd->regnames[regnum]);
+					vd->tmu[0].regdirty = true;
+					vd->tmu[0].reg[regnum].u = data;
+				}
 			}
 			if (chips & 4)
 			{
-				vd->tmu[1].reg[regnum].u = data;
-				vd->tmu[1].regdirty = true;
+				if (vd->tmu[1].reg[regnum].u != data) {
+					poly_wait(vd->poly, vd->regnames[regnum]);
+					vd->tmu[1].regdirty = true;
+					vd->tmu[1].reg[regnum].u = data;
+				}
 			}
 			break;
 
 		case trexInit1:
-			vd->logerror("VOODOO.%d.REG:%s(%d) write = %08X\n", vd->index, (regnum < 0x384 / 4) ? vd->regnames[regnum] : "oob", chips, data);
+			vd->logerror("VOODOO.REG:%s(%d) write = %08X\n", (regnum < 0x384 / 4) ? vd->regnames[regnum] : "oob", chips, data);
 			/* send tmu config data to the frame buffer */
 			vd->send_config = (TREXINIT_SEND_TMU_CONFIG(data) > 0);
 			goto default_case;
@@ -2891,8 +3458,7 @@ int32_t voodoo_device::register_w(voodoo_device *vd, offs_t offset, uint32_t dat
 		case clipLowYHighY:
 		case clipLeftRight:
 			poly_wait(vd->poly, vd->regnames[regnum]);
-			/* fall through to default implementation */
-
+			[[fallthrough]];
 		/* by default, just feed the data to the chips */
 		default:
 default_case:
@@ -2906,9 +3472,9 @@ default_case:
 	if (LOG_REGISTERS)
 	{
 		if (regnum < fvertexAx || regnum > fdWdY)
-			vd->logerror("VOODOO.%d.REG:%s(%d) write = %08X\n", vd->index, (regnum < 0x384/4) ? vd->regnames[regnum] : "oob", chips, origdata);
+			vd->logerror("VOODOO.REG:%s(%d) write = %08X\n", (regnum < 0x384/4) ? vd->regnames[regnum] : "oob", chips, origdata);
 		else
-			vd->logerror("VOODOO.%d.REG:%s(%d) write = %f\n", vd->index, (regnum < 0x384/4) ? vd->regnames[regnum] : "oob", chips, (double) u2f(origdata));
+			vd->logerror("VOODOO.REG:%s(%d) write = %f\n", (regnum < 0x384/4) ? vd->regnames[regnum] : "oob", chips, (double) u2f(origdata));
 	}
 
 	return cycles;
@@ -2950,7 +3516,7 @@ int32_t voodoo_device::lfb_direct_w(offs_t offset, uint32_t data, uint32_t mem_m
 	uint32_t const destmax = (fbi.mask + 1 - fbi.lfb_base*4) / 2;
 	uint32_t const bufoffs = y * fbi.rowpixels + x;
 	if (bufoffs >= destmax) {
-		logerror("lfb_direct_w: Buffer offset out of bounds x=%i y=%i offset=%08X bufoffs=%08X data=%08X\n", x, y, offset, (uint32_t) bufoffs, data);
+		logerror("lfb_direct_w: Buffer offset out of bounds x=%i y=%i offset=%08X bufoffs=%08X data=%08X\n", x, y, offset, bufoffs, data);
 		return 0;
 	}
 	if (ACCESSING_BITS_0_15)
@@ -2959,7 +3525,7 @@ int32_t voodoo_device::lfb_direct_w(offs_t offset, uint32_t data, uint32_t mem_m
 		dest[bufoffs + 1] = data>>16;
 	// Need to notify that frame buffer has changed
 	fbi.video_changed = true;
-	if (LOG_LFB) logerror("VOODOO.%d.LFB:write direct (%d,%d) = %08X & %08X\n", index, x, y, data, mem_mask);
+	if (LOG_LFB) logerror("VOODOO.LFB:write direct (%d,%d) = %08X & %08X\n", x, y, data, mem_mask);
 	return 0;
 }
 
@@ -3215,7 +3781,7 @@ int32_t voodoo_device::lfb_w(voodoo_device* vd, offs_t offset, uint32_t data, ui
 		DECLARE_DITHER_POINTERS_NO_DITHER_VAR;
 		uint32_t bufoffs;
 
-		if (LOG_LFB) vd->logerror("VOODOO.%d.LFB:write raw mode %X (%d,%d) = %08X & %08X\n", vd->index, LFBMODE_WRITE_FORMAT(vd->reg[lfbMode].u), x, y, data, mem_mask);
+		if (LOG_LFB) vd->logerror("VOODOO.LFB:write raw mode %X (%d,%d) = %08X & %08X\n", LFBMODE_WRITE_FORMAT(vd->reg[lfbMode].u), x, y, data, mem_mask);
 
 		/* determine the screen Y */
 		scry = y;
@@ -3273,7 +3839,7 @@ int32_t voodoo_device::lfb_w(voodoo_device* vd, offs_t offset, uint32_t data, ui
 	{
 		DECLARE_DITHER_POINTERS;
 
-		if (LOG_LFB) vd->logerror("VOODOO.%d.LFB:write pipelined mode %X (%d,%d) = %08X & %08X\n", vd->index, LFBMODE_WRITE_FORMAT(vd->reg[lfbMode].u), x, y, data, mem_mask);
+		if (LOG_LFB) vd->logerror("VOODOO.LFB:write pipelined mode %X (%d,%d) = %08X & %08X\n", LFBMODE_WRITE_FORMAT(vd->reg[lfbMode].u), x, y, data, mem_mask);
 
 		/* determine the screen Y */
 		scry = y;
@@ -3554,9 +4120,12 @@ void voodoo_device::flush_fifos(voodoo_device *vd, attotime current_time)
 
 	if (!vd->pci.op_pending) fatalerror("flush_fifos called with no pending operation\n");
 
-	if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:flush_fifos start -- pending=%d.%08X%08X cur=%d.%08X%08X\n", vd->index,
-		vd->pci.op_end_time.seconds(), (uint32_t)(vd->pci.op_end_time.attoseconds() >> 32), (uint32_t)vd->pci.op_end_time.attoseconds(),
-		current_time.seconds(), (uint32_t)(current_time.attoseconds() >> 32), (uint32_t)current_time.attoseconds());
+	if (LOG_FIFO_VERBOSE)
+	{
+		vd->logerror("VOODOO.FIFO:flush_fifos start -- pending=%d.%018d cur=%d.%018d\n",
+				vd->pci.op_end_time.seconds(), vd->pci.op_end_time.attoseconds(),
+				current_time.seconds(), current_time.attoseconds());
+	}
 
 	/* loop while we still have cycles to burn */
 	while (vd->pci.op_end_time <= current_time)
@@ -3580,7 +4149,7 @@ void voodoo_device::flush_fifos(voodoo_device *vd, attotime current_time)
 				{
 					vd->pci.op_pending = false;
 					in_flush = false;
-					if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:flush_fifos end -- CMDFIFO empty\n", vd->index);
+					if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.FIFO:flush_fifos end -- CMDFIFO empty\n");
 					return;
 				}
 			}
@@ -3592,7 +4161,7 @@ void voodoo_device::flush_fifos(voodoo_device *vd, attotime current_time)
 				{
 					vd->pci.op_pending = false;
 					in_flush = false;
-					if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:flush_fifos end -- CMDFIFO empty\n", vd->index);
+					if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.FIFO:flush_fifos end -- CMDFIFO empty\n");
 					return;
 				}
 			}
@@ -3609,7 +4178,7 @@ void voodoo_device::flush_fifos(voodoo_device *vd, attotime current_time)
 				{
 					vd->pci.op_pending = false;
 					in_flush = false;
-					if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:flush_fifos end -- FIFOs empty\n", vd->index);
+					if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.FIFO:flush_fifos end -- FIFOs empty\n");
 					return;
 				}
 
@@ -3652,13 +4221,19 @@ void voodoo_device::flush_fifos(voodoo_device *vd, attotime current_time)
 		/* account for those cycles */
 		vd->pci.op_end_time += attotime(0, (attoseconds_t)cycles * vd->attoseconds_per_cycle);
 
-		if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:update -- pending=%d.%08X%08X cur=%d.%08X%08X\n", vd->index,
-			vd->pci.op_end_time.seconds(), (uint32_t)(vd->pci.op_end_time.attoseconds() >> 32), (uint32_t)vd->pci.op_end_time.attoseconds(),
-			current_time.seconds(), (uint32_t)(current_time.attoseconds() >> 32), (uint32_t)current_time.attoseconds());
+		if (LOG_FIFO_VERBOSE)
+		{
+			vd->logerror("VOODOO.FIFO:update -- pending=%d.%018d cur=%d.%018d\n",
+					vd->pci.op_end_time.seconds(), vd->pci.op_end_time.attoseconds(),
+					current_time.seconds(), current_time.attoseconds());
+		}
 	}
 
-	if (LOG_FIFO_VERBOSE) vd->logerror("VOODOO.%d.FIFO:flush_fifos end -- pending command complete at %d.%08X%08X\n", vd->index,
-		vd->pci.op_end_time.seconds(), (uint32_t)(vd->pci.op_end_time.attoseconds() >> 32), (uint32_t)vd->pci.op_end_time.attoseconds());
+	if (LOG_FIFO_VERBOSE)
+	{
+		vd->logerror("VOODOO.FIFO:flush_fifos end -- pending command complete at %d.%018d\n",
+				vd->pci.op_end_time.seconds(), vd->pci.op_end_time.attoseconds());
+	}
 
 	in_flush = false;
 }
@@ -3769,9 +4344,12 @@ void voodoo_device::voodoo_w(offs_t offset, u32 data, u32 mem_mask)
 			pci.op_pending = true;
 			pci.op_end_time = machine().time() + attotime(0, (attoseconds_t)cycles * attoseconds_per_cycle);
 
-			if (LOG_FIFO_VERBOSE) logerror("VOODOO.%d.FIFO:direct write start at %d.%08X%08X end at %d.%08X%08X\n", index,
-				machine().time().seconds(), (uint32_t)(machine().time().attoseconds() >> 32), (uint32_t)machine().time().attoseconds(),
-				pci.op_end_time.seconds(), (uint32_t)(pci.op_end_time.attoseconds() >> 32), (uint32_t)pci.op_end_time.attoseconds());
+			if (LOG_FIFO_VERBOSE)
+			{
+				logerror("VOODOO.FIFO:direct write start at %d.%018d end at %d.%018d\n",
+						machine().time().seconds(), machine().time().attoseconds(),
+						pci.op_end_time.seconds(), pci.op_end_time.attoseconds());
+			}
 		}
 		g_profiler.stop();
 		return;
@@ -3808,7 +4386,7 @@ void voodoo_device::voodoo_w(offs_t offset, u32 data, u32 mem_mask)
 		valid[2] = valid[3] = FBIINIT0_TEXMEM_TO_MEMORY_FIFO(reg[fbiInit0].u);
 
 		/* flush everything we can */
-		if (LOG_FIFO_VERBOSE) logerror("VOODOO.%d.FIFO:voodoo_w moving PCI FIFO to memory FIFO\n", index);
+		if (LOG_FIFO_VERBOSE) logerror("VOODOO.FIFO:voodoo_w moving PCI FIFO to memory FIFO\n");
 		while (!pci.fifo.empty() && valid[(pci.fifo.peek() >> 22) & 3])
 		{
 			fbi.fifo.add(pci.fifo.remove());
@@ -3819,7 +4397,7 @@ void voodoo_device::voodoo_w(offs_t offset, u32 data, u32 mem_mask)
 		if (FBIINIT0_STALL_PCIE_FOR_HWM(reg[fbiInit0].u) &&
 			fbi.fifo.items() >= 2 * 32 * FBIINIT0_MEMORY_FIFO_HWM(reg[fbiInit0].u))
 		{
-			if (LOG_FIFO) logerror("VOODOO.%d.FIFO:voodoo_w hit memory FIFO HWM -- stalling\n", index);
+			if (LOG_FIFO) logerror("VOODOO.FIFO:voodoo_w hit memory FIFO HWM -- stalling\n");
 			stall_cpu(STALLED_UNTIL_FIFO_LWM, machine().time());
 		}
 	}
@@ -3828,14 +4406,14 @@ void voodoo_device::voodoo_w(offs_t offset, u32 data, u32 mem_mask)
 	if (FBIINIT0_STALL_PCIE_FOR_HWM(reg[fbiInit0].u) &&
 		pci.fifo.space() <= 2 * FBIINIT0_PCI_FIFO_LWM(reg[fbiInit0].u))
 	{
-		if (LOG_FIFO) logerror("VOODOO.%d.FIFO:voodoo_w hit PCI FIFO free LWM -- stalling\n", index);
+		if (LOG_FIFO) logerror("VOODOO.FIFO:voodoo_w hit PCI FIFO free LWM -- stalling\n");
 		stall_cpu(STALLED_UNTIL_FIFO_LWM, machine().time());
 	}
 
 	/* if we weren't ready, and this is a non-FIFO access, stall until the FIFOs are clear */
 	if (stall)
 	{
-		if (LOG_FIFO_VERBOSE) logerror("VOODOO.%d.FIFO:voodoo_w wrote non-FIFO register -- stalling until clear\n", index);
+		if (LOG_FIFO_VERBOSE) logerror("VOODOO.FIFO:voodoo_w wrote non-FIFO register -- stalling until clear\n");
 		stall_cpu(STALLED_UNTIL_FIFO_EMPTY, machine().time());
 	}
 
@@ -3861,7 +4439,7 @@ uint32_t voodoo_device::register_r(voodoo_device *vd, offs_t offset)
 	/* first make sure this register is readable */
 	if (!(vd->regaccess[regnum] & REGISTER_READ))
 	{
-		vd->logerror("VOODOO.%d.ERROR:Invalid attempt to read %s\n", vd->index, regnum < 225 ? vd->regnames[regnum] : "unknown register");
+		vd->logerror("VOODOO.ERROR:Invalid attempt to read %s\n", regnum < 225 ? vd->regnames[regnum] : "unknown register");
 		return 0xffffffff;
 	}
 
@@ -4013,6 +4591,7 @@ uint32_t voodoo_device::register_r(voodoo_device *vd, offs_t offset)
 		case fbiAfuncFail:
 		case fbiPixelsOut:
 			vd->update_statistics(true);
+			[[fallthrough]];
 		case fbiTrianglesOut:
 			result = vd->reg[regnum].u & 0xffffff;
 			break;
@@ -4035,7 +4614,7 @@ uint32_t voodoo_device::register_r(voodoo_device *vd, offs_t offset)
 			logit = false;
 
 		if (logit)
-			vd->logerror("VOODOO.%d.REG:%s read = %08X\n", vd->index, vd->regnames[regnum], result);
+			vd->logerror("VOODOO.REG:%s read = %08X\n", vd->regnames[regnum], result);
 	}
 
 	return result;
@@ -4124,7 +4703,7 @@ static uint32_t lfb_r(voodoo_device *vd, offs_t offset, bool lfb_3d)
 	if (LFBMODE_BYTE_SWIZZLE_READS(vd->reg[lfbMode].u))
 		data = swapendian_int32(data);
 
-	if (LOG_LFB) vd->logerror("VOODOO.%d.LFB:read (%d,%d) = %08X\n", vd->index, x, y, data);
+	if (LOG_LFB) vd->logerror("VOODOO.LFB:read (%d,%d) = %08X\n", x, y, data);
 	return data;
 }
 
@@ -4943,7 +5522,7 @@ void voodoo_banshee_device::banshee_io_w(offs_t offset, u32 data, u32 mem_mask)
 				fbi.width = data & 0xfff;
 			if (data & 0xfff000)
 				fbi.height = (data >> 12) & 0xfff;
-			/* fall through */
+			[[fallthrough]];
 		case io_vidOverlayDudx:
 		case io_vidOverlayDvdy:
 		{
@@ -5063,11 +5642,6 @@ void voodoo_device::device_start()
 	if (!m_screen || !m_cpu)
 		throw device_missing_dependencies();
 
-	const raster_info *info;
-	void *fbmem, *tmumem[2];
-	uint32_t tmumem0, tmumem1;
-	int val;
-
 	/* validate configuration */
 	assert(m_fbmem > 0);
 
@@ -5079,11 +5653,11 @@ void voodoo_device::device_start()
 
 	/* create a multiprocessor work queue */
 	poly = poly_alloc(machine(), 64, sizeof(poly_extra_data), 0);
-	thread_stats = auto_alloc_array(machine(), stats_block, WORK_MAX_THREADS);
+	thread_stats = std::make_unique<stats_block[]>(WORK_MAX_THREADS);
 
 	/* create a table of precomputed 1/n and log2(n) values */
 	/* n ranges from 1.0000 to 2.0000 */
-	for (val = 0; val <= (1 << RECIPLOG_LOOKUP_BITS); val++)
+	for (int val = 0; val <= (1 << RECIPLOG_LOOKUP_BITS); val++)
 	{
 		uint32_t value = (1 << RECIPLOG_LOOKUP_BITS) + val;
 		voodoo_reciplog[val*2 + 0] = (1 << (RECIPLOG_LOOKUP_PREC + RECIPLOG_LOOKUP_BITS)) / value;
@@ -5091,7 +5665,7 @@ void voodoo_device::device_start()
 	}
 
 	/* create dithering tables */
-	for (val = 0; val < 256*16*2; val++)
+	for (int val = 0; val < 256*16*2; val++)
 	{
 		int g = (val >> 0) & 1;
 		int x = (val >> 1) & 3;
@@ -5150,7 +5724,7 @@ void voodoo_device::device_start()
 
 	/* set the type, and initialize the chip mask */
 	index = 0;
-	for (device_t &scan : device_iterator(machine().root_device()))
+	for (device_t &scan : device_enumerator(machine().root_device()))
 		if (scan.type() == this->type())
 		{
 			if (&scan == this)
@@ -5166,7 +5740,8 @@ void voodoo_device::device_start()
 	trigger = 51324 + index;
 
 	/* build the rasterizer table */
-	for (info = predef_raster_table; info->callback; info++)
+	std::fill(std::begin(raster_hash), std::end(raster_hash), nullptr);
+	for (const raster_info *info = predef_raster_table; info->callback; info++)
 		add_rasterizer(this, info);
 
 	/* set up the PCI FIFO */
@@ -5177,19 +5752,20 @@ void voodoo_device::device_start()
 	pci.continue_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(voodoo_device::stall_cpu_callback), this), nullptr);
 
 	/* allocate memory */
-	tmumem0 = m_tmumem0;
-	tmumem1 = m_tmumem1;
+	void *fbmem, *tmumem[2];
+	uint32_t tmumem0 = m_tmumem0;
+	uint32_t tmumem1 = m_tmumem1;
 	if (vd_type <= TYPE_VOODOO_2)
 	{
 		/* separate FB/TMU memory */
-		fbmem = auto_alloc_array(machine(), uint8_t, m_fbmem << 20);
-		tmumem[0] = auto_alloc_array(machine(), uint8_t, m_tmumem0 << 20);
-		tmumem[1] = (m_tmumem1 != 0) ? auto_alloc_array(machine(), uint8_t, m_tmumem1 << 20) : nullptr;
+		fbmem = (m_fbmem_alloc = std::make_unique<uint8_t[]>(m_fbmem << 20)).get();
+		tmumem[0] = (m_tmumem_alloc[0] = std::make_unique<uint8_t[]>(m_tmumem0 << 20)).get();
+		tmumem[1] = (m_tmumem1 != 0) ? (m_tmumem_alloc[1] = std::make_unique<uint8_t[]>(m_tmumem1 << 20)).get() : nullptr;
 	}
 	else
 	{
 		/* shared memory */
-		tmumem[0] = tmumem[1] = fbmem = auto_alloc_array(machine(), uint8_t, m_fbmem << 20);
+		tmumem[0] = tmumem[1] = fbmem = (m_fbmem_alloc = std::make_unique<uint8_t[]>(m_fbmem << 20)).get();
 		tmumem0 = m_fbmem;
 		if (vd_type == TYPE_VOODOO_3)
 			tmumem1 = m_fbmem;
@@ -5214,7 +5790,8 @@ void voodoo_device::device_start()
 	}
 
 	/* initialize some registers */
-	memset(reg, 0, sizeof(reg));
+	for (voodoo_reg &r : reg)
+		r.u = 0;
 	pci.init_enable = 0;
 	reg[fbiInit0].u = (1 << 4) | (0x10 << 6);
 	reg[fbiInit1].u = (1 << 1) | (1 << 8) | (1 << 12) | (2 << 20);
@@ -5751,7 +6328,8 @@ voodoo_device::raster_info *voodoo_device::add_rasterizer(voodoo_device *vd, con
 	raster_info *info = &vd->rasterizer[vd->next_rasterizer++];
 	int hash = cinfo->compute_hash();
 
-	assert_always(vd->next_rasterizer <= MAX_RASTERIZERS, "Out of space for new rasterizers!");
+	if (vd->next_rasterizer > MAX_RASTERIZERS)
+		throw emu_fatalerror("voodoo_device::add_rasterizer: Out of space for new rasterizers!");
 
 	/* make a copy of the info */
 	*info = *cinfo;
@@ -5889,9 +6467,25 @@ voodoo_device::voodoo_device(const machine_config &mconfig, device_type type, co
 	, m_pciint(*this)
 	, m_screen_finder(*this, finder_base::DUMMY_TAG)
 	, m_cpu_finder(*this, finder_base::DUMMY_TAG)
+	, index(0)
 	, m_screen(nullptr)
 	, m_cpu(nullptr)
 	, vd_type(vdt)
+	, chipmask(0)
+	, freq(0)
+	, attoseconds_per_cycle(0)
+	, extra_cycles(0)
+	, trigger(0)
+	, regaccess(nullptr)
+	, regnames(nullptr)
+	, alt_regmap(0)
+	, poly(nullptr)
+	, thread_stats(nullptr)
+	, last_status_pc(0)
+	, last_status_value(0)
+	, next_rasterizer(0)
+	, send_config(false)
+	, tmu_config(0)
 {
 }
 

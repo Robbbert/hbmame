@@ -119,16 +119,16 @@ public:
 
 	void enable_recompiler();
 
-	DECLARE_READ64_MEMBER( pm0_r);
-	DECLARE_WRITE64_MEMBER(pm0_w);
-	DECLARE_READ64_MEMBER( pm1_r);
-	DECLARE_WRITE64_MEMBER(pm1_w);
-	DECLARE_READ32_MEMBER( dmw0_r);
-	DECLARE_WRITE32_MEMBER(dmw0_w);
-	DECLARE_READ32_MEMBER( dmw1_r);
-	DECLARE_WRITE32_MEMBER(dmw1_w);
-	DECLARE_READ32_MEMBER( iop_r);
-	DECLARE_WRITE32_MEMBER(iop_w);
+	uint64_t pm0_r(offs_t offset);
+	void pm0_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t pm1_r(offs_t offset);
+	void pm1_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint32_t dmw0_r(offs_t offset);
+	void dmw0_w(offs_t offset, uint32_t data);
+	uint32_t dmw1_r(offs_t offset);
+	void dmw1_w(offs_t offset, uint32_t data);
+	uint32_t iop_r(offs_t offset);
+	void iop_w(offs_t offset, uint32_t data);
 
 	enum ASTAT_FLAGS
 	{
@@ -210,9 +210,9 @@ protected:
 	virtual void device_reset() override;
 
 	// device_execute_interface overrides
-	virtual uint32_t execute_min_cycles() const override { return 8; }
-	virtual uint32_t execute_max_cycles() const override { return 8; }
-	virtual uint32_t execute_input_lines() const override { return 32; }
+	virtual uint32_t execute_min_cycles() const noexcept override { return 8; }
+	virtual uint32_t execute_max_cycles() const noexcept override { return 8; }
+	virtual uint32_t execute_input_lines() const noexcept override { return 32; }
 	virtual void execute_run() override;
 	virtual void execute_set_input(int inputnum, int state) override;
 

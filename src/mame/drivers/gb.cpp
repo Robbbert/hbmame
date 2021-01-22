@@ -286,7 +286,7 @@ space. This mapper uses 32KB sized banks.
 #define SGB_FRAMES_PER_SECOND   61.17
 
 
-READ8_MEMBER(gb_state::gb_cart_r)
+uint8_t gb_state::gb_cart_r(offs_t offset)
 {
 	if (m_bios_disable && m_cartslot)
 		return m_cartslot->read_rom(offset);
@@ -316,7 +316,7 @@ READ8_MEMBER(gb_state::gb_cart_r)
 	}
 }
 
-READ8_MEMBER(gb_state::gbc_cart_r)
+uint8_t gb_state::gbc_cart_r(offs_t offset)
 {
 	if (m_bios_disable && m_cartslot)
 		return m_cartslot->read_rom(offset);
@@ -351,13 +351,13 @@ READ8_MEMBER(gb_state::gbc_cart_r)
 	}
 }
 
-WRITE8_MEMBER(gb_state::gb_bank_w)
+void gb_state::gb_bank_w(offs_t offset, uint8_t data)
 {
 	if (m_cartslot)
 		m_cartslot->write_bank(offset, data);
 }
 
-READ8_MEMBER(gb_state::gb_ram_r)
+uint8_t gb_state::gb_ram_r(offs_t offset)
 {
 	if (m_cartslot)
 		return m_cartslot->read_ram(offset);
@@ -365,23 +365,23 @@ READ8_MEMBER(gb_state::gb_ram_r)
 		return 0xff;
 }
 
-WRITE8_MEMBER(gb_state::gb_ram_w)
+void gb_state::gb_ram_w(offs_t offset, uint8_t data)
 {
 	if (m_cartslot)
 		m_cartslot->write_ram(offset, data);
 }
 
-READ8_MEMBER(gb_state::gb_echo_r)
+uint8_t gb_state::gb_echo_r(address_space &space, offs_t offset)
 {
 	return space.read_byte(0xc000 + offset);
 }
 
-WRITE8_MEMBER(gb_state::gb_echo_w)
+void gb_state::gb_echo_w(address_space &space, offs_t offset, uint8_t data)
 {
 	return space.write_byte(0xc000 + offset, data);
 }
 
-READ8_MEMBER(megaduck_state::cart_r)
+uint8_t megaduck_state::cart_r(offs_t offset)
 {
 	if (m_cartslot)
 		return m_cartslot->read_rom(offset);
@@ -389,13 +389,13 @@ READ8_MEMBER(megaduck_state::cart_r)
 		return 0xff;
 }
 
-WRITE8_MEMBER(megaduck_state::bank1_w)
+void megaduck_state::bank1_w(offs_t offset, uint8_t data)
 {
 	if (m_cartslot)
 		m_cartslot->write_bank(offset, data);
 }
 
-WRITE8_MEMBER(megaduck_state::bank2_w)
+void megaduck_state::bank2_w(offs_t offset, uint8_t data)
 {
 	if (m_cartslot)
 		m_cartslot->write_ram(offset, data); /* used for bankswitch, but we re-use GB name */
@@ -823,7 +823,6 @@ ROM_START(gbcolor)
 	ROM_LOAD("gbc_boot.2", 0x0100, 0x0700, CRC(f741807d) SHA1(f943b1e0b640cf1d371e1d8f0ada69af03ebb396)) /* Bootstrap code part 2 */
 ROM_END
 
-
 ROM_START(megaduck)
 	ROM_REGION(0x10000, "maincpu", ROMREGION_ERASEFF)
 ROM_END
@@ -833,15 +832,55 @@ ROM_START(gamefgtr)
 	ROM_LOAD("gamefgtr.bin", 0x0000, 0x0100, CRC(908ba8de) SHA1(a4a36f71bf1b3b587df620d48ae940af93a982a5))
 ROM_END
 
+/*
+
+Notes from Sean:
+
+The bottom of the ROM PCB says
+EW-012 4M Mask ROM
+German Version
+BB35-E012-0A12
+REV.0
+
+The bottom of the 7-pin glob-on-a-board says
+EW-012
+VOICE CHIP PCB
+HT-81300 /
+HT-81400
+BB35-E012-0A09
+REV.1
+
+I couldn't find a data sheet, but I did see
+
+"81300 is described as PCM speech synthesizer 5.6s" and
+"81400 as PCM speech synthesizer 8.4s" (which is 50% larger)
+
+I assume it that means it has (undumped) internal ROM.
+
+*/
+
+ROM_START(mduckspa)
+	ROM_REGION(0x80000, "maincpu", ROMREGION_ERASEFF)
+	ROM_LOAD("megaducksp.bin", 0x0000, 0x80000,  CRC(debd33fd) SHA1(fbf86dffa82f6e469da46623541f6f58f6c8a0d8) )
+
+	ROM_REGION(0x10000, "81x00", ROMREGION_ERASEFF) // unknown size / capacity
+	ROM_LOAD("81x00.bin", 0x0000, 0x10000, NO_DUMP )
+ROM_END
+
+
+
 /*   YEAR  NAME      PARENT   COMPAT   MACHINE   INPUT    STATE           INIT        COMPANY     FULLNAME */
-CONS(1990, gameboy,  0,       0,       gameboy,  gameboy, gb_state,       empty_init, "Nintendo", "Game Boy", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
-CONS(1994, supergb,  gameboy, 0,       supergb,  gameboy, gb_state,       empty_init, "Nintendo", "Super Game Boy", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
+CONS(1990, gameboy,  0,       0,       gameboy,  gameboy, gb_state,       empty_init, "Nintendo", "Game Boy",         MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
+CONS(1994, supergb,  gameboy, 0,       supergb,  gameboy, gb_state,       empty_init, "Nintendo", "Super Game Boy",   MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
 CONS(1998, supergb2, gameboy, 0,       supergb2, gameboy, gb_state,       empty_init, "Nintendo", "Super Game Boy 2", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
-CONS(1996, gbpocket, gameboy, 0,       gbpocket, gameboy, gb_state,       empty_init, "Nintendo", "Game Boy Pocket", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
-CONS(1998, gbcolor,  0,       0,       gbcolor,  gameboy, gb_state,       empty_init, "Nintendo", "Game Boy Color", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE)
+CONS(1996, gbpocket, gameboy, 0,       gbpocket, gameboy, gb_state,       empty_init, "Nintendo", "Game Boy Pocket",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)
+CONS(1998, gbcolor,  0,       0,       gbcolor,  gameboy, gb_state,       empty_init, "Nintendo", "Game Boy Color",   MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE)
 
 // Sound is not 100% yet, it generates some sounds which could be ok. Since we're lacking a real system there's no way to verify.
 CONS(1993, megaduck, 0,       0,       megaduck, gameboy, megaduck_state, empty_init, "Welback Holdings (Timlex International) / Creatronic / Videojet / Cougar USA", "Mega Duck / Cougar Boy", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+
+CONS(199?, mduckspa, 0,       0,       megaduck, gameboy, megaduck_state, empty_init, "Cefa Toys", "Super Quique / Mega Duck (Spain)", MACHINE_NOT_WORKING ) // versions for other regions exist too
+
 
 // http://blog.gg8.se/wordpress/2012/11/11/gameboy-clone-game-fighter-teardown/
 CONS(1993, gamefgtr, gameboy, 0,       gameboy,  gameboy, gb_state,       empty_init, "bootleg", "Game Fighter (bootleg)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE)

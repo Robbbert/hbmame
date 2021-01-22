@@ -10,6 +10,8 @@
 
 #include "corefile.h"
 
+#include "coretmpl.h"
+#include "osdcore.h"
 #include "unicode.h"
 #include "vecstream.h"
 
@@ -20,7 +22,7 @@
 #include <cstring>
 #include <iterator>
 
-#include <ctype.h>
+#include <cctype>
 
 
 namespace util {
@@ -158,7 +160,7 @@ public:
 	virtual const void *buffer() override { return m_file.buffer(); }
 
 	virtual std::uint32_t write(const void *buffer, std::uint32_t length) override { return m_file.write(buffer, length); }
-	virtual int puts(const char *s) override { return m_file.puts(s); }
+	virtual int puts(std::string_view s) override { return m_file.puts(s); }
 	virtual int vprintf(util::format_argument_pack<std::ostream> const &args) override { return m_file.vprintf(args); }
 	virtual osd_file::error truncate(std::uint64_t offset) override { return m_file.truncate(offset); }
 
@@ -185,7 +187,7 @@ public:
 	virtual int getc() override;
 	virtual int ungetc(int c) override;
 	virtual char *gets(char *s, int n) override;
-	virtual int puts(char const *s) override;
+	virtual int puts(std::string_view s) override;
 	virtual int vprintf(util::format_argument_pack<std::ostream> const &args) override;
 
 protected:
@@ -395,7 +397,7 @@ int core_text_file::getc()
 
 		// fetch the next character
 		char16_t utf16_buffer[UTF16_CHAR_MAX];
-		char32_t uchar = char32_t(~0);
+		auto uchar = char32_t(~0);
 		switch (m_text_type)
 		{
 		default:
@@ -542,7 +544,7 @@ char *core_text_file::gets(char *s, int n)
     puts - write a line to a text file
 -------------------------------------------------*/
 
-int core_text_file::puts(char const *s)
+int core_text_file::puts(std::string_view s)
 {
 	char convbuf[1024];
 	char *pconvbuf = convbuf;
@@ -557,9 +559,9 @@ int core_text_file::puts(char const *s)
 	}
 
 	// convert '\n' to platform dependant line endings
-	while (*s != '\0')
+	for (char ch : s)
 	{
-		if (*s == '\n')
+		if (ch == '\n')
 		{
 			if (CRLF == 1)      // CR only
 				*pconvbuf++ = 13;
@@ -572,8 +574,7 @@ int core_text_file::puts(char const *s)
 			}
 		}
 		else
-			*pconvbuf++ = *s;
-		s++;
+			*pconvbuf++ = ch;
 
 		// if we overflow, break into chunks
 		if (pconvbuf >= convbuf + ARRAY_LENGTH(convbuf) - 10)
@@ -601,8 +602,7 @@ int core_text_file::vprintf(util::format_argument_pack<std::ostream> const &args
 	m_printf_buffer.reserve(1024);
 	m_printf_buffer.seekp(0, ovectorstream::beg);
 	util::stream_format<std::ostream, std::ostream>(m_printf_buffer, args);
-	m_printf_buffer.put('\0');
-	return puts(&m_printf_buffer.vec()[0]);
+	return puts(buf_to_string_view(m_printf_buffer));
 }
 
 
@@ -647,7 +647,7 @@ bool core_in_memory_file::eof() const
 {
 	// check for buffered chars
 	if (has_putback())
-		return 0;
+		return false;
 
 	// if the offset == length, we're at EOF
 	return (m_offset >= m_length);
@@ -1256,7 +1256,7 @@ core_file::core_file()
 // assumptions about path separators
 // -------------------------------------------------
 
-std::string core_filename_extract_base(const std::string &name, bool strip_extension)
+std::string_view core_filename_extract_base(std::string_view name, bool strip_extension)
 {
 	// find the start of the basename
 	auto const start = std::find_if(name.rbegin(), name.rend(), &util::is_directory_separator);
@@ -1269,8 +1269,7 @@ std::string core_filename_extract_base(const std::string &name, bool strip_exten
 		? std::next(chop_position)
 		: name.rbegin();
 
-	// copy the result into an string
-	return std::string(start.base(), end.base());
+	return std::string_view(&*start.base(), end.base() - start.base());
 }
 
 
@@ -1278,13 +1277,13 @@ std::string core_filename_extract_base(const std::string &name, bool strip_exten
 // core_filename_extract_extension
 // -------------------------------------------------
 
-std::string core_filename_extract_extension(const std::string &filename, bool strip_period)
+std::string_view core_filename_extract_extension(std::string_view filename, bool strip_period)
 {
 	auto loc = filename.find_last_of('.');
-	std::string result = loc != std::string::npos
-		? filename.substr(loc + (strip_period ? 1 : 0))
-		: "";
-	return result;
+	if (loc != std::string_view::npos)
+		return filename.substr(loc + (strip_period ? 1 : 0));
+	else
+		return std::string_view();
 }
 
 
@@ -1293,7 +1292,7 @@ std::string core_filename_extract_extension(const std::string &filename, bool st
 // filename end with the specified extension?
 // -------------------------------------------------
 
-bool core_filename_ends_with(const std::string &filename, const std::string &extension)
+bool core_filename_ends_with(std::string_view filename, std::string_view extension)
 {
 	auto namelen = filename.length();
 	auto extlen = extension.length();

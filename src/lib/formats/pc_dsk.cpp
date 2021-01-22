@@ -8,8 +8,8 @@
 
 *********************************************************************/
 
-#include <string.h>
-#include <assert.h>
+#include <cstring>
+#include <cassert>
 
 #include "formats/pc_dsk.h"
 #include "formats/basicdsk.h"
@@ -159,7 +159,7 @@ const char *pc_format::extensions() const
 	return "dsk,ima,img,ufi,360";
 }
 
-int pc_format::identify(io_generic *io, uint32_t form_factor)
+int pc_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	uint64_t size = io_generic_size(io);
 
@@ -168,12 +168,17 @@ int pc_format::identify(io_generic *io, uint32_t form_factor)
 		file_header_skip_bytes = 0x200;
 	}
 
+	/* Disk Copy 4.2 images have an 84-byte header */
+	if (size == 1474560 + 84) {
+		file_header_skip_bytes = 84;
+	}
+
 	/* some 1.44MB images have a 1024-byte footer */
 	if (size == 1474560 + 0x400) {
 		file_footer_skip_bytes = 0x400;
 	}
 
-	return upd765_format::identify(io, form_factor);
+	return upd765_format::identify(io, form_factor, variants);
 }
 
 const pc_format::format pc_format::formats[] = {

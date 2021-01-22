@@ -34,6 +34,7 @@
 #include "bus/cpc/magicsound.h"
 #include "bus/cpc/doubler.h"
 #include "bus/cpc/transtape.h"
+#include "bus/cpc/musicmachine.h"
 #include "machine/ram.h"
 #include "imagedev/cassette.h"
 #include "bus/centronics/ctronics.h"
@@ -151,6 +152,7 @@ public:
 		m_io_mouse(*this,"mouse_input%u", 1U),
 		m_io_solder_links(*this, "solder_links"),
 		m_io_green_display(*this, "green_display"),
+		m_io_cheetah(*this, "cheetah"),
 		m_io_ctrltype(*this,"controller_type"),
 		m_screen(*this, "screen"),
 		m_palette(*this, "palette")
@@ -192,14 +194,14 @@ public:
 	unsigned char m_Psg_FunctionSelected;
 	int m_previous_ppi_portc_w;
 	uint8_t m_amx_mouse_data;
-	DECLARE_WRITE8_MEMBER(amstrad_plus_asic_4000_w);
-	DECLARE_WRITE8_MEMBER(amstrad_plus_asic_6000_w);
-	DECLARE_READ8_MEMBER(amstrad_plus_asic_4000_r);
-	DECLARE_READ8_MEMBER(amstrad_plus_asic_6000_r);
-	DECLARE_WRITE8_MEMBER(aleste_msx_mapper);
-	DECLARE_READ8_MEMBER(amstrad_cpc_io_r);
-	DECLARE_WRITE8_MEMBER(amstrad_cpc_io_w);
-	DECLARE_READ8_MEMBER(amstrad_psg_porta_read);
+	void amstrad_plus_asic_4000_w(offs_t offset, uint8_t data);
+	void amstrad_plus_asic_6000_w(offs_t offset, uint8_t data);
+	uint8_t amstrad_plus_asic_4000_r(offs_t offset);
+	uint8_t amstrad_plus_asic_6000_r(offs_t offset);
+	void aleste_msx_mapper(offs_t offset, uint8_t data);
+	uint8_t amstrad_cpc_io_r(offs_t offset);
+	void amstrad_cpc_io_w(offs_t offset, uint8_t data);
+	uint8_t amstrad_psg_porta_read();
 	void amstrad_plus_seqcheck(int data);
 	DECLARE_MACHINE_START(amstrad);
 	DECLARE_MACHINE_RESET(amstrad);
@@ -229,13 +231,13 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(amstrad_plus_vsync_changed);
 	DECLARE_WRITE_LINE_MEMBER(amstrad_de_changed);
 	DECLARE_WRITE_LINE_MEMBER(amstrad_plus_de_changed);
-	DECLARE_READ8_MEMBER(amstrad_ppi_porta_r);
-	DECLARE_WRITE8_MEMBER(amstrad_ppi_porta_w);
-	DECLARE_READ8_MEMBER(amstrad_ppi_portb_r);
-	DECLARE_WRITE8_MEMBER(amstrad_ppi_portc_w);
+	uint8_t amstrad_ppi_porta_r();
+	void amstrad_ppi_porta_w(uint8_t data);
+	uint8_t amstrad_ppi_portb_r();
+	void amstrad_ppi_portc_w(uint8_t data);
 
 	DECLARE_WRITE_LINE_MEMBER( cpc_romdis );
-	DECLARE_WRITE8_MEMBER(rom_select);
+	void rom_select(uint8_t data);
 
 	DECLARE_FLOPPY_FORMATS( aleste_floppy_formats );
 
@@ -269,6 +271,7 @@ protected:
 	optional_ioport_array<3> m_io_mouse;
 	required_ioport m_io_solder_links;
 	required_ioport m_io_green_display;
+	optional_ioport m_io_cheetah;
 	optional_ioport m_io_ctrltype;
 	required_device<screen_device> m_screen;
 	required_device<palette_device> m_palette;

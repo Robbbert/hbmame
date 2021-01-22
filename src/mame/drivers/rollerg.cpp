@@ -24,7 +24,7 @@
 #include "speaker.h"
 
 
-WRITE8_MEMBER(rollerg_state::rollerg_0010_w)
+void rollerg_state::rollerg_0010_w(uint8_t data)
 {
 	logerror("%04x: write %02x to 0010\n",m_maincpu->pc(), data);
 
@@ -41,7 +41,7 @@ WRITE8_MEMBER(rollerg_state::rollerg_0010_w)
 	/* other bits unknown */
 }
 
-READ8_MEMBER(rollerg_state::rollerg_k051316_r)
+uint8_t rollerg_state::rollerg_k051316_r(offs_t offset)
 {
 	if (m_readzoomroms)
 		return m_k051316->rom_r(offset);
@@ -49,7 +49,7 @@ READ8_MEMBER(rollerg_state::rollerg_k051316_r)
 		return m_k051316->read(offset);
 }
 
-WRITE8_MEMBER(rollerg_state::soundirq_w)
+void rollerg_state::soundirq_w(uint8_t data)
 {
 	m_audiocpu->set_input_line_and_vector(0, HOLD_LINE, 0xff); // Z80
 }
@@ -62,17 +62,17 @@ void rollerg_state::device_timer(emu_timer &timer, device_timer_id id, int param
 		m_audiocpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
 		break;
 	default:
-		assert_always(false, "Unknown id in rollerg_state::device_timer");
+		throw emu_fatalerror("Unknown id in rollerg_state::device_timer");
 	}
 }
 
-WRITE8_MEMBER(rollerg_state::sound_arm_nmi_w)
+void rollerg_state::sound_arm_nmi_w(uint8_t data)
 {
 	m_audiocpu->set_input_line(INPUT_LINE_NMI, CLEAR_LINE);
 	m_nmi_timer->adjust(attotime::from_usec(50));   /* kludge until the K053260 is emulated correctly */
 }
 
-READ8_MEMBER(rollerg_state::pip_r)
+uint8_t rollerg_state::pip_r()
 {
 	return 0x7f;
 }
@@ -238,7 +238,7 @@ void rollerg_state::machine_reset()
 	m_readzoomroms = 0;
 }
 
-WRITE8_MEMBER( rollerg_state::banking_callback )
+void rollerg_state::banking_callback(uint8_t data)
 {
 	membank("bank1")->set_entry(data & 0x07);
 }
@@ -270,12 +270,12 @@ void rollerg_state::rollerg(machine_config &config)
 	K053244(config, m_k053244, 0);
 	m_k053244->set_palette("palette");
 	m_k053244->set_offsets(-3, -1);
-	m_k053244->set_sprite_callback(FUNC(rollerg_state::sprite_callback), this);
+	m_k053244->set_sprite_callback(FUNC(rollerg_state::sprite_callback));
 
 	K051316(config, m_k051316, 0);
 	m_k051316->set_palette("palette");
 	m_k051316->set_offsets(22, 1);
-	m_k051316->set_zoom_callback(FUNC(rollerg_state::zoom_callback), this);
+	m_k051316->set_zoom_callback(FUNC(rollerg_state::zoom_callback));
 
 	K053252(config, m_k053252, 3000000*2);
 	m_k053252->int1_ack().set(FUNC(rollerg_state::rollerg_irq_ack_w));

@@ -238,13 +238,14 @@ Notes:
 #include "cpu/psx/psx.h"
 #include "cpu/m68000/m68000.h"
 #include "video/psx.h"
+#include "bus/ata/ataintf.h"
 #include "bus/scsi/scsi.h"
 #include "bus/scsi/scsicd.h"
 #include "bus/rs232/xvd701.h"
 #include "machine/am53cf96.h"
-#include "machine/ataintf.h"
 #include "machine/fdc37c665gt.h"
 #include "machine/i2cmem.h"
+#include "machine/mb8421.h"
 #include "machine/ram.h"
 #include "machine/rtc65271.h"
 #include "machine/watchdog.h"
@@ -266,6 +267,7 @@ public:
 		m_audiocpu(*this, "audiocpu"),
 		m_am53cf96(*this, "am53cf96"),
 		m_ata(*this, "ata"),
+		m_dpram(*this, "dpram"),
 		m_waveram(*this, "rfsnd"),
 		m_led_displays(*this, "led%u", 0U),
 		m_spotlights(*this, "spotlight%u", 0U),
@@ -285,24 +287,19 @@ public:
 private:
 	virtual void machine_start() override;
 
-	DECLARE_WRITE8_MEMBER(twinkle_io_w);
-	DECLARE_READ8_MEMBER(twinkle_io_r);
-	DECLARE_WRITE16_MEMBER(twinkle_output_w);
-	DECLARE_WRITE16_MEMBER(led_w);
-	DECLARE_WRITE16_MEMBER(key_led_w);
-	DECLARE_WRITE16_MEMBER(serial_w);
-	DECLARE_WRITE8_MEMBER(shared_psx_w);
-	DECLARE_READ8_MEMBER(shared_psx_r);
-	DECLARE_WRITE16_MEMBER(twinkle_spu_ctrl_w);
-	DECLARE_WRITE16_MEMBER(spu_ata_dma_low_w);
-	DECLARE_WRITE16_MEMBER(spu_ata_dma_high_w);
-	DECLARE_READ16_MEMBER(twinkle_waveram_r);
-	DECLARE_WRITE16_MEMBER(twinkle_waveram_w);
-	DECLARE_READ16_MEMBER(shared_68k_r);
-	DECLARE_WRITE16_MEMBER(shared_68k_w);
-	DECLARE_WRITE16_MEMBER(spu_led_w);
-	DECLARE_WRITE16_MEMBER(spu_wavebank_w);
-	DECLARE_READ16_MEMBER(unk_68k_r);
+	void twinkle_io_w(offs_t offset, uint8_t data);
+	uint8_t twinkle_io_r(offs_t offset);
+	void twinkle_output_w(offs_t offset, uint16_t data);
+	void led_w(uint16_t data);
+	void key_led_w(uint16_t data);
+	void serial_w(uint16_t data);
+	void twinkle_spu_ctrl_w(uint16_t data);
+	void spu_ata_dma_low_w(uint16_t data);
+	void spu_ata_dma_high_w(uint16_t data);
+	uint16_t twinkle_waveram_r(offs_t offset);
+	void twinkle_waveram_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void spu_led_w(uint16_t data);
+	void spu_wavebank_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	DECLARE_WRITE_LINE_MEMBER(spu_ata_irq);
 	DECLARE_WRITE_LINE_MEMBER(spu_ata_dmarq);
 	void scsi_dma_read( uint32_t *p_n_psxram, uint32_t n_address, int32_t n_size );
@@ -316,6 +313,7 @@ private:
 	required_device<cpu_device> m_audiocpu;
 	required_device<am53cf96_device> m_am53cf96;
 	required_device<ata_interface_device> m_ata;
+	required_device<cy7c131_device> m_dpram;
 	required_shared_ptr<uint16_t> m_waveram;
 
 	output_finder<9> m_led_displays;
@@ -325,7 +323,6 @@ private:
 	output_finder<8> m_spu_leds;
 
 	uint16_t m_spu_ctrl;      // SPU board control register
-	uint8_t m_spu_shared[0x400];  // SPU/PSX shared dual-ported RAM
 	uint32_t m_spu_ata_dma;
 	int m_spu_ata_dmarq;
 	uint32_t m_wave_bank;
@@ -520,7 +517,6 @@ void twinkle_state::machine_start()
 	m_spu_leds.resolve();
 
 	save_item(NAME(m_spu_ctrl));
-	save_item(NAME(m_spu_shared));
 	save_item(NAME(m_spu_ata_dma));
 	save_item(NAME(m_spu_ata_dmarq));
 	save_item(NAME(m_wave_bank));
@@ -540,7 +536,7 @@ void twinkle_state::machine_start()
 	save_item(NAME(m_output_clock));
 }
 
-WRITE8_MEMBER(twinkle_state::twinkle_io_w)
+void twinkle_state::twinkle_io_w(offs_t offset, uint8_t data)
 {
 	switch( offset )
 	{
@@ -624,7 +620,7 @@ WRITE8_MEMBER(twinkle_state::twinkle_io_w)
 	}
 }
 
-READ8_MEMBER(twinkle_state::twinkle_io_r)
+uint8_t twinkle_state::twinkle_io_r(offs_t offset)
 {
 	uint8_t data = 0;
 
@@ -671,7 +667,7 @@ READ8_MEMBER(twinkle_state::twinkle_io_r)
 	return data;
 }
 
-WRITE16_MEMBER(twinkle_state::twinkle_output_w)
+void twinkle_state::twinkle_output_w(offs_t offset, uint16_t data)
 {
 	switch( offset )
 	{
@@ -729,7 +725,7 @@ WRITE16_MEMBER(twinkle_state::twinkle_output_w)
 	}
 }
 
-WRITE16_MEMBER(twinkle_state::led_w)
+void twinkle_state::led_w(uint16_t data)
 {
 	m_main_leds[0] = BIT(~data, 0);
 	m_main_leds[1] = BIT(~data, 1);
@@ -747,7 +743,7 @@ WRITE16_MEMBER(twinkle_state::led_w)
 	}
 }
 
-WRITE16_MEMBER(twinkle_state::key_led_w)
+void twinkle_state::key_led_w(uint16_t data)
 {
 	// words are written using a byte write
 	m_key_leds[0][0] = BIT(data, 0);
@@ -768,7 +764,7 @@ WRITE16_MEMBER(twinkle_state::key_led_w)
 	output().set_value("unknown4", (data >> 15) & 1);
 }
 
-WRITE16_MEMBER(twinkle_state::serial_w)
+void twinkle_state::serial_w(uint16_t data)
 {
 	int _do = ( data >> 4 ) & 1;
 	int clock = ( data >> 5 ) & 1;
@@ -798,32 +794,9 @@ WRITE16_MEMBER(twinkle_state::serial_w)
 	m_serial_clock = clock;
 }
 
-WRITE8_MEMBER(twinkle_state::shared_psx_w)
-{
-//  printf("shared_psx_w: %04x, %04x, %04x\n", offset, data, mem_mask);
-
-	m_spu_shared[offset] = data;
-
-	if (offset == 0x03fe && data == 0xff)
-	{
-//      printf("spu command %02x %02x\n", m_spu_shared[1], m_spu_shared[3]);
-
-		m_audiocpu->set_input_line(M68K_IRQ_4, HOLD_LINE);
-	}
-}
-
-READ8_MEMBER(twinkle_state::shared_psx_r)
-{
-	uint32_t result = m_spu_shared[offset];
-
-	//printf("shared_psx_r: %04x, %04x, %04x\n", offset, result, mem_mask);
-
-	return result;
-}
-
 void twinkle_state::main_map(address_map &map)
 {
-	map(0x1f000000, 0x1f0007ff).rw(FUNC(twinkle_state::shared_psx_r), FUNC(twinkle_state::shared_psx_w)).umask32(0x00ff00ff);
+	map(0x1f000000, 0x1f0007ff).rw(m_dpram, FUNC(cy7c131_device::right_r), FUNC(cy7c131_device::right_w)).umask32(0x00ff00ff);
 	map(0x1f200000, 0x1f20001f).rw(m_am53cf96, FUNC(am53cf96_device::read), FUNC(am53cf96_device::write)).umask32(0x00ff00ff);
 	map(0x1f20a01c, 0x1f20a01f).nopw(); /* scsi? */
 	map(0x1f210000, 0x1f2107ff).rw("fdc37c665gt", FUNC(fdc37c665gt_device::read), FUNC(fdc37c665gt_device::write)).umask32(0x00ff00ff);
@@ -862,7 +835,7 @@ WRITE_LINE_MEMBER(twinkle_state::spu_ata_irq)
 
     Other bits unknown.
 */
-WRITE16_MEMBER(twinkle_state::twinkle_spu_ctrl_w)
+void twinkle_state::twinkle_spu_ctrl_w(uint16_t data)
 {
 	if ((!(data & 0x0080)) && (m_spu_ctrl & 0x0080))
 	{
@@ -884,12 +857,12 @@ WRITE16_MEMBER(twinkle_state::twinkle_spu_ctrl_w)
 	m_spu_ctrl = data;
 }
 
-WRITE16_MEMBER(twinkle_state::spu_ata_dma_low_w)
+void twinkle_state::spu_ata_dma_low_w(uint16_t data)
 {
 	m_spu_ata_dma = (m_spu_ata_dma & ~0xffff) | data;
 }
 
-WRITE16_MEMBER(twinkle_state::spu_ata_dma_high_w)
+void twinkle_state::spu_ata_dma_high_w(uint16_t data)
 {
 	m_spu_ata_dma = (m_spu_ata_dma & 0xffff) | ((uint32_t)data << 16);
 	//printf("DMA now %x\n", m_spu_ata_dma);
@@ -920,7 +893,7 @@ WRITE_LINE_MEMBER(twinkle_state::spu_ata_dmarq)
 	}
 }
 
-WRITE16_MEMBER(twinkle_state::spu_wavebank_w)
+void twinkle_state::spu_wavebank_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	//printf("%x to wavebank_w, mask %04x\n", data, mem_mask);
 
@@ -932,35 +905,19 @@ WRITE16_MEMBER(twinkle_state::spu_wavebank_w)
 	m_wave_bank = data * (4*1024*1024);
 }
 
-READ16_MEMBER(twinkle_state::twinkle_waveram_r)
+uint16_t twinkle_state::twinkle_waveram_r(offs_t offset)
 {
 	return m_waveram[offset+m_wave_bank];
 }
 
-WRITE16_MEMBER(twinkle_state::twinkle_waveram_w)
+void twinkle_state::twinkle_waveram_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_waveram[offset+m_wave_bank]);
 }
 
-READ16_MEMBER(twinkle_state::shared_68k_r)
+void twinkle_state::spu_led_w(uint16_t data)
 {
-	uint16_t result = m_spu_shared[offset];
-
-//  printf("shared_68k_r: %04x, %04x, %04x\n", offset, result, mem_mask);
-
-	return result;
-}
-
-WRITE16_MEMBER(twinkle_state::shared_68k_w)
-{
-//  printf("shared_68k_w: %04x, %04x, %04x\n", offset, data, mem_mask);
-
-	m_spu_shared[offset] = data & 0xff;
-}
-
-WRITE16_MEMBER(twinkle_state::spu_led_w)
-{
-	// upper 8 bits are occassionally written as all zeros
+	// upper 8 bits are occasionally written as all zeros
 	m_spu_leds[0] = BIT(~data, 0);
 	m_spu_leds[1] = BIT(~data, 1);
 	m_spu_leds[2] = BIT(~data, 2);
@@ -981,7 +938,7 @@ void twinkle_state::sound_map(address_map &map)
 	map(0x240000, 0x240003).w(FUNC(twinkle_state::spu_ata_dma_low_w)).nopr();
 	map(0x250000, 0x250003).w(FUNC(twinkle_state::spu_ata_dma_high_w)).nopr();
 	map(0x260000, 0x260001).w(FUNC(twinkle_state::spu_wavebank_w)).nopr();
-	map(0x280000, 0x280fff).rw(FUNC(twinkle_state::shared_68k_r), FUNC(twinkle_state::shared_68k_w));
+	map(0x280000, 0x2807ff).rw(m_dpram, FUNC(cy7c131_device::left_r), FUNC(cy7c131_device::left_w)).umask16(0x00ff);
 	map(0x300000, 0x30000f).rw(m_ata, FUNC(ata_interface_device::cs0_r), FUNC(ata_interface_device::cs0_w));
 	// 34000E = ???
 	map(0x34000e, 0x34000f).nopw();
@@ -1077,7 +1034,6 @@ void twinkle_state::cdrom_config(device_t *device)
 {
 	device->subdevice<cdda_device>("cdda")->add_route(0, "^^speakerleft", 1.0);
 	device->subdevice<cdda_device>("cdda")->add_route(1, "^^speakerright", 1.0);
-	device = device->subdevice("cdda");
 }
 
 void twinkle_state::twinkle(machine_config &config)
@@ -1095,6 +1051,9 @@ void twinkle_state::twinkle(machine_config &config)
 	m_audiocpu->set_periodic_int(FUNC(twinkle_state::irq2_line_assert), attotime::from_hz(60));
 
 	WATCHDOG_TIMER(config, "watchdog").set_time(attotime::from_msec(1200)); /* check TD pin on LTC1232 */
+
+	CY7C131(config, m_dpram); // or IDT7130 at some PCBs
+	m_dpram->intl_callback().set_inputline(m_audiocpu, M68K_IRQ_4);
 
 	scsi_port_device &scsi(SCSI_PORT(config, "scsi", 0));
 	scsi.set_slot_device(1, "cdrom", SCSICD, DEVICE_INPUT_DEFAULTS_NAME(SCSI_ID_4));
@@ -1130,7 +1089,9 @@ void twinkle_state::twinkle(machine_config &config)
 	/* video hardware */
 	CXD8561Q(config, "gpu", XTAL(53'693'175), 0x200000, subdevice<psxcpu_device>("maincpu")).set_screen("screen");
 
-	SCREEN(config, "screen", SCREEN_TYPE_RASTER);
+	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	//all twinkle cabinets use anamorphic widescreen displays
+	screen.set_physical_aspect(16, 9);
 
 	/* sound hardware */
 	SPEAKER(config, "speakerleft").front_left();
@@ -1155,7 +1116,7 @@ void twinkle_state::twinklex(machine_config &config)
 void twinkle_state::twinklei(machine_config &config)
 {
 	twinkle(config);
-	I2CMEM(config, "security", 0).set_data_size(0x100);
+	I2C_M24C02(config, "security", 0); // M24C02-W
 }
 
 static INPUT_PORTS_START( twinkle )

@@ -34,7 +34,7 @@ WRITE_LINE_MEMBER( pcat_base_state::pc_dma_hrq_changed )
 }
 
 
-READ8_MEMBER(pcat_base_state::pc_dma_read_byte)
+uint8_t pcat_base_state::pc_dma_read_byte(offs_t offset)
 {
 	address_space& prog_space = m_maincpu->space(AS_PROGRAM); // get the right address space
 
@@ -45,7 +45,7 @@ READ8_MEMBER(pcat_base_state::pc_dma_read_byte)
 }
 
 
-WRITE8_MEMBER(pcat_base_state::pc_dma_write_byte)
+void pcat_base_state::pc_dma_write_byte(offs_t offset, uint8_t data)
 {
 	address_space& prog_space = m_maincpu->space(AS_PROGRAM); // get the right address space
 	offs_t page_offset = (((offs_t) m_dma_offset[0][m_dma_channel]) << 16)
@@ -54,7 +54,7 @@ WRITE8_MEMBER(pcat_base_state::pc_dma_write_byte)
 	prog_space.write_byte(page_offset + offset, data);
 }
 
-READ8_MEMBER(pcat_base_state::dma_page_select_r)
+uint8_t pcat_base_state::dma_page_select_r(offs_t offset)
 {
 	uint8_t data = m_at_pages[offset % 0x10];
 
@@ -77,7 +77,7 @@ READ8_MEMBER(pcat_base_state::dma_page_select_r)
 }
 
 
-WRITE8_MEMBER(pcat_base_state::dma_page_select_w)
+void pcat_base_state::dma_page_select_w(offs_t offset, uint8_t data)
 {
 	m_at_pages[offset % 0x10] = data;
 
@@ -112,7 +112,7 @@ WRITE_LINE_MEMBER( pcat_base_state::pc_dack3_w ) { set_dma_channel(3, state); }
 8259 IRQ controller
 ******************/
 
-READ8_MEMBER( pcat_base_state::get_slave_ack )
+uint8_t pcat_base_state::get_slave_ack(offs_t offset)
 {
 	if (offset==2) { // IRQ = 2
 		return m_pic8259_2->acknowledge();
@@ -221,7 +221,7 @@ void pcat_base_state::pcat_common(machine_config &config)
 	m_mc146818->set_century_index(0x32);
 
 	KBDC8042(config, m_kbdc, 0);
-	m_kbdc->set_keyboard_type(kbdc8042_device::KBDC8042_AT386);
+	m_kbdc->set_keyboard_type(kbdc8042_device::KBDC8042_STANDARD);
 	m_kbdc->system_reset_callback().set_inputline(m_maincpu, INPUT_LINE_RESET);
 	m_kbdc->gate_a20_callback().set_inputline(m_maincpu, INPUT_LINE_A20);
 	m_kbdc->input_buffer_full_callback().set(m_pic8259_1, FUNC(pic8259_device::ir1_w));

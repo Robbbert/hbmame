@@ -39,10 +39,10 @@ TODO:
 #include "sound/ay8910.h"
 #include "sound/msm5232.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 
 class wyvernf0_state : public driver_device
@@ -83,8 +83,8 @@ private:
 
 	TILE_GET_INFO_MEMBER(get_bg_tile_info);
 	TILE_GET_INFO_MEMBER(get_fg_tile_info);
-	DECLARE_WRITE8_MEMBER(bgram_w);
-	DECLARE_WRITE8_MEMBER(fgram_w);
+	void bgram_w(offs_t offset, uint8_t data);
+	void fgram_w(offs_t offset, uint8_t data);
 	uint32_t screen_update_wyvernf0(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void draw_sprites( bitmap_ind16 &bitmap, const rectangle &cliprect, bool is_foreground );
 
@@ -94,14 +94,14 @@ private:
 	uint8_t       m_rombank;
 	uint8_t       m_rambank;
 
-	DECLARE_WRITE8_MEMBER(rambank_w);
-	DECLARE_WRITE8_MEMBER(rombank_w);
-	DECLARE_WRITE8_MEMBER(sound_command_w);
-	DECLARE_WRITE8_MEMBER(nmi_disable_w);
-	DECLARE_WRITE8_MEMBER(nmi_enable_w);
+	void rambank_w(uint8_t data);
+	void rombank_w(uint8_t data);
+	void sound_command_w(uint8_t data);
+	void nmi_disable_w(uint8_t data);
+	void nmi_enable_w(uint8_t data);
 	TIMER_CALLBACK_MEMBER(nmi_callback);
 
-	DECLARE_READ8_MEMBER(mcu_status_r);
+	uint8_t mcu_status_r();
 
 	// devices
 	required_device<cpu_device> m_maincpu;
@@ -131,13 +131,13 @@ private:
 
 ***************************************************************************/
 
-WRITE8_MEMBER(wyvernf0_state::bgram_w)
+void wyvernf0_state::bgram_w(offs_t offset, uint8_t data)
 {
 	m_bgram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset / 2);
 }
 
-WRITE8_MEMBER(wyvernf0_state::fgram_w)
+void wyvernf0_state::fgram_w(offs_t offset, uint8_t data)
 {
 	m_fgram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset / 2);
@@ -149,7 +149,7 @@ TILE_GET_INFO_MEMBER(wyvernf0_state::get_bg_tile_info)
 	int code = m_bgram[offs] + (m_bgram[offs+1] << 8);
 	int color = 0 + ((code & 0x3000) >> 12);
 
-	SET_TILE_INFO_MEMBER(1, code, color, TILE_FLIPXY(code >> 14));
+	tileinfo.set(1, code, color, TILE_FLIPXY(code >> 14));
 }
 TILE_GET_INFO_MEMBER(wyvernf0_state::get_fg_tile_info)
 {
@@ -157,13 +157,13 @@ TILE_GET_INFO_MEMBER(wyvernf0_state::get_fg_tile_info)
 	int code = m_fgram[offs] + (m_fgram[offs+1] << 8);
 	int color = 8 + ((code & 0x3000) >> 12);
 
-	SET_TILE_INFO_MEMBER(1, code, color, TILE_FLIPXY(code >> 14));
+	tileinfo.set(1, code, color, TILE_FLIPXY(code >> 14));
 }
 
 void wyvernf0_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(wyvernf0_state::get_bg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
-	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(wyvernf0_state::get_fg_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(wyvernf0_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_fg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(wyvernf0_state::get_fg_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 
 	m_bg_tilemap->set_transparent_pen(0);
 	m_fg_tilemap->set_transparent_pen(0);
@@ -298,7 +298,7 @@ if (machine().input().code_pressed(KEYCODE_Z))
 
 ***************************************************************************/
 
-READ8_MEMBER(wyvernf0_state::mcu_status_r)
+uint8_t wyvernf0_state::mcu_status_r()
 {
 	// bit 0 = when 1, MCU is ready to receive data from main CPU
 	// bit 1 = when 1, MCU has sent data to the main CPU
@@ -315,7 +315,7 @@ READ8_MEMBER(wyvernf0_state::mcu_status_r)
 ***************************************************************************/
 
 // D100
-WRITE8_MEMBER(wyvernf0_state::rambank_w)
+void wyvernf0_state::rambank_w(uint8_t data)
 {
 	// bit 0 Flip X/Y
 	// bit 1 Flip X/Y
@@ -336,7 +336,7 @@ WRITE8_MEMBER(wyvernf0_state::rambank_w)
 }
 
 // D200
-WRITE8_MEMBER(wyvernf0_state::rombank_w)
+void wyvernf0_state::rombank_w(uint8_t data)
 {
 	// bit 0-2 ROM bank
 	m_rombank = data;
@@ -354,18 +354,18 @@ TIMER_CALLBACK_MEMBER(wyvernf0_state::nmi_callback)
 		m_pending_nmi = 1;
 }
 
-WRITE8_MEMBER(wyvernf0_state::sound_command_w)
+void wyvernf0_state::sound_command_w(uint8_t data)
 {
 	m_soundlatch->write(data);
 	machine().scheduler().synchronize(timer_expired_delegate(FUNC(wyvernf0_state::nmi_callback),this), data);
 }
 
-WRITE8_MEMBER(wyvernf0_state::nmi_disable_w)
+void wyvernf0_state::nmi_disable_w(uint8_t data)
 {
 	m_sound_nmi_enable = 0;
 }
 
-WRITE8_MEMBER(wyvernf0_state::nmi_enable_w)
+void wyvernf0_state::nmi_enable_w(uint8_t data)
 {
 	m_sound_nmi_enable = 1;
 	if (m_pending_nmi)
@@ -630,18 +630,19 @@ void wyvernf0_state::machine_reset()
 void wyvernf0_state::wyvernf0(machine_config &config)
 {
 	// basic machine hardware
-	Z80(config, m_maincpu, 48_MHz_XTAL/8); // 6MHz D780C-2 - Clock not verified
+	Z80(config, m_maincpu, 48_MHz_XTAL/8); // 6MHz D780C-2 - Clock verified
 	m_maincpu->set_addrmap(AS_PROGRAM, &wyvernf0_state::wyvernf0_map);
 	m_maincpu->set_vblank_int("screen", FUNC(wyvernf0_state::irq0_line_hold));
 
-	Z80(config, m_audiocpu, 48_MHz_XTAL/12); // 4MHz - Clock not verified
+	// OSC on sound board is a custom/strange 6-pin part that outputs 8MHz, 4MHz, 2MHz (no external divider)
+	Z80(config, m_audiocpu, 4_MHz_XTAL); // 4MHz - Clock verified
 	m_audiocpu->set_addrmap(AS_PROGRAM, &wyvernf0_state::sound_map);
 	m_audiocpu->set_periodic_int(FUNC(wyvernf0_state::irq0_line_hold), attotime::from_hz(60*2)); // IRQ generated by ??? (drives music tempo), NMI by main cpu
 
-	TAITO68705_MCU(config, m_bmcu, 48_MHz_XTAL/12); // 4MHz - Clock not verified
+	TAITO68705_MCU(config, m_bmcu, 48_MHz_XTAL/16); // 3MHz - Clock verified
 
 	/* 100 CPU slices per frame - a high value to ensure proper synchronization of the CPUs */
-	config.m_minimum_quantum = attotime::from_hz(6000);
+	config.set_maximum_quantum(attotime::from_hz(6000));
 
 	// video hardware
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -662,13 +663,13 @@ void wyvernf0_state::wyvernf0(machine_config &config)
 	GENERIC_LATCH_8(config, m_soundlatch);
 
 	// coin, fire, lift-off
-	YM2149(config, "ay1", 48_MHz_XTAL/16).add_route(ALL_OUTPUTS, "mono", 0.25); // YM2149 3MHz clock ??, pin 26 ??
+	YM2149(config, "ay1", 2_MHz_XTAL).add_route(ALL_OUTPUTS, "mono", 0.25); // YM2149 2MHz clock verified, pin 26 ??
 
 	// lift-off, explosion (saucers), boss alarm
-	YM2149(config, "ay2", 48_MHz_XTAL/16).add_route(ALL_OUTPUTS, "mono", 0.25); // YM2149 3MHz clock ??, pin 26 ??
+	YM2149(config, "ay2", 2_MHz_XTAL).add_route(ALL_OUTPUTS, "mono", 0.25); // YM2149 2MHz clock verified, pin 26 ??
 
 	// music
-	msm5232_device &msm(MSM5232(config, "msm", 48_MHz_XTAL/24)); // 2MHz - Clock not verified
+	msm5232_device &msm(MSM5232(config, "msm", 2_MHz_XTAL)); // 2MHz - Clock verified
 	msm.set_capacitors(0.39e-6, 0.39e-6, 0.39e-6, 0.39e-6, 0.39e-6, 0.39e-6, 0.39e-6, 0.39e-6); /* default 0.39 uF capacitors (not verified) */
 	msm.add_route(0, "mono", 0.5);   // pin 28  2'-1
 	msm.add_route(1, "mono", 0.5);   // pin 29  4'-1
@@ -683,9 +684,6 @@ void wyvernf0_state::wyvernf0(machine_config &config)
 	// pin 22 Noise Output  not mapped
 
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "mono", 0.25); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref", 0));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 /***************************************************************************

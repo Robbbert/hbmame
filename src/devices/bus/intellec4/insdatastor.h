@@ -9,8 +9,8 @@ This card has four 4002 RAMs configured as a page, sockets for four
 
 The 4002 RAMs may be jumpered to be selected by CM-RAM1, CM-RAM2 or
 CM-RAM3.  Note that the CM-RAM lines are not decoded, so the 4002 RAMs
-will be mirrored.  (With two or more imm4-22 cards are installed, the
-4002 RAMs will fight for the bus if pages 4-7 are selected.)
+will be mirrored.  (With two or more imm4-22 cards installed, the 4002
+RAMs will fight for the bus if pages 4-7 are selected.)
 
 The PROMs and I/O ports may be jumpered to be mapped at 0x04xx...0x07xx,
 0x08xx...0x0bff or 0x0cff...0x0fff.  Additionally, the card may be
@@ -144,7 +144,7 @@ P2 outputs (40-pin IDC)
 
 #include "intellec4.h"
 
-namespace bus { namespace intellec4 {
+namespace bus::intellec4 {
 
 class imm4_22_device : public device_t, public device_univ_card_interface, public device_image_interface
 {
@@ -154,15 +154,15 @@ public:
 	virtual image_init_result call_load() override;
 	virtual void call_unload() override;
 
-	virtual iodevice_t  image_type()                    const override { return IO_ROM; }
-	virtual bool        is_readable()                   const override { return true; }
-	virtual bool        is_writeable()                  const override { return false; }
-	virtual bool        is_creatable()                  const override { return false; }
-	virtual bool        must_be_loaded()                const override { return false; }
-	virtual bool        is_reset_on_load()              const override { return false; }
-	virtual char const *file_extensions()               const override { return "rom,bin"; }
-	virtual char const *custom_instance_name()          const override { return "promimage"; }
-	virtual char const *custom_brief_instance_name()    const override { return "prom"; }
+	virtual iodevice_t  image_type()                    const noexcept override { return IO_ROM; }
+	virtual bool        is_readable()                   const noexcept override { return true; }
+	virtual bool        is_writeable()                  const noexcept override { return false; }
+	virtual bool        is_creatable()                  const noexcept override { return false; }
+	virtual bool        must_be_loaded()                const noexcept override { return false; }
+	virtual bool        is_reset_on_load()              const noexcept override { return false; }
+	virtual char const *file_extensions()               const noexcept override { return "rom,bin"; }
+	virtual char const *custom_instance_name()          const noexcept override { return "promimage"; }
+	virtual char const *custom_brief_instance_name()    const noexcept override { return "prom"; }
 
 protected:
 	virtual ioport_constructor device_input_ports() const override;
@@ -172,9 +172,9 @@ protected:
 	virtual DECLARE_WRITE_LINE_MEMBER(reset_4002_in) override;
 
 private:
-	DECLARE_WRITE8_MEMBER(ram_out);
-	DECLARE_WRITE8_MEMBER(rom_out);
-	DECLARE_READ8_MEMBER(rom_in);
+	void ram_out(offs_t offset, u8 data);
+	void rom_out(offs_t offset, u8 data);
+	u8 rom_in(offs_t offset);
 
 	void allocate();
 	void map_ram_io();
@@ -192,7 +192,7 @@ private:
 	std::unique_ptr<u8 []>  m_prom;
 };
 
-} } // namespace bus::intellec4
+} // namespace bus::intellec4
 
 DECLARE_DEVICE_TYPE_NS(INTELLEC4_INST_DATA_STORAGE, bus::intellec4, imm4_22_device)
 

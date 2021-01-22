@@ -26,7 +26,6 @@ Todo:
 #include "machine/gen_latch.h"
 #include "machine/ldv1000.h"
 #include "emupal.h"
-#include "render.h"
 #include "speaker.h"
 
 
@@ -51,9 +50,9 @@ private:
 	required_shared_ptr<uint8_t> m_tile_ram;
 	required_shared_ptr<uint8_t> m_tile_control_ram;
 	required_shared_ptr<uint8_t> m_sprite_ram;
-	DECLARE_READ8_MEMBER(z80_2_ldp_read);
-	DECLARE_READ8_MEMBER(z80_2_unknown_read);
-	DECLARE_WRITE8_MEMBER(z80_2_ldp_write);
+	uint8_t z80_2_ldp_read();
+	uint8_t z80_2_unknown_read();
+	void z80_2_ldp_write(uint8_t data);
 	virtual void machine_start() override;
 	uint32_t screen_update_istellar(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	DECLARE_WRITE_LINE_MEMBER(vblank_irq);
@@ -111,20 +110,20 @@ void istellar_state::machine_start()
 
 
 /* Z80 2 R/W */
-READ8_MEMBER(istellar_state::z80_2_ldp_read)
+uint8_t istellar_state::z80_2_ldp_read()
 {
 	uint8_t readResult = m_laserdisc->status_r();
 	logerror("CPU2 : reading LDP : %x\n", readResult);
 	return readResult;
 }
 
-READ8_MEMBER(istellar_state::z80_2_unknown_read)
+uint8_t istellar_state::z80_2_unknown_read()
 {
 	logerror("CPU2 : c000!\n");
 	return 0x00;
 }
 
-WRITE8_MEMBER(istellar_state::z80_2_ldp_write)
+void istellar_state::z80_2_ldp_write(uint8_t data)
 {
 	logerror("CPU2 : writing LDP : 0x%x\n", data);
 	m_laserdisc->data_w(data);
@@ -163,16 +162,16 @@ void istellar_state::z80_0_io(address_map &map)
 	map(0x00, 0x00).portr("IN0");
 	map(0x02, 0x02).portr("DSW1");
 	map(0x03, 0x03).portr("DSW2");
-	/*AM_RANGE(0x04,0x04) AM_WRITE(volatile_palette_write)*/
+/*  map(0x04, 0x04).w(FUNC(istellar_state::volatile_palette_write));*/
 	map(0x05, 0x05).r("latch1", FUNC(generic_latch_8_device::read)).w("latch2", FUNC(generic_latch_8_device::write));
 }
 
 void istellar_state::z80_1_io(address_map &map)
 {
 	map.global_mask(0xff);
-	map(0x00, 0x00).noprw(); /*AM_READWRITE(z80_1_slatch_read,z80_1_slatch_write)*/
-	map(0x01, 0x01).noprw(); /*AM_READWRITE(z80_1_nmienable,z80_1_soundwrite_front)*/
-	map(0x02, 0x02).noprw(); /*AM_WRITE(z80_1_soundwrite_rear)*/
+	map(0x00, 0x00).noprw(); /*.rw(FUNC(istellar_state::z80_1_slatch_read), FUNC(istellar_state::z80_1_slatch_write));*/
+	map(0x01, 0x01).noprw(); /*.rw(FUNC(istellar_state::z80_1_nmienable), FUNC(istellar_state::z80_1_soundwrite_front));*/
+	map(0x02, 0x02).noprw(); /*.w(FUNC(istellar_state::z80_1_soundwrite_rear));*/
 }
 
 void istellar_state::z80_2_io(address_map &map)
@@ -181,7 +180,7 @@ void istellar_state::z80_2_io(address_map &map)
 	map(0x00, 0x00).rw(FUNC(istellar_state::z80_2_ldp_read), FUNC(istellar_state::z80_2_ldp_write));
 	map(0x01, 0x01).r("latch2", FUNC(generic_latch_8_device::read)).w("latch1", FUNC(generic_latch_8_device::write));
 	map(0x02, 0x02).r("latch2", FUNC(generic_latch_8_device::acknowledge_r));
-/*  AM_RANGE(0x03,0x03) AM_WRITE(z80_2_ldtrans_write)*/
+/*  map(0x03, 0x03).w(FUNC(istellar_state::z80_2_ldtrans_write));*/
 }
 
 

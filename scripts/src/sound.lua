@@ -10,6 +10,8 @@
 ----------------------------------------------------------------------------
 
 files {
+	MAME_DIR .. "src/devices/sound/flt_biquad.cpp",
+	MAME_DIR .. "src/devices/sound/flt_biquad.h",
 	MAME_DIR .. "src/devices/sound/flt_vol.cpp",
 	MAME_DIR .. "src/devices/sound/flt_vol.h",
 	MAME_DIR .. "src/devices/sound/flt_rc.cpp",
@@ -657,6 +659,8 @@ if (SOUNDS["NES_APU"]~=null) then
 		MAME_DIR .. "src/devices/sound/nes_apu.cpp",
 		MAME_DIR .. "src/devices/sound/nes_apu.h",
 		MAME_DIR .. "src/devices/sound/nes_defs.h",
+		MAME_DIR .. "src/devices/sound/nes_apu_vt.cpp",
+		MAME_DIR .. "src/devices/sound/nes_apu_vt.h",
 	}
 end
 
@@ -1413,17 +1417,6 @@ if (SOUNDS["PCD3311"]~=null) then
 end
 
 ---------------------------------------------------
--- Voltage Regulator
---@src/devices/sound/volt_reg.h,SOUNDS["VOLT_REG"] = true
----------------------------------------------------
-if (SOUNDS["VOLT_REG"]~=null) then
-	files {
-		MAME_DIR .. "src/devices/sound/volt_reg.cpp",
-		MAME_DIR .. "src/devices/sound/volt_reg.h",
-	}
-end
-
----------------------------------------------------
 -- DAC-76 COMDAC
 --@src/devices/sound/dac76.h,SOUNDS["DAC76"] = true
 ---------------------------------------------------
@@ -1436,7 +1429,7 @@ end
 
 ---------------------------------------------------
 -- MM5837 Noise Generator
---@src/devices/sound/mm5837.h,MACHINES["MM5837"] = true
+--@src/devices/sound/mm5837.h,SOUNDS["MM5837"] = true
 ---------------------------------------------------
 
 if (SOUNDS["MM5837"]~=null) then
@@ -1448,7 +1441,7 @@ end
 
 ---------------------------------------------------
 -- Intelligent Designs DAVE
---@src/devices/sound/dave.h,MACHINES["DAVE"] = true
+--@src/devices/sound/dave.h,SOUNDS["DAVE"] = true
 ---------------------------------------------------
 
 if (SOUNDS["DAVE"]~=null) then
@@ -1539,5 +1532,89 @@ if (SOUNDS["SWP30"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/sound/swp30.cpp",
 		MAME_DIR .. "src/devices/sound/swp30.h",
+	}
+end
+
+---------------------------------------------------
+-- Roland sample players
+--@src/devices/sound/rolandpcm.h,SOUNDS["ROLANDPCM"] = true
+---------------------------------------------------
+
+if (SOUNDS["ROLANDPCM"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/rolandpcm.cpp",
+		MAME_DIR .. "src/devices/sound/rolandpcm.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/vgm_visualizer.h,SOUNDS["VGMVIZ"] = true
+---------------------------------------------------
+
+if (SOUNDS["VGMVIZ"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/vgm_visualizer.cpp",
+		MAME_DIR .. "src/devices/sound/vgm_visualizer.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/s_dsp.h,SOUNDS["S_DSP"] = true
+---------------------------------------------------
+
+if (SOUNDS["S_DSP"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/s_dsp.cpp",
+		MAME_DIR .. "src/devices/sound/s_dsp.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/ks0164.h,SOUNDS["KS0164"] = true
+---------------------------------------------------
+
+if (SOUNDS["KS0164"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/ks0164.cpp",
+		MAME_DIR .. "src/devices/sound/ks0164.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/rp2c33_snd.h,SOUNDS["RP2C33_SOUND"] = true
+---------------------------------------------------
+
+if (SOUNDS["RP2C33_SOUND"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/rp2c33_snd.cpp",
+		MAME_DIR .. "src/devices/sound/rp2c33_snd.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/tt5665.h,SOUNDS["TT5665"] = true
+---------------------------------------------------
+
+if (SOUNDS["TT5665"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/tt5665.cpp",
+		MAME_DIR .. "src/devices/sound/tt5665.h",
+	}
+end
+
+---------------------------------------------------
+--
+--@src/devices/sound/uda1344.h,SOUNDS["UDA1344"] = true
+---------------------------------------------------
+
+if (SOUNDS["UDA1344"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/sound/uda1344.cpp",
+		MAME_DIR .. "src/devices/sound/uda1344.h",
 	}
 end

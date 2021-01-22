@@ -13,6 +13,7 @@
 #include "sound/discrete.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 /* Discrete Sound Input Nodes */
 #define TANK8_CRASH_EN          NODE_01
@@ -58,16 +59,16 @@ private:
 		TIMER_COLLISION
 	};
 
-	DECLARE_READ8_MEMBER(collision_r);
-	DECLARE_WRITE8_MEMBER(lockout_w);
-	DECLARE_WRITE8_MEMBER(int_reset_w);
-	DECLARE_WRITE8_MEMBER(video_ram_w);
-	DECLARE_WRITE8_MEMBER(crash_w);
-	DECLARE_WRITE8_MEMBER(explosion_w);
-	DECLARE_WRITE8_MEMBER(bugle_w);
-	DECLARE_WRITE8_MEMBER(bug_w);
-	DECLARE_WRITE8_MEMBER(attract_w);
-	DECLARE_WRITE8_MEMBER(motor_w);
+	uint8_t collision_r();
+	void lockout_w(offs_t offset, uint8_t data);
+	void int_reset_w(uint8_t data);
+	void video_ram_w(offs_t offset, uint8_t data);
+	void crash_w(uint8_t data);
+	void explosion_w(uint8_t data);
+	void bugle_w(uint8_t data);
+	void bug_w(uint8_t data);
+	void attract_w(uint8_t data);
+	void motor_w(offs_t offset, uint8_t data);
 
 	TILE_GET_INFO_MEMBER(get_tile_info);
 

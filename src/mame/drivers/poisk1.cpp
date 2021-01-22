@@ -34,6 +34,7 @@
 #include "machine/ram.h"
 #include "sound/spkrdev.h"
 #include "video/cgapal.h"
+#include "bus/isa/p1_fdc.h"
 
 #include "emupal.h"
 #include "screen.h"
@@ -85,6 +86,8 @@ public:
 
 	void init_poisk1();
 
+	void fdc_config(device_t *device);
+
 protected:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
@@ -131,22 +134,22 @@ private:
 
 	DECLARE_WRITE_LINE_MEMBER(p1_pit8253_out2_changed);
 	DECLARE_WRITE_LINE_MEMBER(p1_speaker_set_spkrdata);
-	DECLARE_READ8_MEMBER(p1_trap_r);
-	DECLARE_WRITE8_MEMBER(p1_trap_w);
-	DECLARE_READ8_MEMBER(p1_cga_r);
-	DECLARE_WRITE8_MEMBER(p1_cga_w);
-	DECLARE_WRITE8_MEMBER(p1_vram_w);
+	uint8_t p1_trap_r(offs_t offset);
+	void p1_trap_w(offs_t offset, uint8_t data);
+	uint8_t p1_cga_r(offs_t offset);
+	void p1_cga_w(offs_t offset, uint8_t data);
+	void p1_vram_w(offs_t offset, uint8_t data);
 
-	DECLARE_READ8_MEMBER(p1_ppi_r);
-	DECLARE_WRITE8_MEMBER(p1_ppi_w);
-	DECLARE_WRITE8_MEMBER(p1_ppi_porta_w);
-	DECLARE_READ8_MEMBER(p1_ppi_porta_r);
-	DECLARE_READ8_MEMBER(p1_ppi_portb_r);
-	DECLARE_READ8_MEMBER(p1_ppi_portc_r);
-	DECLARE_WRITE8_MEMBER(p1_ppi_portc_w);
-	DECLARE_WRITE8_MEMBER(p1_ppi2_porta_w);
-	DECLARE_WRITE8_MEMBER(p1_ppi2_portb_w);
-	DECLARE_READ8_MEMBER(p1_ppi2_portc_r);
+	uint8_t p1_ppi_r(offs_t offset);
+	void p1_ppi_w(offs_t offset, uint8_t data);
+	void p1_ppi_porta_w(uint8_t data);
+	uint8_t p1_ppi_porta_r();
+	uint8_t p1_ppi_portb_r();
+	uint8_t p1_ppi_portc_r();
+	void p1_ppi_portc_w(uint8_t data);
+	void p1_ppi2_porta_w(uint8_t data);
+	void p1_ppi2_portb_w(uint8_t data);
+	uint8_t p1_ppi2_portc_r();
 
 	void poisk1_io(address_map &map);
 	void poisk1_map(address_map &map);
@@ -165,7 +168,7 @@ private:
  * Port 2AH (offset 2) -- data
  */
 
-READ8_MEMBER(p1_state::p1_trap_r)
+uint8_t p1_state::p1_trap_r(offs_t offset)
 {
 	uint8_t data = m_video.trap[offset];
 	LOG("trap R %.2x $%02x\n", 0x28 + offset, data);
@@ -173,12 +176,12 @@ READ8_MEMBER(p1_state::p1_trap_r)
 	return data;
 }
 
-WRITE8_MEMBER(p1_state::p1_trap_w)
+void p1_state::p1_trap_w(offs_t offset, uint8_t data)
 {
 	LOG("trap W %.2x $%02x\n", 0x28 + offset, data);
 }
 
-READ8_MEMBER(p1_state::p1_cga_r)
+uint8_t p1_state::p1_cga_r(offs_t offset)
 {
 	uint16_t port = offset + 0x3d0;
 
@@ -189,7 +192,7 @@ READ8_MEMBER(p1_state::p1_cga_r)
 	return 0;
 }
 
-WRITE8_MEMBER(p1_state::p1_cga_w)
+void p1_state::p1_cga_w(offs_t offset, uint8_t data)
 {
 	uint16_t port = offset + 0x3d0;
 
@@ -200,7 +203,7 @@ WRITE8_MEMBER(p1_state::p1_cga_w)
 	m_maincpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
 }
 
-WRITE8_MEMBER(p1_state::p1_vram_w)
+void p1_state::p1_vram_w(offs_t offset, uint8_t data)
 {
 	LOG("vram W %.4x $%02x\n", offset, data);
 	if (m_video.videoram_base) m_video.videoram_base[offset] = data;
@@ -220,7 +223,7 @@ WRITE8_MEMBER(p1_state::p1_vram_w)
         7   HIRES       1: 640x200  0: 320x200
 */
 
-WRITE8_MEMBER(p1_state::p1_ppi2_porta_w)
+void p1_state::p1_ppi2_porta_w(uint8_t data)
 {
 	address_space &program = m_maincpu->space(AS_PROGRAM);
 
@@ -229,20 +232,15 @@ WRITE8_MEMBER(p1_state::p1_ppi2_porta_w)
 	// NMI DISABLE
 	if (BIT((data ^ m_video.color_select_68), 3))
 	{
-		program.unmap_readwrite(0xb8000, 0xbbfff, 0);
 		if (BIT(data, 3))
-		{
-			program.install_readwrite_bank(0xb8000, 0xbbfff, "bank11");
-		}
+			program.install_writeonly(0xb8000, 0xbbfff, m_video.videoram_base.get());
 		else
-		{
-			program.install_read_bank(0xb8000, 0xbbfff, "bank11");
-			program.install_write_handler(0xb8000, 0xbbfff, WRITE8_DELEGATE(p1_state, p1_vram_w));
-		}
+			program.install_write_handler(0xb8000, 0xbbfff, write8sm_delegate(*this, FUNC(p1_state::p1_vram_w)));
 	}
 	// DISPLAY BANK
 	if (BIT((data ^ m_video.color_select_68), 6))
 	{
+
 		if (BIT(data, 6))
 			m_video.videoram = m_video.videoram_base.get() + 0x4000;
 		else
@@ -265,7 +263,7 @@ WRITE8_MEMBER(p1_state::p1_ppi2_porta_w)
         7   Enable/Disable D7H/D7L
 */
 
-WRITE8_MEMBER(p1_state::p1_ppi_portc_w)
+void p1_state::p1_ppi_portc_w(uint8_t data)
 {
 	LOG("mode_control_6a W $%02x\n", data);
 
@@ -320,15 +318,13 @@ void p1_state::set_palette_luts(void)
 
 POISK1_UPDATE_ROW(p1_state::cga_gfx_2bpp_update_row)
 {
-	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	uint32_t *p = &bitmap.pix32(ra);
-	uint16_t odd, offset;
-	int i;
+	rgb_t const *const palette = m_palette->palette()->entry_list_raw();
+	uint32_t *p = &bitmap.pix(ra);
 
 	if (ra == 0) LOG("cga_gfx_2bpp_update_row\n");
-	odd = (ra & 1) << 13;
-	offset = (ma & 0x1fff) | odd;
-	for (i = 0; i < stride; i++)
+	uint16_t odd = (ra & 1) << 13;
+	uint16_t offset = (ma & 0x1fff) | odd;
+	for (int i = 0; i < stride; i++)
 	{
 		uint8_t data = videoram[ offset++ ];
 
@@ -347,16 +343,14 @@ POISK1_UPDATE_ROW(p1_state::cga_gfx_2bpp_update_row)
 
 POISK1_UPDATE_ROW(p1_state::cga_gfx_1bpp_update_row)
 {
-	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	uint32_t *p = &bitmap.pix32(ra);
+	rgb_t const *const palette = m_palette->palette()->entry_list_raw();
+	uint32_t *p = &bitmap.pix(ra);
 	uint8_t fg = 15, bg = BG_COLOR(m_video.color_select_68);
-	uint16_t odd, offset;
-	int i;
 
 	if (ra == 0) LOG("cga_gfx_1bpp_update_row bg %d\n", bg);
-	odd = (ra & 1) << 13;
-	offset = (ma & 0x1fff) | odd;
-	for (i = 0; i < stride; i++)
+	uint16_t odd = (ra & 1) << 13;
+	uint16_t offset = (ma & 0x1fff) | odd;
+	for (int i = 0; i < stride; i++)
 	{
 		uint8_t data = videoram[ offset++ ];
 
@@ -379,20 +373,18 @@ POISK1_UPDATE_ROW(p1_state::cga_gfx_1bpp_update_row)
 
 POISK1_UPDATE_ROW(p1_state::poisk1_gfx_1bpp_update_row)
 {
-	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	uint32_t *p = &bitmap.pix32(ra);
-	uint8_t fg, bg = BG_COLOR(m_video.color_select_68);
-	uint16_t odd, offset;
-	int i;
+	rgb_t const *const palette = m_palette->palette()->entry_list_raw();
+	uint32_t *p = &bitmap.pix(ra);
+	uint8_t bg = BG_COLOR(m_video.color_select_68);
 
 	if (ra == 0) LOG("poisk1_gfx_1bpp_update_row bg %d\n", bg);
-	odd = (ra & 1) << 13;
-	offset = (ma & 0x1fff) | odd;
-	for (i = 0; i < stride; i++)
+	uint16_t odd = (ra & 1) << 13;
+	uint16_t offset = (ma & 0x1fff) | odd;
+	for (int i = 0; i < stride; i++)
 	{
 		uint8_t data = videoram[ offset++ ];
 
-		fg = (data & 0x80) ? ( (m_video.color_select_68 & 0x20) ? 10 : 11 ) : 15; // XXX
+		uint8_t fg = (data & 0x80) ? ( (m_video.color_select_68 & 0x20) ? 10 : 11 ) : 15; // XXX
 		*p = palette[bg]; p++;
 		*p = palette[( data & 0x40 ) ? fg : bg ]; p++;
 		*p = palette[( data & 0x20 ) ? fg : bg ]; p++;
@@ -420,10 +412,7 @@ void p1_state::video_start()
 	m_video.videoram = m_video.videoram_base.get();
 	m_video.stride = 80;
 
-	space.install_readwrite_bank(0xb8000, 0xbbfff, "bank11");
-	machine().root_device().membank("bank11")->set_base(m_video.videoram);
-	space.install_readwrite_bank(0xbc000, 0xbffff, "bank12");
-	machine().root_device().membank("bank12")->set_base(m_video.videoram + 0x4000);
+	space.install_ram(0xb8000, 0xbffff, m_video.videoram);
 }
 
 uint32_t p1_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
@@ -472,13 +461,13 @@ WRITE_LINE_MEMBER(p1_state::p1_pit8253_out2_changed)
 
 // Keyboard (via PPI)
 
-WRITE8_MEMBER(p1_state::p1_ppi_porta_w)
+void p1_state::p1_ppi_porta_w(uint8_t data)
 {
 	m_kbpoll_mask = data;
 	LOGDBG("p1_ppi_porta_w %02X <- %02X\n", m_kbpoll_mask, data);
 }
 
-READ8_MEMBER(p1_state::p1_ppi_porta_r)
+uint8_t p1_state::p1_ppi_porta_r()
 {
 	uint8_t ret;
 
@@ -487,7 +476,7 @@ READ8_MEMBER(p1_state::p1_ppi_porta_r)
 	return ret;
 }
 
-READ8_MEMBER(p1_state::p1_ppi_portb_r)
+uint8_t p1_state::p1_ppi_portb_r()
 {
 	uint16_t key = 0xffff;
 	uint8_t ret = 0;
@@ -505,7 +494,7 @@ READ8_MEMBER(p1_state::p1_ppi_portb_r)
 	return ret;
 }
 
-READ8_MEMBER(p1_state::p1_ppi_portc_r)
+uint8_t p1_state::p1_ppi_portc_r()
 {
 	uint16_t key = 0xffff;
 	uint8_t ret = 0;
@@ -525,7 +514,7 @@ READ8_MEMBER(p1_state::p1_ppi_portc_r)
 
 // XXX
 
-READ8_MEMBER(p1_state::p1_ppi2_portc_r)
+uint8_t p1_state::p1_ppi2_portc_r()
 {
 	int data = 0xff;
 	double tap_val = m_cassette->input();
@@ -536,13 +525,13 @@ READ8_MEMBER(p1_state::p1_ppi2_portc_r)
 	return data;
 }
 
-WRITE8_MEMBER(p1_state::p1_ppi2_portb_w)
+void p1_state::p1_ppi2_portb_w(uint8_t data)
 {
 	m_pit8253->write_gate2(BIT(data, 0));
 	p1_speaker_set_spkrdata(data & 0x02);
 }
 
-READ8_MEMBER(p1_state::p1_ppi_r)
+uint8_t p1_state::p1_ppi_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -564,7 +553,7 @@ READ8_MEMBER(p1_state::p1_ppi_r)
 	}
 }
 
-WRITE8_MEMBER(p1_state::p1_ppi_w)
+void p1_state::p1_ppi_w(offs_t offset, uint8_t data)
 {
 	switch (offset)
 	{
@@ -596,8 +585,7 @@ void p1_state::init_poisk1()
 {
 	address_space &program = m_maincpu->space(AS_PROGRAM);
 
-	program.install_readwrite_bank(0, m_ram->size() - 1, "bank10");
-	membank("bank10")->set_base(m_ram->pointer());
+	program.install_ram(0, m_ram->size() - 1, m_ram->pointer());
 }
 
 void p1_state::machine_start()
@@ -613,6 +601,12 @@ void p1_state::machine_reset()
  * macros
  */
 
+void p1_state::fdc_config(device_t *device)
+{
+	p1_fdc_device &fdc = *downcast<p1_fdc_device*>(device);
+	fdc.set_cpu(m_maincpu);
+}
+
 void p1_state::poisk1_map(address_map &map)
 {
 	map.unmap_value_high();
@@ -624,7 +618,7 @@ void p1_state::poisk1_io(address_map &map)
 	map(0x0020, 0x0021).rw(m_pic8259, FUNC(pic8259_device::read), FUNC(pic8259_device::write));
 	map(0x0028, 0x002B).rw(FUNC(p1_state::p1_trap_r), FUNC(p1_state::p1_trap_w));
 	map(0x0040, 0x0043).rw(m_pit8253, FUNC(pit8253_device::read), FUNC(pit8253_device::write));
-	// can't use regular AM_DEVREADWRITE, because THIS IS SPARTA!
+	// can't use regular rw(), because THIS IS SPARTA!
 	// 1st PPI occupies ports 60, 69, 6A and 6B; 2nd PPI -- 68, 61, 62 and 63.
 	map(0x0060, 0x006F).rw(FUNC(p1_state::p1_ppi_r), FUNC(p1_state::p1_ppi_w));
 	map(0x03D0, 0x03DF).rw(FUNC(p1_state::p1_cga_r), FUNC(p1_state::p1_cga_w));
@@ -673,11 +667,13 @@ void p1_state::poisk1(machine_config &config)
 	m_isabus->irq4_callback().set(m_pic8259, FUNC(pic8259_device::ir4_w));
 	m_isabus->irq5_callback().set(m_pic8259, FUNC(pic8259_device::ir5_w));
 	m_isabus->irq7_callback().set(m_pic8259, FUNC(pic8259_device::ir7_w));
+	m_isabus->iochrdy_callback().set_inputline(m_maincpu, INPUT_LINE_HALT);
 
-	ISA8_SLOT(config, "isa1", 0, m_isabus, p1_isa8_cards, "fdc", false); // FIXME: determine ISA bus clock
-	ISA8_SLOT(config, "isa2", 0, m_isabus, p1_isa8_cards, nullptr, false);
-	ISA8_SLOT(config, "isa3", 0, m_isabus, p1_isa8_cards, nullptr, false);
-	ISA8_SLOT(config, "isa4", 0, m_isabus, p1_isa8_cards, nullptr, false);
+	// FIXME: determine ISA bus clock
+	ISA8_SLOT(config, "isa1", 0, m_isabus, p1_isa8_cards, "fdc", false).set_option_machine_config("fdc", [this](device_t *device) { fdc_config(device); });
+	ISA8_SLOT(config, "isa2", 0, m_isabus, p1_isa8_cards, nullptr, false).set_option_machine_config("fdc", [this](device_t *device) { fdc_config(device); });
+	ISA8_SLOT(config, "isa3", 0, m_isabus, p1_isa8_cards, nullptr, false).set_option_machine_config("fdc", [this](device_t *device) { fdc_config(device); });
+	ISA8_SLOT(config, "isa4", 0, m_isabus, p1_isa8_cards, nullptr, false).set_option_machine_config("fdc", [this](device_t *device) { fdc_config(device); });
 
 	SPEAKER(config, "mono").front_center();
 	SPEAKER_SOUND(config, m_speaker).add_route(ALL_OUTPUTS, "mono", 1.00);
@@ -701,7 +697,7 @@ void p1_state::poisk1(machine_config &config)
 }
 
 ROM_START( poisk1 )
-	ROM_REGION16_LE(0x10000,"bios", 0)
+	ROM_REGION(0x10000, "bios", 0)
 
 	ROM_DEFAULT_BIOS("v91")
 	ROM_SYSTEM_BIOS(0, "v89r0", "1989r0")

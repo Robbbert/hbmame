@@ -101,8 +101,8 @@ private:
 	WRITE_LINE_MEMBER( tape_interrupt );
 	WRITE_LINE_MEMBER(ti990_set_int13);
 	WRITE_LINE_MEMBER(ti990_ckon_ckof_callback);
-	READ8_MEMBER( ti990_panel_read );
-	WRITE8_MEMBER( ti990_panel_write );
+	uint8_t ti990_panel_read(offs_t offset);
+	void ti990_panel_write(uint8_t data);
 
 	TIMER_CALLBACK_MEMBER(clear_load);
 
@@ -230,7 +230,7 @@ WRITE_LINE_MEMBER(ti990_10_state::ti990_ckon_ckof_callback)
     F: flag (according to 990 handbook)
 */
 
-READ8_MEMBER( ti990_10_state::ti990_panel_read )
+uint8_t ti990_10_state::ti990_panel_read(offs_t offset)
 {
 	if (offset == 1)
 		return 0x48;
@@ -238,7 +238,7 @@ READ8_MEMBER( ti990_10_state::ti990_panel_read )
 	return 0;
 }
 
-WRITE8_MEMBER( ti990_10_state::ti990_panel_write )
+void ti990_10_state::ti990_panel_write(uint8_t data)
 {
 }
 
@@ -300,11 +300,11 @@ void ti990_10_state::ti990_10_io(address_map &map)
 {
 	map(0x10, 0x11).r(m_terminal, FUNC(vdt911_device::cru_r));
 	map(0x80, 0x8f).w(m_terminal, FUNC(vdt911_device::cru_w));
-	map(0x1fa, 0x1fb).noprw(); // AM_READ(ti990_10_mapper_cru_r)
-	map(0x1fc, 0x1fd).noprw(); // AM_READ(ti990_10_eir_cru_r)
+	map(0x1fa, 0x1fb).noprw(); // .r(FUNC(ti990_10_state::ti990_10_mapper_cru_r));
+	map(0x1fc, 0x1fd).noprw(); // .r(FUNC(ti990_10_state::ti990_10_eir_cru_r));
 	map(0x1fe, 0x1ff).r(FUNC(ti990_10_state::ti990_panel_read));
-	map(0xfd0, 0xfdf).noprw(); // AM_WRITE(ti990_10_mapper_cru_w)
-	map(0xfe0, 0xfef).noprw(); // AM_WRITE(ti990_10_eir_cru_w)
+	map(0xfd0, 0xfdf).noprw(); // .w(FUNC(ti990_10_state::ti990_10_mapper_cru_w));
+	map(0xfe0, 0xfef).noprw(); // .w(FUNC(ti990_10_state::ti990_10_eir_cru_w));
 	map(0xff0, 0xfff).w(FUNC(ti990_10_state::ti990_panel_write));
 
 }

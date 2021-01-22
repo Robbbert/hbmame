@@ -6,8 +6,9 @@
 
 ***************************************************************************/
 
-#include "emupal.h"
 #include "video/gaelco_wrally_sprites.h"
+#include "emupal.h"
+#include "tilemap.h"
 
 class blmbycar_state : public driver_device
 {
@@ -57,17 +58,17 @@ private:
 	int         m_retvalue; // waterball
 
 	// common
-	DECLARE_WRITE8_MEMBER(okibank_w);
-	template<int Layer> DECLARE_WRITE16_MEMBER(vram_w);
+	void okibank_w(uint8_t data);
+	template<int Layer> void vram_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	// blmbycar
-	DECLARE_WRITE8_MEMBER(blmbycar_pot_wheel_reset_w);
-	DECLARE_WRITE8_MEMBER(blmbycar_pot_wheel_shift_w);
-	DECLARE_READ16_MEMBER(blmbycar_pot_wheel_r);
-	DECLARE_READ16_MEMBER(blmbycar_opt_wheel_r);
+	void blmbycar_pot_wheel_reset_w(uint8_t data);
+	void blmbycar_pot_wheel_shift_w(uint8_t data);
+	uint16_t blmbycar_pot_wheel_r();
+	uint16_t blmbycar_opt_wheel_r();
 
 	// waterball
-	DECLARE_READ16_MEMBER(waterball_unk_r);
+	uint16_t waterball_unk_r();
 
 	template<int Layer> TILE_GET_INFO_MEMBER(get_tile_info);
 

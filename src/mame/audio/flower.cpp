@@ -23,7 +23,7 @@
 // device type definition
 DEFINE_DEVICE_TYPE(FLOWER_CUSTOM, flower_sound_device, "flower_sound", "Flower Custom Sound")
 
-// TODO: AM_SELECT unsupported by DEVICE_ADDRESS_MAP, so we need a trampoline here
+// TODO: select() unsupported by DEVICE_ADDRESS_MAP, so we need a trampoline here
 void flower_sound_device::regs_map(address_map &map)
 {
 	map(0x00, 0x03).select(0x38).w(FUNC(flower_sound_device::frequency_w));
@@ -48,9 +48,7 @@ flower_sound_device::flower_sound_device(const machine_config &mconfig, const ch
 	  device_memory_interface(mconfig, *this),
 	  m_io_space_config("io", ENDIANNESS_LITTLE, 8, 7, 0, address_map_constructor(FUNC(flower_sound_device::regs_map), this)),
 	  m_stream(nullptr),
-	  m_mixer_table(nullptr),
 	  m_mixer_lookup(nullptr),
-	  m_mixer_buffer(nullptr),
 	  m_last_channel(nullptr)
 {
 }
@@ -63,9 +61,9 @@ flower_sound_device::flower_sound_device(const machine_config &mconfig, const ch
 void flower_sound_device::device_start()
 {
 	m_iospace = &space(AS_IO);
-	m_stream = machine().sound().stream_alloc(*this, 0, 1, clock()/2);
+	m_stream = stream_alloc(0, 1, clock()/2);
 
-	m_mixer_buffer = make_unique_clear<short[]>(clock()/2);
+	m_mixer_buffer.resize(clock()/50);
 	make_mixer_table(MAX_VOICES, defgain);
 
 	m_last_channel = m_channel_list + MAX_VOICES;
@@ -94,10 +92,10 @@ void flower_sound_device::device_start()
 void flower_sound_device::make_mixer_table(int voices, int gain)
 {
 	/* allocate memory */
-	m_mixer_table = make_unique_clear<int16_t[]>(256 * voices);
+	m_mixer_table.resize(256 * voices);
 
 	/* find the middle of the table */
-	m_mixer_lookup = m_mixer_table.get() + (128 * voices);
+	m_mixer_lookup = &m_mixer_table[128 * voices];
 
 	/* fill in the table - 16 bit case */
 	for (int i = 0; i < voices * 128; i++)
@@ -127,13 +125,13 @@ void flower_sound_device::device_reset()
 	}
 }
 
-void flower_sound_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void flower_sound_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
-	stream_sample_t *buffer = outputs[0];
+	auto &buffer = outputs[0];
 	short *mix;
 	uint8_t raw_sample;
 
-	memset(m_mixer_buffer.get(), 0, samples * sizeof(short));
+	std::fill_n(&m_mixer_buffer[0], buffer.samples(), 0);
 
 	for (fl_sound_channel *voice = m_channel_list; voice < m_last_channel; voice++)
 	{
@@ -143,9 +141,9 @@ void flower_sound_device::sound_stream_update(sound_stream &stream, stream_sampl
 		if (voice->enable == false)
 			continue;
 
-		mix = m_mixer_buffer.get();
+		mix = &m_mixer_buffer[0];
 
-		for (int i = 0; i < samples; i++)
+		for (int i = 0; i < buffer.samples(); i++)
 		{
 			if (voice->repeat == true)
 			{
@@ -174,9 +172,9 @@ void flower_sound_device::sound_stream_update(sound_stream &stream, stream_sampl
 	}
 
 	/* mix it down */
-	mix = m_mixer_buffer.get();
-	for (int i = 0; i < samples; i++)
-		*buffer++ = m_mixer_lookup[*mix++];
+	mix = &m_mixer_buffer[0];
+	for (int i = 0; i < buffer.samples(); i++)
+		buffer.put_int(i, m_mixer_lookup[*mix++], 32768);
 }
 
 //-------------------------------------------------
@@ -195,19 +193,19 @@ device_memory_interface::space_config_vector flower_sound_device::memory_space_c
 //  READ/WRITE HANDLERS
 //**************************************************************************
 
-WRITE8_MEMBER( flower_sound_device::lower_write )
+void flower_sound_device::lower_write(offs_t offset, uint8_t data)
 {
 	m_stream->update();
 	m_iospace->write_byte(offset,data);
 }
 
-WRITE8_MEMBER( flower_sound_device::upper_write )
+void flower_sound_device::upper_write(offs_t offset, uint8_t data)
 {
 	m_stream->update();
 	m_iospace->write_byte(offset|0x40,data);
 }
 
-WRITE8_MEMBER( flower_sound_device::frequency_w )
+void flower_sound_device::frequency_w(offs_t offset, uint8_t data)
 {
 	uint8_t ch = (offset >> 3) & 0x7;
 	fl_sound_channel *voice;
@@ -222,7 +220,7 @@ WRITE8_MEMBER( flower_sound_device::frequency_w )
 	voice->frequency|= voice->raw_frequency[1] << 0;
 }
 
-WRITE8_MEMBER( flower_sound_device::repeat_w )
+void flower_sound_device::repeat_w(offs_t offset, uint8_t data)
 {
 	uint8_t ch = (offset >> 3) & 0x7;
 	fl_sound_channel *voice;
@@ -231,12 +229,12 @@ WRITE8_MEMBER( flower_sound_device::repeat_w )
 	voice->repeat = BIT(data,4);
 }
 
-WRITE8_MEMBER( flower_sound_device::unk_w )
+void flower_sound_device::unk_w(offs_t offset, uint8_t data)
 {
 	// same as above?
 }
 
-WRITE8_MEMBER( flower_sound_device::volume_w )
+void flower_sound_device::volume_w(offs_t offset, uint8_t data)
 {
 	uint8_t ch = (offset >> 3) & 0x7;
 	fl_sound_channel *voice;
@@ -245,7 +243,7 @@ WRITE8_MEMBER( flower_sound_device::volume_w )
 	voice->volume = data >> 4;
 }
 
-WRITE8_MEMBER( flower_sound_device::start_address_w )
+void flower_sound_device::start_address_w(offs_t offset, uint8_t data)
 {
 	uint8_t ch = (offset >> 3) & 0x7;
 	fl_sound_channel *voice;
@@ -256,7 +254,7 @@ WRITE8_MEMBER( flower_sound_device::start_address_w )
 		voice->effect = data >> 4;
 }
 
-WRITE8_MEMBER( flower_sound_device::sample_trigger_w )
+void flower_sound_device::sample_trigger_w(offs_t offset, uint8_t data)
 {
 	uint8_t ch = (offset >> 3) & 0x7;
 	fl_sound_channel *voice;

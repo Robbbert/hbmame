@@ -3,7 +3,7 @@
 #include "../mame/drivers/atari_s1.cpp"
 
 /*-------------------------------------------------------------------
-	The Atarians (working bootleg)
+    The Atarians (working bootleg)
 Game modified to work in emulation from original set (atarians)
 
 Except, it doesn't work.

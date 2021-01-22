@@ -106,7 +106,7 @@
 
 DEFINE_DEVICE_TYPE_NS(TI99_GROMPORT_GK, bus::ti99::gromport, ti99_gkracker_device,         "ti99_gkracker",  "Miller's Graphics GRAM Kracker")
 
-namespace bus { namespace ti99 { namespace gromport {
+namespace bus::ti99::gromport {
 
 enum
 {
@@ -174,7 +174,7 @@ bool ti99_gkracker_device::is_grom_idle()
 	return (m_cartridge != nullptr)? m_cartridge->is_grom_idle() : false;
 }
 
-READ8Z_MEMBER(ti99_gkracker_device::readz)
+void ti99_gkracker_device::readz(offs_t offset, uint8_t *value)
 {
 	if (m_grom_selected)
 	{
@@ -305,7 +305,7 @@ void ti99_gkracker_device::write(offs_t offset, uint8_t data)
 	}
 }
 
-READ8Z_MEMBER( ti99_gkracker_device::crureadz )
+void ti99_gkracker_device::crureadz(offs_t offset, uint8_t *value)
 {
 	if (m_cartridge != nullptr) m_cartridge->crureadz(offset, value);
 }
@@ -317,8 +317,8 @@ void ti99_gkracker_device::cruwrite(offs_t offset, uint8_t data)
 
 INPUT_CHANGED_MEMBER( ti99_gkracker_device::gk_changed )
 {
-	LOGMASKED(LOG_GKRACKER, "Input changed %d - %d\n", (int)((uint64_t)param & 0x07), newval);
-	m_gk_switch[(uint64_t)param & 0x07] = newval;
+	LOGMASKED(LOG_GKRACKER, "Input changed %d - %d\n", int(param & 0x07), newval);
+	m_gk_switch[param & 0x07] = newval;
 }
 
 void ti99_gkracker_device::insert(int index, ti99_cartridge_device* cart)
@@ -470,5 +470,6 @@ ioport_constructor ti99_gkracker_device::device_input_ports() const
 {
 	return INPUT_PORTS_NAME(gkracker);
 }
-} } } // end namespace bus::ti99::gromport
+
+} // end namespace bus::ti99::gromport
 

@@ -29,9 +29,9 @@ class dc42_format : public floppy_image_format_t
 public:
 	dc42_format();
 
-	virtual int identify(io_generic *io, uint32_t form_factor) override;
-	virtual bool load(io_generic *io, uint32_t form_factor, floppy_image *image) override;
-	virtual bool save(io_generic *io, floppy_image *image) override;
+	virtual int identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants) override;
+	virtual bool load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) override;
+	virtual bool save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image) override;
 
 	virtual const char *name() const override;
 	virtual const char *description() const override;
@@ -40,6 +40,7 @@ public:
 
 private:
 	static const desc_e mac_gcr[];
+	static const int cell_count[5];
 
 	uint8_t gb(const uint8_t *buf, int ts, int &pos, int &wrap);
 	void update_chk(const uint8_t *data, int size, uint32_t &chk);

@@ -10,13 +10,14 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <net/if.h>
-#include <errno.h>
+#include <cerrno>
 #endif
 
 #include "emu.h"
 #include "osdnet.h"
 #include "modules/osdmodule.h"
 #include "netdev_module.h"
+#include "unicode.h"
 
 #ifdef __linux__
 #define IFF_TAP     0x0002
@@ -337,7 +338,7 @@ int netdev_tap::recv_dev(uint8_t **buf)
 
 static CREATE_NETDEV(create_tap)
 {
-	class netdev_tap *dev = global_alloc(netdev_tap(ifname, ifdev, rate));
+	auto *dev = new netdev_tap(ifname, ifdev, rate);
 	return dynamic_cast<osd_netdev *>(dev);
 }
 

@@ -20,7 +20,8 @@
 namespace ui {
 std::vector<submenu::option> const submenu::misc_options = {
 	{ submenu::option_type::HEAD, __("Miscellaneous Options") },
-	{ submenu::option_type::UI,   __("Re-select last machine played"),           OPTION_REMEMBER_LAST },
+	{ submenu::option_type::UI,   __("Skip imperfect emulation warnings"),       OPTION_SKIP_WARNINGS },
+	{ submenu::option_type::UI,   __("Re-select last machine launched"),         OPTION_REMEMBER_LAST },
 	{ submenu::option_type::UI,   __("Enlarge images in the right panel"),       OPTION_ENLARGE_SNAPS },
 	{ submenu::option_type::EMU,  __("Cheats"),                                  OPTION_CHEAT },
 	{ submenu::option_type::EMU,  __("Show mouse pointer"),                      OPTION_UI_MOUSE },
@@ -43,6 +44,7 @@ std::vector<submenu::option> const submenu::advanced_options = {
 	{ submenu::option_type::EMU,  __("Sleep"),                                   OPTION_SLEEP },
 	{ submenu::option_type::EMU,  __("Speed"),                                   OPTION_SPEED },
 	{ submenu::option_type::EMU,  __("Refresh speed"),                           OPTION_REFRESHSPEED },
+	{ submenu::option_type::EMU,  __("Low latency"),                             OPTION_LOWLATENCY },
 
 	{ submenu::option_type::HEAD, __("Rotation Options") },
 	{ submenu::option_type::EMU,  __("Rotate"),                                  OPTION_ROTATE },
@@ -323,13 +325,13 @@ void submenu::populate(float &customtop, float &custombottom)
 		switch (sm_option->type)
 		{
 		case option_type::HEAD:
-			item_append(_(sm_option->description), "", FLAG_DISABLE | FLAG_UI_HEADING, nullptr);
+			item_append(_(sm_option->description), FLAG_DISABLE | FLAG_UI_HEADING, nullptr);
 			break;
 		case option_type::SEP:
 			item_append(menu_item_type::SEPARATOR);
 			break;
 		case option_type::CMD:
-			item_append(_(sm_option->description), "", 0, static_cast<void*>(&(*sm_option)));
+			item_append(_(sm_option->description), 0, static_cast<void*>(&(*sm_option)));
 			break;
 		case option_type::EMU:
 		case option_type::UI:
@@ -380,7 +382,7 @@ void submenu::populate(float &customtop, float &custombottom)
 					arrow_flags = get_arrow_flags(f_min, f_max, f_cur);
 					std::string tmptxt = string_format("%g", f_cur);
 					item_append(_(sm_option->description),
-						tmptxt.c_str(),
+						tmptxt,
 						arrow_flags,
 						static_cast<void*>(&(*sm_option)));
 				}

@@ -99,6 +99,7 @@ Notes:
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
+#include "tilemap.h"
 
 class joystand_state : public driver_device
 {
@@ -173,34 +174,34 @@ private:
 	// tilemaps
 	tilemap_t *m_bg1_tmap;
 	tilemap_t *m_bg2_tmap;
-	DECLARE_WRITE16_MEMBER(bg1_w);
-	DECLARE_WRITE16_MEMBER(bg2_w);
+	void bg1_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void bg2_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	TILE_GET_INFO_MEMBER(get_bg1_tile_info);
 	TILE_GET_INFO_MEMBER(get_bg2_tile_info);
 
 	// r5g5b5 layers
 	bitmap_rgb32 m_bg15_bitmap[2];
-	DECLARE_WRITE16_MEMBER(bg15_0_w);
-	DECLARE_WRITE16_MEMBER(bg15_1_w);
+	void bg15_0_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void bg15_1_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	static const rgb_t BG15_TRANSPARENT;
 	void draw_bg15_tile(address_space &space, int x, int y, uint16_t code);
 	void draw_bg15_tilemap();
 	bool bg15_tiles_dirty;
 
 	// eeprom
-	DECLARE_READ16_MEMBER(eeprom_r);
-	DECLARE_WRITE16_MEMBER(eeprom_w);
+	uint16_t eeprom_r();
+	void eeprom_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	// cart
-	DECLARE_READ16_MEMBER(cart_r);
-	DECLARE_WRITE16_MEMBER(cart_w);
+	uint16_t cart_r(offs_t offset);
+	void cart_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	// misc
-	DECLARE_READ16_MEMBER(fpga_r);
-	DECLARE_WRITE16_MEMBER(oki_bank_w);
-	DECLARE_READ16_MEMBER(e00000_r);
-	DECLARE_READ16_MEMBER(e00020_r);
-	DECLARE_WRITE16_MEMBER(outputs_w);
+	uint16_t fpga_r();
+	void oki_bank_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	uint16_t e00000_r();
+	uint16_t e00020_r();
+	void outputs_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	// screen updates
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
@@ -221,22 +222,22 @@ const rgb_t joystand_state::BG15_TRANSPARENT = 0x99999999;
 TILE_GET_INFO_MEMBER(joystand_state::get_bg1_tile_info)
 {
 	uint32_t code = (m_bg1_ram[tile_index * 2 + 0] << 16) | m_bg1_ram[tile_index * 2 + 1];
-	SET_TILE_INFO_MEMBER(0, code & 0x00ffffff, code >> 24, 0);
+	tileinfo.set(0, code & 0x00ffffff, code >> 24, 0);
 }
 
 TILE_GET_INFO_MEMBER(joystand_state::get_bg2_tile_info)
 {
 	uint32_t code = (m_bg2_ram[tile_index * 2 + 0] << 16) | m_bg2_ram[tile_index * 2 + 1];
-	SET_TILE_INFO_MEMBER(0, code & 0x00ffffff, code >> 24, 0);
+	tileinfo.set(0, code & 0x00ffffff, code >> 24, 0);
 }
 
-WRITE16_MEMBER(joystand_state::bg1_w)
+void joystand_state::bg1_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_bg1_ram[offset]);
 	m_bg1_tmap->mark_tile_dirty(offset/2);
 }
 
-WRITE16_MEMBER(joystand_state::bg2_w)
+void joystand_state::bg2_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_bg2_ram[offset]);
 	m_bg2_tmap->mark_tile_dirty(offset/2);
@@ -249,10 +250,10 @@ WRITE16_MEMBER(joystand_state::bg2_w)
 ***************************************************************************/
 
 // pixel-based
-WRITE16_MEMBER(joystand_state::bg15_0_w)
+void joystand_state::bg15_0_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	uint16_t val = COMBINE_DATA(&m_bg15_0_ram[offset]);
-	m_bg15_bitmap[0].pix32(offset >> 9, offset & 0x1ff) = (val & 0x8000) ? BG15_TRANSPARENT : m_bg15_palette->pen_color(val & 0x7fff);
+	m_bg15_bitmap[0].pix(offset >> 9, offset & 0x1ff) = (val & 0x8000) ? BG15_TRANSPARENT : m_bg15_palette->pen_color(val & 0x7fff);
 }
 
 // tile-based
@@ -267,7 +268,7 @@ void joystand_state::draw_bg15_tile(address_space &space, int x, int y, uint16_t
 		for (int tx = 0; tx < 16; ++tx)
 		{
 			uint16_t val = space.read_word(srcaddr + ty * 16 * 2 + tx * 2);
-			m_bg15_bitmap[1].pix32(y + ty , x + tx) = (val & 0x8000) ? BG15_TRANSPARENT : m_bg15_palette->pen_color(val & 0x7fff);
+			m_bg15_bitmap[1].pix(y + ty , x + tx) = (val & 0x8000) ? BG15_TRANSPARENT : m_bg15_palette->pen_color(val & 0x7fff);
 		}
 	}
 }
@@ -292,7 +293,7 @@ void joystand_state::draw_bg15_tilemap()
 	}
 }
 
-WRITE16_MEMBER(joystand_state::bg15_1_w)
+void joystand_state::bg15_1_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	uint16_t code = COMBINE_DATA(&m_bg15_1_ram[offset]);
 	if ((offset & 0x83) == 0x01)
@@ -307,8 +308,8 @@ WRITE16_MEMBER(joystand_state::bg15_1_w)
 
 void joystand_state::video_start()
 {
-	m_bg1_tmap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(joystand_state::get_bg1_tile_info),this), TILEMAP_SCAN_ROWS,  8,  8, 0x40, 0x20);
-	m_bg2_tmap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(joystand_state::get_bg2_tile_info),this), TILEMAP_SCAN_ROWS,  8,  8, 0x40, 0x40);
+	m_bg1_tmap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(joystand_state::get_bg1_tile_info)), TILEMAP_SCAN_ROWS,  8,  8, 0x40, 0x20);
+	m_bg2_tmap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(joystand_state::get_bg2_tile_info)), TILEMAP_SCAN_ROWS,  8,  8, 0x40, 0x40);
 
 	m_bg1_tmap->set_transparent_pen(0xf);
 	m_bg2_tmap->set_transparent_pen(0xf);
@@ -362,24 +363,24 @@ uint32_t joystand_state::screen_update( screen_device &screen, bitmap_rgb32 &bit
 
 ***************************************************************************/
 
-READ16_MEMBER(joystand_state::fpga_r)
+uint16_t joystand_state::fpga_r()
 {
 	return 0xffff;
 }
 
-WRITE16_MEMBER(joystand_state::oki_bank_w)
+void joystand_state::oki_bank_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_oki->set_rom_bank((data >> 6) & 3);
 }
 
-READ16_MEMBER(joystand_state::eeprom_r)
+uint16_t joystand_state::eeprom_r()
 {
 	// mask 0x0020 ? (active low)
 	// mask 0x0040 ? ""
 	return (m_eeprom->do_read() & 1) << 3;
 }
-WRITE16_MEMBER(joystand_state::eeprom_w)
+void joystand_state::eeprom_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -396,7 +397,7 @@ WRITE16_MEMBER(joystand_state::eeprom_w)
 	}
 }
 
-WRITE16_MEMBER(joystand_state::outputs_w)
+void joystand_state::outputs_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_outputs[0]);
 	if (ACCESSING_BITS_8_15)
@@ -418,24 +419,24 @@ WRITE16_MEMBER(joystand_state::outputs_w)
 // carts
 
 // copy slot
-READ16_MEMBER(joystand_state::e00000_r)
+uint16_t joystand_state::e00000_r()
 {
 	return ioport("COPY")->read();
 }
 // master slot
-READ16_MEMBER(joystand_state::e00020_r)
+uint16_t joystand_state::e00020_r()
 {
 	return ioport("MASTER")->read();
 }
 
-READ16_MEMBER(joystand_state::cart_r)
+uint16_t joystand_state::cart_r(offs_t offset)
 {
 	int which = offset / 0x80000;
 	int addr  = offset & 0x7ffff;
 	return (m_cart_flash[which * 2 + 0]->read(addr) << 8) | m_cart_flash[which * 2 + 1]->read(addr);
 }
 
-WRITE16_MEMBER(joystand_state::cart_w)
+void joystand_state::cart_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	int which = offset / 0x80000;
 	int addr  = offset & 0x7ffff;
@@ -457,7 +458,7 @@ void joystand_state::joystand_map(address_map &map)
 	map(0x200010, 0x200011).portr("IN0"); // r/w
 	map(0x200012, 0x200013).ram().w(FUNC(joystand_state::outputs_w)).share("outputs"); // r/w
 	map(0x200014, 0x200015).rw(FUNC(joystand_state::fpga_r), FUNC(joystand_state::oki_bank_w)); // r/w
-//  AM_RANGE(0x200016, 0x200017) // write $9190 at boot
+//  map(0x200016, 0x200017) // write $9190 at boot
 
 	map(0x400000, 0x47ffff).ram().w(FUNC(joystand_state::bg15_0_w)).share("bg15_0_ram"); // r5g5b5 200x200 pixel-based
 	map(0x480000, 0x4fffff).ram(); // more rgb layers? (writes at offset 0)
@@ -472,7 +473,7 @@ void joystand_state::joystand_map(address_map &map)
 	map(0x60c00c, 0x60c00d).ram().share("enable"); // write
 
 	map(0x800000, 0xdfffff).rw(FUNC(joystand_state::cart_r), FUNC(joystand_state::cart_w)); // r/w (cart flash)
-//  AM_RANGE(0xe00080, 0xe00081) // write (bit 0 = cart? bit 1 = ? bit 3 = ?)
+//  map(0xe00080, 0xe00081) // write (bit 0 = cart? bit 1 = ? bit 3 = ?)
 	map(0xe00000, 0xe00001).r(FUNC(joystand_state::e00000_r)); // copy slot
 	map(0xe00020, 0xe00021).r(FUNC(joystand_state::e00020_r)); // master slot
 

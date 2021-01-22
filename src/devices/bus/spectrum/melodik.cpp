@@ -64,32 +64,6 @@ void spectrum_melodik_device::device_start()
 //  IMPLEMENTATION
 //**************************************************************************
 
-READ_LINE_MEMBER(spectrum_melodik_device::romcs)
-{
-	return m_exp->romcs();
-}
-
-void spectrum_melodik_device::opcode_fetch(offs_t offset)
-{
-	m_exp->opcode_fetch(offset);
-}
-
-uint8_t spectrum_melodik_device::mreq_r(offs_t offset)
-{
-	uint8_t data = 0xff;
-
-	if (m_exp->romcs())
-		data &= m_exp->mreq_r(offset);
-
-	return data;
-}
-
-void spectrum_melodik_device::mreq_w(offs_t offset, uint8_t data)
-{
-	if (m_exp->romcs())
-		m_exp->mreq_w(offset, data);
-}
-
 uint8_t spectrum_melodik_device::iorq_r(offs_t offset)
 {
 	uint8_t data = m_exp->iorq_r(offset);
@@ -108,10 +82,10 @@ void spectrum_melodik_device::iorq_w(offs_t offset, uint8_t data)
 	switch (offset & 0xc002)
 	{
 	case 0x8000:
-		m_psg->address_w(data);
+		m_psg->data_w(data);
 		break;
 	case 0xc000:
-		m_psg->data_w(data);
+		m_psg->address_w(data);
 		break;
 	}
 	m_exp->iorq_w(offset, data);

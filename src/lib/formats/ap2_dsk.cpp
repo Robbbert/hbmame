@@ -8,9 +8,9 @@
 
 *********************************************************************/
 
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
 
 #include "ap2_dsk.h"
 #include "basicdsk.h"
@@ -139,7 +139,7 @@ static FLOPPY_IDENTIFY(apple2_dsk_identify)
 	size = floppy_image_size(floppy);
 	expected_size = APPLE2_TRACK_COUNT * APPLE2_SECTOR_COUNT * APPLE2_SECTOR_SIZE;
 
-	if (size == expected_size)
+	if ((size == expected_size) || (size == APPLE2_STD_TRACK_COUNT * APPLE2_SECTOR_COUNT * APPLE2_SECTOR_SIZE))
 		*vote = 100;
 	else if ((size > expected_size) && ((size - expected_size) < 8))
 		*vote = 90;     /* tolerate images with up to eight fewer/extra bytes (bug #638) */
@@ -249,7 +249,7 @@ static FLOPPY_IDENTIFY(apple2_nib_identify)
 {
 	uint64_t size;
 	size = floppy_image_size(floppy);
-	*vote = ((size == APPLE2_TRACK_COUNT * APPLE2_SECTOR_COUNT * APPLE2_NIBBLE_SIZE) || (size == (APPLE2_TRACK_COUNT + 1) * APPLE2_SECTOR_COUNT * APPLE2_NIBBLE_SIZE)) ? 100 : 0;
+	*vote = ((size == APPLE2_STD_TRACK_COUNT * APPLE2_SECTOR_COUNT * APPLE2_NIBBLE_SIZE) || (size == (APPLE2_STD_TRACK_COUNT + 1) * APPLE2_SECTOR_COUNT * APPLE2_NIBBLE_SIZE)) ? 100 : 0;
 	return FLOPPY_ERROR_SUCCESS;
 }
 
@@ -496,19 +496,19 @@ static uint32_t apple2_get_track_size(floppy_image_legacy *floppy, int head, int
 LEGACY_FLOPPY_OPTIONS_START( apple2 )
 	LEGACY_FLOPPY_OPTION( apple2_do, "do,dsk,bin",  "Apple ][ DOS order disk image",    apple2_dsk_identify,    apple2_do_construct, nullptr,
 		HEADS([1])
-		TRACKS([APPLE2_TRACK_COUNT])
+		TRACKS([40]) // APPLE2_TRACK_COUNT
 		SECTORS([16])
 		SECTOR_LENGTH([256])
 		FIRST_SECTOR_ID([0]))
 	LEGACY_FLOPPY_OPTION( apple2_po, "po,dsk,bin",  "Apple ][ ProDOS order disk image", apple2_dsk_identify,    apple2_po_construct, nullptr,
 		HEADS([1])
-		TRACKS([APPLE2_TRACK_COUNT])
+		TRACKS([40]) // APPLE2_TRACK_COUNT
 		SECTORS([16])
 		SECTOR_LENGTH([256])
 		FIRST_SECTOR_ID([0]))
 	LEGACY_FLOPPY_OPTION( apple2_nib, "dsk,nib",    "Apple ][ Nibble order disk image", apple2_nib_identify,    apple2_nib_construct, nullptr,
 		HEADS([1])
-		TRACKS([APPLE2_TRACK_COUNT])
+		TRACKS([40]) // APPLE2_TRACK_COUNT
 		SECTORS([16])
 		SECTOR_LENGTH([256])
 		FIRST_SECTOR_ID([0]))
@@ -559,7 +559,7 @@ bool a2_16sect_format::supports_save() const
 		return true;
 }
 
-int a2_16sect_format::identify(io_generic *io, uint32_t form_factor)
+int a2_16sect_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 		uint64_t size = io_generic_size(io);
 		//uint32_t expected_size = 35 * 16 * 256;
@@ -604,7 +604,7 @@ const floppy_image_format_t::desc_e a2_16sect_format::mac_gcr[] = {
 		{ END },
 };
 
-bool a2_16sect_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool a2_16sect_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint64_t size = io_generic_size(io);
 
@@ -671,6 +671,14 @@ bool a2_16sect_format::load(io_generic *io, uint32_t form_factor, floppy_image *
 				m_prodos_order = true;
 			}   // check for subnodule disk
 			else if (!memcmp(subnod_block1, &sector_data[0x100], 8))
+			{
+				m_prodos_order = true;
+			}   // check for ProDOS 2.5's new boot block
+			else if (!memcmp("PRODOS", &sector_data[0x3a], 6))
+			{
+				m_prodos_order = true;
+			}
+			else if (!memcmp("PRODOS", &sector_data[0x40], 6))
 			{
 				m_prodos_order = true;
 			}
@@ -760,7 +768,7 @@ void a2_16sect_format::update_chk(const uint8_t *data, int size, uint32_t &chk)
 
 //#define VERBOSE_SAVE
 
-bool a2_16sect_format::save(io_generic *io, floppy_image *image)
+bool a2_16sect_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 		int g_tracks, g_heads;
 		int visualgrid[16][APPLE2_TRACK_COUNT]; // visualizer grid, cleared/initialized below
@@ -1038,7 +1046,7 @@ bool a2_rwts18_format::supports_save() const
 		return true;
 }
 
-int a2_rwts18_format::identify(io_generic *io, uint32_t form_factor)
+int a2_rwts18_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 		uint64_t size = io_generic_size(io);
 		uint32_t expected_size = APPLE2_TRACK_COUNT * 16 * 256;
@@ -1076,7 +1084,7 @@ const floppy_image_format_t::desc_e a2_rwts18_format::mac_gcr[] = {
 };
 
 
-bool a2_rwts18_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool a2_rwts18_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 /*      TODO: rewrite me properly
         uint8_t sector_data[(256)*16];
@@ -1125,7 +1133,7 @@ void a2_rwts18_format::update_chk(const uint8_t *data, int size, uint32_t &chk)
 {
 }
 
-bool a2_rwts18_format::save(io_generic *io, floppy_image *image)
+bool a2_rwts18_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 		int g_tracks, g_heads;
 		int visualgrid[18][APPLE2_TRACK_COUNT]; // visualizer grid, cleared/initialized below
@@ -1554,7 +1562,7 @@ bool a2_edd_format::supports_save() const
 	return false;
 }
 
-int a2_edd_format::identify(io_generic *io, uint32_t form_factor)
+int a2_edd_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	return ((io_generic_size(io) == 2244608) || (io_generic_size(io) == 2310144)) ? 50 : 0;
 }
@@ -1564,7 +1572,7 @@ uint8_t a2_edd_format::pick(const uint8_t *data, int pos)
 	return ((data[pos>>3] << 8) | data[(pos>>3)+1]) >> (8-(pos & 7));
 }
 
-bool a2_edd_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool a2_edd_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint8_t *img;
 	uint8_t nibble[16384], stream[16384];
@@ -1678,7 +1686,7 @@ bool a2_woz_format::supports_save() const
 const uint8_t a2_woz_format::signature[8] = { 0x57, 0x4f, 0x5a, 0x31, 0xff, 0x0a, 0x0d, 0x0a };
 const uint8_t a2_woz_format::signature2[8] = { 0x57, 0x4f, 0x5a, 0x32, 0xff, 0x0a, 0x0d, 0x0a };
 
-int a2_woz_format::identify(io_generic *io, uint32_t form_factor)
+int a2_woz_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	uint8_t header[8];
 	io_generic_read(io, header, 0, 8);
@@ -1687,7 +1695,7 @@ int a2_woz_format::identify(io_generic *io, uint32_t form_factor)
 	return 0;
 }
 
-bool a2_woz_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool a2_woz_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	std::vector<uint8_t> img(io_generic_size(io));
 	io_generic_read(io, &img[0], 0, img.size());

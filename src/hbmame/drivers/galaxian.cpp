@@ -44,8 +44,7 @@ void galaxian_hbmame::jumpbugx(machine_config &config)
 {
 	jumpbug(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &galaxian_hbmame::jumpbugx_map);
-	GALAXIAN(config, "cust", 0).add_route(ALL_OUTPUTS, "speaker", 0.4);
-	DISCRETE(config, GAL_AUDIO, galaxian_discrete).add_route(ALL_OUTPUTS, "speaker", 1.0);
+	GALAXIAN_SOUND(config, "cust", 0);
 }
 
 
@@ -244,7 +243,7 @@ ROM_END
    The prom is the same except that the last 2 bytes are zeroed. This causes the explosions to be mostly missing,
    and since the last byte also controls the colour of the floating scores, these are blanked. */
 
-ROM_START( galaxiab )
+ROM_START( galaxiabh )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "galaxiab.u",  0x0000, 0x0800, CRC(63e6d8ab) SHA1(ec2ade4d93903ba99bc9565b68328bd7d0830eac) )
 	ROM_LOAD( "galaxiab.v",  0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) )
@@ -380,11 +379,11 @@ ROM_END
 
 
 /* E78 - The dump was missing one rom (position "fake" below), I found that the equivalent code from fantazia
-		works perfectly well. The rom still fails the checksum test, which is why the test is patched. So
-		take note: It is a FAKE rom!!!
+        works perfectly well. The rom still fails the checksum test, which is why the test is patched. So
+        take note: It is a FAKE rom!!!
 
-		The colour prom supplied produced terrible colours, with most enemies barely visible. Substituting
-		the normal mooncrst prom fixes all the problems. */
+        The colour prom supplied produced terrible colours, with most enemies barely visible. Substituting
+        the normal mooncrst prom fixes all the problems. */
 
 ROM_START( mooncrs5f )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -404,7 +403,7 @@ ROM_START( mooncrs5f )
 	ROM_CONTINUE(            0x1000, 0x0800 )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-//	ROM_LOAD( "6l.bpr",      0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+//  ROM_LOAD( "6l.bpr",      0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 	ROM_LOAD( "mmi6331.6l",  0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
 ROM_END
 
@@ -716,45 +715,45 @@ ROM_END
 //    Year  romname   parent    machine   inputs    init      rot
 
 /* Frogger */
-HACK( 1981, kazzy,    frogger,  frogger,  frogger,  galaxian_hbmame, frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
-HACK( 1999, trukker,  frogger,  frogger,  frogger,  galaxian_hbmame, trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_hbmame, frogger,  ROT90, "msmcdoug", "Test Rom - Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, kazzy,    frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, trukker,  frogger,  frogger,  frogger,  galaxian_hbmame, init_trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_hbmame, init_frogger,  ROT90, "msmcdoug", "Test Rom - Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
 
 
 /* Amidar */
-HACK( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_hbmame, turtles,  ROT90, "S.Arkames", "Amidar (language Translation French)(11.28.2007)(Set 01)", MACHINE_SUPPORTS_SAVE )
-HACK( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_hbmame, turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
-HACK( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_hbmame, turtles,  ROT90, "Arkatrad", "Amidar (language Translation French)(11.28.2007)(Set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "S.Arkames", "Amidar (language Translation French)(11.28.2007)(Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "Arkatrad", "Amidar (language Translation French)(11.28.2007)(Set 02)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Scramble */
-HACK( 1998, offender, scramble, scramble, scramble, galaxian_hbmame, scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, superdog, scramble, scramble, scramble, galaxian_hbmame, scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, offender, scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, superdog, scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
 
 
 /* Galaxian */
-HACK( 1979, andromd,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Unknown",  "Andromeda", MACHINE_SUPPORTS_SAVE)
-HACK( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, galaxiab, galnamco, galaxian, galaxiab, galaxian_hbmame, galaxian, ROT90, "bootleg", "Galaxian", MACHINE_SUPPORTS_SAVE )
-HACK( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Unknown", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
-HACK( 1979, galnamco, 0,        galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_hbmame, galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
-HACK( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_hbmame, galaxian, ROT90, "Krazy Ivan", "Mr. Do Nightmare", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, andromd,  galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack",  "Andromeda", MACHINE_SUPPORTS_SAVE)
+GAME( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, galaxiabh, galnamco, galaxian, galaxiab, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (Edition Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, galnamco, 0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_hbmame, init_galaxian, ROT90, "Krazy Ivan", "Mr. Do Nightmare", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, tst_galx1, galnamco, galaxian, galaxian, galaxian_state,  init_galaxian,   ROT90,  "<unknown>", "Galaxian Test ROM", MACHINE_SUPPORTS_SAVE )
-HACK( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_hbmame, galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Moon Cresta */
-HACK( 2000, mooncmst, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
-HACK( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, mooncrsu, ROT90, "bootleg", "Moon Cresta (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mooncmst, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrsu, ROT90, "bootleg", "Moon Cresta (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Other */
-HACK( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
-HACK( 1982, monstrz,  0,        sfx,      sfx,      galaxian_hbmame, sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
-HACK( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_hbmame, pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
-HACK( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, monstrz,  0,        sfx,      sfx,      galaxian_hbmame, init_sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_hbmame, init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 
 

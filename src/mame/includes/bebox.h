@@ -23,6 +23,7 @@
 #include "machine/ram.h"
 #include "machine/upd765.h"
 #include "machine/intelfsh.h"
+#include "video/pc_vga.h"
 
 #include "bus/lpci/pci.h"
 
@@ -46,6 +47,7 @@ public:
 		, m_smc37c78(*this, "smc37c78")
 		, m_flash(*this, "flash")
 		, m_pcibus(*this, "pcibus")
+		, m_vga(*this, "vga")
 	{
 	}
 
@@ -58,6 +60,7 @@ public:
 	required_device<smc37c78_device> m_smc37c78;
 	required_device<fujitsu_29f016a_device> m_flash;
 	required_device<pci_bus_device> m_pcibus;
+	required_device<vga_device> m_vga;
 	uint32_t m_cpu_imask[2];
 	uint32_t m_interrupts;
 	uint32_t m_crossproc_interrupts;
@@ -70,39 +73,36 @@ public:
 	virtual void machine_reset() override;
 	DECLARE_WRITE_LINE_MEMBER(bebox_pic8259_master_set_int_line);
 	DECLARE_WRITE_LINE_MEMBER(bebox_pic8259_slave_set_int_line);
-	DECLARE_READ8_MEMBER(get_slave_ack);
 	DECLARE_WRITE_LINE_MEMBER(bebox_dma_hrq_changed);
-	DECLARE_READ8_MEMBER(bebox_dma8237_fdc_dack_r);
-	DECLARE_WRITE8_MEMBER(bebox_dma8237_fdc_dack_w);
 	DECLARE_WRITE_LINE_MEMBER(bebox_dma8237_out_eop);
 	DECLARE_WRITE_LINE_MEMBER(pc_dack0_w);
 	DECLARE_WRITE_LINE_MEMBER(pc_dack1_w);
 	DECLARE_WRITE_LINE_MEMBER(pc_dack2_w);
 	DECLARE_WRITE_LINE_MEMBER(pc_dack3_w);
 	DECLARE_WRITE_LINE_MEMBER(bebox_timer0_w);
-	DECLARE_READ64_MEMBER(bebox_cpu0_imask_r);
-	DECLARE_READ64_MEMBER(bebox_cpu1_imask_r);
-	DECLARE_READ64_MEMBER(bebox_interrupt_sources_r);
-	DECLARE_READ64_MEMBER(bebox_crossproc_interrupts_r);
-	DECLARE_READ64_MEMBER(bebox_interrupt_ack_r);
-	DECLARE_READ8_MEMBER(bebox_page_r);
-	DECLARE_READ8_MEMBER(bebox_80000480_r);
-	DECLARE_READ8_MEMBER(bebox_flash_r);
+	uint64_t bebox_cpu0_imask_r();
+	uint64_t bebox_cpu1_imask_r();
+	uint64_t bebox_interrupt_sources_r();
+	uint64_t bebox_crossproc_interrupts_r(address_space &space);
+	uint64_t bebox_interrupt_ack_r();
+	uint8_t bebox_page_r(offs_t offset);
+	uint8_t bebox_80000480_r();
+	uint8_t bebox_flash_r(offs_t offset);
 
-	DECLARE_WRITE64_MEMBER(bebox_cpu0_imask_w);
-	DECLARE_WRITE64_MEMBER(bebox_cpu1_imask_w);
-	DECLARE_WRITE64_MEMBER(bebox_crossproc_interrupts_w);
-	DECLARE_WRITE64_MEMBER(bebox_processor_resets_w);
-	DECLARE_WRITE8_MEMBER(bebox_page_w);
-	DECLARE_WRITE8_MEMBER(bebox_80000480_w);
-	DECLARE_WRITE8_MEMBER(bebox_flash_w);
-	DECLARE_READ8_MEMBER(at_dma8237_1_r);
-	DECLARE_WRITE8_MEMBER(at_dma8237_1_w);
-	DECLARE_READ8_MEMBER(bebox_dma_read_byte);
-	DECLARE_WRITE8_MEMBER(bebox_dma_write_byte);
-	DECLARE_READ64_MEMBER(scsi53c810_r);
-	DECLARE_WRITE64_MEMBER(scsi53c810_w);
-	DECLARE_READ64_MEMBER(bb_slave_64be_r);
+	void bebox_cpu0_imask_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void bebox_cpu1_imask_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void bebox_crossproc_interrupts_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	void bebox_processor_resets_w(uint64_t data);
+	void bebox_page_w(offs_t offset, uint8_t data);
+	void bebox_80000480_w(offs_t offset, uint8_t data);
+	void bebox_flash_w(offs_t offset, uint8_t data);
+	uint8_t at_dma8237_1_r(offs_t offset);
+	void at_dma8237_1_w(offs_t offset, uint8_t data);
+	uint8_t bebox_dma_read_byte(offs_t offset);
+	void bebox_dma_write_byte(offs_t offset, uint8_t data);
+	uint64_t scsi53c810_r(offs_t offset, uint64_t mem_mask = ~0);
+	void scsi53c810_w(offs_t offset, uint64_t data, uint64_t mem_mask = ~0);
+	uint64_t bb_slave_64be_r(offs_t offset, uint64_t mem_mask = ~0);
 
 	DECLARE_WRITE_LINE_MEMBER(bebox_ide_interrupt);
 
@@ -118,7 +118,8 @@ public:
 	void bebox_set_irq_bit(unsigned int interrupt_bit, int val);
 	void bebox_update_interrupts();
 
-	static void mpc105_config(device_t *device);
+	void mpc105_config(device_t *device);
+	void cirrus_config(device_t *device);
 
 	pci_connector_device & add_pci_slot(machine_config &config, const char *tag, size_t index, const char *default_tag);
 	void bebox_peripherals(machine_config &config);

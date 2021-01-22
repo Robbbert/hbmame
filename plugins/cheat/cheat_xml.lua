@@ -59,7 +59,7 @@ function xml.conv_cheat(data)
 	data = xml_parse(data)
 	local cpu_spaces = {}
 
-	for tag, device in pairs(manager:machine().devices) do
+	for tag, device in pairs(manager.machine.devices) do
 		local sp
 		for name, space in pairs(device.spaces) do
 			if not sp then
@@ -76,11 +76,15 @@ function xml.conv_cheat(data)
 		local function convert_memref(cpu, phys, space, width, addr, rw)
 			-- debug expressions address spaces by index not by name
 			local function get_space_name(index)
-				return cpu_spaces[":" .. cpu][index]
+				local prefix = cpu:sub(1, 1)
+				if prefix == ":" then
+					return cpu_spaces[cpu][index]
+				else
+					return cpu_spaces[":" .. cpu][index]
+				end
 			end
 
 			local mod = ""
-			local count
 			if space == "p" then
 				fullspace = get_space_name(0)
 			elseif space == "d" then
@@ -89,11 +93,11 @@ function xml.conv_cheat(data)
 				fullspace = get_space_name(2)
 			elseif space == "r" then
 				fullspace = get_space_name(0)
-				mod = "direct_"
+				mod = "_direct"
 				space = "p"
 			elseif space == "o" then
 				fullspace = get_space_name(3)
-				mod = "direct_"
+				mod = "_direct"
 				space = "o"
 			end
 			if width == "b" then
@@ -105,20 +109,27 @@ function xml.conv_cheat(data)
 			elseif width == "q" then
 				width = "u64"
 			end
+
+			local prefix = cpu:sub(1,1)
+			if prefix == ":" then
+				cpu = cpu:sub(2,cpu:len())
+			end
+
 			local cpuname = cpu:gsub(":", "_")
 			if space == "m" then
 				regions[cpuname .. space] = ":" .. cpu
 			else
 				spaces[cpuname .. space] = { tag = ":" .. cpu, type = fullspace }
 				if phys ~= "p" and mod == "" then
-					mod = "log_"
+					mod = "v"
 				end
 			end
+			local ret
 			if rw == "=" then
 				write = true
-				ret = cpuname .. space .. ":" .. "write_" .. mod .. width .. "(" .. addr .. ","
+				ret = string.format("%s%s:write%s_%s(%s,", cpuname, space, mod, width, addr)
 			else
-				ret = cpuname .. space .. ":" .. "read_" .. mod .. width .. "(" .. addr .. ")"
+				ret = string.format("%s%s:read%s_%s(%s)", cpuname, space, mod, width, addr)
 			end
 			if rw == "==" then
 				ret = ret .. "=="
@@ -150,6 +161,7 @@ function xml.conv_cheat(data)
 		data = data:gsub("%f[%w](%x+)%f[%W]", "0x%1")
 		-- 0?x? avoids an issue where db (data region byte) is interepeted as a hex number
 		data = data:gsub("([%w_:]-)%.(p?)0?x?([pmrodi3])([bwdq])@(%w+) *(=*)", convert_memref)
+		local count
 		repeat
 			data, count = data:gsub("([%w_:]-)%.(p?)0?x?([pmrodi3])([bwdq])@(%b()) *(=*)", convert_memref)
 		until count == 0

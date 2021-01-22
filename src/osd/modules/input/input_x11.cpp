@@ -20,8 +20,8 @@
 
 // standard sdl header
 #include <SDL2/SDL.h>
-#include <ctype.h>
-#include <stddef.h>
+#include <cctype>
+#include <cstddef>
 #include <mutex>
 #include <memory>
 #include <queue>
@@ -267,15 +267,30 @@ public:
 class x11_event_manager : public event_manager_t<x11_event_handler>
 {
 private:
-	Display *            m_display;
+	struct x_cleanup
+	{
+		void operator()(Display *ptr) const
+		{
+			if (ptr)
+				XCloseDisplay(ptr);
+		}
+		void operator()(XExtensionVersion *ptr) const
+		{
+			if (ptr)
+				XFree(ptr);
+		}
+	};
 
-	x11_event_manager()
-		: event_manager_t(),
-		m_display(nullptr)
+	template <typename T> using x_ptr = std::unique_ptr<T, x_cleanup>;
+
+	x_ptr<Display> m_display;
+
+	x11_event_manager() : event_manager_t()
 	{
 	}
+
 public:
-	Display * display() const { return m_display; }
+	Display * display() const { return m_display.get(); }
 
 	static x11_event_manager& instance()
 	{
@@ -287,18 +302,18 @@ public:
 	{
 		std::lock_guard<std::mutex> scope_lock(m_lock);
 
-		if (m_display != nullptr)
+		if (m_display)
 			return 0;
 
-		m_display = XOpenDisplay(nullptr);
-		if (m_display == nullptr)
+		m_display.reset(XOpenDisplay(nullptr));
+		if (!m_display)
 		{
 			osd_printf_verbose("Unable to connect to X server\n");
 			return -1;
 		}
 
-		XExtensionVersion *version = XGetExtensionVersion(m_display, INAME);
-		if (!version || (version == reinterpret_cast<XExtensionVersion*>(NoSuchExtension)))
+		x_ptr<XExtensionVersion> version(XGetExtensionVersion(m_display.get(), INAME));
+		if (!version || (version.get() == reinterpret_cast<XExtensionVersion *>(NoSuchExtension)))
 		{
 			osd_printf_verbose("xinput extension not available!\n");
 			return -1;
@@ -312,19 +327,22 @@ public:
 		std::lock_guard<std::mutex> scope_lock(m_lock);
 		XEvent xevent;
 
+		// If X11 has become invalid for some reason, XPending will crash. Assert instead.
+		assert(m_display);
+
 		//Get XInput events
-		while (XPending(m_display) != 0)
+		while (XPending(m_display.get()) != 0)
 		{
-			XNextEvent(m_display, &xevent);
+			XNextEvent(m_display.get(), &xevent);
 
 			// Find all subscribers for the event type
-			auto subscribers = m_subscription_index.equal_range(xevent.type);
+			auto const subscribers = m_subscription_index.equal_range(xevent.type);
 
 			// Dispatch the events
-			std::for_each(subscribers.first, subscribers.second, [&xevent](auto &pair)
-			{
-				pair.second->handle_event(xevent);
-			});
+			std::for_each(
+					subscribers.first,
+					subscribers.second,
+					[&xevent] (auto &pair) { pair.second->handle_event(xevent); });
 		}
 	}
 };
@@ -443,6 +461,17 @@ public:
 	{
 	}
 
+	virtual bool probe() override
+	{
+		// If there is no X server, X11 lightguns cannot be supported
+		if (XOpenDisplay(nullptr) == nullptr)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	void input_init(running_machine &machine) override
 	{
 		int index;
@@ -453,6 +482,9 @@ public:
 
 		x11_event_manager::instance().initialize();
 		m_display = x11_event_manager::instance().display();
+
+		// If the X server has become invalid, a crash can occur
+		assert(m_display != nullptr);
 
 		// Loop through all 8 possible devices
 		for (index = 0; index < 8; index++)
@@ -469,7 +501,7 @@ public:
 
 			// Register and add the device
 			devinfo = create_lightgun_device(machine, index);
-			osd_printf_verbose("%i: %s\n", index, name.c_str());
+			osd_printf_verbose("%i: %s\n", index, name);
 
 			// Find the device info associated with the name
 			info = find_device_info(m_display, name.c_str(), 0);
@@ -477,7 +509,7 @@ public:
 			// If we couldn't find the device, skip
 			if (info == nullptr)
 			{
-				osd_printf_verbose("Can't find device %s!\n", name.c_str());
+				osd_printf_verbose("Can't find device %s!\n", name);
 				continue;
 			}
 
@@ -573,10 +605,9 @@ private:
 			if (m_lightgun_map.initialized)
 			{
 				snprintf(tempname, ARRAY_LENGTH(tempname), "NC%d", index);
-				devicelist()->create_device<x11_lightgun_device>(machine, tempname, tempname, *this);
-			}
-
-			return nullptr;
+				return devicelist()->create_device<x11_lightgun_device>(machine, tempname, tempname, *this);
+			} else
+				return nullptr;
 		}
 
 		return devicelist()->create_device<x11_lightgun_device>(machine, m_lightgun_map.map[index].name.c_str(), m_lightgun_map.map[index].name.c_str(), *this);

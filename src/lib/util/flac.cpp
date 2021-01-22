@@ -8,9 +8,11 @@
 
 ***************************************************************************/
 
-#include <assert.h>
-
 #include "flac.h"
+
+#include "osdcomm.h"
+
+#include <cassert>
 #include <new>
 
 
@@ -559,7 +561,7 @@ void flac_decoder::metadata_callback_static(const FLAC__StreamDecoder *decoder, 
 		return;
 
 	// parse out the data we care about
-	flac_decoder *fldecoder = reinterpret_cast<flac_decoder *>(client_data);
+	auto *fldecoder = reinterpret_cast<flac_decoder *>(client_data);
 	fldecoder->m_sample_rate = metadata->data.stream_info.sample_rate;
 	fldecoder->m_bits_per_sample = metadata->data.stream_info.bits_per_sample;
 	fldecoder->m_channels = metadata->data.stream_info.channels;

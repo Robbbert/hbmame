@@ -8,17 +8,19 @@
 
 ****************************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <assert.h>
 #include "corefile.h"
 #include "corestr.h"
-#include "sha1.h"
+#include "hashing.h"
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cctype>
+#include <cassert>
 
 #define DEFAULT_SPLIT_SIZE      100
 #define MAX_PARTS               1000
+#define SHA1_DIGEST_SIZE        20
 
 
 
@@ -34,22 +36,17 @@
 
 static void compute_hash_as_string(std::string &buffer, void *data, uint32_t length)
 {
-	char expanded[SHA1_DIGEST_SIZE * 2];
-	uint8_t sha1digest[SHA1_DIGEST_SIZE];
-	struct sha1_ctx sha1;
-	int ch;
-
 	// compute the SHA1
-	sha1_init(&sha1);
-	sha1_update(&sha1, length, (const uint8_t *)data);
-	sha1_final(&sha1);
-	sha1_digest(&sha1, sizeof(sha1digest), sha1digest);
+	util::sha1_creator sha1;
+	sha1.append(data, length);
+	const util::sha1_t sha1digest = sha1.finish();
 
 	// expand the digest to a string
-	for (ch = 0; ch < SHA1_DIGEST_SIZE; ch++)
+	char expanded[sizeof(sha1digest.m_raw) * 2];
+	for (int ch = 0; ch < sizeof(sha1digest.m_raw); ch++)
 	{
-		expanded[ch * 2 + 0] = "0123456789ABCDEF"[sha1digest[ch] >> 4];
-		expanded[ch * 2 + 1] = "0123456789ABCDEF"[sha1digest[ch] & 15];
+		expanded[ch * 2 + 0] = "0123456789ABCDEF"[sha1digest.m_raw[ch] >> 4];
+		expanded[ch * 2 + 1] = "0123456789ABCDEF"[sha1digest.m_raw[ch] & 15];
 	}
 
 	// copy it to the buffer
@@ -152,7 +149,7 @@ static int split_file(const char *filename, const char *basename, uint32_t split
 		splitfile->printf("hash=%s file=%s.%03d\n", computedhash.c_str(), basefilename.c_str(), partnum);
 
 		// compute the full filename for this guy
-		outfilename = string_format("%s.%03d", basename, partnum);
+		outfilename = util::string_format("%s.%03d", basename, partnum);
 
 		// create it
 		filerr = util::core_file::open(outfilename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE, outfile);
@@ -239,8 +236,7 @@ static int join_file(const char *filename, const char *outname, int write_output
 		fprintf(stderr, "Fatal error: corrupt or incomplete split file at line:\n%s\n", buffer);
 		goto cleanup;
 	}
-	outfilename.assign(buffer + 10);
-	strtrimspace(outfilename);
+	outfilename.assign(strtrimspace(buffer + 10));
 
 	// compute the base path
 	basepath.assign(filename);
@@ -298,8 +294,7 @@ static int join_file(const char *filename, const char *outname, int write_output
 			goto cleanup;
 		}
 		expectedhash.assign(buffer + 5, SHA1_DIGEST_SIZE * 2);
-		infilename.assign(buffer + 5 + SHA1_DIGEST_SIZE * 2 + 6);
-		strtrimspace(infilename);
+		infilename.assign(strtrimspace(buffer + 5 + SHA1_DIGEST_SIZE * 2 + 6));
 
 		printf("  Reading file '%s'...", infilename.c_str());
 

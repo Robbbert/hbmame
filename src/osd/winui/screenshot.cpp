@@ -23,6 +23,7 @@
 #include "png.h"
 #include "unzip.h"
 #include "mui_opts.h"
+#include "emu_opts.h"
 #include "mui_util.h"  // for DriverIsClone
 #include "drivenum.h"
 #include "libjpeg/jpeglib.h"
@@ -202,7 +203,7 @@ static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETT
     PNG graphics handling functions
 ***************************************************************************/
 
-static BOOL AllocatePNG(png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
+static BOOL AllocatePNG(util::png_info *p, HGLOBAL *phDIB, HPALETTE *pPal)
 {
 	int nColors = 0;
 	copy_size = 0;
@@ -306,8 +307,8 @@ inline void store_pixels(UINT8 *buf, int len)
    logerror doesn't work here... changed to printf */
 static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
 {
-	png_info p;
-	if (p.read_file(mfile) != PNGERR_NONE)
+	util::png_info p;
+	if (p.read_file(mfile) != util::png_error::NONE)
 		return false;
 
 	if (p.color_type != 3 && p.color_type != 2)
@@ -449,71 +450,71 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	switch (pic_type)
 	{
 		case TAB_ARTWORK:
-			t = GetArtworkDir();
+			t = dir_get_value(32);
 			zip_name = "artpreview";
 			break;
 		case TAB_BOSSES:
-			t = GetBossesDir();
+			t = dir_get_value(33);
 			zip_name = "bosses";
 			break;
 		case TAB_CABINET:
-			t = GetCabinetDir();
+			t = dir_get_value(25);
 			zip_name = "cabinets";
 			break;
 		case TAB_CONTROL_PANEL:
-			t = GetControlPanelDir();
+			t = dir_get_value(26);
 			zip_name = "cpanel";
 			break;
 		case TAB_COVER:
-			t = GetCoversDir();
+			t = dir_get_value(41);
 			zip_name = "covers";
 			break;
 		case TAB_ENDS:
-			t = GetEndsDir();
+			t = dir_get_value(30);
 			zip_name = "ends";
 			break;
 		case TAB_FLYER:
-			t = GetFlyerDir();
+			t = dir_get_value(28);
 			zip_name = "flyers";
 			break;
 		case TAB_GAMEOVER:
-			t = GetGameOverDir();
+			t = dir_get_value(37);
 			zip_name = "gameover";
 			break;
 		case TAB_HOWTO:
-			t = GetHowToDir();
+			t = dir_get_value(38);
 			zip_name = "howto";
 			break;
 		case TAB_LOGO:
-			t = GetLogoDir();
+			t = dir_get_value(34);
 			zip_name = "logo";
 			break;
 		case TAB_MARQUEE:
-			t = GetMarqueeDir();
+			t = dir_get_value(31);
 			zip_name = "marquees";
 			break;
 		case TAB_PCB:
-			t = GetPcbDir();
+			t = dir_get_value(27);
 			zip_name = "pcb";
 			break;
 		case TAB_SCORES:
-			t = GetScoresDir();
+			t = dir_get_value(35);
 			zip_name = "scores";
 			break;
 		case TAB_SCREENSHOT:
-			t = GetImgDir();
+			t = dir_get_value(18);
 			zip_name = "snap";
 			break;
 		case TAB_SELECT:
-			t = GetSelectDir();
+			t = dir_get_value(39);
 			zip_name = "select";
 			break;
 		case TAB_TITLE:
-			t = GetTitlesDir();
+			t = dir_get_value(29);
 			zip_name = "titles";
 			break;
 		case TAB_VERSUS:
-			t = GetVersusDir();
+			t = dir_get_value(36);
 			zip_name = "versus";
 			break;
 		default :

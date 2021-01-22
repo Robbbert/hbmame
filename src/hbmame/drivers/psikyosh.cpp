@@ -3,11 +3,11 @@
 #include "../mame/drivers/psikyosh.cpp"
 
 ROM_START( s1945iiex )
-	ROM_REGION( 0x200000, "maincpu", 0) 
+	ROM_REGION( 0x200000, "maincpu", 0)
 	ROM_LOAD32_WORD_SWAP( "2_prog_l.u18-ex", 0x000002, 0x080000, CRC(56276eb7) SHA1(28530132058621382697c678426967d720741853) )
 	ROM_LOAD32_WORD_SWAP( "1_prog_h.u17-ex", 0x000000, 0x080000, CRC(99658d0d) SHA1(f8b7a697819dc1e4993557d9e854aa53964eb4a3) )
 
-	ROM_REGION( 0x2000000, "gfx1", 0 ) 
+	ROM_REGION( 0x2000000, "gfx1", 0 )
 	ROM_LOAD32_WORD( "0l.u4",    0x0000000, 0x400000, CRC(bfacf98d) SHA1(19954f12881e6e95e808bd1f2c2f5a425786727f) )
 	ROM_LOAD32_WORD( "0h.u13",   0x0000002, 0x400000, CRC(1266f67c) SHA1(cf93423a827aa92aa54afbbecf8509d2590edc9b) )
 	ROM_LOAD32_WORD( "1l.u3",    0x0800000, 0x400000, CRC(2d3332c9) SHA1(f2e54100a48061bfd589e8765f59ca051176a38b) )
@@ -17,7 +17,7 @@ ROM_START( s1945iiex )
 	ROM_LOAD32_WORD( "3l.u1",    0x1800000, 0x400000, CRC(a6c3704e) SHA1(cb9881e4235cc8e4bcca4c6ccbd8d8d8634e3624) )
 	ROM_LOAD32_WORD( "3h.u19",   0x1800002, 0x400000, CRC(4cd3ca70) SHA1(5b0a6ea4fe0e821cebe6e840596f648e24dded51) )
 
-	ROM_REGION( 0x400000, "ymf", 0 ) 
+	ROM_REGION( 0x400000, "ymf", 0 )
 	ROM_LOAD( "sound.u32", 0x000000, 0x400000, CRC(ba680ca7) SHA1(b645896e297aad426784aa656bff738e1b33c2a2) )
 
 	ROM_REGION( 0x100, "eeprom", 0 )
@@ -49,7 +49,7 @@ ROM_END
 
 /*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
 GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, init_ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version 2009-07-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "pipi899", "Strikers 1945 III (Secret Fighter 2009-07-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Pipi899", "Strikers 1945 III (Secret Fighter 2009-07-23)", MACHINE_SUPPORTS_SAVE )
 
 
 // PSmame (c) gaston90 used with permission
@@ -196,7 +196,7 @@ GAME( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, init_
 GAME( 2009, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, init_ps5, ROT270, "yzb & pipi899", "Gunbird 2 (Ex Super Version 2009-08-04)", MACHINE_SUPPORTS_SAVE )
 // Strikers 1945 III
 GAME( 2009, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "pipi899", "Strikers 1945 III (Ex Super Version 2009-07-X3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, s1945iiis02, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Unknown", "Strikers 1945 III (Version Enhanced 2014-04-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, s1945iiis02, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "hack", "Strikers 1945 III (Version Enhanced 2014-04-07)", MACHINE_SUPPORTS_SAVE )
 // Sol Divide - The Sword Of Darkness
-GAME( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, init_ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French translation v1.0 08-18-2007)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, init_ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French translation v1.0 2007-08-18)", MACHINE_SUPPORTS_SAVE )
 

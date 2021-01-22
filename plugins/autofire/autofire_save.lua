@@ -1,7 +1,7 @@
 local lib = {}
 
 local function get_settings_path()
-	return lfs.env_replace(manager:machine():options().entries.homepath:value():match('([^;]+)')) .. '/autofire/'
+	return emu.subst_env(manager.machine.options.entries.homepath:value():match('([^;]+)')) .. '/autofire/'
 end
 
 local function get_settings_filename()
@@ -13,12 +13,12 @@ local function initialize_button(settings)
 		local new_button = {
 			port = settings.port,
 			field = settings.field,
-			key = manager:machine():input():code_from_token(settings.key),
+			key = manager.machine.input:seq_from_tokens(settings.key),
 			on_frames = settings.on_frames,
 			off_frames = settings.off_frames,
 			counter = 0
 		}
-		local port = manager:machine():ioport().ports[settings.port]
+		local port = manager.machine.ioport.ports[settings.port]
 		if port then
 			local field = port.fields[settings.field]
 			if field then
@@ -36,7 +36,7 @@ local function serialize_settings(button_list)
 		setting = {
 			port = button.port,
 			field = button.field,
-			key = manager:machine():input():code_to_token(button.key),
+			key = manager.machine.input:seq_to_tokens(button.key),
 			on_frames = button.on_frames,
 			off_frames = button.off_frames
 		}
@@ -74,11 +74,16 @@ function lib:save_settings(buttons)
 	elseif attr.mode ~= 'directory' then
 		return
 	end
+	if #buttons == 0 then
+		os.remove(path .. get_settings_filename())
+		return
+	end
 	local json = require('json')
 	local settings = serialize_settings(buttons)
+	local data = json.stringify(settings, {indent = true})
 	local file = io.open(path .. get_settings_filename(), 'w')
 	if file then
-		file:write(json.stringify(settings, {indent = true}))
+		file:write(data)
 		file:close()
 	end
 end

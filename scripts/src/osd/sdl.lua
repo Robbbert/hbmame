@@ -29,6 +29,12 @@ function maintargetosdoptions(_target,_subtarget)
 			"X11",
 			"Xinerama",
 		}
+	else
+		if _OPTIONS["targetos"]=="linux" or _OPTIONS["targetos"]=="netbsd" or _OPTIONS["targetos"]=="openbsd" then
+			links {
+				"EGL",
+			}
+		end
 	end
 
 	if _OPTIONS["NO_USE_XINPUT"]~="1" then
@@ -38,7 +44,7 @@ function maintargetosdoptions(_target,_subtarget)
 		}
 	end
 
-	if BASE_TARGETOS=="unix" and _OPTIONS["targetos"]~="macosx" and _OPTIONS["targetos"]~="android" then
+	if BASE_TARGETOS=="unix" and _OPTIONS["targetos"]~="macosx" and _OPTIONS["targetos"]~="android" and _OPTIONS["targetos"]~="asmjs" then
 		links {
 			"SDL2_ttf",
 		}
@@ -233,21 +239,16 @@ end
 
 BASE_TARGETOS       = "unix"
 SDLOS_TARGETOS      = "unix"
-SDL_NETWORK         = ""
 if _OPTIONS["targetos"]=="linux" then
-	SDL_NETWORK         = "taptun"
 elseif _OPTIONS["targetos"]=="openbsd" then
 elseif _OPTIONS["targetos"]=="netbsd" then
-	SDL_NETWORK         = "pcap"
 elseif _OPTIONS["targetos"]=="haiku" then
 elseif _OPTIONS["targetos"]=="asmjs" then
 elseif _OPTIONS["targetos"]=="windows" then
 	BASE_TARGETOS       = "win32"
 	SDLOS_TARGETOS      = "win32"
-	SDL_NETWORK         = "pcap"
 elseif _OPTIONS["targetos"]=="macosx" then
 	SDLOS_TARGETOS      = "macosx"
-	SDL_NETWORK         = "pcap"
 end
 
 if _OPTIONS["with-bundled-sdl2"]~=nil then
@@ -275,6 +276,7 @@ if BASE_TARGETOS=="unix" then
 		end
 		if _OPTIONS["with-bundled-sdl2"]~=nil then
 			linkoptions {
+				"-framework AudioToolbox",
 				"-framework AudioUnit",
 				"-framework CoreAudio",
 				"-framework Carbon",
@@ -328,7 +330,7 @@ if BASE_TARGETOS=="unix" then
 					"socket",
 					"nsl",
 				}
-			else
+			elseif _OPTIONS["targetos"]~="asmjs" then
 				links {
 					"util",
 				}
@@ -466,6 +468,7 @@ project ("ocore_" .. _OPTIONS["osd"])
 	files {
 		MAME_DIR .. "src/osd/osdcore.cpp",
 		MAME_DIR .. "src/osd/osdcore.h",
+		MAME_DIR .. "src/osd/osdfile.h",
 		MAME_DIR .. "src/osd/strconv.cpp",
 		MAME_DIR .. "src/osd/strconv.h",
 		MAME_DIR .. "src/osd/osdsync.cpp",

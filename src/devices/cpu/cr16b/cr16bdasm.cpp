@@ -19,14 +19,8 @@
 
 ***************************************************************************/
 
-#include "util/disasmintf.h"
+#include "emu.h"
 #include "cr16bdasm.h"
-
-#include "util/strformat.h"
-
-using osd::u32;
-using util::BIT;
-using offs_t = u32;
 
 cr16b_disassembler::cr16b_disassembler(cr16_arch arch)
 	: util::disasm_interface()
@@ -426,7 +420,7 @@ offs_t cr16b_disassembler::disassemble(std::ostream &stream, offs_t pc, const cr
 		}
 		if (BIT(opcode, 14))
 		{
-			stream << ",0(";
+			stream << ", 0(";
 			format_reg(stream, (opcode & 0x0120) >> 5);
 			stream << ")";
 			return 2 | SUPPORTED;
@@ -567,7 +561,7 @@ offs_t cr16b_disassembler::disassemble(std::ostream &stream, offs_t pc, const cr
 
 	case 0x1400:
 		// Conditional or unconditional branch to small address
-		if ((opcode & 0x000e) == 0x000e || (opcode & 0x01e0) != 0x01e0)
+		if ((opcode & 0x000e) == 0x000e && (opcode & 0x01e0) != 0x01e0)
 		{
 			if ((opcode & 0x01e0) == 0x01c0)
 				stream << "br      ";

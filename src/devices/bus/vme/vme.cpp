@@ -162,23 +162,23 @@ void vme_slot_device::device_config_complete()
 //-------------------------------------------------
 //  P1 D8 read
 //-------------------------------------------------
-READ8_MEMBER(vme_slot_device::read8)
+uint8_t vme_slot_device::read8(offs_t offset)
 {
 	uint16_t result = 0x00;
 	LOG("%s %s\n", tag(), FUNCNAME);
 	//  printf("%s %s\n", tag(), FUNCNAME);
-	//  if (m_card)     result = m_card->read8(space, offset);
+	//  if (m_card)     result = m_card->read8(offset);
 	return result;
 }
 
 //-------------------------------------------------
 //  P1 D8 write
 //-------------------------------------------------
-WRITE8_MEMBER(vme_slot_device::write8)
+void vme_slot_device::write8(offs_t offset, uint8_t data)
 {
 	LOG("%s %s\n", tag(), FUNCNAME);
 	//  printf("%s %s\n", tag(), FUNCNAME);
-	//  if (m_card)     m_card->write8(space, offset, data);
+	//  if (m_card)     m_card->write8(offset, data);
 }
 
 #if 0 // Disabled until we know how to make a board driver also a slot device
@@ -455,12 +455,12 @@ void vme_device::install_device(vme_amod_t amod, offs_t start, offs_t end, read3
 // Card interface
 //
 device_vme_card_interface::device_vme_card_interface(const machine_config &mconfig, device_t &device)
-	: device_slot_card_interface(mconfig, device)
-	,m_vme(nullptr)
-	,m_vme_tag(nullptr)
-	,m_vme_slottag(nullptr)
-	,m_slot(0)
-	,m_next(nullptr)
+	: device_interface(device, "vme")
+	, m_vme(nullptr)
+	, m_vme_tag(nullptr)
+	, m_vme_slottag(nullptr)
+	, m_slot(0)
+	, m_next(nullptr)
 {
 	m_device = &device;
 	LOG("%s %s\n", m_device->tag(), FUNCNAME);
@@ -487,14 +487,14 @@ void device_vme_card_interface::set_vme_device()
 }
 
 /* VME D8 accesses */
-READ8_MEMBER(device_vme_card_interface::read8)
+uint8_t device_vme_card_interface::read8(offs_t offset)
 {
 	uint8_t result = 0x00;
 	LOG("%s %s Offset:%08x\n", m_device->tag(), FUNCNAME, offset);
 	return result;
 }
 
-WRITE8_MEMBER(device_vme_card_interface::write8)
+void device_vme_card_interface::write8(offs_t offset, uint8_t data)
 {
 	LOG("%s %s Offset:%08x\n", m_device->tag(), FUNCNAME, offset);
 }

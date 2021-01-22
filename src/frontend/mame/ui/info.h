@@ -38,7 +38,9 @@ public:
 	bool has_test_switch() const { return m_has_test_switch; }
 	bool has_analog() const { return m_has_analog; }
 
-	// message colour
+	// warning severity indications
+	bool has_warnings() const;
+	bool has_severe_warnings() const;
 	rgb_t status_color() const;
 	rgb_t warnings_color() const;
 
@@ -76,7 +78,6 @@ public:
 	// text generators
 	std::string warnings_string() const;
 	std::string game_info_string() const;
-	std::string mandatory_images() const;
 	std::string get_screen_desc(screen_device &screen) const;
 
 private:
@@ -90,6 +91,18 @@ class menu_game_info : public menu
 public:
 	menu_game_info(mame_ui_manager &mui, render_container &container);
 	virtual ~menu_game_info() override;
+
+private:
+	virtual void populate(float &customtop, float &custombottom) override;
+	virtual void handle() override;
+};
+
+
+class menu_warn_info : public menu
+{
+public:
+	menu_warn_info(mame_ui_manager &mui, render_container &container);
+	virtual ~menu_warn_info() override;
 
 private:
 	virtual void populate(float &customtop, float &custombottom) override;

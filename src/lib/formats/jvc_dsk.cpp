@@ -1,4 +1,4 @@
-// license:GPL-2.0+
+// license:BSD-3-Clause
 // copyright-holders:Dirk Best
 /***************************************************************************
 
@@ -104,9 +104,8 @@
 
 ***************************************************************************/
 
-#include "emu.h"
-#include "imageutl.h"
 #include "jvc_dsk.h"
+
 
 jvc_format::jvc_format()
 {
@@ -135,8 +134,7 @@ bool jvc_format::parse_header(io_generic *io, int &header_size, int &tracks, int
 	header_size = size % 256;
 	uint8_t header[5];
 
-	// if we know that this is a header of a bad size, we can fail
-	// immediately; otherwise read the header
+	// if we know that this is a header of a bad size, we can fail immediately; otherwise read the header
 	if (header_size >= sizeof(header))
 		return false;
 	if (header_size > 0)
@@ -150,16 +148,17 @@ bool jvc_format::parse_header(io_generic *io, int &header_size, int &tracks, int
 
 	switch (header_size)
 	{
-	case 5: emu_fatalerror("jvc_format: sector attribute flag unsupported\n");
-		break;
+	case 5:
+		osd_printf_info("jvc_format: sector attribute flag unsupported\n");
+		return false;
 	case 4: base_sector_id = header[3];
-		// no break
+		[[fallthrough]];
 	case 3: sector_size = 128 << header[2];
-		// no break
+		[[fallthrough]];
 	case 2: heads = header[1];
-		// no break
+		[[fallthrough]];
 	case 1: sectors = header[0];
-		// no break
+		[[fallthrough]];
 	case 0: tracks = (size - header_size) / sector_size / sectors / heads;
 		break;
 	}
@@ -169,13 +168,13 @@ bool jvc_format::parse_header(io_generic *io, int &header_size, int &tracks, int
 	return tracks * heads * sectors * sector_size == (size - header_size);
 }
 
-int jvc_format::identify(io_generic *io, uint32_t form_factor)
+int jvc_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	int header_size, tracks, heads, sectors, sector_size, sector_base_id;
 	return parse_header(io, header_size, tracks, heads, sectors, sector_size, sector_base_id) ? 50 : 0;
 }
 
-bool jvc_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool jvc_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	int header_size, track_count, head_count, sector_count, sector_size, sector_base_id;
 
@@ -184,7 +183,10 @@ bool jvc_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
 
 	// safety check
 	if (sector_count * sector_size > 10000)
-		emu_fatalerror("jvc_format: incorrect track layout\n");
+	{
+		osd_printf_error("jvc_format: incorrect track layout\n");
+		return false;
+	}
 
 	int file_offset = header_size;
 
@@ -221,7 +223,7 @@ bool jvc_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
 	return true;
 }
 
-bool jvc_format::save(io_generic *io, floppy_image *image)
+bool jvc_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint8_t bitstream[500000/8];
 	uint8_t sector_data[50000];
@@ -253,7 +255,10 @@ bool jvc_format::save(io_generic *io, floppy_image *image)
 			for (int i = 0; i < 18; i++)
 			{
 				if (sectors[1 + i].size != 256)
-					emu_fatalerror("jvc_format: invalid sector size: %d\n", sectors[1 + i].size);
+				{
+					osd_printf_error("jvc_format: invalid sector size: %d\n", sectors[1 + i].size);
+					return false;
+				}
 
 				io_generic_write(io, sectors[1 + i].data, file_offset, sectors[1 + i].size);
 				file_offset += sectors[1 + i].size;

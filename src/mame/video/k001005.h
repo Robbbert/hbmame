@@ -9,7 +9,7 @@
 #include "cpu/sharc/sharc.h"
 #include "video/k001006.h"
 
-#include <float.h>
+#include <cfloat>
 
 
 struct k001005_polydata
@@ -117,8 +117,8 @@ public:
 	void draw(bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void swap_buffers();
 
-	DECLARE_READ32_MEMBER( read );
-	DECLARE_WRITE32_MEMBER( write );
+	uint32_t read(address_space &space, offs_t offset, uint32_t mem_mask = ~0);
+	void write(address_space &space, offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
 
 protected:
 	// device-level overrides

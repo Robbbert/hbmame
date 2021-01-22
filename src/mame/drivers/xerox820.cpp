@@ -16,6 +16,7 @@
         - floppy format has 3xcd at the end of track data
             :u109: write track 0
             :u109: track description 16xff ... 109xff 3xcd
+        - keyboard conflicts with optional serial terminal
     - Xerox 820-II
         - floppy (read/write to FDC triggers Z80 WAIT)
         - Winchester
@@ -102,23 +103,23 @@ void xerox820ii_state::bankswitch(int bank)
 	}
 }
 
-READ8_MEMBER( xerox820_state::fdc_r )
+uint8_t xerox820_state::fdc_r(offs_t offset)
 {
 	return m_fdc->read(offset) ^ 0xff;
 }
 
-WRITE8_MEMBER( xerox820_state::fdc_w )
+void xerox820_state::fdc_w(offs_t offset, uint8_t data)
 {
 	m_fdc->write(offset, data ^ 0xff);
 }
 
-WRITE8_MEMBER( xerox820_state::scroll_w )
+void xerox820_state::scroll_w(offs_t offset, uint8_t data)
 {
 	m_scroll = (offset >> 8) & 0x1f;
 }
 
 #ifdef UNUSED_CODE
-WRITE8_MEMBER( xerox820_state::x120_system_w )
+void xerox820_state::x120_system_w(uint8_t data)
 {
 	/*
 
@@ -137,27 +138,27 @@ WRITE8_MEMBER( xerox820_state::x120_system_w )
 }
 #endif
 
-WRITE8_MEMBER( xerox820ii_state::bell_w )
+void xerox820ii_state::bell_w(offs_t offset, uint8_t data)
 {
 	m_speaker->level_w(offset);
 }
 
-WRITE8_MEMBER( xerox820ii_state::slden_w )
+void xerox820ii_state::slden_w(offs_t offset, uint8_t data)
 {
 	m_fdc->dden_w(offset);
 }
 
-WRITE8_MEMBER( xerox820ii_state::chrom_w )
+void xerox820ii_state::chrom_w(offs_t offset, uint8_t data)
 {
 	m_chrom = offset;
 }
 
-WRITE8_MEMBER( xerox820ii_state::lowlite_w )
+void xerox820ii_state::lowlite_w(uint8_t data)
 {
 	m_lowlite = data;
 }
 
-WRITE8_MEMBER( xerox820ii_state::sync_w )
+void xerox820ii_state::sync_w(offs_t offset, uint8_t data)
 {
 	if (offset)
 	{
@@ -181,7 +182,7 @@ void xerox820_state::xerox820_mem(address_map &map)
 void xerox820_state::xerox820_io(address_map &map)
 {
 	map(0x00, 0x00).mirror(0xff03).w(COM8116_TAG, FUNC(com8116_device::str_w));
-	map(0x04, 0x07).mirror(0xff00).rw(m_sio, FUNC(z80sio0_device::ba_cd_r), FUNC(z80sio0_device::ba_cd_w));
+	map(0x04, 0x07).mirror(0xff00).rw(m_sio, FUNC(z80sio_device::cd_ba_r), FUNC(z80sio_device::cd_ba_w));
 	map(0x08, 0x0b).mirror(0xff00).rw(Z80PIO_GP_TAG, FUNC(z80pio_device::read_alt), FUNC(z80pio_device::write_alt));
 	map(0x0c, 0x0c).mirror(0xff03).w(COM8116_TAG, FUNC(com8116_device::stt_w));
 	map(0x10, 0x13).mirror(0xff00).rw(FUNC(xerox820_state::fdc_r), FUNC(xerox820_state::fdc_w));
@@ -228,14 +229,14 @@ static INPUT_PORTS_START( xerox820 )
 	// inputs defined in machine/keyboard.c
 INPUT_PORTS_END
 
-TIMER_CALLBACK_MEMBER( bigboard_state::bigboard_beepoff )
+TIMER_DEVICE_CALLBACK_MEMBER(bigboard_state::beep_timer)
 {
 	m_beeper->set_state(0);
 }
 
 /* Z80 PIO */
 
-READ8_MEMBER( xerox820_state::kbpio_pa_r )
+uint8_t xerox820_state::kbpio_pa_r()
 {
 	/*
 
@@ -264,7 +265,7 @@ READ8_MEMBER( xerox820_state::kbpio_pa_r )
 	return data;
 }
 
-WRITE8_MEMBER( xerox820_state::kbpio_pa_w )
+void xerox820_state::kbpio_pa_w(uint8_t data)
 {
 	/*
 
@@ -314,20 +315,20 @@ WRITE8_MEMBER( xerox820_state::kbpio_pa_w )
 	bankswitch(BIT(data, 7));
 }
 
-WRITE8_MEMBER( bigboard_state::kbpio_pa_w )
+void bigboard_state::kbpio_pa_w(uint8_t data)
 {
-	xerox820_state::kbpio_pa_w(space, offset, data);
+	xerox820_state::kbpio_pa_w(data);
 
 	/* beeper on bigboard */
 	if (BIT(data, 5) & (!m_bit5))
 	{
-		machine().scheduler().timer_set(attotime::from_msec(40), timer_expired_delegate(FUNC(bigboard_state::bigboard_beepoff),this));
+		m_beep_timer->adjust(attotime::from_msec(40));
 		m_beeper->set_state(1);
 	}
 	m_bit5 = BIT(data, 5);
 }
 
-READ8_MEMBER( xerox820_state::kbpio_pb_r )
+uint8_t xerox820_state::kbpio_pb_r()
 {
 	/*
 
@@ -347,7 +348,7 @@ READ8_MEMBER( xerox820_state::kbpio_pb_r )
 	return m_kb->read() ^ 0xff;
 }
 
-WRITE8_MEMBER( xerox820ii_state::rdpio_pb_w )
+void xerox820ii_state::rdpio_pb_w(uint8_t data)
 {
 	/*
 
@@ -409,7 +410,7 @@ QUICKLOAD_LOAD_MEMBER(xerox820_state::quickload_cb)
 {
 	address_space& prog_space = m_maincpu->space(AS_PROGRAM);
 
-	if (quickload_size >= 0xfd00)
+	if (image.length() >= 0xfd00)
 		return image_init_result::FAIL;
 
 	bankswitch(0);
@@ -422,6 +423,7 @@ QUICKLOAD_LOAD_MEMBER(xerox820_state::quickload_cb)
 	}
 
 	/* Load image to the TPA (Transient Program Area) */
+	uint16_t quickload_size = image.length();
 	for (uint16_t i = 0; i < quickload_size; i++)
 	{
 		uint8_t data;
@@ -479,25 +481,25 @@ WRITE_LINE_MEMBER( xerox820_state::fdc_drq_w )
 
 uint32_t xerox820_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	uint8_t y,ra,chr,gfx;
-	uint16_t sy=0,ma=(m_scroll + 1) * 0x80,x;
-	const pen_t *pen=m_palette->pens();
+	uint16_t sy=0,ma=(m_scroll + 1) * 0x80;
+	pen_t const *const pen=m_palette->pens();
 
 	m_framecnt++;
 
-	for (y = 0; y < 24; y++)
+	for (uint8_t y = 0; y < 24; y++)
 	{
 		if (ma > 0xb80) ma = 0;
 
-		for (ra = 0; ra < 10; ra++)
+		for (uint8_t ra = 0; ra < 10; ra++)
 		{
-			uint32_t *p = &bitmap.pix32(sy++);
+			uint32_t *p = &bitmap.pix(sy++);
 
-			for (x = ma; x < ma + 80; x++)
+			for (uint16_t x = ma; x < ma + 80; x++)
 			{
+				uint8_t gfx;
 				if (ra < 8)
 				{
-					chr = m_video_ram[x & XEROX820_VIDEORAM_MASK] ^ 0x80;
+					uint8_t chr = m_video_ram[x & XEROX820_VIDEORAM_MASK] ^ 0x80;
 
 					/* Take care of flashing characters */
 					if ((chr < 0x80) && (m_framecnt & 0x08))
@@ -509,14 +511,14 @@ uint32_t xerox820_state::screen_update(screen_device &screen, bitmap_rgb32 &bitm
 				else
 					gfx = 0xff;
 
-			/* Display a scanline of a character (7 pixels) */
-			*p++ = pen[0];
-			*p++ = pen[BIT(gfx, 4) ^ 1];
-			*p++ = pen[BIT(gfx, 3) ^ 1];
-			*p++ = pen[BIT(gfx, 2) ^ 1];
-			*p++ = pen[BIT(gfx, 1) ^ 1];
-			*p++ = pen[BIT(gfx, 0) ^ 1];
-			*p++ = pen[0];
+				/* Display a scanline of a character (7 pixels) */
+				*p++ = pen[0];
+				*p++ = pen[BIT(gfx, 4) ^ 1];
+				*p++ = pen[BIT(gfx, 3) ^ 1];
+				*p++ = pen[BIT(gfx, 2) ^ 1];
+				*p++ = pen[BIT(gfx, 1) ^ 1];
+				*p++ = pen[BIT(gfx, 0) ^ 1];
+				*p++ = pen[0];
 			}
 		}
 		ma+=128;
@@ -536,6 +538,8 @@ void xerox820_state::machine_start()
 	save_item(NAME(m_fdc_drq));
 	save_item(NAME(m_8n5));
 	save_item(NAME(m_400_460));
+
+	m_ncset2 = 0;
 }
 
 void xerox820_state::machine_reset()
@@ -560,6 +564,9 @@ void xerox820ii_state::machine_reset()
 	bankswitch(1);
 
 	m_fdc->reset();
+
+	m_sio->synca_w(1);
+	m_sio->syncb_w(1);
 }
 
 
@@ -598,6 +605,15 @@ static GFXDECODE_START( gfx_xerox820ii )
 	GFXDECODE_ENTRY( "chargen", 0x0000, xerox820_charlayout, 0, 1 )
 	GFXDECODE_ENTRY( "chargen", 0x0800, xerox820_gfxlayout, 0, 1 )
 GFXDECODE_END
+
+static DEVICE_INPUT_DEFAULTS_START( terminal )
+	DEVICE_INPUT_DEFAULTS( "RS232_RXBAUD", 0xff, RS232_BAUD_300 )
+	DEVICE_INPUT_DEFAULTS( "RS232_TXBAUD", 0xff, RS232_BAUD_300 )
+	DEVICE_INPUT_DEFAULTS( "RS232_STARTBITS", 0xff, RS232_STARTBITS_1 )
+	DEVICE_INPUT_DEFAULTS( "RS232_DATABITS", 0xff, RS232_DATABITS_7 )
+	DEVICE_INPUT_DEFAULTS( "RS232_PARITY", 0xff, RS232_PARITY_ODD )
+	DEVICE_INPUT_DEFAULTS( "RS232_STOPBITS", 0xff, RS232_STOPBITS_1 )
+DEVICE_INPUT_DEFAULTS_END
 
 /* Machine Drivers */
 
@@ -639,7 +655,7 @@ void xerox820_state::xerox820(machine_config &config)
 	FLOPPY_CONNECTOR(config, FD1771_TAG":0", xerox820_floppies, "sa400l", floppy_image_device::default_floppy_formats);
 	FLOPPY_CONNECTOR(config, FD1771_TAG":1", xerox820_floppies, "sa400l", floppy_image_device::default_floppy_formats);
 
-	Z80SIO0(config, m_sio, 20_MHz_XTAL / 8);
+	Z80SIO(config, m_sio, 20_MHz_XTAL / 8); // MK3884 (SIO/0)
 	m_sio->out_txda_callback().set(RS232_A_TAG, FUNC(rs232_port_device::write_txd));
 	m_sio->out_dtra_callback().set(RS232_A_TAG, FUNC(rs232_port_device::write_dtr));
 	m_sio->out_rtsa_callback().set(RS232_A_TAG, FUNC(rs232_port_device::write_rts));
@@ -649,15 +665,22 @@ void xerox820_state::xerox820(machine_config &config)
 	m_sio->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
 
 	rs232_port_device &rs232a(RS232_PORT(config, RS232_A_TAG, default_rs232_devices, nullptr));
-	rs232a.rxd_handler().set(m_sio, FUNC(z80sio0_device::rxa_w));
+	rs232a.rxd_handler().set(m_sio, FUNC(z80sio_device::rxa_w));
+	rs232a.rxd_handler().append(m_sio, FUNC(z80sio_device::synca_w));
+	rs232a.cts_handler().set(m_sio, FUNC(z80sio_device::ctsa_w));
+	rs232a.dcd_handler().set(m_sio, FUNC(z80sio_device::dcda_w));
 
 	rs232_port_device &rs232b(RS232_PORT(config, RS232_B_TAG, default_rs232_devices, nullptr));
-	rs232b.rxd_handler().set(m_sio, FUNC(z80sio0_device::rxb_w));
+	rs232b.rxd_handler().set(m_sio, FUNC(z80sio_device::rxb_w));
+	rs232b.rxd_handler().append(m_sio, FUNC(z80sio_device::syncb_w));
+	rs232b.cts_handler().set(m_sio, FUNC(z80sio_device::ctsb_w));
+	rs232b.dcd_handler().set(m_sio, FUNC(z80sio_device::dcdb_w));
+	rs232b.set_option_device_input_defaults("terminal", DEVICE_INPUT_DEFAULTS_NAME(terminal));
 
 	com8116_device &dbrg(COM8116(config, COM8116_TAG, 5.0688_MHz_XTAL));
-	dbrg.fr_handler().set(m_sio, FUNC(z80dart_device::rxca_w));
-	dbrg.fr_handler().append(m_sio, FUNC(z80dart_device::txca_w));
-	dbrg.ft_handler().set(m_sio, FUNC(z80dart_device::rxtxcb_w));
+	dbrg.fr_handler().set(m_sio, FUNC(z80sio_device::rxca_w));
+	dbrg.fr_handler().append(m_sio, FUNC(z80sio_device::txca_w));
+	dbrg.ft_handler().set(m_sio, FUNC(z80sio_device::rxtxcb_w));
 
 	XEROX_820_KEYBOARD(config, m_kb, 0);
 	m_kb->kbstb_wr_callback().set(m_kbpio, FUNC(z80pio_device::strobe_b));
@@ -667,7 +690,7 @@ void xerox820_state::xerox820(machine_config &config)
 
 	// software lists
 	SOFTWARE_LIST(config, "flop_list").set_original("xerox820");
-	QUICKLOAD(config, "quickload", "com,cpm", attotime::from_seconds(3)).set_load_callback(FUNC(xerox820_state::quickload_cb), this);
+	QUICKLOAD(config, "quickload", "com,cpm", attotime::from_seconds(3)).set_load_callback(FUNC(xerox820_state::quickload_cb));
 }
 
 void bigboard_state::bigboard(machine_config &config)
@@ -676,6 +699,7 @@ void bigboard_state::bigboard(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	BEEP(config, m_beeper, 950).add_route(ALL_OUTPUTS, "mono", 1.00); /* bigboard only */
+	TIMER(config, m_beep_timer).configure_generic(FUNC(bigboard_state::beep_timer));
 }
 
 void xerox820ii_state::xerox820ii(machine_config &config)
@@ -710,10 +734,10 @@ void xerox820ii_state::xerox820ii(machine_config &config)
 
 	z80pio_device& pio_rd(Z80PIO(config, Z80PIO_RD_TAG, 20_MHz_XTAL / 8));
 	pio_rd.out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
-	pio_rd.in_pa_callback().set("sasi_data_in", FUNC(input_buffer_device::bus_r));
-	pio_rd.out_pa_callback().set("sasi_data_out", FUNC(output_latch_device::bus_w));
+	pio_rd.in_pa_callback().set("sasi_data_in", FUNC(input_buffer_device::read));
+	pio_rd.out_pa_callback().set("sasi_data_out", FUNC(output_latch_device::write));
 	pio_rd.out_ardy_callback().set(FUNC(xerox820ii_state::rdpio_pardy_w));
-	pio_rd.in_pb_callback().set("sasi_ctrl_in", FUNC(input_buffer_device::bus_r));
+	pio_rd.in_pb_callback().set("sasi_ctrl_in", FUNC(input_buffer_device::read));
 	pio_rd.out_pb_callback().set(FUNC(xerox820ii_state::rdpio_pb_w));
 
 	Z80CTC(config, m_ctc, 16_MHz_XTAL / 4);
@@ -728,7 +752,7 @@ void xerox820ii_state::xerox820ii(machine_config &config)
 	FLOPPY_CONNECTOR(config, FD1797_TAG":0", xerox820_floppies, "sa450", floppy_image_device::default_floppy_formats);
 	FLOPPY_CONNECTOR(config, FD1797_TAG":1", xerox820_floppies, "sa450", floppy_image_device::default_floppy_formats);
 
-	Z80SIO0(config, m_sio, 16_MHz_XTAL / 4);
+	Z80SIO(config, m_sio, 16_MHz_XTAL / 4); // MK3884 (SIO/0)
 	m_sio->out_txda_callback().set(RS232_A_TAG, FUNC(rs232_port_device::write_txd));
 	m_sio->out_dtra_callback().set(RS232_A_TAG, FUNC(rs232_port_device::write_dtr));
 	m_sio->out_rtsa_callback().set(RS232_A_TAG, FUNC(rs232_port_device::write_rts));
@@ -738,15 +762,19 @@ void xerox820ii_state::xerox820ii(machine_config &config)
 	m_sio->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
 
 	rs232_port_device &rs232a(RS232_PORT(config, RS232_A_TAG, default_rs232_devices, nullptr));
-	rs232a.rxd_handler().set(m_sio, FUNC(z80sio0_device::rxa_w));
+	rs232a.rxd_handler().set(m_sio, FUNC(z80sio_device::rxa_w));
+	rs232a.cts_handler().set(m_sio, FUNC(z80sio_device::ctsa_w));
+	rs232a.dcd_handler().set(m_sio, FUNC(z80sio_device::dcda_w));
 
 	rs232_port_device &rs232b(RS232_PORT(config, RS232_B_TAG, default_rs232_devices, nullptr));
-	rs232b.rxd_handler().set(m_sio, FUNC(z80sio0_device::rxb_w));
+	rs232b.rxd_handler().set(m_sio, FUNC(z80sio_device::rxb_w));
+	rs232b.cts_handler().set(m_sio, FUNC(z80sio_device::ctsb_w));
+	rs232b.dcd_handler().set(m_sio, FUNC(z80sio_device::dcdb_w));
 
 	com8116_device &dbrg(COM8116(config, COM8116_TAG, 5.0688_MHz_XTAL));
-	dbrg.fr_handler().set(m_sio, FUNC(z80dart_device::rxca_w));
-	dbrg.fr_handler().append(m_sio, FUNC(z80dart_device::txca_w));
-	dbrg.ft_handler().set(m_sio, FUNC(z80dart_device::rxtxcb_w));
+	dbrg.fr_handler().set(m_sio, FUNC(z80sio_device::rxca_w));
+	dbrg.fr_handler().append(m_sio, FUNC(z80sio_device::txca_w));
+	dbrg.ft_handler().set(m_sio, FUNC(z80sio_device::rxtxcb_w));
 
 	XEROX_820_KEYBOARD(config, m_kb, 0);
 	m_kb->kbstb_wr_callback().set(m_kbpio, FUNC(z80pio_device::strobe_b));
@@ -771,7 +799,7 @@ void xerox820ii_state::xerox820ii(machine_config &config)
 
 	// software lists
 	SOFTWARE_LIST(config, "flop_list").set_original("xerox820ii");
-	QUICKLOAD(config, "quickload", "com,cpm", attotime::from_seconds(3)).set_load_callback(FUNC(xerox820_state::quickload_cb), this);
+	QUICKLOAD(config, "quickload", "com,cpm", attotime::from_seconds(3)).set_load_callback(FUNC(xerox820_state::quickload_cb));
 }
 
 void xerox820ii_state::xerox168(machine_config &config)
@@ -934,4 +962,4 @@ COMP( 1981, x820,     bigboard, 0,      xerox820,   xerox820, xerox820_state,   
 COMP( 1982, mk82,     bigboard, 0,      bigboard,   xerox820, bigboard_state,   empty_init, "Scomar",                     "MK-82",        0 )
 COMP( 1983, x820ii,   0,        0,      xerox820ii, xerox820, xerox820ii_state, empty_init, "Xerox",                      "Xerox 820-II", MACHINE_NOT_WORKING )
 COMP( 1983, x168,     x820ii,   0,      xerox168,   xerox820, xerox820ii_state, empty_init, "Xerox",                      "Xerox 16/8",   MACHINE_NOT_WORKING )
-COMP( 1983, mk83,     x820ii,   0,      mk83,       xerox820, xerox820_state,   empty_init, "Scomar",                     "MK-83",        MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW )
+COMP( 1983, mk83,     bigboard, 0,      mk83,       xerox820, xerox820_state,   empty_init, "Scomar",                     "MK-83",        MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW )

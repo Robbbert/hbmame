@@ -8,12 +8,14 @@
 
 ***************************************************************************/
 
+#include "aviio.h"
+#include "osdcomm.h"
+#include "osdfile.h"
+
 #include <array>
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
-
-#include "aviio.h"
 
 
 /***************************************************************************
@@ -39,7 +41,7 @@
 /** @brief  Size of the maximum riff. */
 #define MAX_RIFF_SIZE           (2UL * 1024 * 1024 * 1024 - 1024)   /* just under 2GB */
 /** @brief  The maximum avi size in gigabytes. */
-#define MAX_AVI_SIZE_IN_GB      (256)
+#define MAX_AVI_SIZE_IN_GB      (1024)
 
 /**
  * @def FOUR_GB
@@ -298,7 +300,7 @@ public:
 		std::uint32_t width = info.video_width;
 		std::uint32_t height = info.video_height;
 
-		std::uint32_t integal_multiple = std::uint32_t(AVI_INTEGRAL_MULTIPLE);
+		auto integal_multiple = std::uint32_t(AVI_INTEGRAL_MULTIPLE);
 		if (integal_multiple > 1)
 		{
 			width = width - (width % integal_multiple);
@@ -366,8 +368,8 @@ public:
 	avi_file::error huffyuv_decompress_to_yuy16(const std::uint8_t *data, std::uint32_t numbytes, bitmap_yuy16 &bitmap) const;
 
 	// Uncompressed helpers
-	avi_file::error uncompressed_rgb24_to_rgb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_rgb32 &bitmap) const;
-	avi_file::error uncompressed_yuv420p_to_rgb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_rgb32 &bitmap) const;
+	avi_file::error uncompressed_rgb24_to_argb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_argb32 &bitmap) const;
+	avi_file::error uncompressed_yuv420p_to_argb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_argb32 &bitmap) const;
 
 private:
 	struct huffyuv_table
@@ -460,7 +462,7 @@ public:
 	virtual movie_info const &get_movie_info() const override;
 	virtual std::uint32_t first_sample_in_frame(std::uint32_t framenum) const override;
 
-	virtual error read_uncompressed_video_frame(std::uint32_t framenum, bitmap_rgb32 &bitmap) override;
+	virtual error read_uncompressed_video_frame(std::uint32_t framenum, bitmap_argb32 &bitmap) override;
 	virtual error read_video_frame(std::uint32_t framenum, bitmap_yuy16 &bitmap) override;
 	virtual error read_sound_samples(int channel, std::uint32_t firstsample, std::uint32_t numsamples, std::int16_t *output) override;
 
@@ -720,8 +722,8 @@ inline void put_64bits(std::uint8_t *data, std::uint64_t value)
 
 inline void u64toa(std::uint64_t val, char *output)
 {
-	std::uint32_t lo = std::uint32_t(val & 0xffffffff);
-	std::uint32_t hi = std::uint32_t(val >> 32);
+	auto lo = std::uint32_t(val & 0xffffffff);
+	auto hi = std::uint32_t(val >> 32);
 	if (hi != 0)
 		sprintf(output, "%X%08X", hi, lo);
 	else
@@ -999,7 +1001,7 @@ avi_file::error avi_stream::rgb32_compress_to_rgb(const bitmap_rgb32 &bitmap, st
 	/* compressed video */
 	for (y = 0; y < height; y++)
 	{
-		const std::uint32_t *source = &bitmap.pix32(y);
+		const std::uint32_t *source = &bitmap.pix(y);
 		std::uint8_t *dest = data + (m_height - 1 - y) * m_width * 3;
 
 		for (x = 0; x < width && dest < dataend; x++)
@@ -1055,14 +1057,14 @@ avi_file::error avi_stream::rgb32_compress_to_rgb(const bitmap_rgb32 &bitmap, st
 
 avi_file::error avi_stream::yuv_decompress_to_yuy16(const std::uint8_t *data, std::uint32_t numbytes, bitmap_yuy16 &bitmap) const
 {
-	std::uint16_t const *const dataend = reinterpret_cast<const std::uint16_t *>(data + numbytes);
+	auto const *const dataend = reinterpret_cast<const std::uint16_t *>(data + numbytes);
 	int x, y;
 
 	/* compressed video */
 	for (y = 0; y < m_height; y++)
 	{
 		const std::uint16_t *source = reinterpret_cast<const std::uint16_t *>(data) + y * m_width;
-		std::uint16_t *dest = &bitmap.pix16(y);
+		std::uint16_t *dest = &bitmap.pix(y);
 
 		/* switch off the compression */
 		switch (m_format)
@@ -1107,13 +1109,13 @@ avi_file::error avi_stream::yuv_decompress_to_yuy16(const std::uint8_t *data, st
 
 avi_file::error avi_stream::yuy16_compress_to_yuy(const bitmap_yuy16 &bitmap, std::uint8_t *data, std::uint32_t numbytes) const
 {
-	std::uint16_t *const dataend = reinterpret_cast<std::uint16_t *>(data + numbytes);
+	auto *const dataend = reinterpret_cast<std::uint16_t *>(data + numbytes);
 	int x, y;
 
 	/* compressed video */
 	for (y = 0; y < m_height; y++)
 	{
-		const std::uint16_t *source = &bitmap.pix16(y);
+		const std::uint16_t *source = &bitmap.pix(y);
 		std::uint16_t *dest = reinterpret_cast<std::uint16_t *>(data) + y * m_width;
 
 		/* switch off the compression */
@@ -1298,7 +1300,7 @@ avi_file::error avi_stream::huffyuv_decompress_to_yuy16(const std::uint8_t *data
 	/* compressed video */
 	for (y = 0; y < m_height; y++)
 	{
-		std::uint16_t *dest = &bitmap.pix16(y);
+		std::uint16_t *dest = &bitmap.pix(y);
 
 		/* handle the first four bytes independently */
 		x = 0;
@@ -1386,8 +1388,8 @@ avi_file::error avi_stream::huffyuv_decompress_to_yuy16(const std::uint8_t *data
 	lastprevy = lastprevcb = lastprevcr = 0;
 	for (y = 0; y < m_height; y++)
 	{
-		std::uint16_t *prevrow = &bitmap.pix16(y - prevlines);
-		std::uint16_t *dest = &bitmap.pix16(y);
+		std::uint16_t *prevrow = &bitmap.pix(y - prevlines);
+		std::uint16_t *dest = &bitmap.pix(y);
 
 		/* handle the first four bytes independently */
 		x = 0;
@@ -1489,18 +1491,18 @@ avi_file::error avi_stream::huffyuv_decompress_to_yuy16(const std::uint8_t *data
 
 
 /*-------------------------------------------------
-    uncompressed_rgb24_to_rgb32 - convert a raw
-    RGB24-encoded frame to an RGB32 bitmap
+    uncompressed_rgb24_to_argb32 - convert a raw
+    RGB24-encoded frame to an ARGB32 bitmap
 -------------------------------------------------*/
 
-avi_file::error avi_stream::uncompressed_rgb24_to_rgb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_rgb32 &bitmap) const
+avi_file::error avi_stream::uncompressed_rgb24_to_argb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_argb32 &bitmap) const
 {
 	std::uint32_t dataoffs = 0;
 
 	/* uncompressed video */
 	for (int y = 0; y < m_height; y++)
 	{
-		std::uint32_t *dest = &bitmap.pix32(y);
+		std::uint32_t *dest = &bitmap.pix(y);
 
 		/* loop over pixels */
 		for (int x = 0; x < m_width; x++)
@@ -1517,11 +1519,11 @@ avi_file::error avi_stream::uncompressed_rgb24_to_rgb32(const std::uint8_t *data
 
 
 /*-------------------------------------------------
-    uncompressed_yuv420p_to_rgb32 - convert a
-    YUV420p-encoded frame to an RGB32 bitmap
+    uncompressed_yuv420p_to_argb32 - convert a
+    YUV420p-encoded frame to an ARGB32 bitmap
 -------------------------------------------------*/
 
-avi_file::error avi_stream::uncompressed_yuv420p_to_rgb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_rgb32 &bitmap) const
+avi_file::error avi_stream::uncompressed_yuv420p_to_argb32(const std::uint8_t *data, std::uint32_t numbytes, bitmap_argb32 &bitmap) const
 {
 	const int width = bitmap.width();
 	const int height = bitmap.height();
@@ -1530,7 +1532,7 @@ avi_file::error avi_stream::uncompressed_yuv420p_to_rgb32(const std::uint8_t *da
 	/* uncompressed video */
 	for (int y = 0; y < m_height; y++)
 	{
-		std::uint32_t *dest = &bitmap.pix32(y);
+		std::uint32_t *dest = &bitmap.pix(y);
 
 		/* loop over pixels */
 		for (int x = 0; x < m_width; x++)
@@ -1676,10 +1678,10 @@ std::uint32_t avi_file_impl::first_sample_in_frame(std::uint32_t framenum) const
 /*-------------------------------------------------
     read_uncompressed_video_frame - read raw video
     data for a particular frame from the AVI file,
-    converting to RGB32 format
+    converting to ARGB32 format
 -------------------------------------------------*/
 
-avi_file::error avi_file_impl::read_uncompressed_video_frame(std::uint32_t framenum, bitmap_rgb32 &bitmap)
+avi_file::error avi_file_impl::read_uncompressed_video_frame(std::uint32_t framenum, bitmap_argb32 &bitmap)
 {
 	/* get the video stream */
 	avi_stream *const stream = get_video_stream();
@@ -1718,9 +1720,9 @@ avi_file::error avi_file_impl::read_uncompressed_video_frame(std::uint32_t frame
 	{
 		/* uncompressed YUV420p */
 		if (stream->format() == FORMAT_I420)
-			avierr = stream->uncompressed_yuv420p_to_rgb32(&m_tempbuffer[8], stream->chunk(framenum).length - 8, bitmap);
+			avierr = stream->uncompressed_yuv420p_to_argb32(&m_tempbuffer[8], stream->chunk(framenum).length - 8, bitmap);
 		else
-			avierr = stream->uncompressed_rgb24_to_rgb32(&m_tempbuffer[8], stream->chunk(framenum).length - 8, bitmap);
+			avierr = stream->uncompressed_rgb24_to_argb32(&m_tempbuffer[8], stream->chunk(framenum).length - 8, bitmap);
 	}
 	else
 	{
@@ -1871,7 +1873,7 @@ avi_file::error avi_file_impl::read_sound_samples(int channel, std::uint32_t fir
 		/* extract 16-bit samples from the chunk */
 		if (stream->samplebits() == 16)
 		{
-			const std::int16_t *base = reinterpret_cast<const std::int16_t *>(&m_tempbuffer[8]);
+			const auto *base = reinterpret_cast<const std::int16_t *>(&m_tempbuffer[8]);
 			base += stream->channels() * (firstsample - chunkbase) + offset;
 			for (sampnum = 0; sampnum < samples_this_chunk; sampnum++)
 			{
@@ -3264,6 +3266,9 @@ avi_file::error avi_file_impl::write_indx_chunk(avi_stream &stream, bool initial
 			if (chunks_this_index == 0)
 				continue;
 
+			if (master_entries >= MAX_AVI_SIZE_IN_GB / 4)
+				return error::WRITE_ERROR;
+
 			/* allocate memory */
 			std::unique_ptr<std::uint8_t []> tempbuf;
 			try { tempbuf.reset(new std::uint8_t[24 + 8 * chunks_this_index]); }
@@ -3547,7 +3552,8 @@ avi_file::error avi_file_impl::soundbuf_flush(bool only_flush_full)
 	if (processedsamples > 0)
 	{
 		/* first account for the samples we processed */
-		std::memmove(&m_soundbuf[0], &m_soundbuf[processedsamples * stream->channels()], (m_soundbuf_samples - processedsamples) * bytes_per_sample);
+		if (m_soundbuf_samples > processedsamples)
+			std::memmove(&m_soundbuf[0], &m_soundbuf[processedsamples * stream->channels()], (m_soundbuf_samples - processedsamples) * bytes_per_sample);
 		for (int channel = 0; channel < stream->channels(); channel++)
 			m_soundbuf_chansamples[channel] -= processedsamples;
 	}

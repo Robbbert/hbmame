@@ -101,7 +101,7 @@ static INPUT_PORTS_START( phoenix )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_START1 )
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0xf0, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, phoenix_state,player_input_r, nullptr)
+	PORT_BIT( 0xf0, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(phoenix_state, player_input_r)
 
 	PORT_START("DSW0")
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )            PORT_DIPLOCATION( "SW1:1,2" )
@@ -184,7 +184,7 @@ static INPUT_PORTS_START( condor )
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_START2 )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_COIN2 )
-	PORT_BIT( 0xf0, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, phoenix_state,player_input_r, nullptr)
+	PORT_BIT( 0xf0, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(phoenix_state, player_input_r)
 
 	PORT_START("DSW0")
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )            PORT_DIPLOCATION( "SW1:1,2" )
@@ -314,7 +314,7 @@ static INPUT_PORTS_START( pleiads )
 	PORT_INCLUDE( phoenix )
 
 	PORT_MODIFY("IN0")
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, phoenix_state,pleiads_protection_r, nullptr)     /* Protection. See 0x0552 */
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(phoenix_state, pleiads_protection_r)     // Protection. See 0x0552
 
 	PORT_MODIFY("DSW0")
 	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Demo_Sounds ) )      PORT_DIPLOCATION( "SW1:7" )
@@ -337,7 +337,7 @@ static INPUT_PORTS_START( pleiadbl )
 	PORT_INCLUDE( phoenix )
 
 	PORT_MODIFY("IN0")
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, phoenix_state,pleiads_protection_r, nullptr)     /* Protection. See 0x0552 */
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(phoenix_state, pleiads_protection_r)     // Protection. See 0x0552
 
 	PORT_MODIFY("DSW0")
 	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Demo_Sounds ) )      PORT_DIPLOCATION( "SW1:7" )
@@ -435,18 +435,11 @@ static GFXDECODE_START( gfx_pleiads )
 GFXDECODE_END
 
 
-MACHINE_RESET_MEMBER(phoenix_state,phoenix)
-{
-}
-
-
 void phoenix_state::phoenix(machine_config &config)
 {
 	/* basic machine hardware */
 	I8085A(config, m_maincpu, CPU_CLOCK);  /* 2.75 MHz */
 	m_maincpu->set_addrmap(AS_PROGRAM, &phoenix_state::phoenix_memory_map);
-
-	MCFG_MACHINE_RESET_OVERRIDE(phoenix_state,phoenix)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -456,8 +449,6 @@ void phoenix_state::phoenix(machine_config &config)
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_phoenix);
 	PALETTE(config, m_palette, FUNC(phoenix_state::phoenix_palette), 256);
-
-	MCFG_VIDEO_START_OVERRIDE(phoenix_state,phoenix)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
@@ -510,8 +501,6 @@ void phoenix_state::survival(machine_config &config)
 	maincpu.in_sid_func().set(FUNC(phoenix_state::survival_sid_callback));
 	maincpu.set_addrmap(AS_PROGRAM, &phoenix_state::survival_memory_map);
 
-	MCFG_MACHINE_RESET_OVERRIDE(phoenix_state,phoenix)
-
 	/* video hardware */
 
 	/* schematics fairly identical to phoenix, however the interesting
@@ -524,8 +513,6 @@ void phoenix_state::survival(machine_config &config)
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_phoenix);
 	PALETTE(config, m_palette, FUNC(phoenix_state::survival_palette), 256);
-
-	MCFG_VIDEO_START_OVERRIDE(phoenix_state,phoenix)
 
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();

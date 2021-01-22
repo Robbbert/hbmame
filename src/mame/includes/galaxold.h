@@ -20,6 +20,7 @@
 #include "machine/timer.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 /* star circuit */
 #define STAR_COUNT  252
@@ -115,56 +116,54 @@ public:
 	emu_timer *m_stars_scroll_timer;
 	struct star_gold m_stars[STAR_COUNT];
 
-	DECLARE_READ8_MEMBER(drivfrcg_port0_r);
-	DECLARE_READ8_MEMBER(scrambler_protection_2_r);
-	DECLARE_READ8_MEMBER(scramb2_protection_r);
-	DECLARE_READ8_MEMBER(scramb2_port0_r);
-	DECLARE_READ8_MEMBER(scramb2_port1_r);
-	DECLARE_READ8_MEMBER(scramb2_port2_r);
-	DECLARE_READ8_MEMBER(hexpoola_data_port_r);
-	DECLARE_READ8_MEMBER(bullsdrtg_data_port_r);
-	DECLARE_WRITE8_MEMBER(galaxold_nmi_enable_w);
-	DECLARE_WRITE8_MEMBER(galaxold_coin_lockout_w);
-	DECLARE_WRITE8_MEMBER(galaxold_coin_counter_w);
-	DECLARE_WRITE8_MEMBER(galaxold_coin_counter_1_w);
-	DECLARE_WRITE8_MEMBER(galaxold_coin_counter_2_w);
-	DECLARE_WRITE8_MEMBER(galaxold_leds_w);
-	DECLARE_READ8_MEMBER(scramblb_protection_1_r);
-	DECLARE_READ8_MEMBER(scramblb_protection_2_r);
-	DECLARE_WRITE8_MEMBER(_4in1_bank_w);
-	DECLARE_WRITE8_MEMBER(racknrol_tiles_bank_w);
-	DECLARE_WRITE8_MEMBER(galaxold_videoram_w);
-	DECLARE_READ8_MEMBER(galaxold_videoram_r);
-	DECLARE_WRITE8_MEMBER(galaxold_attributesram_w);
-	DECLARE_WRITE8_MEMBER(galaxold_flip_screen_x_w);
-	DECLARE_WRITE8_MEMBER(galaxold_flip_screen_y_w);
-	DECLARE_WRITE8_MEMBER(hotshock_flip_screen_w);
-	DECLARE_WRITE8_MEMBER(scrambold_background_enable_w);
-	DECLARE_WRITE8_MEMBER(scrambold_background_red_w);
-	DECLARE_WRITE8_MEMBER(scrambold_background_green_w);
-	DECLARE_WRITE8_MEMBER(scrambold_background_blue_w);
-	DECLARE_WRITE8_MEMBER(galaxold_stars_enable_w);
-	DECLARE_WRITE8_MEMBER(darkplnt_bullet_color_w);
-	DECLARE_WRITE8_MEMBER(galaxold_gfxbank_w);
-	DECLARE_WRITE8_MEMBER(rockclim_videoram_w);
-	DECLARE_WRITE8_MEMBER(rockclim_scroll_w);
-	DECLARE_WRITE8_MEMBER(guttang_rombank_w);
-	DECLARE_READ8_MEMBER(rockclim_videoram_r);
-	DECLARE_WRITE8_MEMBER(dambustr_bg_split_line_w);
-	DECLARE_WRITE8_MEMBER(dambustr_bg_color_w);
+	uint8_t drivfrcg_port0_r();
+	uint8_t scrambler_protection_2_r();
+	uint8_t scramb2_protection_r();
+	uint8_t scramb2_port0_r(offs_t offset);
+	uint8_t scramb2_port1_r(offs_t offset);
+	uint8_t scramb2_port2_r(offs_t offset);
+	uint8_t hexpoola_data_port_r();
+	uint8_t bullsdrtg_data_port_r();
+	void galaxold_nmi_enable_w(uint8_t data);
+	void galaxold_coin_lockout_w(uint8_t data);
+	void galaxold_coin_counter_w(offs_t offset, uint8_t data);
+	void galaxold_coin_counter_1_w(uint8_t data);
+	void galaxold_coin_counter_2_w(uint8_t data);
+	void galaxold_leds_w(offs_t offset, uint8_t data);
+	uint8_t scramblb_protection_1_r();
+	uint8_t scramblb_protection_2_r();
+	void _4in1_bank_w(uint8_t data);
+	void racknrol_tiles_bank_w(offs_t offset, uint8_t data);
+	void galaxold_videoram_w(offs_t offset, uint8_t data);
+	uint8_t galaxold_videoram_r(offs_t offset);
+	void galaxold_attributesram_w(offs_t offset, uint8_t data);
+	void galaxold_flip_screen_x_w(uint8_t data);
+	void galaxold_flip_screen_y_w(uint8_t data);
+	void hotshock_flip_screen_w(uint8_t data);
+	void scrambold_background_enable_w(uint8_t data);
+	void scrambold_background_red_w(uint8_t data);
+	void scrambold_background_green_w(uint8_t data);
+	void scrambold_background_blue_w(uint8_t data);
+	void galaxold_stars_enable_w(uint8_t data);
+	void darkplnt_bullet_color_w(uint8_t data);
+	void galaxold_gfxbank_w(offs_t offset, uint8_t data);
+	void rockclim_videoram_w(offs_t offset, uint8_t data);
+	void rockclim_scroll_w(offs_t offset, uint8_t data);
+	void guttang_rombank_w(uint8_t data);
+	uint8_t rockclim_videoram_r(offs_t offset);
+	void dambustr_bg_split_line_w(uint8_t data);
+	void dambustr_bg_color_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(galaxold_7474_9m_2_q_callback);
 	DECLARE_WRITE_LINE_MEMBER(galaxold_7474_9m_1_callback);
-	DECLARE_READ8_MEMBER(rescueb_a002_r) { return 0xfc; }
-	DECLARE_CUSTOM_INPUT_MEMBER(_4in1_fake_port_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(vpool_lives_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(ckongg_coinage_r);
-	DECLARE_CUSTOM_INPUT_MEMBER(dkongjrm_coinage_r);
+	uint8_t rescueb_a002_r() { return 0xfc; }
+	template <int Mask> DECLARE_READ_LINE_MEMBER(_4in1_fake_port_r);
+	template <int Mask> DECLARE_READ_LINE_MEMBER(vpool_lives_r);
+	template <int Mask> DECLARE_CUSTOM_INPUT_MEMBER(dkongjrm_coinage_r);
 
 	void init_bullsdrtg();
 	void init_ladybugg();
 	void init_4in1();
 	void init_guttangt();
-	void init_ckonggx();
 
 	TILE_GET_INFO_MEMBER(drivfrcg_get_tile_info);
 	TILE_GET_INFO_MEMBER(racknrol_get_tile_info);
@@ -174,7 +173,6 @@ public:
 	TILE_GET_INFO_MEMBER(harem_get_tile_info);
 
 	DECLARE_MACHINE_RESET(galaxold);
-	DECLARE_MACHINE_RESET(devilfsg);
 	DECLARE_MACHINE_RESET(hunchbkg);
 
 	void galaxold_palette(palette_device &palette);
@@ -199,8 +197,6 @@ public:
 	DECLARE_VIDEO_START(dkongjrmc);
 	DECLARE_VIDEO_START(rockclim);
 	DECLARE_VIDEO_START(galaxold_plain);
-	DECLARE_VIDEO_START(ozon1);
-	DECLARE_VIDEO_START(bongo);
 	DECLARE_VIDEO_START(ckongs);
 	DECLARE_VIDEO_START(darkplnt);
 	DECLARE_VIDEO_START(rescue);
@@ -212,16 +208,14 @@ public:
 	DECLARE_VIDEO_START(ad2083);
 	DECLARE_VIDEO_START(dambustr);
 	DECLARE_VIDEO_START(harem);
-	DECLARE_VIDEO_START(bagmanmc);
 
 	uint32_t screen_update_galaxold(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_dambustr(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
-	INTERRUPT_GEN_MEMBER(hunchbks_vh_interrupt);
 	TIMER_CALLBACK_MEMBER(stars_blink_callback);
 	TIMER_CALLBACK_MEMBER(stars_scroll_callback);
 	TIMER_DEVICE_CALLBACK_MEMBER(galaxold_interrupt_timer);
-	IRQ_CALLBACK_MEMBER(hunchbkg_irq_callback);
+	uint8_t hunchbkg_intack();
 
 	void state_save_register();
 	void video_start_common();
@@ -267,44 +261,32 @@ public:
 	void start_stars_scroll_timer();
 	void draw_bullets_common(bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void draw_sprites(bitmap_ind16 &bitmap, uint8_t *spriteram, size_t spriteram_size);
-	void bagmanmc_modify_charcode(uint16_t *code, uint8_t x);
-	void bagmanmc_modify_spritecode(uint8_t *spriteram, int *code, int *flipx, int *flipy, int offs);
 	void machine_reset_common(int line);
 	void galaxian(machine_config &config);
 	void galaxold_base(machine_config &config);
-	void ckongg(machine_config &config);
 	void _4in1(machine_config &config);
-	void bongo(machine_config &config);
 	void racknrol(machine_config &config);
 	void hunchbkg(machine_config &config);
 	void videotron(machine_config &config);
 	void hexpoola(machine_config &config);
 	void dkongjrm(machine_config &config);
 	void tazzmang(machine_config &config);
+	void scrambleo(machine_config &config);
 	void scrambler(machine_config &config);
 	void spcwarp(machine_config &config);
 	void dkongjrmc(machine_config &config);
-	void bagmanmc(machine_config &config);
 	void bullsdrtg(machine_config &config);
 	void drivfrcg(machine_config &config);
 	void rockclim(machine_config &config);
 	void scramblb(machine_config &config);
-	void porter(machine_config &config);
 	void scramb2(machine_config &config);
 	void scramb3(machine_config &config);
-	void ozon1(machine_config &config);
 	void mooncrst(machine_config &config);
 	void guttang(machine_config &config);
-	void ckongmc(machine_config &config);
 	void galaxian_audio(machine_config &config);
 	void mooncrst_audio(machine_config &config);
 	void _4in1_map(address_map &map);
-	void bagmanmc_map(address_map &map);
-	void bongo_map(address_map &map);
-	void bongo_io(address_map &map);
 	void bullsdrtg_data_map(address_map &map);
-	void ckongg_map(address_map &map);
-	void ckongmc_map(address_map &map);
 	void dkongjrm_map(address_map &map);
 	void dkongjrmc_map(address_map &map);
 	void drivfrcg_program(address_map &map);
@@ -317,8 +299,6 @@ public:
 	void hunchbkg_data(address_map &map);
 	void hustlerb3_map(address_map &map);
 	void mooncrst_map(address_map &map);
-	void ozon1_io_map(address_map &map);
-	void ozon1_map(address_map &map);
 	void racknrol_map(address_map &map);
 	void racknrol_io(address_map &map);
 	void rockclim_map(address_map &map);
@@ -326,6 +306,7 @@ public:
 	void scramb2_map(address_map &map);
 	void scramb3_map(address_map &map);
 	void scramblb_map(address_map &map);
+	void scrambleo_map(address_map &map);
 	void scrambler_map(address_map &map);
 	void spcwarp_map(address_map &map);
 	void tazzmang_map(address_map &map);

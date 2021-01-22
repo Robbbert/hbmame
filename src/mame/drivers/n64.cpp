@@ -34,7 +34,7 @@ public:
 	void n64dd(machine_config &config);
 
 private:
-	DECLARE_READ32_MEMBER(dd_null_r);
+	uint32_t dd_null_r();
 	DECLARE_MACHINE_START(n64dd);
 	INTERRUPT_GEN_MEMBER(n64_reset_poll);
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
@@ -48,7 +48,7 @@ private:
 	void rsp_map(address_map &map);
 };
 
-READ32_MEMBER(n64_mess_state::dd_null_r)
+uint32_t n64_mess_state::dd_null_r()
 {
 	return 0xffffffff;
 }
@@ -447,7 +447,7 @@ void n64_mess_state::n64(machine_config &config)
 	m_rsp->status_set().set(m_rcp_periphs, FUNC(n64_periphs::sp_set_status));
 	m_rsp->set_addrmap(AS_PROGRAM, &n64_mess_state::rsp_map);
 
-	config.m_minimum_quantum = attotime::from_hz(500000);
+	config.set_maximum_quantum(attotime::from_hz(500000));
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -469,7 +469,7 @@ void n64_mess_state::n64(machine_config &config)
 	/* cartridge */
 	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "n64_cart", "v64,z64,rom,n64,bin"));
 	cartslot.set_must_be_loaded(true);
-	cartslot.set_device_load(FUNC(n64_mess_state::cart_load), this);
+	cartslot.set_device_load(FUNC(n64_mess_state::cart_load));
 
 	/* software lists */
 	SOFTWARE_LIST(config, "cart_list").set_original("n64");
@@ -484,11 +484,11 @@ void n64_mess_state::n64dd(machine_config &config)
 
 	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config.replace(), "cartslot", generic_plain_slot, "n64_cart"));
 	cartslot.set_extensions("v64,z64,rom,n64,bin");
-	cartslot.set_device_load(FUNC(n64_mess_state::cart_load), this);
+	cartslot.set_device_load(FUNC(n64_mess_state::cart_load));
 
 	harddisk_image_device &hdd(HARDDISK(config, "n64disk"));
-	hdd.set_device_load(FUNC(n64_mess_state::load_n64dd), this);
-	hdd.set_device_unload(FUNC(n64_mess_state::unload_n64dd), this);
+	hdd.set_device_load(FUNC(n64_mess_state::load_n64dd));
+	hdd.set_device_unload(FUNC(n64_mess_state::unload_n64dd));
 	hdd.set_interface("n64dd_disk");
 
 	SOFTWARE_LIST(config, "dd_list").set_original("n64dd");

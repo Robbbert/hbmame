@@ -58,7 +58,7 @@ void vme_hcpu30_card_device::hcpu30_mem(address_map &map)
 	map(0x00000000, 0x00000007).ram().w(FUNC(vme_hcpu30_card_device::bootvect_w));   /* After first write we act as RAM */
 	map(0x00000000, 0x00000007).rom().r(FUNC(vme_hcpu30_card_device::bootvect_r));   /* ROM mirror just during reset */
 	map(0x00000008, 0x001fffff).ram(); // local bus DRAM, 4MB
-	map(0x00200000, 0x00201fff).ram(); // AM_SHARE("iocpu")
+	map(0x00200000, 0x00201fff).ram(); // .share("iocpu");
 	map(0xff000000, 0xff007fff).rom().mirror(0x8000).region("user1", 0);
 	map(0xff020000, 0xff027fff).ram().mirror(0x8000); // SRAM 32KB
 	map(0xffff8000, 0xffff8fff).unmaprw(); // shared memory with iocpu
@@ -147,13 +147,13 @@ void vme_hcpu30_card_device::device_add_mconfig(machine_config &config)
 }
 
 /* Boot vector handler, the PCB hardwires the first 8 bytes from 0xff800000 to 0x0 at reset */
-READ32_MEMBER(vme_hcpu30_card_device::bootvect_r)
+uint32_t vme_hcpu30_card_device::bootvect_r(offs_t offset)
 {
 	LOG("%s\n", FUNCNAME);
 	return m_sysrom[offset];
 }
 
-WRITE32_MEMBER(vme_hcpu30_card_device::bootvect_w)
+void vme_hcpu30_card_device::bootvect_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 {
 	LOG("%s\n", FUNCNAME);
 	m_sysram[offset % ARRAY_LENGTH(m_sysram)] &= ~mem_mask;

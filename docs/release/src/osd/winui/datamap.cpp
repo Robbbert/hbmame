@@ -72,7 +72,7 @@ struct _datamap_entry
 struct _datamap
 {
 	int entry_count;
-	datamap_entry entries[256];	// 256 options entries seems enough for now...
+	datamap_entry entries[256]; // 256 options entries seems enough for now...
 };
 
 typedef void (*datamap_default_callback)(datamap *map, HWND control, windows_options *opts, datamap_entry *entry, const char *option_name);

@@ -53,9 +53,9 @@ void ymf262_device::timer_handler(int c, const attotime &period)
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void ymf262_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void ymf262_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
-	ymf262_update_one(m_chip, outputs, samples);
+	ymf262_update_one(m_chip, outputs);
 }
 
 //-------------------------------------------------
@@ -78,9 +78,10 @@ void ymf262_device::device_start()
 
 	/* stream system initialize */
 	m_chip = ymf262_init(this,clock(),rate);
-	assert_always(m_chip != nullptr, "Error creating YMF262 chip");
+	if (!m_chip)
+		throw emu_fatalerror("ymf262_device(%s): Error creating YMF262 chip", tag());
 
-	m_stream = machine().sound().stream_alloc(*this,0,4,rate);
+	m_stream = stream_alloc(0,4,rate);
 
 	/* YMF262 setup */
 	ymf262_set_timer_handler (m_chip, &ymf262_device::static_timer_handler, this);

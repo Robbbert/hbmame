@@ -102,15 +102,15 @@
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
-#include "includes/pacman.h"
+#include "includes/puckman.h"
 #include "sound/namco.h"
 #include "speaker.h"
 
 
-class jrpacman_state : public pacman_state
+class jrpacman_state : public puckman_state
 {
 public:
-	using pacman_state::pacman_state;
+	using puckman_state::puckman_state;
 
 	void jrpacman(machine_config &config);
 	void init_jrpacman();
@@ -214,16 +214,16 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_START ("FAKE")
 	/* This fake input port is used to get the status of the fire button */
 	/* and activate the speedup cheat. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, jrpacman_state, pacman_fake, nullptr)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" ) PORT_CHANGED_MEMBER(DEVICE_SELF, jrpacman_state, pacman_fake, 0)
 	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
 	PORT_DIPSETTING(    0x00, "Disabled" )
 	PORT_DIPSETTING(    0x02, "Enabled with Button" )
 	PORT_DIPSETTING(    0x04, "Enabled Always" )
 
-//	PORT_START ("CONFIG")
-//	PORT_CONFNAME( 0x01, 0x01, "Level" )
-//	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-//	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
+//  PORT_START ("CONFIG")
+//  PORT_CONFNAME( 0x01, 0x01, "Level" )
+//  PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
+//  PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
@@ -313,7 +313,7 @@ void jrpacman_state::jrpacman(machine_config &config)
 
 	NAMCO(config, m_namco_sound, 3072000/32);
 	m_namco_sound->set_voices(3);
-	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_namco_sound->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
 
@@ -428,8 +428,8 @@ void jrpacman_state::init_jrpacman()
  *
  *************************************/
 
-HACK( 1983, jrpacman,  0,        jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man (11/9/83)", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrpacmanf, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "hack", "Jr. Pac-Man (speedup hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrpacman,  0,        jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man (11/9/83)", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrpacmanf, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "hack", "Jr. Pac-Man (speedup hack)", MACHINE_SUPPORTS_SAVE )
 
 
 // HBMAME roms
@@ -1166,36 +1166,36 @@ ROM_END
 
 
 
-HACK( 2000, jr1000,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 1000", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jr1000_2, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man 1000 (Alt)", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2000,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2000", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2001,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2001", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2001p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2001 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2002,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2002", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2002p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2002 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2003,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2003", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2003p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2003 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2004,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2004", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2004p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2004 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2005,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2005", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr2005p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2005 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr3000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 3000 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr4000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 4000 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr5000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 5000 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr6000,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 6000", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr7000,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 7000", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr7000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 7000 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr8000,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 8000", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr8000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 8000 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jr9000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 9000 Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrcheat,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Cheat [c]", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jrdeluxe, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Deluxe", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrfast,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man [f]", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jrhearts, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Hearts", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrpacad,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man After Dark", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jrpacjr,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Junior", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jrpacjrp, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Junior Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jrpacp,   jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Plus", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrspeed,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Speed [f]", MACHINE_SUPPORTS_SAVE )
-HACK( 1983, jrvectr,  jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Vector", MACHINE_SUPPORTS_SAVE )
-HACK( 2000, jryumyum, jrpacman, jrpacman, jrpacman, jrpacman_state, jrpacman, ROT90, "Tim Appleton", "Jr. Pac-Man Vs YumYum + Friends", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr1000,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 1000", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jr1000_2, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man 1000 (Alt)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2000,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2000", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2001,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2001", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2001p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2001 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2002,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2002", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2002p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2002 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2003,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2003", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2003p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2003 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2004,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2004", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2004p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2004 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2005,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2005", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr2005p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 2005 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr3000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 3000 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr4000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 4000 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr5000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 5000 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr6000,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 6000", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr7000,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 7000", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr7000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 7000 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr8000,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 8000", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr8000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 8000 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jr9000p,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man 9000 Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrcheat,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Cheat [c]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jrdeluxe, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Deluxe", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrfast,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jrhearts, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Hearts", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrpacad,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man After Dark", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jrpacjr,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Junior", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jrpacjrp, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Junior Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jrpacp,   jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Blue Justice", "Jr. Pac-Man Plus", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrspeed,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Speed [f]", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, jrvectr,  jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Bally Midway", "Jr. Pac-Man Vector", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, jryumyum, jrpacman, jrpacman, jrpacman, jrpacman_state, init_jrpacman, ROT90, "Tim Appleton", "Jr. Pac-Man Vs YumYum + Friends", MACHINE_SUPPORTS_SAVE )

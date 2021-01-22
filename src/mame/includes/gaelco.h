@@ -9,6 +9,7 @@
 #include "machine/gen_latch.h"
 #include "machine/74259.h"
 #include "emupal.h"
+#include "tilemap.h"
 
 class gaelco_state : public driver_device
 {
@@ -55,11 +56,11 @@ private:
 	DECLARE_WRITE_LINE_MEMBER(coin2_lockout_w);
 	DECLARE_WRITE_LINE_MEMBER(coin1_counter_w);
 	DECLARE_WRITE_LINE_MEMBER(coin2_counter_w);
-	DECLARE_WRITE8_MEMBER(oki_bankswitch_w);
-	DECLARE_WRITE16_MEMBER(vram_encrypted_w);
-	DECLARE_WRITE16_MEMBER(encrypted_w);
-	DECLARE_WRITE16_MEMBER(thoop_vram_encrypted_w);
-	DECLARE_WRITE16_MEMBER(thoop_encrypted_w);
+	void oki_bankswitch_w(uint8_t data);
+	void vram_encrypted_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void encrypted_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void thoop_vram_encrypted_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void thoop_encrypted_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	void vram_w(offs_t offset, u16 data, u16 mem_mask);
 
 	template<int Layer> TILE_GET_INFO_MEMBER(get_tile_info);

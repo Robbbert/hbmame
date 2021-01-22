@@ -7,15 +7,18 @@
 //  SDLMAME by Olivier Galibert and R. Belmont
 //
 //============================================================
+#ifndef MAME_OSD_MODULES_RENDER_DRAWOGL_H
+#define MAME_OSD_MODULES_RENDER_DRAWOGL_H
 
 #pragma once
 
-#ifndef __DRAWOGL__
-#define __DRAWOGL__
-
 // OSD headers
 #ifndef OSD_WINDOWS
+#ifdef OSD_MAC
+#include "osdmac.h"
+#else
 #include "osdsdl.h"
+#endif
 #include "window.h"
 #else
 #include "../windows/window.h"
@@ -24,6 +27,7 @@ typedef uint64_t HashT;
 
 #if defined(OSD_WINDOWS)
 #include "winglcontext.h"
+#elif defined (OSD_MAC)
 #else
 #include "sdlglcontext.h"
 #endif
@@ -234,4 +238,4 @@ private:
 	static bool     s_dll_loaded;
 };
 
-#endif // __DRAWOGL__
+#endif // MAME_OSD_MODULES_RENDER_DRAWOGL_H

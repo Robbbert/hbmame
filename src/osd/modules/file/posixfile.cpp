@@ -37,8 +37,14 @@
 #endif
 #endif
 
+// Fix for MacOS compilation errors
+#if defined(__APPLE__) && !defined(_DARWIN_C_SOURCE)
+#define _DARWIN_C_SOURCE
+#endif
+
 // MAME headers
 #include "posixfile.h"
+#include "osdcore.h"
 #include "unicode.h"
 
 #include <cassert>
@@ -50,9 +56,9 @@
 #include <vector>
 
 #include <fcntl.h>
-#include <limits.h>
+#include <climits>
 #include <sys/stat.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <unistd.h>
 
 
@@ -93,7 +99,7 @@ public:
 	{
 		ssize_t result;
 
-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(EMSCRIPTEN) || defined(__ANDROID__)
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__EMSCRIPTEN__) || defined(__ANDROID__)
 		result = ::pread(m_fd, buffer, size_t(count), off_t(std::make_unsigned_t<off_t>(offset)));
 #elif defined(WIN32) || defined(SDLMAME_NO64BITIO)
 		if (lseek(m_fd, off_t(std::make_unsigned_t<off_t>(offset)), SEEK_SET) < 0)
@@ -114,7 +120,7 @@ public:
 	{
 		ssize_t result;
 
-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(EMSCRIPTEN) || defined(__ANDROID__)
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__EMSCRIPTEN__) || defined(__ANDROID__)
 		result = ::pwrite(m_fd, buffer, size_t(count), off_t(std::make_unsigned_t<off_t>(offset)));
 #elif defined(WIN32) || defined(SDLMAME_NO64BITIO)
 		if (lseek(m_fd, off_t(std::make_unsigned_t<off_t>(offset)), SEEK_SET) < 0)
@@ -135,7 +141,7 @@ public:
 	{
 		int result;
 
-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(EMSCRIPTEN) || defined(WIN32) || defined(SDLMAME_NO64BITIO) || defined(__ANDROID__)
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__EMSCRIPTEN__) || defined(WIN32) || defined(SDLMAME_NO64BITIO) || defined(__ANDROID__)
 		result = ::ftruncate(m_fd, off_t(std::make_unsigned_t<off_t>(offset)));
 #else
 		result = ::ftruncate64(m_fd, off64_t(offset));
@@ -463,12 +469,22 @@ bool osd_is_absolute_path(std::string const &path)
 //  osd_get_volume_name
 //============================================================
 
-const char *osd_get_volume_name(int idx)
+std::string osd_get_volume_name(int idx)
 {
 	if (idx == 0)
 		return "/";
 	else
-		return nullptr;
+		return std::string();
+}
+
+
+//============================================================
+//  osd_get_volume_names
+//============================================================
+
+std::vector<std::string> osd_get_volume_names()
+{
+	return std::vector<std::string>{ "/" };
 }
 
 

@@ -233,7 +233,7 @@ struct OPL3
 	signed int phase_modulation2;   /* phase modulation input (SLOT 3 in 4 operator channels) */
 
 	uint32_t  eg_cnt;                 /* global envelope generator counter    */
-	uint32_t  eg_timer;               /* global envelope generator counter works at frequency = chipclock/288 (288=8*36) */
+	uint32_t  eg_timer;               /* global envelope generator counter works at frequency = chipclock/divider */
 	uint32_t  eg_timer_add;           /* step of eg_timer                     */
 	uint32_t  eg_timer_overflow;      /* envelope generator timer overflows every 1 sample (on real chip) */
 
@@ -278,6 +278,7 @@ struct OPL3
 	uint8_t type;                     /* chip type                    */
 	int clock;                      /* master clock  (Hz)           */
 	int rate;                       /* sampling rate (Hz)           */
+	int divider;                    /* clock divider */
 	double freqbase;                /* frequency base               */
 	attotime TimerBase;         /* Timer base time (==sampling time)*/
 	device_t *device;
@@ -630,7 +631,7 @@ static inline void OPL3_SLOT_CONNECT(OPL3 *chip, OPL3_SLOT *slot) {
 	if (slot->conn_enum == CONN_NULL) {
 		slot->connect = nullptr;
 	} else if (slot->conn_enum >= CONN_CHAN0 && slot->conn_enum < CONN_PHASEMOD) {
-		slot->connect = &chip->chanout[slot->conn_enum];
+		slot->connect = &chip->chanout[slot->conn_enum - CONN_CHAN0];
 	} else if (slot->conn_enum == CONN_PHASEMOD) {
 		slot->connect = &chip->phase_modulation;
 	} else if (slot->conn_enum == CONN_PHASEMOD2) {
@@ -638,6 +639,7 @@ static inline void OPL3_SLOT_CONNECT(OPL3 *chip, OPL3_SLOT *slot) {
 	}
 }
 
+#if 0
 static inline int limit( int val, int max, int min ) {
 	if ( val > max )
 		val = max;
@@ -646,7 +648,7 @@ static inline int limit( int val, int max, int min ) {
 
 	return val;
 }
-
+#endif
 
 /* status set and IRQ handling */
 static inline void OPL3_STATUS_SET(OPL3 *chip,int flag)
@@ -1342,16 +1344,16 @@ static void OPL3_initalize(OPL3 *chip)
 	int i;
 
 	/* frequency base */
-	chip->freqbase  = (chip->rate) ? ((double)chip->clock / (8.0*36)) / chip->rate  : 0;
+	chip->freqbase  = (chip->rate) ? ((double)chip->clock / chip->divider) / chip->rate  : 0;
 #if 0
-	chip->rate = (double)chip->clock / (8.0*36);
+	chip->rate = (double)chip->clock / chip->divider;
 	chip->freqbase  = 1.0;
 #endif
 
 	/* logerror("YMF262: freqbase=%f\n", chip->freqbase); */
 
 	/* Timer base time */
-	chip->TimerBase = chip->clock ? attotime::from_hz(chip->clock) * (8 * 36) : attotime::zero;
+	chip->TimerBase = chip->clock ? attotime::from_hz(chip->clock) * chip->divider : attotime::zero;
 
 	/* make fnumber -> increment counter table */
 	for( i=0 ; i < 1024 ; i++ )
@@ -2358,7 +2360,7 @@ static void OPL3ResetChip(OPL3 *chip)
 /* Create one of virtual YMF262 */
 /* 'clock' is chip clock in Hz  */
 /* 'rate'  is sampling rate  */
-static OPL3 *OPL3Create(device_t *device, int clock, int rate, int type)
+static OPL3 *OPL3Create(device_t *device, int clock, int rate, int type, int divider)
 {
 	OPL3 *chip;
 
@@ -2369,6 +2371,7 @@ static OPL3 *OPL3Create(device_t *device, int clock, int rate, int type)
 
 	chip->device = device;
 	chip->type  = type;
+	chip->divider = divider;
 	OPL3_clock_changed(chip, clock, rate);
 
 	/* reset chip */
@@ -2535,7 +2538,15 @@ static void OPL3_save_state(OPL3 *chip, device_t *device) {
 
 void * ymf262_init(device_t *device, int clock, int rate)
 {
-	void *chip = OPL3Create(device,clock,rate,OPL3_TYPE_YMF262);
+	void *chip = OPL3Create(device,clock,rate,OPL3_TYPE_YMF262,8*36);
+	OPL3_save_state((OPL3 *)chip, device);
+
+	return chip;
+}
+
+void * ymf278b_init(device_t *device, int clock, int rate)
+{
+	void *chip = OPL3Create(device,clock,rate,OPL3_TYPE_YMF262,19*36);
 	OPL3_save_state((OPL3 *)chip, device);
 
 	return chip;
@@ -2608,22 +2619,21 @@ void ymf262_set_update_handler(void *chip, OPL3_UPDATEHANDLER UpdateHandler, dev
 ** '**buffers' is table of 4 pointers to the buffers: CH.A, CH.B, CH.C and CH.D
 ** 'length' is the number of samples that should be generated
 */
-void ymf262_update_one(void *_chip, OPL3SAMPLE **buffers, int length)
+void ymf262_update_one(void *_chip, std::vector<write_stream_view> &buffers)
 {
 	int i;
 	OPL3        *chip  = (OPL3 *)_chip;
 	signed int *chanout = chip->chanout;
 	uint8_t       rhythm = chip->rhythm&0x20;
 
-	OPL3SAMPLE  *ch_a = buffers[0];
-	OPL3SAMPLE  *ch_b = buffers[1];
-	OPL3SAMPLE  *ch_c = buffers[2];
-	OPL3SAMPLE  *ch_d = buffers[3];
+	auto &ch_a = buffers[0]; // DO2 (mixed) left output for OPL4
+	auto &ch_b = buffers[1]; // DO2 (mixed) right output for OPL4
+	auto &ch_c = buffers[2]; // DO0 (FM only) left output for OPL4
+	auto &ch_d = buffers[3]; // DO0 (FM only) right output for OPL4
 
-	for( i=0; i < length ; i++ )
+	for( i=0; i < ch_a.samples() ; i++ )
 	{
 		int a,b,c,d;
-
 
 		advance_lfo(chip);
 
@@ -2773,16 +2783,6 @@ void ymf262_update_one(void *_chip, OPL3SAMPLE **buffers, int length)
 		c += chanout[17] & chip->pan[70];
 		d += chanout[17] & chip->pan[71];
 #endif
-		a >>= FINAL_SH;
-		b >>= FINAL_SH;
-		c >>= FINAL_SH;
-		d >>= FINAL_SH;
-
-		/* limit check */
-		a = limit( a , MAXOUT, MINOUT );
-		b = limit( b , MAXOUT, MINOUT );
-		c = limit( c , MAXOUT, MINOUT );
-		d = limit( d , MAXOUT, MINOUT );
 
 		#ifdef SAVE_SAMPLE
 		if (which==0)
@@ -2792,10 +2792,10 @@ void ymf262_update_one(void *_chip, OPL3SAMPLE **buffers, int length)
 		#endif
 
 		/* store to sound buffer */
-		ch_a[i] = a;
-		ch_b[i] = b;
-		ch_c[i] = c;
-		ch_d[i] = d;
+		ch_a.put_int_clamp(i, a, 32768 << FINAL_SH);
+		ch_b.put_int_clamp(i, a, 32768 << FINAL_SH);
+		ch_c.put_int_clamp(i, a, 32768 << FINAL_SH);
+		ch_d.put_int_clamp(i, a, 32768 << FINAL_SH);
 
 		advance(chip);
 	}

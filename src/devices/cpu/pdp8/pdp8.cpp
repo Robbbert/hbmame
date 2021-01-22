@@ -51,7 +51,7 @@ DEFINE_DEVICE_TYPE(PDP8, pdp8_device, "pdp8_cpu", "DEC PDP8")
 
 pdp8_device::pdp8_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: cpu_device(mconfig, PDP8, tag, owner, clock),
-		m_program_config("program", ENDIANNESS_BIG, 12, 12),
+		m_program_config("program", ENDIANNESS_BIG, 12, 12, -1),
 		m_pc(0),
 		m_ac(0),
 		m_mb(0),
@@ -166,7 +166,7 @@ std::unique_ptr<util::disasm_interface> pdp8_cpu_device::create_disassembler()
 //  cycles it takes for one instruction to execute
 //-------------------------------------------------
 
-uint32_t pdp8_device::execute_min_cycles() const
+uint32_t pdp8_device::execute_min_cycles() const noexcept
 {
 	return 1; // TODO
 }
@@ -177,7 +177,7 @@ uint32_t pdp8_device::execute_min_cycles() const
 //  cycles it takes for one instruction to execute
 //-------------------------------------------------
 
-uint32_t pdp8_device::execute_max_cycles() const
+uint32_t pdp8_device::execute_max_cycles() const noexcept
 {
 	return 3; // TODO
 }
@@ -188,7 +188,7 @@ uint32_t pdp8_device::execute_max_cycles() const
 //  input/interrupt lines
 //-------------------------------------------------
 
-uint32_t pdp8_device::execute_input_lines() const
+uint32_t pdp8_device::execute_input_lines() const noexcept
 {
 	return 0; // TODO
 }

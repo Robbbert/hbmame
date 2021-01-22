@@ -70,5 +70,5 @@ ROM_START( mmadness )
 	ROM_LOAD( "7052-4.c14",   0x0000, 0x0100, CRC(0e742cb1) SHA1(3ae43270aab4848fdeece1648e7e040ab216b08e) )
 ROM_END
 
-GAME( 2018, mmadness, polepos,  polepos, polepos, polepos_state, empty_init, ROT0, "Telsa", "Mars Madness", 0 )
+GAME( 2018, mmadness, polepos,  polepos, polepos, polepos_state, empty_init, ROT0, "Tesla", "Mars Madness", 0 )
 

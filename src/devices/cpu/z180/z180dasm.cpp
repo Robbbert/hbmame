@@ -402,7 +402,7 @@ offs_t z180_disassembler::disassemble(std::ostream &stream, offs_t pc, const dat
 		if( op1 == 0xcb )
 		{
 			offset = (int8_t) params.r8(pos++);
-			op1 = params.r8(pos++); /* fourth byte from opbase.ram! */
+			op1 = opcodes.r8(pos++); // M1 fetch, unlike Z80
 			d = &mnemonic_xx_cb[op1];
 		}
 		else d = &mnemonic_xx[op1];
@@ -413,7 +413,7 @@ offs_t z180_disassembler::disassemble(std::ostream &stream, offs_t pc, const dat
 		if( op1 == 0xcb )
 		{
 			offset = (int8_t) params.r8(pos++);
-			op1 = params.r8(pos++); /* fourth byte from opbase.ram! */
+			op1 = opcodes.r8(pos++); // M1 fetch, unlike Z80
 			d = &mnemonic_xx_cb[op1];
 		}
 		else d = &mnemonic_xx[op1];
@@ -450,7 +450,7 @@ offs_t z180_disassembler::disassemble(std::ostream &stream, offs_t pc, const dat
 				break;
 			case 'O':   /* Offset relative to PC */
 				offset = (int8_t) params.r8(pos++);
-				util::stream_format(stream, "$%05X", pc + offset + 2);
+				util::stream_format(stream, "$%04X", (pc + offset + 2) & 0xffff);
 				break;
 			case 'P':   /* Port number */
 				ea = params.r8(pos++);
@@ -463,10 +463,11 @@ offs_t z180_disassembler::disassemble(std::ostream &stream, offs_t pc, const dat
 			case 'W':   /* Memory address word */
 				ea = params.r16(pos);
 				pos += 2;
-				util::stream_format(stream, "$%05X", ea);
+				util::stream_format(stream, "$%04X", ea);
 				break;
 			case 'X':
 				offset = (int8_t) params.r8(pos++);
+				[[fallthrough]];
 			case 'Y':
 				util::stream_format(stream,"(%s%c$%02x)", ixy, sign(offset), offs(offset));
 				break;

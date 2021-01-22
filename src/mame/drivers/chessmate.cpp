@@ -3,24 +3,28 @@
 /******************************************************************************
 
 Commodore Chessmate / Novag Chess Champion MK II
-Initial version by PeT mess@utanet.at September 2000.
+Initial driver version by PeT mess@utanet.at September 2000.
 Driver mostly rewritten later.
 
-The hardware is pretty similar to KIM-1. In fact, the chess engine is Peter R. Jennings's
-Microchess, originally made for the KIM-1. Jennings went on to co-found Personal Software
-(later named VisiCorp, known for VisiCalc).
+The hardware is pretty similar to KIM-1. In fact, the chess engine is Peter
+R. Jennings's Microchess, originally made for the KIM-1. Jennings went on to
+co-found Personal Software (later named VisiCorp, known for VisiCalc).
 
-Jennings also licensed Chessmate to Novag, and they released it as the MK II. The hardware
-is almost identical and the software is the same(identical ROM labels). Two designs were made,
-one jukebox shape, and one brick shape. The one in MAME came from the jukebox, but both
-models have the same ROMs.
+Jennings also licensed Chessmate to Novag, and they released it as the MK II.
+The hardware is almost identical and the software is the same(identical ROM labels).
+Two designs were made, one jukebox shape, and one brick shape. The one in MAME came
+from the jukebox, but both models have the same ROMs.
+
+Note that like MK I, although it is a Winkler/Auge production, it doesn't involve
+SciSys company. SciSys was founded by Winkler after MK II.
 
 TODO:
-- XTAL is unknown, result frequency of 1MHz is correct
 - is there an older version of chmate? chips on pcb photos are dated 1979, but
   the game is known to be released in 1978
 
-*******************************************************************************
+===============================================================================
+
+Hardware notes:
 
 MOS MPS 6504 2179
 MOS MPS 6530 024 1879
@@ -43,7 +47,6 @@ MOS MPS 6332 005 2179
 #include "cpu/m6502/m6504.h"
 #include "machine/mos6530.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 #include "video/pwm.h"
 #include "speaker.h"
 
@@ -90,9 +93,9 @@ private:
 
 	// I/O handlers
 	void update_display();
-	DECLARE_WRITE8_MEMBER(control_w);
-	DECLARE_WRITE8_MEMBER(digit_w);
-	DECLARE_READ8_MEMBER(input_r);
+	void control_w(u8 data);
+	void digit_w(u8 data);
+	u8 input_r();
 
 	u8 m_inp_mux;
 	u8 m_7seg_data;
@@ -134,7 +137,7 @@ void chmate_state::update_display()
 	m_display->matrix_partial(0, 4, 1 << m_inp_mux, m_7seg_data);
 }
 
-WRITE8_MEMBER(chmate_state::control_w)
+void chmate_state::control_w(u8 data)
 {
 	// d0-d2: 74145 to input mux/digit select
 	m_inp_mux = data & 7;
@@ -151,13 +154,13 @@ WRITE8_MEMBER(chmate_state::control_w)
 	m_maincpu->set_input_line(M6502_IRQ_LINE, (data & 0x80) ? CLEAR_LINE : ASSERT_LINE);
 }
 
-WRITE8_MEMBER(chmate_state::digit_w)
+void chmate_state::digit_w(u8 data)
 {
 	m_7seg_data = data;
 	update_display();
 }
 
-READ8_MEMBER(chmate_state::input_r)
+u8 chmate_state::input_r()
 {
 	u8 data = 0;
 
@@ -222,7 +225,7 @@ static INPUT_PORTS_START( chmate )
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_7) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("7")
 
 	PORT_START("RESET")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_N) PORT_CHANGED_MEMBER(DEVICE_SELF, chmate_state, reset_button, nullptr) PORT_NAME("New Game")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_N) PORT_CHANGED_MEMBER(DEVICE_SELF, chmate_state, reset_button, 0) PORT_NAME("New Game")
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( mk2 ) // meaning of black/white reversed
@@ -255,7 +258,7 @@ static INPUT_PORTS_START( mk2a )
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_OTHER) PORT_CODE(KEYCODE_S) PORT_TOGGLE PORT_NAME("Sound Switch")
 
 	PORT_START("RESET")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_N) PORT_CHANGED_MEMBER(DEVICE_SELF, chmate_state, reset_button, nullptr) PORT_NAME("New Game")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_N) PORT_CHANGED_MEMBER(DEVICE_SELF, chmate_state, reset_button, 0) PORT_NAME("New Game")
 INPUT_PORTS_END
 
 
@@ -267,10 +270,10 @@ INPUT_PORTS_END
 void chmate_state::chmate(machine_config &config)
 {
 	/* basic machine hardware */
-	M6504(config, m_maincpu, 1000000);
+	M6504(config, m_maincpu, 8_MHz_XTAL/8);
 	m_maincpu->set_addrmap(AS_PROGRAM, &chmate_state::main_map);
 
-	MOS6530(config, m_miot, 1000000);
+	MOS6530(config, m_miot, 8_MHz_XTAL/8);
 	m_miot->in_pa_callback().set(FUNC(chmate_state::input_r));
 	m_miot->out_pa_callback().set(FUNC(chmate_state::digit_w));
 	m_miot->out_pb_callback().set(FUNC(chmate_state::control_w));
@@ -283,7 +286,6 @@ void chmate_state::chmate(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "speaker").front_center();
 	DAC_1BIT(config, m_dac).add_route(ALL_OUTPUTS, "speaker", 0.25);
-	VOLTAGE_REGULATOR(config, "vref").add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
 }
 
 void chmate_state::mk2(machine_config &config)

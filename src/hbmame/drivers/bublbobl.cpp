@@ -46,14 +46,14 @@ ROM_END
 
 ROM_START( bb2bmh )
 	ROM_REGION( 0x30000, "maincpu", 0 )
-	ROM_LOAD( "a78-06.51", 	  0x00000, 0x08000, CRC(32c8305b) SHA1(6bf69b3edfbefd33cd670a762b4bf0b39629a220) )
+	ROM_LOAD( "a78-06.51",    0x00000, 0x08000, CRC(32c8305b) SHA1(6bf69b3edfbefd33cd670a762b4bf0b39629a220) )
 	ROM_LOAD( "bb2bmh-05.52",    0x10000, 0x10000, CRC(d286f2e9) SHA1(ac293aa5bb3973738c7a48ce78c523154d650ded) )
 
 	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "bb2bmh-08.37",    0x0000, 0x08000, CRC(ebce6c5c) SHA1(bd99a67a044763567c443b174115aae89957a60c) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "a78-07.46", 	  0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
+	ROM_LOAD( "a78-07.46",    0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
 
 	ROM_REGION( 0x0800, "mcu", 0 )
 	ROM_LOAD( "68705.bin",    0x0000, 0x0800, CRC(78caa635) SHA1(a756e45b25b007843ba4f2204cad6081cf7260e9) )
@@ -78,17 +78,17 @@ ROM_END
 
 ROM_START( bbhackv1 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
-	ROM_LOAD( "a78-06.51", 	  0x00000, 0x08000, CRC(32c8305b) SHA1(6bf69b3edfbefd33cd670a762b4bf0b39629a220) )
+	ROM_LOAD( "a78-06.51",    0x00000, 0x08000, CRC(32c8305b) SHA1(6bf69b3edfbefd33cd670a762b4bf0b39629a220) )
 	ROM_LOAD( "bbhackv1-05.52",  0x10000, 0x10000, CRC(8da82422) SHA1(385ccd427b101255bc865af0802672b4d8432339) )
-	
+
 	ROM_REGION( 0x10000, "subcpu", 0 )
 	ROM_LOAD( "bbhackv1-08.37",  0x0000, 0x08000, CRC(419caf60) SHA1(95d680c2be15e813081d3f78f17c5d97eda8b60b) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "a78-07.46", 	  0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
+	ROM_LOAD( "a78-07.46",    0x0000, 0x08000, CRC(4f9a26e8) SHA1(3105b34b88a7134493c2b3f584729f8b0407a011) )
 
 	ROM_REGION( 0x0800, "mcu", 0 )
-	ROM_LOAD( "68705.bin", 	  0x0000, 0x0800, CRC(78caa635) SHA1(a756e45b25b007843ba4f2204cad6081cf7260e9) )
+	ROM_LOAD( "68705.bin",    0x0000, 0x0800, CRC(78caa635) SHA1(a756e45b25b007843ba4f2204cad6081cf7260e9) )
 
 	ROM_REGION( 0x80000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "a78-09.12",    0x00000, 0x8000, CRC(20358c22) SHA1(2297af6c53d5807bf90a8e081075b8c72a994fc5) )
@@ -346,12 +346,12 @@ ROM_END
 
 
 GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, init_common, ROT0, "Aladar", "Bubble Bobble (Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "Unknown", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "Unknown", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Unknown", "Super Bobble Bobble (Level Select)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )

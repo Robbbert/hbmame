@@ -163,12 +163,12 @@
 *         Custom Handlers          *
 ***********************************/
 
-WRITE8_MEMBER(_4enraya_state::sound_data_w)
+void _4enraya_state::sound_data_w(uint8_t data)
 {
 	m_soundlatch = data;
 }
 
-WRITE8_MEMBER(_4enraya_state::sound_control_w)
+void _4enraya_state::sound_control_w(uint8_t data)
 {
 	// BDIR must be high
 	if (~data & 4)
@@ -192,7 +192,7 @@ WRITE8_MEMBER(_4enraya_state::sound_control_w)
 	}
 }
 
-READ8_MEMBER(_4enraya_state::fenraya_custom_map_r)
+uint8_t _4enraya_state::fenraya_custom_map_r(offs_t offset)
 {
 	uint8_t prom_routing = (m_prom[offset >> 12] & 0xf) ^ 0xf;
 	uint8_t res = 0;
@@ -220,7 +220,7 @@ READ8_MEMBER(_4enraya_state::fenraya_custom_map_r)
 	return res;
 }
 
-WRITE8_MEMBER(_4enraya_state::fenraya_custom_map_w)
+void _4enraya_state::fenraya_custom_map_w(offs_t offset, uint8_t data)
 {
 	uint8_t prom_routing = (m_prom[offset >> 12] & 0xf) ^ 0xf;
 
@@ -241,7 +241,7 @@ WRITE8_MEMBER(_4enraya_state::fenraya_custom_map_w)
 
 	if (prom_routing & 8) // gfx control / RAM wait
 	{
-		fenraya_videoram_w(space, offset & 0xfff, data);
+		fenraya_videoram_w(offset & 0xfff, data);
 	}
 }
 
@@ -280,7 +280,7 @@ void unk_gambl_state::unkpacg_main_portmap(address_map &map)
 	map(0x00, 0x00).portr("DSW1");
 	map(0x01, 0x01).portr("IN1");
 	map(0x02, 0x02).portr("IN2");
-//  AM_RANGE(0x03, 0x03) AM_WRITE("out_w")  // to investigate...
+//  map(0x03, 0x03).w(FUNC(unk_gambl_state::out_w));  // to investigate...
 	map(0x17, 0x17).w(m_ay, FUNC(ay8910_device::data_w));
 	map(0x27, 0x27).r(m_ay, FUNC(ay8910_device::data_r));
 	map(0x37, 0x37).w(m_ay, FUNC(ay8910_device::address_w));

@@ -98,7 +98,7 @@ slampic: no sound. A priority problem between sprites and crowd.
 #include "machine/eepromser.h"
 #include "speaker.h"
 
-WRITE16_MEMBER( cps_state::fcrash_soundlatch_w )
+void cps_state::fcrash_soundlatch_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -107,7 +107,7 @@ WRITE16_MEMBER( cps_state::fcrash_soundlatch_w )
 	}
 }
 
-WRITE16_MEMBER(cps_state::cawingbl_soundlatch_w)
+void cps_state::cawingbl_soundlatch_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -117,7 +117,7 @@ WRITE16_MEMBER(cps_state::cawingbl_soundlatch_w)
 	}
 }
 
-WRITE8_MEMBER( cps_state::fcrash_snd_bankswitch_w )
+void cps_state::fcrash_snd_bankswitch_w(u8 data)
 {
 	m_msm_1->set_output_gain(0, (data & 0x08) ? 0.0 : 1.0);
 	m_msm_2->set_output_gain(0, (data & 0x10) ? 0.0 : 1.0);
@@ -125,7 +125,7 @@ WRITE8_MEMBER( cps_state::fcrash_snd_bankswitch_w )
 	membank("bank1")->set_entry(data & 0x07);
 }
 
-WRITE8_MEMBER( cps_state::sf2mdt_snd_bankswitch_w )
+void cps_state::sf2mdt_snd_bankswitch_w(u8 data)
 {
 	m_msm_1->set_output_gain(0, (data & 0x20) ? 0.0 : 1.0);
 	m_msm_2->set_output_gain(0, (data & 0x10) ? 0.0 : 1.0);
@@ -133,7 +133,7 @@ WRITE8_MEMBER( cps_state::sf2mdt_snd_bankswitch_w )
 	membank("bank1")->set_entry(data & 0x07);
 }
 
-WRITE8_MEMBER( cps_state::knightsb_snd_bankswitch_w )
+void cps_state::knightsb_snd_bankswitch_w(u8 data)
 {
 	m_msm_1->set_output_gain(0, (data & 0x20) ? 0.0 : 1.0);
 	m_msm_2->set_output_gain(0, (data & 0x10) ? 0.0 : 1.0);
@@ -143,7 +143,7 @@ WRITE8_MEMBER( cps_state::knightsb_snd_bankswitch_w )
 
 WRITE_LINE_MEMBER(cps_state::m5205_int1)
 {
-	m_msm_1->write_data(m_sample_buffer1 & 0x0f);
+	m_msm_1->data_w(m_sample_buffer1 & 0x0f);
 	m_sample_buffer1 >>= 4;
 	m_sample_select1 ^= 1;
 	if (m_sample_select1 == 0)
@@ -152,19 +152,19 @@ WRITE_LINE_MEMBER(cps_state::m5205_int1)
 
 WRITE_LINE_MEMBER(cps_state::m5205_int2)
 {
-	m_msm_2->write_data(m_sample_buffer2 & 0x0f);
+	m_msm_2->data_w(m_sample_buffer2 & 0x0f);
 	m_sample_buffer2 >>= 4;
 	m_sample_select2 ^= 1;
 }
 
 
 
-WRITE8_MEMBER( cps_state::fcrash_msm5205_0_data_w )
+void cps_state::fcrash_msm5205_0_data_w(u8 data)
 {
 	m_sample_buffer1 = data;
 }
 
-WRITE8_MEMBER( cps_state::fcrash_msm5205_1_data_w )
+void cps_state::fcrash_msm5205_1_data_w(u8 data)
 {
 	m_sample_buffer2 = data;
 }
@@ -172,7 +172,7 @@ WRITE8_MEMBER( cps_state::fcrash_msm5205_1_data_w )
 /* not verified */
 #define CPS1_ROWSCROLL_OFFS     (0x20/2)    /* base of row scroll offsets in other RAM */
 
-WRITE16_MEMBER(cps_state::dinopic_layer_w)
+void cps_state::dinopic_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -201,12 +201,12 @@ WRITE16_MEMBER(cps_state::dinopic_layer_w)
 	}
 }
 
-WRITE16_MEMBER( cps_state::dinopic_layer2_w )
+void cps_state::dinopic_layer2_w(u16 data)
 {
 	m_cps_a_regs[0x06 / 2] = data;
 }
 
-WRITE16_MEMBER(cps_state::kodb_layer_w)
+void cps_state::kodb_layer_w(offs_t offset, u16 data)
 {
 	/* layer enable and mask 1&2 registers are written here - passing them to m_cps_b_regs for now for drawing routines */
 	if (offset == 0x06)
@@ -219,7 +219,7 @@ WRITE16_MEMBER(cps_state::kodb_layer_w)
 		m_cps_b_regs[m_layer_mask_reg[2] / 2] = data;
 }
 
-WRITE16_MEMBER(cps_state::knightsb_layer_w)
+void cps_state::knightsb_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -275,7 +275,7 @@ WRITE16_MEMBER(cps_state::knightsb_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::punipic_layer_w)
+void cps_state::punipic_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -326,7 +326,7 @@ WRITE16_MEMBER(cps_state::punipic_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::sf2m1_layer_w)
+void cps_state::sf2m1_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -371,6 +371,7 @@ WRITE16_MEMBER(cps_state::sf2m1_layer_w)
 				data = 0x0b4e;
 				break;
 			}
+			[[fallthrough]];
 	case 0xb3:
 			m_cps_b_regs[m_layer_enable_reg / 2] = data;
 			break;
@@ -384,7 +385,7 @@ WRITE16_MEMBER(cps_state::sf2m1_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::sf2mdt_layer_w)
+void cps_state::sf2mdt_layer_w(offs_t offset, u16 data)
 {
 	/* layer enable and scroll registers are written here - passing them to m_cps_b_regs and m_cps_a_regs for now for drawing routines
 	the scroll layers aren't buttery smooth, due to the lack of using the row scroll address tables in the rendering code, this is also
@@ -416,7 +417,7 @@ WRITE16_MEMBER(cps_state::sf2mdt_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::sf2mdta_layer_w)
+void cps_state::sf2mdta_layer_w(offs_t offset, u16 data)
 {
 	/* layer enable and scroll registers are written here - passing them to m_cps_b_regs and m_cps_a_regs for now for drawing routines
 	the scroll layers aren't buttery smooth, due to the lack of using the row scroll address tables in the rendering code, this is also
@@ -448,7 +449,7 @@ WRITE16_MEMBER(cps_state::sf2mdta_layer_w)
 	}
 }
 
-WRITE16_MEMBER(cps_state::slampic_layer_w)
+void cps_state::slampic_layer_w(offs_t offset, u16 data)
 {
 	switch (offset)
 	{
@@ -458,7 +459,7 @@ WRITE16_MEMBER(cps_state::slampic_layer_w)
 	case 0x03:
 	case 0x04:
 	case 0x05:
-		dinopic_layer_w(space, offset, data);
+		dinopic_layer_w(offset, data);
 		break;
 	case 0x06: // scroll 2 base
 		m_cps_a_regs[0x04/2] = data << 4;
@@ -493,8 +494,8 @@ void cps_state::fcrash_render_sprites( screen_device &screen, bitmap_ind16 &bitm
 	int base = m_sprite_base / 2;
 	int num_sprites = m_gfxdecode->gfx(2)->elements();
 	int last_sprite_offset = 0x1ffc;
-	uint16_t *sprite_ram = m_gfxram;
-	uint16_t tileno,colour,xpos,ypos;
+	u16 *sprite_ram = m_gfxram;
+	u16 tileno,colour,xpos,ypos;
 	bool flipx, flipy;
 
 	/* if we have separate sprite ram, use it */
@@ -584,7 +585,7 @@ void cps_state::fcrash_build_palette()
 	}
 }
 
-uint32_t cps_state::screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+u32 cps_state::screen_update_fcrash(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int layercontrol, l0, l1, l2, l3;
 	int videocontrol = m_cps_a_regs[0x22 / 2];
@@ -1429,7 +1430,7 @@ INPUT_PORTS_END
 
 MACHINE_START_MEMBER(cps_state,fcrash)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 
@@ -1493,7 +1494,7 @@ MACHINE_START_MEMBER(cps_state, cawingbl)
 
 MACHINE_START_MEMBER(cps_state, sf2mdt)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 
@@ -1517,7 +1518,7 @@ MACHINE_START_MEMBER(cps_state, sf2mdt)
 
 MACHINE_START_MEMBER(cps_state, knightsb)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 
@@ -1536,7 +1537,7 @@ MACHINE_START_MEMBER(cps_state, knightsb)
 
 MACHINE_START_MEMBER(cps_state, sf2m1)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 
@@ -1802,14 +1803,14 @@ void cps_state::knightsb(machine_config &config)
 	ym2151.add_route(1, "mono", 0.35);
 
 	/* has 2x MSM5205 instead of OKI6295 */
-	MSM5205(config, m_msm_1, 24000000/64);	/* ? */
+	MSM5205(config, m_msm_1, 24000000/64);  /* ? */
 	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
-	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
 	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	MSM5205(config, m_msm_2, 24000000/64);	/* ? */
+	MSM5205(config, m_msm_2, 24000000/64);  /* ? */
 	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
-	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
 	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -1984,13 +1985,13 @@ ROM_END
 void cps_state::init_kodb()
 {
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x800000, 0x800007, "IN1");
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x800018, 0x80001f, read16_delegate(FUNC(cps_state::cps1_dsw_r),this));
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800187, write16_delegate(FUNC(cps_state::cps1_soundlatch_w),this));
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x980000, 0x98002f, write16_delegate(FUNC(cps_state::kodb_layer_w),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x800018, 0x80001f, read16sm_delegate(*this, FUNC(cps_state::cps1_dsw_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x800180, 0x800187, write16s_delegate(*this, FUNC(cps_state::cps1_soundlatch_w)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x980000, 0x98002f, write16sm_delegate(*this, FUNC(cps_state::kodb_layer_w)));
 
 	/* the original game alternates between 2 sprite ram areas to achieve flashing sprites - the bootleg doesn't do the write to the register to achieve this
 	mapping both sprite ram areas to the same bootleg sprite ram - similar to how sf2mdt works */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x900000, 0x903fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x904000, 0x907fff, m_bootleg_sprite_ram.get()); /* both of these need to be mapped */
 
@@ -2120,8 +2121,8 @@ ROM_END
 void cps_state::init_cawingbl()
 {
 	m_maincpu->space(AS_PROGRAM).install_read_port(0x882000, 0x882001, "IN1");
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x882006, 0x882007, write16_delegate(FUNC(cps_state::cawingbl_soundlatch_w),this));
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x882008, 0x88200f, read16_delegate(FUNC(cps_state::cps1_dsw_r),this));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x882006, 0x882007, write16s_delegate(*this, FUNC(cps_state::cawingbl_soundlatch_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x882008, 0x88200f, read16sm_delegate(*this, FUNC(cps_state::cps1_dsw_r)));
 
 	init_cps1();
 }
@@ -2142,7 +2143,7 @@ ROM_START( cawingb )
 	ROM_LOAD( "ca_9.12b",  0x00000, 0x08000, CRC(96fe7485) SHA1(10466889dfc6bc8afd3075385e241a16372efbeb) )
 	ROM_CONTINUE(          0x10000, 0x08000 )
 
-	ROM_REGION( 0x40000, "oki", 0 )	/* Samples */
+	ROM_REGION( 0x40000, "oki", 0 ) /* Samples */
 	ROM_LOAD( "ca_18.11c", 0x00000, 0x20000, CRC(4a613a2c) SHA1(06e10644fc60925b85d2ca0888c9fa057bfe996a) )
 	ROM_LOAD( "ca_19.12c", 0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) )
 ROM_END
@@ -2312,7 +2313,7 @@ ROM_END
 
 void cps_state::init_dinopic()
 {
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x990000, 0x993fff, m_bootleg_sprite_ram.get());
 	init_cps1();
 }
@@ -2633,7 +2634,7 @@ ROM_END
 
 void cps_state::init_punipic()
 {
-	uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
+	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 	mem16[0x5A8/2] = 0x4E71; // set data pointers
 	mem16[0x4DF0/2] = 0x33ED;
 	mem16[0x4DF2/2] = 0xDB2E;
@@ -2646,7 +2647,7 @@ void cps_state::init_punipic()
 
 void cps_state::init_punipic3()
 {
-	uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
+	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 	mem16[0x5A6/2] = 0x4E71; // set data pointers
 	mem16[0x5A8/2] = 0x4E71;
 
@@ -2724,7 +2725,7 @@ ROM_END
 
 void cps_state::init_sf2m1()
 {
-	uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
+	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 	mem16[0x64E/2] = 0x6046; // fix priorities
 
 	init_dinopic();
@@ -2904,9 +2905,9 @@ ROM_END
 void cps_state::init_sf2mdt()
 {
 	int i;
-	uint32_t gfx_size = memregion( "gfx" )->bytes();
-	uint8_t *rom = memregion( "gfx" )->base();
-	uint8_t tmp;
+	u32 gfx_size = memregion( "gfx" )->bytes();
+	u8 *rom = memregion( "gfx" )->base();
+	u8 tmp;
 
 	for( i = 0; i < gfx_size; i += 8 )
 	{
@@ -2918,7 +2919,7 @@ void cps_state::init_sf2mdt()
 		rom[i + 6] = tmp;
 	}
 
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0x708100, 0x7081ff, write16_delegate(FUNC(cps_state::sf2mdt_layer_w),this));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0x708100, 0x7081ff, write16sm_delegate(*this, FUNC(cps_state::sf2mdt_layer_w)));
 	init_sf2mdta();
 }
 
@@ -2927,9 +2928,9 @@ void cps_state::init_sf2mdt()
 void cps_state::init_sf2mdtb()
 {
 	int i;
-	uint32_t gfx_size = memregion( "gfx" )->bytes();
-	uint8_t *rom = memregion( "gfx" )->base();
-	uint8_t tmp;
+	u32 gfx_size = memregion( "gfx" )->bytes();
+	u8 *rom = memregion( "gfx" )->base();
+	u8 tmp;
 
 	for( i = 0; i < gfx_size; i += 8 )
 	{
@@ -2942,7 +2943,7 @@ void cps_state::init_sf2mdtb()
 	}
 
 	/* bootleg sprite ram */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x700000, 0x703fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x704000, 0x707fff, m_bootleg_sprite_ram.get()); /* both of these need to be mapped  */
 
@@ -2953,11 +2954,11 @@ void cps_state::init_sf2mdtb()
 void cps_state::init_sf2mdta()
 {
 	/* bootleg sprite ram */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x700000, 0x703fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x704000, 0x707fff, m_bootleg_sprite_ram.get()); /* both of these need to be mapped - see the "Magic Delta Turbo" text on the title screen */
 
-	m_bootleg_work_ram = std::make_unique<uint16_t[]>(0x8000);
+	m_bootleg_work_ram = std::make_unique<u16[]>(0x8000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0xfc0000, 0xfcffff, m_bootleg_work_ram.get()); /* this has moved */
 
 	init_cps1();
@@ -2966,7 +2967,7 @@ void cps_state::init_sf2mdta()
 void cps_state::init_sf2b()
 {
 	/* bootleg sprite ram */
-	m_bootleg_sprite_ram = std::make_unique<uint16_t[]>(0x2000);
+	m_bootleg_sprite_ram = std::make_unique<u16[]>(0x2000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x700000, 0x703fff, m_bootleg_sprite_ram.get());
 	m_maincpu->space(AS_PROGRAM).install_ram(0x704000, 0x707fff, m_bootleg_sprite_ram.get());
 
@@ -3071,41 +3072,41 @@ ROM_END
 
 // ************************************************************************* DRIVER MACROS
 
-HACK( 1990, cawingbl,  cawing,   cawingbl,  cawingbl, cps_state, cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 1)", MACHINE_SUPPORTS_SAVE ) // 901012 ETC
-HACK( 1990, cawingb2,  cawing,   cawingbl,  cawingbl, cps_state, cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 2)", MACHINE_SUPPORTS_SAVE ) // 901012 ETC
+GAME( 1990, cawingbl,  cawing,   cawingbl,  cawingbl, cps_state, init_cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 1)", MACHINE_SUPPORTS_SAVE ) // 901012 ETC
+GAME( 1990, cawingb2,  cawing,   cawingbl,  cawingbl, cps_state, init_cawingbl, ROT0,   "bootleg", "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM205 set 2)", MACHINE_SUPPORTS_SAVE ) // 901012 ETC
 
-HACK( 1993, dinopic,   dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
-HACK( 1993, dinopic2,  dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
-HACK( 1993, dinopic4,  dino,     dinopic,   dino,     cps_state, dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg set 4 (with PIC16c57), 930223 Asia TW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
+GAME( 1993, dinopic,   dino,     dinopic,   dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
+GAME( 1993, dinopic2,  dino,     dinopic,   dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
+GAME( 1993, dinopic4,  dino,     dinopic,   dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg set 4 (with PIC16c57), 930223 Asia TW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
 
-HACK( 1990, fcrash,    ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg (Playmark)", "Final Crash (bootleg of Final Fight)", MACHINE_SUPPORTS_SAVE )
-HACK( 1990, ffightbl,  ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg", "Final Fight (bootleg)", MACHINE_SUPPORTS_SAVE )
-HACK( 1990, ffightbla, ffight,   fcrash,    fcrash,   cps_state, cps1,     ROT0,   "bootleg", "Final Fight (bootleg on Final Crash PCB)", MACHINE_SUPPORTS_SAVE ) // same as Final Crash without the modified gfx
+GAME( 1990, fcrash,    ffight,   fcrash,    fcrash,   cps_state, init_cps1,     ROT0,   "bootleg (Playmark)", "Final Crash (bootleg of Final Fight)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ffightbl,  ffight,   fcrash,    fcrash,   cps_state, init_cps1,     ROT0,   "bootleg", "Final Fight (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ffightbla, ffight,   fcrash,    fcrash,   cps_state, init_cps1,     ROT0,   "bootleg", "Final Fight (bootleg on Final Crash PCB)", MACHINE_SUPPORTS_SAVE ) // same as Final Crash without the modified gfx
 
-HACK( 1991, kodb,      kod,      kodb,      kodb,     cps_state, kodb,     ROT0,   "bootleg (Playmark)", "The King of Dragons (bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 910731  "ETC"
-HACK( 1991, knightsb,  knights,  knightsb,  knights,  cps_state, dinopic,  ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )    // 911127 - based on World version
+GAME( 1991, kodb,      kod,      kodb,      kodb,     cps_state, init_kodb,     ROT0,   "bootleg (Playmark)", "The King of Dragons (bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 910731  "ETC"
+GAME( 1991, knightsb,  knights,  knightsb,  knights,  cps_state, init_dinopic,  ROT0,   "bootleg", "Knights of the Round (bootleg)", MACHINE_SUPPORTS_SAVE )    // 911127 - based on World version
 
-HACK( 1993, punipic,   punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
-HACK( 1993, punipic2,  punisher, punipic,   punisher, cps_state, punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 2)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
-HACK( 1993, punipic3,  punisher, punipic,   punisher, cps_state, punipic3, ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
+GAME( 1993, punipic,   punisher, punipic,   punisher, cps_state, init_punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
+GAME( 1993, punipic2,  punisher, punipic,   punisher, cps_state, init_punipic,  ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 2)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
+GAME( 1993, punipic3,  punisher, punipic,   punisher, cps_state, init_punipic3, ROT0,   "bootleg", "The Punisher (bootleg with PIC16c57, set 3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930422 ETC
 
-HACK( 1992, sf2m1,     sf2ce,    sf2m1,     sf2,      cps_state, sf2m1,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (M1, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 920313 ETC
-HACK( 1992, sf2mdt,    sf2ce,    sf2mdt,    sf2mdt,   cps_state, sf2mdt,   ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on (heavily modified) World version
-HACK( 1992, sf2mdta,   sf2ce,    sf2mdt,    sf2mdt,   cps_state, sf2mdta,  ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on World version
-HACK( 1992, sf2mdtb,   sf2ce,    sf2mdt,    sf2mdtb,  cps_state, sf2mdtb,  ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on World version
+GAME( 1992, sf2m1,     sf2ce,    sf2m1,     sf2,      cps_state, init_sf2m1,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (M1, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 920313 ETC
+GAME( 1992, sf2mdt,    sf2ce,    sf2mdt,    sf2mdt,   cps_state, init_sf2mdt,   ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on (heavily modified) World version
+GAME( 1992, sf2mdta,   sf2ce,    sf2mdt,    sf2mdt,   cps_state, init_sf2mdta,  ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 2)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on World version
+GAME( 1992, sf2mdtb,   sf2ce,    sf2mdt,    sf2mdtb,  cps_state, init_sf2mdtb,  ROT0,   "bootleg", "Street Fighter II': Magic Delta Turbo (bootleg, set 3)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 920313 - based on World version
 
-HACK( 1992, sf2b,      sf2,      sf2b,      sf2mdt,   cps_state, sf2b,     ROT0,   "bootleg", "Street Fighter II: The World Warrior (bootleg)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) //910204 - based on World version
+GAME( 1992, sf2b,      sf2,      sf2b,      sf2mdt,   cps_state, init_sf2b,     ROT0,   "bootleg", "Street Fighter II: The World Warrior (bootleg)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) //910204 - based on World version
 
-HACK( 1992, sf2m9,     sf2ce,    sf2m1,     sf2,      cps_state, dinopic,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M9, bootleg)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 920313 ETC
+GAME( 1992, sf2m9,     sf2ce,    sf2m1,     sf2,      cps_state, init_dinopic,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M9, bootleg)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 920313 ETC
 
-HACK( 1993, slampic,   slammast, slampic,   slammast, cps_state, dinopic,  ROT0,   "bootleg", "Saturday Night Slam Masters (bootleg with PIC16c57)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930713 ETC
+GAME( 1993, slampic,   slammast, slampic,   slammast, cps_state, init_dinopic,  ROT0,   "bootleg", "Saturday Night Slam Masters (bootleg with PIC16c57)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930713 ETC
 
-HACK( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, cps1,     ROT0,   "bootleg (All-In Electronic)", "Warriors of Fate ('sgyxz' bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 921005 - Sangokushi 2
+GAME( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, init_cps1,     ROT0,   "bootleg (All-In Electronic)", "Warriors of Fate ('sgyxz' bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )   // 921005 - Sangokushi 2
 
 // HBMAME **********************************************/
 
 
-HACK( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, init_cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", MACHINE_SUPPORTS_SAVE )
 
 void cps_state::captcommb2_map(address_map &map) {
 	map(0x000000,0x1fffff).rom();
@@ -3122,7 +3123,7 @@ void cps_state::captcommb2_map(address_map &map) {
 
 MACHINE_START_MEMBER(cps_state, captcommb2)
 {
-	uint8_t *ROM = memregion("audiocpu")->base();
+	u8 *ROM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 
@@ -3170,14 +3171,14 @@ void cps_state::captcommb2(machine_config &config)
 	ym2151.add_route(1, "mono", 0.35);
 
 	/* has 2x MSM5205 instead of OKI6295 */
-	MSM5205(config, m_msm_1, 24000000/64);	/* ? */
+	MSM5205(config, m_msm_1, 24000000/64);  /* ? */
 	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
-	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
 	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	MSM5205(config, m_msm_2, 24000000/64);	/* ? */
+	MSM5205(config, m_msm_2, 24000000/64);  /* ? */
 	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
-	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);	/* 4KHz 4-bit */
+	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
 	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
 }
 
@@ -3205,4 +3206,4 @@ ROM_START( captcommb2 )
 ROM_END
 
 
-HACK( 1991, captcommb2,captcomm, captcommb2,captcomm, cps_state, cps1,     ROT0,   "bootleg", "Captain Commando (bootleg set 2)(bootleg with YM2151 + 2xMSM5205)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, captcommb2,captcomm, captcommb2,captcomm, cps_state, init_cps1,     ROT0,   "bootleg", "Captain Commando (bootleg set 2)(bootleg with YM2151 + 2xMSM5205)", MACHINE_SUPPORTS_SAVE )

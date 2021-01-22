@@ -7,7 +7,6 @@
     Internal MAME menus for the user interface.
 
 ***************************************************************************/
-
 #ifndef MAME_FRONTEND_UI_MENU_H
 #define MAME_FRONTEND_UI_MENU_H
 
@@ -24,6 +23,8 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <string_view>
+#include <vector>
 
 
 namespace ui {
@@ -49,12 +50,46 @@ public:
 		FLAG_COLOR_BOX      = 1U << 8
 	};
 
+	enum : unsigned {
+		INPUT_GROUPS,
+		INPUT_SPECIFIC,
+		SETTINGS_DIP_SWITCHES,
+		SETTINGS_DRIVER_CONFIG,
+		ANALOG,
+		BOOKKEEPING,
+		GAME_INFO,
+		WARN_INFO,
+		IMAGE_MENU_IMAGE_INFO,
+		IMAGE_MENU_FILE_MANAGER,
+		TAPE_CONTROL,
+		SLOT_DEVICES,
+		NETWORK_DEVICES,
+		KEYBOARD_MODE,
+		SLIDERS,
+		VIDEO_TARGETS,
+		VIDEO_OPTIONS,
+		CROSSHAIR,
+		CHEAT,
+		PLUGINS,
+		SELECT_GAME,
+		BIOS_SELECTION,
+		BARCODE_READ,
+		PTY_INFO,
+		EXTERNAL_DATS,
+		ADD_FAVORITE,
+		REMOVE_FAVORITE,
+		QUIT_GAME,
+		ABOUT
+	};
+
 	virtual ~menu();
 
 	// append a new item to the end of the menu
-	void item_append(const std::string &text, const std::string &subtext, uint32_t flags, void *ref, menu_item_type type = menu_item_type::UNKNOWN);
+	void item_append(const std::string &text, uint32_t flags, void *ref, menu_item_type type = menu_item_type::UNKNOWN) { item_append(std::string(text), std::string(), flags, ref, type); }
+	void item_append(const std::string &text, const std::string &subtext, uint32_t flags, void *ref, menu_item_type type = menu_item_type::UNKNOWN) { item_append(std::string(text), std::string(subtext), flags, ref, type); }
+	void item_append(std::string &&text, uint32_t flags, void *ref, menu_item_type type = menu_item_type::UNKNOWN) { item_append(text, std::string(), flags, ref, type); }
 	void item_append(std::string &&text, std::string &&subtext, uint32_t flags, void *ref, menu_item_type type = menu_item_type::UNKNOWN);
-	void item_append(menu_item item);
+	void item_append(menu_item item) { item_append(item.text, item.subtext, item.flags, item.ref, item.type); }
 	void item_append(menu_item_type type, uint32_t flags = 0);
 	void item_append_on_off(const std::string &text, bool state, uint32_t flags, void *ref, menu_item_type type = menu_item_type::UNKNOWN);
 
@@ -68,12 +103,12 @@ public:
 	template <typename T, typename... Params>
 	static void stack_push(Params &&... args)
 	{
-		stack_push(std::unique_ptr<menu>(global_alloc_clear<T>(std::forward<Params>(args)...)));
+		stack_push(std::unique_ptr<menu>(make_unique_clear<T>(std::forward<Params>(args)...)));
 	}
 	template <typename T, typename... Params>
 	static void stack_push_special_main(Params &&... args)
 	{
-		std::unique_ptr<menu> ptr(global_alloc_clear<T>(std::forward<Params>(args)...));
+		std::unique_ptr<menu> ptr(make_unique_clear<T>(std::forward<Params>(args)...));
 		ptr->set_special_main_menu(true);
 		stack_push(std::move(ptr));
 	}
@@ -136,9 +171,6 @@ protected:
 	running_machine &machine() const { return m_ui.machine(); }
 	render_container &container() const { return m_container; }
 
-	// allocate temporary memory from the menu's memory pool
-	void *m_pool_alloc(size_t size);
-
 	void reset(reset_options options);
 	void reset_parent(reset_options options) { m_parent->reset(options); }
 
@@ -149,9 +181,6 @@ protected:
 	bool stack_has_special_main_menu() const { return m_global_state->stack_has_special_main_menu(); }
 
 	void add_cleanup_callback(cleanup_callback &&callback) { m_global_state->add_cleanup_callback(std::move(callback)); }
-
-	// repopulate the menu items
-	void repopulate(reset_options options);
 
 	// process a menu, drawing it and returning any interesting events
 	const event *process(uint32_t flags, float x0 = 0.0f, float y0 = 0.0f);
@@ -200,7 +229,7 @@ protected:
 	void draw_arrow(float x0, float y0, float x1, float y1, rgb_t fgcolor, uint32_t orientation);
 
 	// draw header and footer text
-	void extra_text_render(float top, float bottom, float origx1, float origy1, float origx2, float origy2, const char *header, const char *footer);
+	void extra_text_render(float top, float bottom, float origx1, float origy1, float origx2, float origy2, std::string_view header, std::string_view footer);
 	void extra_text_position(float origx1, float origx2, float origy, float yspan, text_layout &layout,
 		int direction, float &x1, float &y1, float &x2, float &y2);
 
@@ -213,16 +242,17 @@ protected:
 			rgb_t fgcolor, rgb_t bgcolor, float text_size)
 	{
 		// size up the text
+		float const lrborder(ui().box_lr_border() * machine().render().ui_aspect(&container()));
 		float maxwidth(origx2 - origx1);
 		for (Iter it = begin; it != end; ++it)
 		{
 			float width;
 			ui().draw_text_full(
-					container(), get_c_str(*it),
+					container(), std::string_view(*it),
 					0.0f, 0.0f, 1.0f, justify, wrap,
 					mame_ui_manager::NONE, rgb_t::black(), rgb_t::white(),
 					&width, nullptr, text_size);
-			width += 2.0f * ui().box_lr_border();
+			width += 2.0f * lrborder;
 			maxwidth = (std::max)(maxwidth, width);
 		}
 		if (scale && ((origx2 - origx1) < maxwidth))
@@ -237,14 +267,14 @@ protected:
 		ui().draw_outlined_box(container(), x1, y1, x2, y2, bgcolor);
 
 		// inset box and draw content
-		x1 += ui().box_lr_border();
-		x2 -= ui().box_lr_border();
+		x1 += lrborder;
+		x2 -= lrborder;
 		y1 += ui().box_tb_border();
 		y2 -= ui().box_tb_border();
 		for (Iter it = begin; it != end; ++it)
 		{
 			ui().draw_text_full(
-					container(), get_c_str(*it),
+					container(), std::string_view(*it),
 					x1, y1, x2 - x1, justify, wrap,
 					mame_ui_manager::NORMAL, fgcolor, ui().colors().text_bg_color(),
 					nullptr, nullptr, text_size);
@@ -334,13 +364,6 @@ private:
 	using global_state_ptr = std::shared_ptr<global_state>;
 	using global_state_map = std::map<running_machine *, global_state_ptr>;
 
-	struct pool
-	{
-		pool       *next;    // chain to next one
-		uint8_t    *top;     // top of the pool
-		uint8_t    *end;     // end of the pool
-	};
-
 	// request the specific handling of the game selection main menu
 	bool is_special_main_menu() const;
 	void set_special_main_menu(bool disable);
@@ -354,7 +377,7 @@ private:
 	// push a new menu onto the stack
 	static void stack_push(std::unique_ptr<menu> &&menu) { get_global_state(menu->machine())->stack_push(std::move(menu)); }
 
-	void extra_text_draw_box(float origx1, float origx2, float origy, float yspan, const char *text, int direction);
+	void extra_text_draw_box(float origx1, float origx2, float origy, float yspan, std::string_view text, int direction);
 
 	bool first_item_visible() const { return top_line <= 0; }
 	bool last_item_visible() const { return (top_line + m_visible_lines) >= m_items.size(); }
@@ -362,16 +385,12 @@ private:
 	static void exit(running_machine &machine);
 	static global_state_ptr get_global_state(running_machine &machine);
 
-	static char const *get_c_str(std::string const &str) { return str.c_str(); }
-	static char const *get_c_str(char const *str) { return str; }
-
 	int                     m_selected;   // which item is selected
 	int                     m_hover;      // which item is being hovered over
 	std::vector<menu_item>  m_items;      // array of items
 
 protected: // TODO: remove need to expose these
 	int top_line;           // main box top line
-	int skip_main_items;
 	int m_visible_lines;    // main box visible lines
 	int m_visible_items;    // number of visible items
 
@@ -382,7 +401,6 @@ private:
 	render_container        &m_container;       // render_container we render to
 	std::unique_ptr<menu>   m_parent;           // pointer to parent menu
 	event                   m_event;            // the UI event that occurred
-	pool                    *m_pool;            // list of memory pools
 
 	float                   m_customtop;        // amount of extra height to add at the top
 	float                   m_custombottom;     // amount of extra height to add at the bottom

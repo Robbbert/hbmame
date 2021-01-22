@@ -31,6 +31,10 @@ public:
 		ICR0 = 0, ICR1, ICR2, ICR3, ICR4, ICR5, ICR6, ICR7, ICR8, ICR9, ICR10, ICR11, ICR12, ICR13, ICR14, ICR15
 	};
 
+	// timer external counter tick functions
+	DECLARE_WRITE_LINE_MEMBER(tin0_w);
+	DECLARE_WRITE_LINE_MEMBER(tin1_w);
+
 protected:
 	// construction/destruction
 	mb9061x_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock, address_map_constructor internal_map);
@@ -44,14 +48,28 @@ protected:
 private:
 	// TBC
 	TIMER_CALLBACK_MEMBER(tbtc_tick);
-	READ8_MEMBER(tbtc_r);
-	WRITE8_MEMBER(tbtc_w);
+	u8 tbtc_r();
+	void tbtc_w(u8 data);
 
 	// INTC
-	READ8_MEMBER(intc_r);
-	WRITE8_MEMBER(intc_w);
+	u8 intc_r(offs_t offset);
+	void intc_w(offs_t offset, u8 data);
 	void intc_trigger_irq(int icr, int vector);
 	void intc_clear_irq(int icr, int vector);
+
+	// TIMERS
+	TIMER_CALLBACK_MEMBER(timer0_tick);
+	TIMER_CALLBACK_MEMBER(timer1_tick);
+	u8 timer_r(offs_t offset);
+	void timer_w(offs_t offset, u8 data);
+	void recalc_timer(int tnum);
+	void tin_common(int timer, int base, int state);
+
+	u8 m_timer_regs[8];
+	u32 m_timer_hz[2];
+	emu_timer *m_timer[2];
+	int m_event_state[2];
+	u16 m_event_count[2];
 
 	u8 m_tbtc;
 	emu_timer *m_tbtc_timer;

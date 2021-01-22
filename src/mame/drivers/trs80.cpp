@@ -249,7 +249,7 @@ void trs80_state::lnw_banked_mem(address_map &map)
 	map(0x37ef, 0x37ef).rw(m_fdc, FUNC(fd1793_device::data_r), FUNC(fd1793_device::data_w));
 	map(0x3800, 0x3bff).r(FUNC(trs80_state::keyboard_r));
 	map(0x3c00, 0x3fff).ram().share(m_p_videoram);
-	map(0x4000, 0x7fff).ram().share(m_p_gfxram).region("gfx2", 0);
+	map(0x4000, 0x7fff).ram().share(m_p_gfxram);
 }
 
 void trs80_state::lnw80_io(address_map &map)
@@ -539,15 +539,15 @@ void trs80_state::model1(machine_config &config)      // model I, level II
 	m_cassette->set_formats(trs80l2_cassette_formats);
 	m_cassette->set_default_state(CASSETTE_PLAY);
 
-	QUICKLOAD(config, "quickload", "cmd", attotime::from_seconds(1)).set_load_callback(FUNC(trs80_state::quickload_cb), this);
+	QUICKLOAD(config, "quickload", "cmd", attotime::from_seconds(1)).set_load_callback(FUNC(trs80_state::quickload_cb));
 
 	FD1793(config, m_fdc, 4_MHz_XTAL / 4); // todo: should be fd1771
 	m_fdc->intrq_wr_callback().set(FUNC(trs80_state::intrq_w));
 
 	FLOPPY_CONNECTOR(config, "fdc:0", trs80_floppies, "sssd", trs80_state::floppy_formats).enable_sound(true);
 	FLOPPY_CONNECTOR(config, "fdc:1", trs80_floppies, "sssd", trs80_state::floppy_formats).enable_sound(true);
-	FLOPPY_CONNECTOR(config, "fdc:2", trs80_floppies, "", trs80_state::floppy_formats).enable_sound(true);
-	FLOPPY_CONNECTOR(config, "fdc:3", trs80_floppies, "", trs80_state::floppy_formats).enable_sound(true);
+	FLOPPY_CONNECTOR(config, "fdc:2", trs80_floppies, nullptr, trs80_state::floppy_formats).enable_sound(true);
+	FLOPPY_CONNECTOR(config, "fdc:3", trs80_floppies, nullptr, trs80_state::floppy_formats).enable_sound(true);
 
 	CENTRONICS(config, m_centronics, centronics_devices, "printer");
 	m_centronics->busy_handler().set(m_cent_status_in, FUNC(input_buffer_device::write_bit7));
@@ -725,8 +725,6 @@ ROM_START(lnw80)
 
 	ROM_REGION(0x0800, "chargen",0)
 	ROM_LOAD("lnw_chr.bin",  0x0000, 0x0800, CRC(c89b27df) SHA1(be2a009a07e4378d070002a558705e9a0de59389))
-
-	ROM_REGION(0x4000, "gfx2", ROMREGION_ERASEFF) // for trs80_gfxram
 ROM_END
 
 
@@ -772,12 +770,12 @@ void trs80_state::init_trs80l2()
 
 
 //    YEAR  NAME         PARENT    COMPAT  MACHINE   INPUT    CLASS        INIT           COMPANY                        FULLNAME                           FLAGS
-COMP( 1977, trs80,       0,        0,      trs80,    trs80,   trs80_state, init_trs80,    "Tandy Radio Shack",           "TRS-80 Model I (Level I Basic)",  0 )
-COMP( 1978, trs80l2,     0,        0,      model1,   trs80l2, trs80_state, init_trs80l2,  "Tandy Radio Shack",           "TRS-80 Model I (Level II Basic)", 0 )
-COMP( 1983, radionic,    trs80l2,  0,      radionic, trs80l2, trs80_state, init_trs80,    "Komtek",                      "Radionic",                        0 )
-COMP( 1980, sys80,       trs80l2,  0,      sys80,    sys80,   trs80_state, init_trs80l2,  "EACA Computers Ltd",          "System-80 (60 Hz)",               0 )
-COMP( 1980, sys80p,      trs80l2,  0,      sys80p,   sys80,   trs80_state, init_trs80l2,  "EACA Computers Ltd",          "System-80 (50 Hz)",               0 )
-COMP( 1981, lnw80,       trs80l2,  0,      lnw80,    sys80,   trs80_state, init_trs80,    "LNW Research",                "LNW-80",                          0 )
-COMP( 1983, ht1080z,     trs80l2,  0,      ht1080z,  sys80,   trs80_state, init_trs80l2,  "Hiradastechnika Szovetkezet", "HT-1080Z Series I",               0 )
-COMP( 1984, ht1080z2,    trs80l2,  0,      ht1080z,  sys80,   trs80_state, init_trs80l2,  "Hiradastechnika Szovetkezet", "HT-1080Z Series II",              0 )
-COMP( 1985, ht108064,    trs80l2,  0,      ht1080z,  sys80,   trs80_state, init_trs80,    "Hiradastechnika Szovetkezet", "HT-1080Z/64",                     0 )
+COMP( 1977, trs80,       0,        0,      trs80,    trs80,   trs80_state, init_trs80,    "Tandy Radio Shack",           "TRS-80 Model I (Level I Basic)",  MACHINE_SUPPORTS_SAVE )
+COMP( 1978, trs80l2,     0,        0,      model1,   trs80l2, trs80_state, init_trs80l2,  "Tandy Radio Shack",           "TRS-80 Model I (Level II Basic)", MACHINE_SUPPORTS_SAVE )
+COMP( 1983, radionic,    trs80l2,  0,      radionic, trs80l2, trs80_state, init_trs80,    "Komtek",                      "Radionic",                        MACHINE_SUPPORTS_SAVE )
+COMP( 1980, sys80,       trs80l2,  0,      sys80,    sys80,   trs80_state, init_trs80l2,  "EACA Computers Ltd",          "System-80 (60 Hz)",               MACHINE_SUPPORTS_SAVE )
+COMP( 1980, sys80p,      trs80l2,  0,      sys80p,   sys80,   trs80_state, init_trs80l2,  "EACA Computers Ltd",          "System-80 (50 Hz)",               MACHINE_SUPPORTS_SAVE )
+COMP( 1981, lnw80,       trs80l2,  0,      lnw80,    sys80,   trs80_state, init_trs80,    "LNW Research",                "LNW-80",                          MACHINE_SUPPORTS_SAVE )
+COMP( 1983, ht1080z,     trs80l2,  0,      ht1080z,  sys80,   trs80_state, init_trs80l2,  "Hiradastechnika Szovetkezet", "HT-1080Z Series I",               MACHINE_SUPPORTS_SAVE )
+COMP( 1984, ht1080z2,    trs80l2,  0,      ht1080z,  sys80,   trs80_state, init_trs80l2,  "Hiradastechnika Szovetkezet", "HT-1080Z Series II",              MACHINE_SUPPORTS_SAVE )
+COMP( 1985, ht108064,    trs80l2,  0,      ht1080z,  sys80,   trs80_state, init_trs80,    "Hiradastechnika Szovetkezet", "HT-1080Z/64",                     MACHINE_SUPPORTS_SAVE )

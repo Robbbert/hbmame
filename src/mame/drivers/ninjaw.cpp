@@ -373,6 +373,7 @@ void ninjaw_state::pancontrol_w(offs_t offset, u8 data)
 {
 	filter_volume_device *flt = nullptr;
 	offset &= 3;
+	offset ^= 1;
 
 	switch (offset)
 	{
@@ -618,7 +619,7 @@ protected:
 	virtual void device_start();
 
 	// sound stream update overrides
-	virtual void sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples);
+	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
 
 private:
 	// internal state
@@ -657,8 +658,9 @@ void subwoofer_device::device_start()
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void subwoofer_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void subwoofer_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
+	outputs[0].fill(0);
 }
 
 
@@ -694,7 +696,7 @@ void ninjaw_state::machine_reset()
 	memset(m_pandata, 0, sizeof(m_pandata));
 
 	/**** mixer control enable ****/
-	machine().sound().system_enable(true);  /* mixer enabled */
+	machine().sound().system_mute(false);  /* mixer enabled */
 }
 
 void ninjaw_state::ninjaw(machine_config &config)
@@ -714,7 +716,7 @@ void ninjaw_state::ninjaw(machine_config &config)
 	// TODO: if CPUs are unsynched then seldomly stages loads up with no enemies
 	//       Let's use a better timer (was 6000 before) based off actual CPU timing.
 	//       Might as well bump the divider in case the bug still occurs before resorting to perfect CPU.
-	config.m_minimum_quantum = attotime::from_hz(16000000/1024);  /* CPU slices */
+	config.set_maximum_quantum(attotime::from_hz(16000000/1024));  /* CPU slices */
 	//config.m_perfect_cpu_quantum = subtag("maincpu");
 
 	tc0040ioc_device &tc0040ioc(TC0040IOC(config, "tc0040ioc", 0));
@@ -783,11 +785,11 @@ void ninjaw_state::ninjaw(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
+	SPEAKER(config, "subwoofer").seat();
 
 	ym2610_device &ymsnd(YM2610(config, "ymsnd", 16000000/2));
 	ymsnd.irq_handler().set_inputline("audiocpu", 0);
-	ymsnd.add_route(0, "lspeaker", 0.25);
-	ymsnd.add_route(0, "rspeaker", 0.25);
+	ymsnd.add_route(0, "subwoofer", 0.25);
 	ymsnd.add_route(1, "2610.1.l", 1.0);
 	ymsnd.add_route(1, "2610.1.r", 1.0);
 	ymsnd.add_route(2, "2610.2.l", 1.0);
@@ -820,7 +822,7 @@ void ninjaw_state::darius2(machine_config &config)
 	m_subcpu->set_addrmap(AS_PROGRAM, &ninjaw_state::darius2_slave_map);
 	m_subcpu->set_vblank_int("lscreen", FUNC(ninjaw_state::irq4_line_hold));
 
-	config.m_minimum_quantum = attotime::from_hz(16000000/1024);  /* CPU slices */
+	config.set_maximum_quantum(attotime::from_hz(16000000/1024));  /* CPU slices */
 	//config.m_perfect_cpu_quantum = subtag("maincpu");
 
 	tc0040ioc_device &tc0040ioc(TC0040IOC(config, "tc0040ioc", 0));
@@ -889,11 +891,11 @@ void ninjaw_state::darius2(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
+	SPEAKER(config, "subwoofer").seat();
 
 	ym2610_device &ymsnd(YM2610(config, "ymsnd", 16000000/2));
 	ymsnd.irq_handler().set_inputline("audiocpu", 0);
-	ymsnd.add_route(0, "lspeaker", 0.25);
-	ymsnd.add_route(0, "rspeaker", 0.25);
+	ymsnd.add_route(0, "subwoofer", 0.25);
 	ymsnd.add_route(1, "2610.1.l", 1.0);
 	ymsnd.add_route(1, "2610.1.r", 1.0);
 	ymsnd.add_route(2, "2610.2.l", 1.0);

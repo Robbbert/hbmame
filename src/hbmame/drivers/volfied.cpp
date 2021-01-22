@@ -16,7 +16,7 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", ROMREGION_ERASE00 )
 	ROM_LOAD( "cchip_c04-23",        0x0000,  0x2000,  CRC(46b0b479) SHA1(73aa2267eb468c5aa5db67183047e9aef8321215) )
 
-	ROM_REGION( 0xc0000, "gfx1", 0 )
+	ROM_REGION( 0xc0000, "pc090oj", 0 )
 	ROM_LOAD16_BYTE( "c04-16.2g",    0x00000, 0x20000, CRC(1c6963a9) SHA1(2dc4b6838c95497e019c03582a8f7ecb48fa97a8) )
 	ROM_LOAD16_BYTE( "c04-18.4g",    0x00001, 0x20000, CRC(67ea587f) SHA1(2b43ba53cc563d3462a4bec430427f92290f2b23) )
 	ROM_LOAD16_BYTE( "c04-15.1",     0x40000, 0x20000, CRC(7c50b978) SHA1(aa9cad5f09f5d9dceaf4e06bcd347f1d5d02d292) )
@@ -29,7 +29,7 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "c04-06.71",           0x0000, 0x8000,   CRC(b70106b2) SHA1(d71062f9d9b11492e13fc93982b95883f564f902) )
 
-	ROM_REGION( 0x00400, "proms", 0 )   /* unused PROMs */
+	ROM_REGION( 0x00400, "proms", 0 )
 	ROM_LOAD_OPTIONAL( "c04-4-1.3", 0x00000, 0x00200, CRC(ab9fae65) SHA1(e2b29606aa63e42e041d3c47216551f62846bd99) )
 	ROM_LOAD_OPTIONAL( "c04-5.75",  0x00200, 0x00200, CRC(2763ec89) SHA1(1e8339e21ee35b526d8604a21cfed9a1ac6455e8) )
 ROM_END

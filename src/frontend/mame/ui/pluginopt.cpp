@@ -11,12 +11,14 @@
 #include "emu.h"
 
 #include "ui/pluginopt.h"
+#include "ui/utils.h"
 
 #include "mame.h"
 #include "luaengine.h"
 
 
 namespace ui {
+
 void menu_plugin::handle()
 {
 	const event *menu_event = process(0);
@@ -37,7 +39,7 @@ menu_plugin::menu_plugin(mame_ui_manager &mui, render_container &container) :
 void menu_plugin::populate(float &customtop, float &custombottom)
 {
 	for (auto &curplugin : m_plugins)
-		item_append(curplugin, "", 0, (void *)curplugin.c_str());
+		item_append(curplugin, 0, (void *)curplugin.c_str());
 	item_append(menu_item_type::SEPARATOR);
 }
 
@@ -98,6 +100,9 @@ void menu_plugin_opt::handle()
 				break;
 			case IPT_UI_CANCEL:
 				key = "cancel";
+				break;
+			case IPT_SPECIAL:
+				key = std::to_string((u32)menu_event->unichar);
 				break;
 			default:
 				return;

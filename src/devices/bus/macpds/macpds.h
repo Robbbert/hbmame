@@ -20,8 +20,7 @@
 
 class macpds_device;
 
-class macpds_slot_device : public device_t,
-							public device_slot_interface
+class macpds_slot_device : public device_t, public device_slot_interface
 {
 public:
 	// construction/destruction
@@ -74,9 +73,8 @@ public:
 	void set_cputag(const char *tag) { m_cputag = tag; }
 
 	void add_macpds_card(device_macpds_card_interface *card);
-	void install_device(offs_t start, offs_t end, read8_delegate rhandler, write8_delegate whandler, uint32_t mask=0xffffffff);
-	void install_device(offs_t start, offs_t end, read16_delegate rhandler, write16_delegate whandler, uint32_t mask=0xffffffff);
-	void install_bank(offs_t start, offs_t end, const char *tag, uint8_t *data);
+	template<typename R, typename W> void install_device(offs_t start, offs_t end, R rhandler, W whandler, uint32_t mask=0xffffffff);
+	void install_bank(offs_t start, offs_t end, uint8_t *data);
 	void set_irq_line(int line, int state);
 
 protected:
@@ -100,7 +98,7 @@ DECLARE_DEVICE_TYPE(MACPDS, macpds_device)
 // ======================> device_macpds_card_interface
 
 // class representing interface-specific live macpds card
-class device_macpds_card_interface : public device_slot_card_interface
+class device_macpds_card_interface : public device_interface
 {
 	friend class macpds_device;
 	template <class ElememtType> friend class simple_list;
@@ -113,7 +111,7 @@ public:
 	void set_macpds_device();
 
 	// helper functions for card devices
-	void install_bank(offs_t start, offs_t end, const char *tag, uint8_t *data);
+	void install_bank(offs_t start, offs_t end, uint8_t *data);
 	void install_rom(device_t *dev, const char *romregion, uint32_t addr);
 
 	// inline configuration

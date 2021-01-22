@@ -154,7 +154,7 @@ void amiga_state::machine_start()
 	m_power_led.resolve();
 
 	// add callback for RESET instruction
-	m_maincpu->set_reset_callback(write_line_delegate(FUNC(amiga_state::m68k_reset), this));
+	m_maincpu->set_reset_callback(*this, FUNC(amiga_state::m68k_reset));
 
 	// set up chip RAM access
 	memory_share *share = memshare("chip_ram");
@@ -217,12 +217,12 @@ WRITE_LINE_MEMBER( amiga_state::kbreset_w )
 }
 
 // simple mirror of region 0xf80000 to 0xfbffff
-READ16_MEMBER( amiga_state::rom_mirror_r )
+uint16_t amiga_state::rom_mirror_r(offs_t offset, uint16_t mem_mask)
 {
 	return m_maincpu->space(AS_PROGRAM).read_word(offset + 0xf80000, mem_mask);
 }
 
-READ32_MEMBER( amiga_state::rom_mirror32_r )
+uint32_t amiga_state::rom_mirror32_r(offs_t offset, uint32_t mem_mask)
 {
 	return m_maincpu->space(AS_PROGRAM).read_dword(offset + 0xf80000, mem_mask);
 }
@@ -326,7 +326,7 @@ TIMER_CALLBACK_MEMBER( amiga_state::scanline_callback )
 
 void amiga_state::set_interrupt(int interrupt)
 {
-	custom_chip_w(m_maincpu->space(AS_PROGRAM), REG_INTREQ, interrupt, 0xffff);
+	custom_chip_w(REG_INTREQ, interrupt);
 }
 
 bool amiga_state::int2_pending()
@@ -411,21 +411,6 @@ uint16_t amiga_state::joy1dat_r()
 		return m_joy1dat_port.read_safe(0xffff);
 	else
 		return (m_p2_mouse_y.read_safe(0xff) << 8) | m_p2_mouse_x.read_safe(0xff);
-}
-
-CUSTOM_INPUT_MEMBER( amiga_state::amiga_joystick_convert )
-{
-	uint8_t bits = m_joy_ports[(int)(uintptr_t)param].read_safe(0xff);
-
-	int up = (bits >> 0) & 1;
-	int down = (bits >> 1) & 1;
-	int left = (bits >> 2) & 1;
-	int right = (bits >> 3) & 1;
-
-	if (left) up ^= 1;
-	if (right) down ^= 1;
-
-	return down | (right << 1) | (up << 8) | (left << 9);
 }
 
 
@@ -1042,7 +1027,7 @@ WRITE_LINE_MEMBER( amiga_state::centronics_select_w )
 // CIA-A access: 101x xxxx xxx0 oooo xxxx xxx1
 // CIA-B access: 101x xxxx xx0x oooo xxxx xxx0
 
-READ16_MEMBER( amiga_state::cia_r )
+uint16_t amiga_state::cia_r(offs_t offset, uint16_t mem_mask)
 {
 	uint16_t data = 0;
 
@@ -1058,7 +1043,7 @@ READ16_MEMBER( amiga_state::cia_r )
 	return data;
 }
 
-WRITE16_MEMBER( amiga_state::cia_w )
+void amiga_state::cia_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (LOG_CIA)
 		logerror("%s: cia_w(%06x) = %04x & %04x\n", machine().describe_context(), offset, data, mem_mask);
@@ -1070,7 +1055,7 @@ WRITE16_MEMBER( amiga_state::cia_w )
 		m_cia_1->write(offset >> 7, data >> 8);
 }
 
-WRITE16_MEMBER( amiga_state::gayle_cia_w )
+void amiga_state::gayle_cia_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	// the first write to cia 0 after a reset switches in chip ram
 	if (m_gayle_reset && (offset & 0x1000/2) == 0 && ACCESSING_BITS_0_7)
@@ -1080,7 +1065,7 @@ WRITE16_MEMBER( amiga_state::gayle_cia_w )
 	}
 
 	// hand down to the standard cia handler
-	cia_w(space, offset, data, mem_mask);
+	cia_w(offset, data, mem_mask);
 }
 
 CUSTOM_INPUT_MEMBER( amiga_state::floppy_drive_status )
@@ -1088,7 +1073,7 @@ CUSTOM_INPUT_MEMBER( amiga_state::floppy_drive_status )
 	return m_fdc->ciaapra_r();
 }
 
-WRITE8_MEMBER( amiga_state::cia_0_port_a_write )
+void amiga_state::cia_0_port_a_write(uint8_t data)
 {
 	// bit 0, kickstart overlay
 	m_overlay->set_bank(BIT(data, 0));
@@ -1106,7 +1091,7 @@ WRITE_LINE_MEMBER( amiga_state::cia_0_irq )
 	update_int2();
 }
 
-READ8_MEMBER( amiga_state::cia_1_port_a_read )
+uint8_t amiga_state::cia_1_port_a_read()
 {
 	uint8_t data = 0;
 
@@ -1124,7 +1109,7 @@ READ8_MEMBER( amiga_state::cia_1_port_a_read )
 	return data;
 }
 
-WRITE8_MEMBER( amiga_state::cia_1_port_a_write )
+void amiga_state::cia_1_port_a_write(uint8_t data)
 {
 	if (m_rs232)
 	{
@@ -1158,7 +1143,7 @@ void amiga_state::custom_chip_reset()
 	CUSTOM_REG(REG_BEAMCON0) = (m_agnus_id & 0x10) ? 0x0000 : 0x0020;
 }
 
-READ16_MEMBER( amiga_state::custom_chip_r )
+uint16_t amiga_state::custom_chip_r(offs_t offset)
 {
 	uint16_t temp;
 
@@ -1191,11 +1176,11 @@ READ16_MEMBER( amiga_state::custom_chip_r )
 		case REG_JOY0DAT:
 			if (m_joy0dat_port.found())
 				return joy0dat_r();
-
+			[[fallthrough]]; // FIXME: Really?  Fall through to potentially reading the other joystick?
 		case REG_JOY1DAT:
 			if (m_joy1dat_port.found())
 				return joy1dat_r();
-
+			[[fallthrough]]; // TODO: check that this is correct
 		case REG_POTGOR:
 			return m_potgo_port.read_safe(0x5500);
 
@@ -1271,7 +1256,7 @@ READ16_MEMBER( amiga_state::custom_chip_r )
 	return 0xffff;
 }
 
-WRITE16_MEMBER( amiga_state::custom_chip_w )
+void amiga_state::custom_chip_w(offs_t offset, uint16_t data)
 {
 	uint16_t temp;
 	offset &= 0xff;
@@ -1280,7 +1265,7 @@ WRITE16_MEMBER( amiga_state::custom_chip_w )
 		logerror("%06X:write to custom %s = %04X\n", m_maincpu->pc(), s_custom_reg_names[offset & 0xff], data);
 
 	// paula will handle some of those registers
-	m_paula->reg_w(space, offset, data, mem_mask);
+	m_paula->reg_w(offset, data);
 
 	switch (offset)
 	{

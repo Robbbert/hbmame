@@ -16,13 +16,13 @@
 |A                                     |
 |M                                 PAL |
 |M                           12.288MHz |
-|A  14.31818MHz       PAL  6264  Z     |
-|       DSW                      1     |
-| VR                             8   10|
+|A  14.31818MHz       PAL  6264  Z    P|
+|       DSW                      1    I|
+| VR                             8    C|
 |        YM2203C              9  0     |
 +--------------------------------------+
 
-  CPU: Z180 (surface scratched)
+  CPU: Z180 (surface scratched 64-pin DIP)
        PIC16C5x (surface scratched, exact model unknown)
 Sound: YM2203C
   OSC: 14.31818MHz, 12.288MHz
@@ -52,7 +52,7 @@ NOTE: PIC16C5x protection chip at 5A (UC02 as silkscreened on PCB)
 #include "speaker.h"
 
 
-WRITE8_MEMBER(mosaic_state::protection_w) // TODO: hook up PIC dump and remove this simulation (PIC dump contains the exact values in this jumptable)
+void mosaic_state::protection_w(uint8_t data) // TODO: hook up PIC dump and remove this simulation (PIC dump contains the exact values in this jumptable)
 {
 	if (!BIT(data, 7))
 	{
@@ -76,7 +76,7 @@ WRITE8_MEMBER(mosaic_state::protection_w) // TODO: hook up PIC dump and remove t
 	}
 }
 
-READ8_MEMBER(mosaic_state::protection_r)
+uint8_t mosaic_state::protection_r()
 {
 	int res = (m_prot_val >> 8) & 0xff;
 
@@ -87,7 +87,7 @@ READ8_MEMBER(mosaic_state::protection_r)
 	return res;
 }
 
-WRITE8_MEMBER(mosaic_state::gfire2_protection_w)
+void mosaic_state::gfire2_protection_w(uint8_t data)
 {
 	logerror("%06x: protection_w %02x\n", m_maincpu->pc(), data);
 
@@ -114,7 +114,7 @@ WRITE8_MEMBER(mosaic_state::gfire2_protection_w)
 	}
 }
 
-READ8_MEMBER(mosaic_state::gfire2_protection_r)
+uint8_t mosaic_state::gfire2_protection_r()
 {
 	int res = m_prot_val & 0xff;
 
@@ -287,7 +287,7 @@ void mosaic_state::machine_reset()
 void mosaic_state::mosaic(machine_config &config)
 {
 	/* basic machine hardware */
-	Z180(config, m_maincpu, XTAL(12'288'000)/2);  /* 6.144MHz - Verified */
+	HD64180RP(config, m_maincpu, XTAL(12'288'000));  /* 6.144MHz - Verified */
 	m_maincpu->set_addrmap(AS_PROGRAM, &mosaic_state::mosaic_map);
 	m_maincpu->set_addrmap(AS_IO, &mosaic_state::mosaic_io_map);
 	m_maincpu->set_vblank_int("screen", FUNC(mosaic_state::irq0_line_hold));

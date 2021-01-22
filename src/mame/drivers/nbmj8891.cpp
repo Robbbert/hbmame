@@ -48,7 +48,6 @@ TODO:
 #include "sound/3812intf.h"
 #include "sound/ay8910.h"
 #include "sound/dac.h"
-#include "sound/volt_reg.h"
 #include "speaker.h"
 
 
@@ -310,7 +309,7 @@ void nbmj8891_state::hanaoji_map(address_map &map)
 	map(0xf800, 0xffff).ram().share("nvram");
 }
 
-READ8_MEMBER(nbmj8891_state::taiwanmb_unk_r)
+uint8_t nbmj8891_state::taiwanmb_unk_r()
 {
 	return 0x00;                                                    // MCU or 1413M3 STATUS?
 }
@@ -351,7 +350,7 @@ void nbmj8891_state::gionbana_io_map(address_map &map)
 	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r));
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
-	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //AM_WRITENOP
+	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //.nopw();
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8891_state::vramsel_w));
 	map(0xf0, 0xf0).rw(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r), FUNC(nb1413m3_device::outcoin_w));
@@ -371,7 +370,7 @@ void nbmj8891_state::mgion_io_map(address_map &map)
 	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r));
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
-	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //AM_WRITENOP
+	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //.nopw();
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8891_state::vramsel_w));
 	map(0xf0, 0xf0).rw(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r), FUNC(nb1413m3_device::outcoin_w));
@@ -387,7 +386,7 @@ void nbmj8891_state::omotesnd_io_map(address_map &map)
 	map(0x10, 0x10).w(FUNC(nbmj8891_state::romsel_w));
 	map(0x20, 0x20).w(FUNC(nbmj8891_state::clutsel_w));
 	map(0x40, 0x4f).w(FUNC(nbmj8891_state::clut_w));
-//  AM_RANGE(0x50, 0x50) AM_DEVWRITE("nb1413m3", nb1413m3_device, nmi_clock_w)
+//  map(0x50, 0x50).w(m_nb1413m3, FUNC(nb1413m3_device::nmi_clock_w));
 	map(0x70, 0x70).w(FUNC(nbmj8891_state::scrolly_w));
 	map(0x81, 0x81).r("fmsnd", FUNC(ay8910_device::data_r));
 	map(0x82, 0x83).w("fmsnd", FUNC(ay8910_device::data_address_w));
@@ -414,10 +413,10 @@ void nbmj8891_state::hanamomo_io_map(address_map &map)
 	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r));
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
-	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //AM_WRITENOP
+	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //.nopw();
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
-//  AM_RANGE(0xe0, 0xe0) AM_WRITENOP
-	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)); //AM_WRITENOP
+//  map(0xe0, 0xe0).nopw();
+	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)); //.nopw();
 	map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 }
 
@@ -434,10 +433,10 @@ void nbmj8891_state::msjiken_io_map(address_map &map)
 	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r));
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
-	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //AM_WRITENOP
+	map(0xc0, 0xc0).r(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r)); //.nopw();
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
-//  AM_RANGE(0xe0, 0xe0) AM_WRITENOP
-	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)); //AM_WRITENOP
+//  map(0xe0, 0xe0).nopw();
+	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)); //.nopw();
 	map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 }
 
@@ -456,8 +455,8 @@ void nbmj8891_state::scandal_io_map(address_map &map)
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
 	map(0xc0, 0xc0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r), FUNC(nb1413m3_device::nmi_clock_w));
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
-//  AM_RANGE(0xe0, 0xe0) AM_WRITENOP
-	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)); //AM_WRITENOP
+//  map(0xe0, 0xe0).nopw();
+	map(0xf0, 0xf0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r)); //.nopw();
 	map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 }
 
@@ -477,7 +476,7 @@ void nbmj8891_state::scandalm_io_map(address_map &map)
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
 	map(0xc0, 0xc0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r), FUNC(nb1413m3_device::nmi_clock_w));
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
-//  AM_RANGE(0xe0, 0xe0) AM_WRITENOP
+//  map(0xe0, 0xe0).nopw();
 	map(0xf0, 0xf0).rw(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r), FUNC(nb1413m3_device::outcoin_w));
 	map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 }
@@ -498,7 +497,7 @@ void nbmj8891_state::bananadr_io_map(address_map &map)
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
 	map(0xc0, 0xc0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport3_r), FUNC(nb1413m3_device::nmi_clock_w));
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
-//  AM_RANGE(0xe0, 0xe0) AM_WRITENOP
+//  map(0xe0, 0xe0).nopw();
 	map(0xf0, 0xf0).rw(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r), FUNC(nb1413m3_device::outcoin_w));
 	map(0xf1, 0xf1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw2_r));
 }
@@ -513,7 +512,7 @@ void nbmj8891_state::lovehous_io_map(address_map &map)
 	map(0x60, 0x60).w(FUNC(nbmj8891_state::romsel_w));
 	map(0x70, 0x70).w(FUNC(nbmj8891_state::scrolly_w));
 	map(0x80, 0x81).w("fmsnd", FUNC(ym3812_device::write));
-	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r)); //AM_WRITENOP
+	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r)); //.nopw();
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
 	map(0xc0, 0xc0).portr("PORT0-2");
@@ -536,7 +535,7 @@ void nbmj8891_state::maiko_io_map(address_map &map)
 	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r));
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
-	map(0xc0, 0xc0).portr("PORT0-2"); //AM_WRITENOP
+	map(0xc0, 0xc0).portr("PORT0-2"); //.nopw();
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).w(FUNC(nbmj8891_state::vramsel_w));
 	map(0xf0, 0xf0).rw(m_nb1413m3, FUNC(nb1413m3_device::dipsw1_r), FUNC(nb1413m3_device::outcoin_w));
@@ -549,11 +548,11 @@ void nbmj8891_state::taiwanmb_io_map(address_map &map)
 	map(0x00, 0x7f).r(m_nb1413m3, FUNC(nb1413m3_device::sndrom_r));
 	map(0x81, 0x81).r("fmsnd", FUNC(ay8910_device::data_r));
 	map(0x82, 0x83).w("fmsnd", FUNC(ay8910_device::data_address_w));
-	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r)); //AM_WRITENOP   // ?
+	map(0x90, 0x90).r(m_nb1413m3, FUNC(nb1413m3_device::inputport0_r)); //.nopw();   // ?
 	map(0xa0, 0xa0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport1_r), FUNC(nb1413m3_device::inputportsel_w));
 	map(0xb0, 0xb0).rw(m_nb1413m3, FUNC(nb1413m3_device::inputport2_r), FUNC(nb1413m3_device::sndrombank1_w));
-//  AM_RANGE(0xc0, 0xc0) AM_WRITENOP                    // ?
-//  AM_RANGE(0xd0, 0xd0) AM_READ(ff_r)  // irq ack? watchdog?
+//  map(0xc0, 0xc0).nopw();                    // ?
+//  map(0xd0, 0xd0).r(FUNC(nbmj8891_state::ff_r));  // irq ack? watchdog?
 	map(0xd0, 0xd0).w("dac", FUNC(dac_byte_interface::data_w));
 	map(0xe0, 0xe0).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw3_h_r)).w(FUNC(nbmj8891_state::taiwanmb_gfxdraw_w));  // blitter draw start
 	map(0xe1, 0xe1).r(m_nb1413m3, FUNC(nb1413m3_device::dipsw3_l_r));
@@ -566,7 +565,7 @@ void nbmj8891_state::taiwanmb_io_map(address_map &map)
  * However, a few games (lovehous, maiko, mmaiko, hanaoji and the ones using inputport3_r below)
  * read nb1413m3_outcoin_flag also at inputport3! Is this the correct behaviour for these games
  * or should they only check the flag at inputport3? */
-CUSTOM_INPUT_MEMBER( nbmj8891_state::nb1413m3_outcoin_flag_r )
+READ_LINE_MEMBER( nbmj8891_state::nb1413m3_outcoin_flag_r )
 {
 	return m_nb1413m3->m_outcoin_flag & 0x01;
 }
@@ -1649,7 +1648,7 @@ static INPUT_PORTS_START( lovehous )
 
 	PORT_START("PORT0-2")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, nbmj8891_state, nb1413m3_outcoin_flag_r, nullptr)    // OUT COIN
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(nbmj8891_state, nb1413m3_outcoin_flag_r)    // OUT COIN
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_MEMORY_RESET )   // MEMORY RESET
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SERVICE2 )       // ANALYZER
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNUSED )
@@ -1810,7 +1809,7 @@ static INPUT_PORTS_START( maiko )
 
 	PORT_START("PORT0-2")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNUSED )         //
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, nbmj8891_state, nb1413m3_outcoin_flag_r, nullptr)    // OUT COIN
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(nbmj8891_state, nb1413m3_outcoin_flag_r)    // OUT COIN
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_MEMORY_RESET )   // MEMORY RESET
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SERVICE2 )       // ANALYZER
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNUSED )         //
@@ -1886,7 +1885,7 @@ static INPUT_PORTS_START( mmaiko )
 
 	PORT_START("PORT0-2")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNUSED )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, nbmj8891_state, nb1413m3_outcoin_flag_r, nullptr)    // OUT COIN
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(nbmj8891_state, nb1413m3_outcoin_flag_r)    // OUT COIN
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_MEMORY_RESET )   // MEMORY RESET
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SERVICE2 )       // ANALYZER
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNUSED )
@@ -1962,7 +1961,7 @@ static INPUT_PORTS_START( hanaoji )
 
 	PORT_START("PORT0-2")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNUSED )         //
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, nbmj8891_state, nb1413m3_outcoin_flag_r, nullptr)    // OUT COIN
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(nbmj8891_state, nb1413m3_outcoin_flag_r)    // OUT COIN
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_MEMORY_RESET )   // MEMORY RESET
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SERVICE2 )       // ANALYZER
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNUSED )         //
@@ -2212,9 +2211,6 @@ void nbmj8891_state::gionbana(machine_config &config)
 	YM3812(config, "fmsnd", 2500000).add_route(ALL_OUTPUTS, "speaker", 0.5);
 
 	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.37); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac", 1.0, DAC_VREF_POS_INPUT);
-	vref.add_route(0, "dac", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 void nbmj8891_state::mgion(machine_config &config)

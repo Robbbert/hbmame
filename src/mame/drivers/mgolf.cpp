@@ -10,6 +10,7 @@
 #include "cpu/m6502/m6502.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 class mgolf_state : public driver_device
 {
@@ -31,11 +32,11 @@ public:
 	void mgolf(machine_config &config);
 
 private:
-	DECLARE_WRITE8_MEMBER(vram_w);
-	DECLARE_READ8_MEMBER(wram_r);
-	DECLARE_READ8_MEMBER(dial_r);
-	DECLARE_READ8_MEMBER(misc_r);
-	DECLARE_WRITE8_MEMBER(wram_w);
+	void vram_w(offs_t offset, uint8_t data);
+	uint8_t wram_r(offs_t offset);
+	uint8_t dial_r();
+	uint8_t misc_r();
+	void wram_w(offs_t offset, uint8_t data);
 
 	TILE_GET_INFO_MEMBER(get_tile_info);
 
@@ -79,11 +80,11 @@ TILE_GET_INFO_MEMBER(mgolf_state::get_tile_info)
 {
 	uint8_t code = m_video_ram[tile_index];
 
-	SET_TILE_INFO_MEMBER(0, code, code >> 7, 0);
+	tileinfo.set(0, code, code >> 7, 0);
 }
 
 
-WRITE8_MEMBER(mgolf_state::vram_w)
+void mgolf_state::vram_w(offs_t offset, uint8_t data)
 {
 	m_video_ram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
@@ -92,7 +93,7 @@ WRITE8_MEMBER(mgolf_state::vram_w)
 
 void mgolf_state::video_start()
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(mgolf_state::get_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(mgolf_state::get_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 }
 
 
@@ -153,7 +154,7 @@ void mgolf_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 		interrupt_callback(ptr, param);
 		break;
 	default:
-		assert_always(false, "Unknown id in mgolf_state::device_timer");
+		throw emu_fatalerror("Unknown id in mgolf_state::device_timer");
 	}
 }
 
@@ -181,13 +182,13 @@ double mgolf_state::calc_plunger_pos()
 }
 
 
-READ8_MEMBER(mgolf_state::wram_r)
+uint8_t mgolf_state::wram_r(offs_t offset)
 {
 	return m_video_ram[0x380 + offset];
 }
 
 
-READ8_MEMBER(mgolf_state::dial_r)
+uint8_t mgolf_state::dial_r()
 {
 	uint8_t val = ioport("41")->read();
 
@@ -204,7 +205,7 @@ READ8_MEMBER(mgolf_state::dial_r)
 }
 
 
-READ8_MEMBER(mgolf_state::misc_r)
+uint8_t mgolf_state::misc_r()
 {
 	double plunger = calc_plunger_pos(); /* see Video Pinball */
 
@@ -223,7 +224,7 @@ READ8_MEMBER(mgolf_state::misc_r)
 }
 
 
-WRITE8_MEMBER(mgolf_state::wram_w)
+void mgolf_state::wram_w(offs_t offset, uint8_t data)
 {
 	m_video_ram[0x380 + offset] = data;
 }
@@ -408,4 +409,4 @@ ROM_START( mgolf )
 ROM_END
 
 
-GAME( 1978, mgolf, 0, mgolf, mgolf, mgolf_state, empty_init, ROT270, "Atari", "Atari Mini Golf (prototype)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1978, mgolf, 0, mgolf, mgolf, mgolf_state, empty_init, ROT270, "Atari", "Mini Golf (Atari, prototype)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )

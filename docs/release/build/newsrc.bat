@@ -7,16 +7,16 @@ md %to%\src\emu
 copy /Y %from%\src\version.cpp %to%\src\version.cpp
 copy /Y %from%\src\emu\validity.cpp %to%\src\emu
 copy /Y %from%\src\emu\digfx.h %to%\src\emu
-copy /Y %from%\src\emu\driver.h %to%\src\emu
 copy /Y %from%\src\emu\emuopts.* %to%\src\emu
-copy /Y %from%\src\emu\gamedrv.h %to%\src\emu
+copy /Y %from%\src\emu\romload.cpp %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
-copy /Y %from%\src\version.cpp %to%\src
 
 md %to%\src\frontend\mame
-copy /Y %from%\src\frontend\mame\audit.* %to%\src\frontend\mame
-copy /Y %from%\src\frontend\mame\info.cpp %to%\src\frontend\mame
-copy /Y %from%\src\frontend\mame\mameopts.* %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\audit.*            %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\clifront.cpp       %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
@@ -26,6 +26,7 @@ md %to%\src\devices\video
 copy /Y %from%\src\devices\video\vector.cpp %to%\src\devices\video
 
 md %to%\src\mame\drivers
+copy /Y %from%\src\mame\drivers\cinemat.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\konamigx.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
@@ -38,6 +39,8 @@ copy /Y %from%\src\mame\machine\mhavoc.cpp %to%\src\mame\machine
 
 md %to%\src\mame\video
 copy /Y %from%\src\mame\video\decbac06.cpp %to%\src\mame\video
+copy /Y %from%\src\mame\video\midtunit.cpp %to%\src\mame\video
+copy /Y %from%\src\mame\video\sega16sp.cpp %to%\src\mame\video
 
 md %to%\src\hbmame
 xcopy /E /Y %from%\src\hbmame %to%\src\hbmame
@@ -60,11 +63,3 @@ type %from%\docs\BSD3Clause.txt    | MORE /P > %to%\docs\BSD3Clause.txt
 type %from%\docs\LICENSE           | MORE /P > %to%\docs\license.txt
 type %from%\docs\winui_license.txt | MORE /P > %to%\docs\winui_license.txt
 
-pause
-echo off
-cls
-echo.
-echo RAR up everything.
-echo.
-
-pause

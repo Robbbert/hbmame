@@ -1,7 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:Aaron Giles
 /*
- * font_windows.c
+ * font_windows.cpp
  *
  */
 
@@ -15,8 +15,8 @@
 #include "modules/osdmodule.h"
 
 #include "strconv.h"
+#include "unicode.h"
 #include "corestr.h"
-#include "corealloc.h"
 
 #include <cstring>
 
@@ -28,6 +28,7 @@
 
 
 namespace {
+
 class osd_font_windows : public osd_font
 {
 public:
@@ -260,7 +261,7 @@ bool osd_font_windows::get_bitmap(char32_t chnum, bitmap_argb32 &bitmap, int32_t
 			// copy the bits into it
 			for (int y = 0; y < bitmap.height(); y++)
 			{
-				uint32_t *dstrow = &bitmap.pix32(y);
+				uint32_t *dstrow = &bitmap.pix(y);
 				uint8_t *srcrow = &bits[(y + actbounds.min_y) * rowbytes];
 				for (int x = 0; x < bitmap.width(); x++)
 				{

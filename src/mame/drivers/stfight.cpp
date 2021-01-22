@@ -258,8 +258,8 @@ TODO:
   08 Japan
   09 Benelux
   0d Italy
+  0e France
   0f Germany
-  The France version doesn't care for the protection code.
 
 *****************************************************************************/
 
@@ -462,21 +462,21 @@ INPUT_PORTS_END
 void stfight_state::stfight_base(machine_config &config)
 {
 	/* basic machine hardware */
-	Z80(config, m_maincpu, XTAL(12'000'000) / 4);
+	Z80(config, m_maincpu, 12_MHz_XTAL / 4);
 	m_maincpu->set_addrmap(AS_PROGRAM, &stfight_state::cpu1_map);
 	m_maincpu->set_vblank_int("stfight_vid:screen", FUNC(stfight_state::stfight_vb_interrupt));
 
-	Z80(config, m_audiocpu, XTAL(12'000'000) / 4);
+	Z80(config, m_audiocpu, 12_MHz_XTAL / 4);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &stfight_state::cpu2_map);
 	m_audiocpu->set_periodic_int(FUNC(stfight_state::irq0_line_hold), attotime::from_hz(120));
 
-	M68705P5(config, m_mcu, XTAL(12'000'000) / 4);
+	M68705P5(config, m_mcu, 12_MHz_XTAL / 4);
 	m_mcu->portb_r().set(FUNC(stfight_state::stfight_68705_port_b_r));
 	m_mcu->porta_w().set(FUNC(stfight_state::stfight_68705_port_a_w));
 	m_mcu->portb_w().set(FUNC(stfight_state::stfight_68705_port_b_w));
 	m_mcu->portc_w().set(FUNC(stfight_state::stfight_68705_port_c_w));
 
-	config.m_minimum_quantum = attotime::from_hz(600);
+	config.set_maximum_quantum(attotime::from_hz(600));
 
 	PALETTE(config, "palette").set_format(palette_device::xBRG_444, 256);
 
@@ -484,19 +484,19 @@ void stfight_state::stfight_base(machine_config &config)
 	SPEAKER(config, "mono").front_center();
 
 	// YM2203_PITCH_HACK - These should be clocked at 1.5Mhz (see TODO list)
-	ym2203_device &ym1(YM2203(config, "ym1", XTAL(12'000'000) / 8 * 3));
+	ym2203_device &ym1(YM2203(config, "ym1", 12_MHz_XTAL / 8 * 3));
 	ym1.add_route(0, "mono", 0.15);
 	ym1.add_route(1, "mono", 0.15);
 	ym1.add_route(2, "mono", 0.15);
 	ym1.add_route(3, "mono", 0.10);
 
-	ym2203_device &ym2(YM2203(config, "ym2", XTAL(12'000'000) / 8 * 3));
+	ym2203_device &ym2(YM2203(config, "ym2", 12_MHz_XTAL / 8 * 3));
 	ym2.add_route(0, "mono", 0.15);
 	ym2.add_route(1, "mono", 0.15);
 	ym2.add_route(2, "mono", 0.15);
 	ym2.add_route(3, "mono", 0.10);
 
-	MSM5205(config, m_msm, XTAL(384'000));
+	MSM5205(config, m_msm, 384_kHz_XTAL);
 	m_msm->vck_callback().set(FUNC(stfight_state::stfight_adpcm_int)); // Interrupt function
 	m_msm->set_prescaler_selector(msm5205_device::S48_4B);  // 8KHz, 4-bit
 	m_msm->add_route(ALL_OUTPUTS, "mono", 0.50);
@@ -906,7 +906,6 @@ ROM_START( empcityi ) // very similar to above set
 	ROM_LOAD( "5j",   0x00000, 0x8000, CRC(1b8d0c07) SHA1(c163ccd2b7ed6c84facc075eb1564ca399f3ba17) )
 ROM_END
 
-// This set doesn't seem to check for the protection code in the MCU
 ROM_START( empcityfr )
 	ROM_REGION( 2*0x18000, "maincpu", 0 )   /* 96k for code + 96k for decrypted opcodes */
 	ROM_LOAD( "pr.4t",     0x00000, 0x8000, CRC(aa1f84ac) SHA1(b484b85270091511860f5b4041099c5335ff1204) )
@@ -916,7 +915,7 @@ ROM_START( empcityfr )
 	ROM_LOAD( "092-5c",   0x0000,  0x8000, CRC(6a8cb7a6) SHA1(dc123cc48d3623752b78e7c23dd8d2f5adf84f92) )
 
 	ROM_REGION( 0x0800, "mcu", 0 )
-	ROM_LOAD( "empcityu_68705.3j",  0x0000,  0x0800, BAD_DUMP CRC(182f7616) SHA1(38b4f23a559ae13f8ca1b974407a2a40fc52879f) )
+	ROM_LOAD( "empcityfr_68705.3j",  0x0000,  0x0800, BAD_DUMP CRC(d66ac61f) SHA1(5f44d69886d4db46f2e4c07ebdf01e337ee4fd35) )
 
 	ROM_REGION( 0x02000, "stfight_vid:tx_gfx", 0 )    /* character data */
 	ROM_LOAD( "17.2n",   0x0000, 0x2000, CRC(1b3706b5) SHA1(61f069329a7a836523ffc8cce915b0d0129fd896) )

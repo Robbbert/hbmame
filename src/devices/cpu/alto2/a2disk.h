@@ -8,10 +8,10 @@
 #ifdef  ALTO2_DEFINE_CONSTANTS
 
 #else   // ALTO2_DEFINE_CONSTANTS
-#ifndef _A2DISK_H_
-#define _A2DISK_H_
+#ifndef MAME_CPU_ALTO2_A2DISK_H
+#define MAME_CPU_ALTO2_A2DISK_H
 
-diablo_hd_device* m_drive[2];       //!< two diablo_hd_device drives
+required_device_array<diablo_hd_device, 2> m_drive;       //!< two diablo_hd_device drives
 
 //! disk controller context
 struct {
@@ -95,5 +95,5 @@ void f2_late_strobon();                         //!< f2_strobon late: branch on 
 void init_disk();                               //!< initialize the disk controller
 void exit_disk();                               //!< deinitialize the disk controller
 void reset_disk();                              //!< reset the disk controller
-#endif  // _A2DISK_H_
+#endif  // MAME_CPU_ALTO2_A2DISK_H
 #endif  // ALTO2_DEFINE_CONSTANTS

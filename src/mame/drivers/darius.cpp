@@ -324,8 +324,8 @@ void darius_state::update_psg1(int port)
 
 void darius_state::update_da()
 {
-	const int left  = m_def_vol[(m_pan[4] >> 4) & 0x0f];
-	const int right = m_def_vol[(m_pan[4] >> 0) & 0x0f];
+	const int left  = m_def_vol[(m_pan[4] >> 0) & 0x0f];
+	const int right = m_def_vol[(m_pan[4] >> 4) & 0x0f];
 
 	if (m_msm5205_l != nullptr)
 		m_msm5205_l->flt_volume_set_volume(left / 100.0);
@@ -481,7 +481,7 @@ void darius_state::adpcm_nmi_enable(u8 data)
 
 void darius_state::adpcm_data_w(u8 data)
 {
-	m_msm->write_data(data);
+	m_msm->data_w(data);
 	m_msm->reset_w(!(data & 0x20));    /* my best guess, but it could be output enable as well */
 }
 
@@ -677,7 +677,7 @@ void darius_state::machine_reset()
 	m_adpcm_command = 0;
 	m_nmi_enable = 0;
 
-	machine().sound().system_enable(true);  /* mixer enabled */
+	machine().sound().system_mute(false);  /* mixer enabled */
 
 	for (auto & elem : m_vol)
 		elem = 0x00;    /* min volume */
@@ -705,7 +705,7 @@ void darius_state::darius(machine_config &config)
 	m_adpcm->set_addrmap(AS_PROGRAM, &darius_state::darius_sound2_map);
 	m_adpcm->set_addrmap(AS_IO, &darius_state::darius_sound2_io_map);
 
-	config.m_minimum_quantum = attotime::from_hz(600);   /* 10 CPU slices per frame ? */
+	config.set_maximum_quantum(attotime::from_hz(600));   /* 10 CPU slices per frame ? */
 
 	WATCHDOG_TIMER(config, "watchdog");
 

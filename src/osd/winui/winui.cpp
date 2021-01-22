@@ -22,6 +22,7 @@
 #include <shellapi.h>
 #include <commctrl.h>
 #include <wingdi.h>
+#include <uxtheme.h>
 
 // standard C headers
 #include <stdio.h>
@@ -34,9 +35,6 @@
 #include <time.h>
 #include <tchar.h>
 
-/* Uncomment to add Direct Draw support (has to be added back to the core too) */
-//#define UI_DIRECTDRAW
-
 // MAME/MAMEUI headers
 #include "emu.h"
 #include "mame.h"
@@ -48,6 +46,7 @@
 #include "window.h"
 #include "../osdcore.h"
 #include "zippath.h"
+#include "corestr.h"
 
 #include "resource.h"
 #include "resource.hm"
@@ -68,9 +67,6 @@
 #include "help.h"
 #include "history.h"
 #include "dialogs.h"
-#ifdef UI_DIRECTDRAW
-#include "directdraw.h"
-#endif
 #include "directinput.h"
 #include "dijoystick.h"     /* For DIJoystick availability. */
 
@@ -89,12 +85,12 @@
 
 #ifndef ListView_CreateDragImage
 #define ListView_CreateDragImage(hwnd, i, lpptUpLeft) \
-    (HIMAGELIST)(LRESULT)(int)SendMessage((hwnd), LVM_CREATEDRAGIMAGE, (WPARAM)(int)(i), (LPARAM)(LPPOINT)(lpptUpLeft))
+	(HIMAGELIST)(LRESULT)(int)SendMessage((hwnd), LVM_CREATEDRAGIMAGE, (WPARAM)(int)(i), (LPARAM)(LPPOINT)(lpptUpLeft))
 #endif // ListView_CreateDragImage
 
 #ifndef TreeView_EditLabel
 #define TreeView_EditLabel(w, i) \
-    SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
+	SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
 #endif // TreeView_EditLabel
 
 #ifndef HDF_SORTUP
@@ -186,12 +182,12 @@ typedef struct tagLVBKIMAGEW
 
 #ifndef ListView_SetBkImage
 #define ListView_SetBkImage(hwnd, plvbki) \
-    (BOOL)SNDMSG((hwnd), LVM_SETBKIMAGE, 0, (LPARAM)(plvbki))
+	(BOOL)SNDMSG((hwnd), LVM_SETBKIMAGE, 0, (LPARAM)(plvbki))
 #endif // ListView_SetBkImage
 
 #ifndef ListView_GetBkImage
 #define ListView_GetBkImage(hwnd, plvbki) \
-    (BOOL)SNDMSG((hwnd), LVM_GETBKIMAGE, 0, (LPARAM)(plvbki))
+	(BOOL)SNDMSG((hwnd), LVM_GETBKIMAGE, 0, (LPARAM)(plvbki))
 #endif // ListView_GetBkImage
 
 #define MM_PLAY_GAME (WM_APP + 15000)
@@ -352,6 +348,13 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 BOOL MouseHasBeenMoved(void);
 static void SwitchFullScreenMode(void);
 
+static HBRUSH hBrush = NULL;
+//static HBRUSH hBrushDlg = NULL;
+static HDC hDC = NULL;
+static HWND	hSplash = NULL;
+static HWND	hProgress = NULL;
+static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
 /***************************************************************************
     External variables
  ***************************************************************************/
@@ -400,7 +403,7 @@ typedef struct
 typedef struct
 {
 	int         type;       /* Either RA_ID or RA_HWND, to indicate which member of u is used; or RA_END
-                               to signify last entry */
+	                           to signify last entry */
 	union                   /* Can identify a child window by control id or by handle */
 	{
 		int     id;         /* Window control id */
@@ -434,8 +437,8 @@ typedef struct tagPOPUPSTRING
 
 #define MAX_MENUS 3
 
-#define SPLITTER_WIDTH	4
-#define MIN_VIEW_WIDTH	10
+#define SPLITTER_WIDTH  4
+#define MIN_VIEW_WIDTH  10
 
 // Struct needed for Game Window Communication
 
@@ -484,8 +487,8 @@ static BOOL bShowTabCtrl   = 1;
 static BOOL bProgressShown = false;
 static BOOL bListReady     = false;
 
-#define	WM_MAME32_FILECHANGED (WM_USER + 0)
-#define	WM_MAME32_AUDITGAME   (WM_USER + 1)
+#define WM_MAME32_FILECHANGED (WM_USER + 0)
+#define WM_MAME32_AUDITGAME   (WM_USER + 1)
 
 static PDIRWATCHER s_pWatcher;
 
@@ -508,119 +511,119 @@ static char g_SearchText[256];
 static const int win_key_trans_table[][4] =
 {
 	// MAME key             dinput key          virtual key     ascii
-	{ ITEM_ID_ESC,			DIK_ESCAPE,			VK_ESCAPE,		27 },
-	{ ITEM_ID_1,			DIK_1,				'1',			'1' },
-	{ ITEM_ID_2,			DIK_2,				'2',			'2' },
-	{ ITEM_ID_3,			DIK_3,				'3',			'3' },
-	{ ITEM_ID_4,			DIK_4,				'4',			'4' },
-	{ ITEM_ID_5,			DIK_5,				'5',			'5' },
-	{ ITEM_ID_6,			DIK_6,				'6',			'6' },
-	{ ITEM_ID_7,			DIK_7,				'7',			'7' },
-	{ ITEM_ID_8,			DIK_8,				'8',			'8' },
-	{ ITEM_ID_9,			DIK_9,				'9',			'9' },
-	{ ITEM_ID_0,			DIK_0,				'0',			'0' },
-	{ ITEM_ID_BACKSPACE,	DIK_BACK,			VK_BACK,		8 },
-	{ ITEM_ID_TAB,			DIK_TAB,			VK_TAB, 		9 },
-	{ ITEM_ID_Q,			DIK_Q,				'Q',			'Q' },
-	{ ITEM_ID_W,			DIK_W,				'W',			'W' },
-	{ ITEM_ID_E,			DIK_E,				'E',			'E' },
-	{ ITEM_ID_R,			DIK_R,				'R',			'R' },
-	{ ITEM_ID_T,			DIK_T,				'T',			'T' },
-	{ ITEM_ID_Y,			DIK_Y,				'Y',			'Y' },
-	{ ITEM_ID_U,			DIK_U,				'U',			'U' },
-	{ ITEM_ID_I,			DIK_I,				'I',			'I' },
-	{ ITEM_ID_O,			DIK_O,				'O',			'O' },
-	{ ITEM_ID_P,			DIK_P,				'P',			'P' },
-	{ ITEM_ID_OPENBRACE,	DIK_LBRACKET,		VK_OEM_4,		'[' },
-	{ ITEM_ID_CLOSEBRACE,	DIK_RBRACKET,		VK_OEM_6,		']' },
-	{ ITEM_ID_ENTER,		DIK_RETURN, 		VK_RETURN,		13 },
-	{ ITEM_ID_LCONTROL, 	DIK_LCONTROL,		VK_LCONTROL,	0 },
-	{ ITEM_ID_A,			DIK_A,				'A',			'A' },
-	{ ITEM_ID_S,			DIK_S,				'S',			'S' },
-	{ ITEM_ID_D,			DIK_D,				'D',			'D' },
-	{ ITEM_ID_F,			DIK_F,				'F',			'F' },
-	{ ITEM_ID_G,			DIK_G,				'G',			'G' },
-	{ ITEM_ID_H,			DIK_H,				'H',			'H' },
-	{ ITEM_ID_J,			DIK_J,				'J',			'J' },
-	{ ITEM_ID_K,			DIK_K,				'K',			'K' },
-	{ ITEM_ID_L,			DIK_L,				'L',			'L' },
-	{ ITEM_ID_COLON,		DIK_SEMICOLON,		VK_OEM_1,		';' },
-	{ ITEM_ID_QUOTE,		DIK_APOSTROPHE,		VK_OEM_7,		'\'' },
-	{ ITEM_ID_TILDE,		DIK_GRAVE,			VK_OEM_3,		'`' },
-	{ ITEM_ID_LSHIFT,		DIK_LSHIFT, 		VK_LSHIFT,		0 },
-	{ ITEM_ID_BACKSLASH,	DIK_BACKSLASH,		VK_OEM_5,		'\\' },
-	{ ITEM_ID_Z,			DIK_Z,				'Z',			'Z' },
-	{ ITEM_ID_X,			DIK_X,				'X',			'X' },
-	{ ITEM_ID_C,			DIK_C,				'C',			'C' },
-	{ ITEM_ID_V,			DIK_V,				'V',			'V' },
-	{ ITEM_ID_B,			DIK_B,				'B',			'B' },
-	{ ITEM_ID_N,			DIK_N,				'N',			'N' },
-	{ ITEM_ID_M,			DIK_M,				'M',			'M' },
-	{ ITEM_ID_SLASH,		DIK_SLASH,			VK_OEM_2,		'/' },
-	{ ITEM_ID_RSHIFT,		DIK_RSHIFT, 		VK_RSHIFT,		0 },
-	{ ITEM_ID_ASTERISK, 	DIK_MULTIPLY,		VK_MULTIPLY,	'*' },
-	{ ITEM_ID_LALT, 		DIK_LMENU,			VK_LMENU,		0 },
-	{ ITEM_ID_SPACE,		DIK_SPACE,			VK_SPACE,		' ' },
-	{ ITEM_ID_CAPSLOCK, 	DIK_CAPITAL,		VK_CAPITAL, 	0 },
-	{ ITEM_ID_F1,			DIK_F1,				VK_F1,			0 },
-	{ ITEM_ID_F2,			DIK_F2,				VK_F2,			0 },
-	{ ITEM_ID_F3,			DIK_F3,				VK_F3,			0 },
-	{ ITEM_ID_F4,			DIK_F4,				VK_F4,			0 },
-	{ ITEM_ID_F5,			DIK_F5,				VK_F5,			0 },
-	{ ITEM_ID_F6,			DIK_F6,				VK_F6,			0 },
-	{ ITEM_ID_F7,			DIK_F7,				VK_F7,			0 },
-	{ ITEM_ID_F8,			DIK_F8,				VK_F8,			0 },
-	{ ITEM_ID_F9,			DIK_F9,				VK_F9,			0 },
-	{ ITEM_ID_F10,			DIK_F10,			VK_F10, 		0 },
-	{ ITEM_ID_NUMLOCK,		DIK_NUMLOCK,		VK_NUMLOCK, 	0 },
-	{ ITEM_ID_SCRLOCK,		DIK_SCROLL,			VK_SCROLL,		0 },
-	{ ITEM_ID_7_PAD,		DIK_NUMPAD7,		VK_NUMPAD7, 	0 },
-	{ ITEM_ID_8_PAD,		DIK_NUMPAD8,		VK_NUMPAD8, 	0 },
-	{ ITEM_ID_9_PAD,		DIK_NUMPAD9,		VK_NUMPAD9, 	0 },
-	{ ITEM_ID_MINUS_PAD,	DIK_SUBTRACT,		VK_SUBTRACT,	0 },
-	{ ITEM_ID_4_PAD,		DIK_NUMPAD4,		VK_NUMPAD4, 	0 },
-	{ ITEM_ID_5_PAD,		DIK_NUMPAD5,		VK_NUMPAD5, 	0 },
-	{ ITEM_ID_6_PAD,		DIK_NUMPAD6,		VK_NUMPAD6, 	0 },
-	{ ITEM_ID_PLUS_PAD, 	DIK_ADD,			VK_ADD, 		0 },
-	{ ITEM_ID_1_PAD,		DIK_NUMPAD1,		VK_NUMPAD1, 	0 },
-	{ ITEM_ID_2_PAD,		DIK_NUMPAD2,		VK_NUMPAD2, 	0 },
-	{ ITEM_ID_3_PAD,		DIK_NUMPAD3,		VK_NUMPAD3, 	0 },
-	{ ITEM_ID_0_PAD,		DIK_NUMPAD0,		VK_NUMPAD0, 	0 },
-	{ ITEM_ID_DEL_PAD,		DIK_DECIMAL,		VK_DECIMAL, 	0 },
-	{ ITEM_ID_F11,			DIK_F11,			VK_F11, 		0 },
-	{ ITEM_ID_F12,			DIK_F12,			VK_F12, 		0 },
-	{ ITEM_ID_F13,			DIK_F13,			VK_F13, 		0 },
-	{ ITEM_ID_F14,			DIK_F14,			VK_F14, 		0 },
-	{ ITEM_ID_F15,			DIK_F15,			VK_F15, 		0 },
-	{ ITEM_ID_ENTER_PAD,	DIK_NUMPADENTER,	VK_RETURN,		0 },
-	{ ITEM_ID_RCONTROL, 	DIK_RCONTROL,		VK_RCONTROL,	0 },
-	{ ITEM_ID_SLASH_PAD,	DIK_DIVIDE,			VK_DIVIDE,		0 },
-	{ ITEM_ID_PRTSCR,		DIK_SYSRQ,			0,				0 },
-	{ ITEM_ID_RALT, 		DIK_RMENU,			VK_RMENU,		0 },
-	{ ITEM_ID_HOME, 		DIK_HOME,			VK_HOME,		0 },
-	{ ITEM_ID_UP,			DIK_UP,				VK_UP,			0 },
-	{ ITEM_ID_PGUP, 		DIK_PRIOR,			VK_PRIOR,		0 },
-	{ ITEM_ID_LEFT, 		DIK_LEFT,			VK_LEFT,		0 },
-	{ ITEM_ID_RIGHT,		DIK_RIGHT,			VK_RIGHT,		0 },
-	{ ITEM_ID_END,			DIK_END,			VK_END, 		0 },
-	{ ITEM_ID_DOWN, 		DIK_DOWN,			VK_DOWN,		0 },
-	{ ITEM_ID_PGDN, 		DIK_NEXT,			VK_NEXT,		0 },
-	{ ITEM_ID_INSERT,		DIK_INSERT,			VK_INSERT,		0 },
-	{ ITEM_ID_DEL,			DIK_DELETE,			VK_DELETE,		0 },
-	{ ITEM_ID_LWIN, 		DIK_LWIN,			VK_LWIN,		0 },
-	{ ITEM_ID_RWIN, 		DIK_RWIN,			VK_RWIN,		0 },
-	{ ITEM_ID_MENU, 		DIK_APPS,			VK_APPS,		0 },
-	{ ITEM_ID_PAUSE,		DIK_PAUSE,			VK_PAUSE,		0 },
-	{ ITEM_ID_CANCEL,		0,					VK_CANCEL,		0 },
+	{ ITEM_ID_ESC,          DIK_ESCAPE,         VK_ESCAPE,      27 },
+	{ ITEM_ID_1,            DIK_1,              '1',            '1' },
+	{ ITEM_ID_2,            DIK_2,              '2',            '2' },
+	{ ITEM_ID_3,            DIK_3,              '3',            '3' },
+	{ ITEM_ID_4,            DIK_4,              '4',            '4' },
+	{ ITEM_ID_5,            DIK_5,              '5',            '5' },
+	{ ITEM_ID_6,            DIK_6,              '6',            '6' },
+	{ ITEM_ID_7,            DIK_7,              '7',            '7' },
+	{ ITEM_ID_8,            DIK_8,              '8',            '8' },
+	{ ITEM_ID_9,            DIK_9,              '9',            '9' },
+	{ ITEM_ID_0,            DIK_0,              '0',            '0' },
+	{ ITEM_ID_BACKSPACE,    DIK_BACK,           VK_BACK,        8 },
+	{ ITEM_ID_TAB,          DIK_TAB,            VK_TAB,         9 },
+	{ ITEM_ID_Q,            DIK_Q,              'Q',            'Q' },
+	{ ITEM_ID_W,            DIK_W,              'W',            'W' },
+	{ ITEM_ID_E,            DIK_E,              'E',            'E' },
+	{ ITEM_ID_R,            DIK_R,              'R',            'R' },
+	{ ITEM_ID_T,            DIK_T,              'T',            'T' },
+	{ ITEM_ID_Y,            DIK_Y,              'Y',            'Y' },
+	{ ITEM_ID_U,            DIK_U,              'U',            'U' },
+	{ ITEM_ID_I,            DIK_I,              'I',            'I' },
+	{ ITEM_ID_O,            DIK_O,              'O',            'O' },
+	{ ITEM_ID_P,            DIK_P,              'P',            'P' },
+	{ ITEM_ID_OPENBRACE,    DIK_LBRACKET,       VK_OEM_4,       '[' },
+	{ ITEM_ID_CLOSEBRACE,   DIK_RBRACKET,       VK_OEM_6,       ']' },
+	{ ITEM_ID_ENTER,        DIK_RETURN,         VK_RETURN,      13 },
+	{ ITEM_ID_LCONTROL,     DIK_LCONTROL,       VK_LCONTROL,    0 },
+	{ ITEM_ID_A,            DIK_A,              'A',            'A' },
+	{ ITEM_ID_S,            DIK_S,              'S',            'S' },
+	{ ITEM_ID_D,            DIK_D,              'D',            'D' },
+	{ ITEM_ID_F,            DIK_F,              'F',            'F' },
+	{ ITEM_ID_G,            DIK_G,              'G',            'G' },
+	{ ITEM_ID_H,            DIK_H,              'H',            'H' },
+	{ ITEM_ID_J,            DIK_J,              'J',            'J' },
+	{ ITEM_ID_K,            DIK_K,              'K',            'K' },
+	{ ITEM_ID_L,            DIK_L,              'L',            'L' },
+	{ ITEM_ID_COLON,        DIK_SEMICOLON,      VK_OEM_1,       ';' },
+	{ ITEM_ID_QUOTE,        DIK_APOSTROPHE,     VK_OEM_7,       '\'' },
+	{ ITEM_ID_TILDE,        DIK_GRAVE,          VK_OEM_3,       '`' },
+	{ ITEM_ID_LSHIFT,       DIK_LSHIFT,         VK_LSHIFT,      0 },
+	{ ITEM_ID_BACKSLASH,    DIK_BACKSLASH,      VK_OEM_5,       '\\' },
+	{ ITEM_ID_Z,            DIK_Z,              'Z',            'Z' },
+	{ ITEM_ID_X,            DIK_X,              'X',            'X' },
+	{ ITEM_ID_C,            DIK_C,              'C',            'C' },
+	{ ITEM_ID_V,            DIK_V,              'V',            'V' },
+	{ ITEM_ID_B,            DIK_B,              'B',            'B' },
+	{ ITEM_ID_N,            DIK_N,              'N',            'N' },
+	{ ITEM_ID_M,            DIK_M,              'M',            'M' },
+	{ ITEM_ID_SLASH,        DIK_SLASH,          VK_OEM_2,       '/' },
+	{ ITEM_ID_RSHIFT,       DIK_RSHIFT,         VK_RSHIFT,      0 },
+	{ ITEM_ID_ASTERISK,     DIK_MULTIPLY,       VK_MULTIPLY,    '*' },
+	{ ITEM_ID_LALT,         DIK_LMENU,          VK_LMENU,       0 },
+	{ ITEM_ID_SPACE,        DIK_SPACE,          VK_SPACE,       ' ' },
+	{ ITEM_ID_CAPSLOCK,     DIK_CAPITAL,        VK_CAPITAL,     0 },
+	{ ITEM_ID_F1,           DIK_F1,             VK_F1,          0 },
+	{ ITEM_ID_F2,           DIK_F2,             VK_F2,          0 },
+	{ ITEM_ID_F3,           DIK_F3,             VK_F3,          0 },
+	{ ITEM_ID_F4,           DIK_F4,             VK_F4,          0 },
+	{ ITEM_ID_F5,           DIK_F5,             VK_F5,          0 },
+	{ ITEM_ID_F6,           DIK_F6,             VK_F6,          0 },
+	{ ITEM_ID_F7,           DIK_F7,             VK_F7,          0 },
+	{ ITEM_ID_F8,           DIK_F8,             VK_F8,          0 },
+	{ ITEM_ID_F9,           DIK_F9,             VK_F9,          0 },
+	{ ITEM_ID_F10,          DIK_F10,            VK_F10,         0 },
+	{ ITEM_ID_NUMLOCK,      DIK_NUMLOCK,        VK_NUMLOCK,     0 },
+	{ ITEM_ID_SCRLOCK,      DIK_SCROLL,         VK_SCROLL,      0 },
+	{ ITEM_ID_7_PAD,        DIK_NUMPAD7,        VK_NUMPAD7,     0 },
+	{ ITEM_ID_8_PAD,        DIK_NUMPAD8,        VK_NUMPAD8,     0 },
+	{ ITEM_ID_9_PAD,        DIK_NUMPAD9,        VK_NUMPAD9,     0 },
+	{ ITEM_ID_MINUS_PAD,    DIK_SUBTRACT,       VK_SUBTRACT,    0 },
+	{ ITEM_ID_4_PAD,        DIK_NUMPAD4,        VK_NUMPAD4,     0 },
+	{ ITEM_ID_5_PAD,        DIK_NUMPAD5,        VK_NUMPAD5,     0 },
+	{ ITEM_ID_6_PAD,        DIK_NUMPAD6,        VK_NUMPAD6,     0 },
+	{ ITEM_ID_PLUS_PAD,     DIK_ADD,            VK_ADD,         0 },
+	{ ITEM_ID_1_PAD,        DIK_NUMPAD1,        VK_NUMPAD1,     0 },
+	{ ITEM_ID_2_PAD,        DIK_NUMPAD2,        VK_NUMPAD2,     0 },
+	{ ITEM_ID_3_PAD,        DIK_NUMPAD3,        VK_NUMPAD3,     0 },
+	{ ITEM_ID_0_PAD,        DIK_NUMPAD0,        VK_NUMPAD0,     0 },
+	{ ITEM_ID_DEL_PAD,      DIK_DECIMAL,        VK_DECIMAL,     0 },
+	{ ITEM_ID_F11,          DIK_F11,            VK_F11,         0 },
+	{ ITEM_ID_F12,          DIK_F12,            VK_F12,         0 },
+	{ ITEM_ID_F13,          DIK_F13,            VK_F13,         0 },
+	{ ITEM_ID_F14,          DIK_F14,            VK_F14,         0 },
+	{ ITEM_ID_F15,          DIK_F15,            VK_F15,         0 },
+	{ ITEM_ID_ENTER_PAD,    DIK_NUMPADENTER,    VK_RETURN,      0 },
+	{ ITEM_ID_RCONTROL,     DIK_RCONTROL,       VK_RCONTROL,    0 },
+	{ ITEM_ID_SLASH_PAD,    DIK_DIVIDE,         VK_DIVIDE,      0 },
+	{ ITEM_ID_PRTSCR,       DIK_SYSRQ,          0,              0 },
+	{ ITEM_ID_RALT,         DIK_RMENU,          VK_RMENU,       0 },
+	{ ITEM_ID_HOME,         DIK_HOME,           VK_HOME,        0 },
+	{ ITEM_ID_UP,           DIK_UP,             VK_UP,          0 },
+	{ ITEM_ID_PGUP,         DIK_PRIOR,          VK_PRIOR,       0 },
+	{ ITEM_ID_LEFT,         DIK_LEFT,           VK_LEFT,        0 },
+	{ ITEM_ID_RIGHT,        DIK_RIGHT,          VK_RIGHT,       0 },
+	{ ITEM_ID_END,          DIK_END,            VK_END,         0 },
+	{ ITEM_ID_DOWN,         DIK_DOWN,           VK_DOWN,        0 },
+	{ ITEM_ID_PGDN,         DIK_NEXT,           VK_NEXT,        0 },
+	{ ITEM_ID_INSERT,       DIK_INSERT,         VK_INSERT,      0 },
+	{ ITEM_ID_DEL,          DIK_DELETE,         VK_DELETE,      0 },
+	{ ITEM_ID_LWIN,         DIK_LWIN,           VK_LWIN,        0 },
+	{ ITEM_ID_RWIN,         DIK_RWIN,           VK_RWIN,        0 },
+	{ ITEM_ID_MENU,         DIK_APPS,           VK_APPS,        0 },
+	{ ITEM_ID_PAUSE,        DIK_PAUSE,          VK_PAUSE,       0 },
+	{ ITEM_ID_CANCEL,       0,                  VK_CANCEL,      0 },
 };
 
 
 
 typedef struct
 {
-	char		name[40];	    // functionality name (optional)
-	input_seq	is;				// the input sequence (the keys pressed)
-	UINT		func_id;        // the identifier
+	char        name[40];       // functionality name (optional)
+	input_seq   is;             // the input sequence (the keys pressed)
+	UINT        func_id;        // the identifier
 	input_seq* (*const getiniptr)(void);// pointer to function to get the value from .ini file
 } GUISequence;
 
@@ -679,7 +682,6 @@ static HWND hStatusBar = 0;
 static HWND s_hToolBar   = 0;
 
 /* Column Order as Displayed */
-static BOOL oldControl = false;
 static BOOL xpControl = false;
 
 /* Used to recalculate the main window layout */
@@ -780,10 +782,6 @@ static Resize main_resize = { {0, 0, 0, 0}, main_resize_items };
 /* last directory for common file dialogs */
 TCHAR last_directory[MAX_PATH];
 
-/* system-wide window message sent out with an ATOM of the current game name
-   each time it changes */
-static UINT g_mame32_message = 0;
-
 static BOOL g_listview_dragging = false;
 static HIMAGELIST himl_drag;
 static int game_dragged; /* which game started the drag */
@@ -824,12 +822,12 @@ extern const LPCTSTR column_names[COLUMN_MAX] =
 
 #ifndef StatusBar_GetItemRect
 #define StatusBar_GetItemRect(hWnd, iPart, lpRect) \
-    SendMessage(hWnd, SB_GETRECT, (WPARAM) iPart, (LPARAM) (LPRECT) lpRect)
+	SendMessage(hWnd, SB_GETRECT, (WPARAM) iPart, (LPARAM) (LPRECT) lpRect)
 #endif
 
 #ifndef ToolBar_CheckButton
 #define ToolBar_CheckButton(hWnd, idButton, fCheck) \
-    SendMessage(hWnd, TB_CHECKBUTTON, (WPARAM)idButton, (LPARAM)MAKELONG(fCheck, 0))
+	SendMessage(hWnd, TB_CHECKBUTTON, (WPARAM)idButton, (LPARAM)MAKELONG(fCheck, 0))
 #endif
 
 //============================================================
@@ -840,20 +838,23 @@ extern const LPCTSTR column_names[COLUMN_MAX] =
 class mameui_output_error : public osd_output
 {
 public:
-	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args)
+	virtual void output_callback(osd_output_channel channel, const util::format_argument_pack<std::ostream> &args) override
 	{
+		std::ostringstream sbuffer;
+		util::stream_format(sbuffer, args);
+		string s = sbuffer.str();
+		const char* buffer = s.c_str();
 		if (channel == OSD_OUTPUT_CHANNEL_VERBOSE)
 		{
-			FILE *pFile;
-			pFile = fopen("verbose.log", "a");
-			vfprintf(pFile, msg, args);fflush(pFile);
-			fclose (pFile);
+//			FILE *pFile;
+//			pFile = fopen("verbose.log", "a");
+//			fputs(buffer, pFile);
+//			fflush(pFile);
+//			fclose (pFile);
 			return;
 		}
 
 		int s_action = 0;
-		char buffer[4096];
-		vsnprintf(buffer, ARRAY_LENGTH(buffer), msg, args);
 
 		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
 		{
@@ -879,27 +880,28 @@ public:
 					hMain, buffer, MAMEUINAME, (BIT(s_action, 0) ? MB_ICONINFORMATION : MB_ICONERROR) | MB_OK);
 		}
 
-//		else
-//			chain_output(channel, msg, args);   // goes down the black hole
+//      else
+//          chain_output(channel, msg, args);   // goes down the black hole
 		// LOG all messages
 		FILE *pFile;
 		pFile = fopen("winui.log", "a");
-		vfprintf(pFile, msg, args);fflush(pFile);
+		fputs(buffer, pFile);
+		fflush(pFile);
 		fclose (pFile);
 /*  List of output types:
-		case OSD_OUTPUT_CHANNEL_ERROR:
-		case OSD_OUTPUT_CHANNEL_WARNING:
-			vfprintf(stderr, msg, args);     // send errors and warnings to standard error (=console)
-			break;
-		case OSD_OUTPUT_CHANNEL_INFO:
-		case OSD_OUTPUT_CHANNEL_LOG:
-			vfprintf(stdout, msg, args);     // send info and logging to standard output (=console)
-			break;
-		case OSD_OUTPUT_CHANNEL_VERBOSE:
-			if (verbose()) vfprintf(stdout, msg, args);      // send verbose (2nd half) to console if enabled (first half lost)
-			break;
-		case OSD_OUTPUT_CHANNEL_DEBUG:   // only for debug builds
-			vfprintf(stdout, msg, args);
+        case OSD_OUTPUT_CHANNEL_ERROR:
+        case OSD_OUTPUT_CHANNEL_WARNING:
+            vfprintf(stderr, msg, args);     // send errors and warnings to standard error (=console)
+            break;
+        case OSD_OUTPUT_CHANNEL_INFO:
+        case OSD_OUTPUT_CHANNEL_LOG:
+            vfprintf(stdout, msg, args);     // send info and logging to standard output (=console)
+            break;
+        case OSD_OUTPUT_CHANNEL_VERBOSE:
+            if (verbose()) vfprintf(stdout, msg, args);      // send verbose (2nd half) to console if enabled (first half lost)
+            break;
+        case OSD_OUTPUT_CHANNEL_DEBUG:   // only for debug builds
+            vfprintf(stdout, msg, args);
 */
 	}
 };
@@ -907,7 +909,7 @@ public:
 static std::wstring s2ws(const string& s)
 {
 	int slength = (int)s.length() + 1;
-	int len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0); 
+	int len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
 	wchar_t* buf = new wchar_t[len];
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	std::wstring r(buf);
@@ -980,7 +982,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	manager->start_luaengine();
 	manager->execute();
 	osd_output::pop(&winerror);
-	global_free(manager);
+	delete manager;
 	// Calc the duration
 	time(&end);
 	elapsedtime = end - start;
@@ -1036,7 +1038,13 @@ int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 	printf("HBMAMEUI starting\n");fflush(stdout);
 
-	if (!Win32UI_init(hInstance, lpCmdLine, nCmdShow))
+	hSplash = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_STARTUP), hMain, StartupProc);
+	SetActiveWindow(hSplash);
+	SetForegroundWindow(hSplash);
+
+	bool res = Win32UI_init(hInstance, lpCmdLine, nCmdShow);
+	DestroyWindow(hSplash);
+	if (!res)
 		return 1;
 
 	// pump message, but quit on WM_QUIT
@@ -1068,15 +1076,12 @@ void GetRealColumnOrder(int order[])
 	int nColumnMax = Picker_GetNumColumns(hwndList);
 
 	/* Get the Column Order and save it */
-	if (!oldControl)
-	{
-		int tmpOrder[COLUMN_MAX];
-		BOOL res = ListView_GetColumnOrderArray(hwndList, nColumnMax, tmpOrder);
-		res++;
+	int tmpOrder[COLUMN_MAX];
+	BOOL res = ListView_GetColumnOrderArray(hwndList, nColumnMax, tmpOrder);
+	res++;
 
-		for (int i = 0; i < nColumnMax; i++)
-			order[i] = Picker_GetRealColumnFromViewColumn(hwndList, tmpOrder[i]);
-	}
+	for (int i = 0; i < nColumnMax; i++)
+		order[i] = Picker_GetRealColumnFromViewColumn(hwndList, tmpOrder[i]);
 }
 
 /*
@@ -1167,34 +1172,19 @@ HICON LoadIconFromFile(const char *iconname)
 	PBYTE bufferPtr = 0;
 	util::archive_file::ptr zip;
 
-	const string t = GetIconsDir();
-	sprintf(tmpStr, "%s/%s.ico", t.c_str(), iconname);
-	if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
+	const string t = dir_get_value(40);
+	char s[t.length()+1];
+	strcpy(s, t.c_str());
+	char* s1 = strtok(s, ";");
+	while (s1 && !hIcon)
 	{
-		sprintf(tmpStr, "%s/icons.zip", t.c_str());
-		sprintf(tmpIcoName, "%s.ico", iconname);
-
-		if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
+		sprintf(tmpStr, "%s/%s.ico", s1, iconname);
+		if (stat(tmpStr, &file_stat) != 0 || (hIcon = win_extract_icon_utf8(hInst, tmpStr, 0)) == 0)
 		{
-			if (zip->search(tmpIcoName, false) >= 0)
-			{
-				bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
-				if (bufferPtr)
-				{
-					if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
-						hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
-
-					free(bufferPtr);
-				}
-			}
-			zip.reset();
-		}
-		else
-		{
-			sprintf(tmpStr, "%s/icons.7z", t.c_str());
+			sprintf(tmpStr, "%s/icons.zip", s1);
 			sprintf(tmpIcoName, "%s.ico", iconname);
 
-			if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
+			if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
 			{
 				if (zip->search(tmpIcoName, false) >= 0)
 				{
@@ -1209,7 +1199,29 @@ HICON LoadIconFromFile(const char *iconname)
 				}
 				zip.reset();
 			}
+			else
+			{
+				sprintf(tmpStr, "%s/icons.7z", s1);
+				sprintf(tmpIcoName, "%s.ico", iconname);
+
+				if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
+				{
+					if (zip->search(tmpIcoName, false) >= 0)
+					{
+						bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
+						if (bufferPtr)
+						{
+							if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
+								hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
+
+							free(bufferPtr);
+						}
+					}
+					zip.reset();
+				}
+			}
 		}
+		s1 = strtok(NULL, ";");
 	}
 	return hIcon;
 }
@@ -1490,11 +1502,6 @@ MYBITMAPINFO *GetBackgroundInfo(void)
 	return &bmDesc;
 }
 
-BOOL GetUseOldControl(void)
-{
-	return oldControl;
-}
-
 BOOL GetUseXPControl(void)
 {
 	return xpControl;
@@ -1551,8 +1558,43 @@ static void memory_error(const char *message)
 	exit(-1);
 }
 
+static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+		case WM_INITDIALOG:
+		{
+			// Need a correctly-sized bitmap
+			HBITMAP hBmp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_SPLASH), IMAGE_BITMAP, 0, 0, LR_SHARED);
+			SendMessage(GetDlgItem(hDlg, IDC_SPLASH), STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hBmp);
+			hBrush = GetSysColorBrush(COLOR_3DFACE);
+			hProgress = CreateWindowEx(0, PROGRESS_CLASS, NULL, WS_CHILD | WS_VISIBLE, 0, 136, 526, 18, hDlg, NULL, hInst, NULL);
+			SetWindowTheme(hProgress, L" ", L" ");
+			SendMessage(hProgress, PBM_SETBKCOLOR, 0, GetSysColor(COLOR_3DFACE));
+			//SendMessage(hProgress, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
+			SendMessage(hProgress, PBM_SETPOS, 0, 0);
+			return true;
+		}
+
+		case WM_CTLCOLORDLG:
+			return (LRESULT) hBrush;
+
+		case WM_CTLCOLORSTATIC:
+			hDC = (HDC)wParam;
+			SetBkMode(hDC, TRANSPARENT);
+			SetTextColor(hDC, GetSysColor(COLOR_HIGHLIGHT));
+			return (LRESULT) hBrush;
+	}
+
+	return false;
+}
+
+
 static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
+	win_set_window_text_utf8(GetDlgItem(hSplash, IDC_PROGBAR), "Please wait...");
+	SendMessage(hProgress, PBM_SETPOS, 10, 0);
+
 	extern int mame_validitychecks(int game);
 	WNDCLASS wndclass;
 	RECT rect;
@@ -1562,11 +1604,10 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	LONG common_control_version = GetCommonControlVersion();
 	int validity_failed = 0;
 	LONG_PTR l;
-
-	if (!OptionsInit())
-		return false;
-
-	srand((unsigned)time(NULL));
+	OptionsInit();
+	SendMessage(hProgress, PBM_SETPOS, 25, 0);
+	emu_opts_init(0);
+	SendMessage(hProgress, PBM_SETPOS, 40, 0);
 
 	// create the memory pool
 	mameui_pool = pool_alloc_lib(memory_error);
@@ -1581,7 +1622,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	wndclass.cbClsExtra    = 0;
 	wndclass.cbWndExtra    = DLGWINDOWEXTRA;
 	wndclass.hInstance     = hInstance;
-	wndclass.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAMEUI_ICON));
+	wndclass.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAMEUI));
 	wndclass.hCursor       = NULL;
 	wndclass.hbrBackground = (HBRUSH)(COLOR_3DFACE + 1);
 	wndclass.lpszMenuName  = MAKEINTRESOURCE(IDR_UI_MENU);
@@ -1590,56 +1631,55 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	RegisterClass(&wndclass);
 
 	InitCommonControls();
+	SendMessage(hProgress, PBM_SETPOS, 55, 0);
 
 	// Are we using an Old comctl32.dll?
 	dprintf("common controlversion %ld %ld\n",common_control_version >> 16, common_control_version & 0xffff);
 
-	oldControl = (common_control_version < PACKVERSION(4,71));
 	xpControl = (common_control_version >= PACKVERSION(6,0));
-	if (oldControl)
+	if (common_control_version < PACKVERSION(4,71))
 	{
 		char buf[] = MAMEUINAME " has detected an old version of comctl32.dll.\n\n"
-					"Various features are not available without an updated DLL.\n\n";
+					"Unable to proceed.\n\n";
 
 		win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Error", MB_OK | MB_ICONWARNING);
 		return false;
 	}
-
-	g_mame32_message = RegisterWindowMessage(TEXT("MAME32"));
 
 	HelpInit();
 
 	hMain = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), 0, NULL);
 	if (hMain == NULL)
 	{
-		dprintf("error creating main dialog, aborting\n");
+		printf("error creating main dialog, aborting\n");
 		return false;
 	}
 
 	s_pWatcher = DirWatcher_Init(hMain, WM_MAME32_FILECHANGED);
 	if (s_pWatcher)
 	{
-		DirWatcher_Watch(s_pWatcher, 0, GetRomDirs(), true);
-		DirWatcher_Watch(s_pWatcher, 1, GetSampleDirs(), true);
+		DirWatcher_Watch(s_pWatcher, 0, dir_get_value(2), true);  // roms
+		DirWatcher_Watch(s_pWatcher, 1, dir_get_value(4), true);  // samples
 	}
 
 	SetMainTitle();
 	hTabCtrl = GetDlgItem(hMain, IDC_SSTAB);
+	SendMessage(hProgress, PBM_SETPOS, 70, 0);
 
 	{
 		struct TabViewOptions opts;
 
 		static const struct TabViewCallbacks s_tabviewCallbacks =
 		{
-			GetShowTabCtrl,			// pfnGetShowTabCtrl
-			SetCurrentTab,			// pfnSetCurrentTab
-			GetCurrentTab,			// pfnGetCurrentTab
-			SetShowTab,				// pfnSetShowTab
-			GetShowTab,				// pfnGetShowTab
+			GetShowTabCtrl,         // pfnGetShowTabCtrl
+			SetCurrentTab,          // pfnSetCurrentTab
+			GetCurrentTab,          // pfnGetCurrentTab
+			SetShowTab,             // pfnSetShowTab
+			GetShowTab,             // pfnGetShowTab
 
-			GetImageTabShortName,	// pfnGetTabShortName
-			GetImageTabLongName,	// pfnGetTabLongName
-			UpdateScreenShot		// pfnOnSelectionChanged
+			GetImageTabShortName,   // pfnGetTabShortName
+			GetImageTabLongName,    // pfnGetTabLongName
+			UpdateScreenShot        // pfnOnSelectionChanged
 		};
 
 		memset(&opts, 0, sizeof(opts));
@@ -1679,17 +1719,17 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	main_resize_items[1].u.hwnd = hStatusBar;
 
 	/* In order to handle 'Large Fonts' as the Windows
-     * default setting, we need to make the dialogs small
-     * enough to fit in our smallest window size with
-     * large fonts, then resize the picker, tab and button
-     * controls to fill the window, no matter which font
-     * is currently set.  This will still look like bad
-     * if the user uses a bigger default font than 125%
-     * (Large Fonts) on the Windows display setting tab.
-     *
-     * NOTE: This has to do with Windows default font size
-     * settings, NOT our picker font size.
-     */
+	 * default setting, we need to make the dialogs small
+	 * enough to fit in our smallest window size with
+	 * large fonts, then resize the picker, tab and button
+	 * controls to fill the window, no matter which font
+	 * is currently set.  This will still look like bad
+	 * if the user uses a bigger default font than 125%
+	 * (Large Fonts) on the Windows display setting tab.
+	 *
+	 * NOTE: This has to do with Windows default font size
+	 * settings, NOT our picker font size.
+	 */
 
 	GetClientRect(hMain, &rect);
 
@@ -1735,27 +1775,13 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	ShowWindow(hStatusBar, (bShowStatusBar) ? SW_SHOW : SW_HIDE);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_PAGETAB, (bShowTabCtrl) ? MF_CHECKED : MF_UNCHECKED);
 
-	if (oldControl)
-	{
-		EnableMenuItem(GetMenu(hMain), ID_CUSTOMIZE_FIELDS, MF_GRAYED);
-		EnableMenuItem(GetMenu(hMain), ID_GAME_PROPERTIES, MF_GRAYED);
-		EnableMenuItem(GetMenu(hMain), ID_OPTIONS_DEFAULTS, MF_GRAYED);
-	}
-
-#ifdef UI_DIRECTDRAW
-	/* Init DirectDraw */
-	if (!DirectDraw_Initialize())
-	{
-		DialogBox(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_DIRECTX), NULL, DirectXDialogProc);
-		return false;
-	}
-#endif
-
 	LoadBackgroundBitmap();
 
+	SendMessage(hProgress, PBM_SETPOS, 85, 0);
 	dprintf("about to init tree\n");
 	InitTree(g_folderData, g_filterList);
 	dprintf("did init tree\n");
+	SendMessage(hProgress, PBM_SETPOS, 100, 0);
 
 	/* Initialize listview columns */
 	InitListView();
@@ -1767,7 +1793,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 
 		GetListFont(&logfont);
 		if (hFont ) {
-			//Clenaup old Font, otherwise we have a GDI handle leak
+			//Cleanup old Font, otherwise we have a GDI handle leak
 			DeleteFont(hFont);
 		}
 		hFont = CreateFontIndirect(&logfont);
@@ -1804,10 +1830,10 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	if (GetHideMouseOnStartup())
 	{
 		/*  For some reason the mouse is centered when a game is exited, which of
-            course causes a WM_MOUSEMOVE event that shows the mouse. So we center
-            it now, before the startup coords are initilized, and that way the mouse
-            will still be hidden when exiting from a game (i hope) :)
-        */
+		    course causes a WM_MOUSEMOVE event that shows the mouse. So we center
+		    it now, before the startup coords are initilized, and that way the mouse
+		    will still be hidden when exiting from a game (i hope) :)
+		*/
 		SetCursorPos(GetSystemMetrics(SM_CXSCREEN)/2,GetSystemMetrics(SM_CYSCREEN)/2);
 
 		// Then hide it
@@ -1912,14 +1938,11 @@ static void Win32UI_exit()
 	DestroyAcceleratorTable(hAccel);
 
 	DirectInputClose();
-#ifdef UI_DIRECTDRAW
-	DirectDraw_Close();
-#endif
 
 	SetSavedFolderID(GetCurrentFolderID());
 	SaveGameListOptions();
-	//SaveDefaultOptions();
-	SaveOptions();
+	mui_save_ini();
+	ui_save_ini();
 
 	FreeFolders();
 
@@ -2032,8 +2055,8 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			state = wndpl.showCmd;
 
 			/* Restore the window before we attempt to save parameters,
-             * This fixed the lost window on startup problem, among other problems
-             */
+			 * This fixed the lost window on startup problem, among other problems
+			 */
 			if (state == SW_MINIMIZE || state == SW_SHOWMINIMIZED || state == SW_MAXIMIZE)
 			{
 				if( wndpl.flags & WPF_RESTORETOMAXIMIZED || state == SW_MAXIMIZE)
@@ -2066,8 +2089,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 
 			/* Save the users current game options and default game */
 			nItem = Picker_GetSelectedItem(hwndList);
-			if (nItem >= 0)
-				SetDefaultGame(nItem);
+			SetDefaultGame(nItem);
 
 			/* hide window to prevent orphan empty rectangles on the taskbar */
 			/* ShowWindow(hWnd,SW_HIDE); */
@@ -2086,19 +2108,19 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 		break;
 
 		/*
-          Check to see if the mouse has been moved by the user since
-          startup. I'd like this checking to be done only in the
-          main WinProc (here), but somehow the WM_MOUSEDOWN messages
-          are eaten up before they reach MameWindowProc. That's why
-          there is one check for each of the subclassed windows too.
+		  Check to see if the mouse has been moved by the user since
+		  startup. I'd like this checking to be done only in the
+		  main WinProc (here), but somehow the WM_MOUSEDOWN messages
+		  are eaten up before they reach MameWindowProc. That's why
+		  there is one check for each of the subclassed windows too.
 
-          POSSIBLE BUGS:
-          I've included this check in the subclassed windows, but a
-          mose move in either the title bar, the menu, or the
-          toolbar will not generate a WM_MOUSEOVER message. At least
-          not one that I know how to pick up. A solution could maybe
-          be to subclass those too, but that's too much work :)
-        */
+		  POSSIBLE BUGS:
+		  I've included this check in the subclassed windows, but a
+		  mose move in either the title bar, the menu, or the
+		  toolbar will not generate a WM_MOUSEOVER message. At least
+		  not one that I know how to pick up. A solution could maybe
+		  be to subclass those too, but that's too much work :)
+		*/
 
 	case WM_MOUSEMOVE:
 	{
@@ -2249,7 +2271,7 @@ static LRESULT CALLBACK MameWindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			}
 
 			memset(&lvfi, 0, sizeof(lvfi));
-			lvfi.flags	= LVFI_PARAM;
+			lvfi.flags  = LVFI_PARAM;
 			lvfi.lParam = nGameIndex;
 
 			i = ListView_FindItem(hwndList, -1, &lvfi);
@@ -2437,7 +2459,7 @@ static BOOL GameCheck(void)
 		changed = true;
 	}
 
-	lvfi.flags	= LVFI_PARAM;
+	lvfi.flags  = LVFI_PARAM;
 	lvfi.lParam = game_index;
 
 	i = ListView_FindItem(hwndList, -1, &lvfi);
@@ -2842,7 +2864,7 @@ static LRESULT Statusbar_MenuSelect(HWND hwnd, WPARAM wParam, LPARAM lParam)
 
 	/* Handle non-system popup menu descriptions. */
 	if (  (fuFlags & MF_POPUP)
-	&&	(!(fuFlags & MF_SYSMENU)))
+	&&  (!(fuFlags & MF_SYSMENU)))
 	{
 		for (iMenu = 1; iMenu < MAX_MENUS; iMenu++)
 		{
@@ -2873,8 +2895,8 @@ static LRESULT Statusbar_MenuSelect(HWND hwnd, WPARAM wParam, LPARAM lParam)
 static void UpdateStatusBar()
 {
 	LPTREEFOLDER lpFolder = GetCurrentFolder();
-	int 		 games_shown = 0;
-	int 		 i = -1;
+	int          games_shown = 0;
+	int          i = -1;
 
 	if (!lpFolder)
 		return;
@@ -2989,11 +3011,11 @@ static void EnableSelection(int nGame)
 		return;
 
 	_sntprintf(buf, sizeof(buf) / sizeof(buf[0]), g_szPlayGameString, t_description);
-	mmi.cbSize	   = sizeof(mmi);
-	mmi.fMask	   = MIIM_TYPE;
-	mmi.fType	   = MFT_STRING;
+	mmi.cbSize     = sizeof(mmi);
+	mmi.fMask      = MIIM_TYPE;
+	mmi.fType      = MFT_STRING;
 	mmi.dwTypeData = buf;
-	mmi.cch 	   = _tcslen(mmi.dwTypeData);
+	mmi.cch        = _tcslen(mmi.dwTypeData);
 	SetMenuItemInfo(hMenu, ID_FILE_PLAY, false, &mmi);
 
 	pText = ModifyThe(driver_list::driver(nGame).type.fullname());
@@ -3005,11 +3027,10 @@ static void EnableSelection(int nGame)
 
 	/* If doing updating game status and the game name is NOT pacman.... */
 
-	EnableMenuItem(hMenu, ID_FILE_PLAY, 		   MF_ENABLED);
-	EnableMenuItem(hMenu, ID_FILE_PLAY_RECORD,	   MF_ENABLED);
+	EnableMenuItem(hMenu, ID_FILE_PLAY,            MF_ENABLED);
+	EnableMenuItem(hMenu, ID_FILE_PLAY_RECORD,     MF_ENABLED);
 
-	if (!oldControl)
-		EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_ENABLED);
+	EnableMenuItem(hMenu, ID_GAME_PROPERTIES, MF_ENABLED);
 
 	if (bProgressShown && bListReady == true)
 		SetDefaultGame(nGame);
@@ -3023,13 +3044,13 @@ static void EnableSelection(int nGame)
 
 static void PaintBackgroundImage(HWND hWnd, HRGN hRgn, int x, int y)
 {
-	RECT		rcClient;
-	HRGN		rgnBitmap;
-	HPALETTE	hPAL;
-	HDC 		hDC = GetDC(hWnd);
-	int 		i, j;
-	HDC 		htempDC;
-	HBITMAP 	oldBitmap;
+	RECT        rcClient;
+	HRGN        rgnBitmap;
+	HPALETTE    hPAL;
+	HDC         hDC = GetDC(hWnd);
+	int         i, j;
+	HDC         htempDC;
+	HBITMAP     oldBitmap;
 
 	/* x and y are offsets within the background image that should be at 0,0 in hWnd */
 
@@ -3098,7 +3119,7 @@ static BOOL TreeViewNotify(LPNMHDR nm)
 	case TVN_SELCHANGED :
 	{
 		HTREEITEM hti = TreeView_GetSelection(hTreeView);
-		TVITEM	  tvi;
+		TVITEM    tvi;
 
 		tvi.mask  = TVIF_PARAM | TVIF_HANDLE;
 		tvi.hItem = hti;
@@ -3175,9 +3196,9 @@ static void GamePicker_OnHeaderContextMenu(POINT pt, int nColumn)
 char* ConvertAmpersandString(const char *s)
 {
 	/* takes a string and changes any ampersands to double ampersands,
-       for setting text of window controls that don't allow us to disable
-       the ampersand underlining.
-     */
+	   for setting text of window controls that don't allow us to disable
+	   the ampersand underlining.
+	 */
 	/* returns a static buffer--use before calling again */
 
 	static char buf[200];
@@ -3540,10 +3561,10 @@ static void SetView(int menu_id)
 
 static void ResetListView()
 {
-	int 	i;
-	int 	current_game;
+	int     i;
+	int     current_game;
 	LV_ITEM lvi;
-	BOOL	no_selection = false;
+	BOOL    no_selection = false;
 	LPTREEFOLDER lpFolder = GetCurrentFolder();
 	HRESULT res;
 	BOOL b_res;
@@ -3579,11 +3600,11 @@ static void ResetListView()
 			if (GameFiltered(i, lpFolder->m_dwFlags))
 				continue;
 
-			lvi.iItem	 = i;
+			lvi.iItem    = i;
 			lvi.iSubItem = 0;
-			lvi.lParam	 = i;
+			lvi.lParam   = i;
 			lvi.pszText  = LPSTR_TEXTCALLBACK;
-			lvi.iImage	 = I_IMAGECALLBACK;
+			lvi.iImage   = I_IMAGECALLBACK;
 			res = ListView_InsertItem(hwndList, &lvi);
 		}
 	} while (i != -1);
@@ -3592,7 +3613,7 @@ static void ResetListView()
 
 	if (bListReady)
 	{
-	    /* If last folder was empty, select the first item in this folder */
+		/* If last folder was empty, select the first item in this folder */
 		if (no_selection)
 			Picker_SetSelectedPick(hwndList, 0);
 		else
@@ -3600,8 +3621,8 @@ static void ResetListView()
 	}
 
 	/*RS Instead of the Arrange Call that was here previously on all Views
-         We now need to set the ViewMode for SmallIcon again,
-         for an explanation why, see SetView*/
+	     We now need to set the ViewMode for SmallIcon again,
+	     for an explanation why, see SetView*/
 	if (GetViewMode() == VIEW_SMALL_ICONS)
 		SetView(ID_VIEW_SMALL_ICON);
 
@@ -3717,7 +3738,7 @@ static void PickFont(void)
 	cf.lpLogFont   = &font;
 	cf.lpfnHook = &CFHookProc;
 	cf.rgbColors   = GetListFontColor();
-	cf.Flags	   = CF_SCREENFONTS | CF_INITTOLOGFONTSTRUCT | CF_EFFECTS | CF_ENABLEHOOK;
+	cf.Flags       = CF_SCREENFONTS | CF_INITTOLOGFONTSTRUCT | CF_EFFECTS | CF_ENABLEHOOK;
 	if (!ChooseFont(&cf))
 		return;
 
@@ -3944,10 +3965,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 		/*
-          Switches to fullscreen mode. No check mark handling
-          for this item cause in fullscreen mode the menu won't
-          be visible anyways.
-        */
+		  Switches to fullscreen mode. No check mark handling
+		  for this item cause in fullscreen mode the menu won't
+		  be visible anyways.
+		*/
 	case ID_VIEW_FULLSCREEN:
 		SwitchFullScreenMode();
 		break;
@@ -3988,7 +4009,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_GAME_AUDIT:
 		InitGameAudit(0);
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 			InitPropertyPageToPage(hInst, hwnd, GetSelectedPickItemIcon(), OPTIONS_GAME, -1, current_game, AUDIT_PAGE);
 
 		/* Just in case the toggle MMX on/off */
@@ -4110,8 +4131,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_CUSTOMIZE_FIELDS:
-		if (DialogBox(GetModuleHandle(NULL),
-			MAKEINTRESOURCE(IDD_COLUMNS), hMain, ColumnDialogProc) == true)
+		if (DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_COLUMNS), hMain, ColumnDialogProc) == true)
 			ResetColumnDisplay(false);
 		SetFocus(hwndList);
 		return true;
@@ -4123,7 +4143,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		else
 		{
 			/*it was sent after a refresh (F5) was done, we only reset the View if "available" is the selected folder
-              as it doesn't affect the others*/
+			  as it doesn't affect the others*/
 			folder = GetSelectedFolder();
 			if( folder )
 				if (folder->m_nFolderId == FOLDER_AVAILABLE )
@@ -4132,33 +4152,30 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_GAME_PROPERTIES:
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 			InitPropertyPageToPage(hInst, hwnd, GetSelectedPickItemIcon(), OPTIONS_GAME, -1, current_game, PROPERTIES_PAGE);
 
 		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
 		break;
 
-	// NOT WORKING
 	case ID_FOLDER_PROPERTIES:
-		if (!oldControl && (current_game >= 0))
 		{
-			OPTIONS_TYPE curOptType = OPTIONS_SOURCE;
 			folder = GetSelectedFolder();
 			if (folder)
-			{
-				if(folder->m_nFolderId == FOLDER_VECTOR)
-					curOptType = OPTIONS_VECTOR;
-
-				InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), curOptType, folder->m_nFolderId, current_game);
-			}
+				if (folder->m_dwFlags & F_INIEDIT)
+				{
+					LPCFOLDERDATA data = FindFilter(folder->m_nFolderId);
+					if (data)
+						if (data->m_opttype < OPTIONS_MAX)
+							InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), data->m_opttype, folder->m_nFolderId, -1);
+				}
 		}
-		/* Just in case the toggle MMX on/off */
 		UpdateStatusBar();
 		break;
 
 	case ID_FOLDER_SOURCEPROPERTIES:
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 		{
 			//InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), (folder->m_nFolderId == FOLDER_VECTOR) ? OPTIONS_VECTOR : OPTIONS_SOURCE , -1, current_game);
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), OPTIONS_SOURCE, -1, current_game);
@@ -4168,7 +4185,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		break;
 
 	case ID_FOLDER_VECTORPROPERTIES:
-		if (!oldControl && (current_game >= 0))
+		if (current_game >= 0)
 		{
 			folder = GetFolderByID( FOLDER_VECTOR );
 			InitPropertyPage(hInst, hwnd, GetSelectedFolderIcon(), OPTIONS_VECTOR, folder->m_nFolderId, current_game);
@@ -4205,22 +4222,17 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_OPTIONS_DEFAULTS:
 		/* Check the return value to see if changes were applied */
-		if (!oldControl)
-		{
-			InitDefaultPropertyPage(hInst, hwnd);
-		}
+		InitDefaultPropertyPage(hInst, hwnd);
 		SetFocus(hwndList);
 		return true;
 
 	case ID_OPTIONS_DIR:
 		{
-			int nResult = DialogBox(GetModuleHandle(NULL),
-					MAKEINTRESOURCE(IDD_DIRECTORIES),
-					hMain,
-					DirectoriesDialogProc);
+			int nResult = DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIRECTORIES), hMain, DirectoriesDialogProc);
 
-			SaveDefaultOptions();
-			SaveOptions();
+			global_save_ini();
+			mui_save_ini();
+			ui_save_ini();
 
 			BOOL bUpdateRoms    = ((nResult & DIRDLG_ROMS) == DIRDLG_ROMS) ? true : false;
 			BOOL bUpdateSamples = ((nResult & DIRDLG_SAMPLES) == DIRDLG_SAMPLES) ? true : false;
@@ -4228,9 +4240,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			if (s_pWatcher)
 			{
 				if (bUpdateRoms)
-					DirWatcher_Watch(s_pWatcher, 0, GetRomDirs(), true);
+					DirWatcher_Watch(s_pWatcher, 0, dir_get_value(2), true);
 				if (bUpdateSamples)
-					DirWatcher_Watch(s_pWatcher, 1, GetSampleDirs(), true);
+					DirWatcher_Watch(s_pWatcher, 1, dir_get_value(4), true);
 			}
 
 			/* update game list */
@@ -4245,8 +4257,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		if (DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_RESET), hMain, ResetDialogProc) == true)
 		{
 			// these may have been changed
-			SaveDefaultOptions();
-			SaveOptions();
+			global_save_ini();
+			mui_save_ini();
+			ui_save_ini();
 			DestroyWindow(hwnd);
 			PostQuitMessage(0);
 		}
@@ -4259,7 +4272,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_OPTIONS_INTERFACE:
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INTERFACE_OPTIONS), hMain, InterfaceDialogProc);
-		SaveOptions();
+		global_save_ini();
+		mui_save_ini();
+		ui_save_ini();
 
 		KillTimer(hMain, SCREENSHOT_TIMER);
 		if( GetCycleScreenshot() > 0)
@@ -4298,8 +4313,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			// Get the path from the existing filename; if no filename go to root
 			TCHAR* t_bgdir = TEXT(".");
 			bool free_bgdir = false;
-			string as, s = GetBgDir();
-			util::zippath_parent(as, s.c_str());
+			string s = GetBgDir();
+			string as = util::zippath_parent(s);
 			size_t t1 = as.length()-1;
 			if (as[t1] == '\\') as.substr(0, t1-1);
 			t1 = as.find(':');
@@ -4509,10 +4524,10 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 				}
 				else
 				if (g_helpInfo[i].bIsHtmlHelp)
-//					HelpFunction(hMain, g_helpInfo[i].lpFile, HH_DISPLAY_TOPIC, 0);
+//                  HelpFunction(hMain, g_helpInfo[i].lpFile, HH_DISPLAY_TOPIC, 0);
 					ShellExecute(hMain, TEXT("open"), g_helpInfo[i].lpFile, TEXT(""), NULL, SW_SHOWNORMAL);
-//				else
-//					DisplayTextFile(hMain, g_helpInfo[i].lpFile);
+//              else
+//                  DisplayTextFile(hMain, g_helpInfo[i].lpFile);
 				return false;
 			}
 		}
@@ -4693,31 +4708,31 @@ static void InitListView()
 
 	static const struct PickerCallbacks s_gameListCallbacks =
 	{
-		SetSortColumn,				/* pfnSetSortColumn */
-		GetSortColumn,				/* pfnGetSortColumn */
-		SetSortReverse,				/* pfnSetSortReverse */
-		GetSortReverse,				/* pfnGetSortReverse */
-		SetViewMode,				/* pfnSetViewMode */
-		GetViewMode,				/* pfnGetViewMode */
-		SetColumnWidths,			/* pfnSetColumnWidths */
-		GetColumnWidths,			/* pfnGetColumnWidths */
-		SetColumnOrder,				/* pfnSetColumnOrder */
-		GetColumnOrder,				/* pfnGetColumnOrder */
-		SetColumnShown,				/* pfnSetColumnShown */
-		GetColumnShown,				/* pfnGetColumnShown */
-		GetOffsetClones,			/* pfnGetOffsetChildren */
+		SetSortColumn,              /* pfnSetSortColumn */
+		GetSortColumn,              /* pfnGetSortColumn */
+		SetSortReverse,             /* pfnSetSortReverse */
+		GetSortReverse,             /* pfnGetSortReverse */
+		SetViewMode,                /* pfnSetViewMode */
+		GetViewMode,                /* pfnGetViewMode */
+		SetColumnWidths,            /* pfnSetColumnWidths */
+		GetColumnWidths,            /* pfnGetColumnWidths */
+		SetColumnOrder,             /* pfnSetColumnOrder */
+		GetColumnOrder,             /* pfnGetColumnOrder */
+		SetColumnShown,             /* pfnSetColumnShown */
+		GetColumnShown,             /* pfnGetColumnShown */
+		GetOffsetClones,            /* pfnGetOffsetChildren */
 
-		GamePicker_Compare,			/* pfnCompare */
-		MamePlayGame,				/* pfnDoubleClick */
-		GamePicker_GetItemString,		/* pfnGetItemString */
-		GamePicker_GetItemImage,		/* pfnGetItemImage */
-		GamePicker_LeavingItem,			/* pfnLeavingItem */
-		GamePicker_EnteringItem,		/* pfnEnteringItem */
-		BeginListViewDrag,			/* pfnBeginListViewDrag */
-		GamePicker_FindItemParent,		/* pfnFindItemParent */
-		OnIdle,					/* pfnIdle */
-		GamePicker_OnHeaderContextMenu,		/* pfnOnHeaderContextMenu */
-		GamePicker_OnBodyContextMenu		/* pfnOnBodyContextMenu */
+		GamePicker_Compare,         /* pfnCompare */
+		MamePlayGame,               /* pfnDoubleClick */
+		GamePicker_GetItemString,       /* pfnGetItemString */
+		GamePicker_GetItemImage,        /* pfnGetItemImage */
+		GamePicker_LeavingItem,         /* pfnLeavingItem */
+		GamePicker_EnteringItem,        /* pfnEnteringItem */
+		BeginListViewDrag,          /* pfnBeginListViewDrag */
+		GamePicker_FindItemParent,      /* pfnFindItemParent */
+		OnIdle,                 /* pfnIdle */
+		GamePicker_OnHeaderContextMenu,     /* pfnOnHeaderContextMenu */
+		GamePicker_OnBodyContextMenu        /* pfnOnBodyContextMenu */
 	};
 
 	struct PickerOptions opts;
@@ -4968,52 +4983,20 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 	int value = 0;  /* Default to 0, for unknown case */
 	const char *name1 = NULL;
 	const char *name2 = NULL;
-	char file1[20];
-	char file2[20];
-	int nTemp1, nTemp2;
+	char file1[MAX_PATH];
+	char file2[MAX_PATH];
+	int nTemp1=0, nTemp2=0;
 
 	switch (sort_subitem)
 	{
 	case COLUMN_GAMES:
-		return core_stricmp(ModifyThe(driver_list::driver(index1).type.fullname()), ModifyThe(driver_list::driver(index2).type.fullname()));
+		return core_stricmp(ModifyThe(driver_list::driver(index1).type.fullname()),
+			ModifyThe(driver_list::driver(index2).type.fullname()));
 
 	case COLUMN_ORIENTATION:
 		nTemp1 = DriverIsVertical(index1) ? 1 : 0;
 		nTemp2 = DriverIsVertical(index2) ? 1 : 0;
 		value = nTemp1 - nTemp2;
-		break;
-
-	case COLUMN_SAMPLES:
-		nTemp1 = -1;
-		if (DriverUsesSamples(index1))
-		{
-			int audit_result = GetSampleAuditResults(index1);
-			if (IsAuditResultKnown(audit_result))
-			{
-				if (IsAuditResultYes(audit_result))
-					nTemp1 = 1;
-				else
-					nTemp1 = 0;
-			}
-			else
-				nTemp1 = 2;
-		}
-
-		nTemp2 = -1;
-		if (DriverUsesSamples(index2))
-		{
-			int audit_result = GetSampleAuditResults(index1);
-			if (IsAuditResultKnown(audit_result))
-			{
-				if (IsAuditResultYes(audit_result))
-					nTemp2 = 1;
-				else
-					nTemp2 = 0;
-			}
-			else
-				nTemp2 = 2;
-		}
-		value = nTemp2 - nTemp1;
 		break;
 
 	case COLUMN_DIRECTORY:
@@ -5030,11 +5013,21 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 		value = GetPlayTime(index1) - GetPlayTime(index2);
 		break;
 
-	case COLUMN_TYPE:
-	{
-		value = DriverIsVector(index1) - DriverIsVector(index2);
+	case COLUMN_ROMS:
+		value = GetRomAuditResults(index1) - GetRomAuditResults(index2);
 		break;
-	}
+
+	case COLUMN_SAMPLES:
+		value = GetSampleAuditResults(index1) - GetSampleAuditResults(index2);
+		break;
+
+	case COLUMN_TYPE:
+		{
+			machine_config config1(driver_list::driver(index1),MameUIGlobal());
+			machine_config config2(driver_list::driver(index2),MameUIGlobal());
+			value = isDriverVector(&config1) - isDriverVector(&config2);
+		}
+		break;
 
 	case COLUMN_TRACKBALL:
 		value = DriverUsesTrackball(index1) - DriverUsesTrackball(index2);
@@ -5074,9 +5067,7 @@ static int GamePicker_Compare(HWND hwndPicker, int index1, int index2, int sort_
 
 	// Handle same comparisons here
 	if (0 == value && COLUMN_GAMES != sort_subitem)
-	{
 		value = GamePicker_Compare(hwndPicker, index1, index2, COLUMN_GAMES);
-	}
 
 	return value;
 }
@@ -5133,43 +5124,51 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	case FILETYPE_INPUT_FILES :
 		ofn.lpstrFilter   = TEXT("input files (*.inp,*.zip,*.7z)\0*.inp;*.zip;*.7z\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("inp");
-		dirname = GetInpDir();
+		dirname = dir_get_value(16);
 		break;
 	case FILETYPE_SAVESTATE_FILES :
 		ofn.lpstrFilter   = TEXT("savestate files (*.sta)\0*.sta;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("sta");
-		dirname = GetStateDir();
+		dirname = dir_get_value(17);
 		break;
 	case FILETYPE_WAVE_FILES :
 		ofn.lpstrFilter   = TEXT("sounds (*.wav)\0*.wav;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("wav");
-		dirname = GetImgDir();
+		dirname = dir_get_value(18);
 		break;
 	case FILETYPE_MNG_FILES :
 		ofn.lpstrFilter   = TEXT("videos (*.mng)\0*.mng;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("mng");
-		dirname = GetImgDir();
+		dirname = dir_get_value(18);
 		break;
 	case FILETYPE_AVI_FILES :
 		ofn.lpstrFilter   = TEXT("videos (*.avi)\0*.avi;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("avi");
-		dirname = GetImgDir();
+		dirname = dir_get_value(18);
 		break;
 	case FILETYPE_EFFECT_FILES :
 		ofn.lpstrFilter   = TEXT("effects (*.png)\0*.png;\0All files (*.*)\0*.*\0");
 		ofn.lpstrDefExt   = TEXT("png");
-		dirname = GetArtDir();
+		dirname = dir_get_value(5);
 		break;
-	case FILETYPE_JOYMAP_FILES :
-		ofn.lpstrFilter   = TEXT("maps (*.map,*.txt)\0*.map;*.txt;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("map");
-		dirname = GetCtrlrDir();
+	case FILETYPE_SHADER_FILES :
+		ofn.lpstrFilter   = TEXT("shaders (*.vsh)\0*.vsh;\0");
+		ofn.lpstrDefExt   = TEXT("vsh");
+		dirname = dir_get_value(22); // + PATH_SEPARATOR + "glsl";
+//		ofn.lpstrTitle  = TEXT("Select a GLSL shader file");
 		break;
-	case FILETYPE_DEBUGSCRIPT_FILES :
-		ofn.lpstrFilter   = TEXT("scripts (*.txt,*.dat)\0*.txt;*.dat;\0All files (*.*)\0*.*\0");
-		ofn.lpstrDefExt   = TEXT("txt");
-		dirname = GetInpDir();
+	case FILETYPE_BGFX_FILES :
+		ofn.lpstrFilter   = TEXT("bgfx (*.json)\0*.json;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("json");
+		dirname = dir_get_value(21) + PATH_SEPARATOR + "chains";
 		break;
+	case FILETYPE_LUASCRIPT_FILES :
+		ofn.lpstrFilter   = TEXT("scripts (*.lua)\0*.lua;\0All files (*.*)\0*.*\0");
+		ofn.lpstrDefExt   = TEXT("lua");
+		dirname = ".";
+		break;
+	default:
+		return false;
 	}
 	ofn.lpstrCustomFilter = NULL;
 	ofn.nMaxCustFilter    = 0;
@@ -5272,7 +5271,7 @@ static void MamePlayBackGame()
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
 		emu_file pPlayBack(MameUIGlobal().input_directory(), OPEN_FLAG_READ);
-		fileerr = pPlayBack.open(fname);
+		fileerr = pPlayBack.open(string(fname));
 		if (fileerr != osd_file::error::NONE)
 		{
 			MameMessageBox("Could not open '%s' as a valid input file.", filename);
@@ -5375,7 +5374,7 @@ static void MameLoadState()
 		}
 #endif // MESS
 		emu_file pSaveState(MameUIGlobal().state_directory(), OPEN_FLAG_READ);
-		osd_file::error fileerr = pSaveState.open(state_fname);
+		osd_file::error fileerr = pSaveState.open(string(state_fname));
 		if (fileerr != osd_file::error::NONE)
 		{
 			MameMessageBox("Could not open '%s' as a valid savestate file.", filename);
@@ -5593,38 +5592,32 @@ static void ToggleScreenShot(void)
 
 static void AdjustMetrics(void)
 {
-	HDC hDC;
-	TEXTMETRIC tm;
-	int xtraX, xtraY;
-	AREA area;
-	int  offX, offY;
-	int  maxX, maxY;
-	COLORREF textColor;
-	TCHAR szClass[128];
-	HWND hWnd;
 	HRESULT res;
 	BOOL b_res;
 
 	/* WM_SETTINGCHANGE also */
-	xtraX  = GetSystemMetrics(SM_CXFIXEDFRAME); /* Dialog frame width */
-	xtraY  = GetSystemMetrics(SM_CYFIXEDFRAME); /* Dialog frame height */
-	xtraY += GetSystemMetrics(SM_CYMENUSIZE);	/* Menu height */
-	xtraY += GetSystemMetrics(SM_CYCAPTION);	/* Caption Height */
-	maxX   = GetSystemMetrics(SM_CXSCREEN); 	/* Screen Width */
-	maxY   = GetSystemMetrics(SM_CYSCREEN); 	/* Screen Height */
+	int xtraX  = GetSystemMetrics(SM_CXFIXEDFRAME); /* Dialog frame width */
+	int xtraY  = GetSystemMetrics(SM_CYFIXEDFRAME); /* Dialog frame height */
+	xtraY += GetSystemMetrics(SM_CYMENUSIZE);   /* Menu height */
+	xtraY += GetSystemMetrics(SM_CYCAPTION);    /* Caption Height */
+	int maxX   = GetSystemMetrics(SM_CXSCREEN);     /* Screen Width */
+	int maxY   = GetSystemMetrics(SM_CYSCREEN);     /* Screen Height */
 
-	hDC = GetDC(hMain);
+	TEXTMETRIC tm;
+	HDC hDC = GetDC(hMain);
 	GetTextMetrics (hDC, &tm);
 
 	/* Convert MIN Width/Height from Dialog Box Units to pixels. */
 	MIN_WIDTH  = (int)((tm.tmAveCharWidth / 4.0) * DBU_MIN_WIDTH)  + xtraX;
-	MIN_HEIGHT = (int)((tm.tmHeight 	  / 8.0) * DBU_MIN_HEIGHT) + xtraY;
+	MIN_HEIGHT = (int)((tm.tmHeight / 8.0) * DBU_MIN_HEIGHT) + xtraY;
 	ReleaseDC(hMain, hDC);
 
+	COLORREF textColor;
 	if ((textColor = GetListFontColor()) == RGB(255, 255, 255))
 		textColor = RGB(240, 240, 240);
 
-	hWnd = GetWindow(hMain, GW_CHILD);
+	TCHAR szClass[128];
+	HWND hWnd = GetWindow(hMain, GW_CHILD);
 	while(hWnd)
 	{
 		if (GetClassName(hWnd, szClass, sizeof(szClass) / sizeof(szClass[0])))
@@ -5643,21 +5636,21 @@ static void AdjustMetrics(void)
 		hWnd = GetWindow(hWnd, GW_HWNDNEXT);
 	}
 
-	GetWindowArea(&area);
+	AREA area;
+	GetWindowArea(&area); // read window size from ini
 
-	offX = area.x + area.width;
-	offY = area.y + area.height;
+	// Reposition the window so that the top or left side is in view.
+	// The width and height never change, even if they stretch off the screen.
+	if (area.x < 0)
+		area.x = 0;
+	if (area.y < 0)
+		area.y = 0;
 
-	if (offX > maxX)
-	{
-		offX = maxX;
-		area.x = (offX - area.width > 0) ? (offX - area.width) : 0;
-	}
-	if (offY > maxY)
-	{
-		offY = maxY;
-		area.y = (offY - area.height > 0) ? (offY - area.height) : 0;
-	}
+	// If the width or height is too small, or bigger than the screen, default them to the max screen size.
+	if ((area.width < 200) || (area.width > maxX))
+		area.width = maxX;
+	if ((area.height < 100) || (area.height > maxY))
+		area.height = maxY;
 
 	SetWindowArea(&area);
 	SetWindowPos(hMain, 0, area.x, area.y, area.width, area.height, SWP_NOZORDER | SWP_SHOWWINDOW | SWP_NOACTIVATE);
@@ -5706,8 +5699,8 @@ static int GetIconForDriver(int nItem)
 	// iconRoms is now either 0 (no roms), 1 (roms), or 2 (unknown)
 
 	/* these are indices into icon_names, which maps into our image list
-     * also must match IDI_WIN_NOROMS + iconRoms
-     */
+	 * also must match IDI_WIN_NOROMS + iconRoms
+	 */
 
 	if (iconRoms == 1)
 	{
@@ -5861,21 +5854,14 @@ static void UpdateMenu(HMENU hMenu)
 		EnableMenuItem(hMenu, ID_CONTEXT_SELECT_RANDOM, MF_GRAYED);
 	}
 
-	if (oldControl)
-	{
-		EnableMenuItem(hMenu, ID_CUSTOMIZE_FIELDS, MF_GRAYED);
-		EnableMenuItem(hMenu, ID_GAME_PROPERTIES,  MF_GRAYED);
-		EnableMenuItem(hMenu, ID_OPTIONS_DEFAULTS, MF_GRAYED);
-	}
-
 	if (lpFolder->m_dwFlags & F_CUSTOM)
 	{
-	    EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_ENABLED);
+		EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_ENABLED);
 		EnableMenuItem(hMenu,ID_CONTEXT_RENAME_CUSTOM,MF_ENABLED);
 	}
 	else
 	{
-	    EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_GRAYED);
+		EnableMenuItem(hMenu,ID_CONTEXT_REMOVE_CUSTOM,MF_GRAYED);
 		EnableMenuItem(hMenu,ID_CONTEXT_RENAME_CUSTOM,MF_GRAYED);
 	}
 	//pParent = GetFolderNameByID(lpFolder->m_nParent+1);
@@ -6273,7 +6259,7 @@ static void BeginListViewDrag(NM_LISTVIEW *pnmv)
 {
 	LV_ITEM lvi;
 	lvi.iItem = pnmv->iItem;
-	lvi.mask	 = LVIF_PARAM;
+	lvi.mask     = LVIF_PARAM;
 	BOOL res = ListView_GetItem(hwndList, &lvi);
 	res++;
 
@@ -6503,7 +6489,7 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 		if (destW > rWidth || destH > rHeight)
 		{
 			if (destW > rWidth)
-				scale = (double)rWidth	/ destW;
+				scale = (double)rWidth  / destW;
 			else
 				scale = (double)rHeight / destH;
 
@@ -6534,7 +6520,7 @@ static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_he
 			if (destW > rWidth || destH > rHeight)
 			{
 				if (destW > rWidth)
-					scale = (double)rWidth	/ destW;
+					scale = (double)rWidth  / destW;
 				else
 					scale = (double)rHeight / destH;
 

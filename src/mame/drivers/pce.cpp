@@ -303,6 +303,7 @@ static void pce_cart(device_slot_interface &device)
 	device.option_add_internal("cdsys3j", PCE_ROM_CDSYS3);
 	device.option_add_internal("populous", PCE_ROM_POPULOUS);
 	device.option_add_internal("sf2", PCE_ROM_SF2);
+	device.option_add_internal("tennokoe", PCE_ROM_TENNOKOE);
 }
 
 void pce_state::pce_common(machine_config &config)
@@ -316,10 +317,7 @@ void pce_state::pce_common(machine_config &config)
 	m_maincpu->add_route(0, "lspeaker", 1.00);
 	m_maincpu->add_route(1, "rspeaker", 1.00);
 
-	config.m_minimum_quantum = attotime::from_hz(60);
-
-	MCFG_MACHINE_START_OVERRIDE(pce_state, pce )
-	MCFG_MACHINE_RESET_OVERRIDE(pce_state, mess_pce )
+	config.set_maximum_quantum(attotime::from_hz(60));
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -373,10 +371,7 @@ void pce_state::sgx(machine_config &config)
 	m_maincpu->add_route(0, "lspeaker", 1.00);
 	m_maincpu->add_route(1, "rspeaker", 1.00);
 
-	config.m_minimum_quantum = attotime::from_hz(60);
-
-	MCFG_MACHINE_START_OVERRIDE(pce_state, pce )
-	MCFG_MACHINE_RESET_OVERRIDE(pce_state, mess_pce )
+	config.set_maximum_quantum(attotime::from_hz(60));
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));

@@ -28,6 +28,9 @@ public:
 	void daikaiju(machine_config &config);
 	void storming(machine_config &config);
 
+protected:
+	virtual void machine_start() override;
+
 private:
 	/* memory pointers */
 	required_shared_ptr<uint8_t> m_videoram;
@@ -45,17 +48,15 @@ private:
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<palette_device> m_palette;
 
-	DECLARE_WRITE8_MEMBER(lsasquad_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(lsasquad_sh_nmi_disable_w);
-	DECLARE_WRITE8_MEMBER(lsasquad_sh_nmi_enable_w);
-	DECLARE_READ8_MEMBER(lsasquad_sound_status_r);
-	DECLARE_READ8_MEMBER(daikaiju_sound_status_r);
+	void lsasquad_bankswitch_w(uint8_t data);
+	void lsasquad_sh_nmi_disable_w(uint8_t data);
+	void lsasquad_sh_nmi_enable_w(uint8_t data);
+	uint8_t lsasquad_sound_status_r();
+	uint8_t daikaiju_sound_status_r();
 
-	DECLARE_READ8_MEMBER(lsasquad_mcu_status_r);
-	DECLARE_READ8_MEMBER(daikaiju_mcu_status_r);
-	DECLARE_WRITE8_MEMBER(unk);
-	DECLARE_MACHINE_START(lsasquad);
-	DECLARE_MACHINE_RESET(lsasquad);
+	uint8_t lsasquad_mcu_status_r();
+	uint8_t daikaiju_mcu_status_r();
+	void unk(uint8_t data);
 	uint32_t screen_update_lsasquad(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_daikaiju(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(nmi_callback);

@@ -185,7 +185,7 @@ void kangaroo_state::machine_start()
 MACHINE_START_MEMBER(kangaroo_state,kangaroo_mcu)
 {
 	kangaroo_state::machine_start();
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xef00, 0xefff, read8_delegate(FUNC(kangaroo_state::mcu_sim_r),this), write8_delegate(FUNC(kangaroo_state::mcu_sim_w),this));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xef00, 0xefff, read8smo_delegate(*this, FUNC(kangaroo_state::mcu_sim_r)), write8smo_delegate(*this, FUNC(kangaroo_state::mcu_sim_w)));
 	save_item(NAME(m_mcu_clock));
 }
 
@@ -220,12 +220,12 @@ void kangaroo_state::machine_reset()
    this just seems to do the trick -V-
 */
 
-READ8_MEMBER(kangaroo_state::mcu_sim_r)
+uint8_t kangaroo_state::mcu_sim_r()
 {
 	return ++m_mcu_clock & 0x0f;
 }
 
-WRITE8_MEMBER(kangaroo_state::mcu_sim_w)
+void kangaroo_state::mcu_sim_w(uint8_t data)
 {
 }
 
@@ -237,7 +237,7 @@ WRITE8_MEMBER(kangaroo_state::mcu_sim_w)
  *
  *************************************/
 
-WRITE8_MEMBER(kangaroo_state::kangaroo_coin_counter_w)
+void kangaroo_state::kangaroo_coin_counter_w(uint8_t data)
 {
 	machine().bookkeeping().coin_counter_w(0, data & 1);
 	machine().bookkeeping().coin_counter_w(1, data & 2);
@@ -274,7 +274,7 @@ void kangaroo_state::main_map(address_map &map)
 
 void kangaroo_state::sound_map(address_map &map)
 {
-	map(0x0000, 0x0fff).rom();
+	map(0x0000, 0x0fff).rom().region("audiocpu", 0);
 	map(0x4000, 0x43ff).mirror(0x0c00).ram();
 	map(0x6000, 0x6000).mirror(0x0fff).r("soundlatch", FUNC(generic_latch_8_device::read));
 	map(0x7000, 0x7000).mirror(0x0fff).w("aysnd", FUNC(ay8910_device::data_w));

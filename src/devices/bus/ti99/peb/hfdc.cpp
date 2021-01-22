@@ -76,7 +76,7 @@
 
 DEFINE_DEVICE_TYPE_NS(TI99_HFDC, bus::ti99::peb, myarc_hfdc_device, "ti99_hfdc", "Myarc Hard and Floppy Disk Controller")
 
-namespace bus { namespace ti99 { namespace peb {
+namespace bus::ti99::peb {
 
 #define BUFFER "ram"
 #define FDC_TAG "hdc9234"
@@ -111,7 +111,7 @@ myarc_hfdc_device::myarc_hfdc_device(const machine_config &mconfig, const char *
 {
 }
 
-SETADDRESS_DBIN_MEMBER( myarc_hfdc_device::setaddress_dbin )
+void myarc_hfdc_device::setaddress_dbin(offs_t offset, int state)
 {
 	// Do not allow setaddress for the debugger. It will mess up the
 	// setaddress/memory access pairs when the CPU enters wait states.
@@ -124,7 +124,7 @@ SETADDRESS_DBIN_MEMBER( myarc_hfdc_device::setaddress_dbin )
 	// 010x xxxx xxxx xxxx
 	m_address = offset;
 
-	m_inDsrArea = ((m_address & m_select_mask)==m_select_value);
+	m_inDsrArea = in_dsr_space(m_address, true);
 
 	if (!m_inDsrArea) return;
 
@@ -161,7 +161,7 @@ SETADDRESS_DBIN_MEMBER( myarc_hfdc_device::setaddress_dbin )
 */
 void myarc_hfdc_device::debug_read(offs_t offset, uint8_t* value)
 {
-	if (((offset & m_select_mask)==m_select_value) && m_selected)
+	if (in_dsr_space(offset, true) && m_selected)
 	{
 		if ((offset & 0x1000)==RAM_ADDR)
 		{
@@ -180,7 +180,7 @@ void myarc_hfdc_device::debug_read(offs_t offset, uint8_t* value)
 
 void myarc_hfdc_device::debug_write(offs_t offset, uint8_t data)
 {
-	if (((offset & m_select_mask)==m_select_value) && m_selected)
+	if (in_dsr_space(offset, true) && m_selected)
 	{
 		if ((offset & 0x1000)==RAM_ADDR)
 		{
@@ -205,7 +205,7 @@ void myarc_hfdc_device::debug_write(offs_t offset, uint8_t data)
 
     HFDC manual, p. 44
 */
-READ8Z_MEMBER(myarc_hfdc_device::readz)
+void myarc_hfdc_device::readz(offs_t offset, uint8_t *value)
 {
 	if (machine().side_effects_disabled())
 	{
@@ -371,7 +371,7 @@ void myarc_hfdc_device::write(offs_t offset, uint8_t data)
     ---
     0 on all other locations
 */
-READ8Z_MEMBER(myarc_hfdc_device::crureadz)
+void myarc_hfdc_device::crureadz(offs_t offset, uint8_t *value)
 {
 	uint8_t reply;
 	if ((offset & 0xff00)==m_cru_base)
@@ -880,10 +880,7 @@ void myarc_hfdc_device::device_start()
 	save_item(NAME(m_senila));
 	save_item(NAME(m_senilb));
 	save_item(NAME(m_selected));
-	save_item(NAME(m_genmod));
 	save_item(NAME(m_cru_base));
-	save_item(NAME(m_select_mask));
-	save_item(NAME(m_select_value));
 
 	// Own members
 	save_item(NAME(m_see_switches));
@@ -911,18 +908,6 @@ void myarc_hfdc_device::device_start()
 
 void myarc_hfdc_device::device_reset()
 {
-	// The GenMOD mod; our implementation automagically adapts all cards
-	if (m_genmod)
-	{
-		m_select_mask = 0x1fe000;
-		m_select_value = 0x174000;
-	}
-	else
-	{
-		m_select_mask = 0x7e000;
-		m_select_value = 0x74000;
-	}
-
 	m_cru_base = ioport("CRUHFDC")->read();
 	m_wait_for_hd1 = ioport("WAITHD1")->read();
 
@@ -1103,4 +1088,4 @@ ioport_constructor myarc_hfdc_device::device_input_ports() const
 	return INPUT_PORTS_NAME( ti99_hfdc );
 }
 
-} } } // end namespace bus::ti99::peb
+} // end namespace bus::ti99::peb

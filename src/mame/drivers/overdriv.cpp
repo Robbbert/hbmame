@@ -31,7 +31,9 @@
 
 #include "cpu/m68000/m68000.h"
 #include "cpu/m6809/m6809.h"
+#include "machine/adc0804.h"
 #include "machine/eepromser.h"
+#include "machine/rescap.h"
 #include "sound/k053260.h"
 #include "sound/ym2151.h"
 #include "video/k053250.h"
@@ -59,7 +61,7 @@ static const uint16_t overdriv_default_eeprom[64] =
 };
 
 
-WRITE16_MEMBER(overdriv_state::eeprom_w)
+void overdriv_state::eeprom_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 //logerror("%s: write %04x to eeprom_w\n",machine().describe_context(),data);
 	if (ACCESSING_BITS_0_7)
@@ -100,7 +102,7 @@ INTERRUPT_GEN_MEMBER(overdriv_state::cpuB_interrupt)
 }
 #endif
 
-WRITE16_MEMBER(overdriv_state::cpuA_ctrl_w)
+void overdriv_state::cpuA_ctrl_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -117,12 +119,12 @@ WRITE16_MEMBER(overdriv_state::cpuA_ctrl_w)
 	}
 }
 
-READ16_MEMBER(overdriv_state::cpuB_ctrl_r)
+uint16_t overdriv_state::cpuB_ctrl_r()
 {
 	return m_cpuB_ctrl;
 }
 
-WRITE16_MEMBER(overdriv_state::cpuB_ctrl_w)
+void overdriv_state::cpuB_ctrl_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_cpuB_ctrl);
 
@@ -137,7 +139,7 @@ WRITE16_MEMBER(overdriv_state::cpuB_ctrl_w)
 	}
 }
 
-WRITE16_MEMBER(overdriv_state::overdriv_soundirq_w)
+void overdriv_state::overdriv_soundirq_w(uint16_t data)
 {
 	m_audiocpu->set_input_line(M6809_IRQ_LINE, ASSERT_LINE);
 }
@@ -145,13 +147,13 @@ WRITE16_MEMBER(overdriv_state::overdriv_soundirq_w)
 
 
 
-WRITE16_MEMBER(overdriv_state::slave_irq4_assert_w)
+void overdriv_state::slave_irq4_assert_w(uint16_t data)
 {
 	// used in-game
 	m_subcpu->set_input_line(4, HOLD_LINE);
 }
 
-WRITE16_MEMBER(overdriv_state::slave_irq5_assert_w)
+void overdriv_state::slave_irq5_assert_w(uint16_t data)
 {
 	// tests GFX ROMs with this irq (indeed enabled only in test mode)
 	m_subcpu->set_input_line(5, HOLD_LINE);
@@ -167,7 +169,7 @@ void overdriv_state::overdriv_master_map(address_map &map)
 	map(0x0e0000, 0x0e0001).nopw();            /* unknown (always 0x30) */
 	map(0x100000, 0x10001f).rw(m_k053252, FUNC(k053252_device::read), FUNC(k053252_device::write)).umask16(0x00ff); /* 053252? (LSB) */
 	map(0x140000, 0x140001).nopw(); //watchdog reset?
-	map(0x180000, 0x180001).portr("PADDLE").nopw();  // writes 0 at POST and expect that motor busy flag is off, then checks if paddle is at center otherwise throws a "VOLUME ERROR".
+	map(0x180001, 0x180001).rw("adc", FUNC(adc0804_device::read), FUNC(adc0804_device::write));
 	map(0x1c0000, 0x1c001f).w(m_k051316_1, FUNC(k051316_device::ctrl_w)).umask16(0xff00);
 	map(0x1c8000, 0x1c801f).w(m_k051316_2, FUNC(k051316_device::ctrl_w)).umask16(0xff00);
 	map(0x1d0000, 0x1d001f).w(m_k053251, FUNC(k053251_device::write)).umask16(0xff00);
@@ -186,7 +188,7 @@ void overdriv_state::overdriv_master_map(address_map &map)
 }
 
 #ifdef UNUSED_FUNCTION
-WRITE8_MEMBER( overdriv_state::overdriv_k053246_w )
+void overdriv_state::overdriv_k053246_w(offs_t offset, uint8_t data)
 {
 	m_k053246->k053246_w(offset,data);
 
@@ -215,7 +217,7 @@ TIMER_CALLBACK_MEMBER(overdriv_state::objdma_end_cb )
 	m_subcpu->set_input_line(6, HOLD_LINE);
 }
 
-WRITE8_MEMBER(overdriv_state::objdma_w)
+void overdriv_state::objdma_w(uint8_t data)
 {
 	if(data & 0x10)
 		m_objdma_end_timer->adjust(attotime::from_usec(100));
@@ -242,7 +244,7 @@ void overdriv_state::overdriv_slave_map(address_map &map)
 	map(0x220000, 0x221fff).r("k053250_2", FUNC(k053250_device::rom_r));
 }
 
-WRITE8_MEMBER(overdriv_state::sound_ack_w)
+void overdriv_state::sound_ack_w(uint8_t data)
 {
 	m_audiocpu->set_input_line(M6809_IRQ_LINE, CLEAR_LINE);
 }
@@ -282,10 +284,11 @@ static INPUT_PORTS_START( overdriv )
 	PORT_SERVICE_NO_TOGGLE( 0x10, IP_ACTIVE_LOW )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM )   // motor busy flag
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("adc", adc0804_device, intr_r)
 
 	PORT_START("PADDLE")
 	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_SENSITIVITY(100) PORT_KEYDELTA(50)
+	// POST checks if paddle is at center otherwise throws a "VOLUME ERROR"
 
 	PORT_START( "EEPROMOUT" )
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, di_write)
@@ -338,9 +341,11 @@ void overdriv_state::overdriv(machine_config &config)
 																			  /* This might just mean that the video refresh rate is less than */
 																			  /* 60 fps, that's how I fixed it for now. */
 
-	config.m_minimum_quantum = attotime::from_hz(12000);
+	config.set_maximum_quantum(attotime::from_hz(12000));
 
 	EEPROM_ER5911_16BIT(config, "eeprom").default_data(overdriv_default_eeprom, 128);
+
+	ADC0804(config, "adc", RES_K(10), CAP_P(150)).vin_callback().set_ioport("PADDLE");
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -351,7 +356,7 @@ void overdriv_state::overdriv(machine_config &config)
 	PALETTE(config, "palette").set_format(palette_device::xBGR_555, 2048).enable_shadows();
 
 	K053246(config, m_k053246, 0);
-	m_k053246->set_sprite_callback(FUNC(overdriv_state::sprite_callback), this);
+	m_k053246->set_sprite_callback(FUNC(overdriv_state::sprite_callback));
 	m_k053246->set_config(NORMAL_PLANE_ORDER, 77, 22);
 	m_k053246->set_palette("palette");
 
@@ -359,12 +364,12 @@ void overdriv_state::overdriv(machine_config &config)
 	m_k051316_1->set_palette("palette");
 	m_k051316_1->set_offsets(14, -1);
 	m_k051316_1->set_wrap(1);
-	m_k051316_1->set_zoom_callback(FUNC(overdriv_state::zoom_callback_1), this);
+	m_k051316_1->set_zoom_callback(FUNC(overdriv_state::zoom_callback_1));
 
 	K051316(config, m_k051316_2, 0);
 	m_k051316_2->set_palette("palette");
 	m_k051316_2->set_offsets(15, 1);
-	m_k051316_2->set_zoom_callback(FUNC(overdriv_state::zoom_callback_2), this);
+	m_k051316_2->set_zoom_callback(FUNC(overdriv_state::zoom_callback_2));
 
 	K053251(config, m_k053251, 0);
 

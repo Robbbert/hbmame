@@ -133,211 +133,22 @@ Switches   Aux-RS232   Aux Port   Alpha      Vend-Bus
                        13 - +12
                        14 - GAP
                        15 - 0V
+
+MPU5 Horizon and Genesis machines use also a mux PCB for LEDs, lamps and buttons called
+"Barcrest -MUX5E- XP19642 ISS4", wich uses a Zilog Z86E6116PSG MCU (undumped).
+
 */
 
 
 #include "emu.h"
+#include "includes/mpu5.h"
 
-#include "machine/68340.h"
-#include "machine/sec.h"
 #include "speaker.h"
 
 #include "mpu5.lh"
 
-// MFME2MAME layouts:
-#include "m5addams.lh"
-#include "m5all41d.lh"
-#include "m5arab.lh"
-#include "m5austin11.lh"
-#include "m5barkng.lh"
-#include "m5barmy.lh"
-#include "m5baxe04.lh"
-#include "m5bbro.lh"
-#include "m5bbrocl.lh"
-#include "m5beansa.lh"
-#include "m5bigchs.lh"
-#include "m5biggam.lh"
-#include "m5bling.lh"
-#include "m5blkwht11.lh"
-#include "m5bnzclb.lh"
-#include "m5btlbnk.lh"
-#include "m5bttf.lh"
-#include "m5bwaves.lh"
-#include "m5carou.lh"
-#include "m5cashat.lh"
-#include "m5cashrn.lh"
-#include "m5cbw.lh"
-#include "m5centcl.lh"
-#include "m5circlb33.lh"
-#include "m5circus0a.lh"
-#include "m5clifhn.lh"
-#include "m5clown11.lh"
-#include "m5codft.lh"
-#include "m5cosclb.lh"
-#include "m5crzkni.lh"
-#include "m5cshkcb.lh"
-#include "m5cshstx.lh"
-#include "m5dblqtsb.lh"
-#include "m5devil.lh"
-#include "m5dick10.lh"
-#include "m5doshpk05.lh"
-#include "m5egr.lh"
-#include "m5elband.lh"
-#include "m5elim.lh"
-#include "m5evgrhr.lh"
-#include "m5ewn.lh"
-#include "m5extrm.lh"
-#include "m5fiddle.lh"
-#include "m5fire.lh"
-#include "m5firebl.lh"
-#include "m5flipcr.lh"
-#include "m5fortby.lh"
-#include "m5frnzy.lh"
-#include "m5funsun.lh"
-#include "m5gdrag.lh"
-#include "m5ggems20.lh"
-#include "m5gimmie.lh"
-#include "m5grush.lh"
-#include "m5grush5.lh"
-#include "m5gsstrk07.lh"
-#include "m5gstrik.lh"
-#include "m5hellrz.lh"
-#include "m5hgl14.lh"
-#include "m5hiclau.lh"
-#include "m5hifly.lh"
-#include "m5hilok.lh"
-#include "m5hisprt.lh"
-#include "m5hlsumo.lh"
-#include "m5holy.lh"
-#include "m5hopidl.lh"
-#include "m5hotslt.lh"
-#include "m5hotstf.lh"
-#include "m5hypvip.lh"
-#include "m5jackbx.lh"
-#include "m5jackp2.lh"
-#include "m5jackpt.lh"
-#include "m5jlyjwl.lh"
-#include "m5jmpgem01.lh"
-#include "m5kingqc06.lh"
-#include "m5kkebab.lh"
-#include "m5korma.lh"
-#include "m5loony.lh"
-#include "m5loot.lh"
-#include "m5lotta.lh"
-#include "m5martns07.lh"
-#include "m5mega.lh"
-#include "m5mmak06.lh"
-#include "m5monmst.lh"
-#include "m5mpfc.lh"
-#include "m5mprio.lh"
-#include "m5neptun.lh"
-#include "m5nnww.lh"
-#include "m5oohaah.lh"
-#include "m5oohrio.lh"
-#include "m5openbx05.lh"
-#include "m5overld.lh"
-#include "m5peepsh.lh"
-#include "m5piefac.lh"
-#include "m5piefcr.lh"
-#include "m5ppussy.lh"
-#include "m5psyccl01.lh"
-#include "m5psycho.lh"
-#include "m5ptyani.lh"
-#include "m5qdrawb.lh"
-#include "m5qshot04.lh"
-#include "m5ratpka.lh"
-#include "m5razdz10.lh"
-#include "m5redbal.lh"
-#include "m5redrcka.lh"
-#include "m5resfrg.lh"
-#include "m5revo13.lh"
-#include "m5rfymc.lh"
-#include "m5rgclb12.lh"
-#include "m5rhrgt02.lh"
-#include "m5ritj.lh"
-#include "m5rollup.lh"
-#include "m5rollx.lh"
-#include "m5rthh.lh"
-#include "m5rub.lh"
-#include "m5rwb.lh"
-#include "m5scharg.lh"
-#include "m5seven.lh"
-#include "m5shark.lh"
-#include "m5sheik.lh"
-#include "m5skulcl20.lh"
-#include "m5sondra.lh"
-#include "m5speccl.lh"
-#include "m5spiker.lh"
-#include "m5spins.lh"
-#include "m5squids06.lh"
-#include "m5sstrk.lh"
-#include "m5starcl.lh"
-#include "m5stars26.lh"
-#include "m5stax.lh"
-#include "m5supnov.lh"
-#include "m5supro.lh"
-#include "m5tbird.lh"
-#include "m5tempcl.lh"
-#include "m5tempp.lh"
-#include "m5tempt2.lh"
-#include "m5tictacbwb.lh"
-#include "m5trail.lh"
-#include "m5ultimo04.lh"
-#include "m5upover.lh"
-#include "m5vampup.lh"
-#include "m5vertgo.lh"
-#include "m5wking05.lh"
-#include "m5wonga.lh"
-#include "m5wthing20.lh"
-#include "m5xchn.lh"
-#include "m5xfact11.lh"
 
-
-class mpu5_state : public driver_device
-{
-public:
-	mpu5_state(const machine_config &mconfig, device_type type, const char *tag) :
-		driver_device(mconfig, type, tag),
-		m_maincpu(*this, "maincpu")
-	{ }
-
-	void mpu5(machine_config &config);
-
-private:
-	DECLARE_READ32_MEMBER(mpu5_mem_r);
-	DECLARE_WRITE32_MEMBER(mpu5_mem_w);
-
-	DECLARE_READ32_MEMBER(asic_r32);
-	DECLARE_READ8_MEMBER(asic_r8);
-	DECLARE_WRITE32_MEMBER(asic_w32);
-	DECLARE_WRITE8_MEMBER(asic_w8);
-
-	DECLARE_READ32_MEMBER(pic_r);
-	DECLARE_WRITE32_MEMBER(pic_w);
-
-	virtual void machine_start() override;
-	void mpu5_map(address_map &map);
-
-	uint32_t* m_cpuregion;
-	std::unique_ptr<uint32_t[]> m_mainram;
-	SEC sec;
-
-	uint8_t m_led_strobe_temp;
-	uint8_t m_led_strobe;
-	uint8_t m_pic_clk;
-	bool  m_pic_transfer_in_progress;
-	uint8_t m_pic_bit1;
-	uint8_t m_pic_data;
-	uint8_t m_pic_clocked_bits;
-	uint8_t m_pic_stored_input;
-	uint8_t m_pic_output_bit;
-	uint8_t m_input_strobe;
-
-	// devices
-	required_device<m68340_cpu_device> m_maincpu;
-};
-
-READ8_MEMBER(mpu5_state::asic_r8)
+uint8_t mpu5_state::asic_r8(offs_t offset)
 {
 	switch (offset)
 	{
@@ -366,17 +177,17 @@ READ8_MEMBER(mpu5_state::asic_r8)
 }
 
 
-READ32_MEMBER(mpu5_state::asic_r32)
+uint32_t mpu5_state::asic_r32(offs_t offset, uint32_t mem_mask)
 {
 	uint32_t retdata = 0;
-	if (ACCESSING_BITS_24_31) retdata |= asic_r8(space,(offset*4)+0) <<24;
-	if (ACCESSING_BITS_16_23) retdata |= asic_r8(space,(offset*4)+1) <<16;
-	if (ACCESSING_BITS_8_15) retdata |= asic_r8(space,(offset*4)+2) <<8;
-	if (ACCESSING_BITS_0_7) retdata |= asic_r8(space,(offset*4)+3) <<0;
+	if (ACCESSING_BITS_24_31) retdata |= asic_r8((offset*4)+0) <<24;
+	if (ACCESSING_BITS_16_23) retdata |= asic_r8((offset*4)+1) <<16;
+	if (ACCESSING_BITS_8_15) retdata |= asic_r8((offset*4)+2) <<8;
+	if (ACCESSING_BITS_0_7) retdata |= asic_r8((offset*4)+3) <<0;
 	return retdata;
 }
 
-READ32_MEMBER(mpu5_state::mpu5_mem_r)
+uint32_t mpu5_state::mpu5_mem_r(offs_t offset, uint32_t mem_mask)
 {
 	int pc = m_maincpu->pc();
 	int addr = offset *4;
@@ -385,41 +196,33 @@ READ32_MEMBER(mpu5_state::mpu5_mem_r)
 	switch ( cs )
 	{
 		case 2:
-		{
 			switch (addr & 0xf0)
 			{
 				case 0xd0:
-				{
 					logerror("%08x PIC read\n", pc);
 					break;
-				}
+
 				case 0xe0:
-				{
 					logerror("%08x DUART read\n", pc);
 					break;
-				}
 
 				case 0xf0:
-				{
-					return asic_r32(space, offset&3,mem_mask);
-				}
+					return asic_r32(offset&3,mem_mask);
 
 				default:
-				logerror("%08x maincpu read access offset %08x mem_mask %08x cs %d\n", pc, offset*4, mem_mask, cs);
-				break;
+					logerror("%08x maincpu read access offset %08x mem_mask %08x cs %d\n", pc, offset*4, mem_mask, cs);
 			}
-		}
-		break;
+			break;
 
 		case 3:
 		case 4:
 			offset &=0x3fff;
-			return (m_mainram[offset]);
+			return m_mainram[offset];
 
-		case 1:if (offset < 0x100000) // make sure to log an error instead of crashing when reading beyond end of region
-			return m_cpuregion[offset];
-
-
+		case 1:
+			if (offset < 0x100000) // make sure to log an error instead of crashing when reading beyond end of region
+				return m_cpuregion[offset];
+			[[fallthrough]];
 		default:
 			logerror("%08x maincpu read access offset %08x mem_mask %08x cs %d\n", pc, offset*4, mem_mask, cs);
 
@@ -429,12 +232,11 @@ READ32_MEMBER(mpu5_state::mpu5_mem_r)
 }
 
 // Each board is fitted with an ASIC that does most of the heavy lifting, including sound playback.
-WRITE8_MEMBER(mpu5_state::asic_w8)
+void mpu5_state::asic_w8(offs_t offset, uint8_t data)
 {
 	switch (offset)
 	{
 		case 0x03:
-		{
 			if (m_led_strobe_temp != data)
 			{
 				m_led_strobe_temp = data;
@@ -442,82 +244,75 @@ WRITE8_MEMBER(mpu5_state::asic_w8)
 				switch (m_led_strobe_temp)
 				{
 					case 0x00:
-					m_led_strobe = 0;
-					break;
+						m_led_strobe = 0;
+						break;
 					case 0x01:
-					m_led_strobe = 1;
-					break;
+						m_led_strobe = 1;
+						break;
 					case 0x02:
-					m_led_strobe = 2;
-					break;
+						m_led_strobe = 2;
+						break;
 					case 0x04:
-					m_led_strobe = 3;
-					break;
+						m_led_strobe = 3;
+						break;
 					case 0x08:
-					m_led_strobe = 4;
-					break;
+						m_led_strobe = 4;
+						break;
 					case 0x10:
-					m_led_strobe = 5;
-					break;
+						m_led_strobe = 5;
+						break;
 					case 0x20:
-					m_led_strobe = 6;
-					break;
+						m_led_strobe = 6;
+						break;
 					case 0x40:
-					m_led_strobe = 7;
-					break;
+						m_led_strobe = 7;
+						break;
 					case 0x80:
-					m_led_strobe = 8;
-					break;
+						m_led_strobe = 8;
+						break;
 				}
 			}
 			break;
-		}
 
 		case 0x09:
-		{
 			//Assume SEC fitted for now
-			sec.write_data_line(~data&0x01);
-			sec.write_clock_line(~data&0x02);
-			sec.write_cs_line(~data&0x04);
-		}
+			m_sec->data_w(~data&0x01);
+			m_sec->clk_w(~data&0x02);
+			m_sec->cs_w(~data&0x04);
+			[[fallthrough]];
 		case 0x0b:
-		{
-			output().set_value("statuslamp1", ((data&0x10) != 0));
-
-			output().set_value("statuslamp2", ((data&0x20) != 0));
+			output().set_value("statuslamp1", BIT(data, 4));
+			output().set_value("statuslamp2", BIT(data, 5));
 
 			if (data & 0x40)
 			{
-//              m_dsp_pin =1;
+				//m_dsp_pin = 1;
 			}
-		}
-		break;
+			break;
+
 		default:
-		{
-			int pc = m_maincpu->pc();
-			logerror("%08x maincpu write to ASIC - offset %01x data %02x\n", pc, offset, data);
-		}
+			logerror("%s: maincpu write to ASIC - offset %01x data %02x\n", machine().describe_context(), offset, data);
 	}
 }
 
 
-WRITE32_MEMBER(mpu5_state::asic_w32)
+void mpu5_state::asic_w32(offs_t offset, uint32_t data, uint32_t mem_mask)
 {
-	if (ACCESSING_BITS_24_31) asic_w8(space,(offset*4)+0, (data>>24)&0xff);
-	if (ACCESSING_BITS_16_23) asic_w8(space,(offset*4)+1, (data>>16)&0xff);
-	if (ACCESSING_BITS_8_15) asic_w8(space,(offset*4)+2, (data>>8) &0xff);
-	if (ACCESSING_BITS_0_7) asic_w8(space,(offset*4)+3, (data>>0) &0xff);
+	if (ACCESSING_BITS_24_31) asic_w8((offset*4)+0, (data>>24)&0xff);
+	if (ACCESSING_BITS_16_23) asic_w8((offset*4)+1, (data>>16)&0xff);
+	if (ACCESSING_BITS_8_15) asic_w8((offset*4)+2, (data>>8) &0xff);
+	if (ACCESSING_BITS_0_7) asic_w8((offset*4)+3, (data>>0) &0xff);
 }
 
 
-READ32_MEMBER(mpu5_state::pic_r)
+uint32_t mpu5_state::pic_r(offs_t offset)
 {
 	int pc = m_maincpu->pc();
 	logerror("%08x maincpu read from PIC - offset %01x\n", pc, offset);
 	return m_pic_output_bit;
 }
 
-WRITE32_MEMBER(mpu5_state::pic_w)
+void mpu5_state::pic_w(offs_t offset, uint32_t data)
 {
 	switch (offset)
 	{
@@ -572,7 +367,7 @@ WRITE32_MEMBER(mpu5_state::pic_w)
 
 }
 
-WRITE32_MEMBER(mpu5_state::mpu5_mem_w)
+void mpu5_state::mpu5_mem_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 {
 	int pc = m_maincpu->pc();
 	int addr = offset *4;
@@ -586,7 +381,7 @@ WRITE32_MEMBER(mpu5_state::mpu5_mem_w)
 			{
 				case 0xd0:
 				{
-					pic_w(space, (addr& 0x0f),data,mem_mask);
+					pic_w((addr& 0x0f),data);
 					break;
 				}
 				case 0xe0:
@@ -597,7 +392,7 @@ WRITE32_MEMBER(mpu5_state::mpu5_mem_w)
 
 				case 0xf0:
 				{
-					asic_w32(space, offset&3,data,mem_mask);
+					asic_w32(offset&3,data,mem_mask);
 					break;
 				}
 
@@ -645,11 +440,11 @@ void mpu5_state::mpu5(machine_config &config)
 	M68340(config, m_maincpu, 16000000);    // ?
 	m_maincpu->set_addrmap(AS_PROGRAM, &mpu5_state::mpu5_map);
 
+	SEC(config, m_sec);
+
 	config.set_default_layout(layout_mpu5);
 
 	SPEAKER(config, "lspeaker").front_left();
 	SPEAKER(config, "rspeaker").front_right();
 	/* unknown sound */
 }
-
-#include "mpu5.hxx"

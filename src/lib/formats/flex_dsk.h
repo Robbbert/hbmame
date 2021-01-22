@@ -11,8 +11,9 @@
 #pragma once
 
 #include "flopimg.h"
+#include "wd177x_dsk.h"
 
-class flex_format : public floppy_image_format_t
+class flex_format : public wd177x_format
 {
 public:
 	flex_format();
@@ -20,9 +21,9 @@ public:
 	virtual const char *name() const override;
 	virtual const char *description() const override;
 	virtual const char *extensions() const override;
-	virtual int identify(io_generic *io, uint32_t form_factor) override;
-	virtual bool load(io_generic *io, uint32_t form_factor, floppy_image *image) override;
-	virtual bool supports_save() const override;
+	virtual int identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants) override;
+	virtual int find_size(io_generic *io, uint32_t form_factor) override;
+	virtual const wd177x_format::format &get_track_format(const format &f, int head, int track) override;
 
 private:
 	struct sysinfo_sector
@@ -43,6 +44,13 @@ private:
 		uint8_t last_sec;
 		uint8_t unused2[216];
 	} info;
+	static const format formats[];
+	static const format formats_head1[];
+	static const format formats_track0[];
+	static const format formats_head1_track0[];
+
+	uint8_t boot0_sector_id;
+	uint8_t boot1_sector_id;
 };
 
 extern const floppy_format_type FLOPPY_FLEX_FORMAT;

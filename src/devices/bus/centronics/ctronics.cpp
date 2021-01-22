@@ -13,8 +13,8 @@
 
 DEFINE_DEVICE_TYPE(CENTRONICS, centronics_device, "centronics", "Centronics")
 
-centronics_device::centronics_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, CENTRONICS, tag, owner, clock),
+centronics_device::centronics_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
+	device_t(mconfig, CENTRONICS, tag, owner, clock),
 	device_slot_interface(mconfig, *this),
 	m_strobe_handler(*this),
 	m_data0_handler(*this),
@@ -116,7 +116,7 @@ WRITE_LINE_MEMBER( centronics_device::write_select_in ) { if (m_dev) m_dev->inpu
 // class device_centronics_peripheral_interface
 
 device_centronics_peripheral_interface::device_centronics_peripheral_interface(const machine_config &mconfig, device_t &device)
-	: device_slot_card_interface(mconfig, device)
+	: device_interface(device, "centronics")
 {
 	m_slot = dynamic_cast<centronics_device *>(device.owner());
 }
@@ -134,6 +134,7 @@ device_centronics_peripheral_interface::~device_centronics_peripheral_interface(
 #include "printer.h"
 #include "covox.h"
 #include "chessmec.h"
+#include "samdac.h"
 
 void centronics_devices(device_slot_interface &device)
 {
@@ -147,4 +148,5 @@ void centronics_devices(device_slot_interface &device)
 	device.option_add("covox", CENTRONICS_COVOX);
 	device.option_add("covox_stereo", CENTRONICS_COVOX_STEREO);
 	device.option_add("chessmec", CENTRONICS_CHESSMEC);
+	device.option_add("samdac", CENTRONICS_SAMDAC);
 }

@@ -28,6 +28,8 @@ ToDo:
 #include "jeutel.lh"
 
 
+namespace {
+
 class jeutel_state : public genpin_class
 {
 public:
@@ -42,12 +44,16 @@ public:
 	void init_jeutel();
 	void jeutel(machine_config &config);
 
+protected:
+	virtual void machine_reset() override;
+	virtual void machine_start() override { m_digits.resolve(); m_digit = 0; }
+
 private:
-	DECLARE_READ8_MEMBER(portb_r);
-	DECLARE_WRITE8_MEMBER(porta_w);
-	DECLARE_WRITE8_MEMBER(ppi0a_w);
-	DECLARE_WRITE8_MEMBER(ppi0b_w);
-	DECLARE_WRITE8_MEMBER(sndcmd_w);
+	uint8_t portb_r();
+	void porta_w(uint8_t data);
+	void ppi0a_w(uint8_t data);
+	void ppi0b_w(uint8_t data);
+	void sndcmd_w(uint8_t data);
 	TIMER_DEVICE_CALLBACK_MEMBER(timer_a);
 	void jeutel_cpu2(address_map &map);
 	void jeutel_cpu3(address_map &map);
@@ -57,8 +63,7 @@ private:
 	bool m_timer_a;
 	uint8_t m_sndcmd;
 	uint8_t m_digit;
-	virtual void machine_reset() override;
-	virtual void machine_start() override { m_digits.resolve(); }
+
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_cpu2;
 	required_device<tms5110_device> m_tms;
@@ -105,33 +110,33 @@ void jeutel_state::jeutel_cpu3_io(address_map &map)
 static INPUT_PORTS_START( jeutel )
 INPUT_PORTS_END
 
-WRITE8_MEMBER( jeutel_state::sndcmd_w )
+void jeutel_state::sndcmd_w(uint8_t data)
 {
 	m_sndcmd = data;
 }
 
-READ8_MEMBER( jeutel_state::portb_r )
+uint8_t jeutel_state::portb_r()
 {
 	return m_sndcmd;
 }
 
-WRITE8_MEMBER( jeutel_state::porta_w )
+void jeutel_state::porta_w(uint8_t data)
 {
 	if ((data & 0xf0) == 0xf0)
 	{
-		m_tms->ctl_w(space, offset, tms5110_device::CMD_RESET);
+		m_tms->ctl_w(tms5110_device::CMD_RESET);
 		m_tms->pdc_w(1);
 		m_tms->pdc_w(0);
 	}
 	else if ((data & 0xf0) == 0xd0)
 	{
-		m_tms->ctl_w(space, offset, tms5110_device::CMD_SPEAK);
+		m_tms->ctl_w(tms5110_device::CMD_SPEAK);
 		m_tms->pdc_w(1);
 		m_tms->pdc_w(0);
 	}
 }
 
-WRITE8_MEMBER( jeutel_state::ppi0a_w )
+void jeutel_state::ppi0a_w(uint8_t data)
 {
 	uint16_t segment;
 	bool blank = !BIT(data, 7);
@@ -171,7 +176,7 @@ WRITE8_MEMBER( jeutel_state::ppi0a_w )
 	}
 }
 
-WRITE8_MEMBER( jeutel_state::ppi0b_w )
+void jeutel_state::ppi0b_w(uint8_t data)
 {
 	m_digit = data & 0x0f;
 	if (m_digit > 7)
@@ -257,6 +262,9 @@ void jeutel_state::jeutel(machine_config &config)
 
 	TIMER(config, "timer_a").configure_periodic(FUNC(jeutel_state::timer_a), attotime::from_hz(120));
 }
+
+} // Anonymous namespace
+
 
 /*--------------------------------
 / Le King

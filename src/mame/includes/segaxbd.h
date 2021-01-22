@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "machine/segaic16.h"
 #include "video/segaic16.h"
 #include "video/segaic16_road.h"
 #include "video/sega16sp.h"
@@ -22,6 +21,7 @@
 #include "machine/i8251.h"
 #include "machine/mb3773.h"
 #include "machine/mb8421.h"
+#include "machine/segaic16.h"
 #include "video/resnet.h"
 #include "emupal.h"
 #include "screen.h"
@@ -46,29 +46,28 @@ public:
 	required_device<m68000_device> m_maincpu;
 
 	// custom I/O
-	DECLARE_READ8_MEMBER(aburner2_motor_r);
-	DECLARE_WRITE8_MEMBER(aburner2_motor_w);
-	DECLARE_READ8_MEMBER(smgp_motor_r);
-	DECLARE_WRITE8_MEMBER(smgp_motor_w);
-	DECLARE_READ8_MEMBER(lastsurv_port_r);
-	DECLARE_WRITE8_MEMBER(lastsurv_muxer_w);
+	uint8_t aburner2_motor_r();
+	void aburner2_motor_w(uint8_t data);
+	uint8_t smgp_motor_r();
+	void smgp_motor_w(uint8_t data);
+	uint8_t lastsurv_port_r();
+	void lastsurv_muxer_w(uint8_t data);
 
 	// game-specific main CPU read/write handlers
-	DECLARE_WRITE16_MEMBER(loffire_sync0_w);
-	DECLARE_READ16_MEMBER(smgp_excs_r);
-	DECLARE_WRITE16_MEMBER(smgp_excs_w);
+	void loffire_sync0_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	uint16_t smgp_excs_r(offs_t offset);
+	void smgp_excs_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 protected:
 	// main CPU read/write handlers
-	DECLARE_READ16_MEMBER(adc_r);
-	DECLARE_WRITE16_MEMBER(adc_w);
-	DECLARE_WRITE16_MEMBER(iocontrol_w);
+	uint8_t analog_r();
+	void iocontrol_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	// video updates
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	// palette helpers
-	DECLARE_WRITE16_MEMBER(paletteram_w);
+	void paletteram_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	void decrypted_opcodes_map(address_map &map);
 	void main_map(address_map &map);
@@ -104,8 +103,8 @@ protected:
 	// compare/timer chip callbacks
 	DECLARE_WRITE_LINE_MEMBER(timer_irq_w);
 
-	DECLARE_WRITE8_MEMBER(pc_0_w);
-	DECLARE_WRITE8_MEMBER(pd_0_w);
+	void pc_0_w(uint8_t data);
+	void pd_0_w(uint8_t data);
 
 	// devices
 	required_device<m68000_device> m_subcpu;
@@ -235,9 +234,9 @@ protected:
 	virtual void device_start() override;
 
 private:
-	DECLARE_READ8_MEMBER(commram_r);
-	DECLARE_WRITE8_MEMBER(commram_w);
-	DECLARE_WRITE8_MEMBER(commram_bank_w);
+	uint8_t commram_r(offs_t offset);
+	void commram_w(offs_t offset, uint8_t data);
+	void commram_bank_w(uint8_t data);
 
 	void sub_map(address_map &map);
 	void comm_map(address_map &map);

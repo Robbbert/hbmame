@@ -94,7 +94,7 @@ a2bus_scsi_device::a2bus_scsi_device(const machine_config &mconfig, device_type 
 	device_t(mconfig, type, tag, owner, clock),
 	device_a2bus_card_interface(mconfig, *this),
 	m_ncr5380(*this, SCSI_5380_TAG),
-	m_scsibus(*this, SCSI_BUS_TAG), m_rom(nullptr), m_rambank(0), m_rombank(0), m_drq(0), m_bank(0), m_816block(false)
+	m_scsibus(*this, SCSI_BUS_TAG), m_rom(*this, SCSI_ROM_REGION), m_rambank(0), m_rombank(0), m_drq(0), m_bank(0), m_816block(false)
 {
 }
 
@@ -109,8 +109,6 @@ a2bus_scsi_device::a2bus_scsi_device(const machine_config &mconfig, const char *
 
 void a2bus_scsi_device::device_start()
 {
-	m_rom = device().machine().root_device().memregion(this->subtag(SCSI_ROM_REGION).c_str())->base();
-
 	memset(m_ram, 0, 8192);
 
 	save_item(NAME(m_ram));
@@ -152,9 +150,6 @@ uint8_t a2bus_scsi_device::read_c0nx(uint8_t offset)
 
 		case 9:     // our SCSI ID (normally 0x80 = 7)
 			return (1<<7);
-
-		case 0xa:   // RAM/ROM bank
-			return m_bank;
 
 		case 0xe:   // DRQ status in bit 7
 			return m_drq;

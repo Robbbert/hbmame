@@ -45,6 +45,8 @@ Cassette (nascom2):
 #include "screen.h"
 
 
+namespace {
+
 //**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
@@ -76,11 +78,11 @@ protected:
 
 	virtual void machine_reset() override;
 
-	DECLARE_READ8_MEMBER(nascom1_port_00_r);
-	DECLARE_WRITE8_MEMBER(nascom1_port_00_w);
-	DECLARE_READ8_MEMBER(nascom1_port_01_r);
-	DECLARE_WRITE8_MEMBER(nascom1_port_01_w);
-	DECLARE_READ8_MEMBER(nascom1_port_02_r);
+	uint8_t nascom1_port_00_r();
+	void nascom1_port_00_w(uint8_t data);
+	uint8_t nascom1_port_01_r();
+	void nascom1_port_01_w(uint8_t data);
+	uint8_t nascom1_port_02_r();
 	DECLARE_READ_LINE_MEMBER(hd6402_si);
 	DECLARE_WRITE_LINE_MEMBER(hd6402_so);
 
@@ -132,7 +134,7 @@ public:
 	nascom2_state(const machine_config &mconfig, device_type type, const char *tag)
 		: nascom_state(mconfig, type, tag)
 		, m_clock(*this, "uart_clock")
-		, m_nasbus(*this, NASBUS_TAG)
+		, m_nasbus(*this, "nasbus")
 		, m_socket1(*this, "socket1")
 		, m_socket2(*this, "socket2")
 		, m_lsw1(*this, "lsw1")
@@ -145,9 +147,11 @@ public:
 
 	DECLARE_INPUT_CHANGED_MEMBER(cass_speed);
 
+protected:
+	virtual void machine_reset() override;
+
 private:
 	TIMER_DEVICE_CALLBACK_MEMBER(nascom2_kansas_r);
-	DECLARE_MACHINE_RESET(nascom2);
 	DECLARE_WRITE_LINE_MEMBER(nascom2_kansas_w);
 	DECLARE_WRITE_LINE_MEMBER(ram_disable_w);
 	DECLARE_WRITE_LINE_MEMBER(ram_disable_cpm_w);
@@ -175,12 +179,12 @@ private:
 //  KEYBOARD
 //**************************************************************************
 
-READ8_MEMBER( nascom_state::nascom1_port_00_r )
+uint8_t nascom_state::nascom1_port_00_r()
 {
 	return m_keyboard[m_kb_select]->read() | ~0x7f;
 }
 
-WRITE8_MEMBER( nascom_state::nascom1_port_00_w )
+void nascom_state::nascom1_port_00_w(uint8_t data)
 {
 	u8 bits = data ^ m_port00;
 
@@ -203,17 +207,17 @@ WRITE8_MEMBER( nascom_state::nascom1_port_00_w )
 //  CASSETTE
 //**************************************************************************
 
-READ8_MEMBER( nascom_state::nascom1_port_01_r )
+uint8_t nascom_state::nascom1_port_01_r()
 {
-	return m_hd6402->get_received_data();
+	return m_hd6402->receive();
 }
 
-WRITE8_MEMBER( nascom_state::nascom1_port_01_w )
+void nascom_state::nascom1_port_01_w(uint8_t data)
 {
-	m_hd6402->set_transmit_data(data);
+	m_hd6402->transmit(data);
 }
 
-READ8_MEMBER( nascom_state::nascom1_port_02_r )
+uint8_t nascom_state::nascom1_port_02_r()
 {
 	uint8_t data = 0x31; // bits 0,4,5 not used
 
@@ -313,7 +317,7 @@ TIMER_DEVICE_CALLBACK_MEMBER( nascom2_state::nascom2_kansas_r )
 }
 
 // This stuff has never been connected up - what's it for?
-DEVICE_IMAGE_LOAD_MEMBER( nascom_state::load_nascom1_cassette )
+[[maybe_unused]] DEVICE_IMAGE_LOAD_MEMBER( nascom_state::load_nascom1_cassette )
 {
 	m_tape_size = image.length();
 	m_tape_image = (uint8_t*)image.ptr();
@@ -325,7 +329,7 @@ DEVICE_IMAGE_LOAD_MEMBER( nascom_state::load_nascom1_cassette )
 	return image_init_result::PASS;
 }
 
-DEVICE_IMAGE_UNLOAD_MEMBER( nascom_state::unload_nascom1_cassette )
+[[maybe_unused]] DEVICE_IMAGE_UNLOAD_MEMBER( nascom_state::unload_nascom1_cassette )
 {
 	m_tape_image = nullptr;
 	m_tape_size = m_tape_index = 0;
@@ -459,10 +463,8 @@ void nascom_state::machine_reset()
 	m_hd6402->write_cs(1);
 }
 
-MACHINE_RESET_MEMBER(nascom2_state, nascom2)
+void nascom2_state::machine_reset()
 {
-	machine_reset();
-
 	// nascom2: restore speed at machine start
 	m_cass_speed = ioport("DSW0")->read();
 
@@ -630,7 +632,7 @@ static INPUT_PORTS_START( nascom1 )
 	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("New Line")              PORT_CODE(KEYCODE_ENTER)      PORT_CHAR(13)
 	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_MINUS) PORT_CHAR('-') PORT_CHAR('=')
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_LSHIFT) PORT_CODE(KEYCODE_RSHIFT) PORT_CHAR(UCHAR_SHIFT_1)
-	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR('@')
+	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_OPENBRACE)  PORT_CHAR(0xff) PORT_CHAR('@')  // have to press shift to get @
 	PORT_BIT(0x48, IP_ACTIVE_LOW, IPT_UNUSED)
 
 	PORT_START("KEY.1")
@@ -671,7 +673,7 @@ static INPUT_PORTS_START( nascom1 )
 
 	PORT_START("KEY.5")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_COLON) PORT_CHAR(';') PORT_CHAR('+')
-	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_STOP)  PORT_CHAR('.') PORT_CHAR('>')
+	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_STOP)  PORT_CHAR('.') PORT_CHAR('>') // > nascom2 only
 	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_9)     PORT_CHAR('9') PORT_CHAR(')')
 	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_3)     PORT_CHAR('3') PORT_CHAR(0xA3)
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_Q)     PORT_CHAR('Q') PORT_CHAR('q')
@@ -681,7 +683,7 @@ static INPUT_PORTS_START( nascom1 )
 	PORT_START("KEY.6")
 	PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_QUOTE) PORT_CHAR(':') PORT_CHAR('*')
 	PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_SLASH) PORT_CHAR('/') PORT_CHAR('?')
-	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_0)     PORT_CHAR('0')
+	PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_0)     PORT_CHAR('0') PORT_CHAR('^')
 	PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_2)     PORT_CHAR('2') PORT_CHAR('\"')
 	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_1)     PORT_CHAR('1') PORT_CHAR('!')
 	PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_CODE(KEYCODE_P)     PORT_CHAR('P') PORT_CHAR('p')
@@ -712,7 +714,7 @@ static INPUT_PORTS_START( nascom2 )
 	PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_KEYBOARD)                            PORT_CODE(KEYCODE_BACKSPACE)  PORT_CHAR(']') PORT_CHAR('_')
 
 	PORT_START("DSW0")
-	PORT_DIPNAME(0x01, 0x00, "Cassette Baud Rate") PORT_CHANGED_MEMBER(DEVICE_SELF, nascom2_state, cass_speed, nullptr)
+	PORT_DIPNAME(0x01, 0x00, "Cassette Baud Rate") PORT_CHANGED_MEMBER(DEVICE_SELF, nascom2_state, cass_speed, 0)
 	PORT_DIPSETTING(0x00, "300")
 	PORT_DIPSETTING(0x01, "1200")
 
@@ -807,10 +809,10 @@ void nascom_state::nascom(machine_config &config)
 
 	// devices
 	snapshot_image_device &snapshot(SNAPSHOT(config, "snapshot", "nas", attotime::from_msec(500)));
-	snapshot.set_load_callback(FUNC(nascom_state::snapshot_cb<0>), this);
+	snapshot.set_load_callback(FUNC(nascom_state::snapshot_cb<0>));
 	snapshot.set_interface("nascom_snap");
 	snapshot_image_device &snapchar(SNAPSHOT(config, "snapchar", "chr", attotime::from_msec(500)));
-	snapchar.set_load_callback(FUNC(nascom_state::snapshot_cb<1>), this);
+	snapchar.set_load_callback(FUNC(nascom_state::snapshot_cb<1>));
 	snapchar.set_interface("nascom_char");
 }
 
@@ -839,8 +841,6 @@ void nascom2_state::nascom2(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &nascom2_state::nascom2_mem);
 	m_maincpu->set_addrmap(AS_IO, &nascom2_state::nascom2_io);
 
-	MCFG_MACHINE_RESET_OVERRIDE(nascom2_state, nascom2 )
-
 	// video hardware
 	m_screen->set_size(48 * 8, 16 * 14);
 	m_screen->set_visarea(0, 48 * 8 - 1, 0, 16 * 14 - 1);
@@ -850,19 +850,19 @@ void nascom2_state::nascom2(machine_config &config)
 
 	// generic sockets for ram/rom (todo: support ram here)
 	GENERIC_SOCKET(config, m_socket1, generic_plain_slot, "nascom_socket", "bin,rom");
-	m_socket1->set_device_load(FUNC(nascom2_state::socket1_load), this);
+	m_socket1->set_device_load(FUNC(nascom2_state::socket1_load));
 	GENERIC_SOCKET(config, m_socket2, generic_plain_slot, "nascom_socket", "bin,rom");
-	m_socket2->set_device_load(FUNC(nascom2_state::socket2_load), this);
+	m_socket2->set_device_load(FUNC(nascom2_state::socket2_load));
 
 	// nasbus expansion bus
-	nasbus_device &nasbus(NASBUS(config, NASBUS_TAG));
-	nasbus.ram_disable().set(FUNC(nascom2_state::ram_disable_w));
-	nasbus.set_program_space(m_maincpu, AS_PROGRAM);
-	nasbus.set_io_space(m_maincpu, AS_IO);
-	NASBUS_SLOT(config, "nasbus1", nasbus_slot_cards, nullptr);
-	NASBUS_SLOT(config, "nasbus2", nasbus_slot_cards, nullptr);
-	NASBUS_SLOT(config, "nasbus3", nasbus_slot_cards, nullptr);
-	NASBUS_SLOT(config, "nasbus4", nasbus_slot_cards, nullptr);
+	NASBUS(config, m_nasbus);
+	m_nasbus->ram_disable().set(FUNC(nascom2_state::ram_disable_w));
+	m_nasbus->set_program_space(m_maincpu, AS_PROGRAM);
+	m_nasbus->set_io_space(m_maincpu, AS_IO);
+	NASBUS_SLOT(config, "nasbus1", m_nasbus, nasbus_slot_cards, nullptr);
+	NASBUS_SLOT(config, "nasbus2", m_nasbus, nasbus_slot_cards, nullptr);
+	NASBUS_SLOT(config, "nasbus3", m_nasbus, nasbus_slot_cards, nullptr);
+	NASBUS_SLOT(config, "nasbus4", m_nasbus, nasbus_slot_cards, nullptr);
 
 	// software
 	SOFTWARE_LIST(config, "snap_list").set_original("nascom_snap").set_filter("NASCOM2");
@@ -882,7 +882,7 @@ void nascom2_state::nascom2c(machine_config &config)
 
 	m_ram->set_default_size("60K");
 
-	subdevice<nasbus_device>(NASBUS_TAG)->ram_disable().set(FUNC(nascom2_state::ram_disable_cpm_w));
+	m_nasbus->ram_disable().set(FUNC(nascom2_state::ram_disable_cpm_w));
 	subdevice<nasbus_slot_device>("nasbus1")->set_default_option("floppy");
 }
 
@@ -939,6 +939,8 @@ ROM_START( nascom2c )
 	ROM_LOAD("nascom1.ic66", 0x0000, 0x0800, CRC(33e92a04) SHA1(be6e1cc80e7f95a032759f7df19a43c27ff93a52))
 	ROM_LOAD("nasgra.ic54",  0x0800, 0x0800, CRC(2bc09d32) SHA1(d384297e9b02cbcb283c020da51b3032ff62b1ae))
 ROM_END
+
+} // Anonymous namespace
 
 
 //**************************************************************************

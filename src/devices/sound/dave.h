@@ -47,13 +47,13 @@ protected:
 	virtual space_config_vector memory_space_config() const override;
 
 	// sound stream update overrides
-	virtual void sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples) override;
+	virtual void sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs) override;
 
-	DECLARE_READ8_MEMBER( program_r );
-	DECLARE_WRITE8_MEMBER( program_w );
+	uint8_t program_r(offs_t offset);
+	void program_w(offs_t offset, uint8_t data);
 
-	DECLARE_READ8_MEMBER( io_r );
-	DECLARE_WRITE8_MEMBER( io_w );
+	uint8_t io_r(offs_t offset);
+	void io_w(offs_t offset, uint8_t data);
 
 private:
 	enum

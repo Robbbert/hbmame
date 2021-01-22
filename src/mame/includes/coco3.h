@@ -8,11 +8,10 @@
 
 ***************************************************************************/
 
-#pragma once
-
 #ifndef MAME_INCLUDES_COCO3_H
 #define MAME_INCLUDES_COCO3_H
 
+#pragma once
 
 #include "includes/coco12.h"
 #include "video/gime.h"
@@ -40,12 +39,9 @@ public:
 		: coco_state(mconfig, type, tag)
 		, m_gime(*this, GIME_TAG) { }
 
-	virtual DECLARE_WRITE8_MEMBER( ff20_write ) override;
-	virtual DECLARE_READ8_MEMBER( ff40_read ) override;
-	virtual DECLARE_WRITE8_MEMBER( ff40_write ) override;
-
-	DECLARE_WRITE_LINE_MEMBER(gime_firq_w) { recalculate_firq(); }
-	DECLARE_WRITE_LINE_MEMBER(gime_irq_w) { recalculate_irq(); }
+	virtual void ff20_write(offs_t offset, uint8_t data) override;
+	virtual uint8_t ff40_read(offs_t offset) override;
+	virtual void ff40_write(offs_t offset, uint8_t data) override;
 
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 
@@ -56,10 +52,6 @@ public:
 	void coco3_mem(address_map &map);
 protected:
 	virtual void update_cart_base(uint8_t *cart_base) override;
-
-	// interrupts
-	virtual bool firq_get_line(void) override;
-	virtual bool irq_get_line(void) override;
 
 	// miscellaneous
 	virtual void update_keyboard_input(uint8_t value) override;

@@ -15,15 +15,16 @@ This entire hardware series is generally called 'GX400'
     Salamander (Version J)  (Game 587) PWB(B) 201012A GX587
     Lifeforce (US)          (Game 587) PWB(B) 201012A GX587
     Lifeforce (Japan)       (Game 587) PWB(B) 201012A GX587
-TODO: find pcb pics for below
-    Black Panther           (Game 604)
-    City Bomber (World)     (Game 787)
-    City Bomber (Japan)     (Game 787)
-    Hyper Crash (Version D) (Game 790)
-    Hyper Crash (Version C) (Game 790)
-    Kitten Kaboodle         (Game 712)
-    Nyan Nyan Panic (Japan) (Game 712)
+    Black Panther           (Game 604) GX604 PWB(B) 201017A
+    City Bomber (World)     (Game 787) PWB(B) 250102A
+    City Bomber (Japan)     (Game 787) PWB(B) 250102A
+    Kitten Kaboodle         (Game 712) PWB(B) 250102A
+    Nyan Nyan Panic (Japan) (Game 712) PWB(B) 250102A
+    Hyper Crash (Version D) (Game 790) GX790 PWB(B) 250093A
+    Hyper Crash (Version C) (Game 790) GX790 PWB(B) 250093A
+
 Most of these boards share the same bottom/gfx board, labeled 'GX400PWB // (A)200204B'
+Black Panther uses a 'GX400PWB // (A)200204C' bottom/gfx board
 
 driver by Bryan McPhail
 
@@ -110,7 +111,9 @@ initials
 #include "cpu/m68000/m68000.h"
 #include "cpu/z80/z80.h"
 #include "machine/74259.h"
+#include "machine/adc0804.h"
 #include "machine/gen_latch.h"
+#include "machine/rescap.h"
 #include "machine/watchdog.h"
 #include "sound/ay8910.h"
 #include "sound/ym2151.h"
@@ -249,7 +252,7 @@ WRITE_LINE_MEMBER(nemesis_state::sound_nmi_w)
 	m_audiocpu->set_input_line(INPUT_LINE_NMI, state ? ASSERT_LINE : CLEAR_LINE);
 }
 
-WRITE16_MEMBER(nemesis_state::bubsys_mcu_w)
+void nemesis_state::bubsys_mcu_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_bubsys_control_ram[offset]);
 	//logerror("bubsys_mcu_w (%08x) %d (%02x %02x %02x %02x)\n", m_maincpu->pc(), state, m_bubsys_control_ram[0], m_bubsys_control_ram[1], m_bubsys_control_ram[2], m_bubsys_control_ram[3]);
@@ -270,7 +273,7 @@ WRITE16_MEMBER(nemesis_state::bubsys_mcu_w)
 			logerror("\tCopy page %02x to shared ram\n", page);
 
 			const uint8_t *src = memregion("bubblememory")->base();
-			memcpy(m_bubsys_shared_ram + 0xf00/2, src + page * 0x90, 0x80);
+			memcpy(&m_bubsys_shared_ram[0xf00/2], src + page * 0x90, 0x80);
 
 			// The last 2 bytes of the block are loaded into the control register
 			m_bubsys_control_ram[0] = src[page * 0x90 + 0x80] | (src[page * 0x90 + 0x81]<<8);
@@ -289,19 +292,19 @@ WRITE16_MEMBER(nemesis_state::bubsys_mcu_w)
 	}
 }
 
-READ16_MEMBER(nemesis_state::gx400_sharedram_word_r)
+uint16_t nemesis_state::gx400_sharedram_word_r(offs_t offset)
 {
 	return m_gx400_shared_ram[offset];
 }
 
-WRITE16_MEMBER(nemesis_state::gx400_sharedram_word_w)
+void nemesis_state::gx400_sharedram_word_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_0_7)
 		m_gx400_shared_ram[offset] = data;
 }
 
 
-READ16_MEMBER(nemesis_state::konamigt_input_word_r)
+uint16_t nemesis_state::konamigt_input_word_r()
 {
 /*
     bit 0-7:   steering
@@ -311,7 +314,7 @@ READ16_MEMBER(nemesis_state::konamigt_input_word_r)
 */
 
 	int data = ioport("IN3")->read();
-	int data2 = ioport("PADDLE")->read();
+	int data2 = ioport("WHEEL")->read();
 
 	int ret=0x0000;
 
@@ -328,13 +331,12 @@ READ16_MEMBER(nemesis_state::konamigt_input_word_r)
 	return ret;
 }
 
-WRITE16_MEMBER(nemesis_state::selected_ip_word_w)
+void nemesis_state::selected_ip_w(uint8_t data)
 {
-	if (ACCESSING_BITS_0_7)
-		m_selected_ip = data & 0xff;    // latch the value
+	m_selected_ip = data;    // latch the value
 }
 
-READ16_MEMBER(nemesis_state::selected_ip_word_r)
+uint8_t nemesis_state::selected_ip_r()
 {
 	switch (m_selected_ip & 0xf)
 	{                                               // From WEC Le Mans Schems:
@@ -348,7 +350,7 @@ READ16_MEMBER(nemesis_state::selected_ip_word_r)
 }
 
 
-WRITE8_MEMBER(nemesis_state::nemesis_filter_w)
+void nemesis_state::nemesis_filter_w(offs_t offset, uint8_t data)
 {
 	int C1 = /* offset & 0x1000 ? 4700 : */ 0; // is this right? 4.7uF seems too large
 	int C2 = offset & 0x0800 ? 33 : 0;         // 0.033uF = 33 nF
@@ -360,20 +362,25 @@ WRITE8_MEMBER(nemesis_state::nemesis_filter_w)
 	// konamigt also uses bits 0x0018, what are they for?
 }
 
-WRITE8_MEMBER(nemesis_state::gx400_speech_start_w)
+void nemesis_state::gx400_speech_w(offs_t offset, uint8_t data)
 {
-	m_vlm->st(1);
-	m_vlm->st(0);
+	m_vlm->rst(BIT(offset, 4));
+	m_vlm->st(BIT(offset, 5));
+	// bits 3, 6 also used (one is OE for VLM data?)
+	// data is irrelevant for most writes
+
+	if (offset == 0)
+		m_vlm->data_w(data);
 }
 
-WRITE8_MEMBER(nemesis_state::salamand_speech_start_w)
+void nemesis_state::salamand_speech_start_w(uint8_t data)
 {
 	m_vlm->rst(BIT(data, 0));
 	m_vlm->st(BIT(data, 1));
 	// bit 2 is OE for VLM data
 }
 
-READ8_MEMBER(nemesis_state::nemesis_portA_r)
+uint8_t nemesis_state::nemesis_portA_r()
 {
 /*
    bit 0-3:   timer
@@ -391,7 +398,7 @@ READ8_MEMBER(nemesis_state::nemesis_portA_r)
 	return res;
 }
 
-WRITE8_MEMBER(nemesis_state::city_sound_bank_w)
+void nemesis_state::city_sound_bank_w(uint8_t data)
 {
 	int bank_A = (data & 0x03);
 	int bank_B = ((data >> 2) & 0x03);
@@ -479,6 +486,7 @@ void nemesis_state::bubsys_map(address_map &map)
 	map(0x054000, 0x054fff).ram().w(FUNC(nemesis_state::nemesis_colorram1_word_w)).share("colorram1");
 	map(0x055000, 0x055fff).ram().w(FUNC(nemesis_state::nemesis_colorram2_word_w)).share("colorram2");
 	map(0x056000, 0x056fff).ram().share("spriteram");
+	map(0x057000, 0x057fff).ram();
 	map(0x05a000, 0x05afff).ram().w(FUNC(nemesis_state::nemesis_palette_word_w)).share("paletteram");
 	map(0x05c001, 0x05c001).w("soundlatch", FUNC(generic_latch_8_device::write));
 	map(0x05c402, 0x05c403).portr("DSW0");
@@ -583,14 +591,13 @@ void nemesis_state::gx400_sound_map(address_map &map)
 	map(0x8000, 0x87ff).ram().share("voiceram");
 	map(0xa000, 0xafff).w(m_k005289, FUNC(k005289_device::ld1_w));
 	map(0xc000, 0xcfff).w(m_k005289, FUNC(k005289_device::ld2_w));
-	map(0xe000, 0xe000).w(m_vlm, FUNC(vlm5030_device::data_w));
+	map(0xe000, 0xe000).select(0x78).w(FUNC(nemesis_state::gx400_speech_w));
 	map(0xe001, 0xe001).r("soundlatch", FUNC(generic_latch_8_device::read));
 	map(0xe003, 0xe003).w(m_k005289, FUNC(k005289_device::tg1_w));
 	map(0xe004, 0xe004).w(m_k005289, FUNC(k005289_device::tg2_w));
 	map(0xe005, 0xe005).w("ay2", FUNC(ay8910_device::address_w));
 	map(0xe006, 0xe006).w("ay1", FUNC(ay8910_device::address_w));
 	map(0xe007, 0xe007).select(0x1ff8).w(FUNC(nemesis_state::nemesis_filter_w));
-	map(0xe030, 0xe030).w(FUNC(nemesis_state::gx400_speech_start_w));
 	map(0xe086, 0xe086).r("ay1", FUNC(ay8910_device::data_r));
 	map(0xe106, 0xe106).w("ay1", FUNC(ay8910_device::data_w));
 	map(0xe205, 0xe205).r("ay2", FUNC(ay8910_device::data_r));
@@ -672,7 +679,7 @@ void nemesis_state::citybomb_map(address_map &map)
 	map(0x0f0008, 0x0f0009).portr("DSW0");
 	map(0x0f0011, 0x0f0011).w("soundlatch", FUNC(generic_latch_8_device::write));
 	map(0x0f0018, 0x0f0019).w("watchdog", FUNC(watchdog_timer_device::reset16_w));   /* probably */
-	map(0x0f0020, 0x0f0021).r(FUNC(nemesis_state::selected_ip_word_r)).nopw();    /* WEC Le Mans 24 control? */
+	map(0x0f0021, 0x0f0021).rw("adc", FUNC(adc0804_device::read), FUNC(adc0804_device::write));
 	map(0x0f8000, 0x0f8001).w(FUNC(nemesis_state::salamand_control_port_word_w));     /* irq enable, flipscreen, etc. */
 	map(0x100000, 0x1bffff).rom();
 	map(0x200000, 0x20ffff).ram().w(FUNC(nemesis_state::nemesis_charram_word_w)).share("charram");
@@ -717,7 +724,7 @@ void nemesis_state::nyanpani_map(address_map &map)
 	map(0x311000, 0x311fff).ram();
 }
 
-READ8_MEMBER(nemesis_state::wd_r)
+uint8_t nemesis_state::wd_r()
 {
 	m_frame_counter ^= 1;
 	return m_frame_counter;
@@ -779,8 +786,9 @@ void nemesis_state::hcrash_map(address_map &map)
 	map(0x0c000a, 0x0c000b).portr("IN0");
 	map(0x0c2000, 0x0c2001).r(FUNC(nemesis_state::konamigt_input_word_r)); /* Konami GT control */
 	map(0x0c2800, 0x0c280f).w("intlatch", FUNC(ls259_device::write_d0)).umask16(0x00ff); // ???
-	map(0x0c4000, 0x0c4001).portr("IN1").w(FUNC(nemesis_state::selected_ip_word_w));
-	map(0x0c4002, 0x0c4003).r(FUNC(nemesis_state::selected_ip_word_r)).nopw();    /* WEC Le Mans 24 control. latches the value read previously */
+	map(0x0c4000, 0x0c4001).portr("IN1");
+	map(0x0c4001, 0x0c4001).w(FUNC(nemesis_state::selected_ip_w));
+	map(0x0c4003, 0x0c4003).rw("adc", FUNC(adc0804_device::read), FUNC(adc0804_device::write));    /* WEC Le Mans 24 control */
 	map(0x100000, 0x100fff).ram().w(FUNC(nemesis_state::nemesis_videoram2_word_w)).share("videoram2");       /* VRAM */
 	map(0x101000, 0x101fff).ram().w(FUNC(nemesis_state::nemesis_videoram1_word_w)).share("videoram1");
 	map(0x102000, 0x102fff).ram().w(FUNC(nemesis_state::nemesis_colorram2_word_w)).share("colorram2");
@@ -930,8 +938,8 @@ static INPUT_PORTS_START( konamigt )
 	PORT_SERVICE_DIPLOC( 0x04, IP_ACTIVE_LOW, "SW3:3" )
 	PORT_BIT( 0xfa, IP_ACTIVE_LOW, IPT_UNUSED )
 
-	PORT_START("PADDLE")
-	PORT_BIT( 0x7f, 0x40, IPT_PADDLE ) PORT_SENSITIVITY(25) PORT_KEYDELTA(10)
+	PORT_START("WHEEL")    /* Wheel (360deg) */
+	PORT_BIT( 0xff, 0x00, IPT_DIAL ) PORT_SENSITIVITY(25) PORT_KEYDELTA(5)
 INPUT_PORTS_END
 
 
@@ -982,8 +990,8 @@ static INPUT_PORTS_START( rf2 )
 	PORT_SERVICE_DIPLOC( 0x04, IP_ACTIVE_LOW, "SW3:3" )
 	PORT_BIT( 0xfa, IP_ACTIVE_LOW, IPT_UNUSED )
 
-	PORT_START("PADDLE")
-	PORT_BIT( 0x7f, 0x40, IPT_PADDLE ) PORT_SENSITIVITY(25) PORT_KEYDELTA(10)
+	PORT_START("WHEEL")    /* Wheel (360deg) */
+	PORT_BIT( 0xff, 0x00, IPT_DIAL ) PORT_SENSITIVITY(25) PORT_KEYDELTA(5)
 INPUT_PORTS_END
 
 
@@ -1359,7 +1367,8 @@ static INPUT_PORTS_START( citybomb )
 	PORT_DIPSETTING(    0x80, DEF_STR( Joystick ) )
 
 	PORT_START("IN2")
-	KONAMI8_B123_UNK(2)
+	KONAMI8_B123(2)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("adc", adc0804_device, intr_r)
 
 	PORT_START("DSW0")
 	KONAMI_COINAGE_LOC(DEF_STR( Free_Play ), "Invalid", SW1)
@@ -1447,7 +1456,7 @@ static INPUT_PORTS_START( hcrash )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_UNKNOWN ) PORT_CONDITION("DSW1", 0x03, NOTEQUALS, 0x02) // player 2?
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON3 )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_CUSTOM )   // must be 0 otherwise game freezes when using WEC Le Mans 24 cabinet
-	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_UNKNOWN )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("adc", adc0804_device, intr_r)
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNKNOWN )
 
 	PORT_START("IN2")
@@ -1682,7 +1691,7 @@ GFXDECODE_END
 
 /******************************************************************************/
 
-WRITE8_MEMBER(nemesis_state::volume_callback)
+void nemesis_state::volume_callback(uint8_t data)
 {
 	m_k007232->set_volume(0, (data >> 4) * 0x11, 0);
 	m_k007232->set_volume(1, 0, (data & 0x0f) * 0x11);
@@ -1767,8 +1776,8 @@ void nemesis_state::nemesis(machine_config &config)
 	ay1.add_route(ALL_OUTPUTS, "filter1", 0.20);
 
 	ay8910_device &ay2(AY8910(config, "ay2", 14318180/8));
-	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_A_w));
-	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_B_w));
+	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::control_A_w));
+	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::control_B_w));
 	ay2.add_route(0, "filter2", 1.00);
 	ay2.add_route(1, "filter3", 1.00);
 	ay2.add_route(2, "filter4", 1.00);
@@ -1797,7 +1806,7 @@ void nemesis_state::gx400(machine_config &config)
 	m_audiocpu->set_addrmap(AS_PROGRAM, &nemesis_state::gx400_sound_map);
 
 	ls259_device &outlatch(LS259(config, "outlatch"));
-	outlatch.q_out_cb<0>().set(FUNC(nemesis_state::coin1_lockout_w));;
+	outlatch.q_out_cb<0>().set(FUNC(nemesis_state::coin1_lockout_w));
 	outlatch.q_out_cb<1>().set(FUNC(nemesis_state::coin2_lockout_w));
 	outlatch.q_out_cb<2>().set(FUNC(nemesis_state::sound_irq_w));
 	outlatch.q_out_cb<7>().set(FUNC(nemesis_state::irq4_enable_w)); // ??
@@ -1831,8 +1840,8 @@ void nemesis_state::gx400(machine_config &config)
 	ay1.add_route(ALL_OUTPUTS, "filter1", 0.20);
 
 	ay8910_device &ay2(AY8910(config, "ay2", 14318180/8));
-	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_A_w));
-	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_B_w));
+	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::control_A_w));
+	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::control_B_w));
 	ay2.add_route(0, "filter2", 1.00);
 	ay2.add_route(1, "filter3", 1.00);
 	ay2.add_route(2, "filter4", 1.00);
@@ -1897,8 +1906,8 @@ void nemesis_state::konamigt(machine_config &config)
 	ay1.add_route(ALL_OUTPUTS, "filter1", 0.20);
 
 	ay8910_device &ay2(AY8910(config, "ay2", 14318180/8));
-	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_A_w));
-	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_B_w));
+	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::control_A_w));
+	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::control_B_w));
 	ay2.add_route(0, "filter2", 1.00);
 	ay2.add_route(1, "filter3", 1.00);
 	ay2.add_route(2, "filter4", 1.00);
@@ -1927,7 +1936,7 @@ void nemesis_state::rf2_gx400(machine_config &config)
 	m_audiocpu->set_addrmap(AS_PROGRAM, &nemesis_state::gx400_sound_map);
 
 	ls259_device &outlatch(LS259(config, "outlatch"));
-	outlatch.q_out_cb<0>().set(FUNC(nemesis_state::coin1_lockout_w));;
+	outlatch.q_out_cb<0>().set(FUNC(nemesis_state::coin1_lockout_w));
 	outlatch.q_out_cb<1>().set(FUNC(nemesis_state::coin2_lockout_w));
 	outlatch.q_out_cb<2>().set(FUNC(nemesis_state::sound_irq_w));
 	outlatch.q_out_cb<7>().set(FUNC(nemesis_state::irq4_enable_w)); // ??
@@ -1961,8 +1970,8 @@ void nemesis_state::rf2_gx400(machine_config &config)
 	ay1.add_route(ALL_OUTPUTS, "filter1", 0.20);
 
 	ay8910_device &ay2(AY8910(config, "ay2", 14318180/8));
-	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_A_w));
-	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_B_w));
+	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::control_A_w));
+	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::control_B_w));
 	ay2.add_route(0, "filter2", 1.00);
 	ay2.add_route(1, "filter3", 1.00);
 	ay2.add_route(2, "filter4", 1.00);
@@ -1997,7 +2006,6 @@ void nemesis_state::salamand(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_video_attributes(VIDEO_UPDATE_AFTER_VBLANK);
 	set_screen_raw_params(config);
 	m_screen->set_screen_update(FUNC(nemesis_state::screen_update_nemesis));
 	m_screen->set_palette(m_palette);
@@ -2044,7 +2052,6 @@ void nemesis_state::blkpnthr(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_video_attributes(VIDEO_UPDATE_BEFORE_VBLANK);
 	set_screen_raw_params(config);
 	m_screen->set_screen_update(FUNC(nemesis_state::screen_update_nemesis));
 	m_screen->set_palette(m_palette);
@@ -2082,11 +2089,13 @@ void nemesis_state::citybomb(machine_config &config)
 	Z80(config, m_audiocpu, 3579545); /* 3.579545 MHz */
 	m_audiocpu->set_addrmap(AS_PROGRAM, &nemesis_state::city_sound_map);
 
+	adc0804_device &adc(ADC0804(config, "adc", RES_K(10), CAP_P(150)));
+	adc.vin_callback().set(FUNC(nemesis_state::selected_ip_r));
+
 	WATCHDOG_TIMER(config, "watchdog");
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_video_attributes(VIDEO_UPDATE_BEFORE_VBLANK);
 	set_screen_raw_params(config);
 	m_screen->set_screen_update(FUNC(nemesis_state::screen_update_nemesis));
 	m_screen->set_palette(m_palette);
@@ -2132,7 +2141,6 @@ void nemesis_state::nyanpani(machine_config &config)
 
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_video_attributes(VIDEO_UPDATE_BEFORE_VBLANK);
 	set_screen_raw_params(config);
 	m_screen->set_screen_update(FUNC(nemesis_state::screen_update_nemesis));
 	m_screen->set_palette(m_palette);
@@ -2174,6 +2182,9 @@ void nemesis_state::hcrash(machine_config &config)
 
 	Z80(config, m_audiocpu, 14318180/4); /* 3.579545 MHz */
 	m_audiocpu->set_addrmap(AS_PROGRAM, &nemesis_state::sal_sound_map);
+
+	adc0804_device &adc(ADC0804(config, "adc", 640000)); // unknown clock (doesn't seem to be R/C here)
+	adc.vin_callback().set(FUNC(nemesis_state::selected_ip_r));
 
 	ls259_device &intlatch(LS259(config, "intlatch"));
 	intlatch.q_out_cb<0>().set_nop(); // ?
@@ -2967,8 +2978,8 @@ void nemesis_state::bubsys(machine_config &config)
 	ay1.add_route(ALL_OUTPUTS, "filter1", 0.20);
 
 	ay8910_device &ay2(AY8910(config, "ay2", 14318180/8));
-	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_A_w));
-	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::k005289_control_B_w));
+	ay2.port_a_write_callback().set(m_k005289, FUNC(k005289_device::control_A_w));
+	ay2.port_b_write_callback().set(m_k005289, FUNC(k005289_device::control_B_w));
 	ay2.add_route(0, "filter2", 1.00);
 	ay2.add_route(1, "filter3", 1.00);
 	ay2.add_route(2, "filter4", 1.00);
@@ -3028,6 +3039,27 @@ ROM_START( gradiusb )
 	ROM_LOAD( "400a2.1b", 0x100, 0x100, CRC(2f44f970) SHA1(7ab46f9d5d587665782cefc623b8de0124a6d38a) )
 ROM_END
 
+ROM_START( twinbeeb )
+	ROM_REGION( 0x80000, "maincpu", ROMREGION_ERASE00 )
+	ROM_LOAD16_WORD( "boot.bin", 0x000, 0x1e0, CRC(ee6e93d7) SHA1(7302c08a726a760f59d6837be8fd10bbd1f79da0) )
+
+	ROM_REGION( 0x806*0x90, "bubblememory", ROMREGION_ERASE00 )
+//  ROM_LOAD16_WORD_SWAP( "bubble_twinbeeb", 0x000, 0x48360, CRC(21599cf5) SHA1(7eb068e10134d5c66f7f90f6d6b265353b7bd8be) ) // re-encoded data
+
+	ROM_REGION( 0x806*0x80, "bubblememory_temp", 0 )
+	ROM_LOAD( "twinbee.bin", 0x00000, 0x40300, CRC(4d396a0a) SHA1(ee922a1bd7062c0fcf358f5079cca6424aadc975) )
+
+	ROM_REGION( 0x1000, "mcu", ROMREGION_ERASE00 ) // Fujitsu MCU
+	ROM_LOAD( "mcu", 0x0000, 0x1000, NO_DUMP )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "400-e03.5l",   0x00000, 0x02000, CRC(a5a8e57d) SHA1(f4236770093392dec3f76835a5766e9b3ed64e2e) )
+
+	ROM_REGION( 0x0200,  "k005289", 0 )
+	ROM_LOAD( "400-a01.fse",  0x00000, 0x0100, CRC(5827b1e8) SHA1(fa8cf5f868cfb08bce203baaebb6c4055ee2a000) )
+	ROM_LOAD( "400-a02.fse",  0x00100, 0x0100, CRC(2f44f970) SHA1(7ab46f9d5d587665782cefc623b8de0124a6d38a) )
+ROM_END
+
 void nemesis_state::bubsys_init()
 {
 	/*
@@ -3054,9 +3086,48 @@ void nemesis_state::bubsys_init()
 	m_bubsys_control_ram[3]=0x240;
 }
 
+
+void nemesis_state::bubsys_twinbeeb_init()
+{
+	// the twinbee bubble data is in a stripped down, predecoded state already, why?
+	// this reencodes it to something the loading code can actually use
+
+	uint8_t *src = memregion("bubblememory_temp")->base();
+	uint8_t *dst = memregion("bubblememory")->base();
+
+	for (int i = 0; i < 0x806; i++)
+	{
+		uint16_t crc = 0;
+
+		int sourcebase = i * 0x80;
+		int destbase = i * 0x90;
+
+		for (int j = 0; j < 0x80; j++)
+		{
+			uint8_t dat = src[sourcebase + j];
+			dst[destbase + j + 0] |= (dat >> 6) & 0x03;
+			dst[destbase + j + 1] |= (dat << 2) & 0xfc;
+
+			crc += dat;
+		}
+
+		for (int j = 0; j < 0x82; j += 2)
+		{
+			uint8_t temp1 = dst[destbase + j + 0];
+			dst[destbase + j + 0] = dst[destbase + j + 1];
+			dst[destbase + j + 1] = temp1;
+		}
+
+		dst[destbase+0x83] = i >> 8;
+		dst[destbase+0x82] = i & 0xff;
+	}
+
+	bubsys_init();
+}
+
 GAME( 1985, bubsys,   0,         bubsys,    bubsys, nemesis_state, bubsys_init, ROT0,   "Konami", "Bubble System BIOS", MACHINE_IS_BIOS_ROOT )
 GAME( 1985, gradiusb, bubsys,    bubsys,    bubsys, nemesis_state, bubsys_init, ROT0,   "Konami", "Gradius (Bubble System)", MACHINE_UNEMULATED_PROTECTION )
-// Bubble System Twinbee
+GAME( 1985, twinbeeb, bubsys,    bubsys,    bubsys, nemesis_state, bubsys_twinbeeb_init, ROT90,   "Konami", "TwinBee (Bubble System)", MACHINE_UNEMULATED_PROTECTION )
 // Bubble System RF2
 // Bubble System Galactic Warriors
 // Bubble System Attack Rush

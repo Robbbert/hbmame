@@ -11,7 +11,7 @@
 #include "imagedev/floppy.h"
 #include "machine/upd765.h"
 #include "machine/i8251.h"
-#include "machine/z80dart.h"
+#include "machine/z80sio.h"
 #include "machine/pit8253.h"
 #include "machine/bankdev.h"
 #include "screen.h"
@@ -34,29 +34,29 @@ public:
 	void pwrview(machine_config &config);
 
 private:
-	DECLARE_READ16_MEMBER(bank0_r);
-	DECLARE_WRITE16_MEMBER(bank0_w);
-	DECLARE_READ8_MEMBER(unk1_r);
-	DECLARE_WRITE8_MEMBER(unk1_w);
-	DECLARE_READ8_MEMBER(unk2_r);
-	DECLARE_WRITE8_MEMBER(unk2_w);
-	DECLARE_READ8_MEMBER(unk3_r);
-	DECLARE_WRITE8_MEMBER(unk3_w);
-	DECLARE_READ8_MEMBER(unk4_r);
-	DECLARE_WRITE8_MEMBER(unk4_w);
-	DECLARE_READ8_MEMBER(led_r);
-	DECLARE_WRITE8_MEMBER(led_w);
-	DECLARE_READ8_MEMBER(pitclock_r);
-	DECLARE_READ16_MEMBER(nmiio_r);
-	DECLARE_WRITE16_MEMBER(nmiio_w);
-	DECLARE_WRITE16_MEMBER(nmimem_w);
-	DECLARE_READ16_MEMBER(vram1_r);
-	DECLARE_WRITE16_MEMBER(vram1_w);
-	DECLARE_READ16_MEMBER(vram2_r);
-	DECLARE_WRITE16_MEMBER(vram2_w);
-	DECLARE_READ16_MEMBER(fbios_r);
-	DECLARE_READ8_MEMBER(rotary_r);
-	DECLARE_READ8_MEMBER(err_r);
+	u16 bank0_r(offs_t offset);
+	void bank0_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	u8 unk1_r();
+	void unk1_w(u8 data);
+	u8 unk2_r();
+	void unk2_w(u8 data);
+	u8 unk3_r(offs_t offset);
+	void unk3_w(offs_t offset, u8 data);
+	u8 unk4_r();
+	void unk4_w(u8 data);
+	u8 led_r(offs_t offset);
+	void led_w(offs_t offset, u8 data);
+	u8 pitclock_r();
+	u16 nmiio_r(offs_t offset);
+	void nmiio_w(offs_t offset, u16 data);
+	void nmimem_w(offs_t offset, u16 data);
+	u16 vram1_r();
+	void vram1_w(u16 data);
+	u16 vram2_r();
+	void vram2_w(u16 data);
+	u16 fbios_r(offs_t offset);
+	u8 rotary_r();
+	u8 err_r();
 	MC6845_UPDATE_ROW(update_row);
 
 	void bios_bank(address_map &map);
@@ -125,18 +125,18 @@ MC6845_UPDATE_ROW(pwrview_state::update_row)
 
 }
 
-READ8_MEMBER(pwrview_state::rotary_r)
+u8 pwrview_state::rotary_r()
 {
 	return ~m_switch;
 }
 
-READ8_MEMBER(pwrview_state::err_r)
+u8 pwrview_state::err_r()
 {
 	m_maincpu->set_input_line(INPUT_LINE_NMI, CLEAR_LINE);
 	return m_errcode;
 }
 
-READ16_MEMBER(pwrview_state::bank0_r)
+u16 pwrview_state::bank0_r(offs_t offset)
 {
 	if(m_c001 & 2)
 		return m_ram[offset];
@@ -144,20 +144,20 @@ READ16_MEMBER(pwrview_state::bank0_r)
 		return m_bios->as_u16(offset);
 }
 
-WRITE16_MEMBER(pwrview_state::bank0_w)
+void pwrview_state::bank0_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if(m_c001 & 2)
 		COMBINE_DATA(&m_ram[offset]);
 }
 
-READ16_MEMBER(pwrview_state::nmiio_r)
+u16 pwrview_state::nmiio_r(offs_t offset)
 {
 	logerror("%s: io nmi at %04x\n",machine().describe_context(), offset*2);
 	m_maincpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
 	return 0xff;
 }
 
-WRITE16_MEMBER(pwrview_state::nmiio_w)
+void pwrview_state::nmiio_w(offs_t offset, u16 data)
 {
 	logerror("%s: io nmi at %04x\n",machine().describe_context(), offset*2);
 	m_maincpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
@@ -172,7 +172,7 @@ WRITE16_MEMBER(pwrview_state::nmiio_w)
 	}
 }
 
-WRITE16_MEMBER(pwrview_state::nmimem_w)
+void pwrview_state::nmimem_w(offs_t offset, u16 data)
 {
 	logerror("%s: mem nmi at %05x\n",machine().describe_context(), ((offset & 0x7fff) * 2) + 0xf8000);
 	m_maincpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
@@ -190,7 +190,7 @@ WRITE16_MEMBER(pwrview_state::nmimem_w)
 	}
 }
 
-READ16_MEMBER(pwrview_state::fbios_r)
+u16 pwrview_state::fbios_r(offs_t offset)
 {
 	switch(m_c009 & 0xc)
 	{
@@ -205,46 +205,46 @@ READ16_MEMBER(pwrview_state::fbios_r)
 	return 0;
 }
 
-READ16_MEMBER(pwrview_state::vram1_r)
+u16 pwrview_state::vram1_r()
 {
 	return m_vramwin[0];
 }
 
-WRITE16_MEMBER(pwrview_state::vram1_w)
+void pwrview_state::vram1_w(u16 data)
 {
 	data &= 0x3ff;
 	membank("vram1")->set_entry(data);
 	m_vramwin[0] = data;
 }
 
-READ16_MEMBER(pwrview_state::vram2_r)
+u16 pwrview_state::vram2_r()
 {
 	return m_vramwin[1];
 }
 
-WRITE16_MEMBER(pwrview_state::vram2_w)
+void pwrview_state::vram2_w(u16 data)
 {
 	data &= 0x3ff;
 	membank("vram2")->set_entry(data);
 	m_vramwin[1] = data;
 }
 
-READ8_MEMBER(pwrview_state::unk1_r)
+u8 pwrview_state::unk1_r()
 {
 	return m_c001;
 }
 
-WRITE8_MEMBER(pwrview_state::unk1_w)
+void pwrview_state::unk1_w(u8 data)
 {
 	m_c001 = data;
 }
 
-READ8_MEMBER(pwrview_state::unk2_r)
+u8 pwrview_state::unk2_r()
 {
 	return m_c009;
 }
 
-WRITE8_MEMBER(pwrview_state::unk2_w)
+void pwrview_state::unk2_w(u8 data)
 {
 	if(data & 0x40)
 		m_dmahack->adjust(attotime::zero, 0, attotime::from_nsec(50));
@@ -254,7 +254,7 @@ WRITE8_MEMBER(pwrview_state::unk2_w)
 	m_c009 = data;
 }
 
-READ8_MEMBER(pwrview_state::unk3_r)
+u8 pwrview_state::unk3_r(offs_t offset)
 {
 	switch(offset)
 	{
@@ -264,7 +264,7 @@ READ8_MEMBER(pwrview_state::unk3_r)
 	return 0;
 }
 
-WRITE8_MEMBER(pwrview_state::unk3_w)
+void pwrview_state::unk3_w(offs_t offset, u8 data)
 {
 	switch(offset)
 	{
@@ -277,12 +277,12 @@ WRITE8_MEMBER(pwrview_state::unk3_w)
 	}
 }
 
-READ8_MEMBER(pwrview_state::unk4_r)
+u8 pwrview_state::unk4_r()
 {
 	return m_c080;
 }
 
-WRITE8_MEMBER(pwrview_state::unk4_w)
+void pwrview_state::unk4_w(u8 data)
 {
 	m_c080 = data;
 	if(!BIT(data, 7))
@@ -304,12 +304,12 @@ WRITE8_MEMBER(pwrview_state::unk4_w)
 	}
 }
 
-READ8_MEMBER(pwrview_state::led_r)
+u8 pwrview_state::led_r(offs_t offset)
 {
 	return m_leds[offset];
 }
 
-WRITE8_MEMBER(pwrview_state::led_w)
+void pwrview_state::led_w(offs_t offset, u8 data)
 {
 	std::function<char (u8)> xlate = [](u8 val) -> char {
 		const u8 segxlat[] = { 0xc0, 0xf9, 0xa4, 0xb0, 0x99, 0x92, 0x82, 0xf8, 0x80, 0x98, 0x88, 0x83, 0xc6, 0xa1, 0x86, 0x8e };
@@ -333,7 +333,7 @@ WRITE8_MEMBER(pwrview_state::led_w)
 	}
 }
 
-READ8_MEMBER(pwrview_state::pitclock_r)
+u8 pwrview_state::pitclock_r()
 {
 	m_pit->write_clk0(ASSERT_LINE);
 	m_pit->write_clk0(CLEAR_LINE);
@@ -392,7 +392,7 @@ void pwrview_state::pwrview_io(address_map &map)
 	map(0xc08a, 0xc08a).rw("crtc", FUNC(hd6845s_device::register_r), FUNC(hd6845s_device::register_w));
 	map(0xc280, 0xc287).rw(FUNC(pwrview_state::unk3_r), FUNC(pwrview_state::unk3_w)).umask16(0x00ff);
 	map(0xc288, 0xc28f).rw(m_pit, FUNC(pit8253_device::read), FUNC(pit8253_device::write)).umask16(0x00ff);
-	map(0xc2a0, 0xc2a7).rw("sio", FUNC(z80sio2_device::cd_ba_r), FUNC(z80sio2_device::cd_ba_w)).umask16(0x00ff);
+	map(0xc2a0, 0xc2a7).rw("sio", FUNC(z80sio_device::cd_ba_r), FUNC(z80sio_device::cd_ba_w)).umask16(0x00ff);
 	map(0xc2c0, 0xc2c3).rw("uart", FUNC(i8251_device::read), FUNC(i8251_device::write)).umask16(0x00ff);
 	map(0xc2e0, 0xc2e3).m("fdc", FUNC(upd765a_device::map)).umask16(0x00ff);
 	map(0xc2e4, 0xc2e5).ram();
@@ -429,17 +429,17 @@ void pwrview_state::pwrview(machine_config &config)
 
 	I8251(config, "uart", 0);
 
-	Z80SIO2(config, "sio", 4000000);
+	Z80SIO(config, "sio", 4000000); // Z8442BPS (SIO/2)
 
 	hd6845s_device &crtc(HD6845S(config, "crtc", XTAL(64'000'000)/64)); // clock unknown
 	crtc.set_char_width(32);   /* ? */
-	crtc.set_update_row_callback(FUNC(pwrview_state::update_row), this);
+	crtc.set_update_row_callback(FUNC(pwrview_state::update_row));
 
 	ADDRESS_MAP_BANK(config, "bios_bank").set_map(&pwrview_state::bios_bank).set_options(ENDIANNESS_LITTLE, 16, 17, 0x8000);
 }
 
 ROM_START(pwrview)
-	ROM_REGION(0x8000, "bios", 0)
+	ROM_REGION16_LE(0x8000, "bios", 0)
 	ROM_SYSTEM_BIOS(0, "bios", "bios")
 	ROMX_LOAD("215856-003.bin", 0x0000, 0x4000, CRC(1fa2cd11) SHA1(b4755c7d5200a423a750ecf71c0aed33e364138b), ROM_SKIP(1) | ROM_BIOS(0))
 	ROMX_LOAD("215856-004.bin", 0x0001, 0x4000, CRC(4fd01e0a) SHA1(c4d1d40d4e8e529c03857f4a3c8428ccf6b8ff99), ROM_SKIP(1) | ROM_BIOS(0))

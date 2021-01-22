@@ -19,6 +19,7 @@
 #include "sound/dac.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 #define M81_B_B_JUMPER_J3_S \
 	PORT_START("JumperJ3") \
@@ -56,6 +57,9 @@ public:
 		m_upd4701(*this, {"upd4701l", "upd4701h"}),
 		m_samples_region(*this, "samples"),
 		m_io_dsw(*this, "DSW"),
+		m_fg_tilemap(nullptr),
+		m_bg_tilemap(nullptr),
+		m_bg_tilemap_large(nullptr),
 		m_fg_source(0),
 		m_bg_source(0),
 		m_m81_b_b_j3(*this, "JumperJ3"),
@@ -67,6 +71,7 @@ public:
 	void m72_audio_chips(machine_config &config);
 	void m72_xmultipl(machine_config &config);
 	void m72_dbreed(machine_config &config);
+	void m72_dbreedw(machine_config &config);
 	void cosmccop(machine_config &config);
 	void poundfor(machine_config &config);
 	void m72(machine_config &config);
@@ -75,12 +80,16 @@ public:
 	void kengo(machine_config &config);
 	void m81_dbreed(machine_config &config);
 	void m72_8751(machine_config &config);
+	void m72_airduel(machine_config &config);
 	void hharryu(machine_config &config);
 	void rtype2(machine_config &config);
 	void m82(machine_config &config);
 	void rtype(machine_config &config);
 	void imgfightb(machine_config &config);
 	void lohtb(machine_config &config);
+	void imgfight(machine_config &config);
+	void mrheli(machine_config &config);
+	void nspiritj(machine_config &config);
 
 	void init_dkgenm72();
 	void init_bchopper();
@@ -89,8 +98,6 @@ public:
 	void init_dbreedm72();
 	void init_airduelm72();
 	void init_nspirit();
-	void init_loht();
-	void init_imgfight();
 
 private:
 	required_device<cpu_device> m_maincpu;
@@ -155,28 +162,24 @@ private:
 	void soundram_w(offs_t offset, u8 data);
 
 	// m72_i8751 specific
-	DECLARE_WRITE16_MEMBER(main_mcu_sound_w);
 	void main_mcu_w(offs_t offset, u16 data, u16 mem_mask);
 	void mcu_data_w(offs_t offset, u8 data);
 	u8 mcu_data_r(offs_t offset);
 	u8 mcu_sample_r();
-	void mcu_port1_w(u8 data);
 	void mcu_low_w(u8 data);
 	void mcu_high_w(u8 data);
-	u8 snd_cpu_sample_r();
 
-	DECLARE_READ16_MEMBER(protection_r);
-	DECLARE_WRITE16_MEMBER(protection_w);
+	u16 protection_r(offs_t offset, u16 mem_mask = ~0);
+	void protection_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 
 	// game specific
-	DECLARE_WRITE16_MEMBER(bchopper_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(nspirit_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(imgfight_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(loht_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(dbreedm72_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(airduelm72_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(dkgenm72_sample_trigger_w);
-	DECLARE_WRITE16_MEMBER(gallop_sample_trigger_w);
+	void bchopper_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void nspirit_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void loht_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void dbreedm72_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void airduelm72_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void dkgenm72_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
+	void gallop_sample_trigger_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 	void rtype2_port02_w(u8 data);
 	void poundfor_port02_w(u8 data);
 	void m82_gfx_ctrl_w(offs_t offset, u16 data, u16 mem_mask);
@@ -192,6 +195,9 @@ private:
 	void machine_start() override;
 	void machine_reset() override;
 	DECLARE_VIDEO_START(m72);
+	DECLARE_VIDEO_START(imgfight);
+	DECLARE_VIDEO_START(mrheli);
+	DECLARE_VIDEO_START(nspiritj);
 	DECLARE_VIDEO_START(xmultipl);
 	DECLARE_VIDEO_START(hharry);
 	DECLARE_VIDEO_START(rtype2);
@@ -221,6 +227,7 @@ private:
 
 	void dbreed_map(address_map &map);
 	void dbreedm72_map(address_map &map);
+	void dbreedwm72_map(address_map &map);
 	void hharry_map(address_map &map);
 	void hharryu_map(address_map &map);
 	void kengo_map(address_map &map);
@@ -231,6 +238,7 @@ private:
 	void m72_protected_map(address_map &map);
 	void m72_portmap(address_map &map);
 	void m72_protected_portmap(address_map &map);
+	void m72_airduel_portmap(address_map &map);
 	void m81_cpu1_common_map(address_map &map);
 	void m81_portmap(address_map &map);
 	void m82_map(address_map &map);

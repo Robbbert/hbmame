@@ -12,14 +12,14 @@
 
 #pragma once
 
-#include "unicode.h"
-
 #include <algorithm>
 #include <limits>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include "unicode.h"
 
 
 class mame_ui_manager;

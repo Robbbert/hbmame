@@ -14,6 +14,7 @@
 #include "machine/taitoio.h"
 #include "video/tc0100scn.h"
 #include "emupal.h"
+#include "tilemap.h"
 
 
 class wgp_state : public driver_device
@@ -49,7 +50,6 @@ protected:
 	enum
 	{
 		TIMER_INTERRUPT4,
-		TIMER_INTERRUPT6,
 		TIMER_CPUB_INTERRUPT6
 	};
 
@@ -64,8 +64,12 @@ private:
 	void cpua_ctrl_w(u16 data);
 	u16 lan_status_r();
 	void rotate_port_w(offs_t offset, u16 data);
-	u16 adinput_r(offs_t offset);
-	void adinput_w(u16 data);
+	u8 accel_r();
+	u8 steer_r();
+	u8 steer_offset_r();
+	u8 accel_offset_r();
+	u8 brake_r();
+	u8 unknown_r();
 	void sound_bankswitch_w(u8 data);
 	void pivram_word_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 	void piv_ctrl_word_w(offs_t offset, u16 data, u16 mem_mask = ~0);
@@ -105,7 +109,6 @@ private:
 	/* misc */
 	u16       m_cpua_ctrl;
 	u16       m_port_sel;
-	emu_timer *m_int6_timer;
 	emu_timer *m_cpub_int6_timer;
 
 	/* devices */

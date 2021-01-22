@@ -201,6 +201,39 @@ Release:                         November 1999
 #include "screen.h"
 #include "speaker.h"
 
+namespace {
+
+struct state_s
+{
+	unsigned char *buf;
+	unsigned char bits;
+	int num_bits;
+	unsigned char colour[16];
+	int basex;
+	int ix, iy, iw;
+	int dx, dy;
+	int ow, oh;
+	int ox, oy;
+
+	void set_o(unsigned char v);
+	unsigned char get_o(int x, int y) const;
+
+	static void hn_bytes_new_colour(state_s &s, unsigned char v, int n);
+	static void hn_bytes_prev_colour(state_s &s, unsigned char v, int n);
+	static void hn_copy_directly(state_s &s, unsigned char v, int n);
+	static void hn_copy_plus_one(state_s &s, unsigned char v, int n);
+	static void hn_copy_minus_one(state_s &s, unsigned char v, int n);
+};
+
+
+struct huffman_node_s
+{
+	const char *bits;
+	void (*func)(state_s &, unsigned char, int);
+	int arg0_bits;
+	int arg1_val;
+};
+
 
 class gunpey_state : public driver_device
 {
@@ -214,32 +247,24 @@ public:
 		, m_blit_rom(*this, "blit_data")
 	{ }
 
-	// TODO: make these non-static and private
-	static void set_o(struct state_s *s, unsigned char v);
-	static unsigned char get_o(struct state_s *s, int x, int y);
-	static void hn_bytes_new_colour(struct state_s *s, unsigned char v, int n);
-	static void hn_bytes_prev_colour(struct state_s *s, unsigned char v, int n);
-	static void hn_copy_directly(struct state_s *s, unsigned char v, int n);
-	static void hn_copy_plus_one(struct state_s *s, unsigned char v, int n);
-	static void hn_copy_minus_one(struct state_s *s, unsigned char v, int n);
-
 	void gunpey(machine_config &config);
+
+protected:
+	virtual void video_start() override;
+
+private:
 	void io_map(address_map &map);
 	void mem_map(address_map &map);
 
-	void init_gunpey();
-private:
-
-	DECLARE_WRITE8_MEMBER(status_w);
-	DECLARE_READ8_MEMBER(status_r);
-	DECLARE_READ8_MEMBER(inputs_r);
-	DECLARE_WRITE8_MEMBER(blitter_w);
-	DECLARE_WRITE8_MEMBER(blitter_upper_w);
-	DECLARE_WRITE8_MEMBER(blitter_upper2_w);
-	DECLARE_WRITE8_MEMBER(output_w);
-	DECLARE_WRITE16_MEMBER(vram_bank_w);
-	DECLARE_WRITE16_MEMBER(vregs_addr_w);
-	virtual void video_start() override;
+	void status_w(offs_t offset, uint8_t data);
+	uint8_t status_r(offs_t offset);
+	uint8_t inputs_r(offs_t offset);
+	void blitter_w(offs_t offset, uint8_t data);
+	void blitter_upper_w(offs_t offset, uint8_t data);
+	void blitter_upper2_w(offs_t offset, uint8_t data);
+	void output_w(uint8_t data);
+	void vram_bank_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void vregs_addr_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	TIMER_DEVICE_CALLBACK_MEMBER(scanline);
 	TIMER_CALLBACK_MEMBER(blitter_end);
@@ -269,8 +294,8 @@ private:
 	uint8_t get_vrom_byte(int x, int y);
 	int write_dest_byte(uint8_t usedata);
 	int decompress_sprite(unsigned char *buf, int ix, int iy, int ow, int oh, int dx, int dy);
-	int next_node(struct huffman_node_s **res, struct state_s *s);
-	int get_next_bit(struct state_s *s);
+	int next_node(const huffman_node_s **res, state_s *s);
+	int get_next_bit(state_s *s);
 
 	uint8_t m_irq_cause, m_irq_mask;
 	std::unique_ptr<uint16_t[]> m_blit_buffer;
@@ -286,6 +311,9 @@ private:
 
 void gunpey_state::video_start()
 {
+	// assumes it can make an address mask from m_blit_rom.length() - 1
+	assert(!(m_blit_rom.length() & (m_blit_rom.length() - 1)));
+
 	m_blit_buffer = std::make_unique<uint16_t[]>(512*512);
 	m_vram = std::make_unique<uint8_t[]>(0x400000);
 	std::fill_n(&m_vram[0], 0x400000, 0xff);
@@ -295,9 +323,6 @@ void gunpey_state::video_start()
 
 uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,int count,uint8_t scene_gradient)
 {
-	int x,y;
-	int bpp_sel;
-	int color;
 	const int ZOOM_SHIFT = 15;
 	// there doesn't seem to be a specific bit to mark compressed sprites (we currently have a hack to look at the first byte of the data)
 	// do they get decompressed at blit time instead? of are there other registers we need to look at
@@ -326,12 +351,12 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 
 	if(!(m_wram[count+0] & 1))
 	{
-		x = (m_wram[count+3] >> 8) | ((m_wram[count+4] & 0x03) << 8);
-		y = (m_wram[count+4] >> 8) | ((m_wram[count+4] & 0x30) << 4);
+		int x = (m_wram[count+3] >> 8) | ((m_wram[count+4] & 0x03) << 8);
+		int y = (m_wram[count+4] >> 8) | ((m_wram[count+4] & 0x30) << 4);
 		uint32_t zoomheight = (m_wram[count+5] >> 8);
 		uint32_t zoomwidth = (m_wram[count+5] & 0xff);
-		bpp_sel = (m_wram[count+0] & 0x18);
-		color = (m_wram[count+0] >> 8);
+		int bpp_sel = (m_wram[count+0] & 0x18);
+		int color = (m_wram[count+0] >> 8);
 
 		x-=0x160;
 		y-=0x188;
@@ -379,8 +404,6 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 					int xi2 = xsourceoff>>ZOOM_SHIFT;
 					uint8_t data = m_vram[((((ysource + yi2) & 0x7ff) * 0x800) + ((xsource + (xi2/2)) & 0x7ff))];
 					uint8_t pix;
-					uint32_t col_offs;
-					uint16_t color_data;
 
 					if (xi2 & 1)
 					{
@@ -391,19 +414,17 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 						pix = (data & 0x0f);
 					}
 
-					col_offs = ((pix + color*0x10) & 0xff) << 1;
+					uint32_t col_offs = ((pix + color*0x10) & 0xff) << 1;
 					col_offs+= ((pix + color*0x10) >> 8)*0x800;
-					color_data = (m_vram[col_offs])|(m_vram[col_offs+1]<<8);
+					uint16_t color_data = (m_vram[col_offs])|(m_vram[col_offs+1]<<8);
 
 					if(!(color_data & 0x8000))
 					{
 						if(scene_gradient & 0x40)
 						{
-							int r,g,b;
-
-							r = (color_data & 0x7c00) >> 10;
-							g = (color_data & 0x03e0) >> 5;
-							b = (color_data & 0x001f) >> 0;
+							int r = (color_data & 0x7c00) >> 10;
+							int g = (color_data & 0x03e0) >> 5;
+							int b = (color_data & 0x001f) >> 0;
 							r-= (scene_gradient & 0x1f);
 							g-= (scene_gradient & 0x1f);
 							b-= (scene_gradient & 0x1f);
@@ -418,11 +439,11 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 						{
 							if (alpha==0x00) // a value of 0x00 is solid
 							{
-								bitmap.pix16(y+yi, x+xi) = color_data & 0x7fff;
+								bitmap.pix(y+yi, x+xi) = color_data & 0x7fff;
 							}
 							else
 							{
-								uint16_t basecolor = bitmap.pix16(y+yi, x+xi);
+								uint16_t basecolor = bitmap.pix(y+yi, x+xi);
 								int base_r = ((basecolor >> 10)&0x1f)*alpha;
 								int base_g = ((basecolor >> 5)&0x1f)*alpha;
 								int base_b = ((basecolor >> 0)&0x1f)*alpha;
@@ -433,7 +454,7 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 								g = (base_g+g)/0x1f;
 								b = (base_b+b)/0x1f;
 								color_data = (color_data & 0x8000) | (r << 10) | (g << 5) | (b << 0);
-								bitmap.pix16(y+yi, x+xi) = color_data & 0x7fff;
+								bitmap.pix(y+yi, x+xi) = color_data & 0x7fff;
 							}
 						}
 					}
@@ -460,24 +481,19 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 					int xi2 = xsourceoff>>ZOOM_SHIFT;
 
 					uint8_t data = m_vram[((((ysource+yi2)&0x7ff)*0x800) + ((xsource+xi2)&0x7ff))];
-					uint8_t pix;
-					uint32_t col_offs;
-					uint16_t color_data;
 
-					pix = (data & 0xff);
-					col_offs = ((pix + color*0x100) & 0xff) << 1;
+					uint8_t pix = (data & 0xff);
+					uint32_t col_offs = ((pix + color*0x100) & 0xff) << 1;
 					col_offs+= ((pix + color*0x100) >> 8)*0x800;
-					color_data = (m_vram[col_offs])|(m_vram[col_offs+1]<<8);
+					uint16_t color_data = (m_vram[col_offs])|(m_vram[col_offs+1]<<8);
 
 					if(!(color_data & 0x8000))
 					{
 						if(scene_gradient & 0x40)
 						{
-							int r,g,b;
-
-							r = (color_data & 0x7c00) >> 10;
-							g = (color_data & 0x03e0) >> 5;
-							b = (color_data & 0x001f) >> 0;
+							int r = (color_data & 0x7c00) >> 10;
+							int g = (color_data & 0x03e0) >> 5;
+							int b = (color_data & 0x001f) >> 0;
 							r-= (scene_gradient & 0x1f);
 							g-= (scene_gradient & 0x1f);
 							b-= (scene_gradient & 0x1f);
@@ -492,11 +508,11 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 						{
 							if (alpha==0x00) // a value of 0x00 is solid
 							{
-								bitmap.pix16(y+yi, x+xi) = color_data & 0x7fff;
+								bitmap.pix(y+yi, x+xi) = color_data & 0x7fff;
 							}
 							else
 							{
-								uint16_t basecolor = bitmap.pix16(y+yi, x+xi);
+								uint16_t basecolor = bitmap.pix(y+yi, x+xi);
 								int base_r = ((basecolor >> 10)&0x1f)*alpha;
 								int base_g = ((basecolor >> 5)&0x1f)*alpha;
 								int base_b = ((basecolor >> 0)&0x1f)*alpha;
@@ -507,7 +523,7 @@ uint8_t gunpey_state::draw_gfx(bitmap_ind16 &bitmap,const rectangle &cliprect,in
 								g = (base_g+g)/0x1f;
 								b = (base_b+b)/0x1f;
 								color_data = (color_data & 0x8000) | (r << 10) | (g << 5) | (b << 0);
-								bitmap.pix16(y+yi, x+xi) = color_data & 0x7fff;
+								bitmap.pix(y+yi, x+xi) = color_data & 0x7fff;
 							}
 						}
 					}
@@ -586,7 +602,7 @@ void gunpey_state::irq_check(uint8_t irq_type)
 		m_maincpu->set_input_line_and_vector(0, CLEAR_LINE, 0x200/4); // V30
 }
 
-WRITE8_MEMBER(gunpey_state::status_w)
+void gunpey_state::status_w(offs_t offset, uint8_t data)
 {
 	if(offset == 1)
 	{
@@ -601,7 +617,7 @@ WRITE8_MEMBER(gunpey_state::status_w)
 	}
 }
 
-READ8_MEMBER(gunpey_state::status_r)
+uint8_t gunpey_state::status_r(offs_t offset)
 {
 	if(offset == 1)
 		return m_irq_cause;
@@ -609,7 +625,7 @@ READ8_MEMBER(gunpey_state::status_r)
 	return m_irq_mask;
 }
 
-READ8_MEMBER(gunpey_state::inputs_r)
+uint8_t gunpey_state::inputs_r(offs_t offset)
 {
 	switch(offset+0x7f40)
 	{
@@ -653,23 +669,10 @@ int gunpey_state::write_dest_byte(uint8_t usedata)
 
 inline uint8_t gunpey_state::get_vrom_byte(int x, int y)
 {
-	return m_blit_rom[((x)+2048 * (y)) & m_blit_rom.mask()];
+	return m_blit_rom[((x)+2048 * (y)) & (m_blit_rom.length() - 1)];
 }
 
-struct state_s
-{
-	unsigned char *buf;
-	unsigned char bits;
-	int num_bits;
-	unsigned char colour[16];
-	int basex;
-	int ix, iy, iw;
-	int dx, dy;
-	int ow, oh;
-	int ox, oy;
-};
-
-inline int gunpey_state::get_next_bit(struct state_s *s)
+inline int gunpey_state::get_next_bit(state_s *s)
 {
 	if (s->num_bits == 0)
 	{
@@ -692,178 +695,156 @@ inline int gunpey_state::get_next_bit(struct state_s *s)
 }
 
 
-void gunpey_state::set_o(struct state_s *s, unsigned char v)
+void state_s::set_o(unsigned char v)
 {
-	assert(s->ox >= 0);
-	assert(s->ox < s->ow);
-	assert(s->ox < 256);
-	assert(s->oy >= 0);
-	assert(s->oy < s->oh);
-	assert(s->oy < 256);
+	assert(ox >= 0);
+	assert(ox < ow);
+	assert(ox < 256);
+	assert(oy >= 0);
+	assert(oy < oh);
+	assert(oy < 256);
 
 	unsigned char a = v;
-	for (int i = 0; i < sizeof(s->colour) / sizeof(*s->colour); i++)
+	for (int i = 0; i < ARRAY_LENGTH(colour); i++)
 	{
-		unsigned char b = s->colour[i];
-		s->colour[i] = a;
+		unsigned char b = colour[i];
+		colour[i] = a;
 		a = b;
 		if (a == v)
 			break;
 	}
 
-	s->buf[((s->dx + s->ox++) & 0x7ff) + (((s->dy + s->oy) & 0x7ff) * 0x800)] = v;
+	buf[((dx + ox++) & 0x7ff) + (((dy + oy) & 0x7ff) * 0x800)] = v;
 }
 
 
-unsigned char gunpey_state::get_o(struct state_s *s, int x, int y)
+unsigned char state_s::get_o(int x, int y) const
 {
 	assert(x >= 0);
-	assert(x < s->ow);
+	assert(x < ow);
 	assert(x < 256);
 	assert(y >= 0);
-	assert(y < s->oh);
+	assert(y < oh);
 	assert(y < 256);
 
-	return s->buf[((s->dx + x) & 0x7ff) + (((s->dy + y) & 0x7ff) * 0x800)];
+	return buf[((dx + x) & 0x7ff) + (((dy + y) & 0x7ff) * 0x800)];
 }
 
 
-void gunpey_state::hn_bytes_new_colour(struct state_s *s, unsigned char v, int n)
+void state_s::hn_bytes_new_colour(state_s &s, unsigned char v, int n)
 {
 	for (int i = 0; i < n; i++)
-	{
-		set_o(s, v);
-	}
+		s.set_o(v);
 }
 
 
-void gunpey_state::hn_bytes_prev_colour(struct state_s *s, unsigned char v, int n)
+void state_s::hn_bytes_prev_colour(state_s &s, unsigned char v, int n)
 {
-	int c = s->colour[v];
+	int c = s.colour[v];
 
 	for (int i = 0; i < n; i++)
-	{
-		set_o(s, c);
-	}
+		s.set_o(c);
 }
 
 
-void gunpey_state::hn_copy_directly(struct state_s *s, unsigned char v, int n)
+void state_s::hn_copy_directly(state_s &s, unsigned char v, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		if ((s->ox / 12) & 1)
-		{
-			set_o(s, get_o(s, s->ox, s->oy + 1));
-		}
+		if ((s.ox / 12) & 1)
+			s.set_o(s.get_o(s.ox, s.oy + 1));
 		else
-		{
-			set_o(s, get_o(s, s->ox, s->oy - 1));
-		}
+			s.set_o(s.get_o(s.ox, s.oy - 1));
 	}
 }
 
 
 
-void gunpey_state::hn_copy_plus_one(struct state_s *s, unsigned char v, int n)
+void state_s::hn_copy_plus_one(state_s &s, unsigned char v, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		if ((s->ox / 12) & 1)
-		{
-			set_o(s, get_o(s, s->ox + 1, s->oy + 1));
-		}
+		if ((s.ox / 12) & 1)
+			s.set_o(s.get_o(s.ox + 1, s.oy + 1));
 		else
-		{
-			set_o(s, get_o(s, s->ox + 1, s->oy - 1));
-		}
+			s.set_o(s.get_o(s.ox + 1, s.oy - 1));
 	}
 }
 
 
-void gunpey_state::hn_copy_minus_one(struct state_s *s, unsigned char v, int n)
+void state_s::hn_copy_minus_one(state_s &s, unsigned char v, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		if ((s->ox / 12) & 1)
-		{
-			set_o(s, get_o(s, s->ox - 1, s->oy + 1));
-		}
+		if ((s.ox / 12) & 1)
+			s.set_o(s.get_o(s.ox - 1, s.oy + 1));
 		else
-		{
-			set_o(s, get_o(s, s->ox - 1, s->oy - 1));
-		}
+			s.set_o(s.get_o(s.ox - 1, s.oy - 1));
 	}
 }
 
 
-static struct huffman_node_s
-{
-	const char *bits;
-	void (*func)(struct state_s *, unsigned char, int);
-	int arg0_bits;
-	int arg1_val;
-} hn[] = {
-	{ "11",                 gunpey_state::hn_bytes_new_colour,   8,  1 },
-	{ "10111",              gunpey_state::hn_bytes_new_colour,   8,  2 },
-	{ "10110011",           gunpey_state::hn_bytes_new_colour,   8,  3 },
-	{ "1010011000",         gunpey_state::hn_bytes_new_colour,   8,  4 },
-	{ "1010101010000",      gunpey_state::hn_bytes_new_colour,   8,  5 },
-	{ "101010001011110",    gunpey_state::hn_bytes_new_colour,   8,  6 },
-	{ "101010010101110",    gunpey_state::hn_bytes_new_colour,   8,  7 },
-	{ "101010010101111",    gunpey_state::hn_bytes_new_colour,   8,  8 },
-	{ "101010010101100",    gunpey_state::hn_bytes_new_colour,   8,  9 },
-	{ "10101000101100",     gunpey_state::hn_bytes_new_colour,   8, 10 },
-	{ "101010010101101",    gunpey_state::hn_bytes_new_colour,   8, 11 },
-	{ "10101000101101",     gunpey_state::hn_bytes_new_colour,   8, 12 },
-	{ "0",                  gunpey_state::hn_bytes_prev_colour,  4,  1 },
-	{ "100",                gunpey_state::hn_bytes_prev_colour,  4,  2 },
-	{ "101011",             gunpey_state::hn_bytes_prev_colour,  4,  3 },
-	{ "1010010",            gunpey_state::hn_bytes_prev_colour,  4,  4 },
-	{ "101010100",          gunpey_state::hn_bytes_prev_colour,  4,  5 },
-	{ "1010100100",         gunpey_state::hn_bytes_prev_colour,  4,  6 },
-	{ "10101010110",        gunpey_state::hn_bytes_prev_colour,  4,  7 },
-	{ "10100111000",        gunpey_state::hn_bytes_prev_colour,  4,  8 },
-	{ "101010101001",       gunpey_state::hn_bytes_prev_colour,  4,  9 },
-	{ "101001111000",       gunpey_state::hn_bytes_prev_colour,  4, 10 },
-	{ "101010010100",       gunpey_state::hn_bytes_prev_colour,  4, 11 },
-	{ "1010011001",         gunpey_state::hn_bytes_prev_colour,  4, 12 },
-	{ "101101",             gunpey_state::hn_copy_directly,      0,  2 },
-	{ "10101011",           gunpey_state::hn_copy_directly,      0,  3 },
-	{ "101010011",          gunpey_state::hn_copy_directly,      0,  4 },
-	{ "101001101",          gunpey_state::hn_copy_directly,      0,  5 },
-	{ "1010011111",         gunpey_state::hn_copy_directly,      0,  6 },
-	{ "1010100011",         gunpey_state::hn_copy_directly,      0,  7 },
-	{ "10101000100",        gunpey_state::hn_copy_directly,      0,  8 },
-	{ "101010101111",       gunpey_state::hn_copy_directly,      0,  9 },
-	{ "101001110010",       gunpey_state::hn_copy_directly,      0, 10 },
-	{ "1010011100111",      gunpey_state::hn_copy_directly,      0, 11 },
-	{ "101100101",          gunpey_state::hn_copy_directly,      0, 12 },
-	{ "1011000",            gunpey_state::hn_copy_plus_one,      0,  2 },
-	{ "101010000",          gunpey_state::hn_copy_plus_one,      0,  3 },
-	{ "10101001011",        gunpey_state::hn_copy_plus_one,      0,  4 },
-	{ "101010001010",       gunpey_state::hn_copy_plus_one,      0,  5 },
-	{ "1010101011101",      gunpey_state::hn_copy_plus_one,      0,  6 },
-	{ "1010101011100",      gunpey_state::hn_copy_plus_one,      0,  7 },
-	{ "1010011110010",      gunpey_state::hn_copy_plus_one,      0,  8 },
-	{ "10101000101110",     gunpey_state::hn_copy_plus_one,      0,  9 },
-	{ "101010001011111",    gunpey_state::hn_copy_plus_one,      0, 10 },
-	{ "1010011110011",      gunpey_state::hn_copy_plus_one,      0, 11 },
-	{ "101000",             gunpey_state::hn_copy_minus_one,     0,  2 },
-	{ "101100100",          gunpey_state::hn_copy_minus_one,     0,  3 },
-	{ "1010011101",         gunpey_state::hn_copy_minus_one,     0,  4 },
-	{ "10101010101",        gunpey_state::hn_copy_minus_one,     0,  5 },
-	{ "101001111011",       gunpey_state::hn_copy_minus_one,     0,  6 },
-	{ "101001111010",       gunpey_state::hn_copy_minus_one,     0,  7 },
-	{ "1010101010001",      gunpey_state::hn_copy_minus_one,     0,  8 },
-	{ "1010011100110",      gunpey_state::hn_copy_minus_one,     0,  9 },
-	{ "10101001010101",     gunpey_state::hn_copy_minus_one,     0, 10 },
-	{ "10101001010100",     gunpey_state::hn_copy_minus_one,     0, 11 },
-	{ NULL },
+static const huffman_node_s hn[] = {
+	{ "11",                 state_s::hn_bytes_new_colour,   8,  1 },
+	{ "10111",              state_s::hn_bytes_new_colour,   8,  2 },
+	{ "10110011",           state_s::hn_bytes_new_colour,   8,  3 },
+	{ "1010011000",         state_s::hn_bytes_new_colour,   8,  4 },
+	{ "1010101010000",      state_s::hn_bytes_new_colour,   8,  5 },
+	{ "101010001011110",    state_s::hn_bytes_new_colour,   8,  6 },
+	{ "101010010101110",    state_s::hn_bytes_new_colour,   8,  7 },
+	{ "101010010101111",    state_s::hn_bytes_new_colour,   8,  8 },
+	{ "101010010101100",    state_s::hn_bytes_new_colour,   8,  9 },
+	{ "10101000101100",     state_s::hn_bytes_new_colour,   8, 10 },
+	{ "101010010101101",    state_s::hn_bytes_new_colour,   8, 11 },
+	{ "10101000101101",     state_s::hn_bytes_new_colour,   8, 12 },
+	{ "0",                  state_s::hn_bytes_prev_colour,  4,  1 },
+	{ "100",                state_s::hn_bytes_prev_colour,  4,  2 },
+	{ "101011",             state_s::hn_bytes_prev_colour,  4,  3 },
+	{ "1010010",            state_s::hn_bytes_prev_colour,  4,  4 },
+	{ "101010100",          state_s::hn_bytes_prev_colour,  4,  5 },
+	{ "1010100100",         state_s::hn_bytes_prev_colour,  4,  6 },
+	{ "10101010110",        state_s::hn_bytes_prev_colour,  4,  7 },
+	{ "10100111000",        state_s::hn_bytes_prev_colour,  4,  8 },
+	{ "101010101001",       state_s::hn_bytes_prev_colour,  4,  9 },
+	{ "101001111000",       state_s::hn_bytes_prev_colour,  4, 10 },
+	{ "101010010100",       state_s::hn_bytes_prev_colour,  4, 11 },
+	{ "1010011001",         state_s::hn_bytes_prev_colour,  4, 12 },
+	{ "101101",             state_s::hn_copy_directly,      0,  2 },
+	{ "10101011",           state_s::hn_copy_directly,      0,  3 },
+	{ "101010011",          state_s::hn_copy_directly,      0,  4 },
+	{ "101001101",          state_s::hn_copy_directly,      0,  5 },
+	{ "1010011111",         state_s::hn_copy_directly,      0,  6 },
+	{ "1010100011",         state_s::hn_copy_directly,      0,  7 },
+	{ "10101000100",        state_s::hn_copy_directly,      0,  8 },
+	{ "101010101111",       state_s::hn_copy_directly,      0,  9 },
+	{ "101001110010",       state_s::hn_copy_directly,      0, 10 },
+	{ "1010011100111",      state_s::hn_copy_directly,      0, 11 },
+	{ "101100101",          state_s::hn_copy_directly,      0, 12 },
+	{ "1011000",            state_s::hn_copy_plus_one,      0,  2 },
+	{ "101010000",          state_s::hn_copy_plus_one,      0,  3 },
+	{ "10101001011",        state_s::hn_copy_plus_one,      0,  4 },
+	{ "101010001010",       state_s::hn_copy_plus_one,      0,  5 },
+	{ "1010101011101",      state_s::hn_copy_plus_one,      0,  6 },
+	{ "1010101011100",      state_s::hn_copy_plus_one,      0,  7 },
+	{ "1010011110010",      state_s::hn_copy_plus_one,      0,  8 },
+	{ "10101000101110",     state_s::hn_copy_plus_one,      0,  9 },
+	{ "101010001011111",    state_s::hn_copy_plus_one,      0, 10 },
+	{ "1010011110011",      state_s::hn_copy_plus_one,      0, 11 },
+	{ "101000",             state_s::hn_copy_minus_one,     0,  2 },
+	{ "101100100",          state_s::hn_copy_minus_one,     0,  3 },
+	{ "1010011101",         state_s::hn_copy_minus_one,     0,  4 },
+	{ "10101010101",        state_s::hn_copy_minus_one,     0,  5 },
+	{ "101001111011",       state_s::hn_copy_minus_one,     0,  6 },
+	{ "101001111010",       state_s::hn_copy_minus_one,     0,  7 },
+	{ "1010101010001",      state_s::hn_copy_minus_one,     0,  8 },
+	{ "1010011100110",      state_s::hn_copy_minus_one,     0,  9 },
+	{ "10101001010101",     state_s::hn_copy_minus_one,     0, 10 },
+	{ "10101001010100",     state_s::hn_copy_minus_one,     0, 11 },
+	{ nullptr,              nullptr,                        0,  0 },
 };
 
 
-int gunpey_state::next_node(struct huffman_node_s **res, struct state_s *s)
+int gunpey_state::next_node(const huffman_node_s **res, state_s *s)
 {
 	char bits[128];
 
@@ -894,8 +875,8 @@ int gunpey_state::next_node(struct huffman_node_s **res, struct state_s *s)
 
 int gunpey_state::decompress_sprite(unsigned char *buf, int ix, int iy, int ow, int oh, int dx, int dy)
 {
-	struct huffman_node_s *n;
-	struct state_s s;
+	const huffman_node_s *n;
+	state_s s;
 	unsigned char v;
 	int eol;
 
@@ -934,7 +915,7 @@ int gunpey_state::decompress_sprite(unsigned char *buf, int ix, int iy, int ow, 
 			v |= get_next_bit(&s) << i;
 		}
 
-		n->func(&s, v, n->arg1_val);
+		n->func(s, v, n->arg1_val);
 
 		if ((s.ox % 12) == 0)
 		{
@@ -989,7 +970,7 @@ int gunpey_state::decompress_sprite(unsigned char *buf, int ix, int iy, int ow, 
 	return 0;
 }
 
-WRITE8_MEMBER(gunpey_state::blitter_w)
+void gunpey_state::blitter_w(offs_t offset, uint8_t data)
 {
 	uint16_t *blit_ram = m_blit_ram;
 
@@ -1051,20 +1032,20 @@ WRITE8_MEMBER(gunpey_state::blitter_w)
 	}
 }
 
-WRITE8_MEMBER(gunpey_state::blitter_upper_w)
+void gunpey_state::blitter_upper_w(offs_t offset, uint8_t data)
 {
 	//logerror("gunpey_blitter_upper_w %02x %02x\n", offset, data);
 
 }
 
-WRITE8_MEMBER(gunpey_state::blitter_upper2_w)
+void gunpey_state::blitter_upper2_w(offs_t offset, uint8_t data)
 {
 	//logerror("gunpey_blitter_upper2_w %02x %02x\n", offset, data);
 
 }
 
 
-WRITE8_MEMBER(gunpey_state::output_w)
+void gunpey_state::output_w(uint8_t data)
 {
 	//bit 0 is coin counter
 //  popmessage("%02x",data);
@@ -1072,12 +1053,12 @@ WRITE8_MEMBER(gunpey_state::output_w)
 	m_oki->set_rom_bank((data & 0x70) >> 4);
 }
 
-WRITE16_MEMBER(gunpey_state::vram_bank_w)
+void gunpey_state::vram_bank_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_vram_bank);
 }
 
-WRITE16_MEMBER(gunpey_state::vregs_addr_w)
+void gunpey_state::vregs_addr_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_vreg_addr);
 }
@@ -1087,8 +1068,8 @@ WRITE16_MEMBER(gunpey_state::vregs_addr_w)
 void gunpey_state::mem_map(address_map &map)
 {
 	map(0x00000, 0x0ffff).ram().share("wram");
-//  AM_RANGE(0x50000, 0x500ff) AM_RAM
-//  AM_RANGE(0x50100, 0x502ff) AM_NOP
+//  map(0x50000, 0x500ff).ram();
+//  map(0x50100, 0x502ff).noprw();
 	map(0x80000, 0xfffff).rom();
 }
 
@@ -1106,7 +1087,7 @@ void gunpey_state::io_map(address_map &map)
 	map(0x7fe0, 0x7fe5).w(FUNC(gunpey_state::blitter_upper_w));
 	map(0x7ff0, 0x7ff5).w(FUNC(gunpey_state::blitter_upper2_w));
 
-	//AM_RANGE(0x7FF0, 0x7FF1) AM_RAM
+	//map(0x7ff0, 0x7ff1).ram();
 	map(0x7fec, 0x7fed).w(FUNC(gunpey_state::vregs_addr_w));
 	map(0x7fee, 0x7fef).w(FUNC(gunpey_state::vram_bank_w));
 
@@ -1237,8 +1218,8 @@ void gunpey_state::gunpey(machine_config &config)
 	SPEAKER(config, "rspeaker").front_right();
 
 	OKIM6295(config, m_oki, XTAL(16'934'400) / 8, okim6295_device::PIN7_LOW);
-	m_oki->add_route(ALL_OUTPUTS, "lspeaker", 0.25);
-	m_oki->add_route(ALL_OUTPUTS, "rspeaker", 0.25);
+	m_oki->add_route(ALL_OUTPUTS, "lspeaker", 0.125);
+	m_oki->add_route(ALL_OUTPUTS, "rspeaker", 0.125);
 
 	ymz280b_device &ymz(YMZ280B(config, "ymz", XTAL(16'934'400)));
 	ymz.add_route(0, "lspeaker", 0.25);
@@ -1262,8 +1243,6 @@ ROM_START( gunpey )
 	ROM_LOAD( "gp_rom5.622",  0x000000, 0x400000,  CRC(f79903e0) SHA1(4fd50b4138e64a48ec1504eb8cd172a229e0e965)) // 1xxxxxxxxxxxxxxxxxxxxx = 0xFF
 ROM_END
 
-void gunpey_state::init_gunpey()
-{
-}
+} // anonymous namespace
 
-GAME( 2000, gunpey, 0, gunpey, gunpey, gunpey_state, init_gunpey, ROT0, "Bandai / Banpresto", "Gunpey (Japan)", 0 )
+GAME( 2000, gunpey, 0, gunpey, gunpey, gunpey_state, empty_init, ROT0, "Bandai / Banpresto", "Gunpey (Japan)", 0 )

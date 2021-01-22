@@ -2,7 +2,7 @@
 // copyright-holders:Aaron Giles
 /*********************************************************************
 
-    debughlp.c
+    debughlp.cpp
 
     Debugger help engine.
 
@@ -10,7 +10,8 @@
 
 #include "emu.h"
 #include "debughlp.h"
-#include <ctype.h>
+#include "corestr.h"
+#include <cctype>
 
 
 
@@ -112,16 +113,25 @@ static const help_item static_help_list[] =
 		"  f[ind] <address>,<length>[,<data>[,...]] -- search program memory for data\n"
 		"  f[ind]d <address>,<length>[,<data>[,...]] -- search data memory for data\n"
 		"  f[ind]i <address>,<length>[,<data>[,...]] -- search I/O memory for data\n"
-		"  dump <filename>,<address>,<length>[,<size>[,<ascii>[,<CPU>]]] -- dump program memory as text\n"
-		"  dumpd <filename>,<address>,<length>[,<size>[,<ascii>[,<CPU>]]] -- dump data memory as text\n"
-		"  dumpi <filename>,<address>,<length>[,<size>[,<ascii>[,<CPU>]]] -- dump I/O memory as text\n"
-		"  dumpo <filename>,<address>,<length>[,<size>[,<ascii>[,<CPU>]]] -- dump opcodes memory as text\n"
+		"  fill <address>,<length>[,<data>[,...]] -- fill program memory with data\n"
+		"  filld <address>,<length>[,<data>[,...]] -- fill data memory with data\n"
+		"  filli <address>,<length>[,<data>[,...][ -- fill I/O memory with data\n"
+		"  dump <filename>,<address>,<length>[,<size>[,<ascii>[,<rowsize>[,<CPU>]]]] -- dump program memory as text\n"
+		"  dumpd <filename>,<address>,<length>[,<size>[,<ascii>[,<rowsize>[,<CPU>]]]] -- dump data memory as text\n"
+		"  dumpi <filename>,<address>,<length>[,<size>[,<ascii>[,<rowsize>[,<CPU>]]]] -- dump I/O memory as text\n"
+		"  dumpo <filename>,<address>,<length>[,<size>[,<ascii>[,<rowsize>[,<CPU>]]]] -- dump opcodes memory as text\n"
+		"  strdump <filename>,<address>,<length>[,<term>[,<CPU>]] -- dump ASCII strings from program memory\n"
+		"  strdumpd <filename>,<address>,<length>[,<term>[,<CPU>]] -- dump ASCII strings from data memory\n"
+		"  strdumpi <filename>,<address>,<length>[,<term>[,<CPU>]] -- dump ASCII strings from I/O memory\n"
+		"  strdumpo <filename>,<address>,<length>[,<term>[,<CPU>]] -- dump ASCII strings from opcodes memory\n"
 		"  save <filename>,<address>,<length>[,<CPU>] -- save binary program memory to the given file\n"
 		"  saved <filename>,<address>,<length>[,<CPU>] -- save binary data memory to the given file\n"
 		"  savei <filename>,<address>,<length>[,<CPU>] -- save binary I/O memory to the given file\n"
+		"  saver <filename>,<address>,<length>,<region> -- save binary memory region to the given file\n"
 		"  load <filename>,<address>[,<length>,<CPU>] -- load binary program memory from the given file\n"
 		"  loadd <filename>,<address>[,<length>,<CPU>] -- load binary data memory from the given file\n"
 		"  loadi <filename>,<address>[,<length>,<CPU>] -- load binary I/O memory from the given file\n"
+		"  loadr <filename>,<address>,<length>,<region> -- load binary memory region from the given file\n"
 		"  map <address> -- map logical program address to physical address and bank\n"
 		"  mapd <address> -- map logical data address to physical address and bank\n"
 		"  mapi <address> -- map logical I/O address to physical address and bank\n"
@@ -137,7 +147,7 @@ static const help_item static_help_list[] =
 		"  o[ver] [<count>=1] -- single steps over <count> instructions (F10)\n"
 		"  out -- single steps until the current subroutine/exception handler is exited (Shift-F11)\n"
 		"  g[o] [<address>] -- resumes execution, sets temp breakpoint at <address> (F5)\n"
-		"  ge[x] [<exception>] -- resumes execution, setting temp breakpoint if <exception> is raised\n"
+		"  ge[x] [<exception>[,<condition>]] -- resumes execution, setting temp breakpoint if <exception> is raised\n"
 		"  gi[nt] [<irqline>] -- resumes execution, setting temp breakpoint if <irqline> is taken (F7)\n"
 		"  gt[ime] <milliseconds> -- resumes execution until the given delay has elapsed\n"
 		"  gv[blank] -- resumes execution, setting temp breakpoint on the next VBLANK (F8)\n"
@@ -147,6 +157,7 @@ static const help_item static_help_list[] =
 		"  observe [<CPU>[,<CPU>[,...]]] -- resumes debugging on <CPU>\n"
 		"  suspend [<CPU>[,<CPU>[,...]]] -- suspends execution on <CPU>\n"
 		"  resume [<CPU>[,<CPU>[,...]]] -- resumes execution on <CPU>\n"
+		"  cpulist -- list all CPUs\n"
 		"  trace {<filename>|OFF}[,<CPU>[,<detectloops>[,<action>]]] -- trace the given CPU to a file (defaults to active CPU)\n"
 		"  traceover {<filename>|OFF}[,<CPU>[,<detectloops>[,<action>]]] -- trace the given CPU to a file, but skip subroutines (defaults to active CPU)\n"
 		"  traceflush -- flushes all open trace files\n"
@@ -602,6 +613,23 @@ static const help_item static_help_list[] =
 		"followed by the string \"BEN\", followed by a word-sized 0.\n"
 	},
 	{
+		"fill",
+		"\n"
+		"  fill[{d|i}] <address>,<length>[,<data>[,...]]\n"
+		"\n"
+		"The fill/filld/filli commands overwrite a block of memory with copies of the specified "
+		"sequence of data. 'fill' will fill program space memory, while 'filld' will fill data space "
+		"memory and 'filli' will fill I/O space memory. <address> indicates the address to begin "
+		"writing, and <length> indicates how much memory to fill. <data> can either be a quoted "
+		"string or a numeric value or expression. Non-string data is written by default in the "
+		"native word size of the CPU. To override the data size for non-strings, you can prefix "
+		"the value with b. to force byte-sized fill, w. for word-sized fill, d. for dword-sized, "
+		"and q. for qword-sized. Overrides are remembered, so if you want to fill with a series of "
+		"words, you need only to prefix the first value with a w. Note also that you can intermix "
+		"sizes in order to perform more complex fills. The fill operation may be truncated if a page "
+		"fault occurs or if part of the sequence or string would fall beyond <address>+<length>-1.\n"
+	},
+	{
 		"dump",
 		"\n"
 		"  dump[{d|i}] <filename>,<address>,<length>[,<size>[,<ascii>[,<CPU>]]]\n"
@@ -628,6 +656,21 @@ static const help_item static_help_list[] =
 		"to the file 'harddriv.dmp'.\n"
 	},
 	{
+		"strdump",
+		"\n"
+		"  strdump[{d|i}] <filename>,<address>,<length>[,<term>[,<CPU>]]\n"
+		"\n"
+		"The strdump/strdumpd/strdumpi/strdumpo commands dump memory to the text file specified in the "
+		"<filename> parameter. 'strdump' will dump program space memory, while 'strdumpd' will dump data "
+		"space memory, 'strdumpi' will dump I/O space memory and 'strdumpo' will dump opcodes memory. "
+		"<address> indicates the address of the start of dumping, and <length> indicates how much memory "
+		"to dump. The range <address> through <address>+<length>-1 inclusive will be output to the file. "
+		"By default, the data will be interpreted as a series of null-terminated strings, and the dump "
+		"will have one string on each line and C-style escapes for non-ASCII characters. The optional "
+		"<term> parameter can be used to specify a different character as the string terminator. Finally, "
+		"you can dump memory from another CPU by specifying the <CPU> parameter.\n"
+	},
+	{
 		"save",
 		"\n"
 		"  save[{d|i}] <filename>,<address>,<length>[,<CPU>]\n"
@@ -648,13 +691,28 @@ static const help_item static_help_list[] =
 		"  Saves data memory addresses 3000-3fff from CPU #3 to the binary file 'harddriv.bin'.\n"
 	},
 	{
+		"saver",
+		"\n"
+		"  saver <filename>,<address>,<length>,<region>\n"
+		"\n"
+		"The saver command saves the raw content of memory region <region> to the binary file specified in the "
+		"<filename> parameter. <address> indicates the address of the start of saving, and <length> indicates "
+		"how much memory to save. The range <address> through <address>+<length>-1 inclusive will be output to "
+		"the file.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"saver harddriv.bin,80000,40000,:maincpu\n"
+		"  Saves :maincpu region addresses 80000-bffff to the binary file 'harddriv.bin'.\n"
+	},
+	{
 		"load",
 		"\n"
 		"  load[{d|i}] <filename>,<address>[,<length>,<CPU>]\n"
 		"\n"
 		"The load/loadd/loadi commands load raw memory from the binary file specified in the <filename> "
 		"parameter. 'load' will load program space memory, while 'loadd' will load data space memory "
-		"and 'loadi' will load I/O space memory. <address> indicates the address of the start of saving, "
+		"and 'loadi' will load I/O space memory. <address> indicates the address of the start of loading, "
 		"and <length> indicates how much memory to load. The range <address> through <address>+<length>-1 "
 		"inclusive will be read in from the file. If you specify <length> = 0 or a length greater than the "
 		"total length of the file it will load the entire contents of the file and no more. You can also load "
@@ -668,6 +726,22 @@ static const help_item static_help_list[] =
 		"\n"
 		"loadd harddriv.bin,3000,1000,3\n"
 		"  Loads data memory addresses 3000-3fff from CPU #3 from the binary file 'harddriv.bin'.\n"
+	},
+	{
+		"loadr",
+		"\n"
+		"  loadr <filename>,<address>,<length>,<region>\n"
+		"\n"
+		"The loadr command loads raw memory in the memory region <region> from the binary file specified "
+		"in the <filename> parameter. <address> indicates the address of the start of loading, and <length> "
+		"indicates how much memory to load. The range <address> through <address>+<length>-1 inclusive will "
+		"be read in from the file. If you specify <length> = 0 or a length greater than the total length of "
+		"the file it will load the entire contents of the file and no more.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"loadr harddriv.bin,80000,40000,:maincpu\n"
+		"  Loads addresses 80000-bffff in the :maincpu region from the binary file 'harddriv.bin'.\n"
 	},
 	{
 		"step",
@@ -1560,16 +1634,11 @@ const char *debug_get_help(const char *tag)
 	static char ambig_message[1024];
 	const help_item *found = nullptr;
 	int i, msglen, foundcount = 0;
-	int taglen = (int)strlen(tag);
-	char tagcopy[256];
-
-	/* make a lowercase copy of the tag */
-	for (i = 0; i <= taglen; i++)
-		tagcopy[i] = tolower(u8(tag[i]));
+	size_t taglen = strlen(tag);
 
 	/* find a match */
 	for (i = 0; i < ARRAY_LENGTH(static_help_list); i++)
-		if (!strncmp(static_help_list[i].tag, tagcopy, taglen))
+		if (!core_strnicmp(static_help_list[i].tag, tag, taglen))
 		{
 			foundcount++;
 			found = &static_help_list[i];
@@ -1591,7 +1660,7 @@ const char *debug_get_help(const char *tag)
 	/* otherwise, indicate ambiguous help */
 	msglen = sprintf(ambig_message, "Ambiguous help request, did you mean:\n");
 	for (i = 0; i < ARRAY_LENGTH(static_help_list); i++)
-		if (!strncmp(static_help_list[i].tag, tagcopy, taglen))
+		if (!core_strnicmp(static_help_list[i].tag, tag, taglen))
 			msglen += sprintf(&ambig_message[msglen], "  help %s?\n", static_help_list[i].tag);
 	return ambig_message;
 }

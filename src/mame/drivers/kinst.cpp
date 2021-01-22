@@ -180,10 +180,10 @@ Notes:
 #include "emu.h"
 #include "audio/dcs.h"
 
+#include "bus/ata/ataintf.h"
+#include "bus/ata/idehd.h"
 #include "cpu/adsp2100/adsp2100.h"
 #include "cpu/mips/mips3.h"
-#include "machine/ataintf.h"
-#include "machine/idehd.h"
 #include "emupal.h"
 #include "screen.h"
 
@@ -196,7 +196,7 @@ public:
 		m_rambase(*this, "rambase"),
 		m_rambase2(*this, "rambase2"),
 		m_control(*this, "control"),
-		m_rombase(*this, "rombase"),
+		m_rombase(*this, "user1"),
 		m_maincpu(*this, "maincpu"),
 		m_ata(*this, "ata"),
 		m_dcs(*this, "dcs"),
@@ -218,7 +218,7 @@ private:
 	required_shared_ptr<uint32_t> m_rambase;
 	required_shared_ptr<uint32_t> m_rambase2;
 	required_shared_ptr<uint32_t> m_control;
-	required_shared_ptr<uint32_t> m_rombase;
+	required_region_ptr<uint32_t> m_rombase;
 	required_device<mips3_device> m_maincpu;
 	required_device<ata_interface_device> m_ata;
 	required_device<dcs_audio_2k_device> m_dcs;
@@ -235,12 +235,12 @@ private:
 
 	uint32_t screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	INTERRUPT_GEN_MEMBER(irq0_start);
-	DECLARE_READ32_MEMBER(control_r);
-	DECLARE_WRITE32_MEMBER(control_w);
-	DECLARE_READ32_MEMBER(ide_r);
-	DECLARE_WRITE32_MEMBER(ide_w);
-	DECLARE_READ32_MEMBER(ide_extra_r);
-	DECLARE_WRITE32_MEMBER(ide_extra_w);
+	uint32_t control_r(offs_t offset);
+	void control_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
+	uint32_t ide_r(offs_t offset, uint32_t mem_mask = ~0);
+	void ide_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
+	uint32_t ide_extra_r();
+	void ide_extra_w(uint32_t data);
 
 	void main_map(address_map &map);
 };
@@ -317,18 +317,18 @@ void kinst_state::machine_reset()
 
 uint32_t kinst_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	const pen_t *pen = m_palette->pens();
+	pen_t const *const pen = m_palette->pens();
 
 	/* loop over rows and copy to the destination */
 	for (int y = cliprect.min_y; y <= cliprect.max_y; y++)
 	{
-		uint32_t *src = &m_video_base[640/4 * y];
-		uint32_t *dest = &bitmap.pix32(y, cliprect.min_x);
+		uint32_t const *src = &m_video_base[640/4 * y];
+		uint32_t *dest = &bitmap.pix(y, cliprect.min_x);
 
 		/* loop over columns */
 		for (int x = cliprect.min_x; x < cliprect.max_x; x += 2)
 		{
-			uint32_t data = *src++;
+			uint32_t const data = *src++;
 
 			/* store two pixels */
 			*dest++ = pen[(data >>  0) & 0x7fff];
@@ -354,7 +354,7 @@ void kinst_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 		m_maincpu->set_input_line(0, CLEAR_LINE);
 		break;
 	default:
-		assert_always(false, "Unknown id in kinst_state::device_timer");
+		throw emu_fatalerror("Unknown id in kinst_state::device_timer");
 	}
 }
 
@@ -372,27 +372,27 @@ INTERRUPT_GEN_MEMBER(kinst_state::irq0_start)
  *
  *************************************/
 
-READ32_MEMBER(kinst_state::ide_r)
+uint32_t kinst_state::ide_r(offs_t offset, uint32_t mem_mask)
 {
-	return m_ata->read_cs0(offset / 2, mem_mask);
+	return m_ata->cs0_r(offset / 2, mem_mask);
 }
 
 
-WRITE32_MEMBER(kinst_state::ide_w)
+void kinst_state::ide_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 {
-	m_ata->write_cs0(offset / 2, data, mem_mask);
+	m_ata->cs0_w(offset / 2, data, mem_mask);
 }
 
 
-READ32_MEMBER(kinst_state::ide_extra_r)
+uint32_t kinst_state::ide_extra_r()
 {
-	return m_ata->read_cs1(6, 0xff);
+	return m_ata->cs1_r(6, 0xff);
 }
 
 
-WRITE32_MEMBER(kinst_state::ide_extra_w)
+void kinst_state::ide_extra_w(uint32_t data)
 {
-	m_ata->write_cs1(6, data, 0xff);
+	m_ata->cs1_w(6, data, 0xff);
 }
 
 
@@ -403,7 +403,7 @@ WRITE32_MEMBER(kinst_state::ide_extra_w)
  *
  *************************************/
 
-READ32_MEMBER(kinst_state::control_r)
+uint32_t kinst_state::control_r(offs_t offset)
 {
 	uint32_t result;
 	static const char *const portnames[] = { "P1", "P2", "VOLUME", "UNUSED", "DSW" };
@@ -438,7 +438,7 @@ READ32_MEMBER(kinst_state::control_r)
 }
 
 
-WRITE32_MEMBER(kinst_state::control_w)
+void kinst_state::control_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 {
 	/* apply shuffling */
 	offset = m_control_map[offset / 2];
@@ -455,7 +455,7 @@ WRITE32_MEMBER(kinst_state::control_w)
 			break;
 
 		case 1:     /* $88 - sound reset */
-			m_dcs->reset_w(~data & 0x01);
+			m_dcs->reset_w(data & 0x01);
 			break;
 
 		case 2:     /* $90 - sound control */
@@ -484,7 +484,7 @@ void kinst_state::main_map(address_map &map)
 	map(0x10000080, 0x100000ff).rw(FUNC(kinst_state::control_r), FUNC(kinst_state::control_w)).share("control");
 	map(0x10000100, 0x1000013f).rw(FUNC(kinst_state::ide_r), FUNC(kinst_state::ide_w));
 	map(0x10000170, 0x10000173).rw(FUNC(kinst_state::ide_extra_r), FUNC(kinst_state::ide_extra_w));
-	map(0x1fc00000, 0x1fc7ffff).rom().region("user1", 0).share("rombase");
+	map(0x1fc00000, 0x1fc7ffff).rom().region("user1", 0);
 }
 
 

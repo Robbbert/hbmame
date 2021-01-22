@@ -6,6 +6,7 @@
 #pragma once
 
 #include "fdc_pll.h"
+#include "imagedev/floppy.h"
 
 class floppy_image_device;
 
@@ -35,7 +36,7 @@ public:
 
 	void set_ready_line_connected(bool ready);
 	void set_select_lines_connected(bool select);
-	void set_floppy(floppy_image_device *image);
+	void set_floppies(floppy_connector* f0, floppy_connector* f1);
 	void soft_reset();
 
 	void map(address_map &map);
@@ -205,8 +206,7 @@ private:
 	int cur_rate;
 	int idle_icnt;
 
-	static std::string tts(attotime t);
-	std::string ttsn();
+	std::string ttsn() const;
 
 	enum {
 		C_FORMAT_TRACK,

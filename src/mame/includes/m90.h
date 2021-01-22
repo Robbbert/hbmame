@@ -9,6 +9,7 @@
 #include "cpu/nec/v25.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 class m90_state : public driver_device
 {
@@ -57,10 +58,10 @@ private:
 
 	tilemap_t *m_pf_layer[2][2];
 	uint8_t m_last_pf[2];
-	DECLARE_WRITE16_MEMBER(coincounter_w);
-	DECLARE_WRITE16_MEMBER(quizf1_bankswitch_w);
-	DECLARE_WRITE16_MEMBER(m90_video_w);
-	DECLARE_WRITE16_MEMBER(bootleg_video_w);
+	void coincounter_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void quizf1_bankswitch_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void m90_video_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void bootleg_video_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	TILE_GET_INFO_MEMBER(get_tile_info);
 	virtual void machine_start() override;
 	virtual void video_start() override;

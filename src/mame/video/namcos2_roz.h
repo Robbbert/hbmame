@@ -7,6 +7,7 @@
 #pragma once
 
 #include "screen.h"
+#include "tilemap.h"
 
 
 class namcos2_roz_device : public device_t, public device_gfx_interface
@@ -18,7 +19,7 @@ public:
 	template <typename T> void set_rozram_tag(T &&tag) { m_rozram.set_tag(std::forward<T>(tag)); }
 	template <typename T> void set_rozctrl_tag(T &&tag) { m_roz_ctrl.set_tag(std::forward<T>(tag)); }
 
-	DECLARE_WRITE16_MEMBER( rozram_word_w );
+	void rozram_word_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	void draw_roz(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, uint16_t gfx_ctrl);
 

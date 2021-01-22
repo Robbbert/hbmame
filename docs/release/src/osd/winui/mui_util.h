@@ -69,7 +69,7 @@ HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfile
 
  //  wstring_from_utf8
  //============================================================
- 
+
 WCHAR *ui_wstring_from_utf8(const char *utf8string)
 {
 	int char_count;
@@ -80,7 +80,7 @@ WCHAR *ui_wstring_from_utf8(const char *utf8string)
 	result = (WCHAR *)malloc(char_count * sizeof(*result));
 	if (result != nullptr)
 		MultiByteToWideChar(CP_UTF8, 0, utf8string, -1, result, char_count);
- 
+
 	return result;
 }
 

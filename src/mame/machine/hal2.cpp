@@ -78,8 +78,8 @@ uint16_t hal2_device::read(offs_t offset)
 		LOGMASKED(LOG_READS, "%s: HAL2 Status Read: %08x\n", machine().describe_context(), m_isr);
 		return m_isr;
 	case REVISION_REG:
-		LOGMASKED(LOG_READS, "%s: HAL2 Revision Read: 0x4011\n", machine().describe_context());
-		return 0x4011;
+		LOGMASKED(LOG_READS, "%s: HAL2 Revision Read: 0x4010\n", machine().describe_context());
+		return 0x4010;
 
 	case INDIRECT_DATA0_REG:
 		LOGMASKED(LOG_WRITES, "%s: HAL2 Indirect Data Register 0 Read: %04x\n", machine().describe_context(), m_idr[0]);
@@ -387,10 +387,4 @@ void hal2_device::device_add_mconfig(machine_config &config)
 
 	DAC_16BIT_R2R_TWOS_COMPLEMENT(config, m_rdac, 0);
 	m_rdac->add_route(ALL_OUTPUTS, "rspeaker", 0.25);
-
-	voltage_regulator_device &vreg = VOLTAGE_REGULATOR(config, "vref");
-	vreg.add_route(0, "ldac",  1.0, DAC_VREF_POS_INPUT);
-	vreg.add_route(0, "rdac",  1.0, DAC_VREF_POS_INPUT);
-	vreg.add_route(0, "ldac", -1.0, DAC_VREF_NEG_INPUT);
-	vreg.add_route(0, "rdac", -1.0, DAC_VREF_NEG_INPUT);
 }

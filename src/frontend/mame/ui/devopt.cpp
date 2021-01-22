@@ -9,12 +9,14 @@
 *********************************************************************/
 
 #include "emu.h"
-#include "ui/ui.h"
 #include "ui/devopt.h"
+
+#include "ui/ui.h"
 #include "romload.h"
 
 
 namespace ui {
+
 /*-------------------------------------------------
  device_config - handle the game information
  menu
@@ -32,7 +34,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 	machine_config &mconfig(const_cast<machine_config &>(machine().config()));
 	machine_config::token const tok(mconfig.begin_configuration(mconfig.root_device()));
 	device_t *const dev = mconfig.device_add(m_option->name(), m_option->devtype(), 0);
-	for (device_t &d : device_iterator(*dev))
+	for (device_t &d : device_enumerator(*dev))
 		if (!d.configured())
 			d.config_complete();
 
@@ -46,7 +48,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 			dev->name());
 
 	// loop over all CPUs
-	execute_interface_iterator execiter(*dev);
+	execute_interface_enumerator execiter(*dev);
 	if (execiter.count() > 0)
 	{
 		str << _("* CPU:\n");
@@ -57,7 +59,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 				continue;
 
 			// get cpu specific clock that takes internal multiplier/dividers into account
-			int clock = exec.device().clock();
+			u32 clock = exec.device().clock();
 
 			// count how many identical CPUs we have
 			int count = 1;
@@ -69,21 +71,28 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 						count++;
 			}
 
-			// if more than one, prepend a #x in front of the CPU name and display clock in kHz or MHz
-			util::stream_format(
-					str,
+			std::string hz(std::to_string(clock));
+			int d = (clock >= 1'000'000'000) ? 9 : (clock >= 1'000'000) ? 6 : (clock >= 1000) ? 3 : 0;
+			if (d > 0)
+			{
+				size_t dpos = hz.length() - d;
+				hz.insert(dpos, ".");
+				size_t last = hz.find_last_not_of('0');
+				hz = hz.substr(0, last + (last != dpos ? 1 : 0));
+			}
+
+			// if more than one, prepend a #x in front of the CPU name and display clock
+			util::stream_format(str,
 					(count > 1)
-						? ((clock >= 1000000) ? _("  %1$d\xC3\x97%2$s %3$d.%4$06d\xC2\xA0MHz\n") : _("  %1$d\xC3\x97%2$s %5$d.%6$03d\xC2\xA0kHz\n"))
-						: ((clock >= 1000000) ? _("  %2$s %3$d.%4$06d\xC2\xA0MHz\n") : _("  %2$s %5$d.%6$03d\xC2\xA0kHz\n")),
-					count,
-					name,
-					clock / 1000000, clock % 1000000,
-					clock / 1000, clock % 1000);
+						? ((clock != 0) ? "  %1$d" UTF8_MULTIPLY "%2$s %3$s" UTF8_NBSP "%4$s\n" : "  %1$d" UTF8_MULTIPLY "%2$s\n")
+						: ((clock != 0) ? "  %2$s %3$s" UTF8_NBSP "%4$s\n" : "  %2$s\n"),
+					count, name, hz,
+					(d == 9) ? _("GHz") : (d == 6) ? _("MHz") : (d == 3) ? _("kHz") : _("Hz"));
 		}
 	}
 
 	// display screen information
-	screen_device_iterator scriter(*dev);
+	screen_device_enumerator scriter(*dev);
 	if (scriter.count() > 0)
 	{
 		str << _("* Video:\n");
@@ -95,23 +104,27 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 			}
 			else
 			{
-				const rectangle &visarea = screen.visible_area();
+				std::string hz(std::to_string(float(screen.frame_period().as_hz())));
+				size_t last = hz.find_last_not_of('0');
+				size_t dpos = hz.find_last_of('.');
+				hz = hz.substr(0, last + (last != dpos ? 1 : 0));
 
+				const rectangle &visarea = screen.visible_area();
 				util::stream_format(
 						str,
 						(screen.orientation() & ORIENTATION_SWAP_XY)
-							? _("  Screen '%1$s': %2$d \xC3\x97 %3$d (V) %4$f\xC2\xA0Hz\n")
-							: _("  Screen '%1$s': %2$d \xC3\x97 %3$d (H) %4$f\xC2\xA0Hz\n"),
+							? _("  Screen '%1$s': %2$d \xC3\x97 %3$d (V) %4$s\xC2\xA0Hz\n")
+							: _("  Screen '%1$s': %2$d \xC3\x97 %3$d (H) %4$s\xC2\xA0Hz\n"),
 						screen.tag(),
 						visarea.width(),
 						visarea.height(),
-						screen.frame_period().as_hz());
+						hz);
 			}
 		}
 	}
 
 	// loop over all sound chips
-	sound_interface_iterator snditer(*dev);
+	sound_interface_enumerator snditer(*dev);
 	if (snditer.count() > 0)
 	{
 		str << _("* Sound:\n");
@@ -129,17 +142,25 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 					if (soundtags.insert(scan.device().tag()).second)
 						count++;
 			}
-			// if more than one, prepend a #x in front of the name and display clock in kHz or MHz
-			int const clock = sound.device().clock();
-			util::stream_format(
-					str,
+
+			const u32 clock = sound.device().clock();
+			std::string hz(std::to_string(clock));
+			int d = (clock >= 1'000'000'000) ? 9 : (clock >= 1'000'000) ? 6 : (clock >= 1000) ? 3 : 0;
+			if (d > 0)
+			{
+				size_t dpos = hz.length() - d;
+				hz.insert(dpos, ".");
+				size_t last = hz.find_last_not_of('0');
+				hz = hz.substr(0, last + (last != dpos ? 1 : 0));
+			}
+
+			// if more than one, prepend a #x in front of the name and display clock
+			util::stream_format(str,
 					(count > 1)
-						? ((clock >= 1000000) ? _("  %1$d\xC3\x97%2$s %3$d.%4$06d\xC2\xA0MHz\n") : clock ? _("  %1$d\xC3\x97%2$s %5$d.%6$03d\xC2\xA0kHz\n") : _("  %1$d\xC3\x97%2$s\n"))
-						: ((clock >= 1000000) ? _("  %2$s %3$d.%4$06d\xC2\xA0MHz\n") : clock ? _("  %2$s %5$d.%6$03d\xC2\xA0kHz\n") : _("  %2$s\n")),
-					count,
-					sound.device().name(),
-					clock / 1000000, clock % 1000000,
-					clock / 1000, clock % 1000);
+						? ((clock != 0) ? "  %1$d" UTF8_MULTIPLY "%2$s %3$s" UTF8_NBSP "%4$s\n" : "  %1$d" UTF8_MULTIPLY "%2$s\n")
+						: ((clock != 0) ? "  %2$s %3$s" UTF8_NBSP "%4$s\n" : "  %2$s\n"),
+					count, sound.device().name(), hz,
+					(d == 9) ? _("GHz") : (d == 6) ? _("MHz") : (d == 3) ? _("kHz") : _("Hz"));
 		}
 	}
 
@@ -173,7 +194,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 	std::string errors;
 	std::ostringstream dips_opt, confs_opt;
 	ioport_list portlist;
-	for (device_t &iptdev : device_iterator(*dev))
+	for (device_t &iptdev : device_enumerator(*dev))
 		portlist.append(iptdev, errors);
 
 	// check if the device adds inputs to the system
@@ -253,7 +274,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 	if (input_keyboard)
 		util::stream_format(str, _("  Keyboard inputs    [%1$d inputs]\n"), input_keyboard);
 
-	image_interface_iterator imgiter(*dev);
+	image_interface_enumerator imgiter(*dev);
 	if (imgiter.count() > 0)
 	{
 		str << _("* Media Options:\n");
@@ -261,7 +282,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 			util::stream_format(str, _("  %1$s    [tag: %2$s]\n"), imagedev.image_type_name(), imagedev.device().tag());
 	}
 
-	slot_interface_iterator slotiter(*dev);
+	slot_interface_enumerator slotiter(*dev);
 	if (slotiter.count() > 0)
 	{
 		str << _("* Slot Options:\n");
@@ -274,7 +295,7 @@ void menu_device_config::populate(float &customtop, float &custombottom)
 			str << _("[None]\n");
 
 	mconfig.device_remove(m_option->name());
-	item_append(str.str(), "", FLAG_MULTILINE, nullptr);
+	item_append(str.str(), FLAG_MULTILINE, nullptr);
 }
 
 void menu_device_config::handle()

@@ -238,15 +238,15 @@ void fuuki32_state::fuuki32_map(address_map &map)
 	map(0x504000, 0x505fff).ram().w(FUNC(fuuki32_state::vram_buffered_w<2>)).share("vram.2");  // Tilemap bg
 	map(0x506000, 0x507fff).ram().w(FUNC(fuuki32_state::vram_buffered_w<3>)).share("vram.3");  // Tilemap bg2
 	map(0x508000, 0x517fff).ram();                                                                     // More tilemap, or linescroll? Seems to be empty all of the time
-	map(0x600000, 0x601fff).rw(FUNC(fuuki32_state::sprram_r), FUNC(fuuki32_state::sprram_w)).share("spriteram"); // Sprites
+	map(0x600000, 0x601fff).rw(FUNC(fuuki32_state::sprram_r), FUNC(fuuki32_state::sprram_w)); // Sprites
 	map(0x700000, 0x703fff).ram().w(m_palette, FUNC(palette_device::write32)).share("palette"); // Palette
 
-	map(0x800000, 0x800003).lr16("800000", [this]() { return u16(m_system->read()); }).nopw();  // Coin
-	map(0x810000, 0x810003).lr16("810000", [this]() { return u16(m_inputs->read()); }).nopw();  // Player Inputs
-	map(0x880000, 0x880003).lr16("880000", [this]() { return u16(m_dsw1->read()); });           // Service + DIPS
-	map(0x890000, 0x890003).lr16("890000", [this]() { return u16(m_dsw2->read()); });           // More DIPS
+	map(0x800000, 0x800003).lr16(NAME([this] () { return u16(m_system->read()); })).nopw();  // Coin
+	map(0x810000, 0x810003).lr16(NAME([this] () { return u16(m_inputs->read()); })).nopw();  // Player Inputs
+	map(0x880000, 0x880003).lr16(NAME([this] () { return u16(m_dsw1->read()); }));           // Service + DIPS
+	map(0x890000, 0x890003).lr16(NAME([this] () { return u16(m_dsw2->read()); }));           // More DIPS
 
-	map(0x8c0000, 0x8c001f).rw(FUNC(fuuki32_state::vregs_r), FUNC(fuuki32_state::vregs_w)).share("vregs");        // Video Registers
+	map(0x8c0000, 0x8c001f).rw(FUNC(fuuki32_state::vregs_r), FUNC(fuuki32_state::vregs_w));        // Video Registers
 	map(0x8d0000, 0x8d0003).ram();                                                                     // Flipscreen Related
 	map(0x8e0000, 0x8e0003).ram().share("priority");                            // Controls layer order
 	map(0x903fe0, 0x903fff).rw(FUNC(fuuki32_state::snd_020_r), FUNC(fuuki32_state::snd_020_w)).umask32(0x00ff00ff);                                         // Shared with Z80
@@ -492,7 +492,7 @@ void fuuki32_state::device_timer(emu_timer &timer, device_timer_id id, int param
 		m_raster_interrupt_timer->adjust(m_screen->frame_period());
 		break;
 	default:
-		assert_always(false, "Unknown id in fuuki32_state::device_timer");
+		throw emu_fatalerror("Unknown id in fuuki32_state::device_timer");
 	}
 }
 
@@ -546,8 +546,8 @@ void fuuki32_state::fuuki32(machine_config &config)
 	m_fuukivid->set_palette(m_palette);
 	m_fuukivid->set_color_base(0x400*2);
 	m_fuukivid->set_color_num(0x40);
-	m_fuukivid->set_tile_callback(FUNC(fuuki32_state::fuuki32_tile_cb), this);
-	m_fuukivid->set_colpri_callback(FUNC(fuuki32_state::fuuki32_colpri_cb), this);
+	m_fuukivid->set_tile_callback(FUNC(fuuki32_state::fuuki32_tile_cb));
+	m_fuukivid->set_colpri_callback(FUNC(fuuki32_state::fuuki32_colpri_cb));
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
@@ -557,12 +557,10 @@ void fuuki32_state::fuuki32(machine_config &config)
 	ymf.irq_handler().set_inputline("soundcpu", 0);
 	ymf.add_route(0, "lspeaker", 0.50);
 	ymf.add_route(1, "rspeaker", 0.50);
-	ymf.add_route(2, "lspeaker", 0.50);
-	ymf.add_route(3, "rspeaker", 0.50);
-	ymf.add_route(4, "lspeaker", 0.40);
-	ymf.add_route(5, "rspeaker", 0.40);
-	ymf.add_route(6, "lspeaker", 0.40);
-	ymf.add_route(7, "rspeaker", 0.40);
+	ymf.add_route(2, "lspeaker", 0.40);
+	ymf.add_route(3, "rspeaker", 0.40);
+	ymf.add_route(4, "lspeaker", 0.50);
+	ymf.add_route(5, "rspeaker", 0.50);
 }
 
 /***************************************************************************

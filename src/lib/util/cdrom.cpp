@@ -16,11 +16,11 @@
 
 ***************************************************************************/
 
-#include <assert.h>
+#include <cassert>
 
 #include "cdrom.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "chdcd.h"
 
 
@@ -558,7 +558,7 @@ uint32_t cdrom_read_data(cdrom_file *file, uint32_t lbasector, void *buffer, uin
 		/* return 2352 byte mode 1 raw sector from 2048 bytes of mode 1 data */
 		if ((datatype == CD_TRACK_MODE1_RAW) && (tracktype == CD_TRACK_MODE1))
 		{
-			uint8_t *bufptr = (uint8_t *)buffer;
+			auto *bufptr = (uint8_t *)buffer;
 			uint32_t msf = lba_to_msf(lbasector);
 
 			static const uint8_t syncbytes[12] = {0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00};
@@ -1247,7 +1247,7 @@ chd_error cdrom_parse_metadata(chd_file *chd, cdrom_toc *toc)
 		return err;
 
 	/* reconstruct the TOC from it */
-	uint32_t *mrp = reinterpret_cast<uint32_t *>(&oldmetadata[0]);
+	auto *mrp = reinterpret_cast<uint32_t *>(&oldmetadata[0]);
 	toc->numtrks = *mrp++;
 
 	for (i = 0; i < CD_MAX_TRACKS; i++)
@@ -1323,7 +1323,7 @@ chd_error cdrom_write_metadata(chd_file *chd, const cdrom_toc *toc)
 				strcpy(submode, cdrom_get_type_string(toc->tracks[i].pgtype));
 			}
 
-			metadata = string_format(CDROM_TRACK_METADATA2_FORMAT, i + 1, cdrom_get_type_string(toc->tracks[i].trktype),
+			metadata = util::string_format(CDROM_TRACK_METADATA2_FORMAT, i + 1, cdrom_get_type_string(toc->tracks[i].trktype),
 					cdrom_get_subtype_string(toc->tracks[i].subtype), toc->tracks[i].frames, toc->tracks[i].pregap,
 					submode, cdrom_get_subtype_string(toc->tracks[i].pgsub),
 					toc->tracks[i].postgap);
@@ -1331,7 +1331,7 @@ chd_error cdrom_write_metadata(chd_file *chd, const cdrom_toc *toc)
 		}
 		else
 		{
-			metadata = string_format(GDROM_TRACK_METADATA_FORMAT, i + 1, cdrom_get_type_string(toc->tracks[i].trktype),
+			metadata = util::string_format(GDROM_TRACK_METADATA_FORMAT, i + 1, cdrom_get_type_string(toc->tracks[i].trktype),
 					cdrom_get_subtype_string(toc->tracks[i].subtype), toc->tracks[i].frames, toc->tracks[i].padframes,
 					toc->tracks[i].pregap, cdrom_get_type_string(toc->tracks[i].pgtype),
 					cdrom_get_subtype_string(toc->tracks[i].pgsub), toc->tracks[i].postgap);

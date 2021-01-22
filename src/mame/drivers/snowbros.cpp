@@ -87,13 +87,13 @@ a joystick.  This is not an emulation bug.
 #include "speaker.h"
 
 
-WRITE8_MEMBER(snowbros_state::snowbros_flipscreen_w)
+void snowbros_state::snowbros_flipscreen_w(uint8_t data)
 {
 	m_pandora->flip_screen_set(!BIT(data, 7));
 }
 
 
-WRITE8_MEMBER(snowbros_state::bootleg_flipscreen_w)
+void snowbros_state::bootleg_flipscreen_w(uint8_t data)
 {
 	flip_screen_set(~data & 0x80);
 }
@@ -119,17 +119,17 @@ WRITE_LINE_MEMBER(snowbros_state::screen_vblank_snowbros)
 
 
 
-WRITE16_MEMBER(snowbros_state::snowbros_irq4_ack_w)
+void snowbros_state::snowbros_irq4_ack_w(uint16_t data)
 {
 	m_maincpu->set_input_line(4, CLEAR_LINE);
 }
 
-WRITE16_MEMBER(snowbros_state::snowbros_irq3_ack_w)
+void snowbros_state::snowbros_irq3_ack_w(uint16_t data)
 {
 	m_maincpu->set_input_line(3, CLEAR_LINE);
 }
 
-WRITE16_MEMBER(snowbros_state::snowbros_irq2_ack_w)
+void snowbros_state::snowbros_irq2_ack_w(uint16_t data)
 {
 	m_maincpu->set_input_line(2, CLEAR_LINE);
 }
@@ -181,7 +181,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(snowbros_state::snowbros3_irq)
 
 }
 
-READ16_MEMBER(snowbros_state::toto_read)
+uint16_t snowbros_state::toto_read(offs_t offset, uint16_t mem_mask)
 {
 	int pc = m_maincpu->pc();
 	if ((pc!= 0x3f010) && (pc!= 0x38008)) printf("toto prot %08x %04x\n", pc, mem_mask);
@@ -226,7 +226,7 @@ void snowbros_state::sound_io_map(address_map &map)
 /* Semicom AT89C52 MCU */
 
 // probably not endian safe
-WRITE8_MEMBER(snowbros_state::prot_p0_w)
+void snowbros_state::prot_p0_w(uint8_t data)
 {
 	uint16_t word = m_hyperpac_ram[(0xe000/2)+m_semicom_prot_offset];
 	word = (word & 0xff00) | (data << 0);
@@ -234,14 +234,14 @@ WRITE8_MEMBER(snowbros_state::prot_p0_w)
 }
 
 // probably not endian safe
-WRITE8_MEMBER(snowbros_state::prot_p1_w)
+void snowbros_state::prot_p1_w(uint8_t data)
 {
 	uint16_t word = m_hyperpac_ram[(0xe000/2)+m_semicom_prot_offset];
 	word = (word & 0x00ff) | (data << 8);
 	m_hyperpac_ram[(0xe000/2)+m_semicom_prot_offset] = word;
 }
 
-WRITE8_MEMBER(snowbros_state::prot_p2_w)
+void snowbros_state::prot_p2_w(uint8_t data)
 {
 	// offset
 	m_semicom_prot_offset = data;
@@ -322,7 +322,7 @@ void snowbros_state::twinadv_map(address_map &map)
 	map(0xa00000, 0xa00001).w(FUNC(snowbros_state::snowbros_irq2_ack_w));  /* IRQ 2 acknowledge */
 }
 
-WRITE8_MEMBER(snowbros_state::twinadv_oki_bank_w)
+void snowbros_state::twinadv_oki_bank_w(uint8_t data)
 {
 	int bank = (data &0x02)>>1;
 
@@ -353,7 +353,7 @@ void snowbros_state::hyperpac_map(address_map &map)
 	map(0x000000, 0x0fffff).rom();
 	map(0x100000, 0x10ffff).ram().share("hyperpac_ram");
 	map(0x300001, 0x300001).w(m_soundlatch, FUNC(generic_latch_8_device::write));
-//  AM_RANGE(0x400000, 0x400001) ???
+//  map(0x400000, 0x400001) ???
 	map(0x500000, 0x500001).portr("DSW1");
 	map(0x500002, 0x500003).portr("DSW2");
 	map(0x500004, 0x500005).portr("SYSTEM");
@@ -376,7 +376,7 @@ void snowbros_state::hyperpac_sound_map(address_map &map)
 
 /* Same volume used for all samples at the Moment, could be right, we have no
    way of knowing .. */
-READ16_MEMBER(snowbros_state::sb3_sound_r)
+uint16_t snowbros_state::sb3_sound_r()
 {
 	return 0x0003;
 }
@@ -445,7 +445,7 @@ void snowbros_state::sb3_play_sound (int data)
 
 }
 
-WRITE16_MEMBER(snowbros_state::sb3_sound_w)
+void snowbros_state::sb3_sound_w(uint16_t data)
 {
 	if (data == 0x00fe)
 	{
@@ -506,7 +506,7 @@ void snowbros_state::finalttr_map(address_map &map)
 	map(0x000000, 0x0fffff).rom();
 	map(0x100000, 0x103fff).ram().share("hyperpac_ram");
 	map(0x300001, 0x300001).w(m_soundlatch, FUNC(generic_latch_8_device::write));
-//  AM_RANGE(0x400000, 0x400001) ???
+//  map(0x400000, 0x400001) ???
 
 	map(0x500000, 0x500001).portr("DSW1");
 	map(0x500002, 0x500003).portr("DSW2");
@@ -524,7 +524,7 @@ void snowbros_state::finalttr_map(address_map &map)
 // The sequence MEN is sent to the protection device, followed by the code request (4 bytes in all).
 // After each byte, a number of NOPs are executed to give the device time to catch up.
 // After the 4th byte, the code reads the device to get its response.
-READ16_MEMBER(snowbros_state::yutnori_prot_r)
+uint16_t snowbros_state::yutnori_prot_r()
 {
 	switch(m_yutnori_prot_val) // the 4th byte
 	{
@@ -539,7 +539,7 @@ READ16_MEMBER(snowbros_state::yutnori_prot_r)
 	return 0;
 }
 
-WRITE16_MEMBER(snowbros_state::yutnori_prot_w)
+void snowbros_state::yutnori_prot_w(uint16_t data)
 {
 	m_yutnori_prot_val = data;
 }
@@ -558,9 +558,9 @@ void snowbros_state::yutnori_map(address_map &map)
 
 	// could be one of the OKIs? but gets value to write from RAM, always seems to be 0?
 	map(0x30000c, 0x30000d).nopw();
-	map(0x30000e, 0x30000f).nopr(); //AM_READ( yutnori_unk_r ) // ??
+	map(0x30000e, 0x30000f).nopr(); //.r(FUNC(snowbros_state::yutnori_unk_r)); // ??
 
-//  AM_RANGE(0x400000, 0x400001) AM_DEVWRITE("watchdog", watchdog_timer_device, reset16_w) // maybe?
+//  map(0x400000, 0x400001).w("watchdog", FUNC(watchdog_timer_device::reset16_w)); // maybe?
 	map(0x400000, 0x400001).noprw();
 
 	map(0x500000, 0x5001ff).ram().w(m_palette, FUNC(palette_device::write16)).share("palette");
@@ -1635,19 +1635,8 @@ INPUT_PORTS_END
 
 /* SnowBros */
 
-static const gfx_layout tilelayout =
-{
-	16,16,
-	RGN_FRAC(1,1),
-	4,
-	{ 0, 1, 2, 3 },
-	{ STEP8(0,4), STEP8(8*32,4) },
-	{ STEP8(0,32), STEP8(16*32,32) },
-	32*32
-};
-
 static GFXDECODE_START( gfx_snowbros )
-	GFXDECODE_ENTRY( "gfx1", 0, tilelayout,  0, 16 )
+	GFXDECODE_ENTRY( "gfx1", 0, gfx_8x8x4_row_2x2_group_packed_msb, 0, 16 )
 GFXDECODE_END
 
 /* Honey Doll */
@@ -1664,13 +1653,13 @@ static const gfx_layout honeydol_tilelayout8bpp =
 };
 
 static GFXDECODE_START( gfx_honeydol )
-	GFXDECODE_ENTRY( "gfx1", 0, tilelayout,  0, 64 ) // how does it use 0-15
-	GFXDECODE_ENTRY( "gfx2", 0, honeydol_tilelayout8bpp,  0, 4 )
+	GFXDECODE_ENTRY( "gfx1", 0, gfx_8x8x4_row_2x2_group_packed_msb, 0, 64 ) // how does it use 0-15
+	GFXDECODE_ENTRY( "gfx2", 0, honeydol_tilelayout8bpp,            0,  4 )
 
 GFXDECODE_END
 
 static GFXDECODE_START( gfx_twinadv )
-	GFXDECODE_ENTRY( "gfx1", 0, tilelayout,  0, 64 )
+	GFXDECODE_ENTRY( "gfx1", 0, gfx_8x8x4_row_2x2_group_packed_msb, 0, 64 )
 GFXDECODE_END
 
 /* Winter Bobble */
@@ -1687,7 +1676,7 @@ static const gfx_layout tilelayout_wb =
 };
 
 static GFXDECODE_START( gfx_wb )
-	GFXDECODE_ENTRY( "gfx1", 0, tilelayout_wb,  0, 16 )
+	GFXDECODE_ENTRY( "gfx1", 0, tilelayout_wb, 0, 16 )
 GFXDECODE_END
 
 /* SemiCom */
@@ -1721,12 +1710,12 @@ static const gfx_layout sb3_tilebglayout =
 
 
 static GFXDECODE_START( gfx_sb3 )
-	GFXDECODE_ENTRY( "gfx1", 0, tilelayout,  0, 16 )
-	GFXDECODE_ENTRY( "gfx2", 0, sb3_tilebglayout,  0, 2 )
+	GFXDECODE_ENTRY( "gfx1", 0, gfx_8x8x4_row_2x2_group_packed_msb, 0, 16 )
+	GFXDECODE_ENTRY( "gfx2", 0, sb3_tilebglayout,                   0,  2 )
 GFXDECODE_END
 
 static GFXDECODE_START( gfx_hyperpac )
-	GFXDECODE_ENTRY( "gfx1", 0, hyperpac_tilelayout,  0, 16 )
+	GFXDECODE_ENTRY( "gfx1", 0, hyperpac_tilelayout, 0, 16 )
 GFXDECODE_END
 
 MACHINE_RESET_MEMBER(snowbros_state,semiprot)
@@ -1963,6 +1952,7 @@ void snowbros_state::finalttr(machine_config &config)
 	ymsnd.add_route(1, "mono", 0.08);
 
 	m_oki->set_clock(999900);
+	m_oki->reset_routes().add_route(ALL_OUTPUTS, "mono", 0.4);
 }
 
 
@@ -2389,6 +2379,27 @@ ROM_START( twinkle )
 	ROM_LOAD( "ua4.bin", 0x000000, 0x80000, CRC(6b64bb09) SHA1(547eac1ad931a6b937dff0b922d06af92cc7ab73) )
 ROM_END
 
+ROM_START( twinklea )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "uh12.bin", 0x00001, 0x20000, CRC(6cc6e53c) SHA1(26584d2b99878230a33c1c2c8d71e758b0c09cac) ) // sldh
+	ROM_LOAD16_BYTE( "ui12.bin", 0x00000, 0x20000, CRC(79420382) SHA1(13183d819f5b7699e8e0974c193796151a0a9617) ) // sldh
+
+	ROM_REGION( 0x10000, "soundcpu", 0 )
+	ROM_LOAD( "u1.bin", 0x00000, 0x10000 , CRC(e40481da) SHA1(1c1fabcb67693235eaa6ff59ae12a35854b5564a) )
+
+	ROM_REGION( 0x10000, "cpu2", 0 ) // Intel 87C52 MCU Code
+	ROM_LOAD( "87c52.mcu", 0x00000, 0x10000 , NO_DUMP ) // needs decapping
+
+	ROM_REGION16_BE( 0x200, "user1", 0 ) // Data from Shared RAM
+	// this is not a real rom but instead the data extracted from shared ram, the MCU puts it there
+	ROM_LOAD16_WORD( "protdata.bin", 0x00000, 0x200, BAD_DUMP CRC(00d3e4b4) SHA1(afa359a8b48605ff034133bad2a0a182429dec71) ) // this has been extracted for the parent set, seems to work for this set, too
+
+	ROM_REGION( 0x040000, "oki", 0 )
+	ROM_LOAD( "uj15.bin", 0x00000, 0x40000, CRC(0a534b37) SHA1(b7d780eb4668f1f757a60884c022f5bbc424dc97) )
+
+	ROM_REGION( 0x080000, "gfx1", 0 ) // Sprites
+	ROM_LOAD( "ua4.bin", 0x000000, 0x80000, CRC(6b64bb09) SHA1(547eac1ad931a6b937dff0b922d06af92cc7ab73) )
+ROM_END
 
 ROM_START( pzlbreak )
 	ROM_REGION( 0x100000, "maincpu", 0 ) /* 68000 Code */
@@ -2565,13 +2576,24 @@ ROM_START( mcheonru ) /* SemiCom Ser-4331-4 PCB */
 	ROM_LOAD( "u78", 0x180000, 0x80000, CRC(f1b74978) SHA1(d1ac1bc212050d4f1a861045ab612115c73d3fd0) )
 ROM_END
 
+/*
+
+Cookie & Bibi 2
+SemiCom (c) 1996
+
+  CPU: MC68000P10, Z8400B Z80
+Sound: OKIM6295, YM2151+YM3012 (rebadged as AD-65, KA51+K-662)
+Video: Lattice pLSI 1032-60LJ (square 84 pin socketed)
+  OSC: 16MHz, 12MHz
+*/
+
 ROM_START( cookbib2 )
 	ROM_REGION( 0x100000, "maincpu", 0 ) /* 68000 Code */
-	ROM_LOAD16_BYTE( "cookbib2.02",  0x00001, 0x40000, CRC(b2909460) SHA1(2438638af870cfc105631d2b5e5a27a64ab5394d) )
-	ROM_LOAD16_BYTE( "cookbib2.01",  0x00000, 0x40000, CRC(65aafde2) SHA1(01f9f261527c35182f0445d641d987aa86ad750f) )
+	ROM_LOAD16_BYTE( "unico_02.uh12",  0x00001, 0x40000, CRC(b2909460) SHA1(2438638af870cfc105631d2b5e5a27a64ab5394d) ) // 27C020
+	ROM_LOAD16_BYTE( "unico_01.ui12",  0x00000, 0x40000, CRC(65aafde2) SHA1(01f9f261527c35182f0445d641d987aa86ad750f) ) // 27C020
 
 	ROM_REGION( 0x10000, "soundcpu", 0 ) /* Z80 Code */
-	ROM_LOAD( "cookbib2.07", 0x00000, 0x10000 , CRC(f59f1c9a) SHA1(2830261fd55249e015514fcb4cf8392e83b7fd0d) )
+	ROM_LOAD( "unico_07.u1", 0x00000, 0x10000 , CRC(f59f1c9a) SHA1(2830261fd55249e015514fcb4cf8392e83b7fd0d) ) // 27C512
 
 	ROM_REGION( 0x10000, "cpu2", 0 ) /* Intel 87C52 MCU Code */
 	ROM_LOAD( "87c52.mcu", 0x00000, 0x10000 , NO_DUMP ) /* can't be dumped */
@@ -2582,15 +2604,42 @@ ROM_START( cookbib2 )
 	ROM_LOAD16_WORD_SWAP( "protdata.bin", 0x00000, 0x200 , CRC(ae6d8ed5) SHA1(410cdacb9b90ea345c0e4be85e60a138f45a51f1) )
 
 	ROM_REGION( 0x040000, "oki", 0 ) /* Samples */
-	ROM_LOAD( "cookbib2.06", 0x00000, 0x20000, CRC(5e6f76b8) SHA1(725800143dfeaa6093ed5fcc5b9f15678ae9e547) )
+	ROM_LOAD( "unico_06.uj15", 0x00000, 0x20000, CRC(5e6f76b8) SHA1(725800143dfeaa6093ed5fcc5b9f15678ae9e547) ) // 27C010
 
 	ROM_REGION( 0x140000, "gfx1", 0 ) /* Sprites */
-	ROM_LOAD( "cookbib2.05", 0x000000, 0x80000, CRC(89fb38ce) SHA1(1b39dd9c2743916b8d8af590bd92fe4819c2454b) )
-	ROM_LOAD( "cookbib2.04", 0x080000, 0x80000, CRC(f240111f) SHA1(b2c3b6e3d916fc68e1fd258b1279b6c39e1f0108) )
-	ROM_LOAD( "cookbib2.03", 0x100000, 0x40000, CRC(e1604821) SHA1(bede6bdd8331128b9f2b229d718133470bf407c9) )
+	ROM_LOAD( "unico_05.ua4", 0x000000, 0x80000, CRC(89fb38ce) SHA1(1b39dd9c2743916b8d8af590bd92fe4819c2454b) ) // 27C040
+	ROM_LOAD( "unico_04.ua5", 0x080000, 0x80000, CRC(f240111f) SHA1(b2c3b6e3d916fc68e1fd258b1279b6c39e1f0108) ) // 27C040
+	ROM_LOAD( "unico_03.ua6", 0x100000, 0x40000, CRC(e1604821) SHA1(bede6bdd8331128b9f2b229d718133470bf407c9) ) // 27C020
+	/* UA7 is unpopulated */
 ROM_END
 
 ROM_START( cookbib2a )
+	ROM_REGION( 0x100000, "maincpu", 0 ) /* 68000 Code */
+	ROM_LOAD16_BYTE( "unico.uh12",  0x00001, 0x40000, CRC(19421631) SHA1(00dfc474cee7d21d4b6bdbae2eabcdfde3584307) ) // non descriptive UNICO label with no numbers
+	ROM_LOAD16_BYTE( "unico.ui12",  0x00000, 0x40000, CRC(0d09ecf5) SHA1(16f787638041d38ee2567ca958ca4405324cf5fa) ) // both program ROMs are 27C020
+
+	ROM_REGION( 0x10000, "soundcpu", 0 ) /* Z80 Code */
+	ROM_LOAD( "unico_07.u1", 0x00000, 0x10000 , CRC(f59f1c9a) SHA1(2830261fd55249e015514fcb4cf8392e83b7fd0d) ) // 27C512
+
+	ROM_REGION( 0x10000, "cpu2", 0 ) /* Intel 87C52 MCU Code */
+	ROM_LOAD( "87c52.mcu", 0x00000, 0x10000 , NO_DUMP ) /* can't be dumped */
+
+	ROM_REGION( 0x200, "user1", 0 ) /* Data from Shared RAM */
+	/* this is not a real rom but instead the data extracted from
+	   shared ram, the MCU puts it there */
+	ROM_LOAD16_WORD_SWAP( "protdata.bin", 0x00000, 0x200 , CRC(ae6d8ed5) SHA1(410cdacb9b90ea345c0e4be85e60a138f45a51f1) )
+
+	ROM_REGION( 0x040000, "oki", 0 ) /* Samples */
+	ROM_LOAD( "unico_06.uj15", 0x00000, 0x20000, CRC(5e6f76b8) SHA1(725800143dfeaa6093ed5fcc5b9f15678ae9e547) ) // 27C010
+
+	ROM_REGION( 0x140000, "gfx1", 0 ) /* Sprites */
+	ROM_LOAD( "unico_05.ua4", 0x000000, 0x80000, CRC(89fb38ce) SHA1(1b39dd9c2743916b8d8af590bd92fe4819c2454b) ) // 27C040
+	ROM_LOAD( "unico_04.ua5", 0x080000, 0x80000, CRC(f240111f) SHA1(b2c3b6e3d916fc68e1fd258b1279b6c39e1f0108) ) // 27C040
+	ROM_LOAD( "unico_03.ua6", 0x100000, 0x40000, CRC(e1604821) SHA1(bede6bdd8331128b9f2b229d718133470bf407c9) ) // 27C020
+	/* UA7 is unpopulated */
+ROM_END
+
+ROM_START( cookbib2b )
 	ROM_REGION( 0x100000, "maincpu", 0 ) /* 68000 Code */
 	ROM_LOAD16_BYTE( "uh12.020",  0x00001, 0x40000, CRC(a44ec1f8) SHA1(0c741bf38f5cf667586cd1925417b6e17dbb8916) )
 	ROM_LOAD16_BYTE( "ui12.020",  0x00000, 0x40000, CRC(bdbcd0d1) SHA1(9a6a85a492c21f6dd5daef964071a8a1c62f73c8) )
@@ -2797,7 +2846,7 @@ void snowbros_state::init_cookbib2()
 }
 
 
-READ16_MEMBER(snowbros_state::_4in1_02_read)
+uint16_t snowbros_state::_4in1_02_read()
 {
 	return 0x0202;
 }
@@ -2827,7 +2876,7 @@ void snowbros_state::init_4in1boot()
 			buffer[i] = src[i^0x4000];
 		memcpy(src,&buffer[0],len);
 	}
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x200001, read16_delegate(FUNC(snowbros_state::_4in1_02_read),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x200001, read16smo_delegate(*this, FUNC(snowbros_state::_4in1_02_read)));
 }
 
 void snowbros_state::init_snowbro3()
@@ -2847,25 +2896,25 @@ void snowbros_state::init_snowbro3()
 	save_item(NAME(m_sb3_music));
 }
 
-READ16_MEMBER(snowbros_state::_3in1_read)
+uint16_t snowbros_state::_3in1_read()
 {
 	return 0x000a;
 }
 
 void snowbros_state::init_3in1semi()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x200001, read16_delegate(FUNC(snowbros_state::_3in1_read),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x200001, read16smo_delegate(*this, FUNC(snowbros_state::_3in1_read)));
 }
 
 
-READ16_MEMBER(snowbros_state::cookbib3_read)
+uint16_t snowbros_state::cookbib3_read()
 {
 	return 0x2a2a;
 }
 
 void snowbros_state::init_cookbib3()
 {
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x200001, read16_delegate(FUNC(snowbros_state::cookbib3_read),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x200000, 0x200001, read16smo_delegate(*this, FUNC(snowbros_state::cookbib3_read)));
 }
 
 void snowbros_state::init_pzlbreak()
@@ -2903,7 +2952,7 @@ void snowbros_state::init_toto()
 	}
 
 	// protection? (just return 0x07)
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0x500006, 0x500007, read16_delegate(FUNC(snowbros_state::toto_read),this));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0x500006, 0x500007, read16s_delegate(*this, FUNC(snowbros_state::toto_read)));
 }
 
 void snowbros_state::init_hyperpac()
@@ -2937,12 +2986,14 @@ GAME( 1993, finalttr,   0,        finalttr,    finalttr, snowbros_state, empty_i
 GAME( 1995, hyperpac,   0,        semicom_mcu, hyperpac, snowbros_state, init_hyperpac, ROT0, "SemiCom",              "Hyper Pacman", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, hyperpacb,  hyperpac, semicom,     hyperpac, snowbros_state, empty_init,    ROT0, "bootleg",              "Hyper Pacman (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, cookbib2,   0,        semiprot,    cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, cookbib2a,  cookbib2, semiprot,    cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 2)", MACHINE_SUPPORTS_SAVE ) // older? test mode looks even worse on this, but neither shows the correct dip info anyway
+GAME( 1996, cookbib2a,  cookbib2, semiprot,    cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, cookbib2b,  cookbib2, semiprot,    cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 3)", MACHINE_SUPPORTS_SAVE ) // older? test mode looks even worse on this, but neither shows the correct dip info anyway
 GAME( 1996, toppyrap,   0,        semiprot,    toppyrap, snowbros_state, empty_init,    ROT0, "SemiCom",              "Toppy & Rappy", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, cookbib3,   0,        semiprot,    cookbib3, snowbros_state, init_cookbib3, ROT0, "SemiCom",              "Cookie & Bibi 3", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, pzlbreak,   0,        semiprot,    pzlbreak, snowbros_state, init_pzlbreak, ROT0, "SemiCom / Tirano",     "Puzzle Break", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, suhosong,   0,        semiprot,    suhosong, snowbros_state, empty_init,    ROT0, "SemiCom",              "Su Ho Seong", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, twinkle,    0,        semiprot,    twinkle,  snowbros_state, empty_init,    ROT0, "SemiCom / Tirano",     "Twinkle", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, twinkle,    0,        semiprot,    twinkle,  snowbros_state, empty_init,    ROT0, "SemiCom / Tirano",     "Twinkle (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, twinklea,   twinkle,  semiprot,    twinkle,  snowbros_state, empty_init,    ROT0, "SemiCom / Tirano",     "Twinkle (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, 3in1semi,   0,        semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / XESS",       "New HyperMan (3-in-1 with Cookie & Bibi & HyperMan)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, mcheonru,   0,        semiprot,    mcheonru, snowbros_state, init_3in1semi, ROT0, "SemiCom / AceVer",     "Ma Cheon Ru", MACHINE_SUPPORTS_SAVE ) // a flyer exists for an English version called Arirang, AceVer team logo is displayed on it
 GAME( 1999, moremore,   0,        semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / Exit",       "More More", MACHINE_SUPPORTS_SAVE )

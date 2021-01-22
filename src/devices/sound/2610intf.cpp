@@ -62,20 +62,20 @@ void ym2610_device::timer_handler(int c,int count,int clock)
 }
 
 //-------------------------------------------------
-//  sound_stream_update - handle a stream update
+//  stream_generate - handle a stream update
 //-------------------------------------------------
-void ym2610_device::stream_generate(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void ym2610_device::stream_generate(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
-	ym2610_update_one(m_chip, outputs, samples);
+	ym2610_update_one(m_chip, outputs);
 }
 
 //-------------------------------------------------
-//  sound_stream_update - handle a stream update
+//  stream_generate - handle a stream update
 //-------------------------------------------------
 
-void ym2610b_device::stream_generate(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void ym2610b_device::stream_generate(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
-	ym2610b_update_one(m_chip, outputs, samples);
+	ym2610b_update_one(m_chip, outputs);
 }
 
 
@@ -102,7 +102,7 @@ void ym2610_device::device_start()
 	m_timer[1] = timer_alloc(1);
 
 	/* stream system initialize */
-	m_stream = machine().sound().stream_alloc(*this,0,2,rate, stream_update_delegate(&ym2610_device::stream_generate,this));
+	m_stream = machine().sound().stream_alloc(*this,0,2,rate, stream_update_delegate(&ym2610_device::stream_generate,this), STREAM_DEFAULT_FLAGS);
 
 	if (!has_configured_map(0) && !has_configured_map(1))
 	{
@@ -117,9 +117,10 @@ void ym2610_device::device_start()
 
 	/**** initialize YM2610 ****/
 	m_chip = ym2610_init(this, clock(), rate,
-		&ym2610_device::static_adpcm_a_read_byte, &ym2610_device::static_adpcm_b_read_byte,
-		&ym2610_device::static_timer_handler, &ym2610_device::static_irq_handler, &psgintf);
-	assert_always(m_chip != nullptr, "Error creating YM2610 chip");
+			&ym2610_device::static_adpcm_a_read_byte, &ym2610_device::static_adpcm_b_read_byte,
+			&ym2610_device::static_timer_handler, &ym2610_device::static_irq_handler, &psgintf);
+	if (!m_chip)
+		throw emu_fatalerror("ym2610_device(%s): Error creating YM2610 chip", tag());
 }
 
 //-------------------------------------------------

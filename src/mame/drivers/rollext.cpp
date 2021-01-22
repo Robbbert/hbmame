@@ -123,7 +123,7 @@ void rollext_renderer::render_texture_scan(int32_t scanline, const extent_t &ext
 	float du = extent.param[0].dpdx;
 	float dv = extent.param[1].dpdx;
 
-	uint32_t *fb = &m_fb->pix32(scanline);
+	uint32_t *fb = &m_fb->pix(scanline);
 
 	uint32_t texbot = extradata.tex_bottom;
 	uint32_t texleft = extradata.tex_left;
@@ -300,11 +300,11 @@ private:
 	required_shared_ptr<uint32_t> m_disp_ram;
 	required_device<screen_device> m_screen;
 
-	DECLARE_READ32_MEMBER(a0000000_r);
-	DECLARE_WRITE32_MEMBER(a0000000_w);
-	DECLARE_READ32_MEMBER(b0000000_r);
+	uint32_t a0000000_r(offs_t offset);
+	void a0000000_w(uint32_t data);
+	uint32_t b0000000_r(offs_t offset);
 
-	DECLARE_WRITE32_MEMBER(cmd_callback);
+	void cmd_callback(address_space &space, uint32_t data);
 
 	std::unique_ptr<uint8_t[]> m_texture;
 	std::unique_ptr<rollext_renderer> m_renderer;
@@ -361,7 +361,7 @@ uint32_t rollext_state::screen_update(screen_device &screen, bitmap_rgb32 &bitma
 	int ii=0;
 	for (int j=0; j < 384; j++)
 	{
-		uint32_t *fb = &bitmap.pix32(j);
+		uint32_t *fb = &bitmap.pix(j);
 		for (int i=0; i < 512; i++)
 		{
 			uint8_t p = m_texture[ii++];
@@ -388,7 +388,7 @@ uint32_t rollext_state::screen_update(screen_device &screen, bitmap_rgb32 &bitma
 }
 
 
-READ32_MEMBER(rollext_state::a0000000_r)
+uint32_t rollext_state::a0000000_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -409,12 +409,12 @@ READ32_MEMBER(rollext_state::a0000000_r)
 	return 0xffffffff;
 }
 
-WRITE32_MEMBER(rollext_state::a0000000_w)
+void rollext_state::a0000000_w(uint32_t data)
 {
 	// FPGA interface?
 }
 
-READ32_MEMBER(rollext_state::b0000000_r)
+uint32_t rollext_state::b0000000_r(offs_t offset)
 {
 	switch (offset)
 	{
@@ -427,7 +427,7 @@ READ32_MEMBER(rollext_state::b0000000_r)
 	return 0;
 }
 
-WRITE32_MEMBER(rollext_state::cmd_callback)
+void rollext_state::cmd_callback(address_space &space, uint32_t data)
 {
 	uint32_t command = data;
 
@@ -521,7 +521,7 @@ void rollext_state::memmap(address_map &map)
 	map(0xa0000000, 0xa00000ff).rw(FUNC(rollext_state::a0000000_r), FUNC(rollext_state::a0000000_w));
 	map(0xb0000000, 0xb0000007).r(FUNC(rollext_state::b0000000_r));
 	map(0xc0000000, 0xc03fffff).rom().region("rom1", 0);
-	map(0xff000000, 0xffffffff).ram().region("rom0", 0);
+	map(0xff000000, 0xffffffff).rom().region("rom0", 0);
 }
 
 
@@ -554,7 +554,7 @@ void rollext_state::rollext(machine_config &config)
 	tms32082_pp_device &pp0(TMS32082_PP(config, "pp0", 60000000));
 	pp0.set_addrmap(AS_PROGRAM, &rollext_state::memmap);
 
-	config.m_minimum_quantum = attotime::from_hz(100);
+	config.set_maximum_quantum(attotime::from_hz(100));
 
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_refresh_hz(60);
@@ -572,7 +572,7 @@ INTERRUPT_GEN_MEMBER(rollext_state::vblank_interrupt)
 
 void rollext_state::init_rollext()
 {
-	m_maincpu->set_command_callback(write32_delegate(FUNC(rollext_state::cmd_callback),this));
+	m_maincpu->set_command_callback(*this, FUNC(rollext_state::cmd_callback));
 }
 
 

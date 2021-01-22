@@ -17,9 +17,6 @@
   Hang-On (Sonic)
   Ator (Video Dens)
 
-  Others not emulated (need roms):
-  Storm (Sonic)
-
   Sir Lancelot (Peyper, 1994)
   - CPU is a B409 (could be a higher-speed Z80)
   - Audio CPU is a TMP91P640F-10. Other audio chips are YMF262 and YAC512.
@@ -42,6 +39,8 @@ ToDo:
 
 #include "peyper.lh"
 
+namespace {
+
 class peyper_state : public genpin_class
 {
 public:
@@ -51,29 +50,32 @@ public:
 		, m_switch(*this, "SWITCH.%u", 0)
 		, m_leds(*this, "led_%u", 1U)
 		, m_dpl(*this, "dpl_%u", 0U)
-	{ }
+	{
+		std::fill(std::begin(m_disp_layout), std::end(m_disp_layout), 0);
+	}
 
-	DECLARE_CUSTOM_INPUT_MEMBER(wolfman_replay_hs_r);
+	template <int Mask> DECLARE_CUSTOM_INPUT_MEMBER(wolfman_replay_hs_r);
 	void init_peyper();
 	void init_odin();
 	void init_wolfman();
 
 	void peyper(machine_config &config);
 
-private:
-	DECLARE_READ8_MEMBER(sw_r);
-	DECLARE_WRITE8_MEMBER(col_w);
-	DECLARE_WRITE8_MEMBER(disp_w);
-	DECLARE_WRITE8_MEMBER(lamp_w);
-	DECLARE_WRITE8_MEMBER(lamp7_w);
-	DECLARE_WRITE8_MEMBER(sol_w);
-	DECLARE_WRITE8_MEMBER(p1a_w) { } // more lamps
-	DECLARE_WRITE8_MEMBER(p1b_w) { } // more lamps
-	DECLARE_WRITE8_MEMBER(p2a_w) { } // more lamps
-	DECLARE_WRITE8_MEMBER(p2b_w) { } // more lamps
-
+protected:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
+
+private:
+	uint8_t sw_r();
+	void col_w(uint8_t data);
+	void disp_w(uint8_t data);
+	void lamp_w(offs_t offset, uint8_t data);
+	void lamp7_w(uint8_t data);
+	void sol_w(uint8_t data);
+	void p1a_w(uint8_t data) { } // more lamps
+	void p1b_w(uint8_t data) { } // more lamps
+	void p2a_w(uint8_t data) { } // more lamps
+	void p2b_w(uint8_t data) { } // more lamps
 
 	void peyper_io(address_map &map);
 	void peyper_map(address_map &map);
@@ -86,20 +88,20 @@ private:
 	output_finder<34> m_dpl; // 0 used as black hole
 };
 
-WRITE8_MEMBER( peyper_state::col_w )
+void peyper_state::col_w(uint8_t data)
 {
 	m_digit = data;
 }
 
-READ8_MEMBER( peyper_state::sw_r )
+uint8_t peyper_state::sw_r()
 {
-	if (m_digit < 4)
-		return m_switch[m_digit]->read();
+	if ((m_digit & 7) < 4)
+		return m_switch[m_digit & 7]->read();
 
 	return 0xff;
 }
 
-WRITE8_MEMBER( peyper_state::disp_w )
+void peyper_state::disp_w(uint8_t data)
 {
 	static const uint8_t patterns[16] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7c,0x07,0x7f,0x67,0x58,0x4c,0x62,0x69,0x78,0 }; // 7448
 /*
@@ -169,35 +171,34 @@ WRITE8_MEMBER( peyper_state::disp_w )
 	}
 }
 
-WRITE8_MEMBER(peyper_state::lamp_w)
+void peyper_state::lamp_w(offs_t offset, uint8_t data)
 {
 	//logerror("lamp_w %02x\n",data);
 	//logerror("[%d]= %02x\n",4+offset/4,data);
 }
 
-WRITE8_MEMBER(peyper_state::lamp7_w)
+void peyper_state::lamp7_w(uint8_t data)
 {
 	//logerror("[7]= %02x\n",data);
 }
 
-WRITE8_MEMBER(peyper_state::sol_w)
+void peyper_state::sol_w(uint8_t data)
 {
 	//logerror("sol_w %02x\n",data);
 }
 
 
+template <int Mask>
 CUSTOM_INPUT_MEMBER(peyper_state::wolfman_replay_hs_r)
 {
-	int bit_mask = (uintptr_t)param;
-
-	switch (bit_mask)
+	switch (Mask)
 	{
 		case 0x03:
-			return ((ioport("REPLAY")->read() & bit_mask) >> 0);
+			return ((ioport("REPLAY")->read() & Mask) >> 0);
 		case 0x40:
-			return ((ioport("REPLAY")->read() & bit_mask) >> 6);
+			return ((ioport("REPLAY")->read() & Mask) >> 6);
 		default:
-			logerror("wolfman_replay_hs_r : invalid %02X bit_mask\n",bit_mask);
+			logerror("wolfman_replay_hs_r : invalid %02X bit_mask\n",Mask);
 			return 0;
 	}
 }
@@ -511,14 +512,14 @@ static INPUT_PORTS_START( wolfman )
 	PORT_DIPSETTING(    0x20, "01" )
 //  PORT_DIPNAME( 0x18, 0x00, DEF_STR( Coinage ) )          // Partidas/Moneda - code at 0x0a69 - tables at 0x0b30 (4 * 3) - credits BCD stored at 0x6151
 //  PORT_DIPNAME( 0x04, 0x00, "Balls" )                     // Bolas/Partida - code at 0x0a5c - stored at 0x60bd
-	PORT_BIT( 0x03, 0x00, IPT_CUSTOM) PORT_CUSTOM_MEMBER(DEVICE_SELF, peyper_state,wolfman_replay_hs_r, (void *)0x03)
+	PORT_BIT( 0x03, 0x00, IPT_CUSTOM) PORT_CUSTOM_MEMBER(peyper_state, wolfman_replay_hs_r<0x03>)
 
 	/* DSW1 : port 0x24 - DSW1-1 is bit 7 ... DSW1-8 is bit 0 */
 	PORT_START("DSW1")
 	PORT_DIPNAME( 0x80, 0x00, "Adjust Replay" )             // Premios por Puntuacion - code at 0x0aa3 - stored at 0x60c4 and 0x60cc (0x00 NO / 0x05 YES)
 	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
 	PORT_DIPSETTING(    0x80, DEF_STR( Yes ) )
-	PORT_BIT( 0x40, 0x00, IPT_CUSTOM) PORT_CUSTOM_MEMBER(DEVICE_SELF, peyper_state,wolfman_replay_hs_r, (void *)0x40)
+	PORT_BIT( 0x40, 0x00, IPT_CUSTOM) PORT_CUSTOM_MEMBER(peyper_state, wolfman_replay_hs_r<0x40>)
 	PORT_DIPNAME( 0x20, 0x00, "Clear RAM on Reset" )        // Borrador RAM - code at 0x0ace - range 0x6141..0x616f - 0x616d = 0x5a and 0x616e = 0xa5
 	PORT_DIPSETTING(    0x00, DEF_STR( No ) )
 	PORT_DIPSETTING(    0x20, DEF_STR( Yes ) )
@@ -588,6 +589,8 @@ INPUT_PORTS_END
 void peyper_state::machine_start()
 {
 	genpin_class::machine_start();
+
+	m_digit = 0;
 
 	m_leds.resolve();
 	m_dpl.resolve();
@@ -861,7 +864,14 @@ ROM_END
 /*-------------------------------------------------------------------
 / Ator (1985)
 /-------------------------------------------------------------------*/
-ROM_START(ator)
+ROM_START(ator) // Version with 2 bumpers, probably older
+	ROM_REGION(0x6000, "maincpu", 0)
+	ROM_LOAD("ator1.bin", 0x0000, 0x2000, CRC(87967577) SHA1(6586401a4b1a837bacd61d156b44eedaab271479))
+	ROM_LOAD("ator2.bin", 0x2000, 0x2000, CRC(832b06ea) SHA1(c70c613fd29d1d560951890bce072cbf45525526))
+	// No ROM 3
+ROM_END
+
+ROM_START(ator3bmp) // Version with 3 bumpers, probably newer
 	ROM_REGION(0x6000, "maincpu", 0)
 	ROM_LOAD("1.bin", 0x0000, 0x2000, NO_DUMP)
 	ROM_LOAD("ator 2 _0xba29.bin", 0x2000, 0x2000, CRC(21aad5c4) SHA1(e78da5d80682710db34cbbfeae5af54241c73371))
@@ -883,6 +893,8 @@ ROM_START(lancelot)
 	ROM_LOAD("snd_u5.bin", 0x00000, 0x20000, CRC(bf141441) SHA1(630b852bb3bba0fcdae13ae548b1e9810bc64d7d))
 ROM_END
 
+} // Anonymous namespace
+
 GAME( 1985, odin,     0,        peyper,   odin_dlx, peyper_state, init_odin,    ROT0, "Peyper",     "Odin",                     MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
 GAME( 1985, odin_dlx, 0,        peyper,   odin_dlx, peyper_state, init_odin,    ROT0, "Sonic",      "Odin De Luxe",             MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
 GAME( 1986, solarwap, 0,        peyper,   solarwap, peyper_state, init_peyper,  ROT0, "Sonic",      "Solar Wars (Sonic)",       MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
@@ -894,5 +906,6 @@ GAME( 1987, wolfman,  0,        peyper,   wolfman,  peyper_state, init_wolfman, 
 GAME( 1986, nemesisp, 0,        peyper,   wolfman,  peyper_state, init_wolfman, ROT0, "Peyper",     "Nemesis",                  MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
 GAME( 1987, odisea,   0,        peyper,   odisea,   peyper_state, init_wolfman, ROT0, "Peyper",     "Odisea Paris-Dakar",       MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
 GAME( 1988, hangonp,  0,        peyper,   sonstwar, peyper_state, init_peyper,  ROT0, "Sonic",      "Hang-On (Sonic)",          MACHINE_MECHANICAL | MACHINE_NOT_WORKING ) // inputs to be checked
-GAME( 1985, ator,     0,        peyper,   sonstwar, peyper_state, init_peyper,  ROT0, "Video Dens", "Ator",                     MACHINE_MECHANICAL | MACHINE_NOT_WORKING ) // initial program ROM missing; no manual found
-GAME( 1994, lancelot, 0,        peyper,   sonstwar, peyper_state, empty_init,   ROT0,  "Peyper",    "Sir Lancelot",             MACHINE_IS_SKELETON_MECHANICAL) // different hardware (see top of file)
+GAME( 1985, ator,     0,        peyper,   sonstwar, peyper_state, init_peyper,  ROT0, "Video Dens", "Ator (set 1, 2 bumpers)",  MACHINE_MECHANICAL | MACHINE_NOT_WORKING ) // inputs to be checked
+GAME( 1985, ator3bmp, ator,     peyper,   sonstwar, peyper_state, init_peyper,  ROT0, "Video Dens", "Ator (set 2, 3 bumpers)",  MACHINE_MECHANICAL | MACHINE_NOT_WORKING ) // initial program ROM missing; no manual found
+GAME( 1994, lancelot, 0,        peyper,   sonstwar, peyper_state, empty_init,   ROT0, "Peyper",     "Sir Lancelot",             MACHINE_IS_SKELETON_MECHANICAL) // different hardware (see top of file)

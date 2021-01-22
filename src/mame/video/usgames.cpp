@@ -23,10 +23,13 @@ void usgames_state::usgames_palette(palette_device &palette) const
 
 void usgames_state::video_start()
 {
+	// assumes it can make an address mask from m_videoram.length() - 1
+	assert(!(m_videoram.length() & (m_videoram.length() - 1)));
+
 	m_gfxdecode->gfx(0)->set_source(m_charram);
 }
 
-WRITE8_MEMBER(usgames_state::charram_w)
+void usgames_state::charram_w(offs_t offset, uint8_t data)
 {
 	m_charram[offset] = data;
 	m_gfxdecode->gfx(0)->mark_dirty(offset/8);
@@ -34,12 +37,12 @@ WRITE8_MEMBER(usgames_state::charram_w)
 
 MC6845_UPDATE_ROW(usgames_state::update_row)
 {
-	uint32_t *pix = &bitmap.pix32(y);
+	uint32_t *pix = &bitmap.pix(y);
 	ra &= 0x07;
 
 	for (int x = 0; x < x_count; x++)
 	{
-		int tile_index = (x + ma) & (m_videoram.mask()/2);
+		int tile_index = (x + ma) & ((m_videoram.length() - 1)/2);
 		int tile = m_videoram[tile_index*2];
 		int attr = m_videoram[tile_index*2+1];
 		uint8_t bg_color = attr & 0xf;

@@ -84,7 +84,7 @@ TILE_GET_INFO_MEMBER(fastfred_state::get_tile_info)
 	uint16_t code = m_charbank | m_videoram[tile_index];
 	uint8_t color = m_colorbank | (m_attributesram[2 * x + 1] & 0x07);
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 
@@ -97,7 +97,7 @@ TILE_GET_INFO_MEMBER(fastfred_state::get_tile_info)
 
 VIDEO_START_MEMBER(fastfred_state,fastfred)
 {
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fastfred_state::get_tile_info),this),TILEMAP_SCAN_ROWS,8,8,32,32);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(fastfred_state::get_tile_info)), TILEMAP_SCAN_ROWS,8,8,32,32);
 
 	m_bg_tilemap->set_transparent_pen(0);
 	m_bg_tilemap->set_scroll_cols(32);
@@ -110,14 +110,14 @@ VIDEO_START_MEMBER(fastfred_state,fastfred)
  *
  *************************************/
 
-WRITE8_MEMBER(fastfred_state::fastfred_videoram_w )
+void fastfred_state::fastfred_videoram_w(offs_t offset, uint8_t data)
 {
 	m_videoram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset);
 }
 
 
-WRITE8_MEMBER(fastfred_state::fastfred_attributes_w )
+void fastfred_state::fastfred_attributes_w(offs_t offset, uint8_t data)
 {
 	if (m_attributesram[offset] != data)
 	{
@@ -294,21 +294,21 @@ TILE_GET_INFO_MEMBER(fastfred_state::imago_get_tile_info_bg)
 	uint16_t code = m_charbank * 0x100 + m_videoram[tile_index];
 	uint8_t color = m_colorbank | (m_attributesram[2 * x + 1] & 0x07);
 
-	SET_TILE_INFO_MEMBER(0, code, color, 0);
+	tileinfo.set(0, code, color, 0);
 }
 
 TILE_GET_INFO_MEMBER(fastfred_state::imago_get_tile_info_fg)
 {
 	int code = m_imago_fg_videoram[tile_index];
-	SET_TILE_INFO_MEMBER(2, code, 2, 0);
+	tileinfo.set(2, code, 2, 0);
 }
 
 TILE_GET_INFO_MEMBER(fastfred_state::imago_get_tile_info_web)
 {
-	SET_TILE_INFO_MEMBER(3, tile_index & 0x1ff, 0, 0);
+	tileinfo.set(3, tile_index & 0x1ff, 0, 0);
 }
 
-WRITE8_MEMBER(fastfred_state::imago_fg_videoram_w )
+void fastfred_state::imago_fg_videoram_w(offs_t offset, uint8_t data)
 {
 	m_imago_fg_videoram[offset] = data;
 	m_fg_tilemap->mark_tile_dirty(offset);
@@ -325,9 +325,9 @@ WRITE_LINE_MEMBER(fastfred_state::imago_charbank_w)
 
 VIDEO_START_MEMBER(fastfred_state,imago)
 {
-	m_web_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fastfred_state::imago_get_tile_info_web),this),TILEMAP_SCAN_ROWS,8,8,32,32);
-	m_bg_tilemap  = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fastfred_state::imago_get_tile_info_bg),this), TILEMAP_SCAN_ROWS,8,8,32,32);
-	m_fg_tilemap  = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(fastfred_state::imago_get_tile_info_fg),this), TILEMAP_SCAN_ROWS,8,8,32,32);
+	m_web_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(fastfred_state::imago_get_tile_info_web)),TILEMAP_SCAN_ROWS,8,8,32,32);
+	m_bg_tilemap  = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(fastfred_state::imago_get_tile_info_bg)), TILEMAP_SCAN_ROWS,8,8,32,32);
+	m_fg_tilemap  = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(fastfred_state::imago_get_tile_info_fg)), TILEMAP_SCAN_ROWS,8,8,32,32);
 
 	m_bg_tilemap->set_transparent_pen(0);
 	m_fg_tilemap->set_transparent_pen(0);

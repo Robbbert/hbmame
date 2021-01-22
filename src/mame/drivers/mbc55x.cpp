@@ -194,7 +194,7 @@ void mbc55x_state::set_ram_size()
 		if(bankno<nobanks)
 		{
 			membank(bank)->set_base(map_base);
-			space.install_readwrite_bank(bank_base, bank_base+(RAM_BANK_SIZE-1), bank);
+			space.install_readwrite_bank(bank_base, bank_base+(RAM_BANK_SIZE-1), membank(bank));
 			logerror("Mapping bank %d at %05X to RAM\n",bankno,bank_base);
 		}
 		else
@@ -206,9 +206,9 @@ void mbc55x_state::set_ram_size()
 
 	// Graphics red and blue plane memory mapping, green is in main memory
 	membank(RED_PLANE_TAG)->set_base(&m_video_mem[RED_PLANE_OFFSET]);
-	space.install_readwrite_bank(RED_PLANE_MEMBASE, RED_PLANE_MEMBASE+(COLOUR_PLANE_SIZE-1), RED_PLANE_TAG);
+	space.install_readwrite_bank(RED_PLANE_MEMBASE, RED_PLANE_MEMBASE+(COLOUR_PLANE_SIZE-1), membank(RED_PLANE_TAG));
 	membank(BLUE_PLANE_TAG)->set_base(&m_video_mem[BLUE_PLANE_OFFSET]);
-	space.install_readwrite_bank(BLUE_PLANE_MEMBASE, BLUE_PLANE_MEMBASE+(COLOUR_PLANE_SIZE-1), BLUE_PLANE_TAG);
+	space.install_readwrite_bank(BLUE_PLANE_MEMBASE, BLUE_PLANE_MEMBASE+(COLOUR_PLANE_SIZE-1), membank(BLUE_PLANE_TAG));
 }
 
 void mbc55x_state::machine_reset()
@@ -323,7 +323,7 @@ void mbc55x_state::mbc55x(machine_config &config)
 	m_crtc->set_screen(SCREEN_TAG);
 	m_crtc->set_show_border_area(false);
 	m_crtc->set_char_width(8);
-	m_crtc->set_update_row_callback(FUNC(mbc55x_state::crtc_update_row), this);
+	m_crtc->set_update_row_callback(FUNC(mbc55x_state::crtc_update_row));
 	m_crtc->out_vsync_callback().set(FUNC(mbc55x_state::vid_vsync_changed));
 	m_crtc->out_hsync_callback().set(FUNC(mbc55x_state::vid_hsync_changed));
 
@@ -333,8 +333,8 @@ void mbc55x_state::mbc55x(machine_config &config)
 
 	FLOPPY_CONNECTOR(config, m_floppy[0], mbc55x_floppies, "qd", mbc55x_state::floppy_formats);
 	FLOPPY_CONNECTOR(config, m_floppy[1], mbc55x_floppies, "qd", mbc55x_state::floppy_formats);
-	FLOPPY_CONNECTOR(config, m_floppy[2], mbc55x_floppies, "", mbc55x_state::floppy_formats);
-	FLOPPY_CONNECTOR(config, m_floppy[3], mbc55x_floppies, "", mbc55x_state::floppy_formats);
+	FLOPPY_CONNECTOR(config, m_floppy[2], mbc55x_floppies, nullptr, mbc55x_state::floppy_formats);
+	FLOPPY_CONNECTOR(config, m_floppy[3], mbc55x_floppies, nullptr, mbc55x_state::floppy_formats);
 
 	/* Software list */
 	SOFTWARE_LIST(config, "disk_list").set_original("mbc55x");

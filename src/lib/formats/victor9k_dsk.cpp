@@ -97,8 +97,8 @@
                                        zone.
 */
 
-#include "emu.h" // osd_printf_verbose, BIT, emu_fatalerror
 #include "formats/victor9k_dsk.h"
+
 
 victor9k_format::victor9k_format()
 {
@@ -130,7 +130,7 @@ int victor9k_format::find_size(io_generic *io, uint32_t form_factor)
 	return -1;
 }
 
-int victor9k_format::identify(io_generic *io, uint32_t form_factor)
+int victor9k_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	int type = find_size(io, form_factor);
 
@@ -173,7 +173,7 @@ void victor9k_format::log_boot_sector(uint8_t *data)
 	osd_printf_verbose("Boot start: %04x\n", (data[29] << 8) | data[30]);
 
 	// Flags
-	osd_printf_verbose("%s sided\n", BIT(data[33], 0) ? "Double" : "Single");
+	osd_printf_verbose("%s sided\n", util::BIT(data[33], 0) ? "Double" : "Single");
 	osd_printf_verbose("Interleave factor: %u\n", data[32] >> 4);
 
 	// Disc type
@@ -248,7 +248,7 @@ void victor9k_format::build_sector_description(const format &f, uint8_t *sectdat
 	}
 }
 
-bool victor9k_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool victor9k_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	int type = find_size(io, form_factor);
 	if(type == -1)
@@ -276,8 +276,10 @@ bool victor9k_format::load(io_generic *io, uint32_t form_factor, floppy_image *i
 			floppy_image_format_t::desc_e *desc = get_sector_desc(f, current_size, sector_count);
 
 			int remaining_size = total_size - current_size;
-			if(remaining_size < 0)
-				throw emu_fatalerror("victor9k_format: Incorrect track layout, max_size=%d, current_size=%d", total_size, current_size);
+			if(remaining_size < 0) {
+				osd_printf_error("victor9k_format: Incorrect track layout, max_size=%d, current_size=%d\n", total_size, current_size);
+				return false;
+			}
 
 			// Fixup the end gap
 			desc[18].p2 = remaining_size / 8;
@@ -390,7 +392,7 @@ const int victor9k_format::rpm[9] =
 	252, 267, 283, 300, 321, 342, 368, 401, 417
 };
 
-bool victor9k_format::save(io_generic *io, floppy_image *image)
+bool victor9k_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	const format &f = formats[0];
 

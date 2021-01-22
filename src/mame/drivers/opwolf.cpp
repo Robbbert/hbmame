@@ -271,11 +271,6 @@ register. So what is controlling priority.
 
 ***************************************************************************/
 
-/* Define clocks based on actual OSC on the PCB */
-
-#define CPU_CLOCK       (XTAL(16'000'000) / 2)    /* clock for 68000 */
-#define SOUND_CPU_CLOCK     (XTAL(8'000'000) / 2)     /* clock for Z80 sound CPU */
-
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
 #include "cpu/z80/z80.h"
@@ -291,6 +286,13 @@ register. So what is controlling priority.
 #include "screen.h"
 #include "speaker.h"
 
+
+namespace {
+
+/* Define clocks based on actual OSC on the PCB */
+
+#define CPU_CLOCK       (XTAL(16'000'000) / 2)    /* clock for 68000 */
+#define SOUND_CPU_CLOCK     (XTAL(8'000'000) / 2)     /* clock for Z80 sound CPU */
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -326,22 +328,22 @@ public:
 
 protected:
 	virtual void machine_start() override;
+	virtual void machine_reset() override;
 
 private:
-	DECLARE_READ16_MEMBER(cchip_r);
-	DECLARE_WRITE16_MEMBER(cchip_w);
-	DECLARE_WRITE8_MEMBER(opwolf_adpcm_d_w);
-	DECLARE_WRITE8_MEMBER(opwolf_adpcm_e_w);
-	DECLARE_WRITE16_MEMBER(opwolf_spritectrl_w);
-	DECLARE_WRITE8_MEMBER(sound_bankswitch_w);
-	DECLARE_WRITE8_MEMBER(opwolf_adpcm_b_w);
-	DECLARE_WRITE8_MEMBER(opwolf_adpcm_c_w);
-	DECLARE_WRITE8_MEMBER(counters_w);
+	uint16_t cchip_r(offs_t offset);
+	void cchip_w(offs_t offset, uint16_t data);
+	void opwolf_adpcm_d_w(uint8_t data);
+	void opwolf_adpcm_e_w(uint8_t data);
+	void opwolf_spritectrl_w(offs_t offset, uint16_t data);
+	void sound_bankswitch_w(uint8_t data);
+	void opwolf_adpcm_b_w(offs_t offset, uint8_t data);
+	void opwolf_adpcm_c_w(offs_t offset, uint8_t data);
+	void counters_w(uint8_t data);
 
 	INTERRUPT_GEN_MEMBER(interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(cchip_irq_clear_cb);
 
-	DECLARE_MACHINE_RESET(opwolf);
 	void opwolf_colpri_cb(u32 &sprite_colbank, u32 &pri_mask, u16 sprite_ctrl);
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void opwolf_msm5205_vck(msm5205_device *device, int chip);
@@ -404,7 +406,7 @@ void opwolf_state::opwolf_map(address_map &map)
 	map(0x3e0000, 0x3e0000).w("ciu", FUNC(pc060ha_device::master_port_w));
 	map(0x3e0002, 0x3e0002).rw("ciu", FUNC(pc060ha_device::master_comm_r), FUNC(pc060ha_device::master_comm_w));
 	map(0xc00000, 0xc0ffff).rw(m_pc080sn, FUNC(pc080sn_device::word_r), FUNC(pc080sn_device::word_w));
-	map(0xc10000, 0xc1ffff).writeonly();                   /* error in init code (?) */
+	map(0xc10000, 0xc1ffff).nopw();                   /* error in init code (?) */
 	map(0xc20000, 0xc20003).w(m_pc080sn, FUNC(pc080sn_device::yscroll_word_w));
 	map(0xc40000, 0xc40003).w(m_pc080sn, FUNC(pc080sn_device::xscroll_word_w));
 	map(0xc50000, 0xc50003).w(m_pc080sn, FUNC(pc080sn_device::ctrl_word_w));
@@ -427,7 +429,7 @@ void opwolf_state::opwolfb_map(address_map &map)
 	map(0x3e0000, 0x3e0000).w("ciu", FUNC(pc060ha_device::master_port_w));
 	map(0x3e0002, 0x3e0002).rw("ciu", FUNC(pc060ha_device::master_comm_r), FUNC(pc060ha_device::master_comm_w));
 	map(0xc00000, 0xc0ffff).rw(m_pc080sn, FUNC(pc080sn_device::word_r), FUNC(pc080sn_device::word_w));
-	map(0xc10000, 0xc1ffff).writeonly();                   /* error in init code (?) */
+	map(0xc10000, 0xc1ffff).nopw();                   /* error in init code (?) */
 	map(0xc20000, 0xc20003).w(m_pc080sn, FUNC(pc080sn_device::yscroll_word_w));
 	map(0xc40000, 0xc40003).w(m_pc080sn, FUNC(pc080sn_device::xscroll_word_w));
 	map(0xc50000, 0xc50003).w(m_pc080sn, FUNC(pc080sn_device::ctrl_word_w));
@@ -449,7 +451,7 @@ void opwolf_state::opwolfp_map(address_map &map)
 	map(0x3e0000, 0x3e0000).w("ciu", FUNC(pc060ha_device::master_port_w));
 	map(0x3e0002, 0x3e0002).rw("ciu", FUNC(pc060ha_device::master_comm_r), FUNC(pc060ha_device::master_comm_w));
 	map(0xc00000, 0xc0ffff).rw(m_pc080sn, FUNC(pc080sn_device::word_r), FUNC(pc080sn_device::word_w));
-	map(0xc10000, 0xc1ffff).writeonly();                   /* error in init code (?) */
+	map(0xc10000, 0xc1ffff).nopw();                   /* error in init code (?) */
 	map(0xc20000, 0xc20003).w(m_pc080sn, FUNC(pc080sn_device::yscroll_word_w));
 	map(0xc40000, 0xc40003).w(m_pc080sn, FUNC(pc080sn_device::xscroll_word_w));
 	map(0xc50000, 0xc50003).w(m_pc080sn, FUNC(pc080sn_device::ctrl_word_w));
@@ -541,11 +543,11 @@ static INPUT_PORTS_START( opwolf )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_UNKNOWN )
 
 	PORT_START("IN2")
-	PORT_BIT( 0x01ff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, opwolf_state, opwolf_gun_x_r, nullptr)
+	PORT_BIT( 0x01ff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(opwolf_state, opwolf_gun_x_r)
 	PORT_BIT( 0xfe00, IP_ACTIVE_LOW,  IPT_UNUSED )
 
 	PORT_START("IN3")
-	PORT_BIT( 0x01ff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(DEVICE_SELF, opwolf_state, opwolf_gun_y_r, nullptr)
+	PORT_BIT( 0x01ff, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(opwolf_state, opwolf_gun_y_r)
 	PORT_BIT( 0xfe00, IP_ACTIVE_LOW,  IPT_UNUSED )
 
 	PORT_START(P1X_PORT_TAG)  /* P1X (span allows you to shoot enemies behind status bar) */
@@ -612,7 +614,7 @@ INPUT_PORTS_END
 //  INPUT PORT HANDLING
 //**************************************************************************
 
-WRITE8_MEMBER(opwolf_state::counters_w)
+void opwolf_state::counters_w(uint8_t data)
 {
 	machine().bookkeeping().coin_lockout_w(1, data & 0x80);
 	machine().bookkeeping().coin_lockout_w(0, data & 0x40);
@@ -637,7 +639,7 @@ CUSTOM_INPUT_MEMBER(opwolf_state::opwolf_gun_y_r )
 //  VIDEO
 //**************************************************************************
 
-WRITE16_MEMBER(opwolf_state::opwolf_spritectrl_w)
+void opwolf_state::opwolf_spritectrl_w(offs_t offset, uint16_t data)
 {
 	// popmessage("opwolf_spritectrl_w ctrl = %4x", data);
 	if (offset == 0)
@@ -707,7 +709,7 @@ GFXDECODE_END
 //  SOUND
 //**************************************************************************
 
-WRITE8_MEMBER(opwolf_state::sound_bankswitch_w)
+void opwolf_state::sound_bankswitch_w(uint8_t data)
 {
 	membank("z80bank")->set_entry(data & 0x03);
 }
@@ -727,7 +729,7 @@ WRITE_LINE_MEMBER(opwolf_state::msm5205_vck_w)
 {
 	if (m_adpcm_data[N] != -1)
 	{
-		m_msm[N]->write_data(m_adpcm_data[N] & 0x0f);
+		m_msm[N]->data_w(m_adpcm_data[N] & 0x0f);
 		m_adpcm_data[N] = -1;
 		if (m_adpcm_pos[N] == m_adpcm_end[N])
 		{
@@ -739,11 +741,11 @@ WRITE_LINE_MEMBER(opwolf_state::msm5205_vck_w)
 	{
 		m_adpcm_data[N] = memregion("adpcm")->base()[m_adpcm_pos[N]];
 		m_adpcm_pos[N] = (m_adpcm_pos[N] + 1) & 0x7ffff;
-		m_msm[N]->write_data(m_adpcm_data[N] >> 4);
+		m_msm[N]->data_w(m_adpcm_data[N] >> 4);
 	}
 }
 
-WRITE8_MEMBER(opwolf_state::opwolf_adpcm_b_w)
+void opwolf_state::opwolf_adpcm_b_w(offs_t offset, uint8_t data)
 {
 	int start;
 	int end;
@@ -766,7 +768,7 @@ WRITE8_MEMBER(opwolf_state::opwolf_adpcm_b_w)
 //  logerror("CPU #1     b00%i-data=%2x   pc=%4x\n",offset,data,m_audiocpu->pc() );
 }
 
-WRITE8_MEMBER(opwolf_state::opwolf_adpcm_c_w)
+void opwolf_state::opwolf_adpcm_c_w(offs_t offset, uint8_t data)
 {
 	int start;
 	int end;
@@ -789,14 +791,14 @@ WRITE8_MEMBER(opwolf_state::opwolf_adpcm_c_w)
 //  logerror("CPU #1     c00%i-data=%2x   pc=%4x\n",offset,data,m_audiocpu->pc() );
 }
 
-WRITE8_MEMBER(opwolf_state::opwolf_adpcm_d_w)
+void opwolf_state::opwolf_adpcm_d_w(uint8_t data)
 {
 	// total volume (speaker 1)
 	for (int i = 0; i <= 2; i++)
 		m_lspeaker->set_input_gain(i, data / 255.0);
 }
 
-WRITE8_MEMBER(opwolf_state::opwolf_adpcm_e_w)
+void opwolf_state::opwolf_adpcm_e_w(uint8_t data)
 {
 	// total volume (speaker 2)
 	for (int i = 0; i <= 2; i++)
@@ -847,7 +849,7 @@ void opwolf_state::machine_start()
 	save_item(NAME(m_adpcm_end));
 }
 
-MACHINE_RESET_MEMBER(opwolf_state,opwolf)
+void opwolf_state::machine_reset()
 {
 	m_adpcm_b[0] = m_adpcm_b[1] = 0;
 	m_adpcm_c[0] = m_adpcm_c[1] = 0;
@@ -862,12 +864,12 @@ MACHINE_RESET_MEMBER(opwolf_state,opwolf)
 	m_msm[1]->reset_w(1);
 }
 
-READ16_MEMBER(opwolf_state::cchip_r)
+uint16_t opwolf_state::cchip_r(offs_t offset)
 {
 	return m_cchip_ram[offset];
 }
 
-WRITE16_MEMBER(opwolf_state::cchip_w)
+void opwolf_state::cchip_w(offs_t offset, uint16_t data)
 {
 	m_cchip_ram[offset] = data &0xff;
 }
@@ -908,9 +910,7 @@ void opwolf_state::opwolf(machine_config &config)
 
 	TIMER(config, "cchip_irq_clear").configure_generic(FUNC(opwolf_state::cchip_irq_clear_cb));
 
-	config.m_minimum_quantum = attotime::from_hz(600);  /* 10 CPU slices per frame - enough for the sound CPU to read all commands */
-
-	MCFG_MACHINE_RESET_OVERRIDE(opwolf_state,opwolf)
+	config.set_maximum_quantum(attotime::from_hz(600));  /* 10 CPU slices per frame - enough for the sound CPU to read all commands */
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -922,7 +922,7 @@ void opwolf_state::opwolf(machine_config &config)
 	screen.set_palette("palette");
 
 	GFXDECODE(config, "gfxdecode", "palette", gfx_opwolf);
-	PALETTE(config, "palette").set_format(palette_device::xRGB_444, 2048);
+	PALETTE(config, "palette").set_format(palette_device::xRGBRRRRGGGGBBBB_bit0, 2048);
 
 	PC080SN(config, m_pc080sn, 0);
 	m_pc080sn->set_gfx_region(0);
@@ -930,7 +930,7 @@ void opwolf_state::opwolf(machine_config &config)
 
 	PC090OJ(config, m_pc090oj, 0);
 	m_pc090oj->set_palette("palette");
-	m_pc090oj->set_colpri_callback(FUNC(opwolf_state::opwolf_colpri_cb), this);
+	m_pc090oj->set_colpri_callback(FUNC(opwolf_state::opwolf_colpri_cb));
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
@@ -984,7 +984,7 @@ void opwolf_state::opwolfb(machine_config &config) /* OSC clocks unknown for the
 	sub.set_addrmap(AS_PROGRAM, &opwolf_state::opwolfb_sub_z80_map);
 	sub.set_vblank_int("screen", FUNC(opwolf_state::irq0_line_hold));
 
-	config.m_minimum_quantum = attotime::from_hz(600);  /* 10 CPU slices per frame - enough for the sound CPU to read all commands */
+	config.set_maximum_quantum(attotime::from_hz(600));  /* 10 CPU slices per frame - enough for the sound CPU to read all commands */
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -996,7 +996,7 @@ void opwolf_state::opwolfb(machine_config &config) /* OSC clocks unknown for the
 	screen.set_palette("palette");
 
 	GFXDECODE(config, "gfxdecode", "palette", gfx_opwolf);
-	PALETTE(config, "palette").set_format(palette_device::xRGB_444, 2048);
+	PALETTE(config, "palette").set_format(palette_device::xRGBRRRRGGGGBBBB_bit0, 2048);
 
 	PC080SN(config, m_pc080sn, 0);
 	m_pc080sn->set_gfx_region(0);
@@ -1004,7 +1004,7 @@ void opwolf_state::opwolfb(machine_config &config) /* OSC clocks unknown for the
 
 	PC090OJ(config, m_pc090oj, 0);
 	m_pc090oj->set_palette("palette");
-	m_pc090oj->set_colpri_callback(FUNC(opwolf_state::opwolf_colpri_cb), this);
+	m_pc090oj->set_colpri_callback(FUNC(opwolf_state::opwolf_colpri_cb));
 
 	/* sound hardware */
 	SPEAKER(config, "lspeaker").front_left();
@@ -1227,6 +1227,8 @@ ROM_START( opwolfb )
 	ROM_LOAD16_BYTE( "opwlfb.23",   0x40001, 0x10000, CRC(a874c703) SHA1(c9d6074265f5d5028c69c81eaba29fa178943341) )
 	ROM_LOAD16_BYTE( "opwlfb.22",   0x60001, 0x10000, CRC(9228481f) SHA1(8160f919f5e6a347c915a2bd7488b488fe2401bc) )
 ROM_END
+
+} // Anonymous namespace
 
 
 //**************************************************************************

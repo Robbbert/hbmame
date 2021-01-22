@@ -77,24 +77,55 @@ IRQ_CALLBACK_MEMBER(poly88_state::poly88_irq_callback)
 TIMER_DEVICE_CALLBACK_MEMBER( poly88_state::kansas_r )
 {
 	if (BIT(m_linec->read(), 7))
-		return;
-
-	// no tape - set uart to idle
-	m_cass_data[1]++;
-	if (m_dtr || (m_cass_data[1] > 32))
 	{
-		m_cass_data[1] = 32;
-		m_rxd = 1;
+		// Polyphase LOAD
+		if (m_dtr)
+		{
+			m_cass_data[1] = m_cass_data[2] = m_cass_data[3] = 0;
+			m_casspol = 0;
+			return;
+		}
+
+		m_cass_data[1]++;
+		m_cass_data[2]++;
+
+		uint8_t cass_ws = (m_cassette->input() > +0.04) ? 1 : 0;
+
+		if (cass_ws != m_cass_data[0])
+		{
+			m_cass_data[0] = cass_ws;
+			if (m_cass_data[1] > 13)
+				m_casspol ^= 1;
+			m_cass_data[1] = 0;
+			m_cass_data[2] = 0;
+			m_usart->write_rxd(m_casspol);
+		}
+		if ((m_cass_data[2] & 7)==2)
+		{
+			m_cass_data[3]++;
+			m_usart->write_rxc(BIT(m_cass_data[3], 0));
+		}
 	}
-
-	// turn 1200/2400Hz to a bit
-	uint8_t cass_ws = (m_cassette->input() > +0.04) ? 1 : 0;
-
-	if (cass_ws != m_cass_data[0])
+	else
 	{
-		m_cass_data[0] = cass_ws;
-		m_rxd = (m_cass_data[1] < 12) ? 1 : 0;
-		m_cass_data[1] = 0;
+		// 300 baud LOAD
+		// no tape - set uart to idle
+		m_cass_data[1]++;
+		if (m_dtr || (m_cass_data[1] > 32))
+		{
+			m_cass_data[1] = 32;
+			m_rxd = 1;
+		}
+
+		// turn 1200/2400Hz to a bit
+		uint8_t cass_ws = (m_cassette->input() > +0.04) ? 1 : 0;
+
+		if (cass_ws != m_cass_data[0])
+		{
+			m_cass_data[0] = cass_ws;
+			m_rxd = (m_cass_data[1] < 12) ? 1 : 0;
+			m_cass_data[1] = 0;
+		}
 	}
 }
 
@@ -103,28 +134,19 @@ WRITE_LINE_MEMBER(poly88_state::cassette_clock_w)
 	// incoming @4800Hz (bit), 2400Hz (polyphase)
 	if (BIT(m_linec->read(), 7))
 	{
-		// polyphase
-		// SAVE
+		// polyphase SAVE
 		if (!m_rts)
-			m_cassette->output((m_txd ^ state) ? 1.0 : -1.0);
-		// LOAD
-		if (!m_dtr)
-		{
-			u8 cass_ws = (m_cassette->input() > +0.04) ? 1 : 0;
-			if (state)
-				m_usart->write_rxd(cass_ws);
-		}
+			m_cassette->output((m_txd ^ state) ? -1.0 : 1.0);
 	}
 	else
 	{
-		// byte mode 300 baud Kansas City format
-		u8 twobit = m_cass_data[3] & 3;
+		// byte mode 300 baud Kansas City format SAVE
+		u8 twobit = m_cass_data[4] & 15;
 
-		// SAVE
 		if (m_rts && (twobit == 0))
 		{
 			m_cassette->output(0);
-			m_cass_data[3] = 0;     // reset waveforms
+			m_cass_data[4] = 0;     // reset waveforms
 		}
 		else
 		if (state)
@@ -133,14 +155,14 @@ WRITE_LINE_MEMBER(poly88_state::cassette_clock_w)
 				m_cassold = m_txd;
 
 			if (m_cassold)
-				m_cassette->output(BIT(m_cass_data[3], 0) ? -1.0 : +1.0); // 2400Hz
+				m_cassette->output(BIT(m_cass_data[4], 0) ? -1.0 : +1.0); // 2400Hz
 			else
-				m_cassette->output(BIT(m_cass_data[3], 1) ? -1.0 : +1.0); // 1200Hz
+				m_cassette->output(BIT(m_cass_data[4], 1) ? -1.0 : +1.0); // 1200Hz
 
-			m_cass_data[3]++;
+			m_cass_data[4]++;
 		}
 
-		// LOAD
+		// byte mode 300 baud Kansas City format LOAD
 		if (state && !m_dtr && (twobit == 0))
 			m_usart->write_rxd(m_rxd);
 	}
@@ -148,7 +170,7 @@ WRITE_LINE_MEMBER(poly88_state::cassette_clock_w)
 	if (!m_rts)
 		m_usart->write_txc(state);
 
-	if (!m_dtr)
+	if (!m_dtr && !BIT(m_linec->read(), 7))
 		m_usart->write_rxc(state);
 }
 
@@ -156,6 +178,16 @@ WRITE_LINE_MEMBER(poly88_state::cassette_clock_w)
 void poly88_state::machine_start()
 {
 	m_onboard_ram = make_unique_clear<u8[]>(0x200);
+	save_pointer(NAME(m_onboard_ram), 0x200);
+	save_item(NAME(m_int_vector));
+	save_item(NAME(m_dtr));
+	save_item(NAME(m_rts));
+	save_item(NAME(m_txd));
+	save_item(NAME(m_rxd));
+	save_item(NAME(m_cassold));
+	save_item(NAME(m_casspol));
+	save_item(NAME(m_cass_data));
+	save_item(NAME(m_onboard_disable));
 }
 
 void poly88_state::machine_reset()
@@ -208,7 +240,7 @@ void poly88_state::intr_w(uint8_t data)
 SNAPSHOT_LOAD_MEMBER(poly88_state::snapshot_cb)
 {
 	address_space &space = m_maincpu->space(AS_PROGRAM);
-	uint8_t* data= auto_alloc_array(machine(), uint8_t, snapshot_size);
+	int snapshot_size = image.length();
 	uint16_t recordNum;
 	uint16_t recordLen;
 	uint16_t address;
@@ -219,7 +251,8 @@ SNAPSHOT_LOAD_MEMBER(poly88_state::snapshot_cb)
 	int i = 0;
 	int theend = 0;
 
-	image.fread( data, snapshot_size);
+	std::vector<uint8_t> data(snapshot_size);
+	image.fread(&data[0], snapshot_size);
 
 	while (pos<snapshot_size) {
 		for(i=0;i<9;i++) {
@@ -228,7 +261,7 @@ SNAPSHOT_LOAD_MEMBER(poly88_state::snapshot_cb)
 		pos+=8;
 		name[8] = 0;
 
-
+		// FIXME: this risks buffer overruns
 		recordNum = data[pos]+ data[pos+1]*256; pos+=2;
 		recordLen = data[pos]; pos++;
 		if (recordLen==0) recordLen=0x100;

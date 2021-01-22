@@ -482,7 +482,7 @@ void ampoker2_state::machine_start()
 
 */
 
-WRITE8_MEMBER(ampoker2_state::port30_w)
+void ampoker2_state::port30_w(uint8_t data)
 /*-------------------------------------------------
     PORT_30 C000H         ;OUTPUT PORT 30H
 ---------------------------------------------------
@@ -496,7 +496,7 @@ WRITE8_MEMBER(ampoker2_state::port30_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::port31_w)
+void ampoker2_state::port31_w(uint8_t data)
 /*-------------------------------------------------
     PORT_31 C001H         ;OUTPUT PORT 31H
 ---------------------------------------------------
@@ -514,7 +514,7 @@ WRITE8_MEMBER(ampoker2_state::port31_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::port32_w)
+void ampoker2_state::port32_w(uint8_t data)
 /*-------------------------------------------------
     PORT_32 C002H         ;OUTPUT PORT 32H
 ---------------------------------------------------
@@ -529,7 +529,7 @@ WRITE8_MEMBER(ampoker2_state::port32_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::port33_w)
+void ampoker2_state::port33_w(uint8_t data)
 /*-------------------------------------------------
     PORT_33 C003H         ;OUTPUT PORT 33H
 ---------------------------------------------------
@@ -543,7 +543,7 @@ WRITE8_MEMBER(ampoker2_state::port33_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::port34_w)
+void ampoker2_state::port34_w(uint8_t data)
 /*-------------------------------------------------
     PORT_34 C004H         ;OUTPUT PORT 34H
 ---------------------------------------------------
@@ -558,7 +558,7 @@ WRITE8_MEMBER(ampoker2_state::port34_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::port35_w)
+void ampoker2_state::port35_w(uint8_t data)
 /*-------------------------------------------------
     PORT_35 C005H         ;OUTPUT PORT 35H
 ---------------------------------------------------
@@ -572,7 +572,7 @@ WRITE8_MEMBER(ampoker2_state::port35_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::port36_w)
+void ampoker2_state::port36_w(uint8_t data)
 /*-------------------------------------------------
     PORT_36 C006H         ;OUTPUT PORT 36H
 ---------------------------------------------------
@@ -590,7 +590,7 @@ WRITE8_MEMBER(ampoker2_state::port36_w)
 }
 
 
-WRITE8_MEMBER(ampoker2_state::watchdog_reset_w)
+void ampoker2_state::watchdog_reset_w(uint8_t data)
 /*-------------------------------------------------
     PORT_37 C007H         ;OUTPUT PORT 37H
 ---------------------------------------------------
@@ -634,7 +634,7 @@ void ampoker2_state::io_map(address_map &map)
 	map(0x15, 0x15).portr("IN5");
 	map(0x16, 0x16).portr("IN6");
 	map(0x17, 0x17).portr("IN7");
-//  AM_RANGE(0x21, 0x21) AM_WRITENOP                    /* undocumented, write 0x1a after each reset */
+//  map(0x21, 0x21).nopw();                    /* undocumented, write 0x1a after each reset */
 	map(0x30, 0x30).w(FUNC(ampoker2_state::port30_w));    /* see write handlers */
 	map(0x31, 0x31).w(FUNC(ampoker2_state::port31_w));    /* see write handlers */
 	map(0x32, 0x32).w(FUNC(ampoker2_state::port32_w));    /* see write handlers */

@@ -8,8 +8,10 @@
 
 *********************************************************************/
 
-#include "emu.h" // BIT
 #include "formats/ccvf_dsk.h"
+
+#include "coretmpl.h" // BIT
+
 
 ccvf_format::ccvf_format()
 {
@@ -44,7 +46,7 @@ const ccvf_format::format ccvf_format::file_formats[] = {
 	{}
 };
 
-int ccvf_format::identify(io_generic *io, uint32_t form_factor)
+int ccvf_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	char h[36];
 
@@ -85,7 +87,7 @@ floppy_image_format_t::desc_e* ccvf_format::get_desc_8n1(const format &f, int &c
 	return desc;
 }
 
-bool ccvf_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool ccvf_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	const format &f = formats[0];
 
@@ -124,7 +126,7 @@ bool ccvf_format::load(io_generic *io, uint32_t form_factor, floppy_image *image
 
 		for (int i=0; i<1920 && pos<size; i++, pos++) {
 			for (int bit=0; bit<8; bit++) {
-				bit_w(buffer, BIT(bytes[pos], bit), f.cell_size);
+				bit_w(buffer, util::BIT(bytes[pos], bit), f.cell_size);
 			}
 		}
 

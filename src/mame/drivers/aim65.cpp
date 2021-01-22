@@ -6,9 +6,17 @@ Updated by Dan Boris, 2000-04-03
 Rewrite in progress, Dirk Best, 2007-07-31
 Updated by Robbbert 2019-04-14
 
+Since 0.226, if you want to use the TTY, you must do these things:
+- Use the KB/TTY dipswitch to choose TTY
+- Use the TAB menu to choose "Keyboard Mode"
+- Make sure that both keyboards are "Enabled"
+- Quit to save the settings, then restart
+- Press DELETE to start using the terminal
+- For subsequent runs, just press DELETE to get started.
+
 ToDo:
-    - Implement punchtape reader/writer
-    - Front panel Run/Step switch (switch S2)
+- Implement punchtape reader/writer
+- Front panel Run/Step switch (switch S2)
 
 
 ******************************************************************************/
@@ -139,7 +147,7 @@ static INPUT_PORTS_START( aim65 )
 	PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_KEYBOARD) PORT_NAME("F1")          PORT_CODE(KEYCODE_BACKSLASH)  PORT_CHAR(UCHAR_MAMEKEY(F1))
 
 	PORT_START("switches")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RST") PORT_CODE(KEYCODE_LALT) PORT_CHANGED_MEMBER(DEVICE_SELF, aim65_state, reset_button, nullptr)
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("RST") PORT_CODE(KEYCODE_LALT) PORT_CHANGED_MEMBER(DEVICE_SELF, aim65_state, reset_button, 0)
 	PORT_DIPNAME(0x08, 0x08, "KB/TTY") PORT_DIPLOCATION("S3:1")
 	PORT_DIPSETTING(0x00, "TTY")
 	PORT_DIPSETTING(0x08, "KB")
@@ -277,15 +285,15 @@ void aim65_state::aim65(machine_config &config)
 	//m_rs232->rxd_handler().set(m_via0, FUNC(via6522_device::write_pb6));  // function disabled in 6522via.cpp
 	m_rs232->set_option_device_input_defaults("terminal", DEVICE_INPUT_DEFAULTS_NAME(serial_term));
 
-	GENERIC_SOCKET(config, "z26", generic_plain_slot, "aim65_z26_cart", "z26").set_device_load(FUNC(aim65_state::z26_load), this);
-	GENERIC_SOCKET(config, "z25", generic_plain_slot, "aim65_z25_cart", "z25").set_device_load(FUNC(aim65_state::z25_load), this);
-	GENERIC_SOCKET(config, "z24", generic_plain_slot, "aim65_z24_cart", "z24").set_device_load(FUNC(aim65_state::z24_load), this);
+	GENERIC_SOCKET(config, "z26", generic_plain_slot, "aim65_z26_cart", "z26").set_device_load(FUNC(aim65_state::z26_load));
+	GENERIC_SOCKET(config, "z25", generic_plain_slot, "aim65_z25_cart", "z25").set_device_load(FUNC(aim65_state::z25_load));
+	GENERIC_SOCKET(config, "z24", generic_plain_slot, "aim65_z24_cart", "z24").set_device_load(FUNC(aim65_state::z24_load));
 
 	/* PROM/ROM module sockets */
-	GENERIC_SOCKET(config, "z12", generic_plain_slot, "rm65_z12_cart", "z12").set_device_load(FUNC(aim65_state::z12_load), this);
-	GENERIC_SOCKET(config, "z13", generic_plain_slot, "rm65_z13_cart", "z13").set_device_load(FUNC(aim65_state::z13_load), this);
-	GENERIC_SOCKET(config, "z14", generic_plain_slot, "rm65_z14_cart", "z14").set_device_load(FUNC(aim65_state::z14_load), this);
-	GENERIC_SOCKET(config, "z15", generic_plain_slot, "rm65_z15_cart", "z15").set_device_load(FUNC(aim65_state::z15_load), this);
+	GENERIC_SOCKET(config, "z12", generic_plain_slot, "rm65_z12_cart", "z12").set_device_load(FUNC(aim65_state::z12_load));
+	GENERIC_SOCKET(config, "z13", generic_plain_slot, "rm65_z13_cart", "z13").set_device_load(FUNC(aim65_state::z13_load));
+	GENERIC_SOCKET(config, "z14", generic_plain_slot, "rm65_z14_cart", "z14").set_device_load(FUNC(aim65_state::z14_load));
+	GENERIC_SOCKET(config, "z15", generic_plain_slot, "rm65_z15_cart", "z15").set_device_load(FUNC(aim65_state::z15_load));
 
 	/* internal ram */
 	RAM(config, RAM_TAG).set_default_size("4K").set_extra_options("1K,2K,3K");

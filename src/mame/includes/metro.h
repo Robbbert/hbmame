@@ -19,6 +19,7 @@
 #include "machine/gen_latch.h"
 #include "machine/timer.h"
 #include "screen.h"
+#include "tilemap.h"
 
 class metro_state : public driver_device
 {
@@ -38,9 +39,6 @@ public:
 		, m_gfxdecode(*this, "gfxdecode")
 		, m_screen(*this, "screen")
 		, m_soundlatch(*this, "soundlatch")
-		, m_irq_enable(*this, "irq_enable")
-		, m_irq_levels(*this, "irq_levels")
-		, m_irq_vectors(*this, "irq_vectors")
 		, m_input_sel(*this, "input_sel")
 		, m_k053936_ram(*this, "k053936_ram")
 		, m_audiobank(*this, "audiobank")
@@ -70,6 +68,7 @@ public:
 	void vmetal(machine_config &config);
 	void daitorid(machine_config &config);
 	void puzzli(machine_config &config);
+	void puzzlia(machine_config &config);
 	void pangpoms(machine_config &config);
 	void dokyusp(machine_config &config);
 	void dokyusei(machine_config &config);
@@ -89,13 +88,11 @@ public:
 	void init_vmetal();
 	void init_mouja();
 	void init_balcube();
-	void init_gakusai();
 	void init_dharmak();
-	void init_puzzlet();
 	void init_metro();
 	void init_lastfortg();
 
-	DECLARE_CUSTOM_INPUT_MEMBER(custom_soundstatus_r);
+	DECLARE_READ_LINE_MEMBER(custom_soundstatus_r);
 
 private:
 	enum
@@ -104,39 +101,37 @@ private:
 		TIMER_MOUJA_IRQ
 	};
 
-	u8 irq_cause_r(offs_t offset);
-	void irq_cause_w(offs_t offset, u8 data);
-	uint8_t irq_vector_r(offs_t offset);
-	DECLARE_WRITE16_MEMBER(mouja_irq_timer_ctrl_w);
-	DECLARE_WRITE8_MEMBER(soundlatch_w);
-	DECLARE_READ8_MEMBER(soundstatus_r);
-	DECLARE_WRITE8_MEMBER(soundstatus_w);
-	template<int Mask> DECLARE_WRITE8_MEMBER(upd7810_rombank_w);
-	DECLARE_READ8_MEMBER(upd7810_porta_r);
-	DECLARE_WRITE8_MEMBER(upd7810_porta_w);
-	DECLARE_WRITE8_MEMBER(upd7810_portb_w);
-	DECLARE_WRITE8_MEMBER(daitorid_portb_w);
-	DECLARE_WRITE8_MEMBER(coin_lockout_1word_w);
-	DECLARE_WRITE16_MEMBER(coin_lockout_4words_w);
-	DECLARE_READ16_MEMBER(balcube_dsw_r);
-	DECLARE_READ16_MEMBER(gakusai_input_r);
-	DECLARE_WRITE8_MEMBER(blzntrnd_sh_bankswitch_w);
-	DECLARE_WRITE16_MEMBER(puzzlet_irq_enable_w);
-	DECLARE_WRITE16_MEMBER(puzzlet_portb_w);
-	DECLARE_WRITE16_MEMBER(k053936_w);
-	DECLARE_WRITE8_MEMBER(gakusai_oki_bank_hi_w);
-	DECLARE_WRITE8_MEMBER(gakusai_oki_bank_lo_w);
-	DECLARE_READ8_MEMBER(gakusai_eeprom_r);
-	DECLARE_WRITE8_MEMBER(gakusai_eeprom_w);
-	DECLARE_READ8_MEMBER(dokyusp_eeprom_r);
-	DECLARE_WRITE8_MEMBER(dokyusp_eeprom_bit_w);
-	DECLARE_WRITE8_MEMBER(dokyusp_eeprom_reset_w);
-	DECLARE_WRITE8_MEMBER(mouja_sound_rombank_w);
-	DECLARE_WRITE_LINE_MEMBER(vdp_blit_end_w);
+	void ipl_w(u8 data);
+	void mouja_irq_timer_ctrl_w(uint16_t data);
+	void sound_data_w(u8 data);
+	TIMER_CALLBACK_MEMBER(sound_data_sync);
+	u8 soundstatus_r();
+	void soundstatus_w(u8 data);
+	template<int Mask> void upd7810_rombank_w(u8 data);
+	u8 upd7810_porta_r();
+	void upd7810_porta_w(u8 data);
+	void upd7810_portb_w(u8 data);
+	void daitorid_portb_w(u8 data);
+	void coin_lockout_1word_w(u8 data);
+	void coin_lockout_4words_w(offs_t offset, uint16_t data);
+	uint16_t balcube_dsw_r(offs_t offset);
+	uint16_t gakusai_input_r();
+	void blzntrnd_sh_bankswitch_w(u8 data);
+	void puzzlet_irq_enable_w(uint8_t data);
+	void puzzlet_portb_w(uint16_t data);
+	void k053936_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void gakusai_oki_bank_hi_w(u8 data);
+	void gakusai_oki_bank_lo_w(u8 data);
+	u8 gakusai_eeprom_r();
+	void gakusai_eeprom_w(u8 data);
+	u8 dokyusp_eeprom_r();
+	void dokyusp_eeprom_bit_w(u8 data);
+	void dokyusp_eeprom_reset_w(u8 data);
+	void mouja_sound_rombank_w(u8 data);
 
 	// vmetal
-	DECLARE_WRITE8_MEMBER(vmetal_control_w);
-	DECLARE_WRITE8_MEMBER(es8712_reset_w);
+	void vmetal_control_w(u8 data);
+	void es8712_reset_w(u8 data);
 	DECLARE_WRITE_LINE_MEMBER(vmetal_es8712_irq);
 
 	TILE_GET_INFO_MEMBER(k053936_get_tile_info);
@@ -204,9 +199,6 @@ private:
 	optional_device<generic_latch_8_device> m_soundlatch;
 
 	/* memory pointers */
-	optional_shared_ptr<uint16_t> m_irq_enable;
-	optional_shared_ptr<uint16_t> m_irq_levels;
-	optional_shared_ptr<uint16_t> m_irq_vectors;
 	optional_shared_ptr<uint16_t> m_input_sel;
 	optional_shared_ptr<uint16_t> m_k053936_ram;
 
@@ -217,14 +209,11 @@ private:
 	tilemap_t   *m_k053936_tilemap;
 
 	/* irq_related */
-	int         m_vblank_bit;
-	int         m_blitter_bit;
-	int         m_irq_line;
-	uint8_t     m_requested_int[8];
 	emu_timer   *m_mouja_irq_timer;
 	emu_timer   *m_karatour_irq_timer;
 
 	/* sound related */
+	u8     m_sound_data;
 	uint16_t      m_soundstatus;
 	int         m_porta;
 	int         m_portb;
@@ -236,8 +225,6 @@ private:
 	int         m_gakusai_oki_bank_lo;
 	int         m_gakusai_oki_bank_hi;
 
-	void update_irq_state();
-	void metro_common();
 	void gakusai_oki_bank_set();
 };
 

@@ -28,11 +28,7 @@ DEFINE_DEVICE_TYPE(C64_EXPANSION_SLOT, c64_expansion_slot_device, "c64_expansion
 //-------------------------------------------------
 
 device_c64_expansion_card_interface::device_c64_expansion_card_interface(const machine_config &mconfig, device_t &device) :
-	device_slot_card_interface(mconfig, device),
-	m_roml(*this, "roml"),
-	m_romh(*this, "romh"),
-	m_romx(*this, "romx"),
-	m_nvram(*this, "nvram"),
+	device_interface(device, "c64exp"),
 	m_game(1),
 	m_exrom(1)
 {
@@ -60,7 +56,7 @@ device_c64_expansion_card_interface::~device_c64_expansion_card_interface()
 
 c64_expansion_slot_device::c64_expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, C64_EXPANSION_SLOT, tag, owner, clock),
-	device_slot_interface(mconfig, *this),
+	device_single_card_slot_interface<device_c64_expansion_card_interface>(mconfig, *this),
 	device_image_interface(mconfig, *this),
 	m_read_dma_cd(*this),
 	m_write_dma_cd(*this),
@@ -73,27 +69,12 @@ c64_expansion_slot_device::c64_expansion_slot_device(const machine_config &mconf
 
 
 //-------------------------------------------------
-//  device_validity_check -
-//-------------------------------------------------
-
-void c64_expansion_slot_device::device_validity_check(validity_checker &valid) const
-{
-	device_t *const carddev = get_card_device();
-	if (carddev && !dynamic_cast<device_c64_expansion_card_interface *>(carddev))
-		osd_printf_error("Card device %s (%s) does not implement device_c64_expansion_card_interface\n", carddev->tag(), carddev->name());
-}
-
-
-//-------------------------------------------------
 //  device_start - device-specific startup
 //-------------------------------------------------
 
 void c64_expansion_slot_device::device_start()
 {
-	device_t *const carddev = get_card_device();
-	m_card = dynamic_cast<device_c64_expansion_card_interface *>(carddev);
-	if (carddev && !m_card)
-		fatalerror("Card device %s (%s) does not implement device_c64_expansion_card_interface\n", carddev->tag(), carddev->name());
+	m_card = get_card_device();
 
 	// resolve callbacks
 	m_read_dma_cd.resolve_safe(0);
@@ -163,11 +144,11 @@ image_init_result c64_expansion_slot_device::call_load()
 					uint8_t *roml = nullptr;
 					uint8_t *romh = nullptr;
 
-					m_card->m_roml.allocate(roml_size);
-					m_card->m_romh.allocate(romh_size);
+					m_card->m_roml = std::make_unique<uint8_t[]>(roml_size);
+					m_card->m_romh = std::make_unique<uint8_t[]>(romh_size);
 
-					if (roml_size) roml = m_card->m_roml;
-					if (romh_size) romh = m_card->m_roml;
+					if (roml_size) roml = m_card->m_roml.get();
+					if (romh_size) romh = m_card->m_romh.get();
 
 					cbm_crt_read_data(image_core_file(), roml, romh);
 				}

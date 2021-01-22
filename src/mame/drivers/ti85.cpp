@@ -2,7 +2,7 @@
 // copyright-holders:Krzysztof Strzecha,Jon Sturm
 /***************************************************************************
 TI-85 and TI-86 drivers by Krzysztof Strzecha
-TI-83 Plus, TI-84 Plus, and Siliver Edition support by Jon Sturm
+TI-83 Plus, TI-84 Plus, and Silver Edition support by Jon Sturm
 
 Notes:
 1. After start TI-85 waits for ON key interrupt, so press ON key to start
@@ -285,7 +285,7 @@ void ti85_state::ti83p_io(address_map &map)
 	map(0x0007, 0x0007).rw(FUNC(ti85_state::ti86_port_0006_r), FUNC(ti85_state::ti83p_port_0007_w));
 	map(0x0010, 0x0010).rw("t6a04", FUNC(t6a04_device::control_read), FUNC(t6a04_device::control_write));
 	map(0x0011, 0x0011).rw("t6a04", FUNC(t6a04_device::data_read), FUNC(t6a04_device::data_write));
-//  AM_RANGE(0x0014, 0x0014) AM_WRITE(ti83p_port_0014_w )
+//  map(0x0014, 0x0014).w(FUNC(ti85_state::ti83p_port_0014_w));
 }
 
 void ti85_state::ti83pse_io(address_map &map)
@@ -618,7 +618,7 @@ void ti85_state::ti85(machine_config &config)
 void ti85_state::ti85d(machine_config &config)
 {
 	ti85(config);
-	SNAPSHOT(config, "snapshot", "sav").set_load_callback(FUNC(ti85_state::snapshot_cb), this);
+	SNAPSHOT(config, "snapshot", "sav").set_load_callback(FUNC(ti85_state::snapshot_cb));
 	//TI85SERIAL(config, "tiserial");
 }
 
@@ -672,7 +672,7 @@ void ti85_state::ti86(machine_config &config)
 	MCFG_MACHINE_START_OVERRIDE(ti85_state, ti86)
 	MCFG_MACHINE_RESET_OVERRIDE(ti85_state, ti85)
 
-	SNAPSHOT(config, "snapshot", "sav").set_load_callback(FUNC(ti85_state::snapshot_cb), this);
+	SNAPSHOT(config, "snapshot", "sav").set_load_callback(FUNC(ti85_state::snapshot_cb));
 }
 
 void ti85_state::ti83p(machine_config &config)
@@ -716,7 +716,7 @@ void ti85_state::ti83pse(machine_config &config)
 	m_membank[3]->set_map(&ti85_state::ti83pse_banked_mem);
 
 	MCFG_MACHINE_START_OVERRIDE(ti85_state, ti83pse )
-	FUJITSU_29F160T(config.replace(), m_flash, 0);
+	FUJITSU_29F160TE(config.replace(), m_flash, 0);
 }
 
 void ti85_state::ti84p(machine_config &config)
@@ -1161,7 +1161,7 @@ COMP( 20??, ti73b,      ti73,    0,      ti73,    ti82,  ti85_state, empty_init,
 COMP( 1990, ti81,       0,       0,      ti81,    ti81,  ti85_state, empty_init, "Texas Instruments", "TI-81",                                           MACHINE_NO_SOUND_HW )
 COMP( 1994, ti81v2,     ti81,    0,      ti81v2,  ti81,  ti85_state, empty_init, "Texas Instruments", "TI-81 v2.0",                                      MACHINE_NO_SOUND_HW )
 COMP( 1993, ti82,       0,       0,      ti82,    ti82,  ti85_state, empty_init, "Texas Instruments", "TI-82",                                           MACHINE_NO_SOUND_HW )
-COMP( 1996, ti83,       0,       0,      ti83,    ti83,  ti85_state, empty_init, "Texas Instruments", "TI-83",                                           MACHINE_NO_SOUND_HW )
+COMP( 1996, ti83,       0,       0,      ti83,    ti83,  ti85_state, empty_init, "Texas Instruments", "TI-83",                                           MACHINE_NO_SOUND_HW | MACHINE_NOT_WORKING )
 COMP( 1999, ti83p,      0,       0,      ti83p,   ti82,  ti85_state, empty_init, "Texas Instruments", "TI-83 Plus (Boot Code 1.00)",                     MACHINE_NO_SOUND_HW | MACHINE_NOT_WORKING )
 COMP( 20??, ti83pb,     ti83p,   0,      ti83p,   ti82,  ti85_state, empty_init, "Texas Instruments", "TI-83 Plus (bootleg)",                            MACHINE_NO_SOUND_HW | MACHINE_NOT_WORKING )
 COMP( 2001, ti83pse,    0,       0,      ti83pse, ti82,  ti85_state, empty_init, "Texas Instruments", "TI-83 Plus Silver Edition (Boot Code 1.00)",      MACHINE_NO_SOUND_HW | MACHINE_NOT_WORKING )

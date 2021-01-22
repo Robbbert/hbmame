@@ -15,6 +15,7 @@
 #include "sound/discrete.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 /* Discrete Sound Input Nodes */
 #define SPRINT2_SKIDSND1_EN        NODE_01
@@ -65,29 +66,29 @@ private:
 	tilemap_t* m_bg_tilemap;
 	bitmap_ind16 m_helper;
 	int m_collision[2];
-	DECLARE_READ8_MEMBER(sprint2_wram_r);
-	DECLARE_READ8_MEMBER(sprint2_dip_r);
-	DECLARE_READ8_MEMBER(sprint2_input_A_r);
-	DECLARE_READ8_MEMBER(sprint2_input_B_r);
-	DECLARE_READ8_MEMBER(sprint2_sync_r);
-	DECLARE_READ8_MEMBER(sprint2_steering1_r);
-	DECLARE_READ8_MEMBER(sprint2_steering2_r);
-	DECLARE_WRITE8_MEMBER(sprint2_steering_reset1_w);
-	DECLARE_WRITE8_MEMBER(sprint2_steering_reset2_w);
-	DECLARE_WRITE8_MEMBER(sprint2_wram_w);
-	DECLARE_WRITE8_MEMBER(output_latch_w);
-	DECLARE_READ8_MEMBER(sprint2_collision1_r);
-	DECLARE_READ8_MEMBER(sprint2_collision2_r);
-	DECLARE_WRITE8_MEMBER(sprint2_collision_reset1_w);
-	DECLARE_WRITE8_MEMBER(sprint2_collision_reset2_w);
-	DECLARE_WRITE8_MEMBER(sprint2_video_ram_w);
-	DECLARE_WRITE8_MEMBER(sprint2_noise_reset_w);
+	uint8_t sprint2_wram_r(offs_t offset);
+	uint8_t sprint2_dip_r(offs_t offset);
+	uint8_t sprint2_input_A_r(offs_t offset);
+	uint8_t sprint2_input_B_r(offs_t offset);
+	uint8_t sprint2_sync_r();
+	uint8_t sprint2_steering1_r();
+	uint8_t sprint2_steering2_r();
+	void sprint2_steering_reset1_w(uint8_t data);
+	void sprint2_steering_reset2_w(uint8_t data);
+	void sprint2_wram_w(offs_t offset, uint8_t data);
+	void output_latch_w(offs_t offset, uint8_t data);
+	uint8_t sprint2_collision1_r();
+	uint8_t sprint2_collision2_r();
+	void sprint2_collision_reset1_w(uint8_t data);
+	void sprint2_collision_reset2_w(uint8_t data);
+	void sprint2_video_ram_w(offs_t offset, uint8_t data);
+	void sprint2_noise_reset_w(uint8_t data);
 	TILE_GET_INFO_MEMBER(get_tile_info);
 	virtual void video_start() override;
 	void sprint2_palette(palette_device &palette) const;
 	uint32_t screen_update_sprint2(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	DECLARE_WRITE_LINE_MEMBER(screen_vblank_sprint2);
-	INTERRUPT_GEN_MEMBER(sprint2);
+	INTERRUPT_GEN_MEMBER(sprint2_irq);
 	uint8_t collision_check(rectangle& rect);
 	inline int get_sprite_code(uint8_t *video_ram, int n);
 	inline int get_sprite_x(uint8_t *video_ram, int n);

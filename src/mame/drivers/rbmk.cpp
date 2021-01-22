@@ -108,26 +108,26 @@ private:
 	void rbmk_mem(address_map &map);
 	void rbspm_mem(address_map &map);
 
-	DECLARE_READ16_MEMBER(unk_r);
-	DECLARE_READ16_MEMBER(dip_mux_r);
-	DECLARE_WRITE16_MEMBER(dip_mux_w);
-	DECLARE_WRITE16_MEMBER(unk_w);
-	DECLARE_WRITE16_MEMBER(tilebank_w);
-	DECLARE_READ8_MEMBER(mcu_io_r);
-	DECLARE_WRITE8_MEMBER(mcu_io_w);
-	DECLARE_WRITE8_MEMBER(mcu_io_mux_w);
-	DECLARE_WRITE16_MEMBER(eeprom_w);
+	uint16_t unk_r();
+	uint16_t dip_mux_r();
+	void dip_mux_w(uint16_t data);
+	void unk_w(uint16_t data);
+	void tilebank_w(uint16_t data);
+	uint8_t mcu_io_r(offs_t offset);
+	void mcu_io_w(offs_t offset, uint8_t data);
+	void mcu_io_mux_w(uint8_t data);
+	void eeprom_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 };
 
 
-READ16_MEMBER(rbmk_state::unk_r)
+uint16_t rbmk_state::unk_r()
 {
 	return machine().rand();
 }
 
-READ16_MEMBER(rbmk_state::dip_mux_r)
+uint16_t rbmk_state::dip_mux_r()
 {
 /*
 definitely muxed dips. See switch test in test mode. This implementation doesn't work properly, though. For now use the old one.
@@ -143,21 +143,21 @@ return res;*/
 	return ioport("DSW1")->read();
 }
 
-WRITE16_MEMBER(rbmk_state::tilebank_w)
+void rbmk_state::tilebank_w(uint16_t data)
 {
 	m_tilebank = data;
 }
 
-WRITE16_MEMBER(rbmk_state::dip_mux_w)
+void rbmk_state::dip_mux_w(uint16_t data)
 {
 	m_dip_mux = data;
 }
 
-WRITE16_MEMBER(rbmk_state::unk_w)
+void rbmk_state::unk_w(uint16_t data)
 {
 }
 
-WRITE16_MEMBER(rbmk_state::eeprom_w)
+void rbmk_state::eeprom_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	//bad ?
 	if( ACCESSING_BITS_0_7 )
@@ -207,10 +207,10 @@ void rbmk_state::rbspm_mem(address_map &map)
 
 void rbmk_state::mcu_mem(address_map &map)
 {
-//  AM_RANGE(0x0000, 0x0fff) AM_ROM
+//  map(0x0000, 0x0fff).rom();
 }
 
-READ8_MEMBER(rbmk_state::mcu_io_r)
+uint8_t rbmk_state::mcu_io_r(offs_t offset)
 {
 	if(m_mux_data & 8)
 	{
@@ -228,7 +228,7 @@ READ8_MEMBER(rbmk_state::mcu_io_r)
 	return 0xff;
 }
 
-WRITE8_MEMBER(rbmk_state::mcu_io_w)
+void rbmk_state::mcu_io_w(offs_t offset, uint8_t data)
 {
 	if(m_mux_data & 8) { m_ymsnd->write(offset & 1, data); }
 	else if(m_mux_data & 4)
@@ -240,7 +240,7 @@ WRITE8_MEMBER(rbmk_state::mcu_io_w)
 		printf("Warning: mux data W = %02x",m_mux_data);
 }
 
-WRITE8_MEMBER(rbmk_state::mcu_io_mux_w)
+void rbmk_state::mcu_io_mux_w(uint8_t data)
 {
 	m_mux_data = ~data;
 }
@@ -607,8 +607,6 @@ void rbmk_state::rbspm(machine_config &config)
 	rbmk(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &rbmk_state::rbspm_mem);
 
-	m_mcu->set_disable(); // until decapped
-
 	// PIC16F84 but no CPU core available
 }
 
@@ -648,7 +646,7 @@ ROM_START( rbspm )
 	ROM_LOAD( "mj-dfmj-p1.bin", 0x00000, 0x80000, CRC(8f81f154) SHA1(50a9a373dec96b0265907f053d068d636bdabd61) )
 
 	ROM_REGION( 0x1000, "mcu", 0 ) /* protected MCU */
-	ROM_LOAD( "89c51.bin", 0x0000, 0x1000, NO_DUMP ) // reads as all 0xff
+	ROM_LOAD( "mj-dfmj_at89c51.bin", 0x0000, 0x1000, CRC(c6c48161) SHA1(c3ecf998820d758286b18896ff7860221dd0cf43) ) // decapped
 
 	ROM_REGION( 0x880, "pic", 0 ) /* pic was populated on this board */
 	ROM_LOAD( "c016_pic16f84_code.bin", 0x000, 0x800, CRC(1eb5cd2b) SHA1(9e747235e39eaea337f9325fa55fbfec1c03168d) )

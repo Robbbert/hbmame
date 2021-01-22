@@ -86,9 +86,9 @@ public:
 private:
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void kbd_put(u8 data);
-	DECLARE_READ8_MEMBER(status_r);
-	DECLARE_READ8_MEMBER(key_r);
-	DECLARE_READ8_MEMBER(ff_r);
+	uint8_t status_r();
+	uint8_t key_r();
+	uint8_t ff_r();
 
 	void jupiter3_io(address_map &map);
 	void jupiter3_mem(address_map &map);
@@ -116,21 +116,21 @@ void jupiter2_state::jupiter2_mem(address_map &map)
 	map(0x0000, 0x7fff).ram();
 	map(0xc000, 0xcfff).ram();  // Video RAM
 	map(0xf000, 0xff00).rom().region(MCM6571AP_TAG, 0);
-//  AM_RANGE(0xff58, 0xff5c) Cartridge Disk Controller PIA
-//  AM_RANGE(0xff60, 0xff76) DMA Controller
-//  AM_RANGE(0xff80, 0xff83) Floppy PIA
+//  map(0xff58, 0xff5c) Cartridge Disk Controller PIA
+//  map(0xff60, 0xff76) DMA Controller
+//  map(0xff80, 0xff83) Floppy PIA
 	map(0xff84, 0xff87).rw(INS1771N1_TAG, FUNC(wd_fdc_device_base::read), FUNC(wd_fdc_device_base::write));
-//  AM_RANGE(0xff90, 0xff93) Hytype Parallel Printer PIA
-//  AM_RANGE(0xffa0, 0xffa7) Persci Floppy Disk Controller
-//  AM_RANGE(0xffb0, 0xffb3) Video PIA
+//  map(0xff90, 0xff93) Hytype Parallel Printer PIA
+//  map(0xffa0, 0xffa7) Persci Floppy Disk Controller
+//  map(0xffb0, 0xffb3) Video PIA
 	map(0xffc0, 0xffc1).rw(m_acia0, FUNC(acia6850_device::read), FUNC(acia6850_device::write)); // Serial Port 0 ACIA
 	map(0xffc4, 0xffc5).rw(m_acia1, FUNC(acia6850_device::read), FUNC(acia6850_device::write)); // Serial Port 1 ACIA
-//  AM_RANGE(0xffc8, 0xffc9) Serial Port 2 ACIA
-//  AM_RANGE(0xffcc, 0xffcd) Serial Port 3 ACIA
-//  AM_RANGE(0xffd0, 0xffd1) Serial Port 4 ACIA / Cassette
-//  AM_RANGE(0xffd4, 0xffd5) Serial Port 5 ACIA / EPROM Programmer (2704/2708)
-//  AM_RANGE(0xffd8, 0xffd9) Serial Port 6 ACIA / Hardware Breakpoint Registers
-//  AM_RANGE(0xffdc, 0xffdd) Serial Port 7 ACIA
+//  map(0xffc8, 0xffc9) Serial Port 2 ACIA
+//  map(0xffcc, 0xffcd) Serial Port 3 ACIA
+//  map(0xffd0, 0xffd1) Serial Port 4 ACIA / Cassette
+//  map(0xffd4, 0xffd5) Serial Port 5 ACIA / EPROM Programmer (2704/2708)
+//  map(0xffd8, 0xffd9) Serial Port 6 ACIA / Hardware Breakpoint Registers
+//  map(0xffdc, 0xffdd) Serial Port 7 ACIA
 	map(0xfff8, 0xffff).rom().region(MCM6571AP_TAG, 0x0ff8); // vectors
 }
 
@@ -161,7 +161,7 @@ void jupiter3_state::jupiter3_io(address_map &map)
 	map(0xb2, 0xb2).r(FUNC(jupiter3_state::key_r));
 }
 
-READ8_MEMBER( jupiter3_state::ff_r )
+uint8_t jupiter3_state::ff_r()
 {
 	return 0xfd;
 }
@@ -177,14 +177,14 @@ READ8_MEMBER( jupiter3_state::ff_r )
 static INPUT_PORTS_START( jupiter )
 INPUT_PORTS_END
 
-READ8_MEMBER( jupiter3_state::key_r )
+uint8_t jupiter3_state::key_r()
 {
 	uint8_t ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
 
-READ8_MEMBER( jupiter3_state::status_r )
+uint8_t jupiter3_state::status_r()
 {
 	return (m_term_data) ? 0x80 : 0x00;
 }
@@ -202,21 +202,20 @@ void jupiter3_state::kbd_put(u8 data)
 
 uint32_t jupiter3_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	uint8_t y,ra,chr,gfx;
-	uint16_t sy=0,ma=0,x;
+	uint16_t sy=0,ma=0;
 
-	for (y = 0; y < 32; y++)
+	for (uint8_t y = 0; y < 32; y++)
 	{
-		for (ra = 0; ra < 10; ra++)
+		for (uint8_t ra = 0; ra < 10; ra++)
 		{
-			uint16_t *p = &bitmap.pix16(sy++);
+			uint16_t *p = &bitmap.pix(sy++);
 
-			for (x = ma; x < ma + 64; x++)
+			for (uint16_t x = ma; x < ma + 64; x++)
 			{
-				gfx = 0;
+				uint8_t gfx = 0;
 				if (ra < 9)
 				{
-					chr = m_p_videoram[x];
+					uint8_t chr = m_p_videoram[x];
 					gfx = m_p_chargen[(chr<<4) | ra ];
 				}
 

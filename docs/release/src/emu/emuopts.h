@@ -75,6 +75,7 @@
 #define OPTION_SLEEP                "sleep"
 #define OPTION_SPEED                "speed"
 #define OPTION_REFRESHSPEED         "refreshspeed"
+#define OPTION_LOWLATENCY           "lowlatency"
 
 // core render options
 #define OPTION_KEEPASPECT           "keepaspect"
@@ -110,6 +111,7 @@
 // core vector options
 #define OPTION_BEAM_WIDTH_MIN       "beam_width_min"
 #define OPTION_BEAM_WIDTH_MAX       "beam_width_max"
+#define OPTION_BEAM_DOT_SIZE        "beam_dot_size"
 #define OPTION_BEAM_INTENSITY_WEIGHT   "beam_intensity_weight"
 #define OPTION_FLICKER              "flicker"
 
@@ -117,6 +119,7 @@
 #define OPTION_SAMPLERATE           "samplerate"
 #define OPTION_SAMPLES              "samples"
 #define OPTION_VOLUME               "volume"
+#define OPTION_SPEAKER_REPORT       "speaker_report"
 
 // core input options
 #define OPTION_COIN_LOCKOUT         "coin_lockout"
@@ -153,6 +156,7 @@
 #define OPTION_OSLOG                "oslog"
 #define OPTION_UPDATEINPAUSE        "update_in_pause"
 #define OPTION_DEBUGSCRIPT          "debugscript"
+#define OPTION_DEBUGLOG             "debuglog"
 
 // core misc options
 #define OPTION_DRC                  "drc"
@@ -162,7 +166,6 @@
 #define OPTION_BIOS                 "bios"
 #define OPTION_CHEAT                "cheat"
 #define OPTION_SKIP_GAMEINFO        "skip_gameinfo"
-#define OPTION_SKIP_MANDATORY_FILEMAN   "skip_mandatory_fileman"
 #define OPTION_UI_FONT              "uifont"
 #define OPTION_UI                   "ui"
 #define OPTION_RAMSIZE              "ramsize"
@@ -353,6 +356,7 @@ public:
 	bool sleep() const { return m_sleep; }
 	float speed() const { return float_value(OPTION_SPEED); }
 	bool refresh_speed() const { return m_refresh_speed; }
+	bool low_latency() const { return bool_value(OPTION_LOWLATENCY); }
 
 	// core render options
 	bool keep_aspect() const { return bool_value(OPTION_KEEPASPECT); }
@@ -388,6 +392,7 @@ public:
 	// core vector options
 	float beam_width_min() const { return float_value(OPTION_BEAM_WIDTH_MIN); }
 	float beam_width_max() const { return float_value(OPTION_BEAM_WIDTH_MAX); }
+	float beam_dot_size() const { return float_value(OPTION_BEAM_DOT_SIZE); }
 	float beam_intensity_weight() const { return float_value(OPTION_BEAM_INTENSITY_WEIGHT); }
 	float flicker() const { return float_value(OPTION_FLICKER); }
 
@@ -395,6 +400,7 @@ public:
 	int sample_rate() const { return int_value(OPTION_SAMPLERATE); }
 	bool samples() const { return bool_value(OPTION_SAMPLES); }
 	int volume() const { return int_value(OPTION_VOLUME); }
+	int speaker_report() const { return int_value(OPTION_SPEAKER_REPORT); }
 
 	// core input options
 	bool coin_lockout() const { return bool_value(OPTION_COIN_LOCKOUT); }
@@ -429,6 +435,7 @@ public:
 	bool oslog() const { return bool_value(OPTION_OSLOG); }
 	const char *debug_script() const { return value(OPTION_DEBUGSCRIPT); }
 	bool update_in_pause() const { return bool_value(OPTION_UPDATEINPAUSE); }
+	bool debuglog() const { return bool_value(OPTION_DEBUGLOG); }
 
 	// core misc options
 	bool drc() const { return bool_value(OPTION_DRC); }
@@ -438,7 +445,6 @@ public:
 	const char *bios() const { return value(OPTION_BIOS); }
 	bool cheat() const { return bool_value(OPTION_CHEAT); }
 	bool skip_gameinfo() const { return bool_value(OPTION_SKIP_GAMEINFO); }
-	bool skip_mandatory_fileman() const { return bool_value(OPTION_SKIP_MANDATORY_FILEMAN); }
 	const char *ui_font() const { return value(OPTION_UI_FONT); }
 	ui_option ui() const { return m_ui; }
 	const char *ram_size() const { return value(OPTION_RAMSIZE); }
@@ -511,7 +517,7 @@ private:
 
 	// slots and devices
 	std::unordered_map<std::string, ::slot_option>      m_slot_options;
-	std::unordered_map<std::string, ::image_option>     m_image_options_cannonical;
+	std::unordered_map<std::string, ::image_option>     m_image_options_canonical;
 	std::unordered_map<std::string, ::image_option *>   m_image_options;
 
 	// cached options, for scenarios where parsing core_options is too slow

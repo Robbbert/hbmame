@@ -26,7 +26,7 @@ ROM_START( bloodbros01 )
 	ROM_REGION( 0x100000, "gfx3", 0 )
 	ROM_LOAD( "blood_bros_obj__=c=1990_tad_corp.u078.2n", 0x00000, 0x100000, CRC(d27c3952) SHA1(de7306432b682f238b911507ad7aa2fa8acbee80) ) /* sprites */
 
-	ROM_REGION( 0x40000, "oki", 0 ) 
+	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "bb_08.u095.5a",  0x00000, 0x20000, CRC(deb1b975) SHA1(08f2e9a0a23171201b71d381d091edcd3787c287) )
 
 	ROM_REGION( 0x0100, "proms", 0 )

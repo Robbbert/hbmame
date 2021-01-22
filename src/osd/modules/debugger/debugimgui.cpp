@@ -225,11 +225,7 @@ static void view_list_remove(debug_area* item)
 
 static debug_area *dview_alloc(running_machine &machine, debug_view_type type)
 {
-	debug_area *dv;
-
-	dv = global_alloc(debug_area(machine, type));
-
-	return dv;
+	return new debug_area(machine, type);
 }
 
 static inline void map_attr_to_fg_bg(unsigned char attr, rgb_t *fg, rgb_t *bg)
@@ -261,8 +257,8 @@ static inline void map_attr_to_fg_bg(unsigned char attr, rgb_t *fg, rgb_t *bg)
 
 bool debug_imgui::get_view_source(void* data, int idx, const char** out_text)
 {
-	debug_view* vw = static_cast<debug_view*>(data);
-	*out_text = vw->source_list().find(idx)->name();
+	auto* vw = static_cast<debug_view*>(data);
+	*out_text = vw->source(idx)->name();
 	return true;
 }
 
@@ -295,7 +291,7 @@ void debug_imgui::handle_mouse_views()
 		view_main_disasm->view->set_cursor_position(newpos);
 		view_main_disasm->view->set_cursor_visible(true);
 	}
-	for(std::vector<debug_area*>::iterator it = view_list.begin();it != view_list.end();++it)
+	for(auto it = view_list.begin();it != view_list.end();++it)
 	{
 		rect.min_x = (*it)->ofs_x;
 		rect.min_y = (*it)->ofs_y;
@@ -323,7 +319,7 @@ void debug_imgui::handle_keys()
 	debug_area* focus_view = nullptr;
 
 	// find view that has focus (should only be one at a time)
-	for(std::vector<debug_area*>::iterator view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
+	for(auto view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
 		if((*view_ptr)->has_focus)
 			focus_view = *view_ptr;
 
@@ -357,7 +353,7 @@ void debug_imgui::handle_keys()
 	{
 		switch (event.event_type)
 		{
-			case ui_event::IME_CHAR:
+		case ui_event::type::IME_CHAR:
 			m_key_char = event.ch;
 			if(focus_view != nullptr)
 				focus_view->view->process_char(m_key_char);
@@ -375,36 +371,36 @@ void debug_imgui::handle_keys()
 		else
 		{
 			m_machine->schedule_soft_reset();
-			m_machine->debugger().cpu().get_visible_cpu()->debug()->go();
+			m_machine->debugger().console().get_visible_cpu()->debug()->go();
 		}
 	}
 
 	if(ImGui::IsKeyPressed(ITEM_ID_F5,false))
 	{
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->go();
+		m_machine->debugger().console().get_visible_cpu()->debug()->go();
 		m_running = true;
 	}
 	if(ImGui::IsKeyPressed(ITEM_ID_F6,false))
 	{
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->go_next_device();
+		m_machine->debugger().console().get_visible_cpu()->debug()->go_next_device();
 		m_running = true;
 	}
 	if(ImGui::IsKeyPressed(ITEM_ID_F7,false))
 	{
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->go_interrupt();
+		m_machine->debugger().console().get_visible_cpu()->debug()->go_interrupt();
 		m_running = true;
 	}
 	if(ImGui::IsKeyPressed(ITEM_ID_F8,false))
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->go_vblank();
+		m_machine->debugger().console().get_visible_cpu()->debug()->go_vblank();
 	if(ImGui::IsKeyPressed(ITEM_ID_F9,false))
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step_out();
+		m_machine->debugger().console().get_visible_cpu()->debug()->single_step_out();
 	if(ImGui::IsKeyPressed(ITEM_ID_F10,false))
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step_over();
+		m_machine->debugger().console().get_visible_cpu()->debug()->single_step_over();
 	if(ImGui::IsKeyPressed(ITEM_ID_F11,false))
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step();
+		m_machine->debugger().console().get_visible_cpu()->debug()->single_step();
 	if(ImGui::IsKeyPressed(ITEM_ID_F12,false))
 	{
-		m_machine->debugger().cpu().get_visible_cpu()->debug()->go();
+		m_machine->debugger().console().get_visible_cpu()->debug()->go();
 		m_hide = true;
 	}
 
@@ -425,7 +421,7 @@ void debug_imgui::handle_keys_views()
 {
 	debug_area* focus_view = nullptr;
 	// find view that has focus (should only be one at a time)
-	for(std::vector<debug_area*>::iterator view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
+	for(auto view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
 		if((*view_ptr)->has_focus)
 			focus_view = *view_ptr;
 
@@ -484,7 +480,7 @@ void debug_imgui::handle_console(running_machine* machine)
 		// if console input is empty, then do a single step
 		if(strlen(view_main_console->console_input) == 0)
 		{
-			m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step();
+			m_machine->debugger().console().get_visible_cpu()->debug()->single_step();
 			view_main_console->exec_cmd = false;
 			history_pos = view_main_console->console_history.size();
 			return;
@@ -522,7 +518,7 @@ void debug_imgui::handle_console(running_machine* machine)
 		// don't bother adding to history if the current command matches the previous one
 		if(view_main_console->console_prev != view_main_console->console_input)
 		{
-			view_main_console->console_history.push_back(std::string(view_main_console->console_input));
+			view_main_console->console_history.emplace_back(std::string(view_main_console->console_input));
 			view_main_console->console_prev = view_main_console->console_input;
 		}
 		history_pos = view_main_console->console_history.size();
@@ -754,13 +750,9 @@ void debug_imgui::add_log(int id)
 
 void debug_imgui::draw_disasm(debug_area* view_ptr, bool* opened)
 {
-	const debug_view_source* src;
-
 	ImGui::SetNextWindowSize(ImVec2(view_ptr->width,view_ptr->height + ImGui::GetTextLineHeight()),ImGuiCond_Once);
 	if(ImGui::Begin(view_ptr->title.c_str(),opened,ImGuiWindowFlags_MenuBar))
 	{
-		int idx;
-		bool done = false;
 		bool exp_change = false;
 
 		view_ptr->is_collapsed = false;
@@ -768,7 +760,7 @@ void debug_imgui::draw_disasm(debug_area* view_ptr, bool* opened)
 		{
 			if(ImGui::BeginMenu("Options"))
 			{
-				debug_view_disasm* disasm = downcast<debug_view_disasm*>(view_ptr->view);
+				auto* disasm = downcast<debug_view_disasm*>(view_ptr->view);
 				int rightcol = disasm->right_column();
 
 				if(ImGui::MenuItem("Raw opcodes", nullptr,(rightcol == DASM_RIGHTCOL_RAW) ? true : false))
@@ -788,7 +780,7 @@ void debug_imgui::draw_disasm(debug_area* view_ptr, bool* opened)
 		ImGuiInputTextFlags flags = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll;
 		if(m_running)
 			flags |= ImGuiInputTextFlags_ReadOnly;
-		ImGui::Combo("##cpu",&view_ptr->src_sel,get_view_source,view_ptr->view,view_ptr->view->source_list().count());
+		ImGui::Combo("##cpu",&view_ptr->src_sel,get_view_source,view_ptr->view,view_ptr->view->source_count());
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1.0f);
 		if(ImGui::InputText("##addr",view_ptr->console_input,512,flags))
@@ -800,17 +792,15 @@ void debug_imgui::draw_disasm(debug_area* view_ptr, bool* opened)
 		ImGui::Separator();
 
 		// disassembly portion
-		src = view_ptr->view->first_source();
-		idx = 0;
-		while (!done)
+		unsigned idx = 0;
+		const debug_view_source* src = view_ptr->view->source(idx);
+		do
 		{
 			if(view_ptr->src_sel == idx)
 				view_ptr->view->set_source(*src);
-			idx++;
-			src = src->next();
-			if(src == nullptr)
-				done = true;
+			src = view_ptr->view->source(++idx);
 		}
+		while (src);
 
 		ImGui::BeginChild("##disasm_output", ImVec2(ImGui::GetWindowWidth() - 16,ImGui::GetWindowHeight() - ImGui::GetTextLineHeight() - ImGui::GetCursorPosY()));  // account for title bar and widgets already drawn
 		draw_view(view_ptr,exp_change);
@@ -841,13 +831,9 @@ void debug_imgui::add_disasm(int id)
 
 void debug_imgui::draw_memory(debug_area* view_ptr, bool* opened)
 {
-	const debug_view_source* src;
-
 	ImGui::SetNextWindowSize(ImVec2(view_ptr->width,view_ptr->height + ImGui::GetTextLineHeight()),ImGuiCond_Once);
 	if(ImGui::Begin(view_ptr->title.c_str(),opened,ImGuiWindowFlags_MenuBar))
 	{
-		int idx;
-		bool done = false;
 		bool exp_change = false;
 
 		view_ptr->is_collapsed = false;
@@ -855,7 +841,7 @@ void debug_imgui::draw_memory(debug_area* view_ptr, bool* opened)
 		{
 			if(ImGui::BeginMenu("Options"))
 			{
-				debug_view_memory* mem = downcast<debug_view_memory*>(view_ptr->view);
+				auto* mem = downcast<debug_view_memory*>(view_ptr->view);
 				bool physical = mem->physical();
 				bool rev = mem->reverse();
 				int format = mem->get_data_format();
@@ -906,22 +892,20 @@ void debug_imgui::draw_memory(debug_area* view_ptr, bool* opened)
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 		ImGui::PushItemWidth(-1.0f);
-		ImGui::Combo("##region",&view_ptr->src_sel,get_view_source,view_ptr->view,view_ptr->view->source_list().count());
+		ImGui::Combo("##region",&view_ptr->src_sel,get_view_source,view_ptr->view,view_ptr->view->source_count());
 		ImGui::PopItemWidth();
 		ImGui::Separator();
 
 		// memory editor portion
-		src = view_ptr->view->first_source();
-		idx = 0;
-		while (!done)
+		unsigned idx = 0;
+		const debug_view_source* src = view_ptr->view->source(idx);
+		do
 		{
 			if(view_ptr->src_sel == idx)
 				view_ptr->view->set_source(*src);
-			idx++;
-			src = src->next();
-			if(src == nullptr)
-				done = true;
+			src = view_ptr->view->source(++idx);
 		}
+		while (src);
 
 		ImGui::BeginChild("##memory_output", ImVec2(ImGui::GetWindowWidth() - 16,ImGui::GetWindowHeight() - ImGui::GetTextLineHeight() - ImGui::GetCursorPosY()));  // account for title bar and widgets already drawn
 		draw_view(view_ptr,exp_change);
@@ -961,7 +945,7 @@ void debug_imgui::mount_image()
 			case file_entry_type::DIRECTORY:
 				{
 					util::zippath_directory::ptr dir;
-					err = util::zippath_directory::open(m_selected_file->fullpath.c_str(), dir);
+					err = util::zippath_directory::open(m_selected_file->fullpath, dir);
 				}
 				if(err == osd_file::error::NONE)
 				{
@@ -970,7 +954,7 @@ void debug_imgui::mount_image()
 				}
 				break;
 			case file_entry_type::FILE:
-				m_dialog_image->load(m_selected_file->fullpath.c_str());
+				m_dialog_image->load(m_selected_file->fullpath);
 				ImGui::CloseCurrentPopup();
 				break;
 		}
@@ -983,7 +967,7 @@ void debug_imgui::create_image()
 
 	if(m_dialog_image->image_type() == IO_FLOPPY)
 	{
-		floppy_image_device *fd = static_cast<floppy_image_device *>(m_dialog_image);
+		auto *fd = static_cast<floppy_image_device *>(m_dialog_image);
 		res = fd->create(m_path,nullptr,nullptr);
 		if(res == image_init_result::PASS)
 			fd->setup_write(m_typelist.at(m_format_sel).format);
@@ -1009,13 +993,12 @@ void debug_imgui::refresh_filelist()
 	{
 		int x = 0;
 		// add drives
-		const char *volume_name;
-		while((volume_name = osd_get_volume_name(x))!=nullptr)
+		for(std::string const &volume_name : osd_get_volume_names())
 		{
 			file_entry temp;
 			temp.type = file_entry_type::DRIVE;
-			temp.basename = std::string(volume_name);
-			temp.fullpath = std::string(volume_name);
+			temp.basename = volume_name;
+			temp.fullpath = volume_name;
 			m_filelist.emplace_back(std::move(temp));
 			x++;
 		}
@@ -1048,7 +1031,7 @@ void debug_imgui::refresh_filelist()
 
 void debug_imgui::refresh_typelist()
 {
-	floppy_image_device *fd = static_cast<floppy_image_device *>(m_dialog_image);
+	auto *fd = static_cast<floppy_image_device *>(m_dialog_image);
 
 	m_typelist.clear();
 	if(m_dialog_image->formatlist().empty())
@@ -1075,7 +1058,7 @@ void debug_imgui::draw_images_menu()
 	if(ImGui::BeginMenu("Images"))
 	{
 		int x = 0;
-		for (device_image_interface &img : image_interface_iterator(m_machine->root_device()))
+		for (device_image_interface &img : image_interface_enumerator(m_machine->root_device()))
 		{
 			x++;
 			std::string str = string_format(" %s : %s##%i",img.device().name(),img.exists() ? img.filename() : "[Empty slot]",x);
@@ -1118,7 +1101,7 @@ void debug_imgui::draw_mount_dialog(const char* label)
 {
 	// render dialog
 	//ImGui::SetNextWindowContentWidth(200.0f);
-	if(ImGui::BeginPopupModal(label,NULL,ImGuiWindowFlags_AlwaysAutoResize))
+	if(ImGui::BeginPopupModal(label,nullptr,ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		if(m_filelist_refresh)
 			refresh_filelist();
@@ -1127,7 +1110,7 @@ void debug_imgui::draw_mount_dialog(const char* label)
 		ImGui::Separator();
 		{
 			ImGui::ListBoxHeader("##filelist",m_filelist.size(),15);
-			for(std::vector<file_entry>::iterator f = m_filelist.begin();f != m_filelist.end();++f)
+			for(auto f = m_filelist.begin();f != m_filelist.end();++f)
 			{
 				std::string txt_name;
 				bool sel = false;
@@ -1169,7 +1152,7 @@ void debug_imgui::draw_create_dialog(const char* label)
 {
 	// render dialog
 	//ImGui::SetNextWindowContentWidth(200.0f);
-	if(ImGui::BeginPopupModal(label,NULL,ImGuiWindowFlags_AlwaysAutoResize))
+	if(ImGui::BeginPopupModal(label,nullptr,ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::LabelText("##static1","Filename:");
 		ImGui::SameLine();
@@ -1189,7 +1172,7 @@ void debug_imgui::draw_create_dialog(const char* label)
 		{
 			std::string combo_str;
 			combo_str.clear();
-			for(std::vector<image_type_entry>::iterator f = m_typelist.begin();f != m_typelist.end();++f)
+			for(auto f = m_typelist.begin();f != m_typelist.end();++f)
 			{
 				// TODO: perhaps do this at the time the format list is generated, rather than every frame
 				combo_str.append((*f).longname);
@@ -1260,33 +1243,33 @@ void debug_imgui::draw_console()
 				ImGui::Separator();
 				if(ImGui::MenuItem("Run", "F5"))
 				{
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->go();
+					m_machine->debugger().console().get_visible_cpu()->debug()->go();
 					m_running = true;
 				}
 				if(ImGui::MenuItem("Go to next CPU", "F6"))
 				{
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->go_next_device();
+					m_machine->debugger().console().get_visible_cpu()->debug()->go_next_device();
 					m_running = true;
 				}
 				if(ImGui::MenuItem("Run until next interrupt", "F7"))
 				{
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->go_interrupt();
+					m_machine->debugger().console().get_visible_cpu()->debug()->go_interrupt();
 					m_running = true;
 				}
 				if(ImGui::MenuItem("Run until VBLANK", "F8"))
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->go_vblank();
+					m_machine->debugger().console().get_visible_cpu()->debug()->go_vblank();
 				if(ImGui::MenuItem("Run and hide debugger", "F12"))
 				{
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->go();
+					m_machine->debugger().console().get_visible_cpu()->debug()->go();
 					m_hide = true;
 				}
 				ImGui::Separator();
 				if(ImGui::MenuItem("Single step", "F11"))
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step();
+					m_machine->debugger().console().get_visible_cpu()->debug()->single_step();
 				if(ImGui::MenuItem("Step over", "F10"))
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step_over();
+					m_machine->debugger().console().get_visible_cpu()->debug()->single_step_over();
 				if(ImGui::MenuItem("Step out", "F9"))
-					m_machine->debugger().cpu().get_visible_cpu()->debug()->single_step_out();
+					m_machine->debugger().console().get_visible_cpu()->debug()->single_step_out();
 
 				ImGui::EndMenu();
 			}
@@ -1294,12 +1277,12 @@ void debug_imgui::draw_console()
 			{
 				if(ImGui::MenuItem("Show all"))
 				{
-					for(std::vector<debug_area*>::iterator view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
+					for(auto view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
 						ImGui::SetWindowCollapsed((*view_ptr)->title.c_str(),false);
 				}
 				ImGui::Separator();
 				// list all extra windows, so we can un-collapse the windows if necessary
-				for(std::vector<debug_area*>::iterator view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
+				for(auto view_ptr = view_list.begin();view_ptr != view_list.end();++view_ptr)
 				{
 					bool collapsed = false;
 					if((*view_ptr)->is_collapsed)
@@ -1418,7 +1401,7 @@ void debug_imgui::update()
 	if(to_delete != nullptr)
 	{
 		view_list_remove(to_delete);
-		global_free(to_delete);
+		delete to_delete;
 	}
 
 	ImGui::PopStyleColor(12);
@@ -1433,7 +1416,7 @@ void debug_imgui::init_debugger(running_machine &machine)
 		fatalerror("Error: ImGui debugger requires the BGFX renderer.\n");
 
 	// check for any image devices (cassette, floppy, etc...)
-	image_interface_iterator iter(m_machine->root_device());
+	image_interface_enumerator iter(m_machine->root_device());
 	if (iter.first() != nullptr)
 		m_has_images = true;
 

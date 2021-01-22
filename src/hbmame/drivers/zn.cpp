@@ -20,12 +20,32 @@ ROM_START( doapph01 )
 	ROM_LOAD( "mg05", 0x000000, 0x000008, CRC(5748a4ca) SHA1(c88d73f6a646a9ddefdfd84cba70d591759c069f) )
 ROM_END
 
-GAME( 1998, doapph01, doapp, coh1002m, zn, zn_state, empty_init, ROT0, "yumeji", "Dead Or Alive ++ (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1998, doapph01, doapp, coh1002m, zn, tecmo_zn_state, empty_init, ROT0, "yumeji", "Dead Or Alive ++ (Enable Hidden Characters)", 0 )
 
 
 /****************************************************
          Proyecto Shadows Mame Build Plus
 *****************************************************/
+
+ /*****************
+ Dead Or Alive ++
+********************/
+
+ROM_START( doappnud )
+	TPS_BIOS
+	ROM_REGION32_LE( 0x02800000, "bankedroms", 0 )
+	ROM_LOAD16_BYTE( "doapp119.bin", 0x0000001, 0x100000, CRC(bbe04cef) SHA1(f2dae4810ca78075fc3007a6001531a455235a2e) )
+	ROM_LOAD16_BYTE( "doapp120nud.bin", 0x0000000, 0x100000, CRC(cb236b2f) SHA1(b4e69abed13d9166ab0e329e2d1119fbea9e396c) )
+	ROM_LOAD( "doapp-0.216",         0x0400000, 0x400000, CRC(acc6c539) SHA1(a744567a3d75634098b1749103307981be9acbdd) )
+	ROM_LOAD( "doapp-1.217",         0x0800000, 0x400000, CRC(14b961c4) SHA1(3fae1fcb4665ba8bad391881b26c2d087718d42f) )
+	ROM_LOAD( "doapp-2.218",         0x0c00000, 0x400000, CRC(134f698f) SHA1(6422972cf5d30a0f09f0c20f042691d5969207b4) )
+	ROM_LOAD( "doapp-3.219",         0x1000000, 0x400000, CRC(1c6540f3) SHA1(8631fde93a1da6325d7b31c7edf12c964f0ac4fc) )
+	ROM_LOAD( "doapp-4.220",         0x1400000, 0x400000, CRC(f83bacf7) SHA1(5bd66da993f0db966581dde80dd7e5b377754412) )
+	ROM_LOAD( "doapp-5.221",         0x1800000, 0x400000, CRC(e11e8b71) SHA1(b1d1b9532b5f074ce216a603436d5674d136865d) )
+
+	ROM_REGION( 0x8, "cat702_2", 0 )
+	ROM_LOAD( "mg05", 0x000000, 0x000008, CRC(5748a4ca) SHA1(c88d73f6a646a9ddefdfd84cba70d591759c069f) )
+ROM_END
 
  /*****************
  Street Fighter EX
@@ -49,7 +69,7 @@ ROM_START( sfexs01 )
 	ROM_LOAD( "sfe_02.2e",  0x00000, 0x20000, CRC(1908475c) SHA1(99f68cff2d92f5697eec0846201f6fb317d5dc08) )
 	ROM_LOAD( "sfe_03.3e",  0x20000, 0x20000, CRC(95c1e2e0) SHA1(383bbe9613798a3ac6944d18768280a840994e40) )
 
-	ROM_REGION( 0x400000, "qsound", 0 ) 
+	ROM_REGION( 0x400000, "qsound", 0 )
 	ROM_LOAD16_WORD_SWAP( "sfe-01m.3b", 0x0000000, 0x400000, CRC(f5afff0d) SHA1(7f9ac32ba0a3d9c6fef367e36a92d47c9ac1feb3) )
 
 	ROM_REGION( 0x8, "cat702_2", 0 )
@@ -101,11 +121,11 @@ ROM_START( sfex2ps01 )
 	ROM_LOAD( "x2p-09m.3k", 0x2000000, 0x800000, CRC(344aa227) SHA1(69dc6f511939bf7fa25c2531ecf307a7565fe7a8) )
 	ROM_LOAD( "x2p-10m.4k", 0x2800000, 0x800000, CRC(2eef5931) SHA1(e5227529fb68eeb1b2f25813694173a75d906b52) )
 
-	ROM_REGION( 0x40000, "audiocpu", 0 ) 
+	ROM_REGION( 0x40000, "audiocpu", 0 )
 	ROM_LOAD( "x2p_02.2e",  0x00000, 0x20000, CRC(3705de5e) SHA1(847007ca271da64bf13ffbf496d4291429eee27a) )
 	ROM_LOAD( "x2p_03.3e",  0x20000, 0x20000, CRC(6ae828f6) SHA1(41c54165e87b846a845da581f408b96979288158) )
 
-	ROM_REGION( 0x400000, "qsound", 0 ) 
+	ROM_REGION( 0x400000, "qsound", 0 )
 	ROM_LOAD16_WORD_SWAP( "x2p-01m.3a", 0x0000000, 0x400000, CRC(14a5bb0e) SHA1(dfe3c3a53bd4c58743d8039b5344d3afbe2a9c24) )
 
 	ROM_REGION( 0x8, "cat702_2", 0 )
@@ -130,11 +150,11 @@ ROM_START( sfexps01 )
 	ROM_LOAD( "sfp-09m.3k", 0x1000000, 0x400000, CRC(15f8b71e) SHA1(efb28fbe750f443550ee9718385355aae7e858c9) )
 	ROM_LOAD( "sfp-10m.4k", 0x1400000, 0x400000, CRC(c1ecf652) SHA1(616e14ff63d38272730c810b933a6b3412e2da17) )
 
-	ROM_REGION( 0x40000, "audiocpu", 0 ) 
+	ROM_REGION( 0x40000, "audiocpu", 0 )
 	ROM_LOAD( "sfe_02.2e",  0x00000, 0x20000, CRC(1908475c) SHA1(99f68cff2d92f5697eec0846201f6fb317d5dc08) )
 	ROM_LOAD( "sfe_03.3e",  0x20000, 0x20000, CRC(95c1e2e0) SHA1(383bbe9613798a3ac6944d18768280a840994e40) )
 
-	ROM_REGION( 0x400000, "qsound", 0 ) 
+	ROM_REGION( 0x400000, "qsound", 0 )
 	ROM_LOAD16_WORD_SWAP( "sfe-01m.3b", 0x0000000, 0x400000, CRC(f5afff0d) SHA1(7f9ac32ba0a3d9c6fef367e36a92d47c9ac1feb3) )
 
 	ROM_REGION( 0x8, "cat702_2", 0 )
@@ -142,11 +162,13 @@ ROM_START( sfexps01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Dead Or Alive ++
+GAME( 1998, doappnud,     doapp,  coh1002m,    zn,       tecmo_zn_state, empty_init, ROT0, "Yumeji",   "Dead Or Alive ++ (Kasumi Sexy Hack)", 0 )
 // Street Fighter EX
-GAME( 1996, sfexs01,      sfex,   coh1002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1996, sfexs01,      sfex,   coh1002c,    zn6b,     zn1_state, empty_init, ROT0, "yumeji",  "Street Fighter EX (Enable Hidden Characters)", 0 )
 // Street Fighter EX2
-GAME( 1998, sfex2s01,     sfex2,  coh3002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1998, sfex2s01,     sfex2,  coh3002c,    zn6b,     zn2_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 (Enable Hidden Characters)", 0 )
 // Street Fighter EX2 Plus
-GAME( 1999, sfex2ps01,    sfex2p, coh3002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 Plus (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1999, sfex2ps01,    sfex2p, coh3002c,    zn6b,     zn2_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 Plus (Enable Hidden Characters)", 0 )
 // Street Fighter EX Plus
-GAME( 1997, sfexps01,     sfexp,  coh1002c,    zn6b,     zn_state, empty_init, ROT0, "yumeji",  "Street Fighter EX Plus (Enable Hidden Characters)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND )
+GAME( 1997, sfexps01,     sfexp,  coh1002c,    zn6b,     zn1_state, empty_init, ROT0, "yumeji",  "Street Fighter EX Plus (Enable Hidden Characters)", 0 )

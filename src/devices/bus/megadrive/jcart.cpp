@@ -88,7 +88,7 @@ void md_seprom_codemast_device::device_add_mconfig(machine_config &config)
 
 void md_seprom_mm96_device::device_add_mconfig(machine_config &config)
 {
-	I2C_24C16A(config, m_i2cmem);
+	I2C_24C16(config, m_i2cmem); // 24C16A
 }
 
 
@@ -157,7 +157,7 @@ void md_seprom_codemast_device::device_reset()
  J-CART ONLY (Pete Sampras Tennis)
  -------------------------------------------------*/
 
-READ16_MEMBER(md_jcart_device::read)
+uint16_t md_jcart_device::read(offs_t offset)
 {
 	if (offset == 0x38fffe/2)
 	{
@@ -165,14 +165,14 @@ READ16_MEMBER(md_jcart_device::read)
 
 		if (m_jcart_io_data[0] & 0x40)
 		{
-			joy[0] = m_jcart3.read_safe(0);
-			joy[1] = m_jcart4.read_safe(0);
+			joy[0] = m_jcart3->read();
+			joy[1] = m_jcart4->read();
 			return (m_jcart_io_data[0] & 0x40) | joy[0] | (joy[1] << 8);
 		}
 		else
 		{
-			joy[0] = ((m_jcart3.read_safe(0) & 0xc0) >> 2) | (m_jcart3.read_safe(0) & 0x03);
-			joy[1] = ((m_jcart4.read_safe(0) & 0xc0) >> 2) | (m_jcart4.read_safe(0) & 0x03);
+			joy[0] = ((m_jcart3->read() & 0xc0) >> 2) | (m_jcart3->read() & 0x03);
+			joy[1] = ((m_jcart4->read() & 0xc0) >> 2) | (m_jcart4->read() & 0x03);
 			return (m_jcart_io_data[0] & 0x40) | joy[0] | (joy[1] << 8);
 		}
 	}
@@ -182,7 +182,7 @@ READ16_MEMBER(md_jcart_device::read)
 		return 0xffff;
 }
 
-WRITE16_MEMBER(md_jcart_device::write)
+void md_jcart_device::write(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (offset == 0x38fffe/2)
 	{
@@ -195,7 +195,7 @@ WRITE16_MEMBER(md_jcart_device::write)
  J-CART + SEPROM
  -------------------------------------------------*/
 
-READ16_MEMBER(md_seprom_codemast_device::read)
+uint16_t md_seprom_codemast_device::read(offs_t offset)
 {
 	if (offset == 0x380000/2)
 	{
@@ -208,14 +208,14 @@ READ16_MEMBER(md_seprom_codemast_device::read)
 
 		if (m_jcart_io_data[0] & 0x40)
 		{
-			joy[0] = m_jcart3.read_safe(0);
-			joy[1] = m_jcart4.read_safe(0);
+			joy[0] = m_jcart3->read();
+			joy[1] = m_jcart4->read();
 			return (m_jcart_io_data[0] & 0x40) | joy[0] | (joy[1] << 8);
 		}
 		else
 		{
-			joy[0] = ((m_jcart3.read_safe(0) & 0xc0) >> 2) | (m_jcart3.read_safe(0) & 0x03);
-			joy[1] = ((m_jcart4.read_safe(0) & 0xc0) >> 2) | (m_jcart4.read_safe(0) & 0x03);
+			joy[0] = ((m_jcart3->read() & 0xc0) >> 2) | (m_jcart3->read() & 0x03);
+			joy[1] = ((m_jcart4->read() & 0xc0) >> 2) | (m_jcart4->read() & 0x03);
 			return (m_jcart_io_data[0] & 0x40) | joy[0] | (joy[1] << 8);
 		}
 	}
@@ -225,7 +225,7 @@ READ16_MEMBER(md_seprom_codemast_device::read)
 		return 0xffff;
 }
 
-WRITE16_MEMBER(md_seprom_codemast_device::write)
+void md_seprom_codemast_device::write(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (offset == 0x380000/2)
 	{

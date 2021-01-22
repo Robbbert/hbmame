@@ -54,12 +54,12 @@ void nichisnd_device::nichisnd_io_map(address_map &map)
 }
 
 
-WRITE8_MEMBER(nichisnd_device::soundbank_w)
+void nichisnd_device::soundbank_w(uint8_t data)
 {
 	membank("soundbank")->set_entry(data & 0x03);
 }
 
-WRITE8_MEMBER(nichisnd_device::soundlatch_clear_w)
+void nichisnd_device::soundlatch_clear_w(uint8_t data)
 {
 	if (!(data & 0x01)) m_soundlatch->clear_w();
 }
@@ -100,9 +100,6 @@ void nichisnd_device::device_add_mconfig(machine_config &config)
 
 	DAC_8BIT_R2R(config, "dac1", 0).add_route(ALL_OUTPUTS, "speaker", 0.37); // unknown DAC
 	DAC_8BIT_R2R(config, "dac2", 0).add_route(ALL_OUTPUTS, "speaker", 0.37); // unknown DAC
-	voltage_regulator_device &vref(VOLTAGE_REGULATOR(config, "vref"));
-	vref.add_route(0, "dac1", 1.0, DAC_VREF_POS_INPUT).add_route(0, "dac1", -1.0, DAC_VREF_NEG_INPUT);
-	vref.add_route(0, "dac2", 1.0, DAC_VREF_POS_INPUT).add_route(0, "dac2", -1.0, DAC_VREF_NEG_INPUT);
 }
 
 
@@ -137,7 +134,7 @@ void nichisnd_device::device_reset()
 //**************************************************************************
 
 // use this to connect to the sound board
-WRITE8_MEMBER(nichisnd_device::sound_host_command_w)
+void nichisnd_device::sound_host_command_w(uint8_t data)
 {
 	m_soundlatch->write(data);
 }

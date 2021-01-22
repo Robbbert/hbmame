@@ -98,11 +98,11 @@
 
 *********************************************************************/
 
-#include <stdio.h>
-#include <assert.h>
-
-#include "emu.h" // logerror
 #include "ap_dsk35.h"
+
+#include <cassert>
+#include <cstdio>
+
 
 struct apple35_tag
 {
@@ -1208,6 +1208,9 @@ LEGACY_FLOPPY_OPTIONS_END
 
 // license:BSD-3-Clause
 // copyright-holders:Olivier Galibert
+
+const int dc42_format::cell_count[5] = { 76950, 70672, 64244, 57739, 51387 };
+
 dc42_format::dc42_format() : floppy_image_format_t()
 {
 }
@@ -1232,7 +1235,7 @@ bool dc42_format::supports_save() const
 	return true;
 }
 
-int dc42_format::identify(io_generic *io, uint32_t form_factor)
+int dc42_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	uint8_t h[0x54];
 	uint64_t size = io_generic_size(io);
@@ -1276,7 +1279,7 @@ const floppy_image_format_t::desc_e dc42_format::mac_gcr[] = {
 };
 
 
-bool dc42_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool dc42_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint8_t h[0x54];
 	io_generic_read(io, h, 0, 0x54);
@@ -1350,7 +1353,7 @@ void dc42_format::update_chk(const uint8_t *data, int size, uint32_t &chk)
 	}
 }
 
-bool dc42_format::save(io_generic *io, floppy_image *image)
+bool dc42_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	int g_tracks, g_heads;
 	image->get_actual_geometry(g_tracks, g_heads);
@@ -1389,9 +1392,9 @@ bool dc42_format::save(io_generic *io, floppy_image *image)
 			uint8_t sectdata[(512+12)*12];
 			memset(sectdata, 0, sizeof(sectdata));
 			int nsect = 12-(track/16);
-			uint8_t buf[13000];
+			uint8_t buf[20000];
 			int ts;
-			generate_bitstream_from_track(track, head, 200000000/(6208*nsect), buf, ts, image);
+			generate_bitstream_from_track(track, head, 200000000 / cell_count[track/16], buf, ts, image);
 			int pos = 0;
 			int wrap = 0;
 			int hb = 0;

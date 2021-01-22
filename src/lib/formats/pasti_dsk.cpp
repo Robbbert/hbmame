@@ -1,6 +1,5 @@
 // license:BSD-3-Clause
 // copyright-holders:Olivier Galibert
-#include "emu.h" // logerror
 #include "pasti_dsk.h"
 
 // Pasti format supported using the documentation at
@@ -37,7 +36,7 @@ bool pasti_format::supports_save() const
 	return false;
 }
 
-int pasti_format::identify(io_generic *io, uint32_t form_factor)
+int pasti_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
 {
 	uint8_t h[16];
 	io_generic_read(io, h, 0, 16);
@@ -59,7 +58,7 @@ static void hexdump(const uint8_t *d, int s)
 	}
 }
 
-bool pasti_format::load(io_generic *io, uint32_t form_factor, floppy_image *image)
+bool pasti_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
 {
 	uint8_t fh[16];
 	io_generic_read(io, fh, 0, 16);

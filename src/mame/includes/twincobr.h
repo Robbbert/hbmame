@@ -16,6 +16,7 @@
 #include "video/toaplan_scu.h"
 #include "emupal.h"
 #include "screen.h"
+#include "tilemap.h"
 
 class twincobr_state : public driver_device
 {
@@ -43,7 +44,6 @@ public:
 	void init_twincobr();
 
 protected:
-	virtual void device_post_load() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
 
@@ -54,7 +54,6 @@ protected:
 	u32 m_fg_rom_bank;
 	u32 m_bg_ram_bank;
 	int m_intenable;
-	int m_dsp_on;
 	int m_dsp_bio;
 	int m_fsharkbt_8741;
 	int m_dsp_execute;

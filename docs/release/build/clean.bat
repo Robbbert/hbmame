@@ -1,5 +1,6 @@
 @echo off
 if %1q==q rd /s /q build
+if %1q==q rd /s /q 3rdparty\genie\build\gmake.windows\obj
 if %1q==q goto end
 
 if exist ini\%1.ini del ini\%1.ini

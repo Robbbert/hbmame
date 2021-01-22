@@ -8,6 +8,7 @@
 #include "machine/gen_latch.h"
 #include "video/vsystem_spr2.h"
 #include "screen.h"
+#include "tilemap.h"
 
 class welltris_state : public driver_device
 {
@@ -55,11 +56,11 @@ private:
 	int m_scrollx;
 	int m_scrolly;
 
-	DECLARE_WRITE8_MEMBER(sound_bankswitch_w);
-	DECLARE_WRITE16_MEMBER(palette_bank_w);
-	DECLARE_WRITE16_MEMBER(gfxbank_w);
-	DECLARE_WRITE16_MEMBER(scrollreg_w);
-	DECLARE_WRITE16_MEMBER(charvideoram_w);
+	void sound_bankswitch_w(uint8_t data);
+	void palette_bank_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void gfxbank_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void scrollreg_w(offs_t offset, uint16_t data);
+	void charvideoram_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 
 	TILE_GET_INFO_MEMBER(get_tile_info);
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);

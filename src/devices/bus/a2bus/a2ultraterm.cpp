@@ -114,7 +114,7 @@ void a2bus_videx160_device::device_add_mconfig(machine_config &config)
 	m_crtc->set_screen(ULTRATERM_SCREEN_NAME);
 	m_crtc->set_show_border_area(false);
 	m_crtc->set_char_width(8);
-	m_crtc->set_update_row_callback(FUNC(a2bus_videx160_device::crtc_update_row), this);
+	m_crtc->set_update_row_callback(FUNC(a2bus_videx160_device::crtc_update_row));
 	m_crtc->out_vsync_callback().set(FUNC(a2bus_videx160_device::vsync_changed));
 }
 
@@ -304,11 +304,10 @@ void a2bus_videx160_device::write_c800(uint16_t offset, uint8_t data)
 
 MC6845_UPDATE_ROW( a2bus_videx160_device::crtc_update_row )
 {
-	uint32_t  *p = &bitmap.pix32(y);
+	uint32_t  *p = &bitmap.pix(y);
 	uint16_t  chr_base = ra;
-	int i;
 
-	for ( i = 0; i < x_count; i++ )
+	for ( int i = 0; i < x_count; i++ )
 	{
 		uint16_t offset = ( ma + i );
 		uint8_t chr = m_ram[ offset ];

@@ -8,30 +8,27 @@
 //
 //============================================================
 
-#include <windows.h>
-#include <mmsystem.h>
-
-#include <stdlib.h>
-
-#include <cstdio>
-#include <memory>
-
 // MAME headers
 #include "osdlib.h"
 #include "osdcomm.h"
 #include "osdcore.h"
 #include "strconv.h"
 
+#include <cstdio>
+#include <cstdlib>
+#include <map>
+#include <memory>
+
 #include <windows.h>
+#include <memoryapi.h>
+
 #include <wrl\client.h>
 
-#include "strconv.h"
 
 using namespace Platform;
 using namespace Windows::ApplicationModel::DataTransfer;
 using namespace Windows::Foundation;
 
-#include <map>
 
 //============================================================
 //  GLOBAL VARIABLES
@@ -89,30 +86,6 @@ void osd_process_kill()
 }
 
 //============================================================
-//  osd_alloc_executable
-//
-//  allocates "size" bytes of executable memory.  this must take
-//  things like NX support into account.
-//============================================================
-
-void *osd_alloc_executable(size_t size)
-{
-	return nullptr;
-}
-
-
-//============================================================
-//  osd_free_executable
-//
-//  frees memory allocated with osd_alloc_executable
-//============================================================
-
-void osd_free_executable(void *ptr, size_t size)
-{
-}
-
-
-//============================================================
 //  osd_break_into_debugger
 //============================================================
 
@@ -129,7 +102,7 @@ void osd_break_into_debugger(const char *message)
 //  get_clipboard_text_by_format
 //============================================================
 
-static char *get_clipboard_text_by_format(UINT format, std::string (*convert)(LPCVOID data))
+static bool get_clipboard_text_by_format(std::string &result_text, UINT format, std::string (*convert)(LPCVOID data))
 {
 	DataPackageView^ dataPackageView;
 	IAsyncOperation<String^>^ getTextOp;
@@ -139,7 +112,8 @@ static char *get_clipboard_text_by_format(UINT format, std::string (*convert)(LP
 	getTextOp = dataPackageView->GetTextAsync();
 	clipboardText = getTextOp->GetResults();
 
-	return (char *)convert(clipboardText->Data()).c_str();
+	result_text = convert(clipboardText->Data());
+	return !result_text.empty();
 }
 
 //============================================================
@@ -164,14 +138,16 @@ static std::string convert_ansi(LPCVOID data)
 //  osd_get_clipboard_text
 //============================================================
 
-char *osd_get_clipboard_text(void)
+std::string osd_get_clipboard_text(void)
 {
-	// try to access unicode text
-	char *result = get_clipboard_text_by_format(CF_UNICODETEXT, convert_wide);
+	std::string result;
 
-	// try to access ANSI text
-	if (result == nullptr)
-		result = get_clipboard_text_by_format(CF_TEXT, convert_ansi);
+	// try to access unicode text
+	if (!get_clipboard_text_by_format(result, CF_UNICODETEXT, convert_wide))
+	{
+		// try to access ANSI text
+		get_clipboard_text_by_format(result, CF_TEXT, convert_ansi);
+	}
 
 	return result;
 }
@@ -185,3 +161,47 @@ int osd_getpid(void)
 	return GetCurrentProcessId();
 }
 
+
+namespace osd {
+
+bool invalidate_instruction_cache(void const *start, std::size_t size)
+{
+	return FlushInstructionCache(GetCurrentProcess(), start, size) != 0;
+}
+
+
+void *virtual_memory_allocation::do_alloc(std::initializer_list<std::size_t> blocks, std::size_t &size, std::size_t &page_size)
+{
+	SYSTEM_INFO info;
+	GetSystemInfo(&info);
+	SIZE_T s(0);
+	for (std::size_t b : blocks)
+		s += (b + info.dwPageSize - 1) / info.dwPageSize;
+	s *= info.dwPageSize;
+	if (!s)
+		return nullptr;
+	LPVOID const result(VirtualAllocFromApp(nullptr, s, MEM_COMMIT, PAGE_NOACCESS));
+	if (result)
+	{
+		size = s;
+		page_size = info.dwPageSize;
+	}
+	return result;
+}
+
+void virtual_memory_allocation::do_free(void *start, std::size_t size)
+{
+	VirtualFree(start, 0, MEM_RELEASE);
+}
+
+bool virtual_memory_allocation::do_set_access(void *start, std::size_t size, unsigned access)
+{
+	ULONG p, o;
+	if (access & EXECUTE)
+		p = (access & WRITE) ? PAGE_EXECUTE_READWRITE : (access & READ) ? PAGE_EXECUTE_READ : PAGE_EXECUTE;
+	else
+		p = (access & WRITE) ? PAGE_READWRITE : (access & READ) ? PAGE_READONLY : PAGE_NOACCESS;
+	return VirtualProtectFromApp(start, size, p, &o) != 0;
+}
+
+} // namespace osd

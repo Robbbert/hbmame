@@ -88,7 +88,6 @@ public:
 	dgn_beta_state(const machine_config &mconfig, device_type type, const char *tag) :
 		driver_device(mconfig, type, tag),
 		m_mc6845(*this, "crtc"),
-		m_videoram(*this, "videoram"),
 		m_maincpu(*this, "maincpu"),
 		m_dmacpu(*this, DMACPU_TAG),
 		m_ram(*this, RAM_TAG),
@@ -105,29 +104,10 @@ public:
 
 	void dgnbeta(machine_config &config);
 
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b0_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b1_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b2_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b3_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b4_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b5_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b6_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b7_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b8_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_b9_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bA_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bB_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bC_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bD_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bE_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bF_w);
-	DECLARE_WRITE8_MEMBER(dgnbeta_ram_bG_w);
-
 private:
 	DECLARE_FLOPPY_FORMATS(floppy_formats);
 
 	required_device<mc6845_device> m_mc6845;
-	required_shared_ptr<uint8_t> m_videoram;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_dmacpu;
 	required_device<ram_device> m_ram;
@@ -195,38 +175,38 @@ private:
 	virtual void machine_reset() override;
 	void dgn_beta_palette(palette_device &palette) const;
 
-	DECLARE_READ8_MEMBER(d_pia0_pa_r);
-	DECLARE_WRITE8_MEMBER(d_pia0_pa_w);
-	DECLARE_READ8_MEMBER(d_pia0_pb_r);
-	DECLARE_WRITE8_MEMBER(d_pia0_pb_w);
+	uint8_t d_pia0_pa_r();
+	void d_pia0_pa_w(uint8_t data);
+	uint8_t d_pia0_pb_r();
+	void d_pia0_pb_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(d_pia0_cb2_w);
 	DECLARE_WRITE_LINE_MEMBER(d_pia0_irq_a);
 	DECLARE_WRITE_LINE_MEMBER(d_pia0_irq_b);
-	DECLARE_READ8_MEMBER(d_pia1_pa_r);
-	DECLARE_WRITE8_MEMBER(d_pia1_pa_w);
-	DECLARE_READ8_MEMBER(d_pia1_pb_r);
-	DECLARE_WRITE8_MEMBER(d_pia1_pb_w);
+	uint8_t d_pia1_pa_r();
+	void d_pia1_pa_w(uint8_t data);
+	uint8_t d_pia1_pb_r();
+	void d_pia1_pb_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(d_pia1_irq_a);
 	DECLARE_WRITE_LINE_MEMBER(d_pia1_irq_b);
-	DECLARE_READ8_MEMBER(d_pia2_pa_r);
-	DECLARE_WRITE8_MEMBER(d_pia2_pa_w);
-	DECLARE_READ8_MEMBER(d_pia2_pb_r);
-	DECLARE_WRITE8_MEMBER(d_pia2_pb_w);
+	uint8_t d_pia2_pa_r();
+	void d_pia2_pa_w(uint8_t data);
+	uint8_t d_pia2_pb_r();
+	void d_pia2_pb_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(d_pia2_irq_a);
 	DECLARE_WRITE_LINE_MEMBER(d_pia2_irq_b);
 	DECLARE_WRITE_LINE_MEMBER(dgnbeta_fdc_intrq_w);
 	DECLARE_WRITE_LINE_MEMBER(dgnbeta_fdc_drq_w);
 	DECLARE_WRITE_LINE_MEMBER(dgnbeta_vsync_changed);
 	/* 74HC670 4x4bit colour ram */
-	DECLARE_WRITE8_MEMBER(dgnbeta_colour_ram_w);
+	void dgnbeta_colour_ram_w(offs_t offset, uint8_t data);
 	// Page IO at FE00
-	DECLARE_READ8_MEMBER(dgn_beta_page_r);
-	DECLARE_WRITE8_MEMBER(dgn_beta_page_w);
+	uint8_t dgn_beta_page_r(offs_t offset);
+	void dgn_beta_page_w(offs_t offset, uint8_t data);
 	MC6845_UPDATE_ROW(crtc_update_row);
 
 	/*  WD2797 FDC */
-	DECLARE_READ8_MEMBER(dgnbeta_wd2797_r);
-	DECLARE_WRITE8_MEMBER(dgnbeta_wd2797_w);
+	uint8_t dgnbeta_wd2797_r(offs_t offset);
+	void dgnbeta_wd2797_w(offs_t offset, uint8_t data);
 
 	void dgnbeta_vid_set_gctrl(int data);
 	void UpdateBanks(int first, int last);

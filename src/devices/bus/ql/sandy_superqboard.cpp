@@ -164,10 +164,10 @@ INPUT_CHANGED_MEMBER( sandy_superqboard_device::mouse_y_changed )
 
 INPUT_PORTS_START( sandy_superqmouse )
 	PORT_START("mouse_x")
-	PORT_BIT( 0xff, 0x00, IPT_MOUSE_X ) PORT_SENSITIVITY(50) PORT_KEYDELTA(5) PORT_MINMAX(0, 255) PORT_CHANGED_MEMBER(DEVICE_SELF, sandy_superqboard_device, mouse_x_changed, nullptr)
+	PORT_BIT( 0xff, 0x00, IPT_MOUSE_X ) PORT_SENSITIVITY(50) PORT_KEYDELTA(5) PORT_MINMAX(0, 255) PORT_CHANGED_MEMBER(DEVICE_SELF, sandy_superqboard_device, mouse_x_changed, 0)
 
 	PORT_START("mouse_y")
-	PORT_BIT( 0xff, 0x00, IPT_MOUSE_Y ) PORT_SENSITIVITY(50) PORT_KEYDELTA(5) PORT_MINMAX(0, 255) PORT_CHANGED_MEMBER(DEVICE_SELF, sandy_superqboard_device, mouse_y_changed, nullptr)
+	PORT_BIT( 0xff, 0x00, IPT_MOUSE_Y ) PORT_SENSITIVITY(50) PORT_KEYDELTA(5) PORT_MINMAX(0, 255) PORT_CHANGED_MEMBER(DEVICE_SELF, sandy_superqboard_device, mouse_y_changed, 0)
 
 	PORT_START("mouse_buttons")
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_NAME("Middle Mouse Button") PORT_CODE(MOUSECODE_BUTTON3)
@@ -219,7 +219,7 @@ sandy_superqboard_device::sandy_superqboard_device(const machine_config &mconfig
 	m_centronics(*this, CENTRONICS_TAG),
 	m_latch(*this, TTL74273_TAG),
 	m_rom(*this, "rom"),
-	m_ram(*this, "ram"),
+	m_ram(*this, "ram", ram_size, ENDIANNESS_BIG),
 	m_buttons(*this, "mouse_buttons"),
 	m_ram_size(ram_size),
 	m_fd6(0),
@@ -250,9 +250,6 @@ sandy_superqmouse_512k_device::sandy_superqmouse_512k_device(const machine_confi
 
 void sandy_superqboard_device::device_start()
 {
-	// allocate memory
-	m_ram.allocate(m_ram_size);
-
 	// state saving
 	save_item(NAME(m_fd6));
 	save_item(NAME(m_fd7));

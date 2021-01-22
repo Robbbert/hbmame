@@ -20,7 +20,9 @@ Z80A CPU @ 4MHz, NEC D8255C
 4KB ROM(NEC 2332A), 2*256 bytes RAM(4*NEC 2111AL-4)
 The beeper is via a 556 timer, fixed-frequency at around 1300-1400Hz.
 
-Checker Challenger 4 (ACR) is on the same PCB, twice less RAM and the beeper gone.
+Checker Challenger (ACR) is on the same PCB, twice less RAM and the beeper gone.
+In the 1980s, Fidelity started naming it Checker Challenger "4" in some of their
+advertisements, but box and manual still simply name it Checker Challenger.
 
 ******************************************************************************/
 
@@ -57,7 +59,7 @@ public:
 	// RE button is tied to Z80 RESET pin
 	DECLARE_INPUT_CHANGED_MEMBER(reset_button) { m_maincpu->set_input_line(INPUT_LINE_RESET, newval ? ASSERT_LINE : CLEAR_LINE); }
 
-	// machine drivers
+	// machine configs
 	void acr(machine_config &config);
 	void ccx(machine_config &config);
 
@@ -87,10 +89,10 @@ private:
 
 	// I/O handlers
 	void update_display();
-	DECLARE_WRITE8_MEMBER(ppi_porta_w);
-	DECLARE_WRITE8_MEMBER(ppi_portb_w);
-	DECLARE_READ8_MEMBER(ppi_portc_r);
-	DECLARE_WRITE8_MEMBER(ppi_portc_w);
+	void ppi_porta_w(u8 data);
+	void ppi_portb_w(u8 data);
+	u8 ppi_portc_r();
+	void ppi_portc_w(u8 data);
 
 	u8 m_inp_mux;
 	u8 m_led_select;
@@ -124,7 +126,7 @@ void ccx_state::update_display()
 	m_display->matrix(m_led_select, m_7seg_data);
 }
 
-WRITE8_MEMBER(ccx_state::ppi_porta_w)
+void ccx_state::ppi_porta_w(u8 data)
 {
 	// d7: enable beeper on falling edge (556 monostable) (unpopulated on ACR)
 	if (m_beeper != nullptr && ~data & m_7seg_data & 0x80 && !m_beeper_off->enabled())
@@ -138,7 +140,7 @@ WRITE8_MEMBER(ccx_state::ppi_porta_w)
 	update_display();
 }
 
-WRITE8_MEMBER(ccx_state::ppi_portb_w)
+void ccx_state::ppi_portb_w(u8 data)
 {
 	// d0: lose led, d1: check(win) led
 	// d2-d5: digit select
@@ -146,7 +148,7 @@ WRITE8_MEMBER(ccx_state::ppi_portb_w)
 	update_display();
 }
 
-READ8_MEMBER(ccx_state::ppi_portc_r)
+u8 ccx_state::ppi_portc_r()
 {
 	u8 data = 0;
 
@@ -158,7 +160,7 @@ READ8_MEMBER(ccx_state::ppi_portc_r)
 	return ~data & 0xf;
 }
 
-WRITE8_MEMBER(ccx_state::ppi_portc_w)
+void ccx_state::ppi_portc_w(u8 data)
 {
 	// d4-d7: input mux (inverted)
 	m_inp_mux = ~data >> 4 & 0xf;
@@ -250,7 +252,7 @@ static INPUT_PORTS_START( ccx )
 	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("H8") PORT_CODE(KEYCODE_8) PORT_CODE(KEYCODE_8_PAD) PORT_CODE(KEYCODE_H)
 
 	PORT_START("RESET") // is not on matrix IN.0 d0
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RE") PORT_CODE(KEYCODE_R) PORT_CHANGED_MEMBER(DEVICE_SELF, ccx_state, reset_button, nullptr)
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RE") PORT_CODE(KEYCODE_R) PORT_CHANGED_MEMBER(DEVICE_SELF, ccx_state, reset_button, 0)
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( acr )
@@ -279,13 +281,13 @@ static INPUT_PORTS_START( acr )
 	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("3") PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD)
 
 	PORT_START("RESET") // is not on matrix IN.0 d0
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RE") PORT_CODE(KEYCODE_R) PORT_CHANGED_MEMBER(DEVICE_SELF, ccx_state, reset_button, nullptr)
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RE") PORT_CODE(KEYCODE_R) PORT_CHANGED_MEMBER(DEVICE_SELF, ccx_state, reset_button, 0)
 INPUT_PORTS_END
 
 
 
 /******************************************************************************
-    Machine Drivers
+    Machine Configs
 ******************************************************************************/
 
 void ccx_state::acr(machine_config &config)
@@ -358,7 +360,7 @@ ROM_END
 ******************************************************************************/
 
 //    YEAR  NAME     PARENT CMP MACHINE  INPUT  STATE      INIT        COMPANY, FULLNAME, FLAGS
-CONS( 1978, cc10,    0,      0, ccx,     ccx,   ccx_state, empty_init, "Fidelity Electronics", "Chess Challenger 10 (model CCX, rev. B)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
-CONS( 1978, cc10a,   cc10,   0, ccx,     ccx,   ccx_state, empty_init, "Fidelity Electronics", "Chess Challenger 10 (model CCX)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // aka version A
+CONS( 1978, cc10,    0,      0, ccx,     ccx,   ccx_state, empty_init, "Fidelity Electronics", "Chess Challenger \"10\" (model CCX, rev. B)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1978, cc10a,   cc10,   0, ccx,     ccx,   ccx_state, empty_init, "Fidelity Electronics", "Chess Challenger \"10\" (model CCX)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // aka version A
 
-CONS( 1978, checkc4, 0,      0, acr,     acr,   ccx_state, empty_init, "Fidelity Electronics", "Checker Challenger 4", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_NO_SOUND_HW )
+CONS( 1978, checkc4, 0,      0, acr,     acr,   ccx_state, empty_init, "Fidelity Electronics", "Checker Challenger (model ACR, 4 levels)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK | MACHINE_NO_SOUND_HW )

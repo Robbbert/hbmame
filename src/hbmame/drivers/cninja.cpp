@@ -47,5 +47,5 @@ ROM_START( deathbrdh01 )
 	ROM_LOAD( "maf-09.18l",    0x00000, 0x80000, CRC(28e7ed81) SHA1(e168a2748b75c647f6f9c0d7d25d4f046aa98094) )
 ROM_END
 
-GAME( 1992, deathbrdh01, mutantf,  mutantf,  mutantf,  cninja_state, init_mutantf,  ROT0, "Unknown", "Death Brade (Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, deathbrdh01, mutantf,  mutantf,  mutantf,  cninja_state, init_mutantf,  ROT0, "hack", "Death Brade (Plus)", MACHINE_SUPPORTS_SAVE )
 

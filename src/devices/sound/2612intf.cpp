@@ -2,9 +2,9 @@
 // copyright-holders:Ernesto Corvi
 /***************************************************************************
 
-  2612intf.c
+  2612intf.cpp
 
-  The YM2612 emulator supports up to 2 chips.
+  The YM2612 emulator supports up to 3 chips.
   Each chip has the following connections:
   - Status Read / Control Write A
   - Port Read / Data Write A
@@ -59,9 +59,9 @@ void ym2612_device::timer_handler(int c,int count,int clock)
 //  sound_stream_update - handle a stream update
 //-------------------------------------------------
 
-void ym2612_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+void ym2612_device::sound_stream_update(sound_stream &stream, std::vector<read_stream_view> const &inputs, std::vector<write_stream_view> &outputs)
 {
-	ym2612_update_one(m_chip, outputs, samples);
+	ym2612_update_one(m_chip, outputs, m_output_bits);
 }
 
 
@@ -87,11 +87,12 @@ void ym2612_device::device_start()
 	m_timer[1] = timer_alloc(1);
 
 	/* stream system initialize */
-	m_stream = machine().sound().stream_alloc(*this,0,2,rate);
+	m_stream = stream_alloc(0,2,rate);
 
 	/**** initialize YM2612 ****/
 	m_chip = ym2612_init(this,clock(),rate,&ym2612_device::static_timer_handler,&ym2612_device::static_irq_handler);
-	assert_always(m_chip != nullptr, "Error creating YM2612 chip");
+	if (!m_chip)
+		throw emu_fatalerror("ym2612_device(%s): Error creating YM2612 chip", tag());
 }
 
 void ym2612_device::device_clock_changed()
@@ -107,7 +108,7 @@ void ym2612_device::calculate_rates()
 	if (m_stream != nullptr)
 		m_stream->set_sample_rate(rate);
 	else
-		m_stream = machine().sound().stream_alloc(*this,0,2,rate);
+		m_stream = stream_alloc(0,2,rate);
 }
 
 //-------------------------------------------------
@@ -150,6 +151,7 @@ ym2612_device::ym2612_device(const machine_config &mconfig, const char *tag, dev
 ym2612_device::ym2612_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, type, tag, owner, clock)
 	, device_sound_interface(mconfig, *this)
+	, m_output_bits(9) // 9 bit internal DAC
 	, m_stream(nullptr)
 	, m_timer{ nullptr, nullptr }
 	, m_chip(nullptr)
@@ -157,10 +159,19 @@ ym2612_device::ym2612_device(const machine_config &mconfig, device_type type, co
 {
 }
 
-
+// CMOS variation, with Higher sound output impedance
 DEFINE_DEVICE_TYPE(YM3438, ym3438_device, "ym3438", "YM3438 OPN2C")
 
 ym3438_device::ym3438_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: ym2612_device(mconfig, YM3438, tag, owner, clock)
 {
+}
+
+// Low voltage, External DAC variation
+DEFINE_DEVICE_TYPE(YMF276, ymf276_device, "ymf276", "YMF276 OPN2L")
+
+ymf276_device::ymf276_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: ym2612_device(mconfig, YMF276, tag, owner, clock)
+{
+	m_output_bits = 16; // external DAC
 }

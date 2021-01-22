@@ -15,19 +15,19 @@
 //  TYPE DEFINITIONS
 //**************************************************************************
 
-class spectrum_mface1_device :
+class spectrum_mface_base_device :
 	public device_t,
 	public device_spectrum_expansion_interface
 
 {
 public:
 	// construction/destruction
-	spectrum_mface1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	spectrum_mface_base_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
-	DECLARE_INPUT_CHANGED_MEMBER(magic_button);
+	virtual DECLARE_INPUT_CHANGED_MEMBER(magic_button);
 
 protected:
-	spectrum_mface1_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
+	spectrum_mface_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, uint32_t clock);
 
 	// device-level overrides
 	virtual void device_start() override;
@@ -35,15 +35,19 @@ protected:
 
 	// optional information overrides
 	virtual void device_add_mconfig(machine_config &config) override;
-	virtual const tiny_rom_entry *device_rom_region() const override;
 	virtual ioport_constructor device_input_ports() const override;
 
-	virtual void opcode_fetch(offs_t offset) override;
+	virtual void pre_opcode_fetch(offs_t offset) override;
 	virtual uint8_t mreq_r(offs_t offset) override;
 	virtual void mreq_w(offs_t offset, uint8_t data) override;
-	virtual uint8_t iorq_r(offs_t offset) override;
-	virtual void iorq_w(offs_t offset, uint8_t data) override;
 	virtual DECLARE_READ_LINE_MEMBER(romcs) override;
+
+	// passthru
+	virtual void post_opcode_fetch(offs_t offset) override { m_exp->post_opcode_fetch(offset); };
+	virtual void pre_data_fetch(offs_t offset) override { m_exp->pre_data_fetch(offset); };
+	virtual void post_data_fetch(offs_t offset) override { m_exp->post_data_fetch(offset); };
+	virtual uint8_t iorq_r(offs_t offset) override { return m_exp->iorq_r(offset); }
+	virtual void iorq_w(offs_t offset, uint8_t data) override { m_exp->iorq_w(offset, data); }
 
 	required_memory_region m_rom;
 	required_device<spectrum_expansion_slot_device> m_exp;
@@ -52,7 +56,27 @@ protected:
 	int m_romcs;
 };
 
-class spectrum_mface128_device : public spectrum_mface1_device
+class spectrum_mface1_device : public spectrum_mface_base_device
+{
+public:
+	spectrum_mface1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+	DECLARE_INPUT_CHANGED_MEMBER(magic_button) override;
+
+protected:
+	// optional information overrides
+	virtual const tiny_rom_entry *device_rom_region() const override;
+	virtual ioport_constructor device_input_ports() const override;
+
+	virtual uint8_t iorq_r(offs_t offset) override;
+	virtual void iorq_w(offs_t offset, uint8_t data) override;
+
+private:
+	required_ioport m_joy;
+	required_ioport m_hwconfig;
+};
+
+class spectrum_mface128_device : public spectrum_mface_base_device
 {
 public:
 	spectrum_mface128_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -64,7 +88,7 @@ protected:
 	virtual uint8_t iorq_r(offs_t offset) override;
 };
 
-class spectrum_mface3_device : public spectrum_mface1_device
+class spectrum_mface3_device : public spectrum_mface_base_device
 {
 public:
 	spectrum_mface3_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
@@ -76,7 +100,7 @@ protected:
 	virtual uint8_t iorq_r(offs_t offset) override;
 };
 
-class spectrum_mprint_device : public spectrum_mface1_device
+class spectrum_mprint_device : public spectrum_mface_base_device
 {
 public:
 	spectrum_mprint_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);

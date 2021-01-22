@@ -13,11 +13,11 @@
 #include "modules.h"
 #include "strformat.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <time.h>
+#include <cstdio>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 
 #ifdef _WIN32
@@ -29,7 +29,7 @@
 
 static void writeusage(std::wostream &output, bool write_word_usage, const struct command *c, char *argv[])
 {
-	std::string cmdname = core_filename_extract_base(argv[0]);
+	std::string cmdname(core_filename_extract_base(argv[0]));
 
 	util::stream_format(output,
 		L"%s %s %s %s\n",
@@ -248,7 +248,7 @@ static int cmd_dir(const struct command *c, int argc, char *argv[])
 	{
 		std::string filesize_string = ent.directory
 			? "<DIR>"
-			: string_format("%u", (unsigned int) ent.filesize);
+			: util::string_format("%u", (unsigned int) ent.filesize);
 
 		if (!ent.lastmodified_time.empty())
 		{
@@ -266,10 +266,10 @@ static int cmd_dir(const struct command *c, int argc, char *argv[])
 			columnwidth_attributes, wstring_from_utf8(ent.attr),
 			columnwidth_lastmodified, wstring_from_utf8(last_modified));
 
-		if (ent.softlink && ent.softlink[0] != '\0')
+		if (ent.softlink[0] != '\0')
 			util::stream_format(std::wcout, L"-> %s\n", wstring_from_utf8(ent.softlink));
 
-		if (ent.comment && ent.comment[0] != '\0')
+		if (ent.comment[0] != '\0')
 			util::stream_format(std::wcout, L": %s\n", wstring_from_utf8(ent.comment));
 
 		total_count++;
@@ -748,7 +748,7 @@ static void listoptions(const util::option_guide &opt_guide, const char *opt_spe
 		const util::option_resolution::entry &entry = *iter;
 				std::stringstream description_buffer;
 
-		std::string opt_name = string_format("--%s", entry.identifier());
+		std::string opt_name = util::string_format("--%s", entry.identifier());
 		const char *opt_desc = entry.display_name();
 
 		// is this option relevant?
@@ -850,7 +850,7 @@ static const struct command cmds[] =
 {
 	{ "create",             cmd_create,             "<format> <imagename> [--(createoption)=value]", 2, 8, 0},
 	{ "dir",                cmd_dir,                "<format> <imagename> [path]", 2, 3, 0 },
-	{ "get",                cmd_get,                "<format> <imagename> <filename> [newname] [--filter=filter] [--fork=fork]", 3, 4, 0 },
+	{ "get",                cmd_get,                "<format> <imagename> <filename> [newname] [--filter=filter] [--fork=fork]", 3, 6, 0 },
 	{ "put",                cmd_put,                "<format> <imagename> <filename>... <destname> [--(fileoption)==value] [--filter=filter] [--fork=fork]", 3, 0xffff, 0 },
 	{ "getall",             cmd_getall,             "<format> <imagename> [path] [--filter=filter]", 2, 3, 0 },
 	{ "del",                cmd_del,                "<format> <imagename> <filename>...", 3, 3, 1 },
@@ -873,7 +873,7 @@ int main(int argc, char *argv[])
 	int result;
 	const struct command *c;
 	const char *sample_format = "coco_jvc_rsdos";
-	std::string cmdname = core_filename_extract_base(argv[0]);
+	std::string cmdname(core_filename_extract_base(argv[0]));
 
 #ifdef _WIN32
 	_setmode(_fileno(stdout), _O_U8TEXT);

@@ -30,7 +30,7 @@ TILE_GET_INFO_MEMBER(bbusters_state_base::get_tile_info)
 {
 	uint16_t tile = m_videoram[tile_index];
 
-	SET_TILE_INFO_MEMBER(0,tile&0xfff,tile>>12,0);
+	tileinfo.set(0,tile&0xfff,tile>>12,0);
 }
 
 template<int Layer, int Gfx>
@@ -38,10 +38,10 @@ TILE_GET_INFO_MEMBER(bbusters_state_base::get_pf_tile_info)
 {
 	uint16_t tile = m_pf_data[Layer][tile_index];
 
-	SET_TILE_INFO_MEMBER(Gfx,tile&0xfff,tile>>12,0);
+	tileinfo.set(Gfx,tile&0xfff,tile>>12,0);
 }
 
-WRITE16_MEMBER(bbusters_state_base::video_w)
+void bbusters_state_base::video_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	COMBINE_DATA(&m_videoram[offset]);
 	m_fix_tilemap->mark_tile_dirty(offset);
@@ -51,7 +51,7 @@ WRITE16_MEMBER(bbusters_state_base::video_w)
 
 void bbusters_state_base::video_start()
 {
-	m_fix_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(FUNC(bbusters_state_base::get_tile_info),this), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
+	m_fix_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(bbusters_state_base::get_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 32, 32);
 	m_fix_tilemap->set_transparent_pen(15);
 
 	save_item(NAME(m_scale_line_count));
@@ -61,8 +61,8 @@ void bbusters_state::video_start()
 {
 	bbusters_state_base::video_start();
 
-	m_pf_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(&bbusters_state::get_pf_tile_info<0,3>, "layer0_gfx3", this), TILEMAP_SCAN_COLS, 16, 16, 128, 32);
-	m_pf_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(&bbusters_state::get_pf_tile_info<1,4>, "layer1_gfx4", this), TILEMAP_SCAN_COLS, 16, 16, 128, 32);
+	m_pf_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, NAME((&bbusters_state::get_pf_tile_info<0,3>))), TILEMAP_SCAN_COLS, 16, 16, 128, 32);
+	m_pf_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, NAME((&bbusters_state::get_pf_tile_info<1,4>))), TILEMAP_SCAN_COLS, 16, 16, 128, 32);
 
 	m_pf_tilemap[0]->set_transparent_pen(15);
 }
@@ -71,8 +71,8 @@ void mechatt_state::video_start()
 {
 	bbusters_state_base::video_start();
 
-	m_pf_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(&mechatt_state::get_pf_tile_info<0,2>, "layer0_gfx2", this), TILEMAP_SCAN_COLS, 16, 16, 256, 32);
-	m_pf_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(&mechatt_state::get_pf_tile_info<1,3>, "layer1_gfx3", this), TILEMAP_SCAN_COLS, 16, 16, 256, 32);
+	m_pf_tilemap[0] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, NAME((&mechatt_state::get_pf_tile_info<0,2>))), TILEMAP_SCAN_COLS, 16, 16, 256, 32);
+	m_pf_tilemap[1] = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, NAME((&mechatt_state::get_pf_tile_info<1,3>))), TILEMAP_SCAN_COLS, 16, 16, 256, 32);
 
 	m_pf_tilemap[0]->set_transparent_pen(15);
 }
@@ -137,31 +137,30 @@ void bbusters_state_base::draw_block(screen_device &screen, bitmap_ind16 &dest,i
 	gfx_element *gfx = m_gfxdecode->gfx(bank);
 	pen_t pen_base = gfx->colorbase() + gfx->granularity() * (color % gfx->colors());
 	uint32_t xinc=(m_scale_line_count * 0x10000 ) / size;
-	uint8_t pixel;
-	int x_index;
 	int dy=y;
-	int sx, ex = m_scale_line_count;
+	int ex = m_scale_line_count;
 
 	while (m_scale_line_count) {
 		if (dy>=16 && dy<240) {
-			uint16_t *destline = &dest.pix16(dy);
-			uint8_t *priorityline = &screen.priority().pix8(dy);
+			uint16_t *const destline = &dest.pix(dy);
+			uint8_t *const priorityline = &screen.priority().pix(dy);
 			uint8_t srcline=*m_scale_table_ptr;
 			const uint8_t *srcptr=nullptr;
 
 			if (!flipy)
 				srcline=size-srcline-1;
 
+			int x_index;
 			if (flipx)
 				x_index=(ex-1)*0x10000;
 			else
 				x_index=0;
 
-			for (sx=0; sx<size; sx++) {
+			for (int sx=0; sx<size; sx++) {
 				if ((sx%16)==0)
 					srcptr=get_source_ptr(gfx,sprite,sx,srcline,block);
 
-				pixel=*srcptr++;
+				uint8_t pixel=*srcptr++;
 				if (pixel!=15 && priority > priorityline[(x+(x_index>>16)) & 0x1ff])
 				{
 					priorityline[(x+(x_index>>16)) & 0x1ff] = priority;

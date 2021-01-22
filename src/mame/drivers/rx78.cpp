@@ -8,8 +8,13 @@ Driver by Angelo Salese & Robbbert.
 
 TODO:
 - implement printer;
-- Challenge Golf: has gfx and input bugs (starts with home/end keys!?);
-- Colours are incorrect
+- Implement 2nd cart slot
+- Keyboard works in all scenarios, but it is a guess.
+- Colours are incorrect. Need more carts to help construct a proper solution.
+ -- m_pal_reg and m_pri_mask can have unemulated bits used by games, what are these bits for?
+ -- the colours are verified correct for all games in the software lists, except:
+   -- chlgolf - it's almost correct, just a few minor things in the background. Perfectly playable.
+   -- cracer - this game has a lot of issues, including incorrect behaviour. It's still playable though.
 
 Notes:
 - BS-BASIC v1.0 notes:
@@ -22,17 +27,9 @@ Notes:
      btanb. After that, scrolling works correctly.
   -- Need a real machine to confirm these problems, but if true, one can only wonder how such
      obvious issues made it out the door.
-- To stop a cmt load, press STOP + SHIFT keys
+- To stop a cmt load, press STOP + SHIFT keys (this combination is the BREAK key).
 
-Known programs:
-- BS_BASIC V1.0
-- Challenge Golf
-- Excite Tennis
-- Excite Baseball
-- Perfect Mah-Jongg
-- Mobile Suit (says Mobil Suit on the start screen)
-- The ProWrestling
-- 3-dimension graphics
+For a list of all known software and devices for the system, please see hash/rx78.xml.
 
 ==============================================================================================================
 Summary of Monitor commands.
@@ -88,29 +85,31 @@ public:
 	void rx78(machine_config &config);
 
 private:
-	DECLARE_READ8_MEMBER( key_r );
-	DECLARE_READ8_MEMBER( cass_r );
-	DECLARE_READ8_MEMBER( vram_r );
-	DECLARE_WRITE8_MEMBER( cass_w );
-	DECLARE_WRITE8_MEMBER( vram_w );
-	DECLARE_WRITE8_MEMBER( vram_read_bank_w );
-	DECLARE_WRITE8_MEMBER( vram_write_bank_w );
-	DECLARE_WRITE8_MEMBER( key_w );
-	DECLARE_WRITE8_MEMBER( vdp_reg_w );
-	DECLARE_WRITE8_MEMBER( vdp_bg_reg_w );
-	DECLARE_WRITE8_MEMBER( vdp_pri_mask_w );
+	u8 key_r();
+	u8 cass_r();
+	u8 vram_r(offs_t offset);
+	void cass_w(u8 data);
+	void vram_w(offs_t offset, u8 data);
+	void vram_read_bank_w(u8 data);
+	void vram_write_bank_w(u8 data);
+	void key_w(u8 data);
+	void vdp_reg_w(offs_t offset, u8 data);
+	void vdp_bg_reg_w(u8 data);
+	void vdp_pri_mask_w(u8 data);
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER( cart_load );
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	virtual void machine_reset() override;
+	virtual void machine_start() override;
 	void rx78_io(address_map &map);
 	void rx78_mem(address_map &map);
 
-	uint8_t m_vram_read_bank;
-	uint8_t m_vram_write_bank;
-	uint8_t m_pal_reg[7];
-	uint8_t m_pri_mask;
-	uint8_t m_key_mux;
+	u8 m_vram_read_bank;
+	u8 m_vram_write_bank;
+	u8 m_pal_reg[7];
+	u8 m_pri_mask;
+	u8 m_key_mux;
+	std::unique_ptr<u8[]> m_vram;
 	required_device<cpu_device> m_maincpu;
 	required_device<cassette_image_device> m_cass;
 	required_device<generic_slot_device> m_cart;
@@ -122,26 +121,30 @@ private:
 #define MASTER_CLOCK XTAL(28'636'363)
 
 
-WRITE8_MEMBER( rx78_state::cass_w )
+void rx78_state::cass_w(u8 data)
 {
 	m_cass->output(BIT(data, 0) ? -1.0 : +1.0);
 }
 
-READ8_MEMBER( rx78_state::cass_r )
+u8 rx78_state::cass_r()
 {
-	return (m_cass->input() > 0.03);
+	return (m_cass->input() > 0.03) ? 0 : 1;
 }
 
 
 uint32_t rx78_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	uint8_t *vram = memregion("vram")->base();
-	int color,pen[3];
-	const int borderx = 32, bordery = 20;
+	u8 color[2];
+	bool pen[3];
+	const u8 borderx = 32, bordery = 20;
 
 	bitmap.fill(16, cliprect);
 
-	int count = 0x2c0; //first 0x2bf bytes aren't used for bitmap drawing apparently
+	u16 count = 0x2c0; //first 0x2bf bytes aren't used for bitmap drawing apparently
+
+	u8 pri_mask = m_pri_mask;
+	if (BIT(m_pri_mask, 7))
+		pri_mask &= m_pal_reg[6]; // this gives blue sky in Challenge Golf - colours to be checked on carts as they are dumped
 
 	for(u8 y=0; y<184; y++)
 	{
@@ -150,28 +153,23 @@ uint32_t rx78_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, 
 			for (u8 i = 0; i < 8; i++)
 			{
 				/* bg color */
-				pen[0] = (m_pri_mask & 0x08) ? (vram[count + 0x6000] >> (i)) : 0x00;
-				pen[1] = (m_pri_mask & 0x10) ? (vram[count + 0x8000] >> (i)) : 0x00;
-				pen[2] = (m_pri_mask & 0x20) ? (vram[count + 0xa000] >> (i)) : 0x00;
+				pen[0] = BIT(m_pri_mask, 3) ? BIT(m_vram[count + 0x6000], i) : 0;
+				pen[1] = BIT(m_pri_mask, 4) ? BIT(m_vram[count + 0x8000], i) : 0;
+				pen[2] = BIT(m_pri_mask, 5) ? BIT(m_vram[count + 0xa000], i) : 0;
 
-				color  = ((pen[0] & 1) << 0);
-				color |= ((pen[1] & 1) << 1);
-				color |= ((pen[2] & 1) << 2);
-
-				if(color)
-					bitmap.pix16(y+bordery, x+i+borderx) = color | 8;
+				color[1] = pen[0] | (pen[1] << 1) | (pen[2] << 2);
 
 				/* fg color */
-				pen[0] = (m_pri_mask & 0x01) ? (vram[count + 0x0000] >> (i)) : 0x00;
-				pen[1] = (m_pri_mask & 0x02) ? (vram[count + 0x2000] >> (i)) : 0x00;
-				pen[2] = (m_pri_mask & 0x04) ? (vram[count + 0x4000] >> (i)) : 0x00;
+				pen[0] = BIT(pri_mask, 0) ? BIT(m_vram[count + 0x0000], i) : 0;
+				pen[1] = BIT(pri_mask, 1) ? BIT(m_vram[count + 0x2000], i) : 0;
+				pen[2] = BIT(pri_mask, 2) ? BIT(m_vram[count + 0x4000], i) : 0;
 
-				color  = ((pen[0] & 1) << 0);
-				color |= ((pen[1] & 1) << 1);
-				color |= ((pen[2] & 1) << 2);
+				color[0] = pen[0] | (pen[1] << 1) | (pen[2] << 2);
 
-				if(color)
-					bitmap.pix16(y+bordery, x+i+borderx) = color;
+				if (color[1])
+					bitmap.pix(y+bordery, x+i+borderx) = color[1] | 8;
+				if (color[0])
+					bitmap.pix(y+bordery, x+i+borderx) = color[0];
 			}
 			count++;
 		}
@@ -181,94 +179,92 @@ uint32_t rx78_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, 
 }
 
 
-READ8_MEMBER( rx78_state::key_r )
+u8 rx78_state::key_r()
 {
 	static const char *const keynames[] = { "KEY0", "KEY1", "KEY2", "KEY3",
 											"KEY4", "KEY5", "KEY6", "KEY7",
 											"KEY8", "JOY1P_0","JOY1P_1","JOY1P_2",
 											"JOY2P_0", "JOY2P_1", "JOY2P_2", "UNUSED" };
 
-	if(m_key_mux == 0x30) //status read
-	{
-		u8 res = 0;
-		for(u8 i=0; i<15; i++)
-			res |= ioport(keynames[i])->read();
-
-		return res;
-	}
-
 	if(m_key_mux >= 1 && m_key_mux <= 15)
 		return ioport(keynames[m_key_mux - 1])->read();
 
-	return 0;
+	u8 res = 0;
+	for(u8 i=0; i<15; i++)
+		res |= ioport(keynames[i])->read();
+
+	return res;
 }
 
-WRITE8_MEMBER( rx78_state::key_w )
+void rx78_state::key_w(u8 data)
 {
 	m_key_mux = data;
 }
 
-READ8_MEMBER( rx78_state::vram_r )
+u8 rx78_state::vram_r(offs_t offset)
 {
-	uint8_t *vram = memregion("vram")->base();
-
 	if(m_vram_read_bank == 0 || m_vram_read_bank > 6)
 		return 0xff;
 
-	return vram[offset + ((m_vram_read_bank - 1) * 0x2000)];
+	return m_vram[offset + ((m_vram_read_bank - 1) * 0x2000)];
 }
 
-WRITE8_MEMBER( rx78_state::vram_w )
+void rx78_state::vram_w(offs_t offset, u8 data)
 {
-	uint8_t *vram = memregion("vram")->base();
-
 	for (u8 i = 0; i < 6; i++)
 		if (BIT(m_vram_write_bank, i))
-			vram[offset + i * 0x2000] = data;
+			m_vram[offset + i * 0x2000] = data;
 }
 
-WRITE8_MEMBER( rx78_state::vram_read_bank_w )
+void rx78_state::vram_read_bank_w(u8 data)
 {
 	m_vram_read_bank = data;
 }
 
-WRITE8_MEMBER( rx78_state::vram_write_bank_w )
+void rx78_state::vram_write_bank_w(u8 data)
 {
 	m_vram_write_bank = data;
 }
 
-WRITE8_MEMBER( rx78_state::vdp_reg_w )
+void rx78_state::vdp_reg_w(offs_t offset, u8 data)
 {
-	uint8_t r,g,b,res,i;
-
 	m_pal_reg[offset] = data;
 
-	for(i=0;i<16;i++)
+	if (offset < 6)
 	{
-		res = ((i & 1) ? m_pal_reg[0 + (i & 8 ? 3 : 0)] : 0) | ((i & 2) ? m_pal_reg[1 + (i & 8 ? 3 : 0)] : 0) | ((i & 4) ? m_pal_reg[2 + (i & 8 ? 3 : 0)] : 0);
-		if(res & m_pal_reg[6]) //color mask, TODO: check this
-			res &= m_pal_reg[6];
+		for(u8 i = 0; i < 16; i++)
+		{
+			data =   (BIT(i, 0) ? m_pal_reg[0 + (BIT(i, 3) ? 3 : 0)] : 0)
+					|(BIT(i, 1) ? m_pal_reg[1 + (BIT(i, 3) ? 3 : 0)] : 0)
+					|(BIT(i, 2) ? m_pal_reg[2 + (BIT(i, 3) ? 3 : 0)] : 0);
 
-		r = (res & 0x11) == 0x11 ? 0xff : ((res & 0x11) == 0x01 ? 0x7f : 0x00);
-		g = (res & 0x22) == 0x22 ? 0xff : ((res & 0x22) == 0x02 ? 0x7f : 0x00);
-		b = (res & 0x44) == 0x44 ? 0xff : ((res & 0x44) == 0x04 ? 0x7f : 0x00);
+			u8 r = (data & 0x11) == 0x11 ? 0xff : ((data & 0x11) == 0x01 ? 0x7f : 0);
+			u8 g = (data & 0x22) == 0x22 ? 0xff : ((data & 0x22) == 0x02 ? 0x7f : 0);
+			u8 b = (data & 0x44) == 0x44 ? 0xff : ((data & 0x44) == 0x04 ? 0x7f : 0);
 
-		m_palette->set_pen_color(i, rgb_t(r,g,b));
+			m_palette->set_pen_color(i, rgb_t(r,g,b));
+		}
 	}
+
+	if (m_pal_reg[6] == 3)  // seki
+		for (u8 i = 5; i <8; i++)
+			m_palette->set_pen_color(i, m_palette->pen_color(i-4));
+	else
+	if (m_pal_reg[6] == 15)  // theprowr
+		for (u8 i = 11; i <16; i+=2)
+			m_palette->set_pen_color(i, m_palette->pen_color(9));
 }
 
-WRITE8_MEMBER( rx78_state::vdp_bg_reg_w )
+void rx78_state::vdp_bg_reg_w(u8 data)
 {
-	int r,g,b;
+	u8 r = (data & 0x11) == 0x11 ? 0xff : ((data & 0x11) == 0x01 ? 0x7f : 0);
+	u8 g = (data & 0x22) == 0x22 ? 0xff : ((data & 0x22) == 0x02 ? 0x7f : 0);
+	u8 b = (data & 0x44) == 0x44 ? 0xff : ((data & 0x44) == 0x04 ? 0x7f : 0);
 
-	r = (data & 0x11) == 0x11 ? 0xff : ((data & 0x11) == 0x01 ? 0x7f : 0x00);
-	g = (data & 0x22) == 0x22 ? 0xff : ((data & 0x22) == 0x02 ? 0x7f : 0x00);
-	b = (data & 0x44) == 0x44 ? 0xff : ((data & 0x44) == 0x04 ? 0x7f : 0x00);
-
-	m_palette->set_pen_color(0x10, rgb_t(r,g,b));
+	m_palette->set_pen_color(16, rgb_t(r,g,b));
 }
 
-WRITE8_MEMBER( rx78_state::vdp_pri_mask_w )
+void rx78_state::vdp_pri_mask_w(u8 data)
 {
 	m_pri_mask = data;
 }
@@ -278,7 +274,7 @@ void rx78_state::rx78_mem(address_map &map)
 {
 	map.unmap_value_high();
 	map(0x0000, 0x1fff).rom().region("roms", 0);
-	//AM_RANGE(0x2000, 0x5fff)      // mapped by the cartslot
+	//map(0x2000, 0x5fff)      // mapped by the cartslot
 	map(0x6000, 0xafff).ram(); //ext RAM
 	map(0xb000, 0xebff).ram();
 	map(0xec00, 0xffff).rw(FUNC(rx78_state::vram_r), FUNC(rx78_state::vram_w));
@@ -288,11 +284,12 @@ void rx78_state::rx78_io(address_map &map)
 {
 	map.unmap_value_high();
 	map.global_mask(0xff);
-//  AM_RANGE(0xe2, 0xe2) AM_READNOP AM_WRITENOP //printer
-//  AM_RANGE(0xe3, 0xe3) AM_WRITENOP //printer
+//  map(0xe2, 0xe2).noprw(); //printer
+//  map(0xe3, 0xe3).nopw(); //printer
 	map(0xf0, 0xf0).rw(FUNC(rx78_state::cass_r), FUNC(rx78_state::cass_w)); //cmt
 	map(0xf1, 0xf1).w(FUNC(rx78_state::vram_read_bank_w));
 	map(0xf2, 0xf2).w(FUNC(rx78_state::vram_write_bank_w));
+	map(0xf3, 0xf3).nopw();    // Basic constantly writes 0x82 and 0xC2 here
 	map(0xf4, 0xf4).rw(FUNC(rx78_state::key_r), FUNC(rx78_state::key_w)); //keyboard
 	map(0xf5, 0xfb).w(FUNC(rx78_state::vdp_reg_w)); //vdp
 	map(0xfc, 0xfc).w(FUNC(rx78_state::vdp_bg_reg_w)); //vdp
@@ -359,22 +356,22 @@ static INPUT_PORTS_START( rx78 )
 	PORT_BIT(0x08,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("[") PORT_CODE(KEYCODE_OPENBRACE) PORT_CHAR('[') PORT_CHAR('{')
 	PORT_BIT(0x10,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("\\") PORT_CODE(KEYCODE_BACKSLASH) PORT_CHAR('\\') PORT_CHAR('|')
 	PORT_BIT(0x20,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("]") PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR(']') PORT_CHAR('}')
-	PORT_BIT(0x40,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Up Down Arrow") PORT_CODE(KEYCODE_PGUP)
+	PORT_BIT(0x40,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Up Down Arrow") PORT_CODE(KEYCODE_PGUP) PORT_CHAR('^')
 	PORT_BIT(0x80,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Right Left Arrow") PORT_CODE(KEYCODE_PGDN)
 
 	PORT_START("KEY6")
 	PORT_BIT(0x01,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Space") PORT_CODE(KEYCODE_SPACE) PORT_CHAR(' ')
-	PORT_BIT(0x02,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Down") PORT_CODE(KEYCODE_DOWN)
-	PORT_BIT(0x04,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Up") PORT_CODE(KEYCODE_UP)
-	PORT_BIT(0x08,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Right") PORT_CODE(KEYCODE_RIGHT)
-	PORT_BIT(0x10,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Left") PORT_CODE(KEYCODE_LEFT)
+	PORT_BIT(0x02,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Down") PORT_CODE(KEYCODE_DOWN) PORT_CHAR(UCHAR_MAMEKEY(DOWN))
+	PORT_BIT(0x04,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Up") PORT_CODE(KEYCODE_UP) PORT_CHAR(UCHAR_MAMEKEY(UP))
+	PORT_BIT(0x08,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Right") PORT_CODE(KEYCODE_RIGHT) PORT_CHAR(UCHAR_MAMEKEY(RIGHT))
+	PORT_BIT(0x10,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("Left") PORT_CODE(KEYCODE_LEFT) PORT_CHAR(UCHAR_MAMEKEY(LEFT))
 	PORT_BIT(0x20,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("CLR / HOME") PORT_CODE(KEYCODE_HOME)
 	PORT_BIT(0x40,IP_ACTIVE_HIGH,IPT_UNUSED )
-	PORT_BIT(0x80,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("INST / DEL") PORT_CODE(KEYCODE_BACKSPACE)
+	PORT_BIT(0x80,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("INST / DEL") PORT_CODE(KEYCODE_BACKSPACE) PORT_CHAR(8)
 
 	PORT_START("KEY7")
 	PORT_BIT(0x07,IP_ACTIVE_HIGH,IPT_UNUSED )
-	PORT_BIT(0x08,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("STOP") PORT_CODE(KEYCODE_END)
+	PORT_BIT(0x08,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("STOP") PORT_CODE(KEYCODE_END) PORT_CHAR(0xff) PORT_CHAR(3)
 	PORT_BIT(0x10,IP_ACTIVE_HIGH,IPT_UNUSED )
 	PORT_BIT(0x20,IP_ACTIVE_HIGH,IPT_KEYBOARD) PORT_NAME("RETURN") PORT_CODE(KEYCODE_ENTER) PORT_CHAR(13)
 	PORT_BIT(0x40,IP_ACTIVE_HIGH,IPT_UNUSED )
@@ -431,14 +428,31 @@ void rx78_state::machine_reset()
 {
 	address_space &prg = m_maincpu->space(AS_PROGRAM);
 	if (m_cart->exists())
-		prg.install_read_handler(0x2000, 0x5fff, read8sm_delegate(FUNC(generic_slot_device::read_rom),(generic_slot_device*)m_cart));
+	{
+		u32 size = m_cart->common_get_size("rom");
+		if (size > 0x9000)
+			size = 0x9000;
+		if (size)
+			prg.install_read_handler(0x2000, size+0x1FFF, read8sm_delegate(*m_cart, FUNC(generic_slot_device::read_rom)));
+	}
+}
+
+void rx78_state::machine_start()
+{
+	m_vram = make_unique_clear<u8[]>(0xc000);
+	save_pointer(NAME(m_vram), 0xc000);
+	save_item(NAME(m_vram_read_bank));
+	save_item(NAME(m_vram_write_bank));
+	save_pointer(NAME(m_pal_reg), 7);
+	save_item(NAME(m_pri_mask));
+	save_item(NAME(m_key_mux));
 }
 
 DEVICE_IMAGE_LOAD_MEMBER( rx78_state::cart_load )
 {
-	uint32_t size = m_cart->common_get_size("rom");
+	u32 size = m_cart->common_get_size("rom");
 
-	if (size != 0x2000 && size != 0x4000)
+	if (size != 0x2000 && size != 0x4000 && size != 0x8000)
 	{
 		image.seterror(IMAGE_ERROR_UNSPECIFIED, "Unsupported cartridge size");
 		return image_init_result::FAIL;
@@ -491,7 +505,7 @@ void rx78_state::rx78(machine_config &config)
 	PALETTE(config, m_palette).set_entries(16+1); //+1 for the background color
 	GFXDECODE(config, "gfxdecode", m_palette, gfx_rx78);
 
-	GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "rx78_cart", "bin,rom").set_device_load(FUNC(rx78_state::cart_load), this);
+	GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "rx78_cart", "bin,rom").set_device_load(FUNC(rx78_state::cart_load));
 
 	RAM(config, RAM_TAG).set_default_size("32K").set_extra_options("16K");
 
@@ -500,22 +514,22 @@ void rx78_state::rx78(machine_config &config)
 
 	CASSETTE(config, m_cass);
 	m_cass->add_route(ALL_OUTPUTS, "mono", 0.05);
+	m_cass->set_interface("rx78_cass");
 
 	/* Software lists */
-	SOFTWARE_LIST(config, "cart_list").set_original("rx78");
+	SOFTWARE_LIST(config, "cart_list").set_original("rx78_cart");
+	SOFTWARE_LIST(config, "cass_list").set_original("rx78_cass");
 }
 
 /* ROM definition */
 ROM_START( rx78 )
 	ROM_REGION( 0x2000, "roms", 0 )
 	ROM_LOAD( "ipl.rom", 0x0000, 0x2000, CRC(a194ea53) SHA1(ba39e73e6eb7cbb8906fff1f81a98964cd62af0d))
-
-	ROM_REGION( 6 * 0x2000, "vram", ROMREGION_ERASE00 )
 ROM_END
 
 void rx78_state::init_rx78()
 {
-	uint32_t ram_size = m_ram->size();
+	u32 ram_size = m_ram->size();
 	address_space &prg = m_maincpu->space(AS_PROGRAM);
 
 	if (ram_size == 0x4000)
@@ -525,4 +539,4 @@ void rx78_state::init_rx78()
 /* Driver */
 
 /*    YEAR  NAME  PARENT  COMPAT  MACHINE  INPUT  CLASS       INIT       COMPANY   FULLNAME     FLAGS */
-COMP( 1983, rx78, 0,      0,      rx78,    rx78,  rx78_state, init_rx78, "Bandai", "Gundam RX-78", MACHINE_NOT_WORKING )
+COMP( 1983, rx78, 0,      0,      rx78,    rx78,  rx78_state, init_rx78, "Bandai", "Gundam RX-78", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

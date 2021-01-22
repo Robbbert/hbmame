@@ -75,7 +75,7 @@ constexpr u64 MACHINE_NO_SOUND_HW               = machine_flags::NO_SOUND_HW;
 constexpr u64 MACHINE_MECHANICAL                = machine_flags::MECHANICAL;
 constexpr u64 MACHINE_IS_INCOMPLETE             = machine_flags::IS_INCOMPLETE;
 
-// flags taht map to device feature flags
+// flags that map to device feature flags
 constexpr u64 MACHINE_UNEMULATED_PROTECTION     = 0x00000001'00000000;   // game's protection not fully emulated
 constexpr u64 MACHINE_WRONG_COLORS              = 0x00000002'00000000;   // colors are totally wrong
 constexpr u64 MACHINE_IMPERFECT_COLORS          = 0x00000004'00000000;   // colors are not 100% accurate, but close
@@ -163,27 +163,6 @@ driver_device_creator< \
 		(GAME_TRAITS_NAME(NAME)::source), \
 		game_driver::unemulated_features(FLAGS), \
 		game_driver::imperfect_features(FLAGS)>
-
-// HBMAME start
-// standard GAME() macro
-#define HACK(YEAR,NAME,PARENT,MACHINE,INPUT,CLASS,INIT,MONITOR,COMPANY,FULLNAME,FLAGS) \
-GAME_DRIVER_TRAITS(NAME,FULLNAME)                                       \
-extern game_driver const GAME_NAME(NAME)                                \
-{                                                                       \
-	GAME_DRIVER_TYPE(NAME, CLASS, FLAGS),                               \
-	#PARENT,                                                            \
-	#YEAR,                                                              \
-	COMPANY,                                                            \
-	[] (machine_config &config, device_t &owner) { downcast<CLASS &>(owner).MACHINE(config); }, \
-	INPUT_PORTS_NAME(INPUT),                                            \
-	[] (device_t &owner) { downcast<CLASS &>(owner).init_##INIT(); },   \
-	ROM_NAME(NAME),                                                     \
-	nullptr,                                                            \
-	nullptr,                                                            \
-	machine_flags::type(u32((MONITOR) | (FLAGS) | MACHINE_TYPE_ARCADE)),\
-	#NAME                                                               \
-};
-// HBMAME end
 
 // standard GAME() macro
 #define GAME(YEAR,NAME,PARENT,MACHINE,INPUT,CLASS,INIT,MONITOR,COMPANY,FULLNAME,FLAGS) \

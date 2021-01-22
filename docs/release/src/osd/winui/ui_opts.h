@@ -40,7 +40,6 @@
 #define MUIOPTION_SPLITTERS                      "splitters"
 #define MUIOPTION_SORT_COLUMN                    "sort_column"
 #define MUIOPTION_SORT_REVERSED                  "sort_reversed"
-#define MUIOPTION_ICONS_DIRECTORY                "icons_directory"
 #define MUIOPTION_BACKGROUND_DIRECTORY           "background_directory"
 #define MUIOPTION_DATS_DIRECTORY                 "dats_directory"
 #define MUIOPTION_VIDEO_DIRECTORY                "video_directory"
@@ -183,7 +182,6 @@ const WINUIOPTS option_entries[] =
 	{ MUIOPTION_EXEC_COMMAND,                 "",         OPTION_STRING,                 NULL },
 	{ MUIOPTION_EXEC_WAIT,                    "0",        OPTION_INTEGER,                 NULL },
 	{ MUIOPTION_BACKGROUND_DIRECTORY,         "bkground\\bkground.png", OPTION_STRING,                 NULL },
-	{ MUIOPTION_ICONS_DIRECTORY,              "icons",    OPTION_STRING,                 NULL },
 	{ MUIOPTION_DATS_DIRECTORY,               "dats",     OPTION_STRING,                 NULL },
 	{ MUIOPTION_VIDEO_DIRECTORY,              "video",     OPTION_STRING,                 NULL },
 	{ MUIOPTION_MANUALS_DIRECTORY,            "manuals",     OPTION_STRING,                 NULL },
@@ -293,7 +291,7 @@ public:
 			m_list[option_entries[i].name] = option_entries[i].value;
 		//printf("*** START DUMP OF DEFAULT ***\n");
 		//for (auto const &it : m_list)
-		//	printf("%s = %s\n", it.first.c_str(), it.second.c_str());
+		//  printf("%s = %s\n", it.first.c_str(), it.second.c_str());
 		//printf("*** END DUMP OF DEFAULT ***\n");
 	}
 
@@ -340,8 +338,8 @@ public:
 	// cannot be "setter" otherwise most strings use it, causing "1" to be saved.
 	//void bool_setter(const char* name, bool value)
 	//{
-	//	m_list[name] = value ? "1" : "0";
-	//	save_file(m_filename);
+	//  m_list[name] = value ? "1" : "0";
+	//  save_file(m_filename);
 	//}
 
 	void setter(const char* name, int value)

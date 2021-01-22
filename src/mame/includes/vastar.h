@@ -6,6 +6,7 @@
 #pragma once
 
 #include "emupal.h"
+#include "tilemap.h"
 
 class vastar_common_state : public driver_device
 {
@@ -78,9 +79,9 @@ private:
 	tilemap_t *m_bg2_tilemap;
 
 	DECLARE_WRITE_LINE_MEMBER(flip_screen_w);
-	DECLARE_WRITE8_MEMBER(fgvideoram_w);
-	DECLARE_WRITE8_MEMBER(bg1videoram_w);
-	DECLARE_WRITE8_MEMBER(bg2videoram_w);
+	void fgvideoram_w(offs_t offset, uint8_t data);
+	void bg1videoram_w(offs_t offset, uint8_t data);
+	void bg2videoram_w(offs_t offset, uint8_t data);
 
 	TILE_GET_INFO_MEMBER(get_fg_tile_info);
 	TILE_GET_INFO_MEMBER(get_bg1_tile_info);

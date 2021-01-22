@@ -64,6 +64,14 @@ static int m_choice = 0;
     External functions
  ***************************************************************************/
 
+static int strcatvprintf(std::string &str, const char *format, va_list args)
+{
+	char tempbuf[4096];
+	int result = vsprintf(tempbuf, format, args);
+	str.append(tempbuf);
+	return result;
+}
+
 static int strcatprintf(std::string &str, const char *format, ...)
 {
 	va_list ap;
@@ -396,6 +404,7 @@ static void ProcessNextSample()
 			SendDlgItemMessage(hAudit, IDC_SAMPLES_TOTAL, WM_SETTEXT, 0, (LPARAM)buffer);
 			break;
 		}
+		[[fallthrough]];
 	default:
 		if ((DriverUsesSamples(sample_index)) || (m_choice == 1))
 		{
@@ -425,7 +434,7 @@ static void CLIB_DECL DetailsPrintf(const char *fmt, ...)
 	// so see which one's currently instantiated
 	HWND hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS);
 	if (hEdit ==  NULL)
-		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP);
+		hEdit = GetDlgItem(hAudit, IDC_AUDIT_DETAILS_PROP0);
 
 	if (hEdit == NULL)
 	{

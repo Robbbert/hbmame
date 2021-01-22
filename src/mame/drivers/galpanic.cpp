@@ -106,7 +106,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(galpanic_state::scanline)
 
 
 
-WRITE16_MEMBER(galpanic_state::m6295_bankswitch_w)
+void galpanic_state::m6295_bankswitch_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -119,7 +119,7 @@ WRITE16_MEMBER(galpanic_state::m6295_bankswitch_w)
 
 
 
-WRITE16_MEMBER(galpanic_state::coin_w)
+void galpanic_state::coin_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
 	if (ACCESSING_BITS_8_15)
 	{
@@ -213,22 +213,8 @@ static INPUT_PORTS_START( galpanica )
 INPUT_PORTS_END
 
 
-
-static const gfx_layout spritelayout =
-{
-	16,16,
-	RGN_FRAC(1,1),
-	4,
-	{ 0, 1, 2, 3 },
-	{ 0*4, 1*4, 2*4, 3*4, 4*4, 5*4, 6*4, 7*4,
-			64*4, 65*4, 66*4, 67*4, 68*4, 69*4, 70*4, 71*4 },
-	{ 0*32, 1*32, 2*32, 3*32, 4*32, 5*32, 6*32, 7*32,
-			16*32, 17*32, 18*32, 19*32, 20*32, 21*32, 22*32, 23*32 },
-	128*8
-};
-
 static GFXDECODE_START( gfx_galpanic )
-	GFXDECODE_ENTRY( "gfx1", 0, spritelayout,  256, 16 )
+	GFXDECODE_ENTRY( "gfx1", 0, gfx_8x8x4_row_2x2_group_packed_msb, 256, 16 )
 GFXDECODE_END
 
 

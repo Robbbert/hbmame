@@ -13,7 +13,7 @@
 #include "romload.h"
 
 #define MAMENAME "HBMAME"
-#define UI_INI_FILENAME MAMENAME "UI.ini"
+#define MUI_INI_FILENAME MAMENAME "UI.ini"
 
 #ifdef PTR64
 #define MAMEUINAME MAMENAME "UI64"
@@ -40,8 +40,8 @@ enum
 	FILETYPE_AVI_FILES,
 	FILETYPE_MNG_FILES,
 	FILETYPE_EFFECT_FILES,
-	FILETYPE_JOYMAP_FILES,
-	FILETYPE_DEBUGSCRIPT_FILES,
+	FILETYPE_SHADER_FILES,
+	FILETYPE_BGFX_FILES,
 	FILETYPE_LUASCRIPT_FILES
 };
 
@@ -85,7 +85,6 @@ char * ConvertAmpersandString(const char *s);
 HBITMAP GetBackgroundBitmap(void);
 HPALETTE GetBackgroundPalette(void);
 MYBITMAPINFO* GetBackgroundInfo(void);
-BOOL GetUseOldControl(void);
 BOOL GetUseXPControl(void);
 
 int GetMinimumScreenShotWindowWidth(void);

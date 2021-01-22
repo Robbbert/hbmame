@@ -56,6 +56,7 @@
 /* coarse delays */
 #define DELAY_SEEK   attotime::from_usec( 100 )  /* track seek time */
 #define DELAY_ADDR   attotime::from_usec( 100 )  /* search-address time */
+#define DELAY_CRC    attotime::from_usec(  64 )  /* read crc time */
 
 
 
@@ -68,10 +69,11 @@ static const char *const mc6843_cmd[16] =
 
 
 
-DEFINE_DEVICE_TYPE(MC6843, mc6843_device, "mc5843", "Motorola MC6843 FDC")
+DEFINE_DEVICE_TYPE(MC6843, mc6843_device, "mc6843", "Motorola MC6843 FDC")
 
 mc6843_device::mc6843_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, MC6843, tag, owner, clock),
+	m_floppy(*this, {finder_base::DUMMY_TAG, finder_base::DUMMY_TAG, finder_base::DUMMY_TAG, finder_base::DUMMY_TAG}),
 	m_write_irq(*this),
 	m_CTAR(0),
 	m_CMR(0),
@@ -89,6 +91,7 @@ mc6843_device::mc6843_device(const machine_config &mconfig, const char *tag, dev
 	m_data_idx(0),
 	m_data_id(0),
 	m_index_pulse(0),
+	m_crc_wait(0),
 	m_timer_cont(nullptr)
 {
 	for (auto & elem : m_data)
@@ -123,6 +126,7 @@ void mc6843_device::device_start()
 	save_item(NAME(m_data_size));
 	save_item(NAME(m_data_idx));
 	save_item(NAME(m_data_id));
+	save_item(NAME(m_crc_wait));
 }
 
 //-------------------------------------------------
@@ -131,16 +135,17 @@ void mc6843_device::device_start()
 
 void mc6843_device::device_reset()
 {
-	int i;
 	LOG (( "mc6843 reset\n" ));
 
 	/* setup/reset floppy drive */
-	for ( i = 0; i < 4; i++ )
+	for (auto &img : m_floppy)
 	{
-		legacy_floppy_image_device * img = floppy_image( i );
-		img->floppy_mon_w(CLEAR_LINE);
-		img->floppy_drive_set_ready_state(FLOPPY_DRIVE_READY, 0 );
-		img->floppy_drive_set_rpm( 300. );
+		if (img.found())
+		{
+			img->floppy_mon_w(CLEAR_LINE);
+			img->floppy_drive_set_ready_state(FLOPPY_DRIVE_READY, 0 );
+			img->floppy_drive_set_rpm( 300. );
+		}
 	}
 
 	/* reset registers */
@@ -153,6 +158,7 @@ void mc6843_device::device_reset()
 
 	m_data_size = 0;
 	m_data_idx = 0;
+	m_crc_wait = 0;
 	m_timer_cont->adjust( attotime::never );
 }
 
@@ -160,35 +166,10 @@ void mc6843_device::device_reset()
 
 
 
-legacy_floppy_image_device* mc6843_device::floppy_image( uint8_t drive )
-{
-	legacy_floppy_image_device *img = floppy_get_device( machine(), drive );
-	if (!img && owner()) {
-		// For slot devices, drives are typically attached to the slot rather than the machine
-		const char *floppy_name = nullptr;
-		switch (drive) {
-		case 0:
-			floppy_name = FLOPPY_0;
-			break;
-		case 1:
-			floppy_name = FLOPPY_1;
-			break;
-		case 2:
-			floppy_name = FLOPPY_2;
-			break;
-		case 3:
-			floppy_name = FLOPPY_3;
-			break;
-		}
-		img = owner()->subdevice<legacy_floppy_image_device>(floppy_name);
-	}
-	return img;
-}
-
-
 legacy_floppy_image_device* mc6843_device::floppy_image( )
 {
-	return floppy_image( m_drive );
+	assert(m_floppy[m_drive].found());
+	return m_floppy[m_drive].target();
 }
 
 
@@ -242,6 +223,7 @@ void mc6843_device::set_index_pulse( int index_pulse )
 void mc6843_device::cmd_end( )
 {
 	int cmd = m_CMR & 0x0f;
+
 	if ( ( cmd == CMD_STZ ) || ( cmd == CMD_SEK ) )
 	{
 		m_ISR |= 0x02; /* set Settling Time Complete */
@@ -415,7 +397,11 @@ void mc6843_device::cont_SR( )
 	status_update( );
 }
 
-
+void mc6843_device::finish_SR( )
+{
+	m_crc_wait = 0;
+	cmd_end( );
+}
 
 /* Single / Multiple Sector Write bottom half */
 void mc6843_device::cont_SW( )
@@ -453,12 +439,17 @@ void mc6843_device::device_timer(emu_timer &timer, device_timer_id id, int param
 				{
 					case CMD_STZ: finish_STZ( ); break;
 					case CMD_SEK: finish_SEK( ); break;
-					case CMD_SSR: cont_SR( );    break;
+					case CMD_SSR:
+					case CMD_MSR:
+						if ( m_crc_wait )
+							finish_SR( );
+						else
+							cont_SR( );
+						break;
 					case CMD_SSW: cont_SW( );    break;
 					case CMD_RCR: finish_RCR( ); break;
 					case CMD_SWD: cont_SW( );    break;
 					case CMD_MSW: cont_SW( );    break;
-					case CMD_MSR: cont_SR( );    break;
 				}
 			}
 			break;
@@ -474,7 +465,7 @@ void mc6843_device::device_timer(emu_timer &timer, device_timer_id id, int param
 
 
 
-READ8_MEMBER( mc6843_device::read )
+uint8_t mc6843_device::read(offs_t offset)
 {
 	uint8_t data = 0;
 
@@ -482,6 +473,12 @@ READ8_MEMBER( mc6843_device::read )
 	case 0: /* Data Input Register (DIR) */
 	{
 		int cmd = m_CMR & 0x0f;
+
+		if (machine().side_effects_disabled())
+		{
+			data = m_data[0];
+			break;
+		}
 
 		LOG( "%f %s mc6843_r: data input cmd=%s(%i), pos=%i/%i, GCR=%i, ",
 				machine().time().as_double(), machine().describe_context(),
@@ -510,13 +507,15 @@ READ8_MEMBER( mc6843_device::read )
 					m_SAR++;
 					if ( m_GCR == 0xff )
 					{
-						cmd_end( );
+						m_crc_wait = 1;
+						m_timer_cont->adjust( DELAY_CRC );
 					}
 					else if ( m_SAR > 26 )
 
 					{
 						m_STRB |= 0x08; /* set Sector Address Undetected */
-						cmd_end( );
+						m_crc_wait = 1;
+						m_timer_cont->adjust( DELAY_CRC );
 					}
 					else
 					{
@@ -525,7 +524,8 @@ READ8_MEMBER( mc6843_device::read )
 				}
 				else
 				{
-					cmd_end( );
+					m_crc_wait = 1;
+					m_timer_cont->adjust( DELAY_CRC );
 				}
 			}
 		}
@@ -547,6 +547,8 @@ READ8_MEMBER( mc6843_device::read )
 
 	case 1: /* Current-Track Address Register (CTAR) */
 		data = m_CTAR;
+		if (machine().side_effects_disabled())
+			break;
 		LOG( "%f %s mc6843_r: read CTAR %i (actual=%i)\n",
 				machine().time().as_double(), machine().describe_context(), data,
 				floppy_image()->floppy_drive_get_current_track());
@@ -554,6 +556,8 @@ READ8_MEMBER( mc6843_device::read )
 
 	case 2: /* Interrupt Status Register (ISR) */
 		data = m_ISR;
+		if (machine().side_effects_disabled())
+			break;
 		LOG( "%f %s mc6843_r: read ISR %02X: cmd=%scomplete settle=%scomplete sense-rq=%i STRB=%i\n",
 				machine().time().as_double(), machine().describe_context(), data,
 				(data & 1) ? "" : "not-" , (data & 2) ? "" : "not-",
@@ -569,17 +573,20 @@ READ8_MEMBER( mc6843_device::read )
 		/* update */
 		legacy_floppy_image_device* img = floppy_image( );
 		int flag = img->floppy_drive_get_flag_state( FLOPPY_DRIVE_READY);
-		m_STRA &= 0xa3;
+		data = m_STRA & 0xa3;
 		if ( flag & FLOPPY_DRIVE_READY )
-			m_STRA |= 0x04;
+			data |= 0x04;
 
-		m_STRA |= !img->floppy_tk00_r() << 3;
-		m_STRA |= !img->floppy_wpt_r() << 4;
+		data |= !img->floppy_tk00_r() << 3;
+		data |= !img->floppy_wpt_r() << 4;
 
 		if ( m_index_pulse )
-			m_STRA |= 0x40;
+			data |= 0x40;
 
-		data = m_STRA;
+		if (machine().side_effects_disabled())
+			break;
+
+		m_STRA = data;
 		LOG( "%f %s mc6843_r: read STRA %02X: data-rq=%i del-dta=%i ready=%i t0=%i wp=%i trk-dif=%i idx=%i busy=%i\n",
 				machine().time().as_double(), machine().describe_context(), data,
 				data & 1, (data >> 1) & 1, (data >> 2) & 1, (data >> 3) & 1,
@@ -589,6 +596,8 @@ READ8_MEMBER( mc6843_device::read )
 
 	case 4: /* Status Register B (STRB) */
 		data = m_STRB;
+		if (machine().side_effects_disabled())
+			break;
 		LOG( "%f %s mc6843_r: read STRB %02X: data-err=%i CRC-err=%i dta--mrk-err=%i sect-mrk-err=%i seek-err=%i fi=%i wr-err=%i hard-err=%i\n",
 				machine().time().as_double(), machine().describe_context(), data,
 				data & 1, (data >> 1) & 1, (data >> 2) & 1, (data >> 3) & 1,
@@ -601,6 +610,8 @@ READ8_MEMBER( mc6843_device::read )
 
 	case 7: /* Logical-Track Address Register (LTAR) */
 		data = m_LTAR;
+		if (machine().side_effects_disabled())
+			break;
 		LOG( "%f %s mc6843_r: read LTAR %i (actual=%i)\n",
 				machine().time().as_double(), machine().describe_context(), data,
 				floppy_image()->floppy_drive_get_current_track());
@@ -613,7 +624,7 @@ READ8_MEMBER( mc6843_device::read )
 	return data;
 }
 
-WRITE8_MEMBER( mc6843_device::write )
+void mc6843_device::write(offs_t offset, uint8_t data)
 {
 	switch ( offset ) {
 	case 0: /* Data Output Register (DOR) */
@@ -705,6 +716,7 @@ WRITE8_MEMBER( mc6843_device::write )
 					uint8_t filler = 0xe5; /* standard Thomson filler */
 					LOG( "%f %s mc6843_w: address id detected track=%i sector=%i\n", machine().time().as_double(), machine().describe_context(), track, sector);
 					img->floppy_drive_format_sector( m_side, sector, track, 0, sector, 0, filler );
+					m_data_idx = 0;
 				}
 				else
 				{

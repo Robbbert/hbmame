@@ -91,7 +91,7 @@ TODO:
  *
  *************************************/
 
-WRITE8_MEMBER(gameplan_state::io_select_w)
+void gameplan_state::io_select_w(uint8_t data)
 {
 	switch (data)
 	{
@@ -105,7 +105,7 @@ WRITE8_MEMBER(gameplan_state::io_select_w)
 }
 
 
-READ8_MEMBER(gameplan_state::io_port_r)
+uint8_t gameplan_state::io_port_r()
 {
 	static const char *const portnames[] = { "IN0", "IN1", "IN2", "IN3", "DSW0", "DSW1" };
 
@@ -138,7 +138,7 @@ WRITE_LINE_MEMBER(gameplan_state::audio_reset_w)
 }
 
 
-WRITE8_MEMBER(gameplan_state::audio_cmd_w)
+void gameplan_state::audio_cmd_w(uint8_t data)
 {
 	m_riot->porta_in_set(data, 0x7f);
 }
@@ -164,11 +164,6 @@ WRITE_LINE_MEMBER(gameplan_state::r6532_irq)
 		machine().scheduler().boost_interleave(attotime::zero, attotime::from_usec(10));
 }
 
-
-WRITE8_MEMBER(gameplan_state::r6532_soundlatch_w)
-{
-	m_soundlatch->write(data);
-}
 
 
 /*************************************
@@ -935,7 +930,7 @@ INPUT_PORTS_END
  *
  *************************************/
 
-MACHINE_START_MEMBER(gameplan_state,gameplan)
+void gameplan_state::machine_start()
 {
 	/* register for save states */
 	save_item(NAME(m_current_port));
@@ -943,13 +938,10 @@ MACHINE_START_MEMBER(gameplan_state,gameplan)
 	save_item(NAME(m_video_y));
 	save_item(NAME(m_video_command));
 	save_item(NAME(m_video_data));
-
-	/* this is needed for trivia quest */
-	m_via_0->write_pb5(1);
 }
 
 
-MACHINE_RESET_MEMBER(gameplan_state,gameplan)
+void gameplan_state::machine_reset()
 {
 	m_current_port = 0;
 	m_video_x = 0;
@@ -967,11 +959,8 @@ void gameplan_state::gameplan(machine_config &config)
 	m_audiocpu->set_addrmap(AS_PROGRAM, &gameplan_state::gameplan_audio_map);
 
 	RIOT6532(config, m_riot, GAMEPLAN_AUDIO_CPU_CLOCK);
-	m_riot->out_pb_callback().set(FUNC(gameplan_state::r6532_soundlatch_w));
+	m_riot->out_pb_callback().set(m_soundlatch, FUNC(generic_latch_8_device::write));
 	m_riot->irq_callback().set(FUNC(gameplan_state::r6532_irq));
-
-	MCFG_MACHINE_START_OVERRIDE(gameplan_state,gameplan)
-	MCFG_MACHINE_RESET_OVERRIDE(gameplan_state,gameplan)
 
 	/* video hardware */
 	gameplan_video(config);

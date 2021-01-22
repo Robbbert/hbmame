@@ -30,7 +30,7 @@
 
 /* Read/Write Handlers */
 
-WRITE8_MEMBER( pc8001_state::port10_w )
+void pc8001_state::port10_w(uint8_t data)
 {
 	/*
 
@@ -57,7 +57,7 @@ WRITE8_MEMBER( pc8001_state::port10_w )
 	m_cent_data_out->write(data);
 }
 
-WRITE8_MEMBER( pc8001_state::port30_w )
+void pc8001_state::port30_w(uint8_t data)
 {
 	/*
 
@@ -84,7 +84,7 @@ WRITE8_MEMBER( pc8001_state::port30_w )
 	m_cassette->change_state(BIT(data,3) ? CASSETTE_MOTOR_ENABLED : CASSETTE_MOTOR_DISABLED, CASSETTE_MASK_MOTOR);
 }
 
-WRITE8_MEMBER( pc8001mk2_state::port31_w )
+void pc8001mk2_state::port31_w(uint8_t data)
 {
 	/*
 
@@ -112,7 +112,7 @@ WRITE_LINE_MEMBER( pc8001_state::write_centronics_ack )
 	m_centronics_ack = state;
 }
 
-READ8_MEMBER( pc8001_state::port40_r )
+uint8_t pc8001_state::port40_r()
 {
 	/*
 
@@ -139,7 +139,7 @@ READ8_MEMBER( pc8001_state::port40_r )
 	return data;
 }
 
-WRITE8_MEMBER( pc8001_state::port40_w )
+void pc8001_state::port40_w(uint8_t data)
 {
 	/*
 
@@ -193,30 +193,30 @@ void pc8001_state::pc8001_io(address_map &map)
 	map(0x40, 0x40).mirror(0x0f).rw(FUNC(pc8001_state::port40_r), FUNC(pc8001_state::port40_w));
 	map(0x50, 0x51).rw(m_crtc, FUNC(upd3301_device::read), FUNC(upd3301_device::write));
 	map(0x60, 0x68).rw(m_dma, FUNC(i8257_device::read), FUNC(i8257_device::write));
-//  AM_RANGE(0x70, 0x7f) unused
-//  AM_RANGE(0x80, 0x80) AM_MIRROR(0x0f) AM_WRITE(pc8011_ext0_w)
-//  AM_RANGE(0x90, 0x90) AM_MIRROR(0x0f) AM_WRITE(pc8011_ext1_w)
-//  AM_RANGE(0xa0, 0xa0) AM_MIRROR(0x0f) AM_WRITE(pc8011_ext2_w)
-//  AM_RANGE(0xb0, 0xb0) AM_READ(pc8011_gpio8_r)
-//  AM_RANGE(0xb1, 0xb1) AM_WRITE(pc8011_gpio8_w)
-//  AM_RANGE(0xb2, 0xb2) AM_READ(pc8011_gpio4_r)
-//  AM_RANGE(0xb3, 0xb3) AM_WRITE(pc8011_gpio4_w)
-//  AM_RANGE(0xc0, 0xc0) AM_DEVREADWRITE(PC8011_CH1_I8251_TAG, i8251_device, data_r, data_w)
-//  AM_RANGE(0xc1, 0xc1) AM_DEVREADWRITE(PC8011_CH1_I8251_TAG, i8251_device, status_r, control_w)
-//  AM_RANGE(0xc2, 0xc2) AM_DEVREADWRITE(PC8011_CH2_I8251_TAG, i8251_device, data_r, data_w)
-//  AM_RANGE(0xc3, 0xc3) AM_DEVREADWRITE(PC8011_CH2_I8251_TAG, i8251_device, status_r, control_w)
-//  AM_RANGE(0xc8, 0xc8) RS-232 output enable?
-//  AM_RANGE(0xca, 0xca) RS-232 output disable?
-//  AM_RANGE(0xd0, 0xd3) AM_DEVREADWRITE(PC8011_IEEE488_I8255A_TAG, i8255_device, read, write)
-//  AM_RANGE(0xd8, 0xd8) AM_READ(pc8011_ieee488_control_signal_input_r)
-//  AM_RANGE(0xda, 0xda) AM_READ(pc8011_ieee488_bus_address_mode_r)
-//  AM_RANGE(0xdc, 0xdc) AM_WRITE(pc8011_ieee488_nrfd_w)
-//  AM_RANGE(0xde, 0xde) AM_WRITE(pc8011_ieee488_bus_mode_control_w)
-//  AM_RANGE(0xe0, 0xe3) AM_WRITE(expansion_storage_mode_w)
-//  AM_RANGE(0xe4, 0xe4) AM_MIRROR(0x01) AM_WRITE(irq_level_w)
-//  AM_RANGE(0xe6, 0xe6) AM_WRITE(irq_mask_w)
-//  AM_RANGE(0xe7, 0xe7) AM_WRITE(pc8012_memory_mode_w)
-//  AM_RANGE(0xe8, 0xfb) unused
+//  map(0x70, 0x7f) unused
+//  map(0x80, 0x80).mirror(0x0f).w(FUNC(pc8001_state::pc8011_ext0_w));
+//  map(0x90, 0x90).mirror(0x0f).w(FUNC(pc8001_state::pc8011_ext1_w));
+//  map(0xa0, 0xa0).mirror(0x0f).w(FUNC(pc8001_state::pc8011_ext2_w));
+//  map(0xb0, 0xb0).r(FUNC(pc8001_state::pc8011_gpio8_r));
+//  map(0xb1, 0xb1).w(FUNC(pc8001_state::pc8011_gpio8_w));
+//  map(0xb2, 0xb2).r(FUNC(pc8001_state::pc8011_gpio4_r));
+//  map(0xb3, 0xb3).w(FUNC(pc8001_state::pc8011_gpio4_w));
+//  map(0xc0, 0xc0).rw(PC8011_CH1_I8251_TAG, FUNC(i8251_device::data_r), FUNC(i8251_device::data_w));
+//  map(0xc1, 0xc1).rw(PC8011_CH1_I8251_TAG, FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
+//  map(0xc2, 0xc2).rw(PC8011_CH2_I8251_TAG, FUNC(i8251_device::data_r), FUNC(i8251_device::data_w));
+//  map(0xc3, 0xc3).rw(PC8011_CH2_I8251_TAG, FUNC(i8251_device::status_r), FUNC(i8251_device::control_w));
+//  map(0xc8, 0xc8) RS-232 output enable?)
+//  map(0xca, 0xca) RS-232 output disable?
+//  map(0xd0, 0xd3).rw(PC8011_IEEE488_I8255A_TAG, FUNC(i8255_device::read), FUNC(i8255_device::write));
+//  map(0xd8, 0xd8).r(FUNC(pc8001_state::pc8011_ieee488_control_signal_input_r));
+//  map(0xda, 0xda).r(FUNC(pc8001_state::pc8011_ieee488_bus_address_mode_r));
+//  map(0xdc, 0xdc).w(FUNC(pc8001_state::pc8011_ieee488_nrfd_w));
+//  map(0xde, 0xde).w(FUNC(pc8001_state::pc8011_ieee488_bus_mode_control_w));
+//  map(0xe0, 0xe3).w(FUNC(pc8001_state::expansion_storage_mode_w));
+//  map(0xe4, 0xe4).mirror(0x01).w(FUNC(pc8001_state::irq_level_w));
+//  map(0xe6, 0xe6).w(FUNC(pc8001_state::irq_mask_w));
+//  map(0xe7, 0xe7).w(FUNC(pc8001_state::pc8012_memory_mode_w));
+//  map(0xe8, 0xfb) unused
 	map(0xfc, 0xff).rw(I8255A_TAG, FUNC(i8255_device::read), FUNC(i8255_device::write));
 }
 
@@ -233,21 +233,21 @@ void pc8001mk2_state::pc8001mk2_io(address_map &map)
 	pc8001_io(map);
 	map(0x30, 0x30).w(FUNC(pc8001mk2_state::port30_w));
 	map(0x31, 0x31).w(FUNC(pc8001mk2_state::port31_w));
-//  AM_RANGE(0x5c, 0x5c) AM_WRITE(gram_on_w)
-//  AM_RANGE(0x5f, 0x5f) AM_WRITE(gram_off_w)
-//  AM_RANGE(0xe8, 0xe8) kanji_address_lo_w, kanji_data_lo_r
-//  AM_RANGE(0xe9, 0xe9) kanji_address_hi_w, kanji_data_hi_r
-//  AM_RANGE(0xea, 0xea) kanji_readout_start_w
-//  AM_RANGE(0xeb, 0xeb) kanji_readout_end_w
-//  AM_RANGE(0xf3, 0xf3) DMA type disk unit interface selection port
-//  AM_RANGE(0xf4, 0xf4) DMA type 8 inch control
-//  AM_RANGE(0xf5, 0xf5) DMA type 8 inch margin control
-//  AM_RANGE(0xf6, 0xf6) DMA type 8 inch FDC status
-//  AM_RANGE(0xf7, 0xf7) DMA type 8 inch FDC data register
-//  AM_RANGE(0xf8, 0xf8) DMA type 5 inch control
-//  AM_RANGE(0xf9, 0xf9) DMA type 5 inch margin control
-//  AM_RANGE(0xfa, 0xfa) DMA type 5 inch FDC status
-//  AM_RANGE(0xfb, 0xfb) DMA type 5 inch FDC data register
+//  map(0x5c, 0x5c).w(FUNC(pc8001mk2_state::gram_on_w));
+//  map(0x5f, 0x5f).w(FUNC(pc8001mk2_state::gram_off_w));
+//  map(0xe8, 0xe8) kanji_address_lo_w, kanji_data_lo_r
+//  map(0xe9, 0xe9) kanji_address_hi_w, kanji_data_hi_r
+//  map(0xea, 0xea) kanji_readout_start_w
+//  map(0xeb, 0xeb) kanji_readout_end_w
+//  map(0xf3, 0xf3) DMA type disk unit interface selection port
+//  map(0xf4, 0xf4) DMA type 8 inch control
+//  map(0xf5, 0xf5) DMA type 8 inch margin control
+//  map(0xf6, 0xf6) DMA type 8 inch FDC status
+//  map(0xf7, 0xf7) DMA type 8 inch FDC data register
+//  map(0xf8, 0xf8) DMA type 5 inch control
+//  map(0xf9, 0xf9) DMA type 5 inch margin control
+//  map(0xfa, 0xfa) DMA type 5 inch FDC status
+//  map(0xfb, 0xfb) DMA type 5 inch FDC data register
 }
 
 /* Input Ports */
@@ -307,9 +307,9 @@ static INPUT_PORTS_START( pc8001 )
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_X)          PORT_CHAR('x') PORT_CHAR('X')
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_Y)          PORT_CHAR('y') PORT_CHAR('Y')
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_Z)          PORT_CHAR('z') PORT_CHAR('Z')
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR('[') PORT_CHAR('{')
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR(0xA5) PORT_CHAR('|')
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_BACKSLASH)  PORT_CHAR(']') PORT_CHAR('}')
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_CLOSEBRACE) PORT_CHAR('[')
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_BACKSLASH2) PORT_CHAR(0xA5)
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_BACKSLASH)  PORT_CHAR(']')
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_EQUALS)     PORT_CHAR('^')
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_MINUS)      PORT_CHAR('-') PORT_CHAR('=')
 
@@ -331,27 +331,27 @@ static INPUT_PORTS_START( pc8001 )
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_COMMA)      PORT_CHAR(',') PORT_CHAR('<')
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_STOP)       PORT_CHAR('.') PORT_CHAR('>')
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_SLASH)      PORT_CHAR('/') PORT_CHAR('?')
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("  _") PORT_CODE(KEYCODE_DEL)           PORT_CHAR(0) PORT_CHAR('_')
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("  _") PORT_CODE(KEYCODE_DEL)           PORT_CHAR(0xff) PORT_CHAR('_')
 
 	PORT_START("Y8")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Clr Home") PORT_CODE(KEYCODE_HOME)     PORT_CHAR(UCHAR_MAMEKEY(HOME))
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME(UTF8_UP) PORT_CODE(KEYCODE_UP)  PORT_CHAR(UCHAR_MAMEKEY(UP))
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME(UTF8_RIGHT) PORT_CODE(KEYCODE_RIGHT)    PORT_CHAR(UCHAR_MAMEKEY(RIGHT))
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME(UTF8_UP) PORT_CODE(KEYCODE_UP)  PORT_CHAR(UCHAR_MAMEKEY(UP)) PORT_CHAR(UCHAR_MAMEKEY(DOWN))
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME(UTF8_RIGHT) PORT_CODE(KEYCODE_RIGHT)    PORT_CHAR(UCHAR_MAMEKEY(RIGHT)) PORT_CHAR(UCHAR_MAMEKEY(LEFT))
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Del Ins") PORT_CODE(KEYCODE_BACKSPACE) PORT_CHAR(UCHAR_MAMEKEY(DEL)) PORT_CHAR(UCHAR_MAMEKEY(INSERT))
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Grph") PORT_CODE(KEYCODE_LALT) PORT_CODE(KEYCODE_RALT) PORT_CHAR(UCHAR_MAMEKEY(F7))
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Kana") PORT_CODE(KEYCODE_LCONTROL) PORT_TOGGLE PORT_CHAR(UCHAR_MAMEKEY(F6))
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Grph") PORT_CODE(KEYCODE_LALT) PORT_CODE(KEYCODE_RALT)
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Kana") PORT_CODE(KEYCODE_LCONTROL) PORT_TOGGLE
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_LSHIFT) PORT_CODE(KEYCODE_RSHIFT) PORT_CHAR(UCHAR_SHIFT_1)
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_RCONTROL)                       PORT_CHAR(UCHAR_SHIFT_2)
 
 	PORT_START("Y9")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Stop") PORT_CODE(KEYCODE_ESC)          PORT_CHAR(UCHAR_MAMEKEY(ESC))
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F1)                             PORT_CHAR(UCHAR_MAMEKEY(F1))
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F2)                             PORT_CHAR(UCHAR_MAMEKEY(F2))
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F3)                             PORT_CHAR(UCHAR_MAMEKEY(F3))
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F4)                             PORT_CHAR(UCHAR_MAMEKEY(F4))
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F5)                             PORT_CHAR(UCHAR_MAMEKEY(F5))
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_NAME("Stop") PORT_CODE(KEYCODE_TILDE)        PORT_CHAR(3)
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F1)                             PORT_CHAR(UCHAR_MAMEKEY(F1)) PORT_CHAR(UCHAR_MAMEKEY(F6))
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F2)                             PORT_CHAR(UCHAR_MAMEKEY(F2)) PORT_CHAR(UCHAR_MAMEKEY(F7))
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F3)                             PORT_CHAR(UCHAR_MAMEKEY(F3)) PORT_CHAR(UCHAR_MAMEKEY(F8))
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F4)                             PORT_CHAR(UCHAR_MAMEKEY(F4)) PORT_CHAR(UCHAR_MAMEKEY(F9))
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_F5)                             PORT_CHAR(UCHAR_MAMEKEY(F5)) PORT_CHAR(UCHAR_MAMEKEY(F10))
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_SPACE)                          PORT_CHAR(' ')
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_ESC)                            PORT_CHAR(UCHAR_MAMEKEY(ESC))
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYBOARD ) PORT_CODE(KEYCODE_ESC)                            PORT_CHAR(27)
 
 	PORT_START("DSW1")
 INPUT_PORTS_END
@@ -373,18 +373,17 @@ static const rgb_t PALETTE_PC8001[] =
 UPD3301_DRAW_CHARACTER_MEMBER( pc8001_state::pc8001_display_pixels )
 {
 	uint8_t data = m_char_rom->base()[(cc << 3) | lc];
-	int i;
 
 	if (lc >= 8) return;
 	if (csr) data = 0xff;
 
 	if (m_width80)
 	{
-		for (i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			int color = BIT(data, 7) ^ rvv;
 
-			bitmap.pix32(y, (sx * 8) + i) = PALETTE_PC8001[color ? 7 : 0];
+			bitmap.pix(y, (sx * 8) + i) = PALETTE_PC8001[color ? 7 : 0];
 
 			data <<= 1;
 		}
@@ -393,12 +392,12 @@ UPD3301_DRAW_CHARACTER_MEMBER( pc8001_state::pc8001_display_pixels )
 	{
 		if (sx % 2) return;
 
-		for (i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			int color = BIT(data, 7) ^ rvv;
 
-			bitmap.pix32(y, (sx/2 * 16) + (i * 2)) = PALETTE_PC8001[color ? 7 : 0];
-			bitmap.pix32(y, (sx/2 * 16) + (i * 2) + 1) = PALETTE_PC8001[color ? 7 : 0];
+			bitmap.pix(y, (sx/2 * 16) + (i * 2)) = PALETTE_PC8001[color ? 7 : 0];
+			bitmap.pix(y, (sx/2 * 16) + (i * 2) + 1) = PALETTE_PC8001[color ? 7 : 0];
 
 			data <<= 1;
 		}
@@ -416,7 +415,7 @@ WRITE_LINE_MEMBER( pc8001_state::hrq_w )
 	m_dma->hlda_w(state);
 }
 
-READ8_MEMBER( pc8001_state::dma_mem_r )
+uint8_t pc8001_state::dma_mem_r(offs_t offset)
 {
 	address_space &program = m_maincpu->space(AS_PROGRAM);
 
@@ -440,7 +439,7 @@ void pc8001_state::machine_start()
 	uint8_t *ram = m_ram->pointer();
 
 	membank("bank1")->configure_entry(1, m_rom->base());
-	program.install_read_bank(0x0000, 0x5fff, "bank1");
+	program.install_read_bank(0x0000, 0x5fff, membank("bank1"));
 	program.unmap_write(0x0000, 0x5fff);
 
 	switch (m_ram->size())
@@ -449,22 +448,22 @@ void pc8001_state::machine_start()
 		membank("bank3")->configure_entry(0, ram);
 		program.unmap_readwrite(0x6000, 0xbfff);
 		program.unmap_readwrite(0x8000, 0xbfff);
-		program.install_readwrite_bank(0xc000, 0xffff, "bank3");
+		program.install_readwrite_bank(0xc000, 0xffff, membank("bank3"));
 		break;
 
 	case 32*1024:
 		membank("bank3")->configure_entry(0, ram);
 		program.unmap_readwrite(0x6000, 0xbfff);
-		program.install_readwrite_bank(0x8000, 0xffff, "bank3");
+		program.install_readwrite_bank(0x8000, 0xffff, membank("bank3"));
 		break;
 
 	case 64*1024:
 		membank("bank1")->configure_entry(0, ram);
 		membank("bank2")->configure_entry(0, ram + 0x6000);
 		membank("bank3")->configure_entry(0, ram + 0x8000);
-		program.install_readwrite_bank(0x0000, 0x5fff, "bank1");
-		program.install_readwrite_bank(0x6000, 0xbfff, "bank2");
-		program.install_readwrite_bank(0x8000, 0xffff, "bank3");
+		program.install_readwrite_bank(0x0000, 0x5fff, membank("bank1"));
+		program.install_readwrite_bank(0x6000, 0xbfff, membank("bank2"));
+		program.install_readwrite_bank(0x8000, 0xffff, membank("bank3"));
 		membank("bank2")->set_entry(0);
 		break;
 	}
@@ -511,7 +510,7 @@ void pc8001_state::pc8001(machine_config &config)
 
 	UPD3301(config, m_crtc, XTAL(14'318'181));
 	m_crtc->set_character_width(8);
-	m_crtc->set_display_callback(FUNC(pc8001_state::pc8001_display_pixels), this);
+	m_crtc->set_display_callback(FUNC(pc8001_state::pc8001_display_pixels));
 	m_crtc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq2_w));
 	m_crtc->set_screen(SCREEN_TAG);
 
@@ -561,7 +560,7 @@ void pc8001mk2_state::pc8001mk2(machine_config &config)
 
 	UPD3301(config, m_crtc, XTAL(14'318'181));
 	m_crtc->set_character_width(8);
-	m_crtc->set_display_callback(FUNC(pc8001_state::pc8001_display_pixels), this);
+	m_crtc->set_display_callback(FUNC(pc8001_state::pc8001_display_pixels));
 	m_crtc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq2_w));
 	m_crtc->set_screen(SCREEN_TAG);
 

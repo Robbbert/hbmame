@@ -25,8 +25,8 @@ public:
 	auto centronics_fault() { return m_write_centronics_fault.bind(); }
 	auto centronics_select() { return m_write_centronics_select.bind(); }
 
-	DECLARE_WRITE8_MEMBER( write );
-	DECLARE_READ8_MEMBER( read );
+	void write(offs_t offset, uint8_t data);
+	uint8_t read(offs_t offset);
 
 	/* Centronics stuff */
 	DECLARE_WRITE_LINE_MEMBER( centronics_input_strobe );
@@ -38,6 +38,8 @@ public:
 	DECLARE_WRITE_LINE_MEMBER( centronics_input_data5 ) { if (state) m_centronics_data |= 0x20; else m_centronics_data &= ~0x20; }
 	DECLARE_WRITE_LINE_MEMBER( centronics_input_data6 ) { if (state) m_centronics_data |= 0x40; else m_centronics_data &= ~0x40; }
 	DECLARE_WRITE_LINE_MEMBER( centronics_input_data7 ) { if (state) m_centronics_data |= 0x80; else m_centronics_data &= ~0x80; }
+
+		int ready_led() { return !m_centronics_busy; }
 
 protected:
 	// device-level overrides
@@ -74,6 +76,7 @@ private:
 	uint8_t m_centronics_strobe;
 	uint8_t m_centronics_data_latch;
 	uint8_t m_centronics_data_latched;
+	uint32_t m_c000_shift_register;
 };
 
 DECLARE_DEVICE_TYPE(E05A30, e05a30_device)
