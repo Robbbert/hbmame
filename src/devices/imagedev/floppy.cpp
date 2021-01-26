@@ -759,8 +759,10 @@ void floppy_image_device::seek_phase_w(int phases)
 
 	cache_clear();
 
-	if(TRACE_STEP && (next_pos != cur_pos))
-		logerror("track %d.%d\n", cyl, subcyl);
+	if(next_pos != cur_pos) {
+		if (TRACE_STEP) logerror("track %d.%d\n", cyl, subcyl);
+		if (m_make_sound) m_sound_out->step(subcyl);
+	}
 
 	/* Update disk detection if applicable */
 	if (exists() && !dskchg_writable)
@@ -923,16 +925,14 @@ attotime floppy_image_device::get_next_transition(const attotime &from_when)
 	if(!image || mon)
 		return attotime::never;
 
-	if(from_when < cache_start_time || (!cache_end_time.is_never() && from_when >= cache_end_time))
+	if(from_when < cache_start_time || cache_start_time.is_zero() || (!cache_end_time.is_never() && from_when >= cache_end_time))
 		cache_fill(from_when);
 
 	if(!cache_weak)
 		return cache_end_time;
 
 	// Put a flux transition in the middle of a 4us interval with a 50% probability
-	int interval_index = (from_when - cache_weak_start).as_ticks(250000);
-	if(interval_index < 0)
-		interval_index = 0;
+	uint64_t interval_index = (from_when < cache_weak_start) ? 0 : (from_when - cache_weak_start).as_ticks(250000);
 	attotime weak_time = cache_weak_start + attotime::from_ticks(interval_index*2+1, 500000);
 	for(;;) {
 		if(weak_time >= cache_end_time)
@@ -2426,6 +2426,9 @@ bool mac_floppy_device::wpt_r()
 		logerror("fdc disk sense reg %x %s %p\n", m_reg, regnames[m_reg], image.get());
 
 	switch(m_reg) {
+	case 0x0: // Step direction
+		return dir;
+
 	case 0x1: // Step signal
 		// We don't do the delay
 		return true;
@@ -2518,7 +2521,7 @@ void mac_floppy_device::seek_phase_w(int phases)
 
 		case 0x7: // Start eject
 			logerror("cmd start eject\n");
-			call_unload();
+			unload();
 			break;
 
 		case 0x9: // MFM mode on

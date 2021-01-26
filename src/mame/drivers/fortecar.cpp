@@ -16,10 +16,10 @@
 
 
   Special thanks to Grull Osgo for his exhaustive reverse engineering that allowed to recreate
-  the original default serial EEPROM contents for the english set, critical to get it working. 
+  the original default serial EEPROM contents for the english set, critical to get it working.
 
   Special thanks to Rob Ragon for dump the spanish set, and all the tests on the real hardware.
-  
+
 -------------------------------------------------------------------------------------------------
 
   Notes:
@@ -527,6 +527,17 @@ void fortecrd_state::ayporta_w(uint8_t data)
 void fortecrd_state::ayportb_w(uint8_t data)
 {
 /*
+    - bits -
+    7654 3210
+    ---- ---x   no log
+    ---- --x-   hopper motor?
+    ---- -x--   unknown.
+    ---- x---   Coin Out counter.
+    ---x ----   Coin In counter.
+    --x- ----   no log
+    -x-- ----   unknown.
+    x--- ----   Watchdog Reset.
+
 
 There is a RC to 7705's Reset.
 Bit7 of port B is a watchdog.
@@ -539,10 +550,14 @@ trigger a reset.
 Seems to work properly, but must be checked closely...
 
 */
+
 	if (((data >> 7) & 0x01) == 0)  // check for bit7
 	{
 		m_watchdog->watchdog_reset();
 	}
+
+	machine().bookkeeping().coin_counter_w(0, ~data & 0x10);  // Coin In.
+	machine().bookkeeping().coin_counter_w(1, ~data & 0x08);  // Coin Out.
 }
 
 
@@ -581,6 +596,12 @@ Error messages:
 "FALSA PRUEBA NVRAM PERMANENTE" (NVRAM new, serial EEPROM connected)
 "FALSA PRUEBA BOTONES"          (Input ports error )
 
+possible hopper registers
+
+  D1DC ---- ---x (inv)
+  D1EA ---- ---x
+  D1EC ---- ---x
+
 */
 
 
@@ -616,7 +637,7 @@ static INPUT_PORTS_START( fortecrd )
 	PORT_DIPNAME( 0x02, 0x02, "Attract Mode" )      PORT_DIPLOCATION("DSW:2")
 	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x02, DEF_STR( On ) )
-	PORT_DIPNAME( 0x04, 0x04, "DSW-3" )             PORT_DIPLOCATION("DSW:3")
+	PORT_DIPNAME( 0x04, 0x04, "Auto Play" )         PORT_DIPLOCATION("DSW:3")
 	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_DIPNAME( 0x08, 0x08, "DSW-4" )             PORT_DIPLOCATION("DSW:4")
@@ -680,7 +701,7 @@ GFXDECODE_END
 
 void fortecrd_state::machine_reset()
 {
-    // apparently there's a random fill in there (checked thru trojan)
+	// apparently there's a random fill in there (checked thru trojan)
 	for (int i = 0; i < m_vram.bytes(); i++)
 		m_vram[i] = machine().rand();
 }
@@ -732,7 +753,7 @@ void fortecrd_state::fortecrd(machine_config &config)
 
 	SPEAKER(config, "mono").front_center();
 
-	ay8910_device &aysnd(AY8910(config, "aysnd", AY_CLOCK));    //	1.5 MHz, measured
+	ay8910_device &aysnd(AY8910(config, "aysnd", AY_CLOCK));    //  1.5 MHz, measured
 	aysnd.port_a_write_callback().set(FUNC(fortecrd_state::ayporta_w));
 	aysnd.port_b_write_callback().set(FUNC(fortecrd_state::ayportb_w));
 	aysnd.add_route(ALL_OUTPUTS, "mono", 0.50);
