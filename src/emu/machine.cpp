@@ -191,23 +191,23 @@ std::string running_machine::describe_context() const
 void running_machine::start()
 {
 	// initialize basic can't-fail systems here
-	m_configuration = std::make_unique<configuration_manager>(*this);
-	m_input = std::make_unique<input_manager>(*this);
-	m_output = std::make_unique<output_manager>(*this);
-	m_render = std::make_unique<render_manager>(*this);
-	m_bookkeeping = std::make_unique<bookkeeping_manager>(*this);
+	m_configuration = make_unique_clear<configuration_manager>(*this);
+	m_input = make_unique_clear<input_manager>(*this);
+	m_output = make_unique_clear<output_manager>(*this);
+	m_render = make_unique_clear<render_manager>(*this);
+	m_bookkeeping = make_unique_clear<bookkeeping_manager>(*this);
 
 	// allocate a soft_reset timer
 	m_soft_reset_timer = m_scheduler.timer_alloc(timer_expired_delegate(FUNC(running_machine::soft_reset), this));
 
 	// initialize UI input
-	m_ui_input = std::make_unique<ui_input_manager>(*this);
+	m_ui_input = make_unique_clear<ui_input_manager>(*this);
 
 	// init the osd layer
 	m_manager.osd().init(*this);
 
 	// create the video manager
-	m_video = std::make_unique<video_manager>(*this);
+	m_video = make_unique_clear<video_manager>(*this);
 	m_ui = manager().create_ui(*this);
 
 	// initialize the base time (needed for doing record/playback)
@@ -221,10 +221,10 @@ void running_machine::start()
 		m_base_time = newbase;
 
 	// initialize natural keyboard support after ports have been initialized
-	m_natkeyboard = std::make_unique<natural_keyboard>(*this);
+	m_natkeyboard = make_unique_clear<natural_keyboard>(*this);
 
 	// initialize the streams engine before the sound devices start
-	m_sound = std::make_unique<sound_manager>(*this);
+	m_sound = make_unique_clear<sound_manager>(*this);
 
 	// resolve objects that can be used by memory maps
 	for (device_t &device : device_enumerator(root_device()))
@@ -235,23 +235,23 @@ void running_machine::start()
 	// needs rom bases), and finally initialize CPUs (which needs
 	// complete address spaces).  These operations must proceed in this
 	// order
-	m_rom_load = std::make_unique<rom_load_manager>(*this);
+	m_rom_load = make_unique_clear<rom_load_manager>(*this);
 	m_memory.initialize();
 
 	// save the random seed or save states might be broken in drivers that use the rand() method
 	save().save_item(NAME(m_rand_seed));
 
 	// initialize image devices
-	m_image = std::make_unique<image_manager>(*this);
-	m_tilemap = std::make_unique<tilemap_manager>(*this);
-	m_crosshair = std::make_unique<crosshair_manager>(*this);
-	m_network = std::make_unique<network_manager>(*this);
+	m_image = make_unique_clear<image_manager>(*this);
+	m_tilemap = make_unique_clear<tilemap_manager>(*this);
+	m_crosshair = make_unique_clear<crosshair_manager>(*this);
+	m_network = make_unique_clear<network_manager>(*this);
 
 	// initialize the debugger
 	if ((debug_flags & DEBUG_FLAG_ENABLED) != 0)
 	{
-		m_debug_view = std::make_unique<debug_view_manager>(*this);
-		m_debugger = std::make_unique<debugger_manager>(*this);
+		m_debug_view = make_unique_clear<debug_view_manager>(*this);
+		m_debugger = make_unique_clear<debugger_manager>(*this);
 	}
 
 	manager().create_custom(*this);
@@ -316,7 +316,7 @@ int running_machine::run(bool quiet)
 		// if we have a logfile, set up the callback
 		if (options().log() && !quiet)
 		{
-			m_logfile = std::make_unique<emu_file>(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
+			m_logfile = make_unique_clear<emu_file>(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 			osd_file::error filerr = m_logfile->open("error.log");
 			if (filerr != osd_file::error::NONE)
 				throw emu_fatalerror("running_machine::run: unable to open error.log file");
@@ -327,7 +327,7 @@ int running_machine::run(bool quiet)
 
 		if (options().debug() && options().debuglog())
 		{
-			m_debuglogfile = std::make_unique<emu_file>(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
+			m_debuglogfile = make_unique_clear<emu_file>(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 			osd_file::error filerr = m_debuglogfile->open("debug.log");
 			if (filerr != osd_file::error::NONE)
 				throw emu_fatalerror("running_machine::run: unable to open debug.log file");
@@ -803,15 +803,15 @@ void running_machine::add_notifier(machine_notification event, machine_notify_de
 		throw emu_fatalerror("Can only call running_machine::add_notifier at init time!");
 
 	if (first)
-		m_notifier_list[event].push_front(std::make_unique<notifier_callback_item>(callback));
+		m_notifier_list[event].push_front(make_unique_clear<notifier_callback_item>(callback));
 
 	// exit notifiers are added to the head, and executed in reverse order
 	else if (event == MACHINE_NOTIFY_EXIT)
-		m_notifier_list[event].push_front(std::make_unique<notifier_callback_item>(callback));
+		m_notifier_list[event].push_front(make_unique_clear<notifier_callback_item>(callback));
 
 	// all other notifiers are added to the tail, and executed in the order registered
 	else
-		m_notifier_list[event].push_back(std::make_unique<notifier_callback_item>(callback));
+		m_notifier_list[event].push_back(make_unique_clear<notifier_callback_item>(callback));
 }
 
 
@@ -825,7 +825,7 @@ void running_machine::add_logerror_callback(logerror_callback callback)
 	if (m_current_phase != machine_phase::INIT)
 		throw emu_fatalerror("Can only call running_machine::add_logerror_callback at init time!");
 	m_string_buffer.reserve(1024);
-	m_logerror_list.push_back(std::make_unique<logerror_callback_item>(callback));
+	m_logerror_list.push_back(make_unique_clear<logerror_callback_item>(callback));
 }
 
 

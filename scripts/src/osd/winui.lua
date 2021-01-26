@@ -26,16 +26,16 @@ function maintargetosdoptions(_target,_subtarget)
 		}
 
 	configuration { "x64", "Release" }
-		targetsuffix "ui64"
-
-	configuration { "x64", "Debug" }
-		targetsuffix "ui64d"
-
-	configuration { "x32", "Release" }
 		targetsuffix "ui"
 
-	configuration { "x32", "Debug" }
+	configuration { "x64", "Debug" }
 		targetsuffix "uid"
+
+	configuration { "x32", "Release" }
+		targetsuffix "ui32"
+
+	configuration { "x32", "Debug" }
+		targetsuffix "ui32d"
 
 	configuration { "Native", "Release" }
 		targetsuffix "ui"

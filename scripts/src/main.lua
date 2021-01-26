@@ -98,8 +98,14 @@ end
 		configuration "**/*"
 			flags { "DeploymentContent" }
 
-	configuration { "Release" }
+	configuration { "x64","Release" }
 		targetsuffix ""
+		if _OPTIONS["PROFILE"] then
+			targetsuffix "p"
+		end
+
+	configuration { "x32","Release" }
+		targetsuffix "32"
 		if _OPTIONS["PROFILE"] then
 			targetsuffix "p"
 		end
