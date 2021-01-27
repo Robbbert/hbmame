@@ -85,6 +85,7 @@ void mhavoc_state::machine_start()
 void mhavoc_state::machine_reset()
 {
 	m_has_gamma_cpu = (m_gamma != nullptr);
+	m_has_beta_cpu = (m_beta != nullptr);
 
 	membank("bank1")->configure_entry(0, m_zram0);
 	membank("bank1")->configure_entry(1, m_zram1);
@@ -113,6 +114,7 @@ void mhavoc_state::machine_reset()
 	m_alpha_irq_clock = 0;
 	m_alpha_irq_clock_enable = 1;
 	m_gamma_irq_clock = 0;
+	
 }
 
 
@@ -243,7 +245,6 @@ void mhavoc_state::mhavoc_out_0_w(uint8_t data)
 {
 	/* Bit 7 = Invert Y -- unemulated */
 	/* Bit 6 = Invert X -- unemulated */
-
 	/* Bit 5 = Player 1 */
 	m_player_1 = (data >> 5) & 1;
 
@@ -251,7 +252,7 @@ void mhavoc_state::mhavoc_out_0_w(uint8_t data)
 	m_gamma->set_input_line(INPUT_LINE_RESET, (data & 0x08) ? CLEAR_LINE : ASSERT_LINE);
 	if (!(data & 0x08))
 	{
-		//logerror("\t\t\t\t*** resetting gamma processor. ***\n");
+		//logerror("\t\t\t\t*** GAMMA processor RESET Cleared. ***\n");
 		m_alpha_rcvd = 0;
 		m_alpha_xmtd = 0;
 		m_gamma_rcvd = 0;
@@ -260,7 +261,9 @@ void mhavoc_state::mhavoc_out_0_w(uint8_t data)
 
 	/* Bit 2 = Beta reset */
 	/* this is the unpopulated processor in the corner of the pcb farthest from the quad pokey, not used on shipping boards */
+	m_beta->set_input_line(INPUT_LINE_RESET, (data & 0x04) ? CLEAR_LINE : ASSERT_LINE);
 
+	
 	/* Bit 0 = Roller light (Blinks on fatal errors) */
 	m_lamps[0] = BIT(data, 0);
 }
