@@ -450,7 +450,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 	switch (pic_type)
 	{
 		case TAB_ARTWORK:
-			t = dir_get_value(5);
+			t = dir_get_value(32);
 			zip_name = "artpreview";
 			break;
 		case TAB_BOSSES:

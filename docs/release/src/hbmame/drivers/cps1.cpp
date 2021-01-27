@@ -1868,6 +1868,34 @@ static INPUT_PORTS_START( sf2j )
 	PORT_DIPSETTING(    0x00, "2 Credits/Winner Continue" ) //Winner stays, loser pays, in other words.
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( sf2rb )
+	PORT_INCLUDE( sf2 )
+
+	PORT_MODIFY("DSWB")
+	PORT_DIPNAME( 0xf0, 0xf0, "Turbo Vs CPU" )                      PORT_DIPLOCATION("SW(B):5,6,7,8")
+	PORT_DIPSETTING(    0xf0, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0xe0, "Fixed 1" )
+	PORT_DIPSETTING(    0xd0, "Fixed 2" )
+	PORT_DIPSETTING(    0xc0, "Fixed 3" )
+	PORT_DIPSETTING(    0xb0, "Fixed 4" )
+	PORT_DIPSETTING(    0xa0, "Fixed 5" )
+	PORT_DIPSETTING(    0x90, "Fixed 6" )
+	PORT_DIPSETTING(    0x80, "Fixed 7" )
+	PORT_DIPSETTING(    0x70, "Progressive 1" )
+	PORT_DIPSETTING(    0x60, "Progressive 2" )
+	PORT_DIPSETTING(    0x50, "Progressive 3" )
+	PORT_DIPSETTING(    0x40, "Progressive 4" )
+	PORT_DIPSETTING(    0x30, "Progressive 5" )
+	PORT_DIPSETTING(    0x20, "Progressive 6" )
+	PORT_DIPSETTING(    0x10, "Progressive 7" )
+	PORT_DIPSETTING(    0x00, "Progressive 8" )
+
+	PORT_MODIFY("DSWC")
+	PORT_DIPNAME( 0x01, 0x01, "Projectile Path" )                   PORT_DIPLOCATION("SW(C):1")
+	PORT_DIPSETTING(    0x01, "Homing" )
+	PORT_DIPSETTING(    0x00, "Zigzag" )
+INPUT_PORTS_END
+
 static INPUT_PORTS_START( sf2hack )
 	PORT_INCLUDE( sf2 )
 
@@ -12698,7 +12726,7 @@ GAME( 1992, sf2ceja,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,  
 GAME( 1992, sf2cejb,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Capcom", "Street Fighter II': Champion Edition (Japan 920513)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2cejc,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Capcom", "Street Fighter II': Champion Edition (Japan 920803)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2bhh,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2rb,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (Hung Hsi, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2rb,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2rb,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 1)", MACHINE_SUPPORTS_SAVE )           // 920322 - based on World version
+GAME( 1992, sf2rb,       sf2ce,    cps1_12MHz, sf2rb,    cps_state, init_sf2rb,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 1)", MACHINE_SUPPORTS_SAVE )           // 920322 - based on World version
 GAME( 1992, sf2rb2,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2rb2,   ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 2)", MACHINE_SUPPORTS_SAVE )           // 920322 - based on World version
 GAME( 1992, sf2rb3,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 3)", MACHINE_SUPPORTS_SAVE )           // 920322 - based on World version
 GAME( 1992, sf2red,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Red Wave, bootleg)", MACHINE_SUPPORTS_SAVE )         // 920313 - based on World version

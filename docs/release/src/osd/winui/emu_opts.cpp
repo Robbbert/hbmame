@@ -229,7 +229,7 @@ void load_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num, bo
 
 	if (opt_type == OPTIONS_SOURCE)
 	{
-		fname = GetIniDir() + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->type.source(), true) + ".ini";
+		fname = GetIniDir() + PATH_SEPARATOR + "source" + PATH_SEPARATOR + string(core_filename_extract_base(driver->type.source(), true)) + ".ini";
 		LoadSettingsFile(opts, fname.c_str());
 		return;
 	}
@@ -318,7 +318,7 @@ void save_options(windows_options &opts, OPTIONS_TYPE opt_type, int game_num)
 		{
 			fname.assign(driver->name);
 			if (opt_type == OPTIONS_SOURCE)
-				filepath = GetIniDir() + PATH_SEPARATOR + "source" + PATH_SEPARATOR + core_filename_extract_base(driver->type.source(), true) + ".ini";
+				filepath = GetIniDir() + PATH_SEPARATOR + "source" + PATH_SEPARATOR + string(core_filename_extract_base(driver->type.source(), true)) + ".ini";
 		}
 	}
 	else

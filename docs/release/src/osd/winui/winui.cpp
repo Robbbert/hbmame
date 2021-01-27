@@ -46,6 +46,7 @@
 #include "window.h"
 #include "../osdcore.h"
 #include "zippath.h"
+#include "corestr.h"
 
 #include "resource.h"
 #include "resource.hm"
@@ -4312,8 +4313,8 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 			// Get the path from the existing filename; if no filename go to root
 			TCHAR* t_bgdir = TEXT(".");
 			bool free_bgdir = false;
-			string as, s = GetBgDir();
-			util::zippath_parent(as, s.c_str());
+			string s = GetBgDir();
+			string as = util::zippath_parent(s);
 			size_t t1 = as.length()-1;
 			if (as[t1] == '\\') as.substr(0, t1-1);
 			t1 = as.find(':');

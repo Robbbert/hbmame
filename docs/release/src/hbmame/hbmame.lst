@@ -304,12 +304,6 @@ sf2cehp
 sf2cehk
 sf2cejem
 sf2celw
-sf2cemix96
-sf2cemix97
-sf2cemix98
-sf2cemix98a
-sf2cemix98b
-sf2cemix98c
 sf2jbh			// sf2jbh2014
 sf2koryuh
 sf2h9
@@ -317,8 +311,18 @@ sf2h10
 sf2h11
 sf2h12
 sf2h13
+sf2mix96
+sf2mix96d
+sf2mix97
+sf2mix98
+sf2mix98a
+sf2mix98b
+sf2mix98c
+sf2mix99
+sf2mix99a
 sf2pun
 sf2r3
+sf2rbpr
 sf2sl73a
 sf2th
 sf2tha
@@ -6455,7 +6459,7 @@ fatfury3b
 fatfury3bd
 fatfury3bh
 fatfury3eh
-fatfurspb
+fatfurspb2
 fatfurspbs
 fatfurspbt
 fatfurspeh
@@ -8537,11 +8541,19 @@ schmeisrs01
 @source:schaser.cpp
 schasrcv		// extra sounds
 
+@source:scramble.cpp
+mrkougar                 //parent
+troopyx
+
 @source:segac2.cpp
 c2frog					// HB
 headonch
-//ooparts
+ooparts
 //ssonicbr
+
+@source:segahang.cpp
+enduror						//parent
+endurorrc
 
 @source:segaorun.cpp
 outrun					//parent

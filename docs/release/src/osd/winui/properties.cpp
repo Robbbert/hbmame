@@ -3090,8 +3090,8 @@ static void InitializeBIOSUI(HWND hwnd)
 				{
 					if (ROMENTRY_ISSYSTEM_BIOS(rom))
 					{
-						const char *name = ROM_GETHASHDATA(rom);
-						const char *biosname = ROM_GETNAME(rom);
+						const char *name = rom->hashdata().c_str();
+						const char *biosname = rom->name().c_str();
 						t_s = ui_wstring_from_utf8(name);
 						if( !t_s )
 							return;
@@ -3122,7 +3122,7 @@ static void InitializeBIOSUI(HWND hwnd)
 			{
 				if (ROMENTRY_ISSYSTEM_BIOS(rom))
 				{
-					const char *name = ROM_GETHASHDATA(rom);
+					const char *name = rom->hashdata().c_str();
 					const char *biosname = ROM_GETNAME(rom);
 					t_s = ui_wstring_from_utf8(name);
 					if( !t_s )
