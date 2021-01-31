@@ -48,3 +48,5 @@ regtests/chdman/temp
 regtests/jedutil/output
 /CMakeLists.txt
 /samples
+src/hbmame/hbmame.lst
+src/hbmame/hbmame.lst
