@@ -1401,6 +1401,40 @@ ROM_START( sfz3jsep )
 	ROM_LOAD( "sfz3j.key",    0x00, 0x14, CRC(d30cca8d) SHA1(b05869902d4d5968d5f79ed6165eb4b78e1ddcdd) )
 ROM_END
 
+ROM_START( sfz3te )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sz3te.03", 0x000000, 0x80000, CRC(b57412fa) SHA1(8f607f194c551bf65b338773b578ff9e66dfacbc) )
+	ROM_LOAD16_WORD_SWAP( "sz3te.04", 0x080000, 0x80000, CRC(eea5e3ca) SHA1(d5193fb4fc6dfaede925511a48acf163d326d2ff) )
+	ROM_LOAD16_WORD_SWAP( "sz3.05",  0x100000, 0x80000, CRC(9b21518a) SHA1(5a928307cb90a98a62e7598cb101fb66d62b85f9) )
+	ROM_LOAD16_WORD_SWAP( "sz3.06",  0x180000, 0x80000, CRC(e7a6c3a7) SHA1(63441eb19efcbf9149f4b723d3e9191fa972de2a) )
+	ROM_LOAD16_WORD_SWAP( "sz3.07",  0x200000, 0x80000, CRC(ec4c0cfd) SHA1(1a5148e77bf633c728a8179dacb59c776f981bc4) )
+	ROM_LOAD16_WORD_SWAP( "sz3.08",  0x280000, 0x80000, CRC(5c7e7240) SHA1(33bdcdd1889f8fa77916373ed33b0854410d0263) )
+	ROM_LOAD16_WORD_SWAP( "sz3.09",  0x300000, 0x80000, CRC(c5589553) SHA1(cda1fdc2ab2f390a2358defd9923a2796093926d) )
+	ROM_LOAD16_WORD_SWAP( "sz3.10",  0x380000, 0x80000, CRC(a9717252) SHA1(7ee94ace2a49e4e5d30474e49c0da04a488010fe) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROMX_LOAD( "sz3.13m",   0x0000000, 0x400000, CRC(0f7a60d9) SHA1(c69e0ee22537312909dacc86d2e4be319d54e426) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.15m",   0x0000002, 0x400000, CRC(8e933741) SHA1(f4ac4bfe830dc7df9fe4f680e4e0c053e7cbd8fe) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.17m",   0x0000004, 0x400000, CRC(d6e98147) SHA1(37f331fbb1284db446faecade6f484f58c0e1b2a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.19m",   0x0000006, 0x400000, CRC(f31a728a) SHA1(f14136564648f006c1b74afda78349f260524b5f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.14m",   0x1000000, 0x400000, CRC(5ff98297) SHA1(9e0ce43380b776c7a03872bafd4856f6fa60bda7) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.16m",   0x1000002, 0x400000, CRC(52b5bdee) SHA1(7918204dc457f7a146d8fb8cf7242dfed3109fd8) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.18m",   0x1000004, 0x400000, CRC(40631ed5) SHA1(c18c56822b90a71ca5fbdf3440eb2671011f3d8f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "sz3.20m",   0x1000006, 0x400000, CRC(763409b4) SHA1(af60a5116c1ca9050366a35ea29128921867f3cc) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "sz3.01",   0x00000, 0x08000, CRC(de810084) SHA1(fd0b969b732921ed8b40c16fbfa30ee09c7a7cbd) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "sz3.02",   0x28000, 0x20000, CRC(72445dc4) SHA1(14fca7596ac45ba655016eef5b6120f9f9671c23) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "sz3.11m",   0x000000, 0x400000, CRC(1c89eed1) SHA1(649a0b0a3eb72e2e69e9fb1ac51a58b70daa39f3) )
+	ROM_LOAD16_WORD_SWAP( "sz3.12m",   0x400000, 0x400000, CRC(f392b13a) SHA1(fa04ce0370144a49bd1d5acd873eef87b0dc9d15) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "sfz3j.key",    0x00, 0x14, CRC(d30cca8d) SHA1(b05869902d4d5968d5f79ed6165eb4b78e1ddcdd) )
+ROM_END
+
 
 ROM_START( sfzjboss )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
@@ -2180,6 +2214,7 @@ GAME( 1998, sfz3jb,     sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2009, sfz3jemb,   sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blacheart", "Street Fighter Zero 3 (Easy Moves)(2009-05-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, sfz3jhp,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 3 (Moves hack 2017-03-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfz3jsep,   sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 3 (Shin Edition 2009-01-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sfz3te,     sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "0xZERO3", "Street Fighter Zero 3 (Japan 980629 Training Edition v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzjboss,   sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Street Fighter Zero (Enable hidden characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzjyh,     sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Street Fighter Zero (Enable hidden characters V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, sgemfch,    sgemf,    cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "hack", "Pocket Fighter (Color remix)", MACHINE_SUPPORTS_SAVE )
