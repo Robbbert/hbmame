@@ -14311,6 +14311,7 @@ galaxrf                         // bootleg (Recreativos Franco)
 galaxrfgg                       // bootleg (Recreativos Franco)
 galaxyx                         // bootleg
 galemp                          // (c) Taito do Brasil
+galkamika                       // bootleg (Video Game / Electrogame)
 galturbo                        // hack
 ghostmun                        //
 gmgalax                         // bootleg
@@ -14491,6 +14492,7 @@ froggerv                        // bootleg
 guttangt                        //
 hexpool                         // (c) 1986 Shinkia (Senko Kit)
 hexpoola                        // (c) 1986 Shinkia (Senko Kit)
+hunchbgb                        // bootleg
 hunchbkg                        // (c) 1983 Century
 hustlerb3                       // bootleg
 racknrol                        // (c) 1986 Status (Shinkia license) (Senko Kit)
@@ -38519,6 +38521,7 @@ jak_nick                        //
 jak_sbfc                        //
 
 @source:spg2xx_jakks_sharp.cpp
+jsc_spid
 jsc_thom
 
 @source:spg2xx_jakks_tvtouch.cpp
