@@ -37,7 +37,6 @@ static INPUT_PORTS_START( ssonicbr )
 	PORT_DIPUNKNOWN_DIPLOC( 0x80, IP_ACTIVE_LOW, "SW2:8" )
 INPUT_PORTS_END
 
-
 static INPUT_PORTS_START( ooparts )
 	PORT_INCLUDE( systemc_generic )
 
