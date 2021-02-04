@@ -38,6 +38,32 @@ static INPUT_PORTS_START( ssonicbr )
 INPUT_PORTS_END
 
 
+static INPUT_PORTS_START( ooparts )
+	PORT_INCLUDE( systemc_generic )
+
+	PORT_MODIFY("P1")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNUSED )     /* Button 3 Unused */
+
+	PORT_MODIFY("P2")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNUSED )     /* Button 3 Unused */
+
+	PORT_MODIFY("DSW")
+	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Demo_Sounds ) ) PORT_DIPLOCATION("SW2:1")
+	PORT_DIPSETTING(    0x01, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x06, 0x06, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW2:2,3")
+	PORT_DIPSETTING(    0x04, DEF_STR( Easy ) )
+	PORT_DIPSETTING(    0x06, DEF_STR( Medium ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( Hard ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Hardest ) )
+	//"SW2:4" unused
+	//"SW2:5" unused
+	//"SW2:6" unused
+	//"SW2:7" unused
+	//"SW2:8" unused
+INPUT_PORTS_END
+
+
 
 ROM_START( ssonicbr )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -72,6 +98,6 @@ ROM_END
 
 
 GAME( 1992, ssonicbr,  0, segac2, ssonicbr, segac2_state, init_bloxeedc, ROT0, "Sega", "SegaSonic Bros. (Japan, prototype)", 0 )
-GAME( 1992, ooparts,   0, segac2, ichir,    segac2_state, init_tantr,    ROT270, "Success", "OOParts", 0 )
+GAME( 1992, ooparts,   0, segac2, ooparts,  segac2_state, init_tantr,    ROT270, "Success", "OOParts", 0 )
 GAME( 1994, headonch,  0, segac2, ichir,    segac2_state, init_tantr,    ROT0, "Sega", "Head On Channel (Japan)", 0 )
 
