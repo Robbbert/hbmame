@@ -13550,6 +13550,7 @@ famibox                         // 1986
 
 @source:fantland.cpp
 borntofi                        // (c) International Games?
+borntofiv                       // (c) International Games (Vifico license)
 fantland                        // (c) 198? Electronic Devices Italy
 fantlanda                       // (c) 198? Electronic Devices Italy
 galaxygn                        // (c) 1989 Electronic Devices Italy
@@ -14303,6 +14304,7 @@ galaxiana                       // (c) Namco
 galaxianbl                      // bootleg
 galaxianbl2                     // bootleg
 galaxianbl3                     // bootleg
+galaxianem                      // bootleg (Electromar Madrid)
 galaxiani                       // (c) Irem
 galaxianm                       // (c) Midway
 galaxianmo                      // (c) Midway
@@ -38529,6 +38531,8 @@ jak_nick                        //
 jak_sbfc                        //
 
 @source:spg2xx_jakks_sharp.cpp
+jsc_dora
+jsc_gdg
 jsc_spid
 jsc_thom
 
@@ -38641,6 +38645,7 @@ bushido                         //
 bushidoa                        //
 jolypark                        //
 mach2                           //
+mach2a                          //
 vrnwrld                         //
 
 @source:spirit76.cpp
