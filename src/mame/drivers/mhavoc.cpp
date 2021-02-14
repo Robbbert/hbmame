@@ -85,7 +85,7 @@
     1780          |                       D   |  W   | Program RAM Page Select
     17C0          |  D  D  D  D  D  D  D  D   |  W   | Gamma Comm. Write Port
                   |                           |      |
-    1800-1FFF     |  D  D  D  D  D  D  D  D   | R/W  | Shared Beta RAM(used only in mhavocpe and mhavocpex)
+    1800-1FFF     |  D  D  D  D  D  D  D  D   | R/W  | Shared Beta RAM(not used)
                   |                           |      |
     2000-3FFF     |  D  D  D  D  D  D  D  D   |  R   | Paged Program ROM (32K)
     4000-4FFF     |  D  D  D  D  D  D  D  D   | R/W  | Vector Generator RAM (4K)

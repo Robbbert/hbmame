@@ -21,15 +21,17 @@
 #define MHAVOC_CLOCK_2_4K   (MHAVOC_CLOCK_625K/16/16)
 
 
-class mhavoc_state : public driver_device
+class mhavoc_hbmame : public driver_device
 {
 public:
-	mhavoc_state(const machine_config &mconfig, device_type type, const char *tag) :
+	mhavoc_hbmame(const machine_config &mconfig, device_type type, const char *tag) :
 		driver_device(mconfig, type, tag),
 		m_zram0(*this, "zram0"),
 		m_zram1(*this, "zram1"),
 		m_alpha(*this, "alpha"),
 		m_gamma(*this, "gamma"),
+		m_beta(*this, "beta"),
+		m_comram(*this, "comram"),
 		m_pokey(*this, "pokey%u", 1U),
 		m_tms(*this, "tms"),
 		m_lamps(*this, "lamp%u", 0U),
@@ -40,6 +42,7 @@ public:
 	void alphaone(machine_config &config);
 	void mhavoc(machine_config &config);
 	void mhavocrv(machine_config &config);
+	void mhavocpe(machine_config &config); //HBMAME
 
 	void init_mhavocrv();
 
@@ -74,6 +77,9 @@ private:
 	void alpha_map(address_map &map);
 	void alphaone_map(address_map &map);
 	void gamma_map(address_map &map);
+	void alphape_map(address_map &map); //HBMAME
+	void gammape_map(address_map &map); //HBMAME
+	void betape_map(address_map &map); //HBMAME
 
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
@@ -82,6 +88,8 @@ private:
 	required_shared_ptr<uint8_t> m_zram1;
 	required_device<cpu_device> m_alpha;
 	optional_device<cpu_device> m_gamma;
+	optional_device<cpu_device> m_beta;
+	required_shared_ptr<uint8_t> m_comram;
 	optional_device_array<pokey_device, 4> m_pokey;
 	optional_device<tms5220_device> m_tms;
 	output_finder<2> m_lamps;
@@ -99,5 +107,6 @@ private:
 	uint8_t m_alpha_irq_clock_enable;
 	uint8_t m_gamma_irq_clock;
 	uint8_t m_has_gamma_cpu;
+	uint8_t m_has_beta_cpu;
 	uint8_t m_speech_write_buffer;
 };
