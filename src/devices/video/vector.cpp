@@ -49,7 +49,8 @@
 
 
 #define VECTOR_WIDTH_DENOM 512
-// mhavocpe
+
+// 20000 is needed for mhavoc (see MT 06668) 10000 is enough for other games
 #define MAX_POINTS 20000
 
 float vector_options::s_flicker = 0.0f;
