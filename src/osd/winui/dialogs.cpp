@@ -74,7 +74,7 @@ static struct ComboBoxHistoryTab
 static string g_FilterText;
 
 #define NUM_EXCLUSIONS  12
-#define NUMHISTORYTAB   ARRAY_LENGTH(g_ComboBoxHistoryTab)
+#define NUMHISTORYTAB   std::size(g_ComboBoxHistoryTab)
 
 /* Pairs of filters that exclude each other */
 static DWORD filterExclusion[NUM_EXCLUSIONS] =
@@ -419,7 +419,7 @@ INT_PTR CALLBACK FilterDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPa
 			// Mask out non filter flags
 			dwFilters = folder->m_dwFlags & F_MASK;
 			// Display current folder name in dialog titlebar
-			snprintf(tmp,ARRAY_LENGTH(tmp),"Filters for %s Folder",folder->m_lpTitle);
+			snprintf(tmp,std::size(tmp),"Filters for %s Folder",folder->m_lpTitle);
 			win_set_window_text_utf8(hDlg, tmp);
 			if ( GetFilterInherit() )
 			{

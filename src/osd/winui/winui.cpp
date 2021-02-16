@@ -965,7 +965,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	// prepare MAME32 to run the game
 	ShowWindow(hMain, SW_HIDE);
 
-	for (i = 0; i < ARRAY_LENGTH(s_nPickers); i++)
+	for (i = 0; i < std::size(s_nPickers); i++)
 		Picker_ClearIdle(GetDlgItem(hMain, s_nPickers[i]));
 
 	// run the emulation
@@ -1013,7 +1013,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	playopts_apply = 0;
 
 	// the emulation is complete; continue
-	for (i = 0; i < ARRAY_LENGTH(s_nPickers); i++)
+	for (i = 0; i < std::size(s_nPickers); i++)
 		Picker_ResetIdle(GetDlgItem(hMain, s_nPickers[i]));
 	ShowWindow(hMain, SW_SHOW);
 	SetForegroundWindow(hMain);
@@ -1548,7 +1548,7 @@ static void SetMainTitle(void)
 	char buffer[100];
 
 	sscanf(GetVersionString(),"%49s",version);
-	snprintf(buffer, ARRAY_LENGTH(buffer), "%s %s", MAMEUINAME, GetVersionString());
+	snprintf(buffer, std::size(buffer), "%s %s", MAMEUINAME, GetVersionString());
 	win_set_window_text_utf8(hMain,buffer);
 }
 
@@ -3334,7 +3334,7 @@ static void KeyboardKeyDown(int syskey, int vk_code, int special)
 	}
 	else
 	{
-		for (i = 0; i < ARRAY_LENGTH(win_key_trans_table); i++)
+		for (i = 0; i < std::size(win_key_trans_table); i++)
 		{
 			if ( vk_code == win_key_trans_table[i][VIRTUAL_KEY])
 			{
@@ -3404,7 +3404,7 @@ static void KeyboardKeyUp(int syskey, int vk_code, int special)
 	}
 	else
 	{
-		for (i = 0; i < ARRAY_LENGTH(win_key_trans_table); i++)
+		for (i = 0; i < std::size(win_key_trans_table); i++)
 		{
 			if (vk_code == win_key_trans_table[i][VIRTUAL_KEY])
 			{
@@ -5112,7 +5112,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	t_filename = ui_wstring_from_utf8(filename);
 	if (t_filename)
 	{
-		_sntprintf(t_filename_buffer, ARRAY_LENGTH(t_filename_buffer), TEXT("%s"), t_filename);
+		_sntprintf(t_filename_buffer, std::size(t_filename_buffer), TEXT("%s"), t_filename);
 		free(t_filename);
 	}
 
@@ -5174,7 +5174,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd, char *filename, int filetype)
 	ofn.nMaxCustFilter    = 0;
 	ofn.nFilterIndex      = 1;
 	ofn.lpstrFile         = t_filename_buffer;
-	ofn.nMaxFile          = ARRAY_LENGTH(t_filename_buffer);
+	ofn.nMaxFile          = std::size(t_filename_buffer);
 	ofn.lpstrFileTitle    = NULL;
 	ofn.nMaxFileTitle     = 0;
 
@@ -5832,7 +5832,7 @@ static void UpdateMenu(HMENU hMenu)
 		if( !t_description )
 			return;
 
-		_sntprintf(buf, ARRAY_LENGTH(buf), g_szPlayGameString, t_description);
+		_sntprintf(buf, std::size(buf), g_szPlayGameString, t_description);
 
 		mItem.cbSize = sizeof(mItem);
 		mItem.fMask = MIIM_TYPE;
@@ -5970,7 +5970,7 @@ void InitBodyContextMenu(HMENU hBodyContextMenu)
 		return;
 	}
 
-	_sntprintf(tmp,ARRAY_LENGTH(tmp),TEXT("Properties for %s"), ui_wstring_from_utf8(GetDriverFilename(current_game) ));
+	_sntprintf(tmp,std::size(tmp),TEXT("Properties for %s"), ui_wstring_from_utf8(GetDriverFilename(current_game) ));
 	mii.fMask = MIIM_TYPE | MIIM_ID;
 	mii.fType = MFT_STRING;
 	mii.dwTypeData = tmp;
