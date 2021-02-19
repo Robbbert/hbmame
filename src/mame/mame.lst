@@ -12309,6 +12309,7 @@ jrking                          // bootleg
 maguila                         // bootleg
 pestplce                        // bootleg on donkey kong hw
 radarscp                        // (c) 1980 Nintendo
+radarscpc                       // (c) 1980 Nintendo
 radarscp1                       // (c) 1980 Nintendo
 sbdk                            // (c) 1984 Century
 shootgal                        // (c) 1984 Seatongrove Ltd (Zaccaria license)
@@ -16093,6 +16094,8 @@ vidchal                         // Select Merchandise
 
 @source:hh_cops1.cpp
 mbaskb                          // Mattel
+mhockey                         // Mattel
+msoccer                         // Mattel
 qkracerm                        // National Semiconductor
 qkspeller                       // National Semiconductor
 
@@ -19082,6 +19085,7 @@ cryptklr                        // Crypt Killer (GQ420 UAA)
 @source:konamigs.cpp
 ddrkids                         // 2000.?? Dance Dance Revolution Kids
 musclhit                        // 2000.11 Muscle Ranking Kinniku Banzuke Spray Hitter
+runpuppy                        // 2000.?? Run Run Puppy
 
 @source:konamigv.cpp
 btchamp                         // GV053, UAA01
@@ -33770,6 +33774,7 @@ pepp0103a                       // (c) 1987 IGT - International Game Technology
 pepp0103b                       // (c) 1987 IGT - International Game Technology
 pepp0103c                       // (c) 1987 IGT - International Game Technology
 pepp0104                        // (c) 1987 IGT - International Game Technology
+pepp0104a                       // (c) 1987 IGT - International Game Technology
 pepp0116                        // (c) 1987 IGT - International Game Technology
 pepp0116a                       // (c) 1987 IGT - International Game Technology
 pepp0118                        // (c) 1987 IGT - International Game Technology
@@ -42339,6 +42344,7 @@ defenderb                       // (c) 1980
 defenderg                       // (c) 1980
 defenderj                       // (c) 1980
 defenderw                       // (c) 1980
+defenseb                        // bootleg
 defndjeu                        // bootleg
 galwars2                        // bootleg
 inferno                         // (c) 1984
