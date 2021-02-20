@@ -59,26 +59,27 @@ inifile_manager::inifile_manager(ui_options &options)
 //  load and indexing ini files
 //-------------------------------------------------
 
+// HBMAME - rewritten using native file usage because mame's file.gets doesn't always work
 void inifile_manager::load_ini_category(size_t file, size_t category, std::unordered_set<game_driver const *> &result) const
 {
 	std::string const &filename(m_ini_index[file].first);
-	emu_file fp(m_options.categoryini_path(), OPEN_FLAG_READ);
-	if (fp.open(filename) != osd_file::error::NONE)
+	FILE *fp = fopen(filename.c_str(), "r");
+	if (!fp)
 	{
 		osd_printf_error("Failed to open category file %s for reading\n", filename);
 		return;
 	}
 
 	int64_t const offset(m_ini_index[file].second[category].second);
-	if (fp.seek(offset, SEEK_SET) || (fp.tell() != offset))
+	if (fseek(fp, offset, SEEK_SET))
 	{
-		fp.close();
+		fclose(fp);
 		osd_printf_error("Failed to seek to category offset in file %s\n", filename);
 		return;
 	}
 
 	char rbuf[MAX_CHAR_INFO];
-	while (fp.gets(rbuf, MAX_CHAR_INFO) && rbuf[0] && ('[' != rbuf[0]))
+	while (fgets(rbuf, MAX_CHAR_INFO, fp) && rbuf[0] && ('[' != rbuf[0]))
 	{
 		auto const tail(std::find_if(std::begin(rbuf), std::prev(std::end(rbuf)), [] (char ch) { return !ch || ('\r' == ch) || ('\n' == ch); }));
 		*tail = '\0';
@@ -87,19 +88,24 @@ void inifile_manager::load_ini_category(size_t file, size_t category, std::unord
 			result.emplace(&driver_list::driver(dfind));
 	}
 
-	fp.close();
+	fclose(fp);
 }
 
 //-------------------------------------------------
 //  initialize category
 //-------------------------------------------------
 
+// HBMAME - rewritten using native file usage because mame's file.gets doesn't always work
 void inifile_manager::init_category(std::string &&filename, emu_file &file)
 {
+	FILE *fp;
+	fp = fopen(file.fullpath(), "r");
+	if (!fp)
+		return;
 	categoryindex index;
 	char rbuf[MAX_CHAR_INFO];
 	std::string name;
-	while (file.gets(rbuf, std::size(rbuf)))
+	while (fgets(rbuf, std::size(rbuf), fp))
 	{
 		if ('[' == rbuf[0])
 		{
@@ -107,12 +113,12 @@ void inifile_manager::init_category(std::string &&filename, emu_file &file)
 			auto const tail(std::find_if(head, std::end(rbuf), [] (char ch) { return !ch || (']' == ch); }));
 			name.assign(head, tail);
 			if ("FOLDER_SETTINGS" != name)
-				index.emplace_back(std::move(name), file.tell());
+				index.emplace_back(std::move(name), ftell(fp));
 		}
 	}
 	std::stable_sort(index.begin(), index.end(), [] (auto const &x, auto const &y) { return 0 > core_stricmp(x.first.c_str(), y.first.c_str()); });
 	if (!index.empty())
-		m_ini_index.emplace_back(std::move(filename), std::move(index));
+		m_ini_index.emplace_back(file.fullpath(), std::move(index));
 }
 
 
