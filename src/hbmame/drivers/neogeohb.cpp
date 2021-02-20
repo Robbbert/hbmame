@@ -2550,7 +2550,6 @@ ROM_END
 
 // 497: Cabal
 // Bugs: A few minor graphics issues
-// Seems this was done by iq132? not sure, but we'll go with that for now
 ROM_START( cabalng )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "497.p1", 0x000000, 0x100000, CRC(49232965) SHA1(f13352d5b853ea832eb751da508c7878fb149c20) )
