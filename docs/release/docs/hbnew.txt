@@ -11,6 +11,7 @@ New Games
 - [mhavocpex6]          Major Havoc - The Promised End (v0.75)
 - [sfz3te]              Street Fighter Three Zero Training Edition v1.1
 - [ssonicbr]            SegaSonic Bros
+- [teotd2]              The Eye of Typhoon (Tsunami Edition, demo 2)
 
 
 
