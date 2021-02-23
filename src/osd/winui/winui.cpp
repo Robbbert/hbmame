@@ -47,6 +47,7 @@
 #include "../osdcore.h"
 #include "zippath.h"
 #include "corestr.h"
+#include "mameopts.h"
 
 #include "resource.h"
 #include "resource.hm"
@@ -923,7 +924,6 @@ static std::wstring s2ws(const string& s)
  ***************************************************************************/
 static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 {
-	time_t start, end;
 	double elapsedtime;
 	int i;
 	//mame_options mame_opts;    //seems useless....
@@ -970,16 +970,19 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 
 	// run the emulation
 	// Time the game run.
-	time(&start);
 	windows_osd_interface osd(global_opts);
 	// output errors to message boxes
 	mameui_output_error winerror;
 	osd_output::push(&winerror);
 	osd.register_options();
 	mame_machine_manager *manager = mame_machine_manager::instance(global_opts, osd);
+	std::ostringstream option_errors;
+	mame_options::parse_standard_inis(global_opts, option_errors);
 	load_translation(global_opts);
 	manager->start_http_server();
 	manager->start_luaengine();
+	time_t start, end;
+	time(&start);
 	manager->execute();
 	osd_output::pop(&winerror);
 	delete manager;
@@ -1024,7 +1027,6 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 int MameUIMain(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	// delete old log file, ignore any error
-	unlink("verbose.log");
 	unlink("winui.log");
 
 	if (__argc != 1)
