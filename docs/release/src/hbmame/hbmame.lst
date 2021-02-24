@@ -1235,6 +1235,7 @@ sfz3jb
 sfz3jemb
 sfz3jhp
 sfz3jsep
+sfz3te
 sfzjboss
 sfzjyh
 sgemfch
@@ -4169,11 +4170,15 @@ wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
 @source:mhavoc.cpp
 mhavoc				//parent
 mhavocrv			//HB Jess M. Askey
-mhavocpex			//HB Jess M. Askey
+
+@source:mhavoc_hb.cpp
+//mhavocpe			//HB Jess M. Askey               ROMS ARE MISSING
+mhavocpex1			//HB Jess M. Askey
 mhavocpex2			//HB Jess M. Askey
 mhavocpex3			//HB Jess M. Askey
 mhavocpex4			//HB Jess M. Askey
 mhavocpex5			//HB Jess M. Askey
+mhavocpex6			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk					//parent
@@ -5828,6 +5833,7 @@ badapple			// BEY
 badapplea
 badappleb
 beast		/* 2002 (c) 1989 Psygnosis */
+cabalng
 caravan				// HB
 cndi		/* Chip n Dale Intro */
 cndia
@@ -5920,6 +5926,7 @@ snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
 syscheck
 teotd
+teotd2
 test01		// MVS Test 01 by Furrtek
 timesupd	// CeL
 tmnti		/* TMNT intro */
@@ -8549,7 +8556,7 @@ troopyx
 c2frog					// HB
 headonch
 ooparts
-//ssonicbr
+ssonicbr
 
 @source:segahang.cpp
 enduror						//parent

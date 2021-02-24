@@ -381,7 +381,9 @@ files {
 	MAME_DIR .. "src/mame/audio/llander.cpp",
 	MAME_DIR .. "src/mame/video/atarimo.cpp",
 	MAME_DIR .. "src/mame/video/avgdvg.cpp",
-	MAME_DIR .. "src/hbmame/drivers/mhavoc.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mhavoc_hb.cpp",
+	MAME_DIR .. "src/hbmame/machine/mhavoc_hb.cpp",
+	MAME_DIR .. "src/mame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
 }

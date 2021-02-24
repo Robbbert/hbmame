@@ -11,9 +11,7 @@ call clean.bat
 del hbmame*.exe
 del hbmame*.sym
 call make64 -j4 "OSD=winui" "REGENIE=1" %1 %2 %3
-if not exist hbmameui64.exe goto end
-del hbmameui64.sym
+if not exist hbmameui.exe goto end
+del hbmameui.sym
 call make64 -j4 "ARCHOPTS='-fuse-ld=lld'" "REGENIE=1" %1 %2 %3
-copy hbmame64.exe hbmame.exe
-copy hbmameui64.exe hbmameui.exe
 :end

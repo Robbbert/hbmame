@@ -8,7 +8,7 @@
 
 #include "emu.h"
 #include "cpu/m6502/m6502.h"
-#include "includes/mhavoc.h"
+#include "includes/mhavoc_hb.h"
 
 
 /*************************************
@@ -17,7 +17,7 @@
  *
  *************************************/
 
-TIMER_DEVICE_CALLBACK_MEMBER(mhavoc_state::mhavoc_cpu_irq_clock)
+TIMER_DEVICE_CALLBACK_MEMBER(mhavoc_hbmame::mhavoc_cpu_irq_clock)
 {
 	/* clock the LS161 driving the alpha CPU IRQ */
 	if (m_alpha_irq_clock_enable)
@@ -39,7 +39,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(mhavoc_state::mhavoc_cpu_irq_clock)
 }
 
 
-void mhavoc_state::mhavoc_alpha_irq_ack_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_alpha_irq_ack_w(uint8_t data)
 {
 	/* clear the line and reset the clock */
 	m_alpha->set_input_line(0, CLEAR_LINE);
@@ -48,7 +48,7 @@ void mhavoc_state::mhavoc_alpha_irq_ack_w(uint8_t data)
 }
 
 
-void mhavoc_state::mhavoc_gamma_irq_ack_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_gamma_irq_ack_w(uint8_t data)
 {
 	/* clear the line and reset the clock */
 	m_gamma->set_input_line(0, CLEAR_LINE);
@@ -63,7 +63,7 @@ void mhavoc_state::mhavoc_gamma_irq_ack_w(uint8_t data)
  *
  *************************************/
 
-void mhavoc_state::machine_start()
+void mhavoc_hbmame::machine_start()
 {
 	m_lamps.resolve();
 
@@ -82,13 +82,16 @@ void mhavoc_state::machine_start()
 }
 
 
-void mhavoc_state::machine_reset()
+void mhavoc_hbmame::machine_reset()
 {
 	m_has_gamma_cpu = (m_gamma != nullptr);
+	m_has_beta_cpu = (m_beta != nullptr);
 
 	membank("bank1")->configure_entry(0, m_zram0);
 	membank("bank1")->configure_entry(1, m_zram1);
-	membank("bank2")->configure_entries(0, 4, memregion("alpha")->base() + 0x10000, 0x2000);
+	membank("bank2")->configure_entries(0, 8, memregion("alpha")->base() + 0x10000, 0x2000);
+	if (memregion("bank3"))
+		membank("bank3")->configure_entries(0, 4, memregion("avg")->base(), 0x2000);
 
 	/* reset RAM/ROM banks to 0 */
 	mhavoc_ram_banksel_w(0);
@@ -111,6 +114,7 @@ void mhavoc_state::machine_reset()
 	m_alpha_irq_clock = 0;
 	m_alpha_irq_clock_enable = 1;
 	m_gamma_irq_clock = 0;
+	
 }
 
 
@@ -121,7 +125,7 @@ void mhavoc_state::machine_reset()
  *
  *************************************/
 
-TIMER_CALLBACK_MEMBER(mhavoc_state::delayed_gamma_w)
+TIMER_CALLBACK_MEMBER(mhavoc_hbmame::delayed_gamma_w)
 {
 	/* mark the data received */
 	m_gamma_rcvd = 0;
@@ -136,14 +140,14 @@ TIMER_CALLBACK_MEMBER(mhavoc_state::delayed_gamma_w)
 }
 
 
-void mhavoc_state::mhavoc_gamma_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_gamma_w(uint8_t data)
 {
 	//logerror("  writing to gamma processor: %02x (%d %d)\n", data, m_gamma_rcvd, m_alpha_xmtd);
-	machine().scheduler().synchronize(timer_expired_delegate(FUNC(mhavoc_state::delayed_gamma_w),this), data);
+	machine().scheduler().synchronize(timer_expired_delegate(FUNC(mhavoc_hbmame::delayed_gamma_w),this), data);
 }
 
 
-uint8_t mhavoc_state::mhavoc_alpha_r()
+uint8_t mhavoc_hbmame::mhavoc_alpha_r()
 {
 	//logerror("\t\t\t\t\treading from alpha processor: %02x (%d %d)\n", m_alpha_data, m_gamma_rcvd, m_alpha_xmtd);
 	m_gamma_rcvd = 1;
@@ -152,14 +156,13 @@ uint8_t mhavoc_state::mhavoc_alpha_r()
 }
 
 
-
 /*************************************
  *
  *  Gamma -> alpha communications
  *
  *************************************/
 
-void mhavoc_state::mhavoc_alpha_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_alpha_w(uint8_t data)
 {
 	//logerror("\t\t\t\t\twriting to alpha processor: %02x %d %d\n", data, m_alpha_rcvd, m_gamma_xmtd);
 	m_alpha_rcvd = 0;
@@ -168,7 +171,7 @@ void mhavoc_state::mhavoc_alpha_w(uint8_t data)
 }
 
 
-uint8_t mhavoc_state::mhavoc_gamma_r()
+uint8_t mhavoc_hbmame::mhavoc_gamma_r()
 {
 	//logerror("  reading from gamma processor: %02x (%d %d)\n", m_gamma_data, m_alpha_rcvd, m_gamma_xmtd);
 	m_alpha_rcvd = 1;
@@ -184,13 +187,13 @@ uint8_t mhavoc_state::mhavoc_gamma_r()
  *
  *************************************/
 
-void mhavoc_state::mhavoc_ram_banksel_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_ram_banksel_w(uint8_t data)
 {
 	membank("bank1")->set_entry(data & 1);
 }
 
 
-void mhavoc_state::mhavoc_rom_banksel_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_rom_banksel_w(uint8_t data)
 {
 	membank("bank2")->set_entry(data & 3);
 }
@@ -203,30 +206,30 @@ void mhavoc_state::mhavoc_rom_banksel_w(uint8_t data)
  *
  *************************************/
 
-CUSTOM_INPUT_MEMBER(mhavoc_state::coin_service_r)
+CUSTOM_INPUT_MEMBER(mhavoc_hbmame::coin_service_r)
 {
 	return (m_player_1 ? m_service : m_coin)->read() & 0x03;
 }
 
-READ_LINE_MEMBER(mhavoc_state::gamma_rcvd_r)
+READ_LINE_MEMBER(mhavoc_hbmame::gamma_rcvd_r)
 {
 	/* Gamma rcvd flag */
 	return m_gamma_rcvd;
 }
 
-READ_LINE_MEMBER(mhavoc_state::gamma_xmtd_r)
+READ_LINE_MEMBER(mhavoc_hbmame::gamma_xmtd_r)
 {
 	/* Gamma xmtd flag */
 	return m_gamma_xmtd;
 }
 
-READ_LINE_MEMBER(mhavoc_state::alpha_rcvd_r)
+READ_LINE_MEMBER(mhavoc_hbmame::alpha_rcvd_r)
 {
 	/* Alpha rcvd flag */
 	return (m_has_gamma_cpu && m_alpha_rcvd);
 }
 
-READ_LINE_MEMBER(mhavoc_state::alpha_xmtd_r)
+READ_LINE_MEMBER(mhavoc_hbmame::alpha_xmtd_r)
 {
 	/* Alpha xmtd flag */
 	return (m_has_gamma_cpu && m_alpha_xmtd);
@@ -238,11 +241,10 @@ READ_LINE_MEMBER(mhavoc_state::alpha_xmtd_r)
  *
  *************************************/
 
-void mhavoc_state::mhavoc_out_0_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_out_0_w(uint8_t data)
 {
 	/* Bit 7 = Invert Y -- unemulated */
 	/* Bit 6 = Invert X -- unemulated */
-
 	/* Bit 5 = Player 1 */
 	m_player_1 = (data >> 5) & 1;
 
@@ -250,7 +252,7 @@ void mhavoc_state::mhavoc_out_0_w(uint8_t data)
 	m_gamma->set_input_line(INPUT_LINE_RESET, (data & 0x08) ? CLEAR_LINE : ASSERT_LINE);
 	if (!(data & 0x08))
 	{
-		//logerror("\t\t\t\t*** resetting gamma processor. ***\n");
+		//logerror("\t\t\t\t*** GAMMA processor RESET Cleared. ***\n");
 		m_alpha_rcvd = 0;
 		m_alpha_xmtd = 0;
 		m_gamma_rcvd = 0;
@@ -259,13 +261,15 @@ void mhavoc_state::mhavoc_out_0_w(uint8_t data)
 
 	/* Bit 2 = Beta reset */
 	/* this is the unpopulated processor in the corner of the pcb farthest from the quad pokey, not used on shipping boards */
+	m_beta->set_input_line(INPUT_LINE_RESET, (data & 0x04) ? CLEAR_LINE : ASSERT_LINE);
 
+	
 	/* Bit 0 = Roller light (Blinks on fatal errors) */
 	m_lamps[0] = BIT(data, 0);
 }
 
 
-void mhavoc_state::alphaone_out_0_w(uint8_t data)
+void mhavoc_hbmame::alphaone_out_0_w(uint8_t data)
 {
 	/* Bit 5 = P2 lamp */
 	m_lamps[0] = BIT(~data, 5);
@@ -283,7 +287,7 @@ void mhavoc_state::alphaone_out_0_w(uint8_t data)
 }
 
 
-void mhavoc_state::mhavoc_out_1_w(uint8_t data)
+void mhavoc_hbmame::mhavoc_out_1_w(uint8_t data)
 {
 	/* Bit 1 = left coin counter */
 	machine().bookkeeping().coin_counter_w(0, data & 0x02);
@@ -298,13 +302,13 @@ void mhavoc_state::mhavoc_out_1_w(uint8_t data)
  *
  *************************************/
 
-void mhavoc_state::mhavocrv_speech_data_w(uint8_t data)
+void mhavoc_hbmame::mhavocrv_speech_data_w(uint8_t data)
 {
 	m_speech_write_buffer = data;
 }
 
 
-void mhavoc_state::mhavocrv_speech_strobe_w(uint8_t data)
+void mhavoc_hbmame::mhavocrv_speech_strobe_w(uint8_t data)
 {
 	m_tms->data_w(m_speech_write_buffer);
 }
@@ -315,9 +319,9 @@ void mhavoc_state::mhavocrv_speech_strobe_w(uint8_t data)
  *
  *************************************/
 
-void mhavoc_state::init_mhavocrv()
+void mhavoc_hbmame::init_mhavocrv()
 {
 	// For Return to Vax, add support for the normally-unused speech module.
-	m_gamma->space(AS_PROGRAM).install_write_handler(0x5800, 0x5800, write8smo_delegate(*this, FUNC(mhavoc_state::mhavocrv_speech_data_w)));
-	m_gamma->space(AS_PROGRAM).install_write_handler(0x5900, 0x5900, write8smo_delegate(*this, FUNC(mhavoc_state::mhavocrv_speech_strobe_w)));
+	m_gamma->space(AS_PROGRAM).install_write_handler(0x5800, 0x5800, write8smo_delegate(*this, FUNC(mhavoc_hbmame::mhavocrv_speech_data_w)));
+	m_gamma->space(AS_PROGRAM).install_write_handler(0x5900, 0x5900, write8smo_delegate(*this, FUNC(mhavoc_hbmame::mhavocrv_speech_strobe_w)));
 }

@@ -651,7 +651,6 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 /*********************************************************************
  * Local Functions
  *********************************************************************/
-#define WINUI_ARRAY_LENGTH(x) (sizeof(x) / sizeof(x[0]))
 
 /* Build CPU info string */
 static char *GameInfoCPU(int nIndex)
@@ -682,14 +681,14 @@ static char *GameInfoCPU(int nIndex)
 
 		if (count > 1)
 		{
-			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%d x ", count);
+			snprintf(temp, std::size(temp), "%d x ", count);
 			strcat(buffer, temp);
 		}
 
 		if (clock >= 1000000)
-			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%s %d.%06d MHz\r\n", name, clock / 1000000, clock % 1000000);
+			snprintf(temp, std::size(temp), "%s %d.%06d MHz\r\n", name, clock / 1000000, clock % 1000000);
 		else
-			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%s %d.%03d kHz\r\n", name, clock / 1000, clock % 1000);
+			snprintf(temp, std::size(temp), "%s %d.%03d kHz\r\n", name, clock / 1000, clock % 1000);
 
 		strcat(buffer, temp);
 	}
@@ -726,7 +725,7 @@ static char *GameInfoSound(int nIndex)
 
 		if (count > 1)
 		{
-			snprintf(temp, WINUI_ARRAY_LENGTH(temp), "%d x ", count);
+			snprintf(temp, std::size(temp), "%d x ", count);
 			strcat(buffer, temp);
 		}
 
@@ -735,9 +734,9 @@ static char *GameInfoSound(int nIndex)
 		if (clock)
 		{
 			if (clock >= 1000000)
-				snprintf(temp, WINUI_ARRAY_LENGTH(temp), " %d.%06d MHz", clock / 1000000, clock % 1000000);
+				snprintf(temp, std::size(temp), " %d.%06d MHz", clock / 1000000, clock % 1000000);
 			else
-				snprintf(temp, WINUI_ARRAY_LENGTH(temp), " %d.%03d kHz", clock / 1000, clock % 1000);
+				snprintf(temp, std::size(temp), " %d.%03d kHz", clock / 1000, clock % 1000);
 
 			strcat(buffer, temp);
 		}
@@ -1342,7 +1341,7 @@ INT_PTR CALLBACK GameOptionsProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPar
 
 				// use default behavior; try to get the result out of the datamap if
 				// appropriate
-				GetClassName(hWndCtrl, szClass, ARRAY_LENGTH(szClass));
+				GetClassName(hWndCtrl, szClass, std::size(szClass));
 				if (!_tcscmp(szClass, WC_COMBOBOX))
 				{
 					// combo box
@@ -1491,10 +1490,10 @@ static void PropToOptions(HWND hWnd, windows_options &o)
 			int n = 0, d = 0;
 			TCHAR buffer[200];
 
-			Edit_GetText(hCtrl, buffer, ARRAY_LENGTH(buffer));
+			Edit_GetText(hCtrl, buffer, std::size(buffer));
 			_stscanf(buffer,TEXT("%d"),&n);
 
-			Edit_GetText(hCtrl2, buffer, ARRAY_LENGTH(buffer));
+			Edit_GetText(hCtrl2, buffer, std::size(buffer));
 			_stscanf(buffer,TEXT("%d"),&d);
 
 			if (n == 0 || d == 0)
@@ -1522,10 +1521,10 @@ static void PropToOptions(HWND hWnd, windows_options &o)
 			int width = 0, height = 0;
 			TCHAR buffer[200];
 
-			Edit_GetText(hCtrl, buffer, ARRAY_LENGTH(buffer));
+			Edit_GetText(hCtrl, buffer, std::size(buffer));
 			_stscanf(buffer, TEXT("%d"), &width);
 
-			Edit_GetText(hCtrl2, buffer, ARRAY_LENGTH(buffer));
+			Edit_GetText(hCtrl2, buffer, std::size(buffer));
 			_stscanf(buffer, TEXT("%d"), &height);
 
 			if (width == 0 || height == 0)
@@ -1572,12 +1571,12 @@ static bool SelectGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 	if (is_scr)
 	{
 		dialog = IDC_SCREEN_SHADER0 + slot;
-		snprintf(shader, WINUI_ARRAY_LENGTH(shader), "glsl_shader_screen%d", slot);
+		snprintf(shader, std::size(shader), "glsl_shader_screen%d", slot);
 	}
 	else
 	{
 		dialog = IDC_MAME_SHADER0 + slot;
-		snprintf(shader, WINUI_ARRAY_LENGTH(shader), "glsl_shader_mame%d", slot);
+		snprintf(shader, std::size(shader), "glsl_shader_mame%d", slot);
 	}
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_SHADER_FILES))
@@ -1613,12 +1612,12 @@ static bool ResetGLSLShader(HWND hWnd, int slot, BOOL is_scr)
 	if (is_scr)
 	{
 		dialog = IDC_SCREEN_SHADER0 + slot;
-		snprintf(option, WINUI_ARRAY_LENGTH(option), "glsl_shader_screen%d", slot);
+		snprintf(option, std::size(option), "glsl_shader_screen%d", slot);
 	}
 	else
 	{
 		dialog = IDC_MAME_SHADER0 + slot;
-		snprintf(option, WINUI_ARRAY_LENGTH(option), "glsl_shader_mame%d", slot);
+		snprintf(option, std::size(option), "glsl_shader_mame%d", slot);
 	}
 
 	if (strcmp(new_value, m_CurrentOpts.value(option)))
@@ -1638,7 +1637,7 @@ static void UpdateMameShader(HWND hWnd, int slot, windows_options &o)
 	if (hCtrl)
 	{
 		char option[32];
-		snprintf(option, WINUI_ARRAY_LENGTH(option), "glsl_shader_mame%d", slot);
+		snprintf(option, std::size(option), "glsl_shader_mame%d", slot);
 		const char* value = o.value(option);
 
 		if (strcmp(value, "none") == 0)
@@ -1655,7 +1654,7 @@ static void UpdateScreenShader(HWND hWnd, int slot, windows_options &o)
 	if (hCtrl)
 	{
 		char option[32];
-		snprintf(option, WINUI_ARRAY_LENGTH(option), "glsl_shader_screen%d", slot);
+		snprintf(option, std::size(option), "glsl_shader_screen%d", slot);
 		const char* value = o.value(option);
 
 		if (strcmp(value, "none") == 0)
@@ -2252,7 +2251,7 @@ static BOOL DefaultInputPopulateControl(datamap *map, HWND dialog, HWND control,
 	(void)ComboBox_InsertString(control, index, TEXT("Default"));
 	(void)ComboBox_SetItemData(control, index, "");
 	index++;
-	snprintf(path, WINUI_ARRAY_LENGTH(path), "%s\\*.*", dir_get_value(6).c_str());
+	snprintf(path, std::size(path), "%s\\*.*", dir_get_value(6).c_str());
 	HANDLE hFind = winui_find_first_file_utf8(path, &FindFileData);
 
 	if (hFind != INVALID_HANDLE_VALUE)
@@ -2316,15 +2315,15 @@ static BOOL ResolutionReadControl(datamap *map, HWND dialog, HWND control, windo
 	if (refresh_control && sizes_control)
 	{
 		TCHAR buffer[256];
-		ComboBox_GetText(sizes_control, buffer, ARRAY_LENGTH(buffer) - 1);
+		ComboBox_GetText(sizes_control, buffer, std::size(buffer) - 1);
 		if (_stscanf(buffer, TEXT("%d x %d"), &width, &height) == 2)
 		{
 			int refresh_index = ComboBox_GetCurSel(refresh_control);
 			int refresh_value = ComboBox_GetItemData(refresh_control, refresh_index);
-			snprintf(option_value, ARRAY_LENGTH(option_value), "%dx%d@%d", width, height, refresh_value);
+			snprintf(option_value, std::size(option_value), "%dx%d@%d", width, height, refresh_value);
 		}
 		else
-			snprintf(option_value, ARRAY_LENGTH(option_value), "auto");
+			snprintf(option_value, std::size(option_value), "auto");
 
 		emu_set_value(o, option_name, option_value);
 	}
@@ -2392,7 +2391,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 			if ((devmode.dmBitsPerPel == 32 ) // Only 32 bit depth supported by core
 				&&(devmode.dmDisplayFrequency == refresh || refresh == 0))
 			{
-				_sntprintf(buf, ARRAY_LENGTH(buf), TEXT("%li x %li"), devmode.dmPelsWidth, devmode.dmPelsHeight);
+				_sntprintf(buf, std::size(buf), TEXT("%li x %li"), devmode.dmPelsWidth, devmode.dmPelsHeight);
 
 				if (ComboBox_FindString(sizes_control, 0, buf) == CB_ERR)
 				{
@@ -2408,7 +2407,7 @@ static BOOL ResolutionPopulateControl(datamap *map, HWND dialog, HWND control_, 
 			{
 				// I have some devmode "vga" which specifes 1 Hz, which is probably bogus, so we filter it out
 
-				_sntprintf(buf, ARRAY_LENGTH(buf), TEXT("%li Hz"), devmode.dmDisplayFrequency);
+				_sntprintf(buf, std::size(buf), TEXT("%li Hz"), devmode.dmDisplayFrequency);
 
 				if (ComboBox_FindString(refresh_control, 0, buf) == CB_ERR)
 				{
@@ -3326,7 +3325,7 @@ int winui_get_window_text_utf8(HWND hWnd, char *buffer, size_t buffer_size)
 
 	t_buffer[0] = '\0';
 	// invoke the core Win32 API
-	GetWindowText(hWnd, t_buffer, ARRAY_LENGTH(t_buffer));
+	GetWindowText(hWnd, t_buffer, std::size(t_buffer));
 	char *utf8_buffer = win_utf8_from_wstring(t_buffer);
 
 	if (!utf8_buffer)
@@ -3342,7 +3341,7 @@ static BOOL ChangeFallback(HWND hWnd)
 	BOOL changed = false;
 	char data[90];
 
-	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_ARTWORK_FALLBACK), data, WINUI_ARRAY_LENGTH(data));
+	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_ARTWORK_FALLBACK), data, std::size(data));
 
 	if (strcmp(data, m_CurrentOpts.value(OPTION_FALLBACK_ARTWORK)))
 	{
@@ -3358,7 +3357,7 @@ static BOOL ChangeOverride(HWND hWnd)
 	BOOL changed = false;
 	char data[90];
 
-	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_ARTWORK_OVERRIDE), data, WINUI_ARRAY_LENGTH(data));
+	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_ARTWORK_OVERRIDE), data, std::size(data));
 
 	if (strcmp(data, m_CurrentOpts.value(OPTION_OVERRIDE_ARTWORK)))
 	{
@@ -3374,7 +3373,7 @@ static BOOL ChangeJoystickMap(HWND hWnd)
 	BOOL changed = false;
 	char joymap[90];
 
-	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_JOYSTICKMAP), joymap, WINUI_ARRAY_LENGTH(joymap));
+	winui_get_window_text_utf8(GetDlgItem(hWnd, IDC_JOYSTICKMAP), joymap, std::size(joymap));
 
 	if (strcmp(joymap, m_CurrentOpts.value(OPTION_JOYSTICK_MAP)))
 	{
@@ -3507,7 +3506,7 @@ static bool SelectPlugins(HWND hWnd)
 	if (!already_enabled)
 	{
 		char new_option[256];
-		snprintf(new_option, WINUI_ARRAY_LENGTH(new_option), "%s,%s", value, new_value);
+		snprintf(new_option, std::size(new_option), "%s,%s", value, new_value);
 		emu_set_value(m_CurrentOpts, OPTION_PLUGIN, new_option);
 		win_set_window_text_utf8(GetDlgItem(hWnd, IDC_PLUGIN), new_option);
 		changed = true;
@@ -3648,14 +3647,14 @@ static BOOL DirListReadControl(datamap *map, HWND dialog, HWND control, windows_
 	{
 		// append a semicolon, if we're past the first entry
 		if (i > 0)
-			pos += _sntprintf(&buffer[pos], ARRAY_LENGTH(buffer) - pos, TEXT(";"));
+			pos += _sntprintf(&buffer[pos], std::size(buffer) - pos, TEXT(";"));
 
 		// retrieve the next entry
 		memset(&lvi, '\0', sizeof(lvi));
 		lvi.mask = LVIF_TEXT;
 		lvi.iItem = i;
 		lvi.pszText = &buffer[pos];
-		lvi.cchTextMax = ARRAY_LENGTH(buffer) - pos;
+		lvi.cchTextMax = std::size(buffer) - pos;
 		res = ListView_GetItem(control, &lvi);
 
 		// advance the position
@@ -3767,7 +3766,7 @@ static BOOL SoftwareDirectories_OnInsertBrowse(HWND hDlg, BOOL bBrowse, LPCTSTR 
 	{
 //		if (bBrowse)
 //		{
-			ListView_GetItemText(hList, nItem, 0, inbuf, ARRAY_LENGTH(inbuf));
+			ListView_GetItemText(hList, nItem, 0, inbuf, std::size(inbuf));
 			lpIn = inbuf;
 //		}
 //		else

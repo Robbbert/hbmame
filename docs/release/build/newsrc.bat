@@ -11,12 +11,13 @@ copy /Y %from%\src\emu\emuopts.* %to%\src\emu
 copy /Y %from%\src\emu\romload.cpp %to%\src\emu
 copy /Y %from%\src\emu\video.* %to%\src\emu
 
-md %to%\src\frontend\mame
+md %to%\src\frontend\mame\ui
 copy /Y %from%\src\frontend\mame\audit.*            %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\clifront.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\ui\inifile.cpp     %to%\src\frontend\mame\ui
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp %to%\src\devices\cpu\m68000
@@ -38,6 +39,7 @@ md %to%\src\mame\machine
 copy /Y %from%\src\mame\machine\mhavoc.cpp %to%\src\mame\machine
 
 md %to%\src\mame\video
+copy /Y %from%\src\mame\video\avgdvg.cpp   %to%\src\mame\video
 copy /Y %from%\src\mame\video\decbac06.cpp %to%\src\mame\video
 copy /Y %from%\src\mame\video\midtunit.cpp %to%\src\mame\video
 copy /Y %from%\src\mame\video\sega16sp.cpp %to%\src\mame\video

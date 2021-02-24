@@ -185,9 +185,9 @@ static void options_set_color(const char *name, COLORREF value)
 	char value_str[32];
 
 	if (value == (COLORREF) -1)
-		snprintf(value_str, ARRAY_LENGTH(value_str), "%d", (int) value);
+		snprintf(value_str, std::size(value_str), "%d", (int) value);
 	else
-		snprintf(value_str, ARRAY_LENGTH(value_str), "%d,%d,%d", (((int) value) >>  0) & 0xFF, (((int) value) >>  8) & 0xFF, (((int) value) >> 16) & 0xFF);
+		snprintf(value_str, std::size(value_str), "%d,%d,%d", (((int) value) >>  0) & 0xFF, (((int) value) >>  8) & 0xFF, (((int) value) >> 16) & 0xFF);
 
 	settings.setter(name, string(value_str));
 }
@@ -1011,7 +1011,7 @@ static int GetUIJoy(const char *option_name, int joycodeIndex)
 
 	if ((joycodeIndex < 0) || (joycodeIndex > 3))
 		joycodeIndex = 0;
-	ColumnDecodeStringWithCount(settings.getter(option_name), joycodes, ARRAY_LENGTH(joycodes));
+	ColumnDecodeStringWithCount(settings.getter(option_name), joycodes, std::size(joycodes));
 	return joycodes[joycodeIndex];
 }
 
@@ -1021,9 +1021,9 @@ static void SetUIJoy(const char *option_name, int joycodeIndex, int val)
 
 	if ((joycodeIndex < 0) || (joycodeIndex > 3))
 		joycodeIndex = 0;
-	ColumnDecodeStringWithCount(settings.getter(option_name), joycodes, ARRAY_LENGTH(joycodes));
+	ColumnDecodeStringWithCount(settings.getter(option_name), joycodes, std::size(joycodes));
 	joycodes[joycodeIndex] = val;
-	settings.setter(option_name, ColumnEncodeStringWithCount(joycodes, ARRAY_LENGTH(joycodes)));
+	settings.setter(option_name, ColumnEncodeStringWithCount(joycodes, std::size(joycodes)));
 }
 
 int GetUIJoyUp(int joycodeIndex)
@@ -1388,7 +1388,7 @@ static void TabFlagsDecodeString(string ss, int *data)
 	char s[2000];
 	char *token;
 
-	snprintf(s, ARRAY_LENGTH(s), "%s", str);
+	snprintf(s, std::size(s), "%s", str);
 
 	// simple way to set all tab bits "on"
 	*data = (1 << MAX_TAB_TYPES) - 1;

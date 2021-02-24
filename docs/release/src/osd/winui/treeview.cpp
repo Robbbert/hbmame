@@ -2271,20 +2271,20 @@ static BOOL TryRenameCustomFolderIni(LPTREEFOLDER lpFolder, const char *old_name
 		lpParent = GetFolder( lpFolder->m_nParent );
 		if( lpParent )
 		{
-			snprintf(filename,ARRAY_LENGTH(filename),"%s\\%s\\%s.ini",inidir,lpParent->m_lpTitle, old_name );
-			snprintf(new_filename,ARRAY_LENGTH(new_filename),"%s\\%s\\%s.ini",inidir,lpParent->m_lpTitle, new_name );
+			snprintf(filename,std::size(filename),"%s\\%s\\%s.ini",inidir,lpParent->m_lpTitle, old_name );
+			snprintf(new_filename,std::size(new_filename),"%s\\%s\\%s.ini",inidir,lpParent->m_lpTitle, new_name );
 			win_move_file_utf8(filename,new_filename);
 		}
 	}
 	else
 	{
 		//Rename the File, if it exists
-		snprintf(filename,ARRAY_LENGTH(filename),"%s\\%s.ini",inidir,old_name );
-		snprintf(new_filename,ARRAY_LENGTH(new_filename),"%s\\%s.ini",inidir, new_name );
+		snprintf(filename,std::size(filename),"%s\\%s.ini",inidir,old_name );
+		snprintf(new_filename,std::size(new_filename),"%s\\%s.ini",inidir, new_name );
 		win_move_file_utf8(filename,new_filename);
 		//Rename the Directory, if it exists
-		snprintf(filename,ARRAY_LENGTH(filename),"%s\\%s",inidir,old_name );
-		snprintf(new_filename,ARRAY_LENGTH(new_filename),"%s\\%s",inidir, new_name );
+		snprintf(filename,std::size(filename),"%s\\%s",inidir,old_name );
+		snprintf(new_filename,std::size(new_filename),"%s\\%s",inidir, new_name );
 		win_move_file_utf8(filename,new_filename);
 	}
 	return true;
@@ -2323,8 +2323,8 @@ BOOL TryRenameCustomFolder(LPTREEFOLDER lpFolder, const char *new_name)
 	// a parent extra folder was renamed, so rename the file
 
 	const std::string t = dir_get_value(24);
-	snprintf(new_filename,ARRAY_LENGTH(new_filename),"%s\\%s.ini", t.c_str(), new_name);
-	snprintf(filename,ARRAY_LENGTH(filename),"%s\\%s.ini", t.c_str(), lpFolder->m_lpTitle);
+	snprintf(new_filename,std::size(new_filename),"%s\\%s.ini", t.c_str(), new_name);
+	snprintf(filename,std::size(filename),"%s\\%s.ini", t.c_str(), lpFolder->m_lpTitle);
 
 	BOOL retval = win_move_file_utf8(filename,new_filename);
 
@@ -2338,7 +2338,7 @@ BOOL TryRenameCustomFolder(LPTREEFOLDER lpFolder, const char *new_name)
 	else
 	{
 		char buf[2048];
-		snprintf(buf,ARRAY_LENGTH(buf),"Error while renaming custom file %s to %s", filename,new_filename);
+		snprintf(buf,std::size(buf),"Error while renaming custom file %s to %s", filename,new_filename);
 		win_message_box_utf8(GetMainWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
 	}
 	return retval;
@@ -2472,7 +2472,7 @@ BOOL TrySaveExtraFolder(LPTREEFOLDER lpFolder)
 	if (error)
 	{
 		char buf[500];
-		snprintf(buf,ARRAY_LENGTH(buf),"Error while saving custom file %s",fname);
+		snprintf(buf,std::size(buf),"Error while saving custom file %s",fname);
 		win_message_box_utf8(GetMainWindow(), buf, MAMEUINAME, MB_OK | MB_ICONERROR);
 	}
 	return !error;

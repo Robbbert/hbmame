@@ -166,7 +166,7 @@ void ErrorMessageBox(const char *fmt, ...)
 	va_list ptr;
 
 	va_start(ptr, fmt);
-	vsnprintf(buf, ARRAY_LENGTH(buf), fmt, ptr);
+	vsnprintf(buf, std::size(buf), fmt, ptr);
 	winui_message_box_utf8(GetMainWindow(), buf, MAMEUINAME, MB_ICONERROR | MB_OK);
 	va_end(ptr);
 }

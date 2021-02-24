@@ -22,14 +22,14 @@ cd\hbmame
 call newsrc.bat
 
 rem --- HBMAME 64bit ---
-del hbmameui64.exe
-del hbmameui64.sym
+del hbmameui.exe
+del hbmameui.sym
 call make64 -j4 "OSD=winui" %1 %2 %3
-if not exist hbmameui64.exe goto end
-del hbmame64.exe
-del hbmame64.sym
+if not exist hbmameui.exe goto end
+del hbmame.exe
+del hbmame.sym
 call make64 -j4 %1 %2 %3
-if not exist hbmame64.exe goto end
+if not exist hbmame.exe goto end
 
 :arcade
 cd\arcade
@@ -47,19 +47,19 @@ call newsrc.bat
 
 rem --- MESSUI 64bit ---
 call makee.bat
-if not exist messui64.exe goto end
+if not exist messui.exe goto end
 call maker.bat
-if not exist mess64.exe goto end
+if not exist mess.exe goto end
 
 :mameui
 cd\mameui
 call newsrc.bat
 
 rem --- MAMEUI 64bit ---
-del mameui64.exe
-del mameui64.sym
+del mameui.exe
+del mameui.sym
 call make64 -j8 %1 %2 %3
-if not exist mameui64.exe goto end
+if not exist mameui.exe goto end
 
 :end
 
