@@ -609,6 +609,7 @@ static struct DriversInfo* GetDriversInfo(uint32_t driver_index)
 		std::fill(drivers_info.begin(), drivers_info.end(), DriversInfo{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 		printf("DriversInfo: B\n");fflush(stdout);
 		InitDriversCache();
+		printf("DriversInfo: C\n");fflush(stdout);
 	}
 
 	return &drivers_info[driver_index];
