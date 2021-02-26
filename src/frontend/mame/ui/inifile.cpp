@@ -119,6 +119,8 @@ void inifile_manager::init_category(std::string &&filename, emu_file &file)
 	std::stable_sort(index.begin(), index.end(), [] (auto const &x, auto const &y) { return 0 > core_stricmp(x.first.c_str(), y.first.c_str()); });
 	if (!index.empty())
 		m_ini_index.emplace_back(file.fullpath(), std::move(index));
+
+	fclose(fp);
 }
 
 
