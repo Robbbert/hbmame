@@ -165,7 +165,7 @@ theroes01
 
 @source:cball.cpp
 cball			//parent
-cballfix		// With MASH 'fixed' gfx rom
+cballfix		// With MASH (fixed) gfx rom
 
 @source:cclimber.cpp
 ckong			//parent
@@ -287,7 +287,7 @@ kodd			// no gfx in attract mode; illegal instruction
 kodh
 kodsp
 kodud			// no gfx in attract mode; illegal instruction
-pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
+pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site */
 punisherb
 punisherf
 punisherje1
@@ -1517,8 +1517,8 @@ decomult				// Dave Widel
 @source:dkong.cpp
 dkong					//parent
 dkong2m
-dkongbcc				// Jeff's Rom Hacks
-dkongex					// Jeff's Hack with Foundry Level
+dkongbcc				// Jeffs Rom Hacks
+dkongex					// Jeffs Hack with Foundry Level
 dkongf
 dkongst
 dkongst2
@@ -4066,30 +4066,30 @@ uccopsjs01
 
 @source:maketrax.cpp
 eyes			//parent
-aa				/* HB - Widel's Games */
+aa				/* HB - Widel Games */
 abscam			// GL 1982
 absurd			/* HB - scott - nonworking alpha ver 3 */
 alienres		// HB
 alpaca7			/* HB - Jerronimo (useless) */
 alpaca8			/* HB - Jerronimo (useless) */
-bace			/* HB - Widel's Games */
+bace			/* HB - Widel Games */
 crashh			/* HB - PacMAME Hacks */
 deathstar		// HB
 deathstar2		// HB
-dderby			/* HB - Widel's Games */
+dderby			/* HB - Widel Games */
 eyesb
 ghohunt			// HB - Hurray Banana
-kangaroh		/* HB - Widel's Games */
+kangaroh		/* HB - Widel Games */
 lazybug
 lazybug1
 mtturbo			/* Tim - Make Trax Turbo Hack */
 pachello		/* HB - Jerronimo */
 pacmatri		/* HB - Jerronimo */
-pactest			/* HB - Widel's Games */
+pactest			/* HB - Widel Games */
 pactetris		// HB
-ppong			/* HB - Widel's Games */
-ppong2			/* HB - Widel's Games */
-rainboh			/* HB - Widel's Games */
+ppong			/* HB - Widel Games */
+ppong2			/* HB - Widel Games */
+rainboh			/* HB - Widel Games */
 scroller		// HB
 seq1			/* HB - Jerronimo */
 seq2			/* HB - Jerronimo */
@@ -4098,7 +4098,7 @@ snakes2			// HB
 theglobpb
 tst_pacm		// HB
 wavybug
-zap				/* HB - Widel's Games */
+zap				/* HB - Widel Games */
 
 @source:mappy.cpp
 mappy		//parent
@@ -4251,7 +4251,7 @@ pangbolds01
 
 @source:model2.cpp
 srallyc				//parent
-srallyp				// Kyle Hodgetts Sega Rally Pro Drivin'
+srallyp				// Kyle Hodgetts Sega Rally Pro Drivin
 
 @source:monaco.cpp
 monaco
@@ -4263,7 +4263,7 @@ mrdofast			/* Speedup hack from Evil Exidy*/
 mrpac				/* Twist Hack 20020813 */
 mrpacb
 newdigdo			/* Vic 20 George and Jerky hack of... */
-stickydo			/* Marck's Hacks */
+stickydo			/* Marcks Hacks */
 
 @source:mslug.cpp
 msboot
@@ -5574,7 +5574,7 @@ ottop3
 ottopz
 ottopza
 pacandroid
-pacatk		/* Widel's Games */
+pacatk		/* Widel Games */
 pacgalu
 pacgent
 pacrab
@@ -5607,7 +5607,7 @@ mspacmadp
 mspacatttur
 mspacii2
 ms2600a
-	/* "Pacman hardware" games (hires hacks) */
+	/* Pacman hardware games (hires hacks) */
 mschampx
 mspacmnx
 mspacmfx
@@ -5622,12 +5622,12 @@ pacgalx
 //sp4o1029		// roms missing
 
 @source:multipac.cpp
-96in1		/* Widel's Games */
-96in1a		/* Widel's Games */
-96in1b		/* Widel's Games */
-96in1c		/* Widel's Games */
-hackypac	/* Widel's Games */
-madpac		/* Widel's Games */
+96in1		/* Widel Games */
+96in1a		/* Widel Games */
+96in1b		/* Widel Games */
+96in1c		/* Widel Games */
+hackypac	/* Widel Games */
+madpac		/* Widel Games */
 multi10		/* bootleg */
 multi11		/* bootleg */
 multi13		/* bootleg */
@@ -5868,7 +5868,7 @@ lhopecdh // broken; not working
 ltorb
 neo2500		/* Blastar */
 neo3d		// Oxygene
-neobubble
+//neobubble
 neocstlv	// BarfHappy
 neodemo		/* Charles Doty */
 neofight	// Kannagi
@@ -5933,7 +5933,7 @@ tmnti		/* TMNT intro */
 tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
-//venuswars    // author doesn't want it enabled yet
+//venuswars
 vlad2000
 ww2demo
 xmas2017
@@ -6366,7 +6366,7 @@ kof2k4ses30
 kof2k4ses31
 kof2k4ses32
 kof2k4ses33
-kof2k4ses34 
+kof2k4ses34
 kof2k4ses35
 kof2k4ses36
 kof2k4plss01
@@ -6924,8 +6924,8 @@ pengo		//parent
 pacpen
 pengopop
 vecpengo	/* T-Bone hack of Pengo */
-alpacap7	/* "Jerronimo", "Alpaca v0.7 (Pengo Hardware) useless */
-alpacap8	/* "Jerronimo", "Alpaca v0.8 (Pengo Hardware) useless */
+alpacap7	/* Jerronimo, Alpaca v0.7 (Pengo Hardware) useless */
+alpacap8	/* Jerronimo, Alpaca v0.8 (Pengo Hardware) useless */
 
 @source:pgm.cpp
 pgm			//required bios
@@ -8351,7 +8351,7 @@ chtpuck
 crazypac
 dizzy
 eltonpac	/* Sil hack of Pac-Man (Midway) */
-europac		/* Stefano 'Jojo' Priore hack of Pac-Man (Midway) */
+europac		/* Stefano (Jojo) Priore hack of Pac-Man (Midway) */
 fpnleash
 hanglyad
 hmhearts	/* hack */
@@ -8488,7 +8488,7 @@ vpacshuf
 vpspeed
 xensad
 xensrev
-	/* "Pacman hardware" games (hires hacks) */
+	/* Pacman hardware games (hires hacks) */
 puckmanx
 puckmnax
 puckmnfx
@@ -8926,7 +8926,7 @@ defender	//parent
 defender2
 robotron	//parent
 robotron201	// start at level 201 (Sean Riddle)
-robotronp	/* Patched to remove the 'in the corner' crash */
+robotronp	/* Patched to remove the (in the corner) crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1

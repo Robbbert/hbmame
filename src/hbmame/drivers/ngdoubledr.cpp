@@ -14,7 +14,7 @@ ROM_START( dbdeh ) /* Double Dragon (Neo-Geo) - Enhance by Creamymami and Ydmis 
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -38,7 +38,7 @@ ROM_START( dbdehy ) /* Double Dragon (Neo-Geo) - Enhance by Ydmis - (Can select 
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -62,7 +62,7 @@ ROM_START( dbdq ) /* Double Dragon (Neo-Geo) - Hack by Creamymami - (The charact
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -86,7 +86,7 @@ ROM_START( dbdqb ) /* Double Dragon (Neo-Geo) - Hack by Creamymami and Ydmis - (
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -110,7 +110,7 @@ ROM_START( dbdqeh ) /* Double Dragon (Neo-Geo) - Enhance by Creamymami and Ydmis
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -134,7 +134,7 @@ ROM_START( dbdqp ) /* Double Dragon (Neo-Geo) - Hack by Creamymami - (The charac
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -158,7 +158,7 @@ ROM_START( dbdy ) /* Double Dragon (Neo-Geo) - Hack by Ydmis - (Can select Shuko
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -182,7 +182,7 @@ ROM_START( doubledre2 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -206,7 +206,7 @@ ROM_START( doubledres )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -230,7 +230,7 @@ ROM_START( doubledrhp )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -257,7 +257,7 @@ ROM_START( doubledrsp )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -304,7 +304,7 @@ ROM_START( doubledrs01 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -328,7 +328,7 @@ ROM_START( doubledrs02 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -352,7 +352,7 @@ ROM_START( doubledrs03 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -376,7 +376,7 @@ ROM_START( doubledrs04 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -400,7 +400,7 @@ ROM_START( doubledrs05 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -424,7 +424,7 @@ ROM_START( doubledrs06 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -448,7 +448,7 @@ ROM_START( doubledrs07 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -475,7 +475,7 @@ ROM_START( doubledrs08 )
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
@@ -499,7 +499,7 @@ ROM_START( doubledrs09 ) //doubledrcn
 
 	NEO_BIOS_AUDIO_128K( "082.m1", CRC(10b144de) SHA1(cf1ed0a447da68240c62bcfd76b1569803f6bf76) )
 
-	ROM_REGION( 0x400000, "ymsnd", 0 )
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "082.v1", 0x000000, 0x200000, CRC(cc1128e4) SHA1(bfcfff24bc7fbde0b02b1bc0dffebd5270a0eb04) )
 	ROM_LOAD( "082.v2", 0x200000, 0x200000, CRC(c3ff5554) SHA1(c685887ad64998e5572607a916b023f8b9efac49) )
 
