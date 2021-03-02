@@ -1261,7 +1261,6 @@ ymfm_engine_base<RegisterType>::ymfm_engine_base(device_t &device) :
 	m_irq_mask(STATUS_TIMERA | STATUS_TIMERB),
 	m_irq_state(0),
 	m_busy_end(attotime::zero),
-	m_last_irq_update(attotime::zero),
 	m_timer{ nullptr, nullptr },
 	m_irq_handler(device),
 	m_regdata(RegisterType::REGISTERS),
@@ -1620,12 +1619,30 @@ TIMER_CALLBACK_MEMBER(ymfm_engine_base<RegisterType>::timer_handler)
 
 
 //-------------------------------------------------
+//  schedule_check_interrupts - schedule an
+//  interrupt check via timer
+//-------------------------------------------------
+
+template<class RegisterType>
+void ymfm_engine_base<RegisterType>::schedule_check_interrupts()
+{
+	// if we're currently executing a CPU, schedule the interrupt check;
+	// otherwise, do it directly
+	auto &scheduler = m_device.machine().scheduler();
+	if (scheduler.currently_executing())
+		scheduler.synchronize(timer_expired_delegate(FUNC(ymfm_engine_base<RegisterType>::check_interrupts), this), 0);
+	else
+		check_interrupts(nullptr, 0);
+}
+
+
+//-------------------------------------------------
 //  check_interrupts - check the interrupt sources
 //  for interrupts
 //-------------------------------------------------
 
 template<class RegisterType>
-void ymfm_engine_base<RegisterType>::check_interrupts()
+TIMER_CALLBACK_MEMBER(ymfm_engine_base<RegisterType>::check_interrupts)
 {
 	// update the state
 	u8 old_state = m_irq_state;
@@ -1633,17 +1650,7 @@ void ymfm_engine_base<RegisterType>::check_interrupts()
 
 	// if changed, signal the new state
 	if (old_state != m_irq_state && !m_irq_handler.isnull())
-	{
-		// if writes to registers aren't synchronized, it is possible to induce
-		// scheduling errors handling IRQs; ensure that all IRQ handler updates
-		// are monotonically increasing in time
-		attotime curtime = m_device.machine().time();
-		if (m_last_irq_update > curtime)
-			fatalerror("IRQ signalling time went backwards; writes need to be synchronized");
-		m_last_irq_update = curtime;
-
 		m_irq_handler(m_irq_state ? ASSERT_LINE : CLEAR_LINE);
-	}
 }
 
 

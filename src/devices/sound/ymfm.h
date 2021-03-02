@@ -745,10 +745,10 @@ public:
 	u8 status() const;
 
 	// set/reset bits in the status register, updating the IRQ status
-	void set_reset_status(u8 set, u8 reset) { m_status = (m_status | set) & ~reset; check_interrupts(); }
+	void set_reset_status(u8 set, u8 reset) { m_status = (m_status | set) & ~reset; schedule_check_interrupts(); }
 
 	// set the IRQ mask
-	void set_irq_mask(u8 mask) { m_irq_mask = mask; check_interrupts(); }
+	void set_irq_mask(u8 mask) { m_irq_mask = mask; schedule_check_interrupts(); }
 
 	// helper to compute the busy duration
 	attotime compute_busy_duration(u32 cycles = 32)
@@ -784,8 +784,11 @@ private:
 	// timer callback
 	TIMER_CALLBACK_MEMBER(timer_handler);
 
+	// schedule an interrupt check
+	void schedule_check_interrupts();
+
 	// check interrupts
-	void check_interrupts();
+	TIMER_CALLBACK_MEMBER(check_interrupts);
 
 	// internal state
 	device_t &m_device;              // reference to the owning device
@@ -799,7 +802,6 @@ private:
 	u8 m_irq_mask;                   // mask of which bits signal IRQs
 	u8 m_irq_state;                  // current IRQ state
 	attotime m_busy_end;             // end of the busy time
-	attotime m_last_irq_update;      // time of last IRQ update
 	emu_timer *m_timer[2];           // our two timers
 	devcb_write_line m_irq_handler;  // IRQ callback
  	std::unique_ptr<ymfm_channel<RegisterType>> m_channel[RegisterType::CHANNELS]; // channel pointers
