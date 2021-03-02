@@ -249,8 +249,6 @@ MACHINES["Z80SIO"] = true -- ddenlovr
 BUSES["ATA"] = true
 BUSES["GENERIC"] = true
 BUSES["NSCSI"] = true
--- BUSES["NEOGEO"] = true
--- BUSES["NEOGEO_CTRL"] = true
 BUSES["SAT_CTRL"] = true -- stv
 BUSES["SCSI"] = true
 

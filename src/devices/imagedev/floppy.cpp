@@ -162,7 +162,7 @@ void format_registration::add_pc_formats()
 {
 	add_mfm_containers();
 
-	add(FLOPPY_PC_FORMAT);
+	//add(FLOPPY_PC_FORMAT);  // HBMAME not needed
 }
 
 void format_registration::add(floppy_format_type format)
