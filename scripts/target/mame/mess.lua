@@ -1150,6 +1150,7 @@ FORMATS["X07_CAS"] = true
 FORMATS["X1_TAP"] = true
 FORMATS["XDF_DSK"] = true
 FORMATS["ZX81_P"] = true
+FORMATS["FS_PRODOS"] = true
 
 --------------------------------------------------
 -- this is the list of driver libraries that
