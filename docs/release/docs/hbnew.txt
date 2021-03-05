@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [alienresp]           Alien Rescue (non-working prototype)
 - [dkongtj]             Donkey Kong Twisted Jungle v1.05
 
 

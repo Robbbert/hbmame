@@ -325,8 +325,24 @@ ROM_START( alienres )
 	ROM_LOAD( "alienres.5e",  0x0000, 0x1000, CRC(57ae12e7) SHA1(5c9de2cf75b183484c6d22b999ba823d69da7268) )
 	ROM_LOAD( "alienres.5f",  0x1000, 0x1000, CRC(097eca05) SHA1(f863108e2cc5419b239e3cf02854438701f3ef28) )
 
-	//ROM_REGION( 0x0400, "user1", 0 ) // unused
-	//ROM_LOAD( "alienres.1k",  0x0000, 0x0400, CRC(b9d2e5e6) SHA1(82546b7ecf9e46374b1af1ad32f582b4d35bddd1) )
+	ROM_REGION( 0x0400, "user1", 0 ) // unused
+	ROM_LOAD_OPTIONAL( "alienres.1k",  0x0000, 0x0400, CRC(b9d2e5e6) SHA1(82546b7ecf9e46374b1af1ad32f582b4d35bddd1) )
+
+	PACMAN_PROMS
+ROM_END
+
+// Alien Rescue, stuck at first screen. Assumed to be a non-working prototype.
+ROM_START( alienresp )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "alienresp.6e",  0x0000, 0x1000, CRC(4d94ce2a) SHA1(c36f60b046f45da03f1a6218195d7ca0b2eb8ef8) )
+	ROM_LOAD( "alienresp.6f",  0x1000, 0x1000, CRC(5f81d441) SHA1(dd8035fff171306f90ab382f1decca322a3223f3) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "alienresp.5e",  0x0000, 0x1000, CRC(ab38f274) SHA1(bf623e0a2ac855186319be6f2e96fd1ecabab84a) )
+	ROM_LOAD( "alienresp.5f",  0x1000, 0x1000, CRC(ce1c6cb2) SHA1(fae57b9105a3768536b71c9b07a33fdcea91df10) )
+
+	ROM_REGION( 0x0400, "user1", 0 ) // unused
+	ROM_LOAD_OPTIONAL( "alienres.1k",  0x0000, 0x0400, CRC(b9d2e5e6) SHA1(82546b7ecf9e46374b1af1ad32f582b4d35bddd1) )
 
 	PACMAN_PROMS
 ROM_END
@@ -886,10 +902,11 @@ GAME( 2012, tinyworld, 0,        pacman,   mspacman, puckman_state, empty_init, 
 /* Other Misc Hacks */
 
 GAME( 2002, alienres,  0,        pacman,   pacman,   puckman_state, empty_init,          ROT90,  "MonstersGoBoom", "Alien Rescue", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, alienresp, alienres, pacman,   pacman,   puckman_state, empty_init,          ROT90,  "MonstersGoBoom", "Alien Rescue (non-working prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, crashh,    0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "hack", "Crash (Pac-Man)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, mtturbo,   0,        maketrax, maketrax, puckman_state, init_maketrax,   ROT270, "Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
+GAME( 1981, mtturbo,   0,        maketrax, maketrax, puckman_state, init_maketrax,       ROT270, "Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
 GAME( 1999, tst_pacm,  0,        pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "David Caldwell", "Test - Pacman Hardware", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
-GAME( 1982, eyesb,     eyes,     pacman,   eyes,     puckman_state, init_eyes,       ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, eyesb,     eyes,     pacman,   eyes,     puckman_state, init_eyes,           ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ghohunt,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Ghost Hunt", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, pactetris, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Ben Leperchey", "Tetris on Pacman hardware (incomplete)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, deathstar, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star", MACHINE_SUPPORTS_SAVE )
