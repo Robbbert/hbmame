@@ -406,7 +406,7 @@ To reset the NVRAM in Othello Derby, hold P1 Button 1 down while booting.
 #define UNICODE_YEN             "\xC2\xA5"
 #define PWRKICK_HOPPER_PULSE    50          // time between hopper pulses in milliseconds (probably wrong)
 
-//#define TRUXTON2_STEREO       /* Uncomment to hear truxton2 music in stereo */
+#define TRUXTON2_STEREO       /* Uncomment to hear truxton2 music in stereo */  // HBMAME let's try this
 
 constexpr unsigned toaplan2_state::T2PALETTE_LENGTH;
 
