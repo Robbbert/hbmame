@@ -13106,6 +13106,9 @@ einst256                        //
 einstein                        //
 
 @source:elan_ep3a19a.cpp
+tvbg3a
+tvbg3b
+tvbg3c
 tvbg6a
 tvbg6b
 
@@ -13680,7 +13683,7 @@ checkc4                         //
 @source:fidel_cc7.cpp
 backgamc                        //
 cc7                             //
-cc7o                            //
+cc7a                            //
 
 @source:fidel_chesster.cpp
 chesster                        //
@@ -23550,11 +23553,13 @@ vs215                           // 1997.06 Virtua Striker 2
 vs215o                          // 1997.06 Virtua Striker 2
 vs298                           // 1998.05 Virtua Striker 2 ver.98
 vs29815                         // 1998.05 Virtua Striker 2 ver.98
-vs299                           // 1998.12 Virtual Striker 2 ver.99
-vs29915                         // 1999.?? Virtual Striker 2 ver.99 (Step 1.5)
-vs299a                          // 1999.?? Virtual Striker 2 ver.99 (rev A)
-vs299b                          // 1999.?? Virtual Striker 2 ver.99 (rev B)
-vs2v991                         // 1999.?? Virtual Striker 2 ver.99.1
+vs299                           // 1998.12 Virtual Striker 2 ver.99 (Export / USA, )
+vs29915                         // 1999.?? Virtual Striker 2 ver.99.1 (Step 1.5, Export / USA, rev B)
+vs29915a                        // 1999.?? Virtual Striker 2 ver.99 (Step 1.5)
+vs29915j                        // 1999.?? Virtual Striker 2 ver.99.1 (Step 1.5, Japan, rev B)
+vs299a                          // 1999.?? Virtual Striker 2 ver.99 (Export / USA, rev A)
+vs299j                          // 1999.?? Virtual Striker 2 ver.99.1 (Japan, rev B)
+vs2v991                         // 1999.?? Virtual Striker 2 ver.99.1 (Export / USA, rev B)
 
 @source:modellot.cpp
 modellot                        //
@@ -31725,6 +31730,7 @@ monkeyba                        // 2001.05 Monkey Ball
 mslug6                          // 2006.02 Metal Slug 6
 mushi2k4                        // 2004.?? MushiKing The King Of Beetles 2004 Second (Japan)
 mushi2k5                        // 2005.?? MushiKing The King Of Beetles 2005 First (Japan)
+mushi2k61                       // 2006.?? MushiKing The King Of Beetles 2006 First (Japan)
 mushi2k62                       // 2006.?? MushiKing The King Of Beetles 2006 Second (Japan)
 mushike                         // 2004.?? MushiKing The King Of Beetle (2K3 2ND Ver. 1.003-, World)
 mushikeo                        // 2004.?? MushiKing The King Of Beetle (2K3 2ND Ver. 1.002-, World)
