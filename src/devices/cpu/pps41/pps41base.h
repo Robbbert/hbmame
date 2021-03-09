@@ -13,6 +13,12 @@
 
 #include "machine/pla.h"
 
+enum
+{
+	PPS41_INPUT_LINE_INT0 = 0,
+	PPS41_INPUT_LINE_INT1
+};
+
 
 class pps41_base_device : public cpu_device
 {
@@ -31,10 +37,6 @@ public:
 	auto read_r() { return m_read_r.bind(); }
 	auto write_r() { return m_write_r.bind(); }
 
-	// set MCU mask options:
-
-	//..
-
 protected:
 	// construction/destruction
 	pps41_base_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data);
@@ -46,6 +48,8 @@ protected:
 	// device_execute_interface overrides
 	virtual u32 execute_min_cycles() const noexcept override { return 1; }
 	virtual u32 execute_max_cycles() const noexcept override { return 2; }
+	virtual u32 execute_input_lines() const noexcept override { return 2; }
+	virtual void execute_set_input(int line, int state) override;
 	virtual void execute_run() override;
 	virtual void execute_one() = 0;
 
@@ -58,6 +62,7 @@ protected:
 	address_space *m_data;
 
 	int m_icount;
+	int m_state_count;
 
 	// fixed settings or mask options
 	int m_prgwidth; // ROM/RAM address size
@@ -96,6 +101,7 @@ protected:
 	int m_c_in;
 	bool m_c_delay;
 	u8 m_s;
+	u8 m_x;
 	bool m_skip;
 	int m_skip_count;
 
@@ -103,6 +109,8 @@ protected:
 	u16 m_d_mask;
 	u16 m_d_output;
 	u8 m_r_output;
+	int m_int_line[2];
+	int m_int_ff[2];
 
 	// misc handlers
 	virtual bool op_is_tr(u8 op) = 0;

@@ -1,7 +1,7 @@
 // license:BSD-3-Clause
 // copyright-holders:hap
 
-// MM76 opcode handlers
+// MM76/shared opcode handlers
 
 #include "emu.h"
 #include "mm76.h"
@@ -31,11 +31,6 @@ void mm76_device::push_pc()
 	for (int i = m_stack_levels-1; i >= 1; i--)
 		m_stack[i] = m_stack[i-1];
 	m_stack[0] = m_pc;
-}
-
-void mm76_device::op_tr()
-{
-	// TR x: prefix for extended opcode
 }
 
 void mm76_device::op_illegal()
@@ -352,6 +347,11 @@ void mm76_device::op_tml()
 	m_pc = (~m_prev_op & 0xf) << 6 | (~m_op & 0x3f);
 }
 
+void mm76_device::op_tr()
+{
+	// TR x: prefix for extended opcode
+}
+
 void mm76_device::op_nop()
 {
 	// NOP: no operation
@@ -427,26 +427,28 @@ void mm76_device::op_i2c()
 
 void mm76_device::op_int1h()
 {
-	// INT1H: skip on INT1
-	op_todo();
+	// INT1H: skip on INT1 high
+	m_skip = bool(m_int_line[1]);
 }
 
 void mm76_device::op_din1()
 {
 	// DIN1: test INT1 flip-flop
-	op_todo();
+	m_skip = !m_int_ff[1];
+	m_int_ff[1] = 1;
 }
 
 void mm76_device::op_int0l()
 {
-	// INT1H: skip on INT0
-	op_todo();
+	// INT0L: skip on INT0 low
+	m_skip = !m_int_line[0];
 }
 
 void mm76_device::op_din0()
 {
 	// DIN0: test INT0 flip-flop
-	op_todo();
+	m_skip = !m_int_ff[0];
+	m_int_ff[0] = 1;
 }
 
 void mm76_device::op_seg1()

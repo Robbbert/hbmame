@@ -38,9 +38,11 @@ TODO:
   but again does not explain why
 - documentation is conflicting whether or not MM76/MM75 can (re)set interrupt flip-
   flops with SOS/ROS opcodes
+- allowed opcodes after TAB should be limited
+- add MCU mask options, there's one for inverting interrupts
 - add serial i/o
-- add pseudo interrupts
-- add MM78
+- finish MM78 opcodes
+- add MM78LA
 
 */
 
@@ -69,11 +71,6 @@ pps41_base_device::pps41_base_device(const machine_config &mconfig, device_type 
 //  device_start - device-specific startup
 //-------------------------------------------------
 
-enum
-{
-	PPS41_PC=1, PPS41_A, PPS41_C, PPS41_B, PPS41_S
-};
-
 void pps41_base_device::device_start()
 {
 	m_program = &space(AS_PROGRAM);
@@ -87,6 +84,10 @@ void pps41_base_device::device_start()
 	m_write_d.resolve_safe();
 	m_read_r.resolve_safe(0xff);
 	m_write_r.resolve_safe();
+
+	// init RAM with 0xf
+	for (int i = 0; i <= m_datamask; i++)
+		m_data->write_byte(i, 0xf);
 
 	// zerofill
 	m_pc = 0;
@@ -109,6 +110,7 @@ void pps41_base_device::device_start()
 	m_c_in = 0;
 	m_c_delay = false;
 	m_s = 0;
+	m_x = 0;
 	m_skip = false;
 	m_skip_count = 0;
 
@@ -116,6 +118,8 @@ void pps41_base_device::device_start()
 	m_d_mask = (1 << m_d_pins) - 1;
 	m_d_output = 0;
 	m_r_output = 0;
+	m_int_line[0] = m_int_line[1] = 1;
+	m_int_ff[0] = m_int_ff[1] = 0;
 
 	// register for savestates
 	save_item(NAME(m_pc));
@@ -138,21 +142,25 @@ void pps41_base_device::device_start()
 	save_item(NAME(m_c_in));
 	save_item(NAME(m_c_delay));
 	save_item(NAME(m_s));
+	save_item(NAME(m_x));
 	save_item(NAME(m_skip));
 	save_item(NAME(m_skip_count));
 
 	save_item(NAME(m_d_output));
 	save_item(NAME(m_r_output));
+	save_item(NAME(m_int_line));
+	save_item(NAME(m_int_ff));
 
 	// register state for debugger
 	state_add(STATE_GENPC, "GENPC", m_pc).formatstr("%03X").noshow();
 	state_add(STATE_GENPCBASE, "CURPC", m_prev_pc).formatstr("%03X").noshow();
-	state_add(PPS41_PC, "PC", m_pc).formatstr("%03X");
 
-	state_add(PPS41_A, "A", m_a).formatstr("%01X");
-	state_add(PPS41_C, "C", m_c_in).formatstr("%01X");
-	state_add(PPS41_B, "B", m_b).formatstr("%02X");
-	state_add(PPS41_S, "S", m_s).formatstr("%01X");
+	m_state_count = 0;
+	state_add(++m_state_count, "PC", m_pc).formatstr("%03X");
+	state_add(++m_state_count, "A", m_a).formatstr("%01X");
+	state_add(++m_state_count, "C", m_c_in).formatstr("%01X");
+	state_add(++m_state_count, "B", m_b).formatstr("%02X");
+	state_add(++m_state_count, "S", m_s).formatstr("%01X");
 
 	set_icountptr(m_icount);
 }
@@ -180,6 +188,36 @@ void pps41_base_device::device_reset()
 	// clear outputs
 	m_write_r(m_r_output = 0xff);
 	m_write_d(m_d_output = 0);
+}
+
+
+//-------------------------------------------------
+//  inputline handling
+//-------------------------------------------------
+
+void pps41_base_device::execute_set_input(int line, int state)
+{
+	state = (state) ? 1 : 0;
+
+	switch (line)
+	{
+		case PPS41_INPUT_LINE_INT0:
+			// reset flip-flop on rising edge
+			if (state && !m_int_line[0])
+				m_int_ff[0] = 0;
+			m_int_line[0] = state;
+			break;
+
+		case PPS41_INPUT_LINE_INT1:
+			// reset flip-flop on falling edge
+			if (!state && m_int_line[1])
+				m_int_ff[1] = 0;
+			m_int_line[1] = state;
+			break;
+
+		default:
+			break;
+	}
 }
 
 

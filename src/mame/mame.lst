@@ -16173,6 +16173,7 @@ uspbball                        // US Games
 
 @source:hh_pps41.cpp
 mastmind                        // Invicta
+memoquiz                        // MEM
 
 @source:hh_sm510.cpp
 auslalom                        // Elektronika
@@ -23620,6 +23621,9 @@ mouserc                         // UPL-83001 (c) 1983
 
 @source:mpc3000.cpp
 mpc3000
+
+@source:mpc60.cpp
+mpc60
 
 @source:mpf1.cpp
 mpf1                            // 1979 Multitech Micro Professor 1
