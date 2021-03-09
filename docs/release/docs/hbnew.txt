@@ -10,6 +10,14 @@ New Games
 - [alienresp]           Alien Rescue (non-working prototype)
 - [dkongtj]             Donkey Kong Twisted Jungle v1.05
 - [truxton2nv]          Truxton 2 (New Version)
+- [umk3uc20200703]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2020-07-03)
+- [umk3uc20201125]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2020-11-25)
+- [umk3uc20201201]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2020-12-01)
+- [umk3uc20201204]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2020-12-04)
+- [umk3uc20201226]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2020-12-26)
+- [umk3uc20210212]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2021-02-12)
+- [umk3uc20210228]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2021-02-28)
+- [umk3uc20210304]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2021-03-04)
 
 
 
