@@ -9,12 +9,12 @@
 
 // internal helpers
 
-inline u8 mm76_device::ram_r()
+u8 mm76_device::ram_r()
 {
 	return m_data->read_byte(m_ram_addr & m_datamask) & 0xf;
 }
 
-inline void mm76_device::ram_w(u8 data)
+void mm76_device::ram_w(u8 data)
 {
 	m_data->write_byte(m_ram_addr & m_datamask, data & 0xf);
 }
@@ -96,11 +96,12 @@ void mm76_device::op_sb()
 	// Bu falling or Bu == 3: SOS
 	if (((m_prev2_b & 0x30) == 0x30 && (m_prev_b & 0x30) != 0x30) || (m_prev_b & 0x30) == 0x30)
 	{
-		if ((m_ram_addr & 0xf) > m_d_pins)
-			logerror("SOS invalid pin %d at $%03X\n", m_ram_addr & 0xf, m_prev_pc);
+		u8 bl = m_ram_addr & 0xf;
+		if (bl > m_d_pins)
+			logerror("SOS invalid pin %d at $%03X\n", bl, m_prev_pc);
 		else
 		{
-			m_d_output = (m_d_output | (1 << (m_ram_addr & 0xf))) & m_d_mask;
+			m_d_output = (m_d_output | (1 << bl)) & m_d_mask;
 			m_write_d(m_d_output);
 		}
 	}
@@ -124,11 +125,12 @@ void mm76_device::op_rb()
 	// Bu falling or Bu == 3: ROS
 	if (((m_prev2_b & 0x30) == 0x30 && (m_prev_b & 0x30) != 0x30) || (m_prev_b & 0x30) == 0x30)
 	{
-		if ((m_ram_addr & 0xf) > m_d_pins)
-			logerror("ROS invalid pin %d at $%03X\n", m_ram_addr & 0xf, m_prev_pc);
+		u8 bl = m_ram_addr & 0xf;
+		if (bl > m_d_pins)
+			logerror("ROS invalid pin %d at $%03X\n", bl, m_prev_pc);
 		else
 		{
-			m_d_output = m_d_output & ~(1 << (m_ram_addr & 0xf));
+			m_d_output = m_d_output & ~(1 << bl);
 			m_write_d(m_d_output);
 		}
 	}
@@ -152,10 +154,11 @@ void mm76_device::op_skbf()
 	// Bu falling or Bu == 3: SKISL
 	if (((m_prev2_b & 0x30) == 0x30 && (m_prev_b & 0x30) != 0x30) || (m_prev_b & 0x30) == 0x30)
 	{
-		if ((m_ram_addr & 0xf) > m_d_pins)
-			logerror("SKISL invalid pin %d at $%03X\n", m_ram_addr & 0xf, m_prev_pc);
+		u8 bl = m_ram_addr & 0xf;
+		if (bl > m_d_pins)
+			logerror("SKISL invalid pin %d at $%03X\n", bl, m_prev_pc);
 		else
-			m_skip = !BIT((m_d_output | m_read_d()) & m_d_mask, m_ram_addr & 0xf);
+			m_skip = !BIT((m_d_output | m_read_d()) & m_d_mask, bl);
 	}
 
 	// Bu != 3: SKBF
@@ -172,12 +175,14 @@ void mm76_device::op_xas()
 	u8 a = m_a;
 	m_a = m_s;
 	m_s = a;
+	m_write_sdo(BIT(m_s, 3));
 }
 
 void mm76_device::op_lsa()
 {
 	// LSA: load S from A
 	m_s = m_a;
+	m_write_sdo(BIT(m_s, 3));
 }
 
 
@@ -410,7 +415,7 @@ void mm76_device::op_oa()
 void mm76_device::op_ios()
 {
 	// IOS: start serial I/O
-	op_todo();
+	m_sclock_count = 8;
 }
 
 void mm76_device::op_i1()

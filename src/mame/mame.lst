@@ -1094,9 +1094,11 @@ maddog2_100                     // (c) 1992
 maddog2_110                     // (c) 1992
 maddog2_202                     // (c) 1992
 maddoga                         // (c) 1990
-marvice                         // (c) 1994
+marvice                         // (c) 1994 Web Picmatic
+marvice100hz                    // (c) 1994 Web Picmatic
 spacepir                        // (c) 1992
 spacepir_14                     // (c) 1992
+tierras100hz                    // (c) 1995 Web Picmatic
 wsjr                            // (c) 1991
 wsjr_15                         // (c) 1991
 zortonbr                        // (c) 1994 Web Picmatic
@@ -16174,6 +16176,7 @@ uspbball                        // US Games
 @source:hh_pps41.cpp
 mastmind                        // Invicta
 memoquiz                        // MEM
+scrabsen                        // Selchow & Righter
 
 @source:hh_sm510.cpp
 auslalom                        // Elektronika

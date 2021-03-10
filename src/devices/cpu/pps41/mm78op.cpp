@@ -54,19 +54,67 @@ void mm78_device::op_skbf()
 void mm78_device::op_sos()
 {
 	// SOS: SB/SOS opcodes are separated
-	op_todo();
+
+	// B7 must be low
+	if (m_ram_addr & 0x40)
+	{
+		logerror("SOS invalid access at $%03X\n", m_prev_pc);
+		return;
+	}
+
+	u8 bl = m_ram_addr & 0xf;
+	if (bl < 10)
+	{
+		m_d_output = (m_d_output | (1 << bl)) & m_d_mask;
+		m_write_d(m_d_output);
+	}
+	else if (bl < 12)
+		m_int_ff[~bl & 1] = 1;
+	else
+		logerror("SOS invalid pin %d at $%03X\n", bl, m_prev_pc);
 }
 
 void mm78_device::op_ros()
 {
 	// ROS: RB/ROS opcodes are separated
-	op_todo();
+
+	// B7 must be low
+	if (m_ram_addr & 0x40)
+	{
+		logerror("ROS invalid access at $%03X\n", m_prev_pc);
+		return;
+	}
+
+	u8 bl = m_ram_addr & 0xf;
+	if (bl < 10)
+	{
+		m_d_output = m_d_output & ~(1 << bl);
+		m_write_d(m_d_output);
+	}
+	else if (bl < 12)
+		m_int_ff[~bl & 1] = 0;
+	else
+		logerror("ROS invalid pin %d at $%03X\n", bl, m_prev_pc);
 }
 
 void mm78_device::op_skisl()
 {
 	// SKISL: SKBF/SKISL opcodes are separated
-	op_todo();
+
+	// B7 must be low
+	if (m_ram_addr & 0x40)
+	{
+		logerror("SKISL invalid access at $%03X\n", m_prev_pc);
+		return;
+	}
+
+	u8 bl = m_ram_addr & 0xf;
+	if (bl < 10)
+		m_skip = !BIT((m_d_output | m_read_d()) & m_d_mask, bl);
+	else if (bl < 12)
+		m_skip = !m_int_ff[~bl & 1];
+	else
+		logerror("SKISL invalid pin %d at $%03X\n", bl, m_prev_pc);
 }
 
 
@@ -116,19 +164,23 @@ void mm78_device::op_tab()
 void mm78_device::op_ix()
 {
 	// IX: input to X from channel X(aka B)
-	op_todo();
+	m_x = (m_read_r() & m_r_output) >> 4;
 }
 
 void mm78_device::op_ox()
 {
 	// OX: output from X to channel X(aka B)
-	op_todo();
+	m_r_output = (m_r_output & 0xf) | m_x << 4;
+	m_write_r(m_r_output);
 }
 
 void mm78_device::op_ioa()
 {
 	// IOA: exchange A with channel A
-	op_todo();
+	u8 a = m_read_r() & m_r_output & 0xf;
+	m_r_output = (m_r_output & ~0xf) | m_a;
+	m_write_r(m_r_output);
+	m_a = a;
 }
 
 void mm78_device::op_i1sk()
