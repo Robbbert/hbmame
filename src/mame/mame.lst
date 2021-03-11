@@ -15018,6 +15018,8 @@ wrlshunt                        // Wireless: Hunting Video Game System
 bkrankp
 
 @source:generalplus_gpl16250_spi_direct.cpp
+bfmpac
+bfpacman
 fixitflx
 wiwcs
 
@@ -16174,6 +16176,7 @@ us2pfball                       // US Games
 uspbball                        // US Games
 
 @source:hh_pps41.cpp
+ftri1                           // Fonas
 mastmind                        // Invicta
 memoquiz                        // MEM
 scrabsen                        // Selchow & Righter
