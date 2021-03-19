@@ -209,4 +209,4 @@ ROM_START( conquest )
 	ROM_LOAD( "decoder.3",                0x0200, 0x0200, CRC(c3f45f70) SHA1(d19036cbc46b130548873597b44b8b70758f25c4) )
 ROM_END
 
-GAME( 1982, conquest, 0, williams_base,  conquest, williams_state, init_robotron, ROT270, "Vid Kidz", "Conquest (prototype)", MACHINE_IMPERFECT_CONTROLS | MACHINE_SUPPORTS_SAVE )
+GAME( 1982, conquest, 0, williams_base,  conquest, williams_state, init_robotron, ROT270, "Vid Kidz", "Conquest (prototype)", MACHINE_IMPERFECT_CONTROLS | MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
