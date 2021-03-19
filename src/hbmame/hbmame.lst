@@ -8942,6 +8942,7 @@ robotronp	/* Patched to remove the (in the corner) crash */
 robotrontie	// Tie Die set (Vid Kidz)
 splat		//parent
 splatsc1
+conquest
 
 @source:wiz.cpp
 stinger				//parent
