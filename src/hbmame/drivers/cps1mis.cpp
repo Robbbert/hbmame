@@ -1080,12 +1080,12 @@ ROM_START( cps1testma )
 	ROM_LOAD ( "megaman.key", 0x00, 0x80, CRC(9c89eb62) SHA1(e67a3ed58f82875cff4861c14bd701b54dcc111f) )
 ROM_END
 
-ROM_START( cps1xx )
+ROM_START( cps1xx )  // not working, bad tiles
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD( "cps1xx.68k",      0x000000, 0x010000, CRC(0a5437b6) SHA1(eb0f1b8cc8b085bffb9725cca5b4ab8bafed23bd) )
+	ROM_LOAD( "cps1xx.68k",      0x000000, 0x010000, CRC(fa0eadbb) SHA1(1a40edf3644a56d50ff295813e45c4f82ae48f7f) )
 
 	ROM_REGION( 0x200000, "gfx", 0 )
-	ROM_LOAD( "cps1xx.tile",     0x000000, 0x200000, CRC(e357205f) SHA1(4eafc81273273b3a1b8d9e3fedbbe3b87fd9acaf) ) // wrong layout
+	ROM_LOAD( "cps1xx.tile",     0x000000, 0x200000, CRC(62539487) SHA1(4a3213e8088cb1e0aee1358b68225073685c1f4e) )
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "ff_09.12b",   0x00000, 0x08000, CRC(b8367eb5) SHA1(ec3db29fdd6200e9a8f4f8073a7e34aef731354f) )
