@@ -131,10 +131,10 @@ GAME( 2014, robotrontie, robotron, williams_base,  robotron, williams_state, ini
 
 
 // CONQUEST
-/* Unfinished game from Williams
+/* Unfinished game from Williams.
 
-Game status: works but the rotary encoder is unknown and not emulated.
-             You can turn left by tapping the <- key, but you can't turn right.
+The rotary encoder is of the "absolute" type - it outputs 4-bit 0 to 15 to
+indicate the position. 0 = up, 8 = down, etc.
 
 SUPPLIED NOTES:
 This ROM set has been made available with the consent of its co-author, 
@@ -176,25 +176,54 @@ Play an emulation of this ROM set at http://www.codemystics.com/conquest.
 
 */
 
+class conquest_hbmame : public williams_state
+{
+public:
+	conquest_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: williams_state(mconfig, type, tag)
+	{ }
+
+	ioport_value read_lower() { read_the_dial(); return BIT(m_dial, 5, 2); } // first digit '5' varies the speed of turning
+	ioport_value read_upper() { read_the_dial(); return BIT(m_dial, 7, 2); } // first digit '7' must always be +2 of above first digit
+
+private:
+
+	u16 m_dial = 0;
+	void read_the_dial();
+};
+
 static INPUT_PORTS_START( conquest )
 	PORT_START("IN0")
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Fire")
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_NAME("Thrust")
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )  // rotary encoder bit 2
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) // keep tapping this to turn  // rotary encoder bit 3
+	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(conquest_hbmame, read_lower) // custom handler wants 0-3, which gets upscaled
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_START2 )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_UNUSED )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN1")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )  // rotary encoder bit 0
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )  // rotary encoder bit 1
+	PORT_BIT( 0x03, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(conquest_hbmame, read_upper)
 	PORT_BIT( 0xfc, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN2")
 	// not used?
+
+	PORT_START("DIAL")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT) PORT_NAME("Left")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT) PORT_NAME("Right")
 INPUT_PORTS_END
+
+void conquest_hbmame::read_the_dial()
+{
+	u8 data = ioport("DIAL")->read();
+	if (data == 1)
+		m_dial++;
+	else
+	if (data == 2)
+		m_dial--;
+	return;
+}
 
 ROM_START( conquest )
 	ROM_REGION( 0x19000, "maincpu", 0 )
@@ -209,4 +238,4 @@ ROM_START( conquest )
 	ROM_LOAD( "decoder.3",                0x0200, 0x0200, CRC(c3f45f70) SHA1(d19036cbc46b130548873597b44b8b70758f25c4) )
 ROM_END
 
-GAME( 1982, conquest, 0, williams_base,  conquest, williams_state, init_robotron, ROT270, "Vid Kidz", "Conquest (prototype)", MACHINE_IMPERFECT_CONTROLS | MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 1982, conquest, 0, williams_base,  conquest, conquest_hbmame, init_robotron, ROT270, "Vid Kidz", "Conquest (prototype)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
