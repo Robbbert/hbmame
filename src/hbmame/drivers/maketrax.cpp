@@ -258,6 +258,20 @@ void puckman_state::init_maketrax()
  *
  *************************************/
 
+ROM_START( 100doors )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "100doors.6e",  0x0000, 0x1000, CRC(b8c27195) SHA1(0f5eab4fa3f5cb44ee5cfff58e57b5694bc18645) )
+	ROM_LOAD( "100doors.6f",  0x1000, 0x1000, CRC(8f936d42) SHA1(e94d8c24096c45bdf9c0c434883ee4a068340d30) )
+	ROM_LOAD( "100doors.6h",  0x2000, 0x1000, CRC(10068710) SHA1(d3830a095bbd40673b83d58723e4aaafbb0e557d) )
+	ROM_LOAD_OPTIONAL( "100doors.6j",  0x3000, 0x1000, CRC(c71c0011) SHA1(1ceaf73df40e531df3bfb26b4fb7cd95fb7bff1d) ) // empty
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "100doors.5e",  0x0000, 0x1000, CRC(1a2bc077) SHA1(7e8f64c284d711ebcd26b83fa6d0c8b283b45fe6) )
+	ROM_LOAD( "ghohunt.5f",   0x1000, 0x1000, CRC(3ad83b13) SHA1(d2ce7ab45cb540f35cb23264e7628ac0ee6b8559) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( aa )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "aa.1",         0x0000, 0x1000, CRC(7b73ff28) SHA1(3b05c9ecaa418291b9b3501fbfd4a1e48be7281e) )
@@ -914,6 +928,7 @@ GAME( 2019, deathstar2,puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2017, scroller,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Scroller", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, snakes2,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, 100doors,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "100 doors", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/

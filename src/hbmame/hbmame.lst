@@ -4068,6 +4068,7 @@ uccopsjs01
 
 @source:maketrax.cpp
 eyes			//parent
+100doors                 // HB - Hurray Banana
 aa				/* HB - Widel Games */
 abscam			// GL 1982
 absurd			/* HB - scott - nonworking alpha ver 3 */
