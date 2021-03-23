@@ -12,7 +12,7 @@
     Unitron 1024: Brazilian Mac Plus clone.
 
     Driver by R. Belmont and O. Galibert, with thanks to the original Mac
-    driver authors Nathan Woods and Raphel Nabet.
+    driver authors Nathan Woods and Raphael  Nabet.
     Thanks also to SCSI guru Patrick Mackinlay and keyboard/mouse wrangler
     Vas Crabb.
 
@@ -193,6 +193,8 @@ private:
 	void ram_w_se(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	uint16_t ram_600000_r(offs_t offset);
 	void ram_600000_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~ 0);
+	void via_sync();
+	void via_sync_end();
 	uint16_t mac_via_r(offs_t offset);
 	void mac_via_w(offs_t offset, uint16_t data);
 	uint16_t mac_autovector_r(offs_t offset);
@@ -253,7 +255,6 @@ private:
 	int m_scsi_drq;
 
 	// wait states for accessing the VIA
-	int m_via_cycles;
 	bool m_snd_enable;
 	bool m_main_buffer;
 	int m_snd_vol;
@@ -304,7 +305,6 @@ void mac128_state::machine_start()
 
 void mac128_state::machine_reset()
 {
-	m_via_cycles = -10;
 	m_last_taken_interrupt = -1;
 	m_overlay = 1;
 	m_screen_buffer = 1;
@@ -680,6 +680,36 @@ WRITE_LINE_MEMBER(mac128_state::mac_via_irq)
 	set_via_interrupt(state);
 }
 
+void mac128_state::via_sync()
+{
+	// The VIA runs from the E clock of the 68k and uses VPA.
+
+	// That means:
+	// - The 68000 starts the access cycle, with AS and the address bus.  It's validated at cycle+1.
+
+	// - The glue chip sets VPA.  The 68000 sees it and acts on it at cycle+2.
+
+	// - Between cycle+2 and cycle+11, the E clock goes up.  The VIA
+	// is synced on that clock, so that's at a multiple of 10 in
+	// absolute time
+
+	// - 4 cycles later E goes down and that's the end of the access, 
+
+	// We sync on the start of cycle (so that the via timings go ok)
+	// then on the end on via_sync_end()
+
+	uint64_t cur_cycle = m_maincpu->total_cycles();
+	uint64_t vpa_cycle = cur_cycle+2;
+	uint64_t via_start_cycle = (vpa_cycle + 9) / 10;
+	uint64_t m68k_start_cycle = via_start_cycle * 10;
+	m_maincpu->adjust_icount(cur_cycle - m68k_start_cycle); // 4 cycles already counted by the core
+}
+
+void mac128_state::via_sync_end()
+{
+	m_maincpu->adjust_icount(-4);
+}
+
 uint16_t mac128_state::mac_via_r(offs_t offset)
 {
 	uint16_t data;
@@ -687,10 +717,11 @@ uint16_t mac128_state::mac_via_r(offs_t offset)
 	offset >>= 8;
 	offset &= 0x0f;
 
+	via_sync();
+
 	data = m_via->read(offset);
 
-	m_maincpu->adjust_icount(m_via_cycles);
-
+	via_sync_end();
 	return (data & 0xff) | (data << 8);
 }
 
@@ -699,9 +730,11 @@ void mac128_state::mac_via_w(offs_t offset, uint16_t data)
 	offset >>= 8;
 	offset &= 0x0f;
 
+	via_sync();
+
 	m_via->write(offset, (data >> 8) & 0xff);
 
-	m_maincpu->adjust_icount(m_via_cycles);
+	via_sync_end();
 }
 
 void mac128_state::mac_autovector_w(offs_t offset, uint16_t data)
@@ -1163,7 +1196,7 @@ void mac128_state::macse(machine_config &config)
 	config.device_remove("pds");
 	config.device_remove("scsibus");
 
-	IWM(config.replace(), m_iwm, C7M);
+	IWM(config.replace(), m_iwm, C7M*2);
 	m_iwm->phases_cb().set(FUNC(mac128_state::phases_w));
 	m_iwm->devsel_cb().set(FUNC(mac128_state::devsel_se_w));
 
@@ -1382,12 +1415,12 @@ ROM_END
 
 /*    YEAR  NAME      PARENT   COMPAT  MACHINE   INPUT    CLASS         INIT              COMPANY              FULLNAME */
 //COMP( 1983, mactw,    0,       0,      mac128k,  macplus, mac128_state, mac_driver_init, "Apple Computer",    "Macintosh (4.3T Prototype)",  MACHINE_NOT_WORKING )
-COMP( 1984, mac128k,  0,       0,      mac128k,  macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh 128k",  MACHINE_SUPPORTS_SAVE )
-COMP( 1984, mac512k,  mac128k, 0,      mac512k,  macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh 512k",  MACHINE_SUPPORTS_SAVE )
-COMP( 1986, mac512ke, macplus, 0,      mac512ke, macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh 512ke", MACHINE_SUPPORTS_SAVE )
-COMP( 1985, unitron,  macplus, 0,      mac512ke, macplus, mac128_state, mac_driver_init,  "bootleg (Unitron)", "Mac 512",  MACHINE_SUPPORTS_SAVE )
-COMP( 1986, macplus,  0,       0,      macplus,  macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh Plus",  MACHINE_SUPPORTS_SAVE )
-COMP( 1985, utrn1024, macplus, 0,      macplus,  macplus, mac128_state, mac_driver_init,  "bootleg (Unitron)", "Unitron 1024",  MACHINE_SUPPORTS_SAVE )
+COMP( 1984, mac128k,  0,       0,      mac128k,  macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh 128k",  MACHINE_NOT_WORKING )
+COMP( 1984, mac512k,  mac128k, 0,      mac512k,  macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh 512k",  MACHINE_NOT_WORKING )
+COMP( 1986, mac512ke, macplus, 0,      mac512ke, macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh 512ke", MACHINE_NOT_WORKING )
+COMP( 1985, unitron,  macplus, 0,      mac512ke, macplus, mac128_state, mac_driver_init,  "bootleg (Unitron)", "Mac 512",  MACHINE_NOT_WORKING )
+COMP( 1986, macplus,  0,       0,      macplus,  macplus, mac128_state, mac_driver_init,  "Apple Computer",    "Macintosh Plus",  MACHINE_NOT_WORKING )
+COMP( 1985, utrn1024, macplus, 0,      macplus,  macplus, mac128_state, mac_driver_init,  "bootleg (Unitron)", "Unitron 1024",  MACHINE_NOT_WORKING )
 COMP( 1987, macse,    0,       0,      macse,    macadb, mac128_state,  mac_driver_init,  "Apple Computer",   "Macintosh SE",  MACHINE_NOT_WORKING )
-COMP( 1987, macsefd,  0,       0,      macsefd,  macadb, mac128_state,  mac_driver_init,  "Apple Computer",   "Macintosh SE (FDHD)",  MACHINE_SUPPORTS_SAVE )
-COMP( 1990, macclasc, 0,       0,      macclasc, macadb, mac128_state,  mac_driver_init,  "Apple Computer",   "Macintosh Classic",  MACHINE_SUPPORTS_SAVE )
+COMP( 1987, macsefd,  0,       0,      macsefd,  macadb, mac128_state,  mac_driver_init,  "Apple Computer",   "Macintosh SE (FDHD)",  MACHINE_NOT_WORKING )
+COMP( 1990, macclasc, 0,       0,      macclasc, macadb, mac128_state,  mac_driver_init,  "Apple Computer",   "Macintosh Classic",  MACHINE_NOT_WORKING )
