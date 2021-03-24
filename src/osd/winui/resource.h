@@ -615,6 +615,7 @@
 #define ID_PLAY_MNG                     40112
 #define ID_PLAY_M1                      40113
 #define ID_NOTEPAD                      40114
+#define ID_RC_CLEAN                     40115
 #define ID_VIEW_TAB_ARTWORK             40120
 #define ID_VIEW_TAB_BOSSES              40121
 #define ID_VIEW_TAB_CABINET             40122
