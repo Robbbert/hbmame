@@ -7,8 +7,9 @@
 
 New Games
 ---------------------------------
-- [100doors]            100 doors (demo)
+- [100doors]            100 doors
 - [alienresp]           Alien Rescue (non-working prototype)
+- [bacman]              Bac-Man
 - [conquest]            Conquest (prototype)
 - [dkongtj]             Donkey Kong Twisted Jungle v1.05
 - [truxton2nv]          Truxton 2 (New Version)

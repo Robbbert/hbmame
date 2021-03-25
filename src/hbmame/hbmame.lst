@@ -8349,6 +8349,7 @@ soldivids01
 
 @source:puckman.cpp
 abortman 	/* Paul C Copeland hack of Puckman */
+bacman
 baby2		/* T-Bone hack */
 baby3		/* T-Bone hack */
 baby4		/* T-Bone hack */
