@@ -3330,10 +3330,6 @@ bbustersu                       // A9003 'BB' (c) 1989
 bbustersua                      // A9003 'BB' (c) 1989
 bbustersj                       //
 bbustersja                      //
-mechatt                         // A8002 'MA' (c) 1989
-mechattj                        // A8002 'MA' (c) 1989
-mechattu                        // A8002 'MA' (c) 1989
-mechattu1                       // A8002 'MA' (c) 1989
 
 @source:bcs3.cpp
 bcs3                            //
@@ -10301,6 +10297,7 @@ outr2sto                        // 2004.09 Outrun 2 Special Tours
 outr2st                         // 2004.12 Outrun 2 Special Tours (Rev A)
 outr2stj                        // 2004.12 Outrun 2 Special Tours (Japan) (Rev A)
 scg05nt                         // 2004.10 Sega Golf Club Network Pro Tour 2005 (Rev C) (GDX-0010C)
+scg05ntb                        // 2004.10 Sega Golf Club Network Pro Tour 2005 (Rev B) (GDX-0010B)
 scg06nt                         // 2005.12 Sega Golf Club 2006: Next Tours (Rev A)
 vcop3a                          // 2003.02.26 Virtua Cop 3 (Rev A)
 vcop3                           // 2003.05.21 Virtua Cop 3 (Rev B)
@@ -22443,6 +22440,12 @@ cgunship                        // (c) 1976 Meadows
 ckidzo                          // (c) 1976 Meadows
 mead4in1                        // (c) 197? Meadows
 
+@source:mechatt.cpp
+mechatt                         // A8002 'MA' (c) 1989
+mechattj                        // A8002 'MA' (c) 1989
+mechattu                        // A8002 'MA' (c) 1989
+mechattu1                       // A8002 'MA' (c) 1989
+
 @source:mediagx.cpp
 a51site4                        // ??           (c) 1998
 a51site4a                       // Sept.11,1998     (c) 1998
@@ -32476,6 +32479,7 @@ nespal                          // Nintendo Entertainment System PAL
 
 @source:nes_clone.cpp
 afbm7800
+dancexpt
 dnce2000
 hs36blk
 hs36red
