@@ -667,6 +667,20 @@ ROM_START( baby4 )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( bacman )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "bacman.6e",    0x0000, 0x1000, CRC(12f22a11) SHA1(212f72ce9e8b999f00a0a8a31683e723b82c626a) )
+	ROM_LOAD( "bacman.6f",    0x1000, 0x1000, CRC(6ed094e0) SHA1(b8a9df2526275a993c9e5f67b2dc72a45c882f60) )
+	ROM_LOAD( "bacman.6h",    0x2000, 0x1000, CRC(373f007b) SHA1(a2b5067db2a19129fed16511ea18d2e7e49092e4) )
+	ROM_LOAD( "bacman.6j",    0x3000, 0x1000, CRC(e060d3e2) SHA1(43b30a23c3b9b4370038bdfff8fe7ab0686b6a28) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( brakman )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -3631,7 +3645,8 @@ GAME( 1981, puckmodx, puckmanx, pacmanx,  pacman,   puckman_state, empty_init,  
 /* Misc Pacman Hacks */
 
 GAME( 2001, abortman, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Paul Copeland",  "Abortman", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, bucaneerx, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Bucco", "Buccaneer", MACHINE_SUPPORTS_SAVE ) //The roms of the aristmk6 system have the same name.
+GAME( 2015, bacman,   puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "George Phillips",  "Bac-man (2015-08-22)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, bucaneerx,puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Bucco", "Buccaneer", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, caterpil, puckman,  pacman,   mspacman, puckman_state, empty_init,   ROT90, "Phi", "Caterpillar", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, chtpac,   puckman,  pacman,   pacman0,  puckman_state, empty_init,   ROT90, "[Midway]", "Pacman [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, chtpman2, puckman,  pacman,   pacman0,  puckman_state, empty_init,   ROT90, "[Namco]", "New Puck2 [c]", MACHINE_SUPPORTS_SAVE )

@@ -4,6 +4,7 @@ del build\generated\resource\hbmamevers.rc
 del hbmameui.exe
 if exist hbmameui.exe goto start
 call make64 -j4 "OSD=winui" %1 %2 %3
+color
 if not exist hbmameui.exe goto end
 @del hbmameui.sym
 @del hbmame.sym
@@ -11,6 +12,7 @@ if not exist hbmameui.exe goto end
 del hbmame.exe
 if exist hbmame.exe goto start1
 call make64 "ARCHOPTS='-fuse-ld=lld'" -j4 %1 %2 %3
+color
 if not exist hbmame.exe goto end
 @call v.bat
 :end

@@ -6359,3 +6359,24 @@ GAME( 1996, xmvsfs01,   xmvsf,    cps2,     cps2_2p6b, cps2_state, init_cps2, RO
 GAME( 2015, xmvsfs02,   xmvsf,    cps2,     cps2_2p6b, cps2_state, init_cps2, ROT0,   "hack", "X-Men Vs. Street Fighter (Enhanced Edition 2015-12-04)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, xmvsfs03,   xmvsf,    cps2,     cps2_2p6b, cps2_state, init_cps2, ROT0,   "Blackheart", "X-Men Vs. Street Fighter (Edition Enhanced)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, xmvsfjs01,  xmvsf,    cps2,     cps2_2p6b, cps2_state, init_cps2, ROT0,   "pipi899", "X-Men Vs. Street Fighter (Move The Order To Modify 2008-07-20)", MACHINE_SUPPORTS_SAVE )
+
+
+ROM_START( cps2xx )  // not working, black screen
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD( "cps2xx.68k",      0x000000, 0x010000, CRC(8414c946) SHA1(154f8dc8f86e1dd97f0455da6a1c72efa41a19e0) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD( "cps2xx.tile",     0x000000, 0x400000, CRC(eb9d5a2b) SHA1(61335ce00c2c6cec8a1302dbe6644f8cffc6ac9b) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "cps2xx.z80",   0x00000, 0x08000, CRC(2d3b4220) SHA1(2b2d04d4282550fa9f6e1ad8528f20d1f2ac02eb) )
+	ROM_CONTINUE(             0x10000, 0x18000 )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD( "cps2xx.qs", 0x000000, 0x400000, CRC(627be4da) SHA1(bf7c98ff6dc8921794c26a51846caf0cb834a3e9) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+GAME( 2008, cps2xx, 0, dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "hack", "CPS2XX demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )

@@ -42,7 +42,7 @@ ROM_START( ginganins01 )
 	ROM_REGION( 0x08000, "bgrom", 0 )
 	ROM_LOAD( "gn_11.bin", 0x00000, 0x08000, CRC(f0d0e605) SHA1(0c541e8e036573be1d99ecb71fdb4568ca8cc269) )
 
-	ROM_REGION( 0x20000, "ymsnd", 0 )
+	ROM_REGION( 0x20000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "gn_04.bin", 0x00000, 0x10000, CRC(0ed9133b) SHA1(77f628e8ec28016efac2d906146865ca4ec54bd5) )
 	ROM_LOAD( "gn_03.bin", 0x10000, 0x10000, CRC(f1ba222c) SHA1(780c0bd0045bac1e1bb3209576383db90504fbf3) )
 ROM_END

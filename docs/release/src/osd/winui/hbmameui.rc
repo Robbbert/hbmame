@@ -156,6 +156,7 @@ BEGIN
 		MENUITEM "Play and &Record Input...",   ID_FILE_PLAY_RECORD
 		MENUITEM "Play ProgettoSnaps MP4 movie",ID_VIDEO_SNAP
 		MENUITEM "Read the PDF Manual",         ID_MANUAL
+        MENUITEM "Delete game settings",        ID_RC_CLEAN
 		MENUITEM SEPARATOR
 		MENUITEM "&Add to Custom Folder...",    ID_CONTEXT_ADD_CUSTOM
 		MENUITEM "R&emove From This Folder",    ID_CONTEXT_REMOVE_CUSTOM

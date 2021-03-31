@@ -726,6 +726,34 @@ ROM_START( dkongitd )
 	ROM_LOAD( "v-5e.bpr",      0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
 ROM_END
 
+ROM_START( dkongtj )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkongtj.5et",   0x0000, 0x1000, CRC(63e2a483) SHA1(1e07674b77c51e5a50b5d7bd3bc7a77933e31d94) )
+	ROM_LOAD( "dkongtj.5ct",   0x1000, 0x1000, CRC(ed5c7b13) SHA1(5c3865d50750eb4fd0fc36cccd1fbe3d7e59b29b) )
+	ROM_LOAD( "dkongtj.5bt",   0x2000, 0x1000, CRC(b1990430) SHA1(7a99f07b95f1fb2f7ef0f443f74737153ec446ba) )
+	ROM_LOAD( "dkongtj.5at",   0x3000, 0x1000, CRC(b4e0240a) SHA1(432a73d5f49ccd1c13402c5aac0bb64584de77ce) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",    0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(                0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",    0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "dkongtj.5h",    0x0000, 0x0800, CRC(fccb93d6) SHA1(152e83a2e3002835f260f55adb53079bb502ae6d) )
+	ROM_LOAD( "dkongtj.3pt",   0x0800, 0x0800, CRC(95408f9f) SHA1(2783148806531d427c40b45bf568b45fdd9d3d79) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "dkongtj.4m",    0x0000, 0x0800, CRC(5e77597e) SHA1(8b241f32bb1fec2c2a00ad75cb650c5eadc37bd3) )
+	ROM_LOAD( "dkongtj.4n",    0x0800, 0x0800, CRC(715c29ff) SHA1(b5e544ebdc23b8ae236705f3f128261bb0f61ff6) )
+	ROM_LOAD( "dkongtj.4r",    0x1000, 0x0800, CRC(7b24438d) SHA1(f34d532a11d0bcdd6e28cf0f4d4700e38228ff25) )
+	ROM_LOAD( "dkongtj.4s",    0x1800, 0x0800, CRC(57d3989a) SHA1(3e17f2c197790a1985836ee5652288ce3bd5735d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "dkongtj.2k",    0x0000, 0x0100, CRC(84be5373) SHA1(5d091cbe4002c7f9adbab24b7e4c31409de4be32) )
+	ROM_LOAD( "dkongtj.2j",    0x0100, 0x0100, CRC(a81ca93c) SHA1(349cdb6348cbe1773f217ebacb1f0ece144fa8fd) )
+	ROM_LOAD( "v-5e.bpr",      0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
 
 
 GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong (US set 1 with barrel control coloring)", MACHINE_SUPPORTS_SAVE )
@@ -752,5 +780,6 @@ GAME( 2020, dkongran1, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2020, dkongss,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Skip Start v1.00", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongotr,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong On the Run v1.02", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongitd,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong In the Dark v1.02", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, dkongtj,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Twisted Jungle v1.05", MACHINE_SUPPORTS_SAVE )
 
 

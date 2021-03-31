@@ -128,3 +128,114 @@ GAME( 1982, splatsc1,    splat,    williams_muxed, splat,    williams_muxed_stat
 GAME( 2012, robotron201, robotron, williams_base,  robotron, williams_state, init_robotron, ROT0, "Sean Riddle", "Robotron: 2084 (Hacked Patched Blue-201)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, robotronp,   robotron, williams_base,  robotron, williams_state, init_robotron, ROT0, "Christian Gingras / Sean Riddle", "Robotron: 2084 (Patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, robotrontie, robotron, williams_base,  robotron, williams_state, init_robotron, ROT0, "Vid Kidz", "Robotron: 2084 (Tie Die)", MACHINE_SUPPORTS_SAVE )
+
+
+// CONQUEST
+/* Unfinished game from Williams.
+
+The rotary encoder is of the "absolute" type - it outputs 4-bit 0 to 15 to
+indicate the position. 0 = up, 8 = down, etc.
+
+SUPPLIED NOTES:
+This ROM set has been made available with the consent of its co-author, 
+Larry DeMar.
+
+ConquestA.ROM loads at $0000-$8FFF
+ConquestB.ROM loads at $D000-$FFFF
+
+Being an early prototype, these ROM images have a large amount of empty space.
+
+CMOS is at $CC00-$CFFF, but it appears to expect 8-bits rather than the usual 
+4-bit CMOS for a Williams game.
+
+Architecture is similar to Robotron (including interrupts, raster counter, 
+etc.) but doesn't use a blitter.
+
+Unique PIA functions:
+
+$C804: Bit 0 = Fire
+       Bit 1 = Thrust
+       Bit 2-3 = Bits 2-3 of encoder wheel
+       Bit 4 = 2P Start
+       Bit 5 = 1P Start
+
+$C806: Bits 0-1 = Bits 0-1 of encoder wheel
+       Bit 7 = Cocktail (unused)
+
+The prototype appears to use the Defender's sound ROM.
+
+Game play:
+
+Basic game play has a ship that moves in a 2D scrolling world with scanner,
+similar to Sinistar. Rotate, shoot and thrust. Destroy "Planets" while 
+avoiding or destroying their hums. A wave ends when all planets are 
+destroyed. There is no attract mode implemented so the ROM simply displays
+a solid colour-shifting background until 1P Start or 2P Start is pressed.
+
+Play an emulation of this ROM set at http://www.codemystics.com/conquest.
+
+*/
+
+class conquest_hbmame : public williams_state
+{
+public:
+	conquest_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: williams_state(mconfig, type, tag)
+	{ }
+
+	ioport_value read_lower() { read_the_dial(); return BIT(m_dial, 5, 2); } // first digit '5' varies the speed of turning
+	ioport_value read_upper() { read_the_dial(); return BIT(m_dial, 7, 2); } // first digit '7' must always be +2 of above first digit
+
+private:
+
+	u16 m_dial = 0;
+	void read_the_dial();
+};
+
+static INPUT_PORTS_START( conquest )
+	PORT_START("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("Fire")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_NAME("Thrust")
+	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(conquest_hbmame, read_lower) // custom handler wants 0-3, which gets upscaled
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_START2 )
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START1 )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN1")
+	PORT_BIT( 0x03, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(conquest_hbmame, read_upper)
+	PORT_BIT( 0xfc, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("IN2")
+	// not used?
+
+	PORT_START("DIAL")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT) PORT_NAME("Left")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT) PORT_NAME("Right")
+INPUT_PORTS_END
+
+void conquest_hbmame::read_the_dial()
+{
+	u8 data = ioport("DIAL")->read();
+	if (data == 1)
+		m_dial++;
+	else
+	if (data == 2)
+		m_dial--;
+	return;
+}
+
+ROM_START( conquest )
+	ROM_REGION( 0x19000, "maincpu", 0 )
+	ROM_LOAD( "conquest.b",               0x0d000, 0x3000, CRC(9ec28ac4) SHA1(bcf48af66eed3b9e2c0fcd2413fed8167262cfba) )
+	ROM_LOAD( "conquest.a",               0x10000, 0x9000, CRC(66e77fe6) SHA1(b2cab7a20ebd29ef07e2bac02eede645f740c584) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 )
+	ROM_LOAD( "video_sound_rom_1.ic12",   0xf800, 0x0800, CRC(fefd5b48) SHA1(ceb0d18483f0691978c604db94417e6941ad7ff2) )
+
+	ROM_REGION( 0x0400, "proms", 0 )
+	ROM_LOAD( "decoder.2",                0x0000, 0x0200, CRC(8dd98da5) SHA1(da979604f7a2aa8b5a6d4a5debd2e80f77569e35) )
+	ROM_LOAD( "decoder.3",                0x0200, 0x0200, CRC(c3f45f70) SHA1(d19036cbc46b130548873597b44b8b70758f25c4) )
+ROM_END
+
+GAME( 1982, conquest, 0, williams_base,  conquest, conquest_hbmame, init_robotron, ROT270, "Vid Kidz", "Conquest (prototype)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )

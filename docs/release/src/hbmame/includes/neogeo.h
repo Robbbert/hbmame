@@ -12,7 +12,7 @@
 #include "cpu/z80/z80.h"
 #include "machine/nvram.h"
 #include "machine/watchdog.h"
-#include "sound/2610intf.h"
+#include "sound/ym2610.h"
 #include "machine/upd1990a.h"
 #include "machine/ng_memcard.h"
 #include "machine/gen_latch.h"
@@ -34,8 +34,8 @@
 #define spr_region_size memregion("sprites")->bytes()
 #define fix_region memregion("fixed")->base()
 #define fix_region_size memregion("fixed")->bytes()
-#define ym_region memregion("ymsnd")->base()
-#define ym_region_size memregion("ymsnd")->bytes()
+#define ym_region memregion("ymsnd:adpcma")->base()
+#define ym_region_size memregion("ymsnd:adpcma")->bytes()
 #define audiocpu_region memregion("audiocpu")->base()
 #define audio_region_size memregion("audiocpu")->bytes()
 #define audiocrypt_region memregion("audiocrypt")->base()
