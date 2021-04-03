@@ -712,7 +712,7 @@ files {
 	MAME_DIR .. "src/mame/video/namcos2.cpp",
 	MAME_DIR .. "src/mame/video/namcos2_roz.cpp",
 	MAME_DIR .. "src/mame/video/namcos2_sprite.cpp",
-	MAME_DIR .. "src/mame/video/c45.cpp",
+	MAME_DIR .. "src/mame/video/namco_c45road.cpp",
 	MAME_DIR .. "src/mame/machine/namco65.cpp",
 	MAME_DIR .. "src/mame/machine/namco68.cpp",
 	MAME_DIR .. "src/hbmame/drivers/namcos86.cpp",

@@ -5475,20 +5475,6 @@ mslugxece12
 mslugxece13
 mslugxece14
 
-@source:mystwarr.cpp
-mtlchamp			//parent
-mmaulers			//parent
-metamrph			//parent
-viostorm			//parent
-metamrphs01
-mtlchamps01
-mmaulerss01
-viostorms01
-viostorms02
-viostorms03
-viostorms04
-viostorms05
-
 @source:mspacman.cpp
 mspacman	//parent
 chtmsatk	/* PacMAME Hacks */
@@ -5655,6 +5641,20 @@ pm4n1e
 superabc
 superabco
 
+@source:mystwarr.cpp
+mtlchamp			//parent
+mmaulers			//parent
+metamrph			//parent
+viostorm			//parent
+metamrphs01
+mtlchamps01
+mmaulerss01
+viostorms01
+viostorms02
+viostorms03
+viostorms04
+viostorms05
+
 @source:namcona1.cpp
 knckhead
 knckheadx
@@ -5778,7 +5778,7 @@ pbobblen		// 083
 pnyaa			// 267
 //popbounc		// 237  not needed
 preisle2		// 255
-pspikes2		// 068  not needed
+pspikes2		// 068
 pulstar		// 089
 puzzledp		// 202
 puzzldpr		// 235
