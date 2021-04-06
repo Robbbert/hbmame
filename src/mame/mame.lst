@@ -11091,6 +11091,7 @@ mmancp2u                        // 06/10/1995 (c) 1995 (USA)
 mmancp2ur1                      // 26/09/1995 (c) 1995 (USA)
 mmancp2ur2                      // 25/09/1995 (c) 1995 (USA)
 mmatrix                         // 12/04/2000 (c) 2000 Takumi (USA)
+mmatrixa                        // 12/04/2000 (c) 2000 Takumi (Asia)
 mmatrixd                        //
 mmatrixj                        // 12/04/2000 (c) 2000 Takumi (Japan)
 mpang                           // 10/10/2000 (c) 2000 Mitchell (Euro)
@@ -11612,6 +11613,8 @@ dai                             // DAI
 
 @source:dai3wksi.cpp
 dai3wksi                        // 1979.09 Dai San Wakusei (The Third Planet)
+warp1                           // 1979.12 Warp-1
+warp1bl                         // bootleg
 
 @source:dambustr.cpp
 dambustr                        // (c) 1981 South West Research
@@ -14889,6 +14892,7 @@ mduckspa                        // Mega Duck / Super Quique (Spain)
 
 @source:gba.cpp
 gba                             // Nintendo Game Boy Advance Handheld
+robotech                        // Coleco
 
 @source:gberet.cpp
 gberet                          // GX577 (c) 1985
@@ -14983,6 +14987,7 @@ jak_gtg
 jak_sspop
 jak_hmhsm
 jak_hmg2
+jak_hmpt
 jak_hsmg2
 jak_umdf
 jak_duck
@@ -19359,6 +19364,7 @@ dmx2m                           // 2000 - Dance Maniax 2nd Mix (G*A39 VER. JAA)
 dmx2majp                        // 2001 - Dance Maniax 2nd Mix Append J-Paradise (G*A38 VER. JAA
 dncfrks                         // 2000 - Dance Freaks (G*874 VER. KAA)
 drmn                            // 1999 - DrumMania (GQ881 VER. JAD)
+drmna                           // 1999 - DrumMania (GQ881 VER. JAB)
 drmn10m                         // 2004 - DrumMania 10th Mix (G*D40 VER. JAA)
 drmn2m                          // 1999 - DrumMania 2nd Mix (GE912 VER. JAB)
 drmn2mpu                        // 1999 - DrumMania 2nd Mix Session Power Up Kit (GE912 VER. JAB)
@@ -19410,8 +19416,9 @@ gtrfrksa                        // 1999 - Guitar Freaks (GQ886 VER. AAC)
 gtrfrksj                        // 1999 - Guitar Freaks (GQ886 VER. JAC)
 gtrfrksu                        // 1999 - Guitar Freaks (GQ886 VER. UAC)
 gunmania                        // 2000 - GunMania (GL906 VER. JAA)
-strgchmp                        // 1997 - Steering Champ (GQ710 VER. UAA)
-hndlchmp                        // 1997 - Handle Champ (GQ710 VER. JAB)
+strgchmp                        // 1997 - Steering Champ (GQ710 97/12/18 VER. UAA)
+hndlchmp                        // 1997 - Handle Champ (GQ710 97/12/18 VER. SAA)
+hndlchmpj                       // 1997 - Handle Champ (GQ710 1997/12/08 VER. JAB)
 hypbbc2p                        // 1999 - Hyper Bishi Bashi Champ - 2 Player (GX908 1999/08/24 VER. JAA)
 hypbbc2pk                       // 1999 - Hyper Bishi Bashi Champ - 2 Player (GX908 1999/08/24 VER. KAA)
 hyperbbc                        // 1998 - Hyper Bishi Bashi (GQ876 VER. EAA)
@@ -19426,6 +19433,10 @@ konam80u                        // 1998 - Konami 80's AC Special (GC826 VER. UAA
 mamboagg                        // 2001 - Mambo A Go-Go (GQA40 VER. JAB)
 mamboagga                       // 2001 - Mambo A Go-Go e-Amusement (GQA40 VER. JRB)
 mrtlbeat                        // 2002 - Martial Beat (Martial Beat (G*B47 VER. JBA)
+pcnfrk                          // 1999 - Percussion Freaks (GQ881 VER. EAB)
+pcnfrka                         // 1999 - Percussion Freaks (GQ881 VER. AAB)
+pcnfrkk                         // 1999 - Percussion Freaks (GQ881 VER. KAB)
+pcnfrku                         // 1999 - Percussion Freaks (GQ881 VER. UAB)
 pcnfrk2m                        // 2000 - Percussion Freaks 2nd Mix (GE912 VER. KAA)
 pcnfrk3m                        // 2000 - Percussion Freaks 3rd Mix (G*A23 VER. KAA)
 pcnfrk4m                        // 2001 - Percussion Freaks 4rd Mix (G*A25 VER. AAA)
@@ -32587,6 +32598,7 @@ msimm2
 msinamco
 msisinv
 msifrog
+rbbrite
 rcapnp
 senario25
 ventur25
@@ -38555,7 +38567,7 @@ jak_spdmoa
 conyteni                        //
 conyping                        //
 conyfght
-karaokd2
+sstarkar
 
 @source:spg29x.cpp
 hyprscan                        //
