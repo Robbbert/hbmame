@@ -190,6 +190,19 @@ if (BUSES["ADAMNET"]~=null) then
 	}
 end
 
+---------------------------------------------------
+--
+--@src/devices/bus/adb/adb.h,BUSES["ADB"] = true
+---------------------------------------------------
+
+if (BUSES["ADB"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/adb/adb.cpp",
+		MAME_DIR .. "src/devices/bus/adb/adb.h",
+		MAME_DIR .. "src/devices/bus/adb/adbhle.cpp",
+		MAME_DIR .. "src/devices/bus/adb/adbhle.h",
+	}
+end
 
 ---------------------------------------------------
 --
@@ -2417,8 +2430,8 @@ if (BUSES["A2BUS"]~=null) then
 		MAME_DIR .. "src/devices/bus/a2bus/corvfdc02.h",
 		MAME_DIR .. "src/devices/bus/a2bus/ezcgi.cpp",
 		MAME_DIR .. "src/devices/bus/a2bus/ezcgi.h",
-		MAME_DIR .. "src/devices/bus/a2bus/grapplerplus.cpp",
-		MAME_DIR .. "src/devices/bus/a2bus/grapplerplus.h",
+		MAME_DIR .. "src/devices/bus/a2bus/grappler.cpp",
+		MAME_DIR .. "src/devices/bus/a2bus/grappler.h",
 		MAME_DIR .. "src/devices/bus/a2bus/laser128.cpp",
 		MAME_DIR .. "src/devices/bus/a2bus/laser128.h",
 		MAME_DIR .. "src/devices/bus/a2bus/mouse.cpp",

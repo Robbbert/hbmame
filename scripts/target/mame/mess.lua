@@ -824,6 +824,7 @@ BUSES["ABCKB"] = true
 BUSES["ACORN"] = true
 BUSES["ADAM"] = true
 BUSES["ADAMNET"] = true
+BUSES["ADB"] = true
 BUSES["APF"] = true
 BUSES["APRICOT_EXPANSION"] = true
 BUSES["APRICOT_KEYBOARD"] = true
@@ -4424,6 +4425,7 @@ files {
 	MAME_DIR .. "src/mame/includes/aussiebyte.h",
 	MAME_DIR .. "src/mame/video/aussiebyte.cpp",
 	MAME_DIR .. "src/mame/drivers/ax20.cpp",
+	MAME_DIR .. "src/mame/drivers/basf7100.cpp",
 	MAME_DIR .. "src/mame/drivers/binbug.cpp",
 	MAME_DIR .. "src/mame/drivers/bert.cpp",
 	MAME_DIR .. "src/mame/drivers/besta.cpp",
