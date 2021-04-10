@@ -22782,6 +22782,8 @@ lond32t8
 
 @source:mephisto_mondial.cpp
 mondial                         // 1985 Mephisto Mondial
+
+@source:mephisto_mondial2.cpp
 mondial2                        // 1987 Mephisto Mondial II
 
 @source:mephisto_mondial68k.cpp
@@ -23137,10 +23139,13 @@ mktturbo                        // hack
 nbajam                          // (c) 1993 Midway
 nbajamr1                        // (c) 1993 Midway
 nbajamr2                        // (c) 1993 Midway
-nbajamte                        // (c) 1994 Midway
-nbajamte1                       // (c) 1994 Midway
-nbajamte2                       // (c) 1994 Midway
-nbajamte3                       // (c) 1994 Midway
+nbajamte                        // (c) 1994 Midway (rev 4.0 3/23/94)
+nbajamte1                       // (c) 1994 Midway (rev 1.00 1/17/94)
+nbajamte2                       // (c) 1994 Midway (rev 2.1 2/06/94)
+nbajamte2a                      // (c) 1994 Midway (rev 2.0 1/28/94)
+nbajamte3                       // (c) 1994 Midway (rev 3.0 3/04/94)
+nbajamte3a                      // (c) 1994 Midway (rev 3.0 2/26/94)
+nbajamte4                       // (c) 1994 Midway (rev 4.0 3/03/94)
 nbajamten                       // (c) 1995 Midway
 
 @source:midvunit.cpp
@@ -23170,9 +23175,16 @@ mk3                             // (c) 1994 Midway
 mk3p40                          // (c) 1994 Midway
 mk3r10                          // (c) 1994 Midway
 mk3r20                          // (c) 1994 Midway
-nbahangt                        // (c) 1996 Midway
-nbamht                          // (c) 1996 Midway
-nbamht1                         // (c) 1996 Midway
+nbahangt                        // (c) 1996 Midway (ver L1.3 10/10/96)
+nbahangtl11                     // (c) 1996 Midway (ver L1.1 4/16/96)
+nbahangtm11                     // (c) 1996 Midway (ver M1.1 4/16/96)
+nbahangtl12                     // (c) 1996 Midway (ver L1.2 8/29/96)
+nbahangtm12                     // (c) 1996 Midway (ver M1.2 8/29/96)
+nbahangtm13                     // (c) 1996 Midway (ver M1.3 10/10/96)
+nbamht                          // (c) 1996 Midway (ver L1.03 06/09/97)
+nbamhtl10                       // (c) 1996 Midway (ver L1.0 11/08/96)
+nbamhtm10                       // (c) 1996 Midway (ver M1.0 11/08/96)
+nbamhtp                         // (c) 1996 Midway (ver L0.9 10/30/96)
 openice                         // (c) 1995 Midway
 openicea                        // (c) 1995 Midway
 rmpgwt                          // (c) 1997 Midway
@@ -23218,6 +23230,7 @@ narc1                           // (c) 1988 Williams
 narc2                           // (c) 1988 Williams
 narc3                           // (c) 1988 Williams
 narc4                           // (c) 1988 Williams
+narc6                           // (c) 1988 Williams
 shimpact                        // (c) 1991 Midway
 shimpactp4                      // (c) 1991 Midway
 shimpactp5                      // (c) 1991 Midway
@@ -23236,11 +23249,13 @@ term2lg1                        // (c) 1992 Midway
 term2pa2                        // (c) 1992 Midway
 totcarn                         // (c) 1992 Midway
 totcarnp                        // (c) 1992 Midway
-trog                            // (c) 1990 Midway
-trog3                           // (c) 1990 Midway
-trog4                           // (c) 1990 Midway
-trogpa4                         // (c) 1990 Midway
-trogpa6                         // (c) 1990 Midway
+trog                            // (c) 1990 Midway (rev LA5 3/29/91)
+trog3                           // (c) 1990 Midway (rev LA3 2/14/91)
+trog3a                          // (c) 1990 Midway (rev LA3 2/10/91)
+trog4                           // (c) 1990 Midway (rev LA4 3/11/91)
+trogpa4                         // (c) 1990 Midway (rev 4.00 7/27/90)
+trogpa5                         // (c) 1990 Midway (rev PA5-PAC 8/28/90)
+trogpa6                         // (c) 1990 Midway (rev PA6-PAC 9/09/90)
 
 @source:midzeus.cpp
 crusnexo                        // (c) 1999 Midway (v2.4) Latest offical release
@@ -32976,8 +32991,9 @@ ssensor4
 supercon
 
 @source:novag_diablo.cpp
-diablo68                        //
-scorpio68                       //
+diablo68
+diablo68a
+scorpio68
 
 @source:novag_micro.cpp
 nmicro
@@ -37105,6 +37121,7 @@ goldnaxejd                      //
 goldnaxeu                       // (c) 1989 (FD1094)
 goldnaxeud                      //
 hwchamp                         // (c) 1987 (Unprotected)
+hwchampa                        // (c) 1987 (Unprotected)
 hwchampj                        // (c) 1987 (FD1094)
 hwchampjd                       //
 isgsm                           //
@@ -41660,6 +41677,7 @@ heiankyo                        // (c) [1979?] Denki Onkyo
 hocrash                         // bootleg
 invds                           // 367-382 (c) 1979 Sega
 invho2                          // 271-286 (c) 1979 Sega
+invho2a                         // 326-341 (c) 1979 Sega
 invinco                         // 310-318 (c) 1979 Sega
 nsub                            // 268-275 (c) 1980 Sega
 pulsar                          // 790-805 (c) 1981 Sega

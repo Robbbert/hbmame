@@ -531,6 +531,7 @@ lisa.cpp
 llc1.cpp
 llc2.cpp
 lms46.cpp
+lnw80.cpp
 lola8a.cpp
 lviv.cpp
 lwriter.cpp
@@ -585,6 +586,7 @@ mephisto_modena.cpp
 mephisto_modular.cpp
 mephisto_modular_tm.cpp
 mephisto_mondial.cpp
+mephisto_mondial2.cpp
 mephisto_mondial68k.cpp
 mephisto_montec.cpp
 mephisto_polgar.cpp
