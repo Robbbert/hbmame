@@ -611,6 +611,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/yiear.cpp",
 	MAME_DIR .. "src/mame/video/yiear.cpp",
 	MAME_DIR .. "src/mame/video/konami_helper.cpp",
+	MAME_DIR .. "src/mame/machine/k007452.cpp",
 	MAME_DIR .. "src/mame/video/k007121.cpp",
 	MAME_DIR .. "src/mame/video/k053250.cpp",
 	MAME_DIR .. "src/mame/video/k054338.cpp",
