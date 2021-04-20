@@ -9811,6 +9811,7 @@ hostinv                         // (c) 1998 The Game Room
 calcune
 
 @source:calomega.cpp
+cas21iwc                        // (c) 1990 UCMC / IWC
 comg074                         // (c) 1981 Cal Omega Inc.
 comg076                         // (c) 1981 Cal Omega Inc.
 comg079                         // (c) 1981 Cal Omega Inc.
@@ -9845,12 +9846,14 @@ comg240                         // (c) 1985 Cal Omega / Casino Electronics Inc.
 comg246                         // (c) 1985 Cal Omega Inc.
 comg272a                        // (c) 1985 Cal Omega Inc.
 comg272b                        // (c) 1985 Cal Omega Inc.
-comg5108                        // (c) 1985 Cal Omega Inc.
+comg5108                        // (c) 1985 Casino Electronics Inc.
 comg903d                        // (c) 198? Cal Omega Inc.
 comg905d                        // (c) 198? Cal Omega Inc.
 elgrande                        // (c) 1982 Tuni Electro Service / E.T. Marketing
 jjpoker                         // (c) 1983 Enter-Tech
 jjpokerb                        // (c) 1983 Enter-Tech
+pokeriwc                        // (c) 1991 UCMC / IWC
+pokiwc162                       // (c) 1991 UCMC / IWC
 ssipkr24                        // (c) 1988 SSI
 ssipkr30                        // (c) 1988 SSI
 ssipkr40                        // (c) 1990 SSI
@@ -33624,21 +33627,26 @@ pc88va                          //
 pc88va2                         //
 
 @source:pc9801.cpp
+pc386m                          //
 pc486mu                         //
+pc486se                         // 1993
 pc9801bx2                       // 1993
 pc9801f                         // 1983
 pc9801rs                        // 1989
 pc9801rx                        // 1988
 pc9801ux                        // 1987
 pc9801vm                        // 1985
-pc9801vm11
+pc9801vm11                      //
 pc9821                          //
 pc9821ap2                       //
 pc9821as                        //
 pc9821ce2                       //
 pc9821ne                        //
+pc9821ra20                      //
+pc9821ra333                     //
 pc9821v13                       //
 pc9821v20                       //
+pc9821xa16                      //
 pc9821xs                        //
 
 @source:pcat_dyn.cpp
@@ -35913,6 +35921,9 @@ mc50mk2                         //
 cm32l                           //
 mt32                            //
 
+@source:roland_pr100.cpp
+pr100                           //
+
 @source:roland_r8.cpp
 r8                              //
 r8m                             //
@@ -37350,6 +37361,7 @@ titlefj                         // 1993.03 Title Fight (Japan)
 titlefu                         // 1993.04 Title Fight (US)
 
 @source:segasp.cpp
+aminosan                        // 2010.?? Aminosan (satellite)
 bingogal                        // 2009.05 Bingo Galaxy (main)
 bingogals                       // 2009.05 Bingo Galaxy (satellite)
 brickppl                        //

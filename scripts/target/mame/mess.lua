@@ -689,6 +689,7 @@ MACHINES["SPG290"] = true
 MACHINES["STVCD"] = true
 MACHINES["SUN4C_MMU"] = true
 MACHINES["SWTPC8212"] = true
+MACHINES["TASC_SB30"] = true
 MACHINES["TC0091LVC"] = true
 MACHINES["TDC1008"] = true
 --MACHINES["TE7750"] = true
@@ -958,6 +959,7 @@ BUSES["SVI_EXPANDER"] = true
 BUSES["SVI_SLOT"] = true
 BUSES["TANBUS"] = true
 BUSES["TATUNG_PIPE"] = true
+BUSES["THOMSON"] = true
 BUSES["TMC600"] = true
 BUSES["TI8X"] = true
 BUSES["TI99"] = true
@@ -3436,6 +3438,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/roland_jx8p.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_mc50.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_mt32.cpp",
+	MAME_DIR .. "src/mame/drivers/roland_pr100.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_r8.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_ra30.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_s10.cpp",
@@ -3460,6 +3463,8 @@ files {
 	MAME_DIR .. "src/mame/machine/mb62h195.h",
 	MAME_DIR .. "src/mame/machine/mb63h149.cpp",
 	MAME_DIR .. "src/mame/machine/mb63h149.h",
+	MAME_DIR .. "src/mame/machine/mb87013.cpp",
+	MAME_DIR .. "src/mame/machine/mb87013.h",
 	MAME_DIR .. "src/mame/machine/pg200.cpp",
 	MAME_DIR .. "src/mame/machine/pg200.h",
 }
@@ -3857,8 +3862,6 @@ files {
 createMESSProjects(_target, _subtarget, "tasc")
 files {
 	MAME_DIR .. "src/mame/drivers/tasc.cpp",
-	MAME_DIR .. "src/mame/machine/smartboard.cpp",
-	MAME_DIR .. "src/mame/machine/smartboard.h",
 }
 
 createMESSProjects(_target, _subtarget, "tatung")
@@ -3942,8 +3945,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/thomson.cpp",
 	MAME_DIR .. "src/mame/includes/thomson.h",
 	MAME_DIR .. "src/mame/machine/thomson.cpp",
-	MAME_DIR .. "src/mame/machine/thomflop.cpp",
-	MAME_DIR .. "src/mame/machine/thomflop.h",
 	MAME_DIR .. "src/mame/video/thomson.cpp",
 }
 
@@ -4436,6 +4437,8 @@ files {
 	MAME_DIR .. "src/mame/video/aussiebyte.cpp",
 	MAME_DIR .. "src/mame/drivers/ax20.cpp",
 	MAME_DIR .. "src/mame/drivers/basf7100.cpp",
+	MAME_DIR .. "src/mame/machine/basf7100_kbd.cpp",
+	MAME_DIR .. "src/mame/machine/basf7100_kbd.h",
 	MAME_DIR .. "src/mame/drivers/binbug.cpp",
 	MAME_DIR .. "src/mame/drivers/bert.cpp",
 	MAME_DIR .. "src/mame/drivers/besta.cpp",
