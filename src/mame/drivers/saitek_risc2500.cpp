@@ -33,7 +33,11 @@ Undocumented buttons:
 
 TODO:
 - bootrom disable timer shouldn't be needed, real ARM has already fetched the next opcode
-- more accurate dynamic cpu clock divider (without the cost of emulation speed)
+- More accurate dynamic cpu clock divider, without the cost of emulation speed.
+  The current implementation catches almost everything, luckily ARM opcodes have a
+  fixed length. It only fails to detect ALU opcodes that directly modify pc(R15).
+  It also possibly has problems with very short subroutine calls from ROM to RAM,
+  but I tested for those and the shortest one is more than 50 cycles.
 
 ******************************************************************************/
 
@@ -52,6 +56,7 @@ TODO:
 #include "speaker.h"
 
 // internal artwork
+#include "mephisto_montreux.lh"
 #include "saitek_risc2500.lh"
 
 
@@ -70,7 +75,7 @@ public:
 		, m_speaker(*this, "speaker")
 		, m_lcdc(*this, "lcdc")
 		, m_board(*this, "board")
-		, m_inputs(*this, "P%u", 0)
+		, m_inputs(*this, "IN.%u", 0)
 		, m_digits(*this, "digit%u", 0U)
 		, m_syms(*this, "sym%u", 0U)
 		, m_leds(*this, "led%u", 0U)
@@ -80,6 +85,7 @@ public:
 	DECLARE_INPUT_CHANGED_MEMBER(on_button);
 
 	void risc2500(machine_config &config);
+	void montreux(machine_config &config);
 
 protected:
 	virtual void machine_start() override;
@@ -224,7 +230,7 @@ u32 risc2500_state::disable_boot_rom_r()
 {
 	// disconnect bootrom from the bus after next opcode
 	if (m_bootrom_enabled && !m_disable_bootrom->enabled() && !machine().side_effects_disabled())
-		m_disable_bootrom->adjust(m_maincpu->cycles_to_attotime(5));
+		m_disable_bootrom->adjust(m_maincpu->cycles_to_attotime(10));
 
 	return 0;
 }
@@ -326,7 +332,7 @@ u32 risc2500_state::rom_r(offs_t offset)
 		if (diff >= 0)
 		{
 			static constexpr int arm_branch_cycles = 3;
-			static constexpr int arm_max_cycles = 17; // block data transfer
+			static constexpr int arm_max_cycles = 17; // datablock transfer
 			static constexpr int divider = -8 + 1;
 
 			// this takes care of almost all cases, otherwise, total cycles taken can't be determined
@@ -362,41 +368,51 @@ void risc2500_state::risc2500_mem(address_map &map)
 ******************************************************************************/
 
 static INPUT_PORTS_START( risc2500 )
-	PORT_START("P0")
+	PORT_START("IN.0")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Pawn")     PORT_CODE(KEYCODE_1) PORT_CODE(KEYCODE_1_PAD)
-	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("BACK")     PORT_CODE(KEYCODE_BACKSPACE)
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("BACK")     PORT_CODE(KEYCODE_B) PORT_CODE(KEYCODE_BACKSPACE)
 
-	PORT_START("P1")
+	PORT_START("IN.1")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Knight")   PORT_CODE(KEYCODE_2) PORT_CODE(KEYCODE_2_PAD)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("ENTER")    PORT_CODE(KEYCODE_ENTER) PORT_CODE(KEYCODE_ENTER_PAD)
 
-	PORT_START("P2")
+	PORT_START("IN.2")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Bishop")   PORT_CODE(KEYCODE_3) PORT_CODE(KEYCODE_3_PAD)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("DOWN")     PORT_CODE(KEYCODE_DOWN)
 
-	PORT_START("P3")
+	PORT_START("IN.3")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Rook")     PORT_CODE(KEYCODE_4) PORT_CODE(KEYCODE_4_PAD)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("UP")       PORT_CODE(KEYCODE_UP)
 
-	PORT_START("P4")
+	PORT_START("IN.4")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("Queen")    PORT_CODE(KEYCODE_5) PORT_CODE(KEYCODE_5_PAD)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("MENU")     PORT_CODE(KEYCODE_M)
 
-	PORT_START("P5")
+	PORT_START("IN.5")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("King")     PORT_CODE(KEYCODE_6) PORT_CODE(KEYCODE_6_PAD)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("PLAY")     PORT_CODE(KEYCODE_L)
 
-	PORT_START("P6")
+	PORT_START("IN.6")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("RIGHT")    PORT_CODE(KEYCODE_RIGHT)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("NEW GAME") PORT_CODE(KEYCODE_N)
 
-	PORT_START("P7")
+	PORT_START("IN.7")
 	PORT_BIT(0x40, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("LEFT")     PORT_CODE(KEYCODE_LEFT)
 	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("OFF")      PORT_CODE(KEYCODE_O)
 
 	PORT_START("RESET")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("ON")       PORT_CODE(KEYCODE_I) PORT_CHANGED_MEMBER(DEVICE_SELF, risc2500_state, on_button, 0)
 	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("ACL")      PORT_CODE(KEYCODE_F1) PORT_CHANGED_MEMBER(DEVICE_SELF, risc2500_state, acl_button, 0)
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( montreux ) // on/off buttons have different labels
+	PORT_INCLUDE( risc2500 )
+
+	PORT_MODIFY("IN.7")
+	PORT_BIT(0x80, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("STOP")     PORT_CODE(KEYCODE_S)
+
+	PORT_MODIFY("RESET")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_NAME("GO")       PORT_CODE(KEYCODE_G) PORT_CHANGED_MEMBER(DEVICE_SELF, risc2500_state, on_button, 0)
 INPUT_PORTS_END
 
 
@@ -452,6 +468,12 @@ void risc2500_state::risc2500(machine_config &config)
 	m_speaker->set_levels(4, speaker_levels);
 }
 
+void risc2500_state::montreux(machine_config &config)
+{
+	risc2500(config);
+	config.set_default_layout(layout_mephisto_montreux);
+}
+
 
 
 /******************************************************************************
@@ -485,4 +507,4 @@ ROM_END
 CONS( 1992, risc2500,  0,        0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek / Tasc", "Kasparov RISC 2500 (v1.04)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1992, risc2500a, risc2500, 0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek / Tasc", "Kasparov RISC 2500 (v1.03)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 
-CONS( 1995, montreux,  0,        0,      risc2500, risc2500, risc2500_state, empty_init, "Saitek / Tasc", "Mephisto Montreux", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // after Saitek bought Hegener + Glaser
+CONS( 1995, montreux,  0,        0,      montreux, montreux, risc2500_state, empty_init, "Saitek / Tasc", "Mephisto Montreux", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // after Saitek bought Hegener + Glaser
