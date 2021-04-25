@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2021-04-28 0.231
+
+
+
+New Games
+---------------------------------
+- [sailormnbv]          Pretty Soldier Sailor Moon (Brutal Version)
+
+
+
 2021-03-31 0.230
 
 
