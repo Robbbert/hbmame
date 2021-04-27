@@ -4,10 +4,9 @@
 
 LC-80 by VEB Mikroelektronik "Karl Marx" Erfurt
 
-When first started, the screen is blank. Wait about 8 seconds for
-it to introduce itself, then you may use it or paste to it.
-The decimal points indicate which side of the display you will
-be updating.
+When first started, the screen is blank. Wait about 8 seconds for it to
+introduce itself, then you may use it or paste to it. The decimal points
+indicate which side of the display you will be updating.
 
 Pasting:
     0-F : as is
@@ -30,12 +29,12 @@ Hardware notes (2-ROM version from schematics):
 - cassette port
 - 6*7seg display, 2 leds, piezo
 
-The PCB is literally inside a map that can be closed like a book. It has a nice
-calculator style keypad attached to it.
+The PCB is literally inside a leather map that can be closed like a book.
+It has a nice calculator style keypad attached to it.
 
 The memory can be expanded. There's an export version with more RAM/ROM by
 default and a faster U880D CPU (3300.0kHz XTAL). It included a chess program
-called SC-80, that can be started by executing ADR C800. Press ADR again for
+called SC-80 that can be started by executing ADR C800. Press ADR again for
 NEW GAME, and use the 1-8 number keys for A1-H8.
 
 
@@ -61,6 +60,7 @@ TODO:
 
 #include "speaker.h"
 
+// internal artwork
 #include "lc80.lh"
 
 
@@ -87,8 +87,8 @@ public:
 	void lc80e(machine_config &config);
 	void lc80_2(machine_config &config);
 
-	DECLARE_INPUT_CHANGED_MEMBER( trigger_reset );
-	DECLARE_INPUT_CHANGED_MEMBER( trigger_nmi );
+	DECLARE_INPUT_CHANGED_MEMBER(trigger_reset);
+	DECLARE_INPUT_CHANGED_MEMBER(trigger_nmi);
 
 protected:
 	virtual void machine_start() override;
@@ -165,14 +165,14 @@ void lc80_state::lc80_io(address_map &map)
 
 // Input Ports
 
-INPUT_CHANGED_MEMBER( lc80_state::trigger_reset )
+INPUT_CHANGED_MEMBER(lc80_state::trigger_reset)
 {
-	m_maincpu->set_input_line(INPUT_LINE_RESET, newval ? CLEAR_LINE : ASSERT_LINE);
+	m_maincpu->set_input_line(INPUT_LINE_RESET, newval ? ASSERT_LINE : CLEAR_LINE);
 }
 
-INPUT_CHANGED_MEMBER( lc80_state::trigger_nmi )
+INPUT_CHANGED_MEMBER(lc80_state::trigger_nmi)
 {
-	m_maincpu->set_input_line(INPUT_LINE_NMI, newval ? CLEAR_LINE : ASSERT_LINE);
+	m_maincpu->set_input_line(INPUT_LINE_NMI, newval ? ASSERT_LINE : CLEAR_LINE);
 }
 
 static INPUT_PORTS_START( lc80 )
@@ -212,7 +212,7 @@ static INPUT_PORTS_START( lc80 )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("DAT") PORT_CODE(KEYCODE_STOP) PORT_CHAR('.')
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("ADR") PORT_CODE(KEYCODE_COMMA) PORT_CHAR(',')
 
-	PORT_START("IN.6")
+	PORT_START("RESET")
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("RES") PORT_CODE(KEYCODE_F1) PORT_CHANGED_MEMBER(DEVICE_SELF, lc80_state, trigger_reset, 0)
 	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_KEYBOARD ) PORT_NAME("NMI") PORT_CODE(KEYCODE_F2) PORT_CHANGED_MEMBER(DEVICE_SELF, lc80_state, trigger_nmi, 0)
 INPUT_PORTS_END

@@ -8,8 +8,8 @@ Poly-Computer 880
 
 http://www.kc85-museum.de/books/poly880/index.html
 
-Initially the screen is blank. The CTC causes a NMI, this autoboots the
-system, and then the PIO releases the NMI line.
+Initially the screen is blank. The CTC causes a NMI, this autoboots the system,
+and then the PIO releases the NMI line.
 
 Pasting:
         0-F : as is
@@ -22,19 +22,86 @@ Test Paste:
         -4000^11^22^33^44^55^66^77^88^99^-4000
         Now press up-arrow to confirm the data has been entered.
 
-TODO:
-    - MCYCL (activate single stepping)
-    - CYCL (single step)
-    - layout LEDs (address bus, data bus, command bus, MCYCL)
-    - RAM expansion
 
+The SC1 version is a modification that turns it into a chesscomputer.
+Not to be confused with the prequel to SC2, but more likely a different
+version of SLC1 without the "Lern" part.
+
+
+TODO:
+- MCYCL (activate single stepping)
+- CYCL (single step)
+- layout LEDs (address bus, data bus, command bus, MCYCL)
+- RAM expansion
+- who made poly880s? slc1 is very similar, it's by the same person?
 
 ****************************************************************************/
 
 #include "emu.h"
-#include "includes/poly880.h"
+
+#include "cpu/z80/z80.h"
+#include "machine/z80daisy.h"
+#include "imagedev/cassette.h"
+#include "machine/z80pio.h"
+#include "machine/z80ctc.h"
+#include "machine/ram.h"
+#include "sound/spkrdev.h"
+
+#include "speaker.h"
+
 #include "poly880.lh"
 
+#define SCREEN_TAG      "screen"
+#define Z80_TAG         "i1"
+#define Z80CTC_TAG      "i4"
+#define Z80PIO1_TAG     "i2"
+#define Z80PIO2_TAG     "i3"
+
+class poly880_state : public driver_device
+{
+public:
+	poly880_state(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+		, m_maincpu(*this, Z80_TAG)
+		, m_cassette(*this, "cassette")
+		, m_ki(*this, "KI%u", 1U)
+		, m_speaker(*this, "speaker")
+		, m_digits(*this, "digit%u", 0U)
+		, m_nmi(false)
+	{ }
+
+	void poly880(machine_config &config);
+	void poly880s(machine_config &config);
+
+	DECLARE_INPUT_CHANGED_MEMBER( trigger_reset );
+	DECLARE_INPUT_CHANGED_MEMBER( trigger_nmi );
+
+private:
+	required_device<z80_device> m_maincpu;
+	required_device<cassette_image_device> m_cassette;
+	required_ioport_array<3> m_ki;
+	required_device<speaker_sound_device> m_speaker;
+	output_finder<8> m_digits;
+
+	virtual void machine_start() override;
+
+	void cldig_w(uint8_t data);
+	DECLARE_WRITE_LINE_MEMBER( ctc_z0_w );
+	DECLARE_WRITE_LINE_MEMBER( ctc_z1_w );
+	void pio1_pa_w(uint8_t data);
+	uint8_t pio1_pb_r();
+	void pio1_pb_w(uint8_t data);
+
+	void update_display();
+
+	/* display state */
+	uint8_t m_digit;
+	uint8_t m_segment;
+	bool m_nmi;
+	void poly880_io(address_map &map);
+	void poly880_mem(address_map &map);
+	void poly880s_mem(address_map &map);
+};
 
 /* Read/Write Handlers */
 
@@ -60,6 +127,13 @@ void poly880_state::poly880_mem(address_map &map)
 	map(0x1000, 0x13ff).mirror(0x0c00).rom();
 	map(0x2000, 0x23ff).mirror(0x0c00).rom();
 	map(0x3000, 0x33ff).mirror(0x0c00).rom();
+	map(0x4000, 0x43ff).mirror(0x3c00).ram();
+	map(0x8000, 0xffff).bankrw("bank1");
+}
+
+void poly880_state::poly880s_mem(address_map &map)
+{
+	map(0x0000, 0x3fff).rom();
 	map(0x4000, 0x43ff).mirror(0x3c00).ram();
 	map(0x8000, 0xffff).bankrw("bank1");
 }
@@ -288,6 +362,12 @@ void poly880_state::poly880(machine_config &config)
 	RAM(config, RAM_TAG).set_default_size("1K");
 }
 
+void poly880_state::poly880s(machine_config &config)
+{
+	poly880(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &poly880_state::poly880s_mem);
+}
+
 /* ROMs */
 
 ROM_START( poly880 )
@@ -296,7 +376,13 @@ ROM_START( poly880 )
 	ROM_LOAD( "poly880.i6", 0x1000, 0x0400, CRC(9efddf5b) SHA1(6ffa2f80b2c6f8ec9e22834f739c82f9754272b8) )
 ROM_END
 
+ROM_START( poly880s )
+	ROM_REGION( 0x10000, Z80_TAG, 0 )
+	ROM_LOAD( "sc1.rom", 0x0000, 0x1000, CRC(26965b23) SHA1(01568911446eda9f05ec136df53da147b7c6f2bf) )
+ROM_END
+
 /* System Drivers */
 
-//    YEAR  NAME     PARENT  COMPAT  MACHINE  INPUT    CLASS          INIT        COMPANY            FULLNAME             FLAGS
-COMP( 1983, poly880, 0,      0,      poly880, poly880, poly880_state, empty_init, "VEB Polytechnik", "Poly-Computer 880", MACHINE_SUPPORTS_SAVE )
+//    YEAR  NAME      PARENT   COMPAT  MACHINE   INPUT    CLASS          INIT        COMPANY, FULLNAME, FLAGS
+COMP( 1983, poly880,  0,       0,      poly880,  poly880, poly880_state, empty_init, "VEB Polytechnik", "Poly-Computer 880", MACHINE_SUPPORTS_SAVE )
+COMP( 1983, poly880s, poly880, 0,      poly880s, poly880, poly880_state, empty_init, "hack", "Poly-Computer 880 (SC1)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING )
