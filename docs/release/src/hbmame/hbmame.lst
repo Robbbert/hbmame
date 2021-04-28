@@ -153,7 +153,8 @@ metmqstr		//parent
 metmqstrs01
 metmqstrs02
 metmqstrs03
-sailormn	    //parent
+sailormn			//parent
+sailormnbv
 sailormnts01
 sailormnts02
 sailormnts03
@@ -4245,6 +4246,8 @@ umk3uc20201226
 umk3uc20210212
 umk3uc20210228
 umk3uc20210304
+umk3uc20210401
+umk3uc20210423
 umk3tm20180120
 umk3tm20190417
 umk3plus20190921
@@ -5475,20 +5478,6 @@ mslugxece12
 mslugxece13
 mslugxece14
 
-@source:mystwarr.cpp
-mtlchamp			//parent
-mmaulers			//parent
-metamrph			//parent
-viostorm			//parent
-metamrphs01
-mtlchamps01
-mmaulerss01
-viostorms01
-viostorms02
-viostorms03
-viostorms04
-viostorms05
-
 @source:mspacman.cpp
 mspacman	//parent
 chtmsatk	/* PacMAME Hacks */
@@ -5655,6 +5644,20 @@ pm4n1e
 superabc
 superabco
 
+@source:mystwarr.cpp
+mtlchamp			//parent
+mmaulers			//parent
+metamrph			//parent
+viostorm			//parent
+metamrphs01
+mtlchamps01
+mmaulerss01
+viostorms01
+viostorms02
+viostorms03
+viostorms04
+viostorms05
+
 @source:namcona1.cpp
 knckhead
 knckheadx
@@ -5778,7 +5781,7 @@ pbobblen		// 083
 pnyaa			// 267
 //popbounc		// 237  not needed
 preisle2		// 255
-pspikes2		// 068  not needed
+pspikes2		// 068
 pulstar		// 089
 puzzledp		// 202
 puzzldpr		// 235
@@ -8965,10 +8968,12 @@ zex8085
 @source:zn.cpp
 coh1000c
 coh1002m
+coh1000w
 coh3002c
 doapp		//parent
 doapph01
 doappnud
+primrag2
 sfex 		//parent
 sfexs01
 sfex2 		//parent
