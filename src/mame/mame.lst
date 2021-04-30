@@ -22895,6 +22895,7 @@ trvwzv                          // (c) 1985 Merit
 ma6710                          // (c) 1989 Merit
 ma7551                          // (c) 199? Merit
 ma7556                          // (c) 199? Merit
+ma7558                          // (c) 199? Merit
 
 @source:meritm.cpp
 americna                        // (c) 1987 Merit
@@ -33088,6 +33089,7 @@ racingj2j                       // GX888 (c)1999 (JAE)
 thrilld                         // GX713 (c)1998 Japan JAE
 thrilldb                        // GX713 (c)1998 Japan JAB
 thrilldbe                       // GX713 (c)1998 Europe EAB
+thrilldbu                       // GX713 (c)1998 ?AB
 
 @source:nycaptor.cpp
 bronx                           // bootleg
@@ -43171,8 +43173,8 @@ mu100r                          // 1997 MU-100 Rackable version
 mu100b                          // 1998 MU-100B
 
 @source:ympsr60.cpp
-psr60							// 1985 PSR-60
-psr70							// 1985 PSR-70
+psr60                           // 1985 PSR-60
+psr70                           // 1985 PSR-70
 
 @source:ympsr340.cpp
 psr340                          // 1999 PSR-340
