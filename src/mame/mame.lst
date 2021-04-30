@@ -5,8 +5,7 @@
     mame.lst
 
     This is not an automatically generated file, and it should be manually
-    updated when new driver is added. From time to time, we will auto-update
-    comments according to metadata from source files.
+    updated when new driver is added.
 
 ******************************************************************************/
 
@@ -12216,6 +12215,7 @@ diablo              //
 
 @source:diamondking.cpp
 diamondking                     // (c) 1997 SegaSA / Sonic
+diamondkinp                     // (c) 1997 SegaSA / Sonic
 
 @source:didact.cpp
 md6802                          //
@@ -35825,6 +35825,9 @@ rf51w14cg                       // (c) 2003 Recreativos Franco
 
 @source:rfslots8085.cpp
 unkrfslt                        //
+
+@source:rfslotsmcs48.cpp
+ajofrin                         // (c) 198? Recreativos Franco
 
 @source:rfslotspcpent.cpp
 rfsantafeg                      // (c) 2014 Recreativos Franco
