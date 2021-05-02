@@ -4337,6 +4337,7 @@ ROM_START( comg5107 )  // Cal Omega v51.07 (Poker)
 ROM_END
 
 
+
 /*********************** Diagnostic PROMs ***********************/
 
 ROM_START( comg903d )  // Cal Omega 903d (System 903 diag.PROM)
@@ -4831,8 +4832,8 @@ GAME( 198?, comg903d, 0,        sys903,   stand903, calomega_state, init_sys903,
 GAME( 198?, comg905d, 0,        sys905,   stand905, calomega_state, init_sys905,  ROT0, "Cal Omega Inc.",                        "Cal Omega - System 905 Diag.PROM",                 MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 
 //************* 906-III games **************
-GAME( 1988, comg5108, 0,        sys906,   stand906, calomega_state, empty_init,   ROT0, "Casino Electronics Inc.",               "CEI 51.08 (CEI 906-III Poker)",                    MACHINE_SUPPORTS_SAVE )
 GAME( 1988, comg5107, 0,        sys906,   stand906, calomega_state, empty_init,   ROT0, "Casino Electronics Inc.",               "CEI 51.07 (CEI 906-III Poker)",                    MACHINE_SUPPORTS_SAVE )
+GAME( 1988, comg5108, 0,        sys906,   stand906, calomega_state, empty_init,   ROT0, "Casino Electronics Inc.",               "CEI 51.08 (CEI 906-III Poker)",                    MACHINE_SUPPORTS_SAVE )
 
 //****** Unofficial 903/904/905 3rd part games *******
 GAME( 1982, elgrande,  0,        s903mod,  elgrande, calomega_state, init_s903mod, ROT0, "Enter-Tech, Ltd. / Tuni Electro Service", "El Grande - 5 Card Draw (New)",                 MACHINE_SUPPORTS_SAVE )
@@ -4843,6 +4844,6 @@ GAME( 1988, ssipkr30,  ssipkr24, s903mod,  ssipkr,   calomega_state, init_s903mo
 GAME( 1990, ssipkr40,  ssipkr24, s903mod,  ssipkr,   calomega_state, init_s903mod, ROT0, "SSI",                                     "SSI Poker (v4.0)",                              MACHINE_SUPPORTS_SAVE )
 
 //****** Unofficial 906-III family 3rd part games *******
-GAME( 1990, cas21iwc,  0,        sys906,   cas21iwc, calomega_state, empty_init,   ROT0, "UCMC/IWC",                             "Casino 21 UCMC/IWC (ver 30.08)",                   MACHINE_SUPPORTS_SAVE )
-GAME( 1991, pokeriwc,  0,        sys906,   pokeriwc, calomega_state, empty_init,   ROT0, "UCMC/IWC",                             "Poker UCMC/IWC (ver 162.03)",                      MACHINE_SUPPORTS_SAVE )
-GAME( 1991, pokiwc162, pokeriwc, sys906,   pokeriwc, calomega_state, empty_init,   ROT0, "UCMC/IWC",                             "Poker UCMC/IWC (ver 162.03 20-6-91)",              MACHINE_SUPPORTS_SAVE )
+GAME( 1990, cas21iwc,  0,        sys906,   cas21iwc, calomega_state, empty_init, ROT0, "UCMC/IWC",                               "Casino 21 UCMC/IWC (ver 30.08)",                MACHINE_SUPPORTS_SAVE )
+GAME( 1991, pokeriwc,  0,        sys906,   pokeriwc, calomega_state, empty_init, ROT0, "UCMC/IWC",                               "Poker UCMC/IWC (ver 162.03)",                   MACHINE_SUPPORTS_SAVE )
+GAME( 1991, pokiwc162, pokeriwc, sys906,   pokeriwc, calomega_state, empty_init, ROT0, "UCMC/IWC",                               "Poker UCMC/IWC (ver 162.03 20-6-91)",           MACHINE_SUPPORTS_SAVE )
