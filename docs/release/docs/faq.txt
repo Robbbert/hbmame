@@ -9,9 +9,7 @@ A. HBMAME usage follows the MAME licence precisely. See the MAMEDEV site for det
    Any source code that is specific to HBMAME may be incorporated into your build, but you
    MUST GIVE CREDIT to me (Robbbert) or HBMAME.
 
-2. Save state not working!
-A. We currently do NOT support Save States and High Scores (except games that have the [h] designator).
-   If it happens to work for you, feel fortunate.
+2. --
 
 3. What does [c] mean?
 A. The game has cheat facilities built in. Press 1 to be invulnerable. Press 2 to go fast.
