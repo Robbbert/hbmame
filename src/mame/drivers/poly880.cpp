@@ -339,19 +339,19 @@ void poly880_state::poly880(machine_config &config)
 	config.set_default_layout(layout_poly880);
 
 	// devices
-	Z80CTC(config, m_ctc, XTAL(7'372'800)/16);
+	Z80CTC(config, m_ctc, XTAL(7'372'800)/8);
 	m_ctc->intr_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
 	m_ctc->zc_callback<0>().set(FUNC(poly880_state::ctc_z0_w));
 	m_ctc->zc_callback<1>().set(FUNC(poly880_state::ctc_z1_w));
 	m_ctc->zc_callback<2>().set(m_ctc, FUNC(z80ctc_device::trg3));
 
-	Z80PIO(config, m_pio[0], XTAL(7'372'800)/16);
+	Z80PIO(config, m_pio[0], XTAL(7'372'800)/8);
 	m_pio[0]->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
 	m_pio[0]->out_pa_callback().set(FUNC(poly880_state::pio1_pa_w));
 	m_pio[0]->in_pb_callback().set(FUNC(poly880_state::pio1_pb_r));
 	m_pio[0]->out_pb_callback().set(FUNC(poly880_state::pio1_pb_w));
 
-	Z80PIO(config, m_pio[1], XTAL(7'372'800)/16);
+	Z80PIO(config, m_pio[1], XTAL(7'372'800)/8);
 	m_pio[1]->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
 
 	CASSETTE(config, m_cassette);
@@ -371,8 +371,8 @@ void poly880_state::poly880s(machine_config &config)
 
 ROM_START( poly880 )
 	ROM_REGION( 0x4000, "maincpu", ROMREGION_ERASE00 )
-	ROM_LOAD( "poly880.i5", 0x0000, 0x0400, CRC(b1c571e8) SHA1(85bfe53d39d6690e79999a1e1240789497e72db0) )
-	ROM_LOAD( "poly880.i6", 0x1000, 0x0400, CRC(9efddf5b) SHA1(6ffa2f80b2c6f8ec9e22834f739c82f9754272b8) )
+	ROM_LOAD( "bm039.i5", 0x0000, 0x0400, CRC(b1c571e8) SHA1(85bfe53d39d6690e79999a1e1240789497e72db0) )
+	ROM_LOAD( "bm040.i6", 0x1000, 0x0400, CRC(9efddf5b) SHA1(6ffa2f80b2c6f8ec9e22834f739c82f9754272b8) )
 ROM_END
 
 ROM_START( poly880s )
