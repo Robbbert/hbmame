@@ -553,6 +553,9 @@ ROM_START( gseekerjs01 )
 	ROM_REGION16_BE(0x800000, "taito_en:ensoniq" , ROMREGION_ERASE00 )
 	ROM_LOAD16_BYTE("d40_01.rom", 0x000000, 0x200000, CRC(ee312e95) SHA1(885553950c2b2195d664639bf7e0d1ffa3e8346a) )
 	ROM_LOAD16_BYTE("d40_02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD("gseeker.nv", 0x0000, 0x0080, CRC(3e24cc80) SHA1(42173cf6aa40bb5015d01f62312fc2ff8d81fb65) )
 ROM_END
 
  /**************
@@ -728,13 +731,13 @@ GAME( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, init_arabi
 GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",         "Bubble Symphony (Translation Chinese)", 0 )
  // Dan-Ku-Ga
 GAME( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Dan-Ku-Ga (Plus)", 0 )
-GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",         "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
+GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",       "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
  // Elevator Action Returns
 GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "hack",         "Elevator Action Returns (Translation Chinese)", 0 )
  // Grid Seeker: Project Storm Hammer
-GAME( 1992, gseekerjs01,       gseeker,  f3_224b_eeprom, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",         "Grid Seeker: Project Storm Hammer (Translation Chinese)", 0 )
+GAME( 1992, gseekerjs01,       gseeker,  f3_224b, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",         "Grid Seeker: Project Storm Hammer (Translation Chinese)", 0 )
  // Kaiser Knuckle
-GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",         "Kaiser Knuckle (Enable Hidden Characters)", 0 )
+GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",       "Kaiser Knuckle (Enable Hidden Characters)", 0 )
 GAME( 1994, kaiserkns02,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Kaiser Knuckle (Plus)", 0 )
  // Land Maker
 GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",         "Land Maker (Translation Chinese)", 0 )
