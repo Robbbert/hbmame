@@ -12047,6 +12047,10 @@ shackled                        // (c) 1986 Data East USA (US)
 srdarwin                        // (c) 1987 Data East Corporation (World)
 srdarwinj                       // (c) 1987 Data East Corporation (Japan)
 
+@source:decmate2.cpp
+decmate2                        //
+decmate3                        //
+
 @source:deco_ld.cpp
 begas                           // (c) 1983
 begas1                          // (c) 1983
@@ -12167,6 +12171,7 @@ decocass                        //
 decomult                        //
 
 @source:decstation.cpp
+ds2100                          // 1989 Digital Equipment Corporation (DECstation 2100)
 ds3100                          // 1989 Digital Equipment Corporation (DECstation 3100)
 ds5k133                         // 1993 Digital Equipment Corporation (DECstation 5000/133)
 
@@ -42948,6 +42953,7 @@ wrally                          // (c) 1993 - Ref 930705
 wrallya                         // (c) 1993 - Ref 930705
 wrallyat                        // (c) 1993 - Ref 930217
 wrallyb                         // (c) 1993 - Ref 930217
+wrallyc                         // (c) 1993
 
 @source:wrinkles.cpp
 wrinkles
