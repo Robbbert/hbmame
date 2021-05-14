@@ -78,6 +78,7 @@ enum
 };
 
 /* take interrupt */
+#define TAKE_ISI enter_interrupt("take ISI\n",0xfff8)
 #define TAKE_ICI enter_interrupt("take ICI\n",0xfff6)
 #define TAKE_OCI enter_interrupt("take OCI\n",0xfff4)
 #define TAKE_TOI enter_interrupt("take TOI\n",0xfff2)
@@ -291,7 +292,7 @@ void hd6301y_cpu_device::hd6301y_io(address_map &map)
 	map(0x0015, 0x0015).w(FUNC(hd6301y_cpu_device::p5_data_w));
 	//map(0x001e, 0x001e).rw(FUNC(hd6301y_cpu_device::sci_trcsr2_r), FUNC(hd6301y_cpu_device::sci_trcsr2_w));
 	map(0x0020, 0x0020).rw(FUNC(hd6301y_cpu_device::ff_r), FUNC(hd6301y_cpu_device::p5_ddr_w));
-	//map(0x0021, 0x0021).rw(FUNC(hd6301y_cpu_device::p6_csr_r), FUNC(hd6301y_cpu_device::p6_csr_w));
+	map(0x0021, 0x0021).rw(FUNC(hd6301y_cpu_device::p6_csr_r), FUNC(hd6301y_cpu_device::p6_csr_w));
 }
 
 
@@ -415,7 +416,6 @@ void m6801_cpu_device::m6800_check_irq2()
 				((m_trcsr & (M6801_TRCSR_RIE|M6801_TRCSR_ORFE)) == (M6801_TRCSR_RIE|M6801_TRCSR_ORFE)) ||
 				((m_trcsr & (M6801_TRCSR_TIE|M6801_TRCSR_TDRE)) == (M6801_TRCSR_TIE|M6801_TRCSR_TDRE)))
 	{
-		LOG("SCI interrupt\n");
 		TAKE_SCI;
 	}
 }
@@ -444,9 +444,19 @@ void hd6301x_cpu_device::m6800_check_irq2()
 				((m_trcsr & (M6801_TRCSR_RIE|M6801_TRCSR_ORFE)) == (M6801_TRCSR_RIE|M6801_TRCSR_ORFE)) ||
 				((m_trcsr & (M6801_TRCSR_TIE|M6801_TRCSR_TDRE)) == (M6801_TRCSR_TIE|M6801_TRCSR_TDRE)))
 	{
-		LOG("SCI interrupt\n");
 		TAKE_SCI;
 	}
+}
+
+void hd6301y_cpu_device::m6800_check_irq2()
+{
+	if ((m_p6_csr & 0xc0) == 0xc0)
+	{
+		TAKE_ISI;
+		standard_irq_callback(HD6301Y_IS_LINE);
+	}
+	else
+		hd6301x_cpu_device::m6800_check_irq2();
 }
 
 void m6801_cpu_device::modified_tcsr()
@@ -969,7 +979,7 @@ void m6801_cpu_device::execute_set_input(int irqline, int state)
 		{
 			m_irq_state[M6801_TIN_LINE] = state;
 			//edge = (state == CLEAR_LINE ) ? 2 : 0;
-			if( ((m_tcsr&TCSR_IEDG) ^ (state==CLEAR_LINE ? TCSR_IEDG : 0))==0 )
+			if (((m_tcsr&TCSR_IEDG) ^ (state==CLEAR_LINE ? TCSR_IEDG : 0)) == 0)
 				return;
 			/* active edge in */
 			m_tcsr |= TCSR_ICF;
@@ -984,6 +994,28 @@ void m6801_cpu_device::execute_set_input(int irqline, int state)
 		break;
 	}
 }
+
+void hd6301y_cpu_device::execute_set_input(int irqline, int state)
+{
+	switch (irqline)
+	{
+	case HD6301Y_IS_LINE:
+		// interrupt at falling edge
+		if (!state && m_irq_state[HD6301Y_IS_LINE])
+		{
+			m_p6_csr |= 0x80; // IS flag
+			m_pending_isf_clear = false;
+		}
+
+		m_irq_state[HD6301Y_IS_LINE] = state;
+		break;
+
+	default:
+		m6801_cpu_device::execute_set_input(irqline, state);
+		break;
+	}
+}
+
 
 
 void m6801_cpu_device::device_resolve_objects()
@@ -1075,6 +1107,16 @@ void hd6301x_cpu_device::device_start()
 	save_item(NAME(m_t2cnt_written));
 }
 
+void hd6301y_cpu_device::device_start()
+{
+	hd6301x_cpu_device::device_start();
+
+	m_irq_state[HD6301Y_IS_LINE] = 0;
+
+	save_item(NAME(m_p6_csr));
+	save_item(NAME(m_pending_isf_clear));
+}
+
 void m6801_cpu_device::device_reset()
 {
 	m6800_cpu_device::device_reset();
@@ -1131,6 +1173,14 @@ void hd6301x_cpu_device::device_reset()
 	m_tcsr3 = 0x00;
 	m_tout3 = false;
 	m_t2cnt_written = false;
+}
+
+void hd6301y_cpu_device::device_reset()
+{
+	hd6301x_cpu_device::device_reset();
+
+	m_p6_csr = 7;
+	m_pending_isf_clear = false;
 }
 
 
@@ -1212,7 +1262,7 @@ void m6801_cpu_device::p1_ddr_w(uint8_t data)
 
 uint8_t m6801_cpu_device::p1_data_r()
 {
-	if(m_port_ddr[0] == 0xff)
+	if (m_port_ddr[0] == 0xff)
 		return m_port_data[0];
 	else
 		return (m_in_port_func[0]() & (m_port_ddr[0] ^ 0xff)) | (m_port_data[0] & m_port_ddr[0]);
@@ -1252,7 +1302,7 @@ void hd6301x_cpu_device::p2_ddr_2bit_w(uint8_t data)
 
 uint8_t m6801_cpu_device::p2_data_r()
 {
-	if(m_port_ddr[1] == 0xff)
+	if (m_port_ddr[1] == 0xff)
 		return m_port_data[1];
 	else
 		return (m_in_port_func[1]() & (m_port_ddr[1] ^ 0xff)) | (m_port_data[1] & m_port_ddr[1]);
@@ -1370,7 +1420,7 @@ void m6801_cpu_device::p4_ddr_w(uint8_t data)
 
 uint8_t m6801_cpu_device::p4_data_r()
 {
-	if(m_port_ddr[3] == 0xff)
+	if (m_port_ddr[3] == 0xff)
 		return m_port_data[3];
 	else
 		return (m_in_port_func[3]() & (m_port_ddr[3] ^ 0xff)) | (m_port_data[3] & m_port_ddr[3]);
@@ -1397,10 +1447,15 @@ void hd6301y_cpu_device::p5_ddr_w(uint8_t data)
 
 uint8_t hd6301x_cpu_device::p5_data_r()
 {
-	if(m_portx_ddr[0] == 0xff)
+	return m_in_portx_func[0]();
+}
+
+uint8_t hd6301y_cpu_device::p5_data_r()
+{
+	if (m_portx_ddr[0] == 0xff)
 		return m_portx_data[0];
 	else
-		return (m_in_portx_func[0]() & (m_portx_ddr[0] ^ 0xff)) | (m_portx_data[0] & m_portx_ddr[0]);
+		return ((m_in_portx_func[0]() | ((m_irq_state[HD6301Y_IS_LINE]) ? 0x10 : 0)) & (m_portx_ddr[0] ^ 0xff)) | (m_portx_data[0] & m_portx_ddr[0]);
 }
 
 void hd6301y_cpu_device::p5_data_w(uint8_t data)
@@ -1424,7 +1479,7 @@ void hd6301x_cpu_device::p6_ddr_w(uint8_t data)
 
 uint8_t hd6301x_cpu_device::p6_data_r()
 {
-	if(m_portx_ddr[1] == 0xff)
+	if (m_portx_ddr[1] == 0xff)
 		return m_portx_data[1];
 	else
 		return (m_in_portx_func[1]() & (m_portx_ddr[1] ^ 0xff)) | (m_portx_data[1] & m_portx_ddr[1]);
@@ -1436,6 +1491,48 @@ void hd6301x_cpu_device::p6_data_w(uint8_t data)
 
 	m_portx_data[1] = data;
 	m_out_portx_func[1](0, (m_portx_data[1] & m_portx_ddr[1]) | (m_portx_ddr[1] ^ 0xff), m_portx_ddr[1]);
+}
+
+uint8_t hd6301y_cpu_device::p6_data_r()
+{
+	if (!machine().side_effects_disabled())
+		clear_pending_isf();
+
+	return hd6301x_cpu_device::p6_data_r();
+}
+
+void hd6301y_cpu_device::p6_data_w(uint8_t data)
+{
+	clear_pending_isf();
+
+	hd6301x_cpu_device::p6_data_w(data);
+}
+
+void hd6301y_cpu_device::clear_pending_isf()
+{
+	// IS flag is cleared when reading/writing P6 after reading P6 CSR
+	if (m_pending_isf_clear)
+	{
+		m_p6_csr &= 0x7f;
+		m_pending_isf_clear = false;
+	}
+}
+
+uint8_t hd6301y_cpu_device::p6_csr_r()
+{
+	if (!machine().side_effects_disabled())
+		m_pending_isf_clear = true;
+
+	return m_p6_csr | 7;
+}
+
+void hd6301y_cpu_device::p6_csr_w(uint8_t data)
+{
+	LOGPORT("Port 6 Control/Status Register: %02x\n", data);
+
+	m_p6_csr = (m_p6_csr & 0x80) | (data & 0x7f);
+	if (!(m_cc & 0x10) && data & 0x40)
+		m6800_check_irq2();
 }
 
 uint8_t hd6301x_cpu_device::p7_data_r()
@@ -1469,13 +1566,13 @@ void m6801_cpu_device::tcsr_w(uint8_t data)
 	m_tcsr = data | (m_tcsr & 0xe0);
 	m_pending_tcsr &= m_tcsr;
 	modified_tcsr();
-	if( !(m_cc & 0x10) )
+	if (!(m_cc & 0x10))
 		m6800_check_irq2();
 }
 
 uint8_t m6801_cpu_device::ch_r()
 {
-	if(!(m_pending_tcsr&TCSR_TOF) && !machine().side_effects_disabled())
+	if (!(m_pending_tcsr & TCSR_TOF) && !machine().side_effects_disabled())
 	{
 		m_tcsr &= ~TCSR_TOF;
 		modified_tcsr();
@@ -1521,13 +1618,13 @@ void m6801_cpu_device::ocrh_w(uint8_t data)
 {
 	LOGTIMER("Output Compare High Register: %02x\n", data);
 
-	if(!(m_pending_tcsr&TCSR_OCF))
+	if (!(m_pending_tcsr & TCSR_OCF))
 	{
 		m_tcsr &= ~TCSR_OCF;
 		modified_tcsr();
 	}
 
-	if( m_output_compare.b.h != data)
+	if (m_output_compare.b.h != data)
 	{
 		m_output_compare.b.h = data;
 		modified_counters();
@@ -1538,13 +1635,13 @@ void m6801_cpu_device::ocrl_w(uint8_t data)
 {
 	LOGTIMER("Output Compare Low Register: %02x\n", data);
 
-	if(!(m_pending_tcsr&TCSR_OCF))
+	if (!(m_pending_tcsr & TCSR_OCF))
 	{
 		m_tcsr &= ~TCSR_OCF;
 		modified_tcsr();
 	}
 
-	if( m_output_compare.b.l != data)
+	if (m_output_compare.b.l != data)
 	{
 		m_output_compare.b.l = data;
 		modified_counters();
@@ -1553,7 +1650,7 @@ void m6801_cpu_device::ocrl_w(uint8_t data)
 
 uint8_t m6801_cpu_device::icrh_r()
 {
-	if(!(m_pending_tcsr&TCSR_ICF) && !machine().side_effects_disabled())
+	if (!(m_pending_tcsr & TCSR_ICF) && !machine().side_effects_disabled())
 	{
 		m_tcsr &= ~TCSR_ICF;
 		modified_tcsr();
@@ -1584,7 +1681,7 @@ void hd6301x_cpu_device::tcsr2_w(uint8_t data)
 	m_tcsr2 = data | (m_tcsr2 & TCSR2_OCF2);
 	m_pending_tcsr2 &= m_tcsr2;
 	modified_tcsr();
-	if( !(m_cc & 0x10) )
+	if (!(m_cc & 0x10))
 		m6800_check_irq2();
 }
 
@@ -1602,13 +1699,13 @@ void hd6301x_cpu_device::ocr2h_w(uint8_t data)
 {
 	LOGTIMER("Output Compare High Register 2: %02x\n", data);
 
-	if(!(m_pending_tcsr2&TCSR2_OCF2))
+	if (!(m_pending_tcsr2 & TCSR2_OCF2))
 	{
 		m_tcsr2 &= ~TCSR2_OCF2;
 		modified_tcsr();
 	}
 
-	if( m_output_compare2.b.h != data)
+	if (m_output_compare2.b.h != data)
 	{
 		m_output_compare2.b.h = data;
 		modified_counters();
@@ -1619,13 +1716,13 @@ void hd6301x_cpu_device::ocr2l_w(uint8_t data)
 {
 	LOGTIMER("Output Compare Low Register 2: %02x\n", data);
 
-	if(!(m_pending_tcsr2&TCSR2_OCF2))
+	if (!(m_pending_tcsr2 & TCSR2_OCF2))
 	{
 		m_tcsr2 &= ~TCSR2_OCF2;
 		modified_tcsr();
 	}
 
-	if( m_output_compare2.b.l != data)
+	if (m_output_compare2.b.l != data)
 	{
 		m_output_compare2.b.l = data;
 		modified_counters();
@@ -1823,8 +1920,6 @@ void m6801_cpu_device::rcr_w(uint8_t data)
 
 uint8_t m6801_cpu_device::ff_r()
 {
-	if (!machine().side_effects_disabled())
-		logerror("PC %04x: warning - read from write-only internal register\n", pc());
 	return 0xff;
 }
 
