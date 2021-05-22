@@ -7,6 +7,7 @@ license:CC0
 <!-- define elements -->
 
 	<element name="black"><rect><color red="0.12" green="0.11" blue="0.1" /></rect></element>
+	<element name="lcdm"><rect><color red="0.58" green="0.61" blue="0.62" /></rect></element>
 
 	<element name="led" defstate="0">
 		<rect state="0"><color red="0.15" green="0" blue="0" /></rect>
@@ -504,6 +505,7 @@ license:CC0
 
 		<!-- analyst's screen -->
 		<screen index="0"><bounds x="63.5" y="90" width="20" height="3.8" /></screen>
+		<element ref="lcdm" blend="multiply"><bounds x="63" y="89" width="21" height="6" /></element>
 
 	</view>
 </mamelayout>

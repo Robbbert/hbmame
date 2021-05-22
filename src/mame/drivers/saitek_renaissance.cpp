@@ -19,11 +19,11 @@ The 6301Y0 seen on one of them, was a SX8A 6301Y0G84P, this is in fact the
 MCU(+internal maskrom, disabled here) used in Saitek Conquistador.
 
 The LCD screen is fairly large, it's the same one as in Saitek Simultano,
-so a chessboard display + 7seg info.
+so a chessboard display + 7seg info. It's on a small drawer that can be
+pushed in to hide the chessboard display.
 
 TODO:
 - fart noise at boot if maestroa module is inserted
-- finish internal artwork
 - make it a subdriver of saitek_leonardo.cpp? or too many differences
 - same TODO list as saitek_leonardo.cpp
 
@@ -38,6 +38,7 @@ TODO:
 #include "video/pwm.h"
 #include "video/sed1500.h"
 
+#include "render.h"
 #include "screen.h"
 #include "speaker.h"
 
@@ -62,6 +63,8 @@ public:
 		m_inputs(*this, "IN.%u", 0),
 		m_out_lcd(*this, "s%u.%u", 0U, 0U)
 	{ }
+
+	template <int N> DECLARE_INPUT_CHANGED_MEMBER(change_view);
 
 	// machine configs
 	void ren(machine_config &config);
@@ -111,6 +114,16 @@ void ren_state::machine_start()
 
 	save_item(NAME(m_inp_mux));
 	save_item(NAME(m_led_data));
+}
+
+template <int N> INPUT_CHANGED_MEMBER(ren_state::change_view)
+{
+	if (oldval && !newval)
+	{
+		// meant for changing lcd drawer view
+		render_target *target = machine().render().first_target();
+		target->set_view(target->view() + N);
+	}
 }
 
 
@@ -317,6 +330,10 @@ static INPUT_PORTS_START( ren )
 	PORT_START("RESET")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_G) PORT_NAME("Go")
 	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_F1) PORT_NAME("ACL")
+
+	PORT_START("VIEW")
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_CHANGED_MEMBER(DEVICE_SELF, ren_state, change_view<+1>, 0)
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_CUSTOM) PORT_CHANGED_MEMBER(DEVICE_SELF, ren_state, change_view<-1>, 0)
 INPUT_PORTS_END
 
 
