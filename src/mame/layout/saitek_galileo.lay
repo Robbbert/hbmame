@@ -9,9 +9,16 @@ license:CC0
 	<element name="black"><rect><color red="0.12" green="0.11" blue="0.1" /></rect></element>
 	<element name="lcdm"><rect><color red="0.58" green="0.61" blue="0.62" /></rect></element>
 
-	<element name="led" defstate="0">
-		<rect state="0"><color red="0.15" green="0" blue="0" /></rect>
-		<rect state="1"><color red="1" green="0" blue="0" /></rect>
+	<element name="ledo">
+		<disk><color red="0.1" green="0.1" blue="0.1" /></disk>
+	</element>
+	<element name="ledr" defstate="0">
+		<disk state="0"><color red="0" green="0" blue="0" /></disk>
+		<disk state="1"><color red="1" green="0" blue="0" /></disk>
+	</element>
+	<element name="ledg" defstate="0">
+		<disk state="0"><color red="0" green="0" blue="0" /></disk>
+		<disk state="1"><color red="0" green="1" blue="0" /></disk>
 	</element>
 
 	<element name="text_1">
@@ -447,6 +454,11 @@ license:CC0
 
 <!-- button panel -->
 
+	<element name="led" defstate="0">
+		<rect state="0"><color red="0.15" green="0" blue="0" /></rect>
+		<rect state="1"><color red="1" green="0" blue="0" /></rect>
+	</element>
+
 	<element name="ledro">
 		<rect><color red="0.1" green="0.1" blue="0.1" /></rect>
 	</element>
@@ -457,18 +469,6 @@ license:CC0
 	<element name="ledrg" defstate="0">
 		<rect state="0"><color red="0" green="0" blue="0" /></rect>
 		<rect state="1"><color red="0" green="1" blue="0" /></rect>
-	</element>
-
-	<element name="ledo">
-		<disk><color red="0.1" green="0.1" blue="0.1" /></disk>
-	</element>
-	<element name="ledr" defstate="0">
-		<disk state="0"><color red="0" green="0" blue="0" /></disk>
-		<disk state="1"><color red="1" green="0" blue="0" /></disk>
-	</element>
-	<element name="ledg" defstate="0">
-		<disk state="0"><color red="0" green="0" blue="0" /></disk>
-		<disk state="1"><color red="0" green="1" blue="0" /></disk>
 	</element>
 
 	<element name="not" defstate="0">
@@ -618,29 +618,29 @@ license:CC0
 		<element ref="but" inputtag="IN.4" inputmask="0x02"><bounds x="50" y="11" width="4" height="1" /></element>
 
 		<!-- larger clickable area -->
-		<element ref="not" inputtag="IN.0" inputmask="0x01"><bounds x="3"  y="2.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.1" inputmask="0x02"><bounds x="12" y="2.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.2" inputmask="0x02"><bounds x="30" y="2.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.3" inputmask="0x02"><bounds x="35" y="2.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.5" inputmask="0x02"><bounds x="40" y="2.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.6" inputmask="0x02"><bounds x="45" y="2.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.7" inputmask="0x02"><bounds x="50" y="2.6" width="4" height="1" /></element>
+		<element ref="not" inputtag="IN.0" inputmask="0x01"><bounds x="3"  y="2.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.1" inputmask="0x02"><bounds x="12" y="2.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.2" inputmask="0x02"><bounds x="30" y="2.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.3" inputmask="0x02"><bounds x="35" y="2.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.5" inputmask="0x02"><bounds x="40" y="2.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.6" inputmask="0x02"><bounds x="45" y="2.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.7" inputmask="0x02"><bounds x="50" y="2.6" width="4" height="2" /></element>
 
-		<element ref="not" inputtag="IN.1" inputmask="0x01"><bounds x="3"  y="6.1" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.0" inputmask="0x04"><bounds x="12" y="6.1" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.2" inputmask="0x04"><bounds x="30" y="6.1" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.3" inputmask="0x04"><bounds x="35" y="6.1" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.5" inputmask="0x04"><bounds x="40" y="6.1" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.6" inputmask="0x04"><bounds x="45" y="6.1" width="4" height="1" /></element>
-		<element ref="not" inputtag="RESET" inputmask="0x01"><bounds x="50" y="6.1" width="4" height="1" /></element>
+		<element ref="not" inputtag="IN.1" inputmask="0x01"><bounds x="3"  y="6.1" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.0" inputmask="0x04"><bounds x="12" y="6.1" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.2" inputmask="0x04"><bounds x="30" y="6.1" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.3" inputmask="0x04"><bounds x="35" y="6.1" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.5" inputmask="0x04"><bounds x="40" y="6.1" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.6" inputmask="0x04"><bounds x="45" y="6.1" width="4" height="2" /></element>
+		<element ref="not" inputtag="RESET" inputmask="0x01"><bounds x="50" y="6.1" width="4" height="2" /></element>
 
-		<element ref="not" inputtag="IN.0" inputmask="0x02"><bounds x="3"  y="9.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.1" inputmask="0x04"><bounds x="12" y="9.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.6" inputmask="0x01"><bounds x="30" y="9.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.5" inputmask="0x01"><bounds x="35" y="9.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.4" inputmask="0x04"><bounds x="40" y="9.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.7" inputmask="0x04"><bounds x="45" y="9.6" width="4" height="1" /></element>
-		<element ref="not" inputtag="IN.4" inputmask="0x02"><bounds x="50" y="9.6" width="4" height="1" /></element>
+		<element ref="not" inputtag="IN.0" inputmask="0x02"><bounds x="3"  y="9.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.1" inputmask="0x04"><bounds x="12" y="9.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.6" inputmask="0x01"><bounds x="30" y="9.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.5" inputmask="0x01"><bounds x="35" y="9.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.4" inputmask="0x04"><bounds x="40" y="9.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.7" inputmask="0x04"><bounds x="45" y="9.6" width="4" height="2" /></element>
+		<element ref="not" inputtag="IN.4" inputmask="0x02"><bounds x="50" y="9.6" width="4" height="2" /></element>
 	</group>
 
 
@@ -652,8 +652,8 @@ license:CC0
 		<group ref="panel"><bounds x="3.5" y="89" width="55" height="13" /></group>
 
 		<!-- analyst's screen -->
-		<screen index="0"><bounds x="63.5" y="90" width="20" height="3.8" /></screen>
-		<element ref="lcdm" blend="multiply"><bounds x="63" y="89" width="21" height="6" /></element>
+		<screen index="0"><bounds x="63.5" y="93" width="20" height="3.8" /></screen>
+		<element ref="lcdm" blend="multiply"><bounds x="63" y="92" width="21" height="6" /></element>
 
 		<group ref="board"><bounds x="-1" y="-1.5" width="89" height="89" /></group>
 		<group ref="sb_ui"><bounds x="-12" y="3" width="10" height="80" /></group>
