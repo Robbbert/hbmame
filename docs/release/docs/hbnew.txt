@@ -1,6 +1,15 @@
 ﻿What's new in HBMAME
 ====================
 
+2021-06-30 0.233
+
+
+New Games
+---------------------------------
+- [ffightaebv]          Final Fight 30th Anniversary Edition Brutal Version 2021-05-28
+
+
+
 2021-05-26 0.232
 
 
