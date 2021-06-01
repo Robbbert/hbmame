@@ -19666,6 +19666,9 @@ leappad                         // (c) 2001 LeapFrog / Knowledge Kids Enterprise
 mfleappad                       // (c) 2002 LeapFrog
 ltleappad                       // (c) 2005 LeapFrog
 
+@source:leapfrog_leapster_explorer.cpp
+leapexpr
+
 @source:leapster.cpp
 leapster                        //
 leapster2                       //
@@ -32719,50 +32722,51 @@ fcpocket
 rminitv
 
 @source:nes_vt369_vtunknown.cpp
+240in1ar
 bittboy
-mc_pg150
-mc_hh210
-dvnimbus
-unkra200
+denv150
+dgun2561
 dgun2577
-lxcyber
+dgun2593
+dvnimbus
+egame150
+fapocket
+gcs2mgp
 gtct885
-rd5_240
 hkb502
 hkb502a
+lpgm240
 lxcap
-retro400
-myarccn
-fapocket
-sy889
-sy888b
-mc_cb280
-mog_m320
-dgun2561
-dgun2593
-lxcmcy
-lxcmc250
-lxcmcysw
-lxcmcyfz
-lxcmcydp
-lxcmcysp
-lxcmcycr
-lxcmcypj
-lxcmcypp
+lxccatv
 lxccminn
 lxccplan
+lxcmc250
+lxcmcy
+lxcmcycr
+lxcmcydp
+lxcmcyfz
+lxcmcypj
+lxcmcypp
+lxcmcysp
+lxcmcysw
+lxcyber
+mc_cb280
+mc_hh210
+mc_pg150
+mog_m320
+myarccn
+otrail
+rd5_240
+red5mam
+retro400
 rtvgc300
 rtvgc300fz
-red5mam
-240in1ar
-denv150
-egame150
-lpgm240
-tup240
-otrail
-zonefusn
 sealvt
-gcs2mgp
+sy888b
+sy889
+tup240
+unkra200
+zonefusn
 
 @source:newbrain.cpp
 newbrain                        //
@@ -34906,6 +34910,9 @@ wbeachvl                        // (c) 1995
 wbeachvl2                       // (c) 1995
 wbeachvl3                       // (c) 1995
 wbeachvla                       // (c) 1995
+
+@source:plsonic4.cpp
+plsonic4                        //
 
 @source:plus4.cpp
 c116                            //
@@ -38557,7 +38564,6 @@ supreme
 arcade10
 
 @source:storio.cpp
-innotab2                        // (c) 2011 V.Tech
 storio                          // (c) 2011 V.Tech
 storiode                        // (c) 2011 V.Tech
 storioes                        // (c) 2011 V.Tech
@@ -38774,26 +38780,31 @@ jak_mk
 jak_mpacw
 
 @source:spg2xx_jakks_gkr.cpp
-jak_wwe                         //
-jak_fan4                        //
-jak_just                        //
+jak_capc                        //
+jak_care                        //
+jak_dbz                         //
+jak_disf                        //
+jak_disn                        //
 jak_dora                        //
 jak_dorr                        //
-jak_disn                        //
-jak_disf                        //
 jak_dpr                         //
 jak_dprs                        //
-jak_sith                        //
-jak_sdoo                        //
-jak_dbz                         //
+jak_dwmn                        //
+jak_dwmno                       //
+jak_fan4                        //
+jak_just                        //
 jak_mpac                        //
-jak_capc                        //
-jak_wof                         //
-jak_spdm                        //
-jak_pooh                        //
-jak_care                        //
 jak_nick                        //
+jak_pooh                        //
 jak_sbfc                        //
+jak_sdoo                        //
+jak_sith                        //
+jak_sithp                       //
+jak_spdm                        //
+jak_swot                        //
+jak_wof                         //
+jak_wwe                         //
+jak_xmenp                       //
 
 @source:spg2xx_jakks_sharp.cpp
 jsc_dora
@@ -42132,6 +42143,9 @@ laser700                        // 1984? Laser 700
 @source:vtech_eu3a12.cpp
 vreadere
 
+@source:vtech_innotab.cpp
+innotab2                        // (c) 2011 V.Tech
+
 @source:vulgus.cpp
 mach9                           // bootleg (ITISA)
 vulgus                          // 5/1984 (c) 1984
@@ -43553,9 +43567,11 @@ techromnu                       // Tech Romancer (USA 980914)
 twcupmil                        // Tecmo World Cup Millennium (JAPAN)
 tgmj                            // Tetris The Grand Master (JAPAN 980710)
 tondemo                         // Tondemo Crisis (JAPAN)
-ts2                             // Battle Arena Toshinden 2 (USA 951124)
-ts2a                            // Battle Arena Toshinden 2 (USA 951124)
+ts2                             // Battle Arena Toshinden 2 (EURO 951124)
 ts2j                            // Battle Arena Toshinden 2 (JAPAN 951124)
+ts2ja                           // Battle Arena Toshinden 2 (JAPAN 951124)
+ts2u                            // Battle Arena Toshinden 2 (USA 951124)
+ts2ua                           // Battle Arena Toshinden 2 (USA 951124)
 
 @source:zodiack.cpp
 bounty                          // (c) 1982 Orca
