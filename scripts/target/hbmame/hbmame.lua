@@ -899,7 +899,6 @@ files {
 	MAME_DIR .. "src/mame/video/segahang.cpp",
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
-	MAME_DIR .. "src/mame/machine/stvprot.cpp",
 	MAME_DIR .. "src/mame/machine/segabill.cpp",
 }
 
