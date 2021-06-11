@@ -15,6 +15,7 @@ New Games
 
 New Games
 ---------------------------------
+- [blazstarcm]          Blazing Star (Stage Select hack)
 - [dkongbp]             Donkey Kong Barrelpalooza v1.06
 - [knightssa]           Knights of the Round (Squire's Aid)
 - [knightswt]           Knights of the Round (Warlock's Tower)

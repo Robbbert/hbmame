@@ -336,6 +336,31 @@ ROM_START( bjourneypx )
 ROM_END
 
 
+ROM_START( blazstarcm )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "239cm.p1",  0x000000, 0x100000, CRC(077ba687) SHA1(0b62fafdf86b1d1d277c965ef79e2b1a234f4cc9) )
+	ROM_LOAD16_WORD_SWAP( "239.p2", 0x100000, 0x200000, CRC(9a9f4154) SHA1(f8805453d0995c8fa16cd9accfb7a990071ca630) )
+
+	NEO_SFIX_128K( "239.s1", CRC(d56cb498) SHA1(420ce56431dc7f3f7de84fcbc8c0a17b5eab205e) )
+
+	NEO_BIOS_AUDIO_128K( "239.m1", CRC(d31a3aea) SHA1(e23abfeb23052f0358edcf2c83401025fe632511) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "239.v1", 0x000000, 0x400000, CRC(1b8d5bf7) SHA1(67fc1f7e36e92a89cd1d415eb31a2892f57b0d04) )
+	ROM_LOAD( "239.v2", 0x400000, 0x400000, CRC(74cf0a70) SHA1(b00451a2a30de2517ae3eca35eb1fe985b950eb8) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "239.c1", 0x0000000, 0x400000, CRC(84f6d584) SHA1(ff36db8504611b0d8d942d1e24823ff71e4aeb37) )
+	ROM_LOAD16_BYTE( "239.c2", 0x0000001, 0x400000, CRC(05a0cb22) SHA1(4abe03e7f3a86f277131d413a3151c7b9c3646c8) )
+	ROM_LOAD16_BYTE( "239.c3", 0x0800000, 0x400000, CRC(5fb69c9e) SHA1(77b96518d8ad8ad120537e0f8ba65d69d1c33566) )
+	ROM_LOAD16_BYTE( "239.c4", 0x0800001, 0x400000, CRC(0be028c4) SHA1(d3f8b37786ca7838c3525895a7f2b49afc8530d4) )
+	ROM_LOAD16_BYTE( "239.c5", 0x1000000, 0x400000, CRC(74bae5f8) SHA1(812c9a31f0721c2971a316b084ce69337dbe3747) )
+	ROM_LOAD16_BYTE( "239.c6", 0x1000001, 0x400000, CRC(4e0700d2) SHA1(cd059fb713c403208923c17e1e8ef02fcfd2fe8d) )
+	ROM_LOAD16_BYTE( "239.c7", 0x1800000, 0x400000, CRC(010ff4fd) SHA1(2571d406442f007a7458d8ccb0939a9201c9c9bf) )
+	ROM_LOAD16_BYTE( "239.c8", 0x1800001, 0x400000, CRC(db60460e) SHA1(a5cb27c0983c8b400d96fd0828ef0639a66d4dba) )
+ROM_END
+
+
 ROM_START( breakersbh )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "230bh.p1", 0x100000, 0x100000, CRC(1d708f96) SHA1(92604d61ed4f6101bdbf6e4352ab28a292e9d0cf) )
@@ -5570,6 +5595,7 @@ GAME( 1991, 2020bbe,     2020bb,   neogeo_noslot, neogeo, neogeo_state, init_neo
 GAME( 1993, 3countbe,    3countb,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "3 Count Bout / Fire Suplex (Earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, aof3e,       aof3,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden (Earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, blazstre,    blazstar, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Yumekobo", "Blazing Star (Earlier)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, blazstarcm,  blazstar, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "NeoCvera", "Blazing Star (Stage Select hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, goalx3e,     goalx3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Goal! Goal! Goal! (Earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikle,   kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Hudson", "Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den (Earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95e,      kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "SNK", "The King of Fighters '95 (Earlier)", MACHINE_SUPPORTS_SAVE )
