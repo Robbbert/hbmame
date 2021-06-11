@@ -16,6 +16,7 @@ New Games
 New Games
 ---------------------------------
 - [dkongbp]             Donkey Kong Barrelpalooza v1.06
+- [knightssa]           Knights of the Round (Squire's Aid)
 - [knightswt]           Knights of the Round (Warlock's Tower)
 - [teotd3]              The Eye of Typhoon (Tsunami Edition, alpha 5)
 
