@@ -433,7 +433,7 @@ private:
 	required_ioport_array<3> m_in;
 	required_ioport m_dsw;
 	optional_ioport m_eepromout;
-	optional_ioport_array<2> m_analog;
+	optional_ioport_array<3> m_analog;
 	output_finder<2> m_pcb_digit;
 	optional_region_ptr<uint32_t> m_comm_board_rom;
 	optional_memory_bank m_comm_bank;
@@ -447,6 +447,8 @@ private:
 	uint16_t m_gn680_latch;
 	uint16_t m_gn680_ret0;
 	uint16_t m_gn680_ret1;
+
+	bool m_sndres;
 
 	uint8_t sysreg_r(offs_t offset);
 	void sysreg_w(offs_t offset, uint8_t data);
@@ -562,24 +564,35 @@ void hornet_state::sysreg_w(offs_t offset, uint8_t data)
 			break;
 
 		case 4: // System Register 1
+		{
 			/*
-			    0x80 = SNDRES (sound reset)
-			    0x40 = COMRES (COM reset)
-			    0x20 = COINRQ2 (EEPROM SCL?)
-			    0x10 = COINRQ1 (EEPROM data)
-			    0x08 = ADCS (ADC CS)
-			    0x04 = ADCONV (ADC CONV)
-			    0x02 = ADDI (ADC DI)
-			    0x01 = ADDSCLK (ADC SCLK)
+				0x80 = SNDRES (sound reset)
+				0x40 = COMRES (COM reset)
+				0x20 = COINRQ2 (EEPROM SCL?)
+				0x10 = COINRQ1 (EEPROM data)
+				0x08 = ADCS (ADC CS)
+				0x04 = ADCONV (ADC CONV)
+				0x02 = ADDI (ADC DI)
+				0x01 = ADDSCLK (ADC SCLK)
 			*/
 			m_adc12138->cs_w((data >> 3) & 0x1);
 			m_adc12138->conv_w((data >> 2) & 0x1);
 			m_adc12138->di_w((data >> 1) & 0x1);
 			m_adc12138->sclk_w(data & 0x1);
 
-			m_audiocpu->set_input_line(INPUT_LINE_RESET, (data & 0x80) ? CLEAR_LINE : ASSERT_LINE);
+			bool sndres = (data & 0x80) ? true : false;
+			m_audiocpu->set_input_line(INPUT_LINE_RESET, (sndres) ? CLEAR_LINE : ASSERT_LINE);
+			if (sndres != m_sndres)
+			{
+				// clear interrupts when reset line is triggered
+				m_audiocpu->set_input_line(M68K_IRQ_1, CLEAR_LINE);
+			}
+
+			m_sndres = sndres;
+
 			osd_printf_debug("System register 1 = %02X\n", data);
 			break;
+		}
 
 		case 5: // Sound Control Register
 			/*
@@ -615,6 +628,7 @@ void hornet_state::sysreg_w(offs_t offset, uint8_t data)
 				m_maincpu->set_input_line(INPUT_LINE_IRQ1, CLEAR_LINE);
 			if (data & 0x40)
 				m_maincpu->set_input_line(INPUT_LINE_IRQ0, CLEAR_LINE);
+
 			m_konppc->set_cgboard_id((data >> 4) & 3);
 			m_cg_view.select(m_konppc->get_cgboard_id() ? 1 : 0);
 			break;
@@ -993,6 +1007,33 @@ static INPUT_PORTS_START( sscope2 )
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("lan_eeprom", eeprom_serial_93cxx_device, cs_write)
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( thrilld )
+	PORT_INCLUDE( hornet )
+
+	PORT_MODIFY("IN0")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_NAME("Gear Shift Up")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_NAME("Gear Shift Down")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_NAME("Gear Shift Left")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_NAME("Gear Shift Right")
+	PORT_BIT( 0x07, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_MODIFY("IN1")
+	PORT_BIT(0xff, IP_ACTIVE_LOW, IPT_UNUSED)
+
+	PORT_MODIFY("IN2")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT (0x08, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("ANALOG1")
+	PORT_BIT(0x7ff, 0x400, IPT_PADDLE) PORT_NAME("Steering Wheel") PORT_MINMAX(0x000, 0x7ff) PORT_SENSITIVITY(100) PORT_KEYDELTA(60)
+
+	PORT_START("ANALOG2")
+	PORT_BIT(0x7ff, 0x000, IPT_PEDAL) PORT_NAME("Gas Pedal") PORT_MINMAX(0x000, 0x7ff) PORT_SENSITIVITY(100) PORT_KEYDELTA(60)
+
+	PORT_START("ANALOG3")
+	PORT_BIT(0x7ff, 0x000, IPT_PEDAL2) PORT_NAME("Brake Pedal") PORT_MINMAX(0x000, 0x7ff) PORT_SENSITIVITY(100) PORT_KEYDELTA(60)
+INPUT_PORTS_END
+
 
 /* PowerPC interrupts
 
@@ -1046,14 +1087,13 @@ void hornet_state::machine_reset()
 
 double hornet_state::adc12138_input_callback(uint8_t input)
 {
-	int value = 0;
-	switch (input)
+	if (input < m_analog.size())
 	{
-		case 0: value = m_analog[0].read_safe(0); break;
-		case 1: value = m_analog[1].read_safe(0); break;
+		int value = m_analog[input].read_safe(0);
+		return (double)(value) / 2047.0;
 	}
 
-	return (double)(value) / 2047.0;
+	return 0.0;
 }
 
 void hornet_state::hornet(machine_config &config)
@@ -1667,7 +1707,7 @@ GAME(  1998, nbapbpa,   nbapbp,   hornet,     nbapbp,   hornet_state, init_horne
 GAME(  1998, terabrst,  0,        terabrst,   terabrst, hornet_state, init_hornet, ROT0, "Konami", "Teraburst (1998/07/17 ver UEL)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME(  1998, terabrsta, terabrst, terabrst,   terabrst, hornet_state, init_hornet, ROT0, "Konami", "Teraburst (1998/02/25 ver AAA)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 // identifies as NWK-LC system
-GAME(  1998, thrilldbu, thrilld,  hornet_lan, hornet,   hornet_state, init_hornet, ROT0, "Konami", "Thrill Drive (ver UFB)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE | MACHINE_NODEVICE_LAN ) // heavy GFX glitches, fails wheel motor test, for now it's possible to get in game by switching "SW:2" to on
+GAME(  1998, thrilldbu, thrilld,  hornet_lan, thrilld,  hornet_state, init_hornet, ROT0, "Konami", "Thrill Drive (ver UFB)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE | MACHINE_NODEVICE_LAN ) // heavy GFX glitches, fails wheel motor test, for now it's possible to get in game by switching "SW:2" to on
 
 // The region comes from the Timekeeper NVRAM, without a valid default all sets except 'xxD, Ver 1.33' will init their NVRAM to UAx versions, the xxD set seems to incorrectly init it to JXD, which isn't a valid
 // version, and thus can't be booted.  If you copy the NVRAM from another already initialized set, it will boot as UAD.
