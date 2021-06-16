@@ -17,6 +17,7 @@ New Games
 ---------------------------------
 - [blazstarcm]          Blazing Star (Stage Select hack)
 - [dkongbp]             Donkey Kong Barrelpalooza v1.06
+- [knightsdt]           Knights of the Round (Death's Thread)
 - [knightssa]           Knights of the Round (Squire's Aid)
 - [knightswt]           Knights of the Round (Warlock's Tower)
 - [teotd3]              The Eye of Typhoon (Tsunami Edition, alpha 5)
