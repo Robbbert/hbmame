@@ -4832,7 +4832,10 @@ void apple2e_state::apple2e(machine_config &config)
 void apple2e_state::apple2epal(machine_config &config)
 {
 	apple2e(config);
-	m_screen->set_raw(1021800*14, (65*7)*2, 0, (40*7)*2, 312, 0, 192);
+	M6502(config.replace(), m_maincpu, 1016966);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2e_map);
+	m_maincpu->set_dasm_override(FUNC(apple2e_state::dasm_trampoline));
+	m_screen->set_raw(1016966 * 14, (65 * 7) * 2, 0, (40 * 7) * 2, 312, 0, 192);
 }
 
 void apple2e_state::mprof3(machine_config &config)
@@ -4855,7 +4858,11 @@ void apple2e_state::apple2ee(machine_config &config)
 void apple2e_state::apple2eepal(machine_config &config)
 {
 	apple2ee(config);
-	m_screen->set_raw(1021800*14, (65*7)*2, 0, (40*7)*2, 312, 0, 192);
+	M65C02(config.replace(), m_maincpu, 1016966);
+	m_maincpu->set_addrmap(AS_PROGRAM, &apple2e_state::apple2e_map);
+	m_maincpu->set_dasm_override(FUNC(apple2e_state::dasm_trampoline));
+
+	m_screen->set_raw(1016966 * 14, (65 * 7) * 2, 0, (40 * 7) * 2, 312, 0, 192);
 }
 
 void apple2e_state::spectred(machine_config &config)
