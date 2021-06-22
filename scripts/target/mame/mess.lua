@@ -4408,6 +4408,8 @@ files {
 createMESSProjects(_target, _subtarget, "yamaha")
 files {
 	MAME_DIR .. "src/mame/machine/mulcd.cpp",
+	MAME_DIR .. "src/mame/drivers/yman1x.cpp",
+	MAME_DIR .. "src/mame/drivers/ymdx100.cpp",
 	MAME_DIR .. "src/mame/drivers/ymdx11.cpp",
 	MAME_DIR .. "src/mame/drivers/ymmu5.cpp",
 	MAME_DIR .. "src/mame/drivers/ymmu50.cpp",
@@ -4415,6 +4417,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/ymmu100.cpp",
 	MAME_DIR .. "src/mame/drivers/ympsr60.cpp",
 	MAME_DIR .. "src/mame/drivers/ympsr340.cpp",
+	MAME_DIR .. "src/mame/drivers/ymsy35.cpp",
 	MAME_DIR .. "src/mame/drivers/ymtx81z.cpp",
 	MAME_DIR .. "src/mame/drivers/ymvl70.cpp",
 	MAME_DIR .. "src/mame/drivers/fb01.cpp",
@@ -4585,6 +4588,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/learnwin.cpp",
 	MAME_DIR .. "src/mame/drivers/lft.cpp",
 	MAME_DIR .. "src/mame/drivers/lg-dvd.cpp",
+	MAME_DIR .. "src/mame/drivers/lk3000.cpp",
 	MAME_DIR .. "src/mame/drivers/lms46.cpp",
 	MAME_DIR .. "src/mame/drivers/lola8a.cpp",
 	MAME_DIR .. "src/mame/drivers/lilith.cpp",

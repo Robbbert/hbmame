@@ -19869,6 +19869,9 @@ macxl                           // 1985 Apple Macintosh XL
 @source:littlerb.cpp
 littlerb                        // (c) 1993 TCH
 
+@source:lk3000.cpp
+lk3000
+
 @source:lkage.cpp
 bygone                          // A53 (c) 1985 Taito Corporation - prototype ?
 lkage                           // A54 (c) 1984 Taito Corporation
@@ -38221,6 +38224,7 @@ sitcomtmr                       //
 @source:sk1.cpp
 sk1                             //
 sk2                             //
+sk5                             //
 sk10                            //
 
 @source:sk101bl.cpp
@@ -43265,6 +43269,12 @@ yes                             //
 yiear                           // GX407 (c) 1985
 yiear2                          // GX407 (c) 1985
 
+@source:yman1x.cpp
+an1x                            //
+
+@source:ymdx100.cpp
+dx100                           //
+
 @source:ymdx11.cpp
 dx11                            //
 
@@ -43288,6 +43298,9 @@ psr70                           // 1985 PSR-70
 
 @source:ympsr340.cpp
 psr340                          // 1999 PSR-340
+
+@source:ymsy35.cpp
+sy35                            //
 
 @source:ymtx81z.cpp
 tx81z                           //
