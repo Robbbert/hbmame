@@ -516,6 +516,7 @@ MACHINES["DS1386"] = true
 MACHINES["DS17X85"] = true
 MACHINES["DS2401"] = true
 MACHINES["DS2404"] = true
+MACHINES["DS6417"] = true
 MACHINES["DS75160A"] = true
 MACHINES["DS75161A"] = true
 MACHINES["DS8874"] = true
@@ -4557,6 +4558,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/grfd2301.cpp",
 	MAME_DIR .. "src/mame/drivers/hazeltin.cpp",
 	MAME_DIR .. "src/mame/drivers/hazl1420.cpp",
+	MAME_DIR .. "src/mame/drivers/hohnadam.cpp",
 	MAME_DIR .. "src/mame/drivers/hp3478a.cpp",
 	MAME_DIR .. "src/mame/drivers/hprot1.cpp",
 	MAME_DIR .. "src/mame/drivers/hpz80unk.cpp",
