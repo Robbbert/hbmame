@@ -3,6 +3,7 @@
 
 2021-06-30 0.233
 
+- kof97t is now working
 
 New Games
 ---------------------------------
@@ -14,6 +15,8 @@ New Games
 - [knightssa]           Knights of the Round (Squire's Aid)
 - [knightswt]           Knights of the Round (Warlock's Tower)
 - [sf2mix100]           Street Fighter II: Champion Edition (Mix 1.0)
+- [ssf2tnl4]            Super Street Fighter II Turbo (New Legacy v0.4 beta 2020-11-13)
+- [ssf2tnl5]            Super Street Fighter II Turbo (New Legacy v0.5 beta 2021-06-11)
 
 
 
