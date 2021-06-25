@@ -7,6 +7,7 @@
 New Games
 ---------------------------------
 - [blazstarcm]          Blazing Star (Stage Select hack)
+- [crimecb]             Crime City (unknown hack)
 - [dkongbp]             Donkey Kong Barrelpalooza v1.06
 - [ffightaebv]          Final Fight 30th Anniversary Edition Brutal Version 2021-05-28
 - [knightsdt]           Knights of the Round (Death's Thread)

@@ -8731,6 +8731,8 @@ frontlins01
 @source:taito_b.cpp
 pbobble					//parent
 bubbleb
+crimec					//parent
+crimecb
 
 @source:taito_f2.cpp
 f2demo					// HB
