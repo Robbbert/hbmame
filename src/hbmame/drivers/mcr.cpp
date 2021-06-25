@@ -4,21 +4,21 @@
 
 ROM_START( handiman ) // all roms from tron2 except gfx2
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "scpu_pga.d2", 0x0000, 0x2000, CRC(5151770b) SHA1(26f4d830de7be228528e462dd628f439629a2641) )
-	ROM_LOAD( "scpu_pgb.d3", 0x2000, 0x2000, CRC(8ddf8717) SHA1(e0c294afa8ba0b0ba89e3e0fb3ff6d8fc4398e32) )
-	ROM_LOAD( "scpu_pgc.d4", 0x4000, 0x2000, CRC(4241e3a0) SHA1(24c1bd2f31e194542571c391c5dccf21354115c2) )
-	ROM_LOAD( "scpu_pgd.d5", 0x6000, 0x2000, CRC(035d2fe7) SHA1(1b827ca30a439d2f4cc94fcc0e90ee0cf87e018c) )
-	ROM_LOAD( "scpu_pge.d6", 0x8000, 0x2000, CRC(24c185d8) SHA1(45ac7c53f6f4eba5c7bf3fc6559cddd3821eddad) )
-	ROM_LOAD( "scpu_pgf.d7", 0xa000, 0x2000, CRC(38c4bbaf) SHA1(a7cd496ce75199b8279ea963520cf70d5f562bb2) )
+	ROM_LOAD( "scpu-pga_lctn-c2_tron_jun_25.c2", 0x0000, 0x2000, CRC(5151770b) SHA1(26f4d830de7be228528e462dd628f439629a2641) )
+	ROM_LOAD( "scpu-pgb_lctn-c3_tron_aug_9.c3", 0x2000, 0x2000, CRC(8ddf8717) SHA1(e0c294afa8ba0b0ba89e3e0fb3ff6d8fc4398e32) )
+	ROM_LOAD( "scpu-pgc_lctn-c4_tron_aug_9.c4", 0x4000, 0x2000, CRC(4241e3a0) SHA1(24c1bd2f31e194542571c391c5dccf21354115c2) )
+	ROM_LOAD( "scpu-pgd_lctn-c5_tron_aug_9.c5", 0x6000, 0x2000, CRC(035d2fe7) SHA1(1b827ca30a439d2f4cc94fcc0e90ee0cf87e018c) )
+	ROM_LOAD( "scpu-pge_lctn-c6_tron_aug_9.c6", 0x8000, 0x2000, CRC(24c185d8) SHA1(45ac7c53f6f4eba5c7bf3fc6559cddd3821eddad) )
+	ROM_LOAD( "scpu-pgf_lctn-c7_tron_aug_9.c7", 0xa000, 0x2000, CRC(38c4bbaf) SHA1(a7cd496ce75199b8279ea963520cf70d5f562bb2) )
 
 	ROM_REGION( 0x10000, "ssio:cpu", 0 )
-	ROM_LOAD( "ssi_0a.a7",   0x0000, 0x1000, CRC(765e6eba) SHA1(42efeefc8571dfc237c0be3368248f1e56add92e) )
-	ROM_LOAD( "ssi_0b.a8",   0x1000, 0x1000, CRC(1b90ccdd) SHA1(0876e5eeaa63bb8cc97f3634a6ddd8a29a9b012f) )
-	ROM_LOAD( "ssi_0c.a9",   0x2000, 0x1000, CRC(3a4bc629) SHA1(ce8452a99a313ae7429de471bbea39de08c9fd4b) )
+	ROM_LOAD( "ssi-0a_lctn-a7_tron.a7",   0x0000, 0x1000, CRC(765e6eba) SHA1(42efeefc8571dfc237c0be3368248f1e56add92e) )
+	ROM_LOAD( "ssi-0b_lctn-a8_tron.a8",   0x1000, 0x1000, CRC(1b90ccdd) SHA1(0876e5eeaa63bb8cc97f3634a6ddd8a29a9b012f) )
+	ROM_LOAD( "ssi-0c_lctn-a9_tron.a9",   0x2000, 0x1000, CRC(3a4bc629) SHA1(ce8452a99a313ae7429de471bbea39de08c9fd4b) )
 
 	ROM_REGION( 0x04000, "gfx1", 0 )
-	ROM_LOAD( "scpu_bgg.g3", 0x0000, 0x2000, CRC(1a9ed2f5) SHA1(b0d85b47873ac8ad475da18b9540d37232cb2b7c) )
-	ROM_LOAD( "scpu_bgh.g4", 0x2000, 0x2000, CRC(3220f974) SHA1(a38ea5f1db27f05d9689db838ce7a8de98f34837) )
+	ROM_LOAD( "scpu-bgg_lctn-g3_tron.g3", 0x0000, 0x2000, CRC(1a9ed2f5) SHA1(b0d85b47873ac8ad475da18b9540d37232cb2b7c) )
+	ROM_LOAD( "scpu-bgh_lctn-g4_tron.g4", 0x2000, 0x2000, CRC(3220f974) SHA1(a38ea5f1db27f05d9689db838ce7a8de98f34837) )
 
 	ROM_REGION( 0x10000, "gfx2", 0 )
 	ROM_LOAD( "handiman.e1",     0x00000, 0x2000, CRC(8fb79ed7) SHA1(70e5f2aecda3d055eaedf2039128e549a94bd2cd) )
