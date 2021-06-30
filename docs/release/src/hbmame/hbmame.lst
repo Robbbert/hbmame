@@ -274,6 +274,7 @@ dinoslice
 dinouphp
 dinoz
 ffightae
+ffightaebv
 ffightb
 ffightjh01
 knight21
@@ -284,6 +285,9 @@ knightsha
 knightsjb
 knightsro
 knightud
+knightswt
+knightssa
+knightsdt
 kodd			// no gfx in attract mode; illegal instruction
 kodh
 kodsp
@@ -321,6 +325,7 @@ sf2mix98b
 sf2mix98c
 sf2mix99
 sf2mix99a
+sf2mix100
 sf2pun
 sf2r3
 sf2rbpr
@@ -1243,6 +1248,8 @@ sgemfch
 spf2tb
 ssf2tfp
 ssf2tfr
+ssf2tnl4
+ssf2tnl5
 ssf2tpls
 ssf2xjhy
 ssf2xjjs
@@ -1547,6 +1554,7 @@ dkfreerun
 dkongotr
 dkongitd
 dkongtj
+dkongbp
 //dk_remix
 
 @source:docastle.cpp
@@ -6099,6 +6107,7 @@ androduns01
 aof2s01
 aof2s02
 aof2s03
+blazstarcm
 breakers01
 breakrevs01
 breakrevs02
@@ -8724,6 +8733,8 @@ frontlins01
 @source:taito_b.cpp
 pbobble					//parent
 bubbleb
+crimec					//parent
+crimecb
 
 @source:taito_f2.cpp
 f2demo					// HB

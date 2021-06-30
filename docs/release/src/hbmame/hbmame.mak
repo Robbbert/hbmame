@@ -72,4 +72,5 @@ LAYOUTS += \
 	$(SRC)/mame/layout/finallap.lay \
 	$(SRC)/mame/layout/segabillv.lay \
 	$(SRC)/mame/layout/speedfrk.lay \
+	$(SRC)/mame/layout/critcrsh.lay \
 

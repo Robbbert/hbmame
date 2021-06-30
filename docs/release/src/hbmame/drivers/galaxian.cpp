@@ -752,8 +752,8 @@ GAME( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_moonc
 
 /* Other */
 GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, monstrz,  0,        sfx,      sfx,      galaxian_hbmame, init_sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
-GAME( 19??, starfgh2, pisces,   galaxian, piscesb,  galaxian_hbmame, init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, monstrz,  0,        sfx,      sfx,      taiyo_sfx_state, init_sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 19??, starfgh2, pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 
 
