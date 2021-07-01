@@ -5,10 +5,10 @@
 Banpresto medal games with Seibu customs
 
 Confirmed games (but there are probably several more):
-Mario Sports Day
-TV Phone Doraemon
+Mario Undoukai
+Terebi Denwa Doraemon
 
-The following is from Mario Sports Day PCB pics:
+The following is from Mario Undoukai PCB pics:
 
 BS9001-2 main PCB + BS9001-A ROM PCB
 Main components:
@@ -27,12 +27,13 @@ The audio section also has unpopulated spaces marked for a Z80, a YM2203 and a S
 
 TODO:
 - printer or hopper emulation
-- the GFX emulation was adapted from other drivers using the Seibu customs, it needs more adjustments (i.e sprite / tilemap priority in doors' scene in attract mode)
-- the Oki sounds terribly, only missing banking or what's going on?
-- controls / dips need to be completed and better arranged;
+- the GFX emulation was adapted from other drivers using the Seibu customs, it might need more adjustments
+- verify Oki banking (needs someone who understands Japanese to check if speech makes sense when it gets called)
+- lamps
+- controls / dips need to be completed and better arranged
 - currently stuck at the call assistant screen due to vendor test failing (printer / hopper?), but can enter test mode.
   To test the games, it's possible to get the attract mode running by enabling the hack in the memory map at 0xe0004-0xe0005.
-  mariound won't let you coin up, while tvphoned will go back to the call assistant screen shortly after starting (both believed to be because of missing printer or hopper emulation)
+  tvdenwad will go back to the call assistant screen shortly after starting (believed to be because of missing printer or hopper emulation)
 */
 
 #include "emu.h"
@@ -60,10 +61,13 @@ public:
 		m_gfxdecode(*this, "gfxdecode"),
 		m_palette(*this, "palette"),
 		m_vram(*this, "vram%u", 0U),
-		m_spriteram(*this, "sprite_ram")
+		m_spriteram(*this, "sprite_ram"),
+		m_okibank(*this, "okibank")
 	{ }
 
 	void banprestoms(machine_config &config);
+
+	void init_oki();
 
 protected:
 	virtual void machine_start() override;
@@ -77,10 +81,14 @@ private:
 	required_shared_ptr_array<uint16_t, 4> m_vram;
 	required_shared_ptr<uint16_t> m_spriteram;
 
+	required_memory_bank m_okibank;
+
 	tilemap_t *m_tilemap[4];
 
 	uint16_t m_layer_en;
 	uint16_t m_scrollram[6];
+
+	void okibank_w(uint16_t data);
 
 	template <uint8_t Which> void vram_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
 	void layer_en_w(uint16_t data);
@@ -92,12 +100,23 @@ private:
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	void prg_map(address_map &map);
+	void oki_map(address_map &map);
 };
 
 
 void banprestoms_state::machine_start()
 {
+	m_okibank->configure_entries(0, 4, memregion("oki")->base(), 0x40000);
+	m_okibank->set_entry(0);
 }
+
+
+void banprestoms_state::okibank_w(uint16_t data)
+{
+	m_okibank->set_entry(data & 0x03);
+	// TODO: what do the other bits do?
+}
+
 
 void banprestoms_state::video_start()
 {
@@ -142,25 +161,42 @@ void banprestoms_state::draw_sprites(bitmap_ind16 &bitmap, const rectangle &clip
 		int y = m_spriteram[offs + 3];
 		int x = m_spriteram[offs + 2];
 
-		if (x & 0x8000) x = 0 - (0x200 - (x & 0x1ff));
-		else x &= 0x1ff;
-		if (y & 0x8000) y = 0 -(0x200 -( y & 0x1ff));
-		else y &= 0x1ff;
-
 		int color = m_spriteram[offs] & 0x3f;
 		int fx = m_spriteram[offs] & 0x4000;
 		int fy = m_spriteram[offs] & 0x2000;
 		int dy = ((m_spriteram[offs] & 0x0380) >> 7) + 1;
 		int dx = ((m_spriteram[offs] & 0x1c00) >> 10) + 1;
 
+		// co-ordinates don't have a sign bit, there must be wrapping logic
+		// co-ordinate masking might need to be applied during drawing instead
+		x &= 0x1ff;
+		if (x >= 0x180)
+			x -= 0x200;
+
+		y &= 0x1ff;
+		if (y >= 0x180)
+			y -= 0x200;
+
 		for (int ax = 0; ax < dx; ax++)
+		{
 			for (int ay = 0; ay < dy; ay++)
 			{
-				if (!fx)
-					m_gfxdecode->gfx(0)->transpen(bitmap, cliprect, sprite++, color, fx, fy, x + ax * 16, y + ay * 16, 15);
+				if (!fy)
+				{
+					if (!fx)
+						m_gfxdecode->gfx(0)->transpen(bitmap, cliprect, sprite++, color, fx, fy, x + ax * 16, y + ay * 16, 15);
+					else
+						m_gfxdecode->gfx(0)->transpen(bitmap, cliprect, sprite++, color, fx, fy, x + (dx - 1 - ax) * 16, y + ay * 16, 15);
+				}
 				else
-					m_gfxdecode->gfx(0)->transpen(bitmap, cliprect, sprite++, color, fx, fy, x + (dx - 1 - ax) * 16, y + ay * 16, 15);
+				{
+					if (!fx)
+						m_gfxdecode->gfx(0)->transpen(bitmap, cliprect, sprite++, color, fx, fy, x + ax * 16, y + (dy - 1 - ay) * 16, 15);
+					else
+						m_gfxdecode->gfx(0)->transpen(bitmap, cliprect, sprite++, color, fx, fy, x + (dx - 1 - ax) * 16, y + (dy - 1 - ay) * 16, 15);
+				}
 			}
+		}
 	}
 }
 
@@ -169,13 +205,13 @@ uint32_t banprestoms_state::screen_update(screen_device &screen, bitmap_ind16 &b
 	bitmap.fill(m_palette->pen(0x7ff), cliprect); //black pen
 
 	m_tilemap[0]->set_scrollx(0, m_scrollram[0]);
-	m_tilemap[0]->set_scrolly(0, m_scrollram[1]);
+	m_tilemap[0]->set_scrolly(0, m_scrollram[1] - 16);
 	m_tilemap[1]->set_scrollx(0, m_scrollram[2]);
-	m_tilemap[1]->set_scrolly(0, m_scrollram[3]);
+	m_tilemap[1]->set_scrolly(0, m_scrollram[3] - 16);
 	m_tilemap[2]->set_scrollx(0, m_scrollram[4]);
-	m_tilemap[2]->set_scrolly(0, m_scrollram[5]);
+	m_tilemap[2]->set_scrolly(0, m_scrollram[5] - 16);
 	m_tilemap[3]->set_scrollx(0, 128);
-	m_tilemap[3]->set_scrolly(0, 0);
+	m_tilemap[3]->set_scrolly(0, -16);
 
 	if (!(m_layer_en & 0x0001)) { m_tilemap[0]->draw(screen, bitmap, cliprect, 0, 0); }
 	if (!(m_layer_en & 0x0010)) { draw_sprites(bitmap, cliprect, 2); }
@@ -214,14 +250,20 @@ void banprestoms_state::prg_map(address_map &map)
 	map(0xc0000, 0xc004f).rw("crtc", FUNC(seibu_crtc_device::read), FUNC(seibu_crtc_device::write));
 	map(0xc0080, 0xc0081).nopw(); // CRTC related ?
 	map(0xc00c0, 0xc00c1).nopw(); // CRTC related ?
-	//map(0xc0100, 0xc0101).nopw(); // Oki banking?
-	//map(0xc0140, 0xc0141).nopw();
+	map(0xc0100, 0xc0101).w(FUNC(banprestoms_state::okibank_w));
+	//map(0xc0140, 0xc0141).nopw(); // in marioun bit 3 is lamp according to test mode
 	map(0xe0000, 0xe0001).portr("DSW1");
 	map(0xe0002, 0xe0003).portr("IN1");
 	map(0xe0004, 0xe0005).portr("IN2"); //.lr16(NAME([this] () -> uint16_t { return (machine().rand() & 0x0004) | (ioport("IN2")->read() & 0xfffb); }));
 }
 
-static INPUT_PORTS_START( tvphoned )
+void banprestoms_state::oki_map(address_map &map)
+{
+	map(0x00000, 0x3ffff).bankr(m_okibank);
+}
+
+
+static INPUT_PORTS_START( tvdenwad )
 	PORT_START("IN1")
 	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_BUTTON1 ) // 1
 	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_BUTTON2 ) // 2
@@ -312,11 +354,11 @@ static INPUT_PORTS_START( marioun ) // inputs defined as IPT_UNKNOWN don't show 
 	PORT_BIT( 0x0004, IP_ACTIVE_LOW, IPT_BUTTON9 ) // Card Pay
 	PORT_BIT( 0x0008, IP_ACTIVE_LOW, IPT_START1 )
 	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_SERVICE1 )
+	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_SERVICE1 )
+	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_COIN1 )
+	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_COIN1 )
+	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_UNKNOWN )
@@ -401,7 +443,7 @@ void banprestoms_state::banprestoms(machine_config &config)
 	screen.set_refresh_hz(60);
 	screen.set_vblank_time(ATTOSECONDS_IN_USEC(0));
 	screen.set_size(64*8, 32*8);
-	screen.set_visarea(0, 320-1, 16, 256-1);
+	screen.set_visarea(0, 320-1, 16, 240-1);
 	screen.set_screen_update(FUNC(banprestoms_state::screen_update));
 	screen.set_palette(m_palette);
 
@@ -416,11 +458,12 @@ void banprestoms_state::banprestoms(machine_config &config)
 	SPEAKER(config, "mono").front_center();
 
 	okim6295_device &oki(OKIM6295(config, "oki", 1000000, okim6295_device::PIN7_HIGH)); // TODO: check frequency and pin 7.
+	oki.set_addrmap(0, &banprestoms_state::oki_map);
 	oki.add_route(ALL_OUTPUTS, "mono", 0.40);
 }
 
 
-ROM_START( tvphoned )
+ROM_START( tvdenwad )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s82_a02.u15",  0x00000, 0x20000, CRC(479f790f) SHA1(a544c6493feb74ec8727f6b7f491ce6e5d24e316) )
 	ROM_LOAD16_BYTE( "s82_a01.u14",  0x00001, 0x20000, CRC(ac7cccdb) SHA1(5c0877e1831663113aa3284e323bf7665b5baa71) )
@@ -488,8 +531,39 @@ ROM_START( marioun )
 	ROM_LOAD( "sc006.u248", 0x800, 0x117, NO_DUMP ) // gal16v8a
 ROM_END
 
+void banprestoms_state::init_oki() // The Oki mask ROM is in an unusual format, load it so that MAME can make use of it
+{
+	uint8_t *okirom = memregion("oki")->base();
+	std::vector<uint8_t> buffer(0x100000);
+	memcpy(&buffer[0], okirom, 0x100000);
+
+	for (int i = 0; i < 0x80000; i += 4)
+		okirom[i / 2] = buffer[i];
+
+	for (int i = 1; i < 0x80000; i += 4)
+		okirom[(i - 1) / 2 + 0x40000] = buffer[i];
+
+	for (int i = 2; i < 0x80000; i += 4)
+		okirom[i / 2] = buffer[i];
+
+	for (int i = 3; i < 0x80000; i += 4)
+		okirom[(i - 1) / 2 + 0x40000] = buffer[i];
+
+	for (int i = 0x80000; i < 0x100000; i += 4)
+		okirom[i / 2 + 0x40000] = buffer[i];
+
+	for (int i = 0x80001; i < 0x100000; i += 4)
+		okirom[(i - 1) / 2 + 0x80000] = buffer[i];
+
+	for (int i = 0x80002; i < 0x100000; i += 4)
+		okirom[i / 2 + 0x40000] = buffer[i];
+
+	for (int i = 0x80003; i < 0x100000; i += 4)
+		okirom[(i - 1) / 2 + 0x80000] = buffer[i];
+}
+
 } // Anonymous namespace
 
 
-GAME( 1991, tvphoned, 0, banprestoms, tvphoned, banprestoms_state, empty_init, ROT0, "Banpresto", "TV Phone Doraemon", MACHINE_IS_SKELETON )
-GAME( 1993, marioun,  0, banprestoms, marioun,  banprestoms_state, empty_init, ROT0, "Banpresto", "Mario Sports Day",  MACHINE_IS_SKELETON )
+GAME( 1991, tvdenwad, 0, banprestoms, tvdenwad, banprestoms_state, init_oki, ROT0, "Banpresto", "Terebi Denwa Doraemon", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1993, marioun,  0, banprestoms, marioun,  banprestoms_state, init_oki, ROT0, "Banpresto", "Super Mario World - Mario Undoukai",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
