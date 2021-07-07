@@ -321,6 +321,34 @@ ROM_START( mhavocpex7fr )
 	ROM_LOAD( "mhavocpex7fr.x1", 0x000000, 0x040000, CRC(5cfa1865) SHA1(ab520b4af6a9ffc2593223798fee8026266a722e) )
 ROM_END
 
+ROM_START( mhavocpex7de )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhavocpex7de.6kl",  0x00000, 0x2000, CRC(04bfc5bf) SHA1(7369f1b4d808bac826e55d821b9bca271b8686b0) )
+
+	ROM_REGION( 0x20000, "alpha", 0 )
+	ROM_LOAD( "mhavocpex7de.1mn",  0x08000, 0x4000, CRC(216854d1) SHA1(e4007598d28aca8b8109d0ea2eb06189e25d60ff) )
+	ROM_LOAD( "mhavocpex7de.1l",   0x0c000, 0x4000, CRC(c15cee70) SHA1(a8fdf2c90a2bd266e356515ae9eab548ba551ac1) )
+	ROM_LOAD( "mhavocpex7de.1q",   0x10000, 0x8000, CRC(b4d30709) SHA1(785735c9b5524a1cd95786aa0231826dea95cbc3) )
+	ROM_LOAD( "mhavocpex7de.1np",  0x18000, 0x8000, CRC(82dabc54) SHA1(948240ae0fa73bd1759eb25bfdfe3c62ac49f927) )
+
+	ROM_REGION( 0x8000, "avg", 0 )
+	ROM_LOAD( "mhavocpex7de.6h",   0x0000, 0x4000, CRC(f23a70ac) SHA1(4c22f632c3f99b59a15f8d89be78b8d2882a32d1) )
+	ROM_LOAD( "mhavocpex7de.6jk",  0x4000, 0x4000, CRC(20724d44) SHA1(67f2f4299cc50e7cc45fbe0126bf4718b867f82b) )
+
+	ROM_REGION( 0x10000, "gamma", 0 )
+	ROM_LOAD( "mhavocpex7de.9s",   0x8000, 0x4000, CRC(51b1be7e) SHA1(478d2151f3b1fd54d4e91ef52f8f91c5425c0064) )
+
+	//ROM_REGION( 0x10000, "beta", 0 )
+	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(54618f8d) SHA1(f20b1fca139eb1b0fd882c5a25b7c5b31c48d9b4) )
+	//ROM_LOAD( "mhavocpe.1d",   0xc000, 0x4000, CRC(2f397fbd) SHA1(c714f0cb4cc8958e5bf0e1533f1790785e235299) )
+	
+	ROM_REGION( 0x100, "avg:prom", 0 )
+	ROM_LOAD( "136002-125.6c",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
+	
+	ROM_REGION( 0x40000, "oki", 0 )   /* 256k for ADPCM samples */
+	ROM_LOAD( "mhavocpex7de.x1", 0x000000, 0x040000, CRC(5cfa1865) SHA1(ab520b4af6a9ffc2593223798fee8026266a722e) )
+ROM_END
+
 //Placeholder Driver for upcoming final release
 ROM_START( mhavocpe )
 	ROM_REGION( 0x2000, "vectorrom", 0 )
@@ -359,4 +387,5 @@ GAME( 2020, mhavocpex5, mhavoc, conf_mhavocpe, mhavocrv, mhavoc_state, init_mhav
 GAME( 2021, mhavocpex6, mhavoc, conf_mhavocpe, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.75)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mhavocpex7, mhavoc, conf_mhavocpe2, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.77)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mhavocpex7fr, mhavoc, conf_mhavocpe2, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.77) FRENCH", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mhavocpex7de, mhavoc, conf_mhavocpe2, mhavocrv, mhavoc_state, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.77) GERMAN", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mhavocpe,   mhavoc, conf_mhavocpe2, mhavocrv, mhavoc_state, empty_init, ROT0, "JMA", "Major Havoc - The Promised End (NOT YET RELEASED)", MACHINE_SUPPORTS_SAVE )
