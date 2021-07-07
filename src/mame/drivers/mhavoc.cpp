@@ -14,7 +14,8 @@
         * Alpha One
         * Major Havoc
         * Major Havoc: Return to Vax (including speech) - This version is a hack that includes 3 new levels
-                                                          near the end of the game. Level 19 is incomplete.
+                                                          near the end of the game. Level 19 is incomplete
+		* Major Havoc - The Promised End - Various prerelease versions as well as final versions
 
     Known bugs:
         * none at this time
@@ -261,7 +262,6 @@ void mhavoc_state::dual_pokey_w(offs_t offset, uint8_t data)
 
 	m_pokey[pokey_num]->write(pokey_reg, data);
 }
-
 
 /*************************************
  *
@@ -583,7 +583,17 @@ void mhavoc_state::mhavocrv(machine_config &config)
 
 	TMS5220(config, m_tms, MHAVOC_CLOCK/2/9);
 	m_tms->add_route(ALL_OUTPUTS, "mono", 1.0);
+	
 }
+
+/* void mhavoc_state::mhavocpe(machine_config &config)
+{
+	mhavoc(config);
+
+	TMS5220(config, m_tms, MHAVOC_CLOCK/2/9);
+	m_tms->add_route(ALL_OUTPUTS, "mono", 1.0);
+	
+} */
 
 void mhavoc_state::alphaone(machine_config &config)
 {

@@ -9,6 +9,7 @@
 #include "machine/timer.h"
 #include "sound/pokey.h"
 #include "sound/tms5220.h"
+#include "sound/okim6295.h"
 
 #define MHAVOC_CLOCK        10000000
 #define MHAVOC_CLOCK_5M     (MHAVOC_CLOCK/2)
@@ -20,6 +21,7 @@
 #define MHAVOC_CLOCK_5K     (MHAVOC_CLOCK_625K/16/8)
 #define MHAVOC_CLOCK_2_4K   (MHAVOC_CLOCK_625K/16/16)
 
+#define OKI_CLOCK			1056000
 
 class mhavoc_state : public driver_device
 {
@@ -34,6 +36,7 @@ public:
 		m_comram(*this, "comram"),
 		m_pokey(*this, "pokey%u", 1U),
 		m_tms(*this, "tms"),
+		m_oki(*this, "oki"),
 		m_lamps(*this, "lamp%u", 0U),
 		m_coin(*this, "COIN"),
 		m_service(*this, "SERVICE")
@@ -42,7 +45,8 @@ public:
 	void alphaone(machine_config &config);
 	void mhavoc(machine_config &config);
 	void mhavocrv(machine_config &config);
-	void mhavocpe(machine_config &config); //HBMAME
+	void conf_mhavocpe(machine_config &config); //HBMAME
+	void conf_mhavocpe2(machine_config &config); //HBMAME
 
 	void init_mhavocrv();
 
@@ -71,6 +75,7 @@ private:
 	void mhavocrv_speech_strobe_w(uint8_t data);
 	uint8_t quad_pokeyn_r(offs_t offset);
 	void quad_pokeyn_w(offs_t offset, uint8_t data);
+	void oki_w(offs_t offset, uint8_t data);
 
 	TIMER_CALLBACK_MEMBER(delayed_gamma_w);
 	TIMER_DEVICE_CALLBACK_MEMBER(mhavoc_cpu_irq_clock);
@@ -79,6 +84,7 @@ private:
 	void gamma_map(address_map &map);
 	void alphape_map(address_map &map); //HBMAME
 	void gammape_map(address_map &map); //HBMAME
+	void gammape2_map(address_map &map); //HBMAME
 	void betape_map(address_map &map); //HBMAME
 
 	virtual void machine_start() override;
@@ -92,6 +98,7 @@ private:
 	required_shared_ptr<uint8_t> m_comram;
 	optional_device_array<pokey_device, 4> m_pokey;
 	optional_device<tms5220_device> m_tms;
+	optional_device<okim6295_device> m_oki;
 	output_finder<2> m_lamps;
 	optional_ioport m_coin;
 	optional_ioport m_service;
