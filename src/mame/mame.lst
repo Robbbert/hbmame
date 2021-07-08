@@ -1735,6 +1735,7 @@ penpir2                         // (c) 1998
 petshop                         // (c) 1998
 petshopa                        // (c) 1998
 phantpay                        // (c) 1995
+phantpyc                        // (c) 2000
 przfight                        // (c) 1996
 qcash                           // (c) 1998
 qnile                           // (c) 1997
@@ -1755,7 +1756,8 @@ qnileu                          // (c) 1997
 qnileua                         // (c) 1997
 qnilev                          // (c) 1997
 qtbird                          // (c) 1994
-rainwrce                        // (c) 2000
+rainwarr                        // (c) 2001
+rainwarrce                      // (c) 2001
 reelpwr                         // (c) 1996
 reelrock                        // (c) 1998
 reelrockql                      // (c) 2000
@@ -16647,6 +16649,9 @@ sscope2                         // GX931 (c)2000
 sscopea                         // GX830 (c)1999
 sscopeb                         // GX830 (c)1999
 sscopec                         // GX830 (c)1999
+sscoped                         // GX830 (c)1999
+sscope2b                        // GX931 (c)2000
+sscope2c                        // GX931 (c)2000
 terabrst                        // GX715 (c)1998 USA UEL 1998/07/17
 terabrsta                       // GX715 (c)1998 Asia AAA 1998/02/25
 thrilldbu                       // GE713UF (c)1998 ?AB
