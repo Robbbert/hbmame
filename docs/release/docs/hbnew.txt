@@ -1,6 +1,18 @@
 ﻿What's new in HBMAME
 ====================
 
+2021-07-28 0.234
+
+
+
+New Games
+---------------------------------
+- [dkongan]             Donkey Kong 40th Anniversary Edition
+- [dkongbp1]            Donkey Kong Barrelpalooza v1.07
+
+
+
+
 2021-06-30 0.233
 
 - kof97t is now working
