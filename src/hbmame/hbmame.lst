@@ -1526,8 +1526,8 @@ decomult				// Dave Widel
 @source:dkong.cpp
 dkong					//parent
 dkong2m
-dkongbcc				// Jeffs Rom Hacks
-dkongex					// Jeffs Hack with Foundry Level
+dkongbcc				//Jeffs Rom Hacks
+dkongex					//Jeffs Hack with Foundry Level
 dkongf
 dkongst
 dkongst2
@@ -1548,15 +1548,15 @@ dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
 kong2600				// Vic Twenty George hack of Donkey Kong
-nadkong
-dkcbarrel
-dkfreerun
-dkongotr
-dkongitd
-dkongtj
-dkongbp
-dkongbp1
-dkongan
+nadkong					//
+dkcbarrel				// Paul Goes
+dkfreerun				// Paul Goes
+dkongotr				// Paul Goes
+dkongitd				// Paul Goes
+dkongtj					// Paul Goes
+dkongbp					// Paul Goes
+dkongbp1				// Paul Goes
+dkongan					// Paul Goes
 //dk_remix
 
 @source:docastle.cpp
@@ -4149,51 +4149,54 @@ kikikai					//parent
 kikikais01
 
 @source:mgd2.cpp
-bstarsd		/* 0002 (c) 1990 SNK */
-tpgolfd		/* 0003 (c) 1990 SNK */
-maglordd	/* 0005 (c) 1990 Alpha Denshi Co. */
-ridherod	/* 0006 (c) 1990 SNK */
-alpham2d	/* 0007 (c) 1991 SNK */
-ncombatd	/* 0009 (c) 1990 Alpha Denshi Co. */
-cyberlipd	/* 0010 (c) 1990 SNK */
-superspyd	/* 0011 (c) 1990 SNK */
-mutnatd		/* 0014 (c) 1992 SNK */
-kotmd		/* 0016 (c) 1991 SNK */
-sengokud	/* 0017 (c) 1991 SNK */
-burningfd	/* 0018 (c) 1991 SNK */
-lbowlingd	/* 0019 (c) 1990 SNK */
-gpilotsd	/* 0020 (c) 1991 SNK */
-joyjoyd		/* 0021 (c) 1990 SNK */
-lresortd	/* 0024 (c) 1992 SNK */
-eightmand	/* 0025 (c) 1991 SNK / Pallas */
-minasand	/* 0027 (c) 1990 Monolith Corp. */
-2020bbd		/* 0030 (c) 1991 SNK / Pallas */
-socbrawld	/* 0031 (c) 1991 SNK */
-roboarmyd	/* 0032 (c) 1991 SNK */
-fatfury1d	/* 0033 (c) 1991 SNK */
-fbfrenzyd	/* 0034 (c) 1992 SNK */
-bakatonod	/* 0036 (c) 1991 Monolith Corp. */
-crswordd	/* 0037 (c) 1991 Alpha Denshi Co. */
-trallyd		/* 0038 (c) 1991 Alpha Denshi Co. */
-sengoku2d	/* 0040 (c) 1993 SNK */
-3countbd	/* 0043 (c) 1993 SNK */
-aofd		/* 0044 (c) 1992 SNK */
-androdund	/* 0049 (c) 1992 Visco */
-ncommandd	/* 0050 (c) 1992 Alpha Denshi Co. */
-wh1d		/* 0053 (c) 1992 Alpha Denshi Co. */
+bstarsd					// 0002 (c) 1990 SNK
+tpgolfd					// 0003 (c) 1990 SNK
+maglordd				// 0005 (c) 1990 Alpha Denshi Co.
+ridherod				// 0006 (c) 1990 SNK
+alpham2d				// 0007 (c) 1991 SNK
+ncombatd				// 0009 (c) 1990 Alpha Denshi Co.
+cyberlipd				// 0010 (c) 1990 SNK
+superspyd				// 0011 (c) 1990 SNK
+mutnatd					// 0014 (c) 1992 SNK
+kotmd					// 0016 (c) 1991 SNK
+sengokud				// 0017 (c) 1991 SNK
+burningfd				// 0018 (c) 1991 SNK
+lbowlingd				// 0019 (c) 1990 SNK
+gpilotsd				// 0020 (c) 1991 SNK
+joyjoyd					// 0021 (c) 1990 SNK
+lresortd				// 0024 (c) 1992 SNK
+eightmand				// 0025 (c) 1991 SNK / Pallas
+minasand				// 0027 (c) 1990 Monolith Corp.
+2020bbd					// 0030 (c) 1991 SNK / Pallas
+socbrawld				// 0031 (c) 1991 SNK
+roboarmyd				// 0032 (c) 1991 SNK
+fatfury1d				// 0033 (c) 1991 SNK
+fbfrenzyd				// 0034 (c) 1992 SNK
+bakatonod				// 0036 (c) 1991 Monolith Corp.
+crswordd				// 0037 (c) 1991 Alpha Denshi Co.
+trallyd					// 0038 (c) 1991 Alpha Denshi Co.
+sengoku2d				// 0040 (c) 1993 SNK
+3countbd				// 0043 (c) 1993 SNK
+aofd					// 0044 (c) 1992 SNK
+androdund				// 0049 (c) 1992 Visco
+ncommandd				// 0050 (c) 1992 Alpha Denshi Co.
+wh1d					// 0053 (c) 1992 Alpha Denshi Co.
 
 @source:mhavoc.cpp
-mhavoc				//parent
-mhavocrv			//HB Jess M. Askey
+mhavoc					//parent
+mhavocrv				//HB Jess M. Askey
 
 @source:mhavoc_hb.cpp
-//mhavocpe			//HB Jess M. Askey               ROMS ARE MISSING
-mhavocpex1			//HB Jess M. Askey
-mhavocpex2			//HB Jess M. Askey
-mhavocpex3			//HB Jess M. Askey
-mhavocpex4			//HB Jess M. Askey
-mhavocpex5			//HB Jess M. Askey
-mhavocpex6			//HB Jess M. Askey
+//mhavocpe				//HB Jess M. Askey               ROMS ARE MISSING
+mhavocpex1				//HB Jess M. Askey
+mhavocpex2				//HB Jess M. Askey
+mhavocpex3				//HB Jess M. Askey
+mhavocpex4				//HB Jess M. Askey
+mhavocpex5				//HB Jess M. Askey
+mhavocpex6				//HB Jess M. Askey
+mhavocpex7				//HB Jess M. Askey
+mhavocpex7de			//HB Jess M. Askey
+mhavocpex7fr			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk					//parent
