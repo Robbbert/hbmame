@@ -93,7 +93,7 @@ public:
 	// return the subtractive dither value for alpha blending
 	u32 subtract(s32 x) const
 	{
-		return (m_dither_raw != nullptr) ? (15 - (m_dither_raw[x & 3] >> 1)) : 0;
+		return (m_dither_raw != nullptr) ? ((15 - m_dither_raw[x & 3]) >> 1) : 0;
 	}
 
 	// allocate and initialize static tables
@@ -536,24 +536,30 @@ public:
 	// update the fog tables
 	void write_fog(u32 base, u32 data)
 	{
-		wait("Fog write");
-		m_fogdelta[base + 0] = (data >> 0) & 0xff;
-		m_fogblend[base + 0] = (data >> 8) & 0xff;
-		m_fogdelta[base + 1] = (data >> 16) & 0xff;
-		m_fogblend[base + 1] = (data >> 24) & 0xff;
+		u32 oldval = m_fogdelta[base + 0] | (m_fogblend[base + 0] << 8) | (m_fogdelta[base + 1] << 16) | (m_fogblend[base + 1] << 24);
+		if (oldval != data)
+		{
+			wait("write_fog");
+			m_fogdelta[base + 0] = BIT(data, 0, 8);
+			m_fogblend[base + 0] = BIT(data, 8, 8);
+			m_fogdelta[base + 1] = BIT(data, 16, 8);
+			m_fogblend[base + 1] = BIT(data, 24, 8);
+		}
 	}
 
 	// update the Y origin
 	void set_yorigin(s32 yorigin)
 	{
-		wait("Y origin write");
+		if (m_yorigin != yorigin)
+			wait("set_yorigin");
 		m_yorigin = yorigin;
 	}
 
 	// update the rowpixels
 	void set_rowpixels(u32 rowpixels)
 	{
-		wait("Rowpixels write");
+		if (m_rowpixels != rowpixels)
+			wait("set_rowpixels");
 		m_rowpixels = rowpixels;
 	}
 

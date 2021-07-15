@@ -13840,6 +13840,9 @@ fex68km2a                       //
 fex68km3                        //
 fex68km4                        //
 
+@source:fidel_eldorado.cpp
+feldo
+
 @source:fidel_elite.cpp
 feas                            //
 feasbu                          //
@@ -16536,6 +16539,7 @@ ti1000                          // Texas Instruments
 ti1250                          // Texas Instruments
 ti125076                        // Texas Instruments
 ti1270                          // Texas Instruments
+ti1680                          // Texas Instruments
 ti25503                         // Texas Instruments
 ti30                            // Texas Instruments
 tibusan                         // Texas Instruments
@@ -39779,6 +39783,9 @@ swtpc8212                       // Terminal
 
 @source:swyft.cpp
 swyft                           //
+
+@source:sx1000.cpp
+sx1010                          // Casio SX1010
 
 @source:sym1.cpp
 sym1                            // Synertek SYM-1

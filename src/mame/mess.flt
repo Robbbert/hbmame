@@ -319,6 +319,7 @@ fidel_csc.cpp
 fidel_dames.cpp
 fidel_desdis.cpp
 fidel_eag68k.cpp
+fidel_eldorado.cpp
 fidel_elite.cpp
 fidel_excel.cpp
 fidel_msc.cpp
@@ -1007,6 +1008,7 @@ swtpc.cpp
 swtpc09.cpp
 swtpc8212.cpp
 swyft.cpp
+sx1000.cpp
 sym1.cpp
 symbolics.cpp
 synthex.cpp

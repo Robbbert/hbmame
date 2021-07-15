@@ -2209,6 +2209,9 @@ ROM_START( mtwinbee )
 	ROM_REGION( 0x400000, "k054539", 0 )
 	ROM_LOAD( "424a17.9g", 0x000000, 2*1024*1024, CRC(e9dd9692) SHA1(c289019c8d1dd71b3cec26479c39b649de804707) )
 	ROM_LOAD( "424a18.7g", 0x200000, 2*1024*1024, CRC(0f0d9f3a) SHA1(57f6b113b80f06964b7e672ad517c1654c5569c5) )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 ) // default eeprom to prevent game booting with error
+	ROM_LOAD( "mtwinbee.nv", 0x0000, 0x080, CRC(942b4323) SHA1(2f6799bf187510355df5e52c4d416f5c5e70fa05) )
 ROM_END
 
 /* Twinbee Yahhoo! */
@@ -4043,7 +4046,7 @@ GAME( 1994, gokuparo,  fantjour, gokuparo,     gokuparo, konamigx_state, init_ko
 GAME( 1994, crzcross,  konamigx, gokuparo,     puzldama, konamigx_state, init_posthack, ROT0, "Konami", "Crazy Cross (ver EAA)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1994, puzldama,  crzcross, gokuparo,     puzldama, konamigx_state, init_posthack, ROT0, "Konami", "Taisen Puzzle-dama (ver JAA)", MACHINE_IMPERFECT_GRAPHICS )
 
-GAME( 1995, mtwinbee,  konamigx, tbyahhoo,     gokuparo, konamigx_state, init_posthack, ROT0, "Konami", "Magical Twin Bee! (ver EAA)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1995, mtwinbee,  konamigx, tbyahhoo,     gokuparo, konamigx_state, init_posthack, ROT0, "Konami", "Magical Twin Bee (ver EAA)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1995, tbyahhoo,  mtwinbee, tbyahhoo,     gokuparo, konamigx_state, init_posthack, ROT0, "Konami", "Twin Bee Yahhoo! (ver JAA)", MACHINE_IMPERFECT_GRAPHICS )
 
 GAME( 1995, tkmmpzdm,  konamigx, konamigx_6bpp, tokkae,   konamigx_state, init_konamigx, ROT0, "Konami", "Tokimeki Memorial Taisen Puzzle-dama (ver JAB)", MACHINE_IMPERFECT_GRAPHICS )
