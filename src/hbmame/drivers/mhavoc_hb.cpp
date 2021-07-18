@@ -562,21 +562,21 @@ ROM_END
 
 ROM_START( mhavocpex7 )
 	ROM_REGION( 0x2000, "vectorrom", 0 )
-	ROM_LOAD( "mhavocpex7.6kl",  0x00000, 0x2000, CRC(04bfc5bf) SHA1(7369f1b4d808bac826e55d821b9bca271b8686b0) )
+	ROM_LOAD( "mhavocpex7.6kl",  0x00000, 0x2000, CRC(ef7843f8) SHA1(bfd096b0db69188f9032578839c9bd91367f7aae) )
 
 	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhavocpex7.1mn",  0x08000, 0x4000, CRC(23acdcee) SHA1(64dad9a2754fccdac7aef094836f692480151ba9) )
-	ROM_LOAD( "mhavocpex7.1l",   0x0c000, 0x4000, CRC(804bada2) SHA1(b8ed3f863f1cf098c4cbfcc4b1aa90c34a64c174) )
+	ROM_LOAD( "mhavocpex7.1mn",  0x08000, 0x4000, CRC(f043dcaf) SHA1(3f20c20ea601190a52dac50d3281ed09a18a4948) )
+	ROM_LOAD( "mhavocpex7.1l",   0x0c000, 0x4000, CRC(da963eab) SHA1(b10872898b12d79cd6cf0651ec61962315b5aff9) )
 	//ROM_LOAD( "mhavocpex7.1q",   0x10000, 0x8000, CRC(39c5b2d0) SHA1(9cd68ad1b4a7f68c1c6bdcbc60b3cf5a7a289ea7) )
-	ROM_LOAD( "mhavocpex7.1q",   0x10000, 0x8000, CRC(cc852e04) SHA1(75ca99a7725fc4b4399c395b1b9c4364783b1ebe) )
-	ROM_LOAD( "mhavocpex7.1np",  0x18000, 0x8000, CRC(f3f3cf6a) SHA1(53687c385ef09c401b9e487eda3846785c211f87) )
+	ROM_LOAD( "mhavocpex7.1q",   0x10000, 0x8000, CRC(25ca59f5) SHA1(f831850248a5c6f48cd334f2538cdc9b77d128c8) )
+	ROM_LOAD( "mhavocpex7.1np",  0x18000, 0x8000, CRC(0d362096) SHA1(dccc0509aac7003fee11bf7eeabff81360c226a8) )
 
 	ROM_REGION( 0x8000, "avg", 0 )
-	ROM_LOAD( "mhavocpex7.6h",   0x0000, 0x4000, CRC(f23a70ac) SHA1(4c22f632c3f99b59a15f8d89be78b8d2882a32d1) )
-	ROM_LOAD( "mhavocpex7.6jk",  0x4000, 0x4000, CRC(20724d44) SHA1(67f2f4299cc50e7cc45fbe0126bf4718b867f82b) )
+	ROM_LOAD( "mhavocpex7.6h",   0x0000, 0x4000, CRC(4129d0e9) SHA1(6fd168de59d684f216a0a0ac45aed0782b18f900) )
+	ROM_LOAD( "mhavocpex7.6jk",  0x4000, 0x4000, CRC(9361ed01) SHA1(ea07f8430f7e97e0c62d8df2963bb7b66a45b698) )
 
 	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhavocpex7.9s",   0x8000, 0x4000, CRC(51b1be7e) SHA1(478d2151f3b1fd54d4e91ef52f8f91c5425c0064) )
+	ROM_LOAD( "mhavocpex7.9s",   0x8000, 0x4000, CRC(9703c51f) SHA1(c010021e0dabc568af2eb1d516726ac21a1c9c98) )
 
 	//ROM_REGION( 0x10000, "beta", 0 )
 	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(1b31ae10) SHA1(247726f9ebe4892edc7c9577a7fffc93057fafe5) )
@@ -591,20 +591,20 @@ ROM_END
 
 ROM_START( mhavocpex7fr )
 	ROM_REGION( 0x2000, "vectorrom", 0 )
-	ROM_LOAD( "mhavocpex7fr.6kl",  0x00000, 0x2000, CRC(04bfc5bf) SHA1(7369f1b4d808bac826e55d821b9bca271b8686b0) )
+	ROM_LOAD( "mhavocpex7fr.6kl",  0x00000, 0x2000, CRC(ef7843f8) SHA1(bfd096b0db69188f9032578839c9bd91367f7aae) )
 
 	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhavocpex7fr.1mn",  0x08000, 0x4000, CRC(216854d1) SHA1(e4007598d28aca8b8109d0ea2eb06189e25d60ff) )
-	ROM_LOAD( "mhavocpex7fr.1l",   0x0c000, 0x4000, CRC(9a9c9e82) SHA1(3965009f8b7fc6c9ea04ac85a2dc1cd5aa9324bd) )
-	ROM_LOAD( "mhavocpex7fr.1q",   0x10000, 0x8000, CRC(5316d0ff) SHA1(cd83ac9b23e1afbcfc17dc972e796446c8fb836c) )
-	ROM_LOAD( "mhavocpex7fr.1np",  0x18000, 0x8000, CRC(6991245b) SHA1(efd9859f23e8d085bfa7d8813fed037efdc6acd8) )
+	ROM_LOAD( "mhavocpex7fr.1mn",  0x08000, 0x4000, CRC(f2875490) SHA1(5004b2fad6e29d4e744086951f8e7e55b6ccf4f2) )
+	ROM_LOAD( "mhavocpex7fr.1l",   0x0c000, 0x4000, CRC(22f6cd9f) SHA1(e9e4376418b35d5704ec4d9e5fdfb05042477ce5) )
+	ROM_LOAD( "mhavocpex7fr.1q",   0x10000, 0x8000, CRC(33b3343d) SHA1(39f7d5d7b3e518612ca4ad2f98a64d593f52bf6a) )
+	ROM_LOAD( "mhavocpex7fr.1np",  0x18000, 0x8000, CRC(dee75dd1) SHA1(e59ad01c502b50654ca738e5d03ecea32cc4ca81) )
 
 	ROM_REGION( 0x8000, "avg", 0 )
-	ROM_LOAD( "mhavocpex7fr.6h",   0x0000, 0x4000, CRC(f23a70ac) SHA1(4c22f632c3f99b59a15f8d89be78b8d2882a32d1) )
-	ROM_LOAD( "mhavocpex7fr.6jk",  0x4000, 0x4000, CRC(20724d44) SHA1(67f2f4299cc50e7cc45fbe0126bf4718b867f82b) )
+	ROM_LOAD( "mhavocpex7fr.6h",   0x0000, 0x4000, CRC(4129d0e9) SHA1(6fd168de59d684f216a0a0ac45aed0782b18f900) )
+	ROM_LOAD( "mhavocpex7fr.6jk",  0x4000, 0x4000, CRC(9361ed01) SHA1(ea07f8430f7e97e0c62d8df2963bb7b66a45b698) )
 
 	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhavocpex7fr.9s",   0x8000, 0x4000, CRC(51b1be7e) SHA1(478d2151f3b1fd54d4e91ef52f8f91c5425c0064) )
+	ROM_LOAD( "mhavocpex7fr.9s",   0x8000, 0x4000, CRC(9703c51f) SHA1(c010021e0dabc568af2eb1d516726ac21a1c9c98) )
 
 	//ROM_REGION( 0x10000, "beta", 0 )
 	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(1b31ae10) SHA1(247726f9ebe4892edc7c9577a7fffc93057fafe5) )
@@ -619,20 +619,20 @@ ROM_END
 
 ROM_START( mhavocpex7de )
 	ROM_REGION( 0x2000, "vectorrom", 0 )
-	ROM_LOAD( "mhavocpex7de.6kl",  0x00000, 0x2000, CRC(04bfc5bf) SHA1(7369f1b4d808bac826e55d821b9bca271b8686b0) )
+	ROM_LOAD( "mhavocpex7de.6kl",  0x00000, 0x2000, CRC(ef7843f8) SHA1(bfd096b0db69188f9032578839c9bd91367f7aae) )
 
 	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhavocpex7de.1mn",  0x08000, 0x4000, CRC(216854d1) SHA1(e4007598d28aca8b8109d0ea2eb06189e25d60ff) )
-	ROM_LOAD( "mhavocpex7de.1l",   0x0c000, 0x4000, CRC(c15cee70) SHA1(a8fdf2c90a2bd266e356515ae9eab548ba551ac1) )
-	ROM_LOAD( "mhavocpex7de.1q",   0x10000, 0x8000, CRC(b4d30709) SHA1(785735c9b5524a1cd95786aa0231826dea95cbc3) )
-	ROM_LOAD( "mhavocpex7de.1np",  0x18000, 0x8000, CRC(82dabc54) SHA1(948240ae0fa73bd1759eb25bfdfe3c62ac49f927) )
+	ROM_LOAD( "mhavocpex7de.1mn",  0x08000, 0x4000, CRC(f2875490) SHA1(5004b2fad6e29d4e744086951f8e7e55b6ccf4f2) )
+	ROM_LOAD( "mhavocpex7de.1l",   0x0c000, 0x4000, CRC(d78d6390) SHA1(3823552bde78d3d0e367f7f43d396ab7d507db40) )
+	ROM_LOAD( "mhavocpex7de.1q",   0x10000, 0x8000, CRC(3b0f542b) SHA1(43c440f77127eb39bf6d949e21eb483a3d02816c) )
+	ROM_LOAD( "mhavocpex7de.1np",  0x18000, 0x8000, CRC(7c1f53a8) SHA1(4729aee91e99218d5d606d70f67541005b94c253) )
 
 	ROM_REGION( 0x8000, "avg", 0 )
-	ROM_LOAD( "mhavocpex7de.6h",   0x0000, 0x4000, CRC(f23a70ac) SHA1(4c22f632c3f99b59a15f8d89be78b8d2882a32d1) )
-	ROM_LOAD( "mhavocpex7de.6jk",  0x4000, 0x4000, CRC(20724d44) SHA1(67f2f4299cc50e7cc45fbe0126bf4718b867f82b) )
+	ROM_LOAD( "mhavocpex7de.6h",   0x0000, 0x4000, CRC(4129d0e9) SHA1(6fd168de59d684f216a0a0ac45aed0782b18f900) )
+	ROM_LOAD( "mhavocpex7de.6jk",  0x4000, 0x4000, CRC(9361ed01) SHA1(ea07f8430f7e97e0c62d8df2963bb7b66a45b698) )
 
 	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhavocpex7de.9s",   0x8000, 0x4000, CRC(51b1be7e) SHA1(478d2151f3b1fd54d4e91ef52f8f91c5425c0064) )
+	ROM_LOAD( "mhavocpex7de.9s",   0x8000, 0x4000, CRC(9703c51f) SHA1(c010021e0dabc568af2eb1d516726ac21a1c9c98) )
 
 	//ROM_REGION( 0x10000, "beta", 0 )
 	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(1b31ae10) SHA1(247726f9ebe4892edc7c9577a7fffc93057fafe5) )
@@ -679,7 +679,7 @@ GAME( 2020, mhavocpex3,   mhavoc, mhavocpe, mhavocrv, mhavoc_hbmame, init_mhavoc
 GAME( 2020, mhavocpex4,   mhavoc, mhavocpe, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.67)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mhavocpex5,   mhavoc, mhavocpe, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.72)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mhavocpex6,   mhavoc, mhavocpe, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.75)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, mhavocpex7,   mhavoc, mhavocpe2, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.77)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, mhavocpex7fr, mhavoc, mhavocpe2, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.77) FRENCH", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, mhavocpex7de, mhavoc, mhavocpe2, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.77) GERMAN", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mhavocpex7,   mhavoc, mhavocpe2, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.78)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mhavocpex7fr, mhavoc, mhavocpe2, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.78) FRENCH", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mhavocpex7de, mhavoc, mhavocpe2, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (BETA v0.78) GERMAN", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mhavocpe, mhavoc, mhavocpe, mhavocrv, mhavoc_hbmame, init_mhavocrv, ROT0, "JMA", "Major Havoc - The Promised End (NOT YET RELEASED)", MACHINE_SUPPORTS_SAVE )
