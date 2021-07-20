@@ -568,7 +568,7 @@ ROM_START( mhavocpex7 )
 	ROM_LOAD( "mhavocpex7.1mn",  0x08000, 0x4000, CRC(f043dcaf) SHA1(3f20c20ea601190a52dac50d3281ed09a18a4948) )
 	ROM_LOAD( "mhavocpex7.1l",   0x0c000, 0x4000, CRC(da963eab) SHA1(b10872898b12d79cd6cf0651ec61962315b5aff9) )
 	//ROM_LOAD( "mhavocpex7.1q",   0x10000, 0x8000, CRC(39c5b2d0) SHA1(9cd68ad1b4a7f68c1c6bdcbc60b3cf5a7a289ea7) )
-	ROM_LOAD( "mhavocpex7.1q",   0x10000, 0x8000, CRC(25ca59f5) SHA1(f831850248a5c6f48cd334f2538cdc9b77d128c8) )
+	ROM_LOAD( "mhavocpex7.1q",   0x10000, 0x8000, CRC(57499813) SHA1(ff53f65fc34c5f4b8d4af78776fb242ac59d536a) )
 	ROM_LOAD( "mhavocpex7.1np",  0x18000, 0x8000, CRC(0d362096) SHA1(dccc0509aac7003fee11bf7eeabff81360c226a8) )
 
 	ROM_REGION( 0x8000, "avg", 0 )
@@ -589,50 +589,22 @@ ROM_START( mhavocpex7 )
 	ROM_LOAD( "mhavocpex7.x1", 0x000000, 0x040000, CRC(5cfa1865) SHA1(ab520b4af6a9ffc2593223798fee8026266a722e) )
 ROM_END
 
-ROM_START( mhavocpex7fr )
-	ROM_REGION( 0x2000, "vectorrom", 0 )
-	ROM_LOAD( "mhavocpex7fr.6kl",  0x00000, 0x2000, CRC(ef7843f8) SHA1(bfd096b0db69188f9032578839c9bd91367f7aae) )
-
-	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhavocpex7fr.1mn",  0x08000, 0x4000, CRC(f2875490) SHA1(5004b2fad6e29d4e744086951f8e7e55b6ccf4f2) )
-	ROM_LOAD( "mhavocpex7fr.1l",   0x0c000, 0x4000, CRC(22f6cd9f) SHA1(e9e4376418b35d5704ec4d9e5fdfb05042477ce5) )
-	ROM_LOAD( "mhavocpex7fr.1q",   0x10000, 0x8000, CRC(33b3343d) SHA1(39f7d5d7b3e518612ca4ad2f98a64d593f52bf6a) )
-	ROM_LOAD( "mhavocpex7fr.1np",  0x18000, 0x8000, CRC(dee75dd1) SHA1(e59ad01c502b50654ca738e5d03ecea32cc4ca81) )
-
-	ROM_REGION( 0x8000, "avg", 0 )
-	ROM_LOAD( "mhavocpex7fr.6h",   0x0000, 0x4000, CRC(4129d0e9) SHA1(6fd168de59d684f216a0a0ac45aed0782b18f900) )
-	ROM_LOAD( "mhavocpex7fr.6jk",  0x4000, 0x4000, CRC(9361ed01) SHA1(ea07f8430f7e97e0c62d8df2963bb7b66a45b698) )
-
-	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhavocpex7fr.9s",   0x8000, 0x4000, CRC(9703c51f) SHA1(c010021e0dabc568af2eb1d516726ac21a1c9c98) )
-
-	//ROM_REGION( 0x10000, "beta", 0 )
-	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(1b31ae10) SHA1(247726f9ebe4892edc7c9577a7fffc93057fafe5) )
-	//ROM_LOAD( "mhavocpe.1d",   0xc000, 0x4000, CRC(e86d6226) SHA1(45e00d62c424cb60c30b63ee2de57a465989d8ee) )
-
-	ROM_REGION( 0x100, "avg:prom", 0 )
-	ROM_LOAD( "136002-125.6c",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
-
-	ROM_REGION( 0x40000, "oki", 0 )   /* 256k for ADPCM samples */
-	ROM_LOAD( "mhavocpex7fr.x1", 0x000000, 0x040000, CRC(5cfa1865) SHA1(ab520b4af6a9ffc2593223798fee8026266a722e) )
-ROM_END
-
 ROM_START( mhavocpex7de )
 	ROM_REGION( 0x2000, "vectorrom", 0 )
-	ROM_LOAD( "mhavocpex7de.6kl",  0x00000, 0x2000, CRC(ef7843f8) SHA1(bfd096b0db69188f9032578839c9bd91367f7aae) )
+	ROM_LOAD( "mhavocpex7de.6kl",  0x00000, 0x2000, CRC(6bc3240f) SHA1(6152a5015a99142d77203fa70f96160ffecd460c) )
 
 	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhavocpex7de.1mn",  0x08000, 0x4000, CRC(f2875490) SHA1(5004b2fad6e29d4e744086951f8e7e55b6ccf4f2) )
-	ROM_LOAD( "mhavocpex7de.1l",   0x0c000, 0x4000, CRC(d78d6390) SHA1(3823552bde78d3d0e367f7f43d396ab7d507db40) )
-	ROM_LOAD( "mhavocpex7de.1q",   0x10000, 0x8000, CRC(3b0f542b) SHA1(43c440f77127eb39bf6d949e21eb483a3d02816c) )
-	ROM_LOAD( "mhavocpex7de.1np",  0x18000, 0x8000, CRC(7c1f53a8) SHA1(4729aee91e99218d5d606d70f67541005b94c253) )
+	ROM_LOAD( "mhavocpex7de.1mn",  0x08000, 0x4000, CRC(30fc2132) SHA1(0d07fab70e9e2d606a825837436c242706fa690a) )
+	ROM_LOAD( "mhavocpex7de.1l",   0x0c000, 0x4000, CRC(245100c8) SHA1(90333f9ad7b1c4422bc0b68a9a4d59edd9596d65) )
+	ROM_LOAD( "mhavocpex7de.1q",   0x10000, 0x8000, CRC(8fb86a78) SHA1(53b3ec55962c7a6f615838005b56de7458147f46) )
+	ROM_LOAD( "mhavocpex7de.1np",  0x18000, 0x8000, CRC(c8a86dfb) SHA1(8e3257068ae52095b8f15012a46cc99d9e28242f) )
 
 	ROM_REGION( 0x8000, "avg", 0 )
-	ROM_LOAD( "mhavocpex7de.6h",   0x0000, 0x4000, CRC(4129d0e9) SHA1(6fd168de59d684f216a0a0ac45aed0782b18f900) )
-	ROM_LOAD( "mhavocpex7de.6jk",  0x4000, 0x4000, CRC(9361ed01) SHA1(ea07f8430f7e97e0c62d8df2963bb7b66a45b698) )
+	ROM_LOAD( "mhavocpex7de.6h",   0x0000, 0x4000, CRC(8df8c6e5) SHA1(b5fadd531f040ef01c9c39810bfe81b800a32f78) )
+	ROM_LOAD( "mhavocpex7de.6jk",  0x4000, 0x4000, CRC(5fb0fb0d) SHA1(70f72856cb8ade503b00e43c12ed52bbabbd7ca6) )
 
 	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhavocpex7de.9s",   0x8000, 0x4000, CRC(9703c51f) SHA1(c010021e0dabc568af2eb1d516726ac21a1c9c98) )
+	ROM_LOAD( "mhavocpex7de.9s",   0x8000, 0x4000, CRC(722ade2e) SHA1(212cb5c9201e41e08eada3aec3c77ab8728135b1) )
 
 	//ROM_REGION( 0x10000, "beta", 0 )
 	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(1b31ae10) SHA1(247726f9ebe4892edc7c9577a7fffc93057fafe5) )
@@ -645,24 +617,51 @@ ROM_START( mhavocpex7de )
 	ROM_LOAD( "mhavocpex7de.x1", 0x000000, 0x040000, CRC(5cfa1865) SHA1(ab520b4af6a9ffc2593223798fee8026266a722e) )
 ROM_END
 
+ROM_START( mhavocpex7fr )
+	ROM_REGION( 0x2000, "vectorrom", 0 )
+	ROM_LOAD( "mhavocpex7fr.6kl",  0x00000, 0x2000, CRC(3d7f8a57) SHA1(cc8cd99003b56805c6eab9c4d26c17c485966d17) )
+
+	ROM_REGION( 0x20000, "alpha", 0 )
+	ROM_LOAD( "mhavocpex7fr.1mn",  0x08000, 0x4000, CRC(ad00b995) SHA1(f210a934be809b272bbbd7b3a459df6614e8a8f9) )
+	ROM_LOAD( "mhavocpex7fr.1l",   0x0c000, 0x4000, CRC(c01b01fa) SHA1(9965da7863da933a1be1ce32e3db578ce4e54bb4) )
+	ROM_LOAD( "mhavocpex7fr.1q",   0x10000, 0x8000, CRC(81ac4eda) SHA1(eeab82e1bad953a72300986c9dcdc02f3113cb06) )
+	ROM_LOAD( "mhavocpex7fr.1np",  0x18000, 0x8000, CRC(6cf82736) SHA1(4a17ebd9aac863ce34ff5ef2d139cf319c373502) )
+
+	ROM_REGION( 0x8000, "avg", 0 )
+	ROM_LOAD( "mhavocpex7fr.6h",   0x0000, 0x4000, CRC(03fafab0) SHA1(5a27c5cf745d51e76c8af63c7880b0337e1b97f5) )
+	ROM_LOAD( "mhavocpex7fr.6jk",  0x4000, 0x4000, CRC(d1b2c758) SHA1(047c328855a6fa930e172b77798d0373027ac0ce) )
+
+	ROM_REGION( 0x10000, "gamma", 0 )
+	ROM_LOAD( "mhavocpex7fr.9s",   0x8000, 0x4000, CRC(8620f53c) SHA1(96a05e1410d2d5fa55a35bf88d057101aede6681) )
+
+	//ROM_REGION( 0x10000, "beta", 0 )
+	//ROM_LOAD( "mhavocpe.1bc",   0x8000, 0x4000, CRC(1b31ae10) SHA1(247726f9ebe4892edc7c9577a7fffc93057fafe5) )
+	//ROM_LOAD( "mhavocpe.1d",   0xc000, 0x4000, CRC(e86d6226) SHA1(45e00d62c424cb60c30b63ee2de57a465989d8ee) )
+
+	ROM_REGION( 0x100, "avg:prom", 0 )
+	ROM_LOAD( "136002-125.6c",   0x0000, 0x0100, CRC(5903af03) SHA1(24bc0366f394ad0ec486919212e38be0f08d0239) )
+
+	ROM_REGION( 0x40000, "oki", 0 )   /* 256k for ADPCM samples */
+	ROM_LOAD( "mhavocpex7fr.x1", 0x000000, 0x040000, CRC(5cfa1865) SHA1(ab520b4af6a9ffc2593223798fee8026266a722e) )
+ROM_END
 
 //Placeholder Driver for upcoming final release
 ROM_START( mhavocpe )
 	ROM_REGION( 0x2000, "vectorrom", 0 )
-	ROM_LOAD( "mhavocpe.6kl",  0x00000, 0x2000, CRC(93688346) SHA1(f17b44cb196216c01ac75b0472791fda6995bd18) )
+	ROM_LOAD( "mhavocpe.6kl",  0x00000, 0x2000, CRC(3d7f8a57) SHA1(cc8cd99003b56805c6eab9c4d26c17c485966d17) )
 
 	ROM_REGION( 0x20000, "alpha", 0 )
-	ROM_LOAD( "mhavocpe.1mn",  0x08000, 0x4000, CRC(dd079cdd) SHA1(c9a7d42f687b99859f95b397618a31461abc3aa6) )
-	ROM_LOAD( "mhavocpe.1l",   0x0c000, 0x4000, CRC(d0c7ed14) SHA1(a07fbcd2b90b34d9cb9bff25c656099a9eda501c) )
-	ROM_LOAD( "mhavocpe.1q",   0x10000, 0x8000, CRC(897fbf17) SHA1(e3e7f3ac2204d422568b7dfa4f5a577c79d50ed5) )
-	ROM_LOAD( "mhavocpe.1np",  0x18000, 0x8000, CRC(3a215adc) SHA1(67684860244ec50b368f17179b1eeeb7b92478b7) )
+	ROM_LOAD( "mhavocpe.1mn",  0x08000, 0x4000, CRC(ad00b995) SHA1(f210a934be809b272bbbd7b3a459df6614e8a8f9) )
+	ROM_LOAD( "mhavocpe.1l",   0x0c000, 0x4000, CRC(c01b01fa) SHA1(9965da7863da933a1be1ce32e3db578ce4e54bb4) )
+	ROM_LOAD( "mhavocpe.1q",   0x10000, 0x8000, CRC(81ac4eda) SHA1(eeab82e1bad953a72300986c9dcdc02f3113cb06) )
+	ROM_LOAD( "mhavocpe.1np",  0x18000, 0x8000, CRC(6cf82736) SHA1(4a17ebd9aac863ce34ff5ef2d139cf319c373502) )
 
 	ROM_REGION( 0x8000, "avg", 0 )
-	ROM_LOAD( "mhavocpe.6h",   0x0000, 0x4000, CRC(ef9f8321) SHA1(3c590c78664d6e121c47e11046fb3874ef0e1e90) )
-	ROM_LOAD( "mhavocpe.6jk",  0x4000, 0x4000, CRC(3dd7bec9) SHA1(aaa5e48d45519624017a9ec04b3e4b721e01ff2a) )
+	ROM_LOAD( "mhavocpe.6h",   0x0000, 0x4000, CRC(03fafab0) SHA1(5a27c5cf745d51e76c8af63c7880b0337e1b97f5) )
+	ROM_LOAD( "mhavocpe.6jk",  0x4000, 0x4000, CRC(d1b2c758) SHA1(047c328855a6fa930e172b77798d0373027ac0ce) )
 
 	ROM_REGION( 0x10000, "gamma", 0 )
-	ROM_LOAD( "mhavocpe.9s",   0x8000, 0x8000, CRC(5e1b2ada) SHA1(8fc2334e090b5f9b2bd97ab792aa69f170643752) )
+	ROM_LOAD( "mhavocpe.9s",   0x8000, 0x8000, CRC(8620f53c) SHA1(96a05e1410d2d5fa55a35bf88d057101aede6681) )
 
 	ROM_REGION( 0x10000, "beta", 0 )
 	ROM_LOAD( "mhavocpe.1bc",  0x8000, 0x4000, CRC(54618f8d) SHA1(f20b1fca139eb1b0fd882c5a25b7c5b31c48d9b4) )
