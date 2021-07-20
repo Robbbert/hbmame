@@ -48,6 +48,7 @@ DEFINE_DEVICE_TYPE(NES_SMB2JA,         nes_smb2ja_device,    "nes_smb2ja",    "N
 DEFINE_DEVICE_TYPE(NES_SMB2JB,         nes_smb2jb_device,    "nes_smb2jb",    "NES Cart Super Mario Bros. 2 Jpn (Alt 2) PCB")
 DEFINE_DEVICE_TYPE(NES_0353,           nes_0353_device,      "nes_0353",      "NES Cart 0353 PCB")
 DEFINE_DEVICE_TYPE(NES_09034A,         nes_09034a_device,    "nes_09034a",    "NES Cart 09-034A PCB")
+DEFINE_DEVICE_TYPE(NES_BATMANFS,       nes_batmanfs_device,  "nes_batmanfs",  "NES Cart Batman Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_PALTHENA,       nes_palthena_device,  "nes_palthena",  "NES Cart Palthena no Kagami Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_TOBIDASE,       nes_tobidase_device,  "nes_tobidase",  "NES Cart Tobidase Daisakusen Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_DH08,           nes_dh08_device,      "nes_dh08",      "NES Cart DH-08 Pirate PCB")
@@ -56,6 +57,7 @@ DEFINE_DEVICE_TYPE(NES_LH10,           nes_lh10_device,      "nes_lh10",      "N
 DEFINE_DEVICE_TYPE(NES_LH28_LH54,      nes_lh28_lh54_device, "nes_lh28_lh54", "NES Cart LH28/LH54 Pirate PCBs")
 DEFINE_DEVICE_TYPE(NES_LH31,           nes_lh31_device,      "nes_lh31",      "NES Cart LH31 Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_LH32,           nes_lh32_device,      "nes_lh32",      "NES Cart LH32 Pirate PCB")
+DEFINE_DEVICE_TYPE(NES_LH51,           nes_lh51_device,      "nes_lh51",      "NES Cart LH51 Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_LH53,           nes_lh53_device,      "nes_lh53",      "NES Cart LH53 Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_2708,           nes_2708_device,      "nes_2708",      "NES Cart BTL-2708 Pirate PCB")
 DEFINE_DEVICE_TYPE(NES_AC08,           nes_ac08_device,      "nes_ac08",      "NES Cart AC08 Pirate PCB")
@@ -119,6 +121,11 @@ nes_09034a_device::nes_09034a_device(const machine_config &mconfig, const char *
 {
 }
 
+nes_batmanfs_device::nes_batmanfs_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_BATMANFS, tag, owner, clock), m_irq_count(0), m_irq_enable(0), irq_timer(nullptr)
+{
+}
+
 nes_palthena_device::nes_palthena_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: nes_nrom_device(mconfig, NES_PALTHENA, tag, owner, clock), m_reg(0)
 {
@@ -161,6 +168,11 @@ nes_lh32_device::nes_lh32_device(const machine_config &mconfig, const char *tag,
 
 nes_lh10_device::nes_lh10_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: nes_nrom_device(mconfig, NES_LH10, tag, owner, clock), m_latch(0)
+{
+}
+
+nes_lh51_device::nes_lh51_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_LH51, tag, owner, clock)
 {
 }
 
@@ -290,6 +302,25 @@ void nes_smb3p_device::pcb_reset()
 	prg8_cd(0);
 	prg8_ef((m_prg_chunks << 1) - 1);
 	chr8(0, m_chr_source);
+
+	m_irq_enable = 0;
+	m_irq_count = 0;
+}
+
+void nes_batmanfs_device::device_start()
+{
+	common_start();
+	irq_timer = timer_alloc(TIMER_IRQ);
+	irq_timer->adjust(attotime::zero, 0, clocks_to_attotime(1));
+
+	save_item(NAME(m_irq_enable));
+	save_item(NAME(m_irq_count));
+}
+
+void nes_batmanfs_device::pcb_reset()
+{
+	prg32((m_prg_chunks >> 1) - 1);    // Last 8K bank is fixed, the rest are swappable
+	chr8(0, CHRROM);
 
 	m_irq_enable = 0;
 	m_irq_count = 0;
@@ -487,6 +518,17 @@ void nes_lh10_device::pcb_reset()
 
 	m_latch = 0;
 	std::fill(std::begin(m_reg), std::end(m_reg), 0x00);
+}
+
+void nes_lh51_device::device_start()
+{
+	common_start();
+}
+
+void nes_lh51_device::pcb_reset()
+{
+	prg32((m_prg_chunks >> 1) - 1);    // first 8K is switchable, the rest fixed
+	chr8(0, CHRRAM);
 }
 
 void nes_lh53_device::device_start()
@@ -826,7 +868,6 @@ uint8_t nes_asn_device::read_m(offs_t offset)
 	LOG_MMC(("Ai Senshi Nicol read_m, offset: %04x\n", offset));
 	return m_prg[((m_latch * 0x2000) + (offset & 0x1fff)) & (m_prg_size - 1)];
 }
-
 
 /*-------------------------------------------------
 
@@ -1283,6 +1324,56 @@ uint8_t nes_09034a_device::read_m(offs_t offset)
 
 /*-------------------------------------------------
 
+ BTL-BATMANFS
+
+ Games: Batman "Fine Studio" pirate
+
+ NES 2.0: mapper 417
+
+ In MAME: Supported.
+
+ -------------------------------------------------*/
+
+void nes_batmanfs_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+{
+	if (id == TIMER_IRQ)
+	{
+		// 10-bit counter does not stop when interrupts are disabled
+		m_irq_count = (m_irq_count + 1) & 0x3ff;
+		if (m_irq_enable && !m_irq_count)
+			set_irq_line(ASSERT_LINE);
+	}
+}
+
+void nes_batmanfs_device::write_h(offs_t offset, u8 data)
+{
+	LOG_MMC(("batmanfs write_h, offset: %04x, data: %02x\n", offset, data));
+	switch (offset & 0x70)
+	{
+		case 0x00:
+			if ((offset & 0x03) != 0x03)
+				prg8_x(offset & 0x03, data & 0x0f);
+			break;
+		case 0x10:
+		case 0x20:
+			chr1_x((offset & 0x03) + 4 * BIT(offset, 5), data, CHRROM);
+			break;
+		case 0x30:
+			m_irq_enable = 1;
+			m_irq_count = 0;
+			break;
+		case 0x40:
+			m_irq_enable = 0;
+			set_irq_line(CLEAR_LINE);
+			break;
+		case 0x50:
+			set_nt_page(offset & 0x03, CIRAM, data & 1, 1);
+			break;
+	}
+}
+
+/*-------------------------------------------------
+
  BTL-PALTHENA
 
  Games: Palthena no Kagami (FDS conversion)
@@ -1506,12 +1597,45 @@ void nes_lh10_device::write_h(offs_t offset, uint8_t data)
 
 /*-------------------------------------------------
 
+ UNL-LH51
+
+ Games: Ai Senshi Nicol (Whirlwind Manu FDS conversion)
+
+ A simple board with swappable 8K PRG at 0x8000-0x9fff,
+ fixed PRG above that, and 8K WRAM at 0x6000-0x7fff.
+ The game's sound code is broken and does not work on
+ real hardware.
+
+ NES 2.0: mapper 309
+
+ In MAME: Supported.
+
+ -------------------------------------------------*/
+
+void nes_lh51_device::write_h(offs_t offset, u8 data)
+{
+	LOG_MMC(("lh51 write_h, offset: %04x, data: %02x\n", offset, data));
+
+	switch (offset & 0x6000)
+	{
+		case 0x0000:
+		case 0x1000:
+			prg8_89(data & 0x0f);
+			break;
+		case 0x6000:
+		case 0x7000:
+			set_nt_mirroring(BIT(data, 3) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
+			break;
+	}
+}
+
+/*-------------------------------------------------
+
  UNL-LH53
 
  Games: Nazo no Murasamejou (FDS conversion)
 
- This PCB maps WRAM (w/battery) in 0xb800-0xd7ff and
- PRG in 0x6000-0x7fff
+ This PCB maps WRAM in 0xb800-0xd7ff and PRG in 0x6000-0x7fff
 
  NES 2.0: mapper 535
 
@@ -1538,7 +1662,7 @@ void nes_lh53_device::device_timer(emu_timer &timer, device_timer_id id, int par
 uint8_t nes_lh53_device::read_m(offs_t offset)
 {
 	LOG_MMC(("lh53 read_m, offset: %04x\n", offset));
-	return m_prg[(m_reg * 0x2000) + (offset & 0x1fff)];
+	return m_prg[m_reg * 0x2000 + offset];
 }
 
 uint8_t nes_lh53_device::read_h(offs_t offset)
@@ -1546,7 +1670,7 @@ uint8_t nes_lh53_device::read_h(offs_t offset)
 //  LOG_MMC(("lh53 read_h, offset: %04x\n", offset));
 
 	if (offset >= 0x3800 && offset < 0x5800)
-		return m_battery[offset & 0x1fff];
+		return m_prgram[offset - 0x3800];
 
 	return hi_access_rom(offset);
 }
@@ -1556,8 +1680,7 @@ void nes_lh53_device::write_h(offs_t offset, uint8_t data)
 	LOG_MMC(("lh53 write_h, offset: %04x, data: %02x\n", offset, data));
 
 	if (offset >= 0x3800 && offset < 0x5800)
-		m_battery[offset & 0x1fff] = data;
-
+		m_prgram[offset - 0x3800] = data;
 	else
 	{
 		switch (offset & 0x7000)

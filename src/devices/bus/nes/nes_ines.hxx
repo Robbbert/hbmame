@@ -343,7 +343,7 @@ static const nes_mmc mmc_list[] =
 	{ 306, KAISER_KS7016 },        // Exciting Basket FDS conversion
 	{ 307, KAISER_KS7037 },        // Metroid FDS conversion
 	// 308 Batman (Sunsoft) pirate on VRC2 clone hardware
-	// { 309, UNL_LH51 },             // Ai Senshi Nicol alt FDS conversion (dump available?)
+	{ 309, UNL_LH51 },             // Ai Senshi Nicol alt FDS conversion
 	// 310 variant of mapper 125?
 	// 311 Unused (previously assigned in error to a bad SMB2 pirate dump)
 	{ 312, KAISER_KS7013B },       // Highway Star FDS conversion
@@ -451,7 +451,7 @@ static const nes_mmc mmc_list[] =
 	// 414 9999999-in-1 multicart
 	{ 415, BTL_0353 },             // Lucky (Roger) Rabbit FDS conversion
 	// 416 4-in-1 that includes mapper 50 SMB2j pirate
-	// 417 "Fine Studio" Batman bootleg
+	{ 417, BTL_BATMANFS },         // "Fine Studio" Batman bootleg
 	// { 418, UNL_LH42 }              // Highway Star alt FDS conversion
 	// 419 VT03 PnPs
 	// 420 Kasheng A971210 board
