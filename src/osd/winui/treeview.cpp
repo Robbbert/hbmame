@@ -928,7 +928,7 @@ void CreateBIOSFolders(int parent_index)
 void CreateCPUFolders(int parent_index)
 {
 	int device_folder_count = 0;
-	LPTREEFOLDER device_folders[512];
+	LPTREEFOLDER device_folders[1024];
 	LPTREEFOLDER folder;
 	int nFolder = numFolders;
 
