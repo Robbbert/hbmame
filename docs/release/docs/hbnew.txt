@@ -9,9 +9,9 @@ New Games
 ---------------------------------
 - [dkongan]             Donkey Kong 40th Anniversary Edition
 - [dkongbp1]            Donkey Kong Barrelpalooza v1.07
-- [mhavocpex7]          Major Havoc - The Promised End (v0.77)
-- [mhavocpex7de]        Major Havoc - The Promised End (v0.77) (German)
-- [mhavocpex7fr]        Major Havoc - The Promised End (v0.77) (French)
+- [mhavocpex7]          Major Havoc - The Promised End (v0.78)
+- [mhavocpex7de]        Major Havoc - The Promised End (v0.78) (German)
+- [mhavocpex7fr]        Major Havoc - The Promised End (v0.78) (French)
 
 
 
