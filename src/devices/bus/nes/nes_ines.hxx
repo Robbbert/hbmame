@@ -91,7 +91,7 @@ static const nes_mmc mmc_list[] =
 	{ 57, BMC_GKA },
 	{ 58, BMC_GKB },
 	// 59 BMC-T3H53 and BMC-D1038
-	// 60 4-in-1, 35-in-1 Reset based
+	{ 60, BMC_4IN1RESET },
 	{ 61, RCM_TF9IN1 },
 	{ 62, BMC_SUPER_700IN1 },
 	{ 63, BMC_CH001 },  // Powerful 255
@@ -295,7 +295,7 @@ static const nes_mmc mmc_list[] =
 	// 258 UNIF MAPR 158B?
 	// 259 UNIF MAPR F-15?
 	// 260 HP10xx/HP20xx multicarts?
-	{ 261, BMC_810544 },
+	{ 261, BMC_810544C },
 	{ 262, SACHEN_SHERO },
 	{ 263, UNL_KOF97 },
 	{ 264, YOKO_BOARD },
@@ -308,7 +308,7 @@ static const nes_mmc mmc_list[] =
 	// 271 TXC 4 in 1 MGC-026, not in nes.xml?
 	// 272 Akumajo Special bootleg not in nes.xml
 	// 273 Gremlins 2 bootleg, related to pirate gremlin2h or unk2?
-	// 274 BMC_80013B multicarts, not in nes.xml?
+	{ 274, BMC_80013B },
 	// 275 Unused
 	// 276 Unused
 	// 277 Unused
@@ -369,13 +369,13 @@ static const nes_mmc mmc_list[] =
 	{ 332, BMC_WS },
 	// 333 BMC_8IN1 and BMC-NEWSTAR-GRM070-8IN1 multicarts
 	// 334 5/20-in-1 1993 Copyright multicart, not in nes.xml?
-	// 335 BMC-CTC-09 10-in-1, not in nes.xml?
-	// 336 BMC-K-3046 11-in-1, not in nes.xml?
-	// 337 BMC-CTC-12IN1 multicart, not in nes.xml?
-	// 338 BMC-SA005-A multicarts, not in nes.xml?
+	{ 335, BMC_CTC09 },
+	{ 336, BMC_K3046 },
+	// { 337, BMC_CTC_12IN1 }, not in nes.xml
+	{ 338, BMC_SA005A },
 	// 339 BMC-K-3006 21-in-1, not in nes.xml?
 	// 340 BMC-K-3036 35-in-1, not in nes.xml?
-	// 341 BMC-TJ-03 4-in-1, not in nes.xml?
+	{ 341, BMC_TJ03 },
 	// 342 COOLGIRL homebrew
 	// 343 reset-based 4-in-1 pirate?
 	// 344 3/6-in-1 GN-26 multicart, not in nes.xml
@@ -384,7 +384,7 @@ static const nes_mmc mmc_list[] =
 	{ 347, KAISER_KS7030 },        // Doki Doki Panic alt FDS conversion
 	{ 348, BMC_830118C },
 	{ 349, BMC_G146 },
-	// 350 BMC-891227 multicart
+	// { 350, BMC_891227 }, not in nes.xml
 	// 351 JY/Techline 9-in-1
 	// 352 Kaiser 4-in-1 KS106C
 	// 353 Super Mario Family multicart
@@ -516,7 +516,7 @@ static const nes_mmc mmc_list[] =
 	{ 554, KAISER_KS7010 },        // Akumajo Dracula FDS conversion
 	// 555 retroUSB re-release of 1991 Nintendo Campus Challenge
 	// 556 JY-215 multicart
-	// { 557, KAISER_KS7xxx or UNL_LG25? },        // Kaiser Moero TwinBee FDS conversion
+	{ 557, UNL_LG25 },             // Moero TwinBee FDS conversion
 	// 558 some games on YC-03-09 board (related to mappers 162-164)
 	// 559...4095 Unused
 };

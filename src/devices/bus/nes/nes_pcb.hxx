@@ -244,13 +244,18 @@ static const nes_pcb pcb_list[] =
 	{ "novel2",           BMC_NOVEL2 },  // mapper 213... same as BMC-NOVELDIAMOND9999999IN1 board?
 	{ "studyngame",       UNL_STUDYNGAME },  // mapper 39
 	{ "sgun20in1",        BMC_SUPERGUN_20IN1 },
-	{ "bmc_vt5201",       BMC_VT5201 },  // mapper 60 otherwise
-	{ "bmc_d1038",        BMC_VT5201 },  // mapper 60?
-	{ "810544c",          BMC_810544 },
+	{ "bmc_vt5201",       BMC_VT5201 },  // mapper 59?
+	{ "bmc_d1038",        BMC_VT5201 },  // mapper 59?
+	{ "bmc_80013b",       BMC_80013B },
+	{ "bmc_810544c",      BMC_810544C },
 	{ "ntd03",            BMC_NTD_03 },
+	{ "bmc_ctc09",        BMC_CTC09 },
 	{ "bmc_gb63",         BMC_G63IN1 },
 	{ "bmc_gka",          BMC_GKA },
 	{ "bmc_gkb",          BMC_GKB },
+	{ "bmc_k3046",        BMC_K3046 },
+	{ "bmc_sa005a",       BMC_SA005A },
+	{ "bmc_tj03",         BMC_TJ03 },
 	{ "bmc_ws",           BMC_WS },
 	{ "bmc_hik300",       BMC_SUPERHIK_300IN1 },
 	{ "bmc_s700",         BMC_SUPER_700IN1 },
@@ -305,6 +310,7 @@ static const nes_pcb pcb_list[] =
 	{ "unl_2708",         UNL_2708 },
 	{ "unl_dh08",         UNL_DH08 },
 	{ "unl_le05",         UNL_LE05 },
+	{ "unl_lg25",         UNL_LG25 },
 	{ "unl_lh10",         UNL_LH10 },
 	{ "unl_lh28_lh54",    UNL_LH28_LH54 },
 	{ "unl_lh31",         UNL_LH31 },
