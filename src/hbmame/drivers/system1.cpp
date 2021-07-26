@@ -76,21 +76,18 @@ GAME( 1987, wbmlbit, wbml, sys2xb, wbml, system1_state, init_bootsys2, ROT0, "Mi
 GAME( 1987, wbmlkb,  wbml, sys2xb, wbml, system1_state, init_bootsys2, ROT0, "Aneue Bannzai", "Wonder Boy in Monster Land (Translation Korean)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 
 
-// LOST ROMS - raflsiau - this was included in various versions of MAME (this code from 0.61), but the story goes that the
-//                        dumper's hard drive crashed before the roms could be sent to Mamedev, and thus lost forever.
-//                        The only changed roms are those in "maincpu" - the remainder is identical to raflesia
 
 ROM_START( raflsiau )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "epr-7433.129",   0x0000, 0x2000, CRC(6f4931b0 ) )
-	ROM_LOAD( "epr-7434.130",   0x2000, 0x2000, CRC(ec46e21b ) )
-	ROM_LOAD( "epr-7435.131",   0x4000, 0x2000, CRC(e035ff6b ) )
-	ROM_LOAD( "epr-7436.132",   0x6000, 0x2000, CRC(6527aae7 ) )
-	ROM_LOAD( "epr-7437.133",   0x8000, 0x2000, CRC(e13dd5e4 ) )
-	ROM_LOAD( "epr-7438.134",   0xa000, 0x2000, CRC(a0aa4729 ) )
+	ROM_LOAD( "epr-7433.129",   0x0000, 0x2000, CRC(6f4931b0) SHA1(4c02e052c01099478adb5bb595c035aff862dd45) )
+	ROM_LOAD( "epr-7434.130",   0x2000, 0x2000, CRC(ec46e21b) SHA1(7bba493c8493611952e029dc8782916cc25db82a) )
+	ROM_LOAD( "epr-7435.131",   0x4000, 0x2000, CRC(e035ff6b) SHA1(5bffdcdf543f47ccf2ed0cabf1ef9e42857d59f9) )
+	ROM_LOAD( "epr-7436.132",   0x6000, 0x2000, CRC(6527aae7) SHA1(aecf33c777e8f4a7323d72dd3f2ca5d12cc798e7) )
+	ROM_LOAD( "epr-7437.133",   0x8000, 0x2000, CRC(e13dd5e4) SHA1(a97654ff82ffa051ee14359733c2b9a952134d4e) )
+	ROM_LOAD( "epr-7438.134",   0xa000, 0x2000, CRC(a0aa4729) SHA1(c353ed4d21661ea0721d8b85d6bfefe502373d7b) )
 
 	ROM_REGION( 0x10000, "soundcpu", 0 )
-	ROM_LOAD( "epr-7420.120",   0x0000, 0x2000, CRC(14387666) SHA1(9cb18e3002c32f658e4725707069f9cd2f496507) )
+	ROM_LOAD( "ic3.bin",        0x0000, 0x2000, CRC(7353cc2e) SHA1(c9246f156ecb1a266669cc9c1c900eece7e8c0d8) )
 
 	ROM_REGION( 0xc000, "tiles", 0 )
 	ROM_LOAD( "epr-7419.62",    0x0000, 0x2000, CRC(bfd5f34c) SHA1(78c4d380d5558212e535c3262223137447d64818) )
@@ -112,5 +109,5 @@ ROM_END
 
 // machine config is guess
 //    YEAR   NAME      PARENT     MACHINE CONFIG    INPUTS      CLASS          INIT
-GAME( 1986, raflsiau, raflesia, sys1pio,           raflesia,  system1_state, init_bank00, ROT270, "Coreland / Sega", "Rafflesia (not encrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, raflsiau, raflesia,   sys1ppi,          raflesia,  system1_state, init_bank00, ROT270, "Coreland / Sega", "Rafflesia (not encrypted)", MACHINE_SUPPORTS_SAVE )
 
