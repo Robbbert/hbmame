@@ -1484,6 +1484,9 @@ f2                              //
 @source:apricotp.cpp
 fp                              //
 
+@source:apxen.cpp
+apxen                           // 1985 ACT
+
 @source:aquarium.cpp
 aquarium                        // (c) 1996 Excellent System
 aquariumj                       // (c) 1996 Excellent System
@@ -12557,6 +12560,9 @@ dpb7000                         //
 
 @source:dps1.cpp
 dps1                            //
+
+@source:dpsv55.cpp
+dpsv55                          //
 
 @source:dragon.cpp
 d64plus                         // Dragon 64 + Compusense Plus addon
@@ -39853,7 +39859,8 @@ nprincesu                       // 834-5677 (c) 1985 (S1)
 pitfall2                        // 834-5627 [1985?] reprogrammed, (c) 1984 Activision (S1)
 pitfall2a                       // 834-5627 [1985?] reprogrammed, (c) 1984 Activision (S1)
 pitfall2u                       // 834-5627 [1985?] reprogrammed, (c) 1984 Activision (S1)
-raflesia                        // 834-5753 (c) 1985 Coreland / Sega (S1)
+raflesia                        // 834-5753 (c) 1986 Coreland / Sega (S1)
+raflesiau                       // 834-5191 (c) 1986 Coreland / Sega (S1)
 regulus                         // 834-5328?(c) 1983 (S1)
 reguluso                        // 834-5328?(c) 1983 (S1)
 regulusu                        // 834-5328?(c) 1983 (S1)

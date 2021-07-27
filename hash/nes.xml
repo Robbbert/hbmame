@@ -61325,8 +61325,8 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<year>19??</year>
 		<publisher>&lt;pirate&gt;</publisher>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="n625092" />
-			<feature name="pcb" value="UNL-N625092" /> <!-- Mapper 221 -->
+			<feature name="slot" value="jyc_b" />
+			<feature name="mirroring" value="vertical" />
 			<dataarea name="chr" size="262144">
 				<rom name="2-in-1 donkey kong + jungle book (unl).chr" size="262144" crc="52ea0000" sha1="7d437a553c7498e637c231dd1df51e73defc0905" offset="00000" status="baddump" />
 			</dataarea>
@@ -67226,8 +67226,8 @@ Also notice that VRAM & WRAM are probably incorrect for some of these sets, at t
 		</part>
 	</software>
 
-<!-- Whirlwind Manu has at least two version: LE10 and LF36. This earlier version apparently hangs at the end of world 4-4 on real hardware. -->
-	<software name="smb2fdse" cloneof="smb2fds" supported="no">
+<!-- Whirlwind Manu has at least two versions: LE10 and LF36. This earlier version has a broken status bar that scrolls with the game. It also crashes at the end of world 4-4 on real hardware (and in MAME). -->
+	<software name="smb2fdse" cloneof="smb2fds">
 		<description>Super Mario Bros. 2 (LE10)</description>
 		<year>19??</year>
 		<publisher>Whirlwind Manu</publisher>
