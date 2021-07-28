@@ -179,7 +179,7 @@ NUM GAME YEAR COMPANY                 TITLE
 444 1234 2018 kl3mousse               Sea Fighter
 445*     2014 M.Priewe                Doom in the Deep (in development or cancelled)
 446 7777 2014 M.Priewe                Monitor Test Tool
-447*     2016 M.Priewe                Hypernoid (in development or cancelled)
+447*     2016 M.Priewe                Hypernoid (released July 2021, stuck behind paywall)
 448
 449*     n/r  RiKo                    Cosmic Tower (in development or cancelled)
 450*     2012 RKGAMES                 Neo-sprite demo (CD only)

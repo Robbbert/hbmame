@@ -249,7 +249,8 @@ void mhavoc_hbmame::mhavoc_out_0_w(uint8_t data)
 	m_player_1 = (data >> 5) & 1;
 
 	/* Bit 3 = Gamma reset */
-	m_gamma->set_input_line(INPUT_LINE_RESET, (data & 0x08) ? CLEAR_LINE : ASSERT_LINE);
+	if (m_gamma)
+		m_gamma->set_input_line(INPUT_LINE_RESET, (data & 0x08) ? CLEAR_LINE : ASSERT_LINE);
 	if (!(data & 0x08))
 	{
 		//logerror("\t\t\t\t*** GAMMA processor RESET Cleared. ***\n");
@@ -261,7 +262,8 @@ void mhavoc_hbmame::mhavoc_out_0_w(uint8_t data)
 
 	/* Bit 2 = Beta reset */
 	/* this is the unpopulated processor in the corner of the pcb farthest from the quad pokey, not used on shipping boards */
-	m_beta->set_input_line(INPUT_LINE_RESET, (data & 0x04) ? CLEAR_LINE : ASSERT_LINE);
+	if (m_beta)
+		m_beta->set_input_line(INPUT_LINE_RESET, (data & 0x04) ? CLEAR_LINE : ASSERT_LINE);
 
 	
 	/* Bit 0 = Roller light (Blinks on fatal errors) */
