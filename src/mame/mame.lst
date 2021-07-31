@@ -203,6 +203,7 @@ polarisa                        // PS  (c) 1980 Taito
 polarisb                        // PS  (c) 1980 Taito
 polarisbr                       // PS  (c) 1981 Taito do Brasil
 polariso                        // PS  (c) 1980 Taito
+resclunar                       // bootleg (Niemer)
 rollingc                        // Nichibutsu
 schaser                         // RT  Taito
 schasera                        // RT  Taito
@@ -10233,13 +10234,15 @@ minijook                        //
 
 @source:cedar_magnet.cpp
 cedmag
-mag_time
-mag_exzi
-mag_xain
-mag_war
-mag_wara
 mag_burn
 mag_day
+mag_drac
+mag_exzi
+mag_pdak
+mag_time
+mag_war
+mag_wara
+mag_xain
 
 @source:centiped.cpp
 bullsdrt                        // (c) 1985 Shinkai

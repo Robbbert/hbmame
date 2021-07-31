@@ -228,7 +228,7 @@ nes_bmc_s700_device::nes_bmc_s700_device(const machine_config &mconfig, const ch
 {
 }
 
-nes_bmc_ball11_device::nes_bmc_ball11_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+nes_bmc_ball11_device::nes_bmc_ball11_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: nes_nrom_device(mconfig, NES_BMC_BALL11, tag, owner, clock)
 {
 }
@@ -258,7 +258,7 @@ nes_bmc_21in1_device::nes_bmc_21in1_device(const machine_config &mconfig, const 
 {
 }
 
-nes_bmc_31in1_device::nes_bmc_31in1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+nes_bmc_31in1_device::nes_bmc_31in1_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: nes_nrom_device(mconfig, NES_BMC_31IN1, tag, owner, clock)
 {
 }
@@ -741,13 +741,11 @@ void nes_bmc_ball11_device::device_start()
 
 void nes_bmc_ball11_device::pcb_reset()
 {
-	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
 	prg32(0);
-	chr8(0, m_chr_source);
+	chr8(0, CHRRAM);
 
-	m_reg[0] = 1;
+	m_reg[0] = 2;
 	m_reg[1] = 0;
-	set_banks();
 }
 
 void nes_bmc_22games_device::device_start()
@@ -821,19 +819,6 @@ void nes_bmc_21in1_device::pcb_reset()
 {
 	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
 	prg32(0);
-	chr8(0, m_chr_source);
-}
-
-void nes_bmc_31in1_device::device_start()
-{
-	common_start();
-}
-
-void nes_bmc_31in1_device::pcb_reset()
-{
-	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
-	prg16_89ab(0);
-	prg16_cdef(1);
 	chr8(0, m_chr_source);
 }
 
@@ -1976,53 +1961,46 @@ void nes_bmc_s700_device::write_h(offs_t offset, uint8_t data)
  BMC-BALLGAMES-11IN1
 
  Known Boards: Unknown Multigame Bootleg Board
- Games: 11 in 1 Ball Games
+ Games: 11 in 1 Ball Series
 
  iNES: mapper 51
 
- In MESS: Partially Supported.
+ In MAME: Supported.
 
  -------------------------------------------------*/
 
-void nes_bmc_ball11_device::set_banks()
+u8 nes_bmc_ball11_device::read_m(offs_t offset)
 {
-	set_nt_mirroring((m_reg[0] == 3) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
+	LOG_MMC(("bmc_ball11 read_m, offset: %04x, data: %02x\n", offset));
 
-	if (m_reg[0] & 0x01)
-	{
+	u8 bank = m_reg[1] << 2 | (m_reg[0] ? 0x23 : 0x2f);
+	return m_prg[bank * 0x2000 + offset];
+}
+
+void nes_bmc_ball11_device::update_prg()
+{
+	if (m_reg[0])
 		prg32(m_reg[1]);
-	}
 	else
 	{
-		prg16_89ab((m_reg[1] << 1) | (m_reg[0] >> 1));
-		prg16_cdef((m_reg[1] << 1) | 0x07);
+		prg16_89ab(m_reg[1] << 1 | BIT(m_reg[1], 4));
+		prg16_cdef(m_reg[1] << 1 | 0x07);
 	}
 }
 
-void nes_bmc_ball11_device::write_m(offs_t offset, uint8_t data)
+void nes_bmc_ball11_device::write_m(offs_t offset, u8 data)
 {
 	LOG_MMC(("bmc_ball11 write_m, offset: %04x, data: %02x\n", offset, data));
-
-	m_reg[0] = ((data >> 1) & 0x01) | ((data >> 3) & 0x02);
-	set_banks();
+	set_nt_mirroring(BIT(data, 4) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
+	m_reg[0] = data & 0x02;
+	update_prg();
 }
 
-void nes_bmc_ball11_device::write_h(offs_t offset, uint8_t data)
+void nes_bmc_ball11_device::write_h(offs_t offset, u8 data)
 {
 	LOG_MMC(("bmc_ball11 write_h, offset: %04x, data: %02x\n", offset, data));
-
-	switch (offset & 0x6000)
-	{
-		case 0x4000:    // here we also update reg[0] upper bit
-			m_reg[0] = (m_reg[0] & 0x01) | ((data >> 3) & 0x02);
-			[[fallthrough]];
-		case 0x0000:
-		case 0x2000:
-		case 0x6000:
-			m_reg[1] = data & 0x0f;
-			set_banks();
-			break;
-	}
+	m_reg[1] = data & 0x1f;
+	update_prg();
 }
 
 /*-------------------------------------------------
@@ -2216,27 +2194,25 @@ void nes_bmc_21in1_device::write_h(offs_t offset, uint8_t data)
 
  iNES: mapper 229
 
- In MESS: Supported.
+ In MAME: Supported.
 
  -------------------------------------------------*/
 
-void nes_bmc_31in1_device::write_h(offs_t offset, uint8_t data)
+void nes_bmc_31in1_device::write_h(offs_t offset, u8 data)
 {
 	LOG_MMC(("bmc_31in1 write_h, offset: %04x, data: %02x\n", offset, data));
+	set_nt_mirroring(BIT(offset, 5) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
 
-	set_nt_mirroring(BIT(data, 5) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
-	chr8(offset, CHRROM);
-
-	if ((offset & 0x1e) == 0)
+	offset &= 0x1f;
+	if (offset & 0x1e)
 	{
-		prg16_89ab(0);
-		prg16_89ab(1);
+		prg16_89ab(offset);
+		prg16_cdef(offset);
 	}
 	else
-	{
-		prg16_89ab(offset & 0x1f);
-		prg16_89ab(offset & 0x1f);
-	}
+		prg32(0);
+
+	chr8(offset, CHRROM);
 }
 
 /*-------------------------------------------------

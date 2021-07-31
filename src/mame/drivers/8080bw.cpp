@@ -1109,7 +1109,7 @@ void _8080bw_state::escmars_map(address_map &map)
 {
 	map(0x0000, 0x1fff).rom();
 	map(0x2000, 0x3fff).ram().share("main_ram");
-	map(0x4000, 0x4fff).rom();
+	map(0x4000, 0x57ff).rom();
 }
 
 void _8080bw_state::lrescue_io_map(address_map &map)
@@ -4844,14 +4844,27 @@ ROM_END
 
 ROM_START( escmars )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "2516_em.m5",        0x0000, 0x0800, CRC(6580f1c3) SHA1(fd44d4bab799e02b2d7c20fe6bf14ade9c8d4f1d) )
-	ROM_LOAD( "2716_em.n5",        0x0800, 0x0800, CRC(49e79706) SHA1(bed675bb97d59ae0132c007ccead0d096ed2ddf1) )
-	ROM_LOAD( "2516_em.p5",        0x1000, 0x0800, CRC(1ac969be) SHA1(67ac47f45b9fa5c530bf6047bb7d5776b52847be) )
-	ROM_LOAD( "2516_em.r5",        0x1800, 0x0800, CRC(c1bd5949) SHA1(df390dd159766ed6489abfae8bb258115dc643e6) )
-	ROM_LOAD( "2716_em.s5",        0x4000, 0x0800, CRC(1ec21a31) SHA1(5db61f00d8987662ccae1132fb25da318ac177dd) )
-	ROM_LOAD( "2716_em.t5",        0x4800, 0x0800, CRC(bfb0f65d) SHA1(ea0943d764a16094b6e2289f62ef117c9f838c98) )
+	ROM_LOAD( "2516_em.m5",   0x0000, 0x0800, CRC(6580f1c3) SHA1(fd44d4bab799e02b2d7c20fe6bf14ade9c8d4f1d) )
+	ROM_LOAD( "2716_em.n5",   0x0800, 0x0800, CRC(49e79706) SHA1(bed675bb97d59ae0132c007ccead0d096ed2ddf1) )
+	ROM_LOAD( "2516_em.p5",   0x1000, 0x0800, CRC(1ac969be) SHA1(67ac47f45b9fa5c530bf6047bb7d5776b52847be) )
+	ROM_LOAD( "2516_em.r5",   0x1800, 0x0800, CRC(c1bd5949) SHA1(df390dd159766ed6489abfae8bb258115dc643e6) )
+	ROM_LOAD( "2716_em.s5",   0x4000, 0x0800, CRC(1ec21a31) SHA1(5db61f00d8987662ccae1132fb25da318ac177dd) )
+	ROM_LOAD( "2716_em.t5",   0x4800, 0x0800, CRC(bfb0f65d) SHA1(ea0943d764a16094b6e2289f62ef117c9f838c98) )
 
-	/* No proms, only colour overlay */
+	// No PROMs, only colour overlay
+ROM_END
+
+ROM_START( resclunar )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "1-2716.h1",    0x0000, 0x0800, CRC(6234e240) SHA1(1af042907b1497229aa3b8426a43167435d1ec1c) )
+	ROM_LOAD( "2-2516.g1",    0x0800, 0x0800, CRC(67ab3599) SHA1(0241f17089fb99934011ef0bfbc583555a1a8b79) )
+	ROM_LOAD( "3-2716.f1",    0x1000, 0x0800, CRC(337b6266) SHA1(bc646cf52e1a9e716b345166a1292f02ae14e39a) )
+	ROM_LOAD( "4-2716.e1",    0x1800, 0x0800, CRC(dd90ad9a) SHA1(671fd92cd572529d2c59f94b975be95111f21e19) )
+	ROM_LOAD( "5-2716.d1",    0x4000, 0x0800, CRC(741212d4) SHA1(5555fdac8cb8f52406c53447fae8db013fd00002) )
+	ROM_LOAD( "6-8516.c1",    0x4800, 0x0800, CRC(c8994fc7) SHA1(788dc56a873e925ff839df48042dab1fc7be3262) )
+	ROM_LOAD( "7-2516.b1",    0x5000, 0x0800, CRC(1adff5d7) SHA1(99d2c0b9d664cc7d8ec9f247cee993e2173a4b79) )
+
+	// No PROMs, only colour overlay
 ROM_END
 
 ROM_START( lrescuem )
