@@ -20103,6 +20103,7 @@ trojanr                         // 4/1986 (c) 1986 + Romstar
 
 @source:lwriter.cpp
 lwriter                         // Apple LaserWriter
+lwriterplus                     // Apple LaserWriter Plus
 lwriter2nt                      // Apple LaserWriter II NT
 
 @source:lynx.cpp
@@ -20454,6 +20455,7 @@ magictga                        // (c) 199? Acclaim
 
 @source:magmax.cpp
 magmax                          // (c) 1985
+magmaxa                         // (c) 1985
 
 @source:magnum.cpp
 magnum                          //
