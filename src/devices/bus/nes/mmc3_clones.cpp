@@ -59,8 +59,10 @@ DEFINE_DEVICE_TYPE(NES_BMC_SBIG7,     nes_bmc_sbig7_device,     "nes_bmc_sbig7",
 DEFINE_DEVICE_TYPE(NES_BMC_HIK8,      nes_bmc_hik8_device,      "nes_bmc_hik8",      "NES Cart BMC HIK 8 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_HIK4,      nes_bmc_hik4_device,      "nes_bmc_hik4",      "NES Cart BMC HIK 4 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_MARIO7IN1, nes_bmc_mario7in1_device, "nes_bmc_mario7in1", "NES Cart BMC Mario 7 in 1 PCB")
+DEFINE_DEVICE_TYPE(NES_BMC_F15,       nes_bmc_f15_device,       "nes_bmc_f15",       "NES Cart BMC F-15 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GOLD7IN1,  nes_bmc_gold7in1_device,  "nes_bmc_gold7in1",  "NES Cart BMC Golden 7 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GC6IN1,    nes_bmc_gc6in1_device,    "nes_bmc_gc6in1",    "NES Cart BMC Golden Card 6 in 1 PCB")
+DEFINE_DEVICE_TYPE(NES_BMC_K3006,     nes_bmc_k3006_device,     "nes_bmc_k3006",     "NES Cart BMC K-3006 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_411120C,   nes_bmc_411120c_device,   "nes_bmc_411120c",   "NES Cart BMC 411120C PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_830118C,   nes_bmc_830118c_device,   "nes_bmc_830118c",   "NES Cart BMC 830118C PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_841101C,   nes_bmc_841101c_device,   "nes_bmc_841101c",   "NES Cart BMC 841101C PCB")
@@ -223,6 +225,11 @@ nes_bmc_mario7in1_device::nes_bmc_mario7in1_device(const machine_config &mconfig
 {
 }
 
+nes_bmc_f15_device::nes_bmc_f15_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_txrom_device(mconfig, NES_BMC_F15, tag, owner, clock)
+{
+}
+
 nes_bmc_gold7in1_device::nes_bmc_gold7in1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: nes_txrom_device(mconfig, NES_BMC_GOLD7IN1, tag, owner, clock), m_reg_written(0)
 {
@@ -230,6 +237,11 @@ nes_bmc_gold7in1_device::nes_bmc_gold7in1_device(const machine_config &mconfig, 
 
 nes_bmc_gc6in1_device::nes_bmc_gc6in1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: nes_txrom_device(mconfig, NES_BMC_GC6IN1, tag, owner, clock)
+{
+}
+
+nes_bmc_k3006_device::nes_bmc_k3006_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_txrom_device(mconfig, NES_BMC_K3006, tag, owner, clock)
 {
 }
 
@@ -557,6 +569,14 @@ void nes_bmc_mario7in1_device::pcb_reset()
 	mmc3_common_initialize(0x1f, 0xff, 0);
 }
 
+void nes_bmc_f15_device::pcb_reset()
+{
+	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
+	mmc3_common_initialize(0x1f, 0xff, 0);
+	prg16_89ab(0);
+	prg16_cdef(0);
+}
+
 void nes_bmc_gold7in1_device::device_start()
 {
 	mmc3_start();
@@ -588,6 +608,15 @@ void nes_bmc_gc6in1_device::pcb_reset()
 	mmc3_common_initialize(0xff, 0xff, 0);
 	set_prg(m_prg_base, m_prg_mask);
 	set_chr(m_chr_source, m_chr_base, m_chr_mask);
+}
+
+void nes_bmc_k3006_device::pcb_reset()
+{
+	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
+	mmc3_common_initialize(0x0f, 0x7f, 0);
+	prg16_89ab(0);
+	prg16_cdef(0);
+	chr8(0, m_chr_source);
 }
 
 void nes_bmc_411120c_device::device_start()
@@ -2216,6 +2245,39 @@ void nes_bmc_mario7in1_device::write_m(offs_t offset, uint8_t data)
 
 /*-------------------------------------------------
 
+ BMC-F-15
+
+ Unknown Multigame Bootleg Board
+ Games: 150 in 1 Unchained Melody
+
+ MMC3 clone with banking for multigame menu.
+
+ NES 2.0: mapper 259
+
+ In MAME: Supported.
+
+ -------------------------------------------------*/
+
+void nes_bmc_f15_device::write_m(offs_t offset, u8 data)
+{
+	LOG_MMC(("bmc_f15 write_m, offset: %04x, data: %02x\n", offset, data));
+
+	if (BIT(m_wram_protect, 7))
+	{
+		u8 bank = data & 0x0f;
+		u8 mode = BIT(data, 3);
+		prg16_89ab(bank & ~mode);
+		prg16_cdef(bank | mode);
+	}
+}
+
+void nes_bmc_f15_device::prg_cb(int start, int bank)
+{
+	// Ignore MMC3 PRG bank switching. Master Fighter II (game #150) uses the bank switching above.
+}
+
+/*-------------------------------------------------
+
  BMC-FCGENJIN-8IN1
 
  Unknown Multigame Bootleg Board
@@ -2401,6 +2463,42 @@ void nes_bmc_gc6in1_device::write_h(offs_t offset, uint8_t data)
 			default:
 				txrom_write(offset, data);
 				break;
+		}
+	}
+}
+
+/*-------------------------------------------------
+
+ BMC-K-3006
+
+ Games: 21 in 1
+
+ MMC3 clone with banking for multigame menu.
+
+ NES 2.0: mapper 339
+
+ In MAME: Supported.
+
+ -------------------------------------------------*/
+
+void nes_bmc_k3006_device::write_m(offs_t offset, u8 data)
+{
+	LOG_MMC(("bmc_k3006 write_m, offset: %04x, data: %02x\n", offset, data));
+	if ((m_wram_protect & 0xc0) == 0x80)
+	{
+		if (BIT(offset, 5))    // MMC3 mode
+		{
+			m_prg_base = (offset & 0x18) << 1;
+			set_prg(m_prg_base, m_prg_mask);
+			m_chr_base = m_prg_base << 3;
+			set_chr(m_chr_source, m_chr_base, m_chr_mask);
+		}
+		else                   // NROM mode
+		{
+			u8 bank = offset & 0x1f;
+			u8 mode = (offset & 0x06) == 0x06;
+			prg16_89ab(bank & ~mode);
+			prg16_cdef(bank | mode);
 		}
 	}
 }
