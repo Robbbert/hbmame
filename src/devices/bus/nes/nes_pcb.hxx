@@ -110,6 +110,7 @@ static const nes_pcb pcb_list[] =
 	{ "nanjing",          NANJING_BOARD },  // mapper 163
 	{ "ntdec_asder",      NTDEC_ASDER },    // mapper 112
 	{ "ntdec_fh",         NTDEC_FIGHTINGHERO },     // mapper 193
+	{ "ntdec_n715021",    NTDEC_N715021 },  // mapper 81
 	{ "sa009",            SACHEN_SA009 },
 	{ "sa0036",           SACHEN_SA0036 },
 	{ "sa0037",           SACHEN_SA0037 },
@@ -204,6 +205,7 @@ static const nes_pcb pcb_list[] =
 	{ "mariobaby",        BTL_MARIOBABY },
 	{ "asnicol",          BTL_AISENSHINICOL },
 	{ "smb3pirate",       BTL_SMB3 },
+	{ "btl_contraj",      BTL_CONTRAJ },
 	{ "btl_dninja",       BTL_DRAGONNINJA },
 	{ "smb2j",            UNL_SMB2J },
 	{ "smb2ja",           BTL_SMB2JA },
@@ -292,6 +294,7 @@ static const nes_pcb pcb_list[] =
 	{ "fk23c",            BMC_FK23C },
 	{ "fk23ca",           BMC_FK23CA },
 	{ "s24in1c03",        BMC_S24IN1SC03 },
+	{ "bmc_8in1",         BMC_8IN1 },
 	{ "bmc_15in1",        BMC_15IN1 },
 	{ "bmc_sbig7in1",     BMC_SUPERBIG_7IN1 },
 	{ "bmc_hik8in1",      BMC_HIK8IN1 },
@@ -355,7 +358,6 @@ static const nes_pcb pcb_list[] =
 	{ "a9746",            UNSUPPORTED_BOARD },
 	{ "pec586",           UNSUPPORTED_BOARD },
 	{ "bmc_hp898f",       UNSUPPORTED_BOARD },  // Primasoft 9999999-in-1
-	{ "bmc_8in1",         UNSUPPORTED_BOARD },  // Super 8-in-1 (Incl. Rockin' Kats)
 	{ "unl_158b",         UNSUPPORTED_BOARD },  // Blood of Jurassic
 	{ "unl_drgnfgt",      UNSUPPORTED_BOARD },  // Dragon Fighter by Flying Star
 	{ "test",             TEST_BOARD },

@@ -113,7 +113,7 @@ static const nes_mmc mmc_list[] =
 	{ 78, IREM_HOLYDIVR },
 	{ 79, AVE_NINA06 },
 	{ 80, TAITO_X1_005 },
-	// 81 NTDEC's Super Gun. Dump available?
+	{ 81, NTDEC_N715021 }, // 81 Super Gun
 	{ 82, TAITO_X1_017 },
 	{ 83, CONY_BOARD },
 	// 84 Pasofami hacked images?
@@ -361,14 +361,14 @@ static const nes_mmc mmc_list[] =
 	// 323 Farid SLROM homebrew 8-in-1
 	// 324 Farid UNROM homebrew 8-in-1
 	{ 325, UNL_MALISB },           // Super Mali Splash Bomb pirate hack
-	// 326 yet another Contra bootleg, dump available?
+	{ 326, BTL_CONTRAJ },
 	// 327 BMC-10-24-C-A1 6-in-1
 	{ 328, UNL_RT01 },             // test cart (Russia)
 	{ 329, UNL_EDU2K },
 	// 330 Sangokushi II - Haou no Tairiku hack - N163 bootleg
 	{ 331, BMC_12IN1 },
 	{ 332, BMC_WS },
-	// 333 BMC_8IN1 and BMC-NEWSTAR-GRM070-8IN1 multicarts
+	{ 333, BMC_8IN1 },
 	// 334 5/20-in-1 1993 Copyright multicart, not in nes.xml?
 	{ 335, BMC_CTC09 },
 	{ 336, BMC_K3046 },
