@@ -220,6 +220,11 @@ ROM_START( mslug4xg )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263xg.p1",    0x000000, 0x100000, CRC(358a28ce) SHA1(b998a77f73cbc42e8ee1f580bd3780c675197b8e) )
 	ROM_LOAD16_WORD_SWAP( "263.p2",  0x100000, 0x400000, CRC(fdb7aed8) SHA1(dbeaec38f44e58ffedba99e70fa1439c2bf0dfa3) )
+	// fixes freeze in attract mode
+	ROM_FILL(0xc56c6,1,0x1d)
+	ROM_FILL(0xc56c7,1,0x40)
+	ROM_FILL(0xc56d0,1,0x1d)
+	ROM_FILL(0xc56d1,1,0x41)
 
 	NEO_SFIX_MT_512K
 
@@ -402,7 +407,7 @@ GAME( 2002, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug
 GAME( 2002, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix 030414 Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix 030731)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4xg,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "ZKW",    "Metal Slug 4 (PPX Team Hack, Remixed)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4xg,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "ZKW",    "Metal Slug 4 (PPX Team Hack, Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Mega", "Metal Slug 4 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)", MACHINE_SUPPORTS_SAVE )

@@ -3,7 +3,7 @@
 
 2021-08-25 0.235
 
-
+- mslug4xg: fixed freeze in attract mode
 
 New Games
 ---------------------------------
