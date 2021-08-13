@@ -216,7 +216,28 @@ ROM_START( bbredux3 )
 	ROM_LOAD( "pal16l8.u4",  0x0400, 0x0104, CRC(077d20a8) SHA1(8e568ffd6f66c3dd61708dd0f3be9c2ed488ae4b) )
 ROM_END
 
-// issues since 2017-08-06: music keeps dropping out, reboots if you press ctrl instead of 1 at level select screen
+class bublbobl_hbmame : public bublbobl_state
+{
+public:
+	bublbobl_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: bublbobl_state(mconfig, type, tag)
+	{ }
+
+	void sboblboblh(machine_config &config);
+
+private:
+};
+
+void bublbobl_hbmame::sboblboblh(machine_config &config)
+{
+	boblbobl(config);
+
+	config.device_remove("watchdog");
+	WATCHDOG_TIMER(config, "watchdog").set_vblank_count("screen", 1280);  // stop it rebooting in the level select screen
+}
+
+
+// issues since 2017-08-06: music keeps dropping out
 ROM_START( sboblboblh )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bb3.u28",      0x00000, 0x08000, CRC(c23cd704) SHA1(a389ecc8d55d1b0c915fd3814d93338b9e402701) )
@@ -351,7 +372,7 @@ GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, init_commo
 GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, sboblboblh, bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 19??, sboblboblh, bublbobl, sboblboblh, boblbobl, bublbobl_hbmame, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )
