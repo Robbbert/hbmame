@@ -4,6 +4,7 @@
 2021-08-25 0.235
 
 - mslug4xg: fixed freeze in attract mode
+- sblast2bs01: fixed crash at start
 - sboblboblh: fixed watchdog reset on level select screen
 
 New Games
