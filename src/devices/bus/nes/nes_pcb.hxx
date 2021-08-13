@@ -117,6 +117,7 @@ static const nes_pcb pcb_list[] =
 	{ "sa72007",          SACHEN_SA72007 },
 	{ "sa72008",          SACHEN_SA72008 },
 	{ "tca01",            SACHEN_TCA01 },
+	{ "s3013",            SACHEN_3013 },
 	{ "s8259a",           SACHEN_8259A },
 	{ "s8259b",           SACHEN_8259B },
 	{ "s8259c",           SACHEN_8259C },
@@ -252,8 +253,10 @@ static const nes_pcb pcb_list[] =
 	{ "sgun20in1",        BMC_SUPERGUN_20IN1 },
 	{ "bmc_vt5201",       BMC_VT5201 },  // mapper 59?
 	{ "bmc_d1038",        BMC_VT5201 },  // mapper 59?
+	{ "bmc_60311c",       BMC_60311C },
 	{ "bmc_80013b",       BMC_80013B },
 	{ "bmc_810544c",      BMC_810544C },
+	{ "bmc_830425c",      BMC_830425C },
 	{ "ntd03",            BMC_NTD_03 },
 	{ "bmc_ctc09",        BMC_CTC09 },
 	{ "bmc_gb63",         BMC_G63IN1 },

@@ -31866,7 +31866,7 @@ alpilotj                        // 1999.03 Airline Pilots (Japan, Rev A)
 alpilot                         // 1999.?? Airline Pilots (World, Rev B)
 anmlbskt                        // 2005.01 Animal Basket (date is inside of ROM, probably earlier than release)
 anmlbskta                       // 2005.01 Animal Basket (date is inside of ROM, probably earlier than release)
-anpanman2                       // 2003.09 Soreike! Anpanman Popcorn Factory 2 (Rev C)
+anpanman2                       // 2003.09 Soreike! Anpanman Popcorn Koujou 2 (Rev C)
 asndynmt                        // 2007.07 Dynamite Deka EX - Asian dynamite
 asndynmto                       // 2007.07 Dynamite Deka EX - Asian dynamite (older)
 ausfache                        // 2008.02.20 Akatsuki Blitzkampf Ausf. Achse
@@ -36889,6 +36889,7 @@ sauroa                          // (c) 1987
 saurob                          // (c) 1987 bootleg
 saurop                          // (c) 1987
 saurorr                         // (c) 1987
+seawolft                        // (c) 1987 Tecfri
 trckydoc                        // (c) 1987
 trckydoca                       // (c) 1987
 
@@ -43818,16 +43819,16 @@ simldv1000                      // Pioneer LD-V1000
 simpr8210                       // Pioneer PR-8210
 
 @source:gsz80.cpp
-gsz80
+gsz80                           // Grant Searle's Simple Z-80 Machine
 
 @source:gscpm.cpp
-gscpm
+gscpm                           // Grant Searle's Simple CP/M Machine
 
 @source:gs6502.cpp
-gs6502
+gs6502                          // Grant Searle's Simple 6502 Machine
 
 @source:gs6809.cpp
-gs6809
+gs6809                          // Grant Searle's Simple 6809 Machine
 
 @source:ultim809.cpp
 ultim809
