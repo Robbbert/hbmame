@@ -51,6 +51,7 @@ DEFINE_DEVICE_TYPE(NES_BMC_CTC09,      nes_bmc_ctc09_device,      "nes_bmc_ctc09
 DEFINE_DEVICE_TYPE(NES_BMC_GB63,       nes_bmc_gb63_device,       "nes_bmc_gb63",       "NES Cart BMC Ghostbusters 63 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GKA,        nes_bmc_gka_device,        "nes_bmc_gka",        "NES Cart BMC GK-A PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GKB,        nes_bmc_gkb_device,        "nes_bmc_gkb",        "NES Cart BMC GK-B PCB")
+DEFINE_DEVICE_TYPE(NES_BMC_GKCXIN1,    nes_bmc_gkcxin1_device,    "nes_bmc_gkcxin1",    "NES Cart BMC GKCXIN1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_K3036,      nes_bmc_k3036_device,      "nes_bmc_k3036",      "NES Cart BMC K-3036 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_K3046,      nes_bmc_k3046_device,      "nes_bmc_k3046",      "NES Cart BMC K-3046 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_SA005A,     nes_bmc_sa005a_device,     "nes_bmc_sa005a",     "NES Cart BMC SA005-A PCB")
@@ -78,6 +79,7 @@ DEFINE_DEVICE_TYPE(NES_BMC_76IN1,      nes_bmc_76in1_device,      "nes_bmc_76in1
 DEFINE_DEVICE_TYPE(NES_BMC_110IN1,     nes_bmc_110in1_device,     "nes_bmc_110in1",     "NES Cart BMC 110 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_150IN1,     nes_bmc_150in1_device,     "nes_bmc_150in1",     "NES Cart BMC 150 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_190IN1,     nes_bmc_190in1_device,     "nes_bmc_190in1",     "NES Cart BMC 190 in 1 PCB")
+DEFINE_DEVICE_TYPE(NES_BMC_500IN1,     nes_bmc_500in1_device,     "nes_bmc_500in1",     "NES Cart BMC 500 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_800IN1,     nes_bmc_800in1_device,     "nes_bmc_800in1",     "NES Cart BMC 800 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_1200IN1,    nes_bmc_1200in1_device,    "nes_bmc_1200in1",    "NES Cart BMC 1200 in 1 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GOLD150,    nes_bmc_gold150_device,    "nes_bmc_gold150",    "NES Cart BMC Golden 150 in 1 PCB")
@@ -232,6 +234,11 @@ nes_bmc_gkb_device::nes_bmc_gkb_device(const machine_config &mconfig, const char
 {
 }
 
+nes_bmc_gkcxin1_device::nes_bmc_gkcxin1_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_BMC_GKCXIN1, tag, owner, clock)
+{
+}
+
 nes_bmc_k3036_device::nes_bmc_k3036_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: nes_nrom_device(mconfig, NES_BMC_K3036, tag, owner, clock)
 {
@@ -279,7 +286,7 @@ nes_bmc_8157_device::nes_bmc_8157_device(const machine_config &mconfig, const ch
 {
 }
 
-nes_bmc_hik300_device::nes_bmc_hik300_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+nes_bmc_hik300_device::nes_bmc_hik300_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: nes_nrom_device(mconfig, NES_BMC_HIK300, tag, owner, clock)
 {
 }
@@ -294,8 +301,8 @@ nes_bmc_ball11_device::nes_bmc_ball11_device(const machine_config &mconfig, cons
 {
 }
 
-nes_bmc_22games_device::nes_bmc_22games_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: nes_nrom_device(mconfig, NES_BMC_22GAMES, tag, owner, clock)
+nes_bmc_22games_device::nes_bmc_22games_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_BMC_22GAMES, tag, owner, clock), m_latch(0), m_reset(0)
 {
 }
 
@@ -361,6 +368,11 @@ nes_bmc_110in1_device::nes_bmc_110in1_device(const machine_config &mconfig, cons
 
 nes_bmc_150in1_device::nes_bmc_150in1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: nes_nrom_device(mconfig, NES_BMC_150IN1, tag, owner, clock)
+{
+}
+
+nes_bmc_500in1_device::nes_bmc_500in1_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_BMC_500IN1, tag, owner, clock)
 {
 }
 
@@ -802,16 +814,11 @@ void nes_bmc_8157_device::pcb_reset()
 	m_latch = 0;
 }
 
-void nes_bmc_hik300_device::device_start()
-{
-	common_start();
-}
-
 void nes_bmc_hik300_device::pcb_reset()
 {
-	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
-	prg32(0xff);
-	chr8(0xff, CHRROM);
+	prg16_89ab(0);
+	prg16_cdef(0);
+	chr8(0, CHRROM);
 }
 
 void nes_bmc_s700_device::device_start()
@@ -844,14 +851,25 @@ void nes_bmc_ball11_device::pcb_reset()
 void nes_bmc_22games_device::device_start()
 {
 	common_start();
+	save_item(NAME(m_latch));
+	save_item(NAME(m_reset));
 }
 
 void nes_bmc_22games_device::pcb_reset()
 {
-	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
-	prg16_89ab(0);
-	prg16_cdef(7);
-	chr8(0, m_chr_source);
+	if (m_reset)
+	{
+		prg32(4);
+		m_latch = 1;
+	}
+	else
+	{
+		prg16_89ab(0);
+		prg16_cdef(7);
+		set_nt_mirroring(PPU_MIRROR_VERT);
+		m_reset = 1;
+	}
+	chr8(0, CHRRAM);
 }
 
 void nes_bmc_64y2k_device::device_start()
@@ -1894,6 +1912,27 @@ void nes_bmc_gkb_device::write_h(offs_t offset, uint8_t data)
 
 /*-------------------------------------------------
 
+ Board BMC-GKCXIN1
+
+ Unknown Bootleg Multigame Board
+ Games: 21 in 1
+
+ NES 2.0: mapper 288
+
+ In MAME: Supported.
+
+ -------------------------------------------------*/
+
+void nes_bmc_gkcxin1_device::write_h(offs_t offset, u8 data)
+{
+	LOG_MMC(("bmc_gkcxin1 write_h, offset: %04x, data: %02x\n", offset, data));
+
+	prg32((offset >> 3) & 0x03);
+	chr8(offset & 0x07, CHRROM);
+}
+
+/*-------------------------------------------------
+
  BMC-K-3036
 
  Games: 35 in 1
@@ -2143,24 +2182,27 @@ u8 nes_bmc_8157_device::read_h(offs_t offset)
 
  iNES: mapper 212
 
- In MESS: Supported.
+ In MAME: Supported.
 
  -------------------------------------------------*/
 
-void nes_bmc_hik300_device::write_h(offs_t offset, uint8_t data)
+u8 nes_bmc_hik300_device::read_m(offs_t offset)
+{
+	LOG_MMC(("bmc_hik300 read_m, offset: %04x, data: %02x\n", offset));
+	return get_open_bus() | (!BIT(offset, 4) << 7);    // some games have a protection MSB
+}
+
+void nes_bmc_hik300_device::write_h(offs_t offset, u8 data)
 {
 	LOG_MMC(("bmc_hik300 write_h, offset: %04x, data: %02x\n", offset, data));
 
-	set_nt_mirroring(BIT(data, 3) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
-	chr8(offset, CHRROM);
+	u8 bank = offset & 0x07;
+	u8 mode = BIT(offset, 14);
+	prg16_89ab(bank & ~mode);
+	prg16_cdef(bank | mode);
 
-	if (offset < 0x4000)
-	{
-		prg16_89ab(offset);
-		prg16_cdef(offset);
-	}
-	else
-		prg32(offset >> 1);
+	chr8(bank, CHRROM);
+	set_nt_mirroring(BIT(offset, 3) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
 }
 
 /*-------------------------------------------------
@@ -2247,37 +2289,33 @@ void nes_bmc_ball11_device::write_h(offs_t offset, u8 data)
  BMC-22GAMES
 
  Unknown Bootleg Multigame Board
- Games: 22 in 1
+ Games: Contra/22 in 1 combo
 
  iNES: mapper 230
 
- In MESS: Partially Supported. It would need a reset
- to work (not possible yet)
+ In MAME: Supported.
+
+ TODO: Determine whether reset works as written or
+ whether it toggles between Contra and the game menu.
+ Reset to Contra from the menu or other games often
+ fails due to RAM contents it seems.
 
  -------------------------------------------------*/
 
-void nes_bmc_22games_device::write_h(offs_t offset, uint8_t data)
+void nes_bmc_22games_device::write_h(offs_t offset, u8 data)
 {
 	LOG_MMC(("bmc_22games write_h, offset: %04x, data: %02x\n", offset, data));
 
-	if (1)  // this should flip at reset
+	if (m_latch)
 	{
-		prg16_89ab(data & 0x07);
-	}
-	else
-	{
-		if (data & 0x20)
-		{
-			prg16_89ab((data & 0x1f) + 8);
-			prg16_cdef((data & 0x1f) + 8);
-		}
-		else
-		{
-			prg16_89ab((data & 0x1f) + 8);
-			prg16_cdef((data & 0x1f) + 9);
-		}
+		u8 bank = (data & 0x1f) + 8;
+		u8 mode = !BIT(data, 5);
+		prg16_89ab(bank & ~mode);
+		prg16_cdef(bank | mode);
 		set_nt_mirroring(BIT(data, 6) ? PPU_MIRROR_VERT : PPU_MIRROR_HORZ);
 	}
+	else
+		prg16_89ab(data & 0x07);
 }
 
 /*-------------------------------------------------
@@ -2689,6 +2727,26 @@ void nes_bmc_150in1_device::write_h(offs_t offset, uint8_t data)
 	chr8(bank, CHRROM);
 
 	set_nt_mirroring(BIT(offset, 0) ? PPU_MIRROR_HORZ: PPU_MIRROR_VERT);
+}
+
+/*-------------------------------------------------
+
+ BMC-500IN1
+
+ Unknown Bootleg Multigame Board
+ Games: 500 in 1, 2000 in 1 Unchained Melody, etc
+
+ iNES: mapper 217
+
+ In MAME: Supported.
+
+ -------------------------------------------------*/
+
+void nes_bmc_500in1_device::write_h(offs_t offset, u8 data)
+{
+	LOG_MMC(("bmc500in1 write_h, offset: %04x, data: %02x\n", offset, data));
+	prg32((offset >> 2) & 0x07);
+	chr8(offset & 0x07, CHRROM);
 }
 
 /*-------------------------------------------------
