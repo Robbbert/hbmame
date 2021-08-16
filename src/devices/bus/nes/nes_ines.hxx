@@ -288,7 +288,7 @@ static const nes_mmc mmc_list[] =
 	{ 252, WAIXING_SGZ },
 	// 253 Super 8-in-1 99 King Fighter?? - Unsupported
 	{ 254, BTL_PIKACHUY2K },
-	{ 255, BMC_110IN1 },
+	{ 255, BMC_72IN1 },
 
 	// NES 2.0
 	// 256 OneBus Famiclones
@@ -399,9 +399,9 @@ static const nes_mmc mmc_list[] =
 	{ 361, BMC_841101C },
 	// 362 JY-005 multicart
 	// 363 variant of mapper 358?
-	// 364 JY-007, is this ttoons6 in nes.xml?
+	{ 364, BMC_830832C },
 	// 365 is this asderp95 in nes.xml?
-	// 366 K-3131GS and K-3131SS 4-in-1 carts
+	{ 366, BMC_GN45 },
 	// 367 7-in-1 cart that is a close variant of mapper 205
 	{ 368, BTL_YUNG08 },            // SMB2 FDS conversion
 	// 369 Super Mario Bros Party multicart
@@ -431,7 +431,7 @@ static const nes_mmc mmc_list[] =
 	// 393 820720C multicart
 	// 394 Realtec HSK007 multicart
 	// 395 Realtec 8210 multicarts
-	// 396 various JY multicarts
+	{ 396, BMC_850437C },
 	// 397 JY-082 multicart, not in nes.xml?
 	// 398 JY-048 multicart, not in nes.xml?
 	// 399 homebrew game Star Versus
@@ -513,7 +513,7 @@ static const nes_mmc mmc_list[] =
 	// 550 JY-015 multicart
 	// 551 variant of mapper 178, likely shenghuo, jingkzx, xiaokecq, zgfyun in nes.xml
 	// 552 TAITO_X1_017, this is a correction of mapper 82. We should drop 82 and only support the accurate dumps of 552?
-	// { 553, SACHEN_3013 },          // Dong Dong Nao 1
+	{ 553, SACHEN_3013 },          // Dong Dong Nao 1
 	{ 554, KAISER_KS7010 },        // Akumajo Dracula FDS conversion
 	// 555 retroUSB re-release of 1991 Nintendo Campus Challenge
 	// 556 JY-215 multicart
