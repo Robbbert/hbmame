@@ -18,7 +18,7 @@ ROM_START( bubbleb ) // same as pbobble except for ic2
 	ROM_LOAD( "pb-ic15.bin", 0x000000, 0x100000, CRC(0840cbc4) SHA1(1adbd7aef44fa80832f63dfb8efdf69fd7256a57) )
 ROM_END
 
-GAME( 1994, bubbleb, bublbust, pbobble, pbobble, taitob_state, init_taito_b, ROT0, "Taito Corporation", "Bubble Buster", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, bubbleb, pbobble, pbobble, pbobble, taitob_state, init_taito_b, ROT0, "Taito Corporation", "Bubble Buster", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( crimecb )

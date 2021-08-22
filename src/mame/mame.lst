@@ -15325,6 +15325,9 @@ nfsug                           // Need For Speed: Underground Install (2 Discs)
 @source:gluck2.cpp
 gluck2                          // 1992 Yung Yu / CYE
 
+@source:gm1000.cpp
+gm1000                          //
+
 @source:gmaster.cpp
 gmaster                         // Hartung Gamemaster
 
@@ -16557,6 +16560,7 @@ ti1270                          // Texas Instruments
 ti1680                          // Texas Instruments
 ti25503                         // Texas Instruments
 ti30                            // Texas Instruments
+ti5100                          // Texas Instruments
 tibusan                         // Texas Instruments
 timaze                          // Texas Instruments
 tiprog                          // Texas Instruments
@@ -19140,6 +19144,7 @@ fnkyfish                        // (c) 1981 Sun Electronics
 kangaroo                        // (c) 1982 Sun Electronics
 kangarooa                       // 136008           (c) 1982 Atari
 kangaroob                       // (bootleg)
+kangarool                       // (c) 1982 Sun Electronics (Loewen Automaten license)
 
 @source:karnov.cpp
 chelnov                         // (c) 1988 Data East USA (World)
@@ -23569,6 +23574,7 @@ bublpong                        // bootleg on enhanced hardware
 missb2                          // bootleg on enhanced hardware
 
 @source:missbamby.cpp
+basket                          // (c) 198? IGOA S.A.
 goldfrts                        //
 gwinner                         // (c) 1983 Reben
 luckyplr                        // (c) 1981 Cirsa
@@ -31458,6 +31464,7 @@ swcourtb                        // bootleg (Playmark?)
 swcourtj                        // (c) 1992 (Japan)
 tinklpit                        // (c) 1993 (Japan)
 xday2                           // (c) 1995 (Japan)
+zelos                           // (c) 199? (Japan)
 
 @source:namconb1.cpp
 gslgr94j                        // (c) 1994 (Japan)
@@ -33382,6 +33389,9 @@ onetwoe                         // (c) 1997 Barko
 c5000                           // 1981
 c8002                           //
 
+@source:opercoin.cpp
+multibaby                       // (c) 1990 oper Coin
+
 @source:opwolf.cpp
 opwolf                          // B20 (c) 1987 Taito Corporation Japan (World)
 opwolfa                         // B20 (c) 1987 Taito Corporation Japan (World)
@@ -34665,6 +34675,7 @@ ketarrs151                      // hack
 ketb                            //
 ketbl                           //
 killbld                         // (c) 1998 The Killing Blade
+killbld100                      //
 killbld104                      //
 killbld106                      //
 killbldp                        // (c) 2004 Killing Blade Plus
@@ -36050,7 +36061,9 @@ rf51w14cg                       // (c) 2003 Recreativos Franco
 unkrfslt                        //
 
 @source:rfslotsmcs48.cpp
-ajofrin                         // (c) 198? Recreativos Franco
+ajofrin                         // (c) 1981 Recreativos Franco
+babyfrts                        // (c) 198? Recreativos Franco
+babyfrts25                      // (c) 198? recreativos Franco
 
 @source:rfslotspcpent.cpp
 rfsantafeg                      // (c) 2014 Recreativos Franco
@@ -40144,6 +40157,7 @@ bublbob2                        // 1994.?? D90 (c) 1994 Taito Corporation Japan 
 bublbob2o                       // 1994.?? D90 (c) 1994 Taito Corporation Japan (World)
 bublbob2p                       // prototype
 bubsymphb                       // bootleg
+bubsymphba                      // bootleg
 bubsymphe                       // 1994.?? D90 (c) 1994 Taito Corporation Japan (Europe)
 bubsymphj                       // 1994.10 D90 (c) 1994 Taito Corporation (Japan)
 bubsymphu                       // 1994.10 D90 (c) 1994 Taito America Corporation (US)
@@ -43445,6 +43459,14 @@ mu80                            // 1994 MU-80
 mu100                           // 1997 MU-100
 mu100r                          // 1997 MU-100 Rackable version
 mu100b                          // 1998 MU-100B
+
+@source:ympsr16.cpp
+psr16                           // 1988 PSR-16
+psr36                           // 1988 PSR-36
+pss680                          // 1988 PSS-680
+
+@source:ympsr40.cpp
+psr40                           // 1985 PSR-40
 
 @source:ympsr60.cpp
 psr60                           // 1985 PSR-60
