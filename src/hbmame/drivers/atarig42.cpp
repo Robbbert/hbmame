@@ -3,7 +3,7 @@
 #include "../mame/drivers/atarig42.cpp"
 
 
-
+#if 0
 class dangerex_state : public atarig42_0x400_state
 {
 public:
@@ -123,4 +123,6 @@ void dangerex_state::init_dangerex()
 
 
 GAME( 1992, dangerex, 0, atarig42_0x400, dangerex, dangerex_state, init_dangerex, ROT0, "Atari Games", "Danger Express (prototype)", 0 )
+#endif
+
 
