@@ -496,7 +496,6 @@ createHBMAMEProjects(_target, _subtarget, "exidy")
 files {
 	MAME_DIR .. "src/hbmame/drivers/exidy.cpp",
 	MAME_DIR .. "src/mame/audio/exidy.cpp",
-	MAME_DIR .. "src/mame/video/exidy.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "fuuki")
