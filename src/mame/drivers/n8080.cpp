@@ -4,11 +4,21 @@
 
   Nintendo 8080 hardware
 
-- Space Fever
-- Space Fever High Splitter (aka SF-Hisplitter)
+- Space Fever / Color Space Fever
+- SF-HiSplitter
 - Space Launcher
 - Sheriff / Bandido / Western Gun 2
-- Helifire
+- HeliFire
+
+Space Fever was initially produced with B&W video hardware. It was later sold
+(maybe upgraded too) featuring color graphics, known as "Color Space Fever".
+The other Space Fever hardware games were only sold with color graphics, but
+they run fine on the older B&W video hardware. For example, doing a ROM swap
+on the older Space Fever.
+
+TODO:
+- spacefev sound pitch for laser fire and enemy explosion is wrong, see:
+  https://www.youtube.com/watch?v=mGMUPNqlyuw
 
 ----------------------------------------------------------------------------
 
@@ -148,6 +158,8 @@ uint8_t n8080_state::n8080_shift_r()
 }
 
 
+// Memory maps
+
 void n8080_state::main_cpu_map(address_map &map)
 {
 	map.global_mask(0x7fff);
@@ -230,8 +242,8 @@ static INPUT_PORTS_START( spacefev )
 	PORT_START("IN3")
 	PORT_BIT( 0xff, IP_ACTIVE_HIGH, IPT_UNUSED )
 
-	PORT_START("VIDEO") // spacefev video hardware is originally monochrome, also exists with color video hardware
-	PORT_CONFNAME( 0x01, 0x00, "Video Output" )
+	PORT_START("VIDEO")
+	PORT_CONFNAME( 0x01, 0x00, "Video Hardware" )
 	PORT_CONFSETTING(    0x01, "Monochrome" )
 	PORT_CONFSETTING(    0x00, "Color" )
 INPUT_PORTS_END
@@ -263,9 +275,6 @@ static INPUT_PORTS_START( highsplt )
 	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unused ))
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ))
 	PORT_DIPSETTING(    0x00, DEF_STR( On ))
-
-	PORT_MODIFY("VIDEO") // only exists with color video hardware
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
 INPUT_PORTS_END
 
 
@@ -536,7 +545,7 @@ WRITE_LINE_MEMBER(n8080_state::n8080_inte_callback)
 
 void n8080_state::n8080_status_callback(uint8_t data)
 {
-	if (data & i8080_cpu_device::STATUS_INTA)
+	if (data & i8080a_cpu_device::STATUS_INTA)
 	{
 		// interrupt acknowledge
 		m_maincpu->set_input_line(INPUT_LINE_IRQ0, CLEAR_LINE);
@@ -591,7 +600,7 @@ void helifire_state::machine_reset()
 void spacefev_state::spacefev(machine_config &config)
 {
 	/* basic machine hardware */
-	I8080(config, m_maincpu, XTAL(20'160'000) / 10);
+	I8080A(config, m_maincpu, XTAL(20'160'000) / 10);
 	m_maincpu->out_status_func().set(FUNC(spacefev_state::n8080_status_callback));
 	m_maincpu->out_inte_func().set(FUNC(spacefev_state::n8080_inte_callback));
 	m_maincpu->set_addrmap(AS_PROGRAM, &spacefev_state::main_cpu_map);
@@ -617,7 +626,7 @@ void spacefev_state::spacefev(machine_config &config)
 void sheriff_state::sheriff(machine_config &config)
 {
 	/* basic machine hardware */
-	I8080(config, m_maincpu, XTAL(20'160'000) / 10);
+	I8080A(config, m_maincpu, XTAL(20'160'000) / 10);
 	m_maincpu->out_status_func().set(FUNC(sheriff_state::n8080_status_callback));
 	m_maincpu->out_inte_func().set(FUNC(sheriff_state::n8080_inte_callback));
 	m_maincpu->set_addrmap(AS_PROGRAM, &sheriff_state::main_cpu_map);
@@ -645,7 +654,7 @@ void sheriff_state::westgun2(machine_config &config)
 	sheriff(config);
 
 	/* basic machine hardware */
-	I8080(config.replace(), m_maincpu, XTAL(19'968'000) / 10);
+	I8080A(config.replace(), m_maincpu, XTAL(19'968'000) / 10);
 	m_maincpu->out_status_func().set(FUNC(sheriff_state::n8080_status_callback));
 	m_maincpu->out_inte_func().set(FUNC(sheriff_state::n8080_inte_callback));
 	m_maincpu->set_addrmap(AS_PROGRAM, &sheriff_state::main_cpu_map);
@@ -655,7 +664,7 @@ void sheriff_state::westgun2(machine_config &config)
 void helifire_state::helifire(machine_config &config)
 {
 	/* basic machine hardware */
-	I8080(config, m_maincpu, XTAL(20'160'000) / 10);
+	I8080A(config, m_maincpu, XTAL(20'160'000) / 10);
 	m_maincpu->out_status_func().set(FUNC(helifire_state::n8080_status_callback));
 	m_maincpu->out_inte_func().set(FUNC(helifire_state::n8080_inte_callback));
 	m_maincpu->set_addrmap(AS_PROGRAM, &helifire_state::main_cpu_map);
@@ -898,9 +907,9 @@ ROM_END
 GAME( 1979, spacefev,   0,        spacefev, spacefev, spacefev_state, empty_init, ROT270, "Nintendo", "Space Fever (new version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, spacefevo,  spacefev, spacefev, spacefev, spacefev_state, empty_init, ROT270, "Nintendo", "Space Fever (old version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, spacefevo2, spacefev, spacefev, spacefev, spacefev_state, empty_init, ROT270, "Nintendo", "Space Fever (older version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1979, highsplt,   0,        spacefev, highsplt, spacefev_state, empty_init, ROT270, "Nintendo", "Space Fever High Splitter (set 1)", MACHINE_SUPPORTS_SAVE ) // known as "SF-Hisplitter" on its flyer
-GAME( 1979, highsplta,  highsplt, spacefev, highsplt, spacefev_state, empty_init, ROT270, "Nintendo", "Space Fever High Splitter (set 2)", MACHINE_SUPPORTS_SAVE ) // "
-GAME( 1979, highspltb,  highsplt, spacefev, highsplt, spacefev_state, empty_init, ROT270, "Nintendo", "Space Fever High Splitter (alt sound)", MACHINE_SUPPORTS_SAVE ) // "
+GAME( 1979, highsplt,   0,        spacefev, highsplt, spacefev_state, empty_init, ROT270, "Nintendo", "SF-HiSplitter (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, highsplta,  highsplt, spacefev, highsplt, spacefev_state, empty_init, ROT270, "Nintendo", "SF-HiSplitter (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, highspltb,  highsplt, spacefev, highsplt, spacefev_state, empty_init, ROT270, "Nintendo", "SF-HiSplitter (alt sound)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, spacelnc,   0,        spacefev, spacelnc, spacefev_state, empty_init, ROT270, "Nintendo", "Space Launcher", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1979, sheriff,    0,        sheriff,  sheriff,  sheriff_state,  empty_init, ROT270, "Nintendo", "Sheriff", MACHINE_SUPPORTS_SAVE )
