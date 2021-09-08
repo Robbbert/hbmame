@@ -651,6 +651,7 @@ MACHINES["SMC91C9X"] = true
 MACHINES["SEGA_SCU"] = true
 MACHINES["SMPC"] = true
 --MACHINES["SPG2XX"] = true
+--MACHINES["SPISDCARD"] = true
 MACHINES["STVCD"] = true
 --MACHINES["SUN4C_MMU"] = true
 MACHINES["SWTPC8212"] = true
@@ -3830,8 +3831,6 @@ files {
 	MAME_DIR .. "src/mame/video/pin64.cpp",
 	MAME_DIR .. "src/mame/video/pin64.h",
 	MAME_DIR .. "src/mame/drivers/hanaawas.cpp",
-	MAME_DIR .. "src/mame/includes/hanaawas.h",
-	MAME_DIR .. "src/mame/video/hanaawas.cpp",
 	MAME_DIR .. "src/mame/drivers/jclub2.cpp",
 	MAME_DIR .. "src/mame/drivers/macs.cpp",
 	MAME_DIR .. "src/mame/drivers/seta.cpp",
