@@ -4128,8 +4128,12 @@ superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
 @source:mario.cpp
-mario		//parent
+mario                                  //parent
 cenmario 
+
+@source:mcatadv.cpp
+mcatadv                                //parent
+mcatadvs01
 
 @source:mcr.cpp
 shollow		//parent

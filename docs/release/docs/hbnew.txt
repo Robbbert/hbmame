@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2021-09-29 0.236
+
+
+
+New Games
+---------------------------------
+- [mcatadvs01]          Magical Cat Adventure (R.Zara)
+
+
+
+
 2021-08-24 0.235
 
 - mslug4xg: fixed freeze in attract mode
