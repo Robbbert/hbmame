@@ -161,9 +161,9 @@ class nes_t262_device : public nes_nrom_device
 {
 public:
 	// construction/destruction
-	nes_t262_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	nes_t262_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
-	virtual void write_h(offs_t offset, uint8_t data) override;
+	virtual void write_h(offs_t offset, u8 data) override;
 
 	virtual void pcb_reset() override;
 
@@ -172,7 +172,7 @@ protected:
 	virtual void device_start() override;
 
 private:
-	uint8_t m_latch1, m_latch2;
+	u16 m_latch;
 };
 
 
@@ -470,6 +470,19 @@ public:
 	nes_bmc_gkcxin1_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
 	virtual void write_h(offs_t offset, u8 data) override;
+};
+
+
+// ======================> nes_bmc_hp898f_device
+
+class nes_bmc_hp898f_device : public nes_nrom_device
+{
+public:
+	// construction/destruction
+	nes_bmc_hp898f_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+
+	virtual u8 read_l(offs_t offset) override;
+	virtual void write_m(offs_t offset, u8 data) override;
 };
 
 
@@ -1205,6 +1218,7 @@ DECLARE_DEVICE_TYPE(NES_BMC_GB63,       nes_bmc_gb63_device)
 DECLARE_DEVICE_TYPE(NES_BMC_GKA,        nes_bmc_gka_device)
 DECLARE_DEVICE_TYPE(NES_BMC_GKB,        nes_bmc_gkb_device)
 DECLARE_DEVICE_TYPE(NES_BMC_GKCXIN1,    nes_bmc_gkcxin1_device)
+DECLARE_DEVICE_TYPE(NES_BMC_HP898F,     nes_bmc_hp898f_device)
 DECLARE_DEVICE_TYPE(NES_BMC_K1029,      nes_bmc_k1029_device)
 DECLARE_DEVICE_TYPE(NES_BMC_K3036,      nes_bmc_k3036_device)
 DECLARE_DEVICE_TYPE(NES_BMC_K3046,      nes_bmc_k3046_device)

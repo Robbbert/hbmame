@@ -130,6 +130,7 @@ static const nes_pcb pcb_list[] =
 	{ "tengen_800008",    TENGEN_800008 },  /* FIXME: Is this the same as mapper 3? */
 	{ "tengen_800032",    TENGEN_800032 },
 	{ "tengen_800037",    TENGEN_800037 },
+	{ "txc_22110",        TXC_22110 },
 	{ "txc_22211",        TXC_22211 },
 	{ "txc_dumarc",       TXC_DUMARACING },
 	{ "txc_mjblock",      TXC_MJBLOCK },
@@ -265,6 +266,7 @@ static const nes_pcb pcb_list[] =
 	{ "bmc_gka",          BMC_GKA },
 	{ "bmc_gkb",          BMC_GKB },
 	{ "bmc_gkcxin1",      BMC_GKCXIN1 },
+	{ "bmc_hp898f",       BMC_HP898F },
 	{ "bmc_k1029",        BMC_K1029 },
 	{ "bmc_k3006",        BMC_K3006 },
 	{ "bmc_k3036",        BMC_K3036 },
@@ -302,6 +304,7 @@ static const nes_pcb pcb_list[] =
 	{ "fk23c",            BMC_FK23C },
 	{ "fk23ca",           BMC_FK23CA },
 	{ "nt639",            BMC_NT639 },
+	{ "resetsxrom",       BMC_RESETSXROM },
 	{ "resettxrom0",      BMC_RESETTXROM0 },
 	{ "resettxrom1",      BMC_RESETTXROM1 },
 	{ "resettxrom2",      BMC_RESETTXROM2 },
@@ -371,7 +374,6 @@ static const nes_pcb pcb_list[] =
 	{ "btl_900218",       UNSUPPORTED_BOARD },  // pirate The Lord of King, to be emulated soon
 	{ "a9746",            UNSUPPORTED_BOARD },
 	{ "pec586",           UNSUPPORTED_BOARD },
-	{ "bmc_hp898f",       UNSUPPORTED_BOARD },  // Primasoft 9999999-in-1
 	{ "unl_158b",         UNSUPPORTED_BOARD },  // Blood of Jurassic
 	{ "unl_drgnfgt",      UNSUPPORTED_BOARD },  // Dragon Fighter by Flying Star
 	{ "test",             TEST_BOARD },

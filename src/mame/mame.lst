@@ -19424,16 +19424,16 @@ tsupenta
 tsururin
 
 @source:konmedal68k.cpp
+crossmg2
 dobouchn
+fruitsmg
 kattobas
-konslot
-konslot2
 koropens
 kzaurus
 pwrchanc
-ymcapsul
 spcpokan
 unkkonmd
+ymcapsul
 
 @source:quickpick5.cpp
 quickp5
@@ -36284,6 +36284,7 @@ route16a                        // (c) 1981 Tehkan/Sun + Centuri license
 route16b                        // (c) 1981 Tehkan/Sun + Centuri license
 route16bl                       // bootleg
 route16c                        // (c) 1981 Tehkan/Sun + Centuri license
+route16d                        // (c) 1981 Sun Electronics
 routex                          // bootleg
 routexa                         // bootleg
 spacecho                        // bootleg

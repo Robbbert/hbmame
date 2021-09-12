@@ -53,6 +53,7 @@ DEFINE_DEVICE_TYPE(NES_BMC_GB63,       nes_bmc_gb63_device,       "nes_bmc_gb63"
 DEFINE_DEVICE_TYPE(NES_BMC_GKA,        nes_bmc_gka_device,        "nes_bmc_gka",        "NES Cart BMC GK-A PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GKB,        nes_bmc_gkb_device,        "nes_bmc_gkb",        "NES Cart BMC GK-B PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_GKCXIN1,    nes_bmc_gkcxin1_device,    "nes_bmc_gkcxin1",    "NES Cart BMC GKCXIN1 PCB")
+DEFINE_DEVICE_TYPE(NES_BMC_HP898F,     nes_bmc_hp898f_device,     "nes_bmc_hp898f",     "NES Cart BMC HP-898F PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_K1029,      nes_bmc_k1029_device,      "nes_bmc_k1029",      "NES Cart BMC K-1029 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_K3036,      nes_bmc_k3036_device,      "nes_bmc_k3036",      "NES Cart BMC K-3036 PCB")
 DEFINE_DEVICE_TYPE(NES_BMC_K3046,      nes_bmc_k3046_device,      "nes_bmc_k3046",      "NES Cart BMC K-3046 PCB")
@@ -150,8 +151,8 @@ nes_a65as_device::nes_a65as_device(const machine_config &mconfig, const char *ta
 {
 }
 
-nes_t262_device::nes_t262_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: nes_nrom_device(mconfig, NES_T262, tag, owner, clock), m_latch1(0), m_latch2(0)
+nes_t262_device::nes_t262_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_T262, tag, owner, clock), m_latch(0)
 {
 }
 
@@ -237,6 +238,11 @@ nes_bmc_gkb_device::nes_bmc_gkb_device(const machine_config &mconfig, const char
 
 nes_bmc_gkcxin1_device::nes_bmc_gkcxin1_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: nes_nrom_device(mconfig, NES_BMC_GKCXIN1, tag, owner, clock)
+{
+}
+
+nes_bmc_hp898f_device::nes_bmc_hp898f_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: nes_nrom_device(mconfig, NES_BMC_HP898F, tag, owner, clock)
 {
 }
 
@@ -547,19 +553,16 @@ void nes_a65as_device::pcb_reset()
 void nes_t262_device::device_start()
 {
 	common_start();
-	save_item(NAME(m_latch1));
-	save_item(NAME(m_latch2));
+	save_item(NAME(m_latch));
 }
 
 void nes_t262_device::pcb_reset()
 {
-	m_chr_source = m_vrom_chunks ? CHRROM : CHRRAM;
 	prg16_89ab(0);
 	prg16_cdef(7);
-	chr8(0, m_chr_source);
+	chr8(0, CHRRAM);
 
-	m_latch1 = 0;
-	m_latch2 = 0;
+	m_latch = 0;
 }
 
 void nes_novel1_device::device_start()
@@ -1446,33 +1449,41 @@ void nes_a65as_device::write_h(offs_t offset, uint8_t data)
 
  Board BMC-T-262
 
- Games: 4-in-1 (D-010), 8-in-1 (A-020)
+ Games: 4-in-1 (D-010), 8-in-1 (A-020), and others
 
- In MESS: Supported
+ NES 2.0: mapper 265
+
+ In MAME: Supported.
+
+ TODO: Gunsmoke on 8-in-1 (ET40) has invisible sprites
+ that suddenly appear closer to the bottom of the screen.
+ Mirroring is correct, so is this a bug on the cartridge?
 
  -------------------------------------------------*/
 
-void nes_t262_device::write_h(offs_t offset, uint8_t data)
+void nes_t262_device::write_h(offs_t offset, u8 data)
 {
-	uint8_t mmc_helper;
 	LOG_MMC(("t262 write_h, offset: %04x, data: %02x\n", offset, data));
 
-	if (m_latch2 || offset == 0)
+	if (!BIT(m_latch, 13))
 	{
-		m_latch1 = (m_latch1 & 0x38) | (data & 0x07);
-		prg16_89ab(m_latch1);
+		m_latch = offset;
+		set_nt_mirroring(BIT(m_latch, 1) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
 	}
-	else
+
+	u8 bank = (m_latch & 0x300) >> 3 | (m_latch & 0x60) >> 2 | (data & 0x07);    // NesDev shows the high bit here, but is it correct? So far no cart is large enough to use this.
+	u8 mode = BIT(m_latch, 0);
+	if (BIT(m_latch, 7))    // NROM mode
 	{
-		m_latch2 = 1;
-		set_nt_mirroring(BIT(data, 1) ? PPU_MIRROR_HORZ : PPU_MIRROR_VERT);
-		mmc_helper = ((offset >> 3) & 0x20) | ((offset >> 2) & 0x18);
-		m_latch1 = mmc_helper | (m_latch1 & 0x07);
-		prg16_89ab(m_latch1);
-		prg16_cdef(mmc_helper | 0x07);
+		prg16_89ab(bank & ~mode);
+		prg16_cdef(bank | mode);
+	}
+	else                    // UNROM mode
+	{
+		prg16_89ab(bank);
+		prg16_cdef(bank | 0x07);
 	}
 }
-
 
 /*-------------------------------------------------
 
@@ -1506,7 +1517,6 @@ void nes_novel2_device::write_h(offs_t offset, uint8_t data)
 	prg32(offset >> 1);
 	chr8(offset >> 3, CHRROM);
 }
-
 
 /*-------------------------------------------------
 
@@ -1903,6 +1913,49 @@ void nes_bmc_gkcxin1_device::write_h(offs_t offset, u8 data)
 
 	prg32((offset >> 3) & 0x03);
 	chr8(offset & 0x07, CHRROM);
+}
+
+/*-------------------------------------------------
+
+ Board HP-898F
+
+ Games: Prima soft 9999999 in 1 and others
+
+ NES 2.0: mapper 319
+
+ In MAME: Supported.
+
+ TODO: Mirroring is clearly incorrect for Ninja-kun
+ on 4 in 1 (0207). Is this an error on the original
+ cart or should there really be a variant device?
+
+ -------------------------------------------------*/
+
+u8 nes_bmc_hp898f_device::read_l(offs_t offset)
+{
+	LOG_MMC(("bmc_hp898f read_l, offset: %04x\n", offset));
+
+	offset += 0x100;
+	if (offset & 0x1000)
+		return 0;    // FIXME: some carts read jumpers that change menu
+
+	return get_open_bus();
+}
+
+void nes_bmc_hp898f_device::write_m(offs_t offset, u8 data)
+{
+	LOG_MMC(("bmc_hp898f write_m, offset: %04x, data: %02x\n", offset, data));
+
+	if (offset & 0x04)
+	{
+		u8 bank = bitswap<3>(data, 4, 3, 5);
+		u8 mode = BIT(data, 6);
+		prg16_89ab(bank & ~mode);
+		prg16_cdef(bank | mode);
+		set_nt_mirroring(BIT(data, 7) ? PPU_MIRROR_VERT : PPU_MIRROR_HORZ);
+	}
+	else
+		chr8(data >> 4, CHRROM);
 }
 
 /*-------------------------------------------------
