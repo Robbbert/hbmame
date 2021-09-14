@@ -194,6 +194,7 @@ static const nes_pcb pcb_list[] =
 	{ "subor0",           SUBOR_TYPE0 },
 	{ "subor1",           SUBOR_TYPE1 },
 	{ "subor2",           SUBOR_TYPE2 },
+	{ "unl_158b",         UNL_158B },  // Blood of Jurassic
 	{ "cc21",             UNL_CC21 },
 	{ "xiaozy",           UNL_XIAOZY },
 	{ "edu2k",            UNL_EDU2K },
@@ -232,7 +233,7 @@ static const nes_pcb pcb_list[] =
 	{ "kasing",           KASING_BOARD },
 	{ "kay",              KAY_BOARD },
 	{ "h2288",            UNL_H2288 },
-	{ "unl_6035052",      UNL_603_5052 },   // mapper 238?
+	{ "unl_6035052",      UNL_603_5052 },   // mapper 238
 	{ "txc_tw",           TXC_TW },
 	{ "kof97",            UNL_KOF97 },
 	{ "kof96",            UNL_KOF96 },
@@ -252,8 +253,7 @@ static const nes_pcb pcb_list[] =
 	{ "novel2",           BMC_NOVEL2 },  // mapper 213... same as BMC-NOVELDIAMOND9999999IN1 board?
 	{ "studyngame",       UNL_STUDYNGAME },  // mapper 39
 	{ "sgun20in1",        BMC_SUPERGUN_20IN1 },
-	{ "bmc_vt5201",       BMC_VT5201 },  // mapper 59?
-	{ "bmc_d1038",        BMC_VT5201 },  // mapper 59?
+	{ "bmc_vt5201",       BMC_VT5201 },  // mapper 59
 	{ "bmc_60311c",       BMC_60311C },
 	{ "bmc_80013b",       BMC_80013B },
 	{ "bmc_810544c",      BMC_810544C },
@@ -374,7 +374,6 @@ static const nes_pcb pcb_list[] =
 	{ "btl_900218",       UNSUPPORTED_BOARD },  // pirate The Lord of King, to be emulated soon
 	{ "a9746",            UNSUPPORTED_BOARD },
 	{ "pec586",           UNSUPPORTED_BOARD },
-	{ "unl_158b",         UNSUPPORTED_BOARD },  // Blood of Jurassic
 	{ "unl_drgnfgt",      UNSUPPORTED_BOARD },  // Dragon Fighter by Flying Star
 	{ "test",             TEST_BOARD },
 	{ "unknown",          UNKNOWN_BOARD }  //  a few pirate dumps uses the wrong mapper...
