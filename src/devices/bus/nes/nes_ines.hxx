@@ -266,7 +266,7 @@ static const nes_mmc mmc_list[] =
 	{ 230, BMC_22GAMES },
 	{ 231, BMC_20IN1 },
 	{ 232, CAMERICA_BF9096 },
-	{ 233, BMC_SUPER22 },
+	{ 233, BMC_42IN1RESET },
 	{ 234, AVE_MAXI15 },
 	{ 235, BMC_GOLD150 },   // 235 Golden Game x-in-1 - Unsupported
 	// 236 Game 800-in-1 - Unsupported, Realtec boards 8031 and 8155
@@ -469,7 +469,9 @@ static const nes_mmc mmc_list[] =
 	// 431 Realtec GN-91B
 	// 432 Realtec 8090
 	// 433 NC-20MB 20 in 1 (CA-006)
-	// 434...442 Unused
+	// 434 S-009
+	{ 435, NTDEC_2746 },
+	// 436...442 Unused
 	// 443 NC3000M multicart
 	// 444 NC7000M multicart
 	// 445...511 Unused

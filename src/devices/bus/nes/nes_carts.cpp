@@ -194,6 +194,7 @@ void nes_cart(device_slot_interface &device)
 	device.option_add_internal("cne_fsb",          NES_CNE_FSB);
 	device.option_add_internal("cne_shlz",         NES_CNE_SHLZ);
 	device.option_add_internal("nanjing",          NES_NANJING);     // mapper 163
+	device.option_add_internal("ntdec_2746",       NES_NTDEC_2746);
 	device.option_add_internal("ntdec_asder",      NES_NTDEC_ASDER); // mapper 112
 	device.option_add_internal("ntdec_fh",         NES_NTDEC_FH);    // mapper 193
 	device.option_add_internal("ntdec_n715021",    NES_NTDEC_N715021);    // mapper 81
@@ -409,7 +410,6 @@ void nes_cart(device_slot_interface &device)
 	device.option_add_internal("bmc_70in1",        NES_BMC_70IN1);   // mapper 236
 	device.option_add_internal("bmc_72in1",        NES_BMC_72IN1);
 	device.option_add_internal("bmc_76in1",        NES_BMC_76IN1);
-	device.option_add_internal("bmc_s42in1",       NES_BMC_76IN1);
 	device.option_add_internal("bmc_150in1",       NES_BMC_150IN1);
 	device.option_add_internal("bmc_190in1",       NES_BMC_190IN1);
 	device.option_add_internal("bmc_500in1",       NES_BMC_500IN1);
@@ -418,9 +418,8 @@ void nes_cart(device_slot_interface &device)
 	device.option_add_internal("bmc_gold150",      NES_BMC_GOLD150);    // mapper 235 with 2M PRG
 	device.option_add_internal("bmc_gold260",      NES_BMC_GOLD260);    // mapper 235 with 4M PRG
 	device.option_add_internal("bmc_th22913",      NES_BMC_TH22913);    // mapper 63
-	device.option_add_internal("bmc_s22games",     NES_BMC_SUPER22);    // mapper 233
 	device.option_add_internal("bmc_reset4",       NES_BMC_4IN1RESET);  // mapper 60 with 64k prg and 32k chr
-	device.option_add_internal("bmc_reset42",      NES_BMC_42IN1RESET); // mapper 226? or 233?
+	device.option_add_internal("bmc_reset42",      NES_BMC_42IN1RESET); // mapper 233
 	device.option_add_internal("bmc_lc160",        NES_BMC_LC160);
 	device.option_add_internal("resetsxrom",       NES_RESETSXROM);
 // misc multigame cart MMC3 clone boards
