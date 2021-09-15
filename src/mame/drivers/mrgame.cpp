@@ -7,12 +7,7 @@
     These games have a M68000 and 3x Z80, and a M114 Sound IC.
     They have a video screen upon which the scores and other info is displayed.
 
-Status:
-- motrshow, motrshowa, dakar working in the electronic sense, but not mechanically
-- macattck most roms are missing
-- wcup90 different hardware, partially coded based on macattck schematic
-
-How to set up the machine (motrshow, motrshowa, dakar):
+How to set up the machine (motor show, dakar, wcup90):
 - These machines need to be loaded with default settings before they can accept coins
 - Press - key (minus in main keyboard)
 - Press again until you see test 25 (Motor Show) or test 23 (Dakar)
@@ -24,6 +19,9 @@ How to set up the machine (motrshow, motrshowa, dakar):
 - However, the game cannot be played due to missing balls.
 
 ToDo:
+- Video
+- Outputs
+- Inputs
 - Support for electronic volume control
 - Audio rom banking
 - Most sounds missing due to unemulated M114 chip
@@ -45,6 +43,7 @@ ToDo:
 #include "screen.h"
 #include "speaker.h"
 
+namespace {
 
 class mrgame_state : public driver_device
 {
@@ -418,7 +417,6 @@ TIMER_DEVICE_CALLBACK_MEMBER(mrgame_state::irq_timer)
 	}
 }
 
-// layouts from pinmame
 static const gfx_layout charlayout =
 {
 	8, 8,
@@ -485,54 +483,8 @@ void mrgame_state::mrgame_palette(palette_device &palette) const
 	}
 }
 
-// most of this came from pinmame as the diagram doesn't make a lot of sense
 uint32_t mrgame_state::screen_update_mrgame(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	uint8_t x,y,ptr=0,col;
-	int32_t scrolly[32];
-	uint16_t chr;
-	bool flipx,flipy;
-
-	// text
-	for (x = 0; x < 32; x++)
-	{
-		scrolly[x] = -m_p_objectram[ptr++];
-		col = m_p_objectram[ptr++];
-
-		for (y = 0; y < 32; y++)
-		{
-			chr = m_p_videoram[x+y*32] | (m_gfx_bank << 8);
-
-			m_gfxdecode->gfx(0)->opaque(*m_tile_bitmap, m_tile_bitmap->cliprect(),
-				chr,
-				col,
-				m_flip,0,
-				x*8,y*8);
-		}
-	}
-
-	// scroll each column as needed
-	copyscrollbitmap(bitmap,*m_tile_bitmap,0,nullptr,32,scrolly,cliprect);
-
-
-	// sprites
-	for (ptr = 0x40; ptr < 0x60; ptr += 4)
-	{
-		x = m_p_objectram[ptr + 3] + 1;
-		y = 255 - m_p_objectram[ptr];
-		flipx = BIT(m_p_objectram[ptr + 1], 6);
-		flipy = BIT(m_p_objectram[ptr + 1], 7);
-		chr = (m_p_objectram[ptr + 1] & 0x3f) | (m_gfx_bank << 6);
-		col = m_p_objectram[ptr + 2];
-
-		if ((y > 16) && (x > 24))
-			m_gfxdecode->gfx(1)->transpen(bitmap,cliprect,
-				chr,
-				col,
-				flipx,flipy,
-				x,y-16,0);
-	}
-
 	return 0;
 }
 
@@ -650,8 +602,16 @@ ROM_END
 /-------------------------------------------------------------------*/
 ROM_START(motrshow)
 	ROM_REGION16_BE(0x10000, "roms", 0)
-	ROM_LOAD16_BYTE("cpu_ic13.rom", 0x000000, 0x8000, CRC(e862ca71) SHA1(b02e5f39f9427d58b70b7999a5ff6075beff05ae))
-	ROM_LOAD16_BYTE("cpu_ic14.rom", 0x000001, 0x8000, CRC(c898ae25) SHA1(f0e1369284a1e0f394f1d40281fd46252016602e))
+	ROM_DEFAULT_BIOS("0")
+	ROM_SYSTEM_BIOS(0, "0", "0")
+	ROMX_LOAD( "cpu_0.ic13",  0x0000, 0x8000, CRC(e862ca71) SHA1(b02e5f39f9427d58b70b7999a5ff6075beff05ae), ROM_SKIP(1) | ROM_BIOS(0) )
+	ROMX_LOAD( "cpu_0.ic14",  0x0001, 0x8000, CRC(c898ae25) SHA1(f0e1369284a1e0f394f1d40281fd46252016602e), ROM_SKIP(1) | ROM_BIOS(0) )
+	ROM_SYSTEM_BIOS(1, "1", "1")
+	ROMX_LOAD( "cpu_1.ic13a", 0x0000, 0x8000, CRC(2dbdd9d4) SHA1(b404814a4e83ead6da3c57818ae97f23d380f9da), ROM_SKIP(1) | ROM_BIOS(1) )
+	ROMX_LOAD( "cpu_1.ic14b", 0x0001, 0x8000, CRC(0bd98fec) SHA1(b90a7e997db59740398003ba94a69118b1ee70af), ROM_SKIP(1) | ROM_BIOS(1) )
+	ROM_SYSTEM_BIOS(2, "2", "2")
+	ROMX_LOAD( "cpu_2.ic13b", 0x0000, 0x8000, CRC(9cd2d6f3) SHA1(6f123367ccbe1376b4bd8a5ee0f636efe42f9eac), ROM_SKIP(1) | ROM_BIOS(2) )
+	ROMX_LOAD( "cpu_2.ic14b", 0x0001, 0x8000, CRC(0bd98fec) SHA1(b90a7e997db59740398003ba94a69118b1ee70af), ROM_SKIP(1) | ROM_BIOS(2) )
 
 	ROM_REGION(0x8000, "video", 0)
 	ROM_LOAD("vid_ic14.rom", 0x0000, 0x8000, CRC(1d4568e2) SHA1(bfc2bb59708ce3a09f9a1b3460ed8d5269840c97))
@@ -674,18 +634,21 @@ ROM_START(motrshow)
 	ROM_LOAD("snd_ic36.rom", 0x8000, 0x8000, CRC(4f42be6e) SHA1(684e988f413cd21c785ad5d60ef5eaddddaf72ab))
 ROM_END
 
-ROM_START(motrshowa)
+/*-----------------------------------------------------------------------
+/ Fast Track (1989)  A predecessor of Motor Show. Green Screen text only
+/-----------------------------------------------------------------------*/
+ROM_START(fasttrack)
 	ROM_REGION16_BE(0x10000, "roms", 0)
-	ROM_LOAD16_BYTE("cpuic13a.rom", 0x000000, 0x8000, CRC(2dbdd9d4) SHA1(b404814a4e83ead6da3c57818ae97f23d380f9da))
-	ROM_LOAD16_BYTE("cpuic14b.rom", 0x000001, 0x8000, CRC(0bd98fec) SHA1(b90a7e997db59740398003ba94a69118b1ee70af))
+	ROM_LOAD16_BYTE("cpuic13.rom", 0x0000, 0x8000, CRC(675cbef6) SHA1(0561aee09bb459a79e54a903d39ef5e5288e8368))
+	ROM_LOAD16_BYTE("cpuic14.rom", 0x0001, 0x8000, CRC(57a1c42f) SHA1(fbfc7527068a1e68afa4c20d5c2650399a1ee3cd))
 
 	ROM_REGION(0x8000, "video", 0)
-	ROM_LOAD("vid_ic14.rom", 0x0000, 0x8000, CRC(1d4568e2) SHA1(bfc2bb59708ce3a09f9a1b3460ed8d5269840c97))
+	ROM_LOAD("ft_vid1.764", 0x0000, 0x2000, NO_DUMP )  // only dump we found was all 0xF7
 
-	ROM_REGION(0x10000, "chargen", 0)
-	ROM_LOAD("vid_ic55.rom", 0x0000, 0x8000, CRC(c27a4ded) SHA1(9c2c9b17f1e71afb74bdfbdcbabb99ef935d32db))
-	ROM_LOAD("vid_ic56.rom", 0x8000, 0x8000, CRC(1664ec8d) SHA1(e7b15acdac7dfc51b668e908ca95f02a2b569737))
+	ROM_REGION(0x10000, "chargen", ROMREGION_ERASEFF)
+	ROM_LOAD("ft_vid2.532",  0x0000, 0x001000, CRC(5145685b) SHA1(6857be53efee5d439311ddb93e9f509590ff26c9) )  // 2nd half is rubbish
 
+	// from here wasn't supplied, assumed same as motorshow
 	ROM_REGION(0x0020, "proms", 0)
 	ROM_LOAD("vid_ic66.rom", 0x0000, 0x0020, CRC(5b585252) SHA1(b88e56ebdce2c3a4b170aff4b05018e7c21a79b8))
 
@@ -705,31 +668,31 @@ ROM_END
 /-------------------------------------------------------------------*/
 ROM_START(macattck)
 	ROM_REGION16_BE(0x10000, "roms", 0)
-	ROM_LOAD16_BYTE("cpu_ic13.rom", 0x000000, 0x8000, NO_DUMP)
-	ROM_LOAD16_BYTE("cpu_ic14.rom", 0x000001, 0x8000, NO_DUMP)
+	ROM_LOAD16_BYTE("cpu_ic13.rom", 0x0000, 0x8000, CRC(35cabad1) SHA1(01279df881b0d7d6586c1b8570b12bdc1fb9ff21) )
+	ROM_LOAD16_BYTE("cpu_ic14.rom", 0x0001, 0x8000, CRC(6a4d7b89) SHA1(090e1a6c069cb6e5efd26a0260df613375f0b063) )
 
 	ROM_REGION(0x8000, "video", 0)
-	ROM_LOAD("vid_ic91.rom", 0x0000, 0x8000, CRC(42d2ba01) SHA1(c13d38c2798575760461912cef65dde57dfd938c))
+	ROM_LOAD("vid_ic91.rom", 0x0000, 0x8000, CRC(42d2ba01) SHA1(c13d38c2798575760461912cef65dde57dfd938c) )
 
-	ROM_REGION(0x30000, "chargen", 0)
-	ROM_LOAD("vid_ic14.rom", 0x00000, 0x8000, CRC(f6e047fb) SHA1(6be712dda60257b9e7014315c8fee19812622bf6))
-	ROM_LOAD("vid_ic15.rom", 0x08000, 0x8000, CRC(405a8f54) SHA1(4d58915763db3c3be2bfc166be1a12285ff2c38b))
-	ROM_LOAD("vid_ic16.rom", 0x10000, 0x8000, CRC(063ea783) SHA1(385dbfcc8ecd3a784f9a8752d00e060b48d70d6a))
-	ROM_LOAD("vid_ic17.rom", 0x18000, 0x8000, CRC(9f95abf8) SHA1(d71cf36c8bf27ad41b2d3cebd0af620a34ce0062) BAD_DUMP)
-	ROM_LOAD("vid_ic18.rom", 0x20000, 0x8000, CRC(83ef25f8) SHA1(bab482badb8646b099dbb197ca9af3a126b274e3))
+	ROM_REGION(0x28000, "chargen", 0)
+	ROM_LOAD("vid_ic14.rom", 0x00000, 0x8000, CRC(f6e047fb) SHA1(6be712dda60257b9e7014315c8fee19812622bf6) )
+	ROM_LOAD("vid_ic15.rom", 0x08000, 0x8000, CRC(405a8f54) SHA1(4d58915763db3c3be2bfc166be1a12285ff2c38b) )
+	ROM_LOAD("vid_ic16.rom", 0x10000, 0x8000, CRC(063ea783) SHA1(385dbfcc8ecd3a784f9a8752d00e060b48d70d6a) )
+	ROM_LOAD("vid_ic17.rom", 0x18000, 0x8000, CRC(7494e44e) SHA1(c7c062508e81b9fd818f36f80d4a6da02c3bda40) )
+	ROM_LOAD("vid_ic18.rom", 0x20000, 0x8000, CRC(83ef25f8) SHA1(bab482badb8646b099dbb197ca9af3a126b274e3) )
 
 	ROM_REGION(0x0020, "proms", 0)
-	ROM_LOAD("vid_ic61.rom", 0x0000, 0x0020, CRC(538c72ae) SHA1(f704492568257fcc4a4f1189207c6fb6526eb81c) BAD_DUMP)
+	ROM_LOAD("vid_ic61.rom", 0x0000, 0x0020, CRC(538c72ae) SHA1(f704492568257fcc4a4f1189207c6fb6526eb81c) BAD_DUMP) // from wcup90, assumed to be the same
 
 	ROM_REGION(0x10000, "audio1", 0)
-	ROM_LOAD("snd_ic06.rom", 0x0000, 0x8000, NO_DUMP)
+	ROM_LOAD("snd_ic06.rom", 0x0000, 0x8000, CRC(4ab94d16) SHA1(4c3755489f699c751d664f420b9852ef16bb3aa6) )
 
 	ROM_REGION(0x4000, "m114", 0)
-	ROM_LOAD("snd_ic22.rom", 0x0000, 0x4000, NO_DUMP)
+	ROM_LOAD("snd_ic22.rom", 0x0000, 0x4000, CRC(9d3546c5) SHA1(cc6e91288692b927f7d046e192b1fd128c126d0d) )
 
 	ROM_REGION(0x10000, "audio2", 0)
-	ROM_LOAD("snd_ic35.rom", 0x0000, 0x8000, NO_DUMP)
-	ROM_LOAD("snd_ic36.rom", 0x8000, 0x8000, NO_DUMP)
+	ROM_LOAD("snd_ic35.rom", 0x0000, 0x8000, CRC(52e9811c) SHA1(52223cf14a185b4dab14143d797000baf6d618cc) )
+	ROM_LOAD("snd_ic36.rom", 0x8000, 0x8000, CRC(2e6b5822) SHA1(9e390e4b71cc103ec3d781575df484a3e4217b3b) )
 ROM_END
 
 /*-------------------------------------------------------------------
@@ -767,9 +730,11 @@ ROM_START(wcup90)
 	ROM_LOAD("snd_ic44.rom", 0x00000, 0x8000, CRC(00946570) SHA1(83e7dd89844679571ab2a803295c8ca8941a4ac7))
 ROM_END
 
+} // anonymous namespace
+
 
 GAME(1988,  dakar,     0,         mrgame,  mrgame, mrgame_state, init_mrgame, ROT0, "Mr Game", "Dakar",              MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
-GAME(1989,  motrshow,  0,         mrgame,  mrgame, mrgame_state, init_mrgame, ROT0, "Mr Game", "Motor Show (set 1)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
-GAME(1989,  motrshowa, motrshow,  mrgame,  mrgame, mrgame_state, init_mrgame, ROT0, "Mr Game", "Motor Show (set 2)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1989,  fasttrack, motrshow,  mrgame,  mrgame, mrgame_state, empty_init,  ROT0, "Mr Game", "Fast Track",         MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1989,  motrshow,  0,         mrgame,  mrgame, mrgame_state, init_mrgame, ROT0, "Mr Game", "Motor Show",         MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1990,  macattck,  0,         wcup90,  mrgame, mrgame_state, init_mrgame, ROT0, "Mr Game", "Mac Attack",         MACHINE_IS_SKELETON_MECHANICAL)
 GAME(1990,  wcup90,    0,         wcup90,  mrgame, mrgame_state, init_mrgame, ROT0, "Mr Game", "World Cup 90",       MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
