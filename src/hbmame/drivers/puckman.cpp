@@ -3515,6 +3515,22 @@ ROM_START( xensrev )
 	PACMAN_PROMS
 ROM_END
 
+// From here, rom names are wrong
+ROM_START( mcpacman )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacman.6j",    0x3000, 0x1000, CRC(addd1c14) SHA1(ac7e7ebb62b44c435a1c722d2b982097ff59b538) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(ab5f40ba) SHA1(b5d6b1515fadf1d3b22092bb922b2c5a380830c3) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(43752d25) SHA1(8e8c0ae54288a58de2613bf98a9a96c6a7369647) )
+
+	PACMAN_PROMS
+ROM_END
+
+
 /*************************************
  *
  *  Game drivers
@@ -3582,6 +3598,7 @@ GAME( 2001, pmgrenp,  puckman,  pacman,   pacman,   puckman_state, init_pacplus,
 GAME( 2000, baby2,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Baby Pacman 2 (Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, baby3,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Baby Pacman 3 (Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, baby4,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Baby Maze 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mcpacman, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "McPacman", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pmad6m,   puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 After Dark", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, snakeyes, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 (Snake Eyes Mazes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, snowpac,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Snowy Day Pacman", MACHINE_SUPPORTS_SAVE )
