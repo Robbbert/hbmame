@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [abyssal]             Abyssal Infants
 - [mcatadvs01]          Magical Cat Adventure (R.Zara)
 
 
