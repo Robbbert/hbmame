@@ -3544,6 +3544,20 @@ ROM_START( invispac )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( pacmini3 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacman.6j",    0x3000, 0x1000, CRC(e87be2a3) SHA1(630116735e53644de3fcc7e7a249cd61105cf9f2) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c3e20d7) SHA1(ab32160b0d079c83dbd522ac74f11f802e18230e) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(30e6024c) SHA1(51c1f9074091c053437a25ef1c6e9ee63e9b5154) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( bevpac )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -3634,6 +3648,7 @@ GAME( 2000, baby3,    puckman,  pacman,   pacman,   puckman_state, empty_init,  
 GAME( 2000, baby4,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Baby Maze 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, bevpac,   puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Bevelled Pacman", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, invispac, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Invisible Maze)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, pacmini3, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacmini (Maze 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mcpacman, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "McPacman", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pmad6m,   puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 After Dark", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, snakeyes, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 (Snake Eyes Mazes)", MACHINE_SUPPORTS_SAVE )

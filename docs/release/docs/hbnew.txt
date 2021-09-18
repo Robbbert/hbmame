@@ -12,6 +12,7 @@ New Games
 - [mcpacman]            McPacman
 - [bevpac]              Bevelled Pacman
 - [invispac]            Pacman (Invisible Maze)
+- [pacmini3]            Pacmini (maze 3)
 
 
 
