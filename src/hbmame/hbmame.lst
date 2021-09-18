@@ -8376,6 +8376,7 @@ soldivids01
 @source:puckman.cpp
 mcpacman
 bevpac
+invispac
 abortman 	/* Paul C Copeland hack of Puckman */
 bacman
 baby2		/* T-Bone hack */

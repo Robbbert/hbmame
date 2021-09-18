@@ -11,6 +11,7 @@ New Games
 - [mcatadvs01]          Magical Cat Adventure (R.Zara)
 - [mcpacman]            McPacman
 - [bevpac]              Bevelled Pacman
+- [invispac]            Pacman (Invisible Maze)
 
 
 
