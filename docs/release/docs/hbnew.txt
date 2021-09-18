@@ -8,11 +8,14 @@
 New Games
 ---------------------------------
 - [abyssal]             Abyssal Infants
+- [baby1]               Pacman (Baby Maze 1)
 - [mcatadvs01]          Magical Cat Adventure (R.Zara)
 - [mcpacman]            McPacman
 - [bevpac]              Bevelled Pacman
 - [invispac]            Pacman (Invisible Maze)
 - [pacmini3]            Pacmini (maze 3)
+- [upsidpac]            Pacman (Upsidedown Maze)
+- [pacsmall]            Pacman (Small Maze)
 
 
 

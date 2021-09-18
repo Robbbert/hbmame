@@ -3558,6 +3558,48 @@ ROM_START( pacmini3 )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( upsidpac ) // supposedly the maze upsidedown, but it's actually a new maze
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacman.6j",    0x3000, 0x1000, CRC(c225c48b) SHA1(9ec80b13f6da8a4aa7ba5797fd0ee0e69f2d9479) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( pacsmall )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacman.6j",    0x3000, 0x1000, CRC(74c4ce68) SHA1(93b7db314969b53644b9fad64c29595ce286ca74) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( baby1 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacman.6j",    0x3000, 0x1000, CRC(646e53a4) SHA1(8b5ba5c4f1ad6fc721fd90b5a50258099fff704c) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(6f7d8d57) SHA1(2e786c5a61168455d31b7c45c97891f65243a40b) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(b6d77a1e) SHA1(63ada2a7f154ce7bd756c5002a34e5f4002c2473) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( bevpac )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -3573,7 +3615,7 @@ ROM_START( bevpac )
 	ROM_LOAD( "82s123.7f",    0x0000, 0x0020, CRC(2fc650bd) SHA1(8d0268dee78e47c712202b0ec4f1f51109b1f2a5) )
 	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(17d9b991) SHA1(32d4b8d0b476fafcbf3409b15dcd6ef3b50b52b2) )
 
-	ROM_REGION( 0x0200, "namco", 0 )    // Sound PROMs
+	ROM_REGION( 0x0200, "namco", 0 )
 	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
 	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
@@ -3643,6 +3685,7 @@ GAME( 2001, pmgrenp,  puckman,  pacman,   pacman,   puckman_state, init_pacplus,
 
 /* T-Bone Hacks */
 
+GAME( 2000, baby1,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Baby Pacman 1 (Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, baby2,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Baby Pacman 2 (Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, baby3,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Baby Pacman 3 (Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, baby4,    puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Baby Maze 4)", MACHINE_SUPPORTS_SAVE )
@@ -3650,10 +3693,12 @@ GAME( 2000, bevpac,   puckman,  pacman,   pacman,   puckman_state, empty_init,  
 GAME( 2000, invispac, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Invisible Maze)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pacmini3, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacmini (Maze 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mcpacman, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "McPacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, pacsmall, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Small Maze)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pmad6m,   puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 After Dark", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, snakeyes, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 (Snake Eyes Mazes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, snowpac,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Snowy Day Pacman", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, tbone,    puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman 2000 (T-Bone Mazes)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, upsidpac, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Upsidedown Maze)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vectr6m,  puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Vector Pacman 2000", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vectr6tb, puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Vector Pacman 2000 (T-Bone Mazes)", MACHINE_SUPPORTS_SAVE )
 
