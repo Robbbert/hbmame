@@ -70,5 +70,5 @@ ROM_START( endurorrc )
 	ROM_LOAD( "epr-6844.ic123", 0x0000, 0x2000, CRC(e3ec7bd6) SHA1(feec0fe664e16fac0fde61cf64b401b9b0575323) )
 ROM_END
 
-GAME( 2018, endurorrc,  enduror,  endurord,  enduror,  segahang_state, init_enduror,  ROT0,  "RetroClinic",  "Enduro Racer (retroclinic bootleg)", 0 )
+GAME( 2018, endurorrc,  enduror,  endurord,  enduror,  segahang_state, init_sharrier,  ROT0,  "RetroClinic",  "Enduro Racer (retroclinic bootleg)", 0 )
 
