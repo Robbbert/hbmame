@@ -402,7 +402,7 @@ public:
 	// comparison helpers
 	bool operator==(const delegate_mfp_itanium &rhs) const
 	{
-		return (m_function == rhs.m_function) && (m_this_delta == rhs.m_this_delta);
+		return (isnull() && rhs.isnull()) || ((m_function == rhs.m_function) && (m_this_delta == rhs.m_this_delta));
 	}
 
 	bool isnull() const
@@ -496,8 +496,37 @@ public:
 	}
 
 	// comparison helpers
-	bool operator==(const delegate_mfp_msvc &rhs) const { return m_function == rhs.m_function; }
-	bool isnull() const { return !reinterpret_cast<void (*)()>(m_function); }
+	bool operator==(const delegate_mfp_msvc &rhs) const
+	{
+		if (m_function != rhs.m_function)
+		{
+			return false;
+		}
+		else if (sizeof(single_base_equiv) == m_size)
+		{
+			return (sizeof(single_base_equiv) == rhs.m_size) || (!rhs.m_this_delta && ((sizeof(multi_base_equiv) == rhs.m_size) || !rhs.m_vt_index));
+		}
+		else if (sizeof(multi_base_equiv) == m_size)
+		{
+			if (sizeof(unknown_base_equiv) == rhs.m_size)
+				return (m_this_delta == rhs.m_this_delta) && !rhs.m_vt_index;
+			else
+				return (sizeof(single_base_equiv) == rhs.m_size) ? !m_this_delta : (m_this_delta == rhs.m_this_delta);
+		}
+		else if (sizeof(unknown_base_equiv) == rhs.m_size)
+		{
+			return (m_this_delta == rhs.m_this_delta) && (m_vt_index == rhs.m_vt_index) && (!m_vt_index || (m_vptr_offs == rhs.m_vptr_offs));
+		}
+		else
+		{
+			return !m_vt_index && ((sizeof(multi_base_equiv) == rhs.m_size) ? (m_this_delta == rhs.m_this_delta) : !m_this_delta);
+		}
+	}
+
+	bool isnull() const
+	{
+		return !reinterpret_cast<void (*)()>(m_function);
+	}
 
 	// getters
 	static delegate_generic_class *real_object(delegate_generic_class *original) { return original; }
@@ -506,8 +535,7 @@ public:
 	template <typename FunctionType>
 	void update_after_bind(FunctionType &funcptr, delegate_generic_class *&object)
 	{
-		funcptr = reinterpret_cast<FunctionType>(m_function);
-		return adjust_this_pointer(object);
+		funcptr = reinterpret_cast<FunctionType>(adjust_this_pointer(object));
 	}
 
 	template <typename FunctionType>
@@ -516,8 +544,8 @@ public:
 	}
 
 private:
-	// adjust the object pointer
-	void adjust_this_pointer(delegate_generic_class *&object) const;
+	// adjust the object pointer and bypass thunks
+	delegate_generic_function adjust_this_pointer(delegate_generic_class *&object) const;
 
 	// actual state
 	uintptr_t   m_function = 0;     // pointer to function or non-virtual thunk for virtual function call
