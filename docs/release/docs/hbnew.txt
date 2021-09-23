@@ -9,12 +9,11 @@ New Games
 ---------------------------------
 - [abyssal]             Abyssal Infants
 - [baby1]               Pacman (Baby Maze 1)
-- [mcatadvs01]          Magical Cat Adventure (R.Zara)
-- [mcpacman]            McPacman
 - [bevpac]              Bevelled Pacman
 - [invispac]            Pacman (Invisible Maze)
+- [mcatadvs01]          Magical Cat Adventure (R.Zara)
+- [mcpacman]            McPacman
 - [pacmini3]            Pacmini (maze 3)
-- [upsidpac]            Pacman (Upsidedown Maze)
 - [pacsmall]            Pacman (Small Maze)
 - [pacman25s01]         Pac Man (4 New Maps - After Dark)
 - [pacman25s02]         Pac Man - (Fruit 1)
@@ -91,6 +90,7 @@ New Games
 - [pacman25s73]         Pac Man 25 - Pac Man + Tournament - Tunnels
 - [pacman25s74]         Pac Man 25 - Pac Man + Tournament - Turtle
 - [pacman25s75]         Pac Man 25 - Pac Man + Tournament - Windy
+- [upsidpac]            Pacman (Upsidedown Maze)
 
 
 
