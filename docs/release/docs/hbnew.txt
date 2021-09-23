@@ -16,6 +16,81 @@ New Games
 - [pacmini3]            Pacmini (maze 3)
 - [upsidpac]            Pacman (Upsidedown Maze)
 - [pacsmall]            Pacman (Small Maze)
+- [pacman25s01]         Pac Man (4 New Maps - After Dark)
+- [pacman25s02]         Pac Man - (Fruit 1)
+- [pacman25s03]         pac Man - (Fruit 2)
+- [pacman25s04]         Pac Man 25 (Chomp Ms Pac Em SJB Maps)
+- [pacman25s05]         Pac Man 25 (Chomp Ms Pac Em)
+- [pacman25s06]         Pac Man 25 (Cookie Man)
+- [pacman25s07]         Pac Man 25 (FHMC Sil 13 Mazes)
+- [pacman25s08]         Pac Man 25 (Namco Mazes Alternate)
+- [pacman25s09]         Pac Man 25 (Namco Mazes Featuring Ms Pac-Man)
+- [pacman25s10]         Pac Man 25 (Namco Mazes)(PAC-MAN Classic Look)
+- [pacman25s11]         Pac Man 25 (Namco Mazes)
+- [pacman25s12]         Pac Man 25 (SJB Mazes)
+- [pacman25s13]         Pac Man 25 (T-Bone Mazes)
+- [pacman25s14]         Pac Man 25 (Tengen Mazes)(PAC-MAN Classic Look)
+- [pacman25s15]         Pac Man 25 (Tengen Mazes)
+- [pacman25s16]         Pac Man 25 (Tengen Mini Mazes)(PAC-MAN Classic Look)
+- [pacman25s17]         Pac Man 25 (Tengen Mini Mazes)
+- [pacman25s18]         Pac Man 25 (Tengen Tall Mazes)(PAC-MAN Classic Look)
+- [pacman25s19]         Pac Man 25 (Tengen Tall Mazes)
+- [pacman25s20]         Pac Man 25 (Ultra Pac-Man)
+- [pacman25s21]         Pac Man 25 - Pac Man + Tournament (Set 1)
+- [pacman25s22]         Pac Man 25 - Pac Man + Tournament (Set 2)
+- [pacman25s23]         Pac Man 25 - Pac Man + Tournament (Set 3)
+- [pacman25s24]         Pac Man 25 - Pac Man + Tournament (Set 4)
+- [pacman25s25]         Pac Man 25 - Pac Man + Tournament (Set 5)
+- [pacman25s26]         Pac Man 25 - Pac Man + Tournament (Set 6)
+- [pacman25s27]         Pac Man 25 - Pac Man + Tournament - 360 Escape
+- [pacman25s28]         Pac Man 25 - Pac Man + Tournament - Alien
+- [pacman25s29]         Pac Man 25 - Pac Man + Tournament - Arcade
+- [pacman25s30]         Pac Man 25 - Pac Man + Tournament - Beach
+- [pacman25s31]         Pac Man 25 - Pac Man + Tournament - Beetle
+- [pacman25s32]         Pac Man 25 - Pac Man + Tournament - Blue
+- [pacman25s33]         Pac Man 25 - Pac Man + Tournament - Boys
+- [pacman25s34]         Pac Man 25 - Pac Man + Tournament - Candyland
+- [pacman25s35]         Pac Man 25 - Pac Man + Tournament - Chase
+- [pacman25s36]         Pac Man 25 - Pac Man + Tournament - Cherries
+- [pacman25s37]         Pac Man 25 - Pac Man + Tournament - Chocolate
+- [pacman25s38]         Pac Man 25 - Pac Man + Tournament - Colors
+- [pacman25s39]         Pac Man 25 - Pac Man + Tournament - Cookie
+- [pacman25s40]         Pac Man 25 - Pac Man + Tournament - Cup
+- [pacman25s41]         Pac Man 25 - Pac Man + Tournament - Dice
+- [pacman25s42]         Pac Man 25 - Pac Man + Tournament - Dinos
+- [pacman25s43]         Pac Man 25 - Pac Man + Tournament - Dragon
+- [pacman25s44]         Pac Man 25 - Pac Man + Tournament - Fire
+- [pacman25s45]         Pac Man 25 - Pac Man + Tournament - Fountain
+- [pacman25s46]         Pac Man 25 - Pac Man + Tournament - Garden
+- [pacman25s47]         Pac Man 25 - Pac Man + Tournament - Girder
+- [pacman25s48]         Pac Man 25 - Pac Man + Tournament - Girl
+- [pacman25s49]         Pac Man 25 - Pac Man + Tournament - Infinate
+- [pacman25s50]         Pac Man 25 - Pac Man + Tournament - Invisible
+- [pacman25s51]         Pac Man 25 - Pac Man + Tournament - Jailhouse
+- [pacman25s52]         Pac Man 25 - Pac Man + Tournament - kaleidoscope
+- [pacman25s53]         Pac Man 25 - Pac Man + Tournament - Minutes
+- [pacman25s54]         Pac Man 25 - Pac Man + Tournament - Night Flower
+- [pacman25s55]         Pac Man 25 - Pac Man + Tournament - Night
+- [pacman25s56]         Pac Man 25 - Pac Man + Tournament - No Escape
+- [pacman25s57]         Pac Man 25 - Pac Man + Tournament - Opposite
+- [pacman25s58]         Pac Man 25 - Pac Man + Tournament - Pig
+- [pacman25s59]         Pac Man 25 - Pac Man + Tournament - Plotted
+- [pacman25s60]         Pac Man 25 - Pac Man + Tournament - Prismatic
+- [pacman25s61]         Pac Man 25 - Pac man + Tournament - Red Bull
+- [pacman25s62]         Pac Man 25 - Pac Man + Tournament - Royal
+- [pacman25s63]         Pac Man 25 - Pac Man + Tournament - Shadow
+- [pacman25s64]         Pac Man 25 - Pac Man + Tournament - Ship
+- [pacman25s65]         Pac Man 25 - Pac Man + Tournament - Six Pac
+- [pacman25s66]         Pac Man 25 - Pac Man + Tournament - Solar System
+- [pacman25s67]         Pac Man 25 - Pac Man + Tournament - Square Dance
+- [pacman25s68]         Pac Man 25 - Pac Man + Tournament - Sugar Rush
+- [pacman25s69]         Pac Man 25 - Pac Man + Tournament - Sushi
+- [pacman25s70]         Pac Man 25 - Pac Man + Tournament - Tilt
+- [pacman25s71]         Pac Man 25 - Pac Man + Tournament - Traffic
+- [pacman25s72]         Pac Man 25 - Pac Man + Tournament - Trap
+- [pacman25s73]         Pac Man 25 - Pac Man + Tournament - Tunnels
+- [pacman25s74]         Pac Man 25 - Pac Man + Tournament - Turtle
+- [pacman25s75]         Pac Man 25 - Pac Man + Tournament - Windy
 
 
 
