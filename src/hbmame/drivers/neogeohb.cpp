@@ -231,6 +231,7 @@ NUM GAME YEAR COMPANY                 TITLE
 496 1234 2020 OzzyOuzo                Neo Black Tiger
 497 0993 2021 iq132                   Cabal (Neo-Geo port)
 498 0052 2021 Kako Eimon              Abyssal Infants
+499 07E1 2021 Blastar                 Neo Driftout Tech Demo
 
 
 
@@ -2644,6 +2645,24 @@ ROM_START( abyssal )
 	ROM_LOAD16_BYTE( "498a.c2", 0x0000001, 0x200000, CRC(bbdacc24) SHA1(39025e7f593cc7f464e9f0403feab69ddbd371c8) )
 ROM_END
 
+// 499: Neo Driftout Tech Demo
+// Bugs: A few minor graphics issues
+ROM_START( ndo_a_td )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "499.p1", 0x000000, 0x080000, CRC(0b42acff) SHA1(3a52fdedf99acb9a49c2a952465766d1e2cf644d) )
+
+	NEO_SFIX_128K( "499.s1", CRC(00bef8e5) SHA1(e5523d896f04d92981bca4fe270b5f20ad699457) )
+
+	NEO_BIOS_AUDIO_64K( "499.m1", CRC(0125c35b) SHA1(e4d35447e18c2e398afb4d883fd02b620b4e299a) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "499.v1", 0x000000, 0x080000, CRC(23ce128d) SHA1(d6423525ffbb3a59c5fc2fc0f14dcddcfd8c5687) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "499.c1", 0x000000, 0x080000, CRC(3913d0d5) SHA1(c1bb4d336676828c5754f763bc75d310aed6d73f) )
+	ROM_LOAD16_BYTE( "499.c2", 0x000001, 0x080000, CRC(0a70ac8e) SHA1(b7371609001ff73907bee49f1e9944fdd269eaab) )
+ROM_END
+
 
 // 802 : Last Hope CD Beta by NG:DEV.Team
 // Bugs: Insert Coin causes reboot; purple boxes instead of graphics; some corrupt graphics
@@ -2787,6 +2806,7 @@ GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2007, lhopecdh,     lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta - 20050717)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, neobubble,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Neo Bubble", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )

@@ -13,6 +13,7 @@ New Games
 - [invispac]            Pacman (Invisible Maze)
 - [mcatadvs01]          Magical Cat Adventure (R.Zara)
 - [mcpacman]            McPacman
+- [ndo_a_td]            Neo Driftout Tech Demo
 - [pacforks]            Forks
 - [pacmini3]            Pacmini (maze 3)
 - [pacsmall]            Pacman (Small Maze)

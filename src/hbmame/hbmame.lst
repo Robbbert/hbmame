@@ -5902,6 +5902,7 @@ lhcdba
 lhopecd //broken; not working
 lhopecdh // broken; not working
 ltorb
+ndo_a_td
 neo2500		/* Blastar */
 neo3d		// Oxygene
 //neobubble
