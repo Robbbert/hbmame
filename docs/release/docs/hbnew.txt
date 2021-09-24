@@ -13,6 +13,7 @@ New Games
 - [invispac]            Pacman (Invisible Maze)
 - [mcatadvs01]          Magical Cat Adventure (R.Zara)
 - [mcpacman]            McPacman
+- [pacforks]            Forks
 - [pacmini3]            Pacmini (maze 3)
 - [pacsmall]            Pacman (Small Maze)
 - [pacman25s01]         Pac Man (4 New Maps - After Dark)

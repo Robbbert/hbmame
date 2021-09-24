@@ -5399,6 +5399,20 @@ ROM_START( baby1 )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( pacforks )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacforks.6j",  0x3000, 0x1000, CRC(ce79408e) SHA1(000fa833e94b939cece93b75e097477f87f48749) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( bevpac )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -5491,6 +5505,7 @@ GAME( 2000, baby4,    puckman,  pacman,   pacman,   puckman_state, empty_init,  
 GAME( 2000, bevpac,   puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Bevelled Pacman", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, invispac, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Pacman (Invisible Maze)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mcpacman, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "McPacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, pacforks, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "T-Bone", "Forks", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s01, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man - (4 New Maps - After Dark)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s02, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man - (Fruit 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s03, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "pac Man - (Fruit 2)", MACHINE_SUPPORTS_SAVE )
