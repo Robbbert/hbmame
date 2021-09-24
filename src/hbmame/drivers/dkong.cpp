@@ -784,10 +784,10 @@ ROM_END
 
 ROM_START( dkongbp1 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "dkongbp.5et",   0x0000, 0x1000, CRC(c80c0431) SHA1(446e897150d027f797edbe30d0502f5f5a652ba7) )
+	ROM_LOAD( "dkongbp1.5et",  0x0000, 0x1000, CRC(c80c0431) SHA1(446e897150d027f797edbe30d0502f5f5a652ba7) )
 	ROM_LOAD( "dkongbp.5ct",   0x1000, 0x1000, CRC(c742739c) SHA1(a143af813f7c23b6bab483ad2610e686ebc568da) )
 	ROM_LOAD( "dkongbp.5bt",   0x2000, 0x1000, CRC(a46859ec) SHA1(bbe8a32b7396f6347ce8b4a77b760277fb965551) )
-	ROM_LOAD( "dkongbp.5at",   0x3000, 0x1000, CRC(4742a48e) SHA1(ddef0c7e25cbeba37a387de1d72583a2861dbbf4) )
+	ROM_LOAD( "dkongbp1.5at",  0x3000, 0x1000, CRC(4742a48e) SHA1(ddef0c7e25cbeba37a387de1d72583a2861dbbf4) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "dkongbp.3i",    0x0000, 0x0800, CRC(7590f5ee) SHA1(b08245ce86d2c2de1b0d000743b7e9fcdf2ee215) )
@@ -820,7 +820,7 @@ ROM_START( dkongan )
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "dkongan.3i",    0x0000, 0x0800, CRC(44993c29) SHA1(7beeae49df5126bbf268dc66bb61e6a8b832fa31) )
 	ROM_RELOAD(                0x0800, 0x0800 )
-	ROM_LOAD( "dkongan.3j",    0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+	ROM_LOAD( "s_3j_b.bin",    0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
 
 	ROM_REGION( 0x1000, "gfx1", 0 )
 	ROM_LOAD( "dkongan.5h",    0x0000, 0x0800, CRC(ae4c3990) SHA1(20db41211bfdc6b79198fc8cd022465468430059) )
