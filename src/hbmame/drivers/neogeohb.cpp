@@ -2646,7 +2646,8 @@ ROM_START( abyssal )
 ROM_END
 
 // 499: Neo Driftout Tech Demo
-// Bugs: A few minor graphics issues
+// No sound.
+// Bugs: Can get stuck in position 00
 ROM_START( ndo_a_td )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "499.p1", 0x000000, 0x080000, CRC(0b42acff) SHA1(3a52fdedf99acb9a49c2a952465766d1e2cf644d) )
