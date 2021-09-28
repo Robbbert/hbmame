@@ -19380,6 +19380,7 @@ vsnetscreb                      // 1996.?? GX627 (Europe)
 vsnetscrj                       // 1996.12 GX627 (Japan)
 vsnetscru                       // 1996.?? GX627 (US)
 winspike                        // 1997.?? GX705 (Europe)
+winspikea                       // 1997.?? GX705 (Asia)
 winspikej                       // 1997.07 GX705 (Japan)
 
 @source:konamim2.cpp
@@ -33855,8 +33856,9 @@ pc6001sr                        //
 pc6601                          //
 
 @source:pc8001.cpp
-pc8001                          //
-pc8001mk2                       //
+pc8001                          // 1979
+pc8001mk2                       // 1983
+pc8001mk2sr                     // 1985
 
 @source:pc8401a.cpp
 pc8401a                         // roms needed
@@ -36970,6 +36972,7 @@ hisaturn                        // Hitachi HiSaturn
 saturn                          // 1995 Sega Saturn (USA)
 saturneu                        // 1995 Sega Saturn (Europe)
 saturnjp                        // 1994 Sega Saturn (Japan)
+saturnkr                        // 1995 Samsung Saturn (Korea)
 vsaturn                         // JVC V-Saturn
 
 @source:sauro.cpp
@@ -41735,6 +41738,7 @@ twinsed2                        // (c) 1994 Electronic Devices
 
 @source:tx0.cpp
 tx0_64kw                        // April 1956 MIT TX-0 (64kw RAM)
+tx0_8kwo                        // 1959 MIT TX-0 (8kw RAM)
 tx0_8kw                         // 1962 MIT TX-0 (8kw RAM)
 
 @source:tx1.cpp
