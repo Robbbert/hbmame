@@ -496,7 +496,6 @@ createHBMAMEProjects(_target, _subtarget, "exidy")
 files {
 	MAME_DIR .. "src/hbmame/drivers/exidy.cpp",
 	MAME_DIR .. "src/mame/audio/exidy.cpp",
-	MAME_DIR .. "src/mame/video/exidy.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "fuuki")
@@ -1102,12 +1101,13 @@ files {
 --	MAME_DIR .. "src/mame/machine/genpin.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mcatadv.cpp",
+	MAME_DIR .. "src/mame/video/mcatadv.cpp",
 	MAME_DIR .. "src/mame/drivers/skimaxx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timelimit.cpp",
 	MAME_DIR .. "src/mame/video/timelimt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/vamphalf.cpp",
 	MAME_DIR .. "src/hbmame/drivers/hh_sm510.cpp",
-	MAME_DIR .. "src/hbmame/drivers/zexall.cpp",
 }
 
 end

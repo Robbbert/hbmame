@@ -4128,8 +4128,12 @@ superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
 @source:mario.cpp
-mario		//parent
+mario                                  //parent
 cenmario 
+
+@source:mcatadv.cpp
+mcatadv                                //parent
+mcatadvs01
 
 @source:mcr.cpp
 shollow		//parent
@@ -5859,6 +5863,7 @@ zintrckb		// 211
 zupapa			// 070
 
 @source:neogeohb.cpp
+abyssal
 akiradmo
 badapple			// BEY
 badapplea
@@ -5897,6 +5902,7 @@ lhcdba
 lhopecd //broken; not working
 lhopecdh // broken; not working
 ltorb
+ndo_a_td
 neo2500		/* Blastar */
 neo3d		// Oxygene
 //neobubble
@@ -8369,6 +8375,88 @@ soldivid		//parent
 soldivids01
 
 @source:puckman.cpp
+mcpacman
+bevpac
+invispac
+pacmini3
+upsidpac
+pacsmall
+baby1
+pacman25s01
+pacman25s02
+pacman25s03
+pacman25s04
+pacman25s05
+pacman25s06
+pacman25s07
+pacman25s08
+pacman25s09
+pacman25s10
+pacman25s11
+pacman25s12
+pacman25s13
+pacman25s14
+pacman25s15
+pacman25s16
+pacman25s17
+pacman25s18
+pacman25s19
+pacman25s20
+pacman25s21
+pacman25s22
+pacman25s23
+pacman25s24
+pacman25s25
+pacman25s26
+pacman25s27
+pacman25s28
+pacman25s29
+pacman25s30
+pacman25s31
+pacman25s32
+pacman25s33
+pacman25s34
+pacman25s35
+pacman25s36
+pacman25s37
+pacman25s38
+pacman25s39
+pacman25s40
+pacman25s41
+pacman25s42
+pacman25s43
+pacman25s44
+pacman25s45
+pacman25s46
+pacman25s47
+pacman25s48
+pacman25s49
+pacman25s50
+pacman25s51
+pacman25s52
+pacman25s53
+pacman25s54
+pacman25s55
+pacman25s56
+pacman25s57
+pacman25s58
+pacman25s59
+pacman25s60
+pacman25s61
+pacman25s62
+pacman25s63
+pacman25s64
+pacman25s65
+pacman25s66
+pacman25s67
+pacman25s68
+pacman25s69
+pacman25s70
+pacman25s71
+pacman25s72
+pacman25s73
+pacman25s74
+pacman25s75
 abortman 	/* Paul C Copeland hack of Puckman */
 bacman
 baby2		/* T-Bone hack */
@@ -8424,6 +8512,7 @@ pacjr2
 pacjr3
 pacjr4
 packetman
+pacforks
 pacm255		/* Mark Spaeth patch for level 256 */
 pacman25	/* Jerronimo v1.0 2004 */
 pacman3d	/* Sil hack of Pac-Man (Midway) */
@@ -8979,9 +9068,6 @@ wmg
 @source:yiear.cpp
 yiear		//parent
 nacho		/* Gatinho - Nacho Libre */
-
-@source:zexall.cpp
-zex8085
 
 @source:zn.cpp
 coh1000c

@@ -14,7 +14,7 @@ ROM_END
 
 GAME( 2007, c2frog, 0, segac, columns, segac2_state, init_columns, ROT0, "Rastersoft", "Frog Feast (Sega C2 hardware)", MACHINE_NO_SOUND )
 
-
+#if 0
 
 static INPUT_PORTS_START( ssonicbr )
 	PORT_INCLUDE( systemc_generic )
@@ -99,4 +99,6 @@ ROM_END
 GAME( 1992, ssonicbr,  0, segac2, ssonicbr, segac2_state, init_bloxeedc, ROT0, "Sega", "SegaSonic Bros. (Japan, prototype)", 0 )
 GAME( 1992, ooparts,   0, segac2, ooparts,  segac2_state, init_tantr,    ROT270, "Success", "OOParts", 0 )
 GAME( 1994, headonch,  0, segac2, ichir,    segac2_state, init_tantr,    ROT0, "Sega", "Head On Channel (Japan)", 0 )
+#endif
+
 
