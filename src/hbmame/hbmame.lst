@@ -74,10 +74,6 @@ indytemp		//parent
 ataris1hw
 ataris1rt
 
-//@source:atari_s1.cpp
-//atarians	//parent
-//atarianb	/* hack for emulators */
-
 @source:bagman.cpp
 bagman			//parent
 bagturbo

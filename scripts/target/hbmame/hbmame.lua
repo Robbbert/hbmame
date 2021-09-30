@@ -1091,8 +1091,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
 	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
---	MAME_DIR .. "src/hbmame/drivers/atari_s1.cpp",
---	MAME_DIR .. "src/mame/machine/genpin.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcatadv.cpp",
