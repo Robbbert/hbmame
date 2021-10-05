@@ -358,8 +358,8 @@ static const nes_mmc mmc_list[] =
 	{ 320, BMC_830425C },
 	// 321 duplicate of 287?
 	// 322 BMC-K-3033 35-in-1, related to mc_35?
-	// 323 Farid SLROM homebrew 8-in-1
-	// 324 Farid UNROM homebrew 8-in-1
+	{ 323, FARID_SLROM8IN1 },      // homebrew 8-in-1
+	{ 324, FARID_UNROM8IN1 },      // homebrew 8-in-1
 	{ 325, UNL_MALISB },           // Super Mali Splash Bomb pirate hack
 	{ 326, BTL_CONTRAJ },
 	// 327 BMC-10-24-C-A1 6-in-1
@@ -798,6 +798,8 @@ void nes_cart_slot_device::call_load_ines()
 			break;
 
 		case STD_SXROM:
+			if (mapper == 1 && ines20 && prgram_size == 0x2000 && battery_size == 0x2000 && vrom_size == 0x4000)
+				m_pcb_id = STD_SZROM;
 			if (mapper == 155)
 				m_cart->set_mmc1_type(device_nes_cart_interface::mmc1_type::MMC1A);
 			break;
@@ -1217,6 +1219,12 @@ const char * nes_cart_slot_device::get_default_card_ines(get_default_card_softwa
 		case STD_NROM:
 			if (ROM[4] == 3)
 				pcb_id = STD_NROM368;
+			break;
+
+		case STD_SXROM:
+			// only A Ressha de Ikou uses SZROM and it can be detected by its profile: 8K WRAM, 8K BWRAM, 16K CHR ROM
+			if (mapper == 1 && ines20 && ROM[10] == 0x77 && ROM[5] == 2)
+				pcb_id = STD_SZROM;
 			break;
 
 		case KONAMI_VRC2:
