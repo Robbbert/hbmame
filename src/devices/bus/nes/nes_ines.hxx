@@ -357,7 +357,7 @@ static const nes_mmc mmc_list[] =
 	{ 319, BMC_HP898F },
 	{ 320, BMC_830425C },
 	// 321 duplicate of 287?
-	// 322 BMC-K-3033 35-in-1, related to mc_35?
+	{ 322, BMC_K3033 },
 	{ 323, FARID_SLROM8IN1 },      // homebrew 8-in-1
 	{ 324, FARID_UNROM8IN1 },      // homebrew 8-in-1
 	{ 325, UNL_MALISB },           // Super Mali Splash Bomb pirate hack
@@ -405,7 +405,7 @@ static const nes_mmc mmc_list[] =
 	// 367 7-in-1 cart that is a close variant of mapper 205
 	{ 368, BTL_YUNG08 },            // SMB2 FDS conversion
 	// 369 Super Mario Bros Party multicart
-	// 370 Golden Mario Party II multicart
+	{ 370, BMC_F600 },              // Golden Mario Party II multicart
 	// 371 Spanish PEC-586 computer main cart
 	// 372 Rockman 1-6 multicart very close to mapper 45
 	// 373 Super 4-in-1, not in nes.xml?
@@ -415,7 +415,7 @@ static const nes_mmc mmc_list[] =
 	// 377 JY-111 multicart, similar to mapper 367
 	// 378 8-in-1 multicart, which one?
 	// 379 35-in-1 multicart, similar to mapper 38
-	// 380 970630C multicart
+	{ 380, BMC_970630C },
 	{ 381, UNL_KN42 },             // 2-in-1 Big Nose games
 	{ 382, BMC_830928C },
 	// 383 JY-014 multicart
