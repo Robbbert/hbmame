@@ -106,6 +106,7 @@ static const nes_pcb pcb_list[] =
 	{ "cne_decathl",      CNE_DECATHLON },
 	{ "cne_fsb",          CNE_FSB },
 	{ "cne_shlz",         CNE_SHLZ },
+	{ "cocoma",           COCOMA_BOARD },
 	{ "nanjing",          NANJING_BOARD },  // mapper 163
 	{ "ntdec_2746",       NTDEC_2746 },
 	{ "ntdec_asder",      NTDEC_ASDER },    // mapper 112
@@ -324,6 +325,7 @@ static const nes_pcb pcb_list[] =
 	{ "bmc_gold7in1",     BMC_GOLD_7IN1 },
 	{ "bmc_00202650",     BMC_00202650 },
 	{ "bmc_411120c",      BMC_411120C },
+	{ "bmc_810305c",      BMC_810305C },
 	{ "bmc_820720c",      BMC_820720C },
 	{ "bmc_830118c",      BMC_830118C },
 	{ "bmc_830832c",      BMC_830832C },

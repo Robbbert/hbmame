@@ -2140,3 +2140,24 @@ ui_software_info &ui_software_info::operator=(ui_software_info const &that)
 	}
 	return *this;
 }
+
+
+void swap(ui_system_info &a, ui_system_info &b) noexcept
+{
+	using std::swap;
+	swap(a.driver,                               b.driver);
+	swap(a.index,                                b.index);
+	swap(a.is_clone,                             b.is_clone);
+	swap(a.available,                            b.available);
+	swap(a.description,                          b.description);
+	swap(a.parent,                               b.parent);
+	swap(a.reading_description,                  b.reading_description);
+	swap(a.reading_parent,                       b.reading_parent);
+	swap(a.ucs_shortname,                        b.ucs_shortname);
+	swap(a.ucs_description,                      b.ucs_description);
+	swap(a.ucs_reading_description,              b.ucs_reading_description);
+	swap(a.ucs_manufacturer_description,         b.ucs_manufacturer_description);
+	swap(a.ucs_manufacturer_reading_description, b.ucs_manufacturer_reading_description);
+	swap(a.ucs_default_description,              b.ucs_default_description);
+	swap(a.ucs_manufacturer_default_description, b.ucs_manufacturer_default_description);
+}

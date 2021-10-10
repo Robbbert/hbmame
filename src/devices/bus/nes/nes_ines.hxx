@@ -388,7 +388,7 @@ static const nes_mmc mmc_list[] =
 	// { 350, BMC_891227 }, not in nes.xml
 	{ 351, BMC_TECHLINE9IN1 },
 	{ 352, KAISER_KS106C },        // 4-in-1
-	// 353 Super Mario Family multicart
+	{ 353, BMC_810305C },          // Super Mario Family multicart
 	// 354 250-in-1 multicart with FDS Bubble Bobble
 	// 355 Hwang Shinwei 3-D Block etc, currently has unemulated PIC16C54
 	// 356 7-in-1 Rockman (JY-208)
@@ -479,7 +479,7 @@ static const nes_mmc mmc_list[] =
 	{ 513, SACHEN_SA9602B },
 	// 514 seems to be for skaraok, currently set to UNKNOWN in nes.xml
 	// 515 Korean Family Noraebang karaoke cart with expansion cart, mic, and YM2413!
-	// 516 is this for brillco2 and another related title not in nes.xml?
+	{ 516, COCOMA_BOARD },
 	// 517 another Korean karaoke cart with mic
 	// 518 Subor UNL-DANCE2000 and a few others
 	{ 519, UNL_EH8813A },          // Dr Mario II Chinese pirate

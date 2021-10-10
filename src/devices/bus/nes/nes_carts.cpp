@@ -194,6 +194,7 @@ void nes_cart(device_slot_interface &device)
 	device.option_add_internal("cne_decathl",      NES_CNE_DECATHL);
 	device.option_add_internal("cne_fsb",          NES_CNE_FSB);
 	device.option_add_internal("cne_shlz",         NES_CNE_SHLZ);
+	device.option_add_internal("cocoma",           NES_COCOMA);
 	device.option_add_internal("nanjing",          NES_NANJING);     // mapper 163
 	device.option_add_internal("ntdec_2746",       NES_NTDEC_2746);
 	device.option_add_internal("ntdec_asder",      NES_NTDEC_ASDER); // mapper 112
@@ -451,6 +452,7 @@ void nes_cart(device_slot_interface &device)
 	device.option_add_internal("bmc_gold7in1",     NES_BMC_GOLD7IN1);
 	device.option_add_internal("bmc_00202650",     NES_BMC_00202650);
 	device.option_add_internal("bmc_411120c",      NES_BMC_411120C);
+	device.option_add_internal("bmc_810305c",      NES_BMC_810305C);
 	device.option_add_internal("bmc_820720c",      NES_BMC_820720C);
 	device.option_add_internal("bmc_830118c",      NES_BMC_830118C);
 	device.option_add_internal("bmc_830832c",      NES_BMC_830832C);

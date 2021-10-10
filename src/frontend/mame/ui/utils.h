@@ -32,19 +32,30 @@ class render_container;
 
 struct ui_system_info
 {
+	ui_system_info(ui_system_info const &) = default;
+	ui_system_info(ui_system_info &&) = default;
+	ui_system_info &operator=(ui_system_info const &) = default;
+	ui_system_info &operator=(ui_system_info &&) = default;
+
 	ui_system_info() { }
 	ui_system_info(game_driver const &d, int i, bool a) : driver(&d), index(i), available(a) { }
 
 	game_driver const *driver = nullptr;
 	int index;
+	bool is_clone = false;
 	bool available = false;
 
 	std::string description;
 	std::string parent;
 
+	std::wstring reading_description;
+	std::wstring reading_parent;
+
 	std::u32string ucs_shortname;
 	std::u32string ucs_description;
+	std::u32string ucs_reading_description;
 	std::u32string ucs_manufacturer_description;
+	std::u32string ucs_manufacturer_reading_description;
 	std::u32string ucs_default_description;
 	std::u32string ucs_manufacturer_default_description;
 };
@@ -100,6 +111,9 @@ struct ui_software_info
 	std::vector<std::reference_wrapper<std::string const> > alttitles;
 	bool available = false;
 };
+
+
+void swap(ui_system_info &a, ui_system_info &b) noexcept;
 
 
 namespace ui {
