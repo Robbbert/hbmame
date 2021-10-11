@@ -243,14 +243,14 @@ public:
 						if ((a.shortname == b.parentname) && (a.instance == b.instance))
 							return true;
 						else
-							return compare_names(a.longname, b.longname);
+							return compare_names(a.longname, b.parentlongname);
 					}
 					else if (clonex && !cloney)
 					{
 						if ((a.parentname == b.shortname) && (a.instance == b.instance))
 							return false;
 						else
-							return compare_names(a.longname, b.longname);
+							return compare_names(a.parentlongname, b.longname);
 					}
 					else if ((a.parentname == b.parentname) && (a.instance == b.instance))
 					{
@@ -581,11 +581,10 @@ void menu_select_software::populate(float &customtop, float &custombottom)
 				m_displaylist[curitem].get().parentname.empty() ? flags_ui : (FLAG_INVERT | flags_ui), (void *)&m_displaylist[curitem].get());
 	}
 
-	item_append(menu_item_type::SEPARATOR, flags_ui);
-
 	// configure the custom rendering
+	skip_main_items = 0;
 	customtop = 4.0f * ui().get_line_height() + 5.0f * ui().box_tb_border();
-	custombottom = 5.0f * ui().get_line_height() + 4.0f * ui().box_tb_border();
+	custombottom = 4.0f * ui().get_line_height() + 4.0f * ui().box_tb_border();
 
 	if (old_software != -1)
 	{
