@@ -40,7 +40,7 @@ namespace {
 menu_about::menu_about(mame_ui_manager &mui, render_container &container)
 	: menu(mui, container)
 	, m_title(util::string_format(_("%1$s %2$s"), emulator_info::get_appname(), bare_build_version))
-	, m_footer(util::string_format(_("Revision: %1$s"), bare_vcs_revision))
+	, m_footer(util::string_format(_("Revision: %1$s"), " "))  // MESSUI bare_vcs_revision not defined
 {
 }
 
