@@ -1,6 +1,68 @@
 ﻿What's new in HBMAME
 ====================
 
+2021-10-27 0.237
+
+
+
+New Games
+---------------------------------
+- [pacman25s76]         Pac Man 25 - Pac Man + Tournament (Set 7)
+- [pacman25s77]         Pac Man 25 - Pac Man + Tournament (Set 8)
+- [pacman25s78]         Pac Man 25 - Pac Man + Tournament (Set 9)
+- [pacman25s79]         Pac Man 25 - Pac Man + Tournament (Set 10)
+- [pacman25s80]         Pac Man 25 - Pac Man + Tournament - 3 Minutes
+- [pacman25s81]         Pac Man 25 - Pac Man + Tournament - 40th Anniversary Event
+- [pacman25s82]         Pac Man 25 - Pac Man + Tournament - Acceleration
+- [pacman25s83]         Pac Man 25 - Pac Man + Tournament - April Fools
+- [pacman25s84]         Pac Man 25 - Pac Man + Tournament - Blossom
+- [pacman25s85]         Pac Man 25 - Pac Man + Tournament - Candyland (With Bonus Maps)
+- [pacman25s86]         Pac Man 25 - Pac Man + Tournament - Capsule
+- [pacman25s87]         Pac Man 25 - Pac Man + Tournament - Carnival
+- [pacman25s88]         Pac Man 25 - Pac Man + Tournament - Cupid
+- [pacman25s89]         Pac Man 25 - Pac Man + Tournament - Detective
+- [pacman25s90]         Pac Man 25 - Pac Man + Tournament - Domino
+- [pacman25s91]         Pac Man 25 - Pac Man + Tournament - Drift
+- [pacman25s92]         Pac Man 25 - Pac Man + Tournament - Fire (With Bonus Maps)
+- [pacman25s93]         Pac Man 25 - Pac Man + Tournament - Gift Wrapped
+- [pacman25s94]         Pac Man 25 - Pac Man + Tournament - Gobble
+- [pacman25s95]         Pac Man 25 - Pac Man + Tournament - Good Year
+- [pacman25s96]         Pac Man 25 - Pac Man + Tournament - Halloween
+- [pacman25s97]         Pac Man 25 - Pac Man + Tournament - Happy 39th
+- [pacman25s98]         Pac Man 25 - Pac Man + Tournament - Hide
+- [pacman25s99]         Pac Man 25 - Pac Man + Tournament - Holiday
+- [pacman25s100]        Pac Man 25 - Pac Man + Tournament - Infinate (With Bonus Map)
+- [pacman25s101]        Pac Man 25 - Pac Man + Tournament - Line Dance
+- [pacman25s102]        Pac Man 25 - Pac Man + Tournament - Magic
+- [pacman25s103]        Pac Man 25 - Pac Man + Tournament - Monster
+- [pacman25s104]        Pac Man 25 - Pac Man + Tournament - Native
+- [pacman25s105]        Pac Man 25 - Pac Man + Tournament - No Escape (With Bonus Maps)
+- [pacman25s106]        Pac Man 25 - Pac Man + Tournament - Outfoxed
+- [pacman25s107]        Pac Man 25 - Pac Man + Tournament - Pac-Kids
+- [pacman25s108]        Pac Man 25 - Pac Man + Tournament - Pilgrim
+- [pacman25s109]        Pac Man 25 - Pac Man + Tournament - Plans
+- [pacman25s110]        Pac Man 25 - Pac Man + Tournament - Plotted (With Bonus Map)
+- [pacman25s111]        Pac Man 25 - Pac Man + Tournament - Purple Maze
+- [pacman25s112]        Pac Man 25 - Pac Man + Tournament - Sick
+- [pacman25s113]        Pac Man 25 - Pac Man + Tournament - Solar System (With Bonus Maps)
+- [pacman25s114]        Pac Man 25 - Pac Man + Tournament - Sonic The Hedgehog
+- [pacman25s115]        Pac Man 25 - Pac Man + Tournament - Spangle
+- [pacman25s116]        Pac Man 25 - Pac Man + Tournament - Spelunker
+- [pacman25s117]        Pac Man 25 - Pac Man + Tournament - Squared
+- [pacman25s118]        Pac Man 25 - Pac Man + Tournament - Squirmy
+- [pacman25s119]        Pac Man 25 - Pac Man + Tournament - Survive
+- [pacman25s120]        Pac Man 25 - Pac Man + Tournament - Sushi (With Bonus Maps)
+- [pacman25s121]        Pac Man 25 - Pac Man + Tournament - Sweet
+- [pacman25s122]        Pac Man 25 - Pac Man + Tournament - Taco
+- [pacman25s123]        Pac Man 25 - Pac Man + Tournament - Tangled
+- [pacman25s124]        Pac Man 25 - Pac Man + Tournament - Thing
+- [pacman25s125]        Pac Man 25 - Pac Man + Tournament - Underground
+- [pacman25s126]        Pac Man 25 - Pac Man + Tournament - X-Mas
+- [pacman25s127]        Pac Man 25 - Pac Man + Tournament - Zombies
+
+
+
+
 2021-09-29 0.236
 
 
