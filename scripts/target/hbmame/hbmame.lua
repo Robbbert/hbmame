@@ -466,7 +466,6 @@ files {
 	MAME_DIR .. "src/mame/audio/decobsmt.cpp", -- deco32
 	MAME_DIR .. "src/mame/video/deco_ace.cpp", -- deco32
 	MAME_DIR .. "src/mame/machine/deco156.cpp", -- deco32
-	MAME_DIR .. "src/mame/video/deco_zoomspr.cpp", -- deco32
 	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
 	MAME_DIR .. "src/mame/video/rohga.cpp",
 	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
