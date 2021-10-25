@@ -210,6 +210,7 @@ public:
 	void stars_update_origin();
 	void stars_draw_row(bitmap_rgb32 &bitmap, int maxx, int y, uint32_t star_offs, uint8_t starmask);
 	void null_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void galaxian_draw_stars(bitmap_rgb32 &bitmap, const rectangle &cliprect, int maxx);
 	void galaxian_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void background_draw_colorsplit(bitmap_rgb32 &bitmap, const rectangle &cliprect, rgb_t color, int split, int split_flipped);
 	void scramble_draw_stars(bitmap_rgb32 &bitmap, const rectangle &cliprect, int maxx);
@@ -412,10 +413,10 @@ protected:
 	uint8_t m_konami_sound_control;
 	uint8_t m_irq_enabled;
 	int m_irq_line = INPUT_LINE_NMI;
-	uint8_t m_frogger_adjust = false;
+	bool m_frogger_adjust = false;
 	uint8_t m_x_scale = GALAXIAN_XSCALE;
 	uint8_t m_h0_start = GALAXIAN_H0START;
-	uint8_t m_sfx_tilemap = false;
+	bool m_sfx_adjust = false;
 
 	extend_tile_info_delegate m_extend_tile_info_ptr;
 	extend_sprite_info_delegate m_extend_sprite_info_ptr;
@@ -768,10 +769,10 @@ private:
 };
 
 
-class taiyo_sfx_state : public galaxian_state
+class nihon_sfx_state : public galaxian_state
 {
 public:
-	taiyo_sfx_state(const machine_config &mconfig, device_type type, const char *tag)
+	nihon_sfx_state(const machine_config &mconfig, device_type type, const char *tag)
 		: galaxian_state(mconfig, type, tag)
 		, m_audio2(*this, "audio2")
 		, m_dac(*this, "dac")
@@ -790,6 +791,7 @@ protected:
 	void sample_control_w(uint8_t data);
 
 	void sfx_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void sfx_draw_bullet(bitmap_rgb32 &bitmap, const rectangle &cliprect, int offs, int x, int y);
 
 	void sfx_map(address_map &map);
 	void sfx_sample_map(address_map &map);
@@ -802,16 +804,18 @@ protected:
 };
 
 
-class monsterz_state : public taiyo_sfx_state
+class monsterz_state : public nihon_sfx_state
 {
 public:
 	monsterz_state(const machine_config& mconfig, device_type type, const char* tag)
-		: taiyo_sfx_state(mconfig, type, tag)
+		: nihon_sfx_state(mconfig, type, tag)
 		, m_dac2(*this, "dac2")
 	{
 	}
 
 	void monsterz(machine_config& config);
+
+	void init_monsterz();
 
 protected:
 	virtual void machine_start() override;
