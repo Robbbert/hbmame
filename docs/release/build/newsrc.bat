@@ -17,6 +17,7 @@ copy /Y %from%\src\frontend\mame\clifront.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\ui\about.cpp       %to%\src\frontend\mame\ui
 copy /Y %from%\src\frontend\mame\ui\inifile.cpp     %to%\src\frontend\mame\ui
 
 md %to%\src\devices\cpu\m68000

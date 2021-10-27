@@ -108,7 +108,8 @@ METHODDEF(void) mameui_jpeg_error_exit(j_common_ptr cinfo)
 
 static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
 {
-	uint64_t bytes = mfile.size();
+	uint64_t bytes;
+	mfile.length(bytes);
 	unsigned char* content = (unsigned char*)::malloc(bytes * sizeof(unsigned char));
 	::memcpy(content, mfile.buffer(), bytes);
 
@@ -308,7 +309,7 @@ inline void store_pixels(UINT8 *buf, int len)
 static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
 {
 	util::png_info p;
-	if (p.read_file(mfile) != util::png_error::NONE)
+	if (p.read_file(mfile))
 		return false;
 
 	if (p.color_type != 3 && p.color_type != 2)

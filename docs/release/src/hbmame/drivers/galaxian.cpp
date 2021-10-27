@@ -641,69 +641,6 @@ ROM_START( wbeast )
 	ROM_LOAD( "warofbug.clr", 0x0000, 0x0020, CRC(8688e64b) SHA1(ed13414257f580b98b50c9892a14159c55e7838d) )
 ROM_END
 
-/* This is sort of playable - no sound, wrong colours. Reboots after defeating the boss. */
-ROM_START( monstrz )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "b-1e.a1",      0x0000, 0x1000, CRC(97886542) SHA1(01f4f9bd55f9eae28162cbb22a26f7cda22cd3f3) )
-	ROM_LOAD( "b-2e.c1",      0x1000, 0x1000, CRC(184ffcb4) SHA1(829d6ca13773aba7c3a81e122171befbe3666110) )
-	ROM_LOAD( "b-3e.d1",      0x2000, 0x1000, CRC(b7b10ac7) SHA1(51d544d4db456df756a95d7f1853fffed9259647) )
-	ROM_LOAD( "b-4e.e1",      0x3000, 0x1000, CRC(fb02c736) SHA1(24466116dd07b856b1afff62b8312c67ff466b95) )
-	ROM_LOAD( "b-5e.g1",      0xc000, 0x1000, CRC(b2788ab9) SHA1(eb1a6b41f4c7a243481bfccf2b068ce1bc292366) )
-	ROM_LOAD( "b-6e.h1",      0xd000, 0x1000, CRC(77d7aa8d) SHA1(62aaf582ba55f7b21f6cf13b4fb6c2c54bb729f5) )
-	// protection
-	ROM_FILL(0xc5d8,1,0)
-	ROM_FILL(0xc5fc,1,0)
-	ROM_FILL(0xc624,1,0)
-	ROM_FILL(0xc63c,1,0)
-	// fill the protection ram with RET so we don't run into the weeds.
-	ROM_FILL(0x3800,0x800,0xc9)
-	// enable attract mode
-	ROM_FILL(0x3918, 1, 0xC5)
-	ROM_FILL(0x3919, 1, 0xE5)
-	ROM_FILL(0x391A, 1, 0xF5)
-	ROM_FILL(0x391B, 1, 0x21)
-	ROM_FILL(0x391C, 1, 0x10)
-	ROM_FILL(0x391D, 1, 0x41)
-	ROM_FILL(0x391E, 1, 0xAF)
-	ROM_FILL(0x391F, 1, 0x06)
-	ROM_FILL(0x3920, 1, 0x08)
-	ROM_FILL(0x3921, 1, 0xAE)
-	ROM_FILL(0x3922, 1, 0x23)
-	ROM_FILL(0x3923, 1, 0x10)
-	ROM_FILL(0x3924, 1, 0xFC)
-	ROM_FILL(0x3925, 1, 0xFE)
-	ROM_FILL(0x3926, 1, 0x40)
-	ROM_FILL(0x3927, 1, 0x20)
-	ROM_FILL(0x3928, 1, 0x03)
-	ROM_FILL(0x3929, 1, 0x32)
-	ROM_FILL(0x392A, 1, 0x12)
-	ROM_FILL(0x392B, 1, 0x41)
-	ROM_FILL(0x392C, 1, 0xF1)
-	ROM_FILL(0x392D, 1, 0xE1)
-	ROM_FILL(0x392E, 1, 0xC1)
-
-	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "a-1e.k1",      0x0000, 0x1000, CRC(b88ba44e) SHA1(85c141fb411d541b1e20412f5fefd18395f635ae) )
-	ROM_LOAD( "a-2.k2",       0x1000, 0x1000, CRC(8913c94e) SHA1(6c4fe065217a234d45761f8ad4d2c4e7078a0abd) )
-	ROM_LOAD( "a-3e.k3",      0x2000, 0x1000, CRC(a8fa5095) SHA1(5cabe5497a79a0c43e78a84ae87c824af60a2a3f) )
-	ROM_LOAD( "a-4.k4",       0x3000, 0x1000, CRC(93f81317) SHA1(167708be94cb9a47290067a20bc5ff6f018b93b6) )
-
-	ROM_REGION( 0x10000, "audio2", 0 )
-	ROM_LOAD( "a-5e.k5",      0x0000, 0x1000, CRC(b5bcdb4e) SHA1(db0965e5636e0f4e9cd4f4a7d808c413ecf733db) )
-	ROM_LOAD( "a-6.k6",       0x1000, 0x1000, CRC(24832b2e) SHA1(2a67888e86ce1a3182303e841513ba2a07977359) )
-	ROM_LOAD( "a-7e.k7",      0x2000, 0x1000, CRC(20ebea81) SHA1(473c688365b256d8593663ff95768f4a5bb1289d) )
-	// 0x3000 empty ?
-	ROM_LOAD( "a-8.k8",       0x4000, 0x1000, CRC(b833a15b) SHA1(0d21aaa0ca5ccba89118b205a6b3b36b15663c47) )
-	ROM_LOAD( "a-9.k9",       0x5000, 0x1000, CRC(cbd76ec2) SHA1(9434350ee93ca71efe78018b69913386353306ff) )
-
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "b-7e.a5",      0x0000, 0x1000, CRC(ddd4158d) SHA1(9701e2d8a0226455dfbed650e58bb4be05918fe8) )
-	ROM_LOAD( "b-8e.c5",      0x1000, 0x1000, CRC(b1331b4c) SHA1(fa1af406ecd6919b4846aea68d3edb70106f9273) )
-
-	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "prom.g9",      0x0000, 0x0020, CRC(b7ea00d7) SHA1(f658c6ac8123ae1e6b68ae513cc02c4d9d2b4e47) )
-ROM_END
-
 
 /***************************************************************************
 
@@ -752,7 +689,6 @@ GAME( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_moonc
 
 /* Other */
 GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, monstrz,  0,        sfx,      sfx,      taiyo_sfx_state, init_sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2, pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 

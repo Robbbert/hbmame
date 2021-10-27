@@ -357,12 +357,6 @@ createHBMAMEProjects(_target, _subtarget, "atari")
 files {
 	MAME_DIR .. "src/hbmame/drivers/asteroid.cpp",
 	MAME_DIR .. "src/mame/machine/asteroid.cpp",
-	MAME_DIR .. "src/hbmame/drivers/atarig42.cpp",
-	MAME_DIR .. "src/mame/video/atarig42.cpp",
-	MAME_DIR .. "src/mame/machine/atariscom.cpp",
-	MAME_DIR .. "src/mame/machine/asic65.cpp",
-	MAME_DIR .. "src/mame/video/atarirle.cpp",
-	MAME_DIR .. "src/mame/audio/atarijsa.cpp",
 	MAME_DIR .. "src/hbmame/drivers/atarisy1.cpp",
 	MAME_DIR .. "src/mame/video/atarisy1.cpp",
 	MAME_DIR .. "src/mame/audio/asteroid.cpp",
@@ -472,7 +466,6 @@ files {
 	MAME_DIR .. "src/mame/audio/decobsmt.cpp", -- deco32
 	MAME_DIR .. "src/mame/video/deco_ace.cpp", -- deco32
 	MAME_DIR .. "src/mame/machine/deco156.cpp", -- deco32
-	MAME_DIR .. "src/mame/video/deco_zoomspr.cpp", -- deco32
 	MAME_DIR .. "src/hbmame/drivers/rohga.cpp",
 	MAME_DIR .. "src/mame/video/rohga.cpp",
 	MAME_DIR .. "src/mame/video/decocomn.cpp", -- rohga
@@ -962,7 +955,6 @@ files {
 	MAME_DIR .. "src/mame/machine/arkanoid.cpp",
 	MAME_DIR .. "src/mame/video/arkanoid.cpp",
 	MAME_DIR .. "src/hbmame/drivers/asuka.cpp",
-	MAME_DIR .. "src/mame/video/asuka.cpp",
 	MAME_DIR .. "src/hbmame/drivers/bublbobl.cpp",
 	MAME_DIR .. "src/mame/machine/bublbobl.cpp",
 	MAME_DIR .. "src/mame/video/bublbobl.cpp",
@@ -1097,8 +1089,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/schaser.cpp",
 	MAME_DIR .. "src/hbmame/drivers/spacmiss.cpp",
 	MAME_DIR .. "src/hbmame/drivers/monaco.cpp",
---	MAME_DIR .. "src/hbmame/drivers/atari_s1.cpp",
---	MAME_DIR .. "src/mame/machine/genpin.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/video/kyugo.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcatadv.cpp",

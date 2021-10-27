@@ -358,7 +358,7 @@ void emu_opts_init(bool b)
 	emu_path.resize(pos);
 	printf("%s\n",emu_path.c_str());
 
-	dir_map[1] = dir_data { OPTION_HOMEPATH, 0 };
+	dir_map[1] = dir_data { OPTION_PLUGINDATAPATH, 0 };
 	dir_map[2] = dir_data { OPTION_MEDIAPATH, 0 };
 	dir_map[3] = dir_data { OPTION_HASHPATH, 0 };
 	dir_map[4] = dir_data { OPTION_SAMPLEPATH, 0 };
