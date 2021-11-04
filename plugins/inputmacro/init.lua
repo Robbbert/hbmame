@@ -30,7 +30,6 @@ function inputmacro.startplugin()
 	]]
 	local macros = { }
 	local active_inputs = { }
-	local shortname
 	local menu
 	local input
 
@@ -41,7 +40,7 @@ function inputmacro.startplugin()
 	end
 
 	local function process_frame()
-		previous_inputs = active_inputs
+		local previous_inputs = active_inputs
 		active_inputs = { }
 
 		for index, macro in ipairs(macros) do
@@ -100,16 +99,17 @@ function inputmacro.startplugin()
 
 	local function start()
 		input = manager.machine.input
-		if shortname ~= emu.romname() then
-			local persister = require('inputmacro/inputmacro_persist')
-			macros = persister.load_settings()
-			shortname = emu.romname()
-		end
+		local persister = require('inputmacro/inputmacro_persist')
+		macros = persister.load_settings()
 	end
 
 	local function stop()
 		local persister = require('inputmacro/inputmacro_persist')
 		persister:save_settings(macros)
+
+		macros = { }
+		active_inputs = { }
+		menu = nil
 	end
 
 	local function menu_callback(index, event)
@@ -124,8 +124,8 @@ function inputmacro.startplugin()
 		return menu:populate()
 	end
 
-	emu.register_frame_done(process_frame)
-	emu.register_start(start)
+	emu.register_frame(process_frame)
+	emu.register_prestart(start)
 	emu.register_stop(stop)
 	emu.register_menu(menu_callback, menu_populate, _p('plugin-inputmacro', 'Input Macros'))
 end
