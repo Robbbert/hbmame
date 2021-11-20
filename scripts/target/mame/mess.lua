@@ -1366,6 +1366,7 @@ function linkProjects_mame_mess(_target, _subtarget)
 		"pitronic",
 		"poly",
 		"poly88",
+		"positron",
 		"psion",
 		"quantel",
 		"qume",
@@ -3401,6 +3402,11 @@ files {
 	MAME_DIR .. "src/mame/machine/poly88.cpp",
 }
 
+createMESSProjects(_target, _subtarget, "positron")
+files {
+	MAME_DIR .. "src/mame/drivers/positron.cpp",
+}
+
 createMESSProjects(_target, _subtarget, "psion")
 files {
 	MAME_DIR .. "src/mame/drivers/psion.cpp",
@@ -3514,6 +3520,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/roland_tr505.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_tr606.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_tr707.cpp",
+	MAME_DIR .. "src/mame/drivers/roland_tr808.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_tr909.cpp",
 	MAME_DIR .. "src/mame/drivers/roland_u20.cpp",
 	MAME_DIR .. "src/mame/audio/bu3905.cpp",

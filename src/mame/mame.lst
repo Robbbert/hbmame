@@ -16469,6 +16469,7 @@ knfl                            // Konami
 ktmnt                           // Konami
 ktopgun                         // Konami
 merrycook                       // Elektronika
+monkeygk                        // Elektronika
 nummunch                        // VTech
 nupogodi                        // Elektronika
 spacebridge                     // Elektronika
@@ -31830,6 +31831,7 @@ marvlandup                      // (c) 1989 (US)
 metlhawk                        // (c) 1988
 metlhawkj                       // (c) 1988
 mirninja                        // (c) 1988 (Japan)
+mirninjaa                       // (c) 1988 (Japan)
 ordyne                          // (c) 1988
 ordynej                         // (c) 1988
 ordyneje                        // (c) 1988
@@ -35435,6 +35437,9 @@ popobear                        // (c) 2000 BMC
 @source:popper.cpp
 popper                          // (c) 1983 Omori Electric Co., Ltd.
 
+@source:positron.cpp
+positron                        // 1982 Positron 9000
+
 @source:portrait.cpp
 portrait                        // (c) 1983 Olympia
 portraita                       // (c) 1983 Olympia
@@ -36333,6 +36338,9 @@ tr606                           // Roland
 @source:roland_tr707.cpp
 tr707                           //
 tr727                           //
+
+@source:roland_tr808.cpp
+tr808
 
 @source:roland_tr909.cpp
 tr909                           //
@@ -39420,6 +39428,7 @@ vasara2                         // (c) 2001 Visco
 vasara2a                        // (c) 2001 Visco
 
 @source:st_mp100.cpp
+blkshpsq                        //
 dracula                         //
 hothand                         //
 lectrono                        //
@@ -39437,7 +39446,6 @@ wildfyre                        //
 @source:st_mp200.cpp
 ali                             //
 biggame                         //
-blkshpsq                        //
 catacomp                        //
 cheetah                         //
 cheetahb                        //
@@ -40002,7 +40010,7 @@ s3670                           //
 synthex                         //
 
 @source:sys1121.cpp
-sys1121							// (c) 1984 Motorola
+sys1121                         // (c) 1984 Motorola
 
 @source:sys2900.cpp
 sys2900                         //
