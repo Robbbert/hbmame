@@ -148,6 +148,7 @@ metmqstrs02
 metmqstrs03
 sailormn			//parent
 sailormnbv
+sailormnrt
 sailormnts01
 sailormnts02
 sailormnts03
@@ -268,6 +269,7 @@ dinouphp
 dinoz
 ffightae
 ffightaebv
+ffightaert
 ffightb
 ffightjh01
 knight21
@@ -1550,6 +1552,7 @@ dkongtj					// Paul Goes
 dkongbp					// Paul Goes
 dkongbp1				// Paul Goes
 dkongan					// Paul Goes
+dkongdu					// Paul Goes
 //dk_remix
 
 @source:docastle.cpp
