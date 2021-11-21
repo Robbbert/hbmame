@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [dkongdu]             Donkey Kong Duel
 - [ffightaert]          Final Fight 30th Anniversary Edition Real Threat 2021-11-01
+- [sailormndc]          Pretty Soldier Sailor Moon (Director's Cut)
 - [sailormnrt]          Pretty Soldier Sailor Moon (Real Threat)
 
 
