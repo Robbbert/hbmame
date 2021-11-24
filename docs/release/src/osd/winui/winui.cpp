@@ -359,6 +359,34 @@ static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 /***************************************************************************
     External variables
  ***************************************************************************/
+static void load_translation(emu_options &m_options)
+{
+	util::unload_translation();
+
+	std::string name = m_options.language();
+	if (name.empty())
+		return;
+
+	strreplace(name, " ", "_");
+	strreplace(name, "(", "");
+	strreplace(name, ")", "");
+
+	// MESSUI: See if language file exists. If not, try English, see if that exists. If not, use inbuilt default.
+	emu_file file(m_options.language_path(), OPEN_FLAG_READ);
+	if (file.open(name + PATH_SEPARATOR "strings.mo"))
+	{
+		osd_printf_verbose("Error opening translation file %s\n", name);
+		name = "English";
+		if (file.open(name + PATH_SEPARATOR "strings.mo"))
+		{
+			osd_printf_verbose("Error opening translation file %s\n", name);
+			return;
+		}
+	}
+
+	osd_printf_verbose("Loading translation file %s\n", file.fullpath());
+	util::load_translation(file);
+}
 
 /***************************************************************************
     Internal structures

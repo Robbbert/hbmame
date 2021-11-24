@@ -148,6 +148,8 @@ metmqstrs02
 metmqstrs03
 sailormn			//parent
 sailormnbv
+sailormnrt
+sailormndc
 sailormnts01
 sailormnts02
 sailormnts03
@@ -268,6 +270,7 @@ dinouphp
 dinoz
 ffightae
 ffightaebv
+ffightaert
 ffightb
 ffightjh01
 knight21
@@ -1550,6 +1553,7 @@ dkongtj					// Paul Goes
 dkongbp					// Paul Goes
 dkongbp1				// Paul Goes
 dkongan					// Paul Goes
+dkongdu					// Paul Goes
 //dk_remix
 
 @source:docastle.cpp
@@ -1659,7 +1663,6 @@ galnamco	/* The Original Namco */
 gaylaxn		/* The Dog hack of Galaxian Part X */
 jumpbugx	// extra sounds
 kazzy
-monsterz	// delete after 0.237
 mooncmst
 mooncrs5f	/* clone of fantazia */
 offender	/* Chris Henry hack of scramble */
