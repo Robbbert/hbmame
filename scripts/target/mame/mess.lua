@@ -170,6 +170,7 @@ CPUS["UPD78K"] = true
 CPUS["ROMP"] = true
 CPUS["COPS1"] = true
 CPUS["MK1"] = true
+CPUS["M68HC16"] = true
 
 --------------------------------------------------
 -- specify available sound cores; some of these are
@@ -1850,7 +1851,6 @@ files {
 	MAME_DIR .. "src/mame/machine/macscsi.cpp",
 	MAME_DIR .. "src/mame/machine/macscsi.h",
 	MAME_DIR .. "src/mame/drivers/iphone2g.cpp",
-	MAME_DIR .. "src/mame/drivers/superga2.cpp",
 }
 
 createMESSProjects(_target, _subtarget, "applied")

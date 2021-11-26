@@ -642,8 +642,8 @@ void mb86930_device::device_start()
 	save_item(NAME(m_amr));
 	save_item(NAME(m_wssr));
 	save_item(NAME(m_last_masked_addr));
-	save_item(NAME(m_same_page_waits[6]));
-	save_item(NAME(m_other_page_waits[6]));
+	save_item(NAME(m_same_page_waits));
+	save_item(NAME(m_other_page_waits));
 
 	std::fill_n(&m_arsr[0], 6, 0);
 	std::fill_n(&m_amr[0], 6, 0);
@@ -827,7 +827,7 @@ uint32_t mb86930_device::mmu_r(offs_t offset, uint32_t mem_mask)
 	{
 		if ((full_addr & m_full_masks[cs]) == m_full_ranges[cs])
 		{
-			eat_cycles(is_same_page ? m_same_page_waits[cs] : m_other_page_waits[cs]);
+			m_icount -= is_same_page ? m_same_page_waits[cs] : m_other_page_waits[cs];
 			return m_cs_r[cs](offset, mem_mask);
 		}
 	}
@@ -847,7 +847,7 @@ template <uint8_t Asi> void mb86930_device::mmu_w(offs_t offset, uint32_t data, 
 	{
 		if ((full_addr & m_full_masks[cs]) == m_full_ranges[cs])
 		{
-			eat_cycles(is_same_page ? m_same_page_waits[cs] : m_other_page_waits[cs]);
+			m_icount -= is_same_page ? m_same_page_waits[cs] : m_other_page_waits[cs];
 			m_cs_w[cs](offset, data, mem_mask);
 			return;
 		}
@@ -1005,12 +1005,12 @@ void mb86930_device::wait_specifier_w(offs_t offset, uint32_t data, uint32_t mem
 	COMBINE_DATA(&m_wssr[offset]);
 
 	const uint32_t wait_idx = (offset << 1);
-	const bool wait_en0 = BIT(m_wssr[offset], 21) && !BIT(m_wssr[offset], 20);
-	const bool wait_en1 = BIT(m_wssr[offset], 8) && !BIT(m_wssr[offset], 7);
-	m_other_page_waits[wait_idx] = wait_en0 ? (((m_wssr[offset] >> 27) & 0x1f) + 1) : 0;
-	m_same_page_waits[wait_idx] = wait_en0 ? (((m_wssr[offset] >> 22) & 0x1f) + 1) : 0;
-	m_other_page_waits[wait_idx + 1] = wait_en1 ? (((m_wssr[offset] >> 14) & 0x1f) + 1) : 0;
-	m_same_page_waits[wait_idx + 1] = wait_en1 ? (((m_wssr[offset] >> 9) & 0x1f) + 1) : 0;
+	const bool wait_en0 = BIT(m_wssr[offset], 8) && !BIT(m_wssr[offset], 7);
+	const bool wait_en1 = BIT(m_wssr[offset], 21) && !BIT(m_wssr[offset], 20);
+	m_same_page_waits[wait_idx] = wait_en0 ? (((m_wssr[offset] >> 9) & 0x1f) + 1) : 0;
+	m_other_page_waits[wait_idx] = wait_en0 ? (((m_wssr[offset] >> 14) & 0x1f) + 1) : 0;
+	m_same_page_waits[wait_idx + 1] = wait_en1 ? (((m_wssr[offset] >> 22) & 0x1f) + 1) : 0;
+	m_other_page_waits[wait_idx + 1] = wait_en1 ? (((m_wssr[offset] >> 27) & 0x1f) + 1) : 0;
 }
 
 
@@ -1048,6 +1048,12 @@ void mb86930_device::timer_preload_w(offs_t offset, uint32_t data, uint32_t mem_
 void sparc_base_device::device_post_load()
 {
 	update_gpr_pointers();
+}
+
+void mb86930_device::device_post_load()
+{
+	sparcv8_device::device_post_load();
+	update_addr_masks();
 }
 
 
@@ -2390,7 +2396,6 @@ void mb86930_device::execute_divscc(uint32_t op)
 	const uint64_t dividend = ((uint64_t)m_y << 32) | RS1REG;
 	const uint32_t remainder = m_y << 1;
 	const uint32_t divisor = (USEIMM ? SIMM13 : RS2REG);*/
-
 }
 
 void mb86930_device::execute_scan(uint32_t op)
