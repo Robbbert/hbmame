@@ -155,7 +155,6 @@ VIDEOS["SNES_PPU"] = true -- snesb
 VIDEOS["TLC34076"] = true
 VIDEOS["TMS34061"] = true
 VIDEOS["PSX"] = true
-VIDEOS["STVVDP"] = true -- stv
 
 --------------------------------------------------
 -- specify available machine cores
@@ -892,6 +891,7 @@ files {
 	MAME_DIR .. "src/mame/video/segahang.cpp",
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
+	MAME_DIR .. "src/mame/video/saturn.cpp",
 	MAME_DIR .. "src/mame/machine/segabill.cpp",
 }
 
