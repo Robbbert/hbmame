@@ -1,7 +1,7 @@
 What is HBMAME?
 ===============
 
-HBMAME stands for Home Brew MAME.
+HBMAME stands for Home Brew MAME. It runs on Windows 7 or later.
 
 HBMAME has 2 purposes:
 Firstly is to preserve homebrew games written for arcade machines or arcade emulators.
