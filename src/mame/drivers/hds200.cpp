@@ -4,33 +4,39 @@
 
     Human Designed Systems HDS200
 
-    ANSI/DEC-compatbile terminal
+    ANSI/DEC-compatible terminal
 
     Hardware:
     - Z80A (Z8400APS)
     - Z80A DMA (Z8410APS)
     - 2x SCN2681A
     - SCN2674B
+    - 2x MB81416-12 DRAM (and two empty sockets)
     - 2x TMM2016BP-90 (2k)
     - 1x TMM2016AP-10 (2k)
     - MK48Z02B-25 (2k)
-	- XTAL 3.6864 MHz (next go DUARTs)
-	- XTAL 8 MHz (CPU)
-	- XTAL 22.680 MHz and 35.640 MHz (video)
+    - XTAL 3.6864 MHz (next to DUARTs)
+    - XTAL 8 MHz (CPU)
+    - XTAL 22.680 MHz and 35.640 MHz (video)
 
     TODO:
-    - Everything
+    - Z80DMA/SCN2674 hookup
+    - Keyboard
+    - RS232 ports
+    - Sound? (if supported)
 
     Notes:
-    - 
+    - The PCB has a large unpopulated area. Possibly this is used for the
+      200G variant.
 
 ***************************************************************************/
 
 #include "emu.h"
 #include "cpu/z80/z80.h"
+#include "machine/input_merger.h"
 #include "machine/mc68681.h"
-#include "machine/z80dma.h"
 #include "machine/nvram.h"
+#include "machine/z80dma.h"
 #include "video/scn2674.h"
 #include "emupal.h"
 #include "screen.h"
@@ -49,22 +55,32 @@ public:
 	hds200_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag),
 		m_maincpu(*this, "maincpu"),
+		m_dma(*this, "dma"),
 		m_screen(*this, "screen"),
-		m_avdc(*this, "avdc")
+		m_avdc(*this, "avdc"),
+		m_duart(*this, "duart%u", 0U),
+		m_rombank(*this, "rombank")
 	{ }
 
 	void hds200(machine_config &config);
 
 protected:
 	virtual void machine_start() override;
+	virtual void machine_reset() override;
 
 private:
 	void mem_map(address_map &map);
 	void io_map(address_map &map);
 
 	required_device<z80_device> m_maincpu;
+	required_device<z80dma_device> m_dma;
 	required_device<screen_device> m_screen;
 	required_device<scn2674_device> m_avdc;
+	required_device_array<scn2681_device, 2> m_duart;
+	required_memory_bank m_rombank;
+
+	void duart0_out_w(uint8_t data);
+	void duart1_out_w(uint8_t data);
 };
 
 
@@ -74,15 +90,19 @@ private:
 
 void hds200_state::mem_map(address_map &map)
 {
-	map(0x0000, 0x5fff).rom().region("maincpu", 0);
-	map(0x6000, 0x7fff).ram();
-	map(0x8000, 0x9fff).ram();
-	map(0xa000, 0xbfff).ram();
+	map(0x0000, 0x3fff).rom().region("maincpu", 0);
+	map(0x4000, 0x5fff).bankr(m_rombank);
+	map(0x6800, 0x6fff).ram(); // nvram?
+	map(0x8000, 0xbfff).ram();
+	map(0xc000, 0xffff).noprw(); // expansion ram
 }
 
 void hds200_state::io_map(address_map &map)
 {
 	map.global_mask(0xff);
+	map(0x00, 0x00).rw(m_dma, FUNC(z80dma_device::read), FUNC(z80dma_device::write));
+	map(0x20, 0x2f).rw(m_duart[0], FUNC(scn2681_device::read), FUNC(scn2681_device::write));
+	map(0x40, 0x4f).rw(m_duart[1], FUNC(scn2681_device::read), FUNC(scn2681_device::write));
 	map(0x60, 0x67).rw(m_avdc, FUNC(scn2674_device::read), FUNC(scn2674_device::write));
 }
 
@@ -111,8 +131,30 @@ GFXDECODE_END
 //  MACHINE EMULATION
 //**************************************************************************
 
+void hds200_state::duart0_out_w(uint8_t data)
+{
+	logerror("duart0_out_w: %02x\n", data);
+}
+
+void hds200_state::duart1_out_w(uint8_t data)
+{
+	// 76543---  unknown
+	// -----2--  rombank
+	// ------10  unknown
+
+	logerror("duart1_out_w: %02x\n", data);
+
+	m_rombank->set_entry(!BIT(data, 2));
+}
+
 void hds200_state::machine_start()
 {
+	m_rombank->configure_entries(0, 2, memregion("maincpu")->base() + 0x4000, 0x2000);
+}
+
+void hds200_state::machine_reset()
+{
+	m_rombank->set_entry(0);
 }
 
 
@@ -126,9 +168,13 @@ void hds200_state::hds200(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &hds200_state::mem_map);
 	m_maincpu->set_addrmap(AS_IO, &hds200_state::io_map);
 
+	input_merger_device &duart_irq(INPUT_MERGER_ANY_HIGH(config, "duart_irq"));
+	duart_irq.output_handler().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
+
 //  NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 
-	Z80DMA(config, "z80dma", 8_MHz_XTAL / 2); // divider not verified
+	Z80DMA(config, m_dma, 8_MHz_XTAL / 2); // divider not verified
+	m_dma->out_int_callback().set_inputline(m_maincpu, INPUT_LINE_NMI);
 
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_color(rgb_t::amber());
@@ -143,9 +189,13 @@ void hds200_state::hds200(machine_config &config)
 	m_avdc->set_character_width(9);
 	m_avdc->set_screen("screen");
 
-	SCN2681(config, "duart1", 3.6864_MHz_XTAL);
+	SCN2681(config, m_duart[0], 3.6864_MHz_XTAL);
+	m_duart[0]->irq_cb().set("duart_irq", FUNC(input_merger_device::in_w<0>));
+	m_duart[0]->outport_cb().set(FUNC(hds200_state::duart0_out_w));
 
-	SCN2681(config, "duart2", 3.6864_MHz_XTAL);
+	SCN2681(config, m_duart[1], 3.6864_MHz_XTAL);
+	m_duart[1]->irq_cb().set("duart_irq", FUNC(input_merger_device::in_w<1>));
+	m_duart[1]->outport_cb().set(FUNC(hds200_state::duart1_out_w));
 }
 
 
@@ -173,4 +223,4 @@ ROM_END
 //**************************************************************************
 
 //    YEAR  NAME    PARENT   COMPAT  MACHINE  INPUT  CLASS         INIT        COMPANY         FULLNAME            FLAGS
-COMP( 198?, hds200, 0,       0,      hds200,  0,     hds200_state, empty_init, "Human Designed Systems", "HDS200", MACHINE_IS_SKELETON )
+COMP( 198?, hds200, 0,       0,      hds200,  0,     hds200_state, empty_init, "Human Designed Systems", "HDS200", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
