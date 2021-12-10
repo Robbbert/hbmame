@@ -17,8 +17,9 @@ TODO:
   around 1.1 times faster, maybe К1801ВМ1 internal timing differs from T11,
   and/or T11 core timing itself is not 100% accurate.
 - verify actual XTAL, the label couldn't be seen
-- correct bus conflict between RAM and I/O
-- is ИМ-01Т extra RAM chip used at all?
+- Is ИМ-01Т extra RAM chip used at all, and if so, where is it mapped?
+  Even when trying to solve mate problems (level 7, and overclocked CPU),
+  there are no unmapped writes.
 
 *******************************************************************************
 
@@ -34,8 +35,8 @@ Keypad legend (excluding A1-H8 and black/white):
      а также для установки фигур в начальную позицию,
      сброса фигур с доски и изменения очередности хода
 
-НП:  установка фигур в начальную позицию                 - Reset Board
-СД:  сброс всех фигур с доски                            - Clear Board
+НП:  установка фигур в начальную позицию                 - Reset Board*
+СД:  сброс всех фигур с доски                            - Clear Board*
 ↓:   ввод в компьютер Вашего хода,                       - Enter
      а также фигуры при установке позиции
 
@@ -50,7 +51,9 @@ CИ:  сброс информации на индикаторе                 
 ↺:   ход назад                                           - Take Back
 И:   индикация анализируемого хода                       - Show Analyzed Move
 N:   чксло ходов                                         - Show Moves
-РЗ:  установка режима решения шахматных задач            - Position Mode
+РЗ:  установка режима решения шахматных задач            - Solve Mate / Set Up*
+
+* note: hold Фиг
 
 ******************************************************************************/
 
@@ -103,6 +106,7 @@ private:
 	u16 digit_r(offs_t offset, u16 mem_mask);
 	void digit_w(offs_t offset, u16 data, u16 mem_mask);
 	u16 input_r(offs_t offset, u16 mem_mask);
+	void error_w(offs_t offset, u16 data, u16 mem_mask);
 
 	u16 m_inp_mux = 0;
 	u16 m_digit_data = 0;
@@ -184,7 +188,13 @@ u16 im01_state::input_r(offs_t offset, u16 mem_mask)
 		if (BIT(m_inp_mux, i))
 			data |= m_inputs[i]->read();
 
-	return data << 8 | 0xff;
+	return data << 8;
+}
+
+void im01_state::error_w(offs_t offset, u16 data, u16 mem_mask)
+{
+	// unmapped port, expects a bus error
+	m_maincpu->pulse_input_line(t11_device::BUS_ERROR, attotime::zero);
 }
 
 
@@ -196,10 +206,11 @@ u16 im01_state::input_r(offs_t offset, u16 mem_mask)
 void im01_state::main_map(address_map &map)
 {
 	map(0x0000, 0x07ff).ram();
-	map(0x0030, 0x0031).mirror(0xf800).rw(FUNC(im01_state::mux_r), FUNC(im01_state::mux_w));
-	map(0x003c, 0x003d).mirror(0xf800).rw(FUNC(im01_state::digit_r), FUNC(im01_state::digit_w));
-	map(0x003e, 0x003f).mirror(0xf800).r(FUNC(im01_state::input_r));
-	map(0x2000, 0x5fff).rom().unmapw();
+	map(0x2000, 0x5fff).rom();
+	map(0xe030, 0xe031).mirror(0x1800).rw(FUNC(im01_state::mux_r), FUNC(im01_state::mux_w));
+	map(0xe03c, 0xe03d).mirror(0x1800).rw(FUNC(im01_state::digit_r), FUNC(im01_state::digit_w));
+	map(0xe03e, 0xe03f).mirror(0x1800).r(FUNC(im01_state::input_r));
+	map(0xffe8, 0xffe9).w(FUNC(im01_state::error_w)).nopr();
 }
 
 
@@ -219,7 +230,7 @@ static INPUT_PORTS_START( im01 )
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_N) PORT_NAME(u8"N (Show Moves)")
 	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_U) PORT_NAME(u8"Вар (Enter Variant)")
 	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_V) PORT_NAME("? (Verify Position)")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_S) PORT_NAME("Show Depth")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_O) PORT_NAME("Show Depth")
 
 	PORT_START("IN.2")
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_T) PORT_NAME("Take Back")
@@ -237,11 +248,11 @@ static INPUT_PORTS_START( im01 )
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_LSHIFT) PORT_CODE(KEYCODE_RSHIFT) PORT_NAME(u8"Фиг (Prefix Key)")
 	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_I) PORT_NAME(u8"И (Show Analyzed Move)")
 	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_Z) PORT_NAME("White")
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_O) PORT_NAME(u8"РЗ (Position Mode)")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_S) PORT_NAME(u8"РЗ (Solve Mate / Set Up)")
 
 	PORT_START("IN.5")
-	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_R) PORT_NAME(u8"НП (Reset Board)") // hold Фиг
-	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_Q) PORT_NAME(u8"СД (Clear Board)") // hold Фиг
+	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_R) PORT_NAME(u8"НП (Reset Board)")
+	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_Q) PORT_NAME(u8"СД (Clear Board)")
 	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_X) PORT_NAME("Black")
 	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_KEYPAD) PORT_CODE(KEYCODE_L) PORT_NAME("Set Level")
 INPUT_PORTS_END
@@ -278,13 +289,13 @@ void im01_state::im01(machine_config &config)
 ******************************************************************************/
 
 ROM_START( im01 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION16_LE( 0x10000, "maincpu", 0 )
 	ROM_LOAD("0000107", 0x2000, 0x2000, CRC(2318e85b) SHA1(6a92f6464af69ad0175f323f01dd067b91d345d3) )
 	ROM_LOAD("0000106", 0x4000, 0x2000, CRC(b0ab8808) SHA1(b682e9e8a5e52cd8fee5ae45277ae658bf5c32f1) )
 ROM_END
 
 ROM_START( im01t )
-	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_REGION16_LE( 0x10000, "maincpu", 0 )
 	ROM_LOAD("0000148", 0x2000, 0x2000, CRC(327c6055) SHA1(b90b3b1261d677eb93014ea9e809e45b3b25152a) )
 	ROM_LOAD("0000149", 0x4000, 0x2000, CRC(43b14589) SHA1(b083b631f38a26a335226bc474669ef7f332f541) )
 ROM_END
