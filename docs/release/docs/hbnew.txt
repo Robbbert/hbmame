@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2021-12-29 0.239
+
+
+
+New Games
+---------------------------------
+- [sdojak]              DoDonPachi SaiDaiOuJou & Knuckles (2021/12/01)
+
+
+
+
 2021-11-24 0.238
 
 
