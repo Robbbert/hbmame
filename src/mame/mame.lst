@@ -271,6 +271,7 @@ tvpoker                         // (c) 197? A-1 Supply
 @source:a2600.cpp
 a2600                           // Atari 2600
 a2600p                          // Atari 2600 PAL
+a2600_pop                       // Atari 2600 Point of Purchase Display
 
 @source:a5105.cpp
 a5105                           //
@@ -1063,6 +1064,7 @@ kurufev                         // (c) 2003 Aruze (Arcade TV Game List - P.75, R
 mayjin3                         // (c) 2000 Seta (Arcade TV Game List - P.101, Right, 9 from top)
 mtetrisc                        // (c) 1998 Capcom
 srmvs                           // (c) 1999 Seta
+srmvsa                          // (c) 1999 Seta
 starsldr                        // (c) 1998 Hudson/Seta
 twrshaft                        // (c) 2003 Aruze
 vivdolls                        // (c) 1998 Visco
@@ -10749,6 +10751,10 @@ compmahj                        // 1983 Nintendo Computer Mah-jong Yakuman
 
 @source:compucolor.cpp
 compclr2                        //
+
+@source:compucranes.cpp
+mastcrane                       // (c) 199? Compumatic
+mastcranea                      // (c) 199? Compumatic
 
 @source:comquest.cpp
 comquest                        // Comquest Plus German
@@ -43232,6 +43238,7 @@ ij_l6                           //
 ij_l7                           //
 ij_lg7                          //
 jd_l1                           //
+jd_l1d                          //
 jd_l4                           //
 jd_l5                           //
 jd_l6                           //

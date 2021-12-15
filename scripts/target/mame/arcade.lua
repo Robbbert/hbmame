@@ -298,6 +298,7 @@ SOUNDS["TT5665"] = true
 --SOUNDS["UDA1344"] = true
 SOUNDS["SWP30"] = true
 SOUNDS["XT446"] = true
+--SOUNDS["LYNX"] = true
 
 --------------------------------------------------
 -- specify available video cores
@@ -2032,7 +2033,7 @@ files {
 	MAME_DIR .. "src/mame/includes/gaelco.h",
 	MAME_DIR .. "src/mame/video/gaelco.cpp",
 	MAME_DIR .. "src/mame/machine/gaelcrpt.cpp",
-	MAME_DIR .. "src/mame/includes/gaelcrpt.h",
+	MAME_DIR .. "src/mame/machine/gaelcrpt.h",
 	MAME_DIR .. "src/mame/drivers/gaelco2.cpp",
 	MAME_DIR .. "src/mame/includes/gaelco2.h",
 	MAME_DIR .. "src/mame/machine/gaelco2.cpp",
@@ -4851,6 +4852,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/coinmvga.cpp",
 	MAME_DIR .. "src/mame/drivers/cointek.cpp",
 	MAME_DIR .. "src/mame/drivers/comebaby.cpp",
+	MAME_DIR .. "src/mame/drivers/compucranes.cpp",
 	MAME_DIR .. "src/mame/drivers/cowtipping.cpp",
 	MAME_DIR .. "src/mame/drivers/crazybal.cpp",
 	MAME_DIR .. "src/mame/drivers/cromptons.cpp",
