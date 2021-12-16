@@ -10,6 +10,7 @@ New Games
 - [sdojak]              DoDonPachi SaiDaiOuJou & Knuckles (2021/12/01)
 - [sfa3ce]              Street Fighter Alpha 3 Challenger's Edition
 - [sfz3ce]              Street Fighter Alpha 3 Challenger's Edition
+- [xeno]                Xeno Crisis
 
 
 
