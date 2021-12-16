@@ -391,6 +391,7 @@ void s3_state::machine_start()
 	save_item(NAME(m_strobe));
 	save_item(NAME(m_row));
 	save_item(NAME(m_data_ok));
+	save_item(NAME(m_lamp_data));
 	save_item(NAME(m_game));
 }
 
@@ -454,7 +455,7 @@ void s3a_state::s3a_sol0_w(u8 data)
 
 	if ((m_game == 3) && BIT(data, 4)) // disco
 	{
-		m_sound_data = 0x7f | m_io_snd->read();
+		m_sound_data = 0x3f | m_io_snd->read();
 		m_pias->cb1_w(1);
 		m_pias->cb1_w(0);
 	}
