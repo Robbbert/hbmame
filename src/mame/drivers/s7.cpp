@@ -32,25 +32,27 @@ and start playing.
 
 Most games are multiball - here are the key codes:
 
-Game              Start game                End ball
+Game              NUM  Start game                End ball
 -----------------------------------------------------------------------------------------------
-Black Knight      ASD hit 1                 Hit X, hold A, hit X, hold S, hit X, hit D
-Cosmic Gunfight   AS hit 1                  AS
-Jungle Lord       AS hit 1                  Hit X, hold A, hit X, hit S
-Pharaoh           AS hit 1                  AS
-Solar Fire        ASD hit 1                 ASD
-Thunderball       1                         unknown
-HyperBall         1                         unknown
-Barracora         ASD hit 1                 ASD
-Varkon            AX hit 1                  AX
-Time Fantasy      1                         X
-Warlok            1                         X
-Defender          hold up,left,right,hit 1  Hit X, hold Left, hit X, hold Up, Hit X, hit Right.
-Joust             ABCD hit 1                unknown
-Laser Cue         1                         X
-Firepower II      AS hit 1                  AS
-Wild Texas        AS hit 1                  AS
-Starlight         AS hit 1                  AS
+Black Knight      500  ASD hit 1                 Hit X, hold A, hit X, hold S, hit X, hit D
+Cosmic Gunfight   502  AS hit 1                  AS
+Jungle Lord       503  AS hit 1                  Hit X, hold A, hit X, hit S
+Pharaoh           504  AS hit 1                  AS
+Solar Fire        507  ASD hit 1                 ASD
+Thunderball       508  1                         unknown
+HyperBall         509  1                         unknown
+Barracora         510  ASD hit 1                 ASD
+Varkon            512  AX hit 1                  AX
+Time Fantasy      515  1                         X
+Warlok            516  1                         X
+Defender          517  hold up,left,right,hit 1  Hit X, hold Left, hit X, hold Up, Hit X, hit Right.
+Joust             519  ABCD hit 1                unknown
+Laser Cue         520  1                         X
+Firepower II      521  AS hit 1                  AS
+Wild Texas      *(521) AS hit 1                  AS
+Starlight         530  AS hit 1                  AS
+
+*Wild Texas is a clone/bootleg of Firepower II, and shows the same game number.
 
 Status:
 - All machines are playable
@@ -69,7 +71,6 @@ ToDo:
 
 #include "cpu/m6800/m6800.h"
 #include "machine/6821pia.h"
-#include "machine/input_merger.h"
 #include "sound/dac.h"
 #include "sound/hc55516.h"
 #include "speaker.h"
@@ -122,7 +123,6 @@ private:
 	void sol1_w(u8 data);
 	void sol2_w(u8 data);
 	void sound_w(u8 data);
-	void pias_sound_w(u8 data) { if (BIT(data, 7)) m_pias->cb1_w(0); };
 	u8 dips_r();
 	u8 switch_r();
 	void switch_w(u8 data);
@@ -780,7 +780,7 @@ void s7_state::s7(machine_config &config)
 	PIA6821(config, m_pias, 0);
 	m_pias->readpb_handler().set(FUNC(s7_state::sound_r));
 	m_pias->writepa_handler().set("dac", FUNC(dac_byte_interface::data_w));
-	m_pias->writepb_handler().set(FUNC(s7_state::pias_sound_w));
+	m_pias->writepb_handler().set_nop();
 	m_pias->readca1_handler().set_constant(1);
 	m_pias->ca2_handler().set(m_hc55516, FUNC(hc55516_device::digit_w));
 	m_pias->cb2_handler().set(m_hc55516, FUNC(hc55516_device::clock_w));
@@ -1162,7 +1162,7 @@ GAME( 1982, thund_p3, thund_p1, s7, thund, s7_state, init_1,     ROT0, "Williams
 GAME( 1981, hypbl_l4, 0,        s7, hypbl, s7_state, empty_init, ROT0, "Williams",  "HyperBall (L-4)",                   MACHINE_IS_SKELETON_MECHANICAL )
 GAME( 1981, hypbl_l3, hypbl_l4, s7, hypbl, s7_state, empty_init, ROT0, "Williams",  "HyperBall (L-3)",                   MACHINE_IS_SKELETON_MECHANICAL )
 GAME( 1981, hypbl_l2, hypbl_l4, s7, hypbl, s7_state, empty_init, ROT0, "Williams",  "HyperBall (L-2)",                   MACHINE_IS_SKELETON_MECHANICAL )
-GAME( 1981, barra_l1, 0,        s7, barra, s7_state, init_1, ROT0, "Williams",  "Barracora (L-1)",                   MACHINE_IS_SKELETON_MECHANICAL )
+GAME( 1981, barra_l1, 0,        s7, barra, s7_state, empty_init, ROT0, "Williams",  "Barracora (L-1)",                   MACHINE_IS_SKELETON_MECHANICAL )
 GAME( 1982, vrkon_l1, 0,        s7, vrkon, s7_state, empty_init, ROT0, "Williams",  "Varkon (L-1)",                      MACHINE_IS_SKELETON_MECHANICAL )
 GAME( 1982, tmfnt_l5, 0,        s7, tmfnt, s7_state, empty_init, ROT0, "Williams",  "Time Fantasy (L-5)",                MACHINE_IS_SKELETON_MECHANICAL )
 GAME( 1982, wrlok_l3, 0,        s7, wrlok, s7_state, empty_init, ROT0, "Williams",  "Warlok (L-3)",                      MACHINE_IS_SKELETON_MECHANICAL )
@@ -1173,4 +1173,4 @@ GAME( 1983, lsrcu_l2, 0,        s7, lsrcu, s7_state, empty_init, ROT0, "Williams
 GAME( 1983, fpwr2_l2, 0,        s7, fpwr2, s7_state, empty_init, ROT0, "Williams",  "Firepower II (L-2)",                MACHINE_IS_SKELETON_MECHANICAL )
 GAME( 1984, strlt_l1, 0,        s7, strlt, s7_state, empty_init, ROT0, "Williams",  "Star Light (L-1)",                  MACHINE_IS_SKELETON_MECHANICAL )
 // same hardware, unknown manufacturer, clone of fpwr2
-GAME( 1983, wldtexas, 0,        s7, fpwr2, s7_state, empty_init, ROT0, "<unknown>", "Wild Texas",                        MACHINE_IS_SKELETON_MECHANICAL )
+GAME( 1983, wldtexas, fpwr2_l2, s7, fpwr2, s7_state, empty_init, ROT0, "<unknown>", "Wild Texas",                        MACHINE_IS_SKELETON_MECHANICAL )
