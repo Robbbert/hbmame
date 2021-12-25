@@ -17711,7 +17711,6 @@ halley                          //
 halleya                         //
 lortium                         //
 olympus                         //
-petaco                          //
 petacon                         //
 petacona                        //
 petaco2                         //
@@ -19259,6 +19258,9 @@ wndrplnt                        // (c) 1987 Data East Corporation (Japan)
 
 @source:kas89.cpp
 kas89                           // 1989, SFC S.R.L.
+
+@source:kawai_acr20.cpp
+acr20                           //
 
 @source:kawai_k1.cpp
 k1                              //
@@ -34760,6 +34762,7 @@ nemesisp                        //
 odin                            //
 odin_dlx                        //
 odisea                          //
+petaco                          //
 poleposn                        //
 solarwap                        //
 sonstwar                        //
@@ -43706,6 +43709,9 @@ psr70                           // 1985 PSR-70
 @source:ympsr340.cpp
 psr340                          // 1999 PSR-340
 
+@source:ymrx15.cpp
+rx15                            //
+
 @source:ymsy35.cpp
 sy35                            //
 
@@ -44071,6 +44077,9 @@ ts1500                          // Timex Sinclair 1500
 zx80                            // 1980 Sinclair ZX-80
 zx81                            // 1981 Sinclair ZX-81
 zx97                            //
+
+@source:tsconf.cpp
+tsconf                           // ZX Evolution - TS-Configuration
 
 @source:testpat.cpp
 tp1983
