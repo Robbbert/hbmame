@@ -1221,6 +1221,7 @@ suicide		/* Razoola */
 suicide2	/* Razoola */
 sfa2h
 sfa3br
+sfa3ce
 sfa3dp
 sfa3nc
 sfa3nch
@@ -1233,6 +1234,7 @@ sfz2ajhp
 sfz2aldp
 sfz2aldp2
 sfz2jyh
+sfz3ce
 sfz3jb
 sfz3jemb
 sfz3jhp
@@ -1484,6 +1486,7 @@ sfiii3ns14
 @source:cv1k.cpp
 deathsml				//parent
 deathsmlh01
+sdojak
 
 @source:ddragon.cpp
 ddragon2
@@ -5970,6 +5973,7 @@ twister		// Blastar 2015
 //venuswars
 vlad2000
 ww2demo
+xeno
 xmas2017
 zintrckbh
 zintrkcd	/* 211 (c) 1996 ADK / SNK */
