@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [dkongdu1]            Donkey Kong Duel v1.01
 - [looptris]            Looptris (2021-12-26)
 
 
@@ -32,7 +33,7 @@ New Games
 
 New Games
 ---------------------------------
-- [dkongdu]             Donkey Kong Duel
+- [dkongdu]             Donkey Kong Duel v1.02
 - [ffightaert]          Final Fight 30th Anniversary Edition Real Threat 2021-11-01
 - [sailormndc]          Pretty Soldier Sailor Moon (Director's Cut)
 - [sailormnrt]          Pretty Soldier Sailor Moon (Real Threat)
