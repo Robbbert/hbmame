@@ -1193,6 +1193,7 @@ tnextspcj                       // A8003 'NS' (c) 1989 - Japan
 
 @source:alpha68k_n.cpp
 jongbou                         // (c) 1987 SNK
+jongbou2                        // (c) 1987 SNK
 kyros                           // (c) 1987 World Games
 kyrosj                          // (c) 1986 Alpha Denshi Co.
 sstingry                        // (c) 1986 Alpha Denshi Co.
@@ -13750,6 +13751,9 @@ falco5220s                      // 1989
 ts1                             // 1980
 ts2624                          // 1982
 
+@source:falcots28.cpp
+ts28                            // 1983
+
 @source:falgas_m89.cpp
 cbully                          // (c) 1991 Falgas
 
@@ -14170,6 +14174,9 @@ fs3216                          //
 
 @source:ft68m.cpp
 ft68m                           //
+
+@source:funeball.cpp
+funeball                        // (c) 1997 Fun Industries Inc.
 
 @source:fungames.cpp
 biplane                         // (c) 1975 Fun Games
@@ -43928,7 +43935,8 @@ zephyr                          //
 
 @source:zn.cpp
 1on1gov                         // 1 on 1 Government (JAPAN)
-aerofgts                        // Aero Fighters Special (TAIWAN)
+aerofgts                        // Aero Fighters Special (USA)
+aerofgtst                       // Aero Fighters Special (TAIWAN)
 bam2                            // Bust a Move 2 (JAPANESE ROM ver. 1999/07/17 10:00:00)
 beastrzr                        // Beastorizer (USA, Sep 22 1997)
 beastrzra                       // Beastorizer (USA, Jun 21 1997)
