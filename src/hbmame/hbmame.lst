@@ -132,6 +132,7 @@ cabals01
 @source:cave.cpp
 ddonpach		//parent
 ddonpacha		// trap15 hack
+ddonpachjh
 pwrinst2		//parent
 pwrinst2h		/* 2013 Hack by TT */
 pwrinst2z
@@ -1486,7 +1487,11 @@ sfiii3ns14
 @source:cv1k.cpp
 deathsml				//parent
 deathsmlh01
-sdojak
+//sdojak
+//sdojaka
+//akatana
+//ddpsdoj
+//ddpsdojo
 
 @source:ddragon.cpp
 ddragon2
