@@ -94,19 +94,35 @@ ROM_END
 GAME( 2021, sdojak, 0, cv1k_d, cv1k, cv1k_state, init_ddpdfk, ROT270, "CaveDwellers", "DoDonPachi SaiDaiOuJou & Knuckles (2021/12/01)", 0 )
 
 // hack of above hack??
-ROM_START( sdojaka )
+ROM_START( sdoja )
 	ROM_REGION( 0x400000, "maincpu", ROMREGION_ERASEFF)
-	ROM_LOAD16_WORD_SWAP( "sdojaka.u4", 0x000000, 0x400000, CRC(5a3b94e8) SHA1(a546f2baa366ca02dbd462b8ee7808c2643927cb) )
+	ROM_LOAD16_WORD_SWAP( "sdoja.u4", 0x000000, 0x400000, CRC(5a3b94e8) SHA1(a546f2baa366ca02dbd462b8ee7808c2643927cb) )
 
 	ROM_REGION( 0x8400000, "game", ROMREGION_ERASEFF)
-	ROM_LOAD( "sdojaka.u2", 0x000000, 0x8400000, CRC(7e19adc7) SHA1(6a6e2220096c80471d391d93979e0c883f733c1b) )
+	ROM_LOAD( "sdoja.u2", 0x000000, 0x8400000, CRC(7e19adc7) SHA1(6a6e2220096c80471d391d93979e0c883f733c1b) )
 
 	ROM_REGION( 0x800000, "ymz770", ROMREGION_ERASEFF)
 	ROM_LOAD16_WORD_SWAP( "sdojak.u23", 0x000000, 0x400000, CRC(32b91544) SHA1(49e914bfdf33a328fbfa7efb42c5b89915e37643) )
 	ROM_LOAD16_WORD_SWAP( "sdojak.u24", 0x400000, 0x400000, CRC(7b9e749f) SHA1(374085a60098cc62501abae4d148bfd88c88149f) )
 ROM_END
 
-GAME( 2021, sdojaka, sdojak, cv1k_d, cv1k, cv1k_state, init_ddpdfk, ROT270, "hack", "DoDonPachi SaiDaiOuJou hack", 0 )
+GAME( 2021, sdoja, sdojak, cv1k_d, cv1k, cv1k_state, init_ddpdfk, ROT270, "hack", "DoDonPachi SaiDaiOuJou hack", 0 )
 
-// Hello HAZE - Just in case you are wanting to stir up trouble, these games are NOT enabled. It's called documentation!! 
+ROM_START( sdojb )
+	ROM_REGION( 0x400000, "maincpu", ROMREGION_ERASEFF)
+	ROM_LOAD16_WORD_SWAP( "sdojb.u4", 0x000000, 0x400000, CRC(be54ca1a) SHA1(d7ad13cc6676ab3e938c65b7e6f5c870033f42f1) )
+
+	ROM_REGION( 0x8400000, "game", ROMREGION_ERASEFF)
+	ROM_LOAD( "sdojb.u2", 0x000000, 0x8400000, CRC(2a6353a6) SHA1(29b180263d5f08bce7527cf1d4cae33a98d93149) )
+
+	ROM_REGION( 0x800000, "ymz770", ROMREGION_ERASEFF)
+	ROM_LOAD16_WORD_SWAP("u23", 0x000000, 0x400000, CRC(ac94801c) SHA1(cbcc6d5d89860bc961967e1d3b7c329adaf200c5) )
+	ROM_IGNORE( 0x000100 ) // Flash extra bytes
+	ROM_LOAD16_WORD_SWAP("u24", 0x400000, 0x400000, CRC(f593045b) SHA1(91b92870d0dd2a7817cb0059cc750e2393686f4c) )
+	ROM_IGNORE( 0x000100 ) // Flash extra bytes
+ROM_END
+
+GAME( 2022, sdojb, sdojak, cv1k_d, cv1k, cv1k_state, init_ddpdfk, ROT270, "hack", "DoDonPachi SaiDaiOuJou Saya Type B (2022-01-06)", 0 )
+
+// Hello HAZE - Just in case you are wanting to stir up trouble, these games are NOT enabled. It's called documentation!!
 
