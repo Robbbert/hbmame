@@ -143,6 +143,7 @@ NUM GAME YEAR COMPANY                 TITLE
 408 2500 2004 Blastar                 Neo 2500 demo
 409 FFFF 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
 410 FFFF 2006 Blastar                 Codename: Blut Engel
+410 FFFF 2018 Blastar                 Codename: Blut Engel 2018
 411 FFFF 2006 Blastar                 NGEM2K
 412 09CC 2018 Blastar                 NGYM2610
 413 0202 2001 Rastersoft              WW2 demo
@@ -154,6 +155,7 @@ NUM GAME YEAR COMPANY                 TITLE
 419 1234 2011 Sebastian Mihai         Neo Thunder
 420 1234 2004 BarfHappy               Neo Castlevania demo
 421 0052 2012 Oxygene                 Neo 3D demo
+422 0276 2012 NeoGeoFreak             Time's Up!
 422 0275 2012 NeoGeoFreak             Time's Up! demo
 423
 424 0275 2012 NeoGeoFreak             Transparency demo
@@ -174,7 +176,8 @@ NUM GAME YEAR COMPANY                 TITLE
 439 1234 2013 Cristiano Bei           Primo demo
 440 1234 2013 Cristiano Bei           Neo Geo Galaga demo
 441 0017 2013 Cristiano Bei           Neo Geo Sound Test
-442 7777 2017 Cristiano Bei           Bad Apple demo (badappleb = BADA)
+442 7777 2017 Cristiano Bei           Bad Apple demo
+442 BADA 2017 Cristiano Bei           Bad Apple demo (badappleb)
 443 1234 2012 M.Priewe                Santaball
 444 1234 2018 kl3mousse               Sea Fighter
 445*     2014 M.Priewe                Doom in the Deep (in development or cancelled)
@@ -201,7 +204,8 @@ NUM GAME YEAR COMPANY                 TITLE
 466*                                  4-player input test
 467 0052 2011 Furrtek                 Sprite Experimenter
 468*     n/r  Neobitz                 Submarine Shooter (in development or cancelled)
-469 9999 2002 Neodev                  Neo Pong (neoponga = 0202)
+469 9999 2002 Neodev                  Neo Pong
+469 0202 2002 Neodev                  Neo Pong (neoponga)
 470 3CFB 2015 freem                   ADPCM-B Playback Demo
 471*     n/r  tcdev                   Donkey Kong (in development or cancelled)
 472 3CFB 2015 freem                   ADPCM-A Playback Demo
@@ -218,7 +222,7 @@ NUM GAME YEAR COMPANY                 TITLE
 483 7777 2018 Vasily Familiya         Everlasting Summer: Samantha
 484 7777 2018 Vasily Familiya         Vlad2000
 485      2018 Vasily Familiya         Raroggame
-486 FFFF 2018 Blastar                 Codename: Blut Engel 2018
+486
 487 7777 2018 Vasily Familiya         Double Dragon SpritePool Demo
 488 7777 2018 Vasily Familiya         Shaman King demo
 489      2019 Vasily Familiya         Venus Wars demo
@@ -862,6 +866,33 @@ ROM_START( cnbe )
 	ROM_LOAD16_BYTE( "410.c2", 0x000001, 0x100000, CRC(3d5fc36f) SHA1(59c045bc5999ccd6c1413364a6cd337a858f599e) )
 ROM_END
 
+// 410 : Codename: Blut Engel by Blastar (c) 2018
+// Bugs: Insert Coin causes reboot
+// Seems original didn't work correctly on MVS, this fixes it. Makes no difference in emulation.
+// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
+ROM_START( cnbe2018 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "410.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) ) // skip header
+	ROM_CONTINUE(0x000000, 0x040000)
+	ROM_IGNORE(0x0e0000)
+
+	ROM_REGION(0x120000, "asis", 0)
+	ROM_LOAD("410.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) )
+	ROM_CONTINUE(0x000000, 0x120000)
+
+	NEO_SFIX_MT(0x10000)
+	ROM_COPY("asis", 0x40000, 0x00000, 0x10000) // srctag, srcoffs, dstoffs, length
+
+	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
+	ROM_COPY("asis", 0x50000, 0x00000, 0x10000)
+
+	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
+	ROM_COPY("asis", 0x60000, 0x00000, 0x40000)
+
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_COPY("asis", 0xa0000, 0x00000, 0x80000)
+ROM_END
+
 
 // 411 : NGEM2K by Blastar (c) 2006
 // No sound
@@ -1094,22 +1125,41 @@ ROM_START( neo3d )
 ROM_END
 
 
-// 422 : Time's UP! demo by NGF
-ROM_START( timesupd )
-	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "422.p1", 0x000000, 0x200000, CRC(be86adb1) SHA1(4b363bab51dfc43b2302956f79a0b1d5202339ac) )
+// 422 : Time's UP! by NGF
+ROM_START( timesup )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "422.p1", 0x000000, 0x100000, CRC(b4be3ede) SHA1(95a9b87e674cc3af0932f5dab51d1e8e3d84385b) )
 
 	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
 
-	NEO_BIOS_AUDIO_128K( "422.m1", CRC(fe795d11) SHA1(53ba44f2197aa700229f18dee6513bc0c2619904) )
+	NEO_BIOS_AUDIO_128K( "422.m1", CRC(8b83308b) SHA1(b6b48689a0138af35375f741620e2569125a93e8) )
 
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "422.v1", 0x000000, 0x400000, CRC(13b8f47b) SHA1(4f0384101f9f6fce8c86a27a11a2b9d43a84a154) )
-	ROM_LOAD( "422.v2", 0x400000, 0x400000, CRC(6fdd663d) SHA1(9667f11b4350285d0722c67052ff4e9a63a3409f) )
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "422.v1", 0x000000, 0x200000, CRC(1b48708b) SHA1(ac4e363a0b5988496272092ea4dc7c2259f9f1e3) )
+	ROM_LOAD( "422.v2", 0x200000, 0x200000, CRC(6b17df84) SHA1(b8233110f91ef408f68beda641da01d2896109da) )
+	ROM_LOAD( "422.v3", 0x400000, 0x200000, CRC(6c798d46) SHA1(7f91f5dbe58a2bceb8a9ed6394eb6b11a9ae7d97) )
 
 	ROM_REGION( 0x400000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "422.c1", 0x000000, 0x200000, CRC(c19a300a) SHA1(3ab4ec4b10583257b92f5a989434db89f8130626) )
-	ROM_LOAD16_BYTE( "422.c2", 0x000001, 0x200000, CRC(fdb3f7ed) SHA1(dd1d69515e58e9fba8cefb1c4cd808dfea0475d9) )
+	ROM_LOAD16_BYTE( "422.c1", 0x000000, 0x200000, CRC(1c83fc38) SHA1(74a6c9116443a673ff49b2fe4d7b8bc79eadec0c) )
+	ROM_LOAD16_BYTE( "422.c2", 0x000001, 0x200000, CRC(2b3f48b4) SHA1(5d05d312d06e387fa532f71f5144347a0dd77bb3) )
+ROM_END
+
+// 422 : Time's UP! demo by NGF
+ROM_START( timesupd )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "422d.p1", 0x000000, 0x200000, CRC(be86adb1) SHA1(4b363bab51dfc43b2302956f79a0b1d5202339ac) )
+
+	NEO_SFIX_128K( "419.s1", CRC(a545b593) SHA1(09077b63595eebb7dddd55e041e7786164df0ead) )
+
+	NEO_BIOS_AUDIO_128K( "422d.m1", CRC(fe795d11) SHA1(53ba44f2197aa700229f18dee6513bc0c2619904) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "422d.v1", 0x000000, 0x400000, CRC(13b8f47b) SHA1(4f0384101f9f6fce8c86a27a11a2b9d43a84a154) )
+	ROM_LOAD( "422d.v2", 0x400000, 0x400000, CRC(6fdd663d) SHA1(9667f11b4350285d0722c67052ff4e9a63a3409f) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "422d.c1", 0x000000, 0x200000, CRC(c19a300a) SHA1(3ab4ec4b10583257b92f5a989434db89f8130626) )
+	ROM_LOAD16_BYTE( "422d.c2", 0x000001, 0x200000, CRC(fdb3f7ed) SHA1(dd1d69515e58e9fba8cefb1c4cd808dfea0475d9) )
 ROM_END
 
 
@@ -2206,34 +2256,6 @@ ROM_START( raroggame )
 ROM_END
 
 
-// 486 : Codename: Blut Engel by Blastar (c) 2018
-// Bugs: Insert Coin causes reboot
-// Seems original didn't work correctly on MVS, this fixes it. Makes no difference in emulation.
-// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
-ROM_START( cnbe2018 )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "486.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) ) // skip header
-	ROM_CONTINUE(0x000000, 0x040000)
-	ROM_IGNORE(0x0e0000)
-
-	ROM_REGION(0x120000, "asis", 0)
-	ROM_LOAD("486.neo", 0x000000, 0x001000, CRC(d2c40244) SHA1(a3888dd1ff9168339afa58f7823c4944043678e0) )
-	ROM_CONTINUE(0x000000, 0x120000)
-
-	NEO_SFIX_MT(0x10000)
-	ROM_COPY("asis", 0x40000, 0x00000, 0x10000) // srctag, srcoffs, dstoffs, length
-
-	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
-	ROM_COPY("asis", 0x50000, 0x00000, 0x10000)
-
-	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
-	ROM_COPY("asis", 0x60000, 0x00000, 0x40000)
-
-	ROM_REGION( 0x80000, "sprites", 0 )
-	ROM_COPY("asis", 0xa0000, 0x00000, 0x80000)
-ROM_END
-
-
 // 487 : Double Dragon SpritePool Demo by Vasily Familiya
 // No sound.
 ROM_START( ddsprdmo )
@@ -2901,6 +2923,7 @@ GAME( 2020, teotd,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, teotd2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, teotd3,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, alpha 5)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, test01,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, timesup,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up!", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
