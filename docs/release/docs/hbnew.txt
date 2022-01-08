@@ -11,6 +11,7 @@ New Games
 - [cabalng1]            Cabal (Neo Geo Port, sprite fix)
 - [ddonpachjh]          DoDonPachi (Japan, hack)
 - [dkongdu1]            Donkey Kong Duel v1.01
+- [hypernoid]           Hypernoid (2021-11-28)
 - [looptris]            Looptris (2021-12-26)
 - [neopang]             Neo Pang
 - [teotb]               The Eye of Typhoon (Tsunami Edition, beta) (2022-01-05)
