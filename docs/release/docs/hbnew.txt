@@ -7,6 +7,8 @@
 
 New Games
 ---------------------------------
+- [abyssal]             Abyssal Infants (early version)
+- [cabalng1]            Cabal (Neo Geo Port, sprite fix)
 - [ddonpachjh]          DoDonPachi (Japan, hack)
 - [dkongdu1]            Donkey Kong Duel v1.01
 - [looptris]            Looptris (2021-12-26)
@@ -3375,15 +3377,15 @@ New Games
 - [dotrimjr]        Dottori-Man Jr [by Chris Covell]
 - [mshjphp]         Marvel Super Heroes (Power hack by Pipi899)
 - [mshyh]           Marvel Super Heroes (Boss hack by Yumeji)
-- [mvscjemb]        Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves hack by Blackheart 24/04/09)
+- [mvscjemb]        Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves hack by Blackheart 2009-04-24)
 - [mvscjphp]        Marvel Vs. Capcom: Clash of Super Heroes (Power hack by Pipi899)
-- [pfghtjrm]        Pocket Fighter (Easy Moves hack by Blackheart 20/04/09)
+- [pfghtjrm]        Pocket Fighter (Easy Moves hack by Blackheart 2009-04-20)
 - [sgemfch]         Super Gem Fighter Mini Mix (Color remix)
-- [vsav2emb]        Vampire Savior 2: The Lord of Vampire (Easy Moves hack by Blackheart 30/04/09)
+- [vsav2emb]        Vampire Savior 2: The Lord of Vampire (Easy Moves hack by Blackheart 2009-04-30)
 - [xmcotajb]        X-Men: Children of the Atom (Boss hack by Yumeji)
 - [xmcotajphp]      X-Men: Children of the Atom (Power hack by Pipi899)
 - [xmvsfjphp]       X-Men Vs. Street Fighter (Power hack by Pipi899)
-- [xmvsfrm]         X-Men Vs. Street Fighter (Easy Moves hack by Blackheart 22/04/09)
+- [xmvsfrm]         X-Men Vs. Street Fighter (Easy Moves hack by Blackheart 2009-04-22)
 - [xmvsfryh]        X-Men Vs. Street Fighter (ST Char hack by Ydmis)
 
 
@@ -3479,20 +3481,20 @@ New Games
 ---------
 - [3wondrud]        3 Wonders (Phoenix)
 - [captcoud]        Captain Commando (Phoenix)
-- [ddsomavs]        Dungeons & Dragons: Shadow over Mystara (1vs4 hack by Pipi899 29/06/09)
-- [ddsomhp]         Dungeons & Dragons: Shadow over Mystara (HP Revision hack by Pipi899, cheat by sssskkkk 15/06/09)
-- [ddsomjfs]        Dungeons & Dragons: Shadow over Mystara (Final Strike hack by e107 17/07/09)
-- [dino08h2]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f hack by Pipi899 17/10/08)
-- [dino08h3]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 hack by Pipi899 11/10/08)
-- [dino08hp]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f hack by Pipi899 17/10/08)
+- [ddsomavs]        Dungeons & Dragons: Shadow over Mystara (1vs4 hack by Pipi899 2009-06-29)
+- [ddsomhp]         Dungeons & Dragons: Shadow over Mystara (HP Revision hack by Pipi899, cheat by sssskkkk 2009-06-15)
+- [ddsomjfs]        Dungeons & Dragons: Shadow over Mystara (Final Strike hack by e107 2009-07-17)
+- [dino08h2]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f hack by Pipi899 2008-10-17)
+- [dino08h3]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 hack by Pipi899 2008-10-11)
+- [dino08hp]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f hack by Pipi899 2008-10-17)
 - [dinobt]          Cadillacs and Dinosaurs (BT hack version)
-- [dinobtpp]        Cadillacs and Dinosaurs (BT Power hack by Pipi899 15/01/09)
+- [dinobtpp]        Cadillacs and Dinosaurs (BT Power hack by Pipi899 2009-01-15)
 - [dinocgba]        Cadillacs and Dinosaurs (Cngba hack Version set 1)
 - [dinocgbb]        Cadillacs and Dinosaurs (Cngba hack Version set 2)
 - [dinocgbc]        Cadillacs and Dinosaurs (Cngba hack Version set 3)
 - [dinohp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 1)
-- [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 05/08/08)
-- [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 15/01/09)
+- [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 2008-08-05)
+- [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 2009-01-15)
 - [dkrdemo]         Donkey Kong Remix demo 1.8 [by Sock Master]
 - [ffightb]         Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)
 - [garoub]          Garou - Mark of the Wolves (Boss hack by Ydmis)
@@ -3505,10 +3507,10 @@ New Games
 - [punisherud2]     The Punisher (US 930422 Phoenix Edition (16b/40p))
 - [santabll]        Santaball [by M.Priewe] [read the FAQ!]
 - [sk2h15]          Sangokushi 2 (Hack by Pipi899 2009-01-02)
-- [sk2h16]          Sangokushi 2 (Easy Moves hack by Pipi899 12/01/09)
+- [sk2h16]          Sangokushi 2 (Easy Moves hack by Pipi899 2009-01-12)
 - [slammastud]      Saturday Night Slam Masters (USA 930713 Phoenix)
 - [vampjb]          Vampire: The Night Warriors (Boss hack by Yumeji)
-- [wofchspp]        CPS Changer - Tenchi Wo Kurau II (Super Jian Huang hack by Pipi899 29/01/10)
+- [wofchspp]        CPS Changer - Tenchi Wo Kurau II (Super Jian Huang hack by Pipi899 2010-01-29)
 - [wofjhb]          Tenchi wo Kurau II (Japan 921031) (Hack set 2)
 - [wofjhc]          Tenchi wo Kurau II (Japan 921031) (Hack set 3)
 
@@ -3535,7 +3537,7 @@ New Games
 - [breakersbh]      Breakers (Boss hack by Yumeji)
 - [breakersy]       Breakers (Boss Robert PPX Team hack remixed by ZKW)
 - [breakrevb]       Breakers Revenge (Boss hack by Yumeji)
-- [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 11/06/09)
+- [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 2009-06-11)
 - [breakrevy]       Breakers Revenge (Boss Robert PPX Team hack remixed by ZKW)
 - [columnsncd]      Columns (CD conversion)
 - [ct2k3ifz]        Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)
@@ -3545,8 +3547,8 @@ New Games
 - [dti]             Duck Tales Intro [Raregame]
 - [doubledre2]      Double Dragon Q (Boss hack Easy Special Attacks)
 - [doubledres]      Double Dragon (Boss hack Easy Special Attacks)
-- [doubledrhp]      Double Dragon (Boss Hack Perfect Edition hack by Blackheart 19/09/09)
-- [eightmaneb]      Eight Man (Enhanced Version hack by Blackheart 22/08/09)
+- [doubledrhp]      Double Dragon (Boss Hack Perfect Edition hack by Blackheart 2009-09-19)
+- [eightmaneb]      Eight Man (Enhanced Version hack by Blackheart 2009-08-22)
 - [ennemi]          Neogeo demo [by Kannagi]
 - [fatfury2b]       Fatal Fury 2 (Boss hack by Yumeji)
 - [fatfury3bh]      Fatal Fury 3 (Boss hack by Yumeji)
@@ -3556,7 +3558,7 @@ New Games
 - [galaxyfgb]       Galaxy Fight (Boss hack by Yumeji)
 - [gowcaizrb]       Voltage Fighter (Boss hack by Wesker (FGCH))
 - [gowcaizrbs]      Voltage Fighter (Boss hack by Yumeji)
-- [gowcaizrrv]      Voltage Fighter (Boss Revised Version 05/10/09)
+- [gowcaizrrv]      Voltage Fighter (Boss Revised Version 2009-10-05)
 - [gpilotspx]       Ghost Pilots (Plus Max hack by Xyahzhs)
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
@@ -3572,9 +3574,9 @@ New Games
 - [samsh5sphc]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 3 hack by Wesker)
 - [samsh5spn]       Samurai Shodown V Special / Samurai Spirits Zero Special (fully decrypted)
 - [samsh5spnh3]     Samurai Shodown V Special / Samurai Spirits Zero Special (Enhanced Blood v3.0 hack by Eddids, Snk2003)
-- [samsh5spnzk]     Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 23/10/08)
+- [samsh5spnzk]     Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 2008-10-23)
 - [shocktr2px]      Shock Troopers - 2nd Squad (Plus Max hack by Xyahzhs)
-- [shocktrosp]      Shock Troopers (Super Plus hack by e107 18/08/09)
+- [shocktrosp]      Shock Troopers (Super Plus hack by e107 2009-08-18)
 - [sonicwi2eh]      Aero Fighters 2 / Sonic Wings 2 (Hack alternate set by Robert)
 - [sonicwi2px]      Aero Fighters 2 / Sonic Wings 2 (Plus Max hack by Xyahzhs)
 - [sonicwi3eh]      Aero Fighters 3 / Sonic Wings 3 (Hack alternate set by Robert)
@@ -3592,7 +3594,7 @@ New Games
 - [wh2jb]           World Heroes 2 Jet (Boss hack by 0days (EGCG))
 - [whphez]          World Heroes Perfect (Boss hack by Zeng_K)
 - [whpsp]           World Heroes Perfect (Special Boss hack by Yashional)
-- [whpss]           World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 12/25/07)
+- [whpss]           World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 2007-12-25)
 - [wjammersf]       Windjammers (French v0.1 beta by Elrayzeur)
 - [zintrckbh]       Zintrick hack [by Yumeji]
 

@@ -2068,7 +2068,7 @@ ROM_START( neofightb )
 ROM_END
 
 
-// 476 : Neo Fight by Kannagi (14-12-2015)
+// 476 : Neo Fight by Kannagi (2015-12-14)
 // Arrows to move fighter around. A = kick; B = punch; C & D slide background left & right. No sound.
 ROM_START( neofighto )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -2102,7 +2102,7 @@ ROM_START( neofight )
 ROM_END
 
 
-// 477 : Demo that comes with DatImage, by Mega Shocked (26-07-2016)
+// 477 : Demo that comes with DatImage, by Mega Shocked (2016-07-26)
 // No sound.
 ROM_START( didemo )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -2627,6 +2627,7 @@ ROM_START( nblktiger )
 	ROM_LOAD16_BYTE( "496.c2", 0x0000001, 0x800000, CRC(fa07ba1e) SHA1(8c00be2c0c1402789011e2aa272e04e216fdac10) )
 ROM_END
 
+
 // 497: Cabal
 // Bugs: A few minor graphics issues
 ROM_START( cabalng )
@@ -2646,10 +2647,29 @@ ROM_START( cabalng )
 	ROM_LOAD16_BYTE( "497.c2", 0x0000001, 0x100000, CRC(edf277f2) SHA1(aa287598a620f03794e143500ff842dfb4b64d9a) )
 ROM_END
 
+// 497: Cabal
+// Bugs: A few minor graphics issues
+ROM_START( cabalng1 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "497a.p1", 0x000000, 0x100000, CRC(bb193926) SHA1(e87473aaaa8c7af56148e86a410672870fa63d00) )
+
+	NEO_SFIX_128K( "497.s1", CRC(45f0bc5e) SHA1(de2533e4981c7597a768b8839c737a37243d4bdb) )
+
+	NEO_BIOS_AUDIO_64K( "497.m1", CRC(efd97334) SHA1(139ef9da1fba0adcd4b41fbe6a2af0e094f33b05) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "497.v1", 0x000000, 0x100000, CRC(1a5bbc12) SHA1(3b4c74d943bd41189052313d41cd37b81e18ba25) )
+	ROM_LOAD( "497.v2", 0x100000, 0x100000, CRC(a2b9c011) SHA1(6019d3b7bf78c509394765f2e8bfd5c91645d5c4) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "497.c1", 0x0000000, 0x100000, CRC(9f5ea8bb) SHA1(dbe5ebe37d720bba20fc68a948298aa96a11dc85) )
+	ROM_LOAD16_BYTE( "497.c2", 0x0000001, 0x100000, CRC(edf277f2) SHA1(aa287598a620f03794e143500ff842dfb4b64d9a) )
+ROM_END
+
+
 // 498: Abyssal Infants
 // Bugs: Various minor control issues and spelling mistakes
 ROM_START( abyssal )
-#if 0
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "498.p1", 0x000000, 0x080000, CRC(ae12bd96) SHA1(299c66c7038edb9f8bac858172f8ce282cb89edf) )
 
@@ -2663,7 +2683,9 @@ ROM_START( abyssal )
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "498.c1", 0x0000000, 0x200000, CRC(b8c84619) SHA1(1d634242281a7bf75979cd16ee5ae98b5b161b65) )
 	ROM_LOAD16_BYTE( "498.c2", 0x0000001, 0x200000, CRC(376084b8) SHA1(b42e04c1168dd88a13d8690f0b5b5212457c558e) )
-#endif
+ROM_END
+
+ROM_START( abyssal1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "498a.p1", 0x000000, 0x080000, CRC(a8a2a8a6) SHA1(da0ea757e17531be8c8e3b0a1f6cc71b0eb04b92) )
 
@@ -2678,6 +2700,7 @@ ROM_START( abyssal )
 	ROM_LOAD16_BYTE( "498a.c1", 0x0000000, 0x200000, CRC(24dabe27) SHA1(4b7519cbcf028b0be7b0acf9c8827a126a33007d) )
 	ROM_LOAD16_BYTE( "498a.c2", 0x0000001, 0x200000, CRC(bbdacc24) SHA1(39025e7f593cc7f464e9f0403feab69ddbd371c8) )
 ROM_END
+
 
 // 499: Neo Driftout Tech Demo
 // No sound.
@@ -2823,12 +2846,14 @@ GAME( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabalng,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, cabalng1,     cabalng,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)(Homebrew)", MACHINE_SUPPORTS_SAVE )
