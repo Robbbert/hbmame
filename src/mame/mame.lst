@@ -16466,7 +16466,9 @@ gnw_flagman                     // Nintendo
 gnw_gcliff                      // Nintendo
 gnw_ghouse                      // Nintendo
 gnw_helmet                      // Nintendo
+gnw_helmeto                     // Nintendo
 gnw_judge                       // Nintendo
+gnw_judgeo                      // Nintendo
 gnw_lboat                       // Nintendo
 gnw_lion                        // Nintendo
 gnw_manhole                     // Nintendo
@@ -36196,6 +36198,7 @@ rastanua                        // B04 (c) 1987 Taito America Corporation (US)
 rastanub                        // B04 (c) 1987 Taito America Corporation (US)
 rastsaga                        // B04 (c) 1987 Taito Corporation (Japan)
 rastsagaa                       // B04 (c) 1987 Taito Corporation (Japan)
+rastsagaabl                     // bootleg
 rastsagab                       // B04 (c) 1987 Taito Corporation (Japan)
 
 @source:rastersp.cpp
