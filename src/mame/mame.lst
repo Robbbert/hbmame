@@ -12381,6 +12381,7 @@ modulab                         //
 @source:dietgo.cpp
 dietgo                          // MAY (c) 1993
 dietgoe                         // MAY (c) 1993
+dietgoea                        // MAY (c) 1993
 dietgoj                         // MAY (c) 1993
 dietgou                         // MAY (c) 1993
 
@@ -16157,6 +16158,9 @@ mspuzzlea                       // (c) 1994 Min Corp.
 mspuzzleb                       // (c) 1994 Min Corp.
 mspuzzleg                       // (c) 1994 Min Corp.
 
+@source:gumrally.cpp
+gumrally                        // Atari Games
+
 @source:gunbustr.cpp
 gunbustr                        // D27 (c) 1992 Taito Corporation Japan (World)
 gunbustrj                       // D27 (c) 1992 Taito Corporation (Japan)
@@ -16354,6 +16358,7 @@ lightfgt                        // Milton Bradley
 mdallas                         // Mattel
 plus1                           // Milton Bradley
 qkracer                         // National Semiconductor
+solution                        // SCAT
 unkeinv                         // Gordon Barlow Design
 vidchal                         // Select Merchandise
 
