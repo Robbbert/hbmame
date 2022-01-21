@@ -671,6 +671,7 @@ kpontoon.cpp
 kpython.cpp
 ksayakyu.cpp
 ksys573.cpp
+kungfum2.cpp
 kungfur.cpp
 kurukuru.cpp
 kyugo.cpp
@@ -1474,6 +1475,7 @@ witch.cpp
 wiz.cpp
 wmg.cpp
 wms.cpp
+wms_shuffle.cpp
 wolfpack.cpp
 wpc_95.cpp
 wpc_an.cpp
