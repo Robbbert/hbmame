@@ -17217,11 +17217,12 @@ csk227it                        // (c) 198? IGS
 csk234it                        // (c) 198? IGS
 igs_ncs                         // (c) 198? IGS
 igs_ncs2                        // (c) 2000 IGS
+igstet341                       // (c) 199? IGS
+igstet342                       // (c) 199? IGS
 kungfu                          // (c) 1992 IGS
 number10                        // (c) IGS (Board labeled Playmark Srl)
 numbr10l                        // (c) IGS (Board labeled Playmark Srl)
 pktet346                        // (c) 199? IGS
-igstet341                       // (c) 199? IGS
 stellecu                        // (c) 1998
 
 @source:ikki.cpp
@@ -31233,6 +31234,16 @@ crzmon2                         // (c) 2010
 crzmon2_2                       // (c) 2010
 crzmon2_3                       // (c) 2010
 crzmon2_4                       // (c) 2010
+crzmon2_5                       // (c) 2010
+crzmon2_6                       // (c) 2010
+crzmon2_7                       // (c) 2010
+crzmon2_8                       // (c) 2010
+crzmon2_9                       // (c) 2010
+crzmon2_10                      // (c) 2010
+crzmon2_11                      // (c) 2010
+crzmon2_12                      // (c) 2010
+crzmon2_13                      // (c) 2010
+crzmon2_14                      // (c) 2010
 czmon                           // (c) 2003
 czmon_2                         // (c) 2003
 czmon_3                         // (c) 2003
@@ -31268,6 +31279,14 @@ fcockt_10                       // (c) 2003
 fcockt_11                       // (c) 2003
 fcockt_12                       // (c) 2003
 fcockt_14                       // (c) 2003
+fcockt_15                       // (c) 2003
+fcockt_16                       // (c) 2003
+fcockt_17                       // (c) 2003
+fcockt_18                       // (c) 2003
+fcockt_19                       // (c) 2003
+fcockt_20                       // (c) 2003
+fcockt_21                       // (c) 2003
+fcockt_22                       // (c) 2003
 fcockt2                         // (c) 2008
 fcockt2_2                       // (c) 2008
 fcockt2_3                       // (c) 2008
@@ -31275,6 +31294,14 @@ fcockt2_4                       // (c) 2008
 fcockt2_5                       // (c) 2008
 fcockt2_6                       // (c) 2008
 fcockt2_7                       // (c) 2008
+fcockt2_8                       // (c) 2008
+fcockt2_9                       // (c) 2008
+fcockt2_10                      // (c) 2008
+fcockt2_11                      // (c) 2008
+fcockt2_12                      // (c) 2008
+fcockt2_13                      // (c) 2008
+fcockt2_14                      // (c) 2008
+fcockt2_15                      // (c) 2008
 garage                          // (c) 2004
 garage_2                        // (c) 2004
 garage_3                        // (c) 2004
@@ -31283,6 +31310,14 @@ garage_5                        // (c) 2004
 garage_6                        // (c) 2004
 garage_7                        // (c) 2004
 garage_9                        // (c) 2004
+garage_10                       // (c) 2004
+garage_11                       // (c) 2004
+garage_12                       // (c) 2004
+garage_13                       // (c) 2004
+garage_14                       // (c) 2004
+garage_15                       // (c) 2004
+garage_16                       // (c) 2004
+garage_17                       // (c) 2004
 gnome                           // (c) 2007
 gnome_2                         // (c) 2007
 gnome_3                         // (c) 2007
@@ -31294,6 +31329,13 @@ gnome_9                         // (c) 2007
 gnome_10                        // (c) 2007
 gnome_11                        // (c) 2007
 gnome_12                        // (c) 2007
+gnome_13                        // (c) 2007
+gnome_14                        // (c) 2007
+gnome_15                        // (c) 2007
+gnome_16                        // (c) 2007
+gnome_17                        // (c) 2007
+gnome_18                        // (c) 2007
+gnome_19                        // (c) 2007
 goldfish                        // (c) 2002 - Prototype of Multifish
 island                          // (c) 2005
 island_2                        // (c) 2005
@@ -31304,6 +31346,14 @@ island2_3                       // (c) 2006
 island2_4                       // (c) 2006
 island2_5                       // (c) 2006
 island2_6                       // (c) 2006
+island2_7                       // (c) 2006
+island2_8                       // (c) 2006
+island2_9                       // (c) 2006
+island2_10                      // (c) 2006
+island2_11                      // (c) 2006
+island2_12                      // (c) 2006
+island2_13                      // (c) 2006
+island2_14                      // (c) 2006
 keks                            // (c) 2006
 keks_2                          // (c) 2006
 keks_3                          // (c) 2006
@@ -31311,6 +31361,18 @@ keks_4                          // (c) 2006
 keks_5                          // (c) 2006
 keks_6                          // (c) 2006
 keks_7                          // (c) 2006
+keks_8                          // (c) 2006
+keks_9                          // (c) 2006
+keks_10                         // (c) 2006
+keks_11                         // (c) 2006
+keks_12                         // (c) 2006
+keks_13                         // (c) 2006
+keks_14                         // (c) 2006
+keks_15                         // (c) 2006
+keks_16                         // (c) 2006
+keks_17                         // (c) 2006
+keks_18                         // (c) 2006
+keks_19                         // (c) 2006
 lhaunt                          // (c) 2003
 lhaunt_2                        // (c) 2003
 lhaunt_3                        // (c) 2003
@@ -31321,6 +31383,11 @@ lhaunt_7                        // (c) 2003
 lhaunt_8                        // (c) 2003
 lhaunt_10                       // (c) 2003
 lhaunt_11                       // (c) 2003
+lhaunt_12                       // (c) 2003
+lhaunt_13                       // (c) 2003
+lhaunt_14                       // (c) 2003
+lhaunt_15                       // (c) 2003
+lhaunt_16                       // (c) 2003
 mfish                           // (c) 2002
 mfish_2                         // (c) 2002
 mfish_3                         // (c) 2002
@@ -31343,12 +31410,27 @@ pirate2                         // (c) 2006
 pirate2_2                       // (c) 2006
 pirate2_3                       // (c) 2006
 pirate2_4                       // (c) 2006
+pirate2_5                       // (c) 2006
+pirate2_6                       // (c) 2006
+pirate2_7                       // (c) 2006
+pirate2_8                       // (c) 2006
+pirate2_9                       // (c) 2006
+pirate2_10                      // (c) 2006
+pirate2_11                      // (c) 2006
+pirate2_12                      // (c) 2006
 rclimb                          // (c) 2004
 rclimb_2                        // (c) 2004
 rclimb_3                        // (c) 2004
 rclimb_4                        // (c) 2004
 rclimb_5                        // (c) 2004
 rclimb_7                        // (c) 2004
+rclimb_8                        // (c) 2004
+rclimb_9                        // (c) 2004
+rclimb_10                       // (c) 2004
+rclimb_11                       // (c) 2004
+rclimb_12                       // (c) 2004
+rclimb_13                       // (c) 2004
+rclimb_14                       // (c) 2004
 resdnt                          // (c) 2004
 resdnt_2                        // (c) 2004
 resdnt_3                        // (c) 2004
@@ -31356,6 +31438,14 @@ resdnt_5                        // (c) 2004
 resdnt_6                        // (c) 2004
 resdnt_8                        // (c) 2004
 resdnt_9                        // (c) 2004
+resdnt_10                       // (c) 2004
+resdnt_11                       // (c) 2004
+resdnt_12                       // (c) 2004
+resdnt_13                       // (c) 2004
+resdnt_14                       // (c) 2004
+resdnt_15                       // (c) 2004
+resdnt_16                       // (c) 2004
+resdnt_17                       // (c) 2004
 rollfr                          // (c) 2003
 rollfr_2                        // (c) 2003
 rollfr_3                        // (c) 2003
@@ -31368,6 +31458,14 @@ sweetl2                         // (c) 2007
 sweetl2_2                       // (c) 2007
 sweetl2_3                       // (c) 2007
 sweetl2_4                       // (c) 2007
+sweetl2_5                       // (c) 2007
+sweetl2_6                       // (c) 2007
+sweetl2_7                       // (c) 2007
+sweetl2_8                       // (c) 2007
+sweetl2_9                       // (c) 2007
+sweetl2_10                      // (c) 2007
+sweetl2_11                      // (c) 2007
+sweetl2_12                      // (c) 2007
 windjamr                        // (c) 2002
 
 @source:multfish_boot.cpp
@@ -41441,6 +41539,7 @@ extrmatnj                       // B06 (c) 1987 Taito Corporation (Japan)
 extrmatnu                       // B06 (c) 1987 World Games (US)
 extrmatnur                      // B06 (c) 1987 Taito America Corporation + Romstar license (US)
 insectx                         // B97 (c) 1989 Taito Corporation Japan (World)
+insectxbl                       // bootleg (Nagoya Kaihatsu)
 insectxj                        // B97 (c) 1989 Taito Corporation (Japan)
 jpopnics                        // (c)1992 NICs, based on Plump Pop code
 kabukiz                         // B50 (c) 1988 Taito Corporation Japan (World)
