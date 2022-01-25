@@ -14,6 +14,7 @@ New Games
 - [hypernoid]           Hypernoid (2021-11-28)
 - [looptris]            Looptris (2021-12-26)
 - [neopang]             Neo Pang
+- [sailormndc1]         Pretty Soldier Sailor Moon (Director's Cut) v1.4
 - [teotb]               The Eye of Typhoon (Tsunami Edition, beta) (2022-01-05)
 - [timesup]             Time's Up!
 
@@ -42,7 +43,7 @@ New Games
 ---------------------------------
 - [dkongdu]             Donkey Kong Duel v1.02
 - [ffightaert]          Final Fight 30th Anniversary Edition Real Threat (2021-11-01)
-- [sailormndc]          Pretty Soldier Sailor Moon (Director's Cut)
+- [sailormndc]          Pretty Soldier Sailor Moon (Director's Cut) v1.2
 - [sailormnrt]          Pretty Soldier Sailor Moon (Real Threat)
 
 
