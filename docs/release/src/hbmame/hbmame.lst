@@ -132,6 +132,7 @@ cabals01
 @source:cave.cpp
 ddonpach		//parent
 ddonpacha		// trap15 hack
+ddonpachjh
 pwrinst2		//parent
 pwrinst2h		/* 2013 Hack by TT */
 pwrinst2z
@@ -150,6 +151,7 @@ sailormn			//parent
 sailormnbv
 sailormnrt
 sailormndc
+sailormndc1
 sailormnts01
 sailormnts02
 sailormnts03
@@ -270,6 +272,7 @@ dinouphp
 dinoz
 ffightae
 ffightaebv
+ffightaefc
 ffightaert
 ffightb
 ffightjh01
@@ -1486,7 +1489,12 @@ sfiii3ns14
 @source:cv1k.cpp
 deathsml				//parent
 deathsmlh01
-sdojak
+//sdojak
+//sdoja
+//sdojb
+//akatana
+//ddpsdoj
+//ddpsdojo
 
 @source:ddragon.cpp
 ddragon2
@@ -1557,6 +1565,7 @@ dkongbp					// Paul Goes
 dkongbp1				// Paul Goes
 dkongan					// Paul Goes
 dkongdu					// Paul Goes
+dkongdu1                               // Paul Goes
 //dk_remix
 
 @source:docastle.cpp
@@ -5863,12 +5872,14 @@ zupapa			// 070
 
 @source:neogeohb.cpp
 abyssal
+abyssal1
 akiradmo
 badapple			// BEY
 badapplea
 badappleb
 beast		/* 2002 (c) 1989 Psygnosis */
 cabalng
+cabalng1
 caravan				// HB
 cndi		/* Chip n Dale Intro */
 cndia
@@ -5891,6 +5902,7 @@ fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
 gbi			/* Ghostbusters Intro */
+hypernoid
 //igla
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
@@ -5900,11 +5912,11 @@ lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
 lhopecd //broken; not working
 lhopecdh // broken; not working
+looptris
 ltorb
 ndo_a_td
 neo2500		/* Blastar */
 neo3d		// Oxygene
-//neobubble
 neocstlv	// BarfHappy
 neodemo		/* Charles Doty */
 neofight	// Kannagi
@@ -5918,6 +5930,7 @@ neonopon	/* (c) 2002-10-05 Blastar */
 neonopon_d1 // unplayable demo
 neonopon_d2 // unplayable demo
 neonopon_d3 // unplayable demo
+neopang
 neopong		/* (c) 2002 Neodev */
 neoponga	/* (c) 2002 Neodev */
 neoromjb	// CeL
@@ -5961,10 +5974,12 @@ smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
 syscheck
+teotb
 teotd
 teotd2
 teotd3
 test01		// MVS Test 01 by Furrtek
+timesup
 timesupd	// CeL
 tmnti		/* TMNT intro */
 tmntia
