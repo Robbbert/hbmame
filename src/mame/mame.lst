@@ -110,6 +110,7 @@ sprtdart                        // (c) 1993 Compumatic / Desarrollos y Recambios
 @source:4enraya.cpp
 4enraya                         // (c) 1990 IDSA
 4enrayaa                        //
+strker
 tourpgum
 unkpacg                         // (c) 19?? ???
 unkpacga                        //
@@ -11568,6 +11569,7 @@ wulybuly                        //
 @source:airraid.cpp
 airraid                         // (c) 1987 Seibu Kaihatsu
 cshooter                        // (c) 1987 JKH (bootleg)
+failgate                        // (c) 198? Seibu Kaihatsu
 
 @source:csplayh5.cpp
 aimode                          // (c) 1999
@@ -16032,6 +16034,7 @@ cueball3                        //
 freddy                          //
 freddy4                         //
 gladiatp                        //
+mac_zois                        //
 rescu911                        //
 sfight2                         //
 sfight2a                        //
@@ -16786,6 +16789,7 @@ nyjoker                         //
 record                          // (c) 2000 High Video
 tour4000                        // (c) 2000 High Video
 tour4010                        // (c) 2000 High Video
+unksmk                          //
 
 @source:hikaru.cpp
 airtrix                         // 2001.02? Air Trix (Rev A)
@@ -19823,9 +19827,6 @@ sys573                          //
 @source:ktm3.cpp
 ktm3                            // (c) 1980 Synertek Systems Corp.
 
-@source:kungfum2.cpp
-kungfum2                        // (c) 1986 Irem
-
 @source:kungfur.cpp
 kungfur                         // (c) 1987
 
@@ -19966,6 +19967,9 @@ lckydrawa                       // (c) 1979 Mirco
 
 @source:lcmate2.cpp
 lcmate2                         //
+
+@source:ld50.cpp
+ld50                            //
 
 @source:leapfrog_iquest.cpp
 iquest
@@ -20396,6 +20400,9 @@ spelunkr                        // (c) 1985 licensed from Broderbund
 spelunkrj                       // (c) 1985 licensed from Broderbund
 yanchamr                        // (c) 1986 (Japan)
 youjyudn                        // (c) 1986 (Japan)
+
+@source:m62_bkungfu.cpp
+bkungfu                         // (c) 1987 Irem
 
 @source:m63.cpp
 atomboy                         // M63 (c) 1985 Irem + Memetron license
@@ -33463,6 +33470,7 @@ noki8890                        //
 @source:norautp.cpp
 bjpoker                         // (c) M. Kramer Inc.
 cdrawpkr                        // (c) 1984, Coinmaster
+cgip23b                         // (c) 1998, CGI
 cgip30cs                        // (c) 1999, CGI
 cgidjp                          // (c) 1999, CGI
 df_djpkr                        // (c) DellFern Ltd.
@@ -39530,6 +39538,7 @@ spk116it                        // (c) 199? IGS
 spk116itmx                      // (c) 199? IGS
 spk115it                        // (c) 199? IGS
 spk114it                        // (c) 199? IGS
+spk102u                         // (c) 1996 IGS
 spk102ua                        // (c) 1996 IGS
 3super8                         // unknown
 
