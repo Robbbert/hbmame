@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-02-23 0.241
+
+
+
+New Games
+---------------------------------
+- [sf2mix120]           Street Fighter II: Champion Edition (Mix 1.2)
+
+
+
+
 2022-01-26 0.240
 
 
