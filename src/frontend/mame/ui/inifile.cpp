@@ -116,7 +116,7 @@ void inifile_manager::init_category(std::string &&filename, emu_file &file)
 			auto const tail(std::find_if(head, std::end(rbuf), [] (char ch) { return !ch || (']' == ch); }));
 			name.assign(head, tail);
 			if ("FOLDER_SETTINGS" != name)
-				index.emplace_back(std::move(name), ftell(fp));
+				index.emplace_back(name, ftell(fp));
 		}
 	}
 	std::stable_sort(index.begin(), index.end(), [] (auto const &x, auto const &y) { return 0 > core_stricmp(x.first.c_str(), y.first.c_str()); });
