@@ -8,6 +8,8 @@
 New Games
 ---------------------------------
 - [sf2mix120]           Street Fighter II: Champion Edition (Mix 1.2)
+- [ssf2tnl6]            Super Street Fighter II Turbo (New Legacy v0.6 beta 2022-02-07)
+- [umk3uk20220207]      Ultimate Mortal Kombat 3 UC Edition (2022-02-07)
 
 
 
