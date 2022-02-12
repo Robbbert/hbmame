@@ -24,7 +24,6 @@
 #include "mameopts.h"
 #include "pluginopts.h"
 #include "drivenum.h"
-#include "fileio.h"
 #include "romload.h"
 #include "uiinput.h"
 

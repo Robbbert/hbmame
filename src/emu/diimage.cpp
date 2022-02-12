@@ -11,7 +11,6 @@
 #include "emu.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 #include "romload.h"
 #include "softlist.h"
 #include "softlist_dev.h"

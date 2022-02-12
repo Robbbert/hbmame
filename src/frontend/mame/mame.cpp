@@ -19,7 +19,6 @@
 #include "cheat.h"
 #include "clifront.h"
 #include "emuopts.h"
-#include "fileio.h"
 #include "luaengine.h"
 #include "mameopts.h"
 #include "pluginopts.h"

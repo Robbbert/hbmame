@@ -11,8 +11,6 @@
 #include "emu.h"
 #include "pcf8593.h"
 
-#include "fileio.h"
-
 
 /***************************************************************************
     PARAMETERS/CONSTANTS/MACROS

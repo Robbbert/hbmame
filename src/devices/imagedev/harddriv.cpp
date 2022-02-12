@@ -17,7 +17,6 @@
 #include "harddriv.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 #include "harddisk.h"
 #include "romload.h"
 

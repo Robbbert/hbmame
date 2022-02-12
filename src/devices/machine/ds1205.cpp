@@ -10,8 +10,6 @@
 #include "emu.h"
 #include "ds1205.h"
 
-#include "fileio.h"
-
 #include <cstdio>
 
 

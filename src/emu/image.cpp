@@ -14,7 +14,6 @@
 #include "config.h"
 #include "drivenum.h"
 #include "emuopts.h"
-#include "fileio.h"
 #include "softlist.h"
 
 #include "corestr.h"

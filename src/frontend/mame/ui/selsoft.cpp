@@ -19,7 +19,6 @@
 #include "corestr.h"
 #include "drivenum.h"
 #include "emuopts.h"
-#include "fileio.h"
 #include "mame.h"
 #include "rendutil.h"
 #include "softlist_dev.h"

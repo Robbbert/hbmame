@@ -13,7 +13,6 @@
 #include "debug/textbuf.h"
 #include "debug_module.h"
 #include "debugger.h"
-#include "fileio.h"
 #include "modules/lib/osdobj_common.h"
 #include "modules/osdmodule.h"
 

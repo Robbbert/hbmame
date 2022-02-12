@@ -15,8 +15,6 @@
 #include "emu.h"
 #include "cartridges.h"
 
-#include "fileio.h"
-
 #include "corestr.h"
 #include "formats/rpk.h"
 

@@ -12,7 +12,6 @@
 #include "screen.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 #include "render.h"
 #include "rendutil.h"
 

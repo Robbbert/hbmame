@@ -10,7 +10,6 @@
 #include "ms151a.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 #include "png.h"
 
 // paper is A4 (210x297mm)

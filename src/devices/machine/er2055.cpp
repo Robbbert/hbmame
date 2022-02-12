@@ -14,8 +14,6 @@
 #include "emu.h"
 #include "machine/er2055.h"
 
-#include "fileio.h"
-
 #include "logmacro.h"
 
 

@@ -16,9 +16,7 @@
 
 #include "emu.h"
 #include "hd64610.h"
-
 #include "coreutil.h"
-#include "fileio.h"
 
 #define VERBOSE 1
 #include "logmacro.h"

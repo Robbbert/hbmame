@@ -12,10 +12,8 @@
 *********************************************************************/
 
 #include "emu.h"
-#include "machine/mc146818.h"
-
 #include "coreutil.h"
-#include "fileio.h"
+#include "machine/mc146818.h"
 
 //#define VERBOSE 1
 #include "logmacro.h"

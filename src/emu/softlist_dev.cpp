@@ -13,7 +13,6 @@
 
 #include "diimage.h"
 #include "emuopts.h"
-#include "fileio.h"
 #include "romload.h"
 #include "validity.h"
 

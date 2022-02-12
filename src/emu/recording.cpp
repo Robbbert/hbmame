@@ -9,10 +9,7 @@
 ***************************************************************************/
 
 #include "emu.h"
-
-#include "fileio.h"
 #include "screen.h"
-
 #include "aviio.h"
 #include "png.h"
 

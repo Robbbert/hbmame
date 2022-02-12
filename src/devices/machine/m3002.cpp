@@ -14,8 +14,6 @@
 #include "emu.h"
 #include "m3002.h"
 
-#include "fileio.h"
-
 #define VERBOSE 0
 #include "logmacro.h"
 

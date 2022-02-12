@@ -12,7 +12,7 @@
 #pragma once
 
 #include "ccm.h"
-#include "fileio.h"
+#include "machine/nvram.h"
 
 
 

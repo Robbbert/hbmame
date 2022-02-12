@@ -7,9 +7,8 @@
 ***************************************************************************/
 
 #include "emu.h"
+#include "debugger.h"
 #include "midwayic.h"
-
-#include "fileio.h"
 
 
 #define LOG_NVRAM           (0)

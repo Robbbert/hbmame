@@ -11,13 +11,11 @@
 #include "emu.h"
 #include "romload.h"
 
-#include "drivenum.h"
+#include "corestr.h"
 #include "emuopts.h"
-#include "fileio.h"
+#include "drivenum.h"
 #include "softlist_dev.h"
 #include "ui/uimain.h"
-
-#include "corestr.h"
 
 #include <algorithm>
 #include <set>

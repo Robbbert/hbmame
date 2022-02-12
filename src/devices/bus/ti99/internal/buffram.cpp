@@ -11,8 +11,6 @@
 #include "emu.h"
 #include "buffram.h"
 
-#include "fileio.h"
-
 #define VERBOSE ( LOG_GENERAL )
 #include "logmacro.h"
 

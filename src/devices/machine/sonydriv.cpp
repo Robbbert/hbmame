@@ -39,8 +39,6 @@
 #include "formats/ap_dsk35.h"
 #include "imagedev/flopdrv.h"
 
-#include "fileio.h"
-
 
 #ifdef MAME_DEBUG
 #define LOG_SONY        1

@@ -11,8 +11,6 @@
 #include "emu.h"
 #include "tosh1000_bram.h"
 
-#include "fileio.h"
-
 #include <algorithm>
 
 

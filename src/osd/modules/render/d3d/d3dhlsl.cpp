@@ -13,7 +13,6 @@
 #include "rendlay.h"
 #include "rendutil.h"
 #include "emuopts.h"
-#include "fileio.h"
 #include "aviio.h"
 #include "png.h"
 #include "screen.h"

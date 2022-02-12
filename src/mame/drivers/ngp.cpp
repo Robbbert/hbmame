@@ -105,7 +105,6 @@ the Neogeo Pocket.
 #include "sound/t6w28.h"
 #include "sound/dac.h"
 #include "video/k1ge.h"
-#include "fileio.h"
 #include "screen.h"
 #include "softlist_dev.h"
 #include "speaker.h"

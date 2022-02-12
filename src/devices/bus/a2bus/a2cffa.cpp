@@ -17,7 +17,6 @@
 #include "imagedev/harddriv.h"
 #include "bus/ata/ataintf.h"
 
-#include "fileio.h"
 #include "softlist.h"
 
 

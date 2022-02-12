@@ -12,7 +12,6 @@
 #include "language.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 
 #include "corestr.h"
 

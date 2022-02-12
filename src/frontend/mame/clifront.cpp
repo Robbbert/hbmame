@@ -23,7 +23,6 @@
 #include "pluginopts.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 #include "romload.h"
 #include "softlist_dev.h"
 #include "validity.h"

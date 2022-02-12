@@ -16,8 +16,6 @@
 #include "emu.h"
 #include "ds2404.h"
 
-#include "fileio.h"
-
 #include <algorithm>
 #include <ctime> // FIXME: re-write in terms of device_rtc_interface and remove this
 

@@ -22,8 +22,6 @@
 
 #include "mame.h"
 #include "mameopts.h"
-
-#include "fileio.h"
 #include "rendfont.h"
 
 

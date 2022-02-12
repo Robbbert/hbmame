@@ -12,7 +12,6 @@
 #include "mameopts.h"
 
 #include "drivenum.h"
-#include "fileio.h"
 #include "screen.h"
 #include "softlist_dev.h"
 #include "zippath.h"

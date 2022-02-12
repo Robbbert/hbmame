@@ -13,7 +13,6 @@
 #include "rendlay.h"
 
 #include "emuopts.h"
-#include "fileio.h"
 #include "rendfont.h"
 #include "rendutil.h"
 #include "video/rgbutil.h"
