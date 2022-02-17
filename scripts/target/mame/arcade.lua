@@ -803,7 +803,7 @@ BUSES["MIDI"] = true
 --BUSES["MSX_SLOT"] = true
 BUSES["NEOGEO"] = true
 BUSES["NEOGEO_CTRL"] = true
---BUSES["NES"] = true
+BUSES["NES_CTRL"] = true
 BUSES["NSCSI"] = true
 --BUSES["NUBUS"] = true
 --BUSES["O2"] = true
@@ -827,7 +827,7 @@ BUSES["SG1000_EXP"] = true
 BUSES["SGIKBD"] = true
 BUSES["SMS_CTRL"] = true
 BUSES["SMS_EXP"] = true
---BUSES["SNES"] = true
+BUSES["SNES_CTRL"] = true
 --BUSES["SPC1000"] = true
 BUSES["SUNKBD"] = true
 --BUSES["TI99PEB"] = true
@@ -4974,6 +4974,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/jungleyo.cpp",
 	MAME_DIR .. "src/mame/drivers/kas89.cpp",
 	MAME_DIR .. "src/mame/drivers/kingpin.cpp",
+	MAME_DIR .. "src/mame/drivers/krokha.cpp",
 	MAME_DIR .. "src/mame/drivers/kurukuru.cpp",
 	MAME_DIR .. "src/mame/drivers/kyugo.cpp",
 	MAME_DIR .. "src/mame/includes/kyugo.h",
@@ -5065,6 +5066,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/pkscram.cpp",
 	MAME_DIR .. "src/mame/drivers/playcenter.cpp",
 	MAME_DIR .. "src/mame/drivers/plsonic4.cpp",
+	MAME_DIR .. "src/mame/drivers/pmc.cpp",
 	MAME_DIR .. "src/mame/drivers/pntnpuzl.cpp",
 	MAME_DIR .. "src/mame/drivers/policetr.cpp",
 	MAME_DIR .. "src/mame/includes/policetr.h",
