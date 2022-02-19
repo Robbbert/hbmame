@@ -2441,6 +2441,7 @@ magibombb                       // (c) 2002  Astro Corp.
 magibombc                       // (c) 2001  Astro Corp.
 magibombd                       // (c) 2005  Astro Corp.
 magibombe                       // (c) 2001? Astro Corp.
+magibombf                       // (c) 2002  Astro Corp.
 showhanc                        // (c) 2000  Astro Corp.
 showhand                        // (c) 2000  Astro Corp.
 skilldrp                        // (c) 2002  Astro Corp.
@@ -3420,6 +3421,7 @@ bbca                            // 1981 BBC Micro Model A
 bbcb                            // 1981 BBC Micro Model B
 bbcb_de                         // 1982 BBC Micro Model B (German)
 bbcb_us                         // 1983 BBC Micro Model B (US)
+bbcb_no                         // 1984 BBC Micro Model B (Norway)
 bbcbp                           // 1985 BBC Micro Model B+ 64K
 bbcbp128                        // 1985 BBC Micro Model B+ 128K
 bbcm                            // 1986 BBC Master 128
@@ -3444,6 +3446,7 @@ ltmpm                           // 1986 LTM Portable (Master)
 pro128s                         // 1987 Olivetti Prodest PC 128S
 autoc15                         // 1988 Autocue 1500
 reutapm                         // 1985 Reuters APM Board
+sist1                           // 198? Cisco SIST1 Terminal
 torchf                          // 1982 Torch CF240
 torchh                          // 1982 Torch CH240
 torch301                        // 1984 Torch Model 301
@@ -14023,6 +14026,7 @@ granits                         // RCS
 miniscco
 
 @source:fidel_phantom.cpp
+cphantom                        //
 fphantom                        //
 
 @source:fidel_sc12.cpp
@@ -16673,6 +16677,7 @@ bankshot                        // Parker Bros
 bcheetah                        // Bandai
 ebknight                        // Entex
 bigtrak                         // Milton Bradley
+blastit                         // Entex
 bship                           // Milton Bradley
 bshipb                          // Milton Bradley
 cmsport                         // Conic
@@ -23270,6 +23275,7 @@ dodgectya                       // (c) 1986 Merit
 dodgectyb                       // (c) 1986 Merit
 dodgectyc                       // (c) 1986 Merit
 dtrvwz5                         // (c) 1987 Merit
+housecard                       // (c) 1983 Merit
 iowapp                          // (c) 1990 Merit
 matchemg                        // (c) 1986 Merit
 misdraw                         // (c) 1986 Merit / Big Apple Games
@@ -36413,6 +36419,7 @@ rbislande                       // B39 (c) 1988 Taito Corporation
 magslot                         // (c) 2003 GMS
 rbmk                            // (c) 1998 GMS
 rbspm                           // (c) 1998 GMS
+sc2in1                          // (c) 2001 GMS
 
 @source:rbowlorama.cpp
 rbowlorama                      // (c) 2008 Cosmodog / Namco
@@ -36957,6 +36964,10 @@ trizn_l1                        //
 trizn_t1                        //
 
 @source:s6.cpp
+algar_l1                        //
+alpok_f6                        //
+alpok_l2                        //
+alpok_l6                        //
 blkou_f1                        //
 blkou_l1                        //
 blkou_t1                        //
@@ -36970,12 +36981,6 @@ lzbal_l2sp                      //
 lzbal_t2                        //
 scrpn_l1                        //
 scrpn_t1                        //
-
-@source:s6a.cpp
-algar_l1                        //
-alpok_f6                        //
-alpok_l2                        //
-alpok_l6                        //
 
 @source:s7.cpp
 barra_l1                        //
