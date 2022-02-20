@@ -861,8 +861,6 @@ void m68000_base_device::execute_run()
 	{
 		/* Return point if we had an address error */
 		check_address_error:
-// HBMAME temp hack, to see if this allows us to run chinese hacks
-#if 0
 		if (m_address_error==1)
 		{
 			m_address_error = 0;
@@ -887,7 +885,7 @@ void m68000_base_device::execute_run()
 				return;
 			}
 		}
-#endif
+
 
 		/* Main loop.  Keep going until we run out of clock cycles */
 		while (m_icount > 0)
