@@ -28,14 +28,14 @@ Status:
 - Skeletons
 
 ToDo:
-- CPU sound command to sound card
 - Add bsmt-based sound card
 - Display
+- Inputs not working
 - Mechanical sounds
-- Everything
 
 ****************************************************************************************************/
 #include "emu.h"
+#include "machine/genpin.h"
 #include "cpu/m6502/m65c02.h"
 #include "cpu/m6809/m6809.h"
 #include "machine/6522via.h"
@@ -43,24 +43,28 @@ ToDo:
 #include "sound/okim6295.h"
 #include "sound/ymopl.h"
 #include "speaker.h"
+#include "alvg.lh"
 
 
 namespace {
 
-class alvg_state : public driver_device
+class alvg_state : public genpin_class
 {
 public:
 	alvg_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag)
+		: genpin_class(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
 		, m_audiocpu(*this, "audiocpu")
 		, m_oki(*this, "oki")
 		, m_ppi0(*this, "ppi0")
 		, m_ppi1(*this, "ppi1")
 		, m_ppi2(*this, "ppi2")
+		, m_ppi3(*this, "ppi3")
 		, m_via(*this, "via")
 		, m_via0(*this, "via0")
 		, m_via1(*this, "via1")
+		, m_io_keyboard(*this, "X%d", 0U)
+		, m_digits(*this, "digit%d", 0U)
 		, m_io_outputs(*this, "out%d", 0U)
 	{ }
 
@@ -81,18 +85,29 @@ private:
 	void ppi2_pa_w(u8 data) { m_lamp_data = (m_lamp_data & 0xff00) | data; }
 	void ppi2_pb_w(u8 data) { m_lamp_data = (m_lamp_data & 0xff) | (data << 8); }
 	void ppi2_pc_w(u8 data);
+	void ppi3_pa_w(u8 data);
+	void ppi3_pb_w(u8 data);
+	void ppi3_pc_w(u8 data);
+	void via_pb_w(u8 data);
+	u8 via0_pa_r();
+	u8 via0_pb_r() { return m_io_keyboard[12]->read(); }
+	void via1_pb_w(u8 data);
 
 	u16 m_row = 0U;
 	u16 m_lamp_data = 0U;
+	u8 m_strobe = 0U;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_audiocpu;
 	required_device<okim6295_device> m_oki;
 	required_device<i8255_device> m_ppi0;
 	required_device<i8255_device> m_ppi1;
 	required_device<i8255_device> m_ppi2;
+	required_device<i8255_device> m_ppi3;
 	required_device<via6522_device> m_via;
 	required_device<via6522_device> m_via0;
 	required_device<via6522_device> m_via1;
+	required_ioport_array<13> m_io_keyboard;
+	output_finder<40> m_digits;
 	output_finder<128> m_io_outputs;   // 32 solenoids + 96 lamps
 };
 
@@ -100,11 +115,12 @@ private:
 void alvg_state::main_map(address_map &map)
 {
 	map(0x0000, 0xffff).rom();
-	map(0x0000, 0x1fff).ram();
+	map(0x0000, 0x1fff).ram().share("nvram");
 	map(0x2000, 0x2003).mirror(0x3f0).rw(m_ppi0, FUNC(i8255_device::read), FUNC(i8255_device::write)); // U12
 	map(0x2400, 0x2403).mirror(0x3f0).rw(m_ppi1, FUNC(i8255_device::read), FUNC(i8255_device::write)); // U13
 	map(0x2800, 0x2803).mirror(0x3f0).rw(m_ppi2, FUNC(i8255_device::read), FUNC(i8255_device::write)); // U14
-	map(0x2c00, 0x2cff).mirror(0x300).w(FUNC(alvg_state::display_w));
+	map(0x2c00, 0x2c00).mirror(0x37f).w(FUNC(alvg_state::display_w));
+	map(0x2c80, 0x2c83).mirror(0x37c).rw(m_ppi3, FUNC(i8255_device::read), FUNC(i8255_device::write)); // IC1 on display board
 	map(0x3800, 0x380f).mirror(0x3f0).m("via1", FUNC(via6522_device::map)); // U8
 	map(0x3c00, 0x3c0f).mirror(0x3f0).m("via0", FUNC(via6522_device::map)); // U7
 }
@@ -120,12 +136,117 @@ void alvg_state::audio_map(address_map &map)
 }
 
 static INPUT_PORTS_START( alvg )
-INPUT_PORTS_END
+	PORT_START("X0")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN2 )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN3 )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_COIN4 )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_0) PORT_NAME("Slam Tilt")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_9) PORT_NAME("Tilt")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_LSHIFT) PORT_NAME("Left Flipper")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_RSHIFT) PORT_NAME("Right Flipper")
 
-void alvg_state::display_w(offs_t offset, u8 data)
-{
-	//printf("%X:%X ",offset,data);
-}
+	PORT_START("X1")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_START )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_X) PORT_NAME("INP10") // Tilt on Mystery Castle, Punchy, Pistol Poker
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_A) PORT_NAME("INP11")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_B) PORT_NAME("INP12")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_C) PORT_NAME("INP13")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_D) PORT_NAME("INP14")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_PLUS_PAD) PORT_NAME("Test+")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_MINUS_PAD) PORT_NAME("Test-")
+
+	PORT_START("X2")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_E) PORT_NAME("INP17")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_F) PORT_NAME("INP18")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_G) PORT_NAME("INP19")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_H) PORT_NAME("INP20")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_I) PORT_NAME("INP21")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_J) PORT_NAME("INP22")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_K) PORT_NAME("INP23")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_L) PORT_NAME("INP24")
+
+	PORT_START("X3")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_M) PORT_NAME("INP25")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_N) PORT_NAME("INP26")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_O) PORT_NAME("INP27")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_P) PORT_NAME("INP28")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_Q) PORT_NAME("INP29")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_R) PORT_NAME("INP30")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_S) PORT_NAME("INP31")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_T) PORT_NAME("INP32")
+
+	PORT_START("X4")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_U) PORT_NAME("INP33")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_V) PORT_NAME("INP34")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_W) PORT_NAME("INP35")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_Y) PORT_NAME("INP36")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_Z) PORT_NAME("INP37")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_COMMA) PORT_NAME("INP38")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_STOP) PORT_NAME("INP39")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_SLASH) PORT_NAME("INP40")
+
+	PORT_START("X5")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_COLON) PORT_NAME("INP41")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_QUOTE) PORT_NAME("INP42")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_ENTER) PORT_NAME("INP43")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_OPENBRACE) PORT_NAME("INP44")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_CLOSEBRACE) PORT_NAME("INP45")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_BACKSLASH) PORT_NAME("INP46")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_MINUS) PORT_NAME("INP47")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_EQUALS) PORT_NAME("INP48")
+
+	PORT_START("X6")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_BACKSPACE) PORT_NAME("INP49")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_UP) PORT_NAME("INP50")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_LEFT) PORT_NAME("INP51")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_RIGHT) PORT_NAME("INP52")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_DOWN) PORT_NAME("INP53")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_SPACE) PORT_NAME("INP54")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_DEL) PORT_NAME("INP55")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_HOME) PORT_NAME("INP56")
+
+	PORT_START("X7")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_END) PORT_NAME("INP57")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_PGUP) PORT_NAME("INP58")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_PGDN) PORT_NAME("INP59")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_SLASH_PAD) PORT_NAME("INP60")
+	// From here, these inputs only used by Pistol Poker
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_ASTERISK) PORT_NAME("INP61")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_1_PAD) PORT_NAME("INP62")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_2_PAD) PORT_NAME("INP63")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("X8")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_3_PAD) PORT_NAME("INP65")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_4_PAD) PORT_NAME("INP66")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNUSED )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_5_PAD) PORT_NAME("INP68")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_6_PAD) PORT_NAME("INP69")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_7_PAD) PORT_NAME("INP70")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_8_PAD) PORT_NAME("INP71")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED ) PORT_CODE(KEYCODE_9_PAD) PORT_NAME("INP72")
+
+	PORT_START("X9")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_CODE(KEYCODE_DEL_PAD) PORT_NAME("INP73")
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP74")
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP75")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP76")
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP77")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP78")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP79")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_KEYPAD ) PORT_NAME("INP80")
+
+	PORT_START("X10")
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("X11")
+	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNUSED )
+
+	PORT_START("X12") // DIAGS
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_ENTER_PAD) PORT_NAME("Enter")
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_KEYPAD ) PORT_CODE(KEYCODE_0_PAD) PORT_NAME("Test")
+INPUT_PORTS_END
 
 void alvg_state::ppi2_pc_w(u8 data)
 {
@@ -135,11 +256,61 @@ void alvg_state::ppi2_pc_w(u8 data)
 				m_io_outputs[24U+8*i+j] = BIT(data, j);
 }
 
+void alvg_state::ppi3_pa_w(u8 data)
+{
+	u16 t = m_digits[m_strobe] & 0xff00;
+	m_digits[m_strobe] = t | data;
+}
+
+void alvg_state::ppi3_pb_w(u8 data)
+{
+	u16 t = m_digits[m_strobe] & 0xff;
+	m_digits[m_strobe] = t | (data << 8);
+}
+
+void alvg_state::ppi3_pc_w(u8 data)
+{
+	u16 t = m_digits[m_strobe+20] & 0xff00;
+	m_digits[m_strobe+20] = t | data;
+}
+
+void alvg_state::display_w(offs_t offset, u8 data)
+{
+	u16 t = m_digits[m_strobe+20] & 0xff;
+	m_digits[m_strobe+20] = t | (data << 8);
+}
+
+void alvg_state::via_pb_w(u8 data)
+{
+	m_via1->write_ca1(BIT(data, 1));
+}
+
+void alvg_state::via1_pb_w(u8 data)
+{
+	m_via->write_ca2(BIT(data, 1));
+	if ((data & 0x38)==0)
+	{
+		m_strobe++;
+		if (m_strobe > 19)
+			m_strobe = 0;
+	}
+}
+
+u8 alvg_state::via0_pa_r()
+{
+	u8 data = 0xff;
+	for (u8 i = 0; i < 12; i++)
+		if (!BIT(m_row, i))
+			data &= m_io_keyboard[i]->read();
+
+	return data;
+}
+
 void alvg_state::machine_start()
 {
-	//genpin_class::machine_start();
+	genpin_class::machine_start();
 
-	//m_digits.resolve();
+	m_digits.resolve();
 	m_io_outputs.resolve();
 
 	save_item(NAME(m_row));
@@ -148,9 +319,10 @@ void alvg_state::machine_start()
 
 void alvg_state::machine_reset()
 {
-	//genpin_class::machine_reset();
+	genpin_class::machine_reset();
 	for (u8 i = 0; i < m_io_outputs.size(); i++)
 		m_io_outputs[i] = 0;
+	m_strobe = 0U;
 }
 
 void alvg_state::alvg(machine_config &config)
@@ -159,9 +331,14 @@ void alvg_state::alvg(machine_config &config)
 	M65C02(config, m_maincpu, XTAL(4'000'000) / 2);
 	m_maincpu->set_addrmap(AS_PROGRAM, &alvg_state::main_map);
 
+	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
+
+	/* Video */
+	config.set_default_layout(layout_alvg);
+
 	MOS6522(config, m_via0, XTAL(4'000'000) / 2);  // U7, uses clock2 from maincpu; switch inputs
-	//m_via0->readpa_handler().set(FUNC(alvg_state::via0_pa_r));
-	//m_via0->readpb_handler().set(FUNC(alvg_state::via0_pb_r));
+	m_via0->readpa_handler().set(FUNC(alvg_state::via0_pa_r));
+	m_via0->readpb_handler().set(FUNC(alvg_state::via0_pb_r));
 	//m_via0->writepa_handler().set(FUNC(alvg_state::via0_pa_w));
 	//m_via0->writepb_handler().set(FUNC(alvg_state::via0_pb_w));
 	//m_via0->ca2_handler().set_nop();
@@ -169,10 +346,9 @@ void alvg_state::alvg(machine_config &config)
 	m_via0->irq_handler().set_inputline(m_maincpu, M65C02_IRQ_LINE);
 
 	MOS6522(config, m_via1, XTAL(4'000'000) / 2);  // U8, uses clock2 from maincpu; port A = to sound; port B = serial to display
-	//m_via1->readpa_handler().set(FUNC(alvg_state::via1_pa_r));
 	//m_via1->readpb_handler().set(FUNC(alvg_state::via1_pb_r));
-	//m_via1->writepa_handler().set(FUNC(alvg_state::via1_pa_w));
-	//m_via1->writepb_handler().set(FUNC(alvg_state::via1_pb_w));
+	m_via1->writepa_handler().set(m_via, FUNC(via6522_device::write_pa));
+	m_via1->writepb_handler().set(FUNC(alvg_state::via1_pb_w));
 	//m_via1->ca2_handler().set_nop();
 	//m_via1->cb2_handler().set_nop();
 	m_via1->irq_handler().set_inputline(m_maincpu, M65C02_IRQ_LINE);
@@ -192,6 +368,11 @@ void alvg_state::alvg(machine_config &config)
 	m_ppi2->out_pb_callback().set(FUNC(alvg_state::ppi2_pb_w)); // Lamps
 	m_ppi2->out_pc_callback().set(FUNC(alvg_state::ppi2_pc_w)); // Lamps
 
+	I8255A(config, m_ppi3); // U14
+	m_ppi3->out_pa_callback().set(FUNC(alvg_state::ppi3_pa_w)); // Alpha Display
+	m_ppi3->out_pb_callback().set(FUNC(alvg_state::ppi3_pb_w)); // Alpha Display
+	m_ppi3->out_pc_callback().set(FUNC(alvg_state::ppi3_pc_w)); // Alpha Display
+
 	// Sound
 	MC6809(config, m_audiocpu, XTAL(8'000'000)); // 68B09, 8 MHz crystal, internal divide by 4 to produce E/Q outputs
 	m_audiocpu->set_addrmap(AS_PROGRAM, &alvg_state::audio_map);
@@ -199,12 +380,12 @@ void alvg_state::alvg(machine_config &config)
 	//m_via->readpa_handler().set(FUNC(alvg_state::via_pa_r));
 	//m_via->readpb_handler().set(FUNC(alvg_state::via_pb_r));
 	//m_via->writepa_handler().set(FUNC(alvg_state::via_pa_w));
-	//m_via->writepb_handler().set(FUNC(alvg_state::via_pb_w));
+	m_via->writepb_handler().set(FUNC(alvg_state::via_pb_w));
 	//m_via->ca2_handler().set_nop();
 	//m_via->cb2_handler().set_nop();
 	m_via->irq_handler().set_inputline(m_audiocpu, M6809_FIRQ_LINE);
 
-	//genpin_audio(config);
+	genpin_audio(config);
 
 	SPEAKER(config, "mono").front_center();
 

@@ -14660,6 +14660,7 @@ mandinga                        // bootleg (Artemi)
 mandingac                       // bootleg (Centromatic)
 mandingaeg                      // bootleg (Electrogame)
 mandingarf                      // bootleg (Recreativos Franco S.A.)
+mandinka                        // bootleg
 meteora                         // bootleg (Alca)
 mimonkey                        // (c) 1982 Universal Video Games (US Copyright Office info - http://cocatalog.loc.gov)
 mimonsco                        // (c) 1982 bootleg
@@ -16691,6 +16692,7 @@ copycatm2                       // Tiger Electronics
 cqback                          // Coleco
 dataman                         // Texas Instruments
 ditto                           // Tiger Electronics
+dxfootb                         // Tiger Electronics
 ebaskb2                         // Entex
 ebball                          // Entex
 ebball2                         // Entex
@@ -33514,6 +33516,7 @@ noki8890                        //
 bjpoker                         // (c) M. Kramer Inc.
 cdrawpkr                        // (c) 1984, Coinmaster
 cgip23b                         // (c) 1998, CGI
+cgip30b                         // (c) 1999, CGI
 cgip30cs                        // (c) 1999, CGI
 cgidjp                          // (c) 1999, CGI
 df_djpkr                        // (c) DellFern Ltd.
@@ -39604,6 +39607,7 @@ spk115it                        // (c) 199? IGS
 spk116it                        // (c) 199? IGS
 spk116itmx                      // (c) 199? IGS
 spk200ua                        // (c) 1996 IGS
+spk201ua                        // (c) 1996 IGS
 spk203us                        // (c) 1996 IGS
 spk205us                        // (c) 1996 IGS
 spk306us                        // (c) 1996 IGS
@@ -40028,6 +40032,8 @@ subs                            // 033714           1979/05 [6502]
 
 @source:subsino.cpp
 crsbingo                        // (c) 1991 Subsino
+dinofmly                        // (c) 1994 Subsino
+dinofmlya                       // (c) 1995 Subsino (Tangasoft license or hack?)
 mtrainnv                        // (c) 1996 Subsino
 sharkpy                         // (c) 1996 Subsino
 sharkpya                        // (c) 1996 Subsino
@@ -43747,6 +43753,7 @@ wy75                            // WY-75
 
 @source:wy55.cpp
 wy55                            // WY-55
+wy65                            // WY-65
 
 @source:wy60.cpp
 wy60                            // WY-60
