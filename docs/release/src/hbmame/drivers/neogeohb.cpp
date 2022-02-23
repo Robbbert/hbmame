@@ -57,7 +57,7 @@ NUM TITLES
 066 Karnov's Revenge / Fighter's History Dynamite
 069 Fatal Fury 3 / Garoudensetsu 3; The Battle of Destiny; Road to the Final Victory
 076 Zed Blade / Operation Ragnarok
-079 Street Hoop / Dunk Dream
+079 Street Hoop / Dunk Dream / Street Slam
 087 Samurai Shodown III / Fighters Swords
 092 Kabuki Klash / Far East of Eden
 200 Neo Turf Masters / Big Tournament Golf
