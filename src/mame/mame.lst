@@ -1272,6 +1272,7 @@ punchy                          //
 punchy3                         //
 usafootb                        //
 usafootba                       //
+usafootf                        //
 wrldtour                        //
 wrldtour2                       //
 wrldtour3                       //
@@ -16668,7 +16669,6 @@ vespovar                        // Elektronika
 vfutbol                         // Elektronika
 
 @source:hh_tms1k.cpp
-7in1ss                          // Tiger Electronics
 alphie                          // Playskool
 arcmania                        // Milton Bradley
 arrball                         // A-One LSI
@@ -16733,6 +16733,7 @@ palmf31                         // Canon
 palmmd8                         // Canon
 pbmastm                         // Parker Bros
 phpball                         // Tomy
+playmaker                       // Tiger Electronics
 qfire                           // Electroplay
 quizwizc                        // Coleco
 raisedvl                        // Entex
@@ -16747,6 +16748,8 @@ starwbcp                        // Kenner (patent)
 stopthief                       // Parker Bros
 stopthiefp                      // Parker Bros (patent)
 subwars                         // Tiger Electronics
+t3in1sa                         // Tandy Corporation
+t7in1ss                         // Tiger Electronics
 tandy12                         // Tandy Corporation
 tbreakup                        // Tomy
 tc4                             // Coleco
@@ -20631,6 +20634,7 @@ glxplay2                        //
 kidnap                          //
 mac_1808                        //
 macgalxy                        //
+macgalxyb                       // (c) 1986 MAC S.A.
 macjungl                        //
 macjungn                        //
 nbamac                          //

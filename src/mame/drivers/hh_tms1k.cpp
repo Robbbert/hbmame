@@ -53,11 +53,11 @@ on Joerg Woerner's datamath.org: http://www.datamath.org/IC_List.htm
  @MP1204   TMS1100   1980, Entex Baseball 3 (6007)
  *MP1209   TMS1100   1980, U.S. Games Space Cruiser/Strategy Football
  @MP1211   TMS1100   1980, Entex Space Invader (6012)
- *MP1215   TMS1100   1980, Tiger Playmaker
+ @MP1215   TMS1100   1980, Tiger Playmaker
  @MP1218   TMS1100   1980, Entex Basketball 2 (6010)
  @MP1219   TMS1100   1980, U.S. Games Super Sports-4
  @MP1221   TMS1100   1980, Entex Raise The Devil (6011)
- *MP1231   TMS1100   1983, Tandy 3-in-1 Sports Arena (model 60-2178)
+ @MP1231   TMS1100   1984, Tandy 3 in 1 Sports Arena (model 60-2178)
  @MP1296   TMS1100   1982, Entex Black Knight Pinball (6081)
  *MP1311   TMS1100   1981, Bandai TC7: Air Traffic Control
  @MP1312   TMS1100   1983, Gakken FX-Micom R-165/Radio Shack Science Fair Microcomputer Trainer
@@ -125,7 +125,7 @@ on Joerg Woerner's datamath.org: http://www.datamath.org/IC_List.htm
  *MP6354   ?         1982, Tsukuda The Dracula (? note: 40-pin, VFD-capable)
  *MP6361   ?         1983, Defender Strikes (? note: VFD-capable)
  @MP7302   TMS1400   1980, Tiger Deluxe Football with Instant Replay
- @MP7304   TMS1400   1980, Tiger 7 in 1 Sports Stadium (model 7-555)
+ @MP7304   TMS1400   1982, Tiger 7 in 1 Sports Stadium (model 7-555)
  @MP7313   TMS1400   1980, Parker Brothers Bank Shot
  @MP7314   TMS1400   1980, Parker Brothers Split Second
   MP7324   TMS1400   1985, Tiger K28/Coleco Talking Teacher -> tispeak.cpp
@@ -172,7 +172,7 @@ TODO:
   but not for newer ones (rev. E or TMS1400 MCUs). TMS0970/0980 osc. is on-die.
 - fake-press ON button when emulation starts for machines that have it on the button matrix
   (doesn't look like any relies on it though)
-- 7in1ss: in 2-player mode, game select and skill select can be configured after selecting a game?
+- t7in1ss: in 2-player mode, game select and skill select can be configured after selecting a game?
   Possibly BTANB, players are expected to quickly press the "First Up" button after the alarm sound.
 - bship discrete sound, netlist is documented
 - finish bshipb SN76477 sound
@@ -202,7 +202,7 @@ TODO:
 #include "speaker.h"
 
 // internal artwork
-#include "7in1ss.lh"
+#include "t7in1ss.lh"
 #include "alphie.lh"
 #include "amaztron.lh" // clickable
 #include "arcmania.lh" // clickable
@@ -261,6 +261,7 @@ TODO:
 #include "palmmd8.lh"
 #include "pbmastm.lh"
 #include "phpball.lh"
+#include "playmaker.lh"
 #include "qfire.lh" // clickable
 #include "quizwizc.lh"
 #include "raisedvl.lh"
@@ -272,6 +273,7 @@ TODO:
 #include "starwbc.lh" // clickable
 #include "stopthief.lh" // clickable
 #include "subwars.lh"
+#include "t3in1sa.lh"
 #include "tandy12.lh" // clickable
 #include "tbreakup.lh"
 #include "tc4.lh"
@@ -743,7 +745,7 @@ u8 mathmagi_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     ON     ONE       [SEL] [NXT] [?]   [/]
      |      |        [7]   [8]   [9]   [x]
@@ -1529,6 +1531,7 @@ the letter buttons from it, the 8-character encoding for date input uses
 letters and digits in combination. This fact and the use of the P key are
 why the digit buttons are mapped here as keyboard inputs rather than as a
 keypad.
+
 */
 
 static INPUT_PORTS_START( zodiac )
@@ -2381,8 +2384,7 @@ class quizwizc_state : public hh_tms1k_state
 {
 public:
 	quizwizc_state(const machine_config &mconfig, device_type type, const char *tag) :
-		hh_tms1k_state(mconfig, type, tag),
-		m_pinout(0)
+		hh_tms1k_state(mconfig, type, tag)
 	{ }
 
 	void quizwizc(machine_config &config);
@@ -2392,7 +2394,7 @@ protected:
 
 private:
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
-	u16 m_pinout; // cartridge R pins
+	u16 m_pinout = 0x07; // cartridge R pins
 
 	void update_display();
 	void write_r(u16 data);
@@ -2419,9 +2421,15 @@ DEVICE_IMAGE_LOAD_MEMBER(quizwizc_state::cart_load)
 	}
 
 	// get cartridge pinout K1 to R connections
-	std::string pinout(image.get_feature("pinout"));
-	m_pinout = std::stoul(pinout, nullptr, 2) & 0xe7;
+	const char *pinout = image.get_feature("pinout");
+	m_pinout = pinout ? strtoul(pinout, nullptr, 2) & 0xe7 : 0;
 	m_pinout = bitswap<8>(m_pinout,4,3,7,5,2,1,6,0) << 4;
+
+	if (m_pinout == 0)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "Invalid cartridge pinout");
+		return image_init_result::FAIL;
+	}
 
 	return image_init_result::PASS;
 }
@@ -2571,8 +2579,7 @@ class tc4_state : public hh_tms1k_state
 {
 public:
 	tc4_state(const machine_config &mconfig, device_type type, const char *tag) :
-		hh_tms1k_state(mconfig, type, tag),
-		m_pinout(0)
+		hh_tms1k_state(mconfig, type, tag)
 	{ }
 
 	void tc4(machine_config &config);
@@ -2582,7 +2589,7 @@ protected:
 
 private:
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
-	u8 m_pinout; // cartridge K pins
+	u8 m_pinout = 0xf; // cartridge K pins
 
 	void update_display();
 	void write_r(u16 data);
@@ -2609,8 +2616,8 @@ DEVICE_IMAGE_LOAD_MEMBER(tc4_state::cart_load)
 	}
 
 	// get cartridge pinout R9 to K connections
-	std::string pinout(image.get_feature("pinout"));
-	m_pinout = std::stoul(pinout, nullptr, 0) & 0xf;
+	const char *pinout = image.get_feature("pinout");
+	m_pinout = pinout ? strtoul(pinout, nullptr, 0) & 0xf : 0xf;
 
 	return image_init_result::PASS;
 }
@@ -3535,7 +3542,7 @@ ROM_END
 /***************************************************************************
 
   Entex (Electronic) Soccer
-  * TMS1000NL MP0158 (die label same)
+  * TMS1000NL MP0158 (die label 1000B, MP0158)
   * 2 7seg LEDs, 30 other LEDs, 1-bit sound
 
   known releases:
@@ -3599,14 +3606,14 @@ u8 esoccer_state::read_k()
 static INPUT_PORTS_START( esoccer )
 	PORT_START("IN.0") // R0
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_16WAY
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_16WAY
 
 	PORT_START("IN.1") // R1
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_COCKTAIL PORT_16WAY
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL PORT_16WAY
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL PORT_16WAY
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_COCKTAIL PORT_16WAY
 
 	PORT_START("IN.2") // R2
@@ -3620,7 +3627,7 @@ INPUT_PORTS_END
 void esoccer_state::esoccer(machine_config &config)
 {
 	// basic machine hardware
-	TMS1000(config, m_maincpu, 350000); // approximation - RC osc. R=47K, C=33pF
+	TMS1000(config, m_maincpu, 475000); // approximation - RC osc. R=47K, C=33pF
 	m_maincpu->k().set(FUNC(esoccer_state::read_k));
 	m_maincpu->r().set(FUNC(esoccer_state::write_r));
 	m_maincpu->o().set(FUNC(esoccer_state::write_o));
@@ -3628,7 +3635,7 @@ void esoccer_state::esoccer(machine_config &config)
 	// video hardware
 	PWM_DISPLAY(config, m_display).set_size(10, 7);
 	m_display->set_segmask(0x300, 0x7f);
-	m_display->set_bri_levels(0.01, 0.1); // player led is brighter
+	m_display->set_bri_levels(0.008, 0.08); // player led is brighter
 	config.set_default_layout(layout_esoccer);
 
 	// sound hardware
@@ -4050,7 +4057,7 @@ u8 ebball3_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     main device (batter side):            remote pitcher:
 
@@ -4219,7 +4226,7 @@ INPUT_PORTS_END
 void esbattle_state::esbattle(machine_config &config)
 {
 	// basic machine hardware
-	TMS1000(config, m_maincpu, 425000); // approximation - RC osc. R=47K, C=33pF
+	TMS1000(config, m_maincpu, 450000); // approximation - RC osc. R=47K, C=33pF
 	m_maincpu->k().set(FUNC(esbattle_state::read_k));
 	m_maincpu->r().set(FUNC(esbattle_state::write_r));
 	m_maincpu->o().set(FUNC(esbattle_state::write_o));
@@ -5242,8 +5249,6 @@ public:
 	void gpoker(machine_config &config);
 
 protected:
-	virtual void machine_reset() override;
-
 	required_device<beep_device> m_beeper;
 
 	void update_display();
@@ -5251,12 +5256,6 @@ protected:
 	virtual void write_o(u16 data);
 	virtual u8 read_k();
 };
-
-void gpoker_state::machine_reset()
-{
-	hh_tms1k_state::machine_reset();
-	m_beeper->set_state(0);
-}
 
 // handlers
 
@@ -5295,7 +5294,7 @@ u8 gpoker_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     [7]   [8]   [9]   [DL]   | (on/off switch)
     [4]   [5]   [6]   [BT]
@@ -5418,7 +5417,7 @@ void gjackpot_state::write_r(u16 data)
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
   (note: on dual-function buttons, upper label=Gin, lower label=Black Jack)
 
                        BJ --o GIN
@@ -5981,7 +5980,7 @@ u8 fxmcr165_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     [C]   [D]   [E]   [F]   [ADR SET]
     [8]   [9]   [A]   [B]   [INCR]
@@ -6115,7 +6114,7 @@ u8 elecdet_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     [1]   [2]   [3]   [SUSPECT]
     [4]   [5]   [6]   [PRIVATE QUESTION]
@@ -6268,7 +6267,7 @@ u8 starwbc_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     (reconnnaissance=yellow)        (tactical reaction=green)
     [MAGNA] [ENEMY]                 [EM]       [BS]   [SCR]
@@ -6732,7 +6731,7 @@ u8 horseran_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     [PURSE]      [DIST.]      [P. POSN.]   [DAYS]       [R.S.L.]     [7]     [8]     [9]
     [RACES]      [WINS]       [PLACES]     [SHOWS]      [EARNINGS]   [4]     [5]     [6]
@@ -7854,7 +7853,7 @@ u8 bigtrak_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
         USA version:                          UK version:
 
@@ -8118,7 +8117,7 @@ u8 mbdtower_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     (green)     (l.blue)    (red)
     [YES/       [REPEAT]    [NO/
@@ -8248,7 +8247,7 @@ u8 arcmania_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     (orange)    (orange)    (orange)
     [1]         [2]         [3]
@@ -8371,7 +8370,7 @@ u8 cnsector_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
              COMBAT INFORMATION CENTER
     [NEXT SHIP]       [RECALL]    [MOVE SHIP]
@@ -8834,7 +8833,7 @@ u8 stopthief_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
     [1] [2] [OFF]
     [3] [4] [ON]
@@ -8993,7 +8992,7 @@ u8 bankshot_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
   (note: remember that you can rotate the display in MAME)
 
     [SELECT  [BALL UP] [BALL OVER]
@@ -9240,7 +9239,7 @@ u8 lostreas_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
   (note: Canadian version differs slightly to accomodoate dual-language)
 
     [N-S(gold)]    [1] [2] [3]    [AIR]
@@ -9654,12 +9653,14 @@ ROM_END
 
 /***************************************************************************
 
-  Tandy Computerized Arcade (1981, 1982, 1995)
+  Tandy Computerized Arcade (model 60-2159 or 60-2159A)
   * TMS1100 MCU, label CD7282SL
   * 12 lamps behind buttons, 1-bit sound
 
   known releases:
   - World: Tandy-12: Computerized Arcade, published by Tandy
+  - World: Computerized Arcade, published by Tandy, Radio Shack brand.
+    This one is model 60-2495 from the mid-90s, perhaps different hardware!
   - Mexico: Fabuloso Fred, published by Ensueño Toys (also released as
     9-button version, a clone of Mego Fabulous Fred)
 
@@ -9730,7 +9731,7 @@ u8 tandy12_state::read_k()
 
 // config
 
-/* physical button layout and labels is like this:
+/* physical button layout and labels are like this:
 
         REPEAT-2              SPACE-2
           [O]     OFF--ON       [O]
@@ -9948,6 +9949,172 @@ ROM_START( monkeysee )
 	ROM_LOAD( "tms1000_monkeysee_micro.pla", 0, 867, CRC(368d878f) SHA1(956e700a04f453c1610cfdb974fce898ba4cf01f) )
 	ROM_REGION( 365, "maincpu:opla", 0 )
 	ROM_LOAD( "tms1000_monkeysee_output.pla", 0, 365, CRC(8a010e89) SHA1(3ffbabc5d6c9b34cc06d290817d15b2be42d8b17) )
+ROM_END
+
+
+
+
+
+/***************************************************************************
+
+  Tandy 3 in 1 Sports Arena (model 60-2178)
+  * TMS1100 (just a datestamp label (8331), die label 1100B MP1231)
+  * 2x2-digit 7seg LED display + 47 other LEDs, 1-bit sound
+
+  For Tandy Sports Arena (model 60-2158), see cmsport, this is a different game.
+  This version is very similar to ssports4 released a few years earlier.
+
+  3 overlays were included for the games (Tandy calls them graphic sheets),
+  MAME external artwork is needed for those.
+
+  It is always in 2-player head-to-head mode, the Player switch is just meant
+  for allowing the other player to have full control over 2 defense spots.
+
+***************************************************************************/
+
+class t3in1sa_state : public hh_tms1k_state
+{
+public:
+	t3in1sa_state(const machine_config &mconfig, device_type type, const char *tag) :
+		hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void t3in1sa(machine_config &config);
+
+private:
+	void update_display();
+	void write_r(u16 data);
+	void write_o(u16 data);
+	u8 read_k();
+};
+
+// handlers
+
+void t3in1sa_state::update_display()
+{
+	m_display->matrix(m_r, m_o | (m_r << 6 & 0x100));
+}
+
+void t3in1sa_state::write_r(u16 data)
+{
+	// R10: speaker out
+	m_speaker->level_w(data >> 10 & 1);
+
+	// R0,R1,R5,R7-R9: input mux
+	m_inp_mux = (data & 3) | (data >> 3 & 4) | (data >> 4 & 0x38);
+
+	// R2: led data high
+	// R3-R7: led select
+	// R0,R1,R8,R9: digit select
+	m_r = data;
+	update_display();
+}
+
+void t3in1sa_state::write_o(u16 data)
+{
+	// O0-O7: led data low
+	m_o = data;
+	update_display();
+}
+
+u8 t3in1sa_state::read_k()
+{
+	// K: multiplexed inputs
+	return read_inputs(6);
+}
+
+// config
+
+/* physical button layout and labels are like this:
+
+                  ↑
+     [ ]         [ ]         [ ]
+  TEAM-MATE                  PASS
+          ←[ ]         [ ]→  shoot
+        ↗                   ↖
+     [ ]         [ ]         [ ]
+    STATUS        ↓          KICK
+                             pass
+                             shoot
+
+Game and difficulty switches are under the yellow buttons,
+player switch is under the red buttons. P1 is yellow, P2 is red.
+
+*/
+
+static INPUT_PORTS_START( t3in1sa )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_16WAY
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_16WAY
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_COCKTAIL PORT_16WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_COCKTAIL PORT_16WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL PORT_16WAY
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL PORT_16WAY
+
+	PORT_START("IN.2") // R5
+	PORT_CONFNAME( 0x01, 0x00, DEF_STR( Difficulty ) )
+	PORT_CONFSETTING(    0x00, "1" ) // AMATEUR
+	PORT_CONFSETTING(    0x01, "2" ) // PRO
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_CONFNAME( 0x08, 0x08, DEF_STR( Players ) )
+	PORT_CONFSETTING(    0x08, "1" )
+	PORT_CONFSETTING(    0x00, "2" )
+
+	PORT_START("IN.3") // R7
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_CONFNAME( 0x0e, 0x08, "Game Select" )
+	PORT_CONFSETTING(    0x08, "Football" ) // F
+	PORT_CONFSETTING(    0x04, "Basketball" ) // B
+	PORT_CONFSETTING(    0x02, "Soccer" ) // S
+
+	PORT_START("IN.4") // R8
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_NAME("P1 Up-Left / Kick")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_NAME("P1 Up-Right / Status")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P1 Pass / Shoot")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P1 Team-Mate")
+
+	PORT_START("IN.5") // R9
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_COCKTAIL PORT_NAME("P2 Up-Left / Kick")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_COCKTAIL PORT_NAME("P2 Up-Right / Status")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL PORT_NAME("P2 Pass / Shoot")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL PORT_NAME("P2 Team-Mate")
+INPUT_PORTS_END
+
+void t3in1sa_state::t3in1sa(machine_config &config)
+{
+	// basic machine hardware
+	TMS1100(config, m_maincpu, 350000); // approximation - RC osc. R=47K, C=47pF
+	m_maincpu->k().set(FUNC(t3in1sa_state::read_k));
+	m_maincpu->r().set(FUNC(t3in1sa_state::write_r));
+	m_maincpu->o().set(FUNC(t3in1sa_state::write_o));
+
+	// video hardware
+	PWM_DISPLAY(config, m_display).set_size(10, 9);
+	m_display->set_segmask(0x303, 0x7f);
+	m_display->set_bri_levels(0.005, 0.05); // offense leds are brighter
+	config.set_default_layout(layout_t3in1sa);
+
+	// sound hardware
+	SPEAKER(config, "mono").front_center();
+	SPEAKER_SOUND(config, m_speaker);
+	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
+}
+
+// roms
+
+ROM_START( t3in1sa )
+	ROM_REGION( 0x0800, "maincpu", 0 )
+	ROM_LOAD( "mp1231", 0x0000, 0x0800, CRC(1c24e5c2) SHA1(0b6c2edea27eba15e890d82475b91a5e9ef6c4b9) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1100_t3in1sa_output.pla", 0, 365, CRC(de82a294) SHA1(7187666a510919b90798b92b9104ac5d6820d559) )
 ROM_END
 
 
@@ -12316,13 +12483,180 @@ ROM_END
 
 /***************************************************************************
 
-  Tiger Deluxe Football (model 7-550)
+  Tiger Playmaker: Hockey, Soccer, Basketball (model 7-540 or 7-540A)
+  * TMS1100 MP1215 (die label 1100B MP1215)
+  * 2-digit 7seg LED display + 40 other LEDs, 1-bit sound
+
+  The games are on playcards(Tiger calls them that), the hardware detects which
+  game is inserted from a notch at the lower-right. The playcards also function
+  as an overlay. MAME external artwork is needed for those.
+
+  Booting the handheld with no playcard inserted will initiate a halftime show.
+
+  "Playmaker" is actually Tiger's trademark for the d-pad controller, this
+  controller term was also used in for example Deluxe Football, and 7 in 1 Sports
+  Stadium. The d-pad has a ball shape at the bottom that sits on a concave base.
+  It is patented under US4256931 (mid-1979, a couple of years before Nintendo's
+  Game & Watch d-pad with US4687200).
+
+***************************************************************************/
+
+class playmaker_state : public hh_tms1k_state
+{
+public:
+	playmaker_state(const machine_config &mconfig, device_type type, const char *tag) :
+		hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void playmaker(machine_config &config);
+
+protected:
+	virtual void machine_start() override;
+
+private:
+	DECLARE_DEVICE_IMAGE_LOAD_MEMBER(cart_load);
+	u8 m_notch = 0; // cartridge K1/K2
+
+	void update_display();
+	void write_r(u16 data);
+	void write_o(u16 data);
+	u8 read_k();
+};
+
+void playmaker_state::machine_start()
+{
+	hh_tms1k_state::machine_start();
+
+	// register for savestates
+	save_item(NAME(m_notch));
+}
+
+// handlers
+
+DEVICE_IMAGE_LOAD_MEMBER(playmaker_state::cart_load)
+{
+	if (!image.loaded_through_softlist())
+	{
+		image.seterror(image_error::UNSUPPORTED, "Can only load through softwarelist");
+		return image_init_result::FAIL;
+	}
+
+	// get cartridge notch
+	const char *notch = image.get_feature("notch");
+	m_notch = notch ? strtoul(notch, nullptr, 0) & 3 : 0;
+
+	return image_init_result::PASS;
+}
+
+void playmaker_state::update_display()
+{
+	m_display->matrix(m_r, m_o);
+}
+
+void playmaker_state::write_r(u16 data)
+{
+	// R10: speaker out
+	m_speaker->level_w(data >> 10 & 1);
+
+	// R0-R3: input mux
+	m_inp_mux = data & 0xf;
+
+	// R0-R7: led select
+	// R8,R9: digit select
+	m_r = data;
+	update_display();
+}
+
+void playmaker_state::write_o(u16 data)
+{
+	// O0-O6: led data
+	m_o = data;
+	update_display();
+}
+
+u8 playmaker_state::read_k()
+{
+	// K: multiplexed inputs, cartridge notch from R3
+	return read_inputs(3) | ((m_inp_mux & 8) ? m_notch : 0);
+}
+
+// config
+
+static INPUT_PORTS_START( playmaker )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_COCKTAIL
+
+	PORT_START("IN.2") // R2
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL PORT_NAME("P2 Shoot")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL PORT_NAME("P2 Pass")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P1 Shoot / P1 Skill")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P1 Pass / P2 Skill")
+INPUT_PORTS_END
+
+void playmaker_state::playmaker(machine_config &config)
+{
+	// basic machine hardware
+	TMS1100(config, m_maincpu, 375000); // approximation - RC osc. R=20K, C=250pF
+	m_maincpu->k().set(FUNC(playmaker_state::read_k));
+	m_maincpu->r().set(FUNC(playmaker_state::write_r));
+	m_maincpu->o().set(FUNC(playmaker_state::write_o));
+
+	// video hardware
+	PWM_DISPLAY(config, m_display).set_size(10, 7);
+	m_display->set_segmask(0x300, 0x7f);
+	m_display->set_bri_levels(0.004, 0.04); // player 1 leds are brighter
+	config.set_default_layout(layout_playmaker);
+
+	// sound hardware
+	SPEAKER(config, "mono").front_center();
+	SPEAKER_SOUND(config, m_speaker);
+	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
+
+	// cartridge
+	generic_cartslot_device &cartslot(GENERIC_CARTSLOT(config, "cartslot", generic_plain_slot, "playmaker_cart"));
+	cartslot.set_must_be_loaded(false);
+	cartslot.set_device_load(FUNC(playmaker_state::cart_load));
+
+	SOFTWARE_LIST(config, "cart_list").set_original("playmaker");
+}
+
+// roms
+
+ROM_START( playmaker )
+	ROM_REGION( 0x0800, "maincpu", 0 )
+	ROM_LOAD( "mp1215", 0x0000, 0x0800, CRC(bfc7b6c8) SHA1(33f6e2b86fae2fd9e4b0a4b8dc842c257ca3047d) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
+	ROM_REGION( 365, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1100_playmaker_output.pla", 0, 365, CRC(0cd484d6) SHA1(4a9af9f3d18af504145690cb0f6444ff1aef26ca) )
+ROM_END
+
+
+
+
+
+/***************************************************************************
+
+  Tiger Deluxe Football with Instant Replay (model 7-550)
   * TMS1400NLL MP7302 (die label TMS1400 MP7302)
   * 4-digit 7seg LED display, 80 red/green LEDs, 1-bit sound
 
   According to the manual, player 1 is green, player 2 is red. But when
   playing a 1-player game, the CPU controls green, so on MAME, player 1
   is the red side.
+
+  Booting the handheld with the Score and Replay buttons held down will
+  initiate a halftime show.
 
 ***************************************************************************/
 
@@ -12388,10 +12722,10 @@ static INPUT_PORTS_START( dxfootb )
 	PORT_BIT( 0x0c, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START("IN.1") // R4
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL PORT_NAME("P2 Kick")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL PORT_NAME("P2 Pass")
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_NAME("P1 Kick")
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME("P1 Pass")
 
 	PORT_START("IN.2") // R5
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL
@@ -12437,137 +12771,6 @@ ROM_START( dxfootb )
 	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
 	ROM_REGION( 557, "maincpu:opla", 0 )
 	ROM_LOAD( "tms1400_dxfootb_output.pla", 0, 557, CRC(a1b3d2c0) SHA1(8030e6dcd3878b58668c98cff36d93b764e1d67f) )
-ROM_END
-
-
-
-
-
-/***************************************************************************
-
-  Tiger 7 in 1 Sports Stadium (model 7-555)
-  * TMS1400 MP7304 (die label TMS1400 MP7304A)
-  * 2x2-digit 7seg LED display + 39 other LEDs, 1-bit sound
-
-  This handheld includes 7 games: 1: Basketball, 2: Hockey, 3: Soccer,
-  4: Maze, 5: Baseball, 6: Football, 7: Raquetball.
-  MAME external artwork is needed for the switchable overlays.
-
-  known releases:
-  - World: 7 in 1 Sports Stadium, published by Tiger
-  - USA: 7 in 1 Sports, published by Sears
-
-***************************************************************************/
-
-class ss7in1_state : public hh_tms1k_state
-{
-public:
-	ss7in1_state(const machine_config &mconfig, device_type type, const char *tag) :
-		hh_tms1k_state(mconfig, type, tag)
-	{ }
-
-	void ss7in1(machine_config &config);
-
-private:
-	void update_display();
-	void write_r(u16 data);
-	void write_o(u16 data);
-	u8 read_k();
-};
-
-// handlers
-
-void ss7in1_state::update_display()
-{
-	m_display->matrix(m_r, m_o);
-}
-
-void ss7in1_state::write_r(u16 data)
-{
-	// R9: speaker out
-	m_speaker->level_w(data >> 9 & 1);
-
-	// R0-R2,R10: input mux
-	m_inp_mux = (data & 7) | (data >> 7 & 8);
-
-	// R0-R3: digit select
-	// R4-R8: led select
-	m_r = data;
-	update_display();
-}
-
-void ss7in1_state::write_o(u16 data)
-{
-	// O0-O7: led data
-	m_o = data;
-	update_display();
-}
-
-u8 ss7in1_state::read_k()
-{
-	// K: multiplexed inputs
-	return read_inputs(4);
-}
-
-// config
-
-static INPUT_PORTS_START( ss7in1 )
-	PORT_START("IN.0") // R0
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_COCKTAIL
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_COCKTAIL
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL
-
-	PORT_START("IN.1") // R1
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 )
-
-	PORT_START("IN.2") // R2
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
-
-	PORT_START("IN.3") // R10
-	PORT_CONFNAME( 0x01, 0x00, DEF_STR( Players ) )
-	PORT_CONFSETTING(    0x00, "1" )
-	PORT_CONFSETTING(    0x01, "2" )
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0x0c, IP_ACTIVE_LOW, IPT_UNUSED )
-INPUT_PORTS_END
-
-void ss7in1_state::ss7in1(machine_config &config)
-{
-	// basic machine hardware
-	TMS1400(config, m_maincpu, 425000); // approximation - RC osc. R=47K, C=47pF
-	m_maincpu->k().set(FUNC(ss7in1_state::read_k));
-	m_maincpu->r().set(FUNC(ss7in1_state::write_r));
-	m_maincpu->o().set(FUNC(ss7in1_state::write_o));
-
-	// video hardware
-	PWM_DISPLAY(config, m_display).set_size(9, 8);
-	m_display->set_segmask(0xf, 0x7f);
-	m_display->set_bri_levels(0.01, 0.04); // player led is brighter
-	config.set_default_layout(layout_7in1ss);
-
-	// sound hardware
-	SPEAKER(config, "mono").front_center();
-	SPEAKER_SOUND(config, m_speaker);
-	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
-}
-
-// roms
-
-ROM_START( 7in1ss )
-	ROM_REGION( 0x1000, "maincpu", 0 )
-	ROM_LOAD( "mp7304", 0x0000, 0x1000, CRC(2a1c8390) SHA1(fa10e60686af6828a61f05046abc3854ab49af95) )
-
-	ROM_REGION( 867, "maincpu:mpla", 0 )
-	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
-	ROM_REGION( 557, "maincpu:opla", 0 )
-	ROM_LOAD( "tms1400_7in1ss_output.pla", 0, 557, CRC(6b7660f7) SHA1(bb7d58fa04e7606ccdf5b209e1b089948bdd1e7c) )
 ROM_END
 
 
@@ -12867,6 +13070,137 @@ ROM_START( ditto )
 	ROM_LOAD( "tms1000_ditto_micro.pla", 0, 867, CRC(2710d8ef) SHA1(cb7a13bfabedad43790de753844707fe829baed0) )
 	ROM_REGION( 365, "maincpu:opla", 0 )
 	ROM_LOAD( "tms1000_ditto_output.pla", 0, 365, CRC(2b708a27) SHA1(e95415e51ffbe5da3bde1484fcd20467dde9f09a) )
+ROM_END
+
+
+
+
+
+/***************************************************************************
+
+  Tiger 7 in 1 Sports Stadium (model 7-555)
+  * TMS1400 MP7304 (die label TMS1400 MP7304A)
+  * 2x2-digit 7seg LED display + 39 other LEDs, 1-bit sound
+
+  This handheld includes 7 games: 1: Basketball, 2: Hockey, 3: Soccer,
+  4: Maze, 5: Baseball, 6: Football, 7: Raquetball.
+  MAME external artwork is needed for the switchable overlays.
+
+  known releases:
+  - World: 7 in 1 Sports Stadium, published by Tiger
+  - USA: 7 in 1 Sports, published by Sears
+
+***************************************************************************/
+
+class t7in1ss_state : public hh_tms1k_state
+{
+public:
+	t7in1ss_state(const machine_config &mconfig, device_type type, const char *tag) :
+		hh_tms1k_state(mconfig, type, tag)
+	{ }
+
+	void t7in1ss(machine_config &config);
+
+private:
+	void update_display();
+	void write_r(u16 data);
+	void write_o(u16 data);
+	u8 read_k();
+};
+
+// handlers
+
+void t7in1ss_state::update_display()
+{
+	m_display->matrix(m_r, m_o);
+}
+
+void t7in1ss_state::write_r(u16 data)
+{
+	// R9: speaker out
+	m_speaker->level_w(data >> 9 & 1);
+
+	// R0-R2,R10: input mux
+	m_inp_mux = (data & 7) | (data >> 7 & 8);
+
+	// R0-R3: digit select
+	// R4-R8: led select
+	m_r = data;
+	update_display();
+}
+
+void t7in1ss_state::write_o(u16 data)
+{
+	// O0-O7: led data
+	m_o = data;
+	update_display();
+}
+
+u8 t7in1ss_state::read_k()
+{
+	// K: multiplexed inputs
+	return read_inputs(4);
+}
+
+// config
+
+static INPUT_PORTS_START( t7in1ss )
+	PORT_START("IN.0") // R0
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_COCKTAIL
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_COCKTAIL
+
+	PORT_START("IN.1") // R1
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON2 )
+
+	PORT_START("IN.2") // R2
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT )
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT )
+
+	PORT_START("IN.3") // R10
+	PORT_CONFNAME( 0x01, 0x00, DEF_STR( Players ) )
+	PORT_CONFSETTING(    0x00, "1" )
+	PORT_CONFSETTING(    0x01, "2" )
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_UNUSED )
+	PORT_BIT( 0x0c, IP_ACTIVE_LOW, IPT_UNUSED )
+INPUT_PORTS_END
+
+void t7in1ss_state::t7in1ss(machine_config &config)
+{
+	// basic machine hardware
+	TMS1400(config, m_maincpu, 425000); // approximation - RC osc. R=47K, C=47pF
+	m_maincpu->k().set(FUNC(t7in1ss_state::read_k));
+	m_maincpu->r().set(FUNC(t7in1ss_state::write_r));
+	m_maincpu->o().set(FUNC(t7in1ss_state::write_o));
+
+	// video hardware
+	PWM_DISPLAY(config, m_display).set_size(9, 8);
+	m_display->set_segmask(0xf, 0x7f);
+	m_display->set_bri_levels(0.004, 0.04); // player led is brighter
+	config.set_default_layout(layout_t7in1ss);
+
+	// sound hardware
+	SPEAKER(config, "mono").front_center();
+	SPEAKER_SOUND(config, m_speaker);
+	m_speaker->add_route(ALL_OUTPUTS, "mono", 0.25);
+}
+
+// roms
+
+ROM_START( t7in1ss )
+	ROM_REGION( 0x1000, "maincpu", 0 )
+	ROM_LOAD( "mp7304", 0x0000, 0x1000, CRC(2a1c8390) SHA1(fa10e60686af6828a61f05046abc3854ab49af95) )
+
+	ROM_REGION( 867, "maincpu:mpla", 0 )
+	ROM_LOAD( "tms1100_common2_micro.pla", 0, 867, CRC(7cc90264) SHA1(c6e1cf1ffb178061da9e31858514f7cd94e86990) )
+	ROM_REGION( 557, "maincpu:opla", 0 )
+	ROM_LOAD( "tms1400_t7in1ss_output.pla", 0, 557, CRC(6b7660f7) SHA1(bb7d58fa04e7606ccdf5b209e1b089948bdd1e7c) )
 ROM_END
 
 
@@ -13213,10 +13547,12 @@ ROM_END
   * TMS1100 MP1219 (no decap)
   * 4 7seg LEDs, 49 other LEDs, 1-bit sound
 
+  The game is very similar to t3in1sa, even parts of the ROM match. But by
+  the time that one was released (in 1983 or 1984), U.S. Games did not exist
+  anymore. I suspect t3in1sa was programmed by the same (Hong Kong) company.
+
   This handheld includes 4 games: Basketball, Football, Soccer, Hockey.
   MAME external artwork is needed for the switchable overlays.
-
-  The later Coleco Total Control 4 is clearly based on this.
 
 ***************************************************************************/
 
@@ -13294,14 +13630,14 @@ static INPUT_PORTS_START( ssports4 )
 	PORT_CONFSETTING(    0x00, "2" )
 
 	PORT_START("IN.3") // R8
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_16WAY PORT_NAME("P1 Kick") // or diagonal up-left
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_16WAY PORT_NAME("P1 Info") // or diagonal up-right
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_16WAY PORT_NAME("P1 Up-Left / Kick")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_16WAY PORT_NAME("P1 Up-Right / Info")
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_16WAY PORT_NAME("P1 Pass")
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_16WAY PORT_NAME("P1 O.P.") // offensive player (modifier button)
 
 	PORT_START("IN.4") // R9
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL PORT_16WAY PORT_NAME("P2 Kick")
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL PORT_16WAY PORT_NAME("P2 Info")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_COCKTAIL PORT_16WAY PORT_NAME("P2 Up-Left / Kick")
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_BUTTON2 ) PORT_COCKTAIL PORT_16WAY PORT_NAME("P2 Up-Right / Info")
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_BUTTON3 ) PORT_COCKTAIL PORT_16WAY PORT_NAME("P2 Pass")
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_BUTTON4 ) PORT_COCKTAIL PORT_16WAY PORT_NAME("P2 O.P.")
 
@@ -13317,7 +13653,7 @@ INPUT_PORTS_END
 void ssports4_state::ssports4(machine_config &config)
 {
 	// basic machine hardware
-	TMS1100(config, m_maincpu, 375000); // approximation - RC osc. R=47K, C=47pF
+	TMS1100(config, m_maincpu, 350000); // approximation - RC osc. R=47K, C=47pF
 	m_maincpu->k().set(FUNC(ssports4_state::read_k));
 	m_maincpu->r().set(FUNC(ssports4_state::write_r));
 	m_maincpu->o().set(FUNC(ssports4_state::write_o));
@@ -13325,7 +13661,7 @@ void ssports4_state::ssports4(machine_config &config)
 	// video hardware
 	PWM_DISPLAY(config, m_display).set_size(10, 9);
 	m_display->set_segmask(0x303, 0x7f);
-	m_display->set_bri_levels(0.003, 0.03); // offense leds are brighter
+	m_display->set_bri_levels(0.005, 0.05); // offense leds are brighter
 	config.set_default_layout(layout_ssports4);
 
 	// sound hardware
@@ -13628,6 +13964,7 @@ CONS( 1980, tcfball,    0,         0, tcfball,   tcfball,   tcfball_state,   emp
 CONS( 1980, tcfballa,   tcfball,   0, tcfballa,  tcfballa,  tcfballa_state,  empty_init, "Tandy Corporation", "Championship Football (model 60-2151)", MACHINE_SUPPORTS_SAVE )
 CONS( 1981, tandy12,    0,         0, tandy12,   tandy12,   tandy12_state,   empty_init, "Tandy Corporation", "Tandy-12: Computerized Arcade", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK ) // some of the minigames: ***
 CONS( 1982, monkeysee,  0,         0, monkeysee, monkeysee, monkeysee_state, empty_init, "Tandy Corporation", "Monkey See (1982 version)", MACHINE_SUPPORTS_SAVE )
+CONS( 1984, t3in1sa,    0,         0, t3in1sa,   t3in1sa,   t3in1sa_state,   empty_init, "Tandy Corporation", "3 in 1 Sports Arena", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 
 COMP( 1976, speechp,    0,         0, speechp,   speechp,   speechp_state,   empty_init, "Telesensory Systems, Inc.", "Speech+", MACHINE_SUPPORTS_SAVE )
 
@@ -13652,11 +13989,12 @@ CONS( 1979, timaze,     0,         0, timaze,    timaze,    timaze_state,    emp
 SYST( 1979, tithermos,  0,         0, tithermos, tithermos, tithermos_state, empty_init, "Texas Instruments", "Electronic Digital Thermostat", MACHINE_SUPPORTS_SAVE | MACHINE_NO_SOUND_HW | MACHINE_NOT_WORKING )
 
 CONS( 1979, subwars,    0,         0, subwars,   subwars,   subwars_state,   empty_init, "Tiger Electronics", "Sub Wars (LED version)", MACHINE_SUPPORTS_SAVE )
+CONS( 1980, playmaker,  0,         0, playmaker, playmaker, playmaker_state, empty_init, "Tiger Electronics", "Playmaker: Hockey, Soccer, Basketball", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 CONS( 1980, dxfootb,    0,         0, dxfootb,   dxfootb,   dxfootb_state,   empty_init, "Tiger Electronics", "Deluxe Football with Instant Replay", MACHINE_SUPPORTS_SAVE )
-CONS( 1980, 7in1ss,     0,         0, ss7in1,    ss7in1,    ss7in1_state,    empty_init, "Tiger Electronics", "7 in 1 Sports Stadium", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 CONS( 1979, copycat,    0,         0, copycat,   copycat,   copycat_state,   empty_init, "Tiger Electronics", "Copy Cat (model 7-520)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1989, copycatm2,  copycat,   0, copycatm2, copycatm2, copycatm2_state, empty_init, "Tiger Electronics", "Copy Cat (model 7-522)", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
 CONS( 1981, ditto,      0,         0, ditto,     ditto,     ditto_state,     empty_init, "Tiger Electronics", "Ditto", MACHINE_SUPPORTS_SAVE | MACHINE_CLICKABLE_ARTWORK )
+CONS( 1982, t7in1ss,    0,         0, t7in1ss,   t7in1ss,   t7in1ss_state,   empty_init, "Tiger Electronics", "7 in 1 Sports Stadium", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
 
 CONS( 1979, tbreakup,   0,         0, tbreakup,  tbreakup,  tbreakup_state,  empty_init, "Tomy", "Break Up (Tomy)", MACHINE_SUPPORTS_SAVE )
 CONS( 1980, phpball,    0,         0, phpball,   phpball,   phpball_state,   empty_init, "Tomy", "Power House Pinball", MACHINE_SUPPORTS_SAVE | MACHINE_REQUIRES_ARTWORK )
