@@ -2464,6 +2464,7 @@ public:
 	// construction/destruction
 	led7seg_component(environment &env, util::xml::data_node const &compnode)
 		: component(env, compnode)
+		, m_alpha(std::clamp(env.get_attribute_float(compnode, "alpha", 0.125F), 0.0F, 1.0F))
 	{
 	}
 
@@ -2474,7 +2475,7 @@ protected:
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
 		rgb_t const onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
-		rgb_t const offpen = rgb_t(0x20, 0xff, 0xff, 0xff);
+		rgb_t const offpen = rgb_t(m_alpha * 0xff, 0xff, 0xff, 0xff);
 
 		// sizes for computation
 		int const bmwidth = 250;
@@ -2516,6 +2517,10 @@ protected:
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color(state));
 	}
+
+private:
+	// internal state
+	float m_alpha; // opacity for off-segments
 };
 
 
@@ -2526,6 +2531,7 @@ public:
 	// construction/destruction
 	led8seg_gts1_component(environment &env, util::xml::data_node const &compnode)
 		: component(env, compnode)
+		, m_alpha(std::clamp(env.get_attribute_float(compnode, "alpha", 0.125F), 0.0F, 1.0F))
 	{
 	}
 
@@ -2536,7 +2542,7 @@ protected:
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
 		rgb_t const onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
-		rgb_t const offpen = rgb_t(0x20, 0xff, 0xff, 0xff);
+		rgb_t const offpen = rgb_t(m_alpha * 0xff, 0xff, 0xff, 0xff);
 		rgb_t const backpen = rgb_t(0x00, 0x00, 0x00, 0x00);
 
 		// sizes for computation
@@ -2584,6 +2590,10 @@ protected:
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color(state));
 	}
+
+private:
+	// internal state
+	float m_alpha; // opacity for off-segments
 };
 
 
@@ -2594,6 +2604,7 @@ public:
 	// construction/destruction
 	led14seg_component(environment &env, util::xml::data_node const &compnode)
 		: component(env, compnode)
+		, m_alpha(std::clamp(env.get_attribute_float(compnode, "alpha", 0.125F), 0.0F, 1.0F))
 	{
 	}
 
@@ -2604,7 +2615,7 @@ protected:
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
 		rgb_t const onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
-		rgb_t const offpen = rgb_t(0x20, 0xff, 0xff, 0xff);
+		rgb_t const offpen = rgb_t(m_alpha * 0xff, 0xff, 0xff, 0xff);
 
 		// sizes for computation
 		int const bmwidth = 250;
@@ -2696,6 +2707,10 @@ protected:
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color(state));
 	}
+
+private:
+	// internal state
+	float m_alpha; // opacity for off-segments
 };
 
 
@@ -2706,6 +2721,7 @@ public:
 	// construction/destruction
 	led16seg_component(environment &env, util::xml::data_node const &compnode)
 		: component(env, compnode)
+		, m_alpha(std::clamp(env.get_attribute_float(compnode, "alpha", 0.125F), 0.0F, 1.0F))
 	{
 	}
 
@@ -2715,14 +2731,14 @@ protected:
 
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
-		const rgb_t onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
-		const rgb_t offpen = rgb_t(0x20, 0xff, 0xff, 0xff);
+		rgb_t const onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
+		rgb_t const offpen = rgb_t(m_alpha * 0xff, 0xff, 0xff, 0xff);
 
 		// sizes for computation
-		int bmwidth = 250;
-		int bmheight = 400;
-		int segwidth = 40;
-		int skewwidth = 40;
+		int const bmwidth = 250;
+		int const bmheight = 400;
+		int const segwidth = 40;
+		int const skewwidth = 40;
 
 		// allocate a temporary bitmap for drawing
 		bitmap_argb32 tempbitmap(bmwidth + skewwidth, bmheight);
@@ -2818,6 +2834,10 @@ protected:
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color(state));
 	}
+
+private:
+	// internal state
+	float m_alpha; // opacity for off-segments
 };
 
 
@@ -2828,6 +2848,7 @@ public:
 	// construction/destruction
 	led14segsc_component(environment &env, util::xml::data_node const &compnode)
 		: component(env, compnode)
+		, m_alpha(std::clamp(env.get_attribute_float(compnode, "alpha", 0.125F), 0.0F, 1.0F))
 	{
 	}
 
@@ -2838,7 +2859,7 @@ protected:
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
 		rgb_t const onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
-		rgb_t const offpen = rgb_t(0x20, 0xff, 0xff, 0xff);
+		rgb_t const offpen = rgb_t(m_alpha * 0xff, 0xff, 0xff, 0xff);
 
 		// sizes for computation
 		int const bmwidth = 250;
@@ -2941,6 +2962,10 @@ protected:
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color(state));
 	}
+
+private:
+	// internal state
+	float m_alpha; // opacity for off-segments
 };
 
 
@@ -2951,6 +2976,7 @@ public:
 	// construction/destruction
 	led16segsc_component(environment &env, util::xml::data_node const &compnode)
 		: component(env, compnode)
+		, m_alpha(std::clamp(env.get_attribute_float(compnode, "alpha", 0.125F), 0.0F, 1.0F))
 	{
 	}
 
@@ -2961,7 +2987,7 @@ protected:
 	virtual void draw_aligned(running_machine &machine, bitmap_argb32 &dest, const rectangle &bounds, int state) override
 	{
 		rgb_t const onpen = rgb_t(0xff, 0xff, 0xff, 0xff);
-		rgb_t const offpen = rgb_t(0x20, 0xff, 0xff, 0xff);
+		rgb_t const offpen = rgb_t(m_alpha * 0xff, 0xff, 0xff, 0xff);
 
 		// sizes for computation
 		int const bmwidth = 250;
@@ -3073,6 +3099,10 @@ protected:
 		// resample to the target size
 		render_resample_argb_bitmap_hq(dest, tempbitmap, color(state));
 	}
+
+private:
+	// internal state
+	float m_alpha; // opacity for off-segments
 };
 
 
