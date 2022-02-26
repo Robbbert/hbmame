@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-03-30 0.242
+
+Added various older Donkey Kong hacks by Paul Goes
+
+New Games
+---------------------------------
+- [dkwizard]            Donkey Kong Wizardry v1.02
+
+
+
+
 2022-02-23 0.241
 
 

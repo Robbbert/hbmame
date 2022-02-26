@@ -1544,9 +1544,8 @@ dkongss
 dkongp					// Fix for level 22 kill screen by Don Hodges
 dkongpac				// Tim Appleton - Donkey Kong with Pacman graphics
 dkongpe
-dkongchm
-dkongchm1
-dkongran1
+dkongce
+dkongklc
 dkongrev
 dkongx
 dkongx11
@@ -1560,14 +1559,33 @@ kong2600				// Vic Twenty George hack of Donkey Kong
 nadkong					//
 dkcbarrel				// Paul Goes
 dkfreerun				// Paul Goes
-dkongotr				// Paul Goes
-dkongitd				// Paul Goes
-dkongtj					// Paul Goes
-dkongbp					// Paul Goes
-dkongbp1				// Paul Goes
-dkongan					// Paul Goes
-dkongdu					// Paul Goes
-dkongdu1                               // Paul Goes
+dkongrnd
+dkongrnd0
+dkongotr
+dkongotr6
+dkongotr7
+dkongotr8
+dkongotr9
+dkongitd
+dkongtj
+dkjungle
+dkjungle0
+dktwist
+dktwist0
+dkbarpal
+dkbarpal2
+dkbarpal3
+dkbarpal4
+dkbarpal5
+dkbarpal6
+dkongan
+dkongan0
+dkongdu
+dkongdu0
+dkongdu1
+dkwizard
+dkwizard0
+dkwizard1
 //dk_remix
 
 @source:docastle.cpp
