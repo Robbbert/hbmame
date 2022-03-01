@@ -250,9 +250,10 @@ void i2cmem_device::nvram_default()
 //  .nv file
 //-------------------------------------------------
 
-void i2cmem_device::nvram_read( emu_file &file )
+bool i2cmem_device::nvram_read( util::read_stream &file )
 {
-	file.read( &m_data[0], m_data_size );
+	size_t actual;
+	return !file.read( &m_data[0], m_data_size, actual ) && actual == m_data_size;
 }
 
 //-------------------------------------------------
@@ -260,9 +261,10 @@ void i2cmem_device::nvram_read( emu_file &file )
 //  .nv file
 //-------------------------------------------------
 
-void i2cmem_device::nvram_write( emu_file &file )
+bool i2cmem_device::nvram_write( util::write_stream &file )
 {
-	file.write( &m_data[0], m_data_size );
+	size_t actual;
+	return !file.write( &m_data[0], m_data_size, actual ) && actual == m_data_size;
 }
 
 

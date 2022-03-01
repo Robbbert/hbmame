@@ -712,6 +712,20 @@ ioport_field::ioport_field(ioport_port &port, ioport_type type, ioport_value def
 	}
 }
 
+
+//-------------------------------------------------
+//  ~ioport_field - destructor
+//-------------------------------------------------
+
+ioport_field::~ioport_field()
+{
+}
+
+
+//-------------------------------------------------
+//  set_value - programmatically set field value
+//-------------------------------------------------
+
 void ioport_field::set_value(ioport_value value)
 {
 	if (is_analog())
@@ -722,11 +736,15 @@ void ioport_field::set_value(ioport_value value)
 
 
 //-------------------------------------------------
-//  ~ioport_field - destructor
+//  clear_value - clear programmatic override
 //-------------------------------------------------
 
-ioport_field::~ioport_field()
+void ioport_field::clear_value()
 {
+	if (is_analog())
+		live().analog->clear_value();
+	else
+		m_digital_value = false;
 }
 
 
@@ -3330,6 +3348,7 @@ analog_field::analog_field(ioport_field &field)
 		m_adjdefvalue(field.defvalue() & field.mask()),
 		m_adjmin(field.minval() & field.mask()),
 		m_adjmax(field.maxval() & field.mask()),
+		m_adjoverride(field.defvalue() & field.mask()),
 		m_sensitivity(field.sensitivity()),
 		m_reverse(field.analog_reverse()),
 		m_delta(field.delta()),
@@ -3337,7 +3356,6 @@ analog_field::analog_field(ioport_field &field)
 		m_accum(0),
 		m_previous(0),
 		m_previousanalog(0),
-		m_prog_analog_value(0),
 		m_minimum(INPUT_ABSOLUTE_MIN),
 		m_maximum(INPUT_ABSOLUTE_MAX),
 		m_center(0),
@@ -3353,7 +3371,7 @@ analog_field::analog_field(ioport_field &field)
 		m_single_scale(false),
 		m_interpolate(false),
 		m_lastdigital(false),
-		m_was_written(false)
+		m_use_adjoverride(false)
 {
 	// compute the shift amount and number of bits
 	for (ioport_value mask = field.mask(); !(mask & 1); mask >>= 1)
@@ -3593,15 +3611,27 @@ s32 analog_field::apply_settings(s32 value) const
 
 
 //-------------------------------------------------
-//  set_value - take a new value to be used
-//  at next frame update
+//  set_value - override the value that will be
+//  read from the field
 //-------------------------------------------------
 
 void analog_field::set_value(s32 value)
 {
-	m_was_written = true;
-	m_prog_analog_value = value;
+	m_use_adjoverride = true;
+	m_adjoverride = std::clamp(value, m_adjmin, m_adjmax);
 }
+
+
+//-------------------------------------------------
+//  clear_value - clear programmatic override
+//-------------------------------------------------
+
+void analog_field::clear_value()
+{
+	m_use_adjoverride = false;
+	m_adjoverride = m_adjdefvalue;
+}
+
 
 //-------------------------------------------------
 //  frame_update - update the internals of a
@@ -3620,13 +3650,6 @@ void analog_field::frame_update(running_machine &machine)
 	// get the new raw analog value and its type
 	input_item_class itemclass;
 	s32 rawvalue = machine.input().seq_axis_value(m_field.seq(SEQ_TYPE_STANDARD), itemclass);
-
-	// use programmatically set value if available
-	if (m_was_written)
-	{
-		m_was_written = false;
-		rawvalue = m_prog_analog_value;
-	}
 
 	// if we got an absolute input, it overrides everything else
 	if (itemclass == ITEM_CLASS_ABSOLUTE)
@@ -3772,6 +3795,13 @@ void analog_field::read(ioport_value &result)
 	// do nothing if we're not enabled
 	if (!m_field.enabled())
 		return;
+
+	// if set programmatically, only use the override value
+	if (m_use_adjoverride)
+	{
+		result = m_adjoverride;
+		return;
+	}
 
 	// start with the raw value
 	s32 value = m_accum;
