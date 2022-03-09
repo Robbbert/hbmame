@@ -10019,6 +10019,7 @@ capbowl4                        // (c) 1989 Incredible Technologies
 clbowl                          // (c) 1989 Incredible Technologies
 
 @source:capcom.cpp
+abv105                          //
 abv106                          //
 abv106r                         //
 bbb108                          //
@@ -39022,7 +39023,6 @@ denseib                         // bootleg
 denseib2                        // bootleg
 endless                         // bootleg
 endlessa                        // bootleg
-fatfurspb                       // bootleg
 ffight2b                        // bootleg
 ffight3b                        // bootleg
 iron                            // bootleg
@@ -39035,6 +39035,7 @@ venom                           // bootleg
 wldgunsb                        // bootleg
 
 @source:snesb51.cpp
+fatfurspb
 mk3snes
 snes4sl
 snes4sln
