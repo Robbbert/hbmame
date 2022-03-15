@@ -78,6 +78,7 @@ class debugger_console
 {
 public:
 	debugger_console(running_machine &machine);
+	~debugger_console();
 
 	// command handling
 	CMDERR          execute_command(std::string_view command, bool echo);

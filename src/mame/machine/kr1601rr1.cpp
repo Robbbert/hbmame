@@ -13,12 +13,19 @@
 ***************************************************************************/
 
 #include "emu.h"
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 #include "kr1601rr1.h"
 
 =======
 >>>>>>> upstream/master
+=======
+#include "kr1601rr1.h"
+
+#include "fileio.h"
+
+>>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 #include <algorithm>
 
 
