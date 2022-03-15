@@ -16,13 +16,9 @@
 #include "debug/debugvw.h"
 #include "debugger.h"
 #include "dirtc.h"
-<<<<<<< HEAD
 #include "emuopts.h"
 #include "fileio.h"
 #include "http.h"
-=======
-#include "fileio.h"
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 #include "image.h"
 #include "natkeyboard.h"
 #include "network.h"
@@ -1139,13 +1135,8 @@ void running_machine::nvram_load()
 		emu_file file(options().nvram_directory(), OPEN_FLAG_READ);
 		if (!file.open(nvram_filename(nvram.device())))
 		{
-<<<<<<< HEAD
 			if (!nvram.nvram_load(file))
 				osd_printf_error("Error reading NVRAM file %s\n", file.filename());
-=======
-			// FIXME: don't swallow errors
-			nvram.nvram_load(file);
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 			file.close();
 		}
 		else
@@ -1167,13 +1158,8 @@ void running_machine::nvram_save()
 			emu_file file(options().nvram_directory(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 			if (!file.open(nvram_filename(nvram.device())))
 			{
-<<<<<<< HEAD
 				if (!nvram.nvram_save(file))
 					osd_printf_error("Error writing NVRAM file %s\n", file.filename());
-=======
-				// FIXME: don't swallow errors
-				nvram.nvram_save(file);
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 				file.close();
 			}
 		}
