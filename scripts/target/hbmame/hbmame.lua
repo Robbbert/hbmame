@@ -248,6 +248,7 @@ MACHINES["Z80SIO"] = true -- ddenlovr
 BUSES["ATA"] = true
 BUSES["GENERIC"] = true
 BUSES["NSCSI"] = true
+BUSES["NES_CTRL"] = true -- playch10
 BUSES["SAT_CTRL"] = true -- stv
 BUSES["SCSI"] = true
 

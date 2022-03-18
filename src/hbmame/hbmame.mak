@@ -73,4 +73,5 @@ LAYOUTS += \
 	$(SRC)/mame/layout/segabillv.lay \
 	$(SRC)/mame/layout/speedfrk.lay \
 	$(SRC)/mame/layout/critcrsh.lay \
+	$(SRC)/mame/layout/hh_sm500_test.lay \
 
