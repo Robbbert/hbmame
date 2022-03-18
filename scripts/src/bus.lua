@@ -325,6 +325,8 @@ if (BUSES["ARCHIMEDES_ECONET"]~=null) then
 		MAME_DIR .. "src/devices/bus/archimedes/econet/slot.h",
 		MAME_DIR .. "src/devices/bus/archimedes/econet/econet.cpp",
 		MAME_DIR .. "src/devices/bus/archimedes/econet/econet.h",
+		MAME_DIR .. "src/devices/bus/archimedes/econet/midi.cpp",
+		MAME_DIR .. "src/devices/bus/archimedes/econet/midi.h",
 		MAME_DIR .. "src/devices/bus/archimedes/econet/rtfmjoy.cpp",
 		MAME_DIR .. "src/devices/bus/archimedes/econet/rtfmjoy.h",
 	}
@@ -374,6 +376,8 @@ if (BUSES["ARCHIMEDES_PODULE"]~=null) then
 		MAME_DIR .. "src/devices/bus/archimedes/podule/lark.h",
 		MAME_DIR .. "src/devices/bus/archimedes/podule/laserd.cpp",
 		MAME_DIR .. "src/devices/bus/archimedes/podule/laserd.h",
+		MAME_DIR .. "src/devices/bus/archimedes/podule/midi_emr.cpp",
+		MAME_DIR .. "src/devices/bus/archimedes/podule/midi_emr.h",
 		MAME_DIR .. "src/devices/bus/archimedes/podule/midimax.cpp",
 		MAME_DIR .. "src/devices/bus/archimedes/podule/midimax.h",
 		MAME_DIR .. "src/devices/bus/archimedes/podule/nexus.cpp",
@@ -3038,6 +3042,8 @@ if (BUSES["NES_CTRL"]~=null) then
 		MAME_DIR .. "src/devices/bus/nes_ctrl/partytap.h",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/powerpad.cpp",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/powerpad.h",
+		MAME_DIR .. "src/devices/bus/nes_ctrl/rob.cpp",
+		MAME_DIR .. "src/devices/bus/nes_ctrl/rob.h",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/snesadapter.cpp",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/snesadapter.h",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/suborkey.cpp",
@@ -3046,10 +3052,12 @@ if (BUSES["NES_CTRL"]~=null) then
 		MAME_DIR .. "src/devices/bus/nes_ctrl/turbofile.h",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/zapper.cpp",
 		MAME_DIR .. "src/devices/bus/nes_ctrl/zapper.h",
+		MAME_DIR .. "src/devices/bus/nes_ctrl/zapper_sensor.cpp",
+		MAME_DIR .. "src/devices/bus/nes_ctrl/zapper_sensor.h",
 	}
 
 	dependency {
-		{ MAME_DIR .. "src/devices/bus/nes_ctrl/zapper.cpp",   GEN_DIR .. "emu/layout/nes_rob.lh" },
+		{ MAME_DIR .. "src/devices/bus/nes_ctrl/rob.cpp",   GEN_DIR .. "emu/layout/nes_rob.lh" },
 	}
 
 	custombuildtask {

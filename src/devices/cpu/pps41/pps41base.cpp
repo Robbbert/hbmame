@@ -6,6 +6,7 @@
 
 This is the single-chip evolution of Rockwell's older PPS-4 CPU. It is similar,
 but a lot of things were simplified, the ALU instructions are less diverse.
+It also has a lot in common with Rockwell's previous MCU series (A/B5000).
 
 Part numbers:
 - A75xx = MM75    - 28 pin dip
@@ -46,7 +47,8 @@ TODO:
 - add MCU mask options, there's one for inverting interrupts
 - does MM78LA support interrupts? the sparse documentation available says it does
 - MM78LA mnemonics for changed opcodes is unknown
-- no known documentation exists for MM77LA, mcu name is guessed
+- no known documentation exists for MM77LA, mcu name is guessed (maybe it was
+  designed in collaboration with Mattel, and later evolved into MM78LA)
 
 */
 
