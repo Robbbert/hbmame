@@ -405,7 +405,6 @@ files {
 	MAME_DIR .. "src/mame/audio/cps3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/fcrash.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mitchell.cpp",
-	MAME_DIR .. "src/mame/video/mitchell.cpp",
 	MAME_DIR .. "src/mame/machine/kabuki.cpp",
 }
 
