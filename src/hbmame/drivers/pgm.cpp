@@ -1927,13 +1927,12 @@ DRIVER_INIT_MEMBER(pgm_arm_type1_state,kovassga)
 
 void pgm_arm_type1_state::pgm_decode_kovassg_program()
 {
-	int i;
 	UINT16 *src = (UINT16 *)(memregion("maincpu")->base() + 0x100000);
 	std::vector<UINT16> dst(0x400000);
 
-	for (i = 0; i < 0x400000 / 2; i++)
+	for (u32 i = 0; i < 0x400000 / 2; i++)
 	{
-		int j = (i & ~0xffff) | (BITSWAP16(i, 15, 14, 13, 12,  11, 10, 7, 3,  1, 9, 4, 8,  6, 0, 2, 5) ^ 0x019c);
+		u16 j = (i & ~0xffff) | (BITSWAP16(i, 15, 14, 13, 12,  11, 10, 7, 3,  1, 9, 4, 8,  6, 0, 2, 5) ^ 0x019c);
 
 		dst[j] = BITSWAP16(src[j], 13, 9, 10, 11, 2, 0, 12 ,5, 4, 1, 14, 8, 15, 6, 3, 7) ^ 0x9d05;
 	}

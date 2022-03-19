@@ -49,7 +49,7 @@ public:
 	/* returns the index of the current memory card, or -1 if none */
 	int present() { return is_loaded() ? 0 : -1; }
 private:
-	u8 m_memcard_data[0x800];
+	u8 m_memcard_data[0x800]{};
 };
 
 

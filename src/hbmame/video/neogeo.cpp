@@ -52,13 +52,13 @@ void neogeo_state::create_rgb_lookups()
 							0, nullptr, nullptr, 0, 0,
 							0, nullptr, nullptr, 0, 0);
 
-	for (int i = 0; i < 32; i++)
+	for (u8 i = 0; i < 32; i++)
 	{
-		int i4 = (i >> 4) & 1;
-		int i3 = (i >> 3) & 1;
-		int i2 = (i >> 2) & 1;
-		int i1 = (i >> 1) & 1;
-		int i0 = (i >> 0) & 1;
+		u8 i4 = (i >> 4) & 1;
+		u8 i3 = (i >> 3) & 1;
+		u8 i2 = (i >> 2) & 1;
+		u8 i1 = (i >> 1) & 1;
+		u8 i0 = (i >> 0) & 1;
 		m_palette_lookup[i][0] = combine_weights(weights_normal, i0, i1, i2, i3, i4);
 		m_palette_lookup[i][1] = combine_weights(weights_dark, i0, i1, i2, i3, i4);
 		m_palette_lookup[i][2] = combine_weights(weights_shadow, i0, i1, i2, i3, i4);
@@ -171,9 +171,6 @@ u32 neogeo_state::screen_update_neogeo(screen_device &screen, bitmap_rgb32 &bitm
 
 u16  neogeo_state::get_video_control(  )
 {
-	u16  ret;
-	u16  v_counter;
-
 	/*
 	    The format of this very important location is:  AAAA AAAA A??? BCCC
 
@@ -196,12 +193,12 @@ u16  neogeo_state::get_video_control(  )
 	*/
 
 	/* the vertical counter chain goes from 0xf8 - 0x1ff */
-	v_counter = m_screen->vpos() + 0x100;
+	u16 v_counter = m_screen->vpos() + 0x100;
 
 	if (v_counter >= 0x200)
 		v_counter = v_counter - NEOGEO_VTOTAL;
 
-	ret = (v_counter << 7) | (m_sprgen->neogeo_get_auto_animation_counter() & 0x0007);
+	u16 ret = (v_counter << 7) | (m_sprgen->neogeo_get_auto_animation_counter() & 0x0007);
 
 	if (VERBOSE) logerror("%s: video_control read (%04x)\n", machine().describe_context(), ret);
 
@@ -222,7 +219,7 @@ void neogeo_state::set_video_control( u16  data )
 
 u16 neogeo_state::neogeo_video_register_r(address_space &space, offs_t offset, u16 mem_mask)
 {
-	u16  ret;
+	u16  ret = 0U;
 
 	/* accessing the LSB only is not mapped */
 	if (mem_mask == 0x00ff)

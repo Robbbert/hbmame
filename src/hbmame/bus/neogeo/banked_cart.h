@@ -17,9 +17,9 @@ public:
 	neogeo_banked_cart_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
 	memory_bank_creator    m_bank_cartridge;
-	u32     m_main_cpu_bank_address;
-	u8* m_region;
-	u32 m_region_size;
+	u32     m_main_cpu_bank_address = 0U;
+	u8* m_region = nullptr;
+	u32 m_region_size = 0U;
 
 
 	void install_banks(running_machine& machine, cpu_device* maincpu, u8* region, u32 region_size);

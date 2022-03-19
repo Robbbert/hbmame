@@ -45,7 +45,7 @@ private:
 	required_ioport m_tx;
 	required_ioport m_ty;
 	required_ioport m_buttons;
-	uint8_t m_ctrl_sel;
+	uint8_t m_ctrl_sel = 0U;
 };
 
 
