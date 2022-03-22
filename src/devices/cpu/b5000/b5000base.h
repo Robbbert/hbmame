@@ -33,7 +33,7 @@ public:
 	// 7/8/10 segment outputs
 	auto write_seg() { return m_write_seg.bind(); }
 
-	// speaker output line
+	// speaker output line (aka SEG0)
 	auto write_spk() { return m_write_spk.bind(); }
 
 protected:
@@ -89,9 +89,10 @@ protected:
 	u8 m_c;
 	u8 m_prev_c;
 	u8 m_prev2_c;
+	u8 m_prev3_c;
 	bool m_sr;
 	bool m_skip;
-	u8 m_seg;
+	u16 m_seg;
 
 	u8 m_atbz_step;
 	u8 m_tkbs_step;
