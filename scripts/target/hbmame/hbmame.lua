@@ -1025,9 +1025,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/video/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/drivers/wc90.cpp",
-	MAME_DIR .. "src/mame/video/wc90.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wc90b.cpp",
-	MAME_DIR .. "src/mame/video/wc90b.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")
