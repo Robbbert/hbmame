@@ -16,16 +16,16 @@ ROM_START( blkdrgonk )
 	ROM_REGION( 0x10000, "mcu", 0 )
 	ROM_LOAD( "bd.6k",  0x0000, 0x1000, CRC(ac7d14f1) SHA1(46fd6b43f10312e3e8d3c9e0c0fd616af98fdbad) )
 
-	ROM_REGION( 0x08000, "gfx1", 0 )
+	ROM_REGION( 0x08000, "chars", 0 )
 	ROM_LOAD( "blkdrgnk.2n",  0x00000, 0x08000, CRC(3b432217) SHA1(da0b3fe16fb5192f6514bdf5fef85a889c7b2f0a) )
 
-	ROM_REGION( 0x40000, "gfx2", 0 )
+	ROM_REGION( 0x40000, "tiles", 0 )
 	ROM_LOAD( "blkdrgon.5b",  0x00000, 0x10000, CRC(22d0a4b0) SHA1(f9402ea9ffedcb280497a63c5eb352de9d4ca3fd) )
 	ROM_LOAD( "blkdrgon.4b",  0x10000, 0x10000, CRC(c8b5fc52) SHA1(621e899285ce6302e5b25d133d9cd52c09b7b202) )
 	ROM_LOAD( "blkdrgon.9b",  0x20000, 0x10000, CRC(9498c378) SHA1(841934ddef724faf04162c4be4aea1684d8d8e0f) )
 	ROM_LOAD( "blkdrgon.8b",  0x30000, 0x10000, CRC(5b0df8ce) SHA1(57d10b48bd61b0224ce21b36bde8d2479e8e5df4) )
 
-	ROM_REGION( 0x40000, "gfx3", 0 )
+	ROM_REGION( 0x40000, "sprites", 0 )
 	ROM_LOAD( "bd-08.5a",  0x00000, 0x10000, CRC(e2f17438) SHA1(3e5fdae07d40febedc59c7c7c4d9c6f0d72b58b5) )
 	ROM_LOAD( "bd-07.4a",  0x10000, 0x10000, CRC(5fccbd27) SHA1(33c55aa9c12b3121ca5c3b4c39a9b152b6946461) )
 	ROM_LOAD( "bd-10.9a",  0x20000, 0x10000, CRC(fc33ccc6) SHA1(d492626a88565c2626f98ecb1d74535f1ad68e4c) )
@@ -38,4 +38,4 @@ ROM_START( blkdrgonk )
 	ROM_LOAD( "bd04.11l",  0x0300, 0x0100, CRC(e5490b68) SHA1(40f9f92efe7dd97b49144aec02eb509834056915) )
 ROM_END
 
-GAME( 1987, blkdrgonk, blktiger, blktiger, blktiger, blktiger_state, empty_init, ROT0, "hack", "Black Dragon (Traduction Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, blkdrgonk, blktiger, mcu, blktiger, blktiger_mcu_state, empty_init, ROT0, "hack", "Black Dragon (Traduction Korean)", MACHINE_SUPPORTS_SAVE )
