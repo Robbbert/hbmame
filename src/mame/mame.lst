@@ -10885,6 +10885,11 @@ cosmicgi                        // bootleg (Inder)
 @source:cosmicos.cpp
 cosmicos                        //
 
+@source:cosmos_playc8f.cpp
+bgbasketb                       // (c) 2013 Benchmark Games
+bgbasketbb                      // (c) 2004 Benchmark Games
+tenstrikc                       // (c) 2003 Benchmark Games
+
 @source:cowtipping.cpp
 cowtipp                         //
 cowtippa                        //
@@ -10991,6 +10996,8 @@ pang3b2                         // bootleg
 pang3b3                         // bootleg
 pang3j                          // 11/05/1995 (c) 1995 Mitchell (Japan) not listed on Capcom's site
 pang3r1                         // 11/05/1995 (c) 1995 Mitchell (Euro) not listed on Capcom's site
+pang3b4                         // bootleg
+pang3b5                         // bootleg
 pnickj                          // 08/06/1994 (c) 1994 Compile + Capcom license (Japan) not listed on Capcom's site
 punisher                        // 22/04/1993 (c) 1993 (World) (CPS1 + QSound)
 punisherbz                      // bootleg
@@ -17325,7 +17332,6 @@ atleta                          //
 brvteam                         //
 canasta                         //
 corsario                        //
-gunshot                         //
 ind250cc                        //
 lapbylap                        //
 larana                          //
@@ -39627,6 +39633,7 @@ spinner                         // bootleg
 bushido                         //
 bushidoa                        //
 bushidob                        //
+gunshot                         //
 jolypark                        //
 mach2                           //
 mach2a                          //
@@ -40983,6 +40990,7 @@ wwestern1                       // WW  (c) 1982 Taito Corporation
 fisco400                        // (c) 1977 Taito
 gunman                          // (c) 1977 Taito
 missilex                        // (c) 1977 Taito
+srdchamp                        // (c) 1978 Model Racing
 ttblock                         // (c) 1977 Taito
 ttsracec                        // (c) 1978 Taito
 zzblock                         // (c) 1979 Taito
