@@ -11,6 +11,8 @@ New Games
 - [sf2hfus05]           Street Fighter II': Hyper Fighting (Ukraine version)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.07b)
 - [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
+- [teot_5]              The Eye of Typhoon (Tsunami Edition, beta 2. 2022-01-29)
+- [teot_6]              The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)
 
 
 

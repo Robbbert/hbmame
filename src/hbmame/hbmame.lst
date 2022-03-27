@@ -5998,10 +5998,12 @@ smi			/* Spiderman intro */
 snddemo		// Sound-Loop Demo by Freem
 spriteex	// furrtek Sprite Experimenter
 syscheck
-teotb
-teotd
-teotd2
-teotd3
+teot_1
+teot_2
+teot_3
+teot_4
+teot_5
+teot_6
 test01		// MVS Test 01 by Furrtek
 timesup
 timesupd	// CeL
