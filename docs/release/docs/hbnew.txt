@@ -8,6 +8,7 @@ Added various older Donkey Kong hacks by Paul Goes.
 New Games
 ---------------------------------
 - [dkwizard]            Donkey Kong Wizardry v1.02
+- [sf2hfus05]           Street Fighter II': Hyper Fighting (Ukraine version)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.07b)
 - [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
 
