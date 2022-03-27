@@ -3,11 +3,13 @@
 
 2022-03-30 0.242
 
-Added various older Donkey Kong hacks by Paul Goes
+Added various older Donkey Kong hacks by Paul Goes.
 
 New Games
 ---------------------------------
 - [dkwizard]            Donkey Kong Wizardry v1.02
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.07b)
+- [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
 
 
 
