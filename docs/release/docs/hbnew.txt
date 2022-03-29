@@ -4,6 +4,8 @@
 2022-03-30 0.242
 
 Added various older Donkey Kong hacks by Paul Goes.
+Fixed playchoice-10 games that had regressed over the years.
+Fixed umk3plus20190921.
 
 New Games
 ---------------------------------
@@ -13,6 +15,8 @@ New Games
 - [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
 - [teot_5]              The Eye of Typhoon (Tsunami Edition, beta 2. 2022-01-29)
 - [teot_6]              The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)
+- [umk3plus20220307]    Ultimate Mortal Kombat 3 (Plus Beta 2, 2022-03-23)
+- [umk3uk20220302]      Ultimate Mortal Kombat 3 (UC Edition 2022-03-02)
 
 
 
