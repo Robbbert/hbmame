@@ -10,6 +10,7 @@ Fixed umk3plus20190921.
 New Games
 ---------------------------------
 - [dkwizard]            Donkey Kong Wizardry v1.02
+- [kof2k2s121]          Kof2002 (KofallmiXomega)
 - [sf2hfus05]           Street Fighter II': Hyper Fighting (Ukraine version)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.08)
 - [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
