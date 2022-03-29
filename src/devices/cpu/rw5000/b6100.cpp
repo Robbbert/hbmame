@@ -9,7 +9,7 @@
 #include "emu.h"
 #include "b6100.h"
 
-#include "b5000d.h"
+#include "rw5000d.h"
 
 
 DEFINE_DEVICE_TYPE(B6100, b6100_cpu_device, "b6100", "Rockwell B6100")
@@ -44,7 +44,7 @@ void b6100_cpu_device::data_48x4(address_map &map)
 // disasm
 std::unique_ptr<util::disasm_interface> b6100_cpu_device::create_disassembler()
 {
-	return std::make_unique<b5500_disassembler>();
+	return std::make_unique<b6100_disassembler>();
 }
 
 
