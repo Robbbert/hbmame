@@ -68,7 +68,7 @@ void neogeo_banked_cart_device::neogeo_set_main_cpu_bank_address( u32 bank_addre
 
 void neogeo_banked_cart_device::main_cpu_bank_select_w(u16 data)
 {
-	u32 bank_address;
+	u32 bank_address = 0U;
 	u32 len = m_region_size;
 
 	if ((len <= 0x100000) && (data & 0x07))

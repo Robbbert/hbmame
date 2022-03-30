@@ -43,7 +43,7 @@ protected:
 
 private:
 	required_ioport_array<4> m_mjpanel;
-	uint8_t m_ctrl_sel;
+	uint8_t m_ctrl_sel = 0U;
 };
 
 // ======================> neogeo_mjctrl_device

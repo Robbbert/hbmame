@@ -248,6 +248,7 @@ MACHINES["Z80SIO"] = true -- ddenlovr
 BUSES["ATA"] = true
 BUSES["GENERIC"] = true
 BUSES["NSCSI"] = true
+BUSES["NES_CTRL"] = true -- playch10
 BUSES["SAT_CTRL"] = true -- stv
 BUSES["SCSI"] = true
 
@@ -393,7 +394,6 @@ files {
 	MAME_DIR .. "src/mame/video/1942.cpp",
 	MAME_DIR .. "src/mame/audio/nl_1942.cpp",
 	MAME_DIR .. "src/hbmame/drivers/blktiger.cpp",
-	MAME_DIR .. "src/mame/video/blktiger.cpp",
 	MAME_DIR .. "src/hbmame/drivers/commando.cpp",
 	MAME_DIR .. "src/mame/video/commando.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cps1.cpp",
@@ -404,7 +404,6 @@ files {
 	MAME_DIR .. "src/mame/audio/cps3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/fcrash.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mitchell.cpp",
-	MAME_DIR .. "src/mame/video/mitchell.cpp",
 	MAME_DIR .. "src/mame/machine/kabuki.cpp",
 }
 
@@ -1025,9 +1024,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/video/tehkanwc.cpp",
 	MAME_DIR .. "src/mame/drivers/wc90.cpp",
-	MAME_DIR .. "src/mame/video/wc90.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wc90b.cpp",
-	MAME_DIR .. "src/mame/video/wc90b.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "toaplan")

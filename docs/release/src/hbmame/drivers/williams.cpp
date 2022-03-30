@@ -188,7 +188,7 @@ public:
 
 private:
 
-	u16 m_dial = 0;
+	u16 m_dial = 0U;
 	void read_the_dial();
 };
 

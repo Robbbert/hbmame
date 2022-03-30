@@ -48,54 +48,54 @@ struct gfx_range
 	// start and end are as passed by the game (shift adjusted to be all
 	// in the same scale a 8x8 tiles): they don't necessarily match the
 	// position in ROM.
-	int type;
-	int start;
-	int end;
-	int bank;
+	int type = 0;
+	int start = 0;
+	int end = 0;
+	int bank = 0;
 };
 
 struct CPS1config
 {
-	const char *name;             /* game driver name */
+	const char *name = nullptr;             /* game driver name */
 
 	/* Some games interrogate a couple of registers on bootup. */
 	/* These are CPS1 board B self test checks. They wander from game to */
 	/* game. */
-	int cpsb_addr;        /* CPS board B test register address */
-	int cpsb_value;       /* CPS board B test register expected value */
+	int cpsb_addr = 0;        /* CPS board B test register address */
+	int cpsb_value = 0;       /* CPS board B test register expected value */
 
 	/* some games use as a protection check the ability to do 16-bit multiplies */
 	/* with a 32-bit result, by writing the factors to two ports and reading the */
 	/* result from two other ports. */
 	/* It looks like this feature was introduced with 3wonders (CPSB ID = 08xx) */
-	int mult_factor1;
-	int mult_factor2;
-	int mult_result_lo;
-	int mult_result_hi;
+	int mult_factor1 = 0;
+	int mult_factor2 = 0;
+	int mult_result_lo = 0;
+	int mult_result_hi = 0;
 
 	/* unknown registers which might be related to the multiply protection */
-	int unknown1;
-	int unknown2;
-	int unknown3;
+	int unknown1 = 0;
+	int unknown2 = 0;
+	int unknown3 = 0;
 
-	int layer_control;
-	int priority[4];
-	int palette_control;
+	int layer_control = 0;
+	int priority[4]{};
+	int palette_control = 0;
 
 	/* ideally, the layer enable masks should consist of only one bit, */
 	/* but in many cases it is unknown which bit is which. */
-	int layer_enable_mask[5];
+	int layer_enable_mask[5]{};
 
 	/* these depend on the B-board model and PAL */
-	int bank_sizes[4];
+	int bank_sizes[4]{};
 	const struct gfx_range *bank_mapper;
 
 	/* some C-boards have additional I/O for extra buttons/extra players */
-	int in2_addr;
-	int in3_addr;
-	int out2_addr;
+	int in2_addr = 0;
+	int in3_addr = 0;
+	int out2_addr = 0;
 
-	int bootleg_kludge;
+	int bootleg_kludge = 0;
 };
 
 
@@ -138,120 +138,120 @@ public:
 
 	//HBMAME start
 	// cps config for new
-	int m_cpsb_addr;
-	int m_cpsb_value;
-	int m_mult_factor1;
-	int m_mult_factor2;
-	int m_mult_result_lo;
-	int m_mult_result_hi;
-	int m_layer_control;
-	int m_priority[4];
-	int m_palette_control;
-	int m_layer_enable_mask[5];
-	int m_bank_sizes[4];
-	int m_in2_addr;
-	int m_in3_addr;
-	int m_out2_addr;
-	int m_bootleg_kludge;
-	u8 m_scrollx1;
-	u8 m_scrollx2;
-	u8 m_scrollx3;
-	u32 m_bank_type[32];
+	int m_cpsb_addr = 0;
+	int m_cpsb_value = 0;
+	int m_mult_factor1 = 0;
+	int m_mult_factor2 = 0;
+	int m_mult_result_lo = 0;
+	int m_mult_result_hi = 0;
+	int m_layer_control = 0;
+	int m_priority[4]{};
+	int m_palette_control = 0;
+	int m_layer_enable_mask[5]{};
+	int m_bank_sizes[4]{};
+	int m_in2_addr = 0;
+	int m_in3_addr = 0;
+	int m_out2_addr = 0;
+	int m_bootleg_kludge = 0;
+	u8 m_scrollx1 = 0;
+	u8 m_scrollx2 = 0;
+	u8 m_scrollx3 = 0;
+	u32 m_bank_type[32]{};
 	//HBMAME end
 
 	/* memory pointers */
 	// cps1
-	bitmap_ind16 m_dummy_bitmap;
+	bitmap_ind16 m_dummy_bitmap = 0;
 	optional_shared_ptr<u16 > m_mainram;
 	required_shared_ptr<u16 > m_gfxram;
 	required_shared_ptr<u16 > m_cps_a_regs;
 	required_shared_ptr<u16 > m_cps_b_regs;
-	u16  *     m_scroll1;
-	u16  *     m_scroll2;
-	u16  *     m_scroll3;
-	u16  *     m_obj;
-	u16  *     m_other;
-	std::unique_ptr<u16 []>     m_buffered_obj;
+	u16  *     m_scroll1 = nullptr;
+	u16  *     m_scroll2 = nullptr;
+	u16  *     m_scroll3 = nullptr;
+	u16  *     m_obj = nullptr;
+	u16  *     m_other = nullptr;
+	std::unique_ptr<u16 []>     m_buffered_obj{};
 	optional_shared_ptr<u8> m_qsound_sharedram1;
 	optional_shared_ptr<u8> m_qsound_sharedram2;
-	std::unique_ptr<u8[]> m_decrypt_kabuki;
+	std::unique_ptr<u8[]> m_decrypt_kabuki{};
 	// cps2
-	optional_shared_ptr<u16 > m_objram1;
-	optional_shared_ptr<u16 > m_objram2;
-	optional_shared_ptr<u16 > m_output;
+	optional_shared_ptr<u16> m_objram1;
+	optional_shared_ptr<u16> m_objram2;
+	optional_shared_ptr<u16> m_output;
 
 	optional_ioport m_io_in0;
 	optional_ioport m_io_in1;
-	std::unique_ptr<u16 []>     m_cps2_buffered_obj;
+	std::unique_ptr<u16 []>     m_cps2_buffered_obj{};
 	// game-specific
-	std::unique_ptr<u16 []>    m_gigaman2_dummyqsound_ram;
-	u16   sf2ceblp_prot;
+	std::unique_ptr<u16 []>    m_gigaman2_dummyqsound_ram{};
+	u16   sf2ceblp_prot = 0U;
 
 	/* video-related */
-	tilemap_t      *m_bg_tilemap[3];
-	int          m_scanline1;
-	int          m_scanline2;
-	int          m_scancalls;
+	tilemap_t      *m_bg_tilemap[3]{};
+	int          m_scanline1 = 0;
+	int          m_scanline2 = 0;
+	int          m_scancalls = 0;
 
-	int          m_scroll1x;
-	int          m_scroll1y;
-	int          m_scroll2x;
-	int          m_scroll2y;
-	int          m_scroll3x;
-	int          m_scroll3y;
+	int          m_scroll1x = 0;
+	int          m_scroll1y = 0;
+	int          m_scroll2x = 0;
+	int          m_scroll2y = 0;
+	int          m_scroll3x = 0;
+	int          m_scroll3y = 0;
 
-	int          m_stars_enabled[2];        /* Layer enabled [Y/N] */
-	int          m_stars1x;
-	int          m_stars1y;
-	int          m_stars2x;
-	int          m_stars2y;
-	int          m_last_sprite_offset;      /* Offset of the last sprite */
-	int          m_cps2_last_sprite_offset; /* Offset of the last sprite */
-	int          m_pri_ctrl;                /* Sprite layer priorities */
-	int          m_objram_bank;
+	int          m_stars_enabled[2]{};        /* Layer enabled [Y/N] */
+	int          m_stars1x = 0;
+	int          m_stars1y = 0;
+	int          m_stars2x = 0;
+	int          m_stars2y = 0;
+	int          m_last_sprite_offset = 0;      /* Offset of the last sprite */
+	int          m_cps2_last_sprite_offset = 0; /* Offset of the last sprite */
+	int          m_pri_ctrl = 0;                /* Sprite layer priorities */
+	int          m_objram_bank = 0;
 
 	/* misc */
-	int          m_readpaddle;  // pzloop2
-	int          m_cps2networkpresent;
-	int          m_cps2digitalvolumelevel;
-	int          m_cps2disabledigitalvolume;
-	emu_timer    *m_digital_volume_timer;
-	int          m_cps2_dial_type;
-	int          m_ecofghtr_dial_direction0;
-	int          m_ecofghtr_dial_direction1;
-	int          m_ecofghtr_dial_last0;
-	int          m_ecofghtr_dial_last1;
+	int          m_readpaddle = 0;  // pzloop2
+	int          m_cps2networkpresent = 0;
+	int          m_cps2digitalvolumelevel = 0;
+	int          m_cps2disabledigitalvolume = 0;
+	emu_timer    *m_digital_volume_timer = nullptr;
+	int          m_cps2_dial_type = 0;
+	int          m_ecofghtr_dial_direction0 = 0;
+	int          m_ecofghtr_dial_direction1 = 0;
+	int          m_ecofghtr_dial_last0 = 0;
+	int          m_ecofghtr_dial_last1 = 0;
 
 
 	/* fcrash sound hw */
-	int          m_sample_buffer1;
-	int          m_sample_buffer2;
-	int          m_sample_select1;
-	int          m_sample_select2;
+	int          m_sample_buffer1 = 0;
+	int          m_sample_buffer2 = 0;
+	int          m_sample_select1 = 0;
+	int          m_sample_select2 = 0;
 
 	/* video config (never changed after video_start) */
-	const struct CPS1config *m_game_config;
-	int          m_scroll_size;
-	int          m_obj_size;
-	int          m_cps2_obj_size;
-	int          m_other_size;
-	int          m_palette_align;
-	int          m_palette_size;
-	int          m_stars_rom_size;
-	u8     m_empty_tile[32*32];
-	int          m_cps_version;
+	const struct CPS1config *m_game_config = nullptr;
+	int          m_scroll_size = 0;
+	int          m_obj_size = 0;
+	int          m_cps2_obj_size = 0;
+	int          m_other_size = 0;
+	int          m_palette_align = 0;
+	int          m_palette_size = 0;
+	int          m_stars_rom_size = 0;
+	u8     m_empty_tile[32*32]{};
+	int          m_cps_version = 0;
 
 	/* fcrash video config */
-	u8        m_layer_enable_reg;
-	u8        m_layer_mask_reg[4];
-	int          m_layer_scroll1x_offset;
-	int          m_layer_scroll2x_offset;
-	int          m_layer_scroll3x_offset;
-	int          m_sprite_base;
-	int          m_sprite_list_end_marker;
-	int          m_sprite_x_offset;
-	std::unique_ptr<u16 []> m_bootleg_sprite_ram;
-	std::unique_ptr<u16 []> m_bootleg_work_ram;
+	u8        m_layer_enable_reg = 0;
+	u8        m_layer_mask_reg[4]{};
+	int          m_layer_scroll1x_offset = 0;
+	int          m_layer_scroll2x_offset = 0;
+	int          m_layer_scroll3x_offset = 0;
+	int          m_sprite_base = 0;
+	int          m_sprite_list_end_marker = 0;
+	int          m_sprite_x_offset = 0;
+	std::unique_ptr<u16 []> m_bootleg_sprite_ram{};
+	std::unique_ptr<u16 []> m_bootleg_work_ram{};
 
 	/* devices */
 	required_device<m68000_base_device> m_maincpu;

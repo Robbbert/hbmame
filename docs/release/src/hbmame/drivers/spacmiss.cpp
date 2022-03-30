@@ -52,12 +52,12 @@ public:
 
 private:
 
-	bool m_flip_screen;
-	bool m_screen_red;
-	bool m_sound_enabled;
-	u8 m_port_1_last_extra;
-	u8 m_port_2_last_extra;
-	emu_timer   *m_interrupt_timer;
+	bool m_flip_screen = false;
+	bool m_screen_red = false;
+	bool m_sound_enabled = false;
+	u8 m_port_1_last_extra = 0U;
+	u8 m_port_2_last_extra = 0U;
+	emu_timer   *m_interrupt_timer = nullptr;
 	u8 spacmissx_02_r();
 	void spacmissx_03_w(u8 data);
 	void spacmissx_05_w(u8 data);
@@ -239,9 +239,8 @@ int sm_state::vysnc_chain_counter_to_vpos( u8 counter, int vblank )
 
 TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
 {
-	u8 next_counter;
-	int next_vpos;
-	int next_vblank;
+	u8 next_counter = 0U;
+	int next_vblank = 0;
 
 	/* compute vector and set the interrupt line */
 	int vpos = m_screen->vpos();
@@ -261,7 +260,7 @@ TIMER_CALLBACK_MEMBER(sm_state::mw8080bw_interrupt_callback)
 		next_vblank = MW8080BW_INT_TRIGGER_VBLANK_1;
 	}
 
-	next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
+	int next_vpos = vysnc_chain_counter_to_vpos(next_counter, next_vblank);
 	m_interrupt_timer->adjust(m_screen->time_until_pos(next_vpos));
 }
 
@@ -328,9 +327,7 @@ u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitma
 		if (x == 0)
 		{
 			/* yes, flush out the shift register */
-			int i;
-
-			for (i = 0; i < 4; i++)
+			for (u8 i = 0; i < 4; i++)
 			{
 				pen = (video_data & 0x01) ? rgb_t(255,255,255) : rgb_t(0,0,0);
 
@@ -344,7 +341,7 @@ u32 sm_state::screen_update_spacmissx(screen_device &screen, bitmap_rgb32 &bitma
 
 			/* next row, video_data is now 0, so the next line will start
 			   with 4 blank pixels */
-			y = y + 1;
+			y++;
 
 			/* end of screen? */
 			if (y == 0)

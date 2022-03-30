@@ -22532,6 +22532,38 @@ ROM_START( sf2hfus04 )
 	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
+ROM_START( sf2hfus05 )  // sf2hf_ukraine
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "s2te_23.8f", 0x000000, 0x80000, CRC(7e5e9fa5) SHA1(eeddd2344a984bf3c386db4a200e2b1e9535343f) )
+	ROM_LOAD16_WORD_SWAP( "s2te_22.7f", 0x080000, 0x80000, CRC(34a6a55f) SHA1(26978953bda0a764aa9d29dac61f71951719f69c) )
+	ROM_LOAD16_WORD_SWAP( "s2te_21.6f", 0x100000, 0x80000, CRC(d47ed80a) SHA1(79e759e01fb79716bfdb85982b4de04d944b9cc2) )
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROM_LOAD64_WORD( "s92-1m.3a",  0x000000, 0x80000, CRC(03b0d852) SHA1(f370f25c96ad2b94f8c53d6b7139100285a25bef) )
+	ROM_LOAD64_WORD( "s92-3m.5a",  0x000002, 0x80000, CRC(840289ec) SHA1(2fb42a242f60ba7e74009b5a90eb26e035ba1e82) )
+	ROM_LOAD64_WORD( "s92-2m.4a",  0x000004, 0x80000, CRC(cdb5f027) SHA1(4c7d944fef200fdfcaf57758b901b5511188ed2e) )
+	ROM_LOAD64_WORD( "s92-4m.6a",  0x000006, 0x80000, CRC(e2799472) SHA1(27d3796429338d82a8de246a0ea06dd487a87768) )
+	ROM_LOAD64_WORD( "s92-5m.7a",  0x200000, 0x80000, CRC(ba8a2761) SHA1(4b696d66c51611e43522bed752654314e76d33b6) )
+	ROM_LOAD64_WORD( "s92-7m.9a",  0x200002, 0x80000, CRC(e584bfb5) SHA1(ebdf1f5e2638eed3a65dda82b1ed9151a355f4c9) )
+	ROM_LOAD64_WORD( "s92-6m.8a",  0x200004, 0x80000, CRC(21e3f87d) SHA1(4a4961bb68c3a1ce15f9d393d9c03ecb2466cc29) )
+	ROM_LOAD64_WORD( "s92-8m.10a", 0x200006, 0x80000, CRC(befc47df) SHA1(520390420da3a0271ba90b0a933e65143265e5cf) )
+	ROM_LOAD64_WORD( "s92-10m.3c", 0x400000, 0x80000, CRC(960687d5) SHA1(2868c31121b1c7564e9767b9a19cdbf655c7ed1d) )
+	ROM_LOAD64_WORD( "s92-12m.5c", 0x400002, 0x80000, CRC(978ecd18) SHA1(648a59706b93c84b4206a968ecbdc3e834c476f6) )
+	ROM_LOAD64_WORD( "s92-11m.4c", 0x400004, 0x80000, CRC(d6ec9a0a) SHA1(ed6143f8737013b6ef1684e37c05e037e7a80dae) )
+	ROM_LOAD64_WORD( "s92-13m.6c", 0x400006, 0x80000, CRC(ed2c67f6) SHA1(0083c0ffaf6fe7659ff0cf822be4346cd6e61329) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "s92_09.11a",  0x00000, 0x08000, CRC(08f6b60e) SHA1(8258fcaca4ac419312531eec67079b97f471179c) )
+	ROM_CONTINUE(            0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "s92_18.11c",  0x00000, 0x20000, CRC(7f162009) SHA1(346bf42992b4c36c593e21901e22c87ae4a7d86d) )
+	ROM_LOAD( "s92_19.12c",  0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
+ROM_END
+
 ROM_START( sf2h11s01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "sfu7-1.040", 0x000000, 0x80000, CRC(866a9b31) SHA1(92f89084293b69a9d5cd8d282ffaaca0739f1b03) )
@@ -30163,6 +30195,7 @@ GAME( 1992, sf2hfus01,     sf2hf,    cps1_12MHz, sf2,      cps_state, init_cps1,
 GAME( 1992, sf2hfus02,     sf2hf,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Blue-Ray", "Street Fighter II': Hyper Fighting (Shorten the time 60% )", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2hfus03,     sf2hf,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Blue-Ray", "Street Fighter II': Hyper Fighting (Guile Shorten the time 1 90% )", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2hfus04,     sf2hf,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Blue-Ray", "Street Fighter II': Hyper Fighting (Guile Shorten the time 2 90% )", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, sf2hfus05,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Rotwang", "Street Fighter II': Hyper Fighting (Ukraine version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2h11s01,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (920322 Japan bootleg set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2puns01,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "Drakon", "Street Fighter II': Champion Edition (Punishment Edition Simplified 2018-06-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2reds01,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "MamePlus", "Street Fighter II': Champion Edition (Golden Edition)", MACHINE_SUPPORTS_SAVE )

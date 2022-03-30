@@ -692,7 +692,7 @@ void neogeo_state::io_control_w(offs_t offset, u8 data)
 
 u16 neogeo_state::neogeo_unmapped_r(address_space &space)
 {
-	u16  ret;
+	u16  ret = 0U;
 
 	/* unmapped memory returns the last word on the data bus, which is almost always the opcode
 	   of the next instruction due to prefetch */
@@ -749,7 +749,7 @@ u16 neogeo_state::memcard_r(offs_t offset)
 {
 	m_maincpu->eat_cycles(2); // insert waitstate
 
-	u16  ret;
+	u16  ret = 0U;
 
 	if (m_memcard->present() != -1)
 		ret = m_memcard->read(offset) | 0xff00;
@@ -839,12 +839,7 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 {
 	if (m_type == NEOGEO_CD) return;
 
-	int region;
-	int bank;
-	u8 *rgn;
-	u32 address_mask;
-
-	rgn = memregion("audiocpu")->base();
+	u8 *rgn = memregion("audiocpu")->base();
 
 	/* audio bios/cartridge selection */
 	m_bank_audio_main->configure_entry(1, memregion("audiocpu")->base());
@@ -861,12 +856,12 @@ void neogeo_state::neogeo_audio_cpu_banking_init(int set_entry)
 	m_bank_audio_cart[2] = membank("audio_c000");
 	m_bank_audio_cart[3] = membank("audio_8000");
 
-	address_mask = (memregion("audiocpu")->bytes() - 0x10000 - 1) & 0x3ffff;
+	u32 address_mask = (memregion("audiocpu")->bytes() - 0x10000 - 1) & 0x3ffff;
 
 
-	for (region = 0; region < 4; region++)
+	for (u8 region = 0; region < 4; region++)
 	{
-		for (bank = 0xff; bank >= 0; bank--)
+		for (int bank = 0xff; bank >= 0; bank--)
 		{
 			u32 bank_address = 0x10000 + ((bank << (11 + region)) & address_mask);
 			m_bank_audio_cart[region]->configure_entry(bank, &rgn[bank_address]);

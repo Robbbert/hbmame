@@ -35,7 +35,7 @@ public:
 	virtual void write_ctrlsel(uint8_t data) { };
 
 protected:
-	neogeo_control_port_device *m_port;
+	neogeo_control_port_device *m_port = nullptr;
 };
 
 // ======================> neogeo_control_port_device
@@ -55,7 +55,7 @@ protected:
 	// device-level overrides
 	virtual void device_start() override;
 
-	device_neogeo_control_port_interface *m_device;
+	device_neogeo_control_port_interface *m_device = nullptr;
 };
 
 
@@ -74,7 +74,7 @@ public:
 	virtual void write_ctrlsel(uint8_t data) { }
 
 protected:
-	neogeo_ctrl_edge_port_device *m_port;
+	neogeo_ctrl_edge_port_device *m_port = nullptr;
 };
 
 // ======================> neogeo_ctrl_edge_port_device
@@ -95,7 +95,7 @@ protected:
 	// device-level overrides
 	virtual void device_start() override;
 
-	device_neogeo_ctrl_edge_interface *m_device;
+	device_neogeo_ctrl_edge_interface *m_device = nullptr;
 };
 
 

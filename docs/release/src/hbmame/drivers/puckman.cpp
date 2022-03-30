@@ -546,19 +546,17 @@ u8 puckman_state::hbmame_pacplus_decode(offs_t addr, u8 e)
 
 void puckman_state::init_pacplus()
 {
-	offs_t i;
-
 	/* CPU ROMs */
 	u8 *RAM = machine().root_device().memregion("maincpu")->base();
 
-	for (i = 0; i < 0x4000; i++)
+	for (offs_t i = 0; i < 0x4000; i++)
 		RAM[i] = hbmame_pacplus_decode(i,RAM[i]);
 }
 
 void puckman_state::eyes_decode(u8 *data)
 {
-	int j;
-	u8 swapbuffer[8];
+	u16 j;
+	u16 swapbuffer[8];
 
 	for (j = 0; j < 8; j++)
 		swapbuffer[j] = data[bitswap<16>(j,15,14,13,12,11,10,9,8,7,6,5,4,3,0,1,2)];
@@ -569,13 +567,10 @@ void puckman_state::eyes_decode(u8 *data)
 
 void puckman_state::init_eyes()
 {
-	int i;
-
 	/* CPU ROMs */
-
 	/* Data lines D3 and D5 swapped */
 	u8 *RAM = machine().root_device().memregion("maincpu")->base();
-	for (i = 0; i < 0x4000; i++)
+	for (u16 i = 0; i < 0x4000; i++)
 		RAM[i] = bitswap<8>(RAM[i],7,6,3,4,5,2,1,0);
 
 
@@ -583,7 +578,7 @@ void puckman_state::init_eyes()
 
 	/* Data lines D4 and D6 and address lines A0 and A2 are swapped */
 	RAM = machine().root_device().memregion("gfx1")->base();
-	for (i = 0;i < machine().root_device().memregion("gfx1")->bytes();i += 8)
+	for (u32 i = 0;i < machine().root_device().memregion("gfx1")->bytes();i += 8)
 		eyes_decode(&RAM[i]);
 }
 
