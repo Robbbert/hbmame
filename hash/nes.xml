@@ -44224,11 +44224,7 @@ license:CC0
 			<feature name="pcb" value="CAMERICA-GAMEGENIE" />
 			<feature name="mirroring" value="horizontal" />
 			<dataarea name="prg" size="32768">
-				<rom name="genie v1.5" size="16384" crc="02b26e69" sha1="8bb0d98c4515cba77a805bc8b06788dd6ed6263c" offset="00000" />    <!-- an alt PCB with rom labeled v1.5a was dumped and the content was the same as this -->
-				<rom size="16384" offset="0x4000" loadflag="reload" />
-			</dataarea>
-			<dataarea name="chr" size="8192">
-				<rom name="0.chr" size="8192" crc="e698cc99" sha1="16a152a1e81328c8c66d9c5781d102b018bb6c36" offset="00000" />
+				<rom name="genie v1.5" size="4096" crc="1a3a22a1" sha1="aaa9833c3de2213f2b0326769b715651fd13fd84" offset="00000" />    <!-- an alt PCB with rom labeled v1.5a was dumped and the content was the same as this -->
 			</dataarea>
 		</part>
 	</software>
@@ -44848,7 +44844,7 @@ Also notice that VRAM, WRAM & mirror are probably incorrect for some of these se
 			<feature name="pcb" value="NES-UNROM" />
 			<feature name="mirroring" value="horizontal" />
 			<dataarea name="prg" size="131072">
-				<rom name="alfred chicken (europe).prg" size="131072" crc="759418d2" sha1="3f32f7fd57790c6dd72bb3fc2727e25e125ffd6e" offset="00000" status="baddump" />
+				<rom name="alfred chicken (europe).prg" size="131072" crc="759418d2" sha1="3f32f7fd57790c6dd72bb3fc2727e25e125ffd6e" offset="00000" />
 			</dataarea>
 			<!-- 8k VRAM on cartridge -->
 			<dataarea name="vram" size="8192">
@@ -45197,10 +45193,10 @@ Also notice that VRAM, WRAM & mirror are probably incorrect for some of these se
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="262144">
-				<rom name="beauty and the beast (europe).chr" size="262144" crc="0b35f4c0" sha1="c035a8c2b0d96475e3d341c7ea5426d4d623bb7a" offset="00000" status="baddump" />
+				<rom name="beauty and the beast (europe).chr" size="262144" crc="0b35f4c0" sha1="c035a8c2b0d96475e3d341c7ea5426d4d623bb7a" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="beauty and the beast (europe).prg" size="131072" crc="b42feeb4" sha1="14937367f2941bb992ee0e3ec66158fbef48fd03" offset="00000" status="baddump" />
+				<rom name="beauty and the beast (europe).prg" size="131072" crc="b42feeb4" sha1="14937367f2941bb992ee0e3ec66158fbef48fd03" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -46079,7 +46075,7 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="pcb" value="NES-ANROM" />
 			<feature name="bus_conflict" value="no" />
 			<dataarea name="prg" size="131072">
-				<rom name="danny sullivan's indy heat (europe).prg" size="131072" crc="27ca0679" sha1="cd95f141e0cf702984ed5d76db2a0264947f187c" offset="00000" status="baddump" />
+				<rom name="danny sullivan's indy heat (europe).prg" size="131072" crc="27ca0679" sha1="cd95f141e0cf702984ed5d76db2a0264947f187c" offset="00000" />
 			</dataarea>
 			<!-- 8k VRAM on cartridge -->
 			<dataarea name="vram" size="8192">
@@ -46138,7 +46134,7 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="sxrom" />
 			<feature name="pcb" value="NES-SLROM" />
 			<dataarea name="prg" size="262144">
-				<rom name="defender of the crown (france).prg" size="262144" crc="2fd2e632" sha1="5700de705c481b919d7549a0fd1706e1bb1b5603" offset="00000" status="baddump" />
+				<rom name="defender of the crown (france).prg" size="262144" crc="2fd2e632" sha1="5700de705c481b919d7549a0fd1706e1bb1b5603" offset="00000" />
 			</dataarea>
 			<!-- 8k VRAM on cartridge -->
 			<dataarea name="vram" size="8192">
@@ -48633,10 +48629,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="mario is missing (europe).chr" size="131072" crc="0de1433a" sha1="a010fa436789fac6b8646ce459ffb6004f235cb8" offset="00000" status="baddump" />
+				<rom name="mario is missing (europe).chr" size="131072" crc="0de1433a" sha1="a010fa436789fac6b8646ce459ffb6004f235cb8" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="mario is missing (europe).prg" size="131072" crc="3c514633" sha1="64bfe58f37ad4e5e4ad311e057337b3e38778032" offset="00000" status="baddump" />
+				<rom name="mario is missing (europe).prg" size="131072" crc="3c514633" sha1="64bfe58f37ad4e5e4ad311e057337b3e38778032" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -48688,10 +48684,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="mcdonaldland (france).chr" size="131072" crc="5ffbe2bb" sha1="0832304c3ff68b77bc94c887bd259b7e702c2546" offset="00000" status="baddump" />
+				<rom name="mcdonaldland (france).chr" size="131072" crc="5ffbe2bb" sha1="0832304c3ff68b77bc94c887bd259b7e702c2546" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="mcdonaldland (france).prg" size="131072" crc="2664fc75" sha1="1ad8b7dcba91331f1f1352a54258fb5af9cf9cd7" offset="00000" status="baddump" />
+				<rom name="mcdonaldland (france).prg" size="131072" crc="2664fc75" sha1="1ad8b7dcba91331f1f1352a54258fb5af9cf9cd7" offset="00000" />
 			</dataarea>
 			<!-- 8k WRAM on cartridge -->
 			<dataarea name="wram" size="8192">
@@ -49711,10 +49707,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="nrom" />
 			<feature name="pcb" value="NES-NROM-128" />
 			<dataarea name="chr" size="8192">
-				<rom name="pac-man (europe).chr" size="8192" crc="19c4aa76" sha1="6ab2a6cfd59e4e1fe9d8c5da6722bb5a6a173861" offset="00000" status="baddump" />
+				<rom name="pac-man (europe).chr" size="8192" crc="19c4aa76" sha1="6ab2a6cfd59e4e1fe9d8c5da6722bb5a6a173861" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="32768">
-				<rom name="pac-man (europe).prg" size="16384" crc="6fa1193b" sha1="8fef2bdce0c0be2ece67b26587aa22097ba3c9cf" offset="00000" status="baddump" />
+				<rom name="pac-man (europe).prg" size="16384" crc="6fa1193b" sha1="8fef2bdce0c0be2ece67b26587aa22097ba3c9cf" offset="00000" />
 				<rom size="16384" offset="0x4000" loadflag="reload" />
 			</dataarea>
 		</part>
@@ -49772,10 +49768,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="sxrom" />
 			<feature name="pcb" value="NES-SLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="parasol stars - rainbow islands ii - the story of bubble bobble iii (europe).chr" size="131072" crc="af5400dc" sha1="68258fedf7e2ba3afcf20e8261ad93d282c10bd9" offset="00000" status="baddump" />
+				<rom name="parasol stars - rainbow islands ii - the story of bubble bobble iii (europe).chr" size="131072" crc="af5400dc" sha1="68258fedf7e2ba3afcf20e8261ad93d282c10bd9" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="parasol stars - rainbow islands ii - the story of bubble bobble iii (europe).prg" size="131072" crc="15382139" sha1="50991602680588a9e7b03e06d45ee607fc00db13" offset="00000" status="baddump" />
+				<rom name="parasol stars - rainbow islands ii - the story of bubble bobble iii (europe).prg" size="131072" crc="15382139" sha1="50991602680588a9e7b03e06d45ee607fc00db13" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -49808,10 +49804,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="sxrom" />
 			<feature name="pcb" value="NES-SLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="pirates (europe).chr" size="131072" crc="9da6d510" sha1="df10035a97217b9e608af813b7d8b1327c5bad6c" offset="00000" status="baddump" />
+				<rom name="pirates (europe).chr" size="131072" crc="9da6d510" sha1="df10035a97217b9e608af813b7d8b1327c5bad6c" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="pirates (europe).prg" size="131072" crc="ddad2460" sha1="63df8b410ce3af69e3f6c6c78671533863736954" offset="00000" status="baddump" />
+				<rom name="pirates (europe).prg" size="131072" crc="ddad2460" sha1="63df8b410ce3af69e3f6c6c78671533863736954" offset="00000" />
 			</dataarea>
 			<!-- 8k WRAM on cartridge, battery backed up -->
 			<dataarea name="bwram" size="8192">
@@ -49829,10 +49825,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="sxrom" />
 			<feature name="pcb" value="NES-SLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="pirates (germany).chr" size="131072" crc="9da6d510" sha1="df10035a97217b9e608af813b7d8b1327c5bad6c" offset="00000" status="baddump" />
+				<rom name="pirates (germany).chr" size="131072" crc="9da6d510" sha1="df10035a97217b9e608af813b7d8b1327c5bad6c" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="pirates (germany).prg" size="131072" crc="d3d1b86c" sha1="befc9fb1e862e95b3c6face3c4d3925b242b30ef" offset="00000" status="baddump" />
+				<rom name="pirates (germany).prg" size="131072" crc="d3d1b86c" sha1="befc9fb1e862e95b3c6face3c4d3925b242b30ef" offset="00000" />
 			</dataarea>
 			<!-- 8k WRAM on cartridge, battery backed up -->
 			<dataarea name="bwram" size="8192">
@@ -49849,7 +49845,7 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="sxrom" />
 			<feature name="pcb" value="NES-SLROM" />
 			<dataarea name="prg" size="131072">
-				<rom name="predator (australia).prg" size="131072" crc="9fda6938" sha1="0194142f3d50062694c9873fc807456d7e957c2e" offset="00000" status="baddump" />
+				<rom name="predator (australia).prg" size="131072" crc="9fda6938" sha1="0194142f3d50062694c9873fc807456d7e957c2e" offset="00000" />
 			</dataarea>
 			<dataarea name="chr" size="131072">
 				<rom name="nes-pl-0 chr" size="131072" crc="e220308a" sha1="eb233643d2d3e991c2611449c8e752f7534cd637" offset="00000" />
@@ -50011,10 +50007,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="rackets &amp; rivals (europe).chr" size="131072" crc="4a61ac30" sha1="b1836aae02bc96f28bed720258f8a0e1592917d1" offset="00000" status="baddump" />
+				<rom name="rackets &amp; rivals (europe).chr" size="131072" crc="4a61ac30" sha1="b1836aae02bc96f28bed720258f8a0e1592917d1" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="rackets &amp; rivals (europe).prg" size="131072" crc="7f60bf49" sha1="d109eeb2a6847737103a628afabc5d0f75a7d43a" offset="00000" status="baddump" />
+				<rom name="rackets &amp; rivals (europe).prg" size="131072" crc="7f60bf49" sha1="d109eeb2a6847737103a628afabc5d0f75a7d43a" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -50894,10 +50890,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="262144">
-				<rom name="star trek - 25th anniversary (germany).chr" size="262144" crc="15b00306" sha1="8616bba69f113f5275d0a2d9a0b1b6d3708a87f8" offset="00000" status="baddump" />
+				<rom name="star trek - 25th anniversary (germany).chr" size="262144" crc="15b00306" sha1="8616bba69f113f5275d0a2d9a0b1b6d3708a87f8" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="262144">
-				<rom name="star trek - 25th anniversary (germany).prg" size="262144" crc="2ec726c1" sha1="313cf399b61b9c8e64398978ab57cb394a80dd70" offset="00000" status="baddump" />
+				<rom name="star trek - 25th anniversary (germany).prg" size="262144" crc="2ec726c1" sha1="313cf399b61b9c8e64398978ab57cb394a80dd70" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -51797,10 +51793,10 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="trolls in crazyland, the (europe).chr" size="131072" crc="192fe3a5" sha1="2d8bec71fcd37168c40df373cb1b65da411f452f" offset="00000" status="baddump" />
+				<rom name="trolls in crazyland, the (europe).chr" size="131072" crc="192fe3a5" sha1="2d8bec71fcd37168c40df373cb1b65da411f452f" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="trolls in crazyland, the (europe).prg" size="131072" crc="a37b767d" sha1="5edab1bee1f1c05058ad8408427d2ac8aeeb982e" offset="00000" status="baddump" />
+				<rom name="trolls in crazyland, the (europe).prg" size="131072" crc="a37b767d" sha1="5edab1bee1f1c05058ad8408427d2ac8aeeb982e" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -53571,8 +53567,8 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<year>19??</year>
 		<publisher>HES</publisher>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="hes" />
-			<feature name="pcb" value="HES" />
+			<feature name="slot" value="nina006" />
+			<feature name="pcb" value="AVE-NINA-06" />
 			<dataarea name="chr" size="16384">
 				<rom name="sidewinder (australia) (unl).chr" size="16384" crc="d7c4b76a" sha1="6d0b6fd1285ab8a0079344a158153eefaeab614a" offset="00000" status="baddump" />
 			</dataarea>
@@ -60686,8 +60682,9 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<info name="serial" value="HKI-05"/>
 		<info name="alt_title" value="AV花名札倶楽部"/>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="hes" />
-			<feature name="pcb" value="HES" />
+			<feature name="slot" value="sa0037" />
+			<feature name="pcb" value="UNL-SA-0037" />
+			<feature name="mirroring" value="horizontal" />
 			<dataarea name="chr" size="65536">
 				<rom name="av hanafuda club (japan) (unl).chr" size="65536" crc="54ab3688" sha1="ed11e82020eaedab2ff3af560bf008ede2179d42" offset="00000" status="baddump" />
 			</dataarea>
@@ -60780,8 +60777,9 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<year>19??</year>
 		<publisher>Hacker International</publisher>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="hes" />
-			<feature name="pcb" value="HES" />
+			<feature name="slot" value="sa0037" />
+			<feature name="pcb" value="UNL-SA-0037" />
+			<feature name="mirroring" value="horizontal" />
 			<dataarea name="chr" size="65536">
 				<rom name="av soccer (japan) (unl).chr" size="65536" crc="44b5ea8b" sha1="6ab0e33a9f9bc5de72ed6c89bd7deb169ab0e0b4" offset="00000" status="baddump" />
 			</dataarea>
@@ -60818,14 +60816,14 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<info name="serial" value="HKI-09"/>
 		<info name="alt_title" value="花札遊侠伝 流れ花お竜"/>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="cnrom" />
-			<feature name="pcb" value="NES-CNROM" />
+			<feature name="slot" value="sa0037" />
+			<feature name="pcb" value="UNL-SA-0037" />
 			<feature name="mirroring" value="horizontal" />
-			<dataarea name="chr" size="32768">
-				<rom name="hanafuda yuukyou den - nagarebana oryuu (japan) (unl).chr" size="32768" crc="26b24de2" sha1="c59fb7c8ae3612783f64f2caa74344ceb13b5e8e" offset="00000" status="baddump" />
+			<dataarea name="chr" size="65536">
+				<rom name="hanafuda yuukyou den - nagarebana oryuu (japan) (unl).chr" size="65536" crc="989f52f5" sha1="444265fdf725d1237aa4e45c5513f338f09556db" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="32768">
-				<rom name="hanafuda yuukyou den - nagarebana oryuu (japan) (unl).prg" size="32768" crc="e44d95b5" sha1="e156171835b698d25015d50fed1be248fa134b1f" offset="00000" status="baddump" />
+				<rom name="hanafuda yuukyou den - nagarebana oryuu (japan) (unl).prg" size="32768" crc="e44d95b5" sha1="e156171835b698d25015d50fed1be248fa134b1f" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -60973,8 +60971,8 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<info name="serial" value="HKI-02"/>
 		<info name="alt_title" value="麻雀コンパニオン 六本木編"/>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="hes" />
-			<feature name="pcb" value="HES" />
+			<feature name="slot" value="nina006" />
+			<feature name="pcb" value="AVE-NINA-06" />
 			<feature name="mirroring" value="horizontal" />
 			<dataarea name="chr" size="65536">
 				<rom name="mahjang companion (asia) (hacker) (unl).chr" size="65536" crc="745b9cf9" sha1="89f8e4f5117ab34af3d9e4dbecd85aed99c4fbfd" offset="00000" status="baddump" />
@@ -61012,8 +61010,8 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<publisher>Hacker International</publisher>
 		<info name="alt_title" value="Papillon Gals (on the cart label)"/>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="hes" />
-			<feature name="pcb" value="HES" />
+			<feature name="slot" value="nina006" />
+			<feature name="pcb" value="AVE-NINA-06" />
 			<feature name="mirroring" value="horizontal" />
 			<dataarea name="chr" size="65536">
 				<rom name="papillon (asia) (unl).chr" size="65536" crc="48a4a69b" sha1="c960931b6bcff36ff5dbbb79e98e5bd3ac812869" offset="00000" status="baddump" />
@@ -61102,36 +61100,16 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		</part>
 	</software>
 
-<!-- nointro -->
-	<!-- Apparently, soapanic has corrupted graphics after middle of level 2, soapanica fixes this by using Magic Bubble CHR chunks -->
+<!-- This has a fixed graphics ROM by using Magic Bubble CHR chunks? -->
 	<software name="soapanic">
-		<description>Soap Panic (Jpn, Bad CHR?)</description>
+		<description>Soap Panic (Japan, fixed CHR?)</description>
 		<year>1991</year>
 		<publisher>Hacker International</publisher>
 		<info name="serial" value="HKI-11"/>
 		<info name="alt_title" value="ソープパニック"/>
 		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="cnrom" />
-			<feature name="pcb" value="NES-CNROM" />
-			<feature name="mirroring" value="vertical" />
-			<dataarea name="chr" size="32768">
-				<rom name="soap panic (japan) (unl).chr" size="32768" crc="adc6501d" sha1="b0fafa791b5203a86ef99f126544c5eeca4694a1" offset="00000" status="baddump" />
-			</dataarea>
-			<dataarea name="prg" size="32768">
-				<rom name="soap panic (japan) (unl).prg" size="32768" crc="52c78553" sha1="82700b29a6dd650ae1f835b93fb220fe81bf56be" offset="00000" status="baddump" />
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="soapanica" cloneof="soapanic">
-		<description>Soap Panic (Jpn, Fixed CHR?)</description>
-		<year>1991</year>
-		<publisher>Hacker International</publisher>
-		<info name="serial" value="HKI-11"/>
-		<info name="alt_title" value="ソープパニック"/>
-		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="cnrom" />
-			<feature name="pcb" value="NES-CNROM" />
+			<feature name="slot" value="sa0037" />
+			<feature name="pcb" value="UNL-SA-0037" />
 			<feature name="mirroring" value="vertical" />
 			<dataarea name="chr" size="65536">
 				<rom name="soap panic (hacker) [f1].chr" size="65536" crc="61dcc562" sha1="956f94577309ffaeab30b43cbf159f0f755dabe9" offset="00000" status="baddump" />
@@ -63480,7 +63458,6 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		<part name="cart" interface="nes_cart">
 			<feature name="slot" value="hes" />
 			<feature name="pcb" value="HES-6IN1" />
-			<feature name="mirroring" value="pcb_controlled" />
 			<dataarea name="chr" size="131072">
 				<rom name="hes 6 in 1 (hes).chr" size="131072" crc="5a5c3e73" sha1="86c2b8363013034fde87e4aedec12754bf2a6b4d" offset="00000" status="baddump" />
 			</dataarea>
@@ -76002,10 +75979,10 @@ Other
 			<feature name="slot" value="txrom" />
 			<feature name="pcb" value="NES-TLROM" />
 			<dataarea name="chr" size="131072">
-				<rom name="pokemon silver (little nemo hack) [p1].chr" size="131072" crc="63ddf4cc" sha1="7bf369348d1694aa9819f04a659add47242f496f" offset="00000" status="baddump" />
+				<rom name="pokemon silver (little nemo hack) [p1].chr" size="131072" crc="37f60363" sha1="1eb7f250014cb627c1d4f0be650b74df97ac9e68" offset="00000" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="pokemon silver (little nemo hack) [p1].prg" size="131072" crc="265734e6" sha1="04d3c814154717a894421448d3953d68319f3456" offset="00000" status="baddump" />
+				<rom name="pokemon silver (little nemo hack) [p1].prg" size="131072" crc="265734e6" sha1="04d3c814154717a894421448d3953d68319f3456" offset="00000" />
 			</dataarea>
 		</part>
 	</software>
@@ -80675,6 +80652,23 @@ be better to redump them properly. -->
 		</part>
 	</software>
 
+	<software name="mc_110gc">
+		<description>Chāozhí Gāo K Jīnkǎ 110 in 1</description>
+		<year>1992</year>
+		<publisher>&lt;pirate&gt;</publisher>
+		<info name="alt_title" value="超値高K金卡 110-in-1"/>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_k3071" />
+			<feature name="pcb_model" value="K-3071" />
+			<dataarea name="prg" size="524288">
+				<rom name="1992 super high k gold card 110-in-1.prg" size="524288" crc="d7b968f1" sha1="aca6418a6fb2ddaeef876a77544a8286c8aceb4a" />
+			</dataarea>
+			<dataarea name="chr" size="262144">
+				<rom name="1992 super high k gold card 110-in-1.chr" size="262144" crc="72e35586" sha1="45413b247854bb03400ce54deb22088f0249ccc1" />
+			</dataarea>
+		</part>
+	</software>
+
 	<software name="mc_115">
 		<description>115 in 1</description>
 		<year>19??</year>
@@ -80956,22 +80950,6 @@ be better to redump them properly. -->
 		</part>
 	</software>
 
-	<software name="mc_150a" supported="no">
-		<description>150 in 1 (Alt Games)</description>
-		<year>19??</year>
-		<publisher>&lt;pirate&gt;</publisher>
-		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="bmc_gold150" />
-			<feature name="pcb" value="BMC-GOLDENGAME-150IN1" />
-			<dataarea name="prg" size="2097152">
-				<rom name="150-in-1 [a1][p1].prg" size="2097152" crc="6175b9a0" sha1="4692a622af6a3d79514bf3e5fb4e9fbe6c6080fc" offset="00000" status="baddump" />
-			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
-			</dataarea>
-		</part>
-	</software>
-
 	<software name="mc_150b">
 		<description>150 in 1 (Alt Games 2)</description>
 		<year>19??</year>
@@ -81183,6 +81161,22 @@ be better to redump them properly. -->
 			</dataarea>
 			<dataarea name="prg" size="131072">
 				<rom name="190-in-1 [p1][u].prg" size="131072" crc="c3566fde" sha1="0fe764658b2c1ddcf47acdfb6802abae02410de1" offset="00000" status="baddump" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mc_1500">
+		<description>1500 in 1</description>
+		<year>199?</year>
+		<publisher>&lt;pirate&gt;</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_gold260" />
+			<dataarea name="prg" size="2097152">
+				<rom name="1500-in-1.prg0" size="1048576" crc="80cbcacb" sha1="e56abbcb89d787c494fdcfd98fcdacb18192da2b" offset="0x000000" />
+				<rom name="1500-in-1.prg1" size="1048576" crc="eb5db3e9" sha1="04b7859a93a2cd1f58cd385ce914c5a2aefd580b" offset="0x100000" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
 			</dataarea>
 		</part>
 	</software>
@@ -81621,22 +81615,6 @@ be better to redump them properly. -->
 			</dataarea>
 			<dataarea name="prg" size="65536">
 				<rom name="255-in-1 (duck hunt 100 to mario j 515).prg" size="65536" crc="d763b292" sha1="d212a758825dca7313fb002e028638d65cccdebb" offset="00000" status="baddump" />
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="mc_260" supported="no">
-		<description>260 in 1</description>
-		<year>19??</year>
-		<publisher>&lt;pirate&gt;</publisher>
-		<part name="cart" interface="nes_cart">
-			<feature name="slot" value="bmc_gold260" />
-			<feature name="pcb" value="BMC-GOLDENGAME-260IN1" />
-			<dataarea name="prg" size="4194304">
-				<rom name="260-in-1 [p1].prg" size="4194304" crc="df81364d" sha1="012fd90b213454b76608e018e70f89f1e166dc82" offset="00000" status="baddump" />
-			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
 			</dataarea>
 		</part>
 	</software>
@@ -83974,6 +83952,23 @@ be better to redump them properly. -->
 		</part>
 	</software>
 
+<!-- Menu requires Dendy timing. It bounces on both NTSC and PAL. -->
+	<software name="mc_8x801">
+		<description>8 in 1 (0801)</description>
+		<year>1994</year>
+		<publisher>Subor</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_s009" />
+			<feature name="pcb_model" value="S-009" />
+			<dataarea name="prg" size="1048576">
+				<rom name="1994 8-in-1 (xiaobawang 0801).prg" size="1048576" crc="081e8023" sha1="7f97dfe62fbf0315bb5f70569912d8546d5bdfca" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
+			</dataarea>
+		</part>
+	</software>
+
 	<software name="mc_8a20">
 		<description>8 in 1 (A-020)</description>
 		<year>19??</year>
@@ -84661,6 +84656,22 @@ be better to redump them properly. -->
 		</part>
 	</software>
 
+	<software name="mc_goln8">
+		<description>Golden 8 in 1</description>
+		<year>19??</year>
+		<publisher>&lt;pirate&gt;</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_th2348" />
+			<feature name="pcb_model" value="TH2348" />
+			<dataarea name="prg" size="1048576">
+				<rom name="golden 8-in-1 (ntdec).prg" size="1048576" crc="c74e3a53" sha1="7fa38ab2f0960401b7a2751a00f6b45630e36105" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
+			</dataarea>
+		</part>
+	</software>
+
 	<software name="mc_gc6">
 		<description>Golden Card 6 in 1</description>
 		<year>19??</year>
@@ -84672,6 +84683,60 @@ be better to redump them properly. -->
 			</dataarea>
 			<dataarea name="prg" size="1048576">
 				<rom name="golden card 6 in 1 (unl).prg" size="1048576" crc="834e6407" sha1="207fa25ae26ff797cae0fd40e7ec4d2c00e52497" offset="00000" status="baddump" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mc_gg150" cloneof="mc_gg260">
+		<description>Golden Game: 150 in 1</description>
+		<year>199?</year>
+		<publisher>RCM Group</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_gold260" />
+			<dataarea name="prg" size="4194304">
+				<rom name="150-in-1.prg0" size="1048576" crc="80cbcacb" sha1="e56abbcb89d787c494fdcfd98fcdacb18192da2b" offset="0x000000" />
+				<rom value="0xff" size="1048576" offset="0x100000" loadflag="fill" />
+				<rom name="150-in-1.prg2" size="1048576" crc="29a72554" sha1="ca83413aca58b53c8632e4f71b430926b9e277ae" offset="0x200000" />
+				<rom value="0xff" size="1048576" offset="0x300000" loadflag="fill" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mc_gg210" cloneof="mc_gg260">
+		<description>Golden Game: 210 in 1</description>
+		<year>199?</year>
+		<publisher>RCM Group</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_gold260" />
+			<dataarea name="prg" size="4194304">
+				<rom name="210-in-1.prg0" size="1048576" crc="80cbcacb" sha1="e56abbcb89d787c494fdcfd98fcdacb18192da2b" offset="0x000000" />
+				<rom value="0xff" size="1048576" offset="0x100000" loadflag="fill" />
+				<rom name="210-in-1.prg2" size="1048576" crc="0e73328f" sha1="4820b6d710f93075214442974c5c95c68d230e00" offset="0x200000" />
+				<rom value="0xff" size="1048576" offset="0x300000" loadflag="fill" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mc_gg260">
+		<description>Golden Game: 260 in 1</description>
+		<year>199?</year>
+		<publisher>RCM Group</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_gold260" />
+			<dataarea name="prg" size="4194304">
+				<rom name="260-in-1.prg0" size="1048576" crc="80cbcacb" sha1="e56abbcb89d787c494fdcfd98fcdacb18192da2b" offset="0x000000" />
+				<rom value="0xff" size="1048576" offset="0x100000" loadflag="fill" />
+				<rom name="260-in-1.prg2" size="1048576" crc="0e73328f" sha1="4820b6d710f93075214442974c5c95c68d230e00" offset="0x200000" />
+				<rom name="260-in-1.prg3" size="1048576" crc="29a72554" sha1="ca83413aca58b53c8632e4f71b430926b9e277ae" offset="0x300000" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
 			</dataarea>
 		</part>
 	</software>
