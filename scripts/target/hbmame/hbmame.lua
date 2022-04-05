@@ -564,7 +564,6 @@ files {
 createHBMAMEProjects(_target, _subtarget, "konami")
 files {
 	MAME_DIR .. "src/hbmame/drivers/contra.cpp",
-	MAME_DIR .. "src/mame/video/contra.cpp",
 	MAME_DIR .. "src/hbmame/drivers/dbz.cpp",
 	MAME_DIR .. "src/mame/video/dbz.cpp",
 	MAME_DIR .. "src/hbmame/drivers/gradius3.cpp",
