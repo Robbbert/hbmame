@@ -1722,11 +1722,13 @@ ginganin				//parent
 ginganins01
 
 @source:gottlieb.cpp
-qbert		//parent
-711qbert	/* Hack of Mello Yellow QBert */
+qbert                                  //parent
+myqbert                                // in mame
+711qbert                               // Hack of myqbert
 pbert
 qbertb
 vbert
+qbtrktst                               // in mame, not working
 
 @source:gradius3.cpp
 gradius3				//parent
