@@ -827,6 +827,31 @@ ROM_START( alpacap8 )
 	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
+ROM_START( jrpacplus )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "jrpacplus-05.ic8",     0x0000, 0x1000, CRC(ea80c498) SHA1(f4a54d51fffa904443ab8e13f99328ed1b90ce4d) )
+	ROM_LOAD( "jrpacplus-01.ic7",     0x1000, 0x1000, CRC(807299d4) SHA1(e6be61b0164c3d2d3f24138ca38e028aae1816e6) )
+	ROM_LOAD( "jrpacplus-06.ic6",     0x2000, 0x1000, CRC(ac730069) SHA1(5e8842ce128bac43c8df80d20afc4b13fe932f28) )
+	ROM_LOAD( "jrpacplus-02.ic5",     0x3000, 0x1000, CRC(c3ec10a8) SHA1(c7eaea9d41b107581dbd62f400ffda1288a67a5d) )
+	ROM_LOAD( "jrpacplus-07.ic4",     0x4000, 0x1000, CRC(659b9956) SHA1(5576d4d95ced804e8abdd870662574bfdd6df18f) )
+	ROM_LOAD( "jrpacplus-03.ic3",     0x5000, 0x1000, CRC(96f63003) SHA1(3884439c695d4bbe02389afb9a948eee9b19b35f) )
+	ROM_LOAD( "jrpacplus-08.ic2",     0x6000, 0x1000, CRC(08d91441) SHA1(d0f2666e628a597e614dd46519f6e2f1d7f97e8e) )
+	ROM_LOAD( "jrpacplus-04.ic1",     0x7000, 0x1000, CRC(7c361b65) SHA1(9377c683b036ccb15791ac5f01f7e310821e28d8) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "jrpacplus-09.ic92",    0x0000, 0x2000, CRC(f25d7aa2) SHA1(6b09cd9e7021e491b7871453ed370e580b50fb1a) )
+	ROM_LOAD( "jrpacplus-10.ic105",   0x2000, 0x2000, CRC(5444032b) SHA1(07e140b3bb980c89155ad0a1e49399c75aa3898f) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD_NIB_LOW ( "jrprom.9e", 0x0000, 0x0100, CRC(029d35c4) SHA1(d9aa2dc442e9ac36cf3c346b9fb1aa745eaf3cb8) )
+	ROM_LOAD_NIB_HIGH( "jrprom.9f", 0x0000, 0x0100, CRC(eee34a79) SHA1(7561f8ccab2af85c111af6a02af6986eb67503e5) )
+	ROM_LOAD( "jrpacplus.9p",       0x0020, 0x0100, CRC(deae51b1) SHA1(742210c473c4cb4489423ee60ab83f7a0110406d) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "jrprom.7p",          0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
+	ROM_LOAD( "jrprom.5s",          0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
+
 ROM_START( pacpen )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacpen.u8",    0x0000, 0x1000, CRC(59959af1) SHA1(c528a7895338806977f2d9c76da91f67b0f78aed) )
@@ -902,8 +927,9 @@ ROM_START( vecpengo )
 ROM_END
 
 
-GAME( 2003, alpacap7, alpaca8, pengou, pengo,  pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
-GAME( 2003, alpacap8, alpaca8, pengou, pengo,  pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
-GAME( 2016, pacpen,   pengo,   pengou, pacpen, pengo_state, empty_init, ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, pengopop, pengo,   pengou, pengo,  pengo_state, empty_init, ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, vecpengo, pengo,   pengoe, pengo,  pengo_state, empty_init, ROT90, "T-Bone", "Pengo (Vector sim)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, alpacap7,  alpaca8,  pengou,   pengo,    pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
+GAME( 2003, alpacap8,  alpaca8,  pengou,   pengo,    pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
+GAME( 2021, jrpacplus, jrpacman, jrpacmbl, jrpacmbl, pengo_state, empty_init, ROT90, "Mr McScrewup", "Jr-Pac Plus (Pengo hardware)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, pacpen,    pengo,    pengou,   pacpen,   pengo_state, empty_init, ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, pengopop,  pengo,    pengou,   pengo,    pengo_state, empty_init, ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, vecpengo,  pengo,    pengoe,   pengo,    pengo_state, empty_init, ROT90, "T-Bone", "Pengo (Vector sim)", MACHINE_SUPPORTS_SAVE )
