@@ -7,7 +7,7 @@ Fixed gauntlet2 regressions.
 
 New Games
 ---------------------------------
-- [jrpacplus]           Jr-Pac Plus
+- [jrpacplus]           Jr Pac-Plus
 - [manpac]              Man-Pac
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.09)
 

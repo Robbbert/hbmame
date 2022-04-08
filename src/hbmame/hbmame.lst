@@ -1779,7 +1779,6 @@ jrpacad
 jrpacjr		/* Blue Justice */
 jrpacjrp	/* Blue Justice */
 jrpacp		/* Blue Justice */
-jrpacplus
 jrvectr		/* T-Bone hack of Jr. Pac-Man */
 jrfast
 jrcheat
@@ -7009,12 +7008,13 @@ pckgalgr	/* Vag @ GreekRoms */
 pcktgalk	/* Korean Translation */
 
 @source:pengo.cpp
-pengo		//parent
+pengo                                  //parent
+jrpacplus
 pacpen
 pengopop
-vecpengo	/* T-Bone hack of Pengo */
-alpacap7	/* Jerronimo, Alpaca v0.7 (Pengo Hardware) useless */
-alpacap8	/* Jerronimo, Alpaca v0.8 (Pengo Hardware) useless */
+vecpengo                               // T-Bone hack of Pengo
+alpacap7                               // Jerronimo, Alpaca v0.7 (Pengo Hardware) useless
+alpacap8                               // Jerronimo, Alpaca v0.8 (Pengo Hardware) useless
 
 @source:pgm.cpp
 pgm			//required bios
