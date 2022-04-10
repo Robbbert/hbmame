@@ -738,7 +738,6 @@ void avg_tempest_device::vggo() // tempest_vggo
 int avg_mhavoc_device::handler_1() //  mhavoc_latch1
 {
 	// Major Havoc just has ymin clipping
-
 	if (!m_lst)
 		vg_add_clip(0, m_ypos, m_xmax << 16, m_ymax << 16);
 	m_lst = 1;
@@ -821,9 +820,14 @@ int avg_mhavoc_device::handler_7()  // mhavoc_strobe3
 				const u8 g = bit1 * 0xcb;
 				const u8 b = bit0 * 0xcb;
 
+				int x = m_xpos;
+				int y = m_ypos;
+
+				apply_flipping(x, y);
+		
 				vg_add_point_buf(
-						m_xpos,
-						m_ypos,
+						x,
+						y,
 						rgb_t(r, g, b),
 						(((m_int_latch >> 1) == 1) ? m_intensity : m_int_latch & 0xe) << 4);
 				m_spkl_shift = (BIT(m_spkl_shift, 6) ^ BIT(m_spkl_shift, 5) ^ 1) | (m_spkl_shift << 1);
@@ -845,10 +849,15 @@ int avg_mhavoc_device::handler_7()  // mhavoc_strobe3
 			const u8 r = bit3 * 0xcb + bit2 * 0x34;
 			const u8 g = bit1 * 0xcb;
 			const u8 b = bit0 * 0xcb;
+			
+			int x = m_xpos;
+			int y = m_ypos;
+
+			apply_flipping(x, y);
 
 			vg_add_point_buf(
-					m_xpos,
-					m_ypos,
+					x,
+					y,
 					rgb_t(r, g, b),
 					(((m_int_latch >> 1) == 1) ? m_intensity : m_int_latch & 0xe) << 4);
 		}
