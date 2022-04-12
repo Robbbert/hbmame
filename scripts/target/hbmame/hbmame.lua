@@ -450,7 +450,6 @@ files {
 	MAME_DIR .. "src/mame/machine/deco222.cpp",
 	MAME_DIR .. "src/mame/machine/decocpu7.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pcktgal.cpp",
-	MAME_DIR .. "src/mame/video/pcktgal.cpp",
 	MAME_DIR .. "src/mame/video/decbac06.cpp",
 	MAME_DIR .. "src/mame/video/decmxc06.cpp",
 	MAME_DIR .. "src/mame/video/deco16ic.cpp", -- cninja
