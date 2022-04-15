@@ -472,6 +472,8 @@ private:
 	void vegas_cs6_map(address_map &map);
 	void vegas_cs7_map(address_map &map);
 	void vegas_cs8_map(address_map &map);
+
+	static void hdd_config(device_t* device);
 };
 
 /*************************************
@@ -483,7 +485,10 @@ private:
 void vegas_state::machine_start()
 {
 	/* set the fastest DRC options, but strict verification */
-	m_maincpu->mips3drc_set_options(MIPS3DRC_FASTEST_OPTIONS + MIPS3DRC_STRICT_VERIFY);
+	/* need to check the current options since some drivers add options in their init */
+	uint32_t new_options = m_maincpu->mips3drc_get_options();
+	new_options |= MIPS3DRC_FASTEST_OPTIONS | MIPS3DRC_STRICT_VERIFY;
+	m_maincpu->mips3drc_set_options(new_options);
 
 	m_system_led.resolve();
 	m_wheel_driver.resolve();
@@ -542,12 +547,6 @@ void vegas_state::machine_reset()
 	m_wheel_offset = 0;
 	m_wheel_calibrated = false;
 
-	// Set the disk dma transfer speed
-	auto *hdd = subdevice<ide_hdd_device>(PCI_ID_IDE":ide:0:hdd");
-	hdd->set_dma_transfer_time(attotime::from_usec(15));
-	// Allow ultra dma
-	//uint16_t *identify_device = hdd->identify_device_buffer();
-	//identify_device[88] = 0x7f;
 }
 
 /*************************************
@@ -1926,6 +1925,7 @@ void vegas_state::vegascore(machine_config &config)
 	ide_pci_device &ide(IDE_PCI(config, PCI_ID_IDE, 0, 0x10950646, 0x05, 0x0));
 	ide.irq_handler().set(PCI_ID_NILE, FUNC(vrc5074_device::pci_intr_d));
 	//ide.set_pif(0x8f);
+	ide.subdevice<bus_master_ide_controller_device>("ide")->slot(0).set_option_machine_config("hdd", hdd_config);
 
 	// video hardware
 	voodoo_2_pci_device &voodoo(VOODOO_2_PCI(config, PCI_ID_VIDEO, 0, m_maincpu, "screen"));
@@ -1948,6 +1948,16 @@ void vegas_state::vegascore(machine_config &config)
 	screen.set_size(640, 480);
 	screen.set_visarea(0, 640 - 1, 0, 480 - 1);
 	screen.set_screen_update(PCI_ID_VIDEO, FUNC(voodoo_pci_device::screen_update));
+}
+
+void vegas_state::hdd_config(device_t* device)
+{
+	// Set the disk dma transfer speed
+	static_cast<ide_hdd_device*>(device)->set_dma_transfer_time(attotime::from_usec(15));
+	// Allow ultra dma
+	//uint16_t *identify_device = static_cast<ide_hdd_device*>(device)->identify_device_buffer();
+	//identify_device[88] = 0x7f;
+
 }
 
 
@@ -2027,14 +2037,14 @@ void vegas_state::denver(machine_config &config)
 	m_uart2->out_rts_callback().set("ttys02", FUNC(rs232_port_device::write_rts));
 	m_uart2->out_int_callback().set("duart_irq", FUNC(input_merger_device::in_w<1>));
 
-	rs232_port_device &ttys01(RS232_PORT(config, "ttys01", 0));
+	rs232_port_device &ttys01(RS232_PORT(config, "ttys01", default_rs232_devices, nullptr));
 	ttys01.rxd_handler().set(m_uart1, FUNC(ins8250_uart_device::rx_w));
 	ttys01.dcd_handler().set(m_uart1, FUNC(ins8250_uart_device::dcd_w));
 	ttys01.dsr_handler().set(m_uart1, FUNC(ins8250_uart_device::dsr_w));
 	ttys01.ri_handler().set(m_uart1, FUNC(ins8250_uart_device::ri_w));
 	ttys01.cts_handler().set(m_uart1, FUNC(ins8250_uart_device::cts_w));
 
-	rs232_port_device &ttys02(RS232_PORT(config, "ttys02", 0));
+	rs232_port_device &ttys02(RS232_PORT(config, "ttys02", default_rs232_devices, nullptr));
 	ttys02.rxd_handler().set(m_uart2, FUNC(ins8250_uart_device::rx_w));
 	ttys02.dcd_handler().set(m_uart2, FUNC(ins8250_uart_device::dcd_w));
 	ttys02.dsr_handler().set(m_uart2, FUNC(ins8250_uart_device::dsr_w));
@@ -2614,11 +2624,13 @@ void vegas_state::init_roadburn()
 
 void vegas_state::init_nbashowt()
 {
+	m_maincpu->mips3drc_set_options(MIPS3DRC_FASTEST_OPTIONS | MIPS3DRC_STRICT_VERIFY | MIPS3DRC_EXTRA_INSTR_CHECK);
 }
 
 
 void vegas_state::init_nbanfl()
 {
+	m_maincpu->mips3drc_set_options(MIPS3DRC_FASTEST_OPTIONS | MIPS3DRC_STRICT_VERIFY | MIPS3DRC_EXTRA_INSTR_CHECK);
 	// The first three bytes of the blitz00_nov30_1999.u27 ROM are FF's which breaks the reset vector.
 	// These bytes are from blitz00_sep22_1999.u27 which allows the other ROM to start.
 	// The last byte which is part of the checksum is also FF. By changing it to 0x01 the 4 byte checksum matches with the other 3 changes.
@@ -2632,6 +2644,7 @@ void vegas_state::init_nbanfl()
 
 void vegas_state::init_nbagold()
 {
+	m_maincpu->mips3drc_set_options(MIPS3DRC_FASTEST_OPTIONS | MIPS3DRC_STRICT_VERIFY | MIPS3DRC_EXTRA_INSTR_CHECK);
 }
 
 
