@@ -56325,12 +56325,12 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 
 <!-- ES-1011 Sou Fei Ya De Fu Su - Chinese translation of Fire Emblem Gaiden, see below -->
 
-	<software name="firembgcb" cloneof="firembg" supported="no">
-		<description>Sheng Huo Hui Zhang - Suo Fei Ya De Fu Su (Chi)</description>
-		<year>199?</year>
+	<software name="firembgcb" cloneof="firembg">
+		<description>Shènghuǒ Huīzhāng - Suǒfēiyà Fùsū (China, alt)</description>
+		<year>1997</year>
 		<publisher>Waixing</publisher>
 		<info name="serial" value="ES-1011"/>
-		<info name="alt_title" value="索菲亚复苏"/>
+		<info name="alt_title" value="圣火徽章 索菲亚复苏"/>
 		<part name="cart" interface="nes_cart">
 			<feature name="slot" value="waixing_sh2" />
 			<feature name="pcb" value="WAIXING-SH2" />
@@ -56340,15 +56340,19 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="524288">
 				<rom name="[es-1011] sheng huo hui zhang - suo fei ya de fu su (c).prg" size="524288" crc="b16c4d25" sha1="c0ca2dda8965fc3a802363ff8f0f6001c2c08ef3" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
+			</dataarea>
+			<!-- 8k WRAM on cartridge, battery backed up -->
+			<dataarea name="bwram" size="8192">
+				<rom value="0x00" size="8192" offset="0" loadflag="fill" />
 			</dataarea>
 		</part>
 	</software>
 
-	<software name="firembgcc" cloneof="firembg" supported="no">
-		<description>Sheng Huo Hui Zhang - Suo Fei Ya De Fu Su (Chi, Alt)</description>
-		<year>199?</year>
+	<software name="firembgcc" cloneof="firembg">
+		<description>Shènghuǒ Huīzhāng Wàizhuàn (China)</description>
+		<year>1997</year>
 		<publisher>CoolBoy</publisher>
 		<info name="alt_title" value="圣火徽章外传"/>
 		<part name="cart" interface="nes_cart">
@@ -56360,8 +56364,12 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="524288">
 				<rom name="[cb] sheng huo hui zhang - suo fei ya de fu su (c).prg" size="524288" crc="d7fb0e3b" sha1="4b6936e0e7b829fb372ce4ab99f8b8f5c1dbc166" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
+			</dataarea>
+			<!-- 8k WRAM on cartridge, battery backed up -->
+			<dataarea name="bwram" size="8192">
+				<rom value="0x00" size="8192" offset="0" loadflag="fill" />
 			</dataarea>
 		</part>
 	</software>
@@ -57752,9 +57760,9 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		</part>
 	</software>
 
-	<software name="zhentian" supported="no">
-		<description>Zhen Tian Shi Yongshi (Chi)</description>
-		<year>19??</year>
+	<software name="zhentian">
+		<description>Zhēntián Shí Yǒngshì (China)</description>
+		<year>2005</year>
 		<publisher>Waixing</publisher>
 		<info name="serial" value="ES-1102"/>
 		<info name="alt_title" value="真田十勇士"/>
@@ -57767,8 +57775,12 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="262144">
 				<rom name="sanada juu yuushi (es-1102)(ch).prg" size="262144" crc="71911a5c" sha1="16da71f3f544aa41a3c85b13b6b6fc04b9f15f46" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
+			</dataarea>
+			<!-- 8k WRAM on cartridge, battery backed up -->
+			<dataarea name="bwram" size="8192">
+				<rom value="0x00" size="8192" offset="0" loadflag="fill" />
 			</dataarea>
 		</part>
 	</software>
@@ -61724,9 +61736,9 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 		</part>
 	</software>
 
-	<software name="firembc" cloneof="firemb" supported="no">
-		<description>Sheng Huo Hui Zhang II Dai (Chi)</description>
-		<year>19??</year>
+	<software name="firembc" cloneof="firemb">
+		<description>Shènghuǒ Huīzhāng II Dài (China)</description>
+		<year>1998</year>
 		<publisher>Waixing</publisher>
 		<info name="serial" value="ES-1053"/>
 		<info name="alt_title" value="圣火徽章II代"/>
@@ -61739,16 +61751,20 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="524288">
 				<rom name="fire emblem (ch).prg" size="524288" crc="1bcca170" sha1="0469c327f52a9c352d0ecc7fe6bdd9f2fcddfb9f" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
+			</dataarea>
+			<!-- 8k WRAM on cartridge, battery backed up -->
+			<dataarea name="bwram" size="8192">
+				<rom value="0x00" size="8192" offset="0" loadflag="fill" />
 			</dataarea>
 		</part>
 	</software>
 
 <!-- This was dumped by TSZone and should be good dump -->
-	<software name="firembca" cloneof="firemb" supported="no">
-		<description>Sheng Huo Hui Zhang II Dai (Chi, Alt?)</description>
-		<year>19??</year>
+	<software name="firembca" cloneof="firemb">
+		<description>Shènghuǒ Huīzhāng II Dài (China, alt)</description>
+		<year>1998</year>
 		<publisher>Waixing</publisher>
 		<info name="serial" value="ES-1053"/>
 		<info name="alt_title" value="圣火徽章II代"/>
@@ -61761,8 +61777,8 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="524288">
 				<rom name="[es-1053] sheng huo hui zhang ii dai (c).prg" size="524288" crc="a99a094b" sha1="4ad14e576f557262ba5570698e8f92cce769e073" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
 			</dataarea>
 			<!-- 8k BWRAM on cartridge -->
 			<dataarea name="bwram" size="8192">
@@ -61772,12 +61788,12 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 	</software>
 
 <!-- These two got dumped by TSZone? They came together and one with a [fix] tag... -->
-	<software name="firembgca" cloneof="firembg" supported="no">
-		<description>Sheng Huo Hui Zhang - Suo Fei Ya Fusou (Chi, Fixed?)</description>
-		<year>19??</year>
+	<software name="firembgca" cloneof="firembg">
+		<description>Shènghuǒ Huīzhāng - Suǒfēiyà Fùsū (China, fixed?)</description>
+		<year>1997</year>
 		<publisher>Waixing</publisher>
 		<info name="serial" value="ES-1011"/>
-		<info name="alt_title" value="索菲亚复苏"/>
+		<info name="alt_title" value="圣火徽章 索菲亚复苏"/>
 		<part name="cart" interface="nes_cart">
 			<feature name="slot" value="waixing_sh2" />
 			<feature name="pcb" value="WAIXING-SH2" />
@@ -61787,18 +61803,22 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="524288">
 				<rom name="fire emblem gaiden (ch).prg" size="524288" crc="ee88b6b6" sha1="64d57b052811379e9043804ff18afbec9fb22fae" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
+			</dataarea>
+			<!-- 8k WRAM on cartridge, battery backed up -->
+			<dataarea name="bwram" size="8192">
+				<rom value="0x00" size="8192" offset="0" loadflag="fill" />
 			</dataarea>
 		</part>
 	</software>
 
-	<software name="firembgc" cloneof="firembg" supported="no">
-		<description>Sheng Huo Hui Zhang - Suo Fei Ya Fusou (Chi)</description>
-		<year>19??</year>
+	<software name="firembgc" cloneof="firembg">
+		<description>Shènghuǒ Huīzhāng - Suǒfēiyà Fùsū (China)</description>
+		<year>1997</year>
 		<publisher>Waixing</publisher>
 		<info name="serial" value="ES-1011"/>
-		<info name="alt_title" value="索菲亚复苏"/>
+		<info name="alt_title" value="圣火徽章 索菲亚复苏"/>
 		<part name="cart" interface="nes_cart">
 			<feature name="slot" value="waixing_sh2" />
 			<feature name="pcb" value="WAIXING-SH2" />
@@ -61808,8 +61828,12 @@ preliminary proto for the PAL version, still running on NTSC systems) or the gfx
 			<dataarea name="prg" size="524288">
 				<rom name="fire emblem gaiden (c).prg" size="524288" crc="ab2e685f" sha1="320686c7955ea6abc3123ad68cf6975e989ddfd7" offset="00000" status="baddump" />
 			</dataarea>
-			<!-- 8k VRAM on cartridge -->
-			<dataarea name="vram" size="8192">
+			<!-- 4k VRAM on cartridge -->
+			<dataarea name="vram" size="4096">
+			</dataarea>
+			<!-- 8k WRAM on cartridge, battery backed up -->
+			<dataarea name="bwram" size="8192">
+				<rom value="0x00" size="8192" offset="0" loadflag="fill" />
 			</dataarea>
 		</part>
 	</software>
@@ -75761,17 +75785,17 @@ Other
 	</software>
 
 	<software name="tysonpoh" cloneof="tysonpo" supported="partial">
-		<description>Mike Tyson's Punch-Out!! (Pirate)</description>
+		<description>Mike Tyson's Punch-Out!! (pirate)</description>
 		<year>19??</year>
 		<publisher>J. Y. Company</publisher>
 		<part name="cart" interface="nes_cart">
 			<feature name="slot" value="jyc_c" />
 			<feature name="pcb" value="JYCOMPANY-C" />
 			<dataarea name="chr" size="131072">
-				<rom name="mike tyson's punch-out (unl).chr" size="131072" crc="72570294" sha1="7913948da9c87e307e356c40a397f8a559bce2df" offset="00000" status="baddump" />
+				<rom name="mike tyson's punch-out (unl).chr" size="131072" crc="26c667fc" sha1="8d8442fc94952991d506224567d750070e3990ce" />
 			</dataarea>
 			<dataarea name="prg" size="131072">
-				<rom name="mike tyson's punch-out (unl).prg" size="131072" crc="841c8f6e" sha1="4d23c49b1a0ebced13371597c4a5d25820728dc3" offset="00000" status="baddump" />
+				<rom name="mike tyson's punch-out (unl).prg" size="131072" crc="841c8f6e" sha1="4d23c49b1a0ebced13371597c4a5d25820728dc3" />
 			</dataarea>
 		</part>
 	</software>
@@ -84115,6 +84139,21 @@ be better to redump them properly. -->
 		</part>
 	</software>
 
+	<software name="mc_76y2k">
+		<description>76 in 1 Y2K</description>
+		<year>19??</year>
+		<publisher>&lt;pirate&gt;</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_64y2k" />
+			<dataarea name="prg" size="2097152">
+				<rom name="y2k 76-in-1.prg" size="2097152" crc="736dd9e1" sha1="d666c646342fd5c72630d989d3f633c53143ef33" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
+			</dataarea>
+		</part>
+	</software>
+
 	<software name="mc_77">
 		<description>77 in 1 (NT141)</description>
 		<year>19??</year>
@@ -85858,6 +85897,21 @@ be better to redump them properly. -->
 		</part>
 	</software>
 
+	<software name="mc_sh42">
+		<description>Super HiK 42 in 1 (K-42001)</description>
+		<year>1998</year>
+		<publisher>&lt;pirate&gt;</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="bmc_64y2k" />
+			<dataarea name="prg" size="1048576">
+				<rom name="super hik 42-in-1 (k-42001).prg" size="1048576" crc="ad97266b" sha1="a10bd03f1e125fa1d39b1c9db2b49b783de3dd45" />
+			</dataarea>
+			<!-- 8k VRAM on cartridge -->
+			<dataarea name="vram" size="8192">
+			</dataarea>
+		</part>
+	</software>
+
 	<software name="mc_sh6ek">
 		<description>1994 Super HIK 6 in 1 (EK-601)</description>
 		<year>19??</year>
@@ -86242,10 +86296,28 @@ that the real dumps might surface -->
 		</part>
 	</software>
 
+<!-- This dump was made in a hex editor from the hacked clone. It matches the known MD5 hash of the unreleased dump. -->
 	<software name="tysonipp">
+		<description>Mike Tyson's Intergalactic Power Punch (USA, prototype)</description>
+		<year>1991</year>
+		<publisher>Nintendo</publisher>
+		<part name="cart" interface="nes_cart">
+			<feature name="slot" value="txrom" />
+			<feature name="pcb" value="NES-TLROM" />
+			<dataarea name="prg" size="131072">
+				<rom name="mike tyson's intergalactic power punch (june 1991 ces prototype).prg" size="131072" crc="fe9239d6" sha1="88cf22111bedd0583d8e49f70730d802e7851e5b" />
+			</dataarea>
+			<dataarea name="chr" size="262144">
+				<rom name="mike tyson's intergalactic power punch (june 1991 ces prototype).chr" size="262144" crc="65f969e2" sha1="fe84a134e37790571542325665806b8064de6de6" />
+			</dataarea>
+		</part>
+	</software>
+
+<!-- Should this be removed? Or is this the version that RetroZone released? -->
+	<software name="tysonippa" cloneof="tysonipp">
 		<!-- There is also an hacked dump (headerless checksum fc6cc3b5) where the hacked copyright has been removed -->
-		<description>Mike Tyson's Intergalactic Power Punch (USA, Prototype, Hacked)</description>
-		<year>1992</year>
+		<description>Mike Tyson's Intergalactic Power Punch (USA, prototype, hacked)</description>
+		<year>2009?</year>
 		<publisher>Nintendo</publisher>
 		<part name="cart" interface="nes_cart">
 			<feature name="slot" value="txrom" />
