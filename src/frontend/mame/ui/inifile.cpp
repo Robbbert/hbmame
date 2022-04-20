@@ -114,13 +114,13 @@ void inifile_manager::init_category(std::string &&filename, util::core_file &fil
 			{
 				u64 result;
 				if (!file.tell(result))
-					index.emplace_back(name, result);   // MESSUI: remove std::move, it kills winui
+					index.emplace_back(std::move(name), result);
 			}
 		}
 	}
 	std::stable_sort(index.begin(), index.end(), [] (auto const &x, auto const &y) { return 0 > core_stricmp(x.first.c_str(), y.first.c_str()); });
 	if (!index.empty())
-		m_ini_index.emplace_back(filename, index);  // MESSUI: remove std::move, it kills winui
+		m_ini_index.emplace_back(std::move(filename), std::move(index));
 }
 
 
