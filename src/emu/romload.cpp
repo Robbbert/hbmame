@@ -367,10 +367,12 @@ void rom_load_manager::determine_bios_rom(device_t &device, const char *specbios
 	if (specbios && *specbios && core_stricmp(specbios, "default"))
 	{
 		bool found(false);
+		int count = 0;  // MESSUI
 		for (const rom_entry &rom : device.rom_region_vector())
 		{
 			if (ROMENTRY_ISSYSTEM_BIOS(&rom))
 			{
+				count++;  // MESSUI
 				char const *const biosname = ROM_GETNAME(&rom);
 				int const bios_flags = ROM_GETBIOSFLAGS(&rom);
 				char bios_number[20];
@@ -387,7 +389,7 @@ void rom_load_manager::determine_bios_rom(device_t &device, const char *specbios
 		}
 
 		// if we got neither an empty string nor 'default' then warn the user
-		if (!found)
+		if (!found && count)  // MESSUI (only applies to command-line, i.e. MESS)
 		{
 			m_errorstring.append(util::string_format("%s: invalid BIOS \"%s\", reverting to default\n", device.tag(), specbios));
 			m_warnings++;

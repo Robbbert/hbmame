@@ -631,8 +631,11 @@ void menu_select_launch::launch_system(mame_ui_manager &mui, game_driver const &
 		reselect_last::set_driver(driver);
 	}
 
-	if (bios)
+	s_bios biosname; // MESSUI - fix 'files are missing' if invalid bios specified
+	if (bios && has_multiple_bios(driver, biosname)) // MESSUI
 		moptions.set_value(OPTION_BIOS, *bios, OPTION_PRIORITY_CMDLINE);
+	else // MESSUI
+		moptions.set_value(OPTION_BIOS, "", OPTION_PRIORITY_CMDLINE); // MESSUI
 
 	mame_machine_manager::instance()->schedule_new_driver(driver);
 	mui.machine().schedule_hard_reset();
