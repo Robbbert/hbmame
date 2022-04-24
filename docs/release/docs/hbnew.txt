@@ -10,8 +10,9 @@ New Games
 - [jrpacplus]           Jr Pac-Plus
 - [manpac]              Man-Pac
 - [sf2mix110]           Street Fighter II: Champion Edition (Mix 1.1)
-- [sfz3mix7a]           Street Fighter Zero 3 (Mix 0.07a)
-- [sfz3mix]             Street Fighter Zero 3 (Mix 0.09)
+- [sfz3mix07a]          Street Fighter Zero 3 (Mix 0.07a)
+- [sfz3mix09]           Street Fighter Zero 3 (Mix 0.09)
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.10)
 
 
 
