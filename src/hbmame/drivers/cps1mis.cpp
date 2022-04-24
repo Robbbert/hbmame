@@ -7603,10 +7603,34 @@ ROM_START( ffightaert )
 	ROM_LOAD ( "ffightae.key", 0x00, 0x80, CRC(8a7e5df2) SHA1(34a93d94ee4579826f5f91e7c1acfa6e0c80029a) )
 ROM_END
 
-GAME( 2019, ffightae,   ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Grego & Rotwang", "Final Fight 30th Anniversary Edition (2019-12-03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, ffightaebv, ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Brutal Version (2021-05-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, ffightaefc, ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Fair Challenge (2022-01-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, ffightaert, ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Real Threat (2021-11-01)", MACHINE_SUPPORTS_SAVE )
+ROM_START( ffightaeh04 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "ff-23h04.8h", 0x00000, 0x80000, CRC(c16be586) SHA1(a3c32c4bcf9c7a484b74cca0fee0f04bcb05aba6) )
+	ROM_LOAD16_WORD_SWAP( "ff-22h04.7h", 0x80000, 0x80000, CRC(4994c1c8) SHA1(0c2de21b4dfcc4bd24f13a74343ce8abdde52faa) )
+
+	ROM_REGION( 0x200000, "gfx", 0 )
+	ROM_LOAD64_WORD( "ff-5mae.7a", 0x000000, 0x80000, CRC(91a909bd) SHA1(09621cb33a9c26798b1bba186dceb02e5f126e1a) )
+	ROM_LOAD64_WORD( "ff-7mae.9a", 0x000002, 0x80000, CRC(89f8b4cd) SHA1(c169c445686d3c79eae2dc42460b8194c491ccb0) )
+	ROM_LOAD64_WORD( "ff-1mae.3a", 0x000004, 0x80000, CRC(d5469303) SHA1(0c1e33a87eb3ef79e6a5ba80753eb495284e666c) )
+	ROM_LOAD64_WORD( "ff-3mae.5a", 0x000006, 0x80000, CRC(0c6302bf) SHA1(03ee13a67a8a3b92fac462623ace752d77b9e9f1) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "ff_09.12b", 0x00000, 0x08000, CRC(b8367eb5) SHA1(ec3db29fdd6200e9a8f4f8073a7e34aef731354f) )
+	ROM_CONTINUE(          0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "ff_18.11c", 0x00000, 0x20000, CRC(375c66e7) SHA1(36189e23209ce4ae5d9cbabd1574540d0591e7b3) )
+	ROM_LOAD( "ff_19.12c", 0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "ffightae.key", 0x00, 0x80, CRC(8a7e5df2) SHA1(34a93d94ee4579826f5f91e7c1acfa6e0c80029a) )
+ROM_END
+
+GAME( 2019, ffightae,    ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Grego & Rotwang", "Final Fight 30th Anniversary Edition (2019-12-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, ffightaebv,  ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Brutal Version (2021-05-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ffightaefc,  ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Fair Challenge (2022-01-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, ffightaert,  ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Real Threat (2021-11-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ffightaeh04, ffight, cps1_12MHz, ffightae, cps_state, init_cps1, ROT0, "Zombie Master", "Final Fight 30th Anniversary Edition Mad Gear's City (2022-04-12)", MACHINE_SUPPORTS_SAVE )
 
 
 /**************

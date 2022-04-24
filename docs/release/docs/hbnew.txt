@@ -7,8 +7,10 @@ Fixed gauntlet2 regressions.
 
 New Games
 ---------------------------------
+- [ffightaeh04]         Final Fight 30th Anniversary Edition Mad Gear's City (2022-04-12)
 - [jrpacplus]           Jr Pac-Plus
 - [manpac]              Man-Pac
+- [sailormnh05]         Pretty Soldier Sailor Moon (Reign of Terror) v1.6
 - [sf2mix110]           Street Fighter II: Champion Edition (Mix 1.1)
 - [sfz3mix07a]          Street Fighter Zero 3 (Mix 0.07a)
 - [sfz3mix09]           Street Fighter Zero 3 (Mix 0.09)
