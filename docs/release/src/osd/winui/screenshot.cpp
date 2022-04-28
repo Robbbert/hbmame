@@ -111,7 +111,10 @@ static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETT
 	uint64_t bytes;
 	mfile.length(bytes);
 	unsigned char* content = (unsigned char*)::malloc(bytes * sizeof(unsigned char));
-	::memcpy(content, mfile.buffer(), bytes);
+	size_t length;
+	mfile.read(content,bytes,length);
+	if (length == 0)
+		return false;
 
 	*pPAL = NULL;
 	HGLOBAL hDIB = NULL;
