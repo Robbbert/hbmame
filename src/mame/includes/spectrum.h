@@ -113,7 +113,7 @@ protected:
 	optional_shared_ptr<uint8_t> m_video_ram;
 	uint8_t *m_screen_location;
 
-	int m_ROMSelection;
+	int m_ROMSelection = 0; // FIXME: this is used for various things in derived classes, but not by this base class, and should be removed
 	std::vector<u8> m_contention_pattern;
 
 	uint8_t m_ram_disabled_by_beta;
@@ -180,7 +180,6 @@ protected:
 	optional_ioport m_io_joy1;
 	optional_ioport m_io_joy2;
 
-	u64 m_irq_start_cycle;
 	virtual u8 get_border_color(u16 hpos = ~0, u16 vpos = ~0);
 	// Defines position of main screen excluding border
 	virtual rectangle get_screen_area();
