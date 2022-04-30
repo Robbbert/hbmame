@@ -150,7 +150,7 @@ void jrpacman_state::main_map(address_map &map)
 	map(0x8000, 0xdfff).rom();
 // HBMAME extras
 	map(0x5002, 0x5002).nopw();
-	map(0x5004, 0x5005).w(this, FUNC(pacman_state::pacman_leds_w));
+	// map(0x5004, 0x5005).w(this, FUNC(pacman_state::pacman_leds_w));
 	map(0x5006, 0x5006).nopw();
 	map(0x5007, 0x5007).nopw();
 	map(0x5072, 0x5072).nopw();
@@ -162,7 +162,7 @@ void jrpacman_state::main_map(address_map &map)
 void jrpacman_state::port_map(address_map &map)
 {
 	map.global_mask(0xff);
-	map(0, 0).w(FUNC(jrpacman_state::pacman_interrupt_vector_w));
+	// map(0, 0).w(FUNC(jrpacman_state::pacman_interrupt_vector_w));
 }
 
 
@@ -313,7 +313,7 @@ void jrpacman_state::jrpacman(machine_config &config)
 	screen.set_screen_update(FUNC(jrpacman_state::screen_update_pacman));
 	screen.set_palette(m_palette);
 	//screen.screen_vblank().set(FUNC(jrpacman_state::vblank_irq));          // HBMAME
-	screen.screen_vblank().set(FUNC(jrpacman_state::pacman_interrupt));      // HBMAME
+	// screen.screen_vblank().set(FUNC(jrpacman_state::pacman_interrupt));      // HBMAME
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_jrpacman);
 	PALETTE(config, m_palette, FUNC(jrpacman_state::pacman_palette), 128 * 4, 32);
