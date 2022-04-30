@@ -12,11 +12,8 @@
 *********************************************************************/
 
 #include "emu.h"
-<<<<<<< HEAD
 #include "coreutil.h"
-=======
 #include "machine/mc146818.h"
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 
 #include "coreutil.h"
 #include "fileio.h"
