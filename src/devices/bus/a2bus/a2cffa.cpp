@@ -17,15 +17,11 @@
 #include "imagedev/harddriv.h"
 #include "bus/ata/ataintf.h"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 #include "fileio.h"
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
+
 #include "softlist.h"
-=======
+
 #include "softlist_dev.h"
->>>>>>> upstream/master
 
 
 namespace {
