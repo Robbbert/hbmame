@@ -1350,6 +1350,7 @@ INPUT_PORTS_END
 /*                                                     */
 /*******************************************************/
 
+#if 0
 static INPUT_PORTS_START( superinv )
 	PORT_INCLUDE( sicv )
 
@@ -1364,8 +1365,6 @@ static INPUT_PORTS_START( superinv )
 	PORT_DIPSETTING(    0x00, "2500" )
 	PORT_DIPUNKNOWN_DIPLOC( 0x80, 0x00, "SW1:8" )
 INPUT_PORTS_END
-
-#if 0
 
 /*******************************************************/
 /*                                                     */
