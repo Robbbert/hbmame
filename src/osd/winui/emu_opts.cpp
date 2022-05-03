@@ -475,6 +475,8 @@ void SetDirectories(windows_options &o)
 	emu_set_value(o, OPTION_DEBUG, "0");
 	emu_set_value(o, OPTION_SPEAKER_REPORT, "0");
 	emu_set_value(o, OPTION_VERBOSE, "0");
+	emu_set_value(o, OPTION_LOG, "0");
+	emu_set_value(o, OPTION_OSLOG, "0");
 }
 
 // For dialogs.cpp
