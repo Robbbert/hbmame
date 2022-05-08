@@ -1007,6 +1007,7 @@ function createMAMEProjects(_target, _subtarget, _name)
 		GEN_DIR  .. "mame/layout",
 	}
 	includedirs {
+		ext_includedir("asio"),
 		ext_includedir("flac"),
 		ext_includedir("glm"),
 		ext_includedir("jpeg"),
@@ -1543,6 +1544,8 @@ files {
 	MAME_DIR .. "src/mame/drivers/cps1bl_pic.cpp",
 	MAME_DIR .. "src/mame/drivers/kenseim.cpp",
 	MAME_DIR .. "src/mame/drivers/cps2.cpp",
+	MAME_DIR .. "src/mame/machine/cps2comm.cpp",
+	MAME_DIR .. "src/mame/machine/cps2comm.h",
 	MAME_DIR .. "src/mame/machine/cps2crypt.cpp",
 	MAME_DIR .. "src/mame/machine/cps2crypt.h",
 	MAME_DIR .. "src/mame/drivers/cps3.cpp",
@@ -2981,8 +2984,6 @@ files {
 	MAME_DIR .. "src/mame/includes/namcos86.h",
 	MAME_DIR .. "src/mame/video/namcos86.cpp",
 	MAME_DIR .. "src/mame/drivers/pacland.cpp",
-	MAME_DIR .. "src/mame/includes/pacland.h",
-	MAME_DIR .. "src/mame/video/pacland.cpp",
 	MAME_DIR .. "src/mame/drivers/polepos.cpp",
 	MAME_DIR .. "src/mame/includes/polepos.h",
 	MAME_DIR .. "src/mame/audio/polepos.cpp",
@@ -4880,6 +4881,7 @@ files {
 	MAME_DIR .. "src/mame/includes/homedata.h",
 	MAME_DIR .. "src/mame/video/homedata.cpp",
 	MAME_DIR .. "src/mame/drivers/hotblock.cpp",
+	MAME_DIR .. "src/mame/drivers/hotchili.cpp",
 	MAME_DIR .. "src/mame/drivers/hotstuff.cpp",
 	MAME_DIR .. "src/mame/drivers/houseball.cpp",
 	MAME_DIR .. "src/mame/drivers/imolagp.cpp",
