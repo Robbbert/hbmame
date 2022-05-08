@@ -680,7 +680,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",
-	MAME_DIR .. "src/mame/video/pacland.cpp",
 	MAME_DIR .. "src/hbmame/drivers/polepos.cpp",
 	MAME_DIR .. "src/mame/audio/polepos.cpp",
 	MAME_DIR .. "src/mame/video/polepos.cpp",
