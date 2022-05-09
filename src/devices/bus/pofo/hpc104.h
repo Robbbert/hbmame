@@ -13,14 +13,8 @@
 
 #include "exp.h"
 #include "bus/pofo/ccm.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
 #include "machine/nvram.h"
-=======
->>>>>>> upstream/master
-=======
 #include "fileio.h"
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 
 
 

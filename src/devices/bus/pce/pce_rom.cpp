@@ -12,16 +12,9 @@
 #include "emu.h"
 #include "pce_rom.h"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/master
-=======
 #include "fileio.h"
 
 
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 
 //-------------------------------------------------
 //  pce_rom_device - constructor

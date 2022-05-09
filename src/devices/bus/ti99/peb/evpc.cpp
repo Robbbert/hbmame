@@ -40,15 +40,8 @@
 
 #include "emu.h"
 #include "evpc.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/master
-=======
 
 #include "fileio.h"
->>>>>>> parent of ea6d1ae3f4c (Revert "Remove fileio.h from emu.h")
 #include "speaker.h"
 
 #define LOG_WARN        (1U<<1)   // Warnings
