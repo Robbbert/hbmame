@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-05-25 0.244
+
+
+
+New Games
+---------------------------------
+- [teot_7]              The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
+
+
+
+
 2022-04-27 0.243
 
 Fixed gauntlet2 regressions.
