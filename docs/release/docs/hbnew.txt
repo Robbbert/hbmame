@@ -7,7 +7,10 @@
 
 New Games
 ---------------------------------
+- [dkongte]             Donkey Kong Tournament Edition
+- [dkspkyte]            Donkey Kong Spooky Tournament Edition
 - [teot_7]              The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.11)
 
 
 
