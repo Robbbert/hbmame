@@ -148,14 +148,6 @@ void jrpacman_state::main_map(address_map &map)
 	map(0x5080, 0x5080).w(FUNC(jrpacman_state::jrpacman_scroll_w));
 	map(0x50c0, 0x50c0).w(m_watchdog, FUNC(watchdog_timer_device::reset_w));
 	map(0x8000, 0xdfff).rom();
-// HBMAME extras
-	map(0x5002, 0x5002).nopw();
-	map(0x5004, 0x5005).w(this, FUNC(pacman_state::pacman_leds_w));
-	map(0x5006, 0x5006).nopw();
-	map(0x5007, 0x5007).nopw();
-	map(0x5072, 0x5072).nopw();
-	map(0x5076, 0x507f).nopw();
-	map(0xfffc, 0xffff).ram();           /* for jrfast and fastjr */
 }
 
 
@@ -179,8 +171,9 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_4WAY
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT ) PORT_4WAY
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_4WAY
-	/* Press this to instantly finish the level - HBMAME */
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_OTHER ) PORT_NAME("Finish Level (Cheat)") PORT_CODE(KEYCODE_8)
+	PORT_DIPNAME( 0x10, 0x10, "Rack Test (Cheat)" ) PORT_CODE(KEYCODE_F1)
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN3 )
@@ -219,21 +212,6 @@ static INPUT_PORTS_START( jrpacman )
 	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )          PORT_DIPLOCATION("SW1:8")
 	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
-
-// HBMAME extras
-	PORT_START ("FAKE")
-	/* This fake input port is used to get the status of the fire button */
-	/* and activate the speedup cheat. */
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_NAME( "Speed (Cheat)" )
-	PORT_DIPNAME( 0x06, 0x02, "Speed Cheat" )
-	PORT_DIPSETTING(    0x00, "Disabled" )
-	PORT_DIPSETTING(    0x02, "Enabled with Button" )
-	PORT_DIPSETTING(    0x04, "Enabled Always" )
-
-	PORT_START ("CONFIG")
-	PORT_CONFNAME( 0x01, 0x01, "Level" )
-	PORT_CONFSETTING(    0x00, DEF_STR( Off ) )
-	PORT_CONFSETTING(    0x01, DEF_STR( On ) )
 INPUT_PORTS_END
 
 
@@ -312,8 +290,7 @@ void jrpacman_state::jrpacman(machine_config &config)
 	screen.set_visarea(0*8, 36*8-1, 0*8, 28*8-1);
 	screen.set_screen_update(FUNC(jrpacman_state::screen_update_pacman));
 	screen.set_palette(m_palette);
-	//screen.screen_vblank().set(FUNC(jrpacman_state::vblank_irq));          // HBMAME
-	screen.screen_vblank().set(FUNC(jrpacman_state::pacman_interrupt));      // HBMAME
+	screen.screen_vblank().set(FUNC(jrpacman_state::vblank_irq));
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_jrpacman);
 	PALETTE(config, m_palette, FUNC(jrpacman_state::pacman_palette), 128 * 4, 32);
