@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [dinore]              Cadillacs and Dinosaurs (Readjusted v1.0)
 - [dkchrte]             Donkey Kong Christmas Tournament Edition
 - [dkongte]             Donkey Kong Tournament Edition
 - [dkspkyte]            Donkey Kong Spooky Tournament Edition
