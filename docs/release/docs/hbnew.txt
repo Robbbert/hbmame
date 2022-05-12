@@ -7,8 +7,10 @@
 
 New Games
 ---------------------------------
+- [dkchrte]             Donkey Kong Christmas Tournament Edition
 - [dkongte]             Donkey Kong Tournament Edition
 - [dkspkyte]            Donkey Kong Spooky Tournament Edition
+- [dksprfin]            Donkey Kong Springfinity v1.01 (2022-04-29)
 - [teot_7]              The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.11)
 
