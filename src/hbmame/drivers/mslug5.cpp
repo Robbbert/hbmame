@@ -545,35 +545,6 @@ ROM_START( mslug5nd )
 	ROM_LOAD16_BYTE( "268d.c8", 0x3000001, 0x800000, CRC(c0d5bc20) SHA1(B5D0D81D5CC624538B0651C568295E578A1330D1) )
 ROM_END
 
-// Metal Slug 5
-GAME( 2003, mslug5b,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5b,  ROT0, "bootleg", "Metal Slug 5 (Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5d,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5d1,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (Not Encrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug5f,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Battle 2016-03-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (Traduction French Edition Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "Shyma.X", "Metal Slug 5 (Traduction French Edition Rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5fu,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "hack", "Metal Slug 5 (FU)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //roms 268fu.p1 encrypted, even looking for roms workable, probably lost.
-GAME( 2003, mslug5hd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (NGH-2680)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug5l9a, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (New Campaign 2016-01-04)(Beta 0.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug5l9b, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Fighter Beta 0.1 2016-01-04)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug5lvf, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Fighting Machine Latest Version 2015-01-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug5lvnc,mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Latest Version Of Fighters 2015-01-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5nd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (Decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, mslug5w,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (New Campaign 2016-03-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5boot,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Bootleg Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5pcbd,   ms5pcb,   neogeo_noslot, dualbios, neogeo_state, init_ms5pcbd,  ROT0, "hack", "Metal Slug 5 (JAMMA PCB) (Decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, ms5sp,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_ms5plus,  ROT0, "hack", "Metal Slug 5 Plus (Super enhanced version)", MACHINE_SUPPORTS_SAVE )
-
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-     Proyecto Shadows Mame Build Plus
-**********************************************/
-
-/*************
- Metal Slug 5
-***************/
-
 ROM_START( mslug5dh01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "268dh01.p1", 0x000000, 0x100000, CRC(c61e6444) SHA1(9aec69201472080d2205af14ecc3f9a30ab4c6c2) )
@@ -7723,8 +7694,49 @@ ROM_START( mslug5ervx16 )
 	ROM_LOAD16_BYTE( "268l9a.c8", 0x3000001, 0x800000, CRC(09751dd8) SHA1(5a1378faa3bd3ebb6573d7c171639df153b5202b) )
 ROM_END
 
+ROM_START( mslug5unity )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD32_WORD_SWAP( "268unity.p1", 0x000000, 0x400000, CRC(ced9f5a8) SHA1(c1e6c8c9a7d2220b956486f2154540fcda38e650) )
+	ROM_LOAD32_WORD_SWAP( "268unity.p2", 0x000002, 0x400000, CRC(1c08dbb6) SHA1(8796efebcfabb9bb5444ed0264d327abf7c32b98) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_512K( "268.m1", CRC(4a5a6e0e) SHA1(df0f660f2465e1db7be5adfcaf5e88ad61a74a42) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "268.v1", 0x000000, 0x800000, CRC(ae31d60c) SHA1(c42285cf4e52fea74247860813e826df5aa7600a) )
+	ROM_LOAD( "268.v2", 0x800000, 0x800000, CRC(c40613ed) SHA1(af889570304e2867d7dfea1e94e388c06249fb67) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "268.c1", 0x0000000, 0x800000, CRC(ab7c389a) SHA1(025a188de589500bf7637fa8e7a37ab24bf4312e) )
+	ROM_LOAD16_BYTE( "268.c2", 0x0000001, 0x800000, CRC(3560881b) SHA1(493d218c92290b4770024d6ee2917c4022753b07) )
+	ROM_LOAD16_BYTE( "268.c3", 0x1000000, 0x800000, CRC(3af955ea) SHA1(cf36b6ae9b0d12744b17cb7a928399214de894be) )
+	ROM_LOAD16_BYTE( "268.c4", 0x1000001, 0x800000, CRC(c329c373) SHA1(5073d4079958a0ef5426885af2c9e3178f37d5e0) )
+	ROM_LOAD16_BYTE( "268.c5", 0x2000000, 0x800000, CRC(959c8177) SHA1(889bda7c65d71172e7d89194d1269561888fe789) )
+	ROM_LOAD16_BYTE( "268.c6", 0x2000001, 0x800000, CRC(010a831b) SHA1(aec140661e3ae35d264df416478ba15188544d91) )
+	ROM_LOAD16_BYTE( "268.c7", 0x3000000, 0x800000, CRC(6d72a969) SHA1(968dd9a4d1209b770b9b85ea6532fa24d262a262) )
+	ROM_LOAD16_BYTE( "268.c8", 0x3000001, 0x800000, CRC(551d720e) SHA1(ebf69e334fcaba0fda6fd432fd0970283a365d12) )
+ROM_END
+
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Metal Slug 5
+GAME( 2003, mslug5b,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5b,  ROT0, "bootleg", "Metal Slug 5 (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5d,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5d1,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (Not Encrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug5f,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Battle 2016-03-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mslug5fr,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "Arkatrad", "Metal Slug 5 (Traduction French Edition Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, mslug5fr1, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "Shyma.X", "Metal Slug 5 (Traduction French Edition Rev.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5fu,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "hack", "Metal Slug 5 (FU)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //roms 268fu.p1 encrypted, even looking for roms workable, probably lost.
+GAME( 2003, mslug5hd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (NGH-2680)(Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug5l9a, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (New Campaign 2016-01-04)(Beta 0.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug5l9b, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Fighter Beta 0.1 2016-01-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug5lvf, mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Fighting Machine Latest Version 2015-01-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug5lvnc,mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (Latest Version Of Fighters 2015-01-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5nd,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "hack", "Metal Slug 5 (Decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, mslug5w,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (New Campaign 2016-03-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5boot,   mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Bootleg Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5pcbd,   ms5pcb,   neogeo_noslot, dualbios, neogeo_state, init_ms5pcbd,  ROT0, "hack", "Metal Slug 5 (JAMMA PCB) (Decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, ms5sp,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_ms5plus,  ROT0, "hack", "Metal Slug 5 Plus (Super enhanced version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, mslug5dh01,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_ms5plus,  ROT0, "hack", "Metal Slug 5 Plus (Plus Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, mslug5dh02,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "XiaShuiDaoMeiRenYu", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug5dh03,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "Eddids[FGCH]", "Metal Slug 5 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
@@ -7806,15 +7818,10 @@ GAME( 2020, mslug5dh78,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_m
 GAME( 2020, mslug5dh79,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "hack", "Metal Slug 5 (Burst Enhanced Edition 2020-09-19)",  MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5dh80,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "bootleg", "Metal Slug 5 (Full Encrypted D)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5dh81,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_neogeo,   ROT0, "hack", "Metal Slug 5 (Final Edition 2020-09-19)",  MACHINE_SUPPORTS_SAVE )
-
-/**************
-  Metal Slug 5
-*****************/
 GAME( 2020, mslug5ese01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Gaston90/YouGuDuoLa/C.B/I love Nimes", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-07-31)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 GAME( 2020, mslug5ese02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Gaston90/YouGuDuoLa/C.B/I love Nimes", "Metal Slug 5 (Enemy Soldiers Enhanced Version 2018-11-05)(Summon Slug Edition)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 GAME( 2020, mslug5erv01,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Gaston90/XiaShuiDaoMeiRenYu/C.B/I love Nimes", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 GAME( 2020, mslug5erv02,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Gaston90/XiaShuiDaoMeiRenYu/C.B/I love Nimes", "Metal Slug 5 (Enemies Resetting Version 2019-01-01)(Summon Slug Edition)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
-
 GAME( 2020, mslug5rmtnc01,    mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,C.B,Creamymami[EGCG],remikare)", "Metal Slug 5 (Fighting Machine Latest Version 2015-01-20)(Revised Version Big Flame Shot Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5rmtnc02,    mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,C.B,Creamymami[EGCG],remikare)", "Metal Slug 5 (Fighting Machine Latest Version 2015-01-20)(Revised Version Big Flame Shot Remix 1.1 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5rmtnc03,    mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,C.B,Creamymami[EGCG],remikare)", "Metal Slug 5 (Fighting Machine Latest Version 2015-01-20)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-02])", MACHINE_SUPPORTS_SAVE )
@@ -7959,4 +7966,5 @@ GAME( 2020, mslug5ervx13,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, i
 GAME( 2020, mslug5ervx14,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Enemy Chaser Remix 1.1 [2020-10-08])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5ervx15,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Super Grenade Remix 1.0 [2020-10-08])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug5ervx16,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Super Grenade Remix 1.1 [2020-10-08])", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mslug5unity,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb,   ROT0, "hack", "Metal Slug 5 Unity", MACHINE_SUPPORTS_SAVE )
 

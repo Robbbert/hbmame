@@ -11,6 +11,12 @@ New Games
 - [dkongte]             Donkey Kong Tournament Edition
 - [dkspkyte]            Donkey Kong Spooky Tournament Edition
 - [dksprfin]            Donkey Kong Springfinity v1.01 (2022-04-29)
+- [mslugunity]          Metal Slug Unity
+- [mslug2unity]         Metal Slug 2 Unity
+- [mslug3unity]         Metal Slug 3 Unity
+- [mslug4unity]         Metal Slug 4 Unity
+- [mslug5unity]         Metal Slug 5 Unity
+- [mslugxunity]         Metal Slug X Unity
 - [teot_7]              The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.11)
 

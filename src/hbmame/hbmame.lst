@@ -4380,6 +4380,7 @@ mslugrmhp01
 mslugrmhp02
 mslugrmhp03
 mslugrmhp04
+mslugunity
 
 @source:mslug2.cpp
 mslug2eh
@@ -4475,6 +4476,7 @@ mslug2rmhbv01
 mslug2rmhbv02
 mslug2rmhbhv01
 mslug2rmhbhv02
+mslug2unity
 
 @source:mslug3.cpp
 mslug3e02
@@ -4771,6 +4773,7 @@ mslug3rmh01
 mslug3rmh02
 mslug3rmh03
 mslug3rmh04
+mslug3unity
 mslug6h01
 mslug6h02
 mslug6h03
@@ -5010,6 +5013,7 @@ mslug4rmc19
 mslug4rmc20
 mslug4rmc21
 mslug4rmc22
+mslug4unity
 
 @source:mslug5.cpp
 mslug5b
@@ -5258,6 +5262,7 @@ mslug5ervx13
 mslug5ervx14
 mslug5ervx15
 mslug5ervx16
+mslug5unity
 
 @source:mslugx.cpp
 mslugxce
@@ -5545,6 +5550,7 @@ mslugxece11
 mslugxece12
 mslugxece13
 mslugxece14
+mslugxunity
 
 @source:mspacman.cpp
 mspacman	//parent
