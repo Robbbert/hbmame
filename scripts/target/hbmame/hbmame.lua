@@ -735,6 +735,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/mslug3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslug4.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslug5.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mslug6.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslugx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ngdoubledr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nggaroup.cpp",
