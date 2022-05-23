@@ -12,6 +12,7 @@ New Games
 - [dkongte]             Donkey Kong Tournament Edition
 - [dkspkyte]            Donkey Kong Spooky Tournament Edition
 - [dksprfin]            Donkey Kong Springfinity v1.01 (2022-04-29)
+- [mhavocpex81]         Major Havoc - The Promised End (v0.81)
 - [mslugunity]          Metal Slug Unity
 - [mslug2unity]         Metal Slug 2 Unity
 - [mslug3unity]         Metal Slug 3 Unity
