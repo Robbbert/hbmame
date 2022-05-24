@@ -4175,6 +4175,9 @@ superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
+@source:marblmd2.cpp
+marblmd2                               // 0.244 only
+
 @source:mario.cpp
 mario                                  //parent
 cenmario 
