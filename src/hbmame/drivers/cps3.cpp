@@ -20,7 +20,7 @@ private:
 	DECLARE_MACHINE_RESET(redeartn);
 	TIMER_CALLBACK_MEMBER(fastboot_timer_callback);
 	void hb_unscramble();
-	emu_timer* m_fastboot_timer;
+	emu_timer* m_fastboot_timer = nullptr;
 };
 
 TIMER_CALLBACK_MEMBER(cps3_hbmame::fastboot_timer_callback)

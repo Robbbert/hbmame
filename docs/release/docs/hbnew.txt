@@ -19,6 +19,7 @@ New Games
 - [mslug4unity]         Metal Slug 4 Unity
 - [mslug5unity]         Metal Slug 5 Unity
 - [mslugxunity]         Metal Slug X Unity
+- [sfa2us05]            Street Fighter Alpha 2 (Unlock Hidden Characters)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
 - [sfz3mix11]           Street Fighter Zero 3 (Mix 0.11)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.12)
