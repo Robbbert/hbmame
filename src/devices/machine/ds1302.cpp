@@ -18,8 +18,6 @@
 #include "emu.h"
 #include "ds1302.h"
 
-#include "fileio.h"
-
 //#define VERBOSE 1
 #include "logmacro.h"
 

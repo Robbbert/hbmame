@@ -1764,7 +1764,7 @@ void cli_frontend::execute_commands(std::string_view exename)
 //  output
 //-------------------------------------------------
 
-// HBMAME - remove reference to software and media.
+// MESSUI - remove reference to software and media.
 void cli_frontend::display_help(std::string_view exename)
 {
 	osd_printf_info(

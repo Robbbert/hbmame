@@ -2807,7 +2807,7 @@ void galaxian_state::frogger_sound_portmap(address_map &map)
 
 void galaxian_state::konami_sound_map(address_map &map)
 {
-	map(0x0000, 0x3fff).rom().region("audiocpu", 0);    // HBMAME - fix monstrz speed
+	map(0x0000, 0x1fff).rom().region("audiocpu", 0);
 	map(0x8000, 0x83ff).mirror(0x6c00).ram();
 	map(0x9000, 0x9fff).mirror(0x6000).w(FUNC(galaxian_state::konami_sound_filter_w));
 }

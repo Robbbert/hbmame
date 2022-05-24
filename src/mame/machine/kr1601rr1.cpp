@@ -13,10 +13,7 @@
 ***************************************************************************/
 
 #include "emu.h"
-
 #include "kr1601rr1.h"
-
-#include "fileio.h"
 
 #include <algorithm>
 

@@ -41,7 +41,6 @@
 #include "emu.h"
 #include "evpc.h"
 
-#include "fileio.h"
 #include "speaker.h"
 
 #define LOG_WARN        (1U<<1)   // Warnings

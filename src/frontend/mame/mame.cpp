@@ -171,7 +171,7 @@ void mame_machine_manager::start_luaengine()
 		{
 			plugin_options::plugin *p = m_plugins->find(incl);
 			if (!p)
-				osd_printf_warning("Could not load plugin: %s\n", incl); // HBMAME - removed fatalerror
+				osd_printf_warning("Could not load plugin: %s\n", incl); // MESSUI - removed fatalerror
 			else
 				p->m_start = true;
 		}
@@ -181,7 +181,7 @@ void mame_machine_manager::start_luaengine()
 		{
 			plugin_options::plugin *p = m_plugins->find(excl);
 			if (!p)
-				osd_printf_warning("Unknown plugin: %s\n", excl); // HBMAME - removed fatalerror
+				osd_printf_warning("Unknown plugin: %s\n", excl); // MESSUI - removed fatalerror
 			else
 				p->m_start = false;
 		}
@@ -192,7 +192,7 @@ void mame_machine_manager::start_luaengine()
 	{
 		plugin_options::plugin *p = m_plugins->find(OPTION_CONSOLE);
 		if (!p)
-			osd_printf_warning("Fatal error: Console plugin not found.\n"); // HBMAME - removed fatalerror
+			osd_printf_warning("Fatal error: Console plugin not found.\n"); // MESSUI - removed fatalerror
 		else
 			p->m_start = true;
 	}
