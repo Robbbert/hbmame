@@ -7968,3 +7968,26 @@ GAME( 2020, mslug5ervx15,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, i
 GAME( 2020, mslug5ervx16,     mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,     ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Creamymami[EGCG],I love Nimes,C.B,remikare)", "Metal Slug 5 (Enemies Resetting Version 2019-07-28)(Revised Version Super Grenade Remix 1.1 [2020-10-08])", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mslug5unity,      mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb,   ROT0, "hack", "Metal Slug 5 Unity", MACHINE_SUPPORTS_SAVE )
 
+// 5555: Uses metal slug characters in new scenes. After you die, immediately hit 1 to get a menu.
+// There's no official name (it just says Metal Slug).
+ROM_START( mslug5ast )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD32_WORD_SWAP( "5555.p1", 0x000000, 0x400000, CRC(1e0506cf) SHA1(f1a20f1f0fc3fd74dd5d258eaf75965eb2b4cd91) )
+	ROM_LOAD32_WORD_SWAP( "5555.p2", 0x000002, 0x400000, CRC(894cd3dd) SHA1(553f90fce8c04940892bd797dc4f1dddf7276c81) )
+
+	NEO_SFIX_MT_512K
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "5555.m1", CRC(876df5e1) SHA1(a54bd3eb76d9768fec26fbf4153c0a6055df159f) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "5555.v1", 0x000000, 0x800000, CRC(5d904213) SHA1(62bf1a832c14203ce913f6ac3dc5df75d141155a) )
+	ROM_LOAD( "5555.v2", 0x800000, 0x800000, CRC(97cee550) SHA1(b4429e71847ead15b146754f35023efa276253a7) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "5555.c1", 0x000000, 0x800000, CRC(92a89586) SHA1(9d6dca9fd73cdd6d382d26708c632ec01654c050) )
+	ROM_LOAD16_BYTE( "5555.c2", 0x000001, 0x800000, CRC(18d14a71) SHA1(95e7518091fe5600bd5fb5c90fcec22670bf8910) )
+ROM_END
+
+
+GAME( 2022, mslug5ast,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_mslug5hb,   ROT0, "CB, Willnie", "Metal Slug Asteroids", MACHINE_SUPPORTS_SAVE )
+
