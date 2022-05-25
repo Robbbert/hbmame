@@ -42,7 +42,7 @@ const options_entry emu_options::s_option_entries[] =
 	{ OPTION_SAMPLEPATH ";sp",                           "samples",   OPTION_STRING,     "path to audio sample sets" },
 	{ OPTION_ARTPATH,                                    "artwork",   OPTION_STRING,     "path to artwork files" },
 	{ OPTION_CTRLRPATH,                                  "ctrlr",     OPTION_STRING,     "path to controller definitions" },
-	{ OPTION_INIPATH,                                    ".",       OPTION_STRING,     "path to ini files" },  // MESSUI
+	{ OPTION_INIPATH,                                    "ini",       OPTION_STRING,     "path to ini files" },  // MESSUI
 	{ OPTION_FONTPATH,                                   ".",         OPTION_STRING,     "path to font files" },
 	{ OPTION_CHEATPATH,                                  "cheat",     OPTION_STRING,     "path to cheat files" },
 	{ OPTION_CROSSHAIRPATH,                              "crosshair", OPTION_STRING,     "path to crosshair files" },
@@ -528,7 +528,7 @@ void emu_options::update_slot_and_image_options()
 		if (add_and_remove_slot_options())
 			changed = true;
 
-		// second, we perform an analgous operation with m_image_options
+		// second, we perform an analogous operation with m_image_options
 		if (add_and_remove_image_options())
 			changed = true;
 
@@ -1220,8 +1220,8 @@ void slot_option::set_bios(std::string &&text)
 {
 	if (!m_specified)
 	{
-		m_specified = true;
 		m_specified_value = value();
+		m_specified = true;
 	}
 	m_specified_bios = std::move(text);
 }

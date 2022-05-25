@@ -379,6 +379,10 @@ files {
 	MAME_DIR .. "src/mame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
+	MAME_DIR .. "src/mame/drivers/marblmd2.cpp",  -- marble madness ii
+	MAME_DIR .. "src/mame/audio/atarijsa.cpp",    -- marble madness ii
+	MAME_DIR .. "src/mame/video/atarivad.cpp",    -- marble madness ii
+	MAME_DIR .. "src/mame/machine/atariscom.cpp", -- marble madness ii
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -680,7 +684,6 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/mappy.cpp",
 	MAME_DIR .. "src/mame/video/mappy.cpp",
 	MAME_DIR .. "src/hbmame/drivers/pacland.cpp",
-	MAME_DIR .. "src/mame/video/pacland.cpp",
 	MAME_DIR .. "src/hbmame/drivers/polepos.cpp",
 	MAME_DIR .. "src/mame/audio/polepos.cpp",
 	MAME_DIR .. "src/mame/video/polepos.cpp",
@@ -736,6 +739,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/mslug3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslug4.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslug5.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mslug6.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslugx.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ngdoubledr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nggaroup.cpp",

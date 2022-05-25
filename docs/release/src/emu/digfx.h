@@ -25,7 +25,7 @@
 
 constexpr u8 MAX_GFX_ELEMENTS = 32;
 constexpr u16 MAX_GFX_PLANES = 8;
-// HBMAME - needed by monaco
+// MESSUI - needed by monaco
 constexpr u16 MAX_GFX_SIZE = 64;
 
 

@@ -760,6 +760,7 @@ int avg_mhavoc_device::handler_6() // mhavoc_strobe2
 		else
 		{
 			m_color = m_dvy & 0xf;
+
 			m_intensity = (m_dvy >> 4) & 0xf;
 			m_map = (m_dvy >> 8) & 0x3;
 

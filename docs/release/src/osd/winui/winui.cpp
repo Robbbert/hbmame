@@ -432,7 +432,7 @@ typedef struct
 typedef struct
 {
 	int         type;       /* Either RA_ID or RA_HWND, to indicate which member of u is used; or RA_END
-	                           to signify last entry */
+                               to signify last entry */
 	union                   /* Can identify a child window by control id or by handle */
 	{
 		int     id;         /* Window control id */
@@ -1842,9 +1842,9 @@ printf("Z\n");fflush(stdout);
 	if (GetHideMouseOnStartup())
 	{
 		/*  For some reason the mouse is centered when a game is exited, which of
-		    course causes a WM_MOUSEMOVE event that shows the mouse. So we center
-		    it now, before the startup coords are initilized, and that way the mouse
-		    will still be hidden when exiting from a game (i hope) :)
+            course causes a WM_MOUSEMOVE event that shows the mouse. So we center
+            it now, before the startup coords are initilized, and that way the mouse
+            will still be hidden when exiting from a game (i hope) :)
 		*/
 		SetCursorPos(GetSystemMetrics(SM_CXSCREEN)/2,GetSystemMetrics(SM_CYSCREEN)/2);
 
@@ -2648,8 +2648,8 @@ static void ResizeWindow(HWND hParent, Resize *r)
 				rect.left = parent_rect.left;
 		}
 		MoveWindow(hControl, rect.left, rect.top,
-				   (rect.right - rect.left),
-				   (rect.bottom - rect.top), true);
+				(rect.right - rect.left),
+				(rect.bottom - rect.top), true);
 
 		/* Take care of subcontrols, if appropriate */
 		if (ri->subwindow )
@@ -3205,8 +3205,8 @@ static void GamePicker_OnHeaderContextMenu(POINT pt, int nColumn)
 char* ConvertAmpersandString(const char *s)
 {
 	/* takes a string and changes any ampersands to double ampersands,
-	   for setting text of window controls that don't allow us to disable
-	   the ampersand underlining.
+       for setting text of window controls that don't allow us to disable
+       the ampersand underlining.
 	 */
 	/* returns a static buffer--use before calling again */
 
@@ -3630,8 +3630,8 @@ static void ResetListView()
 	}
 
 	/*RS Instead of the Arrange Call that was here previously on all Views
-	     We now need to set the ViewMode for SmallIcon again,
-	     for an explanation why, see SetView*/
+         We now need to set the ViewMode for SmallIcon again,
+         for an explanation why, see SetView*/
 	if (GetViewMode() == VIEW_SMALL_ICONS)
 		SetView(ID_VIEW_SMALL_ICON);
 

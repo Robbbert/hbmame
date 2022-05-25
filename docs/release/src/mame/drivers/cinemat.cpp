@@ -1185,6 +1185,7 @@ void cinemat_64level_state::solarq(machine_config &config)
 void cinemat_color_state::boxingb(machine_config &config)
 {
 	cinemat_jmi_32k(config);
+
 	SPEAKER(config, "mono").front_center();
 //	BOXING_BUGS_AUDIO(config, "soundboard", 0)
 //		.configure_latch_inputs(*m_outlatch)

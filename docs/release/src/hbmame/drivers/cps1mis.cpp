@@ -1709,6 +1709,34 @@ ROM_START( dinojp )
 	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
+ROM_START( dinore )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "cde_re.10f", 0x000000, 0x200000, CRC(530b7e43) SHA1(96245becd599f8453b0b1c38bd987e99d7fec6b5) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "cd-1m.3a",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-3m.5a",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-2m.4a",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-4m.6a",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-5m.7a",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-7m.9a",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-6m.8a",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "cd-8m.10a", 0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "cd_q.5k",    0x00000, 0x08000, CRC(605fdb0b) SHA1(9da90ddc6513aaaf2260f0c69719c6b0e585ba8c) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "cd-q1.1k",   0x000000, 0x80000, CRC(60927775) SHA1(f8599bc84c38573ebbe8685822c58b6a38b50462) )
+	ROM_LOAD( "cd-q2.2k",   0x080000, 0x80000, CRC(770f4c47) SHA1(fec8ef00a6669d4d5e37787ecc7b58ee46709326) )
+	ROM_LOAD( "cd-q3.3k",   0x100000, 0x80000, CRC(2f273ffc) SHA1(f0de462f6c4d251911258e0ebd886152c14d1586) )
+	ROM_LOAD( "cd-q4.4k",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD ( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+ROM_END
+
 ROM_START( dinorp )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "dinorp.23",   0x000000, 0x80000, CRC(373282a0) SHA1(b02bf02c9ef21cfa2606f3c6e38542fcb0be45ab) )
@@ -6488,6 +6516,7 @@ GAME( 1993, dinohc,      dino,     qsound,     dinohz,   cps_state, init_dino,  
 GAME( 1993, dinohp,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Submachine gun and shotgun bullet version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinohx,      dino,     qsound,     dinohz,   cps_state, init_dinoh,    ROT0,   "Winuxx", "Cadillacs and Dinosaurs (Ex Super Version V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinojp,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "RockyWall & zhyxxxx", "Cadillacs Kyouryuu-Shinseiki Plus (Double Edition 2010-03-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, dinore,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "GameHackFan", "Cadillacs and Dinosaurs (Readjusted v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, dinorp,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Pipi899", "Cadillacs and Dinosaurs (Missile Embroidery Plus 2008-08-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinosf2,     dino,     wofsf2,     dino,     cps_state, init_dinohunt, ROT0,   "Arcadefixer", "Cadillacs and Dinosaurs (Sf2 conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2014, dinoslice,   dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "hack", "Cadillacs and Dinosaurs (Boss Improved Version 2014-10-04)", MACHINE_SUPPORTS_SAVE )

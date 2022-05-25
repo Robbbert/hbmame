@@ -1053,51 +1053,6 @@ ROM_START( kogsm ) // multijet
 ROM_END
 
 
-
-GAME( 2004, cthd2k3b,   neogeo,   neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Hidden Characters Boss V1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2k3a,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg, set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, cthd2k3d,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg / set 1 fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Eddids[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Ice fz remix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Jason[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Some characters move to simplify 1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 (Remix Edition)(Diff Move - 2003-08-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3spd,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 Super Plus (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Simplified 2016-03-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, ct2k3ad,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003  (The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4mp,   kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4mp2,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus 2 (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4omg,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "KofOnTeam", "Kof Special Edition 2004 (Omega v0.5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4pls,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4pls, ROT0, "bootleg", "Kof Special Edition 2004 Plus (Set 1)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2010, kof2k4ru,   kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "MVS Hacks PSP", "Kof Special Edition 2004 (Remix Ultra v2.6F)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4se1,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4seb,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "Dragon Co.", "Kof Special Edition 2004 (Translation portuguese)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, kof2k4spl,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "bootleg", "Kof Special Edition 2004 Plus (Set 2)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thbr,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "Neogeo BR Team", "Kof 10th Anniversary (Translation Brazil)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thd,   kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary (The King of Fighters 2002 bootleg / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_kof10thu,  ROT0, "hack", "Kof 10th Anniversary Unique (Simplify Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_kf10thep,  ROT0, "hack", "Kof 10th Anniversary Extra Plus (Simplify Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_kof10thu,  ROT0, "hack", "Kof 10th Anniversary Unique (bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary Unique (Translation portuguese edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary Unique (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "hack", "King of Gladiator (The King of Fighters '97 bootleg)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogf,       kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Remove the mark of the screen)(Fix v3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, koggv,      kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "hack", "King of Gladiator (Green Fire edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "hack", "King of Gladiator mix Plus-EX (The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "bootleg", "King of Gladiator Plus (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "bootleg", "King of Gladiator Plus (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator Plus (Fixed Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix)", MACHINE_SUPPORTS_SAVE )
-
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
  /*****************************
  Crouching Tiger Hidden Dragon
 ********************************/
@@ -4931,6 +4886,18 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Crouching Tiger Hidden Dragon
+GAME( 2004, cthd2k3b,   neogeo,   neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Hidden Characters Boss V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, cthd2k3a,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2k3a,  ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg, set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, cthd2k3d,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "bootleg", "Crouching Tiger Hidden Dragon 2003 (The King of Fighters 2001 bootleg / set 1 fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3eh,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Fighters Kim and HunterX Hacker", "Crouching Tiger Hidden Dragon 2003 (Add Char - Pow hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3ifz,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Eddids[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Ice fz remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3k3,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Jason[FGCH]", "Crouching Tiger Hidden Dragon 2003 (Some characters move to simplify 1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3k3o,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "Jason/K3", "Crouching Tiger Hidden Dragon 2003 (Remix Edition)(Diff Move - 2003-08-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3spd,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 Super Plus (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, ct2k3spi,   cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Simplified 2016-03-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3xx,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Blood Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3ys,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_cthd2003,  ROT0, "hack", "Crouching Tiger Hidden Dragon 2003 (Red Fire Remix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, ct2k3ad,    cthd2k3b, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003  (The King of Fighters 2001 bootleg / set 2 fully decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, ct2k3k3s01,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state, init_cthd2003,  ROT0, "zhaolu94",    "Crouching Tiger Hidden Dragon 2003 (Color Fix Form Kof2001)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ct2k3k3s02,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state, init_cthd2003,  ROT0, "hack",    "Crouching Tiger Hidden Dragon 2003 (Simplified Color 2016-03-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, ct2k3k3s03,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state, init_cthd2003,  ROT0, "bootleg",    "Crouching Tiger Hidden Dragon 2003 (Plus)", MACHINE_SUPPORTS_SAVE )
@@ -4962,6 +4929,14 @@ GAME( 2004, ct2k3k3s28,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2004, ct2k3k3s29,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state, init_cthd2003,  ROT0, "hack",    "Crouching Tiger Hidden Dragon 2003 (Super Remix Edition 1.8)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, ct2k3k3s30,     cthd2k3b, neogeo_noslot, neogeo, neogeo_state, init_cthd2003,  ROT0, "hack",    "Crouching Tiger Hidden Dragon 2003 (Super Remix Edition 1.9)", MACHINE_SUPPORTS_SAVE )
  // King of Gladiator
+GAME( 1997, kogd,       kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "hack", "King of Gladiator (The King of Fighters '97 bootleg)(fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogf,       kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "Zxbdragon / Ryu", "King of Gladiator (Remove the mark of the screen)(Fix v3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, koggv,      kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "hack", "King of Gladiator (Green Fire edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogmxpls,   kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "hack", "King of Gladiator mix Plus-EX (The King of Fighters '97 bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogplus,    kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "bootleg", "King of Gladiator Plus (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogplus1,   kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "bootleg", "King of Gladiator Plus (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogplusf,   kof97,    hbmame_kog,        neogeo, neogeo_state, init_kogd,      ROT0, "Zxbdragon / Ryu", "King of Gladiator Plus (Fixed Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kogsm,      kof97,    neogeo_kog,        neogeo, neogeo_state, init_kog,       ROT0, "KalceTin", "King of Gladiator (Smoke Version v1.5 Fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kogs01,         kof97,    neogeo_kog,    neogeo, neogeo_state, init_kog,    ROT0, "zxbdragon&ryu",    "King of Gladiator (Out Of Order Timing)(Fix v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kogs02,         kof97,    neogeo_kog,    neogeo, neogeo_state, init_kog,    ROT0, "zxbdragon&ryu",    "King of Gladiator (Pneumatic Accumulation Mode)(Fix v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kogs03,         kof97,    neogeo_kog,    neogeo, neogeo_state, init_kog,    ROT0, "Eddids[FGCH]",     "King of Gladiator (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
@@ -4975,6 +4950,13 @@ GAME( 1997, kogs10,         kof97,    neogeo_kog,    neogeo, neogeo_state, init_
 GAME( 1997, kogs11,         kof97,    neogeo_kog,    neogeo, neogeo_state, init_kog,    ROT0, "Bloodlust",        "King of Gladiator (Add Chris's Purple Fire)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kogs12,         kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "hack",             "King of Gladiator (Resurgence Plus Dog Slaughter Edition 2020-01-23)", MACHINE_SUPPORTS_SAVE )
 // 10th Anniversary
+GAME( 2005, kof10thbr,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "Neogeo BR Team", "Kof 10th Anniversary (Translation Brazil)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thd,   kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary (The King of Fighters 2002 bootleg / Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thd16, kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_kof10thu,  ROT0, "hack", "Kof 10th Anniversary Unique (Simplify Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kof10thep15,kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_kf10thep,  ROT0, "hack", "Kof 10th Anniversary Extra Plus (Simplify Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thu,   kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_kof10thu,  ROT0, "hack", "Kof 10th Anniversary Unique (bootleg, set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thub,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary Unique (Translation portuguese edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, kof10thud,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary Unique (The King of Fighters 2002 bootleg)(decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kf10theps01,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf10thep,  ROT0, "Creamymami[EGCG]",    "Kof 10th Anniversary Extra Plus (Unlimited Power Store)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kf10theps02,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf10thep,  ROT0, "kumagorou",    "Kof 10th Anniversary Extra Plus (Green Fire)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kf10theps03,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf10thep,  ROT0, "kawada7278",    "Kof 10th Anniversary Extra Plus (Violet Fire)", MACHINE_SUPPORTS_SAVE )
@@ -5020,7 +5002,16 @@ GAME( 2020, kf2k5unis15,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, kf2k5unis16,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Alpha Unique New 2020-01-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k5unis17,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Optimization 2019 Simplified Edition 2020-02-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k5unis18,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Omega Edition Simplified 2020-02-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kof2k8uni,  kof2002,  neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 // Kof Special Edition 2004
+GAME( 2004, kof2k4mp,   kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4mp2,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 Magic Plus 2 (The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4omg,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "KofOnTeam", "Kof Special Edition 2004 (Omega v0.5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4pls,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4pls, ROT0, "bootleg", "Kof Special Edition 2004 Plus (Set 1)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2010, kof2k4ru,   kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "MVS Hacks PSP", "Kof Special Edition 2004 (Remix Ultra v2.6F)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4se1,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "hack", "Kof Special Edition 2004 (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4seb,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_neogeo,    ROT0, "Dragon Co.", "Kof Special Edition 2004 (Translation portuguese)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, kof2k4spl,  kof2k4se, neogeo_noslot,     neogeo, neogeo_state, init_kof2k4se,  ROT0, "bootleg", "Kof Special Edition 2004 Plus (Set 2)(The King of Fighters 2002 bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4ses01,    kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_kof2k4se,  ROT0, "KyoX",    "Kof Special Edition 2004 (Translation Portuguese)(Alt)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4ses04,    kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_kof2k4se,  ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 (Unluck Max2 V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4ses05,    kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_kof2k4se,  ROT0, "Creamymami[EGCG]",    "Kof Special Edition 2004 (Unluck Max2 V2)", MACHINE_SUPPORTS_SAVE )

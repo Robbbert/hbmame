@@ -15,13 +15,13 @@ ROM_START( mariopac )
 	ROM_LOAD( "pl1_7.3e",       0x8000, 0x2000, CRC(8c5becae) SHA1(14d67136395c4c64472980a69648ce2d479ae67f) )
 	ROM_LOAD( "cus60",          0xf000, 0x1000, CRC(6ef08fb3) SHA1(4842590d60035a0059b0899eb2d5f58ae72c2529) )
 
-	ROM_REGION( 0x02000, "gfx1", 0 )
+	ROM_REGION( 0x02000, "fg_chars", 0 )
 	ROM_LOAD( "mariopac_12.6n", 0x00000, 0x2000, CRC(abba0923) SHA1(2286b0d162e5502160895940d0c9637abe5d6d2f) )
 
-	ROM_REGION( 0x02000, "gfx2", 0 )
+	ROM_REGION( 0x02000, "bg_chars", 0 )
 	ROM_LOAD( "pl4_13.6t",      0x00000, 0x2000, CRC(3ae582fd) SHA1(696b2cfadb6b071de8e43d20cd65b37713ca3b30) )
 
-	ROM_REGION( 0x10000, "gfx3", 0 )
+	ROM_REGION( 0x10000, "sprites", 0 )
 	ROM_LOAD( "mariopac.6f",    0x00000, 0x4000, CRC(98439154) SHA1(7bad68705ae3d9fa6e03ad7dc9421cf6063e1669) )
 	ROM_LOAD( "mariopac.6e",    0x04000, 0x4000, CRC(d0c1f225) SHA1(bcaa68922e49b7257959471641d3c91e505a8d53) )
 	ROM_LOAD( "mariopac.7e",    0x08000, 0x4000, CRC(6005b277) SHA1(acacffe38edfc2d325dc286d182253ee5bb62489) )
@@ -48,13 +48,13 @@ ROM_START( paclandb ) // cus60 is the only different rom
 	ROM_LOAD( "pl1_7.3e",      0x8000, 0x2000, CRC(8c5becae) SHA1(14d67136395c4c64472980a69648ce2d479ae67f) )
 	ROM_LOAD( "cus60",         0xf000, 0x1000, CRC(6ef08fb3) SHA1(4842590d60035a0059b0899eb2d5f58ae72c2529) )
 
-	ROM_REGION( 0x02000, "gfx1", 0 )
+	ROM_REGION( 0x02000, "fg_chars", 0 )
 	ROM_LOAD( "pl2_12.6n",     0x00000, 0x2000, CRC(a63c8726) SHA1(b15903fa2267375280af03af0a7157e1b0bcb86d) )
 
-	ROM_REGION( 0x02000, "gfx2", 0 )
+	ROM_REGION( 0x02000, "bg_chars", 0 )
 	ROM_LOAD( "pl4_13.6t",     0x00000, 0x2000, CRC(3ae582fd) SHA1(696b2cfadb6b071de8e43d20cd65b37713ca3b30) )
 
-	ROM_REGION( 0x10000, "gfx3", 0 )
+	ROM_REGION( 0x10000, "sprites", 0 )
 	ROM_LOAD( "pl1-9.6f",      0x00000, 0x4000, CRC(f5d5962b) SHA1(8d008a9bc06dc562c241955d9c551647b5c1f4e9) )
 	ROM_LOAD( "pl1-8.6e",      0x04000, 0x4000, CRC(a2ebfa4a) SHA1(4a2a2b43a23a7a46266751415d1bde118143429c) )
 	ROM_LOAD( "pl1-10.7e",     0x08000, 0x4000, CRC(c7cf1904) SHA1(7ca8ed20ee32eb8609ac96b4e4fcb3b6027b598a) )
@@ -81,13 +81,13 @@ ROM_START( paclandd )
 	ROM_LOAD( "pl1_7.3e",      0x8000, 0x2000, CRC(8c5becae) SHA1(14d67136395c4c64472980a69648ce2d479ae67f) )
 	ROM_LOAD( "cus60",         0xf000, 0x1000, CRC(6ef08fb3) SHA1(4842590d60035a0059b0899eb2d5f58ae72c2529) )
 
-	ROM_REGION( 0x02000, "gfx1", 0 )
+	ROM_REGION( 0x02000, "fg_chars", 0 )
 	ROM_LOAD( "pl2_12.6n",     0x00000, 0x2000, CRC(a63c8726) SHA1(b15903fa2267375280af03af0a7157e1b0bcb86d) )
 
-	ROM_REGION( 0x02000, "gfx2", 0 )
+	ROM_REGION( 0x02000, "bg_chars", 0 )
 	ROM_LOAD( "pl4_13.6t",     0x00000, 0x2000, CRC(3ae582fd) SHA1(696b2cfadb6b071de8e43d20cd65b37713ca3b30) )
 
-	ROM_REGION( 0x10000, "gfx3", 0 )
+	ROM_REGION( 0x10000, "sprites", 0 )
 	ROM_LOAD( "paclandd.6f",   0x00000, 0x4000, CRC(3dba9085) SHA1(3ade36e6c04ef40d4dcdf53cc374c600de9dbb75) )
 	ROM_LOAD( "paclandd.6e",   0x04000, 0x4000, CRC(7f089223) SHA1(129344647ae4898c6d70f15e96c13eca12a5f6ca) )
 	ROM_LOAD( "paclandd.7e",   0x08000, 0x4000, CRC(3f4b4d81) SHA1(e6acf8164a9d9fc31a12722e466c4dfded3022fe) )

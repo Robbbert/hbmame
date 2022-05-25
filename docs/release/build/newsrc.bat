@@ -30,7 +30,6 @@ copy /Y %from%\src\devices\video\vector.cpp %to%\src\devices\video
 md %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\cinemat.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\galaxian.cpp %to%\src\mame\drivers
-copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\konamigx.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
 

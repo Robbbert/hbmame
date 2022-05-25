@@ -641,6 +641,24 @@ ROM_START( teot_6 ) // Beta 3, 2022-03-12
 	ROM_LOAD16_BYTE( "323f.c2",   0x0000001, 0x1000000, CRC(1fdff0ce) SHA1(4ef77f3e01d58612e9b730426adb81d87ccb5572) )
 ROM_END
 
+ROM_START( teot ) // Beta 4, 2022-05-07
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "323g.p1", 0x000000, 0x100000, CRC(fdb9a8d4) SHA1(7e0d43ebe7b3841948a0de311b521b3eaa1c91d7) )
+	ROM_LOAD16_WORD_SWAP( "323g.p2", 0x100000, 0x800000, CRC(02dd52ed) SHA1(71a310cf48fe719726f60aa11e87e11bb217ac5c) )
+
+	NEO_SFIX_128K( "323g.s1", CRC(6d05f74b) SHA1(1643bcf32249d3d90c230ccac09c8026dbd62960) )
+
+	NEO_BIOS_AUDIO_64K( "323g.m1", CRC(16f81e41) SHA1(25a8f098254e3addc2040111c7c388e2285da445) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "323g.v1",   0x000000, 0x800000, CRC(d2911e9c) SHA1(ca53ebda1ae2a339dfceda509c334bc4be24d7a2) )
+	ROM_LOAD( "323g.v2",   0x800000, 0x800000, CRC(49e3afe6) SHA1(0c37f171035baa4392b28df5de3261f084727a47) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "323g.c1",   0x0000000, 0x1000000, CRC(66f0afa6) SHA1(3ee249703bf4710d4ae7ac6b9928f81dcb679654) )
+	ROM_LOAD16_BYTE( "323g.c2",   0x0000001, 0x1000000, CRC(e773037f) SHA1(ac3d07091fc8f25f01b9f21f5a0abff750af8208) )
+ROM_END
+
 
 // 401 : Shadow of the Beast demo by Neobitz
 // No sound
@@ -3001,12 +3019,13 @@ GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, syscheck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, teot_1,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, teot_2,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo 2, 2021-02-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, teot_3,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, alpha 5, 2021-05-16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_4,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta, 2022-01-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_5,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_6,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, teot_1,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, teot_2,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo 2, 2021-02-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, teot_3,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, alpha 5, 2021-05-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_4,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta, 2022-01-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_5,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_6,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, test01,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, timesup,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up!", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up! (Demo)", MACHINE_SUPPORTS_SAVE )

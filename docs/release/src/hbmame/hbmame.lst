@@ -266,6 +266,7 @@ dinohc
 dinohp
 dinohx
 dinojp
+dinore
 dinorp
 dinosf2
 dinoslice
@@ -1252,6 +1253,8 @@ sfz3mix07a
 sfz3mix07b
 sfz3mix08
 sfz3mix09
+sfz3mix10
+sfz3mix11
 sfz3mix
 sfz3te
 sfzjboss
@@ -1387,6 +1390,7 @@ sfa2us01
 sfa2us02
 sfa2us03
 sfa2us04
+sfa2us05
 sfa3s01
 sfa3s02
 sfa3s03
@@ -1559,9 +1563,12 @@ dkongklc
 dkongrev
 dkongx
 dkongx11
+dkongte
+dkspkyte
 dkrainbow
 dkrdemo
 dkchrmx					// Sock Master - Christmas Remix 2017
+dkchrte
 dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
@@ -1593,6 +1600,7 @@ dkongan0
 dkongdu
 dkongdu0
 dkongdu1
+dksprfin
 dkwizard
 dkwizard0
 dkwizard1
@@ -4167,6 +4175,9 @@ superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
+@source:marblmd2.cpp
+marblmd2                               // 0.244 only
+
 @source:mario.cpp
 mario                                  //parent
 cenmario 
@@ -4241,6 +4252,7 @@ mhavocpex6				//HB Jess M. Askey
 mhavocpex7				//HB Jess M. Askey
 mhavocpex7de			//HB Jess M. Askey
 mhavocpex7fr			//HB Jess M. Askey
+mhavocpex81
 
 @source:midtunit.cpp
 mk					//parent
@@ -4375,6 +4387,7 @@ mslugrmhp01
 mslugrmhp02
 mslugrmhp03
 mslugrmhp04
+mslugunity
 
 @source:mslug2.cpp
 mslug2eh
@@ -4470,6 +4483,7 @@ mslug2rmhbv01
 mslug2rmhbv02
 mslug2rmhbhv01
 mslug2rmhbhv02
+mslug2unity
 
 @source:mslug3.cpp
 mslug3e02
@@ -4766,79 +4780,7 @@ mslug3rmh01
 mslug3rmh02
 mslug3rmh03
 mslug3rmh04
-mslug6h01
-mslug6h02
-mslug6h03
-mslug6h04
-mslug6h05
-mslug6h06
-mslug6h07
-mslug6h08
-mslug6h09
-mslug6ha01
-mslug6hb01
-mslug6hb02
-mslug6hb03
-mslug6hc01
-mslug6hd01
-mslug6he01
-mslug6hz01
-mslug6ta01
-mslug6ta02
-mslug6ta03
-mslug6tb01
-mslug6tb02
-mslug6tb03
-mslug6tc01
-mslug6tc02
-mslug6tc03
-mslug6td01
-mslug6td02
-mslug6td03
-mslug6te01
-mslug6te02
-mslug6te03
-mslug6tf01
-mslug6tf02
-mslug6tf03
-mslug6la01
-mslug6la02
-mslug6la03
-mslug6la04
-mslug6la05
-mslug6lb01
-mslug6lb02
-mslug6lb03
-mslug6lb04
-mslug6lb05
-mslug6lc01
-mslug6lc02
-mslug6lc03
-mslug6lc04
-mslug6pa01
-mslug6pa02
-mslug6pa03
-mslug6pa04
-mslug6pb01
-mslug6pb02
-mslug6pb03
-mslug6pb04
-mslug6pc01
-mslug6pc02
-mslug6pc03
-mslug6pc04
-mslug6pd01
-mslug6pd02
-mslug6pd03
-mslug6pd04
-mslug6pe01
-mslug6pe02
-mslug6pe03
-mslug6pe04
-mslug6pf01
-mslug6pf02
-mslug6pf03
-mslug6pf04
+mslug3unity
 
 @source:mslug4.cpp
 mslug4eh2
@@ -5005,6 +4947,7 @@ mslug4rmc19
 mslug4rmc20
 mslug4rmc21
 mslug4rmc22
+mslug4unity
 
 @source:mslug5.cpp
 mslug5b
@@ -5253,6 +5196,83 @@ mslug5ervx13
 mslug5ervx14
 mslug5ervx15
 mslug5ervx16
+mslug5unity
+mslug5ast
+
+@source:mslug6.cpp
+mslug6h01
+mslug6h02
+mslug6h03
+mslug6h04
+mslug6h05
+mslug6h06
+mslug6h07
+mslug6h08
+mslug6h09
+mslug6ha01
+mslug6hb01
+mslug6hb02
+mslug6hb03
+mslug6hc01
+mslug6hd01
+mslug6he01
+mslug6hz01
+mslug6ta01
+mslug6ta02
+mslug6ta03
+mslug6tb01
+mslug6tb02
+mslug6tb03
+mslug6tc01
+mslug6tc02
+mslug6tc03
+mslug6td01
+mslug6td02
+mslug6td03
+mslug6te01
+mslug6te02
+mslug6te03
+mslug6tf01
+mslug6tf02
+mslug6tf03
+mslug6la01
+mslug6la02
+mslug6la03
+mslug6la04
+mslug6la05
+mslug6lb01
+mslug6lb02
+mslug6lb03
+mslug6lb04
+mslug6lb05
+mslug6lc01
+mslug6lc02
+mslug6lc03
+mslug6lc04
+mslug6pa01
+mslug6pa02
+mslug6pa03
+mslug6pa04
+mslug6pb01
+mslug6pb02
+mslug6pb03
+mslug6pb04
+mslug6pc01
+mslug6pc02
+mslug6pc03
+mslug6pc04
+mslug6pd01
+mslug6pd02
+mslug6pd03
+mslug6pd04
+mslug6pe01
+mslug6pe02
+mslug6pe03
+mslug6pe04
+mslug6pf01
+mslug6pf02
+mslug6pf03
+mslug6pf04
 
 @source:mslugx.cpp
 mslugxce
@@ -5540,6 +5560,7 @@ mslugxece11
 mslugxece12
 mslugxece13
 mslugxece14
+mslugxunity
 
 @source:mspacman.cpp
 mspacman	//parent
@@ -6016,6 +6037,7 @@ teot_3
 teot_4
 teot_5
 teot_6
+teot
 test01		// MVS Test 01 by Furrtek
 timesup
 timesupd	// CeL
