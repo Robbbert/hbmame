@@ -62,6 +62,8 @@ function maintargetosdoptions(_target,_subtarget)
 		"ole32",
 --		"shell32",
 		"uxtheme",
+		"uuid",
+		"shlwapi",
 	}
 
 -- Local file gives correct icon in mame instance inside of mameui
