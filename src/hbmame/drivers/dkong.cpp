@@ -1463,12 +1463,40 @@ ROM_START( dkwizard1 )
 	ROM_LOAD( "dkwizard0.5e",   0x0200, 0x0100, CRC(c24f2312) SHA1(61dfcec8ecaa7a38ed222f2d3c4d6695db6f33b1) )
 ROM_END
 
+ROM_START( dkwizard2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkwizard2.5et",  0x0000, 0x1000, CRC(f42bb2e5) SHA1(2bd74d51d9ce43207f2ec879746ec44bdd13aef1) )
+	ROM_LOAD( "dkwizard2.5ct",  0x1000, 0x1000, CRC(85cf6e4c) SHA1(4140865b1dabee98346f4217e9b7b355d177ebc7) )
+	ROM_LOAD( "dkwizard0.5bt",  0x2000, 0x1000, CRC(8d5bda23) SHA1(ca2d1f9a7d8abc56c583cb510075fd2e4cee2d85) )
+	ROM_LOAD( "dkwizard2.5at",  0x3000, 0x1000, CRC(f72e687e) SHA1(e2575f6e0f9d3ae1d40fbb22084439a84d103e30) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",     0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(                 0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "dkwizard1.5h",   0x0000, 0x0800, CRC(39736a8a) SHA1(8825f1473415fc588a189887f4aa302313bfcec8) )
+	ROM_LOAD( "dkwizard1.3pt",  0x0800, 0x0800, CRC(c94468a9) SHA1(136b204735223c5e3f94340db5f6b7cfd0ad2666) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "dkwizard1.4m",   0x0000, 0x0800, CRC(f98da4c5) SHA1(362c2083b0bad94174c3bd2e77b52dee18069d00) )
+	ROM_LOAD( "dkwizard0.4n",   0x0800, 0x0800, CRC(cf3cdb75) SHA1(9ac98e0cfada360b9615af1c14c2d5e27129f328) )
+	ROM_LOAD( "dkwizard1.4r",   0x1000, 0x0800, CRC(7e2d1ef4) SHA1(2f6d2d7afd4b595b2e24e31263433611e9761c86) )
+	ROM_LOAD( "dkwizard1.4s",   0x1800, 0x0800, CRC(cc547d47) SHA1(087f9c5da33831d2a7a9f5f86d9da1d7f1cf15b6) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "dkwizard1.2k",   0x0000, 0x0100, CRC(193134e9) SHA1(6101bbdff23f0a1ccaba99cdbd966bcf780751bd) )
+	ROM_LOAD( "dkwizard1.2j",   0x0100, 0x0100, CRC(dcbba451) SHA1(31bf6bc17f790d4a61392ca1fd68361698ac9338) )
+	ROM_LOAD( "dkwizard0.5e",   0x0200, 0x0100, CRC(c24f2312) SHA1(61dfcec8ecaa7a38ed222f2d3c4d6695db6f33b1) )
+ROM_END
+
 ROM_START( dkwizard )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "dkwizard.5et",   0x0000, 0x1000, CRC(f42bb2e5) SHA1(2bd74d51d9ce43207f2ec879746ec44bdd13aef1) )
-	ROM_LOAD( "dkwizard.5ct",   0x1000, 0x1000, CRC(85cf6e4c) SHA1(4140865b1dabee98346f4217e9b7b355d177ebc7) )
-	ROM_LOAD( "dkwizard0.5bt",  0x2000, 0x1000, CRC(8d5bda23) SHA1(ca2d1f9a7d8abc56c583cb510075fd2e4cee2d85) )
-	ROM_LOAD( "dkwizard.5at",   0x3000, 0x1000, CRC(f72e687e) SHA1(e2575f6e0f9d3ae1d40fbb22084439a84d103e30) )
+	ROM_LOAD( "dkwizard2.5et",  0x0000, 0x1000, CRC(f42bb2e5) SHA1(2bd74d51d9ce43207f2ec879746ec44bdd13aef1) )
+	ROM_LOAD( "dkwizard2.5ct",  0x1000, 0x1000, CRC(85cf6e4c) SHA1(4140865b1dabee98346f4217e9b7b355d177ebc7) )
+	ROM_LOAD( "dkwizard.5bt",   0x2000, 0x1000, CRC(6e888d7b) SHA1(58d164193d95a9a93238a06ab1338e14b448f3f7) )
+	ROM_LOAD( "dkwizard.5at",   0x3000, 0x1000, CRC(b8e1a56d) SHA1(5551faf1477492c570b5d58c8bc2359b83520186) )
 
 	ROM_REGION( 0x1800, "soundcpu", 0 )
 	ROM_LOAD( "s_3i_b.bin",     0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
@@ -1570,6 +1598,7 @@ GAME( 2021, dkongdu1,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2021, dkongdu,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Duel v1.02 (2021-11-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkwizard0, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.00 (2022-02-09)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkwizard1, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.01 (2022-02-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, dkwizard,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.02 (2022-02-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, dkwizard2, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.02 (2022-02-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, dkwizard,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Wizardry v1.03 (2022-05-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dksprfin,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Springfinity v1.01 (2022-04-29)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 

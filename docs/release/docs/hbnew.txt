@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-06-29 0.245
+
+
+
+New Games
+---------------------------------
+- [dkwizard]            Donkey Kong Wizardry v1.03
+
+
+
+
 2022-05-25 0.244
 
 Added artwork for Man-Pac.
