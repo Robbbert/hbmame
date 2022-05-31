@@ -574,7 +574,7 @@ bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
 {
 	for (auto &curentry : opts1.entries())
 	{
-		if (curentry->type() != OPTION_HEADER)
+		if (curentry->type() != core_options::option_type::HEADER)
 		{
 			const char *value = curentry->value();
 			const char *comp = opts2.value(curentry->name().c_str());
