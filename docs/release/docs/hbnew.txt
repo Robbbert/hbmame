@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [dkwizard]            Donkey Kong Wizardry v1.03
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)
 
 
 
