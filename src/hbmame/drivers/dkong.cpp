@@ -636,8 +636,36 @@ ROM_START( dkongrnd ) // some sound issues
 	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
 
 	ROM_REGION( 0x1000, "gfx1", 0 )
-	ROM_LOAD( "v_5h_b.rnd",     0x0000, 0x0800, CRC(17ef76ad) SHA1(ca58ae7de241417f05a510b459db16f1f2120cd0) )
-	ROM_LOAD( "v_3pt.rnd",      0x0800, 0x0800, CRC(49d408cd) SHA1(562751627dc050a13552f401221806b30797afd4) )
+	ROM_LOAD( "dkongrnd.5h",    0x0000, 0x0800, CRC(17ef76ad) SHA1(ca58ae7de241417f05a510b459db16f1f2120cd0) )
+	ROM_LOAD( "dkongrnd.3pt",   0x0800, 0x0800, CRC(49d408cd) SHA1(562751627dc050a13552f401221806b30797afd4) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "l_4m_b.bin",     0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
+	ROM_LOAD( "l_4n_b.bin",     0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f) )
+	ROM_LOAD( "l_4r_b.bin",     0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4) )
+	ROM_LOAD( "l_4s_b.bin",     0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",       0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",       0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",       0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
+ROM_START( dkrndmzr )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dkrndmzr.5et",   0x0000, 0x1000, CRC(281b9bb6) SHA1(b8602325070ace94928c0431c5ecb55e22c55c97) )
+	ROM_LOAD( "dkrndmzr.5ct",   0x1000, 0x1000, CRC(7fa1be23) SHA1(3c79c2a5df44b60ccf9c46ffdef65d1f02f738bc) )
+	ROM_LOAD( "dkrndmzr.5bt",   0x2000, 0x1000, CRC(50ad6d22) SHA1(b3187bc24245740e0c617d35b968fe5371492cf8) )
+	ROM_LOAD( "dkrndmzr.5at",   0x3000, 0x1000, CRC(4c9e7085) SHA1(6b8fefd44426848407e8a2f4f7010751dcf8cf39) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",     0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(                 0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "dkrndmzr.5h",    0x0000, 0x0800, CRC(c77456de) SHA1(130ad5ea31a485169dcbdd719ec9753f4f125567) )
+	ROM_LOAD( "dkrndmzr.3pt",   0x0800, 0x0800, CRC(994f28be) SHA1(dd21af28b39b8b7963b083556abc5565213621ea) )
 
 	ROM_REGION( 0x2000, "gfx2", 0 )
 	ROM_LOAD( "l_4m_b.bin",     0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1) )
@@ -1573,6 +1601,7 @@ GAME( 2020, dkongklc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2020, dkongce,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Championship Edition v1.01 (2020-03-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongrnd0, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Randomized Edition (2020-03-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongrnd,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Randomized Edition v1.01 (2020-05-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, dkrndmzr,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong RNDMZR v1.00 (2022-05-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongss,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Skip Start v1.00 (2020-05-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongotr6, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong On the Run (2020-04-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongotr7, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong On the Run (2020-05-25)", MACHINE_SUPPORTS_SAVE )
