@@ -1402,6 +1402,7 @@ draw88pkr                       // 1988, BTE, Inc.
 amust                           //
 
 @source:anes.cpp
+sanma                           // 2001, ANES
 tonpuu                          // 200?, ANES
 
 @source:angelkds.cpp
@@ -14712,6 +14713,7 @@ moonal2b                        // [1980] Nichibutsu
 moonaln                         // [Nichibutsu] (Karateco license) or hack
 mooncmw                         // bootleg
 mooncptc                        // bootleg (Petaco S.A.)
+mooncrecm                       // bootleg (Centromatic)
 mooncreg                        // bootleg
 mooncreg2                       // bootleg
 mooncrgx                        // bootleg
