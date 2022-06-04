@@ -713,7 +713,7 @@ public:
 	void videight(machine_config &config);
 	void init_videight();
 
-private:
+//private:
 	void videight_rombank_w(offs_t offset, uint8_t data);
 	void videight_gfxbank_w(offs_t offset, uint8_t data);
 	void videight_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
