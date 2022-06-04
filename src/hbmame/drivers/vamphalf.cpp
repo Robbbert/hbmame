@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/vamphalf.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*************
+/*************
  Age Of Heroes
 ****************/
 
@@ -60,5 +54,4 @@ ROM_END
 // Age Of Heroes
 GAME( 2001, aohs01,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (Easy Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, aohs02,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (No Need Power)", MACHINE_SUPPORTS_SAVE )
-
 

@@ -48,3 +48,4 @@ ROM_START( terracrc )
 ROM_END
 
 GAME( 1985, terracrc, terracre, ym3526, terracre, terracre_state, empty_init, ROT270,  "Nichibutsu", "Terra Cresta (alt)", MACHINE_SUPPORTS_SAVE )
+

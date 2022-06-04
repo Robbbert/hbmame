@@ -933,3 +933,4 @@ GAME( 2021, jrpacplus, jrpacman, jrpacmbl, jrpacmbl, pengo_state, empty_init, RO
 GAME( 2016, pacpen,    pengo,    pengou,   pacpen,   pengo_state, empty_init, ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, pengopop,  pengo,    pengou,   pengo,    pengo_state, empty_init, ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vecpengo,  pengo,    pengoe,   pengo,    pengo_state, empty_init, ROT90, "T-Bone", "Pengo (Vector sim)", MACHINE_SUPPORTS_SAVE )
+

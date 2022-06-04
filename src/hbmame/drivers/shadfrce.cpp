@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/shadfrce.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********
+/*************
  Shadow Force
 **************/
 
@@ -44,6 +38,4 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Shadow Force
 GAME( 1993, shadfrces01,   shadfrce,  shadfrce, shadfrce, shadfrce_state, empty_init, ROT0, "KrysoFun", "Shadow Force (Enable All Characters)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-
-
 

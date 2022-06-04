@@ -104,3 +104,4 @@ ROM_END
 GAME( 2001, mariopac, pacland, pacland, pacland, pacland_state, empty_init, ROT0, "Marks Hacks", "Mario in Pac-Land", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, paclandb, pacland, pacland, pacland, pacland_state, empty_init, ROT0, "Namco", "Pac-Land (Benelux Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, paclandd, pacland, pacland, pacland, pacland_state, empty_init, ROT0, "Blue Justice", "Pac-Land", MACHINE_SUPPORTS_SAVE )
+

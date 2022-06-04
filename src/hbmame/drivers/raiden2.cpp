@@ -2,11 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/raiden2.cpp"
 
-/****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /********
+/**********
  Zero Team
 ***********/
 
@@ -164,6 +160,4 @@ GAME( 1993, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zer
 GAME( 2018, zeroteamcs02,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (1v4 Version 2018-02-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (Nightmare 2018-10-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, zeroteamss02,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (Yanshen Edition 2020-08-27)", MACHINE_SUPPORTS_SAVE )
-
-
 

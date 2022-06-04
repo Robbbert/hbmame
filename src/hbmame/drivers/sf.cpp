@@ -2,11 +2,7 @@
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/sf.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
-  /************
+/****************
  Street Fighter
 *****************/
 

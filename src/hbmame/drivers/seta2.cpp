@@ -2,11 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/seta2.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*********
+/***********
  Guardians
 ************/
 

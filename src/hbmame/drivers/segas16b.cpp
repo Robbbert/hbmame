@@ -136,3 +136,4 @@ GAME( 1988, altbeastfr,  altbeast, system16b_i8751, altbeast, segas16b_state, in
 GAME( 2018, altbeasts01, altbeast, system16b_i8751, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (Language Translation Portugues)", 0 )
 GAME( 2018, altbeasts02, altbeast, system16b_i8751, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (Language Translation Español 2018-08-05)", 0 )
 GAME( 2018, altbeasts03, altbeast, system16b_fd1094, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (Language Translation Español 2018-08-07)", 0 )
+

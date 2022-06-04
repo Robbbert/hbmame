@@ -32,13 +32,7 @@ ROM_END
 //    YEAR, NAME,        PARENT,   MACHINE,  INPUT,     INIT,          MONITOR,COMPANY,FULLNAME,FLAGS
 GAME( 2009, ssridersaex, ssriders, ssriders, ssriders,  tmnt_state, empty_init, ROT0,   "Pipi899","Sunset Riders (EX Super Version 2009-07-28)", MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
- /*************
+/*************
  Sunset Riders
 ***************/
 
@@ -92,7 +86,7 @@ ROM_START( ssriderseaas02 )
 	ROM_LOAD( "ssriders_eaa.nv", 0x0000, 0x080, CRC(74a45ef5) SHA1(da01f14684315bfb5c180f0c64a14350c34ae945) )
 ROM_END
 
- /****************************
+/****************************
  Teenage Mutant Ninja Turtles
 *******************************/
 
@@ -185,3 +179,4 @@ GAME( 2019, ssriderseaas02, ssriders, ssriders, ssridr4p,  tmnt_state, empty_ini
 GAME( 1991, tmnt2s01,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, tmnt2s02,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Start Change Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, tmnt2s03,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Cowabunga Mode)", MACHINE_SUPPORTS_SAVE )
+

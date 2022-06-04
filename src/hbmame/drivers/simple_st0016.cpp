@@ -9,3 +9,4 @@ ROM_START( renjuk )
 ROM_END
 
 GAME( 1994, renjuk, renju, renju, renju, st0016_state, init_renju, ROT0, "Aneue Bannzai", "Renju Kizoku (Translation Korean)", 0 )
+
