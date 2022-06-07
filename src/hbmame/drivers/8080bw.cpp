@@ -16,6 +16,6 @@ ROM_START( sinvrdzm )
 	ROM_LOAD( "sinvrdzm.8",  0x1c00, 0x0400, CRC(11392151) SHA1(ddeaf6678c898416e734d924f872496095ff294d) )
 ROM_END
 
-GAMEL(1978, sinvrdzm, invaders, invaders, superinv, mw8080bw_state, empty_init, ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(1978, sinvrdzm, invaders, invaders, superinv, sisv_state, empty_init, ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 
 

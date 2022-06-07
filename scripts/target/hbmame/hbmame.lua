@@ -626,7 +626,6 @@ files {
 	MAME_DIR .. "src/mame/audio/8080bw.cpp",
 	MAME_DIR .. "src/mame/video/8080bw.cpp",
 	MAME_DIR .. "src/mame/drivers/mw8080bw.cpp",
-	MAME_DIR .. "src/mame/machine/mw8080bw.cpp",
 	MAME_DIR .. "src/mame/audio/mw8080bw.cpp",
 	MAME_DIR .. "src/mame/video/mw8080bw.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",

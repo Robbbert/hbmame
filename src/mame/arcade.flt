@@ -435,6 +435,7 @@ forte2.cpp
 fortecar.cpp
 freekick.cpp
 freeway.cpp
+frenzyxprss.cpp
 fresh.cpp
 fromanc2.cpp
 fromance.cpp
@@ -1145,14 +1146,15 @@ segag80v.cpp
 segahang.cpp
 segajw.cpp
 segald.cpp
-segam1.cpp
 segaorun.cpp
 segas16a.cpp
 segas16b.cpp
+segas16b_isgsm.cpp
 segas18.cpp
 segas18_astormbl.cpp
 segas24.cpp
 segas32.cpp
+segasm1.cpp
 segasp.cpp
 segattl.cpp
 segaufo.cpp
