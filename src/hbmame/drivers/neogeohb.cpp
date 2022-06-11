@@ -3043,7 +3043,7 @@ GAME( 2021, teot_3,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2022, teot_4,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta, 2022-01-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, teot_5,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, teot_6,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, teot_7,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, teot_7,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, teot,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, test01,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "MVS Test 01", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, timesup,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NGF Dev. Inc", "Time's Up!", MACHINE_SUPPORTS_SAVE )
