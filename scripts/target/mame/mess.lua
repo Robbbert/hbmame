@@ -838,6 +838,9 @@ MACHINES["BITMAP_PRINTER"] = true
 MACHINES["NS32382"] = true
 MACHINES["FM_SCSI"] = true
 MACHINES["ARCHIMEDES_KEYB"] = true
+MACHINES["CAMMU"] = true
+MACHINES["AT_MB"] = true
+MACHINES["SAA7191"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -1661,8 +1664,6 @@ files {
 	MAME_DIR .. "src/mame/machine/apple2common.h",
 	MAME_DIR .. "src/mame/drivers/amiga.cpp",
 	MAME_DIR .. "src/mame/includes/amiga.h",
-	MAME_DIR .. "src/mame/machine/at.h",
-	MAME_DIR .. "src/mame/machine/at.cpp",
 	MAME_DIR .. "src/mame/drivers/sis630.cpp",
 	MAME_DIR .. "src/mame/machine/gdrom.cpp",
 	MAME_DIR .. "src/mame/machine/gdrom.h",
@@ -2820,8 +2821,6 @@ files {
 createMESSProjects(_target, _subtarget, "interpro")
 files {
 	MAME_DIR .. "src/mame/drivers/interpro.cpp",
-	MAME_DIR .. "src/mame/machine/cammu.h",
-	MAME_DIR .. "src/mame/machine/cammu.cpp",
 	MAME_DIR .. "src/mame/machine/interpro_ioga.h",
 	MAME_DIR .. "src/mame/machine/interpro_ioga.cpp",
 	MAME_DIR .. "src/mame/machine/interpro_mcga.h",
@@ -3736,8 +3735,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/octane.cpp",
 	MAME_DIR .. "src/mame/machine/vino.cpp",
 	MAME_DIR .. "src/mame/machine/vino.h",
-	MAME_DIR .. "src/mame/machine/saa7191.cpp",
-	MAME_DIR .. "src/mame/machine/saa7191.h",
 	MAME_DIR .. "src/mame/machine/sgi.cpp",
 	MAME_DIR .. "src/mame/machine/sgi.h",
 	MAME_DIR .. "src/mame/machine/hal2.cpp",
