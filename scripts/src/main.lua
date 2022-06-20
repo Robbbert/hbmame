@@ -121,6 +121,12 @@ end
 if (STANDALONE~=true) then
 	findfunction("linkProjects_" .. _OPTIONS["target"] .. "_" .. _OPTIONS["subtarget"])(_OPTIONS["target"], _OPTIONS["subtarget"])
 end
+	links {
+		"osd_" .. _OPTIONS["osd"],
+	}
+	links {
+		"qtdbg_" .. _OPTIONS["osd"],
+	}
 if (STANDALONE~=true) then
 	links {
 		"frontend",
@@ -129,12 +135,6 @@ end
 	links {
 		"optional",
 		"emu",
-	}
-	links {
-		"osd_" .. _OPTIONS["osd"],
-	}
-	links {
-		"qtdbg_" .. _OPTIONS["osd"],
 	}
 --if (STANDALONE~=true) then
 	links {
