@@ -15,8 +15,10 @@ New Games
 - [mslug4ar]            Metal Slug 4 Enemies Reset Fusion 20th Anniversary (Hack)
 - [mslug5sgf]           Metal Slug 5 Remake Final (Fightcade 2 Ver.2021 Hack)
 - [mslug5x]             Metal Slug 5 X
+- [mslugxsrf]           Metal Slug X AzStar Soda Remix (Fightcade 2 Ver. Hack)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.13)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)
+- [umk3uk20220406]      Ultimate Mortal Kombat 3 (UC Edition 2022-04-06)
 
 
 
