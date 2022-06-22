@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [cawingh01]           Carrier Air Wing (bootleg)
 - [dkrndmzr]            Donkey Kong RNDMZR v1.00 (2022-05-22)
 - [dkwizard]            Donkey Kong Wizardry v1.03
 - [mslug2fm]            Metal Slug 2 (Friendly Fire - Fightcade 2 Ver.2 Hack)

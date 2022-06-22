@@ -1912,6 +1912,14 @@ ROM_START( umk3uk20220406 ) // date from files
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "uk20220406.u54", 0x00000, 0x80000, CRC(9fc578a6) SHA1(3888df4da2e80da625d0fce995381957a2b2614d) )
 	ROM_LOAD16_BYTE( "uk20220406.u63", 0x00001, 0x80000, CRC(ecf37541) SHA1(a27839303c4af1f27b9afc97400e9da21ad6a587) )
+#if 0
+	// If these are enabled, the extended graphics becomes available, but it kills story mode
+	// Numbers other than 0x2000 can enable other features, but just as likely to crash the game.
+	ROM_FILL(0xf74c9,1,0x09)
+	ROM_FILL(0xf74c8,1,0xe0)
+	ROM_FILL(0xf74ca,4,0x00)
+	ROM_FILL(0xf74cb,1,0x20)
+#endif
 
 	ROM_REGION( 0x1009, "serial_security:pic", 0 )
 	ROM_LOAD( "463_mk3_ultimate.u64",  0x0000, 0x1009, CRC(4f425218) SHA1(7f26045ed2c9ca94fadcb673ce10f28208aa720e) )
