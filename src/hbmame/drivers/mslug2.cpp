@@ -147,6 +147,26 @@ ROM_START( mslug2eh4 ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
+ROM_START( mslug2fm )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241fm.p1",  0x000000, 0x100000, CRC(487173f6) SHA1(7d86f25ea5b99df0fff94954a79793e7b7098f94) )
+	ROM_LOAD16_WORD_SWAP( "241fm.p2",  0x100000, 0x200000, CRC(37a118fc) SHA1(37c913c3d6736362ad83b8aaadf94b9112669a52) )
+
+	NEO_SFIX_128K( "241.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+
+	NEO_BIOS_AUDIO_128K( "241.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "241.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) )
+	ROM_LOAD( "241.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) )
+	ROM_LOAD16_BYTE( "241.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) )
+	ROM_LOAD16_BYTE( "241.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
+	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
+ROM_END
+
 ROM_START( mslug2fr ) /* Metal Slug 2 - Translation Hack by NEO-ARC - (French translation) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241fr.p1",   0x000000, 0x100000, CRC(ad0de810) SHA1(69c56326b555fb2c18228794e1a2bfd11652ec16) )
@@ -2175,6 +2195,7 @@ GAME( 1998, mslug2eh1,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init
 GAME( 1998, mslug2eh2,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mslug2eh3,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mslug2eh4,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mslug2fm,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CZXINC",  "Metal Slug 2 (Friendly Fire - Fightcade 2 Ver.2 Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, mslug2fr,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug2fro,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)(Old)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, mslug2sh,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )

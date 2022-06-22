@@ -4397,10 +4397,11 @@ mslug2eh1
 mslug2eh2
 mslug2eh3
 mslug2eh4
+mslug2fm
 mslug2fr
 mslug2fro
 mslug2sh
-mslug2t		// 2015 trap15 - remove slowdowns that plague gameplay
+mslug2t                                // 2015 trap15 - remove slowdowns that plague gameplay
 mslug2ps01
 mslug2ps02
 mslug2ps03
@@ -4518,8 +4519,10 @@ mslug3eb
 mslug3fr
 mslug3fro
 mslug3hev
+//mslug3lw
 mslug3nd
-mslug3v		/* EEZEZY Violence Edition */
+mslug3rb
+mslug3v
 mslug3h01
 mslug3h02
 mslug3h03
@@ -4559,7 +4562,7 @@ mslug3h36
 mslug3h37
 mslug3h38
 mslug3h39
-mslug3h40
+//mslug3h40
 mslug3h41
 mslug3h42
 mslug3h43
@@ -4569,7 +4572,7 @@ mslug3h46
 mslug3h47
 mslug3h48
 mslug3h49
-mslug3h50
+//mslug3h50
 mslug3h51
 mslug3h52
 mslug3h53
@@ -4656,18 +4659,18 @@ mslug3la02
 mslug3la03
 mslug3la04
 mslug3la05
-mslug3la06
+//mslug3la06
 mslug3lb01
 mslug3lb02
 mslug3lb03
 mslug3lb04
 mslug3lb05
-mslug3lb06
+//mslug3lb06
 mslug3lc01
 mslug3lc02
 mslug3lc03
 mslug3lc04
-mslug3lc05
+//mslug3lc05
 mslug3rma01
 mslug3rma02
 mslug3rma03
@@ -4777,13 +4780,15 @@ mslug3rmg01
 mslug3rmg02
 mslug3rmg03
 mslug3rmg04
-mslug3rmh01
-mslug3rmh02
-mslug3rmh03
-mslug3rmh04
+//mslug3rmh01
+//mslug3rmh02
+//mslug3rmh03
+//mslug3rmh04
 mslug3unity
 
 @source:mslug4.cpp
+mslug4a
+mslug4ar
 mslug4eh2
 mslug4eh3
 mslug4eh4
@@ -4793,7 +4798,7 @@ mslug4eh
 mslug4kh
 mslug4xg
 mslug4d
-mslug4dh	/* Super D version */
+mslug4dh
 mslug4eho
 mslug4fr
 mslug4i
@@ -4965,6 +4970,8 @@ mslug5lvf
 mslug5lvnc
 mslug5nd
 mslug5w
+mslug5x
+mslug5sgf
 ms5boot
 ms5pcbd
 ms5sp
@@ -5289,6 +5296,7 @@ mslugxjdkj
 mslugxmfb
 mslugxres
 mslugxsef
+mslugxsrf
 mslugxp
 mslugxr
 mslugxst
