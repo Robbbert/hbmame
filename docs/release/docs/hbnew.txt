@@ -10,6 +10,9 @@ New Games
 - [cawingh01]           Carrier Air Wing (bootleg)
 - [dkrndmzr]            Donkey Kong RNDMZR v1.00 (2022-05-22)
 - [dkwizard]            Donkey Kong Wizardry v1.03
+- [kf2k19unis04]        Kof 10th Anniversary 2019 Unique (Optimized 2020-??-??)
+- [kf2k20unis01]        Kof 10th Anniversary 2020 Unique (Optimized 2020-10-25)
+- [kf2k20unis02]        Kof 10th Anniversary 2020 Unique (Optimized 2020-11-06)
 - [mslug2fm]            Metal Slug 2 (Friendly Fire - Fightcade 2 Ver.2 Hack)
 - [mslug3rb]            Metal Slug 3 (Last Warhead)
 - [mslug4a]             Metal Slug 4 20th Anniversary (GOTVG Ver.2021 Hack)
