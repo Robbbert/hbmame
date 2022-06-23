@@ -4307,13 +4307,7 @@ GAME( 1998, kof98zy,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_kof98
 GAME( 1998, kof98evox, kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "hack", "Kof'98 (Evolution, Orochi, Baozou Hack)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***************************
+/***************************
    The King of Fighters '98
 *****************************/
 
@@ -9459,3 +9453,4 @@ GAME( 1998, kof98xz12,      kof98,    neogeo_noslot, neogeo, neogeo_state,      
 GAME( 1998, kof98xz13,      kof98,    neogeo_noslot, neogeo, neogeo_state,         init_kof98,     ROT0, "Creamymami",    "Kof'98 (Enable Choosing Same One)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98xz14,      kof98,    neogeo_noslot, neogeo, neogeo_state,         init_kof98,     ROT0, "176126511",    "Kof'98 (Imitate KOFXI flash)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98xz15,      kof98,    neogeo_noslot, neogeo, neogeo_state,         init_kof98,     ROT0, "Eddids",    "Kof'98 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+

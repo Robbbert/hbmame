@@ -2157,13 +2157,7 @@ GAME( 2001, kof2k1bx,   kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neog
 GAME( 2001, kof2k1hb,   kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,  ROT0, "Kurouri", "Kof2001 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************************
+/**************************
  The King of Fighters '2001
 ******************************/
 
@@ -3448,3 +3442,4 @@ GAME( 2019, kof2001s45,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2019, kof2001s46,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2001 (PS2 Krizalid Edition 2019-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, kof2001s47,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2001 (PS2 Plus 2015-02-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2001s48,     kof2001,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2001 (Plus Blue Simplified Edition 2020-02-26)", MACHINE_SUPPORTS_SAVE )
+

@@ -2,8 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/atarisy1.cpp"
 
-
-
 ROM_START( ataris1hw )
 	ROM_REGION( 0x88000, "maincpu", 0 )
 	MOTHERBOARD_BIOS
@@ -73,6 +71,6 @@ ROM_START( ataris1rt )
 ROM_END
 
 
-
 GAME( 2017, ataris1hw, indytemp, indytemp, indytemp, atarisy1_state, init_indytemp, ROT0, "Luigi30", "Atari System 1 Hello World", 0 )
 GAME( 2017, ataris1rt, indytemp, indytemp, indytemp, atarisy1_state, init_indytemp, ROT0, "GadgetFreak", "Atari System 1 Ram Tester", 0 )
+

@@ -78,3 +78,4 @@ ROM_END
 
 GAME( 1991, tdragonp, tdragon,  tdragon,  tdragon,  nmk16_state, empty_init,            ROT270, "Trap15", "Thunder Dragon (Practice Mode)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
 GAME( 1993, tdragon2p,tdragon2, tdragon2, tdragon2, nmk16_state, init_banked_audiocpu,  ROT270, "Trap15", "Thunder Dragon 2 (Practice Mode)", MACHINE_NO_COCKTAIL | MACHINE_IMPERFECT_GRAPHICS )
+

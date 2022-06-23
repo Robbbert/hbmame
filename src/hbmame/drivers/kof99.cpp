@@ -3015,13 +3015,7 @@ GAME( 1999, kof99xpsa,  kof99hp,  neogeo_noslot, neogeo, neogeo_state, init_neog
 GAME( 1999, kof99xpsf,  kof99hp,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "XPS", "Kof'99 (00731 XPSLibrary final Fix 000409 - RS-ver)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99xpsp,  kof99hp,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "XPS", "Kof'99 (00731 XPSLibrary final Fix 000409)", MACHINE_SUPPORTS_SAVE )
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /************************
+/************************
  The King of Fighters '99
 ****************************/
 
@@ -5905,5 +5899,4 @@ GAME( 2020, kof99s103,      kof99,   neogeo_noslot,  neogeo, neogeo_state, init_
 GAME( 2020, kof99s104,      kof99,   neogeo_noslot,  neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'99 (Imitation PS Enhanced Edition Original 2020-08-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof99s105,      kof99,   neogeo_noslot,  neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'99 (Imitation PS Enhanced Edition Simplified 2020-08-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof99s106,      kof99,   neogeo_noslot,  neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'99 (Imitation 14 BC Version (AC open BC) 2020-09-30)", MACHINE_SUPPORTS_SAVE )
-
 

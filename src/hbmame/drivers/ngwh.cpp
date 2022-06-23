@@ -383,14 +383,7 @@ GAME( 1993, wh2ey,     wh2,  neogeo_noslot, neogeo, neogeo_state, init_neogeo, R
 GAME( 1994, wh2ja,     wh2j, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "ADK / SNK", "World Heroes 2 Jet (Old set)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wh2jb,     wh2j, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "0 DAY-S[EGCG]", "World Heroes 2 Jet (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /********************
+/********************
  World Heroes Perfect
 ***********************/
 

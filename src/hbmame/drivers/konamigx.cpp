@@ -1,14 +1,8 @@
-	// license:BSD-3-Clause
+// license:BSD-3-Clause
 // copyright-holders:Robbbert
 #include "../mame/drivers/konamigx.cpp"
 
 // Every game here must be added to the table at about line 3800 in src/mame/drivers/konamigx.cpp
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
 
  /*************
  Dragoon Might

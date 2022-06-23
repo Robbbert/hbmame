@@ -163,3 +163,4 @@ GAME( 2000, pacipede, centiped, centiped, centiped, centiped_state, empty_init, 
 GAME( 1998, silliped, milliped, milliped, milliped, centiped_state, empty_init, ROT270, "Andy", "Sillipede", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, vectiped, centiped, centiped, centiped, centiped_state, empty_init, ROT270, "The Dog", "Vectipede", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, vectrped, centiped, centiped, centiped, centiped_state, empty_init, ROT270, "T-Bone", "Vectorpede", MACHINE_SUPPORTS_SAVE )
+

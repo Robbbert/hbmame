@@ -126,16 +126,6 @@ ROM_START( decodemo )
 	ROM_LOAD( "ei31.9a",   0x0000, 0x1000, CRC(2a8745d2) SHA1(f15ab17b1e7836d603135f5c66ca2e3d72f6e4a2) )
 ROM_END
 
-GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (Translation French 2017-10-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
-
-
-
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-     Proyecto Shadows Mame Build Plus
-**********************************************/
 
 /********
  Robocop
@@ -182,6 +172,8 @@ ROM_START( robocopbs01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (Translation French 2017-10-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
 // Robocop
 GAME( 1988, robocopbs01,   robocop,  robocopb,   robocop,    dec0_state, empty_init,      ROT0, "bootleg", "Robocop (Red Corporation World bootleg)", MACHINE_SUPPORTS_SAVE )
 

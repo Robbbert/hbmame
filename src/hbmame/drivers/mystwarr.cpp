@@ -2,10 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/mystwarr.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
  /*************
  Dragoon Might
 ****************/
@@ -283,5 +279,4 @@ GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, 
 GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2018-05-07)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2020, viostorms04,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2020-03-24)", MACHINE_IMPERFECT_GRAPHICS )
 GAME( 2020, viostorms05,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2020-03-25)", MACHINE_IMPERFECT_GRAPHICS )
-
 

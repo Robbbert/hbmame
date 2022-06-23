@@ -2,11 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/aerofgt.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************
+/**************
  Karate Blazers
 *****************/
 

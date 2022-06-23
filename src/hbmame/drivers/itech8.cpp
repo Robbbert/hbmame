@@ -24,3 +24,4 @@ ROM_END
 
 
 GAME( 1989, itecdemo, 0, stratab_hi, gtg, itech8_state, empty_init, ROT0, "Charles Doty", "Demo - Itec", 0 )
+

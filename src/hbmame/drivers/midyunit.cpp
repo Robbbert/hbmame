@@ -34,3 +34,4 @@ ROM_START( mkla4d )
 ROM_END
 
 GAME( 1992, mkla4d, mk, yunit_adpcm_6bit_fast, mkla4, midyunit_state, init_mkyunit, ROT0, "Midway", "Mortal Kombat (rev 4.0 09/28/92 hack/Ver.Unknown)", MACHINE_SUPPORTS_SAVE )
+

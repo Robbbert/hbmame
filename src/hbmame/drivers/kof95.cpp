@@ -427,13 +427,7 @@ GAME( 1995, kof95xg,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_ne
 GAME( 1995, kof95y,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /************************
+/************************
  The King of Fighters '95
 ****************************/
 
@@ -1277,3 +1271,4 @@ GAME( 1995, kof95s29,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2017, kof95s30,       kof95,    gsc,           neogeo, neogeo_state, init_neogeo,    ROT0, "GSC2007", "Kof'95 (Special v1.0.062?)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95s31,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Wanglins/IsmaMj", "Kof'95 (Ice Blue Style Remix v6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof95s32,       kof95,    gsc,           neogeo, neogeo_state, init_neogeo,    ROT0, "GSC2007", "Kof'95 (Special v1.0 2020-02-22)", MACHINE_SUPPORTS_SAVE )
+

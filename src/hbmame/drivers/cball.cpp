@@ -35,3 +35,4 @@ ROM_END
 
 
 GAME( 2004, cballfix, cball, cball, cball, cball_state, empty_init, ROT0, "MASH", "Cannonball (Atari, prototype)(With new rom)", MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+

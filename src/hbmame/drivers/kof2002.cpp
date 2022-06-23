@@ -4062,13 +4062,7 @@ GAME( 2002, kof2k2bsx,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_neog
 ///GAME( 2002, kf2k2plc,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002, ROT0, "bootleg", "Kof2002 Super (set 4, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************************
+/**************************
  The King of Fighters '2002
 ******************************/
 
@@ -13159,5 +13153,4 @@ GAME( 2020, kof2k2s118,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, kof2k2s119,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2002 (PlayStation 2 Final Edition BC 2020-08-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2k2s120,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2002 (Combo Simplified Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, kof2k2s121,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Nobot Hacks", "Kof2002 (KofallmiXomega)", MACHINE_SUPPORTS_SAVE )
-
 

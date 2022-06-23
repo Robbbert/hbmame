@@ -473,13 +473,8 @@ GAME( 1994, kof94seh,  kof94,    neogeo_noslot,   neogeo,  neogeo_state, init_ne
 GAME( 1994, kof94sri,  kof94,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "IsmaMj", "Kof'94 (Super Ultra Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94y,    kof94,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ydmis", "Kof'94 (Hidden Characters-Fix Boss's error)", MACHINE_SUPPORTS_SAVE )
 
-// PSmame (c) gaston90 used with permission
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***************************
+/***************************
    The King of Fighters '94
 *****************************/
 
@@ -1059,3 +1054,4 @@ GAME( 2018, kof94s19,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2018, kof94s20,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'94 (Rebout)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s21,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "IsmaMj",    "Kof'94 (Xtreme Black v0.8)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof94s22,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'94 (Boss Edition 2016-03-27)", MACHINE_SUPPORTS_SAVE )
+

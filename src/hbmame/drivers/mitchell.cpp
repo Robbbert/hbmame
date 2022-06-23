@@ -21,15 +21,6 @@ ROM_START( mitcdemo )
 	ROM_LOAD_OPTIONAL( "bb1.bin",      0x00000, 0x20000, CRC(c52e5b8e) SHA1(933b954bfdd2d67e28b032ffabde192531249c1f) )
 ROM_END
 
-GAME( 1989, mitcdemo, 0, pang, pang, mitchell_state, init_pangb, ROT0, "Charles Doty", "Demo - Mitchell", MACHINE_SUPPORTS_SAVE )
-
-
-
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-     Proyecto Shadows Mame Build Plus
-**********************************************/
 
 /*****
  Pang
@@ -59,7 +50,7 @@ ROM_START( pangbolds01 ) //pangbold3
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 1989, mitcdemo, 0, pang, pang, mitchell_state, init_pangb, ROT0, "Charles Doty", "Demo - Mitchell", MACHINE_SUPPORTS_SAVE )
 // Pang
 GAME( 1989, pangbolds01,    pang,     pang,       pang,     mitchell_state, init_pangb,      ROT0,   "bootleg",    "Pang (bootleg, set 7)[bootleg]", MACHINE_SUPPORTS_SAVE )
-
 

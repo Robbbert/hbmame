@@ -5065,3 +5065,4 @@ GAME( 2004, kof2k4plss17,   kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2004, kof2k4plss18,   kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_kof2k4pls, ROT0, "kof1996",    "Kof Special Edition 2004 Plus (Remove Countdown)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4plss19,   kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_kof2k4pls, ROT0, "wesker[FGCH]",    "Kof Special Edition 2004 Plus (Practice Mode Maximum Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, kof2k4plss20,   kof2k4se, neogeo_noslot, neogeo, neogeo_state, init_kof2k4pls, ROT0, "Eddids[FGCH]",    "Kof Special Edition 2004 Plus (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+

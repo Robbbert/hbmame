@@ -365,25 +365,6 @@ ROM_START( bub68705a )
 	ROM_LOAD( "a71-25.41",    0x0000, 0x0100, CRC(2d0f8545) SHA1(089c31e2f614145ef2743164f7b52ae35bc06808) )
 ROM_END
 
-
-GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, init_common, ROT0, "Aladar", "Bubble Bobble (Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, sboblboblh, bublbobl, sboblboblh, boblbobl, bublbobl_hbmame, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )
-
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
 ROM_START( bublbobls01 )
 	ROM_REGION( 0x30000, "maincpu", 0 ) // There's no French text in this set
 	ROM_LOAD( "bublbobf-06.51",    0x00000, 0x08000, CRC(9ced3d8f) SHA1(d445f218fca822e7083a9347abd4a4e049b6555b) )
@@ -419,4 +400,14 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Bubble Bobble
 GAME( 2007, bublbobls01,   bublbobl,        bublbobl, bublbobl,   bublbobl_state, init_common, ROT0,  "S.Arkames",     "Bubble Bobble (Translation French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, bbaladar,   bublbobl, boblbobl, bbaladar, bublbobl_state, init_common, ROT0, "Aladar", "Bubble Bobble (Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bb2bmh,     bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Memories Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, bbhackv1,   bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "hack", "Bubble Bobble (Level Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux1,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Level Skip)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux2,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (Game Continue)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, bbredux3,   bublbobl, boblbobl, boblbobl, bublbobl_state, init_common, ROT0, "Punji", "Bobble Bobble Redux (High Score)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, sboblboblh, bublbobl, sboblboblh, boblbobl, bublbobl_hbmame, init_common, ROT0, "hack", "Super Bobble Bobble (Level Select)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2007, bublbobf,   bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "Arkatrad", "Bubble Bobble (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, bublboblu,  bublbobl, bublbobl, bublbobl, bublbobl_state, init_common, ROT0, "bootleg", "Bubble Bobble (Ultra Version, Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, bub68705a,  bublbobl, bub68705, bublbobl, bub68705_state, init_common, ROT0, "bootleg", "Bubble Bobble (Bootleg with 68705, set 2)", MACHINE_SUPPORTS_SAVE )
 
