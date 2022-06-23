@@ -2148,29 +2148,6 @@ ROM_START( cawingb )
 	ROM_LOAD( "ca_19.12c", 0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) )
 ROM_END
 
-ROM_START( cawingh01 )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD( "23",    0x00000, 0x80000, CRC(27e6cf74) SHA1(c3371a745dc7a257697ffa29f02750bbaec79999) )
-	ROM_LOAD16_WORD_SWAP( "ca-32m.8h", 0x80000, 0x80000, CRC(0c4837d4) SHA1(1c61958b43066b59d86eb4bae0b52c3109be4b07) )
-
-	ROM_REGION( 0x200000, "gfx", 0 )
-	ROMX_LOAD( "ca-5m.7a", 0x000000, 0x80000, CRC(66d4cc37) SHA1(d355ea64ff29d228dcbfeee72bcf11882bf1cd9d) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "ca-7m.9a", 0x000002, 0x80000, CRC(b6f896f2) SHA1(bdb6820b81fbce77d7eacb01777af7c380490402) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "ca-1m.3a", 0x000004, 0x80000, CRC(4d0620fd) SHA1(5f62cd551b6a230edefd81fa60c10c84186ca804) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "ca-3m.5a", 0x000006, 0x80000, CRC(0b0341c3) SHA1(c31f0e78f49d94ea9dea20eb0cbd98a6c613bcbf) , ROM_GROUPWORD | ROM_SKIP(6) )
-
-	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "ca_9.12b",  0x00000, 0x08000, CRC(96fe7485) SHA1(10466889dfc6bc8afd3075385e241a16372efbeb) )
-	ROM_CONTINUE(          0x10000, 0x08000 )
-
-	ROM_REGION( 0x40000, "oki", 0 )
-	ROM_LOAD( "ca_18.11c", 0x00000, 0x20000, CRC(4a613a2c) SHA1(06e10644fc60925b85d2ca0888c9fa057bfe996a) )
-	ROM_LOAD( "ca_19.12c", 0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) )
-
-	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "cawingh01.key", 0x00, 0x80, CRC(65cbbc14) SHA1(39d4f6d7fdfa6e827b4219bee8993bcdc0b6a39b) )
-ROM_END
-
 
 // HBMAME end
 
@@ -3132,7 +3109,6 @@ GAME( 1999, sgyxz,     wof,      sgyxz,     sgyxz,    cps_state, init_cps1,     
 
 
 GAME( 1990, cawingb,   cawing,   cawingb, cawingbl,   cps_state, init_cawingbl,  ROT0,   "bootleg", "Carrier Air Wing (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, cawingh01, cawing,   cps1_10MHz, cawingbl,   cps_state, init_cawingbl,     ROT0,   "bootleg", "Carrier Air Wing (bootleg1)", MACHINE_SUPPORTS_SAVE )
 
 void cps_state::captcommb2_map(address_map &map) {
 	map(0x000000,0x1fffff).rom();

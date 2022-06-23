@@ -896,6 +896,33 @@ ROM_START( captcoud )
 ROM_END
 
 
+ROM_START( cawingh01 )
+	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD( "cawingh01.23", 0x00000, 0x80000, CRC(27e6cf74) SHA1(c3371a745dc7a257697ffa29f02750bbaec79999) ) // 23.bin
+	ROM_LOAD16_WORD_SWAP( "ca-32m.8h", 0x80000, 0x80000, CRC(0c4837d4) SHA1(1c61958b43066b59d86eb4bae0b52c3109be4b07) ) // 22.bin
+
+	ROM_REGION( 0x200000, "gfx", ROMREGION_ERASEFF )
+	ROMX_LOAD( "ca-5m.7a", 0x000000, 0x80000, CRC(66d4cc37) SHA1(d355ea64ff29d228dcbfeee72bcf11882bf1cd9d) , ROM_GROUPWORD | ROM_SKIP(6) ) // 5.bin
+	ROMX_LOAD( "ca-7m.9a", 0x000002, 0x80000, CRC(b6f896f2) SHA1(bdb6820b81fbce77d7eacb01777af7c380490402) , ROM_GROUPWORD | ROM_SKIP(6) ) // 7.bin
+	ROMX_LOAD( "ca-1m.3a", 0x000004, 0x80000, CRC(4d0620fd) SHA1(5f62cd551b6a230edefd81fa60c10c84186ca804) , ROM_GROUPWORD | ROM_SKIP(6) ) // 1.bin
+	ROMX_LOAD( "ca-3m.5a", 0x000006, 0x80000, CRC(0b0341c3) SHA1(c31f0e78f49d94ea9dea20eb0cbd98a6c613bcbf) , ROM_GROUPWORD | ROM_SKIP(6) ) // 3.bin
+
+	ROM_REGION( 0x18000, "audiocpu", ROMREGION_ERASEFF )
+	ROM_LOAD( "ca_9.12b",  0x00000, 0x08000, CRC(96fe7485) SHA1(10466889dfc6bc8afd3075385e241a16372efbeb) ) // 9.bin
+	ROM_CONTINUE(          0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", ROMREGION_ERASEFF )
+	ROM_LOAD( "ca_18.11c", 0x00000, 0x20000, CRC(4a613a2c) SHA1(06e10644fc60925b85d2ca0888c9fa057bfe996a) ) // 18.bin
+	ROM_LOAD( "ca_19.12c", 0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) ) // 19.bin
+
+	ROM_REGION( 0x400, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "caw_pal_1a.jed", 0x000000, 0x00031b, CRC(3fc2424c) SHA1(89313c0ee7e11e29d6f361175702c5a1bfdefa05) ) // not used
+
+	ROM_REGION( 0x80, "control", ROMREGION_ERASEFF )
+	ROM_LOAD ( "cawingh01.key", 0x00, 0x80, CRC(65cbbc14) SHA1(39d4f6d7fdfa6e827b4219bee8993bcdc0b6a39b) ) // CPS_B_21_DEF, mapper_CA24B
+ROM_END
+
+
 ROM_START( cps1demo )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "cd30-36.bin",  0x00000, 0x20000, CRC(5eb617d6) SHA1(9d4656d2b29244eb2a01058f5b80752d94065a6e) )
@@ -29880,6 +29907,8 @@ GAME( 2020, captcomms104,  captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,
 GAME( 2020, captcomms105,  captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "hack", "Captain Commando (Nightmare Edition Update 2020-08-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, captcomms106,  captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "hack", "Captain Commando (Warlord Version 2020-08-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, captcomms107,  captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "hack", "Captain Commando (Masters Competition Edition 2020-10-18)", MACHINE_SUPPORTS_SAVE )
+// Carrier Air Wing
+GAME( 1990, cawingh01,     cawing,   cps1_10MHz, cawing,   cps_state, init_cps1,     ROT0,   "bootleg", "Carrier Air Wing (bootleg h01)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 GAME( 1993, dinos01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Bazooka)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos02,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0,   "Ydmis", "Cadillacs and Dinosaurs (Weapon Items Club)", MACHINE_SUPPORTS_SAVE )
