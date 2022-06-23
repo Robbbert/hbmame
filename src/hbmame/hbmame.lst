@@ -9041,6 +9041,10 @@ kurikintjs01
 plotting				//parent
 plottingas01
 
+@source:taito_z.cpp
+contcirc                               //parent
+contcircja
+
 @source:taotaido.cpp
 taotaido						
 taotaidoas01

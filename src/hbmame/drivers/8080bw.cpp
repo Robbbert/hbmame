@@ -2,8 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/8080bw.cpp"
 
-
-
 ROM_START( sinvrdzm )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "sinvrdzm.1",  0x0000, 0x0400, CRC(f625f153) SHA1(2a19f7b4f5687e89eebf02cfdf3d1d23624879fb) )
@@ -16,6 +14,6 @@ ROM_START( sinvrdzm )
 	ROM_LOAD( "sinvrdzm.8",  0x1c00, 0x0400, CRC(11392151) SHA1(ddeaf6678c898416e734d924f872496095ff294d) )
 ROM_END
 
-GAMEL(1978, sinvrdzm, invaders, invaders, superinv, sisv_state, empty_init, ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 
+GAMEL(1978, sinvrdzm, invaders, invaders, superinv, sisv_state, empty_init, ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 

@@ -966,6 +966,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/taito_f3.cpp",
 	MAME_DIR .. "src/mame/video/taito_f3.cpp",
 	MAME_DIR .. "src/mame/machine/taitocchip.cpp",
+	MAME_DIR .. "src/hbmame/drivers/taito_z.cpp",
+	MAME_DIR .. "src/mame/video/taito_z.cpp",
+	MAME_DIR .. "src/mame/video/tc0150rod.cpp",   -- taito_z
 	MAME_DIR .. "src/hbmame/drivers/volfied.cpp",
 	MAME_DIR .. "src/mame/video/volfied.cpp",
 	MAME_DIR .. "src/mame/audio/taitosnd.cpp",

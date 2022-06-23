@@ -14,7 +14,8 @@ GEN_FOLDERS += $(GENDIR)/mame/layout/
 LAYOUTS += \
 	$(SRC)/hbmame/layout/spacmissx.lay \
 	$(SRC)/mame/layout/segabill.lay \
-	$(SRC)/mame/layout/warrior.lay
+	$(SRC)/mame/layout/warrior.lay \
+	$(SRC)/mame/layout/contcirc.lay
 #	$(SRC)/mame/layout/atari_s1.lay
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
@@ -74,4 +75,7 @@ LAYOUTS += \
 	$(SRC)/mame/layout/speedfrk.lay \
 	$(SRC)/mame/layout/critcrsh.lay \
 	$(SRC)/mame/layout/hh_sm500_test.lay \
+	$(SRC)/mame/layout/chasehq.lay \
+	$(SRC)/mame/layout/dblaxle.lay \
+	$(SRC)/mame/layout/enforceja.lay \
 
