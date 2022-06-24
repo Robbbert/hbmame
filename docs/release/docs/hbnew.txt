@@ -26,6 +26,7 @@ New Games
 - [mslugxsrf]           Metal Slug X AzStar Soda Remix (Fightcade 2 Ver. Hack)
 - [sfz3mix]             Street Fighter Zero 3 (Mix 0.13)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)
+- [umk3tm20210809]      Ultimate Mortal Kombat 3 (Team Edition 2021-08-09)
 - [umk3uk20220406]      Ultimate Mortal Kombat 3 (UC Edition 2022-04-06)
 
 
