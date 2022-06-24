@@ -943,6 +943,23 @@ ROM_END
 // 410 : Codename: Blut Engel by Blastar (c) 2018
 // Bugs: Insert Coin causes reboot
 // Seems original didn't work correctly on MVS, this fixes it. Makes no difference in emulation.
+ROM_START( cnbe2018 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "410a.p1", 0x000000, 0x40000, CRC(189fecd5) SHA1(d78ef1b3c6af9e75618dabd52fec9403f5007c36) )
+
+	NEO_SFIX_64K( "410a.s1", CRC(ec227c62) SHA1(07a2b5daf8a6369d4b604293ad7b0368455c386b) )
+
+	NEO_BIOS_AUDIO_64K( "410a.m1", CRC(b94f41b4) SHA1(2d6d8d6e6fdae35efedc0732e790448df4e07e9a) )
+
+	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "410a.v1", 0x000000, 0x40000, CRC(54947995) SHA1(30616f95020a06d95a77a69b07fd195c86575307) )
+
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "410a.c1", 0x000000, 0x40000, CRC(db0e9083) SHA1(e0120e19fe0c04a4452fdc7bd3a159f116cbc412) )
+	ROM_LOAD16_BYTE( "410a.c2", 0x000001, 0x40000, CRC(6114b6fb) SHA1(d62bc4a49c6ba2a03d637a5d06a4140e7bdc78b2) )
+ROM_END
+
+#if 0
 // This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
 ROM_START( cnbe2018 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -966,7 +983,7 @@ ROM_START( cnbe2018 )
 	ROM_REGION( 0x80000, "sprites", 0 )
 	ROM_COPY("asis", 0xa0000, 0x00000, 0x80000)
 ROM_END
-
+#endif
 
 // 411 : NGEM2K by Blastar (c) 2006
 // No sound
