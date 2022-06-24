@@ -7,6 +7,8 @@
 
 New Games
 ---------------------------------
+- [captcommr1d]         Captain Commando (unknown hack r1d)
+- [captcommr1f]         Captain Commando (unknown hack r1f)
 - [cawingh01]           Carrier Air Wing (bootleg)
 - [contcircja]          Continental Circus (Japan set 2)
 - [dinore1]             Cadillacs and Dinosaurs (Readjusted v1.1)
