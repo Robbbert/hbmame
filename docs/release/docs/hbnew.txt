@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [cawingh01]           Carrier Air Wing (bootleg)
 - [contcircja]          Continental Circus (Japan set 2)
+- [dinore1]             Cadillacs and Dinosaurs (Readjusted v1.1)
 - [dkrndmzr]            Donkey Kong RNDMZR v1.00 (2022-05-22)
 - [dkwizard]            Donkey Kong Wizardry v1.03
 - [kf2k19unis04]        Kof 10th Anniversary 2019 Unique (Optimized 2020-??-??)
