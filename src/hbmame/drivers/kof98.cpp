@@ -4169,7 +4169,7 @@ GAME( 2008, kof98c20080524, kof98, neogeo_noslot, neogeo, neogeo_state, init_neo
 GAME( 2008, kof98c20080616, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2008-06-16)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself
 GAME( 2008, kof98c20080712, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2008-07-12)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself
 GAME( 2009, kof98c20090620, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2009-06-20)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself
-GAME( 2009, kof98c20090923, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2009-09-23)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // sometimes reboots itself
+GAME( 2009, kof98c20090923, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2009-09-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, kof98c20100214, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2010-02-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, kof98c20100304, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2010-03-04)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, kof98c20110114, kof98, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ivex", "Kof'98 (Combo 2011-01-14)", MACHINE_SUPPORTS_SAVE )

@@ -7820,7 +7820,7 @@ GAME( 2003, mslug5dh28,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_m
 GAME( 2020, mslug5dh29,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "Gaston90", "Metal Slug 5 (248 Grenades 2020-06-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug5dh30,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "Creamymami[EGCG]", "Metal Slug 5 (POW Never Lose)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug5dh31,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "DDJ", "Metal Slug 5 (Quick Go Next Mission)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug5dh32,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "DDJ", "Metal Slug 5 (War Chariot)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug5dh32,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "DDJ", "Metal Slug 5 (War Chariot)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, mslug5dh33,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "C.B", "Metal Slug 5 (Battle 2016-10-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, mslug5dh34,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_mslug5hb, ROT0, "C.B", "Metal Slug 5 (New Campaign 2016-10-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, mslug5dh35,  mslug5,   neogeo_noslot, neogeo,   neogeo_state, init_s1945p,   ROT0, "C.B", "Metal Slug 5 (New Battle Campaign)", MACHINE_SUPPORTS_SAVE )
