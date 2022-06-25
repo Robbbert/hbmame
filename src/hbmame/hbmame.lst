@@ -3844,7 +3844,6 @@ kof2k2s28
 kof2k2s29
 kof2k2s30 // no sound in attract mode
 kof2k2s31
-kof2k2s32
 kof2k2s33
 kof2k2s34
 kof2k2s35
@@ -6363,7 +6362,6 @@ kof2k4ru // no sound in attract mode
 kof2k4se1
 kof2k4seb
 kof2k4spl
-kof2k8uni
 //kof10thbr                            // broken; not working; p1 needs unscrambling
 kof10thd
 //kof10thd16                           // broken; not working, p1 needs unscrambling
@@ -6462,6 +6460,8 @@ kf2k5unis12
 kf2k5unis15
 kf2k5unis16
 kf2k5unis18
+kf2k8uni
+kf2k8unis01
 kf2k19unis01
 kf2k19unis02
 kf2k19unis03

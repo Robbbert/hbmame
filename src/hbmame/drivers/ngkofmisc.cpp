@@ -622,7 +622,7 @@ ROM_START( kof2k4spl )
 ROM_END
 
 
-ROM_START( kof2k8uni ) // hack of kof10th
+ROM_START( kf2k8uni ) // hack of kof10th
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "368.p1", 0x000000, 0x400000, CRC(966210bf) SHA1(9f86f29dbfe7ac951485908a20a6ce120ebdeb5f) )
 	ROM_LOAD16_WORD_SWAP( "368.p2", 0x400000, 0x400000, CRC(ae5f00f7) SHA1(807cbd02cdba320c7cf32c915a663338d7a89252) )
@@ -652,6 +652,29 @@ ROM_START( kof2k8uni ) // hack of kof10th
 	ROM_LOAD16_BYTE( "kf10-c8a.bin", 0x3000001, 0x400000, CRC(a5952ca4) SHA1(76dbb3cb45ce5a4beffa1ed29491204fc6617e42) )
 	ROM_LOAD16_BYTE( "368.c7", 0x3800000, 0x400000, CRC(1b6f3bde) SHA1(5e1222197f5a09837930cc34713667dc1644c02a) )
 	ROM_LOAD16_BYTE( "368.c8", 0x3800001, 0x400000, CRC(113555e3) SHA1(52b48e182d23422492d95c95de4c86b1d30864e0) )
+ROM_END
+
+ROM_START( kf2k8unis01 )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "368s01.p1",  0x000000, 0x800000, CRC(b99354cf) SHA1(deb87554d0c64e9209bd0ac4296bee2879b50b9d) )
+
+	NEO_SFIX_128K( "368.s1", CRC(e57b5757) SHA1(d3dbb83c3d8b9860361b36496bfdc95220b8b75f) )
+
+	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
+	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "368s01.c1", 0x0000000, 0x800000, CRC(2e30f558) SHA1(0833a938aa052059063e9e2afee9295d505cc0ff) )
+	ROM_LOAD16_BYTE( "368s01.c2", 0x0000001, 0x800000, CRC(c7d6f682) SHA1(b17dbeaef260721b3752009ff77fcf324f30dc75) )
+	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
+	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
+	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
+	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
+	ROM_LOAD16_BYTE( "368s01.c7", 0x3000000, 0x800000, CRC(aeef5880) SHA1(0f97472cf13fe4f03e2e163f29162ed2ad9a8f34) )
+	ROM_LOAD16_BYTE( "368s01.c8", 0x3000001, 0x800000, CRC(c9d84812) SHA1(0901e7d081ec4ce4f61867f1552e9922e2bdb8a5) )
 ROM_END
 
 
@@ -5072,11 +5095,15 @@ GAME( 2005, kf2k5unis12,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, kf2k5unis15,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Alpha Unique 2020-01-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k5unis16,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Alpha Unique New 2020-01-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k5unis18,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2005 Unique (Omega Edition Simplified 2020-02-27)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, kof2k8uni,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
+// Kof 10th Anniversary 2005 Unique (2008)
+GAME( 2008, kf2k8uni,       kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2008 Unique", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, kf2k8unis01,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "hack", "Kof 10th Anniversary 2008 Unique (Alt)", MACHINE_SUPPORTS_SAVE )
+// Kof 10th Anniversary 2005 Unique (2019)
 GAME( 2019, kf2k19unis01,   kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2019 Unique (Optimized 2019-05-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, kf2k19unis02,   kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2019 Unique (Optimized 2019-06-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k19unis03,   kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2019 Unique (Optimized Simplified Edition 2020-02-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k19unis04,   kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2019 Unique (Optimized 2020-?\?-?\?)", MACHINE_SUPPORTS_SAVE )
+// Kof 10th Anniversary 2005 Unique (2020)
 GAME( 2020, kf2k20unis01,   kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2020 Unique (Optimized 2020-10-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kf2k20unis02,   kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof 10th Anniversary 2020 Unique (Optimized 2020-11-06)", MACHINE_SUPPORTS_SAVE )
 // Kof Special Edition 2004
