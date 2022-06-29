@@ -70,4 +70,5 @@ ROM_END
 GAME( 2000, akblc2dx, arkanoid, bootleg,  arkangc,   arkanoid_state, init_arkblock, ROT90, "hack", "Block Deluxe (Game Corporation)", 0 )
 GAME( 2000, akgcdx,   arkanoid, bootleg,  arkangc,   arkanoid_state, init_arkgcbl,  ROT90, "hack", "Arkanoid Deluxe (Game Corporation)", 0 )
 GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid Deluxe (Japan, Tayto)", 0 )
-GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid LL32", 0 )
+GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid LL32", MACHINE_NOT_WORKING ) // broke 2022 after Z80 change
+

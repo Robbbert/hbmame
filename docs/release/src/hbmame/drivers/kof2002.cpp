@@ -4062,13 +4062,7 @@ GAME( 2002, kof2k2bsx,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_neog
 ///GAME( 2002, kf2k2plc,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002, ROT0, "bootleg", "Kof2002 Super (set 4, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************************
+/**************************
  The King of Fighters '2002
 ******************************/
 
@@ -10347,29 +10341,6 @@ ROM_START( kof2k2s31 ) // rom similar kof2k2s10 except .p2
 	ROM_LOAD16_BYTE( "265hc10.c8", 0x3000001, 0x800000, CRC(23746c53) SHA1(43a06f6e6314ae1aa7a90fdfcacca2c8097eebe0) )
 ROM_END
 
-ROM_START( kof2k2s32 )
-	ROM_REGION( 0x900000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "265k2s32.p1",  0x000000, 0x800000, CRC(b99354cf) SHA1(deb87554d0c64e9209bd0ac4296bee2879b50b9d) )
-
-	NEO_SFIX_128K( "366.s1", CRC(e57b5757) SHA1(d3dbb83c3d8b9860361b36496bfdc95220b8b75f) )
-
-	NEO_BIOS_AUDIO_128K( "kf10-m1.bin", CRC(f6fab859) SHA1(0184aa1394b9f9946d610278b53b846020dd88dc) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "kf10-v1.bin", 0x000000, 0x800000, CRC(0fc9a58d) SHA1(9d79ef00e2c2abd9f29af5521c2fbe5798bf336f) )
-	ROM_LOAD( "kf10-v2.bin", 0x800000, 0x800000, CRC(b8c475a4) SHA1(10caf9c69927a223445d2c4b147864c02ce520a8) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "265dhc32.c1", 0x0000000, 0x800000, CRC(2e30f558) SHA1(0833a938aa052059063e9e2afee9295d505cc0ff) )
-	ROM_LOAD16_BYTE( "265dhc32.c2", 0x0000001, 0x800000, CRC(c7d6f682) SHA1(b17dbeaef260721b3752009ff77fcf324f30dc75) )
-	ROM_LOAD16_BYTE( "265d.c3", 0x1000000, 0x800000, CRC(959fad0b) SHA1(63AB83DDC5F688DC8165A7FF8D262DF3FCD942A2) )
-	ROM_LOAD16_BYTE( "265d.c4", 0x1000001, 0x800000, CRC(efe6a468) SHA1(2A414285E48AA948B5B0D4A9333BAB083B5FB853) )
-	ROM_LOAD16_BYTE( "265d.c5", 0x2000000, 0x800000, CRC(74bba7c6) SHA1(E01ADC7A4633BC0951B9B4F09ABC07D728E9A2D9) )
-	ROM_LOAD16_BYTE( "265d.c6", 0x2000001, 0x800000, CRC(e20d2216) SHA1(5D28EEA7B581E780B78F391A8179F1678EE0D9A5) )
-	ROM_LOAD16_BYTE( "265dhc32.c7", 0x3000000, 0x800000, CRC(aeef5880) SHA1(0f97472cf13fe4f03e2e163f29162ed2ad9a8f34) )
-	ROM_LOAD16_BYTE( "265dhc32.c8", 0x3000001, 0x800000, CRC(c9d84812) SHA1(0901e7d081ec4ce4f61867f1552e9922e2bdb8a5) )
-ROM_END
-
 ROM_START( kof2k2s33 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265k2s33.p1", 0x000000, 0x100000, CRC(22f8b63e) SHA1(de65b850678fd6e12e35664a099ce98b721d9fd8) )
@@ -12837,7 +12808,7 @@ GAME( 2002, kof2002s28,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, kof2002s29,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "Creamymami",    "Kof2002 (Unlimited Power)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002s30,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "Creamymami",    "Kof2002 (Unlimited Power Store)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002s31,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "yashional",    "Kof2002 (Yagami Nunnery Add '97 Shavings Wind)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2002s32,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "wesker",    "Kof2002 (Moves Hack V2 2003-09-13)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof2002s32,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "wesker",    "Kof2002 (Moves Hack V2 2003-09-13)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002s33,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "snk2003",    "Kof2002 (Add Iori's New Move)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002s34,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "hack",    "Kof2002 (Add Iori's New Move 2)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002s35,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "snk2003",    "Kof2002 (Add Kim's New Move)" , MACHINE_SUPPORTS_SAVE )
@@ -13067,9 +13038,8 @@ GAME( 2002, kof2k2s26,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, kof2k2s27,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (Unknown Hack 2017-12-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2s28,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (Unknown Hack 2006-12-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2s29,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (Unknown Hack 2016-11-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2s30,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (Crazy Rugal Unique 2005)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2k2s30,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Wesker",  "Kof2002 (Crazy Rugal Unique 2005)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2s31,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (Edition Special 2017-12-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2k2s32,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (10th Anniversary Unique 2008)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2s33,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (3rd Strike of the Orochi 2009-11-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2s34,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (Merry Christmas Remix Ultra Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2s35,      kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof2002 (The Purple Dragons 2005-10-04)", MACHINE_SUPPORTS_SAVE )
@@ -13159,5 +13129,4 @@ GAME( 2020, kof2k2s118,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, kof2k2s119,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2002 (PlayStation 2 Final Edition BC 2020-08-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2k2s120,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2002 (Combo Simplified Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, kof2k2s121,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Nobot Hacks", "Kof2002 (KofallmiXomega)", MACHINE_SUPPORTS_SAVE )
-
 

@@ -386,15 +386,9 @@ void sm_state::io_map(address_map &map) {
 static const char *const invaders_sample_names[] =
 {
 	"*invaders",
-	"1",        /* shot/missle */
+	"1",        /* shot/missile */
 	"2",        /* base hit/explosion */
 	"3",        /* invader hit */
-	"4",        /* fleet move 1 */
-	"5",        /* fleet move 2 */
-	"6",        /* fleet move 3 */
-	"7",        /* fleet move 4 */
-	"8",        /* UFO/saucer hit */
-	"9",        /* bonus base */
 	0
 };
 
@@ -417,7 +411,7 @@ void sm_state::spacmissx(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 	SAMPLES(config, m_samples);
-	m_samples->set_channels(6);
+	m_samples->set_channels(3);
 	m_samples->set_samples_names(invaders_sample_names);
 	m_samples->add_route(ALL_OUTPUTS, "mono", 0.50);
 
@@ -479,3 +473,4 @@ ROM_START( spacmissx )
 ROM_END
 
 GAMEL(1980?,spacmissx, 0, spacmissx, spacmissx, sm_state, empty_init, ROT270, "bootleg?", "Space Missile - Space Fighting Game (Extra Sounds)", MACHINE_SUPPORTS_SAVE, layout_spacmissx )
+

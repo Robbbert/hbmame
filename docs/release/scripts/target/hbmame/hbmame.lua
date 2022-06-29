@@ -379,10 +379,6 @@ files {
 	MAME_DIR .. "src/mame/drivers/mhavoc.cpp",
 	MAME_DIR .. "src/mame/machine/mhavoc.cpp",
 	MAME_DIR .. "src/hbmame/drivers/missile.cpp",
-	MAME_DIR .. "src/mame/drivers/marblmd2.cpp",  -- marble madness ii
-	MAME_DIR .. "src/mame/audio/atarijsa.cpp",    -- marble madness ii
-	MAME_DIR .. "src/mame/video/atarivad.cpp",    -- marble madness ii
-	MAME_DIR .. "src/mame/machine/atariscom.cpp", -- marble madness ii
 }
 
 createHBMAMEProjects(_target, _subtarget, "atlus")
@@ -630,7 +626,6 @@ files {
 	MAME_DIR .. "src/mame/audio/8080bw.cpp",
 	MAME_DIR .. "src/mame/video/8080bw.cpp",
 	MAME_DIR .. "src/mame/drivers/mw8080bw.cpp",
-	MAME_DIR .. "src/mame/machine/mw8080bw.cpp",
 	MAME_DIR .. "src/mame/audio/mw8080bw.cpp",
 	MAME_DIR .. "src/mame/video/mw8080bw.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",
@@ -971,6 +966,9 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/taito_f3.cpp",
 	MAME_DIR .. "src/mame/video/taito_f3.cpp",
 	MAME_DIR .. "src/mame/machine/taitocchip.cpp",
+	MAME_DIR .. "src/hbmame/drivers/taito_z.cpp",
+	MAME_DIR .. "src/mame/video/taito_z.cpp",
+	MAME_DIR .. "src/mame/video/tc0150rod.cpp",   -- taito_z
 	MAME_DIR .. "src/hbmame/drivers/volfied.cpp",
 	MAME_DIR .. "src/mame/video/volfied.cpp",
 	MAME_DIR .. "src/mame/audio/taitosnd.cpp",

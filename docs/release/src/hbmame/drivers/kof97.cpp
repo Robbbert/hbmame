@@ -2649,13 +2649,7 @@ GAME( 1997, kof97z,    kof97,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 1997, kof97zm,   kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "LB70", "Kof'97 (ZMonanger)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***************************
+/***************************
    The King of Fighters '97
 *****************************/
 

@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/seta.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*******************
+/*********************
  The FairyLand Story
 **********************/
 
@@ -87,7 +81,7 @@ ROM_START( blandias03 )
 	ROM_LOAD( "ux001014.u70", 0x100000, 0x080000, CRC(86b49b4e) SHA1(045b352950d848907af4c22b817d154b2cfff382) )
 ROM_END
 
- /******************
+/********************
  Mobile Suit Gundam
 *********************/
 
@@ -110,7 +104,7 @@ ROM_START( msgundams01 )
 	ROM_LOAD( "fa001004.u26",  0x000000, 0x100000, CRC(b965f07c) SHA1(ff7827cc80655465ffbb732d55ba81f21f51a5ca) )
 ROM_END
 
- /*****
+/*******
  Rezon
 ********/
 

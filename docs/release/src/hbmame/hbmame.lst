@@ -43,7 +43,7 @@ arkanoid		//parent
 akblc2dx		/* hack */
 akgcdx			/* hack */
 aktaytdx		/* hack */
-arkll32			/* LLMAME 32 */
+//arkll32                              // broke mid-2022 after Z80 changes
 
 @source:asteroid.cpp
 asteroid		//parent
@@ -238,15 +238,18 @@ wof			// parent
 3wondrud
 captcomc
 captcomh
+captcommr1d
+captcommr1f
 captcoud
 cawingb
-cps1demo		/* HB Charles Doty */
-cps1frog		/* HB Charles Doty */
-cps1testm		/* HB Cal2 */
-cps1testma		/* HB Cal2 */
-cps1tests		/* HB Cal2 */
-cps1testsa		/* HB Cal2 */
-//cps1xx
+cawingh01
+cps1demo                               // HB
+cps1frog                               // HB
+cps1testm                              // HB
+cps1testma                             // HB
+cps1tests                              // HB
+cps1testsa                             // HB
+//cps1xx                               // corrupt gfx
 daimakb
 dino08h2
 dino08h3
@@ -267,8 +270,9 @@ dinohp
 dinohx
 dinojp
 dinore
+dinore1
 dinorp
-dinosf2
+//dinosf2                              // missing background
 dinoslice
 dinouphp
 dinoz
@@ -280,7 +284,7 @@ ffightaeh04
 ffightb
 ffightjh01
 knight21
-// knightsa	 		// rom missing
+//knightsa                             // rom missing
 knightshb2
 knightsh
 knightsha
@@ -290,11 +294,11 @@ knightud
 knightswt
 knightssa
 knightsdt
-kodd			// no gfx in attract mode; illegal instruction
+//kodd                                 // no gfx in attract mode; illegal address
 kodh
 kodsp
-kodud			// no gfx in attract mode; illegal instruction
-pnicku			/* 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site */
+//kodud                                // no gfx in attract mode; illegal address
+pnicku                                 // 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site
 punisherb
 punisherf
 punisherje1
@@ -304,14 +308,14 @@ punisherjha
 punisherud1
 punisherud2
 sf2bhj
-sf2c			// sf2, chinese
+sf2c
 sf2ced
 sf2ceda
 sf2cehp
 sf2cehk
 sf2cejem
 sf2celw
-sf2jbh			// sf2jbh2014
+sf2jbh                                 // sf2jbh2014
 sf2koryuh
 sf2h9
 sf2h10
@@ -376,7 +380,7 @@ sk2h34q
 sk2h41
 sk2h42
 sk2h43
-sk2h44
+//sk2h44                               // black screen
 sk2h45
 sk2h46
 sk3h1
@@ -435,14 +439,14 @@ tk2h11		// wofjmjp
 tk2h12		// wofjpsrw
 tk2h13		// wofjrabh
 tk2h14		// wofjrlb
-tk2h15		// wofjrpbs; ingame crash
-tk2h16		// wofjv10s; ingame crash
+//tk2h15		// wofjrpbs; 1111 exception
+//tk2h16		// wofjv10s; 1111 exception
 tk2h17		// wofjzcr1
 tk2h18		// wofjzero
 tk2h19
 tk2h20
 tk2h21
-tk2h22  // ingame crash
+//tk2h22                               // 1111 exception
 tk2h23
 tk2h24
 tk2h25
@@ -455,7 +459,7 @@ tk2h31
 tk2h32
 tk2h33
 tk2h35
-tk2h37  // ingame crash
+//tk2h37                               // 1111 exception
 tk2h38
 tk2h39
 tk2h40
@@ -468,9 +472,9 @@ tk2h46
 tk2h47
 tk2h48 
 tk2h49
-tk2h50  // ingame crash
-tk2h51  // ingame crash
-tk2h52  // ingame crash
+//tk2h50                               // 1111 exception
+//tk2h51                               // 1111 exception
+//tk2h52                               // 1111 exception
 tk2h53
 tk2h54
 tk2h55
@@ -750,7 +754,7 @@ dinos53 // dinosupfx
 dinos54
 dinos56
 dinos57
-dinos58
+//dinos58                              // black screen
 dinos59
 dinos60
 dinos61
@@ -885,11 +889,11 @@ dinos204
 dinos205
 dinos206
 dinos207
-dinos208
+//dinos208                             // illegal inst when entering building
 dinos209
 dinos210
 dinos211
-dinos212
+//dinos212                             // address error when entering building
 dinos213
 dinos214
 dinos215
@@ -1003,7 +1007,7 @@ punishers04
 punishers05
 punishers06
 punishers07
-//punishers08 //Encrypted
+//punishers08                          //Encrypted
 punishers09
 punishers10
 punishers11
@@ -1031,7 +1035,7 @@ punisherjs21
 punisherjs22
 punisherjs23
 punisherjs24
-punisherbzs01
+//punisherbzs01                        // no background
 sf2ces01
 sf2ces02
 sf2ces03
@@ -1097,7 +1101,7 @@ sf2reds03
 sf2reds04
 sf2reds05
 sf2reds06
-sf2m7s01
+//sf2m7s01                             // bad flicker sprites
 slammasts01
 slammasts02
 slammasts03
@@ -1222,8 +1226,8 @@ mshvsfjphp
 mshyh
 mvscjemb
 mvscjphp
-mvscrcp // reboots shortly after start
-mvscuh // reboots shortly after start
+//mvscrcp // reboots shortly after start
+//mvscuh // reboots shortly after start
 pfghtjrm
 pzloop2jd
 suicide		/* Razoola */
@@ -1255,6 +1259,7 @@ sfz3mix08
 sfz3mix09
 sfz3mix10
 sfz3mix11
+sfz3mix12
 sfz3mix
 sfz3te
 sfzjboss
@@ -1578,6 +1583,7 @@ dkcbarrel				// Paul Goes
 dkfreerun				// Paul Goes
 dkongrnd
 dkongrnd0
+dkrndmzr
 dkongotr
 dkongotr6
 dkongotr7
@@ -1604,6 +1610,7 @@ dksprfin
 dkwizard
 dkwizard0
 dkwizard1
+dkwizard2
 //dk_remix
 
 @source:docastle.cpp
@@ -1641,7 +1648,7 @@ exeriongr				// Vag @ GreekRoms 2004
 @source:fcrash.cpp
 fcrash
 captcommb2
-dinopic4
+//dinopic4                             // no sound, no sprites
 ffightbl
 ffightbla
 kodb
@@ -1724,6 +1731,7 @@ tst_galx1
 vectrgal	/* T-Bone hack of Galaxian */
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
+//multigameb                           // skeleton
 
 @source:gauntlet.cpp
 gaunt2		//parent
@@ -1878,8 +1886,8 @@ kof95s11
 kof95s12
 kof95s13
 kof95s14
-kof95s15    // they refuse to fight
-kof95s16    // reboots after 15 seconds
+//kof95s15    // they refuse to fight
+//kof95s16    // reboots after 15 seconds, illegal instruction
 kof95s17
 kof95s18
 kof95s19
@@ -2358,7 +2366,7 @@ kof97hx35
 kof97hx36
 kof97hx37
 kof97hx38
-kof97hx39 //Stops at character selection
+//kof97hx39 //Stops at character selection
 kof97hx40
 kof97hx41
 kof97hx42
@@ -2628,30 +2636,30 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
-kof97plss13 // Freezes in intro
+//kof97plss13 // Freezes in intro, address error exception
 
 @source:kof98.cpp
 kof98aas
 //kof98ae //test only, do not enable
-kof98ae0 //black splashes all over fight scene where cars speed past
-kof98ae1 //black splashes all over fight scene where cars speed past
-kof98ae2 //black splashes all over fight scene where cars speed past
-kof98ae3 //black splashes all over fight scene where cars speed past
-kof98ae20160308 //black splashes all over fight scene where cars speed past
-kof98ae20160902 //black splashes all over fight scene where cars speed past (same roms as kof98ae20160827)
+//kof98ae0 //black splashes all over fight scene where cars speed past
+//kof98ae1 //black splashes all over fight scene where cars speed past
+//kof98ae2 //black splashes all over fight scene where cars speed past
+//kof98ae3 //black splashes all over fight scene where cars speed past
+//kof98ae20160308 //black splashes all over fight scene where cars speed past
+//kof98ae20160902 //black splashes all over fight scene where cars speed past (same roms as kof98ae20160827)
 kof98bge
 kof98bh
-kof98bvi   // reboots in first demo
+//kof98bvi   // reboots in first demo
 kof98c2006
 kof98c20060214 // date cannot be confirmed
-kof98c20070720 // sometimes reboots itself
-kof98c20070923 // sometimes reboots itself
-kof98c20080330 // sometimes reboots itself while in China with Benimaru
-kof98c20080524 // sometimes reboots itself
-kof98c20080616 // sometimes reboots itself
-kof98c20080712 // sometimes reboots itself
-kof98c20090620 // sometimes reboots itself
-kof98c20090923
+//kof98c20070720 // sometimes reboots itself
+//kof98c20070923 // sometimes reboots itself
+//kof98c20080330 // sometimes reboots itself while in China with Benimaru
+//kof98c20080524 // sometimes reboots itself
+//kof98c20080616 // sometimes reboots itself
+//kof98c20080712 // sometimes reboots itself
+//kof98c20090620 // sometimes reboots itself
+//kof98c20090923
 kof98c20100214
 kof98c20100304
 kof98c20110114
@@ -2727,7 +2735,7 @@ kof98cn1
 kof98cos
 kof98cos1
 kof98cos2
-kof98cta // (kof98c20080801) - sometimes reboots itself
+//kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
 kof98ecm
 kof98ehr
@@ -2750,7 +2758,7 @@ kof98iori
 kof98izh
 kof98jh
 kof98k95
-kof98klc
+//kof98klc // (kof98c20090923 green)
 kof98lb
 kof98lv
 kof98m
@@ -2903,27 +2911,27 @@ kof98hh77
 kof98hh78
 kof98hh79
 kof98hh80
-kof98hh81
-kof98hh82
-kof98hh83
+//kof98hh81
+//kof98hh82
+//kof98hh83
 kof98hh84
-kof98hh85
-kof98hh86
-kof98hh87
-kof98hh88
-kof98hh89
-kof98hh90
-kof98hh91
-kof98hh92
-kof98hh93
-kof98hh94
-kof98hh95
+//kof98hh85
+//kof98hh86
+//kof98hh87
+//kof98hh88
+//kof98hh89
+//kof98hh90
+//kof98hh91
+//kof98hh92
+//kof98hh93
+//kof98hh94
+//kof98hh95
 kof98hh96
 kof98hh97
 kof98hh98
-kof98hh99
+//kof98hh99
 kof98hh100
-kof98hh101
+//kof98hh101
 kof98hh102
 kof98hh103
 kof98hh104
@@ -2937,7 +2945,7 @@ kof98hh111
 kof98hh112
 kof98hh113
 kof98hh114
-kof98hh115
+//kof98hh115
 kof98hh116
 kof98hh117
 kof98hh118
@@ -2979,7 +2987,7 @@ kof98xz15
 @source:kof99.cpp
 kof99ab
 kof99ae		/* Anniversary Edition */
-kof99ae0
+//kof99ae0                             // address error
 kof99ae20140408
 kof99ae20140624
 kof99ae20150121
@@ -3836,7 +3844,6 @@ kof2k2s28
 kof2k2s29
 kof2k2s30 // no sound in attract mode
 kof2k2s31
-kof2k2s32
 kof2k2s33
 kof2k2s34
 kof2k2s35
@@ -3946,7 +3953,7 @@ kof2k3nd
 kof2k3nrx
 kof2k3pcd
 kof2k3pch
-kof2k3plr
+//kof2k3plr                            // wont start
 kof2k3ps2
 kof2k3ps3
 kof2k3ss
@@ -4175,9 +4182,6 @@ superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
-@source:marblmd2.cpp
-marblmd2                               // 0.244 only
-
 @source:mario.cpp
 mario                                  //parent
 cenmario 
@@ -4322,8 +4326,10 @@ umk3uk20210709
 umk3uk20210727
 umk3uk20220207
 umk3uk20220302
+umk3uk20220406
 umk3tm20180120
 umk3tm20190417
+umk3tm20210809
 umk3plus20190921
 umk3plus20220307                       // umk3pb2
 
@@ -4396,10 +4402,11 @@ mslug2eh1
 mslug2eh2
 mslug2eh3
 mslug2eh4
+mslug2fm
 mslug2fr
 mslug2fro
 mslug2sh
-mslug2t		// 2015 trap15 - remove slowdowns that plague gameplay
+mslug2t                                // 2015 trap15 - remove slowdowns that plague gameplay
 mslug2ps01
 mslug2ps02
 mslug2ps03
@@ -4517,8 +4524,10 @@ mslug3eb
 mslug3fr
 mslug3fro
 mslug3hev
+//mslug3lw
 mslug3nd
-mslug3v		/* EEZEZY Violence Edition */
+mslug3rb
+mslug3v
 mslug3h01
 mslug3h02
 mslug3h03
@@ -4558,7 +4567,7 @@ mslug3h36
 mslug3h37
 mslug3h38
 mslug3h39
-mslug3h40
+//mslug3h40
 mslug3h41
 mslug3h42
 mslug3h43
@@ -4568,7 +4577,7 @@ mslug3h46
 mslug3h47
 mslug3h48
 mslug3h49
-mslug3h50
+//mslug3h50
 mslug3h51
 mslug3h52
 mslug3h53
@@ -4655,18 +4664,18 @@ mslug3la02
 mslug3la03
 mslug3la04
 mslug3la05
-mslug3la06
+//mslug3la06
 mslug3lb01
 mslug3lb02
 mslug3lb03
 mslug3lb04
 mslug3lb05
-mslug3lb06
+//mslug3lb06
 mslug3lc01
 mslug3lc02
 mslug3lc03
 mslug3lc04
-mslug3lc05
+//mslug3lc05
 mslug3rma01
 mslug3rma02
 mslug3rma03
@@ -4776,13 +4785,15 @@ mslug3rmg01
 mslug3rmg02
 mslug3rmg03
 mslug3rmg04
-mslug3rmh01
-mslug3rmh02
-mslug3rmh03
-mslug3rmh04
+//mslug3rmh01
+//mslug3rmh02
+//mslug3rmh03
+//mslug3rmh04
 mslug3unity
 
 @source:mslug4.cpp
+mslug4a
+mslug4ar
 mslug4eh2
 mslug4eh3
 mslug4eh4
@@ -4792,7 +4803,7 @@ mslug4eh
 mslug4kh
 mslug4xg
 mslug4d
-mslug4dh	/* Super D version */
+mslug4dh
 mslug4eho
 mslug4fr
 mslug4i
@@ -4964,6 +4975,8 @@ mslug5lvf
 mslug5lvnc
 mslug5nd
 mslug5w
+mslug5x
+mslug5sgf
 ms5boot
 ms5pcbd
 ms5sp
@@ -5288,6 +5301,7 @@ mslugxjdkj
 mslugxmfb
 mslugxres
 mslugxsef
+mslugxsrf
 mslugxp
 mslugxr
 mslugxst
@@ -5787,6 +5801,7 @@ crsword			// 037
 crswd2bl		// 054
 ctomaday		// 249
 cyberlip		// 010
+diggerma                               // HB
 doubledr		// 082
 eightman		// 025
 fatfury1		// 033
@@ -5800,7 +5815,7 @@ galaxyfg		// 078
 ganryu			// 252
 garou			// 253
 ghostlop		// 228
-goalx3		    // 209
+goalx3			// 209
 gowcaizr		// 094
 gpilots			// 020
 //gururin		// 067  not needed
@@ -5867,7 +5882,7 @@ pnyaa			// 267
 //popbounc		// 237  not needed
 preisle2		// 255
 pspikes2		// 068
-pulstar		// 089
+pulstar			// 089
 puzzledp		// 202
 puzzldpr		// 235
 //quizdais		// 023  not needed
@@ -5945,7 +5960,7 @@ cnbe2018
 cphd
 columnsn	/* 2000 (c) 1990 Sega */
 columnsncd
-//csw2 //not working & roms missing
+//csw2                                 //not working & roms missing
 ddsprdmo
 ddsprdmo1
 didemo
@@ -5967,8 +5982,8 @@ lernit
 lhbb
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
-lhopecd //broken; not working
-lhopecdh // broken; not working
+//lhopecd                              // broken; not working
+//lhopecdh                             // broken; not working
 looptris
 ltorb
 ndo_a_td
@@ -6037,6 +6052,7 @@ teot_3
 teot_4
 teot_5
 teot_6
+teot_7
 teot
 test01		// MVS Test 01 by Furrtek
 timesup
@@ -6094,7 +6110,7 @@ gpilotscd
 gpilotse
 gpilotspx
 ironcladb
-ironcladcd // broken; not working
+//ironcladcd // broken; not working
 jockeygpd
 joyjoycd
 joyjoycd1
@@ -6154,7 +6170,7 @@ pnyaad
 pnyaadd
 preisle2d
 preisle2px
-pspikes2cd // broken; not working
+//pspikes2cd // broken; not working
 ragnagrdbe
 ragnagrdbs
 ragnagrdeh
@@ -6177,7 +6193,7 @@ sonicwi3px
 spinmasth
 spinmastpx
 ssidekicd
-stakwindev
+//stakwindev
 strhoopcd
 superspycd
 tophuntrpx
@@ -6347,10 +6363,9 @@ kof2k4ru // no sound in attract mode
 kof2k4se1
 kof2k4seb
 kof2k4spl
-kof2k8uni
-kof10thbr   // broken; not working; p1 needs unscrambling
+//kof10thbr                            // broken; not working; p1 needs unscrambling
 kof10thd
-kof10thd16 // broken; not working, p1 needs unscrambling
+//kof10thd16                           // broken; not working, p1 needs unscrambling
 kof10thep15
 kof10thu
 kof10thub
@@ -6443,12 +6458,17 @@ kf2k5unis09
 kf2k5unis10
 kf2k5unis11
 kf2k5unis12
-kf2k5unis13
-kf2k5unis14
 kf2k5unis15
 kf2k5unis16
-kf2k5unis17
 kf2k5unis18
+kf2k8uni
+kf2k8unis01
+kf2k19unis01
+kf2k19unis02
+kf2k19unis03
+kf2k19unis04
+kf2k20unis01
+kf2k20unis02
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
@@ -7017,8 +7037,8 @@ wh2js02
 wh2js03
 
 @source:nmk16.cpp
-tdragon			//parent
-tdragonp		// trap15 - not working
+//tdragon			//parent
+//tdragonp		// trap15 - not working
 tdragon2		//parent
 tdragon2p		// trap15
 
@@ -8341,7 +8361,7 @@ pc_smb_ps15
 pc_smb_ps16
 pc_smb_ps17
 pc_smb_ps18
-pc_smb_ps19
+//pc_smb_ps19                          // unplayable
 pc_smb_ps20
 pc_smb_ps21
 pc_smb_ps22
@@ -8875,7 +8895,7 @@ grdianss18
 
 @source:sf.cpp
 sf						//parent
-sfs01					// freezes in attract mode
+//sfs01                                // freezes in attract mode
 
 @source:shadfrce.cpp
 shadfrce				//parent
@@ -8985,7 +9005,7 @@ landmakr				//parent
 pbobble2				//parent
 cleopath
 driusgxh
-f3demo					/* HB Antiriad (a demo made for Raine, not tested on real hardware) - not working */
+//f3demo					/* HB Antiriad (a demo made for Raine, not tested on real hardware) - not working */
 gekiridh
 gekiridoc
 landmakh
@@ -9025,6 +9045,10 @@ kurikint				//parent
 kurikintjs01
 plotting				//parent
 plottingas01
+
+@source:taito_z.cpp
+contcirc                               //parent
+contcircja
 
 @source:taotaido.cpp
 taotaido						

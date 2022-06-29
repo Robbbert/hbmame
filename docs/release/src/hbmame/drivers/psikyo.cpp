@@ -2,12 +2,6 @@
 // copyright-holders:Gaston90
 #include "../mame/drivers/psikyo.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
 /**************
  Sengoku Blade
 ****************/

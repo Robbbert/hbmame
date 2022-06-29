@@ -43,3 +43,4 @@ ROM_END
 
 GAME( 1987, pckgalgr, pcktgal, pcktgal, pcktgal, pcktgal_state, init_original,  ROT0, "GreekRoms", "Pocket Gal (Greek)", MACHINE_SUPPORTS_SAVE )
 GAME( 1987, pcktgalk, pcktgal, pcktgal, pcktgal, pcktgal_state, init_original,  ROT0, "Aneue Bannzai", "Pocket Gal (Translation Korean)", MACHINE_SUPPORTS_SAVE )
+

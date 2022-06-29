@@ -598,3 +598,4 @@ ROM_START( schasrcv )
 ROM_END
 
 GAME( 1979, schasrcv, 0, schasercv, schasercv, sc_state, empty_init, ROT270, "Taito", "Space Chaser (CV version)(Extra Sounds)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS )
+

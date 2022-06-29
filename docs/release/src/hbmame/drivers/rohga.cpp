@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/rohga.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***************
+/*****************
  Schmeiser Robo
 ******************/
 
@@ -49,5 +43,4 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Schmeiser Robo
 GAME( 1993, schmeisrs01,  schmeisr,  schmeisr, schmeisr, rohga_state, init_schmeisr, ROT0,   "yumeji",  "Schmeiser Robo (Enable Celberus)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL ) //Description: Press 'Start' to select Celberus
-
 

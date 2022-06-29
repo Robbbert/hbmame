@@ -33,4 +33,3 @@ ROM_END
 //Tao Taido
 GAME( 1993, taotaidoas01, taotaido, taotaido, taotaido6, taotaido_state, empty_init, ROT0, "DDJ", "Tao Taido (Easy Move)",   MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 
-

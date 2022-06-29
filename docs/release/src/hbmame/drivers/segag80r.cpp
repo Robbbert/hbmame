@@ -43,3 +43,4 @@ ROM_START( astrob2h ) // same as astrob2 except u2 and u4
 ROM_END
 
 GAME( 1981, astrob2h, astrob, astrob, astrob2, segag80r_state, init_astrob, ROT270, "Clay Cowgill", "Astro Blaster (ver 2 Hack)", 0 )
+

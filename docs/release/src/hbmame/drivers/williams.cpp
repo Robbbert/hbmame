@@ -117,11 +117,6 @@ ROM_START( robotrontie )
 	ROM_LOAD( "decoder_rom_6.3c",         0x0200, 0x0200, CRC(83faf25e) SHA1(30002643d08ed983a6701a7c4b5ee74a2f4a1adb) )
 ROM_END
 
-/*******************************************************
- *
- *  Game Driver
- *
- *******************************************************/
 
 GAME( 1981, defender2,   defender, williams_base,  stargate, williams_state, init_stargate, ROT0, "Jeff Vavasour", "Defender II", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, splatsc1,    splat,    williams_muxed, splat,    williams_muxed_state, init_joust,    ROT0, "Williams", "Splat! (sc1 hardware)", MACHINE_SUPPORTS_SAVE )
@@ -239,3 +234,4 @@ ROM_START( conquest )
 ROM_END
 
 GAME( 1982, conquest, 0, williams_base,  conquest, conquest_hbmame, init_robotron, ROT270, "Vid Kidz", "Conquest (prototype)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+

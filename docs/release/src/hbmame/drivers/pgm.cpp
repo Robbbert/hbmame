@@ -1993,13 +1993,7 @@ DRIVER_INIT_MEMBER(pgm_arm_type1_state,kovboot)
 }
 #endif
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*****************
+/*****************
  The Killing Blade
 ********************/
 
@@ -37969,3 +37963,4 @@ GAME( 2017, theglad100s01, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_
 GAME( 2020, theglad100s02, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state, init_theglada,   ROT0,   "hack", "The Gladiator (Full Attack Enhanced Edition 2020 2020-09-06)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, theglad100s03, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state, init_theglada,   ROT0,   "hack", "The Gladiator (Full Attack Enhanced Edition 2020 2020-09-18)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2017, theglad101s01, theglad,  pgm_arm_type3,      theglad, pgm_arm_type3_state, init_theglad,    ROT0,   "hack", "The Gladiator (Excalibur Vol. 2017 + Enhanced 2017-11-04)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+

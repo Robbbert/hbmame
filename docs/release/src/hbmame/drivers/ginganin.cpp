@@ -2,13 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/ginganin.cpp"
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
 /*****************
  Ginga NinkyouDen
 *******************/
@@ -50,3 +43,4 @@ ROM_END
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // Ginga NinkyouDen
 GAME( 1987, ginganins01,  ginganin,        ginganin, ginganin, ginganin_state, init_ginganin, ROT0, "Nunimmanse", "Ginga NinkyouDen (Korean Translation)", MACHINE_SUPPORTS_SAVE )
+

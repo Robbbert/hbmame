@@ -54,3 +54,4 @@ ROM_END
 
 GAME( 2000, phoenixr, phoenix, phoenix,  phoenix , phoenix_state, empty_init, ROT90, "CYBERYOGI =CO= Windler", "PhoenixR (GDR hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, phoenixg, phoenix, phoenix,  phoenixt, phoenix_state, empty_init, ROT90, "GreekRoms", "Phoenix (Greek)", MACHINE_SUPPORTS_SAVE )
+

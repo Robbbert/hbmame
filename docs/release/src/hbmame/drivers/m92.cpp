@@ -2,11 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/m92.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /****
+/****
  Hook
 *******/
 
@@ -557,3 +553,4 @@ GAME( 2019, nbbatmanus05,nbbatman,    nbbatman,      nbbatman,  m92_state, init_
 GAME( 2020, nbbatmanus06,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition 2020-01-15)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
 // Undercover Cops
 GAME( 2019, uccopsjs01,  uccops,      uccops,        uccops,    m92_state, empty_init,    ROT0,   "hack",         "Undercover Cops (Edition Enhanced 2019-07-22)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
+

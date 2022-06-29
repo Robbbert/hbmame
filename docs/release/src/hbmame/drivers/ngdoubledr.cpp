@@ -285,13 +285,7 @@ GAME( 2009, doubledrhp,     doubledr, neogeo_noslot, neogeo, neogeo_state,  init
 GAME( 2017, doubledrsp,     doubledr, gsc,           neogeo, neogeo_state,  init_neogeo, ROT0, "GSC2007", "Double Dragon (Special 2017 v1.0.0311)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*************
+/*************
  Double Dragon
 ****************/
 

@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/snesb.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*****************
+/*******************
  Sonic Blast Man 2
 ********************/
 

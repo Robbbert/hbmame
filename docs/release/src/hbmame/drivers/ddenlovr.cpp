@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/ddenlovr.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***************************
+/***************************
  Mahjong The Dai Chuuka Ken
 ******************************/
 
@@ -71,3 +65,4 @@ GAME( 2006, mjdchukas01,  mjdchuka,  mjchuuka,  mjchuuka, hanakanz_state, empty_
 GAME( 2006, mjmysters01,  mjmyster,  mjmyster,  mjmyster, ddenlovr_state, empty_init,    ROT0, "hack",   "Mahjong The Mysterious World (No AI Cheat 2006-01-12)", MACHINE_NO_COCKTAIL  )
 // Mahjong Reach Ippatsu
 GAME( 2005, mjreach1s01,  mjreach1,  mjreach1,  mjreach1, hanakanz_state, empty_init,    ROT0, "hack",   "Mahjong Reach Ippatsu (No AI Cheat 2005-10-02)",  MACHINE_NO_COCKTAIL  )
+

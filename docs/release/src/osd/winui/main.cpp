@@ -7,9 +7,6 @@
 //============================================================
 
 // standard windows headers
-#ifdef OSD_SDL
-#define _WIN32_WINNT 0x0501
-#endif
 #include <windows.h>
 #include <tchar.h>
 #include <cstdlib>

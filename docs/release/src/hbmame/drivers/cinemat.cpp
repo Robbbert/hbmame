@@ -72,6 +72,7 @@ ROM_END
 GAME(1981, bbugtest,  0,        boxingb, boxingb, cinemat_hbmame, init_bbugtest, ORIENTATION_FLIP_Y, "Test Rom", "Test Rom - Boxing Bugs", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
 GAME(2018, bbugtest1, bbugtest, boxingb, boxingb, cinemat_hbmame, init_bbugtest, ORIENTATION_FLIP_Y, "Timothy Shiels", "Test Rom - Cinematic", MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
 
+
 // WARRIOR modifications. See http://www.outerworldarcade.com/arcade/cinematronics/mods/warrior/warrior_4j_mod.html
 
 static INPUT_PORTS_START( warrior4j )
@@ -132,6 +133,7 @@ ROM_START( warrior4j2 )
 
 	CCPU_PROMS
 ROM_END
+
 
 GAME(2014, warrior4j1, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME(2014, warrior4j2, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v2)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )

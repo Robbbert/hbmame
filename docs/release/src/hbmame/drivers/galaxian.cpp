@@ -693,3 +693,97 @@ GAME( 19??, starfgh2, pisces,   pisces,   piscesb,  pisces_state,    init_pisces
 GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 
 
+ROM_START( multigameb )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD( "code.bin",     0x00000, 0x80000, CRC(5635ed48) SHA1(703aa21c58f58902c56fa3710db2523ae84877e0) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD( "gfx1.bin",     0x00000, 0x10000, CRC(63b8420d) SHA1(3cbc101165b02c0a64b8406bf91af42f9142512c) )
+	ROM_LOAD( "gfx2.bin",     0x10000, 0x10000, CRC(f962d3f7) SHA1(bd9aab0a511a8679280a83a2f8bbd1e82faf64d1) )
+
+	ROM_REGION( 0x400, "proms", 0 )
+	ROM_LOAD( "col.bin",      0x000000, 0x00400, CRC(c9320883) SHA1(814d42545a81f3316b564e52817c72b193f974ea) )
+//	ROM_LOAD( "bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
+
+//	ROM_REGION( 0x1000, "gfx1", 0 )
+//	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
+//	ROM_LOAD( "1k.bin",       0x0800, 0x0800, CRC(7e3f56a2) SHA1(a9795d8b7388f404f3b0e2c6ce15d713a4c5bafa) )
+
+//	ROM_REGION( 0x0020, "proms", 0 )
+//	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
+class multib_state : public videight_state
+{
+public:
+	multib_state(const machine_config &mconfig, device_type type, const char *tag)
+		: videight_state(mconfig, type, tag)
+		, m_rombank(*this, "rombank")
+	{
+	}
+
+	void multib(machine_config &config);
+	void init_multib();
+
+private:
+	//void multib_rombank_w(offs_t offset, uint8_t data);
+	//void multib_gfxbank_w(offs_t offset, uint8_t data);
+	void multib_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
+	void multib_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
+	void mem_map(address_map &map);
+
+	required_memory_bank m_rombank;
+};
+
+void multib_state::init_multib()
+{
+	m_rombank->configure_entries(0, 16, memregion("maincpu")->base(), 0x4000);
+	m_rombank->set_entry(0);
+
+	/* video extensions */
+	common_init(nullptr, nullptr, nullptr, nullptr);
+	m_extend_tile_info_ptr = extend_tile_info_delegate(&multib_state::videight_extend_tile_info, this);
+	m_extend_sprite_info_ptr = extend_sprite_info_delegate(&multib_state::videight_extend_sprite_info, this);
+}
+
+static GFXDECODE_START(gfx_multib)
+	GFXDECODE_SCALE("gfx1", 0x0000, galaxian_charlayout,   0, 32*32, GALAXIAN_XSCALE,1)
+	GFXDECODE_SCALE("gfx1", 0x0000, galaxian_spritelayout, 0, 32*32, GALAXIAN_XSCALE,1)
+GFXDECODE_END
+
+void multib_state::mem_map(address_map &map)
+{
+	map(0x0000,0x3fff).bankr(m_rombank);
+	map(0x4000,0x4fff).ram();
+	map(0x5000,0x53ff).mirror(0x400).ram().w(FUNC(multib_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x700).ram().w(FUNC(multib_state::galaxian_objram_w)).share("spriteram");
+	map(0x6000,0x6000).portr("IN0");
+	map(0x6800,0x6800).portr("IN1");
+	map(0x7000,0x7000).portr("IN2");
+	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
+	map(0x6000,0x6002).w(FUNC(multib_state::videight_gfxbank_w));
+	map(0x6003,0x6003).w(FUNC(multib_state::coin_count_0_w));
+	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
+	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
+	map(0x6808,0x68ff).nopw();
+	map(0x7001,0x7001).w(FUNC(multib_state::irq_enable_w));
+	map(0x7002,0x7005).w(FUNC(multib_state::videight_rombank_w));
+	map(0x7006,0x7006).w(FUNC(multib_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(FUNC(multib_state::galaxian_flip_screen_y_w));
+	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
+	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
+}
+
+void multib_state::multib(machine_config &config)
+{
+	galaxian(config);
+
+	// basic machine hardware
+	m_maincpu->set_addrmap(AS_PROGRAM, &multib_state::mem_map);
+
+	/* video hardware */
+	m_gfxdecode->set_info(gfx_multib);
+	m_palette->set_entries(32 * 32);
+}
+
+GAME( 2022, multigameb, galnamco, multib, warofbug, multib_state, init_multib, ROT90, "Macro", "MultigameB", MACHINE_SUPPORTS_SAVE )

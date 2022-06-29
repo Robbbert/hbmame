@@ -23,10 +23,6 @@ ROM_END
 GAME( 1998, doapph01, doapp, coh1002m, zn, tecmo_zn_state, empty_init, ROT0, "yumeji", "Dead Or Alive ++ (Enable Hidden Characters)", 0 )
 
 
-/****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
  /*****************
  Dead Or Alive ++
 ********************/
@@ -172,3 +168,4 @@ GAME( 1998, sfex2s01,     sfex2,  coh3002c,    zn6b,     zn2_state, empty_init, 
 GAME( 1999, sfex2ps01,    sfex2p, coh3002c,    zn6b,     zn2_state, empty_init, ROT0, "yumeji",  "Street Fighter EX2 Plus (Enable Hidden Characters)", 0 )
 // Street Fighter EX Plus
 GAME( 1997, sfexps01,     sfexp,  coh1002c,    zn6b,     zn1_state, empty_init, ROT0, "yumeji",  "Street Fighter EX Plus (Enable Hidden Characters)", 0 )
+

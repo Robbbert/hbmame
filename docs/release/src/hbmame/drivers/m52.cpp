@@ -43,3 +43,4 @@ ROM_START( spatrol )
 ROM_END
 
 GAME( 2008, spatrol,  mpatrol, m52, mpatrol, m52_state, empty_init, ROT0, "Gatinho", "Sponge Patrol", MACHINE_SUPPORTS_SAVE )
+

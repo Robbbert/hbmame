@@ -563,14 +563,7 @@ GAME( 2002, rotdhfwb,  rotd, neogeo_noslot, neogeo, neogeo_state, init_rotdb,  R
 GAME( 2002, rotdnd,    rotd, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Evoga / Playmore Corporation", "Rage of the Dragons (Fully Decrypted)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotdyc,    rotd, neogeo_noslot, neogeo, neogeo_state, init_rotdb,  ROT0, "Creamymami and Ydmis", "Rage of the Dragons (Add Char - Console mode enabled - Pow hack)", MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*******************
+/*******************
  Rage of the Dragons
 **********************/
 
@@ -815,3 +808,4 @@ GAME( 2002, rotds07,        rotd,     neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, rotds08,        rotd,     neogeo_noslot, neogeo, neogeo_state, init_rotd,      ROT0, "HappyASR[EGCG]",    "Rage of the Dragons (Same Character In A Team)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, rotds09,        rotd,     neogeo_noslot, neogeo, neogeo_state, init_rotd,      ROT0, "DDJ",    "Rage of the Dragons (Easy Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, rotds10,        rotd,     neogeo_noslot, neogeo, neogeo_state, init_rotd,      ROT0, "Gaston90",    "Rage of the Dragons (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+

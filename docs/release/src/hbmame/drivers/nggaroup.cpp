@@ -321,13 +321,7 @@ GAME( 1999, garoupy1,  garou,    neogeo_noslot, neogeo, neogeo_state,        ini
 GAME( 1999, garoupeh,  garou,    neogeo_noslot, neogeo, neogeo_state,        init_neogeo, ROT0, "Misfit Ydmis", "Garou - Mark of the Wolves (Add Char)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*****
+/*****
  Garou
 ********/
 
@@ -444,5 +438,4 @@ GAME( 1999, garoups01,     garou,    neogeo_noslot, neogeo, neogeo_state,       
 GAME( 1999, garoups02,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "feiyang001597",    "Garou - Mark of the Wolves (Easy Special Attacks)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, garoups03,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "Gaston90",    "Garou - Mark of the Wolves (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, garoups04,     garou,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "hack",    "Garou - Mark of the Wolves (Resurgence Lite 2015-03-10)", MACHINE_SUPPORTS_SAVE )
-
 

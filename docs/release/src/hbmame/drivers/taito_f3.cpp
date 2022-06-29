@@ -233,18 +233,12 @@ GAME( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT
 GAME( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
 GAME( 2000, f3demo,    0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
 GAME( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
-GAME( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation To China)", 0 )
+GAME( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation Chinise)", 0 )
 GAME( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
 GAME( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
 
 
-//PSmame (c) gaston90 used with permission
-
-/********************************************
-    Proyecto Shadows Mame Build Plus
-**********************************************/
-
- /*****************
+/*******************
  Cleopatra Fortune
 ********************/
 
@@ -276,7 +270,7 @@ ROM_START( cleopatrs01 )
 	ROM_LOAD16_BYTE("e28-03.bin", 0x000000, 0x200000, CRC(15c7989d) SHA1(7cc63d93e5c1f9f52f889e973bbefd5e6f7ce807) )
 ROM_END
 
- /**********
+/************
  Akkanbeder
 *************/
 
@@ -310,9 +304,9 @@ ROM_START( akkanvdrs01 )
 	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )
 ROM_END
 
- /**********
- Akkanbeder
-*************/
+/**************
+ Arabian Magic
+***************/
 
 ROM_START( arabianmjs01 ) //arabianmjc
 	ROM_REGION(0x200000, "maincpu", 0)
@@ -355,7 +349,7 @@ ROM_START( arabianmjs01 ) //arabianmjc
 	ROM_LOAD( "pal20l8b.70",     0x1000, 0x0144, CRC(92b5b97c) SHA1(653ab0467f71d93eceb8143b124cdedaf1ede750) )
 ROM_END
 
- /***************
+/*****************
  Bubble Symphony
 ******************/
 
@@ -396,7 +390,7 @@ ROM_START( bubsymphjs01 )
 	ROM_LOAD( "palce16v8q-d77-14.bin", 0x0800, 0x0117, CRC(7427e777) SHA1(e692cedb13e5bc02edc4b25e9dcea51e6715de85) )
 ROM_END
 
- /*********
+/***********
  Dan-Ku-Ga
 ************/
 
@@ -486,7 +480,7 @@ ROM_START( dankugas02 )
 	ROM_LOAD16_BYTE("d84-15.rom", 0xe00000, 0x100000, CRC(31ceb152) SHA1(d9d0bc631a6a726376f566a49605b50485ac7bf4) )
 ROM_END
 
- /***********************
+/*************************
  Elevator Action Returns
 **************************/
 
@@ -520,7 +514,7 @@ ROM_START( elvactrjs01 )
 	ROM_LOAD16_BYTE("e02-05.39", 0x400000, 0x200000, CRC(eb729855) SHA1(85253efe794e8b5ffaf16bcb1123bca831e776a5) )
 ROM_END
 
- /**********************************
+/************************************
   Grid Seeker: Project Storm Hammer
 *************************************/
 
@@ -558,7 +552,7 @@ ROM_START( gseekerjs01 )
 	ROM_LOAD("gseeker.nv", 0x0000, 0x0080, CRC(3e24cc80) SHA1(42173cf6aa40bb5015d01f62312fc2ff8d81fb65) )
 ROM_END
 
- /**************
+/****************
  Kaiser Knuckle
 *****************/
 
@@ -648,7 +642,7 @@ ROM_START( kaiserkns02 )
 	ROM_LOAD16_BYTE("d84-15.rom", 0xe00000, 0x100000, CRC(31ceb152) SHA1(d9d0bc631a6a726376f566a49605b50485ac7bf4) )
 ROM_END
 
- /**********
+/************
  Land Maker
 *************/
 
@@ -683,7 +677,7 @@ ROM_START( landmakrs01 )
 	ROM_LOAD16_BYTE("e61-06.40", 0xc00000, 0x200000, CRC(2e717bfe) SHA1(1be54cd2ec65d8fd49a5c09b5d27791fd7a320d4) )
 ROM_END
 
- /*************
+/***************
  Light Bringer
 ****************/
 

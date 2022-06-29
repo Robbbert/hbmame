@@ -3156,13 +3156,7 @@ GAME( 1994, wjammersk,     wjammers, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 2001, zupapad,       zupapa,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "SNK", "Zupapa! (Custom decrypted C Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, zupapadd,      zupapa,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "SNK", "Zupapa! (Custom decrypted C Set 2)", MACHINE_SUPPORTS_SAVE )
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********
+/***********
  Andro Dunos
 **************/
 
@@ -5621,3 +5615,4 @@ GAME( 1996, wakuwk7e,    wakuwak7, neogeo_noslot, neogeo, neogeo_state, init_neo
 GAME( 1995, whpe,        whp,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "ADK / SNK", "World Heroes Perfect (Earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, wjammere,    wjammers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Data East Corporation", "Windjammers / Flying Power Disc (Earlier)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, stakwindev,  neogeo,   no_watchdog,   neogeo, neogeo_state, init_neogeo,   ROT0, "Saurus", "Stakes Winner (early development board)", MACHINE_SUPPORTS_SAVE | MACHINE_NOT_WORKING | MACHINE_IS_INCOMPLETE )
+

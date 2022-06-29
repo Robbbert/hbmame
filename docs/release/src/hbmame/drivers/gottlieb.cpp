@@ -2,25 +2,25 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/gottlieb.cpp"
 
-ROM_START( 711qbert )
+ROM_START( 711qbert ) // gfx hack of myqbert
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "mqb-rom2.bin", 0xa000, 0x2000, CRC(6860f957) SHA1(ebd68aeb6d54868295bd20cf64ee0187a52df0e3) )
 	ROM_LOAD( "mqb-rom1.bin", 0xc000, 0x2000, CRC(11f0a4e4) SHA1(a805e51c40042fae209ace277abd9b35a990905b) )
 	ROM_LOAD( "mqb-rom0.bin", 0xe000, 0x2000, CRC(12a90cb2) SHA1(a33203aea79fe43d1233a16e3fdddaceac6e4a20) )
 
 	ROM_REGION( 0x10000, "r1sound:audiocpu", 0 )
-	ROM_LOAD( "mqb-snd1.bin", 0x7000, 0x0800, CRC(e704b450) SHA1(d509f54658e9f0264b9ab865a6f36e5423a28904) )
-	ROM_LOAD( "mqb-snd2.bin", 0x7800, 0x0800, CRC(c6a98bf8) SHA1(cc5b5bb5966f5d79226f1f665a3f9fc934f4ef7f) )
+	ROM_LOAD( "711.snd1",     0x7000, 0x0800, CRC(e704b450) SHA1(d509f54658e9f0264b9ab865a6f36e5423a28904) )
+	ROM_LOAD( "711.snd2",     0x7800, 0x0800, CRC(c6a98bf8) SHA1(cc5b5bb5966f5d79226f1f665a3f9fc934f4ef7f) )
 
 	ROM_REGION( 0x2000, "bgtiles", 0 )
 	ROM_LOAD( "qb-bg0.bin",   0x0000, 0x1000, CRC(7a9ba824) SHA1(12aa6df499eb6996ee35f56acac403ff6290f844) )
 	ROM_LOAD( "qb-bg1.bin",   0x1000, 0x1000, CRC(22e5b891) SHA1(5bb67e333255c0ea679ab4312256a8a71a950db8) )
 
 	ROM_REGION( 0x8000, "sprites", 0 )
-	ROM_LOAD( "mqb-fg3.bin",  0x0000, 0x2000, CRC(ee595eda) SHA1(11777d95ba79bd0ec7b964b76c1dc129db857816) )
-	ROM_LOAD( "mqb-fg2.bin",  0x2000, 0x2000, CRC(59884c78) SHA1(5e77ef46ccd55f79a5fa90521baa7c22e3783fe5) )
-	ROM_LOAD( "mqb-fg1.bin",  0x4000, 0x2000, CRC(2a60e3ad) SHA1(9ed83017f6c8e44337ad76c68b095f2c3300aadb) )
-	ROM_LOAD( "mqb-fg0.bin",  0x6000, 0x2000, CRC(b11ad9d8) SHA1(5264598f33aa76455ae4107d0f265c2a372ed67a) )
+	ROM_LOAD( "711.fg3",      0x0000, 0x2000, CRC(ee595eda) SHA1(11777d95ba79bd0ec7b964b76c1dc129db857816) )
+	ROM_LOAD( "711.fg2",      0x2000, 0x2000, CRC(59884c78) SHA1(5e77ef46ccd55f79a5fa90521baa7c22e3783fe5) )
+	ROM_LOAD( "711.fg1",      0x4000, 0x2000, CRC(2a60e3ad) SHA1(9ed83017f6c8e44337ad76c68b095f2c3300aadb) )
+	ROM_LOAD( "711.fg0",      0x6000, 0x2000, CRC(b11ad9d8) SHA1(5264598f33aa76455ae4107d0f265c2a372ed67a) )
 ROM_END
 
 ROM_START( pbert )
@@ -86,7 +86,8 @@ ROM_START( vbert )
 	ROM_LOAD( "vb-fg0.bin",   0x6000, 0x2000, CRC(4c3db270) SHA1(212f1c353511fb4166a7ad0135dd295a2a16af8d) )
 ROM_END
 
-GAME( 1982, 711qbert, qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "hack", "7-11 Q*bert", 0 )
-GAME( 2003, pbert,    qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Grand Master Peter", "P*bert", 0 )
-GAME( 1982, qbertb,   qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "bootleg", "Q*bert", 0 )
-GAME( 2003, vbert,    qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Grand Master Peter", "V*bert", 0 )
+GAME( 1982, 711qbert, qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "hack", "7-11 Q*bert", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, pbert,    qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Grand Master Peter", "P*bert", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, qbertb,   qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "bootleg", "Q*bert", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, vbert,    qbert, qbert, qbert, gottlieb_state, init_qbert, ROT270, "Grand Master Peter", "V*bert", MACHINE_SUPPORTS_SAVE )
+

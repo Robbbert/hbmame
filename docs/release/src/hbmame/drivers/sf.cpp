@@ -1,12 +1,10 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 // Proyecto De Inicio:"2016/2017"
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/sf.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
-  /************
+/****************
  Street Fighter
 *****************/
 

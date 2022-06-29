@@ -28,12 +28,7 @@ ROM_END
 
 GAME( 1982, alpines01, alpine, nomcu, alpine, taitosj_state, init_alpine, ROT270, "hack", "Alpine Ski (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 
-
-/****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**********
+/************
  Front Line
 *************/
 
@@ -76,3 +71,4 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Front Line
 GAME( 1982, frontlins01, frontlin,        mcu,      frontlin, taitosj_state, init_taitosj, ROT270, "hack", "Front Line (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+
