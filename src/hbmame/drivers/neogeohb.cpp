@@ -74,14 +74,19 @@ NUM TITLES
 
 NUM GAME YEAR COMPANY                 TITLE
 --- ---- ---- ----------------------- -------------------------------------------
-008*     1990 Alpha Denshi            Sun Shine / Block Paradise
-026*     1991 Alpha Denshi            Fun Fun Brothers
-028*     1991 Sammy                   Dunk Star
-035*     1991 Alpha Denshi            Mystic Wand
-072*     1995 Yumekobo                The Karate Ninja Show
-077*     1995 Astec                   Warlocks of the Fates
+008*     1990 Alpha Denshi            Sun Shine (video on youtube)
+012*     1990 Alpha Denshi            Block Paradise (video on youtube)
+026*     1991 Alpha Denshi            Fun Fun Brothers (video on youtube)
+028*     1991 Sammy                   Dunk Star (video on youtube)
+035*     1991 Alpha Denshi            Mystic Wand (video on youtube)
+   *     1995 Yumekobo                The Karate Ninja Show (not confirmed as Neo-Geo)
+071*     1994 Visco                   Bang Bang Busters (1994 on title screen)
+072*     1994 Face                    Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
+077*     1995 Astec21                 The Warlocks of the Fates / Shinryu Senki (video on nicovideo.jp and youtube)
+099*     1996 Viccom                  The Eye of Typhoon
+   *     1997 Saurus/Takumi           Magic Master / Mahou Juku
 204*     1997 Success                 Q.P. (Quality People)
-210*     1995 Monolith                Last Odyssey Pinball Fantasia
+210*     1995 Monolith                Last Odyssey Pinball Fantasia (video on youtube)
 226*     1996 Sunsoft                 Hebereke's Pair Pair Wars
 258*     2002 ADK                     Dance RhythMIX
 300 0300 2006 NG:DEV.Team             Last Hope
@@ -91,8 +96,8 @@ NUM GAME YEAR COMPANY                 TITLE
 304*0304 2013 NG:DEV.Team             NEO XYX
 305*0305 2014 NG:DEV.Team             Razion
 306*0306 2015 NG:DEV.Team             Kraut Buster
-316 0048 1994 Face                    Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
-323*1234 1996 Viccom                  The Eye of Typhoon
+316 0048 2011 Le Cortex               Treasure of the Caribbean (remake)
+323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
 332 03E7 2001 Brezzasoft              V-Liner
 336 0094      Face                    Dragon's Heaven
@@ -241,8 +246,9 @@ YEAR COMPANY                          TITLE
 1996 Saurus                           Mahou Juku Magic Master
 1997 Saurus                           Neo Pool Master
 1997 Gapporin                         Ookiku Fukuramasete Gapporn
-2000 Vektorlogic                      Neo Sparks (cancelled)
-     Vektorlogic                      TommyK (cancelled)
+2000 Jeff Ferrier for Vektorlogic     Neo Sparks (cancelled) (video on youtube)
+2004 Jeff Ferrier for Vektorlogic     TommyK (cancelled) (video on youtube)
+2013 Jeff Ferrier for Vektorlogic     Manic Panic (video on youtube)
 2000 SNK                              Garou 2 / Mark of the Wolves Special
 2002 Sun Amusement                    Poker Kingdom / Bingo Island
 2002 ADK                              World Heroes 3
@@ -255,7 +261,6 @@ YEAR COMPANY                          TITLE
      M.Priewe                         Neo Geo User Subroutine
 2014 RiKo(aka CosmicR/Phoenix Risen)  Cosmic Tower (demo on youtube)
 2013 Cristiano Bei                    NGPhoenix (CD) (playable CD demos exist)(www.iocera.com)
-2013 Jeff Ferrier                     Neo Geo Manic Panic (demo on youtube)
      Furrtek                          Unleashed (furrtek.free.fr)
      Furrtek                          Astrosmash (appears abandoned)(GAME#0400)
 2012 NGD                              NGD::ARK (Arkanoid port) (playable CD demos exist)(demo on youtube)
@@ -264,12 +269,14 @@ YEAR COMPANY                          TITLE
 2005 Neobitz                          Neo-Pac (pacman game)
      Neobitz                          Submarine Shooter (maybe same as Submarine Shooter demo)
      Neobitz                          Stadium Stars (neobitz.com)
-     Neobitz                          untitled (setting in a castle)(possible early version of Knights Chance)
+     Neobitz                          untitled (setting in a castle) (neobitz.com)
 2016 Neobitz                          Flight of the Dragon (video at www.facebook.com/Neobitz/videos/1239136276111256/)
 2014 tcdev                            Donkey Kong (CD) (video at retroports.blogspot.com/2015/08/dusting-off-neo-kong.html)
                                         (Also a picture at ngpace.blogspot.com/2013/12/neo-kong-is-not-donkey-kong.html)
 2016 Luis Miguel Mayor                Tech Demo #1 (Street Fighter 2)
-     Hine62/SAOH                      Neo Geo Space Invaders
+2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
+2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
+2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
 
 
