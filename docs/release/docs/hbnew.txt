@@ -1,6 +1,18 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-07-xx 0.245.1
+
+
+
+New Games
+---------------------------------
+- [ng4ptest]            Neo Geo 4 Player Multitab Test
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 6, 2022-07-06)
+
+
+
+
 2022-06-29 0.245
 
 
