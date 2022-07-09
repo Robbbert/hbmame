@@ -278,6 +278,7 @@ YEAR COMPANY                          TITLE
 2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
 2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
+2022 Frogbull                         Neo Mania (video on youtube)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
 
 
@@ -1675,7 +1676,7 @@ ROM_START( syscheck )
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "606.v1", 0x000000, 0x80000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
 
-	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
+	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites (these blank roms not used)
 	//ROM_LOAD16_BYTE( "606.c1", 0x000000, 0x80000, CRC(75660aac) SHA1(6a521e1d2a632c26e53b83d2cc4b0edecfc1e68c) )
 	//ROM_LOAD16_BYTE( "606.c2", 0x000001, 0x80000, CRC(75660aac) SHA1(6a521e1d2a632c26e53b83d2cc4b0edecfc1e68c) )
@@ -1778,8 +1779,8 @@ ROM_START( ng4ptest )
 	ROM_REGION( 0x10000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "611.v1", 0x000000, 0x010000, CRC(62ea940e) SHA1(65e22c4435d3950b1fc3d2949494b5fe3370e855) )
 
-	ROM_REGION( 0x10000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "611.c1", 0x000000, 0x08000, CRC(011ffca6) SHA1(5188431849b4613152fd7bdba6a3ff0a4fd6424b) )
+	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
+	// no sprites
 ROM_END
 
 
@@ -1804,6 +1805,7 @@ ROM_START( ww2demo )
 	ROM_LOAD16_BYTE( "613.c1", 0x000000, 0x100000, CRC(955efd3e) SHA1(b1c3ebff7158f1653b3b9bc5a52b06d8c62da1bb) )
 	ROM_LOAD16_BYTE( "613.c2", 0x000001, 0x100000, CRC(c213940f) SHA1(430c017f93ee87127a146bcfba684c840bc69f5b) )
 ROM_END
+
 
 // 616 : Neogeo demo by Charles Doty
 // Left-right will move the turning logo
@@ -2237,7 +2239,7 @@ ROM_START( neoromjb )
 	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "635.v1", 0x000000, 0x080000, CRC(68a2a556) SHA1(8343465cca82db43c0decea74c314f641e4bbb7a) )
 
-	ROM_REGION( 0x200000, "sprites", ROMREGION_ERASEFF )
+	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites - these blank roms not used
 	//ROM_LOAD16_BYTE( "635.c1", 0x000000, 0x100000, CRC(40098266) SHA1(d5bacfff0fc3470b8af4b7675daa816b1e2eb775) )
 	//ROM_LOAD16_BYTE( "635.c2", 0x000001, 0x100000, CRC(40098266) SHA1(d5bacfff0fc3470b8af4b7675daa816b1e2eb775) )
@@ -2540,7 +2542,7 @@ ROM_START( pcmademo )
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "669.v1", 0x000000, 0x80000, CRC(e7ef9bd8) SHA1(d5de1f63189b3a18382da81f02b20af68996ad7e) )
 
-	ROM_REGION( 0x200000, "sprites", ROMREGION_ERASEFF )
+	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
 ROM_END
 
@@ -2560,7 +2562,7 @@ ROM_START( pcmbdemo )
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "670.v1", 0x000000, 0x80000, CRC(baffec3e) SHA1(58ec4b684220ea558ed7dea99dfed1d24c57e662) )
 
-	ROM_REGION( 0x200000, "sprites", ROMREGION_ERASEFF )
+	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites
 ROM_END
 
@@ -3085,7 +3087,7 @@ GAME( 2019, neotrisd1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, neotrisd2,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, neotrisd3,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 3", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, nblktiger,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "Neo Black Tiger", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2021, ng4ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "4 Player Multitab Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, ng4ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "4 Player Multitab Test (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta 2006-01-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )

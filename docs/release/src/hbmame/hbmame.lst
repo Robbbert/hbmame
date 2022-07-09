@@ -5950,6 +5950,7 @@ badapple			// BEY
 badapplea
 badappleb
 beast		/* 2002 (c) 1989 Psygnosis */
+bonusstage                             // HB
 cabalng
 cabalng1
 caravan				// HB
@@ -5999,9 +6000,9 @@ neogal1d	// BEY
 neogal1t	// BEY
 neogal2		// BEY
 neonopon	/* (c) 2002-10-05 Blastar */
-neonopon_d1 // unplayable demo
-neonopon_d2 // unplayable demo
-neonopon_d3 // unplayable demo
+//neonopon_d1 // unplayable demo
+//neonopon_d2 // unplayable demo
+//neonopon_d3 // unplayable demo
 neopang
 neopong		/* (c) 2002 Neodev */
 neoponga	/* (c) 2002 Neodev */
@@ -6011,8 +6012,8 @@ neothund	// Sebastian Mihai
 neotrisd1
 neotrisd2
 neotrisd3
-bonusstage
 nblktiger
+ng4ptest
 ngem2k
 ngftdemo	// CeL
 ngmontst
@@ -6053,6 +6054,7 @@ teot_4
 teot_5
 teot_6
 teot_7
+teot_8
 teot
 test01		// MVS Test 01 by Furrtek
 timesup
@@ -6071,7 +6073,6 @@ zintrkcd	/* 211 (c) 1996 ADK / SNK */
 zintrkcd1
 zintrkm
 zintricks01
-
 
 @source:neogeo1.cpp
 2020bbcd

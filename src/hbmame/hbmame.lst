@@ -6000,18 +6000,18 @@ neogal1d	// BEY
 neogal1t	// BEY
 neogal2		// BEY
 neonopon	/* (c) 2002-10-05 Blastar */
-neonopon_d1 // unplayable demo
-neonopon_d2 // unplayable demo
-neonopon_d3 // unplayable demo
+//neonopon_d1 // unplayable demo
+//neonopon_d2 // unplayable demo
+//neonopon_d3 // unplayable demo
 neopang
 neopong		/* (c) 2002 Neodev */
 neoponga	/* (c) 2002 Neodev */
 neoromjb	// CeL
 neotest		// BEY
 neothund	// Sebastian Mihai
-//neotrisd1
-//neotrisd2
-//neotrisd3
+neotrisd1
+neotrisd2
+neotrisd3
 nblktiger
 ng4ptest
 ngem2k
