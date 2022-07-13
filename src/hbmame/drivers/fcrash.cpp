@@ -1611,12 +1611,12 @@ void cps_state::fcrash(machine_config &config)
 	MSM5205(config, m_msm_1, 24000000/64);  /* ? */
 	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
 	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.75);
 
 	MSM5205(config, m_msm_2, 24000000/64);  /* ? */
 	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
 	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.75);
 }
 
 // HBMAME start
@@ -1708,7 +1708,7 @@ void cps_state::kodb(machine_config &config)
 
 	/* CPS PPU is fed by a 16mhz clock,pin 117 outputs a 4mhz clock which is divided by 4 using 2 74ls74 */
 	OKIM6295(config, m_oki, XTAL(16'000'000)/4/4, okim6295_device::PIN7_HIGH); // pin 7 can be changed by the game code, see f006 on z80
-	m_oki->add_route(ALL_OUTPUTS, "mono", 0.30);
+	m_oki->add_route(ALL_OUTPUTS, "mono", 0.50);
 }
 
 void cps_state::sf2mdt(machine_config &config)
@@ -3169,19 +3169,19 @@ void cps_state::captcommb2(machine_config &config)
 	GENERIC_LATCH_8(config, m_soundlatch);
 
 	ym2151_device &ym2151(YM2151(config, "2151", XTAL(3'579'545)));
-	ym2151.add_route(0, "mono", 0.35);
-	ym2151.add_route(1, "mono", 0.35);
+	ym2151.add_route(0, "mono", 0.50);
+	ym2151.add_route(1, "mono", 0.50);
 
 	/* has 2x MSM5205 instead of OKI6295 */
 	MSM5205(config, m_msm_1, 24000000/64);  /* ? */
 	m_msm_1->vck_legacy_callback().set(FUNC(cps_state::m5205_int1)); /* interrupt function */
 	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.75);
 
 	MSM5205(config, m_msm_2, 24000000/64);  /* ? */
 	m_msm_2->vck_legacy_callback().set(FUNC(cps_state::m5205_int2)); /* interrupt function */
 	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.75);
 }
 
 
