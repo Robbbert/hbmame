@@ -20796,35 +20796,6 @@ ROM_START( punisherjs24 ) //punisherxl
 	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
-ROM_START( punisherbzs01 )  // punisherbzp, punisherkd sounds are completely wrong, background & text missing
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "c26bz.p1",   0x000000, 0x80000, CRC(bfa45d23) SHA1(56d04d02c9b9b22603205b1ce9e376874d2eaa05) )
-	ROM_LOAD16_WORD_SWAP( "c26bz.p5",   0x080000, 0x80000, CRC(092578a4) SHA1(c3c8f98f8b8fc9c71b33fb906b4c591067b4355b) )
-	ROM_LOAD16_WORD_SWAP( "c26s06.p9",   0x100000, 0x80000, CRC(33ee9f9c) SHA1(af58c857254a987deba9941f284588d966f336a8) )
-	ROM_LOAD16_WORD_SWAP( "c26bz.p10",  0x180000, 0x80000, CRC(f9f334ce) SHA1(22e58ce5096b95138a30e9726e1169895118e990) )
-
-	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "c26bz.c01",  0x000000, 0x80000, CRC(ad468e07) SHA1(1ee8ecfd001b447982bc16972575eb2c5e01bc51) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26bz.c03",  0x000002, 0x80000, CRC(b9fdb6b5) SHA1(991fe0ded5c859f1e25766e9417e1ad691205e59) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26bz.c05",  0x000004, 0x80000, CRC(be0b1a78) SHA1(d002bd90d0f239d29f5ea481e455d85a1c088516) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26bz.c07",  0x000006, 0x80000, CRC(bba67a43) SHA1(9cd51a06a7661b2f78059ac392423f73de5cf56f) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26.c17",  0x200000, 0x80000, CRC(c54ea839) SHA1(0733f37329edd9d0cace1319a7544b40aa7ecb0b) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26.c19",  0x200002, 0x80000, CRC(04c5acbd) SHA1(fddc94b0f36d4d22d7c357856ae15b7514c342d3) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26.c21",  0x200004, 0x80000, CRC(a544f4cc) SHA1(9552df8934ba25f19a22f2e07783712d8c8ef03c) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c26.c23",  0x200006, 0x80000, CRC(8f02f436) SHA1(a2f0ebb7e9593469c7b843f8962a66f3d77f79e5) , ROM_GROUPWORD | ROM_SKIP(6) )
-
-	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "c07.m1",   0x00000, 0x08000, CRC(b8367eb5) SHA1(ec3db29fdd6200e9a8f4f8073a7e34aef731354f) )  // from final fight
-	ROM_CONTINUE(              0x10000, 0x08000 )
-
-	ROM_REGION( 0x40000, "oki", 0 )
-	ROM_LOAD( "c07.v1",         0x00000, 0x20000, CRC(375c66e7) SHA1(36189e23209ce4ae5d9cbabd1574540d0591e7b3) )  // from final fight
-	ROM_LOAD( "c26bz.v2",       0x20000, 0x20000, CRC(eb5ca884) SHA1(3592c69f77c7cd6ee241d6c1079c34a3e58abb5b) )
-
-	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD ( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
-ROM_END
-
 /******************
  Street Fighter II
 ********************/
@@ -30290,7 +30261,7 @@ GAME( 2016, punisherjs04,  punisher, qsound,     punisher, cps_state, init_punis
 GAME( 1993, punisherjs05,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "zhyxxxx", "The Punisher (Lock double mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjs06,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "zhyxxxx", "The Punisher (Unlimited use of pistols)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, punisherjs07,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "pipi899", "The Punisher (Button To Take Gun Unloading Gun 2009-06-09)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, punisherjs08,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "EEZEZY(LB70)", "The Punisher (Angry Boms 2011.07.31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, punisherjs08,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "EEZEZY(LB70)", "The Punisher (Angry Boms 2011-07-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, punisherjs09,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "hack", "The Punisher (Warriors Edition 2017-11-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, punisherjs10,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "hack", "The Punisher (Enhanced Version 2014-12-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, punisherjs11,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "hack", "The Punisher (Strengthens Third Edition V1 2014-12-26)", MACHINE_SUPPORTS_SAVE )
@@ -30307,7 +30278,6 @@ GAME( 2020, punisherjs21,  punisher, qsound,     punisher, cps_state, init_punis
 GAME( 2020, punisherjs22,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "hack", "The Punisher (1VS2 Falling Dragon Edition 2020 2020-08-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, punisherjs23,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "hack", "The Punisher (Falling Dragon Edition 2020 2020-08-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, punisherjs24,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "hack", "The Punisher (Wushuang Jianglong Edition 2020-08-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, punisherbzs01, punisher, wofhfh,     punisherbz, cps_state, init_cps1,   ROT0,   "hack", "Biaofeng Zhanjing (Warrior Extreme Edition 2017-12-13)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 // Street Fighter II
 GAME( 1992, sf2ces01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "hack", "Street Fighter II': Champion Edition (Translation Brasil)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ces02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0,   "hack", "Street Fighter II': Champion Edition (Translation Hispanic)", MACHINE_SUPPORTS_SAVE )
