@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-0x-xx 0.245.2
+
+Puzzled: enabled both story mode and demo mode
+
+New Games
+---------------------------------
+
+
+
+
 2022-07-09 0.245.1
 
 
