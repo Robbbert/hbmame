@@ -18,18 +18,14 @@ prototype of another title. Corrected info is welcome.
 
 We want the MVS or AES roms for any game marked with * after the number.
 
-Please note: It is planned to move this list to the HBMAME website sometime this year.
 
-******* CD-only titles that may possibly exist as roms *************
+******* CD-only titles wanted as roms *************
 
 NUM YEAR COMPANY          TITLE
---- ---- ---------------- -------------------------------------------
-054 1995 ADK              Crossed Swords 2
-085*1997 SNK              Samurai Showdown R.P.G. (also known as 'Shinsetsu Samurai Spirits Bushidoretsuden')
+---.----.----------------.-------------------------------------------
+085*1997 SNK              Samurai Showdown R.P.G.
 091*1995 ADK              ADK World
-098 1995 Video System Co  Final Romance 2
 205*1995 SNK              NeoGeo CD Special
-211 1996 ADK              Zintrick
 229*1996 SNK              King of Fighters 96 CD Collection
 
 
@@ -37,43 +33,77 @@ NUM YEAR COMPANY          TITLE
 ******* Normal games that have alternate titles (or other) *************
 
 NUM TITLES
---- -------------------------------------------------------------------
+---.-------------------------------------------------------------------
 001 NAM-1975 (The MVS misses the demo sequence)
 004 Mahjong Kyo Retsuden / Real Mah-Jong Game
 007 Alpha Mission II / ASD Last Guardian II (MGD2 dump has extra sounds & roms)
 021 Puzzled / JoyJoyKid  (The MVS misses the story mode, AES misses demo)
 022 Blue's Journey / Raguy
 023 Quiz Daisousa Den / The Last Count Down
+029 Legend of Success Joe / Ashita no Joe Densetsu
 033 Fatal Fury / Garou Densetsu
 038 Thrash Rally / Rally Chase
 043 3 Count Bout / Fire Suplex
+044 Art of Fighting / Ryuuko no Ken
 045 Samurai Shodown / Samurai Spirits
-047 Fatal Fury 2 / Garoudensetsu 2
+047 Fatal Fury 2 / Garou Densetsu 2
 048 Mahjong Janshin / Quest of Jongmaster
-058 Fatal Fury Special / Garoudensetsu
+052 Super Sidekicks / Tokuten Ou
+056 Art of Fighting 2 / Ryuuko no Ken 2
+058 Fatal Fury Special / Garou Densetsu Special
+059 Savage Reign / Fu'un Mokujiroku
+061 Super Sidekicks 2: The World Championship / Tokuten Ou 2 : Real Fight Football
 062 Spin Master / Miracle Adventure
-063 Samurai Shodown 2 / Samurai Spirits 2 / Saulabi Spirits 2
+063 Samurai Shodown 2 / Salubi Spirits / Samurai Spirits 2: Haohmaru Jigokuhen
 065 Windjammers / Flying Power Disc
 066 Karnov's Revenge / Fighter's History Dynamite
 069 Fatal Fury 3 / Garoudensetsu 3; The Battle of Destiny; Road to the Final Victory
+074 Aggressors of Dark Combat / Tsukai Gan Gan Koshinkyoku
+075 Aero Fighters 2 / Sonic Wings 2
 076 Zed Blade / Operation Ragnarok
 079 Street Hoop / Dunk Dream / Street Slam
-087 Samurai Shodown III / Fighters Swords
-092 Kabuki Klash / Far East of Eden
+081 Super Sidekicks 3: The Next Glory / Tokuten Ou 3: Eiko e no Chousen
+083 Bust-a-move / Puzzle Bobble
+085 Samurai Shodown RPG / Shinsetsu Samurai Spirits Bushidouretsuden
+087 Samurai Shodown III: Blades of Blood / Fighters Swords / Samurai Spirits: Zankurou MusouKen
+091 ADK World / ADK Special
+092 Far East of Eden: Kabuki Klash / Tengai Makyo Shinden
+094 Voltage Fighter Gowcaizer / Chojin Gakuen Gowcaizer
+095 Real Bout Fatal Fury / Real Bout Garou Densetsu
+096 Art of Fighting 3 / Ryuuko no Ken Gaiden
+097 Aero Fighters 3 / Sonic Wings 3
 200 Neo Turf Masters / Big Tournament Golf
-215 Super Sidekicks 4 / SNK Football Championship
-216 Kizuna Encounter; Super Tag Battle
-219 Pleasure Goal / Futsal
-220 Ironclad / Brikin'ger
-222 Samurai Shodown 4 / Legend of a Warrior
-
+203 Master of Syougi / Shogi no Tatsujin
+208 Super Dodgeball / Kunio no Nekketsu Toukyuu Densetsu
+211 ZinTrick / Oshidashi Zentrix
+215 Super Sidekicks 4: The Ultimate 11 / SNK Football Championship / Tokuten Ou: Honou no Libero
+216 Kizuna Encounter / Fu'un Super Tag Battle
+218 Ragnagard / Shinoken
+219 Pleasure Goal: 5 on 5 Mini Soccer / Futsal
+220 Ironclad / Chotetsu Brikinger
+222 Samurai Shodown 4 / Legend of a Warrior / Samurai Spirits: Amakusa Kourin
+231 Money Puzzle Exchanger / Money Idol Exchanger
+234 The Last Blade / Last Soldier / Bakumatsu Roman: Gekka no Kenshi
+236 The Irritating Maze / Ultra Denryuu Iararabou
+237 Pop 'n' Bounce / Gapporin
+240 Real Bout Fatal Fury 2: The Newcomers / Real Bout Garou Densetsu 2: The Newcomers
+242 King of Fighters '98: { The Slugfest / Dream Match Never Ends }
+243 The Last Blade 2 / Last Soldier 2 / Bakumatsu Roman Dai Ni Maku: Gekka no Kenshi
+248 Bust-a-move Again / Puzzle Bobble 2
+252 Ganryu / Musashi Ganryuki
+253 Garou: Mark of the Wolves
+261 Sengoku 3 / Sengoku Legends 2001 / Sengoku Denshou 2001
+266 Matrimelee / Shin Goketsuji Ichizoku Matrimelee
+269 SVC Chaos: SNK vs Capcom / SNK vs Capcom SVC Chaos
+270 Samurai Shodown 5 / Samurai Spirits Zero
+272 Samurai Shodown 5 Special / Samurai Spirits Zero Special
 
 
 ********************** Official Titles **********************************
 (from info gathered from various sites, hopefully correct)
 
 NUM GAME YEAR COMPANY                 TITLE
---- ---- ---- ----------------------- -------------------------------------------
+---.----.----.-----------------------.-------------------------------------------
 008*     1990 Alpha Denshi            Sun Shine (video on youtube)
 012*     1990 Alpha Denshi            Block Paradise (video on youtube)
 026*     1991 Alpha Denshi            Fun Fun Brothers (video on youtube)
@@ -121,11 +151,11 @@ NUM GAME YEAR COMPANY                 TITLE
 
 
 ********************** Homebrew Games (400 to 599) *************************
-(n/r) = not released (yet)
+
 GAME = Game number inside the rom
 
 NUM GAME YEAR COMPANY                 TITLE
---- ---- ---------------------------- -------------------------------------------
+---.----.----.-----------------------.-------------------------------------------
 400 0066 1999 Kyle Hodgetts           Digger Man
 403 2003 2003 Neobitz                 Poker Night
 404 2000 2004 Neobitz                 Columns
@@ -146,7 +176,7 @@ NUM GAME YEAR COMPANY                 TITLE
 444 1234 2018 kl3mousse               Sea Fighter
 446 7777 2014 M.Priewe                Monitor Test Tool
 447 0600 2021 M.Priewe                Hypernoid
-455*     2004 Blastar                 Neo Puzzle League (CD only) [nebula]
+455*1234 2004 Blastar                 Neo Puzzle League (CD only) [nebula]
 461 0280 2020 Elrayzeur               Puzzle Crazy
 462 0083 2009 Elrayzeur               Puzzle Bobble Crazy beta
 469 9999 2002 Neodev                  Neo Pong
@@ -166,7 +196,7 @@ NUM GAME YEAR COMPANY                 TITLE
 (includes input tests and the like)
 
 NUM GAME YEAR COMPANY                 TITLE
---- ---- ----------------------- -------------------------------------------
+---.----.----.-----------------------.-------------------------------------------
 601 2002 2002 Jeff Kurtz              Shadow of the Beast demo
 602*          Neobitz                 Neobitz demo (Jeff M. Kurtz is Neobitz)
 606 FFFF 2000 Blastar                 System Check
@@ -226,7 +256,7 @@ NUM GAME YEAR COMPANY                 TITLE
 (Every unnumbered title starts here, until it actually exists)
 
 YEAR COMPANY                          TITLE
-----.-------------------------------- -------------------------------------------
+----.--------------------------------.-------------------------------------------
      SNK                              Baseball Stars 3 (confirmed never existed)
      SNK                              Magician Lord 2 (confirmed never released)
                                       Death Match
@@ -246,7 +276,6 @@ YEAR COMPANY                          TITLE
 1996 SNK                              Kizuna Encounter Special Edition (could be "Kizuna Encounter 4way Battle") (could be "Fu'un Super Tag Battle Link-up")
 1996 Saurus                           Mahou Juku Magic Master
 1997 Saurus                           Neo Pool Master
-1997 Gapporin                         Ookiku Fukuramasete Gapporn
 2000 Jeff Ferrier for Vektorlogic     Neo Sparks (cancelled) (video on youtube)
 2004 Jeff Ferrier for Vektorlogic     TommyK (cancelled) (video on youtube)
 2013 Jeff Ferrier for Vektorlogic     Manic Panic (video on youtube)

@@ -634,7 +634,7 @@ captcomms39
 captcomms40
 captcomms41
 captcomms42
-captcomms43
+//captcomms43                          // address error
 captcomms44
 captcomms46
 captcomms47
@@ -990,8 +990,8 @@ knightsh15
 knightsh16
 knightsh17
 knightsh18
-knightsh19
-knightsh20
+//knightsh19                           // address error in demo
+//knightsh20                           // address error in demo
 knightsjs01
 mercs01
 mercjs01
@@ -1127,7 +1127,7 @@ wofs03
 wofs04
 wofs05
 wofs06
-wofs07 //ingame crash
+wofs07
 wofs08
 wofs09
 tk2p02
