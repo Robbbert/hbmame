@@ -2220,28 +2220,28 @@ Cadillac Bootleg Hardware:
 */
 ROM_START( dinopic )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "3.bin",      0x000001, 0x80000, CRC(13dfeb08) SHA1(cd2f9dd64f4fabe93901247e36dff3763169716d) )
-	ROM_LOAD16_BYTE( "5.bin",      0x000000, 0x80000, CRC(96dfcbf1) SHA1(a8bda6edae2c1b79db7ae8a8976fd2457f874373) )
-	ROM_LOAD16_BYTE( "2.bin",      0x100001, 0x80000, CRC(0e4058ba) SHA1(346f9e34ea53dd1bf5cdafa1e38bf2edb09b9a7f) )
-	ROM_LOAD16_BYTE( "7.bin",      0x100000, 0x80000, CRC(6133f349) SHA1(d13af99910623f62c090d25372a2253dbc2f8cbe) )
+	ROM_LOAD16_BYTE( "c25b.p1",      0x000001, 0x80000, CRC(13dfeb08) SHA1(cd2f9dd64f4fabe93901247e36dff3763169716d) )
+	ROM_LOAD16_BYTE( "c25b.p2",      0x000000, 0x80000, CRC(96dfcbf1) SHA1(a8bda6edae2c1b79db7ae8a8976fd2457f874373) )
+	ROM_LOAD16_BYTE( "c25b.p3",      0x100001, 0x80000, CRC(0e4058ba) SHA1(346f9e34ea53dd1bf5cdafa1e38bf2edb09b9a7f) )
+	ROM_LOAD16_BYTE( "c25b.p4",      0x100000, 0x80000, CRC(6133f349) SHA1(d13af99910623f62c090d25372a2253dbc2f8cbe) )
 
 	ROM_REGION( 0x400000, "gfx", 0 ) // same data, different format, except for 8 which is a 99% match (bad rom?)
-	ROMX_LOAD( "4.bin",   0x000000, 0x40000, CRC(f3c2c98d) SHA1(98ae51a67fa4159456a4a205eebdd8d1775888d1), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x000004, 0x40000)
-	ROMX_LOAD( "8.bin",   0x000001, 0x40000, CRC(d574befc) SHA1(56482e7a9aa8439f30e3cf72311495ce677a083d), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x000005, 0x40000)
-	ROMX_LOAD( "9.bin",   0x000002, 0x40000, CRC(55ef0adc) SHA1(3b5551ae76ae80882d37fc70a1031a57885d6840), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x000006, 0x40000)
-	ROMX_LOAD( "6.bin",   0x000003, 0x40000, CRC(cc0805fc) SHA1(c512734c28b878a30a0de249929f69784d5d77a1), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x000007, 0x40000)
-	ROMX_LOAD( "13.bin",  0x200000, 0x40000, CRC(1371f714) SHA1(d2c98096fab08e3d4fd2482e6ebfc970ead656ee), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x200004, 0x40000)
-	ROMX_LOAD( "12.bin",  0x200001, 0x40000, CRC(b284c4a7) SHA1(166f571e0afa115f8e38ba427b40e30abcfd70ee), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x200005, 0x40000)
-	ROMX_LOAD( "11.bin",  0x200002, 0x40000, CRC(b7ad3394) SHA1(58dec34d9d991ff2817c8a7847749716abae6c77), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x200006, 0x40000)
-	ROMX_LOAD( "10.bin",  0x200003, 0x40000, CRC(88847705) SHA1(05dc90067921960e417b7436056a5e1f86abaa1a), ROM_SKIP(7) )
-	ROM_CONTINUE(         0x200007, 0x40000)
+	ROMX_LOAD( "c25b.c01",   0x000000, 0x40000, CRC(f3c2c98d) SHA1(98ae51a67fa4159456a4a205eebdd8d1775888d1), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000004, 0x40000 )
+	ROMX_LOAD( "c25b.c02",   0x000001, 0x40000, CRC(d574befc) SHA1(56482e7a9aa8439f30e3cf72311495ce677a083d), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000005, 0x40000 )
+	ROMX_LOAD( "c25b.c03",   0x000002, 0x40000, CRC(55ef0adc) SHA1(3b5551ae76ae80882d37fc70a1031a57885d6840), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000006, 0x40000 )
+	ROMX_LOAD( "c25b.c04",   0x000003, 0x40000, CRC(cc0805fc) SHA1(c512734c28b878a30a0de249929f69784d5d77a1), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000007, 0x40000 )
+	ROMX_LOAD( "c25b.c17",   0x200000, 0x40000, CRC(1371f714) SHA1(d2c98096fab08e3d4fd2482e6ebfc970ead656ee), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200004, 0x40000 )
+	ROMX_LOAD( "c25b.c18",   0x200001, 0x40000, CRC(b284c4a7) SHA1(166f571e0afa115f8e38ba427b40e30abcfd70ee), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200005, 0x40000 )
+	ROMX_LOAD( "c25b.c19",   0x200002, 0x40000, CRC(b7ad3394) SHA1(58dec34d9d991ff2817c8a7847749716abae6c77), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200006, 0x40000 )
+	ROMX_LOAD( "c25b.c20",   0x200003, 0x40000, CRC(88847705) SHA1(05dc90067921960e417b7436056a5e1f86abaa1a), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200007, 0x40000 )
 
 	ROM_REGION( 0x28000, "audiocpu", 0 ) /* PIC16c57 - protected, dump isn't valid */
 	ROM_LOAD( "pic16c57-rp", 0x00000, 0x2d4c, BAD_DUMP CRC(5a6d393c) SHA1(1391a1590aff5f75bb6fae1c83eddb796b53135d) )
@@ -2281,22 +2281,22 @@ ROM_START( dinopic2 )
 	ROM_LOAD16_BYTE( "27c4000-m12374r-3.bin",      0x100000, 0x80000, CRC(6133f349) SHA1(d13af99910623f62c090d25372a2253dbc2f8cbe) )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "27c4000-m12481-4.bin",   0x000000, 0x40000, CRC(f3c2c98d) SHA1(98ae51a67fa4159456a4a205eebdd8d1775888d1), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x000004, 0x40000)
-	ROMX_LOAD( "8.bin",   0x000001, 0x40000, CRC(d574befc) SHA1(56482e7a9aa8439f30e3cf72311495ce677a083d), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x000005, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-2.bin",   0x000002, 0x40000, CRC(55ef0adc) SHA1(3b5551ae76ae80882d37fc70a1031a57885d6840), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x000006, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-1.bin",   0x000003, 0x40000, CRC(cc0805fc) SHA1(c512734c28b878a30a0de249929f69784d5d77a1), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x000007, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-8.bin",   0x200000, 0x40000, CRC(1371f714) SHA1(d2c98096fab08e3d4fd2482e6ebfc970ead656ee), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x200004, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-7.bin",   0x200001, 0x40000, CRC(b284c4a7) SHA1(166f571e0afa115f8e38ba427b40e30abcfd70ee), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x200005, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-6.bin",   0x200002, 0x40000, CRC(b7ad3394) SHA1(58dec34d9d991ff2817c8a7847749716abae6c77), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x200006, 0x40000)
-	ROMX_LOAD( "27c4000-m12481-5.bin",   0x200003, 0x40000, CRC(88847705) SHA1(05dc90067921960e417b7436056a5e1f86abaa1a), ROM_SKIP(7) )
-	ROM_CONTINUE(                        0x200007, 0x40000)
+	ROMX_LOAD( "c25b.c01",   0x000000, 0x40000, CRC(f3c2c98d) SHA1(98ae51a67fa4159456a4a205eebdd8d1775888d1), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000004, 0x40000 )
+	ROMX_LOAD( "c25b.c02",   0x000001, 0x40000, CRC(d574befc) SHA1(56482e7a9aa8439f30e3cf72311495ce677a083d), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000005, 0x40000 )
+	ROMX_LOAD( "c25b.c03",   0x000002, 0x40000, CRC(55ef0adc) SHA1(3b5551ae76ae80882d37fc70a1031a57885d6840), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000006, 0x40000 )
+	ROMX_LOAD( "c25b.c04",   0x000003, 0x40000, CRC(cc0805fc) SHA1(c512734c28b878a30a0de249929f69784d5d77a1), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x000007, 0x40000 )
+	ROMX_LOAD( "c25b.c17",   0x200000, 0x40000, CRC(1371f714) SHA1(d2c98096fab08e3d4fd2482e6ebfc970ead656ee), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200004, 0x40000 )
+	ROMX_LOAD( "c25b.c18",   0x200001, 0x40000, CRC(b284c4a7) SHA1(166f571e0afa115f8e38ba427b40e30abcfd70ee), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200005, 0x40000 )
+	ROMX_LOAD( "c25b.c19",   0x200002, 0x40000, CRC(b7ad3394) SHA1(58dec34d9d991ff2817c8a7847749716abae6c77), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200006, 0x40000 )
+	ROMX_LOAD( "c25b.c20",   0x200003, 0x40000, CRC(88847705) SHA1(05dc90067921960e417b7436056a5e1f86abaa1a), ROM_SKIP(7) )
+	ROM_CONTINUE(            0x200007, 0x40000 )
 
 	ROM_REGION( 0x28000, "audiocpu", 0 ) /* PIC16c57 - protected, dump isn't valid */
 	ROM_LOAD( "pic16c57-xt.hex", 0x00000, 0x26cc, BAD_DUMP CRC(a6a5eac4) SHA1(2039789084836769180f0bfd230c2553a37e2aaf) )
@@ -2320,7 +2320,16 @@ void cps_state::init_dinopic()
 	init_cps1();
 }
 
-// The picture is offset to the left, no sound, no sprites. Most settings cannot be changed.
+void cps_state::dinopic4(machine_config &config)
+{
+	/* basic machine hardware */
+	cps1_12MHz(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps_state::dinopic_map);
+
+	EEPROM_93C46_8BIT(config, "eeprom");
+}
+
+// No sound. Most settings cannot be changed.
 ROM_START( dinopic4 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "cad_28",   0x000000, 0x040000, CRC(97dc3d86) SHA1(8dbe9dab5682933b3ea2bfcd066f5f4503aad009) )
@@ -3079,7 +3088,7 @@ GAME( 1990, cawingb2,  cawing,   cawingbl,  cawingbl, cps_state, init_cawingbl, 
 
 GAME( 1993, dinopic,   dino,     dinopic,   dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 1)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
 GAME( 1993, dinopic2,  dino,     dinopic,   dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg with PIC16c57, set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
-GAME( 1993, dinopic4,  dino,     dinopic,   dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg set 4 (with PIC16c57), 930223 Asia TW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
+GAME( 1993, dinopic4,  dino,     dinopic4,  dino,     cps_state, init_dinopic,  ROT0,   "bootleg", "Cadillacs and Dinosaurs (bootleg set 4 (with PIC16c57), 930223 Asia TW)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // 930201 ETC
 
 GAME( 1990, fcrash,    ffight,   fcrash,    fcrash,   cps_state, init_cps1,     ROT0,   "bootleg (Playmark)", "Final Crash (bootleg of Final Fight)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, ffightbl,  ffight,   fcrash,    fcrash,   cps_state, init_cps1,     ROT0,   "bootleg", "Final Fight (bootleg)", MACHINE_SUPPORTS_SAVE )

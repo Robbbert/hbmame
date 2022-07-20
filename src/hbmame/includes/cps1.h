@@ -439,6 +439,7 @@ public:
 	void sgyxz(machine_config &config);
 	void punipic(machine_config &config);
 	void dinopic(machine_config &config);
+	void dinopic4(machine_config &config);
 	void slampic(machine_config &config);
 	void sf2b(machine_config &config);
 	void knightsb(machine_config &config);
