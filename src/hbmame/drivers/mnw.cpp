@@ -4,7 +4,7 @@
 
 // kodd and kodud - Phoenix versions - both have rom mismatches which cause incorrect code to be
 //                                     executed leading to an ADDRESS ERROR
-ROM_START( kodd )
+ROM_START( kodd ) // removed 2022-07-22
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c16d.p1", 0x00000, 0x20000, CRC(8eb281a4) SHA1(6e6e316321c500796bba6b888db8e0445b63bea3) )
 	ROM_LOAD16_WORD_SWAP( "c16d.p2", 0x20000, 0x20000, CRC(9c16c2b9) SHA1(1c04419f1223b7a9a0ae2de8f11010b478d58c63) )
@@ -39,7 +39,7 @@ GAME( 2002, kodd,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,  
 
 
 
-ROM_START( kodud )
+ROM_START( kodud ) // removed 2022-07-22
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c16ud.p1", 0x00000, 0x20000, CRC(c5ada5eb) SHA1(c989c747abfc6f80871d0ee763d5573b321fb48e) )
 	ROM_LOAD16_WORD_SWAP( "c16ud.p2", 0x20000, 0x20000, CRC(b8169b17) SHA1(55176bb92fc422d4ce03a011190a7cc6caa082ff) )
@@ -71,6 +71,36 @@ ROM_END
 
 GAME( 2002, kodud,       kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0,   "hack", "The King of Dragons (US 910910 Phoenix Edition (16b/40p)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 	{"kodud",       CPS_B_21_DEF, mapper_KD29B, 0x36, 0, 0x34 },            // nw
+
+
+
+// knightsa - p1 rom has been missing for at least 10 years, never been seen, so outta here
+ROM_START( knightsa ) // removed 2022-07-22
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c18a.p1", 0x00000, 0x80000, CRC(bc3b60f5) SHA1(f8c5e49535bb191d46f4c32e336b2ca92517109a) )
+	ROM_LOAD16_WORD_SWAP( "c18.p5",  0x80000, 0x80000, CRC(d0b671a9) SHA1(9865472c5fc3f617345e23b5de5a9ba177945b5a) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c18.c01",  0x000000, 0x80000, CRC(9e36c1a4) SHA1(772daae74e119371dfb76fde9775bda78a8ba125) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c03",  0x000002, 0x80000, CRC(c5832cae) SHA1(a188cf401cd3a2909b377d3059f14d22ec3b0643) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c05",  0x000004, 0x80000, CRC(f095be2d) SHA1(0427d1574062f277a9d04440019d5638b05de561) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c07",  0x000006, 0x80000, CRC(179dfd96) SHA1(b1844e69da7ab13474da569978d5b47deb8eb2be) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c17",  0x200000, 0x80000, CRC(1f4298d2) SHA1(4b162a7f649b0bcd676f8ca0c5eee9a1250d6452) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c19",  0x200002, 0x80000, CRC(37fa8751) SHA1(b88b39d1f08621f15a5620095aef998346fa9891) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c21",  0x200004, 0x80000, CRC(0200bc3d) SHA1(c900b1be2b4e49b951e5c1e3fd1e19d21b82986e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c18.c23",  0x200006, 0x80000, CRC(0bb2b4e7) SHA1(983b800925d58e4aeb4e5105f93ed5faf66d009c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c18.m1",  0x00000, 0x08000, CRC(5e44d9ee) SHA1(47a7503321be8d52b5c44af838e3bb82ee15a415) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c18.v1",    0x00000, 0x20000, CRC(da69d15f) SHA1(9616207e693bae85705f786cef60b9f6951b5067) )
+	ROM_LOAD( "c18.v2",    0x20000, 0x20000, CRC(bfc654e9) SHA1(01b3d92e4dedf55ea3933d387c7ddb9ba2549773) )
+ROM_END
+
+GAME( 1991, knightsa,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0,   "LB70", "Knights of the Round (Angry Update)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },          // a rom is unobtainable
 
 
 
