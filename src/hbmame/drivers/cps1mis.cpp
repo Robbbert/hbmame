@@ -2329,36 +2329,6 @@ ROM_START( knightsdt )  // Death's Thread by Sebastian Mihai (2021)
 ROM_END
 
 
-ROM_START( kodd )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "c16d.p1", 0x00000, 0x20000, CRC(8eb281a4) SHA1(6e6e316321c500796bba6b888db8e0445b63bea3) )
-	ROM_LOAD16_WORD_SWAP( "c16d.p2", 0x20000, 0x20000, CRC(9c16c2b9) SHA1(1c04419f1223b7a9a0ae2de8f11010b478d58c63) )
-	ROM_LOAD16_WORD_SWAP( "c16d.p3", 0x40000, 0x20000, CRC(b4aeee54) SHA1(ed0b965b2f16a6aeb117e7b12ab10d7d0b87dcdf) )
-	ROM_LOAD16_WORD_SWAP( "c16d.p4", 0x60000, 0x20000, CRC(534554bc) SHA1(c0b73e8a44b4a5b6679f39a146f01fd0f2c270c8) )
-	ROM_LOAD16_BYTE( "c16.p5",   0x80000, 0x20000, CRC(9367bcd9) SHA1(8243b4b9bb9756f3fa726717e19a166cb2f5b50a) )
-	ROM_LOAD16_BYTE( "c16.p6",   0x80001, 0x20000, CRC(4ca6a48a) SHA1(9d440ecd8d2d0e293fecf64ca3915252b94e7aef) )
-	ROM_LOAD16_BYTE( "c16r1.p7", 0xc0000, 0x20000, CRC(6a0ba878) SHA1(82e4037d73889a76b0cdc7a4f8e77e585d38e56e) )
-	ROM_LOAD16_BYTE( "c16r1.p8", 0xc0001, 0x20000, CRC(b509b39d) SHA1(6023855e54b170e55abf0f607600031e19e5e722) )
-
-	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "c16.c01", 0x000000, 0x80000, CRC(e45b8701) SHA1(604e39e455e81695ee4f899f102d0bcd789cedd0) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c03", 0x000002, 0x80000, CRC(a7750322) SHA1(3c583496a53cd64edf377db35f7f40f02b59b7e7) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c05", 0x000004, 0x80000, CRC(5f74bf78) SHA1(b7c43eea9bf77a0fb571dcd53f8be719e6655fd9) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c07", 0x000006, 0x80000, CRC(5e5303bf) SHA1(d9f90b898ffdf4398b2bbeb48247f06f728e7c00) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c17", 0x200000, 0x80000, CRC(113358f3) SHA1(9d98eafa74a046f65bf3847fe1d88ea1b0c82b0c) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c19", 0x200002, 0x80000, CRC(38853c44) SHA1(a6e552fb0138a76a7878b90d202904e2b44ae7ec) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c21", 0x200004, 0x80000, CRC(9ef36604) SHA1(b42ca0a910b65e1e7bb6e7d734e853ce67e821bf) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c23", 0x200006, 0x80000, CRC(402b9b4f) SHA1(4c11976976eadf1ad293b31b0a4d047d05032b06) , ROM_GROUPWORD | ROM_SKIP(6) )
-
-	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "c16r1.m1",  0x00000, 0x08000, CRC(f5514510) SHA1(07e9c836adf9ef2f7e7729e99015f71e3b5f16e0) )
-	ROM_CONTINUE(          0x10000, 0x08000 )
-
-	ROM_REGION( 0x40000, "oki", 0 )
-	ROM_LOAD( "c16r1.v1", 0x00000, 0x20000, CRC(69ecb2c8) SHA1(fadf266b6b20bd6329a3e638918c5a3106413476) )
-	ROM_LOAD( "c16r1.v2", 0x20000, 0x20000, CRC(02d851c1) SHA1(c959a6fc3e7d893557f319debae91f28471f4be2) )
-ROM_END
-
 // Actor preview flickers instead of wriggling, No music in attract mode (normal for r1 roms)
 ROM_START( kodh )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
@@ -2420,36 +2390,6 @@ ROM_START( kodsp )
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "kod.key", 0x00, 0x80, CRC(b79ea9b9) SHA1(cefded329a6ccc34d3b68e614c8f3a2c174e3fdd) )
-ROM_END
-
-ROM_START( kodud )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "c16ud.p1", 0x00000, 0x20000, CRC(c5ada5eb) SHA1(c989c747abfc6f80871d0ee763d5573b321fb48e) )
-	ROM_LOAD16_WORD_SWAP( "c16ud.p2", 0x20000, 0x20000, CRC(b8169b17) SHA1(55176bb92fc422d4ce03a011190a7cc6caa082ff) )
-	ROM_LOAD16_WORD_SWAP( "c16ud.p3", 0x40000, 0x20000, CRC(72dd68a5) SHA1(db077c2c4716da59880e49af1d066b3c596143e1) )
-	ROM_LOAD16_WORD_SWAP( "c16ud.p4", 0x60000, 0x20000, CRC(0021a110) SHA1(0e15786d6e36a62f338dce8508cdd17a69511ed2) )
-	ROM_LOAD16_BYTE( "c16.p5",  0x80000, 0x20000, CRC(9367bcd9) SHA1(8243b4b9bb9756f3fa726717e19a166cb2f5b50a) )
-	ROM_LOAD16_BYTE( "c16.p6",  0x80001, 0x20000, CRC(4ca6a48a) SHA1(9d440ecd8d2d0e293fecf64ca3915252b94e7aef) )
-	ROM_LOAD16_BYTE( "c16.p7",  0xc0000, 0x20000, CRC(0360fa72) SHA1(274769c8717a874397cf37369e3ef80a682d9ef2) )
-	ROM_LOAD16_BYTE( "c16.p8",  0xc0001, 0x20000, CRC(95a3cef8) SHA1(9b75c1ed0eafacc230197ffd9b81e0c8f4f2c464) )
-
-	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "c16.c01", 0x000000, 0x80000, CRC(e45b8701) SHA1(604e39e455e81695ee4f899f102d0bcd789cedd0) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c03", 0x000002, 0x80000, CRC(a7750322) SHA1(3c583496a53cd64edf377db35f7f40f02b59b7e7) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c05", 0x000004, 0x80000, CRC(5f74bf78) SHA1(b7c43eea9bf77a0fb571dcd53f8be719e6655fd9) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c07", 0x000006, 0x80000, CRC(5e5303bf) SHA1(d9f90b898ffdf4398b2bbeb48247f06f728e7c00) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c17", 0x200000, 0x80000, CRC(113358f3) SHA1(9d98eafa74a046f65bf3847fe1d88ea1b0c82b0c) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c19", 0x200002, 0x80000, CRC(38853c44) SHA1(a6e552fb0138a76a7878b90d202904e2b44ae7ec) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c21", 0x200004, 0x80000, CRC(9ef36604) SHA1(b42ca0a910b65e1e7bb6e7d734e853ce67e821bf) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "c16.c23", 0x200006, 0x80000, CRC(402b9b4f) SHA1(4c11976976eadf1ad293b31b0a4d047d05032b06) , ROM_GROUPWORD | ROM_SKIP(6) )
-
-	ROM_REGION( 0x18000, "audiocpu", 0 )
-	ROM_LOAD( "c16.m1",    0x00000, 0x08000, CRC(bac6ec26) SHA1(6cbb6d55660150ae3f5270e023328275ee1bbf50) )
-	ROM_CONTINUE(          0x10000, 0x08000 )
-
-	ROM_REGION( 0x40000, "oki", 0 )
-	ROM_LOAD( "c16.v1", 0x00000, 0x20000, CRC(4c63181d) SHA1(270f27534a95cb0be3ff3f9ca71c502320d8090b) )
-	ROM_LOAD( "c16.v2", 0x20000, 0x20000, CRC(92941b80) SHA1(5fa7c2793e6febee54a83042d118ddd4f2b7d127) )
 ROM_END
 
 
@@ -6615,10 +6555,8 @@ GAME( 2015, knightsro,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,  
 GAME( 2021, knightssa,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0,   "Sebastian Mihai", "Knights of the Round (Squire's Aid)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knightud,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0,   "hack", "Knights of the Round (US 911127 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, knightswt,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0,   "Sebastian Mihai", "Knights of the Round (Warlock's Tower)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kodd,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0,   "hack", "The King of Dragons (World 910711 Phoenix Edition)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodh,        kod,      cps1_10MHz, kodh,     cps_state, init_cps1,     ROT0,   "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodsp,       kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0,   "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kodud,       kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0,   "hack", "The King of Dragons (US 910910 Phoenix Edition (16b/40p)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pnicku,      pnickj,   cps1_10MHz, pnicku,   cps_state, init_cps1,     ROT0,   "Creamymami[EGCG]", "Pnickies (USA 940608 Loca Test)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherb,   punisher, qsound,     punisher, cps_state, init_punisherb,ROT0,   "bootleg", "The Punisher (Bootleg)", MACHINE_SUPPORTS_SAVE)
 GAME( 2007, punisherf,   punisher, qsound,     punisher, cps_state, init_punisherb,ROT0,   "Zhyxxxx/EGCG", "The Punisher (Flash version 2007-09-24)", MACHINE_SUPPORTS_SAVE)

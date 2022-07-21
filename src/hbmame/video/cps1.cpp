@@ -1128,8 +1128,6 @@ static const struct CPS1config cps1_config_table[]=
 // HBMAME
 	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
 	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },                           // nw
-	{"kodd",        CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },            // nw
-	{"kodud",       CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },            // nw
 #if 0
 	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },                           //works
 	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
