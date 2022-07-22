@@ -186,6 +186,7 @@ public:
 	// game-specific
 	std::unique_ptr<u16 []>    m_gigaman2_dummyqsound_ram{};
 	u16   sf2ceblp_prot = 0U;
+	uint16_t m_pang3b4_prot = 0;
 
 	/* video-related */
 	tilemap_t      *m_bg_tilemap[3]{};
@@ -480,6 +481,8 @@ public:
 	void sound_map(address_map &map);
 	void sub_map(address_map &map);
 	void varthb_map(address_map &map);
+	void varthb2_map(address_map &map);
+	void sf2cems6_map(address_map &map);
 // HBMAME start
 
 	void wofsf2(machine_config &config);
@@ -492,6 +495,8 @@ public:
 	void sk2h31q(machine_config &config);
 	void cawingb(machine_config &config);
 	void captcommb2(machine_config &config);
+	void varthb2(machine_config &config);
+	void sf2cems6(machine_config &config);
 	void daimakb_map(address_map &map);
 	void sk2h35_map(address_map &map);
 	void cps1frog_map(address_map &map);
@@ -509,6 +514,7 @@ public:
 	void init_dinoz();
 	void init_dinohb();
 	void init_punisherb();
+	void init_sf2rk();
 	void init_sf2h9();
 	void init_sf2h13();
 	void init_sk2h1();
@@ -519,6 +525,11 @@ public:
 	void init_sk2h31();
 	void init_sk2h35();
 	void init_wofb();
+	void init_pang3b4();
+	void varthb2_cps_a_w(offs_t offset, uint16_t data);
+	uint16_t pang3b4_prot_r();
+	void pang3b4_prot_w(uint16_t data);
+
 	DECLARE_MACHINE_START(captcommb2);
 
 // HBMAME end

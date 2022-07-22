@@ -109,7 +109,7 @@ NUM GAME YEAR COMPANY                 TITLE
 026*     1991 Alpha Denshi            Fun Fun Brothers (video on youtube)
 028*     1991 Sammy                   Dunk Star (video on youtube)
 035*     1991 Alpha Denshi            Mystic Wand (video on youtube)
-   *     1995 Yumekobo                The Karate Ninja Show (not confirmed as Neo-Geo)
+   *     1995 Yumekobo                The Karate Ninjya Sho (info from www.neo-geo.com)
 071*     1994 Visco                   Bang Bang Busters (1994 on title screen)
 072*     1994 Face                    Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
 077*     1995 Astec21                 The Warlocks of the Fates / Shinryu Senki (video on nicovideo.jp and youtube)
