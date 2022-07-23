@@ -989,6 +989,8 @@ ROM_END
 ROM_START( joyjoy ) /* MVS AND AES VERSION */
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "021.p1", 0x000000, 0x080000, CRC(39c3478f) SHA1(06ebe54c9c4e14c5c31e770013d58b7162359ecc) )
+	ROM_FILL(0x70b2,1,0x60) // force on story mode
+	ROM_FILL(0x75bc,1,0x60) // force on demo mode
 
 	NEO_SFIX_128K( "021.s1", CRC(6956d778) SHA1(e3757776d60dc07d8e07c9ca61b223b14732f860) )
 
@@ -3411,7 +3413,9 @@ ROM_START( dragonsh )
 	NEOGEO_BIOS
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-	ROM_REGION( 0x30000, "audiocpu", ROMREGION_ERASE00 )
+	ROM_REGION( 0x30000, "audiocpu", ROMREGION_ERASEFF )
+	ROM_FILL(0x38,1,0x18)
+	ROM_FILL(0x39,1,0xfe) // stop error.log filling up
 	/* not present */
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", ROMREGION_ERASE00 )

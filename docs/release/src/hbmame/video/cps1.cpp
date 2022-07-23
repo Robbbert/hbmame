@@ -1128,8 +1128,6 @@ static const struct CPS1config cps1_config_table[]=
 // HBMAME
 	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
 	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },                           // nw
-	{"kodd",        CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },            // nw
-	{"kodud",       CPS_B_01, mapper_KD29B, 0x36, 0, 0x34 },            // nw
 #if 0
 	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },                           //works
 	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
@@ -1164,7 +1162,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"dinoz",       CPS_B_21_QS2, mapper_CD63B },                           //works
 	{"ffightb",     CPS_B_01,     mapper_S224B },                           //works
 	{"knight21",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },            //works
-	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },          // a rom is unobtainable
 	{"knightsb2",   HACK_H_6,     mapper_KR63B, 0x36, 0, 0x34, 0x44 },      //works
 	{"knightsh",    CPS_B_21_DEF, mapper_KR63B, 0x36, 0, 0x34 },            //works (intro screen is crap)
 	{"knightsha",   HACK_H_7,     mapper_KR63B, 0x36, 0, 0x34 },            //works

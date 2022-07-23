@@ -1,13 +1,14 @@
 ﻿What's new in HBMAME
 ====================
 
-2022-0x-xx 0.245.2
+2022-07-23 0.245.2
 
 Puzzled: enabled both story mode and demo mode
 
 New Games
 ---------------------------------
 - [cakefght]            Cake Fighter
+- [ssf2tnl3]            Super Street Fighter II Turbo (New Legacy v0.3 beta 2020-05-18)
 - [ssf2tnl7]            Super Street Fighter II Turbo (New Legacy v0.7 beta 2022-07-19)
 
 

@@ -56,7 +56,7 @@ def extract_version(input):
         match = pattern.search(line)
         if match:
             return match.group(1), match.group(2), match.group(3)
-    return '0.245.1','0','245'
+    return '0.245.2','0','245'
 ##    return None, None, None
 
 

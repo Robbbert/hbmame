@@ -466,10 +466,10 @@ void rom_load_manager::handle_missing_file(const rom_entry *romp, const std::vec
 
 	if (ROM_ISOPTIONAL(romp))
 	{
-		// optional files are okay
-		if (!is_chd_error)
-			m_errorstring.append(string_format("OPTIONAL %s NOT FOUND%s\n", name, tried));
-		m_warnings++;
+		// optional files are okay - HBMAME - don't alarm the user
+		//if (!is_chd_error)
+			//m_errorstring.append(string_format("OPTIONAL %s NOT FOUND%s\n", name, tried));
+		//m_warnings++;
 	}
 	else if (util::hash_collection(romp->hashdata()).flag(util::hash_collection::FLAG_NO_DUMP))
 	{

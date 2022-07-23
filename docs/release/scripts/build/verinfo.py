@@ -56,8 +56,8 @@ def extract_version(input):
         match = pattern.search(line)
         if match:
             return match.group(1), match.group(2), match.group(3)
-##    return '0.226.A','0','226'
-    return None, None, None
+    return '0.245.2','0','245'
+##    return None, None, None
 
 
 build, outfmt, srcfile, dstfile = parse_args()
@@ -69,7 +69,7 @@ except IOError:
     sys.exit(1)
 
 version_string, version_major, version_minor = extract_version(fp)
-version_build = "0"
+version_build = "1"
 version_subbuild = "0"
 if not version_string:
     sys.stderr.write("Unable to extract version from source file '%s'\n" % srcfile)
