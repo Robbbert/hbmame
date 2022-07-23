@@ -130,6 +130,7 @@ NUM GAME YEAR COMPANY                 TITLE
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
 332 03E7 2001 Brezzasoft              V-Liner
+335 00CF 2022 ADK                     Cake Fighter (extracted from Twinkle Star Sprites rom (year1996))
 336 0094      Face                    Dragon's Heaven
 338 FEDC 2004 Vektorlogic             Super Bubble Pop
    *9237                              161in1 Multigame
@@ -840,6 +841,32 @@ ROM_START( teot ) // Beta 6, 2022-07-06
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "323h.c1",   0x0000000, 0x1000000, CRC(2fdbfbef) SHA1(3bc2f207538893f71a7f14800dc9f11f1788c5bf) )
 	ROM_LOAD16_BYTE( "323h.c2",   0x0000001, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
+ROM_END
+
+
+// 335 : Cake Fighter
+// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
+ROM_START( cakefght )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "335.neo", 0x000000, 0x001000, CRC(d2afe82e) SHA1(03c52787a449ea3964238293e4d5d77f4211488e) ) // skip header
+	ROM_CONTINUE(0x000000, 0x200000)
+	ROM_IGNORE(0x1040000)
+
+	ROM_REGION(0x1241000, "asis", 0)
+	ROM_LOAD("335.neo", 0x000000, 0x001000, CRC(d2afe82e) SHA1(03c52787a449ea3964238293e4d5d77f4211488e) )
+	ROM_CONTINUE(0x000000, 0x1240000)
+
+	NEO_SFIX_MT(0x20000)
+	ROM_COPY("asis", 0x200000, 0x00000, 0x20000) // srctag, srcoffs, dstoffs, length
+
+	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
+	ROM_COPY("asis", 0x220000, 0x00000, 0x20000)
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_COPY("asis", 0x240000, 0x00000, 0x600000)
+
+	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_COPY("asis", 0x840000, 0x00000, 0xa00000)
 ROM_END
 
 
@@ -3038,6 +3065,7 @@ ROM_START( ndo_a_td )
 ROM_END
 
 
+GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, csw2,         crswd2bl, no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )

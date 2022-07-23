@@ -7,6 +7,7 @@ Puzzled: enabled both story mode and demo mode
 
 New Games
 ---------------------------------
+- [cakefght]            Cake Fighter
 - [ssf2tnl7]            Super Street Fighter II Turbo (New Legacy v0.7 beta 2022-07-19)
 
 
