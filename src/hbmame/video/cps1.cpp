@@ -51,7 +51,7 @@ After that, the remainder of the file is binary zeroes.
             Configuration table:
 
 ********************************************************************/
-#define WRITE_FILE 0
+#define WRITE_FILE 1
 
 /* Game specific data */
 
@@ -67,7 +67,7 @@ After that, the remainder of the file is binary zeroes.
 /*                     CPSB ID    multiply protection      unknown      ctrl     priority masks   palctrl    layer enable masks  */
 #define CPS_B_01      -1, 0x0000,          __not_applicable__,          0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x02,0x04,0x08,0x30,0x30}
 #define CPS_B_02     0x20,0x0002,          __not_applicable__,          0x2c,{0x2a,0x28,0x26,0x24},0x22, {0x02,0x04,0x08,0x00,0x00}
-#define CPS_B_03      -1, 0x0000,          __not_applicable__,          0x30,{0x2e,0x2c,0x2a,0x28},0x26, {0x20,0x10,0x08,0x00,0x00}
+#define CPS_B_03     0x24,0x0003,          __not_applicable__,          0x30,{0x2e,0x2c,0x2a,0x28},0x26, {0x20,0x10,0x08,0x00,0x00}
 #define CPS_B_04     0x20,0x0004,          __not_applicable__,          0x2e,{0x26,0x30,0x28,0x32},0x2a, {0x02,0x04,0x08,0x00,0x00}
 #define CPS_B_05     0x20,0x0005,          __not_applicable__,          0x28,{0x2a,0x2c,0x2e,0x30},0x32, {0x02,0x08,0x20,0x14,0x14}
 #define CPS_B_11     0x32,0x0401,          __not_applicable__,          0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x08,0x10,0x20,0x00,0x00}
@@ -93,16 +93,17 @@ After that, the remainder of the file is binary zeroes.
 #define CPS_B_21_QS5 0x1e,0x0c02,  -1,  -1,  -1,  -1,  0x0c, -1,  -1,   0x2a,{0x2c,0x2e,0x30,0x32},0x1c, {0x04,0x08,0x10,0x00,0x00}
 #define HACK_B_1      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x14,{0x12,0x10,0x0e,0x0c},0x0a, {0x0e,0x0e,0x0e,0x30,0x30}
 #define HACK_B_2      -1,   -1,   0x0e,0x0c,0x0a,0x08, 0x06,0x04,0x02,  0x28,{0x26,0x24,0x22,0x20},0x22, {0x20,0x04,0x08,0x12,0x12}
+#define HACK_B_3     0x20,0x0004,          __not_applicable__,          0x30,{0x26, -1, 0x28,0x32},0x2a, {0x02,0x04,0x08,0x00,0x00} // varthb2, writes to priority mask 2 have been patched out
 
 // HBMAME extras
 
-#define HACK_H_2      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x20,{ -1,  -1,  -1,  -1 },0x2a, {0x02,0x02,0x02,0x00,0x00} // wofh etc
+#define HACK_H_2      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x20,{ -1,  -1,  -1,  -1 },0x2a, {0x02,0x02,0x02,0x00,0x00} // not used
 #define HACK_H_3      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x04,{0x12,0x10,0x0e,0x0c},0x0a, {0x02,0x02,0x02,0x00,0x00} // not used
 #define HACK_H_4      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x30,{0x2e,0x2c,0x2a,0x28},0x26, {0x02,0x04,0x08,0x00,0x00} // not used
 #define HACK_H_5      -1, 0x0000,          __not_applicable__,          0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x40,0x40,0x40,0x00,0x00} // daimakb
 #define HACK_H_6      -1,   -1,   0x06,0x04,0x02,0x00, 0x1e,0x1c,0x1a,  0x28,{0x26,0x24,0x22,0x20},0x30, {0x40,0x10,0x02,0x00,0x00} // knightsb2
 #define HACK_H_7      -1,   -1,   0x06,0x04,0x02,0x00, 0x1e,0x1c,0x1a,  0x26,{0x28,0x2a,0x2c,0x2e},0x30, {0x20,0x10,0x02,0x00,0x00} // knightsha
-#define HACK_H_8      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x20,{0x00,0x00,0x00,0x00},0x00, {0x80,0x80,0x80,0x00,0x00}
+#define HACK_H_8      -1,   -1,    -1,  -1,  -1,  -1,   -1,  -1,  -1,   0x20,{0x00,0x00,0x00,0x00},0x00, {0x80,0x80,0x80,0x00,0x00} // not used
 
 /*
 CPS_B_21_DEF is CPS-B-21 at default settings (no battery)
@@ -282,7 +283,30 @@ static const struct gfx_range mapper_TK22B_table[] =
 };
 
 
-#define mapper_WL24B    { 0x8000, 0x8000, 0, 0 }, mapper_WL24B_table
+#define mapper_TK24B1    { 0x8000, 0x8000, 0, 0 }, mapper_TK24B1_table
+static const struct gfx_range mapper_TK24B1_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 16 (ROMs 1,3,5,7)
+	// bank 1 = pin 19 (ROMs 2,4,6,8)
+	// pins 12,14 duplicate bank 0 allowing to populate the 8-bit ROM sockets
+	// instead of the 16-bit ones:
+	// pin 12 = sprites 0000-3fff
+	// pin 14 = scroll1 6000-7fff, sprites 4000-5fff
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x5fff, 0 },
+	{ GFXTYPE_SCROLL1, 0x6000, 0x7fff, 0 },
+	{ GFXTYPE_SCROLL2, 0x4000, 0x7fff, 1 },
+	{ GFXTYPE_SCROLL3, 0x0000, 0x3fff, 1 },
+	{ 0 }
+};
+
+
+// WL22B and WL24B are equivalent, but since we have dumps of both PALs we will
+// document both.
+
+#define mapper_WL24B    { 0x8000, 0x4000, 0, 0 }, mapper_WL24B_table
 static const struct gfx_range mapper_WL24B_table[] =
 {
 	// verified from PAL dump:
@@ -298,6 +322,27 @@ static const struct gfx_range mapper_WL24B_table[] =
 	{ 0 }
 };
 
+#define mapper_WL22B    { 0x4000, 0x4000, 0x4000, 0 }, mapper_WL22B_table
+static const struct gfx_range mapper_WL22B_table[] =
+{
+	// verified from PAL dump
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// bank 2 = pin 14 (ROMs 3,7,11,15,19,21,26,28)
+	// pin 12 is never enabled
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
+	{ GFXTYPE_SPRITES, 0x4000, 0x4fff, 1 },
+	{ GFXTYPE_SCROLL3, 0x5000, 0x6fff, 1 },
+	{ GFXTYPE_SCROLL1, 0x7000, 0x7fff, 1 },
+	{ GFXTYPE_SCROLL2, 0x0000, 0x3fff, 2 },
+	{ 0 }
+};
+
+
+// S222B and S224B are equivalent, but since we have dumps of both PALs we will
+// document both.
 
 #define mapper_S224B    { 0x8000, 0, 0, 0 }, mapper_S224B_table
 static const struct gfx_range mapper_S224B_table[] =
@@ -323,6 +368,27 @@ static const struct gfx_range mapper_S224B_table[] =
 	{ 0 }
 };
 
+#define mapper_S222B    { 0x4000, 0x4000, 0, 0 }, mapper_S222B_table
+static const struct gfx_range mapper_S222B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// pin 18 gives an alternate single bank mapping identical to S224B pin 16,
+	// todo: confirm what pin 18 connects to on 88622B-2/3 and 89625B-1 b-boards.
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
+	{ GFXTYPE_SPRITES, 0x4000, 0x43ff, 1 },
+	{ GFXTYPE_SCROLL1, 0x4400, 0x4bff, 1 },
+	{ GFXTYPE_SCROLL3, 0x4c00, 0x5fff, 1 },
+	{ GFXTYPE_SCROLL2, 0x6000, 0x7fff, 1 },
+	{ 0 }
+};
+
+
+// YI22B and YI24B are equivalent, but since we have dumps of both PALs we will
+// document both.
 
 #define mapper_YI24B    { 0x8000, 0, 0, 0 }, mapper_YI24B_table
 static const struct gfx_range mapper_YI24B_table[] =
@@ -344,6 +410,23 @@ static const struct gfx_range mapper_YI24B_table[] =
 	{ GFXTYPE_SCROLL3, 0x2000, 0x3fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x4000, 0x47ff, 0 },
 	{ GFXTYPE_SCROLL2, 0x4800, 0x7fff, 0 },
+	{ 0 }
+};
+
+#define mapper_YI22B    { 0x4000, 0x4000, 0, 0 }, mapper_YI22B_table
+static const struct gfx_range mapper_YI22B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// pin 18 gives an alternate single bank mapping identical to YI24B pin 16,
+	// todo: confirm what pin 18 connects to on 89625B-1 b-board.
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x1fff, 0 },
+	{ GFXTYPE_SCROLL3, 0x2000, 0x3fff, 0 },
+	{ GFXTYPE_SCROLL1, 0x4000, 0x47ff, 1 },
+	{ GFXTYPE_SCROLL2, 0x4800, 0x7fff, 1 },
 	{ 0 }
 };
 
@@ -418,6 +501,9 @@ static const struct gfx_range mapper_O224B_table[] =
 };
 
 
+// MS24B and MS22B are equivalent, but since we could dump both PALs we are
+// documenting both.
+
 #define mapper_MS24B    { 0x8000, 0, 0, 0 }, mapper_MS24B_table
 static const struct gfx_range mapper_MS24B_table[] =
 {
@@ -437,15 +523,58 @@ static const struct gfx_range mapper_MS24B_table[] =
 	{ 0 }
 };
 
+#define mapper_MS22B    { 0x4000, 0x4000, 0, 0 }, mapper_MS22B_table
+static const struct gfx_range mapper_MS22B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// pin 12 and pin 14 are never enabled
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
+	{ GFXTYPE_SCROLL1, 0x4000, 0x4fff, 1 },
+	{ GFXTYPE_SCROLL2, 0x5000, 0x6fff, 1 },
+	{ GFXTYPE_SCROLL3, 0x7000, 0x7fff, 1 },
+	{ 0 }
+};
+
+
+// CK24B and CK22B are equivalent, but since we could dump both PALs we are
+// documenting both.
 
 #define mapper_CK24B    { 0x8000, 0, 0, 0 }, mapper_CK24B_table
 static const struct gfx_range mapper_CK24B_table[] =
 {
+	// verified from PAL dump:
+	// bank 0 = pin 16 (ROMs 1,3,5,7)
+	// pins 12,14 allow to populate the 8-bit ROM sockets instead of the 16-bit ones:
+	// pin 12 (ROMs 10,12,14,16,20,22,24,26) = sprites 0000-2fff, scroll1 3000-3fff
+	// pin 14 (ROMs 11,13,15,17,21,23,25,27) = scroll2 4000-6fff, scroll3 7000-7fff
+
 	/* type            start   end     bank */
 	{ GFXTYPE_SPRITES, 0x0000, 0x2fff, 0 },
 	{ GFXTYPE_SCROLL1, 0x3000, 0x3fff, 0 },
 	{ GFXTYPE_SCROLL2, 0x4000, 0x6fff, 0 },
 	{ GFXTYPE_SCROLL3, 0x7000, 0x7fff, 0 },
+	{ 0 }
+};
+
+#define mapper_CK22B    { 0x4000, 0x4000, 0, 0 }, mapper_CK22B_table
+static const struct gfx_range mapper_CK22B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// pin 12 and pin 14 are never enabled
+	// pin 18 gives an alternate single bank mapping identical to CK24B pin 16,
+	// todo: confirm what pin 18 connects to on 89625B-1 b-board.
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x2fff, 0 },
+	{ GFXTYPE_SCROLL1, 0x3000, 0x3fff, 0 },
+	{ GFXTYPE_SCROLL2, 0x4000, 0x6fff, 1 },
+	{ GFXTYPE_SCROLL3, 0x7000, 0x7fff, 1 },
 	{ 0 }
 };
 
@@ -591,6 +720,9 @@ static const struct gfx_range mapper_RT22B_table[] =
 };
 
 
+// KD29B and KD22B are equivalent, but since we could dump both PALs we are
+// documenting both.
+
 #define mapper_KD29B    { 0x8000, 0x8000, 0, 0 }, mapper_KD29B_table
 static const struct gfx_range mapper_KD29B_table[] =
 {
@@ -605,6 +737,25 @@ static const struct gfx_range mapper_KD29B_table[] =
 	{ GFXTYPE_SCROLL2, 0x9000, 0xbfff, 1 },
 	{ GFXTYPE_SCROLL1, 0xc000, 0xd7ff, 1 },
 	{ GFXTYPE_SCROLL3, 0xd800, 0xffff, 1 },
+	{ 0 }
+};
+
+#define mapper_KD22B    { 0x4000, 0x4000, 0x4000, 0x4000 }, mapper_KD22B_table
+static const struct gfx_range mapper_KD22B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// bank 2 = pin 14 (ROMs 3,7,11,15,19,21,26,28)
+	// bank 3 = pin 12 (ROMS 4,8,12,16,20,22,27,29)
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
+	{ GFXTYPE_SPRITES, 0x4000, 0x7fff, 1 },
+	{ GFXTYPE_SPRITES, 0x8000, 0x8fff, 2 },
+	{ GFXTYPE_SCROLL2, 0x9000, 0xbfff, 2 },
+	{ GFXTYPE_SCROLL1, 0xc000, 0xd7ff, 3 },
+	{ GFXTYPE_SCROLL3, 0xd800, 0xffff, 3 },
 	{ 0 }
 };
 
@@ -646,17 +797,36 @@ static const struct gfx_range mapper_KR63B_table[] =
 	{ 0 }
 };
 
+#define mapper_KR22B    { 0x4000, 0x4000, 0x4000, 0x4000 }, mapper_KR22B_table
+static const struct gfx_range mapper_KR22B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// bank 2 = pin 14 (ROMs 3,7,11,15,19,21,26,28)
+	// bank 3 = pin 12 (ROMS 4,8,12,16,20,22,27,29)
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x0000, 0x3fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x4000, 0x7fff, 1 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0x87ff, 2 },
+	{ GFXTYPE_SCROLL1,                   0x8800, 0x97ff, 2 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x9800, 0xbfff, 2 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0xc000, 0xcfff, 3 },
+	{ GFXTYPE_SCROLL3,                   0xd000, 0xffff, 3 },
+	{ 0 }
+};
+
 
 #define mapper_S9263B   { 0x8000, 0x8000, 0x8000, 0 }, mapper_S9263B_table
 static const struct gfx_range mapper_S9263B_table[] =
 {
 	// verified from PAL dump:
-	// FIXME there is some problem with this dump since pin 14 is never enabled
-	// instead of being the same as pin 15 as expected
 	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
 	// bank1 = pin 17 (ROMs 5,7) & pin 16 (ROMs 6,8)
 	// bank2 = pin 15 (ROMs 10,12) & pin 14 (ROMs 11,13)
-	// pins 12 and 13 are the same as 14 and 15
+	// pins 12,13 are unused, however pin 13 does have logic which
+	// is fed back internally to form the final output for pins 14,15
 
 	/* type            start    end      bank */
 	{ GFXTYPE_SPRITES, 0x00000, 0x07fff, 0 },
@@ -669,8 +839,8 @@ static const struct gfx_range mapper_S9263B_table[] =
 };
 
 
-// VA22B and VA63B are equivalent, but since we could dump both PALs we are
-// documenting both.
+// VA22B, VA24B and VA63B are equivalent, but since we could dump all PALs we are
+// documenting all.
 
 #define mapper_VA22B    { 0x4000, 0x4000, 0, 0 }, mapper_VA22B_table
 static const struct gfx_range mapper_VA22B_table[] =
@@ -698,17 +868,40 @@ static const struct gfx_range mapper_VA63B_table[] =
 	{ 0 }
 };
 
-
-#define mapper_Q522B    { 0x8000, 0, 0, 0 }, mapper_Q522B_table
-static const struct gfx_range mapper_Q522B_table[] =
+#define mapper_VA24B    { 0x8000, 0, 0, 0 }, mapper_VA24B_table
+static const struct gfx_range mapper_VA24B_table[] =
 {
-	/* type                              start   end     bank */
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x0000, 0x6fff, 0 },
-	{ GFXTYPE_SCROLL3,                   0x7000, 0x77ff, 0 },
-	{ GFXTYPE_SCROLL1,                   0x7800, 0x7fff, 0 },
+	// verified from PAL dump:
+	// bank 0 = pin 16 (ROMs 1,3,5,7)
+	// pins 12,14 allow to populate the 8-bit ROM sockets instead of the 16-bit ones:
+	// pin 12 (ROMs 10,12,14,16,20,22,24,26) = sprites/scroll1/scroll2/scroll3 0000-3fff
+	// pin 14 (ROMs 11,13,15,17,21,23,25,27) = sprites/scroll1/scroll2/scroll3 4000-7fff
+
+	/* type                                                                  start    end      bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
 	{ 0 }
 };
 
+
+#define mapper_Q522B    { 0x4000, 0x4000, 0, 0 }, mapper_Q522B_table
+static const struct gfx_range mapper_Q522B_table[] =
+{
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 1,5, 9,13,17,24,32,38)
+	// bank 1 = pin 16 (ROMs 2,6,10,14,18,25,33,39)
+	// pin 12 and pin 14 are never enabled
+
+	/* type                              start    end      bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x00000, 0x03fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x04000, 0x06fff, 1 },
+	{ GFXTYPE_SCROLL3,                   0x07000, 0x077ff, 1 },
+	{ GFXTYPE_SCROLL1,                   0x07800, 0x07fff, 1 },
+	{ 0 }
+};
+
+
+// TK263B, CD63B, PS63B (wof, dino, punisher) are equivalent, can be swapped on real pcb without issue
+// MB63B (slammast) can substitute any of the above but NOT vice-versa
 
 #define mapper_TK263B   { 0x8000, 0x8000, 0, 0 }, mapper_TK263B_table
 static const struct gfx_range mapper_TK263B_table[] =
@@ -728,11 +921,14 @@ static const struct gfx_range mapper_TK263B_table[] =
 #define mapper_CD63B    { 0x8000, 0x8000, 0, 0 }, mapper_CD63B_table
 static const struct gfx_range mapper_CD63B_table[] =
 {
-	/* type                              start   end     bank */
-	{ GFXTYPE_SCROLL1,                   0x0000, 0x0fff, 0 },
-	{ GFXTYPE_SPRITES,                   0x1000, 0x7fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0xdfff, 1 },
-	{ GFXTYPE_SCROLL3,                   0xe000, 0xffff, 1 },
+	// verified from PAL dump:
+	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
+	// bank1 = pin 17 (ROMs 5,7) & pin 16 (ROMs 6,8)
+	// pins 12,13,14,15 are never enabled
+
+	/* type                                                                  start    end      bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x08000, 0x0ffff, 1 },
 	{ 0 }
 };
 
@@ -740,11 +936,14 @@ static const struct gfx_range mapper_CD63B_table[] =
 #define mapper_PS63B    { 0x8000, 0x8000, 0, 0 }, mapper_PS63B_table
 static const struct gfx_range mapper_PS63B_table[] =
 {
-	/* type                              start   end     bank */
-	{ GFXTYPE_SCROLL1,                   0x0000, 0x0fff, 0 },
-	{ GFXTYPE_SPRITES,                   0x1000, 0x7fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0xdbff, 1 },
-	{ GFXTYPE_SCROLL3,                   0xdc00, 0xffff, 1 },
+	// verified from PAL dump:
+	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
+	// bank1 = pin 17 (ROMs 5,7) & pin 16 (ROMs 6,8)
+	// pins 12,13,14,15 are always enabled
+
+	/* type                                                                  start    end      bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x08000, 0x0ffff, 1 },
 	{ 0 }
 };
 
@@ -752,12 +951,16 @@ static const struct gfx_range mapper_PS63B_table[] =
 #define mapper_MB63B    { 0x8000, 0x8000, 0x8000, 0 }, mapper_MB63B_table
 static const struct gfx_range mapper_MB63B_table[] =
 {
-	/* type                              start    end      bank */
-	{ GFXTYPE_SCROLL1,                   0x00000, 0x00fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x01000, 0x07fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x08000, 0x0ffff, 1 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x10000, 0x167ff, 2 },
-	{ GFXTYPE_SCROLL3,                   0x16800, 0x17fff, 2 },
+	// verified from PAL dump:
+	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
+	// bank1 = pin 17 (ROMs 5,7) & pin 16 (ROMs 6,8)
+	// bank2 = pin 15 (ROMs 10,12) & pin 14 (ROMs 11,13)
+	// pins 12,13 are never enabled
+
+	/* type                                                                  start    end      bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x08000, 0x0ffff, 1 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x10000, 0x17fff, 2 },
 	{ 0 }
 };
 
@@ -777,25 +980,32 @@ static const struct gfx_range mapper_QD22B_table[] =
 };
 
 
-#define mapper_QAD63B   { 0x8000, 0, 0, 0 }, mapper_QAD63B_table
+#define mapper_QAD63B    { 0x8000, 0, 0, 0 }, mapper_QAD63B_table
 static const struct gfx_range mapper_QAD63B_table[] =
 {
-	/* type                              start   end     bank */
-	{ GFXTYPE_SCROLL1,                   0x0000, 0x07ff, 0 },
-	{ GFXTYPE_SCROLL3,                   0x0800, 0x1fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x2000, 0x7fff, 0 },
+	// verified from PAL dump:
+	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
+	// pins 12,13,14,15,16,17 are always enabled
+
+	/* type                                                                  start    end      bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
 	{ 0 }
 };
 
 
-#define mapper_TN2292   { 0x8000, 0x8000, 0, 0 }, mapper_TN2292_table
+#define mapper_TN2292    { 0x8000, 0x8000, 0x8000, 0 }, mapper_TN2292_table
 static const struct gfx_range mapper_TN2292_table[] =
 {
-	/* type                              start   end     bank */
-	{ GFXTYPE_SCROLL1,                   0x0000, 0x0fff, 0 },
-	{ GFXTYPE_SCROLL3,                   0x1000, 0x3fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x4000, 0x7fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0xffff, 1 },
+	// verified from PAL dump:
+	// bank 0 = pin 19 (ROMs 5,6,7,8)
+	// bank 1 = pin 14 (ROMs 14,15,16,17)
+	// bank 2 = pin 12 (ROMS 24,25,26,27)  these sockets are empty
+	// doesn't use a22-a20 to determine gfx type
+
+	/* type                                                                                  start    end      bank */
+	{ GFXTYPE_STARS | GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
+	{ GFXTYPE_STARS | GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x08000, 0x0ffff, 1 },
+	{ GFXTYPE_STARS | GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x10000, 0x17fff, 2 },
 	{ 0 }
 };
 
@@ -818,6 +1028,37 @@ static const struct gfx_range mapper_RCM63B_table[] =
 };
 
 
+#define mapper_GBPR2    { 0x8000, 0x8000, 0, 0 }, mapper_GBPR2_table
+static const struct gfx_range mapper_GBPR2_table[] =
+{
+	// verified from PAL dump:
+	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
+	// bank1 = pin 17 (ROMs 5,7) & pin 16 (ROMs 6,8)
+	// pins 12,13,14,15 are never enabled
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x3fff, 0 },
+	{ GFXTYPE_SCROLL1, 0x4000, 0x7fff, 0 },
+	{ GFXTYPE_SCROLL2, 0x8000, 0xbfff, 1 },
+	{ GFXTYPE_SCROLL3, 0xc000, 0xffff, 1 },
+	{ 0 }
+};
+
+
+#define mapper_gulunpa   { 0x8000, 0, 0, 0 }, mapper_gulunpa_table
+static const struct gfx_range mapper_gulunpa_table[] =
+{
+	/* type                              start   end     bank */
+	// TODO: guesswork
+	{ GFXTYPE_SCROLL1,                   0x0000, 0x7fff, 0 },
+	{ GFXTYPE_SCROLL3,                   0x4000, 0x5fff, 0 },
+	{ GFXTYPE_SCROLL2,                   0x2000, 0x3fff, 0 },
+	{ GFXTYPE_SPRITES,                   0x6000, 0x7fff, 0 },
+	{ 0 }
+};
+
+
+/* unverified, no dump */
 #define mapper_PKB10B   { 0x8000, 0, 0, 0 }, mapper_PKB10B_table
 static const struct gfx_range mapper_PKB10B_table[] =
 {
@@ -829,18 +1070,45 @@ static const struct gfx_range mapper_PKB10B_table[] =
 };
 
 
-#define mapper_pang3    { 0x8000, 0x8000, 0, 0 }, mapper_pang3_table
-static const struct gfx_range mapper_pang3_table[] =
+#define mapper_CP1B1F    { 0x10000, 0, 0, 0 }, mapper_CP1B1F_table
+static const struct gfx_range mapper_CP1B1F_table[] =
 {
-	/* type                              start   end     bank */
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x0000, 0x7fff, 0 },
-	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0x9fff, 1 },
-	{ GFXTYPE_SCROLL1,                   0xa000, 0xbfff, 1 },
-	{ GFXTYPE_SCROLL3,                   0xc000, 0xffff, 1 },
+	// verified from PAL dump:
+	// bank0 = pin 16 (ROMs 1,7 /ce)
+	//       = pin 15 (ROMs 1,7 /oe)
+	//       = pin 13 (ROMs 1,7 a19)
+	// Unlike other games which switch between 2 pairs of roms to form the full 64-bit gfx bus,
+	//  this unique B board stores the 2x 32-bit halves in the same rom pair and switches between them with the a19 line.
+	// An a20 line is available on pin 14 for 32MBit roms but is unused (this would be bank1 if used).
+	// pins 17,18,19 are rom /ce lines to other 3 pairs of unpopulated roms.
+
+	/* type                                                                  start   end     bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x0000, 0xffff, 0 },
+	{ 0 }
+};
+
+#define mapper_CP1B1F_boot   { 0x10000, 0x10000, 0, 0 }, mapper_CP1B1F_boot_table
+static const struct gfx_range mapper_CP1B1F_boot_table[] =
+{
+	// verified from PAL dump:
+	//         pin 15 (ROMs 1-4,7-10 /oe)
+	// bank0 = pin 16 (ROMs 1,7  /ce)
+	//         pin 18 (ROMs 3,9  /ce)
+	// bank1 = pin 17 (ROMs 2,8  /ce)
+	//         pin 19 (ROMs 4,10 /ce)
+	// An a19 line is available on pin 13 for 32MBit roms (pin 44 of the EPROM) but is unused.
+	// pin 14 is fixed high in 16Mbit mode and is driven by gfx_chnl (CPS B-21 pin 108) if 32Mbit mode is selected
+
+	/* type                                                                  start   end     bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x07fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x10000, 0x17fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x08000, 0x0ffff, 1 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x18000, 0x1ffff, 1 },
 	{ 0 }
 };
 
 
+/* unverified, no dump */
 #define mapper_sfzch    { 0x20000, 0, 0, 0 }, mapper_sfzch_table
 static const struct gfx_range mapper_sfzch_table[] =
 {
@@ -848,6 +1116,7 @@ static const struct gfx_range mapper_sfzch_table[] =
 	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL1 | GFXTYPE_SCROLL2 | GFXTYPE_SCROLL3, 0x00000, 0x1ffff, 0 },
 	{ 0 }
 };
+
 
 /*
   I don't know if CPS2 ROM boards use PALs as well; since all games seem to be
@@ -864,19 +1133,160 @@ static const struct gfx_range mapper_cps2_table[] =
 };
 
 
+
+/*
+Name     knm10b;
+PartNo   ;
+Date     ;
+Revision ;
+Designer ;
+Company  ;
+Assembly ;
+Location ;
+Device   g16v8;
+
+ Dedicated input pins
+
+pin 1   = I0;  Input
+pin 2   = I1;  Input
+pin 3   = I2;  Input
+pin 4   = I3;  Input
+pin 5   = I4;  Input
+pin 6   = I5;  Input
+pin 7   = I6;  Input
+pin 8   = I7;  Input
+pin 9   = I8;  Input
+pin 11  = I9;  Input
+
+ Programmable output pins
+
+pin 12  = B0;  Combinatorial output
+pin 13  = B1;  Combinatorial output
+pin 14  = B2;  Combinatorial output
+pin 15  = B3;  Combinatorial output
+pin 16  = B4;  Combinatorial output
+pin 17  = B5;  Combinatorial output
+pin 18  = B6;  Combinatorial output
+pin 19  = B7;  Combinatorial output
+
+ Output equations
+
+!B7 = !I0 & !I1 & !I2 & !I3 & !I4 & !I5 & !I9
+    #  I0 & !I1 & !I2 & !I3 & !I4 & !I5 &  I9;
+!B6 = !I0 & !I1 & !I2 & !I3 & !I4 & !I5 & !I9
+    #  I0 & !I1 & !I2 & !I3 & !I4 & !I5 &  I9;
+!B5 = !I0 & !I1 & !I2 & !I3 & !I4 &  I5 & !I9
+    #  I0 & !I1 & !I2 & !I3 & !I4 &  I5 &  I9;
+!B4 = !I0 & !I1 & !I2 & !I3 & !I4 &  I5 & !I9
+    #  I0 & !I1 & !I2 & !I3 & !I4 &  I5 &  I9;
+!B3 = !I0 & !I1 & !I2 & !I3 &  I4 & !I5 & !I6 & !I7 & !I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 & !I8 & !I9
+    # !I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 & !I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 & !I8 & !I9
+    # !I0 & !I1 & !I2 &  I3 & !I4 & !I5 & !I6 & !I7 &  I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 &  I8 & !I9
+    # !I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 &  I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 &  I8 & !I9
+    #  I0 & !I1 & !I2 & !I3 &  I4 & !I5 & !I6 & !I7 & !I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 & !I8 &  I9
+    #  I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 & !I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 & !I8 &  I9
+    #  I0 & !I1 & !I2 &  I3 & !I4 & !I5 & !I6 & !I7 &  I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 &  I8 &  I9
+    #  I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 &  I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 &  I8 &  I9;
+!B2 = !I0 & !I1 & !I2 & !I3 &  I4 & !I5 & !I6 & !I7 & !I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 & !I8 & !I9
+    # !I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 & !I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 & !I8 & !I9
+    # !I0 & !I1 & !I2 &  I3 & !I4 & !I5 & !I6 & !I7 &  I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 &  I8 & !I9
+    # !I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 &  I8 & !I9
+    # !I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 &  I8 & !I9
+    #  I0 & !I1 & !I2 & !I3 &  I4 & !I5 & !I6 & !I7 & !I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 & !I8 &  I9
+    #  I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 & !I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 & !I8 &  I9
+    #  I0 & !I1 & !I2 &  I3 & !I4 & !I5 & !I6 & !I7 &  I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 &  I8 &  I9
+    #  I0 & !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 &  I8 &  I9
+    #  I0 & !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 &  I8 &  I9;
+!B1 = !I1 & !I2 & !I3 &  I4 & !I5 & !I6 & !I7 & !I8
+    # !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 & !I8
+    # !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 & !I8
+    # !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 & !I8
+    # !I1 & !I2 &  I3 & !I4 & !I5 & !I6 & !I7 &  I8
+    # !I1 &  I2 & !I3 & !I4 & !I5 &  I6 & !I7 &  I8
+    # !I1 &  I2 &  I3 & !I4 & !I5 & !I6 &  I7 &  I8
+    # !I1 &  I2 & !I3 & !I4 & !I5 &  I6 &  I7 &  I8;
+!B0 =  I0 &  I9;
+
+*/
+
+
 #define mapper_KNM10B    { 0x8000, 0x8000, 0x8000, 0 }, mapper_KNM10B_table
 static const struct gfx_range mapper_KNM10B_table[] =
 {
-	/* type             start    end      bank */
+	// verified from PAL dump:
+	// bank0 = pin 19 (ROMs 1,3) & pin 18 (ROMs 2,4)
+	// bank1 = pin 17 (ROMs 5,7) & pin 16 (ROMs 6,8)
+	// bank2 = pin 15 (ROMs 10,12) & pin 14 (ROMs 11,13)
 
+	/* type             start    end      bank */
 	{ GFXTYPE_SPRITES , 0x00000, 0x07fff, 0 },
 	{ GFXTYPE_SPRITES , 0x08000, 0x0ffff, 1 },
-	{ GFXTYPE_SPRITES , 0x10000, 0x17fff, 2 },
+	{ GFXTYPE_SPRITES , 0x10000, 0x10fff, 2 },
 	{ GFXTYPE_SCROLL2 , 0x04000, 0x07fff, 2 },
 	{ GFXTYPE_SCROLL1,  0x01000, 0x01fff, 2 },
 	{ GFXTYPE_SCROLL3 , 0x02000, 0x03fff, 2 },
 	{ 0 }
 };
+
+
+// unknown part number, this is just based on where the gfx are in the ROM
+#define mapper_pokonyan   { 0x8000, 0x8000, 0x8000, 0 }, mapper_pokonyan_table
+static const struct gfx_range mapper_pokonyan_table[] =
+{
+	/* type            start    end      bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x2fff, 0 },
+	{ GFXTYPE_SCROLL1, 0x7000, 0x7fff, 0 },
+	{ GFXTYPE_SCROLL3, 0x3000, 0x3fff, 0 },
+	{ GFXTYPE_SCROLL2, 0x4000, 0x6fff, 0 },
+	{ 0 }
+};
+
+
+// pang3b4, PAL16V8@1A
+#define mapper_pang3b4   { 0x8000, 0x8000, 0, 0 }, mapper_pang3b4_table
+static const struct gfx_range mapper_pang3b4_table[] =
+{
+	// verified from PAL dump:
+	// bank0 = pin 14 (ROMs 2,4,6,8,10,12,14,16)
+	// bank1 = pin 12 (ROMs 1,3,5,7,9,11,13,15)
+	// pins 13,15,16,17,18,19 are always enabled
+
+	/* type            start   end     bank */
+	{ GFXTYPE_SPRITES, 0x0000, 0x7fff, 0 },
+	{ GFXTYPE_SCROLL2, 0x0000, 0x7fff, 0 },
+	{ GFXTYPE_SPRITES, 0x8000, 0xffff, 1 },
+	{ GFXTYPE_SCROLL1, 0x8000, 0xffff, 1 },
+	{ GFXTYPE_SCROLL2, 0x8000, 0xffff, 1 },
+	{ GFXTYPE_SCROLL3, 0x8000, 0xffff, 1 },
+	{ 0 }
+};
+
+
+#define mapper_pang3    { 0x8000, 0x8000, 0, 0 }, mapper_pang3_table
+static const struct gfx_range mapper_pang3_table[] =
+{
+	/* type                              start   end     bank */
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x0000, 0x7fff, 0 },
+	{ GFXTYPE_SPRITES | GFXTYPE_SCROLL2, 0x8000, 0x9fff, 1 },
+	{ GFXTYPE_SCROLL1,                   0xa000, 0xbfff, 1 },
+	{ GFXTYPE_SCROLL3,                   0xc000, 0xffff, 1 },
+	{ 0 }
+};
+
 
 #if 0
 #define mapper_frog     { 0x8000, 0, 0, 0 }, mapper_frog_table
@@ -909,9 +1319,11 @@ static const struct CPS1config cps1_config_table[]=
 	{"forgottn",    CPS_B_01,     mapper_LW621 },
 	{"forgottna",   CPS_B_01,     mapper_LW621 },
 	{"forgottnu",   CPS_B_01,     mapper_LW621 },
-	{"forgottnu1",  CPS_B_01,     mapper_LWCHR },
+	{"forgottnue",  CPS_B_01,     mapper_LWCHR },
+	{"forgottnuc",  CPS_B_01,     mapper_LWCHR },
 	{"forgottnua",  CPS_B_01,     mapper_LWCHR },
 	{"forgottnuaa", CPS_B_01,     mapper_LWCHR },
+	{"forgottnj",   CPS_B_01,     mapper_LWCHR },
 	{"lostwrld",    CPS_B_01,     mapper_LWCHR },
 	{"lostwrldo",   CPS_B_01,     mapper_LWCHR },
 	{"ghouls",      CPS_B_01,     mapper_DM620 },
@@ -920,17 +1332,17 @@ static const struct CPS1config cps1_config_table[]=
 	{"daimakair",   CPS_B_21_DEF, mapper_DAM63B },  // equivalent to DM620, also CPS_B_21_DEF is equivalent to CPS_B_01
 	{"strider",     CPS_B_01,     mapper_ST24M1 },
 	{"striderua",   CPS_B_01,     mapper_ST24M1 },  // wrong, this set uses ST24B2, still not dumped
-	{"strideruc",   CPS_B_17,     mapper_ST24M1 },  // wrong?
+	{"strideruc",   CPS_B_17,     mapper_ST24M1 },  // wrong, this set uses a custom pal or gal, not dumped
 	{"striderj",    CPS_B_01,     mapper_ST22B },   // equivalent to ST24M1
 	{"striderjr",   CPS_B_21_DEF, mapper_ST24M1 },  // wrong, this set uses STH63B, still not dumped
-	{"dynwar",      CPS_B_02,     mapper_TK22B },   // wrong, this set uses TK24B1, dumped but equations still not added
+	{"dynwar",      CPS_B_02,     mapper_TK24B1 },
 	{"dynwara",     CPS_B_02,     mapper_TK22B },
 	{"dynwarj",     CPS_B_02,     mapper_TK22B },
 	{"dynwarjr",    CPS_B_21_DEF, mapper_TK22B },   // wrong, this set uses TK163B, still not dumped
 	{"willow",      CPS_B_03,     mapper_WL24B },
 	{"willowu",     CPS_B_03,     mapper_WL24B },
 	{"willowuo",    CPS_B_03,     mapper_WL24B },
-	{"willowj",     CPS_B_03,     mapper_WL24B },   // wrong, this set uses WL22B, still not dumped
+	{"willowj",     CPS_B_03,     mapper_WL22B },   // equivalent to WL24B
 	{"ffight",      CPS_B_04,     mapper_S224B },
 	{"ffighta",     CPS_B_04,     mapper_S224B },
 	{"ffightu",     CPS_B_04,     mapper_S224B },
@@ -938,15 +1350,16 @@ static const struct CPS1config cps1_config_table[]=
 	{"ffightua",    CPS_B_01,     mapper_S224B },
 	{"ffightub",    CPS_B_03,     mapper_S224B },   // had 04 handwritten on the CPS_B chip, but clearly isn't.
 	{"ffightuc",    CPS_B_05,     mapper_S224B },
-	{"ffightj",     CPS_B_04,     mapper_S224B },   // wrong, this set uses S222B
-	{"ffightj1",    CPS_B_01,     mapper_S224B },   // wrong, this set uses S222B
-	{"ffightj2",    CPS_B_02,     mapper_S224B },   // wrong, this set uses S222B
-	{"ffightj3",    CPS_B_05,     mapper_S224B },   // wrong, this set uses S222B
+	{"ffightj",     CPS_B_04,     mapper_S222B },   // equivalent to S224B
+	{"ffightj1",    CPS_B_01,     mapper_S222B },   // equivalent to S224B
+	{"ffightj2",    CPS_B_02,     mapper_S222B },   // equivalent to S224B
+	{"ffightj3",    CPS_B_03,     mapper_S222B },   // equivalent to S224B
+	{"ffightj4",    CPS_B_05,     mapper_S222B },   // equivalent to S224B
 	{"ffightjh",    CPS_B_01,     mapper_S224B },   // wrong, ffightjh hack doesn't even use the S222B PAL, since replaced with a GAL.
 	{"1941",        CPS_B_05,     mapper_YI24B },
 	{"1941r1",      CPS_B_05,     mapper_YI24B },
 	{"1941u",       CPS_B_05,     mapper_YI24B },
-	{"1941j",       CPS_B_05,     mapper_YI24B },   // wrong, this set uses YI22B, still not dumped
+	{"1941j",       CPS_B_05,     mapper_YI22B },   // equivalent to YI24B
 	{"unsquad",     CPS_B_11,     mapper_AR24B },
 	{"area88",      CPS_B_11,     mapper_AR22B },   // equivalent to AR24B
 	{"area88r",     CPS_B_21_DEF, mapper_AR22B },   // wrong, this set uses ARA63B, still not dumped
@@ -957,26 +1370,31 @@ static const struct CPS1config cps1_config_table[]=
 	{"msword",      CPS_B_13,     mapper_MS24B },
 	{"mswordr1",    CPS_B_13,     mapper_MS24B },
 	{"mswordu",     CPS_B_13,     mapper_MS24B },
-	{"mswordj",     CPS_B_13,     mapper_MS24B },   // wrong, this set uses MS22B, dumped but equations still not added
+	{"mswordj",     CPS_B_13,     mapper_MS22B },   // equivalent to MS24B
 	{"mtwins",      CPS_B_14,     mapper_CK24B },
-	{"chikij",      CPS_B_14,     mapper_CK24B },   // wrong, this set uses CK22B, dumped but equations still not added
+	{"chikij",      CPS_B_14,     mapper_CK22B },   // equivalent to CK24B
 	{"nemo",        CPS_B_15,     mapper_NM24B },
 	{"nemor1",      CPS_B_15,     mapper_NM24B },
 	{"nemoj",       CPS_B_15,     mapper_NM24B },   // wrong, this set uses NM22B, still not dumped
 	{"cawing",      CPS_B_16,     mapper_CA24B },
 	{"cawingr1",    CPS_B_16,     mapper_CA24B },
-	{"cawingu",     CPS_B_16,     mapper_CA24B },
+	{"cawingu",     CPS_B_05,     mapper_CA22B },   // equivalent to CA24B
+	{"cawingur1",   CPS_B_16,     mapper_CA24B },
 	{"cawingj",     CPS_B_16,     mapper_CA22B },   // equivalent to CA24B
 	{"cawingbl",    CPS_B_16,     mapper_CA22B },   // equivalent to CA24B
 	{"sf2",         CPS_B_11,     mapper_STF29,  0x36 },
+	{"sf2ea",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2eb",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2ed",       CPS_B_05,     mapper_STF29,  0x36 },
 	{"sf2ee",       CPS_B_18,     mapper_STF29,  0x3c },
-	{"sf2ebbl",     CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"sf2ebbl2",    CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"sf2ebbl3",    CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"sf2stt",      CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"sf2rk",       CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
+	{"sf2ef",       CPS_B_15,     mapper_STF29,  0x36 },
+	{"sf2em",       CPS_B_17,     mapper_STF29,  0x36 },
+	{"sf2en",       CPS_B_17,     mapper_STF29,  0x36 },  // wrong, this set uses a custom gal, not dumped
+	{"sf2ebbl",     CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
+	{"sf2ebbl2",    CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
+	{"sf2ebbl3",    CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
+	{"sf2stt",      CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
+	{"sf2rk",       CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41  },
 	{"sf2ua",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2ub",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2uc",       CPS_B_12,     mapper_STF29,  0x36 },
@@ -984,16 +1402,21 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2ue",       CPS_B_18,     mapper_STF29,  0x3c },
 	{"sf2uf",       CPS_B_15,     mapper_STF29,  0x36 },
 	{"sf2ug",       CPS_B_11,     mapper_STF29,  0x36 },
+	{"sf2uh",       CPS_B_13,     mapper_STF29,  0x36 },
 	{"sf2ui",       CPS_B_14,     mapper_STF29,  0x36 },
 	{"sf2uk",       CPS_B_17,     mapper_STF29,  0x36 },
+	{"sf2um",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2j",        CPS_B_13,     mapper_STF29,  0x36 },
+	{"sf2j17",      CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2ja",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2jc",       CPS_B_12,     mapper_STF29,  0x36 },
 	{"sf2jf",       CPS_B_15,     mapper_STF29,  0x36 },
 	{"sf2jh",       CPS_B_13,     mapper_STF29,  0x36 },
 	{"sf2jl",       CPS_B_17,     mapper_STF29,  0x36 },
 	{"sf2qp1",      CPS_B_17,     mapper_STF29,  0x36 },
+	{"sf2qp2",      CPS_B_14,     mapper_STF29,  0x36 },
 	{"sf2thndr",    CPS_B_17,     mapper_STF29,  0x36 },
+	{"sf2thndr2",   CPS_B_17,     mapper_STF29,  0x36 },
 
 	/* from here onwards the CPS-B board has suicide battery and multiply protection */
 
@@ -1005,26 +1428,32 @@ static const struct CPS1config cps1_config_table[]=
 	{"3wondersh",   HACK_B_2,     mapper_RT24B },  // one port is changed from 3wonders, and no protection
 	{"kod",         CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },
 	{"kodr1",       CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },
+	{"kodr2",       CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },
 	{"kodu",        CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },
 	{"kodj",        CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },
-	{"kodja",       CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },   // wrong, this set uses KD22B, still not dumped
+	{"kodja",       CPS_B_21_BT2, mapper_KD22B,  0x36, 0, 0x34 },
 	{"kodb",        CPS_B_21_BT2, mapper_KD29B,  0x36, 0, 0x34 },   /* bootleg, doesn't use multiply protection */
 	{"captcomm",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
 	{"captcommr1",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
 	{"captcommu",   CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
 	{"captcommj",   CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
 	{"captcommjr1", CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },
-	{"captcommb",   CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34, 3 },
+	{"captcommb",   CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34, 0x43 },
+	{"captcommb2",  CPS_B_21_BT4, mapper_CC63B },  // junk around health bar with default cps2 mapper, uses BT4(knights) config
 	{"knights",     CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 	{"knightsu",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
 	{"knightsj",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },
-	{"knightsja",   CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },   // wrong, this set uses KR22B, still not dumped
+	{"knightsja",   CPS_B_21_BT4, mapper_KR22B,  0x36, 0, 0x34 },
+	{"knightsb2",   CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },   // wrong, knightsb bootleg doesn't use the KR63B PAL
 	//{"knightsb",    CPS_B_21_BT4, mapper_KR63B,  0x36, 0, 0x34 },   // wrong, knightsb bootleg doesn't use the KR63B PAL
+	{"knightsb3",   CPS_B_21_BT4, mapper_KR63B },
+	{"pokonyan",    CPS_B_21_DEF, mapper_pokonyan, 0x36 },   // wrong, this set uses an unknown PAL, still not dumped
 	{"sf2ce",       CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceea",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceua",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceub",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceuc",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
+	{"sf2cet",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceja",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2cejb",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2cejc",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
@@ -1033,50 +1462,72 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2rb2",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2rb3",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2red",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
+	{"sf2redp2",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2v004",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2acc",      CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2ceblp",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2cebltw",   CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2acca",     CPS_B_21_DEF, mapper_S9263B, 0x36 },
 	{"sf2accp2",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2amf",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 }, // probably wrong but this set is not completely dumped anyway
-	{"sf2amf2",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
+	{"sf2amf",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 }, // probably wrong but this set is not completely dumped anyway
+	{"sf2amf2",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2amf3",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
 	{"sf2dkot2",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
+	{"sf2level",    HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
 	{"sf2m1",       CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2m2",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m3",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 2 },
-	{"sf2m4",       HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m5",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m6",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m7",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2m8",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 2 },
+	{"sf2m2",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m3",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
+	{"sf2m4",       HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m5",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m6",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m7",       CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2m8",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
 	{"sf2m9",       CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2m10",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 1 },
+	{"sf2m10",      HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
 	{"sf2dongb",    CPS_B_21_DEF, mapper_S9263B, 0x36 },
-	{"sf2yyc",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2koryu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2mdt",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2mdta",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2mdtb",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 1 },
-	{"sf2b",        CPS_B_17,     mapper_STF29,  0x36, 0, 0, 1  },
-	{"varth",       CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */  // wrong, this set uses VA24B, dumped but equations still not added
+	{"sf2yyc",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2koryu",    CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2mdt",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2mdta",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2mdtb",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2ceb",      CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2ceb2",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2ceb3",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2ceb4",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2ceb5",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2b",        CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41 },
+	{"sf2b2",       CPS_B_17,     mapper_STF29,  0x36, 0, 0, 0x41 },
+	{"sf2ceupl",    HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2rules",    HACK_B_1,     mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"sf2ceds6",    HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
+	{"sf2cems6a",   HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
+	{"sf2cems6b",   HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
+	{"sf2cems6c",   HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
+	{"sf2re",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
+	{"sf2mkot",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
+	{"varth",       CPS_B_04,     mapper_VA24B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
 	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },
-	{"varthr1",     CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */  // wrong, this set uses VA24B, dumped but equations still not added
+	{"varthb2",     HACK_B_3,     mapper_sfzch, 0, 0, 0, 0xC1 },  // unknown gal, other varth mappers don't work (game looks for sprites in >0x8000 unmapped region)
+	{"varthb3",     CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F }, // TODO: wrong
+	{"varthr1",     CPS_B_04,     mapper_VA24B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
 	{"varthu",      CPS_B_04,     mapper_VA63B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
 	{"varthj",      CPS_B_21_BT5, mapper_VA22B },   /* CPSB test has been patched out (72=0001) register is also written to, possibly leftover from development */
 	{"varthjr",     CPS_B_21_BT5, mapper_VA63B },   /* CPSB test has been patched out (72=0001) register is also written to, possibly leftover from development */
-	{"cworld2j",    CPS_B_21_BT6, mapper_Q522B,  0x36, 0, 0x34 },   /* (ports 36, 34 probably leftover input code from another game) */
-	{"cworld2ja",   CPS_B_21_DEF, mapper_Q522B }, // patched set, no battery, could be desuicided // wrong, this set uses Q529B, still not dumped
-	{"cworld2jb",   CPS_B_21_BT6, mapper_Q522B,  0x36, 0, 0x34 }, // wrong, this set uses Q563B, still not dumped
+	{"cworld2j",    CPS_B_21_BT6, mapper_Q522B,  0x36, 0, 0x34 },  // ports 36, 34 probably leftover input code from another game
+	{"cworld2ja",   CPS_B_21_DEF, mapper_Q522B },                  // wrong, this set uses Q529B, still not dumped     patched set, no battery, could be desuicided
+	{"cworld2jb",   CPS_B_21_BT6, mapper_Q522B,  0x36, 0, 0x34 },  // wrong, this set uses Q563B, still not dumped
 	{"wof",         CPS_B_21_QS1, mapper_TK263B },
-	{"wofr1",       CPS_B_21_DEF, mapper_TK263B },  // patched set coming from a desuicided board?
+	{"wofr1",       CPS_B_21_DEF, mapper_TK263B },
 	{"wofa",        CPS_B_21_DEF, mapper_TK263B },  // patched set coming from a desuicided board?
 	{"wofu",        CPS_B_21_QS1, mapper_TK263B },
 	{"wofj",        CPS_B_21_QS1, mapper_TK263B },
 	{"wofhfh",      CPS_B_21_DEF, mapper_TK263B, 0x36 },    /* Chinese bootleg */
+	{"wofpic",      CPS_B_21_DEF, mapper_TK263B, 0x36 },
+	{"wofr1bl",     CPS_B_21_DEF, mapper_TK263B, 0x36 },
 	{"dino",        CPS_B_21_QS2, mapper_CD63B },   /* layer enable never used */
 	{"dinou",       CPS_B_21_QS2, mapper_CD63B },   /* layer enable never used */
 	{"dinoj",       CPS_B_21_QS2, mapper_CD63B },   /* layer enable never used */
+	{"dinoa",       CPS_B_21_QS2, mapper_CD63B },   /* layer enable never used */
 	{"dinopic",     CPS_B_21_QS2, mapper_CD63B },   /* layer enable never used */
 	{"dinopic2",    CPS_B_21_QS2, mapper_CD63B },   /* layer enable never used */
 	{"dinohunt",    CPS_B_21_DEF, mapper_CD63B },   /* Chinese bootleg */
@@ -1091,6 +1542,7 @@ static const struct CPS1config cps1_config_table[]=
 	{"slammast",    CPS_B_21_QS4, mapper_MB63B },
 	{"slammastu",   CPS_B_21_QS4, mapper_MB63B },
 	{"slampic",     CPS_B_21_QS4, mapper_MB63B },
+	{"slampic2",    CPS_B_21_QS4, mapper_sfzch },  // default cps2 mapper breaks scroll layers
 	{"mbomberj",    CPS_B_21_QS4, mapper_MB63B },
 	{"mbombrd",     CPS_B_21_QS5, mapper_MB63B },
 	{"mbombrdj",    CPS_B_21_QS5, mapper_MB63B },
@@ -1103,12 +1555,17 @@ static const struct CPS1config cps1_config_table[]=
 	{"megaman",     CPS_B_21_DEF, mapper_RCM63B },
 	{"megamana",    CPS_B_21_DEF, mapper_RCM63B },
 	{"rockmanj",    CPS_B_21_DEF, mapper_RCM63B },
-	{"pnickj",      CPS_B_21_DEF, mapper_PKB10B },
-	{"pang3",       CPS_B_21_DEF, mapper_pang3 },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */   // should use one of these three CP1B1F,CP1B8K,CP1B9KA
-	{"pang3r1",     CPS_B_21_DEF, mapper_pang3 },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */   // should use one of these three CP1B1F,CP1B8K,CP1B9K
-	{"pang3j",      CPS_B_21_DEF, mapper_pang3 },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */   // should use one of these three CP1B1F,CP1B8K,CP1B9K
-	{"pang3b",      CPS_B_21_DEF, mapper_pang3 },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */   // should use one of these three CP1B1F,CP1B8K,CP1B9K
-	{"ganbare",     CPS_B_21_DEF, mapper_sfzch },   // wrong, this set uses GBPR2, dumped but equations still not added
+	{"pnickj",      CPS_B_21_DEF, mapper_PKB10B },   // PKB10B unverified, no dump
+	{"pang3",       CPS_B_21_DEF, mapper_CP1B1F },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"pang3r1",     CPS_B_21_DEF, mapper_CP1B1F },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"pang3j",      CPS_B_21_DEF, mapper_CP1B1F },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"pang3b",      CPS_B_21_DEF, mapper_CP1B1F },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"pang3b2",     CPS_B_21_DEF, mapper_CP1B1F },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"pang3b3",     CPS_B_17,     mapper_CP1B1F },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"pang3b4",     CPS_B_21_DEF, mapper_pang3b4 },
+	{"pang3b5",     CPS_B_21_DEF, mapper_CP1B1F_boot },   /* EEPROM port is among the CPS registers (handled by DRIVER_INIT) */
+	{"ganbare",     CPS_B_21_DEF, mapper_GBPR2 },
+	{"gulunpa",     CPS_B_21_DEF, mapper_gulunpa }, // wrong
 
 	/* CPS Changer */
 
@@ -1314,6 +1771,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 	}
 	else
 	{
+		// LEGACY
 		const struct CPS1config *pCFG = &cps1_config_table[0];
 		while (pCFG->name)
 		{
@@ -1375,55 +1833,9 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 			m_bank_type[tu++] = range->bank;
 			++range;
 		}
-	}
-#if 0
-	if (strcmp(gamename, "sf2accp2") == 0)
-	{
-		/* Patch out a odd branch which would be incorrectly interpreted
-		   by the cpu core as a 32-bit branch. This branch would make the
-		   game crash (address error, since it would branch to an odd address)
-		   if location 180ca6 (outside ROM space) isn't 0. Protection check? */
-		u16 *rom = (u16 *)memregion("maincpu")->base();
-		rom[0x11756 / 2] = 0x4e71;
-	}
-	else if (strcmp(gamename, "ghouls") == 0)
-	{
-		/* Patch out self-test... it takes forever */
-		u16 *rom = (u16 *)memregion("maincpu")->base();
-		rom[0x61964 / 2] = 0x4ef9;
-		rom[0x61966 / 2] = 0x0000;
-		rom[0x61968 / 2] = 0x0400;
-	}
-#endif
-#if WRITE_FILE
-	// Write the config to a file
-	FILE *fp;
-	fp = fopen(gamename, "wb");
-	fprintf(fp, "%s", "U");
-	fprintf(fp, "%c", m_cpsb_addr);
-	fprintf(fp, "%c%c", m_cpsb_value&0xff, (m_cpsb_value >> 8) & 0xff);
-	fprintf(fp, "%c", m_mult_factor1);
-	fprintf(fp, "%c", m_mult_factor2);
-	fprintf(fp, "%c", m_mult_result_lo);
-	fprintf(fp, "%c", m_mult_result_hi);
-	fprintf(fp, "%c", m_layer_control);
-	fprintf(fp, "%c", m_priority[0]);
-	fprintf(fp, "%c", m_priority[1]);
-	fprintf(fp, "%c", m_priority[2]);
-	fprintf(fp, "%c", m_priority[3]);
-	fprintf(fp, "%c", m_palette_control);
-	fprintf(fp, "%c", m_layer_enable_mask[0]);
-	fprintf(fp, "%c", m_layer_enable_mask[1]);
-	fprintf(fp, "%c", m_layer_enable_mask[2]);
-	fprintf(fp, "%c", m_layer_enable_mask[3]);
-	fprintf(fp, "%c", m_layer_enable_mask[4]);
-	fprintf(fp, "%c", m_in2_addr);
-	fprintf(fp, "%c", m_in3_addr);
-	fprintf(fp, "%c", m_out2_addr);
-	fprintf(fp, "%c%c", m_bootleg_kludge&0xff, (m_bootleg_kludge >> 8) & 0xff);
-	u8 scroll1x = 0, scroll2x = 0, scroll3x = 0;
-	switch (m_bootleg_kludge&0x0f)
-	{
+		u8 scroll1x = 0, scroll2x = 0, scroll3x = 0;
+		switch (m_bootleg_kludge&0x0f)
+		{
 		case 0x01:
 			scroll1x = 0x8c;
 			scroll2x = 0x8e;
@@ -1453,23 +1865,74 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 			scroll1x = 0xc0;
 			scroll2x = 0xc0;
 			scroll3x = 0xc0;
-	}
-	fprintf(fp, "%c%c%c", scroll1x, scroll2x, scroll3x);
-	fprintf(fp, "%c%c%c", m_bank_sizes[0]&0xff, (m_bank_sizes[0] >> 8)&0xff, m_bank_sizes[0] >> 16);
-	fprintf(fp, "%c%c%c", m_bank_sizes[1]&0xff, (m_bank_sizes[1] >> 8)&0xff, m_bank_sizes[1] >> 16);
-	fprintf(fp, "%c%c%c", m_bank_sizes[2]&0xff, (m_bank_sizes[2] >> 8)&0xff, m_bank_sizes[2] >> 16);
-	fprintf(fp, "%c%c%c", m_bank_sizes[3]&0xff, (m_bank_sizes[3] >> 8)&0xff, m_bank_sizes[3] >> 16);
+		}
+		m_scrollx1 = scroll1x;
+		m_scrollx2 = scroll2x;
+		m_scrollx3 = scroll3x;
 
-	for (u8 i = 0; i < 8; i++)
-	{
-		fprintf(fp, "%c", m_bank_type[i*4] | (m_bank_type[i*4+3] << 6));
-		fprintf(fp, "%c%c%c", m_bank_type[i*4+1] & 0xff, (m_bank_type[i*4+1] >> 8)&0xff, m_bank_type[i*4+1] >> 16);
-		fprintf(fp, "%c%c%c", m_bank_type[i*4+2] & 0xff, (m_bank_type[i*4+2] >> 8)&0xff, m_bank_type[i*4+2] >> 16);
-		printf("%X,%X,%X,%X\n",m_bank_type[i*4],m_bank_type[i*4+1],m_bank_type[i*4+2],m_bank_type[i*4+3]);
+#if WRITE_FILE
+		// Write the config to a file
+		FILE *fp;
+		fp = fopen(gamename, "wb");
+		fprintf(fp, "%s", "U");
+		fprintf(fp, "%c", m_cpsb_addr);
+		fprintf(fp, "%c%c", m_cpsb_value&0xff, (m_cpsb_value >> 8) & 0xff);
+		fprintf(fp, "%c", m_mult_factor1);
+		fprintf(fp, "%c", m_mult_factor2);
+		fprintf(fp, "%c", m_mult_result_lo);
+		fprintf(fp, "%c", m_mult_result_hi);
+		fprintf(fp, "%c", m_layer_control);
+		fprintf(fp, "%c", m_priority[0]);
+		fprintf(fp, "%c", m_priority[1]);
+		fprintf(fp, "%c", m_priority[2]);
+		fprintf(fp, "%c", m_priority[3]);
+		fprintf(fp, "%c", m_palette_control);
+		fprintf(fp, "%c", m_layer_enable_mask[0]);
+		fprintf(fp, "%c", m_layer_enable_mask[1]);
+		fprintf(fp, "%c", m_layer_enable_mask[2]);
+		fprintf(fp, "%c", m_layer_enable_mask[3]);
+		fprintf(fp, "%c", m_layer_enable_mask[4]);
+		fprintf(fp, "%c", m_in2_addr);
+		fprintf(fp, "%c", m_in3_addr);
+		fprintf(fp, "%c", m_out2_addr);
+		fprintf(fp, "%c%c", m_bootleg_kludge&0xff, (m_bootleg_kludge >> 8) & 0xff);
+		fprintf(fp, "%c%c%c", scroll1x, scroll2x, scroll3x);
+		fprintf(fp, "%c%c%c", m_bank_sizes[0]&0xff, (m_bank_sizes[0] >> 8)&0xff, m_bank_sizes[0] >> 16);
+		fprintf(fp, "%c%c%c", m_bank_sizes[1]&0xff, (m_bank_sizes[1] >> 8)&0xff, m_bank_sizes[1] >> 16);
+		fprintf(fp, "%c%c%c", m_bank_sizes[2]&0xff, (m_bank_sizes[2] >> 8)&0xff, m_bank_sizes[2] >> 16);
+		fprintf(fp, "%c%c%c", m_bank_sizes[3]&0xff, (m_bank_sizes[3] >> 8)&0xff, m_bank_sizes[3] >> 16);
+
+		for (u8 i = 0; i < 8; i++)
+		{
+			fprintf(fp, "%c", m_bank_type[i*4] | (m_bank_type[i*4+3] << 6));
+			fprintf(fp, "%c%c%c", m_bank_type[i*4+1] & 0xff, (m_bank_type[i*4+1] >> 8)&0xff, m_bank_type[i*4+1] >> 16);
+			fprintf(fp, "%c%c%c", m_bank_type[i*4+2] & 0xff, (m_bank_type[i*4+2] >> 8)&0xff, m_bank_type[i*4+2] >> 16);
+			printf("%X,%X,%X,%X\n",m_bank_type[i*4],m_bank_type[i*4+1],m_bank_type[i*4+2],m_bank_type[i*4+3]);
+		}
+		for (u8 i = ftell(fp); i < 0x80; i++)
+			fprintf(fp, "%c", 0);
+		fclose(fp);
+#endif
 	}
-	for (u8 i = ftell(fp); i < 0x80; i++)
-		fprintf(fp, "%c", 0);
-	fclose(fp);
+
+#if 0
+	if (strcmp(gamename, "sf2accp2") == 0)
+	{
+		/* Patch out a odd branch which would be incorrectly interpreted
+		   by the cpu core as a 32-bit branch. This branch would make the
+		   game crash (address error, since it would branch to an odd address)
+		   if location 180ca6 (outside ROM space) isn't 0. Protection check? */
+		u16 *rom = (u16 *)memregion("maincpu")->base();
+		rom[0x11756 / 2] = 0x4e71;
+	}
+	else if (strcmp(gamename, "ghouls") == 0)
+	{
+		/* Patch out self-test... it takes forever */
+		u16 *rom = (u16 *)memregion("maincpu")->base();
+		rom[0x61964 / 2] = 0x4ef9;
+		rom[0x61966 / 2] = 0x0000;
+		rom[0x61968 / 2] = 0x0400;
+	}
 #endif
 }
 
@@ -2156,7 +2619,7 @@ void cps_state::cps1_find_last_sprite()    /* Find the offset of last sprite */
 	/* Locate the end of table marker */
 	while (offset < m_obj_size / 2)
 	{
-		if (m_bootleg_kludge == 3)
+		if (BIT(m_bootleg_kludge, 0, 4) == 3)
 		{
 			/* captcommb - same end of sprite marker as CPS-2 */
 			int colour = m_buffered_obj[offset + 1];
