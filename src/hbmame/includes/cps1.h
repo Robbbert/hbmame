@@ -525,7 +525,6 @@ public:
 	void init_sk2h22();
 	void init_sk2h31();
 	void init_sk2h35();
-	void init_wofb();
 	void init_pang3b4();
 	void varthb2_cps_a_w(offs_t offset, uint16_t data);
 	uint16_t pang3b4_prot_r();

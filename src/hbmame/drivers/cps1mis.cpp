@@ -6176,45 +6176,6 @@ ROM_START( tk2p45 )
 ROM_END
 
 
-ROM_START( wofb )
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c23r1bl.p1",  0x000000, 0x80000, CRC(61fd0a01) SHA1(a7b5bdddd7b31645e33314c1d3649e1506cecfea) )
-	ROM_LOAD16_BYTE( "c23r1bl.p2",  0x000001, 0x80000, CRC(7f59e24c) SHA1(34c294328d00c65086622bd15e17210f07f37237) )
-	ROM_LOAD16_BYTE( "c23r1bl.p3",  0x100000, 0x20000, CRC(fe5eee87) SHA1(be1230f64c1e59ae3ff3e58593070613966ac79d) )
-	ROM_LOAD16_BYTE( "c23r1bl.p4",  0x100001, 0x20000, CRC(739379be) SHA1(897f61527213902fda04bc28339f1f4278bf5ae9) )
-
-	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "c23r1bl.c01",   0x000000, 0x40000, CRC(c8dcaa95) SHA1(bcaeaefd40ffa1b32e80457cffcc1ceab461af1d), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000004, 0x40000 )
-	ROMX_LOAD( "c23r1bl.c02",   0x000001, 0x40000, CRC(1ab0000c) SHA1(0d0004cc1725c38d140ecb8dc9666361b2d3e607), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000005, 0x40000 )
-	ROMX_LOAD( "c23r1bl.c03",   0x000002, 0x40000, CRC(8425ff6b) SHA1(9a051089c2a492b8c63484582f95c578704b6820), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000006, 0x40000 )
-	ROMX_LOAD( "c23r1bl.c04",   0x000003, 0x40000, CRC(24ce197b) SHA1(0ccdbd6f6a30e6d1479f8702c3e8561b16303550), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x000007, 0x40000 )
-	ROMX_LOAD( "c23r1bl.c09",   0x200000, 0x40000, CRC(9d20ef9b) SHA1(cbf3cb6bd7a73312e5061082554f2e17aae08621), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200004, 0x40000 )
-	ROMX_LOAD( "10-7d24.040",  0x200001, 0x40000, CRC(90c93dd2) SHA1(d3d2b0bcbcbb21a41f986eb752ab114697eb9402), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200005, 0x40000 )
-	ROMX_LOAD( "c23r1bl.c11",  0x200002, 0x40000, CRC(219fd7e2) SHA1(af765eb7b275ed541c08e243b22b5c9f54c1a8ec), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200006, 0x40000 )
-	ROMX_LOAD( "c23r1bl.c12",  0x200003, 0x40000, CRC(efc17c9a) SHA1(26429a9039bb249e17945508c16645c82f7f412a), ROM_SKIP(7) )
-	ROM_CONTINUE(              0x200007, 0x40000 )
-
-	ROM_REGION( 0x28000, "audiocpu", 0 )
-	ROM_LOAD( "c23.m1",     0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
-	ROM_CONTINUE(               0x10000, 0x18000 )
-
-	ROM_REGION( 0x200000, "qsound", 0 )
-	ROM_LOAD( "c23.q1",     0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
-	ROM_LOAD( "c23.q2",     0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
-	ROM_LOAD( "c23.q3",     0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
-	ROM_LOAD( "c23.q4",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
-
-	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
-ROM_END
-
 ROM_START( tk2h126 ) //wofjdr
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "wofj.dl", 0x000000, 0x200000, CRC(f858a64e) SHA1(1f7fc1700506b4141c9461d6e46f8b9443b25c4c) )
@@ -6620,7 +6581,6 @@ GAME( 2009, tk2h17,      wof,      qsound,     wof,      cps_state, init_wof,   
 GAME( 2012, tk2h18,      wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "Zero", "Tenchi wo Kurau II (Power edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, tk2p44,      wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0,   "Big West", "Tenchi wo Kurau II (Lock Triple Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, tk2p45,      wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0,   "Pipi899", "Tenchi wo Kurau II (Imitation Sword Invincible Version 2010-01-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, wofb,        wof,      qsound,     wof,      cps_state, init_wofb,     ROT0,   "hack", "Warriors of Fate (bootleg, 921002 etc)", MACHINE_SUPPORTS_SAVE )
 GAME( 200?, wofes,       wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms (Invincible))", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, woffr,       wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "Shyma.X", "Warriors of Fate (French Translation 2003-07-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofr1h,      wof,      qsound,     wof,      cps_state, init_wof,      ROT0,   "Katana", "Warriors of Fate (Double Edition)", MACHINE_SUPPORTS_SAVE )
@@ -6989,32 +6949,6 @@ void cps_state::init_sf2h13()
 	rom[0x21d1c/2] = 0x823c;
 	rom[0x21d2a/2] = 0x822d;
 
-	init_cps1();
-}
-
-void cps_state::init_wofb()
-{
-	u8 *mem8 = memregion("maincpu")->base();
-	// Fix gfx
-	mem8[0x506] = 0xE7;
-	mem8[0x507] = 0x48;
-	mem8[0x508] = 0xFE;
-	mem8[0x509] = 0xFF;
-	mem8[0x50A] = 0xF8;
-	mem8[0x50B] = 0x4B;
-	mem8[0x6ABC] = 0x6;
-	mem8[0x6ABD] = 0x1;
-	// Fix sound
-	mem8[0x764E] = 0x71;
-	mem8[0x7650] = 0x71;
-	mem8[0x7651] = 0x4E;
-	// Fix screen transitions
-	mem8[0x5D236] = 0xFC;
-	mem8[0x5D237] = 0x28;
-	mem8[0x5D238] = 0x0;
-	mem8[0x5D23B] = 0x1;
-
-	kabuki_setup(wof_decode);
 	init_cps1();
 }
 
