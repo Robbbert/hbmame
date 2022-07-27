@@ -103,5 +103,32 @@ GAME( 1991, knightsa,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,  
 	//{"knightsa",    CPS_B_21_BT4, mapper_KR63B, 0x36, 0, 0x34 },          // a rom is unobtainable
 
 
+// Freezes in attract mode in 3rd demo
+ROM_START( sk3h1 ) // removed 2022-07-28
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sk2h7q.800",  0x000000, 0x400000, CRC(ccbe4ab5) SHA1(d65109a4da4324a85cd76c37452ccdcc74d0170d) )
+	ROM_IGNORE(0x54f4e)
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD("c23yx.c1",    0x000000, 0x80000, CRC(a60be9f6) SHA1(2298a4b6a2c83b76dc106a1efa19606b298d378a), ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(              0x000004, 0x80000 )
+	ROM_CONTINUE(              0x200000, 0x80000 )
+	ROM_CONTINUE(              0x200004, 0x80000 )
+	ROMX_LOAD("c23yx.c2",    0x000002, 0x80000, CRC(6ad9d048) SHA1(d47212d28d0a1ce349e4c59e5d0d99c541b3458e), ROM_GROUPWORD | ROM_SKIP(6) )
+	ROM_CONTINUE(              0x000006, 0x80000 )
+	ROM_CONTINUE(              0x200002, 0x80000 )
+	ROM_CONTINUE(              0x200006, 0x80000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c23abl.m1", 0x00000, 0x10000,  CRC(210c376f) SHA1(0d937c86078d0a106f5636b7daf5fc0266c2c2ec) )
+	ROM_RELOAD(                0x8000, 0x10000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c23yx.m1", 0x00000, 0x40000,  CRC(c15ac0f2) SHA1(8d9e5519d9820e4ac4f70555088c80e64d052c9d) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sk2h101.key",     0x00, 0x80, CRC(679300a3) SHA1(f3e8197955f6b2b54493a449386b804b0d5e15ed) ) // OK
+ROM_END
+GAME( 2018, sk3h1,       wof,      sk2h3,      sk2h1,    cps_state, init_sk2h1,    ROT0,   "hack", "Sangokushi 3 (San Guo Ying Xiong Zhuan Plus)", MACHINE_SUPPORTS_SAVE )
 
 

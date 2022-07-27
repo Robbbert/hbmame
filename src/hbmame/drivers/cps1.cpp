@@ -1421,7 +1421,7 @@ INPUT_PORTS_END
      - 0xff14ab.w : energy (player 1)
      - 0xff156b.w : energy (player 2)
 */
-static INPUT_PORTS_START( mtwins )
+INPUT_PORTS_START( mtwins )
 	PORT_INCLUDE( cps1_3b )
 
 	PORT_MODIFY("IN0")
@@ -2254,7 +2254,7 @@ static INPUT_PORTS_START( cworld2j )
 INPUT_PORTS_END
 
 /* Needs further checking */
-static INPUT_PORTS_START( wof )
+INPUT_PORTS_START( wof )
 	PORT_INCLUDE( cps1_3players )
 
 	PORT_MODIFY("IN0")
@@ -7744,6 +7744,9 @@ ROM_START( knightsb2 )
 
 	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "c18b2.v1",  0x00000, 0x40000, CRC(85f837a0) SHA1(21a3fe8fdad10bfc994777e0b85c2c4b23943534) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "knightsb2.key", 0x00, 0x80, CRC(67017a7f) SHA1(d9db5b41b214539f71cc2f0d92a27285c27e38c4) )
 ROM_END
 
 /* B-Board 91635B-2 */

@@ -13,6 +13,7 @@
 #include "sound/qsound.h"
 #include "sound/okim6295.h"
 #include "machine/gen_latch.h"
+#include "machine/74157.h"
 #include "machine/timekpr.h"
 #include "machine/timer.h"
 #include "cpu/m68000/m68000.h"
@@ -541,13 +542,12 @@ extern gfx_decode_entry const gfx_cps1[];
 
 INPUT_PORTS_EXTERN( dino );
 INPUT_PORTS_EXTERN( knights );
+INPUT_PORTS_EXTERN( mtwins );
 INPUT_PORTS_EXTERN( punisher );
 INPUT_PORTS_EXTERN( sf2 );
 INPUT_PORTS_EXTERN( slammast );
 INPUT_PORTS_EXTERN( varth );
-// HBMAME start
 INPUT_PORTS_EXTERN( captcomm );
-// HBMAME end
-
+INPUT_PORTS_EXTERN( wof );
 
 #endif

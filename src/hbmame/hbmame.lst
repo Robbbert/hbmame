@@ -240,7 +240,6 @@ captcommc
 captcommh
 captcommr1p
 captcommud
-cawingb
 cawingh01
 cps1demo                               // HB
 cps1frog                               // HB
@@ -379,7 +378,6 @@ sk2h43
 //sk2h44                               // black screen
 sk2h45
 sk2h46
-sk3h1
 sk3h2
 sk2h51
 sk2h52
@@ -1041,7 +1039,7 @@ sf2ces07
 sf2ces08
 sf2ces09
 sf2ces10
-sf2ces11
+//sf2ces11
 sf2ces12
 sf2ces13
 sf2ces14
@@ -1390,6 +1388,20 @@ wofr1                           // 02/10/1992 (c) 1992 (World) (CPS1 + QSound)
 wofu                            // 31/10/1992 (c) 1992 (USA) (CPS1 + QSound)
 wonder3                         // 20/05/1991 (c) 1991 (Japan)
 
+@source:cps1bl_5205.cpp
+captcommb2                      // bootleg
+knightsb                        // bootleg
+knightsb3                       // bootleg
+sf2b                            // bootleg
+sf2b2                           // bootleg
+sf2ceb                          // bootleg
+sf2ceb2                         // bootleg
+sf2ceb3                         // bootleg
+sf2ceb4                         // bootleg
+sf2ceb5                         // bootleg
+sf2mdt                          // bootleg
+sf2mdta                         // bootleg
+sf2mdtb                         // bootleg
 
 @source:cps2.cpp
 // CPS2 PARENTS ***
@@ -1868,12 +1880,20 @@ exerionj				// Japanese version
 exeriongr				// Vag @ GreekRoms 2004
 
 @source:fcrash.cpp
-fcrash
-captcommb2
-dinopic4                             // no sound, no sprites
-ffightbl
-ffightbla
-kodb
+cawingb2                        // bootleg
+cawingbl                        // bootleg
+fcrash                          // bootleg of Final Fight
+ffightbl                        // bootleg
+ffightbla                       // bootleg
+ffightblb                       // bootleg
+kodb                            // bootleg
+mtwinsb                         // bootleg
+sf2m1                           // hack
+sf2m9                           // bootleg
+sgyxz                           // bootleg (All-In Electronics)
+varthb                          // bootleg
+wofabl                          // bootleg
+wofr1bl                         // bootleg
 
 @source:flstory.cpp
 flstory					//parent
