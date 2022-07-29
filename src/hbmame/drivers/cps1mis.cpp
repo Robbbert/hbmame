@@ -820,10 +820,10 @@ ROM_START( captcommc )
 	ROMX_LOAD( "c17.c03",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "c17.c05",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) , ROM_GROUPWORD | ROM_SKIP(6) )
 	ROMX_LOAD( "c17.c07",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "gfx_05.rom",   0x200000, 0x80000, CRC(e4282bc0) SHA1(fe6012a8afcaec5747194bedfa73284bb28300a4) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "gfx_07.rom",   0x200002, 0x80000, CRC(8b0ef34c) SHA1(13a696856432b2f345cd2b2059e95179c78bd70a) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "gfx_06.rom",   0x200004, 0x80000, CRC(2d7bee50) SHA1(a25bcfa99c4dda52469f7dc8fec24287c97deb84) , ROM_GROUPWORD | ROM_SKIP(6) )
-	ROMX_LOAD( "gfx_08.rom",   0x200006, 0x80000, CRC(0106bf6a) SHA1(8e23418c58c4ffb8dd4dac93b92b23c406d60a62) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17c.c17",   0x200000, 0x80000, CRC(e4282bc0) SHA1(fe6012a8afcaec5747194bedfa73284bb28300a4) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17c.c19",   0x200002, 0x80000, CRC(8b0ef34c) SHA1(13a696856432b2f345cd2b2059e95179c78bd70a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17c.c21",   0x200004, 0x80000, CRC(2d7bee50) SHA1(a25bcfa99c4dda52469f7dc8fec24287c97deb84) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17c.c23",   0x200006, 0x80000, CRC(0106bf6a) SHA1(8e23418c58c4ffb8dd4dac93b92b23c406d60a62) , ROM_GROUPWORD | ROM_SKIP(6) )
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "c17.m1",     0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
@@ -921,7 +921,7 @@ ROM_START( captcommud )
 	ROM_LOAD( "c17.v2",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "captcoud.key", 0x00, 0x80, CRC(6a4c8ad9) SHA1(56912fc3387cf977e602d3e8dad31b64dadc6b4a) )
+	ROM_LOAD( "captcommud.key", 0x00, 0x80, CRC(6a4c8ad9) SHA1(56912fc3387cf977e602d3e8dad31b64dadc6b4a) )
 ROM_END
 
 
@@ -1232,7 +1232,7 @@ ROM_START( dino08h2 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dino08h3 )
@@ -1262,7 +1262,7 @@ ROM_START( dino08h3 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dino08hp )
@@ -1292,7 +1292,7 @@ ROM_START( dino08hp )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinob ) // program same as dinopic in mame, but this one has working sound
@@ -1362,7 +1362,7 @@ ROM_START( dinobt )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinobtpp )
@@ -1392,7 +1392,7 @@ ROM_START( dinobtpp )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinocgba )
@@ -1422,7 +1422,7 @@ ROM_START( dinocgba )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinocgbb )
@@ -1452,7 +1452,7 @@ ROM_START( dinocgbb )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinocgbc )
@@ -1482,7 +1482,7 @@ ROM_START( dinocgbc )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinoeh )
@@ -1512,7 +1512,7 @@ ROM_START( dinoeh )
 	ROM_LOAD( "c25.q4",      0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinoex )
@@ -1697,7 +1697,7 @@ ROM_START( dinohp )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinohx )
@@ -1758,7 +1758,7 @@ ROM_START( dinojp )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinore ) // v1.0
@@ -1786,7 +1786,7 @@ ROM_START( dinore ) // v1.0
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinore1 ) // v1.1
@@ -1814,7 +1814,7 @@ ROM_START( dinore1 ) // v1.1
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinorp )
@@ -1844,7 +1844,7 @@ ROM_START( dinorp )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinosf2 )
@@ -1898,7 +1898,7 @@ ROM_START( dinoslice )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinouphp ) //dino1v3
@@ -1928,7 +1928,7 @@ ROM_START( dinouphp ) //dino1v3
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinoz )
@@ -1961,7 +1961,7 @@ ROM_START( dinoz )
 	ROM_LOAD( "c25.q4",      0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 
@@ -2029,7 +2029,7 @@ ROM_START( ffightjh01 ) // hack of ffightj2
 	ROM_LOAD( "c07.v2",  0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
+	ROM_LOAD( "ffighth.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
 ROM_END
 
 
@@ -2374,7 +2374,7 @@ ROM_START( pnicku )
 	ROM_LOAD( "c32.v2",       0x20000, 0x20000, CRC(22109aaa) SHA1(cf21e75674d81b2daae2083d02f9f4b6e52722c6) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "pnickj.key", 0x00, 0x80, CRC(38afadc4) SHA1(05b49635f99e7cb97a99b9666239d68154cb3641) )
+	ROM_LOAD( "pnick.key", 0x00, 0x80, CRC(38afadc4) SHA1(05b49635f99e7cb97a99b9666239d68154cb3641) )
 ROM_END
 
 
@@ -2451,7 +2451,7 @@ ROM_START( punisherf )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherje1 )
@@ -2481,7 +2481,7 @@ ROM_START( punisherje1 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjh )
@@ -2511,7 +2511,7 @@ ROM_START( punisherjh )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjh1 )
@@ -2541,7 +2541,7 @@ ROM_START( punisherjh1 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjha ) // multijet:punishje2: The Punisher (SM Experience Edition hack by Zhyxxxx set 2 13/06/09)
@@ -2571,7 +2571,7 @@ ROM_START( punisherjha ) // multijet:punishje2: The Punisher (SM Experience Edit
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherud1 )
@@ -2676,7 +2676,7 @@ ROM_START( sf2bhj )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2bhj.key", 0x00, 0x80, CRC(c62851af) SHA1(2ccc177c433e48e72e7f5dfeeffb65f54239bf12) )
+	ROM_LOAD( "sf2uc.key", 0x00, 0x80, CRC(c62851af) SHA1(2ccc177c433e48e72e7f5dfeeffb65f54239bf12) )
 ROM_END
 
 ROM_START( sf2c )
@@ -2713,7 +2713,7 @@ ROM_START( sf2c )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2c.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
+	ROM_LOAD( "sf2j.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
 ROM_END
 
 ROM_START( sf2ced ) // Drakon 7.1
@@ -3324,7 +3324,7 @@ ROM_START( sf2h9 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2h10 )
@@ -3357,7 +3357,7 @@ ROM_START( sf2h10 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2h11 )
@@ -3390,7 +3390,7 @@ ROM_START( sf2h11 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2h11.key", 0x00, 0x80, CRC(822729a2) SHA1(acaadef38fd97dba215c13688061cee87d877c19) )
+	ROM_LOAD( "sf2m4.key", 0x00, 0x80, CRC(822729a2) SHA1(acaadef38fd97dba215c13688061cee87d877c19) )
 ROM_END
 
 ROM_START( sf2h12 )
@@ -3423,7 +3423,7 @@ ROM_START( sf2h12 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2h11.key", 0x00, 0x80, CRC(822729a2) SHA1(acaadef38fd97dba215c13688061cee87d877c19) )
+	ROM_LOAD( "sf2m4.key", 0x00, 0x80, CRC(822729a2) SHA1(acaadef38fd97dba215c13688061cee87d877c19) )
 ROM_END
 
 ROM_START( sf2h13 )
@@ -3456,7 +3456,7 @@ ROM_START( sf2h13 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2jbh )
@@ -3493,7 +3493,7 @@ ROM_START( sf2jbh )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2c.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
+	ROM_LOAD( "sf2j.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
 ROM_END
 
 ROM_START( sf2koryuh )
@@ -3526,7 +3526,7 @@ ROM_START( sf2koryuh )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2pun ) //sf2ceub
@@ -3689,7 +3689,7 @@ ROM_START( sf2th )
 	ROM_LOAD( "c14.v2",  0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tha ) // same as sf2amf3 with different gfx roms
@@ -3722,7 +3722,7 @@ ROM_START( sf2tha ) // same as sf2amf3 with different gfx roms
 	ROM_LOAD( "c14.v2",  0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlona )
@@ -3755,7 +3755,7 @@ ROM_START( sf2tlona )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlonb )
@@ -3788,7 +3788,7 @@ ROM_START( sf2tlonb )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlonc )
@@ -3821,7 +3821,7 @@ ROM_START( sf2tlonc )
 	ROM_LOAD( "c14.v2",  0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2turyu )
@@ -3854,7 +3854,7 @@ ROM_START( sf2turyu )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2yyc3d5 )
@@ -3889,7 +3889,7 @@ ROM_START( sf2yyc3d5 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2yyc3g )
@@ -3924,7 +3924,7 @@ ROM_START( sf2yyc3g )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2yyc6 )
@@ -3959,7 +3959,7 @@ ROM_START( sf2yyc6 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sk2h101 )
@@ -4392,7 +4392,7 @@ ROM_START( sk2h21 )
 	ROM_LOAD( "c23.q4",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( sk2h22 )
@@ -4674,7 +4674,7 @@ ROM_START( sk2h35 )
 	ROM_LOAD( "c23.q4",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 
@@ -6368,7 +6368,7 @@ ROM_START( willowp )
 	ROM_LOAD( "c05.v2", 0x20000, 0x20000, CRC(683898f5) SHA1(316a77b663d78c8b9ff6d85756cb05aaaeef4003) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "willow.key", 0x00, 0x80, CRC(ad3640c3) SHA1(0d9ffb6bc15f6207d154ded582d81c2cde0a396f) )
+	ROM_LOAD( "willowp.key", 0x00, 0x80, CRC(ad3640c3) SHA1(0d9ffb6bc15f6207d154ded582d81c2cde0a396f) )
 ROM_END
 
 
@@ -10452,7 +10452,7 @@ ROM_START( dinos01 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos02 )
@@ -10482,7 +10482,7 @@ ROM_START( dinos02 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos03 )
@@ -10512,7 +10512,7 @@ ROM_START( dinos03 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos04 )
@@ -10542,7 +10542,7 @@ ROM_START( dinos04 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos05 )
@@ -10572,7 +10572,7 @@ ROM_START( dinos05 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos06 )
@@ -10602,7 +10602,7 @@ ROM_START( dinos06 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos07 )
@@ -10632,7 +10632,7 @@ ROM_START( dinos07 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos08 )
@@ -10662,7 +10662,7 @@ ROM_START( dinos08 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos09 )
@@ -10692,7 +10692,7 @@ ROM_START( dinos09 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos10 )
@@ -10722,7 +10722,7 @@ ROM_START( dinos10 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos11 )
@@ -10752,7 +10752,7 @@ ROM_START( dinos11 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos12 )
@@ -10782,7 +10782,7 @@ ROM_START( dinos12 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos13 )
@@ -10812,7 +10812,7 @@ ROM_START( dinos13 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos14 )
@@ -10842,7 +10842,7 @@ ROM_START( dinos14 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos15 )
@@ -10872,7 +10872,7 @@ ROM_START( dinos15 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos16 )
@@ -10902,7 +10902,7 @@ ROM_START( dinos16 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos17 )
@@ -10932,7 +10932,7 @@ ROM_START( dinos17 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos18 )
@@ -10962,7 +10962,7 @@ ROM_START( dinos18 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos19 )
@@ -10992,7 +10992,7 @@ ROM_START( dinos19 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos20 )
@@ -11022,7 +11022,7 @@ ROM_START( dinos20 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos21 )
@@ -11052,7 +11052,7 @@ ROM_START( dinos21 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos22 )
@@ -11082,7 +11082,7 @@ ROM_START( dinos22 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos23 ) //dinodw
@@ -11112,7 +11112,7 @@ ROM_START( dinos23 ) //dinodw
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos24 )
@@ -11142,7 +11142,7 @@ ROM_START( dinos24 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos25 ) // Also known as "Hack Ultra Plus 2018"
@@ -11172,7 +11172,7 @@ ROM_START( dinos25 ) // Also known as "Hack Ultra Plus 2018"
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos26 )
@@ -11202,7 +11202,7 @@ ROM_START( dinos26 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos27 )
@@ -11232,7 +11232,7 @@ ROM_START( dinos27 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos28 ) //dino2011ws
@@ -11262,7 +11262,7 @@ ROM_START( dinos28 ) //dino2011ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos29 )
@@ -11292,7 +11292,7 @@ ROM_START( dinos29 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos30 )
@@ -11322,7 +11322,7 @@ ROM_START( dinos30 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos31 )
@@ -11352,7 +11352,7 @@ ROM_START( dinos31 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos32 )
@@ -11382,7 +11382,7 @@ ROM_START( dinos32 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos33 )
@@ -11412,7 +11412,7 @@ ROM_START( dinos33 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos34 )
@@ -11442,7 +11442,7 @@ ROM_START( dinos34 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos35 )
@@ -11472,7 +11472,7 @@ ROM_START( dinos35 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos36 )
@@ -11502,7 +11502,7 @@ ROM_START( dinos36 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos37 )
@@ -11532,7 +11532,7 @@ ROM_START( dinos37 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos38 )
@@ -11655,7 +11655,7 @@ ROM_START( dinos42 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos43 )
@@ -11685,7 +11685,7 @@ ROM_START( dinos43 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos44 ) //dinoj2010ws
@@ -11715,7 +11715,7 @@ ROM_START( dinos44 ) //dinoj2010ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos45 )
@@ -11745,7 +11745,7 @@ ROM_START( dinos45 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos46 )
@@ -11775,7 +11775,7 @@ ROM_START( dinos46 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos47 )
@@ -11805,7 +11805,7 @@ ROM_START( dinos47 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos48 )
@@ -11835,7 +11835,7 @@ ROM_START( dinos48 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos49 ) // dinoadde
@@ -11863,7 +11863,7 @@ ROM_START( dinos49 ) // dinoadde
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos50 ) // dinochx
@@ -11891,7 +11891,7 @@ ROM_START( dinos50 ) // dinochx
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos51 ) // dinoslice
@@ -11919,7 +11919,7 @@ ROM_START( dinos51 ) // dinoslice
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos52 ) // dinosup
@@ -11947,7 +11947,7 @@ ROM_START( dinos52 ) // dinosup
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos53 ) // dinosupfx
@@ -11975,7 +11975,7 @@ ROM_START( dinos53 ) // dinosupfx
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos54 )
@@ -12005,7 +12005,7 @@ ROM_START( dinos54 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos56 ) // Also known as "Hack Ultra Plus 2018"
@@ -12035,7 +12035,7 @@ ROM_START( dinos56 ) // Also known as "Hack Ultra Plus 2018"
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos57 )
@@ -12125,7 +12125,7 @@ ROM_START( dinos59 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos60 )
@@ -12155,7 +12155,7 @@ ROM_START( dinos60 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos61 ) //dino2011ws2
@@ -12185,7 +12185,7 @@ ROM_START( dinos61 ) //dino2011ws2
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos62 ) //dinoslicews
@@ -12213,7 +12213,7 @@ ROM_START( dinos62 ) //dinoslicews
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos63 )
@@ -12244,7 +12244,7 @@ ROM_START( dinos63 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos64 ) //dinohc
@@ -12303,7 +12303,7 @@ ROM_START( dinos65 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos66 )
@@ -12333,7 +12333,7 @@ ROM_START( dinos66 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos67 )
@@ -12363,7 +12363,7 @@ ROM_START( dinos67 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos68 ) //dinowsxs
@@ -12393,7 +12393,7 @@ ROM_START( dinos68 ) //dinowsxs
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos69 ) //dinotfzn
@@ -12423,7 +12423,7 @@ ROM_START( dinos69 ) //dinotfzn
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos70 ) //dino2011ws
@@ -12453,7 +12453,7 @@ ROM_START( dinos70 ) //dino2011ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos71 ) //dinods
@@ -12481,7 +12481,7 @@ ROM_START( dinos71 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos72 ) //dinodyws
@@ -12509,7 +12509,7 @@ ROM_START( dinos72 ) //dinodyws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos73 ) //dinoaddx3
@@ -12537,7 +12537,7 @@ ROM_START( dinos73 ) //dinoaddx3
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos74 ) //dinovr
@@ -12565,7 +12565,7 @@ ROM_START( dinos74 ) //dinovr
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos75 ) //dino7s
@@ -12597,7 +12597,7 @@ ROM_START( dinos75 ) //dino7s
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos91 ) //dino5b
@@ -12629,7 +12629,7 @@ ROM_START( dinos91 ) //dino5b
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos92 ) //dino2011x
@@ -12659,7 +12659,7 @@ ROM_START( dinos92 ) //dino2011x
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos93 ) //dinods
@@ -12687,7 +12687,7 @@ ROM_START( dinos93 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos94 ) //dinotxj, dinojps
@@ -12717,7 +12717,7 @@ ROM_START( dinos94 ) //dinotxj, dinojps
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos95 ) //dinoyz
@@ -12747,7 +12747,7 @@ ROM_START( dinos95 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos96 ) //dinoslice
@@ -12778,7 +12778,7 @@ ROM_START( dinos96 ) //dinoslice
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos97 ) //dinowjb
@@ -12808,7 +12808,7 @@ ROM_START( dinos97 ) //dinowjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos98 ) //dino2017cws, dinozjws
@@ -12838,7 +12838,7 @@ ROM_START( dinos98 ) //dino2017cws, dinozjws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos99 ) //dinoext
@@ -12866,7 +12866,7 @@ ROM_START( dinos99 ) //dinoext
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos100 ) //dinoslicews, dinoslice
@@ -12894,7 +12894,7 @@ ROM_START( dinos100 ) //dinoslicews, dinoslice
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos101 ) //dinoslicewstd, dinoslice1
@@ -12922,7 +12922,7 @@ ROM_START( dinos101 ) //dinoslicewstd, dinoslice1
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos102 ) //dinoyzlb
@@ -12952,7 +12952,7 @@ ROM_START( dinos102 ) //dinoyzlb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos103 ) //dinoaddx5
@@ -12980,7 +12980,7 @@ ROM_START( dinos103 ) //dinoaddx5
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos104 ) //dino2011ws2
@@ -13008,7 +13008,7 @@ ROM_START( dinos104 ) //dino2011ws2
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos105 ) //dino2015ws
@@ -13038,7 +13038,7 @@ ROM_START( dinos105 ) //dino2015ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos106 ) //dinohap
@@ -13066,7 +13066,7 @@ ROM_START( dinos106 ) //dinohap
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos107 ) //dinotb
@@ -13094,7 +13094,7 @@ ROM_START( dinos107 ) //dinotb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos108 ) //dinotxj
@@ -13124,7 +13124,7 @@ ROM_START( dinos108 ) //dinotxj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos109 ) //dinovr
@@ -13152,7 +13152,7 @@ ROM_START( dinos109 ) //dinovr
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos110 ) //dinoxa
@@ -13182,7 +13182,7 @@ ROM_START( dinos110 ) //dinoxa
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos111 ) //dinoxc
@@ -13212,7 +13212,7 @@ ROM_START( dinos111 ) //dinoxc
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos112 ) //dinoyz
@@ -13242,7 +13242,7 @@ ROM_START( dinos112 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos113 ) //dinods
@@ -13270,7 +13270,7 @@ ROM_START( dinos113 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos114 ) //dinotxj
@@ -13300,7 +13300,7 @@ ROM_START( dinos114 ) //dinotxj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos115 ) //dinowszh
@@ -13328,7 +13328,7 @@ ROM_START( dinos115 ) //dinowszh
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos116 ) //dinoxe
@@ -13358,7 +13358,7 @@ ROM_START( dinos116 ) //dinoxe
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos117 ) //dinoycty
@@ -13386,7 +13386,7 @@ ROM_START( dinos117 ) //dinoycty
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos118 ) //dinoyz
@@ -13416,7 +13416,7 @@ ROM_START( dinos118 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos119 ) //dinoyz
@@ -13446,7 +13446,7 @@ ROM_START( dinos119 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos120 ) //dinoyz
@@ -13476,7 +13476,7 @@ ROM_START( dinos120 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos121 ) //dinoyz
@@ -13506,7 +13506,7 @@ ROM_START( dinos121 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos122 ) //dino2015ws
@@ -13537,7 +13537,7 @@ ROM_START( dinos122 ) //dino2015ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos123 ) //dinoh
@@ -13598,7 +13598,7 @@ ROM_START( dinos124 ) //dinoxe, dinoplus
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos125 ) //dinoxa
@@ -13628,7 +13628,7 @@ ROM_START( dinos125 ) //dinoxa
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos126 ) //dinoxc
@@ -13658,7 +13658,7 @@ ROM_START( dinos126 ) //dinoxc
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos127 ) //dinoxe
@@ -13688,7 +13688,7 @@ ROM_START( dinos127 ) //dinoxe
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos128 ) //dinoyz
@@ -13718,7 +13718,7 @@ ROM_START( dinos128 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos129 ) //dinowjb
@@ -13746,7 +13746,7 @@ ROM_START( dinos129 ) //dinowjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos130 ) //dinoyz
@@ -13776,7 +13776,7 @@ ROM_START( dinos130 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos131 ) //dinods
@@ -13804,7 +13804,7 @@ ROM_START( dinos131 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos132 ) //dinowjb
@@ -13834,7 +13834,7 @@ ROM_START( dinos132 ) //dinowjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos133 ) //dinolbws
@@ -13864,7 +13864,7 @@ ROM_START( dinos133 ) //dinolbws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos134 ) //dinowszh
@@ -13892,7 +13892,7 @@ ROM_START( dinos134 ) //dinowszh
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos135 )
@@ -13955,7 +13955,7 @@ ROM_START( dinos136 ) //dinotl
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos137 )
@@ -13985,7 +13985,7 @@ ROM_START( dinos137 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos138 )
@@ -14015,7 +14015,7 @@ ROM_START( dinos138 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos139 )
@@ -14045,7 +14045,7 @@ ROM_START( dinos139 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos140 )
@@ -14075,7 +14075,7 @@ ROM_START( dinos140 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos141 )
@@ -14105,7 +14105,7 @@ ROM_START( dinos141 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos142 ) //dinoxzb
@@ -14135,7 +14135,7 @@ ROM_START( dinos142 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos143 ) //dinoxzb
@@ -14165,7 +14165,7 @@ ROM_START( dinos143 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos144 ) //dinoadd
@@ -14193,7 +14193,7 @@ ROM_START( dinos144 ) //dinoadd
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos145 ) //dinoxe
@@ -14223,7 +14223,7 @@ ROM_START( dinos145 ) //dinoxe
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos146 ) //dinoxc
@@ -14253,7 +14253,7 @@ ROM_START( dinos146 ) //dinoxc
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos147 ) //dinoxe
@@ -14286,7 +14286,7 @@ ROM_START( dinos147 ) //dinoxe
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos148 ) //dinoyz
@@ -14316,7 +14316,7 @@ ROM_START( dinos148 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos149 ) //dinoaddx3,dinoadd
@@ -14344,7 +14344,7 @@ ROM_START( dinos149 ) //dinoaddx3,dinoadd
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos150 ) //dinoxa
@@ -14374,7 +14374,7 @@ ROM_START( dinos150 ) //dinoxa
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos151 ) //dinoxc
@@ -14404,7 +14404,7 @@ ROM_START( dinos151 ) //dinoxc
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos152 ) //dinotxj
@@ -14434,7 +14434,7 @@ ROM_START( dinos152 ) //dinotxj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos153 ) //dinotxj
@@ -14464,7 +14464,7 @@ ROM_START( dinos153 ) //dinotxj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos154 ) //dinoplus
@@ -14494,7 +14494,7 @@ ROM_START( dinos154 ) //dinoplus
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos155 ) //dinotfzn
@@ -14524,7 +14524,7 @@ ROM_START( dinos155 ) //dinotfzn
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos156 ) //dino2015ws
@@ -14554,7 +14554,7 @@ ROM_START( dinos156 ) //dino2015ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos157 ) //dinofx
@@ -14584,7 +14584,7 @@ ROM_START( dinos157 ) //dinofx
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos158 ) //dinogch
@@ -14614,7 +14614,7 @@ ROM_START( dinos158 ) //dinogch
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos159 ) //dinolbws
@@ -14644,7 +14644,7 @@ ROM_START( dinos159 ) //dinolbws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos160 ) //dinods
@@ -14672,7 +14672,7 @@ ROM_START( dinos160 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos161 ) //dinowjb
@@ -14702,7 +14702,7 @@ ROM_START( dinos161 ) //dinowjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos162 ) //dinoadd1
@@ -14730,7 +14730,7 @@ ROM_START( dinos162 ) //dinoadd1
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos163 ) //dinoxa
@@ -14760,7 +14760,7 @@ ROM_START( dinos163 ) //dinoxa
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos164 )
@@ -14790,7 +14790,7 @@ ROM_START( dinos164 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos165 ) //dino2017cws
@@ -14818,7 +14818,7 @@ ROM_START( dinos165 ) //dino2017cws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos166 )
@@ -14848,7 +14848,7 @@ ROM_START( dinos166 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos167 )
@@ -14879,7 +14879,7 @@ ROM_START( dinos167 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos168 )
@@ -14909,7 +14909,7 @@ ROM_START( dinos168 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos169 ) //dinotwb
@@ -14940,7 +14940,7 @@ ROM_START( dinos169 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos170 ) //dinods
@@ -14968,7 +14968,7 @@ ROM_START( dinos170 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos171 ) //dinoxzb
@@ -14998,7 +14998,7 @@ ROM_START( dinos171 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos172 ) //dinowjb
@@ -15028,7 +15028,7 @@ ROM_START( dinos172 ) //dinowjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos173 ) //dinotwb
@@ -15059,7 +15059,7 @@ ROM_START( dinos173 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos174 ) //dinods
@@ -15087,7 +15087,7 @@ ROM_START( dinos174 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos175 ) //dinotwb
@@ -15118,7 +15118,7 @@ ROM_START( dinos175 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos176 ) //dinoxzb
@@ -15148,7 +15148,7 @@ ROM_START( dinos176 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos177 ) //dinods
@@ -15176,7 +15176,7 @@ ROM_START( dinos177 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos178 ) //dinotwb
@@ -15207,7 +15207,7 @@ ROM_START( dinos178 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos179 )
@@ -15235,7 +15235,7 @@ ROM_START( dinos179 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos180 )  // dinojds
@@ -15263,7 +15263,7 @@ ROM_START( dinos180 )  // dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos181 )  // dinojps
@@ -15291,7 +15291,7 @@ ROM_START( dinos181 )  // dinojps
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos182 )  // dinowtw
@@ -15319,7 +15319,7 @@ ROM_START( dinos182 )  // dinowtw
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos183 ) // dinoxzb
@@ -15349,7 +15349,7 @@ ROM_START( dinos183 ) // dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos184 )  // dinowj
@@ -15377,7 +15377,7 @@ ROM_START( dinos184 )  // dinowj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos185 )  // dinows2019
@@ -15407,7 +15407,7 @@ ROM_START( dinos185 )  // dinows2019
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos186 ) //dinoyz
@@ -15437,7 +15437,7 @@ ROM_START( dinos186 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos187 ) //dinoxzb
@@ -15467,7 +15467,7 @@ ROM_START( dinos187 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos188 ) //dinoups
@@ -15497,7 +15497,7 @@ ROM_START( dinos188 ) //dinoups
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos189 ) //dino2011ws2
@@ -15525,7 +15525,7 @@ ROM_START( dinos189 ) //dino2011ws2
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos190 ) //dinotwb
@@ -15556,7 +15556,7 @@ ROM_START( dinos190 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos191 ) //dinods
@@ -15584,7 +15584,7 @@ ROM_START( dinos191 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos192 ) //dinozszn
@@ -15614,7 +15614,7 @@ ROM_START( dinos192 ) //dinozszn
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos193 ) //dinoqmgw
@@ -15644,7 +15644,7 @@ ROM_START( dinos193 ) //dinoqmgw
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos194 ) //dinojds
@@ -15672,7 +15672,7 @@ ROM_START( dinos194 ) //dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos195 ) //dinoly
@@ -15702,7 +15702,7 @@ ROM_START( dinos195 ) //dinoly
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos196 ) //dinowj
@@ -15732,7 +15732,7 @@ ROM_START( dinos196 ) //dinowj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos197 ) //dinoxz
@@ -15762,7 +15762,7 @@ ROM_START( dinos197 ) //dinoxz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos198 ) //dinoyz
@@ -15790,7 +15790,7 @@ ROM_START( dinos198 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos199 ) //dinov3p
@@ -15820,7 +15820,7 @@ ROM_START( dinos199 ) //dinov3p
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos200 ) //dinowjb
@@ -15850,7 +15850,7 @@ ROM_START( dinos200 ) //dinowjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos201 ) //dinowjc
@@ -15880,7 +15880,7 @@ ROM_START( dinos201 ) //dinowjc
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos202 )
@@ -15910,7 +15910,7 @@ ROM_START( dinos202 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos203 )
@@ -15940,7 +15940,7 @@ ROM_START( dinos203 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos204 )
@@ -15970,7 +15970,7 @@ ROM_START( dinos204 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos205 ) //dinoyz
@@ -15998,7 +15998,7 @@ ROM_START( dinos205 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos206 ) //dinotwb
@@ -16029,7 +16029,7 @@ ROM_START( dinos206 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos207 ) //dinods
@@ -16057,7 +16057,7 @@ ROM_START( dinos207 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos208 ) //dinoups
@@ -16087,7 +16087,7 @@ ROM_START( dinos208 ) //dinoups
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos209 ) //dino97p
@@ -16117,7 +16117,7 @@ ROM_START( dinos209 ) //dino97p
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos210 ) //dino2011p
@@ -16147,7 +16147,7 @@ ROM_START( dinos210 ) //dino2011p
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos211 ) //dinojds
@@ -16175,7 +16175,7 @@ ROM_START( dinos211 ) //dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos212 ) //dinojps
@@ -16203,7 +16203,7 @@ ROM_START( dinos212 ) //dinojps
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos213 ) //dinowtw
@@ -16231,7 +16231,7 @@ ROM_START( dinos213 ) //dinowtw
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos214 ) //dinoyz
@@ -16259,7 +16259,7 @@ ROM_START( dinos214 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos215 ) // Also known as "Hack Ultra Plus 2018"
@@ -16289,7 +16289,7 @@ ROM_START( dinos215 ) // Also known as "Hack Ultra Plus 2018"
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos216 ) // Also known as "Hack Ultra Plus 2018"
@@ -16319,7 +16319,7 @@ ROM_START( dinos216 ) // Also known as "Hack Ultra Plus 2018"
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos217 ) //dinojds
@@ -16347,7 +16347,7 @@ ROM_START( dinos217 ) //dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos218 ) //dinojps
@@ -16375,7 +16375,7 @@ ROM_START( dinos218 ) //dinojps
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos219 ) //dinowtw
@@ -16403,7 +16403,7 @@ ROM_START( dinos219 ) //dinowtw
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos220 ) //dinoyz
@@ -16431,7 +16431,7 @@ ROM_START( dinos220 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos221 ) //dinotwb
@@ -16462,7 +16462,7 @@ ROM_START( dinos221 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos222 ) //dinods
@@ -16490,7 +16490,7 @@ ROM_START( dinos222 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos223 ) //dinows2020
@@ -16520,7 +16520,7 @@ ROM_START( dinos223 ) //dinows2020
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos224 )
@@ -16550,7 +16550,7 @@ ROM_START( dinos224 )
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos225 ) //dinofrp
@@ -16580,7 +16580,7 @@ ROM_START( dinos225 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos226 ) //dino3j
@@ -16608,7 +16608,7 @@ ROM_START( dinos226 ) //dino3j
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos227 ) //dinojd
@@ -16638,7 +16638,7 @@ ROM_START( dinos227 ) //dinojd
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos228 ) //dinojds
@@ -16666,7 +16666,7 @@ ROM_START( dinos228 ) //dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos229 ) //dinokrf
@@ -16696,7 +16696,7 @@ ROM_START( dinos229 ) //dinokrf
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos230 ) //dinokrp
@@ -16726,7 +16726,7 @@ ROM_START( dinos230 ) //dinokrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos231 ) //dinospws
@@ -16756,7 +16756,7 @@ ROM_START( dinos231 ) //dinospws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos232 )  // dinojds
@@ -16784,7 +16784,7 @@ ROM_START( dinos232 )  // dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos233 )  // dinojds
@@ -16812,7 +16812,7 @@ ROM_START( dinos233 )  // dinojds
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos234 )  // dinowj
@@ -16840,7 +16840,7 @@ ROM_START( dinos234 )  // dinowj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos235 ) //dinows2020
@@ -16870,7 +16870,7 @@ ROM_START( dinos235 ) //dinows2020
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos236 ) //dino18ws
@@ -16900,7 +16900,7 @@ ROM_START( dinos236 ) //dino18ws
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos237 ) //dinob
@@ -16930,7 +16930,7 @@ ROM_START( dinos237 ) //dinob
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos238 ) //dino3j
@@ -16960,7 +16960,7 @@ ROM_START( dinos238 ) //dino3j
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos239 )  // dinods
@@ -16988,7 +16988,7 @@ ROM_START( dinos239 )  // dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos240 ) //dinofrp
@@ -17018,7 +17018,7 @@ ROM_START( dinos240 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos241 ) //dinofrp
@@ -17048,7 +17048,7 @@ ROM_START( dinos241 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos242 ) //dinowxq
@@ -17078,7 +17078,7 @@ ROM_START( dinos242 ) //dinowxq
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos243 ) //dinozsb
@@ -17108,7 +17108,7 @@ ROM_START( dinos243 ) //dinozsb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos244 ) //dinofrp
@@ -17138,7 +17138,7 @@ ROM_START( dinos244 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos245 ) //dinotwb
@@ -17169,7 +17169,7 @@ ROM_START( dinos245 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos246 ) //dinofrp
@@ -17199,7 +17199,7 @@ ROM_START( dinos246 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos247 ) //dinods
@@ -17227,7 +17227,7 @@ ROM_START( dinos247 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos248 ) //dinojdb
@@ -17258,7 +17258,7 @@ ROM_START( dinos248 ) //dinojdb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos249 ) //dinoplus
@@ -17288,7 +17288,7 @@ ROM_START( dinos249 ) //dinoplus
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos250 ) //dinosdj
@@ -17319,7 +17319,7 @@ ROM_START( dinos250 ) //dinosdj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos251 ) //dinotjb
@@ -17350,7 +17350,7 @@ ROM_START( dinos251 ) //dinotjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos252 ) //dinotwb
@@ -17381,7 +17381,7 @@ ROM_START( dinos252 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos253 ) //dinoxzb
@@ -17411,7 +17411,7 @@ ROM_START( dinos253 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos254 ) //dinofrp
@@ -17441,7 +17441,7 @@ ROM_START( dinos254 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos255 ) //dinowjb2
@@ -17471,7 +17471,7 @@ ROM_START( dinos255 ) //dinowjb2
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos256 ) //dino99jp
@@ -17560,7 +17560,7 @@ ROM_START( dinos258 ) //dinojdb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos259 ) //dinoplus
@@ -17590,7 +17590,7 @@ ROM_START( dinos259 ) //dinoplus
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos260 ) //dinosdj
@@ -17621,7 +17621,7 @@ ROM_START( dinos260 ) //dinosdj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos261 ) //dinotjb
@@ -17652,7 +17652,7 @@ ROM_START( dinos261 ) //dinotjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos262 ) //dinotwb
@@ -17683,7 +17683,7 @@ ROM_START( dinos262 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos263 ) //dinowjb2
@@ -17713,7 +17713,7 @@ ROM_START( dinos263 ) //dinowjb2
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos264 ) //dinoyz
@@ -17741,7 +17741,7 @@ ROM_START( dinos264 ) //dinoyz
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos265 ) //dino3j
@@ -17772,7 +17772,7 @@ ROM_START( dinos265 ) //dino3j
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos266 ) //dinotjb
@@ -17803,7 +17803,7 @@ ROM_START( dinos266 ) //dinotjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos267 ) //dinotwb
@@ -17834,7 +17834,7 @@ ROM_START( dinos267 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos268 ) //dinotjb
@@ -17865,7 +17865,7 @@ ROM_START( dinos268 ) //dinotjb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos269 ) //dinotwb
@@ -17896,7 +17896,7 @@ ROM_START( dinos269 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos270 ) //dinoxzb
@@ -17926,7 +17926,7 @@ ROM_START( dinos270 ) //dinoxzb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos271 ) //dinotwb
@@ -17957,7 +17957,7 @@ ROM_START( dinos271 ) //dinotwb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos272 ) //dinoxlb
@@ -17988,7 +17988,7 @@ ROM_START( dinos272 ) //dinoxlb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos273 ) //dinoxlb
@@ -18019,7 +18019,7 @@ ROM_START( dinos273 ) //dinoxlb
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos274 ) //dinofrp
@@ -18049,7 +18049,7 @@ ROM_START( dinos274 ) //dinofrp
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos275 ) //dinowsxl
@@ -18080,7 +18080,7 @@ ROM_START( dinos275 ) //dinowsxl
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos276 ) //dinozsj
@@ -18110,7 +18110,7 @@ ROM_START( dinos276 ) //dinozsj
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos277 ) //dinowjb2
@@ -18140,7 +18140,7 @@ ROM_START( dinos277 ) //dinowjb2
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos278 ) //dinods
@@ -18168,7 +18168,7 @@ ROM_START( dinos278 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos279 ) //dinods
@@ -18196,7 +18196,7 @@ ROM_START( dinos279 ) //dinods
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos280 ) //dinodw
@@ -18227,7 +18227,7 @@ ROM_START( dinos280 ) //dinodw
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 ROM_START( dinos281 ) //dinosyn
@@ -18258,7 +18258,7 @@ ROM_START( dinos281 ) //dinosyn
 	ROM_LOAD( "c25.q4",   0x180000, 0x80000, CRC(2c67821d) SHA1(6e2528d0b22508300a6a142a796dd3bf53a66946) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
+	ROM_LOAD( "dinos01.key", 0x00, 0x80, CRC(230b6eb0) SHA1(240fdda90aecd62ce1f218e430b7ee6a464b8de8) )
 ROM_END
 
 /************
@@ -18355,7 +18355,7 @@ ROM_START( ffightj2s01 ) //ffightj2
 	ROM_LOAD( "c07.v2",  0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
+	ROM_LOAD( "ffighth.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
 ROM_END
 
 ROM_START( ffightj2s02 )
@@ -18396,7 +18396,7 @@ ROM_START( ffightj2s02 )
 	ROM_LOAD( "c07.v2",  0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
+	ROM_LOAD( "ffighth.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
 ROM_END
 
 ROM_START( ffightj2s03 ) //ffightj2
@@ -18437,7 +18437,7 @@ ROM_START( ffightj2s03 ) //ffightj2
 	ROM_LOAD( "c07.v2",  0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
+	ROM_LOAD( "ffighth.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
 ROM_END
 
 ROM_START( ffightj2s04 ) //ffightj2
@@ -18478,7 +18478,7 @@ ROM_START( ffightj2s04 ) //ffightj2
 	ROM_LOAD( "c07.v2",  0x20000, 0x20000, CRC(1ef137f9) SHA1(974b5e72aa28b87ebfa7438efbdfeda769dedf5e) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "ffightj2.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
+	ROM_LOAD( "ffighth.key", 0x00, 0x80, CRC(1fbcac88) SHA1(b61a3ec619ec919b1bb999efa89d683d509c84d8) )
 ROM_END
 
 ROM_START( ffightj1s01 ) //ffight1v2
@@ -19327,7 +19327,7 @@ ROM_START( mbombrds01 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "mbombrd.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
+	ROM_LOAD( "mbombrds01.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
 ROM_END
 
 ROM_START( mbombrds02 )
@@ -19372,7 +19372,7 @@ ROM_START( mbombrds02 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "mbombrd.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
+	ROM_LOAD( "mbombrds01.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
 ROM_END
 
 ROM_START( mbombrds03 )
@@ -19417,7 +19417,7 @@ ROM_START( mbombrds03 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "mbombrd.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
+	ROM_LOAD( "mbombrds01.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
 ROM_END
 
 ROM_START( mbombrds04 )
@@ -19462,7 +19462,7 @@ ROM_START( mbombrds04 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "mbombrd.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
+	ROM_LOAD( "mbombrds01.key", 0x00, 0x80, CRC(7c81cc06) SHA1(4c1b9af3896840a78a88f8bb70707728523d688b) )
 ROM_END
 
 /*************
@@ -19502,7 +19502,7 @@ ROM_START( punishers01 ) //punisher1v2
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers02 ) //punisher1v2
@@ -19538,7 +19538,7 @@ ROM_START( punishers02 ) //punisher1v2
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers03 ) //punisher1v2
@@ -19574,7 +19574,7 @@ ROM_START( punishers03 ) //punisher1v2
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers04 ) //punisherhr
@@ -19610,7 +19610,7 @@ ROM_START( punishers04 ) //punisherhr
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers05 ) //punisherbs
@@ -19646,7 +19646,7 @@ ROM_START( punishers05 ) //punisherbs
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers06 ) //punisherkd
@@ -19682,7 +19682,7 @@ ROM_START( punishers06 ) //punisherkd
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers07 ) //punisherbs
@@ -19718,7 +19718,7 @@ ROM_START( punishers07 ) //punisherbs
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers08 ) //punisherly
@@ -19754,7 +19754,7 @@ ROM_START( punishers08 ) //punisherly
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers09 ) //punisherbs
@@ -19790,7 +19790,7 @@ ROM_START( punishers09 ) //punisherbs
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers10 ) //punisherbs
@@ -19826,7 +19826,7 @@ ROM_START( punishers10 ) //punisherbs
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punishers11 ) //punisherkd
@@ -19862,7 +19862,7 @@ ROM_START( punishers11 ) //punisherkd
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs01 )
@@ -19892,7 +19892,7 @@ ROM_START( punisherjs01 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs02 )
@@ -19922,7 +19922,7 @@ ROM_START( punisherjs02 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs03 ) // punisherj1v2
@@ -19955,7 +19955,7 @@ ROM_START( punisherjs03 ) // punisherj1v2
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs04 )
@@ -19988,7 +19988,7 @@ ROM_START( punisherjs04 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs05 )
@@ -20018,7 +20018,7 @@ ROM_START( punisherjs05 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs06 )
@@ -20048,7 +20048,7 @@ ROM_START( punisherjs06 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs07 )
@@ -20078,7 +20078,7 @@ ROM_START( punisherjs07 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs08 )
@@ -20108,7 +20108,7 @@ ROM_START( punisherjs08 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs09 ) //punisherj1v2
@@ -20138,7 +20138,7 @@ ROM_START( punisherjs09 ) //punisherj1v2
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs10 )
@@ -20168,7 +20168,7 @@ ROM_START( punisherjs10 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs11 )
@@ -20198,7 +20198,7 @@ ROM_START( punisherjs11 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs12 )
@@ -20228,7 +20228,7 @@ ROM_START( punisherjs12 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs13 )
@@ -20258,7 +20258,7 @@ ROM_START( punisherjs13 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs14 )
@@ -20288,7 +20288,7 @@ ROM_START( punisherjs14 )
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs15 ) //punisher1v2bs
@@ -20318,7 +20318,7 @@ ROM_START( punisherjs15 ) //punisher1v2bs
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs16 ) //punisherly
@@ -20348,7 +20348,7 @@ ROM_START( punisherjs16 ) //punisherly
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs17 ) //punisherwsp
@@ -20378,7 +20378,7 @@ ROM_START( punisherjs17 ) //punisherwsp
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs18 ) //punisherly
@@ -20406,7 +20406,7 @@ ROM_START( punisherjs18 ) //punisherly
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs19 ) //punisherbs
@@ -20434,7 +20434,7 @@ ROM_START( punisherjs19 ) //punisherbs
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs20 ) //punisherwsp
@@ -20464,7 +20464,7 @@ ROM_START( punisherjs20 ) //punisherwsp
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs21 ) //punisherwxp
@@ -20494,7 +20494,7 @@ ROM_START( punisherjs21 ) //punisherwxp
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs22 ) //punisher1v2xl
@@ -20522,7 +20522,7 @@ ROM_START( punisherjs22 ) //punisher1v2xl
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs23 ) //punisherxl
@@ -20550,7 +20550,7 @@ ROM_START( punisherjs23 ) //punisherxl
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 ROM_START( punisherjs24 ) //punisherxl
@@ -20578,7 +20578,7 @@ ROM_START( punisherjs24 ) //punisherxl
 	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisher.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
+	ROM_LOAD( "punishers01.key", 0x00, 0x80, CRC(8e992ffa) SHA1(4f09427600cef4feb49a8a488caadaaa7b327484) )
 ROM_END
 
 /******************
@@ -21835,7 +21835,7 @@ ROM_START( sf2s02 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2c.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
+	ROM_LOAD( "sf2j.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
 ROM_END
 
 ROM_START( sf2s03 )
@@ -22094,7 +22094,7 @@ ROM_START( sf2s09 ) //sf2jcnv - same as sf2js02 except for the oki roms
 	ROM_LOAD( "c14s09.v2",  0x20000, 0x20000, CRC(d54dc6ae) SHA1(662d6a3260892376428b29d374d255f4cf7352b3) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2c.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
+	ROM_LOAD( "sf2j.key", 0x00, 0x80, CRC(fdc05d86) SHA1(f828e6171a271bc12a5c9ab5be237562e263ccdb) )
 ROM_END
 
 ROM_START( sf2koryus01 )
@@ -22127,7 +22127,7 @@ ROM_START( sf2koryus01 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2koryus02 )
@@ -22160,7 +22160,7 @@ ROM_START( sf2koryus02 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2koryus03 )
@@ -22193,7 +22193,7 @@ ROM_START( sf2koryus03 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlonas01 )
@@ -22226,7 +22226,7 @@ ROM_START( sf2tlonas01 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlonas02 )
@@ -22259,7 +22259,7 @@ ROM_START( sf2tlonas02 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlonas03 )
@@ -22292,7 +22292,7 @@ ROM_START( sf2tlonas03 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2tlonas04 )
@@ -22325,7 +22325,7 @@ ROM_START( sf2tlonas04 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2th.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
 ROM_END
 
 ROM_START( sf2hfus01 )
@@ -22518,7 +22518,7 @@ ROM_START( sf2h11s01 )
 	ROM_LOAD( "c14.v2",    0x20000, 0x20000, CRC(beade53f) SHA1(277c397dc12752719ec6b47d2224750bd1c07f79) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sf2h11.key", 0x00, 0x80, CRC(822729a2) SHA1(acaadef38fd97dba215c13688061cee87d877c19) )
+	ROM_LOAD( "sf2m4.key", 0x00, 0x80, CRC(822729a2) SHA1(acaadef38fd97dba215c13688061cee87d877c19) )
 ROM_END
 
 ROM_START( sf2puns01 ) //sf2ceub
@@ -22825,7 +22825,7 @@ ROM_START( slammasts01 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "slammast.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
+	ROM_LOAD( "slammasts01.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
 ROM_END
 
 ROM_START( slammasts02 )
@@ -22870,7 +22870,7 @@ ROM_START( slammasts02 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "slammast.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
+	ROM_LOAD( "slammasts01.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
 ROM_END
 
 ROM_START( slammasts03 )
@@ -22915,7 +22915,7 @@ ROM_START( slammasts03 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "slammast.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
+	ROM_LOAD( "slammasts01.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
 ROM_END
 
 ROM_START( slammasts04 )
@@ -22960,7 +22960,7 @@ ROM_START( slammasts04 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "slammast.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
+	ROM_LOAD( "slammasts01.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
 ROM_END
 
 ROM_START( slammasts05 )
@@ -23005,7 +23005,7 @@ ROM_START( slammasts05 )
 	ROM_LOAD( "c27.q8",   0x380000, 0x80000, CRC(59fe702a) SHA1(807178dfc6d864e49fd7aabb5c4895835cf0e85b) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "slammast.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
+	ROM_LOAD( "slammasts01.key", 0x00, 0x80, CRC(f099c4d6) SHA1(2a178a9d856d6ce0746408ec6de92f889fc9ddb6) )
 ROM_END
 
 /********
@@ -23086,7 +23086,7 @@ ROM_START( sfzchs01 )
 	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sfzch.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
 ROM_START( sfzchs02 )
@@ -23126,7 +23126,7 @@ ROM_START( sfzchs02 )
 	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sfzch.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
 ROM_START( sfzchs03 ) //sfzach
@@ -23166,7 +23166,7 @@ ROM_START( sfzchs03 ) //sfzach
 	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sfzch.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
 ROM_START( sfzchs04 ) //sfzech
@@ -23206,7 +23206,7 @@ ROM_START( sfzchs04 ) //sfzech
 	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sfzch.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
 ROM_START( sfzchs05 ) //sfzhch
@@ -23246,7 +23246,7 @@ ROM_START( sfzchs05 ) //sfzhch
 	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sfzch.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
 ROM_START( sfzchs06 ) //sfzbch
@@ -23286,7 +23286,7 @@ ROM_START( sfzchs06 ) //sfzbch
 	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sfzch.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
 /******
@@ -23386,7 +23386,7 @@ ROM_START( willows01 )
 	ROM_LOAD( "c05.v2", 0x20000, 0x20000, CRC(683898f5) SHA1(316a77b663d78c8b9ff6d85756cb05aaaeef4003) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "willow.key", 0x00, 0x80, CRC(ad3640c3) SHA1(0d9ffb6bc15f6207d154ded582d81c2cde0a396f) )
+	ROM_LOAD( "willowp.key", 0x00, 0x80, CRC(ad3640c3) SHA1(0d9ffb6bc15f6207d154ded582d81c2cde0a396f) )
 ROM_END
 
 /*******************
@@ -24100,7 +24100,7 @@ ROM_START( tk2h44 )
 	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( tk2h45 )
@@ -26309,7 +26309,7 @@ ROM_START( tk2h121 ) //wof8nv3
 	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( tk2h122 ) //wofjdr
@@ -28632,7 +28632,7 @@ ROM_START( sk2h41 )
 	ROM_LOAD( "c23.q4",     0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( sk2h42 )
@@ -28746,7 +28746,7 @@ ROM_START( sk2h45 ) //wofaha
 	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( sk2h46 )
@@ -28977,7 +28977,7 @@ ROM_START( wofs02 )
 	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( wofs03 )
@@ -29007,7 +29007,7 @@ ROM_START( wofs03 )
 	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( wofs04 )
@@ -29036,7 +29036,7 @@ ROM_START( wofs04 )
 	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "sk2h21.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
+	ROM_LOAD( "wofhfh.key", 0x00, 0x80, CRC(287d8a40) SHA1(46aa717f599f88d32afb5ecc0bf43c2cbe6892d0) )
 ROM_END
 
 ROM_START( wofs05 )  // wofr19

@@ -483,6 +483,7 @@ public:
 	void sub_map(address_map &map);
 	void varthb_map(address_map &map);
 	void varthb2_map(address_map &map);
+	void varthb3_map(address_map &map);
 	void sf2cems6_map(address_map &map);
 // HBMAME start
 
@@ -497,6 +498,7 @@ public:
 	void cawingb(machine_config &config);
 	void captcommb2(machine_config &config);
 	void varthb2(machine_config &config);
+	void varthb3(machine_config &config);
 	void sf2cems6(machine_config &config);
 	void daimakb_map(address_map &map);
 	void sk2h35_map(address_map &map);

@@ -1768,6 +1768,21 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 			m_bank_type[i*4+3] = rom[tt] >> 6;
 			tt += 7;
 		}
+
+#if WRITE_FILE
+// convert new to old, write settings to stdout.
+
+	printf("DEFINE blah 0x%02x, 0x%04x, 0x%02x, 0x%02x, 0x%02x, 0x%02x, -1, -1, -1, 0x%02x, {0x%02x, 0x%02x, 0x%02x, 0x%02x}, 0x%02x, {0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x}\n",
+		m_cpsb_addr, m_cpsb_value, m_mult_factor1, m_mult_factor2, m_mult_result_lo, m_mult_result_hi,
+		m_layer_control, m_priority[0], m_priority[1], m_priority[2], m_priority[3], m_palette_control,
+		m_layer_enable_mask[0], m_layer_enable_mask[1], m_layer_enable_mask[2], m_layer_enable_mask[3],
+		m_layer_enable_mask[4]);
+	printf("GAMENAME blah, %x, %x, %x, %x\n", m_in2_addr, m_in3_addr, m_out2_addr, m_bootleg_kludge);
+	printf("BANKSIZES {%x, %x, %x, %x}\n",m_bank_sizes[0],m_bank_sizes[1],m_bank_sizes[2],m_bank_sizes[3]);
+	for (u8 i = 0; i < 8; i++)
+		if (m_bank_type[i*4+2])
+			printf("%X: type=%02X, start=%06X, end=%06X, bank=%d\n", i, m_bank_type[i*4], m_bank_type[i*4+1], m_bank_type[i*4+2], m_bank_type[i*4+3]);
+#endif
 	}
 	else
 	{
@@ -1785,6 +1800,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 
 		if (!m_game_config->name)
 		{
+			printf("No game config found for %s.\n",gamename);
 			gamename = "cps2";
 			pCFG = &cps1_config_table[0];
 
@@ -1907,11 +1923,12 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 			fprintf(fp, "%c", m_bank_type[i*4] | (m_bank_type[i*4+3] << 6));
 			fprintf(fp, "%c%c%c", m_bank_type[i*4+1] & 0xff, (m_bank_type[i*4+1] >> 8)&0xff, m_bank_type[i*4+1] >> 16);
 			fprintf(fp, "%c%c%c", m_bank_type[i*4+2] & 0xff, (m_bank_type[i*4+2] >> 8)&0xff, m_bank_type[i*4+2] >> 16);
-			printf("%X,%X,%X,%X\n",m_bank_type[i*4],m_bank_type[i*4+1],m_bank_type[i*4+2],m_bank_type[i*4+3]);
+			//printf("%X,%X,%X,%X\n",m_bank_type[i*4],m_bank_type[i*4+1],m_bank_type[i*4+2],m_bank_type[i*4+3]);
 		}
 		for (u8 i = ftell(fp); i < 0x80; i++)
 			fprintf(fp, "%c", 0);
 		fclose(fp);
+		printf("File %s. written\n", gamename);
 #endif
 	}
 
