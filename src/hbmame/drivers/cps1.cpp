@@ -5809,7 +5809,7 @@ ROM_START( nemo )
 	ROM_LOAD( "c13.v2",     0x20000, 0x20000, CRC(2650a0a8) SHA1(e9e8cc1b27a2cb3e87124061fabcf42982f0611f) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "nemo.key", 0x00, 0x80, CRC(84e10ca1) SHA1(d569fa77159d06db55ecbeb693a57107a0b7b4c9) )
+	ROM_LOAD( "nemo.key", 0x00, 0x80, CRC(f59953d8) SHA1(034e7b0d200ead9dfac5b1be3cc47c50ea89709a) )
 ROM_END
 
 /* B-Board 89624B-3 */
@@ -5836,7 +5836,7 @@ ROM_START( nemor1 )
 	ROM_LOAD( "c13.v2",     0x20000, 0x20000, CRC(2650a0a8) SHA1(e9e8cc1b27a2cb3e87124061fabcf42982f0611f) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "nemo.key", 0x00, 0x80, CRC(84e10ca1) SHA1(d569fa77159d06db55ecbeb693a57107a0b7b4c9) )
+	ROM_LOAD( "nemo.key", 0x00, 0x80, CRC(f59953d8) SHA1(034e7b0d200ead9dfac5b1be3cc47c50ea89709a) )
 ROM_END
 
 /* B-Board 89625B-? */
@@ -5878,7 +5878,7 @@ ROM_START( nemoj )
 	ROM_LOAD( "c13.v2",     0x20000, 0x20000, CRC(2650a0a8) SHA1(e9e8cc1b27a2cb3e87124061fabcf42982f0611f) )
 
 	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "nemo.key", 0x00, 0x80, CRC(84e10ca1) SHA1(d569fa77159d06db55ecbeb693a57107a0b7b4c9) )
+	ROM_LOAD( "nemo.key", 0x00, 0x80, CRC(f59953d8) SHA1(034e7b0d200ead9dfac5b1be3cc47c50ea89709a) )
 ROM_END
 
 /* B-Board 90629B-3 */

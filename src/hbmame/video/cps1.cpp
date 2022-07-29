@@ -74,7 +74,8 @@ After that, the remainder of the file is binary zeroes.
 #define CPS_B_12     0x20,0x0402,          __not_applicable__,          0x2c,{0x2a,0x28,0x26,0x24},0x22, {0x02,0x04,0x08,0x00,0x00}
 #define CPS_B_13     0x2e,0x0403,          __not_applicable__,          0x22,{0x24,0x26,0x28,0x2a},0x2c, {0x20,0x02,0x04,0x00,0x00}
 #define CPS_B_14     0x1e,0x0404,          __not_applicable__,          0x12,{0x14,0x16,0x18,0x1a},0x1c, {0x08,0x20,0x10,0x00,0x00}
-#define CPS_B_15     0x0e,0x0405,          __not_applicable__,          0x02,{0x04,0x06,0x08,0x0a},0x0c, {0x04,0x02,0x20,0x00,0x00}
+#define CPS_B_15     0x0e,0x0405,          __not_applicable__,          0x02,{0x00,0x06,0x08,0x0a},0x0c, {0x04,0x02,0x20,0x00,0x00}
+//#define CPS_B_15     0x0e,0x0405,          __not_applicable__,          0x02,{0x04,0x06,0x08,0x0a},0x0c, {0x04,0x02,0x20,0x00,0x00}
 #define CPS_B_16     0x00,0x0406,          __not_applicable__,          0x0c,{0x0a,0x08,0x06,0x04},0x02, {0x10,0x0a,0x0a,0x00,0x00}
 #define CPS_B_17     0x08,0x0407,          __not_applicable__,          0x14,{0x12,0x10,0x0e,0x0c},0x0a, {0x08,0x14,0x02,0x00,0x00}   // the sf2 -> strider conversion needs 0x04 for the 2nd layer enable on one level, gfx confirmed to appear on the PCB, register at the time is 0x8e, so 0x10 is not set.
 #define CPS_B_18     0x10,0x0408,          __not_applicable__,          0x1c,{0x1a,0x18,0x16,0x14},0x12, {0x10,0x08,0x02,0x00,0x00}
@@ -1316,6 +1317,7 @@ static const struct gfx_range mapper_demo_table[] =
 static const struct CPS1config cps1_config_table[]=
 {
 	/* name         CPSB          gfx mapper   in2  in3  out2   kludge */
+#if 0
 	{"forgottn",    CPS_B_01,     mapper_LW621 },
 	{"forgottna",   CPS_B_01,     mapper_LW621 },
 	{"forgottnu",   CPS_B_01,     mapper_LW621 },
@@ -1506,7 +1508,6 @@ static const struct CPS1config cps1_config_table[]=
 	{"sf2re",       HACK_B_1,     mapper_S9263B, 0,    0, 0, 0x42 },
 	{"sf2mkot",     CPS_B_21_DEF, mapper_S9263B, 0x36, 0, 0, 0x41 },
 	{"varth",       CPS_B_04,     mapper_VA24B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
-	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },
 	{"varthb2",     HACK_B_3,     mapper_sfzch, 0, 0, 0, 0xC1 },  // unknown gal, other varth mappers don't work (game looks for sprites in >0x8000 unmapped region)
 	{"varthb3",     CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F }, // TODO: wrong
 	{"varthr1",     CPS_B_04,     mapper_VA24B },   /* CPSB test has been patched out (60=0008) register is also written to, possibly leftover from development */
@@ -1573,6 +1574,8 @@ static const struct CPS1config cps1_config_table[]=
 	{"sfzbch",      CPS_B_21_DEF, mapper_sfzch },   // wrong, this set uses an unknown PAL, still not dumped
 	{"sfzch",       CPS_B_21_DEF, mapper_sfzch },   // wrong, this set uses an unknown PAL, still not dumped
 	{"wofch",       CPS_B_21_DEF, mapper_TK263B },
+#endif
+	{"varthb",      CPS_B_04,     mapper_VA63B, 0, 0, 0, 0x0F },
 
 	/* CPS2 games */
 
@@ -1583,14 +1586,13 @@ static const struct CPS1config cps1_config_table[]=
 	{"kenseim",     CPS_B_21_DEF, mapper_KNM10B },  // wrong, need to convert equations from PAL
 
 // HBMAME
-	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
 	{"dinosf2",     CPS_B_21_QS2, mapper_CD63B },                           // nw
 #if 0
-	{"3wondrud",    CPS_B_21_DEF, mapper_RT24B },                           //works
-	{"captcoud",    CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
-	{"captcomc",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
-	{"captcomh",    CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
-	//{"cawingb",     CPS_B_16,     mapper_CA24B, 0, 0, 0, 0x8F },          // no sprites here, ok in fcrash.cpp
+	{"3wondersud",  CPS_B_21_DEF, mapper_RT24B },                           //works
+	{"captcommb2",  CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	{"captcommud",  CPS_B_21_DEF, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	{"captcommc",   CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
+	{"captcommh",   CPS_B_21_BT3, mapper_CC63B,  0x36, 0x38, 0x34 },        //works
 	{"cps1demo",    CPS_B_04,     mapper_demo,  0, 0, 0, 0x80 },            //works
 	{"cps1frog",    CPS_B_04,     mapper_frog,  0, 0, 0, 0x80 },            //works
 	{"cps1test",    CPS_B_21_DEF, mapper_S9263B, 0x36 },                    //works
@@ -1723,6 +1725,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 	const char *gamename = machine().system().name;
 	u8 tt = 0;
 	u8 *rom = 0;
+	bool game_err = false;
 	if (memregion("control"))
 	{
 		rom = memregion("control")->base();
@@ -1802,6 +1805,7 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 		{
 			printf("No game config found for %s.\n",gamename);
 			gamename = "cps2";
+			game_err = true;
 			pCFG = &cps1_config_table[0];
 
 			while(pCFG->name)
@@ -1885,6 +1889,9 @@ MACHINE_RESET_MEMBER(cps_state,cps)
 		m_scrollx1 = scroll1x;
 		m_scrollx2 = scroll2x;
 		m_scrollx3 = scroll3x;
+
+		if (game_err)
+			return;
 
 #if WRITE_FILE
 		// Write the config to a file
