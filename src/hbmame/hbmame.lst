@@ -239,10 +239,10 @@ cworld2jb
 daimakai
 daimakair
 dino
-dinohunt
-dinoa
-dinoj
-dinou
+//dinohunt
+//dinoa
+//dinoj
+//dinou
 dynwar
 dynwara
 dynwarj
@@ -465,9 +465,7 @@ dinoex
 dinoh
 dinoha
 dinohb
-dinohc
 dinohp
-dinohx
 dinojp
 dinore
 dinore1
@@ -930,29 +928,22 @@ dinos34
 dinos35
 dinos36
 dinos37
-dinos38
 dinos40
 dinos41
 dinos42
 dinos43
 dinos44
-dinos45
-dinos46
-dinos47
-dinos48
-dinos49 // dinoadde
-dinos50 // dinochx
-dinos51 // dinoslice
-dinos52 // dinosup
-dinos53 // dinosupfx
+dinos49
+dinos50
+dinos51
+dinos52
+dinos53
 dinos54
 dinos56
 dinos57
-//dinos58                              // black screen
 dinos59
 dinos60
 dinos61
-dinos62
 dinos63
 dinos64
 dinos65
@@ -998,7 +989,6 @@ dinos119
 dinos120
 dinos121
 dinos122
-dinos123
 dinos124
 dinos125
 dinos126
@@ -1018,11 +1008,9 @@ dinos139
 dinos140
 dinos141
 dinos142
-dinos143
 dinos144
 dinos145
 dinos146
-dinos147
 dinos148
 dinos149
 dinos150
@@ -1039,10 +1027,8 @@ dinos160
 dinos161
 dinos162
 dinos163
-dinos164
 dinos165
 dinos166
-dinos167
 dinos168
 dinos169
 dinos170
@@ -1074,22 +1060,14 @@ dinos195
 dinos196
 dinos197
 dinos198
-dinos199
 dinos200
 dinos201
 dinos202
 dinos203
 dinos204
-dinos205
 dinos206
-dinos207
-//dinos208                             // illegal inst when entering building
 dinos209
-dinos210
-dinos211
-//dinos212                             // address error when entering building
 dinos213
-dinos214
 dinos215
 dinos216
 dinos217
@@ -1098,7 +1076,6 @@ dinos219
 dinos220
 dinos221
 dinos222
-dinos223
 dinos224
 dinos225
 dinos226
@@ -1110,15 +1087,12 @@ dinos231
 dinos232
 dinos233
 dinos234
-dinos235
 dinos236
 dinos237
 dinos238
 dinos239
 dinos240
 dinos241
-dinos242
-dinos243
 dinos244
 dinos245
 dinos246
@@ -1128,7 +1102,6 @@ dinos249
 dinos250
 dinos251
 dinos252
-dinos253
 dinos254
 dinos255
 dinos256
@@ -1145,13 +1118,10 @@ dinos266
 dinos267
 dinos268
 dinos269
-dinos270
 dinos271
 dinos272
-dinos273
 dinos274
 dinos275
-dinos276
 dinos277
 dinos278
 dinos279
