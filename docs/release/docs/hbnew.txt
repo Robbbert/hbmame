@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-08-xx 0.245.3
+
+
+
+New Games
+---------------------------------
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 7, 2022-07-31)
+
+
+
+
 2022-07-23 0.245.2
 
 Puzzled: enabled both story mode and demo mode
