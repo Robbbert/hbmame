@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [captcommre]          Captain Commando (readjusted)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 7, 2022-07-31)
 
 

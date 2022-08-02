@@ -895,6 +895,32 @@ ROM_START( captcommr1p )
 	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
+ROM_START( captcommre )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c17re.p1",   0x000000, 0x200000, CRC(591ea997) SHA1(b1197d87a2913e1ed3759021cce697b02e387638) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c17re.c01",  0x000000, 0x80000, CRC(d78482a8) SHA1(f813b943d5af13be49e66573f6a203dc6c214511) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c03",  0x000002, 0x80000, CRC(fe4f474d) SHA1(38db56ec3a803569e833d355f1f010a9a942a436) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c05",  0x000004, 0x80000, CRC(e45c8021) SHA1(23105ff4310209b69823c6203da3072bf11391da) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c07",  0x000006, 0x80000, CRC(0d7f9314) SHA1(c3feab47c77fb6453164ef1881e58fd6a3be032d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c17",  0x200000, 0x80000, CRC(bd687ae8) SHA1(c8e410b7087b64732a641bf1adaa33a5b6b2e6ae) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c19",  0x200002, 0x80000, CRC(f222c02e) SHA1(407b31717207e59b11f72288e024049bc6c8d813) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c21",  0x200004, 0x80000, CRC(8296149a) SHA1(c3fea7a8f08940d1917a22299adda125af9dca9e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c17re.c23",  0x200006, 0x80000, CRC(a7b9288e) SHA1(e0fc0f2ca6f016ef41316380d8dd9bbab0988f0b) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c17.m1",      0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c17.v1",     0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "c17.v2",     0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
 ROM_START( captcommud )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP("c17ud.p1", 0x000000, 0x80000, CRC(1d338c25) SHA1(4aba7e5a78bf20d887b3493e0d2a83098f877f9f) )
@@ -6379,6 +6405,7 @@ GAME( 1991, 3wondersb01, 3wonders, cps1_10MHz, 3wonders, cps_state, init_cps1,  
 GAME( 1991, captcommc,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "hack", "Captain Commando (Translation Chinese)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
 GAME( 2008, captcommh,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "Shinwa", "Captain Commando (Ex Super version 2008-05-10)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2016, captcommr1p, captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "hack", "Captain Commando (r1p)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2022, captcommre,  captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "GameHackFan", "Captain Commando (readjusted)" , MACHINE_SUPPORTS_SAVE )
 GAME( 1991, captcommud,  captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0,   "hack", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, cps1demo,    0,        cps1frog,   cps1frog, cps_state, init_cps1,     ROT0,   "Charles Doty", "Demo - CPS1", MACHINE_SUPPORTS_SAVE ) // no sound
 GAME( 2006, cps1frog,    0,        cps1frog,   cps1frog, cps_state, init_cps1,     ROT0,   "Rastersoft", "Frog Feast (CPS1)", MACHINE_SUPPORTS_SAVE )
