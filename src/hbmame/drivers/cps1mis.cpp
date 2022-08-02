@@ -1644,48 +1644,6 @@ ROM_START( pnicku )
 ROM_END
 
 
-ROM_START( punisherb ) // punipic in mame
-	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c26pic.p1",       0x000000, 0x80000, CRC(c3151563) SHA1(61d3a20c25fea8a94ae6e473a87c21968867cba0) )
-	ROM_LOAD16_BYTE( "c26pic.p2",       0x000001, 0x80000, CRC(8c2593ac) SHA1(4261bc72b96c3a5690df35c5d8b71524765693d9) )
-	ROM_LOAD16_BYTE( "c26pic.p3",       0x100000, 0x80000, CRC(665a5485) SHA1(c07920d110ca9c35f6cbff94a6a889c17300f994) )
-	ROM_LOAD16_BYTE( "c26pic.p4",       0x100001, 0x80000, CRC(d7b13f39) SHA1(eb7cd92b44fdef3b72672b0be6786c526421b627) )
-
-	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "c26pic.c1",   0x000000, 0x40000, CRC(9b9a887a) SHA1(8805b36fc18837bd7c64c751b435d72b763b2235), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x000004, 0x40000)
-	ROMX_LOAD( "c26pic.c2",   0x000001, 0x40000, CRC(2b94287a) SHA1(815d88e66f537e17550fc0483616f02f7126bfb1), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x000005, 0x40000)
-	ROMX_LOAD( "c26pic.c3",   0x000002, 0x40000, CRC(e9bd74f5) SHA1(8ed7098c69d1c70093c99956bf82e532bd6fc7ac), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x000006, 0x40000)
-	ROMX_LOAD( "c26pic.c4",   0x000003, 0x40000, CRC(a5e1c8a4) SHA1(3596265a45cf6bbf16c623f0fce7cdc65f9338ad), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x000007, 0x40000)
-	ROMX_LOAD( "c26pic.c5",   0x200000, 0x40000, CRC(6d75a193) SHA1(6c5a89517926d7ba4a925a3df800d4bdb8a6938d), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x200004, 0x40000)
-	ROMX_LOAD( "c26pic.c6",   0x200001, 0x40000, CRC(a3c205c1) SHA1(6317cc49434dbbb9a249ddd4b50bd791803b3ebe), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x200005, 0x40000)
-	ROMX_LOAD( "c26pic.c7",   0x200002, 0x40000, CRC(22f2ec92) SHA1(9186bfc5db71dc5b099c9a985e8fdd5710772d1c), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x200006, 0x40000)
-	ROMX_LOAD( "c26pic.c8",   0x200003, 0x40000, CRC(763974c9) SHA1(f9b93c7cf0cb8c212fc21c57c85459b7d2e4e2fd), ROM_SKIP(7) )
-	ROM_CONTINUE(             0x200007, 0x40000)
-
-	//ROM_REGION( 0x200000, "oki", 0 )   // we don't use this
-	//ROM_LOAD_OPTIONAL( "c26pic.v1", 0x00000, 0x80000, CRC(aeec9dc6) SHA1(56fd62e8db8aa96cdd242d8c705849a413567780) )
-
-	ROM_REGION( 0x28000, "audiocpu", 0 )
-	ROM_LOAD( "c26.m1",       0x00000, 0x08000, CRC(49ff4446) SHA1(87af12f87a940a6c5428b4574ad44a4b54867bc3) )
-	ROM_CONTINUE(               0x10000, 0x18000 )
-
-	ROM_REGION( 0x200000, "qsound", 0 )
-	ROM_LOAD( "c26.q1",   0x000000, 0x80000, CRC(31fd8726) SHA1(1d73a76682e9fb908db0c55b9a18163f7539fea1) )
-	ROM_LOAD( "c26.q2",   0x080000, 0x80000, CRC(980a9eef) SHA1(36571381f349bc726508a7e618ba1c635ec9d271) )
-	ROM_LOAD( "c26.q3",   0x100000, 0x80000, CRC(0dd44491) SHA1(903cea1d7f3120545ea3229d30fbd687d11ad68f) )
-	ROM_LOAD( "c26.q4",   0x180000, 0x80000, CRC(bed42f03) SHA1(21302f7e75f9c795392a3b34e16a959fc5f6e4e9) )
-
-	ROM_REGION( 0x80, "control", 0 )
-	ROM_LOAD( "punisherb.key", 0x00, 0x80, CRC(e1219963) SHA1(ba508a09095e9a37018a5a8c3a624713d7684582) )
-ROM_END
-
 ROM_START( punisherf )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c26f.p1", 0x000000, 0x80000, CRC(ebab7576) SHA1(2a1664ebaf813a21986c97c16142ffd7c93c7a3b) )
@@ -5673,7 +5631,6 @@ GAME( 2021, knightswt,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,  
 GAME( 2002, kodh,        kod,      cps1_10MHz, kodh,     cps_state, init_cps1,     ROT0,   "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodsp,       kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0,   "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pnicku,      pnickj,   cps1_10MHz, pnicku,   cps_state, init_cps1,     ROT0,   "Creamymami[EGCG]", "Pnickies (USA 940608 Loca Test)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, punisherb,   punisher, qsound,     punisher, cps_state, init_punisherb,ROT0,   "bootleg", "The Punisher (Bootleg)", MACHINE_SUPPORTS_SAVE)
 GAME( 2007, punisherf,   punisher, qsound,     punisher, cps_state, init_punisherb,ROT0,   "Zhyxxxx/EGCG", "The Punisher (Flash version 2007-09-24)", MACHINE_SUPPORTS_SAVE)
 GAME( 2009, punisherje1, punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "Zhyxxxx", "The Punisher (SM Experience Edition 2009-06-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjh,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0,   "Shinwa", "The Punisher (Ex Super version)", MACHINE_SUPPORTS_SAVE )
