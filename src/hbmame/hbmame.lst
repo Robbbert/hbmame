@@ -453,25 +453,6 @@ cps1tests                              // HB
 cps1testsa                             // HB
 //cps1xx                               // corrupt gfx
 daimakb
-dino08h2
-dino08h3
-dino08hp
-dinobt
-dinobtpp
-dinocgba
-dinocgbb
-dinocgbc
-dinoeh
-dinoex
-dinoh
-dinohp
-dinore
-dinore1
-dinorp
-//dinosf2                              // missing background
-dinoslice
-dinouphp
-dinoz
 ffightae
 ffightaeh01
 ffightaeh02
@@ -944,9 +925,15 @@ dinos34
 dinos35
 dinos36
 dinos37
+//dinos38                              // missing background
 dinos40
 dinos41
 dinos42
+dinos43
+dinos44
+dinos45
+dinos46
+dinos47
 dinos49
 dinos50
 dinos51
@@ -967,6 +954,17 @@ dinos71
 dinos72
 dinos74
 dinos75
+dinos76
+dinos77
+dinos78
+dinos79
+dinos80
+dinos81
+dinos82
+dinos83
+dinos84
+dinos85
+dinos86
 dinos91
 dinos92
 dinos93
@@ -1117,6 +1115,8 @@ dinos277
 dinos278
 dinos279
 dinos280
+dinos281
+dinos282
 dinot01                                // Turbo-97
 dinot02
 dinot03
