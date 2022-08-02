@@ -263,7 +263,7 @@ GAME( 1996, cleopath,    cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, R
 GAME( 1994, driusgxh,    dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
 GAME( 2000, f3demo,      0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
 GAME( 1995, gekiridh,    gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
-GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation Chinise)", 0 )
+GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Chinese Translation)", 0 )
 GAME( 1998, landmakh,    landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
 GAME( 1995, pbobl2xh,    pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
 GAME( 2022, pbobble3h01, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
