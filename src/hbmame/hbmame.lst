@@ -464,7 +464,6 @@ dinocgbc
 dinoeh
 dinoex
 dinoh
-dinohb
 dinohp
 dinore
 dinore1
@@ -890,7 +889,8 @@ captcomms104
 captcomms105
 captcomms106
 captcomms107
-dinoj01
+//dinod01                                // Dinosaur hunter
+dinoj01                                // Cadillacs
 dinoj02
 dinoj03
 dinoj04
@@ -903,7 +903,8 @@ dinoj10
 dinoj11
 dinoj12
 dinoj13
-dinos01
+//dinon01                                // Jurassic 99
+dinos01                                // Cadillacs & Dinosaurs
 dinos02
 dinos03
 dinos04
@@ -955,8 +956,6 @@ dinos59
 dinos60
 dinos61
 dinos63
-dinos64
-dinos65
 dinos66
 dinos67
 dinos68
@@ -980,14 +979,10 @@ dinos101
 dinos102
 dinos103
 dinos104
-dinos105
 dinos109
-dinos110
-dinos111
 dinos112
 dinos113
 dinos115
-dinos116
 dinos117
 dinos118
 dinos119
@@ -1005,7 +1000,6 @@ dinos131
 dinos132
 dinos133
 dinos134
-dinos135
 dinos136
 dinos137
 dinos138
@@ -1022,7 +1016,6 @@ dinos150
 dinos151
 dinos154
 dinos155
-dinos156
 dinos157
 dinos158
 dinos159
@@ -1069,7 +1062,6 @@ dinos202
 dinos203
 dinos204
 dinos206
-dinos209
 dinos213
 dinos215
 dinos216
@@ -1082,7 +1074,6 @@ dinos222
 dinos224
 dinos225
 dinos226
-dinos227
 dinos228
 dinos229
 dinos230
@@ -1127,6 +1118,16 @@ dinos277
 dinos278
 dinos279
 dinos280
+dinot01                                // Turbo-97
+dinot02
+dinot03
+dinot04
+dinot05
+dinot06
+dinot07
+dinot08
+dinot09
+dinot10
 ffights01
 ffights02
 ffightj2s01
