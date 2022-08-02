@@ -889,7 +889,7 @@ captcomms104
 captcomms105
 captcomms106
 captcomms107
-//dinod01                                // Dinosaur hunter
+dinod01                                // Dinosaur hunter
 dinoj01                                // Cadillacs
 dinoj02
 dinoj03
@@ -903,7 +903,10 @@ dinoj10
 dinoj11
 dinoj12
 dinoj13
-//dinon01                                // Jurassic 99
+dinon01                                // Jurassic 99
+dinon02
+dinon03
+dinon04
 dinos01                                // Cadillacs & Dinosaurs
 dinos02
 dinos03
@@ -951,7 +954,6 @@ dinos52
 dinos53
 dinos54
 dinos56
-dinos57
 dinos59
 dinos60
 dinos61
@@ -963,7 +965,6 @@ dinos69
 dinos70
 dinos71
 dinos72
-dinos73
 dinos74
 dinos75
 dinos91
@@ -1097,8 +1098,6 @@ dinos251
 dinos252
 dinos254
 dinos255
-dinos256
-dinos257
 dinos258
 dinos259
 dinos260
