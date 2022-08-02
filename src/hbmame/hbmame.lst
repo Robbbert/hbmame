@@ -126,45 +126,46 @@ bublbobls01
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
 @source:cabal.cpp
-cabal					//parent
+cabal                                  //parent
 cabals01
 
 @source:cave.cpp
-ddonpach		//parent
-ddonpacha		// trap15 hack
+ddonpach                               //parent
+ddonpacha                              // trap15 hack
 ddonpachjh
-pwrinst2		//parent
-pwrinst2h		/* 2013 Hack by TT */
+pwrinst2                               //parent
+pwrinst2h
 pwrinst2z
 pwrinst2s01
-plegends			//parent
+plegends                               //parent
 plegendsjs01
 plegendsjs02
 plegendsjs03
-gaia			//parent
+gaia                                   //parent
 gaias01
-metmqstr		//parent
+metmqstr                               //parent
 metmqstrs01
 metmqstrs02
 metmqstrs03
-sailormn			//parent
-sailormnbv
-sailormnrt
-sailormndc
-sailormndc1
+sailormn                               //parent
+sailormnh01
+sailormnh02
+sailormnh03
+sailormnh04
 sailormnh05
+sailormnh06
 sailormnts01
 sailormnts02
 sailormnts03
 sailormnts04
 sailormnts05
 sailormnts06
-theroes         //parent
+theroes                                //parent
 theroes01
 
 @source:cball.cpp
-cball			//parent
-cballfix		// With MASH (fixed) gfx rom
+cball                                  //parent
+cballfix                               // MASH (fixed) gfx rom
 
 @source:cclimber.cpp
 ckong			//parent
