@@ -228,14 +228,45 @@ ROM_START( pbobl2xh )
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )
 ROM_END
 
+ROM_START( pbobble3h01 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD32_BYTE("h01.12", 0x000000, 0x80000, CRC(0febed38) SHA1(dbac198cb25881b44dfd6fc2a0483947cba81d96) )
+	ROM_LOAD32_BYTE("h01.11", 0x000001, 0x80000, CRC(4b61e414) SHA1(d8a97d90d35b057c0224813b47e302a1a83db246) )
+	ROM_LOAD32_BYTE("h01.10", 0x000002, 0x80000, CRC(737f6a4f) SHA1(102578f4b192482e1bbf700cdb776f810f14e0af) )
+	ROM_LOAD32_BYTE("h01.16", 0x000003, 0x80000, CRC(1d708518) SHA1(4ca41c4e5dc161f97c40ae72828d393994feb1df) )
 
-GAME( 1996, cleopath,  cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",     "Cleopatra Fortune (Unknown Hack)", 0 )
-GAME( 1994, driusgxh,  dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
-GAME( 2000, f3demo,    0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
-GAME( 1995, gekiridh,  gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
-GAME( 1995, gekiridoc, gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation Chinise)", 0 )
-GAME( 1998, landmakh,  landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
-GAME( 1995, pbobl2xh,  pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
+	ROM_REGION( 0x200000, "sprites" , 0 )
+	ROM_LOAD16_BYTE("e29-02.rom", 0x000000, 0x100000, CRC(437391d3) SHA1(b3cc64c68553d37e0bd09e0dece14901d8df5866) )
+	ROM_LOAD16_BYTE("e29-01.rom", 0x000001, 0x100000, CRC(52547c77) SHA1(d0cc8b8915cec1506c9733a1ce1638038ea93d25) )
+
+	EMPTY_SPRITE_HIDATA(0x100000)
+
+	ROM_REGION( 0x200000, "tilemap" , 0 )
+	ROM_LOAD32_WORD("e29-08.rom", 0x000000, 0x100000, CRC(7040a3d5) SHA1(ea284ec530aac20348f84122e38a508bbc283f44) )
+	ROM_LOAD32_WORD("e29-07.rom", 0x000002, 0x100000, CRC(fca2ea9b) SHA1(a87ebedd0d16657288df434a70b8933fafe0ca25) )
+
+	ROM_REGION( 0x100000, "tilemap_hi", 0 )
+	ROM_LOAD       ("e29-06.rom", 0x000000, 0x100000, CRC(c16184f8) SHA1(ded417d9d116b5a2f7518fa404bc2dda1c6a6366) )
+
+	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 )
+	ROM_LOAD16_BYTE("e29-13.rom", 0x100000, 0x40000, CRC(1ef551ef) SHA1(527defe8f35314304adb4b483285b08cd6ebe865) )
+	ROM_LOAD16_BYTE("e29-14.rom", 0x100001, 0x40000, CRC(7ee7e688) SHA1(d65aa9c449e1d64f10d1be9727a9d93ab1571e65) )
+
+	ROM_REGION16_BE( 0x1000000, "taito_en:ensoniq", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE("e29-03.rom", 0x400000, 0x200000, CRC(a4371658) SHA1(26510a3f6de97f49b10dfc5cb9b7da947a44bfcb) )
+	ROM_LOAD16_BYTE("e29-04.rom", 0x800000, 0x200000, CRC(d1f42457) SHA1(2c77be6365deb5ef215da0c66da23b415623bdb1) )
+	ROM_LOAD16_BYTE("e29-05.rom", 0xc00000, 0x200000, CRC(e33c1234) SHA1(84c336ed6fd8723e824889fe7b52c284be659e62) )
+ROM_END
+
+
+GAME( 1996, cleopath,    cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",     "Cleopatra Fortune (Unknown Hack)", 0 )
+GAME( 1994, driusgxh,    dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
+GAME( 2000, f3demo,      0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
+GAME( 1995, gekiridh,    gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
+GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Translation Chinise)", 0 )
+GAME( 1998, landmakh,    landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
+GAME( 1995, pbobl2xh,    pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
+GAME( 2022, pbobble3h01, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
 
 
 /*******************
