@@ -288,12 +288,12 @@ kod
 //lostwrldo
 mbomberj
 mbombrd
-mbombrdj
+//mbombrdj
 megaman
-megamana
+//megamana
 mercs
-mercsj
-mercsu
+//mercsj
+//mercsu
 mercsur1
 //msword
 //mswordj
@@ -314,10 +314,10 @@ mercsur1
 pnickj
 //pokonyan
 punisher
-punisherbz
-punisherh
-punisherj
-punisheru
+//punisherbz
+//punisherh
+//punisherj
+//punisheru
 //qad
 //qadjr
 //qtono2j
@@ -449,13 +449,6 @@ cps1testsa                             // HB
 //cps1xx                               // corrupt gfx
 daimakb
 pnicku                                 // 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site
-punisherf
-punisherje1
-punisherjh
-punisherjh1
-punisherjha
-punisherud1
-punisherud2
 sf2bhj
 sf2c
 sf2ced
@@ -1166,10 +1159,16 @@ punishers04
 punishers05
 punishers06
 punishers07
-//punishers08                          //Encrypted
 punishers09
 punishers10
 punishers11
+punishers12
+punishers13
+punishers14
+punishers15
+punishers16
+punishers17
+punishers18
 punisherjs01
 punisherjs02
 punisherjs03
