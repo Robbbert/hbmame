@@ -449,10 +449,6 @@ cps1testsa                             // HB
 //cps1xx                               // corrupt gfx
 daimakb
 pnicku                                 // 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site
-sf2bhj
-sf2c
-sf2jbh
-sf2r3
 sk2h101
 sk2h101q			// qsound version of sk2h1
 sk2h102
@@ -1213,8 +1209,6 @@ sf2ces54
 sf2ces55
 sf2ces56
 sf2ces57
-sf2js01
-sf2js02
 sf2hfs01
 sf2hfus01
 sf2hfus02
@@ -1252,6 +1246,12 @@ sf2s06
 sf2s07
 sf2s08
 sf2s09
+sf2s10
+sf2s11
+sf2s12
+sf2s13
+sf2s14
+sf2s15
 sf2tlonas01
 sf2tlonas02
 sf2tlonas03
@@ -1332,8 +1332,8 @@ tk2p45		// wofchspp
 //captcommb2
 //knightsb
 //knightsb3
-sf2b
-sf2b2
+//sf2b
+//sf2b2
 //sf2ceb
 //sf2ceb2
 //sf2ceb3
