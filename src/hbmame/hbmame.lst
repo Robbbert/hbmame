@@ -411,10 +411,10 @@ sfzch
 slammast
 //slammastu
 strider
-striderj
-striderjr
-striderua
-strideruc
+//striderj
+//striderjr
+//striderua
+//strideruc
 //unsquad
 varth
 varthb2
@@ -501,8 +501,6 @@ sk3p8
 sk3p9
 sk3p10
 slammastud
-stridergf	// fix unwanted black specks
-stridergh	// as above, and uncensored
 tk2c1		// wofbio
 tk2c2		// wofbt
 tk2c3		// wofctj
@@ -1259,18 +1257,19 @@ sf2tlonas04
 sf2tlonas05
 sf2tlonas06
 sf2tlonas07
+sfzchs02
+sfzchs03
+sfzchs04
+sfzchs05
+sfzchs06
 slammasts01
 slammasts02
 slammasts03
 slammasts04
 slammasts05
 striders01
-sfzchs01
-sfzchs02
-sfzchs03
-sfzchs04
-sfzchs05
-sfzchs06
+striders02                             // fix unwanted black specks
+striders03                             // as above, and uncensored
 varths01
 varths02
 willows01
