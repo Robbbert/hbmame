@@ -476,12 +476,12 @@ void fcrash_state::fcrash(machine_config &config)
 	MSM5205(config, m_msm_1, 24000000/64);  /* ? */
 	m_msm_1->vck_legacy_callback().set(FUNC(fcrash_state::m5205_int1)); /* interrupt function */
 	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.25);
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.75);
 
 	MSM5205(config, m_msm_2, 24000000/64);  /* ? */
 	m_msm_2->vck_legacy_callback().set(FUNC(fcrash_state::m5205_int2)); /* interrupt function */
 	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.25);
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.75);
 }
 
 void fcrash_state::ffightblb(machine_config &config)

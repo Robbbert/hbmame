@@ -211,17 +211,17 @@ contra					//parent
 contrajs01
 
 @source:cps1.cpp
-1941
-1941j
-1941r1
-1941u
+//1941
+//1941j
+//1941r1
+//1941u
 3wonders
 3wondersb
 3wondersh
 3wondersr1
 3wondersu
-area88
-area88r
+//area88
+//area88r
 captcomm
 //captcommb
 //captcommj
@@ -229,38 +229,38 @@ captcomm
 //captcommr1
 //captcommu
 cawing
-cawingj
-cawingr1
-cawingu
-cawingur1
-chikij
-cworld2j
-cworld2ja
-cworld2jb
+//cawingj
+//cawingr1
+//cawingu
+//cawingur1
+//chikij
+//cworld2j
+//cworld2ja
+//cworld2jb
 daimakai
-daimakair
+//daimakair
 dino
 //dinohunt
 //dinoa
 //dinoj
 //dinou
-dynwar
-dynwara
-dynwarj
-dynwarjr
+//dynwar
+//dynwara
+//dynwarj
+//dynwarjr
 ffight
-ffighta
-ffightj
-ffightj1
-ffightj2
-ffightj3
-ffightj4
-ffightjh
-ffightu
-ffightu1
-ffightua
-ffightub
-ffightuc
+//ffighta
+//ffightj
+//ffightj1
+//ffightj2
+//ffightj3
+//ffightj4
+//ffightjh
+//ffightu
+//ffightu1
+//ffightua
+//ffightub
+//ffightuc
 forgottn
 forgottna
 forgottnj
@@ -269,10 +269,10 @@ forgottnua
 forgottnuc
 forgottnue
 forgottnuaa
-ganbare
+//ganbare
 ghouls
 ghoulsu
-gulunpa
+//gulunpa
 knights
 knightsb2
 knightsj
@@ -284,8 +284,8 @@ kodja
 kodr1
 kodr2
 kodu
-lostwrld
-lostwrldo
+//lostwrld
+//lostwrldo
 mbomberj
 mbombrd
 mbombrdj
@@ -295,33 +295,33 @@ mercs
 mercsj
 mercsu
 mercsur1
-msword
-mswordj
-mswordr1
-mswordu
-mtwins
-nemo
-nemoj
-nemor1
-pang3
-pang3b
-pang3b2
-pang3b3
-pang3j
-pang3r1
-pang3b4
-pang3b5
+//msword
+//mswordj
+//mswordr1
+//mswordu
+//mtwins
+//nemo
+//nemoj
+//nemor1
+//pang3
+//pang3b
+//pang3b2
+//pang3b3
+//pang3j
+//pang3r1
+//pang3b4
+//pang3b5
 pnickj
-pokonyan
+//pokonyan
 punisher
 punisherbz
 punisherh
 punisherj
 punisheru
-qad
-qadjr
-qtono2j
-rockmanj
+//qad
+//qadjr
+//qtono2j
+//rockmanj
 sf2
 sf2acc
 sf2acca
@@ -415,7 +415,7 @@ striderj
 striderjr
 striderua
 strideruc
-unsquad
+//unsquad
 varth
 varthb2
 varthb3                              // not working
@@ -448,13 +448,6 @@ cps1tests                              // HB
 cps1testsa                             // HB
 //cps1xx                               // corrupt gfx
 daimakb
-ffightae
-ffightaeh01
-ffightaeh02
-ffightaeh03
-ffightaeh04
-ffightb
-ffightjh01
 knight21
 knightsh
 knightsha
@@ -1124,8 +1117,15 @@ dinot07
 dinot08
 dinot09
 dinot10
+ffightae
+ffightaeh01
+ffightaeh02
+ffightaeh03
+ffightaeh04
 ffights01
 ffights02
+ffights03
+ffightjh01
 ffightj2s01
 ffightj2s02
 ffightj2s03
@@ -1332,19 +1332,19 @@ tk2p44		// wofch_v3
 tk2p45		// wofchspp
 
 @source:cps1bl_5205.cpp
-//captcommb2                      // bootleg
-knightsb                        // bootleg
-knightsb3                       // bootleg
-sf2b                            // bootleg
-sf2b2                           // bootleg
-sf2ceb                          // bootleg
-sf2ceb2                         // bootleg
-sf2ceb3                         // bootleg
-sf2ceb4                         // bootleg
-sf2ceb5                         // bootleg
-sf2mdt                          // bootleg
-sf2mdta                         // bootleg
-sf2mdtb                         // bootleg
+//captcommb2
+knightsb
+knightsb3
+sf2b
+sf2b2
+sf2ceb
+sf2ceb2
+sf2ceb3
+sf2ceb4
+sf2ceb5
+sf2mdt
+sf2mdta
+sf2mdtb
 
 @source:cps2.cpp
 // CPS2 PARENTS ***
@@ -1823,20 +1823,20 @@ exerionj				// Japanese version
 exeriongr				// Vag @ GreekRoms 2004
 
 @source:fcrash.cpp
-cawingb2                        // bootleg
-cawingbl                        // bootleg
-fcrash                          // bootleg of Final Fight
-ffightbl                        // bootleg
-ffightbla                       // bootleg
-ffightblb                       // bootleg
-kodb                            // bootleg
-mtwinsb                         // bootleg
-sf2m1                           // hack
-sf2m9                           // bootleg
-sgyxz                           // bootleg (All-In Electronics)
-varthb                          // bootleg
-wofabl                          // bootleg
-wofr1bl                         // bootleg
+//cawingb2
+//cawingbl
+fcrash                                 // bad gfx in mame
+ffightbl                               // bad gfx in mame
+ffightbla                              // bad gfx in mame
+ffightblb                              // bad gfx in mame, bad sound
+kodb                                   // bad gfx in mame
+//mtwinsb
+sf2m1
+sf2m9
+sgyxz
+varthb
+wofabl
+wofr1bl
 
 @source:flstory.cpp
 flstory					//parent
