@@ -223,11 +223,11 @@ contrajs01
 area88
 area88r
 captcomm
-captcommb
-captcommj
-captcommjr1
-captcommr1
-captcommu
+//captcommb
+//captcommj
+//captcommjr1
+//captcommr1
+//captcommu
 cawing
 cawingj
 cawingr1
@@ -439,11 +439,6 @@ wonder3
 @source:cps1mis.cpp
 3wondersb01
 3wondersud
-captcommc
-captcommh
-captcommr1p
-captcommre
-captcommud
 cawingh01
 cps1demo                               // HB
 cps1frog                               // HB
@@ -770,6 +765,11 @@ captcommh03
 captcommh04
 captcommh05
 captcommh06
+captcommh07
+captcommh08
+captcommh09
+captcommh10
+captcommh11
 captcomms01
 captcomms04
 captcomms05
@@ -1332,7 +1332,7 @@ tk2p44		// wofch_v3
 tk2p45		// wofchspp
 
 @source:cps1bl_5205.cpp
-captcommb2                      // bootleg
+//captcommb2                      // bootleg
 knightsb                        // bootleg
 knightsb3                       // bootleg
 sf2b                            // bootleg
