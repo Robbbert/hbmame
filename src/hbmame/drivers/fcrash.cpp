@@ -476,12 +476,12 @@ void fcrash_state::fcrash(machine_config &config)
 	MSM5205(config, m_msm_1, 24000000/64);  /* ? */
 	m_msm_1->vck_legacy_callback().set(FUNC(fcrash_state::m5205_int1)); /* interrupt function */
 	m_msm_1->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.75);
+	m_msm_1->add_route(ALL_OUTPUTS, "mono", 0.75); // HBMAME balance audio levels
 
 	MSM5205(config, m_msm_2, 24000000/64);  /* ? */
 	m_msm_2->vck_legacy_callback().set(FUNC(fcrash_state::m5205_int2)); /* interrupt function */
 	m_msm_2->set_prescaler_selector(msm5205_device::S96_4B);    /* 4KHz 4-bit */
-	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.75);
+	m_msm_2->add_route(ALL_OUTPUTS, "mono", 0.75); // HBMAME balance audio levels
 }
 
 void fcrash_state::ffightblb(machine_config &config)
@@ -2023,21 +2023,22 @@ ROM_START( kodb )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c16b.p1",    0x00000, 0x080000, CRC(036dd74c) SHA1(489344e56863429e86b4c362b82d89819c1d6afb) )
 	ROM_LOAD16_BYTE( "c16b.p2",    0x00001, 0x080000, CRC(3e4b7295) SHA1(3245640bae7d141238051dfe5c7683d05c6d3848) )
-	ROM_FILL( 0x952, 1, 7)  // fix transitions HBMAME
+	ROM_FILL( 0x952, 1, 2)  // fix transitions HBMAME
+	ROM_FILL( 0x953, 1, 0xfd)  // fix transitions HBMAME (fc,fd,fe are ok here)
 
 	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "c16b.m1",       0x00000, 0x08000, CRC(01cae60c) SHA1(b2cdd883fd859f0b701230831aca1f1a74ad6087) )
 	ROM_CONTINUE(              0x10000, 0x08000 )
 
 	ROM_REGION( 0x400000, "gfx", 0 )
-	ROMX_LOAD( "c16b.c01",   0x000000, 0x80000, CRC(e3b8589e) SHA1(775f97e43cb995b93da40063a1f1e4d73b34437c), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c02",   0x000001, 0x80000, CRC(3eec9580) SHA1(3d8d0cfbeae077544e514a5eb96cc83f716e494f), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c03",   0x000002, 0x80000, CRC(fdf5f163) SHA1(271ee96886c958accaca9a82484ab80fe32bd38e), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c04",   0x000003, 0x80000, CRC(4e1c52b7) SHA1(74570e7d577c999c62203c97b3d449e3b61a678a), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c05",   0x000004, 0x80000, CRC(22228bc5) SHA1(d48a09ee284d9e4b986f5c3c1c865930f76986e2), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c06",   0x000005, 0x80000, CRC(ab031763) SHA1(5bcd89b1debf029b779aa1bb73b3a572d27154ec), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c07",   0x000006, 0x80000, CRC(cffbf4be) SHA1(f805bafc855d4a656c055a76eaeb26e36835541e), ROM_SKIP(7) )
-	ROMX_LOAD( "c16b.c08",   0x000007, 0x80000, CRC(4a1b43fe) SHA1(7957f45b2862825c9509043c63c7da7108bd251b), ROM_SKIP(7) )
+	ROM_LOAD64_BYTE( "c16b.c01",   0x000000, 0x80000, CRC(e3b8589e) SHA1(775f97e43cb995b93da40063a1f1e4d73b34437c) )
+	ROM_LOAD64_BYTE( "c16b.c02",   0x000001, 0x80000, CRC(3eec9580) SHA1(3d8d0cfbeae077544e514a5eb96cc83f716e494f) )
+	ROM_LOAD64_BYTE( "c16b.c03",   0x000002, 0x80000, CRC(fdf5f163) SHA1(271ee96886c958accaca9a82484ab80fe32bd38e) )
+	ROM_LOAD64_BYTE( "c16b.c04",   0x000003, 0x80000, CRC(4e1c52b7) SHA1(74570e7d577c999c62203c97b3d449e3b61a678a) )
+	ROM_LOAD64_BYTE( "c16b.c05",   0x000004, 0x80000, CRC(22228bc5) SHA1(d48a09ee284d9e4b986f5c3c1c865930f76986e2) )
+	ROM_LOAD64_BYTE( "c16b.c06",   0x000005, 0x80000, CRC(ab031763) SHA1(5bcd89b1debf029b779aa1bb73b3a572d27154ec) )
+	ROM_LOAD64_BYTE( "c16b.c07",   0x000006, 0x80000, CRC(cffbf4be) SHA1(f805bafc855d4a656c055a76eaeb26e36835541e) )
+	ROM_LOAD64_BYTE( "c16b.c08",   0x000007, 0x80000, CRC(4a1b43fe) SHA1(7957f45b2862825c9509043c63c7da7108bd251b) )
 
 	ROM_REGION( 0x8000, "stars", 0 )
 	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
@@ -2346,12 +2347,12 @@ ROM_END
 GAME( 1990, cawingbl,   cawing,  cawingbl,  cawingbl,  fcrash_state,   init_cawingbl,  ROT0,    "bootleg",  "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM5205, set 1)",  MACHINE_SUPPORTS_SAVE ) // 901012 ETC
 GAME( 1990, cawingb2,   cawing,  cawingbl,  cawingbl,  fcrash_state,   init_cawingbl,  ROT0,    "bootleg",  "Carrier Air Wing (bootleg with 2xYM2203 + 2xMSM5205, set 2)",  MACHINE_SUPPORTS_SAVE ) // 901012 ETC
 
-GAME( 1990, fcrash,     ffight,  fcrash,    fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg (Playmark)",  "Final Crash (bootleg of Final Fight)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ffightbl,   ffight,  fcrash,    fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg",  "Final Fight (bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1990, ffightbla,  ffight,  fcrash,    fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg",  "Final Fight (bootleg on Final Crash PCB)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // same as Final Crash without the modified graphics
-GAME( 1990, ffightblb,  ffight,  ffightblb, fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg (Soon Hwa)",  "Final Fight (bootleg with single OKI)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // priority glitches
+GAME( 1990, fcrash,     ffight,  fcrash,    fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg (Playmark)",  "Final Crash (bootleg of Final Fight)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ffightbl,   ffight,  fcrash,    fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg",  "Final Fight (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ffightbla,  ffight,  fcrash,    fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg",  "Final Fight (bootleg on Final Crash PCB)", MACHINE_SUPPORTS_SAVE ) // same as Final Crash without the modified graphics
+GAME( 1990, ffightblb,  ffight,  ffightblb, fcrash,    fcrash_state,   init_cps1,      ROT0,    "bootleg (Soon Hwa)",  "Final Fight (bootleg with single OKI)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // horrible sound
 
-GAME( 1991, kodb,       kod,     kodb,      kodb,      fcrash_state,   init_kodb,      ROT0,    "bootleg (Playmark)",  "The King of Dragons (bootleg)",  MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE ) // 910731  "ETC"
+GAME( 1991, kodb,       kod,     kodb,      kodb,      fcrash_state,   init_kodb,      ROT0,    "bootleg (Playmark)",  "The King of Dragons (bootleg)",  MACHINE_SUPPORTS_SAVE ) // 910731  "ETC"
 
 GAME( 1993, mtwinsb,    mtwins,  mtwinsb,   mtwins,    fcrash_state,   init_mtwinsb,   ROT0,    "David Inc. (bootleg)",  "Twins (Mega Twins bootleg)",  MACHINE_SUPPORTS_SAVE ) // based on World version
 
