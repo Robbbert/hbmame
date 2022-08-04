@@ -428,12 +428,12 @@ willow
 //willowu
 //willowuo
 wof
-wofa
+//wofa
 wofch
-wofhfh
-wofj
-wofr1
-wofu
+//wofhfh
+//wofj
+//wofr1
+//wofu
 //wonder3
 
 @source:cps1mis.cpp
@@ -447,13 +447,13 @@ sk2h105q
 sk2h106q
 sk2h107
 sk2h108
-sk2h11 
+sk2h11
 sk2h12
 sk2h13
 sk2h14
 sk2h15
-sk2h16		// wofahp2
-sk2h17 
+sk2h16
+sk2h17
 sk2h18
 sk2h21
 sk2h22
@@ -470,7 +470,6 @@ sk2h34q
 sk2h41
 sk2h42
 sk2h43
-//sk2h44                               // black screen
 sk2h45
 sk2h46
 sk3h2
@@ -478,9 +477,9 @@ sk2h51
 sk2h52
 sk2h53
 sk2h54
-sk3p1		// wofchdx
-sk3p2		// wofchdx1
-sk3p3		// wofchdx2
+sk3p1
+sk3p2
+sk3p3
 sk3p4
 sk3p5
 sk3p6
@@ -488,51 +487,48 @@ sk3p7
 sk3p8
 sk3p9
 sk3p10
-tk2c1		// wofbio
-tk2c2		// wofbt
-tk2c3		// wofctj
-tk2c4		// wofdy
-tk2c5		// wofdyg
-tk2c6		// woffh
-tk2c7		// wofgyc
-tk2c8		// wofgyq
-tk2c9		// wofhgz
-tk2c10		// wofhzj
-tk2c11		// wofjjq
-tk2c12		// wofjqz
-tk2c13		// wofmr
-tk2c14		// wofsbl
-tk2c15		// wofsjj
-tk2c16		// wofsz
-tk2c17		// wofyjs
-tk2c18		// wofyxg
-tk2c19		// wofzhs
-tk2c20		// wofzhy
-tk2c21		// wofzy2
-tk2c22		// wofzy3
-tk2c23		// wofzyq
-tk2h1		// wofjh
-tk2h2		// wofjhb, was dynwarjh before rom loading was figured out
-tk2h3		// wofjhc, was dynwarj2 before rom loading was figured out
-tk2h4		// wofjh2
-tk2h5		// wofjcn
-tk2h6		// wofjd
-tk2h7		// wofjehp
-tk2h8		// wofjhdwb
-tk2h9		// wofjhp2
-tk2h10		// wofjm
-tk2h11		// wofjmjp
-tk2h12		// wofjpsrw
-tk2h13		// wofjrabh
-tk2h14		// wofjrlb
-//tk2h15		// wofjrpbs; 1111 exception
-//tk2h16		// wofjv10s; 1111 exception
-tk2h17		// wofjzcr1
-tk2h18		// wofjzero
+tk2c1
+tk2c2
+tk2c3
+tk2c4
+tk2c5
+tk2c6
+tk2c7
+tk2c8
+tk2c9
+tk2c10
+tk2c11
+tk2c12
+tk2c13
+tk2c14
+tk2c15
+tk2c16
+tk2c17
+tk2c18
+tk2c19
+tk2c20
+tk2c21
+tk2c22
+tk2c23
+tk2h1
+tk2h2
+tk2h3
+tk2h4
+tk2h5
+tk2h6
+tk2h7
+tk2h8
+tk2h9
+tk2h10
+tk2h11
+tk2h12
+tk2h13
+tk2h14
+tk2h17
+tk2h18
 tk2h19
 tk2h20
 tk2h21
-//tk2h22                               // 1111 exception
 tk2h23
 tk2h24
 tk2h25
@@ -545,7 +541,6 @@ tk2h31
 tk2h32
 tk2h33
 tk2h35
-//tk2h37                               // 1111 exception
 tk2h38
 tk2h39
 tk2h40
@@ -556,11 +551,8 @@ tk2h44  // goes into setup menu by itself at start
 tk2h45
 tk2h46
 tk2h47
-tk2h48 
+tk2h48
 tk2h49
-//tk2h50                               // 1111 exception
-//tk2h51                               // 1111 exception
-//tk2h52                               // 1111 exception
 tk2h53
 tk2h54
 tk2h55
@@ -662,7 +654,6 @@ tk2h152
 tk2h153
 tk2h155
 tk2h156
-//tk2h157     // roms not decided?
 tk2h158
 tk2h159
 tk2h160
@@ -670,7 +661,7 @@ tk2h161
 tk2h162
 tk2h163
 tk2h164
-wofch		// tk2p1
+wofch
 wofes
 wofr1h
 woffr
