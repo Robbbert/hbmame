@@ -216,10 +216,10 @@ contrajs01
 //1941r1
 //1941u
 3wonders
-3wondersb
-3wondersh
-3wondersr1
-3wondersu
+//3wondersb
+//3wondersh
+//3wondersr1
+//3wondersu
 //area88
 //area88r
 captcomm
@@ -417,16 +417,16 @@ strider
 //strideruc
 //unsquad
 varth
-varthb2
+//varthb2
 //varthb3                              // not working
-varthj
-varthjr
-varthr1
-varthu
+//varthj
+//varthjr
+//varthr1
+//varthu
 willow
-willowj
-willowu
-willowuo
+//willowj
+//willowu
+//willowuo
 wof
 wofa
 wofch
@@ -434,21 +434,9 @@ wofhfh
 wofj
 wofr1
 wofu
-wonder3
+//wonder3
 
 @source:cps1mis.cpp
-3wondersb01
-3wondersud
-cawingh01
-cps1demo                               // HB
-cps1frog                               // HB
-cps1testm                              // HB
-cps1testma                             // HB
-cps1tests                              // HB
-cps1testsa                             // HB
-//cps1xx                               // corrupt gfx
-daimakb
-pnicku                                 // 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site
 sk2h101
 sk2h101q			// qsound version of sk2h1
 sk2h102
@@ -500,7 +488,6 @@ sk3p7
 sk3p8
 sk3p9
 sk3p10
-slammastud
 tk2c1		// wofbio
 tk2c2		// wofbt
 tk2c3		// wofctj
@@ -689,9 +676,11 @@ wofr1h
 woffr
 wofsf2
 wofud
-willowp
 3wonders01
 3wonders02
+3wonders03
+3wonders04
+cawingh01
 captcommh01
 captcommh02
 captcommh03
@@ -800,6 +789,14 @@ captcomms104
 captcomms105
 captcomms106
 captcomms107
+cps1demo                               // HB
+cps1frog                               // HB
+cps1testm                              // HB
+cps1testma                             // HB
+cps1tests                              // HB
+cps1testsa                             // HB
+//cps1xx                               // corrupt gfx
+daimakb
 dinod01                                // Dinosaur hunter
 dinoj01                                // Cadillacs
 dinoj02
@@ -1110,6 +1107,7 @@ mbombrds01
 mbombrds02
 mbombrds03
 mbombrds04
+pnicku
 punishers01
 punishers02
 punishers03
@@ -1267,12 +1265,14 @@ slammasts02
 slammasts03
 slammasts04
 slammasts05
+slammasts06
 striders01
 striders02                             // fix unwanted black specks
 striders03                             // as above, and uncensored
 varths01
 varths02
 willows01
+willows02
 sk2h114
 sk2h115
 sk2h116
@@ -1830,7 +1830,7 @@ kodb                                   // bad gfx in mame
 //sf2m1                                // crowd missing
 //sf2m9                                // crowd missing
 sgyxz
-varthb
+//varthb
 wofabl
 wofr1bl
 
