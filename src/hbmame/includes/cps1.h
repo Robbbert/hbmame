@@ -111,16 +111,8 @@ public:
 		m_cps_b_regs(*this, "cps_b_regs"),
 		m_qsound_sharedram1(*this, "qsound_ram1"),
 		m_qsound_sharedram2(*this, "qsound_ram2"),
-		m_objram1(*this, "objram1"),
-		m_objram2(*this, "objram2"),
-		m_output(*this, "output"),
 		m_io_in0(*this, "IN0"),
 		m_io_in1(*this, "IN1"),
-		m_cps2_dial_type(0),
-		m_ecofghtr_dial_direction0(0),
-		m_ecofghtr_dial_direction1(0),
-		m_ecofghtr_dial_last0(0),
-		m_ecofghtr_dial_last1(0),
 		m_maincpu(*this, "maincpu"),
 		m_audiocpu(*this, "audiocpu"),
 		m_oki(*this, "oki"),
@@ -176,16 +168,10 @@ public:
 	optional_shared_ptr<u8> m_qsound_sharedram1;
 	optional_shared_ptr<u8> m_qsound_sharedram2;
 	std::unique_ptr<u8[]> m_decrypt_kabuki{};
-	// cps2
-	optional_shared_ptr<u16> m_objram1;
-	optional_shared_ptr<u16> m_objram2;
-	optional_shared_ptr<u16> m_output;
 
 	optional_ioport m_io_in0;
 	optional_ioport m_io_in1;
-	std::unique_ptr<u16 []>     m_cps2_buffered_obj{};
 	// game-specific
-	std::unique_ptr<u16 []>    m_gigaman2_dummyqsound_ram{};
 	u16   sf2ceblp_prot = 0U;
 	uint16_t m_pang3b4_prot = 0;
 
@@ -208,22 +194,11 @@ public:
 	int          m_stars2x = 0;
 	int          m_stars2y = 0;
 	int          m_last_sprite_offset = 0;      /* Offset of the last sprite */
-	int          m_cps2_last_sprite_offset = 0; /* Offset of the last sprite */
 	int          m_pri_ctrl = 0;                /* Sprite layer priorities */
 	int          m_objram_bank = 0;
 
 	/* misc */
 	int          m_readpaddle = 0;  // pzloop2
-	int          m_cps2networkpresent = 0;
-	int          m_cps2digitalvolumelevel = 0;
-	int          m_cps2disabledigitalvolume = 0;
-	emu_timer    *m_digital_volume_timer = nullptr;
-	int          m_cps2_dial_type = 0;
-	int          m_ecofghtr_dial_direction0 = 0;
-	int          m_ecofghtr_dial_direction1 = 0;
-	int          m_ecofghtr_dial_last0 = 0;
-	int          m_ecofghtr_dial_last1 = 0;
-
 
 	/* fcrash sound hw */
 	int          m_sample_buffer1 = 0;
@@ -235,13 +210,11 @@ public:
 	const struct CPS1config *m_game_config = nullptr;
 	int          m_scroll_size = 0;
 	int          m_obj_size = 0;
-	int          m_cps2_obj_size = 0;
 	int          m_other_size = 0;
 	int          m_palette_align = 0;
 	int          m_palette_size = 0;
 	int          m_stars_rom_size = 0;
 	u8     m_empty_tile[32*32]{};
-	int          m_cps_version = 0;
 
 	/* fcrash video config */
 	u8        m_layer_enable_reg = 0;
@@ -298,11 +271,6 @@ public:
 	u16 cps1_cps_b_r(offs_t offset);
 	void cps1_cps_b_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 	void cps1_gfxram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
-	void cps2_objram_bank_w(offs_t offset, u16 data, u16 mem_mask = ~0);
-	u16 cps2_objram1_r(offs_t offset);
-	u16 cps2_objram2_r(offs_t offset);
-	void cps2_objram1_w(offs_t offset, u16 data, u16 mem_mask = ~0);
-	void cps2_objram2_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 	void cps1_oki_pin7_w(u8 data);
 	void sf2m1_layer_w(offs_t offset, u16 data);
 	void sf2m3_layer_w(offs_t offset, u16 data);
@@ -322,15 +290,6 @@ public:
 	void init_punisher();
 	void init_wof();
 	void init_ganbare();
-	void init_cps2_video();
-	void init_cps2();
-	void init_cps2nc();
-	void init_cps2crypt();
-	void init_ssf2tb();
-	void init_pzloop2();
-	void init_singbrd();
-	void init_gigaman2();
-	void init_ecofghtr();
 	void init_sf2dongb();
 	void init_sf2ceblp();
 	TILEMAP_MAPPER_MEMBER(tilemap0_scan);
@@ -342,8 +301,6 @@ public:
 	DECLARE_MACHINE_START(cps1);
 	DECLARE_VIDEO_START(cps1);
 	DECLARE_MACHINE_START(common);
-	DECLARE_MACHINE_START(cps2);
-	DECLARE_VIDEO_START(cps2);
 	DECLARE_MACHINE_START(qsound);
 	DECLARE_MACHINE_START(ganbare);
 	DECLARE_MACHINE_RESET(cps);
@@ -354,9 +311,6 @@ public:
 	INTERRUPT_GEN_MEMBER(cps1_interrupt);
 	TIMER_DEVICE_CALLBACK_MEMBER(ganbare_interrupt);
 	void cpu_space_map(address_map &map);
-	TIMER_DEVICE_CALLBACK_MEMBER(cps2_interrupt);
-	TIMER_CALLBACK_MEMBER(cps2_update_digital_volume);
-
 	void kabuki_setup(void (*decode)(u8 *src, u8 *dst));
 
 	/* fcrash handlers */
@@ -408,31 +362,14 @@ public:
 	/* cps video */
 	inline u16  *cps1_base( int offset, int boundary );
 	void cps1_get_video_base();
-	void unshuffle(u64 *buf, int len);
-	void cps2_gfx_decode();
 	int gfxrom_bank_mapper(int type, int code);
 	void cps1_update_transmasks();
 	void cps1_build_palette(const u16 * const palette_base);
 	void cps1_find_last_sprite();
 	void cps1_render_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void cps2_find_last_sprite();
-	void cps2_render_sprites(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int *primasks);
 	void cps1_render_stars(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void cps1_render_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer, int primask);
 	void cps1_render_high_layer(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int layer);
-	void cps2_set_sprite_priorities();
-	void cps2_objram_latch();
-	u16  *cps2_objbase();
-
-
-	/* cps2 driver */
-	void init_digital_volume();
-	void gigaman2_gfx_reorder();
-	DECLARE_WRITE_LINE_MEMBER(m5205_int1);
-	DECLARE_WRITE_LINE_MEMBER(m5205_int2);
-	void cps2(machine_config &config);
-	void gigaman2(machine_config &config);
-	void dead_cps2(machine_config &config);
 	void cawingbl(machine_config &config);
 	void sf2mdt(machine_config &config);
 	void sf2m1(machine_config &config);
@@ -455,9 +392,6 @@ public:
 	void wofhfh(machine_config &config);
 	void cps1_10MHz(machine_config &config);
 	void pang3(machine_config &config);
-	void cps2_map(address_map &map);
-	void dead_cps2_map(address_map &map);
-	void decrypted_opcodes_map(address_map &map);
 	void dinopic_map(address_map &map);
 	void fcrash_map(address_map &map);
 	void forgottn_map(address_map &map);

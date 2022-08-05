@@ -1712,13 +1712,6 @@ static const struct CPS1config cps1_config_table[]=
 CPS1 VIDEO RENDERER
 
 */
-#define CPS2_OBJ_BASE   0x00    /* Unknown (not base address of objects). Could be bass address of bank used when object swap bit set? */
-#define CPS2_OBJ_UK1    0x02    /* Unknown (nearly always 0x807d, or 0x808e when screen flipped) */
-#define CPS2_OBJ_PRI    0x04    /* Layers priorities */
-#define CPS2_OBJ_UK2    0x06    /* Unknown (usually 0x0000, 0x1101 in ssf2, 0x0001 in 19XX) */
-#define CPS2_OBJ_XOFFS  0x08    /* X offset (usually 0x0040) */
-#define CPS2_OBJ_YOFFS  0x0a    /* Y offset (always 0x0010) */
-
 
 MACHINE_RESET_MEMBER(cps_state,cps)
 {
@@ -1994,10 +1987,6 @@ void cps_state::cps1_cps_a_w(offs_t offset, u16 data, u16 mem_mask)
 	if (offset == CPS1_PALETTE_BASE)
 		cps1_build_palette(cps1_base(CPS1_PALETTE_BASE, m_palette_align));
 
-	// pzloop2 write to register 24 on startup. This is probably just a bug.
-	if (offset == 0x24 / 2 && m_cps_version == 2)
-		return;
-
 #ifdef MAME_DEBUG
 	if (offset > CPS1_VIDEOCONTROL)
 		popmessage("write to CPS-A register %02x contact MAMEDEV", offset * 2);
@@ -2035,17 +2024,6 @@ u16 cps_state::cps1_cps_b_r(offs_t offset)
 	else
 	if (offset == m_in3_addr / 2)  /* Player 4 controls (on C-board) ("Captain Commando") */
 		return cps1_in3_r(); // HBMAME ioport("IN3")->read();
-	else
-	if (m_cps_version == 2)
-	{
-		if (offset == 0x10/2)
-		{
-			// UNKNOWN--only mmatrix appears to read this, and I'm not sure if the result is actually used
-			return m_cps_b_regs[0x10 / 2];
-		}
-		if (offset == 0x12/2)
-			return m_cps_b_regs[0x12 / 2];
-	}
 #ifdef MAME_DEBUG
 	popmessage("CPS-B read port %02x contact MAMEDEV", offset * 2);
 #endif
@@ -2056,27 +2034,6 @@ u16 cps_state::cps1_cps_b_r(offs_t offset)
 void cps_state::cps1_cps_b_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	data = COMBINE_DATA(&m_cps_b_regs[offset]);
-
-	if (m_cps_version == 2)
-	{
-		/* To mark scanlines for raster effects */
-		if (offset == 0x0e/2)
-		{
-			// UNKNOWN
-			return;
-		}
-		if (offset == 0x10/2)
-		{
-			m_scanline1 = (data & 0x1ff);
-			return;
-		}
-		if (offset == 0x12/2)
-		{
-			m_scanline2 = (data & 0x1ff);
-			return;
-		}
-	}
-
 
 	// additional outputs on C-board
 	if (offset == m_out2_addr / 2)
@@ -2112,41 +2069,6 @@ void cps_state::cps1_cps_b_w(offs_t offset, u16 data, u16 mem_mask)
 			!m_bootleg_kludge)
 		popmessage("CPS-B write %04x to port %02x contact MAMEDEV", data, offset * 2);
 #endif
-}
-
-
-void cps_state::unshuffle( u64 *buf, int len )
-{
-	int i;
-	u64 t;
-
-	if (len == 2)
-		return;
-
-	assert(len % 4 == 0);   /* must not happen */
-
-	len /= 2;
-
-	unshuffle(buf, len);
-	unshuffle(buf + len, len);
-
-	for (i = 0; i < len / 2; i++)
-	{
-		t = buf[len / 2 + i];
-		buf[len / 2 + i] = buf[len + i];
-		buf[len + i] = t;
-	}
-}
-
-
-void cps_state::cps2_gfx_decode()
-{
-	const int banksize = 0x200000;
-	int size = memregion("gfx")->bytes();
-	int i;
-
-	for (i = 0; i < size; i += banksize)
-		unshuffle((u64 *)(memregion("gfx")->base() + i), banksize / 8);
 }
 
 
@@ -2449,7 +2371,6 @@ VIDEO_START_MEMBER(cps_state,cps)
 	/* Put in some const */
 	m_scroll_size    = 0x4000;  /* scroll1, scroll2, scroll3 */
 	m_obj_size       = 0x0800;
-	m_cps2_obj_size  = 0x2000;
 	m_other_size     = 0x0800;
 	m_palette_align  = 0x0400;  /* minimum alignment is a single palette page (512 colors). Verified on pcb. */
 	m_palette_size   = cps1_palette_entries * 32; /* Size of palette RAM */
@@ -2471,21 +2392,12 @@ VIDEO_START_MEMBER(cps_state,cps)
 
 	m_buffered_obj = make_unique_clear<u16[]>(m_obj_size / 2);
 
-	if (m_cps_version == 2)
-		m_cps2_buffered_obj = make_unique_clear<u16[]>(m_cps2_obj_size / 2);
-
 	/* clear RAM regions */
 	memset(m_gfxram, 0, m_gfxram.bytes());   /* Clear GFX RAM */
 	memset(m_cps_a_regs, 0, 0x40);   /* Clear CPS-A registers */
 	memset(m_cps_b_regs, 0, 0x40);   /* Clear CPS-B registers */
 
 	m_cps_b_regs[m_palette_control/2] = 0x3F; // HBMAME
-
-	if (m_cps_version == 2)
-	{
-		memset(m_objram1, 0, m_cps2_obj_size);
-		memset(m_objram2, 0, m_cps2_obj_size);
-	}
 
 	/* Put in some defaults */
 	m_cps_a_regs[CPS1_OBJ_BASE]     = 0x9200;
@@ -2528,18 +2440,12 @@ VIDEO_START_MEMBER(cps_state,cps)
 	save_item(NAME(m_objram_bank));
 
 	save_pointer(NAME(m_buffered_obj.get()), m_obj_size / 2);
-	if (m_cps_version == 2)
-	{
-		save_item(NAME(m_cps2_last_sprite_offset));
-		save_pointer(NAME(m_cps2_buffered_obj.get()), m_cps2_obj_size / 2);
-	}
 
 	machine().save().register_postload(save_prepost_delegate(FUNC(cps_state::cps1_get_video_base), this));
 }
 
 VIDEO_START_MEMBER(cps_state,cps1)
 {
-	m_cps_version = 1;
 	VIDEO_START_CALL_MEMBER(cps);
 }
 
@@ -2826,232 +2732,6 @@ void cps_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitmap
 #undef DRAWSPRITE
 }
 
-
-
-
-void cps_state::cps2_objram_bank_w(offs_t offset, u16 data, u16 mem_mask)
-{
-	if (ACCESSING_BITS_0_7)
-		m_objram_bank = data & 1;
-}
-
-u16 cps_state::cps2_objram1_r(offs_t offset)
-{
-	if (m_objram_bank & 1)
-		return m_objram2[offset];
-	else
-		return m_objram1[offset];
-}
-
-u16 cps_state::cps2_objram2_r(offs_t offset)
-{
-	if (m_objram_bank & 1)
-		return m_objram1[offset];
-	else
-		return m_objram2[offset];
-}
-
-void cps_state::cps2_objram1_w(offs_t offset, u16 data, u16 mem_mask)
-{
-	if (m_objram_bank & 1)
-		COMBINE_DATA(&m_objram2[offset]);
-	else
-		COMBINE_DATA(&m_objram1[offset]);
-}
-
-void cps_state::cps2_objram2_w(offs_t offset, u16 data, u16 mem_mask)
-{
-	if (m_objram_bank & 1)
-		COMBINE_DATA(&m_objram1[offset]);
-	else
-		COMBINE_DATA(&m_objram2[offset]);
-}
-
-u16 *cps_state::cps2_objbase()
-{
-	int baseptr;
-	baseptr = 0x7000;
-
-	if (m_objram_bank & 1)
-		baseptr ^= 0x0080;
-
-//popmessage("%04x %d", cps2_port(machine, CPS2_OBJ_BASE), m_objram_bank & 1);
-
-	if (baseptr == 0x7000)
-		return m_objram1;
-	else //if (baseptr == 0x7080)
-		return m_objram2;
-}
-
-
-void cps_state::cps2_find_last_sprite()    /* Find the offset of last sprite */
-{
-	int offset = 0;
-	u16 *base = m_cps2_buffered_obj.get();
-
-	/* Locate the end of table marker */
-	while (offset < m_cps2_obj_size / 2)
-	{
-		if (base[offset + 1] >= 0x8000 || base[offset + 3] >= 0xff00)
-		{
-			/* Marker found. This is the last sprite. */
-			m_cps2_last_sprite_offset = offset - 4;
-			return;
-		}
-
-		offset += 4;
-	}
-	/* Sprites must use full sprite RAM */
-	m_cps2_last_sprite_offset = m_cps2_obj_size / 2 - 4;
-}
-
-void cps_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect, int *primasks )
-{
-#define DRAWSPRITE(CODE,COLOR,FLIPX,FLIPY,SX,SY)                                    \
-{                                                                                   \
-	if (flip_screen())                                                           \
-		m_gfxdecode->gfx(2)->prio_transpen(bitmap,\
-				cliprect,                                            \
-				CODE,                                                               \
-				COLOR,                                                              \
-				!(FLIPX),!(FLIPY),                                                  \
-				512-16-(SX),256-16-(SY), screen.priority(),primasks[priority],15);                 \
-	else                                                                            \
-		m_gfxdecode->gfx(2)->prio_transpen(bitmap,\
-				cliprect,                                            \
-				CODE,                                                               \
-				COLOR,                                                              \
-				FLIPX,FLIPY,                                                        \
-				SX,SY, screen.priority(),primasks[priority],15);                 \
-}
-
-	int i;
-	u16 *base = m_cps2_buffered_obj.get();
-	int xoffs = 64 - m_output[CPS2_OBJ_XOFFS /2];
-	int yoffs = 16 - m_output[CPS2_OBJ_YOFFS /2];
-
-#ifdef MAME_DEBUG
-	if (machine().input().code_pressed(KEYCODE_Z) && machine().input().code_pressed(KEYCODE_R))
-	{
-		return;
-	}
-#endif
-
-	for (i = m_cps2_last_sprite_offset; i >= 0; i -= 4)
-	{
-		int x = base[i + 0];
-		int y = base[i + 1];
-		int priority = (x >> 13) & 0x07;
-		int code = base[i + 2] + ((y & 0x6000) << 3);
-		int colour = base[i + 3];
-		int col = colour & 0x1f;
-
-		if (colour & 0x80)
-		{
-			x += m_output[CPS2_OBJ_XOFFS /2];  /* fix the offset of some games */
-			y += m_output[CPS2_OBJ_YOFFS /2];  /* like Marvel vs. Capcom ending credits */
-		}
-
-		if (colour & 0xff00)
-		{
-			/* handle blocked sprites */
-			int nx = (colour & 0x0f00) >> 8;
-			int ny = (colour & 0xf000) >> 12;
-			int nxs, nys, sx, sy;
-			nx++;
-			ny++;
-
-			if (colour & 0x40)
-			{
-				/* Y flip */
-				if (colour & 0x20)
-				{
-					for (nys = 0; nys < ny; nys++)
-					{
-						for (nxs = 0; nxs < nx; nxs++)
-						{
-							sx = (x + nxs * 16 + xoffs) & 0x3ff;
-							sy = (y + nys * 16 + yoffs) & 0x3ff;
-							DRAWSPRITE(
-									code + (nx - 1) - nxs + 0x10 * (ny - 1 - nys),
-									(col & 0x1f),
-									1,1,
-									sx,sy);
-						}
-					}
-				}
-				else
-				{
-					for (nys = 0; nys < ny; nys++)
-					{
-						for (nxs = 0; nxs < nx; nxs++)
-						{
-							sx = (x + nxs * 16 + xoffs) & 0x3ff;
-							sy = (y + nys * 16 + yoffs) & 0x3ff;
-
-							DRAWSPRITE(
-									code + nxs + 0x10 * (ny - 1 - nys),
-									(col & 0x1f),
-									0,1,
-									sx,sy);
-						}
-					}
-				}
-			}
-			else
-			{
-				if (colour & 0x20)
-				{
-					for (nys = 0; nys < ny; nys++)
-					{
-						for (nxs = 0; nxs < nx; nxs++)
-						{
-							sx = (x + nxs * 16 + xoffs) & 0x3ff;
-							sy = (y + nys * 16 + yoffs) & 0x3ff;
-
-							DRAWSPRITE(
-									code + (nx - 1) - nxs + 0x10 * nys,
-									(col & 0x1f),
-									1,0,
-									sx,sy);
-						}
-					}
-				}
-				else
-				{
-					for (nys = 0; nys < ny; nys++)
-					{
-						for (nxs = 0; nxs < nx; nxs++)
-						{
-							sx = (x + nxs * 16 + xoffs) & 0x3ff;
-							sy = (y + nys * 16 + yoffs) & 0x3ff;
-
-							DRAWSPRITE(
-//                                      code + nxs + 0x10 * nys,
-									(code & ~0xf) + ((code + nxs) & 0xf) + 0x10 * nys,  //  pgear fix
-									(col & 0x1f),
-									0,0,
-									sx,sy);
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			/* Simple case... 1 sprite */
-			DRAWSPRITE(
-					code,
-					(col & 0x1f),
-					colour&0x20,colour&0x40,
-					(x+xoffs) & 0x3ff,(y+yoffs) & 0x3ff);
-		}
-	}
-}
-
-
-
-
 void cps_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect )
 {
 	int offs;
@@ -3169,9 +2849,6 @@ u32 cps_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, c
 	/* Find the offset of the last sprite in the sprite table */
 	cps1_find_last_sprite();
 
-	if (m_cps_version == 2)
-		cps2_find_last_sprite();
-
 	cps1_update_transmasks();
 
 	m_bg_tilemap[0]->set_scrollx(0, m_scroll1x);
@@ -3199,21 +2876,9 @@ u32 cps_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, c
 
 
 	/* Blank screen */
-	if (m_cps_version == 1)
-	{
-		// CPS1 games use pen 0xbff as background color; this is used in 3wonders,
-		// mtwins (explosion during attract), mercs (intermission).
-		bitmap.fill(0xbff, cliprect);
-	}
-	else
-	{
-		// CPS2 apparently always force the background to black. Several games would
-		// should a blue screen during boot if we used the same code as CPS1.
-		// Maybe Capcom changed the background handling due to the problems that
-		// it caused on several monitors (because the background extended into the
-		// blanking area instead of going black, causing the monitor to clip).
-		bitmap.fill(m_palette->black_pen(), cliprect);
-	}
+	// CPS1 games use pen 0xbff as background color; this is used in 3wonders,
+	// mtwins (explosion during attract), mercs (intermission).
+	bitmap.fill(0xbff, cliprect);
 
 	if (m_region_stars)
 	{
@@ -3227,82 +2892,25 @@ u32 cps_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, c
 	l3 = (layercontrol >> 0x0c) & 03;
 	screen.priority().fill(0, cliprect);
 
-	if (m_cps_version == 1)
-	{
-		if (BIT(m_bootleg_kludge, 7))
-			cps1_build_palette(cps1_base(CPS1_PALETTE_BASE, m_palette_align));
+	if (BIT(m_bootleg_kludge, 7))
+		cps1_build_palette(cps1_base(CPS1_PALETTE_BASE, m_palette_align));
 
-		cps1_render_layer(screen, bitmap, cliprect, l0, 0);
+	cps1_render_layer(screen, bitmap, cliprect, l0, 0);
 
-		if (l1 == 0)
-			cps1_render_high_layer(screen, bitmap, cliprect, l0); /* prepare mask for sprites */
+	if (l1 == 0)
+		cps1_render_high_layer(screen, bitmap, cliprect, l0); /* prepare mask for sprites */
 
-		cps1_render_layer(screen, bitmap, cliprect, l1, 0);
+	cps1_render_layer(screen, bitmap, cliprect, l1, 0);
 
-		if (l2 == 0)
-			cps1_render_high_layer(screen, bitmap, cliprect, l1); /* prepare mask for sprites */
+	if (l2 == 0)
+		cps1_render_high_layer(screen, bitmap, cliprect, l1); /* prepare mask for sprites */
 
-		cps1_render_layer(screen, bitmap, cliprect, l2, 0);
+	cps1_render_layer(screen, bitmap, cliprect, l2, 0);
 
-		if (l3 == 0)
-			cps1_render_high_layer(screen, bitmap, cliprect, l2); /* prepare mask for sprites */
+	if (l3 == 0)
+		cps1_render_high_layer(screen, bitmap, cliprect, l2); /* prepare mask for sprites */
 
-		cps1_render_layer(screen, bitmap, cliprect, l3, 0);
-	}
-	else
-	{
-		int l0pri, l1pri, l2pri, l3pri;
-		int primasks[8], i;
-		l0pri = (m_pri_ctrl >> 4 * l0) & 0x0f;
-		l1pri = (m_pri_ctrl >> 4 * l1) & 0x0f;
-		l2pri = (m_pri_ctrl >> 4 * l2) & 0x0f;
-		l3pri = (m_pri_ctrl >> 4 * l3) & 0x0f;
-
-#if 0
-if (    (m_output[CPS2_OBJ_BASE /2] != 0x7080 && m_output[CPS2_OBJ_BASE /2] != 0x7000) ||
-		m_output[CPS2_OBJ_UK1 /2] != 0x807d ||
-		(m_output[CPS2_OBJ_UK2 /2] != 0x0000 && m_output[CPS2_OBJ_UK2 /2] != 0x1101 && m_output[CPS2_OBJ_UK2 /2] != 0x0001))
-	popmessage("base %04x uk1 %04x uk2 %04x",
-			m_output[CPS2_OBJ_BASE /2],
-			m_output[CPS2_OBJ_UK1 /2],
-			m_output[CPS2_OBJ_UK2 /2]);
-
-if (0 && machine().input().code_pressed(KEYCODE_Z))
-	popmessage("order: %d (%d) %d (%d) %d (%d) %d (%d)",l0,l0pri,l1,l1pri,l2,l2pri,l3,l3pri);
-#endif
-
-		/* take out the CPS1 sprites layer */
-		if (l0 == 0) { l0 = l1; l1 = 0; l0pri = l1pri; }
-		if (l1 == 0) { l1 = l2; l2 = 0; l1pri = l2pri; }
-		if (l2 == 0) { l2 = l3; l3 = 0; l2pri = l3pri; }
-
-		{
-			int mask0 = 0xaa;
-			int mask1 = 0xcc;
-			if (l0pri > l1pri) mask0 &= ~0x88;
-			if (l0pri > l2pri) mask0 &= ~0xa0;
-			if (l1pri > l2pri) mask1 &= ~0xc0;
-
-			primasks[0] = 0xff;
-			for (i = 1; i < 8; i++)
-			{
-				if (i <= l0pri && i <= l1pri && i <= l2pri)
-				{
-					primasks[i] = 0xfe;
-					continue;
-				}
-				primasks[i] = 0;
-				if (i <= l0pri) primasks[i] |= mask0;
-				if (i <= l1pri) primasks[i] |= mask1;
-				if (i <= l2pri) primasks[i] |= 0xf0;
-			}
-		}
-
-		cps1_render_layer(screen, bitmap, cliprect, l0, 1);
-		cps1_render_layer(screen, bitmap, cliprect, l1, 2);
-		cps1_render_layer(screen, bitmap, cliprect, l2, 4);
-		cps2_render_sprites(screen, bitmap, cliprect, primasks);
-	}
+	cps1_render_layer(screen, bitmap, cliprect, l3, 0);
 
 	return 0;
 }
@@ -3315,21 +2923,8 @@ WRITE_LINE_MEMBER(cps_state::screen_vblank_cps1)
 		/* Get video memory base registers */
 		cps1_get_video_base();
 
-		if (m_cps_version == 1)
-		{
-			/* CPS1 sprites have to be delayed one frame */
-			memcpy(m_buffered_obj.get(), m_obj, m_obj_size);
-		}
+		/* CPS1 sprites have to be delayed one frame */
+		memcpy(m_buffered_obj.get(), m_obj, m_obj_size);
 	}
 }
 
-void cps_state::cps2_set_sprite_priorities()
-{
-	m_pri_ctrl = m_output[CPS2_OBJ_PRI /2];
-}
-
-void cps_state::cps2_objram_latch()
-{
-	cps2_set_sprite_priorities();
-	memcpy(m_cps2_buffered_obj.get(), cps2_objbase(), m_cps2_obj_size);
-}
