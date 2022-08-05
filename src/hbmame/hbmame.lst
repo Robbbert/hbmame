@@ -1094,25 +1094,19 @@ sk3p12
 sk3p13
 sk3p14
 tk2c1
-tk2c2
 tk2c3
 tk2c4
 tk2c5
 tk2c6
 tk2c7
 tk2c8
-tk2c9
-tk2c10
 tk2c11
 tk2c12
 tk2c13
-tk2c14
 tk2c15
 tk2c16
-tk2c17
 tk2c18
 tk2c19
-tk2c20
 tk2c21
 tk2c22
 tk2c23
@@ -1120,7 +1114,6 @@ tk2h1
 tk2h2
 tk2h3
 tk2h4
-tk2h5
 tk2h6
 tk2h7
 tk2h8
@@ -1132,16 +1125,13 @@ tk2h13
 tk2h14
 tk2h17
 tk2h18
-tk2h19
 tk2h20
 tk2h21
 tk2h23
 tk2h24
-tk2h25
 tk2h26
 tk2h27
 tk2h28
-tk2h29
 tk2h30
 tk2h31
 tk2h32
@@ -1149,7 +1139,6 @@ tk2h33
 tk2h35
 tk2h38
 tk2h39
-tk2h40
 tk2h41  // bad title screen
 tk2h42
 tk2h43
@@ -1186,12 +1175,10 @@ tk2h76
 tk2h77
 tk2h78
 tk2h79
-tk2h80
 tk2h81
 tk2h82
 tk2h83
 tk2h84
-tk2h85  // bad gfx in attract mode
 tk2h86
 tk2h87
 tk2h88
@@ -1201,7 +1188,6 @@ tk2h91
 tk2h92
 tk2h93
 tk2h94
-tk2h95
 tk2h96
 tk2h97
 tk2h98  // bad title screen
@@ -1209,22 +1195,15 @@ tk2h99
 tk2h100
 tk2h101
 tk2h102
-tk2h103
 tk2h104
 tk2h105
-tk2h106
 tk2h107
-tk2h108
 tk2h109
 tk2h110
-tk2h111
 tk2h112
 tk2h113
 tk2h114
-tk2h115
 tk2h116
-tk2h118
-tk2h119
 tk2h120
 tk2h121
 tk2h122
@@ -1244,13 +1223,11 @@ tk2h135
 tk2h136
 tk2h137
 tk2h138
-tk2h139
 tk2h140
 tk2h141
 tk2h142
 tk2h143
 tk2h144
-tk2h145
 tk2h146
 tk2h147
 tk2h148
@@ -1819,10 +1796,10 @@ kodb                                   // bad gfx in mame
 //mtwinsb
 //sf2m1                                // crowd missing
 //sf2m9                                // crowd missing
-sgyxz
+//sgyxz                                // mame, minor gfx issues
 //varthb
-wofabl
-wofr1bl
+//wofabl                               // mame, gfx issues
+//wofr1bl                              // mame, minor gfx issues
 
 @source:flstory.cpp
 flstory					//parent
