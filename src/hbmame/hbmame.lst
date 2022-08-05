@@ -8923,30 +8923,30 @@ pacplusx
 pheartx
 
 @source:r2dx_v33.cpp
-nzeroteama					//parent
+nzeroteama                             //parent
 nzeroteamas01
 
 @source:rabbit.cpp
-rabbit						//parent
+rabbit                                 //parent
 rabbits01
 rabbits02
 rabbits03
 rabbits04
 
 @source:raiden2.cpp
-zeroteam					//parent
+zeroteam                               //parent
 zeroteamcs01
 zeroteamcs02
 zeroteamss01
 zeroteamss02
 
 @source:rallyx.cpp
-rallyx			//parent
-rxtron			/* Jerky and Sil hack of Rally-X */
-nrallyv			/* New Rally-X (vertical) */
+rallyx                                 //parent
+rxtron
+nrallyv
 
 @source:rastan.cpp
-rastan			//parent
+rastan                                 //parent
 rastandh
 rastand2
 rastaneh
@@ -8954,71 +8954,74 @@ rastane2
 rastwack
 
 @source:retofinv.cpp
-retofinv		//parent
+retofinv                               //parent
 retofinv4
 
 @source:rohga.cpp
-schmeisr				//parent
+schmeisr                               //parent
 schmeisrs01
 
 @source:schaser.cpp
-schasrcv		// extra sounds
+schasrcv                               // extra sounds
 
 @source:scramble.cpp
-mrkougar                 //parent
+mrkougar                               //parent
 troopyx
 
 @source:segac2.cpp
-c2frog					// HB
+c2frog                                 // HB
 
 @source:segahang.cpp
-enduror						//parent
+enduror                                //parent
 endurorrc
 
 @source:segaorun.cpp
-outrun					//parent
+outrun                                 //parent
 outrunen
 outrunen0
 outrunen1
 outrunen2
 outrunm
 outrunt1
-toutrun					//parent
+toutrun                                //parent
 toutrundt1
 
 @source:segag80r.cpp
-astrob					//parent
+astrob                                 //parent
 astrob2h
 
-//@source:segas16b.cpp
-//altbeast				//parent
-//altbeastfr
-//altbeasts01
-//altbeasts02
-//altbeasts03
+@source:segas16b.cpp
+altbeast                               //parent
+altbeastfr
+altbeasts01
+altbeasts02
+altbeasts03
+
+@source:sagas18.cpp
+astorm
 
 @source:segas24.cpp
-gground					//parent
+gground                                //parent
 ggrounds01
 
 @source:segas32.cpp
-ga2						//parent
+ga2                                    //parent
 ga2s01
-brival  				//parent
+brival                                 //parent
 brivals01
 
 @source:seta.cpp
-blandia					//parent
+blandia                                //parent
 blandias01
 blandias02
 blandias03
-msgundam    			//parent
+msgundam                               //parent
 msgundams01
-rezon					//parent
+rezon                                  //parent
 rezons01
 
 @source:seta2.cpp
-grdians					//parent
+grdians                                //parent
 grdianss01
 grdianss02
 grdianss03
@@ -9039,35 +9042,35 @@ grdianss17
 grdianss18
 
 @source:sf.cpp
-sf						//parent
+//sf                                     //parent
 //sfs01                                // freezes in attract mode
 
 @source:shadfrce.cpp
-shadfrce				//parent
+shadfrce                               //parent
 shadfrces01
 
 @source:sidepckt.cpp
-sidepckt				//parent
+sidepckt                               //parent
 sidepcktb2
 
 @source:silkroad.cpp
-silkroad				//parent
+silkroad                               //parent
 silkroads01
 silkroads02
 silkroads03
 
 @source:shaolins.cpp
-kicker					//parent
+kicker                                 //parent
 kfjohnny
 
 @source:skimaxx.cpp
-skimaxx					// HB, no parent
+skimaxx                                // HB, no parent
 
 @source:snk6502.cpp
-vantris					// HB, no parent
+vantris                                // HB, no parent
 
 @source:simple_st0016.cpp
-renju					//parent
+renju                                  //parent
 renjuk
 
 @source:snesb.cpp
