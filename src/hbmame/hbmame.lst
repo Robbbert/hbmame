@@ -261,14 +261,14 @@ ffight
 //ffightua
 //ffightub
 //ffightuc
-forgottn
-forgottna
-forgottnj
-forgottnu
-forgottnua
-forgottnuc
-forgottnue
-forgottnuaa
+//forgottn                             // need to get back to this
+//forgottna
+//forgottnj
+//forgottnu
+//forgottnua
+//forgottnuc
+//forgottnue
+//forgottnuaa
 //ganbare
 ghouls
 //ghoulsu
@@ -1304,7 +1304,324 @@ wofs14
 //sf2mdtb
 
 @source:cps2.cpp
-// CPS2 PARENTS ***
+1944                            // 20/06/2000 (c) 2000 Eighting/Raizing (Euro)
+1944d                           //
+1944j                           // 20/06/2000 (c) 2000 Eighting/Raizing (Japan)
+1944u                           // 20/06/2000 (c) 2000 Eighting/Raizing (USA)
+19xx                            // 04/01/1996 (c) 1996 (Euro)
+19xxu                           // 07/12/1995 (c) 1996 (USA)
+19xxa                           // 04/01/1996 (c) 1996 (Asia)
+19xxar1                         // 07/12/1995 (c) 1996 (Asia)
+19xxb                           // 18/12/1995 (c) 1996 (Brazil)
+19xxd                           //
+19xxh                           // 18/12/1995 (c) 1996 (Hispanic)
+19xxj                           // 04/01/1996 (c) 1996 (Japan)
+19xxjr1                         // 25/12/1995 (c) 1996 (Japan)
+19xxjr2                         // 07/12/1995 (c) 1996 (Japan)
+armwar                          // 24/10/1994 (c) 1994 (Euro)
+armwar1d                        //
+armwara                         // 24/10/1994 (c) 1994 (Asia)
+armwarar1                       // 20/09/1994 (c) 1994 (Asia)
+armwarb                         // 24/10/1994 (c) 1994 (Brazil)
+armwarr1                        // 11/10/1994 (c) 1994 (Euro)
+armwaru                         // 24/10/1994 (c) 1994 (USA)
+armwaru1                        // 20/09/1994 (c) 1994 (USA)
+avsp                            // 20/05/1994 (c) 1994 (Euro)
+avspa                           // 20/05/1994 (c) 1994 (Asia)
+avspd                           //
+avsph                           // 20/05/1994 (c) 1994 (Hispanic)
+avspj                           // 20/05/1994 (c) 1994 (Japan)
+avspu                           // 20/05/1994 (c) 1994 (USA)
+batcir                          // 19/03/1997 (c) 1997 (Euro)
+batcira                         // 19/03/1997 (c) 1997 (Asia)
+batcird                         //
+batcirj                         // 19/03/1997 (c) 1997 (Japan)
+choko                           // 20/08/2001 (c) 2001 Mitchell (Japan)
+csclub                          // 17/10/1997 (c) 1997 (Euro)
+csclub1                         // 22/07/1997 (c) 1997 (Euro)
+csclub1d                        //
+cscluba                         // 22/07/1997 (c) 1997 (Asia)
+csclubh                         // 22/07/1997 (c) 1997 (Hispanic)
+csclubj                         // 22/07/1997 (c) 1997 (Japan)
+csclubjy                        // 22/07/1997 (c) 1997 (Japan)
+cybots                          // 24/04/1995 (c) 1995 (Euro)
+cybotsj                         // 20/04/1995 (c) 1995 (Japan)
+cybotsjd                        //
+cybotsu                         // 24/04/1995 (c) 1995 (USA)
+cybotsud                        //
+ddsom                           // 19/06/1996 (c) 1996 (Euro)
+ddsoma                          // 19/06/1996 (c) 1996 (Asia)
+ddsomar1                        // 08/02/1996 (c) 1996 (Asia)
+ddsomb                          // 23/02/1996 (c) 1996 (Brazil)
+ddsomh                          // 23/02/1996 (c) 1996 (Hispanic)
+ddsomj                          // 19/06/1996 (c) 1996 (Japan)
+ddsomjr1                        // 06/02/1996 (c) 1996 (Japan)
+ddsomjr2                        // 23/02/1996 (c) 1996 (Japan)
+ddsomr1                         // 23/02/1996 (c) 1996 (Euro)
+ddsomr2                         // 09/02/1996 (c) 1996 (Euro)
+ddsomr3                         // 08/02/1996 (c) 1996 (Euro)
+ddsomu                          // 19/06/1996 (c) 1996 (USA)
+ddsomud                         //
+ddsomur1                        // 09/02/1996 (c) 1996 (USA)
+ddtod                           // 12/04/1994 (c) 1993 (Euro)
+ddtoda                          // 12/04/1994 (c) 1993 (Asia)
+ddtodar1                        // 13/01/1994 (c) 1993 (Asia)
+ddtodd                          //
+ddtodh                          // 12/04/1994 (c) 1993 (Hispanic)
+ddtodhr1                        // 25/01/1994 (c) 1993 (Hispanic)
+ddtodhr2                        // 13/01/1994 (c) 1993 (Hispanic)
+ddtodj                          // 12/04/1994 (c) 1993 (Japan)
+ddtodjr1                        // 25/01/1994 (c) 1993 (Japan)
+ddtodjr2                        // 13/01/1994 (c) 1993 (Japan)
+ddtodr1                         // 13/01/1994 (c) 1993 (Euro)
+ddtodu                          // 25/01/1994 (c) 1993 (USA)
+ddtodur1                        // 13/01/1994 (c) 1993 (USA)
+dimahoo                         // 21/01/2000 (c) 2000 Eighting/Raizing (USA)
+dimahoou                        // 21/01/2000 (c) 2000 Eighting/Raizing (USA)
+dimahoud                        //
+dstlk                           // 05/07/1994 (c) 1994 (Euro)
+dstlka                          // 05/07/1994 (c) 1994 (Asia)
+dstlkh                          // 18/08/1994 (c) 1994 (Hispanic)
+dstlku                          // 18/08/1994 (c) 1994 (USA)
+dstlku1d                        //
+dstlkur1                        // 05/07/1994 (c) 1994 (USA)
+ecofghtr                        // 03/12/1993 (c) 1994 (World)
+ecofghtra                       // 03/12/1993 (c) 1994 (Asia)
+ecofghtrd                       //
+ecofghtrh                       // 03/12/1993 (c) 1994 (Hispanic)
+ecofghtru                       // 15/02/1994 (c) 1994 (USA)
+ecofghtru1                      // 03/12/1993 (c) 1994 (USA)
+gigaman2                        // bootleg
+gigawing                        // 22/02/1999 (c) 1999 Takumi (USA)
+gigawinga                       // 22/02/1999 (c) 1999 Takumi (Asia)
+gigawingb                       // 22/02/1999 (c) 1999 Takumi (Brazil)
+gigawingd                       //
+gigawingh                       // 22/02/1999 (c) 1999 Takumi (Hispanic)
+gigawingj                       // 23/02/1999 (c) 1999 Takumi (Japan)
+gigawingjd                      //
+gmahou                          // 21/01/2000 (c) 2000 Eighting/Raizing (Japan)
+hsf2                            // 02/02/2004 (c) 2003, 2004 (USA)
+hsf2a                           // 02/02/2004 (c) 2003, 2004 (Asia)
+hsf2d                           //
+hsf2j                           // 02/02/2004 (c) 2003, 2004 (Japan)
+hsf2j1                          // 22/12/2003 (c) 2003, 2004 (Japan)
+jyangoku                        // 27/05/1999 (c) 1999 (Japan)
+megaman2                        // 08/07/1996 (c) 1996 (USA)
+megaman2a                       // 08/07/1996 (c) 1996 (Asia)
+megaman2h                       // 12/07/1996 (c) 1996 (Hispanic)
+megamn2d                        //
+mmancp2u                        // 06/10/1995 (c) 1995 (USA)
+mmancp2ur1                      // 26/09/1995 (c) 1995 (USA)
+mmancp2ur2                      // 25/09/1995 (c) 1995 (USA)
+mmatrix                         // 12/04/2000 (c) 2000 Takumi (USA)
+mmatrixa                        // 12/04/2000 (c) 2000 Takumi (Asia)
+mmatrixd                        //
+mmatrixj                        // 12/04/2000 (c) 2000 Takumi (Japan)
+mpang                           // 10/10/2000 (c) 2000 Mitchell (Euro)
+mpangj                          // 11/10/2000 (c) 2000 Mitchell (Japan)
+mpangr1                         // 25/09/2000 (c) 2000 Mitchell (Euro)
+mpangu                          // 10/10/2000 (c) 2000 Mitchell (USA)
+mpanga                          // 10/10/2000 (c) 2000 Mitchell (Asia)
+msh                             // 24/10/1995 (c) 1995 (Euro)
+msha                            // 24/10/1995 (c) 1995 (Asia)
+mshb                            // 17/11/1995 (c) 1995 (Brazil)
+mshbr1                          // 24/10/1995 (c) 1995 (Brazil)
+mshh                            // 17/11/1995 (c) 1995 (Hispanic)
+mshj                            // 17/11/1995 (c) 1995 (Japan)
+mshjr1                          // 24/10/1995 (c) 1995 (Japan)
+mshu                            // 24/10/1995 (c) 1995 (USA)
+mshud                           //
+mshvsf                          // 25/06/1997 (c) 1997 (Euro)
+mshvsfa                         // 25/06/1997 (c) 1997 (Asia)
+mshvsfa1                        // 20/06/1997 (c) 1997 (Asia)
+mshvsfb                         // 27/08/1997 (c) 1997 (Brazil)
+mshvsfb1                        // 25/06/1997 (c) 1997 (Brazil)
+mshvsfh                         // 25/06/1997 (c) 1997 (Hispanic)
+mshvsfj                         // 07/07/1997 (c) 1997 (Japan)
+mshvsfj1                        // 02/07/1997 (c) 1997 (Japan)
+mshvsfj2                        // 25/06/1997 (c) 1997 (Japan)
+mshvsfu                         // 27/08/1997 (c) 1997 (USA)
+mshvsfu1                        // 25/06/1997 (c) 1997 (USA)
+mshvsfu1d                       //
+mvsc                            // 23/01/1998 (c) 1998 (Euro)
+mvsca                           // 23/01/1998 (c) 1998 (Asia)
+mvscar1                         // 12/01/1998 (c) 1998 (Asia)
+mvscb                           // 23/01/1998 (c) 1998 (Brazil)
+mvsch                           // 23/01/1998 (c) 1998 (Hispanic)
+mvscj                           // 23/01/1998 (c) 1998 (Japan)
+mvscjr1                         // 12/01/1998 (c) 1998 (Japan)
+mvscjsing                       // 23/01/1998 (c) 1998 (Japan) - Single PCB
+mvscr1                          // 12/01/1998 (c) 1998 (Euro)
+mvscu                           // 23/01/1998 (c) 1998 (USA)
+mvscud                          //
+mvscur1                         // 23/01/1998 (c) 1998 (USA)
+nwarr                           // 16/03/1995 (c) 1995 (Euro)
+nwarra                          // 02/03/1995 (c) 1995 (Asia)
+nwarrb                          // 03/04/1995 (c) 1995 (Brazil)
+nwarrh                          // 03/04/1995 (c) 1995 (Hispanic)
+nwarru                          // 06/04/1995 (c) 1995 (USA)
+nwarrud                         //
+pfghtj                          // 04/09/1997 (c) 1997 (Japan)
+pgear                           // 24/10/1994 (c) 1994 (Japan)
+pgearr1                         // 16/09/1994 (c) 1994 (Japan)
+progear                         // 17/01/2001 (c) 2001 Cave (USA)
+progeara                        // 17/01/2001 (c) 2001 Cave (Asia)
+progearj                        // 17/01/2001 (c) 2001 Cave (Japan)
+progearjbl                      //
+progearjd                       //
+progearud                       //
+pzloop2                         // 02/03/2001 (c) 2001 Mitchell (Euro)
+pzloop2j                        // 26/02/2001 (c) 2001 Mitchell (Japan)
+pzloop2jd                       //
+pzloop2jr1                      // 05/02/2001 (c) 2001 Mitchell (Japan)
+qndream                         // 26/08/1996 (c) 1996 (Japan)
+ringdest                        // 02/09/1994 (c) 1994 (Euro)
+ringdesta                       // 31/08/1994 (c) 1994 (Asia)
+ringdestb                       // 02/09/1994 (c) 1994 (Brazil) - factory region hack?
+ringdesth                       // 02/09/1994 (c) 1994 (Hispanic)
+ringdstd                        //
+rmancp2j                        // 22/09/1995 (c) 1995 (Japan)
+rockman2j                       // 08/07/1996 (c) 1996 (Japan)
+sfa                             // 27/07/1995 (c) 1995 (Euro)
+sfa2                            // 06/03/1996 (c) 1996 (Euro)
+sfa2u                           // 30/04/1996 (c) 1996 (USA)
+sfa2ur1                         // 06/03/1996 (c) 1996 (USA)
+sfa3                            // 04/09/1998 (c) 1998 (USA)
+sfa3b                           // 29/06/1998 (c) 1998 (Brazil)
+sfa3h                           // 04/09/1998 (c) 1998 (Hispanic)
+sfa3hr1                         // 29/06/1998 (c) 1998 (Hispanic)
+sfa3u                           // 04/09/1998 (c) 1998 (USA)
+sfa3ud                          //
+sfa3ur1                         // 29/06/1998 (c) 1998 (USA)
+sfa3us                          // 16/06/1998 (c) 1998 (USA)
+sfad                            //
+sfar1                           // 18/07/1995 (c) 1995 (Euro)
+sfar2                           // 27/06/1995 (c) 1995 (Euro)
+sfar3                           // 05/06/1995 (c) 1995 (Euro)
+sfau                            // 27/06/1995 (c) 1995 (USA)
+sfz2a                           // 27/02/1996 (c) 1996 (Asia)
+sfz2ad                          //
+sfz2al                          // 26/08/1996 (c) 1996 (Asia)
+sfz2alr1                        // 05/08/1996 (c) 1996 (Asia)
+sfz2alb                         // 13/08/1996 (c) 1996 (Brazil)
+sfz2ald                         //
+sfz2alh                         // 13/08/1996 (c) 1996 (Hispanic)
+sfz2alj                         // 05/08/1996 (c) 1996 (Japan)
+sfz2b                           // 31/05/1996 (c) 1996 (Brazil)
+sfz2br1                         // 04/03/1996 (c) 1996 (Brazil)
+sfz2h                           // 04/03/1996 (c) 1996 (Hispanic)
+sfz2j                           // 30/04/1996 (c) 1996 (Japan)
+sfz2jd                          //
+sfz2jr1                         // 27/02/1996 (c) 1996 (Japan)
+sfz2n                           // 29/02/1996 (c) 1996 (Oceania)
+sfz3a                           // 04/09/1998 (c) 1998 (Asia)
+sfz3ar1                         // 01/07/1998 (c) 1998 (Asia)
+sfz3j                           // 04/09/1998 (c) 1998 (Japan)
+sfz3jr1                         // 27/07/1998 (c) 1998 (Japan)
+sfz3jr2                         // 29/06/1998 (c) 1998 (Japan)
+sfz3jr2d                        //
+sfza                            // 27/06/1995 (c) 1995 (Asia)
+sfzar1                          // 05/06/1995 (c) 1995 (Asia)
+sfzb                            // 09/11/1995 (c) 1995 (Brazil)
+sfzbr1                          // 27/07/1995 (c) 1995 (Brazil)
+sfzh                            // 18/07/1995 (c) 1995 (Hispanic)
+sfzhr1                          // 27/06/1995 (c) 1995 (Hispanic)
+sfzj                            // 27/07/1995 (c) 1995 (Japan)
+sfzjr1                          // 27/06/1995 (c) 1995 (Japan)
+sfzjr2                          // 05/06/1995 (c) 1995 (Japan)
+sgemf                           // 04/09/1997 (c) 1997 (USA)
+sgemfa                          // 04/09/1997 (c) 1997 (Asia)
+sgemfd                          //
+sgemfh                          // 04/09/1997 (c) 1997 (Hispanic)
+smbomb                          // 31/08/1994 (c) 1994 (Japan)
+smbombr1                        // 08/08/1994 (c) 1994 (Japan)
+spf2t                           // 29/05/1996 (c) 1996 (Europe)
+spf2ta                          // 29/05/1996 (c) 1996 (Asia)
+spf2td                          //
+spf2th                          // 31/05/1996 (c) 1996 (Hispanic)
+spf2tu                          // 20/06/1996 (c) 1996 (USA)
+spf2xj                          // 31/05/1996 (c) 1996 (Japan)
+spf2xjd                         //
+ssf2                            // 05/10/1993 (c) 1993 (World)
+ssf2a                           // 05/10/1993 (c) 1993 (Asia)
+ssf2ar1                         // 14/09/1993 (c) 1993 (Asia)
+ssf2h                           // 11/09/1993 (c) 1993 (Hispanic)
+ssf2j                           // 05/10/1993 (c) 1993 (Japan)
+ssf2jr1                         // 11/09/1993 (c) 1993 (Japan)
+ssf2jr2                         // 10/09/1993 (c) 1993 (Japan)
+ssf2r1                          // 11/09/1993 (c) 1993 (World)
+ssf2t                           // 23/02/1994 (c) 1994 (World)
+ssf2ta                          // 23/02/1994 (c) 1994 (Asia)
+ssf2tad                         //
+ssf2tb                          // 19/11/1993 (c) 1993 (World)
+ssf2tba                         // 05/10/1993 (c) 1993 (Asia)
+ssf2tbd                         //
+ssf2tbh                         // 05/10/1993 (c) 1993 (Hispanic)
+ssf2tbj                         // 05/10/1993 (c) 1993 (Japan)
+ssf2tbj1                        // 11/09/1993 (c) 1993 (Japan)
+ssf2tbr1                        // 11/09/1993 (c) 1993 (World)
+ssf2tbu                         // 11/09/1993 (c) 1993 (USA)
+ssf2th                          // 23/02/1994 (c) 1994 (Hispanic)
+ssf2tu                          // 23/03/1994 (c) 1994 (USA)
+ssf2tur1                        // 23/02/1994 (c) 1994 (USA)
+ssf2u                           // 11/09/1993 (c) 1993 (USA)
+ssf2ud                          //
+ssf2us2                         // bootleg of 11/09/1993 (c) 1993 (USA)
+ssf2xj                          // 11/03/1994 (c) 1994 (Japan)
+ssf2xjr1                        // 23/02/1994 (c) 1994 (Japan)
+ssf2xjr1d                       //
+ssf2xjr1r                       // 23/02/1994 (c) 1994 (Japan)
+uecology                        // 03/12/1993 (c) 1994 (Japan)
+vampj                           // 05/07/1994 (c) 1994 (Japan)
+vampja                          // 05/07/1994 (c) 1994 (Japan)
+vampjr1                         // 30/06/1994 (c) 1994 (Japan)
+vhunt2                          // 29/09/1997 (c) 1997 (Japan)
+vhunt2d                         //
+vhunt2r1                        // 13/09/1997 (c) 1997 (Japan)
+vhuntj                          // 02/03/1995 (c) 1995 (Japan)
+vhuntjr1                        // 07/03/1995 (c) 1995 (Japan)
+vhuntjr1s                       // 07/03/1995 (c) 1995 (Japan)
+vhuntjr2                        // 02/03/1995 (c) 1995 (Japan)
+vsav                            // 19/05/1997 (c) 1997 (Euro)
+vsav2                           // 13/09/1997 (c) 1997 (Japan)
+vsav2d                          //
+vsava                           // 19/05/1997 (c) 1997 (Asia)
+vsavb                           // 19/05/1997 (c) 1997 (Brazil)
+vsavd                           //
+vsavh                           // 19/05/1997 (c) 1997 (Hispanic)
+vsavj                           // 19/05/1997 (c) 1997 (Japan)
+vsavu                           // 19/05/1997 (c) 1997 (USA)
+xmcota                          // 31/03/1995 (c) 1994 (Euro)
+xmcotaa                         // 05/01/1995 (c) 1994 (Asia)
+xmcotaar1                       // 19/12/1994 (c) 1994 (Asia)
+xmcotaar2                       // 17/12/1994 (c) 1994 (Asia)
+xmcotab                         // 31/03/1995 (c) 1995 (Brazil)
+xmcotah                         // 31/03/1995 (c) 1994 (Hispanic)
+xmcotahr1                       // 05/01/1995 (c) 1994 (Hispanic)
+xmcotaj                         // 05/01/1995 (c) 1994 (Japan)
+xmcotaj1                        // 22/12/1994 (c) 1994 (Japan)
+xmcotaj2                        // 19/12/1994 (c) 1994 (Japan)
+xmcotaj3                        // 17/12/1994 (c) 1994 (Japan)
+xmcotajr                        // 08/12/1994 (c) 1994 (Japan Rent)
+xmcotar1                        // 05/01/1995 (c) 1994 (Euro)
+xmcotar1d                       //
+xmcotau                         // 05/01/1995 (c) 1994 (USA)
+xmvsf                           // 04/10/1996 (c) 1996 (Euro)
+xmvsfa                          // 23/10/1996 (c) 1996 (Asia)
+xmvsfar1                        // 04/10/1996 (c) 1996 (Asia)
+xmvsfar2                        // 19/09/1996 (c) 1996 (Asia)
+xmvsfar3                        // 10/09/1996 (c) 1996 (Asia)
+xmvsfb                          // 23/10/1996 (c) 1996 (Brazil)
+xmvsfh                          // 04/10/1996 (c) 1996 (Hispanic)
+xmvsfj                          // 23/10/1996 (c) 1996 (Japan)
+xmvsfjr1                        // 04/10/1996 (c) 1996 (Japan)
+xmvsfjr2                        // 10/09/1996 (c) 1996 (Japan)
+xmvsfjr3                        // 09/09/1996 (c) 1996 (Japan)
+xmvsfr1                         // 10/09/1996 (c) 1996 (Euro)
+xmvsfu                          // 23/10/1996 (c) 1996 (USA)
+xmvsfu1d                        //
+xmvsfur1                        // 04/10/1996 (c) 1996 (USA)
+xmvsfur2                        // 10/09/1996 (c) 1996 (USA)
 1944
 19xx
 armwar
@@ -1342,6 +1659,8 @@ vsav
 vsav2
 xmcota
 xmvsf
+
+@source:cps2mis.cpp
 // CPS2 HACKS ***
 1944fp
 ddsomavs
@@ -1350,7 +1669,7 @@ ddsomhp
 ddsomjfs
 ddsoma4ppdec
 ddtodpdec
-halfway		// progear hack by The Halfway House
+halfway
 mshjphp
 mshvsemb
 mshvsfjh
@@ -1358,12 +1677,9 @@ mshvsfjphp
 mshyh
 mvscjemb
 mvscjphp
-//mvscrcp // reboots shortly after start
-//mvscuh // reboots shortly after start
 pfghtjrm
-pzloop2jd
-suicide		/* Razoola */
-suicide2	/* Razoola */
+suicide
+suicide2
 sfa2h
 sfa3br
 sfa3ce
@@ -1484,7 +1800,6 @@ csclubs01
 cybotsjs01
 ddsomjs01
 ddsomjs02
-//ddsomuds01  // not working: unknown decryption key, emulator freezes
 ddsomuds02
 ddtods01
 dstlks01
@@ -8998,7 +9313,8 @@ altbeasts02
 altbeasts03
 
 @source:sagas18.cpp
-astorm
+//astorm
+//aquario
 
 @source:segas24.cpp
 gground                                //parent

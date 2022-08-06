@@ -866,7 +866,7 @@ files {
 	MAME_DIR .. "src/mame/video/sega16sp.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segas16b.cpp",
 	MAME_DIR .. "src/mame/video/segas16b.cpp",
-	MAME_DIR .. "src/mame/drivers/segas18.cpp",
+	MAME_DIR .. "src/hbmame/drivers/segas18.cpp",
 	MAME_DIR .. "src/mame/video/segas18.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segas32.cpp",
 	MAME_DIR .. "src/mame/machine/segas32.cpp",
