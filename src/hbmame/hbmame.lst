@@ -1327,11 +1327,11 @@ armwarr1                        // 11/10/1994 (c) 1994 (Euro)
 armwaru                         // 24/10/1994 (c) 1994 (USA)
 armwaru1                        // 20/09/1994 (c) 1994 (USA)
 avsp                            // 20/05/1994 (c) 1994 (Euro)
-avspa                           // 20/05/1994 (c) 1994 (Asia)
-avspd                           //
-avsph                           // 20/05/1994 (c) 1994 (Hispanic)
-avspj                           // 20/05/1994 (c) 1994 (Japan)
-avspu                           // 20/05/1994 (c) 1994 (USA)
+//avspa                           // 20/05/1994 (c) 1994 (Asia)
+//avspd                           //
+//avsph                           // 20/05/1994 (c) 1994 (Hispanic)
+//avspj                           // 20/05/1994 (c) 1994 (Japan)
+//avspu                           // 20/05/1994 (c) 1994 (USA)
 batcir                          // 19/03/1997 (c) 1997 (Euro)
 batcira                         // 19/03/1997 (c) 1997 (Asia)
 batcird                         //
@@ -1363,19 +1363,19 @@ ddsomr3                         // 08/02/1996 (c) 1996 (Euro)
 ddsomu                          // 19/06/1996 (c) 1996 (USA)
 ddsomud                         //
 ddsomur1                        // 09/02/1996 (c) 1996 (USA)
-ddtod                           // 12/04/1994 (c) 1993 (Euro)
-//ddtoda                          // 12/04/1994 (c) 1993 (Asia)
-//ddtodar1                        // 13/01/1994 (c) 1993 (Asia)
-//ddtodd                          //
-//ddtodh                          // 12/04/1994 (c) 1993 (Hispanic)
-//ddtodhr1                        // 25/01/1994 (c) 1993 (Hispanic)
-//ddtodhr2                        // 13/01/1994 (c) 1993 (Hispanic)
-//ddtodj                          // 12/04/1994 (c) 1993 (Japan)
-//ddtodjr1                        // 25/01/1994 (c) 1993 (Japan)
-//ddtodjr2                        // 13/01/1994 (c) 1993 (Japan)
-//ddtodr1                         // 13/01/1994 (c) 1993 (Euro)
-//ddtodu                          // 25/01/1994 (c) 1993 (USA)
-//ddtodur1                        // 13/01/1994 (c) 1993 (USA)
+ddtod
+//ddtoda
+//ddtodar1
+//ddtodd
+//ddtodh
+//ddtodhr1
+//ddtodhr2
+//ddtodj
+//ddtodjr1
+//ddtodjr2
+//ddtodr1
+//ddtodu
+//ddtodur1
 dimahoo                         // 21/01/2000 (c) 2000 Eighting/Raizing (USA)
 dimahoou                        // 21/01/2000 (c) 2000 Eighting/Raizing (USA)
 dimahoud                        //
@@ -1385,12 +1385,12 @@ dstlkh                          // 18/08/1994 (c) 1994 (Hispanic)
 dstlku                          // 18/08/1994 (c) 1994 (USA)
 dstlku1d                        //
 dstlkur1                        // 05/07/1994 (c) 1994 (USA)
-//ecofghtr                        // 03/12/1993 (c) 1994 (World)
-//ecofghtra                       // 03/12/1993 (c) 1994 (Asia)
-//ecofghtrd                       //
-//ecofghtrh                       // 03/12/1993 (c) 1994 (Hispanic)
-//ecofghtru                       // 15/02/1994 (c) 1994 (USA)
-//ecofghtru1                      // 03/12/1993 (c) 1994 (USA)
+//ecofghtr
+//ecofghtra
+//ecofghtrd
+//ecofghtrh
+//ecofghtru
+//ecofghtru1
 gigaman2                        // bootleg
 gigawing                        // 22/02/1999 (c) 1999 Takumi (USA)
 gigawinga                       // 22/02/1999 (c) 1999 Takumi (Asia)
@@ -1542,36 +1542,36 @@ spf2th                          // 31/05/1996 (c) 1996 (Hispanic)
 spf2tu                          // 20/06/1996 (c) 1996 (USA)
 spf2xj                          // 31/05/1996 (c) 1996 (Japan)
 spf2xjd                         //
-ssf2                            // 05/10/1993 (c) 1993 (World)
-//ssf2a                           // 05/10/1993 (c) 1993 (Asia)
-//ssf2ar1                         // 14/09/1993 (c) 1993 (Asia)
-//ssf2h                           // 11/09/1993 (c) 1993 (Hispanic)
-//ssf2j                           // 05/10/1993 (c) 1993 (Japan)
-//ssf2jr1                         // 11/09/1993 (c) 1993 (Japan)
-//ssf2jr2                         // 10/09/1993 (c) 1993 (Japan)
-//ssf2r1                          // 11/09/1993 (c) 1993 (World)
-ssf2t                           // 23/02/1994 (c) 1994 (World)
-//ssf2ta                          // 23/02/1994 (c) 1994 (Asia)
-//ssf2tad                         //
-//ssf2tb                          // 19/11/1993 (c) 1993 (World)
-//ssf2tba                         // 05/10/1993 (c) 1993 (Asia)
-//ssf2tbd                         //
-//ssf2tbh                         // 05/10/1993 (c) 1993 (Hispanic)
-//ssf2tbj                         // 05/10/1993 (c) 1993 (Japan)
-//ssf2tbj1                        // 11/09/1993 (c) 1993 (Japan)
-//ssf2tbr1                        // 11/09/1993 (c) 1993 (World)
-//ssf2tbu                         // 11/09/1993 (c) 1993 (USA)
-//ssf2th                          // 23/02/1994 (c) 1994 (Hispanic)
-//ssf2tu                          // 23/03/1994 (c) 1994 (USA)
-//ssf2tur1                        // 23/02/1994 (c) 1994 (USA)
-//ssf2u                           // 11/09/1993 (c) 1993 (USA)
-//ssf2ud                          //
-//ssf2us2                         // bootleg of 11/09/1993 (c) 1993 (USA)
-//ssf2xj                          // 11/03/1994 (c) 1994 (Japan)
-//ssf2xjr1                        // 23/02/1994 (c) 1994 (Japan)
-//ssf2xjr1d                       //
-//ssf2xjr1r                       // 23/02/1994 (c) 1994 (Japan)
-//uecology                        // 03/12/1993 (c) 1994 (Japan)
+ssf2
+//ssf2a
+//ssf2ar1
+//ssf2h
+//ssf2j
+//ssf2jr1
+//ssf2jr2
+//ssf2r1
+ssf2t
+//ssf2ta
+//ssf2tad
+//ssf2tb
+//ssf2tba
+//ssf2tbd
+//ssf2tbh
+//ssf2tbj
+//ssf2tbj1
+//ssf2tbr1
+//ssf2tbu
+//ssf2th
+//ssf2tu
+//ssf2tur1
+//ssf2u
+//ssf2ud
+//ssf2us2
+//ssf2xj
+//ssf2xjr1
+//ssf2xjr1d
+//ssf2xjr1r
+//uecology
 vampj                           // 05/07/1994 (c) 1994 (Japan)
 vampja                          // 05/07/1994 (c) 1994 (Japan)
 vampjr1                         // 30/06/1994 (c) 1994 (Japan)

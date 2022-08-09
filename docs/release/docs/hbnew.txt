@@ -3,7 +3,7 @@
 
 2022-08-xx 0.245.3
 
-
+Fixed altbeast and clones, games re-enabled.
 
 New Games
 ---------------------------------
