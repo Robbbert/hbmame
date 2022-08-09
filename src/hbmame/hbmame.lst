@@ -1327,11 +1327,11 @@ armwarr1                        // 11/10/1994 (c) 1994 (Euro)
 armwaru                         // 24/10/1994 (c) 1994 (USA)
 armwaru1                        // 20/09/1994 (c) 1994 (USA)
 avsp                            // 20/05/1994 (c) 1994 (Euro)
-//avspa                           // 20/05/1994 (c) 1994 (Asia)
-//avspd                           //
-//avsph                           // 20/05/1994 (c) 1994 (Hispanic)
-//avspj                           // 20/05/1994 (c) 1994 (Japan)
-//avspu                           // 20/05/1994 (c) 1994 (USA)
+//avspa
+//avspd
+//avsph
+//avspj
+//avspu
 batcir                          // 19/03/1997 (c) 1997 (Euro)
 batcira                         // 19/03/1997 (c) 1997 (Asia)
 batcird                         //
@@ -1379,12 +1379,12 @@ ddtod
 dimahoo                         // 21/01/2000 (c) 2000 Eighting/Raizing (USA)
 dimahoou                        // 21/01/2000 (c) 2000 Eighting/Raizing (USA)
 dimahoud                        //
-dstlk                           // 05/07/1994 (c) 1994 (Euro)
-dstlka                          // 05/07/1994 (c) 1994 (Asia)
-dstlkh                          // 18/08/1994 (c) 1994 (Hispanic)
-dstlku                          // 18/08/1994 (c) 1994 (USA)
-dstlku1d                        //
-dstlkur1                        // 05/07/1994 (c) 1994 (USA)
+dstlk
+//dstlka
+//dstlkh
+//dstlku
+//dstlku1d
+dstlkur1
 //ecofghtr
 //ecofghtra
 //ecofghtrd
@@ -1572,9 +1572,9 @@ ssf2t
 //ssf2xjr1d
 //ssf2xjr1r
 //uecology
-vampj                           // 05/07/1994 (c) 1994 (Japan)
-vampja                          // 05/07/1994 (c) 1994 (Japan)
-vampjr1                         // 30/06/1994 (c) 1994 (Japan)
+//vampj
+//vampja
+//vampjr1
 vhunt2                          // 29/09/1997 (c) 1997 (Japan)
 vhunt2d                         //
 vhunt2r1                        // 13/09/1997 (c) 1997 (Japan)
