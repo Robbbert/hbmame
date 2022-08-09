@@ -1319,13 +1319,13 @@ wofs14
 19xxjr1                         // 25/12/1995 (c) 1996 (Japan)
 19xxjr2                         // 07/12/1995 (c) 1996 (Japan)
 armwar
-armwar1d
-armwara
-armwarar1
-armwarb
-armwarr1
-armwaru
-armwaru1
+//armwar1d
+//armwara
+//armwarar1
+//armwarb
+//armwarr1
+//armwaru
+//armwaru1
 avsp                            // 20/05/1994 (c) 1994 (Euro)
 //avspa
 //avspd
@@ -1462,8 +1462,8 @@ nwarrh                          // 03/04/1995 (c) 1995 (Hispanic)
 nwarru                          // 06/04/1995 (c) 1995 (USA)
 nwarrud                         //
 pfghtj                          // 04/09/1997 (c) 1997 (Japan)
-pgear                           // 24/10/1994 (c) 1994 (Japan)
-pgearr1                         // 16/09/1994 (c) 1994 (Japan)
+//pgear
+//pgearr1
 progear                         // 17/01/2001 (c) 2001 Cave (USA)
 progeara                        // 17/01/2001 (c) 2001 Cave (Asia)
 progearj                        // 17/01/2001 (c) 2001 Cave (Japan)
@@ -1591,21 +1591,21 @@ vsavd                           //
 vsavh                           // 19/05/1997 (c) 1997 (Hispanic)
 vsavj                           // 19/05/1997 (c) 1997 (Japan)
 vsavu                           // 19/05/1997 (c) 1997 (USA)
-xmcota                          // 31/03/1995 (c) 1994 (Euro)
-xmcotaa                         // 05/01/1995 (c) 1994 (Asia)
-xmcotaar1                       // 19/12/1994 (c) 1994 (Asia)
-xmcotaar2                       // 17/12/1994 (c) 1994 (Asia)
-xmcotab                         // 31/03/1995 (c) 1995 (Brazil)
-xmcotah                         // 31/03/1995 (c) 1994 (Hispanic)
-xmcotahr1                       // 05/01/1995 (c) 1994 (Hispanic)
-xmcotaj                         // 05/01/1995 (c) 1994 (Japan)
-xmcotaj1                        // 22/12/1994 (c) 1994 (Japan)
-xmcotaj2                        // 19/12/1994 (c) 1994 (Japan)
-xmcotaj3                        // 17/12/1994 (c) 1994 (Japan)
-xmcotajr                        // 08/12/1994 (c) 1994 (Japan Rent)
-xmcotar1                        // 05/01/1995 (c) 1994 (Euro)
-xmcotar1d                       //
-xmcotau                         // 05/01/1995 (c) 1994 (USA)
+xmcota
+xmcotaa
+xmcotaar1
+xmcotaar2
+xmcotab
+xmcotah
+xmcotahr1
+xmcotaj
+xmcotaj1
+xmcotaj2
+xmcotaj3
+xmcotajr
+xmcotar1
+xmcotar1d
+xmcotau
 xmvsf                           // 04/10/1996 (c) 1996 (Euro)
 xmvsfa                          // 23/10/1996 (c) 1996 (Asia)
 xmvsfar1                        // 04/10/1996 (c) 1996 (Asia)
