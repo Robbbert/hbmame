@@ -1318,14 +1318,14 @@ wofs14
 19xxj                           // 04/01/1996 (c) 1996 (Japan)
 19xxjr1                         // 25/12/1995 (c) 1996 (Japan)
 19xxjr2                         // 07/12/1995 (c) 1996 (Japan)
-armwar                          // 24/10/1994 (c) 1994 (Euro)
-armwar1d                        //
-armwara                         // 24/10/1994 (c) 1994 (Asia)
-armwarar1                       // 20/09/1994 (c) 1994 (Asia)
-armwarb                         // 24/10/1994 (c) 1994 (Brazil)
-armwarr1                        // 11/10/1994 (c) 1994 (Euro)
-armwaru                         // 24/10/1994 (c) 1994 (USA)
-armwaru1                        // 20/09/1994 (c) 1994 (USA)
+armwar
+armwar1d
+armwara
+armwarar1
+armwarb
+armwarr1
+armwaru
+armwaru1
 avsp                            // 20/05/1994 (c) 1994 (Euro)
 //avspa
 //avspd
@@ -1475,11 +1475,11 @@ pzloop2j                        // 26/02/2001 (c) 2001 Mitchell (Japan)
 pzloop2jd                       //
 pzloop2jr1                      // 05/02/2001 (c) 2001 Mitchell (Japan)
 qndream                         // 26/08/1996 (c) 1996 (Japan)
-ringdest                        // 02/09/1994 (c) 1994 (Euro)
-ringdesta                       // 31/08/1994 (c) 1994 (Asia)
-ringdestb                       // 02/09/1994 (c) 1994 (Brazil) - factory region hack?
-ringdesth                       // 02/09/1994 (c) 1994 (Hispanic)
-ringdstd                        //
+//ringdest
+//ringdesta
+//ringdestb
+//ringdesth
+//ringdstd
 rmancp2j                        // 22/09/1995 (c) 1995 (Japan)
 rockman2j                       // 08/07/1996 (c) 1996 (Japan)
 sfa                             // 27/07/1995 (c) 1995 (Euro)
@@ -1533,8 +1533,8 @@ sgemf                           // 04/09/1997 (c) 1997 (USA)
 sgemfa                          // 04/09/1997 (c) 1997 (Asia)
 sgemfd                          //
 sgemfh                          // 04/09/1997 (c) 1997 (Hispanic)
-smbomb                          // 31/08/1994 (c) 1994 (Japan)
-smbombr1                        // 08/08/1994 (c) 1994 (Japan)
+//smbomb
+//smbombr1
 spf2t                           // 29/05/1996 (c) 1996 (Europe)
 spf2ta                          // 29/05/1996 (c) 1996 (Asia)
 spf2td                          //
