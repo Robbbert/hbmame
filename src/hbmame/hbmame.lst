@@ -1310,15 +1310,15 @@ wofs14
 1944j                           // 20/06/2000 (c) 2000 Eighting/Raizing (Japan)
 1944u                           // 20/06/2000 (c) 2000 Eighting/Raizing (USA)
 19xx
-19xxu
-19xxa
-19xxar1
-19xxb
-19xxd
-19xxh
-19xxj
-19xxjr1
-19xxjr2
+//19xxu
+//19xxa
+//19xxar1
+//19xxb
+//19xxd
+//19xxh
+//19xxj
+//19xxjr1
+//19xxjr2
 armwar
 //armwar1d
 //armwara
@@ -1350,20 +1350,20 @@ cybots                          // 24/04/1995 (c) 1995 (Euro)
 //cybotsjd
 //cybotsu
 //cybotsud
-ddsom                           // 19/06/1996 (c) 1996 (Euro)
-ddsoma                          // 19/06/1996 (c) 1996 (Asia)
-ddsomar1                        // 08/02/1996 (c) 1996 (Asia)
-ddsomb                          // 23/02/1996 (c) 1996 (Brazil)
-ddsomh                          // 23/02/1996 (c) 1996 (Hispanic)
-ddsomj                          // 19/06/1996 (c) 1996 (Japan)
-ddsomjr1                        // 06/02/1996 (c) 1996 (Japan)
-ddsomjr2                        // 23/02/1996 (c) 1996 (Japan)
-ddsomr1                         // 23/02/1996 (c) 1996 (Euro)
-ddsomr2                         // 09/02/1996 (c) 1996 (Euro)
-ddsomr3                         // 08/02/1996 (c) 1996 (Euro)
-ddsomu                          // 19/06/1996 (c) 1996 (USA)
-ddsomud                         //
-ddsomur1                        // 09/02/1996 (c) 1996 (USA)
+ddsom
+//ddsoma
+//ddsomar1
+//ddsomb
+//ddsomh
+//ddsomj
+//ddsomjr1
+//ddsomjr2
+//ddsomr1
+//ddsomr2
+//ddsomr3
+//ddsomu
+//ddsomud
+//ddsomur1
 ddtod
 //ddtoda
 //ddtodar1
@@ -1484,9 +1484,9 @@ qndream                         // 26/08/1996 (c) 1996 (Japan)
 //rmancp2j
 rockman2j                       // 08/07/1996 (c) 1996 (Japan)
 sfa
-sfa2                            // 06/03/1996 (c) 1996 (Euro)
-sfa2u                           // 30/04/1996 (c) 1996 (USA)
-sfa2ur1                         // 06/03/1996 (c) 1996 (USA)
+sfa2
+sfa2u
+sfa2ur1
 sfa3                            // 04/09/1998 (c) 1998 (USA)
 sfa3b                           // 29/06/1998 (c) 1998 (Brazil)
 sfa3h                           // 04/09/1998 (c) 1998 (Hispanic)
@@ -1500,21 +1500,21 @@ sfa3us                          // 16/06/1998 (c) 1998 (USA)
 //sfar2
 //sfar3
 //sfau
-sfz2a                           // 27/02/1996 (c) 1996 (Asia)
-sfz2ad                          //
-sfz2al                          // 26/08/1996 (c) 1996 (Asia)
-sfz2alr1                        // 05/08/1996 (c) 1996 (Asia)
-sfz2alb                         // 13/08/1996 (c) 1996 (Brazil)
-sfz2ald                         //
-sfz2alh                         // 13/08/1996 (c) 1996 (Hispanic)
-sfz2alj                         // 05/08/1996 (c) 1996 (Japan)
-sfz2b                           // 31/05/1996 (c) 1996 (Brazil)
-sfz2br1                         // 04/03/1996 (c) 1996 (Brazil)
-sfz2h                           // 04/03/1996 (c) 1996 (Hispanic)
-sfz2j                           // 30/04/1996 (c) 1996 (Japan)
-sfz2jd                          //
-sfz2jr1                         // 27/02/1996 (c) 1996 (Japan)
-sfz2n                           // 29/02/1996 (c) 1996 (Oceania)
+sfz2a
+sfz2ad
+sfz2al
+sfz2alr1
+sfz2alb
+sfz2ald
+sfz2alh
+sfz2alj
+sfz2b
+sfz2br1
+sfz2h
+sfz2j
+sfz2jd
+sfz2jr1
+sfz2n
 sfz3a                           // 04/09/1998 (c) 1998 (Asia)
 sfz3ar1                         // 01/07/1998 (c) 1998 (Asia)
 sfz3j                           // 04/09/1998 (c) 1998 (Japan)
