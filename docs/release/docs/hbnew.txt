@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [cakefght1]           Cake Fighter v1.1
 - [captcommh11]         Captain Commando (readjusted)
+- [dinos283]            Cadillacs and Dinosaurs (Readjusted v1.2)
 - [pbobble3h01]         Puzzle Bobble 3 (Recarbonated)
 - [sailormnh06]         Sailor Moon (Fight for Justice)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 7, 2022-07-31)
