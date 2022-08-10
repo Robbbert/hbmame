@@ -1309,16 +1309,16 @@ wofs14
 1944d                           //
 1944j                           // 20/06/2000 (c) 2000 Eighting/Raizing (Japan)
 1944u                           // 20/06/2000 (c) 2000 Eighting/Raizing (USA)
-19xx                            // 04/01/1996 (c) 1996 (Euro)
-19xxu                           // 07/12/1995 (c) 1996 (USA)
-19xxa                           // 04/01/1996 (c) 1996 (Asia)
-19xxar1                         // 07/12/1995 (c) 1996 (Asia)
-19xxb                           // 18/12/1995 (c) 1996 (Brazil)
-19xxd                           //
-19xxh                           // 18/12/1995 (c) 1996 (Hispanic)
-19xxj                           // 04/01/1996 (c) 1996 (Japan)
-19xxjr1                         // 25/12/1995 (c) 1996 (Japan)
-19xxjr2                         // 07/12/1995 (c) 1996 (Japan)
+19xx
+19xxu
+19xxa
+19xxar1
+19xxb
+19xxd
+19xxh
+19xxj
+19xxjr1
+19xxjr2
 armwar
 //armwar1d
 //armwara
@@ -1411,9 +1411,9 @@ megaman2                        // 08/07/1996 (c) 1996 (USA)
 megaman2a                       // 08/07/1996 (c) 1996 (Asia)
 megaman2h                       // 12/07/1996 (c) 1996 (Hispanic)
 megamn2d                        //
-mmancp2u                        // 06/10/1995 (c) 1995 (USA)
-mmancp2ur1                      // 26/09/1995 (c) 1995 (USA)
-mmancp2ur2                      // 25/09/1995 (c) 1995 (USA)
+//mmancp2u
+//mmancp2ur1
+//mmancp2ur2
 mmatrix                         // 12/04/2000 (c) 2000 Takumi (USA)
 mmatrixa                        // 12/04/2000 (c) 2000 Takumi (Asia)
 mmatrixd                        //
@@ -1423,15 +1423,15 @@ mpangj                          // 11/10/2000 (c) 2000 Mitchell (Japan)
 mpangr1                         // 25/09/2000 (c) 2000 Mitchell (Euro)
 mpangu                          // 10/10/2000 (c) 2000 Mitchell (USA)
 mpanga                          // 10/10/2000 (c) 2000 Mitchell (Asia)
-msh                             // 24/10/1995 (c) 1995 (Euro)
-msha                            // 24/10/1995 (c) 1995 (Asia)
-mshb                            // 17/11/1995 (c) 1995 (Brazil)
-mshbr1                          // 24/10/1995 (c) 1995 (Brazil)
-mshh                            // 17/11/1995 (c) 1995 (Hispanic)
-mshj                            // 17/11/1995 (c) 1995 (Japan)
-mshjr1                          // 24/10/1995 (c) 1995 (Japan)
-mshu                            // 24/10/1995 (c) 1995 (USA)
-mshud                           //
+msh
+//msha
+//mshb
+//mshbr1
+//mshh
+//mshj
+//mshjr1
+//mshu
+//mshud
 mshvsf                          // 25/06/1997 (c) 1997 (Euro)
 mshvsfa                         // 25/06/1997 (c) 1997 (Asia)
 mshvsfa1                        // 20/06/1997 (c) 1997 (Asia)
@@ -1481,7 +1481,7 @@ qndream                         // 26/08/1996 (c) 1996 (Japan)
 //ringdestb
 //ringdesth
 //ringdstd
-rmancp2j                        // 22/09/1995 (c) 1995 (Japan)
+//rmancp2j
 rockman2j                       // 08/07/1996 (c) 1996 (Japan)
 sfa
 sfa2                            // 06/03/1996 (c) 1996 (Euro)
@@ -1495,11 +1495,11 @@ sfa3u                           // 04/09/1998 (c) 1998 (USA)
 sfa3ud                          //
 sfa3ur1                         // 29/06/1998 (c) 1998 (USA)
 sfa3us                          // 16/06/1998 (c) 1998 (USA)
-sfad
-sfar1
-sfar2
-sfar3
-sfau
+//sfad
+//sfar1
+//sfar2
+//sfar3
+//sfau
 sfz2a                           // 27/02/1996 (c) 1996 (Asia)
 sfz2ad                          //
 sfz2al                          // 26/08/1996 (c) 1996 (Asia)
@@ -1521,15 +1521,15 @@ sfz3j                           // 04/09/1998 (c) 1998 (Japan)
 sfz3jr1                         // 27/07/1998 (c) 1998 (Japan)
 sfz3jr2                         // 29/06/1998 (c) 1998 (Japan)
 sfz3jr2d                        //
-sfza
-sfzar1
-sfzb
-sfzbr1
-sfzh
-sfzhr1
-sfzj
-sfzjr1
-sfzjr2
+//sfza
+//sfzar1
+//sfzb
+//sfzbr1
+//sfzh
+//sfzhr1
+//sfzj
+//sfzjr1
+//sfzjr2
 sgemf                           // 04/09/1997 (c) 1997 (USA)
 sgemfa                          // 04/09/1997 (c) 1997 (Asia)
 sgemfd                          //
