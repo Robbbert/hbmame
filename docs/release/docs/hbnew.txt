@@ -7,6 +7,7 @@ Fixed altbeast and clones, games re-enabled.
 
 New Games
 ---------------------------------
+- [cakefght1]           Cake Fighter v1.1
 - [captcommh11]         Captain Commando (readjusted)
 - [pbobble3h01]         Puzzle Bobble 3 (Recarbonated)
 - [sailormnh06]         Sailor Moon (Fight for Justice)

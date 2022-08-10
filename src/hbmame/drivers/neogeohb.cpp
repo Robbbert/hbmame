@@ -886,6 +886,28 @@ ROM_START( cakefght )
 	ROM_COPY("asis", 0x840000, 0x00000, 0xa00000)
 ROM_END
 
+// You need to press Fire / Button A to get attract mode for a little while
+// There's a strange noise after about 15 seconds of the cakes sitting there.
+ROM_START( cakefght1 ) // v1.1
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "335a.p1", 0x100000, 0x100000, CRC(e9f38bee) SHA1(5ab86835a13e563f09f7533c2e60224329fd803b) )
+	ROM_CONTINUE(0x000000, 0x100000)
+
+	NEO_SFIX_128K( "335.s1", CRC(10037303) SHA1(7a31d747a3f3828f5b41c793a2bbbbefcd24d276) )
+
+	NEO_BIOS_AUDIO_128K( "224.m1", CRC(364d6f96) SHA1(779b95a6476089b71f48c8368d9043ee1dba9032) )
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "335.v1",  0x000000, 0x400000, CRC(3eb19769) SHA1(5fe4e4de25e354406ebb30d5a964dd3b80f161f0) )
+	ROM_LOAD( "224.v2",  0x400000, 0x200000, CRC(7ad26599) SHA1(822030037b7664795bf3d64e1452d0aecc22497e) )
+
+	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "335.c1",  0x000000, 0x400000, CRC(5c56060d) SHA1(c1c42c50cbaff5f3adf5b2e471ae1c9275fa8eb8) )
+	ROM_LOAD16_BYTE( "335.c2",  0x000001, 0x400000, CRC(b51249d0) SHA1(f62b1bf432ce24a28630ce1c82bcbbeaffc15b5c) )
+	ROM_LOAD16_BYTE( "335.c3",  0x800000, 0x100000, CRC(9f634b11) SHA1(7081a0864919db38d5f34818dcac73f1e5a5c2a4) )
+	ROM_LOAD16_BYTE( "335.c4",  0x800001, 0x100000, CRC(1a120e61) SHA1(8a0233e1f61ab3195d9aaec98ccc7d39634795b0) )
+ROM_END
+
 
 // 341 : Crouching Pony Hidden Dragon demo by Le Cortex
 // If the game doesn't work, read the FAQ.
@@ -3083,6 +3105,7 @@ ROM_END
 
 
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cakefght1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, csw2,         crswd2bl, no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
