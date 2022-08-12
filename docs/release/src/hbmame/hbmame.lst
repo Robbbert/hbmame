@@ -126,45 +126,46 @@ bublbobls01
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
 @source:cabal.cpp
-cabal					//parent
+cabal                                  //parent
 cabals01
 
 @source:cave.cpp
-ddonpach		//parent
-ddonpacha		// trap15 hack
+ddonpach                               //parent
+ddonpacha                              // trap15 hack
 ddonpachjh
-pwrinst2		//parent
-pwrinst2h		/* 2013 Hack by TT */
+pwrinst2                               //parent
+pwrinst2h
 pwrinst2z
 pwrinst2s01
-plegends			//parent
+plegends                               //parent
 plegendsjs01
 plegendsjs02
 plegendsjs03
-gaia			//parent
+gaia                                   //parent
 gaias01
-metmqstr		//parent
+metmqstr                               //parent
 metmqstrs01
 metmqstrs02
 metmqstrs03
-sailormn			//parent
-sailormnbv
-sailormnrt
-sailormndc
-sailormndc1
+sailormn                               //parent
+sailormnh01
+sailormnh02
+sailormnh03
+sailormnh04
 sailormnh05
+sailormnh06
 sailormnts01
 sailormnts02
 sailormnts03
 sailormnts04
 sailormnts05
 sailormnts06
-theroes         //parent
+theroes                                //parent
 theroes01
 
 @source:cball.cpp
-cball			//parent
-cballfix		// With MASH (fixed) gfx rom
+cball                                  //parent
+cballfix                               // MASH (fixed) gfx rom
 
 @source:cclimber.cpp
 ckong			//parent
@@ -210,392 +211,248 @@ contra					//parent
 contrajs01
 
 @source:cps1.cpp
-3wonders	// parent
-captcomm	// parent
-cawing		// parent
-dino		// parent
-ffight		// parent
-ghouls		// parent
-kod			// parent
-knights		// parent
-mbombrd		// parent
-megaman		// parent
-mercs		// parent
-pnickj		// parent
-punisher	// parent
-sf2			// parent
-sf2ce		// parent
-sf2hf		// parent
-sfzch		// parent
-slammast	// parent
-strider		// parent
-varth		// parent
-willow		// parent
-wof			// parent
+//1941
+//1941j
+//1941r1
+//1941u
+3wonders
+//3wondersb
+//3wondersh
+//3wondersr1
+//3wondersu
+//area88
+//area88r
+captcomm
+//captcommb
+//captcommj
+//captcommjr1
+//captcommr1
+//captcommu
+cawing
+//cawingj
+//cawingr1
+//cawingu
+//cawingur1
+//chikij
+//cworld2j
+//cworld2ja
+//cworld2jb
+//daimakai
+//daimakair
+dino
+//dinohunt
+//dinoa
+//dinoj
+//dinou
+//dynwar
+//dynwara
+//dynwarj
+//dynwarjr
+ffight
+//ffighta
+//ffightj
+//ffightj1
+//ffightj2
+//ffightj3
+//ffightj4
+//ffightjh
+//ffightu
+//ffightu1
+//ffightua
+//ffightub
+//ffightuc
+//forgottn                             // need to get back to this
+//forgottna
+//forgottnj
+//forgottnu
+//forgottnua
+//forgottnuc
+//forgottnue
+//forgottnuaa
+//ganbare
+ghouls
+//ghoulsu
+//gulunpa
+knights
+//knightsb2
+//knightsj
+//knightsja
+//knightsu
+kod
+//kodj
+//kodja
+//kodr1
+//kodr2
+//kodu
+//lostwrld
+//lostwrldo
+//mbomberj
+mbombrd
+//mbombrdj
+megaman
+//megamana
+mercs
+//mercsj
+//mercsu
+mercsur1
+//msword
+//mswordj
+//mswordr1
+//mswordu
+//mtwins
+//nemo
+//nemoj
+//nemor1
+//pang3
+//pang3b
+//pang3b2
+//pang3b3
+//pang3j
+//pang3r1
+//pang3b4
+//pang3b5
+pnickj
+//pokonyan
+punisher
+//punisherbz
+//punisherh
+//punisherj
+//punisheru
+//qad
+//qadjr
+//qtono2j
+//rockmanj
+sf2
+//sf2acc
+//sf2acca
+//sf2accp2
+//sf2amf
+//sf2amf2
+//sf2amf3
+//sf2bhh
+sf2ce
+//sf2ceblp
+//sf2cebltw
+//sf2ceea
+//sf2ceja
+//sf2cejb
+//sf2cejc
+//sf2cet
+//sf2ceupl
+//sf2ceua
+//sf2ceub
+//sf2ceuc
+//sf2dkot2
+//sf2dongb
+//sf2ea
+//sf2eb
+//sf2ebbl
+//sf2ebbl2
+//sf2ebbl3
+//sf2ed
+//sf2ee
+//sf2ef
+//sf2em
+//sf2en
+sf2hf
+//sf2hfj
+//sf2hfu
+//sf2j
+//sf2j17
+//sf2ja
+//sf2jc
+//sf2jf
+//sf2jh
+//sf2jl
+//sf2koryu
+//sf2level
+//sf2m10
+//sf2m2
+//sf2m3
+//sf2m4
+//sf2m5
+//sf2m6
+//sf2m7
+//sf2m8
+//sf2mkot
+//sf2qp1
+//sf2qp2
+//sf2rb
+//sf2rb2
+//sf2rb3
+//sf2re
+//sf2red
+//sf2redp2
+//sf2rk
+//sf2rules
+//sf2stt
+//sf2thndr
+//sf2thndr2
+//sf2ua
+//sf2ub
+//sf2uc
+//sf2ud
+//sf2ue
+//sf2uf
+//sf2ug
+//sf2uh
+//sf2ui
+//sf2uk
+//sf2um
+//sf2v004
+//sf2yyc
+//sf2ceds6
+//sf2cems6a
+//sf2cems6b
+//sf2cems6c
+sfach
+sfzbch
+sfzch
+slammast
+//slammastu
+strider
+//striderj
+//striderjr
+//striderua
+//strideruc
+//unsquad
+varth
+//varthb2
+//varthb3                              // not working
+//varthj
+//varthjr
+//varthr1
+//varthu
+willow
+//willowj
+//willowu
+//willowuo
+wof
+//wofa
+wofch
+//wofhfh
+//wofj
+//wofr1
+//wofu
+//wonder3
 
 @source:cps1mis.cpp
-3wondersb01
-3wondersud
-captcommc
-captcommh
-captcommr1p
-captcommud
-cawingb
-cawingh01
-cps1demo                               // HB
-cps1frog                               // HB
-cps1testm                              // HB
-cps1testma                             // HB
-cps1tests                              // HB
-cps1testsa                             // HB
-//cps1xx                               // corrupt gfx
-daimakb
-dino08h2
-dino08h3
-dino08hp
-dinob
-dinobt
-dinobtpp
-dinocgba
-dinocgbb
-dinocgbc
-dinoeh
-dinoex
-dinoh
-dinoha
-dinohb
-dinohc
-dinohp
-dinohx
-dinojp
-dinore
-dinore1
-dinorp
-//dinosf2                              // missing background
-dinoslice
-dinouphp
-dinoz
-ffightae
-ffightaeh01
-ffightaeh02
-ffightaeh03
-ffightaeh04
-ffightb
-ffightjh01
-knight21
-knightshb2
-knightsh
-knightsha
-knightsjb
-knightsro
-knightud
-knightswt
-knightssa
-knightsdt
-kodh
-kodsp
-pnicku                                 // 06/08/1994 (c) 1994 + Compile license (Japan) not listed on Capcoms site
-punisherb
-punisherf
-punisherje1
-punisherjh
-punisherjh1
-punisherjha
-punisherud1
-punisherud2
-sf2bhj
-sf2c
-sf2ced
-sf2ceda
-sf2cehp
-sf2cehk
-sf2cejem
-sf2celw
-sf2jbh                                 // sf2jbh2014
-sf2koryuh
-sf2h9
-sf2h10
-sf2h11
-sf2h12
-sf2h13
-sf2mix96
-sf2mix96d
-sf2mix97
-sf2mix98
-sf2mix98a
-sf2mix98b
-sf2mix98c
-sf2mix99
-sf2mix99a
-sf2mix100
-sf2mix110
-sf2mix
-sf2pun
-sf2r3
-sf2rbpr
-sf2sl73a
-sf2th
-sf2tha
-sf2tlona
-sf2tlonb
-sf2tlonc
-sf2turyu
-sf2yyc3d5
-sf2yyc3g
-sf2yyc6
-sk2h101
-sk2h101q			// qsound version of sk2h1
-sk2h102
-sk2h102q
-sk2h103			// mame sgyxz for testing
-sk2h104q
-sk2h105q
-sk2h106q
-sk2h107
-sk2h108
-sk2h11 
-sk2h12
-sk2h13
-sk2h14
-sk2h15
-sk2h16		// wofahp2
-sk2h17 
-sk2h18
-sk2h21
-sk2h22
-sk2h23
-sk2h31
-sk2h32
-sk2h33
-sk2h34
-sk2h35
-sk2h31q
-sk2h32q
-sk2h33q
-sk2h34q
-sk2h41
-sk2h42
-sk2h43
-//sk2h44                               // black screen
-sk2h45
-sk2h46
-sk3h1
-sk3h2
-sk2h51
-sk2h52
-sk2h53
-sk2h54
-sk3p1		// wofchdx
-sk3p2		// wofchdx1
-sk3p3		// wofchdx2
-sk3p4
-sk3p5
-sk3p6
-sk3p7
-sk3p8
-sk3p9
-sk3p10
-slammastud
-stridergf	// fix unwanted black specks
-stridergh	// as above, and uncensored
-tk2c1		// wofbio
-tk2c2		// wofbt
-tk2c3		// wofctj
-tk2c4		// wofdy
-tk2c5		// wofdyg
-tk2c6		// woffh
-tk2c7		// wofgyc
-tk2c8		// wofgyq
-tk2c9		// wofhgz
-tk2c10		// wofhzj
-tk2c11		// wofjjq
-tk2c12		// wofjqz
-tk2c13		// wofmr
-tk2c14		// wofsbl
-tk2c15		// wofsjj
-tk2c16		// wofsz
-tk2c17		// wofyjs
-tk2c18		// wofyxg
-tk2c19		// wofzhs
-tk2c20		// wofzhy
-tk2c21		// wofzy2
-tk2c22		// wofzy3
-tk2c23		// wofzyq
-tk2h1		// wofjh
-tk2h2		// wofjhb, was dynwarjh before rom loading was figured out
-tk2h3		// wofjhc, was dynwarj2 before rom loading was figured out
-tk2h4		// wofjh2
-tk2h5		// wofjcn
-tk2h6		// wofjd
-tk2h7		// wofjehp
-tk2h8		// wofjhdwb
-tk2h9		// wofjhp2
-tk2h10		// wofjm
-tk2h11		// wofjmjp
-tk2h12		// wofjpsrw
-tk2h13		// wofjrabh
-tk2h14		// wofjrlb
-//tk2h15		// wofjrpbs; 1111 exception
-//tk2h16		// wofjv10s; 1111 exception
-tk2h17		// wofjzcr1
-tk2h18		// wofjzero
-tk2h19
-tk2h20
-tk2h21
-//tk2h22                               // 1111 exception
-tk2h23
-tk2h24
-tk2h25
-tk2h26
-tk2h27
-tk2h28
-tk2h29
-tk2h30
-tk2h31
-tk2h32
-tk2h33
-tk2h35
-//tk2h37                               // 1111 exception
-tk2h38
-tk2h39
-tk2h40
-tk2h41  // bad title screen
-tk2h42
-tk2h43
-tk2h44  // goes into setup menu by itself at start
-tk2h45
-tk2h46
-tk2h47
-tk2h48 
-tk2h49
-//tk2h50                               // 1111 exception
-//tk2h51                               // 1111 exception
-//tk2h52                               // 1111 exception
-tk2h53
-tk2h54
-tk2h55
-tk2h56
-tk2h57
-tk2h58
-tk2h59
-tk2h60
-tk2h61
-tk2h62
-tk2h63
-tk2h64
-tk2h65
-tk2h66
-tk2h67
-tk2h68
-tk2h69
-tk2h70
-tk2h71
-tk2h72
-tk2h73
-tk2h74
-tk2h75
-tk2h76
-tk2h77
-tk2h78
-tk2h79
-tk2h80
-tk2h81
-tk2h82
-tk2h83
-tk2h84
-tk2h85  // bad gfx in attract mode
-tk2h86
-tk2h87
-tk2h88
-tk2h89
-tk2h90
-tk2h91
-tk2h92
-tk2h93
-tk2h94
-tk2h95
-tk2h96
-tk2h97
-tk2h98  // bad title screen
-tk2h99
-tk2h100
-tk2h101
-tk2h102
-tk2h103
-tk2h104
-tk2h105
-tk2h106
-tk2h107
-tk2h108
-tk2h109
-tk2h110
-tk2h111
-tk2h112
-tk2h113
-tk2h114
-tk2h115
-tk2h116
-tk2h118
-tk2h119
-tk2h120
-tk2h121
-tk2h122
-tk2h123
-tk2h124
-tk2h125
-tk2h126
-tk2h127
-tk2h128
-tk2h129
-tk2h130
-tk2h131
-tk2h132
-tk2h133
-tk2h134
-tk2h135
-tk2h136
-tk2h137
-tk2h138
-tk2h139
-tk2h140
-tk2h141
-tk2h142
-tk2h143
-tk2h144
-tk2h145
-tk2h146
-tk2h147
-tk2h148
-tk2h149
-tk2h150
-tk2h152
-tk2h153
-tk2h155
-tk2h156
-//tk2h157     // roms not decided?
-tk2h158
-tk2h159
-tk2h160
-tk2h161
-tk2h162
-tk2h163
-tk2h164
-wofb
-wofch		// tk2p1
-wofes
-wofr1h
-woffr
-wofsf2
-wofud
-willowp
 3wonders01
 3wonders02
+3wonders03
+3wonders04
+cawingh01
 captcommh01
 captcommh02
 captcommh03
 captcommh04
 captcommh05
 captcommh06
+captcommh07
+captcommh08
+captcommh09
+captcommh10
+captcommh11
 captcomms01
 captcomms04
 captcomms05
@@ -631,7 +488,6 @@ captcomms39
 captcomms40
 captcomms41
 captcomms42
-//captcomms43                          // address error
 captcomms44
 captcomms46
 captcomms47
@@ -663,7 +519,6 @@ captcomms72
 captcomms73
 captcomms74
 captcomms75
-//captcomms76 // encrypted
 captcomms77
 captcomms78
 captcomms79
@@ -695,7 +550,33 @@ captcomms104
 captcomms105
 captcomms106
 captcomms107
-dinos01
+cps1demo                               // HB
+cps1frog                               // HB
+cps1testm                              // HB
+cps1testma                             // HB
+cps1tests                              // HB
+cps1testsa                             // HB
+//cps1xx                               // corrupt gfx
+daimakb
+dinod01                                // Dinosaur hunter
+dinoj01                                // Cadillacs
+dinoj02
+dinoj03
+dinoj04
+dinoj05
+dinoj06
+dinoj07
+dinoj08
+dinoj09
+dinoj10
+dinoj11
+dinoj12
+dinoj13
+dinon01                                // Jurassic 99
+dinon02
+dinon03
+dinon04
+dinos01                                // Cadillacs & Dinosaurs
 dinos02
 dinos03
 dinos04
@@ -732,7 +613,7 @@ dinos34
 dinos35
 dinos36
 dinos37
-dinos38
+//dinos38                              // missing background
 dinos40
 dinos41
 dinos42
@@ -741,23 +622,17 @@ dinos44
 dinos45
 dinos46
 dinos47
-dinos48
-dinos49 // dinoadde
-dinos50 // dinochx
-dinos51 // dinoslice
-dinos52 // dinosup
-dinos53 // dinosupfx
+dinos49
+dinos50
+dinos51
+dinos52
+dinos53
 dinos54
 dinos56
-dinos57
-//dinos58                              // black screen
 dinos59
 dinos60
 dinos61
-dinos62
 dinos63
-dinos64
-dinos65
 dinos66
 dinos67
 dinos68
@@ -765,13 +640,22 @@ dinos69
 dinos70
 dinos71
 dinos72
-dinos73
 dinos74
 dinos75
+dinos76
+dinos77
+dinos78
+dinos79
+dinos80
+dinos81
+dinos82
+dinos83
+dinos84
+dinos85
+dinos86
 dinos91
 dinos92
 dinos93
-dinos94
 dinos95
 dinos96
 dinos97
@@ -782,25 +666,16 @@ dinos101
 dinos102
 dinos103
 dinos104
-dinos105
-dinos106
-dinos107
-dinos108
 dinos109
-dinos110
-dinos111
 dinos112
 dinos113
-dinos114
 dinos115
-dinos116
 dinos117
 dinos118
 dinos119
 dinos120
 dinos121
 dinos122
-dinos123
 dinos124
 dinos125
 dinos126
@@ -812,7 +687,6 @@ dinos131
 dinos132
 dinos133
 dinos134
-dinos135
 dinos136
 dinos137
 dinos138
@@ -820,20 +694,15 @@ dinos139
 dinos140
 dinos141
 dinos142
-dinos143
 dinos144
 dinos145
 dinos146
-dinos147
 dinos148
 dinos149
 dinos150
 dinos151
-dinos152
-dinos153
 dinos154
 dinos155
-dinos156
 dinos157
 dinos158
 dinos159
@@ -841,10 +710,8 @@ dinos160
 dinos161
 dinos162
 dinos163
-dinos164
 dinos165
 dinos166
-dinos167
 dinos168
 dinos169
 dinos170
@@ -876,22 +743,13 @@ dinos195
 dinos196
 dinos197
 dinos198
-dinos199
 dinos200
 dinos201
 dinos202
 dinos203
 dinos204
-dinos205
 dinos206
-dinos207
-//dinos208                             // illegal inst when entering building
-dinos209
-dinos210
-dinos211
-//dinos212                             // address error when entering building
 dinos213
-dinos214
 dinos215
 dinos216
 dinos217
@@ -900,11 +758,9 @@ dinos219
 dinos220
 dinos221
 dinos222
-dinos223
 dinos224
 dinos225
 dinos226
-dinos227
 dinos228
 dinos229
 dinos230
@@ -912,15 +768,11 @@ dinos231
 dinos232
 dinos233
 dinos234
-dinos235
 dinos236
 dinos237
-dinos238
 dinos239
 dinos240
 dinos241
-dinos242
-dinos243
 dinos244
 dinos245
 dinos246
@@ -930,11 +782,8 @@ dinos249
 dinos250
 dinos251
 dinos252
-dinos253
 dinos254
 dinos255
-dinos256
-dinos257
 dinos258
 dinos259
 dinos260
@@ -942,33 +791,59 @@ dinos261
 dinos262
 dinos263
 dinos264
-dinos265
 dinos266
 dinos267
 dinos268
 dinos269
-dinos270
 dinos271
 dinos272
-dinos273
 dinos274
 dinos275
-dinos276
 dinos277
 dinos278
 dinos279
 dinos280
 dinos281
+dinos282
+dinos283
+dinot01                                // Turbo-97
+dinot02
+dinot03
+dinot04
+dinot05
+dinot06
+dinot07
+dinot08
+dinot09
+dinot10
+ffightae
+ffightaeh01
+ffightaeh02
+ffightaeh03
+ffightaeh04
 ffights01
 ffights02
+ffights03
+ffightjh01
 ffightj2s01
 ffightj2s02
 ffightj2s03
 ffightj2s04
 ffightj1s01
+kodr01                                 // r = based on kodr1, bad gfx are normal
+kodr02
 koduhc01
 koduhc02
 koduhc03
+knights01
+knights02
+knights03
+knights04
+knights05
+knights06
+knights07
+knights08
+knights09
 knightsh01
 knightsh02
 knightsh03
@@ -987,8 +862,6 @@ knightsh15
 knightsh16
 knightsh17
 knightsh18
-//knightsh19                           // address error in demo
-//knightsh20                           // address error in demo
 knightsjs01
 mercs01
 mercjs01
@@ -996,6 +869,7 @@ mbombrds01
 mbombrds02
 mbombrds03
 mbombrds04
+pnicku
 punishers01
 punishers02
 punishers03
@@ -1003,10 +877,16 @@ punishers04
 punishers05
 punishers06
 punishers07
-//punishers08                          //Encrypted
 punishers09
 punishers10
 punishers11
+punishers12
+punishers13
+punishers14
+punishers15
+punishers16
+punishers17
+punishers18
 punisherjs01
 punisherjs02
 punisherjs03
@@ -1041,7 +921,7 @@ sf2ces07
 sf2ces08
 sf2ces09
 sf2ces10
-sf2ces11
+//sf2ces11                             // doesn't compile - to be fixed
 sf2ces12
 sf2ces13
 sf2ces14
@@ -1065,8 +945,56 @@ sf2ces31
 sf2ces32
 sf2ces33
 sf2ces34
-sf2js01
-sf2js02
+sf2ces35
+sf2ces36
+sf2ces38
+sf2ces37
+sf2ces39
+sf2ces40
+sf2ces41
+sf2ces42
+sf2ces43
+sf2ces44
+sf2ces45
+sf2ces47
+sf2ces48
+sf2ces49
+sf2ces50
+sf2ces51
+sf2ces52
+sf2ces53
+sf2ces54
+sf2ces55
+sf2ces56
+sf2ces57
+sf2hfs01
+sf2hfus01
+sf2hfus02
+sf2hfus03
+sf2hfus04
+sf2hfus05
+sf2koryus01
+sf2koryus02
+sf2koryus03
+sf2koryus04
+sf2mix96
+sf2mix96d
+sf2mix97
+sf2mix98
+sf2mix98a
+sf2mix98b
+sf2mix98c
+sf2mix99
+sf2mix99a
+sf2mix100
+sf2mix110
+sf2mix
+sf2reds01
+sf2reds02
+sf2reds03
+sf2reds04
+sf2reds05
+sf2reds06
 sf2s01
 sf2s02
 sf2s03
@@ -1076,57 +1004,241 @@ sf2s06
 sf2s07
 sf2s08
 sf2s09
-sf2koryus01
-sf2koryus02
-sf2koryus03
+sf2s10
+sf2s11
+sf2s12
+sf2s13
+sf2s14
+sf2s15
 sf2tlonas01
 sf2tlonas02
 sf2tlonas03
 sf2tlonas04
-sf2hfus01
-sf2hfus02
-sf2hfus03
-sf2hfus04
-sf2hfus05
-sf2h11s01
-sf2puns01
-sf2reds01
-sf2reds02
-sf2reds03
-sf2reds04
-sf2reds05
-sf2reds06
-//sf2m7s01                             // bad flicker sprites
-slammasts01
-slammasts02
-slammasts03
-slammasts04
-slammasts05
-striders01
-sfzchs01
+sf2tlonas05
+sf2tlonas06
+sf2tlonas07
 sfzchs02
 sfzchs03
 sfzchs04
 sfzchs05
 sfzchs06
+slammasts01
+slammasts02
+slammasts03
+slammasts04
+slammasts05
+slammasts06
+striders01
+striders02                             // fix unwanted black specks
+striders03                             // as above, and uncensored
 varths01
 varths02
 willows01
-sk2h114
-sk2h115
-sk2h116
-sk2h117
-sk2h118
-wofs00
-wofs01
-wofs02
-wofs03
-wofs04
-wofs05
-wofs06
-wofs07
-wofs08
-wofs09
+willows02
+sk2a1
+sk2a2
+sk2a3
+sk2b1
+sk2b2
+sk2e1
+sk2e2
+sk2e3                                  // mame sgyxz for testing
+sk2e4
+sk2e5
+sk2e6
+sk2e7
+sk2e8
+sk2e9
+sk2e10
+sk2e11
+sk2e12
+sk2e13
+sk2f1
+sk2f2
+sk2f3
+sk2f4
+sk2j1
+sk2j2
+sk2j3
+sk2j4
+sk2j5
+sk2j6
+sk2k1
+sk2k2
+sk2k3
+sk2k4
+sk2k5
+sk2k6
+sk2k7
+sk2k8
+sk2k9
+sk3d1
+sk3p1
+sk3p2
+sk3p3
+sk3p4
+sk3p5
+sk3p6
+sk3p7
+sk3p8
+sk3p9
+sk3p10
+sk3p11
+sk3p12
+sk3p13
+sk3p14
+sk3p15
+tk2a1
+tk2a2
+tk2a3
+tk2a4
+tk2h1
+tk2h2
+tk2h3
+tk2h4
+tk2h6
+tk2h7
+tk2h8
+tk2h9
+tk2h10
+tk2h11
+tk2h12
+tk2h13
+tk2h14
+tk2h17
+tk2h20
+tk2h21
+tk2h23
+tk2h24
+tk2h26
+tk2h27
+tk2h28
+tk2h30
+tk2h31
+tk2h32
+tk2h33
+tk2h35
+tk2h38
+tk2h39
+tk2h42
+tk2h43
+tk2h44  // goes into setup menu by itself at start
+tk2h45
+tk2h46
+tk2h47
+tk2h48
+tk2h49
+tk2h53
+tk2h54
+tk2h55
+tk2h56
+tk2h57
+tk2h58
+tk2h59
+tk2h60
+tk2h61
+tk2h62
+tk2h63
+tk2h64
+tk2h65
+tk2h66
+tk2h67
+tk2h68
+tk2h69
+tk2h70
+tk2h71
+tk2h72
+tk2h73
+tk2h74
+tk2h75
+tk2h76
+tk2h77
+tk2h78
+tk2h79
+tk2h81
+tk2h82
+tk2h83
+tk2h84
+tk2h86
+tk2h87
+tk2h88
+tk2h89
+tk2h90
+tk2h91
+tk2h92
+tk2h93
+tk2h94
+tk2h96
+tk2h97
+tk2h99
+tk2h100
+tk2h101
+tk2h104
+tk2h105
+tk2h110
+tk2h112
+tk2h113
+tk2h114
+tk2h116
+tk2h120
+tk2h121
+tk2h122
+tk2h123
+tk2h124
+tk2h126
+tk2h127
+tk2h128
+tk2h129
+tk2h131
+tk2h132
+tk2h133
+tk2h134
+tk2h135
+tk2h136
+tk2h137
+tk2h138
+tk2h140
+tk2h141
+tk2h142
+tk2h143
+tk2h144
+tk2h146
+tk2h147
+tk2h148
+tk2h149
+tk2h150
+tk2h152
+tk2h153
+tk2h155
+tk2h156
+tk2h158
+tk2h160
+tk2h161
+tk2h162
+tk2h163
+tk2h164
+tk2h165
+tk2h166
+tk2h167
+tk2h168
+tk2h169
+tk2h170
+tk2h171
+tk2h172
+tk2h173
+tk2h174
+tk2h175
+tk2h176
+tk2h177
+tk2h178
+tk2h179
+tk2h180
+tk2h181
+tk2k1
+tk2w1
+tk2w2
+tk2w3
+tk2w4
 tk2p02
 tk2p03
 tk2p04
@@ -1134,10 +1246,6 @@ tk2p05
 tk2p07
 tk2p08
 tk2p09
-tk2p10
-tk2p11
-tk2p12
-tk2p13
 tk2p14
 tk2p15
 tk2p18
@@ -1158,241 +1266,46 @@ tk2p33
 tk2p34
 tk2p36
 tk2p37
-tk2p38
 tk2p39
 tk2p41
 tk2p42
 tk2p43
-tk2p44		// wofch_v3
-tk2p45		// wofchspp
+tk2p44
+tk2p45
+tk2p46
+wofs00
+wofs01
+wofs02
+wofs03
+wofs04
+wofs05
+wofs06
+wofs07
+wofs08
+wofs09
+wofs10
+wofs11
+wofs12
+wofs13
+wofs14
 
-1941                            // 27/02/1990 (c) 1990 (World)
-1941j                           // 2/1990 (c) 1990 (Japan)
-1941r1                          // 2/1990 (c) 1990 (World)
-1941u                           // 27/02/1990 (c) 1990 (USA)
-3wonders                        // 20/05/1991 (c) 1991 (World)
-3wondersb                       // bootleg
-3wondersh                       // hack
-3wondersr1                      // 13/05/1991 (c) 1991 (World)
-3wondersu                       // 20/05/1991 (c) 1991 (USA)
-area88                          // 8/1989 (c) 1989 (Japan)
-area88r                         // 8/1989 (c) 1989 (Japan)
-captcomm                        // 02/12/1991 (c) 1991 (World)
-captcommb                       // bootleg
-captcommj                       // 02/12/1991 (c) 1991 (Japan)
-captcommjr1                     // 28/09/1991 (c) 1991 (Japan)
-captcommr1                      // 14/10/1991 (c) 1991 (World)
-captcommu                       // 28/09/1991 (c) 1991 (USA)
-cawing                          // 12/10/1990 (c) 1990 (World)
-cawingj                         // 12/10/1990 (c) 1990 (Japan)
-cawingr1                        // 09/10/1990 (c) 1990 (World)
-cawingu                         // 30/11/1990 (c) 1990 (USA)
-cawingur1                       // 12/10/1990 (c) 1990 (USA)
-chikij                          // 19/06/1990 (c) 1990 (Japan)
-cworld2j                        // 11/06/1992 (c) 1992 (Japan)
-cworld2ja                       // 11/06/1992 (c) 1992 (Japan)
-cworld2jb                       // 11/06/1992 (c) 1992 (Japan)
-daimakai                        // 12/1988 (c) 1988 (Japan)
-daimakair                       // 12/1988 (c) 1988 (Japan)
-dino                            // 01/02/1993 (c) 1993 (World) (CPS1 + QSound)
-dinohunt                        // bootleg
-dinoa                           // 23/02/1993 (c) 1993 (Asia TW) (CPS1 + QSound)
-dinoj                           // 01/02/1993 (c) 1993 (Japan) (CPS1 + QSound)
-dinou                           // 01/02/1993 (c) 1993 (USA) (CPS1 + QSound)
-dynwar                          // 4/1989 (c) 1989 (USA)
-dynwara                         // 4/1989 (c) 1989 (USA)
-dynwarj                         // 4/1989 (c) 1989 (Japan)
-dynwarjr                        // 4/1989 (c) 1989 (Japan)
-ffight                          // 12/1989 (c) 1989 (World)
-ffighta                         // 12/1989 (c) 1989 (World)
-ffightj                         // 12/1989 (c) 1989 (Japan)
-ffightj1                        // 12/01/1990 (c) 1989 (Japan)
-ffightj2                        // 05/03/1990 (c) 1989 (Japan)
-ffightj3                        // 05/04/1990 (c) 1989 (Japan)
-ffightj4                        // 13/06/1990 (c) 1989 (Japan)
-ffightjh                        // hack
-ffightu                         // 12/1989 (c) 1989 (USA)
-ffightu1                        // 12/1989 (c) 1989 (USA)
-ffightua                        // 12/01/1990 (c) 1989 (USA)
-ffightub                        // 24/04/1990 (c) 1989 (USA)
-ffightuc                        // 12/06/1990 (c) 1989 (USA)
-forgottn                        // 7/1988 (c) 1988 (World)
-forgottna                       // 7/1988 (c) 1988 (World)
-forgottnj                       // 7/1988 (c) 1988 (Japan)
-forgottnu                       // 7/1988 (c) 1988 (USA)
-forgottnua                      // 7/1988 (c) 1988 (USA)
-forgottnuc                      // 7/1988 (c) 1988 (USA)
-forgottnue                      // 7/1988 (c) 1988 (USA)
-forgottnuaa                     // 7/1988 (c) 1988 (USA)
-ganbare                         // 11/04/2000 (c) 2000 (Japan)
-ghouls                          // 12/1988 (c) 1988 (World)
-ghoulsu                         // 12/1988 (c) 1988 (USA)
-gulunpa                         //
-knights                         // 27/11/1991 (c) 1991 (World)
-knightsb2                       // bootleg
-knightsj                        // 27/11/1991 (c) 1991 (Japan)
-knightsja                       // 27/11/1991 (c) 1991 (Japan)
-knightsu                        // 27/11/1991 (c) 1991 (USA)
-kod                             // 05/08/1991 (c) 1991 (World)
-kodj                            // 05/08/1991 (c) 1991 (Japan)
-kodja                           // 05/08/1991 (c) 1991 (Japan)
-kodr1                           // 11/07/1991 (c) 1991 (World)
-kodr2                           // 31/07/1991 (c) 1991 (World)
-kodu                            // 10/09/1991 (c) 1991 (USA)
-lostwrld                        // 7/1988 (c) 1988 (Japan)
-lostwrldo                       // 7/1988 (c) 1988 (Japan)
-mbomberj                        // 13/07/1993 (c) 1993 (Japan) (CPS1 + QSound)
-mbombrd                         // 06/12/1993 (c) 1993 (World) (CPS1 + QSound)
-mbombrdj                        // 06/12/1993 (c) 1993 (Japan) (CPS1 + QSound)
-megaman                         // 06/10/1995 (c) 1995 (USA)
-megamana                        // 06/10/1995 (c) 1995 (Asia)
-mercs                           // 02/03/1990 (c) 1990 (World)
-mercsj                          // 02/03/1990 (c) 1990 (Japan)
-mercsu                          // 08/06/1990 (c) 1990 (USA)
-mercsur1                        // 02/03/1990 (c) 1990 (USA)
-msword                          // 25/07/1990 (c) 1990 (World)
-mswordj                         // 23/06/1990 (c) 1990 (Japan)
-mswordr1                        // 23/06/1990 (c) 1990 (World)
-mswordu                         // 25/07/1990 (c) 1990 (USA)
-mtwins                          // 19/06/1990 (c) 1990 (World)
-nemo                            // 30/11/1990 (c) 1990 (World)
-nemoj                           // 20/11/1990 (c) 1990 (Japan)
-nemor1                          // 09/11/1990 (c) 1990 (World)
-pang3                           // 01/06/1995 (c) 1995 Mitchell (Euro) not listed on Capcom's site
-pang3b                          // bootleg
-pang3b2                         // bootleg
-pang3b3                         // bootleg
-pang3j                          // 11/05/1995 (c) 1995 Mitchell (Japan) not listed on Capcom's site
-pang3r1                         // 11/05/1995 (c) 1995 Mitchell (Euro) not listed on Capcom's site
-pang3b4                         // bootleg
-pang3b5                         // bootleg
-pnickj                          // 08/06/1994 (c) 1994 Compile + Capcom license (Japan) not listed on Capcom's site
-punisher                        // 22/04/1993 (c) 1993 (World) (CPS1 + QSound)
-punisherbz                      // bootleg
-punisherh                       // 22/04/1993 (c) 1993 (Hispanic) (CPS1 + QSound)
-punisherj                       // 22/04/1993 (c) 1993 (Japan) (CPS1 + QSound)
-punisheru                       // 22/04/1993 (c) 1993 (USA) (CPS1 + QSound)
-qad                             // 01/07/1992 (c) 1992 (USA)
-qadjr                           // 21/09/1994 (c) 1994 (Japan)
-qtono2j                         // 23/01/1995 (c) 1995 (Japan)
-rockmanj                        // 22/09/1995 (c) 1995 (Japan)
-pokonyan
-sf2                             // 22/05/1991 (c) 1991 (World)
-sf2acc                          // hack
-sf2acca                         // hack
-sf2accp2                        // hack
-sf2amf                          // bootleg
-sf2amf2                         // bootleg
-sf2amf3                         // bootleg
-sf2bhh                          // hack
-sf2ce                           // 13/05/1992 (c) 1992 (World)
-sf2ceblp                        // hack
-sf2cebltw                       // hack
-sf2ceea                         // 13/03/1992 (c) 1992 (World)
-sf2ceja                         // 22/03/1992 (c) 1992 (Japan)
-sf2cejb                         // 13/05/1992 (c) 1992 (Japan)
-sf2cejc                         // 03/08/1992 (c) 1992 (Japan)
-sf2cet                          // 13/03/1992 (c) 1992 (Taiwan)
-sf2ceupl                        // 03/08/1992 (c) 1992 (Japan)
-sf2ceua                         // 13/03/1992 (c) 1992 (USA)
-sf2ceub                         // 13/05/1992 (c) 1992 (USA)
-sf2ceuc                         // 03/08/1992 (c) 1992 (USA)
-sf2dkot2                        // hack
-sf2dongb                        // hack
-sf2ea                           // 04/02/1991 (c) 1991 (World)
-sf2eb                           // 14/02/1991 (c) 1991 (World)
-sf2ebbl                         // 14/02/1991 (c) 1991 (World, bootleg)
-sf2ebbl2                        // 14/02/1991 (c) 1991 (World, bootleg)
-sf2ebbl3                        // 14/02/1991 (c) 1991 (World, bootleg)
-sf2ed                           // 18/03/1991 (c) 1991 (World)
-sf2ee                           // 28/02/1991 (c) 1991 (World)
-sf2ef                           // 11/04/1991 (c) 1991 (World)
-sf2em                           // 29/01/1991 (c) 1991 (World)
-sf2en                           // 04/02/1991 (c) 1991 (World, conversion)
-sf2hf                           // 09/12/1992 (c) 1992 (World)
-sf2hfj                          // 09/12/1992 (c) 1992 (Japan)
-sf2hfu                          // 09/12/1992 (c) 1992 (USA)
-sf2j                            // 10/12/1991 (c) 1991 (Japan, CPS-B-13)
-sf2j17                          // 10/12/1991 (c) 1991 (Japan, CPS-B-17)
-sf2ja                           // 14/02/1991 (c) 1991 (Japan)
-sf2jc                           // 06/03/1991 (c) 1991 (Japan)
-sf2jf                           // 11/04/1991 (c) 1991 (Japan)
-sf2jh                           // 22/05/1991 (c) 1991 (Japan)
-sf2jl                           // 12/03/1992 (c) 1991 (Japan)
-sf2koryu                        // hack
-sf2level                        // hack
-sf2m10                          // bootleg
-sf2m2                           // hack
-sf2m3                           // hack
-sf2m4                           // hack
-sf2m5                           // hack
-sf2m6                           // hack
-sf2m7                           // hack
-sf2m8                           // bootleg
-sf2mkot                         // hack
-sf2qp1                          // hack
-sf2qp2                          // hack
-sf2rb                           // hack
-sf2rb2                          // hack
-sf2rb3                          // hack
-sf2re                           // bootleg
-sf2red                          // hack
-sf2redp2                        // hack
-sf2rk                           // bootleg
-sf2rules                        // bootleg
-sf2stt                          // bootleg
-sf2thndr                        // hack
-sf2thndr2                       // bootleg
-sf2ua                           // 06/02/1991 (c) 1991 (USA)
-sf2ub                           // 14/02/1991 (c) 1991 (USA)
-sf2uc                           // 06/03/1991 (c) 1991 (USA)
-sf2ud                           // 18/03/1991 (c) 1991 (USA)
-sf2ue                           // 28/02/1991 (c) 1991 (USA)
-sf2uf                           // 11/04/1991 (c) 1991 (USA)
-sf2ug                           // 22/05/1991 (c) 1991 (USA, Rev. G)
-sf2uh                           // 22/05/1991 (c) 1991 (USA, Rev. H)
-sf2ui                           // 22/05/1991 (c) 1991 (USA, Rev. I)
-sf2uk                           // 01/11/1991 (c) 1991 (USA)
-sf2um                           // 12/03/1992 (c) 1991 (USA)
-sf2v004                         // hack
-sf2yyc                          // hack
-sf2ceds6                        // bootleg
-sf2cems6a                       // bootleg
-sf2cems6b                       // bootleg
-sf2cems6c                       // bootleg
-sfach                           // CPS Changer (Street Fighter Alpha)
-sfzbch                          // CPS Changer (Street Fighter ZERO Brazil)
-sfzch                           // CPS Changer (Street Fighter ZERO)
-slammast                        // 13/07/1993 (c) 1993 (World) (CPS1 + QSound)
-slammastu                       // 13/07/1993 (c) 1993 (USA) (CPS1 + QSound)
-strider                         // 3/1989 (c) 1989 (not explicitly stated but should be USA)
-striderj                        // 3/1989 (c) 1989 (Japan)
-striderjr                       // 3/1989 (c) 1989 (Japan)
-striderua                       // 3/1989 (c) 1989 (not explicitly stated but should be USA)
-strideruc                       // conversion
-unsquad                         // 8/1989 (c) 1989 (USA)
-varth                           // 14/07/1992 (c) 1992 (World)
-varthb2                         // bootleg
-varthj                          // 14/07/1992 (c) 1992 (Japan)
-varthjr                         // 14/07/1992 (c) 1992 (Japan)
-varthr1                         // 12/06/1992 (c) 1992 (World)
-varthu                          // 12/06/1992 (c) 1992 (USA)
-willow                          // 6/1989 (c) 1989 (World)
-willowj                         // 6/1989 (c) 1989 (Japan)
-willowu                         // 6/1989 (c) 1989 (USA)
-willowuo                        // 6/1989 (c) 1989 (USA)
-wof                             // 31/10/1992 (c) 1992 (World) (CPS1 + QSound)
-wofa                            // 05/10/1992 (c) 1992 (Asia)  (CPS1 + QSound)
-wofch                           // CPS Changer (Tenchi Wo Kurau II)
-wofhfh                          // bootleg
-wofj                            // 31/10/1992 (c) 1992 (Japan) (CPS1 + QSound)
-wofr1                           // 02/10/1992 (c) 1992 (World) (CPS1 + QSound)
-wofu                            // 31/10/1992 (c) 1992 (USA) (CPS1 + QSound)
-wonder3                         // 20/05/1991 (c) 1991 (Japan)
-
+@source:cps1bl_5205.cpp
+//captcommb2
+//knightsb
+//knightsb3
+//sf2b
+//sf2b2
+//sf2ceb
+//sf2ceb2
+//sf2ceb3
+//sf2ceb4
+//sf2ceb5
+//sf2mdt
+//sf2mdta
+//sf2mdtb
 
 @source:cps2.cpp
-// CPS2 PARENTS ***
+// CPS2 PARENTS
 1944
 19xx
 armwar
@@ -1402,21 +1315,14 @@ csclub
 cybots
 ddsom
 ddtod
-dimahoo
 dstlk
-ecofghtr
 gigawing
 hsf2
-megaman2
-mmatrix 
 mpang
 msh
 mshvsf
 mvsc
-nwarr
 progear
-pzloop2
-ringdest
 sfa
 sfa2
 sfa3
@@ -1425,143 +1331,19 @@ sgemf
 spf2t
 ssf2
 ssf2t
-vhunt2
-vsav
 vsav2
 xmcota
 xmvsf
-// CPS2 HACKS ***
-1944fp
-ddsomavs
-ddsomchs
-ddsomhp
-ddsomjfs
-ddsoma4ppdec
-ddtodpdec
-halfway		// progear hack by The Halfway House
-mshjphp
-mshvsemb
-mshvsfjh
-mshvsfjphp
-mshyh
-mvscjemb
-mvscjphp
-//mvscrcp // reboots shortly after start
-//mvscuh // reboots shortly after start
-pfghtjrm
-pzloop2jd
-suicide		/* Razoola */
-suicide2	/* Razoola */
-sfa2h
-sfa3br
-sfa3ce
-sfa3dp
-sfa3nc
-sfa3nch
-sfa3ncj
-sfa3sp2
-sfa3spp
-sfa3uhd
-sfz2abr
-sfz2ajhp
-sfz2aldp
-sfz2aldp2
-sfz2jyh
-sfz3ce
-sfz3jb
-sfz3jemb
-sfz3jhp
-sfz3jsep
-sfz3mix07
-sfz3mix07a
-sfz3mix07b
-sfz3mix08
-sfz3mix09
-sfz3mix10
-sfz3mix11
-sfz3mix12
-sfz3mix
-sfz3te
-sfzjboss
-sfzjyh
-sgemfch
-spf2tb
-ssf2tfp
-ssf2tfr
-ssf2tnl3
-ssf2tnl4
-ssf2tnl5
-ssf2tnl6
-ssf2tnl7
-ssf2tpls
-ssf2xjhy
-ssf2xjjs
-ssf2xjnc
-ssf2zhp
-vampjb
-vsav2emb
-xmcotajb
-xmcotajphp
-xmvsfjphp
-xmvsfrm
-xmvsfryh
-// CPS2 PHOENIX ***
-1944d
+
+@source:cps2mis.cpp
 1944da
-19xxd
-armwar1d
-avspd
-avspud
-batcird
-csclub1d
-cybotsud
-cybotsjd
-dimahoud
-ddsomud
-ddtodd
-dstlku1d
-ecofghtrd
-gigaman2
-gigawingd
-gigawingjd
-hsf2d
-megamn2d
-mmatrixd
-mpangjd
-mshud
-mshvsfu1d
-mvscud
-nwarrud
-progearud
-progearjd
-progearjbl
-ringdstd
-sfa3ud
-sfad
-sfaud
-sfz2ad
-sfz2ald
-sfz2jd
-sfz3jr2d
-sgemfd
-spf2td
-ssf2r1d
-ssf2td
-spf2xjd
-ssf2tad
-ssf2tbd
-ssf2ud
-ssf2xjr1d
-vhunt2d
-vsavd
-vsav2d
-xmcotar1d
-xmvsfu1d
-19xxs01
-19xxjrs01
+1944fp
 1944s01
+19xxjrs01
+19xxs01
 armwars01
 armwars02
+avspud
 avspus01
 avspus02
 avspus03
@@ -1570,64 +1352,83 @@ avspus05
 batcirds01
 csclubs01
 cybotsjs01
+ddsoma4ppdec
+ddsomavs
+ddsomchs
+ddsomhp
+ddsomjfs
 ddsomjs01
 ddsomjs02
-//ddsomuds01  // not working: unknown decryption key, emulator freezes
 ddsomuds02
+ddtodpdec
 ddtods01
 dstlks01
 gigawings01
+mpangjd
+mshjphp
 mshs01
 mshs02
-mshvsfs01
-mshvsfs02
+mshvsemb
+mshvsfjh
+mshvsfjphp
 mshvsfjs01
 mshvsfjs02
 mshvsfjs03
+mshvsfs01
+mshvsfs02
+mshyh
+mvscjemb
+mvscjphp
 mvscjs01
 mvscjs02
 mvsh01
 mvsh02
+pfghtjrm
 pfghtjs01
 pfghtjs02
 pfghtjs03
 progearjds01
 progearjds02
-hsf2js00
-hsf2js01
-hsf2js02
-hsf2js03
-hsf2js04
-hsf2js05
-hsf2js06
-hsf2js07
-hsf2js08
-hsf2js09
-hsf2js10
-hsf2js11
-hsf2js12
-hsf2js13
-hsf2js14
+halfway
+hsf2s02
+hsf2s03
+hsf2s04
+hsf2s05
+hsf2s06
+hsf2s07
+hsf2s08
+hsf2s09
+hsf2s10
+hsf2s11
+hsf2s12
+hsf2s13
+hsf2s14
 sfas01
 sfas02
 sfas03
 sfas04
 sfas05
+sfaud
+sfzjboss
+sfzjs01
+sfzjs02
+sfzjs03
+sfzjs04
+sfzjs05
+sfzjyh
+sfa2h
+sfa2s01
+sfa2s02
+sfa2s03
 sfa2us01
 sfa2us02
 sfa2us03
 sfa2us04
 sfa2us05
-sfa3s01
-sfa3s02
-sfa3s03
-sfa3s04
-sfa3s05
-sfa3s06
-sfa3s07
-sfa3s08
-sfa3s09
-sfa3s10
+sfz2abr
+sfz2ajhp
+sfz2aldp
+sfz2aldp2
 sfz2aljs00
 sfz2aljs01
 sfz2aljs02
@@ -1642,10 +1443,31 @@ sfz2aljs10
 sfz2aljs11
 sfz2als01
 sfz2als02
+sfz2jyh
 sfz2ns01
-sfa2s01
-sfa2s02
-sfa2s03
+sfa3br
+sfa3ce
+sfa3dp
+sfa3nc
+sfa3nch
+sfa3ncj
+sfa3s01
+sfa3s02
+sfa3s03
+sfa3s04
+sfa3s05
+sfa3s06
+sfa3s07
+sfa3s08
+sfa3s09
+sfa3s10
+sfa3sp2
+sfa3spp
+sfa3uhd
+sfz3ce
+sfz3jb
+sfz3jemb
+sfz3jhp
 sfz3js01
 sfz3js02
 sfz3js03
@@ -1658,26 +1480,57 @@ sfz3js09
 sfz3js10
 sfz3js11
 sfz3js12
+sfz3jsep
+sfz3mix07
+sfz3mix07a
+sfz3mix07b
+sfz3mix08
+sfz3mix09
+sfz3mix10
+sfz3mix11
+sfz3mix12
+sfz3mix
+sfz3te
+sgemfch
+spf2tb
+ssf2js01
+ssf2r1d
+ssf2td
+ssf2tfp
+ssf2tfr
+ssf2tnl3
+ssf2tnl4
+ssf2tnl5
+ssf2tnl6
+ssf2tnl7
+ssf2tpls
 ssf2ts01
 ssf2ts02
 ssf2tus01
 ssf2tus02
+ssf2xjhy
+ssf2xjjs
+ssf2xjnc
 ssf2xjs01
 ssf2xjs02
-ssf2js01
-sfzjs01
-sfzjs02
-sfzjs03
-sfzjs04
-sfzjs05
+ssf2zhp
+suicide
+suicide2
+vampjb
+vsav2emb
 vsav2s01
 vsav2s02
 xmcotaj2s01
 xmcotaj2s02
+xmcotajb
+xmcotajphp
+xmvsfjphp
+xmvsfjs01
+xmvsfrm
+xmvsfryh
 xmvsfs01
 xmvsfs02
 xmvsfs03
-xmvsfjs01
 //cps2xx
 
 @source:cps3.cpp
@@ -1868,12 +1721,20 @@ exerionj				// Japanese version
 exeriongr				// Vag @ GreekRoms 2004
 
 @source:fcrash.cpp
-fcrash
-captcommb2
-dinopic4                             // no sound, no sprites
-ffightbl
-ffightbla
-kodb
+//cawingb2
+//cawingbl
+fcrash                                 // bad gfx in mame
+ffightbl                               // bad gfx in mame
+ffightbla                              // bad gfx in mame
+ffightblb                              // bad gfx in mame, bad sound
+kodb                                   // bad gfx in mame
+//mtwinsb
+//sf2m1                                // crowd missing
+//sf2m9                                // crowd missing
+//sgyxz                                // mame, minor gfx issues
+//varthb
+//wofabl                               // mame, gfx issues
+//wofr1bl                              // mame, minor gfx issues
 
 @source:flstory.cpp
 flstory					//parent
@@ -6176,6 +6037,7 @@ bonusstage                             // HB
 cabalng
 cabalng1
 cakefght
+cakefght1
 caravan				// HB
 cndi		/* Chip n Dale Intro */
 cndia
@@ -6278,6 +6140,7 @@ teot_5
 teot_6
 teot_7
 teot_8
+teot_9
 teot
 test01		// MVS Test 01 by Furrtek
 timesup
@@ -9002,30 +8865,30 @@ pacplusx
 pheartx
 
 @source:r2dx_v33.cpp
-nzeroteama					//parent
+nzeroteama                             //parent
 nzeroteamas01
 
 @source:rabbit.cpp
-rabbit						//parent
+rabbit                                 //parent
 rabbits01
 rabbits02
 rabbits03
 rabbits04
 
 @source:raiden2.cpp
-zeroteam					//parent
+zeroteam                               //parent
 zeroteamcs01
 zeroteamcs02
 zeroteamss01
 zeroteamss02
 
 @source:rallyx.cpp
-rallyx			//parent
-rxtron			/* Jerky and Sil hack of Rally-X */
-nrallyv			/* New Rally-X (vertical) */
+rallyx                                 //parent
+rxtron
+nrallyv
 
 @source:rastan.cpp
-rastan			//parent
+rastan                                 //parent
 rastandh
 rastand2
 rastaneh
@@ -9033,71 +8896,75 @@ rastane2
 rastwack
 
 @source:retofinv.cpp
-retofinv		//parent
+retofinv                               //parent
 retofinv4
 
 @source:rohga.cpp
-schmeisr				//parent
+schmeisr                               //parent
 schmeisrs01
 
 @source:schaser.cpp
-schasrcv		// extra sounds
+schasrcv                               // extra sounds
 
 @source:scramble.cpp
-mrkougar                 //parent
+mrkougar                               //parent
 troopyx
 
 @source:segac2.cpp
-c2frog					// HB
+c2frog                                 // HB
 
 @source:segahang.cpp
-enduror						//parent
+enduror                                //parent
 endurorrc
 
 @source:segaorun.cpp
-outrun					//parent
+outrun                                 //parent
 outrunen
 outrunen0
 outrunen1
 outrunen2
 outrunm
 outrunt1
-toutrun					//parent
+toutrun                                //parent
 toutrundt1
 
 @source:segag80r.cpp
-astrob					//parent
+astrob                                 //parent
 astrob2h
 
-//@source:segas16b.cpp
-//altbeast				//parent
-//altbeastfr
-//altbeasts01
-//altbeasts02
-//altbeasts03
+@source:segas16b.cpp
+altbeast                               //parent
+altbeastfr
+altbeasts01
+altbeasts02
+altbeasts03
+
+@source:sagas18.cpp
+//astorm
+//aquario
 
 @source:segas24.cpp
-gground					//parent
+gground                                //parent
 ggrounds01
 
 @source:segas32.cpp
-ga2						//parent
+ga2                                    //parent
 ga2s01
-brival  				//parent
+brival                                 //parent
 brivals01
 
 @source:seta.cpp
-blandia					//parent
+blandia                                //parent
 blandias01
 blandias02
 blandias03
-msgundam    			//parent
+msgundam                               //parent
 msgundams01
-rezon					//parent
+rezon                                  //parent
 rezons01
 
 @source:seta2.cpp
-grdians					//parent
+grdians                                //parent
 grdianss01
 grdianss02
 grdianss03
@@ -9118,35 +8985,35 @@ grdianss17
 grdianss18
 
 @source:sf.cpp
-sf						//parent
+//sf                                     //parent
 //sfs01                                // freezes in attract mode
 
 @source:shadfrce.cpp
-shadfrce				//parent
+shadfrce                               //parent
 shadfrces01
 
 @source:sidepckt.cpp
-sidepckt				//parent
+sidepckt                               //parent
 sidepcktb2
 
 @source:silkroad.cpp
-silkroad				//parent
+silkroad                               //parent
 silkroads01
 silkroads02
 silkroads03
 
 @source:shaolins.cpp
-kicker					//parent
+kicker                                 //parent
 kfjohnny
 
 @source:skimaxx.cpp
-skimaxx					// HB, no parent
+skimaxx                                // HB, no parent
 
 @source:snk6502.cpp
-vantris					// HB, no parent
+vantris                                // HB, no parent
 
 @source:simple_st0016.cpp
-renju					//parent
+renju                                  //parent
 renjuk
 
 @source:snesb.cpp
@@ -9227,6 +9094,8 @@ dariusg					//parent
 gekiridn				//parent
 landmakr				//parent
 pbobble2				//parent
+pbobble3                               //parent
+pbobble3h01
 cleopath
 driusgxh
 //f3demo					/* HB Antiriad (a demo made for Raine, not tested on real hardware) - not working */

@@ -49,15 +49,15 @@ def parse_args():
         usage()
     return target, format, input, output
 
-
+## Winui - display 0.nnn.0
 def extract_version(input):
-    pattern = re.compile('\s+BARE_BUILD_VERSION\s+"(([^."]+)\.([^."]+))"')
+    pattern = re.compile('\s+BARE_BUILD_VERSION\s+"(([^."]+)\.([^."]+)\.([^."]+))"')
     for line in input.readlines():
         match = pattern.search(line)
         if match:
             return match.group(1), match.group(2), match.group(3)
-    return '0.245.2','0','245'
-##    return None, None, None
+##    return '0.245.x','0','245' - example output
+    return None, None, None
 
 
 build, outfmt, srcfile, dstfile = parse_args()
