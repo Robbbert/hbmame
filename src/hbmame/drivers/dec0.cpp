@@ -55,12 +55,12 @@ ROM_START( decodemo )
 	ROM_LOAD16_BYTE( "decodemo.3",   0x40001, 0x10000, CRC(d7978eeb) SHA1(1adc95bebe9eea8c112d40cd04ab7a8d75c4f961) )
 
 	// The instruction [33C0 0030 C003] [move.w D0, $30C003.l] is considered illegal, we need to patch out all 3 occurrences
-	//ROM_FILL( 0x04ba, 1, 0x4e )
-	//ROM_FILL( 0x04bb, 1, 0x71 ) /* write a nop instruction [4e71] */
-	//ROM_COPY( "maincpu", 0x04ba, 0x04bc, 2 ) /* The faulty instruction is 6 bytes long, so we need 3 nops */
-	//ROM_COPY( "maincpu", 0x04ba, 0x04be, 2 )
-	//ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 ) /* copy the 3 nops to 0x4e8 */
-	//ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 ) /* and 0x96e */
+	ROM_FILL( 0x04ba, 1, 0x4e )
+	ROM_FILL( 0x04bb, 1, 0x71 ) /* write a nop instruction [4e71] */
+	ROM_COPY( "maincpu", 0x04ba, 0x04bc, 2 ) /* The faulty instruction is 6 bytes long, so we need 3 nops */
+	ROM_COPY( "maincpu", 0x04ba, 0x04be, 2 )
+	ROM_COPY( "maincpu", 0x04ba, 0x04e8, 6 ) /* copy the 3 nops to 0x4e8 */
+	ROM_COPY( "maincpu", 0x04ba, 0x096e, 6 ) /* and 0x96e */
 
 	// pf_control_0 was not being set. This sends 3 to 240000, and 0 to the rest.
 	ROM_FILL(0x1000, 0x80, 0)
