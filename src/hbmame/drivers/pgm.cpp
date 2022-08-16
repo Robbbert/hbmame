@@ -1,5 +1,44 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
+/*
+Local numbering scheme: I made this up as a convenience - it is NOT OFFICIAL
+
+
+Number    Date         Name
+---------------------------------------------------------------------------------------------------------------
+P101      1997         Dragon World 2
+P102      1997         Oriental Legend
+P103      1998         China Dragon 3
+P104      1998         China Dragon 3 EX
+P105      1998         The Killing Blade
+P106      1998         Oriental Legend Special
+P107      1999         Knights of Valour
+P108      1999         Knights of Valour Plus
+P109      1999         Knights of Valour Superheroes
+P110      1999         Photo Y2K
+P111      1999         Puzzle Star
+P112      1999         Puzzli 2
+P113      2000         Dragon World 3 Special
+P114      2000         Knights of Valour 2
+P115      2001         DoDonPachi 2
+P116      2001         Dragon World: Pretty Chance
+P117      2001         Dragon World 2001
+P118      2001         Knights of Valour 2 Plus: Nine Dragons
+P119      2001         Martial Masters
+P120      2001         Photo Y2K 2
+P121      2001         Puzzli 2 Super
+P122      2002         Demon Front
+P123      2002         DoDonPachi DaiOuJou
+P124      2002         DoDonPachi DaiOuJou Black Label
+P125      2003         Espgaluda
+P126      2003         The Gladiator
+P127      2003         Happy 6-in-1
+P128      2004         Knights of Valour Superheroes Plus
+P129      2004         Oriental Legend Special Plus
+P130      2004         Shiny 3-in-1
+P131      2005         The Killing Blade Plus
+P132      2005         Spectral vs Generation
+*/
 #include "../mame/drivers/pgm.cpp"
 /**************************************************************************************
 

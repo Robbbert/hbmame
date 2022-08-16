@@ -523,7 +523,7 @@ void pgm_state::pgmbase(machine_config &config)
 
 	ICS2115(config, m_ics, 33.8688_MHz_XTAL);
 	m_ics->irq().set_inputline("soundcpu", 0);
-	m_ics->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_ics->add_route(ALL_OUTPUTS, "mono", 2.0); // HBMAME - wind the volume up to 11
 }
 
 void pgm_state::pgm(machine_config &config)

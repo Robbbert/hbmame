@@ -3105,7 +3105,7 @@ ROM_END
 
 
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, cakefght1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, csw2,         crswd2bl, no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )

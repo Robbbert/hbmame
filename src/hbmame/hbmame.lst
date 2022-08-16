@@ -7181,38 +7181,37 @@ kovph3
 kovph4
 kovph5
 kovph6
-//kovph7      // Encrypted
+kovph7      // Encrypted
 kovph8
 kovph9
-//kovph10     // Encrypted
+kovph10     // Encrypted
 kovph12
 kovph13
 kovph14
 kovph15
-//kovph16     // Encrypted
+kovph16     // Encrypted
 kovph17
 kovph18
-//kovph19     // Encrypted
-//kovph20     // Encrypted
-//kovph21     // Encrypted
-//kovph22     // Encrypted
-//kovph23   // rom missing
+kovph19     // Encrypted
+kovph20     // Encrypted
+kovph21     // Encrypted
+kovph22     // Encrypted
+kovph23   // rom missing
 kovph24		// was kvplusjq
 kovph25		// was kovplusq
 kovsh1
 kovsh2
 kovsh3
-//kovsh5     // broken (causes emu to freeze)
-//kovsh6     // broken (causes emu to freeze)
-//kovsh7     // broken (causes emu to freeze)
-//kovsh8     // broken (causes emu to freeze)
-//kovsh9   // rom missing
-//kovsh10  // roms missing
+kovsh6     // broken (causes emu to freeze)
+kovsh7     // broken (causes emu to freeze)
+kovsh8     // broken (causes emu to freeze)
+kovsh9   // rom missing
+kovsh10  // roms missing
 kovsh11    // broken
-//kovsh12  // roms missing
-//kovsh13  // roms missing
-//kovsh14  // roms missing
-//kovsh17  // broken (causes emu to freeze)
+kovsh12  // roms missing
+kovsh13  // roms missing
+kovsh14  // roms missing
+kovsh17  // broken (causes emu to freeze)
 kovsh18			// gem fighters
 kovsh19			// rugal 98
 kov					//parent
@@ -7596,7 +7595,7 @@ kovpluss213
 kovpluss214
 kovpluss215
 kovpluss216   // Unstable game in the emulator(ingame crash)
-//kovpluss218    // Unstable game in the emulator(ingame crash)
+kovpluss218    // Unstable game in the emulator(ingame crash)
 kovpluss219
 kovpluss220
 kovpluss221
@@ -7605,7 +7604,7 @@ kovpluss223
 kovpluss224
 kovpluss225
 kovpluss226
-//kovpluss227   // Unstable game in the emulator(ingame crash)
+kovpluss227   // Unstable game in the emulator(ingame crash)
 kovpluss228
 kovpluss229
 kovpluss230
@@ -7615,8 +7614,8 @@ kovpluss233
 kovpluss234
 kovpluss235
 kovpluss236
-//kovpluss237    // Unstable game in the emulator(ingame crash)
-//kovpluss238    // Unstable game in the emulator(ingame crash)
+kovpluss237    // Unstable game in the emulator(ingame crash)
+kovpluss238    // Unstable game in the emulator(ingame crash)
 kovpluss239
 kovpluss240     // Unstable game in the emulator(ingame crash)
 kovpluss241
@@ -7860,12 +7859,12 @@ kovshs93
 kovshs94
 kovshs95
 kovshs96   // bad gfx
-//kovshs97   //  Unstable game in the emulator (ingame crash)
+kovshs97   //  Unstable game in the emulator (ingame crash)
 kovshs98
-//kovshs99    //  Unstable game in the emulator (ingame crash)
-//kovshs100   //  Unstable game in the emulator (ingame crash)
-//kovshs101   //  Unstable game in the emulator (ingame crash)
-//kovshs102   //  Unstable game in the emulator (ingame crash) 
+kovshs99    //  Unstable game in the emulator (ingame crash)
+kovshs100   //  Unstable game in the emulator (ingame crash)
+kovshs101   //  Unstable game in the emulator (ingame crash)
+kovshs102   //  Unstable game in the emulator (ingame crash) 
 kovshs103
 kovshs104
 kovshs105    // bad gfx
@@ -7911,11 +7910,11 @@ kovsho19
 kovsho20
 kovsho21
 kovsho22
-//kovsho23 //  Unstable game in the emulator (ingame crash)
-//kovsho24 //  Unstable game in the emulator (ingame crash)
-//kovsho25 //  Unstable game in the emulator (ingame crash)
-//kovsho26 //  Unstable game in the emulator (ingame crash)
-//kovsho27 //  Unstable game in the emulator (ingame crash)
+kovsho23 //  Unstable game in the emulator (ingame crash)
+kovsho24 //  Unstable game in the emulator (ingame crash)
+kovsho25 //  Unstable game in the emulator (ingame crash)
+kovsho26 //  Unstable game in the emulator (ingame crash)
+kovsho27 //  Unstable game in the emulator (ingame crash)
 kovsho28
 kovsho29
 kovsho30
@@ -8375,9 +8374,9 @@ orlegendcs76
 orlegendcs77
 orlegendcs78
 orlegendcs79
-//orlegendcs80   //  Unstable game in the emulator (ingame crash)
-//orlegendcs81   //  Unstable game in the emulator (ingame crash)
-//orlegendcs82   //  Unstable game in the emulator (ingame crash)
+orlegendcs80   //  Unstable game in the emulator (ingame crash)
+orlegendcs81   //  Unstable game in the emulator (ingame crash)
+orlegendcs82   //  Unstable game in the emulator (ingame crash)
 orlegendcs83
 orlegendcs84
 orlegendcs85

@@ -15,7 +15,8 @@
 class ics2115_device : public device_t, public device_sound_interface, public device_memory_interface
 {
 public:
-	static constexpr feature_type imperfect_features() { return feature::SOUND; } // Incorrect/Unverified interrupt, interpolation;
+	// HBMAME - get rid of annoying message, the sound is good enough
+	//static constexpr feature_type imperfect_features() { return feature::SOUND; } // Incorrect/Unverified interrupt, interpolation;
 	// current ramping behavior is seems like incorrect?
 
 	// construction/destruction
