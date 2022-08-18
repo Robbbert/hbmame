@@ -7169,36 +7169,14 @@ orlegend	//parent
 orlegendcs
 olds100a    //parent
 kovassg
-kovsgqyzc	// similar to kovsgqyza
 kov2h1
 kov2h2
 kov2h3
 kov2h4
 kov2h5		// was kov2psv
-kovph1
-kovph2
-kovph3
-kovph4
-kovph5
-kovph6
-kovph7      // Encrypted
-kovph8
-kovph9
-kovph10     // Encrypted
-kovph12
-kovph13
-kovph14
-kovph15
-kovph16     // Encrypted
 kovph17
 kovph18
-kovph19     // Encrypted
-kovph20     // Encrypted
-kovph21     // Encrypted
-kovph22     // Encrypted
-kovph23   // rom missing
 kovph24		// was kvplusjq
-kovph25		// was kovplusq
 kovsh1
 kovsh2
 kovsh3
@@ -7368,390 +7346,72 @@ kov2h27
 kov2h28
 kov2h29
 kov2h30
-kovpluss01
-kovpluss02  // Unstable game in the emulator (ingame crash)
-kovpluss03
-kovpluss04  // bad gfx on credit/char-select screens
-kovpluss05
-kovpluss06
-kovpluss07
-kovpluss08   // Unstable game in the emulator (ingame crash)
-kovpluss09
-kovpluss10   // Unstable game in the emulator (ingame crash)
-kovpluss11   // Unstable game in the emulator (ingame crash)
-kovpluss12
-kovpluss13
-kovpluss14
-kovpluss15
-kovpluss16
-kovpluss17   // Unstable game in the emulator (ingame crash)
-kovpluss18
-kovpluss19
-kovpluss20
-kovpluss21
-kovpluss22   // Unstable game in the emulator (ingame crash)
-kovpluss23   // Unstable game in the emulator (ingame crash)
-kovpluss24
-kovpluss25
-kovpluss26
-kovpluss27
-kovpluss28
-kovpluss29
-kovpluss30   // bad gfx
-kovpluss31   // bad gfx
-kovpluss32
-kovpluss33
-kovpluss34
 kovpluss35
-kovpluss36
-kovpluss37
-kovpluss38  // Unstable game in the emulator (ingame crash)
-kovpluss39
-kovpluss40
 kovpluss41
 kovpluss42
-kovpluss43
-kovpluss44
 kovpluss45
-kovpluss46
-kovpluss47
-kovpluss48
-kovpluss49
-kovpluss50
-kovpluss51
-kovpluss52
-kovpluss53
-kovpluss54
 kovpluss55
-kovpluss56
-kovpluss57
-kovpluss58
-kovpluss59
-kovpluss60
-kovpluss61
-kovpluss62
-kovpluss63
-kovpluss64
-kovpluss65
-kovpluss66
-kovpluss67
-kovpluss68  // Unstable game in the emulator (ingame crash)
-kovpluss69  // Unstable game in the emulator (ingame crash)
-kovpluss70  // Unstable game in the emulator (ingame crash)
-kovpluss71  // Unstable game in the emulator (ingame crash)
-kovpluss72
-kovpluss73   // bad gfx
-kovpluss74
 kovpluss75
-kovpluss76  // bad gfx on credit screen
-kovpluss77  // Unstable game in the emulator (ingame crash)
-kovpluss78  // causes emu to freeze
-kovpluss79
-kovpluss80
-kovpluss81
-kovpluss82
-kovpluss83
-kovpluss84
-kovpluss85
-kovpluss86
-kovpluss87
-kovpluss88
-kovpluss89
-kovpluss90
-kovpluss91
-kovpluss92
-kovpluss93
-kovpluss94
-kovpluss95
 kovpluss96
-kovpluss97
-kovpluss98
-kovpluss99
-kovpluss100
-kovpluss101
-kovpluss102
-kovpluss103
-kovpluss104
-kovpluss105
-kovpluss106
-kovpluss107
 kovpluss108
-kovpluss109
-kovpluss110
-kovpluss111  // Unstable game in the emulator (ingame crash)
-kovpluss112
-kovpluss113
-kovpluss114
 kovpluss115
-kovpluss116
-kovpluss117
-kovpluss118
-kovpluss119
-kovpluss120
-kovpluss121
-kovpluss122
-kovpluss123
-kovpluss124
-kovpluss125
-kovpluss126
-kovpluss127
-kovpluss128
-kovpluss129
-kovpluss130
-kovpluss131
-kovpluss132
-kovpluss133
-kovpluss134
-kovpluss135
-kovpluss136
-kovpluss137
-kovpluss138
-kovpluss139
-kovpluss140
-kovpluss141
-kovpluss142
 kovpluss143
 kovpluss144
 kovpluss145
 kovpluss146
 kovpluss147
-kovpluss148
-kovpluss149
-kovpluss150
-kovpluss151
-kovpluss152
-kovpluss153
-kovpluss154
 kovpluss155   // bad gfx
-kovpluss156
-kovpluss157
-kovpluss158
-kovpluss159
-kovpluss160
-kovpluss161
 kovpluss162
-kovpluss163
 kovpluss164
-kovpluss165
-kovpluss166
 kovpluss167
-kovpluss168
 kovpluss169
 kovpluss170
-kovpluss171
 kovpluss172
-kovpluss173
-kovpluss174
-kovpluss175
-kovpluss176
-kovpluss177
-kovpluss178  // Unstable game in the emulator(ingame crash)
-kovpluss179
-kovpluss180
-kovpluss181
 kovpluss182
-kovpluss184
-kovpluss185
-kovpluss186
 kovpluss187
 kovpluss188
-kovpluss189  // causes emu to freeze
-kovpluss190 
 kovpluss191
-kovpluss192
-kovpluss193
-kovpluss194
-kovpluss195
-kovpluss196
-kovpluss197
-kovpluss198
-kovpluss199
-kovpluss200
-kovpluss201
-kovpluss202
 kovpluss203
-kovpluss204
-kovpluss205  // bad gfx
-kovpluss206  // Unstable game in the emulator(ingame crash)
 kovpluss207
-kovpluss208
-kovpluss209  // very bad gfx
-kovpluss210  // Unstable game in the emulator (causes emu to freeze)
-kovpluss211
-kovpluss212
-kovpluss213
-kovpluss214
-kovpluss215
-kovpluss216   // Unstable game in the emulator(ingame crash)
-kovpluss218    // Unstable game in the emulator(ingame crash)
-kovpluss219
-kovpluss220
-kovpluss221
-kovpluss222
-kovpluss223
-kovpluss224
-kovpluss225
 kovpluss226
-kovpluss227   // Unstable game in the emulator(ingame crash)
-kovpluss228
-kovpluss229
-kovpluss230
-kovpluss231
-kovpluss232
-kovpluss233
-kovpluss234
-kovpluss235
-kovpluss236
-kovpluss237    // Unstable game in the emulator(ingame crash)
-kovpluss238    // Unstable game in the emulator(ingame crash)
-kovpluss239
-kovpluss240     // Unstable game in the emulator(ingame crash)
-kovpluss241
-kovpluss242
-kovpluss243
-kovpluss244  // goes berserk
-kovpluss245
-kovpluss246
-kovpluss247   // bad gfx
-kovpluss248  // bad gfx on char select screen
-kovpluss249     // Unstable game in the emulator(ingame crash)
-kovpluss250
 kovpluss251
-kovpluss252
-kovpluss253   // bad gfx, no high scores
-kovpluss254
-kovpluss255
-kovpluss256
-kovpluss257
 kovpluss258
 kovpluss259
-kovpluss260  // Unstable game in the emulator(ingame crash)
-kovpluss261  // Unstable game in the emulator(ingame crash)
-kovpluss262  // Unstable game in the emulator(ingame crash)
-kovpluss263
-kovpluss264
-kovpluss265
-kovpluss266  // Unstable game in the emulator(ingame crash)
-kovpluss267
-kovpluss268
 kovpluss269
 kovpluss270
-kovpluss271
-kovpluss272
-kovpluss273
-kovpluss274
 kovpluss275
 kovpluss276
-kovpluss277
-kovpluss278
-kovpluss279  // Unstable game in the emulator(ingame crash)
 kovpluss280
 kovpluss281
 kovpluss282
-kovpluss283
-kovpluss284   // Unstable game in the emulator(ingame crash)
-kovpluss285
-kovpluss286
-kovpluss287
-kovpluss288
 kovpluss289
 kovpluss290
 kovpluss291
-kovpluss292
-kovpluss293
-kovpluss294
 kovpluss295
 kovpluss296
 kovpluss297
-kovpluss298
-kovpluss299
-kovpluss300
-kovpluss301
-kovpluss302
-kovpluss303
-kovpluss304
-kovpluss305
-kovpluss306
-kovpluss307
-kovpluss308
 kovpluss309
 kovpluss310
 kovpluss311
-kovpluss312
-kovpluss313
-kovpluss314
-kovpluss315
-kovpluss316
-kovpluss317
-kovpluss318  // Freeze during intro
-kovpluss319
-kovpluss320
 kovpluss321
-kovpluss322
-kovpluss323
-kovpluss324
-kovpluss325
-kovpluss326
-kovpluss327
-kovpluss328
-kovpluss329
-kovpluss331
 kovpluss332
 kovpluss333
-kovpluss334
-kovpluss335
 kovpluss336
-kovpluss337
-kovpluss338
 kovpluss339
 kovpluss340
 kovpluss341
-kovpluss342
-kovpluss343
 kovpluss344
-kovpluss345
-kovpluss346
 kovpluss347
-kovpluss348
-kovpluss349
-kovpluss350
-kovpluss351
 kovpluss352
-kovpluss353
 kovpluss354
-kovpluss355
 kovpluss356
 kovpluss357
-kovpluss358
-kovpluss359 // kovsho124
-kovpluss360 // kovsho127
-kovpluss361 //
-kovpluss362
-kovpluss363
-kovpluss364
 kovpluss365
-kovpluss366
-kovpluss367
-kovpluss368
-kovpluss369
-kovpluss370
 kovpluss371
-kovpluss372
-kovpluss373
 kovpluss374
-kovpluss375
-kovpluss376
 kovpluss377
 kovpluss378
-kovpluss379
-kovpluss380
-kovpluss381
-kovpluss382
 kovpluss383
-kovpluss384
-kovpluss385
-kovpluss386
-kovplusas01
 kovshs01
 kovshs02
 kovshs03
@@ -7874,7 +7534,6 @@ kovshs120
 kovshs121
 kovshs122
 kovshs123
-kovsgqyzs01
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
