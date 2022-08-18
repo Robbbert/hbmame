@@ -7149,14 +7149,27 @@ alpacap7                               // Jerronimo, Alpaca v0.7 (Pengo Hardware
 alpacap8                               // Jerronimo, Alpaca v0.8 (Pengo Hardware) useless
 
 @source:pgm.cpp
-pgm			//required bios
+// PARENTS
+pgm
 ket
+killbld
 kovplus
-kovsh
+kov
+kov2
 kov2p
+kovsh
+kovshp
+olds
+olds100a
+oldsplus
+orlegend
+martmast
+theglad
+// HOMEBREW
 pgemeni		/* HB Blastar */
 pgmdemo		/* HB Charles Doty */
 pgmfrog		/* HB Rastersoft */
+// HACKS
 ketarr		// trap15 hack
 ketarrb		// trap15 hack
 ketarr10	// trap15 hack
@@ -7165,47 +7178,21 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-orlegend	//parent
-orlegendcs
-olds100a    //parent
-kovassg
-kov2h1
-kov2h2
-kov2h3
-kov2h4
-kov2h5		// was kov2psv
-kovph17
-kovph18
-kovph24		// was kvplusjq
-kovsh1
-kovsh2
-kovsh3
-kovsh6     // broken (causes emu to freeze)
-kovsh7     // broken (causes emu to freeze)
-kovsh8     // broken (causes emu to freeze)
-kovsh9   // rom missing
-kovsh10  // roms missing
-kovsh11    // broken
-kovsh12  // roms missing
-kovsh13  // roms missing
-kovsh14  // roms missing
-kovsh17  // broken (causes emu to freeze)
-kovsh18			// gem fighters
-kovsh19			// rugal 98
-kov					//parent
-kov2				//parent
-killbld				//parent
-kovshp				//parent
-oldsplus			//parent
-olds				//parent
-martmast			//parent
-theglad				//parent
 killbld104s01
 killblds01
 killblds02
 killblds03
 killblds04
 killblds05
+kov2h1
+kov2h2
+kov2h3
+kov2h4
+kov2h5		// was kov2psv
+kovassg
+kovph17
+kovph18
+kovph24		// was kvplusjq
 kov115s01
 kov115s02
 kov115s03
@@ -7412,128 +7399,65 @@ kovpluss374
 kovpluss377
 kovpluss378
 kovpluss383
-kovshs01
-kovshs02
-kovshs03
+kovsh2
+kovsh3
+kovsh10
+kovsh11
+kovsh18
+kovsh19
 kovshs04
-kovshs05
 kovshs06
-kovshs07
-kovshs08
-kovshs09
-kovshs10
-kovshs11
-kovshs12
-kovshs13
-kovshs15
-kovshs16
 kovshs17
-kovshs18   //  Unstable game in the emulator (ingame crash)
-kovshs19
-kovshs20
-kovshs21
 kovshs22
 kovshs23   // bad gfx
-kovshs24   //  Unstable game in the emulator (ingame crash)
 kovshs25
-kovshs26
-kovshs27
 kovshs28
-kovshs29
-kovshs30
 kovshs31
 kovshs32
 kovshs33
 kovshs34
 kovshs35
 kovshs36
-kovshs37
 kovshs38
 kovshs39
 kovshs40
 kovshs41
-kovshs42
 kovshs43
 kovshs44
-kovshs45
-kovshs46
 kovshs47
 kovshs48
-kovshs49
 kovshs50
-kovshs51   //  Unstable game in the emulator (ingame crash)
 kovshs52
 kovshs53
-kovshs54
-kovshs55
-kovshs56
 kovshs57
-kovshs58
-kovshs59
-kovshs60
 kovshs61
-kovshs62
-kovshs63
 kovshs64
 kovshs65   // bad gfx
-kovshs66
 kovshs67
 kovshs68
-kovshs69
-kovshs70   //  Unstable game in the emulator (ingame crash)
-kovshs71   //  Unstable game in the emulator (ingame crash)
 kovshs72
 kovshs73
-kovshs74
 kovshs75
 kovshs76
-kovshs77
 kovshs78
-kovshs79
 kovshs80
-kovshs81
 kovshs82
 kovshs83
-kovshs84
 kovshs85
 kovshs86
-kovshs87
 kovshs88
-kovshs89
 kovshs90
 kovshs91
-kovshs92   // bad gfx
 kovshs93
-kovshs94
-kovshs95
-kovshs96   // bad gfx
-kovshs97   //  Unstable game in the emulator (ingame crash)
-kovshs98
-kovshs99    //  Unstable game in the emulator (ingame crash)
-kovshs100   //  Unstable game in the emulator (ingame crash)
-kovshs101   //  Unstable game in the emulator (ingame crash)
-kovshs102   //  Unstable game in the emulator (ingame crash) 
-kovshs103
-kovshs104
-kovshs105    // bad gfx
-kovshs106
-kovshs107   //  Unstable game in the emulator (ingame crash) 
 kovshs108
 kovshs109
 kovshs110
-kovshs111
 kovshs112
-kovshs113
 kovshs114
 kovshs115
-kovshs116
-kovshs117
-kovshs118
 kovshs119
-kovshs120
 kovshs121
 kovshs122
-kovshs123
 kovqhsgs01
 kovqhsgs02
 kovqhsgs03
@@ -7935,6 +7859,7 @@ oldsplus24
 oldsplus25
 oldsplus26
 oldsplus27
+orlegendcs
 orlegends01
 orlegends02 //  Illegal instruction
 orlegends03
