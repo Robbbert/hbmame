@@ -17324,35 +17324,6 @@ ROM_START( oldsplus16 ) //oldsplusp
 	ROM_LOAD( "igs_w05301b032.u5",   0x400000, 0x400000, CRC(86ec83bc) SHA1(067cb7ec449eacd1f49298f45a364368934db5dd) )
 ROM_END
 
-ROM_START( oldsplus17 ) //oldsplushmf
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p05301_pw17.rom",   0x100000, 0x400000, CRC(c2e70cae) SHA1(a676917846504fbdac6970021faa730a59c95d27) )
-
-	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "oldsplus_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
-
-	ROM_REGION( 0x800000, "user1", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "igs_t05301w064.u2",   0x180000, 0x800000, CRC(8257bbb0) SHA1(b48067b7e7081a15fddf21739b641d677c2df3d9) )
-
-	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
-	ROM_LOAD( "igs_a05301w064.u3",   0x0000000, 0x0800000, CRC(57946fd2) SHA1(5d79bc71a1881f3099821a9b255a5f271e0eeff6) )
-	ROM_LOAD( "a05302_pw17.rom",   0x0800000, 0x0800000, CRC(65acdbf7) SHA1(008346d963e67e858d91a9cd1206e125e2eddec6) )
-	ROM_LOAD( "igs_a05303w064.u6",   0x1000000, 0x0800000, CRC(13475d85) SHA1(4683a3bf304fdc15ffb1c61b7957ad68b023fa33) )
-	ROM_LOAD( "a05304_pw17.rom",   0x1800000, 0x0800000, CRC(b92e10a4) SHA1(f6e323187a46ff72dbba0618b0abd1b05208ba1a) )
-
-	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "b05301_pw17.rom",   0x0000000, 0x0800000, CRC(7aedd210) SHA1(f974d4800d61dcdf779b52c190384ec3c6ef12e5) )
-	ROM_LOAD( "b05302_pw17.rom",   0x0800000, 0x0800000, CRC(059d9ad8) SHA1(9375a9c71fdde23eabd302c116b4e50a766d9d27) )
-
-	ROM_REGION( 0x800000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "m05301_pw17.rom",   0x400000, 0x400000, CRC(61a1413c) SHA1(f5a739226dfb95005543aa6cf7132b6fec3d8b43) )
-ROM_END
-
 ROM_START( oldsplus18 ) //oldsplusp
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
@@ -17498,35 +17469,6 @@ ROM_START( oldsplus22 ) //oldsplusnr
 	ROM_LOAD( "igs_w05301b032.u5",   0x400000, 0x400000, CRC(86ec83bc) SHA1(067cb7ec449eacd1f49298f45a364368934db5dd) )
 ROM_END
 
-ROM_START( oldsplus23 ) //oldsplushm
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p05301_pw23.rom",   0x100000, 0x400000, CRC(b5720c80) SHA1(a0c0ac8bd3ddd1b2e270cde1242ef119c7881d7a) )
-
-	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "oldsplus_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
-
-	ROM_REGION( 0x800000, "user1", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "igs_t05301w064.u2",   0x180000, 0x800000, CRC(8257bbb0) SHA1(b48067b7e7081a15fddf21739b641d677c2df3d9) )
-
-	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
-	ROM_LOAD( "igs_a05301w064.u3",   0x0000000, 0x0800000, CRC(57946fd2) SHA1(5d79bc71a1881f3099821a9b255a5f271e0eeff6) )
-	ROM_LOAD( "a05302_pw17.rom",   0x0800000, 0x0800000, CRC(65acdbf7) SHA1(008346d963e67e858d91a9cd1206e125e2eddec6) )
-	ROM_LOAD( "igs_a05303w064.u6",   0x1000000, 0x0800000, CRC(13475d85) SHA1(4683a3bf304fdc15ffb1c61b7957ad68b023fa33) )
-	ROM_LOAD( "a05304_pw17.rom",   0x1800000, 0x0800000, CRC(b92e10a4) SHA1(f6e323187a46ff72dbba0618b0abd1b05208ba1a) )
-
-	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "b05301_pw17.rom",   0x0000000, 0x0800000, CRC(7aedd210) SHA1(f974d4800d61dcdf779b52c190384ec3c6ef12e5) )
-	ROM_LOAD( "b05302_pw17.rom",   0x0800000, 0x0800000, CRC(059d9ad8) SHA1(9375a9c71fdde23eabd302c116b4e50a766d9d27) )
-
-	ROM_REGION( 0x800000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "m05301_pw17.rom",   0x400000, 0x400000, CRC(61a1413c) SHA1(f5a739226dfb95005543aa6cf7132b6fec3d8b43) )
-ROM_END
-
 ROM_START( oldsplus24 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
@@ -17554,35 +17496,6 @@ ROM_START( oldsplus24 )
 	ROM_REGION( 0x800000, "ics", 0 )
 	PGM_AUDIO_BIOS
 	ROM_LOAD( "igs_w05301b032.u5",   0x400000, 0x400000, CRC(86ec83bc) SHA1(067cb7ec449eacd1f49298f45a364368934db5dd) )
-ROM_END
-
-ROM_START( oldsplus25 ) //oldsplushm
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "p05301_pw25.rom",   0x100000, 0x400000, CRC(488b20f5) SHA1(7e1e1cbc5e062bf3bce59d13f6a579cddc6cd4ef) )
-
-	ROM_REGION( 0x4000, "prot", 0 )
-	ROM_LOAD( "oldsplus_igs027a.bin", 0x000000, 0x04000, NO_DUMP )
-
-	ROM_REGION( 0x800000, "user1", ROMREGION_ERASE00 )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "igs_t05301w064.u2",   0x180000, 0x800000, CRC(8257bbb0) SHA1(b48067b7e7081a15fddf21739b641d677c2df3d9) )
-
-	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
-	ROM_LOAD( "igs_a05301w064.u3",   0x0000000, 0x0800000, CRC(57946fd2) SHA1(5d79bc71a1881f3099821a9b255a5f271e0eeff6) )
-	ROM_LOAD( "a05302_pw17.rom",   0x0800000, 0x0800000, CRC(65acdbf7) SHA1(008346d963e67e858d91a9cd1206e125e2eddec6) )
-	ROM_LOAD( "igs_a05303w064.u6",   0x1000000, 0x0800000, CRC(13475d85) SHA1(4683a3bf304fdc15ffb1c61b7957ad68b023fa33) )
-	ROM_LOAD( "a05304_pw17.rom",   0x1800000, 0x0800000, CRC(b92e10a4) SHA1(f6e323187a46ff72dbba0618b0abd1b05208ba1a) )
-
-	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "b05301_pw17.rom",   0x0000000, 0x0800000, CRC(7aedd210) SHA1(f974d4800d61dcdf779b52c190384ec3c6ef12e5) )
-	ROM_LOAD( "b05302_pw17.rom",   0x0800000, 0x0800000, CRC(059d9ad8) SHA1(9375a9c71fdde23eabd302c116b4e50a766d9d27) )
-
-	ROM_REGION( 0x800000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "m05301_pw17.rom",   0x400000, 0x400000, CRC(61a1413c) SHA1(f5a739226dfb95005543aa6cf7132b6fec3d8b43) )
 ROM_END
 
 ROM_START( oldsplus26 ) //oldsplusnew
@@ -21400,15 +21313,12 @@ GAME( 2004, oldsplus13,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1
 GAME( 2017, oldsplus14,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (2016 Flender Dance Simplify More 2017-01-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, oldsplus15,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Qun Mo Luan Wu Fu Mo Edition 2017-02-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, oldsplus16,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Group Devil Dance 2017 Enhanced Edition Plus 2017-01-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, oldsplus17,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Yellow Hat Version 2018-08-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, oldsplus18,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Combo Plus 2019-07-16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, oldsplus19,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208 2019-12-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, oldsplus20,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (One-Key Gorgeous Edition A Legendary Edition 2019-01-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, oldsplus21,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Simplify Edition 2011-06-16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, oldsplus22,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208 2019-02-06)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, oldsplus23,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Mustapha Cairo 2019-01-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, oldsplus24,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208 2020-03-09)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, oldsplus25,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Yellow Hat Version 2020-03-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, oldsplus26,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (New Group Of Dances V215 2020-06-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, oldsplus27,   oldsplus,  pgm_arm_type1_sim,  oldsplus, pgm_arm_type1_state, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208 2020-06-09)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Plus
