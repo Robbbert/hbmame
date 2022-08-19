@@ -7188,11 +7188,10 @@ kov2h1
 kov2h2
 kov2h3
 kov2h4
-kov2h5		// was kov2psv
-kovassg
+kov2h5
 kovph17
 kovph18
-kovph24		// was kvplusjq
+kovph24
 kov115s01
 kov115s02
 kov115s03
@@ -7481,11 +7480,6 @@ kovsho19
 kovsho20
 kovsho21
 kovsho22
-kovsho23 //  Unstable game in the emulator (ingame crash)
-kovsho24 //  Unstable game in the emulator (ingame crash)
-kovsho25 //  Unstable game in the emulator (ingame crash)
-kovsho26 //  Unstable game in the emulator (ingame crash)
-kovsho27 //  Unstable game in the emulator (ingame crash)
 kovsho28
 kovsho29
 kovsho30
@@ -7530,14 +7524,11 @@ kovsho69
 kovsho70
 kovsho71
 kovsho72
-kovsho73
 kovsho74
 kovsho75
 kovsho76
-kovsho77
 kovsho78
 kovsho79
-kovsho80  // Illegal Intruction
 kovsho81
 kovsho82
 kovsho83
@@ -7546,28 +7537,15 @@ kovsho86
 kovsho85
 kovsho87
 kovsho88
-kovsho89
-kovsho90
 kovsho91
-kovsho92
 kovsho93
 kovsho94
 kovsho95
-kovsho96
-kovsho97
 kovsho98
-kovsho99
-kovsho100
 kovsho101
 kovsho102
-kovsho103
 kovsho104
-kovsho105
-kovsho106 //Illegal Intruction
-kovsho107
-kovsho108
 kovsho109
-kovsho110
 kovsho111
 kovsho112
 kovsho113
@@ -7576,7 +7554,6 @@ kovsho115
 kovsho116
 kovsho117
 kovsho118
-kovsho119
 kovsho120
 kovsho121
 kovsho122
@@ -7591,41 +7568,25 @@ kovsho132
 kovsho133
 kovsho134
 kovsho135
-kovsho136 // Illegal instruction before intro
 kovsho137 // Boot bios 1
 kovsho138 // Boot bios 1
-kovsho139 // Illegal instruction before intro
 kovsho140
 kovsho141
 kovsho142
-kovsho143 // Illegal instruction before intro
 kovsho144
-kovsho145
 kovsho146 // Boot bios 1
-kovsho147
 kovsho148
 kovsho149
-kovsho150
-kovsho151
 kovsho152
 kovsho153
-kovsho154
 kovsho155
 kovsho156
 kovsho157
-kovsho158 // Freezes during attract mode
 kovsho159
-kovsho160 // Resource Error, Bad gfx
-kovsho161 // Hardware 27 Error, Bad gfx
 kovsho162
 kovsho163
 kovsho164
 kovsho165
-kovsho166
-kovsho167
-kovsho168 // Path Command Error, Bad gfx
-kovsho169 // Hardware 27 Error, Bad gfx
-kovsho170 // Hardware 27 Error, Bad gfx
 kovsho171
 kovsho172
 kovsho173
@@ -7634,9 +7595,7 @@ kovsho175
 kovsho176
 kovsho177
 kovsho178
-kovsho179
 kovsho180
-kovsho181
 kovsho182
 kovsho183
 kovsho184
