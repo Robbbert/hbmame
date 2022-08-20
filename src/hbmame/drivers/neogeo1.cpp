@@ -1472,6 +1472,25 @@ ROM_START( magdrop3fr )
 	ROM_LOAD16_BYTE( "233.c4", 0x800001, 0x400000, CRC(70dbbd6d) SHA1(32dd6a04c6329e89f4878e7a56f0d172a6388eea) )
 ROM_END
 
+ROM_START( magdrop3te )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "233te.p1", 0x000000, 0x100000, CRC(e2068d05) SHA1(5fc577e80c548dc5665e5e598f2634c165fbc871) )
+
+	NEO_SFIX_128K( "233.s1", CRC(7399e68a) SHA1(b535ee56a0f0995f04674e676f6aa636ffad26aa) )
+
+	NEO_BIOS_AUDIO_128K( "233.m1", CRC(5beaf34e) SHA1(2905d26945932cddc2dd3a1dc5abba8aa3baee14) )
+
+	ROM_REGION( 0x480000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "233.v1", 0x000000, 0x400000, CRC(58839298) SHA1(18cae7bba997c52780761cbf119c4e4b34397a61) )
+	ROM_LOAD( "233.v2", 0x400000, 0x080000, CRC(d5e30df4) SHA1(bbbc0ff5b975471bd682f85976ac4a93f6d44f2e) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "233.c1", 0x000000, 0x400000, CRC(65e3f4c4) SHA1(a6deb75d802225327f8f1c2733a7f2b47e722e59) )
+	ROM_LOAD16_BYTE( "233.c2", 0x000001, 0x400000, CRC(35dea6c9) SHA1(ea133bf947f950236f49d0ae0d1a9af3bc1a9a50) )
+	ROM_LOAD16_BYTE( "233.c3", 0x800000, 0x400000, CRC(0ba2c502) SHA1(8e0f1e553aef04758aaaa14d5115f0ecace4391e) )
+	ROM_LOAD16_BYTE( "233.c4", 0x800001, 0x400000, CRC(70dbbd6d) SHA1(32dd6a04c6329e89f4878e7a56f0d172a6388eea) )
+ROM_END
+
 
 ROM_START( miexchngfr )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -3056,7 +3075,8 @@ GAME( 2004, lans2k4d,      shocktr2, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1990, lbowlingcd,    lbowling, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "League Bowling (CD to MVS Conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, lresortpx,     lresort,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Last Resort (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2004, magdrop3fr,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Magical Drop III (Translation French 2014-07-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, magdrop3fr,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Magical Drop III (Translation French, 2014-07-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, magdrop3te,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "bankbank", "Magical Drop III (Tournament Edition, 2022-08-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, maglordpx,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Magician Lord (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2003, matrima,       matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrima,   ROT0, "Noise Factory / Atlus Corporation", "Matrimelee (Bootleg/Fixed)", MACHINE_SUPPORTS_SAVE )

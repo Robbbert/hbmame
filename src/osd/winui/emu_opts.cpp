@@ -209,8 +209,6 @@ static void SaveSettingsFile(windows_options &opts, const char *filename)
 		string inistring = opts.output_ini();
 		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
 		file->puts(inistring.c_str());
-		fflush(nullptr);
-		file->~core_file();
 		file.reset();
 	}
 }
@@ -448,9 +446,7 @@ static void SaveSettingsFile(ui_options &opts, const char *filename)
 	{
 		string inistring = opts.output_ini();
 		file->puts(inistring.c_str());
-		fflush(nullptr);
 		file.reset();
-		file->~core_file();
 	}
 }
 
