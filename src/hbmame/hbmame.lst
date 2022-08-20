@@ -7850,7 +7850,7 @@ theglads07
 theglads08
 
 @source:phoenix.cpp
-phoenix			//parent
+phoenix                                //parent
 phoenixg		// Vag @ GreekRoms
 phoenixr		// CYBERYOGI =CO= Windler hack of Phoenix
 
@@ -7870,7 +7870,7 @@ pc_dk			/* NES->PC-10 */
 pc_pacm			/* NES->PC-10 */
 pc_gyrus		/* NES->PC-10 */
 pc_skykd		/* NES->PC-10 */
-pc_smb      //parent
+pc_smb                                 //parent
 pc_smb_ps01
 pc_smb_ps02
 pc_smb_ps03
@@ -7945,7 +7945,7 @@ pc_smb_ps71
 pc_smb_ps72
 pc_smb_ps73
 pc_smb_ps74
-pc_smb2     //parent
+pc_smb2                                //parent
 pc_smb2_ps01
 pc_smb2_ps02
 pc_smb2_ps03
@@ -7954,7 +7954,7 @@ pc_smb2_ps05
 pc_smb2_ps06
 pc_smb2_ps07
 pc_smb2_ps08
-pc_smb3     //parent
+pc_smb3                                //parent
 pc_smb3_ps01
 pc_smb3_ps02
 pc_smb3_ps03
@@ -8287,7 +8287,7 @@ vpacshuf
 vpspeed
 xensad
 xensrev
-	/* Pacman hardware games (hires hacks) */
+// PACMAN HIRES HACKS
 puckmanx
 puckmnax
 puckmnfx
@@ -8426,7 +8426,7 @@ grdianss17
 grdianss18
 
 @source:sf.cpp
-//sf                                     //parent
+//sf                                   //parent
 //sfs01                                // freezes in attract mode
 
 @source:shadfrce.cpp
@@ -8458,83 +8458,83 @@ renju                                  //parent
 renjuk
 
 @source:snesb.cpp
-sblast2b				//parent
+sblast2b                               //parent
 sblast2bs01
 
 @source:snowbros.cpp
-snowbros				//parent
+snowbros                               //parent
 snowbross01
 snowbross02
 snowbross03
 snowbross04
 
 @source:solomon.cpp
-solomon					//parent
+solomon                                //parent
 solomonjs01
 
 @source:spacmiss.cpp
-spacmissx				// extra sounds
+spacmissx                              // extra sounds
 
 @source:ssv.cpp
-survarts				//parent
+survarts                               //parent
 survartss01
 
 @source:system1.cpp
-wbml					//parent
+wbml                                   //parent
 wbmlbit
 wbmlkb
 
 @source:system16.cpp
-sys16dem				// HB
+sys16dem                               // HB
 
 @source:stv.cpp
-stvbios					//bios
-gaxeduel				//parent
+stvbios                                //bios
+gaxeduel                               //parent
 gaxeduels01
-groovef					//parent
+groovef                                //parent
 groovefs01
-suikoenb				//parent
+suikoenb                               //parent
 suikoenbs01
 
 @source:taitosj.cpp
-alpine					//parent
+alpine                                 //parent
 alpines01
-frontlin				//parent
+frontlin                               //parent
 frontlins01
 
 @source:taito_b.cpp
-pbobble					//parent
+pbobble                                //parent
 bubbleb
-crimec					//parent
+crimec                                 //parent
 crimecb
 
 @source:taito_f2.cpp
-f2demo					// HB
-cameltry				//parent
+f2demo                                 // HB
+cameltry                               //parent
 cameltryjs01
-deadconx				//parent
+deadconx                               //parent
 deadconxjs01
-dondokod				//parent
+dondokod                               //parent
 dondokodjs01
-dinorex 				//parent
+dinorex                                //parent
 dinorexs01
-gunfront				//parent
+gunfront                               //parent
 gunfrontjs01
-megablst				//parent
+megablst                               //parent
 megablstjs01
-liquidk					//parent
+liquidk                                //parent
 mizubakus01
-growl					//parent
+growl                                  //parent
 runarks01
-thundfox				//parent
+thundfox                               //parent
 thundfoxjs01
 
 @source:taito_f3.cpp
-cleopatr				//parent
-dariusg					//parent
-gekiridn				//parent
-landmakr				//parent
-pbobble2				//parent
+cleopatr                               //parent
+dariusg                                //parent
+gekiridn                               //parent
+landmakr                               //parent
+pbobble2                               //parent
 pbobble3                               //parent
 pbobble3h01
 cleopath
@@ -8544,29 +8544,29 @@ gekiridh
 gekiridoc
 landmakh
 pbobl2xh
-spcinv95				//parent
+spcinv95                               //parent
 akkanvdrs01
-arabianm				//parent
+arabianm                               //parent
 arabianmjs01
-bublbob2				//parent
+bublbob2                               //parent
 bubsymphjs01
 cleopatrs01
-dankuga					//parent
+dankuga                                //parent
 dankugas01
 dankugas02
-elvactr					//parent
+elvactr                                //parent
 elvactrjs01
-gseeker					//parent
+gseeker                                //parent
 gseekerjs01
-kaiserkn				//parent
+kaiserkn                               //parent
 kaiserkns01
 kaiserkns02
 landmakrs01
-lightbr					//parent
+lightbr                                //parent
 lightbrjs01
 
 @source:taito_l.cpp
-evilston				//parent
+evilston                               //parent
 evilstonfr
 sokoban					// HB Sokoban LE by cmonkey
 speccies				// HB Speccies 2 by Sokurah
@@ -8575,9 +8575,9 @@ sqij15					// HB SQIJ v1.5 by Sokurah
 tldemo					// HB cmonkey
 tldemo2					// HB cmonkey
 evilstons01
-kurikint				//parent
+kurikint                               //parent
 kurikintjs01
-plotting				//parent
+plotting                               //parent
 plottingas01
 
 @source:taito_z.cpp
@@ -8585,42 +8585,42 @@ contcirc                               //parent
 contcircja
 
 @source:taotaido.cpp
-taotaido						
+taotaido                               //parent
 taotaidoas01
 
 @source:tecmo.cpp
-gemini					//parent
+gemini                                 //parent
 geminit
-rygar					//parent
+rygar                                  //parent
 rygark
 geminis01
 rygarjs01
 rygars01
-silkworm				//parent
+silkworm                               //parent
 silkworms01
 
 @source:tecmo16.cpp
-fstarfrc				//parent
+fstarfrc                               //parent
 fstarfrcc
 
 @source:tecmosys.cpp
-deroon					//parent
-deroons01 // deroona
-tkdensho				//parent
+deroon                                 //parent
+deroons01
+tkdensho                               //parent
 tkdenshos01
 tkdenshos02
 tkdenshos03
 tkdenshos04
 
 @source:tehkanwc.cpp
-tehkanwc				//parent
+tehkanwc                               //parent
 ballonwc
 tehkangc
 tankwc
 twc_gr
 
 @source:tempest.cpp
-tempest					//parent
+tempest                                //parent
 tempall
 temped		/* Tempest TempEd Hack */
 tempm
@@ -8638,85 +8638,85 @@ aliensv		/* Tempest Prototype */
 aliensva	/* Tempest Prototype */
 
 @source:terracre.cpp
-terracre				//parent
+terracre                               //parent
 terracrc
 
 @source:timelimit.cpp
-timelimt		//parent
+timelimt                               //parent
 timelimit		// dink colour hack
 
 @source:timeplt.cpp
-timeplt				// parent
+timeplt                                //parent
 timepltdiag
 
 @source:tmnt.cpp
-ssriders	//parent
+ssriders                               //parent
 ssridersaex
 ssriderseaas01
 ssriderseaas02
-tmnt2	    //parent
+tmnt2                                  //parent
 tmnt2s01
 tmnt2s02
 tmnt2s03
 
 @source:tnzs.cpp
-drtoppel    		// parent
+drtoppel                               //parent
 drtoppels01
-insectx				// parent
+insectx                                //parent
 insectxs01
 
 @source:toaplan1.cpp
-fireshrk	//parent
+fireshrk                               //parent
 samesamenh	// Trap15
 
 @source:toaplan2.cpp
-kingdmgp	//parent
+kingdmgp                               //parent
 kgpe		/* Neill Corlett hack */
-sstriker	//parent
+sstriker                               //parent
 mahoudcn
 mahoudais01
-batsugun	//parent
+batsugun                               //parent
 batsugunt
-bgaregga	//parent
+bgaregga                               //parent
 bgareggz
-snowbro2    //parent
+snowbro2                               //parent
 snowbro2s01
 snowbro2s02
-pipibibs    //parent
+pipibibs                               //parent
 pipibibss01
 pipibibss02
-truxton2    //parent
+truxton2                               //parent
 truxton2nv
 
 @source:trackfld.cpp
-trackfld	//parent
+trackfld                               //parent
 athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
 tst_trkfld
 
 @source:twincobr.cpp
-twincobr	//parent
+twincobr                               //parent
 twincbu2
 twintwst
 
 @source:vamphalf.cpp
-aoh				//parent
+aoh                                    //parent
 aohs01
 aohs02
 
 @source:volfied.cpp
-volfied		//parent
+volfied                                //parent
 volfiedg	/* Vag @ GreekRoms 2005 */
 
 @source:vsnes.cpp
-suprmrio	//parent
+suprmrio                               //parent
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
-drmario					//parent
+drmario                                //parent
 drmarios01
 frombelow
 
 @source:vsystem.cpp
-karatblz			//parent
+karatblz                               //parent
 karatblzas01
 karatblzas02
 
@@ -8725,23 +8725,23 @@ sagaiav2
 
 @source:wc90.cpp
 pac90
-twcup90	    //parent
+twcup90                                //parent
 twcup90s01
 twcup90s02
 
 @source:williams.cpp
-defender	//parent
+defender                               //parent
 defender2
-robotron	//parent
+robotron                               //parent
 robotron201	// start at level 201 (Sean Riddle)
 robotronp	/* Patched to remove the (in the corner) crash */
 robotrontie	// Tie Die set (Vid Kidz)
-splat		//parent
+splat                                  //parent
 splatsc1
 conquest
 
 @source:wiz.cpp
-stinger				//parent
+stinger                                //parent
 stingers01
 stinger2s01
 
@@ -8749,24 +8749,24 @@ stinger2s01
 wmg
 
 @source:yiear.cpp
-yiear		//parent
-nacho		/* Gatinho - Nacho Libre */
+yiear                                  //parent
+nacho
 
 @source:zn.cpp
 coh1000c
 coh1002m
 coh1000w
 coh3002c
-doapp		//parent
+doapp                                  //parent
 doapph01
 doappnud
 primrag2
-sfex 		//parent
+sfex                                   //parent
 sfexs01
-sfex2 		//parent
+sfex2                                  //parent
 sfex2s01
-sfex2p		//parent
+sfex2p                                 //parent
 sfex2ps01
-sfexp 		//parent
+sfexp                                  //parent
 sfexps01
 
