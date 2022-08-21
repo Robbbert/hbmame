@@ -654,4 +654,4 @@ ROM_START( nbajamre1_1 )
 ROM_END
 
 GAME( 1994, nbajamtexxx, nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Midway",  "NBA Jam TE (rev XXX)",     MACHINE_SUPPORTS_SAVE )
-GAME( 1994, nbajamre1_1, nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "ponlork", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, nbajamre1_1, nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "ponlork", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
