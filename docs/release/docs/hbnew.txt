@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [magdrop3te]          Magical Drop 3 (Tournament Edition, 2022-08-19)
+- [nbajamre]            NBA Jam Rewind (rev 1.1)
 
 
 
