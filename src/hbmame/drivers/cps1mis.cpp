@@ -13038,6 +13038,42 @@ ROM_START( ffightj1s01 ) //ffight1v2
 ROM_END
 
 /********************
+ Forgotten Worlds
+**********************/
+ROM_START( forgottnsf2 ) // forgottnua converted for sf2 board
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c01sf2.p1",  0x00000, 0x80000, CRC(987ac84e) SHA1(f720c26eab8e1ba0ae09754defa9f32d3be2a87b) )
+	ROM_LOAD16_WORD_SWAP( "c01.p5",     0x80000, 0x80000, CRC(fd252a26) SHA1(5cfb097984912a5167a8c7ec4c2e119b642f9970) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c01ue.c01", 0x000000, 0x80000, CRC(0318f298) SHA1(178ffd6da7bf845e30abf1bfc38a469cd319a73f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01.c03",   0x000002, 0x80000, CRC(25a8e43c) SHA1(d57cee1fc508db2677e84882fb814e4d9ad20543) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01a.c05",  0x000004, 0x80000, CRC(e4552fd7) SHA1(11147afc475904848458425661473586dd6f60cc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01ue.c07", 0x000006, 0x80000, CRC(8e6a832b) SHA1(d63a1331fda2365f090fa31950098f321a720ea8) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01.c17",   0x200000, 0x80000, CRC(43e6c5c8) SHA1(d3e6c971de0477ec4e178adc82508208dd8b397f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01ue.c19", 0x200002, 0x80000, CRC(899cb4ad) SHA1(95e61af338945e690f2a82746feba3871ea224eb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01.c21",   0x200004, 0x80000, CRC(5b9edffc) SHA1(6fd8f4a3ab070733b52365ab1945bf86acb2bf62) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01u.c23",  0x200006, 0x80000, CRC(8e058ef5) SHA1(00f2c0050fd106276ea5398511c5861ebfbc0d10) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x200000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c01.m1",     0x00000, 0x08000, CRC(59df2a63) SHA1(dfe1fffc7a17179a80a2ae623e93b30a7d6df20d) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c01.v1",     0x00000, 0x20000, CRC(807d051f) SHA1(720e4733787b9b11f4d1cdce0892b69475802844) )
+	ROM_LOAD( "c01.v2",     0x20000, 0x20000, CRC(e6cd098e) SHA1(667f6e5736f76a1c4c450c4e2035574ea89d7910) )
+
+	ROM_REGION( 0x400, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "fw_pal_1a.jed", 0x000000, 0x000219, CRC(857b9dae) SHA1(3015aee4be968fcffc2e1218db97a1d3a6bf6b50) ) // not used
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "forgottn.key", 0x00, 0x80, CRC(ec5025a0) SHA1(21ac00fbfca9ae369e99469ee372fea0a5bbdb25) )
+ROM_END
+
+/********************
  The King of Dragons
 **********************/
 
@@ -27570,6 +27606,8 @@ GAME( 2016, ffightj2s02,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 GAME( 2020, ffightj2s03,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition 2020-05-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ffightj2s04,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition 2020-06-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ffightj1s01,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (1VS2 Enhanced Version 2017-11-26)", MACHINE_SUPPORTS_SAVE )
+// Forgotten Worlds
+GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "hack", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
 GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_SUPPORTS_SAVE )
