@@ -225,8 +225,8 @@ NUM GAME YEAR COMPANY                 TITLE
 642 7777 2017 Cristiano Bei           Bad Apple demo
 642 BADA 2017 Cristiano Bei           Bad Apple demo (badappleb)
 650*     2012 RKGAMES                 Neo-sprite demo (CD only)
-651*     2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
-652*     2011 Furrtek                 VUmeter (CD only) [nebula]
+651*1234 2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
+652*0000 2011 Furrtek                 VUmeter (CD only) [nebula]
 653 0052 2011 Furrtek                 Nyan Cat demo
 657 0052      Furrtek                 MVSTest01
 658 0052      Furrtek                 KnackiBalls
@@ -240,14 +240,15 @@ NUM GAME YEAR COMPANY                 TITLE
 678 7777 2016 Mega Shocked            Demo
 679*     2016 Luis Miguel Mayor       Tech Demo #1 (Street Fighter 2)
 680 7777 2016 Luis Miguel Mayor       Tech Demo #2
-681      2018 Vasily Familiya         Operation I.G.L.A. demo
+681 7777 2018 Vasily Familiya         Operation I.G.L.A. demo
 682 7777 2018 Vasily Familiya         Team Lernit
 683 7777 2018 Vasily Familiya         Everlasting Summer: Samantha
 684 7777 2018 Vasily Familiya         Vlad2000
-685      2018 Vasily Familiya         Raroggame
+685 7777 2018 Vasily Familiya         Raroggame
 687 7777 2018 Vasily Familiya         Double Dragon SpritePool Demo
 688 7777 2018 Vasily Familiya         Shaman King demo
-689      2019 Vasily Familiya         Venus Wars demo
+689 7777 2019 Vasily Familiya         Venus Wars demo
+690 7777 2020 Vasily Familiya         Girl X Girl demo
 699 07E1 2021 Blastar                 Neo Driftout Tech Demo
 
 
@@ -3084,6 +3085,22 @@ ROM_START( venuswars )
 ROM_END
 
 
+// 690 : Girl X Girl Demo by Vasily Familiya
+ROM_START( gxg )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "690.p1", 0x000000, 0x027a7e, CRC(caf04493) SHA1(6b97dfd861e05762e31c3496bbc18d014ff3d98f) )
+
+	NEO_SFIX_128K( "690.s1", CRC(b386f0e0) SHA1(113dd36cb710403b58b9eb860b7abc9f04ef5348) )
+
+	NEO_BIOS_AUDIO_64K( "690.m1", CRC(5bb91b91) SHA1(5a96d09808fe709a0bd07681c13a3be70e3fb685) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "690.v1", 0x000000, 0x800000, CRC(61f5a37f) SHA1(870d25530898c5de5f1f93e673fc9490f594d57c) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "690.c1", 0x000000, 0x086780, CRC(e0dbb8cc) SHA1(26963461716cc45cc2fab4fa820ae292ee82afb9) )
+ROM_END
+
 // 699: Neo Driftout Tech Demo
 // No sound.
 // Bugs: Can get stuck in position 00
@@ -3129,8 +3146,8 @@ GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, cabalng,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabalng1,     cabalng,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)(Homebrew)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)(Homebrew)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel, 2006-01-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel, 2018-09-05", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
@@ -3144,8 +3161,9 @@ GAME( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Girl X Girl demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
@@ -3156,7 +3174,7 @@ GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhopecdh,     lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta - 20050717)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
