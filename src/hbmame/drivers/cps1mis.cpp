@@ -4662,7 +4662,7 @@ ROM_START( cawingh01 )
 	ROM_LOAD( "c12.v1",    0x00000, 0x20000, CRC(4a613a2c) SHA1(06e10644fc60925b85d2ca0888c9fa057bfe996a) ) // 18.bin
 	ROM_LOAD( "c12.v2",    0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) ) // 19.bin
 
-	ROM_REGION( 0x400, "jed", ROMREGION_ERASEFF )
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
 	ROM_LOAD_OPTIONAL ( "caw_pal_1a.jed", 0x000000, 0x00031b, CRC(3fc2424c) SHA1(89313c0ee7e11e29d6f361175702c5a1bfdefa05) ) // not used
 
 	ROM_REGION( 0x80, "control", ROMREGION_ERASEFF )
@@ -4934,6 +4934,34 @@ ROM_START( daimakb )
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "daimakb.key", 0x00, 0x80, CRC(c72cad61) SHA1(9036e06c84ff9189a83acd50a703fb6560ce5e98) )
+ROM_END
+
+ROM_START( ghoulsf2 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c02sf2.p1", 0x00000, 0x80000, CRC(a633f99f) SHA1(2f176d390d62dd17c0ccc8df9f570193c1e3c085) )
+	ROM_LOAD16_WORD_SWAP( "c02jr.p5",  0x80000, 0x80000, CRC(595ff2f3) SHA1(ac14b81e15f2c340526a03acbb4c28181d94d5b9) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c02.c01",    0x000000, 0x80000, CRC(0ba9c0b0) SHA1(c4945b603115f32b7346d72426571dc2d361159f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02.c03",    0x000002, 0x80000, CRC(5d760ab9) SHA1(212176947933fcfef991bc80ad5bd91718689ffe) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02.c05",    0x000004, 0x80000, CRC(4ba90b59) SHA1(35bc9dec5ddbf064c30c951627581c16764456ac) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02.c07",    0x000006, 0x80000, CRC(4bdee9de) SHA1(7d0c4736f16577afe9966447a18f039728f6fbdf) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c17",  0x200000, 0x80000, CRC(971c8db2) SHA1(c2588445de119262085ab2d73099185163f739b0) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c19",  0x200002, 0x80000, CRC(ae78c052) SHA1(4aa79dcae147e474717293650e4cacabb2827bee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c21",  0x200004, 0x80000, CRC(1ec1b0cd) SHA1(bb8fd8ef3a6cdf430b32ef31e283c955ac800713) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c23",  0x200006, 0x80000, CRC(3dd921ab) SHA1(b06f1912f317856934591a3d48bd48d88c50f76b) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c02sf2.m1",    0x00000, 0x08000, CRC(d8ed184e) SHA1(c00ebe11bbd0beb701c5a022353e71128f75bb45) )
+	ROM_CONTINUE(            0x10000, 0x18000 )
+
+	ROM_REGION( 0x40000, "oki", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "gng_pal_1a.jed", 0x000000, 0x00054c, CRC(fdf78c70) SHA1(d2cda1377876c7942b457be4df20332ebe41a895) ) // not used
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "daimakair.key", 0x00, 0x80, CRC(8b8cdff4) SHA1(69e750171817d9507c8f86db8a79b25d8dae5001) )
 ROM_END
 
 /************************
@@ -13066,7 +13094,7 @@ ROM_START( forgottnsf2 ) // forgottnua converted for sf2 board
 	ROM_LOAD( "c01.v1",     0x00000, 0x20000, CRC(807d051f) SHA1(720e4733787b9b11f4d1cdce0892b69475802844) )
 	ROM_LOAD( "c01.v2",     0x20000, 0x20000, CRC(e6cd098e) SHA1(667f6e5736f76a1c4c450c4e2035574ea89d7910) )
 
-	ROM_REGION( 0x400, "jed", ROMREGION_ERASEFF )
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
 	ROM_LOAD_OPTIONAL ( "fw_pal_1a.jed", 0x000000, 0x000219, CRC(857b9dae) SHA1(3015aee4be968fcffc2e1218db97a1d3a6bf6b50) ) // not used
 
 	ROM_REGION( 0x80, "control", 0 )
@@ -27332,6 +27360,7 @@ GAME( 2012, cps1testma,    megaman,  cps1_12MHz, megaman,  cps_state, init_cps1,
 GAME( 2019, cps1xx,        cps1demo, cps1frog,   cps1frog, cps_state, init_cps1,     ROT0, "Wang", "Demo Wang xx", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 // Daimakaimura
 GAME( 1993, daimakb,       ghouls,   daimakb,    daimakai, cps_state, init_cps1,     ROT0, "bootleg", "Dai Makai-Mura (Japan, bootleg)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ghoulsf2,      ghouls,   cps1_12MHz, daimakai, cps_state, init_cps1,     ROT0, "Capcom", "Ghouls'n Ghosts (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 GAME( 2017, dinod01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Dinosaur Hunter (Challenge Edition 2017-11-16)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinoj01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs Kyouryuu-Shinseiki Plus (Double Edition 2010-03-10)", MACHINE_SUPPORTS_SAVE )
