@@ -11,6 +11,7 @@ New Games
 - [ghoulsf2]            Ghouls'n Ghosts (SF2 conversion)
 - [magdrop3te]          Magical Drop 3 (Tournament Edition, 2022-08-19)
 - [nbajamre]            NBA Jam Rewind (rev 1.1)
+- [striders04]          Strider (SF2 conversion)
 
 
 

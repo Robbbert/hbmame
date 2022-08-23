@@ -4663,7 +4663,7 @@ ROM_START( cawingh01 )
 	ROM_LOAD( "c12.v2",    0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) ) // 19.bin
 
 	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
-	ROM_LOAD_OPTIONAL ( "caw_pal_1a.jed", 0x000000, 0x00031b, CRC(3fc2424c) SHA1(89313c0ee7e11e29d6f361175702c5a1bfdefa05) ) // not used
+	ROM_LOAD_OPTIONAL ( "caw_pal_1a.jed", 0x0000, 0x031b, CRC(3fc2424c) SHA1(89313c0ee7e11e29d6f361175702c5a1bfdefa05) ) // not used
 
 	ROM_REGION( 0x80, "control", ROMREGION_ERASEFF )
 	ROM_LOAD( "cawingh01.key", 0x00, 0x80, CRC(65cbbc14) SHA1(39d4f6d7fdfa6e827b4219bee8993bcdc0b6a39b) ) // CPS_B_21_DEF, mapper_CA24B
@@ -4958,7 +4958,7 @@ ROM_START( ghoulsf2 )
 	ROM_REGION( 0x40000, "oki", ROMREGION_ERASEFF )
 
 	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
-	ROM_LOAD_OPTIONAL ( "gng_pal_1a.jed", 0x000000, 0x00054c, CRC(fdf78c70) SHA1(d2cda1377876c7942b457be4df20332ebe41a895) ) // not used
+	ROM_LOAD_OPTIONAL ( "gng_pal_1a.jed", 0x0000, 0x054c, CRC(fdf78c70) SHA1(d2cda1377876c7942b457be4df20332ebe41a895) ) // not used
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "daimakair.key", 0x00, 0x80, CRC(8b8cdff4) SHA1(69e750171817d9507c8f86db8a79b25d8dae5001) )
@@ -13095,7 +13095,7 @@ ROM_START( forgottnsf2 ) // forgottnua converted for sf2 board
 	ROM_LOAD( "c01.v2",     0x20000, 0x20000, CRC(e6cd098e) SHA1(667f6e5736f76a1c4c450c4e2035574ea89d7910) )
 
 	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
-	ROM_LOAD_OPTIONAL ( "fw_pal_1a.jed", 0x000000, 0x000219, CRC(857b9dae) SHA1(3015aee4be968fcffc2e1218db97a1d3a6bf6b50) ) // not used
+	ROM_LOAD_OPTIONAL ( "fw_pal_1a.jed", 0x0000, 0x0219, CRC(857b9dae) SHA1(3015aee4be968fcffc2e1218db97a1d3a6bf6b50) ) // not used
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "forgottn.key", 0x00, 0x80, CRC(ec5025a0) SHA1(21ac00fbfca9ae369e99469ee372fea0a5bbdb25) )
@@ -19546,6 +19546,39 @@ ROM_START( striders03 ) // stridergh
 	ROM_LOAD( "strider.key", 0x00, 0x80, CRC(39065af5) SHA1(ffff84fd87e851718c564062564970677da923c9) )
 ROM_END
 
+ROM_START( striders04)
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c03s04.p1",   0x00000, 0x80000, CRC(059d4c11) SHA1(95d4da2faf87f531acfe4b0aa7a8396940680698) )
+	ROM_LOAD16_WORD_SWAP( "c03.p5",   0x80000, 0x80000, CRC(9b3cfc08) SHA1(a7d7f270a097437affa845d80bed82a1fa874878) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c03.c01",   0x000000, 0x80000, CRC(4eee9aea) SHA1(5e619fd5f3f1181e32a8fd9dbb4661d74ff8a484) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c03",   0x000002, 0x80000, CRC(2d7f21e4) SHA1(593cec513de40ff802084d54313bb25a4561e25d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c05",   0x000004, 0x80000, CRC(7705aa46) SHA1(6cbfa30b2852fd117d117beefba434ce41d24c2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c07",   0x000006, 0x80000, CRC(5b18b722) SHA1(cf71c62348ca6b404279e87a6686cb3a842eb381) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c17",   0x200000, 0x80000, CRC(005f000b) SHA1(e6f65af7cc3295be9efaaded352e7ae6320b4133) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c19",   0x200002, 0x80000, CRC(b9441519) SHA1(bb0926dc484dae4f64c5e5a6bce20afdc7aeba55) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c21",   0x200004, 0x80000, CRC(b7d04e8b) SHA1(5c5a079baa694927c33d0e0c23e5ff09d6c9d985) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c23",   0x200006, 0x80000, CRC(6b4713b4) SHA1(759b8b1fc7a5c4b00d74a27c2dd11667db44b09e) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c03.m1",     0x00000, 0x08000, CRC(2ed403bc) SHA1(4ce863ea40d789db5a7cfce91d2c7c720deb9be5) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c03.v1",     0x00000, 0x20000, CRC(4386bc80) SHA1(fb2b261995aeacfa13e7ee40b1a973dfb178f015) )
+	ROM_LOAD( "c03.v2",     0x20000, 0x20000, CRC(444536d7) SHA1(a14f5de2f6b5b29ae5161dca1f8c08c566301a91) )
+
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "sth63b.jed", 0x0000, 0x054c, CRC(f5bb1f31) SHA1(71a5d85f8f7e0b318467650622d557ca08a6758b) ) // not used
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "strider.key", 0x00, 0x80, CRC(39065af5) SHA1(ffff84fd87e851718c564062564970677da923c9) )
+ROM_END
+
 /********************
  Street Fighter Zero
 **********************/
@@ -19553,8 +19586,8 @@ ROM_END
 ROM_START( sfzchs02 )
 	ROM_REGION( CODE_SIZE, "maincpu",0 )
 	ROM_LOAD16_WORD_SWAP( "c59chs02.p1",    0x000000, 0x80000, CRC(9e5cd362) SHA1(cd1cf39e8e37038edc790e82bcd0dace90e406d1))
-	ROM_LOAD16_WORD_SWAP( "c59zb.p2",         0x080000, 0x80000, CRC(8d9b2480) SHA1(405305c1572908d00eab735f28676fbbadb4fac6))
-	ROM_LOAD16_WORD_SWAP( "c59ch.p3",        0x100000, 0x80000, CRC(5435225d) SHA1(6b1156fd82d0710e244ede39faaae0847c598376))
+	ROM_LOAD16_WORD_SWAP( "c59zb.p2",       0x080000, 0x80000, CRC(8d9b2480) SHA1(405305c1572908d00eab735f28676fbbadb4fac6))
+	ROM_LOAD16_WORD_SWAP( "c59ch.p3",       0x100000, 0x80000, CRC(5435225d) SHA1(6b1156fd82d0710e244ede39faaae0847c598376))
 	ROM_LOAD16_WORD_SWAP( "c59.p4",         0x180000, 0x80000, CRC(806e8f38) SHA1(b6d6912aa8f2f590335d7ff9a8214648e7131ebb))
 
 	ROM_REGION( 0x800000, "gfx", 0 )
@@ -27360,7 +27393,7 @@ GAME( 2012, cps1testma,    megaman,  cps1_12MHz, megaman,  cps_state, init_cps1,
 GAME( 2019, cps1xx,        cps1demo, cps1frog,   cps1frog, cps_state, init_cps1,     ROT0, "Wang", "Demo Wang xx", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 // Daimakaimura
 GAME( 1993, daimakb,       ghouls,   daimakb,    daimakai, cps_state, init_cps1,     ROT0, "bootleg", "Dai Makai-Mura (Japan, bootleg)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, ghoulsf2,      ghouls,   cps1_12MHz, daimakai, cps_state, init_cps1,     ROT0, "Capcom", "Ghouls'n Ghosts (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ghoulsf2,      ghouls,   cps1_12MHz, daimakai, cps_state, init_cps1,     ROT0, "Arcadefixer", "Ghouls'n Ghosts (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 GAME( 2017, dinod01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Dinosaur Hunter (Challenge Edition 2017-11-16)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinoj01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs Kyouryuu-Shinseiki Plus (Double Edition 2010-03-10)", MACHINE_SUPPORTS_SAVE )
@@ -27636,7 +27669,7 @@ GAME( 2020, ffightj2s03,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 GAME( 2020, ffightj2s04,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition 2020-06-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ffightj1s01,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (1VS2 Enhanced Version 2017-11-26)", MACHINE_SUPPORTS_SAVE )
 // Forgotten Worlds
-GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "hack", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
 GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_SUPPORTS_SAVE )
@@ -27844,6 +27877,7 @@ GAME( 1994, slammasts06,   slammast, qsound,     slammast, cps_state, init_slamm
 GAME( 1989, striders01,    strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "Niwatori", "Strider (Fixed Music In Later Stages)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, striders02,    strider,  cps1_10MHz, stridrua, cps_state, init_cps1,     ROT0, "Willkaotix", "Strider (Gfx fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, striders03,    strider,  cps1_10MHz, stridrua, cps_state, init_cps1,     ROT0, "Willkaotix", "Strider (Gfx fix, uncensored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, striders04,    strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "Arcadefixer", "Strider (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero
 GAME( 2007, sfzchs02,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "pipi899[EZ]", "Street Fighter Zero (Move Hack 2007-02-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs03,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Asia 950925)", MACHINE_SUPPORTS_SAVE )
