@@ -38,9 +38,9 @@ enum class voodoo_model : u8
 };
 
 // debug
-static constexpr bool DEBUG_DEPTH = false;		// ENTER key to view depthbuf
-static constexpr bool DEBUG_BACKBUF = false;	// L key to view backbuf
-static constexpr bool DEBUG_STATS = false;		// \ key to view stats
+static constexpr bool DEBUG_DEPTH = false;      // ENTER key to view depthbuf
+static constexpr bool DEBUG_BACKBUF = false;    // L key to view backbuf
+static constexpr bool DEBUG_STATS = false;      // \ key to view stats
 
 // logging
 static constexpr bool LOG_VBLANK_SWAP = false;
@@ -589,8 +589,8 @@ protected:
 
 	// VBLANK timing
 	void adjust_vblank_start_timer();
-	virtual void vblank_start(void *ptr, s32 param);
-	virtual void vblank_stop(void *ptr, s32 param);
+	virtual void vblank_start(s32 param);
+	virtual void vblank_stop(s32 param);
 	void swap_buffers();
 	virtual void rotate_buffers();
 
@@ -614,7 +614,7 @@ protected:
 	void clear_pending_operation() { m_operation_end = attotime::zero; }
 	void check_stalled_cpu(attotime current_time);
 	void stall_cpu(stall_state state);
-	void stall_resume_callback(void *ptr, s32 param);
+	void stall_resume_callback(s32 param);
 
 	// misc helpers
 	u32 chipmask_from_offset(u32 offset)

@@ -28,22 +28,6 @@ TIMER_CALLBACK_MEMBER(sorcerer_state::serial_tc)
 }
 
 
-void sorcerer_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	switch (id)
-	{
-	case TIMER_SERIAL:
-		serial_tc(ptr, param);
-		break;
-	case TIMER_CASSETTE:
-		cassette_tc(ptr, param);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in sorcerer_state::device_timer");
-	}
-}
-
-
 /* timer to read cassette waveforms */
 
 TIMER_CALLBACK_MEMBER(sorcerer_state::cassette_tc)
@@ -437,8 +421,8 @@ u8 sorcerer_state::portfe_r()
 // ************ MACHINE **************
 void sorcerer_state::machine_start_common(offs_t endmem)
 {
-	m_cassette_timer = timer_alloc(TIMER_CASSETTE);
-	m_serial_timer = timer_alloc(TIMER_SERIAL);
+	m_cassette_timer = timer_alloc(FUNC(sorcerer_state::cassette_tc), this);
+	m_serial_timer = timer_alloc(FUNC(sorcerer_state::serial_tc), this);
 
 	m_halt = false;
 
@@ -498,20 +482,22 @@ void sorcerer_state::machine_reset_common()
 	portfe_w(0);
 
 	space.install_rom(0x0000, 0x0fff, m_rom);   // do it here for F3
-	m_rom_shadow_tap = space.install_read_tap(0xe000, 0xefff, "rom_shadow_r",[this](offs_t offset, u8 &data, u8 mem_mask)
-	{
-		if (!machine().side_effects_disabled())
-		{
-			// delete this tap
-			m_rom_shadow_tap->remove();
+	m_rom_shadow_tap.remove();
+	m_rom_shadow_tap = space.install_read_tap(
+			0xe000, 0xefff,
+			"rom_shadow_r",
+			[this] (offs_t offset, u8 &data, u8 mem_mask)
+			{
+				if (!machine().side_effects_disabled())
+				{
+					// delete this tap
+					m_rom_shadow_tap.remove();
 
-			// reinstall ram over the rom shadow
-			m_maincpu->space(AS_PROGRAM).install_ram(0x0000, 0x0fff, m_ram->pointer());
-		}
-
-		// return the original data
-		return data;
-	});
+					// reinstall RAM over the ROM shadow
+					m_maincpu->space(AS_PROGRAM).install_ram(0x0000, 0x0fff, m_ram->pointer());
+				}
+			},
+			&m_rom_shadow_tap);
 }
 
 void sorcerer_state::machine_reset()
@@ -600,7 +586,7 @@ QUICKLOAD_LOAD_MEMBER(sorcerer_state::quickload_cb)
 		// check size
 		if (image.length() != 0x1001c)
 		{
-			image.seterror(IMAGE_ERROR_INVALIDIMAGE, "Snapshot must be 65564 bytes");
+			image.seterror(image_error::INVALIDIMAGE, "Snapshot must be 65564 bytes");
 			image.message("Snapshot must be 65564 bytes");
 			return image_init_result::FAIL;
 		}
@@ -655,7 +641,7 @@ QUICKLOAD_LOAD_MEMBER(sorcerer_state::quickload_cb)
 			m_maincpu->set_state_int(Z80_IFF2, header[19]&4 ? 1 : 0);
 			m_maincpu->set_state_int(Z80_R, header[20]);
 			m_maincpu->set_state_int(Z80_AF, header[21] | (header[22] << 8));
-			m_maincpu->set_state_int(STATE_GENSP, header[23] | (header[24] << 8));
+			m_maincpu->set_state_int(Z80_SP, header[23] | (header[24] << 8));
 			m_maincpu->set_state_int(Z80_IM, header[25]);
 			m_maincpu->set_pc(header[26] | (header[27] << 8));
 		}

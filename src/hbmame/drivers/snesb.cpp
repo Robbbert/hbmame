@@ -2,22 +2,18 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/snesb.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*****************
+/*******************
  Sonic Blast Man 2
 ********************/
 
 ROM_START( sblast2bs01 )
 	ROM_REGION( 0x180000, "user3", ROMREGION_ERASEFF )
 
+	// not used
 	ROM_REGION(0x100, "sound_ipl", 0)
 	ROM_LOAD("spc700.rom", 0, 0x40, CRC(44bb3a40) SHA1(97e352553e94242ae823547cd853eecda55c20f0) )
 
+	// not used
 	ROM_REGION(0x800, "user6", ROMREGION_ERASEFF)
 
 	ROM_REGION( 0x180000, "user7", 0 )
@@ -28,5 +24,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Sonic Blast Man 2
-GAME( 1997, sblast2bs01,      sblast2b,  kinstb,        sblast2b, snesb_state, init_sblast2b, ROT0, "RockyWall",  "Sonic Blast Man 2 Special Turbo (Level Sequence Repair)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS)
-// broken in 214-215 cycle
+GAME( 1997, sblast2bs01, sblast2b, sblast2b, sblast2b, snesb_state, init_sblast2b, ROT0, "RockyWall",  "Sonic Blast Man 2 Special Turbo (Level Sequence Repair)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS)
+

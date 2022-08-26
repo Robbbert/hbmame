@@ -16,7 +16,9 @@
 
 #include "emu.h"
 #include "avgdvg.h"
+
 #include "screen.h"
+
 
 /*************************************
  *
@@ -653,9 +655,14 @@ int avg_device::handler_7() // avg_strobe3
 
 	if (!OP0() && !OP2())
 	{
+		int x = m_xpos;
+		int y = m_ypos;
+
+		apply_flipping(x, y);
+
 		vg_add_point_buf(
-				m_xpos,
-				m_ypos,
+				x,
+				y,
 				vector_device::color111(m_color),
 				(((m_int_latch >> 1) == 1) ? m_intensity : m_int_latch & 0xe) << 4);
 	}
@@ -738,6 +745,7 @@ void avg_tempest_device::vggo() // tempest_vggo
 int avg_mhavoc_device::handler_1() //  mhavoc_latch1
 {
 	// Major Havoc just has ymin clipping
+
 	if (!m_lst)
 		vg_add_clip(0, m_ypos, m_xmax << 16, m_ymax << 16);
 	m_lst = 1;
@@ -757,6 +765,7 @@ int avg_mhavoc_device::handler_6() // mhavoc_strobe2
 		else
 		{
 			m_color = m_dvy & 0xf;
+
 			m_intensity = (m_dvy >> 4) & 0xf;
 			m_map = (m_dvy >> 8) & 0x3;
 
@@ -822,9 +831,8 @@ int avg_mhavoc_device::handler_7()  // mhavoc_strobe3
 
 				int x = m_xpos;
 				int y = m_ypos;
-
 				apply_flipping(x, y);
-		
+
 				vg_add_point_buf(
 						x,
 						y,
@@ -849,10 +857,9 @@ int avg_mhavoc_device::handler_7()  // mhavoc_strobe3
 			const u8 r = bit3 * 0xcb + bit2 * 0x34;
 			const u8 g = bit1 * 0xcb;
 			const u8 b = bit0 * 0xcb;
-			
+
 			int x = m_xpos;
 			int y = m_ypos;
-
 			apply_flipping(x, y);
 
 			vg_add_point_buf(
@@ -1301,8 +1308,8 @@ void avgdvg_device_base::device_start()
 	if (!m_vector->started())
 		throw device_missing_dependencies();
 
-	m_vg_halt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(avgdvg_device_base::vg_set_halt_callback), this));
-	m_vg_run_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(avgdvg_device_base::run_state_machine), this));
+	m_vg_halt_timer = timer_alloc(FUNC(avgdvg_device_base::vg_set_halt_callback), this);
+	m_vg_run_timer = timer_alloc(FUNC(avgdvg_device_base::run_state_machine), this);
 
 	m_flip_x = m_flip_y = false;
 

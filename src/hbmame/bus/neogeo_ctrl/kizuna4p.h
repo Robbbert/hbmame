@@ -49,7 +49,7 @@ private:
 	required_ioport m_joy4;
 	required_ioport m_ss1;
 	required_ioport m_ss2;
-	uint8_t m_ctrl_sel;
+	uint8_t m_ctrl_sel = 0U;
 };
 
 

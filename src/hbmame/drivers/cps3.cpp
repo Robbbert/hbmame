@@ -20,7 +20,7 @@ private:
 	DECLARE_MACHINE_RESET(redeartn);
 	TIMER_CALLBACK_MEMBER(fastboot_timer_callback);
 	void hb_unscramble();
-	emu_timer* m_fastboot_timer;
+	emu_timer* m_fastboot_timer = nullptr;
 };
 
 TIMER_CALLBACK_MEMBER(cps3_hbmame::fastboot_timer_callback)
@@ -1257,12 +1257,6 @@ GAME( 2009, sfiii3ng,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3
 GAME( 2009, sfiii3np,  sfiii3nc,   sfiii3,   cps3,      cps3_hbmame, init_sfiii3n,   ROT0, "Pipi899", "Street Fighter III 3rd Strike: Fight for the Future (Get maximum power on a valid attack or being attacked 2009-07-14)", 0 )
 GAME( 2013, sfiii4rd,  sfiii3nc,   sfiii3,   cps3,      cps3_state,  init_sfiii3,    ROT0, "hack",   "Street Fighter III 3rd Strike: 4rd Arrange Edition", 0 )
 
-
-//PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
 
  /************************
  JoJo's Bizarre Adventure
@@ -3412,5 +3406,4 @@ GAMEL(1997, sfiii2nc,      0,    sfiii2,   cps3,      cps3_state, init_sfiii2,  
 GAME( 1999, sfiii3nc,      0,    sfiii3,   cps3,      cps3_state, init_sfiii3,   ROT0, "Capcom", "Street Fighter III 3rd Strike: Fight for the Future (Japan 990608, NO CD)", 0 )
 GAME( 1999, jojobanc,      0,    jojoba,   cps3_jojo, cps3_state, init_jojoba,   ROT0, "Capcom", "JoJo no Kimyou na Bouken: Mirai e no Isan (Japan 990927, NO CD)", 0 )
 GAME( 1998, jojonc,        0,    jojo,     cps3_jojo, cps3_state, init_jojo,     ROT0, "Capcom", "JoJo's Venture (Asia 990128, NO CD)", 0 )
-
 

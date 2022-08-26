@@ -21,8 +21,8 @@ class neosprite_device : public device_t
 {
 public:
 	neosprite_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
-	uint8_t      m_fixed_layer_bank_type;
-	uint8_t      m_fixed_layer_source;
+	uint8_t      m_fixed_layer_bank_type = 0U;
+	uint8_t      m_fixed_layer_source = 0U;
 	uint16_t     get_videoram_data(  );
 	uint16_t     get_videoram_modulo(  );
 	uint8_t      neogeo_get_auto_animation_counter(  );
@@ -50,22 +50,22 @@ private:
 	virtual void optimize_sprite_data();
 	virtual void draw_pixel(int romaddr, uint32_t* dst, const pen_t *line_pens);
 
-	std::unique_ptr<uint16_t[]>     m_videoram;
-	std::vector<uint8_t> m_sprite_gfx;
+	std::unique_ptr<uint16_t[]>     m_videoram{};
+	std::vector<uint8_t> m_sprite_gfx{};
 
-	uint16_t     *m_videoram_drawsource;
-	uint16_t     m_vram_offset;
-	uint16_t     m_vram_read_buffer;
-	uint16_t     m_vram_modulo;
+	uint16_t     *m_videoram_drawsource = nullptr;
+	uint16_t     m_vram_offset = 0U;
+	uint16_t     m_vram_read_buffer = 0U;
+	uint16_t     m_vram_modulo = 0U;
 	const uint8_t *m_region_zoomy;
-	uint32_t     m_sprite_gfx_address_mask;
-	uint8_t      m_auto_animation_speed;
-	uint8_t      m_auto_animation_disabled;
-	uint8_t      m_auto_animation_counter;
-	uint8_t      m_auto_animation_frame_counter;
+	uint32_t     m_sprite_gfx_address_mask = 0U;
+	uint8_t      m_auto_animation_speed = 0U;
+	uint8_t      m_auto_animation_disabled = 0U;
+	uint8_t      m_auto_animation_counter = 0U;
+	uint8_t      m_auto_animation_frame_counter = 0U;
 
-	emu_timer  *m_auto_animation_timer;
-	emu_timer  *m_sprite_line_timer;
+	emu_timer  *m_auto_animation_timer = nullptr;
+	emu_timer  *m_sprite_line_timer = nullptr;
 
 	TIMER_CALLBACK_MEMBER(auto_animation_timer_callback);
 	TIMER_CALLBACK_MEMBER(sprite_line_timer_callback);
@@ -74,14 +74,14 @@ private:
 
 	virtual void device_start() override;
 	virtual void device_reset() override;
-	uint8_t* m_region_sprites;
-	uint32_t m_region_sprites_size;
-	uint8_t* m_region_fixed;
-	uint32_t m_region_fixed_size;
+	uint8_t* m_region_sprites = nullptr;
+	uint32_t m_region_sprites_size = 0U;
+	uint8_t* m_region_fixed = nullptr;
+	uint32_t m_region_fixed_size = 0;
 	memory_region* m_region_fixedbios;
 	screen_device* m_screen;
 	const pen_t   *m_pens;
-	uint8_t* m_spritegfx8;
+	uint8_t* m_spritegfx8 = nullptr;
 };
 
 DECLARE_DEVICE_TYPE(NEOGEO_SPRITE, neosprite_device)

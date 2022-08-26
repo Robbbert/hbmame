@@ -423,7 +423,7 @@ uint8_t towns_state::towns_video_440_r(offs_t offset)
 				ret |= 0x80;
 			}
 			ret |= (m_video.towns_sprite_flag ? 0x02 : 0x00);  // Sprite drawing flag
-			ret |= (m_video.towns_sprite_page & 0x01) ? 1 : 0;;
+			ret |= m_video.towns_sprite_page & 0x01;
 			return ret;
 		case 0x10:
 			return m_video.towns_sprite_sel;
@@ -977,7 +977,7 @@ void towns_state::render_sprite_16(uint32_t poffset, uint16_t x, uint16_t y, boo
 	}
 }
 
-void towns_state::draw_sprites()
+TIMER_CALLBACK_MEMBER(towns_state::draw_sprites)
 {
 	uint16_t sprite_limit = (m_video.towns_sprite_reg[0] | (m_video.towns_sprite_reg[1] << 8)) & 0x3ff;
 	uint16_t xoff = (m_video.towns_sprite_reg[2] | (m_video.towns_sprite_reg[3] << 8)) & 0x1ff;
@@ -1358,6 +1358,7 @@ void towns_state::towns_crtc_draw_layer(bitmap_rgb32 &bitmap,const rectangle* re
 
 void towns_state::render_text_char(uint8_t x, uint8_t y, uint8_t ascii, uint16_t jis, uint8_t attr)
 {
+#if 0
 	uint32_t rom_addr;
 	uint32_t vram_addr;
 	uint16_t linesize = m_video.towns_crtc_reg[24] * 4;
@@ -1422,12 +1423,13 @@ void towns_state::render_text_char(uint8_t x, uint8_t y, uint8_t ascii, uint16_t
 				temp |= ((colour & 0x0f) << 4);
 			if(data & (1<<(b+1)))
 				temp |= (colour & 0x0f);
-			//m_towns_gfxvram[0x40000+vram_addr+(b/2)] = temp;
+			m_towns_gfxvram[0x40000+vram_addr+(b/2)] = temp;
 		}
 
 		vram_addr += linesize;
 		vram_addr &= 0x3ffff;
 	}
+#endif
 }
 
 void towns_state::draw_text_layer()
@@ -1481,7 +1483,7 @@ INTERRUPT_GEN_MEMBER(towns_state::towns_vsync_irq)
 	m_pic_slave->ir3_w(1);  // IRQ11 = VSync
 	if(IRQ_LOG) logerror("PIC: IRQ11 (VSync) set high\n");
 	m_video.towns_vblank_flag = 1;
-	machine().scheduler().timer_set(m_screen->time_until_vblank_end(), timer_expired_delegate(FUNC(towns_state::towns_vblank_end),this), 0, (void*)m_pic_slave);
+	m_video.vblank_end_timer->adjust(m_screen->time_until_vblank_end());
 	if(m_video.towns_tvram_enable)
 		draw_text_layer();
 	if((m_video.towns_sprite_reg[1] & 0x80) && !m_video.towns_sprite_flag)
@@ -1504,7 +1506,8 @@ void towns_state::video_start()
 {
 	m_video.towns_vram_wplane = 0x00;
 	m_video.towns_sprite_page = 0;
-	m_video.sprite_timer = timer_alloc(TIMER_SPRITES);
+	m_video.sprite_timer = timer_alloc(FUNC(towns_state::draw_sprites), this);
+	m_video.vblank_end_timer = timer_alloc(FUNC(towns_state::towns_vblank_end), this);
 }
 
 uint32_t towns_state::screen_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)

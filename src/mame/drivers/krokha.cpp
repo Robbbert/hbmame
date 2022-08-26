@@ -28,6 +28,7 @@
 
 #include "cpu/i8085/i8085.h"
 #include "sound/spkrdev.h"
+
 #include "emupal.h"
 #include "screen.h"
 #include "speaker.h"
@@ -64,8 +65,6 @@ private:
 	required_shared_ptr<u8> m_p_videoram;
 	required_region_ptr<u8> m_p_chargen;
 	required_device<speaker_sound_device> m_speaker;
-
-	int m_speaker_state;
 };
 
 //
@@ -81,8 +80,7 @@ void krokha_state::status_callback(uint8_t data)
 
 void krokha_state::speaker_w(uint8_t data)
 {
-	m_speaker_state = BIT(data, 1);
-	m_speaker->level_w(m_speaker_state);
+	m_speaker->level_w(BIT(data, 1));
 }
 
 //
@@ -107,11 +105,7 @@ INPUT_PORTS_END
 
 void krokha_state::machine_reset()
 {
-	m_speaker_state = 0;
-	m_speaker->level_w(m_speaker_state);
-
-	// setup save states
-	save_item(NAME(m_speaker_state));
+	m_speaker->level_w(0);
 }
 
 uint32_t krokha_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
@@ -121,7 +115,7 @@ uint32_t krokha_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap
 		uint16_t ma = 0xe0 + y;
 		for (uint8_t ra = 0; ra < 8; ra++)
 		{
-			for (uint16_t x = ma; x < ma + 64*32; x += 32)
+			for (uint16_t x = ma; x < ma + 64 * 32; x += 32)
 			{
 				uint16_t chr = m_p_videoram[x] << 3;
 				uint8_t gfx = m_p_chargen[chr | ra];
@@ -146,9 +140,9 @@ void krokha_state::krokha(machine_config &config)
 
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_refresh_hz(50);
-	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(2500)); // XXX
-	m_screen->set_size(64*8, 32*8);
-	m_screen->set_visarea(9*8, (48+9)*8-1, 0*8, 32*8-1);
+	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(2500));
+	m_screen->set_size(64 * 8, 32 * 8);
+	m_screen->set_visarea(9 * 8, (48 + 9) * 8 - 1, 0 * 8, 32 * 8 - 1);
 	m_screen->set_screen_update(FUNC(krokha_state::screen_update));
 	m_screen->set_palette("palette");
 	m_screen->screen_vblank().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
@@ -169,5 +163,5 @@ ROM_END
 
 /* Driver */
 
-/*    YEAR  NAME     PARENT  COMPAT  MACHINE  INPUT   CLASS         INIT        COMPANY        FULLNAME   FLAGS */
-COMP( 1990, krokha,  0,      0,      krokha,  krokha, krokha_state, empty_init, "SKB Kontur",  "Krokha",  0 )
+//    YEAR  NAME     PARENT  MACHINE  INPUT   CLASS         INIT        ROT,   COMPANY        FULLNAME
+GAME( 1990, krokha,  0,      krokha,  krokha, krokha_state, empty_init, ROT0,  "SKB Kontur",  "Krokha", MACHINE_SUPPORTS_SAVE )

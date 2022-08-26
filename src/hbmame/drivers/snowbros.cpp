@@ -3,13 +3,7 @@
 #include "../mame/drivers/snowbros.cpp"
 #include "../mame/video/kan_pand.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*********
+/***********
  Snow Bros
 ************/
 
@@ -67,3 +61,4 @@ GAME( 1990, snowbross01,   snowbros,  snowbros,    snowbros, snowbros_state, emp
 GAME( 1990, snowbross02,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Cure Version 2.6A)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, snowbross03,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Cure Version 2.6B 2018-08-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, snowbross04,   snowbros,  snowbros,    snowbros, snowbros_state, empty_init, ROT0, "EMU_MAX",  "Snow Bros (Special Edition 2018-09-25)", MACHINE_SUPPORTS_SAVE )
+

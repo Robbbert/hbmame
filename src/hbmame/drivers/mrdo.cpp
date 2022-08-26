@@ -164,3 +164,4 @@ GAME( 2002, mrpac,    mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Twist
 GAME( 2002, mrpacb,   mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Twisty", "Mr. Pac! (Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, newdigdo, mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Vic Twenty George, Jerky, Justin Clark", "Mr. Do! (Dig Dug sprites, new version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, stickydo, mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Marks Hacks", "Mr. Sticky Do!", MACHINE_SUPPORTS_SAVE )
+

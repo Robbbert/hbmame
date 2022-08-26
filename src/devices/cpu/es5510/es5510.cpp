@@ -17,7 +17,6 @@
 #include "es5510d.h"
 
 #include "cpu/m68000/m68000.h"
-#include "debugger.h"
 
 #include "corestr.h"
 
@@ -363,12 +362,12 @@ uint8_t es5510_device::host_r(address_space &space, offs_t offset)
 {
 	//  printf("%06x: DSP read offset %04x (data is %04x)\n",pc(),offset,dsp_ram[offset]);
 
-	// VFX hack
+	// VFX hack (FIXME: this is disgusting)
 	if (core_stricmp(machine().system().name, "vfx") == 0)
 	{
 		if (pc == 0xc091f0)
 		{
-			return space.device().state().state_int(M68K_D2);
+			return downcast<m68000_base_device &>(space.device()).state_int(M68K_D2);
 		}
 	}
 

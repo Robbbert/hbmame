@@ -17,6 +17,9 @@
 #include "img_dsk.h"
 
 #include "coretmpl.h" // BIT
+#include "ioprocs.h"
+
+#include "osdcore.h" // osd_printf_*
 
 
 // Debugging
@@ -40,35 +43,40 @@ img_format::img_format()
 {
 }
 
-int img_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
+int img_format::identify(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants) const
 {
-	uint64_t size = io_generic_size(io);
+	uint64_t size;
+	if (io.length(size)) {
+		return 0;
+	}
 
 	if (((form_factor == floppy_image::FF_8) || (form_factor == floppy_image::FF_UNKNOWN)) &&
 		size == IMG_IMAGE_SIZE) {
-		return 50;
+		return FIFID_SIZE;
 	} else {
 		return 0;
 	}
 }
 
-bool img_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
+bool img_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
-	uint64_t size = io_generic_size(io);
-	if (size != IMG_IMAGE_SIZE) {
+	uint64_t size;
+	if (io.length(size) || (size != IMG_IMAGE_SIZE)) {
 		return false;
 	}
 	image->set_variant(floppy_image::SSDD);
 
 	// Suck in the whole image
 	std::vector<uint8_t> image_data(size);
-	io_generic_read(io, (void *)image_data.data(), 0, size);
+	size_t actual;
+	io.read_at(0, image_data.data(), size, actual);
 
 	for (unsigned cyl = 0; cyl < TRACKS; cyl++) {
 		std::vector<uint32_t> track_data;
 
 		write_gap(track_data, 0 , PREIDX_GAP);
-		write_mmfm_byte(track_data , INDEX_AM , AM_CLOCK);
+		uint16_t crc = 0;
+		write_mmfm_byte(track_data , INDEX_AM , crc, AM_CLOCK);
 
 		// Compute interleave factor and skew for current track
 		unsigned il_factor;
@@ -96,7 +104,7 @@ bool img_format::load(io_generic *io, uint32_t form_factor, const std::vector<ui
 	return true;
 }
 
-bool img_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
+bool img_format::save(util::random_read_write &io, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
 	for (int cyl = 0; cyl < TRACKS; cyl++) {
 		auto bitstream = generate_bitstream_from_track(cyl , 0 , CELL_SIZE , image , 0);
@@ -106,7 +114,8 @@ bool img_format::save(io_generic *io, const std::vector<uint32_t> &variants, flo
 		while (get_next_sector(bitstream , pos , track_no , sector_no , sector_data)) {
 			if (track_no == cyl && sector_no >= 1 && sector_no <= SECTORS) {
 				unsigned offset_in_image = (cyl * SECTORS + sector_no - 1) * SECTOR_SIZE;
-				io_generic_write(io, sector_data, offset_in_image, SECTOR_SIZE);
+				size_t actual;
+				io.write_at(offset_in_image, sector_data, SECTOR_SIZE, actual);
 			}
 		}
 	}
@@ -152,24 +161,24 @@ std::vector<uint8_t> img_format::interleaved_sectors(unsigned il_factor)
 	return out;
 }
 
-void img_format::write_mmfm_bit(std::vector<uint32_t> &buffer , bool data_bit , bool clock_bit)
+void img_format::write_mmfm_bit(std::vector<uint32_t> &buffer , bool data_bit , bool clock_bit , uint16_t &crc)
 {
 	bool had_transition = buffer.size() < 2 ? false : bit_r(buffer, buffer.size() - 1) || bit_r(buffer , buffer.size() - 2);
 	clock_bit = !data_bit && (clock_bit || !had_transition);
 	bit_w(buffer , clock_bit , CELL_SIZE);
 	bit_w(buffer , data_bit , CELL_SIZE);
 
-	if (util::BIT(m_crc , 15) ^ data_bit) {
-		m_crc = (m_crc << 1) ^ CRC_POLY;
+	if (util::BIT(crc , 15) ^ data_bit) {
+		crc = (crc << 1) ^ CRC_POLY;
 	} else {
-		m_crc <<= 1;
+		crc <<= 1;
 	}
 }
 
-void img_format::write_mmfm_byte(std::vector<uint32_t> &buffer , uint8_t data , uint8_t clock)
+void img_format::write_mmfm_byte(std::vector<uint32_t> &buffer , uint8_t data , uint16_t &crc , uint8_t clock)
 {
 	for (int i = 7; i >= 0; i--) {
-		write_mmfm_bit(buffer , util::BIT(data , i) , util::BIT(clock , i));
+		write_mmfm_bit(buffer , util::BIT(data , i) , util::BIT(clock , i) , crc);
 	}
 }
 
@@ -180,19 +189,21 @@ void img_format::write_sync(std::vector<uint32_t> &buffer)
 
 void img_format::write_crc(std::vector<uint32_t> &buffer , uint16_t crc)
 {
+	uint16_t xcrc = crc;
 	// Note that CRC is stored with MSB (x^15) first
 	for (unsigned i = 0; i < 16; i++) {
-		write_mmfm_bit(buffer , util::BIT(crc , 15 - i) , 0);
+		write_mmfm_bit(buffer , util::BIT(crc , 15 - i) , 0 , xcrc);
 	}
 }
 
 void img_format::write_gap(std::vector<uint32_t> &buffer , unsigned size_00 , unsigned size_ff)
 {
+	uint16_t crc = 0;
 	for (unsigned i = 0; i < size_00; ++i) {
-		write_mmfm_byte(buffer, 0);
+		write_mmfm_byte(buffer, 0 , crc);
 	}
 	for (unsigned i = 0; i < size_ff; ++i) {
-		write_mmfm_byte(buffer, 0xff);
+		write_mmfm_byte(buffer, 0xff , crc);
 	}
 }
 
@@ -220,27 +231,27 @@ void img_format::write_sector(std::vector<uint32_t> &buffer , uint8_t track_no ,
 	// Gap1
 	write_sync(buffer);
 	// ID AM
-	m_crc = 0;
-	write_mmfm_byte(buffer , ID_AM , AM_CLOCK);
+	uint16_t crc = 0;
+	write_mmfm_byte(buffer , ID_AM , crc , AM_CLOCK);
 	// Track #
-	write_mmfm_byte(buffer , track_no);
-	write_mmfm_byte(buffer , 0);
+	write_mmfm_byte(buffer , track_no , crc);
+	write_mmfm_byte(buffer , 0 , crc);
 	// Sector #
-	write_mmfm_byte(buffer , sect_no);
-	write_mmfm_byte(buffer , 0);
+	write_mmfm_byte(buffer , sect_no , crc);
+	write_mmfm_byte(buffer , 0 , crc);
 	// ID CRC
-	write_crc(buffer , m_crc);
+	write_crc(buffer , crc);
 	// Gap 2
 	write_sync(buffer);
 	// Data AM
-	m_crc = 0;
-	write_mmfm_byte(buffer , DATA_AM , AM_CLOCK);
+	crc = 0;
+	write_mmfm_byte(buffer , DATA_AM , crc, AM_CLOCK);
 	for (unsigned i = 0; i < SECTOR_SIZE; i++) {
 		// Data
-		write_mmfm_byte(buffer , sect_data[ i ]);
+		write_mmfm_byte(buffer , sect_data[ i ] , crc);
 	}
 	// Data CRC
-	write_crc(buffer , m_crc);
+	write_crc(buffer , crc);
 }
 
 void img_format::fill_with_gap4(std::vector<uint32_t> &buffer)
@@ -375,4 +386,4 @@ bool img_format::get_next_sector(const std::vector<bool> &bitstream , int& pos ,
 	return true;
 }
 
-const floppy_format_type FLOPPY_IMG_FORMAT = &floppy_image_format_creator<img_format>;
+const img_format FLOPPY_IMG_FORMAT;

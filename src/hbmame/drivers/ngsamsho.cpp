@@ -1965,13 +1965,7 @@ GAME( 2004, samsh5spnh3,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neo
 GAME( 2008, samsh5spnzk,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Zuojie / Kof1996", "Samurai Shodown V Special (Unknown Hack 2008-10-23)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-      Proyecto Shadows Mame Build Plus
-**********************************************/
-
- /***************
+/***************
  Samurai Shodown
 ******************/
 

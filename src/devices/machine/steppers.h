@@ -33,6 +33,8 @@
 
 #define PROJECT_48STEP_REEL     10
 
+#define SRU_200STEP_REEL        11
+
 
 class stepper_device : public device_t
 {
@@ -69,6 +71,8 @@ public:
 	int get_position()          { return m_step_pos; }
 	/* get current absolute position in half steps */
 	int get_absolute_position() { return m_abs_step_pos; }
+	/* set absolute position in half steps */
+	void set_absolute_position(int pos) { m_abs_step_pos = pos; }
 	/* get maximum position in half steps */
 	int get_max()               { return m_max_steps; }
 
@@ -132,6 +136,7 @@ protected:
 		case STARPOINT_200STEP_REEL :
 		case GAMESMAN_200STEP_REEL :
 		case ECOIN_200STEP_REEL :
+		case SRU_200STEP_REEL :
 			m_max_steps = (200*2);
 			break;
 		}

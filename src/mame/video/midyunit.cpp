@@ -48,8 +48,8 @@ VIDEO_START_MEMBER(midyunit_state,common)
 
 	m_nvram->set_base(m_cmos_ram.get(), 0x2000 * 4);
 
-	m_dma_timer = timer_alloc(TIMER_DMA);
-	m_autoerase_line_timer = timer_alloc(TIMER_AUTOERASE_LINE);
+	m_dma_timer = timer_alloc(FUNC(midyunit_state::dma_callback), this);
+	m_autoerase_line_timer = timer_alloc(FUNC(midyunit_state::autoerase_line), this);
 
 	/* reset all the globals */
 	m_cmos_page = 0;
@@ -381,21 +381,6 @@ void midyunit_state::dma_draw(uint16_t command)
  *
  *************************************/
 
-void midyunit_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	switch (id)
-	{
-	case TIMER_DMA:
-		dma_callback(ptr, param);
-		break;
-	case TIMER_AUTOERASE_LINE:
-		autoerase_line(ptr, param);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in midyunit_state::device_timer");
-	}
-}
-
 TIMER_CALLBACK_MEMBER(midyunit_state::dma_callback)
 {
 	m_dma_register[DMA_COMMAND] &= ~0x8000; /* tell the cpu we're done */
@@ -586,7 +571,7 @@ TMS340X0_SCANLINE_IND16_CB_MEMBER(midyunit_state::scanline_update)
 		dest[x] = m_pen_map[src[coladdr++ & 0x1ff]];
 
 	/* handle autoerase on the previous line */
-	autoerase_line(nullptr, params->rowaddr - 1);
+	autoerase_line(params->rowaddr - 1);
 
 	/* if this is the last update of the screen, set a timer to clear out the final line */
 	/* (since we update one behind) */

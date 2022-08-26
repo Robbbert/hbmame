@@ -7,6 +7,7 @@
 #include "includes/spg2xx.h"
 
 #include "bus/jakks_gamekey/slot.h"
+#include "softlist_dev.h"
 
 
 class jakks_gkr_state : public spg2xx_game_state
@@ -467,7 +468,7 @@ void jakks_gkr_state::jakks_gkr(machine_config &config)
 void jakks_gkr_state::jakks_gkr_i2c(machine_config &config)
 {
 	jakks_gkr(config);
-	I2C_24C04(config, m_i2cmem, 0); // ?
+	I2C_24C16(config, m_i2cmem, 0); // ?
 }
 
 

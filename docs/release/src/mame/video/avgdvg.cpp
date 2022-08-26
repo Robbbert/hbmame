@@ -16,7 +16,9 @@
 
 #include "emu.h"
 #include "avgdvg.h"
+
 #include "screen.h"
+
 
 /*************************************
  *
@@ -653,9 +655,14 @@ int avg_device::handler_7() // avg_strobe3
 
 	if (!OP0() && !OP2())
 	{
+		int x = m_xpos;
+		int y = m_ypos;
+
+		apply_flipping(x, y);
+
 		vg_add_point_buf(
-				m_xpos,
-				m_ypos,
+				x,
+				y,
 				vector_device::color111(m_color),
 				(((m_int_latch >> 1) == 1) ? m_intensity : m_int_latch & 0xe) << 4);
 	}
@@ -758,6 +765,7 @@ int avg_mhavoc_device::handler_6() // mhavoc_strobe2
 		else
 		{
 			m_color = m_dvy & 0xf;
+
 			m_intensity = (m_dvy >> 4) & 0xf;
 			m_map = (m_dvy >> 8) & 0x3;
 
@@ -821,9 +829,13 @@ int avg_mhavoc_device::handler_7()  // mhavoc_strobe3
 				const u8 g = bit1 * 0xcb;
 				const u8 b = bit0 * 0xcb;
 
+				int x = m_xpos;
+				int y = m_ypos;
+				apply_flipping(x, y);
+
 				vg_add_point_buf(
-						m_xpos,
-						m_ypos,
+						x,
+						y,
 						rgb_t(r, g, b),
 						(((m_int_latch >> 1) == 1) ? m_intensity : m_int_latch & 0xe) << 4);
 				m_spkl_shift = (BIT(m_spkl_shift, 6) ^ BIT(m_spkl_shift, 5) ^ 1) | (m_spkl_shift << 1);
@@ -846,9 +858,13 @@ int avg_mhavoc_device::handler_7()  // mhavoc_strobe3
 			const u8 g = bit1 * 0xcb;
 			const u8 b = bit0 * 0xcb;
 
+			int x = m_xpos;
+			int y = m_ypos;
+			apply_flipping(x, y);
+
 			vg_add_point_buf(
-					m_xpos,
-					m_ypos,
+					x,
+					y,
 					rgb_t(r, g, b),
 					(((m_int_latch >> 1) == 1) ? m_intensity : m_int_latch & 0xe) << 4);
 		}
@@ -1292,8 +1308,8 @@ void avgdvg_device_base::device_start()
 	if (!m_vector->started())
 		throw device_missing_dependencies();
 
-	m_vg_halt_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(avgdvg_device_base::vg_set_halt_callback), this));
-	m_vg_run_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(avgdvg_device_base::run_state_machine), this));
+	m_vg_halt_timer = timer_alloc(FUNC(avgdvg_device_base::vg_set_halt_callback), this);
+	m_vg_run_timer = timer_alloc(FUNC(avgdvg_device_base::run_state_machine), this);
 
 	m_flip_x = m_flip_y = false;
 

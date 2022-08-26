@@ -2,13 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/pooyan.cpp"
 
-
-/*************************************
- *
- *  ROM definitions
- *
- *************************************/
-
 // Hold down P2 start while booting, to get into more diagnostic tests (In HBMAME, hold down 2 and hit F3)
 
 ROM_START( pooyandiag )
@@ -37,12 +30,6 @@ ROM_START( pooyandiag )
 ROM_END
 
 
-
-/*************************************
- *
- *  Game drivers
- *
- *************************************/
-
 //    YEAR, NAME,        PARENT, MACHINE,INPUT,  CLASS,      INIT,MONITOR,  COMPANY,        FULLNAME,     FLAGS
 GAME( 2017, pooyandiag,  pooyan, pooyan, pooyan, pooyan_state, empty_init, ROT90,  "Shoestring", "Pooyan Tester", MACHINE_SUPPORTS_SAVE )
+

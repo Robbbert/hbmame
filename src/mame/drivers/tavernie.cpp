@@ -2,25 +2,25 @@
 // copyright-holders: Robbbert
 /*********************************************************************************
 
-    Tavernier CPU09 and IVG09 (Realisez votre ordinateur individuel)
+Tavernier CPU09 and IVG09 (Realisez votre ordinateur individuel)
 
-    2013-12-08 Skeleton driver.
+2013-12-08 Skeleton driver.
 
-    This system was described in a French computer magazine "Micro-Informatique".
+This system was described in a French computer magazine "Micro-Informatique".
 
-    CPU09 includes 6809, 6821, 6840, 6850, cassette, rs232
-    IVG09 includes 6845, another 6821, beeper
-    IFD09 includes WD1795
+CPU09 includes 6809, 6821, 6840, 6850, cassette, rs232
+IVG09 includes 6845, another 6821, beeper
+IFD09 includes WD1795
 
 ToDo:
-    - Graphics
-    - Character rom is not dumped
-    - Graphics rom is not dumped
+- Graphics
+- Character rom is not dumped
+- Graphics rom is not dumped
         (note 2020-05-29: added what are thought to be the correct roms, but the proper
                           operation is uncertain).
-    - 3x 7611 proms not dumped
-    - Test FDC
-    - Need software (there are floppy images, but they are not yet in a supported format)
+- 3x 7611 proms not dumped
+- Test FDC
+- Need software (there are floppy images, but they are not yet in a supported format)
 
 
 List of commands (must be in UPPERCASE):
@@ -70,6 +70,8 @@ Z - more scan lines per row (cursor is bigger)
 #include "screen.h"
 #include "speaker.h"
 
+namespace {
+
 class cpu09_state : public driver_device
 {
 public:
@@ -85,14 +87,13 @@ public:
 	void cpu09(machine_config &config);
 
 protected:
-	DECLARE_READ_LINE_MEMBER(ca1_r);
 	u8 pa_r();
 	void pa_w(u8 data);
 	void pb_w(u8 data);
 	TIMER_DEVICE_CALLBACK_MEMBER(kansas_r);
 	void cpu09_mem(address_map &map);
-	u8 m_pa;
-	bool m_cassold;
+	u8 m_pa = 0U;
+	bool m_cassold = false;
 	required_device<cpu_device> m_maincpu;
 	required_device<cassette_image_device> m_cass;
 	required_device<pia6821_device> m_pia0;
@@ -132,9 +133,9 @@ private:
 	void kbd_put(u8 data);
 	void ds_w(u8 data);
 	MC6845_UPDATE_ROW(crtc_update_row);
-	u8 m_term_data;
-	u8 m_ivg_pa;
-	u8 m_flashcnt;
+	u8 m_term_data = 0U;
+	u8 m_ivg_pa = 0U;
+	u8 m_flashcnt = 0U;
 	std::unique_ptr<u16[]> m_vram; // 12x 4044
 	required_device<pia6821_device> m_pia1;
 	required_device<mc6845_device> m_crtc;
@@ -305,12 +306,6 @@ void cpu09_state::pb_w(u8 data)
 {
 }
 
-// cass in
-READ_LINE_MEMBER( cpu09_state::ca1_r )
-{
-	return m_cassold;
-}
-
 u8 ivg09_state::pb_ivg_r()
 {
 	u8 ret = m_term_data;
@@ -411,7 +406,7 @@ void cpu09_state::cpu09(machine_config &config)
 
 	PIA6821(config, m_pia0, 0);
 	m_pia0->readpa_handler().set(FUNC(cpu09_state::pa_r));
-	m_pia0->readca1_handler().set(FUNC(cpu09_state::ca1_r));
+	m_pia0->ca1_w(0);
 	m_pia0->writepa_handler().set(FUNC(cpu09_state::pa_w));
 	m_pia0->writepb_handler().set(FUNC(cpu09_state::pb_w));
 
@@ -492,7 +487,7 @@ ROM_START( ivg09 )
 	ROM_LOAD( "small.bin", 0x1000, 0x1000, CRC(16e25eed) SHA1(5d31f127fe635be4bca06840b15a1bd77f971492)) // small
 ROM_END
 
-/* Driver */
+} // Anonymous namespace
 
 //    YEAR  NAME   PARENT  COMPAT  MACHINE  INPUT  CLASS           INIT        COMPANY         FULLNAME                      FLAGS
 COMP( 1982, cpu09, 0,      0,      cpu09,   cpu09, cpu09_state, empty_init, "C. Tavernier", "CPU09",                      MACHINE_NOT_WORKING )

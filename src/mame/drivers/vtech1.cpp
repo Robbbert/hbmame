@@ -40,6 +40,7 @@ Todo:
 #include "sound/spkrdev.h"
 #include "video/mc6847.h"
 
+#include "softlist_dev.h"
 #include "speaker.h"
 
 #include "formats/imageutl.h"
@@ -156,14 +157,16 @@ private:
 
 SNAPSHOT_LOAD_MEMBER(vtech1_base_state::snapshot_cb)
 {
-	address_space &space = m_maincpu->space(AS_PROGRAM);
-	uint8_t header[24];
-	char pgmname[18];
-
 	// get the header
-	image.fread(&header, sizeof(header));
+	uint8_t header[24];
+	if (image.fread(&header, sizeof(header)) != sizeof(header))
+	{
+		//image.seterror(image_error::UNSPECIFIED);
+		return image_init_result::FAIL;
+	}
 
 	// get image name
+	char pgmname[17];
 	for (int i = 0; i < 16; i++)
 		pgmname[i] = header[i+4];
 	pgmname[16] = '\0';
@@ -174,9 +177,16 @@ SNAPSHOT_LOAD_MEMBER(vtech1_base_state::snapshot_cb)
 	uint16_t size = end - start;
 
 	// write it to ram
-	uint8_t *ptr = (uint8_t *)image.ptr() + sizeof(header);
+	auto buf = std::make_unique<uint8_t []>(size);
+	if (image.fread(buf.get(), size) != size)
+	{
+		//image.seterror(image_error::UNSPECIFIED);
+		return image_init_result::FAIL;
+	}
+	uint8_t *ptr = &buf[0];
 
-	for (uint16_t addr = start; addr <= end; addr++, ptr++)
+	address_space &space = m_maincpu->space(AS_PROGRAM);
+	for (uint16_t addr = start; addr < end; addr++, ptr++)
 	{
 		uint8_t to_write = *ptr;
 		space.write_byte(addr, to_write);
@@ -184,7 +194,7 @@ SNAPSHOT_LOAD_MEMBER(vtech1_base_state::snapshot_cb)
 		// verify
 		if (space.read_byte(addr) != to_write)
 		{
-			image.seterror(IMAGE_ERROR_INVALIDIMAGE, "Insufficient RAM to load snapshot");
+			image.seterror(image_error::INVALIDIMAGE, "Insufficient RAM to load snapshot");
 			image.message("Insufficient RAM to load snapshot (%d bytes needed) [%s]", size, pgmname);
 
 			return image_init_result::FAIL;
@@ -214,7 +224,7 @@ SNAPSHOT_LOAD_MEMBER(vtech1_base_state::snapshot_cb)
 		break;
 
 	default:
-		image.seterror(IMAGE_ERROR_UNSUPPORTED, "Snapshot format not supported.");
+		image.seterror(image_error::INVALIDIMAGE, "Snapshot format not supported.");
 		image.message("Snapshot format not supported.");
 		return image_init_result::FAIL;
 	}

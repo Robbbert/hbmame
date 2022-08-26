@@ -8,6 +8,50 @@
     Original sound driver by Alex Judd
     New sound driver by Aaron Giles, R. Belmont and Lord Nightmare
 
+
+Some known differences between Berzerk RC28 and RC31 sets:
+
+RC28 uses only 3 different colors for robots based on player score:
+
+ Score  Robot Color   Lasers
+    0     Gold          0
+  300     Red           1
+ 1500+    Dark Blue     2
+
+Evil Otto shows up based on a formula of 5(-1 for each new room) plus
+the number of spawned robots times 40 frames
+
+RC31 is a rebalanced game with numerous changes:
+
+ Score    Robot Color  Lasers    Delay
+     0      Gold         0       80 frames
+   300      Red          1       80 frames
+  1500      Dark Blue    2       20 frames
+  3000      Green        3       10 frames
+  4500      Purple       4       10 frames
+  6000      Yellow       5       15 frames
+  7500      White        1*      60 frames
+  9000      White        1*      50 frames
+ 10000      Dark Blue    2*      35 frames
+ 11000      Pink         3*      25 frames
+ 13000      Grey         4*      20 frames
+ 15000      Gold         5*      15 frames
+ 17000      Red          5*      10 frames
+ 19000+     Light Blue   5*       5 frames
+
+* Indicates a faster speed laser
+
+- Score values are when the player advances to the next "level" or Robot
+  color.
+- Lasers are the maximum robot lasers on the screen at one time.
+- Delay is the number of frames between initial robot firing when you
+  enter a room as well as "reload" time.
+
+In RC31, Evil Otto's formula is modified by adding in the number of lasers
+before multiplying by 40 frames
+
+Game difference analysis by The Cutting Room Floor (tcrf.net)
+
 ***************************************************************************/
 
 #include "emu.h"
@@ -62,17 +106,17 @@ private:
 
 	output_finder<> m_led;
 
-	uint8_t m_magicram_control;
-	uint8_t m_last_shift_data;
-	uint8_t m_intercept;
-	emu_timer *m_irq_timer;
-	emu_timer *m_nmi_timer;
-	uint8_t m_irq_enabled;
-	uint8_t m_nmi_enabled;
-	int m_p1_counter_74ls161;
-	int m_p1_direction;
-	int m_p2_counter_74ls161;
-	int m_p2_direction;
+	uint8_t m_magicram_control = 0;
+	uint8_t m_last_shift_data = 0;
+	uint8_t m_intercept = 0;
+	emu_timer *m_irq_timer = nullptr;
+	emu_timer *m_nmi_timer = nullptr;
+	uint8_t m_irq_enabled = 0;
+	uint8_t m_nmi_enabled = 0;
+	int m_p1_counter_74ls161 = 0;
+	int m_p1_direction = 0;
+	int m_p2_counter_74ls161 = 0;
+	int m_p2_direction = 0;
 
 	uint8_t led_on_r();
 	void led_on_w(uint8_t data);
@@ -249,7 +293,7 @@ TIMER_CALLBACK_MEMBER(berzerk_state::irq_callback)
 
 void berzerk_state::create_irq_timer()
 {
-	m_irq_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(berzerk_state::irq_callback),this));
+	m_irq_timer = timer_alloc(FUNC(berzerk_state::irq_callback), this);
 }
 
 
@@ -326,7 +370,7 @@ TIMER_CALLBACK_MEMBER(berzerk_state::nmi_callback)
 
 void berzerk_state::create_nmi_timer()
 {
-	m_nmi_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(berzerk_state::nmi_callback),this));
+	m_nmi_timer = timer_alloc(FUNC(berzerk_state::nmi_callback), this);
 }
 
 

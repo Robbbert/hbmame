@@ -106,7 +106,7 @@
 #include "bus/a7800/a78_carts.h"
 #include "emupal.h"
 #include "screen.h"
-#include "softlist.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 #define A7800_NTSC_Y1   XTAL(14'318'181)
@@ -156,6 +156,8 @@ protected:
 	int m_p1_one_button;
 	int m_p2_one_button;
 	int m_bios_enabled;
+
+	emu_timer *m_dma_start_timer = nullptr;
 
 	required_device<cpu_device> m_maincpu;
 	required_device<tia_device> m_tia;
@@ -276,7 +278,7 @@ void a7800_state::tia_w(offs_t offset, uint8_t data)
 TIMER_DEVICE_CALLBACK_MEMBER(a7800_state::interrupt)
 {
 	// DMA Begins 7 cycles after hblank
-	machine().scheduler().timer_set(m_maincpu->cycles_to_attotime(7), timer_expired_delegate(FUNC(a7800_state::maria_startdma), this));
+	m_dma_start_timer->adjust(m_maincpu->cycles_to_attotime(7));
 	m_maria->interrupt(m_lines);
 }
 
@@ -445,7 +447,7 @@ some variation of proportions even within the same display type.
 One side effect of this on the console's palette is that some values of
 red may appear too pinkish - Too much blue to red.  This is not the same
 as a traditional tint-hue control adjustment; rather, can be demonstrated
-by changing the blue ratio values via MESS HLSL settings.
+by changing the blue ratio values via MAME HLSL settings.
 
 Lastly, the Atari 2600 & 5200 NTSC color palettes hold the same hue
 structure order and have similar appearance differences that are dependent
@@ -1364,6 +1366,8 @@ void a7800_state::machine_start()
 			break;
 		}
 	}
+
+	m_dma_start_timer = timer_alloc(FUNC(a7800_state::maria_startdma), this);
 }
 
 void a7800_state::machine_reset()

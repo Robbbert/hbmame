@@ -99,6 +99,8 @@ ToDo:
 #include "machine/z80sio.h"
 
 
+namespace {
+
 class ccs_state : public driver_device
 {
 public:
@@ -121,15 +123,18 @@ public:
 	void ccs2422(machine_config &config);
 
 protected:
+	void machine_start() override;
+	void machine_reset() override;
+
 	u8 port04_r();
 	u8 port34_r();
 	void port04_w(u8 data);
 	void port34_w(u8 data);
 
-	bool m_ss;
-	bool m_dden;
-	bool m_dsize;
-	u8 m_ds;
+	bool m_ss = 0;
+	bool m_dden = 0;
+	bool m_dsize = 0;
+	u8 m_ds = 0U;
 	floppy_image_device *m_floppy;
 
 	required_device<z80_device> m_maincpu;
@@ -150,16 +155,13 @@ private:
 	u8 io_read(offs_t offset);
 	void io_write(offs_t offset, u8 data);
 
-	void machine_start() override;
-	void machine_reset() override;
-
 	void port40_w(u8 data);
 
 	void ccs2422_io(address_map &map);
 	void ccs2810_io(address_map &map);
 	void ccs2810_mem(address_map &map);
 
-	u8 m_power_on_status;
+	u8 m_power_on_status = 0U;
 };
 
 class ccs300_state : public ccs_state
@@ -173,9 +175,11 @@ public:
 
 	void ccs300(machine_config &config);
 
-private:
+protected:
 	void machine_start() override;
 	void machine_reset() override;
+
+private:
 	void ccs300_io(address_map &map);
 	void ccs300_mem(address_map &map);
 	void port40_w(u8 data);
@@ -267,7 +271,7 @@ void ccs300_state::ccs300_io(address_map &map)
 	map(0x34, 0x34).rw(FUNC(ccs300_state::port34_r), FUNC(ccs300_state::port34_w));
 	map(0x40, 0x40).w(FUNC(ccs300_state::port40_w));
 	map(0xf0, 0xf0).rw("dma", FUNC(z80dma_device::read), FUNC(z80dma_device::write));
-	map(0xf2, 0xf2); // dip or jumper? only used by CCS-400
+	map(0xf2, 0xf2).portr("MODEL"); // dip or jumper? only used by CCS-400
 }
 
 
@@ -843,6 +847,16 @@ static INPUT_PORTS_START( ccs2810 )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( ccs300 )
+	// No information available on this system, but it may be assumed that
+	//  the 300 is floppy-only, while the 400 boots off a hard drive.
+	//  Plugging in the HDC cable would ground this pin to inform the bios
+	//  it should be a 400. This "dip" is so you can see (and trace) what
+	//  happens.
+	PORT_START("MODEL")
+	PORT_DIPNAME(0x08, 0x08, "Model")
+	PORT_DIPSETTING(0x00, "CCS-400")
+	PORT_DIPSETTING(0x08, "CCS-300")
+	PORT_BIT(0xf7, IP_ACTIVE_LOW, IPT_UNUSED)
 INPUT_PORTS_END
 
 
@@ -978,6 +992,7 @@ void ccs300_state::machine_start()
 {
 	m_bank1->configure_entry(0, m_ram1);
 	m_bank1->configure_entry(1, m_rom);
+
 	save_item(NAME(m_ss));
 	save_item(NAME(m_dden));
 	save_item(NAME(m_dsize));
@@ -1139,9 +1154,12 @@ ROM_START( ccs300 )
 	ROM_LOAD( "ccs300.rom", 0x0000, 0x0800, CRC(6cf22e31) SHA1(9aa3327cd8c23d0eab82cb6519891aff13ebe1d0))
 ROM_END
 
+} // anonymous namespace
+
+
 /* Driver */
 
-/*    YEAR  NAME     PARENT   COMPAT  MACHINE   INPUT    CLASS         INIT          COMPANY                        FULLNAME                    FLAGS */
+//    YEAR  NAME     PARENT   COMPAT  MACHINE   INPUT    CLASS         INIT        COMPANY                        FULLNAME                    FLAGS
 COMP( 1980, ccs2810, 0,       0,      ccs2810,  ccs2810, ccs_state,    empty_init, "California Computer Systems", "CCS Model 2810 CPU card",  MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
 COMP( 1980, ccs2422, ccs2810, 0,      ccs2422,  ccs2810, ccs_state,    empty_init, "California Computer Systems", "CCS Model 2422B FDC card", MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
-COMP( 1981, ccs300,  ccs2810, 0,      ccs300,   ccs300,  ccs300_state, empty_init, "California Computer Systems", "CCS Model 300", MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )
+COMP( 1981, ccs300,  ccs2810, 0,      ccs300,   ccs300,  ccs300_state, empty_init, "California Computer Systems", "CCS Model 300",            MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW | MACHINE_SUPPORTS_SAVE )

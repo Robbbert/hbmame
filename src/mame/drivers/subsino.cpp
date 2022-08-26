@@ -216,7 +216,7 @@ To Do:
   2019-07-31
   ----------
 
-  - Added Victor 5 (otiginal set, now parent).
+  - Added Victor 5 (original set, now parent).
   - Dumped the samples ROMs of Victor 5 and Victor 21, and hooked the OKI6295.
 
 
@@ -243,6 +243,7 @@ To Do:
 #include "sharkpye.lh"
 #include "smoto.lh"
 #include "tisub.lh"
+#include "tisubb.lh"
 #include "stisub.lh"
 
 
@@ -269,6 +270,7 @@ public:
 	void stbsub(machine_config &config);
 	void tisub(machine_config &config);
 	void crsbingo(machine_config &config);
+	void dinofmly(machine_config &config);
 	void srider(machine_config &config);
 	void victor21(machine_config &config);
 	void sharkpy(machine_config &config);
@@ -278,6 +280,7 @@ public:
 	void init_stisub();
 	void init_tesorone();
 	void init_tesorone230();
+	void init_smoto13();
 	void init_smoto20();
 	void init_sharkpy();
 	void init_smoto16();
@@ -285,6 +288,7 @@ public:
 	void init_victor21();
 	void init_victor5();
 	void init_tisuba();
+	void init_tisubb();
 	void init_sharkpye();
 	void init_tisub();
 	void init_mtrainnv();
@@ -304,14 +308,14 @@ private:
 	required_device<ticket_dispenser_device> m_hopper;
 	output_finder<16> m_lamps;
 
-	tilemap_t *m_tmap;
-	tilemap_t *m_reel_tilemap[3];
-	int m_tiles_offset;
-	uint8_t m_out_c;
+	tilemap_t *m_tmap = nullptr;
+	tilemap_t *m_reel_tilemap[3]{};
+	int m_tiles_offset = 0;
+	uint8_t m_out_c = 0;
 	std::unique_ptr<uint8_t[]> m_reel_attr[3];
-	uint8_t m_flash_val;
-	uint8_t m_flash_packet;
-	uint8_t m_flash_packet_start;
+	uint8_t m_flash_val = 0;
+	uint8_t m_flash_packet = 0;
+	uint8_t m_flash_packet_start = 0;
 
 	void tiles_offset_w(offs_t offset, uint8_t data);
 	void videoram_w(offs_t offset, uint8_t data);
@@ -340,6 +344,7 @@ private:
 	uint32_t screen_update_stbsub_reels(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	void crsbingo_map(address_map &map);
+	void dinofmly_map(address_map &map);
 	void mtrainnv_map(address_map &map);
 	void ramdac_map(address_map &map);
 	void sharkpy_map(address_map &map);
@@ -688,6 +693,19 @@ void subsino_state::out_b_w(uint8_t data)
   x--- ----  ???.
 
 
+  * Treasure Island (American Alpha). // TODO: Where's the third hold lamp?
+
+  7654 3210
+  ---- ---x  ???.
+  ---- --x-  DOUBLE / INFO.
+  ---- -x--  START
+  ---- x---  BET / STOP ALL.
+  ---x ----  ???.
+  --x- ----  HOLD1 / TAKE.
+  -x-- ----  ???.
+  x--- ----  HOLD3 / SMALL (or HOLD2 /BIG).
+
+
   * Poker Carnival (crsbingo).
 
   7654 3210
@@ -794,6 +812,15 @@ void subsino_state::srider_map(address_map &map)
 	map(0x0d01b, 0x0d01b).w(FUNC(subsino_state::tiles_offset_w));
 	map(0x0e000, 0x0e7ff).ram().w(FUNC(subsino_state::colorram_w)).share("colorram");
 	map(0x0e800, 0x0efff).ram().w(FUNC(subsino_state::videoram_w)).share("videoram");
+}
+
+void subsino_state::dinofmly_map(address_map &map)
+{
+	srider_map(map);
+
+	map(0x0d800, 0x0d800).w("ramdac", FUNC(ramdac_device::index_w));
+	map(0x0d801, 0x0d801).w("ramdac", FUNC(ramdac_device::pal_w));
+	map(0x0d802, 0x0d802).w("ramdac", FUNC(ramdac_device::mask_w));
 }
 
 void subsino_state::sharkpy_map(address_map &map)
@@ -1483,6 +1510,48 @@ static INPUT_PORTS_START( tisub )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( tisubb )
+	PORT_INCLUDE( tisub )
+
+	PORT_MODIFY( "SW2" )
+	PORT_DIPNAME( 0x0c, 0x08, "Max Bet" )
+	PORT_DIPSETTING(    0x00, "8" )
+	PORT_DIPSETTING(    0x04, "16" )
+	PORT_DIPSETTING(    0x08, "32" )
+	PORT_DIPSETTING(    0x0c, "64" )
+	PORT_DIPNAME( 0x20, 0x20, "Game Limit" )            PORT_DIPLOCATION("SW2:6")
+	PORT_DIPSETTING(    0x20, "5000" )
+	PORT_DIPSETTING(    0x00, "10000" )
+
+	PORT_MODIFY( "SW3" )
+	PORT_DIPNAME( 0x07, 0x07, "Main Game Rate" )        PORT_DIPLOCATION("SW3:1,2,3")
+	PORT_DIPSETTING(    0x00, "84%" )
+	PORT_DIPSETTING(    0x01, "86%" )
+	PORT_DIPSETTING(    0x02, "88%" )
+	PORT_DIPSETTING(    0x03, "89%" )
+	PORT_DIPSETTING(    0x04, "90%" )
+	PORT_DIPSETTING(    0x07, "91%" )
+	PORT_DIPSETTING(    0x05, "92%" )
+	PORT_DIPSETTING(    0x06, "94%" )
+
+	PORT_MODIFY( "INA" )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_START1 )
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_GAMBLE_BET )     PORT_IMPULSE(3) PORT_NAME("Bet / Stop All")
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_GAMBLE_D_UP )    PORT_NAME("Double / Info")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
+	PORT_MODIFY( "INB" )
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_SLOT_STOP1 )     PORT_NAME("Stop 1 / Take")
+
+	PORT_MODIFY( "INC" )
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_SLOT_STOP3 )     PORT_NAME("Stop 3 / Small")
+	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_SLOT_STOP2 )     PORT_NAME("Stop 2 / Big")
 INPUT_PORTS_END
 
 
@@ -2811,13 +2880,25 @@ void subsino_state::srider(machine_config &config)
 	OKIM6295(config, "oki", XTAL(4'433'619) / 4, okim6295_device::PIN7_HIGH).add_route(ALL_OUTPUTS, "mono", 1.0);  /* Clock frequency & pin 7 not verified */
 }
 
-
 void subsino_state::sharkpy(machine_config &config)
 {
 	srider(config);
 
 	/* basic machine hardware */
 	m_maincpu->set_addrmap(AS_PROGRAM, &subsino_state::sharkpy_map);
+}
+
+void subsino_state::dinofmly(machine_config &config)
+{
+	srider(config);
+
+	// basic machine hardware
+	m_maincpu->set_addrmap(AS_PROGRAM, &subsino_state::dinofmly_map);
+
+	PALETTE(config.replace(), m_palette).set_entries(0x100);
+
+	ramdac_device &ramdac(RAMDAC(config, "ramdac", 0, m_palette)); // HMC HM86171 VGA 256 colour RAMDAC
+	ramdac.set_addrmap(0, &subsino_state::ramdac_map);
 }
 
 void subsino_state::tisub(machine_config &config)
@@ -3063,7 +3144,7 @@ ROM_END
 /***************************************************************************
 
   Treasure Island
-  -- this has an extra layer for the reels, exactly the same as goldstar.c
+  -- this has an extra layer for the reels, exactly the same as goldstar.cpp
 
 ***************************************************************************/
 
@@ -3131,6 +3212,29 @@ ROM_START( tisuba )
 	ROM_LOAD( "n82s129n.u41", 0x200, 0x100, CRC(db99f6da) SHA1(d281a2fa06f1890ef0b1c4d099e6828827db14fd) )
 ROM_END
 
+ROM_START( tisubb )
+	ROM_REGION( 0x18000, "maincpu", 0 )
+	ROM_LOAD( "ti alpha rom_1 ver3.0n.u6", 0x10000, 0x4000,  CRC(7f0756cc) SHA1(e383b6abea136b79acabbffd9d247cc51c9aaa85) )
+	ROM_CONTINUE(0x0000,0xc000)
+	ROM_COPY( "maincpu", 0x09000, 0x14000, 0x1000)
+
+	ROM_REGION( 0x40000, "tilemap", 0 )
+	ROM_LOAD( "ti alpha rom_6 ver1.1.u43", 0x00000, 0x10000, CRC(e7abd3b6) SHA1(bb22161b6c082d3ea0c80e0ff413bc43edd6e678) )
+	ROM_LOAD( "ti alpha rom_4 ver1.1.u33", 0x10000, 0x10000, CRC(a4d13ea2) SHA1(e6366411c0f4b672e788a36a72a529449a5dd305) )
+	ROM_LOAD( "ti alpha rom_5 ver1.1.u44", 0x20000, 0x10000, CRC(23f9eaca) SHA1(b130b4c2cadc63224d4d3dd2d957398c1338ae18) )
+	ROM_LOAD( "ti alpha rom_7 ver1.1.u34", 0x30000, 0x10000, CRC(6f388cee) SHA1(bafdf44ae6e57d4114b6e008744628d2175ae023) )
+
+	ROM_REGION( 0x8000, "reels", 0 )
+	ROM_LOAD( "ti alpha rom_2 ver1.1.u19", 0x0000, 0x4000, CRC(2b009e98) SHA1(f91e304006f37fbd25d9752297d59f62e5786251) )
+	ROM_IGNORE(0x4000)
+	ROM_LOAD( "ti alpha rom_3 ver1.1.u20", 0x4000, 0x4000, CRC(52335a53) SHA1(d932fa755a8a98ee26ecf25594aca1d3d8af4f99) )
+	ROM_IGNORE(0x4000)
+
+	ROM_REGION( 0x300, "proms", 0 ) // not dumped for this set, but should be correct
+	ROM_LOAD( "n82s129n.u39", 0x000, 0x100, BAD_DUMP CRC(971843e5) SHA1(4cb5fc1085503dae2f2f02eb49cca051ac84b890) )
+	ROM_LOAD( "n82s129n.u40", 0x100, 0x100, BAD_DUMP CRC(b4bd872c) SHA1(c0f9fe68186636d6d6bc6f81415459631cf38edd) )
+	ROM_LOAD( "n82s129n.u41", 0x200, 0x100, BAD_DUMP CRC(db99f6da) SHA1(d281a2fa06f1890ef0b1c4d099e6828827db14fd) )
+ROM_END
 
 /***************************************************************************
 
@@ -3571,6 +3675,28 @@ ROM_START( smoto20 )
 	ROM_LOAD( "82s129.u13", 0x200, 0x100, CRC(9cb4a5c0) SHA1(0e0a368329c6d1cb685ed655d699a4894988fdb1) )
 ROM_END
 
+ROM_START( smoto13 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "rider out_1 ver1.3.u18", 0x00000, 0x10000, CRC(45a9ebb2) SHA1(216be0d93a9787593578343277fa82f2d8a2e75c) )
+
+	ROM_REGION( 0x40000, "tilemap", 0 )
+	ROM_LOAD( "rider rom_3 ver1.0.u16", 0x00000, 0x08000, CRC(511cccaa) SHA1(6d47f3d90049c141202c864a8ef6ed7d5a9077a4) )
+	ROM_CONTINUE(      0x10000, 0x08000 )
+	ROM_CONTINUE(      0x08000, 0x08000 )
+	ROM_CONTINUE(      0x18000, 0x08000 )
+	ROM_LOAD( "rider rom_2 ver1.0.u17", 0x20000, 0x08000, CRC(b0d3ec58) SHA1(c10008993c0b9368164e537386d14cb5e9aaf761) )
+	ROM_CONTINUE(      0x30000, 0x08000 )
+	ROM_CONTINUE(      0x28000, 0x08000 )
+	ROM_CONTINUE(      0x38000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "rider rom_4 ver1.0.u54", 0x00000, 0x20000, CRC(df828563) SHA1(f39324c5c37486ed9512e0ff934394556dd182ae) )
+
+	ROM_REGION( 0x300, "proms", 0 )
+	ROM_LOAD( "82s129.u11", 0x000, 0x100, CRC(e17730a6) SHA1(50c730b24e1d3d205c70f9381e4136e2ba6e499a) )
+	ROM_LOAD( "82s129.u12", 0x100, 0x100, CRC(df848861) SHA1(f7e382f8b56d6b9f2af6c7a48a19e3631a64bb6d) )
+	ROM_LOAD( "82s129.u13", 0x200, 0x100, CRC(9cb4a5c0) SHA1(0e0a368329c6d1cb685ed655d699a4894988fdb1) )
+ROM_END
 
 /***************************************************************************
 
@@ -3731,6 +3857,43 @@ ROM_START( mtrainnv )
 ROM_END
 
 
+ROM_START( dinofmly ) // very similar PCB to the smoto set, but instead of 3 PROMs it has a RAMDAC.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dino iii tetris_1 ver1.3.u18", 0x00000, 0x10000, CRC(ddf09230) SHA1(1e83b17cfc64b5eba484abfc922a67c9c3e0d1bf) )
+
+	ROM_REGION( 0x40000, "tilemap", 0 )
+	ROM_LOAD( "dino iii tetris_3 ver1.0.u16", 0x00000, 0x08000, CRC(88319fdf) SHA1(f0e97476d9664a5bdf16c27568a2c044d0818fad) )
+	ROM_CONTINUE(             0x10000, 0x08000 )
+	ROM_CONTINUE(             0x08000, 0x08000 )
+	ROM_CONTINUE(             0x18000, 0x08000 )
+	ROM_LOAD( "dino iii tetris_2 ver1.0.u17", 0x20000, 0x08000, CRC(fa355811) SHA1(d2f40e648d0c9f72c38e39021897cba23f09a56f) )
+	ROM_CONTINUE(             0x30000, 0x08000 )
+	ROM_CONTINUE(             0x28000, 0x08000 )
+	ROM_CONTINUE(             0x38000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "u54", 0x00000, 0x20000, CRC(4e2ef62a) SHA1(77dbc2a03619ad3608a27ed70e74f3e76431498d) ) // missing label
+ROM_END
+
+ROM_START( dinofmlya )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "tangasofii rom1.u18", 0x00000, 0x10000, CRC(0039174c) SHA1(452d0704620600b8c376674a300b2481598f31a8) ) // hand-written label
+
+	ROM_REGION( 0x40000, "tilemap", 0 )
+	ROM_LOAD( "dino iii tetris_3 ver1.0.u16", 0x00000, 0x08000, CRC(88319fdf) SHA1(f0e97476d9664a5bdf16c27568a2c044d0818fad) )
+	ROM_CONTINUE(             0x10000, 0x08000 )
+	ROM_CONTINUE(             0x08000, 0x08000 )
+	ROM_CONTINUE(             0x18000, 0x08000 )
+	ROM_LOAD( "dino iii tetris_2 ver1.0.u17", 0x20000, 0x08000, CRC(fa355811) SHA1(d2f40e648d0c9f72c38e39021897cba23f09a56f) )
+	ROM_CONTINUE(             0x30000, 0x08000 )
+	ROM_CONTINUE(             0x28000, 0x08000 )
+	ROM_CONTINUE(             0x38000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "u54", 0x00000, 0x20000, CRC(4e2ef62a) SHA1(77dbc2a03619ad3608a27ed70e74f3e76431498d) ) // missing label
+ROM_END
+
+
 /***************************************************************************
 *                        Driver Init / Decryption                          *
 ***************************************************************************/
@@ -3782,6 +3945,12 @@ void subsino_state::init_smoto20()
 	rom[0x12e1] = 0x20; // "ERROR 951010"
 }
 
+void subsino_state::init_smoto13()
+{
+	uint8_t *rom = memregion( "maincpu" )->base();
+	rom[0x1308] = 0x20; // "ERROR 951010"
+}
+
 void subsino_state::init_tisub()
 {
 	uint8_t *rom = memregion( "maincpu" )->base();
@@ -3812,6 +3981,29 @@ void subsino_state::init_tisuba()
 	rom[0x6498] = 0x00;
 }
 
+void subsino_state::init_tisubb()
+{
+	subsino_decrypt(machine(), tisubb_bitswaps, tisubb_xors, 0xc000);
+
+	uint8_t *rom = memregion( "maincpu" )->base();
+
+	/* this trips a z180 MMU core bug? It unmaps a region then the program code jumps to that region... */
+	rom[0x60da] = 0x00;
+	rom[0x60db] = 0x00;
+	rom[0x60dc] = 0x00;
+	rom[0x60df] = 0x00;
+	rom[0x60e0] = 0x00;
+	rom[0x60e1] = 0x00;
+
+	m_flash_packet = 0;
+	m_flash_packet_start = 0;
+	m_flash_val = 0;
+
+	save_item(NAME(m_flash_packet));
+	save_item(NAME(m_flash_packet_start));
+	save_item(NAME(m_flash_val));
+}
+
 void subsino_state::init_stbsub()
 {
 #if 1
@@ -3832,8 +4024,10 @@ void subsino_state::init_stbsub()
 void subsino_state::init_stisub()
 {
 	uint8_t *rom = memregion( "maincpu" )->base();
-	rom[0x0FA0] = 0x28;
-	rom[0x0FA1] = 0x1d; //patch protection check
+	rom[0xfa0] = 0x28;
+	rom[0xfa1] = 0x1d; //patch protection check
+	rom[0x7ed] = 0x18; //patch "winning protection" check
+	rom[0x9bb] = 0x18; //patch "losing protection" check
 
 	for (uint8_t reel = 0; reel < 3; reel++)
 	{
@@ -3897,32 +4091,37 @@ void subsino_state::init_mtrainnv()
 *                               Game Drivers                               *
 ***************************************************************************/
 
-//     YEAR  NAME         PARENT   MACHINE   INPUT     CLASS          INIT              ROT   COMPANY            FULLNAME                                FLAGS            LAYOUT
-GAMEL( 1990, victor21,    0,       victor21, victor21, subsino_state, init_victor21,    ROT0, "Subsino / Buffy", "Victor 21",                            0,               layout_victor21 )
+//     YEAR  NAME         PARENT   MACHINE   INPUT     CLASS          INIT              ROT   COMPANY            FULLNAME                                       FLAGS                LAYOUT
+GAMEL( 1990, victor21,    0,       victor21, victor21, subsino_state, init_victor21,    ROT0, "Subsino / Buffy", "Victor 21",                                   0,                   layout_victor21 )
 
-GAMEL( 1991, victor5,     0,       victor5,  victor5,  subsino_state, init_victor5,     ROT0, "Subsino / Buffy", "Victor 5",                             0,               layout_victor5  ) // Original PCB and game from Subsino.
-GAMEL( 1991, victor5a,    victor5, victor5,  victor5,  subsino_state, init_victor5,     ROT0, "Subsino",         "G.E.A.",                               0,               layout_victor5  ) // PCB black-box was marked 'victor 5' - in-game says G.E.A with no manufacturer info?
+GAMEL( 1991, victor5,     0,       victor5,  victor5,  subsino_state, init_victor5,     ROT0, "Subsino / Buffy", "Victor 5",                                    0,                   layout_victor5  ) // Original PCB and game from Subsino.
+GAMEL( 1991, victor5a,    victor5, victor5,  victor5,  subsino_state, init_victor5,     ROT0, "Subsino",         "G.E.A.",                                      0,                   layout_victor5  ) // PCB black-box was marked 'victor 5' - in-game says G.E.A with no manufacturer info?
 
-GAMEL( 1992, tisub,       0,       tisub,    tisub,    subsino_state, init_tisub,       ROT0, "Subsino",         "Treasure Island (Subsino, set 1)",     0,               layout_tisub    )
-GAMEL( 1992, tisuba,      tisub,   tisub,    tisub,    subsino_state, init_tisuba,      ROT0, "Subsino",         "Treasure Island (Subsino, set 2)",     0,               layout_tisub    )
+GAMEL( 1992, tisub,       0,       tisub,    tisub,    subsino_state, init_tisub,       ROT0, "Subsino",         "Treasure Island (Subsino, set 1)",            0,                   layout_tisub    )
+GAMEL( 1992, tisuba,      tisub,   tisub,    tisub,    subsino_state, init_tisuba,      ROT0, "Subsino",         "Treasure Island (Subsino, set 2)",            0,                   layout_tisub    )
+GAMEL( 1992, tisubb,      tisub,   tisub,    tisubb,   subsino_state, init_tisubb,      ROT0, "American Alpha",  "Treasure Island (American Alpha, v3.0N)",     0,                   layout_tisubb   )
 
-GAMEL( 1991, crsbingo,    0,       crsbingo, crsbingo, subsino_state, init_crsbingo,    ROT0, "Subsino",         "Poker Carnival",                       0,               layout_crsbingo )
+GAMEL( 1991, crsbingo,    0,       crsbingo, crsbingo, subsino_state, init_crsbingo,    ROT0, "Subsino",         "Poker Carnival",                              0,                   layout_crsbingo )
 
-GAMEL( 1995, stbsub,      0,       stbsub,   stbsub,   subsino_state, init_stbsub,      ROT0, "American Alpha",  "Treasure Bonus (Subsino, v1.6)",       0,               layout_stisub   ) // board CPU module marked 'Super Treasure Island' (alt title?)
-GAMEL( 1995, stisub,      stbsub,  stbsub,   stbsub,   subsino_state, init_stisub,      ROT0, "Subsino",         "Super Treasure Island (Italy, v1.6)",  MACHINE_NOT_WORKING, layout_stisub   ) // need proper patches
-GAMEL( 1995, tesorone,    stbsub,  stbsub,   tesorone, subsino_state, init_tesorone,    ROT0, "Subsino",         "Tesorone Dell'Isola (Italy, v2.41)",   0,               layout_stisub   )
-GAMEL( 1995, tesorone240, stbsub,  stbsub,   tesorone, subsino_state, init_tesorone,    ROT0, "Subsino",         "Tesorone Dell'Isola (Italy, v2.40)",   0,               layout_stisub   )
-GAMEL( 1995, tesorone230, stbsub,  stbsub,   tesorone, subsino_state, init_tesorone230, ROT0, "Subsino",         "Tesorone Dell'Isola (Italy, v2.30)",   0,               layout_stisub   )
+GAMEL( 1994, dinofmly,    0,       dinofmly, sharkpy,  subsino_state, empty_init,       ROT0, "Subsino",         "Dino Family",                                 MACHINE_NOT_WORKING, layout_sharkpy ) // stops with 'error password' message during boot
+GAMEL( 1995, dinofmlya,   dinofmly,dinofmly, sharkpy,  subsino_state, empty_init,       ROT0, "Tangasoft",       "Dino Family (Portuguese, Tangasoft license)", MACHINE_NOT_WORKING, layout_sharkpy ) // stops with 'error password' message during boot
 
-GAMEL( 1996, sharkpy,     0,       sharkpy,  sharkpy,  subsino_state, init_sharkpy,     ROT0, "Subsino",         "Shark Party (Italy, v1.3)",            0,               layout_sharkpy  ) // missing POST messages?
-GAMEL( 1996, sharkpya,    sharkpy, sharkpy,  sharkpy,  subsino_state, init_sharkpy,     ROT0, "Subsino",         "Shark Party (Italy, v1.6)",            0,               layout_sharkpy  ) // missing POST messages?
-GAMEL( 1995, sharkpye,    sharkpy, sharkpy,  sharkpye, subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Shark Party (English, Alpha license)", 0,               layout_sharkpye ) // PCB black-box was marked 'victor 6'
+GAMEL( 1995, stbsub,      0,       stbsub,   stbsub,   subsino_state, init_stbsub,      ROT0, "American Alpha",  "Treasure Bonus (Subsino, v1.6)",              0,                   layout_stisub   ) // board CPU module marked 'Super Treasure Island' (alt title?)
+GAMEL( 1995, stisub,      stbsub,  stbsub,   stbsub,   subsino_state, init_stisub,      ROT0, "Subsino",         "Super Treasure Island (Italy, v1.6)",         0,                   layout_stisub   )
+GAMEL( 1995, tesorone,    stbsub,  stbsub,   tesorone, subsino_state, init_tesorone,    ROT0, "Subsino",         "Tesorone Dell'Isola (Italy, v2.41)",          0,                   layout_stisub   )
+GAMEL( 1995, tesorone240, stbsub,  stbsub,   tesorone, subsino_state, init_tesorone,    ROT0, "Subsino",         "Tesorone Dell'Isola (Italy, v2.40)",          0,                   layout_stisub   )
+GAMEL( 1995, tesorone230, stbsub,  stbsub,   tesorone, subsino_state, init_tesorone230, ROT0, "Subsino",         "Tesorone Dell'Isola (Italy, v2.30)",          0,                   layout_stisub   )
 
-GAMEL( 1995, victor6,     0,       sharkpy,  victor6,  subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Victor 6 (v2.3N)",                     0,               layout_sharkpye ) // ^^
-GAMEL( 1995, victor6a,    victor6, sharkpy,  victor6a, subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Victor 6 (v2.3)",                      0,               layout_sharkpye ) // ^^
-GAMEL( 1995, victor6b,    victor6, sharkpy,  victor6b, subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Victor 6 (v1.2)",                      0,               layout_sharkpye ) // ^^ Version # according to label, not displayed
+GAMEL( 1996, sharkpy,     0,       sharkpy,  sharkpy,  subsino_state, init_sharkpy,     ROT0, "Subsino",         "Shark Party (Italy, v1.3)",                   0,                   layout_sharkpy  ) // missing POST messages?
+GAMEL( 1996, sharkpya,    sharkpy, sharkpy,  sharkpy,  subsino_state, init_sharkpy,     ROT0, "Subsino",         "Shark Party (Italy, v1.6)",                   0,                   layout_sharkpy  ) // missing POST messages?
+GAMEL( 1995, sharkpye,    sharkpy, sharkpy,  sharkpye, subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Shark Party (English, Alpha license)",        0,                   layout_sharkpye ) // PCB black-box was marked 'victor 6'
 
-GAMEL( 1996, smoto20,     0,       srider,   smoto20,  subsino_state, init_smoto20,     ROT0, "Subsino",         "Super Rider (Italy, v2.0)",            0,               layout_smoto    )
-GAMEL( 1996, smoto16,     smoto20, srider,   smoto16,  subsino_state, init_smoto16,     ROT0, "Subsino",         "Super Moto (Italy, v1.6)",             0,               layout_smoto    )
+GAMEL( 1995, victor6,     0,       sharkpy,  victor6,  subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Victor 6 (v2.3N)",                            0,                   layout_sharkpye ) // ^^
+GAMEL( 1995, victor6a,    victor6, sharkpy,  victor6a, subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Victor 6 (v2.3)",                             0,                   layout_sharkpye ) // ^^
+GAMEL( 1995, victor6b,    victor6, sharkpy,  victor6b, subsino_state, init_sharkpye,    ROT0, "American Alpha",  "Victor 6 (v1.2)",                             0,                   layout_sharkpye ) // ^^ Version # according to label, not displayed
 
-GAME(  1996, mtrainnv,    mtrain,  mtrainnv, stbsub,   subsino_state, init_mtrainnv,    ROT0, "Subsino",         "Magic Train (Clear NVRAM ROM?)",       MACHINE_NOT_WORKING )
+GAMEL( 1996, smoto20,     0,       srider,   smoto20,  subsino_state, init_smoto20,     ROT0, "Subsino",         "Super Rider (Italy, v2.0)",                   0,                   layout_smoto    )
+GAMEL( 1996, smoto16,     smoto20, srider,   smoto16,  subsino_state, init_smoto16,     ROT0, "Subsino",         "Super Moto (Italy, v1.6)",                    0,                   layout_smoto    )
+GAMEL( 1996, smoto13,     smoto20, srider,   smoto16,  subsino_state, init_smoto13,     ROT0, "Subsino",         "Super Rider (v1.3)",                          0,                   layout_smoto    )
+
+GAME(  1996, mtrainnv,    mtrain,  mtrainnv, stbsub,   subsino_state, init_mtrainnv,    ROT0, "Subsino",         "Magic Train (Clear NVRAM ROM?)",              MACHINE_NOT_WORKING )

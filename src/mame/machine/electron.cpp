@@ -1,11 +1,8 @@
 // license:BSD-3-Clause
 // copyright-holders:Wilbert Pol, Nigel Barnes
 /******************************************************************************
+
     Acorn Electron driver
-
-    MESS Driver By:
-
-    Wilbert Pol
 
 ******************************************************************************/
 
@@ -27,25 +24,11 @@ void electron_state::waitforramsync()
 	m_maincpu->adjust_icount(-cycles);
 }
 
-
-void electron_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(electron_state::setup_beep)
 {
-	switch (id)
-	{
-	case TIMER_TAPE_HANDLER:
-		electron_tape_timer_handler(ptr, param);
-		break;
-	case TIMER_SETUP_BEEP:
-		setup_beep(ptr, param);
-		break;
-	case TIMER_SCANLINE_INTERRUPT:
-		electron_scanline_interrupt(ptr, param);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in electron_state::device_timer");
-	}
+	m_beeper->set_state( 0 );
+	m_beeper->set_clock( 300 );
 }
-
 
 void electron_state::electron_tape_start()
 {
@@ -376,7 +359,7 @@ uint8_t electronsp_state::electron_fred_r(offs_t offset)
 	{
 		data = electron_state::electron_fred_r(offset);
 	}
-	return data;;
+	return data;
 }
 
 void electronsp_state::electron_fred_w(offs_t offset, uint8_t data)
@@ -586,20 +569,14 @@ void electron_state::electron_interrupt_handler(int mode, int interrupt)
    Machine Initialisation functions
 ***************************************/
 
-TIMER_CALLBACK_MEMBER(electron_state::setup_beep)
-{
-	m_beeper->set_state( 0 );
-	m_beeper->set_clock( 300 );
-}
-
 void electron_state::machine_start()
 {
 	m_capslock_led.resolve();
 
 	m_ula.interrupt_status = 0x82;
 	m_ula.interrupt_control = 0x00;
-	timer_set(attotime::zero, TIMER_SETUP_BEEP);
-	m_tape_timer = timer_alloc(TIMER_TAPE_HANDLER);
+	m_tape_timer = timer_alloc(FUNC(electron_state::electron_tape_timer_handler), this);
+	m_beep_timer = timer_alloc(FUNC(electron_state::setup_beep), this);
 
 	/* register save states */
 	save_item(STRUCT_MEMBER(m_ula, interrupt_status));
@@ -633,6 +610,9 @@ void electron_state::machine_reset()
 
 	m_mrb_mapped = true;
 	m_vdu_drivers = false;
+
+	m_tape_timer->adjust(attotime::never);
+	m_beep_timer->adjust(attotime::never);
 }
 
 void electronsp_state::machine_start()
@@ -654,7 +634,7 @@ image_init_result electronsp_state::load_rom(device_image_interface &image, gene
 	// socket accepts 8K and 16K ROM only
 	if (size != 0x2000 && size != 0x4000)
 	{
-		image.seterror(IMAGE_ERROR_UNSPECIFIED, "Invalid size: Only 8K/16K is supported");
+		image.seterror(image_error::INVALIDIMAGE, "Invalid size: Only 8K/16K is supported");
 		return image_init_result::FAIL;
 	}
 

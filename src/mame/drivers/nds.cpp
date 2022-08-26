@@ -647,14 +647,14 @@ void nds_state::machine_start()
 
 	for (i = 0; i < 8; i++)
 	{
-		m_dma_timer[i] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(nds_state::dma_complete),this));
+		m_dma_timer[i] = timer_alloc(FUNC(nds_state::dma_complete), this);
 		m_dma_timer[i]->adjust(attotime::never, i);
 
-		m_tmr_timer[i] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(nds_state::timer_expire),this));
+		m_tmr_timer[i] = timer_alloc(FUNC(nds_state::timer_expire), this);
 		m_tmr_timer[i]->adjust(attotime::never, i);
 	}
 
-	m_irq_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(nds_state::handle_irq),this));
+	m_irq_timer = timer_alloc(FUNC(nds_state::handle_irq), this);
 	m_irq_timer->adjust(attotime::never);
 }
 
@@ -810,7 +810,7 @@ void nds_state::dma_exec(int ch)
 #endif
 //  printf("settng DMA timer %d for %d cycs (tmr %x)\n", ch, cnt, (uint32_t)m_dma_timer[ch]);
 //  m_dma_timer[ch]->adjust(ATTOTIME_IN_CYCLES(0, cnt), ch);
-	dma_complete(nullptr, ch);
+	dma_complete(ch);
 }
 
 TIMER_CALLBACK_MEMBER(nds_state::handle_irq)

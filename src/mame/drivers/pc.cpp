@@ -31,7 +31,7 @@ Driver file for IBM PC, IBM PC XT, and related machines.
 #include "bus/isa/isa_cards.h"
 #include "bus/pc_kbd/keyboards.h"
 #include "bus/pc_kbd/pc_kbdc.h"
-#include "softlist.h"
+#include "softlist_dev.h"
 
 /******************************************************* Generic PC with CGA ***/
 
@@ -75,6 +75,7 @@ public:
 	void earthst(machine_config &config);
 	void vpcii(machine_config &config);
 	void fraking(machine_config &config);
+	void ec1847(machine_config &config);
 
 	void init_bondwell();
 
@@ -85,7 +86,7 @@ private:
 
 	u8 unk_r();
 
-	double m_turbo_off_speed;
+	double m_turbo_off_speed = 0;
 
 	static void cfg_dual_720K(device_t *device);
 	static void cfg_single_360K(device_t *device);
@@ -493,6 +494,23 @@ ROM_START( comport )
 	ROM_LOAD("compaq_portable_video_cpqvid.bin", 0x0000, 0x1ffe, BAD_DUMP CRC(3ae64565) SHA1(6eeb06620e588a2f7bfab72eb4fadbd70503ea94))
 ROM_END
 
+/*********************************************************** Compaq Deskpro ***
+Links: https://www.atarimagazines.com/creative/v11n5/32_Compaq_Deskpro_versus_IBM.php
+Info: Four equipment levels from factory
+Form Factor: Desktop
+CPU: 8086 @ 7.16 MHz
+RAM: 128KB (models 1-3), 384KB (model 4), all expandable to 640KB on the motherboard
+Bus: 8x ISA
+Video: on board
+Display: green or amber 12" CGA monitor
+Mass storage: 1x5.25" 360K (model 1), 2x 5.25" 360K (model 2), 1x5.25" floppy and 1x10MB hard disk (model 3), model 4 adds a 10MB streamer unit
+Ports: serial, parallel, ext. floppy, RTC (from model 3 up)
+
+******************************************************************************/
+ROM_START( comdesk ) // set to juko16 specs, changed those to EGA ... period correct and gets comdesk running while the original CGA isn't emulated yet
+	ROM_REGION16_LE(0x10000,"bios", 0)
+	ROM_LOAD("compaq_bios_revision_j_106265-002.bin", 0xe000, 0x2000, CRC(d861c857) SHA1(62b8f15e5eddc035b51196e79bbca7bb26d73d1f))
+ROM_END
 
 /************************************************** Data General One / DG-1 ***
 
@@ -1056,7 +1074,7 @@ CPU: 8088 @ 8MHz
 RAM: 640KB
 Bus: 3x ISA:    1)  ATI Graphics Solution SR https://sites.google.com/site/atiwonderseriesdatabase/
 Video: MDA/CGA/Plantronics
-Mass storage: 1 or 2 5.25" 360K floppies, MFM harddisk on hardcard or via seperate controller
+Mass storage: 1 or 2 5.25" 360K floppies, MFM harddisk on hardcard or via separate controller
 On board ports: serial, parallel, floppy
 
 ******************************************************************************/
@@ -1161,13 +1179,15 @@ RAM: 640KB
 Bus: 6x ISA:    1) MDA/Hercules/CGA and parallel port
                 2) Floppy, RTC and serial port
                 3) (optional) MFM harddisk controller
-Video: MDA/Hercules, exchangable via ISA-slot
+Video: MDA/Hercules, exchangeable via ISA-slot
 Mass storage: 1x 5.25" 360K floppy and 1x 5.25" 360K floppy or MFM hard drive (10MB or 20MB)
 On board ports: parallel, serial, beeper
 Options: 8087 FPU
 OSC: 24MHz, 1843.200KHz
 
 Two blocks of dip switches, 8 switches each
+The same BIOS version is found in a Multitech Popular 500 PC
+
 ******************************************************************************/
 
 static DEVICE_INPUT_DEFAULTS_START( siemens )
@@ -1385,13 +1405,13 @@ void pc_state::zenith(machine_config &config)
 
 ROM_START( zdsupers )
 	ROM_REGION(0x10000,"bios", 0)
-	ROM_SYSTEM_BIOS( 0, "v31d", "v3.1d" )
+	ROM_SYSTEM_BIOS( 0, "v31d", "v3.1D" )
 	ROMX_LOAD("z184m v3.1d.10d", 0x8000, 0x8000, CRC(44012c3b) SHA1(f2f28979798874386ca8ba3dd3ead24ae7c2aeb4), ROM_BIOS(0))
-	ROM_SYSTEM_BIOS( 1, "v29e", "v2.9e" )
+	ROM_SYSTEM_BIOS( 1, "v29e", "v2.9E" )
 	ROMX_LOAD("z184m v2.9e.10d", 0x8000, 0x8000, CRC(de2f200b) SHA1(ad5ce601669a82351e412fc6c1c70c47779a1e55), ROM_BIOS(1))
 ROM_END
 
-/****************************************************** Zenith Z-150 series ***
+/****************************************************** Zenith Z-150 Series ***
 
 Form factor: Desktop
 Bus: 8 slot passive backplane: 1) CPU/memory card
@@ -1423,7 +1443,7 @@ ROM_START( zdz150 )
 	ROM_LOAD("444-229-18.bin", 0xc000, 0x4000, CRC(a6078b8a) SHA1(9a970013f5109a5003365eb2923cc26f08516dcb))
 ROM_END
 
-/****************************************************** Zenith Z-160 series ***
+/****************************************************** Zenith Z-160 Series ***
 
 Form factor: (Trans-)Portable
 
@@ -1432,6 +1452,32 @@ Form factor: (Trans-)Portable
 ROM_START( zdz160 )
 	ROM_REGION(0x10000, "bios", 0)
 	ROM_LOAD("f800ffff.rom", 0x8000, 0x8000, CRC(46dd9695) SHA1(beaf6b45cecdadf630a94902fa84006bf00e2b3d))
+ROM_END
+
+/****************************************************** Zenith Z-180 Series ***
+
+Links:  https://www.1000bit.it/ad/bro/zenith/z180.pdf
+Form Factor: Laptop
+CPU: 80C88 @ 4.77 MHz, FPU socket present
+OSC: XTAL1 24 MHz, XTAL2 14.318 MHz, XTAL3 21.47727 MHz, XTAL4 16 MHz, XTAL5 1.8432 MHz (8570), XTAL6 4 MHz (HD6305V0)
+RAM: 640 KB
+Bus: no internal slots
+Video: CGA
+Display: LCD 80 x 25 characters, 600 x 200 pixels.
+Mass storage: 1x 3.5" 720K floppy and 20MB harddisk
+On board ports: serial, parallel, ext. keyboard, ext. CGA video, ext. floppy
+HDD: OMTI 20509B, OMTI 20513, LH5764 (not dumped)
+Modem: 80C31B @ 3.5795 MHz, INS82C50
+
+******************************************************************************/
+
+ROM_START( zdz180 )
+	ROM_REGION(0x10000, "bios", 0)
+	ROM_LOAD("101ad_b920.rom", 0x8000, 0x8000, CRC(2f40a6b3) SHA1(ef6eb3acdf7729308a1e89574f84509929910767))
+	ROM_REGION(0x4000, "hd", 0)
+	ROM_LOAD("hd.rom", 0x0000, 0x4000, CRC(35b7084a) SHA1(3b3b9e414d13143e7883256d32035f36a98c95f6))
+	ROM_REGION(0x2000, "modem", 0)
+	ROM_LOAD("abbeaa2_45e4_15-06-88.rom", 0x0000, 0x2000, CRC(98f9652f) SHA1(91e706067574666c8698c819ead7e84e55b9ba1a))
 ROM_END
 
 /************************************************************** CompuAdd 810 **
@@ -1539,7 +1585,7 @@ void pc_state::juko16(machine_config &config)
 	mb.kbddata_callback().set("kbd", FUNC(pc_kbdc_device::data_write_from_mb));
 	mb.set_input_default(DEVICE_INPUT_DEFAULTS_NAME(pccga));
 
-	ISA8_SLOT(config, "isa1", 0, "mb:isa", pc_isa8_cards, "cga", false); // FIXME: determine ISA bus clock
+	ISA8_SLOT(config, "isa1", 0, "mb:isa", pc_isa8_cards, "ega", false); // FIXME: determine ISA bus clock
 	ISA8_SLOT(config, "isa2", 0, "mb:isa", pc_isa8_cards, "fdc_xt", false);
 	ISA8_SLOT(config, "isa3", 0, "mb:isa", pc_isa8_cards, "lpt", false);
 	ISA8_SLOT(config, "isa4", 0, "mb:isa", pc_isa8_cards, "com", false);
@@ -1719,6 +1765,26 @@ ROM_START( nms9100 )
 	ROMX_LOAD("philipsxt.bin", 0x8000, 0x8000, CRC(2f3135e7) SHA1(d2fc4c06cf09e2c5a62017f0977b084be8bf9bbd), ROM_BIOS(2))
 ROM_END
 
+/**************************************************************** EC-1847 ***
+Desktop?
+*****************************************************************************/
+
+void pc_state::ec1847(machine_config &config)
+{
+	pccga(config);
+//  subdevice<isa8_slot_device>("isa1")->set_default_option("hercules");
+}
+
+ROM_START( ec1847 )
+	ROM_REGION(0x10000, "bios", 0)
+	ROM_LOAD("308_d47_2764.bin",  0x8000, 0x2000, CRC(f06924f2) SHA1(83a5dedf1c06f875c598f087bbc087524bc9bfa3)) // hdc
+	ROM_LOAD("188m_d47_2764.bin", 0x4000, 0x2000, CRC(bc8742c7) SHA1(3af09d14e891e976b7a9a2a6e1af63f0eabe5426))
+	ROM_LOAD("188m_d48_2764.bin", 0xe000, 0x2000, CRC(7d290e95) SHA1(e73e6c8e19477fce5de3f95b89693dc6ad6781ab))
+
+	ROM_REGION(0x2000, "gfx1", ROMREGION_ERASE00)
+	ROM_LOAD("317_d28_2732.bin", 0x00000, 0x1000, CRC(8939599b) SHA1(53d02460cf93596882a96758ef4bac5fa1ce55b2)) // monochrome font
+ROM_END
+
 /************************************************* AEG Olympia Olystar 20F ***
 Form Factor: Desktop
 uses an Acer 710IIN motherboard, BIOS-Version 4.06
@@ -1847,7 +1913,7 @@ Graphics: S230790/00 GEJA04, MC6845P based, OSC: 20.0000 MHz, modes: 160x100 (16
 320x200 or 320x400 (4col. altogether: 1/16 for the background, 1 for the foreground (red, green or brown,
 alt. cobalt blue, violet or white), 640x200 or 640x400 (black, white and two intermediate hues)
 Floppy controller: S131005/00A CE0121/8AJ00072 - NEC B9201C, Intel P8272A
-Keyboard: has seperate "Shift Locke" and "Caps Lock" keys, "Clear" key (Ctrl-Clear to clear the screen),
+Keyboard: has separate "Shift Locke" and "Caps Lock" keys, "Clear" key (Ctrl-Clear to clear the screen),
 an "alpha" key and 18 function keys, it has no NumLock key.
 If you load the "tw" utility and press Ctrl-Alpha, you switch the computer into typewriter mode,
 and all typed text goes straight to the printer.
@@ -2290,6 +2356,7 @@ COMP( 1985, bw230,          ibm5150, 0,      bondwell,       bondwell, pc_state,
 COMP( 1982, mpc1600,        ibm5150, 0,      mpc1600,        pccga,    pc_state, empty_init,    "Columbia Data Products",          "MPC 1600",              0 )
 COMP( 198?, coppc21,        ibm5150, 0,      coppc400,       pccga,    pc_state, empty_init,    "Corona Data Systems, Inc.",       "Corona PPC-21",         MACHINE_NOT_WORKING )
 COMP( 198?, coppc400,       ibm5150, 0,      coppc400,       pccga,    pc_state, empty_init,    "Corona Data Systems, Inc.",       "Cordata PPC-400",       MACHINE_NOT_WORKING )
+COMP( 1984, comdesk,        ibm5150, 0,      juko16,         pccga,    pc_state, empty_init,    "Compaq",                          "Deskpro",               MACHINE_NOT_WORKING )
 COMP( 1983, comport,        ibm5150, 0,      comport,        pccga,    pc_state, empty_init,    "Compaq",                          "Compaq Portable",       MACHINE_NOT_WORKING )
 COMP( 198?, cadd810,        ibm5150, 0,      cadd810,        pccga,    pc_state, empty_init,    "CompuAdd",                        "810",                   MACHINE_NOT_WORKING )
 COMP( 1984, dgone,          ibm5150, 0,      dgone,          pccga,    pc_state, empty_init,    "Data General",                    "Data General/One" ,     MACHINE_NOT_WORKING )
@@ -2297,6 +2364,7 @@ COMP( 198?, dtkerso,        ibm5150, 0,      pccga,          pccga,    pc_state,
 COMP( 1983, eagle1600,      ibm5150, 0,      eagle1600,      pccga,    pc_state, empty_init,    "Eagle",                           "Eagle 1600" ,           MACHINE_NOT_WORKING )
 COMP( 1983, eaglespirit,    ibm5150, 0,      pccga,          pccga,    pc_state, empty_init,    "Eagle",                           "Eagle PC Spirit",       MACHINE_NOT_WORKING )
 COMP( 198?, eaglepc2,       ibm5150, 0,      pccga,          pccga,    pc_state, empty_init,    "Eagle",                           "PC-2",                  MACHINE_NOT_WORKING )
+COMP( 1990, ec1847,         ibm5150, 0,      ec1847,         pccga,    pc_state, empty_init,    "<unknown>",                       "EC-1847",               MACHINE_NOT_WORKING )
 COMP( 1985, eppc,           ibm5150, 0,      pccga,          pccga,    pc_state, empty_init,    "Ericsson Information System",     "Ericsson Portable PC",  MACHINE_NOT_WORKING )
 COMP( 1989, fraking,        ibm5150, 0,      modernxt,       pccga,    pc_state, empty_init,    "Frael",                           "King",                  MACHINE_NOT_WORKING )
 COMP( 198?, hyo88t,         ibm5150, 0,      pccga,          pccga,    pc_state, empty_init,    "Hyosung",                         "Topstar 88T",           MACHINE_NOT_WORKING )
@@ -2332,8 +2400,9 @@ COMP( 1987, vpcii,          ibm5150, 0,      vpcii,          pccga,    pc_state,
 COMP( 1988, laser_turbo_xt, ibm5150, 0,      pccga,          pccga,    pc_state, empty_init,    "VTech",                           "Laser Turbo XT",        0 )
 COMP( 1989, laser_xt3,      ibm5150, 0,      pccga,          pccga,    pc_state, empty_init,    "VTech",                           "Laser XT/3",            0 )
 COMP( 1987, zdsupers,       ibm5150, 0,      zenith,         pccga,    pc_state, empty_init,    "Zenith Data Systems",             "SuperSport",            0 )
-COMP( 198?, zdz150,         ibm5150, 0,      zenith,         pccga,    pc_state, empty_init,    "Zenith Data Systems",             "Z-150 series",          0 )
-COMP( 198?, zdz160,         ibm5150, 0,      zenith,         pccga,    pc_state, empty_init,    "Zenith Data Systems",             "Z-160 series",          0 )
+COMP( 198?, zdz150,         ibm5150, 0,      zenith,         pccga,    pc_state, empty_init,    "Zenith Data Systems",             "Z-150 Series",          0 )
+COMP( 198?, zdz160,         ibm5150, 0,      zenith,         pccga,    pc_state, empty_init,    "Zenith Data Systems",             "Z-160 Series",          0 )
+COMP( 1987, zdz180,         ibm5150, 0,      zenith,         pccga,    pc_state, empty_init,    "Zenith Data Systems",             "Z-180 Series",          MACHINE_NOT_WORKING )
 COMP( 2010, sergeysxt,      ibm5150, 0,      modernxt,       pccga,    pc_state, empty_init,    "Sergey Kiselev",                  "Sergey's XT",           MACHINE_NOT_WORKING )
 COMP( 2012, xiprocessor,    ibm5150, 0,      modernxt,       pccga,    pc_state, empty_init,    "Sergey Kiselev",                  "Xi processor board",    MACHINE_NOT_WORKING )
 COMP( 2017, micro88,        ibm5150, 0,      modernxt,       pccga,    pc_state, empty_init,    "Sergey Kiselev",                  "Micro 8088",            MACHINE_NOT_WORKING )

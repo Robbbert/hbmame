@@ -174,11 +174,10 @@ string GetIniDir(void)
 // load mewui settings
 static void LoadSettingsFile(ui_options &opts, const char *filename)
 {
-	osd_file::error filerr;
 	util::core_file::ptr file;
 
-	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
-	if (filerr == osd_file::error::NONE)
+	std::error_condition filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
+	if (!filerr)
 	{
 		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
 		file.reset();
@@ -188,11 +187,10 @@ static void LoadSettingsFile(ui_options &opts, const char *filename)
 // load a game ini
 static void LoadSettingsFile(windows_options &opts, const char *filename)
 {
-	osd_file::error filerr;
 	util::core_file::ptr file;
 
-	filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
-	if (filerr == osd_file::error::NONE)
+	std::error_condition filerr = util::core_file::open(filename, OPEN_FLAG_READ, file);
+	if (!filerr)
 	{
 		opts.parse_ini_file(*file, OPTION_PRIORITY_CMDLINE, true, true);
 		file.reset();
@@ -202,12 +200,11 @@ static void LoadSettingsFile(windows_options &opts, const char *filename)
 // This saves changes to <game>.INI or MAME.INI only
 static void SaveSettingsFile(windows_options &opts, const char *filename)
 {
-	osd_file::error filerr = osd_file::error::NONE;
 	util::core_file::ptr file;
 
-	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
+	std::error_condition filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
 
-	if (filerr == osd_file::error::NONE)
+	if (!filerr)
 	{
 		string inistring = opts.output_ini();
 		// printf("=====%s=====\n%s\n",filename,inistring.c_str());  // for debugging
@@ -361,7 +358,7 @@ void emu_opts_init(bool b)
 	emu_path.resize(pos);
 	printf("%s\n",emu_path.c_str());
 
-	dir_map[1] = dir_data { OPTION_HOMEPATH, 0 };
+	dir_map[1] = dir_data { OPTION_PLUGINDATAPATH, 0 };
 	dir_map[2] = dir_data { OPTION_MEDIAPATH, 0 };
 	dir_map[3] = dir_data { OPTION_HASHPATH, 0 };
 	dir_map[4] = dir_data { OPTION_SAMPLEPATH, 0 };
@@ -441,12 +438,11 @@ string dir_get_value(int dir_index)
 // This saves changes to UI.INI only
 static void SaveSettingsFile(ui_options &opts, const char *filename)
 {
-	osd_file::error filerr = osd_file::error::NONE;
 	util::core_file::ptr file;
 
-	filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
+	std::error_condition filerr = util::core_file::open(filename, OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS, file);
 
-	if (filerr == osd_file::error::NONE)
+	if (!filerr)
 	{
 		string inistring = opts.output_ini();
 		file->puts(inistring.c_str());
@@ -479,6 +475,8 @@ void SetDirectories(windows_options &o)
 	emu_set_value(o, OPTION_DEBUG, "0");
 	emu_set_value(o, OPTION_SPEAKER_REPORT, "0");
 	emu_set_value(o, OPTION_VERBOSE, "0");
+	emu_set_value(o, OPTION_LOG, "0");
+	emu_set_value(o, OPTION_OSLOG, "0");
 }
 
 // For dialogs.cpp
@@ -576,7 +574,7 @@ bool AreOptionsEqual(windows_options &opts1, windows_options &opts2)
 {
 	for (auto &curentry : opts1.entries())
 	{
-		if (curentry->type() != OPTION_HEADER)
+		if (curentry->type() != core_options::option_type::HEADER)
 		{
 			const char *value = curentry->value();
 			const char *comp = opts2.value(curentry->name().c_str());

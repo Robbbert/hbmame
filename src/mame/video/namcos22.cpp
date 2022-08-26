@@ -293,7 +293,7 @@ void namcos22_renderer::poly3d_drawquad(screen_device &screen, bitmap_rgb32 &bit
 		}
 	}
 
-	namcos22_object_data &extra = object_data_alloc();
+	namcos22_object_data &extra = object_data().next();
 	int flags = node->data.quad.flags;
 	int color = node->data.quad.color;
 	int cz_adjust = node->data.quad.cz_adjust;
@@ -420,7 +420,7 @@ void namcos22_renderer::poly3d_drawsprite(
 		float fsw = sprite_screen_width;
 		float fsh = sprite_screen_height;
 
-		namcos22_object_data &extra = object_data_alloc();
+		namcos22_object_data &extra = object_data().next();
 		vertex_t vert[4];
 
 		extra.fadefactor = 0;
@@ -2572,7 +2572,7 @@ void namcos22_state::video_start()
 	m_is_ss22 = (m_iomcu == nullptr);
 	init_tables();
 
-	m_posirq_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(namcos22_state::posirq_callback),this));
+	m_posirq_timer = timer_alloc(FUNC(namcos22_state::posirq_callback), this);
 
 	m_mix_bitmap = std::make_unique<bitmap_ind16>(640, 480);
 	m_bgtilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(namcos22_state::get_text_tile_info)), TILEMAP_SCAN_ROWS, 16, 16, 64, 64);

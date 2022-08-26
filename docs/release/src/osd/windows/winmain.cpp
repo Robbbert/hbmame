@@ -22,8 +22,13 @@
 
 // standard C headers
 #include <cctype>
+#include <clocale>
 #include <cstdarg>
 #include <cstdio>
+#include <mutex>
+#include <optional>
+#include <sstream>
+#include <thread>
 
 // standard windows headers
 #include <windows.h>
@@ -31,15 +36,6 @@
 #include <mmsystem.h>
 #include <tchar.h>
 #include <io.h>
-
-#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-#include <wrl/client.h>
-using namespace Windows::Storage;
-using namespace Platform;
-using namespace Windows::ApplicationModel;
-using namespace Windows::ApplicationModel::Core;
-using namespace Windows::UI::Popups;
-#endif
 
 #define DEBUG_SLOW_LOCKS    0
 
@@ -57,14 +53,33 @@ using namespace Windows::UI::Popups;
 //  TYPE DEFINITIONS
 //**************************************************************************
 
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-
 //============================================================
 //  winui_output_error
 //============================================================
 
 class winui_output_error : public osd_output
 {
+private:
+	struct ui_state
+	{
+		~ui_state()
+		{
+			if (thread)
+				thread->join();
+		}
+
+		std::ostringstream buffer;
+		std::optional<std::thread> thread;
+		std::mutex mutex;
+		bool active;
+	};
+
+	static ui_state &get_state()
+	{
+		static ui_state state;
+		return state;
+	}
+
 public:
 	virtual void output_callback(osd_output_channel channel, const util::format_argument_pack<std::ostream> &args) override
 	{
@@ -74,53 +89,48 @@ public:
 			if ((video_config.windowed == 0) && !osd_common_t::s_window_list.empty())
 				winwindow_toggle_full_screen();
 
-			std::ostringstream buffer;
-			util::stream_format(buffer, args);
-			win_message_box_utf8(!osd_common_t::s_window_list.empty() ? std::static_pointer_cast<win_window_info>(osd_common_t::s_window_list.front())->platform_window() : nullptr, buffer.str().c_str(), emulator_info::get_appname(), MB_OK);
+			auto &state(get_state());
+			std::lock_guard<std::mutex> guard(state.mutex);
+			util::stream_format(state.buffer, args);
+			if (!state.active)
+			{
+				if (state.thread)
+				{
+					state.thread->join();
+					state.thread = std::nullopt;
+				}
+				state.thread.emplace(
+						[] ()
+						{
+							auto &state(get_state());
+							std::string message;
+							while (true)
+							{
+								{
+									std::lock_guard<std::mutex> guard(state.mutex);
+									message = std::move(state.buffer).str();
+									if (message.empty())
+									{
+										state.active = false;
+										return;
+									}
+									state.buffer.str(std::string());
+								}
+								// Don't hold any locks lock while calling MessageBox.
+								// Parent window isn't set because MAME could destroy
+								// the window out from under us on a fatal error.
+								win_message_box_utf8(nullptr, message.c_str(), emulator_info::get_appname(), MB_OK);
+							}
+						});
+				state.active = true;
+			}
 		}
 		else
+		{
 			chain_output(channel, args);
+		}
 	}
 };
-
-#else
-
-//============================================================
-//  winuniversal_output_error
-//============================================================
-
-class winuniversal_output_error : public osd_output
-{
-public:
-	virtual void output_callback(osd_output_channel channel, const char *msg, va_list args) override
-	{
-		char buffer[2048];
-		if (channel == OSD_OUTPUT_CHANNEL_ERROR)
-		{
-			vsnprintf(buffer, std::size(buffer), msg, args);
-
-			std::wstring wcbuffer(osd::text::to_wstring(buffer));
-			std::wstring wcappname(osd::text::to_wstring(emulator_info::get_appname()));
-
-			auto dlg = ref new MessageDialog(ref new Platform::String(wcbuffer.data()), ref new Platform::String(wcbuffer.data()));
-			dlg->ShowAsync();
-		}
-		else if (channel == OSD_OUTPUT_CHANNEL_VERBOSE)
-		{
-			vsnprintf(buffer, std::size(buffer), msg, args);
-			std::wstring wcbuffer = osd::text::to_wstring(buffer);
-			OutputDebugString(wcbuffer.c_str());
-
-			// Chain to next anyway
-			chain_output(channel, msg, args);
-		}
-		else
-			chain_output(channel, msg, args);
-	}
-};
-
-#endif
-
 
 //**************************************************************************
 //  GLOBAL VARIABLES
@@ -133,10 +143,8 @@ int _CRT_glob = 0;
 //  LOCAL VARIABLES
 //**************************************************************************
 
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 static int timeresult = !TIMERR_NOERROR;
 static TIMECAPS timecaps;
-#endif
 
 static running_machine *g_current_machine;
 
@@ -157,119 +165,119 @@ static int is_double_click_start(int argc);
 const options_entry windows_options::s_option_entries[] =
 {
 	// performance options
-	{ nullptr,                                        nullptr,    OPTION_HEADER,     "WINDOWS PERFORMANCE OPTIONS" },
-	{ WINOPTION_PRIORITY "(-15-1)",                   "0",        OPTION_INTEGER,    "thread priority for the main game thread; range from -15 to 1" },
-	{ WINOPTION_PROFILE,                              "0",        OPTION_INTEGER,    "enables profiling, specifying the stack depth to track" },
+	{ nullptr,                                        nullptr,    core_options::option_type::HEADER,     "WINDOWS PERFORMANCE OPTIONS" },
+	{ WINOPTION_PRIORITY "(-15-1)",                   "0",        core_options::option_type::INTEGER,    "thread priority for the main game thread; range from -15 to 1" },
+	{ WINOPTION_PROFILE,                              "0",        core_options::option_type::INTEGER,    "enables profiling, specifying the stack depth to track" },
 
 	// video options
-	{ nullptr,                                        nullptr,    OPTION_HEADER,     "WINDOWS VIDEO OPTIONS" },
-	{ WINOPTION_MENU,                                 "0",        OPTION_BOOLEAN,    "enables menu bar if available by UI implementation" },
-	{ WINOPTION_ATTACH_WINDOW,                        "",         OPTION_STRING,     "attach to arbitrary window" },
+	{ nullptr,                                        nullptr,    core_options::option_type::HEADER,     "WINDOWS VIDEO OPTIONS" },
+	{ WINOPTION_MENU,                                 "0",        core_options::option_type::BOOLEAN,    "enables menu bar if available by UI implementation" },
+	{ WINOPTION_ATTACH_WINDOW,                        "",         core_options::option_type::STRING,     "attach to arbitrary window" },
 
 	// post-processing options
-	{ nullptr,                                                  nullptr,             OPTION_HEADER,     "DIRECT3D POST-PROCESSING OPTIONS" },
-	{ WINOPTION_HLSLPATH,                                       "hlsl",              OPTION_STRING,     "path to HLSL support files" },
-	{ WINOPTION_HLSL_ENABLE";hlsl",                             "0",                 OPTION_BOOLEAN,    "enable HLSL post-processing (PS3.0 required)" },
-	{ WINOPTION_HLSL_OVERSAMPLING,                              "0",                 OPTION_BOOLEAN,    "enable HLSL oversampling" },
-	{ WINOPTION_HLSL_WRITE,                                     OSDOPTVAL_AUTO,      OPTION_STRING,     "enable HLSL AVI writing (huge disk bandwidth suggested)" },
-	{ WINOPTION_HLSL_SNAP_WIDTH,                                "2048",              OPTION_STRING,     "HLSL upscaled-snapshot width" },
-	{ WINOPTION_HLSL_SNAP_HEIGHT,                               "1536",              OPTION_STRING,     "HLSL upscaled-snapshot height" },
-	{ WINOPTION_SHADOW_MASK_TILE_MODE,                          "0",                 OPTION_INTEGER,    "shadow mask tile mode (0 for screen based, 1 for source based)" },
-	{ WINOPTION_SHADOW_MASK_ALPHA";fs_shadwa(0.0-1.0)",         "0.0",               OPTION_FLOAT,      "shadow mask alpha-blend value (1.0 is fully blended, 0.0 is no mask)" },
-	{ WINOPTION_SHADOW_MASK_TEXTURE";fs_shadwt(0.0-1.0)",       "shadow-mask.png",   OPTION_STRING,     "shadow mask texture name" },
-	{ WINOPTION_SHADOW_MASK_COUNT_X";fs_shadww",                "6",                 OPTION_INTEGER,    "shadow mask tile width, in screen dimensions" },
-	{ WINOPTION_SHADOW_MASK_COUNT_Y";fs_shadwh",                "4",                 OPTION_INTEGER,    "shadow mask tile height, in screen dimensions" },
-	{ WINOPTION_SHADOW_MASK_USIZE";fs_shadwu(0.0-1.0)",         "0.1875",            OPTION_FLOAT,      "shadow mask texture width, in U/V dimensions" },
-	{ WINOPTION_SHADOW_MASK_VSIZE";fs_shadwv(0.0-1.0)",         "0.25",              OPTION_FLOAT,      "shadow mask texture height, in U/V dimensions" },
-	{ WINOPTION_SHADOW_MASK_UOFFSET";fs_shadwou(-1.0-1.0)",     "0.0",               OPTION_FLOAT,      "shadow mask texture offset, in U direction" },
-	{ WINOPTION_SHADOW_MASK_VOFFSET";fs_shadwov(-1.0-1.0)",     "0.0",               OPTION_FLOAT,      "shadow mask texture offset, in V direction" },
-	{ WINOPTION_DISTORTION";fs_dist(-1.0-1.0)",                 "0.0",               OPTION_FLOAT,      "screen distortion amount" },
-	{ WINOPTION_CUBIC_DISTORTION";fs_cubedist(-1.0-1.0)",       "0.0",               OPTION_FLOAT,      "screen cubic distortion amount" },
-	{ WINOPTION_DISTORT_CORNER";fs_distc(0.0-1.0)",             "0.0",               OPTION_FLOAT,      "screen distort corner amount" },
-	{ WINOPTION_ROUND_CORNER";fs_rndc(0.0-1.0)",                "0.0",               OPTION_FLOAT,      "screen round corner amount" },
-	{ WINOPTION_SMOOTH_BORDER";fs_smob(0.0-1.0)",               "0.0",               OPTION_FLOAT,      "screen smooth border amount" },
-	{ WINOPTION_REFLECTION";fs_ref(0.0-1.0)",                   "0.0",               OPTION_FLOAT,      "screen reflection amount" },
-	{ WINOPTION_VIGNETTING";fs_vig(0.0-1.0)",                   "0.0",               OPTION_FLOAT,      "image vignetting amount" },
+	{ nullptr,                                                  nullptr,             core_options::option_type::HEADER,     "DIRECT3D POST-PROCESSING OPTIONS" },
+	{ WINOPTION_HLSLPATH,                                       "hlsl",              core_options::option_type::STRING,     "path to HLSL support files" },
+	{ WINOPTION_HLSL_ENABLE";hlsl",                             "0",                 core_options::option_type::BOOLEAN,    "enable HLSL post-processing (PS3.0 required)" },
+	{ WINOPTION_HLSL_OVERSAMPLING,                              "0",                 core_options::option_type::BOOLEAN,    "enable HLSL oversampling" },
+	{ WINOPTION_HLSL_WRITE,                                     OSDOPTVAL_AUTO,      core_options::option_type::STRING,     "enable HLSL AVI writing (huge disk bandwidth suggested)" },
+	{ WINOPTION_HLSL_SNAP_WIDTH,                                "2048",              core_options::option_type::STRING,     "HLSL upscaled-snapshot width" },
+	{ WINOPTION_HLSL_SNAP_HEIGHT,                               "1536",              core_options::option_type::STRING,     "HLSL upscaled-snapshot height" },
+	{ WINOPTION_SHADOW_MASK_TILE_MODE,                          "0",                 core_options::option_type::INTEGER,    "shadow mask tile mode (0 for screen based, 1 for source based)" },
+	{ WINOPTION_SHADOW_MASK_ALPHA";fs_shadwa(0.0-1.0)",         "0.0",               core_options::option_type::FLOAT,      "shadow mask alpha-blend value (1.0 is fully blended, 0.0 is no mask)" },
+	{ WINOPTION_SHADOW_MASK_TEXTURE";fs_shadwt(0.0-1.0)",       "shadow-mask.png",   core_options::option_type::STRING,     "shadow mask texture name" },
+	{ WINOPTION_SHADOW_MASK_COUNT_X";fs_shadww",                "6",                 core_options::option_type::INTEGER,    "shadow mask tile width, in screen dimensions" },
+	{ WINOPTION_SHADOW_MASK_COUNT_Y";fs_shadwh",                "4",                 core_options::option_type::INTEGER,    "shadow mask tile height, in screen dimensions" },
+	{ WINOPTION_SHADOW_MASK_USIZE";fs_shadwu(0.0-1.0)",         "0.1875",            core_options::option_type::FLOAT,      "shadow mask texture width, in U/V dimensions" },
+	{ WINOPTION_SHADOW_MASK_VSIZE";fs_shadwv(0.0-1.0)",         "0.25",              core_options::option_type::FLOAT,      "shadow mask texture height, in U/V dimensions" },
+	{ WINOPTION_SHADOW_MASK_UOFFSET";fs_shadwou(-1.0-1.0)",     "0.0",               core_options::option_type::FLOAT,      "shadow mask texture offset, in U direction" },
+	{ WINOPTION_SHADOW_MASK_VOFFSET";fs_shadwov(-1.0-1.0)",     "0.0",               core_options::option_type::FLOAT,      "shadow mask texture offset, in V direction" },
+	{ WINOPTION_DISTORTION";fs_dist(-1.0-1.0)",                 "0.0",               core_options::option_type::FLOAT,      "screen distortion amount" },
+	{ WINOPTION_CUBIC_DISTORTION";fs_cubedist(-1.0-1.0)",       "0.0",               core_options::option_type::FLOAT,      "screen cubic distortion amount" },
+	{ WINOPTION_DISTORT_CORNER";fs_distc(0.0-1.0)",             "0.0",               core_options::option_type::FLOAT,      "screen distort corner amount" },
+	{ WINOPTION_ROUND_CORNER";fs_rndc(0.0-1.0)",                "0.0",               core_options::option_type::FLOAT,      "screen round corner amount" },
+	{ WINOPTION_SMOOTH_BORDER";fs_smob(0.0-1.0)",               "0.0",               core_options::option_type::FLOAT,      "screen smooth border amount" },
+	{ WINOPTION_REFLECTION";fs_ref(0.0-1.0)",                   "0.0",               core_options::option_type::FLOAT,      "screen reflection amount" },
+	{ WINOPTION_VIGNETTING";fs_vig(0.0-1.0)",                   "0.0",               core_options::option_type::FLOAT,      "image vignetting amount" },
 	/* Beam-related values below this line*/
-	{ WINOPTION_SCANLINE_AMOUNT";fs_scanam(0.0-4.0)",           "0.0",               OPTION_FLOAT,      "overall alpha scaling value for scanlines" },
-	{ WINOPTION_SCANLINE_SCALE";fs_scansc(0.0-4.0)",            "1.0",               OPTION_FLOAT,      "overall height scaling value for scanlines" },
-	{ WINOPTION_SCANLINE_HEIGHT";fs_scanh(0.0-4.0)",            "1.0",               OPTION_FLOAT,      "individual height scaling value for scanlines" },
-	{ WINOPTION_SCANLINE_VARIATION";fs_scanv(0.0-4.0)",         "1.0",               OPTION_FLOAT,      "individual height varying value for scanlines" },
-	{ WINOPTION_SCANLINE_BRIGHT_SCALE";fs_scanbs(0.0-2.0)",     "1.0",               OPTION_FLOAT,      "overall brightness scaling value for scanlines (multiplicative)" },
-	{ WINOPTION_SCANLINE_BRIGHT_OFFSET";fs_scanbo(0.0-1.0)",    "0.0",               OPTION_FLOAT,      "overall brightness offset value for scanlines (additive)" },
-	{ WINOPTION_SCANLINE_JITTER";fs_scanjt(0.0-4.0)",           "0.0",               OPTION_FLOAT,      "overall interlace jitter scaling value for scanlines" },
-	{ WINOPTION_HUM_BAR_ALPHA";fs_humba(0.0-1.0)",              "0.0",               OPTION_FLOAT,      "overall alpha scaling value for hum bar" },
-	{ WINOPTION_DEFOCUS";fs_focus",                             "0.0,0.0",           OPTION_STRING,     "overall defocus value in screen-relative coords" },
-	{ WINOPTION_CONVERGE_X";fs_convx",                          "0.0,0.0,0.0",       OPTION_STRING,     "convergence in screen-relative X direction" },
-	{ WINOPTION_CONVERGE_Y";fs_convy",                          "0.0,0.0,0.0",       OPTION_STRING,     "convergence in screen-relative Y direction" },
-	{ WINOPTION_RADIAL_CONVERGE_X";fs_rconvx",                  "0.0,0.0,0.0",       OPTION_STRING,     "radial convergence in screen-relative X direction" },
-	{ WINOPTION_RADIAL_CONVERGE_Y";fs_rconvy",                  "0.0,0.0,0.0",       OPTION_STRING,     "radial convergence in screen-relative Y direction" },
+	{ WINOPTION_SCANLINE_AMOUNT";fs_scanam(0.0-4.0)",           "0.0",               core_options::option_type::FLOAT,      "overall alpha scaling value for scanlines" },
+	{ WINOPTION_SCANLINE_SCALE";fs_scansc(0.0-4.0)",            "1.0",               core_options::option_type::FLOAT,      "overall height scaling value for scanlines" },
+	{ WINOPTION_SCANLINE_HEIGHT";fs_scanh(0.0-4.0)",            "1.0",               core_options::option_type::FLOAT,      "individual height scaling value for scanlines" },
+	{ WINOPTION_SCANLINE_VARIATION";fs_scanv(0.0-4.0)",         "1.0",               core_options::option_type::FLOAT,      "individual height varying value for scanlines" },
+	{ WINOPTION_SCANLINE_BRIGHT_SCALE";fs_scanbs(0.0-2.0)",     "1.0",               core_options::option_type::FLOAT,      "overall brightness scaling value for scanlines (multiplicative)" },
+	{ WINOPTION_SCANLINE_BRIGHT_OFFSET";fs_scanbo(0.0-1.0)",    "0.0",               core_options::option_type::FLOAT,      "overall brightness offset value for scanlines (additive)" },
+	{ WINOPTION_SCANLINE_JITTER";fs_scanjt(0.0-4.0)",           "0.0",               core_options::option_type::FLOAT,      "overall interlace jitter scaling value for scanlines" },
+	{ WINOPTION_HUM_BAR_ALPHA";fs_humba(0.0-1.0)",              "0.0",               core_options::option_type::FLOAT,      "overall alpha scaling value for hum bar" },
+	{ WINOPTION_DEFOCUS";fs_focus",                             "0.0,0.0",           core_options::option_type::STRING,     "overall defocus value in screen-relative coords" },
+	{ WINOPTION_CONVERGE_X";fs_convx",                          "0.0,0.0,0.0",       core_options::option_type::STRING,     "convergence in screen-relative X direction" },
+	{ WINOPTION_CONVERGE_Y";fs_convy",                          "0.0,0.0,0.0",       core_options::option_type::STRING,     "convergence in screen-relative Y direction" },
+	{ WINOPTION_RADIAL_CONVERGE_X";fs_rconvx",                  "0.0,0.0,0.0",       core_options::option_type::STRING,     "radial convergence in screen-relative X direction" },
+	{ WINOPTION_RADIAL_CONVERGE_Y";fs_rconvy",                  "0.0,0.0,0.0",       core_options::option_type::STRING,     "radial convergence in screen-relative Y direction" },
 	/* RGB colorspace convolution below this line */
-	{ WINOPTION_RED_RATIO";fs_redratio",                        "1.0,0.0,0.0",       OPTION_STRING,     "red output signal generated by input signal" },
-	{ WINOPTION_GRN_RATIO";fs_grnratio",                        "0.0,1.0,0.0",       OPTION_STRING,     "green output signal generated by input signal" },
-	{ WINOPTION_BLU_RATIO";fs_bluratio",                        "0.0,0.0,1.0",       OPTION_STRING,     "blue output signal generated by input signal" },
-	{ WINOPTION_SATURATION";fs_sat(0.0-4.0)",                   "1.0",               OPTION_FLOAT,      "saturation scaling value" },
-	{ WINOPTION_OFFSET";fs_offset",                             "0.0,0.0,0.0",       OPTION_STRING,     "signal offset value (additive)" },
-	{ WINOPTION_SCALE";fs_scale",                               "1.0,1.0,1.0",       OPTION_STRING,     "signal scaling value (multiplicative)" },
-	{ WINOPTION_POWER";fs_power",                               "1.0,1.0,1.0",       OPTION_STRING,     "signal power value (exponential)" },
-	{ WINOPTION_FLOOR";fs_floor",                               "0.0,0.0,0.0",       OPTION_STRING,     "signal floor level" },
-	{ WINOPTION_PHOSPHOR";fs_phosphor",                         "0.0,0.0,0.0",       OPTION_STRING,     "phosphorescence decay rate (0.0 is instant, 1.0 is forever)" },
-	{ WINOPTION_CHROMA_MODE,                                    "3",                 OPTION_INTEGER,    "number of phosphors to use: 1 - monochrome, 2 - dichrome, 3 - trichrome (color)" },
-	{ WINOPTION_CHROMA_CONVERSION_GAIN,                         "0.299,0.587,0.114", OPTION_STRING,     "gain to be applied when summing RGB signal for monochrome and dichrome modes" },
-	{ WINOPTION_CHROMA_A,                                       "0.64,0.33",         OPTION_STRING,     "chromaticity coordinate for first phosphor" },
-	{ WINOPTION_CHROMA_B,                                       "0.30,0.60",         OPTION_STRING,     "chromaticity coordinate for second phosphor" },
-	{ WINOPTION_CHROMA_C,                                       "0.15,0.06",         OPTION_STRING,     "chromaticity coordinate for third phosphor" },
-	{ WINOPTION_CHROMA_Y_GAIN,                                  "0.2126,0.7152,0.0722", OPTION_STRING,  "gain to be applied for each phosphor" },
+	{ WINOPTION_RED_RATIO";fs_redratio",                        "1.0,0.0,0.0",       core_options::option_type::STRING,     "red output signal generated by input signal" },
+	{ WINOPTION_GRN_RATIO";fs_grnratio",                        "0.0,1.0,0.0",       core_options::option_type::STRING,     "green output signal generated by input signal" },
+	{ WINOPTION_BLU_RATIO";fs_bluratio",                        "0.0,0.0,1.0",       core_options::option_type::STRING,     "blue output signal generated by input signal" },
+	{ WINOPTION_SATURATION";fs_sat(0.0-4.0)",                   "1.0",               core_options::option_type::FLOAT,      "saturation scaling value" },
+	{ WINOPTION_OFFSET";fs_offset",                             "0.0,0.0,0.0",       core_options::option_type::STRING,     "signal offset value (additive)" },
+	{ WINOPTION_SCALE";fs_scale",                               "1.0,1.0,1.0",       core_options::option_type::STRING,     "signal scaling value (multiplicative)" },
+	{ WINOPTION_POWER";fs_power",                               "1.0,1.0,1.0",       core_options::option_type::STRING,     "signal power value (exponential)" },
+	{ WINOPTION_FLOOR";fs_floor",                               "0.0,0.0,0.0",       core_options::option_type::STRING,     "signal floor level" },
+	{ WINOPTION_PHOSPHOR";fs_phosphor",                         "0.0,0.0,0.0",       core_options::option_type::STRING,     "phosphorescence decay rate (0.0 is instant, 1.0 is forever)" },
+	{ WINOPTION_CHROMA_MODE,                                    "3",                 core_options::option_type::INTEGER,    "number of phosphors to use: 1 - monochrome, 2 - dichrome, 3 - trichrome (color)" },
+	{ WINOPTION_CHROMA_CONVERSION_GAIN,                         "0.299,0.587,0.114", core_options::option_type::STRING,     "gain to be applied when summing RGB signal for monochrome and dichrome modes" },
+	{ WINOPTION_CHROMA_A,                                       "0.64,0.33",         core_options::option_type::STRING,     "chromaticity coordinate for first phosphor" },
+	{ WINOPTION_CHROMA_B,                                       "0.30,0.60",         core_options::option_type::STRING,     "chromaticity coordinate for second phosphor" },
+	{ WINOPTION_CHROMA_C,                                       "0.15,0.06",         core_options::option_type::STRING,     "chromaticity coordinate for third phosphor" },
+	{ WINOPTION_CHROMA_Y_GAIN,                                  "0.2126,0.7152,0.0722", core_options::option_type::STRING,  "gain to be applied for each phosphor" },
 	/* NTSC simulation below this line */
-	{ nullptr,                                                  nullptr,             OPTION_HEADER,     "NTSC POST-PROCESSING OPTIONS" },
-	{ WINOPTION_YIQ_ENABLE";yiq",                               "0",                 OPTION_BOOLEAN,    "enable YIQ-space HLSL post-processing" },
-	{ WINOPTION_YIQ_JITTER";yiqj",                              "0.0",               OPTION_FLOAT,      "jitter for the NTSC signal processing" },
-	{ WINOPTION_YIQ_CCVALUE";yiqcc",                            "3.57954545",        OPTION_FLOAT,      "color carrier frequency for NTSC signal processing" },
-	{ WINOPTION_YIQ_AVALUE";yiqa",                              "0.5",               OPTION_FLOAT,      "A value for NTSC signal processing" },
-	{ WINOPTION_YIQ_BVALUE";yiqb",                              "0.5",               OPTION_FLOAT,      "B value for NTSC signal processing" },
-	{ WINOPTION_YIQ_OVALUE";yiqo",                              "0.0",               OPTION_FLOAT,      "outgoing Color Carrier phase offset for NTSC signal processing" },
-	{ WINOPTION_YIQ_PVALUE";yiqp",                              "1.0",               OPTION_FLOAT,      "incoming Pixel Clock scaling value for NTSC signal processing" },
-	{ WINOPTION_YIQ_NVALUE";yiqn",                              "1.0",               OPTION_FLOAT,      "Y filter notch width for NTSC signal processing" },
-	{ WINOPTION_YIQ_YVALUE";yiqy",                              "6.0",               OPTION_FLOAT,      "Y filter cutoff frequency for NTSC signal processing" },
-	{ WINOPTION_YIQ_IVALUE";yiqi",                              "1.2",               OPTION_FLOAT,      "I filter cutoff frequency for NTSC signal processing" },
-	{ WINOPTION_YIQ_QVALUE";yiqq",                              "0.6",               OPTION_FLOAT,      "Q filter cutoff frequency for NTSC signal processing" },
-	{ WINOPTION_YIQ_SCAN_TIME";yiqsc",                          "52.6",              OPTION_FLOAT,      "horizontal scanline duration for NTSC signal processing (microseconds)" },
-	{ WINOPTION_YIQ_PHASE_COUNT";yiqpc",                        "2",                 OPTION_INTEGER,    "phase count value for NTSC signal processing" },
+	{ nullptr,                                                  nullptr,             core_options::option_type::HEADER,     "NTSC POST-PROCESSING OPTIONS" },
+	{ WINOPTION_YIQ_ENABLE";yiq",                               "0",                 core_options::option_type::BOOLEAN,    "enable YIQ-space HLSL post-processing" },
+	{ WINOPTION_YIQ_JITTER";yiqj",                              "0.0",               core_options::option_type::FLOAT,      "jitter for the NTSC signal processing" },
+	{ WINOPTION_YIQ_CCVALUE";yiqcc",                            "3.57954545",        core_options::option_type::FLOAT,      "color carrier frequency for NTSC signal processing" },
+	{ WINOPTION_YIQ_AVALUE";yiqa",                              "0.5",               core_options::option_type::FLOAT,      "A value for NTSC signal processing" },
+	{ WINOPTION_YIQ_BVALUE";yiqb",                              "0.5",               core_options::option_type::FLOAT,      "B value for NTSC signal processing" },
+	{ WINOPTION_YIQ_OVALUE";yiqo",                              "0.0",               core_options::option_type::FLOAT,      "outgoing Color Carrier phase offset for NTSC signal processing" },
+	{ WINOPTION_YIQ_PVALUE";yiqp",                              "1.0",               core_options::option_type::FLOAT,      "incoming Pixel Clock scaling value for NTSC signal processing" },
+	{ WINOPTION_YIQ_NVALUE";yiqn",                              "1.0",               core_options::option_type::FLOAT,      "Y filter notch width for NTSC signal processing" },
+	{ WINOPTION_YIQ_YVALUE";yiqy",                              "6.0",               core_options::option_type::FLOAT,      "Y filter cutoff frequency for NTSC signal processing" },
+	{ WINOPTION_YIQ_IVALUE";yiqi",                              "1.2",               core_options::option_type::FLOAT,      "I filter cutoff frequency for NTSC signal processing" },
+	{ WINOPTION_YIQ_QVALUE";yiqq",                              "0.6",               core_options::option_type::FLOAT,      "Q filter cutoff frequency for NTSC signal processing" },
+	{ WINOPTION_YIQ_SCAN_TIME";yiqsc",                          "52.6",              core_options::option_type::FLOAT,      "horizontal scanline duration for NTSC signal processing (microseconds)" },
+	{ WINOPTION_YIQ_PHASE_COUNT";yiqpc",                        "2",                 core_options::option_type::INTEGER,    "phase count value for NTSC signal processing" },
 	/* Vector simulation below this line */
-	{ nullptr,                                                  nullptr,             OPTION_HEADER,     "VECTOR POST-PROCESSING OPTIONS" },
-	{ WINOPTION_VECTOR_BEAM_SMOOTH";vecsmooth",                 "0.0",               OPTION_FLOAT,      "vector beam smoothness" },
-	{ WINOPTION_VECTOR_LENGTH_SCALE";vecscale",                 "0.5",               OPTION_FLOAT,      "maximum vector attenuation" },
-	{ WINOPTION_VECTOR_LENGTH_RATIO";vecratio",                 "0.5",               OPTION_FLOAT,      "minimum vector length affected by attenuation (vector length to screen size ratio)" },
+	{ nullptr,                                                  nullptr,             core_options::option_type::HEADER,     "VECTOR POST-PROCESSING OPTIONS" },
+	{ WINOPTION_VECTOR_BEAM_SMOOTH";vecsmooth",                 "0.0",               core_options::option_type::FLOAT,      "vector beam smoothness" },
+	{ WINOPTION_VECTOR_LENGTH_SCALE";vecscale",                 "0.5",               core_options::option_type::FLOAT,      "maximum vector attenuation" },
+	{ WINOPTION_VECTOR_LENGTH_RATIO";vecratio",                 "0.5",               core_options::option_type::FLOAT,      "minimum vector length affected by attenuation (vector length to screen size ratio)" },
 	/* Bloom below this line */
-	{ nullptr,                                                  nullptr,             OPTION_HEADER,     "BLOOM POST-PROCESSING OPTIONS" },
-	{ WINOPTION_BLOOM_BLEND_MODE,                               "0",                 OPTION_INTEGER,    "bloom blend mode (0 for brighten, 1 for darken)" },
-	{ WINOPTION_BLOOM_SCALE,                                    "0.0",               OPTION_FLOAT,      "intensity factor for bloom" },
-	{ WINOPTION_BLOOM_OVERDRIVE,                                "1.0,1.0,1.0",       OPTION_STRING,     "overdrive factor for bloom" },
-	{ WINOPTION_BLOOM_LEVEL0_WEIGHT,                            "1.0",               OPTION_FLOAT,      "bloom level 0 weight (full-size target)" },
-	{ WINOPTION_BLOOM_LEVEL1_WEIGHT,                            "0.64",              OPTION_FLOAT,      "bloom level 1 weight (1/4 smaller that level 0 target)" },
-	{ WINOPTION_BLOOM_LEVEL2_WEIGHT,                            "0.32",              OPTION_FLOAT,      "bloom level 2 weight (1/4 smaller that level 1 target)" },
-	{ WINOPTION_BLOOM_LEVEL3_WEIGHT,                            "0.16",              OPTION_FLOAT,      "bloom level 3 weight (1/4 smaller that level 2 target)" },
-	{ WINOPTION_BLOOM_LEVEL4_WEIGHT,                            "0.08",              OPTION_FLOAT,      "bloom level 4 weight (1/4 smaller that level 3 target)" },
-	{ WINOPTION_BLOOM_LEVEL5_WEIGHT,                            "0.06",              OPTION_FLOAT,      "bloom level 5 weight (1/4 smaller that level 4 target)" },
-	{ WINOPTION_BLOOM_LEVEL6_WEIGHT,                            "0.04",              OPTION_FLOAT,      "bloom level 6 weight (1/4 smaller that level 5 target)" },
-	{ WINOPTION_BLOOM_LEVEL7_WEIGHT,                            "0.02",              OPTION_FLOAT,      "bloom level 7 weight (1/4 smaller that level 6 target)" },
-	{ WINOPTION_BLOOM_LEVEL8_WEIGHT,                            "0.01",              OPTION_FLOAT,      "bloom level 8 weight (1/4 smaller that level 7 target)" },
-	{ WINOPTION_LUT_TEXTURE,                                    "",                  OPTION_STRING,     "3D LUT texture filename for screen, PNG format" },
-	{ WINOPTION_LUT_ENABLE,                                     "0",                 OPTION_BOOLEAN,    "Enables 3D LUT to be applied to screen after post-processing" },
-	{ WINOPTION_UI_LUT_TEXTURE,                                 "",                  OPTION_STRING,     "3D LUT texture filename of UI, PNG format" },
-	{ WINOPTION_UI_LUT_ENABLE,                                  "0",                 OPTION_BOOLEAN,    "enable 3D LUT to be applied to UI and artwork after post-processing" },
+	{ nullptr,                                                  nullptr,             core_options::option_type::HEADER,     "BLOOM POST-PROCESSING OPTIONS" },
+	{ WINOPTION_BLOOM_BLEND_MODE,                               "0",                 core_options::option_type::INTEGER,    "bloom blend mode (0 for brighten, 1 for darken)" },
+	{ WINOPTION_BLOOM_SCALE,                                    "0.0",               core_options::option_type::FLOAT,      "intensity factor for bloom" },
+	{ WINOPTION_BLOOM_OVERDRIVE,                                "1.0,1.0,1.0",       core_options::option_type::STRING,     "overdrive factor for bloom" },
+	{ WINOPTION_BLOOM_LEVEL0_WEIGHT,                            "1.0",               core_options::option_type::FLOAT,      "bloom level 0 weight (full-size target)" },
+	{ WINOPTION_BLOOM_LEVEL1_WEIGHT,                            "0.64",              core_options::option_type::FLOAT,      "bloom level 1 weight (1/4 smaller that level 0 target)" },
+	{ WINOPTION_BLOOM_LEVEL2_WEIGHT,                            "0.32",              core_options::option_type::FLOAT,      "bloom level 2 weight (1/4 smaller that level 1 target)" },
+	{ WINOPTION_BLOOM_LEVEL3_WEIGHT,                            "0.16",              core_options::option_type::FLOAT,      "bloom level 3 weight (1/4 smaller that level 2 target)" },
+	{ WINOPTION_BLOOM_LEVEL4_WEIGHT,                            "0.08",              core_options::option_type::FLOAT,      "bloom level 4 weight (1/4 smaller that level 3 target)" },
+	{ WINOPTION_BLOOM_LEVEL5_WEIGHT,                            "0.06",              core_options::option_type::FLOAT,      "bloom level 5 weight (1/4 smaller that level 4 target)" },
+	{ WINOPTION_BLOOM_LEVEL6_WEIGHT,                            "0.04",              core_options::option_type::FLOAT,      "bloom level 6 weight (1/4 smaller that level 5 target)" },
+	{ WINOPTION_BLOOM_LEVEL7_WEIGHT,                            "0.02",              core_options::option_type::FLOAT,      "bloom level 7 weight (1/4 smaller that level 6 target)" },
+	{ WINOPTION_BLOOM_LEVEL8_WEIGHT,                            "0.01",              core_options::option_type::FLOAT,      "bloom level 8 weight (1/4 smaller that level 7 target)" },
+	{ WINOPTION_LUT_TEXTURE,                                    "lut-default.png",   core_options::option_type::STRING,     "3D LUT texture filename for screen, PNG format" },
+	{ WINOPTION_LUT_ENABLE,                                     "0",                 core_options::option_type::BOOLEAN,    "Enables 3D LUT to be applied to screen after post-processing" },
+	{ WINOPTION_UI_LUT_TEXTURE,                                 "lut-default.png",   core_options::option_type::STRING,     "3D LUT texture filename of UI, PNG format" },
+	{ WINOPTION_UI_LUT_ENABLE,                                  "0",                 core_options::option_type::BOOLEAN,    "enable 3D LUT to be applied to UI and artwork after post-processing" },
 
 	// full screen options
-	{ nullptr,                                        nullptr,    OPTION_HEADER,     "FULL SCREEN OPTIONS" },
-	{ WINOPTION_TRIPLEBUFFER ";tb",                   "0",        OPTION_BOOLEAN,    "enable triple buffering" },
-	{ WINOPTION_FULLSCREENBRIGHTNESS ";fsb(0.1-2.0)", "1.0",      OPTION_FLOAT,      "brightness value in full screen mode" },
-	{ WINOPTION_FULLSCREENCONTRAST ";fsc(0.1-2.0)",   "1.0",      OPTION_FLOAT,      "contrast value in full screen mode" },
-	{ WINOPTION_FULLSCREENGAMMA ";fsg(0.1-3.0)",      "1.0",      OPTION_FLOAT,      "gamma value in full screen mode" },
+	{ nullptr,                                        nullptr,    core_options::option_type::HEADER,     "FULL SCREEN OPTIONS" },
+	{ WINOPTION_TRIPLEBUFFER ";tb",                   "0",        core_options::option_type::BOOLEAN,    "enable triple buffering" },
+	{ WINOPTION_FULLSCREENBRIGHTNESS ";fsb(0.1-2.0)", "1.0",      core_options::option_type::FLOAT,      "brightness value in full screen mode" },
+	{ WINOPTION_FULLSCREENCONTRAST ";fsc(0.1-2.0)",   "1.0",      core_options::option_type::FLOAT,      "contrast value in full screen mode" },
+	{ WINOPTION_FULLSCREENGAMMA ";fsg(0.1-3.0)",      "1.0",      core_options::option_type::FLOAT,      "gamma value in full screen mode" },
 
 	// input options
-	{ nullptr,                                        nullptr,    OPTION_HEADER,     "INPUT DEVICE OPTIONS" },
-	{ WINOPTION_GLOBAL_INPUTS,                        "0",        OPTION_BOOLEAN,    "enable global inputs" },
-	{ WINOPTION_DUAL_LIGHTGUN ";dual",                "0",        OPTION_BOOLEAN,    "enable dual lightgun input" },
+	{ nullptr,                                        nullptr,    core_options::option_type::HEADER,     "INPUT DEVICE OPTIONS" },
+	{ WINOPTION_GLOBAL_INPUTS,                        "0",        core_options::option_type::BOOLEAN,    "enable global inputs" },
+	{ WINOPTION_DUAL_LIGHTGUN ";dual",                "0",        core_options::option_type::BOOLEAN,    "enable dual lightgun input" },
 
 	{ nullptr }
 };
@@ -277,8 +285,6 @@ const options_entry windows_options::s_option_entries[] =
 //**************************************************************************
 //  MAIN ENTRY POINT
 //**************************************************************************
-
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 
 //============================================================
 //  main
@@ -329,6 +335,7 @@ int main_(int argc, char *argv[])
 //HBMAME end
 int main(int argc, char *argv[])
 {
+	std::setlocale(LC_ALL, "");
 	std::vector<std::string> args = osd_get_command_line(argc, argv);
 
 	// use small output buffers on non-TTYs (i.e. pipes)
@@ -406,83 +413,6 @@ static BOOL WINAPI control_handler(DWORD type)
 	return TRUE;
 }
 
-#else
-
-// The main function is only used to initialize our IFrameworkView class.
-[Platform::MTAThread]
-int main(Platform::Array<Platform::String^>^ args)
-{
-	auto direct3DApplicationSource = ref new MameViewSource();
-	CoreApplication::Run(direct3DApplicationSource);
-	return 0;
-}
-
-MameMainApp::MameMainApp()
-{
-	// Turn off application view scaling so XBOX gets full screen
-	Windows::UI::ViewManagement::ApplicationViewScaling::TrySetDisableLayoutScaling(true);
-}
-
-void MameMainApp::Initialize(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView)
-{
-	// Register event handlers for app lifecycle.
-}
-
-// Called when the CoreWindow object is created (or re-created).
-void MameMainApp::SetWindow(Windows::UI::Core::CoreWindow^ window)
-{
-	// Attach event handlers on the window for input, etc.
-}
-
-// Initializes scene resources, or loads a previously saved app state.
-void MameMainApp::Load(Platform::String^ entryPoint)
-{
-}
-
-void MameMainApp::Run()
-{
-	// use small output buffers on non-TTYs (i.e. pipes)
-	if (!isatty(fileno(stdout)))
-		setvbuf(stdout, (char *) nullptr, _IOFBF, 64);
-	if (!isatty(fileno(stderr)))
-		setvbuf(stderr, (char *) nullptr, _IOFBF, 64);
-
-	// parse config and cmdline options
-	m_options = std::make_unique<windows_options>();
-	m_osd = std::make_unique<windows_osd_interface>(*m_options.get());
-
-	// Since we're a GUI app, out errors to message boxes
-	// Initialize this after the osd interface so that we are first in the
-	// output order
-	winuniversal_output_error winerror;
-	osd_output::push(&winerror);
-
-	m_osd->register_options();
-
-	// To satisfy the latter things, pass in the module path name
-	char exe_path[MAX_PATH];
-	GetModuleFileNameA(nullptr, exe_path, MAX_PATH);
-	char* args[3] = { exe_path, (char*)"-verbose", (char*)"-mouse" };
-
-	DWORD result = emulator_info::start_frontend(*m_options.get(), *m_osd.get(), std::size(args), args);
-	osd_output::pop(&winerror);
-}
-
-// Required for IFrameworkView.
-void MameMainApp::Uninitialize()
-{
-	// Terminate events do not cause Uninitialize to be called. It will be called if your IFrameworkView
-	// class is torn down while the app is in the foreground.
-}
-
-IFrameworkView^ MameViewSource::CreateView()
-{
-	return ref new MameMainApp();
-}
-
-#endif
-
-
 //============================================================
 //  windows_options
 //============================================================
@@ -491,21 +421,6 @@ windows_options::windows_options()
 : osd_options()
 {
 	add_entries(s_option_entries);
-#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-	String^ path = ApplicationData::Current->LocalFolder->Path + L"\\";
-	set_default_value(OPTION_INIPATH, osd::text::from_wstring((LPCWSTR)path->Data()) + ";" + ini_path());
-	set_default_value(OPTION_CFG_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) +  cfg_directory());
-	set_default_value(OPTION_NVRAM_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + nvram_directory());
-	set_default_value(OPTION_INPUT_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + input_directory());
-	set_default_value(OPTION_STATE_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + state_directory());
-	set_default_value(OPTION_SNAPSHOT_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + snapshot_directory());
-	set_default_value(OPTION_DIFF_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + diff_directory());
-	set_default_value(OPTION_COMMENT_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + comment_directory());
-	set_default_value(OPTION_SHARE_DIRECTORY, osd::text::from_wstring((LPCWSTR)path->Data()) + share_directory());
-
-	set_default_value(OPTION_HOMEPATH, osd::text::from_wstring((LPCWSTR)path->Data()));
-	set_default_value(OPTION_MEDIAPATH, osd::text::from_wstring((LPCWSTR)path->Data()) + media_path());
-#endif
 }
 
 
@@ -620,13 +535,11 @@ void windows_osd_interface::init(running_machine &machine)
 	if (options.oslog())
 		machine.add_logerror_callback(&windows_osd_interface::output_oslog);
 
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 	// crank up the multimedia timer resolution to its max
 	// this gives the system much finer timeslices
 	timeresult = timeGetDevCaps(&timecaps, sizeof(timecaps));
 	if (timeresult == TIMERR_NOERROR)
 		timeBeginPeriod(timecaps.wPeriodMin);
-#endif
 
 	// create and start the profiler
 	if (profile > 0)
@@ -660,11 +573,9 @@ void windows_osd_interface::osd_exit()
 	diagnostics_module::get_instance()->stop_profiler();
 	diagnostics_module::get_instance()->print_profiler_results();
 
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 	// restore the timer resolution
 	if (timeresult == TIMERR_NOERROR)
 		timeEndPeriod(timecaps.wPeriodMin);
-#endif
 
 	// one last pass at events
 	winwindow_process_events(machine(), false, false);
@@ -682,8 +593,6 @@ void osd_setup_osd_specific_emu_options(emu_options &opts)
 }
 
 
-#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-
 //============================================================
 //  check_for_double_click_start
 //============================================================
@@ -698,5 +607,3 @@ static int is_double_click_start(int argc)
 	// try to determine if MAME was simply double-clicked
 	return (argc <= 1 && startup_info.dwFlags && !(startup_info.dwFlags & STARTF_USESTDHANDLES));
 }
-
-#endif // WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)

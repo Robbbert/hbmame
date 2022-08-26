@@ -17,21 +17,19 @@ ROM_START( asukac )
 	ROM_LOAD16_BYTE( "b68-06.ic4", 0x80001, 0x10000, CRC(f517e64d) SHA1(8be491bfe0f7eed58521de9d31da677acf635c23) )
 
 	ROM_REGION( 0x1c000, "audiocpu", 0 )
-	ROM_LOAD( "b68-11.ic27", 0x00000, 0x04000, CRC(c378b508) SHA1(1b145fe736b924f298e02532cf9f26cc18b42ca7) )
-	ROM_CONTINUE(            0x10000, 0x0c000 )
+	ROM_LOAD( "b68-11.ic27", 0x00000, 0x10000, CRC(c378b508) SHA1(1b145fe736b924f298e02532cf9f26cc18b42ca7) )
 
 	ROM_REGION( 0x10000, "msm", 0 )
 	ROM_LOAD( "b68-10.ic24", 0x00000, 0x10000, CRC(387aaf40) SHA1(47c583564ef1d49ece15f97221b2e073e8fb0544) )
+
+	ROM_REGION( 0x144, "pals", 0 )
+	ROM_LOAD( "b68-04.ic32", 0x00000, 0x144, CRC(9be618d1) SHA1(61ee33c3db448a05ff8f455e77fe17d51106baec) )
+	ROM_LOAD( "b68-05.ic43", 0x00000, 0x104, CRC(d6524ccc) SHA1(f3b56253692aebb63278d47832fc27b8b212b59c) )
 ROM_END
 
-GAME( 1988, asukac, asuka, asuka, asuka,  asuka_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, asukac, asuka, asuka, asuka,  msm_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
 
 
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-     Proyecto Shadows Mame Build Plus
-**********************************************/
 
 /*************
  Jigoku Meguri
@@ -63,4 +61,4 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Jigoku Meguri
-GAME( 1988, jigkmgris01,  bonzeadv, bonzeadv, jigkmgri, asuka_state, empty_init,  ROT0,   "Taito Corporation",   "Jigoku Meguri (Japan, hack?)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, jigkmgris01,  bonzeadv, bonzeadv, jigkmgri, bonzeadv_state, empty_init,  ROT0,   "Taito Corporation",   "Jigoku Meguri (Japan, hack?)", MACHINE_SUPPORTS_SAVE )

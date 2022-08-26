@@ -51,14 +51,7 @@ ROM_END
 GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, init_ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version 2009-07-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Pipi899", "Strikers 1945 III (Secret Fighter 2009-07-23)", MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*************
+/*************
  Daraku Tenshi
 ****************/
 

@@ -1674,8 +1674,8 @@ static INPUT_PORTS_START( goldnaxe )
 	PORT_DIPNAME( 0x3c, 0x3c, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW2:3,4,5,6") /* Definition according to manual */
 	PORT_DIPSETTING(    0x00, "Special" )
 	PORT_DIPSETTING(    0x14, DEF_STR( Easiest ) )
-	PORT_DIPSETTING(    0x1c, DEF_STR( Easier ) )
-	PORT_DIPSETTING(    0x34, DEF_STR( Easy ) )
+	PORT_DIPSETTING(    0x34, DEF_STR( Easier ) )
+	PORT_DIPSETTING(    0x1c, DEF_STR( Easy ) )
 	PORT_DIPSETTING(    0x3c, DEF_STR( Normal ) )
 	PORT_DIPSETTING(    0x38, DEF_STR( Hard ) )
 	PORT_DIPSETTING(    0x2c, DEF_STR( Harder ) )
@@ -2038,19 +2038,8 @@ INPUT_PORTS_END
  *
  *************************************/
 
-static const gfx_layout charlayout  =
-{
-	8,8,
-	RGN_FRAC(1,3),
-	3,
-	{ RGN_FRAC(2,3), RGN_FRAC(1,3), RGN_FRAC(0,3) },
-	{ 0, 1, 2, 3, 4, 5, 6, 7 },
-	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8 },
-	8*8
-};
-
 GFXDECODE_START( gfx_sys16 )
-	GFXDECODE_ENTRY( "gfx1", 0, charlayout, 0, 1024 )
+	GFXDECODE_ENTRY( "gfx1", 0, gfx_8x8x3_planar, 0, 1024 )
 GFXDECODE_END
 
 

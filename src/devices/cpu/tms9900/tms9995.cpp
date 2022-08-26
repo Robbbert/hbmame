@@ -229,8 +229,8 @@ void tms9995_device::device_start()
 		// callexport = need to use the state_export method to read the state variable
 		state_add(i, s_statename[i], m_state_any).callimport().callexport().formatstr("%04X");
 	}
-	state_add(STATE_GENPC, "GENPC", PC_debug).formatstr("%4s").noshow();
-	state_add(STATE_GENPCBASE, "CURPC", PC_debug).formatstr("%4s").noshow();
+	state_add(STATE_GENPC, "GENPC", PC_debug).noshow();
+	state_add(STATE_GENPCBASE, "CURPC", PC_debug).noshow();
 	state_add(STATE_GENFLAGS, "status", m_state_any).callimport().callexport().formatstr("%16s").noshow();
 
 	// Set up the lookup table for command decoding
@@ -1954,8 +1954,10 @@ void tms9995_device::mem_write()
 			// will result in the data byte being written into the byte specifically addressed
 			// and random bits being written into the other byte of the decrementer."
 
-			// So we just don't care about the low byte.
-			if (m_address == 0xfffb) m_current_value >>= 8;
+			// Tests on a real 9995 show that both bytes have the same value
+			// after a byte operation
+			u16 decbyte = m_current_value & 0xff00;
+			m_current_value = decbyte | (decbyte >> 8);
 
 			// dito: "This also loads the Decrementing Register with the same count."
 			m_starting_count_storage_register = m_decrementer_value = m_current_value;

@@ -14,39 +14,23 @@
 #include "emu.h"
 #include "includes/mac.h"
 
+#include "machine/macadb.h"
+
+#include "bus/nscsi/devices.h"
+#include "bus/nubus/cards.h"
 #include "cpu/m68000/m68000.h"
 #include "cpu/m6805/m6805.h"
-#include "formats/ap_dsk35.h"
+#include "machine/applepic.h"
 #include "machine/iwm.h"
 #include "machine/swim1.h"
 #include "machine/swim2.h"
-#include "bus/nscsi/devices.h"
 
-// NuBus and 030/040 PDS cards
-#include "bus/nubus/nubus_48gc.h"
-#include "bus/nubus/nubus_cb264.h"
-#include "bus/nubus/nubus_vikbw.h"
-#include "bus/nubus/nubus_specpdq.h"
-#include "bus/nubus/nubus_m2hires.h"
-#include "bus/nubus/nubus_spec8.h"
-#include "bus/nubus/nubus_radiustpd.h"
-#include "bus/nubus/nubus_wsportrait.h"
-#include "bus/nubus/nubus_asntmc3b.h"
-#include "bus/nubus/nubus_image.h"
-#include "bus/nubus/nubus_m2video.h"
-#include "bus/nubus/bootbug.h"
-#include "bus/nubus/quadralink.h"
-#include "bus/nubus/laserview.h"
-#include "bus/nubus/pds30_cb264.h"
-#include "bus/nubus/pds30_procolor816.h"
-#include "bus/nubus/pds30_sigmalview.h"
-#include "bus/nubus/pds30_30hr.h"
-#include "bus/nubus/pds30_mc30.h"
-
-#include "machine/macadb.h"
-#include "softlist.h"
+#include "layout/generic.h"
+#include "softlist_dev.h"
 #include "speaker.h"
-#include "mac.lh"
+
+#include "formats/ap_dsk35.h"
+
 
 #define C32M    (31.3344_MHz_XTAL)
 #define C15M    (C32M/2)
@@ -394,6 +378,44 @@ void mac_state::biu_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 //  printf("biu_w %x @ %x, mask %08x\n", data, offset, mem_mask);
 }
 
+template <int N> WRITE_LINE_MEMBER(mac_state::oss_interrupt)
+{
+	if (state == ASSERT_LINE)
+		m_oss_regs[N >= 8 ? 0x202 : 0x203] |= 1 << (N & 7);
+	else
+		m_oss_regs[N >= 8 ? 0x202 : 0x203] &= ~(1 << (N & 7));
+
+	int take_interrupt = 0;
+	for (int n = 0; n < 8; n++)
+	{
+		if (BIT(m_oss_regs[0x203], n) && take_interrupt < m_oss_regs[n])
+			take_interrupt = m_oss_regs[n];
+		if (BIT(m_oss_regs[0x202], n) && take_interrupt < m_oss_regs[8 + n])
+			take_interrupt = m_oss_regs[8 + n];
+	}
+
+	if (m_last_taken_interrupt > -1)
+	{
+		m_maincpu->set_input_line(m_last_taken_interrupt, CLEAR_LINE);
+		m_last_taken_interrupt = -1;
+		m_oss_regs[0x200] &= 0x7f;
+	}
+
+	if (take_interrupt > 0)
+	{
+		m_maincpu->set_input_line(take_interrupt, ASSERT_LINE);
+		m_last_taken_interrupt = take_interrupt;
+		m_oss_regs[0x200] |= 0x80;
+	}
+}
+
+TIMER_CALLBACK_MEMBER(mac_state::oss_6015_tick)
+{
+	m_via1->write_ca1(0);
+	m_via1->write_ca1(1);
+	oss_interrupt<10>(ASSERT_LINE);
+}
+
 uint8_t mac_state::oss_r(offs_t offset)
 {
 //  printf("oss_r @ %x\n", offset);
@@ -402,13 +424,19 @@ uint8_t mac_state::oss_r(offs_t offset)
 //      return m_oss_regs[offset]<<4;
 //  }
 
-	return m_oss_regs[offset];
+	if (offset < std::size(m_oss_regs))
+		return m_oss_regs[offset];
+	else
+		return 0;
 }
 
 void mac_state::oss_w(offs_t offset, uint8_t data)
 {
 //  printf("oss_w %x @ %x\n", data, offset);
-	m_oss_regs[offset] = data;
+	if (offset == 0x207)
+		oss_interrupt<10>(CLEAR_LINE);
+	else if (offset < std::size(m_oss_regs))
+		m_oss_regs[offset] = data;
 }
 
 uint32_t mac_state::buserror_r()
@@ -418,26 +446,14 @@ uint32_t mac_state::buserror_r()
 	return 0;
 }
 
-uint8_t mac_state::scciop_r(offs_t offset)
+uint8_t mac_state::maciifx_8010_r()
 {
-//  printf("scciop_r @ %x (PC=%x)\n", offset, m_maincpu->pc());
+	return 0x40;
+}
+
+uint8_t mac_state::maciifx_8040_r()
+{
 	return 0;
-}
-
-void mac_state::scciop_w(offs_t offset, uint8_t data)
-{
-//  printf("scciop_w %x @ %x (PC=%x)\n", data, offset, m_maincpu->pc());
-}
-
-uint8_t mac_state::swimiop_r(offs_t offset)
-{
-//  printf("swimiop_r @ %x (PC=%x)\n", offset, m_maincpu->pc());
-	return 0;
-}
-
-void mac_state::swimiop_w(offs_t offset, uint8_t data)
-{
-//  printf("swimiop_w %x @ %x (PC=%x)\n", data, offset, m_maincpu->pc());
 }
 
 /***************************************************************************
@@ -539,13 +555,17 @@ void mac_state::maciifx_map(address_map &map)
 	map(0x40000000, 0x4007ffff).rom().region("bootrom", 0).mirror(0x0ff80000);
 
 	map(0x50000000, 0x50001fff).rw(FUNC(mac_state::mac_via_r), FUNC(mac_state::mac_via_w)).mirror(0x00f00000);
-	map(0x50004000, 0x50005fff).rw(FUNC(mac_state::scciop_r), FUNC(mac_state::scciop_w)).mirror(0x00f00000);
+	map(0x50004000, 0x50005fff).rw("sccpic", FUNC(applepic_device::host_r), FUNC(applepic_device::host_w)).mirror(0x00f00000).umask32(0xff00ff00);
+	map(0x50004000, 0x50005fff).rw("sccpic", FUNC(applepic_device::host_r), FUNC(applepic_device::host_w)).mirror(0x00f00000).umask32(0x00ff00ff);
+	map(0x50008010, 0x50008010).r(FUNC(mac_state::maciifx_8010_r)).mirror(0x00f00000);
+	map(0x50008040, 0x50008040).r(FUNC(mac_state::maciifx_8040_r)).mirror(0x00f00000);
 	map(0x5000a000, 0x5000bfff).rw(FUNC(mac_state::macplus_scsi_r), FUNC(mac_state::macii_scsi_w)).mirror(0x00f00000);
 	map(0x5000c060, 0x5000c063).r(FUNC(mac_state::macii_scsi_drq_r)).mirror(0x00f00000);
 	map(0x5000d000, 0x5000d003).w(FUNC(mac_state::macii_scsi_drq_w)).mirror(0x00f00000);
 	map(0x5000d060, 0x5000d063).r(FUNC(mac_state::macii_scsi_drq_r)).mirror(0x00f00000);
 	map(0x50010000, 0x50011fff).rw(m_asc, FUNC(asc_device::read), FUNC(asc_device::write)).mirror(0x00f00000);
-	map(0x50012000, 0x50013fff).rw(FUNC(mac_state::swimiop_r), FUNC(mac_state::swimiop_w)).mirror(0x00f00000);
+	map(0x50012000, 0x50013fff).rw("swimpic", FUNC(applepic_device::host_r), FUNC(applepic_device::host_w)).mirror(0x00f00000).umask32(0xff00ff00);
+	map(0x50012000, 0x50013fff).rw("swimpic", FUNC(applepic_device::host_r), FUNC(applepic_device::host_w)).mirror(0x00f00000).umask32(0x00ff00ff);
 	map(0x50018000, 0x50019fff).rw(FUNC(mac_state::biu_r), FUNC(mac_state::biu_w)).mirror(0x00f00000);
 	map(0x5001a000, 0x5001bfff).rw(FUNC(mac_state::oss_r), FUNC(mac_state::oss_w)).mirror(0x00f00000);
 	map(0x50024000, 0x50027fff).r(FUNC(mac_state::buserror_r)).mirror(0x00f00000);   // must bus error on access here so ROM can determine we're an FMC
@@ -555,36 +575,6 @@ void mac_state::maciifx_map(address_map &map)
 /***************************************************************************
     DEVICE CONFIG
 ***************************************************************************/
-
-static void mac_nubus_cards(device_slot_interface &device)
-{
-	device.option_add("m2video", NUBUS_M2VIDEO);    /* Apple Macintosh II Video Card */
-	device.option_add("48gc", NUBUS_48GC);      /* Apple 4*8 Graphics Card */
-	device.option_add("824gc", NUBUS_824GC);    /* Apple 8*24 Graphics Card */
-	device.option_add("cb264", NUBUS_CB264);    /* RasterOps ColorBoard 264 */
-	device.option_add("vikbw", NUBUS_VIKBW);    /* Moniterm Viking board */
-	device.option_add("image", NUBUS_IMAGE);    /* Disk Image Pseudo-Card */
-	device.option_add("specpdq", NUBUS_SPECPDQ);    /* SuperMac Spectrum PDQ */
-	device.option_add("m2hires", NUBUS_M2HIRES);    /* Apple Macintosh II Hi-Resolution Card */
-	device.option_add("spec8s3", NUBUS_SPEC8S3);    /* SuperMac Spectrum/8 Series III */
-//  device.option_add("thundergx", NUBUS_THUNDERGX);        /* Radius Thunder GX (not yet) */
-	device.option_add("radiustpd", NUBUS_RADIUSTPD);        /* Radius Two Page Display */
-	device.option_add("asmc3nb", NUBUS_ASNTMC3NB);  /* Asante MC3NB Ethernet card */
-	device.option_add("portrait", NUBUS_WSPORTRAIT);    /* Apple Macintosh II Portrait video card */
-	device.option_add("enetnb", NUBUS_APPLEENET);   /* Apple NuBus Ethernet */
-	device.option_add("bootbug", NUBUS_BOOTBUG);    /* Brigent BootBug debugger card */
-	device.option_add("quadralink", NUBUS_QUADRALINK);  /* AE Quadralink serial card */
-	device.option_add("laserview", NUBUS_LASERVIEW);  /* Sigma Designs LaserView monochrome video card */
-}
-
-static void mac_pds030_cards(device_slot_interface &device)
-{
-	device.option_add("cb264", PDS030_CB264SE30);   // RasterOps Colorboard 264/SE30
-	device.option_add("pc816", PDS030_PROCOLOR816); // Lapis ProColor Server 8*16 PDS
-	device.option_add("lview", PDS030_LVIEW);       // Sigma Designs L-View
-	device.option_add("30hr",  PDS030_XCEED30HR);   // Micron/XCEED Technology Color 30HR
-	device.option_add("mc30",  PDS030_XCEEDMC30);   // Micron/XCEED Technology MacroColor 30
-}
 
 static void mac_lcpds_cards(device_slot_interface &device)
 {
@@ -732,7 +722,7 @@ void mac_state::add_nubus(machine_config &config, bool bank1, bool bank2)
 	nubus.out_irqe_callback().set(FUNC(mac_state::nubus_irq_e_w));
 	if (bank1)
 	{
-		NUBUS_SLOT(config, "nb9", "nubus", mac_nubus_cards, "48gc");
+		NUBUS_SLOT(config, "nb9", "nubus", mac_nubus_cards, "mdc824");
 		NUBUS_SLOT(config, "nba", "nubus", mac_nubus_cards, nullptr);
 		NUBUS_SLOT(config, "nbb", "nubus", mac_nubus_cards, nullptr);
 	}
@@ -824,13 +814,36 @@ void mac_state::maciifx(machine_config &config)
 	add_base_devices(config, true, 1);
 	add_scsi(config);
 
+	m_asc->irqf_callback().set(FUNC(mac_state::oss_interrupt<8>));
+	subdevice<nscsi_connector>("scsi:7")->set_option_machine_config("ncr5380", [this](device_t *device) {
+		ncr53c80_device &adapter = downcast<ncr53c80_device &>(*device);
+		adapter.irq_handler().set(*this, FUNC(mac_state::oss_interrupt<9>));
+		adapter.drq_handler().set(m_scsihelp, FUNC(mac_scsi_helper_device::drq_w));
+	});
+
 	R65NC22(config, m_via1, C7M/10);
 	m_via1->readpa_handler().set(FUNC(mac_state::mac_via_in_a));
 	m_via1->readpb_handler().set(FUNC(mac_state::mac_via_in_b_ii));
 	m_via1->writepa_handler().set(FUNC(mac_state::mac_via_out_a));
 	m_via1->writepb_handler().set(FUNC(mac_state::mac_via_out_b));
 	m_via1->cb2_handler().set(FUNC(mac_state::mac_adb_via_out_cb2));
-	m_via1->irq_handler().set(FUNC(mac_state::mac_via_irq));
+	m_via1->irq_handler().set(FUNC(mac_state::oss_interrupt<11>));
+
+	applepic_device &sccpic(APPLEPIC(config, "sccpic", C15M));
+	sccpic.prd_callback().set(m_scc, FUNC(scc8530_legacy_device::reg_r));
+	sccpic.pwr_callback().set(m_scc, FUNC(scc8530_legacy_device::reg_w));
+	sccpic.hint_callback().set(FUNC(mac_state::oss_interrupt<7>));
+
+	m_scc->intrq_callback().set("sccpic", FUNC(applepic_device::pint_w));
+	//m_scc->dtr_reqa_callback().set("sccpic", FUNC(applepic_device::reqa_w));
+	//m_scc->dtr_reqb_callback().set("sccpic", FUNC(applepic_device::reqb_w));
+
+	applepic_device &swimpic(APPLEPIC(config, "swimpic", C15M));
+	swimpic.prd_callback().set(m_fdc, FUNC(applefdintf_device::read));
+	swimpic.pwr_callback().set(m_fdc, FUNC(applefdintf_device::write));
+	swimpic.hint_callback().set(FUNC(mac_state::oss_interrupt<6>));
+
+	m_fdc->dat1byte_cb().set("swimpic", FUNC(applepic_device::reqa_w));
 
 	RAM(config, m_ram);
 	m_ram->set_default_size("4M");
@@ -839,6 +852,13 @@ void mac_state::maciifx(machine_config &config)
 	SOFTWARE_LIST(config, "flop35_list").set_original("mac_flop");
 
 	add_nubus(config);
+	nubus_device &nubus(*subdevice<nubus_device>("nubus"));
+	nubus.out_irq9_callback().set(FUNC(mac_state::oss_interrupt<0>));
+	nubus.out_irqa_callback().set(FUNC(mac_state::oss_interrupt<1>));
+	nubus.out_irqb_callback().set(FUNC(mac_state::oss_interrupt<2>));
+	nubus.out_irqc_callback().set(FUNC(mac_state::oss_interrupt<3>));
+	nubus.out_irqd_callback().set(FUNC(mac_state::oss_interrupt<4>));
+	nubus.out_irqe_callback().set(FUNC(mac_state::oss_interrupt<5>));
 }
 
 void mac_state::maclc(machine_config &config, bool cpu, bool egret, asc_device::asc_type asc_type, int woz_version)
@@ -861,7 +881,7 @@ void mac_state::maclc(machine_config &config, bool cpu, bool egret, asc_device::
 	m_screen->set_visarea(0, 640-1, 0, 480-1);
 	m_screen->set_screen_update(FUNC(mac_state::screen_update_macv8));
 	m_screen->screen_vblank().set(FUNC(mac_state::mac_rbv_vbl));
-	config.set_default_layout(layout_mac);
+	config.set_default_layout(layout_monitors);
 
 	m_ram->set_default_size("2M");
 	m_ram->set_extra_options("4M,6M,8M,10M");
@@ -1067,7 +1087,7 @@ void mac_state::maciici(machine_config &config)
 	m_screen->set_visarea(0, 640-1, 0, 480-1);
 	m_screen->set_screen_update(FUNC(mac_state::screen_update_macrbv));
 	m_screen->screen_vblank().set(FUNC(mac_state::mac_rbv_vbl));
-	config.set_default_layout(layout_mac);
+	config.set_default_layout(layout_monitors);
 
 	/* internal ram */
 	m_ram->set_default_size("2M");
@@ -1091,7 +1111,7 @@ void mac_state::maciisi(machine_config &config)
 	m_screen->set_visarea(0, 640-1, 0, 480-1);
 	m_screen->set_screen_update(FUNC(mac_state::screen_update_macrbv));
 	m_screen->screen_vblank().set(FUNC(mac_state::mac_rbv_vbl));
-	config.set_default_layout(layout_mac);
+	config.set_default_layout(layout_monitors);
 
 	m_ram->set_default_size("2M");
 	m_ram->set_extra_options("4M,8M,16M,32M,48M,64M,128M");

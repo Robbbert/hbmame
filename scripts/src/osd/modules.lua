@@ -54,6 +54,10 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/osdnet.h",
 		MAME_DIR .. "src/osd/watchdog.cpp",
 		MAME_DIR .. "src/osd/watchdog.h",
+		MAME_DIR .. "src/osd/interface/inputcode.h",
+		MAME_DIR .. "src/osd/interface/inputman.h",
+		MAME_DIR .. "src/osd/interface/inputseq.cpp",
+		MAME_DIR .. "src/osd/interface/inputseq.h",
 		MAME_DIR .. "src/osd/modules/debugger/debug_module.h",
 		MAME_DIR .. "src/osd/modules/font/font_module.h",
 		MAME_DIR .. "src/osd/modules/midi/midi_module.h",
@@ -104,7 +108,6 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/modules/input/input_xinput.cpp",
 		MAME_DIR .. "src/osd/modules/input/input_xinput.h",
 		MAME_DIR .. "src/osd/modules/input/input_winhybrid.cpp",
-		MAME_DIR .. "src/osd/modules/input/input_uwp.cpp",
 		MAME_DIR .. "src/osd/modules/input/input_mac.cpp",
 		MAME_DIR .. "src/osd/modules/output/output_module.h",
 		MAME_DIR .. "src/osd/modules/output/none.cpp",
@@ -120,8 +123,15 @@ function osdmodulesbuild()
 		MAME_DIR .. "src/osd/modules/monitor/monitor_mac.cpp",
 	}
 	includedirs {
+		MAME_DIR .. "src/osd",
 		ext_includedir("asio"),
 	}
+
+	if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "clang") then
+		buildoptions {
+			"-Wno-unused-private-field",
+		}
+	end
 
 	if _OPTIONS["targetos"]=="windows" then
 		includedirs {
@@ -162,7 +172,6 @@ function osdmodulesbuild()
 		"__STDC_LIMIT_MACROS",
 		"__STDC_FORMAT_MACROS",
 		"__STDC_CONSTANT_MACROS",
-		"IMGUI_DISABLE_OBSOLETE_FUNCTIONS",
 	}
 
 	files {

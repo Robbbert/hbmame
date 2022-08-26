@@ -151,7 +151,6 @@ resulting mess can be seen in the F4 viewer display.
 *******************************************************************************/
 
 #include "emu.h"
-#include "includes/spectrum.h"
 #include "includes/spec128.h"
 
 #include "cpu/z80/z80.h"
@@ -165,8 +164,17 @@ resulting mess can be seen in the F4 viewer display.
 /****************************************************************************************************/
 /* Spectrum 128 specific functions */
 
+void spectrum_128_state::video_start()
+{
+	spectrum_state::video_start();
+	m_screen_location = m_ram->pointer() + (5 << 14);
+	m_border4t_render_at = 6;
+}
+
 uint8_t spectrum_128_state::spectrum_128_pre_opcode_fetch_r(offs_t offset)
 {
+	if (is_contended(offset)) content_early();
+
 	/* this allows expansion devices to act upon opcode fetches from MEM addresses
 	   for example, interface1 detection fetches requires fetches at 0008 / 0708 to
 	   enable paged ROM and then fetches at 0700 to disable it
@@ -177,43 +185,49 @@ uint8_t spectrum_128_state::spectrum_128_pre_opcode_fetch_r(offs_t offset)
 	return retval;
 }
 
-void spectrum_128_state::spectrum_128_bank1_w(offs_t offset, uint8_t data)
+void spectrum_128_state::spectrum_128_rom_w(offs_t offset, uint8_t data)
 {
 	m_exp->mreq_w(offset, data);
 }
 
-uint8_t spectrum_128_state::spectrum_128_bank1_r(offs_t offset)
+u8 spectrum_128_state::spectrum_128_rom_r(offs_t offset)
 {
-	uint8_t data;
+	return m_exp->romcs()
+		? m_exp->mreq_r(offset)
+		: ((u8*)m_bank_rom[0]->base())[offset];
+}
 
-	if (m_exp->romcs())
-	{
-		data = m_exp->mreq_r(offset);
-	}
-	else
-	{
-		/* ROM switching */
-		int ROMSelection = BIT(m_port_7ffd_data, 4);
+template <u8 Bank> void spectrum_128_state::spectrum_128_ram_w(offs_t offset, u8 data)
+{
+	u16 addr = 0x4000 * Bank + offset;
+	if (is_contended(addr)) content_early();
+	if (is_vram_write(addr)) m_screen->update_now();
 
-		/* rom 0 is 128K rom, rom 1 is 48 BASIC */
-		data = memregion("maincpu")->base()[0x010000 + (ROMSelection << 14) + offset];
-	}
-	return data;
+	((u8*)m_bank_ram[Bank]->base())[offset] = data;
+}
+// Base 128 models typically don't share RAM in bank0. Reserved for extension in 256+.
+template void spectrum_128_state::spectrum_128_ram_w<0>(offs_t offset, u8 data);
+
+template <u8 Bank> u8 spectrum_128_state::spectrum_128_ram_r(offs_t offset)
+{
+	u16 addr = 0x4000 * Bank + offset;
+	if (is_contended(addr)) content_early();
+
+	return ((u8*)m_bank_ram[Bank]->base())[offset];
 }
 
 void spectrum_128_state::spectrum_128_port_7ffd_w(offs_t offset, uint8_t data)
 {
+	if (is_contended(offset)) content_early();
+	content_early(1);
+
 	/* D0-D2: RAM page located at 0x0c000-0x0ffff */
 	/* D3 - Screen select (screen 0 in ram page 5, screen 1 in ram page 7 */
 	/* D4 - ROM select - which rom paged into 0x0000-0x03fff */
 	/* D5 - Disable paging */
 
 	/* disable paging? */
-	if (m_port_7ffd_data & 0x20)
-			return;
-
-	if ((m_port_7ffd_data ^ data) & 0x08)
-		spectrum_UpdateScreenBitmap();
+	if (m_port_7ffd_data & 0x20) return;
 
 	/* store new state */
 	m_port_7ffd_data = data;
@@ -226,42 +240,47 @@ void spectrum_128_state::spectrum_128_port_7ffd_w(offs_t offset, uint8_t data)
 
 void spectrum_128_state::spectrum_128_update_memory()
 {
-	uint8_t *messram = m_ram->pointer();
-
+	m_bank_rom[0]->set_entry(BIT(m_port_7ffd_data, 4));
 	/* select ram at 0x0c000-0x0ffff */
-	int ram_page = m_port_7ffd_data & 0x07;
-	unsigned char *ram_data = messram + (ram_page<<14);
-	membank("bank4")->set_base(ram_data);
+	m_bank_ram[3]->set_entry(m_port_7ffd_data & 0x07);
 
+	m_screen->update_now();
 	if (BIT(m_port_7ffd_data, 3))
-		m_screen_location = messram + (7<<14);
+		m_screen_location = m_ram->pointer() + (7<<14);
 	else
-		m_screen_location = messram + (5<<14);
+		m_screen_location = m_ram->pointer() + (5<<14);
 }
 
-uint8_t spectrum_128_state::spectrum_128_ula_r()
+uint8_t spectrum_128_state::spectrum_port_r(offs_t offset)
 {
-	int vpos = m_screen->vpos();
+	if (is_contended(offset))
+	{
+		content_early();
+		content_late();
+	}
 
-	return vpos<193 ? m_screen_location[0x1800|(vpos&0xf8)<<2]:0xff;
+	// Pass through to expansion device if present
+	if (m_exp->get_card_device())
+		return m_exp->iorq_r(offset | 1);
+
+	return floating_bus_r();
 }
 
 void spectrum_128_state::spectrum_128_io(address_map &map)
 {
-	map(0x0000, 0xffff).rw(m_exp, FUNC(spectrum_expansion_slot_device::iorq_r), FUNC(spectrum_expansion_slot_device::iorq_w));
-	map(0x0000, 0x0000).rw(FUNC(spectrum_128_state::spectrum_port_fe_r), FUNC(spectrum_128_state::spectrum_port_fe_w)).select(0xfffe);
-	map(0x0001, 0x0001).w(FUNC(spectrum_128_state::spectrum_128_port_7ffd_w)).select(0x7ffc);   // (A15 | A1) == 0, note: reading from this port does write to it by value from data bus
-	map(0x8000, 0x8000).w("ay8912", FUNC(ay8910_device::data_w)).mirror(0x3ffd);
-	map(0xc000, 0xc000).rw("ay8912", FUNC(ay8910_device::data_r), FUNC(ay8910_device::address_w)).mirror(0x3ffd);
-	map(0x0001, 0x0001).r(FUNC(spectrum_128_state::spectrum_128_ula_r)); // .mirror(0xfffe);
+	map(0x0000, 0x0000).select(0xfffe).rw(FUNC(spectrum_128_state::spectrum_ula_r), FUNC(spectrum_128_state::spectrum_ula_w));
+	map(0x0001, 0x0001).select(0xfffe).rw(FUNC(spectrum_128_state::spectrum_port_r), FUNC(spectrum_128_state::spectrum_port_w));
+	map(0x0001, 0x0001).select(0x7ffc).w(FUNC(spectrum_128_state::spectrum_128_port_7ffd_w));   // (A15 | A1) == 0, note: reading from this port does write to it by value from data bus
+	map(0x8000, 0x8000).mirror(0x3ffd).w("ay8912", FUNC(ay8910_device::data_w));
+	map(0xc000, 0xc000).mirror(0x3ffd).rw("ay8912", FUNC(ay8910_device::data_r), FUNC(ay8910_device::address_w));
 }
 
 void spectrum_128_state::spectrum_128_mem(address_map &map)
 {
-	map(0x0000, 0x3fff).rw(FUNC(spectrum_128_state::spectrum_128_bank1_r), FUNC(spectrum_128_state::spectrum_128_bank1_w));
-	map(0x4000, 0x7fff).bankrw("bank2");
-	map(0x8000, 0xbfff).bankrw("bank3");
-	map(0xc000, 0xffff).bankrw("bank4");
+	map(0x0000, 0x3fff).rw(FUNC(spectrum_128_state::spectrum_128_rom_r), FUNC(spectrum_128_state::spectrum_128_rom_w));
+	map(0x4000, 0x7fff).rw(FUNC(spectrum_128_state::spectrum_128_ram_r<1>), FUNC(spectrum_128_state::spectrum_128_ram_w<1>));
+	map(0x8000, 0xbfff).rw(FUNC(spectrum_128_state::spectrum_128_ram_r<2>), FUNC(spectrum_128_state::spectrum_128_ram_w<2>));
+	map(0xc000, 0xffff).rw(FUNC(spectrum_128_state::spectrum_128_ram_r<3>), FUNC(spectrum_128_state::spectrum_128_ram_w<3>));
 }
 
 void spectrum_128_state::spectrum_128_fetch(address_map &map)
@@ -269,75 +288,98 @@ void spectrum_128_state::spectrum_128_fetch(address_map &map)
 	map(0x0000, 0xffff).r(FUNC(spectrum_128_state::spectrum_128_pre_opcode_fetch_r));
 }
 
+void spectrum_128_state::machine_start()
+{
+	spectrum_state::machine_start();
+
+	save_item(NAME(m_port_7ffd_data));
+
+	/* rom 0 is 128K rom, rom 1 is 48 BASIC */
+	memory_region *rom = memregion("maincpu");
+	m_bank_rom[0]->configure_entries(0, 2, rom->base() + 0x10000, 0x4000);
+
+	auto ram_entries = m_ram->size() / 0x4000;
+	for (auto i = 1; i < 4; i++)
+		m_bank_ram[i]->configure_entries(0, ram_entries, m_ram->pointer(), 0x4000);
+
+	m_bank_ram[1]->set_entry(ram_entries > 5 ? 5 : (ram_entries - 1)); /* Bank 5 is always in 0x4000 - 0x7fff */
+	m_bank_ram[2]->set_entry(2); /* Bank 2 is always in 0x8000 - 0xbfff */
+}
+
 void spectrum_128_state::machine_reset()
 {
-	uint8_t *messram = m_ram->pointer();
-
-	memset(messram,0,128*1024);
-	/* 0x0000-0x3fff always holds ROM */
-
-	/* Bank 5 is always in 0x4000 - 0x7fff */
-	membank("bank2")->set_base(messram + (5<<14));
-
-	/* Bank 2 is always in 0x8000 - 0xbfff */
-	membank("bank3")->set_base(messram + (2<<14));
-
 	spectrum_state::machine_reset();
 
 	/* set initial ram config */
 	m_port_7ffd_data = 0;
-	m_port_1ffd_data = -1;
 	spectrum_128_update_memory();
 }
 
-/* F4 Character Displayer */
+bool spectrum_128_state::is_vram_write(offs_t offset) {
+	return (BIT(m_port_7ffd_data, 3) && m_bank_ram[3]->entry() == 7)
+		? offset >= 0xc000 && offset < 0xdb00
+		: spectrum_state::is_vram_write(offset);
+}
+
+bool spectrum_128_state::is_contended(offs_t offset) {
+	u8 bank = m_bank_ram[3]->entry();
+	return spectrum_state::is_contended(offset)
+		|| ((offset >= 0xc000 && offset <= 0xffff) && (bank & 1)); // Memory banks 1,3,5 and 7 are contended
+}
+
 static const gfx_layout spectrum_charlayout =
 {
-	8, 8,                   /* 8 x 8 characters */
-	96,                 /* 96 characters */
-	1,                  /* 1 bits per pixel */
-	{ 0 },                  /* no bitplanes */
-	/* x offsets */
-	{ 0, 1, 2, 3, 4, 5, 6, 7 },
-	/* y offsets */
-	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8 },
-	8*8                 /* every char takes 8 bytes */
+	8, 8,           /* 8 x 8 characters */
+	96,             /* 96 characters */
+	1,              /* 1 bits per pixel */
+	{ 0 },          /* no bitplanes */
+	{STEP8(0, 1)},  /* x offsets */
+	{STEP8(0, 8)},  /* y offsets */
+	8*8             /* every char takes 8 bytes */
 };
 
 static GFXDECODE_START( spec128 )
-	GFXDECODE_ENTRY( "maincpu", 0x17d00, spectrum_charlayout, 0, 8 )
+	GFXDECODE_ENTRY( "maincpu", 0x17d00, spectrum_charlayout, 7, 8 )
 GFXDECODE_END
 
+rectangle spectrum_128_state::get_screen_area()
+{
+	return { SPEC_LEFT_BORDER, SPEC_LEFT_BORDER + SPEC_DISPLAY_XSIZE - 1,
+			SPEC128_UNSEEN_LINES + SPEC_TOP_BORDER, SPEC128_UNSEEN_LINES + SPEC_TOP_BORDER + SPEC_DISPLAY_YSIZE - 1 };
+}
 
 void spectrum_128_state::spectrum_128(machine_config &config)
 {
 	spectrum(config);
 
-	Z80(config.replace(), m_maincpu, X1_128_SINCLAIR / 5);
+	Z80(config.replace(), m_maincpu, X1_128_SINCLAIR / 10);
 	m_maincpu->set_addrmap(AS_PROGRAM, &spectrum_128_state::spectrum_128_mem);
 	m_maincpu->set_addrmap(AS_IO, &spectrum_128_state::spectrum_128_io);
 	m_maincpu->set_addrmap(AS_OPCODES, &spectrum_128_state::spectrum_128_fetch);
 	m_maincpu->set_vblank_int("screen", FUNC(spectrum_128_state::spec_interrupt));
+	m_maincpu->nomreq_cb().set(FUNC(spectrum_128_state::spectrum_nomreq));
+
 	config.set_maximum_quantum(attotime::from_hz(60));
 
 	/* video hardware */
-	m_screen->set_raw(X1_128_SINCLAIR / 2.5, 456, 0, 352,  311, 0, 296);
+	rectangle visarea = { get_screen_area().left() - SPEC_LEFT_BORDER, get_screen_area().right() + SPEC_RIGHT_BORDER,
+		get_screen_area().top() - SPEC_TOP_BORDER, get_screen_area().bottom() + SPEC_BOTTOM_BORDER };
+	m_screen->set_raw(X1_128_SINCLAIR / 5, SPEC128_CYCLES_PER_LINE * 2, SPEC128_UNSEEN_LINES + SPEC_SCREEN_HEIGHT, visarea);
 
 	subdevice<gfxdecode_device>("gfxdecode")->set_info(spec128);
 
 	/* sound hardware */
-	AY8912(config, "ay8912", X1_128_SINCLAIR / 10).add_route(ALL_OUTPUTS, "mono", 0.25);
+	AY8912(config, "ay8912", X1_128_SINCLAIR / 20).add_route(ALL_OUTPUTS, "mono", 0.25);
 
 	/* expansion port */
 	SPECTRUM_EXPANSION_SLOT(config.replace(), m_exp, spec128_expansion_devices, nullptr);
 	m_exp->irq_handler().set_inputline(m_maincpu, INPUT_LINE_IRQ0);
 	m_exp->nmi_handler().set_inputline(m_maincpu, INPUT_LINE_NMI);
+	m_exp->fb_r_handler().set(FUNC(spectrum_128_state::floating_bus_r));
 
 	/* internal ram */
 	m_ram->set_default_size("128K");
 }
-
-
 
 
 /***************************************************************************
@@ -345,7 +387,6 @@ void spectrum_128_state::spectrum_128(machine_config &config)
   Game driver(s)
 
 ***************************************************************************/
-
 
 ROM_START(spec128)
 	ROM_REGION(0x18000,"maincpu",0)
@@ -375,24 +416,14 @@ ROM_START(specpls2)
 	ROMX_LOAD("pl2namco.rom",0x10000,0x8000, CRC(72a54e75) SHA1(311400157df689450dadc3620f4c4afa960b05ad), ROM_BIOS(4))
 ROM_END
 
-ROM_START(hc128)
+ROM_START(hc128)  // Romanian clone, "ICE Felix HC91+" (aka HC-128), AY-8910 was optional
 	ROM_REGION(0x18000,"maincpu",0)
 	ROM_LOAD("zx128_0.rom",0x10000,0x4000, CRC(e76799d2) SHA1(4f4b11ec22326280bdb96e3baf9db4b4cb1d02c5))
 	ROM_LOAD("hc128.rom",  0x14000,0x4000, CRC(0241e960) SHA1(cea0d14391b9e571460a816088a1c00ecb24afa3))
 ROM_END
 
-ROM_START(hc2000)
-	ROM_REGION(0x18000,"maincpu",0)
-	ROM_SYSTEM_BIOS( 0, "v1", "Version 1" )
-	ROMX_LOAD("zx128_0.rom",0x10000,0x4000, CRC(e76799d2) SHA1(4f4b11ec22326280bdb96e3baf9db4b4cb1d02c5), ROM_BIOS(0))
-	ROMX_LOAD("hc2000.v1",  0x14000,0x4000, CRC(453c1a5a) SHA1(f8139fc38478691cf44944dc83fd6e70b0f002fb), ROM_BIOS(0))
-	ROM_SYSTEM_BIOS( 1, "v2", "Version 2" )
-	ROMX_LOAD("zx128_0.rom",0x10000,0x4000, CRC(e76799d2) SHA1(4f4b11ec22326280bdb96e3baf9db4b4cb1d02c5), ROM_BIOS(1))
-	ROMX_LOAD("hc2000.v2",  0x14000,0x4000, CRC(65d90464) SHA1(5e2096e6460ff2120c8ada97579fdf82c1199c09), ROM_BIOS(1))
-ROM_END
 
-//    YEAR  NAME      PARENT   COMPAT  MACHINE       CLASS      STATE               INIT        COMPANY                  FULLNAME           FLAGS
+//    YEAR  NAME      PARENT   COMPAT  MACHINE       INPUT      STATE               INIT        COMPANY                  FULLNAME           FLAGS
 COMP( 1986, spec128,  0,       0,      spectrum_128, spec128,   spectrum_128_state, empty_init, "Sinclair Research Ltd", "ZX Spectrum 128", 0 )
 COMP( 1986, specpls2, spec128, 0,      spectrum_128, spec_plus, spectrum_128_state, empty_init, "Amstrad plc",           "ZX Spectrum +2",  0 )
-COMP( 1991, hc128,    spec128, 0,      spectrum_128, spec_plus, spectrum_128_state, empty_init, "ICE-Felix",             "HC-128",          0 )
-COMP( 1992, hc2000,   spec128, 0,      spectrum_128, spec_plus, spectrum_128_state, empty_init, "ICE-Felix",             "HC-2000",         MACHINE_NOT_WORKING )
+COMP( 1991, hc128,    spec128, 0,      spectrum_128, spec_plus, spectrum_128_state, empty_init, "ICE-Felix",             "HC-91+ (HC-128)", 0 )

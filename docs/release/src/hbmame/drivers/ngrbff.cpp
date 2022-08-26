@@ -689,13 +689,7 @@ GAME( 1998, rbff2ud,       rbff2,    neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1998, rbff2y,        rbff2,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Real Bout Fatal Fury 2 (P1 only Add Alfred [Terry, hold B+C and press A])", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**********************
+/**********************
  Fatal Fury Special
 *************************/
 
@@ -1194,3 +1188,4 @@ GAME( 1998, rbff2bs06,      rbff2,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1998, rbff2bs07,      rbff2,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]",    "Real Bout Fatal Fury 2 (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, rbff2bs08,      rbff2,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids[FCHT]",    "Real Bout Fatal Fury 2 (Hidden Characters - Fix Alfred's player 2 color)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, rbff2bs09,      rbff2,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids[FCHT]",    "Real Bout Fatal Fury 2 (Resurgence Enhanced Edition 2014-12-11)", MACHINE_SUPPORTS_SAVE )
+

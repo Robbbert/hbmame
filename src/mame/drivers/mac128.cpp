@@ -92,7 +92,7 @@ Scanline 0 is the start of vblank.
 #include "machine/6522via.h"
 #include "machine/iwm.h"
 #include "machine/swim1.h"
-#include "machine/ncr5380n.h"
+#include "machine/ncr5380.h"
 #include "machine/nscsi_bus.h"
 #include "machine/rescap.h"
 #include "bus/nscsi/devices.h"
@@ -137,7 +137,7 @@ public:
 		m_ram(*this, RAM_TAG),
 		m_scsibus(*this, "scsibus"),
 		m_scsihelp(*this, "scsihelp"),
-		m_ncr5380n(*this, "scsibus:7:ncr5380n"),
+		m_ncr5380(*this, "scsibus:7:ncr5380"),
 		m_iwm(*this, "fdc"),
 		m_floppy(*this, "fdc:%d", 0U),
 		m_mackbd(*this, "kbd"),
@@ -173,7 +173,7 @@ private:
 	required_device<ram_device> m_ram;
 	optional_device<nscsi_bus_device> m_scsibus;
 	optional_device<mac_scsi_helper_device> m_scsihelp;
-	optional_device<ncr5380n_device> m_ncr5380n;
+	optional_device<ncr5380_device> m_ncr5380;
 	required_device<applefdintf_device> m_iwm;
 	required_device_array<floppy_connector, 2> m_floppy;
 	optional_device<mac_keyboard_port_device> m_mackbd;
@@ -240,8 +240,8 @@ private:
 
 	floppy_image_device *m_cur_floppy;
 	int m_hdsel, m_devsel;
-	int m_pwm_count_total, m_pwm_count_1;
-	float m_pwm_current_rpm[2];
+	int m_pwm_count_total = 0, m_pwm_count_1 = 0;
+	float m_pwm_current_rpm[2]{};
 
 	void phases_w(uint8_t phases);
 	void devsel_w(uint8_t devsel);
@@ -249,30 +249,30 @@ private:
 	void snd_push(uint8_t data);
 	void pwm_push(uint8_t data);
 
-	uint32_t m_overlay;
+	uint32_t m_overlay = 0;
 
-	int m_irq_count, m_ca2_data;
-	uint8_t m_mouse_bit[2], m_mouse_last[2];
-	int16_t m_mouse_last_m[2], m_mouse_count[2];
-	int m_screen_buffer;
-	emu_timer *m_scan_timer;
-	emu_timer *m_hblank_timer;
+	int m_irq_count = 0, m_ca2_data = 0;
+	uint8_t m_mouse_bit[2]{}, m_mouse_last[2]{};
+	int16_t m_mouse_last_m[2]{}, m_mouse_count[2]{};
+	int m_screen_buffer = 0;
+	emu_timer *m_scan_timer = nullptr;
+	emu_timer *m_hblank_timer = nullptr;
 
 	// interrupts
-	int m_scc_interrupt, m_via_interrupt, m_scsi_interrupt, m_last_taken_interrupt;
+	int m_scc_interrupt = 0, m_via_interrupt = 0, m_scsi_interrupt = 0, m_last_taken_interrupt = 0;
 
 	// DRQ
-	int m_scsi_drq;
+	int m_scsi_drq = 0;
 
 	// wait states for accessing the VIA
-	bool m_snd_enable;
-	bool m_main_buffer;
-	int m_snd_vol;
-	int m_adb_irq_pending;
-	int m_drive_select;
-	int m_scsiirq_enable;
-	u16 *m_ram_ptr, *m_rom_ptr;
-	u32 m_ram_mask, m_ram_size;
+	bool m_snd_enable = false;
+	bool m_main_buffer = false;
+	int m_snd_vol = 0;
+	int m_adb_irq_pending = 0;
+	int m_drive_select = 0;
+	int m_scsiirq_enable = 0;
+	u16 *m_ram_ptr = nullptr, *m_rom_ptr = nullptr;
+	u32 m_ram_mask = 0, m_ram_size = 0;
 };
 
 void mac128_state::machine_start()
@@ -282,8 +282,8 @@ void mac128_state::machine_start()
 	m_ram_mask = m_ram_size - 1;
 	m_rom_ptr = (u16*)memregion("bootrom")->base();
 
-	m_scan_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(mac128_state::mac_scanline), this));
-	m_hblank_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(mac128_state::mac_hblank), this));
+	m_scan_timer = timer_alloc(FUNC(mac128_state::mac_scanline), this);
+	m_hblank_timer = timer_alloc(FUNC(mac128_state::mac_hblank), this);
 
 	save_item(NAME(m_overlay));
 	save_item(NAME(m_irq_count));
@@ -631,18 +631,18 @@ uint16_t mac128_state::macplus_scsi_r(offs_t offset, uint16_t mem_mask)
 	{
 		if ((offset >= 0x100) && (m_scsi_drq))
 		{
-			return m_ncr5380n->dma_r();
+			return m_ncr5380->dma_r();
 		}
 
-		return m_ncr5380n->read(reg);
+		return m_ncr5380->read(reg);
 	}
 
 	if ((offset >= 0x100) && (m_scsi_drq))
 	{
-		return u16(m_ncr5380n->dma_r()) << 8;
+		return u16(m_ncr5380->dma_r()) << 8;
 	}
 
-	return u16(m_ncr5380n->read(reg)) << 8;
+	return u16(m_ncr5380->read(reg)) << 8;
 }
 
 void mac128_state::macplus_scsi_w(offs_t offset, uint16_t data, uint16_t mem_mask)
@@ -654,10 +654,10 @@ void mac128_state::macplus_scsi_w(offs_t offset, uint16_t data, uint16_t mem_mas
 	// here we can take advantage of 68000 byte smearing
 	if ((offset >= 0x100) && (m_scsi_drq))
 	{
-		m_ncr5380n->dma_w(data & 0xff);
+		m_ncr5380->dma_w(data & 0xff);
 	}
 
-	m_ncr5380n->write(reg, data & 0xff);
+	m_ncr5380->write(reg, data & 0xff);
 }
 
 uint16_t mac128_state::macse_scsi_r(offs_t offset, uint16_t mem_mask)
@@ -1132,6 +1132,7 @@ void mac128_state::mac512ke(machine_config &config)
 	/* video hardware */
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
 	m_screen->set_raw(15.6672_MHz_XTAL, MAC_H_TOTAL, 0, MAC_H_VIS, MAC_V_TOTAL, 0, MAC_V_VIS);
+	m_screen->set_native_aspect();
 	m_screen->set_screen_update(FUNC(mac128_state::screen_update_mac));
 	m_screen->screen_vblank().set(FUNC(mac128_state::vblank_w));
 	m_screen->set_palette("palette");
@@ -1219,8 +1220,8 @@ void mac128_state::macplus(machine_config &config)
 	NSCSI_CONNECTOR(config, "scsibus:4", mac_scsi_devices, nullptr);
 	NSCSI_CONNECTOR(config, "scsibus:5", mac_scsi_devices, nullptr);
 	NSCSI_CONNECTOR(config, "scsibus:6", mac_scsi_devices, "harddisk");
-	NSCSI_CONNECTOR(config, "scsibus:7").option_set("ncr5380n", NCR5380N).machine_config([this](device_t *device) {
-		ncr5380n_device &adapter = downcast<ncr5380n_device &>(*device);
+	NSCSI_CONNECTOR(config, "scsibus:7").option_set("ncr5380", NCR5380).machine_config([this](device_t *device) {
+		ncr5380_device &adapter = downcast<ncr5380_device &>(*device);
 		adapter.irq_handler().set(*this, FUNC(mac128_state::scsi_irq_w));
 		adapter.drq_handler().set(*this, FUNC(mac128_state::scsi_drq_w));
 	});
@@ -1251,15 +1252,15 @@ void mac128_state::macse(machine_config &config)
 	applefdintf_device::add_35(config, m_floppy[1]);
 
 	MAC_SCSI_HELPER(config, m_scsihelp);
-	m_scsihelp->scsi_read_callback().set(m_ncr5380n, FUNC(ncr5380n_device::read));
-	m_scsihelp->scsi_write_callback().set(m_ncr5380n, FUNC(ncr5380n_device::write));
-	m_scsihelp->scsi_dma_read_callback().set(m_ncr5380n, FUNC(ncr5380n_device::dma_r));
-	m_scsihelp->scsi_dma_write_callback().set(m_ncr5380n, FUNC(ncr5380n_device::dma_w));
+	m_scsihelp->scsi_read_callback().set(m_ncr5380, FUNC(ncr5380_device::read));
+	m_scsihelp->scsi_write_callback().set(m_ncr5380, FUNC(ncr5380_device::write));
+	m_scsihelp->scsi_dma_read_callback().set(m_ncr5380, FUNC(ncr5380_device::dma_r));
+	m_scsihelp->scsi_dma_write_callback().set(m_ncr5380, FUNC(ncr5380_device::dma_w));
 	m_scsihelp->cpu_halt_callback().set_inputline(m_maincpu, INPUT_LINE_HALT);
 	m_scsihelp->timeout_error_callback().set(FUNC(mac128_state::scsi_berr_w));
 
-	subdevice<nscsi_connector>("scsibus:7")->set_option_machine_config("ncr5380n", [this](device_t *device) {
-		ncr5380n_device &adapter = downcast<ncr5380n_device &>(*device);
+	subdevice<nscsi_connector>("scsibus:7")->set_option_machine_config("ncr5380", [this](device_t *device) {
+		ncr5380_device &adapter = downcast<ncr5380_device &>(*device);
 		adapter.irq_handler().set(*this, FUNC(mac128_state::scsi_irq_w));
 		adapter.drq_handler().set(m_scsihelp, FUNC(mac_scsi_helper_device::drq_w));
 	});
@@ -1306,8 +1307,8 @@ void mac128_state::macclasc(machine_config &config)
 	config.device_remove("pds");
 	config.device_remove("sepds");
 
-	NSCSI_CONNECTOR(config.replace(), "scsibus:7").option_set("ncr5380n", NCR53C80).machine_config([this](device_t *device) {
-		ncr5380n_device &adapter = downcast<ncr5380n_device &>(*device);
+	NSCSI_CONNECTOR(config.replace(), "scsibus:7").option_set("ncr5380", NCR53C80).machine_config([this](device_t *device) {
+		ncr5380_device &adapter = downcast<ncr5380_device &>(*device);
 		adapter.irq_handler().set(*this, FUNC(mac128_state::scsi_irq_w));
 		adapter.drq_handler().set(m_scsihelp, FUNC(mac_scsi_helper_device::drq_w));
 	});

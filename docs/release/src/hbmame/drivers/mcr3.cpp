@@ -24,3 +24,4 @@ ROM_START( sargex )
 ROM_END
 
 GAME( 2009, sargex, sarge, mono_tcs, sarge, mcr3_state, init_sarge, ROT0, "Gatinho", "Sarge Exposed", MACHINE_SUPPORTS_SAVE )
+

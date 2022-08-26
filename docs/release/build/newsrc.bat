@@ -17,6 +17,7 @@ copy /Y %from%\src\frontend\mame\clifront.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\ui\about.cpp       %to%\src\frontend\mame\ui
 copy /Y %from%\src\frontend\mame\ui\inifile.cpp     %to%\src\frontend\mame\ui
 
 md %to%\src\devices\cpu\m68000
@@ -29,7 +30,6 @@ copy /Y %from%\src\devices\video\vector.cpp %to%\src\devices\video
 md %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\cinemat.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\galaxian.cpp %to%\src\mame\drivers
-copy /Y %from%\src\mame\drivers\jrpacman.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\konamigx.cpp %to%\src\mame\drivers
 copy /Y %from%\src\mame\drivers\model2.cpp %to%\src\mame\drivers
 

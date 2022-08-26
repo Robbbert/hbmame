@@ -25,21 +25,6 @@
 
 
 //**************************************************************************
-//  CONSTANTS
-//**************************************************************************
-
-// additional expanded input codes for sequences
-constexpr input_code input_seq::end_code;
-constexpr input_code input_seq::default_code;
-constexpr input_code input_seq::not_code;
-constexpr input_code input_seq::or_code;
-
-// constant sequences
-const input_seq input_seq::empty_seq;
-
-
-
-//**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
 
@@ -97,6 +82,7 @@ static const code_string_table devclass_string_table[] =
 // token strings for item modifiers
 static const code_string_table modifier_token_table[] =
 {
+	{ ITEM_MODIFIER_REVERSE, "REVERSE" },
 	{ ITEM_MODIFIER_POS,     "POS" },
 	{ ITEM_MODIFIER_NEG,     "NEG" },
 	{ ITEM_MODIFIER_LEFT,    "LEFT" },
@@ -109,6 +95,7 @@ static const code_string_table modifier_token_table[] =
 // friendly strings for item modifiers
 static const code_string_table modifier_string_table[] =
 {
+	{ ITEM_MODIFIER_REVERSE, "Reverse" },
 	{ ITEM_MODIFIER_POS,     "+" },
 	{ ITEM_MODIFIER_NEG,     "-" },
 	{ ITEM_MODIFIER_LEFT,    "Left" },
@@ -368,187 +355,6 @@ static const code_string_table itemid_token_table[] =
 
 
 //**************************************************************************
-//  INPUT SEQ
-//**************************************************************************
-
-//-------------------------------------------------
-//  operator+= - append a code to the end of an
-//  input sequence
-//-------------------------------------------------
-
-input_seq &input_seq::operator+=(input_code code) noexcept
-{
-	// if not enough room, return false
-	const int curlength = length();
-	if (curlength < m_code.size())
-	{
-		m_code[curlength] = code;
-		if ((curlength + 1) < m_code.size())
-			m_code[curlength + 1] = end_code;
-	}
-	return *this;
-}
-
-
-//-------------------------------------------------
-//  operator|= - append a code to a sequence; if
-//  the sequence is non-empty, insert an OR
-//  before the new code
-//-------------------------------------------------
-
-input_seq &input_seq::operator|=(input_code code) noexcept
-{
-	// overwrite end/default with the new code
-	if (m_code[0] == default_code)
-	{
-		m_code[0] = code;
-		m_code[1] = end_code;
-	}
-	else
-	{
-		// otherwise, append an OR token and then the new code
-		const int curlength = length();
-		if ((curlength + 1) < m_code.size())
-		{
-			m_code[curlength] = or_code;
-			m_code[curlength + 1] = code;
-			if ((curlength + 2) < m_code.size())
-				m_code[curlength + 2] = end_code;
-		}
-	}
-	return *this;
-}
-
-
-//-------------------------------------------------
-//  length - return the length of the sequence
-//-------------------------------------------------
-
-int input_seq::length() const noexcept
-{
-	// find the end token; error if none found
-	for (int seqnum = 0; seqnum < m_code.size(); seqnum++)
-		if (m_code[seqnum] == end_code)
-			return seqnum;
-	return m_code.size();
-}
-
-
-//-------------------------------------------------
-//  is_valid - return true if a given sequence is
-//  valid
-//-------------------------------------------------
-
-bool input_seq::is_valid() const noexcept
-{
-	// "default" can only be of length 1
-	if (m_code[0] == default_code)
-		return m_code[1] == end_code;
-
-	// scan the sequence for valid codes
-	input_item_class lastclass = ITEM_CLASS_INVALID;
-	input_code lastcode = INPUT_CODE_INVALID;
-	decltype(m_code) positive_codes;
-	decltype(m_code) negative_codes;
-	auto positive_codes_end = positive_codes.begin();
-	auto negative_codes_end = negative_codes.begin();
-	for (input_code code : m_code)
-	{
-		// invalid codes are never permitted
-		if (code == INPUT_CODE_INVALID)
-			return false;
-
-		// if we hit an OR or the end, validate the previous chunk
-		if (code == or_code || code == end_code)
-		{
-			// must be at least one positive code
-			if (positive_codes.begin() == positive_codes_end)
-				return false;
-
-			// last code must not have been an internal code
-			if (lastcode.internal())
-				return false;
-
-			// if this is the end, we're ok
-			if (code == end_code)
-				return true;
-
-			// reset the state for the next chunk
-			positive_codes_end = positive_codes.begin();
-			negative_codes_end = negative_codes.begin();
-			lastclass = ITEM_CLASS_INVALID;
-		}
-		else if (code == not_code)
-		{
-			// if we hit a NOT, make sure we don't have a double
-			if (lastcode == not_code)
-				return false;
-		}
-		else
-		{
-			// track positive codes, and don't allow positive and negative for the same code
-			if (lastcode != not_code)
-			{
-				*positive_codes_end++ = code;
-				if (std::find(negative_codes.begin(), negative_codes_end, code) != negative_codes_end)
-					return false;
-			}
-			else
-			{
-				*negative_codes_end++ = code;
-				if (std::find(positive_codes.begin(), positive_codes_end, code) != positive_codes_end)
-					return false;
-			}
-
-			// non-switch items can't have a NOT
-			input_item_class itemclass = code.item_class();
-			if (itemclass != ITEM_CLASS_SWITCH && lastcode == not_code)
-				return false;
-
-			// absolute/relative items must all be the same class
-			if ((lastclass == ITEM_CLASS_ABSOLUTE && itemclass != ITEM_CLASS_ABSOLUTE) ||
-				(lastclass == ITEM_CLASS_RELATIVE && itemclass != ITEM_CLASS_RELATIVE))
-				return false;
-		}
-
-		// remember the last code
-		lastcode = code;
-	}
-
-	// if we got here, we were missing an END token; fail
-	return false;
-}
-
-
-//-------------------------------------------------
-//  backspace - "backspace" over the last entry in
-//  a sequence
-//-------------------------------------------------
-
-void input_seq::backspace() noexcept
-{
-	// if we have at least one entry, remove it
-	const int curlength = length();
-	if (curlength > 0)
-		m_code[curlength - 1] = end_code;
-}
-
-
-//-------------------------------------------------
-//  replace - replace all instances of oldcode
-//  with newcode in a sequence
-//-------------------------------------------------
-
-void input_seq::replace(input_code oldcode, input_code newcode) noexcept
-{
-	for (input_code &elem : m_code)
-		if (elem == oldcode)
-			elem = newcode;
-}
-
-
-
-//**************************************************************************
 //  INPUT MANAGER
 //**************************************************************************
 
@@ -583,6 +389,17 @@ input_manager::input_manager(running_machine &machine) : m_machine(machine)
 
 input_manager::~input_manager()
 {
+}
+
+
+//-------------------------------------------------
+//  add_device - add a representation of a host
+//  input device
+//-------------------------------------------------
+
+osd::input_device &input_manager::add_device(input_device_class devclass, std::string_view name, std::string_view id, void *internal)
+{
+	return device_class(devclass).add_device(name, id, internal);
 }
 
 
@@ -632,21 +449,21 @@ s32 input_manager::code_value(input_code code)
 			// process items according to their native type
 			switch (targetclass)
 			{
-				case ITEM_CLASS_ABSOLUTE:
-					if (result == 0)
-						result = item->read_as_absolute(code.item_modifier());
-					break;
+			case ITEM_CLASS_ABSOLUTE:
+				if (result == 0)
+					result = item->read_as_absolute(code.item_modifier());
+				break;
 
-				case ITEM_CLASS_RELATIVE:
-					result += item->read_as_relative(code.item_modifier());
-					break;
+			case ITEM_CLASS_RELATIVE:
+				result += item->read_as_relative(code.item_modifier());
+				break;
 
-				case ITEM_CLASS_SWITCH:
-					result |= item->read_as_switch(code.item_modifier());
-					break;
+			case ITEM_CLASS_SWITCH:
+				result |= item->read_as_switch(code.item_modifier());
+				break;
 
-				default:
-					break;
+			default:
+				break;
 			}
 		}
 	} while (0);
@@ -800,7 +617,7 @@ std::string input_manager::code_name(input_code code) const
 	}
 
 	// devcode part comes from the item name
-	const char *devcode = item->name();
+	std::string_view devcode = item->name();
 
 	// determine the modifier part
 	const char *modifier = (*modifier_string_table)[code.item_modifier()];
@@ -808,13 +625,13 @@ std::string input_manager::code_name(input_code code) const
 	// devcode is redundant with joystick switch left/right/up/down
 	if (device_class == DEVICE_CLASS_JOYSTICK && code.item_class() == ITEM_CLASS_SWITCH)
 		if (code.item_modifier() >= ITEM_MODIFIER_LEFT && code.item_modifier() <= ITEM_MODIFIER_DOWN)
-			devcode = "";
+			devcode = std::string_view();
 
 	// concatenate the strings
 	std::string str(devclass);
 	if (!devindex.empty())
 		str.append(" ").append(devindex);
-	if (devcode[0] != 0)
+	if (!devcode.empty())
 		str.append(" ").append(devcode);
 	if (modifier != nullptr)
 		str.append(" ").append(modifier);
@@ -830,6 +647,8 @@ std::string input_manager::code_name(input_code code) const
 
 std::string input_manager::code_to_token(input_code code) const
 {
+	using namespace std::literals;
+
 	// determine the devclass part
 	const char *devclass = (*devclass_token_table)[code.device_class()];
 	if (devclass == nullptr)
@@ -842,21 +661,21 @@ std::string input_manager::code_to_token(input_code code) const
 
 	// determine the itemid part; look up in the table if we don't have a token
 	input_device_item *item = item_from_code(code);
-	const char *devcode = (item != nullptr) ? item->token() : "UNKNOWN";
+	std::string_view devcode = item ? item->token() : "UNKNOWN"sv;
 
 	// determine the modifier part
 	const char *modifier = (*modifier_token_table)[code.item_modifier()];
 
 	// determine the itemclass part; if we match the native class, we don't include this
 	const char *itemclass = "";
-	if (item == nullptr || item->itemclass() != code.item_class())
+	if (!item || (item->itemclass() != code.item_class()))
 		itemclass = (*itemclass_token_table)[code.item_class()];
 
 	// concatenate the strings
 	std::string str(devclass);
 	if (!devindex.empty())
 		str.append("_").append(devindex);
-	if (devcode[0] != 0)
+	if (!devcode.empty())
 		str.append("_").append(devcode);
 	if (modifier != nullptr)
 		str.append("_").append(modifier);
@@ -994,14 +813,16 @@ bool input_manager::seq_pressed(const input_seq &seq)
 	bool first = true;
 	for (int codenum = 0; ; codenum++)
 	{
-		// handle NOT
 		input_code code = seq[codenum];
 		if (code == input_seq::not_code)
+		{
+			// handle NOT
 			invert = true;
-
-		// handle OR and END
+		}
 		else if (code == input_seq::or_code || code == input_seq::end_code)
 		{
+			// handle OR and END
+
 			// if we have a positive result from the previous set, we're done
 			if (result || code == input_seq::end_code)
 				break;
@@ -1011,10 +832,10 @@ bool input_manager::seq_pressed(const input_seq &seq)
 			invert = false;
 			first = true;
 		}
-
-		// handle everything else as a series of ANDs
 		else
 		{
+			// handle everything else as a series of ANDs
+
 			// if this is the first in the sequence, result is set equal
 			if (first)
 				result = code_pressed(code) ^ invert;
@@ -1050,38 +871,42 @@ s32 input_manager::seq_axis_value(const input_seq &seq, input_item_class &itemcl
 	bool enable = true;
 	for (int codenum = 0; ; codenum++)
 	{
-		// handle NOT
 		input_code code = seq[codenum];
 		if (code == input_seq::not_code)
-			invert = true;
-
-		// handle OR and END
-		else if (code == input_seq::or_code || code == input_seq::end_code)
 		{
-			// if we have a positive result from the previous set, we're done
-			if (itemclass != ITEM_CLASS_INVALID || code == input_seq::end_code)
-				break;
+			// handle NOT
+			invert = true;
+		}
+		else if (code == input_seq::end_code)
+		{
+			// handle END
+			break;
+		}
+		else if (code == input_seq::or_code)
+		{
+			// handle OR
 
-			// otherwise, reset our state
-			result = 0;
+			// reset invert and enable for the next group
 			invert = false;
 			enable = true;
 		}
-
-		// handle everything else only if we're still enabled
 		else if (enable)
 		{
+			// handle everything else only if we're still enabled
+
 			// switch codes serve as enables
 			if (code.item_class() == ITEM_CLASS_SWITCH)
 			{
 				// AND against previous digital codes
 				if (enable)
-					enable &= code_pressed(code) ^ invert;
+					enable = code_pressed(code) ^ invert;
+				// FIXME: need to clear current group value if enable became false
+				// you can't create a sequence where this matters using the internal UI,
+				// but you can by editing a CFG file (or controller config file)
 			}
-
-			// non-switch codes are analog values
 			else
 			{
+				// non-switch codes are analog values
 				s32 value = code_value(code);
 
 				// if we got a 0 value, don't do anything except remember the first type
@@ -1090,19 +915,23 @@ s32 input_manager::seq_axis_value(const input_seq &seq, input_item_class &itemcl
 					if (itemclasszero == ITEM_CLASS_INVALID)
 						itemclasszero = code.item_class();
 				}
-
-				// non-zero absolute values stick
 				else if (code.item_class() == ITEM_CLASS_ABSOLUTE)
 				{
+					// non-zero absolute values override relative values
+					if (itemclass == ITEM_CLASS_ABSOLUTE)
+						result += value;
+					else
+						result = value;
 					itemclass = ITEM_CLASS_ABSOLUTE;
-					result = value;
 				}
-
-				// non-zero relative values accumulate
 				else if (code.item_class() == ITEM_CLASS_RELATIVE)
 				{
-					itemclass = ITEM_CLASS_RELATIVE;
-					result += value;
+					// non-zero relative values accumulate in the absence of absolute values
+					if (itemclass != ITEM_CLASS_ABSOLUTE)
+					{
+						result += value;
+						itemclass = ITEM_CLASS_RELATIVE;
+					}
 				}
 			}
 
@@ -1110,6 +939,10 @@ s32 input_manager::seq_axis_value(const input_seq &seq, input_item_class &itemcl
 			invert = false;
 		}
 	}
+
+	// saturate mixed absolute values
+	if (itemclass == ITEM_CLASS_ABSOLUTE)
+		result = std::clamp(result, osd::INPUT_ABSOLUTE_MIN, osd::INPUT_ABSOLUTE_MAX);
 
 	// if the caller wants to know the type, provide it
 	if (result == 0)
@@ -1132,7 +965,7 @@ input_seq input_manager::seq_clean(const input_seq &seq) const
 	{
 		// if this is a code item which is not valid, don't copy it and remove any preceding ORs/NOTs
 		input_code code = seq[codenum];
-		if (!code.internal() && code_name(code).empty())
+		if (!code.internal() && (((code.device_index() > 0) && !m_class[code.device_class()]->multi()) || !item_from_code(code)))
 		{
 			while (clean_index > 0 && clean_codes[clean_index - 1].internal())
 			{
@@ -1313,15 +1146,12 @@ void input_manager::seq_from_tokens(input_seq &seq, std::string_view string)
 //  controller based on device map table
 //-------------------------------------------------
 
-bool input_manager::map_device_to_controller(const devicemap_table_type *devicemap_table)
+bool input_manager::map_device_to_controller(const devicemap_table &table)
 {
-	if (nullptr == devicemap_table)
-		return true;
-
-	for (devicemap_table_type::const_iterator it = devicemap_table->begin(); it != devicemap_table->end(); it++)
+	for (const auto &it : table)
 	{
-		std::string_view deviceid = it->first;
-		std::string_view controllername = it->second;
+		std::string_view deviceid = it.first;
+		std::string_view controllername = it.second;
 
 		// tokenize the controller name into device class and index (i.e. controller name should be of the form "GUNCODE_1")
 		std::string token[2];
@@ -1360,7 +1190,7 @@ bool input_manager::map_device_to_controller(const devicemap_table_type *devicem
 		for (int devnum = 0; devnum <= input_devclass->maxindex(); devnum++)
 		{
 			input_device *device = input_devclass->device(devnum);
-			if (device != nullptr && device->match_device_id(deviceid))
+			if (device && device->match_device_id(deviceid))
 			{
 				// remap devindex
 				input_devclass->remap_device_index(device->devindex(), devindex);

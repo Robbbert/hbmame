@@ -19,7 +19,7 @@
 #include "video/ef9345.h"
 #include "video/mc6847.h"
 
-#include "softlist.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 #include "formats/coco_cas.h"
@@ -71,8 +71,8 @@ protected:
 	required_device<ram_device> m_ram;
 	optional_device<mc10cart_slot_device> m_mc10cart;
 
-	uint8_t m_keyboard_strobe;
-	uint8_t m_port2;
+	uint8_t m_keyboard_strobe = 0;
+	uint8_t m_port2 = 0;
 
 	uint8_t read_keyboard_strobe(bool single_line);
 
@@ -513,7 +513,7 @@ void mc10_state::mc10_video(machine_config &config)
 	RAM(config, m_ram).set_default_size("4K").set_extra_options("8K,20K,32K");
 
 	/* video hardware */
-	SCREEN(config, "screen", SCREEN_TYPE_RASTER).set_raw(9.828_MHz_XTAL / 2, 320, 0, 320, 243, 0, 243);
+	SCREEN(config, "screen", SCREEN_TYPE_RASTER).set_raw(3.579545_MHz_XTAL * 2, 456, 0, 320, 262, 0, 240);
 
 	mc6847_ntsc_device &vdg(MC6847_NTSC(config, "mc6847", XTAL(3'579'545)));
 	vdg.set_screen("screen");

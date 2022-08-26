@@ -173,17 +173,17 @@ WRITE_LINE_MEMBER(efo_zsu_device::ctc0_z1_w)
 
 WRITE_LINE_MEMBER(efo_zsu_device::ctc1_z0_w)
 {
-//	printf("ctc1_z0_w %d\n", state);
+//  printf("ctc1_z0_w %d\n", state);
 }
 
 WRITE_LINE_MEMBER(efo_zsu_device::ctc1_z1_w)
 {
-//	printf("ctc1_z1_w %d\n", state);
+//  printf("ctc1_z1_w %d\n", state);
 }
 
 WRITE_LINE_MEMBER(efo_zsu_device::ctc1_z2_w)
 {
-//	printf("ctc1_z2_w %d\n", state);
+//  printf("ctc1_z2_w %d\n", state);
 }
 
 WRITE_LINE_MEMBER(efo_zsu_device::ctc0_z2_w)
@@ -233,7 +233,7 @@ static const z80_daisy_config daisy_chain[] =
 
 TIMER_CALLBACK_MEMBER(cedar_magnet_sound_device::reset_assert_callback)
 {
-	cedar_magnet_board_interface::reset_assert_callback(ptr,param);
+	cedar_magnet_board_interface::reset_assert_callback(param);
 	// reset lines go to the ctc as well?
 	m_ctc[0]->reset();
 	m_ctc[1]->reset();
@@ -295,6 +295,8 @@ void cedar_magnet_sound_device::device_add_mconfig(machine_config &config)
 	subdevice<z80_device>("soundcpu")->set_addrmap(AS_PROGRAM, &cedar_magnet_sound_device::cedar_magnet_sound_map);
 
 	subdevice<ay8910_device>("aysnd0")->port_a_write_callback().set(FUNC(cedar_magnet_sound_device::ay0_porta_w));
+
+	m_adpcm->add_route(ALL_OUTPUTS, "mono", 1.00);
 }
 
 void efo_zsu_device::device_start()
@@ -306,9 +308,9 @@ void efo_zsu_device::device_start()
 		membank("rombank")->set_entry(3); // 10K/+5 pullups on banking lines
 	}
 
-	m_fifo_shift_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(efo_zsu_device::fifo_shift), this));
-	m_adpcm_clock_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(efo_zsu_device::adpcm_clock), this));
-	m_ctc0_ck0_restart_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(efo_zsu_device::ctc0_ck0_restart), this));
+	m_fifo_shift_timer = timer_alloc(FUNC(efo_zsu_device::fifo_shift), this);
+	m_adpcm_clock_timer = timer_alloc(FUNC(efo_zsu_device::adpcm_clock), this);
+	m_ctc0_ck0_restart_timer = timer_alloc(FUNC(efo_zsu_device::ctc0_ck0_restart), this);
 
 	save_item(NAME(m_ay1_porta));
 }

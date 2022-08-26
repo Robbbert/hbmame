@@ -9,7 +9,7 @@
 #include "emu.h"
 #include "includes/svision.h"
 #include "screen.h"
-#include "softlist.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 #include "svision.lh"
@@ -52,7 +52,7 @@ TIMER_CALLBACK_MEMBER(svision_state::svision_pet_timer)
 
 TIMER_DEVICE_CALLBACK_MEMBER(svision_state::svision_pet_timer_dev)
 {
-	svision_pet_timer(ptr,param);
+	svision_pet_timer(param);
 }
 
 WRITE_LINE_MEMBER(svision_state::sound_irq_w)
@@ -430,17 +430,17 @@ WRITE_LINE_MEMBER(svision_state::frame_int_w)
 
 void svision_state::init_svision()
 {
-	m_svision.timer1 = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(svision_state::svision_timer),this));
+	m_svision.timer1 = timer_alloc(FUNC(svision_state::svision_timer), this);
 	m_dma_finished = false;
 	m_pet.on = false;
 }
 
 void svision_state::init_svisions()
 {
-	m_svision.timer1 = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(svision_state::svision_timer),this));
+	m_svision.timer1 = timer_alloc(FUNC(svision_state::svision_timer), this);
 	m_dma_finished = false;
 	m_pet.on = true;
-	m_pet.timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(svision_state::svision_pet_timer),this));
+	m_pet.timer = timer_alloc(FUNC(svision_state::svision_pet_timer), this);
 }
 
 DEVICE_IMAGE_LOAD_MEMBER( svision_state::cart_load )
@@ -449,7 +449,7 @@ DEVICE_IMAGE_LOAD_MEMBER( svision_state::cart_load )
 
 	if (size > 0x80000)
 	{
-		image.seterror(IMAGE_ERROR_UNSPECIFIED, "Unsupported cartridge size");
+		image.seterror(image_error::INVALIDIMAGE, "Unsupported cartridge size");
 		return image_init_result::FAIL;
 	}
 

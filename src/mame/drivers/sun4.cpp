@@ -545,10 +545,9 @@ public:
 protected:
 	virtual void machine_reset() override;
 	virtual void machine_start() override;
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
-	static const device_timer_id TIMER_0 = 0;
-	static const device_timer_id TIMER_1 = 1;
+	TIMER_CALLBACK_MEMBER(timer0_tick);
+	TIMER_CALLBACK_MEMBER(timer1_tick);
 
 	uint32_t debugger_r(offs_t offset, uint32_t mem_mask = ~0);
 	void debugger_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
@@ -662,6 +661,7 @@ public:
 
 	void sun4c(machine_config &config);
 	void sun4_20(machine_config &config);
+	void sun4_25(machine_config &config);
 	void sun4_40(machine_config &config);
 	void sun4_50(machine_config &config);
 	void sun4_60(machine_config &config);
@@ -837,8 +837,8 @@ void sun4_base_state::machine_start()
 	}
 
 	// allocate timers for the built-in two channel timer
-	m_c0_timer = timer_alloc(TIMER_0);
-	m_c1_timer = timer_alloc(TIMER_1);
+	m_c0_timer = timer_alloc(FUNC(sun4_base_state::timer0_tick), this);
+	m_c1_timer = timer_alloc(FUNC(sun4_base_state::timer1_tick), this);
 	m_c0_timer->adjust(attotime::from_usec(1), 0, attotime::from_usec(1));
 	m_c1_timer->adjust(attotime::from_usec(1), 0, attotime::from_usec(1));
 
@@ -1020,47 +1020,43 @@ WRITE_LINE_MEMBER( sun4_base_state::scc2_int )
 	m_maincpu->set_input_line(SPARC_IRQ12, ((m_scc1_int || m_scc2_int) && (m_irq_reg & 0x01)) ? ASSERT_LINE : CLEAR_LINE);
 }
 
-void sun4_base_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(sun4_base_state::timer0_tick)
 {
-	switch (id)
+	//logerror("Timer 0 expired\n");
+	m_counter[0] += 1 << 10;
+	if ((m_counter[0] & 0x7fffffff) == (m_counter[1] & 0x7fffffff))
 	{
-		case TIMER_0:
-			//logerror("Timer 0 expired\n");
-			m_counter[0] += 1 << 10;
-			if ((m_counter[0] & 0x7fffffff) == (m_counter[1] & 0x7fffffff))
-			{
-				m_counter[0] = 0x80000000 | (1 << 10);
-				m_counter[1] |= 0x80000000;
-				if ((m_irq_reg & 0x21) == 0x21)
-				{
-					m_maincpu->set_input_line(SPARC_IRQ10, ASSERT_LINE);
-					//logerror("Taking INT10\n");
-				}
-				else
-				{
-					//logerror("Not taking INT10\n");
-				}
-			}
-			break;
+		m_counter[0] = 0x80000000 | (1 << 10);
+		m_counter[1] |= 0x80000000;
+		if ((m_irq_reg & 0x21) == 0x21)
+		{
+			m_maincpu->set_input_line(SPARC_IRQ10, ASSERT_LINE);
+			//logerror("Taking INT10\n");
+		}
+		else
+		{
+			//logerror("Not taking INT10\n");
+		}
+	}
+}
 
-		case TIMER_1:
-			//logerror("Timer 1 expired\n");
-			m_counter[2] += 1 << 10;
-			if ((m_counter[2] & 0x7fffffff) == (m_counter[3] & 0x7fffffff))
-			{
-				m_counter[2] = 0x80000000 | (1 << 10);
-				m_counter[3] |= 0x80000000;
-				if ((m_irq_reg & 0x81) == 0x81)
-				{
-					m_maincpu->set_input_line(SPARC_IRQ14, ASSERT_LINE);
-					//logerror("Taking INT14\n");
-				}
-				else
-				{
-					//logerror("Not taking INT14\n");
-				}
-			}
-			break;
+TIMER_CALLBACK_MEMBER(sun4_base_state::timer1_tick)
+{
+	//logerror("Timer 1 expired\n");
+	m_counter[2] += 1 << 10;
+	if ((m_counter[2] & 0x7fffffff) == (m_counter[3] & 0x7fffffff))
+	{
+		m_counter[2] = 0x80000000 | (1 << 10);
+		m_counter[3] |= 0x80000000;
+		if ((m_irq_reg & 0x81) == 0x81)
+		{
+			m_maincpu->set_input_line(SPARC_IRQ14, ASSERT_LINE);
+			//logerror("Taking INT14\n");
+		}
+		else
+		{
+			//logerror("Not taking INT14\n");
+		}
 	}
 }
 
@@ -1513,6 +1509,31 @@ void sun4c_state::sun4_20(machine_config &config)
 	m_sbus_slot[2]->set_fixed(true);
 }
 
+void sun4c_state::sun4_25(machine_config& config)
+{
+	sun4c(config);
+
+	m_ram->set_extra_options("16M,32M,48M,64M");
+
+	//m_mmu->set_ctx_mask(0xf);
+	m_mmu->set_pmeg_mask(0xff);
+	m_mmu->set_cache_line_size(32);
+	m_mmu->set_clock(33'000'000);
+	m_maincpu->set_clock(33'000'000);
+
+	m_ram->set_default_size("64M");
+
+	m_sbus->set_clock(25'000'000);
+	m_sbus_slot[0]->set_clock(25'000'000);
+	m_sbus_slot[1]->set_clock(25'000'000);
+	m_sbus_slot[2]->set_clock(25'000'000);
+
+	m_sbus_slot[0]->set_fixed(true);
+	m_sbus_slot[1]->set_fixed(true);
+	m_sbus_slot[2]->set_default_option("bwtwo");
+	m_sbus_slot[2]->set_fixed(true);
+}
+
 void sun4c_state::sun4_40(machine_config &config)
 {
 	sun4c(config);
@@ -1741,6 +1762,12 @@ ROM_START( sun4_20 )
 	ROM_LOAD( "520-2748-04.rom", 0x0000, 0x20000, CRC(e85b3fd8) SHA1(4cbc088f589375e2d5983f481f7d4261a408702e))
 ROM_END
 
+// SPARCstation ELC (Sun 4/25)
+ROM_START(sun4_25)
+	ROM_REGION32_BE( 0x80000, "user1", ROMREGION_ERASEFF )
+	ROM_LOAD( "520-3085-03.rom", 0x0000, 0x40000, CRC(faafaf0d) SHA1(23a1b78392883b06eff9f7828e955399b6daa3d6))
+ROM_END
+
 // SPARCstation 1 (Sun 4/60)
 /* SCC init 1 for the keyboard is identical to Sun 4/75 init 3 */
 ROM_START( sun4_60 )
@@ -1831,6 +1858,7 @@ COMP( 198?, sun4_400, 0,        0,      sun4,    sun4,  sun4_state,  empty_init,
 COMP( 1990, sun4_40,  sun4_300, 0,      sun4_40, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation IPC (Sun 4/40)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 COMP( 1991, sun4_50,  sun4_300, 0,      sun4_50, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation IPX (Sun 4/50)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
 COMP( 199?, sun4_20,  sun4_300, 0,      sun4_20, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation SLC (Sun 4/20)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
+COMP( 1992, sun4_25,  sun4_300, 0,      sun4_25, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation ELC (Sun 4/25)", MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
 COMP( 1989, sun4_60,  sun4_300, 0,      sun4_60, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation 1 (Sun 4/60)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 COMP( 1990, sun4_65,  sun4_300, 0,      sun4_65, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation 1+ (Sun 4/65)",  MACHINE_NOT_WORKING | MACHINE_NO_SOUND )
 COMP( 1990, sun4_75,  sun4_300, 0,      sun4_75, sun4,  sun4c_state, empty_init, "Sun Microsystems", "SPARCstation 2 (Sun 4/75)",   MACHINE_NOT_WORKING | MACHINE_NO_SOUND )

@@ -30,21 +30,26 @@ public:
 	void spectrum_plus3(machine_config &config);
 
 protected:
+	virtual void video_start() override;
+	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void plus3_update_memory() override;
+	virtual bool is_contended(offs_t offset) override;
 
 private:
-	void bank1_w(offs_t offset, uint8_t data);
-	uint8_t bank1_r(offs_t offset);
-	void port_3ffd_w(uint8_t data);
+	void rom_w(offs_t offset, uint8_t data);
+	uint8_t rom_r(offs_t offset);
+	void port_3ffd_w(offs_t offset, uint8_t data);
 	uint8_t port_3ffd_r();
 	uint8_t port_2ffd_r();
-	void port_7ffd_w(uint8_t data);
-	void port_1ffd_w(uint8_t data);
+	void port_7ffd_w(offs_t offset, uint8_t data);
+	void port_1ffd_w(offs_t offset, uint8_t data);
 	void plus3_us_w(uint8_t data);
 
 	void plus3_io(address_map &map);
 	void plus3_mem(address_map &map);
+
+	static void floppy_formats(format_registration &fr);
 
 	optional_device<upd765a_device> m_upd765;
 	optional_device_array<floppy_connector, 2> m_flop;

@@ -2,12 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/r2dx_v33.cpp"
 
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-      Proyecto Shadows Mame Build Plus
-**********************************************/
-
 /**************
  New Zero Team
 ***************/

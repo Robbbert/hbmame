@@ -196,6 +196,7 @@ public:
 		m_audiocpu(*this, "audiocpu"),
 		m_dsp(*this, "dsp"),
 		m_watchdog(*this, "watchdog"),
+		m_k056230(*this, "k056230"),
 		m_k056800(*this, "k056800"),
 		m_workram(*this, "workram"),
 		m_k001005(*this, "k001005"),
@@ -221,6 +222,7 @@ protected:
 	required_device<cpu_device> m_audiocpu;
 	required_device<adsp21062_device> m_dsp;
 	required_device<watchdog_timer_device> m_watchdog;
+	required_device<k056230_device> m_k056230;
 	required_device<k056800_device> m_k056800;
 	required_shared_ptr<uint32_t> m_workram;
 	required_device<k001005_device> m_k001005;
@@ -333,7 +335,7 @@ K056832_CB_MEMBER(midnrun_state::tile_callback)
 void midnrun_state::video_start()
 {
 	m_k056832->set_layer_offs(0, -29, -27);
-	m_k056832->set_layer_offs(1, -29, -27);
+	m_k056832->set_layer_offs(1, -25, -27);
 	m_k056832->set_layer_offs(2, -29, -27);
 	m_k056832->set_layer_offs(3, -29, -27);
 	m_k056832->set_layer_offs(4, -29, -27);
@@ -352,7 +354,7 @@ uint32_t midnrun_state::screen_update(screen_device &screen, bitmap_rgb32 &bitma
 	{
 		m_k001005->draw(bitmap, cliprect);
 	}
-		
+
 	m_k056832->tilemap_draw_dj(screen, bitmap, cliprect, 0, 0, 0);
 
 	return 0;
@@ -506,8 +508,8 @@ void midnrun_state::main_memmap(address_map &map)
 	map(0x78040000, 0x7804000f).rw(m_k001006_1, FUNC(k001006_device::read), FUNC(k001006_device::write));
 	map(0x780c0000, 0x780c0007).rw(m_konppc, FUNC(konppc_device::cgboard_dsp_comm_r_ppc), FUNC(konppc_device::cgboard_dsp_comm_w_ppc));
 	map(0x7e000000, 0x7e003fff).rw(FUNC(midnrun_state::sysreg_r), FUNC(midnrun_state::sysreg_w));
-	map(0x7e008000, 0x7e009fff).rw("k056230", FUNC(k056230_device::read), FUNC(k056230_device::write));               // LANC registers
-	map(0x7e00a000, 0x7e00bfff).rw("k056230", FUNC(k056230_device::lanc_ram_r), FUNC(k056230_device::lanc_ram_w));      // LANC Buffer RAM (27E)
+	map(0x7e008000, 0x7e009fff).rw(m_k056230, FUNC(k056230_device::regs_r), FUNC(k056230_device::regs_w));	// LANC registers
+	map(0x7e00a000, 0x7e00bfff).rw(m_k056230, FUNC(k056230_device::ram_r), FUNC(k056230_device::ram_w));	// LANC Buffer RAM (27E)
 	map(0x7e00c000, 0x7e00c00f).rw(m_k056800, FUNC(k056800_device::host_r), FUNC(k056800_device::host_w));
 	map(0x7f800000, 0x7f9fffff).rom().region("prgrom", 0);
 	map(0x7fe00000, 0x7fffffff).rom().region("prgrom", 0);
@@ -534,8 +536,8 @@ void jetwave_state::main_memmap(address_map &map)
 	map(0x78080000, 0x7808000f).rw(m_k001006_2, FUNC(k001006_device::read), FUNC(k001006_device::write));
 	map(0x780c0000, 0x780c0007).rw(m_konppc, FUNC(konppc_device::cgboard_dsp_comm_r_ppc), FUNC(konppc_device::cgboard_dsp_comm_w_ppc));
 	map(0x7e000000, 0x7e003fff).rw(FUNC(jetwave_state::sysreg_r), FUNC(jetwave_state::sysreg_w));
-	map(0x7e008000, 0x7e009fff).rw("k056230", FUNC(k056230_device::read), FUNC(k056230_device::write));             // LANC registers
-	map(0x7e00a000, 0x7e00bfff).rw("k056230", FUNC(k056230_device::lanc_ram_r), FUNC(k056230_device::lanc_ram_w));    // LANC Buffer RAM (27E)
+	map(0x7e008000, 0x7e009fff).rw(m_k056230, FUNC(k056230_device::regs_r), FUNC(k056230_device::regs_w));	// LANC registers
+	map(0x7e00a000, 0x7e00bfff).rw(m_k056230, FUNC(k056230_device::ram_r), FUNC(k056230_device::ram_w));	// LANC Buffer RAM (27E)
 	map(0x7e00c000, 0x7e00c00f).rw(m_k056800, FUNC(k056800_device::host_r), FUNC(k056800_device::host_w));
 	map(0x7f000000, 0x7f3fffff).rom().region("datarom", 0);
 	map(0x7f800000, 0x7f9fffff).rom().region("prgrom", 0);
@@ -579,14 +581,6 @@ void zr107_state::sharc_memmap(address_map &map)
 
 
 static INPUT_PORTS_START( zr107 )
-	PORT_START("IN0")
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_START1 ) PORT_NAME("Start/View")
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_NAME("Shift Up")
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_NAME("Shift Down")
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("AT/MT Switch") PORT_TOGGLE
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_SERVICE1 ) PORT_NAME("Service Button") PORT_CODE(KEYCODE_9)
-	PORT_BIT( 0x0b, IP_ACTIVE_LOW, IPT_UNKNOWN )
-
 	PORT_START("IN1")
 	PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
@@ -614,6 +608,15 @@ INPUT_PORTS_END
 static INPUT_PORTS_START( midnrun )
 	PORT_INCLUDE( zr107 )
 
+	PORT_START("IN0")
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_START1 )        PORT_NAME("Start/View")
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_JOYSTICK_UP )   PORT_NAME("Shift Up")   PORT_4WAY
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_NAME("Shift Down") PORT_4WAY
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT ) PORT_NAME("Auto Shift") PORT_4WAY PORT_TOGGLE PORT_CONDITION("IN3", 0x02, EQUALS, 0x02)
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON5 )       PORT_NAME("AT/MT Switch")                     PORT_CONDITION("IN3", 0x02, EQUALS, 0x00)
+	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_SERVICE1 )      PORT_NAME("Service Button")
+	PORT_BIT( 0x0b, IP_ACTIVE_LOW, IPT_UNKNOWN )
+
 	PORT_START("IN3")
 	PORT_SERVICE_NO_TOGGLE( 0x80, IP_ACTIVE_LOW )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNUSED )
@@ -624,9 +627,9 @@ static INPUT_PORTS_START( midnrun )
 	PORT_DIPSETTING( 0x08, "2" )
 	PORT_DIPSETTING( 0x04, "3" )
 	PORT_DIPSETTING( 0x00, "4" )
-	PORT_DIPNAME( 0x02, 0x02, "Transmission Type" ) PORT_DIPLOCATION("SW:2")
-	PORT_DIPSETTING( 0x02, "Button" )
-	PORT_DIPSETTING( 0x00, "'T'Gate" ) //unused
+	PORT_DIPNAME( 0x02, 0x00, "Transmission Type" ) PORT_DIPLOCATION("SW:2")
+	PORT_DIPSETTING( 0x02, "'T'Gate" )
+	PORT_DIPSETTING( 0x00, "Button" )
 	PORT_DIPNAME( 0x01, 0x01, "CG Board Type" ) PORT_DIPLOCATION("SW:1")
 	PORT_DIPSETTING( 0x01, "Single" )
 	PORT_DIPSETTING( 0x00, "Twin" ) //unused
@@ -644,7 +647,7 @@ INPUT_PORTS_END
 static INPUT_PORTS_START( jetwave )
 	PORT_INCLUDE( zr107 )
 
-	PORT_MODIFY("IN0")
+	PORT_START("IN0")
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_START1 ) PORT_NAME("Start/View")
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("T-Center") //Non-analog acell
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON7 ) PORT_NAME("Angle")
@@ -749,7 +752,8 @@ void zr107_state::zr107(machine_config &config)
 
 	EEPROM_93C46_16BIT(config, "eeprom");
 
-	K056230(config, "k056230", m_maincpu);
+	K056230(config, m_k056230);
+	m_k056230->irq_cb().set_inputline(m_maincpu, INPUT_LINE_IRQ2);
 
 	WATCHDOG_TIMER(config, m_watchdog);
 

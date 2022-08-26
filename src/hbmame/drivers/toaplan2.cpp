@@ -105,14 +105,7 @@ ROM_END
 
 GAME( 2021, truxton2nv, truxton2, truxton2, truxton2, toaplan2_state, empty_init, ROT270, "mycophobia", "Truxton II / Tatsujin Oh (New Version)",  MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /****************
+/****************
  Mahou Daisakusen
 *******************/
 
@@ -135,7 +128,7 @@ ROM_START( mahoudais01 )
 ROM_END
 
 
- /***********
+/***********
  Snow Bros 2
 **************/
 
@@ -167,7 +160,7 @@ ROM_START( snowbro2s02 )
 	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(638f341e) SHA1(aa3fca25f099339ece1878ea730c5e9f18ec4823) )
 ROM_END
 
- /***********
+/***********
  Pipi & Bibis
 **************/
 

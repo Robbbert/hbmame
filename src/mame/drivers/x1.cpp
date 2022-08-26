@@ -208,7 +208,7 @@
 #include "emu.h"
 #include "includes/x1.h"
 
-#include "softlist.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 #include "formats/2d_dsk.h"
@@ -2133,7 +2133,7 @@ void x1_state::machine_start()
 		m_rtc.min = ((systime.local_time.minute / 10)<<4) | ((systime.local_time.minute % 10) & 0xf);
 		m_rtc.sec = ((systime.local_time.second / 10)<<4) | ((systime.local_time.second % 10) & 0xf);
 
-		m_rtc_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(x1_state::x1_rtc_increment),this));
+		m_rtc_timer = timer_alloc(FUNC(x1_state::x1_rtc_increment), this);
 	}
 
 	m_work_ram = make_unique_clear<uint8_t[]>(0x10000*0x10);

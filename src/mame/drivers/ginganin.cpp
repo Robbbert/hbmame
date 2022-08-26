@@ -205,22 +205,11 @@ static const gfx_layout layout16x16 =
 	16*16*4
 };
 
-static const gfx_layout layout8x8 =
-{
-	8,8,
-	RGN_FRAC(1,1),
-	4,
-	{ STEP4(0,1) },
-	{ STEP8(0,4) },
-	{ STEP8(0,4*8) },
-	8*8*4
-};
-
 static GFXDECODE_START( gfx_ginganin )
-	GFXDECODE_ENTRY( "gfx1", 0, layout16x16, 256*3, 16 ) /* [0] bg */
-	GFXDECODE_ENTRY( "gfx2", 0, layout16x16, 256*2, 16 ) /* [1] fg */
-	GFXDECODE_ENTRY( "gfx3", 0, layout8x8,   256*0, 16 ) /* [2] txt */
-	GFXDECODE_ENTRY( "gfx4", 0, layout16x16, 256*1, 16 ) /* [3] sprites */
+	GFXDECODE_ENTRY( "gfx1", 0, layout16x16,          256*3, 16 ) /* [0] bg */
+	GFXDECODE_ENTRY( "gfx2", 0, layout16x16,          256*2, 16 ) /* [1] fg */
+	GFXDECODE_ENTRY( "gfx3", 0, gfx_8x8x4_packed_msb, 256*0, 16 ) /* [2] txt */
+	GFXDECODE_ENTRY( "gfx4", 0, layout16x16,          256*1, 16 ) /* [3] sprites */
 GFXDECODE_END
 
 
@@ -315,7 +304,7 @@ ROM_START( ginganin )
 	ROM_REGION( 0x08000, "bgrom", 0 )    /* background tilemaps */
 	ROM_LOAD( "gn_11.bin", 0x00000, 0x08000, CRC(f0d0e605) SHA1(0c541e8e036573be1d99ecb71fdb4568ca8cc269) )
 
-	ROM_REGION( 0x20000, "ymsnd:adpcma", 0 )   /* samples */
+	ROM_REGION( 0x20000, "ymsnd", 0 )   /* samples */
 	ROM_LOAD( "gn_04.bin", 0x00000, 0x10000, CRC(0ed9133b) SHA1(77f628e8ec28016efac2d906146865ca4ec54bd5) )
 	ROM_LOAD( "gn_03.bin", 0x10000, 0x10000, CRC(f1ba222c) SHA1(780c0bd0045bac1e1bb3209576383db90504fbf3) )
 
@@ -350,7 +339,7 @@ ROM_START( ginganina )
 	ROM_REGION( 0x08000, "bgrom", 0 )    /* background tilemaps */
 	ROM_LOAD( "gn_11.bin", 0x00000, 0x08000, CRC(f0d0e605) SHA1(0c541e8e036573be1d99ecb71fdb4568ca8cc269) )
 
-	ROM_REGION( 0x20000, "ymsnd:adpcma", 0 )   /* samples */
+	ROM_REGION( 0x20000, "ymsnd", 0 )   /* samples */
 	ROM_LOAD( "gn_04.bin", 0x00000, 0x10000, CRC(0ed9133b) SHA1(77f628e8ec28016efac2d906146865ca4ec54bd5) )
 	ROM_LOAD( "gn_03.bin", 0x10000, 0x10000, CRC(f1ba222c) SHA1(780c0bd0045bac1e1bb3209576383db90504fbf3) )
 ROM_END

@@ -200,3 +200,4 @@ ROM_END
 
 
 GAME( 1998, mineswp, 0, mineswp, dotrikun, mineswp_state, empty_init, ROT0, "J-Rom", "Mine Sweeper [h]", MACHINE_SUPPORTS_SAVE )
+

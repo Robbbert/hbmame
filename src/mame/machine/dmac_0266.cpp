@@ -58,7 +58,7 @@ void dmac_0266_device::device_start()
 
 	save_item(NAME(m_req_state));
 
-	m_dma_check = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(dmac_0266_device::dma_check), this));
+	m_dma_check = timer_alloc(FUNC(dmac_0266_device::dma_check), this);
 
 	m_req_state = false;
 }
@@ -124,7 +124,7 @@ void dmac_0266_device::control_w(u32 data)
 		soft_reset();
 }
 
-void dmac_0266_device::dma_check(void *ptr, s32 param)
+void dmac_0266_device::dma_check(s32 param)
 {
 	// check req active
 	if (!m_req_state)

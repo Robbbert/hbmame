@@ -10,14 +10,15 @@
 
 #pragma once
 
+#include "cpu/mcs48/mcs48.h"
 #include "machine/gen_latch.h"
 #include "machine/i8255.h"
 #include "machine/netlist.h"
 #include "machine/timer.h"
-
 #include "sound/ay8910.h"
 #include "sound/dac.h"
 #include "sound/digitalk.h"
+#include "sound/sp0250.h"
 
 #include "emupal.h"
 #include "screen.h"
@@ -159,6 +160,7 @@ public:
 	void init_mooncrgx();
 	void init_moonqsr();
 	void init_pacmanbl();
+	void init_devilfshg();
 	void init_jumpbug();
 	void init_checkman();
 	void init_checkmaj();
@@ -210,6 +212,7 @@ public:
 	void stars_update_origin();
 	void stars_draw_row(bitmap_rgb32 &bitmap, int maxx, int y, uint32_t star_offs, uint8_t starmask);
 	void null_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void galaxian_draw_stars(bitmap_rgb32 &bitmap, const rectangle &cliprect, int maxx);
 	void galaxian_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect);
 	void background_draw_colorsplit(bitmap_rgb32 &bitmap, const rectangle &cliprect, rgb_t color, int split, int split_flipped);
 	void scramble_draw_stars(bitmap_rgb32 &bitmap, const rectangle &cliprect, int maxx);
@@ -277,7 +280,7 @@ public:
 	void quaak(machine_config &config);
 	void galaxian(machine_config &config);
 	void highroll(machine_config &config);
-	void devilfsg(machine_config &config);
+	void devilfshg(machine_config &config);
 	void froggers(machine_config &config);
 	void froggervd(machine_config &config);
 	void anteateruk(machine_config &config);
@@ -301,6 +304,7 @@ public:
 	void victoryc(machine_config &config);
 	void frogg(machine_config &config);
 	void mandingarf(machine_config &config);
+	void mandinka(machine_config &config);
 	void thepitm(machine_config &config);
 	void kong(machine_config &config);
 	void bongo(machine_config &config);
@@ -310,6 +314,7 @@ public:
 	void astroamb(machine_config &config);
 	void mimonkey(machine_config &config);
 	void mimonscr(machine_config &config);
+	void galartic(machine_config &config);
 
 	template <int Mask> CUSTOM_INPUT_MEMBER(ckongg_coinage_r);
 	template <int Mask> DECLARE_READ_LINE_MEMBER(ckongs_coinage_r);
@@ -347,6 +352,7 @@ protected:
 	void frogger_sound_portmap(address_map &map);
 	void froggeram_map(address_map &map);
 	void froggermc_map(address_map &map);
+	void galartic_map(address_map &map);
 	void galaxian_map(address_map &map);
 	void galaxian_map_base(address_map &map);
 	void galaxian_map_discrete(address_map &map);
@@ -358,6 +364,7 @@ protected:
 	void konami_sound_portmap(address_map &map);
 	void kong_map(address_map &map);
 	void mandingarf_map(address_map &map);
+	void mandinka_map(address_map &map);
 	void mimonkey_map(address_map &map);
 	void mimonscr_map(address_map &map);
 	void mooncrst_map(address_map &map);
@@ -407,36 +414,36 @@ protected:
 	int m_bullets_base = 0x60;
 	int m_sprites_base = 0x40;
 	int m_numspritegens = 1;
-	uint16_t m_protection_state;
-	uint8_t m_protection_result;
-	uint8_t m_konami_sound_control;
-	uint8_t m_irq_enabled;
+	uint16_t m_protection_state = 0;
+	uint8_t m_protection_result = 0;
+	uint8_t m_konami_sound_control = 0;
+	uint8_t m_irq_enabled = 0;
 	int m_irq_line = INPUT_LINE_NMI;
-	uint8_t m_frogger_adjust = false;
+	bool m_frogger_adjust = false;
 	uint8_t m_x_scale = GALAXIAN_XSCALE;
 	uint8_t m_h0_start = GALAXIAN_H0START;
-	uint8_t m_sfx_tilemap = false;
+	bool m_sfx_adjust = false;
 
 	extend_tile_info_delegate m_extend_tile_info_ptr;
 	extend_sprite_info_delegate m_extend_sprite_info_ptr;
 	draw_bullet_delegate m_draw_bullet_ptr;
 	draw_background_delegate m_draw_background_ptr;
 
-	tilemap_t *m_bg_tilemap;
-	uint8_t m_flipscreen_x;
-	uint8_t m_flipscreen_y;
-	uint8_t m_background_enable;
-	uint8_t m_background_red;
-	uint8_t m_background_green;
-	uint8_t m_background_blue;
-	uint32_t m_star_rng_origin;
-	uint32_t m_star_rng_origin_frame;
+	tilemap_t *m_bg_tilemap = nullptr;
+	uint8_t m_flipscreen_x = 0;
+	uint8_t m_flipscreen_y = 0;
+	uint8_t m_background_enable = 0;
+	uint8_t m_background_red = 0;
+	uint8_t m_background_green = 0;
+	uint8_t m_background_blue = 0;
+	uint32_t m_star_rng_origin = 0;
+	uint32_t m_star_rng_origin_frame = 0;
 	rgb_t m_star_color[64];
 	std::unique_ptr<uint8_t[]> m_stars;
-	uint8_t m_stars_enabled;
-	uint8_t m_stars_blink_state;
+	uint8_t m_stars_enabled = 0;
+	uint8_t m_stars_blink_state = 0;
 	rgb_t m_bullet_color[8];
-	uint8_t m_gfxbank[5];
+	uint8_t m_gfxbank[5]{};
 	uint8_t m_leftspriteclip = 16;
 };
 
@@ -568,7 +575,7 @@ private:
 
 	void mshuttle_decode(const uint8_t convtable[8][16]);
 
-	uint8_t m_ay8910_cs;
+	uint8_t m_ay8910_cs = 0U;
 };
 
 
@@ -603,8 +610,8 @@ private:
 	required_device<dac_byte_interface> m_dac;
 	required_ioport m_mux_port;
 
-	uint8_t m_speech_dip;
-	uint8_t m_sound;
+	uint8_t m_speech_dip = 0;
+	uint8_t m_sound = 0;
 };
 
 
@@ -665,7 +672,7 @@ private:
 	required_ioport_array<10> m_game_dsw;
 	required_memory_bank m_mainbank;
 
-	uint8_t m_current_game;
+	uint8_t m_current_game = 0;
 };
 
 
@@ -690,7 +697,7 @@ private:
 	void zigzag_map(address_map &map);
 
 	required_memory_bank_array<2> m_rombanks;
-	uint8_t m_ay8910_latch;
+	uint8_t m_ay8910_latch = 0U;
 };
 
 
@@ -706,7 +713,7 @@ public:
 	void videight(machine_config &config);
 	void init_videight();
 
-private:
+//private:
 	void videight_rombank_w(offs_t offset, uint8_t data);
 	void videight_gfxbank_w(offs_t offset, uint8_t data);
 	void videight_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
@@ -727,13 +734,16 @@ public:
 	}
 
 	void guttangt(machine_config &config);
+	void guttangts3(machine_config &config);
 	void init_guttangt();
+	void init_guttangts3();
 
 private:
 	void guttangt_map(address_map &map);
+	void guttangts3_map(address_map &map);
 	void guttangt_rombank_w(uint8_t data);
 
-	required_memory_bank m_rombank;
+	optional_memory_bank m_rombank;
 };
 
 
@@ -765,10 +775,10 @@ private:
 };
 
 
-class taiyo_sfx_state : public galaxian_state
+class nihon_sfx_state : public galaxian_state
 {
 public:
-	taiyo_sfx_state(const machine_config &mconfig, device_type type, const char *tag)
+	nihon_sfx_state(const machine_config &mconfig, device_type type, const char *tag)
 		: galaxian_state(mconfig, type, tag)
 		, m_audio2(*this, "audio2")
 		, m_dac(*this, "dac")
@@ -776,36 +786,59 @@ public:
 	}
 
 	void sfx(machine_config &config);
-	void monsterz(machine_config &config);
 
 	void init_sfx();
 
 protected:
 	virtual void machine_start() override;
 
-private:
 	uint8_t sample_io_r(offs_t offset);
 	void sample_io_w(offs_t offset, uint8_t data);
 	void sample_control_w(uint8_t data);
 
-	uint8_t monsterz_protection_r();
-	void monsterz_porta_1_w(uint8_t data);
-	void monsterz_portb_1_w(uint8_t data);
-	void monsterz_portc_1_w(uint8_t data);
-	void monsterz_set_latch();
-
 	void sfx_draw_background(bitmap_rgb32 &bitmap, const rectangle &cliprect);
+	void sfx_draw_bullet(bitmap_rgb32 &bitmap, const rectangle &cliprect, int offs, int x, int y);
 
 	void sfx_map(address_map &map);
 	void sfx_sample_map(address_map &map);
 	void sfx_sample_portmap(address_map &map);
-	void monsterz_map(address_map &map);
-	void monsterz_sound_map(address_map &map);
 
 	required_device<cpu_device> m_audio2;
 	required_device<dac_byte_interface> m_dac;
 
-	uint8_t m_sample_control;
+	uint8_t m_sample_control = 0U;
+};
+
+
+class monsterz_state : public nihon_sfx_state
+{
+public:
+	monsterz_state(const machine_config& mconfig, device_type type, const char* tag)
+		: nihon_sfx_state(mconfig, type, tag)
+		, m_dac2(*this, "dac2")
+	{
+	}
+
+	void monsterz(machine_config& config);
+
+	void init_monsterz();
+
+protected:
+	virtual void machine_start() override;
+
+private:
+	void monsterz_map(address_map& map);
+	void monsterz_sound_map(address_map& map);
+	void monsterz_sound_portmap(address_map& map);
+	void monsterz_sample_map(address_map& map);
+	void monsterz_ay8910_w(offs_t offset, uint8_t data);
+
+	required_device<dac_byte_interface> m_dac2;
+
+	uint32_t m_monsterz_shift = 0U;
+	uint32_t m_monsterz_shift2 = 0U;
+	uint8_t m_monsterz_audio_portb = 0U;
+	uint8_t m_monsterz_sample_portc = 0U;
 };
 
 
@@ -831,9 +864,48 @@ private:
 
 	required_ioport_array<2> m_dials;
 
-	uint8_t m_port_select;
-	uint8_t m_direction[2];
-	uint8_t m_counter_74ls161[2];
+	uint8_t m_port_select = 0U;
+	uint8_t m_direction[2]{};
+	uint8_t m_counter_74ls161[2]{};
 };
+
+
+class sbhoei_state : public galaxian_state
+{
+public:
+	sbhoei_state(const machine_config &mconfig, device_type type, const char *tag)
+		: galaxian_state(mconfig, type, tag)
+		, m_8039(*this, "i8039")
+		, m_sp0250(*this, "sp0250")
+		, m_soundbank(*this, "soundbank")
+	{
+	}
+
+	void sbhoei(machine_config &config);
+	void init_sbhoei();
+	void sbhoei_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
+	void sbhoei_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
+
+protected:
+	virtual void machine_start() override;
+
+private:
+	void sbhoei_map(address_map &map);
+	void sbhoei_map_discrete(address_map &map);
+	void sbhoei_sound_map(address_map &map);
+	void sbhoei_sound_io_map(address_map &map);
+
+	void sbhoei_palette(palette_device &palette);
+	void sbhoei_soundlatch_w(uint8_t data);
+	void p2_w(uint8_t data);
+	uint8_t p1_r();
+
+	required_device<i8039_device> m_8039;
+	required_device<sp0250_device> m_sp0250;
+	required_memory_bank m_soundbank;
+
+	uint8_t m_p2 = 0;
+};
+
 
 #endif // MAME_INCLUDES_GALAXIAN_H

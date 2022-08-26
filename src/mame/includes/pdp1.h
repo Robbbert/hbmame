@@ -10,6 +10,7 @@
 #define MAME_INCLUDES_PDP1_H
 
 #include "cpu/pdp1/pdp1.h"
+#include "imagedev/papertape.h"
 #include "video/crt.h"
 #include "emupal.h"
 
@@ -171,12 +172,12 @@ enum
 class pdp1_state;
 
 // tape reader device
-class pdp1_readtape_image_device :  public device_t,
-									public device_image_interface
+class pdp1_readtape_image_device :  public paper_tape_reader_device
 {
 public:
 	// construction/destruction
 	pdp1_readtape_image_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock = 0U);
+	virtual const char *image_interface() const noexcept override { return "pdp1_ptp"; }
 
 	auto st_ptr() { return m_st_ptr.bind(); }
 
@@ -190,13 +191,6 @@ protected:
 	virtual void device_start() override;
 
 	// image-level overrides
-	virtual iodevice_t image_type() const noexcept override { return IO_PUNCHTAPE; }
-
-	virtual bool is_readable()  const noexcept override { return true; }
-	virtual bool is_writeable() const noexcept override { return false; }
-	virtual bool is_creatable() const noexcept override { return false; }
-	virtual bool must_be_loaded() const noexcept override { return false; }
-	virtual bool is_reset_on_load() const noexcept override { return false; }
 	virtual const char *file_extensions() const noexcept override { return "tap,rim"; }
 
 	virtual image_init_result call_load() override;
@@ -226,8 +220,7 @@ public:
 
 
 // tape puncher device
-class pdp1_punchtape_image_device : public device_t,
-									public device_image_interface
+class pdp1_punchtape_image_device : public paper_tape_punch_device
 {
 public:
 	// construction/destruction
@@ -244,12 +237,9 @@ protected:
 	virtual void device_start() override;
 
 	// image-level overrides
-	virtual iodevice_t image_type() const noexcept override { return IO_PUNCHTAPE; }
-
 	virtual bool is_readable()  const noexcept override { return false; }
 	virtual bool is_writeable() const noexcept override { return true; }
 	virtual bool is_creatable() const noexcept override { return true; }
-	virtual bool must_be_loaded() const noexcept override { return false; }
 	virtual bool is_reset_on_load() const noexcept override { return false; }
 	virtual const char *file_extensions() const noexcept override { return "tap,rim"; }
 
@@ -290,14 +280,14 @@ protected:
 	virtual void device_start() override;
 
 	// image-level overrides
-	virtual iodevice_t image_type() const noexcept override { return IO_PRINTER; }
-
 	virtual bool is_readable()  const noexcept override { return false; }
 	virtual bool is_writeable() const noexcept override { return true; }
 	virtual bool is_creatable() const noexcept override { return true; }
-	virtual bool must_be_loaded() const noexcept override { return false; }
 	virtual bool is_reset_on_load() const noexcept override { return false; }
+	virtual bool support_command_line_image_creation() const noexcept override { return true; }
 	virtual const char *file_extensions() const noexcept override { return "typ"; }
+	virtual const char *image_type_name() const noexcept override { return "printout"; }
+	virtual const char *image_brief_type_name() const noexcept override { return "prin"; }
 
 	virtual image_init_result call_load() override;
 	virtual void call_unload() override;
@@ -347,35 +337,38 @@ protected:
 	virtual void device_start() override;
 
 	// image-level overrides
-	virtual iodevice_t image_type() const noexcept override { return IO_CYLINDER; }
-
 	virtual bool is_readable()  const noexcept override { return true; }
 	virtual bool is_writeable() const noexcept override { return true; }
 	virtual bool is_creatable() const noexcept override { return true; }
-	virtual bool must_be_loaded() const noexcept override { return false; }
 	virtual bool is_reset_on_load() const noexcept override { return false; }
 	virtual const char *file_extensions() const noexcept override { return "drm"; }
+	virtual const char *image_type_name() const noexcept override { return "cylinder"; }
+	virtual const char *image_brief_type_name() const noexcept override { return "cyln"; }
+
 
 	virtual image_init_result call_load() override;
 	virtual void call_unload() override;
 
 public:
 	void set_il(int il);
+	TIMER_CALLBACK_MEMBER(rotation_timer_callback);
+	TIMER_CALLBACK_MEMBER(il_timer_callback);
+	[[maybe_unused]] void parallel_drum_init();
 	uint32_t drum_read(int field, int position);
 	void drum_write(int field, int position, uint32_t data);
 
 	required_device<pdp1_device> m_maincpu;
 
-	int m_il;       // initial location (12-bit)
-	int m_wc;       // word counter (12-bit)
-	int m_wcl;      // word core location counter (16-bit)
-	int m_rfb;      // read field buffer (5-bit)
-	int m_wfb;      // write field buffer (5-bit)
+	int m_il = 0;       // initial location (12-bit)
+	int m_wc = 0;       // word counter (12-bit)
+	int m_wcl = 0;      // word core location counter (16-bit)
+	int m_rfb = 0;      // read field buffer (5-bit)
+	int m_wfb = 0;      // write field buffer (5-bit)
 
-	int m_dba;
+	int m_dba = 0;
 
-	emu_timer *m_rotation_timer;// timer called each time dc is 0
-	emu_timer *m_il_timer;      // timer called each time dc is il
+	emu_timer *m_rotation_timer = nullptr;// timer called each time dc is 0
+	emu_timer *m_il_timer = nullptr;      // timer called each time dc is il
 };
 
 

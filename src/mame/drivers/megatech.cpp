@@ -106,6 +106,9 @@ public:
 		m_cart7(*this, "mt_slot7"),
 		m_cart8(*this, "mt_slot8"),
 		m_bioscpu(*this, "mtbios"),
+		m_pad(*this, "PAD%u", 1U),
+		m_alarm_sound(*this, "Alarm_sound"),
+		m_flash_screen(*this, "Flash_screen"),
 		m_region_maincpu(*this, "maincpu")
 	{ }
 
@@ -116,10 +119,10 @@ public:
 	void init_mt_slot();
 
 protected:
+	virtual void machine_start() override;
 	virtual void machine_reset() override;
 
 private:
-
 	void megatech(machine_config &config);
 
 	void cart_select_w(uint8_t data);
@@ -141,7 +144,6 @@ private:
 	uint8_t sms_ioport_dd_r();
 	void mt_sms_standard_rom_bank_w(address_space &space, offs_t offset, uint8_t data);
 
-
 	image_init_result load_cart(device_image_interface &image, generic_slot_device *slot, int gameno);
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER( mt_cart1 ) { return load_cart(image, m_cart1, 0); }
 	DECLARE_DEVICE_IMAGE_LOAD_MEMBER( mt_cart2 ) { return load_cart(image, m_cart2, 1); }
@@ -159,11 +161,11 @@ private:
 	void megatech_bios_map(address_map &map);
 	void megatech_bios_portmap(address_map &map);
 
-	uint8_t m_mt_cart_select_reg;
-	uint32_t m_bios_port_ctrl;
-	int m_current_machine_is_sms; // is the current game SMS based (running on genesis z80, in VDP compatibility mode)
-	uint32_t m_bios_ctrl_inputs;
-	int m_mt_bank_addr;
+	uint8_t m_mt_cart_select_reg = 0;
+	uint32_t m_bios_port_ctrl = 0;
+	int m_current_machine_is_sms = 0; // is the current game SMS based (running on genesis z80, in VDP compatibility mode)
+	uint32_t m_bios_ctrl_inputs = 0;
+	int m_mt_bank_addr = 0;
 
 	int m_cart_is_genesis[8];
 
@@ -186,6 +188,9 @@ private:
 	optional_device<generic_slot_device> m_cart7;
 	optional_device<generic_slot_device> m_cart8;
 	required_device<cpu_device>          m_bioscpu;
+	required_ioport_array<2>             m_pad;
+	output_finder<>                      m_alarm_sound;
+	output_finder<>                      m_flash_screen;
 	required_memory_region               m_region_maincpu;
 
 	memory_region *m_cart_reg[8];
@@ -291,7 +296,6 @@ static INPUT_PORTS_START( megatech ) /* Genesis Input Ports */
 	PORT_DIPSETTING(    0xe0, "1:00" )
 	PORT_DIPSETTING(    0xf0, "0:30" )
 
-
 	PORT_START("BIOS_J1")
 	PORT_DIPNAME( 0x0001, 0x0001, "5" )
 	PORT_DIPSETTING(      0x0001, DEF_STR( Off ) )
@@ -333,14 +337,14 @@ uint8_t mtech_state::sms_ioport_dc_r()
 {
 	/* 2009-05 FP: would it be worth to give separate inputs to SMS? SMS has only 2 keys A,B (which are B,C on megadrive) */
 	/* bit 4: TL-A; bit 5: TR-A */
-	return (ioport("PAD1")->read() & 0x3f) | ((ioport("PAD2")->read() & 0x03) << 6);
+	return (m_pad[0]->read() & 0x3f) | ((m_pad[1]->read() & 0x03) << 6);
 }
 
 uint8_t mtech_state::sms_ioport_dd_r()
 {
 	/* 2009-05 FP: would it be worth to give separate inputs to SMS? SMS has only 2 keys A,B (which are B,C on megadrive) */
 	/* bit 2: TL-B; bit 3: TR-B; bit 4: RESET; bit 5: unused; bit 6: TH-A; bit 7: TH-B*/
-	return ((ioport("PAD2")->read() & 0x3c) >> 2) | 0x10;
+	return ((m_pad[1]->read() & 0x3c) >> 2) | 0x10;
 }
 
 
@@ -468,7 +472,7 @@ void mtech_state::cart_select_w(uint8_t data)
 	  but it stores something in (banked?) ram
 	  because it always seems to show the
 	  same instructions ... */
-	m_mt_cart_select_reg = data;
+	m_mt_cart_select_reg = data & 0x07;
 	switch_cart(m_mt_cart_select_reg);
 }
 
@@ -485,13 +489,13 @@ uint8_t mtech_state::bios_porte_r()
 
 void mtech_state::bios_portd_w(uint8_t data)
 {
-	output().set_value("Alarm_sound", BIT(data, 7));
+	m_alarm_sound = BIT(data, 7);
 	m_bios_ctrl_inputs = data & 0x04;  // Genesis/SMS input ports disable bit
 }
 
 void mtech_state::bios_porte_w(uint8_t data)
 {
-	output().set_value("Flash_screen", BIT(data, 1));
+	m_flash_screen = BIT(data, 1);
 }
 
 /* this sets 0x300000 which may indicate that the 68k can see the instruction rom
@@ -517,12 +521,12 @@ void mtech_state::mt_z80_bank_w(uint8_t data)
 
 uint8_t mtech_state::banked_ram_r(offs_t offset)
 {
-	return m_banked_ram[offset + 0x1000 * (m_mt_cart_select_reg & 0x07)];
+	return m_banked_ram[offset + 0x1000 * m_mt_cart_select_reg];
 }
 
 void mtech_state::banked_ram_w(offs_t offset, uint8_t data)
 {
-	m_banked_ram[offset + 0x1000 * (m_mt_cart_select_reg & 0x07)] = data;
+	m_banked_ram[offset + 0x1000 * m_mt_cart_select_reg] = data;
 }
 
 
@@ -642,6 +646,14 @@ WRITE_LINE_MEMBER(mtech_state::screen_vblank_main)
 {
 	if (!m_current_machine_is_sms)
 		screen_vblank_megadriv(state);
+}
+
+void mtech_state::machine_start()
+{
+	md_base_state::machine_start();
+
+	m_alarm_sound.resolve();
+	m_flash_screen.resolve();
 }
 
 void mtech_state::machine_reset()

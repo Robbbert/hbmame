@@ -200,3 +200,4 @@ GAME( 1999, superpcn, superpac, superpac, superpac, mappy_state, empty_init, ROT
 GAME( 2000, superpcp, superpac, superpac, superpac, mappy_state, empty_init, ROT90, "Blue Justice", "Super Pac-Man Plus", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, superpcs, superpac, superpac, superpac, mappy_state, empty_init, ROT90, "Paul Smith", "Super Pac-Man (always small)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vectrsup, superpac, superpac, superpac, mappy_state, empty_init, ROT90, "T-Bone", "Super Pac-Man (Vector sim)", MACHINE_SUPPORTS_SAVE )
+

@@ -14,8 +14,6 @@
 
   TODO:
   - proper MCU emulation (mame/machine/slapfght.cpp)
-  - alcon cocktail/flipscreen, it doesn't write to the flipscreen reg
-
 
 ****************************************************************************
 
@@ -69,7 +67,7 @@ $00     Status register - cycle 0xc7, 0x55, 0x00  (Thanks to Dave Spicer for the
 Known Info
 ----------
 
-2K Character RAM at write only address $f000-$f7fff looks to be organised
+2K Character RAM at write only address $f000-$f7ff looks to be organised
 64x32 chars with the screen rotated through 90 degrees clockwise. There
 appears to be some kind of attribute(?) RAM above at $f800-$ffff organised
 in the same manner.
@@ -80,6 +78,12 @@ would make the overall frame buffer 296x256.
 Print function maybe around $09a2 based on info from log file.
 
 $e000 looks like sprite ram, setup routines at $0008.
+
+Partial hand-made schematics don't show a buffer, but the games most
+definitely need it.  Could be the second half of the ram, which seems
+otherwise unused, but it would be weird bandwidth-wise.  It's not
+double-buffering through page swapping, sprite updates are
+incremental.
 
 
 Sound System CPU Details
@@ -892,7 +896,7 @@ GFXDECODE_END
 void slapfght_state::perfrman(machine_config &config)
 {
 	/* basic machine hardware */
-	Z80(config, m_maincpu, XTAL(16'000'000)/4); // 4MHz? XTAL is known, divider is guessed
+	Z80(config, m_maincpu, 16_MHz_XTAL/4); // 4MHz? XTAL is known, divider is guessed
 	m_maincpu->set_addrmap(AS_PROGRAM, &slapfght_state::perfrman_map);
 	m_maincpu->set_addrmap(AS_IO, &slapfght_state::io_map_nomcu);
 
@@ -902,24 +906,22 @@ void slapfght_state::perfrman(machine_config &config)
 	mainlatch.q_out_cb<3>().set(FUNC(slapfght_state::irq_enable_w));
 	mainlatch.q_out_cb<6>().set(FUNC(slapfght_state::palette_bank_w));
 
-	Z80(config, m_audiocpu, XTAL(16'000'000)/8); // 2MHz? XTAL is known, divider is guessed
+	Z80(config, m_audiocpu, 16_MHz_XTAL/8); // 2MHz? XTAL is known, divider is guessed
 	m_audiocpu->set_addrmap(AS_PROGRAM, &slapfght_state::perfrman_sound_map);
 	m_audiocpu->set_periodic_int(FUNC(slapfght_state::sound_nmi), attotime::from_hz(240)); // music speed, verified
 
 	config.set_perfect_quantum(m_maincpu);
 
 	/* video hardware */
-	BUFFERED_SPRITERAM8(config, m_spriteram);
-
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_refresh_hz(60);
-	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(2500) /* not accurate */);
-	m_screen->set_size(64*8, 32*8);
-	m_screen->set_visarea(0*8, 32*8-1, 2*8, 32*8-1);
+	// pure guesswork, hopefully we can get real values
+	m_screen->set_raw(16_MHz_XTAL/3, 344, 0, 256, 270, 0, 240);
 	m_screen->set_screen_update(FUNC(slapfght_state::screen_update_perfrman));
-	m_screen->screen_vblank().set(m_spriteram, FUNC(buffered_spriteram8_device::vblank_copy_rising));
+	m_screen->screen_vblank().set(m_spriteram_buffer, FUNC(buffered_spriteram8_device::vblank_copy_falling));
 	m_screen->screen_vblank().append(FUNC(slapfght_state::vblank_irq));
 	m_screen->set_palette(m_palette);
+
+	BUFFERED_SPRITERAM8(config, m_spriteram_buffer);
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_perfrman);
 	PALETTE(config, m_palette, palette_device::RGB_444_PROMS, "proms", 256);
@@ -928,12 +930,12 @@ void slapfght_state::perfrman(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	ay8910_device &ay1(AY8910(config, "ay1", XTAL(16'000'000)/8));
+	ay8910_device &ay1(AY8910(config, "ay1", 16_MHz_XTAL/8));
 	ay1.port_a_read_callback().set_ioport("IN0");
 	ay1.port_b_read_callback().set_ioport("IN1");
 	ay1.add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	ay8910_device &ay2(AY8910(config, "ay2", XTAL(16'000'000)/8));
+	ay8910_device &ay2(AY8910(config, "ay2", 16_MHz_XTAL/8));
 	ay2.port_a_read_callback().set_ioport("DSW1");
 	ay2.port_b_read_callback().set_ioport("DSW2");
 	ay2.add_route(ALL_OUTPUTS, "mono", 0.25);
@@ -943,7 +945,7 @@ void slapfght_state::perfrman(machine_config &config)
 void slapfght_state::tigerh(machine_config &config)
 {
 	/* basic machine hardware */
-	Z80(config, m_maincpu, XTAL(36'000'000)/6); // 6MHz
+	Z80(config, m_maincpu, 36_MHz_XTAL/6); // 6MHz
 	m_maincpu->set_addrmap(AS_PROGRAM, &slapfght_state::tigerh_map_mcu);
 	m_maincpu->set_addrmap(AS_IO, &slapfght_state::io_map_mcu);
 
@@ -952,7 +954,7 @@ void slapfght_state::tigerh(machine_config &config)
 	mainlatch.q_out_cb<1>().set(FUNC(slapfght_state::flipscreen_w));
 	mainlatch.q_out_cb<3>().set(FUNC(slapfght_state::irq_enable_w));
 
-	Z80(config, m_audiocpu, XTAL(36'000'000)/12); // 3MHz
+	Z80(config, m_audiocpu, 36_MHz_XTAL/12); // 3MHz
 	m_audiocpu->set_addrmap(AS_PROGRAM, &slapfght_state::tigerh_sound_map);
 	m_audiocpu->set_periodic_int(FUNC(slapfght_state::sound_nmi), attotime::from_hz(360)); // music speed, verified with pcb recording
 
@@ -961,17 +963,14 @@ void slapfght_state::tigerh(machine_config &config)
 	config.set_perfect_quantum(m_maincpu);
 
 	/* video hardware */
-	BUFFERED_SPRITERAM8(config, m_spriteram);
-
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_refresh_hz(60);
-	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(2500) /* not accurate */);
-	m_screen->set_size(64*8, 32*8);
-	m_screen->set_visarea(1*8, 36*8-1, 2*8-1, 32*8-1-1);
+	m_screen->set_raw(36_MHz_XTAL/6, 388, 0, 296, 270, 0, 240);
 	m_screen->set_screen_update(FUNC(slapfght_state::screen_update_slapfight));
-	m_screen->screen_vblank().set(m_spriteram, FUNC(buffered_spriteram8_device::vblank_copy_rising));
+	m_screen->screen_vblank().set(m_spriteram_buffer, FUNC(buffered_spriteram8_device::vblank_copy_falling));
 	m_screen->screen_vblank().append(FUNC(slapfght_state::vblank_irq));
 	m_screen->set_palette(m_palette);
+
+	BUFFERED_SPRITERAM8(config, m_spriteram_buffer);
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_slapfght);
 	PALETTE(config, m_palette, palette_device::RGB_444_PROMS, "proms", 256);
@@ -980,12 +979,12 @@ void slapfght_state::tigerh(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	ay8910_device &ay1(AY8910(config, "ay1", XTAL(36'000'000)/24)); // 1.5MHz
+	ay8910_device &ay1(AY8910(config, "ay1", 36_MHz_XTAL/24)); // 1.5MHz
 	ay1.port_a_read_callback().set_ioport("IN0");
 	ay1.port_b_read_callback().set_ioport("IN1");
 	ay1.add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	ay8910_device &ay2(AY8910(config, "ay2", XTAL(36'000'000)/24)); // 1.5MHz
+	ay8910_device &ay2(AY8910(config, "ay2", 36_MHz_XTAL/24)); // 1.5MHz
 	ay2.port_a_read_callback().set_ioport("DSW1");
 	ay2.port_b_read_callback().set_ioport("DSW2");
 	ay2.add_route(ALL_OUTPUTS, "mono", 0.25);
@@ -1027,37 +1026,34 @@ void slapfght_state::tigerhb4(machine_config &config)
 void slapfght_state::slapfigh(machine_config &config)
 {
 	/* basic machine hardware */
-	Z80(config, m_maincpu, XTAL(36'000'000)/6); // 6MHz
+	Z80(config, m_maincpu, 36_MHz_XTAL/6); // 6MHz
 	m_maincpu->set_addrmap(AS_PROGRAM, &slapfght_state::slapfigh_map_mcu);
 	m_maincpu->set_addrmap(AS_IO, &slapfght_state::io_map_mcu);
 
 	ls259_device &mainlatch(LS259(config, "mainlatch"));
 	mainlatch.q_out_cb<0>().set(FUNC(slapfght_state::sound_reset_w));
-	mainlatch.q_out_cb<1>().set(FUNC(slapfght_state::flipscreen_w));
 	mainlatch.q_out_cb<3>().set(FUNC(slapfght_state::irq_enable_w));
 	mainlatch.q_out_cb<4>().set_membank("bank1");
 
-	Z80(config, m_audiocpu, XTAL(36'000'000)/12); // 3MHz
+	Z80(config, m_audiocpu, 36_MHz_XTAL/12); // 3MHz
 	m_audiocpu->set_addrmap(AS_PROGRAM, &slapfght_state::tigerh_sound_map);
 	m_audiocpu->set_periodic_int(FUNC(slapfght_state::sound_nmi), attotime::from_hz(180));
 
 	TAITO68705_MCU(config, m_bmcu, 36_MHz_XTAL/12); // 3MHz
+	m_bmcu->aux_out_cb<5>().set(FUNC(slapfght_state::flipscreen_w));
 	m_bmcu->aux_strobe_cb().set(FUNC(slapfght_state::scroll_from_mcu_w));
 
 	config.set_perfect_quantum(m_maincpu);
 
 	/* video hardware */
-	BUFFERED_SPRITERAM8(config, m_spriteram);
-
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
-	m_screen->set_refresh_hz(60);
-	m_screen->set_vblank_time(ATTOSECONDS_IN_USEC(2500) /* not accurate */);
-	m_screen->set_size(64*8, 32*8);
-	m_screen->set_visarea(1*8, 36*8-1, 2*8-1, 32*8-1-1);
+	m_screen->set_raw(36_MHz_XTAL/6, 388, 0, 296, 270, 0, 240);
 	m_screen->set_screen_update(FUNC(slapfght_state::screen_update_slapfight));
-	m_screen->screen_vblank().set(m_spriteram, FUNC(buffered_spriteram8_device::vblank_copy_rising));
+	m_screen->screen_vblank().set(m_spriteram_buffer, FUNC(buffered_spriteram8_device::vblank_copy_falling));
 	m_screen->screen_vblank().append(FUNC(slapfght_state::vblank_irq));
 	m_screen->set_palette(m_palette);
+
+	BUFFERED_SPRITERAM8(config, m_spriteram_buffer);
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_slapfght);
 	PALETTE(config, m_palette, palette_device::RGB_444_PROMS, "proms", 256);
@@ -1066,15 +1062,24 @@ void slapfght_state::slapfigh(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	ay8910_device &ay1(AY8910(config, "ay1", XTAL(36'000'000)/24)); // 1.5MHz
+	ay8910_device &ay1(AY8910(config, "ay1", 36_MHz_XTAL/24)); // 1.5MHz
 	ay1.port_a_read_callback().set_ioport("IN0");
 	ay1.port_b_read_callback().set_ioport("IN1");
 	ay1.add_route(ALL_OUTPUTS, "mono", 0.25);
 
-	ay8910_device &ay2(AY8910(config, "ay2", XTAL(36'000'000)/24)); // 1.5MHz
+	ay8910_device &ay2(AY8910(config, "ay2", 36_MHz_XTAL/24)); // 1.5MHz
 	ay2.port_a_read_callback().set_ioport("DSW1");
 	ay2.port_b_read_callback().set_ioport("DSW2");
 	ay2.add_route(ALL_OUTPUTS, "mono", 0.25);
+}
+
+void slapfght_state::slapfigha(machine_config &config)
+{
+	slapfigh(config);
+
+	subdevice<ls259_device>("mainlatch")->q_out_cb<1>().set(FUNC(slapfght_state::flipscreen_w));
+
+	m_bmcu->aux_out_cb<5>().set_nop();
 }
 
 void slapfght_state::slapfighb1(machine_config &config)
@@ -1563,6 +1568,37 @@ Notes:
       A77_05 to A77_08 - 27256 EPROM
       A77_03, A77_04 - 2764 EPROM (replace with A77_03-1, A77_04-1 on Alcon)
       A77_13 - Motorola MC68705P5S Micro-Controller (protected). Clock 3.000MHz
+
+Non-color PROM usage (slap fight board names, seem common for all games):
+  ROM14.2C:
+    Horizontal signals.  In normal mode hpos goes from 0 to 387, in
+    flipped mode hpos goes from 291 to -96.  The prom address is:
+      ((hpos >> 2) & 0x7f) | (flip ? 0x80 : 0x00)
+
+    Bits are:
+      0: 1 = sync active
+      1: 1 = blank active
+      2: unused
+      3: 0 = reset hpos
+
+  ROM15.8B:
+    Vertical signals.  Vpos goes from 0 to 269.  The prom address is
+      vpos >> 1.
+
+    Bits are:
+      0: 0 = sync active
+      1: 1 = blank active
+      2: unused
+      3: 0 = reset vpos
+
+  ROM16.1E, ROM17.1C:
+    Two nibbles providing a byte (1E high, 1C low).  Seems linked with
+    reading the sprite ram, addressing is a little weird and usage not
+    obvious.  Low 3 bits seem to choose a target (0=none,
+    1,3=position, 4=code, 2=misc, 5+ unknown).
+
+  ROM18.2B:
+    Something to do with sprites, even less clear.
 */
 
 ROM_START( alcon )
@@ -1593,10 +1629,15 @@ ROM_START( alcon )
 	ROM_LOAD( "a77_09.7h", 0x18000, 0x8000, CRC(587113ae) SHA1(90abe961494a1af7c87693a419fbabf7a58a5dee) )
 
 
-	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_REGION( 0x0720, "proms", 0 )
 	ROM_LOAD( "21_82s129.12q", 0x0000, 0x0100, CRC(a0efaf99) SHA1(5df01663480acad1f89abab8662d437617a66d1c) ) /* Silkscreened as ROM21 */
 	ROM_LOAD( "20_82s129.12m", 0x0100, 0x0100, CRC(a56d57e5) SHA1(bfbd0db52b23fe1b4994e05103be3d412c1c013e) ) /* Silkscreened as ROM20 */
 	ROM_LOAD( "19_82s129.12n", 0x0200, 0x0100, CRC(5cbf9fbf) SHA1(abfa58fa4e44ebc56f2e0fac9bcc36164c845fa3) ) /* Silkscreened as ROM19 */
+	ROM_LOAD( "14_82s129.2c",  0x0300, 0x0100, CRC(4dc04453) SHA1(524e5a212ab496c52adc0def995b75e89aba48e7) ) /* Silkscreened as ROM14 */
+	ROM_LOAD( "15_82s129.8b",  0x0400, 0x0100, CRC(48ac3db4) SHA1(6a73fe21529bc760b8df1893aee9e89fb60976eb) ) /* Silkscreened as ROM15 */
+	ROM_LOAD( "16_82s129.1e",  0x0500, 0x0100, CRC(59490887) SHA1(c894edecbcfc67972ad893cd7c8197d07862a20a) ) /* Silkscreened as ROM16 */
+	ROM_LOAD( "17_82s129.1c",  0x0600, 0x0100, CRC(d492e6c2) SHA1(5789adda3a63ef8656ebd012416fcf3f991241fe) ) /* Silkscreened as ROM17 */
+	ROM_LOAD( "18_82s123.2b",  0x0700, 0x0020, CRC(aa0ca5a5) SHA1(4c45be71658f40ebb05634febba5822f1a8a7f79) ) /* Silkscreened as ROM18 */
 ROM_END
 
 ROM_START( slapfigh )
@@ -1626,10 +1667,15 @@ ROM_START( slapfigh )
 	ROM_LOAD( "a77_10.8h", 0x10000, 0x8000, CRC(422d946b) SHA1(c251ef9597a11ec8de39be4fcbddaba84e649ef2) )
 	ROM_LOAD( "a77_09.7h", 0x18000, 0x8000, CRC(587113ae) SHA1(90abe961494a1af7c87693a419fbabf7a58a5dee) )
 
-	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_REGION( 0x0720, "proms", 0 )
 	ROM_LOAD( "21_82s129.12q", 0x0000, 0x0100, CRC(a0efaf99) SHA1(5df01663480acad1f89abab8662d437617a66d1c) ) /* Silkscreened as ROM21 */
 	ROM_LOAD( "20_82s129.12m", 0x0100, 0x0100, CRC(a56d57e5) SHA1(bfbd0db52b23fe1b4994e05103be3d412c1c013e) ) /* Silkscreened as ROM20 */
 	ROM_LOAD( "19_82s129.12n", 0x0200, 0x0100, CRC(5cbf9fbf) SHA1(abfa58fa4e44ebc56f2e0fac9bcc36164c845fa3) ) /* Silkscreened as ROM19 */
+	ROM_LOAD( "14_82s129.2c",  0x0300, 0x0100, CRC(4dc04453) SHA1(524e5a212ab496c52adc0def995b75e89aba48e7) ) /* Silkscreened as ROM14 */
+	ROM_LOAD( "15_82s129.8b",  0x0400, 0x0100, CRC(48ac3db4) SHA1(6a73fe21529bc760b8df1893aee9e89fb60976eb) ) /* Silkscreened as ROM15 */
+	ROM_LOAD( "16_82s129.1e",  0x0500, 0x0100, CRC(59490887) SHA1(c894edecbcfc67972ad893cd7c8197d07862a20a) ) /* Silkscreened as ROM16 */
+	ROM_LOAD( "17_82s129.1c",  0x0600, 0x0100, CRC(d492e6c2) SHA1(5789adda3a63ef8656ebd012416fcf3f991241fe) ) /* Silkscreened as ROM17 */
+	ROM_LOAD( "18_82s123.2b",  0x0700, 0x0020, CRC(aa0ca5a5) SHA1(4c45be71658f40ebb05634febba5822f1a8a7f79) ) /* Silkscreened as ROM18 */
 ROM_END
 
 /*
@@ -1668,10 +1714,15 @@ ROM_START( slapfigha )
 	ROM_LOAD( "a76_11.8h", 0x10000, 0x8000, CRC(422d946b) SHA1(c251ef9597a11ec8de39be4fcbddaba84e649ef2) )
 	ROM_LOAD( "a76_10.6h", 0x18000, 0x8000, CRC(587113ae) SHA1(90abe961494a1af7c87693a419fbabf7a58a5dee) )
 
-	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_REGION( 0x0720, "proms", 0 )
 	ROM_LOAD( "a76-17.12q", 0x0000, 0x0100, CRC(a0efaf99) SHA1(5df01663480acad1f89abab8662d437617a66d1c) ) /* 82S129 Biploar PROM, Silkscreened as ROM21 */
 	ROM_LOAD( "a76-15.12m", 0x0100, 0x0100, CRC(a56d57e5) SHA1(bfbd0db52b23fe1b4994e05103be3d412c1c013e) ) /* 82S129 Biploar PROM, Silkscreened as ROM20 */
 	ROM_LOAD( "a76-16.12n", 0x0200, 0x0100, CRC(5cbf9fbf) SHA1(abfa58fa4e44ebc56f2e0fac9bcc36164c845fa3) ) /* 82S129 Biploar PROM, Silkscreened as ROM19 */
+	ROM_LOAD( "14_82s129.2c",  0x0300, 0x0100, CRC(4dc04453) SHA1(524e5a212ab496c52adc0def995b75e89aba48e7) ) /* Silkscreened as ROM14 */
+	ROM_LOAD( "15_82s129.8b",  0x0400, 0x0100, CRC(48ac3db4) SHA1(6a73fe21529bc760b8df1893aee9e89fb60976eb) ) /* Silkscreened as ROM15 */
+	ROM_LOAD( "16_82s129.1e",  0x0500, 0x0100, CRC(59490887) SHA1(c894edecbcfc67972ad893cd7c8197d07862a20a) ) /* Silkscreened as ROM16 */
+	ROM_LOAD( "17_82s129.1c",  0x0600, 0x0100, CRC(d492e6c2) SHA1(5789adda3a63ef8656ebd012416fcf3f991241fe) ) /* Silkscreened as ROM17 */
+	ROM_LOAD( "18_82s123.2b",  0x0700, 0x0020, CRC(aa0ca5a5) SHA1(4c45be71658f40ebb05634febba5822f1a8a7f79) ) /* Silkscreened as ROM18 */
 ROM_END
 
 /*
@@ -1899,7 +1950,6 @@ A68_02 & 06 to 09 - 27256 EPROM
  A68_04/05 - 2764 EPROM
     A68_14 - Motorola MC68705P5 Micro-Controller (protected). Clock 3.000MHz [36/12]
          X - Unpopulated socket
-
 */
 
 ROM_START( grdian )
@@ -2056,9 +2106,9 @@ GAME( 1985, tigerhb2,   tigerh,   tigerhb2,   tigerh,    slapfght_state, empty_i
 GAME( 1985, tigerhb3,   tigerh,   tigerhb2,   tigerh,    slapfght_state, empty_init,     ROT270, "bootleg",                         "Tiger-Heli (bootleg set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1985, tigerhb4,   tigerh,   tigerhb4,   tigerh,    slapfght_state, empty_init,     ROT270, "bootleg",                         "Tiger-Heli (bootleg set 4)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // MCU not hooked up
 
-GAME( 1986, alcon,      0,        slapfigh,   slapfigh,  slapfght_state, init_slapfigh,  ROT270, "Toaplan / Taito America Corp.",   "Alcon (US)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 1986, slapfigh,   alcon,    slapfigh,   slapfigh,  slapfght_state, init_slapfigh,  ROT270, "Toaplan / Taito",                 "Slap Fight (A77 set, 8606M PCB)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 1986, slapfigha,  alcon,    slapfigh,   slapfigh,  slapfght_state, init_slapfigh,  ROT270, "Toaplan / Taito",                 "Slap Fight (A76 set, GX-006-A PCB)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
+GAME( 1986, alcon,      0,        slapfigh,   slapfigh,  slapfght_state, init_slapfigh,  ROT270, "Toaplan / Taito America Corp.",   "Alcon (US)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, slapfigh,   alcon,    slapfigh,   slapfigh,  slapfght_state, init_slapfigh,  ROT270, "Toaplan / Taito",                 "Slap Fight (A77 set, 8606M PCB)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, slapfigha,  alcon,    slapfigha,  slapfigh,  slapfght_state, init_slapfigh,  ROT270, "Toaplan / Taito",                 "Slap Fight (A76 set, GX-006-A PCB)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, slapfighb1, alcon,    slapfighb1, slapfigh,  slapfght_state, init_slapfigh,  ROT270, "bootleg",                         "Slap Fight (bootleg set 1)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
 GAME( 1986, slapfighb2, alcon,    slapfighb2, slapfigh,  slapfght_state, init_slapfigh,  ROT270, "bootleg",                         "Slap Fight (bootleg set 2)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL ) // England?
 GAME( 1986, slapfighb3, alcon,    slapfighb2, slapfigh,  slapfght_state, init_slapfigh,  ROT270, "bootleg",                         "Slap Fight (bootleg set 3)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL ) // PCB labeled 'slap fighter'

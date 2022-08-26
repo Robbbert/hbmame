@@ -42,8 +42,8 @@ Note:   if MAME_DEBUG is defined, pressing Z with:
 
                             [ 1024 Sprites ]
 
-    Sprites are 16x16x4. They are just like those in "The Newzealand Story",
-    "Revenge of DOH" etc (tnzs.c). Obviously they're hooked to a 16 bit
+    Sprites are 16x16x4. They are just like those in "The NewZealand Story",
+    "Revenge of DOH" etc (tnzs.cpp). Obviously they're hooked to a 16 bit
     CPU here, so they're mapped a bit differently in memory. Additionally,
     there are two banks of sprites. The game can flip between the two to
     do double buffering, writing to a bit of a control register(see below)
@@ -245,12 +245,6 @@ u16 usclssic_state::tile_offset(u16 code)
 	return m_tiles_offset + code;
 }
 
-VIDEO_START_MEMBER(seta_state,oisipuzl)
-{
-	VIDEO_START_CALL_MEMBER(seta);
-	m_tilemaps_flip = 1;
-}
-
 SETA001_SPRITE_GFXBANK_CB_MEMBER(seta_state::setac_gfxbank_callback)
 {
 	const int bank = (color & 0x06) >> 1;
@@ -259,10 +253,8 @@ SETA001_SPRITE_GFXBANK_CB_MEMBER(seta_state::setac_gfxbank_callback)
 	return code;
 }
 
-VIDEO_START_MEMBER(seta_state,seta)
+void seta_state::video_start()
 {
-	m_tilemaps_flip = 0;
-
 	m_samples_bank = -1;    // set the samples bank to an out of range value at start-up
 	if (m_x1_bank != nullptr)
 		m_x1_bank->set_entry(0); // TODO : Unknown init

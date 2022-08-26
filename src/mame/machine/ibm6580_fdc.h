@@ -26,9 +26,10 @@ protected:
 	virtual const tiny_rom_entry *device_rom_region() const override;
 	virtual void device_add_mconfig(machine_config &config) override;
 
-	void device_start() override;
-	void device_reset() override;
-	void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+	virtual void device_start() override;
+	virtual void device_reset() override;
+
+	TIMER_CALLBACK_MEMBER(assert_reset_line);
 
 private:
 	uint8_t m_bus, m_t0, m_t1, m_p1, m_p2;

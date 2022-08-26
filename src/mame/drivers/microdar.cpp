@@ -46,7 +46,7 @@ IC23, IC22, IC12 = Hitachi HD74HC273P
 IC15 = Natsemi CD4514BCN
 IC8 = Microchip 24LC16B
 IC7 = TI TL7705ACP
-IC1 = Philips REF34VA 9818h- (40-pin DIP: 80C51?)
+IC1 = Philips REF34VA 9818h- (40-pin DIP, confirmed to be a 80C51)
 XT1 = 20.000 MHz
 IC5 = Hitachi HD74HC08P
 IC6 = Hitachi HD74HC138P
@@ -59,21 +59,22 @@ IC10 = Hitachi HD74HC244P
 **************************************************************************
 
 Known machines using this hardware:
-____________________________________________________________________________________________________________________________________________
-|Dumped | Name        | Manufacturer     | Notes                                                               | Machine type               |
-|-------|-------------|------------------|---------------------------------------------------------------------|----------------------------|
-|  NO   | Sagitario   | CIC Play         | CPU silkscreened "REF 0034 9115S", without manufacturer logos       | Darts                      |
-|  YES  | Diana Bifuca| Compumatic/Bifuca| Standard Microdar SPD with Philips REF34VA. "Bifuca" string on ROM  | Darts                      |
-|  NO   | Party Darts | Compumatic       | More info: http://www.recreativas.org/party-darts-4906-compumatic   | Darts                      |
-|  NO   | Diamant     | Unknown          | Newer PCB with Philips REF34VA and additional Compumatic custom ICs | Darts                      |
-|  NO   | Tiger Dart  | Unknown          | Standard Microdar SPD with Philips REF34VA                          | Darts                      |
-|  YES  | Far West    | Compumatic       | Standard Microdar SPD with Philips REF34VA                          | Electromechanical shooting |
-|  YES  | Unknown     | Compumatic       | Compumatic ProSPDP-V3 PCB (Philips REF34VA + REF0096 + REF8032)     | Darts                      |
-|  YES  | Diana Olakoa| Compumatic/Olaoka| Compumatic Microdard-V5 PCB (REF0034 + REF0032 + REF0096)           | Darts                      |
-|  NO   | Champion    | Unknown          | ProSPDP PCB. https://www.recreativas.org/champion-6137-compumatic   | Darts                      |
-|_______|_____________|__________________|_____________________________________________________________________|____________________________|
-
-There's a later revision of the Compumatic Microdar, smaller, with a standard Atmel AT89S51 instead of the REF34 CPU.
+_____________________________________________________________________________________________________________________________________________________
+|Dumped | Name                | Manufacturer      | Notes                                                               | Machine type               |
+|-------|---------------------|-------------------|---------------------------------------------------------------------|----------------------------|
+|  NO   | King Dart 2         | CIC Play          | Slightly different PCB layout. Regular MCU instead of REF34VA       | Darts                      |
+|  NO   | Sagitario           | CIC Play          | CPU silkscreened "REF 0034 9115S", without manufacturer logos       | Darts                      |
+|  YES  | Far West            | Compumatic        | Standard Microdar SPD with Philips REF34VA                          | Electromechanical shooting |
+|  YES  | Minidart            | Compumatic        | Compumatic Microdard-V6 PCB. Atmel AT89S51 instead of the REF34 MCU | Darts                      |
+|  NO   | Party Darts         | Compumatic        | More info: http://www.recreativas.org/party-darts-4906-compumatic   | Darts                      |
+|  YES  | Diana Bifuca        | Compumatic/Bifuca | Standard Microdar SPD with Philips REF34VA. "Bifuca" string on ROM  | Darts                      |
+|  YES  | Diana Olakoa        | Compumatic/Olaoka | Compumatic Microdard-V5 PCB (REF0034 + REF0032 + REF0096)           | Darts                      |
+|  YES  | Covidarts           | Covielsa          | Not from Compumatic, but similar hardware. 80C31 (ROMless MCU)      | Darts                      |
+|  NO   | Diamant             | unknown           | Newer PCB with Philips REF34VA and additional Compumatic custom ICs | Darts                      |
+|  NO   | Tiger Dart          | unknown           | Standard Microdar SPD with Philips REF34VA                          | Darts                      |
+|  NO   | Champion            | unknown           | ProSPDP PCB. https://www.recreativas.org/champion-6137-compumatic   | Darts                      |
+|  NO   | Paradise Dart Sport | unknown           | Standard Microdar SPD with RE34VA (without Philips logo)            | Darts                      |
+|_______|_____________________|___________________|_____________________________________________________________________|____________________________|
 
 */
 
@@ -95,6 +96,7 @@ public:
 	void microdar(machine_config &config);
 	void prospdp(machine_config &config);
 	void microdv5(machine_config &config);
+	void covidarts(machine_config &config);
 
 private:
 	void prog_map(address_map &map);
@@ -139,6 +141,14 @@ void microdar_state::microdv5(machine_config &config)
 {
 	microdar(config);
 	m_maincpu->set_clock(16_MHz_XTAL);
+}
+
+void microdar_state::covidarts(machine_config &config)
+{
+	I80C31(config, m_maincpu, 16'000'000); // Philips PCB80C31BH-3-16P (Internal MCU osc.)
+
+	//NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0); // HM6264ALP-12 + battery
+	I2C_24C04(config, m_eeprom); // Microchip 24LC04B
 }
 
 #define PHILIPS_REF34VA \
@@ -259,18 +269,7 @@ ROM_START(dibif727)
 	ROM_LOAD("24lc16b.ic8", 0x000, 0x800, CRC(1cae70db) SHA1(575d4c787fd65950417e85fdb34d2961fc327c74))
 ROM_END
 
-ROM_START(cfarwest)
-	// Philips REF34VA K8V2873 Phr9920 0
-	PHILIPS_REF34VA
-
-	ROM_REGION(0x20000, "program", 0)
-	ROM_LOAD("farwest_pistola.ic3", 0x00000, 0x20000, CRC(ad68a0e8) SHA1(157a6a84f31e05d289e2fc67099fcff2887a84b9))
-
-	// No EEPROM on this PCB
-ROM_END
-
-
-/* Compumatic ProSPDP-V3 PCB
+/* Diana Bifuca (unknown version) on Compumatic ProSPDP-V3 PCB
   ____________________________________________________________________________________________________
 __|_  ________ ___ ___ ___ __________ ____________ ________ __________ ____ ________ __________       |
 |   ||_CN105_| 110 123 119 |__CN125_| |__CN124___| |_CN121| |__CN112_|CN127 |_CN128| |__CN103_|   ___ |
@@ -315,18 +314,99 @@ CN126 = COIN
 CN127 = FDD (4 pin: +5, FDD, GND, +12)
 CN128 = TROB (5 pin: BUL, OUL, REL, THL, +12)
 */
-ROM_START(prospdp)
+ROM_START(dibifpspdp)
 	// REF34VA K0V951 Phr0038 F
 	PHILIPS_REF34VA
 
 	ROM_REGION(0x80000, "program", 0)
-	ROM_LOAD("28sf040a.ic3", 0x00000, 0x80000, CRC(f5727a08) SHA1(f4185afc62c1d1f6cb6c772ea40062ced9b2130a))
+	ROM_LOAD("28sf040a.ic3", 0x00000, 0x80000, CRC(f5727a08) SHA1(f4185afc62c1d1f6cb6c772ea40062ced9b2130a)) // COMPUMATIC RESEARCH S.L. (c) 1997
 
 	ROM_REGION(0x800, "eeprom", 0)
 	ROM_LOAD("25c16n.ic8", 0x000, 0x800, CRC(a89a5016) SHA1(84cb29477b1917225e972c2a25e396567c145719)) // Atmel 25C16N
 
 	ROM_REGION(0x117, "plds", 0)
 	ROM_LOAD("atf16v8b.ic7", 0x000, 0x117, CRC(85e98105) SHA1(9b3389eedd62b3e599559a03e9664ed1e374d60b))
+ROM_END
+
+/* Info about "Far West":
+ The sound contains shooting samples and a small sample of the Rawhide main theme.
+ Background layout (four shooting targets as food cans with led circles), see https://youtu.be/YVxThMwhvKQ
+
+                            o o o o
+                    o o o o         o o o o          <- 16 LEDs
+                o o                         o o         first three from the left red, the rest yellow
+
+
+              o                                  o
+           o     o                            o     o      <- Outer circle: 20 blue LEDs
+        o     o     o                      o     o     o      Middle circle: 20 green LEDS
+      o     o   o     o                  o     o   o     o    Inner circle: 7 red LEDs
+    o     o       o     o              o     o       o     o
+  o     o           o     o          o     o           o     o
+      o      o o      o                  o      o o      o
+ o   o      o o o      o   o        o   o      o o o      o   o
+      o      o o      o                  o      o o      o
+   o    o           o    o            o    o           o    o
+          o       o                          o       o
+      o     o   o    o                   o     o   o    o
+              o                                  o
+           o     o                            o     o
+              o                                  o
+
+ |PLAYER 1|  |PLAYER 2|  |PLAYER 3|  |PLAYER 4|     |SHOOTS |   <- Labels.
+  __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __      The display shows scrolling text all across the 20 digits
+ |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|   <- 20 x 7-segments display
+ |_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_||_|
+
+              o                                  o
+           o     o                            o     o
+        o     o     o                      o     o     o
+      o     o   o     o                  o     o   o     o
+    o     o       o     o              o     o       o     o
+  o     o           o     o          o     o           o     o
+      o      o o      o                  o      o o      o
+ o   o      o o o      o   o        o   o      o o o      o   o
+      o      o o      o                  o      o o      o
+   o    o           o    o            o    o           o    o
+          o       o                          o       o
+      o     o   o    o                   o     o   o    o
+              o                                  o
+           o     o                            o     o
+              o                                  o
+
+  ________
+  | START | <- Button with light
+  | BUTTON|
+  |_______|
+*/
+ROM_START(cfarwest)
+	// Philips REF34VA K8V2873 Phr9920 0
+	PHILIPS_REF34VA
+
+	ROM_REGION(0x20000, "program", 0)
+	ROM_LOAD("farwest_pistola.ic3", 0x00000, 0x20000, CRC(ad68a0e8) SHA1(157a6a84f31e05d289e2fc67099fcff2887a84b9))
+
+	// No EEPROM on this PCB
+ROM_END
+
+
+/** Compumatic Minidart.
+ Microdar V6 PCB. 24MHz xtal. Atmel AT89S51 intead of the usual REF34VA and a custom chip labeled "Toronto 2707"
+ (but referred as REF0097 on the manual) instead of the REF0096.
+*/
+ROM_START(minidart)
+	// Not REF34VA, but a regular Atmel AT89S51
+	ROM_REGION(0x1000, "maincpu", ROMREGION_ERASE00)
+	ROM_LOAD("at89s51.ic1", 0x0000, 0x1000, NO_DUMP)
+
+	ROM_REGION(0x40000, "program", 0)
+	ROM_LOAD("minidart_v0.00.ic3", 0x00000, 0x40000, CRC(5ab9f755) SHA1(e80d5d0e8fc8bc246dcf9ef82c7a656f8a1b86ff)) // MINIDART 0.00 COMPUMATIC S.L. 2009
+
+	ROM_REGION(0x800, "eeprom", 0)
+	ROM_LOAD("24lc16b.ic6", 0x000, 0x800, NO_DUMP)
+
+	ROM_REGION(0x117, "plds", 0)
+	ROM_LOAD("atf16v8b.ic4", 0x000, 0x117, NO_DUMP)
 ROM_END
 
 
@@ -378,10 +458,47 @@ ROM_START(diola827)
 ROM_END
 
 
-GAME(199?, dibifuca, 0,        microdar, microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (v9.25)",                           MACHINE_IS_SKELETON_MECHANICAL)
-GAME(199?, dibif743, dibifuca, microdar, microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (v7.43)",                           MACHINE_IS_SKELETON_MECHANICAL)
-GAME(199?, dibif727, dibifuca, microdar, microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (v7.27)",                           MACHINE_IS_SKELETON_MECHANICAL)
-GAME(1997, cfarwest, 0,        microdar, microdar, microdar_state, empty_init, ROT0, "Compumatic",          "Far West (Compumatic)",                          MACHINE_IS_SKELETON_MECHANICAL)
-GAME(1997, prospdp,  0,        prospdp,  microdar, microdar_state, empty_init, ROT0, "Compumatic",          "Unknown Compumatic ProSPDP based darts machine", MACHINE_IS_SKELETON_MECHANICAL)
-GAME(1997, diolakoa, 0,        microdv5, microdar, microdar_state, empty_init, ROT0, "Compumatic / Olakoa", "Diana Olakoa (v8.38)",                           MACHINE_IS_SKELETON_MECHANICAL)
-GAME(1997, diola827, diolakoa, microdv5, microdar, microdar_state, empty_init, ROT0, "Compumatic / Olakoa", "Diana Olakoa (v8.27)",                           MACHINE_IS_SKELETON_MECHANICAL)
+/* Covielsa "Covidart".
+   Very similar to Compumatic hardware, but using a MCU without internal ROM and a slightly different PCB.
+
+ PCB labeled as "0095" (same text as on EPROM label).
+  ______________________________________________________________________________
+ |  ooooo oooooo oo OOOOOO  ····  ooooooooooooooo                             _|_
+ |                     __   __   __ <- H606014                               |   |
+ |     PALCE16V8H-25->| |  |_|  |_|  ________  ________   ________ ________  |   |
+ |                    | | 24LC04B   |ULN2803A |ULN2803A  HEF4094BP TD62783AP |   |
+74HC273N    74HC273N  |_|     _____  __  __  __           ________ ________  |   |
+ | __  __  __  __  ____      |    | | | | | | |          HEF4094BP TD62783AP |   |
+ || | | | | | | | |   | _____80C31| | | | | | |           ________ ________  |   |
+ || | | | | | | | EPROM|    ||    | |_| |_| |_|          HEF4094BP TD62783AP |   |
+ ||_| |_| |_| |_| |   ||    ||    | 3 x 74HC273N          ________ ________  |   |
+ |  2 x 74HC244N  |   ||    ||    |      ______          HEF4094BP TD62783AP |   |
+ |                |   ||    ||    |     | BATT|        ___________           |   |
+ |                |___||____||____|     |_____|       |MC14514BCP|           |   |
+ |                   HM6264ALP-12                     |__________|    0095   |   |
+ |  oooooooooo ooooooooo ooooooooooooooooooo           OO      OOO           |___|
+ |_____CN7________CN8_________CN9_____________________CN10_____CN11_____________|
+
+  MCU: Philips PCB80C31BH-3-16P
+*/
+ROM_START(covidarts)
+	ROM_REGION(0x20000, "maincpu", 0)
+	ROM_LOAD("eprom_095.ic3", 0x00000, 0x20000, CRC(e42172f8) SHA1(667e2a79517af4e8344f8dccf12b83f7788841e3))
+
+	ROM_REGION(0x200, "eeprom", 0)
+	ROM_LOAD("24lc04.ic6", 0x000, 0x200, NO_DUMP) // Microchip 24LC04B
+
+	ROM_REGION(0x117, "plds", 0)
+	ROM_LOAD("palce16v8h-25.ic7", 0x000, 0x117, BAD_DUMP CRC(3a35a751) SHA1(e39fc8784d94ff09e0ff814f469ce23e52bb35fd)) // Bruteforced and verified OK
+ROM_END
+
+
+GAME(199?, dibifuca,   0,        microdar,  microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (v9.25)",                          MACHINE_IS_SKELETON_MECHANICAL)
+GAME(199?, dibif743,   dibifuca, microdar,  microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (v7.43)",                          MACHINE_IS_SKELETON_MECHANICAL)
+GAME(199?, dibif727,   dibifuca, microdar,  microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (v7.27)",                          MACHINE_IS_SKELETON_MECHANICAL)
+GAME(1997, dibifpspdp, dibifuca, prospdp,   microdar, microdar_state, empty_init, ROT0, "Compumatic / Bifuca", "Diana Bifuca (unknown version, ProSPDP based)", MACHINE_IS_SKELETON_MECHANICAL)
+GAME(1997, cfarwest,   0,        microdar,  microdar, microdar_state, empty_init, ROT0, "Compumatic",          "Far West (Compumatic)",                         MACHINE_IS_SKELETON_MECHANICAL)
+GAME(1997, diolakoa,   0,        microdv5,  microdar, microdar_state, empty_init, ROT0, "Compumatic / Olakoa", "Diana Olakoa (v8.38)",                          MACHINE_IS_SKELETON_MECHANICAL)
+GAME(1997, diola827,   diolakoa, microdv5,  microdar, microdar_state, empty_init, ROT0, "Compumatic / Olakoa", "Diana Olakoa (v8.27)",                          MACHINE_IS_SKELETON_MECHANICAL)
+GAME(1997, covidarts,  0,        covidarts, microdar, microdar_state, empty_init, ROT0, "Covielsa",            "Covidarts",                                     MACHINE_IS_SKELETON_MECHANICAL)
+GAME(2009, minidart,   0,        prospdp,   microdar, microdar_state, empty_init, ROT0, "Compumatic",          "Minidart",                                      MACHINE_IS_SKELETON_MECHANICAL)

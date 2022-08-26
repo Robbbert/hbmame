@@ -218,8 +218,8 @@ private:
 	required_device<scc8530_device> m_sccterm;
 
 	// Pointer to System ROMs needed by bootvect_r and masking RAM buffer for post reset accesses
-	uint16_t  *m_sysrom;
-	uint16_t  m_sysram[4];
+	uint16_t  *m_sysrom = nullptr;
+	uint16_t  m_sysram[4]{};
 };
 
 void hk68v10_state::hk68v10_mem(address_map &map)
@@ -378,6 +378,7 @@ ROM_START (hk68v10)
 	 *  'bw'       Boot from Winchester
 	 *  'bf'       Boot from floppy (MIO, SBX-FDIO)
 	 *  'bsf'      Boot from floppy (SCSI)
+	 *  'x'        Display registers
 	 *
 	 * Setup sequence channel B
 	 * :scc B Reg 04 <- 4c x16 clock, 2 stop bits, no parity

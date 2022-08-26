@@ -150,6 +150,7 @@ atari_motion_objects_device::atari_motion_objects_device(const machine_config &m
 	, m_activelast(nullptr)
 	, m_last_xpos(0)
 	, m_next_xpos(0)
+	, m_xoffset(0)
 	, m_gfxdecode(*this, finder_base::DUMMY_TAG)
 {
 }
@@ -325,7 +326,7 @@ void atari_motion_objects_device::device_start()
 		m_gfxlookup[i] = m_gfxindex;
 
 	// allocate a timer to periodically force update
-	m_force_update_timer = timer_alloc(TID_FORCE_UPDATE);
+	m_force_update_timer = timer_alloc(FUNC(atari_motion_objects_device::force_update), this);
 	m_force_update_timer->adjust(screen().time_until_pos(0));
 
 	// register for save states
@@ -351,23 +352,17 @@ void atari_motion_objects_device::device_reset()
 
 
 //-------------------------------------------------
-//  device_timer: Handle device-specific timer
-//  calbacks
+//  force_update - periodically force an update
 //-------------------------------------------------
 
-void atari_motion_objects_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(atari_motion_objects_device::force_update)
 {
-	switch (id)
-	{
-		case TID_FORCE_UPDATE:
-			if (param > 0)
-				screen().update_partial(param - 1);
-			param += 64;
-			if (param >= screen().visible_area().bottom())
-				param = 0;
-			timer.adjust(screen().time_until_pos(param), param);
-			break;
-	}
+	if (param > 0)
+		screen().update_partial(param - 1);
+	param += 64;
+	if (param >= screen().visible_area().bottom())
+		param = 0;
+	m_force_update_timer->adjust(screen().time_until_pos(param), param);
 }
 
 
@@ -438,7 +433,7 @@ void atari_motion_objects_device::render_object(bitmap_ind16 &bitmap, const rect
 	// extract data from the various words
 	int code = m_codelookup[rawcode];
 	int color = m_colorlookup[m_colormask.extract(entry)];
-	int xpos = m_xposmask.extract(entry);
+	int xpos = m_xposmask.extract(entry) + m_xoffset;
 	int ypos = -m_yposmask.extract(entry);
 	int hflip = m_hflipmask.extract(entry);
 	int vflip = m_vflipmask.extract(entry);

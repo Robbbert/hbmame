@@ -46,7 +46,8 @@ public:
 		m_spritebank32(*this, "spritebank32"),
 		m_tilebank32(*this, "tilebank32"),
 		m_rozbank32(*this, "rozbank32"),
-		m_namconb_shareram(*this, "namconb_share")
+		m_namconb_shareram(*this, "namconb_share"),
+		m_update_to_line_before_posirq(false)
 	{ }
 
 	void namconb1(machine_config &config);
@@ -71,7 +72,7 @@ protected:
 	virtual void video_start() override;
 
 private:
-	int m_gametype;
+	int m_gametype = 0;
 	enum
 	{
 		/* Namco NB1 */
@@ -111,13 +112,14 @@ private:
 	optional_shared_ptr<u32> m_rozbank32;
 	required_shared_ptr<u16> m_namconb_shareram;
 
-	u8 m_vbl_irq_level;
-	u8 m_pos_irq_level;
-	u8 m_unk_irq_level;
-	u16 m_count;
-	u8 m_port6;
-	u32 m_tilemap_tile_bank[4];
+	u8 m_vbl_irq_level = 0;
+	u8 m_pos_irq_level = 0;
+	u8 m_unk_irq_level = 0;
+	u16 m_count = 0;
+	u8 m_port6 = 0;
+	u32 m_tilemap_tile_bank[4]{};
 	std::unique_ptr<u32[]> m_spritebank32_delayed;
+	bool m_update_to_line_before_posirq;
 
 	u32 randgen_r();
 	void srand_w(u32 data);

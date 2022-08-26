@@ -209,12 +209,12 @@ other supported games as well.
 
 void m72_state::machine_start()
 {
-	m_scanline_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(m72_state::scanline_interrupt),this));
+	m_scanline_timer = timer_alloc(FUNC(m72_state::scanline_interrupt), this);
 }
 
 MACHINE_START_MEMBER(m72_state,kengo)
 {
-	m_scanline_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(m72_state::kengo_scanline_interrupt),this));
+	m_scanline_timer = timer_alloc(FUNC(m72_state::kengo_scanline_interrupt), this);
 }
 
 TIMER_CALLBACK_MEMBER(m72_state::synch_callback)
@@ -1623,16 +1623,16 @@ static INPUT_PORTS_START( poundfor )
 	IREM_COIN_MODE_2_HIGH
 
 	PORT_START("TRACK0_X")
-	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_X ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_RESET PORT_PLAYER(1)
+	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_X ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_PLAYER(1)
 
 	PORT_START("TRACK0_Y")
-	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_REVERSE PORT_RESET PORT_PLAYER(1)
+	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_REVERSE PORT_PLAYER(1)
 
 	PORT_START("TRACK1_X")
-	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_X ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_REVERSE PORT_RESET PORT_PLAYER(2)
+	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_X ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_REVERSE PORT_PLAYER(2)
 
 	PORT_START("TRACK1_Y")
-	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_RESET PORT_PLAYER(2)
+	PORT_BIT( 0x0fff, 0x0000, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(50) PORT_KEYDELTA(30) PORT_PLAYER(2)
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( airduel )
@@ -1820,9 +1820,9 @@ void m72_state::m72_audio_chips(machine_config &config)
 
 	ym2151_device &ymsnd(YM2151(config, "ymsnd", SOUND_CLOCK));
 	ymsnd.irq_handler().set("soundirq", FUNC(rst_neg_buffer_device::rst28_w));
-	ymsnd.add_route(ALL_OUTPUTS, "speaker", 0.5);
+	ymsnd.add_route(ALL_OUTPUTS, "speaker", 0.33);
 
-	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.5); // unknown DAC
+	DAC_8BIT_R2R(config, "dac", 0).add_route(ALL_OUTPUTS, "speaker", 0.33); // unknown DAC
 }
 
 void m72_state::m72_base(machine_config &config)
@@ -3658,15 +3658,15 @@ ROM_END
 
 ROM_START( hharry )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "a-h0-v.rom",   0x00001, 0x20000, CRC(c52802a5) SHA1(7180189c886aebe8d3e7fd38922916cecfddae32) )
-	ROM_LOAD16_BYTE( "a-l0-v.rom",   0x00000, 0x20000, CRC(f463074c) SHA1(aca86345610e65848c276ab278092d35ba215916) )
-	ROM_LOAD16_BYTE( "a-h1-0.rom",   0x60001, 0x10000, CRC(3ae21335) SHA1(780d7a0c5bebe4b914ea5b3741e30630f8c29a4f) )
-	ROM_RELOAD(                      0xe0001, 0x10000 )
-	ROM_LOAD16_BYTE( "a-l1-0.rom",   0x60000, 0x10000, CRC(bc6ac5f9) SHA1(c6afba4967a8055f6b63827697425eac743f5a75) )
-	ROM_RELOAD(                      0xe0000, 0x10000 )
+	ROM_LOAD16_BYTE( "gen=m81=_a-h0-v.rom",   0x00001, 0x20000, CRC(c52802a5) SHA1(7180189c886aebe8d3e7fd38922916cecfddae32) ) // labeled  GEN(M81)  A-H0-V
+	ROM_LOAD16_BYTE( "gen=m81=_a-l0-v.rom",   0x00000, 0x20000, CRC(f463074c) SHA1(aca86345610e65848c276ab278092d35ba215916) ) // labeled  GEN(M81)  A-L0-V
+	ROM_LOAD16_BYTE( "gen=m81=_a-h1-0.rom",   0x60001, 0x10000, CRC(3ae21335) SHA1(780d7a0c5bebe4b914ea5b3741e30630f8c29a4f) ) // labeled  GEN(M81)  A-H1-0
+	ROM_RELOAD(                               0xe0001, 0x10000 )
+	ROM_LOAD16_BYTE( "gen=m81=_a-l1-0.rom",   0x60000, 0x10000, CRC(bc6ac5f9) SHA1(c6afba4967a8055f6b63827697425eac743f5a75) ) // labeled  GEN(M81)  A-L1-0
+	ROM_RELOAD(                               0xe0000, 0x10000 )
 
 	ROM_REGION( 0x10000, "soundcpu", 0 )
-	ROM_LOAD( "a-sp-0.rom",   0x00000, 0x10000, CRC(80e210e7) SHA1(66cff58fb37c52e1d8e0567e13b774253e862585) )
+	ROM_LOAD( "gen=m81=_a-sp-0.rom",   0x00000, 0x10000, CRC(80e210e7) SHA1(66cff58fb37c52e1d8e0567e13b774253e862585) ) // labeled  GEN(M81)  A-SP-0
 
 	ROM_REGION( 0x080000, "sprites", 0 )
 	ROM_LOAD( "hh_00.rom",    0x00000, 0x20000, CRC(ec5127ef) SHA1(014ac8ad7b19cd9b475b72a0f42a4991119501c4) )  // sprites
@@ -3684,7 +3684,7 @@ ROM_START( hharry )
 	// b0-b3 are unpopulated, Jumper J3 on the M81-B-B board is set to 'S' meaning use the ROMs from the a0-a3 positions
 
 	ROM_REGION( 0x20000, "samples", 0 ) // samples
-	ROM_LOAD( "a-v0-0.rom",   0x00000, 0x20000, CRC(faaacaff) SHA1(ea3a3920255c07aa9c0a7e0191eae257a9f7f558) )
+	ROM_LOAD( "gen=m81=_a-v0-0.rom",   0x00000, 0x20000, CRC(faaacaff) SHA1(ea3a3920255c07aa9c0a7e0191eae257a9f7f558) ) // labeled  GEN(M81)  A-V0-0
 ROM_END
 
 

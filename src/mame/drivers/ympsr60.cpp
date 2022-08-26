@@ -68,6 +68,8 @@
 #include "psr60.lh"
 #include "psr70.lh"
 
+namespace {
+
 class psr60_state : public driver_device
 {
 	static constexpr int DRVIF_MAX_TARGETS = 23;
@@ -305,7 +307,7 @@ INPUT_CHANGED_MEMBER(psr60_state::mastervol_changed)
 
 void psr60_state::recalc_irqs()
 {
-	int irq_state = m_acia_irq | m_ym_irq | m_drvif_irq | m_ym2154_irq;
+	int const irq_state = m_acia_irq | m_ym_irq | m_drvif_irq | m_ym2154_irq;
 	m_maincpu->set_input_line(0, irq_state);
 }
 
@@ -314,7 +316,10 @@ void psr60_state::machine_start()
 	m_drvif_out.resolve();
 	m_rom2bank->configure_entries(0, 2, memregion("rom2")->base(), 0x4000);
 	m_rom2bank->set_entry(0);
-	m_acia_irq = CLEAR_LINE;
+	m_acia_irq = 0;
+	m_ym_irq = 0;
+	m_drvif_irq = 0;
+	m_ym2154_irq = 0;
 }
 
 void psr60_state::machine_reset()
@@ -683,7 +688,7 @@ void psr60_state::psr_common(machine_config &config)
 	m_ym3533->add_route(1, m_rmixer, 0.22);
 	m_ym3533->add_route(1, m_ic204a, 1.0);      // routed to BBD via filters
 
-	YM2154(config, m_ryp4, 2250000);
+	YM2154(config, m_ryp4, 2.25_MHz_XTAL);
 	m_ryp4->irq_handler().set(FUNC(psr60_state::ryp4_irq_w));
 	m_ryp4->io_read_handler().set(FUNC(psr60_state::ryp4_an_r));
 	m_ryp4->io_write_handler().set(FUNC(psr60_state::ryp4_out_w));
@@ -730,6 +735,8 @@ ROM_START(psr70)
 	ROM_REGION(0x8000, "ryp4:group1", 0)
 	ROM_LOAD("ym21909.bin", 0x0000, 0x8000, CRC(a555b42a) SHA1(f96cdea88ffc0af4cf6009529398a0181a91a70c))
 ROM_END
+
+} // namespace
 
 CONS(1985, psr60, 0,     0, psr60, psr60, psr60_state, empty_init, "Yamaha", "PSR-60 PortaSound", MACHINE_IMPERFECT_SOUND | MACHINE_CLICKABLE_ARTWORK)
 CONS(1985, psr70, psr60, 0, psr70, psr70, psr60_state, empty_init, "Yamaha", "PSR-70 PortaSound", MACHINE_IMPERFECT_SOUND | MACHINE_CLICKABLE_ARTWORK)

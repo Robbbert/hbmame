@@ -206,6 +206,7 @@ public:
 		vicdual_state(mconfig, type, tag)
 	{ }
 
+	void brdrlinet(machine_config &config);
 	void tranqgun(machine_config &config);
 
 protected:
@@ -218,9 +219,13 @@ private:
 	uint8_t tranqgun_prot_r(offs_t offset);
 	void tranqgun_prot_w(offs_t offset, uint8_t data);
 
+	void brdrlinet_dualgame_map(address_map &map);
 	void tranqgun_dualgame_map(address_map &map);
 
-	uint8_t m_tranqgun_prot_return;
+	uint8_t m_tranqgun_prot_return = 0;
+
+	uint8_t brdrlinet_prot_r();
+	void brdrlinet_prot_w(uint8_t data);
 };
 
 class nsub_state : public vicdual_state
@@ -240,8 +245,8 @@ private:
 	required_device<s97269pb_device> m_s97269pb;
 	required_device<s97271p_device> m_s97271p;
 
-	int m_nsub_coin_counter;
-	int m_nsub_play_counter;
+	int m_nsub_coin_counter = 0;
+	int m_nsub_play_counter = 0;
 
 	uint8_t nsub_io_r(offs_t offset);
 	void nsub_io_w(offs_t offset, uint8_t data);
@@ -284,8 +289,8 @@ protected:
 	void carnival_io_map(address_map &map);
 	void mboard_map(address_map &map);
 
-	int m_musicData;
-	int m_musicBus;
+	int m_musicData = 0;
+	int m_musicBus = 0;
 
 	void carnival_io_w(offs_t offset, uint8_t data);
 
@@ -318,8 +323,8 @@ private:
 
 	void carnivalh_dualgame_map(address_map &map);
 
-	uint16_t m_previousaddress;
-	uint8_t m_previousvalue;
+	uint16_t m_previousaddress = 0;
+	uint8_t m_previousvalue = 0;
 };
 
 class headonsa_state : public vicdual_state

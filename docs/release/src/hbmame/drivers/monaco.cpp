@@ -330,60 +330,60 @@ private:
 	int m_anim_timer;
 
 	/* LED display */
-	u16 m_plays;
-	u16 m_rank;
-	u16 m_rank_display; // shows 0 until game ends
-	u32 m_score;
-	u32 m_bonus_score;
-	u8 m_in_ext_play;
-	u8 m_gear;
-	u16 m_time;
-	u8 m_lives;
-	int m_bShaking;
-	double m_speed;
-	double m_player_ypos;
-	double m_computer_speed;
-	double m_xpos[NUM_COMPUTER_CARS];
-	double m_ypos[NUM_COMPUTER_CARS];
-	double m_dy[NUM_COMPUTER_CARS];
-	double m_rescue_xpos;
-	double m_pool_xpos;
-	double m_scroll;
-	double m_distance;
-	int m_ticks;
-	int m_page_current;
-	int m_page_next;
-	int m_page_next2;
+	u16 m_plays = 0U;
+	u16 m_rank = 0U;
+	u16 m_rank_display = 0U; // shows 0 until game ends
+	u32 m_score = 0U;
+	u32 m_bonus_score = 0U;
+	u8 m_in_ext_play = 0U;
+	u8 m_gear = 0U;
+	u16 m_time = 0U;
+	u8 m_lives = 0U;
+	int m_bShaking = 0;
+	double m_speed = 0;
+	double m_player_ypos = 0;
+	double m_computer_speed = 0;
+	double m_xpos[NUM_COMPUTER_CARS]{};
+	double m_ypos[NUM_COMPUTER_CARS]{};
+	double m_dy[NUM_COMPUTER_CARS]{};
+	double m_rescue_xpos = 0;
+	double m_pool_xpos = 0;
+	double m_scroll = 0;
+	double m_distance = 0;
+	int m_ticks = 0;
+	int m_page_current = 0;
+	int m_page_next = 0;
+	int m_page_next2 = 0;
 
-	double m_track_bottom_inset;
-	double m_track_top_inset;
-	double m_track_bottom_delta;
-	double m_track_top_delta;
-	int m_bSignalVisible;
-	int m_left_text;
-	int m_right_text;
-	int m_bExtendedPlay;
-	int m_left_page, m_right_page;
-	int m_top_inset, m_bottom_inset;
-	int m_player_x, m_player_y, m_player_tile, m_player_splash;
-	int m_pool_x, m_pool_y;
-	int m_rescue_x, m_rescue_y, m_rescue_tile;
-	int m_x[NUM_COMPUTER_CARS];
-	int m_y[NUM_COMPUTER_CARS];
-	int m_tile[NUM_COMPUTER_CARS];
-	int m_color[NUM_COMPUTER_CARS];
-	u32 m_led_high1;
-	u32 m_led_high2;
-	u32 m_led_high3;
-	u32 m_led_high4;
-	u32 m_led_high5;
-	u32 m_led_score;
-	u16 m_led_time;
-	u16 m_led_rank;
-	u16 m_led_plays;
-	u16 m_led_lives;
-	u16 m_led_gear;
-	u16 m_led_speed;
+	double m_track_bottom_inset = 0;
+	double m_track_top_inset = 0;
+	double m_track_bottom_delta = 0;
+	double m_track_top_delta = 0;
+	int m_bSignalVisible = 0;
+	int m_left_text = 0;
+	int m_right_text = 0;
+	int m_bExtendedPlay = 0;
+	int m_left_page = 0, m_right_page = 0;
+	int m_top_inset = 0, m_bottom_inset = 0;
+	int m_player_x = 0, m_player_y = 0, m_player_tile = 0, m_player_splash = 0;
+	int m_pool_x = 0, m_pool_y = 0;
+	int m_rescue_x = 0, m_rescue_y = 0, m_rescue_tile = 0;
+	int m_x[NUM_COMPUTER_CARS]{};
+	int m_y[NUM_COMPUTER_CARS]{};
+	int m_tile[NUM_COMPUTER_CARS]{};
+	int m_color[NUM_COMPUTER_CARS]{};
+	u32 m_led_high1 = 0U;
+	u32 m_led_high2 = 0U;
+	u32 m_led_high3 = 0U;
+	u32 m_led_high4 = 0U;
+	u32 m_led_high5 = 0U;
+	u32 m_led_score = 0U;
+	u16 m_led_time = 0U;
+	u16 m_led_rank = 0U;
+	u16 m_led_plays = 0U;
+	u16 m_led_lives = 0U;
+	u16 m_led_gear = 0U;
+	u16 m_led_speed = 0U;
 	required_device<cpu_device> m_maincpu;
 	required_device<samples_device> m_samples;
 	required_shared_ptr<u8> m_p_ram;
@@ -459,12 +459,10 @@ int monaco_state::get_player_xpos( void )
 
 void monaco_state::handle_collision( int sx, int sy, int width, int height, int type )
 {
-	int px, py;
-
 	if( m_monaco_mode == MODE_NORMAL )
 	{
-		px = get_player_xpos();
-		py = m_player_ypos + 8;
+		int px = get_player_xpos();
+		int py = m_player_ypos + 8;
 
 		if( px < sx + width &&
 			sx < px + 32 &&
@@ -499,13 +497,15 @@ void monaco_state::handle_collision( int sx, int sy, int width, int height, int 
 
 int monaco_state::read_coin()
 {
-	static int old_trigger;
+	static bool old_trigger = 0;
 	if( IS_PRESSED(COIN) )
 	{
 		old_trigger = 1;
 	}
-	else {
-		if( old_trigger ){
+	else
+	{
+		if( old_trigger )
+		{
 			old_trigger = 0;
 			return 1;
 		}
@@ -516,7 +516,7 @@ int monaco_state::read_coin()
 
 void monaco_state::update_player_speed()
 {
-	double desired_speed, min_speed, max_speed = 44;
+	double min_speed = 0, max_speed = 44;
 	int accel = 0;
 
 	if( IS_PRESSED(ACCEL1) ) accel = 1;
@@ -545,8 +545,6 @@ void monaco_state::update_player_speed()
 
 	if (m_speed)
 		min_speed = m_gear?0.5:0.25;
-	else
-		min_speed = 0;
 
 	if (m_gear)
 	{
@@ -557,7 +555,7 @@ void monaco_state::update_player_speed()
 
 	/* min: 0; max: 6 */
 	/* 30 is derived by absolute maximum speed (above) divided by 6 */
-	desired_speed = 30*(accel?(m_gear*3+accel):min_speed);
+	double desired_speed = 30*(accel?(m_gear*3+accel):min_speed);
 
 	/* 1st gear */
 	if (!m_gear)
@@ -580,7 +578,8 @@ void monaco_state::update_player_speed()
 
 double monaco_state::get_player_delta( void )
 {
-	if( m_monaco_mode == MODE_ATTRACT || m_monaco_mode == MODE_START ) return 0;
+	if( m_monaco_mode == MODE_ATTRACT || m_monaco_mode == MODE_START )
+		return 0;
 	return m_speed/16.0;
 }
 
@@ -599,13 +598,11 @@ void monaco_state::HandlePlayer()
 
 void monaco_state::update_computer_cars( void )
 {
-	int i;
 	int delta = get_player_delta();
-	for( i=0; i<NUM_COMPUTER_CARS; i++ )
+	for(u8 i=0; i<NUM_COMPUTER_CARS; i++ )
 	{
 		int top_inset = m_track_top_inset;
 		int bottom_inset = m_track_bottom_inset;
-		int sx,sy;
 		m_xpos[i] += delta-m_computer_speed;
 		if( m_xpos[i] < -256 )
 			m_xpos[i] += SCREEN_WIDTH*2;
@@ -615,8 +612,8 @@ void monaco_state::update_computer_cars( void )
 
 		m_ypos[i] += m_dy[i];
 
-		sx = m_xpos[i];
-		sy = m_ypos[i];
+		int sx = m_xpos[i];
+		int sy = m_ypos[i];
 
 		if( ( m_dy[i]<0 && sy<top_inset ) ||
 			( m_dy[i]>0 && sy+16>SCREEN_HEIGHT-bottom_inset ) )
@@ -635,12 +632,7 @@ void monaco_state::HandleRescue( void )
 	if( m_rescue_xpos > -64 )
 	{
 		m_rescue_xpos -= kRESCUE_CAR_SPEED;
-		handle_collision(
-			m_rescue_xpos,
-			(SCREEN_HEIGHT-32)/2,
-			64,
-			32,
-			COLLISION_CRASH );
+		handle_collision(m_rescue_xpos, (SCREEN_HEIGHT-32)/2, 64, 32, COLLISION_CRASH );
 	}
 }
 
@@ -649,12 +641,7 @@ void monaco_state::HandlePool( void )
 	if( m_pool_xpos < SCREEN_WIDTH )
 	{
 		m_pool_xpos += get_player_delta();
-		handle_collision(
-			m_pool_xpos,
-			(SCREEN_HEIGHT-32)/2,
-			32,
-			32,
-			COLLISION_POOL );
+		handle_collision(m_pool_xpos, (SCREEN_HEIGHT-32)/2, 32, 32, COLLISION_POOL );
 	}
 }
 
@@ -675,10 +662,11 @@ void monaco_state::GameOver()
 
 void monaco_state::HandleEvents()
 {
+	if (m_monaco_mode == MODE_ATTRACT)
+		return;
+
 	int score = m_score>>8;
 	int event = (score)%1000;
-
-	if (m_monaco_mode == MODE_ATTRACT) return;
 
 	if( m_page_current == PAGE_SMOOTH &&
 		(score == 8000 || score == 8030 || event == 185 || event == 685)  )
@@ -698,21 +686,31 @@ void monaco_state::HandleEvents()
 		}
 
 		if( event == 0 ) m_page_next2 = PAGE_SMOOTH;
-		else if( event == 95 ) m_page_next2 = PAGE_GRAVEL;
-		else if( event == 150 ) m_page_next2 = PAGE_SMOOTH;
-		else if( event == 295 ) m_page_next2 = PAGE_SLIP;
-		else if( event == 475 ) m_page_next2 = PAGE_SMOOTH;
-		else if( event == 595 ) m_page_next2 = PAGE_BRIDGE;
-		else if( event == 635 ) m_page_next2 = PAGE_SMOOTH;
-		else if( event == 795 ) m_page_next2 = PAGE_TUNNEL;
+		else
+		if( event == 95 ) m_page_next2 = PAGE_GRAVEL;
+		else
+		if( event == 150 ) m_page_next2 = PAGE_SMOOTH;
+		else
+		if( event == 295 ) m_page_next2 = PAGE_SLIP;
+		else
+		if( event == 475 ) m_page_next2 = PAGE_SMOOTH;
+		else
+		if( event == 595 ) m_page_next2 = PAGE_BRIDGE;
+		else
+		if( event == 635 ) m_page_next2 = PAGE_SMOOTH;
+		else
+		if( event == 795 ) m_page_next2 = PAGE_TUNNEL;
 	}
 	else
 	{
 		/* Timed Play */
 		if( event == 0 ) m_page_next2 = PAGE_SMOOTH;
-		else if( event == 295 ) m_page_next2 = PAGE_SLIP;
-		else if( event == 450 ) m_page_next2 = PAGE_SMOOTH;
-		else if( event == 795 ) m_page_next2 = PAGE_TUNNEL;
+		else
+		if( event == 295 ) m_page_next2 = PAGE_SLIP;
+		else
+		if( event == 450 ) m_page_next2 = PAGE_SMOOTH;
+		else
+		if( event == 795 ) m_page_next2 = PAGE_TUNNEL;
 	}
 
 	if ((!m_time) && (!m_in_ext_play))
@@ -730,7 +728,8 @@ void monaco_state::HandleEvents()
 	if ((!m_lives) && (m_monaco_mode != MODE_ATTRACT))
 	{
 		/* Game Over */
-		if (m_rank == 1) m_samples->start (4, eSAMPLE_FANFARE);
+		if (m_rank == 1)
+			m_samples->start (4, eSAMPLE_FANFARE);
 
 		GameOver();
 	}
@@ -1592,12 +1591,8 @@ GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, init_monaco, ROT90, "Sega"
 
 void monaco_state::draw_computer( bitmap_ind16 &bitmap, const rectangle clip )
 {
-	int i;
-
-	for( i=0; i<NUM_COMPUTER_CARS; i++ )
-	{
+	for(u8 i=0; i<NUM_COMPUTER_CARS; i++ )
 		m_gfxdecode->gfx(GFX_COMPUTER)->transpen(bitmap, clip,m_tile[i],m_color[i],0,0,m_x[i],m_y[i],0 );
-	}
 
 	m_gfxdecode->gfx(GFX_RESCUE_CAR)->transpen(bitmap, clip,m_rescue_tile,0,0,0,m_rescue_x,m_rescue_y,0 );
 }
@@ -1609,9 +1604,6 @@ void monaco_state::draw_pool( bitmap_ind16 &bitmap, const rectangle clip )
 
 void monaco_state::draw_player( bitmap_ind16 &bitmap, const rectangle clip )
 {
-	int gfx;
-	int tile;
-
 	switch( m_player_splash )
 	{
 	case 0:
@@ -1624,8 +1616,8 @@ void monaco_state::draw_player( bitmap_ind16 &bitmap, const rectangle clip )
 		break;
 	}
 
-	tile = m_player_tile;
-	gfx = 0;
+	int tile = m_player_tile;
+	int gfx = 0;
 	if( tile>=0 )
 	{
 		switch( tile )

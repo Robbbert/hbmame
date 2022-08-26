@@ -37,11 +37,12 @@ protected:
 	required_shared_ptr<uint8_t> m_bg_videoram;
 	required_shared_ptr<uint8_t> m_spriteram;
 
-	int m_nmi_enabled;
-	int m_scrollx;
-	int m_scrolly;
-	tilemap_t *m_bg_tilemap;
-	tilemap_t *m_fg_tilemap;
+	bool m_nmi_enabled = false;
+	bool m_nmi_state = false;
+	int m_scrollx = 0;
+	int m_scrolly = 0;
+	tilemap_t *m_bg_tilemap = nullptr;
+	tilemap_t *m_fg_tilemap = nullptr;
 
 	DECLARE_WRITE_LINE_MEMBER(nmi_enable_w);
 	DECLARE_WRITE_LINE_MEMBER(coin_lockout_w);
@@ -60,7 +61,7 @@ protected:
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	void draw_sprites(bitmap_ind16 &bitmap, const rectangle &cliprect);
 
-	INTERRUPT_GEN_MEMBER(irq);
+	INTERRUPT_GEN_MEMBER(main_nmi);
 
 	void main_io_map(address_map &map);
 	void main_map(address_map &map);

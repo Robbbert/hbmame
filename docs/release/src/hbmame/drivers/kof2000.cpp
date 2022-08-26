@@ -1105,13 +1105,7 @@ GAME( 2000, kof2kbj,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof
 GAME( 2000, kof2ky,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,  ROT0, "Ydmis",    "Kof2000 (Add Kula)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************************
+/**************************
  The King of Fighters '2000
 ******************************/
 

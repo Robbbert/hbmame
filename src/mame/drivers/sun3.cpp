@@ -188,7 +188,7 @@ fefc34a - start of mem_size, which queries ECC registers for each memory board
 #include "machine/timer.h"
 #include "machine/z80scc.h"
 #include "machine/am79c90.h"
-#include "machine/ncr5380n.h"
+#include "machine/ncr5380.h"
 #include "bus/nscsi/cd.h"
 #include "bus/nscsi/hd.h"
 
@@ -264,7 +264,7 @@ private:
 	required_device<z80scc_device> m_scc1;
 	required_device<z80scc_device> m_scc2;
 	required_device<nscsi_bus_device> m_scsibus;
-	required_device<ncr5380n_device> m_scsi;
+	required_device<ncr5380_device> m_scsi;
 
 	optional_shared_ptr<uint32_t> m_p_ram;
 	optional_shared_ptr<uint32_t> m_bw2_vram;
@@ -322,14 +322,14 @@ void sun3_state::ncr5380(device_t *device)
 {
 	devcb_base *devcb;
 	(void)devcb;
-//  downcast<ncr5380n_device &>(*device).drq_handler().set(FUNC(sun3_state::drq_w));
+//  downcast<ncr5380_device &>(*device).drq_handler().set(FUNC(sun3_state::drq_w));
 }
 
 static void scsi_devices(device_slot_interface &device)
 {
 	device.option_add("cdrom", NSCSI_CDROM);
 	device.option_add("harddisk", NSCSI_HARDDISK);
-	device.option_add_internal("ncr5380", NCR5380N);
+	device.option_add_internal("ncr5380", NCR5380);
 	device.set_option_machine_config("cdrom", sun_cdrom);
 }
 
@@ -769,7 +769,7 @@ void sun3_state::vmetype0space_map(address_map &map)
 {
 	map(0x00000000, 0x08ffffff).rw(FUNC(sun3_state::ram_r), FUNC(sun3_state::ram_w));
 	map(0xfe400000, 0xfe41ffff).ram(); // not sure what's going on here (3/110)
-	map(0xff000000, 0xff03ffff).ram().share("bw2_vram");
+	map(0xff000000, 0xff03ffff).ram().share(m_bw2_vram);
 }
 
 // type 0 without VRAM (3/50)
@@ -789,7 +789,7 @@ void sun3_state::vmetype1space_map(address_map &map)
 	map(0x000a0000, 0x000a0003).rw(FUNC(sun3_state::irqctrl_r), FUNC(sun3_state::irqctrl_w));
 	map(0x00100000, 0x0010ffff).rom().region("user1", 0);
 	map(0x00120000, 0x00120003).rw(m_lance, FUNC(am79c90_device::regs_r), FUNC(am79c90_device::regs_w));
-	map(0x00140000, 0x00140007).rw(m_scsi, FUNC(ncr5380n_device::read), FUNC(ncr5380n_device::write)).umask32(0xffffffff);
+	map(0x00140000, 0x00140007).rw(m_scsi, FUNC(ncr5380_device::read), FUNC(ncr5380_device::write)).umask32(0xffffffff);
 	map(0x001e0000, 0x001e00ff).rw(FUNC(sun3_state::ecc_r), FUNC(sun3_state::ecc_w));
 }
 
@@ -905,14 +905,14 @@ template <unsigned W, unsigned H>
 uint32_t sun3_state::bw2_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	static const uint32_t palette[2] = { 0, 0xffffff };
-	uint8_t const *const m_vram = (uint8_t *)m_bw2_vram.target();
+	auto const vram = util::big_endian_cast<uint8_t const>(m_bw2_vram.target());
 
 	for (int y = 0; y < H; y++)
 	{
 		uint32_t *scanline = &bitmap.pix(y);
 		for (int x = 0; x < W/8; x++)
 		{
-			uint8_t const pixels = m_vram[(y * (W/8)) + (BYTE4_XOR_BE(x))];
+			uint8_t const pixels = vram[(y * (W / 8)) + x];
 
 			*scanline++ = palette[BIT(pixels, 7)];
 			*scanline++ = palette[BIT(pixels, 6)];
@@ -930,14 +930,14 @@ uint32_t sun3_state::bw2_update(screen_device &screen, bitmap_rgb32 &bitmap, con
 uint32_t sun3_state::bw2_350_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	static const uint32_t palette[2] = { 0, 0xffffff };
-	uint8_t const *const m_vram = (uint8_t *)&m_ram_ptr[(0x100000>>2)];
+	auto const vram = util::big_endian_cast<uint8_t const>(m_ram_ptr + (0x100000 >> 2));
 
 	for (int y = 0; y < 900; y++)
 	{
 		uint32_t *scanline = &bitmap.pix(y);
 		for (int x = 0; x < 1152/8; x++)
 		{
-			uint8_t const pixels = m_vram[(y * (1152/8)) + (BYTE4_XOR_BE(x))];
+			uint8_t const pixels = vram[(y * (1152 / 8)) + x];
 
 			*scanline++ = palette[BIT(pixels, 7)];
 			*scanline++ = palette[BIT(pixels, 6)];

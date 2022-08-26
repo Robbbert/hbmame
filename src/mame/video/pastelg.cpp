@@ -128,7 +128,7 @@ void pastelg_common_state::vramflip()
 	m_flipscreen_old = m_flipscreen;
 }
 
-void pastelg_common_state::blitter_timer_callback(void *ptr, s32 param)
+void pastelg_common_state::blitter_timer_callback(s32 param)
 {
 	m_nb1413m3->busyflag_w(1);
 }
@@ -258,7 +258,7 @@ void pastelg_common_state::video_start()
 
 	m_videoram = make_unique_clear<uint8_t[]>(width * height);
 
-	m_blitter_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(pastelg_state::blitter_timer_callback), this));
+	m_blitter_timer = timer_alloc(FUNC(pastelg_state::blitter_timer_callback), this);
 
 	save_item(NAME(m_blitter_desty));
 	save_item(NAME(m_blitter_sizex));

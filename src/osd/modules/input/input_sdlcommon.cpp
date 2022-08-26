@@ -13,28 +13,33 @@
 
 #if defined(OSD_SDL)
 
-// standard sdl header
-#include <SDL2/SDL.h>
+#include "input_sdlcommon.h"
+
 #include <cctype>
 #include <cstddef>
-#include <mutex>
 #include <memory>
 #include <algorithm>
 
 // MAME headers
 #include "emu.h"
-#include "osdepend.h"
+
 #include "ui/uimain.h"
 #include "uiinput.h"
+
 #include "window.h"
+
+#include "util/language.h"
+
+#include "osdepend.h"
 #include "strconv.h"
 
 #include "../../sdl/osdsdl.h"
 #include "input_common.h"
-#include "input_sdlcommon.h"
+
 
 #define GET_WINDOW(ev) window_from_id((ev)->windowID)
 //#define GET_WINDOW(ev) ((ev)->windowID)
+
 
 static std::shared_ptr<sdl_window_info> window_from_id(Uint32 windowID)
 {
@@ -165,15 +170,9 @@ void sdl_osd_interface::customize_input_type_list(std::vector<input_type_entry> 
 			break;
 			// alt-enter for fullscreen
 		case IPT_OSD_1:
-			entry.configure_osd("TOGGLE_FULLSCREEN", "Toggle Fullscreen");
+			entry.configure_osd("TOGGLE_FULLSCREEN", N_p("input-name", "Toggle Fullscreen"));
 			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_ENTER, KEYCODE_LALT);
 			break;
-
-			// disable UI_SELECT when LALT is down, this stops selecting
-			// things in the menu when toggling fullscreen with LALT+ENTER
-			/*          case IPT_UI_SELECT:
-			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_ENTER, input_seq::not_code, KEYCODE_LALT);
-			break;*/
 
 			// page down for fastforward (must be OSD_3 as per src/emu/ui.c)
 		case IPT_UI_FAST_FORWARD:
@@ -197,17 +196,13 @@ void sdl_osd_interface::customize_input_type_list(std::vector<input_type_entry> 
 
 			// LCTRL-F5 to toggle OpenGL filtering
 		case IPT_OSD_5:
-			entry.configure_osd("TOGGLE_FILTER", "Toggle Filter");
+			entry.configure_osd("TOGGLE_FILTER", N_p("input-name", "Toggle Filter"));
 			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_F5, KEYCODE_LCONTROL);
-			break;
-			// add a Not lcrtl condition to the toggle debug key
-		case IPT_UI_TOGGLE_DEBUG:
-			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_F5, input_seq::not_code, KEYCODE_LCONTROL);
 			break;
 
 			// LCTRL-F6 to decrease OpenGL prescaling
 		case IPT_OSD_6:
-			entry.configure_osd("DECREASE_PRESCALE", "Decrease Prescaling");
+			entry.configure_osd("DECREASE_PRESCALE", N_p("input-name", "Decrease Prescaling"));
 			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_F6, KEYCODE_LCONTROL);
 			break;
 			// add a Not lcrtl condition to the toggle cheat key
@@ -217,13 +212,13 @@ void sdl_osd_interface::customize_input_type_list(std::vector<input_type_entry> 
 
 			// LCTRL-F7 to increase OpenGL prescaling
 		case IPT_OSD_7:
-			entry.configure_osd("INCREASE_PRESCALE", "Increase Prescaling");
+			entry.configure_osd("INCREASE_PRESCALE", N_p("input-name", "Increase Prescaling"));
 			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_F7, KEYCODE_LCONTROL);
 			break;
 
 		// lshift-lalt-F12 for fullscreen video (BGFX)
 		case IPT_OSD_8:
-			entry.configure_osd("RENDER_AVI", "Record Rendered Video");
+			entry.configure_osd("RENDER_AVI", N_p("input-name", "Record Rendered Video"));
 			entry.defseq(SEQ_TYPE_STANDARD).set(KEYCODE_F12, KEYCODE_LSHIFT, KEYCODE_LALT);
 			break;
 
@@ -270,7 +265,7 @@ void sdl_osd_interface::release_keys()
 {
 	auto keybd = dynamic_cast<input_module_base*>(m_keyboard_input);
 	if (keybd != nullptr)
-		keybd->devicelist()->reset_devices();
+		keybd->devicelist().reset_devices();
 }
 
 bool sdl_osd_interface::should_hide_mouse()
@@ -293,6 +288,50 @@ bool sdl_osd_interface::should_hide_mouse()
 void sdl_osd_interface::process_events_buf()
 {
 	SDL_PumpEvents();
+}
+
+//============================================================
+//  devmap_init - initializes a device_map based on
+//   an input option prefix and max number of devices
+//============================================================
+
+void device_map_t::init(running_machine &machine, const char *opt, int max_devices, const char *label)
+{
+	int dev;
+	char defname[20];
+
+	// The max devices the user specified, better not be bigger than the max the arrays can old
+	assert(max_devices <= MAX_DEVMAP_ENTRIES);
+
+	// Initialize the map to default uninitialized values
+	for (dev = 0; dev < MAX_DEVMAP_ENTRIES; dev++)
+	{
+		map[dev].name.clear();
+		map[dev].physical = -1;
+		logical[dev] = -1;
+	}
+	initialized = 0;
+
+	// populate the device map up to the max number of devices
+	for (dev = 0; dev < max_devices; dev++)
+	{
+		const char *dev_name;
+
+		// derive the parameter name from the option name and index. For instance: lightgun_index1 to lightgun_index8
+		sprintf(defname, "%s%d", opt, dev + 1);
+
+		// Get the user-specified name that matches the parameter
+		dev_name = machine.options().value(defname);
+
+		// If they've specified a name and it's not "auto", treat it as a custom mapping
+		if (dev_name && *dev_name && strcmp(dev_name, OSDOPTVAL_AUTO))
+		{
+			// remove the spaces from the name store it in the index
+			map[dev].name = remove_spaces(dev_name);
+			osd_printf_verbose("%s: Logical id %d: %s\n", label, dev + 1, map[dev].name);
+			initialized = 1;
+		}
+	}
 }
 
 #endif

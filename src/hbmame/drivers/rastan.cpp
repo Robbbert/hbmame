@@ -148,3 +148,4 @@ GAME( 2001, rastandh, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, 
 GAME( 2001, rastand2, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Dragon Hack (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, rastaneh, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Enemy Hack", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, rastane2, rastan, rastan, rastsaga, rastan_state, empty_init, ROT0, "Neil Pearce", "Rastan Enemy Hack (set 2)", MACHINE_SUPPORTS_SAVE )
+

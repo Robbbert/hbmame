@@ -835,3 +835,4 @@ GAME( 1980, tvortex,   tempest, tempest, tempest, tempest_state, empty_init,  RO
 GAME( 1980, tvortexa,  tempest, tempest, tempest, tempest_state, empty_init,  ROT270, "Atari", "Vortex (Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, aliensv,   tempest, tempest, aliensv, tempest_state, empty_init,  ROT270, "Atari", "Aliens", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, aliensva,  tempest, tempest, aliensv, tempest_state, empty_init,  ORIENTATION_FLIP_Y ^ ROT270, "Atari", "Aliens alt version", MACHINE_SUPPORTS_SAVE )
+

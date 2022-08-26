@@ -267,7 +267,7 @@ void snowbros_state::wintbob_map(address_map &map)
 	map(0xa00000, 0xa00001).w(FUNC(snowbros_state::snowbros_irq2_ack_w));  /* IRQ 2 acknowledge */
 }
 
-/* Honey Dolls */
+/* Honey Doll */
 
 void snowbros_state::honeydol_map(address_map &map)
 {
@@ -1027,6 +1027,15 @@ static INPUT_PORTS_START( cookbib2 )
 	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_UNKNOWN )
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( cookbib2c )
+	PORT_INCLUDE(cookbib2)
+
+	PORT_MODIFY("DSW1")
+	PORT_DIPNAME( 0x0002, 0x0002, DEF_STR( Language ) )      PORT_DIPLOCATION("SW1:2")
+	PORT_DIPSETTING(      0x0002, DEF_STR( English ) ) // Korean in test mode
+	PORT_DIPSETTING(      0x0000, DEF_STR( Korean ) ) // English in test mode
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( cookbib3 )
@@ -1898,7 +1907,7 @@ void snowbros_state::honeydol(machine_config &config)
 void snowbros_state::twinadv(machine_config &config)
 {
 	/* basic machine hardware */
-	M68000(config, m_maincpu, XTAL(12'000'000)); /* 12MHz like Honey Dolls ? */
+	M68000(config, m_maincpu, XTAL(12'000'000)); /* 12MHz like Honey Doll ? */
 	m_maincpu->set_addrmap(AS_PROGRAM, &snowbros_state::twinadv_map);
 	TIMER(config, "scantimer", 0).configure_scanline(FUNC(snowbros_state::snowbros_irq), "screen", 0, 1);
 	WATCHDOG_TIMER(config, "watchdog");
@@ -2571,6 +2580,32 @@ ROM_START( 3in1semi ) /* SemiCom Ser-4331-4 PCB */
 	ROM_LOAD( "u78", 0x180000, 0x80000, CRC(af596afc) SHA1(875d7a51ff5c741cae4483d8da33df9cae8de52a) )
 ROM_END
 
+ROM_START( 3in1semia ) // SemiCom Ser-4331-4 PCB
+	ROM_REGION( 0x100000, "maincpu", 0 ) // 68000 Code
+	ROM_LOAD16_BYTE( "u52.bin",  0x00001, 0x40000, CRC(388334a8) SHA1(93823917682f1658a443d23ceb58eafa530d1854) )
+	ROM_LOAD16_BYTE( "u74.bin",  0x00000, 0x40000, CRC(555ae716) SHA1(9a3d7d81d7c6fb8443d263087bb7dca7bc3918b6) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 ) // Z80 Code
+	ROM_LOAD( "u35.bin", 0x00000, 0x10000 , CRC(e40481da) SHA1(1c1fabcb67693235eaa6ff59ae12a35854b5564a) )
+
+	ROM_REGION( 0x10000, "cpu2", 0 ) // Intel 87C52 MCU Code
+	ROM_LOAD( "87c52.mcu", 0x00000, 0x10000 , NO_DUMP )
+
+	ROM_REGION16_BE( 0x200, "user1", 0 ) // Data from Shared RAM
+	/* this is not a real rom but instead the data extracted from
+	   shared ram, the MCU puts it there */
+	ROM_LOAD16_WORD( "protdata.bin", 0x00000, 0x200 , CRC(85deba7c) SHA1(44c6d9306b4f8e47182f4740a18971c49a8df8db) )
+
+	ROM_REGION( 0x040000, "oki", 0 ) // Samples
+	ROM_LOAD( "u14.bin", 0x00000, 0x40000, CRC(c83c11be) SHA1(c05d96d61e5b8245232c85cbbcb7cc1e4e066492) )
+
+	ROM_REGION( 0x200000, "gfx1", 0 ) // Sprites
+	ROM_LOAD( "u75.bin", 0x000000, 0x80000, CRC(9d705249) SHA1(99e0adca1f3f285692bf15c988b25d87f6b1dd90) )
+	ROM_LOAD( "u76.bin", 0x080000, 0x80000, CRC(b65f5d79) SHA1(a9f19cf54f5ecdeca58f853f3053a686b89fea63) )
+	ROM_LOAD( "u77.bin", 0x100000, 0x80000, CRC(b9728be9) SHA1(4ea7940f9d1d7c01cfcab92184b6513e4b0a83d7) )
+	ROM_LOAD( "u78.bin", 0x180000, 0x20000, CRC(aefad49e) SHA1(246ea713eaaa6a01290eded36377437cb7e79fa8) ) // MX26C1000APC
+ROM_END
+
 /*
 
 Ma Cheon Ru
@@ -2694,6 +2729,35 @@ ROM_START( cookbib2b )
 	ROM_LOAD( "ua4.040", 0x000000, 0x80000, CRC(f458d52e) SHA1(f6a145aaa57c64557479e63bb95732a98a7b8b85) )
 	ROM_LOAD( "ua6.040", 0x080000, 0x80000, CRC(249e89b4) SHA1(2100eea2c3cee84a046ba7ff6cec1027966b895c) )
 	ROM_LOAD( "ua8.040", 0x100000, 0x80000, CRC(caa25138) SHA1(784111255777f5774abf4d34c0a95b5e23a14c9f) )
+ROM_END
+
+// PCB is marked: "YFTE3" and "951121" on component side
+// EPROMs are labelled: "UNICO"
+ROM_START( cookbib2c ) // no ROM matches any of the other sets
+	ROM_REGION( 0x100000, "maincpu", 0 ) /* 68000 Code */
+	ROM_LOAD16_BYTE( "unico.uh12",  0x00001, 0x40000, CRC(be021efa) SHA1(87e169e4987f4c31bcda147d0bf5f7fdbaa52f38) )
+	ROM_LOAD16_BYTE( "unico.ui12",  0x00000, 0x40000, CRC(ed49a0e5) SHA1(fbb6c45559d82ec84253aac5e4e6ff0a8c4d04e0) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 ) /* Z80 Code */
+	ROM_LOAD( "unico.u1", 0x00000, 0x10000 , CRC(f1100b20) SHA1(92c78e028e9020743b68744a759a11638cf2c971) )
+
+	ROM_REGION( 0x2000, "protection", 0 ) /* P87C52EBPN (XSC6407A) Code (8052) */
+	ROM_LOAD( "87c52.mcu", 0x0000, 0x2000 , NO_DUMP ) /* not dumped yet */
+
+	ROM_REGION( 0x200, "user1", 0 ) /* Data from Shared RAM */
+	/* this is not a real rom but instead the data extracted from
+	   shared ram, the MCU puts it there
+
+	   this one is hacked from the old cookbib2 one, absolute code jump needed to be changed at least */
+	ROM_LOAD16_WORD_SWAP( "protdata.bin", 0x000, 0x200, BAD_DUMP CRC(b956f056) SHA1(aa9a73e8546b027ae8ef30b03524d302d07cae92) )
+
+	ROM_REGION( 0x040000, "oki", 0 ) /* Samples */
+	ROM_LOAD( "unico.uj15", 0x00000, 0x20000, CRC(ae5cc9e5) SHA1(f001c00fea76795ad2d7f4f0e436abecbc7ff00d) )
+
+	ROM_REGION( 0x140000, "gfx1", 0 ) /* Sprites */
+	ROM_LOAD( "unico.ua4", 0x000000, 0x80000, CRC(3de7a813) SHA1(fdf7e0a092a2056bd7e6443e035c86dde94a2300) )
+	ROM_LOAD( "unico.ua5", 0x080000, 0x80000, CRC(6d543788) SHA1(efcd4f45e2bcdffcdd650c6e3bd543e877ce205a) )
+	ROM_LOAD( "unico.ua6", 0x100000, 0x40000, CRC(13cc9bf4) SHA1(dec3561d953699ced17231b76980663fdcd6e155) )
 ROM_END
 
 ROM_START( cookbib3 )
@@ -3047,9 +3111,10 @@ GAME( 1996, toto,       0,        snowbros,    snowbros, snowbros_state, init_to
 GAME( 1993, finalttr,   0,        finalttr,    finalttr, snowbros_state, empty_init,    ROT0, "Jeil Computer System", "Final Tetris", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, hyperpac,   0,        semicom_mcu, hyperpac, snowbros_state, init_hyperpac, ROT0, "SemiCom",              "Hyper Pacman", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, hyperpacb,  hyperpac, semicom,     hyperpac, snowbros_state, empty_init,    ROT0, "bootleg",              "Hyper Pacman (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, cookbib2,   0,        semicom_mcu, cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, cookbib2a,  cookbib2, semicom_mcu, cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, cookbib2b,  cookbib2, semiprot,    cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (set 3)", MACHINE_SUPPORTS_SAVE ) // older? test mode looks even worse on this, but neither shows the correct dip info anyway
+GAME( 1996, cookbib2,   0,        semicom_mcu, cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (English, set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, cookbib2a,  cookbib2, semicom_mcu, cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (English, set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, cookbib2b,  cookbib2, semiprot,    cookbib2, snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (English, set 3)", MACHINE_SUPPORTS_SAVE ) // older? test mode looks even worse on this, but neither shows the correct dip info anyway
+GAME( 1996, cookbib2c,  cookbib2, semiprot,    cookbib2c,snowbros_state, init_cookbib2, ROT0, "SemiCom",              "Cookie & Bibi 2 (English / Korean)", MACHINE_SUPPORTS_SAVE ) // in this set the language switch actually works but its effects are inverted to what test mode shows. Sticker on PCB shows 95 so maybe earliest set?
 GAME( 1996, toppyrap,   0,        semiprot,    toppyrap, snowbros_state, empty_init,    ROT0, "SemiCom",              "Toppy & Rappy", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, cookbib3,   0,        semiprot,    cookbib3, snowbros_state, init_cookbib3, ROT0, "SemiCom",              "Cookie & Bibi 3", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, pzlbreak,   0,        semiprot,    pzlbreak, snowbros_state, init_pzlbreak, ROT0, "SemiCom / Tirano",     "Puzzle Break (set 1)", MACHINE_SUPPORTS_SAVE )
@@ -3057,14 +3122,15 @@ GAME( 1997, pzlbreaka,  pzlbreak, semiprot,    pzlbreak, snowbros_state, init_pz
 GAME( 1997, suhosong,   0,        semiprot,    suhosong, snowbros_state, empty_init,    ROT0, "SemiCom",              "Su Ho Seong", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, twinkle,    0,        semiprot,    twinkle,  snowbros_state, empty_init,    ROT0, "SemiCom / Tirano",     "Twinkle (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, twinklea,   twinkle,  semiprot,    twinkle,  snowbros_state, empty_init,    ROT0, "SemiCom / Tirano",     "Twinkle (set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, 3in1semi,   0,        semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / XESS",       "New HyperMan (3-in-1 with Cookie & Bibi & HyperMan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, 3in1semi,   0,        semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / XESS",       "New HyperMan (3-in-1 with Cookie & Bibi & HyperMan) (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, 3in1semia,  3in1semi, semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / XESS",       "New HyperMan (3-in-1 with Cookie & Bibi & HyperMan) (set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, mcheonru,   0,        semiprot,    mcheonru, snowbros_state, init_3in1semi, ROT0, "SemiCom / AceVer",     "Ma Cheon Ru", MACHINE_SUPPORTS_SAVE ) // a flyer exists for an English version called Arirang, AceVer team logo is displayed on it
 GAME( 1999, moremore,   0,        semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / Exit",       "More More", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, moremorp,   0,        semiprot,    moremore, snowbros_state, init_3in1semi, ROT0, "SemiCom / Exit",       "More More Plus", MACHINE_SUPPORTS_SAVE )
 // This is very similar to the SemiCom titles, but unprotected.
 GAME( 2002, 4in1boot,   0,        _4in1,       4in1boot, snowbros_state, init_4in1boot, ROT0, "K1 Soft", "Puzzle King (PacMan 2, Tetris, HyperMan 2, Snow Bros.)" , MACHINE_SUPPORTS_SAVE )
 
-GAME( 1995, honeydol,   0,        honeydol,    honeydol, snowbros_state, empty_init,    ROT0, "Barko Corp.", "Honey Dolls", MACHINE_SUPPORTS_SAVE ) // based on snowbros code..
+GAME( 1995, honeydol,   0,        honeydol,    honeydol, snowbros_state, empty_init,    ROT0, "Barko Corp.", "Honey Doll", MACHINE_SUPPORTS_SAVE ) // based on snowbros code..
 
 GAME( 1995, twinadv,    0,        twinadv,     twinadv,  snowbros_state, empty_init,    ROT0, "Barko Corp.", "Twin Adventure (World)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, twinadvk,   twinadv,  twinadv,     twinadv,  snowbros_state, empty_init,    ROT0, "Barko Corp.", "Twin Adventure (Korea)", MACHINE_SUPPORTS_SAVE )

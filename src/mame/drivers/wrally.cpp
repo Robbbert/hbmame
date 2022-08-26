@@ -126,7 +126,6 @@ The PCB has a layout that can either use the 4 rom set of I7, I9, I11 & I13 or l
 
 #include "emu.h"
 #include "includes/wrally.h"
-#include "includes/gaelcrpt.h"
 
 #include "machine/gaelco_ds5002fp.h"
 
@@ -156,18 +155,18 @@ void wrally_state::machine_start()
 void wrally_state::shareram_w(offs_t offset, uint8_t data)
 {
 	// why isn't there address map functionality for this?
-	reinterpret_cast<u8 *>(m_shareram.target())[BYTE_XOR_BE(offset)] = data;
+	util::big_endian_cast<u8>(m_shareram.target())[offset] = data;
 }
 
 uint8_t wrally_state::shareram_r(offs_t offset)
 {
 	// why isn't there address map functionality for this?
-	return reinterpret_cast<u8 const *>(m_shareram.target())[BYTE_XOR_BE(offset)];
+	return util::big_endian_cast<u8 const>(m_shareram.target())[offset];
 }
 
-void wrally_state::vram_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask)
+void wrally_state::vram_w(offs_t offset, uint16_t data, uint16_t mem_mask)
 {
-	data = gaelco_decrypt(space, offset, data, 0x1f, 0x522a);
+	data = m_vramcrypt->gaelco_decrypt(*m_maincpu, offset, data);
 	COMBINE_DATA(&m_videoram[offset]);
 
 	m_tilemap[(offset & 0x1fff) >> 12]->mark_tile_dirty(((offset << 1) & 0x1fff) >> 2);
@@ -375,6 +374,9 @@ void wrally_state::wrally(machine_config &config)
 	gaelco_ds5002fp_device &ds5002(GAELCO_DS5002FP(config, "gaelco_ds5002fp", XTAL(24'000'000) / 2)); // verified on PCB
 	ds5002.set_addrmap(0, &wrally_state::mcu_hostmem_map);
 	config.set_perfect_quantum("gaelco_ds5002fp:mcu");
+
+	GAELCO_VRAM_ENCRYPTION(config, m_vramcrypt);
+	m_vramcrypt->set_params(0x1f, 0x522a);
 
 	// Video hardware
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));

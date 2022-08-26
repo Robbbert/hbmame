@@ -47,6 +47,7 @@ chain_manager::chain_manager(running_machine& machine, osd_options& options, tex
 	, m_slider_notifier(slider_notifier)
 	, m_screen_count(0)
 {
+	m_converters.clear();
 	refresh_available_chains();
 	parse_chain_selections(options.bgfx_screen_chains());
 	init_texture_converters();
@@ -60,11 +61,11 @@ chain_manager::~chain_manager()
 void chain_manager::init_texture_converters()
 {
 	m_converters.push_back(nullptr);
-	m_converters.push_back(m_effects.effect("misc/texconv_palette16"));
-	m_converters.push_back(m_effects.effect("misc/texconv_rgb32"));
+	m_converters.push_back(m_effects.get_or_load_effect(m_options, "misc/texconv_palette16"));
+	m_converters.push_back(m_effects.get_or_load_effect(m_options, "misc/texconv_rgb32"));
 	m_converters.push_back(nullptr);
-	m_converters.push_back(m_effects.effect("misc/texconv_yuy16"));
-	m_adjuster = m_effects.effect("misc/bcg_adjust");
+	m_converters.push_back(m_effects.get_or_load_effect(m_options, "misc/texconv_yuy16"));
+	m_adjuster = m_effects.get_or_load_effect(m_options, "misc/bcg_adjust");
 }
 
 void chain_manager::refresh_available_chains()
@@ -72,8 +73,7 @@ void chain_manager::refresh_available_chains()
 	m_available_chains.clear();
 	m_available_chains.push_back(chain_desc("none", ""));
 
-	std::string chains_path;
-	osd_subst_env(chains_path, util::string_format("%s" PATH_SEPARATOR "chains", m_options.bgfx_path()));
+	const std::string chains_path  = osd_subst_env(util::string_format("%s" PATH_SEPARATOR "chains", m_options.bgfx_path()));
 	find_available_chains(chains_path, "");
 
 	destroy_unloaded_chains();
@@ -150,8 +150,7 @@ bgfx_chain* chain_manager::load_chain(std::string name, uint32_t screen_index)
 	{
 		name = name + ".json";
 	}
-	std::string path;
-	osd_subst_env(path, util::string_format("%s" PATH_SEPARATOR "chains" PATH_SEPARATOR, m_options.bgfx_path()));
+	std::string path = osd_subst_env(util::string_format("%s" PATH_SEPARATOR "chains" PATH_SEPARATOR, m_options.bgfx_path()));
 	path += name;
 
 	bx::FileReader reader;
@@ -416,14 +415,10 @@ void chain_manager::create_selection_slider(uint32_t screen_index)
 	auto state = std::make_unique<slider_state>(std::move(description), minval, defval, maxval, incval,
 												std::bind(&chain_manager::slider_changed, this, screen_index, _1, _2));
 
-	ui::menu_item item;
-	item.text = state->description;
-	item.subtext = "";
-	item.flags = 0;
-	item.ref = state.get();
-	item.type = ui::menu_item_type::SLIDER;
-	m_selection_sliders.push_back(item);
-	m_core_sliders.push_back(std::move(state));
+	ui::menu_item item(ui::menu_item_type::SLIDER, state.get());
+	item.set_text(state->description);
+	m_selection_sliders.emplace_back(item);
+	m_core_sliders.emplace_back(std::move(state));
 }
 
 uint32_t chain_manager::update_screen_textures(uint32_t view, render_primitive *starting_prim, osd_window& window)
@@ -462,14 +457,19 @@ uint32_t chain_manager::update_screen_textures(uint32_t view, render_primitive *
 			}
 		}
 
-		bgfx::TextureFormat::Enum dst_format = bgfx::TextureFormat::RGBA8;
+		bgfx::TextureFormat::Enum dst_format = bgfx::TextureFormat::BGRA8;
 		uint16_t pitch = prim.m_rowpixels;
+		int width_div_factor = 1;
+		int width_mul_factor = 1;
 		const bgfx::Memory* mem = bgfx_util::mame_texture_data_to_bgfx_texture_data(dst_format, prim.m_flags & PRIMFLAG_TEXFORMAT_MASK,
-			prim.m_rowpixels, tex_height, prim.m_prim->texture.palette, prim.m_prim->texture.base, &pitch);
+			prim.m_rowpixels, tex_height, prim.m_prim->texture.palette, prim.m_prim->texture.base, pitch, width_div_factor, width_mul_factor);
 
 		if (texture == nullptr)
 		{
-			bgfx_texture *texture = new bgfx_texture(full_name, dst_format, tex_width, tex_height, mem, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_MIN_POINT | BGFX_SAMPLER_MAG_POINT | BGFX_SAMPLER_MIP_POINT, pitch, prim.m_rowpixels);
+			uint32_t flags = BGFX_SAMPLER_MIN_POINT | BGFX_SAMPLER_MAG_POINT | BGFX_SAMPLER_MIP_POINT;
+			if (!PRIMFLAG_GET_TEXWRAP(prim.m_flags))
+				flags |= BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP;
+			bgfx_texture *texture = new bgfx_texture(full_name, dst_format, tex_width, tex_height, mem, flags, pitch, prim.m_rowpixels, width_div_factor, width_mul_factor);
 			m_textures.add_provider(full_name, texture);
 
 			if (prim.m_prim->texture.palette)
@@ -682,7 +682,7 @@ std::vector<ui::menu_item> chain_manager::get_slider_list()
 				std::vector<ui::menu_item> input_sliders = input->get_slider_list();
 				for (ui::menu_item slider : input_sliders)
 				{
-					sliders.push_back(slider);
+					sliders.emplace_back(slider);
 				}
 			}
 		}
@@ -692,27 +692,19 @@ std::vector<ui::menu_item> chain_manager::get_slider_list()
 		{
 			slider_state* core_slider = slider->core_slider();
 
-			ui::menu_item item;
-			item.text = core_slider->description;
-			item.subtext = "";
-			item.flags = 0;
-			item.ref = core_slider;
-			item.type = ui::menu_item_type::SLIDER;
-			m_selection_sliders.push_back(item);
+			ui::menu_item item(ui::menu_item_type::SLIDER, core_slider);
+			item.set_text(core_slider->description);
+			m_selection_sliders.emplace_back(item);
 
-			sliders.push_back(item);
+			sliders.emplace_back(std::move(item));
 		}
 
 		if (chain_sliders.size() > 0)
 		{
-			ui::menu_item item;
-			item.text = MENU_SEPARATOR_ITEM;
-			item.subtext = "";
-			item.flags = 0;
-			item.ref = nullptr;
-			item.type = ui::menu_item_type::SEPARATOR;
+			ui::menu_item item(ui::menu_item_type::SEPARATOR);
+			item.set_text(MENU_SEPARATOR_ITEM);
 
-			sliders.push_back(item);
+			sliders.emplace_back(std::move(item));
 		}
 	}
 

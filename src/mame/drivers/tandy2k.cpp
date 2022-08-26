@@ -405,8 +405,8 @@ static INPUT_PORTS_START( tandy2k )
 	// defined in machine/tandy2kb.c
 	PORT_START("MOUSEBTN")
 	PORT_BIT( 0xff8f, IP_ACTIVE_HIGH, IPT_UNUSED )
-	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_CODE(MOUSECODE_BUTTON1) PORT_CHANGED_MEMBER(DEVICE_SELF, tandy2k_state, input_changed, 0)
-	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_CODE(MOUSECODE_BUTTON2) PORT_CHANGED_MEMBER(DEVICE_SELF, tandy2k_state, input_changed, 0)
+	PORT_BIT( 0x0010, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_CODE(MOUSECODE_BUTTON1) PORT_CHANGED_MEMBER(DEVICE_SELF, tandy2k_state, input_changed, 1)
+	PORT_BIT( 0x0020, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_CODE(MOUSECODE_BUTTON2) PORT_CHANGED_MEMBER(DEVICE_SELF, tandy2k_state, input_changed, 1)
 	PORT_BIT( 0x0040, IP_ACTIVE_LOW, IPT_UNUSED )  /* this would be button three but AFAIK no tandy mouse ever had one */
 
 	PORT_START("MOUSEX")
@@ -479,7 +479,10 @@ INPUT_CHANGED_MEMBER(tandy2k_state::input_changed)
 {
 	if (m_clkmouse_cnt || !m_clkmouse_irq)
 		return;
-	if ((m_clkmouse_irq & BT_IRQ) && (field.name()[5] == 'B'))
+
+	const bool is_button = bool(param);
+
+	if ((m_clkmouse_irq & BT_IRQ) && is_button)
 	{
 		m_clkmouse_cnt = 1;
 		m_clkmouse_cmd[0] = 'B';
@@ -921,8 +924,8 @@ void tandy2k_state::machine_start()
 
 	program.install_ram(0x00000, ram_size - 1, ram);
 
-	m_mouse_timer = timer_alloc(MOUS_TIMER);
-	m_mcu_delay = timer_alloc(MCU_DELAY);
+	m_mouse_timer = timer_alloc(FUNC(tandy2k_state::update_mouse), this);
+	m_mcu_delay = timer_alloc(FUNC(tandy2k_state::mcu_delay_cb), this);
 
 	// register for state saving
 	save_item(NAME(m_dma_mux));
@@ -958,31 +961,26 @@ void tandy2k_state::device_reset_after_children()
 	m_pc_keyboard->enable(0);
 }
 
-void tandy2k_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(tandy2k_state::update_mouse)
 {
-	switch (id)
-	{
-		case MOUS_TIMER:
-		{
-			uint16_t x = m_x_axis->read();
-			uint16_t y = m_y_axis->read();
-			uint16_t dx = x - m_mouse_x;
-			uint16_t dy = y - m_mouse_y;
-			m_mouse_x = x;
-			m_mouse_y = y;
-			m_clkmouse_cnt = 5;
-			m_clkmouse_cmd[4] = 'A';
-			m_clkmouse_cmd[3] = dx & 0xff;
-			m_clkmouse_cmd[2] = dx >> 8;
-			m_clkmouse_cmd[1] = dy & 0xff;
-			m_clkmouse_cmd[0] = dy >> 8;
-			m_pic1->ir2_w(1);
-			break;
-		}
-		case MCU_DELAY:
-			m_pic1->ir2_w(1);
-			break;
-	}
+	uint16_t x = m_x_axis->read();
+	uint16_t y = m_y_axis->read();
+	uint16_t dx = x - m_mouse_x;
+	uint16_t dy = y - m_mouse_y;
+	m_mouse_x = x;
+	m_mouse_y = y;
+	m_clkmouse_cnt = 5;
+	m_clkmouse_cmd[4] = 'A';
+	m_clkmouse_cmd[3] = dx & 0xff;
+	m_clkmouse_cmd[2] = dx >> 8;
+	m_clkmouse_cmd[1] = dy & 0xff;
+	m_clkmouse_cmd[0] = dy >> 8;
+	m_pic1->ir2_w(1);
+}
+
+TIMER_CALLBACK_MEMBER(tandy2k_state::mcu_delay_cb)
+{
+	m_pic1->ir2_w(1);
 }
 
 rgb_t tandy2k_state::IRGB(uint32_t raw)

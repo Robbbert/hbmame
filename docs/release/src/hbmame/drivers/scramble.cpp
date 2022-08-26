@@ -23,4 +23,3 @@ ROM_END
 
 GAME( 2020, troopyx, mrkougar, mrkougb,  mrkougar, scramble_state, init_mrkougar, ROT90, "chaneman", "Troopy (fixed graphics)", MACHINE_SUPPORTS_SAVE )
 
-

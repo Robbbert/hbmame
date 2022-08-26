@@ -80,7 +80,7 @@ public:
 		, m_cassette(*this, "cassette")
 		, m_speaker(*this, "speaker")
 		, m_region_maincpu(*this, "maincpu")
-		, m_io_keyboard(*this, "LINE%u", 0)
+		, m_io_keyboard(*this, "LINE%u", 0U)
 		, m_maincpu(*this, "maincpu")
 		, m_sound_timer(nullptr)
 	{ }
@@ -92,9 +92,9 @@ protected:
 	virtual void machine_reset() override;
 
 private:
-	uint8_t m_keyboard_line;
-	bool m_use_pcg;
-	bool m_pb7;
+	uint8_t m_keyboard_line = 0U;
+	bool m_use_pcg = false;
+	bool m_pb7 = false;
 	uint32_t screen_update_jr100(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	TIMER_CALLBACK_MEMBER(sound_tick);
 	uint8_t pb_r();
@@ -117,7 +117,7 @@ private:
 	required_ioport_array<9> m_io_keyboard;
 	required_device<m6800_cpu_device> m_maincpu;
 
-	emu_timer *m_sound_timer;
+	emu_timer *m_sound_timer = nullptr;
 };
 
 
@@ -206,7 +206,7 @@ INPUT_PORTS_END
 void jr100_state::machine_start()
 {
 	if (!m_sound_timer)
-		m_sound_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(jr100_state::sound_tick), this));
+		m_sound_timer = timer_alloc(FUNC(jr100_state::sound_tick), this);
 
 	save_item(NAME(m_keyboard_line));
 	save_item(NAME(m_use_pcg));

@@ -211,3 +211,4 @@ GAME( 2018, asurablds03, asurabld, fuuki32, asurabld, fuuki32_state, empty_init,
 GAME( 2018, asurablds04, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "hack", "Asura Blade - Sword of Dynasty (Simplified Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, asurabuss01, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "yumeji", "Asura Buster (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, asurabuss02, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "hack", "Asura Buster (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
+

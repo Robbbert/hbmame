@@ -1,14 +1,10 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 // Proyecto De Inicio:"2016/2017"
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/gradius3.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********
+/***********
  Gradius III
 **************/
 
@@ -51,6 +47,8 @@ ROM_START( gradius3s01 )
 	ROM_LOAD( "945_l11b.c20", 0x60000, 0x20000, CRC(89ea3baf) SHA1(8edcbaa7969185cfac48c02559826d1b8b081f3f) )
 ROM_END
 
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gradius III
 GAME( 1989, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, empty_init, ROT0, "yumeji1768", "Gradius III (Secret fighters)", MACHINE_SUPPORTS_SAVE )
+

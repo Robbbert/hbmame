@@ -1,9 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 ##
 ## license:BSD-3-Clause
 ## copyright-holders:Aaron Giles, Andrew Gardner
-
-from __future__ import with_statement
 
 import io
 import re
@@ -28,7 +26,7 @@ def parse_args():
             format = 'plist'
         elif flags and (sys.argv[i] == '-b'):
             i += 1
-            if (i >= len(sys.argv)):
+            if i >= len(sys.argv):
                 usage()
             else:
                 target = sys.argv[i]
@@ -51,14 +49,14 @@ def parse_args():
         usage()
     return target, format, input, output
 
-
+## Winui - display 0.nnn.0
 def extract_version(input):
-    pattern = re.compile('\s+BARE_BUILD_VERSION\s+"(([^."]+)\.([^."]+))"')
+    pattern = re.compile('\s+BARE_BUILD_VERSION\s+"(([^."]+)\.([^."]+)\.([^."]+))"')
     for line in input.readlines():
         match = pattern.search(line)
         if match:
             return match.group(1), match.group(2), match.group(3)
-##    return '0.226.A','0','226'
+##    return '0.245.x','0','245' - example output
     return None, None, None
 
 
@@ -71,7 +69,7 @@ except IOError:
     sys.exit(1)
 
 version_string, version_major, version_minor = extract_version(fp)
-version_build = "0"
+version_build = "1"
 version_subbuild = "0"
 if not version_string:
     sys.stderr.write("Unable to extract version from source file '%s'\n" % srcfile)

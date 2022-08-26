@@ -1,12 +1,8 @@
+// license:BSD-3-Clause
+// copyright-holders:Robbbert
 // Proyecto De Inicio:"2016/2017"
 // Derechos Del Autor:Gaston90
 #include "../mame/drivers/kikikai.cpp"
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
 
  /***********
  KiKi KaiKai

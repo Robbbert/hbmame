@@ -17,7 +17,8 @@ void applefdintf_device::formats_525_13(format_registration &fr)
 
 void applefdintf_device::formats_525(format_registration &fr)
 {
-	fr.add(FLOPPY_A216S_FORMAT);
+	fr.add(FLOPPY_A216S_DOS_FORMAT);
+	fr.add(FLOPPY_A216S_PRODOS_FORMAT);
 	fr.add(FLOPPY_RWTS18_FORMAT);
 	fr.add(FLOPPY_EDD_FORMAT);
 	fr.add(FLOPPY_WOZ_FORMAT);
@@ -32,7 +33,7 @@ void applefdintf_device::formats_35(format_registration &fr)
 	fr.add(FLOPPY_APPLE_GCR_FORMAT);
 	fr.add(FLOPPY_APPLE_2MG_FORMAT);
 
-	fr.add(FS_PRODOS);
+	fr.add(fs::PRODOS);
 }
 
 void applefdintf_device::floppies_525(device_slot_interface &device)
@@ -52,7 +53,8 @@ applefdintf_device::applefdintf_device(const machine_config &mconfig, device_typ
 	m_phases_cb(*this),
 	m_devsel_cb(*this),
 	m_sel35_cb(*this),
-	m_hdsel_cb(*this)
+	m_hdsel_cb(*this),
+	m_dat1byte_cb(*this)
 {
 }
 
@@ -62,6 +64,7 @@ void applefdintf_device::device_start()
 	m_devsel_cb.resolve_safe();
 	m_sel35_cb.resolve_safe();
 	m_hdsel_cb.resolve_safe();
+	m_dat1byte_cb.resolve_safe();
 	save_item(NAME(m_phases));
 	save_item(NAME(m_phases_input));
 }

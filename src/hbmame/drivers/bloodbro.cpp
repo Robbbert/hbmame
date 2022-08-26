@@ -34,3 +34,4 @@ ROM_START( bloodbros01 )
 ROM_END
 
 GAME( 2009, bloodbros01,  bloodbro, bloodbro, bloodbro, bloodbro_state, empty_init, ROT0, "pipi899", "Blood Bros (Ex Super Version 2009-03-09)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+

@@ -149,6 +149,8 @@ ROM_START( galagax )
 	ROM_LOAD( "sb-9.m11",    0x0300, 0x0100, CRC(4921635c) SHA1(aee37d6cdc36acf0f11ff5f93e7b16e4b12f6c39) )
 ROM_END
 
+
 GAME( 2015, 1942c64, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Minwah", "1942 (With C64 music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, 1942fpa, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "cmonkey", "1942 (With attract mode in free play)", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, galagax, 1942, _1942, 1942, _1942_state, driver_init, ROT270, "Jerky and Chris Moore", "1942 (Galaga X)", MACHINE_SUPPORTS_SAVE )
+

@@ -199,7 +199,7 @@ void FreeFolders(void)
 /* Reset folder filters */
 void ResetFilters(void)
 {
-	if (treeFolders > 0)
+	if (treeFolders)
 		for (int i = 0; i < (int)numFolders; i++)
 			treeFolders[i]->m_dwFlags &= ~F_MASK;
 }
@@ -928,7 +928,7 @@ void CreateBIOSFolders(int parent_index)
 void CreateCPUFolders(int parent_index)
 {
 	int device_folder_count = 0;
-	LPTREEFOLDER device_folders[512];
+	LPTREEFOLDER device_folders[1024];
 	LPTREEFOLDER folder;
 	int nFolder = numFolders;
 
@@ -940,40 +940,48 @@ void CreateCPUFolders(int parent_index)
 		for (device_execute_interface &device : execute_interface_enumerator(config.root_device()))
 		{
 			// get the name
-			std::string dev_name = device.device().name();
+			const char* dev_name = device.device().name();
 
-			// do we have a folder for this device?
-			folder = NULL;
-			for (int j = 0; j < device_folder_count; j++)
+			if (dev_name)
 			{
-				if (!strcmp(dev_name.c_str(), device_folders[j]->m_lpTitle))
+				// do we have a folder for this device?
+				folder = NULL;
+				for (int j = 0; j < device_folder_count; j++)
 				{
-					folder = device_folders[j];
-					break;
+					if (strcmp(dev_name, device_folders[j]->m_lpTitle)==0)
+					{
+						folder = device_folders[j];
+						break;
+					}
 				}
+
+				// are we forced to create a folder?
+				if (folder == NULL)
+				{
+					LPTREEFOLDER lpTemp = NewFolder(dev_name, next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
+					ExtraFolderData[next_folder_id] = (EXFOLDERDATA*)malloc(sizeof(EXFOLDERDATA));
+					memset(ExtraFolderData[next_folder_id], 0, sizeof(EXFOLDERDATA));
+					ExtraFolderData[next_folder_id]->m_nFolderId = next_folder_id;
+					ExtraFolderData[next_folder_id]->m_nIconId = IDI_CPU;
+					ExtraFolderData[next_folder_id]->m_nParent = treeFolders[parent_index]->m_nFolderId;
+					ExtraFolderData[next_folder_id]->m_nSubIconId = -1;
+					strcpy( ExtraFolderData[next_folder_id]->m_szTitle, dev_name );
+					ExtraFolderData[next_folder_id++]->m_dwFlags = 0;
+					AddFolder(lpTemp);
+					folder = treeFolders[nFolder++];
+
+					// record that we found this folder
+					device_folders[device_folder_count++] = folder;
+					if (device_folder_count >= std::size(device_folders))
+					{
+						printf("CreateCPUFolders buffer overrun: %d\n",device_folder_count);
+						fflush(stdout);
+					}
+				}
+
+				// cpu type #'s are one-based
+				AddGame(folder, i);
 			}
-
-			// are we forced to create a folder?
-			if (folder == NULL)
-			{
-				LPTREEFOLDER lpTemp = NewFolder(device.device().name(), next_folder_id, parent_index, IDI_CPU, GetFolderFlags(numFolders));
-				ExtraFolderData[next_folder_id] = (EXFOLDERDATA*)malloc(sizeof(EXFOLDERDATA));
-				memset(ExtraFolderData[next_folder_id], 0, sizeof(EXFOLDERDATA));
-				ExtraFolderData[next_folder_id]->m_nFolderId = next_folder_id;
-				ExtraFolderData[next_folder_id]->m_nIconId = IDI_CPU;
-				ExtraFolderData[next_folder_id]->m_nParent = treeFolders[parent_index]->m_nFolderId;
-				ExtraFolderData[next_folder_id]->m_nSubIconId = -1;
-				strcpy( ExtraFolderData[next_folder_id]->m_szTitle, device.device().name() );
-				ExtraFolderData[next_folder_id++]->m_dwFlags = 0;
-				AddFolder(lpTemp);
-				folder = treeFolders[nFolder++];
-
-				// record that we found this folder
-				device_folders[device_folder_count++] = folder;
-			}
-
-			// cpu type #'s are one-based
-			AddGame(folder, i);
 		}
 	}
 	const char *fname = "CPU";
@@ -996,41 +1004,49 @@ void CreateSoundFolders(int parent_index)
 		for (device_sound_interface &device : sound_interface_enumerator(config.root_device()))
 		{
 			// get the name
-			std::string dev_name = device.device().name();
+			const char* dev_name = device.device().name();
 
-			// do we have a folder for this device?
-			folder = NULL;
-			for (int j = 0; j < device_folder_count; j++)
+			if (dev_name)
 			{
-				if (!strcmp(dev_name.c_str(), device_folders[j]->m_lpTitle))
+				// do we have a folder for this device?
+				folder = NULL;
+				for (int j = 0; j < device_folder_count; j++)
 				{
-					folder = device_folders[j];
-					break;
+					if (strcmp(dev_name, device_folders[j]->m_lpTitle)==0)
+					{
+						folder = device_folders[j];
+						break;
+					}
 				}
+
+				// are we forced to create a folder?
+				if (folder == NULL)
+				{
+					LPTREEFOLDER lpTemp = NewFolder(dev_name, next_folder_id, parent_index, IDI_SOUND, GetFolderFlags(numFolders));
+					ExtraFolderData[next_folder_id] = (EXFOLDERDATA*)malloc(sizeof(EXFOLDERDATA));
+					memset(ExtraFolderData[next_folder_id], 0, sizeof(EXFOLDERDATA));
+
+					ExtraFolderData[next_folder_id]->m_nFolderId = next_folder_id;
+					ExtraFolderData[next_folder_id]->m_nIconId = IDI_SOUND;
+					ExtraFolderData[next_folder_id]->m_nParent = treeFolders[parent_index]->m_nFolderId;
+					ExtraFolderData[next_folder_id]->m_nSubIconId = -1;
+					strcpy( ExtraFolderData[next_folder_id]->m_szTitle, dev_name );
+					ExtraFolderData[next_folder_id++]->m_dwFlags = 0;
+					AddFolder(lpTemp);
+					folder = treeFolders[nFolder++];
+
+					// record that we found this folder
+					device_folders[device_folder_count++] = folder;
+					if (device_folder_count >= std::size(device_folders))
+					{
+						printf("CreateSoundFolders buffer overrun: %d\n",device_folder_count);
+						fflush(stdout);
+					}
+				}
+
+				// cpu type #'s are one-based
+				AddGame(folder, i);
 			}
-
-			// are we forced to create a folder?
-			if (folder == NULL)
-			{
-				LPTREEFOLDER lpTemp = NewFolder(device.device().name(), next_folder_id, parent_index, IDI_SOUND, GetFolderFlags(numFolders));
-				ExtraFolderData[next_folder_id] = (EXFOLDERDATA*)malloc(sizeof(EXFOLDERDATA));
-				memset(ExtraFolderData[next_folder_id], 0, sizeof(EXFOLDERDATA));
-
-				ExtraFolderData[next_folder_id]->m_nFolderId = next_folder_id;
-				ExtraFolderData[next_folder_id]->m_nIconId = IDI_SOUND;
-				ExtraFolderData[next_folder_id]->m_nParent = treeFolders[parent_index]->m_nFolderId;
-				ExtraFolderData[next_folder_id]->m_nSubIconId = -1;
-				strcpy( ExtraFolderData[next_folder_id]->m_szTitle, device.device().name() );
-				ExtraFolderData[next_folder_id++]->m_dwFlags = 0;
-				AddFolder(lpTemp);
-				folder = treeFolders[nFolder++];
-
-				// record that we found this folder
-				device_folders[device_folder_count++] = folder;
-			}
-
-			// cpu type #'s are one-based
-			AddGame(folder, i);
 		}
 	}
 	const char *fname = "Sound";
@@ -1540,11 +1556,14 @@ void SelectTreeViewFolder(int folder_id)
 		tvi.mask = TVIF_PARAM;
 		res = TreeView_GetItem(hTreeView,&tvi);
 
-		if (((LPTREEFOLDER)tvi.lParam)->m_nFolderId == folder_id)
+		if (tvi.lParam)
 		{
-			res = TreeView_SelectItem(hTreeView,tvi.hItem);
-			SetCurrentFolder((LPTREEFOLDER)tvi.lParam);
-			return;
+			if (((LPTREEFOLDER)tvi.lParam)->m_nFolderId == folder_id)
+			{
+				res = TreeView_SelectItem(hTreeView,tvi.hItem);
+				SetCurrentFolder((LPTREEFOLDER)tvi.lParam);
+				return;
+			}
 		}
 
 		hti_next = TreeView_GetChild(hTreeView,hti);
@@ -2004,7 +2023,7 @@ static int InitExtraFolders(void)
 
 	/* NPW 9-Feb-2003 - MSVC stat() doesn't like stat() called with an empty string */
 	if (!dir)
-		dir = ".";
+		return 0; //dir = ".";
 
 	// Why create the directory if it doesn't exist, just return 0 folders.
 	if (stat(dir, &stat_buffer) != 0)
@@ -2014,14 +2033,16 @@ static int InitExtraFolders(void)
 
 	chdir(dir);
 
-	long hLong = _findfirst("*", &files);
-
 	for (i = 0; i < MAX_EXTRA_FOLDERS; i++)
 		ExtraFolderIcons[i] = NULL;
 
 	numExtraIcons = 0;
+	intptr_t hLong = 0L;
 
-	while (!_findnext(hLong, &files))
+	if ( (hLong = _findfirst("*.ini", &files)) == -1L )
+		return 0;
+
+	do
 	{
 		if ((files.attrib & _A_SUBDIR) == 0)
 		{
@@ -2096,9 +2117,10 @@ static int InitExtraFolders(void)
 				}
 			}
 		}
-	}
+	} while( _findnext(hLong, &files) == 0);
 
 	chdir(curdir);
+	_findclose(hLong);
 	return count;
 }
 

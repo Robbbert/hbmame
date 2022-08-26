@@ -8,12 +8,14 @@
 
 *********************************************************************/
 
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-
 #include "ap2_dsk.h"
 #include "basicdsk.h"
+
+#include "ioprocs.h"
+
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
 
 
 #define APPLE2_IMAGE_DO     0
@@ -535,126 +537,157 @@ static const uint8_t prodos_skewing[] =
 };
 
 
-a2_16sect_format::a2_16sect_format() : floppy_image_format_t(), m_prodos_order(false)
+a2_16sect_format::a2_16sect_format(bool prodos_order) : floppy_image_format_t(), m_prodos_order(prodos_order)
 {
 }
 
-const char *a2_16sect_format::name() const
+a2_16sect_dos_format::a2_16sect_dos_format() : a2_16sect_format(false)
 {
-		return "a2_16sect";
 }
 
-const char *a2_16sect_format::description() const
+const char *a2_16sect_dos_format::name() const
 {
-		return "Apple II 16-sector dsk image";
+	return "a2_16sect_dos";
 }
 
-const char *a2_16sect_format::extensions() const
+const char *a2_16sect_dos_format::description() const
 {
-		return "dsk,do,po";
+	return "Apple II 16-sector dsk image (DOS sector order)";
+}
+
+const char *a2_16sect_dos_format::extensions() const
+{
+	return "dsk,do";
+}
+
+a2_16sect_prodos_format::a2_16sect_prodos_format() : a2_16sect_format(true)
+{
+}
+
+const char *a2_16sect_prodos_format::name() const
+{
+	return "a2_16sect_prodos";
+}
+
+const char *a2_16sect_prodos_format::description() const
+{
+	return "Apple II 16-sector dsk image (ProDos sector order)";
+}
+
+const char *a2_16sect_prodos_format::extensions() const
+{
+	return "dsk,po";
 }
 
 bool a2_16sect_format::supports_save() const
 {
-		return true;
+	return true;
 }
 
-int a2_16sect_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
+int a2_16sect_format::identify(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants) const
 {
-		uint64_t size = io_generic_size(io);
-		//uint32_t expected_size = 35 * 16 * 256;
-		uint32_t expected_size = APPLE2_TRACK_COUNT * 16 * 256;
-
-		// check standard size plus some oddball sizes in our softlist
-		if ((size == expected_size) || (size == 35 * 16 * 256) || (size == 143403) || (size == 143363) || (size == 143358))
-		{
-			return 50;
-		}
-
+	uint64_t size;
+	if (io.length(size))
 		return 0;
+
+	//uint32_t expected_size = 35 * 16 * 256;
+	uint32_t expected_size = APPLE2_TRACK_COUNT * 16 * 256;
+
+	// check standard size plus some oddball sizes in our softlist
+	if ((size != expected_size) && (size != 35 * 16 * 256) && (size != 143403) && (size != 143363) && (size != 143358))
+	{
+		return 0;
+	}
+
+	uint8_t sector_data[256*2];
+	static const unsigned char pascal_block1[4] = { 0x08, 0xa5, 0x0f, 0x29 };
+	static const unsigned char pascal2_block1[4] = { 0xff, 0xa2, 0x00, 0x8e };
+	static const unsigned char dos33_block1[4] = { 0xa2, 0x02, 0x8e, 0x52 };
+	static const unsigned char sos_block1[4] = { 0xc9, 0x20, 0xf0, 0x3e };
+	static const unsigned char a3a2emul_block1[6] = { 0x8d, 0xd0, 0x03, 0x4c, 0xc7, 0xa4 };
+	static const unsigned char cpm22_block1[8] = { 0xa2, 0x55, 0xa9, 0x00, 0x9d, 0x00, 0x0d, 0xca };
+	static const unsigned char subnod_block1[8] = { 0x63, 0xaa, 0xf0, 0x76, 0x8d, 0x63, 0xaa, 0x8e };
+
+	size_t actual;
+	io.read_at(0, sector_data, 256*2, actual);
+
+	bool prodos_order = false;
+	// check ProDOS boot block
+	if (!memcmp("PRODOS", &sector_data[0x103], 6))
+	{
+		prodos_order = true;
+	}   // check for alternate version ProDOS boot block
+	if (!memcmp("PRODOS", &sector_data[0x121], 6))
+	{
+		prodos_order = true;
+	}   // check for ProDOS order SOS disk
+	else if (!memcmp(sos_block1, &sector_data[0x100], 4))
+	{
+		prodos_order = true;
+	}   // check for Apple III A2 emulator disk in ProDOS order
+	else if (!memcmp(a3a2emul_block1, &sector_data[0x100], 6))
+	{
+		prodos_order = true;
+	}   // check for PCPI Applicard software in ProDOS order
+	else if (!memcmp("COPYRIGHT (C) 1979, DIGITAL RESEARCH", &sector_data[0x118], 36))
+	{
+		prodos_order = true;
+	}   // check Apple II Pascal
+	else if (!memcmp("SYSTEM.APPLE", &sector_data[0xd7], 12))
+	{
+		// Pascal discs can still be DOS order.
+		// Check for the second half of the boot code at 0x100
+		// (which means ProDOS order)
+		if (!memcmp(pascal_block1, &sector_data[0x100], 4))
+		{
+			prodos_order = true;
+		}
+	}   // check for DOS 3.3 disks in ProDOS order
+	else if (!memcmp(dos33_block1, &sector_data[0x100], 4))
+	{
+		prodos_order = true;
+	}   // check for a later version of the Pascal boot block
+	else if (!memcmp(pascal2_block1, &sector_data[0x100], 4))
+	{
+		prodos_order = true;
+	}   // check for CP/M disks in ProDOS order
+	else if (!memcmp(cpm22_block1, &sector_data[0x100], 8))
+	{
+		prodos_order = true;
+	}   // check for subnodule disk
+	else if (!memcmp(subnod_block1, &sector_data[0x100], 8))
+	{
+		prodos_order = true;
+	}   // check for ProDOS 2.5's new boot block
+	else if (!memcmp("PRODOS", &sector_data[0x3a], 6))
+	{
+		prodos_order = true;
+	}
+	else if (!memcmp("PRODOS", &sector_data[0x40], 6))
+	{
+		prodos_order = true;
+	}
+
+	return FIFID_SIZE | (m_prodos_order == prodos_order ? FIFID_HINT : 0);
 }
 
-bool a2_16sect_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_16sect_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
-	uint64_t size = io_generic_size(io);
+	uint64_t size;
+	if (io.length(size))
+		return false;
 
 	image->set_form_variant(floppy_image::FF_525, floppy_image::SSSD);
 
-	m_prodos_order = false;
-	m_tracks = (size == (40 * 16 * 256)) ? 40 : 35;
+	int tracks = (size == (40 * 16 * 256)) ? 40 : 35;
 
 	int fpos = 0;
-	for(int track=0; track < m_tracks; track++) {
+	for(int track=0; track < tracks; track++) {
 		std::vector<uint32_t> track_data;
 		uint8_t sector_data[256*16];
-		static const unsigned char pascal_block1[4] = { 0x08, 0xa5, 0x0f, 0x29 };
-		static const unsigned char pascal2_block1[4] = { 0xff, 0xa2, 0x00, 0x8e };
-		static const unsigned char dos33_block1[4] = { 0xa2, 0x02, 0x8e, 0x52 };
-		static const unsigned char sos_block1[4] = { 0xc9, 0x20, 0xf0, 0x3e };
-		static const unsigned char a3a2emul_block1[6] = { 0x8d, 0xd0, 0x03, 0x4c, 0xc7, 0xa4 };
-		static const unsigned char cpm22_block1[8] = { 0xa2, 0x55, 0xa9, 0x00, 0x9d, 0x00, 0x0d, 0xca };
-		static const unsigned char subnod_block1[8] = { 0x63, 0xaa, 0xf0, 0x76, 0x8d, 0x63, 0xaa, 0x8e };
 
-		io_generic_read(io, sector_data, fpos, 256*16);
-
-		if (track == 0 && fpos == 0)
-		{
-			// check ProDOS boot block
-			if (!memcmp("PRODOS", &sector_data[0x103], 6))
-			{
-				m_prodos_order = true;
-			}   // check for alternate version ProDOS boot block
-			if (!memcmp("PRODOS", &sector_data[0x121], 6))
-			{
-				m_prodos_order = true;
-			}   // check for ProDOS order SOS disk
-			else if (!memcmp(sos_block1, &sector_data[0x100], 4))
-			{
-				m_prodos_order = true;
-			}   // check for Apple III A2 emulator disk in ProDOS order
-			else if (!memcmp(a3a2emul_block1, &sector_data[0x100], 6))
-			{
-				m_prodos_order = true;
-			}   // check for PCPI Applicard software in ProDOS order
-			else if (!memcmp("COPYRIGHT (C) 1979, DIGITAL RESEARCH", &sector_data[0x118], 36))
-			{
-				m_prodos_order = true;
-			}   // check Apple II Pascal
-			else if (!memcmp("SYSTEM.APPLE", &sector_data[0xd7], 12))
-			{
-				// Pascal discs can still be DOS order.
-				// Check for the second half of the boot code at 0x100
-				// (which means ProDOS order)
-				if (!memcmp(pascal_block1, &sector_data[0x100], 4))
-				{
-					m_prodos_order = true;
-				}
-			}   // check for DOS 3.3 disks in ProDOS order
-			else if (!memcmp(dos33_block1, &sector_data[0x100], 4))
-			{
-				m_prodos_order = true;
-			}   // check for a later version of the Pascal boot block
-			else if (!memcmp(pascal2_block1, &sector_data[0x100], 4))
-			{
-				m_prodos_order = true;
-			}   // check for CP/M disks in ProDOS order
-			else if (!memcmp(cpm22_block1, &sector_data[0x100], 8))
-			{
-				m_prodos_order = true;
-			}   // check for subnodule disk
-			else if (!memcmp(subnod_block1, &sector_data[0x100], 8))
-			{
-				m_prodos_order = true;
-			}   // check for ProDOS 2.5's new boot block
-			else if (!memcmp("PRODOS", &sector_data[0x3a], 6))
-			{
-				m_prodos_order = true;
-			}
-			else if (!memcmp("PRODOS", &sector_data[0x40], 6))
-			{
-				m_prodos_order = true;
-			}
-		}
+		size_t actual;
+		io.read_at(fpos, sector_data, 256*16, actual);
 
 		fpos += 256*16;
 		for(int i=0; i<49; i++)
@@ -734,13 +767,9 @@ uint8_t a2_16sect_format::gb(const std::vector<bool> &buf, int &pos, int &wrap)
 		return v;
 }
 
-void a2_16sect_format::update_chk(const uint8_t *data, int size, uint32_t &chk)
-{
-}
-
 //#define VERBOSE_SAVE
 
-bool a2_16sect_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_16sect_format::save(util::random_read_write &io, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
 		int g_tracks, g_heads;
 		int visualgrid[16][APPLE2_TRACK_COUNT]; // visualizer grid, cleared/initialized below
@@ -764,20 +793,17 @@ bool a2_16sect_format::save(io_generic *io, const std::vector<uint32_t> &variant
 // data postamble is good
 #define DATAPOST 16
 		for (auto & elem : visualgrid) {
-			for (int j = 0; j < m_tracks; j++) {
+			for (int j = 0; j < APPLE2_TRACK_COUNT; j++) {
 				elem[j] = 0;
 			}
 		}
 		image->get_actual_geometry(g_tracks, g_heads);
 
-		if(!m_tracks)
-				m_tracks = g_tracks;
-
 		int head = 0;
 
 		int pos_data = 0;
 
-		for(int track=0; track < m_tracks; track++) {
+		for(int track=0; track < g_tracks; track++) {
 				uint8_t sectdata[(256)*16];
 				memset(sectdata, 0, sizeof(sectdata));
 				int nsect = 16;
@@ -938,8 +964,9 @@ bool a2_16sect_format::save(io_generic *io, const std::vector<uint32_t> &variant
 				}
 				for(int i=0; i<nsect; i++) {
 						//if(nsect>0) printf("t%d,", track);
-						uint8_t *data = sectdata + (256)*i;
-						io_generic_write(io, data, pos_data, 256);
+						uint8_t const *const data = sectdata + (256)*i;
+						size_t actual;
+						io.write_at(pos_data, data, 256, actual);
 						pos_data += 256;
 				}
 				//printf("\n");
@@ -952,11 +979,11 @@ bool a2_16sect_format::save(io_generic *io, const std::vector<uint32_t> &variant
 			for (int i = 0; i < 16; i++) {
 				if (visualgrid[i][j] == NOTFOUND) printf("-NF- ");
 				else {
-				if (visualgrid[i][j] & ADDRFOUND) printf("a"); else printf(" ");
-				if (visualgrid[i][j] & ADDRGOOD) printf("A"); else printf(" ");
-				if (visualgrid[i][j] & DATAFOUND) printf("d"); else printf(" ");
-				if (visualgrid[i][j] & DATAGOOD) { printf("D"); total_good++; } else printf(" ");
-				if (visualgrid[i][j] & DATAPOST) printf("."); else printf(" ");
+					if (visualgrid[i][j] & ADDRFOUND) printf("a"); else printf(" ");
+					if (visualgrid[i][j] & ADDRGOOD) printf("A"); else printf(" ");
+					if (visualgrid[i][j] & DATAFOUND) printf("d"); else printf(" ");
+					if (visualgrid[i][j] & DATAGOOD) { printf("D"); total_good++; } else printf(" ");
+					if (visualgrid[i][j] & DATAPOST) printf("."); else printf(" ");
 				}
 			}
 			printf("\n");
@@ -967,7 +994,8 @@ bool a2_16sect_format::save(io_generic *io, const std::vector<uint32_t> &variant
 		return true;
 }
 
-const floppy_format_type FLOPPY_A216S_FORMAT = &floppy_image_format_creator<a2_16sect_format>;
+const a2_16sect_dos_format FLOPPY_A216S_DOS_FORMAT;
+const a2_16sect_prodos_format FLOPPY_A216S_PRODOS_FORMAT;
 /* RWTS18 format
  * Developed by Roland Gustafsson (http://www.acts.org/roland/index.html)
    for Br0derbund Software around 1986
@@ -1019,14 +1047,16 @@ bool a2_rwts18_format::supports_save() const
 		return true;
 }
 
-int a2_rwts18_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
+int a2_rwts18_format::identify(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants) const
 {
-		uint64_t size = io_generic_size(io);
-		uint32_t expected_size = APPLE2_TRACK_COUNT * 16 * 256;
-		return size == expected_size;
+		uint64_t size;
+		if(io.length(size))
+			return 0;
+		uint32_t const expected_size = APPLE2_TRACK_COUNT * 16 * 256;
+		return size == expected_size ? FIFID_SIZE : 0;
 }
 
-bool a2_rwts18_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_rwts18_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
 /*      TODO: rewrite me properly
         uint8_t sector_data[(256)*16];
@@ -1046,7 +1076,8 @@ bool a2_rwts18_format::load(io_generic *io, uint32_t form_factor, const std::vec
                                 sectors[si].size = 256;
                                 sectors[si].sector_id = si;
                                 sectors[si].sector_info = format;
-                                io_generic_read(io, data, pos_data, 256);
+                                size_t actual;
+                                io.read_at(pos_data, data, 256, actual);
                                 pos_data += 256;
                         }
                         generate_track(mac_gcr, track, head, sectors, 16, 3104*16, image);
@@ -1071,11 +1102,7 @@ uint8_t a2_rwts18_format::gb(const std::vector<bool> &buf, int &pos, int &wrap)
 		return v;
 }
 
-void a2_rwts18_format::update_chk(const uint8_t *data, int size, uint32_t &chk)
-{
-}
-
-bool a2_rwts18_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_rwts18_format::save(util::random_read_write &io, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
 		int g_tracks, g_heads;
 		int visualgrid[18][APPLE2_TRACK_COUNT]; // visualizer grid, cleared/initialized below
@@ -1266,8 +1293,9 @@ bool a2_rwts18_format::save(io_generic *io, const std::vector<uint32_t> &variant
 		}
 		for(int i=0; i<nsect; i++) {
 				//if(nsect>0) printf("t%d,", track);
-				uint8_t *data = sectdata + (256)*i;
-				io_generic_write(io, data, pos_data, 256);
+				uint8_t const *const data = sectdata + (256)*i;
+				size_t actual;
+				io.write_at(pos_data, data, 256, actual);
 				pos_data += 256;
 		}
 
@@ -1447,8 +1475,9 @@ bool a2_rwts18_format::save(io_generic *io, const std::vector<uint32_t> &variant
 				}
 				for(int i=0; i<nsect; i++) {
 						//if(nsect>0) printf("t%d,", track);
-						uint8_t *data = sectdata + (256)*i;
-						io_generic_write(io, data, pos_data, 256);
+						uint8_t const *const data = sectdata + (256)*i;
+						size_t actual;
+						io.write_at(pos_data, data, 256, actual);
 						pos_data += 256;
 				}
 				//printf("\n");
@@ -1474,7 +1503,7 @@ bool a2_rwts18_format::save(io_generic *io, const std::vector<uint32_t> &variant
 		return true;
 }
 
-const floppy_format_type FLOPPY_RWTS18_FORMAT = &floppy_image_format_creator<a2_rwts18_format>;
+const a2_rwts18_format FLOPPY_RWTS18_FORMAT;
 
 a2_edd_format::a2_edd_format() : floppy_image_format_t()
 {
@@ -1500,9 +1529,12 @@ bool a2_edd_format::supports_save() const
 	return false;
 }
 
-int a2_edd_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
+int a2_edd_format::identify(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants) const
 {
-	return ((io_generic_size(io) == 2244608) || (io_generic_size(io) == 2310144)) ? 50 : 0;
+	uint64_t size;
+	if (io.length(size))
+		return 0;
+	return ((size == 2244608) || (size == 2310144)) ? FIFID_SIZE : 0;
 }
 
 uint8_t a2_edd_format::pick(const uint8_t *data, int pos)
@@ -1510,23 +1542,20 @@ uint8_t a2_edd_format::pick(const uint8_t *data, int pos)
 	return ((data[pos>>3] << 8) | data[(pos>>3)+1]) >> (8-(pos & 7));
 }
 
-bool a2_edd_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_edd_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
-	uint8_t *img;
 	uint8_t nibble[16384], stream[16384];
 	int npos[16384];
 
-	img = (uint8_t *) malloc(2244608);
-
+	std::unique_ptr<uint8_t []> img(new (std::nothrow) uint8_t[2244608]);
 	if (!img)
-	{
 		return false;
-	}
 
-	io_generic_read(io, img, 0, 2244608);
+	size_t actual;
+	io.read_at(0, img.get(), 2244608, actual);
 
 	for(int i=0; i<137; i++) {
-		const uint8_t *trk = img + 16384*i;
+		uint8_t const *const trk = &img[16384*i];
 		int pos = 0;
 		int wpos = 0;
 		while(pos < 16383*8) {
@@ -1590,14 +1619,14 @@ bool a2_edd_format::load(io_generic *io, uint32_t form_factor, const std::vector
 		generate_track_from_bitstream(i >> 2, 0, stream, len, image, i & 3);
 		image->set_write_splice_position(i >> 2, 0, uint32_t(uint64_t(200'000'000)*splice/len), i & 3);
 	}
-	free(img);
+	img.reset();
 
 	image->set_form_variant(floppy_image::FF_525, floppy_image::SSSD);
 
 	return true;
 }
 
-const floppy_format_type FLOPPY_EDD_FORMAT = &floppy_image_format_creator<a2_edd_format>;
+const a2_edd_format FLOPPY_EDD_FORMAT;
 
 
 a2_woz_format::a2_woz_format() : floppy_image_format_t()
@@ -1627,26 +1656,31 @@ bool a2_woz_format::supports_save() const
 const uint8_t a2_woz_format::signature[8] = { 0x57, 0x4f, 0x5a, 0x31, 0xff, 0x0a, 0x0d, 0x0a };
 const uint8_t a2_woz_format::signature2[8] = { 0x57, 0x4f, 0x5a, 0x32, 0xff, 0x0a, 0x0d, 0x0a };
 
-int a2_woz_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
+int a2_woz_format::identify(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants) const
 {
 	uint8_t header[8];
-	io_generic_read(io, header, 0, 8);
-	if (!memcmp(header, signature, 8)) return 100;
-	if (!memcmp(header, signature2, 8)) return 100;
+	size_t actual;
+	io.read_at(0, header, 8, actual);
+	if (!memcmp(header, signature, 8)) return FIFID_SIGN;
+	if (!memcmp(header, signature2, 8)) return FIFID_SIGN;
 	return 0;
 }
 
-bool a2_woz_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_woz_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
-	std::vector<uint8_t> img(io_generic_size(io));
-	io_generic_read(io, &img[0], 0, img.size());
+	uint64_t image_size;
+	if(io.length(image_size))
+		return false;
+	std::vector<uint8_t> img(image_size);
+	size_t actual;
+	io.read_at(0, &img[0], img.size(), actual);
 
 	// Check signature
-	if ((memcmp(&img[0], signature, 8)) && (memcmp(&img[0], signature2, 8)))
+	if((memcmp(&img[0], signature, 8)) && (memcmp(&img[0], signature2, 8)))
 		return false;
 
 	uint32_t woz_vers = 1;
-	if (!memcmp(&img[0], signature2, 8)) woz_vers = 2;
+	if(!memcmp(&img[0], signature2, 8)) woz_vers = 2;
 
 	// Check integrity
 	uint32_t crc = crc32r(&img[12], img.size() - 12);
@@ -1663,7 +1697,7 @@ bool a2_woz_format::load(io_generic *io, uint32_t form_factor, const std::vector
 
 	uint32_t info_vers = r8(img, off_info + 0);
 
-	if ((info_vers != 1) && (info_vers != 2))
+	if((info_vers != 1) && (info_vers != 2))
 		return false;
 
 	bool is_35 = r8(img, off_info + 1) == 2;
@@ -1709,7 +1743,21 @@ bool a2_woz_format::load(io_generic *io, uint32_t form_factor, const std::vector
 				if (r32(img, trks_off + 4) == 0)
 					return false;
 
-				generate_track_from_bitstream(track, head, &img[boff], r32(img, trks_off + 4), image, subtrack, 0xffff);
+				uint32_t track_size = r32(img, trks_off + 4);
+
+				// With 5.25 floppies the end-of-track may be missing
+				// if unformatted.  Accept track length down to 95% of
+				// 51090, otherwise pad it
+
+				bool short_track = !is_35 && track_size < 48535;
+
+				if(short_track) {
+					std::vector<uint8_t> buffer(6387, 0);
+					memcpy(buffer.data(), &img[boff], (track_size + 7) / 8);
+					generate_track_from_bitstream(track, head, buffer.data(), 51090, image, subtrack, 0xffff);
+
+				} else
+					generate_track_from_bitstream(track, head, &img[boff], track_size, image, subtrack, 0xffff);
 
 				if(is_35 && !track && head)
 					image->set_variant(r32(img, trks_off + 4) >= 90000 ? floppy_image::DSHD : floppy_image::DSDD);
@@ -1721,7 +1769,7 @@ bool a2_woz_format::load(io_generic *io, uint32_t form_factor, const std::vector
 	return true;
 }
 
-bool a2_woz_format::save(io_generic *io, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_woz_format::save(util::random_read_write &io, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
 	std::vector<std::vector<bool>> tracks(160);
 	bool twosided = false;
@@ -1823,7 +1871,8 @@ bool a2_woz_format::save(io_generic *io, const std::vector<uint32_t> &variants, 
 
 	w32(data, 8, crc32r(&data[12], data.size() - 12));
 
-	io_generic_write(io, data.data(), 0, data.size());
+	size_t actual;
+	io.write_at(0, data.data(), data.size(), actual);
 	return true;
 }
 
@@ -1884,7 +1933,7 @@ uint32_t a2_woz_format::crc32r(const uint8_t *data, uint32_t size)
 }
 
 
-const floppy_format_type FLOPPY_WOZ_FORMAT = &floppy_image_format_creator<a2_woz_format>;
+const a2_woz_format FLOPPY_WOZ_FORMAT;
 
 
 a2_nib_format::a2_nib_format() : floppy_image_format_t()
@@ -1911,12 +1960,15 @@ bool a2_nib_format::supports_save() const
 	return false;
 }
 
-int a2_nib_format::identify(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants)
+int a2_nib_format::identify(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants) const
 {
-	const auto size = io_generic_size(io);
-	if (size == expected_size_35t || size == expected_size_40t) {
-		return 50;
-	}
+	uint64_t size;
+	if (io.length(size))
+		return 0;
+
+	if (size == expected_size_35t || size == expected_size_40t)
+		return FIFID_SIZE;
+
 	return 0;
 }
 
@@ -2031,18 +2083,20 @@ std::vector<uint32_t> a2_nib_format::generate_levels_from_nibbles(const std::vec
 	return levels;
 }
 
-bool a2_nib_format::load(io_generic *io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image)
+bool a2_nib_format::load(util::random_read &io, uint32_t form_factor, const std::vector<uint32_t> &variants, floppy_image *image) const
 {
-	auto size = io_generic_size(io);
-	if (size != expected_size_35t && size != expected_size_40t) {
+	uint64_t size;
+	if (io.length(size))
 		return false;
-	}
+	if (size != expected_size_35t && size != expected_size_40t)
+		return false;
+
 	const auto nr_tracks = size == expected_size_35t? 35 : 40;
 
 	std::vector<uint8_t> nibbles(nibbles_per_track);
 	for (unsigned track = 0; track < nr_tracks; ++track) {
-		io_generic_read(io, &nibbles[0],
-						track * nibbles_per_track, nibbles_per_track);
+		size_t actual;
+		io.read_at(track * nibbles_per_track, &nibbles[0], nibbles_per_track, actual);
 		auto levels = generate_levels_from_nibbles(nibbles);
 		generate_track_from_levels(track, 0,
 								   levels,
@@ -2055,4 +2109,4 @@ bool a2_nib_format::load(io_generic *io, uint32_t form_factor, const std::vector
 }
 
 
-const floppy_format_type FLOPPY_NIB_FORMAT = &floppy_image_format_creator<a2_nib_format>;
+const a2_nib_format FLOPPY_NIB_FORMAT;

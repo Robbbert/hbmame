@@ -108,9 +108,13 @@ METHODDEF(void) mameui_jpeg_error_exit(j_common_ptr cinfo)
 
 static bool jpeg_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
 {
-	uint64_t bytes = mfile.size();
+	uint64_t bytes;
+	mfile.length(bytes);
 	unsigned char* content = (unsigned char*)::malloc(bytes * sizeof(unsigned char));
-	::memcpy(content, mfile.buffer(), bytes);
+	size_t length;
+	mfile.read(content,bytes,length);
+	if (length == 0)
+		return false;
 
 	*pPAL = NULL;
 	HGLOBAL hDIB = NULL;
@@ -308,7 +312,7 @@ inline void store_pixels(UINT8 *buf, int len)
 static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE *pPAL)
 {
 	util::png_info p;
-	if (p.read_file(mfile) != util::png_error::NONE)
+	if (p.read_file(mfile))
 		return false;
 
 	if (p.color_type != 3 && p.color_type != 2)
@@ -363,7 +367,7 @@ static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE
     File search functions
 ***************************************************************************/
 
-static osd_file::error OpenRawDIBFile(const char *dir_name, const char *filename, util::core_file::ptr &file)
+static std::error_condition OpenRawDIBFile(const char *dir_name, const char *filename, util::core_file::ptr &file)
 {
 	// clear out result
 	file = NULL;
@@ -373,26 +377,26 @@ static osd_file::error OpenRawDIBFile(const char *dir_name, const char *filename
 	return util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file);
 }
 
-static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name, const char *filename, util::core_file::ptr &file, void **buffer)
+static std::error_condition OpenZipDIBFile(const char *dir_name, const char *zip_name, const char *filename, util::core_file::ptr &file, void **buffer)
 {
-	util::archive_file::error ziperr = util::archive_file::error::NONE;
 	util::archive_file::ptr zip;
+	std::error_condition ziperr{};
 
 	// clear out result
 	file = nullptr;
 
 	// look for the raw file
 	string fname = string(dir_name).append(PATH_SEPARATOR).append(filename);
-	osd_file::error filerr = util::core_file::open(fname, OPEN_FLAG_READ, file);
+	std::error_condition filerr = util::core_file::open(fname, OPEN_FLAG_READ, file);
 
 	// did the raw file not exist?
-	if (filerr != osd_file::error::NONE)
+	if (filerr)
 	{
 		// look into zip file
 		fname = std::string(dir_name).append(PATH_SEPARATOR).append(zip_name).append(".zip");
 		ziperr = util::archive_file::open_zip(fname, zip);
 
-		if (ziperr == util::archive_file::error::NONE)
+		if (!ziperr)
 		{
 			int found = zip->search(filename, false);
 
@@ -401,7 +405,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 				*buffer = malloc(zip->current_uncompressed_length());
 				ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
 
-				if (ziperr == util::archive_file::error::NONE)
+				if (!ziperr)
 					filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
 			}
 
@@ -409,13 +413,13 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 		}
 	}
 
-	if ((filerr != osd_file::error::NONE) || (ziperr != util::archive_file::error::NONE))
+	if (filerr || ziperr)
 	{
 		// look into 7z file
 		fname = std::string(dir_name).append(PATH_SEPARATOR).append(zip_name).append(".7z");
 		ziperr = util::archive_file::open_7z(fname, zip);
 
-		if (ziperr == util::archive_file::error::NONE)
+		if (!ziperr)
 		{
 			int found = zip->search(filename, false);
 
@@ -424,7 +428,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 				*buffer = malloc(zip->current_uncompressed_length());
 				ziperr = zip->decompress(*buffer, zip->current_uncompressed_length());
 
-				if (ziperr == util::archive_file::error::NONE)
+				if (!ziperr)
 					filerr = util::core_file::open_ram(*buffer, zip->current_uncompressed_length(), OPEN_FLAG_READ, file);
 			}
 
@@ -438,7 +442,7 @@ static osd_file::error OpenZipDIBFile(const char *dir_name, const char *zip_name
 // display a snap, cabinet, title, flyer, marquee, pcb, control panel
 static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pic_type)
 {
-	osd_file::error filerr = osd_file::error::NOT_FOUND; // defined in osdcore.h
+	std::error_condition filerr = std::errc::no_such_file_or_directory;
 	util::core_file::ptr file = NULL;
 	char fullpath[2048];
 	const char* zip_name;
@@ -552,7 +556,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 		// Support multiple paths
 		char* partpath = strtok(fullpath, ";");
 
-		while (partpath && filerr != osd_file::error::NONE)
+		while (partpath && filerr)
 		{
 			//Add handling for the displaying of all the different supported snapshot pattern types
 
@@ -564,21 +568,21 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 
 				// Try dir/system.zip/game.png
-				if (filerr != osd_file::error::NONE)
+				if (filerr)
 				{
 					fname = string(file_name) + ext;
 					filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
 				}
 
 				// Try dir/system.zip/system/game.png
-				if (filerr != osd_file::error::NONE)
+				if (filerr)
 				{
 					fname = string(system_name) + "/" + string(file_name) + ext;
 					filerr = OpenZipDIBFile(partpath, system_name, fname.c_str(), file, &buffer);
 				}
 
 				// Try dir/zipfile/system/game.png
-				if (filerr != osd_file::error::NONE)
+				if (filerr)
 				{
 					filerr = OpenZipDIBFile(partpath, zip_name, fname.c_str(), file, &buffer);
 				}
@@ -588,7 +592,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			// For SNAPS only, try filenames with 0000.png
 			if ((pic_type == TAB_SCREENSHOT) && (extnum == 0))
 			{
-				if (filerr != osd_file::error::NONE)
+				if (filerr)
 				{
 					//%g/%i
 					fname = string(system_name) + PATH_SEPARATOR + "0000.png";
@@ -597,21 +601,21 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			}
 
 			// Try dir/system.png  %g
-			if (filerr != osd_file::error::NONE)
+			if (filerr)
 			{
 				fname = string(system_name) + ext;
 				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 			}
 
 			//%g/%g
-			if (filerr != osd_file::error::NONE)
+			if (filerr)
 			{
 				fname = string(system_name) + PATH_SEPARATOR + string(system_name) + ext;
 				filerr = OpenRawDIBFile(partpath, fname.c_str(), file);
 			}
 
 			// Try dir/zipfile/system.png
-			if (filerr != osd_file::error::NONE)
+			if (filerr)
 			{
 				fname = string(system_name) + ext;
 				filerr = OpenZipDIBFile(partpath, zip_name, fname.c_str(), file, &buffer);
@@ -620,7 +624,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			partpath = strtok(NULL, ";");
 		}
 
-		if (filerr == osd_file::error::NONE)
+		if (!filerr)
 		{
 			if (extnum)
 				success = jpeg_read_bitmap_gui(*file, phDIB, pPal);
@@ -733,7 +737,7 @@ BOOL LoadDIBBG(HGLOBAL *phDIB, HPALETTE *pPal)
 
 	// look for the raw file
 	string fname = GetBgDir();
-	if (util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file) == osd_file::error::NONE)
+	if (!util::core_file::open(fname.c_str(), OPEN_FLAG_READ, file))
 	{
 		success = png_read_bitmap_gui(*file, phDIB, pPal);
 		file.reset();

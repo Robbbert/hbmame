@@ -54,7 +54,7 @@ rtc3430042_device::rtc3430042_device(const machine_config &mconfig, const char *
 void rtc3430042_device::device_start()
 {
 	// allocate timers
-	m_clock_timer = timer_alloc();
+	m_clock_timer = timer_alloc(FUNC(rtc3430042_device::seconds_tick), this);
 	m_clock_timer->adjust(attotime::from_hz(clock() / 32768), 0, attotime::from_hz(clock() / 32768));
 
 	// state saving
@@ -76,10 +76,10 @@ void rtc3430042_device::device_reset()
 }
 
 //-------------------------------------------------
-//  device_timer - handler timer events
+//  seconds_tick -
 //-------------------------------------------------
 
-void rtc3430042_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(rtc3430042_device::seconds_tick)
 {
 	advance_seconds();
 }
@@ -352,12 +352,14 @@ void rtc3430042_device::nvram_default()
 	memset(m_pram, 0, 0x100);
 }
 
-void rtc3430042_device::nvram_read(emu_file &file)
+bool rtc3430042_device::nvram_read(util::read_stream &file)
 {
-	file.read(m_pram, 0x100);
+	size_t actual;
+	return !file.read(m_pram, 0x100, actual) && actual == 0x100;
 }
 
-void rtc3430042_device::nvram_write(emu_file &file)
+bool rtc3430042_device::nvram_write(util::write_stream &file)
 {
-	file.write(m_pram, 0x100);
+	size_t actual;
+	return !file.write(m_pram, 0x100, actual) && actual == 0x100;
 }

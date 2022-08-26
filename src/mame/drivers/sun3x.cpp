@@ -9,7 +9,6 @@
   TODO:
     - Improve interrupt controller emulation.
     - Figure out how the IOMMU works.
-    - Intersil 7170 device for 3/460 and 3/480 (they use the same PROMs).
     - Sun custom MMU for original Sun 3 models.
     - AM7990 LANCE chip support for everyone.
     - Figure out how the parallel printer port maps to Centronics and make it so.
@@ -136,6 +135,7 @@
 #include "formats/mfi_dsk.h"
 #include "formats/pc_dsk.h"
 #include "imagedev/floppy.h"
+#include "machine/icm7170.h"
 #include "machine/ncr539x.h"
 #include "machine/timekpr.h"
 #include "machine/timer.h"
@@ -219,9 +219,9 @@ private:
 	void sun3_460_mem(address_map &map);
 	void sun3_80_mem(address_map &map);
 
-	uint32_t m_enable, m_buserr, m_diag, m_printer, m_irqctrl, m_memreg, m_memerraddr;
-	uint32_t m_iommu[0x800];
-	bool m_bInBusErr;
+	uint32_t m_enable = 0, m_buserr = 0, m_diag = 0, m_printer = 0, m_irqctrl = 0, m_memreg = 0, m_memerraddr = 0;
+	uint32_t m_iommu[0x800]{};
+	bool m_bInBusErr = false;
 };
 
 void sun3x_state::sun3_80_mem(address_map &map)
@@ -229,7 +229,7 @@ void sun3x_state::sun3_80_mem(address_map &map)
 	map(0x00000000, 0x03ffffff).ram().share("p_ram").w(FUNC(sun3x_state::ramwrite_w));
 	map(0x40000000, 0x40000003).rw(FUNC(sun3x_state::cause_buserr_r), FUNC(sun3x_state::cause_buserr_w));
 	map(0x50300000, 0x50300003).r(FUNC(sun3x_state::p4id_r));
-	map(0x50400000, 0x504fffff).ram().share("bw2_vram");
+	map(0x50400000, 0x504fffff).ram().share(m_bw2_vram);
 	map(0x60000000, 0x60001fff).rw(FUNC(sun3x_state::iommu_r), FUNC(sun3x_state::iommu_w));
 	map(0x61000000, 0x61000003).rw(FUNC(sun3x_state::enable_r), FUNC(sun3x_state::enable_w));
 	map(0x61000400, 0x61000403).rw(FUNC(sun3x_state::buserr_r), FUNC(sun3x_state::buserr_w));
@@ -253,7 +253,7 @@ void sun3x_state::sun3_460_mem(address_map &map)
 	map(0x00000000, 0x03ffffff).ram().share("p_ram").w(FUNC(sun3x_state::ramwrite_w));
 	map(0x09000000, 0x09000003).rw(FUNC(sun3x_state::cause_buserr_r), FUNC(sun3x_state::cause_buserr_w));
 	map(0x50300000, 0x50300003).r(FUNC(sun3x_state::p4id_r));
-	map(0x50400000, 0x504fffff).ram().share("bw2_vram");
+	map(0x50400000, 0x504fffff).ram().share(m_bw2_vram);
 	map(0x5c000f14, 0x5c000f17).r(FUNC(sun3x_state::fpa_r));
 	map(0x60000000, 0x60001fff).rw(FUNC(sun3x_state::iommu_r), FUNC(sun3x_state::iommu_w));
 	map(0x61000000, 0x61000003).rw(FUNC(sun3x_state::enable_r), FUNC(sun3x_state::enable_w));
@@ -265,7 +265,7 @@ void sun3x_state::sun3_460_mem(address_map &map)
 	map(0x62000000, 0x6200000f).rw(m_scc1, FUNC(z80scc_device::ab_dc_r), FUNC(z80scc_device::ab_dc_w)).umask32(0xff00ff00);
 	map(0x62002000, 0x6200200f).rw(m_scc2, FUNC(z80scc_device::ab_dc_r), FUNC(z80scc_device::ab_dc_w)).umask32(0xff00ff00);
 	map(0x63000000, 0x6301ffff).rom().region("user1", 0);
-
+	map(0x64002000, 0x64002011).rw("rtc", FUNC(icm7170_device::read), FUNC(icm7170_device::write));
 	map(0x6f00003c, 0x6f00003f).rw(FUNC(sun3x_state::printer_r), FUNC(sun3x_state::printer_w));
 	map(0xfefe0000, 0xfefeffff).rom().region("user1", 0);
 }
@@ -530,14 +530,14 @@ TIMER_DEVICE_CALLBACK_MEMBER(sun3x_state::sun380_timer)
 uint32_t sun3x_state::bw2_update(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	static const uint32_t palette[2] = { 0, 0xffffff };
-	uint8_t const *const m_vram = (uint8_t *)m_bw2_vram.target();
+	auto const vram = util::big_endian_cast<uint8_t const>(m_bw2_vram.target());
 
 	for (int y = 0; y < 900; y++)
 	{
 		uint32_t *scanline = &bitmap.pix(y);
 		for (int x = 0; x < 1152/8; x++)
 		{
-			uint8_t const pixels = m_vram[(y * (1152/8)) + (BYTE4_XOR_BE(x))];
+			uint8_t const pixels = vram[(y * (1152 / 8)) + x];
 
 			*scanline++ = palette[BIT(pixels, 7)];
 			*scanline++ = palette[BIT(pixels, 6)];
@@ -635,7 +635,7 @@ void sun3x_state::sun3_460(machine_config &config)
 	M68030(config, m_maincpu, 33000000);
 	m_maincpu->set_addrmap(AS_PROGRAM, &sun3x_state::sun3_460_mem);
 
-	M48T02(config, TIMEKEEPER_TAG, 0);
+	ICM7170(config, "rtc", 32768).irq().set_inputline(m_maincpu, M68K_IRQ_7);
 
 	SCC8530N(config, m_scc1, 4.9152_MHz_XTAL);
 	SCC8530N(config, m_scc2, 4.9152_MHz_XTAL);
@@ -700,5 +700,5 @@ ROM_END
 /* Driver */
 
 //    YEAR  NAME      PARENT  COMPAT  MACHINE   INPUT  CLASS        INIT        COMPANY             FULLNAME             FLAGS
-COMP( 198?, sun3_80,  0,      0,      sun3_80,  sun3x, sun3x_state, empty_init, "Sun Microsystems", "Sun 3/80",          MACHINE_NOT_WORKING | MACHINE_NO_SOUND ) // Hydra
-COMP( 198?, sun3_460, 0,      0,      sun3_460, sun3x, sun3x_state, empty_init, "Sun Microsystems", "Sun 3/460/470/480", MACHINE_NOT_WORKING | MACHINE_NO_SOUND ) // Pegasus
+COMP( 1989, sun3_80,  0,      0,      sun3_80,  sun3x, sun3x_state, empty_init, "Sun Microsystems", "Sun 3/80",          MACHINE_NOT_WORKING | MACHINE_NO_SOUND ) // Hydra
+COMP( 1989, sun3_460, 0,      0,      sun3_460, sun3x, sun3x_state, empty_init, "Sun Microsystems", "Sun 3/460/470/480", MACHINE_NOT_WORKING | MACHINE_NO_SOUND ) // Pegasus

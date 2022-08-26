@@ -793,12 +793,6 @@ GAME( 1998, lb2wh,     lastbld2, neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 1998, lb2yd,     lastbld2, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ydmis", "Last Blade 2 (Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
 ROM_START( lastblad01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "234s01.p1",    0x000000, 0x100000, CRC(33abcf22) SHA1(d08a8c244f6c57e2a4a39b252828ea718b22da36) )

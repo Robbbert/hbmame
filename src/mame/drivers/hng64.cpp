@@ -32,7 +32,7 @@ Notes:
   * Xrally and Roads Edge have a symbols table at respectively 0xb2f30 and 0xe10c0
 
 ToDo:
-  * Sprite garbage in Beast Busters 2nd Nightmare, another irq issue?
+  * Sprite garbage in Beast Busters: Second Nightmare, another irq issue?
   * Samurai Shodown 64 2 puts "Press 1p & 2p button" msg in gameplay, known to be a MCU simulation issue, i/o port 4 doesn't
     seem to be just an input port but controls program flow too.
   * Work out the purpose of the interrupts and how many are needed.
@@ -74,11 +74,11 @@ This is a 3D system comprising....
 
 There are only 7 games on this system. In some cases the game name changes depending on the BIOS region.
 The games in order of release are....
-001 Roads Edge / Round Trip
+001 Roads Edge / Round Trip RV
 002 Samurai Shodown 64 / Samurai Spirits 64
 003 Xtreme Rally / Off Beat Racer!
-004 Beast Busters 2nd Nightmare
-005 Samurai Shodown: Warrior's Rage / Samurai Spirits 2: Asura Zanmaden
+004 Beast Busters: Second Nightmare
+005 Samurai Shodown 64: Warriors Rage / Samurai Spirits 2: Asura Zanmaden
 006 Fatal Fury: Wild Ambition / Garou Densetsu: Wild Ambition
 007 Buriki One: World Grapple Tournament '99 in Tokyo
 
@@ -257,7 +257,7 @@ A special I/O board is required to boot the system which plugs into two custom c
 There are 3 types:
 LVS-IOJ runs the driving games and the Samurai Showdown games.
 LVS-JAM runs all of the fighting games.
-LVS-IGX runs the gun game (Beast Busters 2nd Nightmare).
+LVS-IGX runs the gun game (Beast Busters: Second Nightmare).
 Note using an incompatible game and I/O board combination will result in an error at bootup 'MACHINE CODE ERROR'
 For the driving games the network is also checked.
 As a work-around, to satisfy the network check on driving games simply join CON8 pins 1, 3, 5, 6, 7 & 8 then the
@@ -348,7 +348,7 @@ Notes:
 
 The second I/O board 'LVS-IGX' dated 10-11-1997 does not have a JAMMA edge connector. It has the same 6-pin JST VH power connector on the
 bottom of the board. There are several JST XA connectors for hooking up the controls. There is no audio power AMP or volume pot on the
-board. This board only runs the gun game 'Beast Busters 2nd Nightmare'.
+board. This board only runs the gun game 'Beast Busters: Second Nightmare'.
 
 LVS-IGX SNK 1997.11.10
 |---------------------------------------------|
@@ -493,16 +493,16 @@ The actual carts are only about 1/4 to 1/3rd populated.
 Some of the IC locations between DG1 and DG2 are different also. See the source code below
 for the exact number of ROMs used per game and ROM placements.
 
-Games that use the LVS-DG1 cart: Road's Edge / Round Trip
+Games that use the LVS-DG1 cart: Road's Edge / Round Trip RV
                                  Xtreme Rally / Off Beat Racer!
-                                 Beast Busters 2nd Nightmare
+                                 Beast Busters: Second Nightmare
                                  Samurai Shodown 64 / Samurai Spirits 64
 
-Games that use the LVS-DG2 cart: Fatal Fury: Wild Ambition
-                                 Buriki One
-                                 Samurai Shodown: Warrior's Rage / Samurai Spirits 2: Asura Zanmaden
+Games that use the LVS-DG2 cart: Fatal Fury: Wild Ambition / Garou Densetsu: Wild Ambition
+                                 Buriki One: World Grapple Tournament '99 in Tokyo
+                                 Samurai Shodown 64: Warriors Rage / Samurai Spirits 2: Asura Zanmaden
 
-There might be a Rev.A program for Buriki One and Round Trip, we have Rev. B dumps.
+There might be a Rev.A program for Buriki One and Round Trip RV, we have Rev. B dumps.
 
 pr = program
 sc = scroll characters
@@ -2047,8 +2047,8 @@ void hng64_state::machine_start()
 
 	m_irq_pending = 0;
 
-	m_3dfifo_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(hng64_state::hng64_3dfifo_processed), this));
-	m_comhack_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(hng64_state::comhack_callback), this));
+	m_3dfifo_timer = timer_alloc(FUNC(hng64_state::hng64_3dfifo_processed), this);
+	m_comhack_timer = timer_alloc(FUNC(hng64_state::comhack_callback), this);
 
 	init_io();
 }
@@ -2315,21 +2315,6 @@ void hng64_state::ioport4_w(uint8_t data)
 
 /***********************************************
 
- Other port accesses from MCU side
-
-***********************************************/
-
-uint8_t hng64_state::anport0_r() { return m_an_in[0]->read(); }
-uint8_t hng64_state::anport1_r() { return m_an_in[1]->read(); }
-uint8_t hng64_state::anport2_r() { return m_an_in[2]->read(); }
-uint8_t hng64_state::anport3_r() { return m_an_in[3]->read(); }
-uint8_t hng64_state::anport4_r() { return m_an_in[4]->read(); }
-uint8_t hng64_state::anport5_r() { return m_an_in[5]->read(); }
-uint8_t hng64_state::anport6_r() { return m_an_in[6]->read(); }
-uint8_t hng64_state::anport7_r() { return m_an_in[7]->read(); }
-
-/***********************************************
-
  Serial Accesses from MCU side
 
 ***********************************************/
@@ -2365,8 +2350,8 @@ TIMER_CALLBACK_MEMBER(hng64_state::tempio_irqoff_callback)
 
 void hng64_state::init_io()
 {
-	m_tempio_irqon_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(hng64_state::tempio_irqon_callback), this));
-	m_tempio_irqoff_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(hng64_state::tempio_irqoff_callback), this));
+	m_tempio_irqon_timer = timer_alloc(FUNC(hng64_state::tempio_irqon_callback), this);
+	m_tempio_irqoff_timer = timer_alloc(FUNC(hng64_state::tempio_irqoff_callback), this);
 
 	m_port7 = 0x00;
 	m_port1 = 0x00;
@@ -2418,14 +2403,14 @@ void hng64_state::hng64(machine_config &config)
 	//iomcu.p6_out_cb().set(FUNC(hng64_state::ioport6_w)); // the IO MCU code uses the ADC which shares pins with port 6, meaning port 6 isn't used as an IO port
 	iomcu.p7_out_cb().set(FUNC(hng64_state::ioport7_w)); // configuration / clocking for shared ram (port 0) accesses
 	// most likely the analog inputs, up to a maximum of 8
-	iomcu.an0_in_cb().set(FUNC(hng64_state::anport0_r));
-	iomcu.an1_in_cb().set(FUNC(hng64_state::anport1_r));
-	iomcu.an2_in_cb().set(FUNC(hng64_state::anport2_r));
-	iomcu.an3_in_cb().set(FUNC(hng64_state::anport3_r));
-	iomcu.an4_in_cb().set(FUNC(hng64_state::anport4_r));
-	iomcu.an5_in_cb().set(FUNC(hng64_state::anport5_r));
-	iomcu.an6_in_cb().set(FUNC(hng64_state::anport6_r));
-	iomcu.an7_in_cb().set(FUNC(hng64_state::anport7_r));
+	iomcu.an0_in_cb().set_ioport("AN0");
+	iomcu.an1_in_cb().set_ioport("AN1");
+	iomcu.an2_in_cb().set_ioport("AN2");
+	iomcu.an3_in_cb().set_ioport("AN3");
+	iomcu.an4_in_cb().set_ioport("AN4");
+	iomcu.an5_in_cb().set_ioport("AN5");
+	iomcu.an6_in_cb().set_ioport("AN6");
+	iomcu.an7_in_cb().set_ioport("AN7");
 	// network related?
 	iomcu.serial0_out_cb().set(FUNC(hng64_state::sio0_w));
 	//iomcu.serial1_out_cb().set(FUNC(hng64_state::sio1_w)); // not initialized / used
@@ -2439,14 +2424,14 @@ void hng64_state::hng64_default(machine_config &config)
 	hng64(config);
 
 	hng64_lamps_device &lamps(HNG64_LAMPS(config, m_lamps, 0));
-	lamps.lamps0_out_cb().set(FUNC(hng64_state::hng64_default_lamps0_w));
-	lamps.lamps1_out_cb().set(FUNC(hng64_state::hng64_default_lamps1_w));
-	lamps.lamps2_out_cb().set(FUNC(hng64_state::hng64_default_lamps2_w));
-	lamps.lamps3_out_cb().set(FUNC(hng64_state::hng64_default_lamps3_w));
-	lamps.lamps4_out_cb().set(FUNC(hng64_state::hng64_default_lamps4_w));
-	lamps.lamps5_out_cb().set(FUNC(hng64_state::hng64_default_lamps5_w));
-	lamps.lamps6_out_cb().set(FUNC(hng64_state::hng64_default_lamps6_w));
-	lamps.lamps7_out_cb().set(FUNC(hng64_state::hng64_default_lamps7_w));
+	lamps.lamps_out_cb<0>().set(FUNC(hng64_state::hng64_default_lamps_w<0>));
+	lamps.lamps_out_cb<1>().set(FUNC(hng64_state::hng64_default_lamps_w<1>));
+	lamps.lamps_out_cb<2>().set(FUNC(hng64_state::hng64_default_lamps_w<2>));
+	lamps.lamps_out_cb<3>().set(FUNC(hng64_state::hng64_default_lamps_w<3>));
+	lamps.lamps_out_cb<4>().set(FUNC(hng64_state::hng64_default_lamps_w<4>));
+	lamps.lamps_out_cb<5>().set(FUNC(hng64_state::hng64_default_lamps_w<5>));
+	lamps.lamps_out_cb<6>().set(FUNC(hng64_state::hng64_default_lamps_w<6>));
+	lamps.lamps_out_cb<7>().set(FUNC(hng64_state::hng64_default_lamps_w<7>));
 }
 
 void hng64_state::hng64_drive(machine_config &config)
@@ -2454,9 +2439,9 @@ void hng64_state::hng64_drive(machine_config &config)
 	hng64(config);
 
 	hng64_lamps_device &lamps(HNG64_LAMPS(config, m_lamps, 0));
-	lamps.lamps5_out_cb().set(FUNC(hng64_state::hng64_drive_lamps5_w)); // force feedback steering
-	lamps.lamps6_out_cb().set(FUNC(hng64_state::hng64_drive_lamps6_w)); // lamps + coin counter
-	lamps.lamps7_out_cb().set(FUNC(hng64_state::hng64_drive_lamps7_w)); // lamps
+	lamps.lamps_out_cb<5>().set(FUNC(hng64_state::hng64_drive_lamps5_w)); // force feedback steering
+	lamps.lamps_out_cb<6>().set(FUNC(hng64_state::hng64_drive_lamps6_w)); // lamps + coin counter
+	lamps.lamps_out_cb<7>().set(FUNC(hng64_state::hng64_drive_lamps7_w)); // lamps
 }
 
 void hng64_state::hng64_shoot(machine_config &config)
@@ -2464,8 +2449,8 @@ void hng64_state::hng64_shoot(machine_config &config)
 	hng64(config);
 
 	hng64_lamps_device &lamps(HNG64_LAMPS(config, m_lamps, 0));
-	lamps.lamps6_out_cb().set(FUNC(hng64_state::hng64_shoot_lamps6_w)); // start lamps (some missing?!)
-	lamps.lamps7_out_cb().set(FUNC(hng64_state::hng64_shoot_lamps7_w)); // gun lamps
+	lamps.lamps_out_cb<6>().set(FUNC(hng64_state::hng64_shoot_lamps6_w)); // start lamps (some missing?!)
+	lamps.lamps_out_cb<7>().set(FUNC(hng64_state::hng64_shoot_lamps7_w)); // gun lamps
 }
 
 void hng64_state::hng64_fight(machine_config &config)
@@ -2473,7 +2458,7 @@ void hng64_state::hng64_fight(machine_config &config)
 	hng64(config);
 
 	hng64_lamps_device &lamps(HNG64_LAMPS(config, m_lamps, 0));
-	lamps.lamps6_out_cb().set(FUNC(hng64_state::hng64_fight_lamps6_w)); // coin counters
+	lamps.lamps_out_cb<6>().set(FUNC(hng64_state::hng64_fight_lamps6_w)); // coin counters
 }
 
 
@@ -2931,13 +2916,13 @@ ROM_START( buriki )
 ROM_END
 
 /* Bios */
-GAME( 1997, hng64,    0,     hng64_default, hng64,    hng64_state, init_hng64,       ROT0, "SNK", "Hyper NeoGeo 64 Bios", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND|MACHINE_IS_BIOS_ROOT )
+GAME( 1997, hng64,    0,     hng64_default, hng64,          hng64_state, init_hng64,       ROT0, "SNK", "Hyper NeoGeo 64 Bios", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND|MACHINE_IS_BIOS_ROOT )
 
 /* Games */
-GAME( 1997, roadedge, hng64, hng64_drive, hng64_drive,    hng64_state, init_roadedge,    ROT0, "SNK", "Roads Edge / Round Trip (rev.B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 001 */
-GAME( 1998, sams64,   hng64, hng64_fight, hng64_fight,    hng64_state, init_ss64,        ROT0, "SNK", "Samurai Shodown 64 / Samurai Spirits 64", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND ) /* 002 */
-GAME( 1998, xrally,   hng64, hng64_drive, hng64_drive,    hng64_state, init_hng64_drive, ROT0, "SNK", "Xtreme Rally / Off Beat Racer!", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 003 */
-GAME( 1998, bbust2,   hng64, hng64_shoot, hng64_shoot,    hng64_state, init_hng64_shoot, ROT0, "SNK", "Beast Busters 2nd Nightmare", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 004 */
-GAME( 1998, sams64_2, hng64, hng64_fight, hng64_fight,    hng64_state, init_ss64,        ROT0, "SNK", "Samurai Shodown: Warrior's Rage / Samurai Spirits 2: Asura Zanmaden", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND ) /* 005 */
-GAME( 1998, fatfurwa, hng64, hng64_fight, hng64_fight,    hng64_state, init_hng64_fght,  ROT0, "SNK", "Fatal Fury: Wild Ambition (rev.A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 006 */
-GAME( 1999, buriki,   hng64, hng64_fight, hng64_fight,    hng64_state, init_hng64_fght,  ROT0, "SNK", "Buriki One (rev.B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 007 */
+GAME( 1997, roadedge, hng64, hng64_drive,   hng64_drive,    hng64_state, init_roadedge,    ROT0, "SNK", "Roads Edge / Round Trip RV (rev.B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 001 */
+GAME( 1998, sams64,   hng64, hng64_fight,   hng64_fight,    hng64_state, init_ss64,        ROT0, "SNK", "Samurai Shodown 64 / Samurai Spirits 64", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND ) /* 002 */
+GAME( 1998, xrally,   hng64, hng64_drive,   hng64_drive,    hng64_state, init_hng64_drive, ROT0, "SNK", "Xtreme Rally / Off Beat Racer!", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 003 */
+GAME( 1998, bbust2,   hng64, hng64_shoot,   hng64_shoot,    hng64_state, init_hng64_shoot, ROT0, "SNK", "Beast Busters: Second Nightmare", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 004 */
+GAME( 1998, sams64_2, hng64, hng64_fight,   hng64_fight,    hng64_state, init_ss64,        ROT0, "SNK", "Samurai Shodown 64: Warriors Rage / Samurai Spirits 2: Asura Zanmaden", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND ) /* 005 */
+GAME( 1998, fatfurwa, hng64, hng64_fight,   hng64_fight,    hng64_state, init_hng64_fght,  ROT0, "SNK", "Fatal Fury: Wild Ambition / Garou Densetsu: Wild Ambition (rev.A)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 006 */
+GAME( 1999, buriki,   hng64, hng64_fight,   hng64_fight,    hng64_state, init_hng64_fght,  ROT0, "SNK", "Buriki One: World Grapple Tournament '99 in Tokyo (rev.B)", MACHINE_NOT_WORKING|MACHINE_IMPERFECT_SOUND )  /* 007 */

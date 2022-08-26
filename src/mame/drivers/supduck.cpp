@@ -18,6 +18,13 @@ All clock timing comes from crystal 1
  Z80 - 2mhz
  OKI M6295 - 1mhz
 
+There are known flyers that show an alternate title of HELL OUT
+ The title Hell Out fits the story line better and is likely the original title
+ of the game with Super Duck being a title change for a specific country region.
+
+ The graphics ROMs contain tiles for the HELL OUT title, but with the current
+ ROM set there is no known way to display the alternate title.
+
 *********************************************************************************/
 
 
@@ -68,9 +75,9 @@ private:
 	required_device<tigeroad_spr_device> m_spritegen;
 	required_device<generic_latch_8_device> m_soundlatch;
 
-	tilemap_t     *m_text_tilemap;
-	tilemap_t     *m_fore_tilemap;
-	tilemap_t     *m_back_tilemap;
+	tilemap_t     *m_text_tilemap = nullptr;
+	tilemap_t     *m_fore_tilemap = nullptr;
+	tilemap_t     *m_back_tilemap = nullptr;
 
 	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 

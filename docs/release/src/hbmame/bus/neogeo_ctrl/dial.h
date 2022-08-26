@@ -46,7 +46,7 @@ private:
 	required_ioport m_joy2;
 	required_ioport m_dial1;
 	required_ioport m_dial2;
-	uint8_t m_ctrl_sel;
+	uint8_t m_ctrl_sel = 0U;
 };
 
 

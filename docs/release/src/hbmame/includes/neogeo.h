@@ -271,53 +271,53 @@ private:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 
-	memory_bank           *m_bank_audio_cart[4];
+	memory_bank           *m_bank_audio_cart[4]{};
 
 	// configuration
 	enum {NEOGEO_MVS, NEOGEO_AES, NEOGEO_CD} m_type;
 
 	// internal state
-	bool       m_recurse;
-	bool       m_audio_cpu_nmi_enabled;
-	bool       m_audio_cpu_nmi_pending;
+	bool       m_recurse = 0;
+	bool       m_audio_cpu_nmi_enabled = 0;
+	bool       m_audio_cpu_nmi_pending = 0;
 
 	// MVS-specific state
-	u8      m_save_ram_unlocked;
-	u8      m_output_data;
-	u8      m_output_latch;
-	u8      m_el_value;
-	u8      m_led1_value;
-	u8      m_led2_value;
+	u8      m_save_ram_unlocked = 0U;
+	u8      m_output_data = 0U;
+	u8      m_output_latch = 0U;
+	u8      m_el_value = 0U;
+	u8      m_led1_value = 0U;
+	u8      m_led2_value = 0U;
 
 	virtual void video_start() override;
 
-	emu_timer  *m_display_position_interrupt_timer;
-	emu_timer  *m_display_position_vblank_timer;
-	emu_timer  *m_vblank_interrupt_timer;
-	u32     m_display_counter;
-	u8      m_vblank_interrupt_pending;
-	u8      m_display_position_interrupt_pending;
-	u8      m_irq3_pending;
-	u8      m_display_position_interrupt_control;
-	u8      m_vblank_level;
-	u8      m_raster_level;
+	emu_timer  *m_display_position_interrupt_timer = nullptr;
+	emu_timer  *m_display_position_vblank_timer = nullptr;
+	emu_timer  *m_vblank_interrupt_timer = nullptr;
+	u32     m_display_counter = 0U;
+	u8      m_vblank_interrupt_pending = 0U;
+	u8      m_display_position_interrupt_pending = 0U;
+	u8      m_irq3_pending = 0U;
+	u8      m_display_position_interrupt_control = 0U;
+	u8      m_vblank_level = 0U;
+	u8      m_raster_level = 0U;
 
 	u16  get_video_control(  );
 
 	// color/palette related
-	std::vector<u16 > m_paletteram;
-	u8        m_palette_lookup[32][4];
+	std::vector<u16 > m_paletteram{};
+	u8        m_palette_lookup[32][4]{};
 	const pen_t *m_bg_pen;
-	int          m_screen_shadow;
-	int          m_palette_bank;
+	int          m_screen_shadow = 0;
+	int          m_palette_bank = 0;
 
 	u16 neogeo_slot_rom_low_r();
 	u16 neogeo_slot_rom_low_vectors_r(offs_t offset);
 
 	void install_banked_bios();
 
-	int m_use_cart_vectors;
-	int m_use_cart_audio;
+	int m_use_cart_vectors = 0;
+	int m_use_cart_audio = 0;
 	optional_device<neogeo_banked_cart_device> m_banked_cart;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_audiocpu;

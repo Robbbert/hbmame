@@ -233,11 +233,11 @@ u32 voodoo_banshee_device::read(offs_t offset, u32 mem_mask)
 	case 0x0080000 >> 19:
 		return map_cmd_agp_r(offset - 0x0080000/4);
 
-	case 0x0100000 >> 19:	case 0x0180000 >> 19:
+	case 0x0100000 >> 19:   case 0x0180000 >> 19:
 		return map_2d_r(offset - 0x0100000/4);
 
-	case 0x0200000 >> 19:	case 0x0280000 >> 19:	case 0x0300000 >> 19:	case 0x0380000 >> 19:
-	case 0x0400000 >> 19:	case 0x0480000 >> 19:	case 0x0500000 >> 19:	case 0x0580000 >> 19:
+	case 0x0200000 >> 19:   case 0x0280000 >> 19:   case 0x0300000 >> 19:   case 0x0380000 >> 19:
+	case 0x0400000 >> 19:   case 0x0480000 >> 19:   case 0x0500000 >> 19:   case 0x0580000 >> 19:
 		return map_register_r(offset - 0x0200000/4);
 
 	default:
@@ -264,37 +264,37 @@ void voodoo_banshee_device::write(offs_t offset, u32 data, u32 mem_mask)
 		map_cmd_agp_w(offset - 0x0080000/4, data, mem_mask);
 		break;
 
-	case 0x0100000 >> 19:	case 0x0180000 >> 19:
+	case 0x0100000 >> 19:   case 0x0180000 >> 19:
 		map_2d_w(offset - 0x0100000/4, data, mem_mask);
 		break;
 
-	case 0x0200000 >> 19:	case 0x0280000 >> 19:	case 0x0300000 >> 19:	case 0x0380000 >> 19:
-	case 0x0400000 >> 19:	case 0x0480000 >> 19:	case 0x0500000 >> 19:	case 0x0580000 >> 19:
+	case 0x0200000 >> 19:   case 0x0280000 >> 19:   case 0x0300000 >> 19:   case 0x0380000 >> 19:
+	case 0x0400000 >> 19:   case 0x0480000 >> 19:   case 0x0500000 >> 19:   case 0x0580000 >> 19:
 		map_register_w(offset - 0x0200000/4, data, mem_mask);
 		break;
 
-	case 0x0600000 >> 19:	case 0x0680000 >> 19:	case 0x0700000 >> 19:	case 0x0780000 >> 19:
+	case 0x0600000 >> 19:   case 0x0680000 >> 19:   case 0x0700000 >> 19:   case 0x0780000 >> 19:
 		map_texture_w<0>(offset - 0x0600000, data, mem_mask);
 		break;
 
-	case 0x0800000 >> 19:	case 0x0880000 >> 19:	case 0x0900000 >> 19:	case 0x0980000 >> 19:
+	case 0x0800000 >> 19:   case 0x0880000 >> 19:   case 0x0900000 >> 19:   case 0x0980000 >> 19:
 		if (BIT(m_chipmask, 2))
 			map_texture_w<1>(offset - 0x0800000, data, mem_mask);
 		break;
 
-	case 0xc000000 >> 19:	case 0xc800000 >> 19:	case 0xd000000 >> 19:	case 0xd800000 >> 19:
-	case 0xe000000 >> 19:	case 0xe800000 >> 19:	case 0xf000000 >> 19:	case 0xf800000 >> 19:
+	case 0xc000000 >> 19:   case 0xc800000 >> 19:   case 0xd000000 >> 19:   case 0xd800000 >> 19:
+	case 0xe000000 >> 19:   case 0xe800000 >> 19:   case 0xf000000 >> 19:   case 0xf800000 >> 19:
 		map_yuv_w(offset - 0xc000000/4, data, mem_mask);
 		break;
 
-	case 0x1000000 >> 19:	case 0x1080000 >> 19:	case 0x1100000 >> 19:	case 0x1180000 >> 19:
-	case 0x1200000 >> 19:	case 0x1280000 >> 19:	case 0x1300000 >> 19:	case 0x1380000 >> 19:
-	case 0x1400000 >> 19:	case 0x1480000 >> 19:	case 0x1500000 >> 19:	case 0x1580000 >> 19:
-	case 0x1600000 >> 19:	case 0x1680000 >> 19:	case 0x1700000 >> 19:	case 0x1780000 >> 19:
-	case 0x1800000 >> 19:	case 0x1880000 >> 19:	case 0x1900000 >> 19:	case 0x1980000 >> 19:
-	case 0x1a00000 >> 19:	case 0x1a80000 >> 19:	case 0x1b00000 >> 19:	case 0x1b80000 >> 19:
-	case 0x1c00000 >> 19:	case 0x1c80000 >> 19:	case 0x1d00000 >> 19:	case 0x1d80000 >> 19:
-	case 0x1e00000 >> 19:	case 0x1e80000 >> 19:	case 0x1f00000 >> 19:	case 0x1f80000 >> 19:
+	case 0x1000000 >> 19:   case 0x1080000 >> 19:   case 0x1100000 >> 19:   case 0x1180000 >> 19:
+	case 0x1200000 >> 19:   case 0x1280000 >> 19:   case 0x1300000 >> 19:   case 0x1380000 >> 19:
+	case 0x1400000 >> 19:   case 0x1480000 >> 19:   case 0x1500000 >> 19:   case 0x1580000 >> 19:
+	case 0x1600000 >> 19:   case 0x1680000 >> 19:   case 0x1700000 >> 19:   case 0x1780000 >> 19:
+	case 0x1800000 >> 19:   case 0x1880000 >> 19:   case 0x1900000 >> 19:   case 0x1980000 >> 19:
+	case 0x1a00000 >> 19:   case 0x1a80000 >> 19:   case 0x1b00000 >> 19:   case 0x1b80000 >> 19:
+	case 0x1c00000 >> 19:   case 0x1c80000 >> 19:   case 0x1d00000 >> 19:   case 0x1d80000 >> 19:
+	case 0x1e00000 >> 19:   case 0x1e80000 >> 19:   case 0x1f00000 >> 19:   case 0x1f80000 >> 19:
 		map_lfb_w(offset - 0x1000000/4, data, mem_mask);
 		break;
 
@@ -331,6 +331,7 @@ u32 voodoo_banshee_device::read_lfb(offs_t offset, u32 mem_mask)
 	u32 addr = offset * 4;
 	if (addr <= m_fbmask)
 	{
+		m_renderer->wait("read_lfb");
 		u32 result = *(u32 *)&m_fbram[addr];
 		if (LOG_LFB)
 			logerror("%s:read_lfb(%X) = %08X\n", machine().describe_context(), addr, result);
@@ -363,6 +364,7 @@ void voodoo_banshee_device::write_lfb(offs_t offset, u32 data, u32 mem_mask)
 	// writes below the LFB base are direct?
 	if (addr <= m_fbmask)
 	{
+		m_renderer->wait("write_lfb");
 		if (LOG_LFB)
 			logerror("%s:write_lfb(%X) = %08X & %08X\n", machine().describe_context(), addr, data, mem_mask);
 		COMBINE_DATA((u32 *)&m_fbram[addr]);
@@ -800,6 +802,7 @@ void voodoo_banshee_device::internal_io_w(offs_t offset, u32 data, u32 mem_mask)
 			u32 dacaddr = BIT(m_io_regs.read(banshee_io_regs::dacAddr), 0, 9);
 			if (newval != m_clut[dacaddr])
 			{
+				screen().update_partial(screen().vpos());
 				m_clut[dacaddr] = newval;
 				m_clut_dirty = true;
 			}
@@ -1037,8 +1040,6 @@ s32 voodoo_banshee_device::internal_2d_w(offs_t offset, u32 data)
 		default:
 			if (offset >= 0x20 && offset < 0x40)
 				execute_blit(data);
-			else if (offset >= 0x40 && offset < 0x80)
-				{} // TODO: colorPattern
 			break;
 	}
 
@@ -1062,9 +1063,6 @@ void voodoo_banshee_device::internal_texture_w(offs_t offset, u32 data)
 	if (!BIT(m_chipmask, 1 + tmunum))
 		return;
 
-	// wait for any outstanding work to finish
-	m_renderer->wait("Texture write");
-
 	// pull out modes from the TMU and update state
 	auto &regs = m_tmu[tmunum].regs();
 	auto const texlod = regs.texture_lod();
@@ -1079,6 +1077,9 @@ void voodoo_banshee_device::internal_texture_w(offs_t offset, u32 data)
 
 	// determine destination pointer
 	u8 *dest = texture.write_ptr(0, offset * 4, 0, 1);
+
+	// wait for any outstanding work to finish
+	m_renderer->wait("internal_texture_w");
 
 	// write the four bytes in little-endian order
 	u32 bytes_per_texel = (texmode.format() < 8) ? 1 : 2;
@@ -1141,6 +1142,9 @@ void voodoo_banshee_device::internal_lfb_direct_w(offs_t offset, u32 data, u32 m
 
 	// advance pointers to the proper row
 	dest += y * m_renderer->rowpixels() + x;
+
+	// wait for any outstanding work to finish
+	m_renderer->wait("internal_lfb_direct_w");
 
 	// write to the RGB buffer
 	if (ACCESSING_BITS_0_15 && dest < end)
@@ -1559,6 +1563,8 @@ void voodoo_banshee_device::execute_blit(u32 data)
 
 			if (LOG_BANSHEE_2D)
 				logerror("   blit_2d:host_to_screen: %08x -> %08x, %d, %d\n", data, addr, m_blt_dst_x, m_blt_dst_y);
+
+			m_renderer->wait("execute_blit(3)");
 
 			switch (m_blt_dst_bpp)
 			{

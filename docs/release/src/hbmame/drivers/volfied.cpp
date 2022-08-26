@@ -35,3 +35,4 @@ ROM_START( volfiedg ) // roms that don't end in g are same as volfied
 ROM_END
 
 GAME( 2005, volfiedg, volfied, volfied, volfied, volfied_state, empty_init, ROT270, "GreekRoms", "Volfied (Greek)", MACHINE_SUPPORTS_SAVE )
+

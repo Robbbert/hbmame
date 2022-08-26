@@ -294,11 +294,11 @@ static const discrete_op_amp_filt_info dkong_sallen_key_info =
 #define DKONG_CUSTOM_V          DISCRETE_INPUT(7)
 
 DISCRETE_CLASS_STEP_RESET(dkong_custom_mixer, 1,
-	double m_i_in1[2];
-	double m_r_in[2];
-	double m_r_total[2];
-	double m_exp[2];
-	double m_out_v;
+	double m_i_in1[2]{ 0.0 };
+	double m_r_in[2]{ 0.0 };
+	double m_r_total[2]{ 0.0 };
+	double m_exp[2]{ 0.0 };
+	double m_out_v = 0;
 );
 
 DISCRETE_STEP( dkong_custom_mixer )
@@ -1292,7 +1292,7 @@ void dkong_state::radarscp1_sound_io_map(address_map &map)
 
 void dkong_state::dkong3_sound1_map(address_map &map)
 {
-	map(0x0000, 0x01ff).ram();
+	map(0x0000, 0x07ff).ram();
 	map(0x4016, 0x4016).r("latch1", FUNC(latch8_device::read));       /* overwrite default */
 	map(0x4017, 0x4017).r("latch2", FUNC(latch8_device::read));
 	map(0xe000, 0xffff).rom();
@@ -1300,7 +1300,7 @@ void dkong_state::dkong3_sound1_map(address_map &map)
 
 void dkong_state::dkong3_sound2_map(address_map &map)
 {
-	map(0x0000, 0x01ff).ram();
+	map(0x0000, 0x07ff).ram();
 	map(0x4016, 0x4016).r("latch3", FUNC(latch8_device::read));       /* overwrite default */
 	map(0xe000, 0xffff).rom();
 }
@@ -1349,7 +1349,7 @@ void dkong_state::dkong2b_audio(machine_config &config)
 	m_soundcpu->t1_in_cb().set(m_dev_6h, FUNC(latch8_device::bit4_q_r));
 
 	SPEAKER(config, "mono").front_center();
-	DISCRETE(config, "discrete", dkong2b_discrete).add_route(ALL_OUTPUTS, "mono", 0.50); // HBMAME - turn volume down
+	DISCRETE(config, "discrete", dkong2b_discrete).add_route(ALL_OUTPUTS, "mono", 0.9);
 }
 
 void dkong_state::radarscp_audio(machine_config &config)
@@ -1421,7 +1421,7 @@ void dkong_state::dkongjr_audio(machine_config &config)
 
 	SPEAKER(config, "mono").front_center();
 
-	DISCRETE(config, "discrete", dkongjr_discrete).add_route(ALL_OUTPUTS, "mono", 1.0);
+	DISCRETE(config, "discrete", dkongjr_discrete).add_route(ALL_OUTPUTS, "mono", 0.5);
 }
 
 void dkong_state::dkong3_audio(machine_config &config)

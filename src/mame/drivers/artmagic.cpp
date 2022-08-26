@@ -71,7 +71,7 @@ WRITE_LINE_MEMBER(artmagic_state::m68k_gen_int)
 
 void artmagic_state::machine_start()
 {
-	m_irq_off_timer = timer_alloc(TIMER_IRQ_OFF);
+	m_irq_off_timer = timer_alloc(FUNC(artmagic_state::irq_off), this);
 
 	save_item(NAME(m_tms_irq));
 	save_item(NAME(m_hack_irq));
@@ -119,17 +119,10 @@ void artmagic_state::control_w(offs_t offset, uint16_t data, uint16_t mem_mask)
  *
  *************************************/
 
-void artmagic_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(artmagic_state::irq_off)
 {
-	switch (id)
-	{
-	case TIMER_IRQ_OFF:
-		m_hack_irq = 0;
-		update_irq_state();
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in artmagic_state::device_timer");
-	}
+	m_hack_irq = 0;
+	update_irq_state();
 }
 
 
@@ -903,7 +896,7 @@ ROM_START( cheesech )
 	ROM_LOAD( "u151", 0x00000, 0x80000, CRC(65d5ebdb) SHA1(0d905b9a60b86e51de3bdcf6eeb059fe29606431) )
 ROM_END
 
-/* There is known to exist an Ultimate Tennis with ROMs labeled  A&M001C1293 13B and A&M001C1293 12B, it not known if they are the same data as below */
+/* There is known to exist an Ultimate Tennis with ROMs labeled A&M001C1293 13B, A&M001C1293 12B, and A&M001C1293 14A and are confirmed to be same data as below */
 ROM_START( ultennis )
 	ROM_REGION( 0x80000, "maincpu", 0 ) /* 64k for 68000 code */
 	ROM_LOAD16_BYTE( "a+m001b1093_13b_u102.u102", 0x00000, 0x40000, CRC(ec31385e) SHA1(244e78619c549712d5541fb252656afeba639bb7) ) /* labeled  A&M001B1093  13B  U102 */

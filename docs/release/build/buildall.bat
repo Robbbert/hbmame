@@ -36,9 +36,16 @@ cd\arcade
 call newsrc.bat
 
 rem --- ARCADE 64bit ---
-del arcade64.exe
 del arcade64.sym
-call make64 -j8 %1 %2 %3
+del build\generated\resource\mamevers.rc
+del arcade64.exe
+copy /Y src\mame\arcade.flt src\mame\arcade.bak
+copy /Y src\mame\arcade.txt src\mame\arcade.flt
+touch src\mame\arcade.flt
+call make64 -j6 %1 %2 %3
+copy /Y src\mame\arcade.bak src\mame\arcade.flt
+copy /Y arcade64.exe arcade.exe
+
 if not exist arcade64.exe goto end
 
 :messui

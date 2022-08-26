@@ -222,7 +222,7 @@ void tms7000_device::device_start()
 
 	for (int tmr = 0; tmr < 2; tmr++)
 	{
-		m_timer_handle[tmr] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(tms7000_device::simple_timer_cb), this));
+		m_timer_handle[tmr] = timer_alloc(FUNC(tms7000_device::simple_timer_cb), this);
 		m_timer_handle[tmr]->adjust(attotime::never, tmr);
 
 		m_timer_data[tmr] = 0;
@@ -260,7 +260,6 @@ void tms7000_device::device_start()
 
 	state_add(STATE_GENPC, "GENPC", m_pc).formatstr("%04X").noshow();
 	state_add(STATE_GENPCBASE, "CURPC", m_pc).formatstr("%04X").noshow();
-	state_add(STATE_GENSP, "GENSP", m_sp).formatstr("%02X").noshow();
 	state_add(STATE_GENFLAGS, "GENFLAGS", m_sr).formatstr("%8s").noshow();
 }
 

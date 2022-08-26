@@ -17,3 +17,4 @@ ROM_END
 
 
 GAME( 1979, astrofbl, astrof, astrof, astrof, astrof_state, empty_init, ROT90, "hack", "Astro Fighter (Black Background)", MACHINE_SUPPORTS_SAVE )
+

@@ -374,9 +374,9 @@ TIMER_DEVICE_CALLBACK_MEMBER(helifire_state::dac_volume_timer)
 
 void spacefev_state::sound_start()
 {
-	m_sound_timer[0] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(spacefev_state::stop_mono_flop_callback), this));
-	m_sound_timer[1] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(spacefev_state::stop_mono_flop_callback), this));
-	m_sound_timer[2] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(spacefev_state::stop_mono_flop_callback), this));
+	m_sound_timer[0] = timer_alloc(FUNC(spacefev_state::stop_mono_flop_callback), this);
+	m_sound_timer[1] = timer_alloc(FUNC(spacefev_state::stop_mono_flop_callback), this);
+	m_sound_timer[2] = timer_alloc(FUNC(spacefev_state::stop_mono_flop_callback), this);
 
 	save_item(NAME(m_prev_snd_data));
 	save_item(NAME(m_prev_sound_pins));
@@ -400,8 +400,8 @@ void spacefev_state::sound_reset()
 
 void sheriff_state::sound_start()
 {
-	m_sound_timer[0] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(sheriff_state::stop_mono_flop_callback), this));
-	m_sound_timer[1] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(sheriff_state::stop_mono_flop_callback), this));
+	m_sound_timer[0] = timer_alloc(FUNC(sheriff_state::stop_mono_flop_callback), this);
+	m_sound_timer[1] = timer_alloc(FUNC(sheriff_state::stop_mono_flop_callback), this);
 
 	save_item(NAME(m_prev_snd_data));
 	save_item(NAME(m_prev_sound_pins));
@@ -460,7 +460,7 @@ void helifire_state::sound_io_map(address_map &map)
 void spacefev_state::spacefev_sound(machine_config &config)
 {
 	/* basic machine hardware */
-	I8035(config, m_audiocpu, 6000000);
+	I8035(config, m_audiocpu, 6_MHz_XTAL);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &spacefev_state::n8080_sound_cpu_map);
 	m_audiocpu->t0_in_cb().set(FUNC(spacefev_state::n8080_8035_t0_r));
 	m_audiocpu->t1_in_cb().set(FUNC(spacefev_state::n8080_8035_t1_r));
@@ -494,7 +494,7 @@ void spacefev_state::spacefev_sound(machine_config &config)
 void sheriff_state::sheriff_sound(machine_config &config)
 {
 	/* basic machine hardware */
-	I8035(config, m_audiocpu, 6000000);
+	I8035(config, m_audiocpu, 6_MHz_XTAL);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &sheriff_state::n8080_sound_cpu_map);
 	m_audiocpu->t0_in_cb().set(FUNC(sheriff_state::n8080_8035_t0_r));
 	m_audiocpu->t1_in_cb().set(FUNC(sheriff_state::n8080_8035_t1_r));
@@ -526,7 +526,7 @@ void sheriff_state::sheriff_sound(machine_config &config)
 void helifire_state::helifire_sound(machine_config &config)
 {
 	/* basic machine hardware */
-	I8035(config, m_audiocpu, 6000000);
+	I8035(config, m_audiocpu, 6_MHz_XTAL);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &helifire_state::n8080_sound_cpu_map);
 	m_audiocpu->set_addrmap(AS_IO, &helifire_state::sound_io_map);
 	m_audiocpu->t0_in_cb().set(FUNC(helifire_state::helifire_8035_t0_r));

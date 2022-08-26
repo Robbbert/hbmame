@@ -28,9 +28,10 @@ public:
 		m_gfxdecode(*this, "gfxdecode"),
 		m_screen(*this, "screen"),
 		m_palette(*this, "palette"),
-		m_spriteram(*this, "spriteram"),
 		m_videoram(*this, "videoram"),
 		m_colorram(*this, "colorram"),
+		m_spriteram(*this, "spriteram"),
+		m_spriteram_buffer(*this, "spriteram"),
 		m_fixvideoram(*this, "fixvideoram"),
 		m_fixcolorram(*this, "fixcolorram")
 	{ }
@@ -40,11 +41,12 @@ public:
 	void tigerhb2(machine_config &config);
 	void tigerhb4(machine_config &config);
 	void getstarb2(machine_config &config);
-	void slapfighb2(machine_config &config);
 	void getstarb1(machine_config &config);
 	void perfrman(machine_config &config);
 	void slapfigh(machine_config &config);
+	void slapfigha(machine_config &config);
 	void slapfighb1(machine_config &config);
+	void slapfighb2(machine_config &config);
 
 	void init_banks();
 	void init_getstarb1();
@@ -59,10 +61,11 @@ private:
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<screen_device> m_screen;
 	required_device<palette_device> m_palette;
-	required_device<buffered_spriteram8_device> m_spriteram;
 
 	required_shared_ptr<uint8_t> m_videoram;
 	required_shared_ptr<uint8_t> m_colorram;
+	required_shared_ptr<uint8_t> m_spriteram;
+	required_device<buffered_spriteram8_device> m_spriteram_buffer;
 	optional_shared_ptr<uint8_t> m_fixvideoram;
 	optional_shared_ptr<uint8_t> m_fixcolorram;
 
@@ -76,23 +79,23 @@ private:
 		GETSTARB2     /* "lame" bootleg with lots of ingame bugs */
 	} m_getstar_id;
 
-	tilemap_t *m_pf1_tilemap;
-	tilemap_t *m_fix_tilemap;
-	uint8_t m_palette_bank;
-	uint8_t m_scrollx_lo;
-	uint8_t m_scrollx_hi;
-	uint8_t m_scrolly;
-	bool m_main_irq_enabled;
-	bool m_sound_nmi_enabled;
+	tilemap_t *m_pf1_tilemap = nullptr;
+	tilemap_t *m_fix_tilemap = nullptr;
+	uint8_t m_palette_bank = 0;
+	uint8_t m_scrollx_lo = 0;
+	uint8_t m_scrollx_hi = 0;
+	uint8_t m_scrolly = 0;
+	bool m_main_irq_enabled = false;
+	bool m_sound_nmi_enabled = false;
 
-	int m_getstar_status;
-	int m_getstar_sequence_index;
-	int m_getstar_status_state;
-	uint8_t m_getstar_cmd;
-	uint8_t m_gs_a;
-	uint8_t m_gs_d;
-	uint8_t m_gs_e;
-	uint8_t m_tigerhb_cmd;
+	int m_getstar_status = 0;
+	int m_getstar_sequence_index = 0;
+	int m_getstar_status_state = 0;
+	uint8_t m_getstar_cmd = 0;
+	uint8_t m_gs_a = 0;
+	uint8_t m_gs_d = 0;
+	uint8_t m_gs_e = 0;
+	uint8_t m_tigerhb_cmd = 0;
 
 	uint8_t tigerh_mcu_status_r();
 	DECLARE_WRITE_LINE_MEMBER(sound_reset_w);

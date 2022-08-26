@@ -87,14 +87,7 @@ ROM_END
 
 GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, empty_init, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /********
+/**********
  Cameltry
 ***********/
 
@@ -118,7 +111,7 @@ ROM_START( cameltryjs01 )
 	ROM_LOAD( "c38-03.bin", 0x000000, 0x020000, CRC(59fa59a7) SHA1(161f11b96a47c8431c33e300f6a509bf804309af) )
 ROM_END
 
- /***************
+/*****************
  Dead Connection
 ******************/
 
@@ -144,7 +137,7 @@ ROM_START( deadconxjs01 )
 	ROM_LOAD( "d28-03.10", 0x000000, 0x100000, CRC(a1804b52) SHA1(f252c473a71a4cf80d9f984fec08e5ae7524a620) )
 ROM_END
 
- /********
+/**********
  Dino Rex
 ***********/
 
@@ -173,7 +166,7 @@ ROM_START( dinorexs01 )
 	ROM_LOAD( "d39-08.4",   0x000000, 0x080000, CRC(377b8b7b) SHA1(4905ac3b9b52c70afe5f451f860fb9acd81a1dbb) )
 ROM_END
 
- /************
+/***************
  Don Doko Don
 ****************/
 
@@ -200,7 +193,7 @@ ROM_START( dondokodjs01 )
 	ROM_LOAD( "b95-04.bin",  0x00000, 0x80000, CRC(ac4c1716) SHA1(06a9def7fa3bd739438f4a1d7b55f70eb904bf54) )
 ROM_END
 
- /************
+/**************
  Gun Frontier
 ***************/
 
@@ -226,7 +219,7 @@ ROM_START( gunfrontjs01 )
 	ROM_LOAD( "c71-01.ic29", 0x000000, 0x100000, CRC(0e73105a) SHA1(c5c9743f68a43273e16f5e5179557f2392505a1e) )
 ROM_END
 
- /**********
+/************
  Mega Blast
 *************/
 
@@ -257,7 +250,7 @@ ROM_START( megablstjs01 )
 	ROM_LOAD( "c11-02.30", 0x00000, 0x80000, CRC(451cc187) SHA1(a682f70bbe6cba2fe2c0a6791e8d33db34eb2cee) )
 ROM_END
 
- /******************
+/********************
  Mizubaku Daibouken
 *********************/
 
@@ -282,7 +275,7 @@ ROM_START( mizubakus01 )
 	ROM_LOAD( "c49-04.ic33",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
 ROM_END
 
- /******
+/********
  Runark
 *********/
 
@@ -310,7 +303,7 @@ ROM_START( runarks01 )
 	ROM_LOAD( "c74-05.ic29",   0x000000, 0x080000, CRC(e29c0828) SHA1(f541d724f118130bb7a8f9e790582c68779cc6b6) )
 ROM_END
 
- /***********
+/*************
  Thunder Fox
 **************/
 

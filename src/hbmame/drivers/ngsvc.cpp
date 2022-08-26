@@ -797,13 +797,7 @@ GAME( 2003, svccpru,       svc,      neogeo_noslot,   neogeo,   neogeo_state, in
 GAME( 2003, svcpsv2,       svc,      neogeo_noslot,   neogeo,   neogeo_state, init_neogeo,   ROT0, "bootleg", "SvC Chaos (Playstation 2 Final 1.03 [EGHT])", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************
+/**************
  SNK vs. Capcom
 *****************/
 
@@ -3435,3 +3429,4 @@ GAME( 2003, svcsplus15,     svc,      neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2003, svcsplus16,     svc,      neogeo_noslot, neogeo, neogeo_state, init_svcsplus, ROT0, "wesker[FGCH]",    "SvC Chaos Super Plus (Beast Transformation)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcsplus17,     svc,      neogeo_noslot, neogeo, neogeo_state, init_svcsplus, ROT0, "Jason[FGCH]",    "SvC Chaos Super Plus (Animal Transformation)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, svcsplus18,     svc,      neogeo_noslot, neogeo, neogeo_state, init_svcsplus, ROT0, "hack",    "SvC Chaos Super Plus (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+

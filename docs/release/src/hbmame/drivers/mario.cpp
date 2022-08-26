@@ -30,3 +30,4 @@ ROM_START( cenmario )
 ROM_END
 
 GAME( 2002, cenmario, mario, mario, marioj, mario_state, empty_init, ROT0, "Marks Hacks", "Censored Mario Bros.", MACHINE_SUPPORTS_SAVE )
+

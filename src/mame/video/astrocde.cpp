@@ -113,9 +113,9 @@ void astrocde_state::astrocade_palette(palette_device &palette) const
 			int b = (by + y) * 255;
 
 			// clamp and store
-			r = (std::min)((std::max)(r, 0), 255);
-			g = (std::min)((std::max)(g, 0), 255);
-			b = (std::min)((std::max)(b, 0), 255);
+			r = std::clamp(r, 0, 255);
+			g = std::clamp(g, 0, 255);
+			b = std::clamp(b, 0, 255);
 			palette.set_pen_color(color * 16 + luma, rgb_t(r, g, b));
 		}
 	}
@@ -175,9 +175,9 @@ void astrocde_state::profpac_palette(palette_device &palette) const
 void astrocde_state::video_start()
 {
 	/* allocate timers */
-	m_scanline_timer = timer_alloc(TIMER_SCANLINE);
+	m_scanline_timer = timer_alloc(FUNC(astrocde_state::scanline_callback), this);
 	m_scanline_timer->adjust(m_screen->time_until_pos(1), 1);
-	m_intoff_timer = timer_alloc(TIMER_INTERRUPT_OFF);
+	m_intoff_timer = timer_alloc(FUNC(astrocde_state::interrupt_off), this);
 
 	/* register for save states */
 	init_savestate();
@@ -191,9 +191,9 @@ void astrocde_state::video_start()
 VIDEO_START_MEMBER(astrocde_state,profpac)
 {
 	/* allocate timers */
-	m_scanline_timer = timer_alloc(TIMER_SCANLINE);
+	m_scanline_timer = timer_alloc(FUNC(astrocde_state::scanline_callback), this);
 	m_scanline_timer->adjust(m_screen->time_until_pos(1), 1);
-	m_intoff_timer = timer_alloc(TIMER_INTERRUPT_OFF);
+	m_intoff_timer = timer_alloc(FUNC(astrocde_state::interrupt_off), this);
 
 	/* allocate videoram */
 	m_profpac_videoram = std::make_unique<uint16_t[]>(0x4000 * 4);
@@ -379,19 +379,9 @@ uint32_t astrocde_state::screen_update_profpac(screen_device &screen, bitmap_ind
  *
  *************************************/
 
-void astrocde_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(astrocde_state::interrupt_off)
 {
-	switch (id)
-	{
-	case TIMER_INTERRUPT_OFF:
-		m_maincpu->set_input_line(0, CLEAR_LINE);
-		break;
-	case TIMER_SCANLINE:
-		scanline_callback(ptr, param);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in astrocde_state::device_timer");
-	}
+	m_maincpu->set_input_line(0, CLEAR_LINE);
 }
 
 WRITE_LINE_MEMBER(astrocde_state::lightpen_trigger_w)

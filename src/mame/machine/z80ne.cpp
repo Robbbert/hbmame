@@ -30,7 +30,7 @@ cassette_image_device* z80ne_state::cassette_device_image()
 		return m_cassette1;
 }
 
-TIMER_CALLBACK_MEMBER(z80ne_state::z80ne_cassette_tc)
+TIMER_CALLBACK_MEMBER(z80ne_state::cassette_tc)
 {
 	uint8_t cass_ws = 0;
 	m_cass_data.input.length++;
@@ -100,7 +100,7 @@ void z80netf_state::driver_init()
 
 }
 
-TIMER_CALLBACK_MEMBER(z80ne_state::z80ne_kbd_scan)
+TIMER_CALLBACK_MEMBER(z80ne_state::kbd_scan)
 {
 	/*
 	 * NE555 is connected to a 74LS93 binary counter
@@ -144,16 +144,9 @@ TIMER_CALLBACK_MEMBER(z80ne_state::z80ne_kbd_scan)
 	}
 }
 
-void z80ne_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(z80ne_state::pulse_nmi)
 {
-	switch (id)
-	{
-	case 0:
-		m_maincpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
-		break;
-	default:
-		printf("Invalid timer %d encountered\n",id);
-	}
+	m_maincpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
 }
 
 void z80net_state::reset_lx387()
@@ -265,20 +258,22 @@ void z80ne_state::machine_reset()
 
 	address_space &program = m_maincpu->space(AS_PROGRAM);
 	program.install_rom(0x0000, 0x03ff, m_rom);   // do it here for F3
-	m_rom_shadow_tap = program.install_read_tap(0x8000, 0x83ff, "rom_shadow_r",[this](offs_t offset, u8 &data, u8 mem_mask)
-	{
-		if (!machine().side_effects_disabled())
-		{
-			// delete this tap
-			m_rom_shadow_tap->remove();
+	m_rom_shadow_tap.remove();
+	m_rom_shadow_tap = program.install_read_tap(
+			0x8000, 0x83ff,
+			"rom_shadow_r",
+			[this] (offs_t offset, u8 &data, u8 mem_mask)
+			{
+				if (!machine().side_effects_disabled())
+				{
+					// delete this tap
+					m_rom_shadow_tap.remove();
 
-			// reinstall ram over the rom shadow
-			m_maincpu->space(AS_PROGRAM).install_ram(0x0000, 0x03ff, m_mram);
-		}
-
-		// return the original data
-		return data;
-	});
+					// reinstall RAM over the ROM shadow
+					m_maincpu->space(AS_PROGRAM).install_ram(0x0000, 0x03ff, m_mram);
+				}
+			},
+			&m_rom_shadow_tap);
 }
 
 void z80net_state::machine_reset()
@@ -303,20 +298,22 @@ void z80netf_state::machine_reset()
 	if ((m_io_config->read() & 0x07) != 2)
 	{
 		address_space &program = m_maincpu->space(AS_PROGRAM);
-		m_rom_shadow_tap = program.install_read_tap(0x8000, 0xf3ff, "rom_shadow_r",[this](offs_t offset, u8 &data, u8 mem_mask)
-		{
-			if (!machine().side_effects_disabled())
-			{
-				// delete this tap
-				m_rom_shadow_tap->remove();
+		m_rom_shadow_tap.remove();
+		m_rom_shadow_tap = program.install_read_tap(
+				0x8000, 0xf3ff,
+				"rom_shadow_r",
+				[this] (offs_t offset, u8 &data, u8 mem_mask)
+				{
+					if (!machine().side_effects_disabled())
+					{
+						// delete this tap
+						m_rom_shadow_tap.remove();
 
-				// reinstall ram over the rom shadow
-				m_bank1->set_entry(0);
-			}
-
-			// return the original data
-			return data;
-		});
+						// reinstall RAM over the ROM shadow
+						m_bank1->set_entry(0);
+					}
+				},
+				&m_rom_shadow_tap);
 	}
 }
 
@@ -338,13 +335,13 @@ INPUT_CHANGED_MEMBER(z80net_state::z80net_nmi)
 
 void z80ne_state::machine_start()
 {
-	m_timer_nmi = timer_alloc(0);
+	m_timer_nmi = timer_alloc(FUNC(z80ne_state::pulse_nmi), this);
 
 	m_lx383_digits.resolve();
 
 	m_lx385_ctrl = 0x1f;
-	m_cassette_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(z80ne_state::z80ne_cassette_tc), this));
-	m_kbd_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(z80ne_state::z80ne_kbd_scan), this));
+	m_cassette_timer = timer_alloc(FUNC(z80ne_state::cassette_tc), this);
+	m_kbd_timer = timer_alloc(FUNC(z80ne_state::kbd_scan), this);
 	m_kbd_timer->adjust(attotime::from_hz(1000), 0, attotime::from_hz(1000));
 }
 

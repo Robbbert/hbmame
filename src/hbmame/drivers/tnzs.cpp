@@ -2,15 +2,9 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/tnzs.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**********
- Insector X
-************/
+/************************
+ Dr. Toppel's Adventure
+*************************/
 
 ROM_START( drtoppels01 )
 	ROM_REGION( 0x20000, "maincpu", 0 )
@@ -44,7 +38,7 @@ ROM_START( drtoppels01 )
 	ROM_LOAD( "b06-13.pal16l8a.c2.jed", 0x03000, 0x01000, NO_DUMP)
 ROM_END
 
- /**********
+/**********
  Insector X
 ************/
 

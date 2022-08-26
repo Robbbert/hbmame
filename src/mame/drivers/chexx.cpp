@@ -13,29 +13,29 @@ Electro-mechanical bubble hockey games:
 
 (Some sources indicate these may have been copied from a earlier Sega game called Face-Off)
 
-Olimpic Hockey Spanish clone from Inor (probably unlicensed) runs on an almost
+Olimpic Hockey, Spanish clone from Inor (probably unlicensed), runs on an almost
 exact clone of the 1st generation ICE Chexx hardware (https://www.recreativas.org/olimpic-hockey-1110-inor):
 
  Inor Olympic Hockey PCB
  ________________________________________
  |                                       |
  | : <- Conn P4            ____________  |
- |                        |/B8342 SJLC|  |
+ |                        |/B8342 SJLB|  |
  |                        |___________|  |
  |                        ____________   |
  |                        |/B8342 SJLC|  |
  |                        |___________|  |
  |                        ____________   |
- |                        |/B8342 SJLC|  |
+ |                        |/B8342 SJLD|  |
  |                        |___________|  |
  |                        ____________   |
- |/o\ <- Conn p5          |/B8342 SJLC|  |
+ |/o\ <- Conn p5          |/B8342 SJLF|  |
  ||o|                     |___________|  |
  ||o|                     ____________   |
- |                        |/B8342 SJLC|  |
+ |                        |/B8342 SJLG|  |
  |                        |___________|  |
  | : <- Conn P7           ____________   |
- | :                      |/B8342 SJLC|  |
+ | :                      |/B8342 SJLH|  |
  |                        |___________|  |
  | ____                   ____________   |
  | LM358N                 |EMPTY      |  |
@@ -87,7 +87,7 @@ appears to run on very similar hardware, with a AY8912 but no Digitalker.
 #include "chexx.lh"
 
 
-#define MAIN_CLOCK XTAL(4'000'000)
+namespace {
 
 class chexx_state : public driver_device
 {
@@ -126,14 +126,7 @@ public:
 	void mem(address_map &map);
 
 protected:
-	enum
-	{
-		TIMER_UPDATE
-	};
-
-	void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
-
-	void update();
+	TIMER_CALLBACK_MEMBER(update);
 
 	// digitalker
 	void digitalker_set_bank(uint8_t bank);
@@ -180,8 +173,8 @@ protected:
 	void mem(address_map &map);
 
 	required_device<ay8910_device> m_aysnd; // only faceoffh
-	uint8_t m_ay_cmd;
-	uint8_t m_ay_data;
+	uint8_t m_ay_cmd = 0;
+	uint8_t m_ay_data = 0;
 };
 
 
@@ -283,16 +276,6 @@ void chexx_state::mem(address_map &map)
 	map(0xf800, 0xffff).rom().region("maincpu", 0);
 }
 
-void chexx_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	switch (id)
-	{
-	case TIMER_UPDATE:
-		update();
-		break;
-	}
-}
-
 void chexx_state::lamp_w(uint8_t data)
 {
 	m_lamp = data;
@@ -373,7 +356,7 @@ void chexx_state::machine_start()
 	m_leds.resolve();
 	m_lamps.resolve();
 
-	m_update_timer = timer_alloc(TIMER_UPDATE);
+	m_update_timer = timer_alloc(FUNC(chexx_state::update), this);
 }
 
 void chexx_state::digitalker_set_bank(uint8_t bank)
@@ -396,7 +379,7 @@ void chexx_state::machine_reset()
 	m_update_timer->adjust(attotime::from_hz(60), 0, attotime::from_hz(60));
 }
 
-void chexx_state::update()
+TIMER_CALLBACK_MEMBER(chexx_state::update)
 {
 	// NMI on coin-in
 	uint8_t coin = (~m_coin->read()) & 0x03;
@@ -426,8 +409,7 @@ void chexx_state::update()
 		m_digitalker->digitalker_0_cms_w(CLEAR_LINE);
 		m_digitalker->digitalker_0_cs_w(CLEAR_LINE);
 
-		address_space &space = m_maincpu->space(AS_PROGRAM);
-		m_digitalker->digitalker_data_w(space, 0, sample, 0);
+		m_digitalker->digitalker_data_w(sample);
 
 		m_digitalker->digitalker_0_wr_w(ASSERT_LINE);
 		m_digitalker->digitalker_0_wr_w(CLEAR_LINE);
@@ -438,11 +420,11 @@ void chexx_state::update()
 
 void chexx_state::chexx(machine_config &config)
 {
-	M6502(config, m_maincpu, MAIN_CLOCK/2);
+	M6502(config, m_maincpu, XTAL(4'000'000) / 2);
 	m_maincpu->set_addrmap(AS_PROGRAM, &chexx_state::mem);
 
 	// via
-	MOS6522(config, m_via, MAIN_CLOCK/4);
+	MOS6522(config, m_via, XTAL(4'000'000) / 4);
 
 	m_via->readpa_handler().set(FUNC(chexx_state::via_a_in));
 	m_via->readpb_handler().set(FUNC(chexx_state::via_b_in));
@@ -460,7 +442,7 @@ void chexx_state::chexx(machine_config &config)
 
 	// sound hardware
 	SPEAKER(config, "mono").front_center();
-	DIGITALKER(config, m_digitalker, MAIN_CLOCK);
+	DIGITALKER(config, m_digitalker, XTAL(4'000'000));
 	m_digitalker->add_route(ALL_OUTPUTS, "mono", 0.16);
 }
 
@@ -469,7 +451,7 @@ void faceoffh_state::faceoffh(machine_config &config)
 	chexx(config);
 	m_maincpu->set_addrmap(AS_PROGRAM, &faceoffh_state::mem);
 
-	AY8910(config, m_aysnd, MAIN_CLOCK/2);
+	AY8910(config, m_aysnd, XTAL(4'000'000) / 2);
 	m_aysnd->add_route(ALL_OUTPUTS, "mono", 0.30);
 }
 
@@ -512,12 +494,12 @@ ROM_START( olihockey )
 	// bank switched (from samples region)
 
 	ROM_REGION( 0x10000, "samples", ROMREGION_ERASE00 )
-	ROM_LOAD( "b8342_sjlb.u19", 0x0000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlc.u18", 0x2000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjld.u17", 0x4000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlf.u16", 0x6000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlg.u15", 0x8000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlh.u14", 0xa000, 0x2000, NO_DUMP )
+	ROM_LOAD( "b8342_sjlb.u19", 0x0000, 0x2000, CRC(059b3725) SHA1(5837bee1ef34ce19a3101b851ca55029776e4b3e) )
+	ROM_LOAD( "b8342_sjlc.u18", 0x2000, 0x2000, CRC(679da4e1) SHA1(01a5b9dd132c1b0de97c153d7de226f5bf357338) )
+	ROM_LOAD( "b8342_sjld.u17", 0x4000, 0x2000, CRC(f8461b33) SHA1(717a8842e0ce9ba94dd59504a324bede4844e389) )
+	ROM_LOAD( "b8342_sjlf.u16", 0x6000, 0x2000, CRC(156c91e0) SHA1(6017d4b5609b214a6e66dcd76493a7d1442c04d4) )
+	ROM_LOAD( "b8342_sjlg.u15", 0x8000, 0x2000, CRC(19904604) SHA1(633c211a9a822cdf597a6f3c221ae9c8d6482e82) )
+	ROM_LOAD( "b8342_sjlh.u14", 0xa000, 0x2000, CRC(c3386d51) SHA1(7882e88db55ba914be81075e4b2d76e246c34d3b) )
 
 	// U13 and U12 unpopulated
 	ROM_FILL(                   0xc000, 0x2000, 0xff )
@@ -527,18 +509,18 @@ ROM_END
 // Same PCB as 'chexx83'
 ROM_START( olihockeya )
 	ROM_REGION( 0x0800, "maincpu", 0 )
-	ROM_LOAD( "inor_2.u4", 0x0000, 0x0800, CRC(bbbabac1) SHA1(bbb31670eb6d1b62ba984f0bac7c6e6067f6ae87) )
+	ROM_LOAD( "inor_2.u4", 0x0000, 0x0800, CRC(038958a4) SHA1(aec5e24eea1829459dd3ef9ffe3e4b8c39071ced) )
 
 	ROM_REGION( 0x4000, "digitalker", ROMREGION_ERASE00 )
 	// bank switched (from samples region)
 
 	ROM_REGION( 0x10000, "samples", ROMREGION_ERASE00 )
-	ROM_LOAD( "b8342_sjlb.u19", 0x0000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlc.u18", 0x2000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjld.u17", 0x4000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlf.u16", 0x6000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlg.u15", 0x8000, 0x2000, NO_DUMP )
-	ROM_LOAD( "b8342_sjlh.u14", 0xa000, 0x2000, NO_DUMP )
+	ROM_LOAD( "b8342_sjlb.u19", 0x0000, 0x2000, CRC(059b3725) SHA1(5837bee1ef34ce19a3101b851ca55029776e4b3e) )
+	ROM_LOAD( "b8342_sjlc.u18", 0x2000, 0x2000, CRC(679da4e1) SHA1(01a5b9dd132c1b0de97c153d7de226f5bf357338) )
+	ROM_LOAD( "b8342_sjld.u17", 0x4000, 0x2000, CRC(f8461b33) SHA1(717a8842e0ce9ba94dd59504a324bede4844e389) )
+	ROM_LOAD( "b8342_sjlf.u16", 0x6000, 0x2000, CRC(156c91e0) SHA1(6017d4b5609b214a6e66dcd76493a7d1442c04d4) )
+	ROM_LOAD( "b8342_sjlg.u15", 0x8000, 0x2000, CRC(19904604) SHA1(633c211a9a822cdf597a6f3c221ae9c8d6482e82) )
+	ROM_LOAD( "b8342_sjlh.u14", 0xa000, 0x2000, CRC(c3386d51) SHA1(7882e88db55ba914be81075e4b2d76e246c34d3b) )
 
 	// U13 and U12 unpopulated
 	ROM_FILL(                   0xc000, 0x2000, 0xff )
@@ -584,7 +566,10 @@ ROM_START( faceoffh )
 	ROM_FILL(         0xe000, 0x2000, 0xff ) // unpopulated
 ROM_END
 
+} // Anonymous namespace
+
+
 GAME( 1983, chexx83,    0,         chexx,    chexx83, chexx_state,    empty_init, ROT270, "ICE",                                                 "Chexx (EM Bubble Hockey, 1983 1.1)",       MACHINE_NOT_WORKING | MACHINE_MECHANICAL | MACHINE_NO_SOUND )
 GAME( 1983, faceoffh,   chexx83,   faceoffh, chexx83, faceoffh_state, empty_init, ROT270, "SoftLogic (Entertainment Enterprises, Ltd. license)", "Face-Off (EM Bubble Hockey)",              MACHINE_NOT_WORKING | MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
-GAME( 1985, olihockey,  0,         chexx,    chexx83, chexx_state,    empty_init, ROT270, "Inor",                                                "Olimpic Hockey (EM Bubble Hockey, set 1)", MACHINE_NOT_WORKING | MACHINE_MECHANICAL | MACHINE_NO_SOUND )
-GAME( 1985, olihockeya, olihockey, chexx,    chexx83, chexx_state,    empty_init, ROT270, "Inor",                                                "Olimpic Hockey (EM Bubble Hockey, set 2)", MACHINE_NOT_WORKING | MACHINE_MECHANICAL | MACHINE_NO_SOUND )
+GAME( 1985, olihockey,  0,         chexx,    chexx83, chexx_state,    empty_init, ROT270, "Inor",                                                "Olimpic Hockey (EM Bubble Hockey, set 1)", MACHINE_NOT_WORKING | MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
+GAME( 1985, olihockeya, olihockey, chexx,    chexx83, chexx_state,    empty_init, ROT270, "Inor",                                                "Olimpic Hockey (EM Bubble Hockey, set 2)", MACHINE_NOT_WORKING | MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )

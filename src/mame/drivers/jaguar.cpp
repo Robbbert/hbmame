@@ -350,7 +350,7 @@ Notes:
 #include "machine/vt83c461.h"
 #include "sound/cdda.h"
 #include "cdrom.h"
-#include "softlist.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 #define COJAG_CLOCK         XTAL(52'000'000)
@@ -879,7 +879,7 @@ void jaguar_state::gpu_jump_w(offs_t offset, uint32_t data, uint32_t mem_mask)
 	gpu_resume();
 
 	/* start the sync timer going, and note that there is a command pending */
-	synchronize(TID_GPU_SYNC);
+	m_gpu_sync_timer->adjust(attotime::zero);
 	m_gpu_command_pending = true;
 }
 
@@ -1231,8 +1231,15 @@ void jaguarcd_state::butch_regs_w(offs_t offset, uint32_t data, uint32_t mem_mas
 			switch((m_butch_regs[offset] & 0xff00) >> 8)
 			{
 				case 0x03: // Read TOC
-					uint32_t msf;
-
+				{
+					if(!m_cd_file) // No disc
+					{
+						m_butch_cmd_response[0] = 0x400;
+						m_butch_regs[0] |= 0x2000;
+						m_butch_cmd_index = 0;
+						m_butch_cmd_size = 1;
+						return;
+					}
 					if(m_butch_regs[offset] & 0xff) // Multi Session CD, TODO
 					{
 						m_butch_cmd_response[0] = 0x0029; // illegal value
@@ -1242,12 +1249,12 @@ void jaguarcd_state::butch_regs_w(offs_t offset, uint32_t data, uint32_t mem_mas
 						return;
 					}
 
-					msf = cdrom_get_track_start(m_cd_file, 0) + 150;
+					uint32_t msf = m_cd_file->get_track_start(0) + 150;
 
 					/* first track number */
 					m_butch_cmd_response[0] = 0x2000 | 1;
 					/* last track number */
-					m_butch_cmd_response[1] = 0x2100 | cdrom_get_last_track(m_cd_file);
+					m_butch_cmd_response[1] = 0x2100 | m_cd_file->get_last_track();
 
 					/* start of first track minutes */
 					m_butch_cmd_response[2] = 0x2200 | ((msf / 60) / 60);
@@ -1259,45 +1266,57 @@ void jaguarcd_state::butch_regs_w(offs_t offset, uint32_t data, uint32_t mem_mas
 					m_butch_cmd_index = 0;
 					m_butch_cmd_size = 5;
 					break;
+				}
+
 				case 0x14: // Read Long TOC
+				{
+					if(!m_cd_file) // No disc
 					{
-						uint32_t msf;
-						int ntrks = cdrom_get_last_track(m_cd_file);
-
-						for(int i=0;i<ntrks;i++)
-						{
-							msf = cdrom_get_track_start(m_cd_file, i) + 150;
-
-							/* track number */
-							m_butch_cmd_response[i*5+0] = 0x6000 | (i+1);
-							/* attributes (?) */
-							m_butch_cmd_response[i*5+1] = 0x6100 | 0x00;
-
-							/* start of track minutes */
-							m_butch_cmd_response[i*5+2] = 0x6200 | ((msf / 60) / 60);
-							/* start of track seconds */
-							m_butch_cmd_response[i*5+3] = 0x6300 | (msf / 60) % 60;
-							/* start of track frame */
-							m_butch_cmd_response[i*5+4] = 0x6400 | (msf % 75);
-						}
+						m_butch_cmd_response[0] = 0x400;
 						m_butch_regs[0] |= 0x2000;
 						m_butch_cmd_index = 0;
-						m_butch_cmd_size = 5*ntrks;
+						m_butch_cmd_size = 1;
+						return;
 					}
 
+					int ntrks = m_cd_file->get_last_track();
+
+					for(int i=0;i<ntrks;i++)
+					{
+						uint32_t msf = m_cd_file->get_track_start(i) + 150;
+
+						/* track number */
+						m_butch_cmd_response[i*5+0] = 0x6000 | (i+1);
+						/* attributes (?) */
+						m_butch_cmd_response[i*5+1] = 0x6100 | 0x00;
+
+						/* start of track minutes */
+						m_butch_cmd_response[i*5+2] = 0x6200 | ((msf / 60) / 60);
+						/* start of track seconds */
+						m_butch_cmd_response[i*5+3] = 0x6300 | (msf / 60) % 60;
+						/* start of track frame */
+						m_butch_cmd_response[i*5+4] = 0x6400 | (msf % 75);
+					}
+					m_butch_regs[0] |= 0x2000;
+					m_butch_cmd_index = 0;
+					m_butch_cmd_size = 5*ntrks;
 					break;
+				}
+
 				case 0x15: // Set Mode
 					m_butch_regs[0] |= 0x2000;
 					m_butch_cmd_response[0] = 0x1700 | (m_butch_regs[offset] & 0xff);
 					m_butch_cmd_index = 0;
 					m_butch_cmd_size = 1;
 					break;
+
 				case 0x70: // Set DAC Mode
 					m_butch_regs[0] |= 0x2000;
 					m_butch_cmd_response[0] = 0x7000 | (m_butch_regs[offset] & 0xff);
 					m_butch_cmd_index = 0;
 					m_butch_cmd_size = 1;
 					break;
+
 				default:
 					printf("%04x CMD\n",m_butch_regs[offset]);
 					break;
@@ -1967,7 +1986,7 @@ image_init_result jaguar_state::quickload_cb(device_image_interface &image)
 
 
 	/* Some programs are too lazy to set a stack pointer */
-	m_maincpu->set_state_int(STATE_GENSP, 0x1000);
+	m_maincpu->set_state_int(M68K_SP, 0x1000);
 	m_shared_ram[0]=0x1000;
 
 	/* Transfer control to image */
@@ -2061,10 +2080,10 @@ ROM_END
 
 ROM_START( area51t ) /* 68020 based, Area51 Time Warner License - MAIN: Oct 17 1996 17:15:41 / OS: 2.03CJ Oct 17 1996 17:15:01 */
 	ROM_REGION( 0x200000, "maincpu", 0 )    /* 2MB for 68020 code */
-	ROM_LOAD32_BYTE( "136105-0003-q_h.3h", 0x00000, 0x80000, CRC(0681f398) SHA1(9e96db5a4ff90800685a5b95f8d758d211d3b982) ) /* Also found labeled as AREA51, 68K, D2FF, 3H, 11/20/96 (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "136105-0002-q_p.3p", 0x00001, 0x80000, CRC(f76cfc68) SHA1(01a781b42b61279e09e0cb1d924e2a3e0df44591) ) /* Also found labeled as AREA51, 68K, 69FE, 3P, 11/20/96 (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "136105-0001-q_m.3m", 0x00002, 0x80000, CRC(f422b4a8) SHA1(f95ef428be18adafae65e35f412eb03dcdaf7ed4) ) /* Also found labeled as AREA51, 68K, FCFD, 3M, 11/20/96 (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "136105-0000-q_k.3k", 0x00003, 0x80000, CRC(1fb2f2b5) SHA1(cbed65463dd93eaf945750a9dc3a123d1c6bda42) ) /* Also found labeled as AREA51, 68K, 65FC, 3K, 11/20/96 (each item on a seperate line) */
+	ROM_LOAD32_BYTE( "136105-0003-q_h.3h", 0x00000, 0x80000, CRC(0681f398) SHA1(9e96db5a4ff90800685a5b95f8d758d211d3b982) ) /* Also found labeled as AREA51, 68K, D2FF, 3H, 11/20/96 (each item on a separate line) */
+	ROM_LOAD32_BYTE( "136105-0002-q_p.3p", 0x00001, 0x80000, CRC(f76cfc68) SHA1(01a781b42b61279e09e0cb1d924e2a3e0df44591) ) /* Also found labeled as AREA51, 68K, 69FE, 3P, 11/20/96 (each item on a separate line) */
+	ROM_LOAD32_BYTE( "136105-0001-q_m.3m", 0x00002, 0x80000, CRC(f422b4a8) SHA1(f95ef428be18adafae65e35f412eb03dcdaf7ed4) ) /* Also found labeled as AREA51, 68K, FCFD, 3M, 11/20/96 (each item on a separate line) */
+	ROM_LOAD32_BYTE( "136105-0000-q_k.3k", 0x00003, 0x80000, CRC(1fb2f2b5) SHA1(cbed65463dd93eaf945750a9dc3a123d1c6bda42) ) /* Also found labeled as AREA51, 68K, 65FC, 3K, 11/20/96 (each item on a separate line) */
 
 	ROM_REGION16_BE( 0x1000, "waverom", 0 )
 	ROM_LOAD16_WORD("jagwave.rom", 0x0000, 0x1000, CRC(7a25ee5b) SHA1(58117e11fd6478c521fbd3fdbe157f39567552f0) )
@@ -2132,10 +2151,10 @@ ROM_END
 
 ROM_START( maxf_102 ) /* R3000 based, labeled as "Maximum Force 2-27-97 v1.02" - Usually found with "yellow" labels */
 	ROM_REGION( 0x200000, "maincpu", 0 )    /* 2MB for IDT 79R3041 code */
-	ROM_LOAD32_BYTE( "1.02_maximum_force_hh_2-27-97.hh", 0x00000, 0x80000, CRC(8ff7009d) SHA1(da22eae298a6e0e36f503fa091ac3913423dcd0f) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, HH, 46FF, 2/27/97 (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "1.02_maximum_force_hl_2-27-97.hl", 0x00001, 0x80000, CRC(96c2cc1d) SHA1(b332b8c042b92c736131c478cefac1c3c2d2673b) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, HL, 14FE, 2/27/97 (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "1.02_maximum_force_lh_2-27-97.lh", 0x00002, 0x80000, CRC(459ffba5) SHA1(adb40db6904e84c17f32ac6518fd2e994da7883f) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, LH, 15FD, 2/27/97 (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "1.02_maximum_force_ll_2-27-97.ll", 0x00003, 0x80000, CRC(e491be7f) SHA1(cbe281c099a4aa87067752d68cf2bb0ab3900531) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, LL, 15FC, 2/27/97 (each item on a seperate line) */
+	ROM_LOAD32_BYTE( "1.02_maximum_force_hh_2-27-97.hh", 0x00000, 0x80000, CRC(8ff7009d) SHA1(da22eae298a6e0e36f503fa091ac3913423dcd0f) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, HH, 46FF, 2/27/97 (each item on a separate line) */
+	ROM_LOAD32_BYTE( "1.02_maximum_force_hl_2-27-97.hl", 0x00001, 0x80000, CRC(96c2cc1d) SHA1(b332b8c042b92c736131c478cefac1c3c2d2673b) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, HL, 14FE, 2/27/97 (each item on a separate line) */
+	ROM_LOAD32_BYTE( "1.02_maximum_force_lh_2-27-97.lh", 0x00002, 0x80000, CRC(459ffba5) SHA1(adb40db6904e84c17f32ac6518fd2e994da7883f) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, LH, 15FD, 2/27/97 (each item on a separate line) */
+	ROM_LOAD32_BYTE( "1.02_maximum_force_ll_2-27-97.ll", 0x00003, 0x80000, CRC(e491be7f) SHA1(cbe281c099a4aa87067752d68cf2bb0ab3900531) ) /* Also found labeled as MAX, FORCE, V. 1.02, PROG, LL, 15FC, 2/27/97 (each item on a separate line) */
 
 	ROM_REGION16_BE( 0x1000, "waverom", 0 )
 	ROM_LOAD16_WORD("jagwave.rom", 0x0000, 0x1000, CRC(7a25ee5b) SHA1(58117e11fd6478c521fbd3fdbe157f39567552f0) )
@@ -2192,10 +2211,10 @@ ROM_END
 
 ROM_START( a51mxr3ka ) /* R3000 based - MAIN: Feb  2 1998 14:10:29 / GUTS: 2.07CJ Jan  9 1998 21:11:55 */
 	ROM_REGION( 0x200000, "maincpu", 0 )    /* 2MB for IDT 79R3041 code */
-	ROM_LOAD32_BYTE( "maxa51_combo_r3k_hh_prog_2-02-98_67ff.hh", 0x00000, 0x80000, CRC(6af8950a) SHA1(33ae123065b14ed8d83635f3351ac5b5c136d206) ) /* Labeled as MAXA51  COMBO  R3K  HH  PROG  2/02/98  67FF (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "maxa51_combo_r3k_hl_prog_2-02-98_72fe.hl", 0x00001, 0x80000, CRC(30dc3eea) SHA1(2b4e8d43ee28b2d1446c84ff79553a7ce1909f60) ) /* Labeled as MAXA51  COMBO  R3K  HL  PROG  2/02/98  72FE (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "maxa51_combo_r3k_lh_prog_2-02-98_7ffd.lh", 0x00002, 0x80000, CRC(2c2124af) SHA1(6158644ef126f842a1a4f145141ce847302bbd62) ) /* Labeled as MAXA51  COMBO  R3K  LH  PROG  2/02/98  7FFD (each item on a seperate line) */
-	ROM_LOAD32_BYTE( "maxa51_combo_r3k_ll_prog_2-02-98_b3fc.ll", 0x00003, 0x80000, CRC(083f4429) SHA1(2be8db7c756a095c87f056da49b8e8832f18bca9) ) /* Labeled as MAXA51  COMBO  R3K  LL  PROG  2/02/98  B3FC (each item on a seperate line) */
+	ROM_LOAD32_BYTE( "maxa51_combo_r3k_hh_prog_2-02-98_67ff.hh", 0x00000, 0x80000, CRC(6af8950a) SHA1(33ae123065b14ed8d83635f3351ac5b5c136d206) ) /* Labeled as MAXA51  COMBO  R3K  HH  PROG  2/02/98  67FF (each item on a separate line) */
+	ROM_LOAD32_BYTE( "maxa51_combo_r3k_hl_prog_2-02-98_72fe.hl", 0x00001, 0x80000, CRC(30dc3eea) SHA1(2b4e8d43ee28b2d1446c84ff79553a7ce1909f60) ) /* Labeled as MAXA51  COMBO  R3K  HL  PROG  2/02/98  72FE (each item on a separate line) */
+	ROM_LOAD32_BYTE( "maxa51_combo_r3k_lh_prog_2-02-98_7ffd.lh", 0x00002, 0x80000, CRC(2c2124af) SHA1(6158644ef126f842a1a4f145141ce847302bbd62) ) /* Labeled as MAXA51  COMBO  R3K  LH  PROG  2/02/98  7FFD (each item on a separate line) */
+	ROM_LOAD32_BYTE( "maxa51_combo_r3k_ll_prog_2-02-98_b3fc.ll", 0x00003, 0x80000, CRC(083f4429) SHA1(2be8db7c756a095c87f056da49b8e8832f18bca9) ) /* Labeled as MAXA51  COMBO  R3K  LL  PROG  2/02/98  B3FC (each item on a separate line) */
 
 	ROM_REGION16_BE( 0x1000, "waverom", 0 )
 	ROM_LOAD16_WORD("jagwave.rom", 0x0000, 0x1000, CRC(7a25ee5b) SHA1(58117e11fd6478c521fbd3fdbe157f39567552f0) )

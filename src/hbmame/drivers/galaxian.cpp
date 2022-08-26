@@ -641,69 +641,6 @@ ROM_START( wbeast )
 	ROM_LOAD( "warofbug.clr", 0x0000, 0x0020, CRC(8688e64b) SHA1(ed13414257f580b98b50c9892a14159c55e7838d) )
 ROM_END
 
-/* This is sort of playable - no sound, wrong colours. Reboots after defeating the boss. */
-ROM_START( monstrz )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "b-1e.a1",      0x0000, 0x1000, CRC(97886542) SHA1(01f4f9bd55f9eae28162cbb22a26f7cda22cd3f3) )
-	ROM_LOAD( "b-2e.c1",      0x1000, 0x1000, CRC(184ffcb4) SHA1(829d6ca13773aba7c3a81e122171befbe3666110) )
-	ROM_LOAD( "b-3e.d1",      0x2000, 0x1000, CRC(b7b10ac7) SHA1(51d544d4db456df756a95d7f1853fffed9259647) )
-	ROM_LOAD( "b-4e.e1",      0x3000, 0x1000, CRC(fb02c736) SHA1(24466116dd07b856b1afff62b8312c67ff466b95) )
-	ROM_LOAD( "b-5e.g1",      0xc000, 0x1000, CRC(b2788ab9) SHA1(eb1a6b41f4c7a243481bfccf2b068ce1bc292366) )
-	ROM_LOAD( "b-6e.h1",      0xd000, 0x1000, CRC(77d7aa8d) SHA1(62aaf582ba55f7b21f6cf13b4fb6c2c54bb729f5) )
-	// protection
-	ROM_FILL(0xc5d8,1,0)
-	ROM_FILL(0xc5fc,1,0)
-	ROM_FILL(0xc624,1,0)
-	ROM_FILL(0xc63c,1,0)
-	// fill the protection ram with RET so we don't run into the weeds.
-	ROM_FILL(0x3800,0x800,0xc9)
-	// enable attract mode
-	ROM_FILL(0x3918, 1, 0xC5)
-	ROM_FILL(0x3919, 1, 0xE5)
-	ROM_FILL(0x391A, 1, 0xF5)
-	ROM_FILL(0x391B, 1, 0x21)
-	ROM_FILL(0x391C, 1, 0x10)
-	ROM_FILL(0x391D, 1, 0x41)
-	ROM_FILL(0x391E, 1, 0xAF)
-	ROM_FILL(0x391F, 1, 0x06)
-	ROM_FILL(0x3920, 1, 0x08)
-	ROM_FILL(0x3921, 1, 0xAE)
-	ROM_FILL(0x3922, 1, 0x23)
-	ROM_FILL(0x3923, 1, 0x10)
-	ROM_FILL(0x3924, 1, 0xFC)
-	ROM_FILL(0x3925, 1, 0xFE)
-	ROM_FILL(0x3926, 1, 0x40)
-	ROM_FILL(0x3927, 1, 0x20)
-	ROM_FILL(0x3928, 1, 0x03)
-	ROM_FILL(0x3929, 1, 0x32)
-	ROM_FILL(0x392A, 1, 0x12)
-	ROM_FILL(0x392B, 1, 0x41)
-	ROM_FILL(0x392C, 1, 0xF1)
-	ROM_FILL(0x392D, 1, 0xE1)
-	ROM_FILL(0x392E, 1, 0xC1)
-
-	ROM_REGION( 0x10000, "audiocpu", 0 )
-	ROM_LOAD( "a-1e.k1",      0x0000, 0x1000, CRC(b88ba44e) SHA1(85c141fb411d541b1e20412f5fefd18395f635ae) )
-	ROM_LOAD( "a-2.k2",       0x1000, 0x1000, CRC(8913c94e) SHA1(6c4fe065217a234d45761f8ad4d2c4e7078a0abd) )
-	ROM_LOAD( "a-3e.k3",      0x2000, 0x1000, CRC(a8fa5095) SHA1(5cabe5497a79a0c43e78a84ae87c824af60a2a3f) )
-	ROM_LOAD( "a-4.k4",       0x3000, 0x1000, CRC(93f81317) SHA1(167708be94cb9a47290067a20bc5ff6f018b93b6) )
-
-	ROM_REGION( 0x10000, "audio2", 0 )
-	ROM_LOAD( "a-5e.k5",      0x0000, 0x1000, CRC(b5bcdb4e) SHA1(db0965e5636e0f4e9cd4f4a7d808c413ecf733db) )
-	ROM_LOAD( "a-6.k6",       0x1000, 0x1000, CRC(24832b2e) SHA1(2a67888e86ce1a3182303e841513ba2a07977359) )
-	ROM_LOAD( "a-7e.k7",      0x2000, 0x1000, CRC(20ebea81) SHA1(473c688365b256d8593663ff95768f4a5bb1289d) )
-	// 0x3000 empty ?
-	ROM_LOAD( "a-8.k8",       0x4000, 0x1000, CRC(b833a15b) SHA1(0d21aaa0ca5ccba89118b205a6b3b36b15663c47) )
-	ROM_LOAD( "a-9.k9",       0x5000, 0x1000, CRC(cbd76ec2) SHA1(9434350ee93ca71efe78018b69913386353306ff) )
-
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "b-7e.a5",      0x0000, 0x1000, CRC(ddd4158d) SHA1(9701e2d8a0226455dfbed650e58bb4be05918fe8) )
-	ROM_LOAD( "b-8e.c5",      0x1000, 0x1000, CRC(b1331b4c) SHA1(fa1af406ecd6919b4846aea68d3edb70106f9273) )
-
-	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "prom.g9",      0x0000, 0x0020, CRC(b7ea00d7) SHA1(f658c6ac8123ae1e6b68ae513cc02c4d9d2b4e47) )
-ROM_END
-
 
 /***************************************************************************
 
@@ -752,8 +689,101 @@ GAME( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_moonc
 
 /* Other */
 GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
-GAME( 1982, monstrz,  0,        sfx,      sfx,      taiyo_sfx_state, init_sfx,      ORIENTATION_FLIP_X, "Nihon Game Co", "Monster Zero", MACHINE_UNEMULATED_PROTECTION | MACHINE_NO_SOUND | MACHINE_WRONG_COLORS | MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2, pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 
 
+ROM_START( multigameb )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD( "code.bin",     0x00000, 0x80000, CRC(5635ed48) SHA1(703aa21c58f58902c56fa3710db2523ae84877e0) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD( "gfx1.bin",     0x00000, 0x10000, CRC(63b8420d) SHA1(3cbc101165b02c0a64b8406bf91af42f9142512c) )
+	ROM_LOAD( "gfx2.bin",     0x10000, 0x10000, CRC(f962d3f7) SHA1(bd9aab0a511a8679280a83a2f8bbd1e82faf64d1) )
+
+	ROM_REGION( 0x400, "proms", 0 )
+	ROM_LOAD( "col.bin",      0x000000, 0x00400, CRC(c9320883) SHA1(814d42545a81f3316b564e52817c72b193f974ea) )
+//	ROM_LOAD( "bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
+
+//	ROM_REGION( 0x1000, "gfx1", 0 )
+//	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
+//	ROM_LOAD( "1k.bin",       0x0800, 0x0800, CRC(7e3f56a2) SHA1(a9795d8b7388f404f3b0e2c6ce15d713a4c5bafa) )
+
+//	ROM_REGION( 0x0020, "proms", 0 )
+//	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
+class multib_state : public videight_state
+{
+public:
+	multib_state(const machine_config &mconfig, device_type type, const char *tag)
+		: videight_state(mconfig, type, tag)
+		, m_rombank(*this, "rombank")
+	{
+	}
+
+	void multib(machine_config &config);
+	void init_multib();
+
+private:
+	//void multib_rombank_w(offs_t offset, uint8_t data);
+	//void multib_gfxbank_w(offs_t offset, uint8_t data);
+	void multib_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
+	void multib_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
+	void mem_map(address_map &map);
+
+	required_memory_bank m_rombank;
+};
+
+void multib_state::init_multib()
+{
+	m_rombank->configure_entries(0, 16, memregion("maincpu")->base(), 0x4000);
+	m_rombank->set_entry(0);
+
+	/* video extensions */
+	common_init(nullptr, nullptr, nullptr, nullptr);
+	m_extend_tile_info_ptr = extend_tile_info_delegate(&multib_state::videight_extend_tile_info, this);
+	m_extend_sprite_info_ptr = extend_sprite_info_delegate(&multib_state::videight_extend_sprite_info, this);
+}
+
+static GFXDECODE_START(gfx_multib)
+	GFXDECODE_SCALE("gfx1", 0x0000, galaxian_charlayout,   0, 32*32, GALAXIAN_XSCALE,1)
+	GFXDECODE_SCALE("gfx1", 0x0000, galaxian_spritelayout, 0, 32*32, GALAXIAN_XSCALE,1)
+GFXDECODE_END
+
+void multib_state::mem_map(address_map &map)
+{
+	map(0x0000,0x3fff).bankr(m_rombank);
+	map(0x4000,0x4fff).ram();
+	map(0x5000,0x53ff).mirror(0x400).ram().w(FUNC(multib_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x700).ram().w(FUNC(multib_state::galaxian_objram_w)).share("spriteram");
+	map(0x6000,0x6000).portr("IN0");
+	map(0x6800,0x6800).portr("IN1");
+	map(0x7000,0x7000).portr("IN2");
+	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
+	map(0x6000,0x6002).w(FUNC(multib_state::videight_gfxbank_w));
+	map(0x6003,0x6003).w(FUNC(multib_state::coin_count_0_w));
+	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
+	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
+	map(0x6808,0x68ff).nopw();
+	map(0x7001,0x7001).w(FUNC(multib_state::irq_enable_w));
+	map(0x7002,0x7005).w(FUNC(multib_state::videight_rombank_w));
+	map(0x7006,0x7006).w(FUNC(multib_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(FUNC(multib_state::galaxian_flip_screen_y_w));
+	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
+	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
+}
+
+void multib_state::multib(machine_config &config)
+{
+	galaxian(config);
+
+	// basic machine hardware
+	m_maincpu->set_addrmap(AS_PROGRAM, &multib_state::mem_map);
+
+	/* video hardware */
+	m_gfxdecode->set_info(gfx_multib);
+	m_palette->set_entries(32 * 32);
+}
+
+GAME( 2022, multigameb, galnamco, multib, warofbug, multib_state, init_multib, ROT90, "Macro", "MultigameB", MACHINE_SUPPORTS_SAVE )

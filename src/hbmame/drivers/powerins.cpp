@@ -45,13 +45,7 @@ ROM_END
 GAME( 2006, powernbr,  powerins, powerins, powerins, powerins_state, empty_init, ROT0, "devilfox & BisonSAS", "Power Instinct (Brazilian translation)", MACHINE_SUPPORTS_SAVE ) // 06.04.25 date
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /**************
+/**************
  Power Instinct
 *****************/
 

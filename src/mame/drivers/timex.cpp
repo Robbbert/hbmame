@@ -147,8 +147,6 @@ http://www.z88forever.org.uk/zxplus3e/
 *******************************************************************************/
 
 #include "emu.h"
-#include "includes/spectrum.h"
-#include "includes/spec128.h"
 #include "includes/timex.h"
 
 #include "cpu/z80/z80.h"
@@ -156,7 +154,7 @@ http://www.z88forever.org.uk/zxplus3e/
 #include "sound/ay8910.h"
 
 #include "screen.h"
-#include "softlist.h"
+#include "softlist_dev.h"
 
 #include "formats/tzx_cas.h"
 
@@ -165,23 +163,23 @@ http://www.z88forever.org.uk/zxplus3e/
 /* TS2048 specific functions */
 
 
-uint8_t ts2068_state::port_f4_r()
+u8 ts2068_state::port_f4_r()
 {
 	return m_port_f4_data;
 }
 
-void ts2068_state::port_f4_w(uint8_t data)
+void ts2068_state::port_f4_w(u8 data)
 {
 	m_port_f4_data = data;
 	ts2068_update_memory();
 }
 
-uint8_t tc2048_state::port_ff_r()
+u8 tc2048_state::port_ff_r()
 {
 	return m_port_ff_data;
 }
 
-void ts2068_state::port_ff_w(offs_t offset, uint8_t data)
+void ts2068_state::port_ff_w(offs_t offset, u8 data)
 {
 		/* Bits 0-2 Video Mode Select
 		   Bits 3-5 64 column mode ink/paper selection
@@ -222,7 +220,7 @@ void ts2068_state::ts2068_update_memory()
 
 
 	uint8_t *ExROM = memregion("maincpu")->base() + 0x014000;
-	uint8_t *ChosenROM;
+	uint8_t *ChosenROM = nullptr;
 
 	if (m_port_f4_data & 0x01)
 	{
@@ -530,7 +528,7 @@ void ts2068_state::ts2068_io(address_map &map)
 	map(0xf4, 0xf4).rw(FUNC(ts2068_state::port_f4_r), FUNC(ts2068_state::port_f4_w)).mirror(0xff00);
 	map(0xf5, 0xf5).w("ay8912", FUNC(ay8910_device::address_w)).mirror(0xff00);
 	map(0xf6, 0xf6).rw("ay8912", FUNC(ay8910_device::data_r), FUNC(ay8910_device::data_w)).mirror(0xff00);
-	map(0xfe, 0xfe).rw(FUNC(ts2068_state::spectrum_port_fe_r), FUNC(ts2068_state::spectrum_port_fe_w)).select(0xff00);
+	map(0xfe, 0xfe).rw(FUNC(ts2068_state::spectrum_ula_r), FUNC(ts2068_state::spectrum_ula_w)).select(0xff00);
 	map(0xff, 0xff).rw(FUNC(ts2068_state::port_ff_r), FUNC(ts2068_state::port_ff_w)).mirror(0xff00);
 }
 
@@ -573,7 +571,7 @@ void tc2048_state::port_ff_w(offs_t offset, uint8_t data)
 
 void tc2048_state::tc2048_io(address_map &map)
 {
-	map(0x00, 0x00).rw(FUNC(tc2048_state::spectrum_port_fe_r), FUNC(tc2048_state::spectrum_port_fe_w)).select(0xfffe);
+	map(0x00, 0x00).rw(FUNC(tc2048_state::spectrum_ula_r), FUNC(tc2048_state::spectrum_ula_w)).select(0xfffe);
 	map(0xff, 0xff).rw(FUNC(tc2048_state::port_ff_r), FUNC(tc2048_state::port_ff_w)).mirror(0xff00);
 }
 
@@ -601,24 +599,23 @@ DEVICE_IMAGE_LOAD_MEMBER( ts2068_state::cart_load )
 
 	if (!image.loaded_through_softlist())
 	{
-		uint8_t *DOCK;
 		int chunks_in_file = 0;
 		std::vector<uint8_t> header;
 		header.resize(9);
 
 		if (size % 0x2000 != 9)
 		{
-			image.seterror(IMAGE_ERROR_UNSPECIFIED, "File corrupted");
+			image.seterror(image_error::INVALIDIMAGE, "File corrupted");
 			return image_init_result::FAIL;
 		}
 		if (!image.loaded_through_softlist())
 		{
-			image.seterror(IMAGE_ERROR_UNSPECIFIED, "Loading from softlist is not supported yet");
+			image.seterror(image_error::UNSUPPORTED, "Loading from softlist is not supported yet");
 			return image_init_result::FAIL;
 		}
 
 		m_dock->rom_alloc(0x10000, GENERIC_ROM8_WIDTH, ENDIANNESS_LITTLE);
-		DOCK = m_dock->get_rom_base();
+		u8* DOCK = m_dock->get_rom_base();
 
 		// check header
 		image.fread(&header[0], 9);
@@ -628,7 +625,7 @@ DEVICE_IMAGE_LOAD_MEMBER( ts2068_state::cart_load )
 
 		if (chunks_in_file * 0x2000 + 0x09 != size)
 		{
-			image.seterror(IMAGE_ERROR_UNSPECIFIED, "File corrupted");
+			image.seterror(image_error::INVALIDIMAGE, "File corrupted");
 			return image_init_result::FAIL;
 		}
 
@@ -652,7 +649,7 @@ DEVICE_IMAGE_LOAD_MEMBER( ts2068_state::cart_load )
 				break;
 
 			default:
-				image.seterror(IMAGE_ERROR_UNSPECIFIED, "Cart type not supported");
+				image.seterror(image_error::INVALIDIMAGE, "Cart type not supported");
 				return image_init_result::FAIL;
 		}
 
@@ -690,23 +687,21 @@ void ts2068_state::ts2068(machine_config &config)
 {
 	spectrum_128(config);
 
-	Z80(config.replace(), m_maincpu, XTAL(14'112'000)/4);        /* From Schematic; 3.528 MHz */
+	Z80(config.replace(), m_maincpu, XTAL(14'112'000) / 4);        /* From Schematic; 3.528 MHz */
 	m_maincpu->set_addrmap(AS_PROGRAM, &ts2068_state::ts2068_mem);
 	m_maincpu->set_addrmap(AS_IO, &ts2068_state::ts2068_io);
 	m_maincpu->set_vblank_int("screen", FUNC(ts2068_state::spec_interrupt));
 	config.set_maximum_quantum(attotime::from_hz(60));
 
 	/* video hardware */
+	// timings not confirmed! now same as spec128 but doubled for hires
+	m_screen->set_raw(XTAL(14'112'000) / 2, 456 * 2, 311, {get_screen_area().left() - TS2068_LEFT_BORDER, get_screen_area().right() + TS2068_RIGHT_BORDER, get_screen_area().top() - TS2068_TOP_BORDER, get_screen_area().bottom() + TS2068_BOTTOM_BORDER});
 	m_screen->set_refresh_hz(60);
-	m_screen->set_size(TS2068_SCREEN_WIDTH, TS2068_SCREEN_HEIGHT);
-	m_screen->set_visarea(0, TS2068_SCREEN_WIDTH-1, 0, TS2068_SCREEN_HEIGHT-1);
-	m_screen->set_screen_update(FUNC(ts2068_state::screen_update));
-	m_screen->screen_vblank().set(FUNC(ts2068_state::screen_vblank_timex));
 
 	subdevice<gfxdecode_device>("gfxdecode")->set_info(gfx_ts2068);
 
 	/* sound */
-	AY8912(config.replace(), "ay8912", XTAL(14'112'000)/8).add_route(ALL_OUTPUTS, "mono", 0.25);        /* From Schematic; 1.764 MHz */
+	AY8912(config.replace(), "ay8912", XTAL(14'112'000) / 8).add_route(ALL_OUTPUTS, "mono", 0.25);        /* From Schematic; 1.764 MHz */
 
 	/* cartridge */
 	GENERIC_CARTSLOT(config, "dockslot", generic_plain_slot, "timex_cart", "dck,bin").set_device_load(FUNC(ts2068_state::cart_load));
@@ -726,6 +721,9 @@ void ts2068_state::uk2086(machine_config &config)
 	m_screen->set_refresh_hz(50);
 }
 
+rectangle tc2048_state::get_screen_area() {
+	return {TS2068_LEFT_BORDER, TS2068_LEFT_BORDER + TS2068_DISPLAY_XSIZE - 1, TS2068_TOP_BORDER, TS2068_TOP_BORDER + SPEC_DISPLAY_YSIZE - 1};
+}
 
 void tc2048_state::tc2048(machine_config &config)
 {
@@ -734,11 +732,9 @@ void tc2048_state::tc2048(machine_config &config)
 	m_maincpu->set_addrmap(AS_IO, &tc2048_state::tc2048_io);
 
 	/* video hardware */
+	// timings not confirmed! now same as spec48 but doubled for hires
+	m_screen->set_raw(X1 / 2, 448 * 2, 312, {get_screen_area().left() - TS2068_LEFT_BORDER, get_screen_area().right() + TS2068_RIGHT_BORDER, get_screen_area().top() - TS2068_TOP_BORDER, get_screen_area().bottom() + TS2068_BOTTOM_BORDER});
 	m_screen->set_refresh_hz(50);
-	m_screen->set_size(TS2068_SCREEN_WIDTH, SPEC_SCREEN_HEIGHT);
-	m_screen->set_visarea(0, TS2068_SCREEN_WIDTH-1, 0, SPEC_SCREEN_HEIGHT-1);
-	m_screen->set_screen_update(FUNC(tc2048_state::screen_update));
-	m_screen->screen_vblank().set(FUNC(tc2048_state::screen_vblank_timex));
 
 	/* internal ram */
 	m_ram->set_default_size("48K");

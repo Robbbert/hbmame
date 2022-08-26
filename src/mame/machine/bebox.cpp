@@ -551,16 +551,15 @@ WRITE_LINE_MEMBER(bebox_state::bebox_dma8237_out_eop){
 	m_smc37c78->tc_w(state);
 }
 
-static void set_dma_channel(running_machine &machine, int channel, int state)
+inline void bebox_state::set_dma_channel(int channel, int state)
 {
-	bebox_state *drvstate = machine.driver_data<bebox_state>();
-	if (!state) drvstate->m_dma_channel = channel;
+	if (!state) m_dma_channel = channel;
 }
 
-WRITE_LINE_MEMBER(bebox_state::pc_dack0_w){ set_dma_channel(machine(), 0, state); }
-WRITE_LINE_MEMBER(bebox_state::pc_dack1_w){ set_dma_channel(machine(), 1, state); }
-WRITE_LINE_MEMBER(bebox_state::pc_dack2_w){ set_dma_channel(machine(), 2, state); }
-WRITE_LINE_MEMBER(bebox_state::pc_dack3_w){ set_dma_channel(machine(), 3, state); }
+WRITE_LINE_MEMBER(bebox_state::pc_dack0_w){ set_dma_channel(0, state); }
+WRITE_LINE_MEMBER(bebox_state::pc_dack1_w){ set_dma_channel(1, state); }
+WRITE_LINE_MEMBER(bebox_state::pc_dack2_w){ set_dma_channel(2, state); }
+WRITE_LINE_MEMBER(bebox_state::pc_dack3_w){ set_dma_channel(3, state); }
 
 /*************************************
  *
@@ -726,18 +725,6 @@ void bebox_state::scsi53c810_pci_write(int function, int offset, uint32_t data, 
 }
 
 
-void bebox_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	switch (id)
-	{
-	case TIMER_GET_DEVICES:
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in bebox_state::device_timer");
-	}
-}
-
-
 /*************************************
  *
  *  Driver main
@@ -746,8 +733,6 @@ void bebox_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 
 void bebox_state::machine_reset()
 {
-	timer_set(attotime::zero, TIMER_GET_DEVICES);
-
 	m_ppc[0]->set_input_line(INPUT_LINE_RESET, CLEAR_LINE);
 	m_ppc[1]->set_input_line(INPUT_LINE_RESET, ASSERT_LINE);
 
@@ -768,7 +753,7 @@ void bebox_state::init_bebox()
 	/* set up boot and flash ROM */
 	membank("bank2")->set_base(memregion("user2")->base());
 
-	/* install MESS managed RAM */
+	/* install managed RAM */
 	space_0.install_ram(0, m_ram->size() - 1, 0x02000000, m_ram->pointer());
 	space_1.install_ram(0, m_ram->size() - 1, 0x02000000, m_ram->pointer());
 
@@ -777,7 +762,7 @@ void bebox_state::init_bebox()
 	 * lets CPU #1 go.  However, it seems that CPU #1 jumps into never-never
 	 * land, crashes, and then goes into NetBSD's crash handler which catches
 	 * it.  The current PowerPC core cannot catch this trip into never-never
-	 * land properly, and MESS crashes.  In the interim, this "mitten" catches
+	 * land properly, and MAME crashes.  In the interim, this "mitten" catches
 	 * the crash
 	 */
 	{

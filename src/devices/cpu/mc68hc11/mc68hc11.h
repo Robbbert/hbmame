@@ -14,6 +14,7 @@ enum {
 
 DECLARE_DEVICE_TYPE(MC68HC11A1, mc68hc11a1_device)
 DECLARE_DEVICE_TYPE(MC68HC11D0, mc68hc11d0_device)
+DECLARE_DEVICE_TYPE(MC68HC11E1, mc68hc11e1_device)
 DECLARE_DEVICE_TYPE(MC68HC811E2, mc68hc811e2_device)
 DECLARE_DEVICE_TYPE(MC68HC11F1, mc68hc11f1_device)
 DECLARE_DEVICE_TYPE(MC68HC11K1, mc68hc11k1_device)
@@ -87,6 +88,10 @@ protected:
 	void tcnt_w(offs_t offset, uint8_t data);
 	uint8_t toc_r(offs_t offset);
 	void toc_w(offs_t offset, uint8_t data);
+	uint8_t tctl1_r();
+	void tctl1_w(uint8_t data);
+	uint8_t tctl2_r();
+	void tctl2_w(uint8_t data);
 	uint8_t tmsk1_r();
 	void tmsk1_w(uint8_t data);
 	uint8_t tflg1_r();
@@ -176,6 +181,8 @@ private:
 	uint8_t m_wait_state;
 	uint8_t m_stop_state;
 
+	uint8_t m_tctl1;
+	uint8_t m_tctl2;
 	uint8_t m_tflg1;
 	uint8_t m_tmsk1;
 	uint16_t m_toc[5];
@@ -557,6 +564,21 @@ class mc68hc11d0_device : public mc68hc11_cpu_device
 public:
 	// construction/destruction
 	mc68hc11d0_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+protected:
+	virtual void device_reset() override;
+
+	virtual void mc68hc11_reg_map(memory_view::memory_view_entry &block, offs_t base) override;
+
+private:
+	uint8_t reg01_r();
+};
+
+class mc68hc11e1_device : public mc68hc11_cpu_device
+{
+public:
+	// construction/destruction
+	mc68hc11e1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
 	virtual void device_reset() override;

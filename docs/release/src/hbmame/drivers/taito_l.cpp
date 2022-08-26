@@ -99,14 +99,7 @@ GAME( 2018, sqij15,      sqij,     plotting,  plotting, taitol_1cpu_state, empty
 GAME( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
 GAME( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********
+/*************
   Evil Stone
 **************/
 
@@ -123,7 +116,7 @@ ROM_START( evilstons01 )
 	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
 ROM_END
 
- /***********
+/*************
  Kuri Kinton
 **************/
 
@@ -140,7 +133,7 @@ ROM_START( kurikintjs01 )
 	ROM_LOAD( "b42-02hc01.ic5",  0x80000, 0x80000, CRC(cd5fc143) SHA1(5a5a6e674a47786ed9c843cefacf307429df9933) )
 ROM_END
 
- /********
+/**********
  Plotting
 ***********/
 

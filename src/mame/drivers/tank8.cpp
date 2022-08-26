@@ -15,11 +15,11 @@ Atari Tank 8 driver
 
 
 
-void tank8_state::set_collision(int index)
+TIMER_CALLBACK_MEMBER(tank8_state::set_collision)
 {
 	m_maincpu->set_input_line(0, ASSERT_LINE);
 
-	m_collision_index = index;
+	m_collision_index = param;
 }
 
 
@@ -351,7 +351,7 @@ void tank8_state::tank8(machine_config &config)
 	/* sound hardware */
 	SPEAKER(config, "mono").front_center();
 
-	DISCRETE(config, m_discrete, tank8_discrete).add_route(ALL_OUTPUTS, "mono", 0.80);
+	DISCRETE(config, m_discrete, tank8_discrete).add_route(ALL_OUTPUTS, "mono", 0.3);
 }
 
 

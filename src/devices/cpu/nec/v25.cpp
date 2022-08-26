@@ -38,8 +38,6 @@
 #include "v25.h"
 #include "necdasm.h"
 
-#include "debugger.h"
-
 typedef uint8_t BOOLEAN;
 typedef uint8_t BYTE;
 typedef uint16_t WORD;
@@ -557,7 +555,7 @@ void v25_common_device::device_start()
 	m_E16 = 0;
 
 	for (i = 0; i < 4; i++)
-		m_timers[i] = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(v25_common_device::v25_timer_callback),this));
+		m_timers[i] = timer_alloc(FUNC(v25_common_device::v25_timer_callback), this);
 
 	std::fill_n(&m_intp_state[0], 3, 0);
 	std::fill_n(&m_ems[0], 3, 0);
@@ -670,7 +668,6 @@ void v25_common_device::device_start()
 
 	state_add( STATE_GENPC, "GENPC", m_debugger_temp).callexport().noshow();
 	state_add( STATE_GENPCBASE, "CURPC", m_debugger_temp).callexport().noshow();
-	state_add( STATE_GENSP, "GENSP", m_debugger_temp).callimport().callexport().noshow();
 	state_add( STATE_GENFLAGS, "GENFLAGS", m_debugger_temp).formatstr("%16s").noshow();
 
 	set_icountptr(m_icount);
@@ -737,10 +734,6 @@ void v25_common_device::state_export(const device_state_entry &entry)
 
 		case STATE_GENPCBASE:
 			m_debugger_temp = (Sreg(PS)<<4) + m_prev_ip;
-			break;
-
-		case STATE_GENSP:
-			m_debugger_temp = (Sreg(SS)<<4) + Wreg(SP);
 			break;
 	}
 }

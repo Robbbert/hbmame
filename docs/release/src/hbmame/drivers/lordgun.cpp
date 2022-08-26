@@ -2,10 +2,6 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/lordgun.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
  /***************
  Alien Challenge
 ******************/

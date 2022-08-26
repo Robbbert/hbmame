@@ -32,7 +32,7 @@
 #include "includes/x07.h"
 
 #include "screen.h"
-#include "softlist.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 
@@ -1063,7 +1063,7 @@ DEVICE_IMAGE_LOAD_MEMBER( x07_state::card_load )
 
 		if (strcmp(card_type, "xp140"))
 		{
-			image.seterror(IMAGE_ERROR_UNSPECIFIED, "Unsupported card type");
+			image.seterror(image_error::INVALIDIMAGE, "Unsupported card type");
 			return image_init_result::FAIL;
 		}
 	}
@@ -1378,11 +1378,11 @@ GFXDECODE_END
 void x07_state::machine_start()
 {
 	uint32_t ram_size = m_ram->size();
-	m_rsta_clear = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(x07_state::rsta_clear),this));
-	m_rstb_clear = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(x07_state::rstb_clear),this));
-	m_beep_stop = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(x07_state::beep_stop),this));
-	m_cass_poll = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(x07_state::cassette_poll),this));
-	m_cass_tick = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(x07_state::cassette_tick),this));
+	m_rsta_clear = timer_alloc(FUNC(x07_state::rsta_clear), this);
+	m_rstb_clear = timer_alloc(FUNC(x07_state::rstb_clear), this);
+	m_beep_stop = timer_alloc(FUNC(x07_state::beep_stop), this);
+	m_cass_poll = timer_alloc(FUNC(x07_state::cassette_poll), this);
+	m_cass_tick = timer_alloc(FUNC(x07_state::cassette_tick), this);
 
 	m_nvram1->set_base(&m_t6834_ram, 0x800);
 	m_nvram2->set_base(m_ram->pointer(), ram_size);

@@ -84,7 +84,8 @@ public:
 protected:
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+
+	TIMER_CALLBACK_MEMBER(toggle_tim);
 
 private:
 	u8 keyboard_read();
@@ -139,7 +140,7 @@ private:
 
 void olyboss_state::machine_reset()
 {
-	m_keybhit=false;
+	m_keybhit = false;
 	m_romen = true;
 	m_timstate = false;
 
@@ -149,7 +150,7 @@ void olyboss_state::machine_reset()
 	m_timer->adjust(attotime::from_hz(30), 0, attotime::from_hz(30)); // unknown timer freq, possibly com2651 BRCLK
 }
 
-void olyboss_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(olyboss_state::toggle_tim)
 {
 	m_timstate = !m_timstate;
 	if(m_pic)
@@ -172,7 +173,7 @@ void olyboss_state::olyboss_io(address_map &map)
 {
 	map.global_mask(0xff);
 	map.unmap_value_high();
-	map(0x0, 0x8).rw(m_dma, FUNC(i8257_device::read), FUNC(i8257_device::write));
+	map(0x00, 0x08).rw(m_dma, FUNC(i8257_device::read), FUNC(i8257_device::write));
 	map(0x10, 0x11).m(m_fdc, FUNC(upd765a_device::map));
 	//map(0x20, 0x20) //beeper?
 	map(0x30, 0x30).rw(m_uic, FUNC(am9519_device::data_r), FUNC(am9519_device::data_w));
@@ -269,8 +270,8 @@ UPD3301_DRAW_CHARACTER_MEMBER( olyboss_state::olyboss_display_pixels )
 
 	for (int i = 0; i < 8; i++)
 	{
-		int color = BIT(data, 7) ^ rvv;
-		bitmap.pix(y, (sx * 8) + i) = color?0xffffff:0;
+		int color = BIT(data, 7);
+		bitmap.pix(y, (sx * 8) + i) = color ? 0xffffff : 0;
 		data <<= 1;
 	}
 }
@@ -300,7 +301,7 @@ void olyboss_state::ppic_w(u8 data)
 
 void olyboss_state::machine_start()
 {
-	m_timer = timer_alloc();
+	m_timer = timer_alloc(FUNC(olyboss_state::toggle_tim), this);
 	const char *type = m_fdd0->get_device()->shortname();
 	if(!strncmp(type, "floppy_525_qd", 13))
 		m_fdctype = 0xa0;
@@ -458,6 +459,7 @@ void olyboss_state::olybossd(machine_config &config)
 	UPD3301(config, m_crtc, XTAL(14'318'181));
 	m_crtc->set_character_width(8);
 	m_crtc->set_display_callback(FUNC(olyboss_state::olyboss_display_pixels));
+	m_crtc->set_attribute_fetch_callback(m_crtc, FUNC(upd3301_device::default_attr_fetch));
 	m_crtc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq2_w));
 	m_crtc->int_wr_callback().set(m_uic, FUNC(am9519_device::ireq0_w)).invert();
 	m_crtc->set_screen(SCREEN_TAG);
@@ -524,6 +526,7 @@ void olyboss_state::bossb85(machine_config &config)
 	UPD3301(config, m_crtc, XTAL(14'318'181));
 	m_crtc->set_character_width(8);
 	m_crtc->set_display_callback(FUNC(olyboss_state::olyboss_display_pixels));
+	m_crtc->set_attribute_fetch_callback(m_crtc, FUNC(upd3301_device::default_attr_fetch));
 	m_crtc->drq_wr_callback().set(m_dma, FUNC(i8257_device::dreq2_w));
 	m_crtc->int_wr_callback().set_inputline("maincpu", I8085_RST75_LINE);
 	m_crtc->set_screen(SCREEN_TAG);

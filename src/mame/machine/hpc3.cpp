@@ -28,16 +28,16 @@ hpc3_device::hpc3_device(const machine_config &mconfig, const char *tag, device_
 	: device_t(mconfig, SGI_HPC3, tag, owner, clock)
 	, device_memory_interface(mconfig, *this)
 	, m_pio_space_config{
-		{"PIO channel 0", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 1", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 2", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 3", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 4", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 5", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 6", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 7", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 8", ENDIANNESS_LITTLE, 16, 8, -1},
-		{"PIO channel 9", ENDIANNESS_LITTLE, 16, 8, -1}}
+		{"pio0", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio1", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio2", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio3", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio4", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio5", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio6", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio7", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio8", ENDIANNESS_LITTLE, 16, 8, -1},
+		{"pio9", ENDIANNESS_LITTLE, 16, 8, -1}}
 	, m_gio64_space(*this, finder_base::DUMMY_TAG, -1)
 	, m_hal2(*this, finder_base::DUMMY_TAG)
 	, m_enet(*this, finder_base::DUMMY_TAG)
@@ -150,7 +150,7 @@ void hpc3_device::device_start()
 		save_item(NAME(m_pbus_dma[i].m_config), i);
 		save_item(NAME(m_pbus_dma[i].m_control), i);
 
-		m_pbus_dma[i].m_timer = timer_alloc(TIMER_PBUS_DMA + i);
+		m_pbus_dma[i].m_timer = timer_alloc(FUNC(hpc3_device::do_pbus_dma), this);
 		m_pbus_dma[i].m_timer->adjust(attotime::never);
 	}
 
@@ -166,7 +166,7 @@ void hpc3_device::device_start()
 	save_pointer(NAME(m_enet_fifo[ENET_RECV]), 32);
 	save_pointer(NAME(m_enet_fifo[ENET_XMIT]), 40);
 
-	m_enet_tx_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(hpc3_device::enet_transmit), this));
+	m_enet_tx_timer = timer_alloc(FUNC(hpc3_device::enet_transmit), this);
 }
 
 void hpc3_device::device_reset()
@@ -218,29 +218,9 @@ void hpc3_device::map(address_map &map)
 	map(0x00060000, 0x0007ffff).rw(FUNC(hpc3_device::bbram_r), FUNC(hpc3_device::bbram_w));
 }
 
-void hpc3_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(hpc3_device::do_pbus_dma)
 {
-	switch (id)
-	{
-	case TIMER_PBUS_DMA+0:
-	case TIMER_PBUS_DMA+1:
-	case TIMER_PBUS_DMA+2:
-	case TIMER_PBUS_DMA+3:
-		do_pbus_dma(id - TIMER_PBUS_DMA);
-		break;
-	case TIMER_PBUS_DMA+4:
-	case TIMER_PBUS_DMA+5:
-	case TIMER_PBUS_DMA+6:
-	case TIMER_PBUS_DMA+7:
-		LOGMASKED(LOG_UNKNOWN, "HPC3: Ignoring active PBUS DMA on channel %d\n", id - TIMER_PBUS_DMA);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in hpc3_device::device_timer");
-	}
-}
-
-void hpc3_device::do_pbus_dma(uint32_t channel)
-{
+	uint32_t channel = (uint32_t)param;
 	pbus_dma_t &dma = m_pbus_dma[channel];
 
 	if (dma.m_active && channel < 4)
@@ -280,7 +260,7 @@ void hpc3_device::do_pbus_dma(uint32_t channel)
 				return;
 			}
 		}
-		dma.m_timer->adjust(m_hal2->get_rate(channel));
+		dma.m_timer->adjust(m_hal2->get_rate(channel), (int)channel);
 	}
 	else
 	{
@@ -881,7 +861,7 @@ void hpc3_device::pbusdma_w(address_space &space, offs_t offset, uint32_t data, 
 			attotime rate = m_hal2->get_rate(channel);
 			if (rate != attotime::zero)
 			{
-				dma.m_timer->adjust(rate);
+				dma.m_timer->adjust(rate, (int)channel);
 				dma.m_active = true;
 			}
 		}
@@ -1109,7 +1089,7 @@ void hpc3_device::eeprom_w(uint32_t data)
 	m_eeprom_clk_cb(BIT(data, 2));
 }
 
-void hpc3_device::enet_transmit(void *ptr, int param)
+void hpc3_device::enet_transmit(int param)
 {
 	// save the first transmit buffer descriptor pointer
 	// TODO: not sure how cpfbdp and ppfbdp work, perhaps round-robin?

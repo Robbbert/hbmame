@@ -22,11 +22,13 @@ atarigen_state::atarigen_state(const machine_config &mconfig, device_type type, 
 	, m_maincpu(*this, "maincpu")
 	, m_gfxdecode(*this, "gfxdecode")
 	, m_screen(*this, "screen")
+	, m_unhalt_cpu_timer(nullptr)
 {
 }
 
 void atarigen_state::machine_start()
 {
+	m_unhalt_cpu_timer = timer_alloc(FUNC(atarigen_state::unhalt_cpu), this);
 }
 
 
@@ -35,15 +37,9 @@ void atarigen_state::machine_reset()
 }
 
 
-void atarigen_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(atarigen_state::unhalt_cpu)
 {
-	switch (id)
-	{
-		// unhalt the CPU that was passed as a pointer
-		case TID_UNHALT_CPU:
-			reinterpret_cast<device_t *>(ptr)->execute().set_input_line(INPUT_LINE_HALT, CLEAR_LINE);
-			break;
-	}
+	m_maincpu->set_input_line(INPUT_LINE_HALT, CLEAR_LINE);
 }
 
 
@@ -69,8 +65,8 @@ void atarigen_state::halt_until_hblank_0(device_t &device, screen_device &screen
 		hblank += width;
 
 	// halt and set a timer to wake up
-	device.execute().set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
-	timer_set(screen.scan_period() * (hblank - hpos) / width, TID_UNHALT_CPU, 0, (void *)&device);
+	m_maincpu->set_input_line(INPUT_LINE_HALT, ASSERT_LINE);
+	m_unhalt_cpu_timer->adjust(screen.scan_period() * (hblank - hpos) / width);
 }
 
 

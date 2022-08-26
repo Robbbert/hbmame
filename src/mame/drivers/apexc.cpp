@@ -1,23 +1,21 @@
 // license:GPL-2.0+
 // copyright-holders:Raphael Nabet, Robbbert
 /*
-    drivers/apexc.c : APEXC driver
+    drivers/apexc.cpp : APEXC driver
 
     By Raphael Nabet
 
-    see cpu/apexc.c for background and tech info
+    see cpu/apexc.cpp for background and tech info
 */
 
 #include "emu.h"
 #include "includes/apexc.h"
 
-/*static*/ const device_timer_id apexc_state::TIMER_POLL_INPUTS = 1;
-
 void apexc_state::machine_start()
 {
 	teletyper_init();
 
-	m_input_timer = timer_alloc(TIMER_POLL_INPUTS);
+	m_input_timer = timer_alloc(FUNC(apexc_state::check_inputs), this);
 	m_input_timer->adjust(attotime::from_hz(60), 0, attotime::from_hz(60));
 
 	m_panel_data_reg = 0;
@@ -139,15 +137,7 @@ static INPUT_PORTS_START(apexc)
 	PORT_BIT(0x00000001, IP_ACTIVE_HIGH, IPT_OTHER) PORT_NAME("Toggle bit #32")             PORT_CODE(KEYCODE_C)
 INPUT_PORTS_END
 
-void apexc_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	if (id == TIMER_POLL_INPUTS)
-	{
-		check_inputs();
-	}
-}
-
-void apexc_state::check_inputs()
+TIMER_CALLBACK_MEMBER(apexc_state::check_inputs)
 {
 	/* read new state of edit keys */
 	uint32_t edit_keys = m_data_port->read();
@@ -375,7 +365,7 @@ void apexc_state::apexc(machine_config &config)
 	m_screen->set_size(256, 192);
 	m_screen->set_visarea(0, 256-1, 0, 192-1);
 	m_screen->set_palette(m_palette);
-	m_screen->set_screen_update(FUNC(apexc_state::screen_update_apexc));
+	m_screen->set_screen_update(FUNC(apexc_state::screen_update));
 
 	GFXDECODE(config, m_gfxdecode, m_palette, gfx_apexc);
 
@@ -384,6 +374,8 @@ void apexc_state::apexc(machine_config &config)
 	APEXC_CYLINDER(config, m_cylinder);
 	APEXC_TAPE_PUNCHER(config, m_tape_puncher);
 	APEXC_TAPE_READER(config, m_tape_reader);
+
+	SOFTWARE_LIST(config, "cyl_list").set_original("apexc_cyl");
 }
 
 ROM_START(apexc)

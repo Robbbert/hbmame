@@ -592,6 +592,28 @@ ROM_START( mrmrspac )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( manpac )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "manpac.1",     0x0000, 0x1000, CRC(298cbceb) SHA1(8ffa56f7ee233402df05b1c3f742d2f144c5ec64) )
+	ROM_LOAD( "manpac.2",     0x1000, 0x1000, CRC(df8d352e) SHA1(5f7cf8337e50439daefd2ff662863d8c660e724e) )
+	ROM_LOAD( "manpac.3",     0x2000, 0x1000, CRC(b5dd5136) SHA1(b8b7ca513950abdb8d5bf09909f9f63f95d95209) )
+	ROM_LOAD( "manpac.4",     0x3000, 0x1000, CRC(1ca7a831) SHA1(dd4ef06984f94167b0fc620701c11b9d2e3b3291) )
+	ROM_LOAD( "manpac.5",     0x8000, 0x1000, CRC(6c48990a) SHA1(ae9d3a39c9c9d0faaf1745d4e32e4081c8a377e8) )
+	ROM_LOAD( "manpac.6",     0x9000, 0x1000, CRC(08a56798) SHA1(a8ed010c2cc466edf63f0866d87a20ac8cf587d8) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "manpac.5e",    0x0000, 0x1000, CRC(0f2493ad) SHA1(8101d2931adacea4c5629fb531f7be2b8f18a2a7) )
+	ROM_LOAD( "manpac.5f",    0x1000, 0x1000, CRC(964a83df) SHA1(4ad35a0b5e0ac971c879b5e5d8bbd183bfcc2e2b) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "manpac.7f",    0x0000, 0x0020, CRC(4e5ca597) SHA1(4c8f0988f09982fb0ed878a6e720576a28ba6b55) )
+	ROM_LOAD( "manpac.4a",    0x0020, 0x0100, CRC(db6343b4) SHA1(24752b3c7324765941d859272ad2d2ec1a2b2ded) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "manpac.1m",    0x0000, 0x0100, CRC(c310be6c) SHA1(ff41683453a847cbd680ff5329ae223f304bb58f) )
+	ROM_LOAD( "manpac.3m",    0x0100, 0x0100, CRC(c310be6c) SHA1(ff41683453a847cbd680ff5329ae223f304bb58f) )
+ROM_END
+
 ROM_START( mrpacman )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "boot1",        0x0000, 0x1000, CRC(d16b31b7) SHA1(bc2247ec946b639dd1f00bfc603fa157d0baaa97) )
@@ -2725,6 +2747,7 @@ GAME( 2000, faststrm, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  
 GAME( 2000, fstmsatk, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Attack [f]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, heartbn2, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "PacHack", "Ms. Heart Burn", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, heartbrn, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "TwoBit Score", "Ms. Heart Burn (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, manpac,   mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "Mr McScrewup", "Man-Pac", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, msatk2ad, mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus / Attack After Dark [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, msatkad,  mspacman, woodpek,  mspacpls, puckman_state, empty_init,  ROT90, "[Midway]", "Ms. Pacman Plus After Dark [c]", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, msdstorm, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Mike Naylor", "Ms. Desert Storm", MACHINE_SUPPORTS_SAVE )

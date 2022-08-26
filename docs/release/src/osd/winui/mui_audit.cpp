@@ -122,7 +122,11 @@ const char * GetAuditString(int audit_result)
 		return "No";
 
 	default:
-		printf("unknown audit value %i\n",audit_result);
+		if (audit_result == -1)
+			printf("GetAuditString: Audit value -1, try doing a full F5 audit\n");
+		else
+			printf("GetAuditString: Unknown audit value %i\n",audit_result);
+		fflush(stdout);
 	}
 
 	return "?";

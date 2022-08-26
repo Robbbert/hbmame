@@ -173,7 +173,9 @@ void pcat_dyn_state::pcat_dyn(machine_config &config)
 	/* video hardware */
 	pcvideo_trident_vga(config);
 	subdevice<screen_device>("screen")->set_refresh_hz(60);
-	TVGA9000_VGA(config.replace(), "vga", 0);
+	tvga9000_device &vga(TVGA9000_VGA(config.replace(), "vga", 0));
+	vga.set_screen("screen");
+	vga.set_vram_size(0x200000);
 
 	pcat_common(config);
 
@@ -207,7 +209,7 @@ void pcat_dyn_state::pcat_dyn(machine_config &config)
 	ISA8(config, m_isabus, 0);
 	m_isabus->set_memspace("maincpu", AS_PROGRAM);
 	m_isabus->set_iospace("maincpu", AS_IO);
-	m_isabus->irq2_callback().set("pic8259_2", FUNC(pic8259_device::ir2_w));
+	m_isabus->irq2_callback().set("pic8259_2", FUNC(pic8259_device::ir1_w));
 	m_isabus->irq3_callback().set("pic8259_1", FUNC(pic8259_device::ir3_w));
 	//m_isabus->irq4_callback().set("pic8259_1", FUNC(pic8259_device::ir4_w));
 	//m_isabus->irq5_callback().set("pic8259_1", FUNC(pic8259_device::ir5_w));

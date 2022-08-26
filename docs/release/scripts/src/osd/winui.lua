@@ -62,6 +62,8 @@ function maintargetosdoptions(_target,_subtarget)
 		"ole32",
 --		"shell32",
 		"uxtheme",
+		"uuid",
+		"shlwapi",
 	}
 
 -- Local file gives correct icon in mame instance inside of mameui
@@ -221,6 +223,7 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/winui/helpids.cpp",
 		MAME_DIR .. "src/osd/winui/history.cpp",
 		MAME_DIR .. "src/osd/winui/layout.cpp",
+		MAME_DIR .. "src/osd/winui/main.cpp",
 		MAME_DIR .. "src/osd/winui/mui_audit.cpp",
 		MAME_DIR .. "src/osd/winui/mui_main.cpp",
 		MAME_DIR .. "src/osd/winui/mui_opts.cpp",
@@ -276,7 +279,6 @@ project ("ocore_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/osdcore.h",
 		MAME_DIR .. "src/osd/strconv.cpp",
 		MAME_DIR .. "src/osd/strconv.h",
-		MAME_DIR .. "src/osd/windows/main.cpp",
 		MAME_DIR .. "src/osd/osdsync.cpp",
 		MAME_DIR .. "src/osd/osdsync.h",
 		MAME_DIR .. "src/osd/windows/winutf8.cpp",

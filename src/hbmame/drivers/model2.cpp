@@ -48,6 +48,5 @@ ROM_START( srallyp )
 	MODEL2A_VID_BOARD
 ROM_END
 
-
-
 GAME( 2000?, srallyp,  srallyc, srallyc, srallyc, model2a_state, empty_init, ROT0, "Kyle Hodgetts", "Sega Rally Pro Drivin'", 0 )
+

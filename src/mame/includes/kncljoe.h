@@ -2,16 +2,19 @@
 // copyright-holders:Ernesto Corvi
 /*************************************************************************
 
-    Knuckle Joe
+  Knuckle Joe
 
 *************************************************************************/
-#ifndef MAME_INCLUDES_BLOODBRO_H
-#define MAME_INCLUDES_BLOODBRO_H
+
+#ifndef MAME_INCLUDES_KNCLJOE_H
+#define MAME_INCLUDES_KNCLJOE_H
 
 #pragma once
 
+#include "cpu/m6800/m6801.h"
 #include "machine/gen_latch.h"
 #include "sound/ay8910.h"
+
 #include "emupal.h"
 #include "screen.h"
 #include "tilemap.h"
@@ -42,18 +45,18 @@ private:
 	required_shared_ptr<uint8_t> m_spriteram;
 
 	/* video-related */
-	tilemap_t    *m_bg_tilemap;
-	int        m_tile_bank;
-	int         m_sprite_bank;
-	int        m_flipscreen;
+	tilemap_t    *m_bg_tilemap = nullptr;
+	int        m_tile_bank = 0;
+	int         m_sprite_bank = 0;
+	int        m_flipscreen = 0;
 
 	/* misc */
-	uint8_t      m_port1;
-	uint8_t      m_port2;
+	uint8_t      m_port1 = 0U;
+	uint8_t      m_port2 = 0U;
 
 	/* devices */
 	required_device<cpu_device> m_maincpu;
-	required_device<cpu_device> m_soundcpu;
+	required_device<m6803_cpu_device> m_soundcpu;
 	required_device<gfxdecode_device> m_gfxdecode;
 	required_device<screen_device> m_screen;
 	required_device<palette_device> m_palette;
@@ -82,4 +85,4 @@ private:
 	void sound_map(address_map &map);
 };
 
-#endif // MAME_INCLUDES_BLOODBRO_H
+#endif // MAME_INCLUDES_KNCLJOE_H

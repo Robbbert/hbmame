@@ -3,7 +3,11 @@
 #ifndef MAME_MACHINE_X68K_KBD_H
 #define MAME_MACHINE_X68K_KBD_H
 
-#include "bus/rs232/keyboard.h"
+#pragma once
+
+#include "bus/rs232/rs232.h"
+#include "machine/keyboard.h"
+
 
 class x68k_keyboard_device : public buffered_rs232_device<16U>, protected device_matrix_keyboard_interface<15U>
 {
@@ -29,9 +33,9 @@ private:
 	output_finder<> m_led_hiragana;
 	output_finder<> m_led_fullsize;
 
-	int m_delay;  // keypress delay after initial press
-	int m_repeat; // keypress repeat rate
-	uint8_t m_enabled;  // keyboard enabled?
+	int m_delay = 0;  // keypress delay after initial press
+	int m_repeat = 0; // keypress repeat rate
+	uint8_t m_enabled = 0;  // keyboard enabled?
 };
 
 DECLARE_DEVICE_TYPE(X68K_KEYBOARD, x68k_keyboard_device)

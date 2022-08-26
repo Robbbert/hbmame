@@ -1,6 +1,396 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-0x-xx 0.245.4
+
+
+
+New Games
+---------------------------------
+- [forgottnsf2]         Forgotten Worlds (SF2 conversion)
+- [ghoulsf2]            Ghouls'n Ghosts (SF2 conversion)
+- [magdrop3te]          Magical Drop 3 (Tournament Edition, 2022-08-19)
+- [nbajamre]            NBA Jam Rewind (rev 1.1)
+- [striders04]          Strider (SF2 conversion)
+
+
+
+
+2022-08-12 0.245.3
+
+Fixed altbeast and clones, games re-enabled.
+
+New Games
+---------------------------------
+- [cakefght1]           Cake Fighter v1.1
+- [captcommh11]         Captain Commando (readjusted)
+- [dinos283]            Cadillacs and Dinosaurs (Readjusted v1.2)
+- [pbobble3h01]         Puzzle Bobble 3 (Recarbonated)
+- [sailormnh06]         Sailor Moon (Fight for Justice)
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 7, 2022-07-31)
+
+
+
+
+2022-07-23 0.245.2
+
+Puzzled: enabled both story mode and demo mode
+
+New Games
+---------------------------------
+- [cakefght]            Cake Fighter
+- [ssf2tnl3]            Super Street Fighter II Turbo (New Legacy v0.3 beta 2020-05-18)
+- [ssf2tnl7]            Super Street Fighter II Turbo (New Legacy v0.7 beta 2022-07-19)
+
+
+
+
+2022-07-09 0.245.1
+
+
+
+New Games
+---------------------------------
+- [ng4ptest]            Neo Geo 4 Player Multitab Test
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 6, 2022-07-06)
+
+
+
+
+2022-06-29 0.245
+
+
+
+New Games
+---------------------------------
+- [captcommr1d]         Captain Commando (unknown hack r1d)
+- [captcommr1f]         Captain Commando (unknown hack r1f)
+- [cawingh01]           Carrier Air Wing (bootleg)
+- [contcircja]          Continental Circus (Japan set 2)
+- [dinore1]             Cadillacs and Dinosaurs (Readjusted v1.1)
+- [dkrndmzr]            Donkey Kong RNDMZR v1.00 (2022-05-22)
+- [dkwizard]            Donkey Kong Wizardry v1.03
+- [kf2k19unis04]        Kof 10th Anniversary 2019 Unique (Optimized 2020-??-??)
+- [kf2k20unis01]        Kof 10th Anniversary 2020 Unique (Optimized 2020-10-25)
+- [kf2k20unis02]        Kof 10th Anniversary 2020 Unique (Optimized 2020-11-06)
+- [mslug2fm]            Metal Slug 2 (Friendly Fire - Fightcade 2 Ver.2 Hack)
+- [mslug3rb]            Metal Slug 3 (Last Warhead)
+- [mslug4a]             Metal Slug 4 20th Anniversary (GOTVG Ver.2021 Hack)
+- [mslug4ar]            Metal Slug 4 Enemies Reset Fusion 20th Anniversary (Hack)
+- [mslug5sgf]           Metal Slug 5 Remake Final (Fightcade 2 Ver.2021 Hack)
+- [mslug5x]             Metal Slug 5 X
+- [mslugxsrf]           Metal Slug X AzStar Soda Remix (Fightcade 2 Ver. Hack)
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.13)
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)
+- [umk3tm20210809]      Ultimate Mortal Kombat 3 (Team Edition 2021-08-09)
+- [umk3uk20220406]      Ultimate Mortal Kombat 3 (UC Edition 2022-04-06)
+
+
+
+
+2022-05-25 0.244
+
+Added artwork for Man-Pac.
+
+New Games
+---------------------------------
+- [dinore]              Cadillacs and Dinosaurs (Readjusted v1.0)
+- [dkchrte]             Donkey Kong Christmas Tournament Edition
+- [dkongte]             Donkey Kong Tournament Edition
+- [dkspkyte]            Donkey Kong Spooky Tournament Edition
+- [dksprfin]            Donkey Kong Springfinity v1.01 (2022-04-29)
+- [mhavocpex81]         Major Havoc - The Promised End (v0.81)
+- [mslugunity]          Metal Slug Unity
+- [mslug2unity]         Metal Slug 2 Unity
+- [mslug3unity]         Metal Slug 3 Unity
+- [mslug4unity]         Metal Slug 4 Unity
+- [mslug5ast]           Metal Slug Asteroids
+- [mslug5unity]         Metal Slug 5 Unity
+- [mslugxunity]         Metal Slug X Unity
+- [sfa2us05]            Street Fighter Alpha 2 (Unlock Hidden Characters)
+- [sfz3mix11]           Street Fighter Zero 3 (Mix 0.11)
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.12)
+- [teot]                The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
+
+
+
+
+2022-04-27 0.243
+
+Fixed gauntlet2 regressions.
+
+New Games
+---------------------------------
+- [ffightaeh04]         Final Fight 30th Anniversary Edition Mad Gear's City (2022-04-12)
+- [jrpacplus]           Jr Pac-Plus
+- [manpac]              Man-Pac
+- [sailormnh05]         Pretty Soldier Sailor Moon (Reign of Terror) v1.6
+- [sf2mix110]           Street Fighter II: Champion Edition (Mix 1.1)
+- [sfz3mix07a]          Street Fighter Zero 3 (Mix 0.07a)
+- [sfz3mix09]           Street Fighter Zero 3 (Mix 0.09)
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.10)
+
+
+
+
+2022-03-30 0.242
+
+Added various older Donkey Kong hacks by Paul Goes.
+Fixed playchoice-10 games that had regressed over the years.
+Fixed umk3plus20190921.
+
+New Games
+---------------------------------
+- [dkwizard]            Donkey Kong Wizardry v1.02
+- [kof2k2s121]          Kof2002 (KofallmiXomega)
+- [sf2hfus05]           Street Fighter II': Hyper Fighting (Ukraine version)
+- [sfz3mix]             Street Fighter Zero 3 (Mix 0.08)
+- [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
+- [sfz3mix7b]           Street Fighter Zero 3 (Mix 0.07b)
+- [teot_5]              The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)
+- [teot_6]              The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)
+- [umk3plus20220307]    Ultimate Mortal Kombat 3 (Plus Beta 2, 2022-03-23)
+- [umk3uk20220302]      Ultimate Mortal Kombat 3 (UC Edition 2022-03-02)
+
+
+
+
+2022-02-23 0.241
+
+
+
+New Games
+---------------------------------
+- [sf2mix120]           Street Fighter II: Champion Edition (Mix 1.2)
+- [ssf2tnl6]            Super Street Fighter II Turbo (New Legacy v0.6 beta 2022-02-07)
+- [umk3uk20220207]      Ultimate Mortal Kombat 3 UC Edition (2022-02-07)
+
+
+
+
+2022-01-26 0.240
+
+
+
+New Games
+---------------------------------
+- [abyssal]             Abyssal Infants (early version)
+- [cabalng1]            Cabal (Neo Geo Port, sprite fix)
+- [ddonpachjh]          DoDonPachi (Japan, hack)
+- [dkongdu1]            Donkey Kong Duel v1.01
+- [ffightaefc]          Final Fight 30th Anniversary Edition Fair Challenge (2022-01-18)
+- [hypernoid]           Hypernoid (2021-11-28)
+- [looptris]            Looptris (2021-12-26)
+- [neopang]             Neo Pang
+- [sailormndc1]         Pretty Soldier Sailor Moon (Director's Cut) v1.4
+- [teotb]               The Eye of Typhoon (Tsunami Edition, beta) (2022-01-05)
+- [timesup]             Time's Up!
+
+
+
+
+2021-12-29 0.239
+
+
+
+New Games
+---------------------------------
+- [sdojak]              DoDonPachi SaiDaiOuJou & Knuckles (2021-12-01)
+- [sfa3ce]              Street Fighter Alpha 3 Challenger's Edition
+- [sfz3ce]              Street Fighter Zero 3 Challenger's Edition
+- [xeno]                Xeno Crisis
+
+
+
+
+2021-11-24 0.238
+
+
+
+New Games
+---------------------------------
+- [dkongdu]             Donkey Kong Duel v1.02
+- [ffightaert]          Final Fight 30th Anniversary Edition Real Threat (2021-11-01)
+- [sailormndc]          Pretty Soldier Sailor Moon (Director's Cut) v1.2
+- [sailormnrt]          Pretty Soldier Sailor Moon (Real Threat)
+
+
+
+
+2021-10-27 0.237
+
+
+
+New Games
+---------------------------------
+- [pacman25s76]         Pac Man 25 - Pac Man + Tournament (Set 7)
+- [pacman25s77]         Pac Man 25 - Pac Man + Tournament (Set 8)
+- [pacman25s78]         Pac Man 25 - Pac Man + Tournament (Set 9)
+- [pacman25s79]         Pac Man 25 - Pac Man + Tournament (Set 10)
+- [pacman25s80]         Pac Man 25 - Pac Man + Tournament - 3 Minutes
+- [pacman25s81]         Pac Man 25 - Pac Man + Tournament - 40th Anniversary Event
+- [pacman25s82]         Pac Man 25 - Pac Man + Tournament - Acceleration
+- [pacman25s83]         Pac Man 25 - Pac Man + Tournament - April Fools
+- [pacman25s84]         Pac Man 25 - Pac Man + Tournament - Blossom
+- [pacman25s85]         Pac Man 25 - Pac Man + Tournament - Candyland (With Bonus Maps)
+- [pacman25s86]         Pac Man 25 - Pac Man + Tournament - Capsule
+- [pacman25s87]         Pac Man 25 - Pac Man + Tournament - Carnival
+- [pacman25s88]         Pac Man 25 - Pac Man + Tournament - Cupid
+- [pacman25s89]         Pac Man 25 - Pac Man + Tournament - Detective
+- [pacman25s90]         Pac Man 25 - Pac Man + Tournament - Domino
+- [pacman25s91]         Pac Man 25 - Pac Man + Tournament - Drift
+- [pacman25s92]         Pac Man 25 - Pac Man + Tournament - Fire (With Bonus Maps)
+- [pacman25s93]         Pac Man 25 - Pac Man + Tournament - Gift Wrapped
+- [pacman25s94]         Pac Man 25 - Pac Man + Tournament - Gobble
+- [pacman25s95]         Pac Man 25 - Pac Man + Tournament - Good Year
+- [pacman25s96]         Pac Man 25 - Pac Man + Tournament - Halloween
+- [pacman25s97]         Pac Man 25 - Pac Man + Tournament - Happy 39th
+- [pacman25s98]         Pac Man 25 - Pac Man + Tournament - Hide
+- [pacman25s99]         Pac Man 25 - Pac Man + Tournament - Holiday
+- [pacman25s100]        Pac Man 25 - Pac Man + Tournament - Infinate (With Bonus Map)
+- [pacman25s101]        Pac Man 25 - Pac Man + Tournament - Line Dance
+- [pacman25s102]        Pac Man 25 - Pac Man + Tournament - Magic
+- [pacman25s103]        Pac Man 25 - Pac Man + Tournament - Monster
+- [pacman25s104]        Pac Man 25 - Pac Man + Tournament - Native
+- [pacman25s105]        Pac Man 25 - Pac Man + Tournament - No Escape (With Bonus Maps)
+- [pacman25s106]        Pac Man 25 - Pac Man + Tournament - Outfoxed
+- [pacman25s107]        Pac Man 25 - Pac Man + Tournament - Pac-Kids
+- [pacman25s108]        Pac Man 25 - Pac Man + Tournament - Pilgrim
+- [pacman25s109]        Pac Man 25 - Pac Man + Tournament - Plans
+- [pacman25s110]        Pac Man 25 - Pac Man + Tournament - Plotted (With Bonus Map)
+- [pacman25s111]        Pac Man 25 - Pac Man + Tournament - Purple Maze
+- [pacman25s112]        Pac Man 25 - Pac Man + Tournament - Sick
+- [pacman25s113]        Pac Man 25 - Pac Man + Tournament - Solar System (With Bonus Maps)
+- [pacman25s114]        Pac Man 25 - Pac Man + Tournament - Sonic The Hedgehog
+- [pacman25s115]        Pac Man 25 - Pac Man + Tournament - Spangle
+- [pacman25s116]        Pac Man 25 - Pac Man + Tournament - Spelunker
+- [pacman25s117]        Pac Man 25 - Pac Man + Tournament - Squared
+- [pacman25s118]        Pac Man 25 - Pac Man + Tournament - Squirmy
+- [pacman25s119]        Pac Man 25 - Pac Man + Tournament - Survive
+- [pacman25s120]        Pac Man 25 - Pac Man + Tournament - Sushi (With Bonus Maps)
+- [pacman25s121]        Pac Man 25 - Pac Man + Tournament - Sweet
+- [pacman25s122]        Pac Man 25 - Pac Man + Tournament - Taco
+- [pacman25s123]        Pac Man 25 - Pac Man + Tournament - Tangled
+- [pacman25s124]        Pac Man 25 - Pac Man + Tournament - Thing
+- [pacman25s125]        Pac Man 25 - Pac Man + Tournament - Underground
+- [pacman25s126]        Pac Man 25 - Pac Man + Tournament - X-Mas
+- [pacman25s127]        Pac Man 25 - Pac Man + Tournament - Zombies
+
+
+
+
+2021-09-29 0.236
+
+
+
+New Games
+---------------------------------
+- [abyssal]             Abyssal Infants
+- [baby1]               Pacman (Baby Maze 1)
+- [bevpac]              Bevelled Pacman
+- [invispac]            Pacman (Invisible Maze)
+- [mcatadvs01]          Magical Cat Adventure (R.Zara)
+- [mcpacman]            McPacman
+- [ndo_a_td]            Neo Driftout Tech Demo
+- [pacforks]            Forks
+- [pacmini3]            Pacmini (maze 3)
+- [pacsmall]            Pacman (Small Maze)
+- [pacman25s01]         Pac Man (4 New Maps - After Dark)
+- [pacman25s02]         Pac Man - (Fruit 1)
+- [pacman25s03]         pac Man - (Fruit 2)
+- [pacman25s04]         Pac Man 25 (Chomp Ms Pac Em SJB Maps)
+- [pacman25s05]         Pac Man 25 (Chomp Ms Pac Em)
+- [pacman25s06]         Pac Man 25 (Cookie Man)
+- [pacman25s07]         Pac Man 25 (FHMC Sil 13 Mazes)
+- [pacman25s08]         Pac Man 25 (Namco Mazes Alternate)
+- [pacman25s09]         Pac Man 25 (Namco Mazes Featuring Ms Pac-Man)
+- [pacman25s10]         Pac Man 25 (Namco Mazes)(PAC-MAN Classic Look)
+- [pacman25s11]         Pac Man 25 (Namco Mazes)
+- [pacman25s12]         Pac Man 25 (SJB Mazes)
+- [pacman25s13]         Pac Man 25 (T-Bone Mazes)
+- [pacman25s14]         Pac Man 25 (Tengen Mazes)(PAC-MAN Classic Look)
+- [pacman25s15]         Pac Man 25 (Tengen Mazes)
+- [pacman25s16]         Pac Man 25 (Tengen Mini Mazes)(PAC-MAN Classic Look)
+- [pacman25s17]         Pac Man 25 (Tengen Mini Mazes)
+- [pacman25s18]         Pac Man 25 (Tengen Tall Mazes)(PAC-MAN Classic Look)
+- [pacman25s19]         Pac Man 25 (Tengen Tall Mazes)
+- [pacman25s20]         Pac Man 25 (Ultra Pac-Man)
+- [pacman25s21]         Pac Man 25 - Pac Man + Tournament (Set 1)
+- [pacman25s22]         Pac Man 25 - Pac Man + Tournament (Set 2)
+- [pacman25s23]         Pac Man 25 - Pac Man + Tournament (Set 3)
+- [pacman25s24]         Pac Man 25 - Pac Man + Tournament (Set 4)
+- [pacman25s25]         Pac Man 25 - Pac Man + Tournament (Set 5)
+- [pacman25s26]         Pac Man 25 - Pac Man + Tournament (Set 6)
+- [pacman25s27]         Pac Man 25 - Pac Man + Tournament - 360 Escape
+- [pacman25s28]         Pac Man 25 - Pac Man + Tournament - Alien
+- [pacman25s29]         Pac Man 25 - Pac Man + Tournament - Arcade
+- [pacman25s30]         Pac Man 25 - Pac Man + Tournament - Beach
+- [pacman25s31]         Pac Man 25 - Pac Man + Tournament - Beetle
+- [pacman25s32]         Pac Man 25 - Pac Man + Tournament - Blue
+- [pacman25s33]         Pac Man 25 - Pac Man + Tournament - Boys
+- [pacman25s34]         Pac Man 25 - Pac Man + Tournament - Candyland
+- [pacman25s35]         Pac Man 25 - Pac Man + Tournament - Chase
+- [pacman25s36]         Pac Man 25 - Pac Man + Tournament - Cherries
+- [pacman25s37]         Pac Man 25 - Pac Man + Tournament - Chocolate
+- [pacman25s38]         Pac Man 25 - Pac Man + Tournament - Colors
+- [pacman25s39]         Pac Man 25 - Pac Man + Tournament - Cookie
+- [pacman25s40]         Pac Man 25 - Pac Man + Tournament - Cup
+- [pacman25s41]         Pac Man 25 - Pac Man + Tournament - Dice
+- [pacman25s42]         Pac Man 25 - Pac Man + Tournament - Dinos
+- [pacman25s43]         Pac Man 25 - Pac Man + Tournament - Dragon
+- [pacman25s44]         Pac Man 25 - Pac Man + Tournament - Fire
+- [pacman25s45]         Pac Man 25 - Pac Man + Tournament - Fountain
+- [pacman25s46]         Pac Man 25 - Pac Man + Tournament - Garden
+- [pacman25s47]         Pac Man 25 - Pac Man + Tournament - Girder
+- [pacman25s48]         Pac Man 25 - Pac Man + Tournament - Girl
+- [pacman25s49]         Pac Man 25 - Pac Man + Tournament - Infinate
+- [pacman25s50]         Pac Man 25 - Pac Man + Tournament - Invisible
+- [pacman25s51]         Pac Man 25 - Pac Man + Tournament - Jailhouse
+- [pacman25s52]         Pac Man 25 - Pac Man + Tournament - kaleidoscope
+- [pacman25s53]         Pac Man 25 - Pac Man + Tournament - Minutes
+- [pacman25s54]         Pac Man 25 - Pac Man + Tournament - Night Flower
+- [pacman25s55]         Pac Man 25 - Pac Man + Tournament - Night
+- [pacman25s56]         Pac Man 25 - Pac Man + Tournament - No Escape
+- [pacman25s57]         Pac Man 25 - Pac Man + Tournament - Opposite
+- [pacman25s58]         Pac Man 25 - Pac Man + Tournament - Pig
+- [pacman25s59]         Pac Man 25 - Pac Man + Tournament - Plotted
+- [pacman25s60]         Pac Man 25 - Pac Man + Tournament - Prismatic
+- [pacman25s61]         Pac Man 25 - Pac man + Tournament - Red Bull
+- [pacman25s62]         Pac Man 25 - Pac Man + Tournament - Royal
+- [pacman25s63]         Pac Man 25 - Pac Man + Tournament - Shadow
+- [pacman25s64]         Pac Man 25 - Pac Man + Tournament - Ship
+- [pacman25s65]         Pac Man 25 - Pac Man + Tournament - Six Pac
+- [pacman25s66]         Pac Man 25 - Pac Man + Tournament - Solar System
+- [pacman25s67]         Pac Man 25 - Pac Man + Tournament - Square Dance
+- [pacman25s68]         Pac Man 25 - Pac Man + Tournament - Sugar Rush
+- [pacman25s69]         Pac Man 25 - Pac Man + Tournament - Sushi
+- [pacman25s70]         Pac Man 25 - Pac Man + Tournament - Tilt
+- [pacman25s71]         Pac Man 25 - Pac Man + Tournament - Traffic
+- [pacman25s72]         Pac Man 25 - Pac Man + Tournament - Trap
+- [pacman25s73]         Pac Man 25 - Pac Man + Tournament - Tunnels
+- [pacman25s74]         Pac Man 25 - Pac Man + Tournament - Turtle
+- [pacman25s75]         Pac Man 25 - Pac Man + Tournament - Windy
+- [upsidpac]            Pacman (Upsidedown Maze)
+
+
+
+
+2021-08-24 0.235
+
+- mslug4xg: fixed freeze in attract mode
+- sblast2bs01: fixed crash at start
+- sboblboblh: fixed watchdog reset on level select screen
+
+New Games
+---------------------------------
+- [dangerex]            Danger Express
+- [umk3uc20210430]      Ultimate Mortal Kombat 3 Ultimate Cup Edition (2021-04-30)
+- [umk3uk20210709]      Ultimate Mortal Kombat 3 UC Edition (2021-07-09)
+- [umk3uk20210727]      Ultimate Mortal Kombat 3 UC Edition (2021-07-27)
+
+
+
+
 2021-07-28 0.234
 
 
@@ -9,9 +399,9 @@ New Games
 ---------------------------------
 - [dkongan]             Donkey Kong 40th Anniversary Edition
 - [dkongbp1]            Donkey Kong Barrelpalooza v1.07
-- [mhavocpex7]          Major Havoc - The Promised End (v0.77)
-- [mhavocpex7de]        Major Havoc - The Promised End (v0.77) (German)
-- [mhavocpex7fr]        Major Havoc - The Promised End (v0.77) (French)
+- [mhavocpex7]          Major Havoc - The Promised End (v0.78)
+- [mhavocpex7de]        Major Havoc - The Promised End (v0.78) (German)
+- [mhavocpex7fr]        Major Havoc - The Promised End (v0.78) (French)
 
 
 
@@ -3157,15 +3547,15 @@ New Games
 - [dotrimjr]        Dottori-Man Jr [by Chris Covell]
 - [mshjphp]         Marvel Super Heroes (Power hack by Pipi899)
 - [mshyh]           Marvel Super Heroes (Boss hack by Yumeji)
-- [mvscjemb]        Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves hack by Blackheart 24/04/09)
+- [mvscjemb]        Marvel Vs. Capcom: Clash of Super Heroes (Easy Moves hack by Blackheart 2009-04-24)
 - [mvscjphp]        Marvel Vs. Capcom: Clash of Super Heroes (Power hack by Pipi899)
-- [pfghtjrm]        Pocket Fighter (Easy Moves hack by Blackheart 20/04/09)
+- [pfghtjrm]        Pocket Fighter (Easy Moves hack by Blackheart 2009-04-20)
 - [sgemfch]         Super Gem Fighter Mini Mix (Color remix)
-- [vsav2emb]        Vampire Savior 2: The Lord of Vampire (Easy Moves hack by Blackheart 30/04/09)
+- [vsav2emb]        Vampire Savior 2: The Lord of Vampire (Easy Moves hack by Blackheart 2009-04-30)
 - [xmcotajb]        X-Men: Children of the Atom (Boss hack by Yumeji)
 - [xmcotajphp]      X-Men: Children of the Atom (Power hack by Pipi899)
 - [xmvsfjphp]       X-Men Vs. Street Fighter (Power hack by Pipi899)
-- [xmvsfrm]         X-Men Vs. Street Fighter (Easy Moves hack by Blackheart 22/04/09)
+- [xmvsfrm]         X-Men Vs. Street Fighter (Easy Moves hack by Blackheart 2009-04-22)
 - [xmvsfryh]        X-Men Vs. Street Fighter (ST Char hack by Ydmis)
 
 
@@ -3261,20 +3651,20 @@ New Games
 ---------
 - [3wondrud]        3 Wonders (Phoenix)
 - [captcoud]        Captain Commando (Phoenix)
-- [ddsomavs]        Dungeons & Dragons: Shadow over Mystara (1vs4 hack by Pipi899 29/06/09)
-- [ddsomhp]         Dungeons & Dragons: Shadow over Mystara (HP Revision hack by Pipi899, cheat by sssskkkk 15/06/09)
-- [ddsomjfs]        Dungeons & Dragons: Shadow over Mystara (Final Strike hack by e107 17/07/09)
-- [dino08h2]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f hack by Pipi899 17/10/08)
-- [dino08h3]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 hack by Pipi899 11/10/08)
-- [dino08hp]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f hack by Pipi899 17/10/08)
+- [ddsomavs]        Dungeons & Dragons: Shadow over Mystara (1vs4 hack by Pipi899 2009-06-29)
+- [ddsomhp]         Dungeons & Dragons: Shadow over Mystara (HP Revision hack by Pipi899, cheat by sssskkkk 2009-06-15)
+- [ddsomjfs]        Dungeons & Dragons: Shadow over Mystara (Final Strike hack by e107 2009-07-17)
+- [dino08h2]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 3 v2.0f hack by Pipi899 2008-10-17)
+- [dino08h3]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 hack by Pipi899 2008-10-11)
+- [dino08hp]        Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f hack by Pipi899 2008-10-17)
 - [dinobt]          Cadillacs and Dinosaurs (BT hack version)
-- [dinobtpp]        Cadillacs and Dinosaurs (BT Power hack by Pipi899 15/01/09)
+- [dinobtpp]        Cadillacs and Dinosaurs (BT Power hack by Pipi899 2009-01-15)
 - [dinocgba]        Cadillacs and Dinosaurs (Cngba hack Version set 1)
 - [dinocgbb]        Cadillacs and Dinosaurs (Cngba hack Version set 2)
 - [dinocgbc]        Cadillacs and Dinosaurs (Cngba hack Version set 3)
 - [dinohp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 1)
-- [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 05/08/08)
-- [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 15/01/09)
+- [dinorp]          Cadillacs and Dinosaurs (Hack by Pipi899 set 2 2008-08-05)
+- [dinouphp]        Cadillacs and Dinosaurs (Up Version hack by Pipi899 2009-01-15)
 - [dkrdemo]         Donkey Kong Remix demo 1.8 [by Sock Master]
 - [ffightb]         Final Fight (Boss Hack dumped by Bonky0013, modified by MPT)
 - [garoub]          Garou - Mark of the Wolves (Boss hack by Ydmis)
@@ -3287,10 +3677,10 @@ New Games
 - [punisherud2]     The Punisher (US 930422 Phoenix Edition (16b/40p))
 - [santabll]        Santaball [by M.Priewe] [read the FAQ!]
 - [sk2h15]          Sangokushi 2 (Hack by Pipi899 2009-01-02)
-- [sk2h16]          Sangokushi 2 (Easy Moves hack by Pipi899 12/01/09)
+- [sk2h16]          Sangokushi 2 (Easy Moves hack by Pipi899 2009-01-12)
 - [slammastud]      Saturday Night Slam Masters (USA 930713 Phoenix)
 - [vampjb]          Vampire: The Night Warriors (Boss hack by Yumeji)
-- [wofchspp]        CPS Changer - Tenchi Wo Kurau II (Super Jian Huang hack by Pipi899 29/01/10)
+- [wofchspp]        CPS Changer - Tenchi Wo Kurau II (Super Jian Huang hack by Pipi899 2010-01-29)
 - [wofjhb]          Tenchi wo Kurau II (Japan 921031) (Hack set 2)
 - [wofjhc]          Tenchi wo Kurau II (Japan 921031) (Hack set 3)
 
@@ -3317,7 +3707,7 @@ New Games
 - [breakersbh]      Breakers (Boss hack by Yumeji)
 - [breakersy]       Breakers (Boss Robert PPX Team hack remixed by ZKW)
 - [breakrevb]       Breakers Revenge (Boss hack by Yumeji)
-- [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 11/06/09)
+- [breakrevpp]      Breakers Revenge (Enhanced Power hack by Pipi899 2009-06-11)
 - [breakrevy]       Breakers Revenge (Boss Robert PPX Team hack remixed by ZKW)
 - [columnsncd]      Columns (CD conversion)
 - [ct2k3ifz]        Crouching Tiger Hidden Dragon 2003 (Ice FZ Remix)
@@ -3327,8 +3717,8 @@ New Games
 - [dti]             Duck Tales Intro [Raregame]
 - [doubledre2]      Double Dragon Q (Boss hack Easy Special Attacks)
 - [doubledres]      Double Dragon (Boss hack Easy Special Attacks)
-- [doubledrhp]      Double Dragon (Boss Hack Perfect Edition hack by Blackheart 19/09/09)
-- [eightmaneb]      Eight Man (Enhanced Version hack by Blackheart 22/08/09)
+- [doubledrhp]      Double Dragon (Boss Hack Perfect Edition hack by Blackheart 2009-09-19)
+- [eightmaneb]      Eight Man (Enhanced Version hack by Blackheart 2009-08-22)
 - [ennemi]          Neogeo demo [by Kannagi]
 - [fatfury2b]       Fatal Fury 2 (Boss hack by Yumeji)
 - [fatfury3bh]      Fatal Fury 3 (Boss hack by Yumeji)
@@ -3338,7 +3728,7 @@ New Games
 - [galaxyfgb]       Galaxy Fight (Boss hack by Yumeji)
 - [gowcaizrb]       Voltage Fighter (Boss hack by Wesker (FGCH))
 - [gowcaizrbs]      Voltage Fighter (Boss hack by Yumeji)
-- [gowcaizrrv]      Voltage Fighter (Boss Revised Version 05/10/09)
+- [gowcaizrrv]      Voltage Fighter (Boss Revised Version 2009-10-05)
 - [gpilotspx]       Ghost Pilots (Plus Max hack by Xyahzhs)
 - [kof97rev]        KOF'97 Revival 2016 (hack of Kof'97 Plus 2003)
 - [kof98f]
@@ -3354,9 +3744,9 @@ New Games
 - [samsh5sphc]      Samurai Shodown V Special / Samurai Spirits Zero Special (Final set 3 hack by Wesker)
 - [samsh5spn]       Samurai Shodown V Special / Samurai Spirits Zero Special (fully decrypted)
 - [samsh5spnh3]     Samurai Shodown V Special / Samurai Spirits Zero Special (Enhanced Blood v3.0 hack by Eddids, Snk2003)
-- [samsh5spnzk]     Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 23/10/08)
+- [samsh5spnzk]     Samurai Shodown V Special / Samurai Spirits Zero Special (Hack by Zuojie, Kof1996 2008-10-23)
 - [shocktr2px]      Shock Troopers - 2nd Squad (Plus Max hack by Xyahzhs)
-- [shocktrosp]      Shock Troopers (Super Plus hack by e107 18/08/09)
+- [shocktrosp]      Shock Troopers (Super Plus hack by e107 2009-08-18)
 - [sonicwi2eh]      Aero Fighters 2 / Sonic Wings 2 (Hack alternate set by Robert)
 - [sonicwi2px]      Aero Fighters 2 / Sonic Wings 2 (Plus Max hack by Xyahzhs)
 - [sonicwi3eh]      Aero Fighters 3 / Sonic Wings 3 (Hack alternate set by Robert)
@@ -3374,7 +3764,7 @@ New Games
 - [wh2jb]           World Heroes 2 Jet (Boss hack by 0days (EGCG))
 - [whphez]          World Heroes Perfect (Boss hack by Zeng_K)
 - [whpsp]           World Heroes Perfect (Special Boss hack by Yashional)
-- [whpss]           World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 12/25/07)
+- [whpss]           World Heroes Perfect (SS v1.0 hack by Eddids (EGHT) 2007-12-25)
 - [wjammersf]       Windjammers (French v0.1 beta by Elrayzeur)
 - [zintrckbh]       Zintrick hack [by Yumeji]
 

@@ -94,3 +94,4 @@ ROM_END
 
 GAME( 2002, twincbu2, twincobr, twincobr, twincobru, twincobr_state, init_twincobr, ROT270, "hack", "Twin Cobra (Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, twintwst, twincobr, twincobr, twincobr,  twincobr_state, init_twincobr, ROT270, "hack", "Twin Twist (Twin Cobra Hack)", MACHINE_SUPPORTS_SAVE )
+

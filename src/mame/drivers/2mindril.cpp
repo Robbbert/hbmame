@@ -81,14 +81,12 @@ private:
 	void drill_map(address_map &map);
 
 	#ifdef UNUSED_FUNCTION
-	enum
-	{
-		TIMER_SHUTTER_REQ,
-		TIMER_DEFENDER_REQ
-	};
-
 protected:
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr);
+	TIMER_CALLBACK_MEMBER(set_shutter_req);
+	TIMER_CALLBACK_MEMBER(set_defender_req);
+
+	emu_timer *m_shutter_req_timer;
+	emu_timer *m_defender_req_timer;
 	#endif
 };
 
@@ -132,19 +130,14 @@ void _2mindril_state::coins_w(u8 data)
     PORT_DIPSETTING(      0x0800, DEF_STR( On ) )
 */
 #ifdef UNUSED_FUNCTION
-void _2mindril_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(_2mindril_state::set_shutter_req)
 {
-	switch (id)
-	{
-	case TIMER_SHUTTER_REQ:
-			m_shutter_sensor = param;
-			break;
-	case TIMER_DEFENDER_REQ:
-			m_defender_sensor = param;
-			break;
-	default:
-			throw emu_fatalerror("Unknown id in _2mindril_state::device_timer");
-	}
+	m_shutter_sensor = param;
+}
+
+TIMER_CALLBACK_MEMBER(_2mindril_state::set_defender_req)
+{
+	m_defender_sensor = param;
 }
 #endif
 
@@ -154,23 +147,23 @@ void _2mindril_state::sensors_w(u16 data)
 	/*---- ---- ---- -x-- lamp*/
 	if (data & 1)
 	{
-		//timer_set( attotime::from_seconds(2), TIMER_SHUTTER_REQ, 0x01);
+		//m_shutter_req_timer->adjust(attotime::from_seconds(2), 0x01);
 		m_shutter_sensor = 0x01;
 	}
 	else if (data & 2)
 	{
-		//timer_set( attotime::from_seconds(2), TIMER_SHUTTER_REQ, 0x02);
+		//m_shutter_req_timer->adjust(attotime::from_seconds(2), 0x02);
 		m_shutter_sensor = 0x02;
 	}
 
 	if (data & 0x1000 || data & 0x4000)
 	{
-		//timer_set( attotime::from_seconds(2), TIMER_DEFENDER_REQ, 0x08);
+		//m_defender_req_timer->adjust(attotime::from_seconds(2), 0x08);
 		m_defender_sensor = 0x08;
 	}
 	else if (data & 0x2000 || data & 0x8000)
 	{
-		//timer_set( attotime::from_seconds(2), TIMER_DEFENDER_REQ, 0x04);
+		//m_defender_req_timer->adjust(attotime::from_seconds(2), 0x04);
 		m_defender_sensor = 0x04;
 	}
 }
@@ -341,6 +334,11 @@ void _2mindril_state::machine_start()
 	save_item(NAME(m_defender_sensor));
 	save_item(NAME(m_shutter_sensor));
 	save_item(NAME(m_irq_reg));
+
+#ifdef UNUSED_FUNCTION
+	m_shutter_req_timer = timer_alloc(FUNC(_2mindril_state::set_shutter_req), this);
+	m_defender_req_timer = timer_alloc(FUNC(_2mindril_state::set_defender_req), this);
+#endif
 }
 
 void _2mindril_state::machine_reset()
@@ -411,4 +409,5 @@ void _2mindril_state::init_drill()
 	tile_decode();
 }
 
-GAME( 1993, 2mindril, 0, drill, drill, _2mindril_state, init_drill, ROT0, "Taito America Corporation", "Two Minute Drill (Ver 2.93A 1994/02/16)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_MECHANICAL)
+//    YEAR  NAME      PARENT  MACHINE  INPUT  CLASS            INIT        ROT   COMPANY                      FULLNAME                                   FLAGS
+GAME( 1993, 2mindril, 0,      drill,   drill, _2mindril_state, init_drill, ROT0, "Taito America Corporation", "Two Minute Drill (Ver 2.93A 1994/02/16)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_MECHANICAL)

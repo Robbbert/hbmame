@@ -49,6 +49,7 @@ public:
 		m_custom_map(nullptr),
 		m_shangon_video(false),
 		m_scanline_timer(nullptr),
+		m_irq2_gen_timer(nullptr),
 		m_irq2_state(0),
 		m_adc_select(0),
 		m_vblank_irq_state(0),
@@ -95,10 +96,10 @@ protected:
 	uint32_t screen_update_outrun(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	uint32_t screen_update_shangon(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
-	void tileram_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0) { m_segaic16vid->tileram_w(offset,data,mem_mask); };
-	void textram_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0) { m_segaic16vid->textram_w(offset,data,mem_mask); };
-	uint16_t sega_road_control_0_r(address_space &space, offs_t offset, uint16_t mem_mask = ~0) { return m_segaic16road->segaic16_road_control_0_r(); };
-	void sega_road_control_0_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0) { m_segaic16road->segaic16_road_control_0_w(offset,data,mem_mask); };
+	void tileram_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0) { m_segaic16vid->tileram_w(offset,data,mem_mask); }
+	void textram_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0) { m_segaic16vid->textram_w(offset,data,mem_mask); }
+	uint16_t sega_road_control_0_r(address_space &space, offs_t offset, uint16_t mem_mask = ~0) { return m_segaic16road->segaic16_road_control_0_r(); }
+	void sega_road_control_0_w(address_space &space, offs_t offset, uint16_t data, uint16_t mem_mask = ~0) { m_segaic16road->segaic16_road_control_0_w(offset,data,mem_mask); }
 
 	TIMER_DEVICE_CALLBACK_MEMBER(bankmotor_update);
 
@@ -108,18 +109,12 @@ protected:
 	void sound_portmap(address_map &map);
 	void sub_map(address_map &map);
 
-	// timer IDs
-	enum
-	{
-		TID_SCANLINE,
-		TID_IRQ2_GEN,
-		TID_SOUND_WRITE
-	};
-
 	// device overrides
 	virtual void machine_reset() override;
 	virtual void video_start() override;
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+
+	TIMER_CALLBACK_MEMBER(irq2_gen_tick);
+	TIMER_CALLBACK_MEMBER(scanline_tick);
 
 	// internal helpers
 	void update_main_irqs();
@@ -155,7 +150,7 @@ protected:
 	required_shared_ptr<uint16_t> m_workram;
 
 	// configuration
-	read16m_delegate   m_custom_io_r;
+	read16m_delegate    m_custom_io_r;
 	write16s_delegate   m_custom_io_w;
 	const uint8_t *     m_custom_map;
 	bool                m_shangon_video;

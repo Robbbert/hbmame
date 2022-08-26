@@ -95,3 +95,4 @@ ROM_END
 
 GAME( 1998, rxtron,  rallyx, rallyx, rallyx,  rallyx_state, empty_init, ROT0,  "Jerky and Sil", "Rally-X Tron", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, nrallyv, rallyx, rallyx, nrallyv, rallyx_state, empty_init, ROT90, "hack", "New Rally X (Vertical Screen)", MACHINE_SUPPORTS_SAVE )
+

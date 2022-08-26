@@ -9,6 +9,7 @@
 ***************************************************************************/
 
 #include "emu.h"
+
 #include "speaker.h"
 #include "emuopts.h"
 #include "osdepend.h"
@@ -16,14 +17,14 @@
 #include "wavwrite.h"
 
 
-
 //**************************************************************************
 //  DEBUGGING
 //**************************************************************************
 
-#define VERBOSE         (0)
+//#define VERBOSE 1
+#define LOG_OUTPUT_FUNC osd_printf_debug
 
-#define VPRINTF(x)      do { if (VERBOSE) osd_printf_debug x; } while (0)
+#include "logmacro.h"
 
 #define LOG_OUTPUT_WAV  (0)
 
@@ -560,6 +561,7 @@ sound_stream::sound_stream(device_t &device, u32 inputs, u32 outputs, u32 output
 	m_synchronous((flags & STREAM_SYNCHRONOUS) != 0),
 	m_resampling_disabled((flags & STREAM_DISABLE_INPUT_RESAMPLING) != 0),
 	m_sync_timer(nullptr),
+	m_last_update_end_time(attotime::zero),
 	m_input(inputs),
 	m_input_view(inputs),
 	m_empty_buffer(100),
@@ -578,8 +580,10 @@ sound_stream::sound_stream(device_t &device, u32 inputs, u32 outputs, u32 output
 	// create a unique tag for saving
 	std::string state_tag = string_format("%d", m_device.machine().sound().unique_id());
 	auto &save = m_device.machine().save();
-	save.save_item(&m_device, "stream.sample_rate", state_tag.c_str(), 0, NAME(m_sample_rate));
+	save.save_item(&m_device, "stream.sound_stream", state_tag.c_str(), 0, NAME(m_sample_rate));
+	save.save_item(&m_device, "stream.sound_stream", state_tag.c_str(), 0, NAME(m_last_update_end_time));
 	save.register_postload(save_prepost_delegate(FUNC(sound_stream::postload), this));
+	save.register_presave(save_prepost_delegate(FUNC(sound_stream::presave), this));
 
 	// initialize all inputs
 	for (unsigned int inputnum = 0; inputnum < m_input.size(); inputnum++)
@@ -602,7 +606,7 @@ sound_stream::sound_stream(device_t &device, u32 inputs, u32 outputs, u32 output
 
 	// create an update timer for synchronous streams
 	if (synchronous())
-		m_sync_timer = m_device.machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(sound_stream::sync_update), this));
+		m_sync_timer = m_device.timer_alloc(FUNC(sound_stream::sync_update), this);
 
 	// force an update to the sample rates
 	sample_rate_changed();
@@ -648,8 +652,8 @@ void sound_stream::set_sample_rate(u32 new_rate)
 
 void sound_stream::set_input(int index, sound_stream *input_stream, int output_index, float gain)
 {
-	VPRINTF(("stream_set_input(%p, '%s', %d, %p, %d, %f)\n", (void *)this, m_device.tag(),
-			index, (void *)input_stream, output_index, (double) gain));
+	LOG("stream_set_input(%p, '%s', %d, %p, %d, %f)\n", (void *)this, m_device.tag(),
+			index, (void *)input_stream, output_index, gain);
 
 	// make sure it's a valid input
 	if (index >= m_input.size())
@@ -857,12 +861,22 @@ void sound_stream::sample_rate_changed()
 
 void sound_stream::postload()
 {
-	// set the end time of all of our streams to now
+	// set the end time of all of our streams to the value saved in m_last_update_end_time
 	for (auto &output : m_output)
-		output.set_end_time(m_device.machine().time());
+		output.set_end_time(m_last_update_end_time);
 
 	// recompute the sample rate information
 	sample_rate_changed();
+}
+
+//-------------------------------------------------
+//  presave - save/restore callback
+//-------------------------------------------------
+
+void sound_stream::presave()
+{
+	// save the stream end time
+	m_last_update_end_time = m_output[0].end_time();
 }
 
 
@@ -885,7 +899,7 @@ void sound_stream::reprime_sync_timer()
 //  synchronous stream
 //-------------------------------------------------
 
-void sound_stream::sync_update(void *, s32)
+void sound_stream::sync_update(s32)
 {
 	update();
 	reprime_sync_timer();
@@ -1068,6 +1082,7 @@ sound_manager::sound_manager(running_machine &machine) :
 	m_rightmix(machine.sample_rate()),
 	m_compressor_scale(1.0),
 	m_compressor_counter(0),
+	m_compressor_enabled(machine.options().compressor()),
 	m_muted(0),
 	m_nosound_mode(machine.osd().no_sound()),
 	m_attenuation(0),
@@ -1086,11 +1101,14 @@ sound_manager::sound_manager(running_machine &machine) :
 	// count the mixers
 #if VERBOSE
 	mixer_interface_enumerator iter(machine.root_device());
-	VPRINTF(("total mixers = %d\n", iter.count()));
+	LOG("total mixers = %d\n", iter.count());
 #endif
 
 	// register callbacks
-	machine.configuration().config_register("mixer", config_load_delegate(&sound_manager::config_load, this), config_save_delegate(&sound_manager::config_save, this));
+	machine.configuration().config_register(
+			"mixer",
+			configuration_manager::load_delegate(&sound_manager::config_load, this),
+			configuration_manager::save_delegate(&sound_manager::config_save, this));
 	machine.add_notifier(MACHINE_NOTIFY_PAUSE, machine_notify_delegate(&sound_manager::pause, this));
 	machine.add_notifier(MACHINE_NOTIFY_RESUME, machine_notify_delegate(&sound_manager::resume, this));
 	machine.add_notifier(MACHINE_NOTIFY_RESET, machine_notify_delegate(&sound_manager::reset, this));
@@ -1356,14 +1374,10 @@ void sound_manager::resume()
 //  configuration file
 //-------------------------------------------------
 
-void sound_manager::config_load(config_type cfg_type, util::xml::data_node const *parentnode)
+void sound_manager::config_load(config_type cfg_type, config_level cfg_level, util::xml::data_node const *parentnode)
 {
-	// we only care about game files
-	if (cfg_type != config_type::GAME)
-		return;
-
-	// might not have any data
-	if (parentnode == nullptr)
+	// we only care system-specific configuration
+	if ((cfg_type != config_type::SYSTEM) || !parentnode)
 		return;
 
 	// iterate over channel nodes
@@ -1388,29 +1402,28 @@ void sound_manager::config_load(config_type cfg_type, util::xml::data_node const
 
 void sound_manager::config_save(config_type cfg_type, util::xml::data_node *parentnode)
 {
-	// we only care about game files
-	if (cfg_type != config_type::GAME)
+	// we only save system-specific configuration
+	if (cfg_type != config_type::SYSTEM)
 		return;
 
 	// iterate over mixer channels
-	if (parentnode != nullptr)
-		for (int mixernum = 0; ; mixernum++)
-		{
-			mixer_input info;
-			if (!indexed_mixer_input(mixernum, info))
-				break;
-			float newvol = info.stream->input(info.inputnum).user_gain();
+	for (int mixernum = 0; ; mixernum++)
+	{
+		mixer_input info;
+		if (!indexed_mixer_input(mixernum, info))
+			break;
 
-			if (newvol != 1.0f)
+		float const newvol = info.stream->input(info.inputnum).user_gain();
+		if (newvol != 1.0f)
+		{
+			util::xml::data_node *const channelnode = parentnode->add_child("channel", nullptr);
+			if (channelnode)
 			{
-				util::xml::data_node *const channelnode = parentnode->add_child("channel", nullptr);
-				if (channelnode != nullptr)
-				{
-					channelnode->set_attribute_int("index", mixernum);
-					channelnode->set_attribute_float("newvol", newvol);
-				}
+				channelnode->set_attribute_int("index", mixernum);
+				channelnode->set_attribute_float("newvol", newvol);
 			}
 		}
+	}
 }
 
 
@@ -1458,9 +1471,9 @@ stream_buffer::sample_t sound_manager::adjust_toward_compressor_scale(stream_buf
 //  and send it to the OSD layer
 //-------------------------------------------------
 
-void sound_manager::update(void *ptr, int param)
+void sound_manager::update(int param)
 {
-	VPRINTF(("sound_update\n"));
+	LOG("sound_update\n");
 
 	g_profiler.start(PROFILER_SOUND);
 
@@ -1545,8 +1558,11 @@ void sound_manager::update(void *ptr, int param)
 		if (lscale != m_compressor_scale && sample != m_finalmix_leftover)
 			lscale = adjust_toward_compressor_scale(lscale, lprev, lsamp);
 
+		lprev = lsamp * lscale;
+		if (m_compressor_enabled)
+			lsamp = lprev;
+
 		// clamp the left side
-		lprev = lsamp *= lscale;
 		if (lsamp > 1.0)
 			lsamp = 1.0;
 		else if (lsamp < -1.0)
@@ -1558,8 +1574,11 @@ void sound_manager::update(void *ptr, int param)
 		if (rscale != m_compressor_scale && sample != m_finalmix_leftover)
 			rscale = adjust_toward_compressor_scale(rscale, rprev, rsamp);
 
-		// clamp the left side
-		rprev = rsamp *= rscale;
+		rprev = rsamp * rscale;
+		if (m_compressor_enabled)
+			rsamp = rprev;
+
+		// clamp the right side
 		if (rsamp > 1.0)
 			rsamp = 1.0;
 		else if (rsamp < -1.0)

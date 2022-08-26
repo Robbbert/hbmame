@@ -114,20 +114,10 @@ ROM_START( 1943h )
 	ROM_LOAD( "bm6.4b",   0x0b00, 0x0100, CRC(0eaf5158) SHA1(bafd4108708f66cd7b280e47152b108f3e254fc9) )
 ROM_END
 
-GAME( 1987, 1943b2, 1943,  _1943b, 1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: Midway Kaisen (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
-GAME( 1987, 1943h,  1943,  _1943,  1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********************
+/***********************
  1943 Kai: Midway Kaisen
 **************************/
-
 ROM_START( 1943kais01 )
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD( "bmk01.12dhc01", 0x00000, 0x08000, CRC(03036734) SHA1(cdde7a2ebe4be0d99de2d2dc39625e7d3976ee9b) )
@@ -187,5 +177,8 @@ ROM_START( 1943kais01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 1987, 1943b2, 1943,  _1943b, 1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: Midway Kaisen (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
+GAME( 1987, 1943h,  1943,  _1943,  1943, _1943_state, init_1943,  ROT270, "bootleg", "1943: The Battle of Midway (bootleg set 2, hack of Japan set)", MACHINE_SUPPORTS_SAVE )
 // 1943 Kai: Midway Kaisen
 GAME( 2009, 1943kais01,   1943kai,    _1943,   1943, _1943_state,  init_1943, ROT270,  "winux/pipi899",  "1943 Kai: Midway Kaisen(Ex Super Version 2009-02-10)", MACHINE_SUPPORTS_SAVE )
+

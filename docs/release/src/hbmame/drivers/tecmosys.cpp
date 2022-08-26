@@ -2,13 +2,6 @@
 // Copyright-holders:Gaston90
 #include "../mame/drivers/tecmosys.cpp"
 
-
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
 /****************
  Deroon DeroDero
 ******************/
@@ -227,3 +220,4 @@ GAME( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkd
 GAME( 1996, tkdenshos02,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, tkdenshos03,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Easy Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, tkdenshos04,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
+

@@ -73,13 +73,7 @@ ROM_END
 GAME( 2002, geminit, gemini, gemini, gemini, tecmo_state, init_gemini, ROT90, "Twisty", "Gemini Wing (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1986, rygark,  rygar,  rygar,  rygar,  tecmo_state, init_rygar,  ROT0,  "hack", "Argus no Senshi (Translation Korean)", MACHINE_SUPPORTS_SAVE )
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********
+/*************
  Gemini Wing
 **************/
 
@@ -116,7 +110,7 @@ ROM_START( geminis01 )
 	ROM_LOAD( "gw01-6a.rom",  0x0000, 0x8000, CRC(d78afa05) SHA1(b02a739b045f5cddf943ce59226ef234463eeebe) )
 ROM_END
 
- /***************
+/*****************
  Argus no Senshi
 ******************/
 
@@ -189,7 +183,7 @@ ROM_START( rygars01 )
 	ROM_LOAD( "cpu_1f.bin",   0x0000, 0x4000, CRC(3cc98c5a) SHA1(ea1035be939ed1a994f3273b33412c85dda0973e) )
 ROM_END
 
- /*********
+/***********
  Silk Worm
 ************/
 
@@ -234,5 +228,4 @@ GAME( 1986, rygarjs01,    rygar,    rygar,    rygar,    tecmo_state, init_rygar,
 GAME( 1986, rygars01,     rygar,    rygar,    rygar,    tecmo_state, init_rygar,    ROT0,  "Tecmo",   "Rygar (US, bootleg)",             MACHINE_SUPPORTS_SAVE )
 // Silk Worm
 GAME( 1988, silkworms01,  silkworm, silkworm, silkworm, tecmo_state, init_silkworm, ROT0,  "hack",   "Silk Worm (Translation Chinese)",            MACHINE_SUPPORTS_SAVE )
-
 

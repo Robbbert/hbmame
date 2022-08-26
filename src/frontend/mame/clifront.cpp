@@ -23,6 +23,7 @@
 #include "pluginopts.h"
 
 #include "emuopts.h"
+#include "fileio.h"
 #include "romload.h"
 #include "softlist_dev.h"
 #include "validity.h"
@@ -37,7 +38,10 @@
 
 #include <algorithm>
 #include <new>
+#include <set>
+#include <tuple>
 #include <cctype>
+#include <iostream>
 
 
 //**************************************************************************
@@ -79,6 +83,7 @@
 
 
 namespace {
+
 //**************************************************************************
 //  COMMAND-LINE OPTIONS
 //**************************************************************************
@@ -86,40 +91,40 @@ namespace {
 const options_entry cli_option_entries[] =
 {
 	/* core commands */
-	{ nullptr,                              nullptr,   OPTION_HEADER,     "CORE COMMANDS" },
-	{ CLICOMMAND_HELP           ";h;?",     "0",       OPTION_COMMAND,    "show help message" },
-	{ CLICOMMAND_VALIDATE       ";valid",   "0",       OPTION_COMMAND,    "perform validation on system drivers and devices" },
+	{ nullptr,                              nullptr,   core_options::option_type::HEADER,     "CORE COMMANDS" },
+	{ CLICOMMAND_HELP           ";h;?",     "0",       core_options::option_type::COMMAND,    "show help message" },
+	{ CLICOMMAND_VALIDATE       ";valid",   "0",       core_options::option_type::COMMAND,    "perform validation on system drivers and devices" },
 
 	/* configuration commands */
-	{ nullptr,                              nullptr,   OPTION_HEADER,     "CONFIGURATION COMMANDS" },
-	{ CLICOMMAND_CREATECONFIG   ";cc",      "0",       OPTION_COMMAND,    "create the default configuration file" },
-	{ CLICOMMAND_SHOWCONFIG     ";sc",      "0",       OPTION_COMMAND,    "display running parameters" },
-	{ CLICOMMAND_SHOWUSAGE      ";su",      "0",       OPTION_COMMAND,    "show this help" },
+	{ nullptr,                              nullptr,   core_options::option_type::HEADER,     "CONFIGURATION COMMANDS" },
+	{ CLICOMMAND_CREATECONFIG   ";cc",      "0",       core_options::option_type::COMMAND,    "create the default configuration file" },
+	{ CLICOMMAND_SHOWCONFIG     ";sc",      "0",       core_options::option_type::COMMAND,    "display running parameters" },
+	{ CLICOMMAND_SHOWUSAGE      ";su",      "0",       core_options::option_type::COMMAND,    "show this help" },
 
 	/* frontend commands */
-	{ nullptr,                              nullptr,   OPTION_HEADER,     "FRONTEND COMMANDS" },
-	{ CLICOMMAND_LISTXML        ";lx",      "0",       OPTION_COMMAND,    "all available info on driver in XML format" },
-	{ CLICOMMAND_LISTFULL       ";ll",      "0",       OPTION_COMMAND,    "short name, full name" },
-	{ CLICOMMAND_LISTSOURCE     ";ls",      "0",       OPTION_COMMAND,    "driver sourcefile" },
-	{ CLICOMMAND_LISTCLONES     ";lc",      "0",       OPTION_COMMAND,    "show clones" },
-	{ CLICOMMAND_LISTBROTHERS   ";lb",      "0",       OPTION_COMMAND,    "show \"brothers\", or other drivers from same sourcefile" },
-	{ CLICOMMAND_LISTCRC,                   "0",       OPTION_COMMAND,    "CRC-32s" },
-	{ CLICOMMAND_LISTROMS       ";lr",      "0",       OPTION_COMMAND,    "list required ROMs for a driver" },
-	{ CLICOMMAND_LISTSAMPLES,               "0",       OPTION_COMMAND,    "list optional samples for a driver" },
-	{ CLICOMMAND_VERIFYROMS,                "0",       OPTION_COMMAND,    "report romsets that have problems" },
-	{ CLICOMMAND_VERIFYSAMPLES,             "0",       OPTION_COMMAND,    "report samplesets that have problems" },
-	{ CLICOMMAND_ROMIDENT,                  "0",       OPTION_COMMAND,    "compare files with known MAME ROMs" },
-	{ CLICOMMAND_LISTDEVICES    ";ld",      "0",       OPTION_COMMAND,    "list available devices" },
-	{ CLICOMMAND_LISTSLOTS      ";lslot",   "0",       OPTION_COMMAND,    "list available slots and slot devices" },
-	{ CLICOMMAND_LISTMEDIA      ";lm",      "0",       OPTION_COMMAND,    "list available media for the system" },
-	{ CLICOMMAND_LISTSOFTWARE   ";lsoft",   "0",       OPTION_COMMAND,    "list known software for the system" },
-	{ CLICOMMAND_VERIFYSOFTWARE ";vsoft",   "0",       OPTION_COMMAND,    "verify known software for the system" },
-	{ CLICOMMAND_GETSOFTLIST    ";glist",   "0",       OPTION_COMMAND,    "retrieve software list by name" },
-	{ CLICOMMAND_VERIFYSOFTLIST ";vlist",   "0",       OPTION_COMMAND,    "verify software list by name" },
-	{ CLICOMMAND_VERSION,                   "0",       OPTION_COMMAND,    "get MAME version" },
+	{ nullptr,                              nullptr,   core_options::option_type::HEADER,     "FRONTEND COMMANDS" },
+	{ CLICOMMAND_LISTXML        ";lx",      "0",       core_options::option_type::COMMAND,    "all available info on driver in XML format" },
+	{ CLICOMMAND_LISTFULL       ";ll",      "0",       core_options::option_type::COMMAND,    "short name, full name" },
+	{ CLICOMMAND_LISTSOURCE     ";ls",      "0",       core_options::option_type::COMMAND,    "driver sourcefile" },
+	{ CLICOMMAND_LISTCLONES     ";lc",      "0",       core_options::option_type::COMMAND,    "show clones" },
+	{ CLICOMMAND_LISTBROTHERS   ";lb",      "0",       core_options::option_type::COMMAND,    "show \"brothers\", or other drivers from same sourcefile" },
+	{ CLICOMMAND_LISTCRC,                   "0",       core_options::option_type::COMMAND,    "CRC-32s" },
+	{ CLICOMMAND_LISTROMS       ";lr",      "0",       core_options::option_type::COMMAND,    "list required ROMs for a driver" },
+	{ CLICOMMAND_LISTSAMPLES,               "0",       core_options::option_type::COMMAND,    "list optional samples for a driver" },
+	{ CLICOMMAND_VERIFYROMS,                "0",       core_options::option_type::COMMAND,    "report romsets that have problems" },
+	{ CLICOMMAND_VERIFYSAMPLES,             "0",       core_options::option_type::COMMAND,    "report samplesets that have problems" },
+	{ CLICOMMAND_ROMIDENT,                  "0",       core_options::option_type::COMMAND,    "compare files with known MAME ROMs" },
+	{ CLICOMMAND_LISTDEVICES    ";ld",      "0",       core_options::option_type::COMMAND,    "list available devices" },
+	{ CLICOMMAND_LISTSLOTS      ";lslot",   "0",       core_options::option_type::COMMAND,    "list available slots and slot devices" },
+	{ CLICOMMAND_LISTMEDIA      ";lm",      "0",       core_options::option_type::COMMAND,    "list available media for the system" },
+	{ CLICOMMAND_LISTSOFTWARE   ";lsoft",   "0",       core_options::option_type::COMMAND,    "list known software for the system" },
+	{ CLICOMMAND_VERIFYSOFTWARE ";vsoft",   "0",       core_options::option_type::COMMAND,    "verify known software for the system" },
+	{ CLICOMMAND_GETSOFTLIST    ";glist",   "0",       core_options::option_type::COMMAND,    "retrieve software list by name" },
+	{ CLICOMMAND_VERIFYSOFTLIST ";vlist",   "0",       core_options::option_type::COMMAND,    "verify software list by name" },
+	{ CLICOMMAND_VERSION,                   "0",       core_options::option_type::COMMAND,    "get MAME version" },
 
-	{ nullptr,                              nullptr,   OPTION_HEADER,     "FRONTEND COMMAND OPTIONS" },
-	{ CLIOPTION_DTD,                        "1",       OPTION_BOOLEAN,    "include DTD in XML output" },
+	{ nullptr,                              nullptr,   core_options::option_type::HEADER,     "FRONTEND COMMAND OPTIONS" },
+	{ CLIOPTION_DTD,                        "1",       core_options::option_type::BOOLEAN,    "include DTD in XML output" },
 	{ nullptr }
 };
 
@@ -547,53 +552,82 @@ void cli_frontend::listroms(const std::vector<std::string> &args)
 					osd_printf_info("\n");
 
 				// iterate through ROMs
-				bool hasroms = false;
+				std::list<std::tuple<std::string, int64_t, std::string>> entries;
+				std::set<std::string_view> devnames;
 				for (device_t const &device : device_enumerator(root))
 				{
+					bool hasroms = false;
 					for (const rom_entry *region = rom_first_region(device); region; region = rom_next_region(region))
 					{
 						for (const rom_entry *rom = rom_first_file(region); rom; rom = rom_next_file(rom))
 						{
-							// print a header
 							if (!hasroms)
-								osd_printf_info(
-									"ROMs required for %s \"%s\".\n"
-									"%-32s %10s %s\n",
-									type, root.shortname(), "Name", "Size", "Checksum");
-							hasroms = true;
+							{
+								hasroms = true;
+								if (&device != &root)
+									devnames.insert(device.shortname());
+							}
 
 							// accumulate the total length of all chunks
 							int64_t length = -1;
 							if (ROMREGION_ISROMDATA(region))
 								length = rom_file_size(rom);
 
-							// start with the name
-							osd_printf_info("%-32s ", rom->name());
-
-							// output the length next
-							if (length >= 0)
-								osd_printf_info("%10u", unsigned(uint64_t(length)));
-							else
-								osd_printf_info("%10s", "");
-
-							// output the hash data
-							util::hash_collection hashes(rom->hashdata());
-							if (!hashes.flag(util::hash_collection::FLAG_NO_DUMP))
-							{
-								if (hashes.flag(util::hash_collection::FLAG_BAD_DUMP))
-									osd_printf_info(" BAD");
-								osd_printf_info(" %s", hashes.macro_string());
-							}
-							else
-								osd_printf_info(" NO GOOD DUMP KNOWN");
-
-							// end with a CR
-							osd_printf_info("\n");
+							entries.emplace_back(rom->name(), length, rom->hashdata());
 						}
 					}
 				}
-				if (!hasroms)
+
+				// print results
+				if (entries.empty())
 					osd_printf_info("No ROMs required for %s \"%s\".\n", type, root.shortname());
+				else
+				{
+					// print a header
+					osd_printf_info("ROMs required for %s \"%s\"", type, root.shortname());
+					if (!devnames.empty())
+					{
+						osd_printf_info(" (including device%s", devnames.size() > 1 ? "s" : "");
+						bool first = true;
+						for (const std::string_view &devname : devnames)
+						{
+							if (first)
+								first = false;
+							else
+								osd_printf_info(",");
+							osd_printf_info(" \"%s\"", devname);
+						}
+						osd_printf_info(")");
+					}
+					osd_printf_info(".\n%-32s %10s %s\n", "Name", "Size", "Checksum");
+
+					for (auto &entry : entries)
+					{
+						// start with the name
+						osd_printf_info("%-32s ", std::get<0>(entry));
+
+						// output the length next
+						int64_t length = std::get<1>(entry);
+						if (length >= 0)
+							osd_printf_info("%10u", unsigned(uint64_t(length)));
+						else
+							osd_printf_info("%10s", "");
+
+						// output the hash data
+						util::hash_collection hashes(std::get<2>(entry));
+						if (!hashes.flag(util::hash_collection::FLAG_NO_DUMP))
+						{
+							if (hashes.flag(util::hash_collection::FLAG_BAD_DUMP))
+								osd_printf_info(" BAD");
+							osd_printf_info(" %s", hashes.macro_string());
+						}
+						else
+							osd_printf_info(" NO GOOD DUMP KNOWN");
+
+						// end with a CR
+						osd_printf_info("\n");
+					}
+				}
 			});
 }
 
@@ -1028,16 +1062,18 @@ const char cli_frontend::s_softlist_xml_dtd[] =
 				"<?xml version=\"1.0\"?>\n" \
 				"<!DOCTYPE softwarelists [\n" \
 				"<!ELEMENT softwarelists (softwarelist*)>\n" \
-				"\t<!ELEMENT softwarelist (software+)>\n" \
+				"\t<!ELEMENT softwarelist (notes?, software+)>\n" \
 				"\t\t<!ATTLIST softwarelist name CDATA #REQUIRED>\n" \
 				"\t\t<!ATTLIST softwarelist description CDATA #IMPLIED>\n" \
-				"\t\t<!ELEMENT software (description, year, publisher, info*, sharedfeat*, part*)>\n" \
+				"\t\t<!ELEMENT notes (#PCDATA)>\n" \
+				"\t\t<!ELEMENT software (description, year, publisher, notes?, info*, sharedfeat*, part*)>\n" \
 				"\t\t\t<!ATTLIST software name CDATA #REQUIRED>\n" \
 				"\t\t\t<!ATTLIST software cloneof CDATA #IMPLIED>\n" \
 				"\t\t\t<!ATTLIST software supported (yes|partial|no) \"yes\">\n" \
 				"\t\t\t<!ELEMENT description (#PCDATA)>\n" \
 				"\t\t\t<!ELEMENT year (#PCDATA)>\n" \
 				"\t\t\t<!ELEMENT publisher (#PCDATA)>\n" \
+				"\t\t\t<!ELEMENT notes (#PCDATA)>\n" \
 				"\t\t\t<!ELEMENT info EMPTY>\n" \
 				"\t\t\t\t<!ATTLIST info name CDATA #REQUIRED>\n" \
 				"\t\t\t\t<!ATTLIST info value CDATA #IMPLIED>\n" \
@@ -1099,8 +1135,11 @@ void cli_frontend::output_single_softlist(std::ostream &out, software_list_devic
 		util::stream_format(out, "\t\t\t<year>%s</year>\n", util::xml::normalize_string(swinfo.year().c_str()));
 		util::stream_format(out, "\t\t\t<publisher>%s</publisher>\n", util::xml::normalize_string(swinfo.publisher().c_str()));
 
-		for (const feature_list_item &flist : swinfo.other_info())
+		for (const auto &flist : swinfo.info())
 			util::stream_format(out, "\t\t\t<info name=\"%s\" value=\"%s\"/>\n", flist.name(), util::xml::normalize_string(flist.value().c_str()));
+
+		for (const auto &flist : swinfo.shared_features())
+			util::stream_format(out, "\t\t\t<sharedfeat name=\"%s\" value=\"%s\"/>\n", flist.name(), util::xml::normalize_string(flist.value().c_str()));
 
 		for (const software_part &part : swinfo.parts())
 		{
@@ -1110,7 +1149,7 @@ void cli_frontend::output_single_softlist(std::ostream &out, software_list_devic
 
 			out << ">\n";
 
-			for (const feature_list_item &flist : part.featurelist())
+			for (const auto &flist : part.features())
 				util::stream_format(out, "\t\t\t\t<feature name=\"%s\" value=\"%s\" />\n", flist.name(), util::xml::normalize_string(flist.value().c_str()));
 
 			// TODO: display ROM region information
@@ -1650,7 +1689,7 @@ void cli_frontend::execute_commands(std::string_view exename)
 	{
 		// attempt to open the output file
 		emu_file file(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-		if (file.open(std::string(emulator_info::get_configname()) + ".ini") != osd_file::error::NONE)
+		if (file.open(std::string(emulator_info::get_configname()) + ".ini"))
 			throw emu_fatalerror("Unable to create file %s.ini\n",emulator_info::get_configname());
 
 		// generate the updated INI
@@ -1658,7 +1697,7 @@ void cli_frontend::execute_commands(std::string_view exename)
 
 		ui_options ui_opts;
 		emu_file file_ui(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-		if (file_ui.open("ui.ini") != osd_file::error::NONE)
+		if (file_ui.open("ui.ini"))
 			throw emu_fatalerror("Unable to create file ui.ini\n");
 
 		// generate the updated INI
@@ -1668,12 +1707,10 @@ void cli_frontend::execute_commands(std::string_view exename)
 		path_iterator iter(m_options.plugins_path());
 		std::string pluginpath;
 		while (iter.next(pluginpath))
-		{
-			osd_subst_env(pluginpath, pluginpath);
-			plugin_opts.scan_directory(pluginpath, true);
-		}
+			plugin_opts.scan_directory(osd_subst_env(pluginpath), true);
+
 		emu_file file_plugin(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
-		if (file_plugin.open("plugin.ini") != osd_file::error::NONE)
+		if (file_plugin.open("plugin.ini"))
 			throw emu_fatalerror("Unable to create file plugin.ini\n");
 
 		// generate the updated INI
@@ -1725,7 +1762,7 @@ void cli_frontend::execute_commands(std::string_view exename)
 //  output
 //-------------------------------------------------
 
-// HBMAME - remove reference to software and media.
+// MESSUI - remove reference to software and media.
 void cli_frontend::display_help(std::string_view exename)
 {
 	osd_printf_info(

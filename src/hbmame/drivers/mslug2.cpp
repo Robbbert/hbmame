@@ -1,6 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Robbbert
-
+// Metal Slug 2
 #include "includes/neogeo.h"
 
 
@@ -147,6 +147,26 @@ ROM_START( mslug2eh4 ) /* Metal Slug 2 - Enhance by Ydmis - (Style remix) */
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
+ROM_START( mslug2fm )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241fm.p1",  0x000000, 0x100000, CRC(487173f6) SHA1(7d86f25ea5b99df0fff94954a79793e7b7098f94) )
+	ROM_LOAD16_WORD_SWAP( "241fm.p2",  0x100000, 0x200000, CRC(37a118fc) SHA1(37c913c3d6736362ad83b8aaadf94b9112669a52) )
+
+	NEO_SFIX_128K( "241.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+
+	NEO_BIOS_AUDIO_128K( "241.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "241.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) )
+	ROM_LOAD( "241.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) )
+	ROM_LOAD16_BYTE( "241.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) )
+	ROM_LOAD16_BYTE( "241.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
+	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
+ROM_END
+
 ROM_START( mslug2fr ) /* Metal Slug 2 - Translation Hack by NEO-ARC - (French translation) */
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "241fr.p1",   0x000000, 0x100000, CRC(ad0de810) SHA1(69c56326b555fb2c18228794e1a2bfd11652ec16) )
@@ -226,29 +246,6 @@ ROM_START( mslug2t ) /* System11 - Metal Slug 2 Turbo - hack to remove slowdowns
 	ROM_LOAD16_BYTE( "241.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
-
-// Metal Slug 2
-GAME( 1998, mslug2eh,    mslug2,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh0,   mslug2,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Enhanced Revised Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh1,   mslug2,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh2,   mslug2,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh3,   mslug2,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, mslug2eh4,   mslug2,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, mslug2fr,  mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mslug2fro, mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)(Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, mslug2sh,  mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug2t,   mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "System11", "Metal Slug 2 Turbo ", MACHINE_SUPPORTS_SAVE )
-
-
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-      Proyecto Shadows Mame Build Plus
-**********************************************/
-
-/*************
- Metal Slug 2
-***************/
 
 ROM_START( mslug2ps01 ) //mslug2r
 	ROM_REGION( 0x300000, "maincpu", 0 )
@@ -2170,8 +2167,39 @@ ROM_START( mslug2rmhbhv02 )
 	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
 ROM_END
 
+ROM_START( mslug2unity )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "241unity.p1",  0x000000, 0x100000, CRC(1562cf23) SHA1(dfa2d7ea10f9eac6cd3b1a7a2f2c2f867edc28d1) )
+	ROM_LOAD16_WORD_SWAP( "241.p2", 0x100000, 0x200000, CRC(38883f44) SHA1(fcf34b8c6e37774741542393b963635412484a27) )
+
+	NEO_SFIX_128K( "241.s1", CRC(f3d32f0f) SHA1(2dc38b7dfd3ff14f64d5c0733c510b6bb8c692d0) )
+
+	NEO_BIOS_AUDIO_128K( "241.m1", CRC(94520ebd) SHA1(f8a1551cebcb91e416f30f50581feed7f72899e9) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "241.v1", 0x000000, 0x400000, CRC(99ec20e8) SHA1(80597707f1fe115eed1941bb0701fc00790ad504) )
+	ROM_LOAD( "241.v2", 0x400000, 0x400000, CRC(ecb16799) SHA1(b4b4ddc680836ed55942c66d7dfe756314e02211) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "241.c1", 0x0000000, 0x800000, CRC(394b5e0d) SHA1(4549926f5054ee6aa7689cf920be0327e3908a50) )
+	ROM_LOAD16_BYTE( "241.c2", 0x0000001, 0x800000, CRC(e5806221) SHA1(1e5475cfab129c77acc610f09369ca42ba5aafa5) )
+	ROM_LOAD16_BYTE( "241.c3", 0x1000000, 0x800000, CRC(9f6bfa6f) SHA1(a4319b48004e723f81a980887678e3e296049a53) )
+	ROM_LOAD16_BYTE( "241.c4", 0x1000001, 0x800000, CRC(7d3e306f) SHA1(1499316fb381775218d897b81a6a0c3465d1a37c) )
+ROM_END
+
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Metal Slug 2
+GAME( 1998, mslug2eh,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh0,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Enhanced Revised Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh1,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh2,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh3,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, mslug2eh4,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Metal Slug 2 (Style remix set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mslug2fm,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CZXINC",  "Metal Slug 2 (Friendly Fire - Fightcade 2 Ver.2 Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, mslug2fr,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mslug2fro,       mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Arkatrad", "Metal Slug 2 (Neo Arc Traduction French Rev.1)(Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, mslug2sh,        mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Metal Slug 2 (Hybrid bullets version 2008-12-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug2t,         mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "System11", "Metal Slug 2 Turbo ", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, mslug2ps01,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",     "Metal Slug 2 (Enemies Resetting Version 2014-09-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mslug2ps02,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Flame Shot With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, mslug2ps03,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",    "Metal Slug 2 (Weapons Heavy Machine Gun With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
@@ -2212,10 +2240,6 @@ GAME( 2020, mslug2ps40,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init
 GAME( 2020, mslug2ps41,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",     "Metal Slug 2 (Burst Enhanced Edition 2020-05-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug2ps42,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "I love Nimes",    "Metal Slug 2 (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug2ps43,      mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "I love Nimes",    "Metal Slug 2 (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
-
-/**************
-  Metal Slug 2
-*****************/
 GAME( 2020, mslug2erv01,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 GAME( 2020, mslug2erv02,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Survival Version)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 GAME( 2020, mslug2erv03,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Enemies Resetting 2014-09-14)(Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
@@ -2225,13 +2249,12 @@ GAME( 2020, mslug2erv06,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init
 GAME( 2020, mslug2tub01,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Multi-Function Version 2017-05-09)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 GAME( 2020, mslug2tub02,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Survival Version 2018-07-31)", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 GAME( 2020, mslug2tub03,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Generation 1V2 2019-05-11)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
-GAME( 2020, mslug2tub04,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Hybrid Bullets Version 2008-12-04)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) //Edition 2020
+GAME( 2020, mslug2tub04,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Hybrid Bullets Version 2008-12-04)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
 GAME( 2020, mslug2tub05,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/System11",     "Metal Slug 2 Turbo (Burst Enhanced Edition 2020-03-26)", MACHINE_SUPPORTS_SAVE ) //Edition 2020
-
 GAME( 2020, mslug2erss01,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Version Remix [2020-10-12])", MACHINE_SUPPORTS_SAVE ) //To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-GAME( 2020, mslug2erss02,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Hybrid Bullets Version Remix [2020-10-12])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+GAME( 2020, mslug2erss02,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Enemies Resetting Survival Version 2019-03-12)(Revised Hybrid Bullets Version Remix [2020-10-12])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 GAME( 2020, mslug2erss03,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Version Remix [2020-10-12])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
-GAME( 2020, mslug2erss04,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Hybrid Bullets Version Remix [2020-10-12])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
+GAME( 2020, mslug2erss04,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Survival Version 2018-07-31)(Revised Hybrid Bullets Version Remix [2020-10-12])", MACHINE_SUPPORTS_SAVE )//To enable Mods random you need to apply a command you have to press the Stars + D button to change Stars + C.
 GAME( 2020, mslug2erms01,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Enemies Resetting Multi-Function Version 2018-05-12)(Revised Version Remix Rev.1.0 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug2erms02,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Enemies Resetting Multi-Function Version 2018-05-12)(Revised Version Remix Rev.1.1 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug2vqys01,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,kof1996,Ydmis,DDJ,System11)",                "Metal Slug 2 Turbo (Multi-Function Version 2017-05-09)(Revised Version Remix Rev.1.0 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
@@ -2256,8 +2279,9 @@ GAME( 2020, mslug2rmvh07,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init
 GAME( 2020, mslug2rmvh08,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ,I love Nimes)",    "Metal Slug 2 (Enemies Resetting Version 2014-09-14)(Revised Version Rocket Launcher Extreme Remix V1.1 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug2rmvh09,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ,I love Nimes)",    "Metal Slug 2 (Enemies Resetting Version 2014-09-14)(Revised Version Shotgun Extreme Remix V1.0 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug2rmvh10,    mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ,I love Nimes)",    "Metal Slug 2 (Enemies Resetting Version 2014-09-14)(Revised Version Shotgun Extreme Remix V1.1 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug2rmhbv01,   mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 (Revised Version Hybrid Bullets Remix V1.0 [2020-10-12])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug2rmhbv02,   mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 (Revised Version Hybrid Bullets Remix V1.1 [2020-10-12])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug2rmhbhv01,  mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Remix V1.0 [2020-10-12])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug2rmhbhv02,  mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Remix V1.1 [2020-10-12])", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug2rmhbv01,   mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 (Revised Version Hybrid Bullets Remix V1.0 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug2rmhbv02,   mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 (Revised Version Hybrid Bullets Remix V1.1 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug2rmhbhv01,  mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Remix V1.0 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug2rmhbhv02,  mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Team Remix(Gaston90,Shyma.X,kof1996,Ydmis,DDJ)",                 "Metal Slug 2 Turbo (Revised Version Enemies Resetting Version 2014-09-14)(Revised Version Hybrid Bullets Remix V1.1 [2020-10-12])", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mslug2unity,     mslug2,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",  "Metal Slug 2 Unity", MACHINE_SUPPORTS_SAVE )
 

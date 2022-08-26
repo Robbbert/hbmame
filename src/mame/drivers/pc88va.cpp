@@ -13,7 +13,7 @@
     - What exact kind of garbage happens if you try to enable both direct and palette color
       modes to a graphic layer?
     - unemulated upd71071 demand mode;
-    - What is exactly supposed to be a "bus slot"?
+    - What is exactly supposed to be a "bus slot"? Does it have an official name?
     - fdc "intelligent mode" has 0x7f as irq vector ... 0x7f is ld a,a and it IS NOT correctly
       hooked up by the current z80 core
     - PC-88VA stock version has two bogus opcodes. One is at 0xf0b15, another at 0xf0b31.
@@ -28,6 +28,12 @@
 #include "emu.h"
 #include "includes/pc88va.h"
 
+#include "softlist_dev.h"
+
+
+// TODO: verify clocks
+#define MASTER_CLOCK    XTAL(8'000'000) // may be XTAL(31'948'800) / 4? (based on PC-8801 and PC-9801)
+#define FM_CLOCK        (XTAL(31'948'800) / 8) // 3993600
 
 
 void pc88va_state::video_start()
@@ -367,31 +373,6 @@ uint32_t pc88va_state::screen_update_pc88va(screen_device &screen, bitmap_rgb32 
 
 	return 0;
 }
-
-void pc88va_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	switch (id)
-	{
-	case TIMER_PC8801FD_UPD765_TC_TO_ZERO:
-		pc8801fd_upd765_tc_to_zero(ptr, param);
-		break;
-	case TIMER_T3_MOUSE_CALLBACK:
-		t3_mouse_callback(ptr, param);
-		break;
-	case TIMER_PC88VA_FDC_TIMER:
-		pc88va_fdc_timer(ptr, param);
-		break;
-	case TIMER_PC88VA_FDC_MOTOR_START_0:
-		pc88va_fdc_motor_start_0(ptr, param);
-		break;
-	case TIMER_PC88VA_FDC_MOTOR_START_1:
-		pc88va_fdc_motor_start_1(ptr, param);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in pc88va_state::device_timer");
-	}
-}
-
 
 void pc88va_state::pc88va_map(address_map &map)
 {
@@ -887,7 +868,7 @@ void pc88va_state::pc88va_fdc_w(offs_t offset, uint8_t data)
 			{
 				m_fdd[0]->get_device()->mon_w(1);
 				if(m_fdc_motor_status[0] == 0)
-					timer_set(attotime::from_msec(505), TIMER_PC88VA_FDC_MOTOR_START_0);
+					m_motor_start_timer[0]->adjust(attotime::from_msec(505));
 				else
 					m_fdc_motor_status[0] = 0;
 			}
@@ -896,7 +877,7 @@ void pc88va_state::pc88va_fdc_w(offs_t offset, uint8_t data)
 			{
 				m_fdd[1]->get_device()->mon_w(1);
 				if(m_fdc_motor_status[1] == 0)
-					timer_set(attotime::from_msec(505), TIMER_PC88VA_FDC_MOTOR_START_1);
+					m_motor_start_timer[1]->adjust(attotime::from_msec(505));
 				else
 					m_fdc_motor_status[1] = 0;
 			}
@@ -912,7 +893,7 @@ void pc88va_state::pc88va_fdc_w(offs_t offset, uint8_t data)
 		case 0x06:
 			//printf("%02x\n",data);
 			if(data & 1)
-				timer_set(attotime::from_msec(100), TIMER_PC88VA_FDC_TIMER);
+				m_fdc_timer->adjust(attotime::from_msec(100));
 
 			if((m_fdc_ctrl_2 & 0x10) != (data & 0x10))
 				m_dmac->dreq2_w(1);
@@ -1094,7 +1075,7 @@ void pc88va_state::pc88va_z80_map(address_map &map)
 uint8_t pc88va_state::upd765_tc_r()
 {
 	m_fdc->tc_w(true);
-	timer_set(attotime::from_usec(50), TIMER_PC8801FD_UPD765_TC_TO_ZERO);
+	m_tc_clear_timer->adjust(attotime::from_usec(50));
 	return 0;
 }
 
@@ -1434,8 +1415,20 @@ uint8_t pc88va_state::get_slave_ack(offs_t offset)
 
 void pc88va_state::machine_start()
 {
-	m_t3_mouse_timer = timer_alloc(TIMER_T3_MOUSE_CALLBACK);
+	m_tc_clear_timer = timer_alloc(FUNC(pc88va_state::pc8801fd_upd765_tc_to_zero), this);
+	m_tc_clear_timer->adjust(attotime::never);
+
+	m_fdc_timer = timer_alloc(FUNC(pc88va_state::pc88va_fdc_timer), this);
+	m_fdc_timer->adjust(attotime::never);
+
+	m_motor_start_timer[0] = timer_alloc(FUNC(pc88va_state::pc88va_fdc_motor_start_0), this);
+	m_motor_start_timer[1] = timer_alloc(FUNC(pc88va_state::pc88va_fdc_motor_start_1), this);
+	m_motor_start_timer[0]->adjust(attotime::never);
+	m_motor_start_timer[1]->adjust(attotime::never);
+
+	m_t3_mouse_timer = timer_alloc(FUNC(pc88va_state::t3_mouse_callback), this);
 	m_t3_mouse_timer->adjust(attotime::never);
+
 	floppy_image_device *floppy;
 	floppy = m_fdd[0]->get_device();
 	if(floppy)
@@ -1573,7 +1566,7 @@ void pc88va_state::dma_memw_cb(offs_t offset, uint8_t data)
 
 void pc88va_state::pc88va(machine_config &config)
 {
-	V50(config, m_maincpu, 8000000); // μPD9002, aka V30 + μPD70008AC (for PC8801 compatibility mode)
+	V50(config, m_maincpu, MASTER_CLOCK); // μPD9002, aka V30 + μPD70008AC (for PC8801 compatibility mode)
 	m_maincpu->set_addrmap(AS_PROGRAM, &pc88va_state::pc88va_map);
 	m_maincpu->set_addrmap(AS_IO, &pc88va_state::pc88va_io_map);
 	m_maincpu->set_vblank_int("screen", FUNC(pc88va_state::pc88va_vrtc_irq));
@@ -1626,7 +1619,7 @@ void pc88va_state::pc88va(machine_config &config)
 	m_pic2->out_int_callback().set(m_pic1, FUNC(pic8259_device::ir7_w));
 	m_pic2->in_sp_callback().set_constant(0);
 
-	AM9517A(config, m_dmac, 8000000); // ch2 is FDC, ch0/3 are "user". ch1 is unused
+	AM9517A(config, m_dmac, MASTER_CLOCK); // ch2 is FDC, ch0/3 are "user". ch1 is unused
 	m_dmac->out_hreq_callback().set(FUNC(pc88va_state::pc88va_hlda_w));
 	m_dmac->out_eop_callback().set(FUNC(pc88va_state::pc88va_tc_w));
 	m_dmac->in_ior_callback<2>().set(FUNC(pc88va_state::fdc_dma_r));
@@ -1642,15 +1635,15 @@ void pc88va_state::pc88va(machine_config &config)
 	SOFTWARE_LIST(config, "disk_list").set_original("pc88va");
 
 	pit8253_device &pit8253(PIT8253(config, "pit8253", 0));
-	pit8253.set_clk<0>(8000000); /* general purpose timer 1 */
+	pit8253.set_clk<0>(MASTER_CLOCK); /* general purpose timer 1 */
 	pit8253.out_handler<0>().set(FUNC(pc88va_state::pc88va_pit_out0_changed));
-	pit8253.set_clk<1>(8000000); /* BEEP frequency setting */
-	pit8253.set_clk<2>(8000000); /* RS232C baud rate setting */
+	pit8253.set_clk<1>(MASTER_CLOCK); /* BEEP frequency setting */
+	pit8253.set_clk<2>(MASTER_CLOCK); /* RS232C baud rate setting */
 
 	ADDRESS_MAP_BANK(config, "sysbank").set_map(&pc88va_state::sysbank_map).set_options(ENDIANNESS_LITTLE, 16, 18+4, 0x40000);
 
 	SPEAKER(config, "mono").front_center();
-	ym2203_device &ym(YM2203(config, "ym", 3993600)); //unknown clock / divider
+	ym2203_device &ym(YM2203(config, "ym", FM_CLOCK)); //unknown clock / divider
 	ym.add_route(0, "mono", 0.25);
 	ym.add_route(1, "mono", 0.25);
 	ym.add_route(2, "mono", 0.50);

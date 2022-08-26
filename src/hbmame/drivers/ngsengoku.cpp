@@ -332,14 +332,7 @@ GAME( 2001, sengoku3s,   sengoku3, neogeo_noslot, neogeo, neogeo_state, init_neo
 GAME( 2001, sengoku3ya,  sengoku3, neogeo_noslot, neogeo, neogeo_state, init_sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, sengoku3yk,  sengoku3, neogeo_noslot, neogeo, neogeo_state, init_sengoku3,  ROT0, "KrysoFun and Ydmis","Sengoku 3 (Add Char - Pow hack set 1)", MACHINE_SUPPORTS_SAVE )
 
-
-//PSmame (c) gaston90 used with permission
-
- /********************************************
-     Proyecto Shadows Mame Build Plus
-**********************************************/
-
- /*********
+/*********
  Sengoku 3
 ************/
 

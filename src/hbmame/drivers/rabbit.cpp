@@ -2,13 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/rabbit.cpp"
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /******
+/********
  Rabbit
 *********/
 
@@ -35,7 +29,6 @@ ROM_START( rabbits01 )
 	ROM_LOAD32_WORD( "jfv2.02", 0x0800002, 0x400000, CRC(b264bfb5) SHA1(8fafedb6af74150465b1773e80aef0edc3da4678) )
 	ROM_LOAD32_WORD( "jfv3.03", 0x0800000, 0x400000, CRC(3e1a9be2) SHA1(2082a4ae8cda84cec5ea0fc08753db387bb70d41) )
 
-
 	ROM_REGION( 0x600000, "gfx2", 0 )
 	ROM_LOAD( "jbg0.40", 0x000000, 0x200000, CRC(89662944) SHA1(ca916ba38480fa588af19fc9682603f5195ad6c7) )
 	ROM_LOAD( "jbg1.50", 0x200000, 0x200000, CRC(1fc7f6e0) SHA1(b36062d2a9683683ffffd3003d5244a185f53280) )
@@ -48,6 +41,7 @@ ROM_START( rabbits01 )
 	ROM_REGION16_BE( 0x80, "eeprom", 0 )
 	ROM_LOAD( "rabbit.nv", 0x0000, 0x0080, CRC(73d471ed) SHA1(45e045f5ea9036342b88013e021d402741d98537) )
 ROM_END
+
 
 ROM_START( rabbits02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -72,7 +66,6 @@ ROM_START( rabbits02 )
 	ROM_LOAD32_WORD( "jfv2.02", 0x0800002, 0x400000, CRC(b264bfb5) SHA1(8fafedb6af74150465b1773e80aef0edc3da4678) )
 	ROM_LOAD32_WORD( "jfv3.03", 0x0800000, 0x400000, CRC(3e1a9be2) SHA1(2082a4ae8cda84cec5ea0fc08753db387bb70d41) )
 
-
 	ROM_REGION( 0x600000, "gfx2", 0 )
 	ROM_LOAD( "jbg0.40", 0x000000, 0x200000, CRC(89662944) SHA1(ca916ba38480fa588af19fc9682603f5195ad6c7) )
 	ROM_LOAD( "jbg1.50", 0x200000, 0x200000, CRC(1fc7f6e0) SHA1(b36062d2a9683683ffffd3003d5244a185f53280) )
@@ -85,6 +78,7 @@ ROM_START( rabbits02 )
 	ROM_REGION16_BE( 0x80, "eeprom", 0 )
 	ROM_LOAD( "rabbit.nv", 0x0000, 0x0080, CRC(73d471ed) SHA1(45e045f5ea9036342b88013e021d402741d98537) )
 ROM_END
+
 
 ROM_START( rabbits03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -109,7 +103,6 @@ ROM_START( rabbits03 )
 	ROM_LOAD32_WORD( "jfv2.02", 0x0800002, 0x400000, CRC(b264bfb5) SHA1(8fafedb6af74150465b1773e80aef0edc3da4678) )
 	ROM_LOAD32_WORD( "jfv3.03", 0x0800000, 0x400000, CRC(3e1a9be2) SHA1(2082a4ae8cda84cec5ea0fc08753db387bb70d41) )
 
-
 	ROM_REGION( 0x600000, "gfx2", 0 )
 	ROM_LOAD( "jbg0.40", 0x000000, 0x200000, CRC(89662944) SHA1(ca916ba38480fa588af19fc9682603f5195ad6c7) )
 	ROM_LOAD( "jbg1.50", 0x200000, 0x200000, CRC(1fc7f6e0) SHA1(b36062d2a9683683ffffd3003d5244a185f53280) )
@@ -122,6 +115,7 @@ ROM_START( rabbits03 )
 	ROM_REGION16_BE( 0x80, "eeprom", 0 )
 	ROM_LOAD( "rabbit.nv", 0x0000, 0x0080, CRC(73d471ed) SHA1(45e045f5ea9036342b88013e021d402741d98537) )
 ROM_END
+
 
 ROM_START( rabbits04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -146,7 +140,6 @@ ROM_START( rabbits04 )
 	ROM_LOAD32_WORD( "jfv2.02", 0x0800002, 0x400000, CRC(b264bfb5) SHA1(8fafedb6af74150465b1773e80aef0edc3da4678) )
 	ROM_LOAD32_WORD( "jfv3.03", 0x0800000, 0x400000, CRC(3e1a9be2) SHA1(2082a4ae8cda84cec5ea0fc08753db387bb70d41) )
 
-
 	ROM_REGION( 0x600000, "gfx2", 0 )
 	ROM_LOAD( "jbg0.40", 0x000000, 0x200000, CRC(89662944) SHA1(ca916ba38480fa588af19fc9682603f5195ad6c7) )
 	ROM_LOAD( "jbg1.50", 0x200000, 0x200000, CRC(1fc7f6e0) SHA1(b36062d2a9683683ffffd3003d5244a185f53280) )
@@ -160,11 +153,11 @@ ROM_START( rabbits04 )
 	ROM_LOAD( "rabbit.nv", 0x0000, 0x0080, CRC(73d471ed) SHA1(45e045f5ea9036342b88013e021d402741d98537) )
 ROM_END
 
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Rabbit
-GAME( 1997, rabbits01,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Enable Hidden Character)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1997, rabbits02,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Easy Move)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 1997, rabbits03,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "DDJ", "Rabbit (Infinite Power Player 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME( 2018, rabbits04,      rabbit, rabbit,  rabbit, rabbit_state, init_rabbit, ROT0, "hack", "Rabbit (Unknown Hack 2018-03-04)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-
+GAME( 1997, rabbits01,      rabbit, rabbit,  rabbit, rabbit_state, empty_init, ROT0, "DDJ", "Rabbit (Enable Hidden Character)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, rabbits02,      rabbit, rabbit,  rabbit, rabbit_state, empty_init, ROT0, "DDJ", "Rabbit (Easy Move)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1997, rabbits03,      rabbit, rabbit,  rabbit, rabbit_state, empty_init, ROT0, "DDJ", "Rabbit (Infinite Power Player 1)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2018, rabbits04,      rabbit, rabbit,  rabbit, rabbit_state, empty_init, ROT0, "hack", "Rabbit (Unknown Hack 2018-03-04)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 

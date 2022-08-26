@@ -17,7 +17,7 @@ Amstrad hardware consists of:
 rom/ram selection
 
 
-On the Amstrad, any part of the 64k memory can be access by the video
+On the Amstrad, any part of the 64k memory can be accessed by the video
 hardware (GA and CRTC - the CRTC specifies the memory address to access,
 and the GA fetches 2 bytes of data for each 1us cycle.
 
@@ -82,7 +82,7 @@ static const uint8_t asic_unlock_seq[15] =
 /* pointers to current ram configuration selected for banks */
 
 /* the hardware allows selection of 256 ROMs. Rom 0 is usually BASIC and Rom 7 is AMSDOS */
-/* With the CPC hardware, if a expansion ROM is not connected, BASIC rom will be selected instead */
+/* With the CPC hardware, if an expansion ROM is not connected, BASIC rom will be selected instead */
 /* data present on input of ppi, and data written to ppi output */
 #define amstrad_ppi_PortA 0
 #define amstrad_ppi_PortB 1
@@ -221,32 +221,13 @@ TIMER_CALLBACK_MEMBER(amstrad_state::amstrad_pc2_low)
 }
 
 
-void amstrad_state::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
-{
-	switch (id)
-	{
-	case TIMER_PC2_LOW:
-		amstrad_pc2_low(ptr, param);
-		break;
-	case TIMER_VIDEO_UPDATE:
-		amstrad_video_update_timer(ptr, param);
-		break;
-	case TIMER_SET_RESOLUTION:
-		cb_set_resolution(ptr, param);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in amstrad_state::device_timer");
-	}
-}
-
-
 /*************************************************************************/
 /* KC Compact
 
 The palette is defined by a colour rom. The only rom dump that exists (from the KC-Club webpage)
-is 2K, which seems correct. In this rom the same 32 bytes of data is repeated throughout the rom.
+is 2K, which seems correct. In this rom the same 32 bytes of data are repeated throughout the rom.
 
-When a I/O write is made to "Gate Array" to select the colour, Bit 7 and 6 are used by the
+When an I/O write is made to "Gate Array" to select the colour, Bit 7 and 6 are used by the
 "Gate Array" to define the function, bit 7 = 0, bit 6 = 1. In the  Amstrad CPC, bits 4..0
 define the hardware colour number, but in the KC Compact, it seems bits 5..0
 define the hardware colour number allowing 64 colours to be chosen.
@@ -265,7 +246,7 @@ Bit Function
 1,0 Blue value
 
 Green value, Red value, Blue value: 0 = 0%, 01/10 = 50%, 11 = 100%.
-The 01 case is not used, it is unknown if this produces a different amount of colour.
+The 01 case is not used, it is unknown if this produces a different amount of colours.
 */
 
 uint8_t amstrad_state::kccomp_get_colour_element(int colour_value)
@@ -287,7 +268,7 @@ uint8_t amstrad_state::kccomp_get_colour_element(int colour_value)
 
 
 /* the colour rom has the same 32 bytes repeated, but it might be possible to put a new rom in
-with different data and be able to select the other entries - not tested on a real kc compact yet
+with different data and be able to select the other entries - not tested on a real KC compact yet
 and not supported by this driver */
 void amstrad_state::kccomp_palette(palette_device &palette) const
 {
@@ -375,7 +356,7 @@ void amstrad_state::amstrad_vh_update_mode()
 {
 	if ( m_system_type == SYSTEM_PLUS || m_system_type == SYSTEM_GX4000 )
 	{
-		/* select a cpc plus mode */
+		/* select a CPC plus mode */
 		switch ( m_gate_array.mrer & 0x03 )
 		{
 		case 0:     /* Mode 0: 160x200, 16 colours */
@@ -384,7 +365,7 @@ void amstrad_state::amstrad_vh_update_mode()
 			m_gate_array.ticks_increment = 1;
 			break;
 
-		case 1:     /* Mode 1: 320x200, 4 colous */
+		case 1:     /* Mode 1: 320x200, 4 colours */
 			m_gate_array.mode_lookup = m_mode1_lookup;
 			m_gate_array.max_colour_ticks = 2;
 			m_gate_array.ticks_increment = 1;
@@ -437,7 +418,7 @@ void amstrad_state::amstrad_vh_update_mode()
 		}
 		else
 		{
-			/* select an original cpc mode */
+			/* select an original CPC mode */
 			switch ( m_gate_array.mrer & 0x03 )
 			{
 			case 0:     /* Mode 0: 160x200, 16 colours */
@@ -446,7 +427,7 @@ void amstrad_state::amstrad_vh_update_mode()
 				m_gate_array.ticks_increment = 1;
 				break;
 
-			case 1:     /* Mode 1: 320x200, 4 colous */
+			case 1:     /* Mode 1: 320x200, 4 colours */
 				m_gate_array.mode_lookup = m_mode1_lookup;
 				m_gate_array.max_colour_ticks = 2;
 				m_gate_array.ticks_increment = 1;
@@ -589,7 +570,7 @@ void amstrad_state::amstrad_vh_update_colour(int PenIndex, uint16_t hw_colour_in
 	{
 		int val;
 
-		timer_set(attotime::from_usec(0), TIMER_VIDEO_UPDATE, 1);
+		m_video_update_timer->adjust(attotime::from_usec(0), 1);
 
 		/* CPC+/GX4000 - normal palette changes through the Gate Array also makes the corresponding change in the ASIC palette */
 		val = (amstrad_palette[hw_colour_index] & 0xf00000) >> 16; /* red */
@@ -600,7 +581,7 @@ void amstrad_state::amstrad_vh_update_colour(int PenIndex, uint16_t hw_colour_in
 	}
 	else
 	{
-		timer_set(attotime::from_usec(0), TIMER_VIDEO_UPDATE, 0);
+		m_video_update_timer->adjust(attotime::from_usec(0), 0);
 	}
 	m_GateArray_render_colours[PenIndex] = hw_colour_index;
 }
@@ -608,7 +589,7 @@ void amstrad_state::amstrad_vh_update_colour(int PenIndex, uint16_t hw_colour_in
 
 void amstrad_state::aleste_vh_update_colour(int PenIndex, uint16_t hw_colour_index)
 {
-	timer_set(attotime::from_usec(0), TIMER_VIDEO_UPDATE, 0);
+	m_video_update_timer->adjust(attotime::from_usec(0), 0);
 	m_GateArray_render_colours[PenIndex] = hw_colour_index+32;
 }
 
@@ -843,7 +824,7 @@ WRITE_LINE_MEMBER(amstrad_state::amstrad_hsync_changed)
 {
 	amstrad_update_video();
 
-	/* The gate array reacts to de-assertion of the hsycnc 6845 line */
+	/* The gate array reacts to de-assertion of the hsync 6845 line */
 	if ( m_gate_array.hsync && !state )
 	{
 		m_gate_array.hsync_counter++;
@@ -975,7 +956,7 @@ WRITE_LINE_MEMBER(amstrad_state::amstrad_vsync_changed)
 	m_gate_array.vsync = state ? 1 : 0;
 
 	/* Schedule a write to PC2 */
-	timer_set(attotime::zero, TIMER_PC2_LOW);
+	m_pc2_low_timer->adjust(attotime::zero);
 }
 
 
@@ -996,7 +977,7 @@ WRITE_LINE_MEMBER(amstrad_state::amstrad_plus_vsync_changed)
 	m_gate_array.vsync = state ? 1 : 0;
 
 	/* Schedule a write to PC2 */
-	timer_set(attotime::zero, TIMER_PC2_LOW);
+	m_pc2_low_timer->adjust(attotime::zero);
 }
 
 
@@ -1075,6 +1056,8 @@ void amstrad_state::video_start()
 	m_gate_array.bitmap = std::make_unique<bitmap_ind16>(m_screen->width(), m_screen->height() );
 	m_gate_array.hsync_after_vsync_counter = 3;
 	std::fill(std::begin(m_GateArray_render_colours), std::end(m_GateArray_render_colours), 0);
+
+	m_video_update_timer = timer_alloc(FUNC(amstrad_state::amstrad_video_update_timer), this);
 }
 
 
@@ -1086,11 +1069,9 @@ uint32_t amstrad_state::screen_update_amstrad(screen_device &screen, bitmap_ind1
 
 
 /* traverses the daisy-chain of expansion devices, looking for the specified device */
-static device_t* get_expansion_device(running_machine &machine, const char* tag)
+device_t* amstrad_state::get_expansion_device(const char* tag)
 {
-	amstrad_state *state = machine.driver_data<amstrad_state>();
-	cpc_expansion_slot_device* exp_port = state->m_exp;
-
+	cpc_expansion_slot_device* exp_port = m_exp;
 	while (exp_port != nullptr)
 	{
 		device_t* temp;
@@ -1598,7 +1579,7 @@ Bit Value Function        Bit Value Function
 5   x     not used        5   x     not used
 4   1     Select border   4   0     Select pen
 3   x     | ignored       3   x     | Pen Number
-2   x     |               2   x       |
+2   x     |               2   x     |
 1   x     |               1   x     |
 0   x     |               0   x     |
 */
@@ -1647,8 +1628,8 @@ Mode changing is synchronised with HSYNC. If the mode is changed, it will take e
 
 Rom configuration selection :
 -----------------------------
-Bit 2 is used to enable or disable the lower rom area. The lower rom area occupies memory addressess &0000-&3fff and is used to access the operating system rom. When the lower rom area is enabled, reading from &0000-&3FFF will return data in the rom. When a value is written to &0000-&3FFF, it will be written to the ram underneath the rom. When it is disabled, data read from &0000-&3FFF will return the data in the ram.
-Similarly, bit 3 controls enabling or disabling of the upper rom area. The upper rom area occupies memory addressess &C000-&FFFF and is BASIC or any expansion roms which may be plugged into a rom board/box. See the document on upper rom selection for more details. When the upper rom area is enabled, reading from &c000-&ffff will return data in the rom. When data is written to &c000-&FFFF, it will be written to the ram at the same address as the rom. When the upper rom area is disabled, and data is read from &c000-&ffff, the data returned will be the data in the ram.
+Bit 2 is used to enable or disable the lower rom area. The lower rom area occupies memory addresses &0000-&3fff and is used to access the operating system rom. When the lower rom area is enabled, reading from &0000-&3FFF will return data in the rom. When a value is written to &0000-&3FFF, it will be written to the ram underneath the rom. When it is disabled, data read from &0000-&3FFF will return the data in the ram.
+Similarly, bit 3 controls enabling or disabling of the upper rom area. The upper rom area occupies memory addresses &C000-&FFFF and is BASIC or any expansion roms which may be plugged into a rom board/box. See the document on upper rom selection for more details. When the upper rom area is enabled, reading from &c000-&ffff will return data in the rom. When data is written to &c000-&FFFF, it will be written to the ram at the same address as the rom. When the upper rom area is disabled, and data is read from &c000-&ffff, the data returned will be the data in the ram.
 
 Bit 4 controls the interrupt generation. It can be used to delay interrupts.*/
 	case 0x02:
@@ -1813,9 +1794,9 @@ b1 b0 Function Read/Write
 /* I/O port allocation
    -------------------
 
-Many thanks to Mark Rison for providing the original information. Thankyou to Richard Wilson for his discoveries concerning RAM management I/O decoding.
+Many thanks to Mark Rison for providing the original information. Thank you to Richard Wilson for his discoveries concerning RAM management I/O decoding.
 
-This document will explain the decoding of the I/O ports. The port address is not decoded fully which means a hardware device can be accessed through more than one address, in addition, using some addressess can access more than one element of the hardware at the same time. The CPC IN/OUT design differs from the norm in that port numbers are defined using 16 bits, as opposed to the traditional 8 bits.
+This document will explain the decoding of the I/O ports. The port address is not decoded fully which means a hardware device can be accessed through more than one address, in addition, using some addresses can access more than one element of the hardware at the same time. The CPC IN/OUT design differs from the norm in that port numbers are defined using 16 bits, as opposed to the traditional 8 bits.
 
 IN r,(C)/OUT (C),r instructions: Bits b15-b8 come from the B register, bits b7-b0 come from "r"
 IN A,(n)/OUT (n),A instructions: Bits b15-b8 come from the A register, bits b7-b0 come from "n"
@@ -1831,8 +1812,8 @@ Hardware device       Read/Write Port bits
 Gate-Array            Write Only 0   1   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 RAM Configuration     Write Only 0   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 CRTC                  Read/Write -   0   -   -   -   -   r1  r0  -   -   -   -   -   -   -   -
-ROM select            Write only -   -   0   -   -   -   -   -   -   -   -   -   -   -   -   -
-Printer port          Write only -   -   -   0   -   -   -   -   -   -   -   -   -   -   -   -
+ROM select            Write Only -   -   0   -   -   -   -   -   -   -   -   -   -   -   -   -
+Printer port          Write Only -   -   -   0   -   -   -   -   -   -   -   -   -   -   -   -
 8255 PPI              Read/Write -   -   -   -   0   -   r1  r0  -   -   -   -   -   -   -   -
 Expansion Peripherals Read/Write -   -   -   -   -   0   -   -   -   -   -   -   -   -   -   -
 
@@ -2056,9 +2037,9 @@ void amstrad_state::amstrad_cpc_io_w(offs_t offset, uint8_t data)
 			break;
 		case 0x01:      /* Write to selected internal 6845 register Write Only */
 			if ( m_system_type == SYSTEM_PLUS || m_system_type == SYSTEM_GX4000 )
-				timer_set(attotime::from_usec(0), TIMER_VIDEO_UPDATE, 1);
+				m_video_update_timer->adjust(attotime::from_usec(0), 1);
 			else
-				timer_set(attotime::from_usec(0), TIMER_VIDEO_UPDATE, 0);
+				m_video_update_timer->adjust(attotime::from_usec(0), 0);
 			m_crtc->register_w(data);
 
 			/* printer port bit 8 */
@@ -2183,7 +2164,7 @@ The exception is the case where none of b7-b0 are reset (i.e. port &FBFF), which
 		m_crtc->set_unscaled_clock( ( m_aleste_mode & 0x02 ) ? ( XTAL(16'000'000) / 8 ) : ( XTAL(16'000'000) / 16 ) );
 	}
 
-	mface2 = dynamic_cast<cpc_multiface2_device*>(get_expansion_device(machine(),"multiface2"));
+	mface2 = dynamic_cast<cpc_multiface2_device*>(get_expansion_device("multiface2"));
 	if(mface2 != nullptr)
 	{
 		if(mface2->multiface_io_write(offset, data) != 0)
@@ -2245,12 +2226,9 @@ void amstrad_state::amstrad_handle_snapshot(unsigned char *pSnapshot)
 
 	RegData = (pSnapshot[0x021] & 0x0ff) | ((pSnapshot[0x022] & 0x0ff)<<8);
 	m_maincpu->set_state_int(Z80_SP, RegData);
-	m_maincpu->set_state_int(STATE_GENSP, RegData);
 
 	RegData = (pSnapshot[0x023] & 0x0ff) | ((pSnapshot[0x024] & 0x0ff)<<8);
-
 	m_maincpu->set_state_int(Z80_PC, RegData);
-//  m_maincpu->set_state_int(REG_SP, RegData);
 
 	RegData = (pSnapshot[0x025] & 0x0ff);
 	m_maincpu->set_state_int(Z80_IM, RegData);
@@ -2344,7 +2322,7 @@ void amstrad_state::amstrad_reset_machine()
 	/* set ram config 0 */
 	amstrad_GateArray_write(0x0c0);
 
-	// Get manufacturer name and TV refresh rate from PCB link (dipswitch for mess emulation)
+	// Get manufacturer name and TV refresh rate from PCB link (dipswitch for MAME emulation)
 	m_ppi_port_inputs[amstrad_ppi_PortB] = (((m_io_solder_links->read()&MANUFACTURER_NAME)<<1) | (m_io_solder_links->read()&TV_REFRESH_RATE));
 
 	if ( m_system_type == SYSTEM_PLUS || m_system_type == SYSTEM_GX4000 )
@@ -2419,7 +2397,7 @@ void amstrad_state::amstrad_rethinkMemory()
 	}
 
 	/* multiface hardware enabled? */
-	mface2 = dynamic_cast<cpc_multiface2_device*>(get_expansion_device(machine(),"multiface2"));
+	mface2 = dynamic_cast<cpc_multiface2_device*>(get_expansion_device("multiface2"));
 	if(mface2 != nullptr)
 	{
 		if (mface2->multiface_hardware_enabled())
@@ -2452,7 +2430,7 @@ WRITE_LINE_MEMBER(amstrad_state::screen_vblank_amstrad)
 	// rising edge
 	if (state)
 	{
-		cpc_multiface2_device* mface2 = dynamic_cast<cpc_multiface2_device*>(get_expansion_device(machine(),"multiface2"));
+		cpc_multiface2_device* mface2 = dynamic_cast<cpc_multiface2_device*>(get_expansion_device("multiface2"));
 
 		if(mface2 != nullptr)
 		{
@@ -2506,6 +2484,7 @@ void amstrad_state::update_psg()
 	{
 	case 0:
 		{/* Inactive */
+			m_ppi_port_inputs[amstrad_ppi_PortA] = 0xff;
 		} break;
 	case 1:
 		{/* b6 = 1 ? : Read from selected PSG register and make the register data available to PPI Port A */
@@ -2555,8 +2534,8 @@ Bit Description
 7   Cassette read data
 6   Parallel/Printer port ready signal ("1" = not ready, "0" = Ready)
 5   /EXP signal on expansion port (note 6)
-4   50/60 Hz (link on PCB. For this MESS driver I have used the dipswitch feature) (note 5)
-3   | PCB links to define manufacturer name. For this MESS driver I have used the dipswitch feature. (note 1) (note 4)
+4   50/60 Hz (link on PCB. For this MAME driver I have used the dipswitch feature) (note 5)
+3   | PCB links to define manufacturer name. For this MAME driver I have used the dipswitch feature. (note 1) (note 4)
 2   | (note 2)
 1   | (note 3)
 0   VSYNC State from 6845. "1" = VSYNC active, "0" = VSYNC inactive
@@ -2571,7 +2550,7 @@ Note:
 6 This bit is connected to /EXP signal on the expansion port.
   On the KC Compact this bit is used to define bit 7 of the printer data.
   On the CPC, it is possible to use this bit to define bit 7 of the printer data, so a 8-bit printer port is made, with a hardware modification,
-  On the CPC this can be used by a expansion device to report it's presence. "1" = device connected, "0" = device not connected. This is not always used by all expansion devices.
+  On the CPC this can be used by a expansion device to report its presence. "1" = device connected, "0" = device not connected. This is not always used by all expansion devices.
 */
 
 WRITE_LINE_MEMBER(amstrad_state::write_centronics_busy)
@@ -2611,7 +2590,7 @@ uint8_t amstrad_state::amstrad_ppi_portb_r()
 
 //logerror("amstrad_ppi_portb_r\n");
 	/* Schedule a write to PC2 */
-	timer_set(attotime::zero, TIMER_PC2_LOW);
+	m_pc2_low_timer->adjust(attotime::zero);
 
 	return data;
 }
@@ -2789,122 +2768,121 @@ IRQ_CALLBACK_MEMBER(amstrad_state::amstrad_cpu_acknowledge_int)
 
 /* the following timings have been measured! */
 static const uint8_t amstrad_cycle_table_op[256] = {
-		4, 12,  8,  8,  4,  4,  8,  4,  4, 12,  8,  8,  4,  4,  8,  4,
+	 4, 12,  8,  8,  4,  4,  8,  4,  4, 12,  8,  8,  4,  4,  8,  4,
 	12, 12,  8,  8,  4,  4,  8,  4, 12, 12,  8,  8,  4,  4,  8,  4,
-		8, 12, 20,  8,  4,  4,  8,  4,  8, 12, 20,  8,  4,  4,  8,  4,
-		8, 12, 16,  8, 12, 12, 12,  4,  8, 12, 16,  8,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		8,  8,  8,  8,  8,  8,  4,  8,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		8, 12, 12, 12, 12, 16,  8, 16,  8, 12, 12,  4, 12, 20,  8, 16,
-		8, 12, 12, 12, 12, 16,  8, 16,  8,  4, 12, 12, 12,  4,  8, 16,
-		8, 12, 12, 24, 12, 16,  8, 16,  8,  4, 12,  4, 12,  4,  8, 16,
-		8, 12, 12,  4, 12, 16,  8, 16,  8,  8, 12,  4, 12,  4,  8, 16
+	 8, 12, 20,  8,  4,  4,  8,  4,  8, 12, 20,  8,  4,  4,  8,  4,
+	 8, 12, 16,  8, 12, 12, 12,  4,  8, 12, 16,  8,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 8,  8,  8,  8,  8,  8,  4,  8,  4,  4,  4,  4,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	 8, 12, 12, 12, 12, 16,  8, 16,  8, 12, 12,  4, 12, 20,  8, 16,
+	 8, 12, 12, 12, 12, 16,  8, 16,  8,  4, 12, 12, 12,  4,  8, 16,
+	 8, 12, 12, 24, 12, 16,  8, 16,  8,  4, 12,  4, 12,  4,  8, 16,
+	 8, 12, 12,  4, 12, 16,  8, 16,  8,  8, 12,  4, 12,  4,  8, 16
 };
 
 static const uint8_t amstrad_cycle_table_cb[256]=
 {
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
-		4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	4,  4,  4,  4,  4,  4,  8,  4,  4,  4,  4,  4,  4,  4,  8,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4,
+	4,  4,  4,  4,  4,  4, 12,  4,  4,  4,  4,  4,  4,  4, 12,  4
 };
 
 static const uint8_t amstrad_cycle_table_ed[256]=
 {
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
 	12, 12, 12, 20,  4, 12,  4,  8, 12, 12, 12, 20,  4, 12,  4,  8,
 	12, 12, 12, 20,  4, 12,  4,  8, 12, 12, 12, 20,  4, 12,  4,  8,
 	12, 12, 12, 20,  4, 12,  4, 16, 12, 12, 12, 20,  4, 12,  4, 16,
 	12, 12, 12, 20,  4, 12,  4,  4, 12, 12, 12, 20,  4, 12,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
 	16, 12, 16, 16,  4,  4,  4,  4, 16, 12, 16, 16,  4,  4,  4,  4,
 	16, 12, 16, 16,  4,  4,  4,  4, 16, 12, 16, 16,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
-		4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
+	 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4
 };
 
 static const uint8_t amstrad_cycle_table_xy[256]=
 {
-		4, 12,  8,  8,  4,  4,  8,  4,  4, 12,  8,  8,  4,  4,  8,  4,
+	 4, 12,  8,  8,  4,  4,  8,  4,  4, 12,  8,  8,  4,  4,  8,  4,
 	12, 12,  8,  8,  4,  4,  8,  4, 12, 12,  8,  8,  4,  4,  8,  4,
-		8, 12, 20,  8,  4,  4,  8,  4,  8, 12, 20,  8,  4,  4,  8,  4,
-		8, 12, 16,  8, 20, 20, 20,  4,  8, 12, 16,  8,  4,  4,  8,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 8, 12, 20,  8,  4,  4,  8,  4,  8, 12, 20,  8,  4,  4,  8,  4,
+	 8, 12, 16,  8, 20, 20, 20,  4,  8, 12, 16,  8,  4,  4,  8,  4,
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
 	16, 16, 16, 16, 16, 16,  4, 16,  4,  4,  4,  4,  4,  4, 16,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
-		4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
-		8, 12, 12, 12, 12, 16,  8, 16,  8, 12, 12,  4, 12, 20,  8, 16,
-		8, 12, 12, 12, 12, 16,  8, 16,  8,  4, 12, 12, 12,  4,  8, 16,
-		8, 12, 12, 24, 12, 16,  8, 16,  8,  4, 12,  4, 12,  4,  8, 16,
-		8, 12, 12,  4, 12, 16,  8, 16,  8,  8, 12,  4, 12,  4,  8, 16
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 4,  4,  4,  4,  4,  4, 16,  4,  4,  4,  4,  4,  4,  4, 16,  4,
+	 8, 12, 12, 12, 12, 16,  8, 16,  8, 12, 12,  8, 12, 20,  8, 16,
+	 8, 12, 12, 12, 12, 16,  8, 16,  8,  4, 12, 12, 12,  4,  8, 16,
+	 8, 12, 12, 24, 12, 16,  8, 16,  8,  4, 12,  4, 12,  4,  8, 16,
+	 8, 12, 12,  4, 12, 16,  8, 16,  8,  8, 12,  4, 12,  4,  8, 16
 };
 
-static const uint8_t amstrad_cycle_table_xycb[256]=
-{
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-	16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-	16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-	16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-	20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20
+static const uint8_t amstrad_cycle_table_xycb[0x100] = {
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
+	16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16
 };
 
 static const uint8_t amstrad_cycle_table_ex[256]=
 {
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		4,  0,  0,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0,  0,  0,
-		4,  0,  0,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-		4,  8,  4,  4,  0,  0,  0,  0,  4,  8,  4,  4,  0,  0,  0,  0,
-		8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,
-		8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,
-		8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,
-		8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	4,  0,  0,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0,  0,  0,
+	4,  0,  0,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	4,  8,  4,  4,  0,  0,  0,  0,  4,  8,  4,  4,  0,  0,  0,  0,
+	8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,
+	8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,
+	8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,
+	8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0,  8,  0,  0,  0
 };
 
 #define NEXT_ROM_SLOT   m_rom_count++; \
@@ -2995,7 +2973,7 @@ void amstrad_state::enumerate_roms()
 
 
 	/* add ROMs from ROMbox expansion */
-	device_t* romexp = get_expansion_device(machine(),"rom");
+	device_t* romexp = get_expansion_device("rom");
 	if(romexp)
 	{
 		for(int i = 0; i < 8; i++)
@@ -3102,9 +3080,15 @@ TIMER_CALLBACK_MEMBER(amstrad_state::cb_set_resolution)
 	m_screen->configure( 1024, height, visarea, refresh );
 }
 
+void amstrad_state::alloc_timers()
+{
+	m_pc2_low_timer = timer_alloc(FUNC(amstrad_state::amstrad_pc2_low), this);
+	m_set_resolution_timer = timer_alloc(FUNC(amstrad_state::cb_set_resolution), this);
+}
 
 MACHINE_START_MEMBER(amstrad_state,amstrad)
 {
+	alloc_timers();
 	m_system_type = SYSTEM_CPC;
 	m_centronics->write_data7(0);
 }
@@ -3121,12 +3105,13 @@ MACHINE_RESET_MEMBER(amstrad_state,amstrad)
 	m_gate_array.hsync = 0;
 	m_gate_array.vsync = 0;
 
-	timer_set(attotime::zero, TIMER_SET_RESOLUTION);
+	m_set_resolution_timer->adjust(attotime::zero);
 }
 
 
 MACHINE_START_MEMBER(amstrad_state,plus)
 {
+	alloc_timers();
 	m_asic.ram = m_region_user1->base();  // 16kB RAM for ASIC, memory-mapped registers.
 	m_system_type = SYSTEM_PLUS;
 	m_centronics->write_data7(0);
@@ -3169,11 +3154,12 @@ MACHINE_RESET_MEMBER(amstrad_state,plus)
 	space.install_write_handler(0x6000, 0x7fff, write8sm_delegate(*this, FUNC(amstrad_state::amstrad_plus_asic_6000_w)));
 
 	//  multiface_init();
-	timer_set(attotime::zero, TIMER_SET_RESOLUTION);
+	m_set_resolution_timer->adjust(attotime::zero);
 }
 
 MACHINE_START_MEMBER(amstrad_state,gx4000)
 {
+	alloc_timers();
 	m_asic.ram = m_region_user1->base();  // 16kB RAM for ASIC, memory-mapped registers.
 	m_system_type = SYSTEM_GX4000;
 
@@ -3211,11 +3197,12 @@ MACHINE_RESET_MEMBER(amstrad_state,gx4000)
 	space.install_write_handler(0x4000, 0x5fff, write8sm_delegate(*this, FUNC(amstrad_state::amstrad_plus_asic_4000_w)));
 	space.install_write_handler(0x6000, 0x7fff, write8sm_delegate(*this, FUNC(amstrad_state::amstrad_plus_asic_6000_w)));
 
-	timer_set(attotime::zero, TIMER_SET_RESOLUTION);
+	m_set_resolution_timer->adjust(attotime::zero);
 }
 
 MACHINE_START_MEMBER(amstrad_state,kccomp)
 {
+	alloc_timers();
 	m_system_type = SYSTEM_CPC;
 	m_centronics->write_data7(0);
 
@@ -3224,7 +3211,7 @@ MACHINE_START_MEMBER(amstrad_state,kccomp)
 	m_gate_array.hsync = 0;
 	m_gate_array.vsync = 0;
 
-	timer_set(attotime::zero, TIMER_SET_RESOLUTION);
+	m_set_resolution_timer->adjust(attotime::zero);
 }
 
 
@@ -3245,6 +3232,7 @@ MACHINE_RESET_MEMBER(amstrad_state,kccomp)
 
 MACHINE_START_MEMBER(amstrad_state,aleste)
 {
+	alloc_timers();
 	m_system_type = SYSTEM_ALESTE;
 	m_centronics->write_data7(0);
 }
@@ -3254,7 +3242,7 @@ MACHINE_RESET_MEMBER(amstrad_state,aleste)
 	amstrad_common_init();
 	amstrad_reset_machine();
 
-	timer_set(attotime::zero, TIMER_SET_RESOLUTION);
+	m_set_resolution_timer->adjust(attotime::zero);
 }
 
 
@@ -3318,7 +3306,7 @@ DEVICE_IMAGE_LOAD_MEMBER(amstrad_state::amstrad_plus_cartridge)
 		logerror("IMG: raw CPC+ cartridge file\n");
 		if (size % 0x4000)
 		{
-			image.seterror(IMAGE_ERROR_UNSPECIFIED, "Attempt to load a raw binary with some block smaller than 16kB in size");
+			image.seterror(image_error::INVALIDIMAGE, "Attempt to load a raw binary with some block smaller than 16kB in size");
 			return image_init_result::FAIL;
 		}
 		else
@@ -3342,14 +3330,14 @@ DEVICE_IMAGE_LOAD_MEMBER(amstrad_state::amstrad_plus_cartridge)
 		// RIFF chunk bits
 		char chunkid[4];              // chunk ID (4 character code - cb00, cb01, cb02... upto cb31 (max 512kB), other chunks are ignored)
 		char chunklen[4];             // chunk length (always little-endian)
-		int chunksize;                // chunk length, calcaulated from the above
+		int chunksize;                // chunk length, calculated from the above
 		int ramblock;                 // 16k RAM block chunk is to be loaded into
 		unsigned int bytes_to_read;   // total bytes to read, as mame_feof doesn't react to EOF without trying to go past it.
 
 		// Is RIFF format (*.cpr)
 		if (strncmp((char*)(header + 8), "AMS!", 4) != 0)
 		{
-			image.seterror(IMAGE_ERROR_UNSPECIFIED, "Not an Amstrad CPC cartridge image (despite RIFF header)");
+			image.seterror(image_error::INVALIDIMAGE, "Not an Amstrad CPC cartridge image (despite RIFF header)");
 			return image_init_result::FAIL;
 		}
 

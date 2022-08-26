@@ -25,3 +25,4 @@ ROM_START( kfjohnny ) // same as kicker except for gfx roms
 ROM_END
 
 GAME( 2002, kfjohnny, kicker, shaolins, shaolins, shaolins_state, empty_init, ROT90, "Smitdogg", "Kung-Fu Johnny", MACHINE_SUPPORTS_SAVE )
+

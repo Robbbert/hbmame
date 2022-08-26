@@ -375,8 +375,6 @@ STOP            01001000  10111011          12  stop
 #include "emu.h"
 #include "upd7810.h"
 
-#include "debugger.h"
-
 #include "upd7810_macros.h"
 #include "upd7810_dasm.h"
 
@@ -1720,7 +1718,6 @@ void upd7810_device::device_start()
 
 	state_add( STATE_GENPC, "GENPC", m_pc.w.l ).formatstr("%04X").noshow();
 	state_add( STATE_GENPCBASE, "CURPC", m_ppc.w.l ).formatstr("%04X").noshow();
-	state_add( STATE_GENSP, "GENSP", m_sp.w.l ).formatstr("%04X").noshow();
 	state_add( STATE_GENFLAGS, "GENFLAGS", m_psw ).formatstr("%17s").noshow();
 }
 
@@ -1751,9 +1748,7 @@ void upd78c05_device::device_start()
 
 	state_add( STATE_GENPC, "GENPC", m_pc.w.l ).formatstr("%04X").noshow();
 	state_add( STATE_GENPCBASE, "CURPC", m_ppc.w.l ).formatstr("%04X").noshow();
-	state_add( STATE_GENSP, "GENSP", m_sp.w.l ).formatstr("%04X").noshow();
 	state_add( STATE_GENFLAGS, "GENFLAGS", m_psw ).formatstr("%17s").noshow();
-
 }
 
 void upd7810_device::state_string_export(const device_state_entry &entry, std::string &str) const

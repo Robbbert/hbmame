@@ -77,10 +77,10 @@ public:
 	u16 m_cartridge_ram[0x1000]; // bootlegs
 
 	// for kof10th
-	u8* m_mainrom;
-	u8* m_fixedrom;
+	u8* m_mainrom = nullptr;
+	u8* m_fixedrom = nullptr;
 	neogeo_banked_cart_device* m_bankdev;
-	u16 m_cartridge_ram2[0x10000];
+	u16 m_cartridge_ram2[0x10000]{};
 
 protected:
 	virtual void device_start() override;
@@ -194,7 +194,7 @@ public:
 
 
 	neogeo_banked_cart_device* m_bankdev;
-	u32     m_fatfury2_prot_data;
+	u32     m_fatfury2_prot_data = 0U;
 
 protected:
 	virtual void device_start() override;
@@ -236,7 +236,7 @@ public:
 	void kof98_prot_w(u16 data);
 	u16 kof98_prot_r(offs_t offset);
 	int kof98_prot_state;
-	u16 m_default_rom[2];
+	u16 m_default_rom[2]{};
 
 protected:
 	virtual void device_start() override;
@@ -258,8 +258,8 @@ public:
 	u16 mslugx_protection_16_r(address_space &space, offs_t offset);
 	void mslugx_install_protection(cpu_device* maincpu);
 
-	u16     m_mslugx_counter;
-	u16     m_mslugx_command;
+	u16     m_mslugx_counter = 0U;
+	u16     m_mslugx_command = 0U;
 
 protected:
 	virtual void device_start() override;
@@ -302,7 +302,7 @@ public:
 	void install_pvc_protection(cpu_device* maincpu, neogeo_banked_cart_device* bankdev);
 	neogeo_banked_cart_device* m_bankdev;
 
-	u16 m_cartridge_ram[0x1000];
+	u16 m_cartridge_ram[0x1000]{};
 
 	void mslug5_decrypt_68k(u8* rom, u32 size);
 	void svc_px_decrypt(u8* rom, u32 size);
@@ -326,7 +326,7 @@ public:
 	sbp_prot_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 0);
 
 
-	u8* m_mainrom;
+	u8* m_mainrom = nullptr;
 
 	void sbp_install_protection(cpu_device* maincpu, u8* cpurom, u32 cpurom_size);
 	void sbp_lowerrom_w(offs_t offset, u16 data);
@@ -375,7 +375,7 @@ public:
 	void kf2k3pcb_decrypt_s1data(u8* rom, u32 rom_size, u8* fixed, u32 fixed_size);
 	void kf2k3pcb_sp1_decrypt(u16* rom);
 
-	u16     m_sma_rng;
+	u16     m_sma_rng = 0U;
 protected:
 	virtual void device_start() override;
 	virtual void device_reset() override;

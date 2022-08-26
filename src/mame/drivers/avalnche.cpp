@@ -28,6 +28,8 @@
     If you have any questions about how this driver works, don't hesitate to
     ask.  - Mike Balfour (mab22@po.cwru.edu)
 
+    Disassembly shows Catch never uses 2003 or 3000.
+
 ***************************************************************************/
 
 #include "emu.h"
@@ -39,6 +41,11 @@
 
 #include "avalnche.lh"
 
+
+TIMER_DEVICE_CALLBACK_MEMBER(avalnche_state::nmi_16v)
+{
+	m_maincpu->pulse_input_line(m6502_device::NMI_LINE, attotime::zero);
+}
 
 /*************************************
  *
@@ -112,8 +119,6 @@ void avalnche_state::catch_map(address_map &map)
 	map(0x2000, 0x2000).mirror(0x0ffc).portr("IN0");
 	map(0x2001, 0x2001).mirror(0x0ffc).portr("IN1");
 	map(0x2002, 0x2002).mirror(0x0ffc).portr("PADDLE");
-	map(0x2003, 0x2003).mirror(0x0ffc).nopr();
-	map(0x3000, 0x3000).mirror(0x0fff).w("watchdog", FUNC(watchdog_timer_device::reset_w));
 	map(0x4000, 0x4007).mirror(0x0ff8).w("latch", FUNC(f9334_device::write_d0));
 	map(0x6000, 0x6000).mirror(0x0fff).w(FUNC(avalnche_state::catch_coin_counter_w));
 	map(0x7000, 0x7fff).rom();
@@ -216,7 +221,8 @@ void avalnche_state::avalnche_base(machine_config &config)
 	/* basic machine hardware */
 	M6502(config, m_maincpu, 12.096_MHz_XTAL / 16);     /* clock input is the "2H" signal divided by two */
 	m_maincpu->set_addrmap(AS_PROGRAM, &avalnche_state::main_map);
-	m_maincpu->set_periodic_int(FUNC(avalnche_state::nmi_line_pulse), attotime::from_hz(8*60));
+
+	TIMER(config, "16v").configure_scanline(FUNC(avalnche_state::nmi_16v), "screen", 32, 32); // 8 interrupts per frame
 
 	F9334(config, m_latch); // F8
 	m_latch->q_out_cb<0>().set_output("led0"); // 1 CREDIT LAMP
@@ -224,8 +230,6 @@ void avalnche_state::avalnche_base(machine_config &config)
 	m_latch->q_out_cb<3>().set_output("led1"); // 2 CREDIT LAMP
 	m_latch->q_out_cb<7>().set_output("led2"); // START LAMP
 	// Q1, Q4, Q5, Q6 are configured in audio/avalnche.cpp
-
-	WATCHDOG_TIMER(config, "watchdog");
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -238,6 +242,8 @@ void avalnche_state::avalnche(machine_config &config)
 	avalnche_base(config);
 	/* sound hardware */
 	avalnche_sound(config);
+
+	WATCHDOG_TIMER(config, "watchdog").set_vblank_count("screen", 10);
 }
 
 void avalnche_state::acatch(machine_config &config)

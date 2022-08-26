@@ -400,10 +400,10 @@ protected:
 	virtual void machine_reset() override;
 
 private:
-	void missile_w(address_space &space, offs_t offset, uint8_t data);
-	uint8_t missile_r(address_space &space, offs_t offset);
-	void bootleg_w(address_space &space, offs_t offset, uint8_t data);
-	uint8_t bootleg_r(address_space &space, offs_t offset);
+	void missile_w(offs_t offset, uint8_t data);
+	uint8_t missile_r(offs_t offset);
+	void bootleg_w(offs_t offset, uint8_t data);
+	uint8_t bootleg_r(offs_t offset);
 	uint32_t screen_update_missile(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 	inline int scanline_to_v(int scanline);
@@ -411,8 +411,8 @@ private:
 	inline void schedule_next_irq(int curv);
 	inline bool get_madsel();
 	inline offs_t get_bit3_addr(offs_t pixaddr);
-	void write_vram(address_space &space, offs_t address, uint8_t data);
-	uint8_t read_vram(address_space &space, offs_t address);
+	void write_vram(offs_t address, uint8_t data);
+	uint8_t read_vram(offs_t address);
 
 	TIMER_CALLBACK_MEMBER(clock_irq);
 	TIMER_CALLBACK_MEMBER(adjust_cpu_speed);
@@ -551,11 +551,11 @@ void missile_state::machine_start()
 	m_ctrld = 0;
 
 	/* create a timer to speed/slow the CPU */
-	m_cpu_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(missile_state::adjust_cpu_speed),this));
+	m_cpu_timer = timer_alloc(FUNC(missile_state::adjust_cpu_speed), this);
 	m_cpu_timer->adjust(m_screen->time_until_pos(v_to_scanline(0), 0));
 
 	/* create a timer for IRQs and set up the first callback */
-	m_irq_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(missile_state::clock_irq),this));
+	m_irq_timer = timer_alloc(FUNC(missile_state::clock_irq), this);
 	m_irq_state = 0;
 	schedule_next_irq(-32);
 
@@ -614,7 +614,7 @@ offs_t missile_state::get_bit3_addr(offs_t pixaddr)
 }
 
 
-void missile_state::write_vram(address_space &space, offs_t address, uint8_t data)
+void missile_state::write_vram(offs_t address, uint8_t data)
 {
 	static const uint8_t data_lookup[4] = { 0x00, 0x0f, 0xf0, 0xff };
 	offs_t vramaddr;
@@ -639,12 +639,12 @@ void missile_state::write_vram(address_space &space, offs_t address, uint8_t dat
 		m_videoram[vramaddr] = (m_videoram[vramaddr] & vrammask) | (vramdata & ~vrammask);
 
 		/* account for the extra clock cycle */
-		space.device().execute().adjust_icount(-1);
+		m_maincpu->adjust_icount(-1);
 	}
 }
 
 
-uint8_t missile_state::read_vram(address_space &space, offs_t address)
+uint8_t missile_state::read_vram(offs_t address)
 {
 	offs_t vramaddr;
 	uint8_t vramdata;
@@ -673,7 +673,7 @@ uint8_t missile_state::read_vram(address_space &space, offs_t address)
 			result &= ~0x20;
 
 		/* account for the extra clock cycle */
-		space.device().execute().adjust_icount(-1);
+		m_maincpu->adjust_icount(-1);
 	}
 	return result;
 }
@@ -725,12 +725,12 @@ uint32_t missile_state::screen_update_missile(screen_device &screen, bitmap_ind1
  *
  *************************************/
 
-void missile_state::missile_w(address_space &space, offs_t offset, uint8_t data)
+void missile_state::missile_w(offs_t offset, uint8_t data)
 {
 	/* if this is a MADSEL cycle, write to video RAM */
 	if (get_madsel())
 	{
-		write_vram(space, offset, data);
+		write_vram(offset, data);
 		return;
 	}
 
@@ -784,13 +784,13 @@ void missile_state::missile_w(address_space &space, offs_t offset, uint8_t data)
 }
 
 
-uint8_t missile_state::missile_r(address_space &space, offs_t offset)
+uint8_t missile_state::missile_r(offs_t offset)
 {
 	uint8_t result = 0xff;
 
 	/* if this is a MADSEL cycle, read from video RAM */
 	if (get_madsel())
-		return read_vram(space, offset);
+		return read_vram(offset);
 
 	/* otherwise, strip A15 and handle manually */
 	offset &= 0x7fff;
@@ -845,12 +845,12 @@ uint8_t missile_state::missile_r(address_space &space, offs_t offset)
 }
 
 
-void missile_state::bootleg_w(address_space &space, offs_t offset, uint8_t data)
+void missile_state::bootleg_w(offs_t offset, uint8_t data)
 {
 	/* if this is a MADSEL cycle, write to video RAM */
 	if (get_madsel())
 	{
-		write_vram(space, offset, data);
+		write_vram(offset, data);
 		return;
 	}
 
@@ -897,13 +897,13 @@ void missile_state::bootleg_w(address_space &space, offs_t offset, uint8_t data)
 }
 
 
-uint8_t missile_state::bootleg_r(address_space &space, offs_t offset)
+uint8_t missile_state::bootleg_r(offs_t offset)
 {
 	uint8_t result = 0xff;
 
 	/* if this is a MADSEL cycle, read from video RAM */
 	if (get_madsel())
-		return read_vram(space, offset);
+		return read_vram(offset);
 
 	/* otherwise, strip A15 and handle manually */
 	offset &= 0x7fff;
@@ -993,15 +993,15 @@ static INPUT_PORTS_START( missile )
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON1 )
 	PORT_BIT( 0x18, IP_ACTIVE_HIGH, IPT_CUSTOM )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_TILT )
-	PORT_SERVICE( 0x40, IP_ACTIVE_LOW )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_SERVICE ) PORT_TOGGLE  // switch inside the coin door
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(missile_state, vblank_r)
 
 	PORT_START("R10")   /* IN2 */
-	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Coinage ) ) PORT_DIPLOCATION("R10:1,2")
-	PORT_DIPSETTING(    0x01, DEF_STR( 2C_1C ) )
+	PORT_DIPNAME( 0x03, 0x01, DEF_STR( Coinage ) ) PORT_DIPLOCATION("R10:1,2")
 	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )
-	PORT_DIPSETTING(    0x03, DEF_STR( 1C_2C ) )
 	PORT_DIPSETTING(    0x02, DEF_STR( Free_Play ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x03, DEF_STR( 1C_2C ) )
 	PORT_DIPNAME( 0x0c, 0x00, "Right Coin" ) PORT_DIPLOCATION("R10:3,4")
 	PORT_DIPSETTING(    0x00, "*1" )
 	PORT_DIPSETTING(    0x04, "*4" )
@@ -1025,10 +1025,10 @@ static INPUT_PORTS_START( missile )
 	PORT_DIPSETTING(    0x01, "5" )
 	PORT_DIPSETTING(    0x03, "6" )
 	PORT_DIPSETTING(    0x00, "7" )
-	PORT_DIPNAME( 0x04, 0x04, "Bonus Credit for 4 Coins" ) PORT_DIPLOCATION("R8:!3")
+	PORT_DIPNAME( 0x04, 0x00, "Bonus Credit for 4 Coins" ) PORT_DIPLOCATION("R8:!3")
 	PORT_DIPSETTING(    0x04, DEF_STR( No ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
-	PORT_DIPNAME( 0x08, 0x08, "Trackball Size" ) PORT_DIPLOCATION("R8:!4")
+	PORT_DIPNAME( 0x08, 0x00, "Trackball Size" ) PORT_DIPLOCATION("R8:!4")
 	PORT_DIPSETTING(    0x00, "Mini" ) // Faster Cursor Speed
 	PORT_DIPSETTING(    0x08, "Large" ) // Slower Cursor Speed
 	PORT_DIPNAME( 0x70, 0x70, "Bonus City" ) PORT_DIPLOCATION("R8:!5,!6,!7")
@@ -1059,47 +1059,16 @@ INPUT_PORTS_END
 
 
 static INPUT_PORTS_START( missileb )
-
 	PORT_INCLUDE(missile)
 
 	PORT_MODIFY("IN1")
-	PORT_SERVICE( 0x40, IP_ACTIVE_HIGH )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_SERVICE ) PORT_TOGGLE  // switch inside the coin door
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( suprmatk )
-	PORT_START("IN0")   /* IN0 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_COCKTAIL
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_COCKTAIL
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON1 ) PORT_COCKTAIL
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_START2 )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_START1 )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_COIN3 )
+	PORT_INCLUDE(missile)
 
-	PORT_START("IN1")   /* IN1 */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_BUTTON3 )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_BUTTON2 )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON1 )
-	PORT_BIT( 0x18, IP_ACTIVE_HIGH, IPT_CUSTOM )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_TILT )
-	PORT_SERVICE( 0x40, IP_ACTIVE_LOW )
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(missile_state, vblank_r)
-
-	PORT_START("R10")   /* IN2 */
-	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Coinage ) ) PORT_DIPLOCATION("R10:1,2")
-	PORT_DIPSETTING(    0x01, DEF_STR( 2C_1C ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )
-	PORT_DIPSETTING(    0x03, DEF_STR( 1C_2C ) )
-	PORT_DIPSETTING(    0x02, DEF_STR( Free_Play ) )
-	PORT_DIPNAME( 0x0c, 0x00, "Right Coin" ) PORT_DIPLOCATION("R10:3,4")
-	PORT_DIPSETTING(    0x00, "*1" )
-	PORT_DIPSETTING(    0x04, "*4" )
-	PORT_DIPSETTING(    0x08, "*5" )
-	PORT_DIPSETTING(    0x0c, "*6" )
-	PORT_DIPNAME( 0x10, 0x00, "Center Coin" ) PORT_DIPLOCATION("R10:5")
-	PORT_DIPSETTING(    0x00, "*1" )
-	PORT_DIPSETTING(    0x10, "*2" )
+	PORT_MODIFY("R10")   /* IN2 */
 	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) ) PORT_DIPLOCATION("R10:6")
 	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
@@ -1108,43 +1077,6 @@ static INPUT_PORTS_START( suprmatk )
 	PORT_DIPSETTING(    0x40, "Easy Super Missile Attack" )
 	PORT_DIPSETTING(    0x80, "Reg. Super Missile Attack" )
 	PORT_DIPSETTING(    0xc0, "Hard Super Missile Attack" )
-
-	PORT_START("R8")    /* IN3 */
-	PORT_DIPNAME( 0x03, 0x00, "Cities" ) PORT_DIPLOCATION("R8:1,2")
-	PORT_DIPSETTING(    0x02, "4" )
-	PORT_DIPSETTING(    0x01, "5" )
-	PORT_DIPSETTING(    0x03, "6" )
-	PORT_DIPSETTING(    0x00, "7" )
-	PORT_DIPNAME( 0x04, 0x04, "Bonus Credit for 4 Coins" ) PORT_DIPLOCATION("R8:3")
-	PORT_DIPSETTING(    0x04, DEF_STR( No ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( Yes ) )
-	PORT_DIPNAME( 0x08, 0x08, "Trackball Size" ) PORT_DIPLOCATION("R8:4")
-	PORT_DIPSETTING(    0x00, "Mini" ) // Faster Cursor Speed
-	PORT_DIPSETTING(    0x08, "Large" ) // Slower Cursor Speed
-	PORT_DIPNAME( 0x70, 0x70, "Bonus City" ) PORT_DIPLOCATION("R8:5,6,7")
-	PORT_DIPSETTING(    0x10, "8000" )
-	PORT_DIPSETTING(    0x70, "10000" )
-	PORT_DIPSETTING(    0x60, "12000" )
-	PORT_DIPSETTING(    0x50, "14000" )
-	PORT_DIPSETTING(    0x40, "15000" )
-	PORT_DIPSETTING(    0x30, "18000" )
-	PORT_DIPSETTING(    0x20, "20000" )
-	PORT_DIPSETTING(    0x00, DEF_STR( None ) )
-	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Cabinet ) ) PORT_DIPLOCATION("R8:8")
-	PORT_DIPSETTING(    0x00, DEF_STR( Upright ) )
-	PORT_DIPSETTING(    0x80, DEF_STR( Cocktail ) )
-
-	PORT_START("TRACK0_X")  /* FAKE */
-	PORT_BIT( 0x0f, 0x00, IPT_TRACKBALL_X ) PORT_SENSITIVITY(20) PORT_KEYDELTA(10)
-
-	PORT_START("TRACK0_Y")  /* FAKE */
-	PORT_BIT( 0x0f, 0x00, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(20) PORT_KEYDELTA(10) PORT_REVERSE
-
-	PORT_START("TRACK1_X")  /* FAKE */
-	PORT_BIT( 0x0f, 0x00, IPT_TRACKBALL_X ) PORT_SENSITIVITY(20) PORT_KEYDELTA(10) PORT_REVERSE PORT_COCKTAIL
-
-	PORT_START("TRACK1_Y")  /* FAKE */
-	PORT_BIT( 0x0f, 0x00, IPT_TRACKBALL_Y ) PORT_SENSITIVITY(20) PORT_KEYDELTA(10) PORT_REVERSE PORT_COCKTAIL
 INPUT_PORTS_END
 
 

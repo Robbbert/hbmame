@@ -64,11 +64,8 @@ protected:
 	virtual void device_resolve_objects() override;
 	virtual void device_start() override;
 	virtual void device_reset() override;
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
-	enum {
-		TIMER_DRIVE_READY_POLLING = 4
-	};
+	TIMER_CALLBACK_MEMBER(update_floppy);
 
 	enum {
 		PHASE_CMD, PHASE_EXEC, PHASE_RESULT
@@ -290,7 +287,7 @@ protected:
 
 	void end_reset();
 
-	void delay_cycles(emu_timer *tm, int cycles);
+	void delay_cycles(floppy_info &fi, int cycles);
 	void check_irq();
 	void fifo_expect(int size, bool write);
 	void fifo_push(uint8_t data, bool internal);
@@ -303,7 +300,7 @@ protected:
 	void disable_transfer();
 	int calc_sector_size(uint8_t size);
 
-	void run_drive_ready_polling();
+	TIMER_CALLBACK_MEMBER(run_drive_ready_polling);
 
 	virtual int check_command();
 	virtual void start_command(int cmd);
@@ -351,7 +348,7 @@ protected:
 	bool write_one_bit(const attotime &limit);
 
 	virtual u8 get_drive_busy() const { return 0; }
-	virtual void clr_drive_busy() { };
+	virtual void clr_drive_busy() { }
 };
 
 class upd765a_device : public upd765_family_device {
@@ -419,8 +416,8 @@ protected:
 	virtual void execute_command(int cmd) override;
 	virtual void command_end(floppy_info &fi, bool data_completion) override;
 	virtual void index_callback(floppy_image_device *floppy, int state) override;
-	virtual u8 get_drive_busy() const override { return drive_busy; };
-	virtual void clr_drive_busy() override { drive_busy = 0; };
+	virtual u8 get_drive_busy() const override { return drive_busy; }
+	virtual void clr_drive_busy() override { drive_busy = 0; }
 
 	void motor_control(int fid, bool start_motor);
 
@@ -512,6 +509,9 @@ public:
 	dp8473_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	virtual void map(address_map &map) override;
+
+protected:
+	virtual void soft_reset() override;
 };
 
 class pc8477a_device : public ps2_fdc_device {

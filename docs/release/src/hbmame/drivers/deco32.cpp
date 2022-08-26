@@ -2,11 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/deco32.cpp"
 
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /*****************
+/*****************
  Fighter's History
 ********************/
 
@@ -47,3 +43,4 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Fighter's History
 GAME( 1993, fghthistas01,   fghthist, fghthist,  fghthist, fghthist_state, init_fghthist,  ROT0, "yumeji[2ch]", "Fighter's History (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+

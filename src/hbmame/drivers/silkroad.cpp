@@ -2,13 +2,9 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/silkroad.cpp"
 
-/****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***********************
+/***********************
  The Legend of Silkroad
-**************************/
+************************/
 
 ROM_START( silkroads01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -102,5 +98,4 @@ ROM_END
 GAME( 2018, silkroads01,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "hack", "The Legend of Silkroad (Simple Attack 2018-03-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, silkroads02,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (All Move Without Magic)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, silkroads03,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (Easy Move)", MACHINE_SUPPORTS_SAVE )
-
 

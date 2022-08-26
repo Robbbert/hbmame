@@ -6,48 +6,34 @@
 //
 //============================================================
 
-#include "input_module.h"
 #include "modules/osdmodule.h"
 
 #if defined(OSD_WINDOWS)
 
+#include "emu.h"
+
+#include "input_dinput.h"
+#include "input_xinput.h"
+
 #include <list>
 #include <vector>
 
-// standard windows headers
-#include <windows.h>
-#include <wrl/client.h>
+#include <oleauto.h>
 #include <wbemcli.h>
 
-// XInput/DirectInput
-#include <xinput.h>
-#include <dinput.h>
 
-#undef interface
-
-// MAME headers
-#include "emu.h"
-
-// MAMEOS headers
-#include "strconv.h"
-#include "winmain.h"
-
-#include "input_common.h"
-#include "input_windows.h"
-#include "input_xinput.h"
-#include "input_dinput.h"
+namespace {
 
 using namespace Microsoft::WRL;
 
-template<class TCom>
+template <class TCom>
 class ComArray
 {
 private:
-	std::vector<TCom*> m_entries;
+	std::vector<TCom *> m_entries;
 
 public:
-	ComArray(size_t capacity)
-		: m_entries(capacity, nullptr)
+	ComArray(size_t capacity) : m_entries(capacity, nullptr)
 	{
 	}
 
@@ -76,12 +62,12 @@ public:
 
 	void Release()
 	{
-		for (int i = 0; i < m_entries.size(); i++)
+		for (auto &entry : m_entries)
 		{
-			if (m_entries[i] != nullptr)
+			if (entry != nullptr)
 			{
-				m_entries[i]->Release();
-				m_entries[i] = nullptr;
+				entry->Release();
+				entry = nullptr;
 			}
 		}
 	}
@@ -91,7 +77,7 @@ struct bstr_deleter
 {
 	void operator () (BSTR bstr) const
 	{
-		if (bstr != nullptr)
+		if (bstr)
 			SysFreeString(bstr);
 	}
 };
@@ -146,8 +132,8 @@ private:
 	bool m_xinput_detect_failed;
 
 public:
-	winhybrid_joystick_module()
-		: wininput_module(OSD_JOYSTICKINPUT_PROVIDER, "winhybrid"),
+	winhybrid_joystick_module() :
+		wininput_module(OSD_JOYSTICKINPUT_PROVIDER, "winhybrid"),
 		m_xinput_helper(nullptr),
 		m_dinput_helper(nullptr),
 		m_xinput_detect_failed(false)
@@ -232,13 +218,13 @@ protected:
 		if (result != 0)
 		{
 			m_xinput_detect_failed = true;
-			osd_printf_warning("XInput device detection failed. XInput won't be used. Error: 0x%X\n", static_cast<unsigned int>(result));
+			osd_printf_warning("XInput device detection failed. XInput won't be used. Error: 0x%X\n", uint32_t(result));
 		}
 
 		// Enumerate all the directinput joysticks and add them if they aren't xinput compatible
 		result = m_dinput_helper->enum_attached_devices(DI8DEVCLASS_GAMECTRL, this, &machine);
 		if (result != DI_OK)
-			fatalerror("DirectInput: Unable to enumerate keyboards (result=%08X)\n", static_cast<uint32_t>(result));
+			fatalerror("DirectInput: Unable to enumerate game controllers (result=%08X)\n", uint32_t(result));
 
 		xinput_joystick_device *devinfo;
 
@@ -254,7 +240,7 @@ protected:
 				{
 					// allocate and link in a new device
 					devinfo = m_xinput_helper->create_xinput_device(machine, i, *this);
-					if (devinfo == nullptr)
+					if (!devinfo)
 						continue;
 
 					// Configure each gamepad to add buttons and Axes, etc.
@@ -269,7 +255,7 @@ private:
 	{
 		int status = 0;
 
-		if (m_xinput_helper == nullptr)
+		if (!m_xinput_helper)
 		{
 			m_xinput_helper = std::make_shared<xinput_api_helper>();
 			status = m_xinput_helper->initialize();
@@ -280,9 +266,9 @@ private:
 			}
 		}
 
-		if (m_dinput_helper == nullptr)
+		if (!m_dinput_helper)
 		{
-			m_dinput_helper = std::make_unique<dinput_api_helper>(DIRECTINPUT_VERSION);
+			m_dinput_helper = std::make_unique<dinput_api_helper>();
 			status = m_dinput_helper->initialize();
 			if (status != DI_OK)
 			{
@@ -441,8 +427,14 @@ private:
 	}
 };
 
-#else
+} // anonymous namespace
+
+#else // defined(OSD_WINDOWS)
+
+#include "input_module.h"
+
 MODULE_NOT_SUPPORTED(winhybrid_joystick_module, OSD_JOYSTICKINPUT_PROVIDER, "winhybrid")
-#endif
+
+#endif // defined(OSD_WINDOWS)
 
 MODULE_DEFINITION(JOYSTICKINPUT_WINHYBRID, winhybrid_joystick_module)

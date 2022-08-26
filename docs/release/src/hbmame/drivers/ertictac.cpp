@@ -51,3 +51,4 @@ ROM_START( armdemo )
 ROM_END
 
 GAME( 1990, armdemo, 0, ertictac, ertictac, ertictac_state, empty_init, ROT0, "Charles Doty", "Demo - ARM" , MACHINE_NOT_WORKING | MACHINE_NO_SOUND_HW )
+

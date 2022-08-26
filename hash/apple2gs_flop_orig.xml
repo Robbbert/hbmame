@@ -4,7 +4,7 @@
 license:CC0
 -->
 
-<softwarelist name="apple2gs_flop_orig" description="Apple IIgs 3.5&quot; original disks">
+<softwarelist name="apple2gs_flop_orig" description="Apple IIgs original disks">
 
 	<software name="rastan">
 		<description>Rastan</description>
@@ -75,7 +75,7 @@ license:CC0
 		<!-- Redumped on May 3rd 2021. -->
 		<!--"Qix" is a 1990 action game developed by Ryan Ridges and John Lund, and distributed by Taito. It requires a 512K Apple IIgs.-->
 
-		<part name="flop0" interface="floppy_3_5">
+		<part name="flop1" interface="floppy_3_5">
 			<dataarea name="flop" size="1296123">
 				<rom name="qix iigs.woz" size="1296123" crc="6955cd6b" sha1="fb20f487be264892bf3828ec8a5c8cabb57f751c" />
 			</dataarea>
@@ -2132,12 +2132,13 @@ license:CC0
 		<publisher>Broderbund Software</publisher>
 		<info name="release" value="2021-06-07"/>
 		<sharedfeat name="compatibility" value="A2GS"/>
-		<!-- It requires a 512K Apple IIgs. -->
-		<!--"The Print Shop IIgs" is a 1987 graphics program developed by David Balsam, Martin Kahn, Corey Kosak, Ann E. Kronen, Susan E. Schlangen, Richard Whittaker, Michelle McBride, Don Albrecht, and Leila Bronstein, and distributed by Broderbund Software. This is version 1.0. It requires a 512K Apple IIgs.-->
+		<!-- It requires a 512K Apple IIgs ROM 01 or earlier. -->
+		<!-- The disk image was modified on July 4th, 2021 to correct the compatibility information. -->
+		<!--"The Print Shop IIgs" is a 1987 graphics program developed by David Balsam, Martin Kahn, Corey Kosak, Ann E. Kronen, Susan E. Schlangen, Richard Whittaker, Michelle McBride, Don Albrecht, and Leila Bronstein, and distributed by Broderbund Software. This is version 1.0. It requires a 512K Apple IIgs ROM 01 or earlier.-->
 
 		<part name="flop1" interface="floppy_3_5">
-			<dataarea name="flop" size="1296808">
-				<rom name="the print shop iigs.woz" size="1296808" crc="5e6c4c53" sha1="3bea5c841e8459cab65d1b6382f66d15ee0b61e4"/>
+			<dataarea name="flop" size="1296816">
+				<rom name="the print shop iigs.woz" size="1296816" crc="57ecd472" sha1="689f6ead1f9ab1a4ffc6fa04088ad063943cb75d" />
 			</dataarea>
 		</part>
 	</software>
@@ -2164,12 +2165,13 @@ license:CC0
 		<publisher>Broderbund Software</publisher>
 		<info name="release" value="2021-06-07"/>
 		<sharedfeat name="compatibility" value="A2GS"/>
-		<!-- It requires a 256K Apple IIgs. -->
-		<!--"Fantavision IIgs" is a 1987 graphics program developed by Scott Anderson and Ken Rosen, and distributed by Broderbund Software. It requires a 256K Apple IIgs.-->
+		<!-- It requires a 256K Apple IIgs ROM 01 or earlier. -->
+		<!-- The disk image was modified on July 4th, 2021 to correct the compatibility information. -->
+		<!--"Fantavision IIgs" is a 1987 graphics program developed by Scott Anderson and Ken Rosen, and distributed by Broderbund Software. It requires a 256K Apple IIgs ROM 01 or earlier.-->
 
 		<part name="flop1" interface="floppy_3_5">
-			<dataarea name="flop" size="1296691">
-				<rom name="fantavision iigs.woz" size="1296691" crc="4c7648fd" sha1="ece3cc2473fedfaa497dea84e01f1b07b43bdeb1"/>
+			<dataarea name="flop" size="1296699">
+				<rom name="fantavision iigs.woz" size="1296699" crc="c179c918" sha1="bf336245b80f5fa0718f717cb8cfad8208996e31" />
 			</dataarea>
 		</part>
 	</software>
@@ -2533,7 +2535,7 @@ license:CC0
 	<software name="mathnme">
 		<description>Math and Me (Version 1.0 08/01/88)</description>
 		<year>1988</year>
-		<publisher>Davidson and Associates</publisher>
+		<publisher>Davidson &amp; Associates</publisher>
 		<info name="release" value="2021-06-16"/>
 		<sharedfeat name="compatibility" value="A2GS"/>
 		<!-- It requires a 512K Apple IIgs. -->
@@ -3037,6 +3039,562 @@ license:CC0
 			<feature name="part_id" value="Disk 2"/>
 			<dataarea name="flop" size="1296364">
 				<rom name="audubon wildlife adventures- whales iigs - disk 2.woz" size="1296364" crc="4b787b04" sha1="9b13466551b1c895853d4ccefb6725a34648a79b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pipedrm">
+		<description>Pipe Dream</description>
+		<year>1990</year>
+		<publisher>Lucasfilm</publisher>
+		<info name="release" value="2021-06-22"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"Pipe Dream" is a 1990 board game developed by Visual Concepts and distributed by Lucasfilm Games. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1296163">
+				<rom name="pipe dream iigs.woz" size="1296163" crc="d77ebd90" sha1="8d02426c2e3418d5162382ff9040de2523b81915"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="showoff">
+		<description>ShowOff (Version 1.1)</description>
+		<year>1987</year>
+		<publisher>Broderbund Software</publisher>
+		<info name="release" value="2021-06-22"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"ShowOff" is a 1987 graphics program developed by Serge Hervy and Jean-Claude Lévy, and distributed by Broderbund Software. This is version 1.1. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Program disk"/>
+			<dataarea name="flop" size="1296706">
+				<rom name="showoff iigs - disk 1 - program.woz" size="1296706" crc="bfb15e70" sha1="99bda5575d3865d8ccda8e82c3d5f8a6fe3e6e02"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Slide show disk"/>
+			<dataarea name="flop" size="1296215">
+				<rom name="showoff iigs - disk 2 - slide show.woz" size="1296215" crc="ea8b58f6" sha1="5ac168d50f82fab9a9d859864a595cd9a0190b1f"/>
+			</dataarea>
+		</part>
+		<part name="flop3" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 3 - Graphics collection - world events"/>
+			<dataarea name="flop" size="1296238">
+				<rom name="showoff iigs - disk 3 - graphics collection- world events.woz" size="1296238" crc="9552e081" sha1="1166cbf373d52be3e62c167c5261973aba3a3e65"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="calcraft">
+		<description>Calendar Crafter (Version 1.2)</description>
+		<year>1987</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 768K Apple IIgs ROM 01 or later. -->
+		<!--"Calendar Crafter" is a 1987 productivity program developed by Gene Breault, Charolyn Kapplinger, Diane Portner, Steven D. Splinter, and Paul R. Wenker, and distributed by MECC. This is version 1.2. It requires a 768K Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1345411">
+				<rom name="calendar crafter iigs.woz" size="1345411" crc="6308e6ba" sha1="b127dfaaa517b49636854de03540602d7c698e1b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="dsgnprnt">
+		<description>Designer Prints (Version 1.0)</description>
+		<year>1989</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 768K Apple IIgs ROM 01 or later. -->
+		<!--"Designer Prints" is a 1989 desktop publishing program developed by Diane Portner, Michael Stein, Brian Walker, and Paul Wenker, and distributed by MECC. This is version 1.0. It requires a 768K Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - System disk"/>
+			<dataarea name="flop" size="1345404">
+				<rom name="designer prints iigs - disk 1 - system.woz" size="1345404" crc="73f51fb4" sha1="3e63b030b9608ab17c81f9c78c1e18e70d355a1d"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1345405">
+				<rom name="designer prints iigs - disk 2 - program.woz" size="1345405" crc="0311a18d" sha1="9a3392746023ac64dc9ef22693a752c4e6968853"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="dsgnpuzl">
+		<description>Designer Puzzles (Version 1.0)</description>
+		<year>1990</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 768K Apple IIgs ROM 01 or later. -->
+		<!--"Designer Puzzles" is a 1990 desktop publishing program developed by Susan Gabrys, John J. Krenz, Diane Portner, and Steve Splinter, and distributed by MECC. This is version 1.0. It requires a 768K Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - System disk"/>
+			<dataarea name="flop" size="1296256">
+				<rom name="designer puzzles iigs - disk 1 - system.woz" size="1296256" crc="8f84d33d" sha1="4a5695fa3d862f8c1a634b112c38329b4750ea46"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1296257">
+				<rom name="designer puzzles iigs - disk 2 - program.woz" size="1296257" crc="bb30e33b" sha1="f85e79e1fff7b7af4bcfb68210beddb6126f5477"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mercury">
+		<description>Mercury (Version 1.0)</description>
+		<year>1989</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1MB Apple IIgs ROM 01 or later. -->
+		<!--"Mercury" is a 1989 desktop publishing program developed by John J. Krenz, Brian Nesse, Michael Palmquist, Steve Splinter, Michael Stein, and Paul Wenker, and distributed by MECC. This is version 1.0. It requires a 1MB Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - System disk"/>
+			<dataarea name="flop" size="1345426">
+				<rom name="mercury iigs - disk 1 - system.woz" size="1345426" crc="43b4de3c" sha1="454548d46d73637756546557cb6dd49f38a22cb8"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1345427">
+				<rom name="mercury iigs - disk 2 - program.woz" size="1345427" crc="f89fd07d" sha1="ef7cc05c80ca00c37d79a3604a2280b85c9b9e2a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="strybkwv">
+		<description>Storybook Weaver</description>
+		<year>1990</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1MB Apple IIgs ROM 01 or later. -->
+		<!--"Storybook Weaver" is a 1990 educational program developed by Charolyn Kapplinger, Patricia Korn, John J. Krenz, Brian S. Nesse, Jean Sharp, and Steve Zehm, and distributed by MECC. This is version 1.0. It requires a 1MB Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - System disk"/>
+			<dataarea name="flop" size="1296282">
+				<rom name="storybook weaver iigs - disk 1 - system.woz" size="1296282" crc="aff98402" sha1="d9eb47035807a144ea3d861c8f95ef609302329e"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1345435">
+				<rom name="storybook weaver iigs - disk 2 - program.woz" size="1345435" crc="ddb0fb06" sha1="2dde4e9d2fe49fe8705bbb640a7e36542166c3ce"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="strywvwa">
+		<description>Storybook Weaver: World of Adventure (Version 1.0)</description>
+		<year>1991</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1MB Apple IIgs ROM 01 or later. -->
+		<!--"Storybook Weaver: World of Adventure" is a 1991 educational program developed by Patricia Korn, Brian S. Nesse, Dee Dee Roedel &amp; Jean Sharp, and distributed by MECC. This is version 1.0. It requires a 1MB Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - System disk"/>
+			<dataarea name="flop" size="1345425">
+				<rom name="storybook weaver - world of adventure iigs - disk 1 - system.woz" size="1345425" crc="34fe37e2" sha1="041e0a42c0577f5f0373b0be4c908d5d0ad1bed1"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1299346">
+				<rom name="storybook weaver - world of adventure iigs - disk 2 - program.woz" size="1299346" crc="628cf0ea" sha1="1f0f71d46a71ce8b82ee24e1e1217199ff72d5f0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="strywvmb">
+		<description>Storybook Weaver: World of Make-Believe (Version 1.0)</description>
+		<year>1991</year>
+		<publisher>MECC</publisher>
+		<info name="release" value="2021-06-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1MB Apple IIgs ROM 01 or later. -->
+		<!--"Storybook Weaver: World of Make Believe" is a 1991 educational program developed by Charolyn Kapplinger, Patricia Korn, and Jean Sharp, and distributed by MECC. This is version 1.0. It requires a 1MB Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - System disk"/>
+			<dataarea name="flop" size="1345417">
+				<rom name="storybook weaver - world of make-believe iigs - disk 1 - system.woz" size="1345417" crc="0f23663b" sha1="dc41a0641411ffee8d86c4e7342c15c11acfb8d2"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1345418">
+				<rom name="storybook weaver - world of make-believe iigs - disk 2 - program.woz" size="1345418" crc="2321b1c5" sha1="5db8b0f9141a28f1e8039908549cd5bc7e8d8872"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="paperboy">
+		<description>Paperboy</description>
+		<year>1988</year>
+		<publisher>Mindscape</publisher>
+		<info name="release" value="2021-07-02"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 256K Apple IIgs ROM 01 -->
+		<!--"Paperboy" is a 1988 action game developed by Tengen and distributed by Mindscape. It requires a 256K Apple IIgs ROM 01.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1305356">
+				<rom name="paperboy iigs.woz" size="1305356" crc="8fdf4e3c" sha1="4409b0d1168e0a693f82bf1fc7366cfe65595443"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="columngs">
+		<description>Columns GS</description>
+		<year>1991</year>
+		<publisher>Quality Computers</publisher>
+		<info name="release" value="2021-07-02"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 768K Apple IIgs ROM 01 or later. -->
+		<!--"Columns GS" is a 1991 action game developed by Kenrick Mock and James Brookes, and distributed by Quality Computers. It requires a 768K Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1296172">
+				<rom name="columns iigs.woz" size="1296172" crc="d812dde7" sha1="069506469e9d558784a0e47cefdf29915d17a807"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="snoopyrm">
+		<description>Snoopy's Reading Machine</description>
+		<year>1990</year>
+		<publisher>American School Publishers</publisher>
+		<info name="release" value="2021-07-02"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1 MB Apple IIgs ROM 01 or later -->
+		<!--"Snoopy's Reading Machine" is a 1990 educational game developed by Susan Mahoney and Associates, and distributed by American School Publishers. It requires a 1 MB Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1296223">
+				<rom name="snoopy's reading machine iigs.woz" size="1296223" crc="4cf5f0b6" sha1="b5a0fa27cd2cb586db45c00034f7b27599f709ed"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="chbrabc">
+		<description>Charlie Brown's ABC's</description>
+		<year>1990</year>
+		<publisher>American School Publishers</publisher>
+		<info name="release" value="2021-07-04"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1 MB Apple IIgs ROM 01 or later. -->
+		<!--"Charlie Brown's ABC's" is a 1990 educational game developed by Susan Mahoney &amp; Associates, and distributed by American School Publishers. It requires a 1 MB Apple IIgs ROM 01 or later.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Startup disk"/>
+			<dataarea name="flop" size="1296195">
+				<rom name="charlie brown's abc's iigs - disk 1 - startup.woz" size="1296195" crc="19dc28dc" sha1="4b69e7c157efbb2041bf1e807995db0e65bbe7c6"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Program disk"/>
+			<dataarea name="flop" size="1312579">
+				<rom name="charlie brown's abc's iigs - disk 2 - program.woz" size="1312579" crc="fa6a09bd" sha1="0f5ee238fecffcb794102dbcc17879a11de5d7c5"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rrbit23">
+		<description>Reader Rabbit (Version 2.3)</description>
+		<year>1987</year>
+		<publisher>The Learning Company</publisher>
+		<info name="release" value="2021-07-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 256K Apple IIgs. -->
+		<!--"Reader Rabbit" is a 1987 educational program developed by Pete Rowe and Aaron Weiss, and distributed by The Learning Company. This is version 2.3. It requires a 256K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1296165">
+				<rom name="reader rabbit iigs.woz" size="1296165" crc="fc417d0a" sha1="5d6c7179955c227182a5e48f0f1ef16de8b710e5"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="madlibs">
+		<description>Mad Libs (Version 1.0)</description>
+		<year>1987</year>
+		<publisher>First Byte</publisher>
+		<info name="release" value="2021-07-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"Mad Libs" is a 1987 educational program developed and distributed by First Byte. This is version 1.0. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1328903">
+				<rom name="mad libs iigs.woz" size="1328903" crc="91007135" sha1="73eba5eb4cb6b0b99d04c6b8aa9790ccb866b2d4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="tarabn">
+		<description>Tales From The Arabian Nights</description>
+		<year>1988</year>
+		<publisher>Unicorn Software</publisher>
+		<info name="release" value="2021-07-26"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 768K Apple IIgs. -->
+		<!--"Tales From The Arabian Nights" is a 1988 educational program developed by Stanley Brewster and June Stark, and distributed by Unicorn Software. It requires a 768K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1"/>
+			<dataarea name="flop" size="1296716">
+				<rom name="tales from the arabian nights iigs - disk 1.woz" size="1296716" crc="551d0a16" sha1="b446d573570b7686a76ce7071122dd68dcfce86b"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2"/>
+			<dataarea name="flop" size="1296204">
+				<rom name="tales from the arabian nights iigs - disk 2.woz" size="1296204" crc="06407198" sha1="9c8cf68514acfa818ce6e1807e5cfa05f40d8eb2"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rdarama">
+		<description>Read-A-Rama</description>
+		<year>1989</year>
+		<publisher>Unicorn Software</publisher>
+		<info name="release" value="2021-07-26"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1MB Apple IIgs. -->
+		<!--"Read-A-Rama" is a 1989 educational program developed by Stan Brewster and Joseph Hewitt, and distributed by Unicorn Software. It requires a 1MB Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Boot disk"/>
+			<dataarea name="flop" size="1296719">
+				<rom name="read-a-rama iigs - disk 1 - boot disk.woz" size="1296719" crc="e430df4a" sha1="96dba78e27ab06de97117a27542c3ce211a7bd44"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Level 1"/>
+			<dataarea name="flop" size="1296205">
+				<rom name="read-a-rama iigs - disk 2 - level 1.woz" size="1296205" crc="9b23b421" sha1="0fc3c37883a2358c7644785eaa7488184d431558"/>
+			</dataarea>
+		</part>
+		<part name="flop3" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 3 - Level 2"/>
+			<dataarea name="flop" size="1296216">
+				<rom name="read-a-rama iigs - disk 3 - level 2.woz" size="1296216" crc="7420be24" sha1="1bb82fc0da0c56c291fda9c19213659123fde543"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="readnme">
+		<description>Reading and Me (Version 1.0)</description>
+		<year>1988</year>
+		<publisher>Davidson &amp; Associates</publisher>
+		<info name="release" value="2021-07-25"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"Reading and Me" is a 1988 educational program developed by Louis X. Savain and C. K. Haun, and distributed by Davidson &amp; Associates. This is version 1.0. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Program disk"/>
+			<dataarea name="flop" size="1328940">
+				<rom name="reading and me iigs - disk 1 - program.woz" size="1328940" crc="598bd916" sha1="aeff5dc46e4175b69702fd393eea6fc3d95f089c"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Data disk"/>
+			<dataarea name="flop" size="1312556">
+				<rom name="reading and me iigs - disk 2 - data.woz" size="1312556" crc="8c0d3e1f" sha1="ba53651eed2bd0393b8d83390555825302b9bba5"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kquest2">
+		<description>King's Quest II (Version 2.0A)</description>
+		<year>1987</year>
+		<publisher>Sierra On-Line</publisher>
+		<info name="release" value="2021-09-28"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"King's Quest II: Romancing The Throne" is a 1987 adventure game developed by Roberta Williams, Jeff Stephenson, Chris Iden, Robert Heitman, Ken Williams, Sol Ackerman, Scott Murphy, Doug MacNeill, Mark Crowe, and Al Lowe, and distributed by Sierra On-Line. This is version 2.0A. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1"/>
+			<dataarea name="flop" size="1312707">
+				<rom name="king's quest ii iigs - disk 1.woz" size="1312707" crc="df46df6b" sha1="bc29f617b36e77f064f13b371db1a0ed6e8cc1de"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2"/>
+			<dataarea name="flop" size="1312707">
+				<rom name="king's quest ii iigs - disk 2.woz" size="1312707" crc="23294f32" sha1="e0e383b140d7eafd3b94faeb12074564a8d0a24b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sltroyal">
+		<description>Solitaire Royale (Version 1.0)</description>
+		<year>1989</year>
+		<publisher>Spectrum Holobyte</publisher>
+		<info name="release" value="2021-08-26"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"Solitaire Royale" is a 1989 card game developed by Jake Hoelter, Jody Sather, Ilan "The Zipper" Zipkin, and Brad Fregger, and distributed by Spectrum Holobyte. This is version 1.0. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<dataarea name="flop" size="1361746">
+				<rom name="solitaire royale iigs.woz" size="1361746" crc="0a8a99ba" sha1="e3693a5d5f3534b4eb1a7ccc6ab8e96463fa0a28"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kingqst">
+		<description>King's Quest: Quest for the Crown</description>
+		<year>1987</year>
+		<publisher>Sierra On-Line</publisher>
+		<info name="release" value="2021-10-09"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"King's Quest" is a 1987 adventure game designed and written by Roberta Williams; developed by Charles Tingley, Ken MacNeill, and Chris Iden; with graphics by Doug MacNeill, Greg Rowland, and Chris Iden; ported to the Apple IIgs by Carlos Escobar; with music by Al Lowe; distributed by Sierra On-Line. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1"/>
+			<dataarea name="flop" size="1296282">
+				<rom name="king's quest iigs - disk 1.woz" size="1296282" crc="813e5b11" sha1="8e61a96821460da26d8e9c567e358ec18d15c535"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2"/>
+			<dataarea name="flop" size="1298330">
+				<rom name="king's quest iigs - disk 2.woz" size="1298330" crc="832a3043" sha1="7fe827331b55408b478ffb45330a09de73234ebb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="3stooges">
+		<description>The Three Stooges</description>
+		<year>1987</year>
+		<publisher>Cinemaware</publisher>
+		<info name="release" value="2022-02-15"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires an Apple IIgs ROM1 or later with 1.25 MB of RAM. -->
+		<!--"The Three Stooges" is a 1987 adventure game developed by John Cutter, Robert Jacob, Phyllis Jacob, Ed Magnin, Russell Truelove, Jim Simmons, and Patrick Cook, and distributed by Cinemaware. It requires an Apple IIgs ROM1 or later with 1.25 MB of RAM.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Reel 1"/>
+			<dataarea name="flop" size="1296239">
+				<rom name="the three stooges iigs - reel 1.woz" size="1296239" crc="e1b20124" sha1="97ac1b2fbdbe77fe05af42284d01fcc966c57783"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Reel 2"/>
+			<dataarea name="flop" size="1296239">
+				<rom name="the three stooges iigs - reel 2.woz" size="1296239" crc="194170e6" sha1="1ea48fabac3697f6e2c847879f1903c4359e5f79"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="logicm15">
+		<description>The Logic Master (Version 1.5)</description>
+		<year>1990</year>
+		<publisher>Unicorn Software</publisher>
+		<info name="release" value="2022-03-10"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 1MB Apple IIgs. -->
+		<!--"The Logic Master" is a 1990 educational program developed by William Demas and June Stark, and distributed by Unicorn Software. This is version 1.5. It requires a 1MB Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1"/>
+			<dataarea name="flop" size="1296694">
+				<rom name="the logic master iigs disk 1.woz" size="1296694" crc="3189ca98" sha1="990c512542bcc92d7f004330f2e94bcb0aabed49"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2"/>
+			<dataarea name="flop" size="1296182">
+				<rom name="the logic master iigs disk 2.woz" size="1296182" crc="ead031ec" sha1="c2d82474ff7133fe02c82f4de93b9ee39e8d0da7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mixdupmg20a">
+		<description>Mixed-Up Mother Goose (Version 2.0A)</description>
+		<year>1987</year>
+		<publisher>Sierra On-Line</publisher>
+		<info name="release" value="2022-03-13"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"Mixed-Up Mother Goose" is a 1987 adventure game designed by Roberta Williams, with graphics by Jerry Moore, programming by David Slayback, music by Amenda-Lombardo, and distributed by Sierra On-Line. This is version 2.0A. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1"/>
+			<dataarea name="flop" size="1296242">
+				<rom name="mixed up mother goose iigs disk 1.woz" size="1296242" crc="d20296b0" sha1="38f0d20f2c4e444dd6360d4a2f3786a812d87156"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2"/>
+			<dataarea name="flop" size="1296242">
+				<rom name="mixed up mother goose iigs disk 2.woz" size="1296242" crc="17e29c48" sha1="53990f6e6d74da67e630057d69ad85bbe8c86155"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gnargolf">
+		<description>Gnarly Golf</description>
+		<year>1989</year>
+		<publisher>Britannica Software</publisher>
+		<info name="release" value="2022-03-16"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"Gnarly Golf" is a 1989 sports game developed by Jim Coliz Jr., Darren Bartlett, Andy Hildebrand, and Greg Thomas, and distributed by Britannica Software. It requires a 512K Apple IIgs.-->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Program disk"/>
+			<dataarea name="flop" size="1296181">
+				<rom name="gnarly golf iigs disk 1 - program disk.woz" size="1296181" crc="54df53f2" sha1="a755251a853eb7beb826151b8b51b19ef879d814"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Course disk"/>
+			<dataarea name="flop" size="1296181">
+				<rom name="gnarly golf iigs disk 2 - course disk.woz" size="1296181" crc="d4e59bf4" sha1="7a5ee6acbfe98170c3f42b214a71ee26d9043e33"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="4thinchs">
+		<description>4th and Inches</description>
+		<year>1988</year>
+		<publisher>Accolade</publisher>
+		<info name="release" value="2022-03-06"/>
+		<sharedfeat name="compatibility" value="A2GS"/>
+		<!-- It requires a 512K Apple IIgs. -->
+		<!--"4th and Inches" is a 1988 sports program developed by Tony Manso, with music by Ed Bogas, artwork by Les Pardew, and distributed by Accolade. It requires a 512K Apple IIgs.-->
+		<!--"4th and Inches Team Construction Disk" is a 1988 sports program developed by Tony Manso and distributed by Accolade. It requires a 512K Apple IIgs and the main "4th and Inches" disk (&lt;a href="/details/wozaday_4th_and_Inches_IIgs" rel="nofollow"&gt;sold separately&lt;/a&gt;).-->
+		<!-- The Team Construction Set was sold seperatly, but only works with 4th & Inches so it's included as "Disk 2" - FH -->
+
+		<part name="flop1" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 1 - Program disk"/>
+			<dataarea name="flop" size="1296673">
+				<rom name="4th and inches iigs.woz" size="1296673" crc="bb961693" sha1="65c4c67d8595e7560903eb993a1fbd79f33bc5de"/>
+			</dataarea>
+		</part>
+		<part name="flop2" interface="floppy_3_5">
+			<feature name="part_id" value="Disk 2 - Team Construction disk"/>
+			<dataarea name="flop" size="1296171">
+				<rom name="4th and inches team construction disk iigs.woz" size="1296171" crc="29e99ddf" sha1="ed9bd3b4603d3722a6b5a348accc535c23b8acdc"/>
 			</dataarea>
 		</part>
 	</software>

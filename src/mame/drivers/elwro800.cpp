@@ -31,6 +31,7 @@
 #include "machine/bankdev.h"
 
 #include "screen.h"
+#include "softlist_dev.h"
 #include "speaker.h"
 
 
@@ -324,7 +325,7 @@ void elwro800_state::elwro800jr_io_w(offs_t offset, uint8_t data)
 	if (!BIT(cs,0))
 	{
 		// CFE
-		spectrum_port_fe_w(offset, data);
+		spectrum_ula_w(offset, data);
 	}
 	else if (!BIT(cs,1))
 	{
@@ -519,6 +520,8 @@ INPUT_PORTS_END
 
 void elwro800_state::machine_reset()
 {
+	spectrum_state::machine_reset();
+
 	uint8_t *messram = m_ram->pointer();
 
 	memset(messram, 0, 64*1024);
@@ -574,10 +577,11 @@ void elwro800_state::elwro800(machine_config &config)
 
 	/* video hardware */
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_raw(14_MHz_XTAL / 2, 448, 0, SPEC_SCREEN_WIDTH, 312, 0, SPEC_SCREEN_HEIGHT);
+	rectangle visarea = { get_screen_area().left() - SPEC_LEFT_BORDER, get_screen_area().right() + SPEC_RIGHT_BORDER,
+		get_screen_area().top() - SPEC_TOP_BORDER, get_screen_area().bottom() + SPEC_BOTTOM_BORDER };
+	screen.set_raw(14_MHz_XTAL / 2, SPEC_CYCLES_PER_LINE * 2, SPEC_UNSEEN_LINES + SPEC_SCREEN_HEIGHT, visarea);
 	// Sync and interrupt timings determined by 2716 EPROM
 	screen.set_screen_update(FUNC(elwro800_state::screen_update_spectrum));
-	screen.screen_vblank().set(FUNC(elwro800_state::screen_vblank_spectrum));
 	screen.set_palette("palette");
 
 	PALETTE(config, "palette", FUNC(elwro800_state::spectrum_palette), 16);
@@ -611,6 +615,7 @@ void elwro800_state::elwro800(machine_config &config)
 	m_cassette->set_formats(tzx_cassette_formats);
 	m_cassette->set_default_state(CASSETTE_STOPPED | CASSETTE_SPEAKER_ENABLED | CASSETTE_MOTOR_ENABLED);
 	m_cassette->add_route(ALL_OUTPUTS, "mono", 0.05);
+	m_cassette->set_interface("spectrum_cass");
 
 	FLOPPY_CONNECTOR(config, "upd765:0", elwro800jr_floppies, "525hd", floppy_image_device::default_mfm_floppy_formats);
 	FLOPPY_CONNECTOR(config, "upd765:1", elwro800jr_floppies, "525hd", floppy_image_device::default_mfm_floppy_formats);
@@ -620,6 +625,8 @@ void elwro800_state::elwro800(machine_config &config)
 
 	ADDRESS_MAP_BANK(config, "bank1").set_map(&elwro800_state::elwro800_bank1).set_data_width(8).set_stride(0x2000);
 	ADDRESS_MAP_BANK(config, "bank2").set_map(&elwro800_state::elwro800_bank2).set_data_width(8).set_stride(0x2000);
+
+	SOFTWARE_LIST(config, "cass_list").set_original("spectrum_cass");
 }
 
 /*************************************

@@ -755,13 +755,7 @@ GAME( 2003, kof2k3gc,   kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kof2
 GAME( 2003, kof2k3sc,   kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kof2003b,  ROT0, "SHIPDS", "Kof2003 (Color changed)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /***************************
+/***************************
   The King of Fighters '2003
 *****************************/
 

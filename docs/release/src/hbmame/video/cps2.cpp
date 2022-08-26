@@ -287,9 +287,6 @@ void cps2_state::cps1_cps_b_w(offs_t offset, u16 data, u16 mem_mask)
 
 void cps2_state::unshuffle( u64 *buf, int len )
 {
-	int i;
-	u64 t;
-
 	if (len == 2)
 		return;
 
@@ -300,9 +297,9 @@ void cps2_state::unshuffle( u64 *buf, int len )
 	unshuffle(buf, len);
 	unshuffle(buf + len, len);
 
-	for (i = 0; i < len / 2; i++)
+	for (int i = 0; i < len / 2; i++)
 	{
-		t = buf[len / 2 + i];
+		u64 t = buf[len / 2 + i];
 		buf[len / 2 + i] = buf[len + i];
 		buf[len + i] = t;
 	}
@@ -313,9 +310,8 @@ void cps2_state::cps2_gfx_decode()
 {
 	const int banksize = 0x200000;
 	int size = memregion("gfx")->bytes();
-	int i;
 
-	for (i = 0; i < size; i += banksize)
+	for (int i = 0; i < size; i += banksize)
 		unshuffle((u64 *)(memregion("gfx")->base() + i), banksize / 8);
 }
 
@@ -492,19 +488,15 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile0_info)
 {
 	int code = m_scroll1[2 * tile_index];
 	int attr = m_scroll1[2 * tile_index + 1];
-	int gfxset;
 
 	code = gfxrom_bank_mapper(GFXTYPE_SCROLL1, code);
 
 	/* allows us to reproduce a problem seen with a ffight board where USA and Japanese
 	     roms have been mixed to be reproduced (ffightub) -- it looks like each column
 	     should alternate between the left and right side of the 16x16 tiles */
-	gfxset = (tile_index & 0x20) >> 5;
+	int gfxset = (tile_index & 0x20) >> 5;
 
-	tileinfo.set(gfxset,
-			code,
-			(attr & 0x1f) + 0x20,
-			TILE_FLIPYX((attr & 0x60) >> 5));
+	tileinfo.set(gfxset, code, (attr & 0x1f) + 0x20, TILE_FLIPYX((attr & 0x60) >> 5));
 	tileinfo.group = (attr & 0x0180) >> 7;
 
 	// for out of range tiles, switch to fully transparent data
@@ -520,10 +512,7 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile1_info)
 
 	code = gfxrom_bank_mapper(GFXTYPE_SCROLL2, code);
 
-	tileinfo.set(2,
-			code,
-			(attr & 0x1f) + 0x40,
-			TILE_FLIPYX((attr & 0x60) >> 5));
+	tileinfo.set(2, code, (attr & 0x1f) + 0x40, TILE_FLIPYX((attr & 0x60) >> 5));
 	tileinfo.group = (attr & 0x0180) >> 7;
 
 	// for out of range tiles, switch to fully transparent data
@@ -538,10 +527,7 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile2_info)
 
 	code = gfxrom_bank_mapper(GFXTYPE_SCROLL3, code);
 
-	tileinfo.set(3,
-			code,
-			(attr & 0x1f) + 0x60,
-			TILE_FLIPYX((attr & 0x60) >> 5));
+	tileinfo.set(3, code, (attr & 0x1f) + 0x60, TILE_FLIPYX((attr & 0x60) >> 5));
 	tileinfo.group = (attr & 0x0180) >> 7;
 
 	// for out of range tiles, switch to fully transparent data
@@ -554,17 +540,13 @@ TILE_GET_INFO_MEMBER(cps2_state::get_tile2_info)
 
 void cps2_state::cps1_update_transmasks()
 {
-	int i;
-
-	for (i = 0; i < 4; i++)
+	for (u8 i = 0; i < 4; i++)
 	{
-		int mask;
+		int mask = 0xffff;  /* completely transparent if priority masks not defined (qad) */
 
 		/* Get transparency registers */
 		if (m_priority[i] != -1)
 			mask = m_cps_b_regs[m_priority[i] / 2] ^ 0xffff;
-		else
-			mask = 0xffff;  /* completely transparent if priority masks not defined (qad) */
 
 		m_bg_tilemap[0]->set_transmask(i, mask, 0x8000);
 		m_bg_tilemap[1]->set_transmask(i, mask, 0x8000);
@@ -574,8 +556,6 @@ void cps2_state::cps1_update_transmasks()
 
 VIDEO_START_MEMBER(cps2_state,cps)
 {
-	int i;
-
 	MACHINE_RESET_CALL_MEMBER(cps);
 
 	/* Put in some const */
@@ -598,7 +578,7 @@ VIDEO_START_MEMBER(cps2_state,cps)
 	/* front masks will change at runtime to handle sprite occluding */
 	cps1_update_transmasks();
 
-	for (i = 0; i < cps1_palette_entries * 16; i++)
+	for (int i = 0; i < cps1_palette_entries * 16; i++)
 		m_palette->set_pen_color(i, rgb_t(0,0,0));
 
 	m_buffered_obj = make_unique_clear<u16[]>(m_obj_size / 2);
@@ -691,7 +671,6 @@ VIDEO_START_MEMBER(cps2_state,cps2)
 
 void cps2_state::cps1_build_palette( const u16* const palette_base )
 {
-	int offset, page;
 	const u16 *palette_ram = palette_base;
 	int ctrl = m_cps_b_regs[m_palette_control/2];
 
@@ -700,14 +679,13 @@ void cps2_state::cps1_build_palette( const u16* const palette_base )
 	register. Note that if the first palette pages are skipped, all
 	the following pages are scaled down.
 	*/
-	for (page = 0; page < 6; ++page)
+	for (u8 page = 0; page < 6; ++page)
 	{
 		if (BIT(ctrl, page))
 		{
-			for (offset = 0; offset < 0x200; ++offset)
+			for (u16 offset = 0; offset < 0x200; ++offset)
 			{
 				int palette = *(palette_ram++);
-				int r, g, b, bright;
 
 				// from my understanding of the schematics, when the 'brightness'
 				// component is set to 0 it should reduce brightness to 1/3
@@ -715,12 +693,12 @@ void cps2_state::cps1_build_palette( const u16* const palette_base )
 				// HBMAME start
 				u8 b_adj = 0x0f;
 				u8 b_div = 0x1e + b_adj;
-				bright = b_adj + ((palette >> 12) << 1);
+				u8 bright = b_adj + ((palette >> 12) << 1);
 
 				// New code to get rid of grey squares
-				r = (palette >> 8) & 0x0f;
-				g = (palette >> 4) & 0x0f;
-				b = palette & 0x0f;
+				u8 r = (palette >> 8) & 0x0f;
+				u8 g = (palette >> 4) & 0x0f;
+				u8 b = palette & 0x0f;
 				r = (r > 1) ? r * 0x11 * bright / b_div : 0;
 				g = (g > 1) ? g * 0x11 * bright / b_div : 0;
 				b = (b > 1) ? b * 0x11 * bright / b_div : 0;
@@ -818,12 +796,11 @@ void cps2_state::cps1_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 }
 
 
-	int i, baseadd;
 	u16 *base = m_buffered_obj.get();
 
-	baseadd = 4;
+	int baseadd = 4;
 
-	for (i = m_last_sprite_offset; i >= 0; i -= 4)
+	for (int i = m_last_sprite_offset; i >= 0; i -= 4)
 	{
 		int x = *(base + 0);
 		int y = *(base + 1);
@@ -985,8 +962,7 @@ void cps2_state::cps2_objram2_w(offs_t offset, u16 data, u16 mem_mask)
 
 u16 *cps2_state::cps2_objbase()
 {
-	int baseptr;
-	baseptr = 0x7000;
+	int baseptr = 0x7000;
 
 	if (m_objram_bank & 1)
 		baseptr ^= 0x0080;
@@ -1041,7 +1017,6 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 				SX,SY, screen.priority(),primasks[priority],15);                 \
 }
 
-	int i;
 	u16 *base = m_cps2_buffered_obj.get();
 	int xoffs = 64 - m_output[CPS2_OBJ_XOFFS /2];
 	int yoffs = 16 - m_output[CPS2_OBJ_YOFFS /2];
@@ -1053,7 +1028,7 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 	}
 #endif
 
-	for (i = m_cps2_last_sprite_offset; i >= 0; i -= 4)
+	for (int i = m_cps2_last_sprite_offset; i >= 0; i -= 4)
 	{
 		int x = base[i + 0];
 		int y = base[i + 1];
@@ -1170,7 +1145,6 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 
 void cps2_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect )
 {
-	int offs;
 	u8 *stars_rom = m_region_stars->base();
 
 	if (!stars_rom && (m_stars_enabled[0] || m_stars_enabled[1]))
@@ -1183,7 +1157,7 @@ void cps2_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap,
 
 	if (m_stars_enabled[0])
 	{
-		for (offs = 0; offs < m_stars_rom_size / 2; offs++)
+		for (int offs = 0; offs < m_stars_rom_size / 2; offs++)
 		{
 			int col = stars_rom[8 * offs + 4];
 			if (col != 0x0f)
@@ -1208,7 +1182,7 @@ void cps2_state::cps1_render_stars( screen_device &screen, bitmap_ind16 &bitmap,
 
 	if (m_stars_enabled[1])
 	{
-		for (offs = 0; offs < m_stars_rom_size / 2; offs++)
+		for (int offs = 0; offs < m_stars_rom_size / 2; offs++)
 		{
 			int col = stars_rom[8*offs];
 			if (col != 0x0f)
@@ -1272,12 +1246,11 @@ void cps2_state::cps1_render_high_layer( screen_device &screen, bitmap_ind16 &bi
 
 u32 cps2_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	int layercontrol, l0, l1, l2, l3;
 	int videocontrol = m_cps_a_regs[CPS1_VIDEOCONTROL];
 
 	flip_screen_set(videocontrol & 0x8000);
 
-	layercontrol = m_cps_b_regs[m_layer_control / 2];
+	int layercontrol = m_cps_b_regs[m_layer_control / 2];
 
 	/* Get video memory base registers */
 	cps1_get_video_base();
@@ -1337,10 +1310,10 @@ u32 cps2_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, 
 	}
 
 	/* Draw layers (0 = sprites, 1-3 = tilemaps) */
-	l0 = (layercontrol >> 0x06) & 03;
-	l1 = (layercontrol >> 0x08) & 03;
-	l2 = (layercontrol >> 0x0a) & 03;
-	l3 = (layercontrol >> 0x0c) & 03;
+	u8 l0 = (layercontrol >> 0x06) & 03;
+	u8 l1 = (layercontrol >> 0x08) & 03;
+	u8 l2 = (layercontrol >> 0x0a) & 03;
+	u8 l3 = (layercontrol >> 0x0c) & 03;
 	screen.priority().fill(0, cliprect);
 
 	if (m_cps_version == 1)
@@ -1364,12 +1337,11 @@ u32 cps2_state::screen_update_cps1(screen_device &screen, bitmap_ind16 &bitmap, 
 	}
 	else
 	{
-		int l0pri, l1pri, l2pri, l3pri;
-		int primasks[8], i;
-		l0pri = (m_pri_ctrl >> 4 * l0) & 0x0f;
-		l1pri = (m_pri_ctrl >> 4 * l1) & 0x0f;
-		l2pri = (m_pri_ctrl >> 4 * l2) & 0x0f;
-		l3pri = (m_pri_ctrl >> 4 * l3) & 0x0f;
+		int primasks[8]{};
+		u8 l0pri = (m_pri_ctrl >> 4 * l0) & 0x0f;
+		u8 l1pri = (m_pri_ctrl >> 4 * l1) & 0x0f;
+		u8 l2pri = (m_pri_ctrl >> 4 * l2) & 0x0f;
+		u8 l3pri = (m_pri_ctrl >> 4 * l3) & 0x0f;
 
 #if 0
 if (    (m_output[CPS2_OBJ_BASE /2] != 0x7080 && m_output[CPS2_OBJ_BASE /2] != 0x7000) ||
@@ -1397,7 +1369,7 @@ if (0 && machine().input().code_pressed(KEYCODE_Z))
 			if (l1pri > l2pri) mask1 &= ~0xc0;
 
 			primasks[0] = 0xff;
-			for (i = 1; i < 8; i++)
+			for (u8 i = 1; i < 8; i++)
 			{
 				if (i <= l0pri && i <= l1pri && i <= l2pri)
 				{

@@ -1629,13 +1629,7 @@ GAME( 1996, kof96ryu,  kof96,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 1996, kof96seh,  kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Ydmis", "Kof'96 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE )
 
 
-// PSmame (c) gaston90 used with permission
-
- /****************************************************
-         Proyecto Shadows Mame Build Plus
-*****************************************************/
-
- /************************
+/************************
  The King of Fighters '96
 ***************************/
 
@@ -2861,3 +2855,4 @@ GAME( 2020, kof96s48,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, kof96s49,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'96 (Remix Plus 2008SP 2020-02-09)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof96s50,       kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "EGHT/EGCG",    "Kof'96 (The Aniversary Edition 2.3 Final Version Simplify The Move 2020-05-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96cns01,     kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Guangzhou Game Team", "Kof'96 (Earlier version)(Chinese Edition ver 1.0)", MACHINE_SUPPORTS_SAVE )
+

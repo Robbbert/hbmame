@@ -43,7 +43,7 @@ Known games on this hardware include....
 
 Game                        (C)      Year
 -----------------------------------------
-GTI Club                    Konami   1996
+GTI Club: Rally Cote D'Azur Konami   1996
 Jet Wave / Wave Shark       Konami   1996 (video board only)
 Operation Thunder Hurricane Konami   1997
 Solar Assault               Konami   1997
@@ -112,7 +112,7 @@ ROM Usage
                             |--------------------------------------- ROM Locations --------------------------------------|
 Game                        13K     2S      5S      7S      9S      12U     14U     19R       19U       21R       21U
 --------------------------------------------------------------------------------------------------------------------------
-GTI Club                    688A07  688A12  688A11  688A10  688A09  688A06  688A05  688AAA04  688AAA02  688AAA03  688AAA01
+GTI Club: Rally Cote D'Azur 688A07  688A12  688A11  688A10  688A09  688A06  688A05  688AAA04  688AAA02  688AAA03  688AAA01
 Jet Wave                    - see note -
 Hang Pilot                  685A07  -       -       685A10  685A09  685A06  685A05  685JAB04  685JAB02  685JAB03  685JAB01
 Operation Thunder Hurricane 680A07  680A12  680A11  680A10  680A09  680A06  680A05  680UAA04  680UAA02  680UAA03  680UAA01
@@ -213,7 +213,7 @@ ROM Usage
                             |---------------------- ROM Locations -----------------------|
 Game                        2D      4D      6D      9D      11D     13D     16D     18D
 ------------------------------------------------------------------------------------------
-GTI Club                    -       688A16  -       688A15  -       688A14  -       688A13
+GTI Club: Rally Cote D'Azur -       688A16  -       688A15  -       688A14  -       688A13
 Jet Wave                    -       678A16  -       678A15  -       678A14  -       678A13
 Operation Thunder Hurricane -       680A16  -       680A15  -       680A14  -       680A13
 Solar Assault               -       792A16  -       792A15  -       792A14  -       792A13
@@ -339,7 +339,7 @@ private:
 	void sharc_map(address_map &map);
 	void sound_memmap(address_map &map);
 
-	emu_timer *m_sound_irq_timer;
+	emu_timer *m_sound_irq_timer = nullptr;
 
 #if DEBUG_GTI
 	uint8_t m_tick = 0;
@@ -466,7 +466,7 @@ void gticlub_state::machine_start()
 	// configure fast RAM regions for DRC
 	m_maincpu->ppcdrc_add_fastram(0x00000000, 0x000fffff, false, m_work_ram);
 
-	m_sound_irq_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(gticlub_state::sound_irq), this));
+	m_sound_irq_timer = timer_alloc(FUNC(gticlub_state::sound_irq), this);
 }
 
 void gticlub_state::gticlub_map(address_map &map)
@@ -482,8 +482,8 @@ void gticlub_state::gticlub_map(address_map &map)
 	map(0x78080000, 0x7808000f).rw(m_k001006[1], FUNC(k001006_device::read), FUNC(k001006_device::write));
 	map(0x780c0000, 0x780c0003).rw(m_konppc, FUNC(konppc_device::cgboard_dsp_comm_r_ppc), FUNC(konppc_device::cgboard_dsp_comm_w_ppc));
 	map(0x7e000000, 0x7e003fff).rw(FUNC(gticlub_state::sysreg_r), FUNC(gticlub_state::sysreg_w));
-	map(0x7e008000, 0x7e009fff).rw(m_k056230, FUNC(k056230_device::read), FUNC(k056230_device::write));
-	map(0x7e00a000, 0x7e00bfff).rw(m_k056230, FUNC(k056230_device::lanc_ram_r), FUNC(k056230_device::lanc_ram_w));
+	map(0x7e008000, 0x7e009fff).rw(m_k056230, FUNC(k056230_device::regs_r), FUNC(k056230_device::regs_w));
+	map(0x7e00a000, 0x7e00bfff).rw(m_k056230, FUNC(k056230_device::ram_r), FUNC(k056230_device::ram_w));
 	map(0x7e00c000, 0x7e00c00f).rw(m_k056800, FUNC(k056800_device::host_r), FUNC(k056800_device::host_w));
 	map(0x7f000000, 0x7f3fffff).rom().region("datarom", 0);
 	map(0x7f800000, 0x7f9fffff).rom().region("prgrom", 0);
@@ -504,8 +504,8 @@ void gticlub_state::hangplt_map(address_map &map)
 	map(0x78000000, 0x7800ffff).rw(m_konppc, FUNC(konppc_device::cgboard_dsp_shared_r_ppc), FUNC(konppc_device::cgboard_dsp_shared_w_ppc));
 	map(0x780c0000, 0x780c0003).rw(m_konppc, FUNC(konppc_device::cgboard_dsp_comm_r_ppc), FUNC(konppc_device::cgboard_dsp_comm_w_ppc));
 	map(0x7e000000, 0x7e003fff).rw(FUNC(gticlub_state::sysreg_r), FUNC(gticlub_state::sysreg_w));
-	map(0x7e008000, 0x7e009fff).rw(m_k056230, FUNC(k056230_device::read), FUNC(k056230_device::write));
-	map(0x7e00a000, 0x7e00bfff).rw(m_k056230, FUNC(k056230_device::lanc_ram_r), FUNC(k056230_device::lanc_ram_w));
+	map(0x7e008000, 0x7e009fff).rw(m_k056230, FUNC(k056230_device::regs_r), FUNC(k056230_device::regs_w));
+	map(0x7e00a000, 0x7e00bfff).rw(m_k056230, FUNC(k056230_device::ram_r), FUNC(k056230_device::ram_w));
 	map(0x7e00c000, 0x7e00c00f).rw(m_k056800, FUNC(k056800_device::host_r), FUNC(k056800_device::host_w));
 	map(0x7f000000, 0x7f3fffff).rom().region("datarom", 0);
 	map(0x7f800000, 0x7f9fffff).rom().region("prgrom", 0);
@@ -868,7 +868,8 @@ void gticlub_state::gticlub(machine_config &config)
 	m_adc1038->set_input_callback(FUNC(gticlub_state::adc1038_input_callback));
 	m_adc1038->set_gti_club_hack(true);
 
-	K056230(config, m_k056230, "maincpu");
+	K056230(config, m_k056230);
+	m_k056230->irq_cb().set_inputline(m_maincpu, INPUT_LINE_IRQ2);
 
 	// video hardware
 	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
@@ -948,7 +949,8 @@ void gticlub_state::hangplt(machine_config &config)
 	ADC1038(config, m_adc1038, 0);
 	m_adc1038->set_input_callback(FUNC(gticlub_state::adc1038_input_callback));
 
-	K056230(config, m_k056230, "maincpu");
+	K056230(config, m_k056230);
+	m_k056230->irq_cb().set_inputline(m_maincpu, INPUT_LINE_IRQ2);
 
 	VOODOO_1(config, m_voodoo[0], voodoo_1_device::NOMINAL_CLOCK);
 	m_voodoo[0]->set_fbmem(2);
@@ -1036,7 +1038,7 @@ ROM_START( gticlub ) // Euro version EAA - Reports: GTI CLUB(TM) System ver 1.00
 	ROM_LOAD64_WORD( "688a16.4d",  0x000006, 0x200000, CRC(7f4e1893) SHA1(585be7b31ab7a48300c22b00443b00d631f4c49d) )
 
 	ROM_REGION16_BE( 0x100, "eeprom", 0 )
-	ROM_LOAD( "gticlub.nv", 0x0000, 0x0100, CRC(ee5c9149) SHA1(cf4fda82c7d01eab664f21b062c55a3dd0234556) )
+	ROM_LOAD16_WORD_SWAP( "93c56.24g", 0x0000, 0x0100, CRC(9564a685) SHA1(ec19f3d6e3a55eac4dab6da5ede7216f002b3186) )
 ROM_END
 
 ROM_START( gticlubu ) // USA version UAA - Reports: GTI CLUB(TM) System ver 1.02(USA)
@@ -1066,7 +1068,7 @@ ROM_START( gticlubu ) // USA version UAA - Reports: GTI CLUB(TM) System ver 1.02
 	ROM_LOAD64_WORD( "688a16.4d",  0x000006, 0x200000, CRC(7f4e1893) SHA1(585be7b31ab7a48300c22b00443b00d631f4c49d) )
 
 	ROM_REGION16_BE( 0x100, "eeprom", 0 )
-	ROM_LOAD( "gticlub.nv", 0x0000, 0x0100, CRC(ee5c9149) SHA1(cf4fda82c7d01eab664f21b062c55a3dd0234556) )
+	ROM_LOAD16_WORD_SWAP("93c56.24g", 0x0000, 0x0100, CRC(9564a685) SHA1(ec19f3d6e3a55eac4dab6da5ede7216f002b3186))
 ROM_END
 
 ROM_START( gticluba ) // Asia version AAA - Reports: GTI CLUB(TM) System ver 1.00(ASI)
@@ -1096,7 +1098,7 @@ ROM_START( gticluba ) // Asia version AAA - Reports: GTI CLUB(TM) System ver 1.0
 	ROM_LOAD64_WORD( "688a16.4d",  0x000006, 0x200000, CRC(7f4e1893) SHA1(585be7b31ab7a48300c22b00443b00d631f4c49d) )
 
 	ROM_REGION16_BE( 0x100, "eeprom", 0 )
-	ROM_LOAD( "gticlub.nv", 0x0000, 0x0100, CRC(ee5c9149) SHA1(cf4fda82c7d01eab664f21b062c55a3dd0234556) )
+	ROM_LOAD16_WORD_SWAP("93c56.24g", 0x0000, 0x0100, CRC(9564a685) SHA1(ec19f3d6e3a55eac4dab6da5ede7216f002b3186))
 ROM_END
 
 ROM_START( gticlubj ) // Japan version JAA - Reports: GTI CLUB(TM) System ver 1.00(JPN)
@@ -1126,7 +1128,7 @@ ROM_START( gticlubj ) // Japan version JAA - Reports: GTI CLUB(TM) System ver 1.
 	ROM_LOAD64_WORD( "688a16.4d",  0x000006, 0x200000, CRC(7f4e1893) SHA1(585be7b31ab7a48300c22b00443b00d631f4c49d) )
 
 	ROM_REGION16_BE( 0x100, "eeprom", 0 )
-	ROM_LOAD( "gticlub.nv", 0x0000, 0x0100, CRC(ee5c9149) SHA1(cf4fda82c7d01eab664f21b062c55a3dd0234556) )
+	ROM_LOAD16_WORD_SWAP("93c56.24g", 0x0000, 0x0100, CRC(9564a685) SHA1(ec19f3d6e3a55eac4dab6da5ede7216f002b3186))
 ROM_END
 
 ROM_START( thunderh ) // Euro version EAA
@@ -1157,6 +1159,9 @@ ROM_START( thunderh ) // Euro version EAA
 	ROM_LOAD64_WORD( "680a14.13d", 0x000002, 0x200000, CRC(9ae15033) SHA1(12e291114629632b81f53811a6c8666aff4e92f3) )
 	ROM_LOAD64_WORD( "680a15.9d",  0x000004, 0x200000, CRC(dc47c86f) SHA1(71af9b21f1ecc063135f501b1561869ee910c236) )
 	ROM_LOAD64_WORD( "680a16.4d",  0x000006, 0x200000, CRC(ea388143) SHA1(3de5314a009d702186d5e285c8edefdd48139eab) )
+
+	ROM_REGION16_BE(0x100, "eeprom", 0)
+	ROM_LOAD16_WORD_SWAP("93c56.24g", 0x0000, 0x0100, CRC(e6524263) SHA1(de6c614fad8049fa6cebe09722cadae656457d69))
 ROM_END
 
 ROM_START( thunderhu ) // USA version UAA
@@ -1187,6 +1192,9 @@ ROM_START( thunderhu ) // USA version UAA
 	ROM_LOAD64_WORD( "680a14.13d", 0x000002, 0x200000, CRC(9ae15033) SHA1(12e291114629632b81f53811a6c8666aff4e92f3) )
 	ROM_LOAD64_WORD( "680a15.9d",  0x000004, 0x200000, CRC(dc47c86f) SHA1(71af9b21f1ecc063135f501b1561869ee910c236) )
 	ROM_LOAD64_WORD( "680a16.4d",  0x000006, 0x200000, CRC(ea388143) SHA1(3de5314a009d702186d5e285c8edefdd48139eab) )
+
+	ROM_REGION16_BE(0x100, "eeprom", 0)
+	ROM_LOAD16_WORD_SWAP("93c56.24g", 0x0000, 0x0100, CRC(e6524263) SHA1(de6c614fad8049fa6cebe09722cadae656457d69))
 ROM_END
 
 ROM_START( slrasslt ) // USA version UAA
@@ -1366,10 +1374,10 @@ void gticlub_state::init_hangpltu()
 
 /*************************************************************************/
 
-GAME( 1996, gticlub,    0,        gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club (ver EAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
-GAME( 1996, gticlubu,   gticlub,  gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club (ver UAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
-GAME( 1996, gticluba,   gticlub,  gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club (ver AAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
-GAME( 1996, gticlubj,   gticlub,  gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club (ver JAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
+GAME( 1996, gticlub,    0,        gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club: Rally Cote D'Azur (ver EAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
+GAME( 1996, gticlubu,   gticlub,  gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club: Rally Cote D'Azur (ver UAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
+GAME( 1996, gticluba,   gticlub,  gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club: Rally Cote D'Azur (ver AAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
+GAME( 1996, gticlubj,   gticlub,  gticlub,  gticlub,  gticlub_state, init_gticlub,  ROT0, "Konami", "GTI Club: Rally Cote D'Azur (ver JAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
 GAME( 1997, thunderh,   0,        thunderh, thunderh, gticlub_state, init_gticlub,  ROT0, "Konami", "Operation Thunder Hurricane (ver EAA)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
 GAME( 1997, thunderhu,  thunderh, thunderh, thunderh, gticlub_state, init_gticlub,  ROT0, "Konami", "Operation Thunder Hurricane (ver UAA)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_NODEVICE_LAN )
 GAME( 1997, slrasslt,   0,        slrasslt, slrasslt, gticlub_state, init_gticlub,  ROT0, "Konami", "Solar Assault (ver UAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND ) // Based on Revised code

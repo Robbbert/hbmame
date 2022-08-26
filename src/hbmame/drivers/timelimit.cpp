@@ -111,3 +111,4 @@ ROM_START( timelimit )
 ROM_END
 
 GAME( 2017, timelimit, timelimt, timelimit, timelimt, timelimt_hbmame, empty_init, ROT90, "Dink", "Time Limit (colour hack)", MACHINE_SUPPORTS_SAVE )
+

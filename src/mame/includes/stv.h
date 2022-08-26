@@ -14,8 +14,8 @@
 class stv_state : public saturn_state
 {
 public:
-	stv_state(const machine_config &mconfig, device_type type, const char *tag)
-		: saturn_state(mconfig, type, tag),
+	stv_state(const machine_config &mconfig, device_type type, const char *tag) :
+		saturn_state(mconfig, type, tag),
 		m_cart1(*this, "stv_slot1"),
 		m_cart2(*this, "stv_slot2"),
 		m_cart3(*this, "stv_slot3"),
@@ -27,6 +27,10 @@ public:
 		m_5838crypt(*this, "315_5838"),
 		m_hopper(*this, "hopper"),
 		m_billboard(*this, "billboard"),
+		m_ioga_ports(*this, "PORT%c", 'A'),
+		m_ioga_counters(*this, "PORTG.%u", 0),
+		m_ioga_mahjong{ { *this, "P1_KEY%u", 0 }, { *this, "P2_KEY%u", 0 } },
+		m_pdr(*this, "PDR%u", 1),
 		m_cc_digits(*this, "cc_digit%u", 0U)
 	{
 	}
@@ -88,6 +92,7 @@ public:
 	void init_znpwfv();
 	void init_othellos();
 	void init_mausuke();
+	void init_stv_us();
 
 protected:
 	virtual void machine_start() override;
@@ -121,15 +126,16 @@ private:
 	void batmanfr_sound_comms_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
 	optional_device<acclaim_rax_device> m_rax;
 
-	uint8_t     m_port_sel,m_mux_data;
-	uint8_t     m_system_output;
-	uint8_t     m_ioga_mode;
-	uint8_t     m_ioga_portg;
-	uint16_t    m_serial_tx;
+	uint8_t     m_port_sel,m_mux_data = 0;
+	uint8_t     m_system_output = 0;
+	uint8_t     m_ioga_mode = 0;
+	uint8_t     m_ioga_portg = 0;
+	uint16_t    m_ioga_count[4]{};
+	uint16_t    m_serial_tx = 0;
 
 	// protection specific variables and functions
-	uint32_t m_abus_protenable;
-	uint32_t m_abus_protkey;
+	uint32_t m_abus_protenable = 0;
+	uint32_t m_abus_protkey = 0;
 
 	uint32_t decathlt_prot_r(offs_t offset, uint32_t mem_mask = ~0);
 	void sega5838_map(address_map &map);
@@ -138,7 +144,7 @@ private:
 	int m_protbankval; // debug helper only, doesn't need saving
 	void decathlt_prot_srcaddr_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
 
-	uint32_t m_a_bus[4];
+	uint32_t m_a_bus[4]{};
 
 	uint32_t common_prot_r(offs_t offset);
 	void common_prot_w(offs_t offset, uint32_t data, uint32_t mem_mask = ~0);
@@ -151,6 +157,10 @@ private:
 	optional_device<sega_315_5838_comp_device> m_5838crypt;
 	optional_device<ticket_dispenser_device> m_hopper;
 	required_device<sega_billboard_device> m_billboard;
+	optional_ioport_array<7> m_ioga_ports;
+	required_ioport_array<4> m_ioga_counters;
+	optional_ioport_array<5> m_ioga_mahjong[2];
+	required_ioport_array<2> m_pdr;
 	output_finder<2> m_cc_digits;
 	uint16_t crypt_read_callback(uint32_t addr);
 
@@ -159,7 +169,7 @@ private:
 	void pdr1_output_w(uint8_t data);
 	void pdr2_output_w(uint8_t data);
 	void stv_select_game(int gameno);
-	uint8_t     m_prev_gamebank_select;
+	uint8_t     m_prev_gamebank_select = 0;
 
 	void sound_mem(address_map &map);
 	void scsp_mem(address_map &map);

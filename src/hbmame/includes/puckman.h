@@ -81,20 +81,20 @@ protected:
 	optional_region_ptr<u8> m_p_maincpu;
 	optional_ioport m_io_fake;
 
-	tilemap_t *m_bg_tilemap;
-	u8 m_charbank;
-	u8 m_spritebank;
-	u8 m_palettebank;
-	u8 m_colortablebank;
-	u8 m_flipscreen;
-	u8 m_bgpriority;
-	int m_xoffsethack;
-	u8 m_inv_spr;
-	u8 m_maketrax_counter;
-	u8 m_maketrax_offset;
-	int m_maketrax_disable_protection;
-	bool m_irq_mask;
-	u8 m_interrupt_vector;
+	tilemap_t *m_bg_tilemap = nullptr;
+	u8 m_charbank = 0U;
+	u8 m_spritebank = 0U;
+	u8 m_palettebank = 0U;
+	u8 m_colortablebank = 0U;
+	u8 m_flipscreen = 0U;
+	u8 m_bgpriority = 0U;
+	int m_xoffsethack = 0;
+	u8 m_inv_spr = 0U;
+	u8 m_maketrax_counter = 0U;
+	u8 m_maketrax_offset = 0U;
+	int m_maketrax_disable_protection = 0;
+	bool m_irq_mask = false;
+	u8 m_interrupt_vector = 0U;
 
 	void pacman_interrupt_vector_w(u8 data);
 	void piranha_interrupt_vector_w(u8 data);
@@ -232,7 +232,7 @@ protected:
 	TILE_GET_INFO_MEMBER(multipac_get_tile_info);
 	u8 m_speedcheat;
 	void speedcheat();
-	u8 m_timerthing;
+	u8 m_timerthing = 0U;
 	u8 mspacii_prot_r(offs_t offset);
 	u8 zolatimer_r();
 	void zolatimer_w(u8 data);

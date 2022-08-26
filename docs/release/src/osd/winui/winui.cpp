@@ -359,6 +359,34 @@ static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 /***************************************************************************
     External variables
  ***************************************************************************/
+static void load_translation(emu_options &m_options)
+{
+	util::unload_translation();
+
+	std::string name = m_options.language();
+	if (name.empty())
+		return;
+
+	strreplace(name, " ", "_");
+	strreplace(name, "(", "");
+	strreplace(name, ")", "");
+
+	// MESSUI: See if language file exists. If not, try English, see if that exists. If not, use inbuilt default.
+	emu_file file(m_options.language_path(), OPEN_FLAG_READ);
+	if (file.open(name + PATH_SEPARATOR "strings.mo"))
+	{
+		osd_printf_verbose("Error opening translation file %s\n", name);
+		name = "English";
+		if (file.open(name + PATH_SEPARATOR "strings.mo"))
+		{
+			osd_printf_verbose("Error opening translation file %s\n", name);
+			return;
+		}
+	}
+
+	osd_printf_verbose("Loading translation file %s\n", file.fullpath());
+	util::load_translation(file);
+}
 
 /***************************************************************************
     Internal structures
@@ -404,7 +432,7 @@ typedef struct
 typedef struct
 {
 	int         type;       /* Either RA_ID or RA_HWND, to indicate which member of u is used; or RA_END
-	                           to signify last entry */
+                               to signify last entry */
 	union                   /* Can identify a child window by control id or by handle */
 	{
 		int     id;         /* Window control id */
@@ -1178,14 +1206,14 @@ HICON LoadIconFromFile(const char *iconname)
 			sprintf(tmpStr, "%s/icons.zip", s1);
 			sprintf(tmpIcoName, "%s.ico", iconname);
 
-			if (util::archive_file::open_zip(tmpStr, zip) == util::archive_file::error::NONE)
+			if (!util::archive_file::open_zip(tmpStr, zip))
 			{
 				if (zip->search(tmpIcoName, false) >= 0)
 				{
 					bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
 					if (bufferPtr)
 					{
-						if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
+						if (!zip->decompress(bufferPtr, zip->current_uncompressed_length()))
 							hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
 
 						free(bufferPtr);
@@ -1198,14 +1226,14 @@ HICON LoadIconFromFile(const char *iconname)
 				sprintf(tmpStr, "%s/icons.7z", s1);
 				sprintf(tmpIcoName, "%s.ico", iconname);
 
-				if (util::archive_file::open_7z(tmpStr, zip) == util::archive_file::error::NONE)
+				if (!util::archive_file::open_7z(tmpStr, zip))
 				{
 					if (zip->search(tmpIcoName, false) >= 0)
 					{
 						bufferPtr = (PBYTE)malloc(zip->current_uncompressed_length());
 						if (bufferPtr)
 						{
-							if (zip->decompress(bufferPtr, zip->current_uncompressed_length()) == util::archive_file::error::NONE)
+							if (!zip->decompress(bufferPtr, zip->current_uncompressed_length()))
 								hIcon = FormatICOInMemoryToHICON(bufferPtr, zip->current_uncompressed_length());
 
 							free(bufferPtr);
@@ -1814,9 +1842,9 @@ printf("Z\n");fflush(stdout);
 	if (GetHideMouseOnStartup())
 	{
 		/*  For some reason the mouse is centered when a game is exited, which of
-		    course causes a WM_MOUSEMOVE event that shows the mouse. So we center
-		    it now, before the startup coords are initilized, and that way the mouse
-		    will still be hidden when exiting from a game (i hope) :)
+            course causes a WM_MOUSEMOVE event that shows the mouse. So we center
+            it now, before the startup coords are initilized, and that way the mouse
+            will still be hidden when exiting from a game (i hope) :)
 		*/
 		SetCursorPos(GetSystemMetrics(SM_CXSCREEN)/2,GetSystemMetrics(SM_CYSCREEN)/2);
 
@@ -2620,8 +2648,8 @@ static void ResizeWindow(HWND hParent, Resize *r)
 				rect.left = parent_rect.left;
 		}
 		MoveWindow(hControl, rect.left, rect.top,
-				   (rect.right - rect.left),
-				   (rect.bottom - rect.top), true);
+				(rect.right - rect.left),
+				(rect.bottom - rect.top), true);
 
 		/* Take care of subcontrols, if appropriate */
 		if (ri->subwindow )
@@ -3177,8 +3205,8 @@ static void GamePicker_OnHeaderContextMenu(POINT pt, int nColumn)
 char* ConvertAmpersandString(const char *s)
 {
 	/* takes a string and changes any ampersands to double ampersands,
-	   for setting text of window controls that don't allow us to disable
-	   the ampersand underlining.
+       for setting text of window controls that don't allow us to disable
+       the ampersand underlining.
 	 */
 	/* returns a static buffer--use before calling again */
 
@@ -3602,8 +3630,8 @@ static void ResetListView()
 	}
 
 	/*RS Instead of the Arrange Call that was here previously on all Views
-	     We now need to set the ViewMode for SmallIcon again,
-	     for an explanation why, see SetView*/
+         We now need to set the ViewMode for SmallIcon again,
+         for an explanation why, see SetView*/
 	if (GetViewMode() == VIEW_SMALL_ICONS)
 		SetView(ID_VIEW_SMALL_ICON);
 
@@ -5293,7 +5321,6 @@ static void MamePlayBackGame()
 
 	if (CommonFileDialog(GetOpenFileName, filename, FILETYPE_INPUT_FILES))
 	{
-		osd_file::error fileerr;
 		char drive[_MAX_DRIVE];
 		char dir[_MAX_DIR];
 		char bare_fname[_MAX_FNAME];
@@ -5310,8 +5337,8 @@ static void MamePlayBackGame()
 			path[strlen(path)-1] = 0; // take off trailing back slash
 
 		emu_file pPlayBack(MameUIGlobal().input_directory(), OPEN_FLAG_READ);
-		fileerr = pPlayBack.open(string(fname));
-		if (fileerr != osd_file::error::NONE)
+		std::error_condition fileerr = pPlayBack.open(string(fname));
+		if (fileerr)
 		{
 			MameMessageBox("Could not open '%s' as a valid input file.", filename);
 			return;
@@ -5413,8 +5440,8 @@ static void MameLoadState()
 		}
 #endif // MESS
 		emu_file pSaveState(MameUIGlobal().state_directory(), OPEN_FLAG_READ);
-		osd_file::error fileerr = pSaveState.open(string(state_fname));
-		if (fileerr != osd_file::error::NONE)
+		std::error_condition fileerr = pSaveState.open(string(state_fname));
+		if (fileerr)
 		{
 			MameMessageBox("Could not open '%s' as a valid savestate file.", filename);
 			return;

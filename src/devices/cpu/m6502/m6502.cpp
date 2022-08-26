@@ -9,7 +9,6 @@
 ***************************************************************************/
 
 #include "emu.h"
-#include "debugger.h"
 #include "m6502.h"
 #include "m6502d.h"
 
@@ -57,7 +56,6 @@ void m6502_device::init()
 
 	state_add(STATE_GENPC,     "GENPC",     XPC).callexport().noshow();
 	state_add(STATE_GENPCBASE, "CURPC",     XPC).callexport().noshow();
-	state_add(STATE_GENSP,     "GENSP",     SP).noshow();
 	state_add(STATE_GENFLAGS,  "GENFLAGS",  P).callimport().formatstr("%6s").noshow();
 	state_add(M6502_PC,        "PC",        NPC).callimport();
 	state_add(M6502_A,         "A",         A);

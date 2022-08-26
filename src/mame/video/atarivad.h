@@ -38,6 +38,7 @@ public:
 
 	// configuration helpers
 	auto scanline_int_cb() { return m_scanline_int_cb.bind(); }
+	void set_xoffsets(int xoffset, int xoffset2) { m_pf_xoffset = xoffset; m_pf2_xoffset = xoffset2; }
 
 	// getters
 	tilemap_device &alpha() const { return *m_alpha_tilemap; }
@@ -60,23 +61,15 @@ protected:
 	// device-level overrides
 	virtual void device_start() override;
 	virtual void device_reset() override;
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
 private:
-	// timer IDs
-	enum
-	{
-		TID_SCANLINE_INT,
-		TID_TILEROW_UPDATE,
-		TID_EOF
-	};
-
 	// internal helpers
 	void internal_control_write(offs_t offset, uint16_t newword);
 	void update_pf_xscrolls();
 	void update_parameter(uint16_t newword);
-	void update_tilerow(emu_timer &timer, int scanline);
-	void eof_update(emu_timer &timer);
+	TIMER_CALLBACK_MEMBER(scanline_int);
+	TIMER_CALLBACK_MEMBER(update_tilerow);
+	TIMER_CALLBACK_MEMBER(eof_update);
 
 	// configuration state
 	devcb_write_line   m_scanline_int_cb;
@@ -102,6 +95,9 @@ private:
 	uint32_t              m_mo_yscroll;              // sprite xscroll
 
 	uint16_t              m_control[0x40/2];          // control data
+
+	int m_pf_xoffset;
+	int m_pf2_xoffset;
 };
 
 

@@ -36,6 +36,9 @@
         * There existed a vertical version of Head On as well.
         * According to the manuals, Borderline has the same sound
           board as Tranquillizer Gun.
+        * The relationship between nostromo and startrks isn't clear:
+          is one a bootleg of the other or are both bootlegs of an unknown
+          original?
 
     Known issues/to-do's:
         * Analog sound missing in many games
@@ -716,6 +719,17 @@ static INPUT_PORTS_START( headons )
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNUSED ) /* no color/bw option */
 INPUT_PORTS_END
 
+static INPUT_PORTS_START( startrks )
+	PORT_INCLUDE( headons )
+
+	PORT_MODIFY("IN0")
+	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
+	PORT_DIPSETTING(    0x00, "2" )
+	PORT_DIPSETTING(    0x01, "3" )
+	PORT_DIPSETTING(    0x02, "4" )
+	PORT_DIPSETTING(    0x03, "5" )
+INPUT_PORTS_END
+
 static INPUT_PORTS_START( hocrash )
 	PORT_INCLUDE( headons )
 
@@ -1280,11 +1294,34 @@ void tranqgun_state::tranqgun_prot_w(offs_t offset, uint8_t data)
 	}
 }
 
+uint8_t tranqgun_state::brdrlinet_prot_r()
+{
+	logerror("%s: brdrlinet_prot_r\n", machine().describe_context());
+
+	return m_tranqgun_prot_return;
+}
+
+void tranqgun_state::brdrlinet_prot_w(uint8_t data)
+{
+	logerror("%s: brdrlinet_prot_w %02x\n", machine().describe_context(), data);
+
+	if (data == 0xd8)
+		m_tranqgun_prot_return = 0x02;
+	else if (data == 0x3a)
+		m_tranqgun_prot_return = 0x01;
+}
 
 void tranqgun_state::tranqgun_dualgame_map(address_map &map)
 {
 	vicdual_dualgame_map(map);
 	map(0x4000, 0x7fff).rw(FUNC(tranqgun_state::tranqgun_prot_r), FUNC(tranqgun_state::tranqgun_prot_w));
+}
+
+void tranqgun_state::brdrlinet_dualgame_map(address_map &map)
+{
+	vicdual_dualgame_map(map);
+	map(0x7800, 0x7800).r(FUNC(tranqgun_state::brdrlinet_prot_r));
+	map(0xe9a8, 0xe9a8).w(FUNC(tranqgun_state::brdrlinet_prot_w));
 }
 
 uint8_t carnivalh_state::carnivalh_prot_r(offs_t offset)
@@ -1661,9 +1698,9 @@ static INPUT_PORTS_START( wantsega )
 	PORT_DIPSETTING(    0x04, DEF_STR( Cocktail ) )
 
 	PORT_MODIFY("IN3")
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )   PORT_DIPLOCATION("SW1:4")
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Bonus_Life ) )   PORT_DIPLOCATION("SW1:4")
+	PORT_DIPSETTING(    0x04, "20k" )
+	PORT_DIPSETTING(    0x00, "30k" )
 
 	PORT_MODIFY("IN3")
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON2 ) // teleport
@@ -2181,9 +2218,9 @@ static INPUT_PORTS_START( alphaho )
 	PORT_START("IN2")
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN ) PORT_4WAY PORT_COCKTAIL
 	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* probably unused */
-	PORT_DIPNAME( 0x04, 0x04, DEF_STR( Unknown ) )      PORT_DIPLOCATION("SW1:3") // This should be Alpha Fighter bonus life (Off 15000, On 10000) - didn't verify though
-	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x04, 0x00, "Alpha Fighter Bonus Life" )      PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x00, "1000" )
+	PORT_DIPSETTING(    0x04, "1500" )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(vicdual_state, timer_value_r)
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_START1 )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON1 )
@@ -2196,7 +2233,7 @@ static INPUT_PORTS_START( alphaho )
 	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(vicdual_state, coin_status_r)
-	PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_NAME("Game Select") PORT_TOGGLE
+	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON2 ) PORT_NAME("Game Select") PORT_TOGGLE
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_START2 )
 	PORT_BIT( 0xc0, IP_ACTIVE_LOW, IPT_UNUSED )
 
@@ -2204,6 +2241,33 @@ static INPUT_PORTS_START( alphaho )
 
 	PORT_START("FAKE_LIVES.0")
 	PORT_DIPNAME( 0x03, 0x03, "Alpha Fighter Lives" )   PORT_DIPLOCATION("SW1:1,2")
+	PORT_DIPSETTING(    0x03, "3" )
+	PORT_DIPSETTING(    0x02, "4" )
+	PORT_DIPSETTING(    0x01, "5" )
+	PORT_DIPSETTING(    0x00, "6" )
+INPUT_PORTS_END
+
+
+static INPUT_PORTS_START( alphahob )
+	PORT_INCLUDE( alphaho )
+
+	PORT_MODIFY("IN0")
+	PORT_DIPNAME( 0x08, 0x00, "Circuit Lives" )           PORT_DIPLOCATION("SW1:5") // SW1 @ C1, 6-pos (is #6 unconnected?)
+	PORT_DIPSETTING(    0x00, "3" )
+	PORT_DIPSETTING(    0x08, "4" )
+
+	PORT_MODIFY("IN2")
+	PORT_DIPNAME( 0x04, 0x00, "Missile Bonus Life" )      PORT_DIPLOCATION("SW1:3")
+	PORT_DIPSETTING(    0x00, "10k" )
+	PORT_DIPSETTING(    0x04, "15k" )
+
+	PORT_MODIFY("IN3")
+	PORT_DIPNAME( 0x04, 0x00, "Missile Final UFO Bonus" ) PORT_DIPLOCATION("SW1:4")
+	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_MODIFY("FAKE_LIVES.0")
+	PORT_DIPNAME( 0x03, 0x03, "Missile Lives" )           PORT_DIPLOCATION("SW1:1,2")
 	PORT_DIPSETTING(    0x03, "3" )
 	PORT_DIPSETTING(    0x02, "4" )
 	PORT_DIPSETTING(    0x01, "5" )
@@ -2372,6 +2436,12 @@ void tranqgun_state::tranqgun(machine_config &config)
 	BORDERLINE_AUDIO(config, m_vicdual_sound, 0).add_route(ALL_OUTPUTS, "mono", 1.0);
 }
 
+void tranqgun_state::brdrlinet(machine_config &config)
+{
+	tranqgun(config);
+
+	m_maincpu->set_addrmap(AS_PROGRAM, &tranqgun_state::brdrlinet_dualgame_map);
+}
 
 void vicdual_state::brdrline(machine_config &config)
 {
@@ -2458,9 +2528,8 @@ READ_LINE_MEMBER(vicdual_state::samurai_protection_r)
 
 void vicdual_state::samurai_io_w(offs_t offset, uint8_t data)
 {
-	if (offset & 0x02) { /* samurai_audio_w(0, data) */ }
+	if (offset & 0x02) { palette_bank_w(data); /* samurai_audio_w(0, data >> 4) */ }
 	if (offset & 0x08)  assert_coin_status();
-	if (offset & 0x40)  palette_bank_w(data);
 }
 
 
@@ -3186,7 +3255,7 @@ ROM_START( headonn )
 	ROM_LOAD( "prom.g2", 0x0000, 0x0020, CRC(67104ea9) SHA1(26b6bd2a1973b83bb9af4e3385d8cb14cb3f62f2) )
 
 	ROM_REGION( 0x0040, "user1", 0 )    /* timing PROMs */
-	ROM_LOAD( "prom.b6", 0x0000, 0x0020, CRC(67104ea9) SHA1(26b6bd2a1973b83bb9af4e3385d8cb14cb3f62f2) )    /* control PROM */
+	ROM_LOAD( "prom.b6", 0x0000, 0x0020, CRC(7e1cb76b) SHA1(3366ead65d49cab076ccdafbb13726c7e05f8b9a) )    /* control PROM */
 	ROM_LOAD( "prom.f2", 0x0020, 0x0020, CRC(a1506b9d) SHA1(037c3db2ea40eca459e8acba9d1506dd28d72d10) )    /* sequence PROM */
 ROM_END
 
@@ -3444,7 +3513,30 @@ ROM_START( sspacaho )
 	ROM_LOAD( "316-0206.u14", 0x0000, 0x0020, CRC(9617d796) SHA1(7cff2741866095ff42eadd8022bea349ec8d2f39) )    /* control PROM */
 ROM_END
 
+// Found on a Gremlin 'EXTENDED ROM VIDEO LOGIC ASSY NO 800-003' PCB with a '834-0118' sticker and a Sega 96718-P-A riser board.
+// Everything on the board is dated 1979, but possibly the PCB was converted from something else, given the epr numbers are way bigger than the Japanese version ones
 ROM_START( samurai )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "epr-1217.u33",   0x0000, 0x0400, CRC(a1a9cb03) SHA1(1875a86ad5938295dd5db6bb045be46eba8638ba) )
+	ROM_LOAD( "epr-1218.u32",   0x0400, 0x0400, CRC(4b45d07d) SHA1(ff8cb6bae5ed239a0245265ca36305e4fadc7695) )
+	ROM_LOAD( "epr-1219.u31",   0x0800, 0x0400, CRC(9fd4b195) SHA1(001e3952927dac36993b20f6deae343fdb95e2cd) )
+	ROM_LOAD( "epr-1220.u30",   0x0c00, 0x0400, CRC(90370e13) SHA1(6a7419a52299a78aff16689775ce0533ac8aa443) )
+	ROM_LOAD( "epr-1221.u29",   0x1000, 0x0400, CRC(dcc47158) SHA1(801a16aa100fee3f13b4acd426612dde9c906f5d) )
+	ROM_LOAD( "epr-1222.u28",   0x1400, 0x0400, CRC(d2fab27a) SHA1(d289f0451859d87665f8047aabb43494a22fae28) )
+	ROM_LOAD( "epr-1223.u27",   0x1800, 0x0400, CRC(f7e2ad95) SHA1(078055961fc09ee91734e86b30a7b48a03a67f4a) )
+	ROM_LOAD( "epr-1224.u26",   0x1c00, 0x0400, CRC(d46e306b) SHA1(51532a054fc334a04d3e5cad3b41aa3508318bc5) )
+	ROM_LOAD( "epr-1225.u8",    0x2000, 0x0400, CRC(3dd5c41f) SHA1(de400d30b732edd94ad5388e82cdae27d92f0e7f) )
+	ROM_LOAD( "epr-1226.u7",    0x2400, 0x0400, CRC(7c3561b1) SHA1(9f14924dbd753f9389b0516eb5af6241e897e9a1) )
+	ROM_LOAD( "epr-1227.u6",    0x2800, 0x0400, CRC(e72c71a4) SHA1(52b6ea96897f2b5b1ee5aab7c1737e35d986b75e) )
+	ROM_LOAD( "epr-1228.u5",    0x2c00, 0x0400, CRC(d76f4a56) SHA1(77746f6e73c48fa5ca27a097e9b13a36363f3aa8) )
+	ROM_LOAD( "epr-1229.u4",    0x3000, 0x0400, CRC(e0d40395) SHA1(343addf9148c26c3f3e7fbf3005ad6c9b33e3899) )
+	ROM_LOAD( "epr-1230.u3",    0x3400, 0x0400, CRC(55e9a5c4) SHA1(022430a842ec2a38a64d9ede53dc1e1ac0c66efd) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "pr55.clr",     0x0000, 0x0020, CRC(975f5fb0) SHA1(d5917d68ad5549fe5cc997521c3b0a5a279d2231) )
+ROM_END
+
+ROM_START( samuraij )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "epr-289.u33",   0x0000, 0x0400, CRC(a1a9cb03) SHA1(1875a86ad5938295dd5db6bb045be46eba8638ba) )
 	ROM_LOAD( "epr-290.u32",   0x0400, 0x0400, CRC(49fede51) SHA1(58ab1779d555281ec436ae90dcdf4ada42625892) )
@@ -3663,7 +3755,7 @@ ROM_START( carnival )
 	ROM_LOAD( "epr-666.u1",    0x3c00, 0x0400, CRC(4eec7fae) SHA1(cdc858165136c55b01511805c9d4dc6bc598fe1f) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "316-633",       0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
+	ROM_LOAD( "316-0633.u49",  0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
 
 	ROM_REGION( 0x0400, "audiocpu", 0 ) /* sound ROM */
 	ROM_LOAD( "epr-412.u5",    0x0000, 0x0400, CRC(0dbaa2b0) SHA1(eae7fc362a0ff8f908c42e093c7dbb603659373c) )
@@ -3692,7 +3784,7 @@ ROM_START( carnivalb )
 	ROM_LOAD( "epr-666.u1",    0x3c00, 0x0400, CRC(4eec7fae) SHA1(cdc858165136c55b01511805c9d4dc6bc598fe1f) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "316-633",       0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
+	ROM_LOAD( "316-0633.u49",  0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
 
 	ROM_REGION( 0x0400, "audiocpu", 0 ) /* sound ROM */
 	ROM_LOAD( "carnival_b.u5", 0x0000, 0x0400, CRC(422abb43) SHA1(edb6f74ccf9382624353e927ac225e1455bb1144) )
@@ -3721,13 +3813,42 @@ ROM_START( carnivalc )
 	ROM_LOAD( "epr-516.u1",  0x3c00, 0x0400, CRC(7c32b352) SHA1(8cb472a7f71a301417c6a8e4a26a9bdcd43b6062) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "316-633",      0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
+	ROM_LOAD( "316-0633.u49", 0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
 
 	ROM_REGION( 0x0400, "audiocpu", 0 ) /* sound ROM */
 	ROM_LOAD( "epr-412.u5",   0x0000, 0x0400, CRC(0dbaa2b0) SHA1(eae7fc362a0ff8f908c42e093c7dbb603659373c) )
 
 	ROM_REGION( 0x0020, "user1", 0 )    /* timing PROM */
 	ROM_LOAD( "316-0206.u14", 0x0000, 0x0020, CRC(9617d796) SHA1(7cff2741866095ff42eadd8022bea349ec8d2f39) )    /* control PROM */
+ROM_END
+
+ROM_START( carnivalca ) // S-97095-P + 97093-P-B
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "epr-479.u33", 0x0000, 0x0400, CRC(620bff59) SHA1(87d3b4991cacb0a8cd7eeef652eb3f1c1eaadb17) )
+	ROM_LOAD( "epr-480.u32", 0x0400, 0x0400, CRC(90768717) SHA1(a34e6c28d486614b0a084a088d75feb8ecb6ef15) )
+	ROM_LOAD( "epr-481.u31", 0x0800, 0x0400, CRC(5c903af9) SHA1(5f11c6c800cfb012ba592b890d9849cc03192aaa) )
+	ROM_LOAD( "epr-482.u30", 0x0c00, 0x0400, CRC(fb2398a1) SHA1(abab2cd43054b719b0bee0f7452908df062e34bc) )
+	ROM_LOAD( "epr-483.u29", 0x1000, 0x0400, CRC(306f50d2) SHA1(93faa3e2a8e49f3afb591a2fe7bb401278a354e2) )
+	ROM_LOAD( "epr-484.u28", 0x1400, 0x0400, CRC(e80a6ebc) SHA1(5ef94a2ee7040b56951ef68ee4198f64af1449b0) )
+	ROM_LOAD( "epr-485.u27", 0x1800, 0x0400, CRC(993e2885) SHA1(82a04258d5c25bddb6556a73f0e85a9af9d510d2) )
+	ROM_LOAD( "epr-486.u26", 0x1c00, 0x0400, CRC(e6b7eb05) SHA1(1b998cdf39d38437b5d32958dbde80b29c1b2736) )
+	ROM_LOAD( "epr-487.u8",  0x2000, 0x0400, CRC(41abf6f8) SHA1(1a02c268368ea761113c831d4a6dfc0a1853ebc7) )
+	ROM_LOAD( "epr-488.u7",  0x2400, 0x0400, CRC(b0288f2a) SHA1(c02311f4f640a17b68cc10ca01ab3e919a9355b0) )
+	ROM_LOAD( "epr-489.u6",  0x2800, 0x0400, CRC(c9c529ab) SHA1(98bb99afc1e23dff13ab73c051beec44750eb1b3) )
+	ROM_LOAD( "epr-490.u5",  0x2c00, 0x0400, CRC(9d4ffe25) SHA1(b0dec556f16d505190b8703c367ecb4d07147156) )
+	ROM_LOAD( "epr-491.u4",  0x3000, 0x0400, CRC(5d086aec) SHA1(d7b9125b0f9dd71d5ffcac321ec2c0f3f7953031) )
+	ROM_LOAD( "epr-492.u3",  0x3400, 0x0400, CRC(0e20e4a5) SHA1(82c8ad21a72c8dff81eb4bb97e64faff33a8b46f) )
+	ROM_LOAD( "epr-493.u2",  0x3800, 0x0400, CRC(b4a7c5c9) SHA1(832597a2b586bffebaf2d67be8dff316d8120974) )
+	ROM_LOAD( "epr-494.u1",  0x3c00, 0x0400, NO_DUMP ) // missing on PCB, but listed on the ROM sheet it came with
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "pr-62.u49",      0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) )
+
+	ROM_REGION( 0x0400, "audiocpu", 0 )
+	ROM_LOAD( "epr-412.u5",   0x0000, 0x0400, BAD_DUMP CRC(0dbaa2b0) SHA1(eae7fc362a0ff8f908c42e093c7dbb603659373c) ) // not dumped for this set (sound PCB wasn't available), so taken from carnivalc
+
+	ROM_REGION( 0x0020, "user1", 0 )
+	ROM_LOAD( "bin.u14", 0x0000, 0x0020, CRC(e60a7960) SHA1(b8b8716e859c57c35310efc4594262afedb84823) )    // control PROM, possibly pr-34 but unreadable
 ROM_END
 
 ROM_START( carnivalh )
@@ -3742,7 +3863,7 @@ ROM_START( carnivalh )
 	ROM_LOAD( "epr-162.u41",   0x3800, 0x0800, CRC(56e1c120) SHA1(24816b6a9bc238571ab8ea79bb876cf249ed4d60) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "pr-62.u44",      0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) ) /* Same as 316-633 */
+	ROM_LOAD( "pr-62.u44",      0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) ) /* Same as 316-0633 */
 
 	ROM_REGION( 0x0400, "audiocpu", 0 ) /* sound ROM */
 	ROM_LOAD( "epr-412.u5",     0x0000, 0x0400, CRC(0dbaa2b0) SHA1(eae7fc362a0ff8f908c42e093c7dbb603659373c) )
@@ -3764,7 +3885,7 @@ ROM_START( carnivalha )
 	ROM_LOAD( "epr-162.u41",   0x3800, 0x0800, CRC(56e1c120) SHA1(24816b6a9bc238571ab8ea79bb876cf249ed4d60) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "pr-62.u44",      0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) ) /* Same as 316-633 */
+	ROM_LOAD( "pr-62.u44",      0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) ) /* Same as 316-0633 */
 
 	ROM_REGION( 0x0400, "audiocpu", 0 ) /* sound ROM */
 	ROM_LOAD( "epr-412.u5",     0x0000, 0x0400, CRC(0dbaa2b0) SHA1(eae7fc362a0ff8f908c42e093c7dbb603659373c) )
@@ -3794,7 +3915,7 @@ ROM_START( verbena )
 	ROM_LOAD( "1v.u1",     0x3c00, 0x0400, CRC(6e10c057) SHA1(743a28bb6f4f395fd3db36d5e40acc3475f55f5d) ) // handwritten label
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "mmi6331.u4",       0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) ) // == 316-633 / pr-62.u44
+	ROM_LOAD( "mmi6331.u4",       0x0000, 0x0020, CRC(f0084d80) SHA1(95ec912ac2c64cd58a50c68afc0993746841a531) ) // == 316-0633 / pr-62.u44
 
 	ROM_REGION( 0x0400, "audiocpu", 0 ) /* sound ROM */
 	ROM_LOAD( "sound.u25",    0x0000, 0x0400, CRC(0dbaa2b0) SHA1(eae7fc362a0ff8f908c42e093c7dbb603659373c) ) // == epr-412.u5 - 2708
@@ -3843,7 +3964,7 @@ ROM_START( brdrlinet )
 	ROM_LOAD( "1171a.u33",      0x0000, 0x0400, CRC(38dd9880) SHA1(1a879ce990129fd34e7265010872ac998d16accf) )
 	ROM_LOAD( "1172a.u32",      0x0400, 0x0400, CRC(1a3adff0) SHA1(3fab79688b739d6a5979638115629d0a61f8878b) )
 	ROM_LOAD( "1173a.u31",      0x0800, 0x0400, CRC(e668734d) SHA1(b01b06f4a107f14001c70e63e072c575cd97c89b) )
-	ROM_LOAD( "1174a.u30.bad",  0x0c00, 0x0400, BAD_DUMP CRC(22c83ae4) SHA1(16da92afe068401a6f27f56b214b600b49d8019f) ) // chip was dead, need another
+	ROM_LOAD( "1174a.u30",      0x0c00, 0x0400, CRC(d1ca5d52) SHA1(2ed9368741a409f7483020c1f7a44edb0a190a46) )
 	ROM_LOAD( "1175a.u29",      0x1000, 0x0400, CRC(116517b8) SHA1(a7ded7cb53735e6cf4994ff70db35dead04828e6) )
 	ROM_LOAD( "1176a.u28",      0x1400, 0x0400, CRC(2b2c4ba8) SHA1(fe9ccb94b9d5d7fb9ec6170a7b71f859b22981d3) )
 	ROM_LOAD( "1177a.u27",      0x1800, 0x0400, CRC(d8cbcc1e) SHA1(632d2ba84d4276155960b176bf7ac514b214e481) )
@@ -4020,6 +4141,21 @@ ROM_START( startrks )
 	ROM_LOAD( "82s123.14c", 0x0020, 0x0020, CRC(a1506b9d) SHA1(037c3db2ea40eca459e8acba9d1506dd28d72d10) )    /* sequence PROM */
 ROM_END
 
+ROM_START( nostromo )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ns_1.bin", 0x0000, 0x0400, CRC(2ba4202a) SHA1(1e46e36c37c9f1cecb505a1fe393c24d0e271168) )
+	ROM_LOAD( "ns_2.bin", 0x0400, 0x0400, CRC(cf6081b8) SHA1(2294cf6849a8191928f268ba1dbef21659a1475f) )
+	ROM_LOAD( "ns_3.bin", 0x0800, 0x0400, CRC(fd983c0c) SHA1(a4aea8707878dcac8b4e3d9acad94f60eee956c6) )
+	ROM_LOAD( "ns_4.bin", 0x0c00, 0x0400, CRC(79e1dc92) SHA1(53fcf9b7b7e894122419b43adccb1aaf7dab8bf9) )
+	ROM_LOAD( "ns_5.bin", 0x1000, 0x0400, CRC(4deb2ce3) SHA1(2935a4ab4be0190e8efa560e30fa7349d83d3e69) )
+	ROM_LOAD( "ns_6.bin", 0x1400, 0x0400, CRC(e4ddf052) SHA1(8734c87742a1d0b68e679e1650806d0738c432c6) )
+	ROM_LOAD( "ns_7.bin", 0x1800, 0x0400, CRC(a5315dc8) SHA1(ba6d27d03c9f0100fe89ebbf4b58d166bf259fa8) )
+
+	ROM_REGION( 0x0040, "user1", 0 )    // timing PROMs, not dumped for this set but probably same as startrks given how close they are
+	ROM_LOAD( "82s123.15c", 0x0000, 0x0020, BAD_DUMP CRC(e60a7960) SHA1(b8b8716e859c57c35310efc4594262afedb84823) )    // control PROM
+	ROM_LOAD( "82s123.14c", 0x0020, 0x0020, BAD_DUMP CRC(a1506b9d) SHA1(037c3db2ea40eca459e8acba9d1506dd28d72d10) )    // sequence PROM
+ROM_END
+
 ROM_START( digger )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "684.u27",      0x0000, 0x0400, CRC(bba0d7c2) SHA1(1e55dd95b07b562dcc1e52ecf9460d302b14ee60) )
@@ -4115,6 +4251,33 @@ ROM_START( alphaho )
 	ROM_LOAD( "alphaho.col", 0x0000, 0x0020, BAD_DUMP CRC(67104ea9) SHA1(26b6bd2a1973b83bb9af4e3385d8cb14cb3f62f2) ) // wasn't dumped for this set, use the one from sspacaho (the game Data East cloned and modified) for now
 ROM_END
 
+ROM_START( alphahob ) // PCB marked NNS
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "03.bin", 0x0000, 0x0400, CRC(87de1bb0) SHA1(63626ac2b1f1419fd93dca33417834922ffc8634) )
+	ROM_LOAD( "13.bin", 0x0400, 0x0400, CRC(bd6dbd8e) SHA1(a001392b32be8218d5aebb1c02fc88a41ce995b0) )
+	ROM_LOAD( "16.bin", 0x0800, 0x0400, CRC(4c043d8b) SHA1(72f7db24fc60dae9879d8daf01ef2bb14e9597aa) )
+	ROM_LOAD( "04.bin", 0x0c00, 0x0400, CRC(10005956) SHA1(2e742b1764520c3de5b44018f94dc6476c9a4e84) )
+	ROM_LOAD( "05.bin", 0x1000, 0x0400, CRC(bbdaf42a) SHA1(57e5e72613c0852bc91e12a5713d93c222ed5b32) )
+	ROM_LOAD( "06.bin", 0x1400, 0x0400, CRC(07d4c69a) SHA1(7bb7dad200526a642debe3406ef9c0a74f6fc374) )
+	ROM_LOAD( "07.bin", 0x1800, 0x0400, CRC(8f766b30) SHA1(91e4c8ccb479dcd89f1c76f619bfac832ca7910e) )
+	ROM_LOAD( "08.bin", 0x1c00, 0x0400, CRC(88032202) SHA1(64e087c0a9a97f19c1c5ba5ca1d249d38efab391) )
+	ROM_LOAD( "01.bin", 0x2000, 0x0400, CRC(eb8278b3) SHA1(6349c64f718fc23f78788a612378681d9e6ef69b) )
+	ROM_LOAD( "09.bin", 0x2400, 0x0400, CRC(e5f622f7) SHA1(57858b6abbf34fc4ab2b19a469cbd945a0e14a0e) )
+	ROM_LOAD( "11.bin", 0x2800, 0x0400, CRC(5673be86) SHA1(d8f6bcc0231163c40c217e73dff9dd410fcd488c) )
+	ROM_LOAD( "12.bin", 0x2c00, 0x0400, CRC(939903c6) SHA1(2a570b9880bb8594501fa9b3d1320e5ad2abc86a) )
+	ROM_LOAD( "02.bin", 0x3000, 0x0400, CRC(404f120c) SHA1(7359c819f8a355783c00a972cb65a10aeff6bde4) )
+	ROM_LOAD( "14.bin", 0x3400, 0x0400, CRC(be76baac) SHA1(4b6a46c9484cfc90fa405f8568df44cfc96b1d7a) )
+	ROM_LOAD( "15.bin", 0x3800, 0x0400, CRC(ced0a642) SHA1(7f90803af926861261c9467fda293093409aff83) )
+	ROM_LOAD( "10.bin", 0x3c00, 0x0400, CRC(ba978bca) SHA1(69ee157d1aee8cf323d15630b99cff2747ed0189) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "prom.u49", 0x0000, 0x0020, CRC(67104ea9) SHA1(26b6bd2a1973b83bb9af4e3385d8cb14cb3f62f2) )
+
+	ROM_REGION( 0x0040, "timing_proms", 0 )
+	ROM_LOAD( "prom.u14", 0x0000, 0x0020, CRC(e60a7960) SHA1(b8b8716e859c57c35310efc4594262afedb84823) ) // control PROM
+	ROM_LOAD( "prom.u15", 0x0020, 0x0020, CRC(a1506b9d) SHA1(037c3db2ea40eca459e8acba9d1506dd28d72d10) ) // sequence PROM
+ROM_END
+
 // Wanted uses 2 sound boards. One from Head On and one from Space Attack. The sound board has the name printed on the bottom
 // together with the Sega Gremlin logo and other numbers.
 
@@ -4177,7 +4340,8 @@ GAME( 1979, car2,       headon2,  headon2bw, car2,      vicdual_state,   empty_i
 GAME( 1979, invho2,     0,        invho2,    invho2,    vicdual_state,   empty_init, ROT270, "Sega",                    "Invinco / Head On 2 (set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1979, invho2a,    invho2,   invho2,    invho2,    vicdual_state,   empty_init, ROT270, "Sega",                    "Invinco / Head On 2 (set 2)", MACHINE_NOT_WORKING | MACHINE_WRONG_COLORS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // wrong colors make Head On 2 unplayable (all black)
 GAME( 1980, nsub,       0,        nsub,      nsub,      nsub_state,      empty_init, ROT270, "Sega",                    "N-Sub (upright)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // this is the upright set. cocktail set still needs to be dumped
-GAME( 1980, samurai,    0,        samurai,   samurai,   vicdual_state,   empty_init, ROT270, "Sega",                    "Samurai", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1980, samurai,    0,        samurai,   samurai,   vicdual_state,   empty_init, ROT270, "Sega",                    "Samurai (World)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1980, samuraij,   samurai,  samurai,   samurai,   vicdual_state,   empty_init, ROT270, "Sega",                    "Samurai (Japan)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1979, invinco,    0,        invinco,   invinco,   vicdual_state,   empty_init, ROT270, "Sega",                    "Invinco", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1979, invcarht,   0,        carhntds,  carhntds,  vicdual_state,   empty_init, ROT270, "Sega",                    "Invinco / Car Hunt (Germany)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1979, invds,      0,        invds,     invds,     vicdual_state,   empty_init, ROT270, "Sega",                    "Invinco / Deep Scan", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
@@ -4188,6 +4352,7 @@ GAME( 1980, spacetrkc,  spacetrk, spacetrk,  spacetrkc, vicdual_state,   empty_i
 GAME( 1980, carnival,   0,        carnival,  carnival,  carnival_state,  empty_init, ROT270, "Sega",                    "Carnival (upright, AY8912 music)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1980, carnivalb,  carnival, carnivalb, carnival,  carnival_state,  empty_init, ROT270, "Sega",                    "Carnival (upright, PIT8253 music)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1980, carnivalc,  carnival, carnival,  carnivalc, carnival_state,  empty_init, ROT270, "Sega",                    "Carnival (cocktail)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1980, carnivalca, carnival, carnival,  carnivalc, carnival_state,  empty_init, ROT270, "Sega",                    "Carnival (cocktail, earlier)",  MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // one missing ROM
 GAME( 1980, carnivalh,  carnival, carnivalh, carnivalh, carnivalh_state, empty_init, ROT270, "Sega",                    "Carnival (Head On hardware, set 1)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1980, carnivalha, carnival, carnivalh, carnivalh, carnivalh_state, empty_init, ROT270, "Sega",                    "Carnival (Head On hardware, set 2)",  MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1980, verbena,    carnival, carnival,  carnival,  carnival_state,  empty_init, ROT270, "bootleg (Cocamatic)",     "Verbena (bootleg of Carnival)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
@@ -4195,10 +4360,12 @@ GAME( 1981, brdrline,   0,        brdrline,  brdrline,  vicdual_state,   empty_i
 GAME( 1981, starrkr,    brdrline, brdrline,  starrkr,   vicdual_state,   empty_init, ROT270, "Sega",                    "Star Raker", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1981, brdrlins,   brdrline, brdrline,  brdrline,  vicdual_state,   empty_init, ROT270, "bootleg (Sidam)",         "Borderline (Sidam bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, brdrlinb,   brdrline, brdrline,  brdrline,  vicdual_state,   empty_init, ROT270, "bootleg (Karateco)",      "Borderline (Karateco bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, brdrlinet,  brdrline, tranqgun,  tranqgun,  tranqgun_state,  empty_init, ROT270, "Sega",                    "Borderline (Tranquillizer Gun conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // official factory conversion
-GAME( 198?, startrks,   0,        headons,   headons,   vicdual_state,   empty_init, ROT0,   "bootleg (Sidam)",         "Star Trek (Head On hardware)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1981, brdrlinet,  brdrline, brdrlinet, brdrline,  tranqgun_state,  empty_init, ROT270, "Sega",                    "Borderline (Tranquillizer Gun conversion)", MACHINE_SUPPORTS_SAVE ) // official factory conversion
+GAME( 198?, nostromo,   0,        headons,   startrks,  vicdual_state,   empty_init, ROT0,   "bootleg",                 "Nostromo", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // sound board probably differs
+GAME( 198?, startrks,   nostromo, headons,   startrks,  vicdual_state,   empty_init, ROT0,   "bootleg (Sidam)",         "Star Trek (Head On hardware)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1980, digger,     0,        digger,    digger,    vicdual_state,   empty_init, ROT270, "Sega",                    "Digger", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1981, pulsar,     0,        pulsar,    pulsar,    vicdual_state,   empty_init, ROT270, "Sega",                    "Pulsar", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1979, heiankyo,   0,        heiankyo,  heiankyo,  vicdual_state,   empty_init, ROT270, "Denki Onkyo",             "Heiankyo Alien", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 19??, alphaho,    0,        alphaho,   alphaho,   vicdual_state,   empty_init, ROT270, "Data East Corporation",   "Alpha Fighter / Head On", MACHINE_WRONG_COLORS | MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 19??, alphahob,   alphaho,  alphaho,   alphahob,  vicdual_state,   empty_init, ROT270, "bootleg",                 "Missile / Circuit (bootleg of Alpha Fighter / Head On)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 1982, wantsega,   0,        carhntds,  wantsega,  vicdual_state,   empty_init, ROT270, "Sega",                    "Wanted (Sega)", MACHINE_NO_SOUND | MACHINE_IMPERFECT_CONTROLS | MACHINE_SUPPORTS_SAVE )

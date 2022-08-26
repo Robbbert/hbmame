@@ -82,7 +82,7 @@ void skullxbo_state::machine_start()
 {
 	atarigen_state::machine_start();
 
-	m_scanline_int_timer = machine().scheduler().timer_alloc(timer_expired_delegate(FUNC(skullxbo_state::scanline_interrupt), this));
+	m_scanline_int_timer = timer_alloc(FUNC(skullxbo_state::scanline_interrupt), this);
 
 	save_item(NAME(m_scanline_int_state));
 }
@@ -272,7 +272,7 @@ void skullxbo_state::skullxbo(machine_config &config)
 	ATARI_JSA_II(config, m_jsa, 0);
 	m_jsa->main_int_cb().set_inputline(m_maincpu, M68K_IRQ_4);
 	m_jsa->test_read_cb().set_ioport("FF5802").bit(7);
-	m_jsa->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_jsa->add_route(ALL_OUTPUTS, "mono", 0.8);
 }
 
 

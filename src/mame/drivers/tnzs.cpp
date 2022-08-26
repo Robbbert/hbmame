@@ -968,10 +968,10 @@ static INPUT_PORTS_START( plumppop )
 	PORT_BIT( 1, IP_ACTIVE_HIGH, IPT_COIN2 )
 
 	PORT_START("AN1")       /* spinner 1 - read at f000/1 */
-	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(1) PORT_RESET
+	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(1)
 
 	PORT_START("AN2")       /* spinner 2 - read at f002/3 */
-	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(2) PORT_RESET
+	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(2)
 INPUT_PORTS_END
 
 
@@ -1064,10 +1064,10 @@ static INPUT_PORTS_START( arknoid2 )
 	PORT_BIT( 1, IP_ACTIVE_HIGH, IPT_COIN2 ) PORT_WRITE_LINE_DEVICE_MEMBER("upd4701", upd4701_device, middle_w)
 
 	PORT_START("AN1")       /* spinner 1 - read at f000/1 */
-	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(1) PORT_RESET
+	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(1)
 
 	PORT_START("AN2")       /* spinner 2 - read at f002/3 */
-	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(2) PORT_RESET
+	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(2)
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( arknid2u )
@@ -1487,10 +1487,10 @@ static INPUT_PORTS_START( jpopnics )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_START2 )
 
 	PORT_START("AN1")       /* spinner 1 - read at f000/1 */
-	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(1) PORT_RESET
+	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(1)
 
 	PORT_START("AN2")       /* spinner 2 - read at f002/3 */
-	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(2) PORT_RESET
+	PORT_BIT( 0x0fff, 0x0000, IPT_DIAL ) PORT_SENSITIVITY(70) PORT_KEYDELTA(15) PORT_PLAYER(2)
 INPUT_PORTS_END
 
 
@@ -2290,8 +2290,8 @@ ROM_END
 
 
 /*
-Chuka Taisen
-Taito, 1988
+Chuka Taisen, Taito, 1988
+Hardware info by Guru
 
  Seta: P0-028-A
 Taito: K1100416A J1100332A
@@ -2487,8 +2487,8 @@ ROM_END
 
 
 /*
-The New Zealand Story
-Taito, 1988
+The New Zealand Story, Taito, 1988
+Hardware info by Guru
 
 PCB Layout ("New style PCB" with 3x z80 and no M-chip, and a daughterboard with ROMs and z80)
 ----------
@@ -2612,19 +2612,84 @@ ROM_START( tnzsj )
 	ROM_LOAD( "b53-15.pal16l8a.subpcb.ic6.jed", 0x03000, 0x01000, NO_DUMP) // on sub pcb
 ROM_END
 
-/* tnzs - old style PCB sets
-The New Zealand Story
-Taito, 1988
 
-Taito ID: K1100356A
-          J1100156A
-          MAIN PCB
-Seta ID: P0-041A
-*/
-/* This pcb is derived from the Chuka Taisen,DrToppel and Arkanoid 2 pcbs, replacing the two color PROMs with color RAM;
-   There is an M-chip i8x42 (with Taito silkscreen) and no 3rd z80.
-   There is no daughter-pcb like the later TNZS pcb has.
-   GFX Roms on the pcb are 28 pin 23C1000/TC531000 128K mask ROMs */
+/**********************************************************************************
+
+The New Zealand Story, Taito, 1988
+Hardware info by Guru
+
+This version uses 8x 28 pin 1 megabit mask ROMs on the main board. There is no daughterboard on top.
+The PCB is very similar to Chuka Taisen, Dr Toppel, Extermination, Kabuki Z and Arkanoid 2 but replaces the two color PROMs with color RAM.
+The PCB has Seta chips so it has 2 sets of PCB numbers and stickers.
+The Taito logo on the PCB is the newer style with the 'A' split into 2 curved shapes.
+
+PCB Layout
+----------
+
+SETA:
+P0-041A
+NEW ZEALAND STORY 905-1054 (sticker)
+
+TAITO:
+K1100365A J1100156A
+K1100356A N. Z.LAND STORY (sticker)
+|--------------------------------------------------|
+|             X1-006                       12MHz   |
+| MB3730  X1-007      8464    X1-001A              |
+|                                                  |
+| VOL                         X1-002A              |
+|      4558                                        |
+|    YM3014    SW                                  |
+|                                                  |
+|        SWB                           B53_08.U8   |
+|J                                                 |
+|A                                     B53_07.U7   |
+|M       SWA            B53_10.U32                 |
+|M                      62256          B53_06.U6   |
+|A                                                 |
+|                                      B53_05.U5   |
+|                                                  |
+|                                      B53_04.U4   |
+|                    B06-101.U36                   |
+|       YM2203   Z80B   6264           B53_03.U3   |
+|                    B53-12.U35                    |
+|X2-005(x5)                            B53-02.U2   |
+|          B53-09.U46      B06-12.U26              |
+|    X1-004     B53_11.U38 B06-13.U25  B53_01.U1   |
+|                      Z80B(1)                     |
+|--------------------------------------------------|
+Notes:
+         Z80B(1) - Z80 CPU. Clock 6.000MHz [12/2] (main CPU)
+            Z80B - Z80 CPU. Clock 6.000MHz [12/2] (sound CPU)
+          YM2203 - Yamaha YM2203 FM Operator Type-N(OPN) sound chip. Clock 3.000MHz [12/4]
+          YM3014 - Yamaha YM3014 Serial Input Floating D/A Converter. Clock 1.000MHz [12/12]
+            4558 - 4558 Dual Operational Amplifier
+          MB3730 - Fujitsu MB3730 Audio Power Amp
+          X2-005 - Custom resistor array used for inputs
+          X1-004 - Seta custom chip marked 'X1-004 in SDIP52 package used for I/O
+          X1-006 - Seta custom chip marked 'X1-006' in SDIP64 package used for palette and pixel mixing functions
+          X1-007 - Seta custom chip marked 'X1-007' in SDIP42 package
+                   RGB and sync on the JAMMA connector are tied to this chip so it's likely an RGB DAC
+         X1-001A - Seta custom graphics chip \
+         X1-002A - Seta custom graphics chip / These work together to create both sprites, tiles and text layer graphics
+           SWA/B - 8-position DIP switch
+              SW - Push button switch for reset
+            8464 - Fujitsu MB8464 8kBx8-bit SRAM (color RAM)
+           62256 - Hitachi HM62256 32kBx8-bit SRAM (main program RAM)
+            6264 - Hitachi HM6462 8kBx8-bit SRAM (sound program RAM)
+    B53_01 to 08 - 23C1000/TC531000 28 pin mask ROMs (graphics)
+      B53-09.U46 - Custom chip marked 'TAITO B53-09 161 832100' in DIP40 package
+                   This is really an i8042/i8742 micro-controller with 2kBx8-bit internal ROM and is known as the 'M-Chip'
+      B53_10.U32 - 27C1000 EPROM (main program)
+      B53_11.U38 - 27C512 EPROM (sound program)
+      B53-12.U35 - PAL16L8 marked 'B53-12'
+     B06-101.U36 - PAL16L8 marked 'B06-101' \
+      B06-12.U26 - PAL16L8 marked 'B06-12'   | Note game 'B06' is Extermination
+      B06-13.U25 - PAL16L8 marked 'B06-13'  /
+           HSync - 15.6245kHz
+           VSync - 59.1836Hz
+
+**********************************************************************************/
 
 ROM_START( tnzso )
 	ROM_REGION( 0x20000, "maincpu", 0 ) /* 64k + bankswitch areas for the first CPU */
@@ -2771,8 +2836,8 @@ ROM_START( tnzsop ) // prototype (location test?) version; has different ROM lab
 ROM_END
 
 /*
-Kabuki Z
-Taito, 1988
+Kabuki Z, Taito, 1988
+Hardware info by Guru
 
 This PCB runs on Taito/Seta hardware and the exact same newer PCB as The New Zealand Story.
 As such, everything here also applies to The New Zealand Story.
@@ -2874,6 +2939,24 @@ ROM_START( insectxj )
 	ROM_LOAD( "b97__02.u2", 0x80000, 0x80000, CRC(db5a7434) SHA1(71fac872b19a13a7ad25c8ad895c322ec9573fdc) )
 ROM_END
 
+ROM_START( insectxbl )
+	ROM_REGION( 0x20000, "maincpu", 0 )
+	ROM_LOAD( "ic71", 0x00000, 0x20000, CRC(86ae1c66) SHA1(15a8d2fa296248346908643a5ff3a69dc2a0938a) ) // mainly copyright change
+
+	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_LOAD( "ic3", 0x00000, 0x10000, CRC(324b28c9) SHA1(db77a4ac60196d0f0f35dbc5c951ec29d6392463) ) // identical to the original
+
+	ROM_REGION( 0x100000, "gfx1", 0 ) // smaller ROMs, Taito and title have been blanked out
+	ROM_LOAD16_BYTE( "ic174", 0x00000, 0x20000, CRC(f5a5c8bf) SHA1(e5ecf0c43bf28fda73a85c9f0674872c1d41eac8) )
+	ROM_LOAD16_BYTE( "ic176", 0x00001, 0x20000, CRC(ef3436f4) SHA1(e143070d8ac4398af2f00e771e218b87a06b1afa) )
+	ROM_LOAD16_BYTE( "ic175", 0x40000, 0x20000, CRC(e926ec1b) SHA1(e013200ec58f8274a83c53c5d34c98c61a035803) )
+	ROM_LOAD16_BYTE( "ic177", 0x40001, 0x20000, CRC(88ead1fb) SHA1(952ef8301b13239e8f6877fa26b59caab5df81e2) )
+	ROM_LOAD16_BYTE( "ic212", 0x80000, 0x20000, CRC(54547590) SHA1(6e756bd88d89df092552b2e7f06f3dd3a077803f) )
+	ROM_LOAD16_BYTE( "ic214", 0x80001, 0x20000, CRC(da312ccd) SHA1(a8eea3730cbcd64d61ef5fcee69dd28126cf60e1) )
+	ROM_LOAD16_BYTE( "ic213", 0xc0000, 0x20000, CRC(5b6faea0) SHA1(18b3ca62153b689b5d42e91f4a56b72bb9f6f94f) )
+	ROM_LOAD16_BYTE( "ic215", 0xc0001, 0x20000, CRC(ff1dee9e) SHA1(3ef91f8188ae400880c03ba8d1fc039c8920d6c0) )
+ROM_END
+
 
 //    YEAR, NAME,      PARENT,   MACHINE,  INPUT,    CLASS,          INIT,       MONITOR,COMPANY,             FULLNAME,            FLAGS
 GAME( 1987, plumppop,  0,        plumppop, plumppop, extrmatn_state, empty_init, ROT0,   "Taito Corporation", "Plump Pop (Japan)", MACHINE_SUPPORTS_SAVE )
@@ -2914,5 +2997,6 @@ GAME( 1988, tnzsop,    tnzs,     tnzs,     tnzsop,   tnzs_state,     empty_init,
 GAME( 1988, kabukiz,   0,        kabukiz,  kabukiz,  kabukiz_state,  empty_init, ROT0,   "Kaneko / Taito Corporation Japan", "Kabuki-Z (World)", MACHINE_SUPPORTS_SAVE )
 GAME( 1988, kabukizj,  kabukiz,  kabukiz,  kabukizj, kabukiz_state,  empty_init, ROT0,   "Kaneko / Taito Corporation",       "Kabuki-Z (Japan)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 1989, insectx,   0,        insectx,  insectx,  insectx_state,  empty_init, ROT0,   "Taito Corporation Japan", "Insector X (World)", MACHINE_SUPPORTS_SAVE )
-GAME( 1989, insectxj,  insectx,  insectx,  insectxj, insectx_state,  empty_init, ROT0,   "Taito Corporation",       "Insector X (Japan)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, insectx,   0,        insectx,  insectx,  insectx_state,  empty_init, ROT0,   "Taito Corporation Japan",   "Insector X (World)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1989, insectxj,  insectx,  insectx,  insectxj, insectx_state,  empty_init, ROT0,   "Taito Corporation",         "Insector X (Japan)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1990, insectxbl, insectx,  insectx,  insectxj, insectx_state,  empty_init, ROT0,   "bootleg (Nagoya Kaihatsu)", "Insector X (bootleg)", MACHINE_SUPPORTS_SAVE )

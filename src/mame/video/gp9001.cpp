@@ -112,7 +112,7 @@ There seems to be sprite buffering - double buffering actually.
 Scroll Register 0E writes (Video controller inits ?) from different games:
 
 Teki-Paki        | Ghox             | Knuckle Bash     | Truxton 2        |
-0003, 0002, 4000 | ????, ????, ???? | 0202, 0203, 4200 | 0003, 0002, 4000 |
+0003, 0002, 4000 | 0003, 0002, 4000 | 0202, 0203, 4200 | 0003, 0002, 4000 |
 
 Dogyuun          | Batsugun         |
 0202, 0203, 4200 | 0202, 0203, 4200 |
@@ -120,6 +120,12 @@ Dogyuun          | Batsugun         |
 
 Pipi & Bibis     | Fix Eight        | V-Five           | Snow Bros. 2     |
 0003, 0002, 4000 | 0202, 0203, 4200 | 0202, 0203, 4200 | 0202, 0203, 4200 |
+
+Enma Daio        | Power Kick       | Othello Derby    | Sorcer Striker   |
+0202, 0203, 4200 | 0003, 0002, 4000 | 0003, 0002, 4000 | 0003, 0002, 4000 |
+
+Kingdom GrandP.  | Battle Garegga   | Batrider         | Battle Bakraid   |
+0003, 0002, 4000 | 0003, 0002, 4000 | 0003, 0002, 4000 | 0003, 0002, 4000 |
 
 ***************************************************************************/
 
@@ -274,7 +280,7 @@ void gp9001vdp_device::device_start()
 	m_gp9001_cb.resolve();
 	m_vint_out_cb.resolve();
 
-	m_raise_irq_timer = timer_alloc(TIMER_RAISE_IRQ);
+	m_raise_irq_timer = timer_alloc(FUNC(gp9001vdp_device::raise_irq), this);
 
 	save_item(NAME(m_scroll_reg));
 	save_item(NAME(m_voffs));
@@ -884,14 +890,7 @@ void gp9001vdp_device::screen_eof(void)
 }
 
 
-void gp9001vdp_device::device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr)
+TIMER_CALLBACK_MEMBER(gp9001vdp_device::raise_irq)
 {
-	switch (id)
-	{
-	case TIMER_RAISE_IRQ:
-		m_vint_out_cb(1);
-		break;
-	default:
-		throw emu_fatalerror("Unknown id in gp9001vdp_device::device_timer");
-	}
+	m_vint_out_cb(1);
 }
