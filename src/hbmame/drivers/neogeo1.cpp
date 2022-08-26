@@ -3075,7 +3075,7 @@ GAME( 2004, lans2k4d,      shocktr2, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1990, lbowlingcd,    lbowling, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "League Bowling (CD to MVS Conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, lresortpx,     lresort,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Last Resort (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2004, magdrop3fr,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Magical Drop III (Translation French, 2014-07-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, magdrop3fr,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Magical Drop III (French, 2014-07-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, magdrop3te,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "bankbank", "Magical Drop III (Tournament Edition, 2022-08-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, maglordpx,     maglord,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Magician Lord (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
@@ -3087,7 +3087,7 @@ GAME( 2002, matrimeh,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 2002, matrimehc,     matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrmehc,  ROT0, "Creamymami[EGCG]", "Matrimelee (Pow always max - MVS protection rem)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrimnd,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Matrimelee (Bootleg)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2005, miexchngfr,    miexchng, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Arkatrad", "Money Puzzle Exchanger (Translation French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, miexchngfr,    miexchng, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Arkatrad", "Money Puzzle Exchanger (French)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1992, mutnatex,      mutnat,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Pipi899", "Mutation Nation (Ex version)", MACHINE_SUPPORTS_SAVE )
 
@@ -3096,7 +3096,7 @@ GAME( 2008, nam1975h,      nam1975,  neogeo_noslot, neogeo, neogeo_state, init_n
 
 GAME( 1990, ncombatpk,     ncombat,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Krizal chen", "Ninja Combat (Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ncommandsp,    ncommand, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "e107", "Ninja Commando (Super Plus, 2009-08-16)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, neocup98k,     neocup98, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Long lived Raleigh", "Neo-Geo Cup '98 (Translation Korean V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, neocup98k,     neocup98, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Long lived Raleigh", "Neo-Geo Cup '98 (Korean V1)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1996, ninjamasasp,   ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "ZKW", "Ninja Master's (Plus Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamaschl,   ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CHL", "Ninja Master's (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
@@ -3108,13 +3108,13 @@ GAME( 2009, ninjamashb,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1996, ninjamashc,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "007325", "Ninja Master's (Plus, 2008-12-25)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2000, nitdd,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Eleven / Gavaking", "Nightmare in the Dark (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, nitdfr,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (Translation French V1a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, nitdfro,       nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (Translation French v1b, 2005-11-02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, nitdfro1,      nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark (Translation French V1c)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, nitdfr,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Arkatrad", "Nightmare in the Dark (French V1a)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, nitdfro,       nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (French v1b, 2005-11-02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, nitdfro1,      nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark (French V1c)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitdpx,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_nitd,      ROT0, "Xyahzhs", "Nightmare in the Dark (Plus Max)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, nitdsp,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_nitd,      ROT0, "hack", "Nightmare in the Dark (Translation Spanish V1a)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, nitdsp1,       nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack", "Nightmare in the Dark (Translation Spanish V1b)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, nitdsp2,       nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Meganiuz", "Nightmare in the Dark (Translation Spanish V1c)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, nitdsp,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_nitd,      ROT0, "hack", "Nightmare in the Dark (Spanish V1a)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, nitdsp1,       nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack", "Nightmare in the Dark (Spanish V1b)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, nitdsp2,       nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Meganiuz", "Nightmare in the Dark (Spanish V1c)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitdfro2,      nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack", "Nightmare in the Dark (VF: NEO-ARC Traduction)" , MACHINE_SUPPORTS_SAVE )
 
 GAME( 2009, pbcrazyb1,     pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble (Crazy beta 1, 2009-07-05)", MACHINE_SUPPORTS_SAVE )
@@ -4802,19 +4802,19 @@ GAME( 2002, matrims06,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, matrims07,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrim,    ROT0, "Gaston90", "Matrimelee (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, matrims08,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrim,    ROT0, "hack", "Matrimelee (Simplification Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
   // Money Puzzle Exchanger
-GAME( 1997, miexchngs01,    miexchng, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Money Puzzle Exchanger (French Translation, 2002-09-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, miexchngs01,    miexchng, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Money Puzzle Exchanger (French, 2002-09-27)", MACHINE_SUPPORTS_SAVE )
  // Neo Bomberman
 GAME( 1997, neobombes01,    neobombe, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eezezy(Lb70)", "Neo Bomberman (Ex Super V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, neobombes02,    neobombe, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eezezy(Lb70)", "Neo Bomberman (Ex Super V2)", MACHINE_SUPPORTS_SAVE )
  // Neo-Geo Cup '98
-GAME( 1998, neocup98s01,    neocup98, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Long lived Raleigh", "Neo-Geo Cup '98 (Translation Korean V1a)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, neocup98s01,    neocup98, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Long lived Raleigh", "Neo-Geo Cup '98 (Korean V1a)", MACHINE_SUPPORTS_SAVE )
  // Ninja Master's
 GAME( 1996, ninjamass01,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG][EGCG]", "Ninja Master's (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamass02,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "007325", "Ninja Master's (Command Change V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamass03,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "007325", "Ninja Master's (Command Change V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamass04,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Ninja Master's (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
  // Nightmare in the Dark
-GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (Translation French V1d)" , MACHINE_SUPPORTS_SAVE ) // Version Mame Neth
+GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (French V1d)" , MACHINE_SUPPORTS_SAVE ) // Version Mame Neth
 // Prehistoric Isle 2
 GAME( 1999, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
  // Ragnagard

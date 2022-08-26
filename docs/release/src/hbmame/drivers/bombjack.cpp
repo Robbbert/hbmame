@@ -126,5 +126,5 @@ ROM_END
 GAME( 1984, bmbjckgr,    bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "hack", "Bomb Jack (Greek)", MACHINE_SUPPORTS_SAVE )
 GAME( 1984, bombjckb,    bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "bootleg", "Bomb Jack (Bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, bombjred,    bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "hack", "Bomb Jack (Red)", MACHINE_SUPPORTS_SAVE )
-GAME( 1984, bombjacks01, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "hack", "Bomb Jack (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1984, bombjacks01, bombjack, bombjack, bombjack, bombjack_state, empty_init, ROT90, "hack", "Bomb Jack (Chinese)", MACHINE_SUPPORTS_SAVE )
 

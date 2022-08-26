@@ -91,7 +91,7 @@ ROM_START( tldemo2 )
 	ROM_LOAD16_BYTE( "tldemo2.ic8", 0x00001, 0x10000, CRC(33e70f71) SHA1(5a0caa0912dd7d76dd7e788e21b4cc7f320156ad) )
 ROM_END
 
-GAME( 2007, evilstonfr,  evilston, evilston,  evilston, taitol_2cpu_state, empty_init, ROT270, "Arkatrad", "Evil Stone (Translation French V1)", MACHINE_IMPERFECT_SOUND )
+GAME( 2007, evilstonfr,  evilston, evilston,  evilston, taitol_2cpu_state, empty_init, ROT270, "Arkatrad", "Evil Stone (French V1)", MACHINE_IMPERFECT_SOUND )
 GAME( 2015, sokoban,     0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Sokoban LE", 0 )
 GAME( 2015, speccies,    0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "Sokurah", "Speccies 2", 0 )
 GAME( 2018, sqij,        0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "Sokurah", "SQIJ!", 0 )
@@ -151,9 +151,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Evil Stone
-GAME( 2007, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init, ROT270, "S.Arkames.", "Evil Stone (Translation French V2 2007-11-28)", 0 )
+GAME( 2007, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init, ROT270, "S.Arkames.", "Evil Stone (French V2, 2007-11-28)", 0 )
 // Kuri Kinton
-GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init, ROT0,   "hack", "Kuri Kinton (Translation Chinese)", 0 )
+GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init, ROT0,   "hack", "Kuri Kinton (Chinese)", 0 )
 // Plotting
-GAME( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, init_plottinga, ROT0,   "hack", "Plotting (Translation Chinese)", 0 )
+GAME( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, init_plottinga, ROT0,   "hack", "Plotting (Chinese)", 0 )
 

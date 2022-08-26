@@ -2946,7 +2946,7 @@ GAME( 2000, kof2000s30,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init
 GAME( 2000, kof2000s31,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "Eddids",    "Kof2000 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2000s32,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "yashional",    "Kof2000 (Investment Skills Hit)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2000s33,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "hack",    "Kof2000 (Like PS2 Version V1.0 2013)(Hack only enable in AES mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, kof2000s34,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "COGODO",    "Kof2000 (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2000s34,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "COGODO",    "Kof2000 (Chinese)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2000s35,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "Eddids & 0 Day-S?A1",    "Kof2000 (Boss Striker Perfect Edtion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2000s36,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "hack",    "Kof2000 (Simplify The Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2000s37,     kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "hack",    "Kof2000 (Yagami Nunnery Add '97 Shavings Wind)", MACHINE_SUPPORTS_SAVE )

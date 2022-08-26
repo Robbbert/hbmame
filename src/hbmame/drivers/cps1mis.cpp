@@ -27282,7 +27282,7 @@ GAME( 2019, captcommh03,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,
 GAME( 2019, captcommh04,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "BinDi", "Captain Commando (Shape Shifting Version 2019-01-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, captcommh05,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "BinDi", "Captain Commando (99 Fighter Edition 2019-01-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, captcommh06,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "TouJingGaiErDeZei", "Captain Commando (99 Fighter Edition 2018-11-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, captcommh07,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (Translation Chinese)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
+GAME( 1991, captcommh07,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (Chinese)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
 GAME( 2008, captcommh08,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "Shinwa", "Captain Commando (Ex Super version 2008-05-10)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2016, captcommh09,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (r1p)" , MACHINE_SUPPORTS_SAVE )
 GAME( 1991, captcommh10,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
@@ -27698,7 +27698,7 @@ GAME( 2016, knightsh06,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,
 GAME( 1991, knightsh07,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "doubledr", "Knights of the Round (Select Players 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, knightsh08,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Super Plus 2016-08-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, knightsh09,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Tie Jia Ying Hao 1 Vs 3 Edition 2018-03-03)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2018, knightsh10,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Translation Chinese 2018-03-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, knightsh10,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Chinese, 2018-03-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsh11,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Tie Jia Ying Hao 2 2018-03-14)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2015, knightsh12,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Super Enhanced Latest Edition 2015-06-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, knightsh13,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Unknown Hack 2016-11-28)", MACHINE_SUPPORTS_SAVE )
@@ -27707,10 +27707,10 @@ GAME( 2018, knightsh15,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,
 GAME( 2018, knightsh16,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (1V3 Unparalleled Edition 2018-06-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, knightsh17,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Enemy Random 2011-12-20)", MACHINE_SUPPORTS_SAVE ) //Name of the unknown roms
 GAME( 2020, knightsh18,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Warriors Enhanced Edition 2020-08-02)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, knightsjs01,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, knightsjs01,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mercs
 GAME( 1990, mercs01,       mercs,    cps1_10MHz, mercs,    cps_state, init_cps1,     ROT270, "LB70", "Mercs (Crazy Fire Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, mercjs01,      mercs,    cps1_10MHz, mercs,    cps_state, init_cps1,     ROT270, "hack", "Senjou no Ookami II (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, mercjs01,      mercs,    cps1_10MHz, mercs,    cps_state, init_cps1,     ROT270, "hack", "Senjou no Ookami II (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Muscle Bomber Duo
 GAME( 1993, mbombrds01,    mbombrd,  qsound,     slammast, cps_state, init_slammast, ROT0, "Creamymami[EGCG]", "Muscle Bomber Duo: Ultimate Team Battle (Region Asia Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, mbombrds02,    mbombrd,  qsound,     slammast, cps_state, init_slammast, ROT0, "Creamymami[EGCG]", "Muscle Bomber Duo: Ultimate Team Battle (Region Hispanic Version)", MACHINE_SUPPORTS_SAVE )
@@ -27777,8 +27777,8 @@ GAME( 1992, sf2s13,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,
 GAME( 2014, sf2s14,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II: The World Warrior (King Of The Four Heavenly Kings)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, sf2s15,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II: The World Warrior (12 Person Version 2016-01-01)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter II: Champion Edition
-GAME( 1992, sf2ces01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Translation Brasil)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ces02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Translation Hispanic)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ces01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ces02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Hispanic)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ces03,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Do Not Force)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ces04,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Sangigel's Whirlwind To Sit Simplified)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ces05,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Vega Lifts The Main Scene Crawl Limit)", MACHINE_SUPPORTS_SAVE )
@@ -28108,7 +28108,7 @@ GAME( 1992, sk2j6,         wof,      sk2h31,     sk2h31,   cps_state, init_sk2h2
 GAME( 1992, sk2k1,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Chaihe", "Sangokushi II (Holy Sword Three Kingdoms (Invincible))", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2k2,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Sangokushi II (set K2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2k3,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Sangokushi II (set K3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sk2k4,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Fenghua [Phoenix]", "Sangokushi II (Chinese Translation 2017-04-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sk2k4,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Fenghua [Phoenix]", "Sangokushi II (Chinese, 2017-04-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sk2k5,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Pipi899", "Sangokushi II (Group Modified Version 2008-01-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sk2k6,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Pipi899", "Sangokushi II (Easy Moves 2009-01-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2k7,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Chaihe & EmuFan", "Sangokushi II (Holly Sword Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
@@ -28148,7 +28148,7 @@ GAME( 1992, wofs07,        wof,      qsound,     wof,      cps_state, init_wof, 
 GAME( 1992, wofs08,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, wofs09,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "GOTVG", "Warriors of Fate (1VS3 2013-04-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 200?, wofs10,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms (Invincible))", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, wofs11,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Shyma.X", "Warriors of Fate (French Translation 2003-07-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, wofs11,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Shyma.X", "Warriors of Fate (French, 2003-07-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs12,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Katana", "Warriors of Fate (Double Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs13,        wof,      wofsf2,     wof,      cps_state, init_cps1,     ROT0, "hack", "Warriors of Fate (conversion for SF2 HW)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs14,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Warriors of Fate (USA 921031 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )

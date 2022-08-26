@@ -73,5 +73,5 @@ ROM_START( wbmlkb )
 ROM_END
 
 GAME( 1987, wbmlbit, wbml, sys2xb, wbml, system1_state, init_bootsys2, ROT0, "Michele", "Wonder Boy in Monster Land (Italian - v0.99)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-GAME( 1987, wbmlkb,  wbml, sys2xb, wbml, system1_state, init_bootsys2, ROT0, "Aneue Bannzai", "Wonder Boy in Monster Land (Translation Korean)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1987, wbmlkb,  wbml, sys2xb, wbml, system1_state, init_bootsys2, ROT0, "Aneue Bannzai", "Wonder Boy in Monster Land (Korean)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 

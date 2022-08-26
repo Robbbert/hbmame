@@ -30,12 +30,6 @@ ROM_START( drtoppels01 )
 	ROM_REGION( 0x0400, "proms", 0 )
 	ROM_LOAD( "b19-13.am27s29.15f", 0x0000, 0x200, CRC(6a547980) SHA1(c82f8dfad028565b4b4e5be1167f2f290c929090) )
 	ROM_LOAD( "b19-12.am27s29.16f", 0x0200, 0x200, CRC(5754e9d8) SHA1(8c7d29e22c90b1f72929b95675dc15e431aae044) )
-
-	ROM_REGION( 0x10000, "pal", 0 )
-	ROM_LOAD( "b06-10.pal16l8a.d9.jed", 0x00000, 0x01000, NO_DUMP)
-	ROM_LOAD( "b06-11.pal16l8a.d6.jed", 0x01000, 0x01000, NO_DUMP)
-	ROM_LOAD( "b06-12.pal16l8a.c3.jed", 0x02000, 0x01000, NO_DUMP)
-	ROM_LOAD( "b06-13.pal16l8a.c2.jed", 0x03000, 0x01000, NO_DUMP)
 ROM_END
 
 /**********
@@ -58,4 +52,4 @@ ROM_END
 // Dr. Toppel's Adventure
 GAME( 1987, drtoppels01,  drtoppel,   extrmatn, drtoppel, extrmatn_state, empty_init, ROT90,  "Taito Corporation Japan",   "Dr. Toppel's Adventure (World, alt?)", MACHINE_SUPPORTS_SAVE ) /* Possible region hack */
 // Insector X
-GAME( 1989, insectxs01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "hack", "Insector X (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, insectxs01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "hack", "Insector X (Chinese)", MACHINE_SUPPORTS_SAVE )

@@ -85,6 +85,6 @@ ROM_END
 
 GAME( 2002, mrio2002,    suprmrio, vsnes, suprmrio, vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
 GAME( 1986, suprsktr,    suprmrio, vsnes, suprmrio, vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
-GAME( 2002, drmarios01,  drmario,  vsnes, drmario,  vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Translation Chinese 2002-10-XX)", 0 )
-GAME( 2020, frombelow,   suprmrio, vsnes, frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0 2020-12-21)", 0 )
+GAME( 2002, drmarios01,  drmario,  vsnes, drmario,  vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
+GAME( 2020, frombelow,   suprmrio, vsnes, frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
 

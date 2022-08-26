@@ -3731,7 +3731,7 @@ GAME( 2020, kof2003s55,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2020, kof2003s56,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kof2003 (Dragon Edition Simplified 2020-02-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2003s57,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kof2003,   ROT0, "hack", "Kof2003 (Plus Original 2020-06-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2003s58,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kof2003,   ROT0, "hack", "Kof2003 (Plus Simplified 2020-06-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, kf2k3pls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kf2k3pl,   ROT0, "devilfox & BisonSAS", "Kof2004 Plus / Hero (Translation Portuguese)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kf2k3pls01,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kf2k3pl,   ROT0, "devilfox & BisonSAS", "Kof2004 Plus / Hero (Portuguese)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kf2k3pls02,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kf2k3pl,   ROT0, "Jason", "Kof2004 Plus / Hero (Always Change Ok)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kf2k3pls03,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kf2k3pl,   ROT0, "kof1996", "Kof2004 Plus / Hero (Enable Zoom)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kf2k3pls04,     kof2003,  neogeo_noslot, neogeo, neogeo_state, init_kf2k3pl,   ROT0, "MR.L", "Kof2004 Plus / Hero (Unlock Leader Special Move)", MACHINE_SUPPORTS_SAVE )

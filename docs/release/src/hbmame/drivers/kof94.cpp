@@ -1034,10 +1034,10 @@ ROM_END
 // The King of Fighters '94
 GAME( 1994, kof94s01,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'94 (Power Maxs)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s02,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'94 (Color Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s03,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Syberjun",    "Kof'94 (Korean Translation)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s03,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Syberjun",    "Kof'94 (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s04,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'94 (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s05,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'94 (Fix Boss's Error)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kof94s06,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'94 (Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kof94s06,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'94 (Unlimited Special Moves)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s07,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "yumeji",    "Kof'94 (Enable Hidden Characters Rev.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s08,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "tcwlee[EGCG]",    "Kof'94 (Color Change)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s09,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'94 (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )

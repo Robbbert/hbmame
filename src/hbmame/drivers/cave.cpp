@@ -999,7 +999,7 @@ GAME( 2021, ddonpachjh,    ddonpach, ddonpach,   cave,     cave_state,     init_
 // Gaia Crusaders
 GAME( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     init_gaia,      ROT0,    "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE )
 // Metamoqester
-GAME( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "Aneue Bannzai",  "Metamoqester (Translation Korean)",   MACHINE_SUPPORTS_SAVE )
+GAME( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "Aneue Bannzai",  "Metamoqester (Korean)",   MACHINE_SUPPORTS_SAVE )
 GAME( 1995, metmqstrs02,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Always Have Super Move)",   MACHINE_SUPPORTS_SAVE )
 GAME( 1995, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Easy Move)",   MACHINE_SUPPORTS_SAVE )
 // Thunder Heroes

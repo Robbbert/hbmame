@@ -2,21 +2,46 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/system16.cpp"
 
-/* 2020-03-29: Modified sega16sp to not freeze when sprite ram is written to.
-
-   To run this program without sprites, you need to do this:
-    ROM_FILL(0x686, 1, 0x4e)
-    ROM_FILL(0x687, 1, 0x71)
-
-  Note that this demo doesn't have any sound programmed in.
-
-  Use left & right arrows to move the sprite around.
-
-  This game is likely to crash in HBMAMEUI. To make it happen, run 'spacmissx', followed by 'sys16dem'.
-  It will most likely crash, due to more horrible bugs in the system16 screen drawing code. Sometimes it
-  may run, but without the background tiles.
-
+/*
+    This demo doesn't have any sound programmed in.
+    Use left & right arrows to move the sprite around.
 */
+
+class hb_sys16 : public segas1x_bootleg_state
+{
+public:
+	hb_sys16(const machine_config &mconfig, device_type type, const char *tag)
+		: segas1x_bootleg_state(mconfig, type, tag)
+		{ }
+
+	void init_sys16dem();
+};
+
+// The original has no sprite end markers, leading to freeze, crash, and bugs.
+// We need to add a marker after each group of 8x 16-bit sprite-words.
+void hb_sys16::init_sys16dem()
+{
+	u16 *rom = (u16 *)memregion("sprites")->base();
+	u16 buf[0x500],i,j,k = 0;
+	for (i = 0; i < 0x500; i++)
+		buf[i] = rom[i];
+	// Add sprite end markers for each row of pixels
+	for (i = 0; i < 0xA0; i++)
+	{
+		for (j = 0; j < 8; j++)
+			rom[k++] = buf[i*8+j];
+		rom[k++] = 0x0f;
+	}
+	// Now, tell the sprite engine that each row now has 9 bytes instead of 8
+	rom = (u16 *)memregion("maincpu")->base();
+	for (i = 0x2d08/2; i < 0x2d50/2; i+=0x10/2)
+		rom[i] |= 9;
+	// Lastly, tell the sprite engine the new (16-bit) location of each sprite letter
+	rom[0x2d1a/2] |= 0x20;
+	rom[0x2d2a/2] |= 0x40;
+	rom[0x2d3a/2] |= 0x60;
+	rom[0x2d4a/2] |= 0x80;
+}
 
 ROM_START( sys16dem )
 	ROM_REGION( 0x40000, "maincpu", ROMREGION_ERASEFF )
@@ -36,5 +61,5 @@ ROM_START( sys16dem )
 	ROM_LOAD( "epr12168.a7", 0x0000, 0x8000, CRC(bd9ba01b) SHA1(fafa7dc36cc057a50ae4cdf7a35f3594292336f4) )
 ROM_END
 
-GAME( 1988, sys16dem, 0, tetrisbl, tetris, segas1x_bootleg_state, init_dduxbl, ROT0, "Charles Doty", "Demo - Sega System 16", MACHINE_NO_SOUND )
+GAME( 1988, sys16dem, 0, tetrisbl, tetris, hb_sys16, init_sys16dem, ROT0, "Charles Doty", "Demo - Sega System 16", MACHINE_NO_SOUND )
 

@@ -263,7 +263,7 @@ GAME( 1996, cleopath,    cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, R
 GAME( 1994, driusgxh,    dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
 GAME( 2000, f3demo,      0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
 GAME( 1995, gekiridh,    gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
-GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Chinese Translation)", 0 )
+GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Chinese)", 0 )
 GAME( 1998, landmakh,    landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
 GAME( 1995, pbobl2xh,    pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
 GAME( 2022, pbobble3h01, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
@@ -747,25 +747,25 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
  // Cleopatra Fortune
-GAME( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",         "Cleopatra Fortune (Translation Chinese)", 0 )
+GAME( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",         "Cleopatra Fortune (Chinese)", 0 )
  // Akkanbeder
-GAME( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "hack",         "Akkanbeder (Translation Chinese)", 0 )
+GAME( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "hack",         "Akkanbeder (Chinese)", 0 )
  // Arabian Magic
-GAME( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "hack",         "Arabian Magic (Translation Chinese 2017-04-27)", 0 )
+GAME( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "hack",         "Arabian Magic (Chinese, 2017-04-27)", 0 )
  // Bubble Symphony
-GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",         "Bubble Symphony (Translation Chinese)", 0 )
+GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",         "Bubble Symphony (Chinese)", 0 )
  // Dan-Ku-Ga
 GAME( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Dan-Ku-Ga (Plus)", 0 )
 GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",       "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
  // Elevator Action Returns
-GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "hack",         "Elevator Action Returns (Translation Chinese)", 0 )
+GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "hack",         "Elevator Action Returns (Chinese)", 0 )
  // Grid Seeker: Project Storm Hammer
-GAME( 1992, gseekerjs01,       gseeker,  f3_224b, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",         "Grid Seeker: Project Storm Hammer (Translation Chinese)", 0 )
+GAME( 1992, gseekerjs01,       gseeker,  f3_224b, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",         "Grid Seeker: Project Storm Hammer (Chinese)", 0 )
  // Kaiser Knuckle
 GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",       "Kaiser Knuckle (Enable Hidden Characters)", 0 )
 GAME( 1994, kaiserkns02,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Kaiser Knuckle (Plus)", 0 )
  // Land Maker
-GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",         "Land Maker (Translation Chinese)", 0 )
+GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",         "Land Maker (Chinese)", 0 )
  // Light Bringer
-GAME( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "hack",         "Light Bringer (Translation Chinese 2017-04-26)", 0 )
+GAME( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "hack",         "Light Bringer (Chinese, 2017-04-26)", 0 )
 

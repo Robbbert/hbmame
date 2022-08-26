@@ -6764,8 +6764,8 @@ GAME( 2021, pacman25s12, puckman,  woodpek,  pacman0,  puckman_state, empty_init
 GAME( 2021, pacman25s13, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (T-Bone Mazes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s14, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mazes)(PAC-MAN Classic Look)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s15, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mazes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, pacman25s16, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)(PAC-MAN Classic Look)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, pacman25s17, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, pacman25s16, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)(PAC-MAN Classic Look)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
+GAME( 2021, pacman25s17, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
 GAME( 2021, pacman25s18, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Tall Mazes)(PAC-MAN Classic Look)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s19, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Tall Mazes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s20, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Ultra Pac-Man)", MACHINE_SUPPORTS_SAVE )

@@ -6380,7 +6380,7 @@ GAME( 2000, mpangj01,   mpang,    dead_cps2, cps2_2p3b, cps2_state, init_cps2, R
 
 // 19XX The War Against Destiny
 GAME( 1996, 19xxs01,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "DDJ", "19XX: The War Against Destiny (951207U, Ex Super Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, 19xxs02,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "hack", "19XX: The War Against Destiny (951207, Chinese Translation)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, 19xxs02,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT270, "hack", "19XX: The War Against Destiny (951207, Chinese)", MACHINE_SUPPORTS_SAVE )
 // 1944 The Loop Master
 GAME( 2000, 1944s01,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "DDJ", "1944: The Loop Master (000620U, Strongest Fire Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, 1944s02,    1944,     dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Razoola", "1944: The Loop Master (000620U, Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
@@ -6402,11 +6402,11 @@ GAME( 1997, csclubs01,  csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, R
 // Cyberbots Fullmetal Madness
 GAME( 1995, cybots01,   cybots,   cps2,      cybots,    cps2_state, init_cps2, ROT0, "Pipi899", "Cyberbots: Fullmetal Madness (950420J, Get Maximum Power On Attack)", MACHINE_SUPPORTS_SAVE )
 // Dungeons & Dragons Shadow over Mystara
-GAME( 2017, ddsoms01,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (960619J, Chinese Translation, 2017-04-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ddsoms01,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (960619J, Chinese, 2017-04-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ddsoms02,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619J, Full Attack Edition, 2020-08-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, ddsoms03,   ddsom,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619U, Enhanced Edition, 2019-10-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsoms04,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (960619A, 1vs4 Players, 2009-06-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ddsoms05,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619J, Chinese Translation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ddsoms05,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619J, Chinese)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsoms06,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (960619E, Strengthen The Physical Model, 2009-06-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsoms07,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (960619J, Change the Final Strike condition, 2009-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsoms08,   ddsom,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619U, Plus, 2016-08-25)", MACHINE_SUPPORTS_SAVE )
@@ -6475,7 +6475,7 @@ GAME( 1994, ssf2t03,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 1994, ssf2t04,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Jason[FGCH]", "Super Street Fighter II Turbo (940323U, Retro color)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2t05,    ssf2t,    dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Razoola", "Super Street Fighter II Turbo (940223ETC, Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2t06,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Cigarette Patch", "Super Street Fighter II Turbo (940223ETC, French Parody)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, ssf2t07,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Shyma.X", "Super Street Fighter II Turbo (050401F, French Translation, 2015-01-XX)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, ssf2t07,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Shyma.X", "Super Street Fighter II Turbo (050401F, French, 2015-01-XX)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2t08,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "KrysoFun", "Super Street Fighter II Turbo (940223ETC, Plus v0.9 beta)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl3,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.3 beta, 2020-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl4,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.4 beta, 2020-11-13)", MACHINE_SUPPORTS_SAVE )
@@ -6533,7 +6533,7 @@ GAME( 2016, sfz2als14,  sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2008, sfz2als15,  sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 2 Alpha (960805J, Enhanced Dan Version, 2008-12-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfz2als16,  sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 2 Alpha (960805J, Dragon Edition v1.0, 2009-03-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfz2als17,  sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero 2 Alpha (960805J, Dragon Edition v2.0, 2009-04-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, sfz2als18,  sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "BisonSAS", "Street Fighter Zero 2 Alpha (061225BR, Brazil translation)", MACHINE_SUPPORTS_SAVE ) // portuguese-brazilian hack fix
+GAME( 1996, sfz2als18,  sfz2al,   cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "BisonSAS", "Street Fighter Zero 2 Alpha (061225BR, Brazil)", MACHINE_SUPPORTS_SAVE ) // portuguese-brazilian hack fix
 // Street Fighter Alpha 3
 GAME( 2009, sfa3s01,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Alpha 3 (980904E, Modified Version Of The Directive, 2009-05-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, sfa3s02,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "shiro", "Street Fighter Alpha 3 (980904E, Simplified)", MACHINE_SUPPORTS_SAVE )
@@ -6545,7 +6545,7 @@ GAME( 2016, sfa3s07,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2016, sfa3s08,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "DDJ", "Street Fighter Alpha 3 (980904E, Full Power, 2016-09-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sfa3s09,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Street Fighter Alpha 3 (980904E, Dragon Drop, 2020-04-09)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sfa3s10,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Street Fighter Alpha 3 (980904E, Dragon Drop Simplified, 2020-04-09)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, sfa3s11,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "BisonSAS & Alan Yagami", "Street Fighter Alpha 3 (050513BR, Brazil translation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, sfa3s11,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "BisonSAS & Alan Yagami", "Street Fighter Alpha 3 (050513BR, Brazil)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, sfa3s12,    sfa3,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Grego and Gnawtor", "Street Fighter Alpha 3 (210408U, Challenger's Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfa3s13,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Alpha 3 (980904E, Xiang Long edition, 2009-05-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sfa3s14,    sfa3,     cps2,      cps2_2p6bt,cps2_state, init_cps2, ROT0, "shiro", "Street Fighter Alpha 3 (980904E, Nude Cammy Edition)", MACHINE_SUPPORTS_SAVE )

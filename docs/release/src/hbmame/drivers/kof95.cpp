@@ -409,20 +409,20 @@ ROM_START( kof95y ) /* The King of Fighters '95 - Hack by Ydmis - (Can choose Ku
 ROM_END
 
 
-GAME( 2012, kof95b,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ydmis & Creamymami[EGCG]", "Kof'95 (Enable Hidden Characters V.[?])", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, kof95b,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ydmis & Creamymami[EGCG]", "Kof'95 (Enable Hidden Characters, set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, kof95bln,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Eddids", "Kof'95 (Boss Like NeogeoCD Version Rev.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95brz,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ZKW", "Kof'95 (Boss Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95ce,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Kof'95 (Colour Edit)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95d,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Kof'95 (NGM-084, Alt Board) ", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95eh,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char - Pow hack ABC)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95hp,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HackPlus", "Kof'95 (Add Char set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, kof95k,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Moe-Luna", "Kof'95 (Korean Translation V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, kof95k,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Moe-Luna", "Kof'95 (Korean V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95neo,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Kof'95 (Boss Like NeogeoCD v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95pjc,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "TcwLee", "Kof'95 (Add Char - Char color changed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, kof95ru,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jason/K3", "Kof'95 (Remix Ultra 1.0)(Diff Moves ultra rev v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95seh,  kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Creamymami and Ydmis", "Kof'95 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof95sp,   kof95,    gsc,             neogeo,  neogeo_state, init_neogeo,   ROT0, "GSC2007", "Kof'95 (Special v1.0.2017-06-27)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, kof95sp2,  kof95,    gsc,             neogeo,  neogeo_state, init_neogeo,   ROT0, "GSC2007", "Kof'95 (Special v1.0.2017-06-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof95sp,   kof95,    gsc,             neogeo,  neogeo_state, init_neogeo,   ROT0, "GSC2007", "Kof'95 (Special v1.0, 2017-06-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, kof95sp2,  kof95,    gsc,             neogeo,  neogeo_state, init_neogeo,   ROT0, "GSC2007", "Kof'95 (Special v1.0, 2017-06-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95xg,   kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "PPX Hack Team", "Kof'95 (Boss)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95y,    kof95,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ydmis", "Kof'95 (Add Char set 1)", MACHINE_SUPPORTS_SAVE )
 
@@ -1240,9 +1240,9 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '95
 GAME( 1995, kof95s01,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids",    "Kof'95 (Boss Like NeogeoCD Version Rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95s02,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Moe-Luna",    "Kof'95 (Korean Translation)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95s03,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'95 (Unlimit Special Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, kof95s04,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'95 (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95s02,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Moe-Luna",    "Kof'95 (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95s03,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'95 (Unlimited Special Moves)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, kof95s04,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'95 (Enable Hidden Characters, set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95s05,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'95 (Enhanced Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95s06,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "snk2003",    "Kof'95 (Brassiere Color Change)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kof95s07,       kof95,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "tcwlee",    "Kof'95 (Color Change)", MACHINE_SUPPORTS_SAVE )

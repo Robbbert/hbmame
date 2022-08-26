@@ -658,9 +658,9 @@ GAME( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_hbmame, init_frogge
 
 
 /* Amidar */
-GAME( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "S.Arkames", "Amidar (language Translation French)(11.28.2007)(Set 01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "S.Arkames", "Amidar (French, 2007-11-28)(Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "Arkatrad", "Amidar (language Translation French)(11.28.2007)(Set 02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "Arkatrad", "Amidar (French, 2007-11-28)(Set 2)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Scramble */

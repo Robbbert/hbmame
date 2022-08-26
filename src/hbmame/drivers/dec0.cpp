@@ -172,7 +172,7 @@ ROM_START( robocopbs01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (Translation French 2017-10-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French, 2017-10-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
 // Robocop
 GAME( 1988, robocopbs01,   robocop,  robocopb,   robocop,    dec0_state, empty_init,      ROT0, "bootleg", "Robocop (Red Corporation World bootleg)", MACHINE_SUPPORTS_SAVE )

@@ -27,7 +27,7 @@ ROM_START( asukac )
 	ROM_LOAD( "b68-05.ic43", 0x00000, 0x104, CRC(d6524ccc) SHA1(f3b56253692aebb63278d47832fc27b8b212b59c) )
 ROM_END
 
-GAME( 1988, asukac, asuka, asuka, asuka,  msm_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, asukac, asuka, asuka, asuka,  msm_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Chinese)", MACHINE_SUPPORTS_SAVE )
 
 
 

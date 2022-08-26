@@ -336,21 +336,21 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Cameltry
-GAME( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, init_cameltry, ROT0,   "hack",         "Cameltry (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, init_cameltry, ROT0,   "hack",         "Cameltry (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-GAME( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, empty_init, ROT0,   "hack",         "Dead Connection (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, empty_init, ROT0,   "hack",         "Dead Connection (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-GAME( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, empty_init, ROT0,   "hack",         "Don Doko Don (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, empty_init, ROT0,   "hack",         "Don Doko Don (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dino Rex
 GAME( 1992, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, empty_init, ROT0,   "DDJ",             "Dino Rex (Easy Move)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
-GAME( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, empty_init, ROT270, "hack",         "Gun Frontier (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, empty_init, ROT270, "hack",         "Gun Frontier (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-GAME( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, empty_init, ROT0,   "hack",         "Mega Blast (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, empty_init, ROT0,   "hack",         "Mega Blast (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
-GAME( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, empty_init, ROT0,   "hack",         "Mizubaku Daibouken (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, empty_init, ROT0,   "hack",         "Mizubaku Daibouken (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Runark
-GAME( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, empty_init, ROT0,   "hack",         "Runark (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, empty_init, ROT0,   "hack",         "Runark (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Thunder Fox
-GAME( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, empty_init, ROT0,   "hack",         "Thunder Fox (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, empty_init, ROT0,   "hack",         "Thunder Fox (Chinese)", MACHINE_SUPPORTS_SAVE )
 

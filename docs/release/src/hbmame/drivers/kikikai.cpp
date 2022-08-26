@@ -34,5 +34,5 @@ ROM_END
 
 /*    YEAR  NAME         PARENT      MACHINE   INPUT     CLASS                       INIT      MONITOR COMPANY                 FULLNAME               FLAGS */
 // KiKi KaiKai
-GAME( 1986, kikikais01,  kikikai,    kikikai,  kikikai,  kikikai_simulation_state, empty_init, ROT90,   "hack",  "KiKi KaiKai (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, kikikais01,  kikikai,    kikikai,  kikikai,  kikikai_simulation_state, empty_init, ROT90,   "hack",  "KiKi KaiKai (Chinese)", MACHINE_SUPPORTS_SAVE )
 

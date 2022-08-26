@@ -261,7 +261,7 @@ ffight
 //ffightua
 //ffightub
 //ffightuc
-//forgottn                             // need to get back to this
+forgottn
 //forgottna
 //forgottnj
 //forgottnu
@@ -613,7 +613,7 @@ dinos34
 dinos35
 dinos36
 dinos37
-//dinos38                              // missing background
+dinos38
 dinos40
 dinos41
 dinos42
@@ -830,6 +830,8 @@ ffightj2s02
 ffightj2s03
 ffightj2s04
 ffightj1s01
+forgottnsf2
+ghoulsf2
 kodr01                                 // r = based on kodr1, bad gfx are normal
 kodr02
 koduhc01
@@ -1031,6 +1033,7 @@ slammasts06
 striders01
 striders02                             // fix unwanted black specks
 striders03                             // as above, and uncensored
+striders04
 varths01
 varths02
 willows01
@@ -1336,60 +1339,34 @@ xmcota
 xmvsf
 
 @source:cps2mis.cpp
-1944da
-1944fp
 1944s01
-19xxjrs01
+1944s02
+1944s03
 19xxs01
+19xxs02
 armwars01
 armwars02
-avspud
-avspus01
-avspus02
-avspus03
-avspus04
-avspus05
-batcirds01
+avsps01
+avsps02
+avsps03
+avsps04
+avsps05
+avsps06
+batcirs01
 csclubs01
-cybotsjs01
-ddsoma4ppdec
-ddsomavs
-ddsomchs
-ddsomhp
-ddsomjfs
-ddsomjs01
-ddsomjs02
-ddsomuds02
-ddtodpdec
+cybots01
+ddsoms01
+ddsoms02
+ddsoms03
+ddsoms04
+ddsoms05
+ddsoms06
+ddsoms07
+ddsoms08
 ddtods01
+ddtods02
 dstlks01
 gigawings01
-mpangjd
-mshjphp
-mshs01
-mshs02
-mshvsemb
-mshvsfjh
-mshvsfjphp
-mshvsfjs01
-mshvsfjs02
-mshvsfjs03
-mshvsfs01
-mshvsfs02
-mshyh
-mvscjemb
-mvscjphp
-mvscjs01
-mvscjs02
-mvsh01
-mvsh02
-pfghtjrm
-pfghtjs01
-pfghtjs02
-pfghtjs03
-progearjds01
-progearjds02
-halfway
 hsf2s02
 hsf2s03
 hsf2s04
@@ -1403,54 +1380,73 @@ hsf2s11
 hsf2s12
 hsf2s13
 hsf2s14
+mpangj01
+mshs01
+mshs02
+mshs03
+mshs04
+mshvsfs01
+mshvsfs02
+mshvsfs03
+mshvsfs04
+mshvsfs05
+mshvsfs06
+mshvsfs07
+mshvsfs08
+mvscs01
+mvscs02
+mvscs03
+mvscs04
+mvscs05
+mvscs06
+pfghtj01
+pfghtj02
+pfghtj03
+pfghtj04
+progearj01
+progearj02
 sfas01
 sfas02
 sfas03
 sfas04
 sfas05
-sfaud
-sfzjboss
-sfzjs01
-sfzjs02
-sfzjs03
-sfzjs04
-sfzjs05
-sfzjyh
-sfa2h
+sfas06
+sfzj01
+sfzj02
+sfzj03
+sfzj04
+sfzj05
+sfzj06
+sfzj07
 sfa2s01
 sfa2s02
 sfa2s03
-sfa2us01
-sfa2us02
-sfa2us03
-sfa2us04
-sfa2us05
-sfz2abr
-sfz2ajhp
-sfz2aldp
-sfz2aldp2
-sfz2aljs00
-sfz2aljs01
-sfz2aljs02
-sfz2aljs03
-sfz2aljs04
-sfz2aljs05
-sfz2aljs06
-sfz2aljs07
-sfz2aljs08
-sfz2aljs09
-sfz2aljs10
-sfz2aljs11
+sfa2s04
+sfa2s05
+sfa2s06
+sfa2s07
+sfa2s08
+sfa2s09
+sfa2s10
+sfz2j01
 sfz2als01
 sfz2als02
-sfz2jyh
-sfz2ns01
-sfa3br
-sfa3ce
-sfa3dp
-sfa3nc
-sfa3nch
-sfa3ncj
+sfz2als03
+sfz2als04
+sfz2als05
+sfz2als06
+sfz2als07
+sfz2als08
+sfz2als09
+sfz2als10
+sfz2als11
+sfz2als12
+sfz2als13
+sfz2als14
+sfz2als15
+sfz2als16
+sfz2als17
+sfz2als18
 sfa3s01
 sfa3s02
 sfa3s03
@@ -1461,26 +1457,33 @@ sfa3s07
 sfa3s08
 sfa3s09
 sfa3s10
-sfa3sp2
-sfa3spp
-sfa3uhd
-sfz3ce
-sfz3jb
-sfz3jemb
-sfz3jhp
-sfz3js01
-sfz3js02
-sfz3js03
-sfz3js04
-sfz3js05
-sfz3js06
-sfz3js07
-sfz3js08
-sfz3js09
-sfz3js10
-sfz3js11
-sfz3js12
-sfz3jsep
+sfa3s11
+sfa3s12
+sfa3s13
+sfa3s14
+sfa3s15
+sfa3s16
+sfa3s17
+sfa3s18
+sfa3s19
+sfz3j01
+sfz3j02
+sfz3j03
+sfz3j04
+sfz3j05
+sfz3j06
+sfz3j07
+sfz3j08
+sfz3j09
+sfz3j10
+sfz3j11
+sfz3j12
+sfz3j13
+sfz3j14
+sfz3j15
+sfz3j16
+sfz3j17
+sfz3j18
 sfz3mix07
 sfz3mix07a
 sfz3mix07b
@@ -1490,47 +1493,46 @@ sfz3mix10
 sfz3mix11
 sfz3mix12
 sfz3mix
-sfz3te
-sgemfch
-spf2tb
-ssf2js01
-ssf2r1d
-ssf2td
-ssf2tfp
-ssf2tfr
+sgemfs01
+spf2t01
+ssf2s01
+ssf2s02
+ssf2s03
+ssf2t01
+ssf2t02
+ssf2t03
+ssf2t04
+ssf2t05
+ssf2t06
+ssf2t07
+ssf2t08
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
 ssf2tnl6
 ssf2tnl7
-ssf2tpls
-ssf2ts01
-ssf2ts02
-ssf2tus01
-ssf2tus02
-ssf2xjhy
-ssf2xjjs
-ssf2xjnc
-ssf2xjs01
-ssf2xjs02
-ssf2zhp
+ssf2x01
+ssf2x02
+ssf2x03
+ssf2x04
+ssf2x05
 suicide
 suicide2
-vampjb
-vsav2emb
+vampj01
 vsav2s01
 vsav2s02
-xmcotaj2s01
-xmcotaj2s02
-xmcotajb
-xmcotajphp
-xmvsfjphp
-xmvsfjs01
-xmvsfrm
-xmvsfryh
+vsav2s03
+xmcotas01
+xmcotas02
+xmcotas03
+xmcotas04
 xmvsfs01
 xmvsfs02
 xmvsfs03
+xmvsfs04
+xmvsfs05
+xmvsfs06
+xmvsfs07
 //cps2xx
 
 @source:cps3.cpp
@@ -4342,7 +4344,7 @@ mhavocpex7fr			//HB Jess M. Askey
 mhavocpex81
 
 @source:midtunit.cpp
-mk					//parent
+mk                                     //parent
 mkfr				// french
 mkturbod			/* MK protection hack */
 mktturboen			// Zenomorp 2012 Turbo Endurance
@@ -4352,8 +4354,9 @@ mk2p				// Mortal Kombat II Plus beta
 mk2fr				// french
 mk2r33				// Mortal Kombat II r3.3
 mk2v28b1			// Mortal Kombat II v2.8 beta 1
-nbajamte			//parent
+nbajamte                               //parent
 nbajamtexxx
+nbajamre                               // NBA Jam Tournament Edition Rewind r1.1
 umk2te50			// Ultimate MKII Tournament Edition r5.0.050
 umk2te51			// Ultimate MKII Tournament Edition r5.0.051
 umk2te52			// Ultimate MKII Tournament Edition r5.0.052
@@ -4364,9 +4367,9 @@ mk2s01
 mk2s02
 
 @source:midwunit.cpp
-mk3 				//parent
+mk3                                    //parent
 mk3k
-umk3				//parent
+umk3                                   //parent
 umk3j				/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3r13b1			/* UMK3 1.3 public beta 1 */
 umk3te				/* UMK3 Tournament Edition 2.0.032b8 */
@@ -6060,6 +6063,7 @@ fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
 gbi			/* Ghostbusters Intro */
+gxg
 hypernoid
 //igla
 iocero		// BEY
@@ -6150,8 +6154,8 @@ tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
 //venuswars
-vlad2000
-ww2demo
+//vlad2000
+//ww2demo
 xeno
 xmas2017
 zintrckbh
@@ -6215,6 +6219,7 @@ lans2k4d
 lbowlingcd
 lresortpx
 magdrop3fr	/* Neo-Arc French Trans */
+magdrop3te
 maglordpx
 matrima
 matrimbh
@@ -7150,14 +7155,26 @@ alpacap7                               // Jerronimo, Alpaca v0.7 (Pengo Hardware
 alpacap8                               // Jerronimo, Alpaca v0.8 (Pengo Hardware) useless
 
 @source:pgm.cpp
-pgm			//required bios
+// PARENTS
+pgm
 ket
+killbld
 kovplus
-kovsh
+kov
+kov2
 kov2p
+kovsh
+kovshp
+olds
+oldsplus
+orlegend
+martmast
+theglad
+// HOMEBREW
 pgemeni		/* HB Blastar */
 pgmdemo		/* HB Charles Doty */
 pgmfrog		/* HB Rastersoft */
+// HACKS
 ketarr		// trap15 hack
 ketarrb		// trap15 hack
 ketarr10	// trap15 hack
@@ -7166,732 +7183,289 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-orlegend	//parent
-orlegendcs
-olds100a    //parent
-kovassg
-kovsgqyzc	// similar to kovsgqyza
-kov2h1
-kov2h2
-kov2h3
-kov2h4
-kov2h5		// was kov2psv
-kovph1
-kovph2
-kovph3
-kovph4
-kovph5
-kovph6
-//kovph7      // Encrypted
-kovph8
-kovph9
-//kovph10     // Encrypted
-kovph12
-kovph13
-kovph14
-kovph15
-//kovph16     // Encrypted
-kovph17
-kovph18
-//kovph19     // Encrypted
-//kovph20     // Encrypted
-//kovph21     // Encrypted
-//kovph22     // Encrypted
-//kovph23   // rom missing
-kovph24		// was kvplusjq
-kovph25		// was kovplusq
-kovsh1
-kovsh2
-kovsh3
-//kovsh5     // broken (causes emu to freeze)
-//kovsh6     // broken (causes emu to freeze)
-//kovsh7     // broken (causes emu to freeze)
-//kovsh8     // broken (causes emu to freeze)
-//kovsh9   // rom missing
-//kovsh10  // roms missing
-kovsh11    // broken
-//kovsh12  // roms missing
-//kovsh13  // roms missing
-//kovsh14  // roms missing
-//kovsh17  // broken (causes emu to freeze)
-kovsh18			// gem fighters
-kovsh19			// rugal 98
-kov					//parent
-kov2				//parent
-killbld				//parent
-killbldp			//parent
-kovshp				//parent
-oldsplus			//parent
-olds				//parent
-martmast			//parent
-theglad				//parent
-killbld104s01
 killblds01
 killblds02
 killblds03
 killblds04
 killblds05
-killbldps01
-killbldps02
-kov115s01
-kov115s02
-kov115s03
-kov115s04
-kov115s05
-kov115s06
-kov115s07
-kov115s08
-kov115s09
-kov115s10
-kov115s11
-kov115s12
-kov2p204s01
-kov2p204s02
-kov2p204s03
-kov2p204s04
-kov2p204s05
-kov2p204s06
-kov2p204s07
-kov2p204s08
-kov2p204s09
-kov2p204s10
-kov2p204s11
-kov2p204s12
-kov2p204s13
-kov2p204s14
-kov2p204s15
-kov2p204s16
-kov2p204s17
-kov2p204s18
-kov2p204s19
-kov2p204s20
-kov2p204s21
-kov2p204s22
-kov2p204s23
-kov2p204s24
-kov2p204s25
-kov2p204s26
-kov2p204s27
-kov2p204s28
-kov2p204s29
-kov2p204s31
-kov2p204s32
-kov2p204s33
-kov2p204s34
-kov2p204s35
-kov2p204s36
-kov2p204s37
-kov2p204s38
-kov2p204s39
-kov2p204s40
-kov2p204s41
-kov2p204s42
-kov2p204s43
-kov2p204s44
-kov2p204s45
-kov2p204s46
-kov2p204s47
-kov2p204s48
-kov2p204s49
-kov2p204s51
-kov2p204s52
-kov2p204s53
-kov2p204s54
-kov2p204s55
-kov2p204s56
-kov2p204s57
-kov2p204s58
-kov2p204s59
-kov2p204s60
-kov2p204s61
-kov2p204s62
-kov2p204s63
-kov2p204s64
-kov2p204s65
-kov2p204s66
-kov2p204s67
-kov2p204s68
-kov2p204s69
-kov2p204s70
-kov2p204s71
-kov2p204s72
-kov2p204s73
-kov2p204s74
-kov2p204s75
-kov2p204s76
-kov2p204s77
-kov2p204s78
-kov2p204s79
-kov2p204s80
-kov2p204s81
-kov2p204s82
-kov2p204s83
-kov2p204s84
-kov2p204s85
-kov2p204s86
-kov2p204s87
-kov2p204s88
-kov2p204s89
-kov2p204s90
-kov2p204s91
-kov2p204s92
-kov2p204s93
-kov2p204s94
-kov2p204s95
-kov2p204s96
-kov2p204s97
-kov2p204s98
-kov2p204s99
-kov2p204s100
-kov2p204s101
-kov2p204s102
-kov2p204s103
-kov2p204s104
-kov2p204s105
-kov2p204s106
-kov2p204s107
-kov2p204s108
-kov2p204s109
-kov2h01
-kov2h02
-kov2h03
-kov2h04
-kov2h05
-kov2h06
-kov2h07
-kov2h08
-kov2h09
-kov2h10
-kov2h11
-kov2h12
-kov2h13
-kov2h14
-kov2h15
-kov2h16
-kov2h17
-kov2h18
-kov2h19
-kov2h20
-kov2h21
-kov2h22
-kov2h23
-kov2h24
-kov2h25
-kov2h26
-kov2h27
-kov2h28
-kov2h29
-kov2h30
-kovpluss01
-kovpluss02  // Unstable game in the emulator (ingame crash)
-kovpluss03
-kovpluss04  // bad gfx on credit/char-select screens
-kovpluss05
-kovpluss06
-kovpluss07
-kovpluss08   // Unstable game in the emulator (ingame crash)
-kovpluss09
-kovpluss10   // Unstable game in the emulator (ingame crash)
-kovpluss11   // Unstable game in the emulator (ingame crash)
-kovpluss12
-kovpluss13
-kovpluss14
-kovpluss15
-kovpluss16
-kovpluss17   // Unstable game in the emulator (ingame crash)
-kovpluss18
-kovpluss19
-kovpluss20
-kovpluss21
-kovpluss22   // Unstable game in the emulator (ingame crash)
-kovpluss23   // Unstable game in the emulator (ingame crash)
-kovpluss24
-kovpluss25
-kovpluss26
-kovpluss27
-kovpluss28
-kovpluss29
-kovpluss30   // bad gfx
-kovpluss31   // bad gfx
-kovpluss32
-kovpluss33
-kovpluss34
-kovpluss35
-kovpluss36
-kovpluss37
-kovpluss38  // Unstable game in the emulator (ingame crash)
-kovpluss39
-kovpluss40
-kovpluss41
-kovpluss42
-kovpluss43
-kovpluss44
-kovpluss45
-kovpluss46
-kovpluss47
-kovpluss48
-kovpluss49
-kovpluss50
-kovpluss51
-kovpluss52
-kovpluss53
-kovpluss54
-kovpluss55
-kovpluss56
-kovpluss57
-kovpluss58
-kovpluss59
-kovpluss60
-kovpluss61
-kovpluss62
-kovpluss63
-kovpluss64
-kovpluss65
-kovpluss66
-kovpluss67
-kovpluss68  // Unstable game in the emulator (ingame crash)
-kovpluss69  // Unstable game in the emulator (ingame crash)
-kovpluss70  // Unstable game in the emulator (ingame crash)
-kovpluss71  // Unstable game in the emulator (ingame crash)
-kovpluss72
-kovpluss73   // bad gfx
-kovpluss74
-kovpluss75
-kovpluss76  // bad gfx on credit screen
-kovpluss77  // Unstable game in the emulator (ingame crash)
-kovpluss78  // causes emu to freeze
-kovpluss79
-kovpluss80
-kovpluss81
-kovpluss82
-kovpluss83
-kovpluss84
-kovpluss85
-kovpluss86
-kovpluss87
-kovpluss88
-kovpluss89
-kovpluss90
-kovpluss91
-kovpluss92
-kovpluss93
-kovpluss94
-kovpluss95
-kovpluss96
-kovpluss97
-kovpluss98
-kovpluss99
-kovpluss100
-kovpluss101
-kovpluss102
-kovpluss103
-kovpluss104
-kovpluss105
-kovpluss106
-kovpluss107
-kovpluss108
-kovpluss109
-kovpluss110
-kovpluss111  // Unstable game in the emulator (ingame crash)
-kovpluss112
-kovpluss113
-kovpluss114
-kovpluss115
-kovpluss116
-kovpluss117
-kovpluss118
-kovpluss119
-kovpluss120
-kovpluss121
-kovpluss122
-kovpluss123
-kovpluss124
-kovpluss125
-kovpluss126
-kovpluss127
-kovpluss128
-kovpluss129
-kovpluss130
-kovpluss131
-kovpluss132
-kovpluss133
-kovpluss134
-kovpluss135
-kovpluss136
-kovpluss137
-kovpluss138
-kovpluss139
-kovpluss140
-kovpluss141
-kovpluss142
-kovpluss143
-kovpluss144
-kovpluss145
-kovpluss146
-kovpluss147
-kovpluss148
-kovpluss149
-kovpluss150
-kovpluss151
-kovpluss152
-kovpluss153
-kovpluss154
-kovpluss155   // bad gfx
-kovpluss156
-kovpluss157
-kovpluss158
-kovpluss159
-kovpluss160
-kovpluss161
-kovpluss162
-kovpluss163
-kovpluss164
-kovpluss165
-kovpluss166
-kovpluss167
-kovpluss168
-kovpluss169
-kovpluss170
-kovpluss171
-kovpluss172
-kovpluss173
-kovpluss174
-kovpluss175
-kovpluss176
-kovpluss177
-kovpluss178  // Unstable game in the emulator(ingame crash)
-kovpluss179
-kovpluss180
-kovpluss181
-kovpluss182
-kovpluss184
-kovpluss185
-kovpluss186
-kovpluss187
-kovpluss188
-kovpluss189  // causes emu to freeze
-kovpluss190 
-kovpluss191
-kovpluss192
-kovpluss193
-kovpluss194
-kovpluss195
-kovpluss196
-kovpluss197
-kovpluss198
-kovpluss199
-kovpluss200
-kovpluss201
-kovpluss202
-kovpluss203
-kovpluss204
-kovpluss205  // bad gfx
-kovpluss206  // Unstable game in the emulator(ingame crash)
-kovpluss207
-kovpluss208
-kovpluss209  // very bad gfx
-kovpluss210  // Unstable game in the emulator (causes emu to freeze)
-kovpluss211
-kovpluss212
-kovpluss213
-kovpluss214
-kovpluss215
-kovpluss216   // Unstable game in the emulator(ingame crash)
-//kovpluss218    // Unstable game in the emulator(ingame crash)
-kovpluss219
-kovpluss220
-kovpluss221
-kovpluss222
-kovpluss223
-kovpluss224
-kovpluss225
-kovpluss226
-//kovpluss227   // Unstable game in the emulator(ingame crash)
-kovpluss228
-kovpluss229
-kovpluss230
-kovpluss231
-kovpluss232
-kovpluss233
-kovpluss234
-kovpluss235
-kovpluss236
-//kovpluss237    // Unstable game in the emulator(ingame crash)
-//kovpluss238    // Unstable game in the emulator(ingame crash)
-kovpluss239
-kovpluss240     // Unstable game in the emulator(ingame crash)
-kovpluss241
-kovpluss242
-kovpluss243
-kovpluss244  // goes berserk
-kovpluss245
-kovpluss246
-kovpluss247   // bad gfx
-kovpluss248  // bad gfx on char select screen
-kovpluss249     // Unstable game in the emulator(ingame crash)
-kovpluss250
-kovpluss251
-kovpluss252
-kovpluss253   // bad gfx, no high scores
-kovpluss254
-kovpluss255
-kovpluss256
-kovpluss257
-kovpluss258
-kovpluss259
-kovpluss260  // Unstable game in the emulator(ingame crash)
-kovpluss261  // Unstable game in the emulator(ingame crash)
-kovpluss262  // Unstable game in the emulator(ingame crash)
-kovpluss263
-kovpluss264
-kovpluss265
-kovpluss266  // Unstable game in the emulator(ingame crash)
-kovpluss267
-kovpluss268
-kovpluss269
-kovpluss270
-kovpluss271
-kovpluss272
-kovpluss273
-kovpluss274
-kovpluss275
-kovpluss276
-kovpluss277
-kovpluss278
-kovpluss279  // Unstable game in the emulator(ingame crash)
-kovpluss280
-kovpluss281
-kovpluss282
-kovpluss283
-kovpluss284   // Unstable game in the emulator(ingame crash)
-kovpluss285
-kovpluss286
-kovpluss287
-kovpluss288
-kovpluss289
-kovpluss290
-kovpluss291
-kovpluss292
-kovpluss293
-kovpluss294
-kovpluss295
-kovpluss296
-kovpluss297
-kovpluss298
-kovpluss299
-kovpluss300
-kovpluss301
-kovpluss302
-kovpluss303
-kovpluss304
-kovpluss305
-kovpluss306
-kovpluss307
-kovpluss308
-kovpluss309
-kovpluss310
-kovpluss311
-kovpluss312
-kovpluss313
-kovpluss314
-kovpluss315
-kovpluss316
-kovpluss317
-kovpluss318  // Freeze during intro
-kovpluss319
-kovpluss320
-kovpluss321
-kovpluss322
-kovpluss323
-kovpluss324
-kovpluss325
-kovpluss326
-kovpluss327
-kovpluss328
-kovpluss329
-kovpluss331
-kovpluss332
-kovpluss333
-kovpluss334
-kovpluss335
-kovpluss336
-kovpluss337
-kovpluss338
-kovpluss339
-kovpluss340
-kovpluss341
-kovpluss342
-kovpluss343
-kovpluss344
-kovpluss345
-kovpluss346
-kovpluss347
-kovpluss348
-kovpluss349
-kovpluss350
-kovpluss351
-kovpluss352
-kovpluss353
-kovpluss354
-kovpluss355
-kovpluss356
-kovpluss357
-kovpluss358
-kovpluss359 // kovsho124
-kovpluss360 // kovsho127
-kovpluss361 //
-kovpluss362
-kovpluss363
-kovpluss364
-kovpluss365
-kovpluss366
-kovpluss367
-kovpluss368
-kovpluss369
-kovpluss370
-kovpluss371
-kovpluss372
-kovpluss373
-kovpluss374
-kovpluss375
-kovpluss376
-kovpluss377
-kovpluss378
-kovpluss379
-kovpluss380
-kovpluss381
-kovpluss382
-kovpluss383
-kovpluss384
-kovpluss385
-kovpluss386
-kovplusas01
-kovshs01
+killblds06
+kovs01
+kovs02
+kovs03
+kovs04
+kovs05
+kovs06
+kovs07
+kovs08
+kovs09
+kovs10
+kovs11
+kovs12
+kovps01
+kovps02
+kovps03
+kovps04
+kovps05
+kovps06
+kovps07
+kovps08
+kovps09
+kovps10
+kovps11
+kovps12
+kovps13
+kovps14
+kovps15
+kovps16
+kovps17
+kovps18
+kovps19
+kovps20
+kovps21
+kovps22
+kovps23
+kovps24
+kovps25
+kovps26
+kovps27
+kovps28
+kovps29
+kovps30
+kovps31
+kovps32
+kovps33
+kovps34
+kovps35
+kovps36
+kovps37
+kovps38
+kovps39
+kovps40
+kovps41
+kovps42
+kovps43
+kovps44
+kovps45
+kovps46
+kovps47
+kovps48
+kovps49
+kovps50
+kovps51
+kovps52
+kovps53
+kovps54
+kovps55
+kovps56
+kovps57
+kovps58
+kovps59
+kovps60
+kovps61
+kovps62
+kovps63
+kovps64
+kovps65
+kovps66
+kovps67
+kovps68
+kovps69
 kovshs02
 kovshs03
 kovshs04
-kovshs05
 kovshs06
 kovshs07
 kovshs08
 kovshs09
 kovshs10
 kovshs11
-kovshs12
-kovshs13
-kovshs15
-kovshs16
 kovshs17
-kovshs18   //  Unstable game in the emulator (ingame crash)
+kovshs18
 kovshs19
-kovshs20
-kovshs21
 kovshs22
-kovshs23   // bad gfx
-kovshs24   //  Unstable game in the emulator (ingame crash)
+kovshs23
 kovshs25
-kovshs26
-kovshs27
 kovshs28
-kovshs29
-kovshs30
 kovshs31
 kovshs32
 kovshs33
 kovshs34
 kovshs35
 kovshs36
-kovshs37
 kovshs38
 kovshs39
 kovshs40
 kovshs41
-kovshs42
 kovshs43
 kovshs44
-kovshs45
-kovshs46
 kovshs47
 kovshs48
-kovshs49
 kovshs50
-kovshs51   //  Unstable game in the emulator (ingame crash)
 kovshs52
 kovshs53
-kovshs54
-kovshs55
-kovshs56
 kovshs57
-kovshs58
-kovshs59
-kovshs60
 kovshs61
-kovshs62
-kovshs63
 kovshs64
-kovshs65   // bad gfx
-kovshs66
+kovshs65
 kovshs67
 kovshs68
-kovshs69
-kovshs70   //  Unstable game in the emulator (ingame crash)
-kovshs71   //  Unstable game in the emulator (ingame crash)
 kovshs72
 kovshs73
-kovshs74
 kovshs75
 kovshs76
-kovshs77
 kovshs78
-kovshs79
 kovshs80
-kovshs81
 kovshs82
 kovshs83
-kovshs84
 kovshs85
 kovshs86
-kovshs87
 kovshs88
-kovshs89
 kovshs90
 kovshs91
-kovshs92   // bad gfx
 kovshs93
-kovshs94
-kovshs95
-kovshs96   // bad gfx
-//kovshs97   //  Unstable game in the emulator (ingame crash)
-kovshs98
-//kovshs99    //  Unstable game in the emulator (ingame crash)
-//kovshs100   //  Unstable game in the emulator (ingame crash)
-//kovshs101   //  Unstable game in the emulator (ingame crash)
-//kovshs102   //  Unstable game in the emulator (ingame crash) 
-kovshs103
-kovshs104
-kovshs105    // bad gfx
-kovshs106
-kovshs107   //  Unstable game in the emulator (ingame crash) 
 kovshs108
 kovshs109
 kovshs110
-kovshs111
 kovshs112
-kovshs113
 kovshs114
 kovshs115
-kovshs116
-kovshs117
-kovshs118
 kovshs119
-kovshs120
 kovshs121
 kovshs122
-kovshs123
-kovsgqyzs01
-kovqhsgs01
-kovqhsgs02
-kovqhsgs03
+kov2s01
+kov2s02
+kov2s03
+kov2s04
+kov2s05
+kov2s06
+kov2s07
+kov2s08
+kov2s09
+kov2s10
+kov2s11
+kov2s12
+kov2s13
+kov2s14
+kov2s15
+kov2s16
+kov2s17
+kov2s18
+kov2s19
+kov2s20
+kov2s21
+kov2s22
+kov2s23
+kov2s24
+kov2s25
+kov2s26
+kov2s27
+kov2s28
+kov2s29
+kov2s30
+kov2ps01
+kov2ps02
+kov2ps03
+kov2ps04
+kov2ps05
+kov2ps06
+kov2ps07
+kov2ps08
+kov2ps10
+kov2ps11
+kov2ps12
+kov2ps13
+kov2ps14
+kov2ps15
+kov2ps16
+kov2ps17
+kov2ps18
+kov2ps19
+kov2ps20
+kov2ps21
+kov2ps22
+kov2ps23
+kov2ps24
+kov2ps25
+kov2ps26
+kov2ps27
+kov2ps28
+kov2ps29
+kov2ps31
+kov2ps32
+kov2ps33
+kov2ps34
+kov2ps35
+kov2ps36
+kov2ps37
+kov2ps38
+kov2ps39
+kov2ps40
+kov2ps41
+kov2ps42
+kov2ps43
+kov2ps44
+kov2ps45
+kov2ps46
+kov2ps47
+kov2ps48
+kov2ps49
+kov2ps51
+kov2ps52
+kov2ps53
+kov2ps54
+kov2ps56
+kov2ps57
+kov2ps58
+kov2ps59
+kov2ps60
+kov2ps61
+kov2ps62
+kov2ps63
+kov2ps64
+kov2ps65
+kov2ps66
+kov2ps67
+kov2ps68
+kov2ps69
+kov2ps70
+kov2ps71
+kov2ps72
+kov2ps73
+kov2ps74
+kov2ps75
+kov2ps76
+kov2ps77
+kov2ps78
+kov2ps79
+kov2ps80
+kov2ps81
+kov2ps83
+kov2ps84
+kov2ps85
+kov2ps86
+kov2ps87
+kov2ps88
+kov2ps89
+kov2ps90
+kov2ps91
+kov2ps92
+kov2ps93
+kov2ps94
+kov2ps95
+kov2ps96
+kov2ps97
+kov2ps98
+kov2ps103
+kov2ps104
+kov2ps106
+kov2ps107
+kov2ps108
+kov2ps110
+kov2ps111
+kov2ps112
+kov2ps113
+kov2ps114
+kov2ps115
 kovsho01
 kovsho02
 kovsho03
@@ -7912,11 +7486,6 @@ kovsho19
 kovsho20
 kovsho21
 kovsho22
-//kovsho23 //  Unstable game in the emulator (ingame crash)
-//kovsho24 //  Unstable game in the emulator (ingame crash)
-//kovsho25 //  Unstable game in the emulator (ingame crash)
-//kovsho26 //  Unstable game in the emulator (ingame crash)
-//kovsho27 //  Unstable game in the emulator (ingame crash)
 kovsho28
 kovsho29
 kovsho30
@@ -7961,14 +7530,11 @@ kovsho69
 kovsho70
 kovsho71
 kovsho72
-kovsho73
 kovsho74
 kovsho75
 kovsho76
-kovsho77
 kovsho78
 kovsho79
-kovsho80  // Illegal Intruction
 kovsho81
 kovsho82
 kovsho83
@@ -7977,28 +7543,15 @@ kovsho86
 kovsho85
 kovsho87
 kovsho88
-kovsho89
-kovsho90
 kovsho91
-kovsho92
 kovsho93
 kovsho94
 kovsho95
-kovsho96
-kovsho97
 kovsho98
-kovsho99
-kovsho100
 kovsho101
 kovsho102
-kovsho103
 kovsho104
-kovsho105
-kovsho106 //Illegal Intruction
-kovsho107
-kovsho108
 kovsho109
-kovsho110
 kovsho111
 kovsho112
 kovsho113
@@ -8007,7 +7560,6 @@ kovsho115
 kovsho116
 kovsho117
 kovsho118
-kovsho119
 kovsho120
 kovsho121
 kovsho122
@@ -8022,41 +7574,25 @@ kovsho132
 kovsho133
 kovsho134
 kovsho135
-kovsho136 // Illegal instruction before intro
 kovsho137 // Boot bios 1
 kovsho138 // Boot bios 1
-kovsho139 // Illegal instruction before intro
 kovsho140
 kovsho141
 kovsho142
-kovsho143 // Illegal instruction before intro
 kovsho144
-kovsho145
 kovsho146 // Boot bios 1
-kovsho147
 kovsho148
 kovsho149
-kovsho150
-kovsho151
 kovsho152
 kovsho153
-kovsho154
 kovsho155
 kovsho156
 kovsho157
-kovsho158 // Freezes during attract mode
 kovsho159
-kovsho160 // Resource Error, Bad gfx
-kovsho161 // Hardware 27 Error, Bad gfx
 kovsho162
 kovsho163
 kovsho164
 kovsho165
-kovsho166
-kovsho167
-kovsho168 // Path Command Error, Bad gfx
-kovsho169 // Hardware 27 Error, Bad gfx
-kovsho170 // Hardware 27 Error, Bad gfx
 kovsho171
 kovsho172
 kovsho173
@@ -8065,9 +7601,7 @@ kovsho175
 kovsho176
 kovsho177
 kovsho178
-kovsho179
 kovsho180
-kovsho181
 kovsho182
 kovsho183
 kovsho184
@@ -8079,190 +7613,125 @@ kovsho189
 kovsho190
 kovsho191
 kovsho192
-kovshxass01
-kovshxass02
-kovshxass03
-kovshxass04
+kovsho193
+kovsho194
+kovsho195
+kovsho196
 martmasts01
 martmasts02
 martmasts03
-olds103ts01
-olds100s01
-olds100ass01
-olds100ass02 //  Resource error
-olds100ass03
-olds100ass04
-olds100ass05
-olds100ass06
-olds100ass07
-olds100ass08
-olds100ass09
-olds100ass10 // opcode 1111 at cliff in attract mode
-olds100ass11
-olds100ass12
-olds100ass13
-olds100ass14
-olds100ass15
-olds100ass16
-olds100ass17
-olds100ass18
-olds100ass19
-olds100ass20
-olds100ass21 //  Unstable game, illegal instruction at 2nd turn of attract mode
-olds100ass22
-olds100ass23
-olds100ass24 //  Resource error
-olds100ass25
-olds100ass26
-olds100ass27
-olds100ass28
-olds100ass32
-olds100ass33
-olds100ass34
-olds100ass35
-olds100ass36
-olds100ass37 //  bad gfx
-olds100ass38 // opcode 1111 at cliff in attract mode
-olds100ass39 // opcode 1111 at cliff in attract mode
-olds100ass40 // opcode 1111 at cliff in attract mode
-olds100ass41
-olds100ass42
-olds100ass43
-olds100ass44
-olds100ass45 //  Resource error
-olds100ass46 //  Resource error
-olds100ass47 // opcode 1111 at cliff in attract mode
-olds100ass48 //  bad gfx
-olds100ass49 //  bad gfx
-olds100ass50
-olds100ass51
-olds100ass52
-olds100ass53 // opcode 1111 at cliff in attract mode
-olds100ass54 // opcode 1111 at cliff in attract mode
-olds100ass55 // opcode 1111 at cliff in attract mode
-olds100ass56
-olds100ass57
-olds100ass58
-olds100ass59
-olds100ass60 // opcode 1111 at cliff in attract mode
-olds100ass61 // opcode 1111 at cliff in attract mode
-olds100ass62
-olds100ass63
-olds100ass64
-olds100ass65
-olds100ass66 //  bad gfx
-olds100ass67 //  bad gfx
-olds100ass68
-olds100ass69
-olds100ass70
-olds100ass71
-olds100ass72 // opcode 1111 at cliff in attract mode
-olds100ass73
-olds100ass74
-olds100ass75
-olds100ass76
-olds100ass77
-olds100ass78
-olds100ass79
-olds100ass80
-olds100ass81
-olds100ass82
-olds100ass83
-olds100ass84
-olds100ass85
-olds100ass86
-olds100ass87
-olds100ass88
-olds100ass89
-olds100ass90 //  bad gfx
-olds100ass91
-olds100ass92 //  bad gfx
-olds100ass93 //  bad gfx
-olds100ass94 //  resource error
-olds100ass95 //  resource error
-olds100ass96 //  resource error
-olds100ass97 //  bad gfx
-olds100ass98 //  bad gfx
-olds100ass99 //  bad gfx
-olds100ass100 //  bad gfx
-olds100ass101
-olds100ass102 //  bad gfx
-olds100ass103 // opcode 1111 at cliff in attract mode
-olds100ass104 // opcode 1111 at cliff in attract mode
-olds100ass105 // opcode 1111 at cliff in attract mode
-olds100ass106 // opcode 1111 at cliff in attract mode
-olds100ass107 // opcode 1111 at cliff in attract mode
-olds100ass108 // opcode 1111 at cliff in attract mode
-olds100ass109 // opcode 1111 at cliff in attract mode
-olds100ass110 // opcode 1111 at cliff in attract mode
-olds100ass111 // opcode 1111 at cliff in attract mode
-olds100ass112 // opcode 1111 at cliff in attract mode
-olds100ass113
-olds100ass114
-olds100ass115
-olds100ass116 // opcode 1111 at cliff in attract mode
-olds100ass117 // opcode 1111 at cliff in attract mode
-olds100ass118 // opcode 1111 at cliff in attract mode
-olds100ass119 // opcode 1111 at cliff in attract mode
-olds100ass120
-olds100ass121
-olds100ass122
-olds100ass123
-olds100ass124
-olds100ass125
-olds100ass126
-olds100ass127
-olds100ass128
-olds100ass129
-olds100ass130
-olds100ass131 // opcode 1111 at cliff in attract mode
-olds100ass132 // opcode 1111 at cliff in attract mode
-olds100ass133
-olds100ass134
-olds100ass135
-olds100ass136 // opcode 1111 at cliff in attract mode
-olds100ass137 // opcode 1111 at cliff in attract mode
-olds100ass138
-olds100ass139 //  Resource error
-olds100ass140
-olds100ass141 // opcode 1111 at cliff in attract mode
-olds100ass142
-olds100ass143 // opcode 1111 at cliff in attract mode
-olds100ass144 //  Resource error
-olds100ass145 //  Resource error
-olds100ass146
-olds100ass147
-olds100ass148
-olds100ass149
-olds100ass150 // opcode 1111 at cliff in attract mode
-olds100ass151
-olds100ass152
-olds100ass153
-olds100ass154
-olds100ass155 // opcode 1111 at cliff in attract mode
-olds100ass156
-olds100ass157
-olds100ass158 // illegal instruction
-olds100ass159 // illegal instruction
-olds100ass160
-olds100ass161 // illegal instruction
-olds100ass162
-olds100ass163
-olds100ass164
-olds100ass165
-olds100ass166
-olds100ass167
-olds100ass168
-olds100ass169
-olds100ass170
-olds100ass171
-olds100ass172
-olds100ass173
-olds100ass174
-olds100ass175
-olds100ass176
-olds100ass177
-olds100ass178
+olds01
+olds02
+olds03
+olds04
+olds05
+olds06
+olds07
+olds08
+olds09
+olds10
+olds11
+olds12
+olds13
+olds14
+olds15
+olds16
+olds17
+olds18
+olds19
+olds20
+olds22
+olds23
+olds25
+olds26
+olds27
+olds28
+olds32
+olds33
+olds34
+olds35
+olds36
+olds37
+olds41
+olds42
+olds43
+olds50
+olds51
+olds52
+olds56
+olds57
+olds58
+olds59
+olds62
+olds63
+olds64
+olds65
+olds66
+olds67
+olds68
+olds69
+olds71
+olds73
+olds74
+olds75
+olds76
+olds77
+olds78
+olds79
+olds80
+olds81
+olds82
+olds83
+olds84
+olds85
+olds86
+olds87
+olds88
+olds89
+olds91
+olds101
+olds113
+olds114
+olds115
+olds122
+olds123
+olds124
+olds125
+olds126
+olds127
+olds128
+olds129
+olds130
+olds134
+olds135
+olds138
+olds140
+olds142
+olds146
+olds147
+olds148
+olds149
+olds152
+olds153
+olds154
+olds156
+olds157
+olds160
+olds162
+olds163
+olds164
+olds165
+olds166
+olds167
+olds168
+olds171
+olds172
+olds173
+olds174
+olds175
+olds176
+olds177
+olds178
 oldsplus01
 oldsplus02
 oldsplus03
@@ -8279,19 +7748,16 @@ oldsplus13
 oldsplus14
 oldsplus15
 oldsplus16
-oldsplus17
 oldsplus18
 oldsplus19
 oldsplus20
 oldsplus21
 oldsplus22
-oldsplus23
 oldsplus24
-oldsplus25
 oldsplus26
 oldsplus27
 orlegends01
-orlegends02 //  Illegal instruction
+orlegends02
 orlegends03
 orlegends04
 orlegends05
@@ -8302,114 +7768,94 @@ orlegends09
 orlegends10
 orlegends11
 orlegends12
-orlegendcs01
-orlegendcs02
-orlegendcs03
-orlegendcs04
-orlegendcs05
-orlegendcs06
-orlegendcs07
-orlegendcs08
-orlegendcs09
-orlegendcs10
-orlegendcs11
-orlegendcs12
-orlegendcs13
-orlegendcs14
-orlegendcs16
-orlegendcs17
-orlegendcs18
-orlegendcs19
-orlegendcs20
-orlegendcs21
-orlegendcs22
-orlegendcs23
-orlegendcs24
-orlegendcs25
-orlegendcs26
-orlegendcs28
-orlegendcs29
-orlegendcs30
-orlegendcs31
-orlegendcs32
-orlegendcs33
-orlegendcs34
-orlegendcs35
-orlegendcs36
-orlegendcs37
-orlegendcs38
-orlegendcs39
-orlegendcs41		// stuck in setup menu
-orlegendcs42
-orlegendcs43
-orlegendcs44
-orlegendcs45
-orlegendcs46
-orlegendcs47
-orlegendcs49
-orlegendcs50
-orlegendcs51
-orlegendcs52
-orlegendcs53
-orlegendcs54
-orlegendcs55
-orlegendcs56
-orlegendcs57
-orlegendcs58
-orlegendcs60
-orlegendcs61
-orlegendcs62
-orlegendcs63
-orlegendcs64
-orlegendcs65
-orlegendcs66
-orlegendcs67
-orlegendcs68   // stuck in setup menu
-orlegendcs69
-orlegendcs70   // stuck in setup menu
-orlegendcs71
-orlegendcs72   // stuck in setup menu
-orlegendcs73
-orlegendcs74
-orlegendcs75
-orlegendcs76
-orlegendcs77
-orlegendcs78
-orlegendcs79
-//orlegendcs80   //  Unstable game in the emulator (ingame crash)
-//orlegendcs81   //  Unstable game in the emulator (ingame crash)
-//orlegendcs82   //  Unstable game in the emulator (ingame crash)
-orlegendcs83
-orlegendcs84
-orlegendcs85
-orlegendcs86
-orlegendcs87
-orlegendcs88
-orlegendcs89
-orlegendcs90
-orlegendcs91
-orlegendcs92
-orlegendcs93
-orlegendcs94
-orlegendcs95
-orlegendcs96
-orlegendcs97
-orlegendcs98
-orlegendcs99
-orlegendcs100
-orlegendcs101
-orlegendcs102
+orlegends13
+orlegends14
+orlegends16
+orlegends17
+orlegends18
+orlegends19
+orlegends20
+orlegends21
+orlegends22
+orlegends23
+orlegends24
+orlegends25
+orlegends26
+orlegends28
+orlegends29
+orlegends30
+orlegends31
+orlegends32
+orlegends33
+orlegends34
+orlegends35
+orlegends36
+orlegends37
+orlegends38
+orlegends42
+orlegends43
+orlegends44
+orlegends45
+orlegends46
+orlegends47
+orlegends50
+orlegends51
+orlegends52
+orlegends53
+orlegends54
+orlegends55
+orlegends56
+orlegends57
+orlegends58
+orlegends60
+orlegends61
+orlegends62
+orlegends63
+orlegends64
+orlegends67
+orlegends69
+orlegends70
+orlegends71
+orlegends74
+orlegends75
+orlegends76
+orlegends77
+orlegends78
+orlegends79
+orlegends84
+orlegends87
+orlegends88
+orlegends89
+orlegends91
+orlegends92
+orlegends94
+orlegends96
+orlegends97
+orlegends98
+orlegends99
+orlegends100
+orlegends101
+orlegends102
+orlegends103
+orlegends104
+orlegends105
+orlegends106
+orlegends107
+orlegends108
+orlegends109
+orlegends110
+orlegends111
 theglads01
 theglads02
 theglads03
 theglads04
-theglad100s01
-theglad100s02
-theglad100s03
-theglad101s01
+theglads05
+theglads06
+theglads07
+theglads08
 
 @source:phoenix.cpp
-phoenix			//parent
+phoenix                                //parent
 phoenixg		// Vag @ GreekRoms
 phoenixr		// CYBERYOGI =CO= Windler hack of Phoenix
 
@@ -8429,7 +7875,7 @@ pc_dk			/* NES->PC-10 */
 pc_pacm			/* NES->PC-10 */
 pc_gyrus		/* NES->PC-10 */
 pc_skykd		/* NES->PC-10 */
-pc_smb      //parent
+pc_smb                                 //parent
 pc_smb_ps01
 pc_smb_ps02
 pc_smb_ps03
@@ -8504,7 +7950,7 @@ pc_smb_ps71
 pc_smb_ps72
 pc_smb_ps73
 pc_smb_ps74
-pc_smb2     //parent
+pc_smb2                                //parent
 pc_smb2_ps01
 pc_smb2_ps02
 pc_smb2_ps03
@@ -8513,7 +7959,7 @@ pc_smb2_ps05
 pc_smb2_ps06
 pc_smb2_ps07
 pc_smb2_ps08
-pc_smb3     //parent
+pc_smb3                                //parent
 pc_smb3_ps01
 pc_smb3_ps02
 pc_smb3_ps03
@@ -8846,7 +8292,7 @@ vpacshuf
 vpspeed
 xensad
 xensrev
-	/* Pacman hardware games (hires hacks) */
+// PACMAN HIRES HACKS
 puckmanx
 puckmnax
 puckmnfx
@@ -8940,7 +8386,7 @@ altbeasts02
 altbeasts03
 
 @source:sagas18.cpp
-//astorm
+//hamaway
 //aquario
 
 @source:segas24.cpp
@@ -8985,7 +8431,7 @@ grdianss17
 grdianss18
 
 @source:sf.cpp
-//sf                                     //parent
+//sf                                   //parent
 //sfs01                                // freezes in attract mode
 
 @source:shadfrce.cpp
@@ -9017,83 +8463,83 @@ renju                                  //parent
 renjuk
 
 @source:snesb.cpp
-sblast2b				//parent
+sblast2b                               //parent
 sblast2bs01
 
 @source:snowbros.cpp
-snowbros				//parent
+snowbros                               //parent
 snowbross01
 snowbross02
 snowbross03
 snowbross04
 
 @source:solomon.cpp
-solomon					//parent
+solomon                                //parent
 solomonjs01
 
 @source:spacmiss.cpp
-spacmissx				// extra sounds
+spacmissx                              // extra sounds
 
 @source:ssv.cpp
-survarts				//parent
+survarts                               //parent
 survartss01
 
 @source:system1.cpp
-wbml					//parent
+wbml                                   //parent
 wbmlbit
 wbmlkb
 
 @source:system16.cpp
-sys16dem				// HB
+sys16dem                               // HB
 
 @source:stv.cpp
-stvbios					//bios
-gaxeduel				//parent
+stvbios                                //bios
+gaxeduel                               //parent
 gaxeduels01
-groovef					//parent
+groovef                                //parent
 groovefs01
-suikoenb				//parent
+suikoenb                               //parent
 suikoenbs01
 
 @source:taitosj.cpp
-alpine					//parent
+alpine                                 //parent
 alpines01
-frontlin				//parent
+frontlin                               //parent
 frontlins01
 
 @source:taito_b.cpp
-pbobble					//parent
+pbobble                                //parent
 bubbleb
-crimec					//parent
+crimec                                 //parent
 crimecb
 
 @source:taito_f2.cpp
-f2demo					// HB
-cameltry				//parent
+f2demo                                 // HB
+cameltry                               //parent
 cameltryjs01
-deadconx				//parent
+deadconx                               //parent
 deadconxjs01
-dondokod				//parent
+dondokod                               //parent
 dondokodjs01
-dinorex 				//parent
+dinorex                                //parent
 dinorexs01
-gunfront				//parent
+gunfront                               //parent
 gunfrontjs01
-megablst				//parent
+megablst                               //parent
 megablstjs01
-liquidk					//parent
+liquidk                                //parent
 mizubakus01
-growl					//parent
+growl                                  //parent
 runarks01
-thundfox				//parent
+thundfox                               //parent
 thundfoxjs01
 
 @source:taito_f3.cpp
-cleopatr				//parent
-dariusg					//parent
-gekiridn				//parent
-landmakr				//parent
-pbobble2				//parent
+cleopatr                               //parent
+dariusg                                //parent
+gekiridn                               //parent
+landmakr                               //parent
+pbobble2                               //parent
 pbobble3                               //parent
 pbobble3h01
 cleopath
@@ -9103,29 +8549,29 @@ gekiridh
 gekiridoc
 landmakh
 pbobl2xh
-spcinv95				//parent
+spcinv95                               //parent
 akkanvdrs01
-arabianm				//parent
+arabianm                               //parent
 arabianmjs01
-bublbob2				//parent
+bublbob2                               //parent
 bubsymphjs01
 cleopatrs01
-dankuga					//parent
+dankuga                                //parent
 dankugas01
 dankugas02
-elvactr					//parent
+elvactr                                //parent
 elvactrjs01
-gseeker					//parent
+gseeker                                //parent
 gseekerjs01
-kaiserkn				//parent
+kaiserkn                               //parent
 kaiserkns01
 kaiserkns02
 landmakrs01
-lightbr					//parent
+lightbr                                //parent
 lightbrjs01
 
 @source:taito_l.cpp
-evilston				//parent
+evilston                               //parent
 evilstonfr
 sokoban					// HB Sokoban LE by cmonkey
 speccies				// HB Speccies 2 by Sokurah
@@ -9134,9 +8580,9 @@ sqij15					// HB SQIJ v1.5 by Sokurah
 tldemo					// HB cmonkey
 tldemo2					// HB cmonkey
 evilstons01
-kurikint				//parent
+kurikint                               //parent
 kurikintjs01
-plotting				//parent
+plotting                               //parent
 plottingas01
 
 @source:taito_z.cpp
@@ -9144,42 +8590,42 @@ contcirc                               //parent
 contcircja
 
 @source:taotaido.cpp
-taotaido						
+taotaido                               //parent
 taotaidoas01
 
 @source:tecmo.cpp
-gemini					//parent
+gemini                                 //parent
 geminit
-rygar					//parent
+rygar                                  //parent
 rygark
 geminis01
 rygarjs01
 rygars01
-silkworm				//parent
+silkworm                               //parent
 silkworms01
 
 @source:tecmo16.cpp
-fstarfrc				//parent
+fstarfrc                               //parent
 fstarfrcc
 
 @source:tecmosys.cpp
-deroon					//parent
-deroons01 // deroona
-tkdensho				//parent
+deroon                                 //parent
+deroons01
+tkdensho                               //parent
 tkdenshos01
 tkdenshos02
 tkdenshos03
 tkdenshos04
 
 @source:tehkanwc.cpp
-tehkanwc				//parent
+tehkanwc                               //parent
 ballonwc
 tehkangc
 tankwc
 twc_gr
 
 @source:tempest.cpp
-tempest					//parent
+tempest                                //parent
 tempall
 temped		/* Tempest TempEd Hack */
 tempm
@@ -9197,85 +8643,85 @@ aliensv		/* Tempest Prototype */
 aliensva	/* Tempest Prototype */
 
 @source:terracre.cpp
-terracre				//parent
+terracre                               //parent
 terracrc
 
 @source:timelimit.cpp
-timelimt		//parent
+timelimt                               //parent
 timelimit		// dink colour hack
 
 @source:timeplt.cpp
-timeplt				// parent
+timeplt                                //parent
 timepltdiag
 
 @source:tmnt.cpp
-ssriders	//parent
+ssriders                               //parent
 ssridersaex
 ssriderseaas01
 ssriderseaas02
-tmnt2	    //parent
+tmnt2                                  //parent
 tmnt2s01
 tmnt2s02
 tmnt2s03
 
 @source:tnzs.cpp
-drtoppel    		// parent
+drtoppel                               //parent
 drtoppels01
-insectx				// parent
+insectx                                //parent
 insectxs01
 
 @source:toaplan1.cpp
-fireshrk	//parent
+fireshrk                               //parent
 samesamenh	// Trap15
 
 @source:toaplan2.cpp
-kingdmgp	//parent
+kingdmgp                               //parent
 kgpe		/* Neill Corlett hack */
-sstriker	//parent
+sstriker                               //parent
 mahoudcn
 mahoudais01
-batsugun	//parent
+batsugun                               //parent
 batsugunt
-bgaregga	//parent
+bgaregga                               //parent
 bgareggz
-snowbro2    //parent
+snowbro2                               //parent
 snowbro2s01
 snowbro2s02
-pipibibs    //parent
+pipibibs                               //parent
 pipibibss01
 pipibibss02
-truxton2    //parent
+truxton2                               //parent
 truxton2nv
 
 @source:trackfld.cpp
-trackfld	//parent
+trackfld                               //parent
 athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
 tst_trkfld
 
 @source:twincobr.cpp
-twincobr	//parent
+twincobr                               //parent
 twincbu2
 twintwst
 
 @source:vamphalf.cpp
-aoh				//parent
+aoh                                    //parent
 aohs01
 aohs02
 
 @source:volfied.cpp
-volfied		//parent
+volfied                                //parent
 volfiedg	/* Vag @ GreekRoms 2005 */
 
 @source:vsnes.cpp
-suprmrio	//parent
+suprmrio                               //parent
 mrio2002	/* Vs. Super Mario Bros. 2002 */
 suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
-drmario					//parent
+drmario                                //parent
 drmarios01
 frombelow
 
 @source:vsystem.cpp
-karatblz			//parent
+karatblz                               //parent
 karatblzas01
 karatblzas02
 
@@ -9284,23 +8730,23 @@ sagaiav2
 
 @source:wc90.cpp
 pac90
-twcup90	    //parent
+twcup90                                //parent
 twcup90s01
 twcup90s02
 
 @source:williams.cpp
-defender	//parent
+defender                               //parent
 defender2
-robotron	//parent
+robotron                               //parent
 robotron201	// start at level 201 (Sean Riddle)
 robotronp	/* Patched to remove the (in the corner) crash */
 robotrontie	// Tie Die set (Vid Kidz)
-splat		//parent
+splat                                  //parent
 splatsc1
 conquest
 
 @source:wiz.cpp
-stinger				//parent
+stinger                                //parent
 stingers01
 stinger2s01
 
@@ -9308,24 +8754,24 @@ stinger2s01
 wmg
 
 @source:yiear.cpp
-yiear		//parent
-nacho		/* Gatinho - Nacho Libre */
+yiear                                  //parent
+nacho
 
 @source:zn.cpp
 coh1000c
 coh1002m
 coh1000w
 coh3002c
-doapp		//parent
+doapp                                  //parent
 doapph01
 doappnud
 primrag2
-sfex 		//parent
+sfex                                   //parent
 sfexs01
-sfex2 		//parent
+sfex2                                  //parent
 sfex2s01
-sfex2p		//parent
+sfex2p                                 //parent
 sfex2ps01
-sfexp 		//parent
+sfexp                                  //parent
 sfexps01
 

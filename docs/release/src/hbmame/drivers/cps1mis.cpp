@@ -4662,8 +4662,8 @@ ROM_START( cawingh01 )
 	ROM_LOAD( "c12.v1",    0x00000, 0x20000, CRC(4a613a2c) SHA1(06e10644fc60925b85d2ca0888c9fa057bfe996a) ) // 18.bin
 	ROM_LOAD( "c12.v2",    0x20000, 0x20000, CRC(74584493) SHA1(5cfb15f1b9729323707972646313aee8ab3ac4eb) ) // 19.bin
 
-	ROM_REGION( 0x400, "jed", ROMREGION_ERASEFF )
-	ROM_LOAD_OPTIONAL ( "caw_pal_1a.jed", 0x000000, 0x00031b, CRC(3fc2424c) SHA1(89313c0ee7e11e29d6f361175702c5a1bfdefa05) ) // not used
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "caw_pal_1a.jed", 0x0000, 0x031b, CRC(3fc2424c) SHA1(89313c0ee7e11e29d6f361175702c5a1bfdefa05) ) // not used
 
 	ROM_REGION( 0x80, "control", ROMREGION_ERASEFF )
 	ROM_LOAD( "cawingh01.key", 0x00, 0x80, CRC(65cbbc14) SHA1(39d4f6d7fdfa6e827b4219bee8993bcdc0b6a39b) ) // CPS_B_21_DEF, mapper_CA24B
@@ -4934,6 +4934,34 @@ ROM_START( daimakb )
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "daimakb.key", 0x00, 0x80, CRC(c72cad61) SHA1(9036e06c84ff9189a83acd50a703fb6560ce5e98) )
+ROM_END
+
+ROM_START( ghoulsf2 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c02sf2.p1", 0x00000, 0x80000, CRC(a633f99f) SHA1(2f176d390d62dd17c0ccc8df9f570193c1e3c085) )
+	ROM_LOAD16_WORD_SWAP( "c02jr.p5",  0x80000, 0x80000, CRC(595ff2f3) SHA1(ac14b81e15f2c340526a03acbb4c28181d94d5b9) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c02.c01",    0x000000, 0x80000, CRC(0ba9c0b0) SHA1(c4945b603115f32b7346d72426571dc2d361159f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02.c03",    0x000002, 0x80000, CRC(5d760ab9) SHA1(212176947933fcfef991bc80ad5bd91718689ffe) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02.c05",    0x000004, 0x80000, CRC(4ba90b59) SHA1(35bc9dec5ddbf064c30c951627581c16764456ac) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02.c07",    0x000006, 0x80000, CRC(4bdee9de) SHA1(7d0c4736f16577afe9966447a18f039728f6fbdf) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c17",  0x200000, 0x80000, CRC(971c8db2) SHA1(c2588445de119262085ab2d73099185163f739b0) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c19",  0x200002, 0x80000, CRC(ae78c052) SHA1(4aa79dcae147e474717293650e4cacabb2827bee) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c21",  0x200004, 0x80000, CRC(1ec1b0cd) SHA1(bb8fd8ef3a6cdf430b32ef31e283c955ac800713) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c02sf2.c23",  0x200006, 0x80000, CRC(3dd921ab) SHA1(b06f1912f317856934591a3d48bd48d88c50f76b) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c02sf2.m1",    0x00000, 0x08000, CRC(d8ed184e) SHA1(c00ebe11bbd0beb701c5a022353e71128f75bb45) )
+	ROM_CONTINUE(            0x10000, 0x18000 )
+
+	ROM_REGION( 0x40000, "oki", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "gng_pal_1a.jed", 0x0000, 0x054c, CRC(fdf78c70) SHA1(d2cda1377876c7942b457be4df20332ebe41a895) ) // not used
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "daimakair.key", 0x00, 0x80, CRC(8b8cdff4) SHA1(69e750171817d9507c8f86db8a79b25d8dae5001) )
 ROM_END
 
 /************************
@@ -6609,6 +6637,9 @@ ROM_START( dinos38 ) // dinosf2
 	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "c25s38.v1",      0x00000, 0x20000, CRC(8d2899ba) SHA1(0b3ac6cf2ce0323e3bfc9da3ebfcb0fd14bc405b) )
 	ROM_LOAD( "c25s38.v2",      0x20000, 0x20000, CRC(b34a4b42) SHA1(3eeb9e33bb911359e03d44949ac58439a3d3d54b) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
 ROM_START( dinos40 )
@@ -13035,6 +13066,42 @@ ROM_START( ffightj1s01 ) //ffight1v2
 
 	ROM_REGION( 0x80, "control", 0 )
 	ROM_LOAD( "ffightb.key", 0x00, 0x80, CRC(328f442c) SHA1(f58a07458f00ee7fdd0471fa03f7859ae9e2629b) )
+ROM_END
+
+/********************
+ Forgotten Worlds
+**********************/
+ROM_START( forgottnsf2 ) // forgottnua converted for sf2 board
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c01sf2.p1",  0x00000, 0x80000, CRC(987ac84e) SHA1(f720c26eab8e1ba0ae09754defa9f32d3be2a87b) )
+	ROM_LOAD16_WORD_SWAP( "c01.p5",     0x80000, 0x80000, CRC(fd252a26) SHA1(5cfb097984912a5167a8c7ec4c2e119b642f9970) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c01ue.c01", 0x000000, 0x80000, CRC(0318f298) SHA1(178ffd6da7bf845e30abf1bfc38a469cd319a73f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01.c03",   0x000002, 0x80000, CRC(25a8e43c) SHA1(d57cee1fc508db2677e84882fb814e4d9ad20543) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01a.c05",  0x000004, 0x80000, CRC(e4552fd7) SHA1(11147afc475904848458425661473586dd6f60cc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01ue.c07", 0x000006, 0x80000, CRC(8e6a832b) SHA1(d63a1331fda2365f090fa31950098f321a720ea8) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01.c17",   0x200000, 0x80000, CRC(43e6c5c8) SHA1(d3e6c971de0477ec4e178adc82508208dd8b397f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01ue.c19", 0x200002, 0x80000, CRC(899cb4ad) SHA1(95e61af338945e690f2a82746feba3871ea224eb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01.c21",   0x200004, 0x80000, CRC(5b9edffc) SHA1(6fd8f4a3ab070733b52365ab1945bf86acb2bf62) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c01u.c23",  0x200006, 0x80000, CRC(8e058ef5) SHA1(00f2c0050fd106276ea5398511c5861ebfbc0d10) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x200000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c01.m1",     0x00000, 0x08000, CRC(59df2a63) SHA1(dfe1fffc7a17179a80a2ae623e93b30a7d6df20d) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c01.v1",     0x00000, 0x20000, CRC(807d051f) SHA1(720e4733787b9b11f4d1cdce0892b69475802844) )
+	ROM_LOAD( "c01.v2",     0x20000, 0x20000, CRC(e6cd098e) SHA1(667f6e5736f76a1c4c450c4e2035574ea89d7910) )
+
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "fw_pal_1a.jed", 0x0000, 0x0219, CRC(857b9dae) SHA1(3015aee4be968fcffc2e1218db97a1d3a6bf6b50) ) // not used
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "forgottn.key", 0x00, 0x80, CRC(ec5025a0) SHA1(21ac00fbfca9ae369e99469ee372fea0a5bbdb25) )
 ROM_END
 
 /********************
@@ -19482,6 +19549,39 @@ ROM_START( striders03 ) // stridergh
 	ROM_LOAD( "strider.key", 0x00, 0x80, CRC(39065af5) SHA1(ffff84fd87e851718c564062564970677da923c9) )
 ROM_END
 
+ROM_START( striders04)
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c03s04.p1",   0x00000, 0x80000, CRC(059d4c11) SHA1(95d4da2faf87f531acfe4b0aa7a8396940680698) )
+	ROM_LOAD16_WORD_SWAP( "c03.p5",   0x80000, 0x80000, CRC(9b3cfc08) SHA1(a7d7f270a097437affa845d80bed82a1fa874878) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROMX_LOAD( "c03.c01",   0x000000, 0x80000, CRC(4eee9aea) SHA1(5e619fd5f3f1181e32a8fd9dbb4661d74ff8a484) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c03",   0x000002, 0x80000, CRC(2d7f21e4) SHA1(593cec513de40ff802084d54313bb25a4561e25d) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c05",   0x000004, 0x80000, CRC(7705aa46) SHA1(6cbfa30b2852fd117d117beefba434ce41d24c2f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c07",   0x000006, 0x80000, CRC(5b18b722) SHA1(cf71c62348ca6b404279e87a6686cb3a842eb381) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c17",   0x200000, 0x80000, CRC(005f000b) SHA1(e6f65af7cc3295be9efaaded352e7ae6320b4133) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c19",   0x200002, 0x80000, CRC(b9441519) SHA1(bb0926dc484dae4f64c5e5a6bce20afdc7aeba55) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c21",   0x200004, 0x80000, CRC(b7d04e8b) SHA1(5c5a079baa694927c33d0e0c23e5ff09d6c9d985) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c03.c23",   0x200006, 0x80000, CRC(6b4713b4) SHA1(759b8b1fc7a5c4b00d74a27c2dd11667db44b09e) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c03.m1",     0x00000, 0x08000, CRC(2ed403bc) SHA1(4ce863ea40d789db5a7cfce91d2c7c720deb9be5) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c03.v1",     0x00000, 0x20000, CRC(4386bc80) SHA1(fb2b261995aeacfa13e7ee40b1a973dfb178f015) )
+	ROM_LOAD( "c03.v2",     0x20000, 0x20000, CRC(444536d7) SHA1(a14f5de2f6b5b29ae5161dca1f8c08c566301a91) )
+
+	ROM_REGION( 0x800, "jed", ROMREGION_ERASEFF )
+	ROM_LOAD_OPTIONAL ( "sth63b.jed", 0x0000, 0x054c, CRC(f5bb1f31) SHA1(71a5d85f8f7e0b318467650622d557ca08a6758b) ) // not used
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "strider.key", 0x00, 0x80, CRC(39065af5) SHA1(ffff84fd87e851718c564062564970677da923c9) )
+ROM_END
+
 /********************
  Street Fighter Zero
 **********************/
@@ -19489,8 +19589,8 @@ ROM_END
 ROM_START( sfzchs02 )
 	ROM_REGION( CODE_SIZE, "maincpu",0 )
 	ROM_LOAD16_WORD_SWAP( "c59chs02.p1",    0x000000, 0x80000, CRC(9e5cd362) SHA1(cd1cf39e8e37038edc790e82bcd0dace90e406d1))
-	ROM_LOAD16_WORD_SWAP( "c59zb.p2",         0x080000, 0x80000, CRC(8d9b2480) SHA1(405305c1572908d00eab735f28676fbbadb4fac6))
-	ROM_LOAD16_WORD_SWAP( "c59ch.p3",        0x100000, 0x80000, CRC(5435225d) SHA1(6b1156fd82d0710e244ede39faaae0847c598376))
+	ROM_LOAD16_WORD_SWAP( "c59zb.p2",       0x080000, 0x80000, CRC(8d9b2480) SHA1(405305c1572908d00eab735f28676fbbadb4fac6))
+	ROM_LOAD16_WORD_SWAP( "c59ch.p3",       0x100000, 0x80000, CRC(5435225d) SHA1(6b1156fd82d0710e244ede39faaae0847c598376))
 	ROM_LOAD16_WORD_SWAP( "c59.p4",         0x180000, 0x80000, CRC(806e8f38) SHA1(b6d6912aa8f2f590335d7ff9a8214648e7131ebb))
 
 	ROM_REGION( 0x800000, "gfx", 0 )
@@ -27182,7 +27282,7 @@ GAME( 2019, captcommh03,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,
 GAME( 2019, captcommh04,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "BinDi", "Captain Commando (Shape Shifting Version 2019-01-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, captcommh05,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "BinDi", "Captain Commando (99 Fighter Edition 2019-01-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, captcommh06,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "TouJingGaiErDeZei", "Captain Commando (99 Fighter Edition 2018-11-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, captcommh07,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (Translation Chinese)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
+GAME( 1991, captcommh07,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (Chinese)", MACHINE_SUPPORTS_SAVE ) // "OTHER COUNTRY"
 GAME( 2008, captcommh08,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "Shinwa", "Captain Commando (Ex Super version 2008-05-10)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2016, captcommh09,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (r1p)" , MACHINE_SUPPORTS_SAVE )
 GAME( 1991, captcommh10,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (US 910928 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
@@ -27296,6 +27396,7 @@ GAME( 2012, cps1testma,    megaman,  cps1_12MHz, megaman,  cps_state, init_cps1,
 GAME( 2019, cps1xx,        cps1demo, cps1frog,   cps1frog, cps_state, init_cps1,     ROT0, "Wang", "Demo Wang xx", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 // Daimakaimura
 GAME( 1993, daimakb,       ghouls,   daimakb,    daimakai, cps_state, init_cps1,     ROT0, "bootleg", "Dai Makai-Mura (Japan, bootleg)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, ghoulsf2,      ghouls,   cps1_12MHz, daimakai, cps_state, init_cps1,     ROT0, "Arcadefixer", "Ghouls'n Ghosts (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 GAME( 2017, dinod01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Dinosaur Hunter (Challenge Edition 2017-11-16)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinoj01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs Kyouryuu-Shinseiki Plus (Double Edition 2010-03-10)", MACHINE_SUPPORTS_SAVE )
@@ -27335,26 +27436,26 @@ GAME( 1993, dinos17,       dino,     qsound,     dino,     cps_state, init_dino,
 GAME( 1993, dinos18,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Ydmis", "Cadillacs and Dinosaurs (Kill Enemies To Get Food Sushi)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos19,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall", "Cadillacs and Dinosaurs (Put Insurance Can Not Afford To Lose Blood)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos20,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Fenghua [Phoenix]", "Cadillacs and Dinosaurs (Weapons Unlimited + Does Not Disappear)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos21,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "huangxu", "Cadillacs and Dinosaurs (Tekken Invincible)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos21,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Huangxu", "Cadillacs and Dinosaurs (Tekken Invincible)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos22,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Change Char V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinos23,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Enemy Replacement Edition 2010-03-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dinos24,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Lin Xiaochu", "Cadillacs and Dinosaurs (Integrated Repair-Blood Pro Plus Edition 2009-1-15/2011-03-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos25,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Unparalleled Multi-Boss Bloody Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, dinos26,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Enhanced Revision 2008 2008-10-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, dinos27,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Enhanced Modified Version 2008 v2.0f 2008-10-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, dinos28,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Unparalleled Version Of The Revised Version Of 2011 2017-05-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, dinos29,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "zhyxxxx", "Cadillacs and Dinosaurs (Increase Enemy 2016-01-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, dinos30,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "kakakawa", "Cadillacs and Dinosaurs (Self-Mutilation Blood 2011-03-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos31,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Pistol To Change The Gun Version v1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos32,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Pistol To Change The Gun Version v2.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos33,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-To The Rifle Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos34,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Shotgun Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos35,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Uz Assault Gun Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos36,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-M-16A1 Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, dinos27,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Enhanced Modified Version 2008 v2.0f 2008-10-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, dinos28,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Unparalleled Version Of The Revised Version Of 2011 2017-05-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, dinos29,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Zhyxxxx", "Cadillacs and Dinosaurs (Increase Enemy 2016-01-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, dinos30,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Kakakawa", "Cadillacs and Dinosaurs (Self-Mutilation Blood 2011-03-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos31,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Pistol To Change The Gun Version v1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos32,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Pistol To Change The Gun Version v2.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos33,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-To The Rifle Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos34,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Shotgun Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos35,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Uz Assault Gun Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos36,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-M-16A1 Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos37,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Tree monkey", "Cadillacs and Dinosaurs (Selection Time Is Not Reduced)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, dinos38,       dino,     wofsf2,     dino,     cps_state, init_dinohunt, ROT0, "Arcadefixer", "Cadillacs and Dinosaurs (Sf2 conversion)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dinos40,       dino,     qsound,     dinohz,   cps_state, init_dinoh,    ROT0, "pipi899", "Cadillacs and Dinosaurs (Lock The Strongest Attack Power 2009-01-15)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2009, dinos41,       dino,     qsound,     dinohz,   cps_state, init_dinoh,    ROT0, "pipi899", "Cadillacs and Dinosaurs (Lock Three Mode 2009-01-15)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2017, dinos38,       dino,     wofsf2,     dino,     cps_state, init_dinohunt, ROT0, "Arcadefixer", "Cadillacs and Dinosaurs (Sf2 conversion)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dinos40,       dino,     qsound,     dinohz,   cps_state, init_dinoh,    ROT0, "Pipi899", "Cadillacs and Dinosaurs (Lock The Strongest Attack Power 2009-01-15)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dinos41,       dino,     qsound,     dinohz,   cps_state, init_dinoh,    ROT0, "Pipi899", "Cadillacs and Dinosaurs (Lock Three Mode 2009-01-15)" , MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinos42,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Shooting With The Footkl)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, dinos43,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Enhanced Revision 2008 set 1 v1.1 2008-10-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, dinos44,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Enhanced Revision 2008 set 2 v1.1f 2008-10-17)", MACHINE_SUPPORTS_SAVE )
@@ -27366,15 +27467,15 @@ GAME( 1993, dinos50,       dino,     qsound,     dino,     cps_state, init_dino,
 GAME( 2016, dinos51,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Update Slice Version 2016-04-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, dinos52,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Unknown Hack 2016-02-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, dinos53,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Unknown Hack Fix 2016-02-14)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, dinos54,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Bazooka)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, dinos56,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Integral Repair-Blood Pro Plus Edition 2011-03-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos54,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899", "Cadillacs and Dinosaurs (Bullet Unlimited Series-Bazooka)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, dinos56,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Integral Repair-Blood Pro Plus Edition 2011-03-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinos59,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Ngs", "Cadillacs and Dinosaurs (Final Boss)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, dinos60,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (2011 Plus New Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dinos61,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (2011 Plus Bloody Warriors 2018 New Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinos63,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Yong Chuang Tian Ya 2017-12-27)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, dinos66,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Unknown Hack 2012-10-26)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2012, dinos66,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Unknown Hack 2012-10-26)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dinos67,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs (Unknown Hack 2015-11-15)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2018, dinos68,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Unknown Hack 2013-08-23)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2018, dinos68,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Pipi899/RockyWall & zhyxxxx", "Cadillacs and Dinosaurs (Unknown Hack 2013-08-23)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinos69,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Ngs", "Cadillacs and Dinosaurs (Tu Fu Zhi Nu 2017-11-23)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dinos70,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "RockyWall & zhyxxxx", "Cadillacs and Dinosaurs 2011 Plus (2011 Warriors Final Cracked Version 2018-02-12)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dinos71,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "Ngs", "Cadillacs and Dinosaurs (Dou Shen Edition 2018-05-14)" , MACHINE_SUPPORTS_SAVE )
@@ -27570,6 +27671,8 @@ GAME( 2016, ffightj2s02,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 GAME( 2020, ffightj2s03,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition 2020-05-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ffightj2s04,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (Musou Edition 2020-06-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ffightj1s01,   ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,     ROT0, "hack", "Final Fight (1VS2 Enhanced Version 2017-11-26)", MACHINE_SUPPORTS_SAVE )
+// Forgotten Worlds
+GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
 GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_SUPPORTS_SAVE )
@@ -27595,7 +27698,7 @@ GAME( 2016, knightsh06,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,
 GAME( 1991, knightsh07,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "doubledr", "Knights of the Round (Select Players 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, knightsh08,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Super Plus 2016-08-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, knightsh09,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Tie Jia Ying Hao 1 Vs 3 Edition 2018-03-03)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2018, knightsh10,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Translation Chinese 2018-03-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, knightsh10,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Chinese, 2018-03-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsh11,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Tie Jia Ying Hao 2 2018-03-14)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2015, knightsh12,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Super Enhanced Latest Edition 2015-06-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, knightsh13,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Unknown Hack 2016-11-28)", MACHINE_SUPPORTS_SAVE )
@@ -27604,10 +27707,10 @@ GAME( 2018, knightsh15,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,
 GAME( 2018, knightsh16,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (1V3 Unparalleled Edition 2018-06-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, knightsh17,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Enemy Random 2011-12-20)", MACHINE_SUPPORTS_SAVE ) //Name of the unknown roms
 GAME( 2020, knightsh18,    knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Warriors Enhanced Edition 2020-08-02)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, knightsjs01,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, knightsjs01,   knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mercs
 GAME( 1990, mercs01,       mercs,    cps1_10MHz, mercs,    cps_state, init_cps1,     ROT270, "LB70", "Mercs (Crazy Fire Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1990, mercjs01,      mercs,    cps1_10MHz, mercs,    cps_state, init_cps1,     ROT270, "hack", "Senjou no Ookami II (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, mercjs01,      mercs,    cps1_10MHz, mercs,    cps_state, init_cps1,     ROT270, "hack", "Senjou no Ookami II (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Muscle Bomber Duo
 GAME( 1993, mbombrds01,    mbombrd,  qsound,     slammast, cps_state, init_slammast, ROT0, "Creamymami[EGCG]", "Muscle Bomber Duo: Ultimate Team Battle (Region Asia Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, mbombrds02,    mbombrd,  qsound,     slammast, cps_state, init_slammast, ROT0, "Creamymami[EGCG]", "Muscle Bomber Duo: Ultimate Team Battle (Region Hispanic Version)", MACHINE_SUPPORTS_SAVE )
@@ -27639,7 +27742,7 @@ GAME( 2016, punisherjs03,  punisher, qsound,     punisher, cps_state, init_punis
 GAME( 2016, punisherjs04,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "hack", "The Punisher (Unknown Hack 2016-02-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjs05,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "zhyxxxx", "The Punisher (Lock double mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, punisherjs06,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "zhyxxxx", "The Punisher (Unlimited use of pistols)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, punisherjs07,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "pipi899", "The Punisher (Button To Take Gun Unloading Gun 2009-06-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, punisherjs07,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "Pipi899", "The Punisher (Button To Take Gun Unloading Gun 2009-06-09)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, punisherjs08,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "EEZEZY(LB70)", "The Punisher (Angry Boms 2011-07-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, punisherjs09,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "hack", "The Punisher (Warriors Edition 2017-11-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, punisherjs10,  punisher, qsound,     punisher, cps_state, init_punisher, ROT0, "hack", "The Punisher (Enhanced Version 2014-12-23)", MACHINE_SUPPORTS_SAVE )
@@ -27674,14 +27777,14 @@ GAME( 1992, sf2s13,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,
 GAME( 2014, sf2s14,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II: The World Warrior (King Of The Four Heavenly Kings)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, sf2s15,        sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0, "hack", "Street Fighter II: The World Warrior (12 Person Version 2016-01-01)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter II: Champion Edition
-GAME( 1992, sf2ces01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Translation Brasil)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ces02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Translation Hispanic)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ces01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Brazil)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ces02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Hispanic)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ces03,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Do Not Force)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ces04,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Sangigel's Whirlwind To Sit Simplified)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ces05,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Vega Lifts The Main Scene Crawl Limit)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, sf2ces06,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Super Plus Teleportation)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, sf2ces07,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Turbo Balrog Storm)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, sf2ces08,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Galactic Super Vega)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ces04,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Sangigel's Whirlwind To Sit Simplified)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ces05,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Vega Lifts The Main Scene Crawl Limit)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, sf2ces06,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Super Plus Teleportation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, sf2ces07,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Turbo Balrog Storm)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, sf2ces08,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Galactic Super Vega)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2ces09,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Insane Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ces10,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter II': Champion Edition (Brazil 920313/hack)", MACHINE_SUPPORTS_SAVE )
 //GAME( 1992, sf2ces11,      sf2ce,    sf2m1,      sf2,      cps_state, init_sf2m1,    ROT0, "bootleg", "Street Fighter II': Champion Edition (M16, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
@@ -27753,8 +27856,8 @@ GAME( 2018, sf2reds04,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,
 GAME( 2019, sf2reds05,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (The CPU strikes back Yoga 2019-05-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, sf2reds06,     sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Koryu Street Warriors 2019-06-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2tlonas01,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "King of Destruction", "Street Fighter II': Champion Edition (Replacement Blank Screen Repair)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, sf2tlonas02,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Zangief Spiral Piling Instructions Simplify 2012-01-1X)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, sf2tlonas03,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "pipi899", "Street Fighter II': Champion Edition (Zangief Spiral Piling Instructions Simplify 2012-01-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, sf2tlonas02,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Zangief Spiral Piling Instructions Simplify 2012-01-1X)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, sf2tlonas03,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Pipi899", "Street Fighter II': Champion Edition (Zangief Spiral Piling Instructions Simplify 2012-01-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, sf2tlonas04,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Easy Move 2015-11-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2tlonas05,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 1, 811102 001)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
 GAME( 1992, sf2tlonas06,   sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 2, 811102 001)", MACHINE_SUPPORTS_SAVE )
@@ -27777,8 +27880,9 @@ GAME( 1994, slammasts06,   slammast, qsound,     slammast, cps_state, init_slamm
 GAME( 1989, striders01,    strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "Niwatori", "Strider (Fixed Music In Later Stages)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, striders02,    strider,  cps1_10MHz, stridrua, cps_state, init_cps1,     ROT0, "Willkaotix", "Strider (Gfx fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, striders03,    strider,  cps1_10MHz, stridrua, cps_state, init_cps1,     ROT0, "Willkaotix", "Strider (Gfx fix, uncensored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, striders04,    strider,  cps1_10MHz, strider,  cps_state, init_cps1,     ROT0, "Arcadefixer", "Strider (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Zero
-GAME( 2007, sfzchs02,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "pipi899[EZ]", "Street Fighter Zero (Move Hack 2007-02-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, sfzchs02,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "Pipi899[EZ]", "Street Fighter Zero (Move Hack 2007-02-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs03,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Asia 950925)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs04,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Euro 950727)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs05,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Hispanic 950727)", MACHINE_SUPPORTS_SAVE )
@@ -28004,7 +28108,7 @@ GAME( 1992, sk2j6,         wof,      sk2h31,     sk2h31,   cps_state, init_sk2h2
 GAME( 1992, sk2k1,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Chaihe", "Sangokushi II (Holy Sword Three Kingdoms (Invincible))", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2k2,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Sangokushi II (set K2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2k3,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Sangokushi II (set K3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, sk2k4,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Fenghua [Phoenix]", "Sangokushi II (Chinese Translation 2017-04-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, sk2k4,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Fenghua [Phoenix]", "Sangokushi II (Chinese, 2017-04-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sk2k5,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Pipi899", "Sangokushi II (Group Modified Version 2008-01-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, sk2k6,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Pipi899", "Sangokushi II (Easy Moves 2009-01-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2k7,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Chaihe & EmuFan", "Sangokushi II (Holly Sword Three Kingdoms)", MACHINE_SUPPORTS_SAVE )
@@ -28044,7 +28148,7 @@ GAME( 1992, wofs07,        wof,      qsound,     wof,      cps_state, init_wof, 
 GAME( 1992, wofs08,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "kawada7278", "Warriors of Fate (Zhang Fei vampire Second Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, wofs09,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "GOTVG", "Warriors of Fate (1VS3 2013-04-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 200?, wofs10,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Chaihe", "Warriors of Fate (Holly Sword Three Kingdoms (Invincible))", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, wofs11,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Shyma.X", "Warriors of Fate (French Translation 2003-07-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, wofs11,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Shyma.X", "Warriors of Fate (French, 2003-07-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs12,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Katana", "Warriors of Fate (Double Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs13,        wof,      wofsf2,     wof,      cps_state, init_cps1,     ROT0, "hack", "Warriors of Fate (conversion for SF2 HW)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wofs14,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Warriors of Fate (USA 921031 Phoenix Edition)", MACHINE_SUPPORTS_SAVE )

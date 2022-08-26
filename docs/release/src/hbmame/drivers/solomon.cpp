@@ -35,5 +35,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Solomon no Kagi
-GAME( 1986, solomonjs01, solomon, solomon, solomon, solomon_state, empty_init, ROT0, "hack", "Solomon no Kagi (Translation Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1986, solomonjs01, solomon, solomon, solomon, solomon_state, empty_init, ROT0, "hack", "Solomon no Kagi (Chinese)", MACHINE_SUPPORTS_SAVE )
 

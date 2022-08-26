@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2022-0x-xx 0.245.4
+2022-08-26 0.245.4
 
 
 
@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [forgottnsf2]         Forgotten Worlds (SF2 conversion)
 - [ghoulsf2]            Ghouls'n Ghosts (SF2 conversion)
+- [gxg]                 Casanova She and She
 - [magdrop3te]          Magical Drop 3 (Tournament Edition, 2022-08-19)
 - [nbajamre]            NBA Jam Rewind (rev 1.1)
 - [striders04]          Strider (SF2 conversion)
