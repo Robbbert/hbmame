@@ -221,6 +221,11 @@ READ_LINE_MEMBER(mhavoc_hbmame::gamma_xmtd_r)
 	return m_gamma_xmtd;
 }
 
+READ_LINE_MEMBER(mhavoc_hbmame::gamma_tirdy_r)
+{
+	return m_tms->readyq_r();
+}
+
 READ_LINE_MEMBER(mhavoc_hbmame::alpha_rcvd_r)
 {
 	/* Alpha rcvd flag */

@@ -54,6 +54,7 @@ public:
 	DECLARE_CUSTOM_INPUT_MEMBER(coin_service_r);
 	DECLARE_READ_LINE_MEMBER(gamma_rcvd_r);
 	DECLARE_READ_LINE_MEMBER(gamma_xmtd_r);
+	DECLARE_READ_LINE_MEMBER(gamma_tirdy_r);
 	DECLARE_READ_LINE_MEMBER(alpha_rcvd_r);
 	DECLARE_READ_LINE_MEMBER(alpha_xmtd_r);
 	DECLARE_READ_LINE_MEMBER(clock_r);
@@ -121,3 +122,4 @@ private:
 	uint8_t m_has_beta_cpu = 0U;
 	uint8_t m_speech_write_buffer = 0U;
 };
+
