@@ -1366,6 +1366,7 @@ ddsoms08
 ddtods01
 ddtods02
 dstlks01
+ffightaec2
 gigawings01
 hsf2s02
 hsf2s03
@@ -7856,8 +7857,8 @@ theglads08
 
 @source:phoenix.cpp
 phoenix                                //parent
-phoenixg		// Vag @ GreekRoms
-phoenixr		// CYBERYOGI =CO= Windler hack of Phoenix
+phoenixg                               // Vag @ GreekRoms
+phoenixr                               // so-called German hack of Phoenix
 
 @source:playch10.cpp
 playch10		//bios

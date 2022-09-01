@@ -1178,7 +1178,7 @@ void cps2_state::cps2_map(address_map &map)
 	map(0x662008, 0x662009).ram();                                                                         /* Network adapter related, accessed in SSF2TB */
 	map(0x662020, 0x662021).ram();                                                                         /* Network adapter related, accessed in SSF2TB */
 	map(0x664000, 0x664001).ram();                                                                         /* Unknown - Only used if 0x660000-0x663fff available (could be RAM enable?) */
-	map(0x700000, 0x701fff).rw( FUNC(cps2_state::cps2_objram1_r), FUNC(cps2_state::cps2_objram1_w)).share("objram1");    /* Object RAM, no game seems to use it directly */
+	map(0x700000, 0x701fff).mirror(0x006000).rw( FUNC(cps2_state::cps2_objram1_r), FUNC(cps2_state::cps2_objram1_w)).share("objram1");    /* Object RAM, no game seems to use it directly */
 	map(0x708000, 0x709fff).mirror(0x006000).rw( FUNC(cps2_state::cps2_objram2_r), FUNC(cps2_state::cps2_objram2_w)).share("objram2");           /* Object RAM */
 	map(0x800100, 0x80013f).w( FUNC(cps2_state::cps1_cps_a_w)).share("cps_a_regs");                              /* mirror (sfa) */
 	map(0x800140, 0x80017f).rw( FUNC(cps2_state::cps1_cps_b_r), FUNC(cps2_state::cps1_cps_b_w)).share("cps_b_regs");            /* mirror (sfa) */

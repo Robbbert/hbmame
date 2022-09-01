@@ -6373,6 +6373,33 @@ ROM_START( hsf2s14 )
 	ROM_LOAD( "hsf2.key",     0x00, 0x14, CRC(fc9b18c9) SHA1(457b6ba05458f1be9ebb8aa9cbab0a8808cb6857) )
 ROM_END
 
+/*******************
+  Misc hacks
+********************/
+ROM_START( ffightaec2 ) // ffightae_cps2
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c78s20.p1", 0x000000, 0x80000, CRC(b598d599) SHA1(f4e5ebc3c1900fbfb004f8e6532ffb8593622fe5) )
+	ROM_LOAD16_WORD_SWAP( "c78s20.p2", 0x080000, 0x80000, CRC(3615cfb9) SHA1(f83ebdb084505b3c35513f40666ad828846339d2) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c78s20.c1",     0x000000, 0x400000, CRC(3f4028c5) SHA1(4a4cf19422f4f0fc66ce18ea082320c5adb59750) )
+	ROM_LOAD64_WORD( "c78s20.c2",     0x000002, 0x400000, CRC(be3858b0) SHA1(ec9e1be10bba4c3b8bf35fca821cd7f4025dfb4a) )
+	ROM_LOAD64_WORD( "c78s20.c3",     0x000004, 0x400000, CRC(ed622314) SHA1(f7155a41d4fdbcdd4e626b86de18c391125298e3) )
+	ROM_LOAD64_WORD( "c78s20.c4",     0x000006, 0x400000, CRC(d65b53e9) SHA1(6df4aa177a38407814a35a3560da4e9c301b3fa0) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c78s20.m1",   0x00000, 0x08000, CRC(7ee68d38) SHA1(d533226911c23be34aa9df7d7ee37a0b2cf407ab) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c78.m2",   0x28000, 0x20000, CRC(72445dc4) SHA1(14fca7596ac45ba655016eef5b6120f9f9671c23) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c78s20.q1",   0x000000, 0x400000, CRC(71af8d5a) SHA1(8e9dfcd1d44f792cff4b13f8b8f73aa8f9b0a2ec) )
+	ROM_LOAD16_WORD_SWAP( "c78.q2",   0x400000, 0x400000, CRC(f392b13a) SHA1(fa04ce0370144a49bd1d5acd873eef87b0dc9d15) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
 
 
 /*    YEAR  NAME        PARENT    MACHINE    INPUT      CLASS       INIT       MONITOR COMPANY          FULLNAME                    FLAGS */
@@ -6385,17 +6412,17 @@ GAME( 1996, 19xxs02,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, R
 GAME( 2000, 1944s01,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "DDJ", "1944: The Loop Master (000620U, Strongest Fire Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, 1944s02,    1944,     dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Razoola", "1944: The Loop Master (000620U, Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, 1944s03,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "Qxs8", "1944: The Loop Master (000620U, Fire Power Plus, 2011-12-31)", MACHINE_SUPPORTS_SAVE )
-//Alien vs. Predator
+// Alien vs. Predator
 GAME( 2017, avsps01,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, 1 Vs 3 Plus, 2017-12-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, avsps02,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, Enhanced Edition, 2018-02-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, avsps03,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, avsps04,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, avsps05,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520H, Modified Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, avsps06,    avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Razoola", "Alien vs. Predator (940520U, Phoenix edition)", MACHINE_SUPPORTS_SAVE )
-//Armored Warriors
+// Armored Warriors
 GAME( 2020, armwars01,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-05-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, armwars02,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-08-30)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-//Battle Circuit
+// Battle Circuit
 GAME( 2019, batcirs01,  batcir,   dead_cps2, cps2_4p2b, cps2_state, init_cps2, ROT0, "hack", "Battle Circuit (970319E, Evolution, 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 // Capcom Sports Club
 GAME( 1997, csclubs01,  csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Hooooook", "Capcom Sports Club (971017E, Time Increases)", MACHINE_SUPPORTS_SAVE )
@@ -6410,7 +6437,7 @@ GAME( 2014, ddsoms05,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, R
 GAME( 2009, ddsoms06,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (960619E, Strengthen The Physical Model, 2009-06-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsoms07,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (960619J, Change the Final Strike condition, 2009-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsoms08,   ddsom,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619U, Plus, 2016-08-25)", MACHINE_SUPPORTS_SAVE )
-//Dungeons & Dragons: Tower of Doom
+// Dungeons & Dragons: Tower of Doom
 GAME( 2020, ddtods01,   ddtod,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (940412H, Full Attack Edition, 2020-08-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddtods02,   ddtod,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (940412E, Plus)", MACHINE_SUPPORTS_SAVE )
 // Darkstalkers: The Night Warriors
@@ -6604,6 +6631,8 @@ GAME( 2008, xmvsfs04,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 1996, xmvsfs05,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "X-Men Vs. Street Fighter (961004J, Enhanced power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, xmvsfs06,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blackheart", "X-Men Vs. Street Fighter (960910E, Easy Moves, 2009-04-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, xmvsfs07,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Ydmis", "X-Men Vs. Street Fighter (960910E, Change character in battle)", MACHINE_SUPPORTS_SAVE )
+// Misc hacks
+GAME( 2022, ffightaec2, 0,        dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Grego and Gnawtor", "Fight Fight Anniversary Edition (CPS2 hardware)", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( cps2xx )  // not working, black screen

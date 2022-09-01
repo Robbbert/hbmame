@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [ffightaec2]          Final Fight Anniversary Edition (CPS2 hardware)
 - [fantzone01]          Fantasy Zone (PS2)
 
 
