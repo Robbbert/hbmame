@@ -55,8 +55,6 @@ void mhavoc_hbmame::mhavoc_gamma_irq_ack_w(uint8_t data)
 	m_gamma_irq_clock = 0;
 }
 
-
-
 /*************************************
  *
  *  Machine init
@@ -223,6 +221,11 @@ READ_LINE_MEMBER(mhavoc_hbmame::gamma_xmtd_r)
 	return m_gamma_xmtd;
 }
 
+READ_LINE_MEMBER(mhavoc_hbmame::gamma_tirdy_r)
+{
+	return m_tms->readyq_r();
+}
+
 READ_LINE_MEMBER(mhavoc_hbmame::alpha_rcvd_r)
 {
 	/* Alpha rcvd flag */
@@ -315,15 +318,4 @@ void mhavoc_hbmame::mhavocrv_speech_strobe_w(uint8_t data)
 	m_tms->data_w(m_speech_write_buffer);
 }
 
-/*************************************
- *
- *  Driver-specific init
- *
- *************************************/
 
-void mhavoc_hbmame::init_mhavocrv()
-{
-	// For Return to Vax, add support for the normally-unused speech module.
-	m_gamma->space(AS_PROGRAM).install_write_handler(0x5800, 0x5800, write8smo_delegate(*this, FUNC(mhavoc_hbmame::mhavocrv_speech_data_w)));
-	m_gamma->space(AS_PROGRAM).install_write_handler(0x5900, 0x5900, write8smo_delegate(*this, FUNC(mhavoc_hbmame::mhavocrv_speech_strobe_w)));
-}

@@ -4332,7 +4332,6 @@ mhavoc					//parent
 mhavocrv				//HB Jess M. Askey
 
 @source:mhavoc_hb.cpp
-//mhavocpe				//HB Jess M. Askey               ROMS ARE MISSING
 mhavocpex1				//HB Jess M. Askey
 mhavocpex2				//HB Jess M. Askey
 mhavocpex3				//HB Jess M. Askey
@@ -4342,7 +4341,21 @@ mhavocpex6				//HB Jess M. Askey
 mhavocpex7				//HB Jess M. Askey
 mhavocpex7de			//HB Jess M. Askey
 mhavocpex7fr			//HB Jess M. Askey
-mhavocpex81
+mhavocpex8				//HB Jess M. Askey
+mhavocpex8de			//HB Jess M. Askey
+mhavocpex8fr			//HB Jess M. Askey
+//mhavocpe				//HB Jess M. Askey
+//mhavocpede			//HB Jess M. Askey
+//mhavocpefr			//HB Jess M. Askey
+//mhavocpe_lpc			//HB Jess M. Askey
+//mhavocpede_lpc		//HB Jess M. Askey
+//mhavocpefr_lpc		//HB Jess M. Askey
+//mhavocpete			//HB Jess M. Askey
+//mhavocpetede			//HB Jess M. Askey
+//mhavocpetefr			//HB Jess M. Askey
+//mhavocpete_lpc		//HB Jess M. Askey
+//mhavocpetede_lpc		//HB Jess M. Askey
+//mhavocpetefr_lpc		//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk                                     //parent
