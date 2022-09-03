@@ -9,6 +9,9 @@ New Games
 ---------------------------------
 - [ffightaec2]          Final Fight Anniversary Edition (CPS2 hardware)
 - [fantzone01]          Fantasy Zone (PS2)
+- [mhavocpex8]          Major Havoc - The Promised End (BETA v0.89) ENGLISH
+- [mhavocpex8de]        Major Havoc - The Promised End (BETA v0.89) GERMAN
+- [mhavocpex8fr]        Major Havoc - The Promised End (BETA v0.89) FRENCH
 
 
 
