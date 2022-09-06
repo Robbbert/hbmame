@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [19yy]                19YY v1.0
 - [ffightaec2]          Final Fight Anniversary Edition (CPS2 hardware)
 - [fantzone01]          Fantasy Zone (PS2)
 - [mhavocpex8]          Major Havoc - The Promised End (BETA v0.89) ENGLISH

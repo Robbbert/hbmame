@@ -129,6 +129,7 @@ NUM GAME YEAR COMPANY                 TITLE
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
 332 03E7 2001 Brezzasoft              V-Liner
+334 1919 2022 ADK                     19YY (extracted from ADK World CD (year 1995))
 335 00CF 2022 ADK                     Cake Fighter (extracted from Twinkle Star Sprites rom (year1996))
 336 0094      Face                    Dragon's Heaven
 338 FEDC 2004 Vektorlogic             Super Bubble Pop
@@ -861,6 +862,25 @@ ROM_START( teot ) // Beta 7, 2022-07-31
 	ROM_LOAD16_BYTE( "323h.c2",   0x0000001, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
 ROM_END
 
+
+// 334 : 19YY
+ROM_START( 19yy ) // v1.0
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "334.p1", 0x100000, 0x100000, CRC(59374c47) SHA1(dfd8f5b8edba3116998c12b77dd2583d0363b76a) )
+	ROM_CONTINUE(0x000000, 0x100000)
+
+	NEO_SFIX_128K( "334.s1", CRC(219b6f40) SHA1(a771872489c8b6d4011e412362366d30ed363e22) )
+
+	NEO_BIOS_AUDIO_128K( "334.m1", CRC(636d8ac8) SHA1(a9155bf34f5046bb3d6fa1d740ab328054f754d5) )
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "334.v1",  0x000000, 0x400000, CRC(7bb79a6a) SHA1(4eb92dcadf8742632ba632e16cf22ead90e3a0c9) )
+	ROM_LOAD( "090.v3",  0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
+
+	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "334.c1",  0x000000, 0x400000, CRC(622719d5) SHA1(38c51619992bf9b6de07d3739d28e0098295cec0) )
+	ROM_LOAD16_BYTE( "334.c2",  0x000001, 0x400000, CRC(41b07be5) SHA1(3f0bb6ebf2e4b396fbc72e949cff415603c0ae96) )
+ROM_END
 
 // 335 : Cake Fighter
 // This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
@@ -3121,6 +3141,7 @@ ROM_START( ndo_a_td )
 ROM_END
 
 
+GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
