@@ -477,8 +477,8 @@ void taito_f3_state::f3(machine_config &config)
 	SPEAKER(config, "rspeaker").front_right();
 
 	TAITO_EN(config, m_taito_en, 0);
-	m_taito_en->add_route(0, "lspeaker", 1.0);
-	m_taito_en->add_route(1, "rspeaker", 1.0);
+	m_taito_en->add_route(0, "lspeaker", 5.0);
+	m_taito_en->add_route(1, "rspeaker", 5.0);
 }
 
 /* These games reprogram the video output registers to display different scanlines,

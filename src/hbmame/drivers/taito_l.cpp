@@ -150,7 +150,7 @@ GAME( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state, empty
 GAME( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
 
 // Evil Stone
-GAME( 2007, evilstonfr,   evilston, evilston,  evilston, taitol_2cpu_state, empty_init, ROT270, "Arkatrad", "Evil Stone (French V1)", MACHINE_IMPERFECT_SOUND )
+GAME( 2007, evilstonfr,   evilston, evilston,  evilston, taitol_2cpu_state, empty_init, ROT270, "Arkatrad", "Evil Stone (French V1)", 0 )
 GAME( 2007, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init, ROT270, "S.Arkames.", "Evil Stone (French V2, 2007-11-28)", 0 )
 // Kuri Kinton
 GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init, ROT0,   "hack", "Kuri Kinton (Chinese)", 0 )
