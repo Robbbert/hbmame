@@ -12,7 +12,6 @@ ROM_END
 
 CONS( 2018, gnw_bride,   0, 0, gnw_dkjr,    gnw_dkjr,    gnw_dkjr_state,    empty_init, "Montrose", "Game & Watch: Bride", MACHINE_SUPPORTS_SAVE )
 
-//  http://montrose.is/games/
 
 
 ROM_START( spicegirls )

@@ -419,18 +419,18 @@ ROM_START( pengo )
 	ROM_LOAD( "epr-5119c.ic31", 0x7000, 0x1000, CRC(933950fe) SHA1(fec7236b3dee2ea6e39c68440a6d2d9e3f72675a) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
@@ -446,18 +446,18 @@ ROM_START( pengo2 )
 	ROM_LOAD( "ic31.2",         0x7000, 0x1000, CRC(669555c1) SHA1(50d5cf8022af6d6bd022235ab06015cb5c8aa433) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
@@ -467,24 +467,24 @@ ROM_START( pengo2u ) /* Sega game ID# 834-5092 PENGO REV.A */
 	ROM_LOAD( "epr-5129.ic7",   0x1000, 0x1000, CRC(1db341bd) SHA1(d1c66bb9cf479e6960dbcd35c820097a81eaa555) )
 	ROM_LOAD( "epr-5130.ic15",  0x2000, 0x1000, CRC(7c2842d5) SHA1(a8a568da68babd0ccb9f2cee4182fc01c3138494) )
 	ROM_LOAD( "epr-5131a.ic14", 0x3000, 0x1000, CRC(6e3c1f2f) SHA1(2ee821b0f6e0f3cfeae7f5ff25a6e9bd977efce0) )
-	ROM_LOAD( "epr-5132.ic21",  0x4000, 0x1000, CRC(95f354ff) SHA1(fdebc68a6d87f8ecdf52a57a34ae5ae844a13510) ) /* == epr-5124.ic21 */
+	ROM_LOAD( "epr-5132.ic21",  0x4000, 0x1000, CRC(95f354ff) SHA1(fdebc68a6d87f8ecdf52a57a34ae5ae844a13510) )
 	ROM_LOAD( "epr-5133.ic20",  0x5000, 0x1000, CRC(0fdb04b8) SHA1(ed814d58318c1055e475ff678609d189727bf9b4) )
-	ROM_LOAD( "epr-5134.ic32",  0x6000, 0x1000, CRC(e5920728) SHA1(0ac5ffdad7bdcb32e630b9582e1b1aaece5198c9) ) /* == epr-5126.ic32 */
+	ROM_LOAD( "epr-5134.ic32",  0x6000, 0x1000, CRC(e5920728) SHA1(0ac5ffdad7bdcb32e630b9582e1b1aaece5198c9) )
 	ROM_LOAD( "epr-5135a.ic31", 0x7000, 0x1000, CRC(13de47ed) SHA1(332b484d47c9921ed93432755bb2d7a9d4628939) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
@@ -500,18 +500,18 @@ ROM_START( pengo3u ) /*  Sega game ID# 834-5091 PENGO */
 	ROM_LOAD( "epr-5127.ic31",    0x7000, 0x1000, CRC(a7d3d1d6) SHA1(20e4353208c3803d8879b25f821ea617e9a19cc4) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
@@ -527,18 +527,18 @@ ROM_START( pengo4 ) /* Sega game ID# 834-5081 PENGO (REV.A of this set known to 
 	ROM_LOAD( "epr-1745.ic31",   0x7000, 0x1000, CRC(507e18b9) SHA1(e169e4c9c6350fb5e4020222dbcaa6f5ce41849c) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 /*
@@ -569,15 +569,15 @@ ROM_START( pengo5 ) // Sega game ID# 834-5081 PENGO - PCB has an additional labe
 	ROM_LOAD( "epr-1640.ic92",  0x0000, 0x1000, CRC(d7eec6cd) SHA1(e542bcc28f292be9a0a29d949de726e0b55e654a) ) /* tiles (bank 1), not dumped for this set but same label */
 	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1)*/
 	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2), not dumped for this set but same label */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 ROM_START( pengob )
@@ -590,18 +590,18 @@ ROM_START( pengob )
 	ROM_LOAD( "031_pn08.bin", 0x7000, 0x1000, CRC(64e8c30d) SHA1(aa50c21db2ac8361fc575f0785e2aae57f338564) ) // 4 (2/2)
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "5",              0x0000, 0x1000, CRC(1232437b) SHA1(7ec410a2a802514449ccb05684762c25f29556b0) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "5",              0x0000, 0x1000, CRC(1232437b) SHA1(7ec410a2a802514449ccb05684762c25f29556b0) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
@@ -617,18 +617,18 @@ ROM_START( penta )
 	ROM_LOAD( "031_pn08.bin", 0x7000, 0x1000, CRC(64e8c30d) SHA1(aa50c21db2ac8361fc575f0785e2aae57f338564) )
 
 	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "092_pn09.bin",   0x0000, 0x1000, CRC(6afeba9d) SHA1(cd723fb94aa90dbaac9a6fe085c0f4786d2fa092) ) /* tiles (bank 1) */
-	ROM_CONTINUE(               0x2000, 0x1000 ) /* sprites (bank 1) */
-	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) ) /* tiles (bank 2) */
-	ROM_CONTINUE(               0x3000, 0x1000 ) /* sprites (bank 2) */
+	ROM_LOAD( "092_pn09.bin",   0x0000, 0x1000, CRC(6afeba9d) SHA1(cd723fb94aa90dbaac9a6fe085c0f4786d2fa092) )
+	ROM_CONTINUE(               0x2000, 0x1000 )
+	ROM_LOAD( "epr-1695.ic105", 0x1000, 0x1000, CRC(5bfd26e9) SHA1(bdec535e486b43a8f5550334beff423eeace10b2) )
+	ROM_CONTINUE(               0x3000, 0x1000 )
 
 	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) ) /* color palette */
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) ) /* color lookup */
+	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
+	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
 
 	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) ) /* waveform */
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
+	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 
@@ -653,9 +653,9 @@ ROM_START( jrpacmbl )
 	ROM_LOAD_NIB_HIGH( "jrprom.9f", 0x0000, 0x0100, CRC(eee34a79) SHA1(7561f8ccab2af85c111af6a02af6986eb67503e5) ) /* color palette (high bits) */
 	ROM_LOAD( "jrprom.9p",          0x0020, 0x0100, CRC(9f6ea9d8) SHA1(62cf15513934d34641433c891a7f73bef82e2fb1) ) /* color lookup table */
 
-	ROM_REGION( 0x0200, "namco", 0 )    /* waveform */
-	ROM_LOAD( "jrprom.7p",          0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) ) /* waveform */
-	ROM_LOAD( "jrprom.5s",          0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) ) /* timing - not used */
+	ROM_REGION( 0x0200, "namco", 0 )   
+	ROM_LOAD( "jrprom.7p",          0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
+	ROM_LOAD( "jrprom.5s",          0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
 

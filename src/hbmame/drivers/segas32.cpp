@@ -60,6 +60,6 @@ ROM_START( ga2s01 )
 ROM_END
 
 
-GAME( 1992, brivals01, brival,  sega_system32_4p,  brival,   segas32_new_state, init_brival,   ROT0, "DDJ",   "Burning Rival (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 1992, ga2s01,    ga2,     sega_system32_ga2, ga2,      segas32_new_state, init_ga2,      ROT0, "Sega",   "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
+GAME( 1992, brivals01, brival,  sega_system32_4p,  brival,   segas32_new_state, init_brival,   ROT0, "DDJ", "Burning Rival (Easy Move)", 0 )
+GAME( 1992, ga2s01,    ga2,     sega_system32_ga2, ga2,      segas32_new_state, init_ga2,      ROT0, "Sega", "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
 

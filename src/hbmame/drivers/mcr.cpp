@@ -112,3 +112,4 @@ GAME( 1998, handiman, tron,    mcr_90010, tron,   mcr_state, init_mcr_90010, ROT
 GAME( 2004, shtron,   shollow, mcr_90010, tron,   mcr_state, init_mcr_90010, ROT90, "Scott Lawrence", "Satan's Hollow (Tron Hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, stapper,  tapper,  mcr_91490, tapper, mcr_state, init_mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, stapper1, tapper,  mcr_91490, tapper, mcr_state, init_mcr_91490, ROT0,  "DC", "Tapper (Simpsons Hack ver.81)", MACHINE_SUPPORTS_SAVE )
+

@@ -50,5 +50,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Gradius III
-GAME( 1989, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, empty_init, ROT0, "yumeji1768", "Gradius III (Secret fighters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, gradius3s01, gradius3, gradius3, gradius3, gradius3_state, empty_init, ROT0, "Yumeji1768", "Gradius III (Secret fighters)", MACHINE_SUPPORTS_SAVE )
 

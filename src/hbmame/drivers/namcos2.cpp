@@ -61,10 +61,6 @@ ROM_START( pheliosx )
 	ROM_LOAD( "ps_voi-1.voice1",  0x000000, 0x080000, CRC(f67376ed) SHA1(b54257aad34c6ad03d5b040e6a5dda94a48b6780) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Phelios
-GAME(1988, pheliosx,   phelios,  base2,    base,     namcos2_state, init_phelios,  ROT90,  "Wayder", "Phelios (Sound Bug fix - Final Battle)", 0)
-
 ROM_START( valkyrien )
 	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "wd1mpr0.en",  0x000000, 0x020000, CRC(e98e0da1) SHA1(17fd6d822ea0dae5f4877eba3d81db57112f95e0) )
@@ -119,6 +115,10 @@ ROM_START( valkyrien )
 	ROM_RELOAD(               0x0c0000, 0x020000 )
 	ROM_RELOAD(               0x0e0000, 0x020000 )
 ROM_END
+
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Phelios
+GAME(1988, pheliosx,   phelios,  base2,    base,     namcos2_state, init_phelios,  ROT90,  "Wayder", "Phelios (Sound Bug fix - Final Battle)", 0)
 
 // Translation by coinoplegacy.com
 GAME(  1989, valkyrien, valkyrie, base3, base, namcos2_state, init_valkyrie, ROT90,  "hack", "Valkyrie no Densetsu (English Translation)", 0 )

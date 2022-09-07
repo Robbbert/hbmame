@@ -294,7 +294,7 @@ YEAR COMPANY                          TITLE
 2014 RiKo(aka CosmicR/Phoenix Risen)  Cosmic Tower (demo on youtube)
 2013 Cristiano Bei                    NGPhoenix (CD) (playable CD demos exist)(www.iocera.com)
      Furrtek                          Unleashed (furrtek.free.fr)
-     Furrtek                          Astrosmash (appears abandoned)(GAME#0400)
+2012 Furrtek                          Astrosmash (appears abandoned)(GAME#0400)
 2012 NGD                              NGD::ARK (Arkanoid port) (playable CD demos exist)(demo on youtube)
      NGD                              NGD::AIR (ngdevgroup.com [dead])
      NGD                              NGD::FIGHT
@@ -303,10 +303,14 @@ YEAR COMPANY                          TITLE
      Neobitz                          Stadium Stars (neobitz.com)
      Neobitz                          untitled (setting in a castle) (neobitz.com)
 2016 Neobitz                          Flight of the Dragon (video at www.facebook.com/Neobitz/videos/1239136276111256/)
+2016 tcdev                            Knight Lore
+2016 tcdev                            Lode Runner
 2014 tcdev                            Donkey Kong (CD) (video at retroports.blogspot.com/2015/08/dusting-off-neo-kong.html)
                                         (Also a picture at ngpace.blogspot.com/2013/12/neo-kong-is-not-donkey-kong.html)
 2016 Luis Miguel Mayor                Tech Demo #1 (Street Fighter 2)
 2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
+2017 HPMAN                            Beats of Rage (some alpha videos on youtube)
+2017 Blastar                          Blut Engel II (some alpha videos on youtube)
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
 2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)

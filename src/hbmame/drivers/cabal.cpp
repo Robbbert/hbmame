@@ -44,5 +44,5 @@ ROM_START( cabals01 )
 ROM_END
 
 
-GAME( 2009, cabals01, cabal, cabal,   cabalj,  cabal_state,  init_cabal,  ROT0, "pipi899", "Cabal (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, cabals01, cabal, cabal,   cabalj,  cabal_state,  init_cabal,  ROT0, "Pipi899", "Cabal (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )
 

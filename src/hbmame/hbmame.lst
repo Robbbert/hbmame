@@ -7145,8 +7145,6 @@ wh2js02
 wh2js03
 
 @source:nmk16.cpp
-//tdragon			//parent
-//tdragonp		// trap15 - not working
 tdragon2		//parent
 tdragon2p		// trap15
 
@@ -8445,10 +8443,6 @@ grdianss16
 grdianss17
 grdianss18
 
-@source:sf.cpp
-//sf                                   //parent
-//sfs01                                // freezes in attract mode
-
 @source:shadfrce.cpp
 shadfrce                               //parent
 shadfrces01
@@ -8559,7 +8553,6 @@ pbobble3                               //parent
 pbobble3h01
 cleopath
 driusgxh
-//f3demo					/* HB Antiriad (a demo made for Raine, not tested on real hardware) - not working */
 gekiridh
 gekiridoc
 landmakh

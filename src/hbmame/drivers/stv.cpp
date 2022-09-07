@@ -61,9 +61,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Golden Axe
-GAME( 1994, gaxeduels01,  gaxeduel, stv,      stv6b,    stv_state,   init_gaxeduel,   ROT0,   "yumeji",                         "Golden Axe (Enable Hidden Characters)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS)
+GAME( 1994, gaxeduels01,  gaxeduel, stv,      stv6b,    stv_state,   init_gaxeduel,   ROT0,   "Yumeji", "Golden Axe (Enable Hidden Characters)", 0 )
 // Groove on Fight
-GAME( 1997, groovefs01,   groovef,  stv,      stv6b,    stv_state,   init_groovef,    ROT0,   "yumeji",                        "Groove on Fight (Enable Hidden Characters)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1997, groovefs01,   groovef,  stv,      stv6b,    stv_state,   init_groovef,    ROT0,   "Yumeji", "Groove on Fight (Enable Hidden Characters)", 0 )
 // Suiko Enbu / Outlaws of the Lost Dynasty
-GAME( 1995, suikoenbs01,  suikoenb, stv,      stv6b,    stv_state,   init_suikoenb,   ROT0,   "yumeji",                    "Suiko Enbu / Outlaws of the Lost Dynasty (Enable Hidden Characters)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1995, suikoenbs01,  suikoenb, stv,      stv6b,    stv_state,   init_suikoenb,   ROT0,   "Yumeji", "Suiko Enbu / Outlaws of the Lost Dynasty (Enable Hidden Characters)", 0 )
 

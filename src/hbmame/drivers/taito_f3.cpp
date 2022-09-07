@@ -60,54 +60,6 @@ ROM_START( driusgxh )
 	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )
 ROM_END
 
-ROM_START( f3demo ) // made specifically for Raine. Doesn't work on real hardware.
-	ROM_REGION(0x200000, "maincpu", ROMREGION_ERASE00)
-	ROM_LOAD("f3demo.bin", 0, 0x194c, CRC(08587aea) SHA1(4850d170b935fd4b6726c03693eb25e5ac3b6198) )
-	ROM_FILL(0x043A, 1, 0x4E)
-	ROM_FILL(0x043B, 1, 0xB8)
-	ROM_FILL(0x043C, 1, 0x19)
-	ROM_FILL(0x043D, 1, 0x4C)
-	ROM_FILL(0x194C, 1, 0x41)
-	ROM_FILL(0x194D, 1, 0xF9)
-	ROM_FILL(0x194F, 1, 0x66)
-	ROM_FILL(0x1951, 1, 0x18)
-	ROM_FILL(0x1952, 1, 0x30)
-	ROM_FILL(0x1953, 1, 0x3C)
-	ROM_FILL(0x1955, 1, 0x9E)
-	ROM_FILL(0x1956, 1, 0x31)
-	ROM_FILL(0x1957, 1, 0x40)
-	ROM_FILL(0x195A, 1, 0x30)
-	ROM_FILL(0x195B, 1, 0x3C)
-	ROM_FILL(0x195D, 1, 0xF1)
-	ROM_FILL(0x195E, 1, 0x31)
-	ROM_FILL(0x195F, 1, 0x40)
-	ROM_FILL(0x1961, 1, 0x02)
-	ROM_FILL(0x1962, 1, 0x60)
-	ROM_FILL(0x1963, 1, 0xFE)
-
-	ROM_REGION(0x400000, "sprites" , 0)
-	ROM_LOAD16_BYTE("d87-03.bin", 0x000000, 0x200000, CRC(4be1666e) SHA1(35ba7bcf29ec7a8f8b6944ee3544693d4df1bfc2) )
-	ROM_LOAD16_BYTE("d87-04.bin", 0x000001, 0x200000, CRC(2616002c) SHA1(003f98b740a697274385b8da03c78f3c6f7b5e89) )
-
-	ROM_REGION( 0x200000, "sprites_hi", 0 )
-	ROM_LOAD       ("d87-05.bin", 0x000000, 0x200000, CRC(4e5891a9) SHA1(fd08d848079841c9237fa359a850980fd00114d8) )
-
-	ROM_REGION(0x400000, "tilemap" , 0)
-	ROM_LOAD32_WORD("d87-06.bin", 0x000000, 0x200000, CRC(3b97a07c) SHA1(72cdeffedeab0c1bd0e47f03172085390a2be393) )
-	ROM_LOAD32_WORD("d87-17.bin", 0x000002, 0x200000, CRC(e601d63e) SHA1(256a6aeb5633fe1db407fad567169a9d0c911219) )
-
-	ROM_REGION( 0x200000, "tilemap_hi", 0 )
-	ROM_LOAD       ("d87-08.bin", 0x000000, 0x200000, CRC(76d23602) SHA1(ca53ea6641182c44a4038bbeaa5effb1687f1980) )
-
-	ROM_REGION(0x180000, "taito_en:audiocpu", 0)
-	ROM_LOAD16_BYTE("d87-13.bin", 0x100000, 0x40000, CRC(15b1fff4) SHA1(28692b731ae98a47c2c5e11a8a71b61a813d9a64) )
-	ROM_LOAD16_BYTE("d87-14.bin", 0x100001, 0x40000, CRC(eecda29a) SHA1(6eb238e47bc7bf635ffbdbb25fb06a37db980ef8) )
-
-	ROM_REGION16_BE(0x800000, "taito_en:ensoniq" , ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE("d87-01.bin", 0x000000, 0x200000, CRC(3848a110) SHA1(802e91695a526f665c7fd261f0a7639a0b883c9e) )
-	ROM_LOAD16_BYTE("d87-02.bin", 0x400000, 0x200000, CRC(9250abae) SHA1(07cae8edbc3cca0a95022d9b40a5c18a55350b67) )
-ROM_END
-
 ROM_START( gekiridh )
 	ROM_REGION(0x200000, "maincpu", 0)
 	ROM_LOAD32_BYTE("e11-12.ic20", 0x000000, 0x40000, CRC(6a7aaacf) SHA1(a8114c84e76c75c908a61d985d96aa4eb9a0ac5a) )
@@ -257,16 +209,6 @@ ROM_START( pbobble3h01 )
 	ROM_LOAD16_BYTE("e29-04.rom", 0x800000, 0x200000, CRC(d1f42457) SHA1(2c77be6365deb5ef215da0c66da23b415623bdb1) )
 	ROM_LOAD16_BYTE("e29-05.rom", 0xc00000, 0x200000, CRC(e33c1234) SHA1(84c336ed6fd8723e824889fe7b52c284be659e62) )
 ROM_END
-
-
-GAME( 1996, cleopath,    cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",     "Cleopatra Fortune (Unknown Hack)", 0 )
-GAME( 1994, driusgxh,    dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
-GAME( 2000, f3demo,      0,        f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Antiriad", "Demo - Taito F3", MACHINE_NOT_WORKING )
-GAME( 1995, gekiridh,    gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
-GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Chinese)", 0 )
-GAME( 1998, landmakh,    landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
-GAME( 1995, pbobl2xh,    pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
-GAME( 2022, pbobble3h01, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
 
 
 /*******************
@@ -746,7 +688,13 @@ ROM_START( lightbrjs01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 1994, driusgxh,    dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
+GAME( 1995, gekiridh,    gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
+GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Chinese)", 0 )
+GAME( 1995, pbobl2xh,    pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
+GAME( 2022, pbobble3h01, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
  // Cleopatra Fortune
+GAME( 1996, cleopath,          cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",     "Cleopatra Fortune (Unknown Hack)", 0 )
 GAME( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",         "Cleopatra Fortune (Chinese)", 0 )
  // Akkanbeder
 GAME( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "hack",         "Akkanbeder (Chinese)", 0 )
@@ -756,15 +704,16 @@ GAME( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, init_arabi
 GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",         "Bubble Symphony (Chinese)", 0 )
  // Dan-Ku-Ga
 GAME( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Dan-Ku-Ga (Plus)", 0 )
-GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",       "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
+GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Yumeji",       "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
  // Elevator Action Returns
 GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "hack",         "Elevator Action Returns (Chinese)", 0 )
  // Grid Seeker: Project Storm Hammer
 GAME( 1992, gseekerjs01,       gseeker,  f3_224b, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",         "Grid Seeker: Project Storm Hammer (Chinese)", 0 )
  // Kaiser Knuckle
-GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "yumeji",       "Kaiser Knuckle (Enable Hidden Characters)", 0 )
+GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Yumeji",       "Kaiser Knuckle (Enable Hidden Characters)", 0 )
 GAME( 1994, kaiserkns02,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Kaiser Knuckle (Plus)", 0 )
  // Land Maker
+GAME( 1998, landmakh,          landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
 GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",         "Land Maker (Chinese)", 0 )
  // Light Bringer
 GAME( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "hack",         "Light Bringer (Chinese, 2017-04-26)", 0 )

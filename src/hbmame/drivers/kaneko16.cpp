@@ -159,7 +159,7 @@ ROM_END
 //Blood Warrior
 GAME( 1994, bloodwars01,  bloodwar,  bloodwar, bloodwar,  kaneko16_gtmr_state,     init_gtmr,     ROT0,  "DDJ", "Blood Warrior (Easy Move)", MACHINE_SUPPORTS_SAVE )
 //Shogun Warriors
-GAME( 2017, fjbusterbh,   shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Fujiyama Buster (Enable Hidden Characters 2017-04-07)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-GAME( 2017, shogwarrbh,   shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Shogun Warriors (Enable Hidden Characters 2017-04-02)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
-GAME( 2017, shogwarrs01,  shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "hack", "Shogun Warriors (Simplified 2017-02-28)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 2017, fjbusterbh,   shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Fujiyama Buster (Enable Hidden Characters, 2017-04-07)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 2017, shogwarrbh,   shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Shogun Warriors (Enable Hidden Characters, 2017-04-02)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 2017, shogwarrs01,  shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "hack", "Shogun Warriors (Simplified, 2017-02-28)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
 

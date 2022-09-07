@@ -84,12 +84,6 @@ ROM_START( mahoudcn )
 ROM_END
 
 
-
-GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, init_dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (Crazy Gun Transparent Version 2015-03-22)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, init_bgaregga, ROT270, "Zack", "Battle Garegga (Zakk version)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state, empty_init, ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mahoudcn,   sstriker, mahoudai, mahoudai,   toaplan2_state, empty_init, ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese V1)", MACHINE_SUPPORTS_SAVE )
-
 // Tatsujin Ou New Version https://shmups.system11.org/viewtopic.php?f=1&t=68027
 ROM_START( truxton2nv )
 	ROM_REGION( 0x080000, "maincpu", 0 )
@@ -191,7 +185,11 @@ ROM_START( pipibibss02 )
 ROM_END
 
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
+GAME( 1993, batsugunt,  batsugun, batsugun, batsugun,   toaplan2_state, init_dogyuun,  ROT270, "Eezezy", "Batsugun Transparent (Crazy Gun Transparent Version 2015-03-22)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, bgareggz,   bgaregga, bgaregga, bgaregga,   toaplan2_state, init_bgaregga, ROT270, "Zack", "Battle Garegga (Zakk version)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, kgpe,       kingdmgp, shippumd, kingdmgp,   toaplan2_state, empty_init, ROT270, "Neil Corlett", "Kingdom Grand Prix" , MACHINE_SUPPORTS_SAVE )
 // Mahou Daisakusen
+GAME( 1993, mahoudcn,     sstriker,        mahoudai, mahoudai, toaplan2_state, empty_init, ROT270, "Raizing (Able license)", "Mahou Daisakusen (Chinese V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, mahoudais01,  sstriker,        mahoudai, mahoudai, toaplan2_state, empty_init, ROT270, "liujunusa", "Mahou Daisakusen (Chinese V1a)", MACHINE_SUPPORTS_SAVE )
 // Snow Bros 2
 GAME( 1994, snowbro2s01,  snowbro2,        snowbro2, snowbro2, toaplan2_state, empty_init, ROT0,   "RockyWall", "Snow Bros 2 (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
@@ -199,3 +197,4 @@ GAME( 1994, snowbro2s02,  snowbro2,        snowbro2, snowbro2, toaplan2_state, e
 // Pipi & Bibis
 GAME( 1991, pipibibss01,  pipibibs,        pipibibs, pipibibs, toaplan2_state, empty_init, ROT0,   "DDJ",       "Pipi & Bibis (Stage Select V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, pipibibss02,  pipibibs,        pipibibs, pipibibs, toaplan2_state, empty_init, ROT0,   "DDJ",       "Pipi & Bibis (Stage Select V2)", MACHINE_SUPPORTS_SAVE )
+

@@ -787,3 +787,4 @@ void multib_state::multib(machine_config &config)
 }
 
 GAME( 2022, multigameb, galnamco, multib, warofbug, multib_state, init_multib, ROT90, "Macro", "MultigameB", MACHINE_SUPPORTS_SAVE )
+

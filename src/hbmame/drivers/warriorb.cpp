@@ -41,5 +41,5 @@ ROM_START( sagaiav2 )
 	ROM_LOAD( "c07-14.38", 0x00000, 0x00400, CRC(baf2a193) SHA1(b7f103b5f5aab0702dd21fd7e3a82261ae1760e9) )
 ROM_END
 
-GAME( 2018, sagaiav2, 0, darius2d, sagaia,   warriorb_state, empty_init, ROT0,   "Taito Corporation Japan", "Sagaia (dual screen) (V2)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_SOUND )
+GAME( 2018, sagaiav2, 0, darius2d, sagaia,   warriorb_state, empty_init, ROT0,   "Taito Corporation Japan", "Sagaia (dual screen) (V2)", MACHINE_SUPPORTS_SAVE )
 

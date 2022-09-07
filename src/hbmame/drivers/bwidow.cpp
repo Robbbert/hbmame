@@ -36,3 +36,4 @@ ROM_START( spacwarp )
 ROM_END
 
 GAME( 1999, spacwarp, 0, spacduel, spacduel, bwidow_state, empty_init, ROT0, "Jeff Hendricks", "Space War (Proto on Space Duel HW)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+

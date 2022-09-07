@@ -216,7 +216,7 @@ ROM_END
 //Toukidenshou
 GAME( 1995, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, init_deroon,     ROT0, "bootleg", "Deroon DeroDero (Unknown hack)", MACHINE_SUPPORTS_SAVE )
 //Toukidenshou
-GAME( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "yumeji1768", "Toukidenshou (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "Yumeji1768", "Toukidenshou (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, tkdenshos02,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, tkdenshos03,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Easy Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, tkdenshos04,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
