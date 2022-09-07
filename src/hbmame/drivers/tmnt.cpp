@@ -171,8 +171,8 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Sunset Riders
 GAME( 2009, ssridersaex,    ssriders, ssriders, ssriders,  tmnt_state, empty_init, ROT0,   "Pipi899","Sunset Riders (EX Super Version, 2009-07-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, ssriderseaas01, ssriders, ssriders, ssridr4p,  tmnt_state, empty_init, ROT0,   "hack",  "Sunset Riders (1V4 Edition, 2019-07-28)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2019, ssriderseaas02, ssriders, ssriders, ssridr4p,  tmnt_state, empty_init, ROT0,   "hack",  "Sunset Riders (The Hardest Version In Two Weeks, 2019-04-20)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2019, ssriderseaas01, ssriders, ssriders, ssridr4p,  tmnt_state, empty_init, ROT0,   "hack",  "Sunset Riders (1V4 Edition, 2019-07-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, ssriderseaas02, ssriders, ssriders, ssridr4p,  tmnt_state, empty_init, ROT0,   "hack",  "Sunset Riders (The Hardest Version In Two Weeks, 2019-04-20)", MACHINE_SUPPORTS_SAVE )
 // Teenage Mutant Ninja Turtles
 GAME( 1991, tmnt2s01,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Ex Super Version)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, tmnt2s02,       tmnt2,    tmnt2,    ssrid4ps,  tmnt_state, empty_init, ROT0,   "hack",  "Teenage Mutant Ninja Turtles (Start Change Char)", MACHINE_SUPPORTS_SAVE )
