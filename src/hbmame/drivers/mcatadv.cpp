@@ -32,4 +32,4 @@ ROM_START( mcatadvs01 )  // Local text hack to show someone's company name
 	ROM_LOAD( "mca-u53.bin", 0x00000, 0x80000, CRC(64c76e05) SHA1(379cef5e0cba78d0e886c9cede41985850a3afb7) )
 ROM_END
 
-GAME( 1993, mcatadvs01,  mcatadv,   mcatadv, mcatadv, mcatadv_state, empty_init, ROT0, "Recreativos Zara, S.L.", "Magical Cat Adventure (R.Zara)", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mcatadvs01,  mcatadv,   mcatadv, mcatadv, mcatadv_state, empty_init, ROT0, "Recreativos Zara, S.L.", "Magical Cat Adventure (R.Zara)", MACHINE_SUPPORTS_SAVE )

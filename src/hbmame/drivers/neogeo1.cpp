@@ -3160,7 +3160,7 @@ GAME( 1990, superspycd,    superspy, neogeo_noslot, neogeo, neogeo_state, init_n
 
 GAME( 1994, tophuntrpx,    tophuntr, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Top Hunter (Plus Max)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, tpgolfcd,      tpgolf,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Thrash Rally (CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Thrash Rally (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, twinsprih,     twinspri, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Twinkle Star Sprites (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2004, viewpoinf,     viewpoin, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Viewpoint (French Traduction, 2004-07-29)", MACHINE_SUPPORTS_SAVE )

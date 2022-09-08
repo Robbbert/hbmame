@@ -6452,13 +6452,13 @@ GAME( 2012, 1944s03,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, R
 // Alien vs. Predator
 GAME( 2017, avsps01,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, 1 Vs 3 Plus, 2017-12-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, avsps02,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, Enhanced Edition, 2018-02-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps03,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps04,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsps03,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsps04,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, avsps05,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520H, Modified Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, avsps06,    avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Razoola", "Alien vs. Predator (940520U, Phoenix edition)", MACHINE_SUPPORTS_SAVE )
 // Armored Warriors
 GAME( 2020, armwars01,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-05-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, armwars02,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-08-30)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, armwars02,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
 // Battle Circuit
 GAME( 2019, batcirs01,  batcir,   dead_cps2, cps2_4p2b, cps2_state, init_cps2, ROT0, "hack", "Battle Circuit (970319E, Evolution, 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 // Capcom Sports Club
