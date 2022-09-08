@@ -135,7 +135,6 @@ NUM GAME YEAR COMPANY                 TITLE
 338 FEDC 2004 Vektorlogic             Super Bubble Pop
    *9237                              161in1 Multigame
 340*0501 2013 Neobitz                 Knight's Chance
-341*0400 2013 Le Cortex               Crouching Pony Hidden Dragon
 341 0400 2013 Le Cortex               Crouching Pony Hidden Dragon demo
 342 BB01 2019 Bitmap Bureau           Xeno Crisis
 360 5003 2003 PhenixSoft              Crouching Tiger Hidden Dragon (hack of kof2001)
@@ -291,6 +290,7 @@ YEAR COMPANY                          TITLE
      M.Priewe                         3D Racing Game Demo
      M.Priewe                         Fighting Game Demo
      M.Priewe                         Neo Geo User Subroutine
+2013 Le Cortex                        Crouching Pony Hidden Dragon (full game)(Game never released because LeCortex died)
 2014 RiKo(aka CosmicR/Phoenix Risen)  Cosmic Tower (demo on youtube)
 2013 Cristiano Bei                    NGPhoenix (CD) (playable CD demos exist)(www.iocera.com)
      Furrtek                          Unleashed (furrtek.free.fr)
@@ -308,10 +308,10 @@ YEAR COMPANY                          TITLE
 2014 tcdev                            Donkey Kong (CD) (video at retroports.blogspot.com/2015/08/dusting-off-neo-kong.html)
                                         (Also a picture at ngpace.blogspot.com/2013/12/neo-kong-is-not-donkey-kong.html)
 2016 Luis Miguel Mayor                Tech Demo #1 (Street Fighter 2)
-2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
 2017 HPMAN                            Beats of Rage (some alpha videos on youtube)
 2017 Blastar                          Blut Engel II (some alpha videos on youtube)
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
+2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
 2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)

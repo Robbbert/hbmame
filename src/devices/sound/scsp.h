@@ -23,7 +23,8 @@ class scsp_device : public device_t,
 	public device_rom_interface<20, 1, 0, ENDIANNESS_BIG>
 {
 public:
-	static constexpr feature_type imperfect_features() { return feature::SOUND; } // DSP / EG incorrections, etc
+	// HBMAME: get rid of annoying message (stv)
+	//static constexpr feature_type imperfect_features() { return feature::SOUND; } // DSP / EG incorrections, etc
 
 	scsp_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock = 22'579'200);
 

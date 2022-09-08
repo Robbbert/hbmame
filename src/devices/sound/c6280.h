@@ -8,7 +8,8 @@
 class c6280_device : public device_t, public device_sound_interface
 {
 public:
-	static constexpr feature_type imperfect_features() { return feature::SOUND; } // Incorrect / Not verified noise / LFO output
+	// HBMAME: get rid of annoying message (rohga)
+	//static constexpr feature_type imperfect_features() { return feature::SOUND; } // Incorrect / Not verified noise / LFO output
 
 	c6280_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
