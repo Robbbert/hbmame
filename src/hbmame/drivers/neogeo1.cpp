@@ -2309,32 +2309,6 @@ ROM_START( s1945pd )
 	ROM_LOAD16_BYTE( "254d.c8", 0x3000001, 0x800000, CRC(178d4684) SHA1(3cbf379209c189ee48260a044dc2754035f57e14) )
 ROM_END
 
-ROM_START( s1945peh )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "254eh.p1",   0x000000, 0x100000, CRC(f776bf2a) SHA1(844602f9e2fb68c4002092592669f689728dad2d) )
-	ROM_LOAD16_WORD_SWAP( "254.p2", 0x100000, 0x400000, CRC(efdfd4dd) SHA1(254f3e1b546eed788f7ae919be9d1bf9702148ce) )
-
-	NEO_SFIX_MT_128K
-
-	NEO_BIOS_AUDIO_128K( "254.m1", CRC(994b4487) SHA1(a4e645a3ababa48a8325980ff022e04a8b51b017) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "254.v1", 0x000000, 0x400000, CRC(844f58fb) SHA1(e59544457be9f21481eac8b5a39b9cbb502f252d) )
-	ROM_LOAD( "254.v2", 0x400000, 0x400000, CRC(d9a248f0) SHA1(dd3e0974b753e6f94d0943a002de45668a1b072b) )
-	ROM_LOAD( "254.v3", 0x800000, 0x400000, CRC(0b0d2d33) SHA1(f8e76af42a997f36a40f66b39de00f68afe6a89c) )
-	ROM_LOAD( "254.v4", 0xc00000, 0x400000, CRC(6d13dc91) SHA1(8433513c0b5aea61939068a25ab90efbe3e44116) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "254.c1", 0x0000000, 0x800000, CRC(ae6fc8ef) SHA1(544ccdaee8a4a45cdce9483e30852811d2d5f3cc) )
-	ROM_LOAD16_BYTE( "254.c2", 0x0000001, 0x800000, CRC(436fa176) SHA1(d70141a91a360a1b1070753086f976608fec38af) )
-	ROM_LOAD16_BYTE( "254.c3", 0x1000000, 0x800000, CRC(e53ff2dc) SHA1(31f6aaffe28146d574aa72f14f90a9d968f36bc6) )
-	ROM_LOAD16_BYTE( "254.c4", 0x1000001, 0x800000, CRC(818672f0) SHA1(460c6738d0ee5ae440a23fc1434fab53bbb242b5) )
-	ROM_LOAD16_BYTE( "254.c5", 0x2000000, 0x800000, CRC(4580eacd) SHA1(feb96eb5e80c9125ddd7836e0939212cd3011c34) )
-	ROM_LOAD16_BYTE( "254.c6", 0x2000001, 0x800000, CRC(e34970fc) SHA1(6e43e15e27bc914357f977116ab1e2d98711bb21) )
-	ROM_LOAD16_BYTE( "254.c7", 0x3000000, 0x800000, CRC(f2323239) SHA1(5b3e8dd77474203be010ec7363858d806344a320) )
-	ROM_LOAD16_BYTE( "254.c8", 0x3000001, 0x800000, CRC(66848c7d) SHA1(24d4ed627940a4cf8129761c1da15556e52e199c) )
-ROM_END
-
 ROM_START( s1945ph )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "254h.p1",    0x000000, 0x100000, CRC(2e106855) SHA1(53f2dd9dea00f36eaac6b56dabbb860aff4f3712) )
@@ -3137,7 +3111,6 @@ GAME( 1996, ragnagrdeh,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 2009, ragnagrdsb,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Lichenzhao", "Operation Ragnagard (Super God Boxing Uniform Simplification, 2009-11-16)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1999, s1945pd,       s1945p,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Psikyo", "Strikers 1945 Plus (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, s1945peh,      s1945p,   neogeo_noslot, neogeo, neogeo_state, init_s1945p,    ROT0, "KrysoFun", "Strikers 1945 Plus (Super Shot)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, s1945ph,       s1945p,   neogeo_noslot, neogeo, neogeo_state, init_s1945p,    ROT0, "Yumeji", "Strikers 1945 Plus (Secret fighter Ascender P55)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, s1945pwe,      s1945p,   neogeo_noslot, neogeo, neogeo_state, init_s1945p,    ROT0, "wesker[FGCH]", "Strikers 1945 Plus (Ex Super version, 2015-01-27)", MACHINE_SUPPORTS_SAVE )
 

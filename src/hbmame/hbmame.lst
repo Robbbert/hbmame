@@ -5956,7 +5956,7 @@ maglord			// 005
 matrim			// 266
 miexchng		// 231
 minasan			// 027
-mosyougi		// 203
+//mosyougi		// 203  not needed
 ms5pcb
 mslug			// 201
 mslug2			// 241
@@ -6284,7 +6284,6 @@ ragnagrdbs
 ragnagrdeh
 ragnagrdsb
 s1945pd
-s1945peh
 s1945ph
 s1945pwe
 savagereb
