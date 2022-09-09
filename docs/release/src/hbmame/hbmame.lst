@@ -1366,6 +1366,7 @@ ddsoms08
 ddtods01
 ddtods02
 dstlks01
+ffightaec2
 gigawings01
 hsf2s02
 hsf2s03
@@ -1511,6 +1512,7 @@ ssf2tnl4
 ssf2tnl5
 ssf2tnl6
 ssf2tnl7
+ssf2tnl
 ssf2x01
 ssf2x02
 ssf2x03
@@ -4331,7 +4333,6 @@ mhavoc					//parent
 mhavocrv				//HB Jess M. Askey
 
 @source:mhavoc_hb.cpp
-//mhavocpe				//HB Jess M. Askey               ROMS ARE MISSING
 mhavocpex1				//HB Jess M. Askey
 mhavocpex2				//HB Jess M. Askey
 mhavocpex3				//HB Jess M. Askey
@@ -4341,7 +4342,21 @@ mhavocpex6				//HB Jess M. Askey
 mhavocpex7				//HB Jess M. Askey
 mhavocpex7de			//HB Jess M. Askey
 mhavocpex7fr			//HB Jess M. Askey
-mhavocpex81
+mhavocpex8				//HB Jess M. Askey
+mhavocpex8de			//HB Jess M. Askey
+mhavocpex8fr			//HB Jess M. Askey
+//mhavocpe				//HB Jess M. Askey
+//mhavocpede			//HB Jess M. Askey
+//mhavocpefr			//HB Jess M. Askey
+//mhavocpe_lpc			//HB Jess M. Askey
+//mhavocpede_lpc		//HB Jess M. Askey
+//mhavocpefr_lpc		//HB Jess M. Askey
+//mhavocpete			//HB Jess M. Askey
+//mhavocpetede			//HB Jess M. Askey
+//mhavocpetefr			//HB Jess M. Askey
+//mhavocpete_lpc		//HB Jess M. Askey
+//mhavocpetede_lpc		//HB Jess M. Askey
+//mhavocpetefr_lpc		//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk                                     //parent
@@ -6029,6 +6044,7 @@ zintrckb		// 211
 zupapa			// 070
 
 @source:neogeohb.cpp
+19yy
 abyssal
 abyssal1
 akiradmo
@@ -7129,8 +7145,6 @@ wh2js02
 wh2js03
 
 @source:nmk16.cpp
-//tdragon			//parent
-//tdragonp		// trap15 - not working
 tdragon2		//parent
 tdragon2p		// trap15
 
@@ -7188,7 +7202,6 @@ killblds02
 killblds03
 killblds04
 killblds05
-killblds06
 kovs01
 kovs02
 kovs03
@@ -7856,8 +7869,8 @@ theglads08
 
 @source:phoenix.cpp
 phoenix                                //parent
-phoenixg		// Vag @ GreekRoms
-phoenixr		// CYBERYOGI =CO= Windler hack of Phoenix
+phoenixg                               // Vag @ GreekRoms
+phoenixr                               // so-called German hack of Phoenix
 
 @source:playch10.cpp
 playch10		//bios
@@ -8326,7 +8339,6 @@ zeroteam                               //parent
 zeroteamcs01
 zeroteamcs02
 zeroteamss01
-zeroteamss02
 
 @source:rallyx.cpp
 rallyx                                 //parent
@@ -8384,9 +8396,9 @@ altbeastfr
 altbeasts01
 altbeasts02
 altbeasts03
+fantzone01
 
 @source:sagas18.cpp
-//hamaway
 //aquario
 
 @source:segas24.cpp
@@ -8429,10 +8441,6 @@ grdianss15
 grdianss16
 grdianss17
 grdianss18
-
-@source:sf.cpp
-//sf                                   //parent
-//sfs01                                // freezes in attract mode
 
 @source:shadfrce.cpp
 shadfrce                               //parent
@@ -8544,7 +8552,6 @@ pbobble3                               //parent
 pbobble3h01
 cleopath
 driusgxh
-//f3demo					/* HB Antiriad (a demo made for Raine, not tested on real hardware) - not working */
 gekiridh
 gekiridoc
 landmakh

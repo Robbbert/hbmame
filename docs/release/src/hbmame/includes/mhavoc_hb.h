@@ -10,6 +10,9 @@
 #include "sound/pokey.h"
 #include "sound/tms5220.h"
 #include "sound/okim6295.h"
+#include "video/avgdvg.h"
+#include "video/vector.h"
+
 
 #define MHAVOC_CLOCK        10000000
 #define MHAVOC_CLOCK_5M     (MHAVOC_CLOCK/2)
@@ -34,6 +37,7 @@ public:
 		m_alpha(*this, "alpha"),
 		m_gamma(*this, "gamma"),
 		m_beta(*this, "beta"),
+		m_avg(*this, "avg"),
 		m_comram(*this, "comram"),
 		m_pokey(*this, "pokey%u", 1U),
 		m_tms(*this, "tms"),
@@ -43,17 +47,14 @@ public:
 		m_service(*this, "SERVICE")
 	{ }
 
-	void alphaone(machine_config &config);
-	void mhavoc(machine_config &config);
-	void mhavocrv(machine_config &config);
-	void mhavocpe(machine_config &config); //HBMAME
-	void mhavocpe2(machine_config &config); //HBMAME
-
-	void init_mhavocrv();
+	void mhavoc_common(machine_config &config);
+	void mhavocpe_lpc(machine_config &config); //HBMAME
+	void mhavocpe_adpcm(machine_config &config); //HBMAME
 
 	DECLARE_CUSTOM_INPUT_MEMBER(coin_service_r);
 	DECLARE_READ_LINE_MEMBER(gamma_rcvd_r);
 	DECLARE_READ_LINE_MEMBER(gamma_xmtd_r);
+	DECLARE_READ_LINE_MEMBER(gamma_tirdy_r);
 	DECLARE_READ_LINE_MEMBER(alpha_rcvd_r);
 	DECLARE_READ_LINE_MEMBER(alpha_xmtd_r);
 	DECLARE_READ_LINE_MEMBER(clock_r);
@@ -63,6 +64,7 @@ private:
 	void dual_pokey_w(offs_t offset, uint8_t data);
 	void mhavoc_alpha_irq_ack_w(uint8_t data);
 	void mhavoc_gamma_irq_ack_w(uint8_t data);
+	void oki_w(offs_t offset, uint8_t data);
 	void mhavoc_gamma_w(uint8_t data);
 	uint8_t mhavoc_alpha_r();
 	void mhavoc_alpha_w(uint8_t data);
@@ -70,11 +72,13 @@ private:
 	void mhavoc_ram_banksel_w(uint8_t data);
 	void mhavoc_rom_banksel_w(uint8_t data);
 	void mhavoc_out_0_w(uint8_t data);
+	void mhavocpe_out_0_w(uint8_t data);
 	void alphaone_out_0_w(uint8_t data);
 	void mhavoc_out_1_w(uint8_t data);
 	void mhavocrv_speech_data_w(uint8_t data);
 	void mhavocrv_speech_strobe_w(uint8_t data);
 	uint8_t quad_pokeyn_r(offs_t offset);
+	uint8_t leta_r(offs_t offset);
 	void quad_pokeyn_w(offs_t offset, uint8_t data);
 
 	TIMER_CALLBACK_MEMBER(delayed_gamma_w);
@@ -83,8 +87,8 @@ private:
 	void alphaone_map(address_map &map);
 	void gamma_map(address_map &map);
 	void alphape_map(address_map &map); //HBMAME
-	void gammape_map(address_map &map); //HBMAME
-	void gammape2_map(address_map &map); //HBMAME
+	void gammape_lpc_map(address_map &map); //HBMAME
+	void gammape_adpcm_map(address_map &map); //HBMAME
 	void betape_map(address_map &map); //HBMAME
 
 	virtual void machine_start() override;
@@ -95,13 +99,14 @@ private:
 	required_device<cpu_device> m_alpha;
 	optional_device<cpu_device> m_gamma;
 	optional_device<cpu_device> m_beta;
+	required_device<avg_device> m_avg;
 	required_shared_ptr<uint8_t> m_comram;
 	optional_device_array<pokey_device, 4> m_pokey;
 	optional_device<tms5220_device> m_tms;
 	optional_device<okim6295_device> m_oki;
 	output_finder<2> m_lamps;
 	optional_ioport m_coin;
-	optional_ioport m_service;
+	optional_ioport m_service;	
 
 	uint8_t m_alpha_data = 0U;
 	uint8_t m_alpha_rcvd = 0U;
@@ -117,3 +122,4 @@ private:
 	uint8_t m_has_beta_cpu = 0U;
 	uint8_t m_speech_write_buffer = 0U;
 };
+

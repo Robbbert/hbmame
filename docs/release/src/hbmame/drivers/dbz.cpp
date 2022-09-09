@@ -105,8 +105,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragon Ball Z
-GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "hack", "Dragon Ball Z (Simple Attack)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "hack", "Dragon Ball Z (Simple Attack)", MACHINE_SUPPORTS_SAVE )
 // Dragon Ball Z 2
-GAME( 2009, dbz2h01, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "pipi899", "Dragon Ball Z 2 (Infinite Lives 2009-03-11)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
+GAME( 2009, dbz2h01, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "Pipi899", "Dragon Ball Z 2 (Infinite Lives, 2009-03-11)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
 GAME( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "hack", "Dragon Ball Z 2 (Simple Attack)", MACHINE_SUPPORTS_SAVE )
 

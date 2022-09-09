@@ -135,6 +135,6 @@ ROM_START( warrior4j2 )
 ROM_END
 
 
-GAME(2014, warrior4j1, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
-GAME(2014, warrior4j2, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v2)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME(2014, warrior4j1, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v1)", MACHINE_SUPPORTS_SAVE )
+GAME(2014, warrior4j2, warrior, warrior, warrior4j, cinemat_state, empty_init, ORIENTATION_FLIP_Y, "Timothy Shiels", "Warrior (4 joysticks, v2)", MACHINE_SUPPORTS_SAVE )
 

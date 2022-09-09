@@ -27,5 +27,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Knuckle Heads
-GAME(1992, knckheadx,   knckhead,        namcona2,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "DDj", "Knuckle Heads (Easy Move)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME(1992, knckheadx,   knckhead,        namcona2,  namcona1_joy,  namcona2_state, init_knckhead, ROT0, "DDj", "Knuckle Heads (Easy Move)", MACHINE_SUPPORTS_SAVE )
 

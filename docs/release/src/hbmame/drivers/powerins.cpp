@@ -42,7 +42,6 @@ ROM_START( powernbr )
 	ROM_LOAD( "20.u54",       0x000100, 0x0100, CRC(38bd0e2f) SHA1(20d311869642cd96bb831fdf4a458e0d872f03eb) )
 ROM_END
 
-GAME( 2006, powernbr,  powerins, powerins, powerins, powerins_state, empty_init, ROT0, "devilfox & BisonSAS", "Power Instinct (Brazilian, 2006-04-25)", MACHINE_SUPPORTS_SAVE )
 
 
 /**************
@@ -250,6 +249,7 @@ ROM_START( powerns05 ) //powerinsj
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY         FULLNAME FLAGS */
+GAME( 2006, powernbr,  powerins, powerins, powerins, powerins_state, empty_init, ROT0, "devilfox & BisonSAS", "Power Instinct (Brazilian, 2006-04-25)", MACHINE_SUPPORTS_SAVE )
 //Power Instinct
 GAME( 2015, powerns01,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "hack", "Power Instinct (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, powerns02,      powerins, powerins,      powerins,   powerins_state,   empty_init,  ROT0,  "hack", "Power Instinct (Unknown Hack, 2017-07-01)", MACHINE_SUPPORTS_SAVE )

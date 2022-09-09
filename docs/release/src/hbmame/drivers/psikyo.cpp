@@ -62,6 +62,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Tengai
-GAME( 2009, tengais01,    tengai,   s1945,    tengai,   psikyo_state, init_tengai,   ROT0,   "pipi899",  "Tengai (Ex Super Version 2009-10-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, tengais02,    tengai,   s1945,    tengaij,  psikyo_state, init_tengai,   ROT0,   "hack",  "Tengai (Easy Type 2019-03-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, tengais01,    tengai,   s1945,    tengai,   psikyo_state, init_tengai,   ROT0,   "Pipi899",  "Tengai (Ex Super Version, 2009-10-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, tengais02,    tengai,   s1945,    tengaij,  psikyo_state, init_tengai,   ROT0,   "hack",  "Tengai (Easy Type, 2019-03-08)", MACHINE_SUPPORTS_SAVE )
 

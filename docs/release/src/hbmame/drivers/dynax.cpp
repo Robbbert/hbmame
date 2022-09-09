@@ -52,8 +52,8 @@ ROM_START( tenkaibbs01 ) //tenkaibbc
 ROM_END
 
 // Mahjong Electron Base
-GAME( 2004, mjelct3s01,  mjelctrn, mjelctrn, mjelct3,  dynax_state, init_mjelct3,  ROT180, "hack",   "Mahjong Electron Base (parts 2 & 3, No AI Cheat 2004-09-17)",   MACHINE_SUPPORTS_SAVE )
-GAME( 2005, mjelctrns01, mjelctrn, mjelctrn, mjelctrn, dynax_state, init_mjelct3,  ROT180, "hack",   "Mahjong Electron Base (parts 2 & 4, No AI Cheat 2005-09-03)",   MACHINE_SUPPORTS_SAVE )
+GAME( 2004, mjelct3s01,  mjelctrn, mjelctrn, mjelct3,  dynax_state, init_mjelct3,  ROT180, "hack",   "Mahjong Electron Base (parts 2 & 3, No AI Cheat, 2004-09-17)",   MACHINE_SUPPORTS_SAVE )
+GAME( 2005, mjelctrns01, mjelctrn, mjelctrn, mjelctrn, dynax_state, init_mjelct3,  ROT180, "hack",   "Mahjong Electron Base (parts 2 & 4, No AI Cheat, 2005-09-03)",   MACHINE_SUPPORTS_SAVE )
 // Mahjong Tenkaigen
-GAME( 2006, tenkaibbs01, tenkai, tenkai, tenkai, dynax_state, empty_init, ROT0, "hack",  "Mahjong Tenkaigen (No AI Cheat 2006-12-29)",     MACHINE_SUPPORTS_SAVE )
+GAME( 2006, tenkaibbs01, tenkai, tenkai, tenkai, dynax_state, empty_init, ROT0, "hack",  "Mahjong Tenkaigen (No AI Cheat, 2006-12-29)",     MACHINE_SUPPORTS_SAVE )
 

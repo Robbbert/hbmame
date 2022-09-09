@@ -419,20 +419,6 @@ ROM_START( mk2fr )
 ROM_END
 
 
-GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition 2.8.5 Plus beta II 2018-12-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, umk2te53,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.053)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French, 2007-02-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition Plus 2.8.0 Plus Beta 1 2017-09-24)", MACHINE_SUPPORTS_SAVE )
-
-
 /*************
  Mortal Kombat
 ****************/
@@ -575,14 +561,6 @@ ROM_START( mk2s02 ) //mk2tek
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Mortal Kombat
-GAME( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (French Rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mks02,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Revision 5.0 Kaillera Friendly 2018-02-20)", MACHINE_SUPPORTS_SAVE )
-// Mortal Kombat II
-GAME( 2020, mk2s01,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "TEAM UMK 3", "Mortal Kombat II (Friendly Kaillera 2020-06-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mk2s02,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "hack", "Ultimate Mortal Kombat II (Tournament Edition 2020-07-23)", MACHINE_SUPPORTS_SAVE )
-
 ROM_START( nbajamtexxx )
 	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
 	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
@@ -653,5 +631,27 @@ ROM_START( nbajamre )
 	ROM_LOAD32_BYTE( "nbajamre.uj23", 0x600003, 0x80000, CRC(b5bf66f9) SHA1(de12e47e44f9cf7c611d674fe6c9b3466fde2081) )
 ROM_END
 
+/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Mortal Kombat
+GAME( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (French Rev.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mks02,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Revision 5.0 Kaillera Friendly, 2018-02-20)", MACHINE_SUPPORTS_SAVE )
+// Mortal Kombat II
+GAME( 2020, mk2s01,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "TEAM UMK 3", "Mortal Kombat II (Friendly Kaillera, 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mk2s02,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "hack", "Ultimate Mortal Kombat II (Tournament Edition, 2020-07-23)", MACHINE_SUPPORTS_SAVE )
+
 GAME( 1994, nbajamtexxx, nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Midway",  "NBA Jam TE (rev XXX)",     MACHINE_SUPPORTS_SAVE )
 GAME( 2022, nbajamre,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "ponlork", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
+
+GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition 2.8.5 Plus beta II, 2018-12-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, umk2te53,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.053)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French, 2007-02-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition Plus 2.8.0 Plus Beta 1, 2017-09-24)", MACHINE_SUPPORTS_SAVE )
+

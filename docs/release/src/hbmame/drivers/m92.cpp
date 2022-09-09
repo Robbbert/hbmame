@@ -179,13 +179,13 @@ ROM_START( hookus01 )
 	ROM_LOAD16_BYTE( "h-sh0.rom", 0x00001, 0x10000, CRC(86a4e56e) SHA1(61163010e713be64368a4126f17d33cbdcf0c5ed) )
 	ROM_LOAD16_BYTE( "h-sl0.rom", 0x00000, 0x10000, CRC(10fd9676) SHA1(1b51181a8f0711997e107e9a8b8f44341d08ea81) )
 
-	ROM_REGION( 0x100000, "gfx1", 0 ) /* Tiles */
+	ROM_REGION( 0x100000, "gfx1", 0 )
 	ROM_LOAD( "hook-c0.rom", 0x000000, 0x040000, CRC(dec63dcf) SHA1(e9869110f832d782c460b123928b042c65fdf8bd) )
 	ROM_LOAD( "hook-c1.rom", 0x040000, 0x040000, CRC(e4eb0b92) SHA1(159da3ec973490a153c69c96c1373cf4e0290736) )
 	ROM_LOAD( "hook-c2.rom", 0x080000, 0x040000, CRC(a52b320b) SHA1(1522562239bb3b93ef552c47445daa4ee021495c) )
 	ROM_LOAD( "hook-c3.rom", 0x0c0000, 0x040000, CRC(7ef67731) SHA1(af0b0ee6e1c06af04c609af7e077d4a7d76d8817) )
 
-	ROM_REGION( 0x400000, "gfx2", 0 ) /* Sprites */
+	ROM_REGION( 0x400000, "gfx2", 0 )
 	ROM_LOAD( "hook-000.rom", 0x000000, 0x100000, CRC(ccceac30) SHA1(16e2b4393840344debe869034135feead7450184) )
 	ROM_LOAD( "hook-010.rom", 0x100000, 0x100000, CRC(8ac8da67) SHA1(a9b962cb0bc0d8bc3bda8a0ed1ce06641d666b41) )
 	ROM_LOAD( "hook-020.rom", 0x200000, 0x100000, CRC(8847af9a) SHA1(f82cdbd640fac373136219422172ca9fbf5d1830) )
@@ -206,13 +206,13 @@ ROM_START( hookus02 )
 	ROM_LOAD16_BYTE( "h-sh0.rom", 0x00001, 0x10000, CRC(86a4e56e) SHA1(61163010e713be64368a4126f17d33cbdcf0c5ed) )
 	ROM_LOAD16_BYTE( "h-sl0.rom", 0x00000, 0x10000, CRC(10fd9676) SHA1(1b51181a8f0711997e107e9a8b8f44341d08ea81) )
 
-	ROM_REGION( 0x100000, "gfx1", 0 ) /* Tiles */
+	ROM_REGION( 0x100000, "gfx1", 0 )
 	ROM_LOAD( "hook-c0.rom", 0x000000, 0x040000, CRC(dec63dcf) SHA1(e9869110f832d782c460b123928b042c65fdf8bd) )
 	ROM_LOAD( "hook-c1.rom", 0x040000, 0x040000, CRC(e4eb0b92) SHA1(159da3ec973490a153c69c96c1373cf4e0290736) )
 	ROM_LOAD( "hook-c2.rom", 0x080000, 0x040000, CRC(a52b320b) SHA1(1522562239bb3b93ef552c47445daa4ee021495c) )
 	ROM_LOAD( "hook-c3.rom", 0x0c0000, 0x040000, CRC(7ef67731) SHA1(af0b0ee6e1c06af04c609af7e077d4a7d76d8817) )
 
-	ROM_REGION( 0x400000, "gfx2", 0 ) /* Sprites */
+	ROM_REGION( 0x400000, "gfx2", 0 )
 	ROM_LOAD( "hook-000.rom", 0x000000, 0x100000, CRC(ccceac30) SHA1(16e2b4393840344debe869034135feead7450184) )
 	ROM_LOAD( "hook-010.rom", 0x100000, 0x100000, CRC(8ac8da67) SHA1(a9b962cb0bc0d8bc3bda8a0ed1ce06641d666b41) )
 	ROM_LOAD( "hook-020.rom", 0x200000, 0x100000, CRC(8847af9a) SHA1(f82cdbd640fac373136219422172ca9fbf5d1830) )
@@ -514,13 +514,13 @@ ROM_START( uccopsjs01 ) //uccopsj
 	ROM_LOAD16_BYTE( "uc_sh0.ic30", 0x00001, 0x10000, CRC(f0ca1b03) SHA1(07154a2c747091f8be23587c109d91ed1672da6e) )
 	ROM_LOAD16_BYTE( "uc_sl0.ic31", 0x00000, 0x10000, CRC(d1661723) SHA1(bdc00196aa2074e7b21e5949f73e9f2b93d76fd9) )
 
-	ROM_REGION( 0x200000, "gfx1", 0 ) /* Tiles */
+	ROM_REGION( 0x200000, "gfx1", 0 )
 	ROM_LOAD( "uc_c0.ic26", 0x000000, 0x080000, CRC(6a419a36) SHA1(1907d15fcc4a8bf875d19768667ee4de4702cc2a) )
 	ROM_LOAD( "uc_c1.ic25", 0x080000, 0x080000, CRC(d703ecc7) SHA1(9716a8fde668e63cf3060450eb32ea43edf143d8) )
 	ROM_LOAD( "uc_c2.ic24", 0x100000, 0x080000, CRC(96397ac6) SHA1(6dfe507bd9f41b5d46d85ef5f46a368745593b52) )
 	ROM_LOAD( "uc_c3.ic23", 0x180000, 0x080000, CRC(5d07d10d) SHA1(ee1a928b37043c476346f189f75d2bfcc44bffe6) )
 
-	ROM_REGION( 0x400000, "gfx2", 0 ) /* Sprites */
+	ROM_REGION( 0x400000, "gfx2", 0 )
 	ROM_LOAD( "uc_030.ic37", 0x000000, 0x100000, CRC(97f7775e) SHA1(5cd147fd940b1ab6eba8e6c6f803bdcc5da5a563) )
 	ROM_LOAD( "uc_020.ic36", 0x100000, 0x100000, CRC(5e0b1d65) SHA1(9e45753d10b2d7b580cd11cef74181209a424189) )
 	ROM_LOAD( "uc_010.ic35", 0x200000, 0x100000, CRC(bdc224b3) SHA1(09477ec39890d954fac6ff653b9f46c9adea56b6) )
@@ -532,25 +532,25 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
-GAME( 2016, hooks01,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (1V4 2016-06-25)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2018, hooks02,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (Zinc Children's Edition Update 2018-05-15)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2018, hooks03,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (Zinc Children's Edition Update 2018-05-02)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2018, hooks04,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (X2 Edition 2018-05-05)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 1992, hooks05,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",       "Hook (Can Be Substituted For Character)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2016, hooks06,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",       "Hook (Unrivalled Version 2016-08-18)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 1992, hookus01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (plus)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2016, hookus02,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",       "Hook (Iron hook unparalleled 2016-07-31)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2018, hookxr,      hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (Zinc Children's Edition Update 2018-09-14)",0 )
+GAME( 2016, hooks01,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (1v4, 2016-06-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, hooks02,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (Zinc Children's Edition Update, 2018-05-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, hooks03,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (Zinc Children's Edition Update, 2018-05-02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, hooks04,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (X2 Edition, 2018-05-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, hooks05,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",    "Hook (Can Substitute Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, hooks06,     hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",    "Hook (Unrivalled Version, 2016-08-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, hookus01,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, hookus02,    hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "RockyWall",    "Hook (Iron hook unparalleled, 2016-07-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, hookxr,      hook,        hook,          hook,      m92_state, empty_init,    ROT0,   "hack",         "Hook (Zinc Children's Edition Update, 2018-09-14)", MACHINE_SUPPORTS_SAVE )
 // Ninja Baseball Bat Man
-GAME( 2018, nbbatmans01, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (X2 Edition 2018-05-05)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 2017, nbbatmans02, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (1V4 2017-03-15)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 2020, nbbatmans03, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (1V2 2020-04-17)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
-GAME( 2013, nbbatmanus01,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Enhanced Edition 2013-06-04)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2016, nbbatmanus02,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (New Lite Edition 2016-10-16)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2019, nbbatmanus03,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition 2019-02-23)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2016, nbbatmanus04,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Characters Changeable 2016-12-03)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2019, nbbatmanus05,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition 2019-03-08)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
-GAME( 2020, nbbatmanus06,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition 2020-01-15)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL)
+GAME( 2018, nbbatmans01, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (X2 Edition, 2018-05-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, nbbatmans02, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (1v4, 2017-03-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, nbbatmans03, nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (1v2, 2020-04-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, nbbatmanus01,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Enhanced Edition, 2013-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, nbbatmanus02,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (New Lite Edition, 2016-10-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, nbbatmanus03,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition, 2019-02-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2016, nbbatmanus04,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Characters Changeable, 2016-12-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, nbbatmanus05,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition, 2019-03-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, nbbatmanus06,nbbatman,    nbbatman,      nbbatman,  m92_state, init_bank,     ROT0,   "hack",         "Ninja Baseball Bat Man (Warriors Edition, 2020-01-15)", MACHINE_SUPPORTS_SAVE )
 // Undercover Cops
-GAME( 2019, uccopsjs01,  uccops,      uccops,        uccops,    m92_state, empty_init,    ROT0,   "hack",         "Undercover Cops (Edition Enhanced 2019-07-22)", MACHINE_SUPPORTS_SAVE | MACHINE_NO_COCKTAIL )
+GAME( 2019, uccopsjs01,  uccops,      uccops,        uccops,    m92_state, empty_init,    ROT0,   "hack",         "Undercover Cops (Edition Enhanced, 2019-07-22)", MACHINE_SUPPORTS_SAVE )
 

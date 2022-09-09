@@ -129,12 +129,12 @@ NUM GAME YEAR COMPANY                 TITLE
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
 332 03E7 2001 Brezzasoft              V-Liner
+334 1919 2022 ADK                     19YY (extracted from ADK World CD (year 1995))
 335 00CF 2022 ADK                     Cake Fighter (extracted from Twinkle Star Sprites rom (year1996))
 336 0094      Face                    Dragon's Heaven
 338 FEDC 2004 Vektorlogic             Super Bubble Pop
    *9237                              161in1 Multigame
 340*0501 2013 Neobitz                 Knight's Chance
-341*0400 2013 Le Cortex               Crouching Pony Hidden Dragon
 341 0400 2013 Le Cortex               Crouching Pony Hidden Dragon demo
 342 BB01 2019 Bitmap Bureau           Xeno Crisis
 360 5003 2003 PhenixSoft              Crouching Tiger Hidden Dragon (hack of kof2001)
@@ -290,10 +290,11 @@ YEAR COMPANY                          TITLE
      M.Priewe                         3D Racing Game Demo
      M.Priewe                         Fighting Game Demo
      M.Priewe                         Neo Geo User Subroutine
+2013 Le Cortex                        Crouching Pony Hidden Dragon (full game)(Game never released because LeCortex died)
 2014 RiKo(aka CosmicR/Phoenix Risen)  Cosmic Tower (demo on youtube)
 2013 Cristiano Bei                    NGPhoenix (CD) (playable CD demos exist)(www.iocera.com)
      Furrtek                          Unleashed (furrtek.free.fr)
-     Furrtek                          Astrosmash (appears abandoned)(GAME#0400)
+2012 Furrtek                          Astrosmash (appears abandoned)(GAME#0400)
 2012 NGD                              NGD::ARK (Arkanoid port) (playable CD demos exist)(demo on youtube)
      NGD                              NGD::AIR (ngdevgroup.com [dead])
      NGD                              NGD::FIGHT
@@ -302,11 +303,15 @@ YEAR COMPANY                          TITLE
      Neobitz                          Stadium Stars (neobitz.com)
      Neobitz                          untitled (setting in a castle) (neobitz.com)
 2016 Neobitz                          Flight of the Dragon (video at www.facebook.com/Neobitz/videos/1239136276111256/)
+2016 tcdev                            Knight Lore
+2016 tcdev                            Lode Runner
 2014 tcdev                            Donkey Kong (CD) (video at retroports.blogspot.com/2015/08/dusting-off-neo-kong.html)
                                         (Also a picture at ngpace.blogspot.com/2013/12/neo-kong-is-not-donkey-kong.html)
 2016 Luis Miguel Mayor                Tech Demo #1 (Street Fighter 2)
-2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
+2017 HPMAN                            Beats of Rage (some alpha videos on youtube)
+2017 Blastar                          Blut Engel II (some alpha videos on youtube)
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
+2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
 2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
@@ -861,6 +866,25 @@ ROM_START( teot ) // Beta 7, 2022-07-31
 	ROM_LOAD16_BYTE( "323h.c2",   0x0000001, 0x1000000, CRC(4b953a79) SHA1(4851352e7f499f3cef20415072a0df7dc0c53bed) )
 ROM_END
 
+
+// 334 : 19YY
+ROM_START( 19yy ) // v1.0
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "334.p1", 0x100000, 0x100000, CRC(59374c47) SHA1(dfd8f5b8edba3116998c12b77dd2583d0363b76a) )
+	ROM_CONTINUE(0x000000, 0x100000)
+
+	NEO_SFIX_128K( "334.s1", CRC(219b6f40) SHA1(a771872489c8b6d4011e412362366d30ed363e22) )
+
+	NEO_BIOS_AUDIO_128K( "334.m1", CRC(636d8ac8) SHA1(a9155bf34f5046bb3d6fa1d740ab328054f754d5) )
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "334.v1",  0x000000, 0x400000, CRC(7bb79a6a) SHA1(4eb92dcadf8742632ba632e16cf22ead90e3a0c9) )
+	ROM_LOAD( "090.v3",  0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
+
+	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "334.c1",  0x000000, 0x400000, CRC(622719d5) SHA1(38c51619992bf9b6de07d3739d28e0098295cec0) )
+	ROM_LOAD16_BYTE( "334.c2",  0x000001, 0x400000, CRC(41b07be5) SHA1(3f0bb6ebf2e4b396fbc72e949cff415603c0ae96) )
+ROM_END
 
 // 335 : Cake Fighter
 // This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
@@ -3121,6 +3145,7 @@ ROM_START( ndo_a_td )
 ROM_END
 
 
+GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )

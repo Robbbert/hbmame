@@ -68,3 +68,4 @@ ROM_END
 
 GAME( 2004, exeriongr, exerion, exerion, exerion, exerion_state, init_exerion,  ROT90, "GreekRoms", "Exerion (Greek)", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, exerionj,  exerion, exerion, exerion, exerion_state, init_exerion,  ROT90, "Jaleco", "Exerion (Japan)", MACHINE_SUPPORTS_SAVE )
+

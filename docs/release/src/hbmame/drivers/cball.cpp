@@ -20,6 +20,9 @@ ROM_START( cballfix )
 	ROM_LOAD_NIB_HIGH( "canball.1k", 0x7800, 0x0400, CRC(a4d1cf12) SHA1(99de6470efd16e57d72019e065f55bc740f3c7fc) )
 	ROM_LOAD_NIB_LOW ( "canball.1h", 0x7c00, 0x0400, CRC(13f55937) SHA1(7514c27e60944c4e00992c8ecbc5115f8ff948bb) )
 	ROM_LOAD_NIB_HIGH( "canball.1j", 0x7c00, 0x0400, CRC(5b905d69) SHA1(2408dd6e44c51c0c9bdb82d2d33826c03f8308c4) )
+	ROM_FILL(0x761b,1,1) // turn illegal opcode 02 into nop
+	ROM_FILL(0x765b,1,1) // turn illegal opcode 02 into nop
+	ROM_FILL(0x75f2,1,1) // turn illegal opcode 00 into nop
 
 	ROM_REGION( 0x0200, "gfx1", 0 )
 	ROM_LOAD_NIB_LOW ( "canballmash.6m", 0x0000, 0x0200, BAD_DUMP CRC(bec9eb19) SHA1(8d84d783a4615e58fa4138e039658922ce50e967) )

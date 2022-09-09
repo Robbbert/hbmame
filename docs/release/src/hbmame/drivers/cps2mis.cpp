@@ -473,12 +473,12 @@ ROM_END
  /****************************************
  Super Street Fighter II Turbo New Legacy
 ******************************************/
-ROM_START( ssf2tnl3 )
+ROM_START( ssf2tnl3 ) // 0.3
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "tnl3.p1", 0x000000, 0x80000, CRC(740f6b37) SHA1(37565be3e91aa2992c8af4812b7dec8aeb530dbc) )
-	ROM_LOAD16_WORD_SWAP( "tnl3.p2", 0x080000, 0x80000, CRC(2c36133d) SHA1(05a6ad9c7fe79891a9ebae78dd23752253c05ea5) )
+	ROM_LOAD16_WORD_SWAP( "tnl3.p1",  0x000000, 0x80000, CRC(740f6b37) SHA1(37565be3e91aa2992c8af4812b7dec8aeb530dbc) )
+	ROM_LOAD16_WORD_SWAP( "tnl3.p2",  0x080000, 0x80000, CRC(2c36133d) SHA1(05a6ad9c7fe79891a9ebae78dd23752253c05ea5) )
 	ROM_LOAD16_WORD_SWAP( "tnl3.p3",  0x100000, 0x80000, CRC(b5f228f8) SHA1(df9a6236cb6fab4a1b0f8e81740469ca90191f06) )
-	ROM_LOAD16_WORD_SWAP( "tnl3.p4", 0x180000, 0x80000, CRC(92e48cc2) SHA1(a9c5d39b1be5934da8f8fc6f5727b6b4e74da87a) )
+	ROM_LOAD16_WORD_SWAP( "tnl3.p4",  0x180000, 0x80000, CRC(92e48cc2) SHA1(a9c5d39b1be5934da8f8fc6f5727b6b4e74da87a) )
 	ROM_LOAD16_WORD_SWAP( "tnl3.p5",  0x200000, 0x80000, CRC(f535d195) SHA1(9d7a251311db7603084eb2c96bfb81f4a222159e) )
 	ROM_LOAD16_WORD_SWAP( "tnl3.p6",  0x280000, 0x80000, CRC(b1be7707) SHA1(ea9a81cf169e119b179a00da2dd65724beda5933) )
 	ROM_LOAD16_WORD_SWAP( "c51.p7",   0x300000, 0x80000, CRC(642fae3f) SHA1(746df99b826b9837bba267104132161153c1daff) )
@@ -510,12 +510,12 @@ ROM_START( ssf2tnl3 )
 	ROM_LOAD( "ssf2t.key",    0x00, 0x14, CRC(524d608e) SHA1(fcd2b9a1a640a0dee4a674dc9cfb3975466f7757) )
 ROM_END
 
-ROM_START( ssf2tnl4 )
+ROM_START( ssf2tnl4 ) // 0.4
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p1",  0x000000, 0x80000, CRC(8eb183f3) SHA1(f874a0b759a1ca758400163855812f3b3f4fa8d5) )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p2",  0x080000, 0x80000, CRC(9966e741) SHA1(318a01fe3d18bd3de695f88cd6f878996a3c59b9) )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p3",  0x100000, 0x80000, CRC(5b79d5b5) SHA1(a6db98500be81a1c1b6803eb487b875e24fe5237) )
-	ROM_LOAD16_WORD_SWAP( "tnl4.p4", 0x180000, 0x80000, CRC(5d65a16c) SHA1(a17cd9fa5467fc7c3db35d81c8cd741f62fd7727) )
+	ROM_LOAD16_WORD_SWAP( "tnl4.p4",  0x180000, 0x80000, CRC(5d65a16c) SHA1(a17cd9fa5467fc7c3db35d81c8cd741f62fd7727) )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p5",  0x200000, 0x80000, CRC(fa3b5717) SHA1(7ee72ac88d953ef32072971da789dd78441915ea) )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p6",  0x280000, 0x80000, CRC(ac0f3088) SHA1(641884bd25f0ab93db6193c1999c4b10b6f1e248) )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p7",  0x300000, 0x80000, CRC(2a738eb9) SHA1(88220fe35efa74d836985014dea7f20d5c6b6d34) )
@@ -547,12 +547,12 @@ ROM_START( ssf2tnl4 )
 	ROM_LOAD( "ssf2t.key",    0x00, 0x14, CRC(524d608e) SHA1(fcd2b9a1a640a0dee4a674dc9cfb3975466f7757) )
 ROM_END
 
-ROM_START( ssf2tnl5 )
+ROM_START( ssf2tnl5 ) // 0.5
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tnl5.p1",  0x000000, 0x80000, CRC(70c01f45) SHA1(231bbe1c05d51756f08b875f77a1a565c9bcb3e9) )
 	ROM_LOAD16_WORD_SWAP( "tnl5.p2",  0x080000, 0x80000, CRC(08d8e5c6) SHA1(6568a968d53d18ebfd461ebcf2b584ddf2e234fc) )
 	ROM_LOAD16_WORD_SWAP( "tnl5.p3",  0x100000, 0x80000, CRC(8149324a) SHA1(2db45feefdbf81d1ee8069bcaa2c49367a437139) )
-	ROM_LOAD16_WORD_SWAP( "tnl5.p4", 0x180000, 0x80000, CRC(b6e40ec8) SHA1(8c30aa4473a546e6e73f00231c6f88cb641d88ed) )
+	ROM_LOAD16_WORD_SWAP( "tnl5.p4",  0x180000, 0x80000, CRC(b6e40ec8) SHA1(8c30aa4473a546e6e73f00231c6f88cb641d88ed) )
 	ROM_LOAD16_WORD_SWAP( "tnl5.p5",  0x200000, 0x80000, CRC(9ea93262) SHA1(ea3ccbea7b772e64154b06484dc3d8a4c2c812e2) )
 	ROM_LOAD16_WORD_SWAP( "tnl4.p6",  0x280000, 0x80000, CRC(ac0f3088) SHA1(641884bd25f0ab93db6193c1999c4b10b6f1e248) )
 	ROM_LOAD16_WORD_SWAP( "tnl5.p7",  0x300000, 0x80000, CRC(e2752a05) SHA1(114b6edbb56a550602882e646cb4e9227562fa69) )
@@ -584,12 +584,12 @@ ROM_START( ssf2tnl5 )
 	ROM_LOAD( "ssf2t.key",    0x00, 0x14, CRC(524d608e) SHA1(fcd2b9a1a640a0dee4a674dc9cfb3975466f7757) )
 ROM_END
 
-ROM_START( ssf2tnl6 )
+ROM_START( ssf2tnl6 ) // 0.6
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tnl6.p1",  0x000000, 0x80000, CRC(46722af4) SHA1(4629e0eacbb6721f5b47476583887ce7f03da88a) )
 	ROM_LOAD16_WORD_SWAP( "tnl6.p2",  0x080000, 0x80000, CRC(c8167018) SHA1(9a21774c9786651b796964527e0a0e03aa914827) )
 	ROM_LOAD16_WORD_SWAP( "tnl6.p3",  0x100000, 0x80000, CRC(244be873) SHA1(e0379881fb6c48b3de78ec27cc6a13b66711dbbf) )
-	ROM_LOAD16_WORD_SWAP( "tnl6.p4", 0x180000, 0x80000, CRC(3a7f1f24) SHA1(c744dc57acb99e57f5f274aea5aadca74ef2534b) )
+	ROM_LOAD16_WORD_SWAP( "tnl6.p4",  0x180000, 0x80000, CRC(3a7f1f24) SHA1(c744dc57acb99e57f5f274aea5aadca74ef2534b) )
 	ROM_LOAD16_WORD_SWAP( "tnl6.p5",  0x200000, 0x80000, CRC(af0babd3) SHA1(d68317b81b611834be4e07d0501253f429de9500) )
 	ROM_LOAD16_WORD_SWAP( "tnl6.p6",  0x280000, 0x80000, CRC(2c717380) SHA1(3b352d66083fa97560202a225425b1a3a2b6c6db) )
 	ROM_LOAD16_WORD_SWAP( "tnl6.p7",  0x300000, 0x80000, CRC(af970b89) SHA1(0967b53d3ab4a51eb0fcffee460197ba8c0d2c42) )
@@ -626,8 +626,45 @@ ROM_START( ssf2tnl7 )  // 0.7
 	ROM_LOAD16_WORD_SWAP( "tnl7.p1",  0x000000, 0x80000, CRC(571944fb) SHA1(f08288e84871b645560d78efe2a934cf1be8eebb) )
 	ROM_LOAD16_WORD_SWAP( "tnl7.p2",  0x080000, 0x80000, CRC(ad4e5240) SHA1(9b7edb4de9168ed056c55228a28ad96cc9697641) )
 	ROM_LOAD16_WORD_SWAP( "tnl7.p3",  0x100000, 0x80000, CRC(6fe99f40) SHA1(b3b352e54b5b7909a3a14dfe9ace915a7abe1ac4) )
-	ROM_LOAD16_WORD_SWAP( "tnl7.p4", 0x180000, 0x80000, CRC(d2de5788) SHA1(b5c673236058c2a30dba02978e1c44c1e3fdc2dc) )
+	ROM_LOAD16_WORD_SWAP( "tnl7.p4",  0x180000, 0x80000, CRC(d2de5788) SHA1(b5c673236058c2a30dba02978e1c44c1e3fdc2dc) )
 	ROM_LOAD16_WORD_SWAP( "tnl7.p5",  0x200000, 0x80000, CRC(2da4d098) SHA1(7e192904ba5774bc592e39fadaba8e290a09fb26) )
+	ROM_LOAD16_WORD_SWAP( "tnl7.p6",  0x280000, 0x80000, CRC(04462bf4) SHA1(4e62fd11def071f185ad3bfaf080454b183bf4c5) )
+	ROM_LOAD16_WORD_SWAP( "tnl7.p7",  0x300000, 0x80000, CRC(23d51921) SHA1(d234f50ba8314604a142fa52efefd4821a0afd96) )
+
+	ROM_REGION( 0x1000000, "gfx", 0 )
+	ROMX_LOAD( "tnl7.c1",   0x000000, 0x200000, CRC(c05989e6) SHA1(dc99172f8616a855aa283adfe7883c0c2523316a) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c2",   0x000002, 0x200000, CRC(ee15fca6) SHA1(d1f55129212ca0c9c8bbed87acc2690289d37a1f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c3",   0x000004, 0x200000, CRC(2e9d2558) SHA1(5e53735d6d3ba461e5ee07ef09bf2f422012752c) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c4",   0x000006, 0x200000, CRC(6f01ec3b) SHA1(7d7237141c629ca0680f6149c4864be8e5b5d269) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c5",   0x800000, 0x100000, CRC(08c6976b) SHA1(56aa74632b0a6b92b1ff33bc62a150642671b8d1) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c6",   0x800002, 0x100000, CRC(4d94aee3) SHA1(48b7e01bbf4fba4de0eed51c2016ed9b912c0766) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c7",   0x800004, 0x100000, CRC(fab6dfd6) SHA1(e60dd3f3570c431955984c124a6499ed139d85f1) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c8",   0x800006, 0x100000, CRC(5080bc5c) SHA1(4bd20a8566601f14678426d85c76b245a87d8b87) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c9",   0xc00000, 0x100000, CRC(9c871fdd) SHA1(c6ed78a6755e581d9235c8c8836cb51044ecd0fe) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c10",   0xc00002, 0x100000, CRC(a05ad3bd) SHA1(6857d7846a9f87f8c601e4adf80f199e58c0dcbb) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c11",   0xc00004, 0x100000, CRC(36894d02) SHA1(c036f79c08511cb1c7f14ca450dbe80b7b43b3dc) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "tnl7.c12",   0xc00006, 0x100000, CRC(46d6f9bd) SHA1(5d70eabff1e64a8da6c813ab2756a15019942926) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c51.m1",   0x00000, 0x08000, CRC(b47b8835) SHA1(c8b2d50fe3a329bd0592ea160d505155d873dab1) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c51.m2",   0x28000, 0x20000, CRC(0022633f) SHA1(cab3afc79da53e3887eb1ccd1f4d19790728e6cd) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c51.q1",   0x000000, 0x200000, CRC(9bdbd476) SHA1(a8520f77f30b97aae36408e0c4ca1ebbde1808a5) )
+	ROM_LOAD16_WORD_SWAP( "c51.q2",   0x200000, 0x200000, CRC(a05e3aab) SHA1(d4eb9cae66c74e956569fea8b815156fbd420f83) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "ssf2t.key",    0x00, 0x14, CRC(524d608e) SHA1(fcd2b9a1a640a0dee4a674dc9cfb3975466f7757) )
+ROM_END
+
+ROM_START( ssf2tnl )  // 0.7.1
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "tnl.p1",   0x000000, 0x80000, CRC(ff8a0f1e) SHA1(ec0f8942445b157a297a699027b6286223603c56) )
+	ROM_LOAD16_WORD_SWAP( "tnl.p2",   0x080000, 0x80000, CRC(570b7843) SHA1(e06c64c08bb72d7893bff9b6584034c4270c20a9) )
+	ROM_LOAD16_WORD_SWAP( "tnl.p3",   0x100000, 0x80000, CRC(866c980e) SHA1(3ba97699fa0a5442d9b734bbb4856434c538f712) )
+	ROM_LOAD16_WORD_SWAP( "tnl.p4",   0x180000, 0x80000, CRC(adb6474e) SHA1(2f88020c9461bee68368a6a7b4ac5cc39e737303) )
+	ROM_LOAD16_WORD_SWAP( "tnl.p5",   0x200000, 0x80000, CRC(f4ebe547) SHA1(f9743a860233ad00edac71660ed07ac581b38e6e) )
 	ROM_LOAD16_WORD_SWAP( "tnl7.p6",  0x280000, 0x80000, CRC(04462bf4) SHA1(4e62fd11def071f185ad3bfaf080454b183bf4c5) )
 	ROM_LOAD16_WORD_SWAP( "tnl7.p7",  0x300000, 0x80000, CRC(23d51921) SHA1(d234f50ba8314604a142fa52efefd4821a0afd96) )
 
@@ -6373,6 +6410,33 @@ ROM_START( hsf2s14 )
 	ROM_LOAD( "hsf2.key",     0x00, 0x14, CRC(fc9b18c9) SHA1(457b6ba05458f1be9ebb8aa9cbab0a8808cb6857) )
 ROM_END
 
+/*******************
+  Misc hacks
+********************/
+ROM_START( ffightaec2 ) // ffightae_cps2
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c07eac2.p1", 0x000000, 0x80000, CRC(b598d599) SHA1(f4e5ebc3c1900fbfb004f8e6532ffb8593622fe5) )
+	ROM_LOAD16_WORD_SWAP( "c07aec2.p2", 0x080000, 0x80000, CRC(3615cfb9) SHA1(f83ebdb084505b3c35513f40666ad828846339d2) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c07aec2.c1",     0x000000, 0x400000, CRC(3f4028c5) SHA1(4a4cf19422f4f0fc66ce18ea082320c5adb59750) )
+	ROM_LOAD64_WORD( "c07aec2.c2",     0x000002, 0x400000, CRC(be3858b0) SHA1(ec9e1be10bba4c3b8bf35fca821cd7f4025dfb4a) )
+	ROM_LOAD64_WORD( "c07aec2.c3",     0x000004, 0x400000, CRC(ed622314) SHA1(f7155a41d4fdbcdd4e626b86de18c391125298e3) )
+	ROM_LOAD64_WORD( "c07aec2.c4",     0x000006, 0x400000, CRC(d65b53e9) SHA1(6df4aa177a38407814a35a3560da4e9c301b3fa0) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c07aec2.m1",   0x00000, 0x08000, CRC(7ee68d38) SHA1(d533226911c23be34aa9df7d7ee37a0b2cf407ab) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c78.m2",   0x28000, 0x20000, CRC(72445dc4) SHA1(14fca7596ac45ba655016eef5b6120f9f9671c23) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c07aec2.q1",   0x000000, 0x400000, CRC(71af8d5a) SHA1(8e9dfcd1d44f792cff4b13f8b8f73aa8f9b0a2ec) )
+	ROM_LOAD16_WORD_SWAP( "c78.q2",   0x400000, 0x400000, CRC(f392b13a) SHA1(fa04ce0370144a49bd1d5acd873eef87b0dc9d15) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
 
 
 /*    YEAR  NAME        PARENT    MACHINE    INPUT      CLASS       INIT       MONITOR COMPANY          FULLNAME                    FLAGS */
@@ -6385,17 +6449,17 @@ GAME( 1996, 19xxs02,    19xx,     cps2,      cps2_2p2b, cps2_state, init_cps2, R
 GAME( 2000, 1944s01,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "DDJ", "1944: The Loop Master (000620U, Strongest Fire Power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, 1944s02,    1944,     dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Razoola", "1944: The Loop Master (000620U, Phoenix Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, 1944s03,    1944,     cps2,      cps2_2p2b, cps2_state, init_cps2, ROT0, "Qxs8", "1944: The Loop Master (000620U, Fire Power Plus, 2011-12-31)", MACHINE_SUPPORTS_SAVE )
-//Alien vs. Predator
+// Alien vs. Predator
 GAME( 2017, avsps01,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, 1 Vs 3 Plus, 2017-12-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, avsps02,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520U, Enhanced Edition, 2018-02-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps03,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2020, avsps04,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsps03,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-05-08)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, avsps04,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520E, Ultimate Evolution Edition, 2020-09-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, avsps05,    avsp,     cps2,      cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Alien vs. Predator (940520H, Modified Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, avsps06,    avsp,     dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Razoola", "Alien vs. Predator (940520U, Phoenix edition)", MACHINE_SUPPORTS_SAVE )
-//Armored Warriors
+// Armored Warriors
 GAME( 2020, armwars01,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-05-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, armwars02,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-08-30)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-//Battle Circuit
+GAME( 2020, armwars02,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "hack", "Armored Warriors (941011E, Full Attack Edition, 2020-08-30)", MACHINE_SUPPORTS_SAVE )
+// Battle Circuit
 GAME( 2019, batcirs01,  batcir,   dead_cps2, cps2_4p2b, cps2_state, init_cps2, ROT0, "hack", "Battle Circuit (970319E, Evolution, 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 // Capcom Sports Club
 GAME( 1997, csclubs01,  csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Hooooook", "Capcom Sports Club (971017E, Time Increases)", MACHINE_SUPPORTS_SAVE )
@@ -6410,7 +6474,7 @@ GAME( 2014, ddsoms05,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, R
 GAME( 2009, ddsoms06,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Pipi899", "Dungeons & Dragons: Shadow over Mystara (960619E, Strengthen The Physical Model, 2009-06-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, ddsoms07,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "e107", "Dungeons & Dragons: Shadow over Mystara (960619J, Change the Final Strike condition, 2009-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsoms08,   ddsom,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619U, Plus, 2016-08-25)", MACHINE_SUPPORTS_SAVE )
-//Dungeons & Dragons: Tower of Doom
+// Dungeons & Dragons: Tower of Doom
 GAME( 2020, ddtods01,   ddtod,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (940412H, Full Attack Edition, 2020-08-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddtods02,   ddtod,    dead_cps2, cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Tower of Doom (940412E, Plus)", MACHINE_SUPPORTS_SAVE )
 // Darkstalkers: The Night Warriors
@@ -6482,6 +6546,7 @@ GAME( 2020, ssf2tnl4,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2021, ssf2tnl5,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.5 beta, 2021-06-11)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, ssf2tnl6,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.6 beta, 2022-02-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, ssf2tnl7,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.7 beta, 2022-07-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ssf2tnl,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.7.1 beta, 2022-09-06)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ssf2x01,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Super Street Fighter II X: Grand Master Challenge (940223J, Change FireBall, 2012-01-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2x02,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blue-Ray", "Super Street Fighter II X: Grand Master Challenge (940223J, Gouki Color Change)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2x03,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Super Street Fighter II X: Grand Master Challenge (940223J, Choose hidden characters easier)", MACHINE_SUPPORTS_SAVE )
@@ -6604,6 +6669,8 @@ GAME( 2008, xmvsfs04,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 1996, xmvsfs05,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "X-Men Vs. Street Fighter (961004J, Enhanced power)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, xmvsfs06,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blackheart", "X-Men Vs. Street Fighter (960910E, Easy Moves, 2009-04-22)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, xmvsfs07,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Ydmis", "X-Men Vs. Street Fighter (960910E, Change character in battle)", MACHINE_SUPPORTS_SAVE )
+// Misc hacks
+GAME( 2022, ffightaec2, 0,        dead_cps2, cps2_2p3b, cps2_state, init_cps2, ROT0, "Grego and Gnawtor", "Fight Fight Anniversary Edition (CPS2 hardware)", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( cps2xx )  // not working, black screen

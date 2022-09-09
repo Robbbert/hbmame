@@ -205,10 +205,10 @@ ROM_START( asurabuss02 )
 ROM_END
 
 
-GAME( 2009, asurablds01, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "pipi899", "Asura Blade - Sword of Dynasty (Energy Mode Max 2009-11-21)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, asurablds02, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "yumeji", "Asura Blade - Sword of Dynasty (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, asurablds01, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "Pipi899", "Asura Blade - Sword of Dynasty (Energy Mode Max, 2009-11-21)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, asurablds02, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "Yumeji", "Asura Blade - Sword of Dynasty (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, asurablds03, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "hack", "Asura Blade - Sword of Dynasty (Enhanced Edition 1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, asurablds04, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "hack", "Asura Blade - Sword of Dynasty (Simplified Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, asurabuss01, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "yumeji", "Asura Buster (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, asurablds04, asurabld, fuuki32, asurabld, fuuki32_state, empty_init, ROT0, "hack", "Asura Blade - Sword of Dynasty (Simplified Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, asurabuss01, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "Yumeji", "Asura Buster (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, asurabuss02, asurabus, fuuki32, asurabusa,fuuki32_state, empty_init, ROT0, "hack", "Asura Buster (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 

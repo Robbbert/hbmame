@@ -62,6 +62,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Stinger
-GAME( 1983, stingers01,  stinger, stinger, stinger,  wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
-GAME( 1983, stinger2s01, stinger, stinger, stinger2, wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)(prototype)", MACHINE_IMPERFECT_SOUND | MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 1983, stingers01,  stinger, stinger, stinger,  wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, stinger2s01, stinger, stinger, stinger2, wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)(prototype)", MACHINE_SUPPORTS_SAVE )
 

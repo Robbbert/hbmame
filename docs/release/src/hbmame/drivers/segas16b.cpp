@@ -137,3 +137,26 @@ GAME( 2018, altbeasts01, altbeast, system16b_i8751, altbeast, segas16b_state, in
 GAME( 2018, altbeasts02, altbeast, system16b_i8751, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (Spanish, 2018-08-05)", 0 )
 GAME( 2018, altbeasts03, altbeast, system16b_fd1094, altbeast, segas16b_state, init_generic_5521, ROT0, "MamePlus", "Altered Beast (Spanish, 2018-08-07)", 0 )
 
+
+ROM_START( fantzone01 ) // standard PS2 version - same as fantzoneta except for p roms
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "fz1_s16b_p00.a7", 0x00000, 0x20000, CRC(2e131b1d) SHA1(0bb7ba4dd579d4ab92030b0021df81c0a18b91e9) )
+	ROM_LOAD16_BYTE( "fz1_s16b_p00.a5", 0x00001, 0x20000, CRC(8c6fe14d) SHA1(b823e505a21dd19eb805f7206c7ef93c6cf51816) )
+
+	ROM_REGION( 0x30000, "gfx1", 0 )
+	ROM_LOAD( "fzta__a14.bin", 0x00000, 0x10000, CRC(9468ab33) SHA1(714660b9eafb78ef5d3aed218367b4e5708376f6) )
+	ROM_LOAD( "fzta__a15.bin", 0x10000, 0x10000, CRC(22a3cf75) SHA1(6f21bc2a565738b997f898ed6ee631e9452662ca) )
+	ROM_LOAD( "fzta__a16.bin", 0x20000, 0x10000, CRC(25cba87f) SHA1(abece2c27cd9d299319fa3ea87e016606426abc2) )
+
+	ROM_REGION16_BE( 0x180000, "sprites", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "fzta__b01.bin",  0x000001, 0x20000, CRC(0beb4a22) SHA1(e35f6d92b88f0730ccf03a090900ca2ed9824e74) )
+	ROM_LOAD16_BYTE( "fzta__b05.bin",  0x000000, 0x20000, CRC(7f676c69) SHA1(231e7829b4ddb039f9075aebd1f2a123c79d396d) )
+	ROM_LOAD16_BYTE( "fzta__a01.bin",  0x100001, 0x20000, CRC(40e1db9a) SHA1(305cd5e2d8512774638dfa724df6696ffa81ebb2) )
+	ROM_LOAD16_BYTE( "fzta__b10.bin",  0x100000, 0x20000, CRC(acbb5cff) SHA1(bd356f664ec1c0e955161aa3afd06f2aeda80357) )
+
+	ROM_REGION( 0x50000, "soundcpu", 0 )
+	ROM_LOAD( "fzta__a10.bin", 0x00000, 0x08000, CRC(dab6fcd0) SHA1(151b62c5353533ae8660cbeebd8fe3219adbf4b5) )
+ROM_END
+
+GAME( 2008, fantzone01, 0, system16b, fantzoneta, segas16b_state, init_generic_5704,       ROT0,   "bootleg", "Fantasy Zone (PS2)", 0 )
+

@@ -268,15 +268,15 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Martial Champion
-GAME( 1993, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1993, mtlchamps01,   mtlchamp,        martchmp, martchmp, mystwarr_state, empty_init, ROT0,  "DDJ", "Martial Champion (Easy Move)", 0 )
 // Monster Maulers
-GAME( 1993, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 1993, mmaulerss01,   mmaulers,        dadandrn, dadandrn, mystwarr_state, empty_init, ROT0,  "DDJ", "Monster Maulers (Easy Move)", 0 )
 // Metamorphic Force
-GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "hack", "Metamorphic Force (Version Enhanced 2017-07-03)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, metamrphs01,   metamrph,        metamrph, metamrph, mystwarr_state, empty_init, ROT0,  "hack", "Metamorphic Force (Version Enhanced, 2017-07-03)", 0 )
 // Violent Storm
-GAME( 2018, viostorms01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2018-08-14)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2018-08-13)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2018-05-07)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2020, viostorms04,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2020-03-24)", MACHINE_IMPERFECT_GRAPHICS )
-GAME( 2020, viostorms05,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition 2020-03-25)", MACHINE_IMPERFECT_GRAPHICS )
+GAME( 2018, viostorms01,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-08-14)", 0 )
+GAME( 2018, viostorms02,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-08-13)", 0 )
+GAME( 2018, viostorms03,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2018-05-07)", 0 )
+GAME( 2020, viostorms04,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2020-03-24)", 0 )
+GAME( 2020, viostorms05,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2020-03-25)", 0 )
 

@@ -85,7 +85,6 @@ ROM_START( f2demo )
 	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
 ROM_END
 
-GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, empty_init, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 
 /**********
  Cameltry
@@ -335,6 +334,7 @@ ROM_START( thundfoxjs01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, empty_init, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 // Cameltry
 GAME( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, init_cameltry, ROT0,   "hack",         "Cameltry (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection

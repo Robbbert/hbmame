@@ -47,10 +47,6 @@ ROM_START( s1945sr3 )
 	ROM_LOAD( "eeprom-s1945iii.bin", 0x0000, 0x0100, CRC(b39f3604) SHA1(d7c66210598096fcafb20adac2f0b293755f4926) )
 ROM_END
 
-/*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
-GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, init_ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version 2009-07-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Pipi899", "Strikers 1945 III (Secret Fighter 2009-07-23)", MACHINE_SUPPORTS_SAVE )
-
 /*************
  Daraku Tenshi
 ****************/
@@ -182,13 +178,17 @@ ROM_START( soldivids01 )
 	ROM_LOAD( "sound.u32", 0x000000, 0x400000, CRC(e98f8d45) SHA1(7791c0f31d08f37c6ec65e7cecf8ef54ca73b1fd) )
 ROM_END
 
+/*     YEAR  NAME      PARENT    MACHINE      INPUT    CLASS           INIT   MONITOR  COMPANY   FULLNAME                                FLAGS */
+GAME( 2009, s1945iiex, s1945ii,  psikyo3v1,   s1945ii,  psikyosh_state, init_ps3, ROT270, "Pipi899", "Strikers 1945 II (EX Super Version, 2009-07-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945sr3,  s1945iii, psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Pipi899", "Strikers 1945 III (Secret Fighter, 2009-07-23)", MACHINE_SUPPORTS_SAVE )
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Daraku Tenshi
-GAME( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, init_ps3, ROT0,   "yumeji", "Daraku Tenshi (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, darakuhc01,  daraku,    psikyo3v1,   daraku,   psikyosh_state, init_ps3, ROT0,   "Yumeji", "Daraku Tenshi (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 // Gunbird 2
-GAME( 2009, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, init_ps5, ROT270, "yzb & pipi899", "Gunbird 2 (Ex Super Version, 2009-08-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, gunbird2s01, gunbird2,  psikyo5,     gunbird2, psikyosh_state, init_ps5, ROT270, "YZB & Pipi899", "Gunbird 2 (Ex Super Version, 2009-08-04)", MACHINE_SUPPORTS_SAVE )
 // Strikers 1945 III
-GAME( 2009, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "pipi899", "Strikers 1945 III (Ex Super Version, 2009-07-X3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, s1945iiis01, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "Pipi899", "Strikers 1945 III (Ex Super Version, 2009-07-X3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, s1945iiis02, s1945iii,  psikyo5,     s1945iii, psikyosh_state, init_ps5, ROT270, "hack", "Strikers 1945 III (Version Enhanced, 2014-04-07)", MACHINE_SUPPORTS_SAVE )
 // Sol Divide - The Sword Of Darkness
 GAME( 2007, soldivids01, soldivid,  psikyo3v1,   soldivid, psikyosh_state, init_ps3, ROT0,   "Shyma.X", "Sol Divide - The Sword Of Darkness (French v1.0, 2007-08-18)", MACHINE_SUPPORTS_SAVE )

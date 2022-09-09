@@ -20,7 +20,7 @@ static const char *const galagost_sample_names[] =
 {
 	"*galagost",
 	"bang",
-	0   /* end of array */
+	nullptr   /* end of array */
 };
 
 void galaga_hbmame::galagost_map(address_map &map) {
@@ -1106,14 +1106,14 @@ GAME( 1981, galagaf,  galaga,  galaga,   galaga,   galaga_state,  init_galaga,  
 GAME( 2007, galagap,  galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Don Hodges", "Galaga (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galagix,  galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Grand Master Peter", "Galagix", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, galagost, galaga,  galagost, galaga,   galaga_hbmame, init_galaga,  ROT90, "Twisty", "Galaga Ghost (Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_hbmame, init_galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2 - 2002-11-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, galagosb, galaga,  galagost, galaga,   galaga_hbmame, init_galaga,  ROT90, "Twisty", "Galaga Ghost (Set 2, 2002-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galaped,  galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Cary Barnhard", "Galapede (Fast Shoot)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, galgaxin, galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "T-Bone", "Galagalaxian", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, terror,   galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Terrorist", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalaga,  galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Vector Galaga", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalagam, galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Vector Galaga Midway", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalagaf, galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Vector Galaga Fast Shoot", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, battlesh, xevious, battles,  xevious,  battles_state, driver_init, ROT90, "bootleg", "Battles 2002", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, battlesh, xevious, battles,  xevious,  battles_state, driver_init,  ROT90, "bootleg", "Battles 2002", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, gaous,    xevious, xevious,  xevious,  xevious_state, init_xevious, ROT90, "Namco (Hack)", "Gaous", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, sxvioush, xevious, xevious,  sxevious, xevious_state, init_xevious, ROT90, "Namco", "Super Xevious 2002", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, xeviblk,  xevious, xevious,  xevious,  xevious_state, init_xevious, ROT90, "Namco", "Xevious Black", MACHINE_SUPPORTS_SAVE )

@@ -28,5 +28,5 @@ ROM_START( contrajs01 ) //contrajc
 	ROM_REGION( 0x0001, "pals", ROMREGION_ERASE00 )
 ROM_END
 
-
 GAME( 1987, contrajs01, contra, contra, contra, contra_state, empty_init, ROT90, "hack", "Contra (Chinese)", MACHINE_SUPPORTS_SAVE )
+
