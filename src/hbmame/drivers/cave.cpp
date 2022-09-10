@@ -1003,15 +1003,15 @@ GAME( 1995, metmqstrs01,   metmqstr, metmqstr,   metmqstr, cave_state,     init_
 GAME( 1995, metmqstrs02,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Always Have Super Move)",   MACHINE_SUPPORTS_SAVE )
 GAME( 1995, metmqstrs03,   metmqstr, metmqstr,   metmqstr, cave_state,     init_metmqstr,  ROT0,    "DDJ",  "Metamoqester (Easy Move)",   MACHINE_SUPPORTS_SAVE )
 // Thunder Heroes
-GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_gaia,      ROT0,    "pipi899",  "Thunder Heroes (Select Characters 2009-08-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, theroes01,     theroes,  gaia,       theroes,  cave_state,     init_gaia,      ROT0,    "pipi899",  "Thunder Heroes (Select Characters, 2009-08-19)", MACHINE_SUPPORTS_SAVE )
 // Gouketsuji Gaiden
-GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack",  "Gouketsuji Gaiden (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, plegendsjs01,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack",  "Gouketsuji Gaiden (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, plegendsjs02,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "DDJ",   "Gouketsuji Gaiden (Always Have Super Moves)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, plegendsjs03,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack",  "Gouketsuji Gaiden (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, plegendsjs03,  plegends, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack",  "Gouketsuji Gaiden (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Power Instinct 2
 GAME( 2013, pwrinst2h,     pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "TT", "Power Instinct 2 (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, pwrinst2z,     pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack", "Power Instinct 2 (Great Blood Temple Simplification 2015-12-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2,  ROT0,    "hack",   "Power Instinct 2 (Simplify Edition 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, pwrinst2z,     pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2j, ROT0,    "hack", "Power Instinct 2 (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, pwrinst2s01,   pwrinst2, pwrinst2,   metmqstr, cave_state,     init_pwrinst2,  ROT0,    "hack",   "Power Instinct 2 (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 // Pretty Soldier Sailor Moon
 GAME( 2021, sailormnh01,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Brutal Version) v0.2", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, sailormnh02,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Real Threat) v1.0", MACHINE_SUPPORTS_SAVE )
@@ -1019,10 +1019,10 @@ GAME( 2021, sailormnh03,   sailormn, sailormn,   cave,     cave_state,     init_
 GAME( 2021, sailormnh04,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Director's Cut) v1.4", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sailormnh05,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Reign of Terror) v1.6", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sailormnh06,   sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "ZombieMaster", "Pretty Soldier Sailor Moon (Fight for Justice) v1.6", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, sailormnts01,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "GOTVG", "Pretty Soldier Sailor Moon (Increases The Difficulty 2018-04-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, sailormnts02,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "pipi899", "Pretty Soldier Sailor Moon (Enhanced Magic 2009-02-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, sailormnts03,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enhanced Edition 2019-12-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sailormnts04,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-13)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sailormnts05,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition 2020-05-24)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, sailormnts06,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Rabbit Edition 2020-09-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, sailormnts01,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "GOTVG", "Pretty Soldier Sailor Moon (Increases The Difficulty, 2018-04-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, sailormnts02,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "pipi899", "Pretty Soldier Sailor Moon (Enhanced Magic, 2009-02-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, sailormnts03,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enhanced Edition, 2019-12-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sailormnts04,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition, 2020-05-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sailormnts05,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Enemy Demon Revised Edition, 2020-05-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, sailormnts06,  sailormn, sailormn,   cave,     cave_state,     init_sailormn,  ROT0,    "hack", "Pretty Soldier Sailor Moon (Rabbit Edition, 2020-09-17)", MACHINE_SUPPORTS_SAVE )
 
