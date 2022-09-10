@@ -1973,8 +1973,8 @@ kof95s11
 kof95s12
 kof95s13
 kof95s14
-//kof95s15    // they refuse to fight
-//kof95s16    // reboots after 15 seconds, illegal instruction
+kof95s15    // they refuse to fight
+kof95s16    // reboots after 15 seconds, illegal instruction
 kof95s17
 kof95s18
 kof95s19
@@ -1988,7 +1988,7 @@ kof95s26
 kof95s27
 kof95s28
 kof95s29
-//kof95s30 // encrypted but probably same as kof95sp
+kof95s30 // encrypted but probably same as kof95sp
 kof95s31
 kof95s32
 
@@ -2094,7 +2094,7 @@ kof96s37
 kof96s41
 kof96s42
 kof96s43
-//kof96s44 //encrypted
+kof96s44 //encrypted
 kof96s45
 kof96s46
 kof96s47
@@ -2453,7 +2453,7 @@ kof97hx35
 kof97hx36
 kof97hx37
 kof97hx38
-//kof97hx39 //Stops at character selection
+kof97hx39 //Stops at character selection
 kof97hx40
 kof97hx41
 kof97hx42
@@ -2723,30 +2723,30 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
-//kof97plss13 // Freezes in intro, address error exception
+kof97plss13 // Freezes in intro, address error exception
 
 @source:kof98.cpp
 kof98aas
-//kof98ae //test only, do not enable
-//kof98ae0 //black splashes all over fight scene where cars speed past
-//kof98ae1 //black splashes all over fight scene where cars speed past
-//kof98ae2 //black splashes all over fight scene where cars speed past
-//kof98ae3 //black splashes all over fight scene where cars speed past
-//kof98ae20160308 //black splashes all over fight scene where cars speed past
-//kof98ae20160902 //black splashes all over fight scene where cars speed past (same roms as kof98ae20160827)
+kof98ae //test only, do not enable
+kof98ae0 //black splashes all over fight scene where cars speed past
+kof98ae1 //black splashes all over fight scene where cars speed past
+kof98ae2 //black splashes all over fight scene where cars speed past
+kof98ae3 //black splashes all over fight scene where cars speed past
+kof98ae20160308 //black splashes all over fight scene where cars speed past
+kof98ae20160902 //black splashes all over fight scene where cars speed past (same roms as kof98ae20160827)
 kof98bge
 kof98bh
-//kof98bvi   // reboots in first demo
+kof98bvi   // reboots in first demo
 kof98c2006
 kof98c20060214 // date cannot be confirmed
-//kof98c20070720 // sometimes reboots itself
-//kof98c20070923 // sometimes reboots itself
-//kof98c20080330 // sometimes reboots itself while in China with Benimaru
-//kof98c20080524 // sometimes reboots itself
-//kof98c20080616 // sometimes reboots itself
-//kof98c20080712 // sometimes reboots itself
-//kof98c20090620 // sometimes reboots itself
-//kof98c20090923
+kof98c20070720 // sometimes reboots itself
+kof98c20070923 // sometimes reboots itself
+kof98c20080330 // sometimes reboots itself while in China with Benimaru
+kof98c20080524 // sometimes reboots itself
+kof98c20080616 // sometimes reboots itself
+kof98c20080712 // sometimes reboots itself
+kof98c20090620 // sometimes reboots itself
+kof98c20090923
 kof98c20100214
 kof98c20100304
 kof98c20110114
@@ -2822,7 +2822,7 @@ kof98cn1
 kof98cos
 kof98cos1
 kof98cos2
-//kof98cta // (kof98c20080801) - sometimes reboots itself
+kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
 kof98ecm
 kof98ehr
@@ -2845,7 +2845,7 @@ kof98iori
 kof98izh
 kof98jh
 kof98k95
-//kof98klc // (kof98c20090923 green)
+kof98klc // (kof98c20090923 green)
 kof98lb
 kof98lv
 kof98m
@@ -2998,27 +2998,27 @@ kof98hh77
 kof98hh78
 kof98hh79
 kof98hh80
-//kof98hh81
-//kof98hh82
-//kof98hh83
+kof98hh81
+kof98hh82
+kof98hh83
 kof98hh84
-//kof98hh85
-//kof98hh86
-//kof98hh87
-//kof98hh88
-//kof98hh89
-//kof98hh90
-//kof98hh91
-//kof98hh92
-//kof98hh93
-//kof98hh94
-//kof98hh95
+kof98hh85
+kof98hh86
+kof98hh87
+kof98hh88
+kof98hh89
+kof98hh90
+kof98hh91
+kof98hh92
+kof98hh93
+kof98hh94
+kof98hh95
 kof98hh96
 kof98hh97
 kof98hh98
-//kof98hh99
+kof98hh99
 kof98hh100
-//kof98hh101
+kof98hh101
 kof98hh102
 kof98hh103
 kof98hh104
@@ -3032,7 +3032,7 @@ kof98hh111
 kof98hh112
 kof98hh113
 kof98hh114
-//kof98hh115
+kof98hh115
 kof98hh116
 kof98hh117
 kof98hh118
@@ -3074,7 +3074,7 @@ kof98xz15
 @source:kof99.cpp
 kof99ab
 kof99ae		/* Anniversary Edition */
-//kof99ae0                             // address error
+kof99ae0                             // address error
 kof99ae20140408
 kof99ae20140624
 kof99ae20150121
@@ -4040,7 +4040,7 @@ kof2k3nd
 kof2k3nrx
 kof2k3pcd
 kof2k3pch
-//kof2k3plr                            // wont start
+kof2k3plr                            // wont start
 kof2k3ps2
 kof2k3ps3
 kof2k3ss
@@ -4625,7 +4625,7 @@ mslug3eb
 mslug3fr
 mslug3fro
 mslug3hev
-//mslug3lw
+mslug3lw
 mslug3nd
 mslug3rb
 mslug3v
@@ -4668,7 +4668,7 @@ mslug3h36
 mslug3h37
 mslug3h38
 mslug3h39
-//mslug3h40
+mslug3h40
 mslug3h41
 mslug3h42
 mslug3h43
@@ -4678,7 +4678,7 @@ mslug3h46
 mslug3h47
 mslug3h48
 mslug3h49
-//mslug3h50
+mslug3h50
 mslug3h51
 mslug3h52
 mslug3h53
@@ -4765,18 +4765,18 @@ mslug3la02
 mslug3la03
 mslug3la04
 mslug3la05
-//mslug3la06
+mslug3la06
 mslug3lb01
 mslug3lb02
 mslug3lb03
 mslug3lb04
 mslug3lb05
-//mslug3lb06
+mslug3lb06
 mslug3lc01
 mslug3lc02
 mslug3lc03
 mslug3lc04
-//mslug3lc05
+mslug3lc05
 mslug3rma01
 mslug3rma02
 mslug3rma03
@@ -4886,10 +4886,10 @@ mslug3rmg01
 mslug3rmg02
 mslug3rmg03
 mslug3rmg04
-//mslug3rmh01
-//mslug3rmh02
-//mslug3rmh03
-//mslug3rmh04
+mslug3rmh01
+mslug3rmh02
+mslug3rmh03
+mslug3rmh04
 mslug3unity
 
 @source:mslug4.cpp
@@ -5068,7 +5068,7 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-//mslug5fu // encrypted p roms; not working
+mslug5fu // encrypted p roms; not working
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -5115,7 +5115,7 @@ mslug5dh31
 mslug5dh32
 mslug5dh33
 mslug5dh34
-//mslug5dh35 // It does not work
+mslug5dh35 // It does not work
 mslug5dh36
 mslug5dh37
 mslug5dh38
@@ -5915,7 +5915,7 @@ flipshot		// 247
 galaxyfg		// 078
 ganryu			// 252
 garou			// 253
-ghostlop		// 228
+//ghostlop		// 228  not needed
 goalx3			// 209
 gowcaizr		// 094
 gpilots			// 020
@@ -5974,7 +5974,7 @@ neodrift		// 213
 //neomrdo		// 207  not needed
 ninjamas		// 217
 nitd			// 260
-overtop			// 212
+//overtop		// 212  not needed
 //panicbom		// 073  not needed
 //pbobbl2n		// 248  not needed
 pbobblen		// 083
@@ -5982,7 +5982,7 @@ pbobblen		// 083
 pnyaa			// 267
 //popbounc		// 237  not needed
 preisle2		// 255
-pspikes2		// 068
+//pspikes2		// 068  not needed
 pulstar			// 089
 puzzledp		// 202
 puzzldpr		// 235
@@ -6175,7 +6175,7 @@ twister		// Blastar 2015
 xeno
 xmas2017
 zintrckbh
-zintrkcd	/* 211 (c) 1996 ADK / SNK */
+zintrkcd
 zintrkcd1
 zintrkm
 zintricks01
@@ -6217,7 +6217,6 @@ gpilotscd
 gpilotse
 gpilotspx
 ironcladb
-//ironcladcd // broken; not working
 jockeygpd
 joyjoycd
 joyjoycd1
@@ -6265,7 +6264,7 @@ nitdfro		/* Neo-Arc French Trans */
 nitdfro1
 nitdpx
 nitdsp
-nitdsp1		// Spanish.Rev2
+nitdsp1
 nitdsp2
 nitdfro2
 pzlcrz
@@ -6278,7 +6277,6 @@ pnyaad
 pnyaadd
 preisle2d
 preisle2px
-//pspikes2cd // broken; not working
 ragnagrdbe
 ragnagrdbs
 ragnagrdeh
@@ -6300,7 +6298,7 @@ sonicwi3px
 spinmasth
 spinmastpx
 ssidekicd
-//stakwindev
+stakwindev
 strhoopcd
 superspycd
 tophuntrpx
@@ -6470,9 +6468,9 @@ kof2k4ru // no sound in attract mode
 kof2k4se1
 kof2k4seb
 kof2k4spl
-//kof10thbr                            // broken; not working; p1 needs unscrambling
+kof10thbr                            // broken; not working; p1 needs unscrambling
 kof10thd
-//kof10thd16                           // broken; not working, p1 needs unscrambling
+kof10thd16                           // broken; not working, p1 needs unscrambling
 kof10thep15
 kof10thu
 kof10thub
@@ -6807,7 +6805,6 @@ samsho2ss
 samsho2yc
 samsho2zk
 samsho3eh
-samsho3hb
 samsho3s2
 samsho3se
 samsho3ss
