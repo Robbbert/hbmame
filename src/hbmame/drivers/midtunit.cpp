@@ -99,9 +99,9 @@ ROM_START( mktturbopi )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_t-unit_uj22_game_rom.uj22", 0x400003, 0x80000, CRC(5e12523b) SHA1(468f93ef9bb6addb45c1c939d24b6511f255426a) )
 ROM_END
 
-ROM_START( mk2p )
+ROM_START( mk2pb2 )
 	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "mk2p.u2", 0x000000, 0x80000, CRC(65d11dd7) SHA1(bb94cca5a35f8f285d32314f8762c3c52ec48f5b) )
+	ROM_LOAD16_BYTE( "mk2pb2.u2", 0x000000, 0x80000, CRC(65d11dd7) SHA1(bb94cca5a35f8f285d32314f8762c3c52ec48f5b) )
 	ROM_RELOAD(                                             0x100000, 0x80000 )
 	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u3.u3", 0x200000, 0x80000, CRC(d6d92bf9) SHA1(397351c6b707f2595e36360471015f9fa494e894) )
 	ROM_RELOAD(                                             0x300000, 0x80000 )
@@ -115,8 +115,8 @@ ROM_START( mk2p )
 	ROM_RELOAD(                                             0xb00000, 0x80000 )
 
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "mk2p.uj12", 0x00000, 0x80000, CRC(05ff15a9) SHA1(23e9c47644c756d7568b6e5122801b19cf594e9b) )
-	ROM_LOAD16_BYTE( "mk2p.ug12", 0x00001, 0x80000, CRC(b6d8ff5c) SHA1(ad974cc0dcdf35c7175f7cb8c620b58b82843523) )
+	ROM_LOAD16_BYTE( "mk2pb2.uj12", 0x00000, 0x80000, CRC(05ff15a9) SHA1(23e9c47644c756d7568b6e5122801b19cf594e9b) )
+	ROM_LOAD16_BYTE( "mk2pb2.ug12", 0x00001, 0x80000, CRC(b6d8ff5c) SHA1(ad974cc0dcdf35c7175f7cb8c620b58b82843523) )
 
 	ROM_REGION( 0xc00000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
@@ -124,10 +124,10 @@ ROM_START( mk2p )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug19.ug19", 0x000002, 0x100000, CRC(fec137be) SHA1(f11ecb8a7993f5c4f4449564b4911f69bd6e9bf8) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj19.uj19", 0x000003, 0x100000, CRC(2d763156) SHA1(06536006da49ab5fb6b75b25f801b83fad000ff5) )
 
-	ROM_LOAD32_BYTE( "mk2p.ug16", 0x400000, 0x100000, CRC(b2af2798) SHA1(3d679fb59753b72f961fe60a65e4e03a76b64266) )
-	ROM_LOAD32_BYTE( "mk2p.uj16", 0x400001, 0x100000, CRC(d70dd149) SHA1(1add61f22a68c0bd8dba3fa0da18f5ecc7f51c6f) )
-	ROM_LOAD32_BYTE( "mk2p.ug20", 0x400002, 0x100000, CRC(d05e970a) SHA1(0f07d72c0ae9ed77c79b4a39abbc047df68a6b1d) )
-	ROM_LOAD32_BYTE( "mk2p.uj20", 0x400003, 0x100000, CRC(0f9c9a12) SHA1(6c593ab037f9e203e50a13bef1cdbba765a45845) )
+	ROM_LOAD32_BYTE( "mk2pb2.ug16", 0x400000, 0x100000, CRC(b2af2798) SHA1(3d679fb59753b72f961fe60a65e4e03a76b64266) )
+	ROM_LOAD32_BYTE( "mk2pb2.uj16", 0x400001, 0x100000, CRC(d70dd149) SHA1(1add61f22a68c0bd8dba3fa0da18f5ecc7f51c6f) )
+	ROM_LOAD32_BYTE( "mk2pb2.ug20", 0x400002, 0x100000, CRC(d05e970a) SHA1(0f07d72c0ae9ed77c79b4a39abbc047df68a6b1d) )
+	ROM_LOAD32_BYTE( "mk2pb2.uj20", 0x400003, 0x100000, CRC(0f9c9a12) SHA1(6c593ab037f9e203e50a13bef1cdbba765a45845) )
 
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug17.ug17", 0x800000, 0x100000, CRC(937d8620) SHA1(8b9f80a460b124a747a6d1495b53f01f580e28f1) )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj17.uj17", 0x800001, 0x100000, CRC(218de160) SHA1(87aea173720d2a33d8183903f4fe8ba1d47e3348) )
@@ -171,7 +171,7 @@ ROM_START( mk2r33 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
 ROM_END
 
-ROM_START( mk2v28b1 )
+ROM_START( mk2pb1 )
 	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u2.u2", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
 	ROM_RELOAD(                0x100000, 0x80000 )
@@ -187,8 +187,8 @@ ROM_START( mk2v28b1 )
 	ROM_RELOAD(                0xb00000, 0x80000 )
 
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "uj12.v28", 0x00000, 0x80000, CRC(87a755b5) SHA1(d1796dfae89ca1163cb3db3638066d4bd54d32a8) )
-	ROM_LOAD16_BYTE( "ug12.v28", 0x00001, 0x80000, CRC(b59368c4) SHA1(987ff2ee0944955289b6b156c375b183819072bd) )
+	ROM_LOAD16_BYTE( "mk2pb1.uj12", 0x00000, 0x80000, CRC(87a755b5) SHA1(d1796dfae89ca1163cb3db3638066d4bd54d32a8) )
+	ROM_LOAD16_BYTE( "mk2pb1.ug12", 0x00001, 0x80000, CRC(b59368c4) SHA1(987ff2ee0944955289b6b156c375b183819072bd) )
 
 	ROM_REGION( 0xc00000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
@@ -525,7 +525,7 @@ ROM_START( mk2s01 ) //mk2k
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_uj22.uj22", 0x800003, 0x100000, CRC(8891d785) SHA1(fd460df1ef8f4306ea42f7dc41488a80fd2c8f53) )
 ROM_END
 
-ROM_START( mk2s02 ) //mk2tek
+ROM_START( umk2s02 ) //mk2tek
 	ROM_REGION16_LE( 0xc00000, "dcs", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "l1_mortal_kombat_ii_sound_rom_u2.u2", 0x000000, 0x80000, CRC(5f23d71d) SHA1(54c2afef243759e0f3dbe2907edbc4302f5c8bad) )
 	ROM_RELOAD(                0x100000, 0x80000 )
@@ -541,8 +541,8 @@ ROM_START( mk2s02 ) //mk2tek
 	ROM_RELOAD(                0xb00000, 0x80000 )
 
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "uj12_ps02.131", 0x00000, 0x80000, CRC(5ca32ce4) SHA1(dce19a8c704dba7d78910be13580a7e7defd16b8) )
-	ROM_LOAD16_BYTE( "ug12_ps02.131", 0x00001, 0x80000, CRC(90a3ee29) SHA1(0b5b84f1f14a6722cfcbd701537918e4624d0407) )
+	ROM_LOAD16_BYTE( "umk2s02.uj12", 0x00000, 0x80000, CRC(5ca32ce4) SHA1(dce19a8c704dba7d78910be13580a7e7defd16b8) )
+	ROM_LOAD16_BYTE( "umk2s02.ug12", 0x00001, 0x80000, CRC(90a3ee29) SHA1(0b5b84f1f14a6722cfcbd701537918e4624d0407) )
 
 	ROM_REGION( 0xc00000, "gfxrom", 0 )
 	ROM_LOAD32_BYTE( "l1_mortal_kombat_ii_game_rom_ug14.ug14", 0x000000, 0x100000, CRC(01e73af6) SHA1(6598cfd704cc92a7f358a0e1f1c973ab79dcc493) )
@@ -633,25 +633,25 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
-GAME( 1992, mks01,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (French Rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mks02,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Revision 5.0 Kaillera Friendly, 2018-02-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mks02,       mk,       tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (5.0K, 2018-02-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, mkturbod,    mk,       tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturboen,  mk,       tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mktturbopi,  mk,       tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mkfr,        mk,       tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mks01,       mk,       tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "S.Arkames", "Mortal Kombat (French Rev.2)", MACHINE_SUPPORTS_SAVE )
 // Mortal Kombat II
-GAME( 2020, mk2s01,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "TEAM UMK 3", "Mortal Kombat II (Friendly Kaillera, 2020-06-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mk2s02,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "hack", "Ultimate Mortal Kombat II (Tournament Edition, 2020-07-23)", MACHINE_SUPPORTS_SAVE )
-
+GAME( 2020, mk2s01,      mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "TEAM UMK 3", "Mortal Kombat II (3.1K, 2020-06-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mk2fr,       mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French, 2007-02-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mk2pb1,      mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.0 plus beta 1, 2017-09-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mk2pb2,      mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (2.8.5 plus beta 2, 2018-12-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mk2r33,      mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Midway", "Mortal Kombat II (3.3 prototype)", MACHINE_SUPPORTS_SAVE )
+// Ultimate Mortal Kombat II
+GAME( 2014, umk2te50,    mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.050)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te51,    mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.051)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, umk2te52,    mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.052)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, umk2te53,    mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.053)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, umk2s02,     mk2,      tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "hack", "Ultimate Mortal Kombat II (Tournament Edition, 5.0.052K, 2020-07-23)", MACHINE_SUPPORTS_SAVE )
+// NBA Jam
 GAME( 1994, nbajamtexxx, nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Midway",  "NBA Jam TE (rev XXX)",     MACHINE_SUPPORTS_SAVE )
 GAME( 2022, nbajamre,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "ponlork", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
-
-GAME( 1992, mkturbod,   mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "hack", "Mortal Kombat (Turbo Ninja T-Unit 03/19/93, hack/set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mktturboen, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Turbo Endurance)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mktturbopi, mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Zenomorp", "Mortal Kombat (Projectile Insanity)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mk2p,       mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition 2.8.5 Plus beta II, 2018-12-23)", MACHINE_SUPPORTS_SAVE )
-GAME( 1993, mk2r33,     mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Midway", "Mortal Kombat II (prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te50,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.050)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te51,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.051)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, umk2te52,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.052)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, umk2te53,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition r5.0.053)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mkfr,       mk,  tunit_adpcm, mk,  midtunit_state, init_mktunit, ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mk2fr,      mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "Arkatrad", "Mortal Kombat II (French, 2007-02-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mk2v28b1,   mk2, tunit_dcs,   mk2, midtunit_state, init_mk2,     ROT0, "mortalkombatplus.com", "Mortal Kombat II (Edition Plus 2.8.0 Plus Beta 1, 2017-09-24)", MACHINE_SUPPORTS_SAVE )
 

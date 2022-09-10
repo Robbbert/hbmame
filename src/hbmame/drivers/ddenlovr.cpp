@@ -7,9 +7,8 @@
 ******************************/
 
 ROM_START( mjdchukas01 ) //mjdchukac
-	ROM_REGION( 0x90000+16*0x1000, "maincpu", 0 )
+	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD( "2.5b_ps01", 0x00000, 0x80000, CRC(1cd3662f) SHA1(2a9f645c4c72648b14350986696520a6e48556a0) )
-	ROM_RELOAD(       0x10000, 0x80000 )
 
 	ROM_REGION( 0x100000, "blitter", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "3.11c", 0x000000, 0x080000, CRC(c66553c3) SHA1(6e5380fdb97cc8b52986f3a3a8cac43c0f38cf54) )
@@ -43,9 +42,8 @@ ROM_END
 ************************/
 
 ROM_START( mjreach1s01 ) //mjreach1c
-	ROM_REGION( 0x90000+16*0x1000, "maincpu", 0 )
+	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD( "s01.5b",   0x00000, 0x80000, CRC(f264cd14) SHA1(7c58eb04e021cee8b37b083e4b88faf9764fe8d2) )
-	ROM_RELOAD(               0x10000, 0x80000 )
 
 	ROM_REGION( 0x500000, "blitter", 0 )
 	ROM_LOAD16_BYTE( "52604.8b",     0x000000, 0x100000, CRC(6ce01bb4) SHA1(800043d8203ab5560ed0b24e0a4e01c14b6a3ac0) )
