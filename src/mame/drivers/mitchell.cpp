@@ -210,20 +210,20 @@ protected:
 	optional_ioport_array<10> m_key[2];
 
 	// video-related
-	tilemap_t *m_bg_tilemap;
-	uint8_t m_flipscreen;
-	uint8_t m_video_bank;
-	uint8_t m_paletteram_bank;
+	tilemap_t *m_bg_tilemap = nullptr;
+	uint8_t m_flipscreen = 0;
+	uint8_t m_video_bank = 0;
+	uint8_t m_paletteram_bank = 0;
 	std::vector<uint8_t> m_paletteram;
 
 	// misc
-	uint8_t m_input_type;
-	uint8_t m_dial[2];
-	uint8_t m_dial_selected;
-	uint8_t m_dir[2];
-	uint8_t m_keymatrix;
+	uint8_t m_input_type = 0;
+	uint8_t m_dial[2]{};
+	uint8_t m_dial_selected = 0;
+	uint8_t m_dir[2]{};
+	uint8_t m_keymatrix = 0;
 	std::unique_ptr<uint8_t[]> m_decoded;
-	uint8_t m_irq_source;
+	uint8_t m_irq_source = 0;
 
 	uint8_t port5_r();
 	void bankswitch_w(uint8_t data);
@@ -288,7 +288,7 @@ private:
 	required_memory_bank m_soundbank;
 
 	// sound-related
-	bool m_sample_select;
+	bool m_sample_select = 0;
 
 	void sound_bankswitch_w(uint8_t data);
 	DECLARE_WRITE_LINE_MEMBER(adpcm_int);
