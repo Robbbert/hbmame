@@ -20457,5 +20457,23 @@ ROM_END
 GAME( 2020, viostorms04,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2020-03-24)", 0 )
 GAME( 2020, viostorms05,   viostorm,        viostorm, viostorm, mystwarr_state, empty_init, ROT0,  "hack", "Violent Storm (Enhanced Edition, 2020-03-25)", 0 )
 
+// unplayably useless
+ROM_START( pc_smb_ps19 )
+	BIOS_CPU
+	ROM_LOAD( "u3sm", 0x0c000, 0x2000, CRC(4b5f717d) SHA1(c39c90f9503c4692af4a8fdb3e18ef7cf04e897f) )
+	BIOS_GFX
+
+	ROM_REGION( 0x8000, "prg", ROMREGION_ERASEFF )
+	ROM_LOAD( "u1sm_ps19",    0x0000, 0x8000, CRC(00a1fd08) SHA1(e120ae69734fee92d270594f7a4b1cfbe27ed556) )
+
+	ROM_REGION( 0x02000, "gfx2", ROMREGION_ERASEFF )
+	ROM_LOAD( "u2sm_ps19",    0x00000, 0x2000, CRC(078a4304) SHA1(05056bace92931aeaa6b86a13e44f2da75e7a765) )
+
+	ROM_REGION( 0x10, "rp5h01", 0 )
+	ROM_LOAD( "security.prm", 0x00, 0x10, CRC(bd82d775) SHA1(e15c369d638156eeb0cd141aeeec877c62810b64) )
+ROM_END
+GAME( 2011, pc_smb_ps19,    pc_smb, playch10, playch10, playch10_state, init_playch10, ROT0, "hack", "Super Mario Bros. (Forever 2011-12-23)(PlayChoice-10)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+
+
 
 

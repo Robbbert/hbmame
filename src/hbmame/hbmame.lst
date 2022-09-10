@@ -923,7 +923,6 @@ sf2ces07
 sf2ces08
 sf2ces09
 sf2ces10
-//sf2ces11                             // doesn't compile - to be fixed
 sf2ces12
 sf2ces13
 sf2ces14
@@ -1690,24 +1689,22 @@ dkwizard
 dkwizard0
 dkwizard1
 dkwizard2
-//dk_remix
 
 @source:docastle.cpp
-dorunrun				//parent
+dorunrun                               //parent
 sdreturn
 
 @source:dotrikun.cpp
-dotrikun				//parent
+dotrikun                               //parent
 dotrikun2
 dotriman
-mineswp					// Minesweeper
+mineswp
 
 @source:dynax.cpp
-//mjelct3
-mjelctrn				//parent
+mjelctrn                               //parent
 mjelct3s01
 mjelctrns01
-tenkai					//parent
+tenkai                                 //parent
 tenkaibbs01
 
 //@source:ertictac.cpp
@@ -1735,6 +1732,7 @@ kodb                                   // bad gfx in mame
 //mtwinsb
 //sf2m1                                // crowd missing
 //sf2m9                                // crowd missing
+sf2ces11                               // crowd missing
 //sgyxz                                // mame, minor gfx issues
 //varthb
 //wofabl                               // mame, gfx issues
@@ -7901,7 +7899,6 @@ pc_smb_ps15
 pc_smb_ps16
 pc_smb_ps17
 pc_smb_ps18
-//pc_smb_ps19                          // unplayable
 pc_smb_ps20
 pc_smb_ps21
 pc_smb_ps22
