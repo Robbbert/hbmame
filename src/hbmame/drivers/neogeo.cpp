@@ -2316,3 +2316,4 @@ ROM_END
 
 /*    YEAR  NAME        PARENT    MACHINE   INPUT            CLASS         INIT    */
 GAME( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+
