@@ -3954,7 +3954,6 @@ kof2k2s54
 kof2k2s55
 kof2k2s56
 kof2k2s57
-kof2k2s58   // bad graphics
 kof2k2s59
 kof2k2s60
 kof2k2s61
@@ -6456,28 +6455,6 @@ ct2k3spi
 ct2k3xx
 ct2k3ys
 ct2k3ad
-kof2k4mp
-kof2k4mp2
-kof2k4omg
-kof2k4pls
-kof2k4ru // no sound in attract mode
-kof2k4se1
-kof2k4seb
-kof2k4spl
-kof10thd
-kof10thd16
-kof10thep15
-kof10thu
-kof10thub
-kof10thud
-kogd
-kogf
-koggv
-kogmxpls
-kogplus
-kogplus1
-kogplusf
-kogsm
 ct2k3k3s01
 ct2k3k3s02
 ct2k3k3s03
@@ -6508,6 +6485,14 @@ ct2k3k3s27
 ct2k3k3s28
 ct2k3k3s29
 ct2k3k3s30
+kogd
+kogf
+koggv
+kogmxpls
+kogplus
+kogplus1
+kogplusf
+kogsm
 kogs01
 kogs02
 kogs03
@@ -6532,6 +6517,12 @@ kf10theps09
 kf10theps10
 kf10theps11
 kf10theps12
+kof10thd
+kof10thd16
+kof10thep15
+kof10thu
+kof10thub
+kof10thud
 kof10ths01
 kof10ths02
 kof10ths03
@@ -6569,6 +6560,14 @@ kf2k19unis03
 kf2k19unis04
 kf2k20unis01
 kf2k20unis02
+kof2k4mp
+kof2k4mp2
+kof2k4omg
+kof2k4pls
+kof2k4ru // no sound in attract mode
+kof2k4se1
+kof2k4seb
+kof2k4spl
 kof2k4ses01
 kof2k4ses04
 kof2k4ses05
