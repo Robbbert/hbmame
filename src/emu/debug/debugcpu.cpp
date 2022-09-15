@@ -965,6 +965,7 @@ void device_debug::single_step(int numsteps)
 	m_stepsleft = numsteps;
 	m_delay_steps = 0;
 	m_flags |= DEBUG_FLAG_STEPPING;
+	m_flags &= ~(DEBUG_FLAG_CALL_IN_PROGRESS | DEBUG_FLAG_TEST_IN_PROGRESS);
 	m_device.machine().debugger().cpu().set_execution_running();
 }
 
@@ -982,6 +983,7 @@ void device_debug::single_step_over(int numsteps)
 	m_stepsleft = numsteps;
 	m_delay_steps = 0;
 	m_flags |= DEBUG_FLAG_STEPPING_OVER;
+	m_flags &= ~(DEBUG_FLAG_CALL_IN_PROGRESS | DEBUG_FLAG_TEST_IN_PROGRESS);
 	m_device.machine().debugger().cpu().set_execution_running();
 }
 
@@ -1000,6 +1002,7 @@ void device_debug::single_step_out()
 	m_stepsleft = 100;
 	m_delay_steps = 0;
 	m_flags |= DEBUG_FLAG_STEPPING_OUT;
+	m_flags &= ~(DEBUG_FLAG_CALL_IN_PROGRESS | DEBUG_FLAG_TEST_IN_PROGRESS);
 	m_device.machine().debugger().cpu().set_execution_running();
 }
 
@@ -1115,6 +1118,7 @@ void device_debug::go_branch(bool sense, const char *condition)
 	m_stepsleft = 100;
 	m_delay_steps = 0;
 	m_flags |= sense ? DEBUG_FLAG_STEPPING_BRANCH_TRUE : DEBUG_FLAG_STEPPING_BRANCH_FALSE;
+	m_flags &= ~(DEBUG_FLAG_CALL_IN_PROGRESS | DEBUG_FLAG_TEST_IN_PROGRESS);
 	m_device.machine().debugger().cpu().set_execution_running();
 }
 
