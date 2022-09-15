@@ -1637,7 +1637,7 @@ GAME( 2014, pc_smb2_ps01,   pc_smb2,playch10_g, playch10, playch10_state, init_p
 GAME( 2012, pc_smb2_ps02,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (458 Hack, 2012-01-22)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, pc_smb2_ps03,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (760 Hack, 2012-01-22)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, pc_smb2_ps04,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (All Floating, 2013-11-25)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, pc_smb2_ps05,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (Edition Chinese, 2012-04-13)(PlayChoice-10)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // bad gfx at intro
+GAME( 2012, pc_smb2_ps05,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (Edition Chinese, 2012-04-13)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE ) // bad gfx at intro
 GAME( 2012, pc_smb2_ps06,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (Mod Invincible, 2012-01-03)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, pc_smb2_ps07,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (Princess Floating Infinitely, 2012-01-03)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, pc_smb2_ps08,   pc_smb2,playch10_g, playch10, playch10_state, init_pcgboard, ROT0, "hack", "Super Mario Bros. 2 (U.S.A Edition, 2013-11-25)(PlayChoice-10)", MACHINE_SUPPORTS_SAVE )

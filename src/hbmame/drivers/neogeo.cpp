@@ -2104,7 +2104,7 @@ void neogeo_state::init_ms4plus()
 /*********************************************** bootleg hybrid */
 
 
-void neogeo_state::init_mslug3b6()
+void neogeo_state::init_mslug6()
 {
 	init_neogeo();
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);

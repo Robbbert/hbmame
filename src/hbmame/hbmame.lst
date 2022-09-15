@@ -4514,7 +4514,6 @@ mslug3eb
 mslug3fr
 mslug3fro
 mslug3hev
-mslug3lw
 mslug3nd
 mslug3rb
 mslug3v
@@ -4557,7 +4556,6 @@ mslug3h36
 mslug3h37
 mslug3h38
 mslug3h39
-mslug3h40
 mslug3h41
 mslug3h42
 mslug3h43
@@ -4567,7 +4565,6 @@ mslug3h46
 mslug3h47
 mslug3h48
 mslug3h49
-mslug3h50
 mslug3h51
 mslug3h52
 mslug3h53
@@ -4654,18 +4651,15 @@ mslug3la02
 mslug3la03
 mslug3la04
 mslug3la05
-mslug3la06
 mslug3lb01
 mslug3lb02
 mslug3lb03
 mslug3lb04
 mslug3lb05
-mslug3lb06
 mslug3lc01
 mslug3lc02
 mslug3lc03
 mslug3lc04
-mslug3lc05
 mslug3rma01
 mslug3rma02
 mslug3rma03
@@ -4775,10 +4769,6 @@ mslug3rmg01
 mslug3rmg02
 mslug3rmg03
 mslug3rmg04
-mslug3rmh01
-mslug3rmh02
-mslug3rmh03
-mslug3rmh04
 mslug3unity
 
 @source:mslug4.cpp
@@ -4957,7 +4947,6 @@ mslug5d1
 mslug5f
 mslug5fr
 mslug5fr1
-mslug5fu // encrypted p roms; not working
 mslug5hd
 mslug5l9a
 mslug5l9b
@@ -5004,7 +4993,6 @@ mslug5dh31
 mslug5dh32
 mslug5dh33
 mslug5dh34
-mslug5dh35 // It does not work
 mslug5dh36
 mslug5dh37
 mslug5dh38
@@ -5203,6 +5191,7 @@ mslug5unity
 mslug5ast
 
 @source:mslug6.cpp
+mslug6                                 //parent
 mslug6h01
 mslug6h02
 mslug6h03

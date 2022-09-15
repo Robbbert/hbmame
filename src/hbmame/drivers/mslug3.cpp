@@ -879,28 +879,6 @@ ROM_START( mslug3hev ) // all confirmed: mslug3ehs with new p1
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
-ROM_START( mslug3lw )  // Same as mslug3h50 apart from p2 and m1
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h40.p1",  0x000000, 0x100000, CRC(f804b927) SHA1(a1a6bcc0fe65416c3ab04f84513da2138515fed0) )
-	ROM_LOAD16_WORD_SWAP( "256lw.p2",   0x100000, 0x400000, CRC(ed558b74) SHA1(b2f7e27a0ff034f51fbd923b1e193f1c2ae3244b) )
-
-	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
-
-	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256h50.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
-	ROM_LOAD16_BYTE( "256h50.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
-	ROM_LOAD16_BYTE( "256h50.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
-	ROM_LOAD16_BYTE( "256h50.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
-ROM_END
-
 ROM_START( mslug3nd ) // all confirmed
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256nd.p1",  0x000000, 0x100000, CRC(9c42ca85) SHA1(7a8f77a89867b889295ae9b9dfd4ba28f02d234d) )
@@ -1994,28 +1972,6 @@ ROM_START( mslug3h39 ) //mslug3c+eb
 	ROM_LOAD16_BYTE( "256.c8", 0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
 ROM_END
 
-ROM_START( mslug3h40 ) //mslug3hr, mslug3nsj
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h40.p1",  0x000000, 0x100000, CRC(f804b927) SHA1(a1a6bcc0fe65416c3ab04f84513da2138515fed0) )
-	ROM_LOAD16_WORD_SWAP( "256h40.p2", 0x100000, 0x400000, CRC(94dcc314) SHA1(9d3990eef3ca3d46981495b83729479045963f51) )
-
-	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
-
-	NEO_BIOS_AUDIO_256K( "256h50.m1", CRC(2f88e0c0) SHA1(bf95881d1c8861cba1a154eb26552520a764c5ba) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256h50.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
-	ROM_LOAD16_BYTE( "256h50.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
-	ROM_LOAD16_BYTE( "256h50.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
-	ROM_LOAD16_BYTE( "256h50.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
-ROM_END
-
 ROM_START( mslug3h41 ) //mslug3sd
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256h41.p1",  0x000000, 0x100000, CRC(e1e21cc4) SHA1(c70ef18dfe8edbadadff6004508e838b246b88a5) )
@@ -2248,31 +2204,6 @@ ROM_START( mslug3h49 ) //mslug3nzj
 	ROM_LOAD16_BYTE( "256.c6",   0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
 	ROM_LOAD16_BYTE( "256.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
 	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
-ROM_END
-
-//The updated .p1 of this version is missing, therefore we make it work .p1 of the mslug3h40 which is an old version.
-//This roms still doesn't work properly same as old roms version Metal Slug 3 (Random Enemies Resetting Version 1.0 2017-12-08)
-
-ROM_START( mslug3h50 )  // The same roms .p2 Metal Slug 3 (Enemy Soldier Reset Prototype 2018-07-21)
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256h40.p1",  0x000000, 0x100000, CRC(f804b927) SHA1(a1a6bcc0fe65416c3ab04f84513da2138515fed0) )
-	ROM_LOAD16_WORD_SWAP( "256h50.p2", 0x100000, 0x400000, CRC(7593474c) SHA1(fcdd76013069eff64dc6842c672870854a53c0f2) )
-
-	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
-
-	NEO_BIOS_AUDIO_256K( "256h50.m1", CRC(2f88e0c0) SHA1(bf95881d1c8861cba1a154eb26552520a764c5ba) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256h50.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
-	ROM_LOAD16_BYTE( "256h50.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
-	ROM_LOAD16_BYTE( "256h50.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
-	ROM_LOAD16_BYTE( "256h50.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
 ROM_END
 
 ROM_START( mslug3h51 )  // mslug3c, mslug3hr
@@ -4514,28 +4445,6 @@ ROM_START( mslug3la05 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3la06 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256la06.p1",  0x000000, 0x100000, CRC(6ff261d2) SHA1(1af09eef4edd9ff789152de7e8efc2d02e21fbdf) )
-	ROM_LOAD16_WORD_SWAP( "256la06.p2", 0x100000, 0x400000, CRC(78584c8a) SHA1(fc6e8b9e86e0f7111f2230d3b78177ed2abe8c9c) )
-
-	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
-
-	NEO_BIOS_AUDIO_256K( "256h50.m1", CRC(2f88e0c0) SHA1(bf95881d1c8861cba1a154eb26552520a764c5ba) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256h50.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
-	ROM_LOAD16_BYTE( "256h50.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
-	ROM_LOAD16_BYTE( "256h50.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
-	ROM_LOAD16_BYTE( "256h50.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
-ROM_END
-
 ROM_START( mslug3lb01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256la01.p1",   0x000000, 0x100000, CRC(8a83a696) SHA1(23ddfc7f3748934e40b489403f7672a8016df940) )
@@ -4666,28 +4575,6 @@ ROM_START( mslug3lb05 )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
 ROM_END
 
-ROM_START( mslug3lb06 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256la06.p1",  0x000000, 0x100000, CRC(6ff261d2) SHA1(1af09eef4edd9ff789152de7e8efc2d02e21fbdf) )
-	ROM_LOAD16_WORD_SWAP( "256lb06.p2", 0x100000, 0x400000, CRC(8a731cab) SHA1(b8dc404fcbf8796282459888638f338a014de6d2) )
-
-	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
-
-	NEO_BIOS_AUDIO_256K( "256h50.m1", CRC(2f88e0c0) SHA1(bf95881d1c8861cba1a154eb26552520a764c5ba) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256h50.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
-	ROM_LOAD16_BYTE( "256h50.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
-	ROM_LOAD16_BYTE( "256h50.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
-	ROM_LOAD16_BYTE( "256h50.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
-ROM_END
-
 ROM_START( mslug3lc01 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256la01.p1",   0x000000, 0x100000, CRC(8a83a696) SHA1(23ddfc7f3748934e40b489403f7672a8016df940) )
@@ -4790,28 +4677,6 @@ ROM_START( mslug3lc04 )
 	ROM_LOAD16_BYTE( "256d.c6",  0x2000001, 0x800000, CRC(806eb36f) SHA1(a412a9cab80c326733dde7652d1db2a46afb3ebb) )
 	ROM_LOAD16_BYTE( "256h54.c7", 0x3000000, 0x800000, CRC(ed559fac) SHA1(e2e73b068785226cd97abbb8c2bd2b5800e9bf19) )
 	ROM_LOAD16_BYTE( "256h54.c8", 0x3000001, 0x800000, CRC(1c52378b) SHA1(05cd499f5444eae6360c96bfd3d3db8870d9656a) )
-ROM_END
-
-ROM_START( mslug3lc05 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256la06.p1",  0x000000, 0x100000, CRC(6ff261d2) SHA1(1af09eef4edd9ff789152de7e8efc2d02e21fbdf) )
-	ROM_LOAD16_WORD_SWAP( "256lc06.p2", 0x100000, 0x400000, CRC(56bdb565) SHA1(9a096e0f1257460ac0ec42a15beca9c2c54b2e3e) )
-
-	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
-
-	NEO_BIOS_AUDIO_256K( "256h50.m1", CRC(2f88e0c0) SHA1(bf95881d1c8861cba1a154eb26552520a764c5ba) )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256h50.c1",   0x0000000, 0x1000000, CRC(1195f6b3) SHA1(9ab352b6b88ffb2cc8944a7806ee04966ed5e40f) )
-	ROM_LOAD16_BYTE( "256h50.c2",   0x0000001, 0x1000000, CRC(fa28d925) SHA1(5c2f4dec96d2c855fbdb5249c110c17905432109) )
-	ROM_LOAD16_BYTE( "256h50.c3",   0x2000000, 0x1000000, CRC(5d78a51c) SHA1(94f90d3f5ed994995718f54da228e5cf393596f8) )
-	ROM_LOAD16_BYTE( "256h50.c4",   0x2000001, 0x1000000, CRC(45478437) SHA1(b3ac06c533eeb27a9ea438027edaa3b2e2a80a7d) )
 ROM_END
 
 ROM_START( mslug3rma01 )
@@ -8520,142 +8385,6 @@ ROM_START( mslug3rmg04 )
 	ROM_LOAD16_BYTE( "256h07.c8",   0x3000001, 0x800000, CRC(b1a3a35d) SHA1(d7c41734e745445efcb33465eb7b26a88ce5a341) )
 ROM_END
 
-ROM_START( mslug3rmh01 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256rmh01.p1",  0x000000, 0x100000, CRC(4b6abc47) SHA1(9d209a7d4218e8cadbea9061fb81450ab47983ee) )
-	ROM_LOAD16_WORD_SWAP( "256rmx06.p2", 0x100000, 0x400000, CRC(f5c25b20) SHA1(2058914d01fa3ebd8bd730c6e14ad94033eb7218) )
-
-	NEO_SFIX_MT_512K
-
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
-	ROM_LOAD16_BYTE( "256.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
-	ROM_LOAD16_BYTE( "256.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
-	ROM_LOAD16_BYTE( "256.c4",   0x1000001, 0x800000, CRC(b755b4eb) SHA1(804700a0966a48f130c434ede3f970792ea74fa5) )
-	ROM_LOAD16_BYTE( "256.c5",   0x2000000, 0x800000, CRC(7aacab47) SHA1(312c1c9846175fe1a3cad51d5ae230cf674fc93d) )
-	ROM_LOAD16_BYTE( "256.c6",   0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
-	ROM_LOAD16_BYTE( "256.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
-	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
-ROM_END
-
-ROM_START( mslug3rmh02 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256rmh02.p1",  0x000000, 0x100000, CRC(b74aa847) SHA1(cacffbe3d7707e8aef3120d1544395755e93fd2d) )
-	ROM_LOAD16_WORD_SWAP( "256rmx06.p2", 0x100000, 0x400000, CRC(f5c25b20) SHA1(2058914d01fa3ebd8bd730c6e14ad94033eb7218) )
-
-	NEO_SFIX_MT_512K
-
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
-	ROM_LOAD16_BYTE( "256.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
-	ROM_LOAD16_BYTE( "256.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
-	ROM_LOAD16_BYTE( "256.c4",   0x1000001, 0x800000, CRC(b755b4eb) SHA1(804700a0966a48f130c434ede3f970792ea74fa5) )
-	ROM_LOAD16_BYTE( "256.c5",   0x2000000, 0x800000, CRC(7aacab47) SHA1(312c1c9846175fe1a3cad51d5ae230cf674fc93d) )
-	ROM_LOAD16_BYTE( "256.c6",   0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
-	ROM_LOAD16_BYTE( "256.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
-	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
-ROM_END
-
-ROM_START( mslug3rmh03 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256rmh03.p1",  0x000000, 0x100000, CRC(daad9879) SHA1(c4789c244ae494751eb8164dc3bd246977ab8ba2) )
-	ROM_LOAD16_WORD_SWAP( "256rmx06.p2", 0x100000, 0x400000, CRC(f5c25b20) SHA1(2058914d01fa3ebd8bd730c6e14ad94033eb7218) )
-
-	NEO_SFIX_MT_512K
-
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
-	ROM_LOAD16_BYTE( "256.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
-	ROM_LOAD16_BYTE( "256.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
-	ROM_LOAD16_BYTE( "256.c4",   0x1000001, 0x800000, CRC(b755b4eb) SHA1(804700a0966a48f130c434ede3f970792ea74fa5) )
-	ROM_LOAD16_BYTE( "256.c5",   0x2000000, 0x800000, CRC(7aacab47) SHA1(312c1c9846175fe1a3cad51d5ae230cf674fc93d) )
-	ROM_LOAD16_BYTE( "256.c6",   0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
-	ROM_LOAD16_BYTE( "256.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
-	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
-ROM_END
-
-ROM_START( mslug3rmh04 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "256rmh04.p1",  0x000000, 0x100000, CRC(268d8c79) SHA1(04b4ed4fa438e9ed1af5425c1608465bb891844f) )
-	ROM_LOAD16_WORD_SWAP( "256rmx06.p2", 0x100000, 0x400000, CRC(f5c25b20) SHA1(2058914d01fa3ebd8bd730c6e14ad94033eb7218) )
-
-	NEO_SFIX_MT_512K
-
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
-
-	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
-	ROM_LOAD( "256.v2", 0x400000, 0x400000, CRC(7e2a10bd) SHA1(0d587fb9f64cba0315ce2d8a03e2b8fe34936dff) )
-	ROM_LOAD( "256.v3", 0x800000, 0x400000, CRC(0eaec17c) SHA1(c3ed613cc6993edd6fc0d62a90bcd85de8e21915) )
-	ROM_LOAD( "256.v4", 0xc00000, 0x400000, CRC(9b4b22d4) SHA1(9764fbf8453e52f80aa97a46fb9cf5937ef15a31) )
-
-	ROM_REGION( 0x4000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "256.c1",   0x0000000, 0x800000, CRC(5a79c34e) SHA1(b8aa51fa50935cae62ab3d125b723ab888691e60) )
-	ROM_LOAD16_BYTE( "256.c2",   0x0000001, 0x800000, CRC(944c362c) SHA1(3843ab300f956280475469caee70135658f67089) )
-	ROM_LOAD16_BYTE( "256.c3",   0x1000000, 0x800000, CRC(6e69d36f) SHA1(94e8cf42e999114b4bd8b30e0aa2f365578c4c9a) )
-	ROM_LOAD16_BYTE( "256.c4",   0x1000001, 0x800000, CRC(b755b4eb) SHA1(804700a0966a48f130c434ede3f970792ea74fa5) )
-	ROM_LOAD16_BYTE( "256.c5",   0x2000000, 0x800000, CRC(7aacab47) SHA1(312c1c9846175fe1a3cad51d5ae230cf674fc93d) )
-	ROM_LOAD16_BYTE( "256.c6",   0x2000001, 0x800000, CRC(c698fd5d) SHA1(16818883b06849ba2f8d61bdd5e21aaf99bd8408) )
-	ROM_LOAD16_BYTE( "256.c7",   0x3000000, 0x800000, CRC(cfceddd2) SHA1(7def666adf8bd1703f40c61f182fc040b6362dc9) )
-	ROM_LOAD16_BYTE( "256.c8",   0x3000001, 0x800000, CRC(4d9be34c) SHA1(a737bdfa2b815aea7067e7af2636e83a9409c414) )
-ROM_END
-
 ROM_START( mslug3unity )
 	ROM_REGION( 0x900000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "green.neo-sma",    0x0c0000, 0x040000, CRC(3c6c536b) SHA1(e841b56e5151cf3118b7ac7f5e1495ed51378031) )
@@ -8708,27 +8437,26 @@ GAME( 2000, mslug3e21,   mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_m
 GAME( 2000, mslug3e22,   mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 22)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslg3eha,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "HappyAsr", "Metal Slug 3 (Super D version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslg3ehs,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix set 01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslg3kho,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix 030728)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3kh,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix 030801)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslg3kho,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "Ydmis", "Metal Slug 3 (Style remix, 2003-07-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3kh,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "Fighters Kim and Ydmis", "Metal Slug 3 (Style remix, 2003-08-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3xg,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "hack", "Metal Slug 3 (PPX Team Hack, Remixed by ZKW)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3d,     mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3d,  ROT0, "SNK", "Metal Slug 3 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, mslug3eb,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (Green Edition 2013-02-27)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2013, mslug3eb,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3,   ROT0, "PlayerX China",  "Metal Slug 3 (Green Edition, 2013-02-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, mslug3fr,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (Traduction French)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, mslug3fro,   mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3fr, ROT0, "Arkatrad", "Metal Slug 3 (Traduction French)(Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug3hev,   mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "hack", "Metal Slug 3 (Enhanced Version 2015-05-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, mslug3lw,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Metal Slug 3 Last Bullet Remix (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug3hev,   mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3n,  ROT0, "hack", "Metal Slug 3 (Enhanced Version, 2015-05-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3nd,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_cmc42sfix,ROT0, "SNK", "Metal Slug 3 (Fully Decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, mslug3rb,    mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,  ROT0, "hack", "Metal Slug 3 (Last Warhead)", MACHINE_SUPPORTS_SAVE )
-GAME( 2012, mslug3v,     mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug3b6, ROT0, "Eezezy", "Metal Slug 3 (Violence Edition 2012-03-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h01,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Robert/Gaston90",    "Metal Slug 3 (Zombie Players Mode Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2012, mslug3v,     mslug3,   neogeo_noslot,   neogeo, neogeo_state, init_mslug6,  ROT0, "Eezezy", "Metal Slug 3 (Violence Edition, 2012-03-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h01,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Robert/Gaston90",    "Metal Slug 3 (Zombie Players Mode Edition, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h02,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",      "Metal Slug 3 (Big Fat Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3h03,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Jump In Mid Air)" ,  MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3h03,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Jump In Mid Air)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h04,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Bootleg ( ms6boot )",    "Metal Slug 3 (Change Gun version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, mslug3h05,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "LB70",    "Metal Slug 3 (Crazy Fire Version V1.1 2014-10-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, mslug3h05,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "LB70",    "Metal Slug 3 (Crazy Fire Version V1.1, 2014-10-04)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h06,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "PlayerX China",    "Metal Slug 3 (Green Blue)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h07,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition 2020-03-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h07,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition, 2020-03-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, mslug3h08,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Shyma.X",    "Metal Slug 3 (Neo Arc French Traduction Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h09,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Robert/Gaston90",    "Metal Slug 3 (Mummy Players Mode Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h09,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Robert/Gaston90",    "Metal Slug 3 (Mummy Players Mode Edition, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h10,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Fire Bomb)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h11,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Stone Bomb)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h12,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "DDJ",    "Metal Slug 3 (Change Character)", MACHINE_SUPPORTS_SAVE )
@@ -8755,231 +8483,222 @@ GAME( 2000, mslug3h32,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2000, mslug3h33,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons Heavy Machine Gun With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h34,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons ShotGun With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, mslug3h35,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons Thunder Cloud With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3h36,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons Rocket Launcher With Infinite Ammo)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2000, mslug3h37,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "PlayerX China",    "Metal Slug 3 (Out Of Blue)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h38,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition 2020-03-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug3h39,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enemy Soldier Reset Alpha 2014-01-18)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug3h40,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 1.0 2017-12-08)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug3h41,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Store Version 2017-12-16)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug3h42,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Edition 2017-04-04)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3h36,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis",    "Metal Slug 3 (Weapons Rocket Launcher With Infinite Ammo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, mslug3h37,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "PlayerX China",    "Metal Slug 3 (Out Of Blue)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h38,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition, 2020-03-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug3h39,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enemy Soldier Reset Alpha, 2014-01-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug3h41,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Store Version, 2017-12-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug3h42,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Edition, 2017-04-04)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, mslug3h43,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3fr,  ROT0, "Shyma.X",    "Metal Slug 3 (Neo Arc French Traduction Rev.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h44,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h45,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis/Gaston90",    "Metal Slug 3 (248 grenades 2020-05-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug3h46,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",  "Metal Slug 3 (Ghost Wu Zuoma 2018-05-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug3h47,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.1 2017-10-09)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h48,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-04-15)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug3h49,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enhanced Edition 2018-05-09)" ,  MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug3h50,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Metal Slug 3 (Random Enemies Resetting Version 1.0.1 2018-07-21)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h51,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (Enemy Soldiers Reset 2019-01-02)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h52,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CiBaoXianQuan",    "Metal Slug 3 (Multi-Function Version 2019-01-19)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h53,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-02-12)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2017, mslug3h54,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3n,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.2 2017-08-13)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2014, mslug3h55,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3,    ROT0, "hack",  "Metal Slug 3 (Green Edition 2014-10-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h56,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "I love Nimes",     "Metal Slug 3 (Burst Enhanced Edition 2020-03-27)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h57,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "CiBaoXianQuan",    "Metal Slug 3 (Multi-Function Version 2019-02-15)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h58,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-04-17)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h59,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3,    ROT0, "hack",  "Metal Slug 3 (Generation 1V2 2019-05-11)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h60,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version 2019-07-20)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h44,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition, 2020-04-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h45,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Ydmis/Gaston90",    "Metal Slug 3 (248 grenades, 2020-05-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug3h46,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",  "Metal Slug 3 (Ghost Wu Zuoma, 2018-05-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug3h47,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.1, 2017-10-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h48,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version, 2019-04-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug3h49,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Enhanced Edition, 2018-05-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h51,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (Enemy Soldiers Reset, 2019-01-02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h52,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CiBaoXianQuan",    "Metal Slug 3 (Multi-Function Version, 2019-01-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h53,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version, 2019-02-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mslug3h54,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3n,   ROT0, "hack",    "Metal Slug 3 (Summon Mount Prototype Rev.2, 2017-08-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, mslug3h55,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3,    ROT0, "hack",  "Metal Slug 3 (Green Edition, 2014-10-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h56,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "I love Nimes",     "Metal Slug 3 (Burst Enhanced Edition, 2020-03-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h57,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "CiBaoXianQuan",    "Metal Slug 3 (Multi-Function Version, 2019-02-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h58,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version, 2019-04-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h59,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3,    ROT0, "hack",  "Metal Slug 3 (Generation 1V2, 2019-05-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h60,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "XiaShuiDaoMeiRenYu",    "Metal Slug 3 (Enemies Resetting Version, 2019-07-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, mslug3h61,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (SE Special Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, mslug3h62,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Shotgun Flash Off)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug3h63,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Mount Enhanced 2019-04-04)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h64,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Metal Slug 3 (Ultimate Simplified Edition 2020-08-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h65,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Hybrid Bullets Version 2020-09-12)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h66,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (Crazy Zombie 2020-09-12)", MACHINE_SUPPORTS_SAVE ) //It is unstable and can crash suddenly at any level, the problem is generated by the file .p1.
-GAME( 2020, mslug3h67,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (Crazy Mummy 2020-09-05)", MACHINE_SUPPORTS_SAVE ) //It is unstable and can crash suddenly at any level, the problem is generated by the file .p1.
-GAME( 2020, mslug3h68,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (The Last Warhead 2020-09-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h69,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Metal Slug 3 (Crazy Fire Edition 2020-09-03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h70,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "I love Nimes",     "Metal Slug 3 (Burst Enhanced Edition 2020-09-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3h71,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition 2020-09-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3ern01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-07-20)[Edition 1](Multi-Function Version)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Ghost Wu Zuoma Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Store Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu/PlayerX China",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Green Blue Version)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](SE Special Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Burst Enhanced Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Zombie Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Mummy Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Crazy Fire Version V1.1)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Super D version)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3ern12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1](Hybrid Bullets Version)" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3esra01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Multi-Function Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Summon Mount Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Store Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Green Blue Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](SE Special Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Burst Enhanced Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Zombie Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Mummy Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Crazy Fire Version V1.1)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Super D version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esra12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Hybrid Bullets Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3esrb01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Multi-Function Version)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Summon Mount Edition)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Store Version)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Green Blue Version)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](SE Special Edition)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Burst Enhanced Edition)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Zombie Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Mummy Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Crazy Fire Version V1.1)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Super D version)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrb12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future 2020-09-29)[Edition 1](Hybrid Bullets Version)" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3esrc01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Multi-Function Version)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Summon Mount Edition)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Store Version)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Green Blue Version)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](SE Special Edition)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Burst Enhanced Edition)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Zombie Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Mummy Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Crazy Fire Version V1.1)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Super D version)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrc12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1](Hybrid Bullets Version)" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3esrd01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Multi-Function Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Summon Mount Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Store Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Green Blue Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](SE Special Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Burst Enhanced Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Zombie Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Mummy Players Mode Edition)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Crazy Fire Version V1.1)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Super D version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3esrd12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Hybrid Bullets Version)" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3la01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",   "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3la02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3la03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Future 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3la04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3la05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3la06,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",   "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)[Edition 1]" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2020, mslug3lb01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",   "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3lb02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3lb03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Future 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3lb04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3lb05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3lb06,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",   "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)[Edition 2]" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2020, mslug3lc01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",   "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3lc02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug3lc03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3lc04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug3lc05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",   "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)[Edition 3]" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2020, mslug3rma01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Flame Shot Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Flame Shot Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Heavy Machine Gun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Heavy Machine Gun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Laser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Laser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Rocket Launcher Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Rocket Launcher Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Shotgun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Shotgun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Cannon Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Cannon Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Enemy Chaser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Enemy Chaser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Satellite Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Satellite Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Super Grenade Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Super Grenade Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Thunder Cloud Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rma20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Thunder Cloud Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rmb01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmb20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmc01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmc20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmd01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmd20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rme01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rme20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rmf01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version 2019-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug3rmf02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead 2020-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug3rmf03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future 2020-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug3rmf04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix [2020-09-29])" , MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
-GAME( 2020, mslug3rmf05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Hybrid Bullets Version Extreme Remix [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rmg01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)(Revised Version Big Heavy Machine Gun Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rmg02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)(Revised Version Big Heavy Machine Gun Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rmg03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)(Revised Version Satellite Extreme Remix 1.0 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rmg04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3 2020-09-29)(Revised Version Satellite Extreme Remix 1.1 [2020-09-29])" , MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug3rmh01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Ydmis)",                             "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)(Revised Version Big Heavy Machine Gun Remix 1.0 [2020-10-17])" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2020, mslug3rmh02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Ydmis)",                             "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)(Revised Version Big Heavy Machine Gun Remix 1.1 [2020-10-17])" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2020, mslug3rmh03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Ydmis)",                             "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)(Revised Version Satellite Remix 1.0 [2020-10-17])" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2020, mslug3rmh04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Ydmis)",                             "Metal Slug 3 (Random Enemies Resetting Version 1.0 2020-10-07)(Revised Version Satellite Remix 1.1 [2020-10-17])" , MACHINE_SUPPORTS_SAVE ) //Random Enemies Resetting Version 1.0 2017-12-08
-GAME( 2021, mslug3unity,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3,    ROT0, "hack", "Metal Slug 3 Unity" , MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug3h63,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Mount Enhanced, 2019-04-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h64,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Metal Slug 3 (Ultimate Simplified Edition, 2020-08-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h65,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Hybrid Bullets Version, 2020-09-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h66,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (Crazy Zombie, 2020-09-12)", MACHINE_SUPPORTS_SAVE ) //It is unstable and can crash suddenly at any level, the problem is generated by the file .p1.
+GAME( 2020, mslug3h67,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (Crazy Mummy, 2020-09-05)", MACHINE_SUPPORTS_SAVE ) //It is unstable and can crash suddenly at any level, the problem is generated by the file .p1.
+GAME( 2020, mslug3h68,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack",    "Metal Slug 3 (The Last Warhead, 2020-09-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h69,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Metal Slug 3 (Crazy Fire Edition, 2020-09-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h70,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "I love Nimes",     "Metal Slug 3 (Burst Enhanced Edition, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3h71,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "hack",    "Metal Slug 3 (Burst Enhanced Edition, 2020-09-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3ern01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-07-20)[Edition 1](Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Ghost Wu Zuoma Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Store Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu/PlayerX China",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Green Blue Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](SE Special Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Zombie Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Mummy Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Crazy Fire Version V1.1)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Super D version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3ern12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",  "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3esra01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Store Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Green Blue Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](SE Special Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Zombie Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Mummy Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Crazy Fire Version V1.1)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Super D version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esra12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3esrb01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Store Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Green Blue Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](SE Special Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Zombie Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Mummy Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Crazy Fire Version V1.1)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Super D version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrb12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Future, 2020-09-29)[Edition 1](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3esrc01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Store Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Green Blue Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](SE Special Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Zombie Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Mummy Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Crazy Fire Version V1.1)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Super D version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrc12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3esrd01,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Multi-Function Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd02,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Ghost Wu Zuoma Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd03,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd04,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Store Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd05,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/PlayerX China",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Green Blue Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd06,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](SE Special Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd07,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd08,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Zombie Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd09,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/Robert",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Mummy Players Mode Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd10,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Crazy Fire Version V1.1)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd11,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/HappyAsr",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Super D version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3esrd12,   mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",  "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3la01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",   "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3la02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3la03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Future, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3la04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3la05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3lb01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",   "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3lb02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3lb03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Future, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3lb04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3lb05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3lc01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90/XiaShuiDaoMeiRenYu",   "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3lc02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug3lc03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3lc04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Gaston90",   "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug3rma01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Flame Shot Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Flame Shot Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Heavy Machine Gun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Heavy Machine Gun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Laser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Laser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Rocket Launcher Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Rocket Launcher Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Shotgun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Big Shotgun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Cannon Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Cannon Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Enemy Chaser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Enemy Chaser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Satellite Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Satellite Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Super Grenade Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Super Grenade Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Thunder Cloud Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rma20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Version Thunder Cloud Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rmb01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmb20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmc01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmc20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmd01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmd20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rme01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Flame Shot Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Heavy Machine Gun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme06,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Laser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme07,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme08,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Rocket Launcher Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme09,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme10,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Big Shotgun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme11,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme12,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Cannon Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme13,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme14,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Enemy Chaser Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme15,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme16,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Satellite Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme17,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme18,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Super Grenade Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme19,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rme20,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Version Thunder Cloud Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rmf01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemies Resetting Version, 2019-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug3rmf02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Last Warhead, 2020-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug3rmf03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (The Future, 2020-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug3rmf04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2])(Revised Hybrid Bullets Version Extreme Remix, 2020-09-29)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-04
+GAME( 2020, mslug3rmf05,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Revised Hybrid Bullets Version Extreme Remix, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rmg01,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)(Revised Version Big Heavy Machine Gun Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rmg02,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)(Revised Version Big Heavy Machine Gun Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rmg03,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)(Revised Version Satellite Extreme Remix 1.0, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug3rmg04,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3h,   ROT0, "Team Remix(Gaston90,Shyma.X,Ydmis,DDJ,I love Nimes)",    "Metal Slug 3 (Enemy Soldier Reset Version #3, 2020-09-29)(Revised Version Satellite Extreme Remix 1.1, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mslug3unity,    mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3,    ROT0, "hack", "Metal Slug 3 Unity", MACHINE_SUPPORTS_SAVE )
 
