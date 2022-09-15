@@ -8819,29 +8819,6 @@ ROM_START( kof97hx38 )
 	ROM_LOAD16_BYTE( "232ne.c6",  0x2000001, 0x400000, CRC(0f96c84a) SHA1(79a8e1ff71051ece0ca6c8f75b0bd1cd567f2e33) )
 ROM_END
 
-ROM_START( kof97hx39 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "232hx39.p1",  0x000000, 0x100000, CRC(40f65841) SHA1(6ee90cf5d38cb46984b69a56456165b6a45553eb) )
-	ROM_LOAD16_WORD_SWAP( "232.p2", 0x100000, 0x400000, CRC(158b23f6) SHA1(9744620a70513490aaf9c5eda33e5ec31222be19) )
-
-	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
-
-	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
-
-	ROM_REGION( 0xc00000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
-	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
-	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
-
-	ROM_REGION( 0x2800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "232.c1", 0x0000000, 0x800000, CRC(5f8bf0a1) SHA1(e8b63bbc814de171fd18c5864a7fc639970c1ecf) )
-	ROM_LOAD16_BYTE( "232.c2", 0x0000001, 0x800000, CRC(e4d45c81) SHA1(fdb2b9326362e27b1c7a5beb977e0bc537488186) )
-	ROM_LOAD16_BYTE( "232.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
-	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
-	ROM_LOAD16_BYTE( "232.c5", 0x2000000, 0x400000, CRC(34fc4e51) SHA1(b39c65f27873f71a6f5a5d1d04e5435f874472ee) )
-	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
-ROM_END
-
 ROM_START( kof97hx40 )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232hx40.p1",  0x000000, 0x100000, CRC(6740ee67) SHA1(819d3f291977575cf2a4d112f7180bccee052afb) )
@@ -15060,29 +15037,6 @@ ROM_START( kof97plss12 )
 	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
 ROM_END
 
-ROM_START( kof97plss13 )
-	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "kf97-p1p.bin", 0x000000, 0x100000, CRC(c01fda46) SHA1(bc6402f5082efc80a8936364c657165f19b49415) )
-	ROM_LOAD16_WORD_SWAP( "kf97-p2p-ps13.bin", 0x100000, 0x400000, CRC(01dfd18d) SHA1(3fabea925d1cca11f91bdd5221ea5d20dc63bd73) )
-
-	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
-
-	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
-
-	ROM_REGION( 0xc00000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
-	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
-	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
-
-	ROM_REGION( 0x2800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "232.c1", 0x0000000, 0x800000, CRC(5f8bf0a1) SHA1(e8b63bbc814de171fd18c5864a7fc639970c1ecf) )
-	ROM_LOAD16_BYTE( "232.c2", 0x0000001, 0x800000, CRC(e4d45c81) SHA1(fdb2b9326362e27b1c7a5beb977e0bc537488186) )
-	ROM_LOAD16_BYTE( "232.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
-	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
-	ROM_LOAD16_BYTE( "232-ps13.c5", 0x2000000, 0x400000, CRC(55c93a5b) SHA1(bb55a773b42c33ccdd9a890b8ae1ec4222a26d69) )
-	ROM_LOAD16_BYTE( "232-ps13.c6", 0x2000001, 0x400000, CRC(8577cb57) SHA1(ac338c71a38ea288492c90ed283e7a7cca0399d0) )
-ROM_END
-
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '97
 GAME( 1997, kof97aa,   kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Simaguang", "Kof'97 (#2 Athena Plus Version)", MACHINE_SUPPORTS_SAVE )
@@ -15434,7 +15388,6 @@ GAME( 2004, kof97hx35,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2005, kof97hx36,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "0 Day-S",    "Kof'97 (Add Orochi's portrait (C1 C2 version, 2005-02-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof97hx37,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "0 Day-S",    "Kof'97 (Add Orochi's portrait (C1 C2 version)(Hack ?), 2005-02-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx38,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "0 Day-S",    "Kof'97 (Add Orochi's portrait (C5 C6 version))", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97hx39,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids",    "Kof'97 (Replace Orochi's Portrait To Old Style)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // No Funciona
 GAME( 1997, kof97hx40,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids",    "Kof'97 (Replace Orochi's portrait To PS Style)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx41,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis",    "Kof'97 (Enable 5 Hidden Characters (Old))", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx42,      kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami",    "Kof'97 (Enable Hidden Characters' Portrait)", MACHINE_SUPPORTS_SAVE )
@@ -15704,5 +15657,4 @@ GAME( 1997, kof97plss09,    kof97,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1997, kof97plss10,    kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "oak2003",    "Kof'97 Plus (Transparent Energy Bar V5)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97plss11,    kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "oak2003",    "Kof'97 Plus (Transparent Energy Bar V6)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, kof97plss12,    kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'97 Plus (Rerise Of Chaos, 2014-08-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, kof97plss13,    kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'97 Plus (The Storm Comes Again, 2016-08-14)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 

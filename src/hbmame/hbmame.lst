@@ -1971,8 +1971,6 @@ kof95s11
 kof95s12
 kof95s13
 kof95s14
-kof95s15    // they refuse to fight
-kof95s16    // reboots after 15 seconds, illegal instruction
 kof95s17
 kof95s18
 kof95s19
@@ -1986,7 +1984,6 @@ kof95s26
 kof95s27
 kof95s28
 kof95s29
-kof95s30 // encrypted but probably same as kof95sp
 kof95s31
 kof95s32
 
@@ -1997,7 +1994,7 @@ kof96ae1
 kof96ae1a
 kof96ae1b
 kof96ae2
-kof96ae23         // gfx error in the main logo during attract mode
+kof96ae23
 kof96b
 kof96b1
 kof96bb
@@ -2024,11 +2021,11 @@ kof96k
 kof96k1
 kof96k3
 kof96k3o
-kof96kt			// supposedly a korean translation, but looks the same to me.
+kof96kt
 kof96lx
 kof96ncd
-kof96oib	//IsmaMj
-kof96oib2	//IsmaMj
+kof96oib
+kof96oib2
 kof96oih
 kof96oir
 kof96pch
@@ -2092,7 +2089,6 @@ kof96s37
 kof96s41
 kof96s42
 kof96s43
-kof96s44 //encrypted
 kof96s45
 kof96s46
 kof96s47
@@ -2112,8 +2108,8 @@ kof97bs
 kof97cb2
 kof97chris
 kof97cn
-kof97co // combo 2010-02-07
-kof97co6 // combo 2006
+kof97co
+kof97co6
 kof97cr
 kof97chl
 kof97chl2
@@ -2122,7 +2118,7 @@ kof97dse
 kof97eh
 kof97eh2
 kof97eho
-kof97ei // combo 2010-02-07 different colours
+kof97ei
 kof97evo
 kof97evoa
 kof97frb
@@ -2451,7 +2447,6 @@ kof97hx35
 kof97hx36
 kof97hx37
 kof97hx38
-kof97hx39 //Stops at character selection
 kof97hx40
 kof97hx41
 kof97hx42
@@ -2721,29 +2716,13 @@ kof97plss09
 kof97plss10
 kof97plss11
 kof97plss12
-kof97plss13 // Freezes in intro, address error exception
 
 @source:kof98.cpp
 kof98aas
-kof98ae //test only, do not enable
-kof98ae0 //black splashes all over fight scene where cars speed past
-kof98ae1 //black splashes all over fight scene where cars speed past
-kof98ae2 //black splashes all over fight scene where cars speed past
-kof98ae3 //black splashes all over fight scene where cars speed past
-kof98ae20160308 //black splashes all over fight scene where cars speed past
-kof98ae20160902 //black splashes all over fight scene where cars speed past (same roms as kof98ae20160827)
 kof98bge
 kof98bh
-kof98bvi   // reboots in first demo
 kof98c2006
-kof98c20060214 // date cannot be confirmed
-kof98c20070720 // sometimes reboots itself
-kof98c20070923 // sometimes reboots itself
-kof98c20080330 // sometimes reboots itself while in China with Benimaru
-kof98c20080524 // sometimes reboots itself
-kof98c20080616 // sometimes reboots itself
-kof98c20080712 // sometimes reboots itself
-kof98c20090620 // sometimes reboots itself
+kof98c20060214
 kof98c20090923
 kof98c20100214
 kof98c20100304
@@ -2758,56 +2737,6 @@ kof98c20130528
 kof98c20130617
 kof98c20130808
 kof98c20130820
-kof98c20131113
-kof98c20140101
-kof98c20140110
-kof98c20140118
-kof98c20140204
-kof98c20140213
-kof98c20140217
-kof98c20140228
-kof98c20140302
-kof98c20140310
-kof98c20140317
-kof98c20140403
-kof98c20140412
-kof98c20140416
-kof98c20140419
-kof98c20140428
-kof98c20140504
-kof98c20140524
-kof98c20140606
-kof98c20140620
-kof98c20140717
-kof98c20140809
-kof98c20140816
-kof98c20140824
-kof98c20140906
-kof98c20140924
-kof98c20141002
-kof98c20141020
-kof98c20150201
-kof98c20150228
-kof98c20150302
-kof98c20150310
-kof98c20150330
-kof98c20150528
-kof98c20150614
-kof98c20150705
-kof98c20150729
-kof98c20150827
-kof98c20151103
-kof98c20151108
-kof98c20151110
-kof98c20151223
-kof98c20160320
-kof98c20160907
-kof98c20170303
-kof98c20170408
-kof98c20170601
-kof98c20170612
-kof98c20180228
-kof98c20180301
 kof98cd
 kof98cd1
 kof98cd2
@@ -2820,7 +2749,6 @@ kof98cn1
 kof98cos
 kof98cos1
 kof98cos2
-kof98cta // (kof98c20080801) - sometimes reboots itself
 kof98dc
 kof98ecm
 kof98ehr
@@ -2832,7 +2760,7 @@ kof98f
 kof98fr
 kof98fro
 kof98fro2
-kof98frp	//slutfest
+kof98frp
 kof98fv
 kof98fv2
 kof98gold
@@ -2843,7 +2771,7 @@ kof98iori
 kof98izh
 kof98jh
 kof98k95
-kof98klc // (kof98c20090923 green)
+kof98klc
 kof98lb
 kof98lv
 kof98m
@@ -2900,9 +2828,7 @@ kof98s17
 kof98s18
 kof98s19
 kof98s20
-kof98s21   // bad gfx while fighting
 kof98s22
-kof98s23
 kof98s24
 kof98s25
 kof98s26
@@ -2965,7 +2891,6 @@ kof98hh33
 kof98hh34
 kof98hh36
 kof98hh38
-kof98hh44
 kof98hh47
 kof98hh48
 kof98hh49
@@ -2991,32 +2916,12 @@ kof98hh68
 kof98hh69
 kof98hh73
 kof98hh75
-kof98hh76
-kof98hh77
-kof98hh78
-kof98hh79
 kof98hh80
-kof98hh81
-kof98hh82
-kof98hh83
 kof98hh84
-kof98hh85
-kof98hh86
-kof98hh87
-kof98hh88
-kof98hh89
-kof98hh90
-kof98hh91
-kof98hh92
-kof98hh93
-kof98hh94
-kof98hh95
 kof98hh96
 kof98hh97
 kof98hh98
-kof98hh99
 kof98hh100
-kof98hh101
 kof98hh102
 kof98hh103
 kof98hh104
@@ -3025,16 +2930,9 @@ kof98hh106
 kof98hh107
 kof98hh108
 kof98hh109
-kof98hh110
 kof98hh111
 kof98hh112
 kof98hh113
-kof98hh114
-kof98hh115
-kof98hh116
-kof98hh117
-kof98hh118
-kof98hh119
 kof98hh120
 kof98hh121
 kof98hh122
@@ -3050,7 +2948,6 @@ kof98hh131
 kof98hh132
 kof98hh133
 kof98hh134
-kof98hh135
 kof98hh136
 kof98hh137
 kof98xz01
@@ -3071,11 +2968,7 @@ kof98xz15
 
 @source:kof99.cpp
 kof99ab
-kof99ae		/* Anniversary Edition */
-kof99ae0                             // address error
-kof99ae20140408
-kof99ae20140624
-kof99ae20150121
+kof99ae
 kof99ae20150520
 kof99ae20150711
 kof99ae20160411
@@ -3601,8 +3494,8 @@ kof2k2leon
 kof2k2mcr
 kof2k2moi2
 kof2k2moir // no sound in attract mode
-kof2k2mp1	/* Magic Plus */
-kof2k2mp3	/* Magic Plus III - Ismamj */
+kof2k2mp1
+kof2k2mp3
 kof2k2mp3s
 kof2k2mpu
 kof2k2ngp
@@ -4022,30 +3915,6 @@ kof2k2s121
 kof2003d
 kof2003f
 kof2003rebh
-kof2k3b
-kof2k3bl2
-kof2k3br
-kof2k3bs1
-kof2k3bs2
-kof2k3bs3
-kof2k3bs4
-kof2k3d
-kof2k3evo
-kof2k3fd
-kof2k3hd
-kof2k3nd
-kof2k3nrx
-kof2k3pcd
-kof2k3pch
-kof2k3plr                            // wont start
-kof2k3ps2
-kof2k3ps3
-kof2k3ss
-kof2k3ryu
-kof2k3tc
-kf2k3zgf
-kof2k3gc
-kof2k3sc
 kof2003s02
 kof2003s03
 kof2003s04
@@ -4101,6 +3970,29 @@ kof2003s55
 kof2003s56
 kof2003s57
 kof2003s58
+kof2k3b
+kof2k3bl2
+kof2k3br
+kof2k3bs1
+kof2k3bs2
+kof2k3bs3
+kof2k3bs4
+kof2k3d
+kof2k3evo
+kof2k3fd
+kof2k3hd
+kof2k3nd
+kof2k3nrx
+kof2k3pcd
+kof2k3pch
+kof2k3ps2
+kof2k3ps3
+kof2k3ss
+kof2k3ryu
+kof2k3tc
+kf2k3zgf
+kof2k3gc
+kof2k3sc
 kf2k3pls01
 kf2k3pls02
 kf2k3pls03
@@ -4132,7 +4024,7 @@ kf2k3pls28
 kf2k3pls29
 kf2k3pls30
 kf2k3pls31
-kof2004pd  // hero
+kof2004pd
 kof2004upls00
 kof2004upls01
 kof2004upls02
