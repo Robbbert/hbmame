@@ -1,4 +1,4 @@
-HBMAME FAQ
+HBMAME FAQ (last update 2022-09-21)
 ----------
 
 This should answer the most common questions.
@@ -53,52 +53,39 @@ A.  Start Vector Breakout, then hold down 1 and press F3.
 13. I can't get all the dots in PAC RABBIT.
 A.  Rabbits can jump. Press 1. And yes, it is possible to jump over a monster. Watch out for the mad fox.
 
-14. The cartoons (TMNTI, etc) don't work.
-A.  They need to be set to Japan Console-AES mode. When you see the Unibios screen, press the keys
-    Ctrl, Alt and Space together. Now you are at a menu. Press Ctrl. Press Ctrl to select Japan,
-    then Alt to select Console-AES. Then choose Play Game and press Ctrl to start. These settings
-    will be remembered for next time.
-
-15. Shock Troopers 2nd squad Wesker hack (shockt2w) doesn't work properly.
+14. Shock Troopers 2nd squad Wesker hack (shocktr2w, shocktr2s01) doesn't work properly.
 A.  It needs to be set to Console-AES mode. When you see the Unibios screen, press the keys
-    Ctrl, Alt and Space together. Now you are at a menu. Press Ctrl. Press Space to select Europe,
-    then Alt to select Console-AES. Then choose Play Game and press Ctrl to start. These settings
-    will be remembered for next time. Because you're in Console mode, don't try inserting coins,
-    just press 1 to start playing.
+    Ctrl, Alt and Space together. Now you are at a menu. Press Ctrl. Press Ctrl to select Europe,
+    then Alt to select Console-AES. Then press F3 to restart. These settings will be remembered
+    for next time. Because you're in Console mode, don't try inserting coins, just press 1 to
+    start playing.
 
-16. Absurd/Quadblok
+15. Absurd/Quadblok
 A.  Absurd doesn't work, but Quadblok does. To play it, press the left or right arrow to select,
     then insert a coin.
 
-17. Monaco GP
+16. Monaco GP
 A.  Use the up and down arrows to change gear (high or low). Use any of Ctrl, Alt or Space to
-    accelerate. Space will give the highest speed, and you get speed increases if you get 6000
-    points.
+    accelerate. Space will give the highest speed, and you go faster if you get 6000 points.
 
-18. WW2demo crashes on the 2nd run
-A.  Copy nvram\svcd\saveram into nvram\ww2demo, and make it read-only.
-
-19. Crouching Pony Hidden Dragon only shows a black screen on the 2nd run
+17. Crouching Pony Hidden Dragon only shows a black screen on the 2nd run
 A.  Copy nvram\svcd\saveram into nvram\cphd, and make it read-only.
 
-20. Santaball misbehaves on the 2nd run
+18. Santaball misbehaves on the 2nd run
 A.  Copy nvram\svcd\saveram into nvram\santabll, and make it read-only.
 
-21. List of neogeo problems
+20. List of neogeo problems
 A.  neonopon - high scores 1 and 2 don't show. Key debounce problem.
     beast - screen tearing
     neopong, neopong10 - On the intro page, a vertical bar moves slowly from the left.
 
-22. Bubble Bobble Redux
+21. Bubble Bobble Redux
 A.  The monsters can fire at you!
     bbredux1 - as above, and press P1+P2 while playing to skip to the next level;
     bbredux2 - as above, and when you lose your last life press P1 to continue;
     bbredux3 - as above, and saves the high scores. Well, it would, except it isn't coded yet.
 
-23. Ironclad - the screen is rather dark.
-A.  Choose Japan or US bios. You still get some Japanese text though.
-
-24. How to get into the config menu in CPS changer games?
+22. How to get into the config menu in CPS changer games?
 A.  When the title screen shows, hold down F1 and 1 together.
     If you're asked for a password, press these buttons one at a time: 3,2,1,4,5,6,3 (where 1=ctrl button, etc)
 
@@ -106,4 +93,5 @@ A.  When the title screen shows, hold down F1 and 1 together.
 A.  Send me a PM. Remember, games cannot be included without roms to test with.
 
 99. My question isn't here!
-A.  Ask it on the forum at mameworld.info
+A.  Ask it on the forum at mameworld.info, or at 1emulation.com
+

@@ -1,6 +1,19 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-1x-xx 0.245.6
+
+All hacks & homebrew are expected to work - please report anything that misbehaves.
+Neogeo: made Universal Bios the default, to properly catch cpu exceptions.
+Neogeo cartoon intros: No need to set them up, they "just work".
+Ironclad: default language is now English.
+
+New Games
+---------------------------------
+
+
+
+
 2022-09-09 0.245.5
 
 
