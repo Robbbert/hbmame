@@ -4130,6 +4130,7 @@ ROM_START( ironclad ) /* Prototype - crcs should match the ones of the unrelease
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "proto_220.p1", 0x100000, 0x100000, CRC(62a942c6) SHA1(12aaa7d9bd84328d1bf4610e056b5c57d0252537) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
+	ROM_FILL(0x5EA,1,0x13) // Default to English
 
 	NEO_SFIX_128K( "proto_220.s1", CRC(372fe217) SHA1(493433e682f519bf647e1481c8bdd3a980830ffb) )
 
@@ -6758,7 +6759,7 @@ ROM_START( mslug6 ) /* This "Metal Slug 6" is a hack/bootleg of Metal Slug 3, th
 	ROM_LOAD16_WORD_SWAP( "299-p1.bin", 0x000000, 0x200000, CRC(5f2fe228) SHA1(747775a2dfc0da87ad2ddd4f57ce5b2522f23fa5) )
 	ROM_LOAD16_WORD_SWAP( "299-p2.bin", 0x100000, 0x400000, CRC(193fa835) SHA1(fb1f26db7998b0bb6b1c8b92500c1596ec5dfc71) )
 
-	NEO_SFIX_128K( "299-s1.bin", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
+	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
 	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
