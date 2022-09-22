@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:CC BY-NC-ND 3.0 (copying this code into another project is not permitted)
 // copyright-holders:Robbbert
 /*********************************************************************************************************
 
@@ -120,11 +120,11 @@ NUM GAME YEAR COMPANY                 TITLE
 258*     2002 ADK                     Dance RhythMIX
 300 0300 2006 NG:DEV.Team             Last Hope
 301*0301 2010 NG:DEV.Team             Fast Striker
-302*0302 2011 NG:DEV.Team             Last Hope Pink Bullets
+302*0302 2011 NG:DEV.Team             Last Hope Pink Bullets (could be year2008)
 303*0303 2012 NG:DEV.Team             Gunlord
 304*0304 2013 NG:DEV.Team             NEO XYX
 305*0305 2014 NG:DEV.Team             Razion
-306*0306 2015 NG:DEV.Team             Kraut Buster
+306*0306 2015 NG:DEV.Team             Kraut Buster (could be year2016)
 316 0048 2011 Le Cortex               Treasure of the Caribbean (remake)
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
@@ -134,7 +134,7 @@ NUM GAME YEAR COMPANY                 TITLE
 336 0094      Face                    Dragon's Heaven
 338 FEDC 2004 Vektorlogic             Super Bubble Pop
    *9237                              161in1 Multigame
-340*0501 2013 Neobitz                 Knight's Chance
+340*0501 2013 Neobitz                 Knight's Chance (could be year2014)
 341 0400 2013 Le Cortex               Crouching Pony Hidden Dragon demo
 342 BB01 2019 Bitmap Bureau           Xeno Crisis
 360 5003 2003 PhenixSoft              Crouching Tiger Hidden Dragon (hack of kof2001)
