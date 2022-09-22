@@ -15,8 +15,8 @@ LAYOUTS += \
 	$(SRC)/hbmame/layout/spacmissx.lay \
 	$(SRC)/mame/layout/segabill.lay \
 	$(SRC)/mame/layout/warrior.lay \
-	$(SRC)/mame/layout/contcirc.lay
-#	$(SRC)/mame/layout/atari_s1.lay
+	$(SRC)/mame/layout/contcirc.lay \
+	$(SRC)/mame/layout/invaders.lay
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
@@ -48,28 +48,9 @@ LAYOUTS += \
 	$(SRC)/mame/layout/ppsatan.lay \
 	$(SRC)/mame/layout/konamigt.lay \
 	$(SRC)/mame/layout/sfiii2.lay \
-	$(SRC)/mame/layout/280zzzap.lay \
-	$(SRC)/mame/layout/attackfc.lay \
-	$(SRC)/mame/layout/clowns.lay \
-	$(SRC)/mame/layout/cosmicm.lay \
-	$(SRC)/mame/layout/escmars.lay \
-	$(SRC)/mame/layout/galactic.lay \
-	$(SRC)/mame/layout/gunchamp.lay \
-	$(SRC)/mame/layout/gunfight.lay \
-	$(SRC)/mame/layout/invad2ct.lay \
-	$(SRC)/mame/layout/invaders.lay \
-	$(SRC)/mame/layout/lagunar.lay \
-	$(SRC)/mame/layout/maze.lay \
 	$(SRC)/mame/layout/model1io2.lay \
-	$(SRC)/mame/layout/phantom2.lay \
 	$(SRC)/mame/layout/playch10.lay \
 	$(SRC)/mame/layout/radr.lay \
-	$(SRC)/mame/layout/seawolf.lay \
-	$(SRC)/mame/layout/shuttlei.lay \
-	$(SRC)/mame/layout/spacecom.lay \
-	$(SRC)/mame/layout/spacwalk.lay \
-	$(SRC)/mame/layout/spcenctr.lay \
-	$(SRC)/mame/layout/yosakdon.lay \
 	$(SRC)/mame/layout/finallap.lay \
 	$(SRC)/mame/layout/segabillv.lay \
 	$(SRC)/mame/layout/speedfrk.lay \
