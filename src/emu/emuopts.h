@@ -480,7 +480,7 @@ public:
 	const char *language() const { return value(OPTION_LANGUAGE); }
 
 	// Web server specific options
-	bool  http() const { return bool_value(OPTION_HTTP); }
+	bool  http() const { return 0; } //bool_value(OPTION_HTTP); }
 	short http_port() const { return int_value(OPTION_HTTP_PORT); }
 	const char *http_root() const { return value(OPTION_HTTP_ROOT); }
 

@@ -258,7 +258,7 @@ void cli_frontend::start_execution(mame_machine_manager *manager, const std::vec
 	// otherwise, check for a valid system
 	load_translation(m_options);
 
-	manager->start_http_server();
+	//manager->start_http_server();
 
 	manager->start_luaengine();
 

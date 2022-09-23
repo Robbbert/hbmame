@@ -252,7 +252,7 @@ int running_machine::run(bool quiet)
 	// use try/catch for deep error recovery
 	try
 	{
-		m_manager.http()->clear();
+		//m_manager.http()->clear();
 
 		// move to the init phase
 		m_current_phase = machine_phase::INIT;
@@ -312,7 +312,7 @@ int running_machine::run(bool quiet)
 		if (m_saveload_schedule != saveload_schedule::NONE)
 			handle_saveload();
 
-		export_http_api();
+		//export_http_api();
 
 #if defined(__EMSCRIPTEN__)
 		// break out to our async javascript loop and halt
@@ -337,7 +337,7 @@ int running_machine::run(bool quiet)
 
 			g_profiler.stop();
 		}
-		m_manager.http()->clear();
+		//m_manager.http()->clear();
 
 		// and out via the exit phase
 		m_current_phase = machine_phase::EXIT;
@@ -1205,7 +1205,7 @@ running_machine::logerror_callback_item::logerror_callback_item(logerror_callbac
 	: m_func(std::move(func))
 {
 }
-
+#if 0
 void running_machine::export_http_api()
 {
 	if (m_manager.http()->is_active()) {
@@ -1233,7 +1233,7 @@ void running_machine::export_http_api()
 		});
 	}
 }
-
+#endif
 //**************************************************************************
 //  SYSTEM TIME
 //**************************************************************************

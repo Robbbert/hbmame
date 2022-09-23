@@ -156,7 +156,7 @@ class emu_options;
 class emu_file;
 
 // declared in http.h
-class http_manager;
+//class http_manager;
 
 // declared in gamedrv.h
 class game_driver;

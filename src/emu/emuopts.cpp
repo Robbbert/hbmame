@@ -217,10 +217,10 @@ const options_entry emu_options::s_option_entries[] =
 	{ OPTION_PLUGIN,                                     nullptr,     core_options::option_type::STRING,     "list of plugins to enable" },
 	{ OPTION_NO_PLUGIN,                                  nullptr,     core_options::option_type::STRING,     "list of plugins to disable" },
 
-	{ nullptr,                                           nullptr,     core_options::option_type::HEADER,     "HTTP SERVER OPTIONS" },
-	{ OPTION_HTTP,                                       "0",         core_options::option_type::BOOLEAN,    "enable HTTP server" },
-	{ OPTION_HTTP_PORT,                                  "8080",      core_options::option_type::INTEGER,    "HTTP server port" },
-	{ OPTION_HTTP_ROOT,                                  "web",       core_options::option_type::STRING,     "HTTP server document root" },
+//	{ nullptr,                                           nullptr,     core_options::option_type::HEADER,     "HTTP SERVER OPTIONS" },
+//	{ OPTION_HTTP,                                       "0",         core_options::option_type::BOOLEAN,    "enable HTTP server" },
+//	{ OPTION_HTTP_PORT,                                  "8080",      core_options::option_type::INTEGER,    "HTTP server port" },
+//	{ OPTION_HTTP_ROOT,                                  "web",       core_options::option_type::STRING,     "HTTP server document root" },
 
 	{ nullptr }
 };

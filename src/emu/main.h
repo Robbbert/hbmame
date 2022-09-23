@@ -88,14 +88,14 @@ public:
 
 	virtual void update_machine() { }
 
-	http_manager *http();
-	void start_http_server();
+	//http_manager *http();
+	//void start_http_server();
 
 protected:
 	osd_interface &               m_osd;                  // reference to OSD system
 	emu_options &                 m_options;              // reference to options
 	running_machine *             m_machine;
-	std::unique_ptr<http_manager> m_http;
+	//std::unique_ptr<http_manager> m_http;
 };
 
 #endif // MAME_EMU_MAIN_H

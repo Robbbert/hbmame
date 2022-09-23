@@ -1004,7 +1004,7 @@ static DWORD RunMAME(int nGameIndex, const play_options *playopts)
 	std::ostringstream option_errors;
 	mame_options::parse_standard_inis(global_opts, option_errors);
 	load_translation(global_opts);
-	manager->start_http_server();
+	//manager->start_http_server();
 	manager->start_luaengine();
 	time_t start, end;
 	time(&start);
