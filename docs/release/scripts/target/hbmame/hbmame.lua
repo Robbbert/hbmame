@@ -623,12 +623,7 @@ files {
 
 createHBMAMEProjects(_target, _subtarget, "midway")
 files {
-	MAME_DIR .. "src/hbmame/drivers/8080bw.cpp",
-	MAME_DIR .. "src/mame/audio/8080bw.cpp",
-	MAME_DIR .. "src/mame/video/8080bw.cpp",
-	MAME_DIR .. "src/mame/drivers/mw8080bw.cpp",
-	MAME_DIR .. "src/mame/audio/mw8080bw.cpp",
-	MAME_DIR .. "src/mame/video/mw8080bw.cpp",
+	MAME_DIR .. "src/hbmame/drivers/invaders.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",
 	MAME_DIR .. "src/mame/video/astrocde.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcr.cpp",
@@ -658,8 +653,6 @@ files {
 	MAME_DIR .. "src/mame/audio/dcs.cpp",
 	MAME_DIR .. "src/mame/audio/csd.cpp",
 	MAME_DIR .. "src/mame/audio/bally.cpp",
-	MAME_DIR .. "src/mame/audio/nl_gunfight.cpp",
-	MAME_DIR .. "src/mame/audio/nl_280zzzap.cpp",
 	MAME_DIR .. "src/mame/audio/s11c_bg.cpp",
 }
 

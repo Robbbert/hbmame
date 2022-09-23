@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:CC BY-NC-ND 3.0 (copying this code into another project is not permitted)
 // copyright-holders:Robbbert
 /*********************************************************************************************************
 
@@ -120,11 +120,11 @@ NUM GAME YEAR COMPANY                 TITLE
 258*     2002 ADK                     Dance RhythMIX
 300 0300 2006 NG:DEV.Team             Last Hope
 301*0301 2010 NG:DEV.Team             Fast Striker
-302*0302 2011 NG:DEV.Team             Last Hope Pink Bullets
+302*0302 2011 NG:DEV.Team             Last Hope Pink Bullets (could be year2008)
 303*0303 2012 NG:DEV.Team             Gunlord
 304*0304 2013 NG:DEV.Team             NEO XYX
 305*0305 2014 NG:DEV.Team             Razion
-306*0306 2015 NG:DEV.Team             Kraut Buster
+306*0306 2015 NG:DEV.Team             Kraut Buster (could be year2016)
 316 0048 2011 Le Cortex               Treasure of the Caribbean (remake)
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
@@ -134,7 +134,7 @@ NUM GAME YEAR COMPANY                 TITLE
 336 0094      Face                    Dragon's Heaven
 338 FEDC 2004 Vektorlogic             Super Bubble Pop
    *9237                              161in1 Multigame
-340*0501 2013 Neobitz                 Knight's Chance
+340*0501 2013 Neobitz                 Knight's Chance (could be year2014)
 341 0400 2013 Le Cortex               Crouching Pony Hidden Dragon demo
 342 BB01 2019 Bitmap Bureau           Xeno Crisis
 360 5003 2003 PhenixSoft              Crouching Tiger Hidden Dragon (hack of kof2001)
@@ -1783,18 +1783,10 @@ ROM_START( syscheck )
 
 	NEO_SFIX_64K( "606.s1", CRC(4774f28e) SHA1(f381dac250fca3dfe1eb8c8f1b9b3bf0d521000e) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
-
-	ROM_REGION( 0x20000, "audiocpu", 0 )
-	ROM_LOAD( "606.m1", 0x0000, 0x10000, CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-	ROM_RELOAD( 0x10000, 0x10000 )
+	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "606.v1", 0x000000, 0x80000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+	ROM_LOAD( "407.v1", 0x000000, 0x80000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
 
 	ROM_REGION( 0x10000, "sprites", ROMREGION_ERASEFF )
 	// no sprites (these blank roms not used)
@@ -2003,14 +1995,16 @@ ROM_END
 
 
 // 625 : Chip n Dale intro from Raregame
-ROM_START( cndi )   /* you must use unibios to select Japan Console */
+ROM_START( cndi )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "625.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2034,14 +2028,16 @@ ROM_START( cndi )   /* you must use unibios to select Japan Console */
 ROM_END
 
 // 625 : Chip n Dale intro from Raregame
-ROM_START( cndia )  /* you must use unibios to select Japan Console */
+ROM_START( cndia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "625.p1", 0x000000, 0x800000, CRC(2df9a41d) SHA1(f08d81f529f17d22218b4bb52840f4a13f5821a2) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2066,14 +2062,16 @@ ROM_END
 
 
 // 626 : Darkwing Duck intro from Raregame
-ROM_START( dwi )    /* you must use unibios to select Japan Console */
+ROM_START( dwi )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "626.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "626.s1", CRC(3dc5c1ef) SHA1(fa194481524cd95ec7188fef0857ef4d2435d7eb) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2097,14 +2095,16 @@ ROM_START( dwi )    /* you must use unibios to select Japan Console */
 ROM_END
 
 // 626 : Darkwing Duck intro from Raregame
-ROM_START( dwia )   /* you must use unibios to select Japan Console */
+ROM_START( dwia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "626.p1", 0x000000, 0x800000, CRC(8e3f2ea8) SHA1(80efd45770938b2dc3ac8c67d823bae4369a68aa) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2129,15 +2129,17 @@ ROM_END
 
 
 // 627 : Ghostbusters intro from Raregame
-ROM_START( gbi )    /* you must use unibios to select Japan Console */
+ROM_START( gbi )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "627.p1", 0x000000, 0x100000, CRC(af69ef5f) SHA1(e218d1c99e491afcf1887ef9f5bed3e7a5e53fe4) )
 	ROM_LOAD16_WORD_SWAP( "627.p2", 0x100000, 0x400000, CRC(f57e393f) SHA1(4e4ac08db6cc28bcc47808854b1ceb407a486fe5) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2160,14 +2162,16 @@ ROM_END
 
 
 // 628 : Robocop intro from Raregame
-ROM_START( rci )    /* you must use unibios to select Japan Console */
+ROM_START( rci )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "628.p1", 0x000000, 0x800000, CRC(adcb4fe0) SHA1(596242e344d1e171eed7ef242c10aec1a0090acf) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2192,15 +2196,17 @@ ROM_END
 
 
 // 629 : Spiderman intro from Raregame
-ROM_START( smi )    /* you must use unibios to select Japan Console */
+ROM_START( smi )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "629.p1", 0x000000, 0x100000, CRC(66b5cfe8) SHA1(65754292a085fce07a04fbe8b91a62c42a9695b1) )
 	ROM_LOAD16_WORD_SWAP( "629.p2", 0x100000, 0x400000, CRC(72082aea) SHA1(a56a8d9196c7d6cc5d66204623cce964e1feda05) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2223,14 +2229,16 @@ ROM_END
 
 
 // 630 : Teenage Mutant Ninja Turtles intro from Raregame
-ROM_START( tmnti ) /* you must use unibios to select Japan Console */
+ROM_START( tmnti )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "630.p1", 0x000000, 0x800000, CRC(2d5066ff) SHA1(e1109c1e7532fa167ba5c9c90648d019740efd8e) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "626.s1", CRC(3dc5c1ef) SHA1(fa194481524cd95ec7188fef0857ef4d2435d7eb) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2253,14 +2261,16 @@ ROM_START( tmnti ) /* you must use unibios to select Japan Console */
 	ROM_LOAD16_BYTE( "630.c8", 0x1800001, 0x400000, CRC(8c15d91b) SHA1(4b4d4fd2302c43a5c82bb849803d13d43947a695) )
 ROM_END
 
-ROM_START( tmntia ) /* you must use unibios to select Japan Console */
+ROM_START( tmntia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "630a.p1", 0x000000, 0x800000, CRC(ed4f5fec) SHA1(6f3d00137b44ab2734d84bc6cea4ea58b9b2350d) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "626.s1", CRC(3dc5c1ef) SHA1(fa194481524cd95ec7188fef0857ef4d2435d7eb) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2285,14 +2295,16 @@ ROM_END
 
 
 // 631 : Duck Tales intro from Raregame
-ROM_START( dti )    /* you must use unibios to select Japan Console */
+ROM_START( dti )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "631.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -2316,14 +2328,16 @@ ROM_START( dti )    /* you must use unibios to select Japan Console */
 ROM_END
 
 // 631 : Duck Tales intro from Raregame
-ROM_START( dtia )   /* you must use unibios to select Japan Console */
+ROM_START( dtia )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "631.p1", 0x000000, 0x800000, CRC(f975711c) SHA1(0bce8bf92536dd18920cdc1ab66a9c42b0a96df3) )
+	ROM_FILL(0x30A,1,0x70)
+	ROM_FILL(0x30B,1,0x04)
 
 	NEO_SFIX_64K( "627.s1", CRC(63b8b25e) SHA1(1dacfaebfa68d1b2518324c2bc000f310ed8fc3f) )
 
 	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_2_3o.rom",  0x00000, 0x20000, CRC(601720ae) SHA1(1b8a72c720cdb5ee3f1d735bbcf447b09204b8d9) )
+	ROM_LOAD16_WORD_SWAP("japan-j3.bin",     0x00000, 0x020000, CRC(dff6d41f) SHA1(e92910e20092577a4523a6b39d578a71d4de7085) )
 
 	ROM_REGION( 0x20000, "audiobios", 0 )
 	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(97cf998b) SHA1(977387a7c76ef9b21d0b01fa69830e949a9a9626) )
@@ -3152,7 +3166,7 @@ GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 1995, csw2,         crswd2bl, no_watchdog,     neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "Crossed Swords 2", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD to MVS conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
@@ -3189,16 +3203,16 @@ GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
-GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid (2021-11-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid, 2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope (Neo CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope (CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhopecdh,     lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris, 2021-12-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
@@ -3228,7 +3242,7 @@ GAME( 2020, neotrisd2,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, neotrisd3,    neotrisd1,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Neotris Demo 3", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, nblktiger,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "Neo Black Tiger", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ng4ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "4 Player Multitab Test (CD)", MACHINE_SUPPORTS_SAVE )
-GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta 2006-01-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta, 2006-01-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )

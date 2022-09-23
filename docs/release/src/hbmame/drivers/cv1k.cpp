@@ -21,8 +21,6 @@ ROM_END
 
 GAME( 2007, deathsmlh01, deathsml, cv1k,   cv1k, cv1k_state, init_deathsml,  ROT0,   "Cave (AMI license)", "Death Smiles (Hidden elements full open + character enhancement)", 0 )
 
-//****************************** FROM HERE, DOCUMENTATION ONLY - GAMES ARE DISABLED AND CANNOT BE PLAYED ****************************
-
 //**************
 // Akai Katana
 //**************
@@ -123,6 +121,4 @@ ROM_START( sdojb )
 ROM_END
 
 GAME( 2022, sdojb, sdojak, cv1k_d, cv1k, cv1k_state, init_ddpdfk, ROT270, "hack", "DoDonPachi SaiDaiOuJou Saya Type B (2022-01-06)", 0 )
-
-// Hello HAZE - Just in case you are wanting to stir up trouble, these games are NOT enabled. It's called documentation!!
 

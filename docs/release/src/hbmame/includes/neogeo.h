@@ -156,7 +156,7 @@ public:
 	void init_matrimd();
 	void init_matrmehc();
 	void init_mslug3();
-	void init_mslug3b6();
+	void init_mslug6();
 	void init_mslug3d();
 	void init_mslug3fr();
 	void init_mslug3h();
@@ -171,7 +171,7 @@ public:
 	void init_ms5pcb();
 	void init_ms5pcbd();
 	void init_ms5plus();
-	void init_ms6s16();
+	void init_ms6();
 	void init_mp2s39();
 	void init_neogeo();
 	void init_nitd();
@@ -192,7 +192,7 @@ public:
 	void init_sbp();
 	void init_sengo3d();
 	void init_sengoku3();
-	void init_shockt2w();
+	//void init_shockt2w();
 	void init_svc();
 	void init_svchb();
 	void init_svcboot();
@@ -472,7 +472,7 @@ INPUT_PORTS_EXTERN(dualbios);
 	\
 	NEOGEO_UNIBIOS(16) \
 	NEOGEO_UNIBIOS_1_2_AND_OLDER(16) \
-	ROM_DEFAULT_BIOS("euro")
+	ROM_DEFAULT_BIOS("unibios40")
 
 
 #define NEO_BIOS_AUDIO_64K(name, hash) \

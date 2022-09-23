@@ -39,3 +39,4 @@ ROM_START( blkdrgonk )
 ROM_END
 
 GAME( 1987, blkdrgonk, blktiger, mcu, blktiger, blktiger_mcu_state, empty_init, ROT0, "hack", "Black Dragon (Traduction Korean)", MACHINE_SUPPORTS_SAVE )
+

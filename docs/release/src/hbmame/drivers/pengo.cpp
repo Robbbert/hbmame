@@ -929,7 +929,7 @@ ROM_END
 
 GAME( 2003, alpacap7,  alpaca8,  pengou,   pengo,    pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
 GAME( 2003, alpacap8,  alpaca8,  pengou,   pengo,    pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
-GAME( 2021, jrpacplus, jrpacman, jrpacmbl, jrpacmbl, pengo_state, empty_init, ROT90, "Mr McScrewup", "Jr Pac-Plus (Pengo hardware)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, jrpacplus, jrpacman, jrpacmbl, jrpacmbl, pengo_state, empty_init, ROT90, "Mr McScrewup", "Jr. Pac-Plus (Pengo hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, pacpen,    pengo,    pengou,   pacpen,   pengo_state, empty_init, ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, pengopop,  pengo,    pengou,   pengo,    pengo_state, empty_init, ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vecpengo,  pengo,    pengoe,   pengo,    pengo_state, empty_init, ROT90, "T-Bone", "Pengo (Vector sim)", MACHINE_SUPPORTS_SAVE )

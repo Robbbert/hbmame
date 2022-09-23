@@ -2104,7 +2104,7 @@ void neogeo_state::init_ms4plus()
 /*********************************************** bootleg hybrid */
 
 
-void neogeo_state::init_mslug3b6()
+void neogeo_state::init_mslug6()
 {
 	init_neogeo();
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
@@ -2316,3 +2316,4 @@ ROM_END
 
 /*    YEAR  NAME        PARENT    MACHINE   INPUT            CLASS         INIT    */
 GAME( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+

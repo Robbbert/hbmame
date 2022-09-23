@@ -1188,3 +1188,4 @@ GAME( 1990, superspyd, superspy, neogeo_noslot,   neogeo,   neogeo_state, init_n
 GAME( 1990, tpgolfd,   tpgolf,   neogeo_noslot,   neogeo,   neogeo_state, init_neogeo,   ROT0, "SNK", "Top Player's Golf (MGD2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, trallyd,   trally,   neogeo_noslot,   neogeo,   neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "Thrash Rally (MGD2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, wh1d,      wh1,      neogeo_noslot,   neogeo,   neogeo_state, init_neogeo,   ROT0, "Alpha Denshi Co.", "World Heroes (MGD2)", MACHINE_SUPPORTS_SAVE )
+

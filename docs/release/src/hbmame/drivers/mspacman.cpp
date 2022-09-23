@@ -2799,7 +2799,7 @@ GAME( 2018, mspacii2,    mspacman, woodpek,  mspacman, puckman_state, empty_init
 GAME( 2018, ms2600a,     mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Atari look)", MACHINE_SUPPORTS_SAVE )
 
 
-
+#if 0
 // LOST ROMS - Crazy Otto - Below is the official list of Crazy Otto & Super Pacman roms with their hashes, and the supplied documentation
 //             All roms with names beginning with "otto" or "sp4" are missing.
 
@@ -2966,5 +2966,5 @@ GAME( 1981, otto1020, otto1012, otto1012, mspacman, puckman_state, empty_init,  
 GAME( 1981, otto1029, otto1012, otto1012, mspacman, puckman_state, init_otto1029, ROT90,  "General Computer", "Crazy Otto (prototype of 29 Oct 1981)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, sp4n1029, otto1012, otto1012, mspacman, puckman_state, init_otto1029, ROT90,  "General Computer", "Super Pac-Man (prototype of 29 Oct 1981 with Crazy Otto monsters)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, sp4o1029, otto1012, otto1012, mspacman, puckman_state, init_otto1029, ROT90,  "General Computer", "Super Pac-Man (prototype of 29 Oct 1981 with Pac-Man monsters)", MACHINE_SUPPORTS_SAVE )
-
+#endif
 

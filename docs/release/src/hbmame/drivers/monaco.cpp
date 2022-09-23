@@ -1417,7 +1417,7 @@ static const char *const monaco_sample_names[] =
 	"6siren",
 	"6slip",
 //  "gravel",
-	0
+	nullptr
 };
 
 /* ch 0 = engine; ch 1 = ambulance, puddle; ch 2 = extra car; ch 3 = crash; ch 4 = fanfare */
@@ -1482,78 +1482,6 @@ void monaco_state::machine_reset()
 	GameOver();
 }
 
-void monaco_state::monaco(machine_config &config)
-{
-	/* basic machine hardware */
-	Z80(config, m_maincpu, 200);   // fake
-	m_maincpu->set_addrmap(AS_PROGRAM, &monaco_state::monaco_map);
-	m_maincpu->set_vblank_int("screen", FUNC(monaco_state::monaco_interrupt));
-
-	/* video hardware */
-	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
-	screen.set_refresh_hz(60);
-	screen.set_vblank_time(ATTOSECONDS_IN_USEC(4368));
-	screen.set_size(SCREEN_WIDTH, SCREEN_HEIGHT);
-	screen.set_visarea(0, SCREEN_WIDTH-1, 0, SCREEN_HEIGHT-1);
-	screen.set_screen_update(FUNC(monaco_state::screen_update_monaco));
-	screen.set_palette(m_palette);
-
-	GFXDECODE(config, m_gfxdecode, m_palette, gfx_monaco);
-	PALETTE(config, m_palette, palette_device::BLACK, 160);   // set up in video start
-
-	MCFG_VIDEO_START_OVERRIDE(monaco_state, monaco)
-
-	/* sound hardware */
-	SPEAKER(config, "mono").front_center();
-	SAMPLES(config, m_samples);
-	m_samples->set_channels(5);
-	m_samples->set_samples_names(monaco_sample_names);
-	m_samples->add_route(ALL_OUTPUTS, "mono", 0.5);
-}
-
-/*****************************************************************/
-
-ROM_START( monaco )
-	ROM_REGION( 0xf000, "maincpu", ROMREGION_ERASE00 ) /* fake */
-
-	ROM_REGION( 0x3000, "gfx1", 0 )
-	ROM_LOAD( "pr125", 512*0,  512, CRC(7a66ed4c) SHA1(514e129c334a551b931c90b063b073a9b4bdffc3) ) /* light data */
-	ROM_LOAD( "pr126", 512*1,  512, CRC(5d7a8f12) SHA1(b4f0d21b91a7cf7002f99c08788669c7c38be51d) ) /* explosion */
-	ROM_LOAD( "pr127", 512*2,  512, CRC(8ffdc2f0) SHA1(05cc3330c067965b8b90b5d27119fe9f26580a13) ) /* car(2)main */
-	ROM_LOAD( "pr128", 512*3,  512, CRC(dde29dea) SHA1(34c413edff991297471bd0bc193c4bd8ede4e468) ) /* car(2)rotated */
-	ROM_LOAD( "pr129", 512*4,  512, CRC(7b18af26) SHA1(3d1ff2610813544c3b9b65182f081272a9537640) ) /* car(2)rotated */
-	ROM_LOAD( "pr130", 512*5,  512, CRC(9ef1913b) SHA1(58830121781b8a13532eaf8ea13ec07f10522320) ) /* car(2) spinout */
-	ROM_LOAD( "pr131", 512*6,  512, CRC(ff31eb01) SHA1(fd6bcd92c4bd919bb1a96ca97688d46cb310b39d) ) /* splash */
-	ROM_LOAD( "pr132", 512*7,  512, CRC(6b8ad9bc) SHA1(be36e3b6b647d3a9565bc45903027c791dc889e5) ) /* car(2)(other) */
-	ROM_LOAD( "pr133", 512*8,  512, CRC(d50641d9) SHA1(bf399e9830c88e4d8f8fb386305f54ef766946d9) ) /* text(4) */
-	ROM_LOAD( "pr134", 512*9,  512, CRC(8ebd50bb) SHA1(98d51f503753d4d7191a09b509d26c1e049e981a) ) /* tree, grass */
-	ROM_LOAD( "pr135", 512*10, 512, CRC(986eda32) SHA1(73fa539d4c83748952d9339985208520fec955f3) ) /* shrub */
-	ROM_LOAD( "pr136", 512*11, 512, CRC(ecc5d1a2) SHA1(33bff7381785557a85e4c8bdd74679b59e0ed9d5) ) /* house */
-	ROM_LOAD( "pr137", 512*12, 512, CRC(ddd9004e) SHA1(5229c34578e66d9c51a05439a516513946ba69ed) ) /* tunnel, oil slip */
-	ROM_LOAD( "pr138", 512*13, 512, CRC(058e53cf) SHA1(7c3aaaca5a9e9ce3a3badd0dcc8360342673a397) ) /* firetruck */
-	ROM_LOAD( "pr139", 512*14, 512, CRC(e8ba0794) SHA1(eadd7425134f26b1c126bbcd3d3dabf4b2e1fe70) ) /* car, bridge symbol */
-	ROM_LOAD( "pr140", 512*15, 512, CRC(48e9971b) SHA1(c0c265cdc08727e3caaf49cdfe728a91c4c46ba2) ) /* bridge-water */
-	ROM_LOAD( "pr141", 512*16, 512, CRC(99934236) SHA1(ec271f3e690d5c57ead9132b22b9b1b966e4d170) ) /* bridge-pillar */
-
-	ROM_REGION( 32*3, "proms", 0 )
-	ROM_LOAD( "prm38", 0*32, 32, CRC(82dd0a0f) SHA1(3e7e475c3270853d70c1fe90a773172532b60cfb) ) /* acceleration related */
-	ROM_LOAD( "prm39", 1*32, 32, CRC(6acfa0da) SHA1(1e56da4cdf71a095eac29878969b831babac222b) ) /* regulates opponent car speed */
-
-//  ROM_LOAD( "prm-40", 2*32, 32, CRC(8030dac8) )
-/*  PR40 is in the Fanfare sound circuit and seems to access the particular
- *  notes for the fanfare sound (so PR40 may contain timing and pointer info
- *  on the melody).� The switch (SW1) I mentioned before that helped in tuning
- *  the fanfare sound with the 6 pots seems to help in making the tuning of each
- *  pot for output of one of three audio frequencies (262, 330, 392 Hz),
- *  instead of having to tune to 6 different frequencies (a production/test
- *  equipment issue).
- *  In any case, if we get a good sample of this fanfare sound, we will not
- *  need to bother with this circuit or PR40.� As far a I have seen, the
- *  fanfare sound only comes up at the end of the game if you have a top five
- *  score and possibly when you plug in the game.
- */
-ROM_END
-
 void monaco_state::init_monaco()
 {
 	const double dy_table[5] =
@@ -1579,12 +1507,6 @@ void monaco_state::init_monaco()
 		m_dy[i] = dy_table[i];
 	}
 }
-
-/*          rom     parent  machine inp     init */
-GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, init_monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )
-
-
-
 
 /* Monaco GP video hardware simulation */
 
@@ -1960,9 +1882,8 @@ static const u8 led_map[12] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6
 void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 {
 	int i; // must be signed
-	u32 data;
 
-//  data = m_speed;
+//  u32 data = m_speed;
 //  for( i=2; i>=0; i-- )
 //  {
 //      drawgfx_transpen( bitmap, led_font,
@@ -1974,7 +1895,7 @@ void monaco_state::draw_leds( bitmap_ind16 &bitmap )
 //      data = data/10;
 //  }
 
-	data = m_led_high1>>8;
+	u32 data = m_led_high1>>8;
 	for( i=3; i>=0; i-- )
 	{
 		m_out_digit[10+i] = led_map[data%10];
@@ -2182,3 +2103,79 @@ VIDEO_START_MEMBER( monaco_state, monaco )
 // 0,198,255: wet road
 // 255,215,0: yellow trim
 }
+
+void monaco_state::monaco(machine_config &config)
+{
+	/* basic machine hardware */
+	Z80(config, m_maincpu, 200);   // fake
+	m_maincpu->set_addrmap(AS_PROGRAM, &monaco_state::monaco_map);
+	m_maincpu->set_vblank_int("screen", FUNC(monaco_state::monaco_interrupt));
+
+	/* video hardware */
+	screen_device &screen(SCREEN(config, "screen", SCREEN_TYPE_RASTER));
+	screen.set_refresh_hz(60);
+	screen.set_vblank_time(ATTOSECONDS_IN_USEC(4368));
+	screen.set_size(SCREEN_WIDTH, SCREEN_HEIGHT);
+	screen.set_visarea(0, SCREEN_WIDTH-1, 0, SCREEN_HEIGHT-1);
+	screen.set_screen_update(FUNC(monaco_state::screen_update_monaco));
+	screen.set_palette(m_palette);
+
+	GFXDECODE(config, m_gfxdecode, m_palette, gfx_monaco);
+	PALETTE(config, m_palette, palette_device::BLACK, 160);   // set up in video start
+
+	MCFG_VIDEO_START_OVERRIDE(monaco_state, monaco)
+
+	/* sound hardware */
+	SPEAKER(config, "mono").front_center();
+	SAMPLES(config, m_samples);
+	m_samples->set_channels(5);
+	m_samples->set_samples_names(monaco_sample_names);
+	m_samples->add_route(ALL_OUTPUTS, "mono", 0.5);
+}
+
+/*****************************************************************/
+
+ROM_START( monaco )
+	ROM_REGION( 0xf000, "maincpu", ROMREGION_ERASE00 ) /* fake */
+
+	ROM_REGION( 0x3000, "gfx1", 0 )
+	ROM_LOAD( "pr125", 512*0,  512, CRC(7a66ed4c) SHA1(514e129c334a551b931c90b063b073a9b4bdffc3) ) /* light data */
+	ROM_LOAD( "pr126", 512*1,  512, CRC(5d7a8f12) SHA1(b4f0d21b91a7cf7002f99c08788669c7c38be51d) ) /* explosion */
+	ROM_LOAD( "pr127", 512*2,  512, CRC(8ffdc2f0) SHA1(05cc3330c067965b8b90b5d27119fe9f26580a13) ) /* car(2)main */
+	ROM_LOAD( "pr128", 512*3,  512, CRC(dde29dea) SHA1(34c413edff991297471bd0bc193c4bd8ede4e468) ) /* car(2)rotated */
+	ROM_LOAD( "pr129", 512*4,  512, CRC(7b18af26) SHA1(3d1ff2610813544c3b9b65182f081272a9537640) ) /* car(2)rotated */
+	ROM_LOAD( "pr130", 512*5,  512, CRC(9ef1913b) SHA1(58830121781b8a13532eaf8ea13ec07f10522320) ) /* car(2) spinout */
+	ROM_LOAD( "pr131", 512*6,  512, CRC(ff31eb01) SHA1(fd6bcd92c4bd919bb1a96ca97688d46cb310b39d) ) /* splash */
+	ROM_LOAD( "pr132", 512*7,  512, CRC(6b8ad9bc) SHA1(be36e3b6b647d3a9565bc45903027c791dc889e5) ) /* car(2)(other) */
+	ROM_LOAD( "pr133", 512*8,  512, CRC(d50641d9) SHA1(bf399e9830c88e4d8f8fb386305f54ef766946d9) ) /* text(4) */
+	ROM_LOAD( "pr134", 512*9,  512, CRC(8ebd50bb) SHA1(98d51f503753d4d7191a09b509d26c1e049e981a) ) /* tree, grass */
+	ROM_LOAD( "pr135", 512*10, 512, CRC(986eda32) SHA1(73fa539d4c83748952d9339985208520fec955f3) ) /* shrub */
+	ROM_LOAD( "pr136", 512*11, 512, CRC(ecc5d1a2) SHA1(33bff7381785557a85e4c8bdd74679b59e0ed9d5) ) /* house */
+	ROM_LOAD( "pr137", 512*12, 512, CRC(ddd9004e) SHA1(5229c34578e66d9c51a05439a516513946ba69ed) ) /* tunnel, oil slip */
+	ROM_LOAD( "pr138", 512*13, 512, CRC(058e53cf) SHA1(7c3aaaca5a9e9ce3a3badd0dcc8360342673a397) ) /* firetruck */
+	ROM_LOAD( "pr139", 512*14, 512, CRC(e8ba0794) SHA1(eadd7425134f26b1c126bbcd3d3dabf4b2e1fe70) ) /* car, bridge symbol */
+	ROM_LOAD( "pr140", 512*15, 512, CRC(48e9971b) SHA1(c0c265cdc08727e3caaf49cdfe728a91c4c46ba2) ) /* bridge-water */
+	ROM_LOAD( "pr141", 512*16, 512, CRC(99934236) SHA1(ec271f3e690d5c57ead9132b22b9b1b966e4d170) ) /* bridge-pillar */
+
+	ROM_REGION( 32*3, "proms", 0 )
+	ROM_LOAD( "prm38", 0*32, 32, CRC(82dd0a0f) SHA1(3e7e475c3270853d70c1fe90a773172532b60cfb) ) /* acceleration related */
+	ROM_LOAD( "prm39", 1*32, 32, CRC(6acfa0da) SHA1(1e56da4cdf71a095eac29878969b831babac222b) ) /* regulates opponent car speed */
+
+//  ROM_LOAD( "prm-40", 2*32, 32, CRC(8030dac8) )  // rom not exist...
+/*  PR40 is in the Fanfare sound circuit and seems to access the particular
+ *  notes for the fanfare sound (so PR40 may contain timing and pointer info
+ *  on the melody).The switch (SW1) I mentioned before that helped in tuning
+ *  the fanfare sound with the 6 pots seems to help in making the tuning of each
+ *  pot for output of one of three audio frequencies (262, 330, 392 Hz),
+ *  instead of having to tune to 6 different frequencies (a production/test
+ *  equipment issue).
+ *  In any case, if we get a good sample of this fanfare sound, we will not
+ *  need to bother with this circuit or PR40.As far a I have seen, the
+ *  fanfare sound only comes up at the end of the game if you have a top five
+ *  score and possibly when you plug in the game.
+ */
+ROM_END
+
+/*          rom     parent  machine inp     init */
+GAMEL( 1979, monaco, 0, monaco, monaco, monaco_state, init_monaco, ROT90, "Sega", "Monaco GP", 0, layout_monaco )
+

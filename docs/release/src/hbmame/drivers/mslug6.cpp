@@ -3,7 +3,7 @@
 // Metal Slug 6
 #include "includes/neogeo.h"
 
-void neogeo_state::init_ms6s16()
+void neogeo_state::init_ms6()
 {
 	init_neogeo();
 	m_bootleg_prot->neogeo_bootleg_sx_decrypt(fix_region, fix_region_size,2);
@@ -1292,15 +1292,7 @@ ROM_START( mslug6pa01 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1326,15 +1318,7 @@ ROM_START( mslug6pa02 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1360,15 +1344,7 @@ ROM_START( mslug6pa03 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1394,15 +1370,7 @@ ROM_START( mslug6pa04 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1428,15 +1396,7 @@ ROM_START( mslug6pb01 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1462,15 +1422,7 @@ ROM_START( mslug6pb02 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1496,15 +1448,7 @@ ROM_START( mslug6pb03 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1530,15 +1474,7 @@ ROM_START( mslug6pb04 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1564,15 +1500,7 @@ ROM_START( mslug6pc01 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1598,15 +1526,7 @@ ROM_START( mslug6pc02 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1632,15 +1552,7 @@ ROM_START( mslug6pc03 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1666,15 +1578,7 @@ ROM_START( mslug6pc04 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1700,15 +1604,7 @@ ROM_START( mslug6pd01 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1734,15 +1630,7 @@ ROM_START( mslug6pd02 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1768,15 +1656,7 @@ ROM_START( mslug6pd03 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1802,15 +1682,7 @@ ROM_START( mslug6pd04 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1836,15 +1708,7 @@ ROM_START( mslug6pe01 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1870,15 +1734,7 @@ ROM_START( mslug6pe02 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1904,15 +1760,7 @@ ROM_START( mslug6pe03 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1938,15 +1786,7 @@ ROM_START( mslug6pe04 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -1972,15 +1812,7 @@ ROM_START( mslug6pf01 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -2006,15 +1838,7 @@ ROM_START( mslug6pf02 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -2040,15 +1864,7 @@ ROM_START( mslug6pf03 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -2074,15 +1890,7 @@ ROM_START( mslug6pf04 )
 
 	NEO_SFIX_128K( "256v.s1", CRC(6f8b9635) SHA1(86b0c8c0ccac913c6192ed6a96c35d4e1a5e8061) )
 
-	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
-	ROM_LOAD16_WORD_SWAP( "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
-
-	ROM_REGION( 0x20000, "audiobios", 0 )
-	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
-
-	ROM_REGION( 0x90000, "audiocpu", 0 )
-	ROM_LOAD( "256.m1", 0x00000, 0x80000, CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
-	ROM_RELOAD(     0x10000, 0x80000 )
+	NEO_BIOS_AUDIO_512K( "256.m1", CRC(eaeec116) SHA1(54419dbb21edc8c4b37eaac2e7ad9496d2de037a) )
 
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "256.v1", 0x000000, 0x400000, CRC(f2690241) SHA1(fd56babc1934d10e0d27c32f032f9edda7ca8ce9) )
@@ -2101,78 +1909,78 @@ ROM_START( mslug6pf04 )
 	ROM_LOAD16_BYTE( "299ds16.c8", 0x3000001, 0x800000, CRC(64c33010) SHA1(6b1ef285228720fd828cf317ebfc17cace0bc5cd) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 2019, mslug6h01,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-02-12)", MACHINE_SUPPORTS_SAVE ) //Official roms hacks
-GAME( 2019, mslug6h02,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemy Soldier Reset #3 2019-01-02)", MACHINE_SUPPORTS_SAVE ) //Official roms hacks
-GAME( 2019, mslug6h03,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Summon Mount Edition 2019-02-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug6h04,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_mslug3b6,  ROT0, "hack",     "Metal Slug 6 (Super Enhanced Edition 2015-05-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6h05,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Summon Mount Burst Enhanced Edition 2020-03-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6h06,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)(Summon Mount Burst Enhanced Edition 2020-04-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6h07,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Fatty War 2020-08-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6h08,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "hack",     "Metal Slug 6 (Crazy Fire Edición 2020-09-03)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6h09,      mslug3,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version 2019-09-30)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, mslug6ha01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                        "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug6hb01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-04-15)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug6hb02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-04-17)", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, mslug6hb03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version 2019-07-20)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6hc01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                        "Metal Slug 6 (The Last Warhead 2020-09-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6hd01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                        "Metal Slug 6 (The Future 2020-09-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6he01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                        "Metal Slug 6 (Enemy Soldier Reset #1 2020-09-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6hz01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                        "Metal Slug 6 (Removed The Change Gun Version 2020-09-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6ta01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Summon Mount Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6ta02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6ta03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Prototype 2018-07-21)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6tb01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",                  "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
-GAME( 2020, mslug6tb02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu/I love Nimes",     "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
-GAME( 2020, mslug6tb03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",                  "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
-GAME( 2020, mslug6tc01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6tc02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6tc03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6td01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6td02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (The Future 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6td03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6te01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6te02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6te03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6tf01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6tf02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6tf03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6la01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
-GAME( 2020, mslug6la02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6la03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6la04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6la05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6lb01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
-GAME( 2020, mslug6lb02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6lb03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6lb04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6lb05,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6lc01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
-GAME( 2020, mslug6lc02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6lc03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6lc04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6pa01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6pa02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Version Zombie Players Mode Edition Extreme Mix [2020-09-18])", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6pa03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Version Mummy Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6pa04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Hybrid Bullets Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, mslug6pb01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 1](Revised Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug6pb02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug6pb03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug6pb04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version 2019-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
-GAME( 2020, mslug6pc01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Revised Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6pc02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6pc03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6pc04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
-GAME( 2020, mslug6pd01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 1](Revised Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6pd02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6pd03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6pd04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
-GAME( 2020, mslug6pe01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future 2020-09-29)[Edition 1](Revised Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6pe02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6pe03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6pe04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
-GAME( 2020, mslug6pf01,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Revised Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6pf02,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6pf03,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
-GAME( 2020, mslug6pf04,     mslug3,   neogeo_noslot, neogeo, neogeo_state, init_ms6s16,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix [2020-09-18])", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+/*    YEAR  NAME            PARENT    MACHINE        INPUT     CLASS       INIT         MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 2019, mslug6h01,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version, 2019-02-12)", MACHINE_SUPPORTS_SAVE ) //Official roms hacks
+GAME( 2019, mslug6h02,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "hack",     "Metal Slug 6 (Enemy Soldier Reset #3, 2019-01-02)", MACHINE_SUPPORTS_SAVE ) //Official roms hacks
+GAME( 2019, mslug6h03,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "hack",     "Metal Slug 6 (Summon Mount Edition, 2019-02-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug6h04,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_mslug6, ROT0, "hack",     "Metal Slug 6 (Super Enhanced Edition, 2015-05-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6h05,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version, 2019-07-20)(Summon Mount Burst Enhanced Edition, 2020-03-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6h06,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version, 2019-07-20)(Summon Mount Burst Enhanced Edition, 2020-04-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6h07,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "hack",     "Metal Slug 6 (Fatty War, 2020-08-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6h08,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "hack",     "Metal Slug 6 (Crazy Fire Edition, 2020-09-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6h09,      mslug6,   neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "hack",     "Metal Slug 6 (Enemies Resetting Version, 2019-09-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, mslug6ha01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                        "Metal Slug 6 (Enemy Soldier Reset Prototype, 2018-07-21)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug6hb01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version, 2019-04-15)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug6hb02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version, 2019-04-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, mslug6hb03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",     "Metal Slug 6 (Enemies Resetting Version, 2019-07-20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6hc01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                        "Metal Slug 6 (The Last Warhead, 2020-09-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6hd01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                        "Metal Slug 6 (The Future, 2020-09-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6he01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                        "Metal Slug 6 (Enemy Soldier Reset #1, 2020-09-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6hz01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                        "Metal Slug 6 (Removed The Change Gun Version, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6ta01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Prototype, 2018-07-21)(Summon Mount Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6ta02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (Enemy Soldier Reset Prototype, 2018-07-21)(Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6ta03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Prototype, 2018-07-21)(Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6tb01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",                  "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
+GAME( 2020, mslug6tb02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu/I love Nimes",     "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
+GAME( 2020, mslug6tb03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/XiaShuiDaoMeiRenYu",                  "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
+GAME( 2020, mslug6tc01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6tc02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6tc03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6td01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future, 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6td02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (The Future, 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6td03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future, 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6te01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6te02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6te03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6tf01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 2](Summon Mount Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6tf02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90/I love Nimes",     "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 2](Burst Enhanced Edition)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6tf03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 2](Hybrid Bullets Version)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6la01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
+GAME( 2020, mslug6la02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6la03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6la04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6la05,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 1]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6lb01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
+GAME( 2020, mslug6lb02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6lb03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Future, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6lb04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6lb05,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 2]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6lc01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting 2019-07-20
+GAME( 2020, mslug6lc02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6lc03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6lc04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Gaston90",                  "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 3]", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6pa01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6pa02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Version Zombie Players Mode Edition Extreme Mix, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6pa03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Version Mummy Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6pa04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",      "Metal Slug 6 (Revised Hybrid Bullets Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, mslug6pb01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 1](Revised Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug6pb02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug6pb03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug6pb04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,XiaShuiDaoMeiRenYu,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemies Resetting Version, 2019-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemies Resetting Version 2019-07-20
+GAME( 2020, mslug6pc01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Revised Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6pc02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6pc03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6pc04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #1, 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #1 2020-09-05
+GAME( 2020, mslug6pd01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 1](Revised Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6pd02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6pd03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6pd04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Last Warhead, 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Last Warhead 2020-09-05
+GAME( 2020, mslug6pe01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future, 2020-09-29)[Edition 1](Revised Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6pe02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future, 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6pe03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future, 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6pe04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (The Future, 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //The Future 2020-09-29
+GAME( 2020, mslug6pf01,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Revised Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6pf02,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Revised Version Zombie Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6pf03,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Robert,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Revised Version Mummy Players Mode Edition Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
+GAME( 2020, mslug6pf04,     mslug6,   neogeo_noslot, neogeo, neogeo_state, init_ms6,    ROT0, "Team Remix(Gaston90,Ydmis,DDJ,I love Nimes)",     "Metal Slug 6 (Enemy Soldier Reset Version #3, 2020-09-29)[Edition 1](Revised Hybrid Bullets Version Extreme Remix, 2020-09-18)", MACHINE_SUPPORTS_SAVE ) //Enemy Soldier Reset #3 2019-01-02
 
