@@ -653,8 +653,6 @@ files {
 	MAME_DIR .. "src/mame/audio/dcs.cpp",
 	MAME_DIR .. "src/mame/audio/csd.cpp",
 	MAME_DIR .. "src/mame/audio/bally.cpp",
-	MAME_DIR .. "src/mame/audio/nl_gunfight.cpp",
-	MAME_DIR .. "src/mame/audio/nl_280zzzap.cpp",
 	MAME_DIR .. "src/mame/audio/s11c_bg.cpp",
 }
 
