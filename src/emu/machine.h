@@ -162,7 +162,7 @@ public:
 	bool allow_logging() const { return !m_logerror_list.empty(); }
 
 	// fetch items by name
-	template <class DeviceClass> [[deprecated("absolute tag lookup; use subdevice or finder instead")]] inline DeviceClass *device(const char *tag) { return downcast<DeviceClass *>(root_device().subdevice(tag)); }
+	template <class DeviceClass> inline DeviceClass *device(const char *tag) { return downcast<DeviceClass *>(root_device().subdevice(tag)); }
 
 	// immediate operations
 	int run(bool quiet);

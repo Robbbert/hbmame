@@ -3054,7 +3054,7 @@ public:
 		, m_searchpath(env.search_path() ? env.search_path() : "")
 		, m_dirname(env.directory_name() ? env.directory_name() : "")
 	{
-		osd_printf_warning("Warning: layout file contains deprecated reel component\n");
+		//osd_printf_warning("Warning: layout file contains deprecated reel component\n");
 
 		std::string_view symbollist = env.get_attribute_string(compnode, "symbollist", "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15");
 
@@ -4358,36 +4358,36 @@ void layout_view::add_items(
 		}
 		else if (!strcmp(itemnode->get_name(), "backdrop"))
 		{
-			if (layers.backdrops.empty())
-				osd_printf_warning("Warning: layout view '%s' contains deprecated backdrop element\n", name());
+			//if (layers.backdrops.empty())
+				//osd_printf_warning("Warning: layout view '%s' contains deprecated backdrop element\n", name());
 			layers.backdrops.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "overlay"))
 		{
-			if (layers.overlays.empty())
-				osd_printf_warning("Warning: layout view '%s' contains deprecated overlay element\n", name());
+			//if (layers.overlays.empty())
+				//osd_printf_warning("Warning: layout view '%s' contains deprecated overlay element\n", name());
 			layers.overlays.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "bezel"))
 		{
-			if (layers.bezels.empty())
-				osd_printf_warning("Warning: layout view '%s' contains deprecated bezel element\n", name());
+			//if (layers.bezels.empty())
+				//osd_printf_warning("Warning: layout view '%s' contains deprecated bezel element\n", name());
 			layers.bezels.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "cpanel"))
 		{
-			if (layers.cpanels.empty())
-				osd_printf_warning("Warning: layout view '%s' contains deprecated cpanel element\n", name());
+			//if (layers.cpanels.empty())
+				//osd_printf_warning("Warning: layout view '%s' contains deprecated cpanel element\n", name());
 			layers.cpanels.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
 		else if (!strcmp(itemnode->get_name(), "marquee"))
 		{
-			if (layers.marquees.empty())
-				osd_printf_warning("Warning: layout view '%s' contains deprecated marquee element\n", name());
+			//if (layers.marquees.empty())
+				//osd_printf_warning("Warning: layout view '%s' contains deprecated marquee element\n", name());
 			layers.marquees.emplace_back(env, *itemnode, elemmap, orientation, trans, color);
 			m_has_art = true;
 		}
