@@ -1579,15 +1579,6 @@ else
 	$(SILENT)$(PYTHON) scripts/build/msgfmt.py --output-file $@ $<
 endif
 
-#-------------------------------------------------
-# Regression tests
-#-------------------------------------------------
-
-include regtests/regtests.mak
-
-.PHONY: tests
-
-tests: $(REGTESTS)
 
 #-------------------------------------------------
 # Source cleanup

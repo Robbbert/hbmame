@@ -1,1 +1,0 @@
-These files were created with Atmel Corporation's WinCUPL v5.30.4 software.
