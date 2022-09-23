@@ -104,6 +104,7 @@ void
         switch ( roundingMode ) {
          case softfloat_round_near_even:
             if ( !fracF128UI96( ui96 ) && !sigExtra ) break;
+			[[fallthrough]];
          case softfloat_round_near_maxMag:
             if ( exp == 0x3FFE ) goto mag1;
             break;
