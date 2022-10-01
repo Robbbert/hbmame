@@ -5895,7 +5895,7 @@ ssideki			// 052
 //ssideki2		// 061  not needed
 //ssideki3		// 081  not needed
 ssideki4		// 215
-//stakwin		// 088  not needed
+stakwin			// 088  broken in mame, works here
 //stakwin2		// 227  not needed
 strhoop			// 079
 superspy		// 011

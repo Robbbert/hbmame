@@ -285,7 +285,7 @@ YEAR COMPANY                          TITLE
 2002 ADK                              World Heroes 3
                                       Neo Dev Cart
                                       MVS Test Cart
-2014 M.Priewe                         Doom in the Deep (Submarine Shooter Demo) (www.neohomebrew.com)
+2014 M.Priewe                         Doom in the Deep (Submarine Shooter Demo - NeoSubmarine) (www.neohomebrew.com) (video on youtube)
      M.Priewe                         Witch Adventure Demo
      M.Priewe                         3D Racing Game Demo
      M.Priewe                         Fighting Game Demo
@@ -311,6 +311,7 @@ YEAR COMPANY                          TITLE
 2017 HPMAN                            Beats of Rage (some alpha videos on youtube)
 2017 Blastar                          Blut Engel II (some alpha videos on youtube)
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
+2018 NeoHomeBrew (aka M.Priewe)       Pseudo 3D Racing Game Engine Demo (video on youtube)
 2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
 2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
