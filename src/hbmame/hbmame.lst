@@ -1700,6 +1700,9 @@ dotrikun2
 dotriman
 mineswp
 
+@source:dt7.cpp
+dt7                                    // no inputs
+
 @source:dynax.cpp
 mjelctrn                               //parent
 mjelct3s01

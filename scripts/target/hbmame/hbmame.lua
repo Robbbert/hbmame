@@ -1039,6 +1039,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/wardner.cpp",
 	MAME_DIR .. "src/mame/video/toaplan_scu.cpp",
 	MAME_DIR .. "src/mame/machine/nmk112.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dt7.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "unico")

@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-1x-xx 0.245.6
+
+
+
+New Games
+---------------------------------
+- [dt7]                 Dynamic Trial 7 (prototype, not working)
+
+
+
+
 2022-09-26 0.245.6
 
 All hacks & homebrew are expected to work - please report anything that misbehaves.
