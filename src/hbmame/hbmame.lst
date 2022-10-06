@@ -24,9 +24,9 @@ galagax 		/* Jerky - Chris Moore hack of 1942 */
 1943b2			// from FBA
 
 @source:8080bw.cpp
-invaders		//parent
-tst_invd		// test rom
-invmulti		//parent
+invaders                               //parent
+tst_invd
+invmulti                               //parent
 invmultim1a
 invmultim2a
 invmultim2c
@@ -37,6 +37,11 @@ invmultis2a
 invmultis3a
 invmultit3d
 sinvrdzm
+sinvtest
+sinvtest0
+sinvtest1
+sinvtest2
+sinvtest3
 
 @source:arkanoid.cpp
 arkanoid		//parent

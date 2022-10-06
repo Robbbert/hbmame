@@ -7,6 +7,11 @@
 
 New Games
 ---------------------------------
+- [sinvtest]            Space Invaders Test Rom (SMv1.0)
+- [sinvtest0]           Space Invaders Test Rom (v1.0)
+- [sinvtest1]           Space Invaders Test Rom (v1.1)
+- [sinvtest2]           Space Invaders Test Rom (v1.2)
+- [sinvtest3]           Space Invaders Test Rom (v1.3)
 - [spectest]            Spectar Test Rom
 
 

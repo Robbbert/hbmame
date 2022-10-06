@@ -1,6 +1,14 @@
 // license:CC BY-NC-ND 3.0 (copying this code into another project is not permitted)
 // copyright-holders:Robbbert
+/***************************************************************************************
+The test roms:
+- Test VID-R only works if the cabinet is in Cocktail mode.
+- Test LAU-H is when your ship blows up. On a colour board, the screen will flash red.
+- The SHIFTERS test (when present) only happens on the 2nd round of audio tests.
 
+The multigame roms:
+- The colours and sounds are bad. This might occur on real hardware.
+***************************************************************************************/
 #include "emu.h"
 #include "cpu/i8085/i8085.h"
 #include "machine/eepromser.h"
@@ -1055,12 +1063,54 @@ ROM_END
 
 ROM_START( tst_invd )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "test.h",       0x0000, 0x0800, CRC(f86a2eea) SHA1(4a72ff01f3e6d16bbe9bf7f123cd98895bfbed9a) )   /*  The Test ROM */
+	ROM_LOAD( "test.h",       0x0000, 0x0800, CRC(f86a2eea) SHA1(4a72ff01f3e6d16bbe9bf7f123cd98895bfbed9a) ) // Test ROM
 	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
 	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
 	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
 
-	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF )        /* color maps player 1/player 2 */
+	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF ) // because using invadpt2
+ROM_END
+
+ROM_START( sinvtest )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sinvtest.h",   0x0000, 0x0800, CRC(0a428359) SHA1(cfb961d4888c781ea52a7579ce73ab22cab58ab6) ) // Test rom
+	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
+
+	ROM_REGION( 0x0800, "proms", ROMREGION_ERASEFF ) // because using invadpt2
+ROM_END
+
+ROM_START( sinvtest0 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sinvtest0.h",  0x0000, 0x0800, CRC(f78d2682) SHA1(c3dd0e91ec40ca22e90370a77f3f5e08345ff92b) ) // Test rom
+	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
+ROM_END
+
+ROM_START( sinvtest1 ) // This hangs in the 2nd ram test due to an internal bug. Fixed in sinvtest3.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sinvtest1.h",  0x0000, 0x0800, CRC(9c2f913e) SHA1(2cc2ed2267a121034ef02d734f025aad91c5c8d1) ) // Test rom
+	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
+ROM_END
+
+ROM_START( sinvtest2 ) // This hangs in the 2nd ram test due to an internal bug. Fixed in sinvtest3.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sinvtest2.h",  0x0000, 0x0800, CRC(7c5e93f5) SHA1(b927a073f4a1ee54df62bdc7173b038232edfea4) ) // Test rom
+	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
+ROM_END
+
+ROM_START( sinvtest3 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "sinvtest3.h",  0x0000, 0x0800, CRC(08d43dfe) SHA1(debe4e137e3cbc46c720ddd956960a313c43470e) ) // Test rom
+	ROM_LOAD( "invaders.g",   0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "invaders.f",   0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "invaders.e",   0x1800, 0x0800, CRC(14e538b0) SHA1(1d6ca0c99f9df71e2990b610deb9d7da0125e2d8) )
 ROM_END
 
 ROM_START( sinvrdzm )
@@ -1146,17 +1196,22 @@ ROM_START( invmultip )
 ROM_END
 
 
-GAMEL( 1978, invaders,   0,        invaders,  invaders,  invaders_state, empty_init,    ROT270, "Taito / Midway", "Space Invaders / Space Invaders M", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAME( 19??, tst_invd,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "<unknown>", "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE )
+GAMEL(1978, invaders,    0,        invaders,  invaders,  invaders_state, empty_init,    ROT270, "Taito / Midway",        "Space Invaders", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAME( 1978, tst_invd,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Taito",                 "Space Invaders Test ROM", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, sinvtest,    invaders, invadpt2,  invadpt2,  invaders_state, empty_init,    ROT0,   "Phil Murray",           "Space Invaders Test ROM (SMv1.0, 2022-01-14)", MACHINE_SUPPORTS_SAVE )
+GAMEL(2013, sinvtest0,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.0, 2013-10-12)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(2017, sinvtest1,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Fabrice Girardot",      "Space Invaders Test ROM (v1.1, 2017-09-17)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(2017, sinvtest2,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Frederic Rodo",         "Space Invaders Test ROM (v1.2, 2017-10-14)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(2019, sinvtest3,   invaders, invaders,  invaders,  invaders_state, empty_init,    ROT270, "Marc Deslauriers",      "Space Invaders Test ROM (v1.3, 2019-03-27)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(1978, sinvrdzm,    invaders, invaders,  superinv,  invaders_state, empty_init,    ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Ruffler & Deith)", MACHINE_SUPPORTS_SAVE, layout_invaders )
-GAME( 2002, invmulti,    0,        invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (M8.03D)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (M8.03A)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim2c, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (M8.02C)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim2a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (M8.02A)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultim1a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (M8.01A)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultit3d, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (T8.03D)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultis3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (S0.83A)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultis2a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (S0.82A)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultis1a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (S0.81A)",                               MACHINE_SUPPORTS_SAVE )
-GAME( 2002, invmultip,   invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "hack (Braze Technologies)",          "Space Invaders Multigame (prototype)",                            MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmulti,    0,        invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.03D)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultim3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.03A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultim2c, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.02C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultim2a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.02A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultim1a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (M8.01A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultit3d, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (T8.03D)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultis3a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (S0.83A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultis2a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (S0.82A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultis1a, invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (S0.81A)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, invmultip,   invmulti, invmulti,  invmulti,  invmulti_state, init_invmulti, ROT270, "Braze Technologies",    "Space Invaders Multigame (prototype)", MACHINE_SUPPORTS_SAVE )
 
