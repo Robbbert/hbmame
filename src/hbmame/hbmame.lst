@@ -8368,6 +8368,10 @@ solomonjs01
 @source:spacmiss.cpp
 spacmissx                              // extra sounds
 
+@source:spcenctr.cpp
+spcenctr                               //parent
+senctest
+
 @source:ssv.cpp
 survarts                               //parent
 survartss01

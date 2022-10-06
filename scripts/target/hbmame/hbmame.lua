@@ -624,6 +624,7 @@ files {
 createHBMAMEProjects(_target, _subtarget, "midway")
 files {
 	MAME_DIR .. "src/hbmame/drivers/invaders.cpp",
+	MAME_DIR .. "src/hbmame/drivers/spcenctr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",
 	MAME_DIR .. "src/mame/video/astrocde.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcr.cpp",
