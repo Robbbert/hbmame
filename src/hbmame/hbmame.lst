@@ -1701,7 +1701,7 @@ dotriman
 mineswp
 
 @source:dt7.cpp
-dt7                                    // no inputs
+//dt7                                    // no inputs
 
 @source:dynax.cpp
 mjelctrn                               //parent
@@ -1714,10 +1714,12 @@ tenkaibbs01
 //armdemo				/* Charles Doty */  // totally broken
 
 @source:exidy.cpp
-targ					//parent
-targtest				// Targ Test Rom
-teetert					//parent
-teetertfp				// free play hack
+targ                                   //parent
+targtest
+spectar                                //parent
+spectest
+teetert                                //parent
+teetertfp
 
 @source:exerion.cpp
 exerion					//parent

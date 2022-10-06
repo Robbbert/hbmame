@@ -1,14 +1,13 @@
 ﻿What's new in HBMAME
 ====================
 
-2022-1x-xx 0.245.6
+2022-1x-xx 0.245.7
 
 
 
 New Games
 ---------------------------------
-- [dt7]                 Dynamic Trial 7 (prototype, not working)
-
+- [spectest]            Spectar Test Rom
 
 
 

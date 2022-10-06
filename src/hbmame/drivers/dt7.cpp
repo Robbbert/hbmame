@@ -122,7 +122,7 @@ private:
 #define G_62 0xa0  // very likely wrong (or is it?)
 
 // some kind of branch, not sure which
-// it's used after compares in blocks, sometimes with a 'be' then a 'br' straight after, so it must be a condition that could also fail a be and fall to the br 
+// it's used after compares in blocks, sometimes with a 'be' then a 'br' straight after, so it must be a condition that could also fail a be and fall to the br
 //#define G_B0  0x74  
 #define G_B0  0x79
 //#define G_B0  0x75
@@ -521,7 +521,6 @@ static INPUT_PORTS_START( dt7 )
 	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, clk_write)
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, di_write)
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, do_read)
-
 INPUT_PORTS_END
 
 
@@ -559,10 +558,7 @@ TILE_GET_INFO_MEMBER(toaplan2_dt7_state::get_text_dt7_tile_info)
 
 	color |= 0x60;
 
-	tileinfo.set(0,
-			tile_number,
-			color,
-			0);
+	tileinfo.set(0, tile_number, color, 0);
 }
 
 VIDEO_START_MEMBER(toaplan2_dt7_state,dt7)
@@ -670,4 +666,5 @@ ROM_START( dt7 )
 ROM_END
 
 // The region comes from the EEPROM? so will need clones like FixEight
-GAME( 1993, dt7,         0,        dt7,          dt7,        toaplan2_dt7_state,empty_init, ROT270, "Toaplan",         "Dynamic Trial 7 (prototype)",              MACHINE_NOT_WORKING )
+GAME( 1993, dt7, 0, dt7, dt7, toaplan2_dt7_state,empty_init, ROT270, "Toaplan", "Dynamic Trial 7 (prototype)", MACHINE_NOT_WORKING )
+

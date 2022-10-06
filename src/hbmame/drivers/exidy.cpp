@@ -10,25 +10,38 @@
  *  Targ Test Rom
  *
  *********************/
-
 ROM_START( targtest )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "hrl_10a1.10a",  0x1800, 0x0800, CRC(969744e1) SHA1(e123bdb02b3b5f6a59c1e7c9ef557fe6bb19c62c) )
 	ROM_LOAD( "hrl_9a1.9a",    0x2000, 0x0800, CRC(a177a72d) SHA1(0e705e3e32021e55af4414fa0e2ccbc4980ee848) )
 	ROM_LOAD( "hrl_8a1.8a",    0x2800, 0x0800, CRC(6e6928a5) SHA1(10c725b27225ac5aad8639b081df68dd61522cf2) )
-	ROM_LOAD( "targtest.bin",  0x3000, 0x0800, CRC(22ae0198) SHA1(0139e3c36e4e415641cefae900347dcf81f00716) )
+	ROM_LOAD( "targtest.7a",   0x3000, 0x0800, CRC(22ae0198) SHA1(0139e3c36e4e415641cefae900347dcf81f00716) ) // test rom
 	ROM_LOAD( "hrl_6a3.6a",    0x3800, 0x0800, CRC(a60a1bfc) SHA1(17c0e67e1a0b263b57d70a148cc5d5099fecbb40) )
 
 	ROM_REGION( 0x0400, "gfx1", 0 )
 	ROM_LOAD( "hrl_11d-1.11d", 0x0000, 0x0400, CRC(9f03513e) SHA1(aa4763e49df65e5686a96431543580b8d8285893) )
 
-	ROM_REGION( 0x0140, "proms", 0 )
-	ROM_LOAD( "hrl_5c-1.5c",   0x0000, 0x0100, CRC(a24290d0) SHA1(5f2888d168de874021b51c5d19a62fb8165e4454) )
-	ROM_LOAD( "stl_6d-1.6d",   0x0100, 0x0020, CRC(e26f9053) SHA1(eec35b6aa2c2d305418306bf4a1754a0583f109f) )
-	ROM_LOAD( "hrl_14h-1.14h", 0x0120, 0x0020, CRC(f76b4fcf) SHA1(197e0cc508ffeb5cefa4046bdfb158939d598225) )
-
 	ROM_REGION( 0x0020, "targ", 0 )
 	ROM_LOAD( "hra2b-1",       0x0000, 0x0020, CRC(38e8024b) SHA1(adf1c1770695f7614c95eceb803f662c5b096a76) )
+ROM_END
+
+/*********************
+ *
+ *  Spectar Test Rom
+ *
+ *********************/
+ROM_START( spectest )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "spectest.11a", 0x1000, 0x0800, CRC(f3df6c22) SHA1(f2535634153dc50d073c7aeeec19f6e3fbcdd83c) ) // test rom
+	ROM_LOAD( "spl10a-2.10a", 0x1800, 0x0800, CRC(fca667c1) SHA1(168426f9e87c002d2673c0230fceac4d0831d594) )
+	ROM_LOAD( "spl9a-3.9a",   0x2000, 0x0800, CRC(9d4ce8ba) SHA1(2ef45c225fe704e49d10247c3eba1ef14141b3b7) )
+	ROM_LOAD( "spl8a-2.8a",   0x2800, 0x0800, CRC(cfacbadf) SHA1(77b27cf6f35e8e8dd2fd4f31bba2a96f3076163e) )
+	ROM_LOAD( "spl7a-2.7a",   0x3000, 0x0800, CRC(4c4741ff) SHA1(8de72613a385095253bb9e6da76493caec3115e4) )
+	ROM_LOAD( "spl6a-2.6a",   0x3800, 0x0800, CRC(0cb46b25) SHA1(65c5d2cc8df67225339dc8781dd29d4b57ded70c) )
+
+	ROM_REGION( 0x0400, "gfx1", 0 )
+	ROM_LOAD( "hrl11d-2.11d", 0x0000, 0x0400, CRC(c55b645d) SHA1(0c18277939d74e3e1281a7f114a34781d30c2baf) )  // all FF
+	ROM_CONTINUE(             0x0000, 0x0400 )  // real data
 ROM_END
 
 /*************************************
@@ -54,11 +67,6 @@ ROM_START( teetertfp )
 
 	ROM_REGION( 0x0800, "gfx1", 0 )
 	ROM_LOAD( "11d-cpu", 0x0000, 0x0800, CRC(0fe70b00) SHA1(6068be263d7a8e6b71af6f4dceec40bb8d246376) )
-
-	ROM_REGION( 0x140, "proms", 0 )
-	ROM_LOAD_OPTIONAL( "tt14h.123",  0x0000, 0x0020, CRC(f76b4fcf) SHA1(197e0cc508ffeb5cefa4046bdfb158939d598225) )
-	ROM_LOAD_OPTIONAL( "tt5c.129",   0x0020, 0x0100, CRC(43b35bb7) SHA1(0a0cecea8faff9f3ff4c2ceda0b5b25e8e1cd667) )
-	ROM_LOAD_OPTIONAL( "tt6d.123",   0x0120, 0x0020, CRC(e26f9053) SHA1(eec35b6aa2c2d305418306bf4a1754a0583f109f) )
 ROM_END
 
 
@@ -68,6 +76,7 @@ ROM_END
  *
  *************************************/
 
-GAME( 2008, targtest,  targ,    targ,     targ,    targ_state,     init_targ,   ROT0, "Timothy Shiels", "Targ (Test Rom V1.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, teetertfp, teetert, teetert,  teetert, teetert_state,  empty_init,  ROT0, "DogP", "Teeter Torture (Free Play Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, targtest,  targ,    targ,     targ,    targ_state,     init_targ,     ROT0, "Timothy Shiels", "Targ Test Rom (V1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, spectest,  spectar, spectar,  spectar, spectar_state,  init_spectar,  ROT0, "Timothy Shiels", "Spectar Test Rom (V1.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, teetertfp, teetert, teetert,  teetert, teetert_state,  empty_init,    ROT0, "DogP", "Teeter Torture (Free Play Hack)", MACHINE_SUPPORTS_SAVE )
 
