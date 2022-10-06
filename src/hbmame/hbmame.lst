@@ -4126,8 +4126,6 @@ abscam			// GL 1982
 absurd			/* HB - scott - nonworking alpha ver 3 */
 alienres		// HB
 alienresp		// HB nw
-alpaca7			/* HB - Jerronimo (useless) */
-alpaca8			/* HB - Jerronimo (useless) */
 bace			/* HB - Widel Games */
 crashh			/* HB - PacMAME Hacks */
 deathstar		// HB
@@ -7046,8 +7044,6 @@ jrpacplus
 pacpen
 pengopop
 vecpengo                               // T-Bone hack of Pengo
-alpacap7                               // Jerronimo, Alpaca v0.7 (Pengo Hardware) useless
-alpacap8                               // Jerronimo, Alpaca v0.8 (Pengo Hardware) useless
 
 @source:pgm.cpp
 // PARENTS

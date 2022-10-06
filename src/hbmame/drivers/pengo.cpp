@@ -787,46 +787,6 @@ INPUT_PORTS_END
 
 
 
-/* The colours for alpacap7 and alpacap8 are completely wrong, but we are using the roms specified by
-       the original programmer. See http://umlautllama.com/projects/alpaca */
-ROM_START( alpacap7 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "alp7.u8",      0x0000, 0x1000, CRC(E70923E4) SHA1(86A96DC0DEE5F5B532121892528ED2B456D51174) )
-
-	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "alp7_ic92",    0x0000, 0x1000, CRC(693B1A96) SHA1(DED8AC0A4186458FDA6A241C027718742BA87973) )
-	ROM_CONTINUE(             0x2000, 0x1000 )
-	ROM_LOAD( "alp_ic105",    0x1000, 0x1000, CRC(BDA193F4) SHA1(A61B5E86809FEFF025C73DE78FC751EAD646125B) )
-	ROM_CONTINUE(             0x3000, 0x1000 )
-
-	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
-
-	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
-ROM_END
-
-ROM_START( alpacap8 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "alp8.u8",      0x0000, 0x1000, CRC(ABD45FD7) SHA1(120276D1E9A3DA707DB4263A93418CA37F4F4C9F) )
-
-	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "alp8_ic92",    0x0000, 0x1000, CRC(4A45717F) SHA1(159A74C31FC5D4E5405BCD8D8843A1B381EA01A4) )
-	ROM_CONTINUE(             0x2000, 0x1000 )
-	ROM_LOAD( "alp_ic105",    0x1000, 0x1000, CRC(BDA193F4) SHA1(A61B5E86809FEFF025C73DE78FC751EAD646125B) )
-	ROM_CONTINUE(             0x3000, 0x1000 )
-
-	ROM_REGION( 0x0420, "proms", 0 )
-	ROM_LOAD( "pr1633.ic78",    0x0000, 0x0020, CRC(3a5844ec) SHA1(680eab0e1204c9b74adc11588461651b474021bb) )
-	ROM_LOAD( "pr1634.ic88",    0x0020, 0x0400, CRC(766b139b) SHA1(3fcd66610fcaee814953a115bf5e04788923181f) )
-
-	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "pr1635.ic51",    0x0000, 0x0100, CRC(c29dea27) SHA1(563c9770028fe39188e62630711589d6ed242a66) )
-	ROM_LOAD( "pr1636.ic70",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
-ROM_END
-
 ROM_START( jrpacplus )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "jrpacplus-05.ic8",     0x0000, 0x1000, CRC(ea80c498) SHA1(f4a54d51fffa904443ab8e13f99328ed1b90ce4d) )
@@ -927,8 +887,6 @@ ROM_START( vecpengo )
 ROM_END
 
 
-GAME( 2003, alpacap7,  alpaca8,  pengou,   pengo,    pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.7 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
-GAME( 2003, alpacap8,  alpaca8,  pengou,   pengo,    pengo_state, empty_init, ROT90, "Scott Lawrence", "Alpaca v0.8 (Pengo Hardware)", MACHINE_SUPPORTS_SAVE | MACHINE_IMPERFECT_COLORS )
 GAME( 2021, jrpacplus, jrpacman, jrpacmbl, jrpacmbl, pengo_state, empty_init, ROT90, "Mr McScrewup", "Jr. Pac-Plus (Pengo hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, pacpen,    pengo,    pengou,   pacpen,   pengo_state, empty_init, ROT90, "Andrew Hannay", "Pacman on Pengo Hardware", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, pengopop,  pengo,    pengou,   pengo,    pengo_state, empty_init, ROT90, "Sega", "Pengo (Popcorn Music)", MACHINE_SUPPORTS_SAVE )
