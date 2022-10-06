@@ -823,7 +823,7 @@ ROM_START( tinyworld )
 	PACMAN_SOUND_PROMS
 ROM_END
 
-/* note: the original rom was only 3154 bytes with a CRC of 0E67D062 - the one here is padded out to normal size */
+/* note: the original rom was only 3154 (0xC52) bytes with a CRC of 0E67D062 - the one here is padded out to normal size */
 ROM_START( tst_pacm )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "test.6e",      0x0000, 0x1000, CRC(fb645998) SHA1(ff57155533e1ec0fdc5c407dce8d270e86d33882) )
