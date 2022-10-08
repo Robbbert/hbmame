@@ -571,6 +571,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/1943.cpp",
 	MAME_DIR .. "src/mame/video/1943.cpp",
 	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
+	MAME_DIR .. "src/hbmame/drivers/gyruss.cpp",
+	MAME_DIR .. "src/mame/video/gyruss.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mystwarr.cpp",
 	MAME_DIR .. "src/mame/video/mystwarr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nemesis.cpp",

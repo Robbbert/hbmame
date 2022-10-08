@@ -1851,6 +1851,11 @@ qbtrktst                               // in mame, not working
 gradius3                               //parent
 gradius3s01
 
+@source:gyruss.cpp
+gyruss                                 //parent
+gyrutest
+gyrutest2
+
 @source:hh_sm510.cpp
 gnw_bride                              // HB
 spicegirls                             // HB
