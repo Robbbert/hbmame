@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [galxtest2]           Galaxian Test Rom (2017-12-07)
 - [gyrutest]            Gyruss Test Rom (2021-06-27)
 - [gyrutest2]           Gyruss Test Rom (2021-09-29)
 - [pbobble3s02]         Puzzle Bobble 3 (Recarbonated, 2p only)

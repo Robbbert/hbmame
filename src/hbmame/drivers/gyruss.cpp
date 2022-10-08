@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/gyruss.cpp"
 
-ROM_START( gyrutest )
+ROM_START( gyrutest ) // Hold 2 hit F3 for more diagnostics
 	ROM_REGION( 0x8000, "maincpu", 0 )
 	ROM_LOAD( "gyrussk.1",    0x0000, 0x2000, CRC(c673b43d) SHA1(7c464fb154bac35dd6e2f547e157addeb8798194) )
 	ROM_LOAD( "gyrussk.2",    0x2000, 0x2000, CRC(a4ec03e4) SHA1(08c33ad7fcc2ad5e5787a1050284e3f8164f4618) )
