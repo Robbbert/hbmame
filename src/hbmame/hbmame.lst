@@ -4350,20 +4350,21 @@ missilet			// Tesla variant
 
 @source:mitchell.cpp
 mitcdemo			/* Charles Doty */
-pang				//parent
+pang                                   //parent
 pangbolds01
 
 @source:model2.cpp
-srallyc				//parent
+srallyc                                //parent
 srallyp				// Kyle Hodgetts Sega Rally Pro Drivin
 
 @source:monaco.cpp
 monaco
 
 @source:mrdo.cpp
-mrdo				//parent
+mrdo                                   //parent
 mrdigdo				/* Justin Clark hack of Mr. Do! */
 mrdofast			/* Speedup hack from Evil Exidy*/
+mrdotest
 mrpac				/* Twist Hack 20020813 */
 mrpacb
 newdigdo			/* Vic 20 George and Jerky hack of... */

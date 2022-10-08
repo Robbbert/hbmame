@@ -54,6 +54,35 @@ ROM_START( mrdofast )
 	ROM_LOAD( "j10--4.bin",   0x0060, 0x0020, CRC(ff7fe284) SHA1(3ac8e30011c1fcba0ee8f4dc932f82296c3ba143) )
 ROM_END
 
+ROM_START( mrdotest )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "mrdotest.01",  0x0000, 0x0426, CRC(6fcd7d9a) SHA1(83f9b849da2327320893f156684a53ad9b0a5d7b) )
+	ROM_LOAD( "c4-02.bin",    0x2000, 0x2000, CRC(0ecdd39c) SHA1(c64b3363593911a676c647bf3dba8fe063fcb0de) )
+	ROM_LOAD( "e4-03.bin",    0x4000, 0x2000, CRC(358f5dc2) SHA1(9fed1f5d1d04935d1b77687c8b2f3bfce970dc08) )
+	ROM_LOAD( "f4-04.bin",    0x6000, 0x2000, CRC(f4190cfc) SHA1(24f5125d900f944294d4eda068b710c8f1c6d39f) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "s8-09.bin",    0x0000, 0x1000, CRC(aa80c5b6) SHA1(76f9f90deb74598470e7ed565237da38dd07e4e9) )
+	ROM_LOAD( "u8-10.bin",    0x1000, 0x1000, CRC(d20ec85b) SHA1(9762bbe34d3fa209ea719807c723f57cb6bf4e01) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "r8-08.bin",    0x0000, 0x1000, CRC(dbdc9ffa) SHA1(93f29fc106283eecbba3fd69cf3c4658aa38ab9f) )
+	ROM_LOAD( "n8-07.bin",    0x1000, 0x1000, CRC(4b9973db) SHA1(8766c51a345a5e63446e65614c6f665ab5fbe0d7) )
+
+	ROM_REGION( 0x2000, "gfx3", 0 )
+	ROM_LOAD( "h5-05.bin",    0x0000, 0x1000, CRC(e1218cc5) SHA1(d946613a1cf1c97f7533a4f8c2d0078d1b7daaa8) )
+	ROM_LOAD( "k5-06.bin",    0x1000, 0x1000, CRC(b1f68b04) SHA1(25709cd81c03df51f27cd730fecf86a1daa9e27e) )
+
+	ROM_REGION( 0x0080, "proms", 0 )
+	ROM_LOAD( "u02--2.bin",   0x0000, 0x0020, CRC(238a65d7) SHA1(a5b20184a1989db23544296331462ec4d7be7516) )
+	ROM_LOAD( "t02--3.bin",   0x0020, 0x0020, CRC(ae263dc0) SHA1(7072c100b9d692f5bb12b0c9e304425f534481e2) )
+	ROM_LOAD( "f10--1.bin",   0x0040, 0x0020, CRC(16ee4ca2) SHA1(fcba4d103708b9711452009cd29c4f88d2f64cd3) )
+	ROM_LOAD( "j10--4.bin",   0x0060, 0x0020, CRC(ff7fe284) SHA1(3ac8e30011c1fcba0ee8f4dc932f82296c3ba143) )
+
+	ROM_REGION( 0x0200, "pal16r6", 0 )
+	ROM_LOAD( "u001_pal16r6cn.j2", 0x0000, 0x0104, CRC(84dbe498) SHA1(5863342b2db85ffef31b5e9ce26bfd8fca9923b0) )
+ROM_END
+
 ROM_START( mrpac )
 	ROM_REGION( 0x10000, "maincpu", 0 ) // from mrdo
 	ROM_LOAD( "a4-01.bin",    0x0000, 0x2000, CRC(03dcfba2) SHA1(c15e3d0c4225e0ca120bcd28aca39632575f8e11) )
@@ -160,6 +189,7 @@ ROM_END
 
 GAME( 1998, mrdigdo,  mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Justin Clark", "Mr. Do! (Dig Dug sprites)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, mrdofast, mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Evil Exidy Dump", "Mr. Do! (Speedup Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, mrdotest, mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Phil Murray", "Mr. Do! Test Rom (2017-12-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mrpac,    mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Twisty", "Mr. Pac! (Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mrpacb,   mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Twisty", "Mr. Pac! (Set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, newdigdo, mrdo, mrdo,   mrdo, mrdo_state, empty_init, ROT270, "Vic Twenty George, Jerky, Justin Clark", "Mr. Dig-Do!", MACHINE_SUPPORTS_SAVE )
