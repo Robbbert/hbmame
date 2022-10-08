@@ -4146,7 +4146,9 @@ lazybug1
 mtturbo			/* Tim - Make Trax Turbo Hack */
 pachello		/* HB - Jerronimo */
 pacmatri		/* HB - Jerronimo */
-pactest			/* HB - Widel Games */
+pacmtest
+pacmtest1
+pacmtest2
 pactetris		// HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
@@ -4157,7 +4159,6 @@ seq2			/* HB - Jerronimo */
 snakes			// HB
 snakes2			// HB
 theglobpb
-tst_pacm		// HB
 wavybug
 zap				/* HB - Widel Games */
 

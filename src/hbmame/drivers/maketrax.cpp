@@ -616,7 +616,7 @@ ROM_START( pacmatri )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( pactest )
+ROM_START( pacmtest )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pactest.1",    0x0000, 0x1000, CRC(c0423406) SHA1(51630780dd7fa32a827d81a060906130fbe57345) )
 
@@ -824,9 +824,20 @@ ROM_START( tinyworld )
 ROM_END
 
 /* note: the original rom was only 3154 (0xC52) bytes with a CRC of 0E67D062 - the one here is padded out to normal size */
-ROM_START( tst_pacm )
+ROM_START( pacmtest1 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "test.6e",      0x0000, 0x1000, CRC(fb645998) SHA1(ff57155533e1ec0fdc5c407dce8d270e86d33882) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( pacmtest2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacmtest2.1",  0x0000, 0x0530, CRC(3c33cbeb) SHA1(b26f4fcad7042f93e6df29af73c3ee91a7333837) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
 	ROM_LOAD( "pacman.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
@@ -895,7 +906,7 @@ GAME( 2003, kangaroh,  0,        woodpek,  mspacpls, puckman_state, empty_init, 
 GAME( 2003, ladybugh,  lazybug,  woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Ladybug on Pacman Hardware", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, lazybug,   0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Lazy Bug", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, lazybug1,  lazybug,  woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Lazy Bug (Slower)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, pactest,   0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Test - Pacman board test", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, pacmtest,  puckman,  woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Pacman Test Rom (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ppong,     0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Ping Pong demo (Pacman Hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, ppong2,    ppong,    woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Ping Pong demo (Pacman Hardware) v2", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, rainboh,   0,        pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "David Widel", "Rainbow (Incomplete)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
@@ -919,7 +930,8 @@ GAME( 2002, alienres,  0,        pacman,   pacman,   puckman_state, empty_init, 
 GAME( 2002, alienresp, alienres, pacman,   pacman,   puckman_state, empty_init,          ROT90,  "MonstersGoBoom", "Alien Rescue (non-working prototype)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, crashh,    0,        woodpek,  mspacpls, puckman_state, empty_init,          ROT90,  "hack", "Crash (Pac-Man)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, mtturbo,   0,        maketrax, maketrax, puckman_state, init_maketrax,       ROT270, "Tim Arcadecollecting", "Make Trax (Turbo Hack)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/hacks/maketrax
-GAME( 1999, tst_pacm,  0,        pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "David Caldwell", "Test - Pacman Hardware", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
+GAME( 1999, pacmtest1, puckman,  pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "David Caldwell", "Pacman Test Rom (set 2)", MACHINE_SUPPORTS_SAVE ) // http://www.porkrind.org/arcade/
+GAME( 2020, pacmtest2, puckman,  pacman,   mspacpls, puckman_state, empty_init,          ROT90,  "Phil Murray", "Pacman Test Rom (set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, eyesb,     eyes,     pacman,   eyes,     puckman_state, init_eyes,           ROT90,  "bootleg", "Eyes (unknown bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ghohunt,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Ghost Hunt", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, pactetris, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Ben Leperchey", "Tetris on Pacman hardware (incomplete)", MACHINE_SUPPORTS_SAVE )
