@@ -1821,7 +1821,9 @@ jumpbugx	// extra sounds
 kazzy
 mooncmst
 mooncrs5f	/* clone of fantazia */
+moontest
 offender	/* Chris Henry hack of scramble */
+scratest
 starfgh2	/* Bootleg of Pisces */
 superdog	/* Jerky Hack Hack of scramble */
 trukker		/* Grimlick hack of Frogger */
@@ -4153,7 +4155,6 @@ pactetris		// HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
 rainboh			/* HB - Widel Games */
-scratest
 scroller		// HB
 seq1			/* HB - Jerronimo */
 seq2			/* HB - Jerronimo */
