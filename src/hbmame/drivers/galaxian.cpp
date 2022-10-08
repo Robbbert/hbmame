@@ -519,6 +519,30 @@ ROM_START( superdog )
 	ROM_LOAD( "c01s.6e",      0x0000, 0x0020, CRC(4e3caeab) SHA1(a25083c3e36d28afdefe4af6e6d4f3155e303625) )
 ROM_END
 
+ROM_START( scratest )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "scratest.2d",  0x0000, 0x043d, CRC(a7f3cf0f) SHA1(4a934f6f660e536009ccb96b4914ed65f7a28855) )
+	ROM_LOAD( "2e",           0x0800, 0x0800, CRC(e9b4b9eb) SHA1(a8ee9ddfadf5e9accedfaf81da757a88a2e55a0a) )
+	ROM_LOAD( "2f",           0x1000, 0x0800, CRC(a1f14f4c) SHA1(3eae2b3e4596505a8afb5c5cfb108e823c2c4319) )
+	ROM_LOAD( "2h",           0x1800, 0x0800, CRC(591bc0d9) SHA1(170f9e92f0a3bee04407be27210b4fa825367688) )
+	ROM_LOAD( "2j",           0x2000, 0x0800, CRC(22f11b6b) SHA1(e426ef6a7444a39a34d59799973b07d11b89f372) )
+	ROM_LOAD( "2l",           0x2800, 0x0800, CRC(705ffe49) SHA1(174df3f281068c767344f751daace646360e26d6) )
+	ROM_LOAD( "2m",           0x3000, 0x0800, CRC(ea26c35c) SHA1(a2f3380982d93a022f46756f974fd16c4cd617de) )
+	ROM_LOAD( "2p",           0x3800, 0x0800, CRC(94d8f5e3) SHA1(f3a9c4d1d91836476fcad87ea0d243dde7171e0a) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "ot1.5c",       0x0000, 0x0800, CRC(bcd297f0) SHA1(8ed78487d76fd0a917ab7b258937a46e2cd9800c) )
+	ROM_LOAD( "ot2.5d",       0x0800, 0x0800, CRC(de7912da) SHA1(8558b4eff5d7e63029b325edef9914feda5834c3) )
+	ROM_LOAD( "ot3.5e",       0x1000, 0x0800, CRC(ba2fa933) SHA1(1f976d8595706730e29f93027e7ab4620075c078) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "off-5f",       0x0000, 0x0800, CRC(7015a2e1) SHA1(19bb4cb26c8b91cd79368e4ed48065df6fd6577e) )
+	ROM_LOAD( "off-5h",       0x0800, 0x0800, CRC(a36ac0fa) SHA1(b58412536833ab5ea705e919562b7b495ff3dff4) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "c01s.6e",      0x0000, 0x0020, CRC(4e3caeab) SHA1(a25083c3e36d28afdefe4af6e6d4f3155e303625) )
+ROM_END
+
 ROM_START( amidarf )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "amidar.2c",    0x0000, 0x1000, CRC(c294bf27) SHA1(399325bf1559e8cdbddf7cfbf0dc739f9ed72ef0) )
@@ -696,6 +720,7 @@ GAME( 2007, amidars01,  amidar,   turtles,  amidar,   galaxian_hbmame, init_turt
 /* Scramble */
 GAME( 1998, offender,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, superdog,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, scratest,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Phil Murray", "Scramble Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
 
 
 /* Galaxian */
