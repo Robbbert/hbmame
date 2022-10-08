@@ -8424,41 +8424,41 @@ thundfoxjs01
 
 @source:taito_f3.cpp
 arabianm                               //parent
-arabianmjs01
+arabianms01
 bublbob2                               //parent
-bubsymphjs01
+bubsymphs01
 cleopatr                               //parent
-cleopath
 cleopatrs01
+cleopatrs02
 dankuga                                //parent
 dankugas01
 dankugas02
 dariusg                                //parent
-driusgxh
+dariusgs01
 elvactr                                //parent
-elvactrjs01
+elvactrs01
 gekiridn                               //parent
-gekiridh
-gekiridoc
+gekiridns01
+gekiridns02
 gseeker                                //parent
-gseekerjs01
+gseekers01
 kaiserkn                               //parent
 kaiserkns01
 kaiserkns02
 landmakr                               //parent
-landmakh
 landmakrs01
+landmakrs02
 lightbr                                //parent
-lightbrjs01
+lightbrs01
 pbobble2                               //parent
-pbobl2xh
+pbobble2s01
 pbobble3                               //parent
-pbobble3h01
-pbobble3h02
+pbobble3s01
+pbobble3s02
 spcinv95                               //parent
 akkanvdrs01
 twinqix                                //parent
-twinqixh01
+twinqixs01
 
 @source:taito_l.cpp
 evilston                               //parent
