@@ -12,6 +12,7 @@ New Games
 - [gyrutest]            Gyruss Test Rom (2021-06-27)
 - [gyrutest2]           Gyruss Test Rom (2021-09-29)
 - [pbobble3s02]         Puzzle Bobble 3 (Recarbonated, 2p only)
+- [pooytest]            Pooyan Test Rom (set 1)
 - [senctest]            Space Encounters Test Rom
 - [sinvtest]            Space Invaders Test Rom (SMv1.0)
 - [sinvtest0]           Space Invaders Test Rom (v1.0)

@@ -7864,15 +7864,16 @@ pc_smb3_ps05
 pc_smb3_ps06
 
 @source:polepos.cpp
-polepos					//parent
+polepos                                //parent
 mmadness				// Mars Madness - Tesla in-car entertainment
 
 @source:pooyan.cpp
-pooyan				// parent
-pooyandiag
+pooyan                                 // parent
+pooytest
+pooytest2
 
 @source:powerins.cpp
-powerins		//parent
+powerins                               //parent
 powernbr
 powerns01
 powerns02
@@ -7881,7 +7882,7 @@ powerns04
 powerns05
 
 @source:psikyo.cpp
-tengai					//parent
+tengai                                 //parent
 tengais01
 tengais02
 
