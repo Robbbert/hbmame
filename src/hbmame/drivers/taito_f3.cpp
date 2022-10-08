@@ -717,35 +717,78 @@ ROM_START( lightbrjs01 )
 	ROM_LOAD16_BYTE("d69-02.bin", 0x400000, 0x200000, CRC(dce28dd7) SHA1(eacfc98349b0608fc1a944c11f0483fb6caa4445) )
 ROM_END
 
+/************
+ Twin Qix
+************/
+ROM_START( twinqixh01 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD32_BYTE("mpr0-3.b60", 0x000000, 0x40000, CRC(1a63d0de) SHA1(7d8d8a6c9c7f9dfc0a8a528a905e33388b8fe13d) )
+	ROM_LOAD32_BYTE("mpr0-2.b61", 0x000001, 0x40000, CRC(45a70987) SHA1(8cca6845064d943fd28416143e60399188b023cd) )
+	ROM_LOAD32_BYTE("mpr0-1.b62", 0x000002, 0x40000, CRC(531f9447) SHA1(4d18efaad9c3dd2b14d3125c0f9e18cfcde3a1f2) )
+	ROM_LOAD32_BYTE("h01.b63",    0x000003, 0x40000, CRC(3dcd1dab) SHA1(6dbeda16b3c79c2de92076eba5aeb8386a1c8f87) )
+
+	ROM_REGION( 0x100000, "sprites" , 0 )
+	ROM_LOAD16_BYTE("obj0-0.a08", 0x000000, 0x080000, CRC(c6ea845c) SHA1(9df710637e8f64f7fec232b5ebbede588e07c2db) )
+	ROM_LOAD16_BYTE("obj0-1.a20", 0x000001, 0x080000, CRC(8c12b7fb) SHA1(8a52870fb9f508148619763fb6f37dd74b5386ca) )
+
+	EMPTY_SPRITE_HIDATA(0x080000)
+
+	ROM_REGION( 0x200000, "tilemap" , 0 )
+	ROM_LOAD32_BYTE("scr0-0.b07",  0x000000, 0x080000, CRC(9a1b9b34) SHA1(ddf9c6ba0f9c340b580573e1d96ac76b1cd35beb) )
+	ROM_LOAD32_BYTE("scr0-1.b06",  0x000001, 0x080000, CRC(e9bef879) SHA1(7e720f5054a1ef3a28353f1c221f4cf15d3b7428) )
+	ROM_LOAD32_BYTE("scr0-2.b05",  0x000002, 0x080000, CRC(cac6854b) SHA1(c97fb7de48e1644695bbe431587d6c1be01ea62d) )
+	ROM_LOAD32_BYTE("scr0-3.b04",  0x000003, 0x080000, CRC(ce063034) SHA1(2ecff74427d7d2fa8d1db4ac87481d123d7ce003) )
+
+	ROM_REGION( 0x100000, "tilemap_hi", 0 )
+	ROM_LOAD16_BYTE("scr0-4.b03",  0x000000, 0x080000, CRC(d32280fe) SHA1(56b120128c5e4b8c6598a1de51269e6702a63175) )
+	ROM_LOAD16_BYTE("scr0-5.b02",  0x000001, 0x080000, CRC(fdd1a85b) SHA1(1d94a4858baef3e78c456049dc58249a574205fe) )
+
+	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 )
+	ROM_LOAD16_BYTE("spr0-1.b66", 0x100000, 0x40000, CRC(4b20e99d) SHA1(faf184daea0f1131bafa50edb48bd470d4c0b141) )
+	ROM_LOAD16_BYTE("spr0-0.b65", 0x100001, 0x40000, CRC(2569eb30) SHA1(ec804131025e600198cd8342925823340e7ef458) )
+
+	ROM_REGION16_BE( 0x400000, "taito_en:ensoniq", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE("snd-0.b43",  0x000000, 0x80000, CRC(ad5405a9) SHA1(67ee42498d2c3c00015237b3b5cd020f9a7c4a18) )
+	ROM_LOAD16_BYTE("snd-1.b44",  0x100000, 0x80000, CRC(274864af) SHA1(47fefee23038bb751bdf6b6f48312ba0b6e38b90) )
+	ROM_LOAD16_BYTE("snd-14.b10", 0x200000, 0x80000, CRC(26312451) SHA1(9f947a11592fd8420fc581914bf16e7ade75390c) )
+	ROM_LOAD16_BYTE("snd-15.b11", 0x300000, 0x80000, CRC(2edaa9dc) SHA1(72fead505c4f44e5736ff7d545d72dfa37d613e2) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 1994, driusgxh,    dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
-GAME( 1995, gekiridh,    gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
-GAME( 1995, gekiridoc,   gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "Taito Corporation", "Gekirindan (Chinese)", 0 )
-GAME( 1995, pbobl2xh,    pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
-GAME( 2022, pbobble3h01, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
-GAME( 2022, pbobble3h02, pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated, 2p only)", 0 )
- // Cleopatra Fortune
+// Akkanbeder
+GAME( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "hack",     "Akkanbeder (Chinese)", 0 )
+// Arabian Magic
+GAME( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "hack",     "Arabian Magic (Chinese, 2017-04-27)", 0 )
+// Bubble Symphony
+GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",     "Bubble Symphony (Chinese)", 0 )
+// Cleopatra Fortune
 GAME( 1996, cleopath,          cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",     "Cleopatra Fortune (Unknown Hack)", 0 )
-GAME( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",         "Cleopatra Fortune (Chinese)", 0 )
- // Akkanbeder
-GAME( 1995, akkanvdrs01,       spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "hack",         "Akkanbeder (Chinese)", 0 )
- // Arabian Magic
-GAME( 2017, arabianmjs01,      arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "hack",         "Arabian Magic (Chinese, 2017-04-27)", 0 )
- // Bubble Symphony
-GAME( 1994, bubsymphjs01,      bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",         "Bubble Symphony (Chinese)", 0 )
- // Dan-Ku-Ga
-GAME( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Dan-Ku-Ga (Plus)", 0 )
-GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Yumeji",       "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
- // Elevator Action Returns
-GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "hack",         "Elevator Action Returns (Chinese)", 0 )
- // Grid Seeker: Project Storm Hammer
-GAME( 1992, gseekerjs01,       gseeker,  f3_224b, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",         "Grid Seeker: Project Storm Hammer (Chinese)", 0 )
- // Kaiser Knuckle
-GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Yumeji",       "Kaiser Knuckle (Enable Hidden Characters)", 0 )
-GAME( 1994, kaiserkns02,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",         "Kaiser Knuckle (Plus)", 0 )
- // Land Maker
+GAME( 1996, cleopatrs01,       cleopatr, f3_224a, f3, taito_f3_state, init_cleopatr, ROT0,   "hack",     "Cleopatra Fortune (Chinese)", 0 )
+// Dan-Ku-Ga
+GAME( 1994, dankugas01,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",     "Dan-Ku-Ga (Plus)", 0 )
+GAME( 1994, dankugas02,        dankuga,  f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Yumeji",   "Dan-Ku-Ga (Enable Hidden Characters)", 0 )
+// Darius Gaiden
+GAME( 1994, driusgxh,          dariusg,  f3,      f3, taito_f3_state, init_dariusg,  ROT0,   "hack",     "Darius Gaiden (Unknown Hack)", 0 )
+// Elevator Action Returns
+GAME( 1994, elvactrjs01,       elvactr,  f3,      f3, taito_f3_state, init_elvactr,  ROT0,   "hack",     "Elevator Action Returns (Chinese)", 0 )
+// Gekirindan
+GAME( 1995, gekiridh,          gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Unknown Hack)", 0 )
+GAME( 1995, gekiridoc,         gekiridn, f3,      f3, taito_f3_state, init_gekirido, ROT270, "hack",     "Gekirindan (Chinese)", 0 )
+// Grid Seeker: Project Storm Hammer
+GAME( 1992, gseekerjs01,       gseeker,  f3_224b, f3, taito_f3_state, init_gseeker,  ROT90,  "hack",     "Grid Seeker: Project Storm Hammer (Chinese)", 0 )
+// Kaiser Knuckle
+GAME( 1994, kaiserkns01,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "Yumeji",   "Kaiser Knuckle (Enable Hidden Characters)", 0 )
+GAME( 1994, kaiserkns02,       kaiserkn, f3_224a, kn, taito_f3_state, init_kaiserkn, ROT0,   "hack",     "Kaiser Knuckle (Plus)", 0 )
+// Land Maker
 GAME( 1998, landmakh,          landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Unknown Hack)", 0 )
-GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",         "Land Maker (Chinese)", 0 )
- // Light Bringer
-GAME( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "hack",         "Light Bringer (Chinese, 2017-04-26)", 0 )
+GAME( 1998, landmakrs01,       landmakr, f3,      f3, taito_f3_state, init_landmakr, ROT0,   "hack",     "Land Maker (Chinese)", 0 )
+// Light Bringer
+GAME( 2017, lightbrjs01,       lightbr,  f3_224a, f3, taito_f3_state, init_lightbr,  ROT0,   "hack",     "Light Bringer (Chinese, 2017-04-26)", 0 )
+// Puzzle Bobble 2
+GAME( 1995, pbobl2xh,          pbobble2, f3,      f3, taito_f3_state, init_pbobbl2x, ROT0,   "hack",     "Puzzle Bobble 2 (Bobble 2X Hack)", 0 )
+// Puzzle Bobble 3
+GAME( 2022, pbobble3h01,       pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated)", 0 )
+GAME( 2022, pbobble3h02,       pbobble3, f3,      f3, taito_f3_state, init_pbobble3, ROT0,   "Bankbank", "Puzzle Bobble 3 (Recarbonated, 2p only)", 0 )
+// Twin Qix
+GAME( 1995, twinqixh01,        twinqix,  f3_224a, f3, taito_f3_state, init_twinqix,  ROT0,   "hack",     "Twin Qix (Ver 1.0A 1995/01/17, Japan)", 0 )
 

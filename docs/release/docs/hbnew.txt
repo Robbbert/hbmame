@@ -15,6 +15,7 @@ New Games
 - [sinvtest2]           Space Invaders Test Rom (v1.2)
 - [sinvtest3]           Space Invaders Test Rom (v1.3)
 - [spectest]            Spectar Test Rom
+- [twinqixh01]          Twin Qix (Ver 1.0A 1995/01/17, Japan)
 
 
 

@@ -8423,40 +8423,42 @@ thundfox                               //parent
 thundfoxjs01
 
 @source:taito_f3.cpp
-cleopatr                               //parent
-dariusg                                //parent
-gekiridn                               //parent
-landmakr                               //parent
-pbobble2                               //parent
-pbobble3                               //parent
-pbobble3h01
-pbobble3h02
-cleopath
-driusgxh
-gekiridh
-gekiridoc
-landmakh
-pbobl2xh
-spcinv95                               //parent
-akkanvdrs01
 arabianm                               //parent
 arabianmjs01
 bublbob2                               //parent
 bubsymphjs01
+cleopatr                               //parent
+cleopath
 cleopatrs01
 dankuga                                //parent
 dankugas01
 dankugas02
+dariusg                                //parent
+driusgxh
 elvactr                                //parent
 elvactrjs01
+gekiridn                               //parent
+gekiridh
+gekiridoc
 gseeker                                //parent
 gseekerjs01
 kaiserkn                               //parent
 kaiserkns01
 kaiserkns02
+landmakr                               //parent
+landmakh
 landmakrs01
 lightbr                                //parent
 lightbrjs01
+pbobble2                               //parent
+pbobl2xh
+pbobble3                               //parent
+pbobble3h01
+pbobble3h02
+spcinv95                               //parent
+akkanvdrs01
+twinqix                                //parent
+twinqixh01
 
 @source:taito_l.cpp
 evilston                               //parent
