@@ -8404,23 +8404,23 @@ crimecb
 @source:taito_f2.cpp
 f2demo                                 // HB
 cameltry                               //parent
-cameltryjs01
+cameltrys01
 deadconx                               //parent
-deadconxjs01
+deadconxs01
 dondokod                               //parent
-dondokodjs01
+dondokods01
 dinorex                                //parent
 dinorexs01
 gunfront                               //parent
-gunfrontjs01
+gunfronts01
 megablst                               //parent
-megablstjs01
+megablsts01
 liquidk                                //parent
-mizubakus01
+mizubaks01
 growl                                  //parent
 runarks01
 thundfox                               //parent
-thundfoxjs01
+thundfoxs01
 
 @source:taito_f3.cpp
 arabianm                               //parent
