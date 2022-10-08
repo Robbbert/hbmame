@@ -7758,10 +7758,11 @@ theglads08
 @source:phoenix.cpp
 phoenix                                //parent
 phoenixg                               // Vag @ GreekRoms
-phoenixr                               // so-called German hack of Phoenix
+phoenixr
+phoetest
 
 @source:playch10.cpp
-playch10		//bios
+playch10                               //bios
 pc_bb2			/* NES->PC-10 */
 pc_ctfrc		/* NES->PC-10 */
 pc_digdg		/* NES->PC-10 */

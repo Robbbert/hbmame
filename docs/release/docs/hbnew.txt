@@ -15,6 +15,7 @@ New Games
 - [mrdotest]            Mr. Do! Test Rom (2017-12-07)
 - [pacmtest2]           Pacman Test Rom (set 3)
 - [pbobble3s02]         Puzzle Bobble 3 (Recarbonated, 2p only)
+- [phoetest]            Phoenix Test Rom (2017-12-07)
 - [pooytest]            Pooyan Test Rom (set 1)
 - [scratest]            Scramble Test Rom (2019-01-27)
 - [senctest]            Space Encounters Test Rom
