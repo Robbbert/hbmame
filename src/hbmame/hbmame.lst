@@ -4095,9 +4095,7 @@ mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 @source:m92.cpp
-hook			//parent
-nbbatman		//parent
-uccops  		//parent
+hook                                   //parent
 hooks01
 hooks02
 hooks03
@@ -4107,6 +4105,7 @@ hooks06
 hookus01
 hookus02
 hookxr
+nbbatman                               //parent
 nbbatmans01
 nbbatmans02
 nbbatmans03
@@ -4116,6 +4115,7 @@ nbbatmanus03
 nbbatmanus04
 nbbatmanus05
 nbbatmanus06
+uccops                                 //parent
 uccopsjs01
 
 @source:maketrax.cpp
@@ -8430,6 +8430,7 @@ landmakr                               //parent
 pbobble2                               //parent
 pbobble3                               //parent
 pbobble3h01
+pbobble3h02
 cleopath
 driusgxh
 gekiridh

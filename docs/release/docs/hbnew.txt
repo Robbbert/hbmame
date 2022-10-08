@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [pbobble3h02]         Puzzle Bobble 3 (Recarbonated, 2p only)
 - [senctest]            Space Encounters Test Rom
 - [sinvtest]            Space Invaders Test Rom (SMv1.0)
 - [sinvtest0]           Space Invaders Test Rom (v1.0)
