@@ -7,6 +7,7 @@
 
 New Games
 ---------------------------------
+- [frogtest2]           Frogger Test Rom (2019-01-27)
 - [galxtest2]           Galaxian Test Rom (2017-12-07)
 - [gyrutest]            Gyruss Test Rom (2021-06-27)
 - [gyrutest2]           Gyruss Test Rom (2021-09-29)
