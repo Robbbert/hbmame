@@ -15,6 +15,15 @@ New Games
 - [sinvtest2]           Space Invaders Test Rom (v1.2)
 - [sinvtest3]           Space Invaders Test Rom (v1.3)
 - [spectest]            Spectar Test Rom
+- [trkftest07b]         Track and Field Test Rom (0.7 beta)
+- [trkftest08b]         Track and Field Test Rom (0.8 beta)
+- [trkftest09b]         Track and Field Test Rom (0.9 beta)
+- [trkftest10b]         Track and Field Test Rom (1.0 beta)
+- [trkftest11b]         Track and Field Test Rom (1.1 beta)
+- [trkftest12b]         Track and Field Test Rom (1.2 beta)
+- [trkftest11t]         Track and Field Test Rom (1.1 test)
+- [trkftest12t]         Track and Field Test Rom (1.2 test)
+- [trkftest12tu]        Track and Field Test Rom (1.2 test, unencrypted)
 - [twinqixs01]          Twin Qix (Ver 1.0A 1995/01/17, Japan)
 
 

@@ -8585,8 +8585,17 @@ truxton2nv
 
 @source:trackfld.cpp
 trackfld                               //parent
-athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
-tst_trkfld
+athens04	/* Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas */
+trkftest07b
+trkftest08b
+trkftest09b
+trkftest10b
+trkftest11b
+trkftest12b
+trkftest13b
+trkftest11t
+trkftest12t
+trkftest12tu
 
 @source:twincobr.cpp
 twincobr                               //parent
