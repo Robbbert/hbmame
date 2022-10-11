@@ -1866,6 +1866,10 @@ gyrutest2
 gnw_bride                              // HB
 spicegirls                             // HB
 
+@source:hyperspt.cpp
+hyperspt                               //parent
+hypetest
+
 @source:igs011.cpp
 lhb2                                   //parent
 lhb2s01
