@@ -23989,3 +23989,58 @@ GAME( 2022, mslug4a2,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug
 GAME( 2022, mslug4q,   mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "hack", "Metal Slug 4 (Longest Fight, 2022-06-23)", MACHINE_SUPPORTS_SAVE )
 
 
+// RAINBOW ISLANDS TEST ROMS (untested on real hardware)
+// They don't work.
+ROM_START( rbistest ) // crashes; many illegal instructions beginning at 20D3A
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "rbistest.19",   0x00000, 0x10000, CRC(bd37dc4b) SHA1(0519c04771ff1051cbad973ff708421f32853592) )
+	ROM_LOAD16_BYTE( "rbistest.20",   0x00001, 0x10000, CRC(fd62eaad) SHA1(67ec2f7b2c84c591de555f666237ce52d737e6cc) )
+	ROM_LOAD16_BYTE( "b22-08-1.21",   0x20000, 0x10000, CRC(15d6e17a) SHA1(7b0339180239e75adf1437aee276b652a1bfee51) )
+	ROM_LOAD16_BYTE( "b22-09-1.22",   0x20001, 0x10000, CRC(454e66bc) SHA1(54d57dee90da04101f4b1473770b38001d63230f) )
+	ROM_LOAD16_BYTE( "b22-03.23",     0x40000, 0x20000, CRC(3ebb0fb8) SHA1(1b41b305623d121255eb70cb992e4d9da13abd82) )
+	ROM_LOAD16_BYTE( "b22-04.24",     0x40001, 0x20000, CRC(91625e7f) SHA1(765afd973d9b82bb496b04beca284bf2769d6e6f) )
+
+	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
+	ROM_LOAD( "cchip_b22-15.53", 0x0000, 0x2000, CRC(08c588a6) SHA1(7e38342be68d37f7106df069dd2021c509be1244) )
+
+	ROM_REGION( 0x1c000, "audiocpu", 0 )
+	ROM_LOAD( "b22-14.43", 0x00000, 0x4000, CRC(113c1a5b) SHA1(effa2adf54a6be78b2d4baf3a47529342fb0d895) )
+	ROM_CONTINUE(          0x10000, 0xc000 )
+
+	ROM_REGION( 0x80000, "pc080sn", 0 )
+	ROM_LOAD16_WORD_SWAP( "b22-01.2", 0x00000, 0x80000, CRC(b76c9168) SHA1(e924be0c8294b930488bb04583784254a840a52e) )
+
+	ROM_REGION( 0xa0000, "pc090oj", 0 )
+	ROM_LOAD16_WORD_SWAP( "b22-02.5", 0x00000, 0x80000, CRC(1b87ecf0) SHA1(37a463184f4064fe0565367236e289d57639614c) )
+	ROM_LOAD16_BYTE     ( "b22-13.6", 0x80000, 0x10000, CRC(2fda099f) SHA1(a1e27a4497f6733608be924d69d965b19f725b99) )
+	ROM_LOAD16_BYTE     ( "b22-12.7", 0x80001, 0x10000, CRC(67a76dc6) SHA1(626ee684eb3ea859c695ffe03344ccaa442da4af) )
+ROM_END
+
+ROM_START( rbistest1 ) // game runs as normal; unknown how to begin tests
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "rbistest1.19",   0x00000, 0x10000, CRC(3c9f547a) SHA1(d915e11d433096be8359db60f2b1e678a3d0bdc0) )
+	ROM_LOAD16_BYTE( "rbistest1.20",   0x00001, 0x10000, CRC(0ad961b5) SHA1(53d59025d1a2a026a7439fb94086a9aac61cada8) )
+	ROM_LOAD16_BYTE( "rbistest1.21",   0x20000, 0x10000, CRC(962fb845) SHA1(1c5581e697902ee5cde0fb841ef05eade04a901b) )
+	ROM_LOAD16_BYTE( "rbistest1.22",   0x20001, 0x10000, CRC(f43efa27) SHA1(f92bcdbe9bbc1c200946c10605846bb406d8e963) )
+	ROM_LOAD16_BYTE( "rbistest1.23",   0x40000, 0x20000, CRC(e8603162) SHA1(043a09053bbca5f2413d9cc470ab3133ef5763cd) )
+	ROM_LOAD16_BYTE( "rbistest1.24",   0x40001, 0x20000, CRC(903719c4) SHA1(41b0122f7427d17397f662d9bd6562f6bde44f4c) )
+
+	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
+	ROM_LOAD( "cchip_b22-15.53", 0x0000, 0x2000, CRC(08c588a6) SHA1(7e38342be68d37f7106df069dd2021c509be1244) )
+
+	ROM_REGION( 0x1c000, "audiocpu", 0 )
+	ROM_LOAD( "b22-14.43", 0x00000, 0x4000, CRC(113c1a5b) SHA1(effa2adf54a6be78b2d4baf3a47529342fb0d895) )
+	ROM_CONTINUE(          0x10000, 0xc000 )
+
+	ROM_REGION( 0x80000, "pc080sn", 0 )
+	ROM_LOAD16_WORD_SWAP( "b22-01.2", 0x00000, 0x80000, CRC(b76c9168) SHA1(e924be0c8294b930488bb04583784254a840a52e) )
+
+	ROM_REGION( 0xa0000, "pc090oj", 0 )
+	ROM_LOAD16_WORD_SWAP( "b22-02.5", 0x00000, 0x80000, CRC(1b87ecf0) SHA1(37a463184f4064fe0565367236e289d57639614c) )
+	ROM_LOAD16_BYTE     ( "b22-13.6", 0x80000, 0x10000, CRC(2fda099f) SHA1(a1e27a4497f6733608be924d69d965b19f725b99) )
+	ROM_LOAD16_BYTE     ( "b22-12.7", 0x80001, 0x10000, CRC(67a76dc6) SHA1(626ee684eb3ea859c695ffe03344ccaa442da4af) )
+ROM_END
+
+GAME( 2013, rbistest,  rbisland, rbisland, rbisland, rbisland_state, init_rbisland, ROT0, "Porchy", "Rainbow Islands Cchip Test (2013-12-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, rbistest1, rbisland, rbisland, rbisland, rbisland_state, init_rbisland, ROT0, "Porchy", "Rainbow Islands Test Rom (2013-12-24)", MACHINE_SUPPORTS_SAVE )
+
