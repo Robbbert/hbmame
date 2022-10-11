@@ -19,6 +19,7 @@ New Games
 - [pbobble3s02]         Puzzle Bobble 3 (Recarbonated, 2p only)
 - [phoetest]            Phoenix Test Rom (2017-12-07)
 - [pooytest]            Pooyan Test Rom (set 1)
+- [scobtest]            Super Cobra Test Rom (2019-01-27)
 - [scratest]            Scramble Test Rom (2019-01-27)
 - [senctest]            Space Encounters Test Rom
 - [sinvtest]            Space Invaders Test Rom (SMv1.0)
