@@ -2184,54 +2184,6 @@ ROM_START( pacman25s15 )
 	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
-ROM_START( pacman25s16 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "pac25.6e",     0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
-	ROM_LOAD( "pac25.6f",     0x1000, 0x1000, CRC(c5ec2352) SHA1(86178b16dabb90005b132febc1a261651a73018d) )
-	ROM_LOAD( "pac25.6h",     0x2000, 0x1000, CRC(92cd89b9) SHA1(c3a0141480341c550a889b58692c8c90b322ee67) )
-	ROM_LOAD( "s16.6j",       0x3000, 0x1000, CRC(97a986ad) SHA1(115ba8b888828e4c498febd1e493f48ececdb409) )
-	ROM_LOAD( "maps1.s16",    0x8000, 0x1000, CRC(50854c07) SHA1(3b6ec6789889098680bf133ef5c7544efa5861e1) )
-	ROM_LOAD( "maps2.s14",    0x9000, 0x1000, CRC(448a0986) SHA1(663fb0f7877dcb9c62f331ef351209ddeec2ed96) )
-	ROM_LOAD( "maps3.s16",    0xa000, 0x1000, CRC(68e5c9a5) SHA1(0365b30bc1ed3cf040ae8e270426d6cf3f95bc95) )
-	ROM_LOAD( "maps4.s16",    0xb000, 0x1000, CRC(56d88c05) SHA1(5e9e0bbeda420bcb9c5f01afc3cc0881eba46ae7) )
-
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "s04.5e",       0x0000, 0x1000, CRC(271be184) SHA1(f37dd55523aa6ad3ce002284aba7149335d58926) )
-	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
-
-	ROM_REGION( 0x0120, "proms", 0 )
-	ROM_LOAD( "82s123.7f",    0x0000, 0x0020, CRC(2fc650bd) SHA1(8d0268dee78e47c712202b0ec4f1f51109b1f2a5) )
-	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
-
-	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
-	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
-ROM_END
-
-ROM_START( pacman25s17 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "pac25.6e",     0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
-	ROM_LOAD( "pac25.6f",     0x1000, 0x1000, CRC(c5ec2352) SHA1(86178b16dabb90005b132febc1a261651a73018d) )
-	ROM_LOAD( "pac25.6h",     0x2000, 0x1000, CRC(92cd89b9) SHA1(c3a0141480341c550a889b58692c8c90b322ee67) )
-	ROM_LOAD( "s16.6j",       0x3000, 0x1000, CRC(97a986ad) SHA1(115ba8b888828e4c498febd1e493f48ececdb409) )
-	ROM_LOAD( "maps1.s17",    0x8000, 0x1000, CRC(09efdb26) SHA1(1b467a79ea52e829b954cc8392b8f4898accfb35) )
-	ROM_LOAD( "maps2.s14",    0x9000, 0x1000, CRC(448a0986) SHA1(663fb0f7877dcb9c62f331ef351209ddeec2ed96) )
-	ROM_LOAD( "maps3.s16",    0xa000, 0x1000, CRC(68e5c9a5) SHA1(0365b30bc1ed3cf040ae8e270426d6cf3f95bc95) )
-	ROM_LOAD( "maps4.s16",    0xb000, 0x1000, CRC(56d88c05) SHA1(5e9e0bbeda420bcb9c5f01afc3cc0881eba46ae7) )
-
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "s04.5e",       0x0000, 0x1000, CRC(271be184) SHA1(f37dd55523aa6ad3ce002284aba7149335d58926) )
-	ROM_LOAD( "pacman.5f",    0x1000, 0x1000, CRC(958fedf9) SHA1(4a937ac02216ea8c96477d4a15522070507fb599) )
-
-	ROM_REGION( 0x0120, "proms", 0 )
-	ROM_LOAD( "82s123.7f",    0x0000, 0x0020, CRC(2fc650bd) SHA1(8d0268dee78e47c712202b0ec4f1f51109b1f2a5) )
-	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
-
-	ROM_REGION( 0x0200, "namco", 0 )
-	ROM_LOAD( "82s126.1m",    0x0000, 0x0100, CRC(a9cc86bf) SHA1(bbcec0570aeceb582ff8238a4bc8546a23430081) )
-	ROM_LOAD( "82s126.3m",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
-ROM_END
-
 ROM_START( pacman25s18 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pac25.6e",     0x0000, 0x1000, CRC(fee263b3) SHA1(87117ba5082cd7a615b4ec7c02dd819003fbd669) )
@@ -6764,8 +6716,6 @@ GAME( 2021, pacman25s12, puckman,  woodpek,  pacman0,  puckman_state, empty_init
 GAME( 2021, pacman25s13, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (T-Bone Mazes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s14, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mazes)(PAC-MAN Classic Look)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s15, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mazes)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, pacman25s16, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)(PAC-MAN Classic Look)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
-GAME( 2021, pacman25s17, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
 GAME( 2021, pacman25s18, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Tall Mazes)(PAC-MAN Classic Look)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s19, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Tall Mazes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, pacman25s20, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Ultra Pac-Man)", MACHINE_SUPPORTS_SAVE )
