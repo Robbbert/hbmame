@@ -7,6 +7,8 @@
 
 New Games
 ---------------------------------
+- [avengrgs01]          Avengers In Galactic Storm (Boss Hack, set 1)
+- [avengrgs02]          Avengers In Galactic Storm (Boss Hack, set 2)
 - [ktigers01]           Kyukyoku Tiger (Japan, 1989)
 
 

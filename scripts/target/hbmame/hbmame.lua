@@ -459,6 +459,10 @@ files {
 	MAME_DIR .. "src/mame/video/decospr.cpp",  -- cninja
 	MAME_DIR .. "src/mame/machine/deco_irq.cpp",  -- cninja
 	MAME_DIR .. "src/mame/machine/decocrpt.cpp",  -- cninja
+	MAME_DIR .. "src/hbmame/drivers/deco_mlc.cpp",  -- mlc
+	MAME_DIR .. "src/mame/video/deco_mlc.cpp",    -- mlc
+	MAME_DIR .. "src/mame/drivers/deco156.cpp",   -- mlc
+	MAME_DIR .. "src/mame/machine/deco156.cpp",   -- mlc
 	MAME_DIR .. "src/hbmame/drivers/deco32.cpp",
 	MAME_DIR .. "src/mame/video/deco32.cpp",
 	MAME_DIR .. "src/mame/audio/decobsmt.cpp", -- deco32

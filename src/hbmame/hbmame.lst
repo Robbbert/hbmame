@@ -1624,15 +1624,20 @@ mjdchuka				//parent
 mjdchukas01
 
 @source:dec0.cpp
-baddudes				//parent
+baddudes                               //parent
 baddudef				// Arkatrad
 decodemo				// Charles Doty
-robocop 				//parent
+robocop                                //parent
 robocopbs01
 
 @source:decocass.cpp
-decocass				//parent
+decocass                               //parent
 decomult				// Dave Widel
+
+@source:deco_mlc.cpp
+avengrgs                               //parent
+avengrgs01
+avengrgs02
 
 @source:dkong.cpp
 dkong					//parent
