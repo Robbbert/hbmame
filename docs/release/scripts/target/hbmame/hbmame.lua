@@ -571,6 +571,8 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/1943.cpp",
 	MAME_DIR .. "src/mame/video/1943.cpp",
 	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
+	MAME_DIR .. "src/hbmame/drivers/gyruss.cpp",
+	MAME_DIR .. "src/mame/video/gyruss.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mystwarr.cpp",
 	MAME_DIR .. "src/mame/video/mystwarr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/nemesis.cpp",
@@ -583,6 +585,9 @@ files {
 	MAME_DIR .. "src/mame/drivers/galaxold.cpp",
 	MAME_DIR .. "src/mame/machine/galaxold.cpp",
 	MAME_DIR .. "src/mame/video/galaxold.cpp",
+	MAME_DIR .. "src/hbmame/drivers/hyperspt.cpp",
+	MAME_DIR .. "src/mame/audio/hyprolyb.cpp",
+	MAME_DIR .. "src/mame/video/hyperspt.cpp",
 	MAME_DIR .. "src/hbmame/drivers/shaolins.cpp",
 	MAME_DIR .. "src/mame/video/shaolins.cpp",
 	MAME_DIR .. "src/hbmame/drivers/timeplt.cpp",
@@ -624,6 +629,7 @@ files {
 createHBMAMEProjects(_target, _subtarget, "midway")
 files {
 	MAME_DIR .. "src/hbmame/drivers/invaders.cpp",
+	MAME_DIR .. "src/hbmame/drivers/spcenctr.cpp",
 	MAME_DIR .. "src/hbmame/drivers/astrocde.cpp",
 	MAME_DIR .. "src/mame/video/astrocde.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mcr.cpp",
@@ -881,6 +887,8 @@ files {
 	MAME_DIR .. "src/mame/machine/model1io.cpp",
 	MAME_DIR .. "src/hbmame/drivers/segahang.cpp",
 	MAME_DIR .. "src/mame/video/segahang.cpp",
+	MAME_DIR .. "src/hbmame/drivers/segaxbd.cpp",
+	MAME_DIR .. "src/mame/video/segaxbd.cpp",
 	MAME_DIR .. "src/hbmame/drivers/stv.cpp", -- from here, for stv
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
 	MAME_DIR .. "src/mame/video/saturn.cpp",
@@ -1039,6 +1047,7 @@ files {
 	MAME_DIR .. "src/mame/drivers/wardner.cpp",
 	MAME_DIR .. "src/mame/video/toaplan_scu.cpp",
 	MAME_DIR .. "src/mame/machine/nmk112.cpp",
+	MAME_DIR .. "src/hbmame/drivers/dt7.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "unico")

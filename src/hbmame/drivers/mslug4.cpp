@@ -3,6 +3,9 @@
 // Metal Slug 4
 #include "includes/neogeo.h"
 
+//	Hacks for decrypted sets
+//	ROM_FILL(0x1741,1,0x78) // select LEVEL-8 by default
+//	ROM_FILL(0x1745,1,0x34) // turn on LEVEL number by default
 
 void neogeo_state::init_mslug4hb() // hacks of mslug4
 {
@@ -66,7 +69,6 @@ ROM_START( mslug4a )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "263a.p1",  0x000000, 0x100000, CRC(61cdef09) SHA1(7c028fc416e4c32b11b895ec05d210749edaac55) )
 	ROM_LOAD16_WORD_SWAP( "263a.p2",  0x100000, 0x400000, CRC(87dc01b9) SHA1(ddad7d72e53e0c6273384119f96b3b7f324ca237) )
-	//ROM_FILL(0x1745,1,0x34) // turn on LEVEL number by default
 
 	NEO_SFIX_512K( "263hh53.s1", CRC(1eaa05e0) SHA1(73a7e158c3c4fa602e17dcb517190fd91a9dbab8) )
 

@@ -320,9 +320,21 @@ ROM_START( gaylaxn )
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 ROM_END
 
-ROM_START( tst_galx1 )
+ROM_START( galxtest1 )
 	ROM_REGION( 0x4000, "maincpu", 0 )
-	ROM_LOAD( "test.u",       0x0000, 0x0800, CRC(0614cd7f) SHA1(12440678be8a27a6c3032b6e43c45e27905ffa83) )   /*  The Test ROM */
+	ROM_LOAD( "test.u",       0x0000, 0x0800, CRC(0614cd7f) SHA1(12440678be8a27a6c3032b6e43c45e27905ffa83) )   // Test ROM
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
+	ROM_LOAD( "1k.bin",       0x0800, 0x0800, CRC(7e3f56a2) SHA1(a9795d8b7388f404f3b0e2c6ce15d713a4c5bafa) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
+ROM_START( galxtest2 )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "galxtest2.u",  0x0000, 0x0400, CRC(bdf2a530) SHA1(a60ab7c232d3552427744a36ea93ef597f0383f8) )   // Test ROM
 
 	ROM_REGION( 0x1000, "gfx1", 0 )
 	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
@@ -405,6 +417,27 @@ ROM_START( mooncrs5f )
 	ROM_REGION( 0x0020, "proms", 0 )
 //  ROM_LOAD( "6l.bpr",      0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 	ROM_LOAD( "mmi6331.6l",  0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
+ROM_END
+
+ROM_START( moontest )
+	ROM_REGION( 0x8000, "maincpu", 0 )
+	ROM_LOAD( "moontest.7k",  0x0000, 0x0400, CRC(caf5eb02) SHA1(3ba9df1e8f3fa548a68f1f596f744c188a1ea48a) )
+	ROM_LOAD( "mc2",          0x0800, 0x0800, CRC(44bb7cfa) SHA1(349c2e23a9fce73f95bb8168d369082fa129fe3d) )
+	ROM_LOAD( "mc3",          0x1000, 0x0800, CRC(9c412104) SHA1(1b40054ebb1ace965a8522119bb23f09797bc5f6) )
+	ROM_LOAD( "mc4",          0x1800, 0x0800, CRC(7e9b1ab5) SHA1(435f603c0c3e788a509dd144a7916a34e791ae44) )
+	ROM_LOAD( "mc5.7r",       0x2000, 0x0800, CRC(16c759af) SHA1(3b48050411f65f9d3fb41ff22901e22d82bf1cf6) )
+	ROM_LOAD( "mc6.8d",       0x2800, 0x0800, CRC(69bcafdb) SHA1(939c8c6ed1cd4660a3d99b8f17ed99cbd7e1352a) )
+	ROM_LOAD( "mc7.8e",       0x3000, 0x0800, CRC(b50dbc46) SHA1(4fa084fd1ba5f78e7703e684c57af15ca7a844e4) )
+	ROM_LOAD( "mc8",          0x3800, 0x0800, CRC(18ca312b) SHA1(39219059003b949e38305553fea2d33071062c64) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "mcs_b",        0x0000, 0x0800, CRC(fb0f1f81) SHA1(38a6679a8b69bc1870a0e67e692131c42f9535c8) )
+	ROM_LOAD( "mcs_d",        0x0800, 0x0800, CRC(13932a15) SHA1(b8885c555c6ad7021be55c6925a0a0872c1b6abd) )
+	ROM_LOAD( "mcs_a",        0x1000, 0x0800, CRC(631ebb5a) SHA1(5bc9493afa76c55858b8c8849524cbc77dc838fc) )
+	ROM_LOAD( "mcs_c",        0x1800, 0x0800, CRC(24cfd145) SHA1(08c6599db170dd6ee364c44f70a0f5c0f881b6ef) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "mmi6331.6l",   0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
 ROM_END
 
 // Mr. Do. Nightmare
@@ -507,6 +540,52 @@ ROM_START( superdog )
 	ROM_LOAD( "c01s.6e",      0x0000, 0x0020, CRC(4e3caeab) SHA1(a25083c3e36d28afdefe4af6e6d4f3155e303625) )
 ROM_END
 
+ROM_START( scratest )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "scratest.2d",  0x0000, 0x043d, CRC(a7f3cf0f) SHA1(4a934f6f660e536009ccb96b4914ed65f7a28855) )
+	ROM_LOAD( "2e",           0x0800, 0x0800, CRC(e9b4b9eb) SHA1(a8ee9ddfadf5e9accedfaf81da757a88a2e55a0a) )
+	ROM_LOAD( "2f",           0x1000, 0x0800, CRC(a1f14f4c) SHA1(3eae2b3e4596505a8afb5c5cfb108e823c2c4319) )
+	ROM_LOAD( "2h",           0x1800, 0x0800, CRC(591bc0d9) SHA1(170f9e92f0a3bee04407be27210b4fa825367688) )
+	ROM_LOAD( "2j",           0x2000, 0x0800, CRC(22f11b6b) SHA1(e426ef6a7444a39a34d59799973b07d11b89f372) )
+	ROM_LOAD( "2l",           0x2800, 0x0800, CRC(705ffe49) SHA1(174df3f281068c767344f751daace646360e26d6) )
+	ROM_LOAD( "2m",           0x3000, 0x0800, CRC(ea26c35c) SHA1(a2f3380982d93a022f46756f974fd16c4cd617de) )
+	ROM_LOAD( "2p",           0x3800, 0x0800, CRC(94d8f5e3) SHA1(f3a9c4d1d91836476fcad87ea0d243dde7171e0a) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "ot1.5c",       0x0000, 0x0800, CRC(bcd297f0) SHA1(8ed78487d76fd0a917ab7b258937a46e2cd9800c) )
+	ROM_LOAD( "ot2.5d",       0x0800, 0x0800, CRC(de7912da) SHA1(8558b4eff5d7e63029b325edef9914feda5834c3) )
+	ROM_LOAD( "ot3.5e",       0x1000, 0x0800, CRC(ba2fa933) SHA1(1f976d8595706730e29f93027e7ab4620075c078) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "off-5f",       0x0000, 0x0800, CRC(7015a2e1) SHA1(19bb4cb26c8b91cd79368e4ed48065df6fd6577e) )
+	ROM_LOAD( "off-5h",       0x0800, 0x0800, CRC(a36ac0fa) SHA1(b58412536833ab5ea705e919562b7b495ff3dff4) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "c01s.6e",      0x0000, 0x0020, CRC(4e3caeab) SHA1(a25083c3e36d28afdefe4af6e6d4f3155e303625) )
+ROM_END
+
+ROM_START( scobtest )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "scobtest.2c",  0x0000, 0x02ff, CRC(5319182a) SHA1(18302ec0f943aaf1d335cef531700c5bfe4c9507) )
+	ROM_LOAD( "2e",           0x1000, 0x1000, CRC(8e7245cd) SHA1(281504ff364c3ddbf901c92729b139afd93b9785) )
+	ROM_LOAD( "epr1267.2f",   0x2000, 0x1000, CRC(47a4e6fb) SHA1(01775ad11dc23469649539ee8fb8a5800df031c6) )
+	ROM_LOAD( "2h",           0x3000, 0x1000, CRC(7244f21c) SHA1(f5fff565ed3f6c5f277a4db53c9f569813fcec1d) )
+	ROM_LOAD( "epr1269.2j",   0x4000, 0x1000, CRC(e1f8a801) SHA1(2add8270352d6596052d3ff22c891ceccaa92071) )
+	ROM_LOAD( "2l",           0x5000, 0x1000, CRC(d52affde) SHA1(5681771ed51d504bdcc2999fcbf926a30b137828) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "5c",           0x0000, 0x0800, CRC(d4346959) SHA1(5eab4505beb69a5bdd88b23db60e1193371250cf) )
+	ROM_LOAD( "5d",           0x0800, 0x0800, CRC(cc025d95) SHA1(2b0784c4d05c466e0b7648f16e14f34393d792c3) )
+	ROM_LOAD( "5e",           0x1000, 0x0800, CRC(1628c53f) SHA1(ec79a73e4a2d7373454b227dd7eff255f1cc60cc) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "epr1274.5h",   0x0000, 0x0800, CRC(64d113b4) SHA1(7b439bb74d5ecc792e0ca8964bcca8c6b7a51262) )
+	ROM_LOAD( "epr1273.5f",   0x0800, 0x0800, CRC(a96316d3) SHA1(9de0e94932e91dc34aea7c81880bde6a486d103b) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "82s123.6e",    0x0000, 0x0020, CRC(9b87f90d) SHA1(d11ac5e4a6057301ea2a9cbb404c2b978eb4c1dc) )
+ROM_END
+
 ROM_START( amidarf )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "amidar.2c",    0x0000, 0x1000, CRC(c294bf27) SHA1(399325bf1559e8cdbddf7cfbf0dc739f9ed72ef0) )
@@ -607,9 +686,26 @@ ROM_START( trukker )
 	ROM_LOAD( "pr-91.6l",     0x0000, 0x0020, CRC(413703bf) SHA1(66648b2b28d3dcbda5bdb2605d1977428939dd3c) )
 ROM_END
 
-ROM_START( tst_frog )
+ROM_START( frogtest )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "frogtest.bin", 0x0000, 0x0226, CRC(1f5a7f35) SHA1(608ad6ac8c34aea66b13aac7e45c298a2083d642) )
+	ROM_LOAD( "frogtest.ic5", 0x0000, 0x0226, CRC(1f5a7f35) SHA1(608ad6ac8c34aea66b13aac7e45c298a2083d642) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "frogger.608",  0x0000, 0x0800, CRC(e8ab0256) SHA1(f090afcfacf5f13cdfa0dfda8e3feb868c6ce8bc) )
+	ROM_LOAD( "frogger.609",  0x0800, 0x0800, CRC(7380a48f) SHA1(75582a94b696062cbdb66a4c5cf0bc0bb94f81ee) )
+	ROM_LOAD( "frogger.610",  0x1000, 0x0800, CRC(31d7eb27) SHA1(2e1d34ae4da385fd7cac94707d25eeddf4604e1a) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "frogger.607",  0x0000, 0x0800, CRC(05f7d883) SHA1(78831fd287da18928651a8adb7e578d291493eff) )
+	ROM_LOAD( "frogger.606",  0x0800, 0x0800, CRC(f524ee30) SHA1(dd768967add61467baa08d5929001f157d6cd911) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "pr-91.6l",     0x0000, 0x0020, CRC(413703bf) SHA1(66648b2b28d3dcbda5bdb2605d1977428939dd3c) )
+ROM_END
+
+ROM_START( frogtest2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "frogtest2.ic5", 0x0000, 0x0440, CRC(103cbaf8) SHA1(f3c9ecfca918ea6fbb7936f4ad15c6a7fe46c4ab) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "frogger.608",  0x0000, 0x0800, CRC(e8ab0256) SHA1(f090afcfacf5f13cdfa0dfda8e3feb868c6ce8bc) )
@@ -649,48 +745,56 @@ ROM_END
 ***************************************************************************/
 
 
-//    Year  romname   parent    machine   inputs    init      rot
+//    Year  romname     parent    machine   inputs    class            init           rot
 
-/* Frogger */
-GAME( 1981, kazzy,    frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, trukker,  frogger,  frogger,  frogger,  galaxian_hbmame, init_trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, tst_frog, frogger,  tst_frog, frogger,  galaxian_hbmame, init_frogger,  ROT90, "msmcdoug", "Test Rom - Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
-
-
-/* Amidar */
-GAME( 2007, amidarf,  amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "S.Arkames", "Amidar (French, 2007-11-28)(Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, amidargr, amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, amidars01,amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "Arkatrad", "Amidar (French, 2007-11-28)(Set 2)", MACHINE_SUPPORTS_SAVE )
+// Frogger
+GAME( 1981, kazzy,      frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Kazzy", "K-azzy", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, trukker,    frogger,  frogger,  frogger,  galaxian_hbmame, init_trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, frogtest,   frogger,  tst_frog, frogger,  galaxian_hbmame, init_frogger,  ROT90, "msmcdoug / JROK", "Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, frogtest2,  frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Phil Murray", "Frogger Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
 
 
-/* Scramble */
-GAME( 1998, offender, scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, superdog, scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
+// Amidar
+GAME( 2007, amidarf,    amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "S.Arkames", "Amidar (French, 2007-11-28)(Set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, amidargr,   amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "GreekRoms", "Amidar (Greek)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, amidars01,  amidar,   turtles,  amidar,   galaxian_hbmame, init_turtles,  ROT90, "Arkatrad", "Amidar (French, 2007-11-28)(Set 2)", MACHINE_SUPPORTS_SAVE )
 
 
-/* Galaxian */
-GAME( 1979, andromd,  galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack",  "Andromeda", MACHINE_SUPPORTS_SAVE)
-GAME( 1998, buglaxn,  galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, galaxiabh, galnamco, galaxian, galaxiab, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (Edition Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1979, galaxkyo, galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, galaxni,  galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, galinvad, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
-GAME( 1979, galnamco, 0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, gaylaxn,  galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
-GAME( 2003, mrdonm,   0,        galaxian, mrdonm,   galaxian_hbmame, init_galaxian, ROT90, "Krazy Ivan", "Mr. Do's Nightmare", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, tst_galx1, galnamco, galaxian, galaxian, galaxian_state,  init_galaxian,   ROT90,  "<unknown>", "Galaxian Test ROM", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, vectrgal, galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
+// Scramble
+GAME( 1998, offender,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Chris Henry (Battlpriest)", "Offender", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, superdog,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Jerky", "Superdog", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, scratest,   scramble, scramble, scramble, galaxian_hbmame, init_scramble, ROT90, "Phil Murray", "Scramble Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
 
 
-/* Moon Cresta */
-GAME( 2000, mooncmst, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
-GAME( 1980, mooncrs5f, mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrsu, ROT90, "bootleg", "Moon Cresta (bootleg)", MACHINE_SUPPORTS_SAVE )
+// Super Cobra
+GAME( 2019, scobtest,   scobra,   scobra,   scobra,   galaxian_state,  init_scobra,   ROT90, "Phil Murray", "Super Cobra Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
 
 
-/* Other */
-GAME( 1981, jumpbugx, 0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
-GAME( 19??, starfgh2, pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, wbeast,   0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
+// Galaxian
+GAME( 1979, andromd,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Andromeda", MACHINE_SUPPORTS_SAVE)
+GAME( 1998, buglaxn,    galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, galaxiabh,  galnamco, galaxian, galaxiab, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (Edition Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, galaxkyo,   galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, galaxni,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, galinvad,   galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "T-Bone", "Galaxian (Space Invaders sprites)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, galnamco,   0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Namco", "Galaxians", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, gaylaxn,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Gaylaxian", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, mrdonm,     0,        galaxian, mrdonm,   galaxian_hbmame, init_galaxian, ROT90, "Krazy Ivan", "Mr. Do's Nightmare", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, galxtest1,  galnamco, galaxian, galaxian, galaxian_state,  init_galaxian, ROT90, "<unknown>", "Galaxian Test Rom", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, galxtest2,  galnamco, galaxian, galaxian, galaxian_state,  init_galaxian, ROT90, "Phil Murray", "Galaxian Test Rom (2017-12-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, vectrgal,   galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "T-Bone", "Galaxian (Vector Sim)", MACHINE_SUPPORTS_SAVE )
+
+
+// Moon Cresta
+GAME( 2000, mooncmst,   mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrst, ROT90, "Kazzy", "Moon Creamsta", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, mooncrs5f,  mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrsu, ROT90, "bootleg", "Moon Cresta (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, moontest,   mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_mooncrsu, ROT90, "Phil Murray", "Moon Cresta Test Rom (2017-12-07)", MACHINE_SUPPORTS_SAVE )
+
+
+// Other
+GAME( 1981, jumpbugx,   0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, wbeast,     0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( multigameb )

@@ -3,6 +3,7 @@
 // Metal Slug 3
 #include "includes/neogeo.h"
 
+// set default level to 8: ROM_FILL(0x2ea7,1,0x78) decrypted sets only
 
 #if 0
 void neogeo_state::init_mslug3()
@@ -74,6 +75,7 @@ ROM_START( mslug3e02 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256e02.p1",   0x000000, 0x100000, CRC(c9cf4ef8) SHA1(e1e10dcea6ce0c8b6939250adaa167e950069760) )
 	ROM_LOAD16_WORD_SWAP( "256h.p2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_FILL(0x2ea7,1,0x78)
 
 	NEO_SFIX_MT_512K
 
@@ -2236,6 +2238,7 @@ ROM_START( mslug3h52 )  // mslug3g
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256h52.p1", 0x000000, 0x100000, CRC(b23bd9b7) SHA1(4a5e877bc0d4853dc9c5a2c179049fbdd5285239) )
 	ROM_LOAD16_WORD_SWAP( "256h52.p2", 0x100000, 0x400000, CRC(8053a3fb) SHA1(baf40ca915d30f3dbf6cc440131e824e889940e7) )
+	ROM_DEFAULT_BIOS("euro") // doesn't work with unibios
 
 	NEO_SFIX_128K( "256h50.s1", CRC(8458fff9) SHA1(b120d096deae8abf0ad98362ce230b66e7315a14) )
 
@@ -2368,6 +2371,7 @@ ROM_START( mslug3h57 )  // mslug3g
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256h57.p1", 0x000000, 0x100000, CRC(db900d4c) SHA1(3fa1b24f509df71bf16526bcb7cd647cedee7cd7) )
 	ROM_LOAD16_WORD_SWAP( "256h57.p2", 0x100000, 0x400000, CRC(79ff4ac6) SHA1(70003b29d69d4fdfff33b8c0d999fbb58f3caf13) )
+	ROM_DEFAULT_BIOS("euro") // doesn't work with unibios
 
 	NEO_SFIX_MT_512K
 

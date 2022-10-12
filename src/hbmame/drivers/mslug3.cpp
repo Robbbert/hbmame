@@ -3,6 +3,7 @@
 // Metal Slug 3
 #include "includes/neogeo.h"
 
+// set default level to 8: ROM_FILL(0x2ea7,1,0x78) decrypted sets only
 
 #if 0
 void neogeo_state::init_mslug3()
@@ -74,6 +75,7 @@ ROM_START( mslug3e02 ) /* Metal Slug 3 - Super Enhance by Ydmis - (Style remix) 
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "256e02.p1",   0x000000, 0x100000, CRC(c9cf4ef8) SHA1(e1e10dcea6ce0c8b6939250adaa167e950069760) )
 	ROM_LOAD16_WORD_SWAP( "256h.p2", 0x100000, 0x400000, CRC(1f3d8ce8) SHA1(08b05a8abfb86ec09a5e758d6273acf1489961f9) )
+	ROM_FILL(0x2ea7,1,0x78)
 
 	NEO_SFIX_MT_512K
 

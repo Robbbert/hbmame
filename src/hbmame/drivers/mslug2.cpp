@@ -3,7 +3,7 @@
 // Metal Slug 2
 #include "includes/neogeo.h"
 
-
+// set default level to 8: ROM_FILL(0x100d,1,0x78)
 
 #if 0
 ROM_START( mslug2 )

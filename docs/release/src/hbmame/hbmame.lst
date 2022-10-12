@@ -24,9 +24,9 @@ galagax 		/* Jerky - Chris Moore hack of 1942 */
 1943b2			// from FBA
 
 @source:8080bw.cpp
-invaders		//parent
-tst_invd		// test rom
-invmulti		//parent
+invaders                               //parent
+tst_invd
+invmulti                               //parent
 invmultim1a
 invmultim2a
 invmultim2c
@@ -37,6 +37,11 @@ invmultis2a
 invmultis3a
 invmultit3d
 sinvrdzm
+sinvtest
+sinvtest0
+sinvtest1
+sinvtest2
+sinvtest3
 
 @source:arkanoid.cpp
 arkanoid		//parent
@@ -1700,6 +1705,9 @@ dotrikun2
 dotriman
 mineswp
 
+@source:dt7.cpp
+//dt7                                    // no inputs
+
 @source:dynax.cpp
 mjelctrn                               //parent
 mjelct3s01
@@ -1711,10 +1719,12 @@ tenkaibbs01
 //armdemo				/* Charles Doty */  // totally broken
 
 @source:exidy.cpp
-targ					//parent
-targtest				// Targ Test Rom
-teetert					//parent
-teetertfp				// free play hack
+targ                                   //parent
+targtest
+spectar                                //parent
+spectest
+teetert                                //parent
+teetertfp
 
 @source:exerion.cpp
 exerion					//parent
@@ -1786,34 +1796,40 @@ xeviblk		/* Xevious Black */
 sxeviouss01
 
 @source:galaxian.cpp
-amidar		//parent
-mooncrst	//parent
-pisces		//parent
-scramble	//parent
-frogger		//parent
+amidar                                 //parent
 amidarf		/* ArkaMAME */
 amidargr	/* GreekRoms 2004 */
 amidars01
+mooncrst                               //parent
+mooncmst
+mooncrs5f	/* clone of fantazia */
+moontest
+pisces                                 //parent
+starfgh2	/* Bootleg of Pisces */
+scramble                               //parent
+offender	/* Chris Henry hack of scramble */
+superdog	/* Jerky Hack Hack of scramble */
+scratest
+frogger                                //parent
+frogtest
+frogtest2
+kazzy
+trukker		/* Grimlick hack of Frogger */
+scobra                                 //parent
+scobtest
+galnamco	/* The Original Namco */
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */
-fourplay
 galaxiabh	/* unknown hack of Galaxian */
 galaxkyo	/* unknown hack of Galaxian Part X */
 galaxni		/* Petaco bootleg of Galaxian Part X */
 galinvad	/* T-Bone hack of Galaxian */
-galnamco	/* The Original Namco */
+galxtest1
+galxtest2
 gaylaxn		/* The Dog hack of Galaxian Part X */
 jumpbugx	// extra sounds
-kazzy
-mooncmst
-mooncrs5f	/* clone of fantazia */
-offender	/* Chris Henry hack of scramble */
-starfgh2	/* Bootleg of Pisces */
-superdog	/* Jerky Hack Hack of scramble */
-trukker		/* Grimlick hack of Frogger */
-tst_frog	/* JROK */
-tst_galx1
 vectrgal	/* T-Bone hack of Galaxian */
+fourplay
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 //multigameb                           // skeleton
@@ -1841,9 +1857,18 @@ qbtrktst                               // in mame, not working
 gradius3                               //parent
 gradius3s01
 
+@source:gyruss.cpp
+gyruss                                 //parent
+gyrutest
+gyrutest2
+
 @source:hh_sm510.cpp
 gnw_bride                              // HB
 spicegirls                             // HB
+
+@source:hyperspt.cpp
+hyperspt                               //parent
+hypetest
 
 @source:igs011.cpp
 lhb2                                   //parent
@@ -4085,9 +4110,7 @@ mpatrol		//parent
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 @source:m92.cpp
-hook			//parent
-nbbatman		//parent
-uccops  		//parent
+hook                                   //parent
 hooks01
 hooks02
 hooks03
@@ -4097,6 +4120,7 @@ hooks06
 hookus01
 hookus02
 hookxr
+nbbatman                               //parent
 nbbatmans01
 nbbatmans02
 nbbatmans03
@@ -4106,6 +4130,7 @@ nbbatmanus03
 nbbatmanus04
 nbbatmanus05
 nbbatmanus06
+uccops                                 //parent
 uccopsjs01
 
 @source:maketrax.cpp
@@ -4116,8 +4141,6 @@ abscam			// GL 1982
 absurd			/* HB - scott - nonworking alpha ver 3 */
 alienres		// HB
 alienresp		// HB nw
-alpaca7			/* HB - Jerronimo (useless) */
-alpaca8			/* HB - Jerronimo (useless) */
 bace			/* HB - Widel Games */
 crashh			/* HB - PacMAME Hacks */
 deathstar		// HB
@@ -4131,7 +4154,9 @@ lazybug1
 mtturbo			/* Tim - Make Trax Turbo Hack */
 pachello		/* HB - Jerronimo */
 pacmatri		/* HB - Jerronimo */
-pactest			/* HB - Widel Games */
+pacmtest
+pacmtest1
+pacmtest2
 pactetris		// HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
@@ -4142,7 +4167,6 @@ seq2			/* HB - Jerronimo */
 snakes			// HB
 snakes2			// HB
 theglobpb
-tst_pacm		// HB
 wavybug
 zap				/* HB - Widel Games */
 
@@ -4332,20 +4356,21 @@ missilet			// Tesla variant
 
 @source:mitchell.cpp
 mitcdemo			/* Charles Doty */
-pang				//parent
+pang                                   //parent
 pangbolds01
 
 @source:model2.cpp
-srallyc				//parent
+srallyc                                //parent
 srallyp				// Kyle Hodgetts Sega Rally Pro Drivin
 
 @source:monaco.cpp
 monaco
 
 @source:mrdo.cpp
-mrdo				//parent
+mrdo                                   //parent
 mrdigdo				/* Justin Clark hack of Mr. Do! */
 mrdofast			/* Speedup hack from Evil Exidy*/
+mrdotest
 mrpac				/* Twist Hack 20020813 */
 mrpacb
 newdigdo			/* Vic 20 George and Jerky hack of... */
@@ -4774,21 +4799,21 @@ mslug3unity
 @source:mslug4.cpp
 mslug4a
 mslug4ar
+mslug4d
+mslug4dh
 mslug4eh2
 mslug4eh3
 mslug4eh4
 mslug4eh5
 mslug4eh6
 mslug4eh
-mslug4kh
-mslug4xg
-mslug4d
-mslug4dh
 mslug4eho
 mslug4fr
 mslug4i
+mslug4kh
 mslug4nd
 mslug4sp
+mslug4xg
 mslug4hh01
 mslug4hh02
 mslug4hh03
@@ -5895,7 +5920,7 @@ ssideki			// 052
 //ssideki2		// 061  not needed
 //ssideki3		// 081  not needed
 ssideki4		// 215
-//stakwin		// 088  not needed
+stakwin			// 088  broken in mame, works here
 //stakwin2		// 227  not needed
 strhoop			// 079
 superspy		// 011
@@ -7036,8 +7061,6 @@ jrpacplus
 pacpen
 pengopop
 vecpengo                               // T-Bone hack of Pengo
-alpacap7                               // Jerronimo, Alpaca v0.7 (Pengo Hardware) useless
-alpacap8                               // Jerronimo, Alpaca v0.8 (Pengo Hardware) useless
 
 @source:pgm.cpp
 // PARENTS
@@ -7737,14 +7760,16 @@ theglads05
 theglads06
 theglads07
 theglads08
+theglad104
 
 @source:phoenix.cpp
 phoenix                                //parent
 phoenixg                               // Vag @ GreekRoms
-phoenixr                               // so-called German hack of Phoenix
+phoenixr
+phoetest
 
 @source:playch10.cpp
-playch10		//bios
+playch10                               //bios
 pc_bb2			/* NES->PC-10 */
 pc_ctfrc		/* NES->PC-10 */
 pc_digdg		/* NES->PC-10 */
@@ -7851,15 +7876,16 @@ pc_smb3_ps05
 pc_smb3_ps06
 
 @source:polepos.cpp
-polepos					//parent
+polepos                                //parent
 mmadness				// Mars Madness - Tesla in-car entertainment
 
 @source:pooyan.cpp
-pooyan				// parent
-pooyandiag
+pooyan                                 // parent
+pooytest
+pooytest2
 
 @source:powerins.cpp
-powerins		//parent
+powerins                               //parent
 powernbr
 powerns01
 powerns02
@@ -7868,7 +7894,7 @@ powerns04
 powerns05
 
 @source:psikyo.cpp
-tengai					//parent
+tengai                                 //parent
 tengais01
 tengais02
 
@@ -8281,6 +8307,11 @@ ga2s01
 brival                                 //parent
 brivals01
 
+@source:segaxbd.cpp
+aburner2
+aburtest
+aburtest1
+
 @source:seta.cpp
 blandia                                //parent
 blandias01
@@ -8358,6 +8389,10 @@ solomonjs01
 @source:spacmiss.cpp
 spacmissx                              // extra sounds
 
+@source:spcenctr.cpp
+spcenctr                               //parent
+senctest
+
 @source:ssv.cpp
 survarts                               //parent
 survartss01
@@ -8394,58 +8429,61 @@ crimecb
 @source:taito_f2.cpp
 f2demo                                 // HB
 cameltry                               //parent
-cameltryjs01
+cameltrys01
 deadconx                               //parent
-deadconxjs01
+deadconxs01
 dondokod                               //parent
-dondokodjs01
+dondokods01
 dinorex                                //parent
 dinorexs01
 gunfront                               //parent
-gunfrontjs01
+gunfronts01
 megablst                               //parent
-megablstjs01
+megablsts01
 liquidk                                //parent
-mizubakus01
+mizubaks01
 growl                                  //parent
 runarks01
 thundfox                               //parent
-thundfoxjs01
+thundfoxs01
 
 @source:taito_f3.cpp
-cleopatr                               //parent
-dariusg                                //parent
-gekiridn                               //parent
-landmakr                               //parent
-pbobble2                               //parent
-pbobble3                               //parent
-pbobble3h01
-cleopath
-driusgxh
-gekiridh
-gekiridoc
-landmakh
-pbobl2xh
-spcinv95                               //parent
-akkanvdrs01
 arabianm                               //parent
-arabianmjs01
+arabianms01
 bublbob2                               //parent
-bubsymphjs01
+bubsymphs01
+cleopatr                               //parent
 cleopatrs01
+cleopatrs02
 dankuga                                //parent
 dankugas01
 dankugas02
+dariusg                                //parent
+dariusgs01
 elvactr                                //parent
-elvactrjs01
+elvactrs01
+gekiridn                               //parent
+gekiridns01
+gekiridns02
 gseeker                                //parent
-gseekerjs01
+gseekers01
 kaiserkn                               //parent
 kaiserkns01
 kaiserkns02
+landmakr                               //parent
 landmakrs01
+landmakrs02
 lightbr                                //parent
-lightbrjs01
+lightbrs01
+pbobble2                               //parent
+pbobble2s01
+pbobble3                               //parent
+pbobble3s01
+pbobble3s02
+spcinv95                               //parent
+akkanvdrs01
+twinqix                                //parent
+twinqixs01
 
 @source:taito_l.cpp
 evilston                               //parent
@@ -8572,8 +8610,17 @@ truxton2nv
 
 @source:trackfld.cpp
 trackfld                               //parent
-athens04	/* Athens 2004 - Hack by The Gameland Crew (http://www.gameland.gr): Maddog, Whacker, Badge, Geoanas */
-tst_trkfld
+athens04	/* Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas */
+trkftest07b
+trkftest08b
+trkftest09b
+trkftest10b
+trkftest11b
+trkftest12b
+trkftest13b
+trkftest11t
+trkftest12t
+trkftest12tu
 
 @source:twincobr.cpp
 twincobr                               //parent

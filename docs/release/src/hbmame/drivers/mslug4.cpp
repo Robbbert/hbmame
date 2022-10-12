@@ -3,6 +3,9 @@
 // Metal Slug 4
 #include "includes/neogeo.h"
 
+//	Hacks for decrypted sets
+//	ROM_FILL(0x1741,1,0x78) // select LEVEL-8 by default
+//	ROM_FILL(0x1745,1,0x34) // turn on LEVEL number by default
 
 void neogeo_state::init_mslug4hb() // hacks of mslug4
 {
@@ -4053,24 +4056,24 @@ ROM_START( mslug4unity )
 ROM_END
 
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 2021, mslug4a,   mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "GOTVG", "Metal Slug 4 20th Anniversary (GOTVG Ver.2021 Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2021, mslug4ar,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "hack", "Metal Slug 4 Enemies Reset Fusion 20th Anniversary (Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh2, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh3, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh4, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh5, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 5)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh6, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 6)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4kh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix, 2003-07-31)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4xg,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "ZKW",    "Metal Slug 4 (PPX Team Hack, Remixed)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4d,   mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Mega", "Metal Slug 4 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mslug4dh,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4eho, mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)", MACHINE_SUPPORTS_SAVE )
-GAME( 2005, mslug4fr,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Arkatrad", "Metal Slug 4 (Neo Arc French Traduction Rev.1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2007, mslug4i,   mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, mslug4nd,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (Fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, mslug4sp,  mslug4,   neogeo_noslot, neogeo, neogeo_state, init_mslug4hb, ROT0, "hack", "Metal Slug 4 (Super Enhanced Version, 2015-05-10)", MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
+//    YEAR  NAME             PARENT    MACHINE        INPUT   CLASS          INIT          MONITOR COMPANY                 FULLNAME FLAGS
+GAME( 2021, mslug4a,         mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "GOTVG", "Metal Slug 4 20th Anniversary (GOTVG Ver.2021 Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, mslug4ar,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack", "Metal Slug 4 Enemies Reset Fusion 20th Anniversary (Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4d,         mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Mega", "Metal Slug 4 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mslug4dh,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "HappyASR [EGCG]", "Metal Slug 4 (Super D Version)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh2,       mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh3,       mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh4,       mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh5,       mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 5)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh6,       mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 6)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eh,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix, 2003-04-14 Set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4eho,       mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami", "Metal Slug 4 (Style Remix Old)", MACHINE_SUPPORTS_SAVE )
+GAME( 2005, mslug4fr,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Arkatrad", "Metal Slug 4 (Neo Arc French Traduction Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, mslug4i,         mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Evoboy", "Metal Slug 4 (Traduction Italian)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4kh,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami and Fighters Kim", "Metal Slug 4 (Style remix, 2003-07-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, mslug4nd,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_neogeo,    ROT0, "Mega Enterprise / Playmore Corporation", "Metal Slug 4 (Fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, mslug4sp,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "hack", "Metal Slug 4 (Super Enhanced Version, 2015-05-10)", MACHINE_SUPPORTS_SAVE ) // Crashing in the final mission
+GAME( 2002, mslug4xg,        mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "ZKW",    "Metal Slug 4 (PPX Team Hack, Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, mslug4hh01,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Gaston90",            "Metal Slug 4 (248 grenades, 2020-06-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mslug4hh02,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (Big Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, mslug4hh03,      mslug4,   neogeo_noslot, neogeo, neogeo_state,  init_mslug4hb,  ROT0, "Creamymami[EGCG]",    "Metal Slug 4 (Fire Bomb)", MACHINE_SUPPORTS_SAVE )

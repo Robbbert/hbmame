@@ -3,6 +3,8 @@
 // Metal Slug 5
 #include "includes/neogeo.h"
 
+// set default level to 8: ROM_FILL(0x2cd3,1,0x78) - decrypted sets only (only tested with mslug5nd)
+
 void neogeo_state::init_mslug5hb() // hacks of mslug5
 {
 	init_neogeo();

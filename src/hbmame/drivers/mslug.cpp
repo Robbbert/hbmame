@@ -3,14 +3,9 @@
 // Metal Slug
 #include "includes/neogeo.h"
 
+// set default level to 8: ROM_FILL(0x1783e7,1,0x78)
 
 #if 0
-DRIVER_INIT_MEMBER( neogeo_state, mslugx )
-{
-	mslugx_install_protection();
-}
-
-
 ROM_START( mslug )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "201.p1", 0x100000, 0x100000, CRC(08d8daa5) SHA1(b888993dbb7e9f0a28a01d7d2e1da00ef9cf6f38) )

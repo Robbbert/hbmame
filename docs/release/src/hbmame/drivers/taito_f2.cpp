@@ -65,32 +65,11 @@ void taitof2_hbmame::f2demo(machine_config &config)
 	TC0360PRI(config, m_tc0360pri, 0);
 }
 
-// Game has no sound
-ROM_START( f2demo )
-	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "lq09.bin",  0x00000, 0x20000, CRC(809a968b) SHA1(06e8be120869371d33c61fa14c48fe4e5fd659ec) )
-	ROM_LOAD16_BYTE( "lq11.bin",  0x00001, 0x20000, CRC(7ba3a5cb) SHA1(08f5392296cceadcae0cd34e9dfe76c835583231) )
-
-	ROM_REGION( 0x080000, "tc0100scn_1", 0 )
-	ROM_LOAD16_WORD_SWAP( "f2d_scr.bin", 0x000000, 0x80000, CRC(b178fb05) SHA1(3d33dd822622579c75b55971926f6eb04d33f5a6) )
-
-	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_WORD_SWAP( "f2d_obj0.bin", 0x00000, 0x80000, CRC(1bb8aa37) SHA1(9051270485a7a995779c80b4e692b8395503d6c3) )
-	ROM_LOAD16_WORD_SWAP( "f2d_obj1.bin", 0x80000, 0x80000, CRC(75660aac) SHA1(6a521e1d2a632c26e53b83d2cc4b0edecfc1e68c) )
-
-	ROM_REGION( 0x1c000, "audiocpu", 0 )
-	ROM_LOAD( "c49-08.ic32", 0x00000, 0x10000, CRC(413c310c) SHA1(cecb1c0c9fe3c8b744f95ce29009650a289107ab) )
-
-	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
-ROM_END
-
 
 /**********
  Cameltry
 ***********/
-
-ROM_START( cameltryjs01 )
+ROM_START( cameltrys01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c38-09hc01.bin", 0x00000, 0x20000, CRC(e2f14391) SHA1(b0a8b30c5e6385f32ebe60d0e6db0e2550713f01) )
 	ROM_LOAD16_BYTE( "c38-10hc01.bin", 0x00001, 0x20000, CRC(822b5c5d) SHA1(e1cf535e11808874cb6ff6f90ae0c86296df9958) )
@@ -113,8 +92,7 @@ ROM_END
 /*****************
  Dead Connection
 ******************/
-
-ROM_START( deadconxjs01 )
+ROM_START( deadconxs01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "d28-06hc01.3",  0x00000, 0x40000, CRC(b652bd0f) SHA1(653d70af3ef284ade260a81cdb84928731adee78) )
 	ROM_LOAD16_BYTE( "d28-07hc01.5",  0x00001, 0x40000, CRC(6763584c) SHA1(cd2cefaaf8d5e24ce5ed032a65e9b2880ef55821) )
@@ -136,16 +114,38 @@ ROM_START( deadconxjs01 )
 	ROM_LOAD( "d28-03.10", 0x000000, 0x100000, CRC(a1804b52) SHA1(f252c473a71a4cf80d9f984fec08e5ae7524a620) )
 ROM_END
 
+/*************
+ Demo
+ Game has no sound
+*************/
+ROM_START( f2demo )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "lq09.bin",  0x00000, 0x20000, CRC(809a968b) SHA1(06e8be120869371d33c61fa14c48fe4e5fd659ec) )
+	ROM_LOAD16_BYTE( "lq11.bin",  0x00001, 0x20000, CRC(7ba3a5cb) SHA1(08f5392296cceadcae0cd34e9dfe76c835583231) )
+
+	ROM_REGION( 0x080000, "tc0100scn_1", 0 )
+	ROM_LOAD16_WORD_SWAP( "f2d_scr.bin", 0x000000, 0x80000, CRC(b178fb05) SHA1(3d33dd822622579c75b55971926f6eb04d33f5a6) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_WORD_SWAP( "f2d_obj0.bin", 0x00000, 0x80000, CRC(1bb8aa37) SHA1(9051270485a7a995779c80b4e692b8395503d6c3) )
+	ROM_LOAD16_WORD_SWAP( "f2d_obj1.bin", 0x80000, 0x80000, CRC(75660aac) SHA1(6a521e1d2a632c26e53b83d2cc4b0edecfc1e68c) )
+
+	ROM_REGION( 0x1c000, "audiocpu", 0 )
+	ROM_LOAD( "c49-08.ic32", 0x00000, 0x10000, CRC(413c310c) SHA1(cecb1c0c9fe3c8b744f95ce29009650a289107ab) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "lk_snd.bin",  0x00000, 0x80000, CRC(474d45a4) SHA1(20cb818d753a185973098007e645f1aa75c5528d) )
+ROM_END
+
 /**********
  Dino Rex
 ***********/
-
 ROM_START( dinorexs01 )
 	ROM_REGION( 0x300000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "d39-14_ph01.9",    0x000000, 0x080000, CRC(c584035b) SHA1(383a7e0efd8b391a140bd7b2b78c9cfcbf88a119) )
 	ROM_LOAD16_BYTE( "d39-16_ph01.8",    0x000001, 0x080000, CRC(a16dd401) SHA1(5e8c540145eceda808857b77334db3869a2c979b) )
-	ROM_LOAD16_WORD_SWAP( "d39-04.6",   0x100000, 0x100000, CRC(3800506d) SHA1(a75067e94071617cd5dafdd0ae0ec096dded520a) )  /* data rom */
-	ROM_LOAD16_WORD_SWAP( "d39-05.7",   0x200000, 0x100000, CRC(e2ec3b5d) SHA1(143b72d0f2f5c40dbaeed1eee0672c3b95c2bda6) )  /* data rom */
+	ROM_LOAD16_WORD_SWAP( "d39-04.6",   0x100000, 0x100000, CRC(3800506d) SHA1(a75067e94071617cd5dafdd0ae0ec096dded520a) )
+	ROM_LOAD16_WORD_SWAP( "d39-05.7",   0x200000, 0x100000, CRC(e2ec3b5d) SHA1(143b72d0f2f5c40dbaeed1eee0672c3b95c2bda6) )
 
 	ROM_REGION( 0x100000, "tc0100scn_1", 0 )
 	ROM_LOAD16_WORD_SWAP( "d39-06.2",   0x000000, 0x100000, CRC(52f62835) SHA1(251c4f17bc98a5e81c224864fb81352cf1234377) )
@@ -168,8 +168,7 @@ ROM_END
 /***************
  Don Doko Don
 ****************/
-
-ROM_START( dondokodjs01 )
+ROM_START( dondokods01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "b95-12hc01.bin",   0x00000, 0x20000, CRC(717c4ee8) SHA1(f789773694ad2d0ab49ecb9ab6f9834cced5fda9) )
 	ROM_LOAD16_BYTE( "b95-11-1hc01.bin", 0x00001, 0x20000, CRC(2f2f56ef) SHA1(e487fcb792192cd8f8a1518db6e34906c6ee209b) )
@@ -195,8 +194,7 @@ ROM_END
 /**************
  Gun Frontier
 ***************/
-
-ROM_START( gunfrontjs01 )
+ROM_START( gunfronts01 )
 	ROM_REGION( 0xc0000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c71-09hc01.ic42",  0x00000, 0x20000, CRC(f72f2d39) SHA1(260f94e22b094f7f3b434db1a2cd20ae3b28068c) )
 	ROM_LOAD16_BYTE( "c71-08hc01.ic41",  0x00001, 0x20000, CRC(794aa220) SHA1(89b6a6fea6a4ba481802a34b0ba3006020b24445) )
@@ -221,8 +219,7 @@ ROM_END
 /************
  Mega Blast
 *************/
-
-ROM_START( megablstjs01 )
+ROM_START( megablsts01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c11-07hc01.55",  0x00000, 0x20000, CRC(2331740a) SHA1(e3d8d9caa78be9490e8c2d8f0ebd07a1dadc1ffb) ) // c11-07.17
 	ROM_LOAD16_BYTE( "c11-08hc01.39",  0x00001, 0x20000, CRC(0ecf7c5f) SHA1(3fe6fc48ee9489896035b6a66bf1f21906a15f85) ) // c11-08.19
@@ -230,7 +227,7 @@ ROM_START( megablstjs01 )
 	ROM_LOAD16_BYTE( "c11-09hc01.38",  0x40001, 0x20000, CRC(d3373aea) SHA1(f3fef101fac7eabc954fe0881529682c061bb81b) ) // c11-09.18
 
 	ROM_REGION( 0x2000, "cchip:cchip_eprom", 0 )
-	ROM_LOAD( "cchip_c11", 0x0000, 0x2000, NO_DUMP )
+	ROM_LOAD( "c11-15.ic59", 0x0000, 0x2000, CRC(af49ee7f) SHA1(824d7ed371c19f31768b20117027edba6ffc890e) )
 
 	ROM_REGION( 0x080000, "tc0100scn_1", 0 )
 	ROM_LOAD16_WORD_SWAP( "c11-05.58", 0x00000, 0x80000, CRC(733e6d8e) SHA1(47f3360f7c41b7e4a42e8198fc1bcce4e819181f) )
@@ -252,8 +249,7 @@ ROM_END
 /********************
  Mizubaku Daibouken
 *********************/
-
-ROM_START( mizubakus01 )
+ROM_START( mizubaks01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c49-09hc01.ic47",  0x00000, 0x20000, CRC(1c37f50e) SHA1(c393f073f83b39198bb94fc35d1291f802f0696d) )
 	ROM_LOAD16_BYTE( "c49-11hc01.ic48",  0x00001, 0x20000, CRC(9fcf7877) SHA1(922e7af3fb581c23adaccf11dc8e9b0bf42339e8) )
@@ -277,7 +273,6 @@ ROM_END
 /********
  Runark
 *********/
-
 ROM_START( runarks01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c74-10hc01.ic59",  0x00000, 0x40000, CRC(fcad0393) SHA1(0ef0e8fa6200d69790d2c5e899529c3bba84acba) )
@@ -305,8 +300,7 @@ ROM_END
 /*************
  Thunder Fox
 **************/
-
-ROM_START( thundfoxjs01 )
+ROM_START( thundfoxs01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c28-13hc01-1.51",  0x00000, 0x20000, CRC(a544a7db) SHA1(2d056237119a4e21f172c67c24be18917f0344d4) )
 	ROM_LOAD16_BYTE( "c28-12hc01-1.40",  0x00001, 0x20000, CRC(84c90906) SHA1(a27fb206e22c59ca118a79651dd82ac2fcda7f1d) )
@@ -334,23 +328,24 @@ ROM_START( thundfoxjs01 )
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 1990, f2demo, 0, f2demo, liquidk, taitof2_hbmame, empty_init, ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 // Cameltry
-GAME( 1989, cameltryjs01,  cameltry, cameltry,  cameltryj,  taitof2_state, init_cameltry, ROT0,   "hack",         "Cameltry (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, cameltrys01,   cameltry, cameltry,  cameltryj,  taitof2_state,  init_cameltry, ROT0,   "hack",         "Cameltry (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dead Connection
-GAME( 1992, deadconxjs01,  deadconx, deadconxj, deadconxj,  taitof2_state, empty_init, ROT0,   "hack",         "Dead Connection (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, deadconxs01,   deadconx, deadconxj, deadconxj,  taitof2_state,  empty_init,    ROT0,   "hack",         "Dead Connection (Chinese)", MACHINE_SUPPORTS_SAVE )
+// Demo
+GAME( 1990, f2demo,        0,        f2demo,    liquidk,    taitof2_hbmame, empty_init,    ROT180, "Charles Doty", "Demo - Taito F2", MACHINE_SUPPORTS_SAVE )
 // Don Doko Don
-GAME( 1989, dondokodjs01,  dondokod, dondokod,  dondokodj,  taitof2_state, empty_init, ROT0,   "hack",         "Don Doko Don (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, dondokods01,   dondokod, dondokod,  dondokodj,  taitof2_state,  empty_init,    ROT0,   "hack",         "Don Doko Don (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Dino Rex
-GAME( 1992, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state, empty_init, ROT0,   "DDJ",             "Dino Rex (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, dinorexs01,    dinorex,  dinorex,   dinorex,    taitof2_state,  empty_init,    ROT0,   "DDJ",          "Dino Rex (Easy Move)", MACHINE_SUPPORTS_SAVE )
 // Gun Frontier
-GAME( 1990, gunfrontjs01,  gunfront, gunfront,  gunfrontj,  taitof2_state, empty_init, ROT270, "hack",         "Gun Frontier (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, gunfronts01,   gunfront, gunfront,  gunfrontj,  taitof2_state,  empty_init,    ROT270, "hack",         "Gun Frontier (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mega Blast
-GAME( 1989, megablstjs01,  megablst, megab,     megabj,     taitof2_state, empty_init, ROT0,   "hack",         "Mega Blast (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, megablsts01,   megablst, megab,     megabj,     taitof2_state,  empty_init,    ROT0,   "hack",         "Mega Blast (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Mizubaku Daibouken
-GAME( 1990, mizubakus01,   liquidk,  liquidk,   mizubaku,   taitof2_state, empty_init, ROT0,   "hack",         "Mizubaku Daibouken (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, mizubaks01,    liquidk,  liquidk,   mizubaku,   taitof2_state,  empty_init,    ROT0,   "hack",         "Mizubaku Daibouken (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Runark
-GAME( 1990, runarks01,     growl,    growl,     runark,     taitof2_state, empty_init, ROT0,   "hack",         "Runark (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, runarks01,     growl,    growl,     runark,     taitof2_state,  empty_init,    ROT0,   "hack",         "Runark (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Thunder Fox
-GAME( 1990, thundfoxjs01,  thundfox, thundfox,  thundfoxj,  taitof2_state, empty_init, ROT0,   "hack",         "Thunder Fox (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1990, thundfoxs01,   thundfox, thundfox,  thundfoxj,  taitof2_state,  empty_init,    ROT0,   "hack",         "Thunder Fox (Chinese)", MACHINE_SUPPORTS_SAVE )
 

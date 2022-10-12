@@ -1680,8 +1680,8 @@ inline int validity_checker::get_defstr_index(const char *string, bool suppress_
 void validity_checker::validate_tag(const char *tag)
 {
 	// some common names that are now deprecated
-	if (strcmp(tag, "main") == 0 || strcmp(tag, "audio") == 0 || strcmp(tag, "sound") == 0 || strcmp(tag, "left") == 0 || strcmp(tag, "right") == 0)
-		osd_printf_error("Invalid generic tag '%s' used\n", tag);
+	//if (strcmp(tag, "main") == 0 || strcmp(tag, "audio") == 0 || strcmp(tag, "sound") == 0 || strcmp(tag, "left") == 0 || strcmp(tag, "right") == 0)
+		//osd_printf_error("Invalid generic tag '%s' used\n", tag);
 
 	// scan for invalid characters
 	static char const *const validchars = "abcdefghijklmnopqrstuvwxyz0123456789_.:^$";
