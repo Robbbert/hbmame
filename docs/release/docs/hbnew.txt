@@ -29,6 +29,7 @@ New Games
 - [sinvtest2]           Space Invaders Test Rom (v1.2)
 - [sinvtest3]           Space Invaders Test Rom (v1.3)
 - [spectest]            Spectar Test Rom
+- [theglad104]          The Gladiator (v104)
 - [trkftest07b]         Track and Field Test Rom (0.7 beta)
 - [trkftest08b]         Track and Field Test Rom (0.8 beta)
 - [trkftest09b]         Track and Field Test Rom (0.9 beta)
