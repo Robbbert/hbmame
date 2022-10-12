@@ -24044,3 +24044,31 @@ ROM_END
 GAME( 2013, rbistest,  rbisland, rbisland, rbisland, rbisland_state, init_rbisland, ROT0, "Porchy", "Rainbow Islands Cchip Test (2013-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, rbistest1, rbisland, rbisland, rbisland, rbisland_state, init_rbisland, ROT0, "Porchy", "Rainbow Islands Test Rom (2013-12-24)", MACHINE_SUPPORTS_SAVE )
 
+// These snakes versions are extremely alpha and buggy
+ROM_START( snakes ) // No text, no scores. Very bad graphics. Need 2 joysticks (2nd stick is RDFG keys).
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "snakes3.6e",   0x0000, 0x0777, CRC(8e93344d) SHA1(6a9cc0a326ef5e39960b52da79b0152f90138615) )
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "snakes2.5e",   0x0000, 0x1000, CRC(5fa96d40) SHA1(fea209c43bea8db56426c7c74d7c16954d195fea) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys). If you run the snake next to an edge, gfx break.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "snakes.6e",    0x0000, 0x1000, CRC(5cba3718) SHA1(c093acd0f38e24d68c5dd618b742360976f1a3fa) )
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
+	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
+	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
+	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
+
+	PACMAN_PROMS
+ROM_END
+
+GAME( 2019, snakes2,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, snakes3,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes v3", MACHINE_SUPPORTS_SAVE )
+
+

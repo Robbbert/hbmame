@@ -783,19 +783,7 @@ ROM_START( seq2 )
 	PACMAN_PROMS
 ROM_END
 
-ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys). If you run the snake next to an edge, gfx break.
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "snakes.6e",    0x0000, 0x1000, CRC(5cba3718) SHA1(c093acd0f38e24d68c5dd618b742360976f1a3fa) )
-	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "puckman.5e",   0x0000, 0x0800, CRC(2066a0b7) SHA1(6d4ccc27d6be185589e08aa9f18702b679e49a4a) )
-	ROM_LOAD( "puckman.5h",   0x0800, 0x0800, CRC(3591b89d) SHA1(79bb456be6c39c1ccd7d077fbe181523131fb300) )
-	ROM_LOAD( "puckman.5f",   0x1000, 0x0800, CRC(9e39323a) SHA1(be933e691df4dbe7d12123913c3b7b7b585b7a35) )
-	ROM_LOAD( "puckman.5j",   0x1800, 0x0800, CRC(1b1d9096) SHA1(53771c573051db43e7185b1d188533056290a620) )
-
-	PACMAN_PROMS
-ROM_END
-
-ROM_START( snakes2 ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys).
+ROM_START( snakes ) // No text, no scores. Need 2 joysticks (2nd stick is RDFG keys).
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "snakes2.6e",   0x0000, 0x1000, CRC(6737be9c) SHA1(69a04dc9e9f08d78a6ad0a206b2af9126bfbe40c) )
 	ROM_REGION( 0x2000, "gfx1", 0 )
@@ -938,8 +926,7 @@ GAME( 2012, pactetris, puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2017, deathstar, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, deathstar2,puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Death Star v2", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, scroller,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Scroller", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
-GAME( 2019, snakes2,   puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes v2", MACHINE_SUPPORTS_SAVE )
+GAME( 2019, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, 100doors,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "100 doors", MACHINE_SUPPORTS_SAVE )
 
 
