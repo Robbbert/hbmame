@@ -8624,8 +8624,9 @@ trkftest12tu
 
 @source:twincobr.cpp
 twincobr                               //parent
-twincbu2
-twintwst
+twincobrs01
+twincobrs02
+ktigers01
 
 @source:vamphalf.cpp
 aoh                                    //parent
