@@ -8326,24 +8326,29 @@ rezons01
 
 @source:seta2.cpp
 grdians                                //parent
-grdianss01
-grdianss02
-grdianss03
-grdianss04
-grdianss05
-grdianss06
-grdianss07
-grdianss08
-grdianss09
-grdianss10
-grdianss11
-grdianss12
-grdianss13
-grdianss14
-grdianss15
-grdianss16
-grdianss17
-grdianss18
+grdians01
+grdians02
+grdians03
+grdians04
+grdians05
+grdians06
+grdians07
+grdians08
+grdians09
+grdians10
+grdians11
+grdians12
+grdians13
+grdians14
+grdians15
+grdians16
+grdians17
+grdians18
+grdians19
+grdians20
+grdians21
+grdians22
+grdians23
 
 @source:shadfrce.cpp
 shadfrce                               //parent

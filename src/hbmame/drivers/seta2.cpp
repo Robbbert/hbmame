@@ -5,8 +5,7 @@
 /***********
  Guardians
 ************/
-
-ROM_START( grdianss01 ) //grdiansy
+ROM_START( grdians01 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s01.u2", 0x000000, 0x080000, CRC(90b1aa01) SHA1(c837230f1a14f6097ad3474dad5fb18d18f4a917) )
 	ROM_LOAD16_BYTE( "s01.u3", 0x000001, 0x080000, CRC(dbaabf39) SHA1(45e483675883512e5dd3a3baf8b867da77a96eb3) )
@@ -31,7 +30,7 @@ ROM_START( grdianss01 ) //grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss02 ) //grdiansy
+ROM_START( grdians02 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s02.u2", 0x000000, 0x080000, CRC(9ad3bcde) SHA1(677125dd4a9c8b7324ab2a9d0cfef9c6990fbcf1) )
 	ROM_LOAD16_BYTE( "s02.u3", 0x000001, 0x080000, CRC(96c804e1) SHA1(023c51ccbe74da1c892252c14369215587315e52) )
@@ -56,7 +55,7 @@ ROM_START( grdianss02 ) //grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss03 )
+ROM_START( grdians03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s03.u2", 0x000000, 0x080000, CRC(d0424f67) SHA1(5f019365c74b83230be37023ab0637a7a1cb410c) )
 	ROM_LOAD16_BYTE( "s03.u3", 0x000001, 0x080000, CRC(6eb7501e) SHA1(8dabc28d9c260c765c088d8e1d57ce3ada6a9c26) )
@@ -81,7 +80,7 @@ ROM_START( grdianss03 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss04 )
+ROM_START( grdians04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s04.u2", 0x000000, 0x080000, CRC(41f674c7) SHA1(a6d8b3812070ead3b612fc470b87b617f4642d83) )
 	ROM_LOAD16_BYTE( "s04.u3", 0x000001, 0x080000, CRC(133c6b61) SHA1(6f1c62525a227578d6799b4757c4c52741e1ebe2) )
@@ -106,7 +105,7 @@ ROM_START( grdianss04 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss05 )
+ROM_START( grdians05 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s05.u2", 0x000000, 0x080000, CRC(964316ae) SHA1(25822572b949140c8ff3791c92b5015868a324ae) )
 	ROM_LOAD16_BYTE( "s05.u3", 0x000001, 0x080000, CRC(25d2c68c) SHA1(a192ce399cf790ea611a6775c6c5174c2bad8d6f) )
@@ -131,7 +130,7 @@ ROM_START( grdianss05 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss06 )
+ROM_START( grdians06 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s06.u2", 0x000000, 0x080000, CRC(35ff6d9f) SHA1(3b1af0afde907361b85b8c857eb86a8be7a36619) )
 	ROM_LOAD16_BYTE( "s06.u3", 0x000001, 0x080000, CRC(6f758751) SHA1(20c6690765e48ef33bf44a839c2cbe04ed77278f) )
@@ -156,7 +155,7 @@ ROM_START( grdianss06 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss07 )  // grdianslbs, grdiansy
+ROM_START( grdians07 )  // grdianslbs, grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s07.u2", 0x000000, 0x080000, CRC(fb243872) SHA1(cb9c44c17c2d03c100839dd4b40291bbf9d28a5c) )
 	ROM_LOAD16_BYTE( "s07.u3", 0x000001, 0x080000, CRC(a375123e) SHA1(c84faad4cc9efabede0ef9673eeb5f076836005d) )
@@ -181,7 +180,7 @@ ROM_START( grdianss07 )  // grdianslbs, grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss08 ) //grdiansy
+ROM_START( grdians08 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s08.u2", 0x000000, 0x080000, CRC(d051ba40) SHA1(4ff8ba85ca552aef0b8c7e00b54de1f55b8fc7cf) )
 	ROM_LOAD16_BYTE( "s08.u3", 0x000001, 0x080000, CRC(73f806a1) SHA1(2ecc6ac4945a9a74527038404bf1b7cba8f99810) )
@@ -206,7 +205,7 @@ ROM_START( grdianss08 ) //grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss09 )
+ROM_START( grdians09 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s09.u2", 0x000000, 0x080000, CRC(aedb91fb) SHA1(e7280550084bf4dac2be4c3fa18635689e414b63) )
 	ROM_LOAD16_BYTE( "s09.u3", 0x000001, 0x080000, CRC(e29de57a) SHA1(5fdd367d41e5bbab131eb7033b7bf1246018df7d) )
@@ -231,7 +230,7 @@ ROM_START( grdianss09 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss10 ) //grdiansy
+ROM_START( grdians10 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s10.u2", 0x000000, 0x080000, CRC(8f0ccf93) SHA1(3f7ad4630faecde9138609d43b9126a0af15cd84) )
 	ROM_LOAD16_BYTE( "s10.u3", 0x000001, 0x080000, CRC(2ae2ac73) SHA1(8c899c6c3e6931ead61f2c62873e9cc77a6fed93) )
@@ -256,7 +255,7 @@ ROM_START( grdianss10 ) //grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss11 ) //grdiansy, grdiansw
+ROM_START( grdians11 ) //grdiansy, grdiansw
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s11.u2", 0x000000, 0x080000, CRC(1bff5d6a) SHA1(79c30d5b334bb306a83c0e33688a80d17617bbde) )
 	ROM_LOAD16_BYTE( "s11.u3", 0x000001, 0x080000, CRC(bb7cba06) SHA1(8ecdc466201197a5ba76ac284ac3d027c6757c8a) )
@@ -281,7 +280,7 @@ ROM_START( grdianss11 ) //grdiansy, grdiansw
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss12 )
+ROM_START( grdians12 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s12.u2", 0x000000, 0x080000, CRC(165f5af4) SHA1(64991100f9c06c0b0e703f4937f135149df0c5d1) )
 	ROM_LOAD16_BYTE( "s12.u3", 0x000001, 0x080000, CRC(7256af2c) SHA1(ed2e2dff814f13cdc306bf9bd3820970a9ec7268) )
@@ -306,7 +305,7 @@ ROM_START( grdianss12 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss13 )
+ROM_START( grdians13 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s13.u2", 0x000000, 0x080000, CRC(6a2baf4d) SHA1(81d2f76a2c40b0cfd94268a55c2d33ca2a8c18e8) )
 	ROM_LOAD16_BYTE( "s13.u3", 0x000001, 0x080000, CRC(d945583e) SHA1(3ea74d71e0164c3b6ac0a82595ba7e8d3a4b223f) )
@@ -331,7 +330,7 @@ ROM_START( grdianss13 )
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss14 ) //grdiansy, grdianss
+ROM_START( grdians14 ) //grdiansy, grdianss
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s14.u2", 0x000000, 0x080000, CRC(0627fba3) SHA1(ea628e033e0358cceeeb98f45858dbd1ca797bb8) )
 	ROM_LOAD16_BYTE( "s14.u3", 0x000001, 0x080000, CRC(1c9c4369) SHA1(f61924bed8cede8418fc03a4267db4fb0eaf4d3d) )
@@ -356,7 +355,7 @@ ROM_START( grdianss14 ) //grdiansy, grdianss
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss15 ) //grdiansy
+ROM_START( grdians15 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s15.u2", 0x000000, 0x080000, CRC(82fd5417) SHA1(39939861d8f791b8e6312505b9c5ac32ec5a8bf4) )
 	ROM_LOAD16_BYTE( "s15.u3", 0x000001, 0x080000, CRC(f54c9476) SHA1(17272ae13916b533a3175973c200750b1682b84f) )
@@ -381,7 +380,7 @@ ROM_START( grdianss15 ) //grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss16 ) //grdianss
+ROM_START( grdians16 ) //grdianss
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s16.u2", 0x000000, 0x080000, CRC(f4ed3bea) SHA1(2f444c4189995a1cb55d6c29801d3d820cf63e75) )
 	ROM_LOAD16_BYTE( "s16.u3", 0x000001, 0x080000, CRC(db1489c3) SHA1(0b710a54c4d1edaeba3bbf3bd2cde66405f3290a) )
@@ -406,7 +405,7 @@ ROM_START( grdianss16 ) //grdianss
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss17 ) //grdiansy
+ROM_START( grdians17 ) //grdiansy
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s16.u2", 0x000000, 0x080000, CRC(f4ed3bea) SHA1(2f444c4189995a1cb55d6c29801d3d820cf63e75) )
 	ROM_LOAD16_BYTE( "s17.u3", 0x000001, 0x080000, CRC(a27cd503) SHA1(0c02eb6f63dd59deb889f67d53ecd3262b6e91f8) )
@@ -431,7 +430,7 @@ ROM_START( grdianss17 ) //grdiansy
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
-ROM_START( grdianss18 ) //grdianss
+ROM_START( grdians18 ) //grdianss
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s18.u2", 0x000000, 0x080000, CRC(e4a3a029) SHA1(d9519be2b6287601e4dded96f3261bfe2438c21a) )
 	ROM_LOAD16_BYTE( "s18.u3", 0x000001, 0x080000, CRC(26c130c3) SHA1(31542ace20836491ad7095c6b18dbaa466801bea) )
@@ -456,24 +455,154 @@ ROM_START( grdianss18 ) //grdianss
 	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
 ROM_END
 
+ROM_START( grdians19 ) // grdianlbs
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "s19.u2", 0x000000, 0x080000, CRC(3edaca8a) SHA1(db83ead70042df6d1e785e1f809470b1cba9c822) )
+	ROM_LOAD16_BYTE( "s19.u3", 0x000001, 0x080000, CRC(42c20d61) SHA1(4a71225c003288abe9783201d1a3c25834d0df89) )
+	ROM_LOAD16_BYTE( "u4.bin", 0x100000, 0x080000, CRC(bb52447b) SHA1(61433f683210ab2bc2cf1cc4b5b7a39cc5b6493d) )
+	ROM_LOAD16_BYTE( "u5.bin", 0x100001, 0x080000, CRC(9c164a3b) SHA1(6d688c7af9e7e8e8d54b2e4dfbf41f59c79242eb) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE)
+	ROM_LOAD64_WORD( "u16.bin",  0x0000000, 0x400000, CRC(6a65f265) SHA1(6cad11f718f8bbcff464d41eb4717460769237ed) )
+	ROM_LOAD64_WORD( "u15.bin",  0x0000002, 0x400000, CRC(01672dcd) SHA1(f61f60e3343cc5b6ccee391ee529966a141566db) )
+	ROM_LOAD64_WORD( "u18.bin",  0x0000004, 0x400000, CRC(967babf4) SHA1(42a6311576417c44aeaceb8ba6bb3cd7794e4882) )
+	ROM_LOAD64_WORD( "u17.bin",  0x0000006, 0x400000, CRC(0fad0629) SHA1(1bdc8e7c5e39e83d327f14a672ec81b049112da6) )
+	ROM_LOAD64_WORD( "u20.bin",  0x1800000, 0x200000, CRC(a7226ab7) SHA1(408580dd35c568ffef1ebbd87359e3ec1f867020) )
+	ROM_CONTINUE(                0x1000000, 0x200000 )
+	ROM_LOAD64_WORD( "u19.bin",  0x1800002, 0x200000, CRC(c0c998a0) SHA1(498fb1877527ed37412537f06a2c39ff0c60f146) )
+	ROM_CONTINUE(                0x1000002, 0x200000 )
+	ROM_LOAD64_WORD( "u22.bin",  0x1800004, 0x200000, CRC(6239997a) SHA1(87b6d6f30f152f625f82fd858c1290176c7e156e) )
+	ROM_CONTINUE(                0x1000004, 0x200000 )
+	ROM_LOAD64_WORD( "u21.bin",  0x1800006, 0x200000, CRC(6f95e466) SHA1(28482fad16a3ac9302f152d81552e6f84a44f3e4) )
+	ROM_CONTINUE(                0x1000006, 0x200000 )
+
+	ROM_REGION( 0x100000, "x1snd", 0 )
+	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
+ROM_END
+
+ROM_START( grdians20 ) // grdianlbs
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "s19.u2", 0x000000, 0x080000, CRC(3edaca8a) SHA1(db83ead70042df6d1e785e1f809470b1cba9c822) )
+	ROM_LOAD16_BYTE( "s20.u3", 0x000001, 0x080000, CRC(c3bc27da) SHA1(99d2788e53993c7f5bbb2104fc247ae2a0ab29fb) )
+	ROM_LOAD16_BYTE( "u4.bin", 0x100000, 0x080000, CRC(bb52447b) SHA1(61433f683210ab2bc2cf1cc4b5b7a39cc5b6493d) )
+	ROM_LOAD16_BYTE( "u5.bin", 0x100001, 0x080000, CRC(9c164a3b) SHA1(6d688c7af9e7e8e8d54b2e4dfbf41f59c79242eb) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE)
+	ROM_LOAD64_WORD( "u16.bin",  0x0000000, 0x400000, CRC(6a65f265) SHA1(6cad11f718f8bbcff464d41eb4717460769237ed) )
+	ROM_LOAD64_WORD( "u15.bin",  0x0000002, 0x400000, CRC(01672dcd) SHA1(f61f60e3343cc5b6ccee391ee529966a141566db) )
+	ROM_LOAD64_WORD( "u18.bin",  0x0000004, 0x400000, CRC(967babf4) SHA1(42a6311576417c44aeaceb8ba6bb3cd7794e4882) )
+	ROM_LOAD64_WORD( "u17.bin",  0x0000006, 0x400000, CRC(0fad0629) SHA1(1bdc8e7c5e39e83d327f14a672ec81b049112da6) )
+	ROM_LOAD64_WORD( "u20.bin",  0x1800000, 0x200000, CRC(a7226ab7) SHA1(408580dd35c568ffef1ebbd87359e3ec1f867020) )
+	ROM_CONTINUE(                0x1000000, 0x200000 )
+	ROM_LOAD64_WORD( "u19.bin",  0x1800002, 0x200000, CRC(c0c998a0) SHA1(498fb1877527ed37412537f06a2c39ff0c60f146) )
+	ROM_CONTINUE(                0x1000002, 0x200000 )
+	ROM_LOAD64_WORD( "u22.bin",  0x1800004, 0x200000, CRC(6239997a) SHA1(87b6d6f30f152f625f82fd858c1290176c7e156e) )
+	ROM_CONTINUE(                0x1000004, 0x200000 )
+	ROM_LOAD64_WORD( "u21.bin",  0x1800006, 0x200000, CRC(6f95e466) SHA1(28482fad16a3ac9302f152d81552e6f84a44f3e4) )
+	ROM_CONTINUE(                0x1000006, 0x200000 )
+
+	ROM_REGION( 0x100000, "x1snd", 0 )
+	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
+ROM_END
+
+ROM_START( grdians21 ) // grdianlbs
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "s21.u2", 0x000000, 0x080000, CRC(4b29fe86) SHA1(8653c1916ed65213bd2b2144a03ca14c98f37246) )
+	ROM_LOAD16_BYTE( "s21.u3", 0x000001, 0x080000, CRC(4314eb04) SHA1(1a67c040d80fee0a6a12adad29245dbbf62a1aa6) )
+	ROM_LOAD16_BYTE( "u4.bin", 0x100000, 0x080000, CRC(bb52447b) SHA1(61433f683210ab2bc2cf1cc4b5b7a39cc5b6493d) )
+	ROM_LOAD16_BYTE( "u5.bin", 0x100001, 0x080000, CRC(9c164a3b) SHA1(6d688c7af9e7e8e8d54b2e4dfbf41f59c79242eb) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE)
+	ROM_LOAD64_WORD( "u16.bin",  0x0000000, 0x400000, CRC(6a65f265) SHA1(6cad11f718f8bbcff464d41eb4717460769237ed) )
+	ROM_LOAD64_WORD( "u15.bin",  0x0000002, 0x400000, CRC(01672dcd) SHA1(f61f60e3343cc5b6ccee391ee529966a141566db) )
+	ROM_LOAD64_WORD( "u18.bin",  0x0000004, 0x400000, CRC(967babf4) SHA1(42a6311576417c44aeaceb8ba6bb3cd7794e4882) )
+	ROM_LOAD64_WORD( "u17.bin",  0x0000006, 0x400000, CRC(0fad0629) SHA1(1bdc8e7c5e39e83d327f14a672ec81b049112da6) )
+	ROM_LOAD64_WORD( "u20.bin",  0x1800000, 0x200000, CRC(a7226ab7) SHA1(408580dd35c568ffef1ebbd87359e3ec1f867020) )
+	ROM_CONTINUE(                0x1000000, 0x200000 )
+	ROM_LOAD64_WORD( "u19.bin",  0x1800002, 0x200000, CRC(c0c998a0) SHA1(498fb1877527ed37412537f06a2c39ff0c60f146) )
+	ROM_CONTINUE(                0x1000002, 0x200000 )
+	ROM_LOAD64_WORD( "u22.bin",  0x1800004, 0x200000, CRC(6239997a) SHA1(87b6d6f30f152f625f82fd858c1290176c7e156e) )
+	ROM_CONTINUE(                0x1000004, 0x200000 )
+	ROM_LOAD64_WORD( "u21.bin",  0x1800006, 0x200000, CRC(6f95e466) SHA1(28482fad16a3ac9302f152d81552e6f84a44f3e4) )
+	ROM_CONTINUE(                0x1000006, 0x200000 )
+
+	ROM_REGION( 0x100000, "x1snd", 0 )
+	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
+ROM_END
+
+ROM_START( grdians22 ) // grdianlbs
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "s22.u2", 0x000000, 0x080000, CRC(a5b0d400) SHA1(c4bf9cb8a362c4e33d12e3b7f1dde593e6e54ab9) )
+	ROM_LOAD16_BYTE( "s22.u3", 0x000001, 0x080000, CRC(bc547876) SHA1(81eb3c07644e5190489e3b5c003139d00462676d) )
+	ROM_LOAD16_BYTE( "u4.bin", 0x100000, 0x080000, CRC(bb52447b) SHA1(61433f683210ab2bc2cf1cc4b5b7a39cc5b6493d) )
+	ROM_LOAD16_BYTE( "u5.bin", 0x100001, 0x080000, CRC(9c164a3b) SHA1(6d688c7af9e7e8e8d54b2e4dfbf41f59c79242eb) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE)
+	ROM_LOAD64_WORD( "u16.bin",  0x0000000, 0x400000, CRC(6a65f265) SHA1(6cad11f718f8bbcff464d41eb4717460769237ed) )
+	ROM_LOAD64_WORD( "u15.bin",  0x0000002, 0x400000, CRC(01672dcd) SHA1(f61f60e3343cc5b6ccee391ee529966a141566db) )
+	ROM_LOAD64_WORD( "u18.bin",  0x0000004, 0x400000, CRC(967babf4) SHA1(42a6311576417c44aeaceb8ba6bb3cd7794e4882) )
+	ROM_LOAD64_WORD( "u17.bin",  0x0000006, 0x400000, CRC(0fad0629) SHA1(1bdc8e7c5e39e83d327f14a672ec81b049112da6) )
+	ROM_LOAD64_WORD( "u20.bin",  0x1800000, 0x200000, CRC(a7226ab7) SHA1(408580dd35c568ffef1ebbd87359e3ec1f867020) )
+	ROM_CONTINUE(                0x1000000, 0x200000 )
+	ROM_LOAD64_WORD( "u19.bin",  0x1800002, 0x200000, CRC(c0c998a0) SHA1(498fb1877527ed37412537f06a2c39ff0c60f146) )
+	ROM_CONTINUE(                0x1000002, 0x200000 )
+	ROM_LOAD64_WORD( "u22.bin",  0x1800004, 0x200000, CRC(6239997a) SHA1(87b6d6f30f152f625f82fd858c1290176c7e156e) )
+	ROM_CONTINUE(                0x1000004, 0x200000 )
+	ROM_LOAD64_WORD( "u21.bin",  0x1800006, 0x200000, CRC(6f95e466) SHA1(28482fad16a3ac9302f152d81552e6f84a44f3e4) )
+	ROM_CONTINUE(                0x1000006, 0x200000 )
+
+	ROM_REGION( 0x100000, "x1snd", 0 )
+	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
+ROM_END
+
+ROM_START( grdians23 ) // grdianlbs
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "s23.u2", 0x000000, 0x080000, CRC(6d5b355c) SHA1(8427b4e726f7ea773f3da81dc82c1da75ddd2861) )
+	ROM_LOAD16_BYTE( "s23.u3", 0x000001, 0x080000, CRC(5a462d7c) SHA1(d9413da37d2fd0748c0d44eb4178c3e80b640e96) )
+	ROM_LOAD16_BYTE( "u4.bin", 0x100000, 0x080000, CRC(bb52447b) SHA1(61433f683210ab2bc2cf1cc4b5b7a39cc5b6493d) )
+	ROM_LOAD16_BYTE( "u5.bin", 0x100001, 0x080000, CRC(9c164a3b) SHA1(6d688c7af9e7e8e8d54b2e4dfbf41f59c79242eb) )
+
+	ROM_REGION( 0x2000000, "sprites", ROMREGION_ERASE)
+	ROM_LOAD64_WORD( "u16.bin",  0x0000000, 0x400000, CRC(6a65f265) SHA1(6cad11f718f8bbcff464d41eb4717460769237ed) )
+	ROM_LOAD64_WORD( "u15.bin",  0x0000002, 0x400000, CRC(01672dcd) SHA1(f61f60e3343cc5b6ccee391ee529966a141566db) )
+	ROM_LOAD64_WORD( "u18.bin",  0x0000004, 0x400000, CRC(967babf4) SHA1(42a6311576417c44aeaceb8ba6bb3cd7794e4882) )
+	ROM_LOAD64_WORD( "u17.bin",  0x0000006, 0x400000, CRC(0fad0629) SHA1(1bdc8e7c5e39e83d327f14a672ec81b049112da6) )
+	ROM_LOAD64_WORD( "u20.bin",  0x1800000, 0x200000, CRC(a7226ab7) SHA1(408580dd35c568ffef1ebbd87359e3ec1f867020) )
+	ROM_CONTINUE(                0x1000000, 0x200000 )
+	ROM_LOAD64_WORD( "u19.bin",  0x1800002, 0x200000, CRC(c0c998a0) SHA1(498fb1877527ed37412537f06a2c39ff0c60f146) )
+	ROM_CONTINUE(                0x1000002, 0x200000 )
+	ROM_LOAD64_WORD( "u22.bin",  0x1800004, 0x200000, CRC(6239997a) SHA1(87b6d6f30f152f625f82fd858c1290176c7e156e) )
+	ROM_CONTINUE(                0x1000004, 0x200000 )
+	ROM_LOAD64_WORD( "u21.bin",  0x1800006, 0x200000, CRC(6f95e466) SHA1(28482fad16a3ac9302f152d81552e6f84a44f3e4) )
+	ROM_CONTINUE(                0x1000006, 0x200000 )
+
+	ROM_REGION( 0x100000, "x1snd", 0 )
+	ROM_LOAD( "u32.bin", 0x000000, 0x100000, CRC(cf0f3017) SHA1(8376d3a674f71aec72f52c72758fbc53d9feb1a1) )
+ROM_END
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Guardians
-GAME( 2018, grdianss01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2018-05-05)", 0 )
-GAME( 2018, grdianss02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2018-06-06)", 0 )
-GAME( 1995, grdianss03,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hooooook", "Guardians (Blood Blue Initial Lengthening)", 0 )
-GAME( 1995, grdianss04,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "KrysoFun", "Guardians (Super Version V1)", 0 )
-GAME( 2010, grdianss05,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V2, 2010-07-12)", 0 )
-GAME( 2010, grdianss06,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V3, 2010-07-13)", 0 )
-GAME( 2019, grdianss07,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "BinDi", "Guardians (Robust Version, 2019-01-11)", 0 )
-GAME( 2018, grdianss08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2018-12-10)", 0 )
-GAME( 2018, grdianss09,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Plus, 2018-07-26)", 0 )
-GAME( 2019, grdianss10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2019-04-15)", 0 )
-GAME( 2019, grdianss11,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2019-09-16)", 0 )
-GAME( 2019, grdianss12,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Robust Super Edition, 2019-07-25)", 0 )
-GAME( 2019, grdianss13,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Kerron Edition, 2019-08-17)", 0 )
-GAME( 2020, grdianss14,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-02-15)", 0 )
-GAME( 2020, grdianss15,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-02-06)", 0 )
-GAME( 2020, grdianss16,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-04-01)", 0 )
-GAME( 2020, grdianss17,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-04-02)", 0 )
-GAME( 2020, grdianss18,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-08-19)", 0 )
+GAME( 2018, grdians01,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2018-05-05)", 0 )
+GAME( 2018, grdians02,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2018-06-06)", 0 )
+GAME( 1995, grdians03,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hooooook", "Guardians (Blood Blue Initial Lengthening)", 0 )
+GAME( 1995, grdians04,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "KrysoFun", "Guardians (Super Version V1)", 0 )
+GAME( 2010, grdians05,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V2, 2010-07-12)", 0 )
+GAME( 2010, grdians06,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Ivex", "Guardians (Super Version V3, 2010-07-13)", 0 )
+GAME( 2019, grdians07,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "BinDi", "Guardians (Robust Version, 2019-01-11)", 0 )
+GAME( 2018, grdians08,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2018-12-10)", 0 )
+GAME( 2018, grdians09,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Plus, 2018-07-26)", 0 )
+GAME( 2019, grdians10,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2019-04-15)", 0 )
+GAME( 2019, grdians11,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2019-09-16)", 0 )
+GAME( 2019, grdians12,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Robust Super Edition, 2019-07-25)", 0 )
+GAME( 2019, grdians13,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Kerron Edition, 2019-08-17)", 0 )
+GAME( 2020, grdians14,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-02-15)", 0 )
+GAME( 2020, grdians15,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-02-06)", 0 )
+GAME( 2020, grdians16,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-04-01)", 0 )
+GAME( 2020, grdians17,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-04-02)", 0 )
+GAME( 2020, grdians18,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "hack", "Guardians (Warriors Edition, 2020-08-19)", 0 )
+GAME( 2021, grdians19,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Bindi", "Denjin Makai II (LBS Edition, set 1)", 0 )
+GAME( 2022, grdians20,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Bindi", "Denjin Makai II (LBS Edition, set 2)", 0 )
+GAME( 2022, grdians21,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Bindi", "Denjin Makai II (LBS Edition, set 3)", 0 )
+GAME( 2022, grdians22,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Bindi", "Denjin Makai II (LBS Edition, set 4)", 0 )
+GAME( 2022, grdians23,   grdians,        grdians,  grdians,  seta2_state,    empty_init,    ROT0,   "Bindi", "Denjin Makai II (LBS Edition, set 5)", 0 )
 
