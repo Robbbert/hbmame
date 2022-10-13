@@ -8593,22 +8593,23 @@ samesamenh	// Trap15
 
 @source:toaplan2.cpp
 kingdmgp                               //parent
-kgpe		/* Neill Corlett hack */
+kgpe
 sstriker                               //parent
-mahoudcn
-mahoudais01
+mahoudai01
+mahoudai02
 batsugun                               //parent
-batsugunt
+batsugun01
 bgaregga                               //parent
-bgareggz
+bgaregga01
+bgaregga02
 snowbro2                               //parent
 snowbro2s01
 snowbro2s02
 pipibibs                               //parent
-pipibibss01
-pipibibss02
+pipibibs01
+pipibibs02
 truxton2                               //parent
-truxton2nv
+truxton2s01
 
 @source:trackfld.cpp
 trackfld                               //parent
