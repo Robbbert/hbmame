@@ -1822,6 +1822,8 @@ kazzy
 trukker		/* Grimlick hack of Frogger */
 scobra                                 //parent
 scobtest
+kingball                               //parent
+kingball01
 galnamco	/* The Original Namco */
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */
@@ -5764,8 +5766,10 @@ viostorms02
 viostorms03
 
 @source:namcona1.cpp
-knckhead
-knckheadx
+emeralda                               //parent
+emeralda01
+knckhead                               //parent
+knckhead01
 
 @source:namcos2.cpp
 phelios
