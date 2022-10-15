@@ -13,7 +13,7 @@ New Games
 - [cosmicw]             Cosmic Wars (bootleg of UniwarS)
 - [cybots02]            Cyberbots: Fullmetal Madness (950424E, Access Mod)
 - [emeralda01]          Emeraldia (New Rotate)
-- [grdians19-38]        Denjin Makai II (various hacks, 20 sets)
+- [grdians19-40]        Denjin Makai II (various hacks, 22 sets)
 - [hook10-15]           Hook (various hacks, 6 sets)
 - [kingball01]          King & Balloon (bootleg)
 - [mk2s06]              Mortal Kombat II (SP4K, 2021-08-05)
