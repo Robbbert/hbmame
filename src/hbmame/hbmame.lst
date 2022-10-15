@@ -1824,6 +1824,8 @@ scobra                                 //parent
 scobtest
 kingball                               //parent
 kingball01
+uniwars                                //parent
+cosmicw
 galnamco	/* The Original Namco */
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */

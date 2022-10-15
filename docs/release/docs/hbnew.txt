@@ -10,6 +10,7 @@ New Games
 - [avengrgs01]          Avengers In Galactic Storm (Boss Hack, set 1)
 - [avengrgs02]          Avengers In Galactic Storm (Boss Hack, set 2)
 - [bgaregga02]          Battle Garegga (Zakk version, set 2)
+- [cosmicw]             Cosmic Wars (bootleg of UniwarS)
 - [cybots02]            Cyberbots: Fullmetal Madness (950424E, Access Mod)
 - [emeralda01]          Emeraldia (New Rotate)
 - [grdians19-38]        Denjin Makai II (various hacks, 20 sets)
