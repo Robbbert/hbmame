@@ -839,7 +839,7 @@ GAME( 2017, moontest,   mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_moon
 // Other
 GAME( 1981, jumpbugx,   0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, kingball01, kingball, kingball, kingball, kingball_state,  init_galaxian, ROT90, "bootleg", "King & Balloon (bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "bootleg", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "B.G.Video Ltd", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,     0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 

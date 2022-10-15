@@ -4281,26 +4281,27 @@ mhavocpex8fr			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk                                     //parent
-mkfr				// french
-mkturbod			/* MK protection hack */
-mktturboen			// Zenomorp 2012 Turbo Endurance
-mktturbopi			// Zenomorp 2012 Turbo Projectile Insanity
-mk2					//parent Mortal Kombat II r3.1
-mk2fr				// french
-mk2r33				// Mortal Kombat II r3.3
-mk2pb1				// Mortal Kombat II v2.8 beta 1
-mk2pb2				// Mortal Kombat II Plus beta
-nbajamte                               //parent
-nbajamtexxx
-nbajamre                               // NBA Jam Tournament Edition Rewind r1.1
-umk2te50			// Ultimate MKII Tournament Edition r5.0.050
-umk2te51			// Ultimate MKII Tournament Edition r5.0.051
-umk2te52			// Ultimate MKII Tournament Edition r5.0.052
-umk2te53			// Ultimate MKII Tournament Edition r5.0.053
-mks01
-mks02
+mk01
+mk02
+mk03
+mk04                                   // MK protection hack
+mk05                                   // Zenomorp 2012 Turbo Endurance
+mk06                                   // Zenomorp 2012 Turbo Projectile Insanity
+mk2                                    //parent
 mk2s01
-umk2s02
+mk2s02
+mk2s03
+mk2s04
+mk2s05
+mk2s06
+nbajamte                               //parent
+nbajam01
+nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
+umk2s01                                // Ultimate MKII Tournament Edition r5.0.050
+umk2s02                                // Ultimate MKII Tournament Edition r5.0.051
+umk2s03                                // Ultimate MKII Tournament Edition r5.0.052
+umk2s04
+umk2s05                                // Ultimate MKII Tournament Edition r5.0.053
 
 @source:midwunit.cpp
 mk3                                    //parent
