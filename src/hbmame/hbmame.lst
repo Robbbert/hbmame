@@ -4120,27 +4120,33 @@ spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 @source:m92.cpp
 hook                                   //parent
-hooks01
-hooks02
-hooks03
-hooks04
-hooks05
-hooks06
-hookus01
-hookus02
-hookxr
+hook01
+hook02
+hook03
+hook04
+hook05
+hook06
+hook07
+hook08
+hook09
+hook10
+hook11
+hook12
+hook13
+hook14
+hook15
 nbbatman                               //parent
-nbbatmans01
-nbbatmans02
-nbbatmans03
-nbbatmanus01
-nbbatmanus02
-nbbatmanus03
-nbbatmanus04
-nbbatmanus05
-nbbatmanus06
+nbbatman01
+nbbatman02
+nbbatman03
+nbbatman04
+nbbatman05
+nbbatman06
+nbbatman07
+nbbatman08
+nbbatman09
 uccops                                 //parent
-uccopsjs01
+uccops01
 
 @source:maketrax.cpp
 eyes			//parent
@@ -4305,7 +4311,8 @@ umk2s05                                // Ultimate MKII Tournament Edition r5.0.
 
 @source:midwunit.cpp
 mk3                                    //parent
-mk3k
+mk3s01
+mk3s02
 umk3                                   //parent
 umk3j				/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3r13b1			/* UMK3 1.3 public beta 1 */
