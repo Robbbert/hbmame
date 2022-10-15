@@ -12,6 +12,7 @@ New Games
 - [bgaregga02]          Battle Garegga (Zakk version, set 2)
 - [cosmicw]             Cosmic Wars (bootleg of UniwarS)
 - [cybots02]            Cyberbots: Fullmetal Madness (950424E, Access Mod)
+- [dkonghh]             Donkey Kong HeartHunt v1.01 (2022-10-15)
 - [emeralda01]          Emeraldia (New Rotate)
 - [grdians19-40]        Denjin Makai II (various hacks, 22 sets)
 - [hook10-15]           Hook (various hacks, 6 sets)
