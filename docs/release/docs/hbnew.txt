@@ -20,6 +20,7 @@ New Games
 - [mk3s02]              Mortal Kombat 3 (K, 2021-08-05)
 - [strider01]           Strider (US, fixes graphics and music)
 - [strider02]           Strider (JP, fixes graphics and music)
+- [wbml03]              Wonder Boy in Monster Land (bootleg)
 
 
 

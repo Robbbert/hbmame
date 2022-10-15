@@ -8435,8 +8435,9 @@ survartss01
 
 @source:system1.cpp
 wbml                                   //parent
-wbmlbit
-wbmlkb
+wbml01
+wbml02
+wbml03
 
 @source:system16.cpp
 sys16dem                               // HB
