@@ -8681,6 +8681,7 @@ suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 drmario                                //parent
 drmarios01
 frombelow
+vs_urban
 
 @source:vsystem.cpp
 karatblz                               //parent
