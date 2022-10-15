@@ -762,7 +762,7 @@ ROM_START( kingball01 ) // bootleg, namco copyright removed
 ROM_END
 
 ROM_START( cosmicw )
-	ROM_REGION( 0x4000, "maincpu", 0 ) // mostly Space Battle with a name change, and correct colours
+	ROM_REGION( 0x4000, "maincpu", 0 ) // mostly Space Battle with a name change, and corrected colours
 	ROM_LOAD( "sb1",    0x0000, 0x0800, CRC(d975af10) SHA1(a2e2a36a75db8fd09441308b08b6ae073c68b8cf) )
 	ROM_LOAD( "sb2",    0x0800, 0x0800, CRC(b2ed14c3) SHA1(7668df11f64b8e296eedfee53437777dc53a56d5) )
 	ROM_LOAD( "sb3",    0x1000, 0x0800, CRC(945f4160) SHA1(5fbe879f51e14c4c7ae551e5b3089f8e148770a4) )
