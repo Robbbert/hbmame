@@ -81,6 +81,32 @@ ROM_START( frombelow ) // vs.frombelowgame.com
 	PALETTE_2C04_0001("ppu1:palette")
 ROM_END
 
+static INPUT_PORTS_START( vs_urban )
+	PORT_INCLUDE( vsnes_rev )
+
+	PORT_START("DSW0")  // bit 0 and 1 read from bit 3 and 4 on $4016, rest of the bits read on $4017
+	PORT_DIPNAME( 0x07, 0x00, DEF_STR( Coinage ) )    PORT_DIPLOCATION("SW1:!1,!2,!3")
+	PORT_DIPSETTING(    0x03, DEF_STR( 4C_1C ) )
+	PORT_DIPSETTING(    0x05, DEF_STR( 3C_1C ) )
+	PORT_DIPSETTING(    0x01, DEF_STR( 2C_1C ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( 1C_1C ) )
+	PORT_DIPSETTING(    0x04, DEF_STR( 1C_2C ) )
+	PORT_DIPSETTING(    0x02, DEF_STR( 1C_3C ) )
+	PORT_DIPSETTING(    0x06, DEF_STR( 1C_4C ) )
+	PORT_DIPSETTING(    0x07, DEF_STR( Free_Play ) )
+	PORT_DIPNAME( 0x18, 0x00, DEF_STR( Difficulty ) ) PORT_DIPLOCATION("SW1:!4,!5")
+	PORT_DIPSETTING(    0x00, DEF_STR( Easy ) )
+	PORT_DIPSETTING(    0x10, DEF_STR( Normal ) )
+	PORT_DIPSETTING(    0x08, DEF_STR( Medium ) )
+	PORT_DIPSETTING(    0x18, DEF_STR( Hard ) )
+	PORT_DIPNAME( 0x60, 0x00, DEF_STR( Lives ) )      PORT_DIPLOCATION("SW1:!6,!7")
+	PORT_DIPSETTING(    0x00, "3" )
+	PORT_DIPSETTING(    0x40, "4" )
+	PORT_DIPSETTING(    0x20, "5" )
+	PORT_DIPSETTING(    0x60, "6" )
+	PORT_DIPUNKNOWN_DIPLOC( 0x80, 0x00, "SW1:!8" )
+INPUT_PORTS_END
+
 ROM_START( vs_urban )
 	ROM_REGION( 0x8000, "prg", 0 )
 	ROM_LOAD( "urb.1a", 0x6000, 0x2000, CRC(7ccff543) SHA1(9f369b2b55482019d6f4d0c19ede54a60788e4a3) )
@@ -101,5 +127,5 @@ GAME( 2002, mrio2002,    suprmrio, vsnes, suprmrio,  vsnes_state, init_vsnormal,
 GAME( 1986, suprsktr,    suprmrio, vsnes, suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
 GAME( 2002, drmarios01,  drmario,  vsnes, drmario,   vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
 GAME( 2020, frombelow,   suprmrio, vsnes, frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
-GAME( 2020, vs_urban,    drmario,  vsnes, suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
+GAME( 2020, vs_urban,    drmario,  vsnes, vs_urban,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
 
