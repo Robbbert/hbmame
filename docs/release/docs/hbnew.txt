@@ -25,6 +25,7 @@ New Games
 - [strider02]           Strider (JP, fixes graphics and music)
 - [vs_urban]            Vs. Urban Champion
 - [wbml03]              Wonder Boy in Monster Land (bootleg)
+- [wwfmania01]          WWF: Wrestlemania (Acid Clown Edition, 2020-12-02)
 
 
 
