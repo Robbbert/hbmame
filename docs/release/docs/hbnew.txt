@@ -19,6 +19,8 @@ New Games
 - [kingball01]          King & Balloon (bootleg)
 - [mk2s06]              Mortal Kombat II (SP4K, 2021-08-05)
 - [mk3s02]              Mortal Kombat 3 (K, 2021-08-05)
+- [nbbatman10]          Ninja Baseball Bat Man (1v8, 2020-01-08)
+- [nbbatman11]          Ninja Baseball Bat Man (One Key Edition, 2020-09-06)
 - [strider01]           Strider (US, fixes graphics and music)
 - [strider02]           Strider (JP, fixes graphics and music)
 - [vs_urban]            Vs. Urban Champion
