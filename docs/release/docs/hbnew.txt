@@ -1,9 +1,9 @@
 ﻿What's new in HBMAME
 ====================
 
-2022-1x-xx 0.245.8
+2022-10-20 0.245.8
 
-
+19YY now has full background music included.
 
 New Games
 ---------------------------------

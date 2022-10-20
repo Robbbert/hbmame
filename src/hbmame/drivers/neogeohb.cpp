@@ -869,7 +869,7 @@ ROM_END
 
 
 // 334 : 19YY
-ROM_START( 19yy ) // v1.0
+ROM_START( 19yy01 ) // v1.0, first release
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "334.p1", 0x100000, 0x100000, CRC(59374c47) SHA1(dfd8f5b8edba3116998c12b77dd2583d0363b76a) )
 	ROM_CONTINUE(0x000000, 0x100000)
@@ -879,8 +879,26 @@ ROM_START( 19yy ) // v1.0
 	NEO_BIOS_AUDIO_128K( "334.m1", CRC(636d8ac8) SHA1(a9155bf34f5046bb3d6fa1d740ab328054f754d5) )
 
 	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "334.v1",  0x000000, 0x400000, CRC(7bb79a6a) SHA1(4eb92dcadf8742632ba632e16cf22ead90e3a0c9) )
+	ROM_LOAD( "334a.v1",  0x000000, 0x400000, CRC(7bb79a6a) SHA1(4eb92dcadf8742632ba632e16cf22ead90e3a0c9) )
 	ROM_LOAD( "090.v3",  0x400000, 0x200000, CRC(1908a7ce) SHA1(78f31bcfea33eb94752bbf5226c481baec1af5ac) )
+
+	ROM_REGION( 0xa00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "334.c1",  0x000000, 0x400000, CRC(622719d5) SHA1(38c51619992bf9b6de07d3739d28e0098295cec0) )
+	ROM_LOAD16_BYTE( "334.c2",  0x000001, 0x400000, CRC(41b07be5) SHA1(3f0bb6ebf2e4b396fbc72e949cff415603c0ae96) )
+ROM_END
+
+ROM_START( 19yy ) // sound fixed by elrayzeur, 2022-10-20
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "334.p1", 0x100000, 0x100000, CRC(59374c47) SHA1(dfd8f5b8edba3116998c12b77dd2583d0363b76a) )
+	ROM_CONTINUE(0x000000, 0x100000)
+
+	NEO_SFIX_128K( "334.s1", CRC(219b6f40) SHA1(a771872489c8b6d4011e412362366d30ed363e22) )
+
+	NEO_BIOS_AUDIO_128K( "334.m1", CRC(8e05762a) SHA1(da28724c6a50ed3e9a46eed35bd16ae8d3a232db) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "334.v1",  0x000000, 0x800000, CRC(944146c2) SHA1(e81fa519cddcc9489d013937eb366ad090fb6b74) )
+	ROM_LOAD( "334.v2",  0x800000, 0x800000, CRC(a4bafe45) SHA1(6936f842103897fed35fc0c325c71f3c024e9174) )
 
 	ROM_REGION( 0xa00000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "334.c1",  0x000000, 0x400000, CRC(622719d5) SHA1(38c51619992bf9b6de07d3739d28e0098295cec0) )
@@ -3160,7 +3178,8 @@ ROM_START( ndo_a_td )
 ROM_END
 
 
-GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cakefght1,    cakefght, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "ADK/EKORZ", "Cake Fighter v1.1", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, crswd2bl,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "Crossed Swords 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
