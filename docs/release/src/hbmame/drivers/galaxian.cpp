@@ -737,6 +737,51 @@ ROM_START( wbeast )
 	ROM_LOAD( "warofbug.clr", 0x0000, 0x0020, CRC(8688e64b) SHA1(ed13414257f580b98b50c9892a14159c55e7838d) )
 ROM_END
 
+ROM_START( kingball01 ) // bootleg, namco copyright removed
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "kb1",          0x0000, 0x0800, CRC(62631d01) SHA1(5cb2f80866649c8d0c047367a02242a409ba284d) )
+	ROM_LOAD( "kb2",          0x0800, 0x0800, CRC(87b46a5d) SHA1(2c1fa68c50b64152399cf5b56ddbecafb937b139) )
+	ROM_LOAD( "kb3",          0x1000, 0x0800, CRC(8174f0ee) SHA1(d5f9644bcb1ff691eacf73b42f640ca28754ad0e) )
+	ROM_LOAD( "kb4",          0x1800, 0x0800, CRC(b06197fc) SHA1(9d2af3eccb73a74570d5220de13f5837955b2f5a) )
+	ROM_LOAD( "kb5",          0x2000, 0x0800, CRC(3c63e5f0) SHA1(55c15e95391b58fac046f01a42d22adb93c3f705) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 ) // these not supplied in the dump, using roms from kingball
+	ROM_LOAD( "kbe1.ic4",     0x0000, 0x0800, CRC(5be2c80a) SHA1(f719a80357bed3d66bce40569690f419740148c5) )
+	ROM_LOAD( "kbe2.ic5",     0x0800, 0x0800, CRC(bb59e965) SHA1(830e0c415f051e932d76df604025e4e33118a799) )
+	ROM_LOAD( "kbe3.ic6",     0x1000, 0x0800, CRC(fbc7d286) SHA1(11511028920d30f65859b80379b5aab94240a741) )
+	ROM_LOAD( "kbe2.ic7",     0x1800, 0x0800, CRC(bb59e965) SHA1(830e0c415f051e932d76df604025e4e33118a799) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "kb-hj",        0x0000, 0x0800, CRC(75a23849) SHA1(0c6c4f799fcd6bfd70ca702ca713db2fbd476cc0) )
+	ROM_RELOAD(               0x0800, 0x0800 )
+	ROM_LOAD( "kb-kl",        0x1000, 0x0800, CRC(4b711dd3) SHA1(c6294a5e4f0363c4e417e27f47b2d6c5526f7893) )
+	ROM_RELOAD(               0x1800, 0x0800 )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "kb2-1",        0x0000, 0x0020, CRC(15dd5b16) SHA1(3d2ca2b42bf508a9e5198e970abcbbedf5729164) )
+ROM_END
+
+ROM_START( cosmicw )
+	ROM_REGION( 0x4000, "maincpu", 0 ) // mostly Space Battle with a name change, and corrected colours
+	ROM_LOAD( "sb1",    0x0000, 0x0800, CRC(d975af10) SHA1(a2e2a36a75db8fd09441308b08b6ae073c68b8cf) )
+	ROM_LOAD( "sb2",    0x0800, 0x0800, CRC(b2ed14c3) SHA1(7668df11f64b8e296eedfee53437777dc53a56d5) )
+	ROM_LOAD( "sb3",    0x1000, 0x0800, CRC(945f4160) SHA1(5fbe879f51e14c4c7ae551e5b3089f8e148770a4) )
+	ROM_LOAD( "sb4",    0x1800, 0x0800, CRC(8229835c) SHA1(8cfd8f6cab6f80ca69645a184f7e841fc69f47f6) )
+	ROM_LOAD( "cw5",    0x2000, 0x0800, CRC(74e70148) SHA1(e3fc1931bc52e831b953ba1bba6e484dffd19c69) )
+	ROM_LOAD( "sb6",    0x2800, 0x0800, CRC(d915a389) SHA1(0e2ff6eec9453856a1276889946b463cfae58eba) )
+	ROM_LOAD( "sb7",    0x3000, 0x0800, CRC(c9245346) SHA1(239bad3fe64eaab2dfc3febd06d1124103a10504) )
+	ROM_LOAD( "sb8",    0x3800, 0x0800, CRC(e59ff1ae) SHA1(fef22885cbd3273882f8c7755dd04c28e843b9ea) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "sb12",   0x0000, 0x0800, CRC(8313c959) SHA1(b09157c6f824d6e94647728cbb329877fcb4e502) )
+	ROM_LOAD( "sb14",   0x0800, 0x0800, CRC(c26132af) SHA1(7ae125a911dfd47aeca4f129f580762ce4d8d91a) )
+	ROM_LOAD( "sb11",   0x1000, 0x0800, CRC(c9d4537e) SHA1(65d27066ffec04b755d2f5d3f36f5ec6792e8d6c) )
+	ROM_LOAD( "k01_2.bin", 0x1800, 0x0800, CRC(dcc2b33b) SHA1(c3a5ac935c519400dfabb28909f7e460769d1837) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "l06_prom.bin", 0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
+ROM_END
+
 
 /***************************************************************************
 
@@ -793,6 +838,8 @@ GAME( 2017, moontest,   mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_moon
 
 // Other
 GAME( 1981, jumpbugx,   0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
+GAME( 1980, kingball01, kingball, kingball, kingball, kingball_state,  init_galaxian, ROT90, "bootleg", "King & Balloon (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "B.G.Video Ltd", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,     0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
 

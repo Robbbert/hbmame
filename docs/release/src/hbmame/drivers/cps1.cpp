@@ -33,9 +33,9 @@ live again.
 One of the improvements was replacing the old OKI audio system with Q-Sound. So
 the sound section of the A-board became vacant, and a new D-board was created
 just for the Q-Sound. The Z-80 was replaced with an encrypted version known as
-a Kabuki. The same battery from above enabled the decryption to work, and when
-it went flat the Kabuki turned back into a normal Z-80, so killing the sound.
-A new battery fixes this, so there's no need to bypass it.
+a Kabuki. Another battery enabled the decryption to work, and when it went flat
+the Kabuki turned back into a normal Z-80, so killing the sound. A new battery
+fixes this, so there's no need to bypass it.
 
 MAME has a large unwieldy table to pass each game's protection parameters, and
 you need to add a hard-coded entry each time a new game is added. If this isn't

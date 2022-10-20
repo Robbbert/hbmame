@@ -1034,10 +1034,9 @@ slammasts03
 slammasts04
 slammasts05
 slammasts06
-striders01
-striders02                             // fix unwanted black specks
-striders03                             // as above, and uncensored
-striders04
+strider01
+strider02
+strider04
 varths01
 varths02
 willows01
@@ -1359,6 +1358,7 @@ avsps06
 batcirs01
 csclubs01
 cybots01
+cybots02
 ddsoms01
 ddsoms02
 ddsoms03
@@ -1624,18 +1624,27 @@ mjdchuka				//parent
 mjdchukas01
 
 @source:dec0.cpp
-baddudes				//parent
+baddudes                               //parent
 baddudef				// Arkatrad
 decodemo				// Charles Doty
-robocop 				//parent
+robocop                                //parent
 robocopbs01
 
 @source:decocass.cpp
-decocass				//parent
+decocass                               //parent
 decomult				// Dave Widel
+
+@source:deco_mlc.cpp
+avengrgs                               //parent
+avengrgs01
+avengrgs02
 
 @source:dkong.cpp
 dkong					//parent
+dkong01
+dkong02
+dkong03
+dkong04
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -1694,6 +1703,7 @@ dkwizard
 dkwizard0
 dkwizard1
 dkwizard2
+dkonghh
 
 @source:docastle.cpp
 dorunrun                               //parent
@@ -1817,6 +1827,10 @@ kazzy
 trukker		/* Grimlick hack of Frogger */
 scobra                                 //parent
 scobtest
+kingball                               //parent
+kingball01
+uniwars                                //parent
+cosmicw
 galnamco	/* The Original Namco */
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */
@@ -4111,27 +4125,35 @@ spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 @source:m92.cpp
 hook                                   //parent
-hooks01
-hooks02
-hooks03
-hooks04
-hooks05
-hooks06
-hookus01
-hookus02
-hookxr
+hook01
+hook02
+hook03
+hook04
+hook05
+hook06
+hook07
+hook08
+hook09
+hook10
+hook11
+hook12
+hook13
+hook14
+hook15
 nbbatman                               //parent
-nbbatmans01
-nbbatmans02
-nbbatmans03
-nbbatmanus01
-nbbatmanus02
-nbbatmanus03
-nbbatmanus04
-nbbatmanus05
-nbbatmanus06
+nbbatman01
+nbbatman02
+nbbatman03
+nbbatman04
+nbbatman05
+nbbatman06
+nbbatman07
+nbbatman08
+nbbatman09
+nbbatman10
+nbbatman11
 uccops                                 //parent
-uccopsjs01
+uccops01
 
 @source:maketrax.cpp
 eyes			//parent
@@ -4165,7 +4187,6 @@ scroller		// HB
 seq1			/* HB - Jerronimo */
 seq2			/* HB - Jerronimo */
 snakes			// HB
-snakes2			// HB
 theglobpb
 wavybug
 zap				/* HB - Widel Games */
@@ -4273,30 +4294,34 @@ mhavocpex8fr			//HB Jess M. Askey
 
 @source:midtunit.cpp
 mk                                     //parent
-mkfr				// french
-mkturbod			/* MK protection hack */
-mktturboen			// Zenomorp 2012 Turbo Endurance
-mktturbopi			// Zenomorp 2012 Turbo Projectile Insanity
-mk2					//parent Mortal Kombat II r3.1
-mk2fr				// french
-mk2r33				// Mortal Kombat II r3.3
-mk2pb1				// Mortal Kombat II v2.8 beta 1
-mk2pb2				// Mortal Kombat II Plus beta
-nbajamte                               //parent
-nbajamtexxx
-nbajamre                               // NBA Jam Tournament Edition Rewind r1.1
-umk2te50			// Ultimate MKII Tournament Edition r5.0.050
-umk2te51			// Ultimate MKII Tournament Edition r5.0.051
-umk2te52			// Ultimate MKII Tournament Edition r5.0.052
-umk2te53			// Ultimate MKII Tournament Edition r5.0.053
-mks01
-mks02
+mk01
+mk02
+mk03
+mk04                                   // MK protection hack
+mk05                                   // Zenomorp 2012 Turbo Endurance
+mk06                                   // Zenomorp 2012 Turbo Projectile Insanity
+mk2                                    //parent
 mk2s01
-umk2s02
+mk2s02
+mk2s03
+mk2s04
+mk2s05
+mk2s06
+nbajamte                               //parent
+nbajam01
+nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
+umk2s01                                // Ultimate MKII Tournament Edition r5.0.050
+umk2s02                                // Ultimate MKII Tournament Edition r5.0.051
+umk2s03                                // Ultimate MKII Tournament Edition r5.0.052
+umk2s04
+umk2s05                                // Ultimate MKII Tournament Edition r5.0.053
 
 @source:midwunit.cpp
 mk3                                    //parent
-mk3k
+mk3s01
+mk3s02
+wwfmania                               //parent
+wwfmania01
 umk3                                   //parent
 umk3j				/* UMK3 1.2 Juggernaut Hack v1.0 */
 umk3r13b1			/* UMK3 1.3 public beta 1 */
@@ -5760,8 +5785,10 @@ viostorms02
 viostorms03
 
 @source:namcona1.cpp
-knckhead
-knckheadx
+emeralda                               //parent
+emeralda01
+knckhead                               //parent
+knckhead01
 
 @source:namcos2.cpp
 phelios
@@ -5946,6 +5973,7 @@ zupapa			// 070
 
 @source:neogeohb.cpp
 19yy
+19yy01
 abyssal
 abyssal1
 akiradmo
@@ -7935,8 +7963,6 @@ pacman25s12
 pacman25s13
 pacman25s14
 pacman25s15
-pacman25s16
-pacman25s17
 pacman25s18
 pacman25s19
 pacman25s20
@@ -8324,24 +8350,46 @@ rezons01
 
 @source:seta2.cpp
 grdians                                //parent
-grdianss01
-grdianss02
-grdianss03
-grdianss04
-grdianss05
-grdianss06
-grdianss07
-grdianss08
-grdianss09
-grdianss10
-grdianss11
-grdianss12
-grdianss13
-grdianss14
-grdianss15
-grdianss16
-grdianss17
-grdianss18
+grdians01
+grdians02
+grdians03
+grdians04
+grdians05
+grdians06
+grdians07
+grdians08
+grdians09
+grdians10
+grdians11
+grdians12
+grdians13
+grdians14
+grdians15
+grdians16
+grdians17
+grdians18
+grdians19
+grdians20
+grdians21
+grdians22
+grdians23
+grdians24
+grdians25
+grdians26
+grdians27
+grdians28
+grdians29
+grdians30
+grdians31
+grdians32
+grdians33
+grdians34
+grdians35
+grdians36
+grdians37
+grdians38
+grdians39
+grdians40
 
 @source:shadfrce.cpp
 shadfrce                               //parent
@@ -8399,8 +8447,9 @@ survartss01
 
 @source:system1.cpp
 wbml                                   //parent
-wbmlbit
-wbmlkb
+wbml01
+wbml02
+wbml03
 
 @source:system16.cpp
 sys16dem                               // HB
@@ -8591,22 +8640,23 @@ samesamenh	// Trap15
 
 @source:toaplan2.cpp
 kingdmgp                               //parent
-kgpe		/* Neill Corlett hack */
+kgpe
 sstriker                               //parent
-mahoudcn
-mahoudais01
+mahoudai01
+mahoudai02
 batsugun                               //parent
-batsugunt
+batsugun01
 bgaregga                               //parent
-bgareggz
+bgaregga01
+bgaregga02
 snowbro2                               //parent
 snowbro2s01
 snowbro2s02
 pipibibs                               //parent
-pipibibss01
-pipibibss02
+pipibibs01
+pipibibs02
 truxton2                               //parent
-truxton2nv
+truxton2s01
 
 @source:trackfld.cpp
 trackfld                               //parent
@@ -8624,8 +8674,8 @@ trkftest12tu
 
 @source:twincobr.cpp
 twincobr                               //parent
-twincbu2
-twintwst
+twincobrs01
+twincobrs02
 
 @source:vamphalf.cpp
 aoh                                    //parent
@@ -8643,6 +8693,7 @@ suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
 drmario                                //parent
 drmarios01
 frombelow
+vs_urban
 
 @source:vsystem.cpp
 karatblz                               //parent

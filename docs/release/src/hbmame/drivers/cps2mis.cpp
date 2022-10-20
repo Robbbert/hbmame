@@ -1380,6 +1380,40 @@ ROM_START( cybots01 )
 	ROM_LOAD( "cybotsj.key",  0x00, 0x14, CRC(d4d560b7) SHA1(66f2d85a25140ab9071a0e192ee40e750381bffc) )
 ROM_END
 
+ROM_START( cybots02 ) // cybotsam - see https://archive.org/details/cybotsAM for instructions.
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c58s02.p1",  0x000000, 0x80000, CRC(52e1a8a4) SHA1(859137e41f60f9ca79bdace395847a93d335562b) )
+	ROM_LOAD16_WORD_SWAP( "c58s02.p2",  0x080000, 0x80000, CRC(627be72a) SHA1(43d16f8bcbbdfd02535eaf6dadb2e30b2df33ed8) )
+	ROM_LOAD16_WORD_SWAP( "c58.p3",  0x100000, 0x80000, CRC(ec40408e) SHA1(dd611c1708e7ef86e4f7cac4b7b0dff7baaee5ed) )
+	ROM_LOAD16_WORD_SWAP( "c58.p4",  0x180000, 0x80000, CRC(1ad0bed2) SHA1(2ea005f3e73b05f8f0ec006cd9e95f7731a73897) )
+	ROM_LOAD16_WORD_SWAP( "c58.p5",  0x200000, 0x80000, CRC(6245a39a) SHA1(4f607e733e2dea80211497522be6d0f09571928d) )
+	ROM_LOAD16_WORD_SWAP( "c58.p6",  0x280000, 0x80000, CRC(4b48e223) SHA1(9714579a7a78b9716e44bca6c18bf1a93aa4e482) )
+	ROM_LOAD16_WORD_SWAP( "c58.p7",  0x300000, 0x80000, CRC(e15238f6) SHA1(16abd92ebed921a6a7e8eac4b098dc61f7e5485c) )
+	ROM_LOAD16_WORD_SWAP( "c58s02.p8",  0x380000, 0x80000, CRC(bbfd041e) SHA1(240f6705ecc93c6df5cfe380a060a088ad5861f3) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROMX_LOAD( "c58.c1",   0x0000000, 0x400000, CRC(f0dce192) SHA1(b743938dc8e772dc3f63ed88a4a54c34fffdba21) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c2",   0x0000002, 0x400000, CRC(187aa39c) SHA1(80e3cf5c69f13343de667e1476bb716d45d3ff63) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c3",   0x0000004, 0x400000, CRC(8a0e4b12) SHA1(40132f3cc79b0a74460ebd4e0d4ddbe240efc06f) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c4",   0x0000006, 0x400000, CRC(34b62612) SHA1(154bbceb7d303a208abb1b2f3d507d5afacc71ed) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c5",   0x1000000, 0x400000, CRC(c1537957) SHA1(bfb1cc6786277b94ce28bfd464e2bbb6f6d3486e) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c6",   0x1000002, 0x400000, CRC(15349e86) SHA1(b0cde577d29a9f4e718b673c8645529ef0ababc9) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c7",   0x1000004, 0x400000, CRC(d83e977d) SHA1(e03f4a120c95a2f476ffc8492bca85e0c5cea068) , ROM_GROUPWORD | ROM_SKIP(6) )
+	ROMX_LOAD( "c58.c8",   0x1000006, 0x400000, CRC(77cdad5c) SHA1(94d0cc5f05de4bc2d43977d91f887005dc10310c) , ROM_GROUPWORD | ROM_SKIP(6) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c58.m1",   0x00000, 0x08000, CRC(9c0fb079) SHA1(06d260875a76da08d56ea2b2ae277e8c2dbae6e3) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c58.m2",   0x28000, 0x20000, CRC(51cb0c4e) SHA1(c322957558d8d3e9dad090aebbe485978cbce8f5) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c58.q1",   0x000000, 0x200000, CRC(362ccab2) SHA1(28e537067d4846f22657ee37166d18b8f05f4da1) )
+	ROM_LOAD16_WORD_SWAP( "c58.q2",   0x200000, 0x200000, CRC(7066e9cc) SHA1(eb6a9d4998b3311344d73bae88d661d81609c492) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "cybots.key",   0x00, 0x14, CRC(9bbcbef3) SHA1(ec7a322c8dceb16c98f7c2837679e91b738fdd0a) )
+ROM_END
+
  /**************************************
  Street Fighter Alpha: Warriors' Dreams
 *****************************************/
@@ -6465,6 +6499,7 @@ GAME( 2019, batcirs01,  batcir,   dead_cps2, cps2_4p2b, cps2_state, init_cps2, R
 GAME( 1997, csclubs01,  csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Hooooook", "Capcom Sports Club (971017E, Time Increases)", MACHINE_SUPPORTS_SAVE )
 // Cyberbots Fullmetal Madness
 GAME( 1995, cybots01,   cybots,   cps2,      cybots,    cps2_state, init_cps2, ROT0, "Pipi899", "Cyberbots: Fullmetal Madness (950420J, Get Maximum Power On Attack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, cybots02,   cybots,   cps2,      cybots,    cps2_state, init_cps2, ROT0, "KyleW", "Cyberbots: Fullmetal Madness (950424E, Access Mod)", MACHINE_SUPPORTS_SAVE )
 // Dungeons & Dragons Shadow over Mystara
 GAME( 2017, ddsoms01,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "Mushroom Chick", "Dungeons & Dragons: Shadow over Mystara (960619J, Chinese, 2017-04-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ddsoms02,   ddsom,    cps2,      cps2_4p4b, cps2_state, init_cps2, ROT0, "hack", "Dungeons & Dragons: Shadow over Mystara (960619J, Full Attack Edition, 2020-08-31)", MACHINE_SUPPORTS_SAVE )
