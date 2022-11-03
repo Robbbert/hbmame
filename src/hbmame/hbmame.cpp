@@ -13,9 +13,9 @@
 #define APPNAME             "HBMAME"
 #define APPNAME_LOWER       "hbmame"
 #define CONFIGNAME          "hbmame"
-#define COPYRIGHT           "Copyright Robbbert\nand the MAME team\nhttp://mamedev.org"
-#define COPYRIGHT_INFO      "\nMAME portions are copyright the MAME team.\n" \
-                            "HBMAME portions are copyright Robbbert."
+#define COPYRIGHT           "Copyright Robbbert\nand the MAME team\nhttps://mamedev.org"
+#define COPYRIGHT_INFO      "\nMAME portions are copyright the MAME team and contributors\n" \
+                            "HBMAME portions are copyright Robbbert and contributors."
 
 const char * emulator_info::get_appname() { return APPNAME;}
 const char * emulator_info::get_appname_lower() { return APPNAME_LOWER;}
