@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2022-1x-xx 0.245.9
+
+
+
+New Games
+---------------------------------
+- [pandajump]           Panda Jump
+
+
+
 2022-10-20 0.245.8
 
 19YY now has full background music included.

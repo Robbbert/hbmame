@@ -782,6 +782,22 @@ ROM_START( cosmicw )
 	ROM_LOAD( "l06_prom.bin", 0x0000, 0x0020, CRC(6a0c7d87) SHA1(140335d85c67c75b65689d4e76d29863c209cf32) )
 ROM_END
 
+ROM_START( pandajump )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "pj.u",         0x0000, 0x0800, CRC(b2658d7d) SHA1(d9e87bd4483f925861cfc4f571201d0d088e8565) )
+	ROM_LOAD( "pj.v",         0x0800, 0x0800, CRC(d47fa6c5) SHA1(ddb5058c28feb18fb35c8bf88f362decfc9d6fb3) )
+	ROM_LOAD( "pj.w",         0x1000, 0x0800, CRC(12e3e07e) SHA1(9544a0b5e5990d6ca302236e2f639f981a9132c2) )
+	ROM_LOAD( "pj.y",         0x1800, 0x0800, CRC(ee2133d0) SHA1(ad64039ec280ec24b8ff921bedbf8719762b569f) )
+	ROM_LOAD( "pj.7l",        0x2000, 0x0800, CRC(f1e8ba9e) SHA1(605db3fdbaff4ba13729371ad0c4fbab3889378e) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "pj.1h",        0x0000, 0x0800, CRC(6ac96510) SHA1(acb9897a4c5325b26eadd0300e49e43bbbf11462) )
+	ROM_LOAD( "pj.1k",        0x0800, 0x0800, CRC(f2fb3d80) SHA1(fe421dcf4b9d2f75d9d98f0adb7630f054115b36) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 
 /***************************************************************************
 
@@ -842,6 +858,7 @@ GAME( 1980, kingball01, kingball, kingball, kingball, kingball_state,  init_gala
 GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "B.G.Video Ltd", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,     0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, pandajump,  0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( multigameb )
