@@ -36,6 +36,6 @@ Licensing Information
 
 Information about the MAME content can be found at https://github.com/mamedev/mame/blob/master/README.md
 
-Information about the MAME license can be found in COPYING
+Information about the license can be found in COPYING
 
 Information about the WINUI portion can be found at https://github.com/Robbbert/mameui/blob/master/docs/winui_license.txt

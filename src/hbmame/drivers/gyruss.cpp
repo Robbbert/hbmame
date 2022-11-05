@@ -1,4 +1,4 @@
-// license:CC BY-NC-ND 3.0 (copying this code into another project is not permitted)
+// license:GPL-2.0+
 // copyright-holders:Robbbert
 #include "../mame/drivers/gyruss.cpp"
 

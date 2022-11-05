@@ -1,4 +1,4 @@
-// For licensing and usage information, read docs/winui_license.txt
+// For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 // NOTE: ifdef MESS doesn't work here
 #ifndef WINUI_TREEVIEW_H

@@ -1,3 +1,25 @@
+HBMAME is copyright by Robbbert and contributors, 2014-2022.
+
+It is a derivative of MAME(tm), of which the various conditions and copyrights can be found below.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License version 2, as provided in docs/legal/GPL-2.0.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+The license requires that the source code of the release binary be available for at least 3 years. The source consists of 2 parts:
+
+a. The original MAME(tm) source, available at https://www.mamedev.org/release.html (if current), or https://www.mamedev.org/oldrel.html (for older versions), and
+
+b. The extra source to be applied over the top of the MAME(tm) source, and from November 2022 will be supplied with the binary. Earlier versions are available at https://www.progettosnaps.net/hbmame
+
+Currently, there's also a live github repository located at https://github.com/Robbbert/hbmame . You can pull this source anytime to make your own build, however these are works in progress and might not function as expected. The continued existence of this repository is not guaranteed.
+
+The winui code has an addendum, please read winui_license.txt
+
+Last update: 2022-11-05
+
+The MAME(tm) information begins here.
+
 MAME is a registered trademark of Gregory Ember.  Other trademarks are
 property of their respective owners.
 
@@ -284,8 +306,3 @@ notice, here is a blessing:
     May you do good and not evil.
     May you find forgiveness for yourself and forgive others.
     May you share freely, never taking more than you give.
-
-
-HBMAME
-
-The license condition of each source code file is stipulated on line 1 of the file concerned.
