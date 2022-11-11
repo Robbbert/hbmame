@@ -174,7 +174,8 @@ NUM GAME YEAR COMPANY                 TITLE
 436 0275 2010 CeL                     Neo Pang
 443 1234 2012 M.Priewe                Santaball
 444 1234 2018 kl3mousse               Sea Fighter
-446 7777 2014 M.Priewe                Monitor Test Tool
+446 7777 2014 M.Priewe                Monitor Test Tool v1.0
+446 0602 2022 M.Priewe                Monitor Test Tool v1.3
 447 0600 2021 M.Priewe                Hypernoid
 455*1234 2004 Blastar                 Neo Puzzle League (CD only) [nebula]
 461 0280 2020 Elrayzeur               Puzzle Crazy
@@ -1453,7 +1454,7 @@ ROM_END
 
 // 446 : Monitor Test by M.Priewe.
 // No sound.
-ROM_START( ngmontst )
+ROM_START( ngmontst ) // v1.0
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "446.p1", 0x000000, 0x100000, CRC(17a4ad61) SHA1(38c0f2022947043f30a27ccda06cc709fe980fed) )
 
@@ -1468,7 +1469,21 @@ ROM_START( ngmontst )
 	ROM_LOAD16_BYTE( "446.c1", 0x000000, 0x100000, CRC(715df715) SHA1(74534eb9bb48a04f25d0044b1f2b57e59f49b06f) )
 	ROM_LOAD16_BYTE( "446.c2", 0x000001, 0x100000, CRC(d8ee3c9b) SHA1(c731eaffae34b4394e290e68ca8c3700e1c6dc2b) )
 ROM_END
+ROM_START( ngmontst3 ) // v1.3
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "446c.p1", 0x000000, 0x100000, CRC(8a140722) SHA1(a7e4ac8b7bf531a10b68460e37e7e6da59ecccfe) )
 
+	NEO_SFIX_128K( "447.s1", CRC(bb82ab71) SHA1(307f420446c2d411a65b59543b61c21d0360536b) )
+
+	NEO_BIOS_AUDIO_64K( "446c.m1", CRC(6f41ac95) SHA1(92dd52bd6717e116301f965a45aa1762e797154c) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "446c.v1", 0x000000, 0x200000, CRC(0f88bd1a) SHA1(75a288744533e2546fb94dddf50da0148f158d19) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "446c.c1", 0x000000, 0x100000, CRC(5c63f88a) SHA1(418e3345c40fc1d8d964ee55ca68a56be32f4df2) )
+	ROM_LOAD16_BYTE( "446c.c2", 0x000001, 0x100000, CRC(3c7e0729) SHA1(695d36002cc428dfaf6174bdcf5fed351df39b35) )
+ROM_END
 
 // 447 : Hypernoid by M.Priewe.
 ROM_START( hypernoid )
@@ -3264,7 +3279,8 @@ GAME( 2020, nblktiger,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, ng4ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "4 Player Multitab Test (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ngem2k,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NGEM2K (Beta, 2006-01-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, ngftdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "CeL", "NGF Transparency Demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, ngmontst,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test v1.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, ngmontst3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "NeoGeo Monitor Test v1.3", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ngtd2,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Luis Miguel Mayor", "NeoGeo Tech Demo 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, ngtetris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Crim/Stephen", "NeoGeo 2-Player Tetris", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ngym2610,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "NeoGeo YM2610 Test", MACHINE_SUPPORTS_SAVE )
