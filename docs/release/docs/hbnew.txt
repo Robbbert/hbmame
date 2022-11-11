@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [dkong05-18,20]       Donkey Kong (various hacks)
+- [mhavocpe]            Major Havoc 1.0 (English/French/German/Tournament versions)
 - [ngmontst3]           Neo Geo Monitor Test Tool v1.3
 - [pandajump]           Panda Jump
 
