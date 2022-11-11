@@ -1640,11 +1640,27 @@ avengrgs01
 avengrgs02
 
 @source:dkong.cpp
-dkong					//parent
+dkong                                  //parent
 dkong01
 dkong02
 dkong03
 dkong04
+dkong05
+dkong06
+dkong07
+dkong08
+dkong09
+dkong10
+dkong11
+dkong12
+dkong13
+dkong14
+dkong15
+dkong16
+dkong17
+dkong18
+dkong19
+dkong20
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -1669,7 +1685,6 @@ dkchrte
 dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
-kong2600				// Vic Twenty George hack of Donkey Kong
 nadkong					//
 dkcbarrel				// Paul Goes
 dkfreerun				// Paul Goes
