@@ -4279,34 +4279,29 @@ ncommandd				// 0050 (c) 1992 Alpha Denshi Co.
 wh1d					// 0053 (c) 1992 Alpha Denshi Co.
 
 @source:mhavoc.cpp
-mhavoc					//parent
-mhavocrv				//HB Jess M. Askey
+mhavoc                                 //parent
+mhavocrv
 
 @source:mhavoc_hb.cpp
-mhavocpex1				//HB Jess M. Askey
-mhavocpex2				//HB Jess M. Askey
-mhavocpex3				//HB Jess M. Askey
-mhavocpex4				//HB Jess M. Askey
-mhavocpex5				//HB Jess M. Askey
-mhavocpex6				//HB Jess M. Askey
-mhavocpex7				//HB Jess M. Askey
-mhavocpex7de			//HB Jess M. Askey
-mhavocpex7fr			//HB Jess M. Askey
-mhavocpex8				//HB Jess M. Askey
-mhavocpex8de			//HB Jess M. Askey
-mhavocpex8fr			//HB Jess M. Askey
-//mhavocpe				//HB Jess M. Askey
-//mhavocpede			//HB Jess M. Askey
-//mhavocpefr			//HB Jess M. Askey
-//mhavocpe_lpc			//HB Jess M. Askey
-//mhavocpede_lpc		//HB Jess M. Askey
-//mhavocpefr_lpc		//HB Jess M. Askey
-//mhavocpete			//HB Jess M. Askey
-//mhavocpetede			//HB Jess M. Askey
-//mhavocpetefr			//HB Jess M. Askey
-//mhavocpete_lpc		//HB Jess M. Askey
-//mhavocpetede_lpc		//HB Jess M. Askey
-//mhavocpetefr_lpc		//HB Jess M. Askey
+mhavocpex1
+mhavocpex2
+mhavocpex3
+mhavocpex4
+mhavocpex5
+mhavocpex6
+mhavocpex7
+mhavocpex7de
+mhavocpex7fr
+mhavocpex8
+mhavocpex8de
+mhavocpex8fr
+mhavocpe
+mhavocpede
+mhavocpefr
+mhavocpe_lpc
+mhavocpete
+mhavocpedete
+mhavocpefrte
 
 @source:midtunit.cpp
 mk                                     //parent
