@@ -5283,6 +5283,24 @@ ROM_START( pacwf ) // Weird Fruit
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( pacyuyu )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
+	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
+	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
+	ROM_LOAD( "pacyuyu.6j",   0x3000, 0x1000, CRC(85bb3cba) SHA1(9c3897b773c6dba55d78a385b0edc8f49439fbd2) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacyuyu.5e",   0x0000, 0x1000, CRC(430a4708) SHA1(96026757c4de2e6a1bc5b6f91ca5a5499880f7da) )
+	ROM_LOAD( "pacyuyu.5f",   0x1000, 0x1000, CRC(333e98df) SHA1(c9fa72b9aad48a4d99a0ab9767335619d408ddc9) )
+
+	PACMAN_SOUND_PROMS
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "pacyuyu.7f",   0x0000, 0x0020, CRC(67141599) SHA1(dd99fc1329f237a7c56abe643de15b49c18abb64) )
+	ROM_LOAD( "pacyuyu.4a",   0x0020, 0x0100, CRC(2c004790) SHA1(00031f2dc7bd64b894ee5b5a5113f41f36c58edb) )
+ROM_END
+
 ROM_START( pcrunchy )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
@@ -6946,6 +6964,7 @@ GAME( 1998, pacpopey, puckman,  pacman,   pacman,   puckman_state, empty_init,  
 GAME( 19??, pacrab,   puckman,  woodpek,  pacman,   puckman_state, empty_init,   ROT90, "[Midway]", "Pac Rabbit", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pacshuf,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Snake Eyes", "Pacman (Shuffle)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pacspeed, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Snake Eyes", "Pacman (Speedy)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, pacyuyu,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Kirai Shouen, 125scratch", "Pac-Yuyu", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pcrunchy, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Snake Eyes", "Pacman (Crunchy)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, pheartb,  puckman,  pacman,   newpuc2,  puckman_state, empty_init,   ROT90, "Kamiya", "Pacman Hearts 2", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, pmad,     puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Sir Scotty", "Pacman After Dark", MACHINE_SUPPORTS_SAVE )
