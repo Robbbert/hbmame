@@ -7,10 +7,11 @@
 
 New Games
 ---------------------------------
-- [dkong05-18,20]       Donkey Kong (various hacks)
+- [dkong05-17,20]       Donkey Kong (various hacks)
 - [mhavocpe]            Major Havoc 1.0 (English/French/German/Tournament versions)
 - [ngmontst3]           Neo Geo Monitor Test Tool v1.3
 - [pandajump]           Panda Jump
+
 
 
 
@@ -83,6 +84,7 @@ New Games
 - [trkftest12t]         Track and Field Test Rom (1.2 test)
 - [trkftest12tu]        Track and Field Test Rom (1.2 test, unencrypted)
 - [twinqixs01]          Twin Qix (Japan)
+
 
 
 
