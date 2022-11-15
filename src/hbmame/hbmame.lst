@@ -1592,21 +1592,30 @@ sfiii3ns13
 sfiii3ns14
 
 @source:cv1k.cpp
-deathsml				//parent
-deathsmlh01
+deathsml                               //parent
+deathsml01
 sdojak
 sdoja
 sdojb
 akatana
 ddpsdoj
 ddpsdojo
+ibara                                  //parent
+ibaracs
+ibarablk                               //parent
+ibarablkcs
+futari15                               //parent
+futari15bc
+futaribl                               //parent
+futariblc
+futaribljc
 
 @source:ddragon.cpp
 ddragon2
 ddragon2b2
 
 @source:deco32.cpp
-fghthist				//parent
+fghthist                               //parent
 fghthistas01
 
 @source:dbz.cpp
