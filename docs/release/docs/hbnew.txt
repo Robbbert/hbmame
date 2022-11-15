@@ -8,10 +8,12 @@
 New Games
 ---------------------------------
 - [dkong05-17,20]       Donkey Kong (various hacks)
+- [grdians41]           Denjin Makai II (LBS Edition, 2022-10-14)
 - [mhavocpe]            Major Havoc 1.0 (English/French/German/Tournament versions)
 - [ngmontst3]           Neo Geo Monitor Test Tool v1.3
 - [pacyuyu]             Pac-Yuyu
 - [pandajump]           Panda Jump
+- [sf2mkot01]           Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)
 
 
 
