@@ -6,9 +6,9 @@
  Mahjong The Dai Chuuka Ken
 ******************************/
 
-ROM_START( mjdchukas01 ) //mjdchukac
+ROM_START( mjdchuka01 ) //mjdchukac
 	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD( "2.5b_ps01", 0x00000, 0x80000, CRC(1cd3662f) SHA1(2a9f645c4c72648b14350986696520a6e48556a0) )
+	ROM_LOAD( "2.5b_s01", 0x00000, 0x80000, CRC(1cd3662f) SHA1(2a9f645c4c72648b14350986696520a6e48556a0) )
 
 	ROM_REGION( 0x100000, "blitter", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "3.11c", 0x000000, 0x080000, CRC(c66553c3) SHA1(6e5380fdb97cc8b52986f3a3a8cac43c0f38cf54) )
@@ -22,9 +22,9 @@ ROM_END
  Mahjong The Mysterious World
 ******************************/
 
-ROM_START( mjmysters01 ) //mjmysterc
+ROM_START( mjmyster01 ) //mjmysterc
 	ROM_REGION( 0x90000 + 0x1000*8, "maincpu", 0 )
-	ROM_LOAD( "77t2_ps01.c3", 0x00000, 0x40000, CRC(fd78e257) SHA1(74ebae00a3de7c52cd861cb983d2f5a99afe5d06) )
+	ROM_LOAD( "77t2_s01.c3", 0x00000, 0x40000, CRC(fd78e257) SHA1(74ebae00a3de7c52cd861cb983d2f5a99afe5d06) )
 	ROM_RELOAD(          0x10000, 0x40000 )
 
 	ROM_REGION( 0x1a0000, "blitter", ROMREGION_ERASE00 )
@@ -58,9 +58,9 @@ ROM_START( mjreach1s01 ) //mjreach1c
 ROM_END
 
 // Mahjong The Dai Chuuka Ken
-GAME( 2006, mjdchukas01,  mjdchuka,  mjchuuka,  mjchuuka, hanakanz_state, empty_init,    ROT0, "hack",   "Mahjong The Dai Chuuka Ken (No AI Cheat, 2006-01-06)", 0 )
+GAME( 2006, mjdchuka01,   mjdchuka,  mjchuuka,  mjchuuka, hanakanz_state, empty_init,    ROT0, "hack",   "Mahjong The Dai Chuuka Ken (No AI Cheat, 2006-01-06)", 0 )
 // Mahjong The Mysterious World
-GAME( 2006, mjmysters01,  mjmyster,  mjmyster,  mjmyster, ddenlovr_state, empty_init,    ROT0, "hack",   "Mahjong The Mysterious World (No AI Cheat, 2006-01-12)", 0 )
+GAME( 2006, mjmyster01,   mjmyster,  mjmyster,  mjmyster, ddenlovr_state, empty_init,    ROT0, "hack",   "Mahjong The Mysterious World (No AI Cheat, 2006-01-12)", 0 )
 // Mahjong Reach Ippatsu
 GAME( 2005, mjreach1s01,  mjreach1,  mjreach1,  mjreach1, hanakanz_state, empty_init,    ROT0, "hack",   "Mahjong Reach Ippatsu (No AI Cheat, 2005-10-02)", 0 )
 

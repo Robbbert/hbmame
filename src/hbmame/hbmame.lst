@@ -1611,38 +1611,38 @@ futariblc
 futaribljc
 
 @source:ddragon.cpp
-ddragon2
-ddragon2b2
-
-@source:deco32.cpp
-fghthist                               //parent
-fghthistas01
+ddragon2                               //parent
+ddragon2s01
 
 @source:dbz.cpp
-dbz						//parent
-dbzs01
-dbz2					//parent
-dbz2h01
-dbz2h02
+dbz                                    //parent
+dbz01
+dbz2                                   //parent
+dbz2s01
+dbz2s02
 
 @source:ddenlovr.cpp
-mjmyster				//parent
-mjmysters01
-mjreach1				//parent
+mjmyster                               //parent
+mjmyster01
+mjreach1                               //parent
 mjreach1s01
-mjdchuka				//parent
-mjdchukas01
+mjdchuka                               //parent
+mjdchuka01
 
 @source:dec0.cpp
 baddudes                               //parent
-baddudef				// Arkatrad
-decodemo				// Charles Doty
+baddudef
+decodemo
 robocop                                //parent
-robocopbs01
+robocopb01
+
+@source:deco32.cpp
+fghthist                               //parent
+fghthist01
 
 @source:decocass.cpp
 decocass                               //parent
-decomult				// Dave Widel
+decomult
 
 @source:deco_mlc.cpp
 avengrgs                               //parent

@@ -131,12 +131,12 @@ ROM_END
  Robocop
 *********/
 
-ROM_START( robocopbs01 )
+ROM_START( robocopb01 )
 	ROM_REGION( 0x60000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "robop_05.rom", 0x00000, 0x10000, CRC(bcef3e9b) SHA1(0ca099ea7428f877036e6e2a6daddfd9145ed9bb) )
 	ROM_LOAD16_BYTE( "robop_01.rom", 0x00001, 0x10000, CRC(c9803685) SHA1(13b3b0ebee24b4453685616e9a204b4ca6fb0053) )
 	ROM_LOAD16_BYTE( "robop_04.rom", 0x20000, 0x10000, CRC(9d7b79e0) SHA1(e0d901b9b3cd62f7c947da04f7447ebfa88bf44a) )
-	ROM_LOAD16_BYTE( "robop_00_ps01.rom", 0x20001, 0x10000, CRC(631301c1) SHA1(c4288e6be0ca6e5ae4c93dca2fe5816522b9c309) )
+	ROM_LOAD16_BYTE( "robop_00_s01.rom", 0x20001, 0x10000, CRC(631301c1) SHA1(c4288e6be0ca6e5ae4c93dca2fe5816522b9c309) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "ep03-3", 0x08000, 0x08000, CRC(5b164b24) SHA1(b217a2ac8b26aebd208631a13030487ed27d232e) )
@@ -171,9 +171,10 @@ ROM_START( robocopbs01 )
 	ROM_LOAD( "ep02", 0x00000, 0x10000, CRC(711ce46f) SHA1(939a8545e53776ff2180d2c7e63bc997689c088e) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 2007, baddudef, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French, 2017-10-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, decodemo, baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
+/*    YEAR  NAME          PARENT    MACHINE   INPUT     CLASS       INIT         MONITOR COMPANY                 FULLNAME FLAGS */
+GAME( 2007, baddudef,     baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Arkatrad", "Bad Dudes vs. Dragonninja (French, 2017-10-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, decodemo,     baddudes, baddudes, baddudes, dec0_state, init_hbarrel, ROT0, "Charles Doty", "Demo - Data East", MACHINE_SUPPORTS_SAVE )
+
 // Robocop
-GAME( 1988, robocopbs01,   robocop,  robocopb,   robocop,    dec0_state, empty_init,      ROT0, "bootleg", "Robocop (Red Corporation World bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, robocopb01,   robocop,  robocopb, robocop,  dec0_state, empty_init,   ROT0, "bootleg", "Robocop (Red Corporation World bootleg)", MACHINE_SUPPORTS_SAVE )
 

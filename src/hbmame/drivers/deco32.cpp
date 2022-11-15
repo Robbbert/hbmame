@@ -6,10 +6,10 @@
  Fighter's History
 ********************/
 
-ROM_START( fghthistas01 )
+ROM_START( fghthist01 )
 	ROM_REGION(0x100000, "maincpu", 0 )
-	ROM_LOAD32_WORD( "lc00-1_ps01.1f", 0x000000, 0x80000, CRC(aeb6551b) SHA1(7aec2a9cc10df80690e66cbdaf1d4b71cfd28cbd) )
-	ROM_LOAD32_WORD( "lc01-1_ps01.2f", 0x000002, 0x80000, CRC(c4a218f8) SHA1(fcc1a0ad00818b7cd555a0d36e6d213b8c6c76ba) )
+	ROM_LOAD32_WORD( "lc00-1_s01.1f", 0x000000, 0x80000, CRC(aeb6551b) SHA1(7aec2a9cc10df80690e66cbdaf1d4b71cfd28cbd) )
+	ROM_LOAD32_WORD( "lc01-1_s01.2f", 0x000002, 0x80000, CRC(c4a218f8) SHA1(fcc1a0ad00818b7cd555a0d36e6d213b8c6c76ba) )
 
 	ROM_REGION(0x10000, "audiocpu", 0 )
 	ROM_LOAD( "lc02-1.18k",  0x00000,  0x10000,  CRC(5fd2309c) SHA1(2fb7af54d5cd9bf7dd6fb4f6b82aa52b03294f1f) )
@@ -42,5 +42,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Fighter's History
-GAME( 1993, fghthistas01,   fghthist, fghthist,  fghthist, fghthist_state, init_fghthist,  ROT0, "yumeji[2ch]", "Fighter's History (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, fghthist01,     fghthist, fghthist,  fghthist, fghthist_state, init_fghthist,  ROT0, "yumeji[2ch]", "Fighter's History (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 

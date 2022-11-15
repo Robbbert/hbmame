@@ -7,11 +7,11 @@
  Dragon Ball Z
 ****************/
 
-ROM_START( dbzs01 )
+ROM_START( dbz01 )
 	ROM_REGION( 0x400000, "maincpu", 0)
-	ROM_LOAD16_BYTE( "222b11_ps01.9e", 0x000000, 0x80000, CRC(7b545f5e) SHA1(5b01564f66d01ad4c711d4d309b7b3f49053fc4c) )
+	ROM_LOAD16_BYTE( "s01.9e", 0x000000, 0x80000, CRC(7b545f5e) SHA1(5b01564f66d01ad4c711d4d309b7b3f49053fc4c) )
 	ROM_IGNORE(0x3D4F47)
-	ROM_LOAD16_BYTE( "222b12_ps01.9f", 0x000001, 0x80000, CRC(64e3d243) SHA1(25f3022e50e1142a09fd5c5fda983a52d13ef13a) )
+	ROM_LOAD16_BYTE( "s01.9f", 0x000001, 0x80000, CRC(64e3d243) SHA1(25f3022e50e1142a09fd5c5fda983a52d13ef13a) )
 	ROM_IGNORE(0x3D4F47)
 
 	ROM_REGION( 0x010000, "audiocpu", 0 )
@@ -42,10 +42,10 @@ ROM_END
  Dragon Ball Z 2
 ******************/
 
-ROM_START( dbz2h01 )
+ROM_START( dbz2s01 )
 	ROM_REGION( 0x400000, "maincpu", 0)
-	ROM_LOAD16_BYTE( "h01.9e", 0x000000, 0x80000, CRC(5a7af60d) SHA1(11105ca1ebeef890eab96cfc501076fd9cf18b49) )
-	ROM_LOAD16_BYTE( "h01.9f", 0x000001, 0x80000, CRC(b4df6f69) SHA1(a41e4e050ffdf132a00baef094c59d99416453e4) )
+	ROM_LOAD16_BYTE( "s01.9e", 0x000000, 0x80000, CRC(5a7af60d) SHA1(11105ca1ebeef890eab96cfc501076fd9cf18b49) )
+	ROM_LOAD16_BYTE( "s01.9f", 0x000001, 0x80000, CRC(b4df6f69) SHA1(a41e4e050ffdf132a00baef094c59d99416453e4) )
 
 	ROM_REGION( 0x010000, "audiocpu", 0 )
 	ROM_LOAD("s-001.5e", 0x000000, 0x08000, CRC(154e6d03) SHA1(db15c20982692271f40a733dfc3f2486221cd604) )
@@ -72,10 +72,10 @@ ROM_START( dbz2h01 )
 	ROM_LOAD( "pcm.7c", 0x000000, 0x40000, CRC(b58c884a) SHA1(0e2a7267e9dff29c9af25558081ec9d56629bc43) )
 ROM_END
 
-ROM_START( dbz2h02 )
+ROM_START( dbz2s02 )
 	ROM_REGION( 0x400000, "maincpu", 0)
-	ROM_LOAD16_BYTE( "h02.9e", 0x000000, 0x80000, CRC(c64a637c) SHA1(ce2976f4c2f5408aa702daaf1520aeb19e2a1b54) )
-	ROM_LOAD16_BYTE( "h02.9f", 0x000001, 0x80000, CRC(dbb75c77) SHA1(2f6ede30e36bbaa54d55acc86d18cd66da0ec281) )
+	ROM_LOAD16_BYTE( "s02.9e", 0x000000, 0x80000, CRC(c64a637c) SHA1(ce2976f4c2f5408aa702daaf1520aeb19e2a1b54) )
+	ROM_LOAD16_BYTE( "s02.9f", 0x000001, 0x80000, CRC(dbb75c77) SHA1(2f6ede30e36bbaa54d55acc86d18cd66da0ec281) )
 
 	ROM_REGION( 0x010000, "audiocpu", 0 )
 	ROM_LOAD("s-001.5e", 0x000000, 0x08000, CRC(154e6d03) SHA1(db15c20982692271f40a733dfc3f2486221cd604) )
@@ -104,9 +104,10 @@ ROM_END
 
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-// Dragon Ball Z
-GAME( 2016, dbzs01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "hack", "Dragon Ball Z (Simple Attack)", MACHINE_SUPPORTS_SAVE )
-// Dragon Ball Z 2
-GAME( 2009, dbz2h01, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "Pipi899", "Dragon Ball Z 2 (Infinite Lives, 2009-03-11)", MACHINE_SUPPORTS_SAVE ) // crashes MAME in tile/PSAC2 ROM test
-GAME( 2009, dbz2h02, dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "hack", "Dragon Ball Z 2 (Simple Attack)", MACHINE_SUPPORTS_SAVE )
+// Dragon Ball Z - note:test mode colours are wrong - MAME bug
+GAME( 2016, dbz01,     dbz,  dbz, dbz,  dbz_state, init_dbz,  ROT0, "hack", "Dragon Ball Z (Simple Attack)", MACHINE_SUPPORTS_SAVE )
+
+// Dragon Ball Z 2 - note:test mode is broken - MAME bug
+GAME( 2009, dbz2s01,   dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "Pipi899", "Dragon Ball Z 2 (Infinite Lives, 2009-03-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, dbz2s02,   dbz2, dbz, dbz2, dbz_state, init_dbz2, ROT0, "hack", "Dragon Ball Z 2 (Simple Attack)", MACHINE_SUPPORTS_SAVE )
 
