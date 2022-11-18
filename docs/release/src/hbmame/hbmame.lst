@@ -995,6 +995,7 @@ sf2mix99a
 sf2mix100
 sf2mix110
 sf2mix
+sf2mkot01
 sf2reds01
 sf2reds02
 sf2reds03
@@ -1591,48 +1592,57 @@ sfiii3ns13
 sfiii3ns14
 
 @source:cv1k.cpp
-deathsml				//parent
-deathsmlh01
+deathsml                               //parent
+deathsml01
 sdojak
 sdoja
 sdojb
 akatana
 ddpsdoj
 ddpsdojo
+ibara                                  //parent
+ibaracs
+ibarablk                               //parent
+ibarablkcs
+futari15                               //parent
+futari15bc
+futaribl                               //parent
+futariblc
+futaribljc
 
 @source:ddragon.cpp
-ddragon2
-ddragon2b2
-
-@source:deco32.cpp
-fghthist				//parent
-fghthistas01
+ddragon2                               //parent
+ddragon2s01
 
 @source:dbz.cpp
-dbz						//parent
-dbzs01
-dbz2					//parent
-dbz2h01
-dbz2h02
+dbz                                    //parent
+dbz01
+dbz2                                   //parent
+dbz2s01
+dbz2s02
 
 @source:ddenlovr.cpp
-mjmyster				//parent
-mjmysters01
-mjreach1				//parent
+mjmyster                               //parent
+mjmyster01
+mjreach1                               //parent
 mjreach1s01
-mjdchuka				//parent
-mjdchukas01
+mjdchuka                               //parent
+mjdchuka01
 
 @source:dec0.cpp
 baddudes                               //parent
-baddudef				// Arkatrad
-decodemo				// Charles Doty
+baddudef
+decodemo
 robocop                                //parent
-robocopbs01
+robocopb01
+
+@source:deco32.cpp
+fghthist                               //parent
+fghthist01
 
 @source:decocass.cpp
 decocass                               //parent
-decomult				// Dave Widel
+decomult
 
 @source:deco_mlc.cpp
 avengrgs                               //parent
@@ -1640,11 +1650,26 @@ avengrgs01
 avengrgs02
 
 @source:dkong.cpp
-dkong					//parent
+dkong                                  //parent
 dkong01
 dkong02
 dkong03
 dkong04
+dkong05
+dkong06
+dkong07
+dkong08
+dkong09
+dkong10
+dkong11
+dkong12
+dkong13
+dkong14
+dkong15
+dkong16
+dkong17
+dkong19
+dkong20
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -1669,7 +1694,6 @@ dkchrte
 dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrainer
 dkpace
-kong2600				// Vic Twenty George hack of Donkey Kong
 nadkong					//
 dkcbarrel				// Paul Goes
 dkfreerun				// Paul Goes
@@ -1831,6 +1855,7 @@ kingball                               //parent
 kingball01
 uniwars                                //parent
 cosmicw
+pandajump                              // HB
 galnamco	/* The Original Namco */
 andromd		/* hack - Renamed to avoid confusion with andromed (ex TestDriver) */
 buglaxn		/* The Dog hack of Galaxian */
@@ -4263,34 +4288,29 @@ ncommandd				// 0050 (c) 1992 Alpha Denshi Co.
 wh1d					// 0053 (c) 1992 Alpha Denshi Co.
 
 @source:mhavoc.cpp
-mhavoc					//parent
-mhavocrv				//HB Jess M. Askey
+mhavoc                                 //parent
+mhavocrv
 
 @source:mhavoc_hb.cpp
-mhavocpex1				//HB Jess M. Askey
-mhavocpex2				//HB Jess M. Askey
-mhavocpex3				//HB Jess M. Askey
-mhavocpex4				//HB Jess M. Askey
-mhavocpex5				//HB Jess M. Askey
-mhavocpex6				//HB Jess M. Askey
-mhavocpex7				//HB Jess M. Askey
-mhavocpex7de			//HB Jess M. Askey
-mhavocpex7fr			//HB Jess M. Askey
-mhavocpex8				//HB Jess M. Askey
-mhavocpex8de			//HB Jess M. Askey
-mhavocpex8fr			//HB Jess M. Askey
-//mhavocpe				//HB Jess M. Askey
-//mhavocpede			//HB Jess M. Askey
-//mhavocpefr			//HB Jess M. Askey
-//mhavocpe_lpc			//HB Jess M. Askey
-//mhavocpede_lpc		//HB Jess M. Askey
-//mhavocpefr_lpc		//HB Jess M. Askey
-//mhavocpete			//HB Jess M. Askey
-//mhavocpetede			//HB Jess M. Askey
-//mhavocpetefr			//HB Jess M. Askey
-//mhavocpete_lpc		//HB Jess M. Askey
-//mhavocpetede_lpc		//HB Jess M. Askey
-//mhavocpetefr_lpc		//HB Jess M. Askey
+mhavocpex1
+mhavocpex2
+mhavocpex3
+mhavocpex4
+mhavocpex5
+mhavocpex6
+mhavocpex7
+mhavocpex7de
+mhavocpex7fr
+mhavocpex8
+mhavocpex8de
+mhavocpex8fr
+mhavocpe
+mhavocpede
+mhavocpefr
+mhavocpe_lpc
+mhavocpete
+mhavocpedete
+mhavocpefrte
 
 @source:midtunit.cpp
 mk                                     //parent
@@ -6051,6 +6071,7 @@ ng4ptest
 ngem2k
 ngftdemo	// CeL
 ngmontst
+ngmontst3
 ngtd2
 ngtetris
 ngym2610
@@ -7788,7 +7809,6 @@ theglads05
 theglads06
 theglads07
 theglads08
-theglad104
 
 @source:phoenix.cpp
 phoenix                                //parent
@@ -7941,6 +7961,7 @@ soldivid		//parent
 soldivids01
 
 @source:puckman.cpp
+pacyuyu
 mcpacman
 bevpac
 invispac
@@ -8390,6 +8411,7 @@ grdians37
 grdians38
 grdians39
 grdians40
+grdians41
 
 @source:shadfrce.cpp
 shadfrce                               //parent
