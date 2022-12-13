@@ -21,7 +21,7 @@ galagax 		/* Jerky - Chris Moore hack of 1942 */
 1943h			/* Hacked to have the vendor name and phone number */
 1943kai			//parent
 1943kais01
-1943b2			// from FBA
+1943b2			// from FBN
 
 @source:8080bw.cpp
 invaders                               //parent
