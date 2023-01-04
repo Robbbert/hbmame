@@ -206,7 +206,12 @@ void mhavoc_hbmame::mhavoc_rom_banksel_w(uint8_t data)
 
 CUSTOM_INPUT_MEMBER(mhavoc_hbmame::coin_service_r)
 {
-	return (m_player_1 ? m_service : m_coin)->read() & 0x03;
+	return (m_player_1 ? m_service : m_coin)->read() & 0x01;
+}
+
+CUSTOM_INPUT_MEMBER(mhavoc_hbmame::coin_cabinet_l)
+{
+    return (m_player_1 ? (m_cabinet->read()) : (m_coin->read() >> 1));
 }
 
 READ_LINE_MEMBER(mhavoc_hbmame::gamma_rcvd_r)
