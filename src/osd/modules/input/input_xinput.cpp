@@ -14,9 +14,6 @@
 
 #include "input_xinput.h"
 
-// standard windows headers
-#include <windows.h>
-
 
 #define XINPUT_LIBRARIES { "xinput1_4.dll", "xinput9_1_0.dll" }
 
