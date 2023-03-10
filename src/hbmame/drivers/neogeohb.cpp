@@ -168,6 +168,7 @@ NUM GAME YEAR COMPANY                 TITLE
 415 0273 2006 Rastersoft              Frog Feast
 418 1234 2008 Crim                    Neogeo 2-player Tetris
 419 1234 2011 Sebastian Mihai         Neo Thunder
+420 0420 2023 tcdev                   Xevious
 422 0275 2012 NeoGeoFreak             Time's Up! demo
 422 0276 2012 NeoGeoFreak             Time's Up!
 433 2019 2021 Blastar                 Looptris
@@ -1338,6 +1339,24 @@ ROM_START( neothund )
 	ROM_REGION( 0x200000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "419.c1", 0x000000, 0x100000, CRC(48b9126e) SHA1(38bf1296c3d8762372d4eab785f34507a4f8776c) )
 	ROM_LOAD16_BYTE( "419.c2", 0x000001, 0x100000, CRC(214df62e) SHA1(21e4ce2a0ac636081c9e07a294cb44987692039e) )
+ROM_END
+
+
+// 420: Xevious by tcdev (beta 1)
+ROM_START( xeviousn )
+	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "401.p1", 0x000000, 0x100000, CRC(11dff034) SHA1(ac8ebbdc96f4d2f74d1c820c1536ca1ccdc936b6) )
+
+	NEO_SFIX_128K( "401.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
+
+	NEO_BIOS_AUDIO_64K( "401.m1", CRC(6f31c601) SHA1(9b89e7d205ee497f7b495e93328cf35eab6e56b2) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "401.v1", 0x000000, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "401.c1", 0x000000, 0x100000, CRC(f963e5b6) SHA1(e80dd61476028de3ff8369e14b6fb1bb7561e370) )
+	ROM_LOAD16_BYTE( "401.c2", 0x000001, 0x100000, CRC(c97c4e64) SHA1(d33f26dbc569c69bdbf95cdde908d7700843bde7) )
 ROM_END
 
 
@@ -3353,5 +3372,6 @@ GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2019, xeno,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bitmap Bureau", "Xeno Crisis v1.0.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, xeviousn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, xmas2017,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Xmas/Happy New Year 2017 demo", MACHINE_SUPPORTS_SAVE )
 
