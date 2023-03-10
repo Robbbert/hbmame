@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [240ptest]            240p Test Suite
 - [ckongpt2s01]         Crazy Kong with DK colours and graphics
+- [pitfall2u01]         Pitfall II trainer (2002-10-15)
 - [pollen]              Pollen Angel
 - [xeviousn]            Xevious (beta 1, 2023-03-07)
 

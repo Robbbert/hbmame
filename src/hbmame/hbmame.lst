@@ -8476,6 +8476,8 @@ wbml                                   //parent
 wbml01
 wbml02
 wbml03
+pitfall2                               //parent
+pitfall2u01
 
 @source:system16.cpp
 sys16dem                               // HB
