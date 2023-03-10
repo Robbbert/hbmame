@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [240ptest]            240p Test Suite
+- [ckongpt2s01]         Crazy Kong with DK colours and graphics
 
 
 

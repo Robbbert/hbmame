@@ -173,13 +173,13 @@ cball                                  //parent
 cballfix                               // MASH (fixed) gfx rom
 
 @source:cclimber.cpp
-ckong			//parent
-cclimber		//parent
+cclimber                               //parent
+cclimbrm                               // Tim Arcadecollecting Modded Version
+ckong                                  //parent
+ckong01                                // Graphics Fix
 tongypac
-ckongfix		/* Graphics Fix */
-ckonga2
-ckonga3
-cclimbrm		/* Tim Arcadecollecting Modded Version */
+ckongpt2                               //parent
+ckongpt2s01
 
 @source:centiped.cpp
 centiped	//parent
