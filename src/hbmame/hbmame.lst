@@ -995,6 +995,7 @@ sf2mix99
 sf2mix99a
 sf2mix100
 sf2mix110
+sf2mix120
 sf2mix
 sf2mkot01
 sf2reds01
@@ -6043,6 +6044,7 @@ lhcdba
 //lhopecd                              // broken; not working
 //lhopecdh                             // broken; not working
 looptris
+looptrsp
 ltorb
 ndo_a_td
 neo2500		/* Blastar */
