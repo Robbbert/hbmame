@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2023-0x-xx 0.245.11
+
+trallycd - fixed bad graphics on title screen
+
+New Games
+---------------------------------
+
+
+
+
 2023-03-13 0.245.10
 
 
