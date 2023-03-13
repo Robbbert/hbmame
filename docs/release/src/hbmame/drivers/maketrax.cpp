@@ -703,6 +703,20 @@ ROM_START( piranhao )
 	PACMAN_SOUND_PROMS
 ROM_END
 
+ROM_START( pollen )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pollen.6e",      0x0000, 0x1000, CRC(cafb430f) SHA1(9ac81affec3c9f1dfbec722712f7e907905f5662) )
+	ROM_LOAD( "pollen.6f",      0x1000, 0x1000, CRC(9ca9850b) SHA1(b2d48cba1a58e28f450aa4556139ac5021f7fa61) )
+	ROM_LOAD( "pollen.6h",      0x2000, 0x1000, CRC(04108eb0) SHA1(4773af22762b2da2f992867bee706325a999c2b0) )
+	ROM_LOAD_OPTIONAL( "pollen.1k",      0x3000, 0x0400, CRC(b9d2e5e6) SHA1(82546b7ecf9e46374b1af1ad32f582b4d35bddd1) )  // not used
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pollen.5e",      0x0000, 0x1000, CRC(c360bb29) SHA1(f220959c11a17d3f443743f88435553f9d7916c4) )
+	ROM_LOAD( "pollen.5f",      0x1000, 0x1000, CRC(b049f6cd) SHA1(69bea38cf4c133c7f6ce8b52824d214e8d726c7c) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( ppong )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "ppong.1",      0x0000, 0x1000, CRC(abf90af3) SHA1(785059f68b69d031e8017fc5c6f44d22208ba1d1) )
@@ -928,6 +942,7 @@ GAME( 2019, deathstar2,puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2017, scroller,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "Scroller", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, 100doors,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "100 doors", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, pollen,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Pollen Angel", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/

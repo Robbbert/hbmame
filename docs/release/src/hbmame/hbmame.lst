@@ -21,7 +21,7 @@ galagax 		/* Jerky - Chris Moore hack of 1942 */
 1943h			/* Hacked to have the vendor name and phone number */
 1943kai			//parent
 1943kais01
-1943b2			// from FBA
+1943b2			// from FBN
 
 @source:8080bw.cpp
 invaders                               //parent
@@ -173,13 +173,13 @@ cball                                  //parent
 cballfix                               // MASH (fixed) gfx rom
 
 @source:cclimber.cpp
-ckong			//parent
-cclimber		//parent
+cclimber                               //parent
+cclimbrm                               // Tim Arcadecollecting Modded Version
+ckong                                  //parent
+ckong01                                // Graphics Fix
 tongypac
-ckongfix		/* Graphics Fix */
-ckonga2
-ckonga3
-cclimbrm		/* Tim Arcadecollecting Modded Version */
+ckongpt2                               //parent
+ckongpt2s01
 
 @source:centiped.cpp
 centiped	//parent
@@ -278,6 +278,7 @@ forgottn
 ghouls
 //ghoulsu
 //gulunpa
+//hkittymp
 knights
 //knightsb2
 //knightsj
@@ -994,6 +995,7 @@ sf2mix99
 sf2mix99a
 sf2mix100
 sf2mix110
+sf2mix120
 sf2mix
 sf2mkot01
 sf2reds01
@@ -4205,6 +4207,7 @@ pacmtest
 pacmtest1
 pacmtest2
 pactetris		// HB
+pollen                                 // HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
 rainboh			/* HB - Widel Games */
@@ -4404,9 +4407,13 @@ mitcdemo			/* Charles Doty */
 pang                                   //parent
 pangbolds01
 
+@source:model1.cpp
+vr                                     //parent
+vr01
+
 @source:model2.cpp
 srallyc                                //parent
-srallyp				// Kyle Hodgetts Sega Rally Pro Drivin
+srallyp                                // Kyle Hodgetts Sega Rally Pro Drivin
 
 @source:monaco.cpp
 monaco
@@ -5994,6 +6001,7 @@ zupapa			// 070
 @source:neogeohb.cpp
 19yy
 19yy01
+240ptest
 abyssal
 abyssal1
 akiradmo
@@ -6040,6 +6048,7 @@ lhcdba
 //lhopecd                              // broken; not working
 //lhopecdh                             // broken; not working
 looptris
+looptrsp
 ltorb
 ndo_a_td
 neo2500		/* Blastar */
@@ -6123,6 +6132,7 @@ twister		// Blastar 2015
 //vlad2000
 //ww2demo
 xeno
+xeviousn
 xmas2017
 zintrckbh
 zintrkcd
@@ -8472,6 +8482,8 @@ wbml                                   //parent
 wbml01
 wbml02
 wbml03
+pitfall2                               //parent
+pitfall2u01
 
 @source:system16.cpp
 sys16dem                               // HB
