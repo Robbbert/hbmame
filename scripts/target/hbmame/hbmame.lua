@@ -172,6 +172,7 @@ MACHINES["ADC0804"] = true
 MACHINES["ADC0808"] = true
 MACHINES["ADC083X"] = true -- seta
 MACHINES["ADC0844"] = true
+MACHINES["AM9517A"] = true -- model1
 MACHINES["AT28C16"] = true -- zn
 MACHINES["BANKDEV"] = true
 MACHINES["CXD1095"] = true
@@ -197,6 +198,7 @@ MACHINES["MB8421"] = true
 MACHINES["MB14241"] = true
 MACHINES["MB87078"] = true
 MACHINES["MB89352"] = true  -- segas32
+MACHINES["MB89374"] = true  -- model1
 MACHINES["MCF5206E"] = true -- seta2
 MACHINES["MIOT6530"] = true
 MACHINES["MSM6242"] = true -- namcona1
@@ -329,6 +331,7 @@ function createHBMAMEProjects(_target, _subtarget, _name)
 	}
 	includedirs {
 		ext_includedir("flac"),
+		ext_includedir("glm"), -- model1
 	}
 end
 
@@ -897,6 +900,11 @@ files {
 	MAME_DIR .. "src/mame/machine/saturn.cpp",
 	MAME_DIR .. "src/mame/video/saturn.cpp",
 	MAME_DIR .. "src/mame/machine/segabill.cpp",
+	MAME_DIR .. "src/hbmame/drivers/model1.cpp", -- from here, for model1
+	MAME_DIR .. "src/mame/machine/model1.cpp",
+	MAME_DIR .. "src/mame/video/model1.cpp",
+	MAME_DIR .. "src/mame/machine/m1comm.cpp",
+	MAME_DIR .. "src/mame/machine/model1io2.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seibu")

@@ -4407,9 +4407,13 @@ mitcdemo			/* Charles Doty */
 pang                                   //parent
 pangbolds01
 
+@source:model1.cpp
+vr                                     //parent
+vr01
+
 @source:model2.cpp
 srallyc                                //parent
-srallyp				// Kyle Hodgetts Sega Rally Pro Drivin
+srallyp                                // Kyle Hodgetts Sega Rally Pro Drivin
 
 @source:monaco.cpp
 monaco

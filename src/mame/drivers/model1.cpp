@@ -1832,6 +1832,7 @@ void model1_state::wingwar(machine_config &config)
 
 	m_maincpu->set_addrmap(AS_PROGRAM, &model1_state::model1_comm_mem);
 
+#if 0  //HBMAME
 	model1io2_device &ioboard(SEGA_MODEL1IO2(config.replace(), "ioboard", 0));
 	ioboard.set_default_bios_tag("epr16891");
 	ioboard.read_callback().set(m_dpram, FUNC(mb8421_device::left_r));
@@ -1845,7 +1846,7 @@ void model1_state::wingwar(machine_config &config)
 	ioboard.output_callback().append(FUNC(model1_state::gen_outputs_w));
 
 	config.set_default_layout(layout_model1io2);
-
+#endif  //HBMAME
 	M1COMM(config, "m1comm", 0).set_default_bios_tag("epr15112");
 }
 
@@ -1853,6 +1854,7 @@ void model1_state::wingwar360(machine_config &config)
 {
 	wingwar(config);
 
+#if 0  //HBMAME
 	model1io2_device &ioboard(*subdevice<model1io2_device>("ioboard"));
 	ioboard.in_callback<2>().set(FUNC(model1_state::r360_r));
 	ioboard.drive_write_callback().set(FUNC(model1_state::r360_w));
@@ -1861,6 +1863,7 @@ void model1_state::wingwar360(machine_config &config)
 	ioboard.output_callback().append(FUNC(model1_state::gen_outputs_w));
 
 	config.set_default_layout(layout_model1io2);
+#endif  //HBMAME
 }
 
 void model1_state::polhemus_map(address_map &map)
@@ -1873,6 +1876,7 @@ void model1_state::polhemus_map(address_map &map)
 void model1_state::netmerc(machine_config &config)
 {
 	model1(config);
+#if 0  //HBMAME
 	i386sx_device &polhemus(I386SX(config, "polhemus", 16000000));
 	polhemus.set_addrmap(AS_PROGRAM, &model1_state::polhemus_map);
 
@@ -1888,6 +1892,7 @@ void model1_state::netmerc(machine_config &config)
 	ioboard.output_callback().append(FUNC(model1_state::gen_outputs_w));
 
 	config.set_default_layout(layout_model1io2);
+#endif  //HBMAME
 }
 
 
