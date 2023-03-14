@@ -3,10 +3,11 @@
 
 2023-0x-xx 0.245.11
 
-trallycd - fixed bad graphics on title screen
+Fixed bad graphics in Rally Chase (trallycd)
 
 New Games
 ---------------------------------
+- [chuckie]             Chuckie Egg
 
 
 
