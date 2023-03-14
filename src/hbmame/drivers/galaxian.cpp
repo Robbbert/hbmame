@@ -881,6 +881,29 @@ ROM_START( multigameb )
 //	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 ROM_END
 
+//        ROM_LOAD( "multi-prom.6e", 0x000000, 0x010000, CRC(5760a4f5) SHA1(539f56cae010488f0c6e4ff8de43e7dfe9b34375) )
+//        ROM_LOAD( "multi-sndz80.bin", 0x000000, 0x010000, CRC(25865125) SHA1(5bbbc6f5a0ad6c6b86dea7893e4e18195c37192e) )
+ROM_START( scramblemk )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD( "multi.main",     0x00000, 0x80000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD( "multi.gfx1",     0x00000, 0x10000, CRC(7d420a14) SHA1(e603c3cf8fd88fa09017269d4f9ce8d027e20eaf) )
+	ROM_LOAD( "multi.gfx2",     0x10000, 0x10000, CRC(a5e17a10) SHA1(9208a74f1b46c31c6d95e2b2fad325258f2301b7) )
+
+	ROM_REGION( 0x400, "proms", 0 )
+	ROM_LOAD( "multi.col",      0x000000, 0x00400, CRC(5b2feb51) SHA1(413fd60057cf3fcf6ad86463b2b814a4471d4882) )
+	ROM_IGNORE(0x400)
+//	ROM_LOAD( "bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
+
+//	ROM_REGION( 0x1000, "gfx1", 0 )
+//	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
+//	ROM_LOAD( "1k.bin",       0x0800, 0x0800, CRC(7e3f56a2) SHA1(a9795d8b7388f404f3b0e2c6ce15d713a4c5bafa) )
+
+//	ROM_REGION( 0x0020, "proms", 0 )
+//	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 class multib_state : public videight_state
 {
 public:
@@ -955,4 +978,5 @@ void multib_state::multib(machine_config &config)
 }
 
 GAME( 2022, multigameb, galnamco, multib, warofbug, multib_state, init_multib, ROT90, "Macro", "MultigameB", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, scramblemk, 0, multib, warofbug, multib_state, init_multib, ROT90, "<unknown>", "Scramble MultiKit", MACHINE_SUPPORTS_SAVE )
 
