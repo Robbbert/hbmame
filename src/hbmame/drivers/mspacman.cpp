@@ -2621,6 +2621,26 @@ ROM_START( ms2600a )
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( jrpac )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "jrpac.1",      0x0000, 0x1000, CRC(8e190242) SHA1(3c6e540153c16f347993d78202a4a3e18dc5959b) )
+	ROM_LOAD( "jrpac.2",      0x1000, 0x1000, CRC(cdd466b5) SHA1(40d626adb177936143edfb91e5692ace30d564d7) )
+	ROM_LOAD( "jrpac.3",      0x2000, 0x1000, CRC(2b9cbba9) SHA1(578dba7faa2b960cde98f6a29534767cdb08ea1b) )
+	ROM_LOAD( "jrpac.4",      0x3000, 0x1000, CRC(c9010e06) SHA1(d9adb93323afacada3f691a83f00db8634ff4f33) )
+	ROM_LOAD( "jrpac.5",      0x8000, 0x1000, CRC(0c4c5d36) SHA1(064581261d308a27be296687d46ae998a0940a02) )
+	ROM_LOAD( "jrpac.6",      0x9000, 0x1000, CRC(064b1545) SHA1(1faf68504d9a28c9354ce6d6a2960904e34e3bf4) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "jrpac.5e",     0x0000, 0x1000, CRC(235981d7) SHA1(fcbaf52c3c927db3f3e6d1754011b2904250cb82) )
+	ROM_LOAD( "jrpac.5f",     0x1000, 0x1000, CRC(a822eb36) SHA1(1b947db8da41fcb05fe0a04e203e06579e2800dd) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "jrpac.7f",     0x0000, 0x0020, CRC(b4da2d20) SHA1(798754da11341a21eafcffe55eba0861f04a4074) )
+	ROM_LOAD( "jrpac.4a",     0x0020, 0x0100, CRC(2b7d3ac6) SHA1(9529a6d8c5d299919230ee40bdf00aba8f85c2b9) )
+
+	PACMAN_SOUND_PROMS
+ROM_END
+
 
 /*************************************
  *
@@ -2797,6 +2817,7 @@ GAME( 2018, mspacmadp,   mspacman, woodpek,  mspacman, puckman_state, empty_init
 GAME( 2018, mspacatttur, mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pac Attack Plus Turbo", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, mspacii2,    mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Pink Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ms2600a,     mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "MamePlus", "Ms. Pacman (Atari look)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, jrpac,       mspacman, woodpek,  mspacman, puckman_state, empty_init,  ROT90, "Pookin", "Pac-Jr on Pacman Hardware", MACHINE_SUPPORTS_SAVE )
 
 
 #if 0

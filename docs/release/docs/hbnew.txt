@@ -8,6 +8,7 @@ Fixed bad graphics in Rally Chase (trallycd)
 New Games
 ---------------------------------
 - [chuckie]             Chuckie Egg
+- [jrpac]               Pac-Jr on Pacman Hardware
 
 
 
