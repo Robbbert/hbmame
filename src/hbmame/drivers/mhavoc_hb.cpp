@@ -206,7 +206,8 @@ static INPUT_PORTS_START( mhavoc )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(mhavoc_hbmame, gamma_rcvd_r)
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE1 ) PORT_NAME("Diag Step/Coin C") PORT_CODE(KEYCODE_F1)
-	PORT_BIT( 0xc0, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(mhavoc_hbmame, coin_service_r)
+    PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(mhavoc_hbmame, coin_cabinet_l)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(mhavoc_hbmame, coin_service_r)
 
 	PORT_START("IN1")   /* gamma */
 	/* Bits 7-2 = input switches */
@@ -304,7 +305,8 @@ static INPUT_PORTS_START( mhavocpe_inputs )
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_MEMBER(mhavoc_hbmame, gamma_rcvd_r)
 	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE1 ) PORT_NAME("Diag Step/Coin C") PORT_CODE(KEYCODE_F1)
-	PORT_BIT( 0xc0, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(mhavoc_hbmame, coin_service_r)
+    PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(mhavoc_hbmame, coin_cabinet_l)
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_CUSTOM_MEMBER(mhavoc_hbmame, coin_service_r)
 
 	PORT_START("IN1")   /* gamma */
 	/* Bits 7-2 = input switches */
@@ -325,7 +327,9 @@ static INPUT_PORTS_START( mhavocpe_inputs )
 	PORT_START("LETA1")
 	PORT_BIT( 0xff, 0x00, IPT_DIAL ) PORT_COCKTAIL PORT_SENSITIVITY(100) PORT_KEYDELTA(40) PORT_REVERSE
 
-	// DIP SWITCHES ARE UNUSED IN PE, SETTINGS CHANGED IN SELF TEST
+	// DIP SWITCHES ARE UNUSED IN PE, SETTINGS CHANGED IN SELF TEST, STILL DEFINE A CABINET PIN SWITCH THO
+    PORT_START("CABINET")
+	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_SERVICE1 ) 
 
 	PORT_START("COIN")      /* dummy for player_1 = 0 on alpha */
 	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )      /* Left Coin Switch  */
@@ -334,6 +338,7 @@ static INPUT_PORTS_START( mhavocpe_inputs )
 	PORT_START("SERVICE")   /* dummy for player_1 = 1 on alpha */
 	PORT_SERVICE( 0x01, IP_ACTIVE_LOW )
 	PORT_SERVICE( 0x02, IP_ACTIVE_LOW )
+    
 INPUT_PORTS_END
 
 /*************************************

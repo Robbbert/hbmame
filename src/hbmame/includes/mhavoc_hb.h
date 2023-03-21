@@ -44,6 +44,7 @@ public:
 		m_oki(*this, "oki"),
 		m_lamps(*this, "lamp%u", 0U),
 		m_coin(*this, "COIN"),
+        m_cabinet(*this, "CABINET"),
 		m_service(*this, "SERVICE")
 	{ }
 
@@ -52,6 +53,7 @@ public:
 	void mhavocpe_adpcm(machine_config &config); //HBMAME
 
 	DECLARE_CUSTOM_INPUT_MEMBER(coin_service_r);
+    DECLARE_CUSTOM_INPUT_MEMBER(coin_cabinet_l);
 	DECLARE_READ_LINE_MEMBER(gamma_rcvd_r);
 	DECLARE_READ_LINE_MEMBER(gamma_xmtd_r);
 	DECLARE_READ_LINE_MEMBER(gamma_tirdy_r);
@@ -106,6 +108,7 @@ private:
 	optional_device<okim6295_device> m_oki;
 	output_finder<2> m_lamps;
 	optional_ioport m_coin;
+    optional_ioport m_cabinet;
 	optional_ioport m_service;	
 
 	uint8_t m_alpha_data = 0U;
