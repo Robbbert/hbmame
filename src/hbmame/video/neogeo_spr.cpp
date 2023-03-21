@@ -170,6 +170,9 @@ void neosprite_device::neogeo_set_fixed_layer_source( uint8_t data )
 
 void neosprite_device::draw_fixed_layer( bitmap_rgb32 &bitmap, int scanline )
 {
+	if (m_region_fixed_size == 0)
+		return;
+
 	uint8_t* gfx_base = m_fixed_layer_source ? m_region_fixed : m_region_fixedbios->base();
 	uint32_t addr_mask = ( m_fixed_layer_source ? m_region_fixed_size : m_region_fixedbios->bytes() ) - 1;
 	uint16_t *video_data = &m_videoram_drawsource[0x7000 | (scanline >> 3)];
@@ -292,6 +295,9 @@ inline bool neosprite_device::sprite_on_scanline(int scanline, int y, int rows)
 
 void neosprite_device::draw_sprites( bitmap_rgb32 &bitmap, int scanline )
 {
+	if (m_region_sprites_size == 0)
+		return;
+
 	uint16_t *sprite_list;
 	int max_sprite_index = 0, x = 0, y = 0, zoom_x = 0, zoom_y = 0, rows = 0;
 

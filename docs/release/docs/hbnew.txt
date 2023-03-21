@@ -3,7 +3,8 @@
 
 2023-0x-xx 0.245.11
 
-Fixed bad graphics in Rally Chase (trallycd)
+- Fixed bad graphics in Rally Chase (trallycd)
+- Added preliminary support for neosd .neo files
 
 New Games
 ---------------------------------

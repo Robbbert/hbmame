@@ -5838,6 +5838,7 @@ spcloneo	// v0.7.2.2
 @source:neogeo.cpp
 // These are the parents of our hacks
 neogeo
+neosd
 2020bb			// 030
 3countb			// 043
 alpham2			// 007

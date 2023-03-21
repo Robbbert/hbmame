@@ -38,6 +38,7 @@ public:
 	void         draw_fixed_layer( bitmap_rgb32 &bitmap, int scanline );
 	void         draw_sprites( bitmap_rgb32 &bitmap, int scanline );
 	void         neogeo_set_fixed_layer_source( uint8_t data );
+	virtual void optimize_sprite_data();
 
 private:
 	virtual void draw_fixed_layer_2pixels(uint32_t*&pixel_addr, int offset, uint8_t* gfx_base, const pen_t* char_pens);
@@ -47,7 +48,6 @@ private:
 	void         parse_sprites( int scanline );
 	void         create_sprite_line_timer(  );
 	void         start_sprite_line_timer(  );
-	virtual void optimize_sprite_data();
 	virtual void draw_pixel(int romaddr, uint32_t* dst, const pen_t *line_pens);
 
 	std::unique_ptr<uint16_t[]>     m_videoram{};
