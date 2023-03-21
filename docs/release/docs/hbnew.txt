@@ -10,6 +10,7 @@ New Games
 ---------------------------------
 - [chuckie]             Chuckie Egg
 - [jrpacz80]            Pac-Jr on Pacman Hardware
+- [neo2048]             Neo 2048
 
 
 
