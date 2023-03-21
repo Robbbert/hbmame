@@ -5653,7 +5653,6 @@ heartbn2	/* PacMAME Hacks */
 heartbrn	/* unknown hack of Ms. Pac-Man */
 horizpab	/* Jerronimo v1.0 2004 */
 horizpac	/* Jerronimo */
-jrpacz80
 manpac
 mrmrspac
 mrpacman
@@ -5766,6 +5765,7 @@ mspacmadp
 mspacatttur
 mspacii2
 ms2600a
+pacjrz80
 	/* Pacman hardware games (hires hacks) */
 mschampx
 mspacmnx
