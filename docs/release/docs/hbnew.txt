@@ -11,6 +11,7 @@ New Games
 - [chuckie]             Chuckie Egg
 - [neo2048]             Neo 2048
 - [pacjrz80]            Pac-Jr on Pacman Hardware
+- [sbpf]                Super Bubble Pop (fixed)
 
 
 

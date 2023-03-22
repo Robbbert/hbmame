@@ -5963,7 +5963,6 @@ samsho4			// 222
 samsho5			// 270
 samsh5sp		// 272
 savagere		// 059
-//sbp			// 338  not working
 sdodgeb			// 208
 sengoku			// 017
 sengoku2		// 040
@@ -6102,6 +6101,7 @@ poknightfr
 rci			/* Robocop intro */
 samantha
 santabll
+sbpf
 seafight
 shaman16
 //shaman17
