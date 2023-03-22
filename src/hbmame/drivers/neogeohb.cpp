@@ -318,7 +318,7 @@ YEAR COMPANY                          TITLE
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
 2018 NeoHomeBrew (aka M.Priewe)       Pseudo 3D Racing Game Engine Demo (video on youtube)
 2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
-2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
+2022 Tigerskunk                       Inviyya II / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
