@@ -2347,6 +2347,7 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::quickload_cb)
 		return image_init_result::FAIL;
 	}
 
+	// Make sure regions are big enough
 	if (psize > cpuregion_size)
 	{
 		image.seterror(image_error::INVALIDIMAGE, "CPU region in NEO file is larger than supported");
@@ -2396,72 +2397,35 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::quickload_cb)
 		return image_init_result::FAIL;
 	}
 
-	u32 i;
-	char d[2];
-
-	// copy the data from the NEO file to the rom regions
+	// copy the data from the NEO file to the regions
 	printf("psize=%X\n",psize);fflush(stdout);
 	if (psize)
-	{
-		for (i = 0; i < psize; i++)
-		{
-			image.fread(&d, 1);
-			cpuregion[i] = d[0];
-		}
-	}
+		image.fread(&cpuregion[0],psize);
 
 	printf("ssize=%X\n",ssize);fflush(stdout);
 	if (ssize)
-	{
-		for (i = 0; i < ssize; i++)
-		{
-			image.fread(&d, 1);
-			fix_region[i] = d[0];
-		}
-	}
+		image.fread(&fix_region[0],ssize);
 
 	printf("msize=%X\n",msize);fflush(stdout);
 	if (msize)
 	{
-		for (i = 0; i < msize; i++)
-		{
-			image.fread(&d, 1);
-			if (i < 0x10000)
-				audiocpu_region[i] = d[0];
-			audiocpu_region[i+0x10000] = d[0];
-		}
+		image.fread(&audiocpu_region[0x10000],msize);
+		std::copy(&audiocpu_region[0x10000], &audiocpu_region[0x1ffff], &audiocpu_region[0]);
 	}
 
 	printf("vsize=%X\n",vsize);fflush(stdout);
 	if (vsize)
-	{
-		for (i = 0; i < vsize; i++)
-		{
-			image.fread(&d, 1);
-			ym_region[i] = d[0];
-		}
-	}
+		image.fread(&ym_region[0],vsize);
 
 	printf("v2size=%X\n",v2size);fflush(stdout);
 	if (v2size)
-	{
-		for (i = 0; i < v2size; i++)
-		{
-			image.fread(&d, 1);
-			memregion("ymsnd:adpcmb")->base()[i] = d[0];
-		}
-	}
+		image.fread(&memregion("ymsnd:adpcmb")->base()[0],v2size);
 
 	printf("csize=%X\n",csize);fflush(stdout);
 	if (csize)
-	{
-		for (i = 0; i < csize; i++)
-		{
-			image.fread(&d, 1);
-			spr_region[i] = d[0];
-		}
-	}
+		image.fread(&spr_region[0],csize);
 
+	// Prepare the system
 	printf("Ready to start\n");fflush(stdout);
 	init_neogeo();
 	m_sprgen->set_sprite_region(m_region_sprites->base(), csize); // fix wh2
