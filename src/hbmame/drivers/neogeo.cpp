@@ -2373,7 +2373,7 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::quickload_cb)
 	}
 
 	u32 ym2_region_size = memregion("ymsnd:adpcmb")->bytes();
-	if (v2size > ym2_region_size)
+	if ((v2size > ym2_region_size) || (ym_region_size > ym2_region_size))
 	{
 		image.seterror(image_error::INVALIDIMAGE, "ADPCMB region in NEO file is larger than supported");
 		printf("ADPCMB size requested (%08X) is greater than available (%08X)\n",v2size,ym2_region_size);
@@ -2415,7 +2415,10 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::quickload_cb)
 
 	printf("vsize=%X\n",vsize);fflush(stdout);
 	if (vsize)
+	{
 		image.fread(&ym_region[0],vsize);
+		std::copy(&ym_region[0], &ym_region[vsize-1], &memregion("ymsnd:adpcmb")->base()[0]); // fix totc,rotd
+	}
 
 	printf("v2size=%X\n",v2size);fflush(stdout);
 	if (v2size)
