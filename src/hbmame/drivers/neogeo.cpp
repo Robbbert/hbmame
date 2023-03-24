@@ -2434,6 +2434,18 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::quickload_cb)
 	m_sprgen->set_sprite_region(m_region_sprites->base(), csize); // fix wh2
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), ssize, m_region_fixedbios);
 	m_sprgen->optimize_sprite_data(); // fix sprites
+
+	// Fix the 512k text with horrible game-specific stuff
+	if (ssize > 0x20000)
+	{
+		u16 game = cpuregion[0x109] * 256 + cpuregion[0x108];
+		// identify kof2000, matrim, svc, kof2003
+		if ((game == 0x257) || (game == 0x266) || (game == 0x269) || (game == 0x271))
+			m_sprgen->m_fixed_layer_bank_type = 2;
+		else
+			m_sprgen->m_fixed_layer_bank_type = 1;
+	}
+
 	m_audiocpu->reset();
 	machine_reset();
 
