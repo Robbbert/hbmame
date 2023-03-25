@@ -2,26 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/cclimber.cpp"
 
-INPUT_PORTS_START( ckonga2 ) /* one less life than normal */
-	PORT_INCLUDE( ckong )
-	PORT_MODIFY("DSW")
-	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
-	PORT_DIPSETTING(    0x00, "2" )
-	PORT_DIPSETTING(    0x01, "3" )
-	PORT_DIPSETTING(    0x02, "4" )
-	PORT_DIPSETTING(    0x03, "5" )
-INPUT_PORTS_END
-
-INPUT_PORTS_START( ckonga4 ) /* two less lives than normal */
-	PORT_INCLUDE( ckong )
-	PORT_MODIFY("DSW")
-	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
-	PORT_DIPSETTING(    0x00, "1" )
-	PORT_DIPSETTING(    0x01, "2" )
-	PORT_DIPSETTING(    0x02, "3" )
-	PORT_DIPSETTING(    0x03, "4" )
-INPUT_PORTS_END
-
+// Crazy Climber
 ROM_START( cclimbrm )
 	ROM_REGION( 0x6000, "maincpu", 0 )
 	ROM_LOAD( "cc11m",         0x0000, 0x1000, CRC(a7d58b7e) SHA1(83a21b1a731895c84f1f3604f36b21b172bb144b) )
@@ -50,69 +31,8 @@ ROM_START( cclimbrm )
 	ROM_LOAD( "cc12",         0x1000, 0x1000, CRC(5da13aaa) SHA1(b2d41e69435d09c456648a10e33f5e1fbb0bc64c) )
 ROM_END
 
-/* E376 and E449 are basically the same bootleg of "ckonga". One gfx rom in E376 is changed, and we use it here.
-    Changes: One less life than normal, and gfx corruptions on the stage with the incinerator in the middle. */
-ROM_START( ckonga2 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "ckonga2.07",   0x0000, 0x1000, CRC(1c21386f) SHA1(ce1a0c469dd09d81485cede6c8fbaf6299a9decf) )
-	ROM_LOAD( "f05-08.bin",   0x1000, 0x1000, CRC(5dc1aaba) SHA1(42b9e5946ffce7c156d114bde68f37c2c34853c4) )
-	ROM_LOAD( "h05-09.bin",   0x2000, 0x1000, CRC(c9054c94) SHA1(1aa08d2501ee620759fd5c111e12f6d432c25294) )
-	ROM_LOAD( "10.dat",       0x3000, 0x1000, CRC(c3beb501) SHA1(14f49c45fc7c91799034c5a51fca310f0a66b1d7) )
-	ROM_LOAD( "l05-11.bin",   0x4000, 0x1000, CRC(ae159192) SHA1(d467256a3a366e246243e7828ff4a45d4c146e2c) )
-	ROM_LOAD( "n05-12.bin",   0x5000, 0x1000, CRC(966bc9ab) SHA1(4434fc620169ffea1b1f227b61674e1daf79b54b) )
-
-	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "n11-06.bin",   0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
-	ROM_LOAD( "falcon5",      0x1000, 0x1000, CRC(cd3b5dde) SHA1(2319a2be04d70989b01f4fc703756ba6e1c1f388) )
-	ROM_LOAD( "k11-04.bin",   0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
-	ROM_LOAD( "h11-03.bin",   0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
-
-	ROM_REGION( 0x1000, "gfx2", 0 )
-	ROM_LOAD( "c11-02.bin",   0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
-	ROM_LOAD( "a11-01.bin",   0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
-
-	ROM_REGION( 0x0060, "proms", 0 )
-	ROM_LOAD( "prom.v6",      0x0000, 0x0020, CRC(b3fc1505) SHA1(5b94adde0428a26b815c7eb9b3f3716470d349c7) )
-	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
-	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
-
-	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
-	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
-	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
-ROM_END
-
-/* E448 and E589 are basically the same bootleg of "ckonga". One prom in E448 is changed, and we use it here.
-    Changes: Two less lives than normal. */
-ROM_START( ckonga3 )
-	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "ckonga4.07",   0x0000, 0x1000, CRC(9b5e7592) SHA1(c2b44765eef7d6a8f9f1fb8a7cefd011ebf2a330) )
-	ROM_LOAD( "f05-08.bin",   0x1000, 0x1000, CRC(5dc1aaba) SHA1(42b9e5946ffce7c156d114bde68f37c2c34853c4) )
-	ROM_LOAD( "h05-09.bin",   0x2000, 0x1000, CRC(c9054c94) SHA1(1aa08d2501ee620759fd5c111e12f6d432c25294) )
-	ROM_LOAD( "10.dat",       0x3000, 0x1000, CRC(c3beb501) SHA1(14f49c45fc7c91799034c5a51fca310f0a66b1d7) )
-	ROM_LOAD( "l05-11.bin",   0x4000, 0x1000, CRC(ae159192) SHA1(d467256a3a366e246243e7828ff4a45d4c146e2c) )
-	ROM_LOAD( "n05-12.bin",   0x5000, 0x1000, CRC(966bc9ab) SHA1(4434fc620169ffea1b1f227b61674e1daf79b54b) )
-
-	ROM_REGION( 0x4000, "gfx1", 0 )
-	ROM_LOAD( "n11-06.bin",   0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
-	ROM_LOAD( "l11-05.bin",   0x1000, 0x1000, CRC(fa7cbd91) SHA1(0208d2ebc59f3600005476b6987472685bc99d67) )
-	ROM_LOAD( "k11-04.bin",   0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
-	ROM_LOAD( "h11-03.bin",   0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
-
-	ROM_REGION( 0x1000, "gfx2", 0 )
-	ROM_LOAD( "c11-02.bin",   0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
-	ROM_LOAD( "a11-01.bin",   0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
-
-	ROM_REGION( 0x0060, "proms", 0 )
-	ROM_LOAD( "ckonga4.v6",   0x0000, 0x0020, CRC(d3b84067) SHA1(1d025c28c47c4c7508b0dfd534de87e923262630) )
-	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
-	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
-
-	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
-	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
-	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
-ROM_END
-
-ROM_START( ckongfix )
+// Crazy Kong
+ROM_START( ckong01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "d05-07.bin",   0x0000, 0x1000, CRC(b27df032) SHA1(57f9be139c610405e3c2fddd7093dfb1277e450e) )
 	ROM_LOAD( "f05-08.bin",   0x1000, 0x1000, CRC(5dc1aaba) SHA1(42b9e5946ffce7c156d114bde68f37c2c34853c4) )
@@ -141,6 +61,38 @@ ROM_START( ckongfix )
 	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
 
+// Crazy Kong Part II
+ROM_START( ckongpt2s01 )
+	ROM_REGION( 0x6000, "maincpu", 0 )
+	ROM_LOAD( "7s01.5d",      0x0000, 0x1000, CRC(8dcf7df0) SHA1(78807b5d97c2a3cb0572774226ecbb4deeb04473) )
+	ROM_LOAD( "8s01.5e",      0x1000, 0x1000, CRC(8930f958) SHA1(568e4825f1488a93c36dd210f8666efc90eddf1a) )
+	ROM_LOAD( "9.5h",         0x2000, 0x1000, CRC(c9054c94) SHA1(1aa08d2501ee620759fd5c111e12f6d432c25294) )
+	ROM_LOAD( "10s01.5k",     0x3000, 0x1000, CRC(a12afa47) SHA1(8ccf76efbbee2645f11b88a6101a6216a464bd8c) )
+	ROM_LOAD( "11s01.5l",     0x4000, 0x1000, CRC(c6f2913e) SHA1(5ff0cb5b9c4616cdf870a45cae5833cb0c3b3556) )
+	ROM_LOAD( "12s01.5n",     0x5000, 0x1000, CRC(34c7a93b) SHA1(10897cdb946b520f18021fba07d559a9cc0fb4de) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "6s01.11n",     0x0000, 0x1000, CRC(b6201ddb) SHA1(4aa1ed5273aedc78e55e9401f6f17705a264aa58) )
+	ROM_LOAD( "5s01.11l",     0x1000, 0x1000, CRC(090b509a) SHA1(e83a4f05a622e04b712244bb146c734fc5a4ae92) )
+	ROM_LOAD( "4s01.11k",     0x2000, 0x1000, CRC(a9e9ebc2) SHA1(b631ee88061e3889ea65e9c1d3448e64d98a6412) )
+	ROM_LOAD( "3s01.11h",     0x3000, 0x1000, CRC(bac1e8a5) SHA1(a06d17e3a18709e82283bcf641989fb4dcff9d53) )
+
+	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_LOAD( "2s01.11c",     0x0000, 0x0800, CRC(eeb3360a) SHA1(3dcf6a2c35b46fe06af008083900d305f18df15e) )
+	ROM_LOAD( "1s01.11a",     0x0800, 0x0800, CRC(b8873065) SHA1(24677b74136bf5c064f7de2b62ad6edf9f14f2e6) )
+
+	ROM_REGION( 0x0060, "proms", 0 )
+	ROM_LOAD( "s01.v6",       0x0000, 0x0020, CRC(fc2b00f0) SHA1(56b6f78324b51ad7ba8a9da49b9f748b1a9a55e3) )
+	ROM_LOAD( "s01.u6",       0x0020, 0x0020, CRC(d488c634) SHA1(2c33cec23528d6eae01ab8207078e256de0f8f36) )
+	ROM_LOAD( "s01.t6",       0x0040, 0x0020, CRC(cccec69c) SHA1(a8681ec247342ea18d3823d6c2475cf3b9fbcfb9) )
+
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
+	ROM_LOAD( "14.5s",        0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "13.5p",        0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+ROM_END
+
+
+// Monkey Donkey
 /* This is a gfx hack of monkeyd. Should monkeyd get correct colours, it must be applied here too. */
 ROM_START( tongypac )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -176,9 +128,8 @@ ROM_START( tongypac )
 ROM_END
 
 
-GAME( 1980, cclimbrm, cclimber, cclimberx, cclimber, cclimber_state, init_cclimber,     ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
-GAME( 1981, ckonga2,  ckong,    cclimber, ckonga2,  cclimber_state,  empty_init,   ROT270, "bootleg", "Crazy Kong Part II -1", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, ckonga3,  ckong,    cclimber, ckonga4,  cclimber_state,  empty_init,   ROT270, "bootleg", "Crazy Kong Part II -2", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, ckongfix, ckong,    cclimber, ckong,    cclimber_state,  empty_init,   ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 1981, tongypac, ckong,    cclimber, ckong,    cclimber_state,  empty_init,   ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
+GAME( 1980, cclimbrm,  cclimber, cclimberx, cclimber, cclimber_state, init_cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
+GAME( 1981, ckong01,   ckong,    cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, ckongpt2s01,ckongpt2, cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Paul Goes", "Crazy Kong Part II with DK colours and graphics", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, tongypac,  ckong,    cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
 

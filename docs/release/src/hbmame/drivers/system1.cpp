@@ -2,6 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/system1.cpp"
 
+// Wonder Boy in Monster Land
 ROM_START( wbml01 ) // wbmlbit
 	ROM_REGION( 0x40000, "maincpu", 0 )
 	ROM_LOAD( "wbml.01",      0x20000, 0x8000, CRC(66482638) SHA1(887f93015f0effa2d0fa1f1f59082f75ac072221) )
@@ -104,7 +105,35 @@ ROM_START( wbml03 )
 	ROM_LOAD( "pr5317.37",    0x0000, 0x0100, CRC(648350b8) SHA1(c7986aa9127ef5b50b845434cb4e81dff9861cd2) )
 ROM_END
 
+// Pitfall 2
+ROM_START( pitfall2u01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "epr-6623s01.116",  0x0000, 0x4000, CRC(217e9902) SHA1(a83d73b65a92d5676e519fb2cb787378a7e19fa0) )
+	ROM_LOAD( "epr-6624s01.109",  0x4000, 0x4000, CRC(825b70b8) SHA1(adf90f01d4a5461a4201c7dc0d725ccf8b317015) )
+	ROM_LOAD( "epr-6625.96",    0x8000, 0x4000, CRC(dc5484ba) SHA1(62fffff7d935c104def5f09e9dc4a26fa4ce4f94) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 )
+	ROM_LOAD( "epr-6462.120",   0x0000, 0x2000, CRC(86bb9185) SHA1(89add2e3784e8f5a20b895fb2c4466bdd6c34b0c) )
+
+	ROM_REGION( 0xc000, "tiles", 0 )
+	ROM_LOAD( "epr-6474a.62",   0x0000, 0x2000, CRC(9f1711b9) SHA1(c652010a8b19828f81fd101aa1ea781e250c4ec2) )
+	ROM_LOAD( "epr-6473a.61",   0x2000, 0x2000, CRC(8e53b8dd) SHA1(23e04589f2b523d6b8e46d16f40e59685e27f522) )
+	ROM_LOAD( "epr-6472a.64",   0x4000, 0x2000, CRC(e0f34a11) SHA1(b7a96a1867f8bd3cc1251b5fd12991c406e62a37) )
+	ROM_LOAD( "epr-6471a.63",   0x6000, 0x2000, CRC(d5bc805c) SHA1(520afa7617e8dfd09bf469c01ac606a4a3acdc5e) )
+	ROM_LOAD( "epr-6470a.66",   0x8000, 0x2000, CRC(1439729f) SHA1(54ea6ef54be6dcc2a5d00f7f817fd8836a02b3b9) )
+	ROM_LOAD( "epr-6469a.65",   0xa000, 0x2000, CRC(e4ac6921) SHA1(f95e3b368c2c6dbf8265fb314d73019fe7dcce22) )
+
+	ROM_REGION( 0x8000, "sprites", 0 )
+	ROM_LOAD( "epr-6454a.117",  0x0000, 0x4000, CRC(a5d96780) SHA1(e0571f6fd031bbe2d971c3be7b96a017b0ea4be9) )
+	ROM_LOAD( "epr-6455.05",    0x4000, 0x4000, CRC(32ee64a1) SHA1(21743f78735fc9105fbbfac420bdaa2965b4b56f) )
+
+	ROM_REGION( 0x0100, "lookup_proms", 0 )
+	ROM_LOAD( "pr-5317.76",     0x0000, 0x0100, CRC(648350b8) SHA1(c7986aa9127ef5b50b845434cb4e81dff9861cd2) )
+ROM_END
+
+
 GAME( 1987, wbml01, wbml, sys2xb,    wbml, system1_state, init_bootsys2, ROT0, "Michele", "Wonder Boy in Monster Land (Italian - v0.99)", MACHINE_SUPPORTS_SAVE )
 GAME( 1987, wbml02, wbml, sys2xb,    wbml, system1_state, init_bootsys2, ROT0, "Aneue Bannzai", "Wonder Boy in Monster Land (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 1987, wbml03, wbml, sys2xboot, wbml, system1_state, init_bootsys2, ROT0, "bootleg", "Wonder Boy in Monster Land (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, pitfall2u01,  pitfall2, sys1pio, pitfall2u, system1_state, empty_init, ROT0, "Sekret", "Pitfall II Trainer (2002-10-15)", MACHINE_SUPPORTS_SAVE )
 

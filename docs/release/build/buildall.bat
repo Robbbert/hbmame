@@ -3,17 +3,17 @@ cls
 echo.
 echo Pre-compile steps
 echo.
-echo 1. HBMAME - CLEAN, update MAKEFILE, update VERSION.CPP
-echo.
+rem echo 1. HBMAME - CLEAN, update MAKEFILE, update VERSION.CPP
+rem echo.
 echo 2. ARCADE - CLEAN, update MAKEFILE, update WINUI.H
 echo.
-echo 3. MESSUI - CLEAN, update MAKEFILE, update VERSION.CPP
-echo.
-echo 4. MAMEUI - CLEAN, update MAKEFILE, update VERSION.CPP
-echo.
+rem echo 3. MESSUI - CLEAN, update MAKEFILE, update VERSION.CPP
+rem echo.
+rem echo 4. MAMEUI - CLEAN, update MAKEFILE, update VERSION.CPP
+rem echo.
 echo 5. When this is all done, then
 pause
-goto messui
+goto arcade
 
 c:
 
@@ -42,11 +42,12 @@ del arcade64.exe
 copy /Y src\mame\arcade.flt src\mame\arcade.bak
 copy /Y src\mame\arcade.txt src\mame\arcade.flt
 touch src\mame\arcade.flt
-call make64 -j6 %1 %2 %3
+call make64 -j6 "OSD=winui" %1 %2 %3
 copy /Y src\mame\arcade.bak src\mame\arcade.flt
 copy /Y arcade64.exe arcade.exe
 
 if not exist arcade64.exe goto end
+goto end
 
 :messui
 cd\mess

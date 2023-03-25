@@ -173,13 +173,13 @@ cball                                  //parent
 cballfix                               // MASH (fixed) gfx rom
 
 @source:cclimber.cpp
-ckong			//parent
-cclimber		//parent
+cclimber                               //parent
+cclimbrm                               // Tim Arcadecollecting Modded Version
+ckong                                  //parent
+ckong01                                // Graphics Fix
 tongypac
-ckongfix		/* Graphics Fix */
-ckonga2
-ckonga3
-cclimbrm		/* Tim Arcadecollecting Modded Version */
+ckongpt2                               //parent
+ckongpt2s01
 
 @source:centiped.cpp
 centiped	//parent
@@ -995,6 +995,7 @@ sf2mix99
 sf2mix99a
 sf2mix100
 sf2mix110
+sf2mix120
 sf2mix
 sf2mkot01
 sf2reds01
@@ -1873,6 +1874,7 @@ fourplay
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 //multigameb                           // skeleton
+//scramblemk                             // skeleton
 
 @source:gauntlet.cpp
 gaunt2		//parent
@@ -4190,6 +4192,7 @@ absurd			/* HB - scott - nonworking alpha ver 3 */
 alienres		// HB
 alienresp		// HB nw
 bace			/* HB - Widel Games */
+chuckie
 crashh			/* HB - PacMAME Hacks */
 deathstar		// HB
 deathstar2		// HB
@@ -4206,6 +4209,7 @@ pacmtest
 pacmtest1
 pacmtest2
 pactetris		// HB
+pollen                                 // HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
 rainboh			/* HB - Widel Games */
@@ -4405,9 +4409,13 @@ mitcdemo			/* Charles Doty */
 pang                                   //parent
 pangbolds01
 
+@source:model1.cpp
+vr                                     //parent
+vr01
+
 @source:model2.cpp
 srallyc                                //parent
-srallyp				// Kyle Hodgetts Sega Rally Pro Drivin
+srallyp                                // Kyle Hodgetts Sega Rally Pro Drivin
 
 @source:monaco.cpp
 monaco
@@ -5757,6 +5765,7 @@ mspacmadp
 mspacatttur
 mspacii2
 ms2600a
+pacjrz80
 	/* Pacman hardware games (hires hacks) */
 mschampx
 mspacmnx
@@ -5829,6 +5838,7 @@ spcloneo	// v0.7.2.2
 @source:neogeo.cpp
 // These are the parents of our hacks
 neogeo
+neosd
 2020bb			// 030
 3countb			// 043
 alpham2			// 007
@@ -5953,7 +5963,6 @@ samsho4			// 222
 samsho5			// 270
 samsh5sp		// 272
 savagere		// 059
-//sbp			// 338  not working
 sdodgeb			// 208
 sengoku			// 017
 sengoku2		// 040
@@ -5995,6 +6004,7 @@ zupapa			// 070
 @source:neogeohb.cpp
 19yy
 19yy01
+240ptest
 abyssal
 abyssal1
 akiradmo
@@ -6041,8 +6051,10 @@ lhcdba
 //lhopecd                              // broken; not working
 //lhopecdh                             // broken; not working
 looptris
+looptrsp
 ltorb
 ndo_a_td
+neo2048
 neo2500		/* Blastar */
 neo3d		// Oxygene
 neocstlv	// BarfHappy
@@ -6089,6 +6101,7 @@ poknightfr
 rci			/* Robocop intro */
 samantha
 santabll
+sbpf
 seafight
 shaman16
 //shaman17
@@ -6124,6 +6137,7 @@ twister		// Blastar 2015
 //vlad2000
 //ww2demo
 xeno
+xeviousn
 xmas2017
 zintrckbh
 zintrkcd
@@ -8473,6 +8487,8 @@ wbml                                   //parent
 wbml01
 wbml02
 wbml03
+pitfall2                               //parent
+pitfall2u01
 
 @source:system16.cpp
 sys16dem                               // HB

@@ -454,6 +454,7 @@
 ****************************************************************************/
 
 #include "includes/neogeo.h"
+#include "softlist_dev.h"
 #include "neogeo.lh"
 
 
@@ -1007,6 +1008,8 @@ void neogeo_state::init_neogeo()
 	// install controllers
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16smo_delegate(*this, FUNC(neogeo_state::in0_r)));
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16smo_delegate(*this, FUNC(neogeo_state::in1_r)));
+	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
 }
 
 
@@ -1066,8 +1069,8 @@ void neogeo_state::machine_start()
 	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_state::neogeo_postload), this));
 
 	m_sprgen->set_screen(m_screen);
-	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
-	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
+//	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
+//	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
 }
 
 
@@ -1472,6 +1475,16 @@ void neogeo_state::no_watchdog(machine_config &config)
 	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
 }
 
+void neogeo_state::neosd(machine_config &config)
+{
+	neogeo_noslot(config);
+
+	// quickload
+	quickload_image_device &quickload(QUICKLOAD(config, "quickload", "neo", attotime::from_seconds(1)));
+	quickload.set_load_callback(FUNC(neogeo_state::quickload_cb));
+	quickload.set_interface("neo_quik");
+	SOFTWARE_LIST(config, "quik_list").set_original("neo_quik");
+}
 
 void neogeo_state::gsc_map(address_map &map)
 {
@@ -2291,6 +2304,155 @@ void neogeo_state::init_cmc42sfix()
 }
 
 
+QUICKLOAD_LOAD_MEMBER(neogeo_state::quickload_cb)
+{
+	if (image.length() < 0x60000)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "File too short");
+		printf("File too short\n");
+		image.message("File too short");
+		return image_init_result::FAIL;
+	}
+
+	// check header
+	u8 header[0x1000];
+	image.fread( &header, 0x1000);
+
+	if ((header[0] == 'N') && (header[1] == 'E') && (header[2] == 'O'))
+	{
+	}
+	else
+	{
+		image.seterror(image_error::INVALIDIMAGE, "NEO header missing");
+		printf("NEO header missing\n");
+		image.message("NEO header missing");
+		return image_init_result::FAIL;
+	}
+
+	// Get file sizes
+	u32 psize = header[4] + header[5]*0x100 + header[6]*0x10000 + header[7]*0x1000000;
+	u32 ssize = header[8] + header[9]*0x100 + header[10]*0x10000 + header[11]*0x1000000;
+	u32 msize = header[12] + header[13]*0x100 + header[14]*0x10000 + header[15]*0x1000000;
+	u32 vsize = header[16] + header[17]*0x100 + header[18]*0x10000 + header[19]*0x1000000;
+	u32 v2size = header[20] + header[21]*0x100 + header[22]*0x10000 + header[23]*0x1000000;
+	u32 csize = header[24] + header[25]*0x100 + header[26]*0x10000 + header[27]*0x1000000;
+
+	// Make sure file is big enough
+	u64 total = 0x1000 + psize + ssize + msize + vsize + v2size + csize;
+	if (total > image.length())
+	{
+		image.seterror(image_error::INVALIDIMAGE, "File is corrupt");
+		printf("File is corrupt.\n");
+		image.message("File is corrupt");
+		return image_init_result::FAIL;
+	}
+
+	// Make sure regions are big enough
+	if (psize > cpuregion_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "CPU region in NEO file is larger than supported");
+		printf("CPU size requested (%08X) is greater than available (%08X)\n",psize,cpuregion_size);
+		image.message("CPU region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (ssize > fix_region_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "FIX region in NEO file is larger than supported");
+		printf("FIX size requested (%08X) is greater than available (%08X)\n",ssize,fix_region_size);
+		image.message("FIX region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (vsize > ym_region_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "ADPCMA region in NEO file is larger than supported");
+		printf("ADPCMA size requested (%08X) is greater than available (%08X)\n",vsize,ym_region_size);
+		image.message("ADPCMA region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	u32 ym2_region_size = memregion("ymsnd:adpcmb")->bytes();
+	if ((v2size > ym2_region_size) || (ym_region_size > ym2_region_size))
+	{
+		image.seterror(image_error::INVALIDIMAGE, "ADPCMB region in NEO file is larger than supported");
+		printf("ADPCMB size requested (%08X) is greater than available (%08X)\n",v2size,ym2_region_size);
+		image.message("ADPCMB region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (msize > (audio_region_size - 0x10000))
+	{
+		image.seterror(image_error::INVALIDIMAGE, "AUDIO region in NEO file is larger than supported");
+		printf("AUDIO region (%08X) in NEO file is larger than supported\n",msize);
+		image.message("AUDIO region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (csize > spr_region_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "SPR region in NEO file is larger than supported");
+		printf("SPR size requested (%08X) is greater than available (%08X)\n",csize,spr_region_size);
+		image.message("SPR region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	// copy the data from the NEO file to the regions
+	printf("psize=%X\n",psize);fflush(stdout);
+	if (psize)
+		image.fread(&cpuregion[0],psize);
+
+	printf("ssize=%X\n",ssize);fflush(stdout);
+	if (ssize)
+		image.fread(&fix_region[0],ssize);
+
+	printf("msize=%X\n",msize);fflush(stdout);
+	if (msize)
+	{
+		image.fread(&audiocpu_region[0x10000],msize);
+		std::copy(&audiocpu_region[0x10000], &audiocpu_region[0x1ffff], &audiocpu_region[0]);
+	}
+
+	printf("vsize=%X\n",vsize);fflush(stdout);
+	if (vsize)
+	{
+		image.fread(&ym_region[0],vsize);
+		std::copy(&ym_region[0], &ym_region[vsize-1], &memregion("ymsnd:adpcmb")->base()[0]); // fix totc,rotd
+	}
+
+	printf("v2size=%X\n",v2size);fflush(stdout);
+	if (v2size)
+		image.fread(&memregion("ymsnd:adpcmb")->base()[0],v2size);
+
+	printf("csize=%X\n",csize);fflush(stdout);
+	if (csize)
+		image.fread(&spr_region[0],csize);
+
+	// Prepare the system
+	printf("Ready to start\n");fflush(stdout);
+	init_neogeo();
+	m_sprgen->set_sprite_region(m_region_sprites->base(), csize); // fix wh2
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), ssize, m_region_fixedbios);
+	m_sprgen->optimize_sprite_data(); // fix sprites
+
+	// Fix the 512k text with horrible game-specific stuff
+	if (ssize > 0x20000)
+	{
+		u16 game = cpuregion[0x109] * 256 + cpuregion[0x108];
+		// identify kof2000, matrim, svc, kof2003
+		if ((game == 0x257) || (game == 0x266) || (game == 0x269) || (game == 0x271))
+			m_sprgen->m_fixed_layer_bank_type = 2;
+		else
+			m_sprgen->m_fixed_layer_bank_type = 1;
+	}
+
+	m_audiocpu->reset();
+	machine_reset();
+
+	return image_init_result::PASS;
+}
+
+
 /* dummy entry for the dummy bios driver */
 ROM_START( neogeo )
 	NEOGEO_BIOS
@@ -2313,7 +2475,33 @@ ROM_START( neogeo )
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
 ROM_END
 
+ROM_START( neosd )
+	NEOGEO_BIOS
+
+	ROM_REGION( 0x800000, "maincpu", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x90000, "audiocpu", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_Y_ZOOM
+
+	ROM_REGION( 0x80000, "fixed", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x20000, "fixedbios", 0 )
+	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000000, "sprites", ROMREGION_ERASEFF )
+ROM_END
+
 
 /*    YEAR  NAME        PARENT    MACHINE   INPUT            CLASS         INIT    */
-GAME( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+GAME( 1990, neogeo,      0,        mvs,     neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+GAME( 1990, neosd,  neogeo,      neosd,     neogeo,         neogeo_state, empty_init,  ROT0, "SNK", "Neo-Geo NeoSD", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 

@@ -11312,6 +11312,37 @@ ROM_START( rockmanj )
 	ROM_LOAD( "megaman.key", 0x00, 0x80, CRC(9c89eb62) SHA1(e67a3ed58f82875cff4861c14bd701b54dcc111f) )
 ROM_END
 
+ // B board: ? C board: 92631C-6
+ROM_START( hkittymp ) // Magical Pumpkin
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c36.p1", 0x00000, 0x80000, CRC(38b9883a) SHA1(94a89a360a502f209aa905e7eb2f1d472960850f) )
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c36.c1",   0x000000, 0x80000, CRC(7c8c0c22) SHA1(29659c37a519470452afcd553a501788ad56dc1e) )
+	ROM_LOAD64_WORD( "c36.c2",   0x000002, 0x80000, CRC(23f95339) SHA1(09227f55ecdf86265e85ea3d09e0a829a1220f3a) )
+	ROM_LOAD64_WORD( "c36.c3",   0x000004, 0x80000, CRC(107842a6) SHA1(8410370d97ac2e6e23774375c4e9d5d000a6eda4) )
+	ROM_LOAD64_WORD( "c36.c4",   0x000006, 0x80000, CRC(fce457ae) SHA1(7e2116aeeb6204311a78af5f3c1736fbff4e6723) )
+	ROM_LOAD64_WORD( "c36.c5",   0x200000, 0x80000, CRC(ba8f3585) SHA1(7f43328d8a921478a24909eed18c8c921177add0) )
+	ROM_RELOAD(0x200004, 0x80000)
+	ROM_LOAD64_WORD( "c36.c6",   0x200002, 0x80000, CRC(037f20cc) SHA1(d702d648bcf47fe6f9fa033aa5b9fa1238191cf2) )
+	ROM_RELOAD(0x200006, 0x80000)
+	ROM_LOAD64_WORD( "c36.c9",   0x400000, 0x80000, CRC(870f3a2a) SHA1(7e852cb7a0d2c49aeb3ff28676b2f66bb42646ed) )
+	ROM_LOAD64_WORD( "c36.c10",  0x400002, 0x80000, CRC(8923fc3a) SHA1(619ac7218ef14d863180e70c9d55729025f14d7c) )
+	ROM_LOAD64_WORD( "c36.c11",  0x400004, 0x80000, CRC(87b88629) SHA1(85fed8a00e4c960456732ba6e6ae45ce23a60470) )
+	ROM_LOAD64_WORD( "c36.c12",  0x400006, 0x80000, CRC(a09a6acf) SHA1(cb6b75dabb5422572123be60356765cedcdcbfe9) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c36.m1",     0x00000, 0x08000, CRC(0b5b1b72) SHA1(a8883f141a00870c98a74d9d57378c4a607dc590) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c36.v1",     0x00000, 0x20000, CRC(cef6d39e) SHA1(3180a3f397b5c4fbbc2b8f84cf461764ddd10d4e) )
+	ROM_LOAD( "c36.v2",     0x20000, 0x20000, CRC(24947f8e) SHA1(e26270962cc4b0f9a6a5c306fa09d2cdd524cfa9) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+ROM_END
+
 /* B-Board 91634B-2 */
 ROM_START( ganbare )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
@@ -12140,6 +12171,7 @@ GAME( 1995, megamana,    megaman,  cps1_12MHz, megaman,  cps_state, init_cps1,  
 GAME( 1995, rockmanj,    megaman,  cps1_12MHz, rockmanj, cps_state, init_cps1,     ROT0,   "Capcom", "Rockman: The Power Battle (CPS1, Japan 950922)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, ganbare,     0,        ganbare,    ganbare,  cps_state, init_ganbare,  ROT0,   "Capcom", "Ganbare! Marine Kun (Japan 2K0411)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, pokonyan,    0,        cps1_10MHz, pokonyan, cps_state, init_cps1,     ROT0,   "Capcom", "Pokonyan! Balloon (Japan 940322)", MACHINE_SUPPORTS_SAVE ) // 2002-10-24 was on the ROM labels, 940322 on the startup screen... take your pick
+GAME( 1996, hkittymp,    0,        cps1_10MHz, pokonyan, cps_state, init_cps1,     ROT0,   "Capcom", "Hello Kitty Magical Pumpkin (Japan 960712)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // needs 'wheel' emulation
 
 /* Games released on CPS-1 hardware by Mitchell */
 

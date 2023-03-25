@@ -51,7 +51,7 @@
 
     MULTI PLAY MODE:
     ================
-    The NeoGeo has three games which support MULTI PLAY MODE (Riding Hero / League Bowling / Trash Rally).
+    The NeoGeo has three games which support MULTI PLAY MODE (Riding Hero / League Bowling / Thrash Rally).
     This allows you to 'link' 4 games (MVS) / 2 games (AES) using in game 'Multi-Play' option. To establish
     a link between the carts you have to connect the carts to each other by a communicator cable. The communicatior
     cable is a regular headphone cable with stereo pin jack. It has been reported that you can also 'link' MVS <-> AES.
@@ -6427,7 +6427,7 @@ ROM_END
  NSBP V1.0U
  PROGRAM CART REVISION 2.0 COPYRIGHT VEKTORLOGIC (C) 2004 / GRAPHICS CART REVISION 1.2 COPYRIGHT VEKTORLOGIC (C) 2004
 ****************************************/
-
+#if 0
 // this doesn't boot, protection like kof98?
 // you can force it to boot with a simple debugger trick, but then it resets when starting a game
 ROM_START( sbp ) /* Unlicensed, no official game ID # */ /* MVS ONLY VERSION */
@@ -6451,7 +6451,21 @@ ROM_START( sbp ) /* Unlicensed, no official game ID # */ /* MVS ONLY VERSION */
 	ROM_LOAD16_BYTE( "338.c1", 0x000000, 0x200000, CRC(44791317) SHA1(9e773eb9aae5ee767213bd17348ff8a312e9cb16) )
 	ROM_LOAD16_BYTE( "338.c2", 0x000001, 0x200000, CRC(a3a1c0df) SHA1(3b1e5be673f7cbb04199a805b0e0de93dad8cb8c) )
 ROM_END
+#endif
+ROM_START( sbpf )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "338f.p1", 0x000000, 0x040000, CRC(1aa8f9e2) SHA1(98ecb3020c45b4833ccec7fc98e33c2d1a31f45e) )
 
+	NEO_SFIX_128K( "338f.s1", CRC(7e1cdb26) SHA1(a2479ef13f9571ca90305cfc6acd5c0bff83f92f) )
+
+	NEO_BIOS_AUDIO_512K( "338.m1", CRC(7b1f86f7) SHA1(15b6af7f9fbd0f1f6a1ecd912200ca8d0af2da2a) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "338f.v1", 0x000000, 0x800000, CRC(7ae9fbdb) SHA1(53d25c4f0a33392490fc74c2fa5329a31b246fde) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD( "338f.c1", 0x000000, 0x200000, CRC(72a26879) SHA1(1b78d6698a67aa9252ec16206c7ea7ae02a7c069) )
+ROM_END
 
 /*************************************
  *
@@ -8218,7 +8232,7 @@ GAME( 2001, vlinero,    vliner,   neogeo_noctrl,   vliner, neogeo_state,   init_
 GAME( 2000, diggerma,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Kyle Hodgetts", "Digger Man (proto)", MACHINE_SUPPORTS_SAVE )
 
 /* Vektorlogic */
-GAME( 2004, sbp,        neogeo,   neogeo_noslot,   neogeo, neogeo_state,   init_sbp,      ROT0, "Vektorlogic", "Super Bubble Pop", MACHINE_NOT_WORKING )
+GAME( 2004, sbpf,       neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Vektorlogic", "Super Bubble Pop (fixed)", MACHINE_SUPPORTS_SAVE )
 
 /* NG:DEV.TEAM */
 GAME( 2005, lasthope,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope (bootleg AES to MVS conversion, no coin support)", MACHINE_SUPPORTS_SAVE ) // wasn't actually released on MVS but bootleg carts have been sold, this doesn't accept coins, runs like a console game

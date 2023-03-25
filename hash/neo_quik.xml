@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0
+
+Quickloads for NeoSD. These extensions are supported: NEO.
+
+While intended for homebrew games, most of the unprotected commercial games will work to some extent.
+
+-->
+<softwarelist name="neo_quik" description="NeoSD quickload">
+
+	<software name="19yy">
+		<description>19YY</description>
+		<year>2022</year>
+		<publisher>&lt;unknown&gt;</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="17043456">
+				<rom name="19yy.neo" size="17043456" crc="ee00ead3" sha1="9ff9381bd015372e1c18494b36d4d851fd588470"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslug">
+		<description>Metal Slug</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="27529216">
+				<rom name="mslug.neo" size="27529216" crc="05be3849" sha1="7589a3e3e10bb7f36f0bb257259954e56f1ee3c1"/>
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>

@@ -168,9 +168,11 @@ NUM GAME YEAR COMPANY                 TITLE
 415 0273 2006 Rastersoft              Frog Feast
 418 1234 2008 Crim                    Neogeo 2-player Tetris
 419 1234 2011 Sebastian Mihai         Neo Thunder
+420 0420 2023 tcdev                   Xevious
 422 0275 2012 NeoGeoFreak             Time's Up! demo
 422 0276 2012 NeoGeoFreak             Time's Up!
 433 2019 2021 Blastar                 Looptris
+434 2019 2022 Blastar                 Looptris Plus
 436 0275 2010 CeL                     Neo Pang
 443 1234 2012 M.Priewe                Santaball
 444 1234 2018 kl3mousse               Sea Fighter
@@ -190,6 +192,7 @@ NUM GAME YEAR COMPANY                 TITLE
 496 1234 2020 OzzyOuzo                Neo Black Tiger
 497 0993 2021 iq132                   Cabal (Neo-Geo port)
 498 0052 2021 Kako Eimon              Abyssal Infants
+499 2048 2021 Nicole Branagan         Neo 2048
 
 
 
@@ -198,6 +201,7 @@ NUM GAME YEAR COMPANY                 TITLE
 
 NUM GAME YEAR COMPANY                 TITLE
 ---.----.----.-----------------------.-------------------------------------------
+600 2501 2023 Artemio Urbina          240p Test Suite
 601 2002 2002 Jeff Kurtz              Shadow of the Beast demo
 602*          Neobitz                 Neobitz demo (Jeff M. Kurtz is Neobitz)
 606 FFFF 2000 Blastar                 System Check
@@ -314,11 +318,11 @@ YEAR COMPANY                          TITLE
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
 2018 NeoHomeBrew (aka M.Priewe)       Pseudo 3D Racing Game Engine Demo (video on youtube)
 2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
-2022 Tigerskunk                       Inviyya / Hyperblaster (video on youtube)
+2022 Tigerskunk                       Inviyya II / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
-
+2023 Cote Gamers/LudoScience          Yo-Yo Shuriken (NGCD) (cotegamers.com) (demo on youtube)
 
 
 *********************************************************************************************************/
@@ -1340,6 +1344,24 @@ ROM_START( neothund )
 ROM_END
 
 
+// 420: Xevious by tcdev (beta 1)
+ROM_START( xeviousn )
+	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "401.p1", 0x000000, 0x100000, CRC(11dff034) SHA1(ac8ebbdc96f4d2f74d1c820c1536ca1ccdc936b6) )
+
+	NEO_SFIX_128K( "401.s1", CRC(f41d121a) SHA1(ad30e7fde4c7e7ad7e4c32d14bf1df3b3089eaa8) )
+
+	NEO_BIOS_AUDIO_64K( "401.m1", CRC(6f31c601) SHA1(9b89e7d205ee497f7b495e93328cf35eab6e56b2) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "401.v1", 0x000000, 0x100000, CRC(37ef6dc5) SHA1(3d50197e22d8727a8395564b8645ed1e0e2a5d26) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "401.c1", 0x000000, 0x100000, CRC(f963e5b6) SHA1(e80dd61476028de3ff8369e14b6fb1bb7561e370) )
+	ROM_LOAD16_BYTE( "401.c2", 0x000001, 0x100000, CRC(c97c4e64) SHA1(d33f26dbc569c69bdbf95cdde908d7700843bde7) )
+ROM_END
+
+
 // 422 : Time's UP! by NGF
 ROM_START( timesup )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1389,6 +1411,27 @@ ROM_START( looptris )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "433.v1", 0x000000, 0x080000, CRC(dfa63cd2) SHA1(bbf4a74a660f12cc037cfa0ac5c664988016ee45) )
+
+	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "433.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
+	ROM_LOAD16_BYTE( "433.c2", 0x000001, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
+ROM_END
+
+
+// 434 : Looptris Plus by Blastar 2022-12-24
+ROM_START( looptrsp )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "434.p1", 0x000000, 0x080000, CRC(894bb290) SHA1(f33ed9fe75ca7b5a6da00fe5bff76e26cba85e08) )
+
+	NEO_SFIX_128K( "434.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
+
+	NEO_BIOS_AUDIO_128K( "434.m1", CRC(249bba11) SHA1(e8248ff9bc391b1163746c256b137928a9d81fe0) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "434.v1", 0x000000, 0x080000, CRC(c9f86637) SHA1(edb712d5cce180e1d5b6e338e9abfab1125c5581) )
+	ROM_LOAD( "434.v2", 0x080000, 0x080000, CRC(41b3e17a) SHA1(ef216379dbdbbea04cfffa47123436213a8cf26e) )
+	ROM_LOAD( "434.v3", 0x100000, 0x080000, CRC(1ed4e538) SHA1(921913be499194236535052ed3140fb7169d16e9) )
+	ROM_LOAD( "434.v4", 0x180000, 0x080000, CRC(705e7065) SHA1(a5eea38afa58db69c0f17e0379da3d819639971f) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
 	ROM_LOAD16_BYTE( "433.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
@@ -1788,6 +1831,48 @@ ROM_START( abyssal1 )
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "498a.c1", 0x0000000, 0x200000, CRC(24dabe27) SHA1(4b7519cbcf028b0be7b0acf9c8827a126a33007d) )
 	ROM_LOAD16_BYTE( "498a.c2", 0x0000001, 0x200000, CRC(bbdacc24) SHA1(39025e7f593cc7f464e9f0403feab69ddbd371c8) )
+ROM_END
+
+
+// 499: Neo 2048 by Nicole Branagan (Nicole Express)
+// Bugs: No in-game sound. Going by the original rom names there's supposed to be a logo, but it never shows.
+ROM_START( neo2048 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "499.p1", 0x000000, 0x000bde, CRC(a1039bdb) SHA1(4cbeaaa1e7834d007e8cdbcb5e7bb2ac1cbdbf93) )
+
+	NEO_SFIX_128K( "499.s1", CRC(d1e4c798) SHA1(b0ce4b6097558b837e9fe991b66ea0ee18f53ed5) )
+
+	NEO_BIOS_AUDIO_64K( "499.m1", CRC(6e363bd2) SHA1(9005b6b34caa5405c290775b79c7cd644ce2881f) )
+
+	ROM_REGION( 0x10000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "499.v1", 0x000000, 0x00e200, CRC(dba56bf0) SHA1(0bcee505e10300108b967c0475caa92ed36e6a2b) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	// Logo roms
+	ROM_LOAD16_BYTE( "499.c1", 0x000000, 0x100000, CRC(479543cf) SHA1(772690c872632320133a799aa41f6e68a8d07a4c) )
+	ROM_LOAD16_BYTE( "499.c2", 0x000001, 0x100000, CRC(1f6431d5) SHA1(7c90d6ec9df9e6223a066c338b7a7886071370cf) )
+	// Sprites - yes, these overwrite part of the above roms
+	ROM_LOAD16_BYTE( "499.c3", 0x100000, 0x000c00, CRC(ef3e848e) SHA1(7a85764ead7a1a48b52479d760e6013ba018e9b4) )
+	ROM_LOAD16_BYTE( "499.c4", 0x100001, 0x000c00, CRC(933b4e8f) SHA1(8cad7038bfd696ba8288d2d1292a3271087e2ec7) )
+ROM_END
+
+
+// 600 : 240p Test Suite by Artemio Urbina
+// No sound
+ROM_START( 240ptest )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "600.p1", 0x000000, 0x100000, CRC(5ce36ff3) SHA1(c59beaed2e82955dc2954f844ce9be93b0024bdf) )
+
+	NEO_SFIX_128K( "600.s1", CRC(5023f1ee) SHA1(7bbf9fa1a93daf1d4e3a28b0bc12d228efbdea36) )
+
+	NEO_BIOS_AUDIO_64K( "600.m1", CRC(92065500) SHA1(040bf5a293c4140dd9a5c2a9592cf3fb5835a119) )
+
+	ROM_REGION( 0x040000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "600.v1", 0x000000, 0x040000, CRC(727a6292) SHA1(57666210b311c9f366203cfe88eaf10507eca143) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "600.c1", 0x000000, 0x100000, CRC(7f0e11b9) SHA1(302d82521c90017b84782bc4e50676b38be96dbf) )
+	ROM_LOAD16_BYTE( "600.c2", 0x000001, 0x100000, CRC(223c113c) SHA1(8e43ce378aaf0a445fe6f68a71d32f8ca9746082) )
 ROM_END
 
 
@@ -3210,6 +3295,7 @@ GAME( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
+GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
@@ -3246,13 +3332,15 @@ GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2020, lhbb,         lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayzeur", "Last Hope (Blue Bullets)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdb,        lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope CD Beta", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2007, lhcdba,       lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:Dev.Team", "Last Hope (CD conversion)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2007, lhopecdh,     lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JAP NGCD (Beta 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
-GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris, 2021-12-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, lhopecd,      lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JP NGCD (Beta 1)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2007, lhopecdh,     lasthope, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "NG:DEV.TEAM", "Last Hope JP NGCD (Beta 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2021, looptris,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris (2021-12-26)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, looptrsp,     looptris, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Looptris Plus (2022-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ltorb,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jonas Indiana and The Lost Temple of RA (beta, 2005-07-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, knacki,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "KnackiBalls", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ndo_a_td,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo Driftout Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neo2500,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo 2500 Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, neo2048,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Nicole Branagan", "Neo 2048", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, neo3d,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Oxygene", "Neo 3D Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, neocstlv,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BarfHappy", "Neo Castlevania Demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2003, neodemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Charles Doty", "Demo - NeoGeo", MACHINE_SUPPORTS_SAVE )
@@ -3332,5 +3420,6 @@ GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2019, xeno,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Bitmap Bureau", "Xeno Crisis v1.0.0", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, xeviousn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Xevious (beta 1, 2023-03-07)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, xmas2017,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Xmas/Happy New Year 2017 demo", MACHINE_SUPPORTS_SAVE )
 

@@ -24125,3 +24125,90 @@ GAME( 2021, pacman25s16, puckman,  woodpek,  pacman0,  puckman_state, empty_init
 GAME( 2021, pacman25s17, puckman,  woodpek,  pacman0,  puckman_state, empty_init,   ROT90, "T-Bone", "Pac Man 25 - (Tengen Mini Mazes)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // hang on level 2
 
 
+// Crazy Kong poor quality (useless) bootlegs
+INPUT_PORTS_START( ckonga2 ) /* one less life than normal */
+	PORT_INCLUDE( ckong )
+	PORT_MODIFY("DSW")
+	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
+	PORT_DIPSETTING(    0x00, "2" )
+	PORT_DIPSETTING(    0x01, "3" )
+	PORT_DIPSETTING(    0x02, "4" )
+	PORT_DIPSETTING(    0x03, "5" )
+INPUT_PORTS_END
+
+INPUT_PORTS_START( ckonga4 ) /* two less lives than normal */
+	PORT_INCLUDE( ckong )
+	PORT_MODIFY("DSW")
+	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
+	PORT_DIPSETTING(    0x00, "1" )
+	PORT_DIPSETTING(    0x01, "2" )
+	PORT_DIPSETTING(    0x02, "3" )
+	PORT_DIPSETTING(    0x03, "4" )
+INPUT_PORTS_END
+
+/* E376 and E449 are basically the same bootleg of "ckonga". One gfx rom in E376 is changed, and we use it here.
+    Changes: One less life than normal, and gfx corruptions on the stage with the incinerator in the middle. */
+ROM_START( ckonga2 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ckonga2.07",   0x0000, 0x1000, CRC(1c21386f) SHA1(ce1a0c469dd09d81485cede6c8fbaf6299a9decf) )
+	ROM_LOAD( "f05-08.bin",   0x1000, 0x1000, CRC(5dc1aaba) SHA1(42b9e5946ffce7c156d114bde68f37c2c34853c4) )
+	ROM_LOAD( "h05-09.bin",   0x2000, 0x1000, CRC(c9054c94) SHA1(1aa08d2501ee620759fd5c111e12f6d432c25294) )
+	ROM_LOAD( "10.dat",       0x3000, 0x1000, CRC(c3beb501) SHA1(14f49c45fc7c91799034c5a51fca310f0a66b1d7) )
+	ROM_LOAD( "l05-11.bin",   0x4000, 0x1000, CRC(ae159192) SHA1(d467256a3a366e246243e7828ff4a45d4c146e2c) )
+	ROM_LOAD( "n05-12.bin",   0x5000, 0x1000, CRC(966bc9ab) SHA1(4434fc620169ffea1b1f227b61674e1daf79b54b) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "n11-06.bin",   0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
+	ROM_LOAD( "falcon5",      0x1000, 0x1000, CRC(cd3b5dde) SHA1(2319a2be04d70989b01f4fc703756ba6e1c1f388) )
+	ROM_LOAD( "k11-04.bin",   0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
+	ROM_LOAD( "h11-03.bin",   0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
+
+	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_LOAD( "c11-02.bin",   0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
+	ROM_LOAD( "a11-01.bin",   0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
+
+	ROM_REGION( 0x0060, "proms", 0 )
+	ROM_LOAD( "prom.v6",      0x0000, 0x0020, CRC(b3fc1505) SHA1(5b94adde0428a26b815c7eb9b3f3716470d349c7) )
+	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
+	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
+
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
+	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+ROM_END
+
+/* E448 and E589 are basically the same bootleg of "ckonga". One prom in E448 is changed, and we use it here.
+    Changes: Two less lives than normal. */
+ROM_START( ckonga3 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "ckonga4.07",   0x0000, 0x1000, CRC(9b5e7592) SHA1(c2b44765eef7d6a8f9f1fb8a7cefd011ebf2a330) )
+	ROM_LOAD( "f05-08.bin",   0x1000, 0x1000, CRC(5dc1aaba) SHA1(42b9e5946ffce7c156d114bde68f37c2c34853c4) )
+	ROM_LOAD( "h05-09.bin",   0x2000, 0x1000, CRC(c9054c94) SHA1(1aa08d2501ee620759fd5c111e12f6d432c25294) )
+	ROM_LOAD( "10.dat",       0x3000, 0x1000, CRC(c3beb501) SHA1(14f49c45fc7c91799034c5a51fca310f0a66b1d7) )
+	ROM_LOAD( "l05-11.bin",   0x4000, 0x1000, CRC(ae159192) SHA1(d467256a3a366e246243e7828ff4a45d4c146e2c) )
+	ROM_LOAD( "n05-12.bin",   0x5000, 0x1000, CRC(966bc9ab) SHA1(4434fc620169ffea1b1f227b61674e1daf79b54b) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "n11-06.bin",   0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
+	ROM_LOAD( "l11-05.bin",   0x1000, 0x1000, CRC(fa7cbd91) SHA1(0208d2ebc59f3600005476b6987472685bc99d67) )
+	ROM_LOAD( "k11-04.bin",   0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
+	ROM_LOAD( "h11-03.bin",   0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
+
+	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_LOAD( "c11-02.bin",   0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
+	ROM_LOAD( "a11-01.bin",   0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
+
+	ROM_REGION( 0x0060, "proms", 0 )
+	ROM_LOAD( "ckonga4.v6",   0x0000, 0x0020, CRC(d3b84067) SHA1(1d025c28c47c4c7508b0dfd534de87e923262630) )
+	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
+	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
+
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
+	ROM_LOAD( "falcon13",     0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+ROM_END
+
+GAME( 1981, ckonga2,  ckong,    cclimber,  ckonga2,  cclimber_state, empty_init,    ROT270, "bootleg", "Crazy Kong Part II -1", MACHINE_SUPPORTS_SAVE )
+GAME( 1981, ckonga3,  ckong,    cclimber,  ckonga4,  cclimber_state, empty_init,    ROT270, "bootleg", "Crazy Kong Part II -2", MACHINE_SUPPORTS_SAVE )
+
+

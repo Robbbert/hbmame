@@ -5,7 +5,7 @@ rd %to%\src /q /s
 
 md %to%\src\emu
 
-copy /Y %from%\makefile                             %to%\src
+copy /Y %from%\makefile                             %to%
 copy /Y %from%\src\version.cpp                      %to%\src
 copy /Y %from%\src\emu\validity.cpp                 %to%\src\emu
 copy /Y %from%\src\emu\digfx.h                      %to%\src\emu

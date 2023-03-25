@@ -318,7 +318,7 @@ static bool png_read_bitmap_gui(util::core_file &mfile, HGLOBAL *phDIB, HPALETTE
 	if (p.color_type != 3 && p.color_type != 2)
 	{
 		printf("PNG Unsupported color type %i (has to be 2 or 3)\n", p.color_type);
-		//return false;                    Leave in so ppl can see incompatibility
+		return false;
 	}
 
 	if (p.interlace_method != 0)
@@ -436,7 +436,9 @@ static std::error_condition OpenZipDIBFile(const char *dir_name, const char *zip
 		}
 	}
 
-	return filerr;
+	if (filerr)
+		return filerr;
+	return ziperr;
 }
 
 // display a snap, cabinet, title, flyer, marquee, pcb, control panel
@@ -624,7 +626,7 @@ static BOOL LoadDIB(const char *filename, HGLOBAL *phDIB, HPALETTE *pPal, int pi
 			partpath = strtok(NULL, ";");
 		}
 
-		if (!filerr)
+		if (!filerr && file)
 		{
 			if (extnum)
 				success = jpeg_read_bitmap_gui(*file, phDIB, pPal);

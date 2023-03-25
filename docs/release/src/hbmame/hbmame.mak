@@ -17,7 +17,8 @@ LAYOUTS += \
 	$(SRC)/mame/layout/warrior.lay \
 	$(SRC)/mame/layout/contcirc.lay \
 	$(SRC)/mame/layout/invaders.lay \
-	$(SRC)/mame/layout/spcenctr.lay
+	$(SRC)/mame/layout/spcenctr.lay \
+	$(SRC)/mame/layout/vr.lay
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
