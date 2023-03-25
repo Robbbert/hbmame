@@ -4312,10 +4312,15 @@ mhavocpex8fr
 mhavocpe
 mhavocpede
 mhavocpefr
-mhavocpe_lpc
 mhavocpete
 mhavocpedete
 mhavocpefrte
+mhavocpe100
+mhavocpede100
+mhavocpefr100
+mhavocpete100
+mhavocpedete100
+mhavocpefrte100
 
 @source:midtunit.cpp
 mk                                     //parent
