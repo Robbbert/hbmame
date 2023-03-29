@@ -912,28 +912,20 @@ ROM_START( 19yy ) // sound fixed by elrayzeur, 2022-10-20
 ROM_END
 
 // 335 : Cake Fighter
-// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
-ROM_START( cakefght )
+ROM_START( cakefght ) // v1.0
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "335.neo", 0x000000, 0x001000, CRC(d2afe82e) SHA1(03c52787a449ea3964238293e4d5d77f4211488e) ) // skip header
-	ROM_CONTINUE(0x000000, 0x200000)
-	ROM_IGNORE(0x1040000)
+	ROM_LOAD16_WORD_SWAP( "335.p1", 0x000000, 0x200000, CRC(717afa0f) SHA1(b0e0556b9c996e29c16fcb3416d763d454b8e8ab) )
 
-	ROM_REGION(0x1241000, "asis", 0)
-	ROM_LOAD("335.neo", 0x000000, 0x001000, CRC(d2afe82e) SHA1(03c52787a449ea3964238293e4d5d77f4211488e) )
-	ROM_CONTINUE(0x000000, 0x1240000)
+	NEO_SFIX_128K( "335.s1", CRC(10037303) SHA1(7a31d747a3f3828f5b41c793a2bbbbefcd24d276) )
 
-	NEO_SFIX_MT(0x20000)
-	ROM_COPY("asis", 0x200000, 0x00000, 0x20000) // srctag, srcoffs, dstoffs, length
-
-	NEO_BIOS_AUDIO_128K( "410.m1", CRC(a5821c9c) SHA1(81779f12bbb012bf910c484725779e03b07e44ec) ) // dummy, gets overwritten
-	ROM_COPY("asis", 0x220000, 0x00000, 0x20000)
+	NEO_BIOS_AUDIO_128K( "224.m1", CRC(364d6f96) SHA1(779b95a6476089b71f48c8368d9043ee1dba9032) )
 
 	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
-	ROM_COPY("asis", 0x240000, 0x00000, 0x600000)
+	ROM_LOAD( "335.v1",  0x000000, 0x400000, CRC(3eb19769) SHA1(5fe4e4de25e354406ebb30d5a964dd3b80f161f0) )
+	ROM_LOAD( "224.v2",  0x400000, 0x200000, CRC(7ad26599) SHA1(822030037b7664795bf3d64e1452d0aecc22497e) )
 
 	ROM_REGION( 0xa00000, "sprites", 0 )
-	ROM_COPY("asis", 0x840000, 0x00000, 0xa00000)
+	ROM_LOAD( "335.c1",  0x000000, 0xa00000, CRC(8cd7c899) SHA1(c471466634e42c8df8dd343bbe9058e12c88e785) )
 ROM_END
 
 // You need to press Fire / Button A to get attract mode for a little while
@@ -952,10 +944,10 @@ ROM_START( cakefght1 ) // v1.1
 	ROM_LOAD( "224.v2",  0x400000, 0x200000, CRC(7ad26599) SHA1(822030037b7664795bf3d64e1452d0aecc22497e) )
 
 	ROM_REGION( 0xa00000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "335.c1",  0x000000, 0x400000, CRC(5c56060d) SHA1(c1c42c50cbaff5f3adf5b2e471ae1c9275fa8eb8) )
-	ROM_LOAD16_BYTE( "335.c2",  0x000001, 0x400000, CRC(b51249d0) SHA1(f62b1bf432ce24a28630ce1c82bcbbeaffc15b5c) )
-	ROM_LOAD16_BYTE( "335.c3",  0x800000, 0x100000, CRC(9f634b11) SHA1(7081a0864919db38d5f34818dcac73f1e5a5c2a4) )
-	ROM_LOAD16_BYTE( "335.c4",  0x800001, 0x100000, CRC(1a120e61) SHA1(8a0233e1f61ab3195d9aaec98ccc7d39634795b0) )
+	ROM_LOAD16_BYTE( "335a.c1",  0x000000, 0x400000, CRC(5c56060d) SHA1(c1c42c50cbaff5f3adf5b2e471ae1c9275fa8eb8) )
+	ROM_LOAD16_BYTE( "335a.c2",  0x000001, 0x400000, CRC(b51249d0) SHA1(f62b1bf432ce24a28630ce1c82bcbbeaffc15b5c) )
+	ROM_LOAD16_BYTE( "335a.c3",  0x800000, 0x100000, CRC(9f634b11) SHA1(7081a0864919db38d5f34818dcac73f1e5a5c2a4) )
+	ROM_LOAD16_BYTE( "335a.c4",  0x800001, 0x100000, CRC(1a120e61) SHA1(8a0233e1f61ab3195d9aaec98ccc7d39634795b0) )
 ROM_END
 
 
@@ -1423,7 +1415,7 @@ ROM_START( looptrsp )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "434.p1", 0x000000, 0x080000, CRC(894bb290) SHA1(f33ed9fe75ca7b5a6da00fe5bff76e26cba85e08) )
 
-	NEO_SFIX_128K( "434.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
+	NEO_SFIX_128K( "433.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
 
 	NEO_BIOS_AUDIO_128K( "434.m1", CRC(249bba11) SHA1(e8248ff9bc391b1163746c256b137928a9d81fe0) )
 
@@ -1653,7 +1645,6 @@ ROM_END
 // 492 : Project Neon Caravan Edition Prealpha 0.4.19 (c) 2019
 // Bugs: Insert Coin (first time) causes reboot
 // First time: Use video option to rotate 90CCW
-// This uses a .neo file: 0x1000 bytes for header, then p rom (word_swap), then remainder is normal
 ROM_START( caravan )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "492.p1", 0x000000, 0x80000, CRC(f45cac3a) SHA1(21e283f5fa41d10f0c2bf1f9848bb8f10ea51ad5) )
