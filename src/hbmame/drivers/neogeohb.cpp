@@ -323,6 +323,7 @@ YEAR COMPANY                          TITLE
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
 2023 Cote Gamers/LudoScience          Yo-Yo Shuriken (NGCD) (cotegamers.com) (demo on youtube)
+2023 Neo Byte Force                   Cyborg Force (https://ozzyouzo.itch.io/cyborg-force) (trailer on youtube)
 
 
 *********************************************************************************************************/

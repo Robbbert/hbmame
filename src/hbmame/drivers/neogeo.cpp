@@ -1475,9 +1475,10 @@ void neogeo_state::no_watchdog(machine_config &config)
 	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
 }
 
-void neogeo_state::neosd(machine_config &config)
+void neogeo_state::ngneo(machine_config &config)
 {
-	neogeo_noslot(config);
+	mvs(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_noslot);
 
 	// quickload
 	quickload_image_device &quickload(QUICKLOAD(config, "quickload", "neo", attotime::from_seconds(1)));
@@ -2475,7 +2476,7 @@ ROM_START( neogeo )
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
 ROM_END
 
-ROM_START( neosd )
+ROM_START( ngneo )
 	NEOGEO_BIOS
 
 	ROM_REGION( 0x900000, "maincpu", ROMREGION_ERASEFF )
@@ -2503,5 +2504,5 @@ ROM_END
 
 /*    YEAR  NAME        PARENT    MACHINE   INPUT            CLASS         INIT    */
 GAME( 1990, neogeo,      0,        mvs,     neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
-GAME( 1990, neosd,  neogeo,      neosd,     neogeo,         neogeo_state, empty_init,  ROT0, "SNK", "Neo-Geo NeoSD", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ngneo,  neogeo,      ngneo,     neogeo,         neogeo_state, empty_init,  ROT0, "SNK", "Neo-Geo .neo support", MACHINE_SUPPORTS_SAVE )
 

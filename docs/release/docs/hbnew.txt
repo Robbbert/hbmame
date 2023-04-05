@@ -4,13 +4,14 @@
 2023-0x-xx 0.245.11
 
 - Fixed bad graphics in Rally Chase (trallycd)
-- Added preliminary support for neosd .neo files
+- Added preliminary support for .neo files used in NeoSD and Mister.
 
 New Games
 ---------------------------------
 - [chuckie]             Chuckie Egg
 - [dktrain2]            Donkey Kong Trainer 1.01 (bugfix)
 - [neo2048]             Neo 2048
+- [ngneo]               Neo Geo support of .neo files
 - [pacjrz80]            Pac-Jr on Pacman Hardware
 - [sbpf]                Super Bubble Pop (fixed)
 
