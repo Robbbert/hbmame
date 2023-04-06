@@ -318,12 +318,18 @@ YEAR COMPANY                          TITLE
 2018 Blastar                          Neo No Panepon 2 Sunnyland Edition (CD) (video on youtube)
 2018 NeoHomeBrew (aka M.Priewe)       Pseudo 3D Racing Game Engine Demo (video on youtube)
 2019 Hine62/SAOH (aka Steven Hine)    Neo Geo Space Invaders (video on youtube)
+2020 Chips on Steroids                Galaxy Guns (demo on youtube)
 2022 Tigerskunk                       Inviyya II / Hyperblaster (video on youtube)
 2022 Frogbull                         Neo Mania (video on youtube)
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
 2023 Cote Gamers/LudoScience          Yo-Yo Shuriken (NGCD) (cotegamers.com) (demo on youtube)
 2023 Neo Byte Force                   Cyborg Force (https://ozzyouzo.itch.io/cyborg-force) (trailer on youtube)
+2023 Bitmap Bureau                    Final Vendetta (there's talk of a NeoGeo release, but...?)
+2023 NeoHomeBrew                      Flippers Demo (on youtube)
+2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
+2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
+
 
 
 *********************************************************************************************************/

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+<!--
+license:CC0
+
+Quickloads for ngmvs. These extensions are supported: 7Z. Files must be at the archival root, no directories allowed.
+
+Currently the software list doesn't work.
+
+-->
+<softwarelist name="mvs_quik" description="MultiMVS quickload">
+
+	<software name="eightman">
+		<description>Eight Man</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="mvs_quik">
+			<dataarea name="quik" size="2592768">
+				<rom name="eightman.7z" size="2592768" crc="D1209720" sha1="42339b27dc6b23ee135c5ea66f9a974c72dca5e2"/>
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>
