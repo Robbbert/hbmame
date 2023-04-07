@@ -1848,10 +1848,6 @@ void neogeo_state::init_kf2k3upl()
 }
 
 
-
-
-
-
 /*********************************************** non-carts */
 
 void neogeo_state::install_banked_bios()
@@ -2110,23 +2106,24 @@ std::error_condition neogeo_state::mvs_open7z(std::string zip_name, std::string 
 
 QUICKLOAD_LOAD_MEMBER(neogeo_state::mvs_q_cb)
 {
-	// assuming that .7z is the only occurence
-	std::string sstr = ".7z";
-	std::string zipname = image.filename();
-	std::size_t found = zipname.find(sstr);
-	zipname.erase(found+3);
-	//printf("%s\n",zipname.c_str());fflush(stdout);
-	std::error_condition filerr = std::errc::no_such_file_or_directory;
 	u32 psize = 0, ssize = 0, msize = 0, vsize = 0, csize = 0, fsize = 0;
+	std::string fname = "prom", sstr = ".7z", zipname = image.filename();
+	std::error_condition filerr = std::errc::no_such_file_or_directory;
+	// assuming that first .7z is the only occurence
+	std::size_t found = zipname.find(sstr);
+	if (found != std::string::npos)
+	{
+		zipname.erase(found+3);
+		//printf("%s\n",zipname.c_str());fflush(stdout);
 
-	std::string fname = "prom";
-	filerr = mvs_open7z(zipname, fname, &cpuregion[0], cpuregion_size, &psize);
-	// The protected sets also have "prom1", but we don't support it.
+		// The protected sets also have "prom1", but we don't support it.
+		filerr = mvs_open7z(zipname, fname, &cpuregion[0], cpuregion_size, &psize);
+	}
 	if (filerr)
 	{
-		image.seterror(image_error::INVALIDIMAGE, "File is corrupt");
-		printf("File is corrupt.\n");
-		image.message("File is corrupt");
+		image.seterror(image_error::INVALIDIMAGE, "File is missing or unusable");
+		printf("File is missing or unusable\n");
+		image.message("File is missing or unusable");
 		return image_init_result::FAIL;
 	}
 

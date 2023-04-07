@@ -15,8 +15,8 @@ Currently the software list doesn't work.
 		<year>1991</year>
 		<publisher>SNK</publisher>
 		<part name="quik" interface="mvs_quik">
-			<dataarea name="quik" size="2592768">
-				<rom name="eightman.7z" size="2592768" crc="D1209720" sha1="42339b27dc6b23ee135c5ea66f9a974c72dca5e2"/>
+			<dataarea name="quik" size="2591953">
+				<rom name="eightman.7z" size="2591953" crc="D1209720" sha1="42339b27dc6b23ee135c5ea66f9a974c72dca5e2"/>
 			</dataarea>
 		</part>
 	</software>

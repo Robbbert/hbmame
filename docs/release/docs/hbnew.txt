@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2023-0x-xx 0.245.11
+2023-04-07 0.245.11
 
 - Fixed bad graphics in Rally Chase (trallycd)
 - Added preliminary support for .neo files used in NeoSD and Mister.
@@ -16,6 +16,22 @@ New Games
 - [ngneo]               Neo Geo support of .neo files
 - [pacjrz80]            Pac-Jr on Pacman Hardware
 - [sbpf]                Super Bubble Pop (fixed)
+
+Notes for ngmvs and ngneo:
+- Very preliminary. Cheats, save-states, memcards etc have not been tested.
+- If loading fails you'll get a black screen.
+- Intended for testing of homebrew. Protected sets are not supported. However,
+  most standard games happen to work.
+- Files are meant to be loaded as loose software. Use the inbuilt File Manager,
+  or the command-line (-quik <full path to file>).
+
+ngneo:
+- Can use a Software List. An example xml has been included which you can expand upon.
+
+ngmvs:
+- The file extension is 7z, which works fine from command-line but is treated as a
+  directory by the File Manager. You'll have to enter it and choose any file within.
+- The files within must be at the root of the 7z, or loading will fail.
 
 
 
