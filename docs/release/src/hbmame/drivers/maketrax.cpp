@@ -1031,3 +1031,138 @@ ROM_END
 
 GAME( 1999, theglobpb, 0, pacman, theglobp, puckman_state,  empty_init,    ROT90,  "chaneman", "Super Glob (English conversion of sprglbpg)", MACHINE_SUPPORTS_SAVE )
 
+
+
+static INPUT_PORTS_START( ponpoko )
+	PORT_START("IN0")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_4WAY
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_4WAY
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_4WAY
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_4WAY
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 )
+	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_COIN1 )
+	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_COIN2 )
+	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE1 )
+
+	/* The 2nd player controls are used even in upright mode */
+	PORT_START("IN1")
+	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_4WAY PORT_PLAYER(2)
+	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_JOYSTICK_LEFT ) PORT_4WAY PORT_PLAYER(2)
+	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_PLAYER(2)
+	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_4WAY PORT_PLAYER(2)
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
+	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_START1 )
+	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_START2 )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
+
+	PORT_START("DSW1")
+	PORT_DIPNAME( 0x03, 0x01, DEF_STR( Bonus_Life ) )
+	PORT_DIPSETTING(    0x01, "10000" )
+	PORT_DIPSETTING(    0x02, "30000" )
+	PORT_DIPSETTING(    0x03, "50000" )
+	PORT_DIPSETTING(    0x00, DEF_STR( None ) )
+	PORT_DIPNAME( 0x0c, 0x00, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x00, "0" )
+	PORT_DIPSETTING(    0x04, "1" )
+	PORT_DIPSETTING(    0x08, "2" )
+	PORT_DIPSETTING(    0x0c, "3" )
+	PORT_DIPNAME( 0x30, 0x20, DEF_STR( Lives ) )
+	PORT_DIPSETTING(    0x00, "2" )
+	PORT_DIPSETTING(    0x10, "3" )
+	PORT_DIPSETTING(    0x20, "4" )
+	PORT_DIPSETTING(    0x30, "5" )
+	PORT_DIPNAME( 0x40, 0x40, DEF_STR( Cabinet ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( Upright ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( Cocktail ) )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+
+	PORT_START("DSW2")
+	PORT_DIPNAME( 0x0f, 0x01, DEF_STR( Coinage ) )
+	PORT_DIPSETTING(    0x04, "A 3/1 B 3/1" )
+	PORT_DIPSETTING(    0x0e, "A 3/1 B 1/2" )
+	PORT_DIPSETTING(    0x0f, "A 3/1 B 1/4" )
+	PORT_DIPSETTING(    0x02, "A 2/1 B 2/1" )
+	PORT_DIPSETTING(    0x0d, "A 2/1 B 1/1" )
+	PORT_DIPSETTING(    0x07, "A 2/1 B 1/3" )
+	PORT_DIPSETTING(    0x0b, "A 2/1 B 1/5" )
+	PORT_DIPSETTING(    0x0c, "A 2/1 B 1/6" )
+	PORT_DIPSETTING(    0x01, "A 1/1 B 1/1" )
+	PORT_DIPSETTING(    0x06, "A 1/1 B 4/5" )
+	PORT_DIPSETTING(    0x05, "A 1/1 B 2/3" )
+	PORT_DIPSETTING(    0x0a, "A 1/1 B 1/3" )
+	PORT_DIPSETTING(    0x08, "A 1/1 B 1/5" )
+	PORT_DIPSETTING(    0x09, "A 1/1 B 1/6" )
+	PORT_DIPSETTING(    0x03, "A 1/2 B 1/2" )
+	PORT_DIPSETTING(    0x00, DEF_STR( Free_Play ) )
+	PORT_DIPNAME( 0x10, 0x10, DEF_STR( Unknown ) )  /* Most likely unused */
+	PORT_DIPSETTING(    0x10, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x20, 0x20, DEF_STR( Unknown ) )  /* Most likely unused */
+	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x40, 0x00, DEF_STR( Demo_Sounds ) )
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME( 0x80, 0x80, DEF_STR( Unknown ) )  /* Most likely unused */
+	PORT_DIPSETTING(    0x80, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+INPUT_PORTS_END
+
+void puckman_state::init_ponpoko()
+{
+	/* The gfx data is swapped wrt the other Pac-Man hardware games. */
+	/* Here we revert it to the usual format. */
+
+	int i, j;
+	uint8_t *RAM, temp;
+	int length = memregion("gfx1")->bytes()/2;
+
+	/* Characters */
+	RAM = memregion("gfx1")->base();
+	for (i = 0;i < length;i += 0x10)
+	{
+		for (j = 0; j < 8; j++)
+		{
+			temp          = RAM[i+j+0x08];
+			RAM[i+j+0x08] = RAM[i+j+0x00];
+			RAM[i+j+0x00] = temp;
+		}
+	}
+
+	/* Sprites */
+	RAM = memregion("gfx1")->base()+length;
+	for (i = 0;i < length;i += 0x20)
+	{
+		for (j = 0; j < 8; j++)
+		{
+			temp          = RAM[i+j+0x18];
+			RAM[i+j+0x18] = RAM[i+j+0x10];
+			RAM[i+j+0x10] = RAM[i+j+0x08];
+			RAM[i+j+0x08] = RAM[i+j+0x00];
+			RAM[i+j+0x00] = temp;
+		}
+	}
+}
+
+ROM_START( chuckie )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "chuckie.1",    0x0000, 0x1000, CRC(f2ba04fd) SHA1(30fd7256ac1706db94dfd0f7e7518b36197f4a32) )
+	ROM_LOAD( "chuckie.2",    0x1000, 0x1000, CRC(161510d3) SHA1(ad77509495a03466554f2388a9651a6183c16066) )
+	ROM_LOAD( "chuckie.3",    0x2000, 0x1000, CRC(5c594671) SHA1(598aa268b45a04e4dafbf7271278b06271b31e50) )
+	ROM_LOAD( "chuckie.4",    0x3000, 0x1000, CRC(25d4fc4f) SHA1(42f8424a8059248bb57e054e3bd129e995b94622) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "chuckie.9",    0x0000, 0x1000, CRC(7394bd6d) SHA1(0a4973636d1366872b1ce1e77772d6fef604922f) )
+	ROM_LOAD( "chuckie.10",   0x1000, 0x1000, CRC(0024afe1) SHA1(bd6ad919a9e116d08b030cd55597900bae6fd7e3) )
+
+	ROM_REGION( 0x0120, "proms", 0 )
+	ROM_LOAD( "chuckie.7f",   0x0000, 0x0020, CRC(f2f2cbfb) SHA1(b00207e379809168c0420d4d2ce5ee49a46e1bd7) )
+	ROM_LOAD( "82s126.4a",    0x0020, 0x0100, CRC(3eb3a8e4) SHA1(19097b5f60d1030f8b82d9f1d3a241f93e5c75d6) )
+
+	PACMAN_SOUND_PROMS
+ROM_END
+
+GAME( 2023, chuckie, 0, woodpek, ponpoko, puckman_state, init_ponpoko, ROT0, "Arlasoft", "Chuckie Egg", MACHINE_SUPPORTS_SAVE )
+

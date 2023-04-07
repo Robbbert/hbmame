@@ -7,11 +7,9 @@ rem echo 1. HBMAME - CLEAN, update MAKEFILE, update VERSION.CPP
 rem echo.
 echo 2. ARCADE - CLEAN, update MAKEFILE, update WINUI.H
 echo.
-rem echo 3. MESSUI - CLEAN, update MAKEFILE, update VERSION.CPP
+echo 3. MAMEUI - CLEAN, update MAKEFILE, update VERSION.CPP
 rem echo.
-rem echo 4. MAMEUI - CLEAN, update MAKEFILE, update VERSION.CPP
-rem echo.
-echo 5. When this is all done, then
+echo 4. When this is all done, then
 pause
 goto arcade
 
@@ -47,7 +45,7 @@ copy /Y src\mame\arcade.bak src\mame\arcade.flt
 copy /Y arcade64.exe arcade.exe
 
 if not exist arcade64.exe goto end
-goto end
+goto mameui
 
 :messui
 cd\mess

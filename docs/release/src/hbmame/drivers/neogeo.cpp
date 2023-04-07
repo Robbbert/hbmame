@@ -5,283 +5,6 @@
 
     Neo-Geo hardware
 
-    Credits:
-        * This driver was made possible by the research done by
-          Charles MacDonald.  For a detailed description of the Neo-Geo
-          hardware, please visit his page at:
-          http://cgfm2.emuviews.com/txt/mvstech.txt
-        * Presented to you by the Shin Emu Keikaku team.
-        * The following people have all spent probably far
-          too much time on this:
-          AVDB
-          Bryan McPhail
-          Fuzz
-          Ernesto Corvi
-          Andrew Prime
-          Zsolt Vasvari
-
-
-    Known driver issues/to-do's:
-    ============================
-
-        * Fatal Fury 3 crashes during the ending - this doesn't occur if
-          the language is set to Japanese, maybe the English endings
-          are incomplete / buggy?
-        * Graphical Glitches caused by incorrect timing?
-          - Some raster effects are imperfect (off by a couple of lines)
-        * Multi-cart support not implemented - the MVS can take up to
-          6 cartridges depending on the board being used
-        * 68000 waitstates on ROM region access, determined by jumpers on cart
-          (garou train stage 3 background bug is probably related to this)
-
-
-    Confirmed non-bugs:
-
-        * Bad zooming in the Kof2003 bootlegs - this is what happens
-          if you try and use the normal bios with a pcb set, it
-          looks like the bootleggers didn't care.
-        * Glitches at the edges of the screen - the real hardware
-          can display 320x224 but most of the games seem designed
-          to work with a width of 304, some less.
-        * Distorted jumping sound in Nightmare in the Dark
-        * Ninja Combat sometimes glitches
-
-
-*****************************************************************************
-
-    The Neo-Geo Multi Video System (MVS), is an arcade system board, being
-    the first product in the Neo-Geo family, designed by Alpha Denshi(ADK)
-    and released in 1990 by SNK. It was known to the coin-op industry, and
-    offered arcade operators the ability to put up to 6 different arcade
-    titles into a single cabinet, a key economic consideration for operators
-    with limited floorspace (games for the Neo-Geo are cartridge based and are
-    easily exchangeable). It comes in many different cabinets but basically
-    consists of an add on board that can be linked to a standard Jamma system.
-    The system was discontinued in 2004.
-    Source (modified): http://en.wikipedia.org/wiki/Neo_Geo
-
-
-    MVS motherboards were produced in 1 / 2 / 4 and 6 Slot versions.
-
-    Known motherboards:
-    ===================
-
-    1 Slot:
-    NEO-MVH MV1
-    NEO-MVH MV1-1
-    NEO-MVH MV1A
-     . NEO-MVH MV1A CHX ??
-    NEO-MVH MV1B (1996.1.19)
-     . NEO-MVH MV1B CHX (1996.1.19) ??
-    NEO-MVH MV1B1 (1998.6.17)
-    NEO-MVH MV1C (1999.4.30)
-    NEO-MVH MV1F
-    NEO-MVH MV1FS
-    NEO-MVH MV1FT
-    NEO-MVH MV1FZ
-    NEO-MVH MV1FZS
-
-    2 Slot:
-    NEO-MVH MV2
-    NEO-MVH MV2F
-    NEO-MVH MV2F-01
-
-    4 Slot:
-    NEO-MVH MV4
-    NEO-MVH MV4F
-    NEO-MVH MV4FS
-    NEO-MVH MV4FT
-    NEO-MVH MV4FT2
-
-    6 Slot:
-    NEO-MVH MV6
-    NEO-MVH MV6F
-
-
-    Neo-Geo Motherboard (info - courtesy of Guru):
-
-          NEO-MVH MV1
-          |---------------------------------------------------------------------|
-          |       4558                                                          |
-          |                                          HC04  HC32                 |
-          |                      SP-S2.SP1  NEO-E0   000-L0.L0   LS244  AS04    |
-          |             YM2610                                                  |
-          | 4558                                                                |
-          |       4558                        5814  HC259   SFIX.SFIX           |
-          |                                                             NEO-I0  |
-          | HA13001 YM3016                    5814                              |
-          --|                                                                   |
-            |     4558                                                          |
-          --|                                                 SM1.SM1   LS32    |
-          |                                                                     |
-          |                           LSPC-A0         PRO-C0            LS244   |
-          |                                                                     |
-          |J              68000                                                 |
-          |A                                                                    |
-          |M                                                                    |
-          |M                                                      NEO-ZMC2      |
-          |A                                                                    |
-          |   LS273  NEO-G0                          58256  58256     Z80A      |
-          |                           58256  58256   58256  58256     6116      |
-          |   LS273 5864                                                        |
-          --| LS05  5864  PRO-B0                                                |
-            |                                                                   |
-          --|             LS06   HC32           D4990A    NEO-F0   24.000MHz    |
-          |                      DSW1    BATT3.6V 32.768kHz       NEO-D0        |
-          |                                           2003  2003                |
-          |---------------------------------------------------------------------|
-
-
-*****************************************************************************
-
-    Neo-Geo game PCB infos:
-    =======================
-
-    The Neo-Geo games for AES (home) and MVS (arcade) systems are cartridge based.
-
-    Each cartridge consists of two PCBs: CHA and PROG.
-    .CHA PCB contains gfx data ('C' - rom), text layer data ('S' - rom) and sound driver ('M' - rom).
-    .PROG PCB contains sample data ('V' - rom) and program code ('P' - rom).
-
-    On most PCBs various custom/protection chips can also be found:
-    (Custom chip detail information (modified) from: http://wiki.neogeodev.org)
-
-    CHA:
-    . NEO-273  (C and S-ROM address latch)
-    . NEO-CMC 90G06CF7042 (NEO-273 logic / NEO-ZMC logic / C-ROM decryption / C and S-ROM multiplexer / S-ROM bankswitching)
-    . NEO-CMC 90G06CF7050 (NEO-273 logic / NEO-ZMC logic / C-ROM decryption / M-ROM decryption / C and S-ROM multiplexer / S-ROM bankswitching)
-    . NEO-ZMC  (Z80 memory controller)
-    . NEO-ZMC2 (Z80 memory controller / Tile serializer)
-    . PRO-CT0  (C-ROM serializer and multiplexer?; used on early AES-CHA boards)
-    . SNK-9201 (C-ROM serializer and multiplexer?; used on early AES-CHA boards)
-
-    PROG:
-    . 0103 (QFP144) (Only found on Metal Slug X NEO-MVS PROGEOP board; function unknown)
-    . ALTERA   (EPM7128SQC100-15) (P-ROM protection chip used for KOF98 NEO-MVS PROGSF1 board and Metal Slug X NEO-MVS PROGEOP board)
-    . NEO-COMA (Microcontroller; used for MULTI PLAY MODE, boards and sets see below)
-    . NEO-PCM2 (SNK 1999) (PCM functionality / V-ROM decryption / P-ROM decoding and bankswitching)
-    . NEO-PCM2 (PLAYMORE 2002) (PCM functionality / V-ROM decryption / P-ROM decoding and bankswitching)
-    . NEO-PVC  (P-ROM decryption and bankswitching) / RAM
-    . NEO-SMA  (P-ROM decryption and bankswitching / RNG / Storage of 256kb game data)
-    . PCM      (ADPCM bus latches / V-ROM multiplexer)
-    . PRO-CT0  (On PROG board used for P-ROM protection -> Fatal Fury 2)
-    . SNK-9201 (On PROG board used for P-ROM protection -> Fatal Fury 2)
-
-
-
-    Known PCBs:
-    ============
-
-    MVS CHA:
-    -- SNK --
-    . NEO-MVS CHA-32
-    . NEO-MVS CHA-8M
-    . NEO-MVS CHA42G
-    . NEO-MVS CHA42G-1
-    . NEO-MVS CHA 42G-2
-    . NEO-MVS CHA 42G-3
-    . NEO-MVS CHA42G-3B
-    . NEO-MVS CHA256
-    . NEO-MVS CHA256B
-    . NEO-MVS CHA512Y
-    . NEO-MVS CHAFIO (1999.6.14) - used with NEO-CMC 90G06C7042 or NEO-CMC 90G06C7050
-    . MVS CHAFIO REV1.0 (KOF-2001)
-    . NEO-MVS CHAFIO (SNK 2002) - MADE IN KOREA
-    -- SNKPLAYMORE --
-    . NEO-MVS CHAFIO (2003.7.24) - used only with NEO-CMC 90G06C7050
-
-    -- SNK development boards --
-    . NEO-MVS CHAMC2
-
-    MVS PROG:
-    -- SNK --
-    . NEO-MVS PROG-NAM
-    . NEO-MVS PROG-HERO
-    . NEO-MVS PROG-EP
-    . NEO-MVS PROG-8MB
-    . NEO-MVS PROGEP8M
-    . NEO-MVS PROG8M42
-    . NEO-MVS PROG16
-    . NEO-MVS PROG42G
-    . NEO-MVS PROG42G-COM
-    . NEO-MVS PROG42G-1
-    . NEO-MVS PROG-G2
-    . NEO-MVS PROG 4096
-    . NEO-MVS PROG 4096 B
-    . NEO-MVS PROGGSC
-    . NEO-MVS PROGSM
-    . NEO-MVS PROGSS3
-    . NEO-MVS PROGTOP
-    . NEO-MVS PROGSF1 (1998.6.17)
-    . NEO-MVS PROGSF1E (1998.6.18)
-    . NEO-MVS PROGEOP (1999.2.2)
-    . NEO-MVS PROGLBA (1999.4.12) - LBA-SUB (2000.2.24)
-    . NEO-MVS PROGBK1 (1994)
-    . NEO-MVS PROGBK1 (2001)
-    . NEO-MVS PROGBK2 (2000.3.21) - used with NEO-PCM2 (1999 SNK) or NEO-PCM2 (2002 PLAYMORE)
-    . MVS PROGBK2 REV1.0 (KOF-2001)
-    . NEO-MVS PROGBK2 (SNK 2002) - MADE IN KOREA
-    -- SNKPLAYMORE --
-    . NEO-MVS PROGBK2R (2003.8.26) - NEO-HYCS (2003.9.29)
-    . NEO-MVS PROGBK3R (2003.9.2) - NEO-HYCS (2003.9.29)
-    . NEO-MVS PROGBK3S (2003.10.1)
-    . NEO-MVS PROGBK2S (2003.10.18)
-
-    -- SNK development boards --
-    . NEO-MVS PROGMC2
-
-
-    AES CHA:
-    -- SNK --
-    . NEO-AEG CHA-32
-    . NEO-AEG CHA-8M
-    . NEO-AEG CHA42G
-    . NEO-AEG CHA42G-1
-    . NEO-AEG CHA42G-2B
-    . NEO-AEG CHA42G-3
-    . NEO-AEG CHA42G-4
-    . NEO-AEG CHA256
-    . NEO-AEG CHA256 B
-    . NEO-AEG CHA256[B]
-    . NEO-AEG CHA256BY
-    . NEO-AEG CHA256RY
-    . NEO-AEG CHA512Y
-    . NEO-AEG CHAFIO (1999.8.10) - used with NEO-CMC 90G06C7042 or NEO-CMC 90G06C7050
-    -- SNKPLAYMORE --
-    . NEO-AEG CHAFIO (2003.7.24) - used only with NEO-CMC 90G06C7050
-
-    AES PROG:
-    -- SNK --
-    . NEO-AEG PROG-NAM
-    . NEO-AEG PROG-HERO
-    . NEO-AEG PROG-4A
-    . NEO-AEG PROG-4B
-    . NEO-AEG PROG 8M42
-    . NEO-AEG PROG B
-    . NEO-AEG PROG16
-    . NEO-AEG PROG42G
-    . NEO-AEG PROG42G-COM
-    . NEO-AEG PROG42G-1
-    . NEO-AEG PROG-G2
-    . NEO-AEG PROG4096 B
-    . NEO-AEG PROGGS
-    . NEO-AEG PROGTOP2
-    . NEO-AEG PROGTOP2Y
-    . NEO-AEG PROGEOP (1999.4.2)
-    . NEO-AEG PROGLBA (1999.7.6)
-    . NEO-AEG PROGRK
-    . NEO-AEG PROGRKB
-    . NEO-AEG PROGBK1Y
-    . NEO-AEG PROGBK1F
-    -- PLAYMORE --
-    . NEO-AEG PROGBK2 (2002.4.1) - used with NEO-PCM2 (1999 SNK) or NEO-PCM2 (2002 PLAYMORE)
-    -- SNKPLAYMORE --
-    . NEO-AEG PROGBK3R (2003.8.29) - NEO-HYCS (2003.9.29)
-    . NEO-AEG PROGBK3S (2003.10.6)
-    . NEO-AEG PROGBK2S (2003.10.16)
-
-
-
     Cartridge colours:
     ==================
 
@@ -301,113 +24,6 @@
 
     The above listed only covers SNK / PLAYMORE / SNKPLAYMORE PCBs. There also exists a
     wide range of 'bootleg' PCBs.
-
-
-    Unofficial pcb's from NG:DEV.TEAM:
-
-    MVS CHA:
-    GIGA CHAR Board 1.0 Rev. A
-    GIGA CHAR Board 1.5 Rev. 0
-    GIGA CHAR Board 1.5 Rev. C
-
-    MVS PROG:
-    GIGA PROG Board 1.0 Rev. B
-    GIGA PROG Board 1.5 Rev. A
-    GIGA PROG Board 1.5 Rev. C
-
-
-    Unofficial pcb's from NEOBITZ:
-
-    MVS CHA:
-    CHARBITZ1 2013.12.01
-
-    MVS PROG:
-    PROGBITZ1 2013.12.01
-
-
-    Neo-Geo game PCB infos by Johnboy
-
-
-
-    MVS cart pinout:
-    ================
-
-    Kindly submitted by Apollo69 (apollo69@columbus.rr.com)
-    =================================================================
-                CTRG1                            CTRG2
-    =================================================================
-         GND = 01A | 01B = GND            GND = 01A | 01B = GND
-         GND = 02A | 02B = GND            GND = 02A | 02B = GND
-          P0 = 03A | 03B = P1             GND = 03A | 03B = GND
-          P2 = 04A | 04B = P3             GND = 04A | 04B = GND
-          P4 = 05A | 05B = P5              D0 = 05A | 05B = A1
-          P6 = 06A | 06B = P7              D1 = 06A | 06B = A2
-          P8 = 07A | 07B = P9              D2 = 07A | 07B = A3
-         P10 = 08A | 08B = P11             D3 = 08A | 08B = A4
-         P12 = 09A | 09B = P13             D4 = 09A | 09B = A5
-         P14 = 10A | 10B = P15             D5 = 10A | 10B = A6
-         P16 = 11A | 11B = P17             D6 = 11A | 11B = A7
-         P18 = 12A | 12B = P19             D7 = 12A | 12B = A8
-         P20 = 13A | 13B = P21             D8 = 13A | 13B = A9
-         P22 = 14A | 14B = P23             D9 = 14A | 14B = A10
-       PCK1B = 15A | 15B = 24M            D10 = 15A | 15B = A11
-       PCK2B = 16A | 16B = 12M            D11 = 16A | 16B = A12
-         2H1 = 17A | 17B = 8M             D12 = 17A | 17B = A13
-         CA4 = 18A | 18B = RESET          D13 = 18A | 18B = A14
-         CR0 = 19A | 19B = CR1            D14 = 19A | 19B = A15
-         CR2 = 20A | 20B = CR3            D15 = 20A | 20B = A16
-         CR4 = 21A | 21B = CR5            R/W = 21A | 21B = A17
-         CR6 = 22A | 22B = CR7             AS = 22A | 22B = A18
-         CR8 = 23A | 23B = CR9         ROMOEU = 23A | 23B = A19
-        CR10 = 24A | 24B = CR11        ROMOEL = 24A | 24B = 68KCLKB
-        CR12 = 25A | 25B = CR13       PORTOEU = 25A | 25B = ROMWAIT
-        CR14 = 26A | 26B = CR15       PORTOEL = 26A | 26B = PWAIT0
-        CR16 = 27A | 27B = CR17       PORTWEU = 27A | 27B = PWAIT1
-        CR18 = 28A | 28B = CR19       PORTWEL = 28A | 28B = PDTACT
-         VCC = 29A | 29B = VCC            VCC = 29A | 29B = VCC
-         VCC = 30A | 30B = VCC            VCC = 30A | 30B = VCC
-         VCC = 31A | 31B = VCC            VCC = 31A | 31B = VCC
-         VCC = 32A | 32B = VCC            VCC = 32A | 32B = VCC
-        CR20 = 33A | 33B = CR21      PORTADRS = 33A | 33B = 4MB
-        CR22 = 34A | 34B = CR23            NC = 34A | 34B = ROMOE
-        CR24 = 35A | 35B = CR25            NC = 35A | 35B = RESET
-        CR26 = 36A | 36B = CR27            NC = 36A | 36B = NC
-        CR28 = 37A | 37B = CR29            NC = 37A | 37B = NC
-        CR30 = 38A | 38B = CR31            NC = 38A | 38B = NC
-          NC = 39A | 39B = FIX00           NC = 39A | 39B = NC
-          NC = 40A | 40B = FIX01           NC = 40A | 40B = NC
-          NC = 41A | 41B = FIX02           NC = 41A | 41B = SDPAD0
-     SYSTEMB = 42A | 42B = FIX03      SYSTEMB = 42A | 42B = SDPAD1
-        SDA0 = 43A | 43B = FIX04        SDPA8 = 43A | 43B = SDPAD2
-        SDA1 = 44A | 44B = FIX05        SDPA9 = 44A | 44B = SDPAD3
-        SDA2 = 45A | 45B = FIX06       SDPA10 = 45A | 45B = SDPAD4
-        SDA3 = 46A | 46B = FIX07       SDPA11 = 46A | 46B = SDPAD5
-        SDA4 = 47A | 47B = SDRD0       SDPMPX = 47A | 47B = SDPAD6
-        SDA5 = 48A | 48B = SDRD1        SDPOE = 48A | 48B = SDPAD7
-        SDA6 = 49A | 49B = SDROM        SDRA8 = 49A | 49B = SDRA00
-        SDA7 = 50A | 50B = SDMRD        SDRA9 = 50A | 50B = SDRA01
-        SDA8 = 51A | 51B = SDDO        SDRA20 = 51A | 51B = SDRA02
-        SDA9 = 52A | 52B = SDD1        SDRA21 = 52A | 52B = SDRA03
-       SDA10 = 53A | 53B = SDD2        SDRA22 = 53A | 53B = SDRA04
-       SDA11 = 54A | 54B = SDD3        SDRA23 = 54A | 54B = SDRA05
-       SDA12 = 55A | 55B = SDD4        SDRMPX = 55A | 55B = SDRA06
-       SDA13 = 56A | 56B = SDD5         SDROE = 56A | 56B = SDRA07
-       SDA14 = 57A | 57B = SDD6           GND = 57A | 57B = GND
-       SDA15 = 58A | 58B = SDD7           GND = 58A | 58B = GND
-         GND = 59A | 59B = GND            GND = 59A | 59B = GND
-         GND = 60A | 60B = GND            GND = 60A | 60B = GND
-
-    CTRG1 (CHA)  = Contains gfx data ('C' - rom), text layer data ('S' - rom) and sound driver ('M' - rom)
-    CTRG2 (PROG) = Contains sample data ('V' - rom) and program code ('P' - rom)
-
-    NOTE: On CTRG2-B, The "A" lines start at "A1". If you trace this on an
-    actual cart, you will see that this is actually "A0" (A0 - A18).
-
-    These are from a very hard to read copy of the schematics, so
-    I hope that I got the pin names correct.
-
-    Apollo69 10/19/99
-
 
 *****************************************************************************
 
@@ -454,6 +70,8 @@
 ****************************************************************************/
 
 #include "includes/neogeo.h"
+#include "unzip.h"
+#include "softlist_dev.h"
 #include "neogeo.lh"
 
 
@@ -1007,6 +625,8 @@ void neogeo_state::init_neogeo()
 	// install controllers
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x300000, 0x300001, 0, 0x01ff7e, 0, read16smo_delegate(*this, FUNC(neogeo_state::in0_r)));
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16smo_delegate(*this, FUNC(neogeo_state::in1_r)));
+	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
 }
 
 
@@ -1066,8 +686,8 @@ void neogeo_state::machine_start()
 	machine().save().register_postload(save_prepost_delegate(FUNC(neogeo_state::neogeo_postload), this));
 
 	m_sprgen->set_screen(m_screen);
-	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
-	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
+//	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
+//	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
 }
 
 
@@ -1472,6 +1092,29 @@ void neogeo_state::no_watchdog(machine_config &config)
 	subdevice<watchdog_timer_device>("watchdog")->set_time(attotime::from_seconds(0.0));
 }
 
+void neogeo_state::ngneo(machine_config &config)
+{
+	mvs(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_noslot);
+
+	// quickload
+	quickload_image_device &quickload(QUICKLOAD(config, "quickload", "neo", attotime::from_seconds(1)));
+	quickload.set_load_callback(FUNC(neogeo_state::neo_q_cb));
+	quickload.set_interface("neo_quik");
+	SOFTWARE_LIST(config, "quik_list").set_original("neo_quik");
+}
+
+void neogeo_state::ngmvs(machine_config &config)
+{
+	mvs(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::main_map_noslot);
+
+	// quickload
+	quickload_image_device &quickload(QUICKLOAD(config, "quickload", "7z", attotime::from_seconds(1)));
+	quickload.set_load_callback(FUNC(neogeo_state::mvs_q_cb));
+	quickload.set_interface("mvs_quik");
+	//SOFTWARE_LIST(config, "quik_list").set_original("mvs_quik");    // not working
+}
 
 void neogeo_state::gsc_map(address_map &map)
 {
@@ -2205,10 +1848,6 @@ void neogeo_state::init_kf2k3upl()
 }
 
 
-
-
-
-
 /*********************************************** non-carts */
 
 void neogeo_state::install_banked_bios()
@@ -2291,6 +1930,254 @@ void neogeo_state::init_cmc42sfix()
 }
 
 
+QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
+{
+	if (image.length() < 0x60000)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "File too short");
+		printf("File too short\n");
+		image.message("File too short");
+		return image_init_result::FAIL;
+	}
+
+	// check header
+	u8 header[0x1000];
+	image.fread( &header, 0x1000);
+
+	if ((header[0] == 'N') && (header[1] == 'E') && (header[2] == 'O'))
+	{
+	}
+	else
+	{
+		image.seterror(image_error::INVALIDIMAGE, "NEO header missing");
+		printf("NEO header missing\n");
+		image.message("NEO header missing");
+		return image_init_result::FAIL;
+	}
+
+	// Get file sizes
+	u32 psize = header[4] + header[5]*0x100 + header[6]*0x10000 + header[7]*0x1000000;
+	u32 ssize = header[8] + header[9]*0x100 + header[10]*0x10000 + header[11]*0x1000000;
+	u32 msize = header[12] + header[13]*0x100 + header[14]*0x10000 + header[15]*0x1000000;
+	u32 vsize = header[16] + header[17]*0x100 + header[18]*0x10000 + header[19]*0x1000000;
+	u32 v2size = header[20] + header[21]*0x100 + header[22]*0x10000 + header[23]*0x1000000;
+	u32 csize = header[24] + header[25]*0x100 + header[26]*0x10000 + header[27]*0x1000000;
+
+	// Make sure file is big enough
+	u64 total = 0x1000 + psize + ssize + msize + vsize + v2size + csize;
+	if (total > image.length())
+	{
+		image.seterror(image_error::INVALIDIMAGE, "File is corrupt");
+		printf("File is corrupt.\n");
+		image.message("File is corrupt");
+		return image_init_result::FAIL;
+	}
+
+	// Make sure regions are big enough
+	if (psize > cpuregion_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "CPU region in NEO file is larger than supported");
+		printf("CPU size requested (%08X) is greater than available (%08X)\n",psize,cpuregion_size);
+		image.message("CPU region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (ssize > fix_region_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "FIX region in NEO file is larger than supported");
+		printf("FIX size requested (%08X) is greater than available (%08X)\n",ssize,fix_region_size);
+		image.message("FIX region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (vsize > ym_region_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "ADPCMA region in NEO file is larger than supported");
+		printf("ADPCMA size requested (%08X) is greater than available (%08X)\n",vsize,ym_region_size);
+		image.message("ADPCMA region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	u32 ym2_region_size = memregion("ymsnd:adpcmb")->bytes();
+	if ((v2size > ym2_region_size) || (ym_region_size > ym2_region_size))
+	{
+		image.seterror(image_error::INVALIDIMAGE, "ADPCMB region in NEO file is larger than supported");
+		printf("ADPCMB size requested (%08X) is greater than available (%08X)\n",v2size,ym2_region_size);
+		image.message("ADPCMB region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (msize > (audio_region_size - 0x10000))
+	{
+		image.seterror(image_error::INVALIDIMAGE, "AUDIO region in NEO file is larger than supported");
+		printf("AUDIO region (%08X) in NEO file is larger than supported\n",msize);
+		image.message("AUDIO region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	if (csize > spr_region_size)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "SPR region in NEO file is larger than supported");
+		printf("SPR size requested (%08X) is greater than available (%08X)\n",csize,spr_region_size);
+		image.message("SPR region in NEO file is larger than supported");
+		return image_init_result::FAIL;
+	}
+
+	// copy the data from the NEO file to the regions
+	printf("psize=%X\n",psize);fflush(stdout);
+	if (psize)
+		image.fread(&cpuregion[0],psize);
+
+	printf("ssize=%X\n",ssize);fflush(stdout);
+	if (ssize)
+		image.fread(&fix_region[0],ssize);
+
+	printf("msize=%X\n",msize);fflush(stdout);
+	if (msize)
+	{
+		image.fread(&audiocpu_region[0x10000],msize);
+		std::copy(&audiocpu_region[0x10000], &audiocpu_region[0x1ffff], &audiocpu_region[0]);
+	}
+
+	printf("vsize=%X\n",vsize);fflush(stdout);
+	if (vsize)
+	{
+		image.fread(&ym_region[0],vsize);
+		std::copy(&ym_region[0], &ym_region[vsize-1], &memregion("ymsnd:adpcmb")->base()[0]); // fix totc,rotd
+	}
+
+	printf("v2size=%X\n",v2size);fflush(stdout);
+	if (v2size)
+		image.fread(&memregion("ymsnd:adpcmb")->base()[0],v2size);
+
+	printf("csize=%X\n",csize);fflush(stdout);
+	if (csize)
+		image.fread(&spr_region[0],csize);
+
+	// Prepare the system
+	printf("Ready to start\n");fflush(stdout);
+	init_neogeo();
+	m_sprgen->set_sprite_region(m_region_sprites->base(), csize); // fix wh2
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), ssize, m_region_fixedbios);
+	m_sprgen->optimize_sprite_data(); // fix sprites
+
+	// Fix the 512k text with horrible game-specific stuff
+	if (ssize > 0x20000)
+	{
+		u16 game = cpuregion[0x109] * 256 + cpuregion[0x108];
+		// identify kof2000, matrim, svc, kof2003
+		if ((game == 0x257) || (game == 0x266) || (game == 0x269) || (game == 0x271))
+			m_sprgen->m_fixed_layer_bank_type = 2;
+		else
+			m_sprgen->m_fixed_layer_bank_type = 1;
+	}
+
+	m_audiocpu->reset();
+	machine_reset();
+
+	return image_init_result::PASS;
+}
+
+std::error_condition neogeo_state::mvs_open7z(std::string zip_name, std::string filename, uint8_t *region_name, u32 region_size, u32 *file_size)
+{
+	util::archive_file::ptr zip;
+	std::error_condition ziperr{};
+
+	// look into 7z file
+	ziperr = util::archive_file::open_7z(zip_name, zip);
+
+	if (!ziperr)
+	{
+		int found = zip->search(filename, false);
+
+		if (found >= 0)
+		{
+			ziperr = zip->decompress(&region_name[0], region_size);
+
+			if (!ziperr)
+				*file_size = zip->current_uncompressed_length();
+		}
+
+		zip.reset();
+	}
+
+	return ziperr;
+}
+
+QUICKLOAD_LOAD_MEMBER(neogeo_state::mvs_q_cb)
+{
+	u32 psize = 0, ssize = 0, msize = 0, vsize = 0, csize = 0, fsize = 0;
+	std::string fname = "prom", sstr = ".7z", zipname = image.filename();
+	std::error_condition filerr = std::errc::no_such_file_or_directory;
+	// assuming that first .7z is the only occurence
+	std::size_t found = zipname.find(sstr);
+	if (found != std::string::npos)
+	{
+		zipname.erase(found+3);
+		//printf("%s\n",zipname.c_str());fflush(stdout);
+
+		// The protected sets also have "prom1", but we don't support it.
+		filerr = mvs_open7z(zipname, fname, &cpuregion[0], cpuregion_size, &psize);
+	}
+	if (filerr)
+	{
+		image.seterror(image_error::INVALIDIMAGE, "File is missing or unusable");
+		printf("File is missing or unusable\n");
+		image.message("File is missing or unusable");
+		return image_init_result::FAIL;
+	}
+
+	fname = "srom";
+	filerr = mvs_open7z(zipname, fname, &fix_region[0], fix_region_size, &ssize);
+
+	fname = "m1rom";
+	filerr = mvs_open7z(zipname, fname, &audiocpu_region[0x10000], audio_region_size - 0x10000, &msize);
+	if (msize)
+		std::copy(&audiocpu_region[0x10000], &audiocpu_region[0x1ffff], &audiocpu_region[0]);
+
+	fname = "vroma0";
+	filerr = mvs_open7z(zipname, fname, &ym_region[0], ym_region_size, &vsize);
+	if (vsize)
+		std::copy(&ym_region[0], &ym_region[ym_region_size-1], &memregion("ymsnd:adpcmb")->base()[0]);
+	// Assume that the ADPCMB rom would be called "vromb0", but no current sets use it.
+
+	fname = "crom0";
+	filerr = mvs_open7z(zipname, fname, &spr_region[0], spr_region_size, &csize);
+	if (csize)
+		for (u32 i = 0; i < csize; i+=4)
+			std::swap(spr_region[i+1], spr_region[i+2]);
+
+	init_neogeo();
+	m_sprgen->set_sprite_region(m_region_sprites->base(), csize);
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), ssize, m_region_fixedbios);
+	m_sprgen->optimize_sprite_data();
+
+	// Fix the 512k text with horrible game-specific stuff
+	if (ssize > 0x20000)
+	{
+		u16 game = cpuregion[0x109] * 256 + cpuregion[0x108];
+		// identify kof2000, matrim, svc, kof2003
+		if ((game == 0x257) || (game == 0x266) || (game == 0x269) || (game == 0x271))
+			m_sprgen->m_fixed_layer_bank_type = 2;
+		else
+			m_sprgen->m_fixed_layer_bank_type = 1;
+	}
+
+	// This file is optionally included, perhaps to signify how to handle protection?
+	// The contents are an ascii number, so for now just print it out.
+	fname = "fpga";
+	unsigned char buffer[8] = {};
+	filerr = mvs_open7z(zipname, fname, &buffer[0], 4, &fsize);
+	if (fsize)
+		printf("FPGA code = %s\n",buffer);
+
+	m_audiocpu->reset();
+	machine_reset();
+
+	return image_init_result::PASS;
+}
+
+
 /* dummy entry for the dummy bios driver */
 ROM_START( neogeo )
 	NEOGEO_BIOS
@@ -2313,7 +2200,59 @@ ROM_START( neogeo )
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
 ROM_END
 
+ROM_START( ngneo )
+	NEOGEO_BIOS
+
+	ROM_REGION( 0x900000, "maincpu", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x90000, "audiocpu", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_Y_ZOOM
+
+	ROM_REGION( 0x80000, "fixed", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x20000, "fixedbios", 0 )
+	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000000, "sprites", ROMREGION_ERASEFF )
+ROM_END
+
+ROM_START( ngmvs )
+	NEOGEO_BIOS
+
+	ROM_REGION( 0x900000, "maincpu", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x90000, "audiocpu", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_Y_ZOOM
+
+	ROM_REGION( 0x80000, "fixed", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x20000, "fixedbios", 0 )
+	ROM_LOAD( "sfix.sfix", 0x000000, 0x20000, CRC(c2ea0cfd) SHA1(fd4a618cdcdbf849374f0a50dd8efe9dbab706c3) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcmb", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x4000000, "sprites", ROMREGION_ERASEFF )
+ROM_END
+
 
 /*    YEAR  NAME        PARENT    MACHINE   INPUT            CLASS         INIT    */
-GAME( 1990, neogeo,     0,        mvs,      neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+GAME( 1990, neogeo,      0,        mvs,     neogeo_6slot,   neogeo_state, init_neogeo,  ROT0, "SNK", "Neo-Geo", MACHINE_IS_BIOS_ROOT | MACHINE_SUPPORTS_SAVE )
+GAME( 1990, ngneo,  neogeo,      ngneo,     neogeo,         neogeo_state, empty_init,  ROT0, "SNK", "Neo-Geo .neo support", 0 )
+GAME( 1990, ngmvs,  neogeo,      ngmvs,     neogeo,         neogeo_state, empty_init,  ROT0, "SNK", "Neo-Geo MultiMVS support", 0 )
 
