@@ -193,6 +193,7 @@ NUM GAME YEAR COMPANY                 TITLE
 497 0993 2021 iq132                   Cabal (Neo-Geo port)
 498 0052 2021 Kako Eimon              Abyssal Infants
 499 2048 2021 Nicole Branagan         Neo 2048
+500 0993 2022 iq132                   Kid no Hore Hore Daisakusen (Neo-Geo port)
 
 
 
@@ -1758,7 +1759,7 @@ ROM_START( nblktiger )
 ROM_END
 
 
-// 497: Cabal
+// 497: Cabal (port by iq_132)
 // Bugs: A few minor graphics issues
 ROM_START( cabalng )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1777,7 +1778,7 @@ ROM_START( cabalng )
 	ROM_LOAD16_BYTE( "497.c2", 0x0000001, 0x100000, CRC(edf277f2) SHA1(aa287598a620f03794e143500ff842dfb4b64d9a) )
 ROM_END
 
-// 497: Cabal
+// 497: Cabal (port by iq_132)
 // Bugs: A few minor graphics issues
 ROM_START( cabalng1 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -1852,6 +1853,25 @@ ROM_START( neo2048 )
 	// Sprites - yes, these overwrite part of the above roms
 	ROM_LOAD16_BYTE( "499.c3", 0x100000, 0x000c00, CRC(ef3e848e) SHA1(7a85764ead7a1a48b52479d760e6013ba018e9b4) )
 	ROM_LOAD16_BYTE( "499.c4", 0x100001, 0x000c00, CRC(933b4e8f) SHA1(8cad7038bfd696ba8288d2d1292a3271087e2ec7) )
+ROM_END
+
+
+// 500: Kid no Hore Hore Daisakusen (port by iq_132)
+ROM_START( horekidb3 ) // beta 3, incomplete?
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "500.p1", 0x000000, 0x080000, CRC(f0b31d22) SHA1(3b942f5f4de04bcaf2a46c8bc16e38b557191a10) )
+
+	NEO_SFIX_128K( "500.s1", CRC(b88013e2) SHA1(99ba753412d21ee6a6f1d63c645d74a027e5a143) )
+
+	NEO_BIOS_AUDIO_64K( "500.m1", CRC(d82c2064) SHA1(ddec7b210c6395501797b650b9473693b52daab2) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "500.v1", 0x000000, 0x800000, CRC(fccb11f4) SHA1(ac027581c1b23036aab74afa79d5fefc59a45e32) )
+	ROM_LOAD( "500.v2", 0x100000, 0x800000, CRC(c65a5900) SHA1(a87f0bddb885082f1e8907a451640572f574c0b9) )
+
+	ROM_REGION( 0x080000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "500.c1", 0x0000000, 0x040000, CRC(18b0b56b) SHA1(b3e4cdcb72bd1d8af6b505280774ec49de1f7c66) )
+	ROM_LOAD16_BYTE( "500.c2", 0x0000001, 0x040000, CRC(9ccea1d5) SHA1(10c7c99d2a647e90e9b2b0d005733fea786ac61c) )
 ROM_END
 
 
@@ -3315,6 +3335,7 @@ GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid, 2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )

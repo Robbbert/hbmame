@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2023-0x-xx 0.245.12
+
+
+New Games
+---------------------------------
+- [horekidb3]           Kid no Hore Hore Daisakusen (Neo-Geo port)
+
+
+
+
 2023-04-07 0.245.11
 
 - Fixed bad graphics in Rally Chase (trallycd)
