@@ -334,7 +334,7 @@ ROM_START( dkong08 ) // from dkafe
 	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
 ROM_END
 
-ROM_START( dkong09 ) // from dkafe
+ROM_START( dkong09 ) // from dkafe  - supposed to say PANIC! and have red lava rising, but none of that happens.
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "c_5et_g.bin",  0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
 	ROM_LOAD( "c_5ct_g.bin",  0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
@@ -2151,7 +2151,7 @@ GAME( 2022, dkong05,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dkong06,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (Half Kong)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong07,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Kirai Shouen, 125scratch", "Donkey Kong (Kana Kong)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong08,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Konkey Dong", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, dkong09,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (DK Lava Panic!)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, dkong09,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (DK Lava Panic!)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong10,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (NoLuck Kong)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong11,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (Octo Monkey)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong12,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (Pies only)", MACHINE_SUPPORTS_SAVE )
