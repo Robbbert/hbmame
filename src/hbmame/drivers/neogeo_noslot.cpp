@@ -5785,7 +5785,7 @@ ROM_START( nitd ) /* Original Version - Encrypted GFX */ /* MVS ONLY RELEASE */
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
-	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260.c1", 0x0000000, 0x800000, CRC(147b0c7f) SHA1(a647c3a2f6d146ff47521c1d39f58830601f5781) )

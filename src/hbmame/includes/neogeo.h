@@ -214,7 +214,7 @@ public:
 
 private:
 
-	std::error_condition mvs_open7z(std::string zip_name, std::string filename, uint8_t *region_name, u32 region_size, u32 *file_size);
+	u32 mvs_open7z(std::string zip_name, std::string filename, uint8_t *region_name, u32 region_size);
 	void io_control_w(offs_t offset, u8 data);
 	u16 memcard_r(offs_t offset);
 	void memcard_w(offs_t offset, u16 data, u16 mem_mask = ~0);
