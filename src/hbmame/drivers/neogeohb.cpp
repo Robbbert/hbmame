@@ -98,7 +98,7 @@ NUM TITLES
 272 Samurai Shodown 5 Special / Samurai Spirits Zero Special
 
 
-********************** Official Titles **********************************
+********************** Official Titles (including non-free indie) **********************************
 (from info gathered from various sites, hopefully correct)
 
 NUM GAME YEAR COMPANY                 TITLE
@@ -125,6 +125,7 @@ NUM GAME YEAR COMPANY                 TITLE
 304*0304 2013 NG:DEV.Team             NEO XYX
 305*0305 2014 NG:DEV.Team             Razion
 306*0306 2015 NG:DEV.Team             Kraut Buster (could be year2016)
+307*     2023 Cote Gamers/LudoScience Yo-Yo Shuriken (released 2023-04-11, not free) https://drludos.itch.io/yo-yo-shuriken-neo-geo
 316 0048 2011 Le Cortex               Treasure of the Caribbean (remake)
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
@@ -324,7 +325,6 @@ YEAR COMPANY                          TITLE
 2022 Frogbull                         Neo Mania (video on youtube)
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
-2023 Cote Gamers/LudoScience          Yo-Yo Shuriken (NGCD) (cotegamers.com) (demo on youtube)
 2023 Neo Byte Force                   Cyborg Force (https://ozzyouzo.itch.io/cyborg-force) (trailer on youtube)
 2023 Bitmap Bureau                    Final Vendetta (there's talk of a NeoGeo release, but...?)
 2023 NeoHomeBrew                      Flippers Demo (on youtube)
