@@ -113,10 +113,11 @@ u16 pgm_arm_type1_state::arm7_type1_ram_r(offs_t offset, u16 mem_mask)
 
 void pgm_arm_type1_state::arm7_type1_ram_w(offs_t offset, u16 data, u16 mem_mask)
 {
-	u16 *share16 = reinterpret_cast<u16 *>(m_arm7_shareram.target());
+	// not writeable!!
+//	u16 *share16 = reinterpret_cast<u16 *>(m_arm7_shareram.target());
 
 	LOGPROT("M68K: ARM7 Shared RAM Write: %04x = %04x (%04x) %s\n", BYTE_XOR_LE(offset), data, mem_mask, machine().describe_context());
-	COMBINE_DATA(&share16[BYTE_XOR_LE(offset << 1)]);
+//	COMBINE_DATA(&share16[BYTE_XOR_LE(offset << 1)]);
 }
 
 
@@ -128,6 +129,9 @@ u32 pgm_arm_type1_state::arm7_type1_unk_r()
 	return val;
 }
 
+// this should return data from the 68K ROM
+// which is hash checked while encrypted
+// returning 0 keeps the asic happy for now
 u32 pgm_arm_type1_state::arm7_type1_exrom_r()
 {
 	return 0x00000000;
@@ -159,7 +163,7 @@ void pgm_arm_type1_state::kov_map(address_map &map)
 void pgm_arm_type1_state::_55857E_arm7_map(address_map &map)
 {
 	map(0x00000000, 0x00003fff).rom();
-	map(0x08100000, 0x083fffff).r(FUNC(pgm_arm_type1_state::arm7_type1_exrom_r)); // unpopulated, returns 0 to keep checksum happy
+	map(0x08100000, 0x083fffff).r(FUNC(pgm_arm_type1_state::arm7_type1_exrom_r));
 	map(0x10000000, 0x100003ff).ram(); // internal ram for asic
 	map(0x40000000, 0x40000003).rw(FUNC(pgm_arm_type1_state::arm7_type1_protlatch_r), FUNC(pgm_arm_type1_state::arm7_type1_protlatch_w));
 	map(0x40000008, 0x4000000b).nopw(); // ?

@@ -31,24 +31,33 @@ There is no rom for the Z80, the program is uploaded by the 68k
 Known Games on this Platform
 ----------------------------
 
-
 010x  - 1997  - Oriental Legend
 020x  - 1997  - Dragon World 2
 030x  - 1998  - The Killing Blade
-040x  - 1998  - Dragon World 3
+040x  - 1998  - Dragon World 3 / Ex
 050x  - 1999? - Oriental Legend Super
 060x  - 1999  - Knights of Valor, Knights of Valor Plus, Knights of Valor Super Heroes
-070x  - 1999  - Photo Y2k
+070x  - 1999  - Photo Y2K
 080x  - 1999  - Puzzle Star
 090x  - 2001  - Puzzli II
 100x  - 2001  - Martial Masters
-
+110x  - 2001  - Photo Y2K2 (Also seems to be used by Shan Liang San He Yi (Flash 3-in-1), 2004)?
 120x  - 2001  - Knights of Valor 2 Plus (9 Dragons?)
 130x  - 2001  - DoDonpachi II
 
+0440x - 2002  - DoDonPachi III / DoDonPachi Dai-Ou-Jou / DoDonPachi Dai-Ou-Jou Black Label
 0450x - 2002  - Demon Front (also known to be produced / sold in a single PCB version)
+0460x - 2002  - The Gladiator / Shen Jian Fu Mo Lu / Shen Jian Fengyun / Tougenkyou - Road of the Sword (also known to be produced / sold in a single PCB version)
+0470x - 2002  - Ketsui: Kizuna Jigoku Tachi
+0480x - 2003  - Espgaluda
 
-(add more)
+0530x - 2004  - Oriental Legend 2 (Korea) / Xiyou Shi E Chuan Qunmoluanwu
+0540x - 2004  - Knights of Valour Super Heroes Plus / Sanguo Zhan Ji Luanshi Xiaoxiong / Sanguo Zhan Ji Fengyun Zaiqi / Sangoku Senki Super Heroes (SANGO EX+)
+0550x - 2004? - Long Hu Zhengba 4 (m027 hardware)
+0560x - 2005  - S.V.G. - Spectral vs Generation / Sheng Mo Shiji (also known to be produced / sold in a single PCB version)
+0570x - 2005  - The Killing Blade Plus / Ao Jian Kuang Dao Jiaqiang Ban
+
+
 
 TODO:
 
@@ -203,6 +212,12 @@ Notes:
 #include "screen.h"
 #include "speaker.h"
 
+// just irq4 ack? watchdog on cart?
+void pgm_state::irq4_ack_w(offs_t offset, u16 data, u16 mem_mask)
+{
+	m_maincpu->set_input_line(M68K_IRQ_4, CLEAR_LINE);
+}
+
 u16 pgm_state::videoram_r(offs_t offset)
 {
 	if (offset < 0x4000 / 2)
@@ -251,7 +266,7 @@ void pgm_state::z80_reset_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	if (data == 0x5050)
 	{
-		m_ics->reset(); // do we need this? sound keeps playing even when reset?
+		m_ics->reset(); // correct? sound keeps playing even when reset?
 		m_soundcpu->set_input_line(INPUT_LINE_HALT, CLEAR_LINE);
 		m_soundcpu->pulse_input_line(INPUT_LINE_RESET, attotime::zero);
 	}
@@ -294,7 +309,7 @@ void pgm_state::pgm_z80_io(address_map &map)
 
 void pgm_state::pgm_base_mem(address_map &map)
 {
-	map(0x700006, 0x700007).noprw(); // Watchdog? - appears to be on-cart!
+	map(0x700006, 0x700007).w(FUNC(pgm_state::irq4_ack_w)).nopr(); // NOP Reads (triggered using clr.w   $700006.l)
 
 	map(0x800000, 0x81ffff).mirror(0x0e0000).ram().share("sram"); // Main Ram
 
@@ -328,7 +343,7 @@ void pgm_state::pgm_mem(address_map &map)
 void pgm_state::pgm_basic_mem(address_map &map)
 {
 	pgm_mem(map);
-	map(0x100000, 0x3fffff).bankr("bank1"); // Game ROM
+	map(0x100000, 0x4fffff).bankr("bank1"); // Game ROM
 	// cart can map from 0-7fffff & d00000-ffffff
 }
 
@@ -441,37 +456,37 @@ GFXDECODE_END
 
 #if 0
 	w/irq4 disabled
-	drgw2 		= true (no coin)
-	drgw3 		= true (no coin)
-	dwex 		= true (no coin)
-	dw2001 		= true (no coin)
-	dwpc 		= true (no coin)
-	dmnfront 	= true (no coin)
-	ket 		= true (no coin)
-	espgal 		= true (no coin)
-	killbldp 	= true (no coin)
-	killbld 	= true (no coin)
-	theglad		= true (no coin)
-	svg/pcb		= true (no coin)
-	happy6		= true (no coin)
-	pgm3in1		= true (no coin)
-	photoy2k 	= false (works fine without it)
-	py2k2 		= false (works fine without it)
-	puzzli2 	= false (works fine without it)
-	martmast	= false (works fine without it)
-	ddp2		= false (works fine without it)
-	ddp3		= false (works fine without it)
-	puzlstar	= false (works fine without it)
-	orlegend 	= false (works fine without it)
-	olds 		= false (works fine without it)
-	oldsplus	= false (works fine without it)
-	kov 		= false (works fine without it)
-	kovplus		= false (works fine without it)
-	kovsh	 	= false (works fine without it)
-	kovshp	 	= false (works fine without it)
-	kovytzy	 	= false (works fine without it)
-	kov2	 	= false (works fine without it)
-	kov2p	 	= false (works fine without it)
+	drgw2 		= no coin
+	drgw3 		= no coin
+	dwex 		= no coin
+	dw2001 		= no coin
+	dwpc 		= no coin
+	dmnfront 	= no coin
+	ket 		= no coin
+	espgal 		= no coin
+	killbldp 	= no coin
+	killbld 	= no coin
+	theglad		= no coin
+	svg/pcb		= no coin
+	happy6		= no coin
+	pgm3in1		= no coin
+	photoy2k 	= works fine without it
+	py2k2 		= works fine without it
+	puzzli2 	= works fine without it
+	martmast	= works fine without it
+	ddp2		= works fine without it
+	ddp3		= works fine without it
+	puzlstar	= works fine without it
+	orlegend 	= works fine without it
+	olds 		= works fine without it
+	oldsplus	= works fine without it
+	kov 		= works fine without it
+	kovplus		= works fine without it
+	kovsh	 	= works fine without it
+	kovshp	 	= works fine without it
+	kovytzy	 	= works fine without it
+	kov2	 	= works fine without it
+	kov2p	 	= works fine without it
 #endif
 
 TIMER_DEVICE_CALLBACK_MEMBER(pgm_state::interrupt)
@@ -479,13 +494,11 @@ TIMER_DEVICE_CALLBACK_MEMBER(pgm_state::interrupt)
 	int scanline = param;
 
 	if (scanline == 224) {
-		logerror("irq6\n");
 		m_maincpu->set_input_line(M68K_IRQ_6, ASSERT_LINE);
 	}
-	if (scanline == 218) {// verified on drgw2 cart - this is configured by the cartridge
-		logerror("irq4\n");
-		//if (!m_irq4_disabled)
-		m_maincpu->set_input_line(M68K_IRQ_4, ASSERT_LINE);
+	if (scanline == 218) {// verified on drgw2 cart - this is configured by the cartridge - confirm if this is only on line 218?
+		if (!m_irq4_disabled)
+			m_maincpu->set_input_line(M68K_IRQ_4, ASSERT_LINE); // wrong, should be ASSERT and ack at $b0e000, but doesn't ever ack???
 	}
 }
 
@@ -1077,6 +1090,7 @@ ROM_START( drgw2 )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dragon_ii_v-110x.u2",    0x100000, 0x080000, CRC(1978106b) SHA1(af8a13d7783b755a58762c98bdc32cab845b2251) )
+	ROM_RELOAD(0x180000,0x80000)
 
 	ROM_REGION( 0xa00000, "tiles",  0 ) // 8x8 Text Tiles + 32x32 BG Tiles
 	PGM_VIDEO_BIOS
@@ -1096,6 +1110,7 @@ ROM_START( drgw2100x )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dragon_ii_v-100x.u2",    0x100000, 0x080000,  CRC(5e71851d) SHA1(62052469f69daec88efd26652c1b893d6f981912) )
+	ROM_RELOAD(0x180000,0x80000)
 
 	ROM_REGION( 0xa00000, "tiles",  0 ) // 8x8 Text Tiles + 32x32 BG Tiles
 	PGM_VIDEO_BIOS
@@ -1115,6 +1130,7 @@ ROM_START( drgw2101c )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dragon_ii_v-101c.u2",    0x100000, 0x080000, CRC(b0c592fa) SHA1(87ccfdb940303ebcf42cb2952aecae97648c1e0d) )
+	ROM_RELOAD(0x180000,0x80000)
 
 	ROM_REGION( 0xa00000, "tiles",  0 ) // 8x8 Text Tiles + 32x32 BG Tiles
 	PGM_VIDEO_BIOS
@@ -1134,6 +1150,7 @@ ROM_START( drgw2100c )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dragon_ii_v-100c.u2",    0x100000, 0x080000, CRC(67467981) SHA1(58af01a3871b6179fe42ff471cc39a2161940043) )
+	ROM_RELOAD(0x180000,0x80000)
 
 	ROM_REGION( 0xa00000, "tiles",  0 ) // 8x8 Text Tiles + 32x32 BG Tiles
 	PGM_VIDEO_BIOS
@@ -1153,6 +1170,7 @@ ROM_START( drgw2100j )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dragon_ii_v100j.u2",    0x100000, 0x080000, CRC(f8f8393e) SHA1(ef0db668b4e4f661d4c1e95d57afe881bcdf13cc) )
+	ROM_RELOAD(0x180000,0x80000)
 	// A cart has been found with same contents but ROM label on sticker is DRAGON II V101J.
 	// Is this correct or wrong sticker applied?
 
@@ -1174,6 +1192,7 @@ ROM_START( drgw2100hk ) // the IGS025 has a "DRAGON-II 0004-1" sticker, the IGS0
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dragon_ii_v-100-h.u2",    0x100000, 0x080000, CRC(c6e2e6ec) SHA1(84145dfb26857ea20efb233363f175bc9bb25b0c) )
+	ROM_RELOAD(0x180000,0x80000)
 
 	ROM_REGION( 0xa00000, "tiles",  0 ) // 8x8 Text Tiles + 32x32 BG Tiles
 	PGM_VIDEO_BIOS
@@ -3452,6 +3471,13 @@ ROM_START( dw2001 )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "dw2001_u22.u22", 0x100000, 0x80000, CRC(5cabed92) SHA1(d513e353c5c4695b16228e0bda9388c396aa4a81) ) // 02/21/01 16:05:16
+	ROM_RELOAD(0x180000,0x80000)
+	ROM_RELOAD(0x200000,0x80000)
+	ROM_RELOAD(0x280000,0x80000)
+	ROM_RELOAD(0x300000,0x80000)
+	ROM_RELOAD(0x380000,0x80000)
+	ROM_RELOAD(0x400000,0x80000)
+	ROM_RELOAD(0x480000,0x80000)
 
 	ROM_REGION( 0x4000, "prot", ROMREGION_ERASEFF ) // ARM protection ASIC - internal rom
 	ROM_LOAD( "dw2001_igs027a_japan.bin", 0x000000, 0x04000, CRC(3a79159b) SHA1(0d693c798ce24c6a749669be8c7b1e4633409e49) )
@@ -4675,6 +4701,13 @@ ROM_START( happy6 )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "s101xx_u5.u5",      0x100000, 0x080000, CRC(aa4646e3) SHA1(e6772cc480ddd3e1d199364b1f2ff93b973e6842) ) // V101 03/17/04 11:26:48
+	ROM_RELOAD(0x180000,0x80000)
+	ROM_RELOAD(0x200000,0x80000)
+	ROM_RELOAD(0x280000,0x80000)
+	ROM_RELOAD(0x300000,0x80000)
+	ROM_RELOAD(0x380000,0x80000)
+	ROM_RELOAD(0x400000,0x80000)
+	ROM_RELOAD(0x480000,0x80000)
 
 	ROM_REGION( 0x4000, "prot", 0 ) // ARM protection ASIC - internal rom
 	// data before 0x188 is read-protected and cannot be read even with a trojan (as with most 2001/2+ IGS titles)
@@ -4706,6 +4739,13 @@ ROM_START( happy6101 )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "v100cn_u5.u5",      0x100000, 0x080000, CRC(a25418e8) SHA1(acd7e7b69956cb4ce8e26c6420cb97bb4bf404e7) ) // V100 12/22/03 15:35:33
+	ROM_RELOAD(0x180000,0x80000)
+	ROM_RELOAD(0x200000,0x80000)
+	ROM_RELOAD(0x280000,0x80000)
+	ROM_RELOAD(0x300000,0x80000)
+	ROM_RELOAD(0x380000,0x80000)
+	ROM_RELOAD(0x400000,0x80000)
+	ROM_RELOAD(0x480000,0x80000)
 
 	ROM_REGION( 0x4000, "prot", 0 ) // ARM protection ASIC - internal rom
 	// data before 0x188 is read-protected and cannot be read even with a trojan (as with most 2001/2+ IGS titles)
@@ -4737,6 +4777,13 @@ ROM_START( happy6100hk )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "v100hk_u5.u5",      0x100000, 0x080000, CRC(a25418e8) SHA1(acd7e7b69956cb4ce8e26c6420cb97bb4bf404e7) ) // V100 12/22/03 15:35:33
+	ROM_RELOAD(0x180000,0x80000)
+	ROM_RELOAD(0x200000,0x80000)
+	ROM_RELOAD(0x280000,0x80000)
+	ROM_RELOAD(0x300000,0x80000)
+	ROM_RELOAD(0x380000,0x80000)
+	ROM_RELOAD(0x400000,0x80000)
+	ROM_RELOAD(0x480000,0x80000)
 
 	ROM_REGION( 0x4000, "prot", 0 ) // ARM protection ASIC - internal rom
 	// data before 0x188 is read-protected and cannot be read even with a trojan (as with most 2001/2+ IGS titles)
@@ -4768,6 +4815,13 @@ ROM_START( happy6100cn )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "v100cn_u5.u5",      0x100000, 0x080000, CRC(a25418e8) SHA1(acd7e7b69956cb4ce8e26c6420cb97bb4bf404e7) ) // V100 12/22/03 15:35:33
+	ROM_RELOAD(0x180000,0x80000)
+	ROM_RELOAD(0x200000,0x80000)
+	ROM_RELOAD(0x280000,0x80000)
+	ROM_RELOAD(0x300000,0x80000)
+	ROM_RELOAD(0x380000,0x80000)
+	ROM_RELOAD(0x400000,0x80000)
+	ROM_RELOAD(0x480000,0x80000)
 
 	ROM_REGION( 0x4000, "prot", 0 ) // ARM protection ASIC - internal rom
 	// data before 0x188 is read-protected and cannot be read even with a trojan (as with most 2001/2+ IGS titles)

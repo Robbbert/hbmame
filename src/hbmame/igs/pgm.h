@@ -123,6 +123,7 @@ private:
 
 	u16 m_z80_bus_connected = 1;
 
+	void irq4_ack_w(offs_t offset, u16 data, u16 mem_mask);
 	u16 videoram_r(offs_t offset);
 	void videoram_w(offs_t offset, u16 data, u16 mem_mask = ~0);
 	void coin_counter_w(u16 data);

@@ -27,6 +27,7 @@ u16 pgm_state::video_registers_r(offs_t offset)
 {
 	switch (((offset * 2) + 0x1000) & 0xf000) // b0x000
 	{
+	//	case 0x0000: return m_sprite_buffer[offset];
 		case 0x1000: return 0; // zoom regs are not readable by the 68k
 		case 0x2000: return m_bg_scroll_y;
 		case 0x3000: return m_bg_scroll_x;
@@ -34,7 +35,11 @@ u16 pgm_state::video_registers_r(offs_t offset)
 		case 0x5000: return m_fg_scroll_y;
 		case 0x6000: return m_fg_scroll_x;
 		case 0x7000: return m_screen->vpos(); // scanline
+		// 7000-b000 returns junk, not used?
+		case 0xc000: return 0; // returns junk, but accesses here cause video to lose synch?
+		case 0xd000: return 0; // returns junk, but accesses here cause video to lose synch?
 		case 0xe000: return m_control_flags;
+		// f000 returns junk, not used?
 	}
 
 	return 0;
@@ -42,16 +47,18 @@ u16 pgm_state::video_registers_r(offs_t offset)
 
 void pgm_state::video_registers_w(offs_t offset, u16 data, u16 mem_mask)
 {
-	logerror("VRW %4.4x %4.4x (%4.4x)\n", ((offset * 2) + 0x1000) & 0xf000, data, m_control_flags);
-
 	switch (((offset * 2) + 0x1000) & 0xf000) // b0x000
 	{
+	//	case 0x0000: COMBINE_DATA(&m_sprite_buffer[offset]; break; // hardware tests suggest this should not be writeable, but some games suggest otherwise
 		case 0x1000: COMBINE_DATA(&m_zoom_table[offset & 0x3f]); break; // mirroring not verified
 		case 0x2000: COMBINE_DATA(&m_bg_scroll_y); break;
 		case 0x3000: COMBINE_DATA(&m_bg_scroll_x); break;
 		case 0x4000: COMBINE_DATA(&m_zoom_flags);  break; // written in same routines as zoom table, not understood yet
 		case 0x5000: COMBINE_DATA(&m_fg_scroll_y); break;
 		case 0x6000: COMBINE_DATA(&m_fg_scroll_x); break;
+		// 7000-b000 not used?
+		case 0xc000: break; // accesses here cause video to lose synch?
+		case 0xd000: break; // accesses here cause video to lose synch?
 		case 0xe000:
 		{
 			u16 old = m_control_flags;
@@ -59,10 +66,10 @@ void pgm_state::video_registers_w(offs_t offset, u16 data, u16 mem_mask)
 
 			if (old & 0x0001) sprite_buffer();
 		//	if (old & 0x0002) // purpose unknown
-			if (!(old & 0x0004) && (m_control_flags & 0x0004)) { m_maincpu->set_input_line(M68K_IRQ_4, CLEAR_LINE); logerror("4 cleared!\n"); }
-			if (!(old & 0x0008) && (m_control_flags & 0x0008)) { m_maincpu->set_input_line(M68K_IRQ_6, CLEAR_LINE); logerror("6 cleared!\n"); }
+			if (!(old & 0x0004) && (m_control_flags & 0x0004)) { m_maincpu->set_input_line(M68K_IRQ_4, CLEAR_LINE); }
+			if (!(old & 0x0008) && (m_control_flags & 0x0008)) { m_maincpu->set_input_line(M68K_IRQ_6, CLEAR_LINE); }
 		//	if (old & 0x0010) // all games set this
-		//	if (old & 0x0060) // all games except CAVE titles, set this
+		//	if (old & 0x0060) // all games, with the exception CAVE titles, set this
 		//	if (old & 0x0080) // causes loss of video synch?
 		//	if (old & 0x0100) // causes garbage on-screen
 		//	if (old & 0x0200) // disable everything except background layer?
@@ -73,6 +80,7 @@ void pgm_state::video_registers_w(offs_t offset, u16 data, u16 mem_mask)
 		//	if (old & 0xc000) // unknown?
 		}
 		break;
+		// f000 not used?
 	}
 }
 
@@ -530,8 +538,8 @@ void pgm_state::draw_sprites(bitmap_ind16& spritebitmap, const rectangle &clipre
 	{
 		sprite_ptr--;
 
-	//	// disable high priority sprites
-	//	if ((m_control_flags & 0x2000) == 0x2000 && !sprite_ptr->pri) continue; 
+		// disable high priority sprites (what's a better way to do this?)
+		if ((m_control_flags & 0x2000) == 0x2000 && !sprite_ptr->pri) continue;
 
 		m_boffset = sprite_ptr->offs;
 		if ((!sprite_ptr->xzoom) && (!sprite_ptr->yzoom))

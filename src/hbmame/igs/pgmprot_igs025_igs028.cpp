@@ -175,7 +175,7 @@ void pgm_028_025_state::olds_mem(address_map &map)
 {
 	pgm_mem(map);
 	map(0x100000, 0x3fffff).bankr("bank1"); /* Game ROM */
-	map(0x400000, 0x403fff).ram().share("sharedprotram"); // Shared with protection device
+	map(0x400000, 0x403fff).mirror(0x0ec000).ram().share("sharedprotram"); // Shared with protection device
 }
 
 void pgm_028_025_state::igs025_to_igs028_callback( void )

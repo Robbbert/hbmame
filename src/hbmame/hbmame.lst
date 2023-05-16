@@ -7948,7 +7948,7 @@ pc_smb3_ps06
 
 @source:polepos.cpp
 polepos                                //parent
-mmadness				// Mars Madness - Tesla in-car entertainment
+mmadness                               // Mars Madness - Tesla in-car entertainment
 
 @source:pooyan.cpp
 pooyan                                 // parent
@@ -8584,12 +8584,12 @@ twinqixs01
 @source:taito_l.cpp
 evilston                               //parent
 evilstonfr
-sokoban					// HB Sokoban LE by cmonkey
-speccies				// HB Speccies 2 by Sokurah
-sqij					// HB SQIJ by Sokurah
-sqij15					// HB SQIJ v1.5 by Sokurah
-tldemo					// HB cmonkey
-tldemo2					// HB cmonkey
+sokoban                                // HB Sokoban LE by cmonkey
+speccies                               // HB Speccies 2 by Sokurah
+sqij                                   // HB SQIJ by Sokurah
+sqij15                                 // HB SQIJ v1.5 by Sokurah
+tldemo                                 // HB cmonkey
+tldemo2                                // HB cmonkey
 evilstons01
 kurikint                               //parent
 kurikintjs01
@@ -8638,20 +8638,20 @@ twc_gr
 @source:tempest.cpp
 tempest                                //parent
 tempall
-temped		/* Tempest TempEd Hack */
+temped
 tempm
-temptwst	/* Twisty Hack */
-temptwsta	/* Twisty Hack 2000 */
-temptwst2	/* Twisty Hack */
-temptwst3	/* Twisty Hack */
-temptwst4	/* Twisty Hack */
-vbrakout	/* Clay Cowgill */
-tempmg		/* Clay Cowgill Multi-Tempest */
+temptwst                               // Twisty
+temptwsta                              // Twisty Hack 2000
+temptwst2                              // Twisty
+temptwst3                              // Twisty
+temptwst4                              // Twisty
+vbrakout                               // Clay Cowgill
+tempmg                                 // Clay Cowgill Multi-Tempest
 temptlm
-tvortex		/* Tempest Prototype */
-tvortexa	/* Tempest Prototype */
-aliensv		/* Tempest Prototype */
-aliensva	/* Tempest Prototype */
+tvortex
+tvortexa
+aliensv
+aliensva
 
 @source:terracre.cpp
 terracre                               //parent
@@ -8659,7 +8659,7 @@ terracrc
 
 @source:timelimit.cpp
 timelimt                               //parent
-timelimit		// dink colour hack
+timelimit                              // dink colour hack
 
 @source:timeplt.cpp
 timeplt                                //parent
@@ -8707,7 +8707,7 @@ truxton2s01
 
 @source:trackfld.cpp
 trackfld                               //parent
-athens04	/* Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas */
+athens04                               //Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas
 trkftest07b
 trkftest08b
 trkftest09b
@@ -8735,8 +8735,8 @@ volfiedg	/* Vag @ GreekRoms 2005 */
 
 @source:vsnes.cpp
 suprmrio                               //parent
-mrio2002	/* Vs. Super Mario Bros. 2002 */
-suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
+mrio2002                               // Vs. Super Mario Bros. 2002
+suprsktr                               // Vs. Super Skater Bros. - Vs. Super Mario Skaters
 drmario                                //parent
 drmarios01
 frombelow
@@ -8760,9 +8760,9 @@ twcup90s02
 defender                               //parent
 defender2
 robotron                               //parent
-robotron201	// start at level 201 (Sean Riddle)
-robotronp	/* Patched to remove the (in the corner) crash */
-robotrontie	// Tie Die set (Vid Kidz)
+robotron201                            // start at level 201 (Sean Riddle)
+robotronp                              // Patched to remove the (in the corner) crash
+robotrontie                            // Tie Die set (Vid Kidz)
 splat                                  //parent
 splatsc1
 conquest

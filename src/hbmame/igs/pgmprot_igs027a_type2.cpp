@@ -109,8 +109,8 @@ void pgm_arm_type2_state::kov2_mem(address_map &map)
 {
 	pgm_mem(map);
 	map(0x100000, 0x5fffff).bankr("bank1"); /* Game ROM */
-	map(0xd00000, 0xd0ffff).rw(FUNC(pgm_arm_type2_state::arm7_ram_r), FUNC(pgm_arm_type2_state::arm7_ram_w)); /* ARM7 Shared RAM */
-	map(0xd10000, 0xd10001).rw(FUNC(pgm_arm_type2_state::arm7_latch_68k_r), FUNC(pgm_arm_type2_state::arm7_latch_68k_w)); /* ARM7 Latch */
+	map(0xd00000, 0xd0ffff).mirror(0x0e0000).rw(FUNC(pgm_arm_type2_state::arm7_ram_r), FUNC(pgm_arm_type2_state::arm7_ram_w)); /* ARM7 Shared RAM */
+	map(0xd10000, 0xd10001).mirror(0x0e0000).rw(FUNC(pgm_arm_type2_state::arm7_latch_68k_r), FUNC(pgm_arm_type2_state::arm7_latch_68k_w)); /* ARM7 Latch */
 }
 
 

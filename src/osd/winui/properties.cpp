@@ -2709,12 +2709,12 @@ static void BuildDataMap(void)
 	datamap_set_trackbar_range(properties_datamap, IDC_SECONDSTORUN,  0, 60, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_NUMSCREENS,    1, 4, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_PRESCALE,      1, 8, 1);
-	datamap_set_trackbar_range(properties_datamap, IDC_FSGAMMA,       0.0, 8.0, (float)0.5);
+	datamap_set_trackbar_range(properties_datamap, IDC_FSGAMMA,       0.1, 3.0, (float)0.5);
 	datamap_set_trackbar_range(properties_datamap, IDC_FSBRIGHTNESS,  0.1, 2.0, (float)0.1);
-	datamap_set_trackbar_range(properties_datamap, IDC_FSCONTRAST,    0.1, 4.0, (float)0.1);
-	datamap_set_trackbar_range(properties_datamap, IDC_GAMMA,         0.0, 3.0, (float)0.1);
-	datamap_set_trackbar_range(properties_datamap, IDC_BRIGHTCORRECT, 0.0, 2.0, (float)0.1);
-	datamap_set_trackbar_range(properties_datamap, IDC_CONTRAST,      0.0, 2.0, (float)0.1);
+	datamap_set_trackbar_range(properties_datamap, IDC_FSCONTRAST,    0.1, 2.0, (float)0.1);
+	datamap_set_trackbar_range(properties_datamap, IDC_GAMMA,         0.1, 3.0, (float)0.1);
+	datamap_set_trackbar_range(properties_datamap, IDC_BRIGHTCORRECT, 0.1, 2.0, (float)0.1);
+	datamap_set_trackbar_range(properties_datamap, IDC_CONTRAST,      0.1, 2.0, (float)0.1);
 	datamap_set_trackbar_range(properties_datamap, IDC_PAUSEBRIGHT,   0.0, 1.0, (float)0.05);
 	datamap_set_trackbar_range(properties_datamap, IDC_BOOTDELAY,     0, 5, 1);
 	datamap_set_trackbar_range(properties_datamap, IDC_INTSCALEX,     0, 4, 1);
