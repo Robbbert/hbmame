@@ -864,8 +864,8 @@ GAME( 2019, scobtest,   scobra,   scobra,   scobra,   galaxian_state,  init_scob
 
 
 // Galaxian
-GAME( 1979, galap2,     galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "hack", "GX Part II", MACHINE_SUPPORTS_SAVE)
-GAME( 1979, galaxian3,  galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "hack", "Galaxian III", MACHINE_SUPPORTS_SAVE)
+GAME( 1979, galap2,     galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "International Scientific", "GX Part II", MACHINE_SUPPORTS_SAVE)
+GAME( 1979, galaxian3,  galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Midway", "Galaxian III", MACHINE_SUPPORTS_SAVE)
 GAME( 1979, andromd,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Andromeda", MACHINE_SUPPORTS_SAVE)
 GAME( 1998, buglaxn,    galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galaxiabh,  galnamco, galaxian, galaxiab, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (Edition Hack)", MACHINE_SUPPORTS_SAVE )
