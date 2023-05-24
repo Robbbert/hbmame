@@ -6,8 +6,6 @@
 
 New Games
 ---------------------------------
-- [galap2]              GX Part II (clone of galap4)
-- [galaxian3]           Galaxian III
 - [horekidb3]           Kid no Hore Hore Daisakusen (Neo-Geo port)
 
 
