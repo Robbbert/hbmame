@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [galaxiann]           Galaxians (Neo-Geo port)
 - [horekidb3]           Kid no Hore Hore Daisakusen (Neo-Geo port)
 
 
