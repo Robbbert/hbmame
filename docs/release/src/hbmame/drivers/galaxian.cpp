@@ -159,8 +159,6 @@ void galaxian_hbmame::tst_frog(machine_config &config)
 ***************************************************************************/
 
 
-
-
 /* this looks exactly like Galaxian, the word "Andromeda" never appears. The dipswitches are different. */
 ROM_START( andromd )
 	ROM_REGION( 0x10000, "maincpu", 0 )

@@ -1661,7 +1661,7 @@ dkong05
 dkong06
 dkong07
 dkong08
-dkong09
+//dkong09
 dkong10
 dkong11
 dkong12
@@ -4313,10 +4313,15 @@ mhavocpex8fr
 mhavocpe
 mhavocpede
 mhavocpefr
-mhavocpe_lpc
 mhavocpete
 mhavocpedete
 mhavocpefrte
+mhavocpe100
+mhavocpede100
+mhavocpefr100
+mhavocpete100
+mhavocpedete100
+mhavocpefrte100
 
 @source:midtunit.cpp
 mk                                     //parent
@@ -5979,8 +5984,9 @@ ssideki			// 052
 //ssideki2		// 061  not needed
 //ssideki3		// 081  not needed
 ssideki4		// 215
-stakwin			// 088  broken in mame, works here
+stakwin	                               // 088  music broken in mame, works here
 //stakwin2		// 227  not needed
+stakwindev                             // totally broken in mame, partially works here.
 strhoop			// 079
 superspy		// 011
 svc				// 269
@@ -6040,8 +6046,10 @@ ffeastd		// Frog Feast demo
 fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
+galaxiann
 gbi			/* Ghostbusters Intro */
 gxg
+horekidb3
 hypernoid
 //igla
 iocero		// BEY
@@ -6265,7 +6273,6 @@ sonicwi3px
 spinmasth
 spinmastpx
 ssidekicd
-stakwindev
 strhoopcd
 superspycd
 tophuntrpx
@@ -7942,7 +7949,7 @@ pc_smb3_ps06
 
 @source:polepos.cpp
 polepos                                //parent
-mmadness				// Mars Madness - Tesla in-car entertainment
+mmadness                               // Mars Madness - Tesla in-car entertainment
 
 @source:pooyan.cpp
 pooyan                                 // parent
@@ -8539,51 +8546,52 @@ thundfoxs01
 
 @source:taito_f3.cpp
 arabianm                               //parent
-arabianms01
+arabianm01
 bublbob2                               //parent
-bubsymphs01
+bubsymph01
 cleopatr                               //parent
-cleopatrs01
-cleopatrs02
+cleopatr01
+cleopatr02
 dankuga                                //parent
-dankugas01
-dankugas02
+dankuga01
+dankuga02
 dariusg                                //parent
-dariusgs01
+dariusg01
 elvactr                                //parent
-elvactrs01
+elvactr01
 gekiridn                               //parent
-gekiridns01
-gekiridns02
+gekiridn01
+gekiridn02
 gseeker                                //parent
-gseekers01
+gseeker01
 kaiserkn                               //parent
-kaiserkns01
-kaiserkns02
+kaiserkn01
+kaiserkn02
 landmakr                               //parent
-landmakrs01
-landmakrs02
+landmakr01
+landmakr02
+landmakr03
 lightbr                                //parent
-lightbrs01
+lightbr01
 pbobble2                               //parent
 pbobble2s01
 pbobble3                               //parent
 pbobble3s01
 pbobble3s02
 spcinv95                               //parent
-akkanvdrs01
+akkanvdr01
 twinqix                                //parent
-twinqixs01
+twinqix01
 
 @source:taito_l.cpp
 evilston                               //parent
 evilstonfr
-sokoban					// HB Sokoban LE by cmonkey
-speccies				// HB Speccies 2 by Sokurah
-sqij					// HB SQIJ by Sokurah
-sqij15					// HB SQIJ v1.5 by Sokurah
-tldemo					// HB cmonkey
-tldemo2					// HB cmonkey
+sokoban                                // HB Sokoban LE by cmonkey
+speccies                               // HB Speccies 2 by Sokurah
+sqij                                   // HB SQIJ by Sokurah
+sqij15                                 // HB SQIJ v1.5 by Sokurah
+tldemo                                 // HB cmonkey
+tldemo2                                // HB cmonkey
 evilstons01
 kurikint                               //parent
 kurikintjs01
@@ -8632,20 +8640,20 @@ twc_gr
 @source:tempest.cpp
 tempest                                //parent
 tempall
-temped		/* Tempest TempEd Hack */
+temped
 tempm
-temptwst	/* Twisty Hack */
-temptwsta	/* Twisty Hack 2000 */
-temptwst2	/* Twisty Hack */
-temptwst3	/* Twisty Hack */
-temptwst4	/* Twisty Hack */
-vbrakout	/* Clay Cowgill */
-tempmg		/* Clay Cowgill Multi-Tempest */
+temptwst                               // Twisty
+temptwsta                              // Twisty Hack 2000
+temptwst2                              // Twisty
+temptwst3                              // Twisty
+temptwst4                              // Twisty
+vbrakout                               // Clay Cowgill
+tempmg                                 // Clay Cowgill Multi-Tempest
 temptlm
-tvortex		/* Tempest Prototype */
-tvortexa	/* Tempest Prototype */
-aliensv		/* Tempest Prototype */
-aliensva	/* Tempest Prototype */
+tvortex
+tvortexa
+aliensv
+aliensva
 
 @source:terracre.cpp
 terracre                               //parent
@@ -8653,7 +8661,7 @@ terracrc
 
 @source:timelimit.cpp
 timelimt                               //parent
-timelimit		// dink colour hack
+timelimit                              // dink colour hack
 
 @source:timeplt.cpp
 timeplt                                //parent
@@ -8701,7 +8709,7 @@ truxton2s01
 
 @source:trackfld.cpp
 trackfld                               //parent
-athens04	/* Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas */
+athens04                               //Athens 2004 - Hack by The Gameland Crew: Maddog, Whacker, Badge, Geoanas
 trkftest07b
 trkftest08b
 trkftest09b
@@ -8729,8 +8737,8 @@ volfiedg	/* Vag @ GreekRoms 2005 */
 
 @source:vsnes.cpp
 suprmrio                               //parent
-mrio2002	/* Vs. Super Mario Bros. 2002 */
-suprsktr	/* Vs. Super Skater Bros. - Vs. Super Mario Skaters */
+mrio2002                               // Vs. Super Mario Bros. 2002
+suprsktr                               // Vs. Super Skater Bros. - Vs. Super Mario Skaters
 drmario                                //parent
 drmarios01
 frombelow
@@ -8754,9 +8762,9 @@ twcup90s02
 defender                               //parent
 defender2
 robotron                               //parent
-robotron201	// start at level 201 (Sean Riddle)
-robotronp	/* Patched to remove the (in the corner) crash */
-robotrontie	// Tie Die set (Vid Kidz)
+robotron201                            // start at level 201 (Sean Riddle)
+robotronp                              // Patched to remove the (in the corner) crash
+robotrontie                            // Tie Die set (Vid Kidz)
 splat                                  //parent
 splatsc1
 conquest

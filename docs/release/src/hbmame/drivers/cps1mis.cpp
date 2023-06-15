@@ -1527,6 +1527,10 @@ void cps_state::init_sk2h31()
 static INPUT_PORTS_START( ffightae )
 	PORT_INCLUDE( cps1_3players )
 
+	PORT_MODIFY("IN1")
+	PORT_BIT(0x0040, IP_ACTIVE_LOW, IPT_BUTTON3) PORT_PLAYER(1) PORT_NAME("P1 Button 3 (cheat)")
+	PORT_BIT(0x4000, IP_ACTIVE_LOW, IPT_BUTTON3) PORT_PLAYER(2) PORT_NAME("P2 Button 3 (cheat)")
+
 	PORT_START("DSWA")
 	CPS1_COINAGE_1( "SW(A)" )
 	PORT_DIPNAME( 0x40, 0x40, "2 Coins to Start, 1 to Continue" )   PORT_DIPLOCATION("SW(A):7")

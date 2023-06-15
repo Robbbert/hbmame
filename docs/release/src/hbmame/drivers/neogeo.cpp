@@ -2078,8 +2078,9 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
 	return image_init_result::PASS;
 }
 
-std::error_condition neogeo_state::mvs_open7z(std::string zip_name, std::string filename, uint8_t *region_name, u32 region_size, u32 *file_size)
+u32 neogeo_state::mvs_open7z(std::string zip_name, std::string filename, uint8_t *region_name, u32 region_size)
 {
+	u32 file_size = 0U;
 	util::archive_file::ptr zip;
 	std::error_condition ziperr{};
 
@@ -2095,20 +2096,19 @@ std::error_condition neogeo_state::mvs_open7z(std::string zip_name, std::string 
 			ziperr = zip->decompress(&region_name[0], region_size);
 
 			if (!ziperr)
-				*file_size = zip->current_uncompressed_length();
+				file_size = zip->current_uncompressed_length();
 		}
 
 		zip.reset();
 	}
 
-	return ziperr;
+	return file_size;
 }
 
 QUICKLOAD_LOAD_MEMBER(neogeo_state::mvs_q_cb)
 {
-	u32 psize = 0, ssize = 0, msize = 0, vsize = 0, csize = 0, fsize = 0;
+	u32 psize = 0U, ssize = 0U, msize = 0U, vsize = 0U, csize = 0U, fsize = 0U;
 	std::string fname = "prom", sstr = ".7z", zipname = image.filename();
-	std::error_condition filerr = std::errc::no_such_file_or_directory;
 	// assuming that first .7z is the only occurence
 	std::size_t found = zipname.find(sstr);
 	if (found != std::string::npos)
@@ -2117,9 +2117,9 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::mvs_q_cb)
 		//printf("%s\n",zipname.c_str());fflush(stdout);
 
 		// The protected sets also have "prom1", but we don't support it.
-		filerr = mvs_open7z(zipname, fname, &cpuregion[0], cpuregion_size, &psize);
+		psize = mvs_open7z(zipname, fname, &cpuregion[0], cpuregion_size);
 	}
-	if (filerr)
+	if (!psize)
 	{
 		image.seterror(image_error::INVALIDIMAGE, "File is missing or unusable");
 		printf("File is missing or unusable\n");
@@ -2128,21 +2128,21 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::mvs_q_cb)
 	}
 
 	fname = "srom";
-	filerr = mvs_open7z(zipname, fname, &fix_region[0], fix_region_size, &ssize);
+	ssize = mvs_open7z(zipname, fname, &fix_region[0], fix_region_size);
 
 	fname = "m1rom";
-	filerr = mvs_open7z(zipname, fname, &audiocpu_region[0x10000], audio_region_size - 0x10000, &msize);
+	msize = mvs_open7z(zipname, fname, &audiocpu_region[0x10000], audio_region_size - 0x10000);
 	if (msize)
 		std::copy(&audiocpu_region[0x10000], &audiocpu_region[0x1ffff], &audiocpu_region[0]);
 
 	fname = "vroma0";
-	filerr = mvs_open7z(zipname, fname, &ym_region[0], ym_region_size, &vsize);
+	vsize = mvs_open7z(zipname, fname, &ym_region[0], ym_region_size);
 	if (vsize)
 		std::copy(&ym_region[0], &ym_region[ym_region_size-1], &memregion("ymsnd:adpcmb")->base()[0]);
 	// Assume that the ADPCMB rom would be called "vromb0", but no current sets use it.
 
 	fname = "crom0";
-	filerr = mvs_open7z(zipname, fname, &spr_region[0], spr_region_size, &csize);
+	csize = mvs_open7z(zipname, fname, &spr_region[0], spr_region_size);
 	if (csize)
 		for (u32 i = 0; i < csize; i+=4)
 			std::swap(spr_region[i+1], spr_region[i+2]);
@@ -2167,7 +2167,7 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::mvs_q_cb)
 	// The contents are an ascii number, so for now just print it out.
 	fname = "fpga";
 	unsigned char buffer[8] = {};
-	filerr = mvs_open7z(zipname, fname, &buffer[0], 4, &fsize);
+	fsize = mvs_open7z(zipname, fname, &buffer[0], 4);
 	if (fsize)
 		printf("FPGA code = %s\n",buffer);
 
