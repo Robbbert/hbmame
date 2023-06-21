@@ -666,18 +666,10 @@ static void Picker_ResetHeaderSortIcon(HWND hwndPicker)
 		if (i != pPickerInfo->pCallbacks->pfnGetSortColumn())
 			res = Header_SetItem(hwndHeader, Picker_GetViewColumnFromRealColumn(hwndPicker, i), &hdi);
 
-	if (GetUseXPControl())
 	{
 		// use built in sort arrows
 		hdi.mask = HDI_FORMAT;
 		hdi.fmt = HDF_STRING | (pPickerInfo->pCallbacks->pfnGetSortReverse() ? HDF_SORTDOWN : HDF_SORTUP);
-	}
-	else
-	{
-		// put our arrow icon next to the text
-		hdi.mask = HDI_FORMAT | HDI_IMAGE;
-		hdi.fmt = HDF_STRING | HDF_IMAGE | HDF_BITMAP_ON_RIGHT;
-		hdi.iImage = pPickerInfo->pCallbacks->pfnGetSortReverse() ? 1 : 0;
 	}
 
 	int nViewColumn = Picker_GetViewColumnFromRealColumn(hwndPicker, pPickerInfo->pCallbacks->pfnGetSortColumn());
