@@ -1604,14 +1604,12 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	win_set_window_text_utf8(GetDlgItem(hSplash, IDC_PROGBAR), "Please wait...");
 	SendMessage(hProgress, PBM_SETPOS, 10, 0);
 
-	extern int mame_validitychecks(int game);
 	WNDCLASS wndclass;
 	RECT rect;
 	int i, nSplitterCount;
 	extern const FOLDERDATA g_folderData[];
 	extern const FILTER_ITEM g_filterList[];
 	LONG common_control_version = GetCommonControlVersion();
-	int validity_failed = 0;
 	LONG_PTR l;
 	OptionsInit();
 	SendMessage(hProgress, PBM_SETPOS, 25, 0);
@@ -1639,14 +1637,14 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	SendMessage(hProgress, PBM_SETPOS, 55, 0);
 
 	// Are we using an Old comctl32.dll?
-	printf("common controlversion %ld %ld\n",common_control_version >> 16, common_control_version & 0xffff);
+	printf("COMCTL32.DLL version = %ld %ld\n",common_control_version >> 16, common_control_version & 0xffff);
 
 	if (common_control_version < PACKVERSION(6,0))
 	{
-		char buf[] = MAMEUINAME " needs comctl32.dll version 6.0\n\n"
+		char buf[] = MAMEUINAME " needs COMCTL32.DLL version 6.0\n\n"
 					"Unable to proceed.\n\n";
 
-		win_message_box_utf8(0, buf, MAMEUINAME " Outdated comctl32.dll Error", MB_OK | MB_ICONWARNING);
+		win_message_box_utf8(0, buf, MAMEUINAME " Outdated COMCTL32.DLL Error", MB_OK | MB_ICONWARNING);
 		return false;
 	}
 
@@ -1693,35 +1691,35 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 		if (!SetupTabView(hTabCtrl, &opts))
 			return false;
 	}
-printf("A\n");fflush(stdout);
+
 	/* subclass history window */
 	l = GetWindowLongPtr(GetDlgItem(hMain, IDC_HISTORY), GWLP_WNDPROC);
 	g_lpHistoryWndProc = (WNDPROC)l;
 	SetWindowLongPtr(GetDlgItem(hMain, IDC_HISTORY), GWLP_WNDPROC, (LONG_PTR)HistoryWndProc);
-printf("B\n");fflush(stdout);
+
 	/* subclass picture frame area */
 	l = GetWindowLongPtr(GetDlgItem(hMain, IDC_SSFRAME), GWLP_WNDPROC);
 	g_lpPictureFrameWndProc = (WNDPROC)l;
 	SetWindowLongPtr(GetDlgItem(hMain, IDC_SSFRAME), GWLP_WNDPROC, (LONG_PTR)PictureFrameWndProc);
-printf("C\n");fflush(stdout);
+
 	/* subclass picture area */
 	l = GetWindowLongPtr(GetDlgItem(hMain, IDC_SSPICTURE), GWLP_WNDPROC);
 	g_lpPictureWndProc = (WNDPROC)l;
 	SetWindowLongPtr(GetDlgItem(hMain, IDC_SSPICTURE), GWLP_WNDPROC, (LONG_PTR)PictureWndProc);
-printf("D\n");fflush(stdout);
+
 	/* Load the pic for the default screenshot. */
 	hMissing_bitmap = LoadBitmap(GetModuleHandle(NULL),MAKEINTRESOURCE(IDB_ABOUT));
-printf("E\n");fflush(stdout);
+
 	/* Stash hInstance for later use */
 	hInst = hInstance;
-printf("F\n");fflush(stdout);
+
 	s_hToolBar   = InitToolbar(hMain);
 	hStatusBar = InitStatusBar(hMain);
 	hProgWnd   = InitProgressBar(hStatusBar);
-printf("G\n");fflush(stdout);
+
 	main_resize_items[0].u.hwnd = s_hToolBar;
 	main_resize_items[1].u.hwnd = hStatusBar;
-printf("H\n");fflush(stdout);
+
 	/* In order to handle 'Large Fonts' as the Windows
 	 * default setting, we need to make the dialogs small
 	 * enough to fit in our smallest window size with
@@ -1736,13 +1734,13 @@ printf("H\n");fflush(stdout);
 	 */
 
 	GetClientRect(hMain, &rect);
-printf("I\n");fflush(stdout);
+
 	hTreeView = GetDlgItem(hMain, IDC_TREE);
 	hwndList  = GetDlgItem(hMain, IDC_LIST);
-printf("J\n");fflush(stdout);
+
 	if (!InitSplitters())
 		return false;
-printf("K\n");fflush(stdout);
+
 	nSplitterCount = GetSplitterCount();
 	for (i = 0; i < nSplitterCount; i++)
 	{
@@ -1756,22 +1754,22 @@ printf("K\n");fflush(stdout);
 
 		AddSplitter(hWnd, hWndLeft, hWndRight, g_splitterInfo[i].pfnAdjust);
 	}
-printf("K\n");fflush(stdout);
+
 	/* Initial adjustment of controls on the Picker window */
 	ResizePickerControls(hMain);
-printf("L\n");fflush(stdout);
+
 	TabView_UpdateSelection(hTabCtrl);
-printf("M\n");fflush(stdout);
+
 	bDoGameCheck = GetGameCheck();
 	idle_work    = true;
 	game_index   = 0;
-printf("N\n");fflush(stdout);
+
 	BOOL bShowTree = BIT(GetWindowPanes(), 0);
 	bShowToolBar   = GetShowToolBar();
 	bShowStatusBar = GetShowStatusBar();
 	bShowTabCtrl   = GetShowTabCtrl();
 	bEnableIndent = GetEnableIndent();
-printf("O\n");fflush(stdout);
+
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_FOLDERS, (bShowTree) ? MF_CHECKED : MF_UNCHECKED);
 	ToolBar_CheckButton(s_hToolBar, ID_VIEW_FOLDERS, (bShowTree) ? MF_CHECKED : MF_UNCHECKED);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_TOOLBARS, (bShowToolBar) ? MF_CHECKED : MF_UNCHECKED);
@@ -1781,19 +1779,19 @@ printf("O\n");fflush(stdout);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_PAGETAB, (bShowTabCtrl) ? MF_CHECKED : MF_UNCHECKED);
 	CheckMenuItem(GetMenu(hMain), ID_ENABLE_INDENT, (bEnableIndent) ? MF_CHECKED : MF_UNCHECKED);
 	ToolBar_CheckButton(s_hToolBar, ID_ENABLE_INDENT, (bEnableIndent) ? MF_CHECKED : MF_UNCHECKED);
-printf("P\n");fflush(stdout);
+
 	LoadBackgroundBitmap();
-printf("Q\n");fflush(stdout);
+
 	SendMessage(hProgress, PBM_SETPOS, 85, 0);
 	printf("about to init tree\n");fflush(stdout);
 	InitTree(g_folderData, g_filterList);
 	printf("did init tree\n");fflush(stdout);
 	SendMessage(hProgress, PBM_SETPOS, 100, 0);
-printf("R\n");fflush(stdout);
+
 	/* Initialize listview columns */
 	InitListView();
 	SetFocus(hwndList);
-printf("S\n");fflush(stdout);
+
 	/* Reset the font */
 	{
 		LOGFONT logfont;
@@ -1807,22 +1805,22 @@ printf("S\n");fflush(stdout);
 		if (hFont )
 			SetAllWindowsFont(hMain, &main_resize, hFont, false);
 	}
-printf("T\n");fflush(stdout);
+
 	/* Init DirectInput */
 	if (!DirectInputInitialize())
 	{
 		DialogBox(GetModuleHandle(NULL),MAKEINTRESOURCE(IDD_DIRECTX), NULL, DirectXDialogProc);
 		return false;
 	}
-printf("V\n");fflush(stdout);
+
 	AdjustMetrics();
 	UpdateScreenShot();
-printf("W\n");fflush(stdout);
+
 	hAccel = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDA_TAB_KEYS));
-printf("X\n");fflush(stdout);
+
 	/* clear keyboard state */
 	KeyboardStateClear();
-printf("Y\n");fflush(stdout);
+
 	if (GetJoyGUI() == true)
 	{
 		g_pJoyGUI = &DIJoystick;
@@ -1833,7 +1831,7 @@ printf("Y\n");fflush(stdout);
 	}
 	else
 		g_pJoyGUI = NULL;
-printf("Z\n");fflush(stdout);
+
 	if (GetHideMouseOnStartup())
 	{
 		/*  For some reason the mouse is centered when a game is exited, which of
@@ -1846,13 +1844,13 @@ printf("Z\n");fflush(stdout);
 		// Then hide it
 		ShowCursor(false);
 	}
-printf("2\n");fflush(stdout);
+
 	nCmdShow = GetWindowState();
 	if (nCmdShow == SW_HIDE || nCmdShow == SW_MINIMIZE || nCmdShow == SW_SHOWMINIMIZED)
 	{
 		nCmdShow = SW_RESTORE;
 	}
-printf("3\n");fflush(stdout);
+
 	if (GetRunFullScreen())
 	{
 		LONG lMainStyle;
@@ -1867,9 +1865,9 @@ printf("3\n");fflush(stdout);
 
 		nCmdShow = SW_MAXIMIZE;
 	}
-printf("4\n");fflush(stdout);
+
 	ShowWindow(hMain, nCmdShow);
-printf("5\n");fflush(stdout);
+
 	switch (GetViewMode())
 	{
 	case VIEW_LARGE_ICONS :
@@ -1879,18 +1877,12 @@ printf("5\n");fflush(stdout);
 		SetView(ID_VIEW_SMALL_ICON);
 		break;
 	}
-printf("6\n");fflush(stdout);
+
 	if (GetCycleScreenshot() > 0)
 	{
 		SetTimer(hMain, SCREENSHOT_TIMER, GetCycleScreenshot()*1000, NULL); //scale to Seconds
 	}
-printf("7\n");fflush(stdout);
-	if (validity_failed)
-	{
-		win_message_box_utf8(hMain, MAMEUINAME " has failed its validity checks.  The GUI will "
-			"still work, but emulations will fail to execute", MAMEUINAME, MB_OK | MB_ICONERROR);
-	}
-printf("8\n");fflush(stdout);
+
 	return true;
 }
 
