@@ -103,6 +103,9 @@ const char * GetImageTabShortName(int tab_index);
 void SetViewMode(int val);
 int  GetViewMode(void);
 
+void SetEnableIndent(bool value);
+bool GetEnableIndent();
+
 void SetGameCheck(BOOL game_check);
 BOOL GetGameCheck(void);
 

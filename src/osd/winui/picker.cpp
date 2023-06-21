@@ -184,10 +184,10 @@ static BOOL ListViewContextMenu(HWND hwndPicker, LPARAM lParam)
 		GetCursorPos(&pt);
 
 	// Figure out which header column was clicked, if at all
-	int nViewID = Picker_GetViewID(hwndPicker);
+	//int nViewID = Picker_GetViewID(hwndPicker);
 	int nColumn = -1;
 
-	if ((nViewID == VIEW_REPORT) || (nViewID == VIEW_GROUPED))
+	//if ((nViewID == VIEW_REPORT) || (nViewID == VIEW_GROUPED))
 	{
 		HWND hwndHeader = ListView_GetHeader(hwndPicker);
 		POINT headerPt = pt;
@@ -556,53 +556,6 @@ void Picker_SetViewID(HWND hwndPicker, int nViewID)
 	if (pPickerInfo->pCallbacks->pfnSetViewMode)
 		pPickerInfo->pCallbacks->pfnSetViewMode(pPickerInfo->nCurrentViewID);
 
-	// Change the ListView flags in accordance
-	LONG_PTR nListViewStyle;
-	switch(nViewID)
-	{
-		case VIEW_LARGE_ICONS:
-			nListViewStyle = LVS_ICON;
-			break;
-		case VIEW_SMALL_ICONS:
-			nListViewStyle = LVS_SMALLICON;
-			break;
-		case VIEW_INLIST:
-			nListViewStyle = LVS_LIST;
-			break;
-		case VIEW_GROUPED:
-		case VIEW_REPORT:
-		default:
-			nListViewStyle = LVS_REPORT;
-			break;
-	}
-
-	DWORD dwStyle = GetWindowLong(hwndPicker, GWL_STYLE);
-	if (GetUseXPControl())
-	{
-		// RS Microsoft must have changed something in the Ownerdraw handling with Version 6 of the Common Controls
-		// as on all other OSes it works without this...
-		if (nViewID == VIEW_LARGE_ICONS || nViewID == VIEW_SMALL_ICONS)
-		{
-			// remove Ownerdraw style for Icon views
-			dwStyle &= ~LVS_OWNERDRAWFIXED;
-			if( nViewID == VIEW_SMALL_ICONS )
-			{
-				// to properly get them to arrange, otherwise the entries might overlap
-				// we have to call SetWindowLong to get it into effect !!
-				// It's no use just setting the Style, as it's changed again further down...
-				SetWindowLong(hwndPicker, GWL_STYLE, (GetWindowLong(hwndPicker, GWL_STYLE) & ~LVS_TYPEMASK) | LVS_ICON);
-			}
-		}
-		else
-		{
-			// add again..
-			dwStyle |= LVS_OWNERDRAWFIXED;
-		}
-	}
-
-	dwStyle &= ~LVS_TYPEMASK;
-	dwStyle |= nListViewStyle;
-	SetWindowLong(hwndPicker, GWL_STYLE, dwStyle);
 	RedrawWindow(hwndPicker, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_FRAME);
 }
 
@@ -773,7 +726,7 @@ static int CALLBACK Picker_CompareProc(LPARAM index1, LPARAM index2, LPARAM nPar
 	TCHAR szBuffer1[256], szBuffer2[256];
 	const TCHAR *s1, *s2;
 
-	if (pcpp->nViewMode == VIEW_GROUPED)
+	if (GetEnableIndent())
 	{
 		// do our fancy compare, with clones grouped under parents
 		// first thing we need to do is identify both item's parents
@@ -1216,7 +1169,7 @@ void Picker_HandleDrawItem(HWND hWnd, LPDRAWITEMSTRUCT lpDrawItemStruct)
 		nParent = pPickerInfo->pCallbacks->pfnFindItemParent(hWnd, lvi.lParam);
 	else
 		nParent = -1;
-	bDrawAsChild = (pPickerInfo->pCallbacks->pfnGetViewMode() == VIEW_GROUPED && (nParent >= 0));
+	//bDrawAsChild = (pPickerInfo->pCallbacks->pfnGetViewMode() == VIEW_GROUPED && (nParent >= 0));
 
 	/* only indent if parent is also in this view */
 #if 1   // minimal listview flickering.

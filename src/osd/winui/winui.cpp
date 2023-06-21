@@ -355,6 +355,7 @@ static HDC hDC = NULL;
 static HWND	hSplash = NULL;
 static HWND	hProgress = NULL;
 static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+static bool bEnableIndent = false;
 
 /***************************************************************************
     External variables
@@ -727,32 +728,29 @@ static std::unique_ptr<int[]> icon_index; // for custom per-game icons
 
 static const TBBUTTON tbb[] =
 {
-	{0, ID_VIEW_FOLDERS,    TBSTATE_ENABLED, TBSTYLE_CHECK,      {0, 0}, 0, 0},
+	{0, ID_VIEW_FOLDERS,     TBSTATE_ENABLED, TBSTYLE_CHECK,      {0, 0}, 0, 0},
 	{1, ID_VIEW_PICTURE_AREA,TBSTATE_ENABLED, TBSTYLE_CHECK,      {0, 0}, 0, 1},
-	{0, 0,                  TBSTATE_ENABLED, TBSTYLE_SEP,        {0, 0}, 0, 0},
-	{2, ID_VIEW_LARGE_ICON, TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 2},
-	{3, ID_VIEW_SMALL_ICON, TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 3},
-	{4, ID_VIEW_LIST_MENU,  TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 4},
-	{5, ID_VIEW_DETAIL,     TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 5},
-	{6, ID_VIEW_GROUPED, TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 6},
-	{0, 0,                  TBSTATE_ENABLED, TBSTYLE_SEP,        {0, 0}, 0, 0},
-	{7, ID_HELP_ABOUT,      TBSTATE_ENABLED, TBSTYLE_BUTTON,     {0, 0}, 0, 7},
-	{8, ID_HELP_CONTENTS,   TBSTATE_ENABLED, TBSTYLE_BUTTON,     {0, 0}, 0, 8}
+	{0, 0,                   TBSTATE_ENABLED, TBSTYLE_SEP,        {0, 0}, 0, 0},
+	{2, ID_VIEW_LARGE_ICON,  TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 2},
+	{3, ID_VIEW_SMALL_ICON,  TBSTATE_ENABLED, TBSTYLE_CHECKGROUP, {0, 0}, 0, 3},
+	{0, 0,                   TBSTATE_ENABLED, TBSTYLE_SEP,        {0, 0}, 0, 0},
+	{4, ID_ENABLE_INDENT,    TBSTATE_ENABLED, TBSTYLE_CHECK,      {0, 0}, 0, 4},
+	{0, 0,                   TBSTATE_ENABLED, TBSTYLE_SEP,        {0, 0}, 0, 0},
+	{7, ID_HELP_ABOUT,       TBSTATE_ENABLED, TBSTYLE_BUTTON,     {0, 0}, 0, 5},
+	{8, ID_HELP_CONTENTS,    TBSTATE_ENABLED, TBSTYLE_BUTTON,     {0, 0}, 0, 6}
 };
 
 #define NUM_TOOLBUTTONS (sizeof(tbb) / sizeof(tbb[0]))
 
-#define NUM_TOOLTIPS 9
+#define NUM_TOOLTIPS 7
 
-static const TCHAR szTbStrings[NUM_TOOLTIPS + 1][30] =
+static const TCHAR szTbStrings[NUM_TOOLTIPS][30] =
 {
 	TEXT("Toggle Folder List"),
 	TEXT("Toggle Screen Shot"),
 	TEXT("Large Icons"),
 	TEXT("Small Icons"),
-	TEXT("List"),
-	TEXT("Details"),
-	TEXT("Grouped"),
+	TEXT("Indent Clones"),
 	TEXT("About"),
 	TEXT("Help")
 };
@@ -763,9 +761,7 @@ static const int CommandToString[] =
 	ID_VIEW_PICTURE_AREA,
 	ID_VIEW_LARGE_ICON,
 	ID_VIEW_SMALL_ICON,
-	ID_VIEW_LIST_MENU,
-	ID_VIEW_DETAIL,
-	ID_VIEW_GROUPED,
+	ID_ENABLE_INDENT,
 	ID_HELP_ABOUT,
 	ID_HELP_CONTENTS,
 	-1
@@ -1091,6 +1087,11 @@ HWND GetMainWindow(void)
 HWND GetTreeView(void)
 {
 	return hTreeView;
+}
+
+HWND GetProgressBar()
+{
+	return hProgress;
 }
 
 void GetRealColumnOrder(int order[])
@@ -1778,6 +1779,7 @@ printf("N\n");fflush(stdout);
 	bShowToolBar   = GetShowToolBar();
 	bShowStatusBar = GetShowStatusBar();
 	bShowTabCtrl   = GetShowTabCtrl();
+	bEnableIndent = GetEnableIndent();
 printf("O\n");fflush(stdout);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_FOLDERS, (bShowTree) ? MF_CHECKED : MF_UNCHECKED);
 	ToolBar_CheckButton(s_hToolBar, ID_VIEW_FOLDERS, (bShowTree) ? MF_CHECKED : MF_UNCHECKED);
@@ -1786,6 +1788,8 @@ printf("O\n");fflush(stdout);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_STATUS, (bShowStatusBar) ? MF_CHECKED : MF_UNCHECKED);
 	ShowWindow(hStatusBar, (bShowStatusBar) ? SW_SHOW : SW_HIDE);
 	CheckMenuItem(GetMenu(hMain), ID_VIEW_PAGETAB, (bShowTabCtrl) ? MF_CHECKED : MF_UNCHECKED);
+	CheckMenuItem(GetMenu(hMain), ID_ENABLE_INDENT, (bEnableIndent) ? MF_CHECKED : MF_UNCHECKED);
+	ToolBar_CheckButton(s_hToolBar, ID_ENABLE_INDENT, (bEnableIndent) ? MF_CHECKED : MF_UNCHECKED);
 printf("P\n");fflush(stdout);
 	LoadBackgroundBitmap();
 printf("Q\n");fflush(stdout);
@@ -1880,18 +1884,8 @@ printf("5\n");fflush(stdout);
 	case VIEW_LARGE_ICONS :
 		SetView(ID_VIEW_LARGE_ICON);
 		break;
-	case VIEW_SMALL_ICONS :
-		SetView(ID_VIEW_SMALL_ICON);
-		break;
-	case VIEW_INLIST :
-		SetView(ID_VIEW_LIST_MENU);
-		break;
-	case VIEW_REPORT :
-		SetView(ID_VIEW_DETAIL);
-		break;
-	case VIEW_GROUPED :
 	default :
-		SetView(ID_VIEW_GROUPED);
+		SetView(ID_VIEW_SMALL_ICON);
 		break;
 	}
 printf("6\n");fflush(stdout);
@@ -3545,27 +3539,42 @@ static void PollGUIJoystick()
 
 static void SetView(int menu_id)
 {
-	BOOL force_reset = false;
-	int i;
+//	BOOL force_reset = false;
+//	int i;
 
 	// first uncheck previous menu item, check new one
-	CheckMenuRadioItem(GetMenu(hMain), ID_VIEW_LARGE_ICON, ID_VIEW_GROUPED, menu_id, MF_CHECKED);
-	ToolBar_CheckButton(s_hToolBar, menu_id, MF_CHECKED);
+//	CheckMenuRadioItem(GetMenu(hMain), ID_VIEW_LARGE_ICON, ID_VIEW_SMALL_ICON, menu_id, MF_CHECKED);
+//	ToolBar_CheckButton(s_hToolBar, menu_id, MF_CHECKED);
 
-	if (Picker_GetViewID(hwndList) == VIEW_GROUPED || menu_id == ID_VIEW_GROUPED)
+///	if (Picker_GetViewID(hwndList) == VIEW_GROUPED || menu_id == ID_VIEW_GROUPED)
 	{
 		// this changes the sort order, so redo everything
-		force_reset = true;
+//		force_reset = true;
 	}
 
-	for (i = 0; i < sizeof(s_nPickers) / sizeof(s_nPickers[0]); i++)
+//	for (i = 0; i < sizeof(s_nPickers) / sizeof(s_nPickers[0]); i++)
+//		Picker_SetViewID(GetDlgItem(hMain, s_nPickers[i]), menu_id - ID_VIEW_LARGE_ICON);
+
+//	if (force_reset)
+	{
+//		for (i = 0; i < sizeof(s_nPickers) / sizeof(s_nPickers[0]); i++)
+//			Picker_Sort(GetDlgItem(hMain, s_nPickers[i]));
+	}
+	// first uncheck previous menu item, check new one
+	CheckMenuRadioItem(GetMenu(hMain), ID_VIEW_LARGE_ICON, ID_VIEW_SMALL_ICON, menu_id, MF_CHECKED);
+	ToolBar_CheckButton(s_hToolBar, menu_id, MF_CHECKED);
+
+	// Associate the image lists with the list view control.
+	if (menu_id == ID_VIEW_LARGE_ICON)
+		(void)ListView_SetImageList(hwndList, hLarge, LVSIL_SMALL);
+	else
+		(void)ListView_SetImageList(hwndList, hSmall, LVSIL_SMALL);
+
+	for (int i = 0; i < sizeof(s_nPickers) / sizeof(s_nPickers[0]); i++)
 		Picker_SetViewID(GetDlgItem(hMain, s_nPickers[i]), menu_id - ID_VIEW_LARGE_ICON);
 
-	if (force_reset)
-	{
-		for (i = 0; i < sizeof(s_nPickers) / sizeof(s_nPickers[0]); i++)
-			Picker_Sort(GetDlgItem(hMain, s_nPickers[i]));
-	}
+	for (int i = 0; i < sizeof(s_nPickers) / sizeof(s_nPickers[0]); i++)
+		Picker_Sort(GetDlgItem(hMain, s_nPickers[i]));
 }
 
 static void ResetListView()
@@ -3587,7 +3596,7 @@ static void ResetListView()
 
 	current_game = Picker_GetSelectedItem(hwndList);
 	if (current_game < 0)
-		no_selection = true;
+		current_game = 0;
 
 	SetWindowRedraw(hwndList,false);
 
@@ -3596,7 +3605,7 @@ static void ResetListView()
 	// hint to have it allocate it all at once
 	ListView_SetItemCount(hwndList,driver_list::total());
 
-	lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
+	lvi.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM | LVIF_INDENT;
 	lvi.stateMask = 0;
 
 	i = -1;
@@ -3614,6 +3623,12 @@ static void ResetListView()
 			lvi.lParam   = i;
 			lvi.pszText  = LPSTR_TEXTCALLBACK;
 			lvi.iImage   = I_IMAGECALLBACK;
+			lvi.iIndent = 0;
+
+			if (GetEnableIndent())
+				if (GetParentFound(i) && DriverIsClone(i))
+					lvi.iIndent = 1;
+
 			res = ListView_InsertItem(hwndList, &lvi);
 		}
 	} while (i != -1);
@@ -3877,24 +3892,21 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 
 	case ID_VIEW_LARGE_ICON:
 		SetView(ID_VIEW_LARGE_ICON);
+			UpdateListView();
 		return true;
 
 	case ID_VIEW_SMALL_ICON:
 		SetView(ID_VIEW_SMALL_ICON);
-		ResetListView();
+			UpdateListView();
 		return true;
 
-	case ID_VIEW_LIST_MENU:
-		SetView(ID_VIEW_LIST_MENU);
-		return true;
-
-	case ID_VIEW_DETAIL:
-		SetView(ID_VIEW_DETAIL);
-		return true;
-
-	case ID_VIEW_GROUPED:
-		SetView(ID_VIEW_GROUPED);
-		return true;
+		case ID_ENABLE_INDENT:
+			bEnableIndent = !bEnableIndent;
+			SetEnableIndent(bEnableIndent);
+			CheckMenuItem(GetMenu(hMain), ID_ENABLE_INDENT, (bEnableIndent) ? MF_CHECKED : MF_UNCHECKED);
+			ToolBar_CheckButton(s_hToolBar, ID_ENABLE_INDENT, (bEnableIndent) ? MF_CHECKED : MF_UNCHECKED);
+			UpdateListView();
+			break;
 
 	/* Arrange Icons submenu */
 	case ID_VIEW_BYGAME:
@@ -4145,19 +4157,9 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		SetFocus(hwndList);
 		return true;
 
-	/* View Menu */
+	// for dialogs, don't remove
 	case ID_VIEW_LINEUPICONS:
-		if( codeNotify == false)
-			ResetListView();
-		else
-		{
-			/*it was sent after a refresh (F5) was done, we only reset the View if "available" is the selected folder
-			  as it doesn't affect the others*/
-			folder = GetSelectedFolder();
-			if( folder )
-				if (folder->m_nFolderId == FOLDER_AVAILABLE )
-					ResetListView();
-		}
+		ResetListView();
 		break;
 
 	case ID_GAME_PROPERTIES:
@@ -6487,12 +6489,16 @@ static HICON GetSelectedFolderIcon(void)
 /* Updates all currently displayed Items in the List with the latest Data*/
 void UpdateListView(void)
 {
-	BOOL res;
+//	BOOL res;
 
-	if( (GetViewMode() == VIEW_GROUPED) || (GetViewMode() == VIEW_DETAILS ) )
-		res = ListView_RedrawItems(hwndList,ListView_GetTopIndex(hwndList), ListView_GetTopIndex(hwndList)+ ListView_GetCountPerPage(hwndList) );
+	///if( (GetViewMode() == VIEW_GROUPED) || (GetViewMode() == VIEW_DETAILS ) )
+//		res = ListView_RedrawItems(hwndList,ListView_GetTopIndex(hwndList), ListView_GetTopIndex(hwndList)+ ListView_GetCountPerPage(hwndList) );
 
-	res++;
+//	res++;
+	ResetWhichGamesInFolders();
+	ResetListView();
+	(void)ListView_RedrawItems(hwndList, ListView_GetTopIndex(hwndList), ListView_GetTopIndex(hwndList) + ListView_GetCountPerPage(hwndList));
+	SetFocus(hwndList);
 }
 
 static void CalculateBestScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict_height)

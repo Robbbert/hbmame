@@ -236,6 +236,16 @@ int GetViewMode(void)
 	return settings.int_value(MUIOPTION_LIST_MODE);
 }
 
+void SetEnableIndent(bool value)
+{
+	settings.setter(MUIOPTION_ENABLE_INDENT, value);
+}
+
+bool GetEnableIndent()
+{
+	return settings.bool_value(MUIOPTION_ENABLE_INDENT);
+}
+
 void SetGameCheck(BOOL game_check)
 {
 	settings.setter(MUIOPTION_CHECK_GAME, game_check);

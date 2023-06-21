@@ -66,6 +66,7 @@ HANDLE win_create_file_utf8(const char* filename, DWORD desiredmode, DWORD share
 							DWORD flagsandattributes, HANDLE templatehandle);
 DWORD win_get_current_directory_utf8(DWORD bufferlength, char* buffer);
 HANDLE win_find_first_file_utf8(const char* filename, LPWIN32_FIND_DATA findfiledata);
+void ErrorMessageBox(const char *fmt, ...);
 
  //  wstring_from_utf8
  //============================================================

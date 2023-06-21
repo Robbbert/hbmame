@@ -7,6 +7,7 @@
 
 #define MUIOPTION_OVERRIDE_REDX                  "override_redx"
 #define MUIOPTION_LIST_MODE                      "list_mode"
+#define MUIOPTION_ENABLE_INDENT                  "indent_mode"
 #define MUIOPTION_CHECK_GAME                     "check_game"
 #define MUIOPTION_JOYSTICK_IN_INTERFACE          "joystick_in_interface"
 #define MUIOPTION_KEYBOARD_IN_INTERFACE          "keyboard_in_interface"
@@ -153,7 +154,7 @@ const WINUIOPTS option_entries[] =
 	{ MUIOPTION_CLONE_COLOR,                  "-1",       core_options::option_type::INTEGER,                 NULL },
 	{ MUIOPTION_CUSTOM_COLOR,                 "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0", core_options::option_type::STRING, NULL }, // colour codes of the 16 custom colours (set in clone font dialog)
 	/* ListMode needs to be before ColumnWidths settings */
-	{ MUIOPTION_LIST_MODE,                    "5",       core_options::option_type::INTEGER,                 NULL },
+	{ MUIOPTION_LIST_MODE,                    "1",       core_options::option_type::BOOLEAN,                 NULL },
 	{ MUIOPTION_SPLITTERS,                    MUIDEFAULT_SPLITTERS, core_options::option_type::STRING,       NULL },
 	{ MUIOPTION_LIST_FONT,                    "-11,0,0,0,400,0,0,0,0,1,2,1,34,MS Sans Serif", core_options::option_type::STRING, NULL },
 	{ MUIOPTION_COLUMN_WIDTHS,                "185,78,84,84,64,88,74,108,60,144,84,40,40", core_options::option_type::STRING, NULL },

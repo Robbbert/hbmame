@@ -24,7 +24,6 @@
 #define IDS_VIEW_GROUPED                84
 #define IDS_VIEW_SPACER4                85
 #define IDS_VIEW_ARRANGE                86
-#define IDS_VIEW_LINEUPICONS            87
 #define IDS_VIEW_SPACER5                88
 #define IDS_VIEW_REFRESH                89
 #define IDS_VIEW_CONTEXTFILTERS         90
@@ -540,9 +539,7 @@
 #define ID_HELP_ABOUT                   40006
 #define ID_VIEW_LARGE_ICON              40007
 #define ID_VIEW_SMALL_ICON              40008
-#define ID_VIEW_LIST_MENU               40009
-#define ID_VIEW_DETAIL                  40010
-#define ID_VIEW_GROUPED                 40011
+#define ID_ENABLE_INDENT                40009
 #define ID_OPTIONS_FONT                 40012
 #define ID_OPTIONS_CLONE_COLOR          40013
 #define ID_OPTIONS_DIR                  40014
