@@ -7,7 +7,7 @@
 
 #define MUIOPTION_OVERRIDE_REDX                  "override_redx"
 #define MUIOPTION_LIST_MODE                      "list_mode"
-#define MUIOPTION_ENABLE_INDENT                  "indent_mode"
+#define MUIOPTION_VIEW_INDENT                    "indent_mode"
 #define MUIOPTION_CHECK_GAME                     "check_game"
 #define MUIOPTION_JOYSTICK_IN_INTERFACE          "joystick_in_interface"
 #define MUIOPTION_KEYBOARD_IN_INTERFACE          "keyboard_in_interface"

@@ -539,7 +539,7 @@
 #define ID_HELP_ABOUT                   40006
 #define ID_VIEW_LARGE_ICON              40007
 #define ID_VIEW_SMALL_ICON              40008
-#define ID_ENABLE_INDENT                40009
+#define ID_VIEW_INDENT                  40011
 #define ID_OPTIONS_FONT                 40012
 #define ID_OPTIONS_CLONE_COLOR          40013
 #define ID_OPTIONS_DIR                  40014

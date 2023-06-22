@@ -107,7 +107,7 @@ BEGIN
 		MENUITEM "L&arge Icons",                ID_VIEW_LARGE_ICON
 		MENUITEM "S&mall Icons",                ID_VIEW_SMALL_ICON
 		MENUITEM SEPARATOR
-		MENUITEM "Indent Clones",                   ID_ENABLE_INDENT
+		MENUITEM "Indent Clones",                   ID_VIEW_INDENT
 		MENUITEM SEPARATOR
 		POPUP "Sort games list"
 		BEGIN
