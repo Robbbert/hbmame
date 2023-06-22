@@ -2221,3 +2221,4 @@ bool FilterAvailable(int driver_index)
 	return IsAuditResultYes(GetRomAuditResults(driver_index));
 }
 #endif
+

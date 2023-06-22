@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef BITMASK_H
-#define BITMASK_H
+#ifndef WINUI_BITMASK_H
+#define WINUI_BITMASK_H
 
 /* Bit array type */
 typedef struct
@@ -31,3 +31,4 @@ typedef struct
 /* Linked list functions */
 
 #endif /* BITMASK_H */
+

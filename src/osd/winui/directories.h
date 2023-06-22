@@ -81,4 +81,3 @@ INT_PTR CALLBACK DirectoriesDialogProc(HWND hDlg, UINT Msg, WPARAM wParam, LPARA
 
 #endif /* DIRECTORIES_H */
 
-

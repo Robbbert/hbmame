@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef MUI_UTIL_H
-#define MUI_UTIL_H
+#ifndef WINUI_MUI_UTIL_H
+#define WINUI_MUI_UTIL_H
 
 #include "emucore.h"
 

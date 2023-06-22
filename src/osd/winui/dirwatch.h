@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef DIRWATCHER_H
-#define DIRWATCHER_H
+#ifndef WINUI_DIRWATCHER_H
+#define WINUI_DIRWATCHER_H
 
 #include <string>
 typedef struct DirWatcher *PDIRWATCHER;
@@ -12,3 +12,4 @@ BOOL DirWatcher_Watch(PDIRWATCHER pWatcher, WORD nIndex, const std::string t, BO
 void DirWatcher_Free(PDIRWATCHER pWatcher);
 
 #endif
+

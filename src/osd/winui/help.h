@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef HELP_H
-#define HELP_H
+#ifndef WINUI_HELP_H
+#define WINUI_HELP_H
 
 #if defined(__GNUC__)
 #define HH_DISPLAY_TOPIC        0
@@ -45,3 +45,4 @@ extern void HelpExit(void);
 extern HWND HelpFunction(HWND hwndCaller, LPCSTR pszFile, UINT uCommand, DWORD_PTR dwData);
 
 #endif
+

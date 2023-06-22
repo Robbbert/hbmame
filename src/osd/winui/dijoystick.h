@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef DIJOYSTICK_H
-#define DIJOYSTICK_H
+#ifndef WINUI_DIJOYSTICK_H
+#define WINUI_DIJOYSTICK_H
 
 /*
   limits:
@@ -61,3 +61,4 @@ extern int    DIJoystick_GetNumPhysicalJoystickAxes(int num_joystick);
 extern TCHAR* DIJoystick_GetPhysicalJoystickAxisName(int num_joystick, int num_axis);
 
 #endif
+

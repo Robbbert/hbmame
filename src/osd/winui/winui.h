@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef WINUI_H
-#define WINUI_H
+#ifndef WINUI_WINUI_H
+#define WINUI_WINUI_H
 
 #include <commctrl.h>
 #include <commdlg.h>
@@ -103,3 +103,4 @@ BOOL MouseHasBeenMoved(void);
 const char * GetSearchText(void);
 
 #endif
+

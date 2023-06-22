@@ -141,3 +141,4 @@ LPDIRECTINPUT GetDirectInput(void)
 {
 	return di;
 }
+

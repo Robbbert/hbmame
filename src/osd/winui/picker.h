@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef PICKER_H
-#define PICKER_H
+#ifndef WINUI_PICKER_H
+#define WINUI_PICKER_H
 
 #include <stdint.h>
 
@@ -84,3 +84,4 @@ int Picker_GetColumnCount(HWND hwndPicker);
 const LPCTSTR *Picker_GetColumnNames(HWND hwndPicker);
 
 #endif // PICKER_H
+

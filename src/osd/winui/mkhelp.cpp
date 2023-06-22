@@ -103,28 +103,30 @@ static void extract_help_ids(const char *buffer, FILE *fp)
 	const char *ptr = buffer;
 	char **help_ids = (char **)malloc(500 * sizeof(char *));
 	int num_help_id = 0;
-	int i;
 
 	//memset(help_ids, '\0', sizeof(*help_ids));
 	memset(help_ids, 0, 500);
 
-	while(*ptr) {
-		if (strncmp("HIDC_", ptr, 5) == 0) {
+	while(*ptr)
+	{
+		if (strncmp("HIDC_", ptr, 5) == 0)
+		{
 			char id_name[128];
 			char *end = id_name;
 			char *id;
 			memset(id_name, '\0', sizeof(id_name));
-			while (*ptr && *ptr != '\x0d' && *ptr != '\x0a' ) {
+
+			while (*ptr && *ptr != '\x0d' && *ptr != '\x0a' )
 				*end++ = *ptr++;
-			}
+
 			id = (char *)malloc(strlen(id_name));
 			memset(id, '\0', strlen(id_name));
 			memcpy(id, &id_name[1], strlen(&id_name[1]));
 			help_ids[num_help_id] = id;
 			num_help_id++;
-		} else {
-			ptr++;
 		}
+		else
+			ptr++;
 	}
 
 	/* Sort using Quicksort algorithm: */
@@ -132,21 +134,21 @@ static void extract_help_ids(const char *buffer, FILE *fp)
 
 	// Now print them out.
 	ptr = help_ids[0];
-	for (i = 0; i < num_help_id; i++) {
-		if (i > 0) {
-			if (strcmp(ptr, help_ids[i]) == 0) {
+	for (int i = 0; i < num_help_id; i++)
+	{
+		if (i > 0)
+			if (strcmp(ptr, help_ids[i]) == 0)
 				continue;
-			}
-		}
+
 		fprintf(fp, "\t%-30s,H%s,\n", help_ids[i], help_ids[i]);
 		ptr = help_ids[i];
 	}
 	fprintf(fp, "\t%-30i,%i\n", 0, 0);
 
 	// free our allocations.
-	for (i = 0; i < num_help_id; i++) {
+	for (int i = 0; i < num_help_id; i++)
 		free(help_ids[i]);
-	}
+
 	free (help_ids);
 }
 

@@ -48,6 +48,7 @@
 #define HIDC_HIDE_MOUSE                 0x80ad04a1    // IDD_INTERFACE_OPTIONS [English (U.S.)]
 #define HIDC_HIGH_PRIORITY              0x809e049f    // IDD_PROP_MISC [English (U.S.)]
 #define HIDC_HISTORY                    0x806504cb    // IDD_MAIN [English (U.S.)]
+#define HIDC_HLSL_ON                    0x806504cc    // IDD_PROP_ADVANCED [English (U.S.)]
 #define HIDC_HWSTRETCH                  0x809a046c    // IDD_PROP_DISPLAY [English (U.S.)]
 #define HIDC_JDZ                        0x809d0487    // IDD_PROP_INPUT [English (U.S.)]
 #define HIDC_JOYSTICK                   0x809d03eb    // IDD_PROP_INPUT [English (U.S.)]

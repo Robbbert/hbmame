@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef TABVIEW_H
-#define TABVIEW_H
+#ifndef WINUI_TABVIEW_H
+#define WINUI_TABVIEW_H
 
 struct TabViewCallbacks
 {
@@ -42,3 +42,4 @@ void TabView_UpdateSelection(HWND hwndTabView);
 BOOL TabView_HandleNotify(LPNMHDR lpNmHdr);
 
 #endif // TABVIEW_H
+
