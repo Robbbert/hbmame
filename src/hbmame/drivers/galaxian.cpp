@@ -718,6 +718,25 @@ ROM_START( frogtest2 )
 	ROM_LOAD( "pr-91.6l",     0x0000, 0x0020, CRC(413703bf) SHA1(66648b2b28d3dcbda5bdb2605d1977428939dd3c) )
 ROM_END
 
+ROM_START( froggerp )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "frogger.26",   0x0000, 0x1000, CRC(597696d6) SHA1(e7e021776cad00f095a1ebbef407b7c0a8f5d835) )
+	ROM_LOAD( "frogger.27p",  0x1000, 0x1000, CRC(b05c6d06) SHA1(71f17fdd87dff06b252e0d94b62743c5a23fd4f8) )
+	ROM_LOAD( "frsm3.7p",     0x2000, 0x1000, CRC(098a8093) SHA1(6f2e4ceb49e86f608818db93b5cc6a376abebd1e) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "frogger.608",  0x0000, 0x0800, CRC(e8ab0256) SHA1(f090afcfacf5f13cdfa0dfda8e3feb868c6ce8bc) )
+	ROM_LOAD( "frogger.609",  0x0800, 0x0800, CRC(7380a48f) SHA1(75582a94b696062cbdb66a4c5cf0bc0bb94f81ee) )
+	ROM_LOAD( "frogger.610",  0x1000, 0x0800, CRC(31d7eb27) SHA1(2e1d34ae4da385fd7cac94707d25eeddf4604e1a) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "frogger.607",  0x0000, 0x0800, CRC(05f7d883) SHA1(78831fd287da18928651a8adb7e578d291493eff) )
+	ROM_LOAD( "frogger.606",  0x0800, 0x0800, CRC(f524ee30) SHA1(dd768967add61467baa08d5929001f157d6cd911) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "pr-91.6l",     0x0000, 0x0020, CRC(413703bf) SHA1(66648b2b28d3dcbda5bdb2605d1977428939dd3c) )
+ROM_END
+
 /* Wriggly Beasties - bootleg of WarOfBug */
 ROM_START( wbeast )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -811,6 +830,7 @@ GAME( 1981, kazzy,      frogger,  frogger,  frogger,  galaxian_hbmame, init_frog
 GAME( 1999, trukker,    frogger,  frogger,  frogger,  galaxian_hbmame, init_trukker,  ROT90, "Grimlick","Trukker", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, frogtest,   frogger,  tst_frog, frogger,  galaxian_hbmame, init_frogger,  ROT90, "msmcdoug / JROK", "Frogger Sound Test", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, frogtest2,  frogger,  frogger,  frogger,  galaxian_hbmame, init_frogger,  ROT90, "Phil Murray", "Frogger Test Rom (2019-01-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, froggerp,   frogger,  frogger,  frogger,  galaxian_state,  init_frogger,  ROT90, "philmurr", "Frogger (fixed)", MACHINE_SUPPORTS_SAVE )
 
 
 // Amidar

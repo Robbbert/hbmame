@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [froggerp]            Frogger (fixed)
 - [mhavocrv2]           Major Havoc - Return to Vax 1.8
 
 
