@@ -19,9 +19,7 @@
 #define IDS_VIEW_SPACER3                79
 #define IDS_VIEW_LARGEICONS             80
 #define IDS_VIEW_SMALLICONS             81
-#define IDS_VIEW_LIST                   82
-#define IDS_VIEW_DETAILS                83
-#define IDS_VIEW_GROUPED                84
+#define IDS_VIEW_INDENT                 84
 #define IDS_VIEW_SPACER4                85
 #define IDS_VIEW_ARRANGE                86
 #define IDS_VIEW_SPACER5                88
@@ -87,6 +85,7 @@
 #define IDI_CHECKMARK                   155
 #define IDI_HEADER_UP                   156
 #define IDI_HEADER_DOWN                 157
+#define IDI_FOLDER_ARCADE               158
 //#define IDI_AUDIT_PASS                  160
 //#define IDI_AUDIT_FAIL                  161
 //#define IDI_SYSTRAY                     162
@@ -113,7 +112,11 @@
 #define IDI_WIN_CYLN                    188
 #define IDI_WIN_PTAP                    189
 #define IDI_WIN_PCRD                    190
-#define IDI_WIN_MIDI                    191
+#define IDI_WIN_MEMC                    191
+#define IDI_WIN_MIDI                    192
+#define IDI_WIN_CDRM                    193
+#define IDI_WIN_MTAP                    194
+#define IDI_WIN_CART                    195
 #define IDB_ABOUT                       200
 #define IDB_TOOLBAR                     201
 #define IDB_SPLASH                      202

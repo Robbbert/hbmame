@@ -3953,7 +3953,7 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		bShowStatusBar = !bShowStatusBar;
 		SetShowStatusBar(bShowStatusBar);
 		CheckMenuItem(GetMenu(hMain), ID_VIEW_STATUS, (bShowStatusBar) ? MF_CHECKED : MF_UNCHECKED);
-		ToolBar_CheckButton(s_hToolBar, ID_VIEW_STATUS, (bShowStatusBar) ? MF_CHECKED : MF_UNCHECKED);
+		//ToolBar_CheckButton(s_hToolBar, ID_VIEW_STATUS, (bShowStatusBar) ? MF_CHECKED : MF_UNCHECKED);
 		ShowWindow(hStatusBar, (bShowStatusBar) ? SW_SHOW : SW_HIDE);
 		ResizePickerControls(hMain);
 		UpdateScreenShot();

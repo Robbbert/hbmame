@@ -195,7 +195,8 @@ NUM GAME YEAR COMPANY                 TITLE
 497 0993 2021 iq132                   Cabal (Neo-Geo port)
 498 0052 2021 Kako Eimon              Abyssal Infants
 499 2048 2021 Nicole Branagan         Neo 2048
-500 0993 2022 iq132                   Kid no Hore Hore Daisakusen (Neo-Geo port)
+500 0993 2022 iq_132                  Kid no Hore Hore Daisakusen (Neo-Geo port)
+501 0282 2023 iq_132                  Soldier Girl Amazon (Neo-Geo port)
 
 
 
@@ -1896,6 +1897,25 @@ ROM_START( horekidb3 ) // beta 3, incomplete?
 ROM_END
 
 
+// 501: Soldier Girl Amazon (port by iq_132)
+ROM_START( amazonn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "501.p1", 0x000000, 0x020000, CRC(f52d1c73) SHA1(55c75d46ff4f9c3d30fee878da6ab53ddfdfee73) )
+
+	NEO_SFIX_128K( "501.s1", CRC(128166bb) SHA1(152677c61b3b33f26dad377a9e8c3329a58b8a3c) )
+
+	NEO_BIOS_AUDIO_64K( "501.m1", CRC(681d2398) SHA1(3f5d3832fc8c3470dedc97f8418120895e198fcc) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "501.v1", 0x000000, 0x200000, CRC(1a1a886c) SHA1(36a43396ab04e1d95f9231dc349cf43e59e65a3b) )
+	ROM_LOAD( "501.v2", 0x100000, 0x200000, CRC(86cade60) SHA1(45d6b847675d8e7dadff83abf1a12db17e1da6f3) )
+
+	ROM_REGION( 0x080000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "501.c1", 0x0000000, 0x020000, CRC(901c6ae1) SHA1(d4a98a0467198e2154c7838ebac3513216426310) )
+	ROM_LOAD16_BYTE( "501.c2", 0x0000001, 0x020000, CRC(a02a8679) SHA1(18d785c994630043f822f4a71207f75b1ebe7d48) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 // No sound
 ROM_START( 240ptest )
@@ -3330,6 +3350,7 @@ GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, amazonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Soldier Girl Amazon (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
