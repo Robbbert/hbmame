@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2023-0x-xx 0.245.13
+
+
+New Games
+---------------------------------
+- [mhavocrv2]           Major Havoc - Return to Vax 1.8
+
+
+
+
 2023-06-15 0.245.12
 
 
