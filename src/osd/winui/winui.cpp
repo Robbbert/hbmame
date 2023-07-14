@@ -357,6 +357,9 @@ static HWND	hProgress = NULL;
 static intptr_t CALLBACK StartupProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static bool bEnableIndent = false;
 
+static bool CommonListDialog(common_file_dialog_proc cfd);
+static void SaveGameListToFile(char *szFile);
+
 /***************************************************************************
     External variables
  ***************************************************************************/
@@ -798,6 +801,7 @@ static ResizeItem main_resize_items[] =
 
 static Resize main_resize = { {0, 0, 0, 0}, main_resize_items };
 
+static wchar_t list_directory[MAX_PATH] = TEXT(".");
 /* last directory for common file dialogs */
 TCHAR last_directory[MAX_PATH];
 
@@ -3869,6 +3873,12 @@ static BOOL MameCommand(HWND hwnd,int id, HWND hwndCtl, UINT codeNotify)
 		SetFocus(hwndList);
 		return true;
 
+	case ID_FILE_FILTER:
+		if (CommonListDialog(GetOpenFileName))
+			return true;
+		else
+			break;
+
 	case ID_FILE_EXIT:
 		PostMessage(hMain, WM_CLOSE, 0, 0);
 		return true;
@@ -6721,5 +6731,108 @@ BOOL MouseHasBeenMoved(void)
 	}
 
 	return (p.x != mouse_x || p.y != mouse_y);
+}
+
+static bool CommonListDialog(common_file_dialog_proc cfd)
+{
+	bool success = false;
+	OPENFILENAME of;
+	wchar_t szFile[MAX_PATH];
+	wchar_t szCurDir[MAX_PATH];
+
+	szFile[0] = 0;
+
+	// Save current directory (avoids mame file creation further failure)
+	if (GetCurrentDirectory(MAX_PATH, szCurDir) > MAX_PATH)
+	{
+		// Path too large
+		szCurDir[0] = 0;
+	}
+
+	of.lStructSize = sizeof(OPENFILENAME);
+	of.hwndOwner = hMain;
+	of.hInstance = NULL;
+
+	of.lpstrTitle  = TEXT("Enter a filter name");
+
+	of.lpstrFilter = TEXT("Filter file (*.ini)\0*.ini\0");
+	of.lpstrCustomFilter = NULL;
+	of.nMaxCustFilter = 0;
+	of.nFilterIndex = 1;
+	of.lpstrFile = szFile;
+	of.nMaxFile = sizeof(szFile);
+	of.lpstrFileTitle = NULL;
+	of.nMaxFileTitle = 0;
+	of.lpstrInitialDir = ui_wstring_from_utf8(dir_get_value(24).c_str());
+	of.nFileOffset = 0;
+	of.nFileExtension = 0;
+	of.lpstrDefExt = TEXT("txt");
+	of.lCustData = 0;
+	of.lpfnHook = NULL; //&OFNHookProc;
+	of.lpTemplateName = NULL;
+	of.Flags = OFN_EXPLORER | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY | OFN_ENABLEHOOK;
+
+	while(!success)
+	{
+		if (GetSaveFileName(&of))
+		{
+			if (GetFileAttributes(szFile) != -1)
+			{
+				if (win_message_box_utf8(hMain, "File already exists, overwrite ?", MAMEUINAME, MB_ICONQUESTION | MB_YESNO) != IDYES )
+					continue;
+				else
+					success = true;
+
+				SetFileAttributes(szFile, FILE_ATTRIBUTE_NORMAL);
+			}
+
+			SaveGameListToFile(ui_utf8_from_wstring(szFile));
+			// Save current directory (avoids mame file creation further failure)
+			GetCurrentDirectory(MAX_PATH, list_directory);
+			// Restore current file path
+			if (szCurDir[0] != 0)
+				SetCurrentDirectory(szCurDir);
+
+			success = true;
+		}
+		else
+			break;
+	}
+
+	return success;
+}
+
+static void SaveGameListToFile(char *szFile)
+{
+	int nListCount = ListView_GetItemCount(hwndList);
+	LVITEM lvi;
+
+	FILE *f = fopen(szFile, "w");
+
+	if (f == NULL)
+	{
+		ErrorMessageBox("Error : unable to open file");
+		return;
+	}
+
+	// Header
+	fprintf(f, "[ROOT_FOLDER]\n");
+
+	// Games
+	for (int nIndex = 0; nIndex < nListCount; nIndex++)
+	{
+		lvi.iItem = nIndex;
+		lvi.iSubItem = 0;
+		lvi.mask = LVIF_PARAM;
+
+		if (ListView_GetItem(hwndList, &lvi))
+		{
+			int nGameIndex  = lvi.lParam;
+			fprintf(f, "%s%s", driver_list::driver(nGameIndex).name,"\n");
+		}
+	}
+
+	fclose(f);
+	win_message_box_utf8(hMain, "File saved successfully.", MAMEUINAME, MB_ICONINFORMATION | MB_OK);
 }
 

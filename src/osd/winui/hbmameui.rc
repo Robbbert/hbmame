@@ -70,6 +70,8 @@ BEGIN
 		MENUITEM "&Refresh Roms\tF5",           ID_UPDATE_GAMELIST
 		MENUITEM "Refresh Cache",               ID_UPDATE_CACHE
 		MENUITEM SEPARATOR
+        MENUITEM "Save filter",                 ID_FILE_FILTER
+        MENUITEM SEPARATOR
 		MENUITEM "E&xit",                       ID_FILE_EXIT
 	END
 	POPUP "&View"
