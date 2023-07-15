@@ -3,9 +3,12 @@
 
 2023-0x-xx 0.245.13
 
+- HBMAMEUI: Can save a filter combination as a new filter.
+
 
 New Games
 ---------------------------------
+- [amazonn]             Soldier Girl Amazon (Neo-Geo port)
 - [froggerp]            Frogger (fixed)
 - [mhavocrv2]           Major Havoc - Return to Vax 1.8
 
