@@ -6766,7 +6766,7 @@ static bool CommonListDialog(common_file_dialog_proc cfd)
 	of.lpstrInitialDir = ui_wstring_from_utf8(dir_get_value(24).c_str());
 	of.nFileOffset = 0;
 	of.nFileExtension = 0;
-	of.lpstrDefExt = TEXT("txt");
+	of.lpstrDefExt = TEXT("ini");
 	of.lCustData = 0;
 	of.lpfnHook = NULL; //&OFNHookProc;
 	of.lpTemplateName = NULL;

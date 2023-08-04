@@ -49,6 +49,7 @@ akblc2dx		/* hack */
 akgcdx			/* hack */
 aktaytdx		/* hack */
 //arkll32                              // broke mid-2022 after Z80 changes
+arkcrsn5
 
 @source:asteroid.cpp
 asteroid		//parent

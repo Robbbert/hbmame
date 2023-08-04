@@ -9,6 +9,7 @@
 New Games
 ---------------------------------
 - [amazonn]             Soldier Girl Amazon (Neo-Geo port)
+- [arkcrsn5]            Cruisin 5 (demo)
 - [froggerp]            Frogger (fixed)
 - [mhavocrv2]           Major Havoc - Return to Vax 1.8
 - [ssf2tnl]             Super Street Fighter II Turbo (New Legacy v0.8 beta 2023-07-20)
