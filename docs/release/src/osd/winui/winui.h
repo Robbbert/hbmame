@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef WINUI_H
-#define WINUI_H
+#ifndef WINUI_WINUI_H
+#define WINUI_WINUI_H
 
 #include <commctrl.h>
 #include <commdlg.h>
@@ -61,6 +61,7 @@ BOOL CommonFileDialog(common_file_dialog_proc cfd,char *filename, int filetype);
 
 HWND GetMainWindow(void);
 HWND GetTreeView(void);
+HWND GetProgressBar();
 void SetNumOptionFolders(int count);
 void GetRealColumnOrder(int order[]);
 HICON LoadIconFromFile(const char *iconname);
@@ -83,7 +84,6 @@ char * ConvertAmpersandString(const char *s);
 HBITMAP GetBackgroundBitmap(void);
 HPALETTE GetBackgroundPalette(void);
 MYBITMAPINFO* GetBackgroundInfo(void);
-BOOL GetUseXPControl(void);
 
 int GetMinimumScreenShotWindowWidth(void);
 
@@ -103,3 +103,4 @@ BOOL MouseHasBeenMoved(void);
 const char * GetSearchText(void);
 
 #endif
+

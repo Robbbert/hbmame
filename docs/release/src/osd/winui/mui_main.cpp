@@ -20,3 +20,4 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 {
 	return MameUIMain(hInstance, lpCmdLine, nCmdShow);
 }
+

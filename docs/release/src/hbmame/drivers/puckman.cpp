@@ -1258,16 +1258,16 @@ ROM_START( homercid )
 	PACMAN_SOUND_PROMS
 ROM_END
 
-ROM_START( jacman )
+ROM_START( jackman )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pacman.6e",    0x0000, 0x1000, CRC(c1e6ab10) SHA1(e87e059c5be45753f7e9f33dff851f16d6751181) )
 	ROM_LOAD( "pacman.6f",    0x1000, 0x1000, CRC(1a6fb2d4) SHA1(674d3a7f00d8be5e38b1fdc208ebef5a92d38329) )
 	ROM_LOAD( "pacman.6h",    0x2000, 0x1000, CRC(bcdd1beb) SHA1(8e47e8c2c4d6117d174cdac150392042d3e0a881) )
-	ROM_LOAD( "jacman.6j",    0x3000, 0x1000, CRC(1f52ef8b) SHA1(0a803352a964de9567bc314f8ace1c612082e3d0) )
+	ROM_LOAD( "jackman.6j",   0x3000, 0x1000, CRC(1f52ef8b) SHA1(0a803352a964de9567bc314f8ace1c612082e3d0) )
 
 	ROM_REGION( 0x2000, "gfx1", 0 )
-	ROM_LOAD( "jacman.5e",    0x0000, 0x1000, CRC(809bd73e) SHA1(81989a21d089eb76297926905729efcd69abeb87) )
-	ROM_LOAD( "jacman.5f",    0x1000, 0x1000, CRC(0509d3e6) SHA1(e589543b9a2f1c81115c03b4b88096ac84826e62) )
+	ROM_LOAD( "jackman.5e",   0x0000, 0x1000, CRC(809bd73e) SHA1(81989a21d089eb76297926905729efcd69abeb87) )
+	ROM_LOAD( "jackman.5f",   0x1000, 0x1000, CRC(0509d3e6) SHA1(e589543b9a2f1c81115c03b4b88096ac84826e62) )
 
 	PACMAN_PROMS
 ROM_END
@@ -6929,7 +6929,7 @@ GAME( 2014, hellowp,  puckman,  pacman,   pacman,   puckman_state, empty_init,  
 GAME( 1981, hmhearts, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "[Nittoh]", "Hangly-Man (Hearts)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, hmpopey,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "[Nittoh]", "Hangly-Man (Popeye)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, homercid, puckman,  pacman,   mspacpls, puckman_state, empty_init,   ROT90, "David Widel", "Homercide", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, jacman,   puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Brent Cobb", "Jacman", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, jackman,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "Brent Cobb", "Jackman", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, jpmmunch, puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "JPM", "Muncher", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, muckpan,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "E.P.", "Muckpan", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, newpuc1,  puckman,  pacman,   pacman,   puckman_state, empty_init,   ROT90, "E.P.", "Newpuc1 (Italian dump)", MACHINE_SUPPORTS_SAVE )

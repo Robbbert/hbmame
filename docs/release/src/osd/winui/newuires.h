@@ -52,13 +52,3 @@
 #define IDI_ICON_SNAP                   3206
 #define IDR_RUNTIME_MENU                3300
 
-// Next default values for new objects
-//
-#ifdef APSTUDIO_INVOKED
-#ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        3144
-#define _APS_NEXT_COMMAND_VALUE         40008
-#define _APS_NEXT_CONTROL_VALUE         3306
-#define _APS_NEXT_SYMED_VALUE           101
-#endif
-#endif

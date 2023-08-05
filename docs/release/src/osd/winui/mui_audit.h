@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef MUI_AUDIT_H
-#define MUI_AUDIT_H
+#ifndef WINUI_MUI_AUDIT_H
+#define WINUI_MUI_AUDIT_H
 
 void AuditDialog(HWND hParent, int choice);
 
@@ -19,3 +19,4 @@ BOOL IsAuditResultYes(int audit_result);
 BOOL IsAuditResultNo(int audit_result);
 
 #endif
+

@@ -6,8 +6,8 @@
 //
 //============================================================
 
-#ifndef NEWUI_H
-#define NEWUI_H
+#ifndef WINUI_NEWUI_H
+#define WINUI_NEWUI_H
 
 ///// INCLUDES /////
 
@@ -36,3 +36,4 @@ LRESULT CALLBACK winwindow_video_window_proc_ui(HWND wnd, UINT message, WPARAM w
 int win_create_menu(running_machine &machine, HMENU *menus);
 
 #endif /* NEWUI_H */
+

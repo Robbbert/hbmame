@@ -105,7 +105,7 @@ const size_t npos = std::string::npos;
 static void create_index_history(const char* datsdir, std::ifstream &fp, std::string file_line, int filenum)
 {
 	int what_to_do = 0;  // 0 = xml not found; 1 = idx not found or version mismatch; 2 = both ok, need to read idx.
-	const std::string text1 = "<system name=", text4 = "\"";
+	const std::string text1 = "<system name=", text2 = "<item list=", text4 = "\"";
 	std::string xml_ver, idx_ver;
 	size_t quot1 = npos, quot2 = npos;
 
@@ -172,6 +172,35 @@ static void create_index_history(const char* datsdir, std::ifstream &fp, std::st
 				quot2 = file_line.find(text4, quot1);
 				if (quot2 != npos)
 					final_key = file_line.substr(quot1, quot2-quot1);
+			}
+		}
+		else
+		{
+			find = file_line.find(text2);
+			if (find != npos)   // found a sw-item
+			{
+				// Find position of the 4 double-quotes
+				quot1 = file_line.find(text4), quot2 = npos;
+				if (quot1 != npos)
+				{
+					quot1++;
+					quot2 = file_line.find(text4, quot1);
+					if (quot2 != npos)
+					{
+						std::string first = file_line.substr(quot1, quot2-quot1);
+						quot1 = file_line.find(text4, quot2+1);
+						if (quot1 != npos)
+						{
+							quot1++;
+							quot2 = file_line.find(text4, quot1);
+							if (quot2 != npos)
+							{
+								std::string second = file_line.substr(quot1, quot2-quot1);
+								final_key = first + std::string(":") + second;
+							}
+						}
+					}
+				}
 			}
 		}
 		// If we passed the tests we now have the key, find the next text

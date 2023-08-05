@@ -1027,3 +1027,4 @@ GAME( 2022, mhavocpede100,   mhavoc, mhavocpe_adpcm, mhavocpe_inputs, mhavoc_hbm
 GAME( 2022, mhavocpete100,     mhavoc, mhavocpe_adpcm, mhavocpe_inputs, mhavoc_hbmame, empty_init, ROT0, "JMA", "Major Havoc - The Promised End - Tournament (v1.00) ENGLISH - ADPCM Speech", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, mhavocpefrte100,   mhavoc, mhavocpe_adpcm, mhavocpe_inputs, mhavoc_hbmame, empty_init, ROT0, "JMA", "Major Havoc - The Promised End - Tournament (v1.00) FRENCH - ADPCM Speech", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, mhavocpedete100,   mhavoc, mhavocpe_adpcm, mhavocpe_inputs, mhavoc_hbmame, empty_init, ROT0, "JMA", "Major Havoc - The Promised End - Tournament (v1.00) GERMAN - ADPCM Speech", MACHINE_SUPPORTS_SAVE )
+

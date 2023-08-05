@@ -368,4 +368,3 @@ int GetSplitterCount(void)
 	return nSplitterCount;
 }
 
-/* End of file */

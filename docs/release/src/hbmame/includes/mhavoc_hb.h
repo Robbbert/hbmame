@@ -30,22 +30,22 @@
 class mhavoc_hbmame : public driver_device
 {
 public:
-	mhavoc_hbmame(const machine_config &mconfig, device_type type, const char *tag) :
-		driver_device(mconfig, type, tag),
-		m_zram0(*this, "zram0"),
-		m_zram1(*this, "zram1"),
-		m_alpha(*this, "alpha"),
-		m_gamma(*this, "gamma"),
-		m_beta(*this, "beta"),
-		m_avg(*this, "avg"),
-		m_comram(*this, "comram"),
-		m_pokey(*this, "pokey%u", 1U),
-		m_tms(*this, "tms"),
-		m_oki(*this, "oki"),
-		m_lamps(*this, "lamp%u", 0U),
-		m_coin(*this, "COIN"),
-        m_cabinet(*this, "CABINET"),
-		m_service(*this, "SERVICE")
+	mhavoc_hbmame(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+		, m_zram0(*this, "zram0")
+		, m_zram1(*this, "zram1")
+		, m_alpha(*this, "alpha")
+		, m_gamma(*this, "gamma")
+		, m_beta(*this, "beta")
+		, m_avg(*this, "avg")
+		, m_comram(*this, "comram")
+		, m_pokey(*this, "pokey%u", 1U)
+		, m_tms(*this, "tms")
+		, m_oki(*this, "oki")
+		, m_lamps(*this, "lamp%u", 0U)
+		, m_coin(*this, "COIN")
+		, m_cabinet(*this, "CABINET")
+		, m_service(*this, "SERVICE")
 	{ }
 
 	void mhavoc_common(machine_config &config);
@@ -53,7 +53,7 @@ public:
 	void mhavocpe_adpcm(machine_config &config); //HBMAME
 
 	DECLARE_CUSTOM_INPUT_MEMBER(coin_service_r);
-    DECLARE_CUSTOM_INPUT_MEMBER(coin_cabinet_l);
+	DECLARE_CUSTOM_INPUT_MEMBER(coin_cabinet_l);
 	DECLARE_READ_LINE_MEMBER(gamma_rcvd_r);
 	DECLARE_READ_LINE_MEMBER(gamma_xmtd_r);
 	DECLARE_READ_LINE_MEMBER(gamma_tirdy_r);
@@ -108,8 +108,8 @@ private:
 	optional_device<okim6295_device> m_oki;
 	output_finder<2> m_lamps;
 	optional_ioport m_coin;
-    optional_ioport m_cabinet;
-	optional_ioport m_service;	
+	optional_ioport m_cabinet;
+	optional_ioport m_service;
 
 	uint8_t m_alpha_data = 0U;
 	uint8_t m_alpha_rcvd = 0U;

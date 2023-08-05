@@ -599,11 +599,8 @@ void InitPropertyPageToPage(HINSTANCE hInst, HWND hWnd, HICON hIcon, OPTIONS_TYP
 	case OPTIONS_GLOBAL:
 		t_description = ui_wstring_from_utf8("Default Settings");
 		break;
-	case OPTIONS_COMPUTER:
-		t_description = ui_wstring_from_utf8("Default properties for computers");
-		break;
-	case OPTIONS_CONSOLE:
-		t_description = ui_wstring_from_utf8("Default properties for consoles");
+	case OPTIONS_ARCADE:
+		t_description = ui_wstring_from_utf8("Default properties for games");
 		break;
 	case OPTIONS_HORIZONTAL:
 		t_description = ui_wstring_from_utf8("Default properties for horizontal screens");
@@ -1001,11 +998,8 @@ char *GameInfoTitle(OPTIONS_TYPE opt_type, UINT nIndex)
 	case OPTIONS_SOURCE:
 		sprintf(buf, "Properties for machines in %s", GetDriverFilename(nIndex));
 		break;
-	case OPTIONS_COMPUTER:
-		sprintf(buf, "Default properties for computers");
-		break;
-	case OPTIONS_CONSOLE:
-		sprintf(buf, "Default properties for consoles");
+	case OPTIONS_ARCADE:
+		sprintf(buf, "Default properties for games");
 		break;
 	case OPTIONS_HORIZONTAL:
 		sprintf(buf, "Default properties for horizontal screens");

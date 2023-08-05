@@ -49,6 +49,7 @@ akblc2dx		/* hack */
 akgcdx			/* hack */
 aktaytdx		/* hack */
 //arkll32                              // broke mid-2022 after Z80 changes
+arkcrsn5
 
 @source:asteroid.cpp
 asteroid		//parent
@@ -1519,6 +1520,7 @@ ssf2tnl4
 ssf2tnl5
 ssf2tnl6
 ssf2tnl7
+ssf2tnl71
 ssf2tnl
 ssf2x01
 ssf2x02
@@ -1848,6 +1850,7 @@ offender	/* Chris Henry hack of scramble */
 superdog	/* Jerky Hack Hack of scramble */
 scratest
 frogger                                //parent
+froggerp
 frogtest
 frogtest2
 kazzy
@@ -4298,6 +4301,7 @@ mhavoc                                 //parent
 mhavocrv
 
 @source:mhavoc_hb.cpp
+mhavocrv2
 mhavocpex1
 mhavocpex2
 mhavocpex3
@@ -6016,6 +6020,7 @@ zupapa			// 070
 abyssal
 abyssal1
 akiradmo
+amazonn
 badapple			// BEY
 badapplea
 badappleb
@@ -8150,7 +8155,7 @@ hmgrenp		/* Blue Justice */
 hmpopey		/*  */
 hmplus		/* Blue Justice */
 homercid	/* David Widel */
-jacman
+jackman
 jpmmunch	/* JPM bootleg */
 mazeman		/* Sil hack of Pac-Man */
 muckpan

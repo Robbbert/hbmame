@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef PICKER_H
-#define PICKER_H
+#ifndef WINUI_PICKER_H
+#define WINUI_PICKER_H
 
 #include <stdint.h>
 
@@ -49,9 +49,6 @@ enum
 {
 	VIEW_LARGE_ICONS = 0,
 	VIEW_SMALL_ICONS,
-	VIEW_INLIST,
-	VIEW_REPORT,
-	VIEW_GROUPED,
 	VIEW_MAX
 };
 
@@ -87,3 +84,4 @@ int Picker_GetColumnCount(HWND hwndPicker);
 const LPCTSTR *Picker_GetColumnNames(HWND hwndPicker);
 
 #endif // PICKER_H
+

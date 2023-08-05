@@ -267,4 +267,3 @@ BOOL SetupTabView(HWND hwndTabView, const struct TabViewOptions *pOptions)
 	return true;
 }
 
-

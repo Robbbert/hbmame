@@ -143,4 +143,3 @@ int FindBit(LPBITS lpBits, int nStartPos, BOOL bSet)
 	return -1;
 }
 
-/* End of source file */

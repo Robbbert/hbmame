@@ -1,8 +1,8 @@
 // For licensing and usage information, read docs/release/winui_license.txt
 //****************************************************************************
 
-#ifndef DIRECTINPUT_H
-#define DIRECTINPUT_H
+#ifndef WINUI_DIRECTINPUT_H
+#define WINUI_DIRECTINPUT_H
 
 #undef WINNT
 #ifdef DIRECTINPUT_VERSION
@@ -21,3 +21,4 @@ extern HRESULT SetDIDwordProperty(LPDIRECTINPUTDEVICE2 pdev, REFGUID guidPropert
 LPDIRECTINPUT GetDirectInput(void);
 
 #endif
+

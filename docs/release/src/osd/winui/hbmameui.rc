@@ -70,6 +70,8 @@ BEGIN
 		MENUITEM "&Refresh Roms\tF5",           ID_UPDATE_GAMELIST
 		MENUITEM "Refresh Cache",               ID_UPDATE_CACHE
 		MENUITEM SEPARATOR
+        MENUITEM "Save filter",                 ID_FILE_FILTER
+        MENUITEM SEPARATOR
 		MENUITEM "E&xit",                       ID_FILE_EXIT
 	END
 	POPUP "&View"
@@ -106,11 +108,10 @@ BEGIN
 		MENUITEM SEPARATOR
 		MENUITEM "L&arge Icons",                ID_VIEW_LARGE_ICON
 		MENUITEM "S&mall Icons",                ID_VIEW_SMALL_ICON
-		MENUITEM "&List",                       ID_VIEW_LIST_MENU
-		MENUITEM "&Details",                    ID_VIEW_DETAIL
-		MENUITEM "&Grouped",                    ID_VIEW_GROUPED
 		MENUITEM SEPARATOR
-		POPUP "Arrange &Icons"
+		MENUITEM "Indent Clones",                   ID_VIEW_INDENT
+		MENUITEM SEPARATOR
+		POPUP "Sort games list"
 		BEGIN
 			MENUITEM "by &Name",                    ID_VIEW_BYGAME
 			MENUITEM "by D&irectory",               ID_VIEW_BYDIRECTORY
@@ -119,8 +120,6 @@ BEGIN
 			MENUITEM "by &Type",                    ID_VIEW_BYTYPE
 			MENUITEM "by &Date",                    ID_VIEW_BYYEAR
 		END
-		MENUITEM "Line &Up Icons",              ID_VIEW_LINEUPICONS
-		MENUITEM SEPARATOR
 		MENUITEM "&Custom Filters...\tCtrl+F",  ID_CONTEXT_FILTERS
 		MENUITEM "Customi&ze Fields...",        ID_CUSTOMIZE_FIELDS
 	END
@@ -444,7 +443,7 @@ BEGIN
 	DEFPUSHBUTTON   "&OK",IDOK,200,109,50,14,WS_GROUP
 	CTEXT           "HomeBrew MAME",IDC_STATIC,147,7,142,11,NOT WS_GROUP
 	CTEXT           "Version 0",IDC_VERSION,147,18,142,11,NOT WS_GROUP
-	CTEXT           "Copyright (C) 1997-2022 Robbbert",IDC_STATIC,147,29,142,10,NOT WS_GROUP
+	CTEXT           "Copyright (C) 1997-2023 Robbbert",IDC_STATIC,147,29,142,10,NOT WS_GROUP
 	CTEXT           "MAMEUI version by",IDC_STATIC,147,51,142,10,NOT WS_GROUP
 	CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,147,44,142,1
 	CTEXT           "Christopher Kirmse and the MAMEUI team",IDC_STATIC,147,62,142,9,NOT WS_GROUP
@@ -1032,8 +1031,8 @@ BEGIN
 	CONTROL         "",IDC_DIVIDER,"Static",SS_ETCHEDHORZ,0,5,304,1
 	CONTROL         "Tree1",IDC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_EDITLABELS |
 					TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_TABSTOP,5,28,48,172
-	CONTROL         "List1",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_AUTOARRANGE |
-					LVS_SHAREIMAGELISTS | LVS_OWNERDRAWFIXED | WS_BORDER | WS_TABSTOP,65,28,42,172
+	CONTROL         "List1",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS |
+					LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,65,28,42,172
 	GROUPBOX        "",IDC_SPLITTER,55,28,8,172,BS_NOTIFY | NOT WS_VISIBLE
 	GROUPBOX        "",IDC_SPLITTER2,109,28,8,172,BS_NOTIFY | NOT WS_VISIBLE
 	CONTROL         "",IDC_SSFRAME,"Static",SS_ETCHEDFRAME | SS_NOTIFY,121,11,181,194
@@ -1383,12 +1382,8 @@ STRINGTABLE DISCARDABLE
 BEGIN
 	IDS_VIEW_LARGEICONS     "Display items by using large icons."
 	IDS_VIEW_SMALLICONS     "Display items by using small icons."
-	IDS_VIEW_LIST           "Displays items in a list."
-	IDS_VIEW_DETAILS        "Displays detailed information about each item in the window."
-	IDS_VIEW_GROUPED        "Displays items grouped by parent game"
 	IDS_VIEW_SPACER4        "Spacer"
 	IDS_VIEW_ARRANGE        "Contains commands for sorting by various columns"
-	IDS_VIEW_LINEUPICONS    "Arranges icons in a grid"
 	IDS_VIEW_SPACER5        "Spacer"
 	IDS_VIEW_REFRESH        "Refresh game list"
 	IDS_VIEW_CONTEXTFILTERS "Allows filtering out games from a folder"
@@ -1402,9 +1397,6 @@ BEGIN
 	ID_HELP_ABOUT           "Displays program and copyright information"
 	ID_VIEW_LARGE_ICON      "Display items by using large icons."
 	ID_VIEW_SMALL_ICON      "Display items by using small icons."
-	ID_VIEW_LIST_MENU       "Displays items in a list."
-	ID_VIEW_DETAIL          "Displays detailed information about each item in the window."
-	ID_VIEW_GROUPED         "Show items grouped by parent game"
 	ID_OPTIONS_FONT         "Set game list and folder list font"
 	ID_OPTIONS_CLONE_COLOR  "Set the clone font color"
 	ID_OPTIONS_DIR          "Set directory configuration"
@@ -1484,7 +1476,6 @@ BEGIN
 	ID_VIEW_BYYEAR          "Sort items by year"
 	ID_VIEW_BYTYPE          "Sort items by type"
 	ID_VIEW_BYTIMESPLAYED   "Sort by number of plays"
-	ID_VIEW_LINEUPICONS     "Arranges icons in a grid"
 	ID_UPDATE_GAMELIST      "Refresh game list"
 	ID_SORT_ASCENDING       "Sort column in ascending (A-Z) order"
 	ID_SORT_DESCENDING      "Sort column in descending (Z-A) order"

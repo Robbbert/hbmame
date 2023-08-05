@@ -854,3 +854,4 @@ static void OnHScroll(HWND hwnd, HWND hwndCtl, UINT code, int pos)
 		SendDlgItemMessage(hwnd,IDC_SCREENSHOT_BORDERSIZETXT,WM_SETTEXT,0, (WPARAM)tmp);
 	}
 }
+

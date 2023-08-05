@@ -19,12 +19,9 @@
 #define IDS_VIEW_SPACER3                79
 #define IDS_VIEW_LARGEICONS             80
 #define IDS_VIEW_SMALLICONS             81
-#define IDS_VIEW_LIST                   82
-#define IDS_VIEW_DETAILS                83
-#define IDS_VIEW_GROUPED                84
+#define IDS_VIEW_INDENT                 84
 #define IDS_VIEW_SPACER4                85
 #define IDS_VIEW_ARRANGE                86
-#define IDS_VIEW_LINEUPICONS            87
 #define IDS_VIEW_SPACER5                88
 #define IDS_VIEW_REFRESH                89
 #define IDS_VIEW_CONTEXTFILTERS         90
@@ -88,6 +85,7 @@
 #define IDI_CHECKMARK                   155
 #define IDI_HEADER_UP                   156
 #define IDI_HEADER_DOWN                 157
+#define IDI_FOLDER_ARCADE               158
 //#define IDI_AUDIT_PASS                  160
 //#define IDI_AUDIT_FAIL                  161
 //#define IDI_SYSTRAY                     162
@@ -114,7 +112,11 @@
 #define IDI_WIN_CYLN                    188
 #define IDI_WIN_PTAP                    189
 #define IDI_WIN_PCRD                    190
-#define IDI_WIN_MIDI                    191
+#define IDI_WIN_MEMC                    191
+#define IDI_WIN_MIDI                    192
+#define IDI_WIN_CDRM                    193
+#define IDI_WIN_MTAP                    194
+#define IDI_WIN_CART                    195
 #define IDB_ABOUT                       200
 #define IDB_TOOLBAR                     201
 #define IDB_SPLASH                      202
@@ -524,8 +526,6 @@
 #define IDC_SWTAB                       2001
 #define IDC_SWLIST                      2002
 #define IDC_SWDEVVIEW                   2003
-#define IDC_FILTER_COMPUTER             2004
-#define IDC_FILTER_CONSOLE              2005
 #define IDC_FILTER_MODIFIED             2006
 #define IDC_RAM_COMBOBOX                2008
 #define IDC_RAM_CAPTION                 2009
@@ -540,9 +540,7 @@
 #define ID_HELP_ABOUT                   40006
 #define ID_VIEW_LARGE_ICON              40007
 #define ID_VIEW_SMALL_ICON              40008
-#define ID_VIEW_LIST_MENU               40009
-#define ID_VIEW_DETAIL                  40010
-#define ID_VIEW_GROUPED                 40011
+#define ID_VIEW_INDENT                  40011
 #define ID_OPTIONS_FONT                 40012
 #define ID_OPTIONS_CLONE_COLOR          40013
 #define ID_OPTIONS_DIR                  40014
@@ -608,6 +606,7 @@
 #define ID_OPTIONS_MAMEINFO             40100
 #define ID_OPTIONS_HISTORY              40101
 #define ID_VIEW_SOFTWARE_AREA           40102
+#define ID_FILE_FILTER                  40104
 #define ID_MANUAL                       40108
 #define ID_VIDEO_SNAP                   40109
 #define ID_PLAY_VIDEO                   40110

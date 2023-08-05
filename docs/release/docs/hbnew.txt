@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2023-0x-xx 0.245.13
+2023-08-05 0.245.13
 
 - HBMAMEUI: Can save a filter combination as a new filter.
 

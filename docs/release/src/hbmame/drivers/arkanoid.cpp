@@ -66,9 +66,26 @@ ROM_START( arkll32 )
 	ROM_LOAD( "a75-09.ic22",   0x0400, 0x0200, CRC(a7c6c277) SHA1(adaa003dcd981576ea1cc5f697d709b2d6b2ea29) )
 ROM_END
 
+ROM_START( arkcrsn5 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "cruisin5.3f",   0x0000, 0x8000, CRC(41ed7668) SHA1(afd1600317d210b6da2c63a65f1614be1f77854b) )
+	ROM_LOAD( "cruisin5.5f",   0x8000, 0x8000, CRC(77e310cc) SHA1(e2638bf6c565df9dab98d92c857d2212b150a2d1) )
 
-GAME( 2000, akblc2dx, arkanoid, bootleg,  arkangc,   arkanoid_state, init_arkblock, ROT90, "hack", "Block Deluxe (Game Corporation)", 0 )
-GAME( 2000, akgcdx,   arkanoid, bootleg,  arkangc,   arkanoid_state, init_arkgcbl,  ROT90, "hack", "Arkanoid Deluxe (Game Corporation)", 0 )
-GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid Deluxe (Japan, Tayto)", 0 )
-GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid LL32", MACHINE_NOT_WORKING ) // broke 2022 after Z80 change
+	ROM_REGION( 0x18000, "gfx1", 0 )
+	ROM_LOAD( "cruisin5.2c",   0x00000, 0x8000, CRC(7fb9dafc) SHA1(74a312729f10ab4753204b41de59ff41b93e80cb) )
+	ROM_LOAD( "cruisin5.3c",   0x08000, 0x8000, CRC(05229af9) SHA1(76c469506430bc23ee77bbcefbc357478437bba7) )
+	ROM_LOAD( "cruisin5.5c",   0x10000, 0x8000, CRC(a4c1a25f) SHA1(29d49572c1e7c6c8ac428ad2a3e625f0f548f66c) )
+
+	ROM_REGION( 0x0600, "proms", 0 )
+	ROM_LOAD( "ic73.11e",    0x0000, 0x0200, CRC(0af8b289) SHA1(6bc589e8a609b4cf450aebedc8ce02d5d45c970f) )
+	ROM_LOAD( "ic74.12e",    0x0200, 0x0200, CRC(abb002fb) SHA1(c14f56b8ef103600862e7930709d293b0aa97a73) )
+	ROM_LOAD( "ic75.13e",    0x0400, 0x0200, CRC(a7c6c277) SHA1(adaa003dcd981576ea1cc5f697d709b2d6b2ea29) )
+ROM_END
+
+
+GAME( 2000, akblc2dx, arkanoid, bootleg,  arkangc,   arkanoid_state, init_arkblock, ROT90, "hack", "Block Deluxe (Game Corporation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, akgcdx,   arkanoid, bootleg,  arkangc,   arkanoid_state, init_arkgcbl,  ROT90, "hack", "Arkanoid Deluxe (Game Corporation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, aktaytdx, arkanoid, bootleg,  arktayt2,  arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid Deluxe (Japan, Tayto)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, arkll32,  arkanoid, p3mcu,    arkanoidj, arkanoid_state, empty_init,    ROT90, "hack", "Arkanoid LL32", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // broke 2022 after Z80 change
+GAME( 2023, arkcrsn5, arkanoid, aysnd,    arkatayt,  arkanoid_state, empty_init,    ROT90, "Abyss", "Cruisin 5 (demo)", MACHINE_SUPPORTS_SAVE )
 
