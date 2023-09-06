@@ -309,9 +309,9 @@ void cps2_state::cps2turbo(machine_config &config) //Zero800
 }
 
 
-ROM_START( sfz3mix ) // 0.20
+ROM_START( sfz3mix20 ) // 0.20
 	ROM_REGION( 0x400000, "maincpu", 0 )
-	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(dccaa96e) SHA1(2cb2645997de0de1c5d35b6af45cb203c826a8c1) )
+	ROM_LOAD( "sfz3mix20.p1", 0x000000, 0x400000, CRC(dccaa96e) SHA1(2cb2645997de0de1c5d35b6af45cb203c826a8c1) )
 	ROM_IGNORE(0x200000)  // empty
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
@@ -328,5 +328,25 @@ ROM_START( sfz3mix ) // 0.20
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-GAME( 2023, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Mix 0.20)", MACHINE_SUPPORTS_SAVE )
+ROM_START( sfz3mix ) // 0.21
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(ecb679c5) SHA1(e632ca9a37b50b7e4346b0b34c8c99b25e6c850e) )
+	ROM_IGNORE(0x200000)  // empty
+
+	ROM_REGION( 0x4000000, "gfx", 0 )
+	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(8f39c9b5) SHA1(d6c3dc2c83467238a078cba8691f2d67a4d92a77) )
+	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(ef993c43) SHA1(5fa66f483e888e4fc5442e79c00fd2d06d7a46a9) )
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(09cc5048) SHA1(a302821d0ea2d04175ca11ffaa26422e0b9f8432) )
+
+	ROM_REGION( 0x1000000, "qsound", 0 )
+	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(3e35e4ca) SHA1(2df04666808af25c749b00c8fef945d739c44f17) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+GAME( 2023, sfz3mix20,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.20)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.21)", MACHINE_SUPPORTS_SAVE )
 
