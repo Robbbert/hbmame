@@ -755,6 +755,7 @@ void cps2_state::cps1_build_palette( const u16* const palette_base )
 void cps2_state::cps1_find_last_sprite()    /* Find the offset of last sprite */
 {
 	int offset = 0;
+
 	/* Locate the end of table marker */
 	while (offset < m_obj_size / 2)
 	{
@@ -770,6 +771,7 @@ void cps2_state::cps1_find_last_sprite()    /* Find the offset of last sprite */
 
 		offset += 4;
 	}
+
 	/* Sprites must use full sprite RAM */
 	m_last_sprite_offset = m_obj_size / 2 - 4;
 }
@@ -991,6 +993,10 @@ void cps2_state::cps2_find_last_sprite()    /* Find the offset of last sprite */
 			return;
 		}
 
+		if (m_turbo)
+			if (base[offset + 1] & 0x1000) //Zero800 uses an unused bit to access an extra gfx bank
+				base[offset + 1] |= 0x8000;
+
 		offset += 4;
 	}
 	/* Sprites must use full sprite RAM */
@@ -1034,6 +1040,8 @@ void cps2_state::cps2_render_sprites( screen_device &screen, bitmap_ind16 &bitma
 		int y = base[i + 1];
 		int priority = (x >> 13) & 0x07;
 		int code = base[i + 2] + ((y & 0x6000) << 3);
+		if (m_turbo)
+			code = base[i + 2] + ((y & 0xe000) << 3); //Zero800 uses an unused bit to access an extra gfx bank 
 		int colour = base[i + 3];
 		int col = colour & 0x1f;
 
