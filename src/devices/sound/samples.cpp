@@ -88,7 +88,8 @@ void samples_device::start(uint8_t channel, uint32_t samplenum, bool loop)
 	sample_t &sample = m_sample[samplenum];
 	chan.source = (sample.data.size() > 0) ? &sample.data[0] : nullptr;
 	chan.source_num = (chan.source_len > 0) ? samplenum : -1;
-	chan.source_len = sample.data.size();
+	//chan.source_len = sample.data.size();
+	chan.source_len = sample.data.size() ? sample.data.size() : -1; //Zero800 Fix loadstate errors
 	chan.pos = 0;
 	chan.basefreq = sample.frequency;
 	chan.curfreq = sample.frequency;
@@ -288,9 +289,16 @@ void samples_device::device_post_load()
 		{
 			sample_t &sample = m_sample[chan.source_num];
 			chan.source = &sample.data[0];
-			chan.source_len = sample.data.size();
-			if (sample.data.empty())
+//			chan.source_len = sample.data.size();
+//			if (sample.data.empty())
+//				chan.source_num = -1;
+			if (sample.data.empty()) //Zero800 Fix loadstate errors
+			{
+				chan.source_len = -1;
 				chan.source_num = -1;
+			}
+			else
+				chan.source_len = sample.data.size();
 		}
 
 		// validate the position against the length in case the sample is smaller
