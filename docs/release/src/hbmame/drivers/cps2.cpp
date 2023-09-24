@@ -1552,7 +1552,7 @@ INPUT_PORTS_END
 
 MACHINE_START_MEMBER(cps2_state,cps2)
 {
-	if (m_audiocpu != nullptr) // gigaman2 has an AT89C4051 (8051) MCU as an audio cpu, no qsound.
+	if (m_audiocpu) // gigaman2 has an AT89C4051 (8051) MCU as an audio cpu, no qsound.
 		membank("bank1")->configure_entries(0, (QSOUND_SIZE - 0x10000) / 0x4000, memregion("audiocpu")->base() + 0x10000, 0x4000);
 }
 
@@ -12358,3 +12358,5 @@ GAME( 2001, pzloop2jd,  pzloop2,  dead_cps2,     pzloop2,   cps2_state, init_pzl
 GAME( 2004, hsf2d,      hsf2,     dead_cps2,     cps2_2p6b, cps2_state, init_cps2,     ROT0,   "bootleg", "Hyper Street Fighter II: The Anniversary Edition (Asia 040202 Phoenix Edition) (bootleg)",   MACHINE_SUPPORTS_SAVE )
 // HBMAME
 #include "cps2mis.cpp"
+#include "cps2t.cpp"
+

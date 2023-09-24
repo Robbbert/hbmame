@@ -1501,7 +1501,7 @@ sfz3mix09
 sfz3mix10
 sfz3mix11
 sfz3mix12
-sfz3mix
+sfz3mix13
 sgemfs01
 spf2t01
 ssf2s01
@@ -1545,6 +1545,10 @@ xmvsfs05
 xmvsfs06
 xmvsfs07
 //cps2xx
+
+@source:cps2t.cpp
+sfz3mix20
+sfz3mix
 
 @source:cps3.cpp
 jojonc					//parent
@@ -1728,11 +1732,14 @@ dkongdu
 dkongdu0
 dkongdu1
 dksprfin
+dksprfin2
+dkbrlbss
 dkwizard
 dkwizard0
 dkwizard1
 dkwizard2
 dkonghh
+dkongacc
 
 @source:docastle.cpp
 dorunrun                               //parent

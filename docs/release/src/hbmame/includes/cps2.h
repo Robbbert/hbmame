@@ -13,6 +13,7 @@
 #include "sound/msm5205.h"
 #include "sound/qsound.h"
 #include "sound/okim6295.h"
+#include "sound/samples.h" //Zero800
 #include "machine/gen_latch.h"
 #include "machine/timekpr.h"
 #include "machine/timer.h"
@@ -132,6 +133,8 @@ public:
 		m_region_key(*this, "key"),
 		m_region_stars(*this, "stars")
 		, m_qsound(*this, "qsound")
+		, m_samples_l(*this, "samples_l")   //Zero800
+		, m_samples_r(*this, "samples_r")   //Zero800
 	{ }
 
 	//HBMAME start
@@ -154,6 +157,7 @@ public:
 	u8 m_scrollx2 = 0;
 	u8 m_scrollx3 = 0;
 	u32 m_bank_type[32]{};
+	bool m_turbo = 0;
 	//HBMAME end
 
 	/* memory pointers */
@@ -344,6 +348,14 @@ public:
 	void qsound_sub_map(address_map &map);
 	void sound_map(address_map &map);
 	void sub_map(address_map &map);
+
+	// CPS2TURBO by ZERO800 (c) 2023
+	void init_sfz3mix();
+	void qsound_sharedram1_samples_w(offs_t offset, uint16_t data, uint16_t mem_mask = ~0);
+	void cps2turbo(machine_config &config);
+	void cps2turbo_map(address_map &map);
+	optional_device<samples_device> m_samples_l;
+	optional_device<samples_device> m_samples_r;
 };
 
 /*----------- defined in drivers/cps1.c -----------*/
