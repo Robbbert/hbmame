@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [dkongacc]            Donkey Kong Accelerate v1.01 (2023-09-05)
 - [dkbrlbss]            Donkey Kong Barrel Boss v1.01 (2023-08-16)
 - [dksprfin2]           Donkey Kong Springfinity v1.02 (2023-08-15)
 - [sfz3mix20]           Street Fighter Zero 3 (Turbo Mix 0.20)
