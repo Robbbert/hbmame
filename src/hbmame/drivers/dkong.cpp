@@ -9,6 +9,7 @@ Jeff Kulczycki: http://jeffsromhack.com/products/d2k.htm
 Don Hodges: http://www.donhodges.com/how_high_can_you_get.htm
 Kirai Shouen and 125scratch: https://www.romhacking.net/hacks/6689/
 Tim Appleton: https://www.oocities.org/wigglebeat
+Paul Goes: https://www.donkeykonghacks.net
 */
 
 static INPUT_PORTS_START( dkongex )

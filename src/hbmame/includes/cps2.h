@@ -133,8 +133,8 @@ public:
 		m_region_key(*this, "key"),
 		m_region_stars(*this, "stars")
 		, m_qsound(*this, "qsound")
-		, m_samples_l(*this, "samples_l")   //Zero800
-		, m_samples_r(*this, "samples_r")   //Zero800
+		, m_samples_l(*this, "sfz3mix_l")   //Zero800
+		, m_samples_r(*this, "sfz3mix_r")   //Zero800
 	{ }
 
 	//HBMAME start

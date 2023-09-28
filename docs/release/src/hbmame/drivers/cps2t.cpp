@@ -8,7 +8,7 @@
 
 const char *const samples_id_l[] = //zero800
 {
-	"*sfz3mix_l",
+	"*lsample",
 	"empty", // 00
 	"L01", // 01
 	"L02", // 02
@@ -79,7 +79,7 @@ const char *const samples_id_l[] = //zero800
 
 const char *const samples_id_r[] = //zero800
 {
-	"*sfz3mix_r",
+	"*rsamples",
 	"empty", // 00
 	"R01", // 01
 	"R02", // 02
