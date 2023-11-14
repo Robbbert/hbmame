@@ -815,6 +815,22 @@ ROM_START( pandajump )
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 ROM_END
 
+ROM_START( pandajump2 )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "pj2.u",        0x0000, 0x0800, CRC(239b9e2d) SHA1(352449ef93e58ce631b5b64a308d9177504b51fa) )
+	ROM_LOAD( "pj2.v",        0x0800, 0x0800, CRC(d38fa1a6) SHA1(80892d2392d03cecdb715f527389f34d5fa7b8d1) )
+	ROM_LOAD( "pj2.w",        0x1000, 0x0800, CRC(94b8ffd6) SHA1(ac87995a600f2787df4544f43aec62e80463ebff) )
+	ROM_LOAD( "pj2.y",        0x1800, 0x0800, CRC(c6a9c24b) SHA1(140600eb2313385ae6ce55569e17c77d2928f23d) )
+	ROM_LOAD( "pj.7l",        0x2000, 0x0800, CRC(f1e8ba9e) SHA1(605db3fdbaff4ba13729371ad0c4fbab3889378e) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "pj.1h",        0x0000, 0x0800, CRC(6ac96510) SHA1(acb9897a4c5325b26eadd0300e49e43bbbf11462) )
+	ROM_LOAD( "pj.1k",        0x0800, 0x0800, CRC(f2fb3d80) SHA1(fe421dcf4b9d2f75d9d98f0adb7630f054115b36) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 
 /***************************************************************************
 
@@ -876,7 +892,8 @@ GAME( 1980, kingball01, kingball, kingball, kingball, kingball_state,  init_gala
 GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "B.G.Video Ltd", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,     0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, pandajump,  0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, pandajump,  0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump (set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, pandajump2, pandajump,galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump (set 2)", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( multigameb )

@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [pandajump2]          Panda Jump (set 2)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.22)
 
 
