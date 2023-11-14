@@ -831,6 +831,22 @@ ROM_START( pandajump2 )
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 ROM_END
 
+ROM_START( ramokromok )
+	ROM_REGION( 0x4000, "maincpu", 0 )
+	ROM_LOAD( "rr.u",         0x0000, 0x0800, CRC(bc2c1a30) SHA1(850cf4709b8c9e016ff9c148f64bc8a5ddfa02d7) )
+	ROM_LOAD( "rr.v",         0x0800, 0x0800, CRC(b9ef4fae) SHA1(9d5be6f12f768ebf5f2bbf7477bd6528e1f7faf3) )
+	ROM_LOAD( "rr.w",         0x1000, 0x0800, CRC(cf81c756) SHA1(b22234f3f08e7c6768a1bfbe75fb14b9bd704229) )
+	ROM_LOAD( "rr.y",         0x1800, 0x0800, CRC(76f4040d) SHA1(be95ff6a103efb7e933bade442b9e2d3860afe9e) )
+	ROM_LOAD( "rr.7l",        0x2000, 0x0800, CRC(dcea5513) SHA1(d9d1d50fea4f2d06f0ee9a2183a38b906dc36c14) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "rr.1h",        0x0000, 0x0800, CRC(15988db6) SHA1(0eedf35fdb576680533d1bcb0d5658970b87412c) )
+	ROM_LOAD( "rr.1k",        0x0800, 0x0800, CRC(bad7ec8e) SHA1(432f5ee714765a367aeaf163a1d5db8483fcced9) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 
 /***************************************************************************
 
@@ -892,8 +908,9 @@ GAME( 1980, kingball01, kingball, kingball, kingball, kingball_state,  init_gala
 GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "B.G.Video Ltd", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, wbeast,     0,        galaxian, warofbug, galaxian_hbmame, init_nolock,   ROT90, "Compost", "Wriggly Beasties", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, pandajump,  0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump (set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, pandajump2, pandajump,galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump (set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, pandajump,  0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump (set 1)", MACHINE_SUPPORTS_SAVE ) // www.blarworld.net
+GAME( 2022, pandajump2, pandajump,galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "Panda Jump (set 2)", MACHINE_SUPPORTS_SAVE ) // www.blarworld.net
+GAME( 2023, ramokromok, 0,        galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "Ben Larson", "RAM OK ROM OK (Galaxian hardware demo)", MACHINE_SUPPORTS_SAVE ) // www.blarworld.net
 
 
 ROM_START( multigameb )
