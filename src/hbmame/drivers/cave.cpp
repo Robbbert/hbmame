@@ -33,6 +33,33 @@ ROM_START( ddonpachjh ) // Ship Colour Additions and Music Mute, created by Olif
 	ROM_LOAD16_WORD( "eeprom-ddonpach.bin", 0x0000, 0x0080, CRC(315fb546) SHA1(7f597107d1610fc286413e0e93c794c80c0c554f) )
 ROM_END
 
+ROM_START( ddonpachjd ) // Rick Astley
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "ddonpachjd.u27", 0x000000, 0x080000, CRC(0f527538) SHA1(0edf2cdf329463d65194ac8ddae97c97fd84c6da) )
+	ROM_LOAD16_BYTE( "ddonpachjd.u26", 0x000001, 0x080000, CRC(a6a959cd) SHA1(5f605f186fa00d5392e591dc0e34863f0eccf361) )
+
+	ROM_REGION( 0x800000, "sprites0", 0 )
+	ROM_LOAD16_WORD_SWAP( "u50.bin", 0x000000, 0x200000, CRC(14b260ec) SHA1(33bda210302428d5500115d0c7a839cdfcb67d17) )
+	ROM_LOAD16_WORD_SWAP( "u51.bin", 0x200000, 0x200000, CRC(e7ba8cce) SHA1(ad74a6b7d53760b19587c4a6dbea937daa7e87ce) )
+	ROM_LOAD16_WORD_SWAP( "u52.bin", 0x400000, 0x200000, CRC(02492ee0) SHA1(64d9cc64a4ad189a8b03cf6a749ddb732b4a0014) )
+	ROM_LOAD16_WORD_SWAP( "u53.bin", 0x600000, 0x200000, CRC(cb4c10f0) SHA1(a622e8bd0c938b5d38b392b247400b744d8be288) )
+
+	ROM_REGION( 0x200000, "layer0", 0 )
+	ROM_LOAD( "u60.bin", 0x000000, 0x200000, CRC(903096a7) SHA1(a243e903fef7c4a7b71383263e82e42acd869261) )
+
+	ROM_REGION( 0x200000, "layer1", 0 )
+	ROM_LOAD( "u61.bin", 0x000000, 0x200000, CRC(d89b7631) SHA1(a66bb4955ca58fab8973ca37a0f971e9a67ce017) )
+
+	ROM_REGION( 0x200000, "layer2", 0 )
+	ROM_LOAD( "ddonpachjd.u62", 0x000000, 0x200000, CRC(e14ba8a3) SHA1(ba7e8f7ec37fa6d573ade12c501a32a6a8771c09) )
+
+	ROM_REGION( 0x400000, "ymz", 0 )
+	ROM_LOAD( "u6.bin", 0x000000, 0x200000, CRC(9dfdafaf) SHA1(f5cb450cdc78a20c3a74c6dac05c9ac3cba08327) )
+	ROM_LOAD( "ddonpachjd.u7", 0x200000, 0x200000, CRC(24d10904) SHA1(8c120dfb16124cfb8f7a8bf057ed61cb3222dfa1) )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD16_WORD( "eeprom-ddonpach.bin", 0x0000, 0x0080, CRC(315fb546) SHA1(7f597107d1610fc286413e0e93c794c80c0c554f) )
+ROM_END
 
 //*******************
 // Power Instinct 2
@@ -996,6 +1023,7 @@ ROM_END
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     CLASS           INIT            MONITOR COMPANY         FULLNAME FLAGS */
 // DoDonPachi
 GAME( 2021, ddonpachjh,    ddonpach, ddonpach,   cave,     cave_state,     init_ddonpach,  ROT270,  "Olifante", "DoDonPachi (Japan, hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, ddonpachjd,    ddonpach, ddonpach,   cave,     cave_state,     init_ddonpach,  ROT270,  "Ekorz", "DoDonPachi (Japan, demo)", MACHINE_SUPPORTS_SAVE )
 // Gaia Crusaders
 GAME( 1999, gaias01,       gaia,     gaia,       gaia,     cave_state,     init_gaia,      ROT0,    "O Day-S",  "Gaia Crusaders (Enable Secret Character)", MACHINE_SUPPORTS_SAVE )
 // Metamoqester

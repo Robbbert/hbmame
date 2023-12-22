@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [ddonpachjd]          DoDonPachi (Japan, demo)
 - [pandajump2]          Panda Jump (set 2)
 - [ramokromok]          RAM OK ROM OK (Galaxian hardware demo)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.22)

@@ -138,6 +138,7 @@ cabals01
 @source:cave.cpp
 ddonpach                               //parent
 ddonpacha                              // trap15 hack
+ddonpachjd
 ddonpachjh
 pwrinst2                               //parent
 pwrinst2h
