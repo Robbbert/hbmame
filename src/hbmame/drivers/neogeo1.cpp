@@ -1096,10 +1096,22 @@ ROM_START( karnovreh ) /* Karnov's Revenge - Enhance by Ydmis - (Can choose Big 
 	ROM_LOAD16_BYTE( "066.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
 ROM_END
 
-// Default controls changed. To get old ones hold start while selecting your character.
-// Adds Clown's and Karnov's stage to versus stage rotation.
-// Gold font is now Cyan. Character select screen background is deep purple.
-// by mountainmanjed with help from anotak.
+/*
+Author: mountainmanjed (with help from anotak)
+Year: 2017
+Thread: https://www.arcade-projects.com/threads/best-neo-geo-hacks-homebrew.2716/page-2
+
+Did this Hack last month all tests come up as working.
+Karnov's Revenge/Fighter's History Dynamite
+Main features
+Nothing too crazy, default controls are now A=LP B=LK C=HP D=HK
+On Character Select you can Hold Start while selecting your character to get the old controls of A=LP B=HP C=LK D=HK
+Adds Clown's and Karnov's Stage to versus stage rotation.
+
+Minor Changes to show it is a hack
+Gold Font now Cyan
+Character select BG now Deep Purple */
+
 ROM_START( karnovrh )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "066h.p1", 0x000000, 0x100000, CRC(00aaf657) SHA1(dcb2453fea28733f94a480e8a72035e5d5d66aba) )
@@ -2995,7 +3007,7 @@ GAME( 1995, kabukiklgmc,   kabukikl, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1995, kabukiklmc,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Far East of Eden (Unlimited magic power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukiklyc,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG] and Ydmis", "Far East of Eden (Add Char - Magic always max)", MACHINE_SUPPORTS_SAVE ) // Manto, Karakuri, Jyashinsai and Lucifeller - Based on kabukleh
 
-GAME( 1994, karnovrh,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Karnov's Revenge (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, karnovrh,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "mountainmanjed", "Karnov's Revenge (Add Clown and Karnov stages)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, karnovreh,     karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Karnov's Revenge (Add hidden characters-Enable Bull v1)", MACHINE_SUPPORTS_SAVE ) // Big Tornado
 
 GAME( 1996, kizunab,       kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Kizuna Encounter (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
