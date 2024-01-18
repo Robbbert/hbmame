@@ -31,8 +31,13 @@ INPUT_PORTS_END
 // Rom layout thanks to those unnamed people
 ROM_START( aquario )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "a4.bin",  0x000000, 0x80000, CRC(d2ac7be4) SHA1(dfeb15d6d605bd80ab289daf1e90e4c1e270892b) )
-	ROM_LOAD16_BYTE( "a6.bin",  0x000001, 0x80000, CRC(058332a9) SHA1(98beb5dc6eaa8e26e5f137b3564c93baf8174bae) )
+	// Freeplay roms
+	//ROM_LOAD16_BYTE( "a4.bin",  0x000000, 0x80000, CRC(d2ac7be4) SHA1(dfeb15d6d605bd80ab289daf1e90e4c1e270892b) )
+	//ROM_LOAD16_BYTE( "a6.bin",  0x000001, 0x80000, CRC(058332a9) SHA1(98beb5dc6eaa8e26e5f137b3564c93baf8174bae) )
+	// Require credits
+	ROM_LOAD16_BYTE( "a4.bin",  0x000000, 0x080000, CRC(c58ff95f) SHA1(27301df8f72ccc8a27e9520e11035aa63b8e03b6) )
+	ROM_LOAD16_BYTE( "a6.bin",  0x000001, 0x080000, CRC(b4a94cd9) SHA1(2059942a26d9e1de63b329d1c8b643535761d2d8) )
+	// From here, common roms
 	ROM_LOAD16_BYTE( "a5.bin",  0x100000, 0x80000, CRC(1cef8145) SHA1(78a1be8ea0cc0d4e56b2cf9a7c1bd3e08352e175) )
 	ROM_LOAD16_BYTE( "a7.bin",  0x100001, 0x80000, CRC(504e4665) SHA1(9b052b48b7cb2da880d6589fdcd1041eca555f7c) )
 
@@ -51,9 +56,12 @@ ROM_START( aquario )
 	ROM_LOAD16_BYTE( "a13.bin",      0x600000, 0x080000, CRC(9ea5c73d) SHA1(e42002cc13548a8aba6ffb0c60470b345b88eaa8) )
 	ROM_LOAD16_BYTE( "c13.bin",      0x600001, 0x080000, CRC(0beef46e) SHA1(eccba6d4e015e93f5ca25ef6df31a491193d08a4) )
 
-	ROM_REGION( 0x210000, "soundcpu", ROMREGION_ERASE00 ) // no sound with this dump
-	ROM_FILL(0,1,0xc3) // stop log filling up
+	ROM_REGION( 0x200000, "soundcpu", ROMREGION_ERASE00 )
+	ROM_LOAD( "c7.bin",       0x000000, 0x040000, CRC(f1183938) SHA1(9409f0dc02773892803bc6d37f1bdbd894cf1805) )
+	ROM_LOAD( "c6.bin",       0x080000, 0x080000, CRC(39f11291) SHA1(3b4680bd2e20bd297644dda0a26f958c74826d47) )
+	ROM_LOAD( "c5.bin",       0x100000, 0x080000, CRC(6a380dca) SHA1(4589efc9e994ef9d07d4033e20c21afca4875005) )
+	ROM_LOAD( "c4.bin",       0x180000, 0x080000, CRC(1bd081f8) SHA1(e5b0b5d8334486f813d7c430bb7fce3f69605a21) )
 ROM_END
 
-GAME( 2021, aquario, 0, system18, aquario, segas18_state, init_generic_5987, ROT0,  "ININ / Westone", "Clockwork Aquario", MACHINE_NO_SOUND )
+GAME( 2021, aquario, 0, system18, aquario, segas18_state, init_generic_5987, ROT0,  "ININ / Westone", "Clockwork Aquario", 0 )
 

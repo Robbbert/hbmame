@@ -3,6 +3,7 @@
 
 2024-xx-xx 0.245.16
 
+Clockwork Aquario: Added Sound. Game now requires credits.
 
 New Games
 ---------------------------------
