@@ -7,6 +7,7 @@ Clockwork Aquario: Added sound, removed freeplay.
 
 New Games
 ---------------------------------
+- [dt7]                 Dynamic Trial 7 (prototype)
 - [sfz3j19]             Street Fighter Zero 3 (980629J, Training Edition v1.2)
 - [sfz3mix24]           Street Fighter Zero 3 (Turbo Mix 0.24)
 - [sfz3mix25]           Street Fighter Zero 3 (Turbo Mix 0.25)
