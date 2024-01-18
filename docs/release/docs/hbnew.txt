@@ -3,10 +3,13 @@
 
 2024-xx-xx 0.245.16
 
-Clockwork Aquario: Added Sound. Game now requires credits.
+Clockwork Aquario: Added sound, removed freeplay.
 
 New Games
 ---------------------------------
+- [sfz3mix24]           Street Fighter Zero 3 (Turbo Mix 0.24)
+- [sfz3mix25]           Street Fighter Zero 3 (Turbo Mix 0.25)
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.26)
 
 
 
@@ -20,7 +23,7 @@ New Games
 - [pandajump2]          Panda Jump (set 2)
 - [ramokromok]          RAM OK ROM OK (Galaxian hardware demo)
 - [sfz3mix22]           Street Fighter Zero 3 (Turbo Mix 0.22)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.23)
+- [sfz3mix23]           Street Fighter Zero 3 (Turbo Mix 0.23)
 
 
 
@@ -34,7 +37,7 @@ New Games
 - [dkbrlbss]            Donkey Kong Barrel Boss v1.01 (2023-08-16)
 - [dksprfin2]           Donkey Kong Springfinity v1.02 (2023-08-15)
 - [sfz3mix20]           Street Fighter Zero 3 (Turbo Mix 0.20)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.21)
+- [sfz3mix21]           Street Fighter Zero 3 (Turbo Mix 0.21)
 
 
 
@@ -326,7 +329,7 @@ New Games
 - [mslug5sgf]           Metal Slug 5 Remake Final (Fightcade 2 Ver.2021 Hack)
 - [mslug5x]             Metal Slug 5 X
 - [mslugxsrf]           Metal Slug X AzStar Soda Remix (Fightcade 2 Ver. Hack)
-- [sfz3mix]             Street Fighter Zero 3 (Mix 0.13)
+- [sfz3mix13]           Street Fighter Zero 3 (Mix 0.13)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 5, 2022-05-29)
 - [umk3tm20210809]      Ultimate Mortal Kombat 3 (Team Edition 2021-08-09)
 - [umk3uk20220406]      Ultimate Mortal Kombat 3 (UC Edition 2022-04-06)
@@ -355,7 +358,7 @@ New Games
 - [mslugxunity]         Metal Slug X Unity
 - [sfa2us05]            Street Fighter Alpha 2 (Unlock Hidden Characters)
 - [sfz3mix11]           Street Fighter Zero 3 (Mix 0.11)
-- [sfz3mix]             Street Fighter Zero 3 (Mix 0.12)
+- [sfz3mix12]           Street Fighter Zero 3 (Mix 0.12)
 - [teot]                The Eye of Typhoon (Tsunami Edition, beta 4, 2022-05-07)
 
 
@@ -374,7 +377,7 @@ New Games
 - [sf2mix110]           Street Fighter II: Champion Edition (Mix 1.1)
 - [sfz3mix07a]          Street Fighter Zero 3 (Mix 0.07a)
 - [sfz3mix09]           Street Fighter Zero 3 (Mix 0.09)
-- [sfz3mix]             Street Fighter Zero 3 (Mix 0.10)
+- [sfz3mix10]           Street Fighter Zero 3 (Mix 0.10)
 
 
 
@@ -390,9 +393,9 @@ New Games
 - [dkwizard]            Donkey Kong Wizardry v1.02
 - [kof2k2s121]          Kof2002 (KofallmiXomega)
 - [sf2hfus05]           Street Fighter II': Hyper Fighting (Ukraine version)
-- [sfz3mix]             Street Fighter Zero 3 (Mix 0.08)
-- [sfz3mix7]            Street Fighter Zero 3 (Mix 0.07)
-- [sfz3mix7b]           Street Fighter Zero 3 (Mix 0.07b)
+- [sfz3mix08]           Street Fighter Zero 3 (Mix 0.08)
+- [sfz3mix07]           Street Fighter Zero 3 (Mix 0.07)
+- [sfz3mix07b]          Street Fighter Zero 3 (Mix 0.07b)
 - [teot_5]              The Eye of Typhoon (Tsunami Edition, beta 2, 2022-01-29)
 - [teot_6]              The Eye of Typhoon (Tsunami Edition, beta 3, 2022-03-12)
 - [umk3plus20220307]    Ultimate Mortal Kombat 3 (Plus Beta 2, 2022-03-23)
