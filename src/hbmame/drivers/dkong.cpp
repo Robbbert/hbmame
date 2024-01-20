@@ -643,6 +643,34 @@ ROM_START( dkong20 ) // from dkafe, the gorilla graphics are missing
 	ROM_LOAD( "s19.5e",         0x0200, 0x0100, CRC(44988665) SHA1(68c474fc81aff46eae6c9a7ac6ab80288303e291) )
 ROM_END
 
+ROM_START( dkong21 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "s21.5et",        0x0000, 0x1000, CRC(a7a913d5) SHA1(163f851b0517a84d54d6612f8bbe52d214a0f846) )
+	ROM_LOAD( "s21.5ct",        0x1000, 0x1000, CRC(03ce5531) SHA1(9d8c1df41dfb04f3b9498109fad7d9288f4a00fe) )
+	ROM_LOAD( "s21.5bt",        0x2000, 0x1000, CRC(abaf3fa1) SHA1(d05ae561800b8386b932aae4921c4b197bf8f9c4) )
+	ROM_LOAD( "s21.5at",        0x3000, 0x1000, CRC(843a9751) SHA1(c6b564e4bf0b472dfb42e9d23f9ec5ee157e7832) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s21.3i",         0x0000, 0x0800, CRC(4f865d26) SHA1(d31c431ff2512d3a8f983fc4676ba51995d945e6) )
+	ROM_RELOAD(                 0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "s21.5h",         0x0000, 0x0800, CRC(b212d49b) SHA1(941d907990eb6982793d79ed63974f9c9c6a159d) )
+	ROM_LOAD( "s21.3pt",        0x0800, 0x0800, CRC(2bd67b35) SHA1(7e5660b35f53f81410a68b73bf8784a56bb6ebac) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "s21.4m",         0x0000, 0x0800, CRC(7db40811) SHA1(a149e5fdcd3f0c1a570cebcdd236013eaefd5398) )
+	ROM_LOAD( "s21.4n",         0x0800, 0x0800, CRC(c9f3b37a) SHA1(87ac9f2b5d0c0150e95aa9ebfba7438b49958c1d) )
+	ROM_LOAD( "s21.4r",         0x1000, 0x0800, CRC(137ad00e) SHA1(38e0717af7601803c7cd7b1cf0286cd6c8a2cbda) )
+	ROM_LOAD( "s21.4s",         0x1800, 0x0800, CRC(72b56559) SHA1(99fa2699f0a2652e4048f09187b17619bf2e8c80) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "s21.2k",         0x0000, 0x0100, CRC(929a396b) SHA1(bc5f50ab46fad619e2bee782fc9676868affb08e) )
+	ROM_LOAD( "s21.2j",         0x0100, 0x0100, CRC(1aa9c17e) SHA1(0c6e11caec0e805aa8c6173895963bb6e50417ea) )
+	ROM_LOAD( "s21.5e",         0x0200, 0x0100, CRC(d06c6ba8) SHA1(71989ca72740e44c1f967239236b9764be0698c2) )
+ROM_END
+
 ROM_START( dkrdemo )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "dkrdemo.5et",    0x0000, 0x1000, CRC(f9fdff29) SHA1(c2eb8f0ede8384369e17d8616f4ce063ae12b6c2) )
@@ -2247,6 +2275,7 @@ GAME( 2022, dkong16,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dkong17,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (DK Who and the Daleks)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, dkong19,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics, set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, dkong20,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics, set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, dkong21,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Pacman Crossover v1.00", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pac-man graphics)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, nadkong,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "hack", "Naked Donkey Kong", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, dkongex,   dkong, dkong2b,   dkongex, dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong Foundry", MACHINE_SUPPORTS_SAVE )
