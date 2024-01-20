@@ -842,6 +842,37 @@ ROM_START( dkchrmx )
 	ROM_LOAD( "v-5e.ch",        0x0200, 0x0100, CRC(5a8ca805) SHA1(8e711af73ddb20ed62a9a8b53f1150feab1dc051) )
 ROM_END
 
+ROM_START( dkremix )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "c_5et_g.bin",    0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
+	ROM_LOAD( "c_5ct_g.bin",    0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd) )
+	ROM_LOAD( "c_5bt_g.bin",    0x2000, 0x1000, CRC(1c97d324) SHA1(c7966261f3a1d3296927e0b6ee1c58039fc53c1f) )
+	ROM_LOAD( "c_5at_g.bin",    0x3000, 0x1000, CRC(b9005ac0) SHA1(3fe3599f6fa7c496f782053ddf7bacb453d197c4) )
+
+	ROM_REGION( 0x10000, "braze", 0 )
+	ROM_LOAD( "dkremix.bin",    0x0000, 0x10000, CRC(f47c13aa) SHA1(c8516e27028d371a1f7b198f6d91f6a10bf99d3f) )
+
+	ROM_REGION( 0x1800, "soundcpu", 0 )
+	ROM_LOAD( "s_3i_b.bin",     0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef) )
+	ROM_RELOAD(                 0x0800, 0x0800 )
+	ROM_LOAD( "s_3j_b.bin",     0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "dkremix.5h",     0x0000, 0x0800, CRC(fc82b069) SHA1(ae78e6de0b50149a55f10f480c522f7a147ea106) )
+	ROM_LOAD( "dkremix.3pt",    0x0800, 0x0800, CRC(fe32ee33) SHA1(6723190916e1eab713ad945fc942f47e2c6a6892) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "dkremix.4m",     0x0000, 0x0800, CRC(3d9784d7) SHA1(98958b27d7be8c2df1e0dc882930aada457fb788) )
+	ROM_LOAD( "dkremix.4n",     0x0800, 0x0800, CRC(084c960a) SHA1(f5f5f0c4da2bd3a0c07dafadf4649d505b24c98e) )
+	ROM_LOAD( "dkremix.4r",     0x1000, 0x0800, CRC(9ac5d874) SHA1(3064434d8ee154feba89006c7ac28a3816524509) )
+	ROM_LOAD( "dkremix.4s",     0x1800, 0x0800, CRC(74a5d517) SHA1(0d9830e49488f85be43a9c8f8c60bcb7f9f46baf) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "c-2k.bpr",       0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127) )
+	ROM_LOAD( "c-2j.bpr",       0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) )
+	ROM_LOAD( "v-5e.bpr",       0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) )
+ROM_END
+
 ROM_START( dkchrte )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "c_5et_g.bin",    0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a) )
@@ -2287,6 +2318,7 @@ GAME( 2016, dktrain,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dktrain2,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "John Kowalski", "Donkey Kong Trainer 1.01 (bugfix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, dkpace,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "John Kowalski", "Donkey Kong Pace", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dkchrmx,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Christmas Remix", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkremix,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "hack", "Donkey Kong Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dkspkyrmx, dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Spooky Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkchrte,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Christmas Tournament Edition", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkongte,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Tournament Edition", MACHINE_SUPPORTS_SAVE )
