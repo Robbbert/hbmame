@@ -8,7 +8,8 @@ Clockwork Aquario: Added sound, removed freeplay.
 New Games
 ---------------------------------
 - [240ptest1]           240p Test Suite v1.0
-- [captcommh12]         Captain Commando (readjusted v1.2)
+- [captcommh12]         Captain Commando (readjusted v1.1)
+- [captcommh13]         Captain Commando (readjusted v1.2)
 - [dinoj14]             Cadillacs (Ex Musou v.1+Battered Hack)
 - [dkong21]             Donkey Kong Pacman Crossover v1.00
 - [dkremix]             Donkey Kong Remix
