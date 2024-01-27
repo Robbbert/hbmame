@@ -1917,8 +1917,7 @@ ROM_END
 
 
 // 600 : 240p Test Suite by Artemio Urbina
-// No sound
-ROM_START( 240ptest )
+ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "600.p1", 0x000000, 0x100000, CRC(5ce36ff3) SHA1(c59beaed2e82955dc2954f844ce9be93b0024bdf) )
 
@@ -1934,6 +1933,21 @@ ROM_START( 240ptest )
 	ROM_LOAD16_BYTE( "600.c2", 0x000001, 0x100000, CRC(223c113c) SHA1(8e43ce378aaf0a445fe6f68a71d32f8ca9746082) )
 ROM_END
 
+ROM_START( 240ptest1 ) // 1.0
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "600a.p1", 0x000000, 0x100000, CRC(69196380) SHA1(2fb81767ee78eff58cdbe0513ceb3d0b2fdb75f9) )
+
+	NEO_SFIX_128K( "600.s1", CRC(5023f1ee) SHA1(7bbf9fa1a93daf1d4e3a28b0bc12d228efbdea36) )
+
+	NEO_BIOS_AUDIO_64K( "600a.m1", CRC(25058131) SHA1(705241b9c1a6b1d3b031e863910bd70263637857) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "600a.v1", 0x000000, 0x080000, CRC(74730639) SHA1(27a59eaf5ea9b50d0c028b44dc680bf6d6a59a95) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "600a.c1", 0x000000, 0x100000, CRC(1df22c5b) SHA1(e85b7b86fb3d5f50093eb5959f3c53af4da1672b) )
+	ROM_LOAD16_BYTE( "600a.c2", 0x000001, 0x100000, CRC(68fbb87d) SHA1(bd22f074f2b8184d98ebe0612999ad146ae6808d) )
+ROM_END
 
 // 601 : Shadow of the Beast demo by Neobitz
 // No sound
@@ -3346,7 +3360,8 @@ GAME( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, 240ptest1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v1.0", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, abyssal1,     abyssal,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kako Eimon", "Abyssal Infants (newer version)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, akiradmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Akira Demo", MACHINE_SUPPORTS_SAVE )

@@ -1,12 +1,13 @@
 ﻿What's new in HBMAME
 ====================
 
-2024-xx-xx 0.245.16
+2024-01-xx 0.245.16
 
 Clockwork Aquario: Added sound, removed freeplay.
 
 New Games
 ---------------------------------
+- [240ptest1]           240p Test Suite v1.0
 - [dinoj14]             Cadillacs (Ex Musou v.1+Battered Hack)
 - [dkong21]             Donkey Kong Pacman Crossover v1.00
 - [dkremix]             Donkey Kong Remix
@@ -119,7 +120,7 @@ ngmvs:
 
 New Games
 ---------------------------------
-- [240ptest]            240p Test Suite
+- [240ptest]            240p Test Suite v0.95
 - [ckongpt2s01]         Crazy Kong with DK colours and graphics
 - [looptrsp]            Looptris Plus (2022-12-24)
 - [pitfall2u01]         Pitfall II trainer (2002-10-15)
