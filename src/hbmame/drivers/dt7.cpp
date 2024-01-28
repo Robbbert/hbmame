@@ -202,12 +202,13 @@ WRITE_LINE_MEMBER(toaplan2_dt7_state::dt7_irq)
 // this is conditional on the unknown type of branch (see #define G_B0 in the table0
 uint8_t toaplan2_dt7_state::read_port_t()
 {
-	logerror("%s: read port t\n", machine().describe_context()); return machine().rand();
+	//logerror("%s: read port t\n", machine().describe_context());
+	return machine().rand();
 }
 
 uint8_t toaplan2_dt7_state::read_port_2()
 {
-	logerror("%s: read port 2\n", machine().describe_context());
+	//logerror("%s: read port 2\n", machine().describe_context());
 
 	return 0xff;
 }
@@ -217,6 +218,7 @@ uint8_t toaplan2_dt7_state::read_port_2()
 // also has accesses to this port added, maybe something is sitting in the middle?
 void toaplan2_dt7_state::write_port_2(uint8_t data)
 {
+#if 0
 	if ((m_ioport_state & 0x01) != (data & 0x01))
 	{
 		if (data & 0x01)
@@ -280,7 +282,7 @@ void toaplan2_dt7_state::write_port_2(uint8_t data)
 		else
 			logerror("%s: bit 0x80 high to low\n", machine().describe_context());
 	}
-
+#endif
 	m_ioport_state = data;
 }
 
@@ -400,13 +402,13 @@ void toaplan2_dt7_state::dt7_68k_1_mem(address_map &map)
 
 uint8_t toaplan2_dt7_state::unmapped_v25_io1_r()
 {
-	logerror("%s: 0x58008 unknown read\n", machine().describe_context());
+	//logerror("%s: 0x58008 unknown read\n", machine().describe_context());
 	return machine().rand();
 }
 
 uint8_t toaplan2_dt7_state::unmapped_v25_io2_r()
 {
-	logerror("%s: 0x5800a unknown read\n", machine().describe_context());
+	//logerror("%s: 0x5800a unknown read\n", machine().describe_context());
 	return machine().rand();
 }
 
