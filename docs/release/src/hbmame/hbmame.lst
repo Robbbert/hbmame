@@ -461,6 +461,8 @@ captcommh08
 captcommh09
 captcommh10
 captcommh11
+captcommh12
+captcommh13
 captcomms01
 captcomms04
 captcomms05
@@ -580,6 +582,7 @@ dinoj10
 dinoj11
 dinoj12
 dinoj13
+dinoj14
 dinon01                                // Jurassic 99
 dinon02
 dinon03
@@ -1006,6 +1009,7 @@ sf2reds03
 sf2reds04
 sf2reds05
 sf2reds06
+sf2reds07
 sf2s01
 sf2s02
 sf2s03
@@ -1390,6 +1394,7 @@ hsf2s11
 hsf2s12
 hsf2s13
 hsf2s14
+hsf2s15
 mpangj01
 mshs01
 mshs02
@@ -1494,6 +1499,7 @@ sfz3j15
 sfz3j16
 sfz3j17
 sfz3j18
+sfz3j19
 sfz3mix07
 sfz3mix07a
 sfz3mix07b
@@ -1516,6 +1522,7 @@ ssf2t05
 ssf2t06
 ssf2t07
 ssf2t08
+ssf2t09
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1551,6 +1558,9 @@ xmvsfs07
 sfz3mix20
 sfz3mix21
 sfz3mix22
+sfz3mix23
+sfz3mix24
+sfz3mix25
 sfz3mix
 
 @source:cps3.cpp
@@ -1681,6 +1691,7 @@ dkong16
 dkong17
 dkong19
 dkong20
+dkong21
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -1702,6 +1713,7 @@ dkrainbow
 dkrdemo
 dkchrmx					// Sock Master - Christmas Remix 2017
 dkchrte
+dkremix
 dkspkyrmx				// Sock Master - Spooky Remix Halloween Tournament 2018
 dktrain
 dktrain2
@@ -1755,7 +1767,7 @@ dotriman
 mineswp
 
 @source:dt7.cpp
-//dt7                                    // no inputs
+dt7                                    // press 9 to coin up, sound breaks at end of game
 
 @source:dynax.cpp
 mjelctrn                               //parent
@@ -6029,6 +6041,7 @@ zupapa			// 070
 19yy
 19yy01
 240ptest
+240ptest1
 abyssal
 abyssal1
 akiradmo
