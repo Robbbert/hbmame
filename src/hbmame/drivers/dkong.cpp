@@ -2318,7 +2318,7 @@ GAME( 2016, dktrain,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dktrain2,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "John Kowalski", "Donkey Kong Trainer 1.01 (bugfix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, dkpace,    dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "John Kowalski", "Donkey Kong Pace", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dkchrmx,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Christmas Remix", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, dkremix,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "hack", "Donkey Kong Remix", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, dkremix,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "hack", "Donkey Kong Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, dkspkyrmx, dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Spooky Remix", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkchrte,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Christmas Tournament Edition", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkongte,   dkong, dk_braze,  dkongx,  dkong_state,  init_dkongx, ROT270, "John Kowalski", "Donkey Kong Tournament Edition", MACHINE_SUPPORTS_SAVE )

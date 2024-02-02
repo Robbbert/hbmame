@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2024-xx-xx 0.245.17
+
+
+
+New Games
+---------------------------------
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.27)
+
+
+
+
 2024-01-28 0.245.16
 
 Clockwork Aquario: Added sound, removed freeplay.
@@ -19,7 +30,7 @@ New Games
 - [sfz3j19]             Street Fighter Zero 3 (980629J, Training Edition v1.2)
 - [sfz3mix24]           Street Fighter Zero 3 (Turbo Mix 0.24)
 - [sfz3mix25]           Street Fighter Zero 3 (Turbo Mix 0.25)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.26)
+- [sfz3mix26]           Street Fighter Zero 3 (Turbo Mix 0.26)
 - [ssf2t09]             Super Street Fighter II Turbo (940223ETC, difficulty fix)
 
 
