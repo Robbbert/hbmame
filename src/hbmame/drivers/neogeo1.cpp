@@ -128,6 +128,29 @@ ROM_START( aofbh )
 	ROM_CONTINUE( 0x600001, 0x100000 )
 ROM_END
 
+ROM_START( aofkt )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "044kt.p1", 0x000000, 0x080000, CRC(a69b9af2) SHA1(5c8e922f48950ac79f42f4b0fc4f136dc4ef16ca) )
+
+	NEO_SFIX_128K( "044kt.s1", CRC(6e7c531e) SHA1(b0ede854b16216a97214a294d246af757f2500e8) )
+
+	NEO_BIOS_AUDIO_128K( "044.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "044.v2", 0x000000, 0x200000, CRC(3ec632ea) SHA1(e3f413f580b57f70d2dae16dbdacb797884d3fce) )
+	ROM_LOAD( "044.v4", 0x200000, 0x200000, CRC(4b0f8e23) SHA1(105da0cc5ba19869c7147fba8b177500758c232b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "044.c1", 0x000000, 0x100000, CRC(ddab98a7) SHA1(f20eb81ec431268798c142c482146c1545af1c24) )
+	ROM_CONTINUE( 0x400000, 0x100000 )
+	ROM_LOAD16_BYTE( "044.c2", 0x000001, 0x100000, CRC(d8ccd575) SHA1(f697263fe92164e274bf34c55327b3d4a158b332) )
+	ROM_CONTINUE( 0x400001, 0x100000 )
+	ROM_LOAD16_BYTE( "044.c3", 0x200000, 0x100000, CRC(403e898a) SHA1(dd5888f8b24a33b2c1f483316fe80c17849ccfc4) )
+	ROM_CONTINUE( 0x600000, 0x100000 )
+	ROM_LOAD16_BYTE( "044.c4", 0x200001, 0x100000, CRC(6235fbaa) SHA1(9090e337d7beed25ba81ae0708d0aeb57e6cf405) )
+	ROM_CONTINUE( 0x600001, 0x100000 )
+ROM_END
+
 
 ROM_START( aof2b ) /* Art of Fighting 2 - Hack by TcwLee - (Can select Geese instead of Mr. Big) */
 	ROM_REGION( 0x200000, "maincpu", 0 )
@@ -2951,6 +2974,7 @@ GAME( 1991, 2020bbcd,      2020bb,   neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1992, androdunpx,    androdun, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Andro Dunos (Plus Max)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1992, aofbh,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, aofkt,         aof,      neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Art of Fighting (Korean Voice)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2b,         aof2,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Tcwlee[EGCG]", "Art of Fighting 2 (Enable hidden characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2b1,        aof2,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting 2 (Enable hidden characters V1a)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, aof2bh,        aof2,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Art of Fighting 2 (Enable hidden characters V2)", MACHINE_SUPPORTS_SAVE )
