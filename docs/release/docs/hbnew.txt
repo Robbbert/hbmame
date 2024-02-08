@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [aofkt]               Art of Fighting (Korean Voice)
+- [kof2kkt]             Kof2000 (Korean)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.27)
 
 

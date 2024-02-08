@@ -451,6 +451,33 @@ ROM_START( kof2kkf1 ) /* The King of Fighters 2000 - Hack by Kurouri - (MVS prot
 	ROM_LOAD16_BYTE( "257.c8",   0x3000001, 0x800000, CRC(b1afa60b) SHA1(b916184f5cfe4121752270f4f65abf35d8eb0519) )
 ROM_END
 
+ROM_START( kof2kkt )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "257kt.p1", 0x000000, 0x100000, CRC(0c2ad325) SHA1(40bcc1a27352529423c773ff59c12c59c3f130e9) )
+	ROM_LOAD16_WORD_SWAP( "257kt.p2", 0x100000, 0x400000, CRC(b0c817ca) SHA1(414f16ddf1e668effa23090dd8ee843793bb70c8) )
+
+	NEO_SFIX_MT_512K
+	ROM_LOAD( "257hc58.s1", 0x000000, 0x80000, CRC(38901d4d) SHA1(c7684f66ab4ed577094da6ae143477c9df28d1fe) )
+
+	NEO_BIOS_AUDIO_256K( "257d.m1", CRC(d404db70) SHA1(8cd1f3e140a9a367de23544e76371b0491287909) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "257.v1", 0x000000, 0x400000, CRC(17cde847) SHA1(4bcc0205b70dc6d9216b29025450c9c5b08cb65d) )
+	ROM_LOAD( "257.v2", 0x400000, 0x400000, CRC(1afb20ff) SHA1(57dfd2de058139345ff2b744a225790baaecd5a2) )
+	ROM_LOAD( "257.v3", 0x800000, 0x400000, CRC(4605036a) SHA1(51b228a0600d38a6ec37aec4822879ec3b0ee106) )
+	ROM_LOAD( "257.v4", 0xc00000, 0x400000, CRC(764bbd6b) SHA1(df23c09ca6cf7d0ae5e11ff16e30c159725106b3) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "257kt.c1", 0x0000000, 0x800000, CRC(e5773336) SHA1(9fe83dcbe8d26a66e0c94057b09c9dd65cd63d50) )
+	ROM_LOAD16_BYTE( "257kt.c2", 0x0000001, 0x800000, CRC(654c2a61) SHA1(8a572dda43c554a38aec26b28c21edc0ace9b694) )
+	ROM_LOAD16_BYTE( "257d.c3", 0x1000000, 0x800000, CRC(087fb15b) SHA1(f77cb6e670cdf7709d84d770ecf28533cbfbe6de) )
+	ROM_LOAD16_BYTE( "257d.c4", 0x1000001, 0x800000, CRC(fe9dfde4) SHA1(23750ff0c4bc084d55eea66a5cdd0ef2d6c32cdc) )
+	ROM_LOAD16_BYTE( "257d.c5", 0x2000000, 0x800000, CRC(03ee4bf4) SHA1(8f26c5bc525a5786de8e25797e2875a1dfe527be) )
+	ROM_LOAD16_BYTE( "257d.c6", 0x2000001, 0x800000, CRC(8599cc5b) SHA1(9a05fc12273aebfbc4ac22e88b32ae9ecd269462) )
+	ROM_LOAD16_BYTE( "257kt.c7", 0x3000000, 0x800000, CRC(14cc1419) SHA1(70b68c96dde1f27040569ccd4c23a2c35d11ebd0) )
+	ROM_LOAD16_BYTE( "257kt.c8", 0x3000001, 0x800000, CRC(cfce677d) SHA1(0cd7cc1c0012940d84e6a13f35294b08aa84f959) )
+ROM_END
+
 ROM_START( kof2kkvs ) /* The King of Fighters 2000 - Hack by KVS - (MVS protection removed - can select Kula and Zero) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "257kvs.p1",  0x000000, 0x100000, CRC(de23e8a0) SHA1(737a3e9c7cac2338f382c3a55d5caa9810fb87ce) )
@@ -2888,6 +2915,7 @@ GAME( 2000, kof2kgbh,   kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof
 GAME( 2000, kof2kiori,  kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "ZKW", "Kof2000 (Iori Orochi)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kjlc,   kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,  ROT0, "Jui Lee", "Kof2000 (Char color changed for Athena 2P and Kula 2P)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kkf1,   kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,  ROT0, "Guangzhou Game Team", "Kof2000 (Add Char - MVS protection rem set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, kof2kkt,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,  ROT0, "hack", "Kof2000 (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kkvs,   kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,  ROT0, "KVS", "Kof2000 (Add Char - MVS protection rem set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2kkzs,   kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,  ROT0, "hack", "Kof2000 (Add Char - MVS protection rem set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, kof2knd,    kof2000,  neogeo_noslot, neogeo, neogeo_state,  init_kof2000,   ROT0, "hack", "Kof2000 (Non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
