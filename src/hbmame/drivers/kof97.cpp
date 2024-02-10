@@ -2730,7 +2730,7 @@ ROM_START( kof97s09 )
 
 	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
 
-	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
 
 	ROM_REGION( 0xc00000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
@@ -7971,7 +7971,7 @@ ROM_START( kof97hx02 )
 
 	NEO_SFIX_128K( "232.s1", CRC(8514ecf5) SHA1(18d8e7feb51ea88816f1c786932a53655b0de6a0) )
 
-	NEO_BIOS_AUDIO_128K( "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
 
 	ROM_REGION( 0xc00000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
@@ -15558,7 +15558,7 @@ GAME( 1997, kof97hx212,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1997, kof97hx213,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Kof1996",    "Kof'97 (Optional First Hidden Version Of Fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx214,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids",    "Kof'97 (Change Serpent Picture Perfect Edition (PS Version))", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx215,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Kof1996",    "Kof'97 (Optional Hidden Characters (Revised Edition))", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97hx216,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'97 (Optional Hidden Characters (Korean Version))", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97hx216,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'97 (Optional Hidden Characters (unknown Version))", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx217,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids",    "Kof'97 (Hidden People Add / Close Serpent Shadow & Flash)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx218,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Andy Chan",    "Kof'97 (94 Kyo plus 95 Kyo)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97hx219,     kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack",    "Kof'97 (Red Pill Move To Modify)", MACHINE_SUPPORTS_SAVE )
