@@ -134,7 +134,15 @@ ROM_START( aofkt )
 
 	NEO_SFIX_128K( "044kt.s1", CRC(6e7c531e) SHA1(b0ede854b16216a97214a294d246af757f2500e8) )
 
-	NEO_BIOS_AUDIO_128K( "044.m1", CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP("vs-bios.rom",  0x00000, 0x20000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "044.m1", 0x0000, 0x20000, CRC(0987e4bb) SHA1(8fae4b7fac09d46d4727928e609ed9d3711dbded) )
+	ROM_RELOAD( 0x10000, 0x20000 )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "044.v2", 0x000000, 0x200000, CRC(3ec632ea) SHA1(e3f413f580b57f70d2dae16dbdacb797884d3fce) )
@@ -640,7 +648,15 @@ ROM_START( flipshotk )
 
 	NEO_SFIX_128K( "247.s1", CRC(6300185c) SHA1(cb2f1de085fde214f96a962b1c2fa285eb387d44) )
 
-	NEO_BIOS_AUDIO_128K( "247.m1", CRC(a9fe0144) SHA1(4cc076ecce9216a373f3dcd7ba28a03d6050e522) )
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP("vs-bios.rom",  0x00000, 0x20000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "247.m1", 0x0000, 0x20000, CRC(a9fe0144) SHA1(4cc076ecce9216a373f3dcd7ba28a03d6050e522) )
+	ROM_RELOAD( 0x10000, 0x20000 )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "247.v1", 0x000000, 0x200000, CRC(42ec743d) SHA1(f45b5167ebcbd59300f4e5b05448cd421654102a) )
@@ -1654,7 +1670,15 @@ ROM_START( neocup98k )
 
 	NEO_SFIX_128K( "244k.s1", CRC(becb9e7a) SHA1(b40e0ee79ab234ab2162d735d66aafa63f9d7477) )
 
-	NEO_BIOS_AUDIO_128K( "244.m1", CRC(a701b276) SHA1(055550ebc650835bcf8ea4457b2c91bd73e21281) )
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP("vs-bios.rom",  0x00000, 0x20000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "244.m1", 0x0000, 0x20000, CRC(a701b276) SHA1(055550ebc650835bcf8ea4457b2c91bd73e21281) )
+	ROM_RELOAD( 0x10000, 0x20000 )
 
 	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "244.v1", 0x000000, 0x400000, CRC(79def46d) SHA1(63414235de2e177654508f1c840040424f8993e6) )
@@ -2182,6 +2206,31 @@ ROM_START( preisle2px )
 	ROM_LOAD16_BYTE( "255d.c4", 0x1000001, 0x800000, CRC(29908823) SHA1(2a40263f3866c06eecc209faeea7ced6641ed918) )
 	ROM_LOAD16_BYTE( "255d.c5", 0x2000000, 0x800000, CRC(83c56bca) SHA1(54bec4cce628bef3b87bbd6c0339494232a9516b) )
 	ROM_LOAD16_BYTE( "255d.c6", 0x2000001, 0x800000, CRC(59e0e805) SHA1(0d9c9b52bb0672fe70ffbb2780a9449f6a7f0984) )
+ROM_END
+
+
+ROM_START( puzzledpk )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "202.p1", 0x000000, 0x080000, CRC(2b61415b) SHA1(0e3e4faf2fd6e63407425e1ac788003e75aeeb4f) )
+
+	NEO_SFIX_128K( "202.s1", CRC(cd19264f) SHA1(531be2305cd56d332fb7a53ab924214ade34a9e8) )
+
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP("vs-bios.rom",  0x00000, 0x20000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "202.m1", 0x0000, 0x20000, CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
+	ROM_RELOAD( 0x10000, 0x20000 )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "202.v1", 0x000000, 0x080000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "202k.c1", 0x000000, 0x100000, CRC(fd30bf00) SHA1(d3362f9804ab463780003df885792b8a9925c11f) )
+	ROM_LOAD16_BYTE( "202k.c2", 0x000001, 0x100000, CRC(c61f60bf) SHA1(7c950f865d11b134ff7da1c6a08114c9a3596fe9) )
 ROM_END
 
 
@@ -2919,7 +2968,15 @@ ROM_START( wjammersk )
 
 	NEO_SFIX_128K( "065.s1", CRC(074b5723) SHA1(86d3b3bb5414f43e4d3b7a2af0db23cc71ce8412) )
 
-	NEO_BIOS_AUDIO_128K( "065.m1", CRC(52c23cfc) SHA1(809a7e072ad9acbffc25e9bd27cdb97638d09d07) )
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP("vs-bios.rom",  0x00000, 0x20000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "065.m1", 0x0000, 0x20000, CRC(52c23cfc) SHA1(809a7e072ad9acbffc25e9bd27cdb97638d09d07) )
+	ROM_RELOAD( 0x10000, 0x20000 )
 
 	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "065.v1", 0x000000, 0x100000, CRC(ce8b3698) SHA1(7d75e2a5cf8c90be422f8b425447e81597fe145a) )
@@ -4105,7 +4162,15 @@ ROM_START( neocup98s01 )
 
 	NEO_SFIX_128K( "244k.s1", CRC(becb9e7a) SHA1(b40e0ee79ab234ab2162d735d66aafa63f9d7477) )
 
-	NEO_BIOS_AUDIO_128K( "244.m1", CRC(a701b276) SHA1(055550ebc650835bcf8ea4457b2c91bd73e21281) )
+	ROM_REGION16_BE( 0x20000, "mainbios", 0 )
+	ROM_LOAD16_WORD_SWAP("vs-bios.rom",  0x00000, 0x20000, CRC(f0e8f27d) SHA1(ecf01eda815909f1facec62abf3594eaa8d11075) )
+
+	ROM_REGION( 0x20000, "audiobios", 0 )
+	ROM_LOAD( "sm1.sm1", 0x00000, 0x20000, CRC(94416d67) SHA1(42f9d7ddd6c0931fd64226a60dc73602b2819dcf) )
+
+	ROM_REGION( 0x30000, "audiocpu", 0 )
+	ROM_LOAD( "244.m1", 0x0000, 0x20000, CRC(a701b276) SHA1(055550ebc650835bcf8ea4457b2c91bd73e21281) )
+	ROM_RELOAD( 0x10000, 0x20000 )
 
 	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "244.v1", 0x000000, 0x400000, CRC(79def46d) SHA1(63414235de2e177654508f1c840040424f8993e6) )
@@ -4774,6 +4839,8 @@ GAME( 1996, ninjamass04,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (French V1d)" , MACHINE_SUPPORTS_SAVE ) // Version Mame Neth
 // Prehistoric Isle 2
 GAME( 1999, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
+// Puzzle De Pon
+GAME( 1995, puzzledpk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! (Korean)", MACHINE_SUPPORTS_SAVE )
  // Ragnagard
 GAME( 2009, ragnagrds01,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "lichenzhao", "Ragnagard (Siu Shenquan Technology Unified Simplified V2, 2009-11-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ragnagrds02,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Lichenzhao", "Ragnagard (Super God Boxing Uniform Simplification)", MACHINE_SUPPORTS_SAVE )
