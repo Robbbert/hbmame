@@ -10,6 +10,7 @@ New Games
 - [aofkt]               Art of Fighting (Korean)
 - [kof2kkt]             Kof2000 (Korean)
 - [kof97plskt]          Kof'97 (Plus, Korean)
+- [kof98hkt]            Kof'98 (Korean)
 - [puzzldprk]           Puzzle De Pon! R (Korean)
 - [puzzledpk]           Puzzle De Pon! (Korean)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.27)

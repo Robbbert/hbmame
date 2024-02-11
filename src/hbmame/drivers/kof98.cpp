@@ -1230,6 +1230,32 @@ ROM_START( kof98hk ) // Hakeshu
 	ROM_LOAD16_BYTE( "242chris.c8", 0x3000001, 0x800000, CRC(d8b5d903) SHA1(3c5f0cf4b7cec79a81ad3af8cafeca2a14509995) )
 ROM_END
 
+ROM_START( kof98hkt )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "242hkt.p1", 0x000000, 0x100000, CRC(549ffbc5) SHA1(3ba82d5effa58e547679f0b37062df34fd2b3a5d) )
+	ROM_LOAD16_WORD_SWAP( "242hkt.p2", 0x100000, 0x400000, CRC(f53ca29a) SHA1(76d730aa46fa13a07584d8916c0f57fcea5f3bd0) )
+
+	NEO_SFIX_128K( "242.s1", CRC(7f7b4805) SHA1(80ee6e5d0ece9c34ebca54b043a7cb33f9ff6b92) )
+
+	NEO_JAPAN_BIOS_AUDIO(0x40000, "242rm.m1", CRC(4e7a6b1b) SHA1(b54d08f88713ed0271aa06f9f7c9c572ef555b1a) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242hhc03.c1",  0x0000000, 0x800000, CRC(f256eb5f) SHA1(461ae013dacfae435dda9b13d51582744e4aa242) )
+	ROM_LOAD16_BYTE( "242hhc03.c2",  0x0000001, 0x800000, CRC(07de44aa) SHA1(f84e172ba1a3ab45fe60fd55872003c3659ef4fc) )
+	ROM_LOAD16_BYTE( "242.c3", 0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242.c4", 0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
+	ROM_LOAD16_BYTE( "242.c5", 0x2000000, 0x800000, CRC(9d10bed3) SHA1(4d44addc7c808649bfb03ec45fb9529da413adff) )
+	ROM_LOAD16_BYTE( "242.c6", 0x2000001, 0x800000, CRC(da07b6a2) SHA1(9c3f0da7cde1ffa8feca89efc88f07096e502acf) )
+	ROM_LOAD16_BYTE( "242.c7", 0x3000000, 0x800000, CRC(f6d7a38a) SHA1(dd295d974dd4a7e5cb26a3ef3febcd03f28d522b) )
+	ROM_LOAD16_BYTE( "242.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
+ROM_END
+
 ROM_START( kof98ice ) /* The King of Fighters '98 - Colour fix by Diablo_Hu - (Colour change - ice) */
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "242.p1", 0x000000, 0x200000, CRC(8893df89) SHA1(0452828785110601c65f667209fc2d2926cd3751) )
@@ -6563,6 +6589,7 @@ GAME( 1998, kof98fv,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 1998, kof98fv2,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Flash Version UK)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98gold, kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Gold Color Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98hk,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Hakeshu)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98hkt,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ice,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_kof98,    ROT0, "Diablo_Hu", "Kof'98 (Icy blue style)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98ico,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_kof98,    ROT0, "Diablo_Hu", "Kof'98 (Icy blue style)(Old)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, kof98iori, kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Qiou2719", "Kof'98 (Iori Special, 2010-02-13)", MACHINE_SUPPORTS_SAVE )
