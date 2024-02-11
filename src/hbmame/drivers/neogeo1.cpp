@@ -2202,6 +2202,23 @@ ROM_START( puzzledpk )
 ROM_END
 
 
+ROM_START( puzzldprk )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "235.p1", 0x000000, 0x080000, CRC(afed5de2) SHA1(a5d82c6dbe687505e8c8d7339908da45cd379a0b) )
+
+	NEO_SFIX_128K( "235.s1", CRC(3b13a22f) SHA1(4506fc340d9658a50fa415676564f10bbfba2703) )
+
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "202.m1", CRC(9c0291ea) SHA1(3fa67c62acba79be6b3a98cc1601e45569fa11ae) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "202.v1", 0x000000, 0x080000, CRC(debeb8fb) SHA1(49a3d3578c087f1a0050168571ef8d1b08c5dc05) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "202k.c1", 0x000000, 0x100000, CRC(fd30bf00) SHA1(d3362f9804ab463780003df885792b8a9925c11f) )
+	ROM_LOAD16_BYTE( "202k.c2", 0x000001, 0x100000, CRC(c61f60bf) SHA1(7c950f865d11b134ff7da1c6a08114c9a3596fe9) )
+ROM_END
+
+
 ROM_START( ragnagrdbe )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "218be.p1", 0x100000, 0x100000, CRC(370a3b64) SHA1(85ddeb5ec0801c66268824236ed9ce2df51e927b) )
@@ -4793,6 +4810,7 @@ GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1999, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
 // Puzzle De Pon
 GAME( 1995, puzzledpk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, puzzldprk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! R (Korean)", MACHINE_SUPPORTS_SAVE )
  // Ragnagard
 GAME( 2009, ragnagrds01,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "lichenzhao", "Ragnagard (Siu Shenquan Technology Unified Simplified V2, 2009-11-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ragnagrds02,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Lichenzhao", "Ragnagard (Super God Boxing Uniform Simplification)", MACHINE_SUPPORTS_SAVE )
