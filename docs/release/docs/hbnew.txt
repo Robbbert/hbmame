@@ -8,6 +8,7 @@ Set Neo-Geo Korean-language translations to actually show Korean text.
 New Games
 ---------------------------------
 - [aofkt]               Art of Fighting (Korean)
+- [kof2002bs25]         Kof2002 (hack of the bootleg)
 - [kof2kkt]             Kof2000 (Korean)
 - [kof97plskt]          Kof'97 (Plus, Korean)
 - [kof98hkt]            Kof'98 (Korean)
