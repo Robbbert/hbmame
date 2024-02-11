@@ -2745,6 +2745,32 @@ ROM_START( superspycd )
 ROM_END
 
 
+ROM_START( tophuntrk )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "046k.p1",   0x000000, 0x100000, CRC(76506c27) SHA1(fbfac571c199f0b97f0a09201c2fcf654db76749) )
+	ROM_LOAD16_WORD_SWAP( "046.p2", 0x100000, 0x100000, CRC(f182cb3e) SHA1(6b4e0af5d4e623f0682f37ff5c69e5b705e20028) )
+
+	NEO_SFIX_128K( "046.s1", CRC(14b01d7b) SHA1(618ce75c25d6cc86a3b46bd64a0aa34ab82f75ae) )
+
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "046.m1", CRC(3f84bb9f) SHA1(07446040871d11da3c2217ee9d1faf8c3cae7420) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "046.v1", 0x000000, 0x100000, CRC(c1f9c2db) SHA1(bed95a76afefa46503a12e0f0a9787c4c967ac50) )
+	ROM_LOAD( "046.v2", 0x100000, 0x100000, CRC(56254a64) SHA1(1cf049cb4c414419859d2c8ee714317a35a85251) )
+	ROM_LOAD( "046.v3", 0x200000, 0x100000, CRC(58113fb1) SHA1(40972982a63c7adecef840f9882f4165da723ab6) )
+	ROM_LOAD( "046.v4", 0x300000, 0x100000, CRC(4f54c187) SHA1(63a76949301b83bdd44aa1a4462f642ab9ca3c0b) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "046.c1", 0x000000, 0x100000, CRC(fa720a4a) SHA1(364913b9fa40d46e4e39ae3cdae914cfd0de137d) )
+	ROM_LOAD16_BYTE( "046.c2", 0x000001, 0x100000, CRC(c900c205) SHA1(50274e79aa26f334eb806288688b30720bade883) )
+	ROM_LOAD16_BYTE( "046.c3", 0x200000, 0x100000, CRC(880e3c25) SHA1(b6974af0c833b766866919b6f15b6f8cef82530d) )
+	ROM_LOAD16_BYTE( "046.c4", 0x200001, 0x100000, CRC(7a2248aa) SHA1(8af0b26025a54e3b91604dd24a3c1c518fbd8536) )
+	ROM_LOAD16_BYTE( "046.c5", 0x400000, 0x100000, CRC(4b735e45) SHA1(2f8b46388c4696aee6a97e1e21cdadf6b142b01a) )
+	ROM_LOAD16_BYTE( "046.c6", 0x400001, 0x100000, CRC(273171df) SHA1(9c35832221e016c12ef1ed71da167f565daaf86c) )
+	ROM_LOAD16_BYTE( "046k.c7", 0x600000, 0x100000, CRC(e0d37cb8) SHA1(6d19c80b7e3f87646e8de5780fbd4cb5076cb015) )
+	ROM_LOAD16_BYTE( "046k.c8", 0x600001, 0x100000, CRC(a3d7ad03) SHA1(9d2c6ae60dc266b746b836fff72907c5af119d35) )
+ROM_END
+
 ROM_START( tophuntrpx )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "046px.p1",   0x000000, 0x100000, CRC(949dbb78) SHA1(fb005e60ff693c6656e33cd0641c7300826a6b54) )
@@ -3157,6 +3183,7 @@ GAME( 1994, strhoopcd,     strhoop,  neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1990, superspycd,    superspy, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "The Super Spy (CD conversion)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1994, tophuntrpx,    tophuntr, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Top Hunter (Plus Max)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, tophuntrk,     tophuntr, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Top Hunter (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2007, tpgolfcd,      tpgolf,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Top Player's Golf (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, trallycd,      trally,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Rally Chase (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, twinsprih,     twinspri, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Twinkle Star Sprites (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
