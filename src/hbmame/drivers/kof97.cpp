@@ -1185,6 +1185,29 @@ ROM_START( kof97plc ) // Plus Black Edition by ZKW
 	ROM_LOAD16_BYTE( "232plc.c6", 0x2000001, 0x400000, CRC(60b303b1) SHA1(5da1d5fcdd0dcdf1ff583378ac34a977273e4f2b) )
 ROM_END
 
+ROM_START( kof97plskt )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "kf97-p1p.bin", 0x000000, 0x100000, CRC(c01fda46) SHA1(bc6402f5082efc80a8936364c657165f19b49415) )
+	ROM_LOAD16_WORD_SWAP( "232plskt.p2", 0x100000, 0x400000, CRC(7c1333ca) SHA1(caef20819bec9840b078fcdf8a3a5cff07167b14) )
+
+	NEO_SFIX_128K( "kf97-s1p.bin", CRC(73254270) SHA1(8d06305f9d8890da1327356272b88bdd0dc089f5) )
+
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "232.m1", CRC(45348747) SHA1(ed77cbae2b208d1177a9f5f6e8cd57070e90b65b) )
+
+	ROM_REGION( 0xc00000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "232.v1", 0x000000, 0x400000, CRC(22a2b5b5) SHA1(ebdbc977332e6d93e266755000b43857e0082965) )
+	ROM_LOAD( "232.v2", 0x400000, 0x400000, CRC(2304e744) SHA1(98d283e2bcc9291a53f52afd35ef76dfb0828432) )
+	ROM_LOAD( "232.v3", 0x800000, 0x400000, CRC(759eb954) SHA1(54e77c4e9e6b89458e59824e478ddc33a9c72655) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "232hx02.c1", 0x0000000, 0x800000, CRC(63e04fd2) SHA1(3b1e157c27e8f116ccdf940b5e86fea47586a4da) )
+	ROM_LOAD16_BYTE( "232hx02.c2", 0x0000001, 0x800000, CRC(c3e5db31) SHA1(4c69e9f5b3dc24b80350b45b847ee526fad2538d) )
+	ROM_LOAD16_BYTE( "232.c3", 0x1000000, 0x800000, CRC(581d6618) SHA1(14d3124a08ded59f86932c6b28e1a4e48c564ccd) )
+	ROM_LOAD16_BYTE( "232.c4", 0x1000001, 0x800000, CRC(49bb1e68) SHA1(f769c1bd1b019521111ff3f0d22c63cb1f2640ef) )
+	ROM_LOAD16_BYTE( "232.c5", 0x2000000, 0x400000, CRC(34fc4e51) SHA1(b39c65f27873f71a6f5a5d1d04e5435f874472ee) )
+	ROM_LOAD16_BYTE( "232.c6", 0x2000001, 0x400000, CRC(4ff4d47b) SHA1(4d5689ede24a5fe4330bd85d4d3f4eb2795308bb) )
+ROM_END
+
 ROM_START( kof97plus )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "232plus.p1", 0x000000, 0x100000, CRC(0b124634) SHA1(1c272a5601447ee26629eb99482c5de9148615a7) )
@@ -15089,6 +15112,7 @@ GAME( 1997, kof97pl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 2003, kof97pl3,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Kof'97 (Plus)(set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_kof97pla, ROT0, "bootleg", "Kof'97 (Plus)(set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "ZKW", "Kof'97 Plus (Black Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, kof97plskt,kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'97 (Plus, Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof97plus, kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Kof'97 (Plus 2006)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Kof1996", "Kof'97 (Practice Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97ps,   kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Eddids", "Kof'97 (Imitation Playstation final improved version, 2016-10-29)", MACHINE_SUPPORTS_SAVE )
