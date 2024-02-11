@@ -15112,7 +15112,7 @@ GAME( 1997, kof97pl2,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 2003, kof97pl3,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Kof'97 (Plus)(set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97pla,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_kof97pla, ROT0, "bootleg", "Kof'97 (Plus)(set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, kof97plc,  kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "ZKW", "Kof'97 Plus (Black Edition)", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, kof97plskt,kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'97 (Plus, Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, kof97plskt,kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'97 (Plus, Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof97plus, kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "bootleg", "Kof'97 (Plus 2006)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, kof97pm,   kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Kof1996", "Kof'97 (Practice Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof97ps,   kof97,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Eddids", "Kof'97 (Imitation Playstation final improved version, 2016-10-29)", MACHINE_SUPPORTS_SAVE )
