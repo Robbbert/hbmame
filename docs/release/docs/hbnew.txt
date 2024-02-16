@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2024-xx-xx 0.245.17
+2024-0x-xx 0.245.17
 
 Set Neo-Geo Korean-language translations to actually show Korean text.
 
@@ -12,6 +12,8 @@ New Games
 - [area88rka]           Area 88 (Korean, alt)
 - [captcommjk]          Captain Commando (Korean)
 - [daimakaik]           Dai Makai-Mura (Korean)
+- [ffightaek]           Final Fight 30th Anniversary Edition (Korean)
+- [ffightjk]            Final Fight (Korean)
 - [kof2002bs25]         Kof2002 (hack of the bootleg)
 - [kof2kkt]             Kof2000 (Korean)
 - [kof97plskt]          Kof'97 (Plus, Korean)
