@@ -1733,6 +1733,55 @@ ROM_START( 3wonders04 ) // 3wondersb01
 	ROM_LOAD( "3wonders.key", 0x00, 0x80, CRC(4ff53ff9) SHA1(95e1d3a9e69c6f11a11b3eebeccd4ce2d237e350) )
 ROM_END
 
+/********
+Area 88
+********/
+
+ROM_START( area88rk )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c06k.p1", 0x00000, 0x80000, CRC(3bc63457) SHA1(0825078b1e4fe318bb5145411faf93903de4f184) )
+	ROM_LOAD16_WORD_SWAP( "c06k.p5", 0x80000, 0x80000, CRC(91ff2031) SHA1(41d76109fbd6ab8b868a98d0b2119af7a615d2ad) )
+
+	ROM_REGION( 0x200000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c06k.c01", 0x000000, 0x80000, CRC(eaff9ad0) SHA1(24effebbc60d753b9d10d9f6843109eb7efa4f11) )
+	ROM_LOAD64_WORD( "c06k.c03", 0x000002, 0x80000, CRC(23cb00f8) SHA1(3e802bfaa3ebac034780bac541194c86fb8dffaa) )
+	ROM_LOAD64_WORD( "c06k.c05", 0x000004, 0x80000, CRC(561fcaaf) SHA1(0baa626e225fdba9a89e5ab48501ee9e7bfa4492) )
+	ROM_LOAD64_WORD( "c06k.c07", 0x000006, 0x80000, CRC(294dc71f) SHA1(e140f4e3ed549e27368ca32ae7db303ae6562010) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c06k.m1",    0x00000, 0x08000, CRC(af88359c) SHA1(5b7d872700a074fe1a4e11722e73374a23fa5e99) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c06.v1",     0x00000, 0x20000, CRC(584b43a9) SHA1(7820815c8c67d484baf2fdad7e55d8c14b98b860) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "area88r.key", 0x00, 0x80, CRC(c9860e3b) SHA1(5ef3655a3de6f06af0fe9ba15ec30d1e51609d29) )
+ROM_END
+
+ROM_START( area88rka )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c06k.p1", 0x00000, 0x80000, CRC(3bc63457) SHA1(0825078b1e4fe318bb5145411faf93903de4f184) )
+	ROM_LOAD16_WORD_SWAP( "c06k.p5", 0x80000, 0x80000, CRC(91ff2031) SHA1(41d76109fbd6ab8b868a98d0b2119af7a615d2ad) )
+
+	ROM_REGION( 0x200000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c06ka.c01", 0x000000, 0x80000, CRC(3d3c50fc) SHA1(fae856e8e031af5a13b128051906011c069bd514) )
+	ROM_LOAD64_WORD( "c06ka.c03", 0x000002, 0x80000, CRC(693bb1f1) SHA1(8cb4fdd7e8e2cc3bfa20070220ebff2db349c17e) )
+	ROM_LOAD64_WORD( "c06ka.c05", 0x000004, 0x80000, CRC(bb3443d3) SHA1(6aae29ea27ccdd49ab50e0394b9e3f2d71bfea03) )
+	ROM_LOAD64_WORD( "c06ka.c07", 0x000006, 0x80000, CRC(db3353fa) SHA1(58ced378c04c05d3891295547bc6ca7fdef451ac) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c06k.m1",    0x00000, 0x08000, CRC(af88359c) SHA1(5b7d872700a074fe1a4e11722e73374a23fa5e99) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c06.v1",     0x00000, 0x20000, CRC(584b43a9) SHA1(7820815c8c67d484baf2fdad7e55d8c14b98b860) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "area88r.key", 0x00, 0x80, CRC(c9860e3b) SHA1(5ef3655a3de6f06af0fe9ba15ec30d1e51609d29) )
+ROM_END
+
+
 /******************
  Captain Commando
 *******************/
@@ -27426,6 +27475,8 @@ ROM_END
 
 
 /*    YEAR  NAME           PARENT    MACHINE     INPUT     INIT            MONITOR COMPANY         FULLNAME FLAGS */
+GAME( 1989, area88rk,      unsquad,  cps1_12MHz, unsquad,  cps_state, init_cps1,     ROT0, "hack", "Area 88 (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, area88rka,     unsquad,  cps1_12MHz, unsquad,  cps_state, init_cps1,     ROT0, "hack", "Area 88 (Korean, alt)", MACHINE_SUPPORTS_SAVE )
 // Three Wonders
 GAME( 2019, 3wonders01,    3wonders, cps1_10MHz, 3wonders, cps_state, init_cps1,     ROT0, "huangxu", "Three Wonders (Ex Super Version, 2019-04-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, 3wonders02,    3wonders, cps1_10MHz, 3wonders, cps_state, init_cps1,     ROT0, "Blue-Ray", "Three Wonders (Unlimited Life)", MACHINE_SUPPORTS_SAVE )
