@@ -13587,6 +13587,33 @@ ROM_END
  Knights of the Round
 ***********************/
 
+ROM_START( knightsk )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c18k.p1", 0x00000, 0x80000, CRC(165868ca) SHA1(e4001e6ab5833f9be7479d452a62e62193e16dd9) )
+	ROM_LOAD16_WORD_SWAP( "c18.p5",  0x80000, 0x80000, CRC(d0b671a9) SHA1(9865472c5fc3f617345e23b5de5a9ba177945b5a) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c18.c01",  0x000000, 0x80000, CRC(9e36c1a4) SHA1(772daae74e119371dfb76fde9775bda78a8ba125) )
+	ROM_LOAD64_WORD( "c18.c03",  0x000002, 0x80000, CRC(c5832cae) SHA1(a188cf401cd3a2909b377d3059f14d22ec3b0643) )
+	ROM_LOAD64_WORD( "c18.c05",  0x000004, 0x80000, CRC(f095be2d) SHA1(0427d1574062f277a9d04440019d5638b05de561) )
+	ROM_LOAD64_WORD( "c18.c07",  0x000006, 0x80000, CRC(179dfd96) SHA1(b1844e69da7ab13474da569978d5b47deb8eb2be) )
+	ROM_LOAD64_WORD( "c18k.c17",  0x200000, 0x80000, CRC(d3844920) SHA1(b8eb73bd82a376b380f8d413bd52d522a00a5993) )
+	ROM_LOAD64_WORD( "c18k.c19",  0x200002, 0x80000, CRC(492f65a7) SHA1(dcfbeced3a5b9e0bd04bad1bfe7c8a186617c64b) )
+	ROM_LOAD64_WORD( "c18k.c21",  0x200004, 0x80000, CRC(cec66dcf) SHA1(9f77fcb557411acbde508dc091b0cb2165de9066) )
+	ROM_LOAD64_WORD( "c18k.c23",  0x200006, 0x80000, CRC(75675611) SHA1(662f77fd4b67ef71702eb1f2730315971137294f) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c18.m1",  0x00000, 0x08000, CRC(5e44d9ee) SHA1(47a7503321be8d52b5c44af838e3bb82ee15a415) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c18.v1",    0x00000, 0x20000, CRC(da69d15f) SHA1(9616207e693bae85705f786cef60b9f6951b5067) )
+	ROM_LOAD( "c18.v2",    0x20000, 0x20000, CRC(bfc654e9) SHA1(01b3d92e4dedf55ea3933d387c7ddb9ba2549773) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "knights.key", 0x00, 0x80, CRC(a4851689) SHA1(0a96f22a655c3ff9d09d7b84abd7ab5ac5f137e2) )
+ROM_END
+
 ROM_START( knightsh01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c18h01.p1", 0x00000, 0x80000, CRC(00ffc784) SHA1(8494e9648137dd7f451871288bd7dda2db278185) )
@@ -28073,6 +28100,7 @@ GAME( 2015, koduhc01,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,
 GAME( 1991, koduhc02,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (3 Player Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, koduhc03,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Boss Battle Edition, 2015-05-24)", MACHINE_SUPPORTS_SAVE )
 // Knights of the Round
+GAME( 1991, knightsk,      knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Korean)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2011, knights01,     knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1, 2011-07-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knights02,     knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Unknown Hack)" , MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knights03,     knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "bootleg", "Knights of the Round (911127 etc bootleg set 2)", MACHINE_SUPPORTS_SAVE )
