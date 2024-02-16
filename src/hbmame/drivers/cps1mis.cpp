@@ -2136,6 +2136,35 @@ ROM_START( captcommh13 ) // captre v1.2
 	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
 ROM_END
 
+ROM_START( captcommjk )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c17k.8f", 0x000000, 0x80000, CRC(5b482b62) SHA1(c871aa1eb9ecc117c3079995d1f5212193bd2e12) )
+	ROM_LOAD16_WORD_SWAP( "c17k.7f", 0x080000, 0x80000, CRC(216fe8e9) SHA1(cd7669772e0be8e91b3d2a48ebe9ffe5965c3df0) )
+	ROM_LOAD16_BYTE( "c17k.9e",      0x100000, 0x20000, CRC(6856b740) SHA1(158864dda003b8aefdcfa56ce12d57d13b3d527c) )
+	ROM_LOAD16_BYTE( "c17k.9f",      0x100001, 0x20000, CRC(b5ec9706) SHA1(715064a11a9cbb150a042a2674c61a762c833505) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c17.c01",  0x000000, 0x80000, CRC(7261d8ba) SHA1(4b66292e42d20d0b79a756f0e445492ddb9c6bbc) )
+	ROM_LOAD64_WORD( "c17.c03",  0x000002, 0x80000, CRC(6a60f949) SHA1(87391ff92abaf3e451f70d789a938cffbd1fd222) )
+	ROM_LOAD64_WORD( "c17.c05",  0x000004, 0x80000, CRC(00637302) SHA1(2c554b59cceec2de67a9a4bc6281fe846d3c8cd2) )
+	ROM_LOAD64_WORD( "c17.c07",  0x000006, 0x80000, CRC(cc87cf61) SHA1(7fb1f49494cc1a08aded20754bb0cefb1c323198) )
+	ROM_LOAD64_WORD( "c17k.c17",  0x200000, 0x80000, CRC(3c7b514c) SHA1(f384530265c9f4853b7dac6ea863754d083cbbe8) )
+	ROM_LOAD64_WORD( "c17k.c19",  0x200002, 0x80000, CRC(dbcf6c0e) SHA1(81e038d987546a32cfa60c83a2d78671bff0076f) )
+	ROM_LOAD64_WORD( "c17k.c21",  0x200004, 0x80000, CRC(18632bf0) SHA1(591b56426153666561eb55475ba6ec125ad52ecc) )
+	ROM_LOAD64_WORD( "c17k.c23",  0x200006, 0x80000, CRC(10fd12a3) SHA1(6b2d500efb93802c9a2a7905ef21e7c684d1f4db) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c17.m1",     0x00000, 0x08000, CRC(698e8b58) SHA1(b7a3d905a7ed2c430426ca2e185e3d7e75e752a1) )
+	ROM_CONTINUE(           0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c17.v1",  0x00000, 0x20000, CRC(6de2c2db) SHA1(9a1eaba8d104f59a5e61f89679bb5de0c0c64364) )
+	ROM_LOAD( "c17.v2",  0x20000, 0x20000, CRC(b99091ae) SHA1(b19197c7ad3aeaf5f41c26bf853b0c9b502ecfca) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "captcomm.key", 0x00, 0x80, CRC(3bd9c940) SHA1(8964479f402ce7e000f1da8b3f6386e6915269e1) )
+ROM_END
+
 ROM_START( captcomms01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c17s01.p1", 0x000000, 0x80000, CRC(1e5c9f79) SHA1(09f7356b5badae26f24a2afac2cbe0d8e0c9481a) )
@@ -27496,6 +27525,7 @@ GAME( 1991, captcommh10,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,
 GAME( 2022, captcommh11,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "GameHackFan", "Captain Commando (readjusted v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, captcommh12,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "GameHackFan", "Captain Commando (readjusted v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, captcommh13,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "GameHackFan", "Captain Commando (readjusted v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, captcommjk,    captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, captcomms01,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "Pipi899", "Captain Commando (Characters Change, 2009-01-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, captcomms04,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "sssskkkk", "Captain Commando (Unlock 1Vs4 Mode, 2009-04-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, captcomms05,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (1Vs4 Edition, 2016-02-17)", MACHINE_SUPPORTS_SAVE )
