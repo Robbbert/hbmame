@@ -13391,6 +13391,36 @@ ROM_END
  The King of Dragons
 **********************/
 
+ROM_START( kodjk )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "c16k.p1",  0x00000, 0x20000, CRC(dccccf4f) SHA1(50f7746a4d11c0f24aa1191b0b87b72657da0af5) )
+	ROM_LOAD16_BYTE( "c16k.p2",  0x00001, 0x20000, CRC(1cb9a149) SHA1(72f55ea48ae24354a2f07ba088b99008fde08e60) )
+	ROM_LOAD16_BYTE( "c16k.p3",  0x40000, 0x20000, CRC(622dd533) SHA1(f9b039099e535830ab9aa96347d507c94160c0c2) )
+	ROM_LOAD16_BYTE( "c16k.p4",  0x40001, 0x20000, CRC(4cb36b59) SHA1(f28d09f6a1458abb9b42f1e00a5b14026a646f49) )
+	ROM_LOAD16_WORD_SWAP("c16k.p5", 0x80000, 0x80000, CRC(260f5607) SHA1(6465ca8493c1ecde926b6a6d948b48dba87ac6e2) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c16.c01", 0x000000, 0x80000, CRC(e45b8701) SHA1(604e39e455e81695ee4f899f102d0bcd789cedd0) )
+	ROM_LOAD64_WORD( "c16.c03", 0x000002, 0x80000, CRC(a7750322) SHA1(3c583496a53cd64edf377db35f7f40f02b59b7e7) )
+	ROM_LOAD64_WORD( "c16.c05", 0x000004, 0x80000, CRC(5f74bf78) SHA1(b7c43eea9bf77a0fb571dcd53f8be719e6655fd9) )
+	ROM_LOAD64_WORD( "c16.c07", 0x000006, 0x80000, CRC(5e5303bf) SHA1(d9f90b898ffdf4398b2bbeb48247f06f728e7c00) )
+	ROM_LOAD64_WORD( "c16k.c17", 0x200000, 0x80000, CRC(2cd36c2a) SHA1(3ab6d363c1f3f179388df2b7e397f73c8b6e8c4b) )
+	ROM_LOAD64_WORD( "c16k.c19", 0x200002, 0x80000, CRC(bee4e3ab) SHA1(cbfb5de4464d9bbd4e36b389026bb70a53391d71) )
+	ROM_LOAD64_WORD( "c16k.c21", 0x200004, 0x80000, CRC(a31352dd) SHA1(9d77b0a8cd2a6f65ff17086f62727f564a6b3862) )
+	ROM_LOAD64_WORD( "c16k.c23", 0x200006, 0x80000, CRC(c64a44a0) SHA1(ee2b3face4022f39f4d39d10241044bc64a71f18) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c16.m1",   0x00000, 0x08000, CRC(bac6ec26) SHA1(6cbb6d55660150ae3f5270e023328275ee1bbf50) )
+	ROM_CONTINUE(         0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c16.v1",   0x00000, 0x20000, CRC(4c63181d) SHA1(270f27534a95cb0be3ff3f9ca71c502320d8090b) )
+	ROM_LOAD( "c16.v2",   0x20000, 0x20000, CRC(92941b80) SHA1(5fa7c2793e6febee54a83042d118ddd4f2b7d127) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "kod.key", 0x00, 0x80, CRC(b79ea9b9) SHA1(cefded329a6ccc34d3b68e614c8f3a2c174e3fdd) )
+ROM_END
+
 // Actor preview flickers instead of wriggling, No music in attract mode (this is normal for r1 roms)
 ROM_START( kodr01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
@@ -28036,6 +28066,7 @@ GAME( 1990, ffightjk,      ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 // Forgotten Worlds
 GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
+GAME( 1991, kodjk,         kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, koduhc01,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Boss Battle Edition, 2015-05-25)", MACHINE_SUPPORTS_SAVE )

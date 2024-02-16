@@ -14,6 +14,7 @@ New Games
 - [daimakaik]           Dai Makai-Mura (Korean)
 - [ffightaek]           Final Fight 30th Anniversary Edition (Korean)
 - [ffightjk]            Final Fight (Korean)
+- [kodjk]               The King of Dragons (Korean)
 - [kof2002bs25]         Kof2002 (hack of the bootleg)
 - [kof2kkt]             Kof2000 (Korean)
 - [kof97plskt]          Kof'97 (Plus, Korean)
