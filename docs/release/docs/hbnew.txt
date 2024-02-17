@@ -12,6 +12,8 @@ New Games
 - [area88rka]           Area 88 (Korean, alt)
 - [captcommjk]          Captain Commando (Korean)
 - [daimakaik]           Dai Makai-Mura (Korean)
+- [ddsomak]             Dungeons & Dragons: Shadow over Mystara (960619, Korea, alt)
+- [ddsomjk]             Dungeons & Dragons: Shadow over Mystara (960619, Korea)
 - [ffightaek]           Final Fight 30th Anniversary Edition (Korean)
 - [ffightjk]            Final Fight (Korean)
 - [knightsk]            Knights of the Round (Korean)
