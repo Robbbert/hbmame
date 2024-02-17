@@ -3377,6 +3377,35 @@ ROM_START( sfz2als18 )
 	ROM_LOAD( "sfz2al.key",   0x00, 0x14, CRC(2904963e) SHA1(f4fa44646746ab4c6f2e76eaba57a7aee32e2933) )
 ROM_END
 
+ /***********
+ Rockman 2
+*************/
+ROM_START( rockman2k )
+	ROM_REGION(CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c66k.p1", 0x000000, 0x80000, CRC(6ba5e8d2) SHA1(73d925dee1fc3f910b13525703784a19045dd42a) )
+	ROM_LOAD16_WORD_SWAP( "c66k.p2", 0x080000, 0x80000, CRC(211105c9) SHA1(72f83c58a2729e7a6d1a469c6bbc8236d722181a) )
+	ROM_LOAD16_WORD_SWAP( "c66.p3",  0x100000, 0x80000, CRC(02ee9efc) SHA1(1b80c40389b51a03b930051f232630616c12e6c5) )
+
+	ROM_REGION( 0x1000000, "gfx", ROMREGION_ERASE00 )
+	ROM_LOAD64_WORD( "c66k.c1",  0x800000, 0x200000, CRC(712ccd27) SHA1(45fa1380fb9f11624369b3d478713e8319f32322) )
+	ROM_LOAD64_WORD( "c66k.c2",  0x800002, 0x200000, CRC(ba4cc30b) SHA1(75b2697de7891c66c64285cb12e1b28af5aec668) )
+	ROM_LOAD64_WORD( "c66k.c3",  0x800004, 0x200000, CRC(53cb1a05) SHA1(91a34006d63c5d8c28ea1df15470abab45c69834) )
+	ROM_LOAD64_WORD( "c66k.c4",  0x800006, 0x200000, CRC(7b019f2c) SHA1(cfbb1dbbca954a9d33d5b53e406c24316018b2be) )
+
+	ROM_REGION(QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c66.m1",  0x00000, 0x08000, CRC(d18e7859) SHA1(0939fac70042d0b4db5c2fdcef1f79b95febd45e) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c66.m2",   0x28000, 0x20000, CRC(c463ece0) SHA1(5c3e41eb61610b3f8c431206f6672907e3a0bdb0) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c66.q1",   0x000000, 0x200000, CRC(2106174d) SHA1(0a35d9ca8ebcad74904b20648d5320f839d6377e) )
+	ROM_LOAD16_WORD_SWAP( "c66.q2",   0x200000, 0x200000, CRC(546c1636) SHA1(f96b172ab899f2c6ee17a5dd1fb61af9432e3cd2) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "rockman2j.key", 0x00, 0x14, CRC(c590187a) SHA1(f9140da0849711938c4d8a98fb38bc1504582a43) )
+ROM_END
+
+
  /************************
  X-Men Vs. Street Fighter
 ***************************/
@@ -6769,6 +6798,8 @@ GAME( 2004, hsf2s12,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2004, hsf2s13,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "DDJ", "Hyper Street Fighter II: The Anniversary Edition (031222J, Special Move For Zangief)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s14,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blue-Ray", "Hyper Street Fighter II: The Anniversary Edition (040202U, 30% Blood)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, hsf2s15,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Hyper Street Fighter II: The Anniversary Edition (040202U, difficulty fix)", MACHINE_SUPPORTS_SAVE )
+// Rockman 2
+GAME( 1996, rockman2k,  megaman2, cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "hack", "Rockman 2: The Power Fighters (960708, Korea)", MACHINE_SUPPORTS_SAVE )
 // Marvel Super Heroes
 GAME( 2014, mshs01,     msh,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Marvel Super Heroes (951117J, Rise Again, 2014-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, mshs02,     msh,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Marvel Super Heroes (951024E, Enhanced Edition, 2015-12-04)", MACHINE_SUPPORTS_SAVE )
