@@ -5017,6 +5017,42 @@ ROM_START( cps1xx )  // not working, bad tiles
 	ROM_LOAD( "cps1demo.key", 0x00, 0x80, CRC(b0e5ee2d) SHA1(8189f48892fff7dc4fff4e765448e0ea2cfba4bc) )
 ROM_END
 
+ROM_START( rockmank )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c35k.p1", 0x000000, 0x80000, CRC(cb60d510) SHA1(1397ce99de98cb67b949a0c2d5a8fb804b5103e8) )
+	ROM_LOAD16_WORD_SWAP( "c35k.p2", 0x080000, 0x80000, CRC(ee2b97ff) SHA1(8ee614b63200b73ff223545e5e62139f50fb157f) )
+	ROM_LOAD16_WORD_SWAP( "c35j.p3", 0x100000, 0x80000, CRC(517ccde2) SHA1(492256c192f0c4814efa1ee1dd390453dd2e5865) )
+
+	ROM_REGION( 0x800000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c35k.c01",  0x000000, 0x80000, CRC(4c736693) SHA1(bdc569ae957c365ccb84004f636577e59f8999da) )
+	ROM_LOAD64_WORD( "c35k.c02",  0x000002, 0x80000, CRC(ab0ef46b) SHA1(ec94d0dba6a2a058a82bf34c57b8945515188c32) )
+	ROM_LOAD64_WORD( "c35k.c03",  0x000004, 0x80000, CRC(144d9090) SHA1(c4f12c401d399c312a3a3724311a2f7c18a47f91) )
+	ROM_LOAD64_WORD( "c35k.c04",  0x000006, 0x80000, CRC(6ba5999b) SHA1(92924a0dcc13293a138376e972d08be5070fc9da) )
+	ROM_LOAD64_WORD( "c35.c05",  0x200000, 0x80000, CRC(5dd131fd) SHA1(1a7fc8cf38901245d40901996e946e7ad9c0e0c5) )
+	ROM_LOAD64_WORD( "c35.c06",  0x200002, 0x80000, CRC(f0faf813) SHA1(adff01c2ecc4c8ce6f8a50cbd07d8f8bb9f48168) )
+	ROM_LOAD64_WORD( "c35.c07",  0x200004, 0x80000, CRC(826de013) SHA1(47f36b1d92a487c43c8dadc8293b8e6f40649286) )
+	ROM_LOAD64_WORD( "c35.c08",  0x200006, 0x80000, CRC(fbff64cf) SHA1(f0cb531ef195dc1dcd224a208906a62fb5d199a1) )
+	ROM_LOAD64_WORD( "c35k.c09",  0x400000, 0x80000, CRC(c4b5a6fc) SHA1(232e494417b3098f96f02ef1d8ac973ced6d8aae) )
+	ROM_LOAD64_WORD( "c35k.c10",  0x400002, 0x80000, CRC(d837cd36) SHA1(f96158598f503d850361376f440d42e06d31ffdc) )
+	ROM_LOAD64_WORD( "c35k.c11",  0x400004, 0x80000, CRC(263804b5) SHA1(6856a21bfddf3f41ce54ac7e409bb77146c0a241) )
+	ROM_LOAD64_WORD( "c35k.c12",  0x400006, 0x80000, CRC(dad13d11) SHA1(327a2c113b4a79cb3ca4786d1f069cc916fe19f0) )
+	ROM_LOAD64_WORD( "c35.c13",  0x600000, 0x80000, CRC(303be3bd) SHA1(1e5c3fd71966ea9f457840c40582795b501c323e) )
+	ROM_LOAD64_WORD( "c35.c14",  0x600002, 0x80000, CRC(4f2d372f) SHA1(db6a94d1f92c1b96e404b38ebcb1eedbec3ae6cc) )
+	ROM_LOAD64_WORD( "c35.c15",  0x600004, 0x80000, CRC(93d97fde) SHA1(e4be5216f98ad08a9118d629d398be2bd54e2e2a) )
+	ROM_LOAD64_WORD( "c35.c16",  0x600006, 0x80000, CRC(92371042) SHA1(c55833cbaddcc986edd23c009a3e3c7ff09c2708) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c35a.m1",     0x00000, 0x08000, CRC(9632d6ef) SHA1(2bcb6f17005ffbc9ef8fa4478a814f24b2e6e0b6) )
+	ROM_CONTINUE(            0x10000, 0x18000 ) // second half of ROM is empty, not mapped in memory
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c35.v1",      0x00000, 0x20000, CRC(80f1f8aa) SHA1(4a5b7b2a6941ad68da7472c63362c7bcd353fa54) )
+	ROM_LOAD( "c35.v2",      0x20000, 0x20000, CRC(f257dbe1) SHA1(967def6b6f93039dbc46373caabeb3301577be75) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "megaman.key", 0x00, 0x80, CRC(9c89eb62) SHA1(e67a3ed58f82875cff4861c14bd701b54dcc111f) )
+ROM_END
+
 /**************
  Daimakaimura
 ***************/
@@ -27831,7 +27867,7 @@ GAME( 1991, captcommh10,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,
 GAME( 2022, captcommh11,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "GameHackFan", "Captain Commando (readjusted v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, captcommh12,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "GameHackFan", "Captain Commando (readjusted v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, captcommh13,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "GameHackFan", "Captain Commando (readjusted v1.2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, captcommjk,    captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, captcommjk,    captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (911202, Korea)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, captcomms01,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "Pipi899", "Captain Commando (Characters Change, 2009-01-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, captcomms04,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "sssskkkk", "Captain Commando (Unlock 1Vs4 Mode, 2009-04-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, captcomms05,   captcomm, cps1_10MHz, captcomm, cps_state, init_cps1,     ROT0, "hack", "Captain Commando (1Vs4 Edition, 2016-02-17)", MACHINE_SUPPORTS_SAVE )
@@ -27939,9 +27975,10 @@ GAME( 2012, cps1testsa,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,
 GAME( 2012, cps1testm,     megaman,  cps1_12MHz, megaman,  cps_state, init_cps1,     ROT0, "Cal2", "CPS1 Diagnostic (For megaman, 2012-10-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, cps1testma,    megaman,  cps1_12MHz, megaman,  cps_state, init_cps1,     ROT0, "Cal2", "CPS1 Diagnostic (For megaman, 2012-10-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, cps1xx,        cps1demo, cps1frog,   cps1frog, cps_state, init_cps1,     ROT0, "Wang", "Demo Wang xx", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 1995, rockmank,      megaman,  cps1_12MHz, rockmanj, cps_state, init_cps1,     ROT0, "hack", "Rockman: The Power Battle (950922, Korea)", MACHINE_SUPPORTS_SAVE )
 // Daimakaimura
 GAME( 1993, daimakb,       ghouls,   daimakb,    daimakai, cps_state, init_cps1,     ROT0, "bootleg", "Dai Makai-Mura (Japan, bootleg)" , MACHINE_SUPPORTS_SAVE )
-GAME( 1993, daimakaik,     ghouls,   cps1_10MHz, daimakai, cps_state, init_cps1,     ROT0, "hack", "Dai Makai-Mura (Korean)" , MACHINE_SUPPORTS_SAVE )
+GAME( 1993, daimakaik,     ghouls,   cps1_10MHz, daimakai, cps_state, init_cps1,     ROT0, "hack", "Dai Makai-Mura (Korea)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, ghoulsf2,      ghouls,   cps1_12MHz, daimakai, cps_state, init_cps1,     ROT0, "Arcadefixer", "Ghouls'n Ghosts (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // Cadillacs And Dinosaurs
 GAME( 2017, dinod01,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Dinosaur Hunter (Challenge Edition, 2017-11-16)" , MACHINE_SUPPORTS_SAVE )
@@ -28223,14 +28260,14 @@ GAME( 1990, ffightjk,      ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 // Forgotten Worlds
 GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
-GAME( 1991, kodjk,         kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, kodjk,         kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (910805, Korea)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, koduhc01,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Boss Battle Edition, 2015-05-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, koduhc02,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (3 Player Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, koduhc03,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Boss Battle Edition, 2015-05-24)", MACHINE_SUPPORTS_SAVE )
 // Knights of the Round
-GAME( 1991, knightsk,      knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Korean)" , MACHINE_SUPPORTS_SAVE )
+GAME( 1991, knightsk,      knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (911127, Korea)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2011, knights01,     knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1, 2011-07-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knights02,     knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (Unknown Hack)" , MACHINE_SUPPORTS_SAVE )
 GAME( 1991, knights03,     knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "bootleg", "Knights of the Round (911127 etc bootleg set 2)", MACHINE_SUPPORTS_SAVE )
@@ -28440,7 +28477,7 @@ GAME( 1995, sfzchs03,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,
 GAME( 1995, sfzchs04,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Euro 950727)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs05,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Hispanic 950727)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs06,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Brazil 950727 hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 1995, sfzchk,        sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "hack", "Street Fighter Zero (CPS Changer, Korea)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sfzchk,        sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "hack", "Street Fighter Zero (951020, CPS Changer, Korea)", MACHINE_SUPPORTS_SAVE )
 // Varth: Operation Thunderstorm
 GAME( 1992, varths01,      varth,    cps1_12MHz, varth,    cps_state, init_cps1,     ROT270, "HOOOOOOK", "Varth: Operation Thunderstorm (Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, varths02,      varth,    cps1_12MHz, varth,    cps_state, init_cps1,     ROT270, "HOOOOOOK", "Varth: Operation Thunderstorm (Ex Super Version V2)", MACHINE_SUPPORTS_SAVE )
@@ -28634,7 +28671,7 @@ GAME( 1994, tk2p43,        wofch,    qsound,     wofch,    cps_state, init_wof, 
 GAME( 1994, tk2p44,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "Big West", "Tenchi wo Kurau II (Lock Triple Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, tk2p45,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "Pipi899", "Tenchi wo Kurau II (Imitation Sword Invincible Version, 2010-01-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, tk2p46,        wofch,    qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Tenchi wo Kurau II Train (Rev.1, 2016-02-28)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, wofchk,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "hack", "Tenchi wo Kurau II (Korean)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wofchk,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "hack", "Tenchi wo Kurau II (921031, Korea)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
 GAME( 1992, sk2a1,         wof,      qsound,     sk2h21,   cps_state, init_sk2h21,   ROT0, "hack", "San Jian Sheng (Chinese bootleg set 5, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2a2,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "bootleg", "San Jian Sheng (Three Sword Masters)", MACHINE_SUPPORTS_SAVE )
