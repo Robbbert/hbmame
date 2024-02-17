@@ -8021,8 +8021,11 @@ powerns05
 
 @source:psikyo.cpp
 tengai                                 //parent
-tengais01
-tengais02
+tengai01
+tengai02
+tengai03
+gunbird                                //parent
+//gunbird01
 
 @source:psikyosh.cpp
 s1945ii			//parent

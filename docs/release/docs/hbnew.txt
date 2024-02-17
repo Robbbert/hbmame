@@ -28,6 +28,7 @@ New Games
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.27)
 - [sfzchk]              Street Fighter Zero (CPS Changer, Korea)
 - [strider05]           Strider (Korean)
+- [tengai03]            Tengai (Korean)
 - [tophuntrk]           Top Hunter (Korean)
 - [uccops02]            Undercover Cops (Korean)
 - [wofchk]              Tenchi wo Kurau II (Korean)
