@@ -11,6 +11,7 @@ New Games
 - [area88rk]            Area 88 (Korean)
 - [area88rka]           Area 88 (Korean, alt)
 - [captcommjk]          Captain Commando (911202, Korea)
+- [csclub02]            Capcom Sports Club (970722, Korea)
 - [daimakaik]           Dai Makai-Mura (Korean)
 - [ddsomak]             Dungeons & Dragons: Shadow over Mystara (960619, Korea, alt)
 - [ddsomjk]             Dungeons & Dragons: Shadow over Mystara (960619, Korea)
@@ -33,7 +34,7 @@ New Games
 - [tengai03]            Tengai (Korean)
 - [tophuntrk]           Top Hunter (Korean)
 - [uccops02]            Undercover Cops (Korean)
-- [wofchk]              Tenchi wo Kurau II (Korean)
+- [wofchk]              Tenchi wo Kurau II (921031, Korea)
 
 
 

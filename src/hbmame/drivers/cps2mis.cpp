@@ -3923,7 +3923,7 @@ ROM_END
  /******************
  Capcom Sports Club
 *********************/
-ROM_START( csclubs01 )
+ROM_START( csclub01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c73s01.p1", 0x000000, 0x80000, CRC(383d9a0d) SHA1(8704eb52634a5d68606c07ae89382a31e342fcf4) )
 	ROM_LOAD16_WORD_SWAP( "c73e.p2",   0x080000, 0x80000, CRC(74e6a4fe) SHA1(2a732a6e57088885e77256eb17ddd3ae523db09f) )
@@ -3965,6 +3965,32 @@ ROM_START( csclubs01 )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "csclub.key",   0x00, 0x14, CRC(903907d7) SHA1(d70384b64637dbbcc064d39f984f73fc48bbac44) )
+ROM_END
+
+ROM_START( csclub02 )  // Says Korea on the boot screen, but there's no Korean text in the game
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c73s02.p1", 0x000000, 0x80000, CRC(b146e8db) SHA1(a855b544e9eb19ece781debd560e73096c5a28af) )
+	ROM_LOAD16_WORD_SWAP( "c73j.p2", 0x080000, 0x80000, CRC(60c632bb) SHA1(0d42c33aa476d2cc4efcdad78667353b88225966) )
+	ROM_LOAD16_WORD_SWAP( "c73j.p3", 0x100000, 0x80000, CRC(ad042003) SHA1(1e167c88f3b0617c38c9f43bdc816045ac0296e0) )
+	ROM_LOAD16_WORD_SWAP( "c73j.p4", 0x180000, 0x80000, CRC(169e4d40) SHA1(6540d89df5e76189d32b696be7626087fe26e33b) )
+	ROM_LOAD16_WORD_SWAP( "c73.p5",  0x200000, 0x80000, CRC(01b05caa) SHA1(5b84487da68e6b6f2889c76bf9e070e25941988c) )
+
+	ROM_REGION( 0x1000000, "gfx", ROMREGION_ERASE00 )
+	ROM_LOAD64_WORD( "c73s02.c1",  0x800000, 0x200000, CRC(bbc331b6) SHA1(ba771603a9c308ec72b2524649f53e46c3fc0018) )
+	ROM_LOAD64_WORD( "c73s02.c2",  0x800002, 0x200000, CRC(6b3e7280) SHA1(c560d872d392992d7dce3908bc258f7bdc0fe1a9) )
+	ROM_LOAD64_WORD( "c73s02.c3",  0x800004, 0x200000, CRC(df65f3ee) SHA1(2724b4772095430e59fa2c01279c32ea8ad59bd4) )
+	ROM_LOAD64_WORD( "c73s02.c4",  0x800006, 0x200000, CRC(1ccb5969) SHA1(4f942837b1e5f053fd3d375713abfdb3a8a3045d) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c73.m1",   0x00000, 0x08000, CRC(ee162111) SHA1(ce8d4bd32bb10ee8b0274ba6fcef05a583b39d48) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c73.q1",   0x000000, 0x200000, CRC(a027b827) SHA1(6d58a63efc7bd5d07353d9b55826c01a3c416c33) )
+	ROM_LOAD16_WORD_SWAP( "c73.q2",   0x200000, 0x200000, CRC(cb7f6e55) SHA1(b64e6b663fd09e887d2dc0f4b545e88688c0af55) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "csclubj.key",  0x00, 0x14, CRC(519a04db) SHA1(8f792831dc7e07fb621806c4e320a047f801e9b8) )
 ROM_END
 
  /**************
@@ -6703,7 +6729,8 @@ GAME( 2020, armwars02,  armwar,   dead_cps2, cps2_3p3b, cps2_state, init_cps2, R
 // Battle Circuit
 GAME( 2019, batcirs01,  batcir,   dead_cps2, cps2_4p2b, cps2_state, init_cps2, ROT0, "hack", "Battle Circuit (970319E, Evolution, 2019-10-21)", MACHINE_SUPPORTS_SAVE )
 // Capcom Sports Club
-GAME( 1997, csclubs01,  csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Hooooook", "Capcom Sports Club (971017E, Time Increases)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, csclub01,   csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Hooooook", "Capcom Sports Club (971017E, Time Increases)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, csclub02,   csclub,   cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "hack", "Capcom Sports Club (970722, Korea)", MACHINE_SUPPORTS_SAVE )
 // Cyberbots Fullmetal Madness
 GAME( 1995, cybots01,   cybots,   cps2,      cybots,    cps2_state, init_cps2, ROT0, "Pipi899", "Cyberbots: Fullmetal Madness (950420J, Get Maximum Power On Attack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, cybots02,   cybots,   cps2,      cybots,    cps2_state, init_cps2, ROT0, "KyleW", "Cyberbots: Fullmetal Madness (950424E, Access Mod)", MACHINE_SUPPORTS_SAVE )
