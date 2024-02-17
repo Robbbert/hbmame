@@ -16,6 +16,7 @@ New Games
 - [ddsomjk]             Dungeons & Dragons: Shadow over Mystara (960619, Korea)
 - [ffightaek]           Final Fight 30th Anniversary Edition (Korean)
 - [ffightjk]            Final Fight (Korean)
+- [gunbird01]           Gunbird (Korean hack)
 - [knightsk]            Knights of the Round (Korean)
 - [kodjk]               The King of Dragons (Korean)
 - [kof2002bs25]         Kof2002 (hack of the bootleg)

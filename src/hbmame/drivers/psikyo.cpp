@@ -2,6 +2,36 @@
 // copyright-holders:Gaston90
 #include "../mame/drivers/psikyo.cpp"
 
+/********
+ Gunbird
+*********/
+ROM_START( gunbird01 )  // gunbirdkp
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD32_WORD_SWAP( "s01.u46", 0x000000, 0x40000, CRC(8066b6f3) SHA1(6ea07cf1cb058da838524ae7f83f6ed24836848d) )
+	ROM_LOAD32_WORD_SWAP( "s01.u39", 0x000002, 0x40000, CRC(0a425ce0) SHA1(9b8a5f825c45b8919e43b83cc47056925bed6499) )
+
+	ROM_REGION( 0x020000, "audiocpu", 0 )
+	ROM_LOAD( "3.u71",     0x00000, 0x20000, CRC(2168e4ba) SHA1(ca7ad6acb5f806ce2528e7b52c19e8cceecb8543) )
+
+	ROM_REGION( 0x700000, "gfx1", 0 )
+	ROM_LOAD16_WORD_SWAP( "s01.u14",  0x000000, 0x200000, CRC(e143090a) SHA1(545ba6fdfd9b94efeb798b06ba07e8a5b27f8608) )
+	ROM_LOAD16_WORD_SWAP( "u24.bin",  0x200000, 0x200000, CRC(5e3ffc9d) SHA1(c284eb9ef56c8e6261fe11f91a10c5c5a56c9803) )
+	ROM_LOAD16_WORD_SWAP( "s01.u15",  0x400000, 0x200000, CRC(e5f6bfb6) SHA1(87825cb74f139aa9a6affc4b236910968a410de7) )
+	ROM_LOAD16_WORD_SWAP( "s01.u25",  0x600000, 0x100000, CRC(cf571ff8) SHA1(0310bc422fde4ab7c4a760ed6dc0606f10ed009a) )
+
+	ROM_REGION( 0x200000, "gfx2", 0 )
+	ROM_LOAD16_WORD_SWAP( "u33.bin",  0x000000, 0x200000, CRC(54494e6b) SHA1(f5d090d2d34d908b56b53a246def194929eba990) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "u56.bin",  0x000000, 0x100000, CRC(9e07104d) SHA1(3bc54cb755bb3194197706965b532d62b48c4d12) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "u64.bin",  0x000000, 0x080000, CRC(e187ed4f) SHA1(05060723d89b1d05714447a14b5f5888ff3c2306) )
+
+	ROM_REGION16_LE( 0x040000, "spritelut", 0 )
+	ROM_LOAD( "u3.bin",  0x000000, 0x040000, CRC(0905aeb2) SHA1(8cca09f7dfe3f804e77515f7b1b1bdbeb7bb3d80) )
+ROM_END
+
 /**************
  Sengoku Blade
 ****************/
@@ -88,6 +118,8 @@ ROM_START( tengai03 )  // tengaik
 ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+// Gunbird
+GAME( 1994, gunbird01,   gunbird,  gunbird,  gunbirdj, psikyo_state, init_gunbird,  ROT270, "hack",  "Gunbird (Korean hack)", MACHINE_SUPPORTS_SAVE )
 // Tengai
 GAME( 2009, tengai01,    tengai,   s1945,    tengai,   psikyo_state, init_tengai,   ROT0,   "Pipi899", "Tengai (Ex Super Version, 2009-10-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, tengai02,    tengai,   s1945,    tengaij,  psikyo_state, init_tengai,   ROT0,   "hack", "Tengai (Easy Type, 2019-03-08)", MACHINE_SUPPORTS_SAVE )
