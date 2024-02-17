@@ -27,7 +27,8 @@ New Games
 - [sfzchk]              Street Fighter Zero (CPS Changer, Korea)
 - [strider05]           Strider (Korean)
 - [tophuntrk]           Top Hunter (Korean)
-- ]wofchk]              Tenchi wo Kurau II (Korean)
+- [uccops02]            Undercover Cops (Korean)
+- [wofchk]              Tenchi wo Kurau II (Korean)
 
 
 

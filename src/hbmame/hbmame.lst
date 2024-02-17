@@ -4227,6 +4227,7 @@ nbbatman10
 nbbatman11
 uccops                                 //parent
 uccops01
+uccops02
 
 @source:maketrax.cpp
 eyes			//parent
