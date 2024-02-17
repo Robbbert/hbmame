@@ -25701,6 +25701,35 @@ ROM_START( tk2p46 ) //wofah
 	ROM_LOAD( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
 ROM_END
 
+ROM_START( wofchk )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c23chk.p1", 0x000000, 0x80000, CRC(65fd9fb8) SHA1(4752dbb9bf72475ae5fcab096b2a748c7f2c7ae4) )
+	ROM_LOAD16_WORD_SWAP( "c23chk.p2", 0x080000, 0x80000, CRC(27b2af50) SHA1(c95724e84a33b83163a38025fd4beed4c4bf40ce) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c23.c01",  0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) )
+	ROM_LOAD64_WORD( "c23.c03",  0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) )
+	ROM_LOAD64_WORD( "c23.c05",  0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) )
+	ROM_LOAD64_WORD( "c23.c07",  0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) )
+	ROM_LOAD64_WORD( "c23k.c09", 0x200000, 0x80000, CRC(f59df70c) SHA1(c1e7db5987ea6fb9f9719355b6dc6622cdbf8070) )
+	ROM_LOAD64_WORD( "c23k.c11", 0x200002, 0x80000, CRC(87f99cc0) SHA1(38e32ac5a9c2c3844da99eaf14e21401c48ea224) )
+	ROM_LOAD64_WORD( "c23k.c13", 0x200004, 0x80000, CRC(d450be3c) SHA1(3d525ba93fa12e1b46d76b36ebf1b4643b318cd7) )
+	ROM_LOAD64_WORD( "c23k.c15", 0x200006, 0x80000, CRC(17fbda9d) SHA1(ad96b93323844632777523e5dd7d7e5e4c3c142f) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c23.m1",       0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(             0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "c23.q1",   0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "c23.q2",   0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "c23.q3",   0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "wofch.key", 0x00, 0x80, CRC(23f2d0bb) SHA1(48ba9300bc2136e9583754a51d5ab2532eca85c6) )
+ROM_END
+
 /***************
   Sangokushi II
 *****************/
@@ -28502,6 +28531,7 @@ GAME( 1994, tk2p43,        wofch,    qsound,     wofch,    cps_state, init_wof, 
 GAME( 1994, tk2p44,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "Big West", "Tenchi wo Kurau II (Lock Triple Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, tk2p45,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "Pipi899", "Tenchi wo Kurau II (Imitation Sword Invincible Version, 2010-01-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, tk2p46,        wofch,    qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Tenchi wo Kurau II Train (Rev.1, 2016-02-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, wofchk,        wofch,    qsound,     wofch,    cps_state, init_wof,      ROT0, "hack", "Tenchi wo Kurau II (Korean)", MACHINE_SUPPORTS_SAVE )
 // Sangokushi II
 GAME( 1992, sk2a1,         wof,      qsound,     sk2h21,   cps_state, init_sk2h21,   ROT0, "hack", "San Jian Sheng (Chinese bootleg set 5, 921005 Asia)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sk2a2,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "bootleg", "San Jian Sheng (Three Sword Masters)", MACHINE_SUPPORTS_SAVE )
