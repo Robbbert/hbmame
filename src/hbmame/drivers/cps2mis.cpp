@@ -1834,6 +1834,32 @@ ROM_START( sfzj07 )
 	ROM_LOAD( "sfzj.key",     0x00, 0x14, CRC(355d85b8) SHA1(5da2c407852ce7b28153f3f94de8328802ff2f2d) )
 ROM_END
 
+ROM_START( sfzk )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c59k.p1", 0x000000, 0x80000, CRC(ff9f72cc) SHA1(2b79b5833bb9c6396398a336d6e9385fb6af57c4) )
+	ROM_LOAD16_WORD_SWAP( "c59.p2",  0x080000, 0x80000, CRC(8b73b0e5) SHA1(5318761f615c21395366b5333e75eaaa73ef2073) )
+	ROM_LOAD16_WORD_SWAP( "c59.p3",  0x100000, 0x80000, CRC(0810544d) SHA1(5f39bda3e7b16508eb58e5a2e0cc58c09cf428ce) )
+	ROM_LOAD16_WORD_SWAP( "c59.p4",   0x180000, 0x80000, CRC(806e8f38) SHA1(b6d6912aa8f2f590335d7ff9a8214648e7131ebb) )
+
+	ROM_REGION( 0x1000000, "gfx", ROMREGION_ERASE00 )
+	ROM_LOAD64_WORD( "c59k.c1",  0x800000, 0x200000, CRC(2abed9af) SHA1(0996e70f3f6b4aac894aa0ef5a637b06ce6571bf) )
+	ROM_LOAD64_WORD( "c59k.c2",  0x800002, 0x200000, CRC(e30c4e37) SHA1(e999e7ac3b85a3cff2332f24faba748683962e7d) )
+	ROM_LOAD64_WORD( "c59k.c3",  0x800004, 0x200000, CRC(a5a760b9) SHA1(60940a5057ce3afd2135b08643049532b92fca45) )
+	ROM_LOAD64_WORD( "c59k.c4",  0x800006, 0x200000, CRC(c72b7c2d) SHA1(7342fea8e32b39d262f2f4b81f2ba54c1de1ada1) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c59.m1",   0x00000, 0x08000, CRC(ffffec7d) SHA1(75b4aef001b72a0f571b51b2b97803facc1832dd) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c59.m2",   0x28000, 0x20000, CRC(45f46a08) SHA1(e32dbd27b52ab708278045b5a829376e55a4ca81) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c59.q1",   0x000000, 0x200000, CRC(c4b093cd) SHA1(256526bb693a0b72443f047e060304c9b739acd1) )
+	ROM_LOAD16_WORD_SWAP( "c59.q2",   0x200000, 0x200000, CRC(8bdbc4b4) SHA1(0e21c9a75a17a7e7dfd8bb51098c2b9dc4c933ec) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "sfzj.key",     0x00, 0x14, CRC(355d85b8) SHA1(5da2c407852ce7b28153f3f94de8328802ff2f2d) )
+ROM_END
+
  /*******************
  Marvel Super Heroes
 **********************/
@@ -6872,6 +6898,7 @@ GAME( 2007, sfzj04,     sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2008, sfzj05,     sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Pipi899", "Street Fighter Zero (950727J, Super-Entry Force To Modify, 2008-02-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzj06,     sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Street Fighter Zero (950727J, Enable hidden characters V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzj07,     sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji", "Street Fighter Zero (950727J, Enable hidden characters V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sfzk,       sfa,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Street Fighter Zero (950727, Korea)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter Alpha 2
 GAME( 2016, sfa2s01,    sfa2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "DDJ", "Street Fighter Alpha 2 (960229E, Easy Move, 2016-11-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, sfa2s02,    sfa2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "DDJ", "Street Fighter Alpha 2 (960229E, Full Power, 2016-09-05)", MACHINE_SUPPORTS_SAVE )
