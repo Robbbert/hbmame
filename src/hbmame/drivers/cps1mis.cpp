@@ -20257,6 +20257,46 @@ ROM_START( sfzchs06 ) //sfzbch
 	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
 ROM_END
 
+ROM_START( sfzchk )
+	ROM_REGION( CODE_SIZE, "maincpu",0 )
+	ROM_LOAD16_WORD_SWAP( "c59chk.p1",      0x000000, 0x80000, CRC(827e7b8f) SHA1(b2dee8d00cb1a91387a39200762f528b6d18168c) )
+	ROM_LOAD16_WORD_SWAP( "c59zb.p2",       0x080000, 0x80000, CRC(8d9b2480) SHA1(405305c1572908d00eab735f28676fbbadb4fac6))
+	ROM_LOAD16_WORD_SWAP( "c59ch.p3",       0x100000, 0x80000, CRC(5435225d) SHA1(6b1156fd82d0710e244ede39faaae0847c598376))
+	ROM_LOAD16_WORD_SWAP( "c59.p4",         0x180000, 0x80000, CRC(806e8f38) SHA1(b6d6912aa8f2f590335d7ff9a8214648e7131ebb))
+
+	ROM_REGION( 0x800000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c59ch.c01",         0x000000, 0x80000, CRC(0dd53e62) SHA1(5f3bcf5ca0fd564d115fe5075a4163d3ee3226df) )
+	ROM_LOAD64_WORD( "c59ch.c02",         0x000002, 0x80000, CRC(94c31e3f) SHA1(2187b3d4977514f2ae486eb33ed76c86121d5745) )
+	ROM_LOAD64_WORD( "c59ch.c03",         0x000004, 0x80000, CRC(9584ac85) SHA1(bbd62d66b0f6909630e801ce5d6331d43f44d741) )
+	ROM_LOAD64_WORD( "c59ch.c04",         0x000006, 0x80000, CRC(b983624c) SHA1(841106bb9453e3dfb7869c4b0e9149cc610d515a) )
+	ROM_LOAD64_WORD( "c59ch.c05",         0x200000, 0x80000, CRC(2b47b645) SHA1(bc6426eff5df9417f32666586744626fa544f7b5) )
+	ROM_LOAD64_WORD( "c59ch.c06",         0x200002, 0x80000, CRC(74fd9fb1) SHA1(7945472591f3c06970e96611a0363ed8f3d52c36) )
+	ROM_LOAD64_WORD( "c59ch.c07",         0x200004, 0x80000, CRC(bb2c734d) SHA1(97a06935f86f31755d2ffdc5b56bef53944bdecd) )
+	ROM_LOAD64_WORD( "c59ch.c08",         0x200006, 0x80000, CRC(454f7868) SHA1(eecccba7542d893bc41676246a20aa4914b79bbc) )
+	ROM_LOAD64_WORD( "c59ch.c09",         0x400000, 0x80000, CRC(2a7d675e) SHA1(0144ba34a29fb08b41c780ce65bb06d25724e88f) )
+	ROM_LOAD64_WORD( "c59ch.c10",         0x400002, 0x80000, CRC(e35546c8) SHA1(7b08aa3413494d12c5c550263a5f00b64b98e6ab) )
+	ROM_LOAD64_WORD( "c59ch.c11",         0x400004, 0x80000, CRC(f122693a) SHA1(71ce901d8d30207e506b6a8d6a4e0fcf3a1b0eac) )
+	ROM_LOAD64_WORD( "c59ch.c12",         0x400006, 0x80000, CRC(7cf942c8) SHA1(a7109facb97a8a11ddf1b4e07de6ff3164d713a1) )
+	ROM_LOAD64_WORD( "c59ch.c13",         0x600000, 0x80000, CRC(95e0cf7e) SHA1(aa0130e39d5f9921291d5c85ba9bee9510e34d64) )
+	ROM_LOAD64_WORD( "c59ch.c14",         0x600002, 0x80000, CRC(b3dea987) SHA1(08330692e32d9d623d1c9f9b45e9b447e119bf1f) )
+	ROM_LOAD64_WORD( "c59ch.c15",         0x600004, 0x80000, CRC(323b32ca) SHA1(47fa25f88a5bacbe29bec711671980a1963ddd6b) )
+	ROM_LOAD64_WORD( "c59ch.c16",         0x600006, 0x80000, CRC(9b3c2d26) SHA1(28f519c5e01e80f8e4a3c474bfc198aa11e0c686) )
+
+	ROM_REGION( 0x8000, "stars", 0 )
+	ROM_COPY( "gfx", 0x000000, 0x000000, 0x8000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c59ch.m1",         0x00000, 0x08000, CRC(c772628b) SHA1(ebc5b7c173caf1e151f733f23c1b20abec24e16d) )
+	ROM_CONTINUE(                 0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c59ch.v1",         0x00000, 0x20000, CRC(61022b2d) SHA1(6369d0c1d08a30ee19b94e52ab1463a7784b9de5) )
+	ROM_LOAD( "c59ch.v2",         0x20000, 0x20000, CRC(3b5886d5) SHA1(7e1b7d40ef77b5df628dd663d45a9a13c742cf58) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sfach.key", 0x00, 0x80, CRC(8ac48367) SHA1(aeeab2c3436009d05dd9caa1b1929af4d7e607ae) )
+ROM_END
+
 /******
  Varth
 ********/
@@ -28400,6 +28440,7 @@ GAME( 1995, sfzchs03,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,
 GAME( 1995, sfzchs04,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Euro 950727)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs05,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Hispanic 950727)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, sfzchs06,      sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "bootleg", "Street Fighter Zero (CPS Changer, Brazil 950727 hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, sfzchk,        sfzch,    cps1_12MHz, sfzch,    cps_state, init_cps1,     ROT0, "hack", "Street Fighter Zero (CPS Changer, Korea)", MACHINE_SUPPORTS_SAVE )
 // Varth: Operation Thunderstorm
 GAME( 1992, varths01,      varth,    cps1_12MHz, varth,    cps_state, init_cps1,     ROT270, "HOOOOOOK", "Varth: Operation Thunderstorm (Ex Super Version V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, varths02,      varth,    cps1_12MHz, varth,    cps_state, init_cps1,     ROT270, "HOOOOOOK", "Varth: Operation Thunderstorm (Ex Super Version V2)", MACHINE_SUPPORTS_SAVE )
