@@ -17,46 +17,6 @@
 #include "treeview.h"
 
 
-// fix warning: cast does not match function type
-#if defined(__GNUC__) && defined(ListView_GetHeader)
-#undef ListView_GetHeader
-#endif
-#if defined(__GNUC__) && defined(ListView_GetImageList)
-#undef ListView_GetImageList
-#undef ListView_GetItemRect
-#endif
-
-#ifndef ListView_GetItemRect
-#define ListView_GetItemRect(w,i,p,c) \
-	(BOOL)SNDMSG((w),LVM_GETITEMRECT,i,((p != NULL)?(((LPRECT)(p))->left=(c),(LPARAM)(LPRECT)(p)):0))
-#endif
-
-#ifndef ListView_GetImageList
-#define ListView_GetImageList(w,i) (HIMAGELIST)(LRESULT)(int)SendMessage((w),LVM_GETIMAGELIST,(i),0)
-#endif // ListView_GetImageList
-
-#ifndef ListView_GetHeader
-#define ListView_GetHeader(w) (HWND)(LRESULT)(int)SNDMSG((w),LVM_GETHEADER,0,0)
-#endif // ListView_GetHeader
-
-#ifndef HDM_SETIMAGELIST
-#define HDM_SETIMAGELIST        (HDM_FIRST + 8)
-#endif // HDM_SETIMAGELIST
-
-#ifndef Header_SetImageList
-#define Header_SetImageList(h,i) (HIMAGELIST)(LRESULT)(int)SNDMSG((h), HDM_SETIMAGELIST, 0, (LPARAM)i)
-#endif // Header_SetImageList
-
-#ifndef HDF_SORTUP
-#define HDF_SORTUP 0x400
-#endif
-
-#ifndef HDF_SORTDOWN
-#define HDF_SORTDOWN 0x200
-#endif
-
-
-
 struct PickerInfo
 {
 	const struct PickerCallbacks *pCallbacks;
