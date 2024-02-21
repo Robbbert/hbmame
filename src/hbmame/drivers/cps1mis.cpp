@@ -24698,6 +24698,35 @@ ROM_START( tk2h181 ) // wofzyq
 	ROM_LOAD( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
 ROM_END
 
+ROM_START( tk2k01 ) //tk2h10dk from ekmame
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "tk2k01.p1", 0x000000, 0x80000, CRC(72c5ec78) SHA1(de224339ff1aaf98f156503300d6dd2a329e9faf) )
+	ROM_LOAD16_WORD_SWAP( "tk2k01.p2", 0x080000, 0x80000, CRC(d2a739a5) SHA1(5c6403d96de05791b6c217052f42b291c9a81124) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c23.c01",      0x000000, 0x80000, CRC(0d9cb9bf) SHA1(cc7140e9a01a14b252cb1090bcea32b0de461928) )
+	ROM_LOAD64_WORD( "c23.c03",      0x000002, 0x80000, CRC(45227027) SHA1(b21afc593f0d4d8909dfa621d659cbb40507d1b2) )
+	ROM_LOAD64_WORD( "c23.c05",      0x000004, 0x80000, CRC(c5ca2460) SHA1(cbe14867f7b94b638ca80db7c8e0c60881183469) )
+	ROM_LOAD64_WORD( "c23.c07",      0x000006, 0x80000, CRC(e349551c) SHA1(1d977bdf256accf750ad9930ec4a0a19bbf86964) )
+	ROM_LOAD64_WORD( "c23k01.c09",   0x200000, 0x80000, CRC(188be08a) SHA1(a53d8c718dd0b2aefca9ae3f480cd5b86165620e) )
+	ROM_LOAD64_WORD( "c23k01.c11",   0x200002, 0x80000, CRC(3a02b86b) SHA1(f9c7ee6eff028139ce3fd6eea91d6e9d8ed67bde) )
+	ROM_LOAD64_WORD( "c23k01.c13",   0x200004, 0x80000, CRC(3946a9ba) SHA1(5469ea33f5bda58bc9f1b7bef55e79a4a35cc9c6) )
+	ROM_LOAD64_WORD( "c23k01.c15",   0x200006, 0x80000, CRC(aa00fe36) SHA1(ad7b165bbd23883d6ee83235d3d342be5f6fc8dc) )
+
+	ROM_REGION( 0x28000, "audiocpu", 0 )
+	ROM_LOAD( "c23.m1",   0x00000, 0x08000, CRC(c9183a0d) SHA1(d8b1d41c572f08581f8ab9eb878de77d6ea8615d) )
+	ROM_CONTINUE(            0x10000, 0x18000 )
+
+	ROM_REGION( 0x200000, "qsound", 0 )
+	ROM_LOAD( "c23.q1",   0x000000, 0x80000, CRC(611268cf) SHA1(83ab059f2110fb25fdcff928d56b790fc1f5c975) )
+	ROM_LOAD( "c23.q2",   0x080000, 0x80000, CRC(20f55ca9) SHA1(90134e9a9c4749bb65c728b66ea4dac1fd4d88a4) )
+	ROM_LOAD( "c23.q3",   0x100000, 0x80000, CRC(bfcf6f52) SHA1(2a85ff3fc89b4cbabd20779ec12da2e116333c7c) )
+	ROM_LOAD( "c23.q4",   0x180000, 0x80000, CRC(36642e88) SHA1(8ab25b19e2b67215a5cb1f3aa81b9d26009cfeb8) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "wof.key", 0x00, 0x80, CRC(ef8848dd) SHA1(e500a89ddb16abb31c7cb45f8dbea922d01fccc1) )
+ROM_END
+
 ROM_START( tk2k1 ) // wofjzero
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "tk2k1.p1", 0x000000, 0x80000, CRC(7896998d) SHA1(7f59015ec00232f2b40836127f143415678f7058) )
@@ -28631,6 +28660,7 @@ GAME( 1992, tk2h178,       wof,      qsound,     wof,      cps_state, init_wof, 
 GAME( 1992, tk2h179,       wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un)'s kick)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, tk2h180,       wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "wuzu2001", "Tenchi wo Kurau II (Enhanced Subutai (Chou-Un)'s uppercut)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, tk2h181,       wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "wuzu2001", "Tenchi wo Kurau II (Violent Subutai (Chou-Un))", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, tk2k01,        wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "AXDX", "Tenchi wo Kurau II (Sanmei Spiral Counterattack Beta 1.03, 921031, Korea)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, tk2k1,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "Zero", "Tenchi wo Kurau II (Power edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, tk2w1,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "hack", "Tenchi wo Kurau II (Sanmei Wushuang, 2016-02-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, tk2w2,         wof,      qsound,     wof,      cps_state, init_wof,      ROT0, "axdx", "Tenchi wo Kurau II (Title Screen Modification)", MACHINE_SUPPORTS_SAVE )

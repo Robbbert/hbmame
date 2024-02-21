@@ -37,6 +37,7 @@ New Games
 - [sfzk]                Street Fighter Zero (950727, Korea)
 - [strider05]           Strider (Korean)
 - [tengai03]            Tengai (Korean)
+- [tk2k01]              Tenchi wo Kurau II (Sanmei Spiral Counterattack Beta 1.03, 921031, Korea)
 - [tophuntrk]           Top Hunter (Korean)
 - [uccops02]            Undercover Cops (Korean)
 - [wofchk]              Tenchi wo Kurau II (921031, Korea)
