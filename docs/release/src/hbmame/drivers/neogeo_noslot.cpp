@@ -8201,7 +8201,7 @@ GAME( 1996, neomrdo,    neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_ne
 GAME( 1995, goalx3,     neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Goal! Goal! Goal!", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, neodrift,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Neo Drift Out - New Technology", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, breakers,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Breakers", MACHINE_SUPPORTS_SAVE )
-GAME( 1997, puzzldpr,   puzzledp, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon! R!", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, puzzldpr,   puzzledp, neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Taito (Visco license)", "Puzzle De Pon! R", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, breakrev,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Breakers Revenge", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, flipshot,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Battle Flip Shot", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, ctomaday,   neogeo,   neogeo_noslot,   neogeo, neogeo_state, init_neogeo,   ROT0, "Visco", "Captain Tomaday", MACHINE_SUPPORTS_SAVE )

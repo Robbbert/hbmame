@@ -851,7 +851,7 @@ ROM_START( kof96kt ) // Korean Translation
 
 	NEO_SFIX_128K( "214.s1", CRC(1254cbdb) SHA1(fce5cf42588298711a3633e9c9c1d4dcb723ac76) )
 
-	NEO_BIOS_AUDIO_128K( "214.m1", CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "214.m1", CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
 
 	ROM_REGION( 0xa00000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "214.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
@@ -1824,7 +1824,7 @@ ROM_START( kof96s11 )
 
 	NEO_SFIX_128K( "214.s1", CRC(1254cbdb) SHA1(fce5cf42588298711a3633e9c9c1d4dcb723ac76) )
 
-	NEO_BIOS_AUDIO_128K( "214.m1", CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "214.m1", CRC(dabc427c) SHA1(b76722ed142ee7addceb4757424870dbd003e8b3) )
 
 	ROM_REGION( 0xa00000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "214.v1", 0x000000, 0x400000, CRC(63f7b045) SHA1(1353715f1a8476dca6f8031d9e7a401eacab8159) )
@@ -2747,7 +2747,7 @@ GAME( 1996, kof96hp,   kof96,    neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 2007, kof96hp1,  kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Pipi899", "Kof'96 (Unknown Hack, 2007-08-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96hpr,  kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "HackPlus", "Kof'96 (Add Char set 2 - revised)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96k,    kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Guangzhou Game Team", "Kof'96 (Add Char - Pow hack ABC set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, kof96k1,   kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'96 (Korean Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, kof96k1,   kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'96 (unknown Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96k3,   kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Jason/K3", "Kof'96 (Remix Kof98 Moves, 2003-07-25)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96k3o,  kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Jason/K3", "Kof'96 (Remix Kof98 Moves, 2003-07-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kof96kt,   kof96,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'96 (Korean)", MACHINE_SUPPORTS_SAVE )

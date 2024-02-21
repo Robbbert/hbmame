@@ -954,7 +954,7 @@ ROM_END
 
 ROM_START( kof99nd )
 	ROM_REGION( 0x500000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "251b.p1",  0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
+	ROM_LOAD16_WORD_SWAP( "251b.p1", 0x000000, 0x100000, CRC(f2c7ddfa) SHA1(d592eecc53d442c55c2f26a6a721fdf2924d2a5b) )
 	ROM_LOAD16_WORD_SWAP( "251r.p2", 0x100000, 0x400000, CRC(274ef47a) SHA1(98654b68cc85c19d4a90b46f3110f551fa2e5357) )
 
 	NEO_SFIX_MT_128K
@@ -996,6 +996,32 @@ ROM_START( kof99ndis ) // all complete
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "251d.c1",  0x0000000, 0x800000, CRC(b3d88546) SHA1(c277525f3db5b4cb07e9842605c7c40e6c203ad9) )
 	ROM_LOAD16_BYTE( "251d.c2",  0x0000001, 0x800000, CRC(915c8634) SHA1(685ecb4271edf61f6a28a2235de11dd219b999d6) )
+	ROM_LOAD16_BYTE( "251d.c3",  0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
+	ROM_LOAD16_BYTE( "251d.c4",  0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
+	ROM_LOAD16_BYTE( "251d.c5",  0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
+	ROM_LOAD16_BYTE( "251d.c6",  0x2000001, 0x800000, CRC(238b3e71) SHA1(f929c942972f768e68a5a009a3d174d203029160) )
+	ROM_LOAD16_BYTE( "251d.c7",  0x3000000, 0x800000, CRC(2f68fdeb) SHA1(37167c84a39141c179f94800f207dac3aabc5478) )
+	ROM_LOAD16_BYTE( "251d.c8",  0x3000001, 0x800000, CRC(4c2fad1e) SHA1(26779e79296eb1988a8c4d60d2e1baf041f2c0cf) )
+ROM_END
+
+ROM_START( kof99ndkt )
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "251ndkt.p1", 0x000000, 0x100000, CRC(b98c12c5) SHA1(91ca79201cc1bf6faaa909039511a5db7f347c8a) )
+	ROM_LOAD16_WORD_SWAP( "251ndkt.p2", 0x100000, 0x400000, CRC(d87f8748) SHA1(1e5f1c3327d1ffe50b393ccdae81e10f9dd1c605) )
+
+	NEO_SFIX_128K( "251revo.s1", CRC(1b0133fe) SHA1(7f8e743bc0c8384dec12ca7007d32b23fef8875d) )
+
+	NEO_JAPAN_BIOS_AUDIO(0x20000, "251.m1", CRC(5e74539c) SHA1(6f49a9343cbd026b2c6720ff3fa2e5b1f85e80da) )
+
+	ROM_REGION( 0x0e00000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "251.v1", 0x000000, 0x400000, CRC(ef2eecc8) SHA1(8ed13b9db92dba3124bc5ba66e3e275885ece24a) )
+	ROM_LOAD( "251.v2", 0x400000, 0x400000, CRC(73e211ca) SHA1(0e60fa64cab6255d9721e2b4bc22e3de64c874c5) )
+	ROM_LOAD( "251.v3", 0x800000, 0x400000, CRC(821901da) SHA1(c6d4975bfaa19a62ed59126cadf2578c0a5c257f) )
+	ROM_LOAD( "251.v4", 0xc00000, 0x200000, CRC(b49e6178) SHA1(dde6f76e958841e8c99b693e13ced9aa9ef316dc) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "251ndkt.c1",  0x0000000, 0x800000, CRC(4a400a35) SHA1(bf4fabb061e7775b78589f791ec96c85190ee8a1) )
+	ROM_LOAD16_BYTE( "251ndkt.c2",  0x0000001, 0x800000, CRC(de7e7c17) SHA1(9a07b06033a655dbe7c54e7d4b216c313676df30) )
 	ROM_LOAD16_BYTE( "251d.c3",  0x1000000, 0x800000, CRC(b047c9d5) SHA1(b840eab2208e6c0a1db0cdb28df46ba07da2ddca) )
 	ROM_LOAD16_BYTE( "251d.c4",  0x1000001, 0x800000, CRC(6bc8e4b1) SHA1(674cb8145aeada1683a70beb02ed4ea028f5bdf8) )
 	ROM_LOAD16_BYTE( "251d.c5",  0x2000000, 0x800000, CRC(9746268c) SHA1(59d839f01f4827377a752679922bc7281099430d) )
@@ -5598,6 +5624,7 @@ GAME( 2007, kof99lb,    kof99,    neogeo_noslot, neogeo, neogeo_state, init_neog
 GAME( 1999, kof99m,     kof99,    neogeo_noslot, neogeo, neogeo_state, init_kof99,    ROT0, "MasakiAnton", "Kof'99 (2 Add Char)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99nd,    kof99,    neogeo_noslot, neogeo, neogeo_state, init_kof99,    ROT0, "SNK", "Kof'99 (Non encrypted P,decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ndis,  kof99,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'99 (Remix Pro, 2016-03-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, kof99ndkt,  kof99,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'99 (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99nevo,  kof99,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Chl, Robert", "Kof'99 (Evolution Revision)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ob,    kof99,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'99 (Orochi's Blood-Another part of Leona & Iori)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, kof99ob2,   kof99,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "Yashional", "Kof'99 (Orochi's Blood)(Set 2)", MACHINE_SUPPORTS_SAVE )

@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2024-0x-xx 0.245.17
+2024-02-21 0.245.17
 
 Set Neo-Geo Korean-language translations to actually show Korean text.
 

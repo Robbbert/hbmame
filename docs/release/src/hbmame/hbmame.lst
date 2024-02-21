@@ -423,7 +423,7 @@ strider
 //striderjr
 //striderua
 //strideruc
-//unsquad
+unsquad
 varth
 //varthb2
 //varthb3                              // not working
@@ -449,6 +449,8 @@ wofch
 3wonders02
 3wonders03
 3wonders04
+area88rk
+area88rka
 cawingh01
 captcommh01
 captcommh02
@@ -463,6 +465,7 @@ captcommh10
 captcommh11
 captcommh12
 captcommh13
+captcommjk
 captcomms01
 captcomms04
 captcomms05
@@ -568,6 +571,7 @@ cps1tests                              // HB
 cps1testsa                             // HB
 //cps1xx                               // corrupt gfx
 daimakb
+daimakaik
 dinod01                                // Dinosaur hunter
 dinoj01                                // Cadillacs
 dinoj02
@@ -832,6 +836,7 @@ ffightaeh01
 ffightaeh02
 ffightaeh03
 ffightaeh04
+ffightaek
 ffights01
 ffights02
 ffights03
@@ -841,13 +846,16 @@ ffightj2s02
 ffightj2s03
 ffightj2s04
 ffightj1s01
+ffightjk
 forgottnsf2
 ghoulsf2
+kodjk
 kodr01                                 // r = based on kodr1, bad gfx are normal
 kodr02
 koduhc01
 koduhc02
 koduhc03
+knightsk
 knights01
 knights02
 knights03
@@ -924,6 +932,7 @@ punisherjs21
 punisherjs22
 punisherjs23
 punisherjs24
+rockmank
 sf2ces01
 sf2ces02
 sf2ces03
@@ -1037,6 +1046,7 @@ sfzchs03
 sfzchs04
 sfzchs05
 sfzchs06
+sfzchk
 slammasts01
 slammasts02
 slammasts03
@@ -1046,6 +1056,7 @@ slammasts06
 strider01
 strider02
 strider04
+strider05
 varths01
 varths02
 willows01
@@ -1249,6 +1260,7 @@ tk2h178
 tk2h179
 tk2h180
 tk2h181
+tk2k01
 tk2k1
 tk2w1
 tk2w2
@@ -1288,6 +1300,7 @@ tk2p43
 tk2p44
 tk2p45
 tk2p46
+wofchk
 wofs00
 wofs01
 wofs02
@@ -1333,6 +1346,7 @@ ddtod
 dstlk
 gigawing
 hsf2
+megaman2
 mpang
 msh
 mshvsf
@@ -1365,9 +1379,12 @@ avsps04
 avsps05
 avsps06
 batcirs01
-csclubs01
+csclub01
+csclub02
 cybots01
 cybots02
+ddsomak
+ddsomjk
 ddsoms01
 ddsoms02
 ddsoms03
@@ -1420,6 +1437,7 @@ pfghtj03
 pfghtj04
 progearj01
 progearj02
+rockman2k
 sfas01
 sfas02
 sfas03
@@ -1433,6 +1451,7 @@ sfzj04
 sfzj05
 sfzj06
 sfzj07
+sfzk
 sfa2s01
 sfa2s02
 sfa2s03
@@ -1444,6 +1463,9 @@ sfa2s08
 sfa2s09
 sfa2s10
 sfz2j01
+sfz2k01
+sfz2k02
+sfz2alk
 sfz2als01
 sfz2als02
 sfz2als03
@@ -1561,6 +1583,7 @@ sfz3mix22
 sfz3mix23
 sfz3mix24
 sfz3mix25
+sfz3mix26
 sfz3mix
 
 @source:cps3.cpp
@@ -2243,6 +2266,7 @@ kof97pl2
 kof97pl3
 kof97pla
 kof97plc
+kof97plskt
 kof97plus
 kof97pm
 kof97ps
@@ -2860,6 +2884,7 @@ kof98fv
 kof98fv2
 kof98gold
 kof98hk
+kof98hkt
 kof98ice
 kof98ico
 kof98iori
@@ -3105,6 +3130,7 @@ kof99lb
 kof99m
 kof99nd
 kof99ndis
+kof99ndkt
 kof99nevo
 kof99ob
 kof99ob2
@@ -3290,6 +3316,7 @@ kof2kgold
 kof2kiori
 kof2kjlc
 kof2kkf1
+kof2kkt
 kof2kkvs
 kof2kkzs
 kof2knd
@@ -3511,6 +3538,7 @@ kof2001s48
 
 @source:kof2002.cpp
 kof200215
+kof2002bs25
 kof2002d
 kof2002x
 kof2k2ath
@@ -4210,6 +4238,7 @@ nbbatman10
 nbbatman11
 uccops                                 //parent
 uccops01
+uccops02
 
 @source:maketrax.cpp
 eyes			//parent
@@ -6189,6 +6218,7 @@ zintricks01
 2020bbcd
 androdunpx
 aofbh
+aofkt
 aof2b
 aof2b1
 aof2bh
@@ -6282,6 +6312,8 @@ pnyaad
 pnyaadd
 preisle2d
 preisle2px
+puzzldprk
+puzzledpk
 ragnagrdbe
 ragnagrdbs
 ragnagrdeh
@@ -6305,6 +6337,7 @@ spinmastpx
 ssidekicd
 strhoopcd
 superspycd
+tophuntrk
 tophuntrpx
 tpgolfcd
 trallycd
@@ -7997,8 +8030,11 @@ powerns05
 
 @source:psikyo.cpp
 tengai                                 //parent
-tengais01
-tengais02
+tengai01
+tengai02
+tengai03
+gunbird                                //parent
+gunbird01
 
 @source:psikyosh.cpp
 s1945ii			//parent

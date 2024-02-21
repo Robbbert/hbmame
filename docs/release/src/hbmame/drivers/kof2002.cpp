@@ -187,6 +187,30 @@ ROM_START( kof200215 ) // all confirmed
 	ROM_LOAD16_BYTE( "265_15.c8", 0x3000001, 0x800000, CRC(598d8826) SHA1(7432299d265af95835d82a43d0d4e322cd487c55) )
 ROM_END
 
+ROM_START( kof2002bs25 )
+	ROM_REGION( 0x500000, "maincpu", ROMREGION_BE|ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "265.p1",  0x000000, 0x100000, CRC(9ede7323) SHA1(ad9d45498777fda9fa58e75781f48e09aee705a6) )
+	ROM_LOAD16_WORD_SWAP( "265bs25.p2", 0x100000, 0x400000, CRC(a8cdd45e) SHA1(f21f2e294e251d641e7caa4ec7e3c656e2702073) )
+
+	NEO_SFIX_128K( "2k2-s1.bin", CRC(2255f5bf) SHA1(8a82b3e9717df30b580b9d0bac0b403f8102a002) )
+
+	NEO_BIOS_AUDIO_ENCRYPTED_128K( "265.m1", CRC(85aaa632) SHA1(744fba4ca3bc3a5873838af886efb97a8a316104) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "265.v1", 0x000000, 0x800000, CRC(15e8f3f5) SHA1(7c9e6426b9fa6db0158baa17a6485ffce057d889) )
+	ROM_LOAD( "265.v2", 0x800000, 0x800000, CRC(da41d6f9) SHA1(a43021f1e58947dcbe3c8ca5283b20b649f0409d) )
+
+	ROM_REGION( 0x4000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "265bs25.c1", 0x0000000, 0x800000, CRC(45d13037) SHA1(e09c6e00529cecb3264a0452c487f3c2a3c278f0) )
+	ROM_LOAD16_BYTE( "2k2-c2.bin", 0x0000001, 0x800000, CRC(e3e66f1d) SHA1(af93e9e134816353d6187a53959c6e418b83ad8d) )
+	ROM_LOAD16_BYTE( "2k2-c3.bin", 0x1000000, 0x800000, CRC(8732fa30) SHA1(81c482b375c04bcfbbc69e3e2a2e9ab567c9bb78) )
+	ROM_LOAD16_BYTE( "2k2-c4.bin", 0x1000001, 0x800000, CRC(0989fd40) SHA1(355d6b2c528319e41ce89952c5cf5bcc47cd6de0) )
+	ROM_LOAD16_BYTE( "2k2-c5.bin", 0x2000000, 0x800000, CRC(60635cd2) SHA1(0cf2c54e003edfcdbed64e0570e6b800e7ed3c1b) )
+	ROM_LOAD16_BYTE( "2k2-c6.bin", 0x2000001, 0x800000, CRC(bd736824) SHA1(d897fc8248ace145fef57d8aa393eaebc4a1ccc4) )
+	ROM_LOAD16_BYTE( "2k2-c7.bin", 0x3000000, 0x800000, CRC(2da8d8cf) SHA1(ab8aa88b8e1baba88e5fc01d0f3cb55503b6c81a) )
+	ROM_LOAD16_BYTE( "2k2-c8.bin", 0x3000001, 0x800000, CRC(2048404a) SHA1(d6d0f049ffc196334825328e0472b04e04bf6695) )
+ROM_END
+
 ROM_START( kof2002d )
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "265.p1",  0x000000, 0x100000, CRC(9ede7323) SHA1(ad9d45498777fda9fa58e75781f48e09aee705a6) )
@@ -12591,6 +12615,7 @@ ROM_END
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The King of Fighters '2002
 GAME( 2002, kof200215,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "hack", "Kof2002 Magic Plus II (Ultimate Enhancement Simplified Recruitment)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2002bs25, kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002b,  ROT0, "Syberjun", "Kof2002 (hack of the bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002d,    kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002, ROT0, "Eolith / Playmore", "Kof2002 (Decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof2002x,    kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "hack", "Kof2002 (Babel ice field remix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2k2ath,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof2002 (Athena)", MACHINE_SUPPORTS_SAVE )
@@ -12744,7 +12769,7 @@ GAME( 2002, kof2k2bsx,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_neog
 ///GAME( 2002, kf2k2plc,   kof2002, neogeo_noslot, neogeo, neogeo_state, init_kof2002, ROT0, "bootleg", "Kof2002 Super (set 4, bootleg / hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof2002s01,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "KyoX",    "Kof2002 (Portuguese, 2005-09-25)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2008, kof2002s02,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "FoxUU, ZUOJIE, Bluekiller, Alexwong",    "Kof2002 (Chinese, 2008-03-15)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kof2002s03,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "syberjun",    "Kof2002 (Korean)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kof2002s03,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "syberjun",    "Kof2002 (unknown)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kof2002s04,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "Kim",    "Kof2002 (Orochivora V1, 2005-08-21)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2006, kof2002s05,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "Kim",    "Kof2002 (Orochivora V2, 2006-02-14)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kof2002s09,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,   ROT0, "Benalla & danpaji1",    "Kof2002 (BC System Plus)" , MACHINE_SUPPORTS_SAVE )
@@ -12853,7 +12878,7 @@ GAME( 2002, kof2002s113,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, kof2002s114,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "hack",    "Kof2002 (Unknown Hack Date)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, kof2002s115,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "hack",    "Kof2002 (RU Version, 2020-02-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kf2k2mps01,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "KyoX",    "Kof2002 Magic Plus (Portuguese, 2005-09-25)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kf2k2mps02,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "syberjun",    "Kof2002 Magic Plus (Korean)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kf2k2mps02,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "syberjun",    "Kof2002 Magic Plus (unknown)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mps03,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "wesker",    "Kof2002 Magic Plus (Unluck Max2 v1)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mps04,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "Creamymami",    "Kof2002 Magic Plus (Unluck Max2 v2)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mps05,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "kawada7278",    "Kof2002 Magic Plus (Normalise Power)" , MACHINE_SUPPORTS_SAVE )
@@ -12888,7 +12913,7 @@ GAME( 2002, kf2k2mps33,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, kf2k2mps34,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "wesker",    "Kof2002 Magic Plus (Practice Mode Maximum Power)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mps35,     kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp,   ROT0, "Eddids",    "Kof2002 Magic Plus (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2005, kf2k2mp2s01,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "KyoX",    "Kof2002 Magic Plus II (Portuguese, 2005-09-25)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kf2k2mp2s02,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "syberjun",    "Kof2002 Magic Plus II (Korean)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kf2k2mp2s02,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "syberjun",    "Kof2002 Magic Plus II (unknown)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mp2s03,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "Creamymami",    "Kof2002 Magic Plus II (Normalise Power)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mp2s04,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "kawada7278",    "Kof2002 Magic Plus II (Unlimited Power)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2mp2s05,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "Creamymami",    "Kof2002 Magic Plus II (Unlimited Power Store)" , MACHINE_SUPPORTS_SAVE )
@@ -12922,7 +12947,7 @@ GAME( 2002, kf2k2mp2s35,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, kf2k2mp2s36,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kf2k2mp2,  ROT0, "Eddids",    "Kof2002 Magic Plus II (Unlimited Credits In Console Mode)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kf2k2mp2s37,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_mp2s39,    ROT0, "hack",    "Kof2002 Magic Plus II (Ultimate Enhancement, 2016-04-09)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2plas01,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "KyoX",    "Kof2002 Plus (Portuguese, 2005-09-25)" , MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kf2k2plas02,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "syberjun",    "Kof2002 Plus (Korean)" , MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kf2k2plas02,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "syberjun",    "Kof2002 Plus (unknown)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2plas03,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "wesker",    "Kof2002 Plus (Unluck Max2 v1)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2plas04,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "Creamymami",    "Kof2002 Plus (Unluck Max2 v2)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2002, kf2k2plas05,    kof2002,  neogeo_noslot, neogeo, neogeo_state, init_kof2002,  ROT0, "Creamymami",    "Kof2002 Plus (Unlimited Power)" , MACHINE_SUPPORTS_SAVE )
