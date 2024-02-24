@@ -1253,14 +1253,14 @@ ROM_START( sarge )
 	ROM_LOAD( "spr_5e.bin",   0x10000, 0x8000, CRC(c832375c) SHA1(dfb7782b13e1e959e0ecd5da771cd38962f6952b) )
 	ROM_LOAD( "spr_4e.bin",   0x18000, 0x8000, CRC(c382267d) SHA1(6b459e9ec7948a529b5308357851a0bede085aef) )
 
-	ROM_REGION( 0x0007, "pals", 0) /* PAL's located on the Mono Board (91787) */
-	ROM_LOAD( "a59a26axlcxhd.13j.bin",  0x0000, 0x0001, NO_DUMP ) /* PLS153N */
-	ROM_LOAD( "a59a26axlbxhd.2j.bin",   0x0000, 0x0001, NO_DUMP ) /* PLS153N */
-	ROM_LOAD( "a59a26axlaxhd.3j.bin",   0x0000, 0x0001, NO_DUMP ) /* PLS153N */
-	ROM_LOAD( "0066-314bx-xxqx.6h.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
-	ROM_LOAD( "0066-316bx-xxqx.5h.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
-	ROM_LOAD( "0066-315bx-xxqx.5g.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
-	ROM_LOAD( "0066-313bx-xxqx.4g.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
+//	ROM_REGION( 0x0007, "pals", 0) /* PAL's located on the Mono Board (91787) */
+//	ROM_LOAD( "a59a26axlcxhd.13j.bin",  0x0000, 0x0001, NO_DUMP ) /* PLS153N */
+//	ROM_LOAD( "a59a26axlbxhd.2j.bin",   0x0000, 0x0001, NO_DUMP ) /* PLS153N */
+//	ROM_LOAD( "a59a26axlaxhd.3j.bin",   0x0000, 0x0001, NO_DUMP ) /* PLS153N */
+//	ROM_LOAD( "0066-314bx-xxqx.6h.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
+//	ROM_LOAD( "0066-316bx-xxqx.5h.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
+//	ROM_LOAD( "0066-315bx-xxqx.5g.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
+//	ROM_LOAD( "0066-313bx-xxqx.4g.bin", 0x0000, 0x0001, NO_DUMP ) /* Unknown PAL Type */
 ROM_END
 
 
