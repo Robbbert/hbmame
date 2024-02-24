@@ -7218,6 +7218,7 @@ theglad
 pgemeni		/* HB Blastar */
 pgmdemo		/* HB Charles Doty */
 pgmfrog		/* HB Rastersoft */
+pgmcabal
 // HACKS
 ketarr		// trap15 hack
 ketarrb		// trap15 hack
