@@ -8,6 +8,7 @@
 New Games
 ---------------------------------
 - [pgmcabal]            Cabal (PGM)
+- [pgmsnake]            PGM test program
 
 
 

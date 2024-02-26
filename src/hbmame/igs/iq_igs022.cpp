@@ -8,7 +8,7 @@
 ************************************************************************************************************/
 
 #include "emu.h"
-#include "igs022.h"
+#include "iq_igs022.h"
 #include <sstream>
 
 #define LOG_DMA      (1U << 1)
@@ -19,21 +19,21 @@
 #define VERBOSE (0)
 #include "logmacro.h"
 
-igs022_device::igs022_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
-	: device_t(mconfig, IGS022, tag, owner, clock)
+iq_igs022::iq_igs022(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
+	: device_t(mconfig, IQ_IGS022, tag, owner, clock)
 	, m_sharedprotram(*this, "sharedprotram")
 	, m_rom(*this, DEVICE_SELF)
 {
 }
 
-void igs022_device::device_start()
+void iq_igs022::device_start()
 {
 	save_item(NAME(m_regs));
 	save_item(NAME(m_stack));
 	save_item(NAME(m_stack_ptr));
 }
 
-void igs022_device::device_reset()
+void iq_igs022::device_reset()
 {
 	if (!m_sharedprotram)
 		fatalerror("%s: IGS022 sharedprotram was not set!\n", machine().describe_context());
@@ -71,7 +71,7 @@ void igs022_device::device_reset()
 }
 
 // From IGS022 ROM to shared protection RAM
-void igs022_device::do_dma(u16 src, u16 dst, u16 size, u16 mode)
+void iq_igs022::do_dma(u16 src, u16 dst, u16 size, u16 mode)
 {
 	LOGMASKED(LOG_DMA, "%s: IGS022 DMA src %04x, dst %04x, size %04x, mode %04x\n", machine().describe_context(), src, dst, size, mode);
 
@@ -182,7 +182,7 @@ void igs022_device::do_dma(u16 src, u16 dst, u16 size, u16 mode)
 	}
 }
 
-void igs022_device::push_stack(u32 data)
+void iq_igs022::push_stack(u32 data)
 {
 	if (m_stack_ptr < STACK_SIZE - 1)
 		++m_stack_ptr;
@@ -190,7 +190,7 @@ void igs022_device::push_stack(u32 data)
 	m_stack[m_stack_ptr] = data;
 }
 
-u32 igs022_device::pop_stack()
+u32 iq_igs022::pop_stack()
 {
 	const u32 data = m_stack[m_stack_ptr];
 
@@ -200,7 +200,7 @@ u32 igs022_device::pop_stack()
 	return data;
 }
 
-std::string igs022_device::stack_as_string() const
+std::string iq_igs022::stack_as_string() const
 {
 	std::ostringstream stream;
 	stream << "stack:";
@@ -211,7 +211,7 @@ std::string igs022_device::stack_as_string() const
 	return std::move(stream).str();
 }
 
-u32 igs022_device::read_reg(u16 offset)
+u32 iq_igs022::read_reg(u16 offset)
 {
 	if (offset < NUM_REGS)
 	{
@@ -227,7 +227,7 @@ u32 igs022_device::read_reg(u16 offset)
 	}
 }
 
-void igs022_device::write_reg(u16 offset, u32 data)
+void iq_igs022::write_reg(u16 offset, u32 data)
 {
 	if (offset < NUM_REGS)
 	{
@@ -244,13 +244,13 @@ void igs022_device::write_reg(u16 offset, u32 data)
 }
 
 // What does this do? write the completion byte for now...
-void igs022_device::handle_incomplete_command(u16 cmd, u16 res)
+void iq_igs022::handle_incomplete_command(u16 cmd, u16 res)
 {
 	logerror("%s: IGS022 command %04x: INCOMPLETE (NOP)\n", machine().describe_context(), cmd);
 	m_sharedprotram[0x202 / 2] = res;
 }
 
-void igs022_device::handle_command()
+void iq_igs022::handle_command()
 {
 	const u16 cmd = m_sharedprotram[0x200 / 2];
 
@@ -315,7 +315,7 @@ void igs022_device::handle_command()
 }
 
 // Set/Get values to/from ASIC RAM, arithmetic operations on them
-void igs022_device::handle_command_6d()
+void iq_igs022::handle_command_6d()
 {
 	const u32 p1 = (m_sharedprotram[0x298 / 2] << 16) | m_sharedprotram[0x29a / 2];
 	const u32 p2 = (m_sharedprotram[0x29c / 2] << 16) | m_sharedprotram[0x29e / 2];
@@ -413,4 +413,4 @@ void igs022_device::handle_command_6d()
 	m_sharedprotram[0x202 / 2] = 0x7c; // this mode complete?
 }
 
-DEFINE_DEVICE_TYPE(IGS022, igs022_device, "igs022", "IGS022 encrypted DMA device")
+DEFINE_DEVICE_TYPE(IGS022, iq_igs022, "iq_igs022", "IQ_IGS022 encrypted DMA device")

@@ -3,11 +3,11 @@
 /*** Video *******************************************************************/
 
 #include "emu.h"
-#include "pgm.h"
+#include "iq_pgm.h"
 
 #include "screen.h"
 
-void pgm_state::sprite_buffer()
+void iq_pgm::sprite_buffer()
 {
 	int i, j;
 	static const u16 mask[5] = { 0xffff, 0xfbff, 0x7fff, 0xffff, 0xffff }; // the sprite buffer hardware masks these bits!
@@ -23,7 +23,7 @@ void pgm_state::sprite_buffer()
 	}
 }
 
-u16 pgm_state::video_registers_r(offs_t offset)
+u16 iq_pgm::video_registers_r(offs_t offset)
 {
 	switch (((offset * 2) + 0x1000) & 0xf000) // b0x000
 	{
@@ -45,7 +45,7 @@ u16 pgm_state::video_registers_r(offs_t offset)
 	return 0;
 }
 
-void pgm_state::video_registers_w(offs_t offset, u16 data, u16 mem_mask)
+void iq_pgm::video_registers_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	switch (((offset * 2) + 0x1000) & 0xf000) // b0x000
 	{
@@ -99,7 +99,7 @@ void pgm_state::video_registers_w(offs_t offset, u16 data, u16 mem_mask)
 static constexpr bool get_flipy(u8 flip) { return BIT(flip, 1); }
 static constexpr bool get_flipx(u8 flip) { return BIT(flip, 0); }
 
-inline void pgm_state::pgm_draw_pix(int xdrawpos, int pri, u16* dest, u8* destpri, const rectangle &cliprect, u16 srcdat)
+inline void iq_pgm::pgm_draw_pix(int xdrawpos, int pri, u16* dest, u8* destpri, const rectangle &cliprect, u16 srcdat)
 {
 	if ((xdrawpos >= cliprect.min_x) && (xdrawpos <= cliprect.max_x))
 	{
@@ -122,7 +122,7 @@ inline void pgm_state::pgm_draw_pix(int xdrawpos, int pri, u16* dest, u8* destpr
 	}
 }
 
-inline void pgm_state::pgm_draw_pix_nopri(int xdrawpos, u16* dest, u8* destpri, const rectangle &cliprect, u16 srcdat)
+inline void iq_pgm::pgm_draw_pix_nopri(int xdrawpos, u16* dest, u8* destpri, const rectangle &cliprect, u16 srcdat)
 {
 	if ((xdrawpos >= cliprect.min_x) && (xdrawpos <= cliprect.max_x))
 	{
@@ -134,7 +134,7 @@ inline void pgm_state::pgm_draw_pix_nopri(int xdrawpos, u16* dest, u8* destpri, 
 	}
 }
 
-inline void pgm_state::pgm_draw_pix_pri(int xdrawpos, u16* dest, u8* destpri, const rectangle &cliprect, u16 srcdat)
+inline void iq_pgm::pgm_draw_pix_pri(int xdrawpos, u16* dest, u8* destpri, const rectangle &cliprect, u16 srcdat)
 {
 	if ((xdrawpos >= cliprect.min_x) && (xdrawpos <= cliprect.max_x))
 	{
@@ -149,7 +149,7 @@ inline void pgm_state::pgm_draw_pix_pri(int xdrawpos, u16* dest, u8* destpri, co
 	}
 }
 
-inline u8 pgm_state::get_sprite_pix()
+inline u8 iq_pgm::get_sprite_pix()
 {
 	const u8 srcdat = ((m_adata[m_aoffset & (m_adata.length() - 1)] >> m_abit) & 0x1f);
 	m_abit += 5; // 5 bit per pixel, 3 pixels in each word; 15 bit used
@@ -166,7 +166,7 @@ inline u8 pgm_state::get_sprite_pix()
   for complex zoomed cases
 *************************************************************************/
 
-void pgm_state::draw_sprite_line(int wide, u16* dest, u8* destpri, const rectangle &cliprect, int xzoom, bool xgrow, int flip, int xpos, int pri, int realxsize, int palt, bool draw)
+void iq_pgm::draw_sprite_line(int wide, u16* dest, u8* destpri, const rectangle &cliprect, int xzoom, bool xgrow, int flip, int xpos, int pri, int realxsize, int palt, bool draw)
 {
 	int xoffset = 0;
 	int xdrawpos = 0;
@@ -242,7 +242,7 @@ void pgm_state::draw_sprite_line(int wide, u16* dest, u8* destpri, const rectang
 	}
 }
 
-void pgm_state::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int palt, int flip, bitmap_ind16 &bitmap, const rectangle &cliprect, bitmap_ind8 &priority_bitmap, u32 xzoom, bool xgrow, u32 yzoom, bool ygrow, int pri)
+void iq_pgm::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, int palt, int flip, bitmap_ind16 &bitmap, const rectangle &cliprect, bitmap_ind8 &priority_bitmap, u32 xzoom, bool xgrow, u32 yzoom, bool ygrow, int pri)
 {
 	int ydrawpos;
 	int xcnt = 0;
@@ -395,7 +395,7 @@ void pgm_state::draw_sprite_new_zoomed(int wide, int high, int xpos, int ypos, i
 }
 
 
-void pgm_state::draw_sprite_line_basic(int wide, u16* dest, u8* destpri, const rectangle &cliprect, int flip, int xpos, int pri, int realxsize, int palt, bool draw)
+void iq_pgm::draw_sprite_line_basic(int wide, u16* dest, u8* destpri, const rectangle &cliprect, int flip, int xpos, int pri, int realxsize, int palt, bool draw)
 {
 	int xdrawpos = 0;
 	int xcntdraw = 0;
@@ -479,7 +479,7 @@ void pgm_state::draw_sprite_line_basic(int wide, u16* dest, u8* destpri, const r
   simplified version for non-zoomed cases, a bit faster
 *************************************************************************/
 
-void pgm_state::draw_sprite_new_basic(int wide, int high, int xpos, int ypos, int palt, int flip, bitmap_ind16 &bitmap, const rectangle &cliprect, bitmap_ind8 &priority_bitmap, int pri)
+void iq_pgm::draw_sprite_new_basic(int wide, int high, int xpos, int ypos, int palt, int flip, bitmap_ind16 &bitmap, const rectangle &cliprect, bitmap_ind8 &priority_bitmap, int pri)
 {
 	int ydrawpos;
 
@@ -531,7 +531,7 @@ void pgm_state::draw_sprite_new_basic(int wide, int high, int xpos, int ypos, in
 }
 
 
-void pgm_state::draw_sprites(bitmap_ind16& spritebitmap, const rectangle &cliprect, bitmap_ind8& priority_bitmap)
+void iq_pgm::draw_sprites(bitmap_ind16& spritebitmap, const rectangle &cliprect, bitmap_ind8& priority_bitmap)
 {
 	struct sprite_t *sprite_ptr = m_sprite_ptr_pre;
 	while (sprite_ptr != m_spritelist.get())
@@ -588,7 +588,7 @@ void pgm_state::draw_sprites(bitmap_ind16& spritebitmap, const rectangle &clipre
            -------x xxxxxxxx Sprite height (1 pixel each)
 
 */
-void pgm_state::get_sprites()
+void iq_pgm::get_sprites()
 {
 	m_sprite_ptr_pre = m_spritelist.get();
 
@@ -638,13 +638,13 @@ void pgm_state::get_sprites()
 }
 
 // TX Layer
-void pgm_state::tx_videoram_w(offs_t offset, u16 data, u16 mem_mask)
+void iq_pgm::tx_videoram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	m_tx_videoram[offset] = data;
 	m_tx_tilemap->mark_tile_dirty(offset / 2);
 }
 
-TILE_GET_INFO_MEMBER(pgm_state::get_tx_tile_info)
+TILE_GET_INFO_MEMBER(iq_pgm::get_tx_tile_info)
 {
 	const u32 tileno = m_tx_videoram[tile_index * 2] & 0xffff;
 	const u32 colour = (m_tx_videoram[tile_index * 2 + 1] & 0x3e) >> 1;
@@ -654,13 +654,13 @@ TILE_GET_INFO_MEMBER(pgm_state::get_tx_tile_info)
 }
 
 // BG Layer
-void pgm_state::bg_videoram_w(offs_t offset, u16 data, u16 mem_mask)
+void iq_pgm::bg_videoram_w(offs_t offset, u16 data, u16 mem_mask)
 {
 	m_bg_videoram[offset] = data;
 	m_bg_tilemap->mark_tile_dirty(offset / 2);
 }
 
-TILE_GET_INFO_MEMBER(pgm_state::get_bg_tile_info)
+TILE_GET_INFO_MEMBER(iq_pgm::get_bg_tile_info)
 {
 	const u32 tileno = m_bg_videoram[tile_index *2] & 0xffff;
 	const u32 colour = (m_bg_videoram[tile_index * 2 + 1] & 0x3e) >> 1;
@@ -669,7 +669,7 @@ TILE_GET_INFO_MEMBER(pgm_state::get_bg_tile_info)
 	tileinfo.set(1,tileno,colour,TILE_FLIPYX(flipyx));
 }
 
-void pgm_state::video_start()
+void iq_pgm::video_start()
 {
 	memset (m_zoom_table, 0, sizeof(m_zoom_table));
 
@@ -684,15 +684,15 @@ void pgm_state::video_start()
 	m_abit = 0;
 	m_boffset = 0;
 
-	m_tx_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(pgm_state::get_tx_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 64, 32);
+	m_tx_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(iq_pgm::get_tx_tile_info)), TILEMAP_SCAN_ROWS, 8, 8, 64, 32);
 	m_tx_tilemap->set_transparent_pen(15);
 
-	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(pgm_state::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 32, 32, 64, 16);
+	m_bg_tilemap = &machine().tilemap().create(*m_gfxdecode, tilemap_get_info_delegate(*this, FUNC(iq_pgm::get_bg_tile_info)), TILEMAP_SCAN_ROWS, 32, 32, 64, 16);
 	m_bg_tilemap->set_transparent_pen(31);
 	m_bg_tilemap->set_scroll_rows(16 * 32);
 }
 
-u32 pgm_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+u32 iq_pgm::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	get_sprites();
 

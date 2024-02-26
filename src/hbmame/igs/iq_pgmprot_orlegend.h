@@ -2,11 +2,11 @@
 // copyright-holders:Olivier Galibert, iq_132
 /* for machine/pgmprot_orlegend.c type games */
 
-class pgm_asic3_state : public pgm_state
+class iq_pgm_asic3 : public iq_pgm
 {
 public:
-	pgm_asic3_state(const machine_config &mconfig, device_type type, const char *tag)
-		: pgm_state(mconfig, type, tag) {
+	iq_pgm_asic3(const machine_config &mconfig, device_type type, const char *tag)
+		: iq_pgm(mconfig, type, tag) {
 	}
 
 	void init_orlegend();
@@ -25,6 +25,6 @@ private:
 	void pgm_asic3_w(offs_t offset, u16 data);
 };
 
-INPUT_PORTS_EXTERN( orlegend );
-INPUT_PORTS_EXTERN( orlegendt );
-INPUT_PORTS_EXTERN( orlegendk );
+INPUT_PORTS_EXTERN( iq_orlegend );
+INPUT_PORTS_EXTERN( iq_orlegendt );
+INPUT_PORTS_EXTERN( iq_orlegendk );

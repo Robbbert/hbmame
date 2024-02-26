@@ -7,10 +7,10 @@
 #pragma once
 
 
-class igs028_device : public device_t
+class iq_igs028 : public device_t
 {
 public:
-	igs028_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	iq_igs028(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	uint16_t* m_sharedprotram = nullptr;
 
@@ -27,6 +27,6 @@ protected:
 };
 
 
-DECLARE_DEVICE_TYPE(IGS028, igs028_device)
+DECLARE_DEVICE_TYPE(IQ_IGS028, iq_igs028)
 
 #endif // MAME_IGS_IGS028_H

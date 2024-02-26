@@ -21,8 +21,8 @@
  ***********************************************************************/
 
 #include "emu.h"
-#include "pgm.h"
-#include "pgmprot_igs025_igs028.h"
+#include "iq_pgm.h"
+#include "iq_pgmprot_igs025_igs028.h"
 
 // tables are xored by table at $1998dc
 // tables are the same as drgw3 and drgw2
@@ -152,54 +152,54 @@ static const u8 m_olds_source_data[8][0xec] = // table addresses $2951CA
 	}
 };
 
-void pgm_028_025_state::machine_reset()
+void iq_pgm_028_025::machine_reset()
 {
 	const int region = (ioport(":Region")->read()) & 0xff;
 
 	m_igs025->m_kb_region = region;
 	m_igs025->m_kb_game_id = 0x00900000 | region;
 
-	pgm_state::machine_reset();
+	iq_pgm::machine_reset();
 }
 
-void pgm_028_025_state::init_olds()
+void iq_pgm_028_025::init_olds()
 {
 	pgm_basic_init();
 
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xdcb400, 0xdcb403, read16sm_delegate(*m_igs025, FUNC(igs025_device::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(igs025_device::olds_w)));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xdcb400, 0xdcb403, read16sm_delegate(*m_igs025, FUNC(iq_igs025::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(iq_igs025::olds_w)));
 	m_igs028->m_sharedprotram = m_sharedprotram;
 	m_igs025->m_kb_source_data = m_olds_source_data;
 }
 
-void pgm_028_025_state::olds_mem(address_map &map)
+void iq_pgm_028_025::olds_mem(address_map &map)
 {
 	pgm_mem(map);
 	map(0x100000, 0x3fffff).bankr("bank1"); /* Game ROM */
 	map(0x400000, 0x403fff).mirror(0x0ec000).ram().share("sharedprotram"); // Shared with protection device
 }
 
-void pgm_028_025_state::igs025_to_igs028_callback( void )
+void iq_pgm_028_025::igs025_to_igs028_callback( void )
 {
 //  printf("igs025_to_igs028_callback\n");
 	m_igs028->IGS028_handle();
 }
 
 
-void pgm_028_025_state::pgm_028_025_ol(machine_config &config)
+void iq_pgm_028_025::pgm_028_025_ol(machine_config &config)
 {
 	pgmbase(config);
 
-	m_maincpu->set_addrmap(AS_PROGRAM, &pgm_028_025_state::olds_mem);
+	m_maincpu->set_addrmap(AS_PROGRAM, &iq_pgm_028_025::olds_mem);
 
-	IGS025(config, m_igs025, 0);
-	m_igs025->set_external_cb(FUNC(pgm_028_025_state::igs025_to_igs028_callback));
+	IQ_IGS025(config, m_igs025, 0);
+	m_igs025->set_external_cb(FUNC(iq_pgm_028_025::igs025_to_igs028_callback));
 
-	IGS028(config, m_igs028, 0);
+	IQ_IGS028(config, m_igs028, 0);
 }
 
 
-INPUT_PORTS_START( olds )
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_olds )
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")   /* Region - supplied by protection device */
 	PORT_CONFNAME( 0x000f, 0x0006, DEF_STR( Region ) )

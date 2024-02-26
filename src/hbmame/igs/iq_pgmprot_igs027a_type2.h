@@ -1,11 +1,11 @@
 // license:BSD-3-Clause
 // copyright-holders:David Haywood, ElSemi, Xing Xing
 
-class pgm_arm_type2_state : public pgm_state
+class iq_pgm_arm_type2 : public iq_pgm
 {
 public:
-	pgm_arm_type2_state(const machine_config &mconfig, device_type type, const char *tag)
-		: pgm_state(mconfig, type, tag),
+	iq_pgm_arm_type2(const machine_config &mconfig, device_type type, const char *tag)
+		: iq_pgm(mconfig, type, tag),
 			m_arm_ram(*this, "arm_ram"),
 			m_arm7_shareram(*this, "arm7_shareram"),
 			m_prot(*this, "prot") {
@@ -50,7 +50,7 @@ private:
 };
 
 /* simulations (or missing) */
-INPUT_PORTS_EXTERN( ddp2 );
-INPUT_PORTS_EXTERN( kov2 );
-INPUT_PORTS_EXTERN( martmast );
-INPUT_PORTS_EXTERN( dw2001 );
+INPUT_PORTS_EXTERN( iq_ddp2 );
+INPUT_PORTS_EXTERN( iq_kov2 );
+INPUT_PORTS_EXTERN( iq_martmast );
+INPUT_PORTS_EXTERN( iq_dw2001 );

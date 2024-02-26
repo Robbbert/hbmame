@@ -13,10 +13,10 @@
  ***********************************************************************/
 
 #include "emu.h"
-#include "pgm.h"
-#include "pgmprot_orlegend.h"
+#include "iq_pgm.h"
+#include "iq_pgmprot_orlegend.h"
 
-void pgm_asic3_state::asic3_compute_hold(int y, int z)
+void iq_pgm_asic3::asic3_compute_hold(int y, int z)
 {
 	const u16 old = m_asic3_hold;
 
@@ -47,7 +47,7 @@ void pgm_asic3_state::asic3_compute_hold(int y, int z)
 		break;
 	}
 }
-u16 pgm_asic3_state::pgm_asic3_r()
+u16 iq_pgm_asic3::pgm_asic3_r()
 {
 	switch (m_asic3_reg)
 	{
@@ -93,7 +93,7 @@ u16 pgm_asic3_state::pgm_asic3_r()
 	return 0;
 }
 
-void pgm_asic3_state::pgm_asic3_w(offs_t offset, u16 data)
+void iq_pgm_asic3::pgm_asic3_w(offs_t offset, u16 data)
 {
 	if (offset == 0)
 	{
@@ -162,12 +162,12 @@ void pgm_asic3_state::pgm_asic3_w(offs_t offset, u16 data)
 
 /* Oriental Legend INIT */
 
-void pgm_asic3_state::init_orlegend()
+void iq_pgm_asic3::init_orlegend()
 {
 	pgm_basic_init();
 
-	m_maincpu->space(AS_PROGRAM).install_read_handler(0xc04000, 0xc0400f, read16smo_delegate(*this, FUNC(pgm_asic3_state::pgm_asic3_r)));
-	m_maincpu->space(AS_PROGRAM).install_write_handler(0xc04000, 0xc0400f, write16sm_delegate(*this, FUNC(pgm_asic3_state::pgm_asic3_w)));
+	m_maincpu->space(AS_PROGRAM).install_read_handler(0xc04000, 0xc0400f, read16smo_delegate(*this, FUNC(iq_pgm_asic3::pgm_asic3_r)));
+	m_maincpu->space(AS_PROGRAM).install_write_handler(0xc04000, 0xc0400f, write16sm_delegate(*this, FUNC(iq_pgm_asic3::pgm_asic3_w)));
 
 	m_asic3_reg = 0;
 	m_asic3_latch[0] = 0;
@@ -185,8 +185,8 @@ void pgm_asic3_state::init_orlegend()
 }
 
 
-INPUT_PORTS_START( orlegend )
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_orlegend )
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")
 	PORT_DIPNAME( 0x0003, 0x0000, DEF_STR( Region ) )
@@ -196,8 +196,8 @@ INPUT_PORTS_START( orlegend )
 	PORT_CONFSETTING(      0x0003, DEF_STR( China ) )
 INPUT_PORTS_END
 
-INPUT_PORTS_START( orlegendt )
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_orlegendt )
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")
 	PORT_DIPNAME( 0x0007, 0x0004, DEF_STR( Region ) )
@@ -209,8 +209,8 @@ INPUT_PORTS_START( orlegendt )
 INPUT_PORTS_END
 
 
-INPUT_PORTS_START( orlegendk )
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_orlegendk )
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")
 	PORT_DIPNAME( 0x0007, 0x0002, DEF_STR( Region ) )
@@ -222,7 +222,7 @@ INPUT_PORTS_START( orlegendk )
 INPUT_PORTS_END
 
 
-void pgm_asic3_state::pgm_asic3(machine_config &config)
+void iq_pgm_asic3::pgm_asic3(machine_config &config)
 {
 	pgmbase(config);
 }

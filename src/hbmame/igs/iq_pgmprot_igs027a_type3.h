@@ -1,11 +1,11 @@
 // license:BSD-3-Clause
 // copyright-holders:David Haywood, Xing Xing
 
-class pgm_arm_type3_state : public pgm_state
+class iq_pgm_arm_type3 : public iq_pgm
 {
 public:
-	pgm_arm_type3_state(const machine_config &mconfig, device_type type, const char *tag)
-		: pgm_state(mconfig, type, tag),
+	iq_pgm_arm_type3(const machine_config &mconfig, device_type type, const char *tag)
+		: iq_pgm(mconfig, type, tag),
 			m_arm_ram(*this, "arm_ram"),
 			m_arm_ram2(*this, "arm_ram2"),
 			m_prot(*this, "prot") {
@@ -70,10 +70,10 @@ private:
 	void svg_68k_mem(address_map &map);
 };
 
-INPUT_PORTS_EXTERN(theglad);
-INPUT_PORTS_EXTERN(happy6);
-INPUT_PORTS_EXTERN(happy6hk);
-INPUT_PORTS_EXTERN(svg);
-INPUT_PORTS_EXTERN(svghk);
-INPUT_PORTS_EXTERN(svgtw);
-INPUT_PORTS_EXTERN(svgpcb);
+INPUT_PORTS_EXTERN(iq_theglad);
+INPUT_PORTS_EXTERN(iq_happy6);
+INPUT_PORTS_EXTERN(iq_happy6hk);
+INPUT_PORTS_EXTERN(iq_svg);
+INPUT_PORTS_EXTERN(iq_svghk);
+INPUT_PORTS_EXTERN(iq_svgtw);
+INPUT_PORTS_EXTERN(iq_svgpcb);

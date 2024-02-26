@@ -8,24 +8,24 @@
 
 
 #include "emu.h"
-#include "igs028.h"
+#include "iq_igs028.h"
 
 
-igs028_device::igs028_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, IGS028, tag, owner, clock)
+iq_igs028::iq_igs028(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: device_t(mconfig, IQ_IGS028, tag, owner, clock)
 {
 }
 
-void igs028_device::device_start()
+void iq_igs028::device_start()
 {
 	m_sharedprotram = nullptr;
 
 
 }
 
-void igs028_device::device_reset()
+void iq_igs028::device_reset()
 {
-	//printf("igs028_device::device_reset()");
+	//printf("iq_igs028::device_reset()");
 
 
 	if (!m_sharedprotram)
@@ -45,7 +45,7 @@ void igs028_device::device_reset()
 }
 
 
-uint32_t igs028_device::olds_prot_addr(uint16_t addr)
+uint32_t iq_igs028::olds_prot_addr(uint16_t addr)
 {
 	switch (addr & 0xff)
 	{
@@ -66,19 +66,19 @@ uint32_t igs028_device::olds_prot_addr(uint16_t addr)
 	return 0;
 }
 
-uint32_t igs028_device::olds_read_reg(uint16_t addr)
+uint32_t iq_igs028::olds_read_reg(uint16_t addr)
 {
 	uint32_t protaddr = (olds_prot_addr(addr) - 0x400000) / 2;
 	return m_sharedprotram[protaddr] << 16 | m_sharedprotram[protaddr + 1];
 }
 
-void igs028_device::olds_write_reg( uint16_t addr, uint32_t val )
+void iq_igs028::olds_write_reg( uint16_t addr, uint32_t val )
 {
 	m_sharedprotram[((olds_prot_addr(addr) - 0x400000) / 2) + 0] = val >> 16;
 	m_sharedprotram[((olds_prot_addr(addr) - 0x400000) / 2) + 1] = val & 0xffff;
 }
 
-void igs028_device::IGS028_do_dma(uint16_t src, uint16_t dst, uint16_t size, uint16_t mode)
+void iq_igs028::IGS028_do_dma(uint16_t src, uint16_t dst, uint16_t size, uint16_t mode)
 {
 	uint16_t param = mode >> 8;
 	uint16_t *PROTROM = (uint16_t*)memregion(":user1")->base();
@@ -148,7 +148,7 @@ void igs028_device::IGS028_do_dma(uint16_t src, uint16_t dst, uint16_t size, uin
 	}
 }
 
-void igs028_device::IGS028_handle()
+void iq_igs028::IGS028_handle()
 {
 	uint16_t cmd = m_sharedprotram[0x3026 / 2];
 
@@ -212,4 +212,4 @@ void igs028_device::IGS028_handle()
 }
 
 
-DEFINE_DEVICE_TYPE(IGS028, igs028_device, "igs028", "IGS028")
+DEFINE_DEVICE_TYPE(IQ_IGS028, iq_igs028, "iq_igs028", "IQ_IGS028")

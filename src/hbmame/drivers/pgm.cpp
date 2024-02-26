@@ -108,7 +108,6 @@ ROM_START( pgmcabal )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	PGM_68K_BIOS
 	ROM_LOAD16_WORD_SWAP( "pgmcabal.p1",  0x000000, 0x400000, CRC(9e68f9b0) SHA1(e6344067d26e3d60367033dc258216163dd867dc) )
-	//ROM_LOAD16_WORD_SWAP( "pgmcabal.p1",  0x100000, 0x080000, CRC(d8a86ce2) SHA1(eccdfc8b84e32aadd0300b7691af02bb209e0c95) )
 
 	ROM_REGION( 0x800000, "tiles",  0 )
 	PGM_VIDEO_BIOS
@@ -20107,10 +20106,10 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Homebrew
-GAME( 2006, pgemeni,     pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     init_orlegend,   ROT0,   "Blastar", "P-Gemeni (2006-01-23)", MACHINE_SUPPORTS_SAVE ) // has no sound
-GAME( 2005, pgmdemo,     pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     init_orlegend,   ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
-GAME( 2006, pgmfrog,     pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     init_orlegend,   ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, pgmcabal,    pgm,       pgm_asic3,          pgm,      pgm_asic3_state,     init_orlegend,   ROT0,   "IQ_132", "Cabal (PGM)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
+GAME( 2006, pgemeni,     pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "Blastar", "P-Gemeni (2006-01-23)", MACHINE_SUPPORTS_SAVE ) // has no sound
+GAME( 2005, pgmdemo,     pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
+GAME( 2006, pgmfrog,     pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, pgmcabal,    pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "IQ_132", "Cabal (PGM)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
 // Ketsui Arrange
 GAME( 2012, ketarrb,     ket,       pgm_arm_type1_cave, pgm,      pgm_arm_type1_state, init_ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012-04-17 BACK. VER)", MACHINE_SUPPORTS_SAVE )
 // The Killing Blade

@@ -5611,7 +5611,7 @@ GAME( 2003, espgalbl,     espgal,    pgm_arm_type2,          pgm,       pgm_arm_
 //泡泡鱼/Pào pào yú (China)
 //(i can't found any similar Traditional Chinese characters on Taiwan region title screen)
 // protection simulated, but should be correct
-GAME( 1999, puzzli2,      pgm,       pgm_arm_type1_sim,      puzzli2,   pgm_arm_type1_state, init_puzzli2,  ROT0,   "IGS (Metro license)", "Puzzli 2 / Pao Pao Yu (ver. 100)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // ROM label is V100 ( V0001, 11/22/99 09:27:58 in program ROM )
+//GAME( 1999, puzzli2,      pgm,       pgm_arm_type1_sim,      puzzli2,   pgm_arm_type1_state, init_puzzli2,  ROT0,   "IGS (Metro license)", "Puzzli 2 / Pao Pao Yu (ver. 100)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE ) // ROM label is V100 ( V0001, 11/22/99 09:27:58 in program ROM )
 GAME( 2001, puzzli2s,     puzzli2,   pgm_arm_type1_sim,      puzzli2,   pgm_arm_type1_state, init_puzzli2,  ROT0,   "IGS (Metro license)", "Puzzli 2 Super / Pao Pao Yu Super (ver. 200)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )  // ( V200, 12/28/01 12:53:34 in program ROM )
 
 //傲劍狂刀加强版/Ào jiàn kuáng dāo Jiāqiáng bǎn

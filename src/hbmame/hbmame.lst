@@ -7198,6 +7198,9 @@ pacpen
 pengopop
 vecpengo                               // T-Bone hack of Pengo
 
+@source:iq_pgm.cpp
+pgmsnake
+
 @source:pgm.cpp
 // PARENTS
 pgm

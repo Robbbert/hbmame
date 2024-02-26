@@ -13,23 +13,23 @@
 */
 
 #include "emu.h"
-#include "igs025.h"
+#include "iq_igs025.h"
 
 
-igs025_device::igs025_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
-	: device_t(mconfig, IGS025, tag, owner, clock)
-	, m_execute_external(*this, DEVICE_SELF, FUNC(igs025_device::no_callback_setup))
+iq_igs025::iq_igs025(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: device_t(mconfig, IQ_IGS025, tag, owner, clock)
+	, m_execute_external(*this, DEVICE_SELF, FUNC(iq_igs025::no_callback_setup))
 {
 }
 
-void igs025_device::no_callback_setup()
+void iq_igs025::no_callback_setup()
 {
 	printf("igs025 trigger external callback with no external callback setup\n");
 }
 
 
 
-void igs025_device::device_start()
+void iq_igs025::device_start()
 {
 	// Reset IGS025 stuff
 	m_kb_prot_hold = 0;
@@ -55,7 +55,7 @@ void igs025_device::device_start()
 	save_item(NAME(m_kb_cmd3));
 }
 
-void igs025_device::device_reset()
+void iq_igs025::device_reset()
 {
 	// Reset IGS025 stuff
 	m_kb_prot_hold = 0;
@@ -76,7 +76,7 @@ void igs025_device::device_reset()
 /* WRITE */
 /****************************************/
 
-void igs025_device::killbld_igs025_prot_w(offs_t offset, uint16_t data)
+void iq_igs025::killbld_igs025_prot_w(offs_t offset, uint16_t data)
 {
 	if (offset == 0)
 	{
@@ -135,7 +135,7 @@ void igs025_device::killbld_igs025_prot_w(offs_t offset, uint16_t data)
 	}
 }
 
-void igs025_device::olds_w(offs_t offset, uint16_t data)
+void iq_igs025::olds_w(offs_t offset, uint16_t data)
 {
 	if (offset == 0)
 	{
@@ -188,7 +188,7 @@ void igs025_device::olds_w(offs_t offset, uint16_t data)
 
 
 
-void igs025_device::drgw2_d80000_protection_w(offs_t offset, uint16_t data)
+void iq_igs025::drgw2_d80000_protection_w(offs_t offset, uint16_t data)
 {
 	if (offset == 0)
 	{
@@ -231,7 +231,7 @@ void igs025_device::drgw2_d80000_protection_w(offs_t offset, uint16_t data)
 /* READ */
 /****************************************/
 
-uint16_t igs025_device::killbld_igs025_prot_r(offs_t offset)
+uint16_t iq_igs025::killbld_igs025_prot_r(offs_t offset)
 {
 	if (offset)
 	{
@@ -296,7 +296,7 @@ uint16_t igs025_device::killbld_igs025_prot_r(offs_t offset)
 }
 
 
-void igs025_device::killbld_protection_calculate_hold(int y, int z)
+void iq_igs025::killbld_protection_calculate_hold(int y, int z)
 {
 	unsigned short old = m_kb_prot_hold;
 
@@ -313,7 +313,7 @@ void igs025_device::killbld_protection_calculate_hold(int y, int z)
 
 
 
-void igs025_device::killbld_protection_calculate_hilo()
+void iq_igs025::killbld_protection_calculate_hilo()
 {
 	uint8_t source;
 
@@ -336,4 +336,4 @@ void igs025_device::killbld_protection_calculate_hilo()
 }
 
 
-DEFINE_DEVICE_TYPE(IGS025, igs025_device, "igs025", "IGS025")
+DEFINE_DEVICE_TYPE(IQ_IGS025, iq_igs025, "iq_igs025", "IQ_IGS025")

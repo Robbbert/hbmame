@@ -274,6 +274,7 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"fuuki",
 		"gottlieb",
 		"igs",
+		"iq_igs",
 		"irem",
 		"itech",
 		"jaleco",
@@ -528,6 +529,23 @@ files {
 	MAME_DIR .. "src/mame/machine/igs028.cpp",
 	MAME_DIR .. "src/hbmame/drivers/lordgun.cpp",
 	MAME_DIR .. "src/mame/video/lordgun.cpp",
+}
+
+createHBMAMEProjects(_target, _subtarget, "iq_igs")
+files {
+	MAME_DIR .. "src/hbmame/igs/iq_pgm_hb.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgm_v.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_igs027a_type1.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_igs027a_type2.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_igs027a_type3.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_igs025_igs012.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_igs025_igs022.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_igs025_igs028.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmprot_orlegend.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_pgmcrypt.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_igs025.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_igs022.cpp",
+	MAME_DIR .. "src/hbmame/igs/iq_igs028.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "irem")

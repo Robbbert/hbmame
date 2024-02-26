@@ -9,10 +9,10 @@
 // used to connect the 022
 typedef device_delegate<void (void)> igs025_execute_external;
 
-class igs025_device : public device_t
+class iq_igs025 : public device_t
 {
 public:
-	igs025_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	iq_igs025(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	uint16_t killbld_igs025_prot_r(offs_t offset);
 	// use setters instead of making public?
@@ -54,6 +54,6 @@ protected:
 };
 
 
-DECLARE_DEVICE_TYPE(IGS025, igs025_device)
+DECLARE_DEVICE_TYPE(IQ_IGS025, iq_igs025)
 
 #endif // MAME_IGS_IGS025_H
