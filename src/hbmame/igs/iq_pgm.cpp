@@ -336,8 +336,8 @@ void iq_pgm::pgm_base_mem(address_map &map)
 void iq_pgm::pgm_mem(address_map &map)
 {
 	pgm_base_mem(map);
-	// if a cart is not inserted, mirror is 7e0000!
-	map(0x000000, 0x01ffff).mirror(0x0e0000).rom();   // BIOS ROM
+	// if a cart is not inserted, bios is mirrorred every 0x20000 to 0x7fffff (mirror=0x7e0000)
+	map(0x000000, 0x0fffff).rom();   // BIOS ROM
 }
 
 void iq_pgm::pgm_basic_mem(address_map &map)
@@ -542,7 +542,7 @@ void iq_pgm::pgmbase(machine_config &config)
 
 	ICS2115(config, m_ics, 33.8688_MHz_XTAL);
 	m_ics->irq().set_inputline("soundcpu", 0);
-	m_ics->add_route(ALL_OUTPUTS, "mono", 1.0);
+	m_ics->add_route(ALL_OUTPUTS, "mono", 2.0); // HBMAME - wind the volume up to 11
 }
 
 void iq_pgm::pgm(machine_config &config)
@@ -554,17 +554,34 @@ void iq_pgm::pgm(machine_config &config)
 // take note of "sprmask" needed for expanding the Sprite Colour Data
 
 #define ROM_LOAD16_WORD_SWAP_BIOS(bios,name,offset,length,hash) \
-		ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_BIOS(bios))
+	ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_BIOS(bios))
 
 #define PGM_68K_BIOS \
 	ROM_SYSTEM_BIOS( 0, "v2",     "PGM Bios V2" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 0, "pgm_p02s.u20",    0x00000, 0x020000, CRC(78c15fa2) SHA1(885a6558e022602cc6f482ac9667ba9f61e75092) ) /* Version 2 (Label: IGS | PGM P02S | 1P0792D1 | J992438 )*/ \
+	ROM_LOAD16_WORD_SWAP_BIOS( 0, "pgm_p02s.u20", 0x00000, 0x20000, CRC(78c15fa2) SHA1(885a6558e022602cc6f482ac9667ba9f61e75092) ) \
+	ROM_RELOAD(0x20000,0x20000) \
+	ROM_RELOAD(0x40000,0x20000) \
+	ROM_RELOAD(0x60000,0x20000) \
+	ROM_RELOAD(0x80000,0x20000) \
+	ROM_RELOAD(0xA0000,0x20000) \
+	ROM_RELOAD(0xC0000,0x20000) \
+	ROM_RELOAD(0xE0000,0x20000) \
 	ROM_SYSTEM_BIOS( 1, "v1",     "PGM Bios V1" ) \
-	ROM_LOAD16_WORD_SWAP_BIOS( 1, "pgm_p01s.u20",    0x00000, 0x020000, CRC(e42b166e) SHA1(2a9df9ec746b14b74fae48b1a438da14973702ea) ) // Version 1
+	ROM_LOAD16_WORD_SWAP_BIOS( 1, "pgm_p01s.u20", 0x00000, 0x20000, CRC(e42b166e) SHA1(2a9df9ec746b14b74fae48b1a438da14973702ea) ) \
+	ROM_RELOAD(0x20000,0x20000) \
+	ROM_RELOAD(0x40000,0x20000) \
+	ROM_RELOAD(0x60000,0x20000) \
+	ROM_RELOAD(0x80000,0x20000) \
+	ROM_RELOAD(0xA0000,0x20000) \
+	ROM_RELOAD(0xC0000,0x20000) \
+	ROM_RELOAD(0xE0000,0x20000)
+
 #define PGM_AUDIO_BIOS \
 	ROM_LOAD( "pgm_m01s.rom", 0x000000, 0x200000, CRC(45ae7159) SHA1(d3ed3ff3464557fd0df6b069b2e431528b0ebfa8) )
+
 #define PGM_VIDEO_BIOS \
 	ROM_LOAD( "pgm_t01s.rom", 0x000000, 0x200000, CRC(1a7123a0) SHA1(cc567f577bfbf45427b54d6695b11b74f2578af3) )
+
 // The Bios - NOT A GAME
 ROM_START( pgm )
 	ROM_REGION( 0x600000, "maincpu", 0 ) // 68000 Code

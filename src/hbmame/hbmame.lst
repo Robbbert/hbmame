@@ -7199,7 +7199,26 @@ pengopop
 vecpengo                               // T-Bone hack of Pengo
 
 @source:iq_pgm.cpp
+// HOMEBREW
 pgmsnake
+// HACKS
+killbld01
+killbld02
+killbld03
+killbld04
+killbld05
+kov01
+kov02
+kov03
+kov04
+kov05
+kov06
+kov07
+kov08
+kov09
+kov10
+kov11
+kov12
 
 @source:pgm.cpp
 // PARENTS
@@ -7231,23 +7250,6 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-killbld01
-killbld02
-killbld03
-killbld04
-killbld05
-kovs01
-kovs02
-kovs03
-kovs04
-kovs05
-kovs06
-kovs07
-kovs08
-kovs09
-kovs10
-kovs11
-kovs12
 kovps01
 kovps02
 kovps03
