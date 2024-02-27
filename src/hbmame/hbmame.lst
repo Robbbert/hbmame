@@ -7202,6 +7202,7 @@ vecpengo                               // T-Bone hack of Pengo
 // HOMEBREW
 pgmsnake
 // HACKS
+ketarrb		// trap15 hack
 killbld01
 killbld02
 killbld03
@@ -7219,37 +7220,6 @@ kov09
 kov10
 kov11
 kov12
-
-@source:pgm.cpp
-// PARENTS
-pgm
-ket
-killbld
-kovplus
-kov
-kov2
-kov2p
-kovsh
-kovshp
-olds
-oldsplus
-orlegend
-martmast
-theglad
-// HOMEBREW
-pgemeni		/* HB Blastar */
-pgmdemo		/* HB Charles Doty */
-pgmfrog		/* HB Rastersoft */
-pgmcabal
-// HACKS
-ketarr		// trap15 hack
-ketarrb		// trap15 hack
-ketarr10	// trap15 hack
-ketarr15	// trap15 hack
-ketarr151	// trap15 hack
-ketarrf		// trap15 hack
-ketarrs15	// trap15 hack
-ketarrs151	// trap15 hack
 kovps01
 kovps02
 kovps03
@@ -7319,6 +7289,36 @@ kovps66
 kovps67
 kovps68
 kovps69
+
+@source:pgm.cpp
+// PARENTS
+pgm
+ket
+killbld
+kovplus
+kov
+kov2
+kov2p
+kovsh
+kovshp
+olds
+oldsplus
+orlegend
+martmast
+theglad
+// HOMEBREW
+pgemeni		/* HB Blastar */
+pgmdemo		/* HB Charles Doty */
+pgmfrog		/* HB Rastersoft */
+pgmcabal
+// HACKS
+ketarr		// trap15 hack
+ketarr10	// trap15 hack
+ketarr15	// trap15 hack
+ketarr151	// trap15 hack
+ketarrf		// trap15 hack
+ketarrs15	// trap15 hack
+ketarrs151	// trap15 hack
 kovshs02
 kovshs03
 kovshs04
