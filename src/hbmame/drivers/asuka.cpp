@@ -2,17 +2,17 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/asuka.cpp"
 
-ROM_START( asukac )
+ROM_START( asuka01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "b68-13c.ic23", 0x00000, 0x20000, CRC(356a3151) SHA1(a2929a30bcd45962a4fc08a980e82d9914078c29) )
-	ROM_LOAD16_BYTE( "b68-12c.ic8",  0x00001, 0x20000, CRC(8bd073d4) SHA1(53453cb0dd4aa606215922ad8363e536524dc0f3) )
-	ROM_LOAD16_WORD( "b68-03c.ic30", 0x80000, 0x80000, CRC(3d0d7798) SHA1(a63d9fc043e8ba0b79a7606c17faac406e0b92ec) )
+	ROM_LOAD16_BYTE( "s01.ic23", 0x00000, 0x20000, CRC(356a3151) SHA1(a2929a30bcd45962a4fc08a980e82d9914078c29) )
+	ROM_LOAD16_BYTE( "s01.ic8",  0x00001, 0x20000, CRC(8bd073d4) SHA1(53453cb0dd4aa606215922ad8363e536524dc0f3) )
+	ROM_LOAD16_WORD( "s01.ic30", 0x80000, 0x80000, CRC(3d0d7798) SHA1(a63d9fc043e8ba0b79a7606c17faac406e0b92ec) )
 
 	ROM_REGION( 0x80000, "tc0100scn", 0 )
-	ROM_LOAD16_WORD_SWAP( "b68-01c.ic3",  0x00000, 0x80000, CRC(d5dec087) SHA1(1f8888c15cb08c1c0d27ce29cb71106360c9c852) )
+	ROM_LOAD16_WORD_SWAP( "s01.ic3",  0x00000, 0x80000, CRC(d5dec087) SHA1(1f8888c15cb08c1c0d27ce29cb71106360c9c852) )
 
 	ROM_REGION( 0xa0000, "pc090oj", 0 )
-	ROM_LOAD16_WORD_SWAP( "b68-02c.ic6", 0x00000, 0x80000, CRC(09927d23) SHA1(b9761286feaa14c4eb6fc87ec35e7245c318d687) )
+	ROM_LOAD16_WORD_SWAP( "s01.ic6", 0x00000, 0x80000, CRC(09927d23) SHA1(b9761286feaa14c4eb6fc87ec35e7245c318d687) )
 	ROM_LOAD16_BYTE( "b68-07.ic5", 0x80000, 0x10000, CRC(c113acc8) SHA1(613c61a78df73dcb0b9c9018ae829e865baac772) )
 	ROM_LOAD16_BYTE( "b68-06.ic4", 0x80001, 0x10000, CRC(f517e64d) SHA1(8be491bfe0f7eed58521de9d31da677acf635c23) )
 
@@ -27,7 +27,7 @@ ROM_START( asukac )
 	ROM_LOAD( "b68-05.ic43", 0x00000, 0x104, CRC(d6524ccc) SHA1(f3b56253692aebb63278d47832fc27b8b212b59c) )
 ROM_END
 
-GAME( 1988, asukac, asuka, asuka, asuka,  msm_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, asuka01, asuka, asuka, asuka, msm_state, empty_init, ROT270, "Taito Corporation", "Asuka & Asuka (Chinese)", MACHINE_SUPPORTS_SAVE )
 
 
 
@@ -35,10 +35,10 @@ GAME( 1988, asukac, asuka, asuka, asuka,  msm_state, empty_init, ROT270, "Taito 
  Jigoku Meguri
 ***************/
 
-ROM_START( jigkmgris01 ) //jigkmgria
+ROM_START( jigkmgri01 ) //jigkmgria
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "b41-09-1__ps01.17", 0x00000, 0x10000, CRC(5d3a5283) SHA1(8c4804569f5e55ecef7a0ac83292ba4153dbf2a4) )
-	ROM_LOAD16_BYTE( "b41-11-1__ps01.26", 0x00001, 0x10000, CRC(e1f2f205) SHA1(ba1184107ac4e4558fbfb75d6bbf983168705769) )
+	ROM_LOAD16_BYTE( "s01.17", 0x00000, 0x10000, CRC(5d3a5283) SHA1(8c4804569f5e55ecef7a0ac83292ba4153dbf2a4) )
+	ROM_LOAD16_BYTE( "s01.26", 0x00001, 0x10000, CRC(e1f2f205) SHA1(ba1184107ac4e4558fbfb75d6bbf983168705769) )
 	ROM_LOAD16_BYTE( "b41-10.16",   0x20000, 0x10000, CRC(4ca94d77) SHA1(69a9f6bcb6d5e4132eed50860bdfe8d6b6d914cd) )
 	ROM_LOAD16_BYTE( "b41-12.25",   0x20001, 0x10000, CRC(40d9c1fc) SHA1(6f03d263e10559988aaa2be00d9bbf55f2fb864e) )
 	ROM_LOAD16_WORD_SWAP( "b41-01.15", 0x80000, 0x80000, CRC(5d072fa4) SHA1(6ffe1b8531381eb6dd3f1fec18c91294a6aca9f6) )
@@ -61,4 +61,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Jigoku Meguri
-GAME( 1988, jigkmgris01,  bonzeadv, bonzeadv, jigkmgri, bonzeadv_state, empty_init,  ROT0,   "Taito Corporation",   "Jigoku Meguri (Japan, hack?)", MACHINE_SUPPORTS_SAVE )
+GAME( 1988, jigkmgri01, bonzeadv, bonzeadv, jigkmgri, bonzeadv_state, empty_init, ROT0, "Taito Corporation", "Jigoku Meguri (Japan, hack?)", MACHINE_SUPPORTS_SAVE )
+

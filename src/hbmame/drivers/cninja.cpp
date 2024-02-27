@@ -3,10 +3,10 @@
 #include "../mame/drivers/cninja.cpp"
 
 // You can choose from 12 characters instead of 8
-ROM_START( deathbrdh01 )
+ROM_START( deathbrd01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD16_BYTE("h01.03.2c", 0x00000, 0x20000, CRC(3817f150) SHA1(0568fdf517737d00e2990a83e6b5195f4f230ce2) )
-	ROM_LOAD16_BYTE("h01.00.2a", 0x00001, 0x20000, CRC(d307dea6) SHA1(b0de4b4c5f10ff8e2cc132b7f9d51bb0eec5629c) )
+	ROM_LOAD16_BYTE("s01.2c", 0x00000, 0x20000, CRC(3817f150) SHA1(0568fdf517737d00e2990a83e6b5195f4f230ce2) )
+	ROM_LOAD16_BYTE("s01.2a", 0x00001, 0x20000, CRC(d307dea6) SHA1(b0de4b4c5f10ff8e2cc132b7f9d51bb0eec5629c) )
 	ROM_LOAD16_BYTE("hd-04-1.4c", 0x40000, 0x20000, CRC(fd2ea8d7) SHA1(00e50d42fcc7f6d5076963b02f5abb36275dc993) )
 	ROM_LOAD16_BYTE("hd-01-1.4a", 0x40001, 0x20000, CRC(48a247ac) SHA1(c69d67e44ffae92b261de247f8d3eac2e02fcf11) )
 
@@ -47,5 +47,5 @@ ROM_START( deathbrdh01 )
 	ROM_LOAD( "maf-09.18l",    0x00000, 0x80000, CRC(28e7ed81) SHA1(e168a2748b75c647f6f9c0d7d25d4f046aa98094) )
 ROM_END
 
-GAME( 1992, deathbrdh01, mutantf,  mutantf,  mutantf,  cninja_state, init_mutantf,  ROT0, "hack", "Death Brade (Plus)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, deathbrd01, mutantf, mutantf, mutantf, cninja_state, init_mutantf, ROT0, "hack", "Death Brade (Plus)", MACHINE_SUPPORTS_SAVE )
 

@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/cabal.cpp"
 
-ROM_START( cabals01 )
+ROM_START( cabal01 )
 	ROM_REGION( 0x50000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "s01.13.7h",    0x00000, 0x10000, CRC(7f257b0a) SHA1(41240de17b910f1c2616d74d66bcb24e6cc6758d) )
 	ROM_LOAD16_BYTE( "s01.11.6h",    0x00001, 0x10000, CRC(59cee043) SHA1(98c0eb3266cbae0039a14c7d726727d2ecca7ebc) )
@@ -44,5 +44,5 @@ ROM_START( cabals01 )
 ROM_END
 
 
-GAME( 2009, cabals01, cabal, cabal,   cabalj,  cabal_state,  init_cabal,  ROT0, "Pipi899", "Cabal (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, cabal01, cabal, cabal, cabalj, cabal_state, init_cabal, ROT0, "Pipi899", "Cabal (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )
 

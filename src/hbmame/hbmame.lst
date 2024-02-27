@@ -69,10 +69,10 @@ astrof			//parent
 astrofbl		/* Black Background */
 
 @source:asuka.cpp
-asuka			//parent
-asukac			// chinese
-bonzeadv		//parent
-jigkmgris01
+asuka                                  //parent
+asuka01
+bonzeadv                               //parent
+jigkmgri01
 
 @source:atarisy1.cpp
 atarisy1		//bios
@@ -91,8 +91,8 @@ blktiger		//parent
 blkdrgonk		/* Korean Translation */
 
 @source:bloodbro.cpp
-bloodbro				//parent
-bloodbros01
+bloodbro                               //parent
+bloodbro01
 
 @source:bombjack.cpp
 bombjack		//parent
@@ -133,7 +133,7 @@ spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
 @source:cabal.cpp
 cabal                                  //parent
-cabals01
+cabal01
 
 @source:cave.cpp
 ddonpach                               //parent
@@ -205,8 +205,8 @@ warrior4j1
 warrior4j2
 
 @source:cninja.cpp
-mutantf					//parent
-deathbrdh01
+mutantf                                //parent
+deathbrd01
 
 @source:commando.cpp
 commando				//parent
@@ -214,8 +214,8 @@ comdelux				/* Twisty Hack */
 comdlux1				/* Twisty Hack */
 
 @source:contra.cpp
-contra					//parent
-contrajs01
+contra                                 //parent
+contraj01
 
 @source:cps1.cpp
 //1941
