@@ -413,4 +413,4 @@ void iq_igs022::handle_command_6d()
 	m_sharedprotram[0x202 / 2] = 0x7c; // this mode complete?
 }
 
-DEFINE_DEVICE_TYPE(IGS022, iq_igs022, "iq_igs022", "IQ_IGS022 encrypted DMA device")
+DEFINE_DEVICE_TYPE(IQ_IGS022, iq_igs022, "iq_igs022", "IQ_IGS022")

@@ -7231,11 +7231,11 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-killblds01
-killblds02
-killblds03
-killblds04
-killblds05
+killbld01
+killbld02
+killbld03
+killbld04
+killbld05
 kovs01
 kovs02
 kovs03
