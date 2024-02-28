@@ -321,7 +321,6 @@ void iq_pgm_arm_type1::kovshp_asic27a_write_word(offs_t offset, u16 data)
 
 			m_arm_type1_latch_68k_w = (m_arm_type1_latch_68k_w & 0x0000ffff) | ((asic_cmd ^ (asic_key | (asic_key << 8))) << 16);
 		}
-		return;
 	}
 }
 
