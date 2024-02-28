@@ -158,6 +158,7 @@ void iq_pgm_arm_type1::kov_map(address_map &map)
 	map(0x100000, 0x4effff).bankr("bank1"); /* Game ROM */
 	map(0x4f0000, 0x4f003f).rw(FUNC(iq_pgm_arm_type1::arm7_type1_ram_r), FUNC(iq_pgm_arm_type1::arm7_type1_ram_w)); /* ARM7 Shared RAM */
 	map(0x500000, 0x500003).rw(FUNC(iq_pgm_arm_type1::arm7_type1_68k_protlatch_r), FUNC(iq_pgm_arm_type1::arm7_type1_68k_protlatch_w)); /* ARM7 Latch */
+	map(0x500004, 0x500007).noprw();  // clr of something?
 }
 
 void iq_pgm_arm_type1::_55857E_arm7_map(address_map &map)
@@ -166,7 +167,7 @@ void iq_pgm_arm_type1::_55857E_arm7_map(address_map &map)
 	map(0x08100000, 0x083fffff).r(FUNC(iq_pgm_arm_type1::arm7_type1_exrom_r));
 	map(0x10000000, 0x100003ff).ram(); // internal ram for asic
 	map(0x40000000, 0x40000003).rw(FUNC(iq_pgm_arm_type1::arm7_type1_protlatch_r), FUNC(iq_pgm_arm_type1::arm7_type1_protlatch_w));
-	map(0x40000008, 0x4000000b).nopw(); // ?
+	map(0x40000004, 0x4000000b).nopw(); // ?
 	map(0x4000000c, 0x4000000f).r(FUNC(iq_pgm_arm_type1::arm7_type1_unk_r));
 	map(0x50800000, 0x5080003f).rw(FUNC(iq_pgm_arm_type1::arm7_type1_shareram_r), FUNC(iq_pgm_arm_type1::arm7_type1_shareram_w)).share("arm7_shareram");
 	map(0x50000000, 0x500003ff).ram(); // uploads xor table to decrypt 68k rom here
