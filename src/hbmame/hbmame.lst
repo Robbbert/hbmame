@@ -7636,6 +7636,9 @@ kov2p112
 kov2p113
 kov2p114
 kov2p115
+martmast01
+martmast02
+martmast03
 
 @source:pgm.cpp
 // PARENTS
@@ -7666,9 +7669,6 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-martmasts01
-martmasts02
-martmasts03
 olds01
 olds02
 olds03

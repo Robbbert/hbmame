@@ -104,106 +104,6 @@ ROM_START( pgmfrog )
 	ROM_LOAD( "pgmfrog.m1",          0x400000, 0x200000, CRC(05e2f761) SHA1(c93d94a8f11c41b019fcf9b6a90645416fd2c75b) )
 ROM_END
 
- /***************
- Martial Masters
-******************/
-
-ROM_START( martmasts01 )
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "v104_32m_ps01.u9",    0x100000, 0x400000, CRC(c8b39568) SHA1(f377a3ba3461f2b84f3acf8febf98707a7f2a62b) )
-
-	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
-	ROM_LOAD( "martial_masters_v101_cn.asic", 0x000000, 0x04000, CRC(b3e25b7d) SHA1(6147d7ee2e11636521df1bb96ed5da8ad21b2a57) ) // not verified, could be bad
-
-	ROM_REGION32_LE( 0x400000, "user1", 0 )
-	ROM_LOAD( "v102_16m.u10", 0x000000, 0x200000,  CRC(18b745e6) SHA1(7bcb58dd3a2d6072f492cf0dd7181cb061c1f49d) )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "pgm_t1000.u3",    0x180000, 0x800000, CRC(bbf879b5) SHA1(bd9a6aea34ad4001e89e62ff4b7a2292eb833c00) )
-
-	ROM_REGION16_LE( 0x4000000, "sprcol", 0 )
-	ROM_LOAD( "pgm_a1000.u3",    0x0000000, 0x0800000, CRC(43577ac8) SHA1(6eea8b455985d5bac74dcc9943cdc3c0902de6cc) )
-	ROM_LOAD( "pgm_a1001.u4",    0x0800000, 0x0800000, CRC(fe7a476f) SHA1(a8c7f1f0dd3e53141aed6d927eb88a3ceebb81e4) )
-	ROM_LOAD( "pgm_a1002.u6",    0x1000000, 0x0800000, CRC(62e33d38) SHA1(96163d583e25073594f8413ce263e56b66bd69a1) )
-	ROM_LOAD( "pgm_a1003.u8",    0x1800000, 0x0800000, CRC(b2c4945a) SHA1(7b18287a2db56db3651cfd4deb607af53522fefd) )
-	ROM_LOAD( "pgm_a1004.u10",   0x2000000, 0x0400000, CRC(9fd3f5fd) SHA1(057531f91062be51589c6cf8f4170089b9be6380) )
-
-	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "pgm_b1000.u9",    0x0000000, 0x0800000,  CRC(c5961f6f) SHA1(a68060b10edbd084cbde79d2ed1c9084777beb10) )
-	ROM_LOAD( "pgm_b1001.u11",   0x0800000, 0x0800000,  CRC(0b7e1c06) SHA1(545e15e0087f8621d593fecd8b4013f7ca311686) )
-
-	ROM_REGION( 0x1000000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "pgm_m1000.u5",    0x400000, 0x800000, CRC(ed407ae8) SHA1(a6e9c09b39c13e8fb7fbc89fa9f823cbeb66e901) )
-	ROM_LOAD( "pgm_m1001.u7",    0xc00000, 0x400000, CRC(662d2d48) SHA1(2fcc3099d9c04456cae3b13035fb28eaf709e7d8) )
-ROM_END
-
-ROM_START( martmasts02 )
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "v104_32m_ps02.u9",    0x100000, 0x400000, CRC(5f51a4e5) SHA1(8e3ae6f70699912572e6f3d0e1ba7f9d80b5d656) )
-
-	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
-	ROM_LOAD( "martial_masters_v101_cn.asic", 0x000000, 0x04000, CRC(b3e25b7d) SHA1(6147d7ee2e11636521df1bb96ed5da8ad21b2a57) ) // not verified, could be bad
-
-	ROM_REGION32_LE( 0x400000, "user1", 0 )
-	ROM_LOAD( "v102_16m.u10", 0x000000, 0x200000,  CRC(18b745e6) SHA1(7bcb58dd3a2d6072f492cf0dd7181cb061c1f49d) )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "pgm_t1000.u3",    0x180000, 0x800000, CRC(bbf879b5) SHA1(bd9a6aea34ad4001e89e62ff4b7a2292eb833c00) )
-
-	ROM_REGION16_LE( 0x4000000, "sprcol", 0 )
-	ROM_LOAD( "pgm_a1000.u3",    0x0000000, 0x0800000, CRC(43577ac8) SHA1(6eea8b455985d5bac74dcc9943cdc3c0902de6cc) )
-	ROM_LOAD( "pgm_a1001.u4",    0x0800000, 0x0800000, CRC(fe7a476f) SHA1(a8c7f1f0dd3e53141aed6d927eb88a3ceebb81e4) )
-	ROM_LOAD( "pgm_a1002.u6",    0x1000000, 0x0800000, CRC(62e33d38) SHA1(96163d583e25073594f8413ce263e56b66bd69a1) )
-	ROM_LOAD( "pgm_a1003.u8",    0x1800000, 0x0800000, CRC(b2c4945a) SHA1(7b18287a2db56db3651cfd4deb607af53522fefd) )
-	ROM_LOAD( "pgm_a1004.u10",   0x2000000, 0x0400000, CRC(9fd3f5fd) SHA1(057531f91062be51589c6cf8f4170089b9be6380) )
-
-	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "pgm_b1000.u9",    0x0000000, 0x0800000,  CRC(c5961f6f) SHA1(a68060b10edbd084cbde79d2ed1c9084777beb10) )
-	ROM_LOAD( "pgm_b1001.u11",   0x0800000, 0x0800000,  CRC(0b7e1c06) SHA1(545e15e0087f8621d593fecd8b4013f7ca311686) )
-
-	ROM_REGION( 0x1000000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "pgm_m1000.u5",    0x400000, 0x800000, CRC(ed407ae8) SHA1(a6e9c09b39c13e8fb7fbc89fa9f823cbeb66e901) )
-	ROM_LOAD( "pgm_m1001.u7",    0xc00000, 0x400000, CRC(662d2d48) SHA1(2fcc3099d9c04456cae3b13035fb28eaf709e7d8) )
-ROM_END
-
-ROM_START( martmasts03 )
-	ROM_REGION( 0x600000, "maincpu", 0 )
-	PGM_68K_BIOS
-	ROM_LOAD16_WORD_SWAP( "v104_32m_ps03.u9",    0x100000, 0x400000, CRC(39010ca0) SHA1(51cc7b57b4670a5ac77f019c2b652e63fbaab9c4) )
-
-	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
-	ROM_LOAD( "martial_masters_v101_cn.asic", 0x000000, 0x04000, CRC(b3e25b7d) SHA1(6147d7ee2e11636521df1bb96ed5da8ad21b2a57) ) // not verified, could be bad
-
-	ROM_REGION32_LE( 0x400000, "user1", 0 )
-	ROM_LOAD( "v102_16m.u10", 0x000000, 0x200000,  CRC(18b745e6) SHA1(7bcb58dd3a2d6072f492cf0dd7181cb061c1f49d) )
-
-	ROM_REGION( 0xc00000, "tiles", 0 )
-	PGM_VIDEO_BIOS
-	ROM_LOAD( "pgm_t1000.u3",    0x180000, 0x800000, CRC(bbf879b5) SHA1(bd9a6aea34ad4001e89e62ff4b7a2292eb833c00) )
-
-	ROM_REGION16_LE( 0x4000000, "sprcol", 0 )
-	ROM_LOAD( "pgm_a1000.u3",    0x0000000, 0x0800000, CRC(43577ac8) SHA1(6eea8b455985d5bac74dcc9943cdc3c0902de6cc) )
-	ROM_LOAD( "pgm_a1001.u4",    0x0800000, 0x0800000, CRC(fe7a476f) SHA1(a8c7f1f0dd3e53141aed6d927eb88a3ceebb81e4) )
-	ROM_LOAD( "pgm_a1002.u6",    0x1000000, 0x0800000, CRC(62e33d38) SHA1(96163d583e25073594f8413ce263e56b66bd69a1) )
-	ROM_LOAD( "pgm_a1003.u8",    0x1800000, 0x0800000, CRC(b2c4945a) SHA1(7b18287a2db56db3651cfd4deb607af53522fefd) )
-	ROM_LOAD( "pgm_a1004.u10",   0x2000000, 0x0400000, CRC(9fd3f5fd) SHA1(057531f91062be51589c6cf8f4170089b9be6380) )
-
-	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
-	ROM_LOAD( "pgm_b1000.u9",    0x0000000, 0x0800000,  CRC(c5961f6f) SHA1(a68060b10edbd084cbde79d2ed1c9084777beb10) )
-	ROM_LOAD( "pgm_b1001.u11",   0x0800000, 0x0800000,  CRC(0b7e1c06) SHA1(545e15e0087f8621d593fecd8b4013f7ca311686) )
-
-	ROM_REGION( 0x1000000, "ics", 0 )
-	PGM_AUDIO_BIOS
-	ROM_LOAD( "pgm_m1000.u5",    0x400000, 0x800000, CRC(ed407ae8) SHA1(a6e9c09b39c13e8fb7fbc89fa9f823cbeb66e901) )
-	ROM_LOAD( "pgm_m1001.u7",    0xc00000, 0x400000, CRC(662d2d48) SHA1(2fcc3099d9c04456cae3b13035fb28eaf709e7d8) )
-ROM_END
-
  /***********************
  Oriental Legend Special
 **************************/
@@ -7612,10 +7512,6 @@ ROM_END
 GAME( 2006, pgemeni,     pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "Blastar", "P-Gemeni (2006-01-23)", MACHINE_SUPPORTS_SAVE ) // has no sound
 GAME( 2005, pgmdemo,     pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "Charles Doty", "Demo - PGM", MACHINE_SUPPORTS_SAVE ) // has no sound
 GAME( 2006, pgmfrog,     pgm,       pgm,                pgm,      pgm_state,           init_pgm,        ROT0,   "Rastersoft", "Frog Feast (PGM)", MACHINE_SUPPORTS_SAVE )
-//Martial Masters
-GAME( 2001, martmasts01,  martmast,  pgm_arm_type2,      martmast, pgm_arm_type2_state, init_martmast,   ROT0,   "0 Days", "Martial Masters (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 2016, martmasts02,  martmast,  pgm_arm_type2,      martmast, pgm_arm_type2_state, init_martmast,   ROT0,   "DDJ", "Martial Masters (All Super Move)", MACHINE_SUPPORTS_SAVE ) //press ac or bd
-GAME( 2016, martmasts03,  martmast,  pgm_arm_type2,      martmast, pgm_arm_type2_state, init_martmast,   ROT0,   "DDJ", "Martial Masters (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
 //Oriental Legend Super / Xiyou Shi E Chuan Super
 GAME( 1998, olds01,       olds,      pgm_028_025_ol,     olds,     pgm_028_025_state, init_olds,       ROT0,   "Creamymami", "Oriental Legend Special (Enhanced power)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, olds02,       olds,      pgm_028_025_ol,     olds,     pgm_028_025_state, init_olds,       ROT0,   "Xyahzhs", "Oriental Legend Special (West S-Fengyun Restarts B2)", MACHINE_SUPPORTS_SAVE )
