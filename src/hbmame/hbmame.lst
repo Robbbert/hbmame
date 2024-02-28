@@ -7502,36 +7502,6 @@ kovshp193
 kovshp194
 kovshp195
 kovshp196
-
-@source:pgm.cpp
-// PARENTS
-pgm
-ket
-killbld
-kovplus
-kov
-kov2
-kov2p
-kovsh
-kovshp
-olds
-oldsplus
-orlegend
-martmast
-theglad
-// HOMEBREW
-pgemeni		/* HB Blastar */
-pgmdemo		/* HB Charles Doty */
-pgmfrog		/* HB Rastersoft */
-pgmcabal
-// HACKS
-ketarr		// trap15 hack
-ketarr10	// trap15 hack
-ketarr15	// trap15 hack
-ketarr151	// trap15 hack
-ketarrf		// trap15 hack
-ketarrs15	// trap15 hack
-ketarrs151	// trap15 hack
 kov2s01
 kov2s02
 kov2s03
@@ -7562,6 +7532,36 @@ kov2s27
 kov2s28
 kov2s29
 kov2s30
+
+@source:pgm.cpp
+// PARENTS
+pgm
+ket
+killbld
+kovplus
+kov
+kov2
+kov2p
+kovsh
+kovshp
+olds
+oldsplus
+orlegend
+martmast
+theglad
+// HOMEBREW
+pgemeni		/* HB Blastar */
+pgmdemo		/* HB Charles Doty */
+pgmfrog		/* HB Rastersoft */
+pgmcabal
+// HACKS
+ketarr		// trap15 hack
+ketarr10	// trap15 hack
+ketarr15	// trap15 hack
+ketarr151	// trap15 hack
+ketarrf		// trap15 hack
+ketarrs15	// trap15 hack
+ketarrs151	// trap15 hack
 kov2ps01
 kov2ps02
 kov2ps03
