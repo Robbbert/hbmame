@@ -7202,7 +7202,6 @@ vecpengo                               // T-Bone hack of Pengo
 // HOMEBREW
 pgmsnake
 // HACKS
-ketarrb		// trap15 hack
 killbld01
 killbld02
 killbld03
