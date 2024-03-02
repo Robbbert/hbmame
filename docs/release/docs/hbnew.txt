@@ -3,11 +3,12 @@
 
 2024-0x-xx 0.245.18
 
-
+- New PGM driver from IQ_132
+- Restored music to many of the kovshp hacks
 
 New Games
 ---------------------------------
-- [nbajam03]            NBA Jam Tournament Edition SE 5.0 
+- [nbajam03]            NBA Jam Tournament Edition SE 5.0
 - [pgmcabal]            Cabal (PGM)
 - [pgmsnake]            PGM test program
 

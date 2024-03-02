@@ -332,6 +332,29 @@ void iq_pgm_arm_type1::init_kovshp()
 	arm7_type1_latch_init();
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x4f0008, 0x4f0009, read16smo_delegate(*this, FUNC(iq_pgm_arm_type1::kovsh_fake_region_r)));
 	m_maincpu->space(AS_PROGRAM).install_write_handler(0x500000, 0x500005, write16sm_delegate(*this, FUNC(iq_pgm_arm_type1::kovshp_asic27a_write_word)));
+
+#if 0
+	// In fbneo, what is it for?
+	u16 *src16 = (u16 *)(memregion("prot")->base());
+	src16[0x2892/2] = 0x0101;
+	src16[0x289e/2] = 0x0107;
+	src16[0x28a4/2] = 0x0108;
+	src16[0x28a8/2] = 0x0101;
+	src16[0x2bf2/2] = 0x4810;
+	src16[0x2bf4/2] = 0x800e;
+	src16[0x2c92/2] = 0x400f;
+	src16[0x2ce0/2] = 0x6c1e;
+	src16[0x2ce2/2] = 0x0048;
+#endif
+
+	// From fbneo, fix data offsets, restores sound to some hacks
+	u8 *src = memregion("prot")->base();
+	for (u32 i = 0x2ce8; i < 0x2e48; i+=8) // fix z80 data offsets (offset - 0x09'e0'00)
+	{
+		u16 d = (src[i+4] << 8) + src[i+7] - 0x09e0;
+		src[i+4] = d >> 8;
+		src[i+7] = d & 0xff;
+	}
 }
 
 
@@ -344,6 +367,15 @@ void iq_pgm_arm_type1::init_kovshxas()
 	arm7_type1_latch_init();
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x4f0008, 0x4f0009, read16smo_delegate(*this, FUNC(iq_pgm_arm_type1::kovsh_fake_region_r)));
 	m_maincpu->space(AS_PROGRAM).install_write_handler(0x500000, 0x500005, write16sm_delegate(*this, FUNC(iq_pgm_arm_type1::kovshp_asic27a_write_word)));
+
+	// From fbneo, fix data offsets, restores sound to some hacks
+	u8 *src = memregion("prot")->base();
+	for (u32 i = 0x2ce8; i < 0x2e48; i+=8) // fix z80 data offsets (offset - 0x09'e0'00)
+	{
+		u16 d = (src[i+4] << 8) + src[i+7] - 0x09e0;
+		src[i+4] = d >> 8;
+		src[i+7] = d & 0xff;
+	}
 }
 
 void iq_pgm_arm_type1::pgm_decode_kovlsqh2_tiles()
