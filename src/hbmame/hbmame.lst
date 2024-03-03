@@ -7751,6 +7751,30 @@ olds175
 olds176
 olds177
 olds178
+oldsps01
+oldsps02
+oldsps03
+oldsps04
+oldsps05
+oldsps06
+oldsps07
+oldsps08
+oldsps09
+oldsps10
+oldsps11
+oldsps12
+oldsps13
+oldsps14
+oldsps15
+oldsps16
+oldsps18
+oldsps19
+oldsps20
+oldsps21
+oldsps22
+oldsps24
+oldsps26
+oldsps27
 
 @source:pgm.cpp
 // PARENTS
@@ -7781,30 +7805,6 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-oldsplus01
-oldsplus02
-oldsplus03
-oldsplus04
-oldsplus05
-oldsplus06
-oldsplus07
-oldsplus08
-oldsplus09
-oldsplus10
-oldsplus11
-oldsplus12
-oldsplus13
-oldsplus14
-oldsplus15
-oldsplus16
-oldsplus18
-oldsplus19
-oldsplus20
-oldsplus21
-oldsplus22
-oldsplus24
-oldsplus26
-oldsplus27
 orlegends01
 orlegends02
 orlegends03
