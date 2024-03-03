@@ -7864,6 +7864,14 @@ orlegend108
 orlegend109
 orlegend110
 orlegend111
+theglad01
+theglad02
+theglad03
+theglad04
+theglad05
+theglad06
+theglad07
+theglad08
 
 @source:pgm.cpp
 // PARENTS
@@ -7894,14 +7902,6 @@ ketarr151	// trap15 hack
 ketarrf		// trap15 hack
 ketarrs15	// trap15 hack
 ketarrs151	// trap15 hack
-theglads01
-theglads02
-theglads03
-theglads04
-theglads05
-theglads06
-theglads07
-theglads08
 
 @source:phoenix.cpp
 phoenix                                //parent

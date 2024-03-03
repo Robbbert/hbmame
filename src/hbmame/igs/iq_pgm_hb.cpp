@@ -19788,6 +19788,249 @@ ROM_START( orlegend111 ) //orlegendnote
 	ROM_LOAD( "pgm_m0100.u1",     0x400000, 0x200000, CRC(e5c36c83) SHA1(50c6f66770e8faa3df349f7d68c407a7ad021716) )
 ROM_END
 
+ /*************
+ The Gladiator
+****************/
+ROM_START( theglad01 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",      0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "v107_ph01.u26", 0x000000, 0x200000,  CRC(aba60d88) SHA1(953f6476871c2ad32b195e231c4a07ec3ddfb5b5) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad02 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",      0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "v107_ph02.u26", 0x000000, 0x200000,  CRC(8187ce9d) SHA1(3670eb61c458a8e5aa32a087574de865a51263ee) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad03 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",      0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "v107_ph03.u26", 0x000000, 0x200000,  CRC(78959ea7) SHA1(a4591431bbdbfd2ae2912264bad268e91862d240) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad04 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",      0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "theglad_igs027a_v100_overseas.bin", 0x0188, 0x3e78, CRC(02fe6f52) SHA1(0b0ddf4507856cfc5b7d4ef7e4c5375254c2a024) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "v107_ph04.u26", 0x000000, 0x200000,  CRC(8c8eb98e) SHA1(6868da4136d6594586997abe0629c61ff5303214) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad05 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",       0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "thegladpcb_igs027a_v100_japan.bin", 0x0188, 0x3e78, CRC(d7f06e2d) SHA1(9c3aca7a487f5329d84731e2c63d5ed591bf9d24) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "u2_pw01.rom", 0x000000, 0x200000,  CRC(e9ebb722) SHA1(03a4f4c9541b7c605381537f4490b236d6993f2f) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad06 ) //theglad100
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",       0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "thegladpcb_igs027a_v100_japan.bin", 0x0188, 0x3e78, CRC(d7f06e2d) SHA1(9c3aca7a487f5329d84731e2c63d5ed591bf9d24) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "u2_pw02.rom", 0x000000, 0x200000,  CRC(90061701) SHA1(0eeef7257c2ea706e037551b0def27d8fae5889e) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad07 ) //theglad100
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",       0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "thegladpcb_igs027a_v100_japan.bin", 0x0188, 0x3e78, CRC(d7f06e2d) SHA1(9c3aca7a487f5329d84731e2c63d5ed591bf9d24) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "u2_pw03.rom", 0x000000, 0x200000,  CRC(8ec8724b) SHA1(bd11dc3be6e1277e612a7c159f5a4f5d84742b12) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
+ROM_START( theglad08 )
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v101_u6.u6",  0x100000, 0x080000, CRC(f799e866) SHA1(dccc3c903357c40c3cf85ac0ae8fc12fb0f853a6) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+	//ROM_LOAD( "theglad_igs027a_execute_only_area", 0x0000, 0x00188, NO_DUMP )
+	ROM_LOAD( "theglad_igs027a_v100_overseas_pw01.bin", 0x0188, 0x3e78, CRC(bb1f6013) SHA1(ac6109c64ed775dd38e732fc0f517db026f4239f) )
+
+	ROM_REGION32_LE( 0x800000, "user1", 0 )
+	ROM_LOAD( "v101_pw01.u26", 0x000000, 0x200000, CRC(9629273b) SHA1(3004d44079ddd680ea426b00b2bcff5e9e123e81) )
+
+	ROM_REGION( 0xa00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "igs_t04601w64m.u33",   0x180000, 0x800000, CRC(e5dab371) SHA1(2e3c93958eb0326b6b84b95c2168626f26bbac76) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "igs_a04601w64m.u2",    0x0000000, 0x0800000,  CRC(d9b2e004) SHA1(8e1882b800fe9f12d7d49303e7417ba5b6f8ef85) )
+	ROM_LOAD( "igs_a04602w64m.u4",    0x0800000, 0x0800000,  CRC(14f22308) SHA1(7fad54704e8c97eab723f53dfb50fb3e7bb606d2) )
+	ROM_LOAD( "igs_a04603w64m.u6",    0x1000000, 0x0800000,  CRC(8f621e17) SHA1(b0f87f378e0115d0c95017ca0f1b0d508827a7c6) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "igs_b04601w64m.u11",   0x0000000, 0x0800000, CRC(ee72bccf) SHA1(73c25fe659f6c903447066e4ef83d2f580449d76) )
+	ROM_LOAD( "igs_b04602w32m.u12",   0x0800000, 0x0400000, CRC(7dba9c38) SHA1(a03d509274e8f6a500a7ebe2da5aab8bed4e7f2f) )
+
+	ROM_REGION( 0x1000000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "igs_w04601b64m.u1",    0x400000, 0x800000, CRC(5f15ddb3) SHA1(c38dcef8e06802a84e42a7fc9fa505475fc3ac65) )
+ROM_END
+
 
 // Homebrew
 GAME( 2024, pgmcabal,    pgm,       pgm,                 iq_pgm,      iq_pgm,           init_pgm,        ROT0,   "IQ_132", "Cabal (PGM)", MACHINE_NO_SOUND | MACHINE_SUPPORTS_SAVE )
@@ -20464,4 +20707,13 @@ GAME( 1997, orlegend108, orlegend,  pgm_asic3,           iq_orlegend, iq_pgm_asi
 GAME( 1997, orlegend109, orlegend,  pgm_asic3,           iq_orlegend, iq_pgm_asic3,     init_orlegend,   ROT0,   "hack", "Oriental Legend (Super Qigong)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, orlegend110, orlegend,  pgm_asic3,           iq_orlegend, iq_pgm_asic3,     init_orlegend,   ROT0,   "hack", "Oriental Legend (Super Moves)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, orlegend111, orlegend,  pgm_asic3,           iq_orlegend, iq_pgm_asic3,     init_orlegend,   ROT0,   "hack", "Oriental Legend (Note Edition, 2017-06-13)", MACHINE_SUPPORTS_SAVE )
+// The Gladiator
+GAME( 2003, theglad01,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglad,    ROT0,   "Hooooook", "The Gladiator (Ex Super Version v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2003, theglad02,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglad,    ROT0,   "hack", "The Gladiator (Infinite Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, theglad03,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglad,    ROT0,   "hack", "The Gladiator (Excalibur Vol. 2017 + Enhanced, 2017-01-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, theglad04,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglad,    ROT0,   "hack", "The Gladiator (Excalibur Vol.2 Enhanced version 2018, 2018-08-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, theglad05,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglada,   ROT0,   "hack", "The Gladiator (Excalibur Vol. 2017 + Enhanced, 2017-10-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, theglad06,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglada,   ROT0,   "hack", "The Gladiator (Full Attack Enhanced Edition 2020, 2020-09-06)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, theglad07,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglada,   ROT0,   "hack", "The Gladiator (Full Attack Enhanced Edition 2020, 2020-09-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, theglad08,   theglad,   pgm_arm_type3,       iq_theglad,  iq_pgm_arm_type3, init_theglad,    ROT0,   "hack", "The Gladiator (Excalibur Vol. 2017 + Enhanced, 2017-11-04)", MACHINE_SUPPORTS_SAVE )
 
