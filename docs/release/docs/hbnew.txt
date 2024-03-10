@@ -11,6 +11,7 @@ New Games
 - [nbajam03]            NBA Jam Tournament Edition SE 5.0
 - [pgmcabal]            Cabal (PGM)
 - [pgmsnake]            PGM test program
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.28)
 
 
 
@@ -46,7 +47,7 @@ New Games
 - [sfz2alk]             Street Fighter Zero 2 Alpha (960805, Korea)
 - [sfz2k01]             Street Fighter Zero 2 (960430, Korea)
 - [sfz2k02]             Street Fighter Zero 2 (960227, Korea)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.27)
+- [sfz3mix27]           Street Fighter Zero 3 (Turbo Mix 0.27)
 - [sfzchk]              Street Fighter Zero (951020, CPS Changer, Korea)
 - [sfzk]                Street Fighter Zero (950727, Korea)
 - [strider05]           Strider (Korean)

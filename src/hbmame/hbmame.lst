@@ -1584,6 +1584,7 @@ sfz3mix23
 sfz3mix24
 sfz3mix25
 sfz3mix26
+sfz3mix27
 sfz3mix
 
 @source:cps3.cpp
@@ -8043,18 +8044,18 @@ gunbird                                //parent
 gunbird01
 
 @source:psikyosh.cpp
-s1945ii			//parent
+s1945ii                                //parent
 s1945iiex
-s1945iii		//parent
-s1945sr3
-daraku		//parent
-darakuhc01
-gunbird2		//parent
+s1945iii                               //parent
+s1945iii01
+s1945iii02
+s1945iii03
+daraku                                 //parent
+daraku01
+gunbird2                               //parent
 gunbird2s01
-s1945iiis01
-s1945iiis02
-soldivid		//parent
-soldivids01
+soldivid                               //parent
+soldivid01
 
 @source:puckman.cpp
 pacyuyu
