@@ -243,19 +243,19 @@ u8 pgm_state::z80_ram_r(offs_t offset)
 
 void pgm_state::z80_ram_w(offs_t offset, u8 data)
 {
-	const int pc = m_maincpu->pc();
+//	const int pc = m_maincpu->pc();
 
 	m_z80_mainram[offset] = data;
 
-	if (pc != 0xf12 && pc != 0xde2 && pc != 0x100c50 && pc != 0x100b20)
-		if (PGMLOGERROR)
-			logerror("Z80: write %04x, %02x (%06x)\n", offset, data, m_maincpu->pc());
+//	if (pc != 0xf12 && pc != 0xde2 && pc != 0x100c50 && pc != 0x100b20)
+//		if (PGMLOGERROR)
+//			logerror("Z80: write %04x, %02x (%06x)\n", offset, data, m_maincpu->pc());
 }
 
 void pgm_state::z80_reset_w(offs_t offset, u16 data, u16 mem_mask)
 {
-	if (PGMLOGERROR)
-		logerror("Z80: reset %04x @ %04x (%06x)\n", data, mem_mask, m_maincpu->pc());
+//	if (PGMLOGERROR)
+//		logerror("Z80: reset %04x @ %04x (%06x)\n", data, mem_mask, m_maincpu->pc());
 
 	if (data == 0x5050)
 	{
@@ -273,22 +273,22 @@ void pgm_state::z80_reset_w(offs_t offset, u16 data, u16 mem_mask)
 
 void pgm_state::z80_ctrl_w(offs_t offset, u16 data, u16 mem_mask)
 {
-	if (PGMLOGERROR)
-		logerror("Z80: ctrl %04x @ %04x (%06x)\n", data, mem_mask, m_maincpu->pc());
+//	if (PGMLOGERROR)
+//		logerror("Z80: ctrl %04x @ %04x (%06x)\n", data, mem_mask, m_maincpu->pc());
 }
 
 void pgm_state::m68k_l1_w(u8 data)
 {
-	if (PGMLOGERROR)
-		logerror("SL 1 m68.w %02x (%06x) IRQ\n", data, m_maincpu->pc());
+//	if (PGMLOGERROR)
+//		logerror("SL 1 m68.w %02x (%06x) IRQ\n", data, m_maincpu->pc());
 	m_soundlatch->write(data);
 	m_soundcpu->pulse_input_line(INPUT_LINE_NMI, attotime::zero);
 }
 
 void pgm_state::z80_l3_w(u8 data)
 {
-	if (PGMLOGERROR)
-		logerror("SL 3 z80.w %02x (%04x)\n", data, m_soundcpu->pc());
+//	if (PGMLOGERROR)
+//		logerror("SL 3 z80.w %02x (%04x)\n", data, m_soundcpu->pc());
 	m_soundlatch3->write(data);
 }
 
@@ -562,7 +562,7 @@ ROM_START( pgm )
 	ROM_REGION16_LE( 0x1000000, "sprcol", ROMREGION_ERASEFF ) /* Sprite Colour Data */
 	ROM_REGION16_LE( 0x1000000, "sprmask", ROMREGION_ERASEFF ) /* Sprite Masks + Colour Indexes */
 ROM_END
-
+#if 0
 ROM_START( orlegend )
 	ROM_REGION( 0x600000, "maincpu", 0 ) /* 68000 Code  */
 	PGM_68K_BIOS
@@ -5403,7 +5403,7 @@ ROM_START( ddpdojblkbl )
 	ROM_LOAD( "m04401b032.u17",  0x400000, 0x400000, CRC(5a0dbd76) SHA1(06ab202f6bd5ebfb35b9d8cc7a8fb83ec8840659) ) //music-1
 ROM_END
 
-
+#endif
 /*** Init Stuff **************************************************************/
 
 void pgm_state::pgm_basic_init(bool set_bank)
@@ -5421,7 +5421,7 @@ void pgm_state::init_pgm()
 	pgm_basic_init();
 }
 
-
+#if 0
 /*** GAME ********************************************************************/
 
 GAME( 1997, pgm,          0,         pgm,                   pgm,       pgm_state,       init_pgm,         ROT0,   "IGS", "PGM (Polygame Master) System BIOS", MACHINE_IS_BIOS_ROOT )
@@ -5728,3 +5728,5 @@ GAME( 200?, kovlsqh2,     kovshp,    pgm_arm_type1,          kovsh,     pgm_arm_
 //乱世街霸/Luànshì jiē bà
 GAME( 200?, kovlsjb,      kovshp,    pgm_arm_type1,          kovsh,     pgm_arm_type1_state, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Jie Ba (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN, set 1)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) /* need internal rom of IGS027A */
 GAME( 200?, kovlsjba,     kovshp,    pgm_arm_type1,          kovsh,     pgm_arm_type1_state, init_kovlsqh2, ROT0,   "bootleg", "Luanshi Jie Ba (bootleg of Knights of Valour Super Heroes Plus, ver. 200CN, set 2)", MACHINE_IMPERFECT_SOUND | MACHINE_UNEMULATED_PROTECTION | MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) /* need internal rom of IGS027A */
+#endif
+

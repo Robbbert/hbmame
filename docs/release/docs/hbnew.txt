@@ -9,9 +9,9 @@
 New Games
 ---------------------------------
 - [nbajam03]            NBA Jam Tournament Edition SE 5.0
-- [pgmcabal]            Cabal (PGM)
-- [pgmsnake]            PGM test program
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.28)
+- [pgmcabal]            Cabal (PGM) [iq_132]
+- [pgmsnake]            PGM test program [iq_132]
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.28) [zero800]
 
 
 
