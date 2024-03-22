@@ -8,6 +8,7 @@
 
 New Games
 ---------------------------------
+- [lbhmg]               Last Blade Hidden Mini Game
 - [nbajam03]            NBA Jam Tournament Edition SE 5.0
 - [pgmcabal]            Cabal (PGM) [iq_132]
 - [pgmsnake]            PGM test program [iq_132]

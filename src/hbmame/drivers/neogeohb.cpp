@@ -333,6 +333,7 @@ YEAR COMPANY                          TITLE
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
 2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
 2023 Chips on Steroids                Gladmort (youtube)
+2024 Neofid Studios                   Demons of Asteborg DX
 
 
 
