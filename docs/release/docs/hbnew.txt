@@ -4,7 +4,7 @@
 2024-0x-xx 0.245.18
 
 - New PGM driver from IQ_132
-- Restored music to many of the kovshp hacks
+- Restored music to kovshp and many of its hacks
 
 New Games
 ---------------------------------
@@ -12,6 +12,7 @@ New Games
 - [nbajam03]            NBA Jam Tournament Edition SE 5.0
 - [pgmcabal]            Cabal (PGM) [iq_132]
 - [pgmsnake]            PGM test program [iq_132]
+- [sf2ce58]             Street Fighter II' (SrSreet edition)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.28) [zero800]
 
 
