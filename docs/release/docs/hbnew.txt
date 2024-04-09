@@ -8,6 +8,8 @@
 
 New Games
 ---------------------------------
+- [cyborg]              Cyborg Force
+- [cyborg1]             Cyborg Force (patched)
 - [lbhmg]               Last Blade Hidden Mini Game
 - [nbajam03]            NBA Jam Tournament Edition SE 5.0
 - [pgmcabal]            Cabal (PGM) [iq_132]

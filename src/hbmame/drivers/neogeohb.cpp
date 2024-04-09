@@ -197,6 +197,7 @@ NUM GAME YEAR COMPANY                 TITLE
 499 2048 2021 Nicole Branagan         Neo 2048
 500 0993 2022 iq_132                  Kid no Hore Hore Daisakusen (Neo-Geo port)
 501 0282 2023 iq_132                  Soldier Girl Amazon (Neo-Geo port)
+502 14A0 2023 Neo Byte Force          Cyborg Force (https://ozzyouzo.itch.io/cyborg-force)
 
 
 
@@ -327,14 +328,13 @@ YEAR COMPANY                          TITLE
 2022 Frogbull                         Neo Mania (video on youtube)
 2022 Geezer Games / Raster Wizards    Alien Warhead (demos on youtube) (https://www.facebook.com/RasterWizards)
 2023 Kimera Gamesoft                  Operation Killmeister (www.kimera.gs)
-2023 Neo Byte Force                   Cyborg Force (https://ozzyouzo.itch.io/cyborg-force) (trailer on youtube)
 2023 Bitmap Bureau                    Final Vendetta (there's talk of a NeoGeo release, but...?)
 2023 NeoHomeBrew                      Flippers Demo (on youtube)
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
 2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
 2023 Chips on Steroids                Gladmort (youtube)
-2024 Neofid Studios                   Demons of Asteborg DX
-
+2023 Neofid Studios                   Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
+2024 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
 
 
 *********************************************************************************************************/
@@ -1917,6 +1917,44 @@ ROM_START( amazonn )
 ROM_END
 
 
+// 502: Cyborg Force by Neo Byte Force
+ROM_START( cyborg )
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "502.p1", 0x000000, 0x100000, CRC(89e1c728) SHA1(4b996f42373d77969c490534858aa0906d110685) )
+	ROM_LOAD16_WORD_SWAP( "502.p2", 0x100000, 0x300000, CRC(e4a8b27a) SHA1(cbdf21414a5be59664dfd363b4d62ba0c8b05847) )
+
+	NEO_SFIX_128K( "502.s1", CRC(5bd29810) SHA1(cfa054dfa027e3617ba1a1f25a043f03a25676fd) )
+
+	NEO_BIOS_AUDIO_64K( "502.m1", CRC(06da3cec) SHA1(034c250229920891edc70fecb5844e12a7c1c1bd) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "502.v1",   0x000000, 0x800000, CRC(dc50718c) SHA1(e4150bc3625a60be197d629444906a8663a4aebe) )
+	ROM_LOAD( "502.v2",   0x800000, 0x800000, CRC(8135d5a8) SHA1(186a516ed0fbc1d39f96385513de2ad662511559) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "502.c1",   0x0000000, 0x1000000, CRC(77078687) SHA1(9485bcc2af6f59ebce57a6b19f215db712f93278) )
+	ROM_LOAD16_BYTE( "502.c2",   0x0000001, 0x1000000, CRC(a5abdb83) SHA1(cfc54c46ae6a593a9d2f4fdd1ee0d27877f55c20) )
+ROM_END
+
+ROM_START( cyborg1 ) // Retroarch/fbneo patched
+	ROM_REGION( 0x900000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "502p.p1", 0x000000, 0x100000, CRC(bcd819ee) SHA1(35d65019d220776472750ef10dd3e59bf41d8501) )
+	ROM_LOAD16_WORD_SWAP( "502p.p2", 0x100000, 0x800000, CRC(3e0b80a2) SHA1(b7604c692ad10b3b4c27f3ce7ce6a1f5a507e980) )
+
+	NEO_SFIX_128K( "502.s1", CRC(5bd29810) SHA1(cfa054dfa027e3617ba1a1f25a043f03a25676fd) )
+
+	NEO_BIOS_AUDIO_64K( "502.m1", CRC(06da3cec) SHA1(034c250229920891edc70fecb5844e12a7c1c1bd) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "502.v1",   0x000000, 0x800000, CRC(dc50718c) SHA1(e4150bc3625a60be197d629444906a8663a4aebe) )
+	ROM_LOAD( "502.v2",   0x800000, 0x800000, CRC(8135d5a8) SHA1(186a516ed0fbc1d39f96385513de2ad662511559) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "502.c1",   0x0000000, 0x1000000, CRC(77078687) SHA1(9485bcc2af6f59ebce57a6b19f215db712f93278) )
+	ROM_LOAD16_BYTE( "502.c2",   0x0000001, 0x1000000, CRC(a5abdb83) SHA1(cfc54c46ae6a593a9d2f4fdd1ee0d27877f55c20) )
+ROM_END
+
+
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -3296,6 +3334,8 @@ GAME( 2009, cndia,        cndi,     neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2013, cphd,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Le Cortex", "Crouching Pony Hidden Dragon Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, columnsn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (NeoGeo)(Homebrew)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, columnsncd,   columnsn, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Columns (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, cyborg,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neo Byte Force", "Cyborg Force (patched)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo1,    ddsprdmo, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo (newer)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
