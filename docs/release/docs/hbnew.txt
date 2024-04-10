@@ -16,6 +16,7 @@ New Games
 - [pgmsnake]            PGM test program [iq_132]
 - [sf2ce58]             Street Fighter II' (SrSreet edition)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.28) [zero800]
+- [ssf2tnl]             Super Street Fighter II Turbo (New Legacy v0.9 beta 2024-04-02)
 
 
 
@@ -127,7 +128,7 @@ New Games
 - [arkcrsn5]            Cruisin 5 (demo)
 - [froggerp]            Frogger (fixed)
 - [mhavocrv2]           Major Havoc - Return to Vax 1.8
-- [ssf2tnl]             Super Street Fighter II Turbo (New Legacy v0.8 beta 2023-07-20)
+- [ssf2tnl8]            Super Street Fighter II Turbo (New Legacy v0.8 beta 2023-07-20)
 
 
 
