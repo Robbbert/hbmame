@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2024-0x-xx 0.245.18
+2024-04-10 0.245.18
 
 - New PGM driver from IQ_132
 - Restored music to kovshp and many of its hacks
@@ -10,6 +10,8 @@ New Games
 ---------------------------------
 - [cyborg]              Cyborg Force
 - [cyborg1]             Cyborg Force (patched)
+- [galaga01]            Galaga Wave Mixer
+- [galaga02]            Galaga Challenging Only
 - [lbhmg]               Last Blade Hidden Mini Game
 - [nbajam03]            NBA Jam Tournament Edition SE 5.0
 - [pgmcabal]            Cabal (PGM) [iq_132]
