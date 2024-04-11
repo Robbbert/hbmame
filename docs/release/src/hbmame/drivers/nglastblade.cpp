@@ -223,6 +223,30 @@ ROM_START( lbha )
 	ROM_LOAD16_BYTE( "234.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) )
 ROM_END
 
+ROM_START( lbhmg ) // arrows = move, B to kick next one, D = restart level. Object of the game: Make a path to the red one.
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "234hmg.p1",   0x000000, 0x100000, CRC(e2b2bfd4) SHA1(21ffa82037900566c1f94ba99a54d05819684819) )
+	ROM_LOAD16_WORD_SWAP( "234.p2", 0x100000, 0x400000, CRC(0fdc289e) SHA1(1ff31c0b0f4f9ddbedaf4bcf927faaae81892ec7) )
+
+	NEO_SFIX_128K( "234.s1", CRC(95561412) SHA1(995de272f572fd08d909d3d0af4251b9957b3640) )
+
+	NEO_BIOS_AUDIO_128K( "234.m1", CRC(087628ea) SHA1(48dcf739bb16699af4ab8ed632b7dcb25e470e06) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "234.v1", 0x000000, 0x400000, CRC(ed66b76f) SHA1(8a05ff06d9b6f01c6c16b3026282eaabb0e25b44) )
+	ROM_LOAD( "234.v2", 0x400000, 0x400000, CRC(a0e7f6e2) SHA1(753ff74fa9294f695aae511ae01ead119b114a57) )
+	ROM_LOAD( "234.v3", 0x800000, 0x400000, CRC(a506e1e2) SHA1(b3e04ba1a5cb50b77c6fbe9fe353b9b64b6f3f74) )
+	ROM_LOAD( "234.v4", 0xc00000, 0x400000, CRC(0e34157f) SHA1(20A1F4833E5E29BA0073C1712D7A17AB7A2A035C) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "234.c1", 0x0000000, 0x800000, CRC(9f7e2bd3) SHA1(2828aca0c0f5802110f10453c1cf640f69736554) )
+	ROM_LOAD16_BYTE( "234.c2", 0x0000001, 0x800000, CRC(80623d3c) SHA1(ad460615115ec8fb25206f012da59ecfc8059b64) )
+	ROM_LOAD16_BYTE( "234.c3", 0x1000000, 0x800000, CRC(91ab1a30) SHA1(e3cf9133784bef2c8f1bfe45f277ccf82cc6f6a1) )
+	ROM_LOAD16_BYTE( "234.c4", 0x1000001, 0x800000, CRC(3d60b037) SHA1(78a50233bcd19e92c7b6f7ee1a53417d9db21f6a) )
+	ROM_LOAD16_BYTE( "234.c5", 0x2000000, 0x400000, CRC(1ba80cee) SHA1(0c59057183b5279b747e73213b4cd3c6d7ad9eb1) )
+	ROM_LOAD16_BYTE( "234.c6", 0x2000001, 0x400000, CRC(beafd091) SHA1(55df9cc128eb0f00856de3996c946e3efe8f09a5) )
+ROM_END
+
 // this is lastblsp in multijet - description is "The Last Blade (Super Plus remixed by NEHT)"
 ROM_START( lbseh ) /* The Last Blade - Super Enhance Hack by Creamymami, Kurouri and Ydmis - (Can choose 'fair' Kaede, Musashi and Kagami - ultra kill start is max - ultra power hack) */
 	ROM_REGION( 0x500000, "maincpu", 0 )
@@ -1687,6 +1711,7 @@ GAME( 1997, lbeh,      lastblad, neogeo_noslot, neogeo, neogeo_state, init_neoge
 GAME( 1997, lbeh2,     lastblad, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ydmis", "Last Blade (Enable Hidden Characters V1 Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbeho,     lastblad, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Ydmis", "Last Blade (2 Add Char - Ultra kill start max)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbha,      lastblad, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Robert", "Last Blade (Boss hack, Alternate Set)", MACHINE_SUPPORTS_SAVE )
+GAME( 1997, lbhmg,     lastblad, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "city41", "Last Blade Hidden Mini Game", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbseh,     lastblad, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Creamymami, Kurouri, Ydmis", "Last Blade (3 Add Char - Ultra kill start max - Ultra pow hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, lbsk,      lastblad, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "kaede", "Last Blade (Special Moves Revision Final)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, lbsp,      lastblad, gsc,           neogeo, neogeo_state, init_neogeo, ROT0, "GSC2007", "Last Blade (Special v1.0.0701 2017-06-30)", MACHINE_SUPPORTS_SAVE )

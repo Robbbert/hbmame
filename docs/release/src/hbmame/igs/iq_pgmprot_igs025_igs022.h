@@ -1,11 +1,11 @@
 // license:BSD-3-Clause
 // copyright-holders:David Haywood, ElSemi
 
-class pgm_022_025_state : public pgm_state
+class iq_pgm_022_025 : public iq_pgm
 {
 public:
-	pgm_022_025_state(const machine_config &mconfig, device_type type, const char *tag)
-		: pgm_state(mconfig, type, tag),
+	iq_pgm_022_025(const machine_config &mconfig, device_type type, const char *tag)
+		: iq_pgm(mconfig, type, tag),
 			m_igs025(*this,"igs025"),
 			m_igs022(*this,"igs022")
 
@@ -21,14 +21,14 @@ public:
 
 	void igs025_to_igs022_callback( void );
 
-	required_device<igs025_device> m_igs025;
-	required_device<igs022_device> m_igs022;
+	required_device<iq_igs025> m_igs025;
+	required_device<iq_igs022> m_igs022;
 	void pgm_022_025(machine_config &config);
 	void pgm_022_025_dw3(machine_config &config);
 	void pgm_022_025_killbld(machine_config &config);
 	void killbld_mem(address_map &map);
 };
 
-INPUT_PORTS_EXTERN( killbld );
-INPUT_PORTS_EXTERN( dw3 );
-INPUT_PORTS_EXTERN( dw3j );
+INPUT_PORTS_EXTERN( iq_killbld );
+INPUT_PORTS_EXTERN( iq_dw3 );
+INPUT_PORTS_EXTERN( iq_dw3j );

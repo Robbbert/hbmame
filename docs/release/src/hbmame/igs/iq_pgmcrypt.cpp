@@ -16,7 +16,7 @@
 
 
 #include "emu.h"
-#include "pgmcrypt.h"
+#include "iq_pgmcrypt.h"
 
 // a common set of these are used, selectable in the real scheme by an uploaded bitfield
 // some may be duplicates simply due to differing rom sizes

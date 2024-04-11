@@ -4,10 +4,10 @@
 
 /* ROMs */
 
-ROM_START( bloodbros01 )
+ROM_START( bloodbro01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "2s01.u021.7n",  0x00001, 0x20000, CRC(e5724503) SHA1(eca13cd75f776cd82bd16574ff44a1a5462311ab) )
-	ROM_LOAD16_BYTE( "1s01.u022.8n",  0x00000, 0x20000, CRC(8855bc32) SHA1(d322c339f284bd53d6753f816c3f5054be12a497) )
+	ROM_LOAD16_BYTE( "s01.u021.7n",  0x00001, 0x20000, CRC(e5724503) SHA1(eca13cd75f776cd82bd16574ff44a1a5462311ab) )
+	ROM_LOAD16_BYTE( "s01.u022.8n",  0x00000, 0x20000, CRC(8855bc32) SHA1(d322c339f284bd53d6753f816c3f5054be12a497) )
 	ROM_LOAD16_BYTE( "4.u023.7l",  0x40001, 0x20000, CRC(fd951c2c) SHA1(f4031bf303c67c82f2f78f7456f78382d8c1ac85) )
 	ROM_LOAD16_BYTE( "3.u024.8l",  0x40000, 0x20000, CRC(18d3c460) SHA1(93b86af1199f0fedeaf1fe64d27ffede4b819e42) )
 
@@ -33,5 +33,5 @@ ROM_START( bloodbros01 )
 	ROM_LOAD( "cb006.u083.6c", 0x0000, 0x0100, CRC(b2b89a74) SHA1(1878823801048d677aef9702feedd5bf775e62d0) )
 ROM_END
 
-GAME( 2009, bloodbros01,  bloodbro, bloodbro, bloodbro, bloodbro_state, empty_init, ROT0, "pipi899", "Blood Bros (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, bloodbro01, bloodbro, bloodbro, bloodbro, bloodbro_state, empty_init, ROT0, "pipi899", "Blood Bros (Ex Super Version 2009-03-09)", MACHINE_SUPPORTS_SAVE )
 

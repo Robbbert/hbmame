@@ -5,10 +5,10 @@
 
 #pragma once
 
-#include "igs025.h"
-#include "igs022.h"
-#include "igs028.h"
-#include "pgmcrypt.h"
+#include "iq_igs025.h"
+#include "iq_igs022.h"
+#include "iq_igs028.h"
+#include "iq_pgmcrypt.h"
 
 #include "cpu/arm7/arm7.h"
 #include "cpu/arm7/arm7core.h"
@@ -23,10 +23,10 @@
 #include "tilemap.h"
 
 
-class pgm_state : public driver_device
+class iq_pgm : public driver_device
 {
 public:
-	pgm_state(const machine_config &mconfig, device_type type, const char *tag)
+	iq_pgm(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_mainram(*this, "sram")
 		, m_region(*this, "Region")
@@ -164,8 +164,8 @@ private:
 
 /*----------- defined in drivers/pgm.cpp -----------*/
 
-INPUT_PORTS_EXTERN(pgm);
+INPUT_PORTS_EXTERN(iq_pgm);
 
-extern gfx_decode_entry const gfx_pgm[];
+extern gfx_decode_entry const iq_gfx_pgm[];
 
 #endif // MAME_IGS_PGM_H

@@ -1,11 +1,11 @@
 // license:BSD-3-Clause
 // copyright-holders:David Haywood, ElSemi
 
-class pgm_012_025_state : public pgm_state
+class iq_pgm_012_025 : public iq_pgm
 {
 public:
-	pgm_012_025_state(const machine_config &mconfig, device_type type, const char *tag)
-		: pgm_state(mconfig, type, tag),
+	iq_pgm_012_025(const machine_config &mconfig, device_type type, const char *tag)
+		: iq_pgm(mconfig, type, tag),
 			m_igs025(*this,"igs025")
 	{
 	}
@@ -21,7 +21,7 @@ public:
 
 	void pgm_012_025_drgw2(machine_config &config);
 private:
-	required_device<igs025_device> m_igs025;
+	required_device<iq_igs025> m_igs025;
 
 	void pgm_drgw2_decrypt();
 	void drgw2_mem(address_map &map);

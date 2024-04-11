@@ -1,12 +1,12 @@
 // license:BSD-3-Clause
 // copyright-holders:David Haywood, ElSemi, Xing Xing
-#include "pgm.h"
+#include "iq_pgm.h"
 
-class pgm_arm_type1_state : public pgm_state
+class iq_pgm_arm_type1 : public iq_pgm
 {
 public:
-	pgm_arm_type1_state(const machine_config &mconfig, device_type type, const char *tag)
-		: pgm_state(mconfig, type, tag)
+	iq_pgm_arm_type1(const machine_config &mconfig, device_type type, const char *tag)
+		: iq_pgm(mconfig, type, tag)
 		, m_arm7_shareram(*this, "arm7_shareram")
 		, m_prot(*this, "prot")
 	{
@@ -59,7 +59,7 @@ private:
 	// puzzli2
 	s32 m_puzzli_54_trigger;
 
-	typedef void (pgm_arm_type1_state::*pgm_arm_sim_command_handler)(int pc);
+	typedef void (iq_pgm_arm_type1::*pgm_arm_sim_command_handler)(int pc);
 
 	pgm_arm_sim_command_handler arm_sim_handler{};
 
@@ -101,6 +101,8 @@ private:
 	u16 arm7_type1_sim_protram_r(offs_t offset);
 	u16 pstars_arm7_type1_sim_protram_r(offs_t offset);
 	int m_simregion = 0;
+	int count_bits(u16);
+	int get_position_of_bit(u16, int);
 
 	/* puzzli2 protection internal state stuff */
 	int stage = 0;
@@ -142,15 +144,15 @@ private:
 	void kov_sim_map(address_map &map);
 };
 
-INPUT_PORTS_EXTERN( sango );
-INPUT_PORTS_EXTERN( sango_ch );
-INPUT_PORTS_EXTERN( photoy2k );
-INPUT_PORTS_EXTERN( photoy2kj );
-INPUT_PORTS_EXTERN( oldsplus );
-INPUT_PORTS_EXTERN( pstar );
-INPUT_PORTS_EXTERN( py2k2 );
-INPUT_PORTS_EXTERN( pgm3in1 );
-INPUT_PORTS_EXTERN( puzzli2 );
-INPUT_PORTS_EXTERN( kovsh );
-INPUT_PORTS_EXTERN( ddp3 );
-INPUT_PORTS_EXTERN( espgal );
+INPUT_PORTS_EXTERN( iq_sango );
+INPUT_PORTS_EXTERN( iq_sango_ch );
+INPUT_PORTS_EXTERN( iq_photoy2k );
+INPUT_PORTS_EXTERN( iq_photoy2kj );
+INPUT_PORTS_EXTERN( iq_oldsplus );
+INPUT_PORTS_EXTERN( iq_pstar );
+INPUT_PORTS_EXTERN( iq_py2k2 );
+INPUT_PORTS_EXTERN( iq_pgm3in1 );
+INPUT_PORTS_EXTERN( iq_puzzli2 );
+INPUT_PORTS_EXTERN( iq_kovsh );
+INPUT_PORTS_EXTERN( iq_ddp3 );
+INPUT_PORTS_EXTERN( iq_espgal );

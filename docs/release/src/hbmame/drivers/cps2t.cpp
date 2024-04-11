@@ -6,7 +6,8 @@
 
 //************** AUDIO SAMPLES ******************
 
-const char *const samples_id_l[] = //zero800
+// All samples code (c) Zero800, 2023
+const char *const samples_id_l[] =
 {
 	"*sfz3mix_l",
 	"empty", // 00
@@ -77,7 +78,7 @@ const char *const samples_id_l[] = //zero800
 };
 
 
-const char *const samples_id_r[] = //zero800
+const char *const samples_id_r[] =
 {
 	"*sfz3mix_r",
 	"empty", // 00
@@ -147,7 +148,8 @@ const char *const samples_id_r[] = //zero800
 	0
 };
 
-void cps2_state::qsound_sharedram1_samples_w(offs_t offset, uint16_t data, uint16_t mem_mask) //Zero800 allows you to write and signal when a new song is played
+// This function (c) Zero800, tidied by Robbbert
+void cps2_state::qsound_sharedram1_samples_w(offs_t offset, uint16_t data, uint16_t mem_mask) //allows you to write and signal when a new song is played
 {
 	if (ACCESSING_BITS_0_7)
 	{
@@ -178,17 +180,13 @@ void cps2_state::qsound_sharedram1_samples_w(offs_t offset, uint16_t data, uint1
 				//printf("%s Music: %02x to %x\n", machine().describe_context().c_str(), data_byte, offset);
 				m_samples_l->start(0, data_byte, true);
 				if (m_samples_l->playing(0) == true)
-				{
 					m_qsound_sharedram2[0x27] = 0x00; //Qsound music volume = 0
-				}
 				else
 					m_samples_l->start(0, 0, false); //init L samples
 
 				m_samples_r->start(0, data_byte, true);
 				if (m_samples_r->playing(0)  == true)
-				{
 					m_qsound_sharedram2[0x27] = 0x00; //Qsound music volume = 0
-				}
 				else
 					m_samples_r->start(0, 0, false); //init R samples
 			}
@@ -224,14 +222,14 @@ void cps2_state::qsound_sharedram1_samples_w(offs_t offset, uint16_t data, uint1
 	}
 }
 
-
-void cps2_state::cps2turbo_map(address_map &map) //Zero800
+// (c) Zero800
+void cps2_state::cps2turbo_map(address_map &map)
 {
-	map(0x000000, 0x3fffff).rom(); //+200000 extra                                                  												   // 68000 ROM
+	map(0x000000, 0x3fffff).rom(); //+200000 extra                                                                                    // 68000 ROM
 	map(0x618000, 0x619fff).rw(FUNC(cps2_state::qsound_sharedram1_r), FUNC(cps2_state::qsound_sharedram1_samples_w));                 // Q RAM + Play samples condition
 	map(0x660000, 0x663fff).ram();                                                                                                    // When bit 14 of 0x804030 equals 0 this space is available. Many games store highscores and other info here if available.
 	map(0x664000, 0x664001).ram();                                                                                                    // Unknown - Only used if 0x660000-0x663fff available (could be RAM enable?)
-	map(0x665000, 0x66500b).ram().share("output"); //moved from 0x400000  																   // CPS2 object output			
+	map(0x665000, 0x66500b).ram().share("output"); //moved from 0x400000                                                              // CPS2 object output
 	map(0x700000, 0x701fff).w(FUNC(cps2_state::cps2_objram1_w)).share("objram1");                                                     // Object RAM, no game seems to use it directly
 	map(0x708000, 0x709fff).mirror(0x006000).rw(FUNC(cps2_state::cps2_objram2_r), FUNC(cps2_state::cps2_objram2_w)).share("objram2"); // Object RAM
 	map(0x800100, 0x80013f).w(FUNC(cps2_state::cps1_cps_a_w)).share("cps_a_regs");                                                    // Mirror (sfa)
@@ -258,7 +256,8 @@ void cps2_state::init_sfz3mix()
 	init_cps2();
 }
 
-void cps2_state::cps2turbo(machine_config &config) //Zero800
+// Modified by Zero800
+void cps2_state::cps2turbo(machine_config &config)
 {
 	/* basic machine hardware */
 	M68000(config, m_maincpu, XTAL(32'000'000));
@@ -269,7 +268,7 @@ void cps2_state::cps2turbo(machine_config &config) //Zero800
 
 	Z80(config, m_audiocpu, XTAL(16'000'000));
 	m_audiocpu->set_addrmap(AS_PROGRAM, &cps2_state::qsound_sub_map);
-	m_audiocpu->set_periodic_int(FUNC(cps2_state::irq0_line_hold), attotime::from_hz(250)); // measured
+	m_audiocpu->set_periodic_int(FUNC(cps2_state::irq0_line_hold), attotime::from_hz(250));
 
 	MCFG_MACHINE_START_OVERRIDE(cps2_state, cps2)
 
@@ -308,7 +307,7 @@ void cps2_state::cps2turbo(machine_config &config) //Zero800
 	m_samples_r->add_route(0, "rspeaker", 0.1); 
 }
 
-
+// From here to the end, (c) Robbbert
 ROM_START( sfz3mix20 ) // 0.20
 	ROM_REGION( 0x400000, "maincpu", 0 )
 	ROM_LOAD( "sfz3mix20.p1", 0x000000, 0x400000, CRC(dccaa96e) SHA1(2cb2645997de0de1c5d35b6af45cb203c826a8c1) )
@@ -429,7 +428,7 @@ ROM_START( sfz3mix26 ) // 0.26
 	ROM_IGNORE(0x200000)  // empty
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
-	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(94a13726) SHA1(9c940dfe4e6caf7d24d6740444abc7e44355c5fe) )
+	ROM_LOAD( "sfz3mix26.c1", 0x0000000, 0x2000000, CRC(94a13726) SHA1(9c940dfe4e6caf7d24d6740444abc7e44355c5fe) )
 	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
@@ -442,13 +441,13 @@ ROM_START( sfz3mix26 ) // 0.26
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-ROM_START( sfz3mix ) // 0.27
+ROM_START( sfz3mix27 ) // 0.27
 	ROM_REGION( 0x400000, "maincpu", 0 )
-	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(cc5964b3) SHA1(ca3936c152b7c8d0542f723c48887b3c72447674) )
+	ROM_LOAD( "sfz3mix27.p1", 0x000000, 0x400000, CRC(cc5964b3) SHA1(ca3936c152b7c8d0542f723c48887b3c72447674) )
 	ROM_IGNORE(0x200000)  // empty
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
-	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(94a13726) SHA1(9c940dfe4e6caf7d24d6740444abc7e44355c5fe) )
+	ROM_LOAD( "sfz3mix26.c1", 0x0000000, 0x2000000, CRC(94a13726) SHA1(9c940dfe4e6caf7d24d6740444abc7e44355c5fe) )
 	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
@@ -456,6 +455,25 @@ ROM_START( sfz3mix ) // 0.27
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
 	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+ROM_START( sfz3mix ) // 0.28
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(3a39b20a) SHA1(86de016f23abbbc8220d53fe19e8955138194aa4) ) // 03
+	ROM_IGNORE(0x200000)  // empty
+
+	ROM_REGION( 0x4000000, "gfx", 0 )
+	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(bebc6a92) SHA1(46484d02228bd8566f9c48c067125c364bfdb8d1) ) // 13m
+	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) ) // 21m
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) ) // 01
+
+	ROM_REGION( 0x1000000, "qsound", 0 )
+	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) ) // 11m
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
@@ -469,5 +487,6 @@ GAME( 2023, sfz3mix23,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, RO
 GAME( 2024, sfz3mix24,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sfz3mix25,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sfz3mix26,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sfz3mix27,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.27)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.28)", MACHINE_SUPPORTS_SAVE )
 

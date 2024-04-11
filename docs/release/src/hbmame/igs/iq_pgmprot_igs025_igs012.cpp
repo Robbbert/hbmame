@@ -18,12 +18,12 @@
  ***********************************************************************/
 
 #include "emu.h"
-#include "pgm.h"
-#include "pgmprot_igs025_igs012.h"
+#include "iq_pgm.h"
+#include "iq_pgmprot_igs025_igs012.h"
 
 /* Dragon World 2 */
 
-void pgm_012_025_state::pgm_drgw2_decrypt()
+void iq_pgm_012_025::pgm_drgw2_decrypt()
 {
 	u16 *src = (u16 *) (memregion("maincpu")->base() + 0x100000);
 
@@ -105,9 +105,9 @@ static const u8 drgw2_source_data[0x08][0xec] =
 	{ 0, }  // Region 7, not used
 };
 
-void pgm_012_025_state::drgw2_common_init()
+void iq_pgm_012_025::drgw2_common_init()
 {
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xd80000, 0xd80003, read16sm_delegate(*m_igs025, FUNC(igs025_device::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(igs025_device::drgw2_d80000_protection_w)));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xd80000, 0xd80003, read16sm_delegate(*m_igs025, FUNC(iq_igs025::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(iq_igs025::drgw2_d80000_protection_w)));
 
 	m_igs025->m_kb_source_data = drgw2_source_data;
 
@@ -115,25 +115,25 @@ void pgm_012_025_state::drgw2_common_init()
 	pgm_drgw2_decrypt();
 }
 
-void pgm_012_025_state::drgw2_mem(address_map &map)
+void iq_pgm_012_025::drgw2_mem(address_map &map)
 {
 	pgm_mem(map);
 	map(0x100000, 0x1fffff).bankr("bank1"); /* Game ROM */
 	map(0xd00000, 0xd00fff).noprw(); // Written, but never read back? Related to the protection device? - IGS012?
 }
 
-void pgm_012_025_state::pgm_012_025_drgw2(machine_config &config)
+void iq_pgm_012_025::pgm_012_025_drgw2(machine_config &config)
 {
 	pgmbase(config);
 
-	m_maincpu->set_addrmap(AS_PROGRAM, &pgm_012_025_state::drgw2_mem);
+	m_maincpu->set_addrmap(AS_PROGRAM, &iq_pgm_012_025::drgw2_mem);
 
-	IGS025(config, m_igs025, 0);
+	IQ_IGS025(config, m_igs025, 0);
 	//m_igs025->set_external_cb(FUNC(pgm_022_025_state::igs025_to_igs012_callback), this);
 }
 
 
-void pgm_012_025_state::init_drgw2()
+void iq_pgm_012_025::init_drgw2()
 {
 	/* incomplete? */
 	u16 *mem16 = (u16 *)memregion("maincpu")->base();
@@ -149,7 +149,7 @@ void pgm_012_025_state::init_drgw2()
 	mem16[0x1311ce / 2] = 0x4e93;
 }
 
-void pgm_012_025_state::init_dw2v100x()
+void iq_pgm_012_025::init_dw2v100x()
 {
 	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 
@@ -164,7 +164,7 @@ void pgm_012_025_state::init_dw2v100x()
 	mem16[0x1311ba / 2] = 0x4e93;
 }
 
-void pgm_012_025_state::init_drgw2c()
+void iq_pgm_012_025::init_drgw2c()
 {
 	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 
@@ -179,7 +179,7 @@ void pgm_012_025_state::init_drgw2c()
 	mem16[0x1304f2 / 2] = 0x4e93;
 }
 
-void pgm_012_025_state::init_drgw2c101()
+void iq_pgm_012_025::init_drgw2c101()
 {
 	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 
@@ -194,7 +194,7 @@ void pgm_012_025_state::init_drgw2c101()
 	mem16[0x13081a / 2] = 0x4e93;
 }
 
-void pgm_012_025_state::init_drgw2j()
+void iq_pgm_012_025::init_drgw2j()
 {
 	u16 *mem16 = (u16 *)memregion("maincpu")->base();
 
@@ -209,7 +209,7 @@ void pgm_012_025_state::init_drgw2j()
 	mem16[0x1303f6 / 2] = 0x4e93;
 }
 
-void pgm_012_025_state::init_drgw2hk()
+void iq_pgm_012_025::init_drgw2hk()
 {
 	drgw2_common_init();
 

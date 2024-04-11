@@ -15,8 +15,8 @@
 ************************************************************************/
 
 #include "emu.h"
-#include "pgm.h"
-#include "pgmprot_igs025_igs022.h"
+#include "iq_pgm.h"
+#include "iq_pgmprot_igs025_igs022.h"
 
 /*
  The IGS022 is an MCU which performs encrypted DMA used by:
@@ -31,7 +31,7 @@
 
 // NON-device stuff, game specific, keep here
 
-void pgm_022_025_state::pgm_dw3_decrypt()
+void iq_pgm_022_025::pgm_dw3_decrypt()
 {
 	u16 *src = (u16 *) (memregion("maincpu")->base() + 0x100000);
 
@@ -51,7 +51,7 @@ void pgm_022_025_state::pgm_dw3_decrypt()
 	}
 }
 
-void pgm_022_025_state::pgm_killbld_decrypt()
+void iq_pgm_022_025::pgm_killbld_decrypt()
 {
 	u16 *src = (u16 *) (memregion("maincpu")->base() + 0x100000);
 
@@ -310,56 +310,56 @@ static const u8 dw3_source_data[0x08][0xec] =
 	}
 };
 
-MACHINE_RESET_MEMBER(pgm_022_025_state,killbld)
+MACHINE_RESET_MEMBER(iq_pgm_022_025,killbld)
 {
 	const int region = (ioport(":Region")->read()) & 0xff;
 
 	m_igs025->m_kb_region = region - 0x16;
 	m_igs025->m_kb_game_id = 0x89911400 | region;
 
-	pgm_state::machine_reset();
+	iq_pgm::machine_reset();
 }
 
-MACHINE_RESET_MEMBER(pgm_022_025_state, dw3)
+MACHINE_RESET_MEMBER(iq_pgm_022_025, dw3)
 {
 	const int region = (ioport(":Region")->read()) & 0xff;
 
 	m_igs025->m_kb_region = region;
 	m_igs025->m_kb_game_id = 0x00060000 | region;
 
-	pgm_state::machine_reset();
+	iq_pgm::machine_reset();
 }
 
 
-void pgm_022_025_state::igs025_to_igs022_callback( void )
+void iq_pgm_022_025::igs025_to_igs022_callback( void )
 {
 //  printf("igs025_to_igs022_callback\n");
 	m_igs022->handle_command();
 }
 
 
-void pgm_022_025_state::init_killbld()
+void iq_pgm_022_025::init_killbld()
 {
 	pgm_basic_init();
 	pgm_killbld_decrypt();
 
 	// install and configure protection device(s)
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xd40000, 0xd40003, read16sm_delegate(*m_igs025, FUNC(igs025_device::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(igs025_device::killbld_igs025_prot_w)));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xd40000, 0xd40003, read16sm_delegate(*m_igs025, FUNC(iq_igs025::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(iq_igs025::killbld_igs025_prot_w)));
 	m_igs025->m_kb_source_data = killbld_source_data;
 }
 
-void pgm_022_025_state::init_drgw3()
+void iq_pgm_022_025::init_drgw3()
 {
 	pgm_basic_init();
 	pgm_dw3_decrypt();
 
 	// install and configure protection device(s)
-	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xda5610, 0xda5613, read16sm_delegate(*m_igs025, FUNC(igs025_device::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(igs025_device::killbld_igs025_prot_w)));
+	m_maincpu->space(AS_PROGRAM).install_readwrite_handler(0xda5610, 0xda5613, read16sm_delegate(*m_igs025, FUNC(iq_igs025::killbld_igs025_prot_r)), write16sm_delegate(*m_igs025, FUNC(iq_igs025::killbld_igs025_prot_w)));
 	m_igs025->m_kb_source_data = dw3_source_data;
 }
 
 
-void pgm_022_025_state::killbld_mem(address_map &map)
+void iq_pgm_022_025::killbld_mem(address_map &map)
 {
 	pgm_mem(map);
 	map(0x100000, 0x2fffff).bankr("bank1"); /* Game ROM */
@@ -367,33 +367,33 @@ void pgm_022_025_state::killbld_mem(address_map &map)
 }
 
 
-void pgm_022_025_state::pgm_022_025(machine_config &config)
+void iq_pgm_022_025::pgm_022_025(machine_config &config)
 {
 	pgmbase(config);
 
-	m_maincpu->set_addrmap(AS_PROGRAM, &pgm_022_025_state::killbld_mem);
+	m_maincpu->set_addrmap(AS_PROGRAM, &iq_pgm_022_025::killbld_mem);
 
-	IGS025(config, m_igs025, 0);
-	m_igs025->set_external_cb(FUNC(pgm_022_025_state::igs025_to_igs022_callback));
+	IQ_IGS025(config, m_igs025, 0);
+	m_igs025->set_external_cb(FUNC(iq_pgm_022_025::igs025_to_igs022_callback));
 
-	IGS022(config, m_igs022, 0);
+	IQ_IGS022(config, m_igs022, 0);
 }
 
-void pgm_022_025_state::pgm_022_025_dw3(machine_config &config)
+void iq_pgm_022_025::pgm_022_025_dw3(machine_config &config)
 {
 	pgm_022_025(config);
-	MCFG_MACHINE_RESET_OVERRIDE(pgm_022_025_state, dw3)
+	MCFG_MACHINE_RESET_OVERRIDE(iq_pgm_022_025, dw3)
 }
 
-void pgm_022_025_state::pgm_022_025_killbld(machine_config &config)
+void iq_pgm_022_025::pgm_022_025_killbld(machine_config &config)
 {
 	pgm_022_025(config);
-	MCFG_MACHINE_RESET_OVERRIDE(pgm_022_025_state, killbld)
+	MCFG_MACHINE_RESET_OVERRIDE(iq_pgm_022_025, killbld)
 }
 
 
-INPUT_PORTS_START( killbld )
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_killbld )
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")   /* Region - supplied by protection device */
 	PORT_DIPNAME( 0x00ff, 0x0021, "Region" )
@@ -412,8 +412,8 @@ INPUT_PORTS_START( killbld )
 INPUT_PORTS_END
 
 
-INPUT_PORTS_START( dw3 )
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_dw3 )
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")   /* Region - supplied by protection device */
 	PORT_CONFNAME( 0x000f, 0x0006, DEF_STR( Region ) )
@@ -428,8 +428,8 @@ INPUT_PORTS_START( dw3 )
 INPUT_PORTS_END
 
 
-INPUT_PORTS_START( dw3j ) // for dw3100 set
-	PORT_INCLUDE ( pgm )
+INPUT_PORTS_START( iq_dw3j ) // for dw3100 set
+	PORT_INCLUDE ( iq_pgm )
 
 	PORT_MODIFY("Region")   /* Region - supplied by protection device */
 	PORT_CONFNAME( 0x000f, 0x0001, DEF_STR( Region ) )
