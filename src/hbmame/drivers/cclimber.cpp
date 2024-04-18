@@ -31,6 +31,7 @@ ROM_START( cclimbrm )
 	ROM_LOAD( "cc12",         0x1000, 0x1000, CRC(5da13aaa) SHA1(b2d41e69435d09c456648a10e33f5e1fbb0bc64c) )
 ROM_END
 
+
 // Crazy Kong
 ROM_START( ckong01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -61,6 +62,7 @@ ROM_START( ckong01 )
 	ROM_LOAD( "falcon12",     0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
 ROM_END
 
+
 // Crazy Kong Part II
 ROM_START( ckongpt2s01 )
 	ROM_REGION( 0x6000, "maincpu", 0 )
@@ -85,6 +87,36 @@ ROM_START( ckongpt2s01 )
 	ROM_LOAD( "s01.v6",       0x0000, 0x0020, CRC(fc2b00f0) SHA1(56b6f78324b51ad7ba8a9da49b9f748b1a9a55e3) )
 	ROM_LOAD( "s01.u6",       0x0020, 0x0020, CRC(d488c634) SHA1(2c33cec23528d6eae01ab8207078e256de0f8f36) )
 	ROM_LOAD( "s01.t6",       0x0040, 0x0020, CRC(cccec69c) SHA1(a8681ec247342ea18d3823d6c2475cf3b9fbcfb9) )
+
+	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
+	ROM_LOAD( "14.5s",        0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
+	ROM_LOAD( "13.5p",        0x1000, 0x1000, CRC(9003ffbd) SHA1(fd016056aabc23957643f37230f03842294f795e) )
+ROM_END
+
+
+ROM_START( ckongpt2s02 ) // Sock Master hack of ckongpt2a
+	ROM_REGION( 0x6000, "maincpu", 0 )
+	ROM_LOAD( "7s02.5d",         0x0000, 0x1000, CRC(d75ef02a) SHA1(37c71cd00dfda1339a467a59866301f397a1782f) )
+	ROM_LOAD( "8s02.5e",         0x1000, 0x1000, CRC(345c84d1) SHA1(d154b68fae9f797b4fb093daed0daaed7fb79ebf) )
+	ROM_LOAD( "9s02.5h",         0x2000, 0x1000, CRC(de8c097d) SHA1(72abdc16583d37c013b8438524d45d905ef2c271) )
+	ROM_LOAD( "10s02.dat",       0x3000, 0x1000, CRC(e75efd30) SHA1(6c11c50da307861aaed83ea885616be08d4a7ebd) )
+	ROM_LOAD( "11s02.5l",        0x4000, 0x1000, CRC(31609813) SHA1(19d7f75f2de2a3632a47b45e733495d476090467) )
+	ROM_LOAD( "12s02.5n",        0x5000, 0x1000, CRC(75cb6387) SHA1(6701b3eee6fc44852d1b36ca52e214811171009b) )
+
+	ROM_REGION( 0x4000, "gfx1", 0 )
+	ROM_LOAD( "6.11n",        0x0000, 0x1000, CRC(2dcedd12) SHA1(dfdcfc21bcba7c8e148ee54daae511ca78c58e70) )
+	ROM_LOAD( "5.11l",        0x1000, 0x1000, CRC(fa7cbd91) SHA1(0208d2ebc59f3600005476b6987472685bc99d67) )
+	ROM_LOAD( "4.11k",        0x2000, 0x1000, CRC(3375b3bd) SHA1(a00b3c31cff123aab6ac0833aabfdd663302971a) )
+	ROM_LOAD( "3.11h",        0x3000, 0x1000, CRC(5655cc11) SHA1(5195e9b2a60c54280b48b32ee8248090904dbc51) )
+
+	ROM_REGION( 0x1000, "gfx2", 0 )
+	ROM_LOAD( "2.11c",        0x0000, 0x0800, CRC(d1352c31) SHA1(da726a63a8be830d695afeddc1717749af8c9d47) )
+	ROM_LOAD( "1.11a",        0x0800, 0x0800, CRC(a7a2fdbd) SHA1(529865f8bbfbdbbf34ac39c70ef17e6d5bd0f845) )
+
+	ROM_REGION( 0x0060, "proms", 0 )
+	ROM_LOAD( "prom.v6",      0x0000, 0x0020, CRC(b3fc1505) SHA1(5b94adde0428a26b815c7eb9b3f3716470d349c7) )
+	ROM_LOAD( "prom.u6",      0x0020, 0x0020, CRC(26aada9e) SHA1(f59645e606ea4f0dd0fc4ea47dd03f526c534941) )
+	ROM_LOAD( "prom.t6",      0x0040, 0x0020, CRC(676b3166) SHA1(29b9434cd34d43ea5664e436e2a24b54f8d88aac) )
 
 	ROM_REGION( 0x2000, "cclimber_audio:samples", 0 )
 	ROM_LOAD( "14.5s",        0x0000, 0x1000, CRC(5f0bcdfb) SHA1(7f79bf6de117348f606696ed7ea1937bbf926612) )
@@ -131,5 +163,6 @@ ROM_END
 GAME( 1980, cclimbrm,  cclimber, cclimberx, cclimber, cclimber_state, init_cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
 GAME( 1981, ckong01,   ckong,    cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, ckongpt2s01,ckongpt2, cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Paul Goes", "Crazy Kong Part II with DK colours and graphics", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, ckongpt2s02,ckongpt2, cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "John Kowalski", "Crazy Kong Part II 2023 revision", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, tongypac,  ckong,    cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
 
