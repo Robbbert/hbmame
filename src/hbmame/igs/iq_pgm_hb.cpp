@@ -17381,6 +17381,34 @@ ROM_START( oldsps27 ) //oldsplusnr
 	ROM_LOAD( "igs_w05301b032.u5",   0x400000, 0x400000, CRC(86ec83bc) SHA1(067cb7ec449eacd1f49298f45a364368934db5dd) )
 ROM_END
 
+ROM_START( oldsps28 ) //oldsplus211
+	ROM_REGION( 0x600000, "maincpu", 0 )
+	PGM_68K_BIOS
+	ROM_LOAD16_WORD_SWAP( "v-211cn.u10",  0x100000, 0x400000, CRC(1f78ce71) SHA1(5fda3858853364a61d6be9fcf54f2cf5cad68a9f) )
+
+	ROM_REGION( 0x4000, "prot", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0x800000, "user1", ROMREGION_ERASE00 )
+
+	ROM_REGION( 0xc00000, "tiles", 0 )
+	PGM_VIDEO_BIOS
+	ROM_LOAD( "s28.t05301w064.u2",   0x180000, 0x800000, CRC(bf3db9be) SHA1(c460e9d33f91d30e665dc2747bcf7bd8578c3b5b) )
+
+	ROM_REGION16_LE( 0x2000000, "sprcol", 0 )
+	ROM_LOAD( "s28.a05301.u3",   0x0000000, 0x0800000, CRC(0f456049) SHA1(cb9395f3865132c6d84372560ddd8bb2cab8b22a) )
+	ROM_LOAD( "a05302_pw19.rom",   0x0800000, 0x0800000, CRC(4ed9028c) SHA1(9c4038097b225c331618dbf0dac3fb9d37a25e9f) )
+	ROM_LOAD( "s28.a05303w064.u6",   0x1000000, 0x0800000, CRC(5f75eca2) SHA1(09b1657c8acfe144fc10d12a0607eb347f4e7943) )
+	ROM_LOAD( "s28.a05304w064.u8",   0x1800000, 0x0800000, CRC(bce3d08b) SHA1(129604e52a582e27c0437176475165c0dd4e471b) )
+
+	ROM_REGION16_LE( 0x1000000, "sprmask", 0 )
+	ROM_LOAD( "s28.b05301.u9",   0x0000000, 0x0800000, CRC(1cc7c2b1) SHA1(557a07af4df83789c2524c730060631736d45f8b) )
+	ROM_LOAD( "s28.b05302.u11",   0x0800000, 0x0800000, CRC(25b7a816) SHA1(958c6397674da18b56f3b015a1263196240b8f0b) )
+
+	ROM_REGION( 0x800000, "ics", 0 )
+	PGM_AUDIO_BIOS
+	ROM_LOAD( "s28.w05301b032.u5",   0x400000, 0x400000, CRC(b740b810) SHA1(e2539df0fcce63157586b15f45fb24d0b59fcebc) )
+ROM_END
+
  /********************
  Oriental Legend Plus
 ***********************/
@@ -20617,6 +20645,7 @@ GAME( 2020, oldsps22,    oldsplus,  pgm_arm_type1_sim,   iq_oldsplus, iq_pgm_arm
 GAME( 2020, oldsps24,    oldsplus,  pgm_arm_type1_sim,   iq_oldsplus, iq_pgm_arm_type1, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208, 2020-03-09)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, oldsps26,    oldsplus,  pgm_arm_type1_sim,   iq_oldsplus, iq_pgm_arm_type1, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (New Group Of Dances V215, 2020-06-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, oldsps27,    oldsplus,  pgm_arm_type1_sim,   iq_oldsplus, iq_pgm_arm_type1, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (Xinqun Magic Ranwu 208, 2020-06-09)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, oldsps28,    oldsplus,  pgm_arm_type1_sim,   iq_oldsplus, iq_pgm_arm_type1, init_oldsplus,   ROT0,   "hack", "Oriental Legend 2 (New Revision CN)", MACHINE_SUPPORTS_SAVE )
 // Oriental Legend Plus
 GAME( 1997, orlegend01,  orlegend,  pgm_asic3,           iq_orlegend, iq_pgm_asic3,     init_orlegend,   ROT0,   "Enbrow", "Oriental Legend (Easy Super Moves)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, orlegend02,  orlegend,  pgm_asic3,           iq_orlegend, iq_pgm_asic3,     init_orlegend,   ROT0,   "Creamymami", "Oriental Legend (Meng Hui Ling Shan, 2016-11-04)", MACHINE_SUPPORTS_SAVE )
