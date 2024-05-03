@@ -335,6 +335,7 @@ YEAR COMPANY                          TITLE
 2023 Chips on Steroids                Gladmort (youtube)
 2023 Neofid Studios                   Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
 2024 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
+2024 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
 
 
 *********************************************************************************************************/
