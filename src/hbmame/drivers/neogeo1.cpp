@@ -446,73 +446,6 @@ ROM_START( breakersy )
 ROM_END
 
 
-ROM_START( breakrevb )
-	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "245b.p1", 0x100000, 0x100000, CRC(52c978b5) SHA1(892712457ba8c789b136b35ba423f5260c20b478) )
-	ROM_CONTINUE( 0x000000, 0x100000 )
-
-	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
-
-	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
-	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
-
-	ROM_REGION( 0x1800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
-	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
-	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
-	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
-	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
-	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
-ROM_END
-
-ROM_START( breakrevpp )
-	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "245pp.p1", 0x100000, 0x100000, CRC(a95c1ef2) SHA1(3d46ab9107eb353668711868b78b284e19ae04f6) )
-	ROM_CONTINUE( 0x000000, 0x100000 )
-
-	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
-
-	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
-	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
-
-	ROM_REGION( 0x1800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
-	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
-	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
-	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
-	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
-	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
-ROM_END
-
-ROM_START( breakrevy )
-	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "245y.p1", 0x100000, 0x100000, CRC(bae71481) SHA1(df20a616754fe43706fdf55c7371c832dd23245d) )
-	ROM_CONTINUE( 0x000000, 0x100000 )
-
-	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
-
-	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
-
-	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
-	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
-
-	ROM_REGION( 0x1800000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
-	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
-	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
-	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
-	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
-	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
-ROM_END
-
-
 ROM_START( burningfhp )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "018hp.p1", 0x000000, 0x080000, CRC(da26031b) SHA1(44997a8c313356db48716bb007ab842473805d88) )
@@ -3048,9 +2981,7 @@ GAME( 1990, bjourneypx,    bjourney, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 1996, breakersbh,    breakers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Breakers (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, breakersp,     breakers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers (Move change)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, breakersy,     breakers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "ZKW", "Breakers (Add hidden character)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, breakrevb,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Breakers Revenge (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, breakrevpp,    breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Pipi899", "Breakers Revenge (Enhanced Power, 2009-06-11)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, breakrevy,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "ZKW", "Breakers Revenge (Add hidden character)", MACHINE_SUPPORTS_SAVE )
+
 GAME( 1991, burningfhp,    burningf, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "EEZEZY(LB70)", "Burning Fight (Infinite Time)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1999, ctomadaypx,    ctomaday, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Captain Tomaday (Infinite lives)", MACHINE_SUPPORTS_SAVE )
@@ -3321,7 +3252,7 @@ ROM_START( breakers01 )
 	ROM_LOAD16_BYTE( "230.c4", 0x800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
 ROM_END
 
-ROM_START( breakrevs01 )
+ROM_START( breakrev01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "245s01.p1", 0x100000, 0x100000, CRC(2006eb59) SHA1(3408cf71d4b1f0bfe30bf2656e4600bb509539f9) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -3344,7 +3275,7 @@ ROM_START( breakrevs01 )
 	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
 ROM_END
 
-ROM_START( breakrevs02 )
+ROM_START( breakrev02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "245s02.p1", 0x100000, 0x100000, CRC(db938d1e) SHA1(7e25134d344bf3816e37df320e4ff29d743cea37) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -3366,7 +3297,7 @@ ROM_START( breakrevs02 )
 	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
 ROM_END
 
-ROM_START( breakrevs03 )
+ROM_START( breakrev03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "245s03.p1", 0x100000, 0x100000, CRC(33bde12a) SHA1(9c173e37562e9f6c2f7effef55cb893b6cba7e81) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -3388,7 +3319,7 @@ ROM_START( breakrevs03 )
 	ROM_LOAD16_BYTE( "245s03.c6", 0x1000001, 0x200000, CRC(23c65644) SHA1(9dc74c3075cf0f738b6b41e5e8d89a74a6c9ef07) )
 ROM_END
 
-ROM_START( breakrevs04 )
+ROM_START( breakrev04 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "245s04.p1", 0x100000, 0x100000, CRC(9985631a) SHA1(9d312fc72f6b399c4237cc0937ecf4c8856afff7) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
@@ -3408,6 +3339,94 @@ ROM_START( breakrevs04 )
 	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
 	ROM_LOAD16_BYTE( "245s03.c5", 0x1000000, 0x200000, CRC(28ff1792) SHA1(0cc5c16ac42f52cee74f88235aef0671bee33b4c) )
 	ROM_LOAD16_BYTE( "245s03.c6", 0x1000001, 0x200000, CRC(23c65644) SHA1(9dc74c3075cf0f738b6b41e5e8d89a74a6c9ef07) )
+ROM_END
+
+ROM_START( breakrev05 ) // breakrevb
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "245s05.p1", 0x100000, 0x100000, CRC(52c978b5) SHA1(892712457ba8c789b136b35ba423f5260c20b478) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
+
+	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
+	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
+
+	ROM_REGION( 0x1800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
+	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
+	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
+	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
+	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
+	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
+ROM_END
+
+ROM_START( breakrev06 ) // breakrevpp
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "245s06.p1", 0x100000, 0x100000, CRC(a95c1ef2) SHA1(3d46ab9107eb353668711868b78b284e19ae04f6) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
+
+	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
+	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
+
+	ROM_REGION( 0x1800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
+	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
+	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
+	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
+	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
+	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
+ROM_END
+
+ROM_START( breakrev07 ) // breakrevy
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "245s07.p1", 0x100000, 0x100000, CRC(bae71481) SHA1(df20a616754fe43706fdf55c7371c832dd23245d) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
+
+	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
+	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
+
+	ROM_REGION( 0x1800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
+	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
+	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
+	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
+	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
+	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
+ROM_END
+
+ROM_START( breakrev08 ) // extra
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "245s08.p1", 0x100000, 0x100000, CRC(603b47a4) SHA1(b6000af2bbccddb2ce9d17d2fe01900ac50a9bd5) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "245.s1", CRC(e7660a5d) SHA1(1cd54964ba60b245ea57d9daf0e27b572b815d21) )
+
+	NEO_BIOS_AUDIO_128K( "245.m1", CRC(00f31c66) SHA1(8488598415c9b74bce00e05b31d96e3d1625c20d) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "245.v1", 0x000000, 0x400000, CRC(e255446c) SHA1(b3933340d49d4ba581f3bf1af7ad69d786205790) )
+	ROM_LOAD( "245.v2", 0x400000, 0x400000, CRC(9068198a) SHA1(71819b0475a5e173a2f9a6e4ff19a94655141c3c) )
+
+	ROM_REGION( 0x1800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "245.c1", 0x0000000, 0x400000, CRC(68d4ae76) SHA1(2e820067f6963669f104bebf19e865fe4127b4dd) )
+	ROM_LOAD16_BYTE( "245.c2", 0x0000001, 0x400000, CRC(fdee05cd) SHA1(efc4ffd790953ac7c25d5f045c64a9b49d24b096) )
+	ROM_LOAD16_BYTE( "245.c3", 0x0800000, 0x400000, CRC(645077f3) SHA1(0ae74f3b4b3b88f128c6d8c0f35ffa53f5d67ef2) )
+	ROM_LOAD16_BYTE( "245.c4", 0x0800001, 0x400000, CRC(63aeb74c) SHA1(9ff6930c0c3d79b46b86356e8565ce4fcd69ac38) )
+	ROM_LOAD16_BYTE( "245.c5", 0x1000000, 0x400000, CRC(b5f40e7f) SHA1(b332bac64dbb9a9dd66c5315f47ea08634d36f45) )
+	ROM_LOAD16_BYTE( "245.c6", 0x1000001, 0x400000, CRC(d0337328) SHA1(dff86b75dc283bd4512557a5c64f16e6be6c16e4) )
 ROM_END
 
 /************
@@ -4770,7 +4789,8 @@ ROM_START( wakuwak7s02 ) //wakuwak7l
 	ROM_LOAD16_BYTE( "225.c6", 0x1000001, 0x400000, CRC(0eb11a6d) SHA1(c6d4f978ff3ca190a3060ac52bd7347189194f76) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+
+//    YEAR  NAME            PARENT    MACHINE        INPUT   CLASS         INIT          MONITOR COMPANY                 FULLNAME FLAGS
 // Andro Dunos
 GAME( 2009, androduns01,    androdun, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "pipi899", "Andro Dunos (Ex Super version, 2009-02-10)", MACHINE_SUPPORTS_SAVE )
 // Art of Fighting 2
@@ -4780,16 +4800,20 @@ GAME( 2018, aof2s03,        aof2,     neogeo_noslot, neogeo, neogeo_state, init_
 // Breakers
 GAME( 1996, breakers01,     breakers, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "kawada7278", "Breakers (Mode Easy)", MACHINE_SUPPORTS_SAVE )
 // Breakers Revenge
-GAME( 1998, breakrevs01,    breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "kawada7278", "Breakers Revenge (Mode Easy)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, breakrevs02,    breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers Revenge (Doomsday Heroes Strengthens Lite, 2015-01-13)", MACHINE_SUPPORTS_SAVE )
-GAME( 1998, breakrevs03,    breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers Revenge (Unknown Hack Data)", MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
-GAME( 2018, breakrevs04,    breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers Revenge (Boss With Simple Attack Edition, 2018-07-17)", MACHINE_SUPPORTS_SAVE ) //FBA4ANDROID BAIDU
- // Fight Fever
+GAME( 1998, breakrev01,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "kawada7278", "Breakers Revenge (Mode Easy)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, breakrev02,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers Revenge (Doomsday Heroes Strengthens Lite, 2015-01-13)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, breakrev03,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers Revenge (Unknown Hack Data)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, breakrev04,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Breakers Revenge (Boss With Simple Attack Edition, 2018-07-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, breakrev05,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Breakers Revenge (Enable Hidden Character)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, breakrev06,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Pipi899", "Breakers Revenge (Enhanced Power, 2009-06-11)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, breakrev07,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "ZKW", "Breakers Revenge (Add hidden character)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, breakrev08,     breakrev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "MountainManJed", "Breakers Revenge (Extra)", MACHINE_SUPPORTS_SAVE )
+// Fight Fever
 GAME( 1994, fightfevs01,    fightfev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "yumeji", "Fight Fever (Enable Hidden Characters V1b)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, fightfevs02,    fightfev, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Fight Fever (Fixed Kanji Display Of Some Special Attacks)", MACHINE_SUPPORTS_SAVE )
- // Galaxy Fight
+// Galaxy Fight
 GAME( 1995, galaxyfs01,     galaxyfg, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "yumeji", "Galaxy Fight (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
- // Far East of Eden
+// Far East of Eden
 GAME( 1995, kabukikls01,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids", "Far East of Eden (Hidden Characters Ex-Add Boss Color)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikls02,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eddids", "Far East of Eden (Hidden Characters-Add Boss Color)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikls03,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "yumeji", "Far East of Eden (Enhanced Power V2)", MACHINE_SUPPORTS_SAVE )
@@ -4797,9 +4821,9 @@ GAME( 1995, kabukikls04,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1995, kabukikls05,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Far East of Eden (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikls06,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Far East of Eden (Super Remix Edition 1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, kabukikls07,    kabukikl, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Far East of Eden (Super Remix Edition 1.2)", MACHINE_SUPPORTS_SAVE )
- // Karnov's Revenge
+// Karnov's Revenge
 GAME( 1994, karnovrs01,     karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "yumeji", "Karnov's Revenge (Add hidden characters-Enable Bull v2)", MACHINE_SUPPORTS_SAVE )
- // Kizuna Encounter
+// Kizuna Encounter
 GAME( 1996, kizunas01,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kizunas02,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kizunas03,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v3)", MACHINE_SUPPORTS_SAVE )
@@ -4807,10 +4831,10 @@ GAME( 1996, kizunas04,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1996, kizunas05,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Kizuna Encounter (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, kizunas06,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kizuna Encounter (Arrange Ver. 1.7, 2014-07-16)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, kizunas07,      kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Kizuna Encounter (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
- // Magical Drop III
+// Magical Drop III
 GAME( 2018, magdrop3s01,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "GSC2007", "Magical Drop III (Enable Hidden Characters V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, magdrop3s02,    magdrop3, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "GSC2007/Shyma.X/Gaston90", "Magical Drop III (Remix Edition 1.0, 2018-08-03)", MACHINE_SUPPORTS_SAVE )
- // Matrimelee
+// Matrimelee
 GAME( 2002, matrims01,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrima,   ROT0, "hack", "Matrimelee (Super Plus+)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, matrims02,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrima,   ROT0, "hack", "Matrimelee (Great Blood Temple Simplification, 2015-12-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrims03,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrim,    ROT0, "HappyAsr[EGCG]", "Matrimelee (Enable Hidden Menu)", MACHINE_SUPPORTS_SAVE )
@@ -4819,47 +4843,47 @@ GAME( 2002, matrims05,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2002, matrims06,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrim,    ROT0, "HappyAsr[EGCG]", "Matrimelee (Power Lv 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, matrims07,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrim,    ROT0, "Gaston90", "Matrimelee (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, matrims08,      matrim,   neogeo_noslot, neogeo, neogeo_state, init_matrim,    ROT0, "hack", "Matrimelee (Simplification Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
-  // Money Puzzle Exchanger
+// Money Puzzle Exchanger
 GAME( 1997, miexchngs01,    miexchng, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Shyma.X", "Money Puzzle Exchanger (French, 2002-09-27)", MACHINE_SUPPORTS_SAVE )
- // Neo Bomberman
+// Neo Bomberman
 GAME( 1997, neobombes01,    neobombe, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eezezy(Lb70)", "Neo Bomberman (Ex Super V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, neobombes02,    neobombe, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eezezy(Lb70)", "Neo Bomberman (Ex Super V2)", MACHINE_SUPPORTS_SAVE )
- // Neo-Geo Cup '98
+// Neo-Geo Cup '98
 GAME( 1998, neocup98s01,    neocup98, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Long lived Raleigh", "Neo-Geo Cup '98 (Korean V1a)", MACHINE_SUPPORTS_SAVE )
- // Ninja Master's
+// Ninja Master's
 GAME( 1996, ninjamass01,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG][EGCG]", "Ninja Master's (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamass02,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "007325", "Ninja Master's (Command Change V1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamass03,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "007325", "Ninja Master's (Command Change V2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ninjamass04,    ninjamas, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Ninja Master's (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
- // Nightmare in the Dark
+// Nightmare in the Dark
 GAME( 2000, nitds01,        nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (French V1d)" , MACHINE_SUPPORTS_SAVE ) // Version Mame Neth
 // Prehistoric Isle 2
 GAME( 1999, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
 // Puzzle De Pon
 GAME( 1995, puzzledpk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, puzzldprk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! R (Korean)", MACHINE_SUPPORTS_SAVE )
- // Ragnagard
+// Ragnagard
 GAME( 2009, ragnagrds01,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "lichenzhao", "Ragnagard (Siu Shenquan Technology Unified Simplified V2, 2009-11-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ragnagrds02,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Lichenzhao", "Ragnagard (Super God Boxing Uniform Simplification)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, ragnagrds03,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Ragnagard (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, ragnagrds04,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Ragnagard (Boss With Simple Attack Edition, 2016-02-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, ragnagrds05,    ragnagrd, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Ragnagard (Can choose Lucifer, Eelis and Behemoth, 2013-01-28)", MACHINE_SUPPORTS_SAVE )
- // Strikers 1945 Plus
+// Strikers 1945 Plus
 GAME( 1999, s1945ps01,      s1945p,   neogeo_noslot, neogeo, neogeo_state, init_s1945p,    ROT0, "Gaston90", "Strikers 1945 Plus (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
- // Savage Reign
+// Savage Reign
 GAME( 1995, savageres01,    savagere, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "yumeji", "Savage Reign (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, savageres02,    savagere, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG][EGCG]", "Savage Reign (Unlimited Super Moves)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, savageres03,    savagere, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Big Feng", "Savage Reign (Super kill Command System, 2015-03-20)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, savageres04,    savagere, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Savage Reign (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, savageres05,    savagere, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Savage Reign (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, savageres06,    savagere, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Savage Reign (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
- // Super Dodge Ball
+// Super Dodge Ball
 GAME( 1996, sdodgebs01,     sdodgeb,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "PlayerX", "Super Dodge Ball (Unlock Maou Team)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, sdodgebs02,     sdodgeb,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Super Dodge Ball (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, sdodgebs03,     sdodgeb,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Gaston90", "Super Dodge Ball (Super Remix Edition 1.0)", MACHINE_SUPPORTS_SAVE )
- // Shock Troopers - 2nd Squad
+// Shock Troopers - 2nd Squad
 GAME( 2014, shocktr2s01,    shocktr2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Fight China", "Shock Troopers - 2nd Squad (2014-01-27)", MACHINE_SUPPORTS_SAVE )
- // Waku Waku 7
+// Waku Waku 7
 GAME( 2009, wakuwak7s01,    wakuwak7, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG]", "Waku Waku 7 (Seven Hot Seven Fire Enhanced Version, 2009-03-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, wakuwak7s02,    wakuwak7, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Waku Waku 7 (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 
