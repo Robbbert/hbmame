@@ -7,7 +7,7 @@ jobs:
   build-windows-gcc:
     runs-on: windows-latest
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     defaults:
       run:
