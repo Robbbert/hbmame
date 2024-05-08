@@ -1651,7 +1651,7 @@ void fonsDeleteInternal(FONScontext* stash)
 	if (stash->texData) free(stash->texData);
 	if (stash->scratch) free(stash->scratch);
 	fons__tt_done(stash);
-	free(stash);
+	free(stash); // HBMAME fixed use after free
 }
 
 void fonsSetErrorCallback(FONScontext* stash, void (*callback)(void* uptr, int error, int val), void* uptr)

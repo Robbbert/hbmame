@@ -11,6 +11,7 @@
 #include "pconfig.h"
 
 #include <limits>
+#include <cstdint>   // HBMAME for CI
 #include <string>
 #include <type_traits>
 
