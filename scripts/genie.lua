@@ -1109,6 +1109,7 @@ end
 				buildoptions {
 					"-Wno-error=maybe-uninitialized",
 					"-Wno-error=uninitialized",   -- netlist
+					"-Wno-error=dangling-pointer",  -- lzma -- HBMAME
 				}
 			end
 		end
