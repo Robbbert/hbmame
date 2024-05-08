@@ -24295,3 +24295,44 @@ ROM_END
 // Ketsui Arrange (lots of bugs)
 GAME( 2012, ketarrb,     ket,       pgm_arm_type1_cave,  iq_pgm,      iq_pgm_arm_type1, init_ket,        ROT270, "trap15", "Ketsui: Kizuna Jigoku Tachi (2012-04-17 BACK. VER)", MACHINE_SUPPORTS_SAVE )
 
+
+
+ROM_START( nitd07 ) // nitdsp - Translation Hack by UNKNOWN - (Spanish language hack) - incomplete
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "260s07.p1", 0x000000, 0x080000, CRC(0ab6d623) SHA1(c508e92d0ed3f600dffe41d2f815d16bb377dace) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_512K( "260.m1", CRC(6407c5e5) SHA1(d273e154cc905b63205a17a1a6d419cac3485a92) )
+
+	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "260.c1", 0x0000000, 0x800000, CRC(147b0c7f) SHA1(a647c3a2f6d146ff47521c1d39f58830601f5781) )
+	ROM_LOAD16_BYTE( "260.c2", 0x0000001, 0x800000, CRC(d2b04b0d) SHA1(ce4322e6cfacb627fe997efe81018861e21d3c27) )
+ROM_END
+
+// Job is only half done
+GAME( 2000, nitd07,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_nitd,      ROT0, "hack", "Nightmare in the Dark (Spanish V1a)", MACHINE_SUPPORTS_SAVE )
+
+ROM_START( nitd10 ) // nitdfro2
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "260s10.p1", 0x000000, 0x080000, CRC(8d765cd0) SHA1(696acdd5be849bd0c0836948b6ed52ab1961f0c0) )
+
+	NEO_SFIX_MT_128K
+
+	NEO_BIOS_AUDIO_512K( "260.m1", CRC(6407c5e5) SHA1(d273e154cc905b63205a17a1a6d419cac3485a92) )
+
+	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "260s03.c1", 0x0000000, 0x800000, CRC(250010d5) SHA1(514053c16eb7b3e5879ddf02c422e5e923b0d1e6) )
+	ROM_LOAD16_BYTE( "260s03.c2", 0x0000001, 0x800000, CRC(15c26689) SHA1(c2559da4b6deeb174d780c5526aa40c73ca2f520) )
+ROM_END
+
+// Corrupt characters (eg E in CREDIT)
+GAME( 2000, nitd10,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack", "Nightmare in the Dark (VF: NEO-ARC Traduction)" , MACHINE_SUPPORTS_SAVE )
+
+
