@@ -18,6 +18,7 @@
 
 #include <initializer_list>
 #include <string>
+#include <cstdint>
 #include <type_traits>
 #include <vector>
 #include <memory>
