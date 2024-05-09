@@ -43,6 +43,11 @@ sinvtest1
 sinvtest2
 sinvtest3
 
+@source:aerofgt.cpp
+karatblz                               //parent
+karatblzas01
+karatblzas02
+
 @source:arkanoid.cpp
 arkanoid		//parent
 akblc2dx		/* hack */
@@ -8577,9 +8582,9 @@ suikoenbs01
 
 @source:taitosj.cpp
 alpine                                 //parent
-alpines01
+alpine01
 frontlin                               //parent
-frontlins01
+frontlin01
 
 @source:taito_b.cpp
 pbobble                                //parent
@@ -8590,23 +8595,23 @@ crimecb
 @source:taito_f2.cpp
 f2demo                                 // HB
 cameltry                               //parent
-cameltrys01
+cameltry01
 deadconx                               //parent
-deadconxs01
-dondokod                               //parent
-dondokods01
+deadconx01
 dinorex                                //parent
-dinorexs01
+dinorex01
+dondokod                               //parent
+dondokod01
 gunfront                               //parent
-gunfronts01
+gunfront01
 megablst                               //parent
-megablsts01
+megablst01
 liquidk                                //parent
-mizubaks01
+mizubak01
 growl                                  //parent
-runarks01
+runark01
 thundfox                               //parent
-thundfoxs01
+thundfox01
 
 @source:taito_f3.cpp
 arabianm                               //parent
@@ -8648,51 +8653,51 @@ twinqix                                //parent
 twinqix01
 
 @source:taito_l.cpp
-evilston                               //parent
-evilstonfr
 sokoban                                // HB Sokoban LE by cmonkey
 speccies                               // HB Speccies 2 by Sokurah
 sqij                                   // HB SQIJ by Sokurah
 sqij15                                 // HB SQIJ v1.5 by Sokurah
 tldemo                                 // HB cmonkey
 tldemo2                                // HB cmonkey
-evilstons01
+evilston                               //parent
+evilston01
+evilston02
 kurikint                               //parent
-kurikintjs01
+kurikint01
 plotting                               //parent
-plottingas01
+plotting01
 
 @source:taito_z.cpp
 contcirc                               //parent
-contcircja
+contcirc01
 
 @source:taotaido.cpp
 taotaido                               //parent
-taotaidoas01
+taotaido01
 
 @source:tecmo.cpp
 gemini                                 //parent
-geminit
+gemini01
+gemini02
 rygar                                  //parent
+rygar01
+rygar02
 rygark
-geminis01
-rygarjs01
-rygars01
 silkworm                               //parent
-silkworms01
+silkworm01
 
 @source:tecmo16.cpp
 fstarfrc                               //parent
-fstarfrcc
+fstarfrc01
 
 @source:tecmosys.cpp
 deroon                                 //parent
-deroons01
+deroon01
 tkdensho                               //parent
-tkdenshos01
-tkdenshos02
-tkdenshos03
-tkdenshos04
+tkdensho01
+tkdensho02
+tkdensho03
+tkdensho04
 
 @source:tehkanwc.cpp
 tehkanwc                               //parent
@@ -8733,9 +8738,9 @@ timepltdiag
 
 @source:tmnt.cpp
 ssriders                               //parent
-ssridersaex
-ssriderseaas01
-ssriderseaas02
+ssriders01
+ssriders02
+ssriders03
 tmnt2                                  //parent
 tmnt2s01
 tmnt2s02
@@ -8743,13 +8748,13 @@ tmnt2s03
 
 @source:tnzs.cpp
 drtoppel                               //parent
-drtoppels01
+drtoppel01
 insectx                                //parent
-insectxs01
+insectx01
 
 @source:toaplan1.cpp
 fireshrk                               //parent
-samesamenh	// Trap15
+samesamenh
 
 @source:toaplan2.cpp
 kingdmgp                               //parent
@@ -8787,13 +8792,13 @@ trkftest12tu
 
 @source:twincobr.cpp
 twincobr                               //parent
-twincobrs01
-twincobrs02
+twincobr01
+twincobr02
 
 @source:vamphalf.cpp
 aoh                                    //parent
-aohs01
-aohs02
+aoh01
+aoh02
 
 @source:volfied.cpp
 volfied                                //parent
@@ -8807,11 +8812,6 @@ drmario                                //parent
 drmarios01
 frombelow
 vs_urban
-
-@source:vsystem.cpp
-karatblz                               //parent
-karatblzas01
-karatblzas02
 
 @source:warriorb.cpp
 sagaiav2
@@ -8835,7 +8835,7 @@ conquest
 
 @source:wiz.cpp
 stinger                                //parent
-stingers01
+stinger01
 stinger2s01
 
 @source:wmg.cpp
@@ -8851,15 +8851,15 @@ coh1002m
 coh1000w
 coh3002c
 doapp                                  //parent
-doapph01
-doappnud
+doapp01
+doapp02
 primrag2
 sfex                                   //parent
-sfexs01
+sfex01
 sfex2                                  //parent
 sfex2s01
 sfex2p                                 //parent
-sfex2ps01
+sfex2p01
 sfexp                                  //parent
-sfexps01
+sfexp01
 

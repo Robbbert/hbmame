@@ -2,7 +2,10 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/taitosj.cpp"
 
-ROM_START( alpines01 )
+/************
+ Alpine Ski
+*************/
+ROM_START( alpine01 )
 	ROM_REGION( 0x12000, "maincpu", 0 )
 	ROM_LOAD( "s01.rh16.069",     0x0000, 0x1000, CRC(9d859b68) SHA1(caa672e29a7a3fd595fb3be3cffd2e2f48ddc239) )
 	ROM_LOAD( "s01.rh17.068",     0x1000, 0x1000, CRC(2dfd6b46) SHA1(7d65e87173b6fabbf1525223fea1279923286b38) )
@@ -29,8 +32,7 @@ ROM_END
 /************
  Front Line
 *************/
-
-ROM_START( frontlins01 )
+ROM_START( frontlin01 )
 	ROM_REGION( 0x12000, "maincpu", 0 )
 	ROM_LOAD( "fl69_po01.u69",     0x00000, 0x1000, CRC(2a3500bb) SHA1(2ff28197fc91c57bb8554b0b0eb0136ec7cbd04e) )
 	ROM_LOAD( "fl68_po01.u68",     0x01000, 0x1000, CRC(f2c6a7f9) SHA1(876b52854366b110413ba9875b2ee9f436b0ae78) )
@@ -66,9 +68,9 @@ ROM_START( frontlins01 )
 ROM_END
 
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+/*    YEAR  NAME        PARENT       MACHINE   INPUT     CLASS          INIT          MONITOR  COMPANY    FULLNAME FLAGS */
+// Alpine Ski
+GAME( 1982, alpine01,   alpine,      nomcu,    alpine,   taitosj_state, init_alpine,  ROT270, "hack", "Alpine Ski (Chinese)", MACHINE_SUPPORTS_SAVE )
 // Front Line
-GAME( 1982, frontlins01, frontlin,        mcu,      frontlin, taitosj_state, init_taitosj, ROT270, "hack", "Front Line (Chinese)", MACHINE_SUPPORTS_SAVE )
-
-GAME( 1982, alpines01, alpine, nomcu, alpine, taitosj_state, init_alpine, ROT270, "hack", "Alpine Ski (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1982, frontlin01, frontlin,    mcu,      frontlin, taitosj_state, init_taitosj, ROT270, "hack", "Front Line (Chinese)", MACHINE_SUPPORTS_SAVE )
 

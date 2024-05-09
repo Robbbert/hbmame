@@ -6,7 +6,7 @@
  Deroon DeroDero
 ******************/
 
-ROM_START( deroons01 )  // deroona
+ROM_START( deroon01 )  // deroona
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "t.01", 0x00000, 0x80000, CRC(7ad6c740) SHA1(51be70edf30364919c0d1da4a9bdd16bfbace213) )
 	ROM_LOAD16_BYTE( "t.02", 0x00001, 0x80000, CRC(e44f4430) SHA1(8a4ff12ef3a238694c30516fd7f39ccb4625dae9) )
@@ -44,7 +44,7 @@ ROM_END
  Toukidenshou
 ***************/
 
-ROM_START( tkdenshos01 )
+ROM_START( tkdensho01 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "aeprge-2s01.pal", 0x00000, 0x80000, CRC(56ce787e) SHA1(3fee1acd962246b7f15fc9f578702207836a8e54) )
 	ROM_LOAD16_BYTE( "aeprgo-2s01.pau", 0x00001, 0x80000, CRC(dc0e29f2) SHA1(7234faeda7cc625bf5eb4d75f8524f8dc9b55c6b) )
@@ -86,7 +86,7 @@ ROM_START( tkdenshos01 )
 	ROM_LOAD( "ae500w07.ad1", 0x00000, 0x80000, CRC(3734f92c) SHA1(048555b5aa89eaf983305c439ba08d32b4a1bb80) )
 ROM_END
 
-ROM_START( tkdenshos02 )
+ROM_START( tkdensho02 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "aeprge-2s02.pal", 0x00000, 0x80000, CRC(60f63f74) SHA1(f927b41d74e8fddec3c22746dbf40ce931a26b1b) )
 	ROM_LOAD16_BYTE( "aeprgo-2s02.pau", 0x00001, 0x80000, CRC(85d5a27f) SHA1(b5e47a30dfcce6de8a8e4eccdd6708fa3e4d351c) )
@@ -128,7 +128,7 @@ ROM_START( tkdenshos02 )
 	ROM_LOAD( "ae500w07.ad1", 0x00000, 0x80000, CRC(3734f92c) SHA1(048555b5aa89eaf983305c439ba08d32b4a1bb80) )
 ROM_END
 
-ROM_START( tkdenshos03 )
+ROM_START( tkdensho03 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "aeprge-2s03.pal", 0x00000, 0x80000, CRC(e0c230ab) SHA1(4f7b3952d0d1b31a6a087fc09f7e995baf633cb5) )
 	ROM_LOAD16_BYTE( "aeprgo-2s03.pau", 0x00001, 0x80000, CRC(92af28b0) SHA1(bb768a2105c390c6bb7c5540c64fdc12d81ffabb) )
@@ -170,7 +170,7 @@ ROM_START( tkdenshos03 )
 	ROM_LOAD( "ae500w07.ad1", 0x00000, 0x80000, CRC(3734f92c) SHA1(048555b5aa89eaf983305c439ba08d32b4a1bb80) )
 ROM_END
 
-ROM_START( tkdenshos04 )
+ROM_START( tkdensho04 )
 	ROM_REGION( 0x600000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "aeprge-2s04.pal", 0x00000, 0x80000, CRC(2692bf88) SHA1(52ee2b3f0e5cf8b4f297799f770aaf3d2078ccae) )
 	ROM_LOAD16_BYTE( "aeprgo-2s04.pau", 0x00001, 0x80000, CRC(84364dc9) SHA1(bdd159cd2f787973e1631ded4329127672517d78) )
@@ -214,10 +214,10 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT          MONITOR COMPANY       FULLNAME FLAGS */
 //Toukidenshou
-GAME( 1995, deroons01,    deroon,   tecmosys, tecmosys, tecmosys_state, init_deroon,     ROT0, "bootleg", "Deroon DeroDero (Unknown hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, deroon01,    deroon,   tecmosys, tecmosys, tecmosys_state, init_deroon,     ROT0, "bootleg", "Deroon DeroDero (Unknown hack)", MACHINE_SUPPORTS_SAVE )
 //Toukidenshou
-GAME( 1996, tkdenshos01,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "Yumeji1768", "Toukidenshou (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tkdenshos02,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tkdenshos03,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Easy Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 1996, tkdenshos04,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tkdensho01,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "Yumeji1768", "Toukidenshou (Enable Hidden Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tkdensho02,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tkdensho03,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 1996, tkdensho04,  tkdensho, tecmosys, tecmosys, tecmosys_state, init_tkdensho,   ROT0, "DDJ", "Toukidenshou (Enable Hidden Characters V2)", MACHINE_SUPPORTS_SAVE )
 

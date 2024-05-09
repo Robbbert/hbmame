@@ -6,10 +6,10 @@
  Age Of Heroes
 ****************/
 
-ROM_START( aohs01 )
+ROM_START( aoh01 )
 	ROM_REGION32_BE( 0x400000, "maincpu", ROMREGION_ERASE00 )
 	ROM_LOAD16_WORD_SWAP( "rom1", 0x000000, 0x200000, CRC(2e55ff55) SHA1(b2b7605b87ee609dfbc7c21dfae0ef8d847019f0) )
-	ROM_LOAD16_WORD_SWAP( "rom2_ps01", 0x200000, 0x200000, CRC(68da971c) SHA1(670e3478d009d74772a4ec62e84e9eb8c87ff279) )
+	ROM_LOAD16_WORD_SWAP( "rom2_s01", 0x200000, 0x200000, CRC(68da971c) SHA1(670e3478d009d74772a4ec62e84e9eb8c87ff279) )
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
 	ROM_LOAD32_WORD( "g05", 0x0000002, 0x800000, CRC(64c8f493) SHA1(d487a74c813abbd0a612f8346eed8a7c3ff3e84e) )
@@ -28,9 +28,10 @@ ROM_START( aohs01 )
 	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(bba47755) SHA1(e6eeb5f64eaa88a74536119b731a76921e79f8ff) )
 ROM_END
 
-ROM_START( aohs02 )
+
+ROM_START( aoh02 )
 	ROM_REGION32_BE( 0x400000, "maincpu", ROMREGION_ERASE00 )
-	ROM_LOAD16_WORD_SWAP( "rom1_ps01", 0x000000, 0x200000, CRC(5aeb8253) SHA1(d0ca425a14dd3c13da501bf484c4fa2cf7a55992) )
+	ROM_LOAD16_WORD_SWAP( "rom1_s02", 0x000000, 0x200000, CRC(5aeb8253) SHA1(d0ca425a14dd3c13da501bf484c4fa2cf7a55992) )
 	ROM_LOAD16_WORD_SWAP( "rom2", 0x200000, 0x200000, CRC(50f8a409) SHA1(a8171b7cf59dd01de1e512ab21607b4f330f40b8) )
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
@@ -50,8 +51,9 @@ ROM_START( aohs02 )
 	ROM_LOAD( "rom4", 0x00000, 0x80000, CRC(bba47755) SHA1(e6eeb5f64eaa88a74536119b731a76921e79f8ff) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+
+/*    YEAR  NAME     PARENT  MACHINE  INPUT   CLASS                INIT       MONITOR  COMPANY    FULLNAME FLAGS */
 // Age Of Heroes
-GAME( 2001, aohs01,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (Easy Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2001, aohs02,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (No Need Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, aoh01,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2001, aoh02,   aoh,    aoh,   aoh,      vamphalf_state,      init_aoh,    ROT0,   "DDJ",    "Age Of Heroes - Silkroad 2 (No Need Power)", MACHINE_SUPPORTS_SAVE )
 

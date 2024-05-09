@@ -6,10 +6,10 @@
  Stinger
 **********/
 
-ROM_START( stingers01 )
+ROM_START( stinger01 )
 	ROM_REGION( 0xc000, "maincpu", 0 )
 	ROM_LOAD( "1-5j.bin",     0x0000, 0x2000, CRC(1a2ca600) SHA1(473e89f2c49f6e6f38df5d6fc2267ffecf84c6c8) )
-	ROM_LOAD( "2-6j_ps01.bin",     0x2000, 0x2000, CRC(dd73346b) SHA1(5410b58a137b6168ec3a1a008e3a1fbd37d57096) )
+	ROM_LOAD( "2-6j.s01",     0x2000, 0x2000, CRC(dd73346b) SHA1(5410b58a137b6168ec3a1a008e3a1fbd37d57096) )
 	ROM_LOAD( "3-8j.bin",     0x4000, 0x2000, CRC(404c932e) SHA1(c23eac49e06ff38564062c0e8c8cdadf877f1d6a) )
 	ROM_LOAD( "4-9j.bin",     0x6000, 0x2000, CRC(2d570f91) SHA1(31d54d9fd5254c33f07c605bd6112c7eb53c42a1) )
 	ROM_LOAD( "5-10j.bin",    0x8000, 0x2000, CRC(c841795c) SHA1(e03860813c03ca1c737935accc2b5fe87c6b624a) )
@@ -33,10 +33,11 @@ ROM_START( stingers01 )
 	ROM_LOAD( "stinger.a8",   0x0200, 0x0100, CRC(76b57629) SHA1(836763948753b7fed97c9e5d90a16dc4ba68f42a) )
 ROM_END
 
+
 ROM_START( stinger2s01 )
 	ROM_REGION( 0xc000, "maincpu", 0 )
 	ROM_LOAD( "n1.bin",       0x0000, 0x2000, CRC(f2d2790c) SHA1(0e5e92ef45b5bc27b0818f83c89b3bda0e701403) )
-	ROM_LOAD( "n2_ps01.bin",  0x2000, 0x2000, CRC(17723c86) SHA1(229dd847a58cf0fbd8a3b52c41178636e6ad9425) )
+	ROM_LOAD( "n2.s01",       0x2000, 0x2000, CRC(17723c86) SHA1(229dd847a58cf0fbd8a3b52c41178636e6ad9425) )
 	ROM_LOAD( "n3.bin",       0x4000, 0x2000, CRC(f1794d36) SHA1(7954500f489c0bc58cda8e7ffc2e4474759fdc33) )
 	ROM_LOAD( "n4.bin",       0x6000, 0x2000, CRC(230ba682) SHA1(c419ffebd021d41b3f5021948007fb6bcdb1cdf7) )
 	ROM_LOAD( "n5.bin",       0x8000, 0x2000, CRC(a03a01da) SHA1(28fecac7a821ac4718242919840266a907160df0) )
@@ -60,8 +61,9 @@ ROM_START( stinger2s01 )
 	ROM_LOAD( "stinger.a8",   0x0200, 0x0100, CRC(76b57629) SHA1(836763948753b7fed97c9e5d90a16dc4ba68f42a) )
 ROM_END
 
+
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Stinger
-GAME( 1983, stingers01,  stinger, stinger, stinger,  wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)", MACHINE_SUPPORTS_SAVE )
+GAME( 1983, stinger01,   stinger, stinger, stinger,  wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1983, stinger2s01, stinger, stinger, stinger2, wiz_state, init_stinger, ROT90,  "Wayder", "Stinger (Bug fix - Taxiing Speed)(prototype)", MACHINE_SUPPORTS_SAVE )
 
