@@ -21,7 +21,6 @@ or
 make PTR64=1 TARGET=hbmame SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0 OSD=winui
 ```
 
-For HBMAMEUI, you must use GCC 10.1 - later versions will compile but crash at start.
 
 
 Where can I find out more?

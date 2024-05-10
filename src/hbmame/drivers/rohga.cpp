@@ -6,10 +6,10 @@
  Schmeiser Robo
 ******************/
 
-ROM_START( schmeisrs01 )
+ROM_START( schmeisr01 ) //Description: Press 'Start' to select Celberus
 	ROM_REGION(0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "sr001j_ps01.8a",  0x000000, 0x80000, CRC(a61407c2) SHA1(64a90c95a3fba9d01cfcb55cd562861cdeaa8f7a) )
-	ROM_LOAD16_BYTE( "sr006j_ps01.8d",  0x000001, 0x80000, CRC(64afec76) SHA1(8b9bdb2a3db438b710bcd58980ee0411c0e1ea0a) )
+	ROM_LOAD16_BYTE( "sr001j_s01.8a",  0x000000, 0x80000, CRC(a61407c2) SHA1(64a90c95a3fba9d01cfcb55cd562861cdeaa8f7a) )
+	ROM_LOAD16_BYTE( "sr006j_s01.8d",  0x000001, 0x80000, CRC(64afec76) SHA1(8b9bdb2a3db438b710bcd58980ee0411c0e1ea0a) )
 
 	ROM_REGION(0x10000, "audiocpu", 0 )
 	ROM_LOAD( "sr013.18p",  0x00000,  0x10000,  CRC(4ac00cbb) SHA1(cbc21e13978ae5e8940c8c22932dc424605c0ba4) )
@@ -40,7 +40,7 @@ ROM_START( schmeisrs01 )
 	ROM_LOAD( "hb-00.11p", 0x00000,  0x200,  CRC(b7a7baad) SHA1(39781c3412493b985d3616ac31142fc00bbcddf4) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
+/*    YEAR  NAME         PARENT     MACHINE   INPUT     CLASS        INIT         MONITOR COMPANY                 FULLNAME FLAGS */
 // Schmeiser Robo
-GAME( 1993, schmeisrs01,  schmeisr,  schmeisr, schmeisr, rohga_state, init_schmeisr, ROT0,   "yumeji",  "Schmeiser Robo (Enable Celberus)", MACHINE_SUPPORTS_SAVE ) //Description: Press 'Start' to select Celberus
+GAME( 1993, schmeisr01,  schmeisr,  schmeisr, schmeisr, rohga_state, init_schmeisr, ROT0,   "Yumeji",  "Schmeiser Robo (Enable Celberus)", MACHINE_SUPPORTS_SAVE )
 

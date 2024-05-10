@@ -2,11 +2,11 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/segas32.cpp"
 
-ROM_START( brivals01 )
+ROM_START( brival01 )
 	ROM_REGION( 0x200000, "mainpcb:maincpu", 0 )
 	ROM_LOAD_x8( "epr-15722.ic8",      0x000000, 0x020000, CRC(138141c0) SHA1(aca2a46ee1008e91c65a09e79c76d5175e7df5e8) )
-	ROM_LOAD16_BYTE( "epr-15723_ps01.ic18", 0x100000, 0x080000, CRC(b0b38505) SHA1(93523d8a410e116b556e5c711dff93ed7f1a0827) )
-	ROM_LOAD16_BYTE( "epr-15724_ps01.ic9",  0x100001, 0x080000, CRC(72173a51) SHA1(0e3f80be93ada860ca6b6bb0f2b569479e9fabda) )
+	ROM_LOAD16_BYTE( "epr-15723_s01.ic18", 0x100000, 0x080000, CRC(b0b38505) SHA1(93523d8a410e116b556e5c711dff93ed7f1a0827) )
+	ROM_LOAD16_BYTE( "epr-15724_s01.ic9",  0x100001, 0x080000, CRC(72173a51) SHA1(0e3f80be93ada860ca6b6bb0f2b569479e9fabda) )
 
 	ROM_REGION( 0x400000, "mainpcb:soundcpu", 0 )
 	ROM_LOAD_x8( "epr-15725.ic36", 0x000000, 0x020000, CRC(ea1407d7) SHA1(68b571341f032278e87a38739ba8084b7a6062d3) )
@@ -31,7 +31,7 @@ ROM_END
 
 ROM_START( ga2s01 )
 	ROM_REGION( 0x200000, "mainpcb:maincpu", 0 )
-	ROM_LOAD_x4( "s01.epr-14961b.ic17",        0x000000, 0x020000, CRC(7fdb8847) SHA1(530347a3bce0472c76337eba178539f1d4677d0a) )
+	ROM_LOAD_x4( "epr-14961b_s01.ic17",        0x000000, 0x020000, CRC(7fdb8847) SHA1(530347a3bce0472c76337eba178539f1d4677d0a) )
 	ROM_LOAD_x4( "epr-14958b.ic8",             0x080000, 0x020000, CRC(0be324a3) SHA1(5e5f457548906453eaa8d326c353b47353eab73d) )
 	ROM_LOAD16_BYTE_x2( "s01.epr-15148b.ic18", 0x100000, 0x040000, CRC(1f5229b3) SHA1(3791d9fa73448c44c9596afcf662b7f7b36b91c1) )
 	ROM_LOAD16_BYTE_x2( "s01.epr-15147b.ic9",  0x100001, 0x040000, CRC(af8eb025) SHA1(6c72ca9b6f1c6a5765a645d9850a81fdbd1f6252) )
@@ -60,6 +60,6 @@ ROM_START( ga2s01 )
 ROM_END
 
 
-GAME( 1992, brivals01, brival,  sega_system32_4p,  brival,   segas32_new_state, init_brival,   ROT0, "DDJ", "Burning Rival (Easy Move)", 0 )
+GAME( 1992, brival01,  brival,  sega_system32_4p,  brival,   segas32_new_state, init_brival,   ROT0, "DDJ", "Burning Rival (Easy Move)", 0 )
 GAME( 1992, ga2s01,    ga2,     sega_system32_ga2, ga2,      segas32_new_state, init_ga2,      ROT0, "Sega", "Golden Axe: The Revenge of Death Adder (unprotected)", 0 )
 

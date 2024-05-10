@@ -30,12 +30,12 @@ ROM_START( suprsktr )
 	PALETTE_2C04_0004("ppu1:palette")
 ROM_END
 
-ROM_START( drmarios01 )
+ROM_START( drmario01 )
 	ROM_REGION( 0x10000, "prg", 0 )
-	ROM_LOAD( "dmhc01-uiprg",                  0x00000, 0x10000, CRC(a0c56a2a) SHA1(0aeb5ff1f8c6308f723e88003ea6282914d22121) )
+	ROM_LOAD( "dm_s01-uiprg",                  0x00000, 0x10000, CRC(a0c56a2a) SHA1(0aeb5ff1f8c6308f723e88003ea6282914d22121) )
 
 	ROM_REGION( 0x8000, "gfx1", 0 )
-	ROM_LOAD( "dmhc01-u3chr",                  0x0000, 0x8000, CRC(ac94c651) SHA1(9ac7c97501d915c6f0041de3be421423f5de0448) )
+	ROM_LOAD( "dm_s01-u3chr",                  0x0000, 0x8000, CRC(ac94c651) SHA1(9ac7c97501d915c6f0041de3be421423f5de0448) )
 
 	PALETTE_2C04_0003("ppu1:palette")
 ROM_END
@@ -125,7 +125,7 @@ ROM_END
 
 GAME( 2002, mrio2002,    suprmrio, vsnes, suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Mario Bros. 2002", 0 )
 GAME( 1986, suprsktr,    suprmrio, vsnes, suprmrio,  vsnes_state, init_vsnormal, ROT0, "Nintendo",  "Vs. Super Skater Bros.", 0 )
-GAME( 2002, drmarios01,  drmario,  vsnes, drmario,   vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
+GAME( 2002, drmario01,   drmario,  vsnes, drmario,   vsnes_state, init_drmario,  ROT0, "liujunusa", "Vs. Dr. Mario (Chinese, 2002-10)", 0 )
 GAME( 2020, frombelow,   suprmrio, vsnes, frombelow, vsnes_state, init_vsnormal, ROT0, "Matt Hughson", "Vs. From Below (beta 0.8.0, 2020-12-21)", 0 )
 GAME( 2020, vs_urban,    drmario,  vsnes, vs_urban,  vsnes_state, init_vsnormal, ROT0, "Nintendo", "Vs. Urban Champion", 0 )
 

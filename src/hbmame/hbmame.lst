@@ -8024,12 +8024,12 @@ pooytest2
 
 @source:powerins.cpp
 powerins                               //parent
-powernbr
-powerns01
-powerns02
-powerns03
-powerns04
-powerns05
+powerins01
+powerins02
+powerins03
+powerins04
+powerins05
+powerins06
 
 @source:psikyo.cpp
 tengai                                 //parent
@@ -8360,21 +8360,21 @@ pacplusx
 pheartx
 
 @source:r2dx_v33.cpp
-nzeroteama                             //parent
-nzeroteamas01
+nzeroteam                              //parent
+nzeroteam01
 
 @source:rabbit.cpp
 rabbit                                 //parent
-rabbits01
-rabbits02
-rabbits03
-rabbits04
+rabbit01
+rabbit02
+rabbit03
+rabbit04
 
 @source:raiden2.cpp
 zeroteam                               //parent
-zeroteamcs01
-zeroteamcs02
-zeroteamss01
+zeroteam01
+zeroteam02
+zeroteam03
 
 @source:rallyx.cpp
 rallyx                                 //parent
@@ -8395,7 +8395,7 @@ retofinv4
 
 @source:rohga.cpp
 schmeisr                               //parent
-schmeisrs01
+schmeisr01
 
 @source:schaser.cpp
 schasrcv                               // extra sounds
@@ -8428,10 +8428,10 @@ astrob2h
 
 @source:segas16b.cpp
 altbeast                               //parent
-altbeastfr
-altbeasts01
-altbeasts02
-altbeasts03
+altbeast01
+altbeast02
+altbeast03
+altbeast04
 fantzone01
 
 @source:sagas18.cpp
@@ -8439,13 +8439,13 @@ aquario
 
 @source:segas24.cpp
 gground                                //parent
-ggrounds01
+gground01
 
 @source:segas32.cpp
 ga2                                    //parent
 ga2s01
 brival                                 //parent
-brivals01
+brival01
 
 @source:segaxbd.cpp
 aburner2
@@ -8454,13 +8454,13 @@ aburtest1
 
 @source:seta.cpp
 blandia                                //parent
-blandias01
-blandias02
-blandias03
+blandia01
+blandia02
+blandia03
 msgundam                               //parent
-msgundams01
+msgundam01
 rezon                                  //parent
-rezons01
+rezon01
 
 @source:seta2.cpp
 grdians                                //parent
@@ -8508,7 +8508,7 @@ grdians41
 
 @source:shadfrce.cpp
 shadfrce                               //parent
-shadfrces01
+shadfrce01
 
 @source:sidepckt.cpp
 sidepckt                               //parent
@@ -8516,9 +8516,9 @@ sidepcktb2
 
 @source:silkroad.cpp
 silkroad                               //parent
-silkroads01
-silkroads02
-silkroads03
+silkroad01
+silkroad02
+silkroad03
 
 @source:shaolins.cpp
 kicker                                 //parent
@@ -8536,18 +8536,18 @@ renjuk
 
 @source:snesb.cpp
 sblast2b                               //parent
-sblast2bs01
+sblast2b01
 
 @source:snowbros.cpp
 snowbros                               //parent
-snowbross01
-snowbross02
-snowbross03
-snowbross04
+snowbros01
+snowbros02
+snowbros03
+snowbros04
 
 @source:solomon.cpp
 solomon                                //parent
-solomonjs01
+solomon01
 
 @source:spacmiss.cpp
 spacmissx                              // extra sounds
@@ -8558,7 +8558,7 @@ senctest
 
 @source:ssv.cpp
 survarts                               //parent
-survartss01
+survarts01
 
 @source:system1.cpp
 wbml                                   //parent
@@ -8574,11 +8574,11 @@ sys16dem                               // HB
 @source:stv.cpp
 stvbios                                //bios
 gaxeduel                               //parent
-gaxeduels01
+gaxeduel01
 groovef                                //parent
-groovefs01
+groovef01
 suikoenb                               //parent
-suikoenbs01
+suikoenb01
 
 @source:taitosj.cpp
 alpine                                 //parent
@@ -8809,7 +8809,7 @@ suprmrio                               //parent
 mrio2002                               // Vs. Super Mario Bros. 2002
 suprsktr                               // Vs. Super Skater Bros. - Vs. Super Mario Skaters
 drmario                                //parent
-drmarios01
+drmario01
 frombelow
 vs_urban
 
