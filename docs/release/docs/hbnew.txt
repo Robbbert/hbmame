@@ -14,6 +14,7 @@ New Games
 - [ckongpt2s02]         Crazy Kong Part II 2023 revision
 - [dkong22]             Donkey Kong (hitboxes)
 - [dkong23]             Donkey Kong (hitboxes and sprites)
+- [ffight04]            Final Fight (Framework, 2022-01-25)
 - [gladmortd]           Gladmort (Demo)
 - [karnovr04]           Karnov's Revenge (Revolution v0.1)
 - [kodu04]              The King of Dragons (910910U, Tough Plus, 2021-06-22)
