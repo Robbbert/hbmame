@@ -12,6 +12,8 @@ New Games
 - [dkong23]             Donkey Kong (hitboxes and sprites)
 - [gladmortd]           Gladmort (Demo)
 - [oldsps28]            Oriental Legend 2 (New Revision CN)
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.29) [zero800]
+- [yoyoshkn]            Yo-Yo Shuriken
 
 
 
@@ -32,7 +34,7 @@ New Games
 - [pgmcabal]            Cabal (PGM) [iq_132]
 - [pgmsnake]            PGM test program [iq_132]
 - [sf2ce58]             Street Fighter II' (SrSreet edition)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.28) [zero800]
+- [sfz3mix28]           Street Fighter Zero 3 (Turbo Mix 0.28) [zero800]
 - [ssf2tnl]             Super Street Fighter II Turbo (New Legacy v0.9 beta 2024-04-02)
 
 
