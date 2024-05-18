@@ -13520,12 +13520,12 @@ ROM_START( kodr02 )
 	ROM_LOAD( "kod.key", 0x00, 0x80, CRC(b79ea9b9) SHA1(cefded329a6ccc34d3b68e614c8f3a2c174e3fdd) )
 ROM_END
 
-ROM_START( koduhc01 ) //kodubs
+ROM_START( kodu01 ) //kodubs
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c16hc01.p1", 0x00000, 0x20000, CRC(13dff227) SHA1(037dac8b10ee83fb28b745035f66d78f9aa6d304) )
-	ROM_LOAD16_BYTE( "c16hc01.p2", 0x00001, 0x20000, CRC(007d6dd9) SHA1(b83a627446d06a9715f39e16ef3bc79484f892f4) )
-	ROM_LOAD16_BYTE( "c16hc01.p3", 0x40000, 0x20000, CRC(3b89dd96) SHA1(cd457b9148466c4032c006bf655155099a2a610d) )
-	ROM_LOAD16_BYTE( "c16hc01.p4", 0x40001, 0x20000, CRC(3eceba92) SHA1(7ba31470ceb91ad644ea97f1fe740f62a9bae27f) )
+	ROM_LOAD16_BYTE( "c16s01.p1", 0x00000, 0x20000, CRC(13dff227) SHA1(037dac8b10ee83fb28b745035f66d78f9aa6d304) )
+	ROM_LOAD16_BYTE( "c16s01.p2", 0x00001, 0x20000, CRC(007d6dd9) SHA1(b83a627446d06a9715f39e16ef3bc79484f892f4) )
+	ROM_LOAD16_BYTE( "c16s01.p3", 0x40000, 0x20000, CRC(3b89dd96) SHA1(cd457b9148466c4032c006bf655155099a2a610d) )
+	ROM_LOAD16_BYTE( "c16s01.p4", 0x40001, 0x20000, CRC(3eceba92) SHA1(7ba31470ceb91ad644ea97f1fe740f62a9bae27f) )
 	ROM_LOAD16_BYTE( "c16.p5",  0x80000, 0x20000, CRC(9367bcd9) SHA1(8243b4b9bb9756f3fa726717e19a166cb2f5b50a) )
 	ROM_LOAD16_BYTE( "c16.p6",  0x80001, 0x20000, CRC(4ca6a48a) SHA1(9d440ecd8d2d0e293fecf64ca3915252b94e7aef) )
 	ROM_LOAD16_BYTE( "c16.p7",  0xc0000, 0x20000, CRC(0360fa72) SHA1(274769c8717a874397cf37369e3ef80a682d9ef2) )
@@ -13553,11 +13553,11 @@ ROM_START( koduhc01 ) //kodubs
 	ROM_LOAD( "kod.key", 0x00, 0x80, CRC(b79ea9b9) SHA1(cefded329a6ccc34d3b68e614c8f3a2c174e3fdd) )
 ROM_END
 
-ROM_START( koduhc02 )
+ROM_START( kodu02 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c16u.p1", 0x00000, 0x20000, CRC(825817f9) SHA1(250f61effcbe59f8b70baaf26eb8aef419fed66b) )
 	ROM_LOAD16_BYTE( "c16u.p2", 0x00001, 0x20000, CRC(d2422dfb) SHA1(6e369a62012f3c480755b700d4d4f4c112c79483) )
-	ROM_LOAD16_BYTE( "c16hc02.p3", 0x40000, 0x20000, CRC(34c88772) SHA1(bca40728fa00feeb18d4bd17b2a6459bd42b1bda) )
+	ROM_LOAD16_BYTE( "c16s02.p3", 0x40000, 0x20000, CRC(34c88772) SHA1(bca40728fa00feeb18d4bd17b2a6459bd42b1bda) )
 	ROM_LOAD16_BYTE( "c16u.p4", 0x40001, 0x20000, CRC(be8405a1) SHA1(8d4f9a0489dc4b2971b20170713284151bc10eb7) )
 	ROM_LOAD16_BYTE( "c16.p5",  0x80000, 0x20000, CRC(9367bcd9) SHA1(8243b4b9bb9756f3fa726717e19a166cb2f5b50a) )
 	ROM_LOAD16_BYTE( "c16.p6",  0x80001, 0x20000, CRC(4ca6a48a) SHA1(9d440ecd8d2d0e293fecf64ca3915252b94e7aef) )
@@ -13586,12 +13586,45 @@ ROM_START( koduhc02 )
 	ROM_LOAD( "kod.key", 0x00, 0x80, CRC(b79ea9b9) SHA1(cefded329a6ccc34d3b68e614c8f3a2c174e3fdd) )
 ROM_END
 
-ROM_START( koduhc03 ) //kodudw
+ROM_START( kodu03 ) //kodudw
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "c16hc03.p1", 0x00000, 0x20000, CRC(ddfa159a) SHA1(0ae384f4616aa9671543e3b6d1e4804d0d9cf840) )
-	ROM_LOAD16_BYTE( "c16hc03.p2", 0x00001, 0x20000, CRC(3c8b145a) SHA1(ff3e2bb8bcb59735d07ca1caab162e98d536f124) )
-	ROM_LOAD16_BYTE( "c16hc03.p3", 0x40000, 0x20000, CRC(21b985cb) SHA1(60c90455314cff5c614b9591f802be3193b254fe) )
-	ROM_LOAD16_BYTE( "c16hc03.p4", 0x40001, 0x20000, CRC(fd6c6a53) SHA1(77d54080053021d75c1bb571d3673a131baab770) )
+	ROM_LOAD16_BYTE( "c16s03.p1", 0x00000, 0x20000, CRC(ddfa159a) SHA1(0ae384f4616aa9671543e3b6d1e4804d0d9cf840) )
+	ROM_LOAD16_BYTE( "c16s03.p2", 0x00001, 0x20000, CRC(3c8b145a) SHA1(ff3e2bb8bcb59735d07ca1caab162e98d536f124) )
+	ROM_LOAD16_BYTE( "c16s03.p3", 0x40000, 0x20000, CRC(21b985cb) SHA1(60c90455314cff5c614b9591f802be3193b254fe) )
+	ROM_LOAD16_BYTE( "c16s03.p4", 0x40001, 0x20000, CRC(fd6c6a53) SHA1(77d54080053021d75c1bb571d3673a131baab770) )
+	ROM_LOAD16_BYTE( "c16.p5",  0x80000, 0x20000, CRC(9367bcd9) SHA1(8243b4b9bb9756f3fa726717e19a166cb2f5b50a) )
+	ROM_LOAD16_BYTE( "c16.p6",  0x80001, 0x20000, CRC(4ca6a48a) SHA1(9d440ecd8d2d0e293fecf64ca3915252b94e7aef) )
+	ROM_LOAD16_BYTE( "c16.p7",  0xc0000, 0x20000, CRC(0360fa72) SHA1(274769c8717a874397cf37369e3ef80a682d9ef2) )
+	ROM_LOAD16_BYTE( "c16.p8",  0xc0001, 0x20000, CRC(95a3cef8) SHA1(9b75c1ed0eafacc230197ffd9b81e0c8f4f2c464) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c16.c01", 0x000000, 0x80000, CRC(e45b8701) SHA1(604e39e455e81695ee4f899f102d0bcd789cedd0) )
+	ROM_LOAD64_WORD( "c16.c03", 0x000002, 0x80000, CRC(a7750322) SHA1(3c583496a53cd64edf377db35f7f40f02b59b7e7) )
+	ROM_LOAD64_WORD( "c16.c05", 0x000004, 0x80000, CRC(5f74bf78) SHA1(b7c43eea9bf77a0fb571dcd53f8be719e6655fd9) )
+	ROM_LOAD64_WORD( "c16.c07", 0x000006, 0x80000, CRC(5e5303bf) SHA1(d9f90b898ffdf4398b2bbeb48247f06f728e7c00) )
+	ROM_LOAD64_WORD( "c16.c17", 0x200000, 0x80000, CRC(113358f3) SHA1(9d98eafa74a046f65bf3847fe1d88ea1b0c82b0c) )
+	ROM_LOAD64_WORD( "c16.c19", 0x200002, 0x80000, CRC(38853c44) SHA1(a6e552fb0138a76a7878b90d202904e2b44ae7ec) )
+	ROM_LOAD64_WORD( "c16.c21", 0x200004, 0x80000, CRC(9ef36604) SHA1(b42ca0a910b65e1e7bb6e7d734e853ce67e821bf) )
+	ROM_LOAD64_WORD( "c16.c23", 0x200006, 0x80000, CRC(402b9b4f) SHA1(4c11976976eadf1ad293b31b0a4d047d05032b06) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c16.m1",   0x00000, 0x08000, CRC(bac6ec26) SHA1(6cbb6d55660150ae3f5270e023328275ee1bbf50) )
+	ROM_CONTINUE(         0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c16.v1",   0x00000, 0x20000, CRC(4c63181d) SHA1(270f27534a95cb0be3ff3f9ca71c502320d8090b) )
+	ROM_LOAD( "c16.v2",   0x20000, 0x20000, CRC(92941b80) SHA1(5fa7c2793e6febee54a83042d118ddd4f2b7d127) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "kod.key", 0x00, 0x80, CRC(b79ea9b9) SHA1(cefded329a6ccc34d3b68e614c8f3a2c174e3fdd) )
+ROM_END
+
+ROM_START( kodu04 ) //kodly, kodhc03
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "c16s04.p1", 0x00000, 0x20000, CRC(1de154ff) SHA1(cf4812adfa6e38f53d1cbf7ef898571aa2505149) )
+	ROM_LOAD16_BYTE( "c16s04.p2", 0x00001, 0x20000, CRC(225e422b) SHA1(bb3e44f3064c574fb8ea609c83623aeed884ba7b) )
+	ROM_LOAD16_BYTE( "c16s04.p3", 0x40000, 0x20000, CRC(4e5ac22a) SHA1(6fe3bcf57f75b4d68abaa57e6736a5bb21950aac) )
+	ROM_LOAD16_BYTE( "c16s04.p4", 0x40001, 0x20000, CRC(d402b86a) SHA1(146f2711ee427cdfe6487b88274f8090bfac029c) )
 	ROM_LOAD16_BYTE( "c16.p5",  0x80000, 0x20000, CRC(9367bcd9) SHA1(8243b4b9bb9756f3fa726717e19a166cb2f5b50a) )
 	ROM_LOAD16_BYTE( "c16.p6",  0x80001, 0x20000, CRC(4ca6a48a) SHA1(9d440ecd8d2d0e293fecf64ca3915252b94e7aef) )
 	ROM_LOAD16_BYTE( "c16.p7",  0xc0000, 0x20000, CRC(0360fa72) SHA1(274769c8717a874397cf37369e3ef80a682d9ef2) )
@@ -28322,11 +28355,12 @@ GAME( 1990, ffightjk,      ffight,   cps1_10MHz, ffight,   cps_state, init_cps1,
 GAME( 2017, forgottnsf2,   forgottn, forgottn,   forgottn, cps_state, init_cps1,     ROT0, "Arcadefixer", "Forgotten Worlds (SF2 conversion)", MACHINE_SUPPORTS_SAVE )
 // The King of Dragons
 GAME( 1991, kodjk,         kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (910805, Korea)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (Bootleg)(ETC 910711)", MACHINE_SUPPORTS_SAVE )
-GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (Remix Special)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, koduhc01,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Boss Battle Edition, 2015-05-25)", MACHINE_SUPPORTS_SAVE )
-GAME( 1991, koduhc02,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (3 Player Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, koduhc03,      kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (Boss Battle Edition, 2015-05-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kodr01,        kod,      cps1_10MHz, kodr01,   cps_state, init_cps1,     ROT0, "Wangy2", "The King of Dragons (910711ETC, Bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2002, kodr02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "Bonusjz", "The King of Dragons (910711ETC, Remix Special)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kodu01,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (910910U, Boss Battle Edition, 2015-05-25)", MACHINE_SUPPORTS_SAVE )
+GAME( 1991, kodu02,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (910910U, 3 Player Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, kodu03,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "hack", "The King of Dragons (910910U, Boss Battle Edition, 2015-05-24)", MACHINE_SUPPORTS_SAVE )
+GAME( 2021, kodu04,        kod,      cps1_10MHz, kod,      cps_state, init_cps1,     ROT0, "GOTVG", "The King of Dragons (910910U, Tough Plus, 2021-06-22)", MACHINE_SUPPORTS_SAVE )
 // Knights of the Round
 GAME( 1991, knightsk,      knights,  cps1_10MHz, knights02,cps_state, init_cps1,     ROT0, "hack", "Knights of the Round (911127, Korea)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2011, knights01,     knights,  cps1_10MHz, knights,  cps_state, init_cps1,     ROT0, "RockyWall", "Knights of the Round (Stepping Value And Treasure Display Ver 2.1, 2011-07-12)", MACHINE_SUPPORTS_SAVE )
