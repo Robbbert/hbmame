@@ -12,13 +12,13 @@ How to compile
 ==============
 
 ```
-make PTR64=1 TARGET=hbmame SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0
+make TARGET=hbmame SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0
 ```
 
 or
 
 ```
-make PTR64=1 TARGET=hbmame SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0 OSD=winui
+make TARGET=hbmame OSD=winui SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0
 ```
 
 
@@ -26,15 +26,18 @@ make PTR64=1 TARGET=hbmame SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0 OSD=winui
 Where can I find out more?
 ==========================
 
-* [Official HBMAME site](http://hbmame.1emulation.com/)
-* [Forum](http://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame) (bug reports go here too)
+* [Official HBMAME site] http://hbmame.1emulation.com/
+* [Forum] https://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame (bug reports go here too)
+* [Forum] https://www.1emulation.com/forums/forum/125-mameui/
 
 
 Licensing Information
 =====================
 
+The primary license is GPL_2.0 : https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+
 Information about the MAME content can be found at https://github.com/mamedev/mame/blob/master/README.md
 
-Information about the MAME license can be found in COPYING
+Information about the license can be found in COPYING
 
 Information about the WINUI portion can be found at https://github.com/Robbbert/mameui/blob/master/docs/winui_license.txt

@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders: same as cps2.cpp, plus Zero800
 /*******************************************************************************/
 

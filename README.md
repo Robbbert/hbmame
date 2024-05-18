@@ -26,12 +26,15 @@ make TARGET=hbmame OSD=winui SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0
 Where can I find out more?
 ==========================
 
-* [Official HBMAME site](http://hbmame.1emulation.com/)
-* [Forum](http://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame) (bug reports go here too)
+* [Official HBMAME site] http://hbmame.1emulation.com/
+* [Forum] https://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame (bug reports go here too)
+* [Forum] https://www.1emulation.com/forums/forum/125-mameui/
 
 
 Licensing Information
 =====================
+
+The primary license is GPL_2.0 : https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
 Information about the MAME content can be found at https://github.com/mamedev/mame/blob/master/README.md
 

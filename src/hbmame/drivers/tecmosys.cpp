@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// Copyright-holders:Gaston90
+// license:GPL_2.0
+// Copyright-holders:Robbbert
 #include "../mame/drivers/tecmosys.cpp"
 
 /****************

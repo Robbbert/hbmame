@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 // Miscellaneous King of Fighters games
 // kog, cthd, kof2k4, kof10th etc

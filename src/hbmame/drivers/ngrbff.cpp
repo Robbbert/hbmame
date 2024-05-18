@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 // Fatal Fury 1,2,3,special ; Real Bout Fatal Fury 1,2,special
 

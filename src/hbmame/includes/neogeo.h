@@ -1,11 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Bryan McPhail,Ernesto Corvi,Andrew Prime,Zsolt Vasvari
 // thanks-to:Fuzz
-/*************************************************************************
-
-    Neo-Geo hardware
-
-*************************************************************************/
 
 #include "emu.h"
 #include "cpu/m68000/m68000.h"
