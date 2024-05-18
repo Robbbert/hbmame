@@ -12,6 +12,7 @@ New Games
 - [dkong23]             Donkey Kong (hitboxes and sprites)
 - [gladmortd]           Gladmort (Demo)
 - [oldsps28]            Oriental Legend 2 (New Revision CN)
+- [sfa2s11]             Street Fighter Alpha 2 (960430U, Ultra Edition)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.29) [zero800]
 - [yoyoshkn]            Yo-Yo Shuriken
 
