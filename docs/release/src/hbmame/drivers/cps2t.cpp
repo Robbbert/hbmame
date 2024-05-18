@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders: same as cps2.cpp, plus Zero800
 /*******************************************************************************/
 
@@ -372,13 +372,13 @@ ROM_START( sfz3mix23 ) // 0.23
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
 	ROM_LOAD( "sfz3mix23.c1", 0x0000000, 0x2000000, CRC(09f422ed) SHA1(6e85264c8871f3f12360c82baf9e939137cbb919) )
-	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
+	ROM_LOAD( "sfz3mix23.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
+	ROM_LOAD( "sfz3mix23.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
-	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
+	ROM_LOAD( "sfz3mix23.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
@@ -391,13 +391,13 @@ ROM_START( sfz3mix24 ) // 0.24
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
 	ROM_LOAD( "sfz3mix24.c1", 0x0000000, 0x2000000, CRC(ef7f2d3f) SHA1(0ac73c75c75210f36ed1dba11f0be1e513f88378) )
-	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
+	ROM_LOAD( "sfz3mix23.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
+	ROM_LOAD( "sfz3mix23.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
-	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
+	ROM_LOAD( "sfz3mix23.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
@@ -410,13 +410,13 @@ ROM_START( sfz3mix25 ) // 0.25
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
 	ROM_LOAD( "sfz3mix24.c1", 0x0000000, 0x2000000, CRC(ef7f2d3f) SHA1(0ac73c75c75210f36ed1dba11f0be1e513f88378) )
-	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
+	ROM_LOAD( "sfz3mix23.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
+	ROM_LOAD( "sfz3mix23.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
-	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
+	ROM_LOAD( "sfz3mix23.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
@@ -429,13 +429,13 @@ ROM_START( sfz3mix26 ) // 0.26
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
 	ROM_LOAD( "sfz3mix26.c1", 0x0000000, 0x2000000, CRC(94a13726) SHA1(9c940dfe4e6caf7d24d6740444abc7e44355c5fe) )
-	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
+	ROM_LOAD( "sfz3mix23.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
+	ROM_LOAD( "sfz3mix23.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
-	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
+	ROM_LOAD( "sfz3mix23.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
@@ -448,37 +448,55 @@ ROM_START( sfz3mix27 ) // 0.27
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
 	ROM_LOAD( "sfz3mix26.c1", 0x0000000, 0x2000000, CRC(94a13726) SHA1(9c940dfe4e6caf7d24d6740444abc7e44355c5fe) )
-	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
+	ROM_LOAD( "sfz3mix23.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
+	ROM_LOAD( "sfz3mix23.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) )
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
-	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
+	ROM_LOAD( "sfz3mix23.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) )
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-ROM_START( sfz3mix ) // 0.28
+ROM_START( sfz3mix28 ) // 0.28
 	ROM_REGION( 0x400000, "maincpu", 0 )
-	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(3a39b20a) SHA1(86de016f23abbbc8220d53fe19e8955138194aa4) ) // 03
+	ROM_LOAD( "sfz3mix28.p1", 0x000000, 0x400000, CRC(3a39b20a) SHA1(86de016f23abbbc8220d53fe19e8955138194aa4) ) // 03
 	ROM_IGNORE(0x200000)  // empty
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
-	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(bebc6a92) SHA1(46484d02228bd8566f9c48c067125c364bfdb8d1) ) // 13m
-	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) ) // 21m
+	ROM_LOAD( "sfz3mix28.c1", 0x0000000, 0x2000000, CRC(bebc6a92) SHA1(46484d02228bd8566f9c48c067125c364bfdb8d1) ) // 13m
+	ROM_LOAD( "sfz3mix23.c2", 0x2000000, 0x2000000, CRC(cbc02909) SHA1(a3bcf2f7a2d4139024790d55e4ab5a156b36e6e3) ) // 21m
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) ) // 01
+	ROM_LOAD( "sfz3mix23.m1", 0x000000, 0x080000, CRC(c6322d7b) SHA1(0530f0d7c248180478ff588397263d961b8c5c8b) ) // 01
 
 	ROM_REGION( 0x1000000, "qsound", 0 )
-	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) ) // 11m
+	ROM_LOAD( "sfz3mix23.q1",   0x000000, 0x1000000, CRC(180cbe91) SHA1(182b56517606f8a9bde0f643fcc3b164f18136f7) ) // 11m
 
 	ROM_REGION( 0x20, "key", 0 )
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
+ROM_START( sfz3mix ) // 0.29
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(ac780a3b) SHA1(8a387233720098bc572da56753cdb9df742c3d20) ) // 03
+	ROM_IGNORE(0x200000)  // empty
+
+	ROM_REGION( 0x4000000, "gfx", 0 )
+	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(af3980f7) SHA1(3cb13fc3eb1845e2606e05e0d765326b1dcb8cd4) ) // 13m
+	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(1d9ae703) SHA1(38f2b7c958c7330b382a7ab9e77c8ac6b1aed4d2) ) // 21m
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(727fd776) SHA1(25e6248c1202bed684f50caa149dd22aff2376b5) ) // 01
+
+	ROM_REGION( 0x1000000, "qsound", 0 )
+	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(5d4fe046) SHA1(5e5c55f4d12cd91eb1191bf214babd05ce4fcb3f) ) // 11m
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
 
 GAME( 2023, sfz3mix20,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.20)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, sfz3mix21,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.21)", MACHINE_SUPPORTS_SAVE )
@@ -488,5 +506,6 @@ GAME( 2024, sfz3mix24,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, RO
 GAME( 2024, sfz3mix25,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.25)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sfz3mix26,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sfz3mix27,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.27)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sfz3mix28,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.29)", MACHINE_SUPPORTS_SAVE )
 

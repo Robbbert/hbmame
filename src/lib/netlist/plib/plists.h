@@ -80,7 +80,7 @@ namespace plib {
 		constexpr const_iterator cend() const noexcept { return reinterpret_cast<const_iterator>(&m_buf[0] + N); }
 
 	private:
-		std::array<typename std::aligned_storage<sizeof(C), alignof(C)>::type, N> m_buf;
+		std::array<typename std::aligned_storage<sizeof(C), alignof(C)>::type, N> m_buf = { };
 	};
 
 	/// \brief fixed allocation vector

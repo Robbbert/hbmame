@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 /*
 Local numbering scheme: I made this up as a convenience - it is NOT OFFICIAL

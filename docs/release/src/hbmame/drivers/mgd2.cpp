@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 /* These sets were dumped with the Mega Game Doctor 2
    They are reputed to be bad dumps although I have not observed any problems.

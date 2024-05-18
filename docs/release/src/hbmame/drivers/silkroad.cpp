@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/silkroad.cpp"
 
@@ -6,10 +6,10 @@
  The Legend of Silkroad
 ************************/
 
-ROM_START( silkroads01 )
+ROM_START( silkroad01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD32_WORD_SWAP( "rom02_ps01.bin", 0x000000, 0x100000, CRC(32b93674) SHA1(eaa1dd00b561b32e0897c55c760318a8ddc75164) )
-	ROM_LOAD32_WORD_SWAP( "rom03_ps01.bin", 0x000002, 0x100000, CRC(2cdc10a4) SHA1(7b902487073265ed55a68758d8f01e4b78b1b8dd) )
+	ROM_LOAD32_WORD_SWAP( "rom02.s01", 0x000000, 0x100000, CRC(32b93674) SHA1(eaa1dd00b561b32e0897c55c760318a8ddc75164) )
+	ROM_LOAD32_WORD_SWAP( "rom03.s01", 0x000002, 0x100000, CRC(2cdc10a4) SHA1(7b902487073265ed55a68758d8f01e4b78b1b8dd) )
 
 	ROM_REGION( 0x1800000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "rom12.rom12", 0x0000000, 0x0200000, CRC(96393d04) SHA1(f512bb8603510d39e649f4ec1c5e2d0e4bf3a2cc) )
@@ -35,10 +35,10 @@ ROM_START( silkroads01 )
 	ROM_LOAD( "rom01.bin", 0x000000, 0x040000, CRC(db8cb455) SHA1(6723b4018208d554bd1bf1e0640b72d2f4f47302) )
 ROM_END
 
-ROM_START( silkroads02 )
+ROM_START( silkroad02 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD32_WORD_SWAP( "rom02_ps02.bin", 0x000000, 0x100000, CRC(a4fea2c0) SHA1(0acd17bce5f62ff374dfa07ecdaed851d71e58bf) )
-	ROM_LOAD32_WORD_SWAP( "rom03_ps02.bin", 0x000002, 0x100000, CRC(a4318e7b) SHA1(01dc82bdc421031c13c2b08b8c79457c5d1d644c) )
+	ROM_LOAD32_WORD_SWAP( "rom02.s02", 0x000000, 0x100000, CRC(a4fea2c0) SHA1(0acd17bce5f62ff374dfa07ecdaed851d71e58bf) )
+	ROM_LOAD32_WORD_SWAP( "rom03.s02", 0x000002, 0x100000, CRC(a4318e7b) SHA1(01dc82bdc421031c13c2b08b8c79457c5d1d644c) )
 
 	ROM_REGION( 0x1800000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "rom12.rom12", 0x0000000, 0x0200000, CRC(96393d04) SHA1(f512bb8603510d39e649f4ec1c5e2d0e4bf3a2cc) )
@@ -64,10 +64,10 @@ ROM_START( silkroads02 )
 	ROM_LOAD( "rom01.bin", 0x000000, 0x040000, CRC(db8cb455) SHA1(6723b4018208d554bd1bf1e0640b72d2f4f47302) )
 ROM_END
 
-ROM_START( silkroads03 )
+ROM_START( silkroad03 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD32_WORD_SWAP( "rom02_ps03.bin", 0x000000, 0x100000, CRC(d8159448) SHA1(002cf208e57ae9ab9a4b4f7081ec139d61b28d06) )
-	ROM_LOAD32_WORD_SWAP( "rom03_ps03.bin", 0x000002, 0x100000, CRC(fb215953) SHA1(435708ebc8027002bf2864c357760f599e611554) )
+	ROM_LOAD32_WORD_SWAP( "rom02.s03", 0x000000, 0x100000, CRC(d8159448) SHA1(002cf208e57ae9ab9a4b4f7081ec139d61b28d06) )
+	ROM_LOAD32_WORD_SWAP( "rom03.s03", 0x000002, 0x100000, CRC(fb215953) SHA1(435708ebc8027002bf2864c357760f599e611554) )
 
 	ROM_REGION( 0x1800000, "gfx1", ROMREGION_INVERT )
 	ROM_LOAD( "rom12.rom12", 0x0000000, 0x0200000, CRC(96393d04) SHA1(f512bb8603510d39e649f4ec1c5e2d0e4bf3a2cc) )
@@ -95,7 +95,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // The Legend of Silkroad
-GAME( 2018, silkroads01,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "hack", "The Legend of Silkroad (Simple Attack, 2018-03-18)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, silkroads02,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (All Move Without Magic)", MACHINE_SUPPORTS_SAVE )
-GAME( 1999, silkroads03,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, silkroad01,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "hack", "The Legend of Silkroad (Simple Attack, 2018-03-18)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, silkroad02,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (All Move Without Magic)", MACHINE_SUPPORTS_SAVE )
+GAME( 1999, silkroad03,  silkroad,   silkroad, silkroad, silkroad_state, empty_init, ROT0, "DDJ", "The Legend of Silkroad (Easy Move)", MACHINE_SUPPORTS_SAVE )
 

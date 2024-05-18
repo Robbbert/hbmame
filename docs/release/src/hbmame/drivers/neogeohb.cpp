@@ -125,7 +125,7 @@ NUM GAME YEAR COMPANY                 TITLE
 304*0304 2013 NG:DEV.Team             NEO XYX
 305*0305 2014 NG:DEV.Team             Razion
 306*0306 2015 NG:DEV.Team             Kraut Buster (could be year2016)
-307*     2023 Cote Gamers/LudoScience Yo-Yo Shuriken (released 2023-04-11, not free) https://drludos.itch.io/yo-yo-shuriken-neo-geo
+307 DAD1 2023 LudoScience             Yo-Yo Shuriken (released 2023-04-11)
 316 0048 2011 Le Cortex               Treasure of the Caribbean (remake)
 323 1234 2022 OzzyOuzo                The Eye of Typhoon (remake)
 331 0008 2001 Brezzasoft              Jockey Grand Prix
@@ -198,6 +198,7 @@ NUM GAME YEAR COMPANY                 TITLE
 500 0993 2022 iq_132                  Kid no Hore Hore Daisakusen (Neo-Geo port)
 501 0282 2023 iq_132                  Soldier Girl Amazon (Neo-Geo port)
 502 14A0 2023 Neo Byte Force          Cyborg Force (https://ozzyouzo.itch.io/cyborg-force)
+503 0722 2024 Pixelheart              Gladmort Demo
 
 
 
@@ -332,9 +333,11 @@ YEAR COMPANY                          TITLE
 2023 NeoHomeBrew                      Flippers Demo (on youtube)
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
 2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
-2023 Chips on Steroids                Gladmort (youtube)
+2023 Pixelheart                       Gladmort [full] (youtube) - demo is released
 2023 Neofid Studios                   Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
 2024 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
+2024 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
+2024 Neo Byte Force                   Captain Barrel (youtube)
 
 
 *********************************************************************************************************/
@@ -670,6 +673,26 @@ ROM_START( lhbb )  // Last Hope with Blue Bullets (hack)
 	ROM_LOAD16_BYTE( "300.c2", 0x000001, 0x400000, CRC(f9b15ab3) SHA1(d8ff2f43686bfc8c2f7ead3ef445e51c15dfbf16) )
 	ROM_LOAD16_BYTE( "300.c3", 0x800000, 0x400000, CRC(50cc21cf) SHA1(0350aaef480c5fa12e68e540a4c974dbf5870add) )
 	ROM_LOAD16_BYTE( "300.c4", 0x800001, 0x400000, CRC(8486ad9e) SHA1(19a2a73c825687e0cb9fd62bde00db91b5409529) )
+ROM_END
+
+
+// 307 : Yo-Yo Shuriken
+ROM_START( yoyoshkn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "307.p1", 0x000000, 0x100000, CRC(8a36bd7d) SHA1(5a1af3f1de96cadd9680996d3b59471dfe6768e6) )
+
+	NEO_SFIX_128K( "307.s1", CRC(59ce2b22) SHA1(1b5633bd9e707f035c8a3c9811c47e1ea3c74481) )
+
+	NEO_BIOS_AUDIO_128K( "307.m1", CRC(079ac27e) SHA1(d5c8429a80845be46de0833d3fa64f1864d2fe15) )
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "307.v1", 0x000000, 0x200000, CRC(79e1b73f) SHA1(a905b24f973874199803d95beff786a81cb581ba) )
+	ROM_LOAD( "307.v2", 0x200000, 0x200000, CRC(4c464d41) SHA1(15ae20f3e26e7458ccfc3ad11ea99af754bf696d) )
+	ROM_LOAD( "307.v3", 0x400000, 0x200000, CRC(0fbe1f09) SHA1(952045f146aad3e593cc568fbebf1c4f4cdaddf3) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "307.c1", 0x000000, 0x200000, CRC(fde9b178) SHA1(21060a2695e3f1cd046322ebaacde9dbb3fb5436) )
+	ROM_LOAD16_BYTE( "307.c2", 0x000001, 0x200000, CRC(780c2045) SHA1(5551c7f3010da658ac31c3478820a59eab71f5f4) )
 ROM_END
 
 
@@ -1952,6 +1975,24 @@ ROM_START( cyborg1 ) // Retroarch/fbneo patched
 	ROM_REGION( 0x2000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "502.c1",   0x0000000, 0x1000000, CRC(77078687) SHA1(9485bcc2af6f59ebce57a6b19f215db712f93278) )
 	ROM_LOAD16_BYTE( "502.c2",   0x0000001, 0x1000000, CRC(a5abdb83) SHA1(cfc54c46ae6a593a9d2f4fdd1ee0d27877f55c20) )
+ROM_END
+
+
+// 503 : Gladmort Demo by Pixelheart
+ROM_START( gladmortd )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "503.p1", 0x000000, 0x080000, CRC(e0ceafec) SHA1(f147fdb7c0fee02e8ae1923bf0ef3aff954588ae) )
+
+	NEO_SFIX_128K( "503.s1", CRC(8304be52) SHA1(fbeaee12553709e54e7f5134dfd2ff96df5fdee0) )
+
+	NEO_BIOS_AUDIO_64K( "503.m1", CRC(fb945087) SHA1(a2bae6907bf02c93068f9ee23409506277c8a027) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "503.v1",   0x000000, 0x1000000, CRC(49d60c52) SHA1(56134745ce1fef3272aa5ddfcd24e3e894d5cca9) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "503.c1",   0x0000000, 0x1000000, CRC(2c4fe4c3) SHA1(7121a8713d58bf61a88fcf075cdc9529838af6e1) )
+	ROM_LOAD16_BYTE( "503.c2",   0x0000001, 0x1000000, CRC(1bdd21bd) SHA1(13749d078525a63ac85ea2aa17b326409a4609e9) )
 ROM_END
 
 
@@ -3306,12 +3347,13 @@ GAME( 1995, csw2,         crswd2bl, no_watchdog,     neogeo,  neogeo_state, init
 GAME( 1995, fr2,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2cd,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD Bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1995, fr2ch,        fr2,      neogeo_noslot,   neogeo,  neogeo_state, init_fr2ch,    ROT0, "Video Systems Co.", "Idol Mahjong Final Romance 2 (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, yoyoshkn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dr Ludos", "Yo-Yo Shuriken", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, zintrckbh,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Yumeji", "ZinTricK (Enable hidden characters)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, zintrkcd,     zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "ZinTricK (CD conversion)", MACHINE_SUPPORTS_SAVE )
 GAME( 2010, zintrkm,      zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Elrayseur", "ZinTricK (Music test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, zintrkcd1,    zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Razoola", "ZinTricK (CD test)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, zintricks01,  zintrckb, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "hack", "ZinTricK (Unknown Hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, totc,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "FACE Corporation / N.C.I - Le Cortex", "Treasure of the Caribbean", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2022, 240ptest,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v0.95", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, 240ptest1,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Dasutin/Artemio", "240p Test Suite v1.0", MACHINE_SUPPORTS_SAVE )
@@ -3347,6 +3389,7 @@ GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2009, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid, 2021-11-28)", MACHINE_SUPPORTS_SAVE )

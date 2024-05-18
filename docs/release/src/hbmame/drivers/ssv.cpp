@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/ssv.cpp"
 
@@ -6,10 +6,10 @@
  Survival Arts
 ****************/
 
-ROM_START( survartss01 )
+ROM_START( survarts01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "prl-r6_ps01.u4", 0x000000, 0x080000, CRC(9daf2473) SHA1(f2375ba98f84373c00109e55841dab2c582d0ba6) )
-	ROM_LOAD16_BYTE( "prh-r5_ps01.u3", 0x000001, 0x080000, CRC(5d0d1f56) SHA1(a46a8eaf07db5200219b954ffc954759328cbadb) )
+	ROM_LOAD16_BYTE( "prl-r6_s01.u4", 0x000000, 0x080000, CRC(9daf2473) SHA1(f2375ba98f84373c00109e55841dab2c582d0ba6) )
+	ROM_LOAD16_BYTE( "prh-r5_s01.u3", 0x000001, 0x080000, CRC(5d0d1f56) SHA1(a46a8eaf07db5200219b954ffc954759328cbadb) )
 
 	ROM_REGION( 0x1800000, "gfx1", ROMREGION_ERASE00 )
 	ROM_LOAD( "si001-01.u27", 0x0000000, 0x200000, CRC(8b38fbab) SHA1(c4a67b24b33d4eef7b0f885bd69cae6c67bd3981) )
@@ -36,5 +36,5 @@ ROM_END
 
 //    YEAR  NAME            PARENT    MACHINE    INPUT      CLASS       INIT  MONITOR COMPANY   FULLNAME                            FLAGS
 // Survival Arts
-GAME( 1993, survartss01, survarts, survarts, survarts, ssv_state, init_ssv, ROT0, "DDJ", "Survival Arts (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, survarts01, survarts, survarts, survarts, ssv_state, init_ssv, ROT0, "DDJ", "Survival Arts (Easy Move)", MACHINE_SUPPORTS_SAVE )
 

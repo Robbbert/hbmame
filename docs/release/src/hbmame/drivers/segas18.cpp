@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 // Thanks-to: Various people who shall remain unnamed for their own safety
 #include "../mame/drivers/segas18.cpp"

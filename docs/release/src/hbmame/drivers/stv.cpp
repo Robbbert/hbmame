@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/stv.cpp"
 
@@ -6,10 +6,10 @@
  Golden Axe
 ************/
 
-ROM_START( gaxeduels01 )
+ROM_START( gaxeduel01 )
 	STV_BIOS
 	ROM_REGION32_BE( 0x3000000, "cart", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "epr17766_ps01.13",               0x0000001, 0x0080000, CRC(e9728569) SHA1(fc7cfc982648d0035c1c69d2fda26142cc98f231) )
+	ROM_LOAD16_BYTE( "epr17766_s01.13",               0x0000001, 0x0080000, CRC(e9728569) SHA1(fc7cfc982648d0035c1c69d2fda26142cc98f231) )
 	ROM_RELOAD( 0x0100001, 0x0080000 )
 	ROM_RELOAD_PLAIN ( 0x0200000, 0x0080000 )
 	ROM_RELOAD_PLAIN ( 0x0300000, 0x0080000 )
@@ -25,10 +25,10 @@ ROM_END
  Groove on Fight
 ******************/
 
-ROM_START( groovefs01 )
+ROM_START( groovef01 )
 	STV_BIOS
 	ROM_REGION32_BE( 0x3000000, "cart", ROMREGION_ERASE00 )
-	ROM_LOAD16_WORD_SWAP( "mpr19820_ps01.7",    0x0200000, 0x0100000, CRC(f8f025ab) SHA1(d8e629b71214bb6754d9e9854b529d38755d3e1c) )
+	ROM_LOAD16_WORD_SWAP( "mpr19820_s01.7",    0x0200000, 0x0100000, CRC(f8f025ab) SHA1(d8e629b71214bb6754d9e9854b529d38755d3e1c) )
 	ROM_LOAD16_WORD_SWAP( "mpr19815.2",    0x0400000, 0x0400000, CRC(1b9b14e6) SHA1(b1828c520cb108e2927a23273ebd2939dca52304) )
 	ROM_LOAD16_WORD_SWAP( "mpr19816.3",    0x0800000, 0x0400000, CRC(83f5731c) SHA1(2f645737f945c59a1a2fabf3b21a761be9e8c8a6) )
 	ROM_LOAD16_WORD_SWAP( "mpr19817.4",    0x0c00000, 0x0400000, CRC(525bd6c7) SHA1(2db2501177fb0b44d0fad2054eddf356c4ea08f2) )
@@ -43,10 +43,10 @@ ROM_END
  Golden Axe
 ************/
 
-ROM_START( suikoenbs01 )
+ROM_START( suikoenb01 )
 	STV_BIOS
 	ROM_REGION32_BE( 0x3000000, "cart", ROMREGION_ERASE00 )
-	ROM_LOAD16_BYTE( "fpr17834_ps01.13",               0x0000001, 0x0100000, CRC(f526855b) SHA1(b742fac38c8c480f4825d3bb904da9ba413d2442) )
+	ROM_LOAD16_BYTE( "fpr17834_s01.13",               0x0000001, 0x0100000, CRC(f526855b) SHA1(b742fac38c8c480f4825d3bb904da9ba413d2442) )
 	ROM_RELOAD_PLAIN( 0x0200000, 0x0100000)
 	ROM_RELOAD_PLAIN( 0x0300000, 0x0100000)
 	ROM_LOAD16_WORD_SWAP( "mpr17836.2",    0x0400000, 0x0400000, CRC(55e9642d) SHA1(5198291cd1dce0398eb47760db2c19eae99273b0) )
@@ -61,9 +61,9 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Golden Axe
-GAME( 1994, gaxeduels01,  gaxeduel, stv,      stv6b,    stv_state,   init_gaxeduel,   ROT0,   "Yumeji", "Golden Axe (Enable Hidden Characters)", 0 )
+GAME( 1994, gaxeduel01,   gaxeduel, stv,      stv6b,    stv_state,   init_gaxeduel,   ROT0,   "Yumeji", "Golden Axe (Enable Hidden Characters)", 0 )
 // Groove on Fight
-GAME( 1997, groovefs01,   groovef,  stv,      stv6b,    stv_state,   init_groovef,    ROT0,   "Yumeji", "Groove on Fight (Enable Hidden Characters)", 0 )
+GAME( 1997, groovef01,    groovef,  stv,      stv6b,    stv_state,   init_groovef,    ROT0,   "Yumeji", "Groove on Fight (Enable Hidden Characters)", 0 )
 // Suiko Enbu / Outlaws of the Lost Dynasty
-GAME( 1995, suikoenbs01,  suikoenb, stv,      stv6b,    stv_state,   init_suikoenb,   ROT0,   "Yumeji", "Suiko Enbu / Outlaws of the Lost Dynasty (Enable Hidden Characters)", 0 )
+GAME( 1995, suikoenb01,   suikoenb, stv,      stv6b,    stv_state,   init_suikoenb,   ROT0,   "Yumeji", "Suiko Enbu / Outlaws of the Lost Dynasty (Enable Hidden Characters)", 0 )
 

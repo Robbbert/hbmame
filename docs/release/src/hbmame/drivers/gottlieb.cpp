@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/gottlieb.cpp"
 
@@ -44,7 +44,6 @@ ROM_START( pbert )
 	ROM_LOAD( "pb-fg0.bin",   0x6000, 0x2000, CRC(495d90e9) SHA1(d4d28c30901eb09da8933c03b2178152f0fc7b84) )
 ROM_END
 
-// E444
 ROM_START( qbertb )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "qb-rom2.bin",  0xa000, 0x2000, CRC(fe434526) SHA1(4cfc5d52dd6c82163e035af82d6112c0c93a3797) )

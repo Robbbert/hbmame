@@ -1,8 +1,8 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/twincobr.cpp"
 
-ROM_START( twincobrs01 ) // twincbu2
+ROM_START( twincobr01 ) // twincbu2
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "b30_01.7j", 0x00000, 0x10000, CRC(07f64d13) SHA1(864ce0f9369c40c3ae792fc4ab2444a168214749) )
 	ROM_LOAD16_BYTE( "b30_03.7h", 0x00001, 0x10000, CRC(41be6978) SHA1(4784804b738a332c7f24a43bcbb7a1e607365735) )
@@ -40,7 +40,7 @@ ROM_START( twincobrs01 ) // twincbu2
 	ROM_LOAD( "b30_17.16d", 0x30000, 0x10000, CRC(4264bff8) SHA1(3271b8b23f51346d1928ae01f8b547fed49181e6) )
 ROM_END
 
-ROM_START( twincobrs02 ) // twintwst
+ROM_START( twincobr02 ) // twintwst
 	ROM_REGION( 0x30000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "b30_01.7j", 0x00000, 0x10000, CRC(07f64d13) SHA1(864ce0f9369c40c3ae792fc4ab2444a168214749) )
 	ROM_LOAD16_BYTE( "b30_03.7h", 0x00001, 0x10000, CRC(41be6978) SHA1(4784804b738a332c7f24a43bcbb7a1e607365735) )
@@ -78,6 +78,6 @@ ROM_START( twincobrs02 ) // twintwst
 	ROM_LOAD( "s02.tcw17", 0x30000, 0x10000, CRC(6a559622) SHA1(8a07f792efea9d521a5fd0169a5d6c15fe615d5d) )
 ROM_END
 
-GAME( 2002, twincobrs01, twincobr, twincobr, twincobru, twincobr_state, init_twincobr, ROT270, "hack", "Twin Cobra (Hack)", 0 )
-GAME( 2002, twincobrs02, twincobr, twincobr, twincobr,  twincobr_state, init_twincobr, ROT270, "Twisty", "Twin Twist (Twin Cobra Hack)", 0 )
+GAME( 2002, twincobr01, twincobr, twincobr, twincobru, twincobr_state, init_twincobr, ROT270, "hack", "Twin Cobra (Hack)", 0 )
+GAME( 2002, twincobr02, twincobr, twincobr, twincobr,  twincobr_state, init_twincobr, ROT270, "Twisty", "Twin Twist (Twin Cobra Hack)", 0 )
 

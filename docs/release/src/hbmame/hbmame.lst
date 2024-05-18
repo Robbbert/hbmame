@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 /******************************************************************************
 
@@ -42,6 +42,11 @@ sinvtest0
 sinvtest1
 sinvtest2
 sinvtest3
+
+@source:aerofgt.cpp
+karatblz                               //parent
+karatblzas01
+karatblzas02
 
 @source:arkanoid.cpp
 arkanoid		//parent
@@ -182,6 +187,7 @@ ckong01                                // Graphics Fix
 tongypac
 ckongpt2                               //parent
 ckongpt2s01
+ckongpt2s02
 
 @source:centiped.cpp
 centiped	//parent
@@ -832,15 +838,16 @@ dinot08
 dinot09
 dinot10
 ffightae
-ffightaeh01
-ffightaeh02
-ffightaeh03
-ffightaeh04
+ffightae01
+ffightae02
+ffightae03
+ffightae04
 ffightaek
-ffights01
-ffights02
-ffights03
-ffightjh01
+ffight01
+ffight02
+ffight03
+ffight04
+ffightj01
 ffightj2s01
 ffightj2s02
 ffightj2s03
@@ -852,9 +859,10 @@ ghoulsf2
 kodjk
 kodr01                                 // r = based on kodr1, bad gfx are normal
 kodr02
-koduhc01
-koduhc02
-koduhc03
+kodu01
+kodu02
+kodu03
+kodu04
 knightsk
 knights01
 knights02
@@ -1463,6 +1471,7 @@ sfa2s07
 sfa2s08
 sfa2s09
 sfa2s10
+sfa2s11
 sfz2j01
 sfz2k01
 sfz2k02
@@ -1587,6 +1596,7 @@ sfz3mix24
 sfz3mix25
 sfz3mix26
 sfz3mix27
+sfz3mix28
 sfz3mix
 
 @source:cps3.cpp
@@ -1718,6 +1728,8 @@ dkong17
 dkong19
 dkong20
 dkong21
+dkong22
+dkong23
 dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
@@ -2122,20 +2134,16 @@ kof96b
 kof96b1
 kof96bb
 kof96c
-kof96cbi
 kof96ckvs
 kof96cn
 kof96cr
 kof96chj
-kof96de
-kof96dr1
 kof96eh
 kof96ep
 kof96ep2
 kof96ep3
 kof96evo
 kof96evoo
-kof96evsp
 kof96ey
 kof96hp
 kof96hp1
@@ -2147,37 +2155,24 @@ kof96k3o
 kof96kt
 kof96lx
 kof96ncd
-kof96oib
-kof96oib2
 kof96oih
-kof96oir
 kof96pch
 kof96pjc
 kof96pm
 kof96rcw
-kof96rf
-kof96rfs
-kof96rfsa
 kof96ri
 kof96ri1
 kof96ri2
 kof96ri3
 kof96ri4
 kof96ri5
-kof96rm
-kof96rp
 kof96rp1
-kof96rss
 kof96ru
 kof96ru2
 kof96rw
-kof96ryu
 kof96seh
 kof96s01
 kof96s02
-kof96s03
-kof96s04
-kof96s05
 kof96s06
 kof96s07
 kof96s08
@@ -6114,7 +6109,8 @@ fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
 galaxiann
-gbi			/* Ghostbusters Intro */
+gbi
+gladmortd
 gxg
 horekidb3
 hypernoid
@@ -6216,6 +6212,7 @@ twister		// Blastar 2015
 xeno
 xeviousn
 xmas2017
+yoyoshkn
 zintrckbh
 zintrkcd
 zintrkcd1
@@ -6224,33 +6221,46 @@ zintricks01
 
 @source:neogeo1.cpp
 2020bbcd
-androdunpx
+androdun01
+androdun02
 aofbh
 aofkt
-aof2b
-aof2b1
-aof2bh
-aof2br2
+aof2s01
+aof2s02
+aof2s03
+aof2s04
+aof2s05
+aof2s06
+aof2s07
 aof3b
 aof3bh
 bangbeadd
 bangbeadp
 bjourneypx
-breakersbh
-breakersp
-breakersy
-breakrevb
-breakrevpp
-breakrevy
+breakers01
+breakers02
+breakers03
+breakers04
+breakrev01
+breakrev02
+breakrev03
+breakrev04
+breakrev05
+breakrev06
+breakrev07
+breakrev08
 burningfhp
 ctomadaypx
 dragons1
 eightmaneb
-fightfevbs
-fightfevk
+fightfev01
+fightfev02
+fightfev03
+fightfev04
 flipshotk
-galaxyfgb
-galaxyfgbh
+galaxyfg01
+galaxyfg02
+galaxyfg03
 ganryud
 gowcaizrb
 gowcaizrbs
@@ -6263,53 +6273,84 @@ ironcladb
 jockeygpd
 joyjoycd
 joyjoycd1
-kabukiklb
-kabukikleh
-kabukiklgm
-kabukiklgmc
-kabukiklmc
-kabukiklyc
-karnovreh
-karnovrh
-kizunab
-kizunaeh
+kabukikl01
+kabukikl02
+kabukikl03
+kabukikl04
+kabukikl05
+kabukikl06
+kabukikl07
+kabukikl08
+kabukikl09
+kabukikl10
+kabukikl11
+kabukikl12
+kabukikl13
+karnovr01
+karnovr02
+karnovr03
+karnovr04
+kizuna01
+kizuna02
+kizuna03
+kizuna04
+kizuna05
+kizuna06
+kizuna07
+kizuna08
+kizuna09
 lans2k4d
 lbowlingcd
 lresortpx
-magdrop3fr	/* Neo-Arc French Trans */
-magdrop3te
+magdrop3s01
+magdrop3s02
+magdrop3s03
+magdrop3s04
 maglordpx
-matrima
-matrimbh
-matrimd
-matrimdh
-matrimeh
-matrimehc
-matrimnd
-miexchngfr	/* Neo-Arc French Trans */
+matrim01
+matrim02
+matrim03
+matrim04
+matrim05
+matrim06
+matrim07
+matrim08
+matrim09
+matrim10
+matrim11
+matrim12
+matrim13
+matrim14
+matrim15
+miexchng01
 mutnatex
 nam1975g
 nam1975h
 ncombatpk
 ncommandsp
+neobombe01
+neobombe02
 neocup98k
-ninjamasasp
-ninjamaschl
-ninjamaseh
-ninjamasehc
-ninjamasehyc
-ninjamasha
-ninjamashb
-ninjamashc
-nitdd
-nitdfr		/* Neo-Arc French Trans */
-nitdfro		/* Neo-Arc French Trans */
-nitdfro1
-nitdpx
-nitdsp
-nitdsp1
-nitdsp2
-nitdfro2
+ninjamas01
+ninjamas02
+ninjamas03
+ninjamas04
+ninjamas05
+ninjamas06
+ninjamas07
+ninjamas08
+ninjamas09
+ninjamas10
+ninjamas11
+ninjamas12
+nitd01
+nitd02
+nitd03
+nitd04
+nitd05
+nitd06
+nitd07
+nitd08
 pzlcrz
 pbcrazyb1
 pbcrazyb2
@@ -6318,22 +6359,38 @@ pbobblencd
 pbobblendx
 pnyaad
 pnyaadd
-preisle2d
-preisle2px
+preisle2s01
+preisle2s02
+preisle2s03
 puzzldprk
 puzzledpk
-ragnagrdbe
-ragnagrdbs
-ragnagrdeh
-ragnagrdsb
-s1945pd
-s1945ph
-s1945pwe
-savagereb
-savageredb
-sdodgebp
-shocktr2px
-shocktr2w
+ragnagrd01
+ragnagrd02
+ragnagrd03
+ragnagrd04
+ragnagrd05
+ragnagrd06
+ragnagrd07
+ragnagrd08
+ragnagrd09
+s1945p01
+s1945p02
+s1945p03
+s1945p04
+savagere01
+savagere02
+savagere03
+savagere04
+savagere05
+savagere06
+savagere07
+savagere08
+sdodgeb01
+sdodgeb02
+sdodgeb03
+shocktr2s01
+shocktr2s02
+shocktr2s03
 shocktrosp
 sonicwi2eh
 sonicwi2px
@@ -6352,78 +6409,17 @@ trallycd
 twinsprih
 viewpoinf
 viewpointr
-wakuwak7bh
-wakuwak7h
+wakuwak7s01
+wakuwak7s02
+wakuwak7s03
+wakuwak7s04
+wakuwak7s05
 wjammersf
 wjammersk
 zupapad
 zupapadd
-androduns01
-aof2s01
-aof2s02
-aof2s03
 blazstarcm
-breakers01
-breakrevs01
-breakrevs02
-breakrevs03
-breakrevs04
-fightfevs01
-fightfevs02
-galaxyfs01
-kabukikls01
-kabukikls02
-kabukikls03
-kabukikls04
-kabukikls05
-kabukikls06
-kabukikls07
-karnovrs01
-kizunas01
-kizunas02
-kizunas03
-kizunas04
-kizunas05
-kizunas06
-kizunas07
-magdrop3s01
-magdrop3s02
-matrims01
-matrims02
-matrims03
-matrims04
-matrims05
-matrims06
-matrims07
-matrims08
-miexchngs01
-neobombes01
-neobombes02
 neocup98s01
-ninjamass01
-ninjamass02
-ninjamass03
-ninjamass04
-nitds01
-preisle2s01
-ragnagrds01
-ragnagrds02
-ragnagrds03
-ragnagrds04
-ragnagrds05
-s1945ps01
-savageres01
-savageres02
-savageres03
-savageres04
-savageres05
-savageres06
-sdodgebs01
-sdodgebs02
-sdodgebs03
-shocktr2s01
-wakuwak7s01
-wakuwak7s02
 2020bbe
 3countbe 
 aof3e
@@ -6838,6 +6834,7 @@ samsho2eh
 samsho2emb
 samsho2hy
 samsho2mb
+samsho2pe
 samsho2q
 samsho2s2
 samsho2sp
@@ -7783,6 +7780,7 @@ oldsps22
 oldsps24
 oldsps26
 oldsps27
+oldsps28
 orlegend01
 orlegend02
 orlegend03
@@ -8035,12 +8033,12 @@ pooytest2
 
 @source:powerins.cpp
 powerins                               //parent
-powernbr
-powerns01
-powerns02
-powerns03
-powerns04
-powerns05
+powerins01
+powerins02
+powerins03
+powerins04
+powerins05
+powerins06
 
 @source:psikyo.cpp
 tengai                                 //parent
@@ -8371,21 +8369,21 @@ pacplusx
 pheartx
 
 @source:r2dx_v33.cpp
-nzeroteama                             //parent
-nzeroteamas01
+nzeroteam                              //parent
+nzeroteam01
 
 @source:rabbit.cpp
 rabbit                                 //parent
-rabbits01
-rabbits02
-rabbits03
-rabbits04
+rabbit01
+rabbit02
+rabbit03
+rabbit04
 
 @source:raiden2.cpp
 zeroteam                               //parent
-zeroteamcs01
-zeroteamcs02
-zeroteamss01
+zeroteam01
+zeroteam02
+zeroteam03
 
 @source:rallyx.cpp
 rallyx                                 //parent
@@ -8406,7 +8404,7 @@ retofinv4
 
 @source:rohga.cpp
 schmeisr                               //parent
-schmeisrs01
+schmeisr01
 
 @source:schaser.cpp
 schasrcv                               // extra sounds
@@ -8439,10 +8437,10 @@ astrob2h
 
 @source:segas16b.cpp
 altbeast                               //parent
-altbeastfr
-altbeasts01
-altbeasts02
-altbeasts03
+altbeast01
+altbeast02
+altbeast03
+altbeast04
 fantzone01
 
 @source:sagas18.cpp
@@ -8450,13 +8448,13 @@ aquario
 
 @source:segas24.cpp
 gground                                //parent
-ggrounds01
+gground01
 
 @source:segas32.cpp
 ga2                                    //parent
 ga2s01
 brival                                 //parent
-brivals01
+brival01
 
 @source:segaxbd.cpp
 aburner2
@@ -8465,13 +8463,13 @@ aburtest1
 
 @source:seta.cpp
 blandia                                //parent
-blandias01
-blandias02
-blandias03
+blandia01
+blandia02
+blandia03
 msgundam                               //parent
-msgundams01
+msgundam01
 rezon                                  //parent
-rezons01
+rezon01
 
 @source:seta2.cpp
 grdians                                //parent
@@ -8519,7 +8517,7 @@ grdians41
 
 @source:shadfrce.cpp
 shadfrce                               //parent
-shadfrces01
+shadfrce01
 
 @source:sidepckt.cpp
 sidepckt                               //parent
@@ -8527,9 +8525,9 @@ sidepcktb2
 
 @source:silkroad.cpp
 silkroad                               //parent
-silkroads01
-silkroads02
-silkroads03
+silkroad01
+silkroad02
+silkroad03
 
 @source:shaolins.cpp
 kicker                                 //parent
@@ -8547,18 +8545,18 @@ renjuk
 
 @source:snesb.cpp
 sblast2b                               //parent
-sblast2bs01
+sblast2b01
 
 @source:snowbros.cpp
 snowbros                               //parent
-snowbross01
-snowbross02
-snowbross03
-snowbross04
+snowbros01
+snowbros02
+snowbros03
+snowbros04
 
 @source:solomon.cpp
 solomon                                //parent
-solomonjs01
+solomon01
 
 @source:spacmiss.cpp
 spacmissx                              // extra sounds
@@ -8569,7 +8567,7 @@ senctest
 
 @source:ssv.cpp
 survarts                               //parent
-survartss01
+survarts01
 
 @source:system1.cpp
 wbml                                   //parent
@@ -8585,17 +8583,17 @@ sys16dem                               // HB
 @source:stv.cpp
 stvbios                                //bios
 gaxeduel                               //parent
-gaxeduels01
+gaxeduel01
 groovef                                //parent
-groovefs01
+groovef01
 suikoenb                               //parent
-suikoenbs01
+suikoenb01
 
 @source:taitosj.cpp
 alpine                                 //parent
-alpines01
+alpine01
 frontlin                               //parent
-frontlins01
+frontlin01
 
 @source:taito_b.cpp
 pbobble                                //parent
@@ -8606,23 +8604,23 @@ crimecb
 @source:taito_f2.cpp
 f2demo                                 // HB
 cameltry                               //parent
-cameltrys01
+cameltry01
 deadconx                               //parent
-deadconxs01
-dondokod                               //parent
-dondokods01
+deadconx01
 dinorex                                //parent
-dinorexs01
+dinorex01
+dondokod                               //parent
+dondokod01
 gunfront                               //parent
-gunfronts01
+gunfront01
 megablst                               //parent
-megablsts01
+megablst01
 liquidk                                //parent
-mizubaks01
+mizubak01
 growl                                  //parent
-runarks01
+runark01
 thundfox                               //parent
-thundfoxs01
+thundfox01
 
 @source:taito_f3.cpp
 arabianm                               //parent
@@ -8664,51 +8662,51 @@ twinqix                                //parent
 twinqix01
 
 @source:taito_l.cpp
-evilston                               //parent
-evilstonfr
 sokoban                                // HB Sokoban LE by cmonkey
 speccies                               // HB Speccies 2 by Sokurah
 sqij                                   // HB SQIJ by Sokurah
 sqij15                                 // HB SQIJ v1.5 by Sokurah
 tldemo                                 // HB cmonkey
 tldemo2                                // HB cmonkey
-evilstons01
+evilston                               //parent
+evilston01
+evilston02
 kurikint                               //parent
-kurikintjs01
+kurikint01
 plotting                               //parent
-plottingas01
+plotting01
 
 @source:taito_z.cpp
 contcirc                               //parent
-contcircja
+contcirc01
 
 @source:taotaido.cpp
 taotaido                               //parent
-taotaidoas01
+taotaido01
 
 @source:tecmo.cpp
 gemini                                 //parent
-geminit
+gemini01
+gemini02
 rygar                                  //parent
+rygar01
+rygar02
 rygark
-geminis01
-rygarjs01
-rygars01
 silkworm                               //parent
-silkworms01
+silkworm01
 
 @source:tecmo16.cpp
 fstarfrc                               //parent
-fstarfrcc
+fstarfrc01
 
 @source:tecmosys.cpp
 deroon                                 //parent
-deroons01
+deroon01
 tkdensho                               //parent
-tkdenshos01
-tkdenshos02
-tkdenshos03
-tkdenshos04
+tkdensho01
+tkdensho02
+tkdensho03
+tkdensho04
 
 @source:tehkanwc.cpp
 tehkanwc                               //parent
@@ -8749,9 +8747,9 @@ timepltdiag
 
 @source:tmnt.cpp
 ssriders                               //parent
-ssridersaex
-ssriderseaas01
-ssriderseaas02
+ssriders01
+ssriders02
+ssriders03
 tmnt2                                  //parent
 tmnt2s01
 tmnt2s02
@@ -8759,13 +8757,13 @@ tmnt2s03
 
 @source:tnzs.cpp
 drtoppel                               //parent
-drtoppels01
+drtoppel01
 insectx                                //parent
-insectxs01
+insectx01
 
 @source:toaplan1.cpp
 fireshrk                               //parent
-samesamenh	// Trap15
+samesamenh
 
 @source:toaplan2.cpp
 kingdmgp                               //parent
@@ -8803,13 +8801,13 @@ trkftest12tu
 
 @source:twincobr.cpp
 twincobr                               //parent
-twincobrs01
-twincobrs02
+twincobr01
+twincobr02
 
 @source:vamphalf.cpp
 aoh                                    //parent
-aohs01
-aohs02
+aoh01
+aoh02
 
 @source:volfied.cpp
 volfied                                //parent
@@ -8820,14 +8818,9 @@ suprmrio                               //parent
 mrio2002                               // Vs. Super Mario Bros. 2002
 suprsktr                               // Vs. Super Skater Bros. - Vs. Super Mario Skaters
 drmario                                //parent
-drmarios01
+drmario01
 frombelow
 vs_urban
-
-@source:vsystem.cpp
-karatblz                               //parent
-karatblzas01
-karatblzas02
 
 @source:warriorb.cpp
 sagaiav2
@@ -8851,7 +8844,7 @@ conquest
 
 @source:wiz.cpp
 stinger                                //parent
-stingers01
+stinger01
 stinger2s01
 
 @source:wmg.cpp
@@ -8867,15 +8860,15 @@ coh1002m
 coh1000w
 coh3002c
 doapp                                  //parent
-doapph01
-doappnud
+doapp01
+doapp02
 primrag2
 sfex                                   //parent
-sfexs01
+sfex01
 sfex2                                  //parent
 sfex2s01
 sfex2p                                 //parent
-sfex2ps01
+sfex2p01
 sfexp                                  //parent
-sfexps01
+sfexp01
 

@@ -1,20 +1,10 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/taito_l.cpp"
 
-ROM_START( evilstonfr )
-	ROM_REGION( 0x40000, "maincpu", 0 )
-	ROM_LOAD( "c67-03fr.ic2", 0x00000, 0x20000, CRC(3fa7e884) SHA1(94716256c199b5f347bbe122d04adbab1a54b1ce) )
-	ROM_LOAD( "c67-04fr.ic6", 0x20000, 0x20000, CRC(8c43dc76) SHA1(ee395d55ee8e66c86e12f604774799ca7cfe1858) )
-
-	ROM_REGION( 0x80000, "audiocpu", 0 )
-	ROM_LOAD( "c67-05.ic22",  0x00000, 0x20000, CRC(94d3a642) SHA1(af20aa5bb60a45c05eb1deba23ba30e6640ca235) )
-
-	ROM_REGION( 0x100000, "maincpu:gfx", 0 )
-	ROM_LOAD( "c67-01.ic1",  0x00000, 0x80000, CRC(2f351bf4) SHA1(0fb37abf3413cd11baece1c9bbca5a51b0f28938) )
-	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
-ROM_END
-
+/*************
+  Homebrew
+**************/
 ROM_START( sokoban )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "sokoban.ic10",      0x00000, 0x10000, CRC(5959ddb4) SHA1(73f206e19cdfd151426092aa3eea6f72093f360b) )
@@ -94,11 +84,10 @@ ROM_END
 /*************
   Evil Stone
 **************/
-
-ROM_START( evilstons01 )
+ROM_START( evilston01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
-	ROM_LOAD( "c67-03fr.ic2", 0x00000, 0x20000, CRC(3fa7e884) SHA1(94716256c199b5f347bbe122d04adbab1a54b1ce) )
-	ROM_LOAD( "c67-04hc01.ic6",  0x20000, 0x20000, CRC(50c46efa) SHA1(42671d4d1290b84cc32b5e0b21708c8a148d44b2) )
+	ROM_LOAD( "c67-03s02.ic2", 0x00000, 0x20000, CRC(3fa7e884) SHA1(94716256c199b5f347bbe122d04adbab1a54b1ce) )
+	ROM_LOAD( "c67-04s01.ic6",  0x20000, 0x20000, CRC(50c46efa) SHA1(42671d4d1290b84cc32b5e0b21708c8a148d44b2) )
 
 	ROM_REGION( 0x80000, "audiocpu", 0 )
 	ROM_LOAD( "c67-05.ic22", 0x00000, 0x20000, CRC(94d3a642) SHA1(af20aa5bb60a45c05eb1deba23ba30e6640ca235) )
@@ -108,14 +97,26 @@ ROM_START( evilstons01 )
 	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
 ROM_END
 
+ROM_START( evilston02 )
+	ROM_REGION( 0x40000, "maincpu", 0 )
+	ROM_LOAD( "c67-03s02.ic2", 0x00000, 0x20000, CRC(3fa7e884) SHA1(94716256c199b5f347bbe122d04adbab1a54b1ce) )
+	ROM_LOAD( "c67-04s02.ic6", 0x20000, 0x20000, CRC(8c43dc76) SHA1(ee395d55ee8e66c86e12f604774799ca7cfe1858) )
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "c67-05.ic22",  0x00000, 0x20000, CRC(94d3a642) SHA1(af20aa5bb60a45c05eb1deba23ba30e6640ca235) )
+
+	ROM_REGION( 0x100000, "maincpu:gfx", 0 )
+	ROM_LOAD( "c67-01.ic1",  0x00000, 0x80000, CRC(2f351bf4) SHA1(0fb37abf3413cd11baece1c9bbca5a51b0f28938) )
+	ROM_LOAD( "c67-02.ic5",  0x80000, 0x80000, CRC(eb4f895c) SHA1(2c902572fe5a5d4442e4dd29e8a85cb40c384140) )
+ROM_END
+
 /*************
  Kuri Kinton
 **************/
-
-ROM_START( kurikintjs01 )
+ROM_START( kurikint01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
-	ROM_LOAD( "b42-05hc01.ic2",  0x00000, 0x20000, CRC(b0656c45) SHA1(777a9206ac8bc3a519000c35cbab58dafec461f5) )
-	ROM_LOAD( "b42-06hc01.ic6",  0x20000, 0x20000, CRC(677547d9) SHA1(56c2befe20182d5241580fae3787abf506df2b6f) )
+	ROM_LOAD( "b42-05_s01.ic2",  0x00000, 0x20000, CRC(b0656c45) SHA1(777a9206ac8bc3a519000c35cbab58dafec461f5) )
+	ROM_LOAD( "b42-06_s01.ic6",  0x20000, 0x20000, CRC(677547d9) SHA1(56c2befe20182d5241580fae3787abf506df2b6f) )
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "b42-07.ic22", 0x00000, 0x10000, CRC(0f2719c0) SHA1(f870335a75f236f0059522f9a577dee7ca3acb2f) )
@@ -128,10 +129,9 @@ ROM_END
 /**********
  Plotting
 ***********/
-
-ROM_START( plottingas01 )
+ROM_START( plotting01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "plot01hc01.ic10", 0x00000, 0x10000, CRC(134e39a3) SHA1(c3ec3ed35b3fb39d780369a4c50beb6e4ccaaff2) )
+	ROM_LOAD( "plot01_s01.ic10", 0x00000, 0x10000, CRC(134e39a3) SHA1(c3ec3ed35b3fb39d780369a4c50beb6e4ccaaff2) )
 
 	ROM_REGION( 0x20000, "maincpu:gfx", 0 )
 	ROM_LOAD16_BYTE( "b96-02hc01.ic9", 0x00000, 0x10000, CRC(78b05c85) SHA1(384626d0ef246702cdf6869bedee42fa18c2f438) )
@@ -141,19 +141,19 @@ ROM_START( plottingas01 )
 	ROM_LOAD( "gal16v8-b86-04.bin", 0x0000, 0x0117, CRC(bf8c0ea0) SHA1(e0a00f1f6363fb79650202f90a56329990876d49) )
 ROM_END
 
-/*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
-GAME( 2015, sokoban,     0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Sokoban LE", 0 )
-GAME( 2015, speccies,    0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "Sokurah", "Speccies 2", 0 )
-GAME( 2018, sqij,        0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "Sokurah", "SQIJ!", 0 )
-GAME( 2018, sqij15,      sqij,     plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "Sokurah", "SQIJ! v1.5", 0 )
-GAME( 2014, tldemo,      0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
-GAME( 2015, tldemo2,     0,        plotting,  plotting, taitol_1cpu_state, empty_init, ROT0,   "cmonkey", "Demo - 256 colours", 0 )
-
+/*    YEAR  NAME         PARENT    MACHINE    INPUT      CLASS              INIT          MONITOR   COMPANY     FULLNAME FLAGS */
+// Homebrew
+GAME( 2015, sokoban,     0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "cmonkey", "Sokoban LE", 0 )
+GAME( 2015, speccies,    0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "Sokurah", "Speccies 2", 0 )
+GAME( 2018, sqij,        0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "Sokurah", "SQIJ!", 0 )
+GAME( 2018, sqij15,      sqij,     plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "Sokurah", "SQIJ! v1.5", 0 )
+GAME( 2014, tldemo,      0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "cmonkey", "Demo - System Timed Cheat Tool", 0 )
+GAME( 2015, tldemo2,     0,        plotting,  plotting,  taitol_1cpu_state, empty_init,     ROT0,   "cmonkey", "Demo - 256 colours", 0 )
 // Evil Stone
-GAME( 2007, evilstonfr,   evilston, evilston,  evilston, taitol_2cpu_state, empty_init, ROT270, "Arkatrad", "Evil Stone (French V1)", 0 )
-GAME( 2007, evilstons01,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init, ROT270, "S.Arkames.", "Evil Stone (French V2, 2007-11-28)", 0 )
+GAME( 2007, evilston01,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init,     ROT270, "S.Arkames.", "Evil Stone (French V2, 2007-11-28)", 0 )
+GAME( 2007, evilston02,  evilston, evilston,  evilston,  taitol_2cpu_state, empty_init,     ROT270, "Arkatrad", "Evil Stone (French V1)", 0 )
 // Kuri Kinton
-GAME( 1988, kurikintjs01, kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init, ROT0,   "hack", "Kuri Kinton (Chinese)", 0 )
+GAME( 1988, kurikint01,  kurikint, kurikint,  kurikintj, taitol_2cpu_state, empty_init,     ROT0,   "hack", "Kuri Kinton (Chinese)", 0 )
 // Plotting
-GAME( 1989, plottingas01, plotting, plotting,  plotting,  taitol_1cpu_state, init_plottinga, ROT0,   "hack", "Plotting (Chinese)", 0 )
+GAME( 1989, plotting01,  plotting, plotting,  plotting,  taitol_1cpu_state, init_plottinga, ROT0,   "hack", "Plotting (Chinese)", 0 )
 

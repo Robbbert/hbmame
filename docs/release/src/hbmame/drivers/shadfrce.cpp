@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/shadfrce.cpp"
 
@@ -6,10 +6,10 @@
  Shadow Force
 **************/
 
-ROM_START( shadfrces01 )
+ROM_START( shadfrce01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "32a12-011_ps01.34", 0x00001, 0x40000, CRC(6b9afcd6) SHA1(2d87e3cbb430762df0782416871af363158938b2) )
-	ROM_LOAD16_BYTE( "32a13-010_ps01.26", 0x00000, 0x40000, CRC(52d1861a) SHA1(2d9a37c3cfaa0ed382c738f5ddb289dd1b37bc64) )
+	ROM_LOAD16_BYTE( "32a12-011_s01.34", 0x00001, 0x40000, CRC(6b9afcd6) SHA1(2d87e3cbb430762df0782416871af363158938b2) )
+	ROM_LOAD16_BYTE( "32a13-010_s01.26", 0x00000, 0x40000, CRC(52d1861a) SHA1(2d9a37c3cfaa0ed382c738f5ddb289dd1b37bc64) )
 	ROM_LOAD16_BYTE( "32a14-0.33",  0x80001, 0x40000, CRC(08279be9) SHA1(1833526b23feddb58b21874070ad2bf3b6be8dca) )
 	ROM_LOAD16_BYTE( "32a15-0.14",  0x80000, 0x40000, CRC(bfcadfea) SHA1(1caa9fc30d8622ce4c7221039c446e99cc8f5346) )
 
@@ -37,5 +37,5 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Shadow Force
-GAME( 1993, shadfrces01,   shadfrce,  shadfrce, shadfrce, shadfrce_state, empty_init, ROT0, "KrysoFun", "Shadow Force (Enable All Characters)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, shadfrce01,   shadfrce,  shadfrce, shadfrce, shadfrce_state, empty_init, ROT0, "KrysoFun", "Shadow Force (Enable All Characters)", MACHINE_SUPPORTS_SAVE )
 

@@ -1,10 +1,10 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/tecmo16.cpp"
 
 
 
-ROM_START( fstarfrcc )
+ROM_START( fstarfrc01 )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fstarfc01.rom", 0x00000, 0x40000, CRC(28a0b648) SHA1(b9b1ad7a7823b0c4e96bf1a3c4ede0192a78fe38) )
 	ROM_LOAD16_BYTE( "fstarfc02.rom", 0x00001, 0x40000, CRC(cd49179f) SHA1(b1093a999c5c918cf399589fba6d175cd6899e6a) )
@@ -28,6 +28,5 @@ ROM_START( fstarfrcc )
 ROM_END
 
 
-
-GAME( 1992, fstarfrcc, fstarfrc, base, fstarfrc, tecmo16_state, empty_init, ROT90, "Tecmo", "Final Star Force (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, fstarfrc01, fstarfrc, base, fstarfrc, tecmo16_state, empty_init, ROT90, "Tecmo", "Final Star Force (Chinese)", MACHINE_SUPPORTS_SAVE )
 

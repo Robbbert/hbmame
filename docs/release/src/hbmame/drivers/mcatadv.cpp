@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 //***************************************************************************************************************
 #include "../mame/drivers/mcatadv.cpp"
@@ -33,3 +33,4 @@ ROM_START( mcatadvs01 )  // Local text hack to show someone's company name
 ROM_END
 
 GAME( 1993, mcatadvs01,  mcatadv,   mcatadv, mcatadv, mcatadv_state, empty_init, ROT0, "Recreativos Zara, S.L.", "Magical Cat Adventure (R.Zara)", MACHINE_SUPPORTS_SAVE )
+

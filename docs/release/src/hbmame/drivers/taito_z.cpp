@@ -1,9 +1,9 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/taito_z.cpp"
 
 
-ROM_START( contcircja )
+ROM_START( contcirc01 )
 	ROM_REGION( 0x40000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "b33-ww.ic25", 0x00000, 0x20000, CRC(f5c92e42) SHA1(42dfa1895e601df76d7022b83f05c4e5c843fd12) )
 	ROM_LOAD16_BYTE( "b33-xx.ic26", 0x00001, 0x20000, CRC(e7c1d1fa) SHA1(75e851629a54facb8804ee8a953ab3265633bbf4) )
@@ -45,5 +45,5 @@ ROM_START( contcircja )
 ROM_END
 
 
-GAMEL(1987, contcircja, contcirc, contcirc, contcrcj, contcirc_state, empty_init, ROT0, "Taito Corporation", "Continental Circus (Japan set 2)", MACHINE_SUPPORTS_SAVE, layout_contcirc )
+GAMEL(1987, contcirc01, contcirc, contcirc, contcrcj, contcirc_state, empty_init, ROT0, "Taito Corporation", "Continental Circus (Japan set 2)", MACHINE_SUPPORTS_SAVE, layout_contcirc )
 

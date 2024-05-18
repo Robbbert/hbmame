@@ -171,7 +171,7 @@ private:
 		return nullptr;
 	}
 
-	std::stringstream m_buf;
+	std::stringstream m_buf = { };
 
 	std::vector<arena::unique_ptr<dev_t>> m_devs;
 	std::unordered_map<pstring, arena::unique_ptr<net_t> > m_nets;

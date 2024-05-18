@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// copyright-holders:Gaston90
+// license:GPL_2.0
+// copyright-holders:Robbbert
 #include "../mame/drivers/psikyo.cpp"
 
 /********

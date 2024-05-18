@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/tnzs.cpp"
 
@@ -6,9 +6,9 @@
  Dr. Toppel's Adventure
 *************************/
 
-ROM_START( drtoppels01 )
+ROM_START( drtoppel01 )
 	ROM_REGION( 0x20000, "maincpu", 0 )
-	ROM_LOAD( "b19__09__ps01.11c", 0x00000, 0x10000, CRC(6364a970) SHA1(e541b87afd91be7eb0cd15cbc5ee80feff82e12e) )
+	ROM_LOAD( "b19__09__s01.11c", 0x00000, 0x10000, CRC(6364a970) SHA1(e541b87afd91be7eb0cd15cbc5ee80feff82e12e) )
 	ROM_LOAD( "b19__10.9c",  0x10000, 0x10000, CRC(7e72fd25) SHA1(6035e4db75e6dc57b13bb6e92217d1c2d0ffdfd2) )
 
 	ROM_REGION( 0x10000, "sub", 0 )
@@ -36,9 +36,9 @@ ROM_END
  Insector X
 ************/
 
-ROM_START( insectxs01 )
+ROM_START( insectx01 )
 	ROM_REGION( 0x20000, "maincpu", 0 )
-	ROM_LOAD( "b97__03_ps01.u32", 0x00000, 0x20000, CRC(2f478739) SHA1(b073170bbf14a974d7ab28d8c078c4e8823f259f) )
+	ROM_LOAD( "b97__03_s01.u32", 0x00000, 0x20000, CRC(2f478739) SHA1(b073170bbf14a974d7ab28d8c078c4e8823f259f) )
 
 	ROM_REGION( 0x10000, "sub", 0 )
 	ROM_LOAD( "b97__07.u38", 0x00000, 0x10000, CRC(324b28c9) SHA1(db77a4ac60196d0f0f35dbc5c951ec29d6392463) )
@@ -50,6 +50,6 @@ ROM_END
 
 /*    YEAR  NAME          PARENT           MACHINE   INPUT     INIT                 MONITOR COMPANY       FULLNAME FLAGS */
 // Dr. Toppel's Adventure
-GAME( 1987, drtoppels01,  drtoppel,   extrmatn, drtoppel, extrmatn_state, empty_init, ROT90,  "Taito Corporation Japan",   "Dr. Toppel's Adventure (World, alt?)", MACHINE_SUPPORTS_SAVE ) /* Possible region hack */
+GAME( 1987, drtoppel01,  drtoppel,   extrmatn, drtoppel, extrmatn_state, empty_init, ROT90,  "Taito Corporation Japan",   "Dr. Toppel's Adventure (World, alt?)", MACHINE_SUPPORTS_SAVE ) /* Possible region hack */
 // Insector X
-GAME( 1989, insectxs01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "hack", "Insector X (Chinese)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, insectx01,   insectx,    insectx,  insectx,  insectx_state,  empty_init, ROT0,   "hack", "Insector X (Chinese)", MACHINE_SUPPORTS_SAVE )

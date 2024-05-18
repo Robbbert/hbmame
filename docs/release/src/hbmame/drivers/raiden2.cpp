@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/raiden2.cpp"
 
@@ -6,7 +6,7 @@
  Zero Team
 ***********/
 
-ROM_START( zeroteamcs01 ) //zeroteamdw
+ROM_START( zeroteam01 ) //zeroteamdw
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD32_BYTE("b1.u024_pw01.5k",   0x000000, 0x40000, CRC(b47b73b7) SHA1(1ed53b517c7886383772f731fed95b2e8e7b523e) )
 	ROM_LOAD32_BYTE("b3.u023_pw01.6k",   0x000002, 0x40000, CRC(81979a9b) SHA1(1b9e216f9f6b4e6d38ac881dfe0e7ee53c523f1b) )
@@ -37,7 +37,7 @@ ROM_START( zeroteamcs01 ) //zeroteamdw
 	ROM_LOAD( "6.c.u105.4a", 0x00000, 0x40000,  CRC(b4a6e899) SHA1(175ab656db3c3258ff10eede89890f62435d2298) )
 ROM_END
 
-ROM_START( zeroteamcs02 ) //zeroteams, zeroteam1v4
+ROM_START( zeroteam02 ) //zeroteams, zeroteam1v4
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD32_BYTE("b1.u024_pw02.5k",   0x000000, 0x40000, CRC(c2f5bba6) SHA1(a99655bef65af96c160c5e83b709597edff2a953) )
 	ROM_LOAD32_BYTE("b3.u023_pw02.6k",   0x000002, 0x40000, CRC(aa278057) SHA1(dfe1082c1555b196989f3cbbd2b6207947f5059a) )
@@ -68,7 +68,7 @@ ROM_START( zeroteamcs02 ) //zeroteams, zeroteam1v4
 	ROM_LOAD( "6.c.u105.4a", 0x00000, 0x40000,  CRC(b4a6e899) SHA1(175ab656db3c3258ff10eede89890f62435d2298) )
 ROM_END
 
-ROM_START( zeroteamss01 ) //zeroteamb
+ROM_START( zeroteam03 ) //zeroteamb
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD32_BYTE("1_sel_po01.bin",   0x000000, 0x40000, CRC(c1c66888) SHA1(eb746efd7fea9a258d34c85cc8a739e029ba54d6) )
 	ROM_LOAD32_BYTE("3_sel_po01.bin",   0x000002, 0x40000, CRC(f5c02ca4) SHA1(2d0e561b51db5f358f75b0990dc2b4cd43ee8424) )
@@ -101,7 +101,7 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Zero Team
-GAME( 1993, zeroteamcs01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team (Special Attack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, zeroteamcs02,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (1v4 Version, 2018-02-19)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, zeroteamss01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (Nightmare, 2018-10-22)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, zeroteam01,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team (Special Attack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, zeroteam02,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (1v4 Version, 2018-02-19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, zeroteam03,  zeroteam, zeroteam, zeroteam, raiden2_state, init_zeroteam, ROT0,   "hack", "Zero Team Selection (Nightmare, 2018-10-22)", MACHINE_SUPPORTS_SAVE )
 
