@@ -5,7 +5,7 @@
 
 
 - New compiler version: GCC 13.2
-- Dropped support for universal bios 1.x and 2.x
+- Dropped support for universal bios before 3.0
 
 
 New Games
@@ -17,6 +17,7 @@ New Games
 - [gladmortd]           Gladmort (Demo)
 - [karnovr04]           Karnov's Revenge (Revolution v0.1)
 - [oldsps28]            Oriental Legend 2 (New Revision CN)
+- [samsho2pe]           Samurai Shodown II (Perfect v2.0, 2024-05-01)
 - [sfa2s11]             Street Fighter Alpha 2 (960430U, Ultra Edition)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.29) [zero800]
 - [yoyoshkn]            Yo-Yo Shuriken
