@@ -2587,6 +2587,26 @@ ROM_START( karnovr03 ) // karnovrh
 	ROM_LOAD16_BYTE( "066.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
 ROM_END
 
+ROM_START( karnovr04 ) // karnovre
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "066s04.p1", 0x000000, 0x100000, CRC(06b066a0) SHA1(9fd2e9ee723b922acc5a361d3e3553b950507d0b) )
+
+	NEO_SFIX_128K( "066.s1", CRC(bae5d5e5) SHA1(aa69d9b235b781ec51f72a528fada9cb12e72cbc) )
+
+	NEO_BIOS_AUDIO_128K( "066.m1", CRC(030beae4) SHA1(ceb6ee6c09514504efacdbca7b280901e4c97084) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "066.v1", 0x000000, 0x200000, CRC(0b7ea37a) SHA1(34e7d4f6db053674a7e8c8b2e3e398777d5b02e6) )
+
+	ROM_REGION( 0xc00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "066.c1", 0x000000, 0x200000, CRC(09dfe061) SHA1(ca4c0f0ce80967b4be2f18b72435c468bbfbac4c) )
+	ROM_LOAD16_BYTE( "066.c2", 0x000001, 0x200000, CRC(e0f6682a) SHA1(addb4fbc30da2b8ffc86819d92a874eb232f67dd) )
+	ROM_LOAD16_BYTE( "066.c3", 0x400000, 0x200000, CRC(a673b4f7) SHA1(d138f5b38fd65c61549ce36f5c4983f7c8a3e7f6) )
+	ROM_LOAD16_BYTE( "066.c4", 0x400001, 0x200000, CRC(cb3dc5f4) SHA1(865d9ccfc3df517c341d6aac16120f6b6aa759fe) )
+	ROM_LOAD16_BYTE( "066.c5", 0x800000, 0x200000, CRC(9a28785d) SHA1(19723e1f7ff429e8a038d89488b279f830dfaf6e) )
+	ROM_LOAD16_BYTE( "066.c6", 0x800001, 0x200000, CRC(c15c01ed) SHA1(7cf5583e6610bcdc3b332896cefc71df84fb3f19) )
+ROM_END
+
 /*****************
  Kizuna Encounter
 *******************/
@@ -4669,6 +4689,7 @@ GAME( 1995, kabukikl13,     kabukikl, neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1994, karnovr01,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Yumeji", "Karnov's Revenge (Add hidden characters-Enable Bull v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, karnovr02,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Karnov's Revenge (Add hidden characters-Enable Bull v1)", MACHINE_SUPPORTS_SAVE ) // Big Tornado
 GAME( 2017, karnovr03,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "mountainmanjed", "Karnov's Revenge (Add Clown and Karnov stages)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, karnovr04,      karnovr,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "GameHackFan", "Karnov's Revenge (Revolution v0.1)", MACHINE_SUPPORTS_SAVE )
 // Kizuna Encounter
 GAME( 1996, kizuna01,       kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1996, kizuna02,       kizuna,   neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami[EGCG]", "Kizuna Encounter (Unlimited Power v2)", MACHINE_SUPPORTS_SAVE )
