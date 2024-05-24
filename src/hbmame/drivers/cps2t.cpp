@@ -479,9 +479,28 @@ ROM_START( sfz3mix28 ) // 0.28
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-ROM_START( sfz3mix ) // 0.29
+ROM_START( sfz3mix29 ) // 0.29
 	ROM_REGION( 0x400000, "maincpu", 0 )
-	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(ac780a3b) SHA1(8a387233720098bc572da56753cdb9df742c3d20) ) // 03
+	ROM_LOAD( "sfz3mix29.p1", 0x000000, 0x400000, CRC(ac780a3b) SHA1(8a387233720098bc572da56753cdb9df742c3d20) ) // 03
+	ROM_IGNORE(0x200000)  // empty
+
+	ROM_REGION( 0x4000000, "gfx", 0 )
+	ROM_LOAD( "sfz3mix.c1", 0x0000000, 0x2000000, CRC(af3980f7) SHA1(3cb13fc3eb1845e2606e05e0d765326b1dcb8cd4) ) // 13m
+	ROM_LOAD( "sfz3mix.c2", 0x2000000, 0x2000000, CRC(1d9ae703) SHA1(38f2b7c958c7330b382a7ab9e77c8ac6b1aed4d2) ) // 21m
+
+	ROM_REGION( 0x80000, "audiocpu", 0 )
+	ROM_LOAD( "sfz3mix.m1", 0x000000, 0x080000, CRC(727fd776) SHA1(25e6248c1202bed684f50caa149dd22aff2376b5) ) // 01
+
+	ROM_REGION( 0x1000000, "qsound", 0 )
+	ROM_LOAD( "sfz3mix.q1",   0x000000, 0x1000000, CRC(5d4fe046) SHA1(5e5c55f4d12cd91eb1191bf214babd05ce4fcb3f) ) // 11m
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+ROM_START( sfz3mix ) // 0.30
+	ROM_REGION( 0x400000, "maincpu", 0 )
+	ROM_LOAD( "sfz3mix.p1", 0x000000, 0x400000, CRC(eb635d04) SHA1(1736fdb8ce35544b2771b70094b6d6ee368721c1) ) // 03
 	ROM_IGNORE(0x200000)  // empty
 
 	ROM_REGION( 0x4000000, "gfx", 0 )
@@ -507,5 +526,6 @@ GAME( 2024, sfz3mix25,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, RO
 GAME( 2024, sfz3mix26,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sfz3mix27,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sfz3mix28,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.28)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sfz3mix29,  sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sfz3mix,    sfa3, cps2turbo, cps2_2p6b, cps2_state, init_sfz3mix, ROT0, "Zero800", "Street Fighter Zero 3 (Turbo Mix 0.30)", MACHINE_SUPPORTS_SAVE )
 

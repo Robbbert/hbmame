@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2024-0x-xx 0.245.20
+
+
+New Games
+---------------------------------
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.30) [zero800]
+
+
+
+
 2024-05-18 0.245.19
 
 
@@ -21,7 +31,7 @@ New Games
 - [oldsps28]            Oriental Legend 2 (New Revision CN)
 - [samsho2pe]           Samurai Shodown II (Perfect v2.0, 2024-05-01)
 - [sfa2s11]             Street Fighter Alpha 2 (960430U, Ultra Edition)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.29) [zero800]
+- [sfz3mix29]           Street Fighter Zero 3 (Turbo Mix 0.29) [zero800]
 - [wakuwak7s05]         Waku Waku 7 (Enhanced, 2023-06-06)
 - [yoyoshkn]            Yo-Yo Shuriken
 
