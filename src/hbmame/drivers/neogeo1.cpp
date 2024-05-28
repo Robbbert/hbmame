@@ -3687,6 +3687,7 @@ ROM_START( nitd01 )
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s03.c1", 0x0000000, 0x800000, CRC(250010d5) SHA1(514053c16eb7b3e5879ddf02c422e5e923b0d1e6) )
@@ -3703,6 +3704,7 @@ ROM_START( nitd02 ) // nitdd
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s02.c1", 0x0000000, 0x800000, CRC(f3ff4953) SHA1(0e54548387f3056088e89086a30da05935d08b24) )
@@ -3719,6 +3721,7 @@ ROM_START( nitd03 ) // nitdfr - Translation Hack by NEO-ARC - (French translatio
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s03.c1", 0x0000000, 0x800000, CRC(7c469419) SHA1(06a45016c9493b85fbb8d9ebd33409a0d933ed22) )
@@ -3735,6 +3738,7 @@ ROM_START( nitd04 ) // nitdfro - Translation Hack Older?
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s04.c1", 0x0000000, 0x800000, CRC(14c5a25f) SHA1(8b29f7e6920eb1b4a7dc42a063e4c8e6ec9a5700) )
@@ -3751,6 +3755,7 @@ ROM_START( nitd05 ) // nitdfro1
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s04.c1", 0x0000000, 0x800000, CRC(14c5a25f) SHA1(8b29f7e6920eb1b4a7dc42a063e4c8e6ec9a5700) )
@@ -3767,6 +3772,7 @@ ROM_START( nitd06 ) // nitdpx
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260.c1", 0x0000000, 0x800000, CRC(147b0c7f) SHA1(a647c3a2f6d146ff47521c1d39f58830601f5781) )
@@ -3783,6 +3789,7 @@ ROM_START( nitd07 ) // nitdsp1 - Translation Hack by UNKNOWN - (Spanish language
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s08.c1", 0x0000000, 0x800000, CRC(3f7fbd0c) SHA1(2e6cedcb099ae8f5bbdb9d989ca3918d7fb0504f) )
@@ -3799,6 +3806,7 @@ ROM_START( nitd08 ) // nitdsp2
 
 	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
+	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "260s08.c1", 0x0000000, 0x800000, CRC(3f7fbd0c) SHA1(2e6cedcb099ae8f5bbdb9d989ca3918d7fb0504f) )
