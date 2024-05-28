@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [nbajam04]            NBA Jam Rewind (rev 1.2)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.30) [zero800]
 
 
