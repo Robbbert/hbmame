@@ -199,6 +199,7 @@ NUM GAME YEAR COMPANY                 TITLE
 501 0282 2023 iq_132                  Soldier Girl Amazon (Neo-Geo port)
 502 14A0 2023 Neo Byte Force          Cyborg Force (https://ozzyouzo.itch.io/cyborg-force)
 503 0722 2024 Pixelheart              Gladmort Demo
+503 0723 2024 Pixelheart              Gladmort Demo 2
 
 
 
@@ -334,6 +335,8 @@ YEAR COMPANY                          TITLE
 2023 NeoHomeBrew                      Pinball Game Playfield Demo (on youtube)
 2023 NeoHomeBrew                      Bouncing Ball Demo (on youtube)
 2023 Pixelheart                       Gladmort [full] (youtube) - demo is released
+2023 Nalua Studio                     Vengeance Hunters (https://shop.naluastudio.com/shop/products)
+2023 Shadow Gangs                     Shadow Gangs (https://www.shadowgangs.net) Intended to be ported to NeoGeo...
 2023 Neofid Studios                   Daemon Claw: Origins of Nnar (https://twitter.com/DAsteborg/status/1696175973253734420)
 2024 Neofid Studios                   Demons of Asteborg DX (https://neofidstudios.itch.io/demons-of-asteborg-dx)
 2024 Rosenthal Castle                 Petal Crash (video on youtube) (https://rosenthalcastle.itch.io/petal-crash-neo)
@@ -1995,6 +1998,26 @@ ROM_START( gladmortd )
 	ROM_LOAD16_BYTE( "503.c2",   0x0000001, 0x1000000, CRC(1bdd21bd) SHA1(13749d078525a63ac85ea2aa17b326409a4609e9) )
 ROM_END
 
+// 503 : Gladmort Demo 2 by Pixelheart
+ROM_START( gladmortd2 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "503d2.p1", 0x000000, 0x100000, CRC(d7712425) SHA1(eb9c32b584a600cc67784113cd87629c3eab4e1c) )
+
+	NEO_SFIX_128K( "503.s1", CRC(8304be52) SHA1(fbeaee12553709e54e7f5134dfd2ff96df5fdee0) )
+
+	NEO_BIOS_AUDIO_64K( "503d2.m1", CRC(0dfddae3) SHA1(4bfa6af6874510d1da95badee1bd23d3be853461) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "503d2.v1",   0x000000, 0x400000, CRC(3b5e1408) SHA1(90cc923273d002819228cde8bdc57d76915b52f1) )
+	ROM_LOAD( "503d2.v2",   0x400000, 0x400000, CRC(d44f004d) SHA1(bfb652111b1d065d48833034ab0333e69af9c947) )
+	ROM_LOAD( "503d2.v3",   0x800000, 0x400000, CRC(e9e8de2f) SHA1(2a480f925073776308c07b6d4cc2334115bc17f2) )
+	ROM_LOAD( "503d2.v4",   0xc00000, 0x400000, CRC(aaf3f4e2) SHA1(9e126db19a98de4bd0c649f7a655e1e79cc236ed) )
+
+	ROM_REGION( 0x2800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "503d2.c1",   0x0000000, 0x1400000, CRC(bcb081ba) SHA1(68cdd3c2920a0fc5c52a5ba1d6e4efd0e735e11d) )
+	ROM_LOAD16_BYTE( "503d2.c2",   0x0000001, 0x1400000, CRC(1b927329) SHA1(4861da95ce6a9d0521bbeed3b4f06daa0750c15c) )
+ROM_END
+
 
 // 600 : 240p Test Suite by Artemio Urbina
 ROM_START( 240ptest ) // 0.95
@@ -3389,7 +3412,8 @@ GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
-GAME( 2009, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, gladmortd2,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Casanova She And She demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid, 2021-11-28)", MACHINE_SUPPORTS_SAVE )
