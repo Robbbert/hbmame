@@ -7,13 +7,14 @@ Quickloads for NeoSD. These extensions are supported: NEO.
 
 While intended for homebrew games, most of the unprotected commercial games will work to some extent.
 
+Number of items in this list = 264
 -->
 <softwarelist name="neo_quik" description="NeoSD quickload">
 
 	<software name="19yy">
 		<description>19YY</description>
 		<year>2022</year>
-		<publisher>&lt;unknown&gt;</publisher>
+		<publisher>Ichikyu Wai Wai/EKORZ/Elrayzeur</publisher>
 		<part name="quik" interface="neo_quik">
 			<dataarea name="quik" size="17043456">
 				<rom name="19yy.neo" size="17043456" crc="ee00ead3" sha1="9ff9381bd015372e1c18494b36d4d851fd588470"/>
@@ -21,13 +22,2895 @@ While intended for homebrew games, most of the unprotected commercial games will
 		</part>
 	</software>
 
-	<software name="mslug">
-		<description>Metal Slug</description>
+	<software name="2020bb">
+		<description>2020 Super Baseball (set 1)</description>
+		<year>1991</year>
+		<publisher>SNK / Pallas</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="2020bb.neo" size="7081984" crc="8041ad52" sha1="b28dc29119ce47e37fc13798a261e1da37b61179"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="2020bba">
+		<description>2020 Super Baseball (set 2)</description>
+		<year>1991</year>
+		<publisher>SNK / Pallas</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="2020bba.neo" size="7081984" crc="e9526781" sha1="08a3b571d3f5a88d6a51d3513e29efde020df928"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="2020bbh">
+		<description>2020 Super Baseball (set 3)</description>
+		<year>1991</year>
+		<publisher>SNK / Pallas</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="2020bbh.neo" size="7081984" crc="9143727f" sha1="caf7252b915e2870eef82e00bb0d5cd9ff6b88ea"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="240ptest">
+		<description>240p Test Suite</description>
+		<year>2023</year>
+		<publisher>unknown</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3608576">
+				<rom name="240ptest.neo" size="3608576" crc="2b04abf5" sha1="78696ce239de1787b2a078e542202f9e6999fc73"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="3countb">
+		<description>3 Count Bout / Fire Suplex (NGM-043 ~ NGH-043)</description>
+		<year>1993</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13897728">
+				<rom name="3countb.neo" size="13897728" crc="03bdc5a6" sha1="d4cc02f92353c483d9eecc7d26f6afe5d665477a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="4ptest">
+		<description>4 Player Multitab Test</description>
+		<year>2021</year>
+		<publisher>Blastar</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="2297856">
+				<rom name="4ptest.neo" size="2297856" crc="53096772" sha1="366348043db1b203b36f402b180411c345495118"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="abyssal1">
+		<description>Abyssal Infants</description>
+		<year>2021</year>
+		<publisher>Kako Eimon</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="abyssal1.neo" size="7081984" crc="ce6a80b5" sha1="36be42d22083e36fe875db67b40a7d85dbe9f083"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="abyssal2">
+		<description>Abyssal Infants (Newer)</description>
+		<year>2021</year>
+		<publisher>Kako Eimon</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="abyssal2.neo" size="7081984" crc="54a6a1ef" sha1="be76027bd0eebbd677d3fbe8869934607289692b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="alpham2">
+		<description>Alpha Mission II / ASO II - Last Guardian (NGM-007 ~ NGH-007)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6164480">
+				<rom name="alpham2.neo" size="6164480" crc="d8cb49e9" sha1="c93f33c2eab91f44f68aea6c2c2381cf0122bf9b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="alpham2p">
+		<description>Alpha Mission II / ASO II - Last Guardian (prototype)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="9179136">
+				<rom name="alpham2p.neo" size="9179136" crc="aab8f811" sha1="25264a992848cccd15afaed53cad32c62d1b32ee"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="amazoneo">
+		<description>Soldier Girl Amazon (Port to Neogeo)</description>
+		<year>2023</year>
+		<publisher>IQ_132</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="4788224">
+				<rom name="amazoneo.neo" size="4788224" crc="5d75b0b0" sha1="bc311d6b5fdc5a415c58084977678db881766e65"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="androdun">
+		<description>Andro Dunos (NGM-049 ~ NGH-049)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="4460544">
+				<rom name="androdun.neo" size="4460544" crc="6aaed441" sha1="40b177d5803be15d6014fba2ec9c676f4ecfb8d9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="aodk">
+		<description>Aggressors of Dark Kombat / Tsuukai GANGAN Koushinkyoku (ADM-008 ~ ADH-008)</description>
+		<year>1994</year>
+		<publisher>ADK / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="aodk.neo" size="23334912" crc="8dcafd3b" sha1="e8744878045bf87a442ce8d6ae987cf6de41e323"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="aof">
+		<description>Art of Fighting / Ryuuko no Ken (NGM-044 ~ NGH-044)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13373440">
+				<rom name="aof.neo" size="13373440" crc="02e281f9" sha1="77fe9609cb72682970d2d3ff567ee08e96adb3ca"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="aof2">
+		<description>Art of Fighting 2 / Ryuuko no Ken 2 (NGM-056)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="aof2.neo" size="23334912" crc="bc3e4c20" sha1="bf49eb0a6e89b74c39e33e3ce16a395cb8a82bda"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="aof2a">
+		<description>Art of Fighting 2 / Ryuuko no Ken 2 (NGH-056)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="aof2a.neo" size="23334912" crc="c649e151" sha1="e62fb13f3083e4fbb6aacebf3c4c188e9babadde"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="aof3">
+		<description>Art of Fighting 3 - The Path of the Warrior / Art of Fighting - Ryuuko no Ken Gaiden</description>
 		<year>1996</year>
 		<publisher>SNK</publisher>
 		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="39063552">
+				<rom name="aof3.neo" size="39063552" crc="46b7eac3" sha1="55c4211dfb7054cb8d2a9db172c581dccf8ab9aa"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="b2b">
+		<description>Bang Bang Busters</description>
+		<year>2001</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="b2b.neo" size="6033408" crc="5228faba" sha1="f675603d339efbb003e3e6d17cdfd3512b8dfdb9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bakatono">
+		<description>Bakatonosama Mahjong Manyuuki (MOM-002 ~ MOH-002)</description>
+		<year>1991</year>
+		<publisher>Monolith Corp.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="bakatono.neo" size="7081984" crc="4e1acd2b" sha1="dcb2f8db549c6891a283c17eee3ab1be330f8efb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bangbead">
+		<description>Bang Bead</description>
+		<year>2000</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="24383488">
+				<rom name="bangbead.neo" size="24383488" crc="0003bb08" sha1="6470b36c05bd84decd7cf1aaafacd83c92fa2155"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bjourney">
+		<description>Blue's Journey / Raguy (ALM-001 ~ ALH-001)</description>
+		<year>1990</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="bjourney.neo" size="7606272" crc="3d0805de" sha1="94e9f9fd007c490c098f4348f2a2639472435a25"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="blazstar">
+		<description>Blazing Star</description>
+		<year>1998</year>
+		<publisher>Yumekobo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="blazstar.neo" size="45355008" crc="21aa3a79" sha1="4a7706aba7ede5acb4417d36d14c93940d61ad3a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="blutengel2018fix">
+		<description>Blut Engel 2018 fix</description>
+		<year>2018</year>
+		<publisher>Blastar</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="1183744">
+				<rom name="blutengel2018fix.neo" size="1183744" crc="d2c40244" sha1="a3888dd1ff9168339afa58f7823c4944043678e0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bonusgame">
+		<description>Bonus Stage</description>
+		<year>2020</year>
+		<publisher>Totologic</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13307904">
+				<rom name="bonusgame.neo" size="13307904" crc="dda620a5" sha1="3e70f0294466c278cd9123aaef54210b69fd269c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="breakers">
+		<description>Breakers</description>
+		<year>1996</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="27529216">
+				<rom name="breakers.neo" size="27529216" crc="e9e191f2" sha1="a328180b3627d366170f6139fb3269ceb72df986"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="breakrev">
+		<description>Breakers Revenge</description>
+		<year>1998</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="35917824">
+				<rom name="breakrev.neo" size="35917824" crc="0874ff8b" sha1="5fd07a248feb2e1421acae611780317d4b83e005"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bstars">
+		<description>Baseball Stars Professional (NGM-002)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6688768">
+				<rom name="bstars.neo" size="6688768" crc="221e9fdb" sha1="7bb409546fc6f652fbf568cd9766d115f5c1daf2"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bstars2">
+		<description>Baseball Stars 2</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="bstars2.neo" size="7606272" crc="cea02498" sha1="cb5e038327a95d2149b8497d1ab409b51d085408"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="bstarsh">
+		<description>Baseball Stars Professional (NGH-002)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6688768">
+				<rom name="bstarsh.neo" size="6688768" crc="1fff2e59" sha1="9ee76a4c145208f395336142beebba2f6dcaf336"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="burningf">
+		<description>Burning Fight (NGM-018 ~ NGH-018)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="burningf.neo" size="7081984" crc="62c88a2d" sha1="0e0ba21f5257f9a4a0f9df6973f124e174365a10"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="burningfh">
+		<description>Burning Fight (NGH-018, US)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="burningfh.neo" size="7081984" crc="adcc7b7d" sha1="26135136e170851c7f59d60ff50048608d509bed"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="burningfp">
+		<description>Burning Fight (prototype, older)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="burningfp.neo" size="7081984" crc="8d3e9c7b" sha1="3d2e6a767ce31e26d333529b68b7a1ead25b1442"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="burningfpa">
+		<description>Burning Fight (prototype, near final, ver 23.3, 910326)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="burningfpa.neo" size="7606272" crc="b5df2d4e" sha1="95e4427258dc5bd058eb9602eee95d1d0f17c47a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="cabalng">
+		<description>Cabal (Port to Neogeo)</description>
+		<year>2021</year>
+		<publisher>IQ_132</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5443584">
+				<rom name="cabalng.neo" size="5443584" crc="000d4c3b" sha1="ed4da3e2bd08f2365c9f884d353e78b3a6f3fea7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="cakefght">
+		<description>Cake Fighter</description>
+		<year>2022</year>
+		<publisher>ADK/EKORZ</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19140608">
+				<rom name="cakefght.neo" size="19140608" crc="d2afe82e" sha1="03c52787a449ea3964238293e4d5d77f4211488e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="columnsn">
+		<description>Columns (Port to Neogeo)</description>
+		<year>1990</year>
+		<publisher>Jeff Kurtz</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="2297856">
+				<rom name="columnsn.neo" size="2297856" crc="ef6b596f" sha1="e332be6bbb05384b89f999a140a957f2ea7c0d92"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="crswd2bl">
+		<description>Crossed Swords 2 (bootleg of CD version)</description>
+		<year>1995</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="12849152">
+				<rom name="crswd2bl.neo" size="12849152" crc="9acfb8e5" sha1="caabbbf4e03ec8bdfc362c86195be6d2e873dcdb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="crsword">
+		<description>Crossed Swords (ALM-002 ~ ALH-002)</description>
+		<year>1991</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="crsword.neo" size="6033408" crc="75fabd5d" sha1="5b61e3af212e87da0a7fd01f060e4631d87f74ac"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ct2k3sa">
+		<description>Crouching Tiger Hidden Dragon 2003 Super Plus (hack of The King of Fighters 2001, alternate)</description>
+		<year>2003</year>
+		<publisher>bootleg (Phenixsoft)</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89395200">
+				<rom name="ct2k3sa.neo" size="89395200" crc="7e74bdf9" sha1="3cb07325560df253889114ffeb12c1f9555aecea"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ctomaday">
+		<description>Captain Tomaday</description>
+		<year>1999</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15994880">
+				<rom name="ctomaday.neo" size="15994880" crc="0ce8e4f2" sha1="22ee288dd2f23c145c178e0efb93cd71448ff726"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="cyberlip">
+		<description>Cyber-Lip (NGM-010)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6557696">
+				<rom name="cyberlip.neo" size="6557696" crc="d20d6a3e" sha1="07983b33f1f26e15d8b57c2797ea1cc50912c891"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="diggerma">
+		<description>Digger Man (prototype)</description>
+		<year>2000</year>
+		<publisher>Kyle Hodgetts</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="2363392">
+				<rom name="diggerma.neo" size="2363392" crc="41581ae2" sha1="132667d0dc00ad6e87568314ef16493007ebeb0f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="doubledr">
+		<description>Double Dragon (Neo-Geo)</description>
+		<year>1995</year>
+		<publisher>Technos Japan</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="21237760">
+				<rom name="doubledr.neo" size="21237760" crc="5f92a3aa" sha1="18a3d5efd39f71c6914001b139d83e605c4ad2b6"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="eightman">
+		<description>Eight Man (NGM-025 ~ NGH-025)</description>
+		<year>1991</year>
+		<publisher>SNK / Pallas</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="eightman.neo" size="6033408" crc="843dcf30" sha1="baa64ae076a076e1f2bdc90d3100f3ef612c6b7e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fatfursp">
+		<description>Fatal Fury Special / Garou Densetsu Special (NGM-058 ~ NGH-058, set 1)</description>
+		<year>1993</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19664896">
+				<rom name="fatfursp.neo" size="19664896" crc="beccef57" sha1="a0be4785ff17a61a87e593ffa4a87a65b9890155"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fatfurspa">
+		<description>Fatal Fury Special / Garou Densetsu Special (NGM-058 ~ NGH-058, set 2)</description>
+		<year>1993</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19664896">
+				<rom name="fatfurspa.neo" size="19664896" crc="e2f91cac" sha1="5c0b925b1fd90a100a0be3f92a7f9c0254f1af13"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fatfury1">
+		<description>Fatal Fury - King of Fighters / Garou Densetsu - Shukumei no Tatakai (NGM-033 ~ NGH-033)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="fatfury1.neo" size="7213056" crc="dabcc80b" sha1="43a32868e9b2eab5e5eb774ef4f1a6516545e28f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fatfury2">
+		<description>Fatal Fury 2 / Garou Densetsu 2 - Arata-naru Tatakai (NGM-047 ~ NGH-047)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13897728">
+				<rom name="fatfury2.neo" size="13897728" crc="18f33cde" sha1="f569bf5752c527446673e1dfec08e8eb3f2eb8e4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fatfury2a">
+		<description>Fatfury2 (alt)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13897728">
+				<rom name="fatfury2a.neo" size="13897728" crc="1a896e27" sha1="444c6a579a6ba37928a3d9217e9796e05d1ed09e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fatfury3">
+		<description>Fatal Fury 3 - Road to the Final Victory / Garou Densetsu 3 - Haruka-naru Tatakai (NGM-069 ~ NGH-069)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="34869248">
+				<rom name="fatfury3.neo" size="34869248" crc="d353eeed" sha1="64b3cd8075c48766d2fd1d696cc7a0c0972e9c27"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fbfrenzy">
+		<description>Football Frenzy (NGM-034 ~ NGH-034)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="fbfrenzy.neo" size="6033408" crc="2db33ec0" sha1="693df1dab4d2c8cb5b18025bc069a7e26631ba23"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fightfev">
+		<description>Fight Fever / Wang Jung Wang (set 1)</description>
+		<year>1994</year>
+		<publisher>Viccom</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="12849152">
+				<rom name="fightfev.neo" size="12849152" crc="8515503b" sha1="4f0cd768f9de330af6e2ac66fbb408b03e3c95c5"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fightfeva">
+		<description>Fight Fever / Wang Jung Wang (set 2)</description>
+		<year>1994</year>
+		<publisher>Viccom</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="12849152">
+				<rom name="fightfeva.neo" size="12849152" crc="babd8403" sha1="3d761fae10638323d287d704326cbab8d2c7c3d9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="flipshot">
+		<description>Battle Flip Shot</description>
+		<year>1998</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="flipshot.neo" size="7606272" crc="e3d2d230" sha1="3f888d71a91cee0ae1b683d07b1bdae3988233d7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="frogfest">
+		<description>Frog Feast</description>
+		<year>2006</year>
+		<publisher>Rastersoft</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="4984832">
+				<rom name="frogfest.neo" size="4984832" crc="ba7cdef4" sha1="a783906ec4d9877784396b5fe4c6ccdba0ac831c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="froman2b">
+		<description>Idol Mahjong Final Romance 2 (Neo-Geo, bootleg of CD version)</description>
+		<year>1995</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10227712">
+				<rom name="froman2b.neo" size="10227712" crc="e7d57377" sha1="ac69564de809db5f46fa2b85f8147bf5442fabc4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="fswords">
+		<description>Fighters Swords (Korean release of Samurai Shodown III)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="36966400">
+				<rom name="fswords.neo" size="36966400" crc="e6aa08c1" sha1="c15008e50b5bb586c3c04f3b952533090b9e1a16"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="galaxyfg">
+		<description>Galaxy Fight - Universal Warriors</description>
+		<year>1995</year>
+		<publisher>Sunsoft</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="22286336">
+				<rom name="galaxyfg.neo" size="22286336" crc="ec905658" sha1="151d5b61185e87e4d40f233d3e87c94ec5dd9cc1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ganryu">
+		<description>Ganryu / Musashi Ganryuki</description>
+		<year>1999</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="ganryu.neo" size="23334912" crc="382e661f" sha1="81c2f4a5b27ee55452d6ba6b36535d6127235650"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="garoubl">
+		<description>Garou - Mark of the Wolves (bootleg)</description>
+		<year>1999</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89788416">
+				<rom name="garoubl.neo" size="89788416" crc="2c3351e9" sha1="fab16bd08a2a7242d06261c9dc7a129a1cb2db95"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="garoup">
+		<description>Garou - Mark of the Wolves (prototype)</description>
+		<year>1999</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89526272">
+				<rom name="garoup.neo" size="89526272" crc="81275c80" sha1="ddf7a418db7a2393b5cbbcb72b655df199d00809"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ghostlop">
+		<description>Ghostlop (prototype)</description>
+		<year>1996</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="11800576">
+				<rom name="ghostlop.neo" size="11800576" crc="adafd77a" sha1="6c9d46439e1eec608fb1fdddcbb0bf6156d1ae3d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gladmortd">
+		<description>Gladmort (demo)</description>
+		<year>2024</year>
+		<publisher>Pixelheart</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59445248">
+				<rom name="gladmortd.neo" size="59445248" crc="090fa6f7" sha1="2363f220bd7b93508a32cac3c30243807736f8b6"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gladmortd2">
+		<description>Gladmort (demo 2)</description>
+		<year>2024</year>
+		<publisher>Pixelheart</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59969536">
+				<rom name="gladmortd2.neo" size="59969536" crc="73a94e07" sha1="ee5f2ccf28704825e43bfe2386fef15281acc94b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="goalx3">
+		<description>Goal! Goal! Goal!</description>
+		<year>1995</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="14946304">
+				<rom name="goalx3.neo" size="14946304" crc="1a3799d6" sha1="b760b49e4045599c185b0d7ebfadcb308864932c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gowcaizr">
+		<description>Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer</description>
+		<year>1995</year>
+		<publisher>Technos Japan</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="24383488">
+				<rom name="gowcaizr.neo" size="24383488" crc="519b1bd4" sha1="9830b921ba0e4a20ec587b95dd766edc6b9ef132"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gpilots">
+		<description>Ghost Pilots (NGM-020 ~ NGH-020)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="gpilots.neo" size="7213056" crc="aad82c6c" sha1="eabf68766aaba54b3cfd9ba3c12e79838016d49e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gpilotsh">
+		<description>Ghost Pilots (NGH-020, US)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="gpilotsh.neo" size="7213056" crc="eea2b267" sha1="b58ac81067d5af4a738bcea581432fef16c4f4bc"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="gururin">
+		<description>Gururin</description>
+		<year>1994</year>
+		<publisher>Face</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5509120">
+				<rom name="gururin.neo" size="5509120" crc="5c587362" sha1="b0ecdaf04bf6db87d34c1184fbf2c6205c00d77b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ironclad">
+		<description>Choutetsu Brikin'ger / Iron Clad (prototype)</description>
+		<year>1996</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="ironclad.neo" size="23334912" crc="e38554fb" sha1="e9a03c946ecb5144286e556e1e979230791141e0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ironclado">
+		<description>Choutetsu Brikin'ger / Iron Clad (prototype, bootleg)</description>
+		<year>1996</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="ironclado.neo" size="23334912" crc="300b920a" sha1="29fc9bd61432afd0553248fefc3836ea8140430e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="irrmaze">
+		<description>The Irritating Maze / Ultra Denryu Iraira Bou</description>
+		<year>1997</year>
+		<publisher>SNK / Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13897728">
+				<rom name="irrmaze.neo" size="13897728" crc="c03d0ec0" sha1="7e10c67c197623bbd714b36c773408f90b48c7a4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="janshin">
+		<description>Janshin Densetsu - Quest of Jongmaster</description>
+		<year>1994</year>
+		<publisher>Aicom</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="janshin.neo" size="7606272" crc="c62ab999" sha1="c4ca157366642fccae0652dd277853d2e6e5ebbe"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="joyjoy">
+		<description>Puzzled / Joy Joy Kid (NGM-021 ~ NGH-021)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3018752">
+				<rom name="joyjoy.neo" size="3018752" crc="20e07606" sha1="085d68c758fccf827431dba25cb99ba0af2128cd"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kabukikl">
+		<description>Far East of Eden - Kabuki Klash / Tengai Makyou - Shin Den</description>
+		<year>1995</year>
+		<publisher>Hudson</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="26480640">
+				<rom name="kabukikl.neo" size="26480640" crc="e5c7c02f" sha1="2867ff2edfac9a009073273a3ea5ec58254898e2"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="karnovr">
+		<description>Karnov's Revenge / Fighter's History Dynamite</description>
+		<year>1994</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15994880">
+				<rom name="karnovr.neo" size="15994880" crc="be78c856" sha1="cb7566917e59d53ab34f35a6221d818c856eeef0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kf10thep">
+		<description>The King of Fighters 10th Anniversary Extra Plus (bootleg of The King of Fighters 2002)</description>
+		<year>2005</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92540928">
+				<rom name="kf10thep.neo" size="92540928" crc="6eeee6bc" sha1="134c009808ab970189856aefbc249003e00669e3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kf2k2mp">
+		<description>The King of Fighters 2002 Magic Plus (bootleg)</description>
+		<year>2002</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92540928">
+				<rom name="kf2k2mp.neo" size="92540928" crc="dbe7f03c" sha1="882f1abdf2f75ac3ccdbf691dc82fbd36e235061"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kf2k2mp2">
+		<description>The King of Fighters 2002 Magic Plus II (bootleg)</description>
+		<year>2002</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="90443776">
+				<rom name="kf2k2mp2.neo" size="90443776" crc="607e6a06" sha1="326b221d6df08aea99c0f927150382d4a85c479c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kizuna">
+		<description>Kizuna Encounter - Super Tag Battle / Fu'un Super Tag Battle</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="40112128">
+				<rom name="kizuna.neo" size="40112128" crc="4a93ef82" sha1="a2b3c20cb0e42ea3a3e4d1021e28a3df1cd4f305"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof2001">
+		<description>The King of Fighters 2001 (NGM-262?)</description>
+		<year>2001</year>
+		<publisher>Eolith / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89526272">
+				<rom name="kof2001.neo" size="89526272" crc="01202e76" sha1="c0cd951b25bb157ec0246632092e40a8f370fb91"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof2001h">
+		<description>The King of Fighters 2001 (NGH-2621)</description>
+		<year>2001</year>
+		<publisher>Eolith / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89526272">
+				<rom name="kof2001h.neo" size="89526272" crc="9ebbb90a" sha1="ed77563e08fff29d659df7475622bed9edcf2034"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof2002">
+		<description>The King of Fighters 2002 (NGM-2650 ~ NGH-2650)</description>
+		<year>2002</year>
+		<publisher>Eolith / Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89395200">
+				<rom name="kof2002.neo" size="89395200" crc="388ce6f9" sha1="8c22a03f982b45038d726695b1a1e37aa04c6ff6"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof2k4se">
+		<description>The King of Fighters Special Edition 2004 (bootleg of The King of Fighters 2002)</description>
+		<year>2004</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89395200">
+				<rom name="kof2k4se.neo" size="89395200" crc="2dc44424" sha1="1582f1c6bc9de48227b61625eb51def9e955001d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof94">
+		<description>The King of Fighters '94 (NGM-055 ~ NGH-055)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="25432064">
+				<rom name="kof94.neo" size="25432064" crc="1de3c0cb" sha1="27619b9983c6d82802fef127fb6fecd043aa5e63"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof95">
+		<description>The King of Fighters '95 (NGM-084)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="39063552">
+				<rom name="kof95.neo" size="39063552" crc="161c3f78" sha1="30326b570c19973c50e13b183e794bd2fc726ba9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof95a">
+		<description>The King of Fighters '95 (NGM-084, alt board)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="39063552">
+				<rom name="kof95a.neo" size="39063552" crc="74fad1b2" sha1="2277333af5bd3d5b4a45afd0d91795b07a7a6314"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof95h">
+		<description>The King of Fighters '95 (NGH-084)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="39063552">
+				<rom name="kof95h.neo" size="39063552" crc="a2b60b1d" sha1="f1a957b7efaf77732d88d09d7a9e974d2a80fea0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof96">
+		<description>The King of Fighters '96 (NGM-214)</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="47452160">
+				<rom name="kof96.neo" size="47452160" crc="e54b8545" sha1="419329fa31b725ce6f7feb51b27704ada748b0f0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof96h">
+		<description>The King of Fighters '96 (NGH-214)</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="47452160">
+				<rom name="kof96h.neo" size="47452160" crc="1be5ef6e" sha1="442daf43db17220bcf3bc6c88a67e858dd60c607"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof97">
+		<description>The King of Fighters '97 (NGM-2320)</description>
+		<year>1997</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="60035072">
+				<rom name="kof97.neo" size="60035072" crc="bef7053f" sha1="08b5772ee9fb858f8015f6d2759b47615bf85cfe"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof97h">
+		<description>The King of Fighters '97 (NGH-2320)</description>
+		<year>1997</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="60035072">
+				<rom name="kof97h.neo" size="60035072" crc="f04f9dc7" sha1="d031fe06dbcb02dd735ba5e95a684d93a262f5da"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof97k">
+		<description>The King of Fighters '97 (Korean release)</description>
+		<year>1997</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="60035072">
+				<rom name="kof97k.neo" size="60035072" crc="4c007242" sha1="4228fd6c2b5e36fd879c1f16d2d6eab55d0adb32"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof97oro">
+		<description>The King of Fighters '97 Chongchu Jianghu Plus 2003 (bootleg)</description>
+		<year>1997</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="60035072">
+				<rom name="kof97oro.neo" size="60035072" crc="7e41756c" sha1="6eb72277cca09bf577495f158fb584b00e06f543"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof97pls">
+		<description>The King of Fighters '97 Plus (bootleg)</description>
+		<year>1997</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="60035072">
+				<rom name="kof97pls.neo" size="60035072" crc="8ca84974" sha1="235d2a31c15c64113cef1fbfb26a4517eeba2633"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof98">
+		<description>The King of Fighters '98 - The Slugfest / King of Fighters '98 - Dream Match Never Ends (NGM-2420)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="90574848">
+				<rom name="kof98.neo" size="90574848" crc="c3ea55ce" sha1="8d2caea757f70b852beb8474b2c847ffba53cfee"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof98a">
+		<description>The King of Fighters '98 - The Slugfest / King of Fighters '98 - Dream Match Never Ends (NGM-2420, alt board)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="90574848">
+				<rom name="kof98a.neo" size="90574848" crc="b3a2b588" sha1="9908e349c8ba9a3e43089dbe26010776dda43acd"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof98b">
+		<description>Kof98b</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="90574848">
+				<rom name="kof98b.neo" size="90574848" crc="7937a3b5" sha1="0b8665ed59de19c6fb4a2a84f12ae53101349954"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof98h">
+		<description>The King of Fighters '98 - The Slugfest / King of Fighters '98 - Dream Match Never Ends (NGH-2420)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89526272">
+				<rom name="kof98h.neo" size="89526272" crc="b5add56b" sha1="503f13f065311284d45665147ba578e2b0e236be"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof98k">
+		<description>The King of Fighters '98 - The Slugfest / King of Fighters '98 - Dream Match Never Ends (Korean board, set 1)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="90574848">
+				<rom name="kof98k.neo" size="90574848" crc="c3deb6eb" sha1="e90f8c1e49485456d3d83ef29bfc236873554ff9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kof99p">
+		<description>The King of Fighters '99 - Millennium Battle (prototype)</description>
+		<year>1999</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="87298048">
+				<rom name="kof99p.neo" size="87298048" crc="f256c4ec" sha1="3e8bd6d8caae9cf1244ab1d82512f12693ef63dc"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kog">
+		<description>King of Gladiator (bootleg of The King of Fighters '97)</description>
+		<year>1997</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="61083648">
+				<rom name="kog.neo" size="61083648" crc="890805a0" sha1="c4b414d403a030176384ee22a3e14a58c8ae6534"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kotm">
+		<description>King of the Monsters (set 1)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="kotm.neo" size="7213056" crc="03919498" sha1="b083f8f6dc7955b88baf1cac4129392e9f1c8629"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kotm2">
+		<description>King of the Monsters 2 - The Next Thing (NGM-039 ~ NGH-039)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="kotm2.neo" size="10752000" crc="45d1ee0c" sha1="c5c2cd7a1f49a5234a0fd83e13f932621bccd9a7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kotm2p">
+		<description>King of the Monsters 2 - The Next Thing (prototype)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="kotm2p.neo" size="10752000" crc="2589d82e" sha1="86894ef5626f7252f9e4735fb5fcc6a7fa54a14d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="kotmh">
+		<description>King of the Monsters (set 2)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="kotmh.neo" size="7213056" crc="a4c35bfd" sha1="9dde610517c84d4ab999bdea5eb973fd486a4110"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lans2004">
+		<description>Lansquenet 2004 (bootleg of Shock Troopers - 2nd Squad)</description>
+		<year>1998</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="67375104">
+				<rom name="lans2004.neo" size="67375104" crc="f0bdeb60" sha1="e2f342ad6940bba5285a1c36e7c2648c0cbd50dd"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lastblad">
+		<description>The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGM-2340)</description>
+		<year>1997</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="64229376">
+				<rom name="lastblad.neo" size="64229376" crc="c1c6d0f0" sha1="4760a008f9afbac15e7d392322f25e7b55b75592"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lastbladh">
+		<description>The Last Blade / Bakumatsu Roman - Gekka no Kenshi (NGH-2340)</description>
+		<year>1997</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="64229376">
+				<rom name="lastbladh.neo" size="64229376" crc="b2ce2dbb" sha1="139a7502395094077ca7ee3a76f74a414ba67ab3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lastbld2">
+		<description>The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekka no Kenshi (NGM-2430 ~ NGH-2430)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="72617984">
+				<rom name="lastbld2.neo" size="72617984" crc="315305ee" sha1="3a4dbff2a57ca3218d0589ced87fa3885cc5fdee"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lastsold">
+		<description>The Last Soldier (Korean release of The Last Blade)</description>
+		<year>1997</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="64229376">
+				<rom name="lastsold.neo" size="64229376" crc="e7f4e875" sha1="8ae93a6ccbfee30c4badce04e11aaf39585ead55"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lbowling">
+		<description>League Bowling (NGM-019 ~ NGH-019)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3411968">
+				<rom name="lbowling.neo" size="3411968" crc="7222c3ce" sha1="5643f8ef101587d47698fd522e7cac81c404d7b1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="legendos">
+		<description>Legend of Success Joe / Ashita no Joe Densetsu</description>
+		<year>1991</year>
+		<publisher>SNK / Wave</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="legendos.neo" size="6033408" crc="67f65c54" sha1="f7935cc220c365b7638cc931b0c86e47e93d0bbb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="looptris">
+		<description>Looptris</description>
+		<year>2021</year>
+		<publisher>Blastar</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="2363392">
+				<rom name="looptris.neo" size="2363392" crc="b564fbf7" sha1="359ff9d9131743aa37e6ca8c76357a09b9a1326e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="looptrsp">
+		<description>Looptris Plus</description>
+		<year>2022</year>
+		<publisher>Blastar</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3936256">
+				<rom name="looptrsp.neo" size="3936256" crc="61be0bda" sha1="7a612b2bab0ba2c2d6c502311b39b2b48c7eae6c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lresort">
+		<description>Last Resort</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="lresort.neo" size="6033408" crc="6738aeb0" sha1="429464aca03f7e90af693dcce906988e9dd7c543"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="lresortp">
+		<description>Last Resort (prototype)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="lresortp.neo" size="7606272" crc="c41b32c3" sha1="f305651b0228f272ba0e62c9f9765c1720b9dd6f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="magdrop2">
+		<description>Magical Drop II</description>
+		<year>1996</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="11276288">
+				<rom name="magdrop2.neo" size="11276288" crc="fd5d3e9a" sha1="33aeb930fca580c73e83ee70220ee0364ea3a62b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="magdrop3">
+		<description>Magical Drop III</description>
+		<year>1997</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="22810624">
+				<rom name="magdrop3.neo" size="22810624" crc="7bf1a9b0" sha1="cd0763b33f0670e6edb969460f839a45b892f1a3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="maglord">
+		<description>Magician Lord (NGM-005)</description>
+		<year>1990</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5640192">
+				<rom name="maglord.neo" size="5640192" crc="11971fbf" sha1="49ee797d2a9cfaf9f8a5130fc742aafed5b79347"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="maglordh">
+		<description>Magician Lord (NGH-005)</description>
+		<year>1990</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5640192">
+				<rom name="maglordh.neo" size="5640192" crc="f2d54371" sha1="8ded5f00ea54dc43216433bb6195b35129a3575c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mahretsu">
+		<description>Mahjong Kyo Retsuden (NGM-004 ~ NGH-004)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5509120">
+				<rom name="mahretsu.neo" size="5509120" crc="18309421" sha1="23a5591b0a2d727a02191ba752479264c6fa6c3f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="marukodq">
+		<description>Chibi Maruko-chan: Maruko Deluxe Quiz</description>
+		<year>1995</year>
+		<publisher>Takara</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15994880">
+				<rom name="marukodq.neo" size="15994880" crc="a725e249" sha1="b1db27b985e805c51134c4f948c519e61595c6fb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="matrim">
+		<description>Matrimelee / Shin Gouketsuji Ichizoku Toukon (NGM-2660 ~ NGH-2660)</description>
+		<year>2003</year>
+		<publisher>Noise Factory / Atlus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89788416">
+				<rom name="matrim.neo" size="89788416" crc="b09a3c96" sha1="98b2659dedc72e950f40df539fd77e707be57ed3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="miexchng">
+		<description>Money Puzzle Exchanger / Money Idol Exchanger</description>
+		<year>1997</year>
+		<publisher>Face</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="11276288">
+				<rom name="miexchng.neo" size="11276288" crc="7edfbb25" sha1="7a49b62423ef18ba538d2d707487364db98f3afb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="minasan">
+		<description>Minasan no Okagesamadesu! Dai Sugoroku Taikai (MOM-001 ~ MOH-001)</description>
+		<year>1990</year>
+		<publisher>Monolith Corp.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="minasan.neo" size="7081984" crc="fa5f4de4" sha1="d17f40ce3a9dfb6b4323422f432991c9cc0fa0cf"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="moshougi">
+		<description>Shougi no Tatsujin - Master of Shougi</description>
+		<year>1995</year>
+		<publisher>ADK / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="moshougi.neo" size="7606272" crc="71112101" sha1="f754e89b5e6b834e2cc8e13a4443d5b5fe17097c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ms4plus">
+		<description>Metal Slug 4 Plus (bootleg)</description>
+		<year>2002</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="72617984">
+				<rom name="ms4plus.neo" size="72617984" crc="9aec5792" sha1="051cb61bb0fc60e5e18f18de1d7ebbf42e31bd97"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslug">
+		<description>Metal Slug - Super Vehicle-001</description>
+		<year>1996</year>
+		<publisher>Nazca</publisher>
+		<part name="quik" interface="neo_quik">
 			<dataarea name="quik" size="27529216">
 				<rom name="mslug.neo" size="27529216" crc="05be3849" sha1="7589a3e3e10bb7f36f0bb257259954e56f1ee3c1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslug2">
+		<description>Metal Slug 2 - Super Vehicle-001/II (NGM-2410 ~ NGH-2410)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="mslug2.neo" size="45355008" crc="ac0aa8ef" sha1="0b395461dcb24f0fdeba5491d4fe71bcf2640f4b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslug2t">
+		<description>Metal Slug 2 - Super Vehicle-001/II (speed fix)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="mslug2t.neo" size="45355008" crc="2056e958" sha1="7c85f0b2422d995528ebbd2b376c90a6fc602219"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslug4">
+		<description>Metal Slug 4 (NGM-2630)</description>
+		<year>2002</year>
+		<publisher>Mega / Noise Factory / Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="73011200">
+				<rom name="mslug4.neo" size="73011200" crc="80822177" sha1="b4e6df1f07b1e547e91ae63552378f0f08712ef9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslug4h">
+		<description>Metal Slug 4 (NGH-2630)</description>
+		<year>2002</year>
+		<publisher>Mega / Noise Factory / Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="73011200">
+				<rom name="mslug4h.neo" size="73011200" crc="9a041b23" sha1="2c415f1b086563549eff02a0beb98e0e506c2bb7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mslugx">
+		<description>Metal Slug X - Super Vehicle-001 (NGM-2500 ~ NGH-2500)</description>
+		<year>1999</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="66326528">
+				<rom name="mslugx.neo" size="66326528" crc="aa748872" sha1="b5730b6e8cfe0380e253ad45be56f81cac0841f8"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="mutnat">
+		<description>Mutation Nation (NGM-014 ~ NGH-014)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="mutnat.neo" size="7081984" crc="100027fa" sha1="e5fa4c5023c25fe1b1ca843ad8718c9f0456a51c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="nam1975">
+		<description>NAM-1975 (NGM-001 ~ NGH-001)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6164480">
+				<rom name="nam1975.neo" size="6164480" crc="338f2dee" sha1="5d59497e07c4db771c909af92c40174592fe49f4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="nblktiger">
+		<description>NeoBlack Tiger (demo)</description>
+		<year>2020</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="72552448">
+				<rom name="nblktiger.neo" size="72552448" crc="bcbaaf6a" sha1="677f24dbc09666ee6e62f1f18168dba80fff9447"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ncombat">
+		<description>Ninja Combat (NGM-009)</description>
+		<year>1990</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="ncombat.neo" size="6033408" crc="75d42338" sha1="e182a64591c1e036ffc077d6d6860089c2595951"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ncombath">
+		<description>Ninja Combat (NGH-009)</description>
+		<year>1990</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="ncombath.neo" size="6033408" crc="00a23c2a" sha1="09cd99d6701ec3297f45346cb5955d5523850efe"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ncommand">
+		<description>Ninja Commando</description>
+		<year>1992</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="ncommand.neo" size="7081984" crc="817db341" sha1="c625a661c95c3b6f435bc2a5289e17bdefbfdbe1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neobombe">
+		<description>Neo Bomberman</description>
+		<year>1997</year>
+		<publisher>Hudson</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="17043456">
+				<rom name="neobombe.neo" size="17043456" crc="452609d6" sha1="96f3e143939e779a4323818602b897288a43ed2d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neocup98">
+		<description>Neo-Geo Cup '98 - The Road to the Victory</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="25432064">
+				<rom name="neocup98.neo" size="25432064" crc="3896f2d9" sha1="c0f3dbd94673e160d45e2655491a0733ecf7764f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neodrift">
+		<description>Neo Drift Out - New Technology</description>
+		<year>1996</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="14946304">
+				<rom name="neodrift.neo" size="14946304" crc="f2063afc" sha1="2825bd7e7517a20f67acec33da3d182aec779abd"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neofight">
+		<description>Neo Fight</description>
+		<year>2015</year>
+		<publisher>Kannagi</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7081984">
+				<rom name="neofight.neo" size="7081984" crc="884b58e6" sha1="396516efa03543f48e866ae511b7927e780060f1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neomrdo">
+		<description>Neo Mr. Do!</description>
+		<year>1996</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="neomrdo.neo" size="7606272" crc="6ab90d70" sha1="a250f51615dc79bc04a6b8f5b93e218c221b9b29"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neothund">
+		<description>Neo Thunder</description>
+		<year>2012</year>
+		<publisher>Sebastian Mihai</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3936256">
+				<rom name="neothund.neo" size="3936256" crc="2299595a" sha1="eebe88731d6f5e52dccbd0eea125952922a4df27"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neotrisd1">
+		<description>Neotris (demo 1)</description>
+		<year>2019</year>
+		<publisher>Totologic</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5967872">
+				<rom name="neotrisd1.neo" size="5967872" crc="a66f8dd4" sha1="9eaf9a0be52ef5b6c6f462a08bb04a735f775962"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="neo_driftout">
+		<description>Neo Driftout</description>
+		<year>2021</year>
+		<publisher>Blastar</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="2297856">
+				<rom name="neo_driftout.neo" size="2297856" crc="14c62db1" sha1="d6b784e67fc14989a5ae5966838d2df222693057"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ngmontst">
+		<description>NeoGeo Monitor Test v1.0</description>
+		<year>2014</year>
+		<publisher>M.Priewe</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5509120">
+				<rom name="ngmontst.neo" size="5509120" crc="c8c92127" sha1="9c67a052f97e235a7644cd2ea37981513d7ecc2f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ngmontst3">
+		<description>NeoGeo Monitor Test v1.3</description>
+		<year>2022</year>
+		<publisher>M.Priewe</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5443584">
+				<rom name="ngmontst3.neo" size="5443584" crc="d7512c22" sha1="debc3a3ae882b0e99d0ad99825e8a170ed028964"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ngtetris">
+		<description>Neogeo 2-player tetris</description>
+		<year>2008</year>
+		<publisher>Crim/Stephen</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="2363392">
+				<rom name="ngtetris.neo" size="2363392" crc="7417ff2f" sha1="13970c3e562df304a31263b523919fe0e48b986e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ninjamas">
+		<description>Ninja Master's - Haoh-ninpo-cho</description>
+		<year>1996</year>
+		<publisher>ADK / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="43257856">
+				<rom name="ninjamas.neo" size="43257856" crc="6c043356" sha1="14fa61bcb5fcc50ef10057cdd000b949f9c604f6"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="nitd">
+		<description>Nightmare in the Dark</description>
+		<year>2000</year>
+		<publisher>Eleven / Gavaking</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="22155264">
+				<rom name="nitd.neo" size="22155264" crc="3368b6bf" sha1="0b9bca6d1766fe7d7cfb6c05a461644a745764ab"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="nitd2">
+		<description>Nightmare in the Dark (alt)</description>
+		<year>2000</year>
+		<publisher>Eleven / Gavaking</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="22155264">
+				<rom name="nitd2.neo" size="22155264" crc="42ce8908" sha1="5a76af9b7074bc9c3cfa9141afe6ff40c65a05ce"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="nitdbl">
+		<description>Nightmare in the Dark (bootleg)</description>
+		<year>2001</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13766656">
+				<rom name="nitdbl.neo" size="13766656" crc="ed62a567" sha1="383c5a36f522827fd9dae9f501a88c5dc7f18640"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="nsmb">
+		<description>New! Super Mario Bros.</description>
+		<year>2020</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="72552448">
+				<rom name="nsmb.neo" size="72552448" crc="ecae2fdb" sha1="68253a1f1c93c295c6e103ffa8ec7dd86cf9cf79"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="overtop">
+		<description>Over Top</description>
+		<year>1996</year>
+		<publisher>ADK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="27529216">
+				<rom name="overtop.neo" size="27529216" crc="935c39ea" sha1="1d1c97e3db652080795d46a49e2a87179001caac"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="panicbom">
+		<description>Panic Bomber</description>
+		<year>1994</year>
+		<publisher>Eighting / Hudson</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="panicbom.neo" size="6033408" crc="c7799f9d" sha1="da82607976d473a7dae549c8637dc6d0cb678842"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pbobbl2n">
+		<description>Puzzle Bobble 2 / Bust-A-Move Again (Neo-Geo)</description>
+		<year>1999</year>
+		<publisher>Taito (SNK license)</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="20189184">
+				<rom name="pbobbl2n.neo" size="20189184" crc="1710150c" sha1="d223da46bfe0bb2e6cd6d0fd31736d176aeb0e2e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pbobblen">
+		<description>Puzzle Bobble / Bust-A-Move (Neo-Geo, NGM-083)</description>
+		<year>1994</year>
+		<publisher>Taito</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="9703424">
+				<rom name="pbobblen.neo" size="9703424" crc="71619b37" sha1="337d79d550b83cf353089f632874264aa025fb11"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pbobblenb">
+		<description>Puzzle Bobble / Bust-A-Move (Neo-Geo, bootleg)</description>
+		<year>1994</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="9703424">
+				<rom name="pbobblenb.neo" size="9703424" crc="54fa6513" sha1="64194d575de1a27b6dda7361fa926147dc0bb282"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pgoal">
+		<description>Pleasure Goal / Futsal - 5 on 5 Mini Soccer (NGM-219)</description>
+		<year>1996</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19140608">
+				<rom name="pgoal.neo" size="19140608" crc="463fe2bc" sha1="39feb35124a960c8404a63c63bf4c0575ab4cb3e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pnyaa">
+		<description>Pochi and Nyaa (Ver 2.02)</description>
+		<year>2003</year>
+		<publisher>Aiky / Taito</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="22679552">
+				<rom name="pnyaa.neo" size="22679552" crc="ae651e86" sha1="ad21c6b4a78f72645a71e0fc63a8ff3b0310ba40"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="popbounc">
+		<description>Pop 'n Bounce / Gapporin</description>
+		<year>1997</year>
+		<publisher>Video System Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="popbounc.neo" size="7606272" crc="30c2f23f" sha1="382e7cceecc85132bb544e7a5feb66852cb20277"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="preisle2">
+		<description>Prehistoric Isle 2</description>
+		<year>1999</year>
+		<publisher>Yumekobo / Saurus</publisher> <!--co-developed with saurus-->
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="62132224">
+				<rom name="preisle2.neo" size="62132224" crc="2734d1be" sha1="a3fac4f717a519f6261429cd7842c8570774eb4f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pspikes2">
+		<description>Power Spikes II (NGM-068)</description>
+		<year>1994</year>
+		<publisher>Video System Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="pspikes2.neo" size="10752000" crc="7e6bb2eb" sha1="ab89b4b4a30ecfd61e44e938947ef354da5c0369"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="pulstar">
+		<description>Pulstar</description>
+		<year>1995</year>
+		<publisher>Aicom</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="41160704">
+				<rom name="pulstar.neo" size="41160704" crc="71d34714" sha1="852f38df3f18168f98fb01d9d38f2069d583c922"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="puzzldpr">
+		<description>Puzzle De Pon! R!</description>
+		<year>1997</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3411968">
+				<rom name="puzzldpr.neo" size="3411968" crc="a7ea0a8a" sha1="01c61f988ec0eb26ad8691e20c0e7a5ea0943138"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="puzzledp">
+		<description>Puzzle De Pon!</description>
+		<year>1995</year>
+		<publisher>Visco</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="3411968">
+				<rom name="puzzledp.neo" size="3411968" crc="9610638a" sha1="77d4f302790ef808bf65b8c00a9a80b5e3537689"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="quizdai2">
+		<description>Quiz Meitantei Neo &amp; Geo - Quiz Daisousa Sen Part 2 (NGM-042 ~ NGH-042)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6557696">
+				<rom name="quizdai2.neo" size="6557696" crc="bd15b7a1" sha1="416595d9a472ad9f2c2fb41ccb98c638fc8d859d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="quizdais">
+		<description>Quiz Daisousa Sen - The Last Count Down (NGM-023 ~ NGH-023)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="4460544">
+				<rom name="quizdais.neo" size="4460544" crc="483b8670" sha1="224891b0a4e7ff7745d0555e261eb625ab7a8b62"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="quizdaisk">
+		<description>Quiz Salibtamjeong - The Last Count Down (Korean localized Quiz Daisousa Sen)</description>
+		<year>1995</year>
+		<publisher>SNK / Viccom</publisher> <!--Localized by Viccom-->
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="5509120">
+				<rom name="quizdaisk.neo" size="5509120" crc="d0c614a0" sha1="bfb928ac7bcea2711009ab298c93267f8bc3a7e7"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="quizkof">
+		<description>Quiz King of Fighters (SAM-080 ~ SAH-080)</description>
+		<year>1995</year>
+		<publisher>Saurus (SNK license)</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15994880">
+				<rom name="quizkof.neo" size="15994880" crc="0603f66d" sha1="03358dfce966c7bacaa328b3950b6c834070de2b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="quizkofk">
+		<description>Quiz King of Fighters (Korea)</description>
+		<year>1996</year>
+		<publisher>Saurus / Viccom (SNK license)</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15994880">
+				<rom name="quizkofk.neo" size="15994880" crc="f660f0d9" sha1="4571b7e26d49e0016beeca0cdf09ae41e5c0cb95"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ragnagrd">
+		<description>Ragnagard / Shin-Oh-Ken</description>
+		<year>1996</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="44306432">
+				<rom name="ragnagrd.neo" size="44306432" crc="8c08477b" sha1="ceb05e66861f07080648d4d6de80f9ad9a969796"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rallychase">
+		<description>Rally Chase</description>
+		<year>1991</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="rallychase.neo" size="6033408" crc="250b1f23" sha1="b5698fd839306decc88a2b3647485784f6830563"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbff1">
+		<description>Real Bout Fatal Fury / Real Bout Garou Densetsu (NGM-095 ~ NGH-095)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="rbff1.neo" size="45355008" crc="9de2bc23" sha1="67aa91dc1d320341a045a53fdf001d8630aceed9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbff1a">
+		<description>Real Bout Fatal Fury / Real Bout Garou Densetsu (bug fix revision)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="rbff1a.neo" size="45355008" crc="ec8b37f0" sha1="7acc7fdb02d780205e7bdef3e8ec67909c297d36"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbff2">
+		<description>Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - The Newcomers (NGM-2400)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="70651904">
+				<rom name="rbff2.neo" size="70651904" crc="5ba5aa03" sha1="492628590c0b9068ad01ca6d2f45e7767ed57855"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbff2h">
+		<description>Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - The Newcomers (NGH-2400)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="70651904">
+				<rom name="rbff2h.neo" size="70651904" crc="fc3be0de" sha1="355eeea636ae71bdc382f7f5b547b98d02bdcd5c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbff2k">
+		<description>Real Bout Fatal Fury 2 - The Newcomers (Korean release)</description>
+		<year>1998</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="70651904">
+				<rom name="rbff2k.neo" size="70651904" crc="d23d0173" sha1="abe854cb2408745fdac96d74a62e94300e274035"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbffspec">
+		<description>Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="51646464">
+				<rom name="rbffspec.neo" size="51646464" crc="60f8fcf8" sha1="aa809932530185d841f2534f6a3117d89b133a39"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rbffspeck">
+		<description>Real Bout Fatal Fury Special / Real Bout Garou Densetsu Special (Korean release)</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="51646464">
+				<rom name="rbffspeck.neo" size="51646464" crc="da1e9521" sha1="1173b0ed13bf4c359d3b32b1624a414b9349299f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ridhero">
+		<description>Riding Hero (NGM-006 ~ NGH-006)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6164480">
+				<rom name="ridhero.neo" size="6164480" crc="4221f383" sha1="6efbdcd273672d4ba10cc89bde2d681dce7f71c4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ridheroh">
+		<description>Riding Hero (set 2)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6164480">
+				<rom name="ridheroh.neo" size="6164480" crc="17184baf" sha1="1a4f576e6ee2d2a336698c668fdc9165a5620da2"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="roboarma">
+		<description>Robo Army (alt)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="roboarma.neo" size="6033408" crc="776234e8" sha1="27a47bf4f315e675f76bbcc450cda0cf718ea3f1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="roboarmy">
+		<description>Robo Army</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="roboarmy.neo" size="6033408" crc="23b6caaf" sha1="6283e446210c392b8d0fe9e4ccf60b8f9a35c478"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="rotd">
+		<description>Rage of the Dragons (NGM-2640?)</description>
+		<year>2002</year>
+		<publisher>Evoga / Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92540928">
+				<rom name="rotd.neo" size="92540928" crc="29ae65fd" sha1="7c63cfa51e62de98620ce6f2fb596e963962489c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="s1945p">
+		<description>Strikers 1945 Plus</description>
+		<year>1999</year>
+		<publisher>Psikyo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="89395200">
+				<rom name="s1945p.neo" size="89395200" crc="a5f8886e" sha1="b31ef54831b52bef2a7b3ad353c8e1c3600994b3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsh5pf">
+		<description>Samurai Shodown V Perfect</description>
+		<year>2020</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92540928">
+				<rom name="samsh5pf.neo" size="92540928" crc="412cb32b" sha1="2a1a24fb0398962f43dad04a57102efaeb727320"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsh5sp">
+		<description>Samurai Shodown V Special / Samurai Spirits Zero Special (NGM-2720)</description>
+		<year>2004</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92934144">
+				<rom name="samsh5sp.neo" size="92934144" crc="d06d508c" sha1="a5597eef96ddc92e04e41b422d92901ca1b05e4e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsh5sph">
+		<description>Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720, 2nd release, less censored)</description>
+		<year>2004</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92934144">
+				<rom name="samsh5sph.neo" size="92934144" crc="9febe986" sha1="c1dd509404f51dfcdd11c7da26ba4deea2cd2c6c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsh5spho">
+		<description>Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720, 1st release, censored)</description>
+		<year>2004</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92934144">
+				<rom name="samsh5spho.neo" size="92934144" crc="f649dac3" sha1="bb548f4cee4fbd7ddb9b173c4a847f3a349efb4a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho">
+		<description>Samurai Shodown / Samurai Spirits (NGM-045)</description>
+		<year>1993</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="17043456">
+				<rom name="samsho.neo" size="17043456" crc="12cc6bf3" sha1="c895b1ee35abe0eb1ee0e9aebd2e15d5c66dbc2d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho2">
+		<description>Samurai Shodown II / Shin Samurai Spirits - Haohmaru Jigokuhen (NGM-063 ~ NGH-063)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="26480640">
+				<rom name="samsho2.neo" size="26480640" crc="9208e903" sha1="75c4ed931a6fd9bc829940a7bca933ec9414d0d1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho2k">
+		<description>Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II, set 1)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="26480640">
+				<rom name="samsho2k.neo" size="26480640" crc="800c26b1" sha1="4e01b54bdd9e0c7c432e9f9b643cc2528914ecce"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho2ka">
+		<description>Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II, set 2)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="26480640">
+				<rom name="samsho2ka.neo" size="26480640" crc="ffdffc57" sha1="288ce560ab1b51128ffec042510c213d327dcd97"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho3">
+		<description>Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGM-087)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="36966400">
+				<rom name="samsho3.neo" size="36966400" crc="2bf539cf" sha1="9f4322c040c5065bebfbae88d0be05f2f915a652"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho3h">
+		<description>Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGH-087)</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="36966400">
+				<rom name="samsho3h.neo" size="36966400" crc="b738594d" sha1="7551e2dc2ca52b68effd224ad534532e4040c93d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho4">
+		<description>Samurai Shodown IV - Amakusa's Revenge / Samurai Spirits - Amakusa Kourin (NGM-222 ~ NGH-222)</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="49549312">
+				<rom name="samsho4.neo" size="49549312" crc="d6d86cd8" sha1="991c229242a4d273cd5a01902ea7747387b4e135"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho4k">
+		<description>Paewang Jeonseol / Legend of a Warrior (Korean censored Samurai Shodown IV)</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="49549312">
+				<rom name="samsho4k.neo" size="49549312" crc="9642929c" sha1="e54dd84fa764c129577527c2692ba9998141d7bf"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho5">
+		<description>Samurai Shodown V / Samurai Spirits Zero (NGM-2700, set 1)</description>
+		<year>2003</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92934144">
+				<rom name="samsho5.neo" size="92934144" crc="0d34dde4" sha1="41e7119d5fab5e7e28650c44d989578c7c2fe764"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho5b">
+		<description>Samurai Shodown V / Samurai Spirits Zero (bootleg)</description>
+		<year>2003</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92540928">
+				<rom name="samsho5b.neo" size="92540928" crc="a9664cde" sha1="40343bb408f5b9f3282d5ad4538f99d331717684"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho5h">
+		<description>Samurai Shodown V / Samurai Spirits Zero (NGH-2700)</description>
+		<year>2003</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92934144">
+				<rom name="samsho5h.neo" size="92934144" crc="bf03bc84" sha1="172cee067b1e222c8ae1f5d5af4a85ad7ed2a92b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samsho5x">
+		<description>Samurai Shodown V / Samurai Spirits Zero (alt)</description>
+		<year>2003</year>
+		<publisher>Yuki Enterprise / SNK Playmore</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="92934144">
+				<rom name="samsho5x.neo" size="92934144" crc="102b8a70" sha1="2109bc9f268ae44fba1d02267b5934cd1aabe9f4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="samshoh">
+		<description>Samurai Shodown / Samurai Spirits (NGH-045)</description>
+		<year>1993</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15470592">
+				<rom name="samshoh.neo" size="15470592" crc="20519852" sha1="a6ba3426a1c92fbfca9d4ca697a01e4fdeeaa179"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="savagere">
+		<description>Savage Reign / Fu'un Mokushiroku - Kakutou Sousei</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="25432064">
+				<rom name="savagere.neo" size="25432064" crc="68964a13" sha1="391957cbb39c5bb24e0a38c47c12d23b5afe167a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sbp">
+		<description>Super Bubble Pop (MVS)</description>
+		<year>2004</year>
+		<publisher>Vektorlogic</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13766656">
+				<rom name="sbp.neo" size="13766656" crc="346afd7f" sha1="2186f99a07103e13c10f9451fdc3527113d25d1e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sdodgeb">
+		<description>Super Dodge Ball / Kunio no Nekketsu Toukyuu Densetsu</description>
+		<year>1996</year>
+		<publisher>Technos Japan</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19140608">
+				<rom name="sdodgeb.neo" size="19140608" crc="04e50958" sha1="8c51a3d862a5275beac3e5a31e11b078930c8efd"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="seafighter">
+		<description>Sea Fighter</description>
+		<year>2018</year>
+		<publisher>kl3mousse</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="4395008">
+				<rom name="seafighter.neo" size="4395008" crc="e18b52cf" sha1="edc5f007f05df3539dc03accb525cfc3cea84e6a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sengoku">
+		<description>Sengoku / Sengoku Denshou (NGM-017 ~ NGH-017)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="sengoku.neo" size="7213056" crc="5c7b047b" sha1="0e57f040d22c76c60703a59cf6444849b69a0cd1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sengoku2">
+		<description>Sengoku 2 / Sengoku Denshou 2</description>
+		<year>1993</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="sengoku2.neo" size="10752000" crc="e48c07d0" sha1="8f847635ac7b4d667b265324866a1c87f40c467f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sengoku3">
+		<description>Sengoku 3 / Sengoku Densho 2001 (set 1)</description>
+		<year>2001</year>
+		<publisher>Noise Factory / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="50991104">
+				<rom name="sengoku3.neo" size="50991104" crc="1f9bf279" sha1="474fe39ecf5bf390653a80f8b72f3033dc733eea"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sengokuh">
+		<description>Sengoku / Sengoku Denshou (NGH-017, US)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7213056">
+				<rom name="sengokuh.neo" size="7213056" crc="dbcede61" sha1="b26183ae8dc6f789996fe22e8a0771b7f24fec2a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="shocktr2">
+		<description>Shock Troopers - 2nd Squad</description>
+		<year>1998</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="66326528">
+				<rom name="shocktr2.neo" size="66326528" crc="1438e16f" sha1="b38bc38abf6263f3b6cb2af004bd97c6134ce780"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="shocktro">
+		<description>Shock Troopers (set 1)</description>
+		<year>1997</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="shocktro.neo" size="45355008" crc="968553d8" sha1="82d3a0872ddb8a4d0bdd2fd8d1a39866ecbfc03d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="shocktroa">
+		<description>Shock Troopers (set 2)</description>
+		<year>1997</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="45355008">
+				<rom name="shocktroa.neo" size="45355008" crc="dc4edbe3" sha1="66dae282a1aee31df1840f747ead701f1bbf08b9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="socbrawl">
+		<description>Soccer Brawl (NGM-031)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="socbrawl.neo" size="6033408" crc="2ea06384" sha1="673599c859c8e62e08e1d750ebdec5eb5cf40545"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="socbrawlh">
+		<description>Soccer Brawl (NGH-031)</description>
+		<year>1991</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="socbrawlh.neo" size="6033408" crc="02d3b361" sha1="2864ede358e2258c2ac5708369b64af721d338e8"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sonicwi2">
+		<description>Aero Fighters 2 / Sonic Wings 2</description>
+		<year>1994</year>
+		<publisher>Video System Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13897728">
+				<rom name="sonicwi2.neo" size="13897728" crc="ac1851bb" sha1="db2b875f28b58c7cff5b147e91529c8ed77a898d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="sonicwi3">
+		<description>Aero Fighters 3 / Sonic Wings 3</description>
+		<year>1995</year>
+		<publisher>Video System Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="21237760">
+				<rom name="sonicwi3.neo" size="21237760" crc="10edc4ff" sha1="fab8e5e07caa96fc122779e6e3b739c1c1b462b9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="spinmast">
+		<description>Spin Master / Miracle Adventure</description>
+		<year>1993</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="11800576">
+				<rom name="spinmast.neo" size="11800576" crc="6c76c571" sha1="7ca7d37dd4a9cd79b6a1062d97ea4725eee6a593"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ssideki">
+		<description>Super Sidekicks / Tokuten Ou</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="9179136">
+				<rom name="ssideki.neo" size="9179136" crc="d68ed5c3" sha1="083711e079cdbd46287935e3ccce8058e2242b0e"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ssideki2">
+		<description>Super Sidekicks 2 - The World Championship / Tokuten Ou 2 - Real Fight Football (NGM-061 ~ NGH-061)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="13897728">
+				<rom name="ssideki2.neo" size="13897728" crc="51744243" sha1="152d47bd738c9726b60fa4508cd43f52551bf288"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ssideki3">
+		<description>Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - Eikou e no Chousen</description>
+		<year>1995</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="21237760">
+				<rom name="ssideki3.neo" size="21237760" crc="68b96364" sha1="c415e4b38944ceaddc34d7f72a7d4c6d55be7bec"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ssideki4">
+		<description>The Ultimate 11 - The SNK Football Championship / Tokuten Ou - Honoo no Libero</description>
+		<year>1996</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="29626368">
+				<rom name="ssideki4.neo" size="29626368" crc="574c4b4e" sha1="2b31cbf4eae4f389b0f204058376e4ab9ce35446"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="ssidekia">
+		<description>Super Sidekicks / Tokuten Ou (alt)</description>
+		<year>1992</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="9179136">
+				<rom name="ssidekia.neo" size="9179136" crc="99b48cbd" sha1="87269ccf6b1584ed5a064e9e070bd06c03f8761b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="stakwin">
+		<description>Stakes Winner / Stakes Winner - GI Kinzen Seiha e no Michi</description>
+		<year>1995</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="12849152">
+				<rom name="stakwin.neo" size="12849152" crc="fb42bea3" sha1="eb45000b84ba1af36dc31f8c4780638dec72c4a3"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="stakwin2">
+		<description>Stakes Winner 2</description>
+		<year>1996</year>
+		<publisher>Saurus</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="stakwin2.neo" size="23334912" crc="9c791c8c" sha1="088141a5260262a9475dcd171c3454b71cdc970c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="strhoop">
+		<description>Street Hoop / Street Slam / Dunk Dream (DEM-004 ~ DEH-004)</description>
+		<year>1994</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="12849152">
+				<rom name="strhoop.neo" size="12849152" crc="fa3f7ee1" sha1="addd8840ef465e0228bc83eafe13e701e785cfa0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="superspy">
+		<description>The Super Spy (NGM-011 ~ NGH-011)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7344128">
+				<rom name="superspy.neo" size="7344128" crc="9f7f80cf" sha1="e957b8c017563c5e7713ed1d8c1044b52bdf1363"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="svcplus">
+		<description>SNK vs. Capcom - SVC Chaos Plus (bootleg, set 1)</description>
+		<year>2003</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="90443776">
+				<rom name="svcplus.neo" size="90443776" crc="83a48e6b" sha1="027c92f2e54b0ce0b1198fc040617d3bc2abf529"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teota5">
+		<description>The Eye of Typhoon (alpha 5)</description>
+		<year>2021</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="93523968">
+				<rom name="teota5.neo" size="93523968" crc="03c98648" sha1="ad3d0b89004af61a8caade53204b67fc212fbaf5"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotb1">
+		<description>The Eye of Typhoon (beta 1)</description>
+		<year>2022</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="93523968">
+				<rom name="teotb1.neo" size="93523968" crc="84a6abd0" sha1="8f1aa7f6b631989a5e7dae69d01f321adef3b68d"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotb3">
+		<description>The Eye of Typhoon (beta 3)</description>
+		<year>2022</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59969536">
+				<rom name="teotb3.neo" size="59969536" crc="d8af77a2" sha1="62c62f131c8528bcf3351fe3dd81fae74dccf765"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotb4">
+		<description>The Eye of Typhoon (beta 4)</description>
+		<year>2022</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59969536">
+				<rom name="teotb4.neo" size="59969536" crc="6a5798ad" sha1="5815747311b39733fff02ca018b98094df592f8f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotb5">
+		<description>The Eye of Typhoon (beta 5)</description>
+		<year>2022</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59969536">
+				<rom name="teotb5.neo" size="59969536" crc="7a6abd46" sha1="3746dfb12dc4d4cc71506042a3965c67331a2d9c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotb6">
+		<description>The Eye of Typhoon (beta 6)</description>
+		<year>2022</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59969536">
+				<rom name="teotb6.neo" size="59969536" crc="998bf86f" sha1="cca650d2bd0d66ddce9716f38040376c45c6833f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotb7">
+		<description>The Eye of Typhoon (beta 7)</description>
+		<year>2022</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="59969536">
+				<rom name="teotb7.neo" size="59969536" crc="189640ed" sha1="240c9edde0468af965c1e7f189989b7c08133072"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotd">
+		<description>The Eye of Typhoon (demo)</description>
+		<year>2020</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="72552448">
+				<rom name="teotd.neo" size="72552448" crc="614c576b" sha1="b8e5acd32f19b72566478fa363e7284d857e9b61"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="teotd2">
+		<description>The Eye of Typhoon (demo 2)</description>
+		<year>2021</year>
+		<publisher>OzzyOuzo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="73601024">
+				<rom name="teotd2.neo" size="73601024" crc="5827de5b" sha1="b1f5fb8b8f021726b7bbaea694acdf43011ca876"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="tophuntr">
+		<description>Top Hunter - Roddy &amp; Cathy (NGM-046)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="14946304">
+				<rom name="tophuntr.neo" size="14946304" crc="bc747b28" sha1="7148a5ed5502e891fb4934552fe398751957569a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="tophuntrh">
+		<description>Top Hunter - Roddy &amp; Cathy (NGH-046)</description>
+		<year>1994</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="14946304">
+				<rom name="tophuntrh.neo" size="14946304" crc="661180a9" sha1="f1880dbcffde539fd5b97c735afcac14c1c8a654"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="totc">
+		<description>Treasures of The Caribbean</description>
+		<year>2010</year>
+		<publisher>Face / NCI</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="totc.neo" size="10752000" crc="d6dbdca1" sha1="7d64e4dd62504d0dbc25a2dc5fda44cf40ff2a4f"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="tpgolf">
+		<description>Top Player's Golf (NGM-003 ~ NGH-003)</description>
+		<year>1990</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="8130560">
+				<rom name="tpgolf.neo" size="8130560" crc="f4a8abc6" sha1="60666f2acba13380e1d2093bc03a477c1f779622"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="trally">
+		<description>Thrash Rally (ALM-003 ~ ALH-003)</description>
+		<year>1991</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="6033408">
+				<rom name="trally.neo" size="6033408" crc="ad8dc774" sha1="159f54251007b5a4b8aafc39316a5b7c267869ce"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="turfmast">
+		<description>Neo Turf Masters / Big Tournament Golf</description>
+		<year>1996</year>
+		<publisher>Nazca</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19140608">
+				<rom name="turfmast.neo" size="19140608" crc="f00c2138" sha1="1f6f96c19341dc036ff7e71749fc2e812aa14cc0"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="twinspri">
+		<description>Twinkle Star Sprites</description>
+		<year>1996</year>
+		<publisher>ADK / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19140608">
+				<rom name="twinspri.neo" size="19140608" crc="192ccf78" sha1="ea2fcb7805e3130141705c946030e4db96de81b9"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="twsoc96">
+		<description>Tecmo World Soccer '96</description>
+		<year>1996</year>
+		<publisher>Tecmo</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="15994880">
+				<rom name="twsoc96.neo" size="15994880" crc="6056a624" sha1="006da310a7ff92e2294b2225da07eacbc0f2d3cf"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="viewpoin">
+		<description>Viewpoint</description>
+		<year>1992</year>
+		<publisher>Sammy / Aicom</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="11800576">
+				<rom name="viewpoin.neo" size="11800576" crc="110f9248" sha1="ed04dc7bfa4a870da9a8ebbc7d7874868948dc94"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wakuwak7">
+		<description>Waku Waku 7</description>
+		<year>1996</year>
+		<publisher>Sunsoft</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="36966400">
+				<rom name="wakuwak7.neo" size="36966400" crc="81b7ad16" sha1="4fc08fc1e023e55e53842e4a167069901d858705"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wh1">
+		<description>World Heroes (ALM-005)</description>
+		<year>1992</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="wh1.neo" size="10752000" crc="d864f492" sha1="e188e2904855aadef1569606f863f2f3f0deb63c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wh1h">
+		<description>World Heroes (ALH-005)</description>
+		<year>1992</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="wh1h.neo" size="10752000" crc="e65d03d1" sha1="36c0f69667836287b0702f0c788c2670504febd1"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wh1ha">
+		<description>World Heroes (set 3)</description>
+		<year>1992</year>
+		<publisher>Alpha Denshi Co.</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10752000">
+				<rom name="wh1ha.neo" size="10752000" crc="9ff1ed75" sha1="012dafb77e68a5424de5a1482d97d75d97e8b186"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wh2">
+		<description>World Heroes 2 (ALM-006 ~ ALH-006)</description>
+		<year>1993</year>
+		<publisher>ADK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="19140608">
+				<rom name="wh2.neo" size="19140608" crc="99e14fc1" sha1="90a8ac3adbb0500ae05a3985b694425373e962ff"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wh2j">
+		<description>World Heroes 2 Jet (ADM-007 ~ ADH-007)</description>
+		<year>1994</year>
+		<publisher>ADK / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="23334912">
+				<rom name="wh2j.neo" size="23334912" crc="e1a45894" sha1="69a8cfc21d6b3551005ce9046d647407b392a86b"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="whp">
+		<description>World Heroes Perfect</description>
+		<year>1995</year>
+		<publisher>ADK / SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="38014976">
+				<rom name="whp.neo" size="38014976" crc="37858a01" sha1="1381bc226ce007a5c8c74959e3169792e42615ac"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="wjammers">
+		<description>Windjammers / Flying Power Disc</description>
+		<year>1994</year>
+		<publisher>Data East Corporation</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="9703424">
+				<rom name="wjammers.neo" size="9703424" crc="342f7f79" sha1="207833b3a6d3d6f58ead7321e199859561f95ec4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="xevious">
+		<description>Xevious (port to Neogeo)</description>
+		<year>2023</year>
+		<publisher>tcdev</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="4395008">
+				<rom name="xevious.neo" size="4395008" crc="e784e086" sha1="0e0e4b636c82d2e32d254fbbc5e3775312fc5a8c"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="xmas2017">
+		<description>Xmas 2017</description>
+		<year>2017</year>
+		<publisher>Blastar</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="450560">
+				<rom name="xmas2017.neo" size="450560" crc="3f62f2db" sha1="81e3694604d8645af33afaac51d53f6798c73ec4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="zedblade">
+		<description>Zed Blade / Operation Ragnarok</description>
+		<year>1994</year>
+		<publisher>NMK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="14422016">
+				<rom name="zedblade.neo" size="14422016" crc="4cc9e910" sha1="257b292e68772887c01d574b365b77c1a45e79fb"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="zintrckb">
+		<description>Zintrick / Oshidashi Zentrix (bootleg of CD version)</description>
+		<year>1996</year>
+		<publisher>bootleg</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="7606272">
+				<rom name="zintrckb.neo" size="7606272" crc="5cea990f" sha1="da6b7be43994ad67193623198a7855189853c7d4"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="zupapa">
+		<description>Zupapa!</description>
+		<year>2001</year>
+		<publisher>SNK</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="20189184">
+				<rom name="zupapa.neo" size="20189184" crc="6f323821" sha1="93e39387a477a1ea7535758e2b2096a31ca6dd32"/>
 			</dataarea>
 		</part>
 	</software>
