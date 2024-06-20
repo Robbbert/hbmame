@@ -6,9 +6,9 @@
  Alien Challenge
 ******************/
 
-ROM_START( alienchas01 )
+ROM_START( aliencha01 )
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "igsc0102_po01.u81", 0x00000, 0x200000, CRC(3d1b0a5e) SHA1(bb3bd4d3a7f8903d8f098fba7748ee4a58bd8490) )
+	ROM_LOAD( "igsc0102_s01.u81", 0x00000, 0x200000, CRC(3d1b0a5e) SHA1(bb3bd4d3a7f8903d8f098fba7748ee4a58bd8490) )
 	ROM_IGNORE( 0x254F4C )
 
 	ROM_REGION( 0x010000, "soundcpu", 0 )
@@ -39,9 +39,9 @@ ROM_START( alienchas01 )
 	ROM_LOAD( "yrw801-m", 0x000000, 0x200000, CRC(2a9d8d43) SHA1(32760893ce06dbe3930627755ba065cc3d8ec6ca) )
 ROM_END
 
-ROM_START( alienchas02 ) //alienchal
+ROM_START( aliencha02 ) //alienchal
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD( "igsc0102_po02.u81", 0x00000, 0x200000, CRC(cfd429ae) SHA1(4c23dba96f80ffefbabcb5da7bb769cbf4d00b40) )
+	ROM_LOAD( "igsc0102_s02.u81", 0x00000, 0x200000, CRC(cfd429ae) SHA1(4c23dba96f80ffefbabcb5da7bb769cbf4d00b40) )
 
 	ROM_REGION( 0x010000, "soundcpu", 0 )
 	ROM_LOAD( "hfh_s.u86", 0x00000, 0x10000, CRC(5728a9ed) SHA1(e5a9e4a1a2cc6c848b08608bc8727bc739270873) )
@@ -73,6 +73,6 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Alien Challenge
-GAME( 2015, alienchas01,  aliencha,        aliencha, aliencha, lordgun_state, empty_init,   ROT0, "hack", "Alien Challenge (Huang Feihong Ultimate Simplified Infinite Killing BOSS Edition, 2015-07-05)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, alienchas02,  aliencha,        aliencha, aliencha, lordgun_state, empty_init,   ROT0, "hack", "Alien Challenge (Simplified Edition, 2018-07-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, aliencha01,  aliencha,   aliencha, aliencha, lordgun_state, empty_init,   ROT0, "hack", "Alien Challenge (Huang Feihong Ultimate Simplified Infinite Killing BOSS Edition, 2015-07-05)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, aliencha02,  aliencha,   aliencha, aliencha, lordgun_state, empty_init,   ROT0, "hack", "Alien Challenge (Simplified Edition, 2018-07-05)", MACHINE_SUPPORTS_SAVE )
 

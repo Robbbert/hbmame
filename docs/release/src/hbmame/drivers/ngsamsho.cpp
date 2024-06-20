@@ -77,8 +77,21 @@ void neogeo_state::init_sam5sphb()
 	ram = memregion("ymsnd:adpcma")->base();
 	if (ram[0] != 8)
 	{
+		// fix sound crackling on encrypted
+		if (ym_region[0] == 0xE0) ym_region[0] = 0x43; // [6bc0] becomes 08
+		if (ym_region[1] == 0x25) ym_region[1] = 0xC9; // [16bc0] becomes 82
+		if (ym_region[0x18180] == 0xAC) ym_region[0x18180] = 0x2D; // [ed41] becomes 89
+		if (ym_region[0x18181] == 0x7E) ym_region[0x18181] = 0x2B; // [1ed41] becomes 8f
 		//printf("ym=%X\n",ram[0]);
 		m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);
+	}
+	else
+	{
+		// fix sound crackling on decrypted
+		if (ym_region[0x6bc0] == 0xAB) ym_region[0x6bc0] = 0x08;
+		if (ym_region[0xed41] == 0x08) ym_region[0xed41] = 0x89;
+		if (ym_region[0x16bc0] == 0x6E) ym_region[0x16bc0] = 0x82;
+		if (ym_region[0x1ed41] == 0xDA) ym_region[0x1ed41] = 0x8F;
 	}
 
 	// if no s rom, copy info from end of c roms
@@ -1555,6 +1568,11 @@ ROM_START( samsh5fe )
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "272sp01.v1", 0x000000, 0x800000, CRC(3bf61586) SHA1(270fd58781b2b897a7365ccdf878c7e57048da35) )
 	ROM_LOAD( "272sp01.v2", 0x800000, 0x800000, CRC(95fe7646) SHA1(eec1a3a4dc5b5a960735147c29b976581a660628) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272fe.c1", 0x0000000, 0x800000, CRC(ec9fda8d) SHA1(acc307e864d0ba15beb78a42edfa62941394ab9f) )
@@ -1578,6 +1596,11 @@ ROM_START( samsh5pf )
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "272sp01.v1", 0x000000, 0x800000, CRC(3bf61586) SHA1(270fd58781b2b897a7365ccdf878c7e57048da35) )
 	ROM_LOAD( "272sp01.v2", 0x800000, 0x800000, CRC(95fe7646) SHA1(eec1a3a4dc5b5a960735147c29b976581a660628) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272fe.c1", 0x0000000, 0x800000, CRC(ec9fda8d) SHA1(acc307e864d0ba15beb78a42edfa62941394ab9f) )
@@ -1676,6 +1699,11 @@ ROM_START( samsh5sph1 )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -1702,6 +1730,11 @@ ROM_START( samsh5spha )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -1728,6 +1761,11 @@ ROM_START( samsh5sphb )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -1754,6 +1792,11 @@ ROM_START( samsh5sphc )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -1803,6 +1846,11 @@ ROM_START( samsh5spn ) // fully decrypted
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -1853,6 +1901,11 @@ ROM_START( samsh5spnh3 )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -1878,6 +1931,11 @@ ROM_START( samsh5spnzk )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -4055,6 +4113,11 @@ ROM_START( samsh5sp01 ) // samsho5spn p1,s1,v1,v2 confirmed
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "272sp01.v1", 0x000000, 0x800000, CRC(3bf61586) SHA1(270fd58781b2b897a7365ccdf878c7e57048da35) )
 	ROM_LOAD( "272sp01.v2", 0x800000, 0x800000, CRC(95fe7646) SHA1(eec1a3a4dc5b5a960735147c29b976581a660628) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -4080,6 +4143,11 @@ ROM_START( samsh5sp02 )
 	ROM_LOAD( "272n.v2", 0x400000, 0x400000, CRC(0e46d2f8) SHA1(b8b0838124ea29f73f31e08d5cced8797cea75b1) )
 	ROM_LOAD( "272n.v3", 0x800000, 0x400000, CRC(3f0f7554) SHA1(2581e297725f3b950b59e9086ac5569171da6140) )
 	ROM_LOAD( "272n.v4", 0xc00000, 0x400000, CRC(ad8fabb4) SHA1(cebe3b7306e1431ebb99df13bfc2270b1d3ba1ff) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272d.c1", 0x0000000, 0x800000, CRC(8548097e) SHA1(99177F64039D2914FA4EBD4AFC7EB0FBF4FFE0AF) )
@@ -4691,6 +4759,11 @@ ROM_START( samsh5sp25 )
 	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "272sp01.v1", 0x000000, 0x800000, CRC(3bf61586) SHA1(270fd58781b2b897a7365ccdf878c7e57048da35) )
 	ROM_LOAD( "272sp01.v2", 0x800000, 0x800000, CRC(95fe7646) SHA1(eec1a3a4dc5b5a960735147c29b976581a660628) )
+	// fix sound crackling
+	ROM_FILL(0x6bc0,1,0x08)
+	ROM_FILL(0xed41,1,0x89)
+	ROM_FILL(0x16bc0,1,0x82)
+	ROM_FILL(0x1ed41,1,0x8f)
 
 	ROM_REGION( 0x4000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "272fe.c1", 0x0000000, 0x800000, CRC(ec9fda8d) SHA1(acc307e864d0ba15beb78a42edfa62941394ab9f) )
@@ -4860,44 +4933,44 @@ GAME( 2003, samsho5s29,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  init
 GAME( 2018, samsho5s30,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  init_sam5hb,   ROT0,  "hack", "Samurai Shodown V (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, samsho5s31,     samsho5,  neogeo_noslot, neogeo, neogeo_state,  init_samsho5,  ROT0,  "hack",    "Samurai Shodown V (Color Change Boss With Simple Attack Edition, 2018-11-13)", MACHINE_SUPPORTS_SAVE )
 // Samurai Shodown V Special
-GAME( 2004, samsh5fe,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (Final Edition, location test)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, samsh5pf,   samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_neogeo, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Perfect", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spd,  samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spd1, samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (NGM-2720)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spd2, samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (no encrypted P)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sph1, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (Bloodlust hack)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spha, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sphb, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sphc, samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sphd, samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (1st release, censored)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spn,  samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (fully decrypted)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spnd, samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (2nd release, less censored)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5spnh3,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Eddids / Snk2003", "Samurai Shodown V Special (Enhanced Blood v3.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2008, samsh5spnzk,samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Zuojie / Kof1996", "Samurai Shodown V Special (Unknown Hack, 2008-10-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5fe,       samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (Final Edition, location test)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, samsh5pf,       samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Perfect", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd,      samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd1,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (NGM-2720)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spd2,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (no encrypted P)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sph1,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (Bloodlust hack)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spha,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sphb,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sphc,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Wesker", "Samurai Shodown V Special (Final)(set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sphd,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (1st release, censored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spn,      samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (fully decrypted)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spnd,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Yuki Enterprise / SNK Playmore", "Samurai Shodown V Special (2nd release, less censored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5spnh3,    samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Eddids / Snk2003", "Samurai Shodown V Special (Enhanced Blood v3.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2008, samsh5spnzk,    samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Zuojie / Kof1996", "Samurai Shodown V Special (Unknown Hack, 2008-10-23)", MACHINE_SUPPORTS_SAVE )
 
-GAME( 2004, samsh5sp01,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0,   "hack", "Samurai Shodown V Special (Fully Decrypted Set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp02,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0,   "hack", "Samurai Shodown V Special (non encrypted P, decrypted C)", MACHINE_SUPPORTS_SAVE )
-GAME( 2011, samsh5sp03,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_samsh5sp, ROT0,   "hack", "Samurai Shodown V Special (Enhanced Edition, 2011-05-16)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp04,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "zuojie & kof1996", "Samurai Shodown V Special (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp05,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "KrysoFun", "Samurai Shodown V Special (Nanatsu No Tachi v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp06,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Nanatsu No Tachi v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp07,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Always Maximum Power)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp08,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Always Maximum Sword Power)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp09,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "Robert", "Samurai Shodown V Special (Easy Command)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp10,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Easy Nanatsu No Tachi)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp11,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "Brennan", "Samurai Shodown V Special (Bug Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp12,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb2, ROT0,  "Eddids", "Samurai Shodown V Special (Zero Style Life Gauge V2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp13,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "KrysoFun", "Samurai Shodown V Special (Double Meditation)", MACHINE_SUPPORTS_SAVE )
-GAME( 2014, samsh5sp14,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb2, ROT0,  "KrysoFun", "Samurai Shodown V Special (Special Edition, 2014-12-01)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp15,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Unlock Fatality V1.02, 2004-09-10)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp16,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Unlock fatality v1)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp17,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "wesker[FGCH]", "Samurai Shodown V Special (Unlock fatality v2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp18,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "dokx4869", "Samurai Shodown V Special (Optimize The Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp19,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "DDJ", "Samurai Shodown V Special (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp20,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "DDJ", "Samurai Shodown V Special (Charlotte Always Have 14hit Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp21,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "DDJ", "Samurai Shodown V Special (Easy Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2004, samsh5sp22,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "DDJ", "Samurai Shodown V Special (yoshitora Always Have Seven Sword Move)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, samsh5sp23,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb, ROT0,   "hack","Samurai Shodown V Special (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
-GAME( 2018, samsh5sp24,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_sam5sphb2, ROT0,  "hack", "Samurai Shodown V Special (Simple Attack Edition, 2018-11-14)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, samsh5sp25,     samsh5sp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0,   "hack", "Samurai Shodown V Special (Edition Final, location test, 2020-06-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp01,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (Fully Decrypted Set 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp02,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (non encrypted P, decrypted C)", MACHINE_SUPPORTS_SAVE )
+GAME( 2011, samsh5sp03,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_samsh5sp, ROT0, "hack", "Samurai Shodown V Special (Enhanced Edition, 2011-05-16)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp04,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "zuojie & kof1996", "Samurai Shodown V Special (Unlimited Credits In Console Mode)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp05,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "KrysoFun", "Samurai Shodown V Special (Nanatsu No Tachi v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp06,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Nanatsu No Tachi v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp07,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Always Maximum Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp08,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Always Maximum Sword Power)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp09,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Robert", "Samurai Shodown V Special (Easy Command)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp10,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Easy Nanatsu No Tachi)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp11,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "Brennan", "Samurai Shodown V Special (Bug Fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp12,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb2,ROT0, "Eddids", "Samurai Shodown V Special (Zero Style Life Gauge V2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp13,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "KrysoFun", "Samurai Shodown V Special (Double Meditation)", MACHINE_SUPPORTS_SAVE )
+GAME( 2014, samsh5sp14,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb2,ROT0, "KrysoFun", "Samurai Shodown V Special (Special Edition, 2014-12-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp15,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Unlock Fatality V1.02, 2004-09-10)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp16,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Unlock fatality v1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp17,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "wesker[FGCH]", "Samurai Shodown V Special (Unlock fatality v2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp18,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "dokx4869", "Samurai Shodown V Special (Optimize The Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp19,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "DDJ", "Samurai Shodown V Special (Always Have Super Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp20,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "DDJ", "Samurai Shodown V Special (Charlotte Always Have 14hit Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp21,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "DDJ", "Samurai Shodown V Special (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2004, samsh5sp22,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "DDJ", "Samurai Shodown V Special (yoshitora Always Have Seven Sword Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, samsh5sp23,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb, ROT0, "hack","Samurai Shodown V Special (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )
+GAME( 2018, samsh5sp24,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_sam5sphb2,ROT0, "hack", "Samurai Shodown V Special (Simple Attack Edition, 2018-11-14)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, samsh5sp25,     samsh5sp, neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown V Special (Edition Final, location test, 2020-06-16)", MACHINE_SUPPORTS_SAVE )
 

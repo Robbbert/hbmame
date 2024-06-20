@@ -1956,7 +1956,7 @@ gaunt2f		// graphics hack
 
 @source:ginganin.cpp
 ginganin                               //parent
-ginganins01
+ginganin01
 
 @source:gottlieb.cpp
 qbert                                  //parent
@@ -2030,12 +2030,16 @@ jrspeed
 jryumyum	/* Tim Appleton: Jr.Pacman vs Yum Yum */
 
 @source:kaneko16.cpp
-shogwarr		//parent
-bloodwar		//parent
-bloodwars01
-shogwarrs01
-shogwarrbh
-fjbusterbh
+shogwarr                               //parent
+bloodwar                               //parent
+bloodwar01
+shogwarr01
+shogwarr02
+fjbuster01
+
+@source:kikikai.cpp
+kikikai                                //parent
+kikikai01
 
 @source:kof94.cpp
 kof94k
@@ -2081,22 +2085,7 @@ kof94s38
 kof94s39
 
 @source:kof95.cpp
-kof95b
-kof95bln
-kof95brz
-kof95ce
-kof95d
-kof95eh
-kof95hp
 kof95k
-kof95neo
-kof95pjc
-kof95ru
-kof95seh
-kof95sp
-kof95sp2
-kof95xg
-kof95y
 kof95s01
 kof95s02
 kof95s03
@@ -2126,6 +2115,21 @@ kof95s28
 kof95s29
 kof95s31
 kof95s32
+kof95s33
+kof95s34
+kof95s35
+kof95s36
+kof95s37
+kof95s38
+kof95s39
+kof95s40
+kof95s41
+kof95s42
+kof95s43
+kof95s44
+kof95s45
+kof95s46
+kof95s47
 
 @source:kof96.cpp
 kof96a
@@ -2141,6 +2145,7 @@ kof96bb
 kof96c
 kof96ckvs
 kof96cn
+kof96cns01
 kof96cr
 kof96chj
 kof96eh
@@ -2218,7 +2223,6 @@ kof96s47
 kof96s48
 kof96s49
 kof96s50
-kof96cns01
 
 @source:kof97.cpp
 kof97aa
@@ -4187,25 +4191,25 @@ kof2004upls30
 kof2004upls31
 
 @source:konamigx.cpp
-konamigx			//required bios
-dragoona			//parent
-dragoonas01
-dragoonas02 
-dragoonas03
-dragoonas04
+konamigx                               //required bios
+dragoona                               //parent
+dragoona01
+dragoona02 
+dragoona03
+dragoona04
 
 @source:kyugo.cpp
-airwolf		//parent
-airwolffr	// french
+airwolf                                //parent
+airwolf01                              // french
 
 @source:lkage.cpp
-lkage					//parent
-lkages01
+lkage                                  //parent
+lkage01
 
 @source:lordgun.cpp
-aliencha			//parent
-alienchas01 
-alienchas02
+aliencha                               //parent
+aliencha01
+aliencha02
 
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
@@ -4286,22 +4290,22 @@ zap				/* HB - Widel Games */
 @source:mappy.cpp
 mappy		//parent
 superpac	//parent
-crackhea 	/* Cary Barnhard hack of Mappy */
-housepty 	/* Jerky hack of Mappy */
+crackhea	/* Cary Barnhard hack of Mappy */
+housepty	/* Jerky hack of Mappy */
 marpy
 superpc1	/* Paul Smith */
-superpcn 	/* Blue Justice */
+superpcn	/* Blue Justice */
 superpcp	/* Blue Justice */
 superpcs	/* Paul Smith */
 vectrsup	/* T-Bone hack of Super Pac-Man */
 
 @source:mario.cpp
 mario                                  //parent
-cenmario 
+cenmario
 
 @source:mcatadv.cpp
 mcatadv                                //parent
-mcatadvs01
+mcatadv01
 
 @source:mcr.cpp
 shollow		//parent
@@ -4315,10 +4319,6 @@ stapper1	/* Tapper Simpsons Hack ver .81 */
 @source:mcr3.cpp
 sarge		//parent
 sargex		/* Gatinho Sarge x-rated */
-
-@source:mexico86.cpp
-kikikai					//parent
-kikikais01
 
 @source:mgd2.cpp
 bstarsd					// 0002 (c) 1990 SNK

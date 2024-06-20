@@ -2,17 +2,17 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/konamigx.cpp"
 
-// Every game here must be added to the table at about line 3800 in src/mame/drivers/konamigx.cpp
+// Every game here must be added to the table at about line 3939 in src/mame/drivers/konamigx.cpp
 
  /*************
  Dragoon Might
 ****************/
 
-ROM_START( dragoonas01 )
+ROM_START( dragoona01 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	GX_BIOS
-	ROM_LOAD32_WORD_SWAP( "417aab02_ps01.31b", 0x200002, 512*1024, CRC(b391f67e) SHA1(b7066b1aa5906056f84cae4dc639d69768f97d09) )
-	ROM_LOAD32_WORD_SWAP( "417aab03_ps01.27b", 0x200000, 512*1024, CRC(3e0eded0) SHA1(7ec68b74271544f3c8690316a3829141c84c03e1) )
+	ROM_LOAD32_WORD_SWAP( "417aab02_s01.31b", 0x200002, 512*1024, CRC(b391f67e) SHA1(b7066b1aa5906056f84cae4dc639d69768f97d09) )
+	ROM_LOAD32_WORD_SWAP( "417aab03_s01.27b", 0x200000, 512*1024, CRC(3e0eded0) SHA1(7ec68b74271544f3c8690316a3829141c84c03e1) )
 
 	ROM_LOAD32_WORD_SWAP( "417a04.26c", 0x400002, 1024*1024, CRC(dc574747) SHA1(43cbb6a08c27bb96bb25568c3b636c44fff3e08e) )
 	ROM_LOAD32_WORD_SWAP( "417a05.23c", 0x400000, 1024*1024, CRC(2ee2c587) SHA1(a1b2b288c375a3406d4b12e66c973484c03fe26e) )
@@ -41,11 +41,11 @@ ROM_START( dragoonas01 )
 	ROM_LOAD( "dragoona.nv", 0x0000, 0x080, CRC(7980ad2b) SHA1(dccaab02d23edbd81ae13441fbac0dbd7112c258) )
 ROM_END
 
-ROM_START( dragoonas02 )
+ROM_START( dragoona02 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	GX_BIOS
-	ROM_LOAD32_WORD_SWAP( "417aab02_ps02.31b", 0x200002, 512*1024, CRC(d4e6eace) SHA1(2bfb96e968359d0d9c227f89ad41457e95479b32) )
-	ROM_LOAD32_WORD_SWAP( "417aab03_ps02.27b", 0x200000, 512*1024, CRC(bf4598c4) SHA1(d7ec625cf019eb41d5847945b66e9f33d895ec57) )
+	ROM_LOAD32_WORD_SWAP( "417aab02_s02.31b", 0x200002, 512*1024, CRC(d4e6eace) SHA1(2bfb96e968359d0d9c227f89ad41457e95479b32) )
+	ROM_LOAD32_WORD_SWAP( "417aab03_s02.27b", 0x200000, 512*1024, CRC(bf4598c4) SHA1(d7ec625cf019eb41d5847945b66e9f33d895ec57) )
 
 	ROM_LOAD32_WORD_SWAP( "417a04.26c", 0x400002, 1024*1024, CRC(dc574747) SHA1(43cbb6a08c27bb96bb25568c3b636c44fff3e08e) )
 	ROM_LOAD32_WORD_SWAP( "417a05.23c", 0x400000, 1024*1024, CRC(2ee2c587) SHA1(a1b2b288c375a3406d4b12e66c973484c03fe26e) )
@@ -74,11 +74,11 @@ ROM_START( dragoonas02 )
 	ROM_LOAD( "dragoona.nv", 0x0000, 0x080, CRC(7980ad2b) SHA1(dccaab02d23edbd81ae13441fbac0dbd7112c258) )
 ROM_END
 
-ROM_START( dragoonas03 )
+ROM_START( dragoona03 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	GX_BIOS
-	ROM_LOAD32_WORD_SWAP( "417aab02_ps03.31b", 0x200002, 512*1024, CRC(38d338b5) SHA1(239802338167b0f7a64d62ad230b46b58af3e46e) )
-	ROM_LOAD32_WORD_SWAP( "417aab03_ps03.27b", 0x200000, 512*1024, CRC(520c29ff) SHA1(125feb1526a70bd315cee7aded77547b33d06dcd) )
+	ROM_LOAD32_WORD_SWAP( "417aab02_s03.31b", 0x200002, 512*1024, CRC(38d338b5) SHA1(239802338167b0f7a64d62ad230b46b58af3e46e) )
+	ROM_LOAD32_WORD_SWAP( "417aab03_s03.27b", 0x200000, 512*1024, CRC(520c29ff) SHA1(125feb1526a70bd315cee7aded77547b33d06dcd) )
 
 	ROM_LOAD32_WORD_SWAP( "417a04.26c", 0x400002, 1024*1024, CRC(dc574747) SHA1(43cbb6a08c27bb96bb25568c3b636c44fff3e08e) )
 	ROM_LOAD32_WORD_SWAP( "417a05.23c", 0x400000, 1024*1024, CRC(2ee2c587) SHA1(a1b2b288c375a3406d4b12e66c973484c03fe26e) )
@@ -107,11 +107,11 @@ ROM_START( dragoonas03 )
 	ROM_LOAD( "dragoona.nv", 0x0000, 0x080, CRC(7980ad2b) SHA1(dccaab02d23edbd81ae13441fbac0dbd7112c258) )
 ROM_END
 
-ROM_START( dragoonas04 )
+ROM_START( dragoona04 )
 	ROM_REGION( 0x800000, "maincpu", 0 )
 	GX_BIOS
-	ROM_LOAD32_WORD_SWAP( "417aab02_ps04.31b", 0x200002, 512*1024, CRC(5fa42405) SHA1(0335d3a5aba5e02eb7383b5ae7e45aec0677e905) )
-	ROM_LOAD32_WORD_SWAP( "417aab03_ps04.27b", 0x200000, 512*1024, CRC(d3476feb) SHA1(fdd5818e80e8cd1e72c88b1b015abe071354ee4a) )
+	ROM_LOAD32_WORD_SWAP( "417aab02_s04.31b", 0x200002, 512*1024, CRC(5fa42405) SHA1(0335d3a5aba5e02eb7383b5ae7e45aec0677e905) )
+	ROM_LOAD32_WORD_SWAP( "417aab03_s04.27b", 0x200000, 512*1024, CRC(d3476feb) SHA1(fdd5818e80e8cd1e72c88b1b015abe071354ee4a) )
 
 	ROM_LOAD32_WORD_SWAP( "417a04.26c", 0x400002, 1024*1024, CRC(dc574747) SHA1(43cbb6a08c27bb96bb25568c3b636c44fff3e08e) )
 	ROM_LOAD32_WORD_SWAP( "417a05.23c", 0x400000, 1024*1024, CRC(2ee2c587) SHA1(a1b2b288c375a3406d4b12e66c973484c03fe26e) )
@@ -142,8 +142,8 @@ ROM_END
 
 /*    YEAR  NAME            PARENT    MACHINE        INPUT       INIT             MONITOR COMPANY                 FULLNAME FLAGS */
 // Dragoon Might
-GAME( 1995, dragoonas01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)", 0 )
-GAME( 1995, dragoonas02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)", 0 )
-GAME( 1995, dragoonas03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)", 0 )
-GAME( 2018, dragoonas04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "hack", "Dragoon Might (Unknown Hack, 2018-03-04)", 0 )
+GAME( 1995, dragoona01,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Always Have Super Move)", 0 )
+GAME( 1995, dragoona02,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Easy Move)", 0 )
+GAME( 1995, dragoona03,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "DDJ", "Dragoon Might (Enable Hidden Character)", 0 )
+GAME( 2018, dragoona04,  dragoona, dragoonj,      dragoonj, konamigx_state, init_posthack, ROT0, "hack", "Dragoon Might (Unknown Hack, 2018-03-04)", 0 )
 

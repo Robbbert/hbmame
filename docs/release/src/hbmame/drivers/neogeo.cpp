@@ -1435,6 +1435,11 @@ void neogeo_state::init_samsho5()
 
 void neogeo_state::init_samsh5sp()
 {
+	// fix sound crackling
+	if (ym_region[0] == 0xE0) ym_region[0] = 0x43; // [6bc0] becomes 08
+	if (ym_region[1] == 0x25) ym_region[1] = 0xC9; // [16bc0] becomes 82
+	if (ym_region[0x18180] == 0xAC) ym_region[0x18180] = 0x2D; // [ed41] becomes 89
+	if (ym_region[0x18181] == 0x7E) ym_region[0x18181] = 0x2B; // [1ed41] becomes 8f
 	init_neogeo();
 	m_kof2002_prot->samsh5sp_decrypt_68k(cpuregion, cpuregion_size);
 	m_pcm2_prot->neo_pcm2_swap(ym_region, ym_region_size, 6);

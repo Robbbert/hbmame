@@ -4,7 +4,7 @@
 #include "../mame/drivers/mcatadv.cpp"
 
 
-ROM_START( mcatadvs01 )  // Local text hack to show someone's company name
+ROM_START( mcatadv01 )  // Local text hack to show someone's company name
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "mcas01.u30", 0x00000, 0x80000, CRC(009ae1b3) SHA1(7bee7d3a9a6fd67d09acdfbef49f3e2be6db4712) )
 	ROM_LOAD16_BYTE( "mcas01.u29", 0x00001, 0x80000, CRC(7fd27089) SHA1(c97f5ce13d8dfeaaed94ec621037e030f7a7cec7) )
@@ -32,5 +32,5 @@ ROM_START( mcatadvs01 )  // Local text hack to show someone's company name
 	ROM_LOAD( "mca-u53.bin", 0x00000, 0x80000, CRC(64c76e05) SHA1(379cef5e0cba78d0e886c9cede41985850a3afb7) )
 ROM_END
 
-GAME( 1993, mcatadvs01,  mcatadv,   mcatadv, mcatadv, mcatadv_state, empty_init, ROT0, "Recreativos Zara, S.L.", "Magical Cat Adventure (R.Zara)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, mcatadv01,  mcatadv,   mcatadv, mcatadv, mcatadv_state, empty_init, ROT0, "Recreativos Zara, S.L.", "Magical Cat Adventure (R.Zara)", MACHINE_SUPPORTS_SAVE )
 

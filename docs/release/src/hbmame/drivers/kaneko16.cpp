@@ -8,7 +8,7 @@
 
 ***********************************/
 
-ROM_START( fjbusterbh )
+ROM_START( fjbuster01 )
 	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fbbh030a.u61", 0x000000, 0x020000, CRC(c3a66037) SHA1(4ca1b440ca822d6c6adecb5c0a3d83126bc775a2) )
 	ROM_LOAD16_BYTE( "fbbh031j.u62", 0x000001, 0x020000, CRC(c104ca05) SHA1(6247ab05c6c88352a75d606961b98cd957709590) )
@@ -39,7 +39,7 @@ ROM_START( fjbusterbh )
 ROM_END
 
 
-ROM_START( shogwarrbh )
+ROM_START( shogwarr01 )
 	ROM_REGION( 0x040000, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "fbbh030a.u61", 0x000000, 0x020000, CRC(c3a66037) SHA1(4ca1b440ca822d6c6adecb5c0a3d83126bc775a2) )
 	ROM_LOAD16_BYTE( "fbbh031a.u62", 0x000001, 0x020000, CRC(e382acf8) SHA1(50177a525fb6138490c70e50f5b9ae476cb8d6de) )
@@ -70,12 +70,12 @@ ROM_START( shogwarrbh )
 ROM_END
 
 
-ROM_START( shogwarrs01 )
+ROM_START( shogwarr02 )
 	ROM_REGION( 0x040000, "maincpu", 0 )
 	//ROM_LOAD16_BYTE( "fb030es01.u61", 0x000000, 0x020004, CRC(32ce7909) SHA1(9060ba40a415ef8f050caacfcd1a1e0ef3e6c6a5) ) // crc collision
 	//ROM_LOAD16_BYTE( "fb030es01.u62", 0x000001, 0x020004, CRC(228aeaf5) SHA1(40e0e40b06a5864609d840275652df5361df7f68) ) // crc collision
-	ROM_LOAD16_BYTE( "fb030es01.u61", 0x000000, 0x020000, CRC(3b7393b5) SHA1(ef3a1d52bac11356d0cf410476c7726c4e0f6bdf) )
-	ROM_LOAD16_BYTE( "fb030es01.u62", 0x000001, 0x020000, CRC(41df237f) SHA1(8e92be40ab2eb9dd200af3d45b3f1aa8b94ddcc8) )
+	ROM_LOAD16_BYTE( "fb030es02.u61", 0x000000, 0x020000, CRC(3b7393b5) SHA1(ef3a1d52bac11356d0cf410476c7726c4e0f6bdf) )
+	ROM_LOAD16_BYTE( "fb030es02.u62", 0x000001, 0x020000, CRC(41df237f) SHA1(8e92be40ab2eb9dd200af3d45b3f1aa8b94ddcc8) )
 
 	ROM_REGION( 0x020000, "calc3_rom", 0 )
 	ROM_LOAD( "fb040e.u33",  0x000000, 0x020000, CRC(299d0746) SHA1(67fe3a47ab01fa02ce2bb5836c2041986c19d875) )
@@ -109,10 +109,10 @@ ROM_END
 
 ***********************************/
 
-ROM_START( bloodwars01 )
+ROM_START( bloodwar01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "ofp0f3_ps01.514", 0x000000, 0x080000, CRC(e0d56791) SHA1(275d6273525536a3db286c71ba3602a7705179ac) )
-	ROM_LOAD16_BYTE( "ofp1f3_ps01.513", 0x000001, 0x080000, CRC(e9c84790) SHA1(6bd7525d7c90de1fb3ed68310298ecaa5462f659) )
+	ROM_LOAD16_BYTE( "ofp0f3_s01.514", 0x000000, 0x080000, CRC(e0d56791) SHA1(275d6273525536a3db286c71ba3602a7705179ac) )
+	ROM_LOAD16_BYTE( "ofp1f3_s01.513", 0x000001, 0x080000, CRC(e9c84790) SHA1(6bd7525d7c90de1fb3ed68310298ecaa5462f659) )
 
 	ROM_REGION( 0x020000, "mcudata", 0 )
 	ROM_LOAD16_WORD_SWAP( "ofd0x3.124",  0x000000, 0x020000, CRC(399f2005) SHA1(ff0370724770c35963953fd9596d9f808ba87d8f) )
@@ -157,9 +157,9 @@ ROM_END
 
 /*    YEAR  NAME          PARENT     MACHINE   INPUT      CLASS                    INIT           MONITOR COMPANY         FULLNAME FLAGS */
 //Blood Warrior
-GAME( 1994, bloodwars01,  bloodwar,  bloodwar, bloodwar,  kaneko16_gtmr_state,     init_gtmr,     ROT0,  "DDJ", "Blood Warrior (Easy Move)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, bloodwar01,  bloodwar,  bloodwar, bloodwar,  kaneko16_gtmr_state,     init_gtmr,     ROT0,  "DDJ", "Blood Warrior (Easy Move)", MACHINE_SUPPORTS_SAVE )
 //Shogun Warriors
-GAME( 2017, fjbusterbh,   shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Fujiyama Buster (Enable Hidden Characters, 2017-04-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, shogwarrbh,   shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Shogun Warriors (Enable Hidden Characters, 2017-04-02)", MACHINE_SUPPORTS_SAVE )
-GAME( 2017, shogwarrs01,  shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "hack", "Shogun Warriors (Simplified, 2017-02-28)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, fjbuster01,  shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Fujiyama Buster (Enable Hidden Characters, 2017-04-07)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, shogwarr01,  shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "e107", "Shogun Warriors (Enable Hidden Characters, 2017-04-02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2017, shogwarr02,  shogwarr,  shogwarr, shogwarr,  kaneko16_shogwarr_state, init_shogwarr, ROT0,  "hack", "Shogun Warriors (Simplified, 2017-02-28)", MACHINE_SUPPORTS_SAVE )
 

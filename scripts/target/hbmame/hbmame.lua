@@ -987,7 +987,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/kikikai.cpp",
 	MAME_DIR .. "src/mame/machine/kikikai.cpp",
 	MAME_DIR .. "src/mame/video/kikikai.cpp",
-	MAME_DIR .. "src/hbmame/drivers/ikage.cpp",
+	MAME_DIR .. "src/hbmame/drivers/lkage.cpp",
 	MAME_DIR .. "src/mame/video/lkage.cpp",
 	MAME_DIR .. "src/hbmame/drivers/arkanoid.cpp",
 	MAME_DIR .. "src/mame/machine/arkanoid.cpp",

@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/kyugo.cpp"
 
-ROM_START( airwolffr )
+ROM_START( airwolf01 )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "bfr.2s",      0x0000, 0x8000, CRC(ccf90d88) SHA1(6f88c0c4f5985d8033efdbc5e5516552007b7bdf) )
 
@@ -43,4 +43,5 @@ ROM_START( airwolffr )
 	ROM_LOAD_OPTIONAL( "epl12p6a.9k",   0x0300, 0x0034, CRC(f5acad85) SHA1(ee3caeedf3e91793b12895f109eae5417f5c7631) )
 ROM_END
 
-GAME( 2007, airwolffr, airwolf, srdmissn, airwolf, kyugo_state, empty_init, ROT0, "S.Arkames", "Airwolf (French, 2017-10-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2007, airwolf01, airwolf, srdmissn, airwolf, kyugo_state, empty_init, ROT0, "S.Arkames", "Airwolf (French, 2017-10-29)", MACHINE_SUPPORTS_SAVE )
+

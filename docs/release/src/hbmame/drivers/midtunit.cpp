@@ -706,6 +706,42 @@ ROM_START( nbajam03 ) // nbajamse
 	ROM_LOAD32_BYTE( "nbajam03.uj23", 0x600003, 0x80000, CRC(424fbd82) SHA1(fae7e23dd7807de8c2e467f21afda1a427260883) )
 ROM_END
 
+ROM_START( nbajam04 )
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
+	ROM_RELOAD(             0x030000, 0x20000 )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "nbajam02.u12", 0x000000, 0x80000, CRC(cd5d4532) SHA1(63ff4b5b22e02ee90cdcb745acc6bf9dbc1c3140) )
+	ROM_LOAD( "nbajam04.u13", 0x080000, 0x80000, CRC(c4cbede2) SHA1(8b1a26ee852281de1564af35fc3605a89eb0b7dd) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "nbajam02.uj12", 0x00000, 0x80000, CRC(9b3fc483) SHA1(4e7b6b85d9972063ebdb08ad2c860e082b6e886b) )
+	ROM_LOAD16_BYTE( "nbajam02.ug12", 0x00001, 0x80000, CRC(18e75204) SHA1(e33eaa969dbc7ac19641238fc62d2af4d75bddef) )
+
+	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj19.uj19", 0x000003, 0x80000, CRC(8130a8a2) SHA1(f23f124024285d07d8cf822817b62e42c38b82db) )
+
+	ROM_LOAD32_BYTE( "nbajam02.ug16", 0x200000, 0x80000, CRC(b9a07a6f) SHA1(0b9410ae9d761928b828449f45302f0951a6a8af) )
+	ROM_LOAD32_BYTE( "nbajam02.uj16", 0x200001, 0x80000, CRC(ffa7db04) SHA1(984a1011f378d7e77acf43f285f7c72f035fc7ee) )
+	ROM_LOAD32_BYTE( "nbajam02.ug20", 0x200002, 0x80000, CRC(67c8646b) SHA1(a0584e79cdd5c83cd62bda09470f67082a670fe1) )
+	ROM_LOAD32_BYTE( "nbajam02.uj20", 0x200003, 0x80000, CRC(71d028f8) SHA1(6c9d3cb6b937a53af8be0c7c5e209fb8740d6d9a) )
+
+	ROM_LOAD32_BYTE( "nbajam02.ug17", 0x400000, 0x80000, CRC(34c6bdb8) SHA1(fe613fc3256eafc368ba566dd989c05293df1829) )
+	ROM_LOAD32_BYTE( "nbajam02.uj17", 0x400001, 0x80000, CRC(3af5b32e) SHA1(397d2524a5749f8e8419280cc3c48ec3081834b5) )
+	ROM_LOAD32_BYTE( "nbajam02.ug22", 0x400002, 0x80000, CRC(d41234d2) SHA1(9dab65c7843758572634c4805227fee1850b0349) )
+	ROM_LOAD32_BYTE( "nbajam02.uj22", 0x400003, 0x80000, CRC(42196c84) SHA1(7f30204a4764b4afd38cf82f8be909c9ee5a0a0b) )
+
+	ROM_LOAD32_BYTE( "nbajam02.ug18", 0x600000, 0x80000, CRC(fe18a6ef) SHA1(58b8bbf257b3de5d7536421dda302e2d93f51999) )
+	ROM_LOAD32_BYTE( "nbajam02.uj18", 0x600001, 0x80000, CRC(9a6d36de) SHA1(1bb24ff5fdbdc1f7265da0ba43e3d96ab589548f) )
+	ROM_LOAD32_BYTE( "nbajam02.ug23", 0x600002, 0x80000, CRC(8d1af1a6) SHA1(4de21240ec0ffce9346e75b9719d9ae71bfbdb8e) )
+	ROM_LOAD32_BYTE( "nbajam02.uj23", 0x600003, 0x80000, CRC(b5bf66f9) SHA1(de12e47e44f9cf7c611d674fe6c9b3466fde2081) )
+ROM_END
+
+
 /*    YEAR  NAME         PARENT    MACHINE      INPUT     CLASS           INIT          MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
 GAME( 2007, mk01,        mk,       tunit_adpcm, mk,       midtunit_state, init_mktunit,  ROT0, "Arkatrad", "Mortal Kombat (French Rev.1)", MACHINE_SUPPORTS_SAVE )
@@ -729,6 +765,7 @@ GAME( 2020, umk2s04,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_m
 GAME( 2020, umk2s05,     mk2,      tunit_dcs,   mk2,      midtunit_state, init_mk2,      ROT0, "SK", "Ultimate Mortal Kombat II (Tournament Edition 5.0.053)", MACHINE_SUPPORTS_SAVE )
 // NBA Jam
 GAME( 1994, nbajam01,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Midway", "NBA Jam TE (rev XXX)", MACHINE_SUPPORTS_SAVE )
-GAME( 2022, nbajam02,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "ponlork", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, nbajam02,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam03,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, nbajam04,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.2)", MACHINE_SUPPORTS_SAVE )
 
