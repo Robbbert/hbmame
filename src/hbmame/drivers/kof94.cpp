@@ -1010,6 +1010,7 @@ ROM_START( kof94s38 ) // kof94y - Hack Boss By Ydmis
 	ROM_LOAD16_BYTE( "055.c8", 0xc00001, 0x200000, CRC(fe0a235d) SHA1(a45c66836e4e3c77dfef9d4c6cc422cb59169149) )
 ROM_END
 
+#if 0
 ROM_START( kof94s39 ) // kof94te - Team Edit Edition v1.2.4 https://neorh.mattgreer.dev/
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "055s39.p1", 0x100000, 0x100000, CRC(18cefb28) SHA1(c2dcaebc63430a6cab12a68d2660809df5a5d515) )
@@ -1027,6 +1028,32 @@ ROM_START( kof94s39 ) // kof94te - Team Edit Edition v1.2.4 https://neorh.mattgr
 	ROM_REGION( 0x1000000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "055s39.c1", 0x000000, 0x200000, CRC(9fc6044e) SHA1(f3e8e7f5cbf02bcc35d49f7257540becbeac2c57) )
 	ROM_LOAD16_BYTE( "055s39.c2", 0x000001, 0x200000, CRC(c5e4a59e) SHA1(fdb069fa903ad617b62dce2ac545a1a52f691289) )
+	ROM_LOAD16_BYTE( "055.c3", 0x400000, 0x200000, CRC(54f66254) SHA1(c594384bcd8b03beb8c595591505fecc44b185ac) )
+	ROM_LOAD16_BYTE( "055.c4", 0x400001, 0x200000, CRC(0b01765f) SHA1(ec1fdcc944611408367bf5023d4ebe7edd9dfa88) )
+	ROM_LOAD16_BYTE( "055.c5", 0x800000, 0x200000, CRC(ee759363) SHA1(8a5621c1b1f8267b9b9b6a14ab4944de542e1945) )
+	ROM_LOAD16_BYTE( "055.c6", 0x800001, 0x200000, CRC(498da52c) SHA1(1e6e6202ee053a5261db889177ce3a087e078bda) )
+	ROM_LOAD16_BYTE( "055s39.c7", 0xc00000, 0x200000, CRC(b3d868d0) SHA1(ca99b0f46da74676b324d2e13132e027b216998f) )
+	ROM_LOAD16_BYTE( "055s39.c8", 0xc00001, 0x200000, CRC(b296127c) SHA1(ccdbb61638fa9122ce341436587f76f8b1cd81d5) )
+ROM_END
+#endif
+
+ROM_START( kof94s39 ) // kof94te - Team Edit Edition v1.3.0 https://neorh.mattgreer.dev/
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "055s39.p1", 0x100000, 0x100000, CRC(f3fea336) SHA1(3ee04e2efb4f1119b60f408c1249763b63494f91) )
+	ROM_CONTINUE( 0x000000, 0x100000 )
+
+	NEO_SFIX_128K( "055s39.s1", CRC(dcd024d2) SHA1(1e1699b85353f916fb157f2fde7d8ba26c517bda) )
+
+	NEO_BIOS_AUDIO_128K( "055.m1", CRC(f6e77cf5) SHA1(292a3e3a4918ffe72bd1c41acb927b91844e035e) )
+
+	ROM_REGION( 0x600000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "055.v1", 0x000000, 0x200000, CRC(8889596d) SHA1(c9ce713b720511438dbd3fe3bcc7c246f475c6a2) )
+	ROM_LOAD( "055.v2", 0x200000, 0x200000, CRC(25022b27) SHA1(2b040a831c3c92ac6e4719de38009a0d55b64f6b) )
+	ROM_LOAD( "055.v3", 0x400000, 0x200000, CRC(83cf32c0) SHA1(34a31a37eb10945b5169e96321bcea06eec33a00) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "055s39.c1", 0x000000, 0x200000, CRC(34758352) SHA1(fbbaff8315f7f7b2c4b13e3ce5ee4545dac177fc) )
+	ROM_LOAD16_BYTE( "055s39.c2", 0x000001, 0x200000, CRC(90466a40) SHA1(eb4b6009c0ffd4c0287925a86903e78fe4d8808d) )
 	ROM_LOAD16_BYTE( "055.c3", 0x400000, 0x200000, CRC(54f66254) SHA1(c594384bcd8b03beb8c595591505fecc44b185ac) )
 	ROM_LOAD16_BYTE( "055.c4", 0x400001, 0x200000, CRC(0b01765f) SHA1(ec1fdcc944611408367bf5023d4ebe7edd9dfa88) )
 	ROM_LOAD16_BYTE( "055.c5", 0x800000, 0x200000, CRC(ee759363) SHA1(8a5621c1b1f8267b9b9b6a14ab4944de542e1945) )
@@ -1077,5 +1104,5 @@ GAME( 1994, kof94s35,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1994, kof94s36,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Creamymami and Ydmis", "Kof'94 (Add Char - Ultra pow hack ABC)", MACHINE_SUPPORTS_SAVE ) // Rugal
 GAME( 1994, kof94s37,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "IsmaMj", "Kof'94 (Super Ultra Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s38,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Kof'94 (Hidden Characters-Fix Boss's error)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, kof94s39,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Matt Greer", "Kof'94 (Team Edit Edition v1.2.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, kof94s39,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Matt Greer", "Kof'94 (Team Edit Edition v1.3.0)", MACHINE_SUPPORTS_SAVE )
 
