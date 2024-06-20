@@ -8,6 +8,7 @@ ngneo: expanded the software list
 
 New Games
 ---------------------------------
+- [au]                  Au
 - [gladmortd2]          Gladmort (Demo 2)
 - [kof94s39]            Kof'94 (Team Edit Edition v1.3.0)
 - [nbajam04]            NBA Jam Rewind (rev 1.2)
