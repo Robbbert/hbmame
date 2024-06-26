@@ -1713,6 +1713,7 @@ avengrgs02
 
 @source:dkong.cpp
 dkong                                  //parent
+dkongjr                                //parent
 dkong01
 dkong02
 dkong03
@@ -1739,6 +1740,7 @@ dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
 dkongf
+dkongjr01
 dkongst
 dkongst2
 dkongss
