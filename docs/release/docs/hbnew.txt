@@ -1,6 +1,16 @@
 ﻿What's new in HBMAME
 ====================
 
+2024-0x-xx 0.245.21
+
+
+New Games
+---------------------------------
+- [kof94s40]            Kof'94 (Team Edit Edition v1.4.0)
+
+
+
+
 2024-06-20 0.245.20
 
 ngneo: expanded the software list
