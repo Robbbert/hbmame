@@ -9,6 +9,7 @@ New Games
 - [dkongjr01]           Donkey Kong Junior (bugfixed)
 - [kof94s40]            Kof'94 (Team Edit Edition v1.4.0)
 - [sf2ce59]             Street Fighter II' (Golden Magic)
+- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.31) [zero800]
 
 
 
@@ -24,7 +25,7 @@ New Games
 - [gladmortd2]          Gladmort (Demo 2)
 - [kof94s39]            Kof'94 (Team Edit Edition v1.3.0)
 - [nbajam04]            NBA Jam Rewind (rev 1.2)
-- [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.30) [zero800]
+- [sfz3mix30]           Street Fighter Zero 3 (Turbo Mix 0.30) [zero800]
 
 
 
