@@ -267,7 +267,6 @@ function linkProjects_hbmame_hbmame(_target, _subtarget)
 		"atlus",
 		"capcom",
 		"cave",
-		"cclimb",
 		"cinemat",
 		"dataeast",
 		"dynax",
@@ -419,13 +418,6 @@ files {
 	MAME_DIR .. "src/mame/video/cave.cpp",
 	MAME_DIR .. "src/hbmame/drivers/cv1k.cpp",
 	MAME_DIR .. "src/mame/video/tmap038.cpp",
-}
-
-createHBMAMEProjects(_target, _subtarget, "cclimb")
-files {
-	MAME_DIR .. "src/hbmame/cclimb/cclimb.cpp",
-	MAME_DIR .. "src/hbmame/cclimb/cclimb_m.cpp",
-	MAME_DIR .. "src/hbmame/cclimb/cclimb_v.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "cinemat")

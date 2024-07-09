@@ -179,9 +179,6 @@ theroes01
 cball                                  //parent
 cballfix                               // MASH (fixed) gfx rom
 
-@source:cclimb.cpp
-au
-
 @source:cclimber.cpp
 cclimber                               //parent
 cclimbrm                               // Tim Arcadecollecting Modded Version

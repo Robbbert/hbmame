@@ -96,6 +96,7 @@ NUM TITLES
 269 SVC Chaos: SNK vs Capcom / SNK vs Capcom SVC Chaos
 270 Samurai Shodown 5 / Samurai Spirits Zero
 272 Samurai Shodown 5 Special / Samurai Spirits Zero Special
+??? Dragon's Heaven / Dark Seed
 
 
 ********************** Official Titles (including non-free indie) **********************************
@@ -110,13 +111,14 @@ NUM GAME YEAR COMPANY                 TITLE
 035*     1991 Alpha Denshi            Mystic Wand (video on youtube)
    *     1995 Yumekobo                The Karate Ninjya Sho (info from www.neo-geo.com)
 071*     1994 Visco                   Bang Bang Busters (1994 on title screen)
-072*     1994 Face                    Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
+072*     1995 Monolith                Last Odyssey Pinball Fantasia (video on youtube)
+   *     1994 Face                    Treasure of the Caribbean (may also be known as 'Carib No Zaihou')
 077*     1995 Astec21                 The Warlocks of the Fates / Shinryu Senki (video on nicovideo.jp and youtube)
-099*     1996 Viccom                  The Eye of Typhoon
-   *     1997 Saurus/Takumi           Magic Master / Mahou Juku
+099*     1996 Sunsoft                 Hebereke's Pair Pair Wars
+   *     1996 Video System            Danger Droppers Caution (Droppers)
 204*     1997 Success                 Q.P. (Quality People)
-210*     1995 Monolith                Last Odyssey Pinball Fantasia (video on youtube)
-226*     1996 Sunsoft                 Hebereke's Pair Pair Wars
+210*     1996 Viccom                  The Eye of Typhoon
+226*     1997 Saurus/Takumi           Magic Master / Mahou Juku
 258*     2002 ADK                     Dance RhythMIX
 300 0300 2006 NG:DEV.Team             Last Hope
 301*0301 2010 NG:DEV.Team             Fast Striker
@@ -281,9 +283,9 @@ YEAR COMPANY                          TITLE
 1994 Visco                            Crystal Legacy  (this may be an early name for Breakers)
 1994 Video System Co                  Super Volley 94 (this may be an early name for Power Spikes 2)
 1994 Mahou                            All Stars Volley
-1994 Visco                            Puzzlekko Club
+1994 Visco                            Puzzlekko Club (Puzzle KO Club)
 1995 Face                             Ultimate 4 / King of Athlete
-1995 MAX                              Maseki Taisen Stoon
+1995 MAX                              Maseki Taisen Stoon / Magic Stone War
 1995 Nintendo/SNK                     Crystalis (CD) (neogeocdworld.info)
 1996 Kigyo                            Action Pac
 1996 SNK                              Kizuna Encounter Special Edition (could be "Kizuna Encounter 4way Battle") (could be "Fu'un Super Tag Battle Link-up")
