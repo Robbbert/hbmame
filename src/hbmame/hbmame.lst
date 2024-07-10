@@ -1556,6 +1556,7 @@ ssf2t06
 ssf2t07
 ssf2t08
 ssf2t09
+ssf2t10
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -6074,6 +6075,7 @@ wjammers		// 065
 //zedblade		// 076  not needed
 zintrckb		// 211
 zupapa			// 070
+//dragonsh
 
 @source:neogeohb.cpp
 19yy

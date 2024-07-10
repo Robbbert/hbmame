@@ -10,6 +10,7 @@ New Games
 - [kof94s40]            Kof'94 (Team Edit Edition v1.4.0)
 - [sf2ce59]             Street Fighter II' (Golden Magic)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.31) [zero800]
+- [ssf2t10]             Super Street Fighter II Turbo (940223U, difficulty fix)
 
 
 
