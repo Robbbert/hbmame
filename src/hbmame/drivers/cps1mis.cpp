@@ -28567,20 +28567,20 @@ GAME( 1992, sf2ce45,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,
 GAME( 2012, sf2ce47,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Drakon", "Street Fighter II': Champion Edition (Punishment Simplified Edition v1 Final, 2012-04-10)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, sf2ce48,       sf2ce,    cps1_12MHz, sf2rb,    cps_state, init_cps1,     ROT0, "Rotwang", "Street Fighter II': Champion Edition (Rainbow, bootleg, set 1, protection removed)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, sf2ce49,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Drakon", "Street Fighter II': Champion Edition (Sheng Long v7.3a)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ce50,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "hack", "Street Fighter II': Champion Edition (Turbo set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ce51,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "hack", "Street Fighter II': Champion Edition (Turbo set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ce50,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "hack", "Street Fighter II': Champion Edition (Turbo set 1, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ce51,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "hack", "Street Fighter II': Champion Edition (Turbo set 2, bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2ce52,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Tu Long prototype)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ce53,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (Red Wave bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ce54,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (V004 bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ce55,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (YYC bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ce53,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (Red Wave bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ce54,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (V004 bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ce55,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (YYC bootleg set 2, 920313 etc)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2ce56,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Drakon", "Street Fighter II': Champion Edition (Punishment Edition Simplified, 2018-06-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, sf2ce57,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "hack", "Street Fighter II': Champion Edition (Hacks Unknown, 2015-10-12)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, sf2ce57,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "hack", "Street Fighter II': Champion Edition (Hacks Unknown, 2015-10-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sf2ce58,       sf2hf,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Brazilian Mr Street Fighter", "Street Fighter II' (SrSreet edition)", MACHINE_SUPPORTS_SAVE ) // bad tile for Blanka on player select screen
 GAME( 2020, sf2ce59,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Mameplus", "Street Fighter II' (Golden Magic)", MACHINE_SUPPORTS_SAVE ) // bad tile for Blanka on player select screen
-GAME( 1992, sf2koryu01,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "King Of Destruction", "Street Fighter II': Champion Edition (Huaping Repair)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2koryu02,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2koryu03,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2013, sf2koryu04,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_cps1,     ROT0, "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2koryu01,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "King Of Destruction", "Street Fighter II': Champion Edition (Huaping Repair)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2koryu02,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2koryu03,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2013, sf2koryu04,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "TT", "Street Fighter II': Champion Edition (Koryu)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sf2mix96,      sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Champion Edition (Mix 0.96)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sf2mix96d,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Champion Edition (Mix 0.96d)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, sf2mix97,      sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Champion Edition (Mix 0.97)", MACHINE_SUPPORTS_SAVE )
@@ -28594,7 +28594,7 @@ GAME( 2021, sf2mix100,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,
 GAME( 2022, sf2mix110,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Champion Edition (Mix 1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sf2mix120,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Champion Edition (Mix 1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Champion Edition (Mix 1.3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2mkot01,     sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)", MACHINE_SUPPORTS_SAVE ) // 920666
+GAME( 1992, sf2mkot01,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)", MACHINE_SUPPORTS_SAVE ) // 920666
 GAME( 2018, sf2red01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Golden Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2red02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Hardest Level)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2red03,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Ultra Golden Edition)", MACHINE_SUPPORTS_SAVE )
@@ -28608,7 +28608,7 @@ GAME( 2012, sf2tlona03,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,
 GAME( 2015, sf2tlona04,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "hack", "Street Fighter II': Champion Edition (Easy Move, 2015-11-01)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2tlona05,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 1, 811102 001)", MACHINE_SUPPORTS_SAVE ) // These 2 are Chinese bootlegs
 GAME( 1992, sf2tlona06,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 2, 811102 001)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2tlona07,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0, "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 3, 811102 001)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2tlona07,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "Tu Long", "Street Fighter II': Champion Edition (Tu Long bootleg set 3, 811102 001)", MACHINE_SUPPORTS_SAVE )
 // Street Fighter II: Hyper Fighting
 GAME( 1992, sf2hf01,       sf2hf,    cps1_12MHz, sf2j,     cps_state, init_sf2h13,   ROT0, "hack", "Street Fighter II' Turbo: Hyper Fighting (bootleg set 1, 921209 Japan)", MACHINE_SUPPORTS_SAVE ) // bad tile for Blanka on player select screen
 GAME( 1992, sf2hfu01,      sf2hf,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Blue-Ray", "Street Fighter II': Hyper Fighting (Deceleration)", MACHINE_SUPPORTS_SAVE )

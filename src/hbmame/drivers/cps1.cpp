@@ -124,32 +124,32 @@ CC59      Changer     1995         Street Fighter Alpha / Street Fighter Zero
 u16 cps_state::cps1_dsw_r(offs_t offset)
 {
 	static const char *const dswname[] = { "IN0", "DSWA", "DSWB", "DSWC" };
-	int in = ioport(dswname[offset])->read();
+	u8 in = ioport(dswname[offset])->read();
 	return (in << 8) | 0xff;
 }
 
 u16 cps_state::cps1_hack_dsw_r(offs_t offset)
 {
 	static const char *const dswname[] = { "IN0", "DSWA", "DSWB", "DSWC" };
-	int in = ioport(dswname[offset])->read();
+	u8 in = ioport(dswname[offset])->read();
 	return (in << 8) | in;
 }
 
 u16 cps_state::cps1_in1_r()
 {
-	int in = ioport("IN1")->read();
+	u8 in = ioport("IN1")->read();
 	return (in << 8) | in;
 }
 
 u16 cps_state::cps1_in2_r()
 {
-	int in = ioport("IN2")->read();
+	u8 in = ioport("IN2")->read();
 	return (in << 8) | in;
 }
 
 u16 cps_state::cps1_in3_r()
 {
-	int in = ioport("IN3")->read();
+	u8 in = ioport("IN3")->read();
 	return (in << 8) | in;
 }
 
@@ -633,14 +633,13 @@ static INPUT_PORTS_START( cps1_6b)
 	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON3 ) PORT_NAME("P2 Fierce Punch") PORT_PLAYER(2)
 
 	PORT_START("IN2")      /* Extra buttons */
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("P1 Short Kick") PORT_PLAYER(1)
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("P1 Forward Kick") PORT_PLAYER(1)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("P1 Roundhouse Kick") PORT_PLAYER(1)
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("P2 Short Kick") PORT_PLAYER(2)
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("P2 Forward Kick") PORT_PLAYER(2)
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("P2 Roundhouse Kick") PORT_PLAYER(2)
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_BIT( 0x0101, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("P1 Short Kick") PORT_PLAYER(1)
+	PORT_BIT( 0x0202, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("P1 Forward Kick") PORT_PLAYER(1)
+	PORT_BIT( 0x0404, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("P1 Roundhouse Kick") PORT_PLAYER(1)
+	PORT_BIT( 0x1010, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("P2 Short Kick") PORT_PLAYER(2)
+	PORT_BIT( 0x2020, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("P2 Forward Kick") PORT_PLAYER(2)
+	PORT_BIT( 0x4040, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("P2 Roundhouse Kick") PORT_PLAYER(2)
+	PORT_BIT( 0x8888, IP_ACTIVE_LOW, IPT_UNKNOWN )
 INPUT_PORTS_END
 
 /* CPS1 quiz games */
@@ -1750,21 +1749,6 @@ static INPUT_PORTS_START( sf2rb )
 	PORT_DIPSETTING(    0x00, "Zigzag" )
 INPUT_PORTS_END
 
-static INPUT_PORTS_START( sf2hack )
-	PORT_INCLUDE( sf2 )
-
-	PORT_MODIFY("IN2")      /* Extra buttons */
-	PORT_BIT( 0x00ff, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x0100, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("P1 Short Kick") PORT_PLAYER(1)
-	PORT_BIT( 0x0200, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("P1 Forward Kick") PORT_PLAYER(1)
-	PORT_BIT( 0x0400, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("P1 Roundhouse Kick") PORT_PLAYER(1)
-	PORT_BIT( 0x0800, IP_ACTIVE_LOW, IPT_UNKNOWN )
-	PORT_BIT( 0x1000, IP_ACTIVE_LOW, IPT_BUTTON4 ) PORT_NAME("P2 Short Kick") PORT_PLAYER(2)
-	PORT_BIT( 0x2000, IP_ACTIVE_LOW, IPT_BUTTON5 ) PORT_NAME("P2 Forward Kick") PORT_PLAYER(2)
-	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_NAME("P2 Roundhouse Kick") PORT_PLAYER(2)
-	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_UNKNOWN )
-INPUT_PORTS_END
-
 static INPUT_PORTS_START( sf2level )
 	PORT_INCLUDE( sf2 )
 
@@ -1789,7 +1773,7 @@ static INPUT_PORTS_START( sf2level )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( sf2m2 )
-	PORT_INCLUDE( sf2hack )
+	PORT_INCLUDE( sf2 )
 
 	PORT_MODIFY("DSWB")
 	PORT_DIPNAME( 0x10, 0x00, "It needs to be High" )                       PORT_DIPLOCATION("SW(B):5")
@@ -1798,7 +1782,7 @@ static INPUT_PORTS_START( sf2m2 )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( sf2m4 )
-	PORT_INCLUDE( sf2hack )
+	PORT_INCLUDE( sf2 )
 
 	PORT_MODIFY("DSWB")
 	PORT_DIPNAME( 0x08, 0x00, "2 Players Game" )                    PORT_DIPLOCATION("SW(B):4")
@@ -1808,7 +1792,7 @@ INPUT_PORTS_END
 
 /* SWB.4, SWB.5 and SWB.6 need to be enabled simultaneously for turbo mode */
 static INPUT_PORTS_START( sf2amf )
-	PORT_INCLUDE( sf2hack )
+	PORT_INCLUDE( sf2 )
 
 	PORT_MODIFY("DSWB")
 	PORT_DIPNAME( 0x08, 0x08, "Turbo Mode Switch 1 of 3" )   PORT_DIPLOCATION("SW(B):4")
@@ -1824,7 +1808,7 @@ INPUT_PORTS_END
 
 /* SWB.6 enables turbo mode, SWB.4 and SWB.5 sets the speed */
 static INPUT_PORTS_START( sf2amfx )
-	PORT_INCLUDE( sf2hack )
+	PORT_INCLUDE( sf2 )
 
 	PORT_MODIFY("DSWB")
 	PORT_DIPNAME( 0x18, 0x18, "Game Speed" )   PORT_DIPLOCATION("SW(B):4,5")
@@ -12050,16 +12034,16 @@ GAME( 1991, sf2jc,       sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,  
 GAME( 1991, sf2jf,       sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0,   "Capcom", "Street Fighter II: The World Warrior (Japan 910411)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, sf2jh,       sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0,   "Capcom", "Street Fighter II: The World Warrior (Japan 910522)", MACHINE_SUPPORTS_SAVE )
 GAME( 1991, sf2jl,       sf2,      cps1_10MHz, sf2j,     cps_state, init_cps1,     ROT0,   "Capcom", "Street Fighter II: The World Warrior (Japan 920312)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2ebbl,     sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 1)", MACHINE_SUPPORTS_SAVE )       // 910214 - based on World version
-GAME( 1992, sf2ebbl2,    sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 3)", MACHINE_SUPPORTS_SAVE )       // 910214 - based on World version
-GAME( 1992, sf2ebbl3,    sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 4)", MACHINE_SUPPORTS_SAVE )       // 910214 - based on World version
-GAME( 1992, sf2stt,      sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )    // 910214 - based on World version
-GAME( 1992, sf2rk,       sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2rk,    ROT0,   "bootleg", "Street Fighter II: The World Warrior (RK, bootleg)", MACHINE_SUPPORTS_SAVE )               // 910214 - based on World version, dark screen issue confirmed present on real pcb
+GAME( 1992, sf2ebbl,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 1)", MACHINE_SUPPORTS_SAVE )       // 910214 - based on World version
+GAME( 1992, sf2ebbl2,    sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 3)", MACHINE_SUPPORTS_SAVE )       // 910214 - based on World version
+GAME( 1992, sf2ebbl3,    sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 4)", MACHINE_SUPPORTS_SAVE )       // 910214 - based on World version
+GAME( 1992, sf2stt,      sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (TAB Austria, bootleg, set 2)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )    // 910214 - based on World version
+GAME( 1992, sf2rk,       sf2,      cps1_10MHz, sf2,      cps_state, init_sf2rk,    ROT0,   "bootleg", "Street Fighter II: The World Warrior (RK, bootleg)", MACHINE_SUPPORTS_SAVE )               // 910214 - based on World version, dark screen issue confirmed present on real pcb
 GAME( 1991, sf2qp1,      sf2,      cps1_10MHz, sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II: The World Warrior (Quicken Pt-I, bootleg)", MACHINE_SUPPORTS_SAVE )     // 910214 - based on World version
 GAME( 1991, sf2qp2,      sf2,      cps1_10MHz, sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II: The World Warrior (Quicken, bootleg)", MACHINE_SUPPORTS_SAVE )          // 910522 - based on USA Rev.I? version
 GAME( 1991, sf2thndr,    sf2,      cps1_10MHz, sf2,      cps_state, init_sf2thndr, ROT0,   "bootleg", "Street Fighter II: The World Warrior (Thunder Edition, bootleg, set 1)", MACHINE_SUPPORTS_SAVE )  // 910214 - based on World version
 GAME( 1991, sf2thndr2,   sf2,      cps1_10MHz, sf2,      cps_state, init_sf2thndr, ROT0,   "bootleg", "Street Fighter II: The World Warrior (Thunder Edition, bootleg, set 2)", MACHINE_SUPPORTS_SAVE )  // 910214 - based on World version
-GAME( 1992, sf2rules,    sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (bootleg with rules screen)", MACHINE_SUPPORTS_SAVE )     // 910214 - based on World version, shows the rules of the game instead of the warning screen
+GAME( 1992, sf2rules,    sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II: The World Warrior (bootleg with rules screen)", MACHINE_SUPPORTS_SAVE )     // 910214 - based on World version, shows the rules of the game instead of the warning screen
 GAME( 1991, 3wonders,    0,        cps1_10MHz, 3wonders, cps_state, init_cps1,     ROT0,   "Capcom", "Three Wonders (World 910520)", MACHINE_SUPPORTS_SAVE )  // "ETC"
 GAME( 1991, 3wondersr1,  3wonders, cps1_10MHz, 3wonders, cps_state, init_cps1,     ROT0,   "Capcom", "Three Wonders (World 910513)", MACHINE_SUPPORTS_SAVE )  // "ETC"
 GAME( 1991, 3wondersu,   3wonders, cps1_10MHz, 3wonders, cps_state, init_cps1,     ROT0,   "Capcom", "Three Wonders (USA 910520)", MACHINE_SUPPORTS_SAVE )
@@ -12112,21 +12096,21 @@ GAME( 1992, sf2ceblp,    sf2ce,    cps1_10MHz, sf2,      cps_state, init_sf2cebl
 GAME( 1992, sf2m2,       sf2ce,    cps1_12MHz, sf2m2,    cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M2, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on World version
 GAME( 1992, sf2m3,       sf2ce,    sf2m3,      sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (M3, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on USA version
 GAME( 1992, sf2m4,       sf2ce,    cps1_12MHz, sf2m4,    cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M4, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920322 - based on Japan version
-GAME( 1992, sf2m5,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M5, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on World version
-GAME( 1992, sf2m6,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M6, bootleg)", MACHINE_SUPPORTS_SAVE )               // 811102 !!! - based on World version
-GAME( 1992, sf2m7,       sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M7, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on World version
+GAME( 1992, sf2m5,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M5, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on World version
+GAME( 1992, sf2m6,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M6, bootleg)", MACHINE_SUPPORTS_SAVE )               // 811102 !!! - based on World version
+GAME( 1992, sf2m7,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (M7, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on World version
 GAME( 1992, sf2m8,       sf2ce,    sf2m3,      sf2,      cps_state, init_sf2m8,    ROT0,   "bootleg", "Street Fighter II': Champion Edition (M8, bootleg)", MACHINE_SUPPORTS_SAVE )               // 920313 - based on USA version
-GAME( 1992, sf2m10,      sf2ce,    sf2m10,     sf2hack,  cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (M10, bootleg)", MACHINE_SUPPORTS_SAVE )
-GAME( 1992, sf2yyc,      sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (YYC, bootleg)", MACHINE_SUPPORTS_SAVE )              // 920313 - based on World version
-GAME( 1992, sf2koryu,    sf2ce,    cps1_12MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (Xiang Long, Chinese bootleg)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
+GAME( 1992, sf2m10,      sf2ce,    sf2m10,     sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (M10, bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2yyc,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (YYC, bootleg)", MACHINE_SUPPORTS_SAVE )              // 920313 - based on World version
+GAME( 1992, sf2koryu,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Champion Edition (Xiang Long, Chinese bootleg)", MACHINE_SUPPORTS_SAVE )       // 811102 !!! - based on World version
 GAME( 1992, sf2dongb,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2dongb, ROT0,   "bootleg", "Street Fighter II': Champion Edition (Dongfang Bubai protection, bootleg)", MACHINE_SUPPORTS_SAVE ) // 920313 - based on World version
-GAME( 1992, sf2ceupl,    sf2ce,    sf2m10,     sf2hack,  cps_state, init_cps1,     ROT0,   "bootleg (UPL)", "Street Fighter II': Champion Edition (UPL bootleg)", MACHINE_SUPPORTS_SAVE ) // 920322 - based on Japan version
+GAME( 1992, sf2ceupl,    sf2ce,    sf2m10,     sf2,      cps_state, init_cps1,     ROT0,   "bootleg (UPL)", "Street Fighter II': Champion Edition (UPL bootleg)", MACHINE_SUPPORTS_SAVE ) // 920322 - based on Japan version
 GAME( 1992, sf2cems6a,   sf2ce,    sf2cems6,   sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Mstreet-6, bootleg, set 1)", MACHINE_SUPPORTS_SAVE ) // 920313 USA
 GAME( 1992, sf2cems6b,   sf2ce,    sf2cems6,   sf2bhh,   cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Mstreet-6, bootleg, set 2)", MACHINE_SUPPORTS_SAVE ) // 920322 USA
 GAME( 1992, sf2cems6c,   sf2ce,    sf2cems6,   sf2bhh,   cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Mstreet-6, bootleg, set 3)", MACHINE_SUPPORTS_SAVE ) // 920322 USA
 GAME( 1992, sf2ceds6,    sf2ce,    sf2cems6,   sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (Dstreet-6, bootleg)", MACHINE_SUPPORTS_SAVE ) // 920313 USA
 GAME( 1992, sf2re,       sf2,      sf2m3,      sf2,      cps_state, init_cps1,     ROT0,   "bootleg", "Street Fighter II': Champion Edition (RE, bootleg)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )    // 920313 - based on USA version, glitch on title screen confirmed not to happen on PCB so MIG
-GAME( 1992, sf2mkot,     sf2,      cps1_10MHz, sf2hack,  cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Magic KO Turbo!! - Nightmare Crack", MACHINE_SUPPORTS_SAVE ) // 920313 - based on World version
+GAME( 1992, sf2mkot,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0,   "bootleg", "Street Fighter II': Magic KO Turbo!! - Nightmare Crack", MACHINE_SUPPORTS_SAVE ) // 920313 - based on World version
 GAME( 1992, cworld2j,    0,        cps1_12MHz, cworld2j, cps_state, init_cps1,     ROT0,   "Capcom", "Adventure Quiz Capcom World 2 (Japan 920611)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, cworld2ja,   cworld2j, cps1_12MHz, cworld2j, cps_state, init_cps1,     ROT0,   "Capcom", "Adventure Quiz Capcom World 2 (Japan 920611, B-Board 90629B-3, no battery)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, cworld2jb,   cworld2j, cps1_12MHz, cworld2j, cps_state, init_cps1,     ROT0,   "Capcom", "Adventure Quiz Capcom World 2 (Japan 920611, B-Board 91634B-2)", MACHINE_SUPPORTS_SAVE )
