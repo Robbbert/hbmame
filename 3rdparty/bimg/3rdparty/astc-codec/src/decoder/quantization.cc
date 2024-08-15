@@ -290,7 +290,7 @@ class QuintQuantizationMap : public QuantizationMap {
 template<int TotalUnquantizedBits>
 class BitQuantizationMap : public QuantizationMap {
  public:
-  explicit BitQuantizationMap<TotalUnquantizedBits>(int range)
+  explicit BitQuantizationMap(int range)
       : QuantizationMap() {
     // Make sure that if we're using bits then we have a positive power of two.
     assert(base::CountOnes(range + 1) == 1);
