@@ -6,6 +6,8 @@
 
 New Games
 ---------------------------------
+- [bubblem01]           Bubble Memories: Black Edition (World)
+- [bubblemu01]          Bubble Memories: Black Edition (USA)
 - [dilith]              Dilithium Lift
 - [dkongjr01]           Donkey Kong Junior (bugfixed)
 - [knightsch]           Knight's Chance
