@@ -1457,10 +1457,13 @@ void monaco_state::machine_reset()
 	m_rescue_x = 0;
 	m_rescue_y = 0;
 	m_rescue_tile = 0;
-	m_x[NUM_COMPUTER_CARS] = 0;
-	m_y[NUM_COMPUTER_CARS] = 0;
-	m_tile[NUM_COMPUTER_CARS] = 0;
-	m_color[NUM_COMPUTER_CARS] = 0;
+	for(u8 i=0; i<NUM_COMPUTER_CARS; i++)
+	{
+		m_x[i] = 0;
+		m_y[i] = 0;
+		m_tile[i] = 0;
+		m_color[i] = 0;
+	}
 	m_led_high1 = 0;
 	m_led_high2 = 0;
 	m_led_high3 = 0;
