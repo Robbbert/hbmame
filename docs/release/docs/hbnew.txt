@@ -13,6 +13,13 @@ New Games
 - [knightsch]           Knight's Chance
 - [kof94s40]            Kof'94 (Team Edit Edition v1.4.0)
 - [sf2ce59]             Street Fighter II' (Golden Magic)
+- [sf2ce60]             Street Fighter II': Champion Edition (Aimed Barrels)
+- [sf2ce61]             Street Fighter II': Champion Edition (Aimed Fires)
+- [sf2ce62]             Street Fighter II': Champion Edition (Barrels of Fun)
+- [sf2ce63]             Street Fighter II': Champion Edition (Bird in Hand)
+- [sf2ce64]             Street Fighter II': Champion Edition (Burning Fires)
+- [sf2ce65]             Street Fighter II': Champion Edition (Fire Serpent)
+- [sf2ce66]             Street Fighter II': Champion Edition (Vampiric)
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.31) [zero800]
 - [ssf2t10]             Super Street Fighter II Turbo (940223U, difficulty fix)
 
