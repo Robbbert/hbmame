@@ -18711,6 +18711,66 @@ ROM_START( sf2ce66 )
 	ROM_LOAD( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
+ROM_START( sf2ce67 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "c19m5.p1",     0x000000, 0x80000, CRC(03991fba) SHA1(6c42bf15248640fdb3e98fb01b0a870649deb410) )
+	ROM_LOAD16_BYTE( "c19m5.p2",     0x000001, 0x80000, CRC(39f15a1e) SHA1(901c4fea76bf5bff7330ed07ffde54cdccdaa680) )
+	ROM_LOAD16_BYTE( "c19s67.p3",    0x100000, 0x20000, CRC(6ef18ab4) SHA1(949983cc2189b882d2ee6236ac7a271b0c0406fe) )
+	ROM_LOAD16_BYTE( "c19koryu.p4",  0x100001, 0x20000, CRC(c95e4443) SHA1(28417dee9ccdfa65b0f4a92aa29b90279fe8cd85) )
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROM_LOAD64_BYTE( "c19s67.c01",  0x000000, 0x40000, CRC(5733d44e) SHA1(0ef7e26245d7038292795ed070641023503328c4) )
+	ROM_CONTINUE(            0x200000, 0x40000)
+	ROM_LOAD64_BYTE( "c19s67.c02",  0x000001, 0x40000, CRC(e24eb699) SHA1(e7394eac442634a398d1bcaa7866398b5511f6de) )
+	ROM_CONTINUE(            0x200001, 0x40000)
+	//ROM_LOAD64_BYTE( "c19s67.c03",  0x000002, 0x40000, CRC(a05bd684) SHA1(482dc677740f6e3553acf1b230f9849378d71748) )   // mask2.bin BAD DUMP
+	//ROM_CONTINUE(            0x200002, 0x40000)
+	ROM_LOAD64_BYTE( "c19s67.c04",  0x000003, 0x40000, CRC(64c474af) SHA1(52eeb7c19891344332b0149cc5455b558c0be2d6) )
+	ROM_CONTINUE(            0x200003, 0x40000)
+
+	// Replacements for above bad dump (from sf2ceblp)
+	ROM_LOAD64_BYTE( "c19blp.c03",   0x000002, 0x40000, CRC(82e8e384) SHA1(a8849bdb97c496777ba87e8f1942585c0fc9a29b) )
+	ROM_LOAD64_BYTE( "c19blp.c11",   0x200002, 0x40000, CRC(4a3a8d09) SHA1(eaa7307963c7a5381a4d84a4ebcc483b55cc1411) )
+
+	ROM_LOAD64_BYTE( "c19s67.c05",  0x000004, 0x40000, CRC(42d7635d) SHA1(8fe7f95baabeb543b84ae93c40fd00f68fbe9cfb) )
+	ROM_CONTINUE(            0x200004, 0x40000)
+	ROM_LOAD64_BYTE( "c19s67.c06",  0x000005, 0x40000, CRC(a18ac61a) SHA1(cbc19456f9efc0cae51cb96e6220a3f209242a7e) )
+	ROM_CONTINUE(            0x200005, 0x40000)
+	ROM_LOAD64_BYTE( "c19s67.c07",  0x000006, 0x40000, CRC(dc03b5c7) SHA1(3a818e076514efb210586b4b99edbd9ce8ba09da) )
+	ROM_CONTINUE(            0x200006, 0x40000)
+	ROM_LOAD64_BYTE( "c19s67.c08",  0x000007, 0x40000, CRC(f6db1877) SHA1(bf93c52e3602047424431a30b7c7bff8016d6682) )
+	ROM_CONTINUE(            0x200007, 0x40000)
+
+	ROM_LOAD64_BYTE( "c19s67.c09",  0x400000, 0x40000, CRC(169d85a6) SHA1(dd98c8807e80465858b2eac10825e598c37e1a93) )
+	ROM_CONTINUE(            0x400004, 0x40000)
+	ROM_LOAD64_BYTE( "c19m9.c10",   0x400001, 0x40000, CRC(32a3a841) SHA1(6f9a13b8828998d194dd3933b032c75efed9cab3) )
+	ROM_CONTINUE(            0x400005, 0x40000)
+	ROM_LOAD64_BYTE( "c19m9.c11",   0x400002, 0x40000, CRC(0c638630) SHA1(709d183d181a0509c7ed839c59214851468d2bb8) )
+	ROM_CONTINUE(            0x400006, 0x40000)
+	ROM_LOAD64_BYTE( "c19m9.c12",   0x400003, 0x40000, CRC(6ee19b94) SHA1(c45119d04879b6ca23a3f7749175c56b381b43f2) )
+	ROM_CONTINUE(            0x400007, 0x40000)
+
+	// extra gfx layer roms loaded over the former ones
+	ROM_LOAD64_BYTE( "c19m8.c41",  0x400000, 0x10000, CRC(94778332) SHA1(c0b9a05c710b89864ee5df1a53b39de30c994e2d) )
+	ROM_CONTINUE(          0x400004, 0x10000 )
+	ROM_LOAD64_BYTE( "c19m8.c43",  0x400002, 0x10000, CRC(f95bc505) SHA1(385beb2f9f8a473d928d729d722372ae49f410e7) )
+	ROM_CONTINUE(          0x400006, 0x10000 )
+	ROM_LOAD64_BYTE( "c19m8.c42",  0x400001, 0x10000, CRC(d1e452d3) SHA1(794f7ebf6c46c2938a5477451cf05f2e0c7b9049) )
+	ROM_CONTINUE(          0x400005, 0x10000 )
+	ROM_LOAD64_BYTE( "c19m8.c44",  0x400003, 0x10000, CRC(155824a9) SHA1(74d7e86be22c11234f5d9d0b25fa709b59ef471b) )
+	ROM_CONTINUE(          0x400007, 0x10000 )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c19.m1",    0x00000, 0x08000, CRC(08f6b60e) SHA1(8258fcaca4ac419312531eec67079b97f471179c) )
+	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c19m8.v1", 0x00000, 0x40000, CRC(6cfffb11) SHA1(995526183ffd35f92e9096500a3fe6237faaa2dd) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sf2m2.key", 0x00, 0x80, CRC(67e80fca) SHA1(e937bc4cf0e05ba93c32bc47d65c5b027bc2b48e) )
+ROM_END
+
 ROM_START( sf2koryu01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_BYTE( "c19koryus01.p1",   0x000000, 0x80000, CRC(075b2f19) SHA1(65e3c21d328c0039a5537c23681796de196cab83) )
@@ -28808,6 +28868,7 @@ GAME( 2024, sf2ce63,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,
 GAME( 2024, sf2ce64,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Sebastian Mihai", "Street Fighter II': Champion Edition (Burning Fires)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sf2ce65,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Sebastian Mihai", "Street Fighter II': Champion Edition (Fire Serpent)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, sf2ce66,       sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "Sebastian Mihai", "Street Fighter II': Champion Edition (Vampiric)", MACHINE_SUPPORTS_SAVE )
+GAME( 1992, sf2ce67,       sf2ce,    cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition (L735 [CL1785])", MACHINE_SUPPORTS_SAVE ) // 920313
 GAME( 1992, sf2koryu01,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "King Of Destruction", "Street Fighter II': Champion Edition (Huaping Repair)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2koryu02,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 3)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2koryu03,    sf2ce,    cps1_12MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Champion Edition: Xiang Long (Chinese bootleg set 4)", MACHINE_SUPPORTS_SAVE )

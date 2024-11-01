@@ -298,7 +298,7 @@ void cps_state::qsound_banksw_w(u8 data)
 
 void cps_state::main_map(address_map &map)
 {
-	map(0x000000,0x3fffff).rom();
+	map(0x000000,0x3fffff).rom().nopw();
 	map(0x800000,0x800007).portr("IN1");  /* Player input ports */
 	/* forgottn, willow, cawing, nemo, varth read from 800010. Probably debug input leftover from development */
 	map(0x800018,0x80001f).r(FUNC(cps_state::cps1_hack_dsw_r));  // HBMAME           /* System input ports / Dip Switches */
@@ -311,6 +311,7 @@ void cps_state::main_map(address_map &map)
 	map(0x800140,0x80017f).rw(FUNC(cps_state::cps1_cps_b_r),FUNC(cps_state::cps1_cps_b_w)).share("cps_b_regs");
 	map(0x800180,0x800187).w(FUNC(cps_state::cps1_soundlatch_w));  /* Sound command */
 	map(0x800188,0x80018f).w(FUNC(cps_state::cps1_soundlatch2_w));  /* Sound timer fade */
+	map(0x8001fe,0x8001ff).nopw();   // sf2ce67
 	map(0x900000,0x92ffff).ram().w(FUNC(cps_state::cps1_gfxram_w)).share("gfxram");  /* SF2CE executes code from here */
 	map(0xf1c000,0xf1c001).r(FUNC(cps_state::cps1_in2_r));  /* Player 3 controls (later games) HBMAME */
 	map(0xff0000,0xffffff).ram().share("mainram");

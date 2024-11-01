@@ -20,6 +20,7 @@ New Games
 - [sf2ce64]             Street Fighter II': Champion Edition (Burning Fires)
 - [sf2ce65]             Street Fighter II': Champion Edition (Fire Serpent)
 - [sf2ce66]             Street Fighter II': Champion Edition (Vampiric)
+- [sf2ce67]             Street Fighter II': Champion Edition (L735 [CL1785])
 - [sfz3mix]             Street Fighter Zero 3 (Turbo Mix 0.31) [zero800]
 - [ssf2t10]             Super Street Fighter II Turbo (940223U, difficulty fix)
 
