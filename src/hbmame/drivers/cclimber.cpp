@@ -162,7 +162,7 @@ ROM_END
 
 GAME( 1980, cclimbrm,  cclimber, cclimberx, cclimber, cclimber_state, init_cclimber, ROT0,   "Tim Arcadecollecting", "Crazy Climber (US - modded)", MACHINE_SUPPORTS_SAVE ) // http://www.arcadecollecting.com/crazy/cchack
 GAME( 1981, ckong01,   ckong,    cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Pinny", "Crazy Kong Part II (Graphic Fix)", MACHINE_SUPPORTS_SAVE )
-GAME( 2023, ckongpt2s01,ckongpt2, cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Paul Goes", "Crazy Kong Part II with DK colours and graphics", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, ckongpt2s01,ckongpt2, cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Paul Goes", "Crazy Kong Part II DK graphics (2023-01-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, ckongpt2s02,ckongpt2, cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "John Kowalski", "Crazy Kong Part II 2023 revision", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, tongypac,  ckong,    cclimber,  ckong,    cclimber_state, empty_init,    ROT270, "Grand Master Peter", "Tongy Paccy", MACHINE_IMPERFECT_COLORS | MACHINE_SUPPORTS_SAVE )
 

@@ -29,5 +29,5 @@ ROM_END
 //**************************************************************************
 
 //    YEAR  NAME     PARENT   MACHINE  INPUT    CLASS          INIT        ROT   COMPANY   FULLNAME          FLAGS
-GAME( 2023, quarth01,  blockhl, blockhl, blockhl, blockhl_state, empty_init, ROT0, "Paul Goes", "Quarth (Cooperative)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, quarth01,  blockhl, blockhl, blockhl, blockhl_state, empty_init, ROT0, "Paul Goes", "Quarth (Cooperative, 2023-02-04)", MACHINE_SUPPORTS_SAVE )
 

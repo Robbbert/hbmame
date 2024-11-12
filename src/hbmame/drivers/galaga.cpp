@@ -656,6 +656,36 @@ ROM_START( galaga02 )
 	ROM_LOAD( "prom-2.5c",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
 ROM_END
 
+ROM_START( galaga03 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "03_1b.3p",     0x0000, 0x1000, CRC(35768124) SHA1(41f3bf262eae71e0ca7f0cbf459565d2d6c2b5ec) )
+	ROM_LOAD( "03_2b.3m",     0x1000, 0x1000, CRC(873b6c48) SHA1(ce67e08d3249f4dd27a1e70625ea2262dfc41c1a) )
+	ROM_LOAD( "gg1_3.2m",     0x2000, 0x1000, CRC(753ce503) SHA1(481f443aea3ed3504ec2f3a6bfcf3cd47e2f8f81) )
+	ROM_LOAD( "02_4b.2l",     0x3000, 0x1000, CRC(16f469ef) SHA1(ab493ab138df2bce42eb951032ed704dd8755897) )
+
+	ROM_REGION( 0x10000, "sub", 0 )
+	ROM_LOAD( "gg1_5b.3f",    0x0000, 0x1000, CRC(bb5caae3) SHA1(e957a581463caac27bc37ca2e2a90f27e4f62b6f) )
+
+	ROM_REGION( 0x10000, "sub2", 0 )
+	ROM_LOAD( "gg1_7b.2c",    0x0000, 0x1000, CRC(d016686b) SHA1(44c1a04fba3c7c826ff484185cb881b4b22e6657) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "gg1_9.4l",     0x0000, 0x1000, CRC(58b2f47c) SHA1(62f1279a784ab2f8218c4137c7accda00e6a3490) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "gg1_11.4d",    0x0000, 0x1000, CRC(ad447c80) SHA1(e697c180178cabd1d32483c5d8889a40633f7857) )
+	ROM_LOAD( "gg1_10.4f",    0x1000, 0x1000, CRC(dd6f1afc) SHA1(c340ed8c25e0979629a9a1730edc762bd72d0cff) )
+
+	ROM_REGION( 0x0220, "proms", 0 )
+	ROM_LOAD( "prom-5.5n",    0x0000, 0x0020, CRC(54603c6b) SHA1(1a6dea13b4af155d9cb5b999a75d4f1eb9c71346) )
+	ROM_LOAD( "prom-4.2n",    0x0020, 0x0100, CRC(59b6edab) SHA1(0281de86c236c88739297ff712e0a4f5c8bf8ab9) )
+	ROM_LOAD( "prom-3.1c",    0x0120, 0x0100, CRC(4a04bb6b) SHA1(cdd4bc1013f5c11984fdc4fd10e2d2e27120c1e5) )
+
+	ROM_REGION( 0x0200, "namco", 0 )
+	ROM_LOAD( "prom-1.1d",    0x0000, 0x0100, CRC(7a2815b4) SHA1(085ada18c498fdb18ecedef0ea8fe9217edb7b46) )
+	ROM_LOAD( "prom-2.5c",    0x0100, 0x0100, CRC(77245b66) SHA1(0c4d0bee858b97632411c440bea6948a74759746) )
+ROM_END
+
 
 /******
  Xevios
@@ -1203,8 +1233,9 @@ GAME( 2000, terror,       galaga,  galaga,   galaga,   galaga_state,  init_galag
 GAME( 2000, vgalaga,      galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Vector Galaga", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalagam,     galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Vector Galaga Midway", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, vgalagaf,     galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Hack", "Vector Galaga Fast Shoot", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, galaga01,     galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Paul Goes", "Galaga Wave Mixer", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, galaga01,     galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Paul Goes", "Galaga Wave Mixer (2024-04-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, galaga02,     galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Paul Goes", "Galaga Challenging Only", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, galaga03,     galaga,  galaga,   galaga,   galaga_state,  init_galaga,  ROT90, "Paul Goes", "Galaga Challenging Only (2024-03-26)", MACHINE_SUPPORTS_SAVE )
 // Xevious
 GAME( 2002, battlesh,     xevious, battles,  xevious,  battles_state, driver_init,  ROT90, "bootleg", "Battles 2002", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, gaous,        xevious, xevious,  xevious,  xevious_state, init_xevious, ROT90, "Namco (Hack)", "Gaous", MACHINE_SUPPORTS_SAVE )
