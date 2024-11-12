@@ -95,6 +95,10 @@ pickinpi		/* Color Hack by Pi */
 blktiger		//parent
 blkdrgonk		/* Korean Translation */
 
+@source:blockhl.cpp
+blockhl                                //parent
+quarth01
+
 @source:bloodbro.cpp
 bloodbro                               //parent
 bloodbro01

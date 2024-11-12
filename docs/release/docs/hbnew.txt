@@ -12,6 +12,7 @@ New Games
 - [dkongjr01]           Donkey Kong Junior (bugfixed)
 - [knightsch]           Knight's Chance
 - [kof94s40]            Kof'94 (Team Edit Edition v1.4.0)
+- [quarth01]            Quarth (Cooperative)
 - [sf2ce59]             Street Fighter II' (Golden Magic)
 - [sf2ce60]             Street Fighter II': Champion Edition (Aimed Barrels)
 - [sf2ce61]             Street Fighter II': Champion Edition (Aimed Fires)
