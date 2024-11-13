@@ -1062,9 +1062,9 @@ ROM_START( kof94s39 ) // kof94te - Team Edit Edition v1.3.0 https://neorh.mattgr
 	ROM_LOAD16_BYTE( "055s39.c8", 0xc00001, 0x200000, CRC(b296127c) SHA1(ccdbb61638fa9122ce341436587f76f8b1cd81d5) )
 ROM_END
 
-ROM_START( kof94s40 ) // kof94te - Team Edit Edition v1.4.0 https://neorh.mattgreer.dev/
+ROM_START( kof94s40 ) // kof94te - Team Edit Edition v1.4.2 https://neorh.mattgreer.dev/
 	ROM_REGION( 0x200000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "055s40.p1", 0x100000, 0x100000, CRC(c597d83c) SHA1(abab6c1fcf4f2538ef3ea1f4d9c7d440cd8b4c09) )
+	ROM_LOAD16_WORD_SWAP( "055s40.p1", 0x100000, 0x100000, CRC(e4d3e394) SHA1(c6f7a5c9ac97b49c627e949a51e952c7d741c3c0) )
 	ROM_CONTINUE( 0x000000, 0x100000 )
 
 	NEO_SFIX_128K( "055s39.s1", CRC(dcd024d2) SHA1(1e1699b85353f916fb157f2fde7d8ba26c517bda) )
@@ -1077,7 +1077,7 @@ ROM_START( kof94s40 ) // kof94te - Team Edit Edition v1.4.0 https://neorh.mattgr
 	ROM_LOAD( "055.v3", 0x400000, 0x200000, CRC(83cf32c0) SHA1(34a31a37eb10945b5169e96321bcea06eec33a00) )
 
 	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "055s40.c1", 0x000000, 0x200000, CRC(ab83690c) SHA1(0d03ad905ebc0aff14b5ecd86ac4588ddbf26955) )
+	ROM_LOAD16_BYTE( "055s40.c1", 0x000000, 0x200000, CRC(daf4f5d5) SHA1(72be8df4d575a1b0962f0c4d586c4a7ae027820f) )
 	ROM_LOAD16_BYTE( "055s40.c2", 0x000001, 0x200000, CRC(849bdfba) SHA1(4a7bdbe9c542a086567a0165e68c8d8c1474ce68) )
 	ROM_LOAD16_BYTE( "055.c3", 0x400000, 0x200000, CRC(54f66254) SHA1(c594384bcd8b03beb8c595591505fecc44b185ac) )
 	ROM_LOAD16_BYTE( "055.c4", 0x400001, 0x200000, CRC(0b01765f) SHA1(ec1fdcc944611408367bf5023d4ebe7edd9dfa88) )
@@ -1130,5 +1130,5 @@ GAME( 1994, kof94s36,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1994, kof94s37,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "IsmaMj", "Kof'94 (Super Ultra Remixed)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, kof94s38,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Ydmis", "Kof'94 (Hidden Characters-Fix Boss's error)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, kof94s39,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Matt Greer", "Kof'94 (Team Edit Edition v1.3.0)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, kof94s40,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Matt Greer", "Kof'94 (Team Edit Edition v1.4.0)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, kof94s40,       kof94,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Matt Greer", "Kof'94 (Team Edit Edition v1.4.2)", MACHINE_SUPPORTS_SAVE )
 

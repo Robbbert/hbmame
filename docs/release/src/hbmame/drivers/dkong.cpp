@@ -53,7 +53,9 @@ static INPUT_PORTS_START( dkrdemo )
 INPUT_PORTS_END
 
 
-
+/*****************
+ Donkey Kong
+*****************/
 /* same as mame 'dkongf' except 4th rom is different */
 ROM_START( dkongex )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -2421,7 +2423,44 @@ ROM_START( dkongacc )
 	ROM_LOAD( "dkongacc.5e",   0x0200, 0x0100, CRC(ece3b0f2) SHA1(3b13cf44164849a9854f2efa918a36d747e91341) )
 ROM_END
 
+/*******************
+ Donkey Kong Junior
+*******************/
+ROM_START( dkongjr01 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "s01.5b", 0x0000, 0x1000, CRC(50c2a9a0) SHA1(84fc30dd6e0a5a5376482a0c80f02b7f69945c1c) )
+	ROM_CONTINUE(       0x3000, 0x1000 )
+	ROM_LOAD( "s01.5c", 0x2000, 0x0800, CRC(dd65bd02) SHA1(f1f7feb3e727e2a938dd6639a588219d131a256d) )
+	ROM_CONTINUE(       0x4800, 0x0800 )
+	ROM_CONTINUE(       0x1000, 0x0800 )
+	ROM_CONTINUE(       0x5800, 0x0800 )
+	ROM_LOAD( "s01.5e", 0x4000, 0x0800, CRC(1fa0d992) SHA1(636fd28bb05296937945adc7c63da04bd7adbb44) )
+	ROM_CONTINUE(       0x2800, 0x0800 )
+	ROM_CONTINUE(       0x5000, 0x0800 )
+	ROM_CONTINUE(       0x1800, 0x0800 )
 
+	ROM_REGION( 0x1000, "soundcpu", 0 )
+	ROM_LOAD( "djr1-c_3h.3h",     0x0000, 0x1000, CRC(715da5f8) SHA1(f708c3fd374da65cbd9fe2e191152f5d865414a0) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "djr1-v.3n",        0x0000, 0x1000, CRC(8d51aca9) SHA1(64887564b079d98e98aafa53835e398f34fe4e3f) )
+	ROM_LOAD( "djr1-v.3p",        0x1000, 0x1000, CRC(4ef64ba5) SHA1(41a7a4005087951f57f62c9751d62a8c495e6bb3) )
+
+	ROM_REGION( 0x2000, "gfx2", 0 )
+	ROM_LOAD( "djr1-v_7c.7c",     0x0000, 0x0800, CRC(dc7f4164) SHA1(07a6242e95b5c3b8dfdcd4b4950f463dba16dd77) )
+	ROM_LOAD( "djr1-v_7d.7d",     0x0800, 0x0800, CRC(0ce7dcf6) SHA1(0654b77526c49f0dfa077ac4f1f69cf5cb2e2f64) )
+	ROM_LOAD( "djr1-v_7e.7e",     0x1000, 0x0800, CRC(24d1ff17) SHA1(696854bf3dc5447d33b4815db357e6ce3834d867) )
+	ROM_LOAD( "djr1-v_7f.7f",     0x1800, 0x0800, CRC(0f8c083f) SHA1(0b688ae9da296b2447fffa5e135fd6a56ec3e790) )
+
+	ROM_REGION( 0x0300, "proms", 0 )
+	ROM_LOAD( "djr1-c-2e.2e",     0x0000, 0x0100, CRC(463dc7ad) SHA1(b2c9f22facc8885be2d953b056eb8dcddd4f34cb) )
+	ROM_LOAD( "djr1-c-2f.2f",     0x0100, 0x0100, CRC(47ba0042) SHA1(dbec3f4b8013628c5b8f83162e5f8b1f82f6ee5f) )
+	ROM_LOAD( "djr1-v-2n.2n",     0x0200, 0x0100, CRC(dbf185bf) SHA1(2697a991a4afdf079dd0b7e732f71c7618f43b70) )
+ROM_END
+
+
+
+// Donkey Kong
 GAME( 1981, dkongbcc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jeff Kulczycki", "Donkey Kong (Barrel control coloring)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong01,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "2nut Kong (2022-08-17, set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dkong02,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "2nut Kong (2022-08-17, set 2)", MACHINE_SUPPORTS_SAVE )
@@ -2442,7 +2481,7 @@ GAME( 2022, dkong16,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dkong17,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Jon Wilson", "Donkey Kong (DK Who and the Daleks)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, dkong19,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics, set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, dkong20,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Vic Twenty George", "Donkey Kong (2600 graphics, set 2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2024, dkong21,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Pacman Crossover v1.00", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, dkong21,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Pacman Crossover v1.00 (2024-01-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, dkong22,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong (hitboxes)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, dkong23,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong (hitboxes and sprites)", MACHINE_SUPPORTS_SAVE )
 GAME( 2001, dkongpac,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Tim Appleton", "Donkey Kong (Pac-man graphics)", MACHINE_SUPPORTS_SAVE )
@@ -2477,7 +2516,7 @@ GAME( 2020, dkongotr7, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2020, dkongotr8, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong On the Run (2020-05-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongotr9, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong On the Run (2020-05-26a)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongotr,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong On the Run v1.02 (2020-05-26)", MACHINE_SUPPORTS_SAVE )
-GAME( 2020, dkongitd,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong In the Dark v1.02 (2020-04-29)", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, dkongitd,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Into the Dark v1.02 (2020-04-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkongtj,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Twisted Jungle v1.05 (2020-12-12)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkjungle0, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Jungle (2020-07-08)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, dkjungle,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Jungle (2020-09-22)", MACHINE_SUPPORTS_SAVE )
@@ -2503,4 +2542,6 @@ GAME( 2023, dksprfin2, dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT
 GAME( 2022, dkonghh,   dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong HeartHunt v1.01 (2022-10-15)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dkbrlbss,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Barrel Boss v1.01 (2023-08-16)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dkongacc,  dkong, dkong2b,   dkong,   dkong_state,  empty_init,  ROT270, "Paul Goes", "Donkey Kong Accelerate v1.01 (2023-09-05)", MACHINE_SUPPORTS_SAVE )
+// Donkey Kong Junior
+GAME( 1982, dkongjr01, dkongjr,  dkongjr,   dkongjr,  dkong_state, empty_init,    ROT270, "John Kowalski", "Donkey Kong Junior (bugfixed)", MACHINE_SUPPORTS_SAVE )
 

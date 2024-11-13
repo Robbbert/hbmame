@@ -507,6 +507,43 @@ ROM_START( ssf2t09 ) // fix difficulty in non-japanese regions
 	ROM_LOAD( "ssf2t.key",    0x000000, 0x000014, CRC(524d608e) SHA1(fcd2b9a1a640a0dee4a674dc9cfb3975466f7757) )
 ROM_END
 
+ROM_START( ssf2t10 )
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c51t10.p1", 0x000000, 0x80000, CRC(3207daa4) SHA1(c5193d37438e3f6bbd763754162108c7bb3a5274) )
+	ROM_LOAD16_WORD_SWAP( "c51u.p2", 0x080000, 0x80000, CRC(532b5ffd) SHA1(769a8a9d4e04e291ce7427b89e537bba2258ca82) )
+	ROM_LOAD16_WORD_SWAP( "c51u.p3", 0x100000, 0x80000, CRC(ffa3c6de) SHA1(7cce55a3e07b5ba2e2e37e4c66a52678a1b19a63) )
+	ROM_LOAD16_WORD_SWAP( "c51u.p4", 0x180000, 0x80000, CRC(83f9382b) SHA1(273ff4d4242ce22b755d35e5d2cf2517d625bdd2) )
+	ROM_LOAD16_WORD_SWAP( "c51u.p5", 0x200000, 0x80000, CRC(6ab673e8) SHA1(840af0d0ce634fb98e4f89173c4f1f95ec2cf94b) )
+	ROM_LOAD16_WORD_SWAP( "c51u.p6", 0x280000, 0x80000, CRC(b3c71810) SHA1(b51515f4f4aee5bbbfc8b79372d0bc6e0c140912) )
+	ROM_LOAD16_WORD_SWAP( "c51.p7",  0x300000, 0x80000, CRC(642fae3f) SHA1(746df99b826b9837bba267104132161153c1daff) )
+
+	ROM_REGION( 0x1000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c48.c1",   0x000000, 0x200000, CRC(cf94d275) SHA1(bf2a6d98a656d1cb5734da7836686242d3211137) )
+	ROM_LOAD64_WORD( "c48.c2",   0x000002, 0x200000, CRC(5eb703af) SHA1(4b302dbb66e8a5c2ad92798699391e981bada427) )
+	ROM_LOAD64_WORD( "c48.c3",   0x000004, 0x200000, CRC(ffa60e0f) SHA1(b21b1c749a8241440879bf8e7cb33968ccef97e5) )
+	ROM_LOAD64_WORD( "c48.c4",   0x000006, 0x200000, CRC(34e825c5) SHA1(4d320fc96d1ef0b9928a8ce801734245a4c097a5) )
+	ROM_LOAD64_WORD( "c48.c5",   0x800000, 0x100000, CRC(b7cc32e7) SHA1(0f4d26af338dab5dce5b7b34d32ad0c573434ace) )
+	ROM_LOAD64_WORD( "c48.c6",   0x800002, 0x100000, CRC(8376ad18) SHA1(f4456833fb396e6501f4174c0fe5fd63ea40a188) )
+	ROM_LOAD64_WORD( "c48.c7",   0x800004, 0x100000, CRC(f5b1b336) SHA1(4b060501e56b9d61294748da5387cdae5280ec4d) )
+	ROM_LOAD64_WORD( "c48.c8",   0x800006, 0x100000, CRC(459d5c6b) SHA1(32b11ba7a12004aff810d719bff7508204c7b7c0) )
+	ROM_LOAD64_WORD( "c51.c9",   0xc00000, 0x100000, CRC(e32854af) SHA1(1a5e11e9caa2b96108d89ae660ef1f6bcb469a74) )
+	ROM_LOAD64_WORD( "c51.c10",  0xc00002, 0x100000, CRC(760f2927) SHA1(491e28e14ee06821fc9e709efa7b91313bc0c2db) )
+	ROM_LOAD64_WORD( "c51.c11",  0xc00004, 0x100000, CRC(1ee90208) SHA1(83df1d9953560edddc2951ea426d29fb014e6a8a) )
+	ROM_LOAD64_WORD( "c51.c12",  0xc00006, 0x100000, CRC(f814400f) SHA1(ad6921af36d0bd5dfb89b1fb53c3ca3fd92d7204) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c51.m1",   0x00000, 0x08000, CRC(b47b8835) SHA1(c8b2d50fe3a329bd0592ea160d505155d873dab1) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+	ROM_LOAD( "c51.m2",   0x28000, 0x20000, CRC(0022633f) SHA1(cab3afc79da53e3887eb1ccd1f4d19790728e6cd) )
+
+	ROM_REGION( 0x400000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c51.q1",   0x000000, 0x200000, CRC(9bdbd476) SHA1(a8520f77f30b97aae36408e0c4ca1ebbde1808a5) )
+	ROM_LOAD16_WORD_SWAP( "c51.q2",   0x200000, 0x200000, CRC(a05e3aab) SHA1(d4eb9cae66c74e956569fea8b815156fbd420f83) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "ssf2tu.key",   0x00, 0x14, CRC(f7d62def) SHA1(27a797fd6fe435e14ca334947df38d56f89f79de) )
+ROM_END
+
 
  /****************************************
  Super Street Fighter II Turbo New Legacy
@@ -7037,6 +7074,7 @@ GAME( 1994, ssf2t06,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2005, ssf2t07,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Shyma.X", "Super Street Fighter II Turbo (050401F, French, 2015-01-XX)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, ssf2t08,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "KrysoFun", "Super Street Fighter II Turbo (940223ETC, Plus v0.9 beta)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, ssf2t09,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Super Street Fighter II Turbo (940223ETC, difficulty fix)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, ssf2t10,    ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Super Street Fighter II Turbo (940223U, difficulty fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl3,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.3 beta, 2020-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, ssf2tnl4,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.4 beta, 2020-11-13)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, ssf2tnl5,   ssf2t,    cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Born2SPD", "Super Street Fighter II Turbo (New Legacy v0.5 beta, 2021-06-11)", MACHINE_SUPPORTS_SAVE )

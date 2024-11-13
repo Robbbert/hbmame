@@ -95,6 +95,10 @@ pickinpi		/* Color Hack by Pi */
 blktiger		//parent
 blkdrgonk		/* Korean Translation */
 
+@source:blockhl.cpp
+blockhl                                //parent
+quarth01
+
 @source:bloodbro.cpp
 bloodbro                               //parent
 bloodbro01
@@ -178,9 +182,6 @@ theroes01
 @source:cball.cpp
 cball                                  //parent
 cballfix                               // MASH (fixed) gfx rom
-
-@source:cclimb.cpp
-au
 
 @source:cclimber.cpp
 cclimber                               //parent
@@ -1000,6 +1001,15 @@ sf2ce55
 sf2ce56
 sf2ce57
 sf2ce58
+sf2ce59
+sf2ce60
+sf2ce61
+sf2ce62
+sf2ce63
+sf2ce64
+sf2ce65
+sf2ce66
+sf2ce67
 sf2hf01
 sf2hfu01
 sf2hfu02
@@ -1558,6 +1568,7 @@ ssf2t06
 ssf2t07
 ssf2t08
 ssf2t09
+ssf2t10
 ssf2tnl3
 ssf2tnl4
 ssf2tnl5
@@ -1601,6 +1612,7 @@ sfz3mix26
 sfz3mix27
 sfz3mix28
 sfz3mix29
+sfz3mix30
 sfz3mix
 
 @source:cps3.cpp
@@ -1618,6 +1630,7 @@ jojonpow
 redearex
 redeartn				// no-cd version
 redeartno				// no-cd version with old roms from multijet
+redearthep
 sfiiibhp
 sfiiipmp
 sfiii2bh
@@ -1712,6 +1725,7 @@ avengrgs02
 
 @source:dkong.cpp
 dkong                                  //parent
+dkongjr                                //parent
 dkong01
 dkong02
 dkong03
@@ -1738,6 +1752,7 @@ dkong2m
 dkongbcc				//Jeffs Rom Hacks
 dkongex					//Jeffs Hack with Foundry Level
 dkongf
+dkongjr01
 dkongst
 dkongst2
 dkongss
@@ -1887,6 +1902,7 @@ vgalagam
 vgalagaf
 galaga01
 galaga02
+galaga03
 battlesh	/* Battles 2002 */
 gaous		/* Xevious Hack */
 mrdonm		/* Mr Do Nightmare */
@@ -2083,6 +2099,7 @@ kof94s36
 kof94s37
 kof94s38
 kof94s39
+kof94s40
 
 @source:kof95.cpp
 kof95k
@@ -4263,6 +4280,7 @@ crashh			/* HB - PacMAME Hacks */
 deathstar		// HB
 deathstar2		// HB
 dderby			/* HB - Widel Games */
+dilith
 eyesb
 ghohunt			// HB - Hurray Banana
 kangaroh		/* HB - Widel Games */
@@ -6072,6 +6090,7 @@ wjammers		// 065
 //zedblade		// 076  not needed
 zintrckb		// 211
 zupapa			// 070
+//dragonsh
 
 @source:neogeohb.cpp
 19yy
@@ -6124,6 +6143,7 @@ hypernoid
 //igla
 iocero		// BEY
 knacki		// KnackiBalls by Furrtek
+knightsch
 lernit
 lhbb
 lhcdb		/* 2007 (c) Last Hope CD beta */
@@ -8632,6 +8652,9 @@ thundfox01
 @source:taito_f3.cpp
 arabianm                               //parent
 arabianm01
+bubblem                                //parent
+bubblem01
+bubblemu01
 bublbob2                               //parent
 bubsymph01
 cleopatr                               //parent

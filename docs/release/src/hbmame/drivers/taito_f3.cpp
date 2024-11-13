@@ -128,6 +128,73 @@ ROM_START( arabianm01 ) //arabianmjc
 ROM_END
 
 /*****************
+ Bubble Memories
+******************/
+ROM_START( bubblem01 ) // Black Edition
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD32_BYTE("bmbe.20", 0x000000, 0x080000, CRC(c4a1e3c2) SHA1(a49aac034aa75b76553f700dfff155635048c291) )
+	ROM_LOAD32_BYTE("bmbe.19", 0x000001, 0x080000, CRC(bd9c3812) SHA1(3b6d7ca84ec81c32f604ff1883f37272eaf4efa2) )
+	ROM_LOAD32_BYTE("bmbe.18", 0x000002, 0x080000, CRC(c5a6ec87) SHA1(2f64647f23e34b978adbbd09373dd1e1e9100259) )
+	ROM_LOAD32_BYTE("bmbe.17", 0x000003, 0x080000, CRC(a15e492d) SHA1(2f05f8b26a50d57a82362dd0b34bf0e85ecfca97) )
+
+	ROM_REGION( 0x400000, "sprites" , 0)
+	ROM_LOAD16_BYTE("e21-02.rom", 0x000000, 0x200000, CRC(b7cb9232) SHA1(ba71cb98d49eadebb26d9f53bbaec1dc211077f5) )
+	ROM_LOAD16_BYTE("e21-01.rom", 0x000001, 0x200000, CRC(a11f2f99) SHA1(293c5996600cad05bf98f936f5f820d93d546099) )
+
+	EMPTY_SPRITE_HIDATA(0x200000)
+
+	ROM_REGION( 0x200000, "tilemap" , 0)
+	ROM_LOAD32_WORD("e21-07.rom", 0x000000, 0x100000, CRC(7789bf7c) SHA1(bc8ef1696adac99a1fabae9b79afcd3461cf323b) )
+	ROM_LOAD32_WORD("e21-06.rom", 0x000002, 0x100000, CRC(997fc0d7) SHA1(58a546f739072fedebfe7c972fe85f72107726b2) )
+
+	ROM_REGION( 0x100000, "tilemap_hi", 0 )
+	ROM_LOAD       ("e21-05.rom", 0x000000, 0x100000, CRC(07eab58f) SHA1(ae2d7b839b39d88d11652df74804a39230674467) )
+
+	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 )
+	ROM_LOAD16_BYTE("e21-12.32", 0x100000, 0x40000, CRC(34093de1) SHA1(d69d6b5f10b8fe86f727d739ed5aecceb15e01f7) )
+	ROM_LOAD16_BYTE("e21-13.33", 0x100001, 0x40000, CRC(9e9ec437) SHA1(b0265b688846c642d240b2f3677d2330d31eaa87) )
+
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE("e21-03.rom", 0x000000, 0x200000, CRC(54c5f83d) SHA1(10a993199c8d5a1361bd29a4b92c404451c6da01) )
+	ROM_LOAD16_BYTE("e21-04.rom", 0x400000, 0x200000, CRC(e5af2a2d) SHA1(62a49504decc7160b710260218920d2d6d2af8f0) )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD("bubblem.nv", 0x0000, 0x0080, CRC(9a59326e) SHA1(071dbfbfd77f7020476ddb54c93f5fafa7a08159) )
+ROM_END
+
+ROM_START( bubblemu01 ) // Black Edition
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD32_BYTE("bmube.20", 0x000000, 0x080000, CRC(926a235e) SHA1(d41f00c130573020b51f7012d4db59f066ff8cfc) )
+	ROM_LOAD32_BYTE("bmube.19", 0x000001, 0x080000, CRC(59e7ce8d) SHA1(610e0d2e57ccfee2283cac8ef784e2b1803a7e10) )
+	ROM_LOAD32_BYTE("bmube.18", 0x000002, 0x080000, CRC(d6ae69ab) SHA1(b4e9656beae3ebfa3ca21c56929b871f15dc6843) )
+	ROM_LOAD32_BYTE("bmube.17", 0x000003, 0x080000, CRC(7372711a) SHA1(5072fd80a9b0be94e45cf4f16839010f40e7c953) )
+
+	ROM_REGION( 0x400000, "sprites" , 0)
+	ROM_LOAD16_BYTE("e21-02.rom", 0x000000, 0x200000, CRC(b7cb9232) SHA1(ba71cb98d49eadebb26d9f53bbaec1dc211077f5) )
+	ROM_LOAD16_BYTE("e21-01.rom", 0x000001, 0x200000, CRC(a11f2f99) SHA1(293c5996600cad05bf98f936f5f820d93d546099) )
+
+	EMPTY_SPRITE_HIDATA(0x200000)
+
+	ROM_REGION( 0x200000, "tilemap" , 0)
+	ROM_LOAD32_WORD("e21-07.rom", 0x000000, 0x100000, CRC(7789bf7c) SHA1(bc8ef1696adac99a1fabae9b79afcd3461cf323b) )
+	ROM_LOAD32_WORD("e21-06.rom", 0x000002, 0x100000, CRC(997fc0d7) SHA1(58a546f739072fedebfe7c972fe85f72107726b2) )
+
+	ROM_REGION( 0x100000, "tilemap_hi", 0 )
+	ROM_LOAD       ("e21-05.rom", 0x000000, 0x100000, CRC(07eab58f) SHA1(ae2d7b839b39d88d11652df74804a39230674467) )
+
+	ROM_REGION( 0x180000, "taito_en:audiocpu", 0 )
+	ROM_LOAD16_BYTE("e21-12.32", 0x100000, 0x40000, CRC(34093de1) SHA1(d69d6b5f10b8fe86f727d739ed5aecceb15e01f7) )
+	ROM_LOAD16_BYTE("e21-13.33", 0x100001, 0x40000, CRC(9e9ec437) SHA1(b0265b688846c642d240b2f3677d2330d31eaa87) )
+
+	ROM_REGION16_BE( 0x800000, "taito_en:ensoniq", ROMREGION_ERASE00 )
+	ROM_LOAD16_BYTE("e21-03.rom", 0x000000, 0x200000, CRC(54c5f83d) SHA1(10a993199c8d5a1361bd29a4b92c404451c6da01) )
+	ROM_LOAD16_BYTE("e21-04.rom", 0x400000, 0x200000, CRC(e5af2a2d) SHA1(62a49504decc7160b710260218920d2d6d2af8f0) )
+
+	ROM_REGION16_BE( 0x80, "eeprom", 0 )
+	ROM_LOAD("bubblemu.nv", 0x0000, 0x0080, CRC(a503276c) SHA1(f07dd49decee7e8e7551e37b9b0f612bfaf8a2b0) )
+ROM_END
+
+/*****************
  Bubble Symphony
 ******************/
 ROM_START( bubsymph01 )
@@ -773,6 +840,9 @@ ROM_END
 GAME( 1995, akkanvdr01,        spcinv95, f3_224a, f3, taito_f3_state, init_spcinv95, ROT270, "hack",     "Akkanbeder (Chinese)", 0 )
 // Arabian Magic
 GAME( 2017, arabianm01,        arabianm, f3_224a, f3, taito_f3_state, init_arabianm, ROT0,   "hack",     "Arabian Magic (Chinese, 2017-04-27)", 0 )
+// Bubble Memories
+GAME( 2020, bubblem01,         bubblem,  f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "rtw, MetalliC", "Bubble Memories: Black Edition (World)", 0 )
+GAME( 2020, bubblemu01,        bubblem,  f3_224a, f3, taito_f3_state, init_bubblem,  ROT0,   "rtw, MetalliC", "Bubble Memories: Black Edition (USA)", 0 )
 // Bubble Symphony
 GAME( 1994, bubsymph01,        bublbob2, f3_224a, f3, taito_f3_state, init_bubsymph, ROT0,   "hack",     "Bubble Symphony (Chinese)", 0 )
 // Cleopatra Fortune

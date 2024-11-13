@@ -3407,7 +3407,8 @@ ROM_START( dragonsh )
 	ROM_LOAD16_BYTE( "336.p1", 0x000000, 0x080000, CRC(f25c71ad) SHA1(803fb6cd6a7ada59678ad901ff9788b1e54ddd0c) )
 	ROM_LOAD16_BYTE( "336.p2", 0x000001, 0x080000, CRC(f353448c) SHA1(f0f966ca15d503e01b40e901765ff0888463b65d) )
 
-	NEO_SFIX_128K( "336.s1", BAD_DUMP CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) ) // was a dead AXS512PC 512KB sram card, this data is handcrafted to make the set usable (hence BAD_DUMP)
+	//NEO_SFIX_128K( "336.s1", BAD_DUMP CRC(706477a7) SHA1(8cbee7f6832e7edd2dc792ca330420a6a984b879) ) // was a dead AXS512PC 512KB sram card, this data is handcrafted to make the set usable (hence BAD_DUMP)
+	NEO_SFIX_128K( "336a.s1", BAD_DUMP CRC(b3cee12d) SHA1(3391038bac062b9bad2e2d9f6b25f7fe3e9871cb) )  // hacked to get life bars
 
 	NEOGEO_BIOS
 	ROM_REGION( 0x20000, "audiobios", 0 )

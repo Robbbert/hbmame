@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2024-0x-xx 0.245.21
+2024-11-13 0.245.21
 
 
 New Games
@@ -12,7 +12,7 @@ New Games
 - [dkongjr01]           Donkey Kong Junior (bugfixed)
 - [galaga03]            Galaga Challenging Only (2024-03-26)
 - [knightsch]           Knight's Chance
-- [kof94s40]            Kof'94 (Team Edit Edition v1.4.0)
+- [kof94s40]            Kof'94 (Team Edit Edition v1.4.2)
 - [quarth01]            Quarth (Cooperative)
 - [redearthep]          Red Earth (NO CD, Easy Password)
 - [sf2ce59]             Street Fighter II' (Golden Magic)

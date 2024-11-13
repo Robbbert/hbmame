@@ -458,6 +458,20 @@ ROM_START( deathstar2 ) // No text, no scores. From level 3, you need to use a 2
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( dilith ) // freeplay
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "dilith.6e",    0x0000, 0x1000, CRC(9b955235) SHA1(be2287a344f86d9ec74489203dec21426bb6e051) )
+	ROM_LOAD( "dilith.6f",    0x1000, 0x1000, CRC(c4e6c1d8) SHA1(485aa91e2f69997ac1ed5cdc374977eb03bac32b) )
+	ROM_LOAD( "pollen.6h",    0x2000, 0x1000, CRC(04108eb0) SHA1(4773af22762b2da2f992867bee706325a999c2b0) )
+	ROM_LOAD_OPTIONAL( "100doors.6j",  0x3000, 0x1000, CRC(c71c0011) SHA1(1ceaf73df40e531df3bfb26b4fb7cd95fb7bff1d) ) // empty
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "dilith.5e",    0x0000, 0x1000, CRC(db98f530) SHA1(420a9d7c2888867c13ce2f1d4d43091e0443922b) )
+	ROM_LOAD( "dilith.5f",    0x1000, 0x1000, CRC(081a59fc) SHA1(d363324e9b0a6bcfc2812dc747803088d0f15d3c) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( eyes )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "eyes.7d",      0x0000, 0x1000, CRC(3b09ac89) SHA1(a8f1c918da74495bb73172f39364dada38ae4713) )
@@ -943,6 +957,7 @@ GAME( 2017, scroller,  puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2019, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Stefano Bodrato", "Snakes", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, 100doors,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "100 doors", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, pollen,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Pollen Angel", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, dilith,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Dilithium Lift", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/

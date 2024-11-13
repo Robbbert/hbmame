@@ -1,4 +1,4 @@
-// license:BSD-3-Clause
+// license:GPL_2.0
 // copyright-holders:Robbbert
 #include "../mame/drivers/cps3.cpp"
 
@@ -3370,6 +3370,59 @@ ROM_START( jojonc ) //Name of the official roms in mame (jojon)
 	ROM_LOAD( "jojo-simm5.1", 0x00000, 0x200000, CRC(734fd162) SHA1(16cdfac74d18a6c2216afb1ce6afbd7f15297c32) )
 ROM_END
 
+ROM_START( redearthep )
+	ROM_REGION32_BE( 0x080000, "bios", 0 )
+	ROM_LOAD( "redearth_asia_nocd.29f400.u2", 0x000000, 0x080000, CRC(7a4f0851) SHA1(660ca716960ec761038e5ad4de636be13b0dddd8) )
+
+	ROM_REGION( 0x200000, "simm1.0", 0 )
+	ROM_LOAD( "redearth-simm1.0", 0x00000, 0x200000, CRC(a3f066e3) SHA1(dc65d5393abd3b20a013de506e268efce79ce418) )
+	ROM_REGION( 0x200000, "simm1.1", 0 )
+	ROM_LOAD( "redearth-simm1.1", 0x00000, 0x200000, CRC(961f2fd5) SHA1(8d71095b3ceed936e5a70c0e5aa3fe327d230c52) )
+	ROM_REGION( 0x200000, "simm1.2", 0 )
+	ROM_LOAD( "redearth-simm1.2", 0x00000, 0x200000, CRC(92f9a2fb) SHA1(25a66e582972feddcf1087c4f2bb92613efae32d) )
+	ROM_REGION( 0x200000, "simm1.3", 0 )
+	ROM_LOAD( "redearth-simm1.3", 0x00000, 0x200000, CRC(277272c7) SHA1(5007a1bbcf6db55c14b2ff856578558bc5179634) )
+
+	ROM_REGION( 0x200000, "simm3.0", 0 )
+	ROM_LOAD( "redearth-simm3.0", 0x00000, 0x200000, CRC(83350cc5) SHA1(922b1abf80a4a89f35279b66311a7369d3965bd0) )
+	ROM_REGION( 0x200000, "simm3.1", 0 )
+	ROM_LOAD( "redearth-simm3.1", 0x00000, 0x200000, CRC(56734de6) SHA1(75699fa6efe5bec335e4b02e15b3c45726b68fa8) )
+	ROM_REGION( 0x200000, "simm3.2", 0 )
+	ROM_LOAD( "redearth-simm3.2", 0x00000, 0x200000, CRC(800ea0f1) SHA1(33871ab56dc1cd24441389d53e43fb8e43b149d9) )
+	ROM_REGION( 0x200000, "simm3.3", 0 )
+	ROM_LOAD( "redearth-simm3.3", 0x00000, 0x200000, CRC(97e9146c) SHA1(ab7744709615081440bee72f4080d6fd5b938668) )
+	ROM_REGION( 0x200000, "simm3.4", 0 )
+	ROM_LOAD( "redearth-simm3.4", 0x00000, 0x200000, CRC(0cb1d648) SHA1(7042a590c2b7ec55323062127e254da3cdc790a1) )
+	ROM_REGION( 0x200000, "simm3.5", 0 )
+	ROM_LOAD( "redearth-simm3.5", 0x00000, 0x200000, CRC(7a1099f0) SHA1(c6a92ec86eb24485f1db530e0e78f647e8432231) )
+	ROM_REGION( 0x200000, "simm3.6", 0 )
+	ROM_LOAD( "redearth-simm3.6", 0x00000, 0x200000, CRC(aeff8f54) SHA1(fd760e237c2e5fb2da45e32a1c12fd3defb4c3e4) )
+	ROM_REGION( 0x200000, "simm3.7", 0 )
+	ROM_LOAD( "redearth-simm3.7", 0x00000, 0x200000, CRC(f770acd0) SHA1(4b3ccb6f91568f95f04ede6c574144918d131201) )
+
+	ROM_REGION( 0x200000, "simm4.0", 0 )
+	ROM_LOAD( "redearth-simm4.0", 0x00000, 0x200000, CRC(301e56f2) SHA1(4847d971bff70a2aeed4599e1201c7ec9677da60) )
+	ROM_REGION( 0x200000, "simm4.1", 0 )
+	ROM_LOAD( "redearth-simm4.1", 0x00000, 0x200000, CRC(2048e103) SHA1(b21f95b05cd99749bd3f25cc71b2671c2026847b) )
+	ROM_REGION( 0x200000, "simm4.2", 0 )
+	ROM_LOAD( "redearth-simm4.2", 0x00000, 0x200000, CRC(c9433455) SHA1(63a269d76bac332c2e991d0f6a20c35e0e88680a) )
+	ROM_REGION( 0x200000, "simm4.3", 0 )
+	ROM_LOAD( "redearth-simm4.3", 0x00000, 0x200000, CRC(c02171a8) SHA1(2e9228729b27a6113d9f2e42af310a834979f714) )
+	ROM_REGION( 0x200000, "simm4.4", 0 )
+	ROM_LOAD( "redearth-simm4.4", 0x00000, 0x200000, CRC(2ddbf276) SHA1(b232baaa8edc8db18f8a3bdcc2d38fe984a94a34) )
+	ROM_REGION( 0x200000, "simm4.5", 0 )
+	ROM_LOAD( "redearth-simm4.5", 0x00000, 0x200000, CRC(fea820a6) SHA1(55ee8ef95751f5a509fb126513e1b2a70a3414e5) )
+	ROM_REGION( 0x200000, "simm4.6", 0 )
+	ROM_LOAD( "redearth-simm4.6", 0x00000, 0x200000, CRC(c7528df1) SHA1(aa312f80c2d7759d18d1aa8d416cf932b2850824) )
+	ROM_REGION( 0x200000, "simm4.7", 0 )
+	ROM_LOAD( "redearth-simm4.7", 0x00000, 0x200000, CRC(2449cf3b) SHA1(c60d8042136d74e547f668ad787cae529c42eed9) )
+
+	ROM_REGION( 0x200000, "simm5.0", 0 )
+	ROM_LOAD( "redearth-simm5.0", 0x00000, 0x200000, CRC(424451b9) SHA1(250fb92254c9e7ff5bc8dbeea5872f8a771dc9bd) )
+	ROM_REGION( 0x200000, "simm5.1", 0 )
+	ROM_LOAD( "redearth-simm5.1", 0x00000, 0x200000, CRC(9b8cb56b) SHA1(2ff1081dc99bb7c2f1e036f4c112137c96b83d23) )
+ROM_END
+
 /* NO CD sets - use NO CD BIOS roms - don't require the CD image to boot */
 GAME( 1997, sfiiinc,       0,    sfiii,    cps3,      cps3_state, init_sfiii,    ROT0, "Capcom", "Street Fighter III: New Generation (Asia 970204, NO CD)", 0 )
 GAMEL(1997, sfiii2nc,      0,    sfiii2,   cps3,      cps3_state, init_sfiii2,   ROT0, "Capcom", "Street Fighter III 2nd Impact: Giant Attack (Asia 970930, NO CD)", 0, layout_sfiii2 )
@@ -3387,6 +3440,7 @@ GAME( 2009, jojos05,        jojobanc,   jojoba,      cps3_jojo,  cps3_hbmame,   
 GAME( 2018, jojos06,        jojobanc,   jojoba,      cps3_jojo,  cps3_state,      init_jojoba,   ROT0,  "hack",    "JoJo's Bizarre Adventure (Super Plus)", 0 )
 // Red Earth
 GAME( 1996, redeartns01,    redeartn,   redeartn,    cps3_ren,   cps3_hbmame,     init_redearth, ROT0,  "Capcom",  "Red Earth (Asia 961023, NO CD)", 0 )
+GAME( 2024, redearthep,     redeartn,   redeartn,    cps3_ren,   cps3_hbmame,     init_redearth, ROT0,  "HB Productions",  "Red Earth (NO CD, Easy Password)", 0 )
 // Street Fighter III: New Generation
 GAME( 2016, sfiiins01,      sfiiinc,    sfiii,       cps3,       cps3_state,      init_sfiii,    ROT0,  "hack",    "Street Fighter III: New Generation (Simple Attack, 2016-01-21)", 0 )
 // Street Fighter III 2nd Impact Giant Attack
