@@ -3783,23 +3783,6 @@ ROM_START( nitd07 ) // nitdsp1 - Translation Hack by UNKNOWN - (Spanish language
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "260s08.p1", 0x000000, 0x080000, CRC(42b69e41) SHA1(cb814190d96ef67096ee9f4f305611d870a76e93) )
 
-	NEO_SFIX_MT_128K
-
-	NEO_BIOS_AUDIO_512K( "260.m1", CRC(6407c5e5) SHA1(d273e154cc905b63205a17a1a6d419cac3485a92) )
-
-	ROM_REGION( 0x0400000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "260.v1", 0x000000, 0x400000, CRC(24b0480c) SHA1(d769e621be52a5cd2e2568891b5f95a48268e1e0) )
-	ROM_FILL(0x50820,1,0x08)  // fix crackle when jumping [Niko] 2023-04-08
-
-	ROM_REGION( 0x1000000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "260s08.c1", 0x0000000, 0x800000, CRC(3f7fbd0c) SHA1(2e6cedcb099ae8f5bbdb9d989ca3918d7fb0504f) )
-	ROM_LOAD16_BYTE( "260s08.c2", 0x0000001, 0x800000, CRC(b5ddbb97) SHA1(b44dee65bbb5b2c6d7c6d4990762b26deaf3c696) )
-ROM_END
-
-ROM_START( nitd08 ) // nitdsp2
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "260s09.p1", 0x000000, 0x080000, CRC(42b69e41) SHA1(cb814190d96ef67096ee9f4f305611d870a76e93) )
-
 	NEO_SFIX_128K( "260s05.s1", CRC(dd3bf47c) SHA1(881271caee6508b8be51bf1b59c8f1e58e08e551) )
 
 	NEO_BIOS_AUDIO_512K( "260.m1", CRC(6407c5e5) SHA1(d273e154cc905b63205a17a1a6d419cac3485a92) )
@@ -3812,6 +3795,7 @@ ROM_START( nitd08 ) // nitdsp2
 	ROM_LOAD16_BYTE( "260s08.c1", 0x0000000, 0x800000, CRC(3f7fbd0c) SHA1(2e6cedcb099ae8f5bbdb9d989ca3918d7fb0504f) )
 	ROM_LOAD16_BYTE( "260s08.c2", 0x0000001, 0x800000, CRC(b5ddbb97) SHA1(b44dee65bbb5b2c6d7c6d4990762b26deaf3c696) )
 ROM_END
+
 
  /******************
  Prehistoric Isle 2
@@ -4778,8 +4762,7 @@ GAME( 2006, nitd03,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2005, nitd04,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Ti Dragon / Shyma.X", "Nightmare in the Dark (French v1b, 2005-11-02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitd05,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Eleven / Gavaking", "Nightmare in the Dark (French V1c)", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, nitd06,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_nitd,      ROT0, "Xyahzhs", "Nightmare in the Dark (Plus Max)", MACHINE_SUPPORTS_SAVE )
-GAME( 2015, nitd07,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "hack", "Nightmare in the Dark (Spanish V2)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, nitd08,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Meganiuz", "Nightmare in the Dark (Spanish V1)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, nitd07,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Meganiuz", "Nightmare in the Dark (Spanish)", MACHINE_SUPPORTS_SAVE )
 // Prehistoric Isle 2
 GAME( 1999, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, preisle2s02,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Yumekobo", "Prehistoric Isle 2 (decrypted C)", MACHINE_SUPPORTS_SAVE )
