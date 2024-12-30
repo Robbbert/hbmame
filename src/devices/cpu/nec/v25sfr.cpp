@@ -13,6 +13,7 @@
 void v25_common_device::ida_sfr_map(address_map &map)
 {
 	map(0x000, 0x0ff).ram().share("internal_ram");
+	map(0x100, 0x1ff).ram();
 	map(0x100, 0x100).rw(FUNC(v25_common_device::p0_r), FUNC(v25_common_device::p0_w));
 	map(0x101, 0x101).w(FUNC(v25_common_device::pm0_w));
 	map(0x102, 0x102).w(FUNC(v25_common_device::pmc0_w));
