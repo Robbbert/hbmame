@@ -130,7 +130,7 @@ BEGIN
 		MENUITEM "&Directories",             ID_OPTIONS_DIR
 		MENUITEM SEPARATOR
 		MENUITEM "Game List &Font",          ID_OPTIONS_FONT
-		MENUITEM "Game List &Clone Color",   ID_OPTIONS_CLONE_COLOR
+		//MENUITEM "Game List &Clone Color",   ID_OPTIONS_CLONE_COLOR
 		MENUITEM SEPARATOR
 
 		MENUITEM "&Background Image",        ID_OPTIONS_BG
