@@ -1068,6 +1068,11 @@ end
 					"-Wno-bitwise-instead-of-logical", -- clang 14.0 complains about &, | on bools in asmjit
 				}
 			end
+			if version >= 180100 then
+				buildoptions {
+					"-Wno-vla-cxx-extension", -- clang 18.1 complains about variable-length arrays in C++ -- HBMAME
+				}
+			end
 		else
 			if version < 70000 then
 				print("GCC version 7.0 or later needed")
