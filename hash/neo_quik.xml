@@ -7,7 +7,7 @@ Quickloads for NeoSD. These extensions are supported: NEO.
 
 While intended for homebrew games, most of the unprotected commercial games will work to some extent.
 
-Number of items in this list = 264
+Number of items in this list = 265
 -->
 <softwarelist name="neo_quik" description="NeoSD quickload">
 
@@ -2372,6 +2372,17 @@ Number of items in this list = 264
 		<part name="quik" interface="neo_quik">
 			<dataarea name="quik" size="7213056">
 				<rom name="sengokuh.neo" size="7213056" crc="dbcede61" sha1="b26183ae8dc6f789996fe22e8a0771b7f24fec2a"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="shinobi">
+		<description>Shinobi</description>
+		<year>2025</year>
+		<publisher>Twitch Elite</publisher>
+		<part name="quik" interface="neo_quik">
+			<dataarea name="quik" size="10162176">
+				<rom name="shinobi.neo" size="10162176" crc="af3f9792" sha1="f82738cdf1f61f8c5db27ade6443184cb8fa0b0e"/>
 			</dataarea>
 		</part>
 	</software>
