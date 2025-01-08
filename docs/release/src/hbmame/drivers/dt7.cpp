@@ -308,49 +308,13 @@ u8 toaplan2_dt7_state::dt7_shared_ram_hack_r(offs_t offset)
 	if (addr == 0x061d002) // settings (from EEPROM?) dipswitch?
 		return 0x00;
 	if (addr == 0x061d004) // settings (from EEPROM?) region
-		return 0xff;
+		//return 0xff;   // only bits 1,2,3 matter -> 0 = korea, 2 = HK, 4 = TW, 6 = SE Asia, 8 = Europe, A = USA, E = Japan.
+		return ioport("REGION")->read();
 	if (addr == 0x061f004)
-		return ioport("IN1")->read(); ;// machine().rand(); // p1 inputs
+		return ioport("IN1")->read(); ;// P1
 	if (addr == 0x061f006)
-		return ioport("IN2")->read();// machine().rand(); // P2 inputs
-//  logerror("%08x: dt7_shared_ram_hack_r address %08x ret %02x\n", pc, addr, ret);
+		return ioport("IN2")->read();// P2
 	return ret;
-
-//	u16 ret = m_shared_ram[offset];
-
-	//u32 addr = (offset * 2) + 0x610000;
-
-//	if (addr == 0x061f00c)
-//		return ioport("SYS")->read();// machine().rand();
-
-//	return ret;
-
-	/*
-	u32 pc = m_maincpu->pc();
-
-	if (pc == 0x7d84)
-		return 0xff;
-
-	if (addr == 0x061d000) // settings (from EEPROM?) including flipscreen
-		return 0x00;
-
-	if (addr == 0x061d002) // settings (from EEPROM?) dipswitch?
-		return 0x00;
-
-	if (addr == 0x061d004) // settings (from EEPROM?) region
-		return 0xfb;
-
-	if (addr == 0x061f004)
-		return ioport("IN1")->read(); ;// machine().rand(); // p1 inputs
-
-	if (addr == 0x061f006)
-		return ioport("IN2")->read();// machine().rand(); // P2 inputs
-
-
-//	logerror("%08x: dt7_shared_ram_hack_r address %08x ret %02x\n", pc, addr, ret);
-
-	return ret;
-	*/
 }
 
 void toaplan2_dt7_state::shared_ram_w(offs_t offset, u8 data)
@@ -550,6 +514,16 @@ static INPUT_PORTS_START( dt7 )
 	PORT_BIT( 0x0020, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, clk_write)
 	PORT_BIT( 0x0040, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, di_write)
 	PORT_BIT( 0x0080, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_93cxx_device, do_read)
+
+	PORT_START("REGION")
+	PORT_DIPNAME( 0x0e, 0x00, DEF_STR( Region ) )
+	PORT_DIPSETTING(    0x00, "Korea" )
+	PORT_DIPSETTING(    0x02, "Hong Kong" )
+	PORT_DIPSETTING(    0x04, "Taiwan" )
+	PORT_DIPSETTING(    0x06, "SE Asia" )
+	PORT_DIPSETTING(    0x08, "Europe" )
+	PORT_DIPSETTING(    0x0A, "USA" )
+	PORT_DIPSETTING(    0x0E, "Japan" )
 INPUT_PORTS_END
 
 

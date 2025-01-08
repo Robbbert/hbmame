@@ -6,10 +6,10 @@ rd %to%\src /q /s
 md %to%\src\emu
 
 copy /Y %from%\makefile                             %to%
-copy /Y %from%\src\version.cpp                      %to%\src
 copy /Y %from%\src\emu\validity.cpp                 %to%\src\emu
 copy /Y %from%\src\emu\digfx.h                      %to%\src\emu
 copy /Y %from%\src\emu\emuopts.*                    %to%\src\emu
+copy /Y %from%\src\emu\main.h                       %to%\src\emu
 copy /Y %from%\src\emu\romload.cpp                  %to%\src\emu
 copy /Y %from%\src\emu\video.*                      %to%\src\emu
 
@@ -18,9 +18,13 @@ copy /Y %from%\src\frontend\mame\audit.*            %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\clifront.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\language.cpp       %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\info.cpp           %to%\src\frontend\mame
+copy /Y %from%\src\frontend\mame\mame.*             %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\mameopts.*         %to%\src\frontend\mame
 copy /Y %from%\src\frontend\mame\ui\about.cpp       %to%\src\frontend\mame\ui
+copy /Y %from%\src\frontend\mame\ui\auditmenu.cpp   %to%\src\frontend\mame\ui
 copy /Y %from%\src\frontend\mame\ui\inifile.cpp     %to%\src\frontend\mame\ui
+copy /Y %from%\src\frontend\mame\ui\selgame.cpp     %to%\src\frontend\mame\ui
+copy /Y %from%\src\frontend\mame\ui\selsoft.cpp     %to%\src\frontend\mame\ui
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp   %to%\src\devices\cpu\m68000
@@ -54,6 +58,7 @@ md %to%\src\osd\winui
 xcopy /E /Y %from%\src\osd\winui                    %to%\src\osd\winui
 
 md %to%\src\osd\modules\render
+copy /Y %from%\src\osd\modules\osdwindow.cpp        %to%\src\osd\modules
 copy /Y %from%\src\osd\modules\render\drawd3d.cpp   %to%\src\osd\modules\render
 
 md %to%\src\osd\windows
