@@ -37,7 +37,8 @@
 
 namespace ymfm
 {
-
+// 添加全局變量聲明
+extern uint32_t g_ym_rom_size;
 //*********************************************************
 //  INTERFACE CLASSES
 //*********************************************************
@@ -98,6 +99,7 @@ public:
 	uint32_t dump_mask() const                          { return bitfield(m_regdata[0x00], 0, 6); }
 	uint32_t total_level() const                        { return bitfield(m_regdata[0x01], 0, 6); }
 	uint32_t test() const                               { return m_regdata[0x02]; }
+    uint8_t read(uint32_t index) const { return m_regdata[index]; }
 
 	// per-channel registers
 	uint32_t ch_pan_left(uint32_t choffs) const         { return bitfield(m_regdata[choffs + 0x08], 7); }
@@ -160,6 +162,9 @@ private:
 	int32_t m_step_index;                 // index in the stepping table
 	adpcm_a_registers &m_regs;            // reference to registers
 	adpcm_a_engine &m_owner;              // reference to our owner
+    uint32_t m_modified_start;
+    uint32_t m_modified_end;
+    bool m_address_modified;
 };
 
 
