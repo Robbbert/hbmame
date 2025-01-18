@@ -1453,6 +1453,25 @@ ROM_START( galaxiann )
 ROM_END
 
 
+// 422: Galaxians by tcdev (beta 2)
+// Bugs: Invisible aliens and bullets just come from nowhere; background sound missing
+ROM_START( galaxiann2 )
+	ROM_REGION( 0x100000, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "422a.p1", 0x000000, 0x100000, CRC(68f8097c) SHA1(7648cf481634743bd97f5e983790ceb68c45c96b) )
+
+	NEO_SFIX_128K( "422.s1", CRC(05192811) SHA1(609ac057b3fcdf69207870842d26321013d47878) )
+
+	NEO_BIOS_AUDIO_64K( "422.m1", CRC(43f557ca) SHA1(5385714c04bb4030587a1d660eab4800ce722d9d) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "422.v1", 0x000000, 0x80000, CRC(67d1fe70) SHA1(d38f2abc92854b3cbad3fd2d0990a87ceff1d826) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "422a.c1", 0x000000, 0x100000, CRC(f2f2187a) SHA1(09c3f7c54bb9ef17ffb9d19c1638d8d63622e477) )
+	ROM_LOAD16_BYTE( "422a.c2", 0x000001, 0x100000, CRC(70c8f4d2) SHA1(e77c8eca95d390f2866f24fbe411bbdca3458902) )
+ROM_END
+
+
 // 430 : Time's UP! by NGF
 ROM_START( timesup )
 	ROM_REGION( 0x100000, "maincpu", 0 )
@@ -3473,6 +3492,7 @@ GAME( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, galaxiann2,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, gladmortd,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, gladmortd2,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Pixelheart", "Gladmort (Demo 2)", MACHINE_SUPPORTS_SAVE )
