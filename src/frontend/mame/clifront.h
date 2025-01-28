@@ -1,5 +1,5 @@
-// license:BSD-3-Clause
-// copyright-holders:Aaron Giles
+// SPDX-License-Identifier: BSD-3-Clause
+// Copyright (c) Aaron Giles
 /***************************************************************************
 
     clifront.h
