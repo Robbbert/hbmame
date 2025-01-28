@@ -8,8 +8,11 @@
 New Games
 ---------------------------------
 - [cbarrel]             Captain Barrel
+- [doubled]             Double Dragon One demo
 - [galaxiann2]          Galaxians (beta 2, 2023-06-23) (Neo-Geo port)
-- [pakupaku]            Paku Paku (alpha)
+- [pakupaku]            Paku Paku (v0.01)
+- [pakupaku2]           Paku Paku (v0.02)
+- [sgz]                 Shadow Gangs demo
 - [shinobin]            Shinobi v1.0 (Neo-Geo port)
 - [shinobin1]           Shinobi v1.1 (Neo-Geo port)
 - [shinobint]           Shinobi Test

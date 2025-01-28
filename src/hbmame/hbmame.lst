@@ -4294,6 +4294,7 @@ pacmtest1
 pacmtest2
 pactetris		// HB
 pakupaku                               // HB
+pakupaku2                              // HB
 pollen                                 // HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
@@ -6126,6 +6127,7 @@ cyborg1
 ddsprdmo
 ddsprdmo1
 didemo
+doubled
 dti			// Duck Tales Intro
 dtia		// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
@@ -6206,6 +6208,7 @@ samantha
 santabll
 sbpf
 seafight
+sgz                                    // runs for a few seconds then black screen
 shaman16
 //shaman17
 //shaman18
