@@ -563,8 +563,8 @@ void galaxian_state::sprites_draw(bitmap_rgb32 &bitmap, const rectangle &cliprec
 
 	/* 16 of the 256 pixels of the sprites are hard-clipped at the line buffer */
 	/* according to the schematics, it should be the first 16 pixels */
-	clip.min_x = std::max(clip.min_x, (!m_flipscreen_x) * (m_leftspriteclip + hoffset) * m_x_scale);
-	clip.max_x = std::min(clip.max_x, (256 - m_flipscreen_x * (16 + hoffset)) * m_x_scale - 1);
+	clip.max_x = (256 - (m_flipscreen_x ? m_leftspriteclip : 0)) * m_x_scale - 1;
+	clip.min_x = (m_flipscreen_x ? 0 : m_leftspriteclip) * m_x_scale;
 
 	/* The line buffer is only written if it contains a '0' currently; */
 	/* it is cleared during the visible area, and populated during HBLANK */
@@ -585,6 +585,7 @@ void galaxian_state::sprites_draw(bitmap_rgb32 &bitmap, const rectangle &cliprec
 		uint8_t flipy = base[1] & 0x80;
 		uint8_t color = base[2] & 7;
 		uint8_t sx = base[3] + hoffset;
+		int sx1 = base[3] + hoffset;
 
 		/* extend the sprite information */
 		m_extend_sprite_info_ptr(base, &sx, &sy, &flipx, &flipy, &code, &color);
@@ -592,7 +593,7 @@ void galaxian_state::sprites_draw(bitmap_rgb32 &bitmap, const rectangle &cliprec
 		/* apply flipscreen in X direction */
 		if (m_flipscreen_x)
 		{
-			sx = 240 - sx;
+			sx1 = 240 - sx1;
 			flipx = !flipx;
 		}
 
@@ -607,7 +608,7 @@ void galaxian_state::sprites_draw(bitmap_rgb32 &bitmap, const rectangle &cliprec
 		m_gfxdecode->gfx(1)->transpen(bitmap,clip,
 		code, color,
 		flipx, flipy,
-		m_h0_start + m_x_scale * sx, sy, 0);
+		m_h0_start + m_x_scale * sx1, sy, 0);
 	}
 }
 

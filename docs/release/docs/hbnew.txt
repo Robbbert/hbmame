@@ -4,11 +4,13 @@
 2025-xx-xx 0.245.22
 
 - NAM-1975: Enabled the demo in the attract mode
+- Galaxian hardware: fixed bugs in sprite drawing cocktail mode
 
 New Games
 ---------------------------------
 - [cbarrel]             Captain Barrel
-- [doubled]             Double Dragon One demo
+- [doubled]             Double Dragon One demo (2025-01-23)
+- [doubled1]            Double Dragon One demo (2025-01-03)
 - [galaxiann2]          Galaxians (beta 2, 2023-06-23) (Neo-Geo port)
 - [pakupaku]            Paku Paku (v0.01)
 - [pakupaku2]           Paku Paku (v0.02)

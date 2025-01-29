@@ -2161,6 +2161,24 @@ ROM_START( doubled ) // demo, game# 14A3
 	ROM_LOAD16_BYTE( "505.c2",   0x0000001, 0x1000000, CRC(340f0428) SHA1(e35c8dbd3cbdc39d63630e7bffcf14ca5238a265) )
 ROM_END
 
+ROM_START( doubled1 ) // earlier
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "505a.p1", 0x000000, 0x100000, CRC(518ac649) SHA1(e0052477cec58eef6506ea7c2d1ec5000a39ffdd) )
+	ROM_LOAD16_WORD_SWAP( "505a.p2", 0x100000, 0x400000, CRC(87cf345c) SHA1(6c6997fc092fe8f8a45690344318be59955daa89) )
+
+	NEO_SFIX_128K( "505a.s1", CRC(9886a683) SHA1(f079a61942321a0abdf6acd451e9ac7d84cb252b) )
+
+	NEO_BIOS_AUDIO_64K( "505.m1", CRC(d20925ae) SHA1(c0deac17eb9ef93896e93e7b2cbacb5214f0da1b) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "505.v1",   0x000000, 0x800000, CRC(197b6305) SHA1(8ab6c573c5116fd7dedf9157c308dac4d45b2599) )
+	ROM_LOAD( "502.v2",   0x800000, 0x800000, CRC(8135d5a8) SHA1(186a516ed0fbc1d39f96385513de2ad662511559) ) // same as in Cyborg Force
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "505a.c1",   0x0000000, 0x1000000, CRC(905b6f78) SHA1(48caa05ee9aafc2c93c96c628e84f1feeaa52c98) )
+	ROM_LOAD16_BYTE( "505a.c2",   0x0000001, 0x1000000, CRC(c677a62f) SHA1(298d98391ffe5b66e95a6ee5c7e54731b10d6827) )
+ROM_END
+
 
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
@@ -3569,7 +3587,8 @@ GAME( 2023, cyborg1,      cyborg,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2018, ddsprdmo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, ddsprdmo1,    ddsprdmo, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Double Dragon SpritePool demo (newer)", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Mega Shocked", "DatImage demo", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, doubled,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "neocvera", "Double Dragon One demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, doubled,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "neocvera", "Double Dragon One demo (2025-01-23)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, doubled1,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "neocvera", "Double Dragon One demo (2025-01-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )

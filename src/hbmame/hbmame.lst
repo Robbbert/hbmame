@@ -1956,7 +1956,6 @@ galinvad	/* T-Bone hack of Galaxian */
 galxtest1
 galxtest2
 gaylaxn		/* The Dog hack of Galaxian Part X */
-jumpbugx	// extra sounds
 vectrgal	/* T-Bone hack of Galaxian */
 fourplay
 videight	/* 8in1 multigame */
@@ -6128,6 +6127,7 @@ ddsprdmo
 ddsprdmo1
 didemo
 doubled
+doubled1
 dti			// Duck Tales Intro
 dtia		// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */

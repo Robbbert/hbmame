@@ -25,29 +25,6 @@ static INPUT_PORTS_START( galaxiab )
 INPUT_PORTS_END
 
 
-
-/***********************************************************
- *
- *  Jump Bug (with extra sounds via Galaxian sound board)
- *
- ***********************************************************/
-
-void galaxian_hbmame::jumpbugx_map(address_map &map)
-{
-	jumpbug_map(map);
-/* HBMAME - added next lines */
-	map(0x6800,0x6807).mirror(0x07f8).w("cust",FUNC(galaxian_sound_device::sound_w));
-	map(0x7800,0x7800).mirror(0x07ff).w("cust",FUNC(galaxian_sound_device::pitch_w));
-}
-
-void galaxian_hbmame::jumpbugx(machine_config &config)
-{
-	jumpbug(config);
-	m_maincpu->set_addrmap(AS_PROGRAM, &galaxian_hbmame::jumpbugx_map);
-	GALAXIAN_SOUND(config, "cust", 0);
-}
-
-
 /*************************************
  *
  *  Mr. Do Nightmare
@@ -641,10 +618,6 @@ ROM_START( amidars01 )
 	ROM_LOAD( "amidar.clr",   0x0000, 0x0020, CRC(f940dcc3) SHA1(1015e56f37c244a850a8f4bf0e36668f047fd46d) )
 ROM_END
 
-
-#define rom_jumpbugx rom_jumpbug
-
-
 ROM_START( kazzy )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "frogger.26",   0x0000, 0x1000, CRC(597696d6) SHA1(e7e021776cad00f095a1ebbef407b7c0a8f5d835) )
@@ -903,7 +876,6 @@ GAME( 2017, moontest,   mooncrst, mooncrst, mooncrst, galaxian_hbmame, init_moon
 
 
 // Other
-GAME( 1981, jumpbugx,   0,        jumpbugx, jumpbug,  galaxian_hbmame, init_jumpbug,  ROT90, "Rock-ola", "Jump Bug (Extra Sounds)", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, kingball01, kingball, kingball, kingball, kingball_state,  init_galaxian, ROT90, "bootleg", "King & Balloon (bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, cosmicw,    uniwars,  pisces,   spacbatt, pisces_state,    init_pisces,   ROT90, "B.G.Video Ltd", "Cosmic Wars", MACHINE_SUPPORTS_SAVE )
 GAME( 19??, starfgh2,   pisces,   pisces,   piscesb,  pisces_state,    init_pisces,   ROT90, "bootleg", "Starfighter II", MACHINE_SUPPORTS_SAVE )
