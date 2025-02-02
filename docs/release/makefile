@@ -7,7 +7,7 @@
 ###########################################################################
 
 BARE_VERS := 0.245
-LONG_VERS := $(BARE_VERS).21x
+LONG_VERS := $(BARE_VERS).22
 
 ###########################################################################
 #################   BEGIN USER-CONFIGURABLE OPTIONS   #####################
@@ -1076,7 +1076,7 @@ else
 NEW_GIT_VERSION := $(strip $(shell cmd /c date /T))
 endif
 ifeq ($(NEW_GIT_VERSION),)
-NEW_GIT_VERSION := unknown
+NEW_GIT_VERSION := automated
 endif
 
 GENIE := 3rdparty/genie/bin/$(GENIEOS)/genie$(EXE)

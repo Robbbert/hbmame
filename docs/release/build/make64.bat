@@ -4,7 +4,6 @@
 set minpath=%MINGW64%\bin
 set oldpath=%Path%
 set Path=%minpath%;%oldpath%
-touch src\version.cpp
 echo.|time
 %MINGW64%\bin\make PTR64=1 TARGET=hbmame SYMBOLS=0 NO_SYMBOLS=1 DEPRECATED=0 %1 %2 %3 %4
 echo.|time

@@ -1,5 +1,5 @@
 @echo off
-echo HAVE YOU UPDATED version.cpp and makefile ???
+echo HAVE YOU UPDATED the MAKEFILE ???
 pause
 
 

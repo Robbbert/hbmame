@@ -28,7 +28,7 @@ copy /Y %from%\src\frontend\mame\ui\selsoft.cpp     %to%\src\frontend\mame\ui
 
 md %to%\src\devices\cpu\m68000
 copy /Y %from%\src\devices\cpu\m68000\m68kcpu.cpp   %to%\src\devices\cpu\m68000
-copy /Y %from%\src\devices\cpu\m68000\m68k_in.cpp   %to%\src\devices\cpu\m68000
+copy /Y %from%\src\devices\cpu\m68000\m68k_in.lst   %to%\src\devices\cpu\m68000
 
 md %to%\src\devices\video
 copy /Y %from%\src\devices\video\vector.cpp         %to%\src\devices\video

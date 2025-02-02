@@ -1,7 +1,7 @@
 ﻿What's new in HBMAME
 ====================
 
-2025-xx-xx 0.245.22
+2025-02-02 0.245.22
 
 - NAM-1975: Enabled the demo in the attract mode
 - Galaxian hardware: fixed bugs in sprite drawing cocktail mode

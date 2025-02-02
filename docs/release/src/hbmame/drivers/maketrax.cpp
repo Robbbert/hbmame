@@ -653,6 +653,28 @@ ROM_START( pactetris ) // No text, no scores. When the game ends, it goes crazy.
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( pakupaku ) // v0.1
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pakupaku.6e",    0x0000, 0x1000, CRC(8b2e4f37) SHA1(40e72154a7621ee0f2fe7870e97cdca3c959f866) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pakupaku.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pakupaku.5f",    0x1000, 0x1000, CRC(ab0c1c47) SHA1(2295b3dc43c3bb595e5f15685816999eba88c62e) )
+
+	PACMAN_PROMS
+ROM_END
+
+ROM_START( pakupaku2 ) // v0.2
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pakupaku.6e",    0x0000, 0x1000, CRC(1be28321) SHA1(7a3f7999c6abdf5f4cf08adde06d09e258a6e273) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pakupaku.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pakupaku.5f",    0x1000, 0x1000, CRC(ab0c1c47) SHA1(2295b3dc43c3bb595e5f15685816999eba88c62e) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( piranha )
 	ROM_REGION( 0x10000, "maincpu",0 )
 	ROM_LOAD( "pir1.bin",     0x0000, 0x0800, CRC(69a3e6ea) SHA1(c54e5d039a03d3cbee7a5e21bf1e23f4fd913ea6) )
@@ -958,6 +980,8 @@ GAME( 2019, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2021, 100doors,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "100 doors", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, pollen,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Pollen Angel", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dilith,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Dilithium Lift", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, pakupaku,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, pakupaku2, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.02)", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/
