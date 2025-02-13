@@ -7,6 +7,7 @@
 New Games
 ---------------------------------
 - [karnovn]             Karnov (Neo-Geo port)
+- [samsho2pe1]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
 
 
 
