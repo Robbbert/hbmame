@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [goldaxen]            Golden Axe (Neo-Geo port)
 - [karnovn]             Karnov (Neo-Geo port)
 - [mpatrolut]           Moon Patrol (Unknown Territories)
 - [samsho2pe1]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
