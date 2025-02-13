@@ -2,6 +2,47 @@
 // copyright-holders:Robbbert
 #include "../mame/drivers/m52.cpp"
 
+ROM_START(mpatrolut)
+	ROM_REGION(0x10000, "maincpu", 0)
+	ROM_LOAD("mpaut-1w.3m", 0x0000, 0x1000, CRC(f0c4405b) SHA1(034b4f08051325a7295258c2c9d93fd52b710590) )
+	ROM_LOAD("mpaut-2w.3l", 0x1000, 0x1000, CRC(1cd1640d) SHA1(c11e48149f9099aa7a8de75d2ff2bcd881a8d5e5) )
+	ROM_LOAD("mpaut-3w.3k", 0x2000, 0x1000, CRC(45943910) SHA1(5ea6c63913197222ecb0faf6c3b099b0baab76cc) )
+	ROM_LOAD("mpaut-4w.3j", 0x3000, 0x1000, CRC(825e0ad3) SHA1(d536660d1235090c4e6581961bef25e51f8e81b9) )
+
+	ROM_REGION(0x8000, "irem_audio:iremsound", 0)
+	ROM_LOAD("mp-s1.1a", 0x7000, 0x1000, CRC(561d3108) SHA1(4998c68a9e9a8002251fa8f07aa1082444a9dc80) )
+
+	ROM_REGION(0x2000, "tx", 0)
+	ROM_LOAD("mpeut-5w.3e", 0x0000, 0x1000, CRC(0c61ffa6) SHA1(0acfa34254d9b6f86534e2705eb211da45f6767c) )
+	ROM_LOAD("mpeut-4w.3f", 0x1000, 0x1000, CRC(8fbcaa31) SHA1(79712fb3c5407468bb437504b570d55ffe6f6ca7) )
+
+	ROM_REGION(0x3000, "sp", ROMREGION_ERASE00)
+	ROM_LOAD("mpbut-2.3m", 0x0000, 0x1000, CRC(bd17d3ac) SHA1(7358e01e63428763bb76824ea9af8f9f0da88675) )
+	ROM_LOAD("mpbut-1.3n", 0x1000, 0x1000, CRC(9ce028bf) SHA1(29a1f75a18e82e08be6f9c5e01f0dfcad7e09e30) )
+
+	ROM_REGION(0x2000, "bg0", ROMREGION_ERASEFF)
+	ROM_LOAD("mpe-1.3l", 0x0000, 0x1000, CRC(c46a7f72) SHA1(8bb7c9acaf6833fb6c0575b015991b873a305a84) )
+
+	ROM_REGION(0x2000, "bg1", ROMREGION_ERASEFF)
+	ROM_LOAD("mpe-2.3k", 0x0000, 0x1000, CRC(c7aa1fb0) SHA1(14c6c76e1d0db2c0745e5d6d33ea6945fac8e9ee) )
+
+	ROM_REGION(0x2000, "bg2", ROMREGION_ERASEFF)
+	ROM_LOAD("mpe-3.3h", 0x0000, 0x1000, CRC(a0919392) SHA1(8a090cb8d483a3d67c7360058e3fdd70e151cd62) )
+
+	ROM_REGION(0x0200, "tx_pal", 0)
+	ROM_LOAD("mpcut-4a.2a", 0x0000, 0x0200, CRC(2f926603) SHA1(78e88908ff68ea24bbaa63ef9e38c1f5755168aa) )
+
+	ROM_REGION(0x0020, "bg_pal", 0)
+	ROM_LOAD("mpcut-3.1m", 0x0000, 0x0020, CRC(1d02b31c) SHA1(06af545dee525634c3da618bcff42f0968260ce9) )
+
+	ROM_REGION(0x0020, "spr_pal", 0)
+	ROM_LOAD("mpcut-1.1f", 0x0000, 0x0020, CRC(298daa56) SHA1(f81d5ecc3545f358bf27dc4d9ca9c7c199524745) )
+
+	ROM_REGION(0x0100, "spr_clut", 0)
+	ROM_LOAD("mpcut-2.2h", 0x0000, 0x0100, CRC(e35efd45) SHA1(65ee74c09cb9d208aa208a52273c8b5a3380dcd8) )
+ROM_END
+
+
 ROM_START( spatrol )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "mpa-1.3m",      0x0000, 0x1000, CRC(5873a860) SHA1(8c03726d6e049c3edbc277440184e31679f78258) )
@@ -42,5 +83,6 @@ ROM_START( spatrol )
 	ROM_LOAD("mpc-2.2h", 0x0000, 0x0100, CRC(7ae4cd97) SHA1(bc0662fac82ffe65f02092d912b2c2b0c7a8ac2b))
 ROM_END
 
-GAME( 2008, spatrol,  mpatrol, m52, mpatrol, m52_state, empty_init, ROT0, "Gatinho", "Sponge Patrol", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, mpatrolut, mpatrol, m52, mpatrolw, m52_state, empty_init, ROT0, "Paul Goes", "Moon Patrol (Unknown Territories)", MACHINE_SUPPORTS_SAVE)
+GAME( 2008, spatrol,   mpatrol, m52, mpatrol,  m52_state, empty_init, ROT0, "Gatinho", "Sponge Patrol", MACHINE_SUPPORTS_SAVE )
 

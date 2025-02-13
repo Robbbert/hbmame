@@ -4230,6 +4230,7 @@ aliencha02
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
 mpatrol		//parent
+mpatrolut
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 @source:m92.cpp
