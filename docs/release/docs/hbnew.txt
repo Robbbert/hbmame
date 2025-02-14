@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [bpanicdx]            Block Panic DX (2025-01-01)
 - [goldaxen]            Golden Axe (Neo-Geo port)
 - [karnovn]             Karnov (Neo-Geo port)
 - [mpatrolut]           Moon Patrol (Unknown Territories)

@@ -6108,10 +6108,11 @@ badapplea
 badappleb
 beast		/* 2002 (c) 1989 Psygnosis */
 bonusstage                             // HB
-cabalng
-cabalng1
-cakefght
-cakefght1
+bpanicdx                               // HB
+cabalng                                // port
+cabalng1                               // port
+cakefght                               // port
+cakefght1                              // port
 caravan                                // HB
 cbarrel                                // HB
 cndi		/* Chip n Dale Intro */
