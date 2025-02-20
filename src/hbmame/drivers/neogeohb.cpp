@@ -164,28 +164,30 @@ NUM GAME YEAR COMPANY                 TITLE
 403 2003 2003 Neobitz                 Poker Night
 404 2000 2004 Neobitz                 Columns
 407 2000 2002 Blastar                 Neo no Panepon
+408*1234 2004 Blastar                 Neo Puzzle League (CD only) [nebula]
 409 FFFF 2005 Blastar                 Jonas Indiana and the Lost Temple of Ra
 410 FFFF 2006 Blastar                 Codename: Blut Engel
 410 FFFF 2018 Blastar                 Codename: Blut Engel 2018
 411 FFFF 2006 Blastar                 NGEM2K
-412 2019 2021 Blastar                 Looptris
-413 2019 2022 Blastar                 Looptris Plus
-414 2023 2025 Blastar                 Block Panic DX 250101
-415 0202 2005 Rastersoft              Frog Feast demo
-415 0273 2006 Rastersoft              Frog Feast
+412 07D6 2020 Blastar                 Jump n Run Tech Demo
+413 2019 2021 Blastar                 Looptris
+414 2019 2022 Blastar                 Looptris Plus
+415 9999 2023 Blastar                 Flappy Chicken (2023-04-30)
+416 2023 2025 Blastar                 Block Panic DX 250101
 418 1234 2008 Crim                    Neogeo 2-player Tetris
 419 1234 2011 Sebastian Mihai         Neo Thunder
 420 0420 2023 tcdev                   Xevious
 422 0422 2023 tcdev                   Galaxians
 430 0275 2012 NeoGeoFreak             Time's Up! demo
 430 0276 2012 NeoGeoFreak             Time's Up!
+431 0202 2005 Rastersoft              Frog Feast demo
+431 0273 2006 Rastersoft              Frog Feast
 436 0275 2010 CeL                     Neo Pang
 443 1234 2012 M.Priewe                Santaball
 444 1234 2018 kl3mousse               Sea Fighter
 446 7777 2014 M.Priewe                Monitor Test Tool v1.0
 446 0602 2022 M.Priewe                Monitor Test Tool v1.3
 447 0600 2021 M.Priewe                Hypernoid
-455*1234 2004 Blastar                 Neo Puzzle League (CD only) [nebula]
 461 0280 2020 Elrayzeur               Puzzle Crazy
 462 0083 2009 Elrayzeur               Puzzle Bobble Crazy beta
 469 9999 2002 Neodev                  Neo Pong
@@ -1349,101 +1351,104 @@ ROM_START( ngem2k )
 ROM_END
 
 
-// 412 : Looptris by Blastar 2021-12-26
-ROM_START( looptris )
+// 412 : Jump n Run Tech Demo by Blastar 2020-11
+ROM_START( jumpnrund )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "412.p1", 0x000000, 0x080000, CRC(8fcb5104) SHA1(6a0da5c4e72ef57600ecd15cba64e3871f48391e) )
+	ROM_LOAD16_WORD_SWAP( "412.p1", 0x000000, 0x080000, CRC(924f0e82) SHA1(6934e1f1ed5e54b25bff139fa57679958b0a0e4f) )
 
-	NEO_SFIX_128K( "412.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
+	NEO_SFIX_128K( "412.s1", CRC(409a9f52) SHA1(23874ebee8698b240c18041eacad875237a5c585) )
 
-	NEO_BIOS_AUDIO_128K( "412.m1", CRC(e7105df8) SHA1(9f4efad6dcc8b9617d59576415019820e973f45c) )
+	NEO_BIOS_AUDIO_64K( "412.m1", CRC(30094ef9) SHA1(1f2b2caa7155e8b4bc9c90641d664c9d1fe2061b) )
 
 	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "412.v1", 0x000000, 0x080000, CRC(dfa63cd2) SHA1(bbf4a74a660f12cc037cfa0ac5c664988016ee45) )
+	ROM_LOAD( "412.v11",  0x000000, 0x080000, CRC(01a1a847) SHA1(6f82532101e19d9a60a495d562b4ef0836b10124) )
 
-	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "412.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
-	ROM_LOAD16_BYTE( "412.c2", 0x000001, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
+	ROM_REGION( 0x100000, "ymsnd:adpcmb", 0 )
+	ROM_LOAD( "412.v21",  0x000000, 0x080000, CRC(398c3d56) SHA1(f9724345908abf2abdfd1e92e29ac7307ccc46e9) )
+	ROM_LOAD( "412.v22",  0x080000, 0x080000, CRC(47aa9572) SHA1(de02801e619537ad336361eda29ee40818de6a5c) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "412.c1", 0x000000, 0x80000, CRC(0164735f) SHA1(e5049f7bc39c6dbe886b29dac59850a333a4b58b) )
+	ROM_LOAD16_BYTE( "412.c2", 0x000001, 0x80000, CRC(38f8b27e) SHA1(d621220bacb0d8da78acb83f10bc56bf6b988db6) )
 ROM_END
 
 
-// 413 : Looptris Plus by Blastar 2022-12-24
+// 413 : Looptris by Blastar 2021-12-26
+ROM_START( looptris )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "413.p1", 0x000000, 0x080000, CRC(8fcb5104) SHA1(6a0da5c4e72ef57600ecd15cba64e3871f48391e) )
+
+	NEO_SFIX_128K( "413.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
+
+	NEO_BIOS_AUDIO_128K( "413.m1", CRC(e7105df8) SHA1(9f4efad6dcc8b9617d59576415019820e973f45c) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "413.v1", 0x000000, 0x080000, CRC(dfa63cd2) SHA1(bbf4a74a660f12cc037cfa0ac5c664988016ee45) )
+
+	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
+	ROM_LOAD16_BYTE( "413.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
+	ROM_LOAD16_BYTE( "413.c2", 0x000001, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
+ROM_END
+
+
+// 414 : Looptris Plus by Blastar 2022-12-24
 ROM_START( looptrsp )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "413.p1", 0x000000, 0x080000, CRC(894bb290) SHA1(f33ed9fe75ca7b5a6da00fe5bff76e26cba85e08) )
+	ROM_LOAD16_WORD_SWAP( "414.p1", 0x000000, 0x080000, CRC(894bb290) SHA1(f33ed9fe75ca7b5a6da00fe5bff76e26cba85e08) )
 
-	NEO_SFIX_128K( "412.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
+	NEO_SFIX_128K( "413.s1", CRC(70e70448) SHA1(40461af534afcba341d2f14b755d6de353fe7afd) )
 
-	NEO_BIOS_AUDIO_128K( "413.m1", CRC(249bba11) SHA1(e8248ff9bc391b1163746c256b137928a9d81fe0) )
+	NEO_BIOS_AUDIO_128K( "414.m1", CRC(249bba11) SHA1(e8248ff9bc391b1163746c256b137928a9d81fe0) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "413.v1", 0x000000, 0x080000, CRC(c9f86637) SHA1(edb712d5cce180e1d5b6e338e9abfab1125c5581) )
-	ROM_LOAD( "413.v2", 0x080000, 0x080000, CRC(41b3e17a) SHA1(ef216379dbdbbea04cfffa47123436213a8cf26e) )
-	ROM_LOAD( "413.v3", 0x100000, 0x080000, CRC(1ed4e538) SHA1(921913be499194236535052ed3140fb7169d16e9) )
-	ROM_LOAD( "413.v4", 0x180000, 0x080000, CRC(705e7065) SHA1(a5eea38afa58db69c0f17e0379da3d819639971f) )
+	ROM_LOAD( "414.v1", 0x000000, 0x080000, CRC(c9f86637) SHA1(edb712d5cce180e1d5b6e338e9abfab1125c5581) )
+	ROM_LOAD( "414.v2", 0x080000, 0x080000, CRC(41b3e17a) SHA1(ef216379dbdbbea04cfffa47123436213a8cf26e) )
+	ROM_LOAD( "414.v3", 0x100000, 0x080000, CRC(1ed4e538) SHA1(921913be499194236535052ed3140fb7169d16e9) )
+	ROM_LOAD( "414.v4", 0x180000, 0x080000, CRC(705e7065) SHA1(a5eea38afa58db69c0f17e0379da3d819639971f) )
 
 	ROM_REGION( 0x100000, "sprites", ROMREGION_ERASEFF )
-	ROM_LOAD16_BYTE( "412.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
-	ROM_LOAD16_BYTE( "412.c2", 0x000001, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
+	ROM_LOAD16_BYTE( "413.c1", 0x000000, 0x080000, CRC(b9413f13) SHA1(5e7175dff9510dad55f8f05e9b307c3c05d92209) )
+	ROM_LOAD16_BYTE( "413.c2", 0x000001, 0x080000, CRC(9409dbe8) SHA1(1e9562aa34f6202e8012104ab79916453fec072e) )
 ROM_END
 
 
-// 414 : Block Panic DX 250101 by Blastar
+// 415 : Flappy Chicken by Blastar 2023-04-30
+ROM_START( flapchck )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "415.p1", 0x000000, 0x080000, CRC(2a7454a1) SHA1(6351645c6afdc8b1392e05c6f508217dd7af5bb2) )
+
+	NEO_SFIX_128K( "415.s1", CRC(3fd2b4d4) SHA1(98e6ae2c5cb6ca6b0022b7335cddc83496c4b69d) )
+
+	NEO_BIOS_AUDIO_128K( "415.m1", CRC(5abc1bf6) SHA1(150fe7580e6f9e974a1c9004862c2c50c0c67d7a) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "415.v1",  0x000000, 0x080000, CRC(c5d09e58) SHA1(6536a18a2df3eec251478ca0dd622d64accb9e40) )
+	ROM_LOAD( "415.v2",  0x080000, 0x080000, CRC(b9afe241) SHA1(f6224822730b667a38643627160278bb84eb695f) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "415.c1", 0x000000, 0x80000, CRC(4ecdb8ca) SHA1(fb0ae76f1343f92a111763be267cec56c013972e) )
+	ROM_LOAD16_BYTE( "415.c2", 0x000001, 0x80000, CRC(47d06927) SHA1(bf9ada131768c23f816a9c367596782e5bedc739) )
+ROM_END
+
+
+// 416 : Block Panic DX 250101 by Blastar
 ROM_START( bpanicdx )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "414.p1", 0x000000, 0x080000, CRC(8f59134f) SHA1(ddee11eec6f53b8b6375185c341bc11d39706921) )
+	ROM_LOAD16_WORD_SWAP( "416.p1", 0x000000, 0x080000, CRC(8f59134f) SHA1(ddee11eec6f53b8b6375185c341bc11d39706921) )
 
-	NEO_SFIX_128K( "414.s1", CRC(387a8f43) SHA1(4d9cb4f2ba9d716a5d21c9644eaaf5d158ebf090) )
+	NEO_SFIX_128K( "416.s1", CRC(387a8f43) SHA1(4d9cb4f2ba9d716a5d21c9644eaaf5d158ebf090) )
 
-	NEO_BIOS_AUDIO_128K( "414.m1", CRC(d74159c0) SHA1(00730329032267e60006710f948067d4c744912c) )
-
-	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "414.v1",  0x000000, 0x080000, CRC(55185687) SHA1(437e042400fee20770db1975b800784c267920f2) )
-	ROM_LOAD( "414.v2",  0x080000, 0x080000, CRC(7211595d) SHA1(f4c8d0bfe16587740bd389ee98cfdfa8d5e65be4) )
-	ROM_LOAD( "414.v3",  0x100000, 0x080000, CRC(e08afa9f) SHA1(8aa9749d1a6bc592cca5c697043af9597abd59f4) )
-	ROM_LOAD( "414.v4",  0x180000, 0x080000, CRC(5a9d8d69) SHA1(f7e280e68c7eb32bf472892154466955f3f5d389) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "414.c1", 0x000000, 0x80000, CRC(9463af81) SHA1(50962cc75bb86283186a6cf5e8cb7115ed805468) )
-	ROM_LOAD16_BYTE( "414.c2", 0x000001, 0x80000, CRC(a290a403) SHA1(0b56485b00b10b94e21b9c08f93f01042ffc5e1d) )
-ROM_END
-
-
-// 415 : Frog Feast demo by Rastersoft
-// No sound
-ROM_START( ffeastd )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "415d.p1", 0x000000, 0x80000, CRC(db0417ec) SHA1(dff85b47749142b3e965b2a9b5b8857096e58464) )
-
-	NEO_SFIX_64K( "415d.s1", CRC(29814a2c) SHA1(a7313fa1280a2a2340b1c8a0d522354d82496a68) )
-
-	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
-
-	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
-
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "415d.c1", 0x000000, 0x100000, CRC(22a65cea) SHA1(3fb8cb92cd8d40c2b24e2b54833fde4c7dc255a4) )
-	ROM_LOAD16_BYTE( "415d.c2", 0x000001, 0x100000, CRC(63ddd657) SHA1(41fb6fdd66fcdf5fce42eb01c8a3e00e632f6347) )
-ROM_END
-
-
-// 415 : Frog Feast by Rastersoft
-ROM_START( ffeast ) /* Frog Feast - Full Version */
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "415.p1", 0x000000, 0x080000, CRC(c26848da) SHA1(33737f8d2366b3a554ceb9ea2fcd85aaed75f344) )
-
-	NEO_SFIX_128K( "415.s1", CRC(88f4cd13) SHA1(7f3b28c903ecf90478f2dcddf790714d7363aa2b) )
-
-	NEO_BIOS_AUDIO_128K( "415.m1", CRC(c825b484) SHA1(7dea872ae39ef83981436aaf3c9b602ac8bec676) )
+	NEO_BIOS_AUDIO_128K( "416.m1", CRC(d74159c0) SHA1(00730329032267e60006710f948067d4c744912c) )
 
 	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "415.v1", 0x000000, 0x100000, CRC(2639da11) SHA1(4309e46014d623066d427ce3473542c99f678f86) )
-	ROM_LOAD( "415.v2", 0x100000, 0x100000, CRC(e5eda58b) SHA1(ae203cfedf4b563da914939e0a4d7f4697070f82) )
+	ROM_LOAD( "416.v1",  0x000000, 0x080000, CRC(55185687) SHA1(437e042400fee20770db1975b800784c267920f2) )
+	ROM_LOAD( "416.v2",  0x080000, 0x080000, CRC(7211595d) SHA1(f4c8d0bfe16587740bd389ee98cfdfa8d5e65be4) )
+	ROM_LOAD( "416.v3",  0x100000, 0x080000, CRC(e08afa9f) SHA1(8aa9749d1a6bc592cca5c697043af9597abd59f4) )
+	ROM_LOAD( "416.v4",  0x180000, 0x080000, CRC(5a9d8d69) SHA1(f7e280e68c7eb32bf472892154466955f3f5d389) )
 
-	ROM_REGION( 0x200000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "415.c1", 0x000000, 0x100000, CRC(7b2f9fb3) SHA1(62deacf16c3b259422f962c9604b4efc2f32d91b) )
-	ROM_LOAD16_BYTE( "415.c2", 0x000001, 0x100000, CRC(a7f18a6f) SHA1(1a277c79eaacf09d12a4b7c88421e7a6d6153503) )
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "416.c1", 0x000000, 0x80000, CRC(9463af81) SHA1(50962cc75bb86283186a6cf5e8cb7115ed805468) )
+	ROM_LOAD16_BYTE( "416.c2", 0x000001, 0x80000, CRC(a290a403) SHA1(0b56485b00b10b94e21b9c08f93f01042ffc5e1d) )
 ROM_END
 
 
@@ -1575,6 +1580,44 @@ ROM_START( timesupd )
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "430d.c1", 0x000000, 0x200000, CRC(c19a300a) SHA1(3ab4ec4b10583257b92f5a989434db89f8130626) )
 	ROM_LOAD16_BYTE( "430d.c2", 0x000001, 0x200000, CRC(fdb3f7ed) SHA1(dd1d69515e58e9fba8cefb1c4cd808dfea0475d9) )
+ROM_END
+
+
+// 431 : Frog Feast demo by Rastersoft
+// No sound
+ROM_START( ffeastd )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "431d.p1", 0x000000, 0x80000, CRC(db0417ec) SHA1(dff85b47749142b3e965b2a9b5b8857096e58464) )
+
+	NEO_SFIX_64K( "431d.s1", CRC(29814a2c) SHA1(a7313fa1280a2a2340b1c8a0d522354d82496a68) )
+
+	NEO_BIOS_AUDIO_64K( "407.m1", CRC(7669de64) SHA1(caa170b561df4f68000beaad41d942c66a4a10ee) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "407.v1", 0x000000, 0x080000, CRC(504bf849) SHA1(13a184ec9e176371808938015111f8918cb4df7d) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "431d.c1", 0x000000, 0x100000, CRC(22a65cea) SHA1(3fb8cb92cd8d40c2b24e2b54833fde4c7dc255a4) )
+	ROM_LOAD16_BYTE( "431d.c2", 0x000001, 0x100000, CRC(63ddd657) SHA1(41fb6fdd66fcdf5fce42eb01c8a3e00e632f6347) )
+ROM_END
+
+
+// 431 : Frog Feast by Rastersoft
+ROM_START( ffeast ) /* Frog Feast - Full Version */
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "431.p1", 0x000000, 0x080000, CRC(c26848da) SHA1(33737f8d2366b3a554ceb9ea2fcd85aaed75f344) )
+
+	NEO_SFIX_128K( "431.s1", CRC(88f4cd13) SHA1(7f3b28c903ecf90478f2dcddf790714d7363aa2b) )
+
+	NEO_BIOS_AUDIO_128K( "431.m1", CRC(c825b484) SHA1(7dea872ae39ef83981436aaf3c9b602ac8bec676) )
+
+	ROM_REGION( 0x200000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "431.v1", 0x000000, 0x100000, CRC(2639da11) SHA1(4309e46014d623066d427ce3473542c99f678f86) )
+	ROM_LOAD( "431.v2", 0x100000, 0x100000, CRC(e5eda58b) SHA1(ae203cfedf4b563da914939e0a4d7f4697070f82) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "431.c1", 0x000000, 0x100000, CRC(7b2f9fb3) SHA1(62deacf16c3b259422f962c9604b4efc2f32d91b) )
+	ROM_LOAD16_BYTE( "431.c2", 0x000001, 0x100000, CRC(a7f18a6f) SHA1(1a277c79eaacf09d12a4b7c88421e7a6d6153503) )
 ROM_END
 
 
@@ -3657,6 +3700,7 @@ GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, flapchck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Flappy Chicken (2023-04-30)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann2,   galaxiann,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
@@ -3668,6 +3712,7 @@ GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid, 2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
