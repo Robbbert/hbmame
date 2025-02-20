@@ -100,6 +100,7 @@ public:
 	void gsc(machine_config &config);
 
 	void init_bangbead();
+	void init_cdc();
 	void init_cmc42sfix();
 	void init_ct2k3sp();
 	void init_ct2k3sa();
@@ -396,7 +397,7 @@ INPUT_PORTS_EXTERN(dualbios);
 */
 
 #define ROM_LOAD16_WORD_SWAP_BIOS(bios,name,offset,length,hash) \
-		ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_BIOS(bios))
+	ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_BIOS(bios))
 
 #define NEOGEO_UNIBIOS(x) \
 	ROM_SYSTEM_BIOS( x+ 0, "unibios40", "Universe Bios (Hack, Ver. 4.0)" ) \

@@ -210,6 +210,7 @@ NUM GAME YEAR COMPANY                 TITLE
 505 14A3 2025 Neocvera                Double Dragon One demo
 506 0283 2025 iq_132                  Karnov (Neo-Geo port)
 507 1338 2025 Hoffman                 Golden Axe (Neo-Geo port)
+508 1324 2025 iq_132                  P.O.W (Neo-Geo port)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2249,7 +2250,7 @@ ROM_END
 
 // 506: Karnov port by iq_132
 ROM_START( karnovn )
-	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "506.p1", 0x000000, 0x80000, CRC(79fd92aa) SHA1(4a56a325c32be69a27443776055152a0a436c1eb) )
 
 	NEO_SFIX_128K( "506.s1", CRC(f6a144cf) SHA1(cd8d438431d54f1451b796410864caf299787278) )
@@ -2267,7 +2268,7 @@ ROM_END
 
 // 507: Golden Axe port by Hoffman
 ROM_START( goldaxen )
-	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "507.p1", 0x000000, 0x100000, CRC(3c3ed057) SHA1(4f3ba87fb85a6e79d9efd8da0cdf91515630e60a) )
 
 	NEO_SFIX_128K( "507.s1", CRC(707d91c0) SHA1(aa9c9c458116d5ca4c40def1f71934a1a94fcf7b) )
@@ -2281,6 +2282,24 @@ ROM_START( goldaxen )
 	ROM_REGION( 0x400000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "507.c1",   0x0000000, 0x200000, CRC(7540f3d6) SHA1(a505201798f121d02278ca1761fc2dd451a16336) )
 	ROM_LOAD16_BYTE( "507.c2",   0x0000001, 0x200000, CRC(a78a6647) SHA1(19a9b65701935165bd972542f868b71b3d70cb47) )
+ROM_END
+
+
+// 508: POW port by iq_132
+// bugs: no music, because it's in separate wav files on the CD
+ROM_START( pown )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "508.p1", 0x000000, 0x60000, CRC(792d54be) SHA1(17a10c180860e99036e48873849a642c8c41f894) )
+
+	NEO_SFIX_128K( "508.s1", CRC(89043389) SHA1(01ea488de2c401d3ee836cc7d5c696ad8cb4d8f9) )
+
+	NEO_BIOS_AUDIO_64K( "508.m1", CRC(b50f61bb) SHA1(46d5017e40ca79e280fa247de3eb74ca5092117c) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "508.v1",   0x000000, 0x4c900, CRC(fba165f8) SHA1(948b19b340fe2a1d6123746d537714adaa07aa1d) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD( "508.c1",   0x0000000, 0x200000, CRC(887ca97e) SHA1(b4a1176ba6862554d8f2dbea9864afb865f6f296) )
 ROM_END
 
 
@@ -3769,6 +3788,7 @@ GAME( 2015, pcmbdemo,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2003, poknight,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightcd,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (CD)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, poknightfr,   poknight, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Poker Night (French)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, pown,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq132", "P.O.W. (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, raroggame,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Ryurik: Poteryannaya demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, rci,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Robocop (Intro demo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, samantha,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Everlasting Summer: Samantha demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )

@@ -12,6 +12,7 @@ New Games
 - [jumpnrund]           Jump n Run Tech Demo
 - [karnovn]             Karnov (Neo-Geo port)
 - [mpatrolut]           Moon Patrol (Unknown Territories)
+- [pown]                P.O.W. (Neo-Geo port)
 - [samsho2pe1]          Samurai Shodown II (Perfect v2.4, 2025-01-27)
 
 

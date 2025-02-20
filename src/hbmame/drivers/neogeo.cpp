@@ -1934,6 +1934,24 @@ void neogeo_state::init_cmc42sfix()
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
 }
 
+void neogeo_state::init_cdc()
+{
+	u8 a,b,c,d;
+	init_neogeo();
+	// decrypt sprites extracted from CD to MVS format
+	for (u32 i = 0; i < spr_region_size; i+=4)
+	{
+		a = spr_region[i];
+		b = spr_region[i+1];
+		c = spr_region[i+2];
+		d = spr_region[i+3];
+		spr_region[i] = b;
+		spr_region[i+1] = d;
+		spr_region[i+2] = a;
+		spr_region[i+3] = c;
+	}
+}
+
 
 QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
 {
