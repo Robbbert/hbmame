@@ -3491,6 +3491,9 @@ addBinding(XML_Parser parser, PREFIX *prefix, const ATTRIBUTE_ID *attId,
     if (! mustBeXML && isXMLNS
         && (len > xmlnsLen || uri[len] != xmlnsNamespace[len]))
       isXMLNS = XML_FALSE;
+
+    if (parser->m_ns && (uri[len] == parser->m_namespaceSeparator))
+		return XML_ERROR_SYNTAX;   // MAME PR13416 SECURITY ADVISORY
   }
   isXML = isXML && len == xmlLen;
   isXMLNS = isXMLNS && len == xmlnsLen;
