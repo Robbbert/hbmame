@@ -32,7 +32,41 @@
 
 namespace ymfm
 {
-
+// 定義全局變量
+uint32_t g_ym_rom_size = 0xFFFFFF;
+ void init_ym_rom_size() {
+        static bool initialized = false;
+        if (!initialized) {
+            // 嘗試打開文件
+            FILE* fp = fopen(".ym_size.tmp", "r");
+            if (fp) 
+            {
+                // 準備一個緩衝區來讀取文本
+                char buffer[32] = {0};
+                if (fgets(buffer, sizeof(buffer), fp))
+                {
+                    // 將十六進制字符串轉換為數值
+                    unsigned int read_size = 0;
+                    if (sscanf(buffer, "%x", &read_size) == 1)
+                    {
+                        g_ym_rom_size = read_size;
+                    }
+                }
+                fclose(fp);
+                  if (remove(".ym_size.tmp") != 0) 
+            {
+                // 如果 remove 失敗，記錄錯誤
+                if (FILE* debug = fopen("file_delete_error.txt", "w"))
+                {
+                    fprintf(debug, "Failed to delete ym_size.tmp\n");
+                    perror("Error details");  // 輸出系統錯誤信息
+                    fclose(debug);
+                }
+                }                               
+                initialized = true;
+            }                        
+        }
+    }
 //*********************************************************
 // ADPCM "A" REGISTERS
 //*********************************************************
@@ -121,26 +155,25 @@ void adpcm_a_channel::save_restore(ymfm_saved_state &state)
 
 void adpcm_a_channel::keyonoff(bool on)
 {
-	// QUESTION: repeated key ons restart the sample?
-	m_playing = on;
-	if (m_playing)
-	{
-		m_curaddress = m_regs.ch_start(m_choffs) << m_address_shift;
-		m_curnibble = 0;
-		m_curbyte = 0;
-		m_accumulator = 0;
-		m_step_index = 0;
+    m_playing = on;
+    if (m_playing)
+    {
+        m_curaddress = m_regs.ch_start(m_choffs) << m_address_shift;
+        m_curnibble = 0;
+        m_curbyte = 0;
+        m_accumulator = 0;
+        m_step_index = 0;
 
-		// don't log masked channels
-		if (((debug::GLOBAL_ADPCM_A_CHANNEL_MASK >> m_choffs) & 1) != 0)
-			debug::log_keyon("KeyOn ADPCM-A%d: pan=%d%d start=%04X end=%04X level=%02X\n",
-				m_choffs,
-				m_regs.ch_pan_left(m_choffs),
-				m_regs.ch_pan_right(m_choffs),
-				m_regs.ch_start(m_choffs),
-				m_regs.ch_end(m_choffs),
-				m_regs.ch_instrument_level(m_choffs));
-	}
+        // don't log masked channels
+        if (((debug::GLOBAL_ADPCM_A_CHANNEL_MASK >> m_choffs) & 1) != 0)
+            debug::log_keyon("KeyOn ADPCM-A%d: pan=%d%d start=%04X end=%04X level=%02X\n",
+                m_choffs,
+                m_regs.ch_pan_left(m_choffs),
+                m_regs.ch_pan_right(m_choffs),
+                m_regs.ch_start(m_choffs),
+                m_regs.ch_end(m_choffs),
+                m_regs.ch_instrument_level(m_choffs));
+    }
 }
 
 
@@ -150,6 +183,7 @@ void adpcm_a_channel::keyonoff(bool on)
 
 bool adpcm_a_channel::clock()
 {
+    init_ym_rom_size();  // 確保已初始化
 	// if not playing, just output 0
 	if (m_playing == 0)
 	{
@@ -175,10 +209,23 @@ bool adpcm_a_channel::clock()
 			m_playing = m_accumulator = 0;
 			return true;
 		}
-
-		m_curbyte = m_owner.intf().ymfm_external_read(ACCESS_ADPCM_A, m_curaddress++);
-		data = m_curbyte >> 4;
-		m_curnibble = 1;
+	    // 當Channel 3且需要修改地址時
+        uint32_t read_address = m_curaddress;
+        uint32_t reg_value = m_regs.read(m_choffs + 0x08);
+   
+         if (g_ym_rom_size > 0x1000000)
+    {    
+        if (reg_value >= 0xF0) 
+        {
+            read_address += 0x1000000;
+                                }
+    }
+    
+        // 使用修改後的地址進行實際讀取
+        m_curbyte = m_owner.intf().ymfm_external_read(ACCESS_ADPCM_A, read_address);
+        m_curaddress++;  // 只增加原始地址，不使用修改後的地址
+        data = m_curbyte >> 4;
+        m_curnibble = 1;
 	}
 
 	// otherwise just extract from the previosuly-fetched byte
