@@ -4230,6 +4230,7 @@ aliencha02
 @source:m52.cpp
 alpha1v		// Kyle Hodgetts
 mpatrol		//parent
+mpatrolut
 spatrol		/* Sponge Patrol - Gatinho 2008 */
 
 @source:m92.cpp
@@ -6107,10 +6108,11 @@ badapplea
 badappleb
 beast		/* 2002 (c) 1989 Psygnosis */
 bonusstage                             // HB
-cabalng
-cabalng1
-cakefght
-cakefght1
+bpanicdx                               // HB
+cabalng                                // port
+cabalng1                               // port
+cakefght                               // port
+cakefght1                              // port
 caravan                                // HB
 cbarrel                                // HB
 cndi		/* Chip n Dale Intro */
@@ -6134,6 +6136,7 @@ dwi			/* DarkWing Duck Intro */
 dwia
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
+flapchck
 fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
@@ -6142,11 +6145,14 @@ galaxiann2
 gbi
 gladmortd
 gladmortd2
+goldaxen
 gxg
 horekidb3
 hypernoid
 //igla
 iocero		// BEY
+jumpnrund
+karnovn
 knacki		// KnackiBalls by Furrtek
 knightsch
 lernit
@@ -6202,6 +6208,7 @@ pcmbdemo	// 2015 freem
 poknight	/* 2003 (c) 200? JMK */
 poknightcd
 poknightfr
+pown
 //raroggame
 rci			/* Robocop intro */
 samantha
@@ -6870,6 +6877,7 @@ samsho2emb
 samsho2hy
 samsho2mb
 samsho2pe
+samsho2pe1
 samsho2q
 samsho2s2
 samsho2sp

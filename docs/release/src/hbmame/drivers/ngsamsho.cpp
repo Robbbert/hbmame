@@ -393,13 +393,42 @@ ROM_START( samsho2mb )
 	ROM_LOAD16_BYTE( "063.c8", 0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
 ROM_END
 
-ROM_START( samsho2pe )
+ROM_START( samsho2pe ) // v2.0
 	ROM_REGION( 0x200000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "063pe.p1", 0x000000, 0x100000, CRC(7af0612c) SHA1(840a8447682293aff734def21fa8556b69511d9b) )
 	ROM_LOAD16_WORD_SWAP( "063pe.p2", 0x100000, 0x100000, CRC(5fb8a564) SHA1(d83e6c8e3bc65597aa41434cb57a476a65eb7f6e) )
 
 	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
 	ROM_LOAD16_WORD_SWAP( "063pe.p3", 0x000000, 0x020000, CRC(74c7e103) SHA1(c833f5714be0c82b042301c11ee4fb45e96f1760) )
+
+	NEO_SFIX_128K( "063.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
+
+	NEO_BIOS_AUDIO_128K( "063.m1", CRC(56675098) SHA1(90429fc40d056d480d0e2bbefbc691d9fa260fc4) )
+
+	ROM_REGION( 0x700000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "063.v1", 0x000000, 0x200000, CRC(37703f91) SHA1(a373ebef4c33ba1d8340e826981a58769aada238) )
+	ROM_LOAD( "063.v2", 0x200000, 0x200000, CRC(0142bde8) SHA1(0be6c53acac44802bf70b6925452f70289a139d9) )
+	ROM_LOAD( "063.v3", 0x400000, 0x200000, CRC(d07fa5ca) SHA1(1da7f081f8b8fc86a91feacf900f573218d82676) )
+	ROM_LOAD( "063.v4", 0x600000, 0x100000, CRC(24aab4bb) SHA1(10ee4c5b3579865b93dcc1e4079963276aa700a6) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "063.c1", 0x000000, 0x200000, CRC(86cd307c) SHA1(0d04336f7c436d74638d8c1cd8651faf436a6bec) )
+	ROM_LOAD16_BYTE( "063.c2", 0x000001, 0x200000, CRC(cdfcc4ca) SHA1(179dc81432424d68cefedd20cc1c4b2a95deb891) )
+	ROM_LOAD16_BYTE( "063.c3", 0x400000, 0x200000, CRC(7a63ccc7) SHA1(49d97c543bc2860d493a353ab0d059088c6fbd21) )
+	ROM_LOAD16_BYTE( "063.c4", 0x400001, 0x200000, CRC(751025ce) SHA1(e1bbaa7cd67fd04e4aab7f7ea77f63ae1cbc90d0) )
+	ROM_LOAD16_BYTE( "063.c5", 0x800000, 0x200000, CRC(20d3a475) SHA1(28da44a136bd14c73c62c147c3f6e6bcfa1066de) )
+	ROM_LOAD16_BYTE( "063.c6", 0x800001, 0x200000, CRC(ae4c0a88) SHA1(cc8a7d11daa3821f83a6fd0942534706f939e576) )
+	ROM_LOAD16_BYTE( "063.c7", 0xc00000, 0x200000, CRC(2df3cbcf) SHA1(e54f9022359963711451c2025825b862d36c6975) )
+	ROM_LOAD16_BYTE( "063.c8", 0xc00001, 0x200000, CRC(1ffc6dfa) SHA1(acea18aca76c072e0bac2a364fc96d49cfc86e77) )
+ROM_END
+
+ROM_START( samsho2pe1 ) // v2.4
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "063pe1.p1", 0x000000, 0x100000, CRC(20625a12) SHA1(1aea4b3e2175bc1a82e17af0ee58fb6a386d3e19) )
+	ROM_LOAD16_WORD_SWAP( "063pe1.p2", 0x100000, 0x100000, CRC(231c4e31) SHA1(78db670d261991ab6fe2664d1d514f32a090ec9c) )
+
+	ROM_REGION( 0x020000, "gsc", ROMREGION_BE | ROMREGION_16BIT )
+	ROM_LOAD16_WORD_SWAP( "063pe1.p3", 0x000000, 0x020000, CRC(82ce7ad7) SHA1(8125c627adfc6b343fe2f46337263db3ecc30a7d) )
 
 	NEO_SFIX_128K( "063.s1", CRC(64a5cd66) SHA1(12cdfb27bf9ccd5a8df6ddd4628ef7cf2c6d4964) )
 
@@ -4798,6 +4827,7 @@ GAME( 2009, samsho2emb, samsho2,  neogeo_noslot, neogeo, neogeo_state,  init_neo
 GAME( 1994, samsho2hy,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Yashional", "Samurai Shodown II (Boss hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, samsho2mb,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "Blackheart", "Samurai Shodown II (Moves hack, 2009-08-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2024, samsho2pe,  samsho2,  gsc,           neogeo, neogeo_state,  init_neogeo,   ROT0, "Bear", "Samurai Shodown II (Perfect v2.0, 2024-05-01)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, samsho2pe1, samsho2,  gsc,           neogeo, neogeo_state,  init_neogeo,   ROT0, "Bear", "Samurai Shodown II (Perfect v2.4, 2025-01-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1994, samsho2q,   samsho2,  neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "zerov", "Samurai Shodown II (Kuroko Version v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2008, samsho2s2,  samsho2,  neogeo_noslot, neogeo, neogeo_state,  init_neogeo,   ROT0, "hack", "Samurai Shodown II (Special v0.12, 2008-08-26)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, samsho2sp,  samsho2,  gsc,           neogeo, neogeo_state,  init_neogeo,   ROT0, "GSC2007", "Samurai Shodown II (Special v1.0.0122)", MACHINE_SUPPORTS_SAVE )

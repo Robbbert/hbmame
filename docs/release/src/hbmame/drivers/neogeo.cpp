@@ -627,6 +627,12 @@ void neogeo_state::init_neogeo()
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16smo_delegate(*this, FUNC(neogeo_state::in1_r)));
 	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
+	FILE *fp = fopen(".ym_size.tmp", "w");
+    if (fp) {
+        uint32_t ymsize = ym_region_size;
+        fprintf(fp, "%x", ymsize);  // 以十六進制文本形式寫入
+        fclose(fp);
+    }
 }
 
 
@@ -1932,6 +1938,24 @@ void neogeo_state::init_cmc42sfix()
 	init_neogeo();
 	m_sprgen->m_fixed_layer_bank_type = 1;
 	m_cmc_prot->neogeo_sfix_decrypt(spr_region, spr_region_size, fix_region, fix_region_size);
+}
+
+void neogeo_state::init_cdc()
+{
+	u8 a,b,c,d;
+	init_neogeo();
+	// decrypt sprites extracted from CD to MVS format
+	for (u32 i = 0; i < spr_region_size; i+=4)
+	{
+		a = spr_region[i];
+		b = spr_region[i+1];
+		c = spr_region[i+2];
+		d = spr_region[i+3];
+		spr_region[i] = b;
+		spr_region[i+1] = d;
+		spr_region[i+2] = a;
+		spr_region[i+3] = c;
+	}
 }
 
 

@@ -1,5 +1,6 @@
 @echo off
 echo HAVE YOU UPDATED the MAKEFILE ???
+echo Also update the date in HBNEW ??
 pause
 
 

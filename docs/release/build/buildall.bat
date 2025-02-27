@@ -42,6 +42,7 @@ copy /Y src\mame\arcade.txt src\mame\arcade.flt
 touch src\mame\arcade.flt
 call make64 -j6 "OSD=winui" %1 %2 %3
 copy /Y src\mame\arcade.bak src\mame\arcade.flt
+del arcade.exe
 copy /Y arcade64.exe arcade.exe
 
 if not exist arcade64.exe goto end
