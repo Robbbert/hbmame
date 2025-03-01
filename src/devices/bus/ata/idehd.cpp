@@ -13,7 +13,6 @@
 
 #define LOGPRINT(x) do { if (VERBOSE) logerror x; if (PRINTF_IDE_COMMANDS) osd_printf_debug x; } while (0)
 
-#define TIME_PER_SECTOR_READ                (attotime::from_usec(10)) // MAMEFX
 #define TIME_PER_SECTOR_WRITE               (attotime::from_usec(100))
 #define TIME_PER_ROTATION                   (attotime::from_hz(5400/60))
 #define TIME_BETWEEN_SECTORS                (attotime::from_nsec(400))
@@ -428,9 +427,6 @@ void ata_mass_storage_device::fill_buffer()
 		if (m_sector_count > 0)
 		{
 			set_dasp(ASSERT_LINE);
-			if (strcmp("primrag2", machine().system().name) == 0) // MAMEFX
-				start_busy(TIME_PER_SECTOR_READ, PARAM_COMMAND); // MAMEFX: primrag2 - derived from MAME4RAGE2 emulator
-			else  // MAMEFX
 			if (m_command == IDE_COMMAND_READ_DMA)
 				start_busy(TIME_BETWEEN_SECTORS + m_dma_transfer_time, PARAM_COMMAND);
 			else

@@ -8903,12 +8903,10 @@ nacho
 @source:zn.cpp
 coh1000c
 coh1002m
-coh1000w
 coh3002c
 doapp                                  //parent
 doapp01
 doapp02
-primrag2
 sfex                                   //parent
 sfex01
 sfex2                                  //parent
