@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [neopl]               Neo Puzzle League (from CD)
 
 
 
