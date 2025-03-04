@@ -249,9 +249,6 @@ NUM GAME YEAR COMPANY                 TITLE
 642 7777 2017 Cristiano Bei           Bad Apple demo
 642 BADA 2017 Cristiano Bei           Bad Apple demo (badappleb)
 643 0539 2023 Dekadence               68k Inside
-650*     2012 RKGAMES                 Neo-sprite demo (CD only)
-651*1234 2000 Martinez Fabrice        VIP2 demo (CD only) [nebula]
-652*0000 2011 Furrtek                 VUmeter (CD only) [nebula]
 653 0052 2011 Furrtek                 Nyan Cat demo
 657 0052      Furrtek                 MVSTest01
 658 0052      Furrtek                 KnackiBalls
@@ -275,6 +272,40 @@ NUM GAME YEAR COMPANY                 TITLE
 689 7777 2019 Vasily Familiya         Venus Wars demo
 690 7777 2020 Vasily Familiya         Girl X Girl demo
 699 07E1 2021 Blastar                 Neo Driftout Tech Demo
+
+
+
+********************** CD-exclusive that exist (800-899) ************************
+(Will be removed/renumbered if MVS/AES version is found)
+
+NUM GAME YEAR COMPANY                 TITLE
+---.----.----.-----------------------.-------------------------------------------
+800 1234 2000 Fabrice Martinez        VIP2 [nebula]
+801 1234 2009                         Maths Test
+802 0000 2011 Furrtek                 VU Meter [nebula]
+803 1234 2012 NG:Dev:Group            NGD::ARK
+804 1234 2012 RKGAMES                 Neo-Sprite Test/Demo
+805 1234 2014                         Input Test
+806 1234 2014                         Process Test
+807 7777 2014                         Color Test
+808 1234 2014                         Fade Test
+809 1234 2014                         Hello
+810 0202 2014                         HelloFix
+811 0202 2014                         HelloSpr
+812 0202 2014                         Palette Basics
+813 1234 2014 Christiano Bei          Phoenix
+814 7777 2014 Neobitz                 NeoSub demo
+815 1234 2015 Resistance              Eira
+816 1234 2016 Christiano Bei (BEY)    Nata Demo
+817 09C6 2016 Blastar                 We Love Alice
+818 09C6 2016 Citavia                 Diff
+819 7777 2016 Trilobit                Visual Novel
+820 7777 2017 Visy                    Neo Fukkireta
+821 2019 2019 Citavia                 No Neo No Party
+822 2007 2020 Blastar                 Subspecies Unfinished
+823 2018 2021 Blastar                 N*Tris3D
+824 7777 2021 David Vandensteen       Flamble
+825 7777 2023 David Vandensteen       CD Pong
 
 
 
