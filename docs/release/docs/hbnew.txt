@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [68kng]               68k Inside intro
 - [neopl]               Neo Puzzle League (from CD)
 
 
