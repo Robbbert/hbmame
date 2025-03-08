@@ -9,6 +9,7 @@ New Games
 - [68kng]               68k Inside intro
 - [doubled1b]           Double Dragon One demo (2025-02-17)
 - [neopl]               Neo Puzzle League (from CD)
+- [pakupaku3]           Paku Paku (v0.03)
 
 
 

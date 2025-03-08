@@ -675,6 +675,17 @@ ROM_START( pakupaku2 ) // v0.2
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( pakupaku3 ) // v0.3
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pakupaku.6e",    0x0000, 0x1000, CRC(5d75f21d) SHA1(f5771b2e7c07674bc034958ea75f54ffca581b8a) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pakupaku.5e",    0x0000, 0x1000, CRC(0c944964) SHA1(06ef227747a440831c9a3a613b76693d52a2f0a9) )
+	ROM_LOAD( "pakupaku.5f",    0x1000, 0x1000, CRC(ab0c1c47) SHA1(2295b3dc43c3bb595e5f15685816999eba88c62e) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( piranha )
 	ROM_REGION( 0x10000, "maincpu",0 )
 	ROM_LOAD( "pir1.bin",     0x0000, 0x0800, CRC(69a3e6ea) SHA1(c54e5d039a03d3cbee7a5e21bf1e23f4fd913ea6) )
@@ -982,6 +993,7 @@ GAME( 2023, pollen,    puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2023, dilith,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Dilithium Lift", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku2, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.02)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, pakupaku3, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.03)", MACHINE_SUPPORTS_SAVE )
 
 
 /*************************************************************************************************************************/
@@ -1161,14 +1173,8 @@ void puckman_state::init_ponpoko()
 	/* Characters */
 	RAM = memregion("gfx1")->base();
 	for (i = 0;i < length;i += 0x10)
-	{
 		for (j = 0; j < 8; j++)
-		{
-			temp          = RAM[i+j+0x08];
-			RAM[i+j+0x08] = RAM[i+j+0x00];
-			RAM[i+j+0x00] = temp;
-		}
-	}
+			std::swap(RAM[i+j+0x08], RAM[i+j+0x00]);
 
 	/* Sprites */
 	RAM = memregion("gfx1")->base()+length;
