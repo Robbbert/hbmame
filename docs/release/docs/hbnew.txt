@@ -10,6 +10,7 @@ New Games
 - [doubled1b]           Double Dragon One demo (2025-02-17)
 - [neopl]               Neo Puzzle League (from CD)
 - [pakupaku3]           Paku Paku (v0.03)
+- [sf2mix]              Street Fighter II: Dream Battle (Mix 1.4)
 - [sf2prime]            Street Fighter II': Prime (v0.3)
 
 
@@ -317,7 +318,7 @@ New Games
 - [looptrsp]            Looptris Plus (2022-12-24)
 - [pitfall2u01]         Pitfall II trainer (2002-10-15)
 - [pollen]              Pollen Angel
-- [sf2mix]              Street Fighter II: Champion Edition (Mix 1.3)
+- [sf2mix130]           Street Fighter II: Dream Battle (Mix 1.3)
 - [vr01]                Virtua Racing Rival Edition V7 (2023-02-22)
 - [xeviousn]            Xevious (NeoGeo, beta 1, 2023-03-07)
 
@@ -575,7 +576,7 @@ New Games
 - [jrpacplus]           Jr Pac-Plus
 - [manpac]              Man-Pac
 - [sailormnh05]         Pretty Soldier Sailor Moon (Reign of Terror) v1.6
-- [sf2mix110]           Street Fighter II: Champion Edition (Mix 1.1)
+- [sf2mix110]           Street Fighter II: Dream Battle (Mix 1.1)
 - [sfz3mix07a]          Street Fighter Zero 3 (Mix 0.07a)
 - [sfz3mix09]           Street Fighter Zero 3 (Mix 0.09)
 - [sfz3mix10]           Street Fighter Zero 3 (Mix 0.10)
@@ -611,7 +612,7 @@ New Games
 
 New Games
 ---------------------------------
-- [sf2mix120]           Street Fighter II: Champion Edition (Mix 1.2)
+- [sf2mix120]           Street Fighter II: Dream Battle (Mix 1.2)
 - [ssf2tnl6]            Super Street Fighter II Turbo (New Legacy v0.6 beta 2022-02-07)
 - [umk3uk20220207]      Ultimate Mortal Kombat 3 UC Edition (2022-02-07)
 
@@ -869,7 +870,7 @@ New Games
 - [knightsdt]           Knights of the Round (Death's Thread)
 - [knightssa]           Knights of the Round (Squire's Aid)
 - [knightswt]           Knights of the Round (Warlock's Tower)
-- [sf2mix100]           Street Fighter II: Champion Edition (Mix 1.0)
+- [sf2mix100]           Street Fighter II: Dream Battle (Mix 1.0)
 - [ssf2tnl4]            Super Street Fighter II Turbo (New Legacy v0.4 beta 2020-11-13)
 - [ssf2tnl5]            Super Street Fighter II Turbo (New Legacy v0.5 beta 2021-06-11)
 
@@ -943,9 +944,9 @@ New Games
 ---------------------------------
 - [endurorrc]           Enduro Racer (RetroClinic bootleg)
 - [ooparts]             Ooparts
-- [sf2mix96d]           Street Fighter II: Champion Edition (Mix 0.96d)
-- [sf2mix99]            Street Fighter II: Champion Edition (Mix 0.99)
-- [sf2mix99a]           Street Fighter II: Champion Edition (Mix 0.99a)
+- [sf2mix96d]           Street Fighter II: Dream Battle (Mix 0.96d)
+- [sf2mix99]            Street Fighter II: Dream Battle (Mix 0.99)
+- [sf2mix99a]           Street Fighter II: Dream Battle (Mix 0.99a)
 - [sf2rbpr]             Street Fighter II': Champion Edition (Rainbow, bootleg, set 1, protection removed) by Rotwang
 - [troopyx]             Troopy (improved graphics)
 
