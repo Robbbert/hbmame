@@ -741,6 +741,45 @@ ROM_START( nbajam04 )
 	ROM_LOAD32_BYTE( "nbajam02.uj23", 0x600003, 0x80000, CRC(b5bf66f9) SHA1(de12e47e44f9cf7c611d674fe6c9b3466fde2081) )
 ROM_END
 
+// Inputs broken, problems with the sound
+ROM_START( roadkill )
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
+	ROM_RELOAD(             0x030000, 0x20000 )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "roadkill.u12", 0x000000, 0x80000, CRC(cd5d4532) SHA1(63ff4b5b22e02ee90cdcb745acc6bf9dbc1c3140) )
+	ROM_LOAD( "roadkill.u13", 0x080000, 0x80000, CRC(c4cbede2) SHA1(8b1a26ee852281de1564af35fc3605a89eb0b7dd) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "roadkill.uj12", 0x00000, 0x80000, CRC(6886e5fd) SHA1(f986b4520008206c1068f8711e2250ebac568659) )
+	ROM_LOAD16_BYTE( "roadkill.ug12", 0x00001, 0x80000, CRC(ad9d9e36) SHA1(45af79e9208c500460d834797aff3fa076dfaec5) )
+
+	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_LOAD32_BYTE( "roadkill.ug14", 0x000000, 0x80000, CRC(d8a59fc9) SHA1(103b811945f43e60750deb4a190cf6da9b764166) )
+	ROM_LOAD32_BYTE( "roadkill.uj14", 0x000001, 0x80000, CRC(68489a33) SHA1(d2b4b5fdb4d905d98635c0ef872bdf2648a10086) )
+	ROM_LOAD32_BYTE( "roadkill.ug19", 0x000002, 0x80000, CRC(d4c8e3bc) SHA1(87796a8e9b65134478a45bd83160893d047a2b80) )
+	ROM_LOAD32_BYTE( "roadkill.uj19", 0x000003, 0x80000, CRC(f194afe8) SHA1(e33f921fa67633c5444ebe3151ac8c9da13a50ed) )
+
+//ROM_LOAD( "l1_nba_jam_game_rom_ug20.ug20", 0x000000, 0x080000, CRC(a278d2fb) SHA1(5b5c594e9949db481afd534604842d2c32e39585) )
+//ROM_LOAD( "l1_nba_jam_game_rom_uj20.ug20", 0x000000, 0x080000, CRC(7e91272d) SHA1(815b074fa301942eca808a3fd287bd953b7e4290) )
+
+	ROM_LOAD32_BYTE( "roadkill.ug16", 0x200000, 0x80000, CRC(0eb13bf2) SHA1(a6e92d6e8600ca16032511881096d44513b55ba4) )
+	ROM_LOAD32_BYTE( "roadkill.uj16", 0x200001, 0x80000, CRC(04c2243f) SHA1(ff75b15db65168488edf32712be34d40348e9d61) )
+	ROM_LOAD32_BYTE( "roadkill.ug20", 0x200002, 0x80000, CRC(a278d2fb) SHA1(5b5c594e9949db481afd534604842d2c32e39585) )
+	ROM_LOAD32_BYTE( "roadkill.uj20", 0x200003, 0x80000, CRC(f8f2e005) SHA1(16950f72ba71ade146b8f56a77dc44884ecf34b4) )
+
+	ROM_LOAD32_BYTE( "roadkill.ug17", 0x400000, 0x80000, CRC(3adb453f) SHA1(ca4e2c911ff65d88ae6e0ccf479a119946df5cc7) )
+	ROM_LOAD32_BYTE( "roadkill.uj17", 0x400001, 0x80000, CRC(306ee426) SHA1(2ff0bb77fa39a17d5ae41d7a9ec2fb52b75cdc38) )
+	ROM_LOAD32_BYTE( "roadkill.ug22", 0x400002, 0x80000, CRC(16d36f9e) SHA1(8da4a7ddcee9f305ba0d9d553b2a0649aee9cc25) )
+	ROM_LOAD32_BYTE( "roadkill.uj22", 0x400003, 0x80000, CRC(e6ec599c) SHA1(9276dc6c99124ebdc4687bb601437c5bbd07b116) )
+
+	ROM_LOAD32_BYTE( "roadkill.ug18", 0x600000, 0x80000, CRC(1029c0de) SHA1(ab300397b9569670fd4339518a0a7b136d3999db) )
+	ROM_LOAD32_BYTE( "roadkill.uj18", 0x600001, 0x80000, CRC(ec9adf00) SHA1(fc06ecc782f2f2d4c41d8d1e28ec9b3a282afb73) )
+	ROM_LOAD32_BYTE( "roadkill.ug23", 0x600002, 0x80000, CRC(52203dfd) SHA1(c95f53cbf0da4faa513bd2172a2ef17f2e8035b1) )
+	ROM_LOAD32_BYTE( "roadkill.uj23", 0x600003, 0x80000, CRC(ca6734d4) SHA1(3cb81cfc7da53e072e5dbabc744cb5aafe218473) )
+ROM_END
+
 
 /*    YEAR  NAME         PARENT    MACHINE      INPUT     CLASS           INIT          MONITOR COMPANY                 FULLNAME FLAGS */
 // Mortal Kombat
@@ -768,4 +807,6 @@ GAME( 1994, nbajam01,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_n
 GAME( 2022, nbajam02,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam03,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam04,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.2)", MACHINE_SUPPORTS_SAVE )
+// Roadkill
+GAME( 2023, roadkill,    0,        tunit_adpcm, nbajam,   midtunit_state, init_nbajamte, ROT0, "Midway", "Roadkill demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // inputs broken
 
