@@ -5896,6 +5896,10 @@ pm4n1e
 superabc
 superabco
 
+@source:mustache.cpp
+mustache                               //parent
+mustache01
+
 @source:mystwarr.cpp
 mtlchamp			//parent
 mmaulers			//parent
