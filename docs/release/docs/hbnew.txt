@@ -13,7 +13,8 @@ New Games
 - [pakupaku3]           Paku Paku (v0.03)
 - [roadkill]            Roadkill demo
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.4)
-- [sf2prime]            Street Fighter II': Prime (v0.3)
+- [sf2prime3]           Street Fighter II': Prime (v0.3)
+- [sf2prime]            Street Fighter II': Prime (v0.4)
 
 
 
