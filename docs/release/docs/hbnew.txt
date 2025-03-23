@@ -11,10 +11,11 @@ New Games
 - [mustache01]          Mustache Boy (Europe)
 - [neopl]               Neo Puzzle League (from CD)
 - [pakupaku3]           Paku Paku (v0.03)
-- [roadkill]            Roadkill demo
+- [roadkill]            Roadkill demo (problems with inputs and sound)
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.4)
 - [sf2prime3]           Street Fighter II': Prime (v0.3)
-- [sf2prime]            Street Fighter II': Prime (v0.4)
+- [sf2prime4]           Street Fighter II': Prime (v0.4)
+- [sf2prime]            Street Fighter II': Prime (v0.41)
 
 
 
