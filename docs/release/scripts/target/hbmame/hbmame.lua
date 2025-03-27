@@ -943,6 +943,9 @@ files {
 	MAME_DIR .. "src/mame/machine/seibuspi.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wiz.cpp",
 	MAME_DIR .. "src/mame/video/wiz.cpp",
+	MAME_DIR .. "src/hbmame/drivers/mustache.cpp",
+	MAME_DIR .. "src/mame/video/mustache.cpp",
+	MAME_DIR .. "src/mame/audio/t5182.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "seta")

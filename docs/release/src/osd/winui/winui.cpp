@@ -71,126 +71,6 @@
 #include "directinput.h"
 #include "dijoystick.h"     /* For DIJoystick availability. */
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
-#ifndef LVS_EX_LABELTIP
-#define LVS_EX_LABELTIP         0x00004000 // listview unfolds partly hidden labels if it does not have infotip text
-#endif // LVS_EX_LABELTIP
-
-// fix warning: cast does not match function type
-#if defined(__GNUC__) && defined(ListView_CreateDragImage)
-#undef ListView_CreateDragImage
-#endif
-
-#ifndef ListView_CreateDragImage
-#define ListView_CreateDragImage(hwnd, i, lpptUpLeft) \
-	(HIMAGELIST)(LRESULT)(int)SendMessage((hwnd), LVM_CREATEDRAGIMAGE, (WPARAM)(int)(i), (LPARAM)(LPPOINT)(lpptUpLeft))
-#endif // ListView_CreateDragImage
-
-#ifndef TreeView_EditLabel
-#define TreeView_EditLabel(w, i) \
-	SNDMSG(w,TVM_EDITLABEL,0,(LPARAM)(i))
-#endif // TreeView_EditLabel
-
-#ifndef HDF_SORTUP
-#define HDF_SORTUP 0x400
-#endif // HDF_SORTUP
-
-#ifndef HDF_SORTDOWN
-#define HDF_SORTDOWN 0x200
-#endif // HDF_SORTDOWN
-
-#ifndef LVM_SETBKIMAGEA
-#define LVM_SETBKIMAGEA         (LVM_FIRST + 68)
-#endif // LVM_SETBKIMAGEA
-
-#ifndef LVM_SETBKIMAGEW
-#define LVM_SETBKIMAGEW         (LVM_FIRST + 138)
-#endif // LVM_SETBKIMAGEW
-
-#ifndef LVM_GETBKIMAGEA
-#define LVM_GETBKIMAGEA         (LVM_FIRST + 69)
-#endif // LVM_GETBKIMAGEA
-
-#ifndef LVM_GETBKIMAGEW
-#define LVM_GETBKIMAGEW         (LVM_FIRST + 139)
-#endif // LVM_GETBKIMAGEW
-
-#ifndef LVBKIMAGE
-
-typedef struct tagLVBKIMAGEA
-{
-	ULONG ulFlags;
-	HBITMAP hbm;
-	LPSTR pszImage;
-	UINT cchImageMax;
-	int xOffsetPercent;
-	int yOffsetPercent;
-} LVBKIMAGEA, *LPLVBKIMAGEA;
-
-typedef struct tagLVBKIMAGEW
-{
-	ULONG ulFlags;
-	HBITMAP hbm;
-	LPWSTR pszImage;
-	UINT cchImageMax;
-	int xOffsetPercent;
-	int yOffsetPercent;
-} LVBKIMAGEW, *LPLVBKIMAGEW;
-
-#ifdef UNICODE
-#define LVBKIMAGE               LVBKIMAGEW
-#define LPLVBKIMAGE             LPLVBKIMAGEW
-#define LVM_SETBKIMAGE          LVM_SETBKIMAGEW
-#define LVM_GETBKIMAGE          LVM_GETBKIMAGEW
-#else
-#define LVBKIMAGE               LVBKIMAGEA
-#define LPLVBKIMAGE             LPLVBKIMAGEA
-#define LVM_SETBKIMAGE          LVM_SETBKIMAGEA
-#define LVM_GETBKIMAGE          LVM_GETBKIMAGEA
-#endif
-#endif
-
-#ifndef LVBKIF_SOURCE_NONE
-#define LVBKIF_SOURCE_NONE      0x00000000
-#endif // LVBKIF_SOURCE_NONE
-
-#ifndef LVBKIF_SOURCE_HBITMAP
-#define LVBKIF_SOURCE_HBITMAP   0x00000001
-#endif
-
-#ifndef LVBKIF_SOURCE_URL
-#define LVBKIF_SOURCE_URL       0x00000002
-#endif // LVBKIF_SOURCE_URL
-
-#ifndef LVBKIF_SOURCE_MASK
-#define LVBKIF_SOURCE_MASK      0x00000003
-#endif // LVBKIF_SOURCE_MASK
-
-#ifndef LVBKIF_STYLE_NORMAL
-#define LVBKIF_STYLE_NORMAL     0x00000000
-#endif // LVBKIF_STYLE_NORMAL
-
-#ifndef LVBKIF_STYLE_TILE
-#define LVBKIF_STYLE_TILE       0x00000010
-#endif // LVBKIF_STYLE_TILE
-
-#ifndef LVBKIF_STYLE_MASK
-#define LVBKIF_STYLE_MASK       0x00000010
-#endif // LVBKIF_STYLE_MASK
-
-#ifndef ListView_SetBkImage
-#define ListView_SetBkImage(hwnd, plvbki) \
-	(BOOL)SNDMSG((hwnd), LVM_SETBKIMAGE, 0, (LPARAM)(plvbki))
-#endif // ListView_SetBkImage
-
-#ifndef ListView_GetBkImage
-#define ListView_GetBkImage(hwnd, plvbki) \
-	(BOOL)SNDMSG((hwnd), LVM_GETBKIMAGE, 0, (LPARAM)(plvbki))
-#endif // ListView_GetBkImage
-
 #define MM_PLAY_GAME (WM_APP + 15000)
 
 #define JOYGUI_MS 100
@@ -208,10 +88,6 @@ static int MIN_HEIGHT = DBU_MIN_HEIGHT;
 
 /* Max number of bkground picture files */
 #define MAX_BGFILES 100
-
-#ifndef LVS_EX_LABELTIP
-#define LVS_EX_LABELTIP         0x00004000 // listview unfolds partly hidden labels if it does not have infotip text
-#endif
 
 #define NO_FOLDER -1
 #define STATESAVE_VERSION 1
@@ -1840,7 +1716,7 @@ static BOOL Win32UI_init(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 	{
 		/*  For some reason the mouse is centered when a game is exited, which of
             course causes a WM_MOUSEMOVE event that shows the mouse. So we center
-            it now, before the startup coords are initilized, and that way the mouse
+            it now, before the startup coords are initialised, and that way the mouse
             will still be hidden when exiting from a game (i hope) :)
 		*/
 		SetCursorPos(GetSystemMetrics(SM_CXSCREEN)/2,GetSystemMetrics(SM_CYSCREEN)/2);

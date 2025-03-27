@@ -1032,6 +1032,7 @@ sf2mix99a
 sf2mix100
 sf2mix110
 sf2mix120
+sf2mix130
 sf2mix
 sf2mkot01
 sf2red01
@@ -1460,6 +1461,9 @@ pfghtj04
 progearj01
 progearj02
 rockman2k
+sf2prime
+sf2prime3
+sf2prime4
 sfas01
 sfas02
 sfas03
@@ -4295,6 +4299,7 @@ pacmtest2
 pactetris		// HB
 pakupaku                               // HB
 pakupaku2                              // HB
+pakupaku3                              // HB
 pollen                                 // HB
 ppong			/* HB - Widel Games */
 ppong2			/* HB - Widel Games */
@@ -4425,6 +4430,7 @@ nbajam01
 nbajam02                               // NBA Jam Tournament Edition Rewind r1.1
 nbajam03                               // NBA Jam Tournament Edition SE r5.0
 nbajam04                               // NBA Jam Tournament Edition Rewind r1.2
+roadkill
 umk2s01                                // Ultimate MKII Tournament Edition r5.0.050
 umk2s02                                // Ultimate MKII Tournament Edition r5.0.051
 umk2s03                                // Ultimate MKII Tournament Edition r5.0.052
@@ -5892,6 +5898,10 @@ pm4n1e
 superabc
 superabco
 
+@source:mustache.cpp
+mustache                               //parent
+mustache01
+
 @source:mystwarr.cpp
 mtlchamp			//parent
 mmaulers			//parent
@@ -6099,6 +6109,7 @@ zupapa			// 070
 19yy01
 240ptest
 240ptest1
+68kng
 abyssal
 abyssal1
 akiradmo
@@ -6128,8 +6139,9 @@ cyborg1
 ddsprdmo
 ddsprdmo1
 didemo
-doubled
 doubled1
+doubled1a
+doubled1b
 dti			// Duck Tales Intro
 dtia		// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
@@ -6159,8 +6171,7 @@ lernit
 lhbb
 lhcdb		/* 2007 (c) Last Hope CD beta */
 lhcdba
-//lhopecd                              // broken; not working
-//lhopecdh                             // broken; not working
+//lhopecd                              // broken
 looptris
 looptrsp
 ltorb
@@ -6192,6 +6203,7 @@ neotrisd2
 neotrisd3
 nblktiger
 ng4ptest
+neopl
 ngem2k
 ngftdemo	// CeL
 ngmontst
@@ -8903,12 +8915,10 @@ nacho
 @source:zn.cpp
 coh1000c
 coh1002m
-coh1000w
 coh3002c
 doapp                                  //parent
 doapp01
 doapp02
-primrag2
 sfex                                   //parent
 sfex01
 sfex2                                  //parent
