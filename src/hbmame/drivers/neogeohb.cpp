@@ -2349,7 +2349,7 @@ ROM_START( goldaxen )
 ROM_END
 
 
-// 508: POW port by iq_132
+// 508: POW port by iq_132, converted from CD by Robbbert.
 // bugs: no music, because it's in separate wav files on the CD
 ROM_START( pown )
 	ROM_REGION( 0x100000, "maincpu", 0 )
