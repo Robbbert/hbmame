@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [sf2prime]            Street Fighter II': Prime (v0.45)
 
 
 
@@ -24,7 +25,7 @@ New Games
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.4)
 - [sf2prime3]           Street Fighter II': Prime (v0.3)
 - [sf2prime4]           Street Fighter II': Prime (v0.4)
-- [sf2prime]            Street Fighter II': Prime (v0.41)
+- [sf2prime41]          Street Fighter II': Prime (v0.41)
 
 
 

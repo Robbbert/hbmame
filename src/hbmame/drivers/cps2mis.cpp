@@ -6579,12 +6579,37 @@ ROM_START( sf2prime4 ) // v0.4
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-ROM_START( sf2prime ) // v0.41
+ROM_START( sf2prime41 ) // v0.41
 	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(8df8ef98) SHA1(06d694224ddedfe45d67c161ae761dd65f924b3b) )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(8f5382e9) SHA1(55365b19e599c4e1e8a6987be095546239a5e623) )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(82e8b3c0) SHA1(114abe3ff681b2f436b23646e0a14f9005a1b37b) )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(da43b431) SHA1(ff55405df5800f6f842757e251c57823cb47db60) )
+	ROM_LOAD16_WORD_SWAP( "c88pr41.p1", 0x000000, 0x80000, CRC(8df8ef98) SHA1(06d694224ddedfe45d67c161ae761dd65f924b3b) )
+	ROM_LOAD16_WORD_SWAP( "c88pr41.p2", 0x080000, 0x80000, CRC(8f5382e9) SHA1(55365b19e599c4e1e8a6987be095546239a5e623) )
+	ROM_LOAD16_WORD_SWAP( "c88pr41.p3", 0x100000, 0x80000, CRC(82e8b3c0) SHA1(114abe3ff681b2f436b23646e0a14f9005a1b37b) )
+	ROM_LOAD16_WORD_SWAP( "c88pr41.p4", 0x180000, 0x80000, CRC(da43b431) SHA1(ff55405df5800f6f842757e251c57823cb47db60) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c88pr.c1",   0x0000000, 0x800000, CRC(3e5b9c03) SHA1(6266816f894edfcbd7ed9bf50da9416f344ea304) )
+	ROM_LOAD64_WORD( "c88pr.c2",   0x0000002, 0x800000, CRC(b388618b) SHA1(115a47fff503a780229dbe1e3f2e3478811d9258) )
+	ROM_LOAD64_WORD( "c88pr.c3",   0x0000004, 0x800000, CRC(ca3ae557) SHA1(fa8748d2780c644d1e5fbf719dc8840191965683) )
+	ROM_LOAD64_WORD( "c88pr.c4",   0x0000006, 0x800000, CRC(b1d2a1ef) SHA1(91d670f9d40b16f9eac4269bab8d2a385945ffa2) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c88pr.m1",   0x00000, 0x08000, CRC(6ce233a7) SHA1(5ff00de2fa8f31e66c9518049828d532554cb316) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+	ROM_LOAD( "c88.m2",     0x28000, 0x20000, CRC(2d8794aa) SHA1(c634affdc2568020cce6af97b4fa79925d9943f3) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c88pr.q1",   0x000000, 0x800000, CRC(cd8b2d9f) SHA1(bc4965b1cb6c211cdcf29ab5988702abd82effbc) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+ROM_START( sf2prime ) // v0.45
+	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(8edd9043) SHA1(3e84ff7d18b095a95a31bcbcfe07a29e973d88bf) )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(cd728d92) SHA1(0462bc38d41d09e8fe056d126b4c3a9f0ffbe627) )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(a8a6c3d4) SHA1(3bc3353a4f479a5670a42461b5e5adab02d08baf) )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(c53e42ba) SHA1(0f10ed175ce073062dba4655d34b7d1f34e38176) )
 
 	ROM_REGION( 0x2000000, "gfx", 0 )
 	ROM_LOAD64_WORD( "c88pr.c1",   0x0000000, 0x800000, CRC(3e5b9c03) SHA1(6266816f894edfcbd7ed9bf50da9416f344ea304) )
@@ -7090,7 +7115,8 @@ GAME( 1999, gigawings01,gigawing, cps2,      cps2_2p2b, cps2_state, init_cps2, R
 // Hyper Street Fighter II
 GAME( 2025, sf2prime3,  hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.3)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sf2prime4,  hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.4)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.41)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sf2prime41, hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.41)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.45)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s02,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji/MasterStiller", "Hyper Street Fighter II: The Anniversary Edition (040202J, Enabled Hidden Characters In Normal Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s03,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blue-Ray", "Hyper Street Fighter II: The Anniversary Edition (031222J, Simplify The Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, hsf2s04,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Hyper Street Fighter II: The Anniversary Edition (031222J, Gouki Edition, 2018-07-29)", MACHINE_SUPPORTS_SAVE )
