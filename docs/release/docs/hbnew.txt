@@ -6,6 +6,8 @@
 
 New Games
 ---------------------------------
+- [pulstara]            Pulstar (alt 1)
+- [pulstar02]           Pulstar (alt 2)
 - [sf2prime]            Street Fighter II': Prime (v0.45)
 
 
