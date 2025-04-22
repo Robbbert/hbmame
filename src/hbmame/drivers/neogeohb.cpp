@@ -231,6 +231,7 @@ NUM GAME YEAR COMPANY                 TITLE
 609 09C8 2016 Blastar                 Christmas/Happy New Year 2017 demo
 610 09CC 2018 Blastar                 NGYM2610
 611 2009 2021 Blastar                 4-player multitab test
+612 07E1 2021 Blastar                 Neo Driftout Tech Demo
 613 0202 2001 Rastersoft              WW2 demo
 616 0202 2003 Charles Doty            Neogeo Demo
 620 1234 2004 BarfHappy               Neo Castlevania demo
@@ -251,6 +252,7 @@ NUM GAME YEAR COMPANY                 TITLE
 642 7777 2017 Cristiano Bei           Bad Apple demo
 642 BADA 2017 Cristiano Bei           Bad Apple demo (badappleb)
 643 0539 2023 Dekadence               68k Inside
+644 2025 2025 TTE                     Vaporous
 653 0052 2011 Furrtek                 Nyan Cat demo
 657 0052      Furrtek                 MVSTest01
 658 0052      Furrtek                 KnackiBalls
@@ -273,7 +275,6 @@ NUM GAME YEAR COMPANY                 TITLE
 688 7777 2018 Vasily Familiya         Shaman King demo
 689 7777 2019 Vasily Familiya         Venus Wars demo
 690 7777 2020 Vasily Familiya         Girl X Girl demo
-699 07E1 2021 Blastar                 Neo Driftout Tech Demo
 
 
 
@@ -2573,6 +2574,26 @@ ROM_START( ng4ptest )
 ROM_END
 
 
+// 612: Neo Driftout Tech Demo
+// No sound.
+// Bugs: Can get stuck in position 00
+ROM_START( ndo_a_td )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "612.p1", 0x000000, 0x080000, CRC(0b42acff) SHA1(3a52fdedf99acb9a49c2a952465766d1e2cf644d) )
+
+	NEO_SFIX_128K( "612.s1", CRC(00bef8e5) SHA1(e5523d896f04d92981bca4fe270b5f20ad699457) )
+
+	NEO_BIOS_AUDIO_64K( "612.m1", CRC(0125c35b) SHA1(e4d35447e18c2e398afb4d883fd02b620b4e299a) )
+
+	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "612.v1", 0x000000, 0x080000, CRC(23ce128d) SHA1(d6423525ffbb3a59c5fc2fc0f14dcddcfd8c5687) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "612.c1", 0x000000, 0x080000, CRC(3913d0d5) SHA1(c1bb4d336676828c5754f763bc75d310aed6d73f) )
+	ROM_LOAD16_BYTE( "612.c2", 0x000001, 0x080000, CRC(0a70ac8e) SHA1(b7371609001ff73907bee49f1e9944fdd269eaab) )
+ROM_END
+
+
 // 613 : WW2 demo by Rastersoft
 // No sound
 // The supplied m1 gives a Z80 ERROR, so it has been replaced.
@@ -3168,6 +3189,25 @@ ROM_START( 68kng )
 ROM_END
 
 
+// 644: Vaporous intro by TTE
+ROM_START( vaporous )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "644.p1",  0x000000, 0x100000, CRC(536517ca) SHA1(448cc860cb4e91e8a9ce9fcd24fe7a8b9e45c760) )
+
+	NEO_SFIX_128K( "644.s1", CRC(11ac8ba5) SHA1(c58496d0a2d7674b5eb6ec4809ac7c3ac8814825) )
+
+	NEO_BIOS_AUDIO_64K( "644.m1", CRC(1df9cbdc) SHA1(8d48cb63b7a05270e56b463539d1720f219e9003) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "644.v1",    0x000000, 0x400000, CRC(90f21f51) SHA1(302a8edbefa5a697d641cf39ce2932fa90219ed1) )
+	ROM_LOAD( "644.v2",    0x400000, 0x400000, CRC(3354e822) SHA1(0973b579f0951a905df176706157062ece512342) )
+
+	ROM_REGION( 0x1000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "644.c1",  0x000000, 0x800000, CRC(cd5b5b97) SHA1(6e2451343f159728869fa16879075ad741866866) )
+	ROM_LOAD16_BYTE( "644.c2",  0x000001, 0x800000, CRC(ecbcf96f) SHA1(bc875ab87cae1146d12d77f8dd17ce9b574ed080) )
+ROM_END
+
+
 // 653 : Nyan Cat demo by Furrtek
 // Movement keys will move nyancat around
 // Bugs: Insert Coin freezes HBMAME.
@@ -3749,25 +3789,6 @@ ROM_START( gxg )
 	ROM_LOAD( "690.c1", 0x000000, 0x086780, CRC(e0dbb8cc) SHA1(26963461716cc45cc2fab4fa820ae292ee82afb9) )
 ROM_END
 
-// 699: Neo Driftout Tech Demo
-// No sound.
-// Bugs: Can get stuck in position 00
-ROM_START( ndo_a_td )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "699.p1", 0x000000, 0x080000, CRC(0b42acff) SHA1(3a52fdedf99acb9a49c2a952465766d1e2cf644d) )
-
-	NEO_SFIX_128K( "699.s1", CRC(00bef8e5) SHA1(e5523d896f04d92981bca4fe270b5f20ad699457) )
-
-	NEO_BIOS_AUDIO_64K( "699.m1", CRC(0125c35b) SHA1(e4d35447e18c2e398afb4d883fd02b620b4e299a) )
-
-	ROM_REGION( 0x80000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "699.v1", 0x000000, 0x080000, CRC(23ce128d) SHA1(d6423525ffbb3a59c5fc2fc0f14dcddcfd8c5687) )
-
-	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "699.c1", 0x000000, 0x080000, CRC(3913d0d5) SHA1(c1bb4d336676828c5754f763bc75d310aed6d73f) )
-	ROM_LOAD16_BYTE( "699.c2", 0x000001, 0x080000, CRC(0a70ac8e) SHA1(b7371609001ff73907bee49f1e9944fdd269eaab) )
-ROM_END
-
 
 GAME( 2022, 19yy,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ/Elrayzeur", "19YY", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, 19yy01,       19yy,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Ichikyu Wai Wai/EKORZ", "19YY (early release)", MACHINE_SUPPORTS_SAVE )
@@ -3933,6 +3954,7 @@ GAME( 2012, timesupd,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2009, tmnti,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, tmntia,       tmnti,    neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Teenage Mutant Ninja Turtles (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, twister,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Twister in a mirror intro", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, vaporous,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "TTE", "Vaporous intro", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, venuswars,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Venus Wars demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2018, vlad2000,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Vladivostok 2000 demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
 GAME( 2001, ww2demo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "WW2demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
