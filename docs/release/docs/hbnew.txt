@@ -9,7 +9,8 @@ New Games
 - [gladmort]            Gladmort
 - [pulstara]            Pulstar (alt 1)
 - [pulstar02]           Pulstar (alt 2)
-- [sf2prime]            Street Fighter II': Prime (v0.45)
+- [sf2prime]            Street Fighter II': Prime (v0.50)
+- [sf2prime45]          Street Fighter II': Prime (v0.45)
 - [vaporous]            Vaporous intro
 
 
