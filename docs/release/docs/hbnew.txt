@@ -11,6 +11,7 @@ New Games
 - [pulstar02]           Pulstar (alt 2)
 - [sf2prime]            Street Fighter II': Prime (v0.50)
 - [sf2prime45]          Street Fighter II': Prime (v0.45)
+- [spkick]              Super Power Kick (beta 1)
 - [vaporous]            Vaporous intro
 
 

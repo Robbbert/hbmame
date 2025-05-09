@@ -976,8 +976,8 @@ void neogeo_state::neogeo_base(machine_config &config)
 
 	YM2610(config, m_ym, NEOGEO_YM2610_CLOCK);
 	m_ym->irq_handler().set_inputline(m_audiocpu, 0);
-	m_ym->add_route(0, "lspeaker", 0.28);
-	m_ym->add_route(0, "rspeaker", 0.28);
+	m_ym->add_route(0, "lspeaker", 0.84);
+	m_ym->add_route(0, "rspeaker", 0.84);
 	m_ym->add_route(1, "lspeaker", 0.98);
 	m_ym->add_route(2, "rspeaker", 0.98);
 	NEOGEO_BANKED_CART(config, "banked_cart");

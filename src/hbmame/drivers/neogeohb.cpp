@@ -212,6 +212,7 @@ NUM GAME YEAR COMPANY                 TITLE
 506 0283 2025 iq_132                  Karnov (Neo-Geo port)
 507 1338 2025 Hoffman                 Golden Axe (Neo-Geo port)
 508 1324 2025 iq_132                  P.O.W (Neo-Geo port)
+509 0539 2025 Kakoeimon               Super Power Kick
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2387,6 +2388,24 @@ ROM_START( pown )
 ROM_END
 
 
+// 509: Super Power Kick beta 1 by Kakoeimon
+ROM_START( spkick )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "509.p1", 0x000000, 0x100000, CRC(c61a5d8d) SHA1(309642eb4fd466ce8bf243d9f0ac292ac25b90d2) )
+
+	NEO_SFIX_MT(0x40000)
+	ROM_LOAD( "509.s1", 0x00000, 0x40000, CRC(8856e60b) SHA1(d695fcc77770782c753fa07a35c70963fb3f2cdb) )
+
+	NEO_BIOS_AUDIO_256K( "509.m1", CRC(52939569) SHA1(e612e7d1563b0ef9d1b607e6f487d70a476870f1) )
+
+	ROM_REGION( 0x100000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "509.v1",   0x000000, 0x100000, CRC(b1f6bcc0) SHA1(a134db583c6aa5f8f365381deed94634f7f745ad) )
+
+	ROM_REGION( 0x400000, "sprites", 0 )
+	ROM_LOAD( "509.c1",   0x0000000, 0x400000, CRC(0a6c2c38) SHA1(6a737433e3d52d4bc85af68b0b6b428113df83a9) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -3936,6 +3955,7 @@ GAME( 2025, shinobin1,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, shinobint,    shinobin, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Hoffman", "Shinobi Test (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, smi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Spiderman (Intro demo)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2015, snddemo,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Freem", "Sound-Loop Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, spkick,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Kakoeimon", "Super Power Kick (beta 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2011, spriteex,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Furrtek", "Sprite Experimenter", MACHINE_SUPPORTS_SAVE )
 GAME( 2000, syscheck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Neo System Check (ver 1.0b)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, teot_1,       teot,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "OzzyOuzo", "The Eye of Typhoon (Tsunami Edition, demo)", MACHINE_SUPPORTS_SAVE )
