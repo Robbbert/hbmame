@@ -1464,6 +1464,8 @@ rockman2k
 sf2prime
 sf2prime3
 sf2prime4
+sf2prime41
+sf2prime45
 sfas01
 sfas02
 sfas03
@@ -6155,6 +6157,7 @@ fr2ch		/* 098 (c) 1995 Video Systems Co. */
 galaxiann
 galaxiann2
 gbi
+gladmort
 gladmortd
 gladmortd2
 goldaxen
@@ -6240,9 +6243,10 @@ shaman20
 shinobin
 shinobin1
 shinobint
-smi			/* Spiderman intro */
-snddemo		// Sound-Loop Demo by Freem
-spriteex	// furrtek Sprite Experimenter
+smi
+snddemo
+spkick
+spriteex
 syscheck
 teot_1
 teot_2
@@ -6261,6 +6265,7 @@ tmnti		/* TMNT intro */
 tmntia
 totc		// Treasure of the Caribbean
 twister		// Blastar 2015
+vaporous
 //venuswars
 //vlad2000
 //ww2demo
@@ -6488,6 +6493,8 @@ neobombee
 neodrifte
 ninjamse
 pulstare
+pulstara
+pulstar02
 ragnagrde
 rbffspece
 roboarme

@@ -985,6 +985,59 @@ ROM_START( pnyaadd ) /* Decrypted C ROMs Set 2 Version -  Encrypted Sound */
 ROM_END
 
 
+ROM_START( pulstara )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "089.p1",  0x000000, 0x100000, CRC(5e5847a2) SHA1(b864d0ec4184b785569ddbf67c2115b5ab86ee3e) )
+	ROM_LOAD16_WORD_SWAP( "089a.p2", 0x100000, 0x100000, CRC(014ae068) SHA1(00972cbe0bef1e40c3fa9f8180f362baf12b92d4) )
+	ROM_LOAD16_WORD_SWAP( "089a.p3", 0x200000, 0x080000, CRC(f7d3b518) SHA1(7366ba525b6df217eb06c1952360c873080f28af) )
+	ROM_LOAD16_WORD_SWAP( "089a.p4", 0x280000, 0x080000, CRC(1cc1a997) SHA1(80fa2011f5bf0f38bedbe909b40121bbcc12ab41) )
+
+	NEO_SFIX_128K( "089.s1", CRC(c79fc2c8) SHA1(914c224fb3c461a68d7425cae724cf22bd5f985d) )
+
+	NEO_BIOS_AUDIO_128K( "089.m1", CRC(ff3df7c7) SHA1(59d2ef64f734f6026073b365300221909057a512) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "089.v1", 0x000000, 0x400000, CRC(6f726ecb) SHA1(e8e2a46af690ce6c7ee64a58ab5010d22df9548c) )
+	ROM_LOAD( "089.v2", 0x400000, 0x400000, CRC(9d2db551) SHA1(83f7e5db7fb1502ceadcd334df90b11b1bba78e5) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "089.c1", 0x0000000, 0x400000, CRC(f4e97332) SHA1(54693827a99836e7d61c45d495dd78bf3fcf1544) )
+	ROM_LOAD16_BYTE( "089.c2", 0x0000001, 0x400000, CRC(836d14da) SHA1(99cc4f9b764503eff7849ff2977d90bb47c5564a) )
+	ROM_LOAD16_BYTE( "089.c3", 0x0800000, 0x400000, CRC(913611c4) SHA1(9664eb1fe1e6f8c3ddeeff872d38ea920ed38a82) )
+	ROM_LOAD16_BYTE( "089.c4", 0x0800001, 0x400000, CRC(44cef0e3) SHA1(34f6f348ba86a2a06cb9c43a16b97cf6ee6158ac) )
+	ROM_LOAD16_BYTE( "089.c5", 0x1000000, 0x400000, CRC(89baa1d7) SHA1(976c745c44967de61e2a23227835be580b1d283a) )
+	ROM_LOAD16_BYTE( "089.c6", 0x1000001, 0x400000, CRC(b2594d56) SHA1(685c0bf8ff76c76e41c2ceaebb96349634cfdb2e) )
+	ROM_LOAD16_BYTE( "089.c7", 0x1800000, 0x200000, CRC(6a5618ca) SHA1(9a1d5f998b0dfabacf9dad45c94bef2bb43e5e0c) )
+	ROM_LOAD16_BYTE( "089.c8", 0x1800001, 0x200000, CRC(a223572d) SHA1(2791b1212f57937b2b2a95bc9e420c06d0c37669) )
+ROM_END
+
+ROM_START( pulstar02 )
+	ROM_REGION( 0x300000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "089s2.p1", 0x000000, 0x080000, CRC(2483b393) SHA1(c66f1166e9b8908c81b87be3be12bd46cda490da) )
+	ROM_LOAD16_WORD_SWAP( "089s2.p2", 0x080000, 0x080000, CRC(4d98a2f3) SHA1(8daeb569e6b6d42d63d2431a4c2e24d6ae30717a) )
+	ROM_LOAD16_WORD_SWAP( "089s2.p3", 0x100000, 0x100000, CRC(014ae068) SHA1(00972cbe0bef1e40c3fa9f8180f362baf12b92d4) )
+	ROM_LOAD16_WORD_SWAP( "089s2.p4", 0x200000, 0x100000, CRC(8c3c699c) SHA1(9178a86ea1409765221ea9c17df2daba6fe66027) )
+
+	NEO_SFIX_128K( "089.s1", CRC(c79fc2c8) SHA1(914c224fb3c461a68d7425cae724cf22bd5f985d) )
+
+	NEO_BIOS_AUDIO_128K( "089.m1", CRC(ff3df7c7) SHA1(59d2ef64f734f6026073b365300221909057a512) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "089.v1", 0x000000, 0x400000, CRC(6f726ecb) SHA1(e8e2a46af690ce6c7ee64a58ab5010d22df9548c) )
+	ROM_LOAD( "089.v2", 0x400000, 0x400000, CRC(9d2db551) SHA1(83f7e5db7fb1502ceadcd334df90b11b1bba78e5) )
+
+	ROM_REGION( 0x1c00000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "089.c1", 0x0000000, 0x400000, CRC(f4e97332) SHA1(54693827a99836e7d61c45d495dd78bf3fcf1544) )
+	ROM_LOAD16_BYTE( "089.c2", 0x0000001, 0x400000, CRC(836d14da) SHA1(99cc4f9b764503eff7849ff2977d90bb47c5564a) )
+	ROM_LOAD16_BYTE( "089.c3", 0x0800000, 0x400000, CRC(913611c4) SHA1(9664eb1fe1e6f8c3ddeeff872d38ea920ed38a82) )
+	ROM_LOAD16_BYTE( "089.c4", 0x0800001, 0x400000, CRC(44cef0e3) SHA1(34f6f348ba86a2a06cb9c43a16b97cf6ee6158ac) )
+	ROM_LOAD16_BYTE( "089.c5", 0x1000000, 0x400000, CRC(89baa1d7) SHA1(976c745c44967de61e2a23227835be580b1d283a) )
+	ROM_LOAD16_BYTE( "089.c6", 0x1000001, 0x400000, CRC(b2594d56) SHA1(685c0bf8ff76c76e41c2ceaebb96349634cfdb2e) )
+	ROM_LOAD16_BYTE( "089.c7", 0x1800000, 0x200000, CRC(6a5618ca) SHA1(9a1d5f998b0dfabacf9dad45c94bef2bb43e5e0c) )
+	ROM_LOAD16_BYTE( "089.c8", 0x1800001, 0x200000, CRC(a223572d) SHA1(2791b1212f57937b2b2a95bc9e420c06d0c37669) )
+ROM_END
+
+
 ROM_START( puzzledpk )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "202.p1", 0x000000, 0x080000, CRC(2b61415b) SHA1(0e3e4faf2fd6e63407425e1ac788003e75aeeb4f) )
@@ -4767,6 +4820,9 @@ GAME( 2015, nitd07,         nitd,     neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 1999, preisle2s01,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "EEZEZY", "Prehistoric Isle 2 (Plus)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, preisle2s02,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Yumekobo", "Prehistoric Isle 2 (decrypted C)", MACHINE_SUPPORTS_SAVE )
 GAME( 1999, preisle2s03,    preisle2, neogeo_noslot, neogeo, neogeo_state, init_cmc42sfix, ROT0, "Xyahzhs", "Prehistoric Isle 2 (Plus Max)", MACHINE_SUPPORTS_SAVE )
+// Pulstar
+GAME( 1995, pulstara,       pulstar,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Aicom", "Pulstar (alt 1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1995, pulstar02,      pulstar,  neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Aicom", "Pulstar (alt 2)", MACHINE_SUPPORTS_SAVE )
 // Puzzle De Pon
 GAME( 1995, puzzledpk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! (Korean)", MACHINE_SUPPORTS_SAVE )
 GAME( 1997, puzzldprk,      puzzledp, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle De Pon! R (Korean)", MACHINE_SUPPORTS_SAVE )
