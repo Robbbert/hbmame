@@ -741,6 +741,41 @@ ROM_START( nbajam04 )
 	ROM_LOAD32_BYTE( "nbajam02.uj23", 0x600003, 0x80000, CRC(b5bf66f9) SHA1(de12e47e44f9cf7c611d674fe6c9b3466fde2081) )
 ROM_END
 
+ROM_START( nbajam05 ) // nbajamse
+	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
+	ROM_LOAD(  "l1_nba_jam_tournament_u3_sound_rom.u3", 0x010000, 0x20000, CRC(d4551195) SHA1(e8908fbe4339fb8c93f7e74113dfd25dda1667ea) )
+	ROM_RELOAD(             0x030000, 0x20000 )
+
+	ROM_REGION( 0x100000, "adpcm:oki", 0 )
+	ROM_LOAD( "nbajam05.u12", 0x000000, 0x80000, CRC(7be1622b) SHA1(1b2bedc7c98bd01e5fbed9a97256d369f8ff67e7) )
+	ROM_LOAD( "nbajam05.u13", 0x080000, 0x80000, CRC(f939bfcb) SHA1(e3627afb539b56a355050f74efbb11b20becc768) )
+
+	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_BYTE( "nbajam05.uj12", 0x00000, 0x80000, CRC(08507007) SHA1(b900ce98dc0725c4cd5f6a1eeefffe1f7c910d2b) )
+	ROM_LOAD16_BYTE( "nbajam05.ug12", 0x00001, 0x80000, CRC(d784608e) SHA1(ed086f3d0a08392999f13cb576abecac06405484) )
+
+	ROM_REGION( 0xc00000, "gfxrom", 0 )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug14.ug14", 0x000000, 0x80000, CRC(04bb9f64) SHA1(9e1a8c37e14cb6fe67f4aa3caa9022f356f1ca64) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj14.uj14", 0x000001, 0x80000, CRC(b34b7af3) SHA1(0abb74d2f414bc9da0380a81beb134f3a87c1a0a) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_ug19.ug19", 0x000002, 0x80000, CRC(a8f22fbb) SHA1(514208a9d6d0c8c2d7847cc02d4387eac90be659) )
+	ROM_LOAD32_BYTE( "l1_nba_jam_tournament_game_rom_uj19.uj19", 0x000003, 0x80000, CRC(8130a8a2) SHA1(f23f124024285d07d8cf822817b62e42c38b82db) )
+
+	ROM_LOAD32_BYTE( "nbajam03.ug16", 0x200000, 0x80000, CRC(c8da980e) SHA1(a907d579e7ce699f14787d45110b0723e8ac8577) )
+	ROM_LOAD32_BYTE( "nbajam03.uj16", 0x200001, 0x80000, CRC(205c5fb7) SHA1(9e5ae65fb2d38643406149ffde081ee3845e1cd5) )
+	ROM_LOAD32_BYTE( "nbajam03.ug20", 0x200002, 0x80000, CRC(9cd4f985) SHA1(97ebe1df160803a2c48cbad48e66a7fba9e7f7f0) )
+	ROM_LOAD32_BYTE( "nbajam03.uj20", 0x200003, 0x80000, CRC(7a47f364) SHA1(55ef88680a5a26da3140fe49d1c102f472d41a89) )
+
+	ROM_LOAD32_BYTE( "nbajam03.ug17", 0x400000, 0x80000, CRC(1b7ddbe9) SHA1(198309e4eabd33f23b28b99a589cf54f8f5690e8) )
+	ROM_LOAD32_BYTE( "nbajam03.uj17", 0x400001, 0x80000, CRC(cb08465f) SHA1(856bd3475bed9652252ba14095e4bb56df7112ac) )
+	ROM_LOAD32_BYTE( "nbajam03.ug22", 0x400002, 0x80000, CRC(5427ca82) SHA1(bf206c8fd47e4fa93abf344fcb4f56ab7cdc9a14) )
+	ROM_LOAD32_BYTE( "nbajam03.uj22", 0x400003, 0x80000, CRC(569b1ae5) SHA1(c8f73b24b24bb50e9972a7ef4b94fdc3f3d4d70d) )
+
+	ROM_LOAD32_BYTE( "nbajam05.ug18", 0x600000, 0x80000, CRC(a182457b) SHA1(e9be2ab87afce3b36c4d7a28185cbb6904d0458a) )
+	ROM_LOAD32_BYTE( "nbajam05.uj18", 0x600001, 0x80000, CRC(ed6b08a5) SHA1(b80f151c64931370da228bec497aba41e40f12b7) )
+	ROM_LOAD32_BYTE( "nbajam05.ug23", 0x600002, 0x80000, CRC(7755db95) SHA1(e490a6994ac08d9337474bbfd0feb63633460ff1) )
+	ROM_LOAD32_BYTE( "nbajam05.uj23", 0x600003, 0x80000, CRC(a659b604) SHA1(89a498e75081f849197b2fd1da4d344cf997918d) )
+ROM_END
+
 // Inputs broken, problems with the sound
 ROM_START( roadkill )
 	ROM_REGION( 0x50000, "adpcm:cpu", 0 )
@@ -807,6 +842,7 @@ GAME( 1994, nbajam01,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_n
 GAME( 2022, nbajam02,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam03,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, nbajam04,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Rewind (rev 1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 2023, nbajam05,    nbajamte, tunit_adpcm, nbajamte, midtunit_state, init_nbajamte, ROT0, "Asure", "NBA Jam Tournament Edition SE (rev 5.02)", MACHINE_SUPPORTS_SAVE )
 // Roadkill
 GAME( 2023, roadkill,    0,        tunit_adpcm, nbajam,   midtunit_state, init_nbajamte, ROT0, "Midway", "Roadkill demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE ) // inputs broken
 
