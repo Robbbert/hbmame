@@ -6,6 +6,7 @@
 
 New Games
 ---------------------------------
+- [galapxis]            Galaxian Part X (Philip)
 - [nbajam05]            NBA Jam Tournament Edition SE (rev 5.02)
 - [sf2prime]            Street Fighter II': Prime (v0.55)
 - [spkick2]             Super Power Kick (beta 2)
