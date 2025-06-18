@@ -6,9 +6,10 @@
 
 New Games
 ---------------------------------
-- [galapxis]            Galaxian Part X (Philip)
+- [galapxis]            Galaxian Part X (Philip) [Darran]
 - [nbajam05]            NBA Jam Tournament Edition SE (rev 5.02)
-- [sf2prime]            Street Fighter II': Prime (v0.55)
+- [sf2prime55]          Street Fighter II': Prime (v0.55) [zero800]
+- [sf2prime]            Street Fighter II': Prime (v0.56) [zero800]
 - [spkick2]             Super Power Kick (beta 2)
 
 
@@ -22,8 +23,8 @@ New Games
 - [gladmort]            Gladmort
 - [pulstara]            Pulstar (alt 1)
 - [pulstar02]           Pulstar (alt 2)
-- [sf2prime5]           Street Fighter II': Prime (v0.50)
-- [sf2prime45]          Street Fighter II': Prime (v0.45)
+- [sf2prime5]           Street Fighter II': Prime (v0.50) [zero800]
+- [sf2prime45]          Street Fighter II': Prime (v0.45) [zero800]
 - [spkick]              Super Power Kick (beta 1)
 - [vaporous]            Vaporous intro
 
@@ -42,9 +43,9 @@ New Games
 - [pakupaku3]           Paku Paku (v0.03)
 - [roadkill]            Roadkill demo (problems with inputs and sound)
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.4)
-- [sf2prime3]           Street Fighter II': Prime (v0.3)
-- [sf2prime4]           Street Fighter II': Prime (v0.4)
-- [sf2prime41]          Street Fighter II': Prime (v0.41)
+- [sf2prime3]           Street Fighter II': Prime (v0.3) [zero800]
+- [sf2prime4]           Street Fighter II': Prime (v0.4) [zero800]
+- [sf2prime41]          Street Fighter II': Prime (v0.41) [zero800]
 
 
 
