@@ -6679,18 +6679,43 @@ ROM_START( sf2prime55 ) // v0.55 - press 9 to insert coin
 	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
 ROM_END
 
-ROM_START( sf2prime ) // v0.56 - press 9 to insert coin
+ROM_START( sf2prime56 ) // v0.56 - press 9 to insert coin
 	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(4178d05d) SHA1(8fd77f28888d920e98fd6931881a4d53bb881f17) )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(09e9f78b) SHA1(7904f92f604ed0546f4a9c3f2d24f16f7cd90c35) )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(b020c201) SHA1(2745f63e768dc33514b68183d06adbba82839434) )
-	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(0b960430) SHA1(ebde7895fefff69e584a71cebe0ef03276121873) )
+	ROM_LOAD16_WORD_SWAP( "c88pr56.p1", 0x000000, 0x80000, CRC(4178d05d) SHA1(8fd77f28888d920e98fd6931881a4d53bb881f17) )
+	ROM_LOAD16_WORD_SWAP( "c88pr56.p2", 0x080000, 0x80000, CRC(09e9f78b) SHA1(7904f92f604ed0546f4a9c3f2d24f16f7cd90c35) )
+	ROM_LOAD16_WORD_SWAP( "c88pr56.p3", 0x100000, 0x80000, CRC(b020c201) SHA1(2745f63e768dc33514b68183d06adbba82839434) )
+	ROM_LOAD16_WORD_SWAP( "c88pr56.p4", 0x180000, 0x80000, CRC(0b960430) SHA1(ebde7895fefff69e584a71cebe0ef03276121873) )
 
 	ROM_REGION( 0x2000000, "gfx", 0 )
-	ROM_LOAD64_WORD( "c88pr.c1",   0x0000000, 0x800000, CRC(fb796487) SHA1(20a3ad6b2421c91d1d33db17a9bf473c7ed068b0) )
-	ROM_LOAD64_WORD( "c88pr.c2",   0x0000002, 0x800000, CRC(f5419f30) SHA1(24eb1dff53bfb10cdc882fd391b31c9d565bf94d) )
-	ROM_LOAD64_WORD( "c88pr.c3",   0x0000004, 0x800000, CRC(8266131f) SHA1(426b553860ac8770eaa51282e21d5e3f5d199da6) )
-	ROM_LOAD64_WORD( "c88pr.c4",   0x0000006, 0x800000, CRC(d6cc4ba6) SHA1(d3818f1c58fa995214eed0e04ab9a913ff657c7a) )
+	ROM_LOAD64_WORD( "c88pr56.c1",   0x0000000, 0x800000, CRC(fb796487) SHA1(20a3ad6b2421c91d1d33db17a9bf473c7ed068b0) )
+	ROM_LOAD64_WORD( "c88pr56.c2",   0x0000002, 0x800000, CRC(f5419f30) SHA1(24eb1dff53bfb10cdc882fd391b31c9d565bf94d) )
+	ROM_LOAD64_WORD( "c88pr56.c3",   0x0000004, 0x800000, CRC(8266131f) SHA1(426b553860ac8770eaa51282e21d5e3f5d199da6) )
+	ROM_LOAD64_WORD( "c88pr56.c4",   0x0000006, 0x800000, CRC(d6cc4ba6) SHA1(d3818f1c58fa995214eed0e04ab9a913ff657c7a) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c88pr.m1",   0x00000, 0x08000, CRC(6ce233a7) SHA1(5ff00de2fa8f31e66c9518049828d532554cb316) )
+	ROM_CONTINUE(           0x10000, 0x18000 )
+	ROM_LOAD( "c88.m2",     0x28000, 0x20000, CRC(2d8794aa) SHA1(c634affdc2568020cce6af97b4fa79925d9943f3) )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c88pr.q1",   0x000000, 0x800000, CRC(cd8b2d9f) SHA1(bc4965b1cb6c211cdcf29ab5988702abd82effbc) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "phoenix.key",  0x00, 0x14, CRC(2cf772b0) SHA1(eff33c65a4f3862c231f9e4d6fefa7b34398dbf2) )
+ROM_END
+
+ROM_START( sf2prime ) // v0.57 - press 9 to insert coin
+	ROM_REGION( CODE_SIZE, "maincpu", ROMREGION_ERASEFF )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p1", 0x000000, 0x80000, CRC(bd9f494e) SHA1(5e2faaeb6e7c6eb9e17da3898f750ff33a0686aa) )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p2", 0x080000, 0x80000, CRC(b8226d94) SHA1(60ebe8e48437d29b66d750050c10c7491e7506b5) )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p3", 0x100000, 0x80000, CRC(e10a0cce) SHA1(88bf3fba5471c65361f9ddb6ce6d11525abf8e61) )
+	ROM_LOAD16_WORD_SWAP( "c88pr.p4", 0x180000, 0x80000, CRC(b3bba0ee) SHA1(ddb39146286dbc11ebb59d2606a151a652d65a3b) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c88pr.c1",   0x0000000, 0x800000, CRC(ca94dc69) SHA1(94f27fd924e19b05ed80eabaeab695a95b2e2482) )
+	ROM_LOAD64_WORD( "c88pr.c2",   0x0000002, 0x800000, CRC(ac2dc86a) SHA1(98fee6f5e53f6aa3a7d5dd076586bd68b970750f) )
+	ROM_LOAD64_WORD( "c88pr.c3",   0x0000004, 0x800000, CRC(7b87fb74) SHA1(b37618f06496752c089eb159dde0d1c7680723e7) )
+	ROM_LOAD64_WORD( "c88pr.c4",   0x0000006, 0x800000, CRC(e9af9e3f) SHA1(e8cf7778d7851078681013824067efc50b615949) )
 
 	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
 	ROM_LOAD( "c88pr.m1",   0x00000, 0x08000, CRC(6ce233a7) SHA1(5ff00de2fa8f31e66c9518049828d532554cb316) )
@@ -7194,7 +7219,8 @@ GAME( 2025, sf2prime41, hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2025, sf2prime45, hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.45)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sf2prime5,  hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.50)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, sf2prime55, hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.55)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.56)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sf2prime56, hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.56)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sf2prime,   hsf2,     dead_cps2, cps2_2p6b, cps2_state, init_cps2, ROT0, "Zero800", "Street Fighter II': Prime (v0.57)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s02,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Yumeji/MasterStiller", "Hyper Street Fighter II: The Anniversary Edition (040202J, Enabled Hidden Characters In Normal Mode)", MACHINE_SUPPORTS_SAVE )
 GAME( 2004, hsf2s03,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "Blue-Ray", "Hyper Street Fighter II: The Anniversary Edition (031222J, Simplify The Move)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, hsf2s04,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Hyper Street Fighter II: The Anniversary Edition (031222J, Gouki Edition, 2018-07-29)", MACHINE_SUPPORTS_SAVE )
