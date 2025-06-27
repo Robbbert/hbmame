@@ -213,6 +213,7 @@ NUM GAME YEAR COMPANY                 TITLE
 507 1338 2025 Hoffman                 Golden Axe (Neo-Geo port)
 508 1324 2025 iq_132                  P.O.W (Neo-Geo port)
 509 0539 2025 Kakoeimon               Super Power Kick
+510 1320 2024 iq_132                  Atomic Runner Chelnov (Neo-Geo port)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2423,6 +2424,25 @@ ROM_START( spkick2 )
 ROM_END
 
 
+// 510: Atomic Runner Chelnov port by iq_132, converted from CD by Robbbert.
+// bugs: no music, because it's in separate wav files on the CD
+ROM_START( chelnovn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD( "510.p1", 0x000000, 0x2c000, CRC(cfc064f2) SHA1(61c221dfd3a75a89257a1227fa0c079637218156) )
+	ROM_LOAD( "510.p2", 0x040000, 0x11400, CRC(624ceaaa) SHA1(759d099a316f4a4c39ec5753ffbb4c4e639ca7f8) )
+
+	NEO_SFIX_128K( "510.s1", CRC(3f86c046) SHA1(52262fda22c44d93a0b367f86df1111bff63949c) )
+
+	NEO_BIOS_AUDIO_64K( "510.m1", CRC(f675a58e) SHA1(71d78ace6e0bbe25094a15d953b8660be8a81328) )
+
+	ROM_REGION( 0x40000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "510.v1",   0x000000, 0x35e00, CRC(ae367d92) SHA1(3af5d584820835aee3a1c6ab21f9c76670befdb0) )
+
+	ROM_REGION( 0x80000, "sprites", 0 )
+	ROM_LOAD( "510.c1",   0x000000, 0x80000, CRC(d8eed0b2) SHA1(ff3c81737e7045c9a39f104bf7f48406bf8895d5) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -3860,6 +3880,7 @@ GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2021, cabalng,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, cabalng1,     cabalng,  neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Cabal (Neo-Geo port, sprite fix)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, caravan,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Fullset", "Project Neon Caravan Edition (Prealpha 0.4.19)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, chelnovn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_cdc,      ROT0, "iq132", "Atomic Runner Chelnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2006, cnbe,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2006-01-19)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, cnbe2018,     cnbe,     neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Codename: Blut Engel (2018-09-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, cndi,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Chip n Dale (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
