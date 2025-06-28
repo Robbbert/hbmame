@@ -11,7 +11,8 @@ New Games
 - [nbajam05]            NBA Jam Tournament Edition SE (rev 5.02)
 - [sf2prime55]          Street Fighter II': Prime (v0.55) [zero800]
 - [sf2prime56]          Street Fighter II': Prime (v0.56) [zero800]
-- [sf2prime]            Street Fighter II': Prime (v0.57) [zero800]
+- [sf2prime57]          Street Fighter II': Prime (v0.57) [zero800]
+- [sf2prime]            Street Fighter II': Prime (v0.59) [zero800]
 - [spkick2]             Super Power Kick (beta 2)
 
 
