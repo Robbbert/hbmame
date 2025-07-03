@@ -14,6 +14,7 @@ New Games
 - [sf2prime57]          Street Fighter II': Prime (v0.57) [zero800]
 - [sf2prime]            Street Fighter II': Prime (v0.59) [zero800]
 - [spkick2]             Super Power Kick (beta 2)
+- [y_test]              Midway Y-unit Test Rom v1.40
 
 
 
