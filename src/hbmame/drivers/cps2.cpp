@@ -527,12 +527,12 @@ static void expand_1st_key(u32 *dstkey, const u32 *srckey)
 		20,  8, 55, 54, 59, 60,
 		27, 33, 35, 18,  8, 15,
 		63,  1, 50, 44, 16, 46,
-			5,  4, 45, 51, 38, 25,
+		5,  4, 45, 51, 38, 25,
 		13, 11, 62, 29, 48,  2,
 		59, 61, 62, 56, 51, 57,
 		54,  9, 24, 63, 22,  7,
 		26, 42, 45, 40, 23, 14,
-			2, 31, 52, 28, 44, 17,
+		2, 31, 52, 28, 44, 17,
 	};
 	int i;
 
@@ -590,9 +590,9 @@ static void expand_subkey(u32* subkey, u16 seed)
 	// Note that each row of the table is a permutation of the seed bits.
 	static const int bits[64] =
 	{
-			5, 10, 14,  9,  4,  0, 15,  6,  1,  8,  3,  2, 12,  7, 13, 11,
-			5, 12,  7,  2, 13, 11,  9, 14,  4,  1,  6, 10,  8,  0, 15,  3,
-			4, 10,  2,  0,  6,  9, 12,  1, 11,  7, 15,  8, 13,  5, 14,  3,
+		5, 10, 14,  9,  4,  0, 15,  6,  1,  8,  3,  2, 12,  7, 13, 11,
+		5, 12,  7,  2, 13, 11,  9, 14,  4,  1,  6, 10,  8,  0, 15,  3,
+		4, 10,  2,  0,  6,  9, 12,  1, 11,  7, 15,  8, 13,  5, 14,  3,
 		14, 11, 12,  7,  4,  5,  2, 10,  1, 15,  0,  9,  8,  6, 13,  3,
 	};
 	int i;
@@ -607,7 +607,8 @@ static void expand_subkey(u32* subkey, u16 seed)
 
 
 static u16 feistel(u16 val, const int *bitsA, const int *bitsB,
-		const struct optimised_sbox* boxes1, const struct optimised_sbox* boxes2, const struct optimised_sbox* boxes3, const struct optimised_sbox* boxes4,
+		const struct optimised_sbox* boxes1, const struct optimised_sbox* boxes2,
+		const struct optimised_sbox* boxes3, const struct optimised_sbox* boxes4,
 		u32 key1, u32 key2, u32 key3, u32 key4)
 {
 	u8 l = bitswap<8>(val, bitsB[7],bitsB[6],bitsB[5],bitsB[4],bitsB[3],bitsB[2],bitsB[1],bitsB[0]);
@@ -641,10 +642,9 @@ static u16 feistel(u16 val, const int *bitsA, const int *bitsB,
 
 static int extract_inputs(u32 val, const int *inputs)
 {
-	int i;
 	int res = 0;
 
-	for (i = 0; i < 6; ++i)
+	for (u8 i = 0; i < 6; ++i)
 	{
 		if (inputs[i] != -1)
 			res |= BIT(val, inputs[i]) << i;
@@ -657,17 +657,13 @@ static int extract_inputs(u32 val, const int *inputs)
 
 static void optimise_sboxes(struct optimised_sbox* out, const struct sbox* in)
 {
-	int box;
+	int box, i;
 
 	for (box = 0; box < 4; ++box)
 	{
-		int i;
-
 		// precalculate the input lookup
 		for (i = 0; i < 256; ++i)
-		{
 			out[box].input_lookup[i] = extract_inputs(i, in[box].inputs);
-		}
 
 		// precalculate the output masks
 		for (i = 0; i < 64; ++i)
@@ -688,7 +684,7 @@ static void optimise_sboxes(struct optimised_sbox* out, const struct sbox* in)
 static void cps2_decrypt(running_machine &machine, u16 *rom, u16 *dec, int length, const u32 *master_key, u32 lower_limit, u32 upper_limit)
 {
 	int i;
-	u32 key1[4];
+	u32 key1[4] = { };
 	struct optimised_sbox sboxes1[4*4];
 	struct optimised_sbox sboxes2[4*4];
 
@@ -716,10 +712,10 @@ static void cps2_decrypt(running_machine &machine, u16 *rom, u16 *dec, int lengt
 
 	for (i = 0; i < 0x10000; ++i)
 	{
-		int a;
-		u16 seed;
-		u32 subkey[2];
-		u32 key2[4];
+		int a = 0;
+		u16 seed = 0;
+		u32 subkey[2] = { };
+		u32 key2[4] = { };
 
 		if ((i & 0xff) == 0)
 		{
@@ -728,12 +724,10 @@ static void cps2_decrypt(running_machine &machine, u16 *rom, u16 *dec, int lengt
 			machine.ui().set_startup_text(loadingMessage,false);
 		}
 
-
 		// pass the address through FN1
 		seed = feistel(i, fn1_groupA, fn1_groupB,
 				&sboxes1[0*4], &sboxes1[1*4], &sboxes1[2*4], &sboxes1[3*4],
 				key1[0], key1[1], key1[2], key1[3]);
-
 
 		// expand the result to 64-bit
 		expand_subkey(subkey, seed);
@@ -766,9 +760,7 @@ static void cps2_decrypt(running_machine &machine, u16 *rom, u16 *dec, int lengt
 					key2[0], key2[1], key2[2], key2[3]);
 			}
 			else
-			{
 				dec[a] = rom[a];
-			}
 		}
 	}
 }
@@ -784,22 +776,18 @@ void cps2_state::init_cps2crypt()
 {
 	if (m_region_key)
 	{
-		u32 key[2];
-		u32 lower;
-		u32 upper;
+		u32 key[2] = { };
+		u32 upper, lower = 0;
 
-		int b;
+		unsigned short decoded[10] = { };
+		//memset(decoded, 0, sizeof(decoded));
 
-		unsigned short decoded[10];
-		memset(decoded, 0, sizeof(decoded));
-
-		for (b = 0; b < 10 * 16; b++)
+		for (int b = 0; b < 10 * 16; b++)
 		{
 			int bit = (317 - b) % 160;
+
 			if ((m_region_key->base()[bit / 8] >> ((bit ^ 7) % 8)) & 1)
-			{
 				decoded[b / 16] |= (0x8000 >> (b % 16));
-			}
 		}
 
 		key[0] = (decoded[0] << 16) | decoded[1];
@@ -818,10 +806,7 @@ void cps2_state::init_cps2crypt()
 			lower = 0xff0000;
 		}
 		else
-		{
 			upper = (((~decoded[9] & 0x3ff) << 14) | 0x3fff) + 1;
-			lower = 0;
-		}
 
 		logerror("cps2 decrypt 0x%08x,0x%08x,0x%08x,0x%08x\n", key[0], key[1], lower, upper);
 
@@ -1557,12 +1542,11 @@ MACHINE_START_MEMBER(cps2_state,cps2)
 }
 
 
-void cps2_state::cps2(machine_config &config)
+void cps2_state::dead_cps2(machine_config &config)
 {
 	/* basic machine hardware */
 	M68000(config, m_maincpu, XTAL(16'000'000));
-	m_maincpu->set_addrmap(AS_PROGRAM, &cps2_state::cps2_map);
-	m_maincpu->set_addrmap(AS_OPCODES, &cps2_state::decrypted_opcodes_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps2_state::dead_cps2_map);
 	TIMER(config, "scantimer").configure_scanline(FUNC(cps2_state::cps2_interrupt), "screen", 0, 1);
 
 	Z80(config, m_audiocpu, XTAL(8'000'000));
@@ -1596,11 +1580,12 @@ void cps2_state::cps2(machine_config &config)
 }
 
 
-void cps2_state::dead_cps2(machine_config &config)
+void cps2_state::cps2(machine_config &config)
 {
-	cps2(config);
+	dead_cps2(config);
 
-	m_maincpu->set_addrmap(AS_PROGRAM, &cps2_state::dead_cps2_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &cps2_state::cps2_map);
+	m_maincpu->set_addrmap(AS_OPCODES, &cps2_state::decrypted_opcodes_map);
 }
 
 void cps2_state::gigaman2(machine_config &config)
