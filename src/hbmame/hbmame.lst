@@ -1473,6 +1473,7 @@ sf2prime5
 sf2prime55
 sf2prime56
 sf2prime57
+sf2prime59
 sfas01
 sfas02
 sfas03
@@ -4505,14 +4506,16 @@ umk3plus20190921
 umk3plus20220307                       // umk3pb2
 
 @source:midyunit.cpp
-mkla4d				/* MK protection hack */
+smashtv                                //parent
+mkla4d                                 // MK protection hack
+y_test
 
 @source:missile.cpp
-missile				//parent
-missilet			// Tesla variant
+missile                                //parent
+missilet                               // Tesla variant
 
 @source:mitchell.cpp
-mitcdemo			/* Charles Doty */
+mitcdemo
 pang                                   //parent
 pangbolds01
 
