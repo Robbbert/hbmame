@@ -7075,6 +7075,66 @@ ROM_START( hsf2s15 ) // difficulty fix
 ROM_END
 
 /*******************
+  Mars Matrix
+********************/
+ROM_START( mmatrix01 ) // trap15 unfuck version
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c82s01.p1", 0x000000, 0x80000, CRC(a578097b) SHA1(7d7153d58930d07aca61b9cddab650b687db51ff) )
+	ROM_LOAD16_WORD_SWAP( "c82.p2",    0x080000, 0x80000, CRC(0135fc6c) SHA1(e40c8fa51dcb300b3ee72dc7de137e0b39dea490) )
+	ROM_LOAD16_WORD_SWAP( "c82s01.p3", 0x100000, 0x80000, CRC(a1fbd3d8) SHA1(87a2494c88de302b10bb70a218d74ccf6b3b59a8) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c82.c1",   0x0000000, 0x400000, CRC(04748718) SHA1(d2e84d9dcc779c08469d815ccd709f30705954b8) )
+	ROM_LOAD64_WORD( "c82.c2",   0x0000002, 0x400000, CRC(38074f44) SHA1(2002c4862c156b314bc4f3372b713c48e0667ec3) )
+	ROM_LOAD64_WORD( "c82.c3",   0x0000004, 0x400000, CRC(e4635e35) SHA1(48ef7a82df83b981ddd6138c241ca129ab770e8e) )
+	ROM_LOAD64_WORD( "c82.c4",   0x0000006, 0x400000, CRC(4400a3f2) SHA1(d0aa805ccbb153896e5983da1c398d1df4f40371) )
+	ROM_LOAD64_WORD( "c82.c5",   0x1000000, 0x400000, CRC(d52bf491) SHA1(2398895cfdcf86fc485472e33df2cc446539e977) )
+	ROM_LOAD64_WORD( "c82.c6",   0x1000002, 0x400000, CRC(23f70780) SHA1(691ee8964815b0ce54704e7feb59ca79b634f26d) )
+	ROM_LOAD64_WORD( "c82.c7",   0x1000004, 0x400000, CRC(2562c9d5) SHA1(e7defc3d33db632c4035ae069f2f2332c58afaf5) )
+	ROM_LOAD64_WORD( "c82.c8",   0x1000006, 0x400000, CRC(583a9687) SHA1(1d0b08b1e88509245db3c2090f0201938fd750b4) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c82s01.01",   0x00000, 0x08000, CRC(45a29ce5) SHA1(f06f4479188c21e8be08797e4d86769c85aaaa1b) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c82.q1",   0x000000, 0x400000, CRC(4180b39f) SHA1(cabb1c358eae1bb6cfed07f5b92e4acd38650667) )
+	ROM_LOAD16_WORD_SWAP( "c82.q2",   0x400000, 0x400000, CRC(95e22a59) SHA1(b3431d170c0a1a0d826ad0af21300b9180e3f114) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "mmatrix.key", 0x000000, 0x000014, CRC(8ed66bc4) SHA1(324d7bf9d95220ecab140b1385eba7087f1a9669) )
+ROM_END
+
+ROM_START( mmatrixj01 ) // trap15 unfuck version
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c82j01.p1", 0x000000, 0x80000, CRC(dec3c9da) SHA1(91cfecd18ac3181387355e7b43ae8466b44ccb53) )
+	ROM_LOAD16_WORD_SWAP( "c82j.p2",   0x080000, 0x80000, CRC(d943a339) SHA1(ae3d217b35f92fc727bda3b14f13f3658dab3dd8) )
+	ROM_LOAD16_WORD_SWAP( "c82j01.p3", 0x100000, 0x80000, CRC(c1a306fa) SHA1(3c7f2b4c86b8e96b13802bb942c6a7fbff041c86) )
+
+	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c82.c1",   0x0000000, 0x400000, CRC(04748718) SHA1(d2e84d9dcc779c08469d815ccd709f30705954b8) )
+	ROM_LOAD64_WORD( "c82.c2",   0x0000002, 0x400000, CRC(38074f44) SHA1(2002c4862c156b314bc4f3372b713c48e0667ec3) )
+	ROM_LOAD64_WORD( "c82.c3",   0x0000004, 0x400000, CRC(e4635e35) SHA1(48ef7a82df83b981ddd6138c241ca129ab770e8e) )
+	ROM_LOAD64_WORD( "c82.c4",   0x0000006, 0x400000, CRC(4400a3f2) SHA1(d0aa805ccbb153896e5983da1c398d1df4f40371) )
+	ROM_LOAD64_WORD( "c82.c5",   0x1000000, 0x400000, CRC(d52bf491) SHA1(2398895cfdcf86fc485472e33df2cc446539e977) )
+	ROM_LOAD64_WORD( "c82.c6",   0x1000002, 0x400000, CRC(23f70780) SHA1(691ee8964815b0ce54704e7feb59ca79b634f26d) )
+	ROM_LOAD64_WORD( "c82.c7",   0x1000004, 0x400000, CRC(2562c9d5) SHA1(e7defc3d33db632c4035ae069f2f2332c58afaf5) )
+	ROM_LOAD64_WORD( "c82.c8",   0x1000006, 0x400000, CRC(583a9687) SHA1(1d0b08b1e88509245db3c2090f0201938fd750b4) )
+
+	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
+	ROM_LOAD( "c82s01.m1",   0x00000, 0x08000, CRC(45a29ce5) SHA1(f06f4479188c21e8be08797e4d86769c85aaaa1b) )
+	ROM_CONTINUE(         0x10000, 0x18000 )
+
+	ROM_REGION( 0x800000, "qsound", 0 )
+	ROM_LOAD16_WORD_SWAP( "c82.q1",   0x000000, 0x400000, CRC(4180b39f) SHA1(cabb1c358eae1bb6cfed07f5b92e4acd38650667) )
+	ROM_LOAD16_WORD_SWAP( "c82.q2",   0x400000, 0x400000, CRC(95e22a59) SHA1(b3431d170c0a1a0d826ad0af21300b9180e3f114) )
+
+	ROM_REGION( 0x20, "key", 0 )
+	ROM_LOAD( "mmatrixj.key", 0x000000, 0x000014, CRC(3b50d889) SHA1(fb749a5da0a799322ec131a15a017971e586c5fc) )
+ROM_END
+
+
+/*******************
   Misc hacks
 ********************/
 ROM_START( ffightaec2 ) // ffightae_cps2
@@ -7175,6 +7235,9 @@ GAME( 2004, hsf2s14,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2024, hsf2s15,    hsf2,     cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Hyper Street Fighter II: The Anniversary Edition (040202U, difficulty fix)", MACHINE_SUPPORTS_SAVE )
 // Rockman 2
 GAME( 1996, rockman2k,  megaman2, cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "hack", "Rockman 2: The Power Fighters (960708, Korea)", MACHINE_SUPPORTS_SAVE )
+// Mars Matrix
+GAME( 2025, mmatrix01,  mmatrix,  cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Trap15", "Mars Matrix: Hyper Solid Shooting (250412U)(improvement)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, mmatrixj01, mmatrix,  cps2,      cps2_2p3b, cps2_state, init_cps2, ROT0, "Trap15", "Mars Matrix: Hyper Solid Shooting (250412J)(improvement)", MACHINE_SUPPORTS_SAVE )
 // Marvel Super Heroes
 GAME( 2014, mshs01,     msh,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Marvel Super Heroes (951117J, Rise Again, 2014-12-24)", MACHINE_SUPPORTS_SAVE )
 GAME( 2015, mshs02,     msh,      cps2,      cps2_2p6b, cps2_state, init_cps2, ROT0, "hack", "Marvel Super Heroes (951024E, Enhanced Edition, 2015-12-04)", MACHINE_SUPPORTS_SAVE )
@@ -7361,11 +7424,11 @@ GAME( 1996, xmvsfs07,   xmvsf,    cps2,      cps2_2p6b, cps2_state, init_cps2, R
 GAME( 2022, ffightaec2, 0,        dead_cps2, cps2_3p3b, cps2_state, init_cps2, ROT0, "Grego and Gnawtor", "Fight Fight Anniversary Edition (CPS2 hardware)", MACHINE_SUPPORTS_SAVE )
 
 
-ROM_START( cps2xx )  // not working, black screen
+ROM_START( cps2xx )  // not working, bad tiles
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD( "cps2xx.68k",      0x000000, 0x010000, CRC(8414c946) SHA1(154f8dc8f86e1dd97f0455da6a1c72efa41a19e0) )
 
-	ROM_REGION( 0x2000000, "gfx", 0 )
+	ROM_REGION( 0x400000, "gfx", 0 )
 	ROM_LOAD( "cps2xx.tile",     0x000000, 0x400000, CRC(eb9d5a2b) SHA1(61335ce00c2c6cec8a1302dbe6644f8cffc6ac9b) )
 
 	ROM_REGION( QSOUND_SIZE, "audiocpu", 0 )
@@ -7376,5 +7439,5 @@ ROM_START( cps2xx )  // not working, black screen
 	ROM_LOAD( "cps2xx.qs", 0x000000, 0x400000, CRC(627be4da) SHA1(bf7c98ff6dc8921794c26a51846caf0cb834a3e9) )
 ROM_END
 
-GAME( 2008, cps2xx, 0, dead_cps2, cps2_2p2b, cps2_state, init_cps2, ROT0, "hack", "CPS2XX demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
+GAME( 2008, cps2xx, 0, dead_cps2, cps2_2p2b, cps2_state, init_cps2nc, ROT0, "hack", "CPS2XX demo", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 
