@@ -751,7 +751,7 @@ std::string load_driver_geninfo(const game_driver *drv, int drvindex)
 		if (g != -1)
 			drv = &driver_list::driver(g);
 
-		buffer.append("\nORIGINAL:\n");
+		buffer.append("\nPARENT:\n");
 		buffer.append(drv->type.fullname());
 		buffer.append("\n\nCLONES:\n");
 

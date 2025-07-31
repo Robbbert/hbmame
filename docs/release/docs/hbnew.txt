@@ -3,6 +3,7 @@
 
 2025-0x-xx 0.245.26
 
+- HBMAMEUI: Changed reference of "Originals" to "Parents".
 
 New Games
 ---------------------------------
@@ -1720,7 +1721,7 @@ New Games
 2020-03-25 0.220
 
 - Metal Slug 4 and 5 the remix has been updated
-- The serious graphic problem that some PGM system games have has been solved 
+- The serious graphic problem that some PGM system games have has been solved
 
 New Games
 ---------------------------------
@@ -2047,7 +2048,7 @@ New Games
 - [sf2ces30]          Street Fighter II': Champion Edition (3 Questions Edition Simplify The Move 2019-10-21)
 - [sf2ces31]          Street Fighter II': Champion Edition (Question Mark Edition 2019-10-21)
 - [sf2ces32]          Street Fighter II': Champion Edition (Question Mark Edition Simplify The Move 2019-10-21)
-- [tk2h147]           Tenchi wo Kurau II (Daren Edition 2019-10-21) 
+- [tk2h147]           Tenchi wo Kurau II (Daren Edition 2019-10-21)
 
 
 
@@ -2939,7 +2940,7 @@ New Games
 
 New Games
 ---------------------------------
-- [dinos142]          Cadillacs and Dinosaurs (Fast Fight Blood Battle Version 2018 Tour Version)   
+- [dinos142]          Cadillacs and Dinosaurs (Fast Fight Blood Battle Version 2018 Tour Version)
 - [ffightj2s01]       Final Fight (Ming Yun Wu Shuang Edition 2016 [161024] )
 - [gnw_bride]         Game & Watch: Bride [by Montrose]
 - [gnw_squeeze]       Game & Watch: Squeeze [by Montrose]
