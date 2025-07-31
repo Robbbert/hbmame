@@ -18,6 +18,7 @@ New Games
 - [sf2prime59]          Street Fighter II': Prime (v0.59) [zero800]
 - [sf2prime]            Street Fighter II': Prime (v0.60) [zero800]
 - [spkick2]             Super Power Kick (beta 2)
+- [turfmast01]          Neo Turf Masters - Course and Pin Randomiser v0.1
 - [y_test]              Midway Y-unit Test Rom v1.40
 
 
