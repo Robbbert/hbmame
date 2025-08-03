@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [chelnovn]            Atomic Runner Chelnov (Neo-Geo port) [iq_132]
 - [galapxis]            Galaxian Part X (Philip) [Darran]
+- [mk07]                Mortal Kombat Plus (v5.0.0741)
 - [mmatrix01]           Mars Matrix: Hyper Solid Shooting (250412U)(improvement) [Trap15]
 - [mmatrixj01]          Mars Matrix: Hyper Solid Shooting (250412J)(improvement) [Trap15]
 - [nbajam05]            NBA Jam Tournament Edition SE (rev 5.02)
