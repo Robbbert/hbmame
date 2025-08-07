@@ -653,6 +653,20 @@ ROM_START( pactetris ) // No text, no scores. When the game ends, it goes crazy.
 	PACMAN_PROMS
 ROM_END
 
+ROM_START( pacupacu )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "pacupacu.6e",   0x0000, 0x1000, CRC(9d0bd8fc) SHA1(af0c53dc1235a5ac0bf281ad5ee6579e6812ec89) )
+	ROM_LOAD( "pacupacu.6f",   0x1000, 0x1000, CRC(61a5f90f) SHA1(a4161f5337b6839fa22c73c5b059f523e5f19236) )
+	ROM_LOAD( "pacupacu.6h",   0x2000, 0x1000, CRC(7297a588) SHA1(c7cc771806f1fb470c9f21c741336003e795fac4) )
+	ROM_LOAD( "pacupacu.6j",   0x3000, 0x1000, CRC(034c1c70) SHA1(84163fd412cc1e42411d6dee36027c7a065cb6bd) )
+
+	ROM_REGION( 0x2000, "gfx1", 0 )
+	ROM_LOAD( "pacupacu.5e",  0x0000, 0x1000, CRC(650ced28) SHA1(9c4de9b7d0f04b69ed6c1ead60b92ddbfea3633a) )
+	ROM_LOAD( "pacupacu.5f",  0x1000, 0x1000, CRC(ab0c1c47) SHA1(2295b3dc43c3bb595e5f15685816999eba88c62e) )
+
+	PACMAN_PROMS
+ROM_END
+
 ROM_START( pakupaku ) // v0.1
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "pakupaku.6e",    0x0000, 0x1000, CRC(8b2e4f37) SHA1(40e72154a7621ee0f2fe7870e97cdca3c959f866) )
@@ -991,6 +1005,7 @@ GAME( 2019, snakes,    puckman,  pacman,   pacman0,  puckman_state, empty_init, 
 GAME( 2021, 100doors,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Hurray Banana", "100 doors", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, pollen,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Pollen Angel", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, dilith,    puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Arlasoft", "Dilithium Lift", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, pacupacu,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Pacu Pacu", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku,  puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.01)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku2, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.02)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, pakupaku3, puckman,  pacman,   pacman0,  puckman_state, empty_init,          ROT90,  "Sokurah", "Paku Paku (v0.03)", MACHINE_SUPPORTS_SAVE )
