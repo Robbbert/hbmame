@@ -220,18 +220,18 @@ ROM_END
 
 ROM_START( galaxiabh )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD( "galaxiab.u",  0x0000, 0x0800, CRC(63e6d8ab) SHA1(ec2ade4d93903ba99bc9565b68328bd7d0830eac) )
-	ROM_LOAD( "galaxiab.v",  0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) )
-	ROM_LOAD( "galaxiab.w",  0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) )
-	ROM_LOAD( "galaxiab.y",  0x1800, 0x0800, CRC(faa0bd8c) SHA1(30dd130298609632212b34874a0819340b1c8037) )
-	ROM_LOAD( "galaxiab.z",  0x2000, 0x0800, CRC(5766c95b) SHA1(cf6c226df0cc9d088b04ade43d6db87d278f8b09) )
+	ROM_LOAD( "galaxiab.u",   0x0000, 0x0800, CRC(63e6d8ab) SHA1(ec2ade4d93903ba99bc9565b68328bd7d0830eac) )
+	ROM_LOAD( "galaxiab.v",   0x0800, 0x0800, CRC(f58283e3) SHA1(edc6e72516c50fd3402281d9936574d276581ce9) )
+	ROM_LOAD( "galaxiab.w",   0x1000, 0x0800, CRC(4c7031c0) SHA1(97f7ab0cedcd8eba1c8f6f516d84d672a2108258) )
+	ROM_LOAD( "galaxiab.y",   0x1800, 0x0800, CRC(faa0bd8c) SHA1(30dd130298609632212b34874a0819340b1c8037) )
+	ROM_LOAD( "galaxiab.z",   0x2000, 0x0800, CRC(5766c95b) SHA1(cf6c226df0cc9d088b04ade43d6db87d278f8b09) )
 
 	ROM_REGION( 0x1000, "gfx1", 0 )
-	ROM_LOAD( "galaxiab.1h", 0x0000, 0x0800, CRC(977e37cf) SHA1(88ff1e4edadf5cfc83413a1fe999aecf4ba72232) )
-	ROM_LOAD( "galaxiab.1k", 0x0800, 0x0800, CRC(bc7d0985) SHA1(550a44c9ddc8da66a29405591a590f91d2675cdf) )
+	ROM_LOAD( "piii.6",       0x0000, 0x0800, CRC(977e37cf) SHA1(88ff1e4edadf5cfc83413a1fe999aecf4ba72232) )
+	ROM_LOAD( "galaxiab.1k",  0x0800, 0x0800, CRC(bc7d0985) SHA1(550a44c9ddc8da66a29405591a590f91d2675cdf) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "galaxiab.6l", 0x0000, 0x0020, CRC(feea6525) SHA1(cdb207776f51411ed4e9536babff6050488d2808) )
+	ROM_LOAD( "galaxiab.6l",  0x0000, 0x0020, CRC(feea6525) SHA1(cdb207776f51411ed4e9536babff6050488d2808) )
 	ROM_FILL( 31,1,7 ) /* patch so floating scores can be seen, and explosions look better */
 ROM_END
 
@@ -295,6 +295,22 @@ ROM_START( gaylaxn )
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 ROM_END
 
+ROM_START( galapxis )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "1.c7",         0x0000, 0x0800, CRC(75bdc82e) SHA1(e7476b4ab418653d73a45d8046aa0d704d77fb05) )
+	ROM_LOAD( "2.d7",         0x0800, 0x0800, CRC(c71eca8e) SHA1(29ab3fe155b20bf166c8a94f8f911367f77b4a98) )
+	ROM_LOAD( "galx.w",       0x1000, 0x0800, CRC(72d2d3ee) SHA1(96e0c5824e46d7398c7e58dd6b75a9f4ead6f3f5) )
+	ROM_LOAD( "galx.y",       0x1800, 0x0800, CRC(afe397f3) SHA1(283c6f3b3f07581d88f7a6e11fc36947a9d90e2e) )
+	ROM_LOAD( "5.k7",         0x2000, 0x0800, CRC(0b80b4c1) SHA1(807362c1bc7f176e85a769d9836ad7045d2dd5a7) )
+
+	ROM_REGION( 0x1000, "gfx1", 0 )
+	ROM_LOAD( "piii.6",       0x0000, 0x0800, CRC(977e37cf) SHA1(88ff1e4edadf5cfc83413a1fe999aecf4ba72232) )
+	ROM_LOAD( "piii.7",       0x0800, 0x0800, CRC(d0ba22c9) SHA1(678b22d10e1ae7dcea068da838bf6bd648e9ee28) )
+
+	ROM_REGION( 0x0020, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+ROM_END
+
 ROM_START( galxtest1 )
 	ROM_REGION( 0x4000, "maincpu", 0 )
 	ROM_LOAD( "test.u",       0x0000, 0x0800, CRC(0614cd7f) SHA1(12440678be8a27a6c3032b6e43c45e27905ffa83) )   // Test ROM
@@ -329,16 +345,16 @@ ROM_START( gmunch )
 	ROM_LOAD( "pac3.bin",     0x2000, 0x1000, CRC(abb98b1d) SHA1(bb0109d353359bb192a3e6856a857c2f842838cb) )
 	ROM_LOAD( "pac4.bin",     0x3000, 0x1000, CRC(2403c78e) SHA1(52d8c8a4efcf47871485080ab217098a019e6579) )
 	/* this rom isn't loaded into rom space so what is it for? */
-	ROM_LOAD( "pac7.bin",     0x5000, 0x1000, CRC(6566c07b) SHA1(8047350e5f6a39d34dfc9242fa0747db9819fe99) )
+	ROM_LOAD_OPTIONAL( "pac7.bin",     0x5000, 0x1000, CRC(6566c07b) SHA1(8047350e5f6a39d34dfc9242fa0747db9819fe99) )
 
 	ROM_REGION( 0x3000, "gfx1" , 0 )
 	ROM_LOAD( "pac5.bin",     0x0000, 0x1000, CRC(a5965fa6) SHA1(c746f90b4c4620ef6190f9ae85d5036bda3b81ae) )
 	ROM_LOAD( "pac8.bin",     0x1000, 0x1000, CRC(0491a967) SHA1(868f7c7efdbe40c8e0977557bc2cedefb9a3ea81) )
 	/* this rom contains gfx from uniwars and mame doesn't process it */
-	ROM_LOAD( "pac6.bin",     0x2000, 0x1000, CRC(2145e7ea) SHA1(a2e3a54fa25b030d72431f42e12783db08e95e2e) )
+	ROM_LOAD_OPTIONAL( "pac6.bin",     0x2000, 0x1000, CRC(2145e7ea) SHA1(a2e3a54fa25b030d72431f42e12783db08e95e2e) )
 
 	ROM_REGION( 0x0020, "proms", 0 )
-	ROM_LOAD( "sk.bpr",       0x0000, 0x0020, CRC(bce79607) SHA1(49d60fde149240bcd025f721b0fbbbdbc549a42f) ) /* gmunch */
+	ROM_LOAD_OPTIONAL( "sk.bpr",       0x0000, 0x0020, CRC(bce79607) SHA1(49d60fde149240bcd025f721b0fbbbdbc549a42f) ) /* gmunch */
 	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) ) /* gmunch2 */
 ROM_END
 #endif
@@ -857,6 +873,7 @@ GAME( 2019, scobtest,   scobra,   scobra,   scobra,   galaxian_state,  init_scob
 // Galaxian
 GAME( 1979, andromd,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Andromeda", MACHINE_SUPPORTS_SAVE)
 GAME( 1998, buglaxn,    galnamco, galaxian, galaxian, galaxian_hbmame, init_galaxian, ROT90, "The Dog", "Galaxian (Bug sprites)", MACHINE_SUPPORTS_SAVE )
+GAME( 19??, galapxis,   galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "International Scientific", "Galaxian Part X (Philip)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, galaxiabh,  galnamco, galaxian, galaxiab, galaxian_hbmame, init_galaxian, ROT90, "bootleg", "Galaxian (Edition Hack)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, galaxkyo,   galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "hack", "Galaxian (Kyoko)", MACHINE_SUPPORTS_SAVE )
 GAME( 1980, galaxni,    galnamco, galaxian, superg,   galaxian_hbmame, init_galaxian, ROT90, "Petaco S.A.", "Galaxian (New Invasion)", MACHINE_SUPPORTS_SAVE )

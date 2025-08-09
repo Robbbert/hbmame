@@ -2899,6 +2899,29 @@ ROM_START( kizuna09 ) // kizunaeh
 	ROM_LOAD16_BYTE( "059.c8", 0x1800001, 0x200000, CRC(484ce3ba) SHA1(4f21ed20ce6e2b67e2b079404599310c94f591ff) )
 ROM_END
 
+ /***************************
+ Neo Turf Masters (golf game)
+****************************/
+ROM_START( turfmast01 )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "200s01.p1", 0x100000, 0x100000, CRC(dee6f081) SHA1(4c456a08fb2ee3cb2ee36813a5dcc86fae87053c) )
+	ROM_CONTINUE( 0x000000, 0x100000)
+
+	NEO_SFIX_128K( "200.s1", CRC(9a5402b2) SHA1(ae1a0b5450869d61b2bb23671c744d3dda8769c4) )
+
+	NEO_BIOS_AUDIO_128K( "200.m1", CRC(9994ac00) SHA1(7bded797f3b80fd00bcbe451ac0abe6646b19a14) )
+
+	ROM_REGION( 0x800000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "200.v1", 0x000000, 0x200000, CRC(00fd48d2) SHA1(ddfee09328632e598fd51537b3ae8593219b2111) )
+	ROM_LOAD( "200.v2", 0x200000, 0x200000, CRC(082acb31) SHA1(2f1c053040e9d50a6d45fd7bea1b96742bae694f) )
+	ROM_LOAD( "200.v3", 0x400000, 0x200000, CRC(7abca053) SHA1(e229bc0ea82a371d6ee8fd9fe442b0fd141d0a71) )
+	ROM_LOAD( "200.v4", 0x600000, 0x200000, CRC(6c7b4902) SHA1(d55e0f542d928a9a851133ff26763c8236cbbd4d) )
+
+	ROM_REGION( 0x800000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "200.c1", 0x000000, 0x400000, CRC(8e7bf41a) SHA1(148eb747f2f4d8e921eb0411c88a636022ceab80) )
+	ROM_LOAD16_BYTE( "200.c2", 0x000001, 0x400000, CRC(5a65a8ce) SHA1(d6c7afe035411f3eacdf6868d36f91572dd593e0) )
+ROM_END
+
  /****************
  Magical Drop III
 *******************/
@@ -4858,6 +4881,8 @@ GAME( 1996, sdodgeb03,      sdodgeb,  neogeo_noslot, neogeo, neogeo_state, init_
 GAME( 2014, shocktr2s01,    shocktr2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Fight China", "Shock Troopers - 2nd Squad (2014-01-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, shocktr2s02,    shocktr2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Xyahzhs", "Shock Troopers - 2nd Squad (Plus Max)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, shocktr2s03,    shocktr2, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Wesker[FGCH]", "Shock Troopers - 2nd Squad (Ex Super version)", MACHINE_SUPPORTS_SAVE )
+// Neo Turf Masters
+GAME( 2025, turfmast01,     turfmast, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "StiNKz", "Neo Turf Masters - Course and Pin Randomiser v0.1", MACHINE_SUPPORTS_SAVE )
 // Waku Waku 7
 GAME( 2009, wakuwak7s01,    wakuwak7, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Dodowang[EGCG]", "Waku Waku 7 (Seven Hot Seven Fire Enhanced Version, 2009-03-27)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, wakuwak7s02,    wakuwak7, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Waku Waku 7 (Simplify Edition, 2018-06-04)", MACHINE_SUPPORTS_SAVE )

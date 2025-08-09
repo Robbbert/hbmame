@@ -784,6 +784,7 @@ files {
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/dial.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/irrmaze.cpp",
 	MAME_DIR .. "src/hbmame/bus/neogeo_ctrl/kizuna4p.cpp",
+--	MAME_DIR .. "src/mame/drivers/neogeocd.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "nichibut")

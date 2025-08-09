@@ -2083,6 +2083,82 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
 	if (csize)
 		image.fread(&spr_region[0],csize);
 
+// Save the file parts if needed
+#if 0
+	FILE *f;
+	if (psize)
+	{
+		f = fopen("555.p1", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.p1'\n");
+			return image_init_result::FAIL;
+		}
+		fwrite(&cpuregion[0], 1, psize, f);
+		fclose(f);
+	}
+
+	if (ssize)
+	{
+		f = fopen("555.s1", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.s1'\n");
+			return image_init_result::FAIL;
+		}
+		fwrite(&fix_region[0], 1, ssize, f);
+		fclose(f);
+	}
+
+	if (msize)
+	{
+		f = fopen("555.m1", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.m1'\n");
+			return image_init_result::FAIL;
+		}
+		fwrite(&audiocpu_region[0x10000], 1, msize, f);
+		fclose(f);
+	}
+
+	if (vsize)
+	{
+		f = fopen("555.v1", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.v1'\n");
+			return image_init_result::FAIL;
+		}
+		fwrite(&ym_region[0], 1, vsize, f);
+		fclose(f);
+	}
+
+	if (v2size)
+	{
+		f = fopen("555.v21", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.v21'\n");
+			return image_init_result::FAIL;
+		}
+		fwrite(&memregion("ymsnd:adpcmb")->base()[0], 1, v2size, f);
+		fclose(f);
+	}
+
+	if (csize)
+	{
+		f = fopen("555.c1", "wb");
+		if (!f)
+		{
+			printf("Error opening file '555.c1'\n");
+			return image_init_result::FAIL;
+		}
+		fwrite(&spr_region[0], 1, csize, f);
+		fclose(f);
+	}
+#endif
+
 	// Prepare the system
 	printf("Ready to start\n");fflush(stdout);
 	init_neogeo();

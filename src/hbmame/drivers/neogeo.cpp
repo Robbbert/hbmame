@@ -2084,7 +2084,7 @@ QUICKLOAD_LOAD_MEMBER(neogeo_state::neo_q_cb)
 		image.fread(&spr_region[0],csize);
 
 // Save the file parts if needed
-#if 1
+#if 0
 	FILE *f;
 	if (psize)
 	{

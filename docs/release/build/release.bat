@@ -1,6 +1,7 @@
 @echo off
 echo HAVE YOU UPDATED the MAKEFILE ???
 echo Also update the date in HBNEW ??
+echo --AND-- disabled file creation in ngneo ?? neogeo.cpp, line 2087
 pause
 
 
