@@ -18,7 +18,8 @@ New Games
 - [sf2prime56]          Street Fighter II': Prime (v0.56) [zero800]
 - [sf2prime57]          Street Fighter II': Prime (v0.57) [zero800]
 - [sf2prime59]          Street Fighter II': Prime (v0.59) [zero800]
-- [sf2prime]            Street Fighter II': Prime (v0.60) [zero800]
+- [sf2prime60]          Street Fighter II': Prime (v0.60) [zero800]
+- [sf2prime]            Street Fighter II': Prime (v0.63) [zero800]
 - [spkick2]             Super Power Kick (beta 2)
 - [turfmast01]          Neo Turf Masters - Course and Pin Randomiser v0.1
 - [y_test]              Midway Y-unit Test Rom v1.40
@@ -34,7 +35,7 @@ New Games
 - [gladmort]            Gladmort
 - [pulstara]            Pulstar (alt 1)
 - [pulstar02]           Pulstar (alt 2)
-- [sf2prime5]           Street Fighter II': Prime (v0.50) [zero800]
+- [sf2prime50]          Street Fighter II': Prime (v0.50) [zero800]
 - [sf2prime45]          Street Fighter II': Prime (v0.45) [zero800]
 - [spkick]              Super Power Kick (beta 1)
 - [vaporous]            Vaporous intro
