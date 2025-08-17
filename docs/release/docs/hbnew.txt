@@ -1,6 +1,17 @@
 ﻿What's new in HBMAME
 ====================
 
+2025-xx-xx 0.245.27
+
+
+
+New Games
+---------------------------------
+- [pacupacu1]            Pacu Pacu (v1.1) [Sokurah]
+
+
+
+
 2025-08-09 0.245.26
 
 - HBMAMEUI: Changed reference of "Originals" to "Parents".
