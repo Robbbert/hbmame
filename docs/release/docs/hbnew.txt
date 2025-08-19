@@ -7,7 +7,8 @@
 
 New Games
 ---------------------------------
-- [pacupacu1]            Pacu Pacu (v1.1) [Sokurah]
+- [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
+- [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
 
 
 
@@ -65,7 +66,7 @@ New Games
 - [neopl]               Neo Puzzle League (from CD)
 - [pakupaku3]           Paku Paku (v0.03)
 - [roadkill]            Roadkill demo (problems with inputs and sound)
-- [sf2mix]              Street Fighter II: Dream Battle (Mix 1.4)
+- [sf2mix140]           Street Fighter II: Dream Battle (Mix 1.4)
 - [sf2prime3]           Street Fighter II': Prime (v0.3) [zero800]
 - [sf2prime4]           Street Fighter II': Prime (v0.4) [zero800]
 - [sf2prime41]          Street Fighter II': Prime (v0.41) [zero800]

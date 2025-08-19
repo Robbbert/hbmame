@@ -19315,7 +19315,7 @@ ROM_START( sf2mix130 ) // 1.3
 	ROM_LOAD( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
 ROM_END
 
-ROM_START( sf2mix ) // 1.4
+ROM_START( sf2mix140 ) // 1.4
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(c1370215) SHA1(56a6d9547da973819c560db887aab77cb8aaa6c5) )
 	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(5b0566c8) SHA1(0e8c80b77d3b3a231c8c6092e437cbb89e8cc94e) )
@@ -19338,6 +19338,38 @@ ROM_START( sf2mix ) // 1.4
 	ROM_REGION( 0x18000, "audiocpu", 0 )
 	ROM_LOAD( "sf2mix96.m1",  0x00000, 0x08000, CRC(a379fdc5) SHA1(e9de38c13bd665698528bc102b1b16e9bdcae65b) )
 	ROM_CONTINUE(              0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "sf2mix96.v1",  0x00000, 0x20000, CRC(6aa5d7fa) SHA1(87cfea3a9f62653fa236f49b5b25b927cff30a02) )
+	ROM_LOAD( "sf2mix96.v2",  0x20000, 0x20000, CRC(f92f5a4f) SHA1(3f1d477ab0299d2783231c3bd9983513a85b2fe6) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "sf2ce.key", 0x00, 0x80, CRC(35b37429) SHA1(b372cce106c0900554735c207fb333ac93554ec2) )
+ROM_END
+
+ROM_START( sf2mix ) // 1.5
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p1",  0x000000, 0x80000, CRC(75a9f308) SHA1(ec682c384e48c9b0f74436d807e347953d7c2bf6) ) // 8f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p2",  0x080000, 0x80000, CRC(19b0ece8) SHA1(8236f947f6f3f02326c2e8929428b3f397dce141) ) // 7f
+	ROM_LOAD16_WORD_SWAP( "sf2mix.p3",  0x100000, 0x80000, CRC(2d64428d) SHA1(563b29d0658fc8b7f92c218790e3ee52480f4046) ) // 6f
+
+	ROM_REGION( 0x600000, "gfx", 0 )
+	ROM_LOAD64_WORD( "sf2mix99.c01",  0x000000, 0x80000, CRC(a8f70643) SHA1(0d3ab7fe1d0d15397a79c9bd304f22593a9b8d87) ) // 3a
+	ROM_LOAD64_WORD( "sf2mix99.c02",  0x000002, 0x80000, CRC(f73f1913) SHA1(b36db11822f5601726892726f8505b7e8b676ab6) ) // 5a
+	ROM_LOAD64_WORD( "sf2mix99.c03",  0x000004, 0x80000, CRC(a80234b4) SHA1(e8c3e8030fa2ce69465d97ccb02de622e9214b01) ) // 4a
+	ROM_LOAD64_WORD( "sf2mix99.c04",  0x000006, 0x80000, CRC(4d910b53) SHA1(1f28fe150ddf77c91c8ae998ee52e068327335d5) ) // 6a
+	ROM_LOAD64_WORD( "sf2mix.c05",    0x200000, 0x80000, CRC(26a56c2c) SHA1(7120ab4e1006729faf90c4aab15f82f789538466) ) // 7a
+	ROM_LOAD64_WORD( "sf2mix.c06",    0x200002, 0x80000, CRC(3a2c2e5f) SHA1(98f5c5b30e1bbeb3cdbacf11a1a4d6c0dbfd0263) ) // 9a
+	ROM_LOAD64_WORD( "sf2mix.c07",    0x200004, 0x80000, CRC(f71b978c) SHA1(4d462d4a58966b214c60132e8df118844545ea7b) ) // 8a
+	ROM_LOAD64_WORD( "sf2mix.c08",    0x200006, 0x80000, CRC(8fe56540) SHA1(36d6fcb184cb694d8ebd6ceb211d7acae37e02c3) ) // 10a
+	ROM_LOAD64_WORD( "sf2mix.c09",    0x400000, 0x80000, CRC(f352721f) SHA1(55721a2fc451975fe061b4fa8b9e34e7254bafe1) ) // 3c
+	ROM_LOAD64_WORD( "sf2mix.c10",    0x400002, 0x80000, CRC(810c6499) SHA1(1c992f1c70c73bc970d0aa1ce6010887d8b78cfb) ) // 5c
+	ROM_LOAD64_WORD( "sf2mix.c11",    0x400004, 0x80000, CRC(75d7c15c) SHA1(53c7969a574f375a6d3df159eb762026d2d0128e) ) // 4c
+	ROM_LOAD64_WORD( "sf2mix.c12",    0x400006, 0x80000, CRC(642c40e7) SHA1(4ac94adf896aa57a242de0ad0d7c8fbf0ff8bd2d) ) // 6c
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "sf2mix96.m1",  0x00000, 0x08000, CRC(a379fdc5) SHA1(e9de38c13bd665698528bc102b1b16e9bdcae65b) )
+	ROM_CONTINUE(             0x10000, 0x08000 )
 
 	ROM_REGION( 0x40000, "oki", 0 )
 	ROM_LOAD( "sf2mix96.v1",  0x00000, 0x20000, CRC(6aa5d7fa) SHA1(87cfea3a9f62653fa236f49b5b25b927cff30a02) )
@@ -28914,7 +28946,8 @@ GAME( 2021, sf2mix100,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,
 GAME( 2022, sf2mix110,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, sf2mix120,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, sf2mix130,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.3)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sf2mix140,     sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.4)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, sf2mix,        sf2ce,    cps1_12MHz, sf2mix,   cps_state, init_cps1,     ROT0, "Zero800", "Street Fighter II: Dream Battle (Mix 1.5)", MACHINE_SUPPORTS_SAVE )
 GAME( 1992, sf2mkot01,     sf2,      cps1_10MHz, sf2,      cps_state, init_sf2hack,  ROT0, "bootleg", "Street Fighter II': Magic KO Turbo - Nightmare Crack (set 2)", MACHINE_SUPPORTS_SAVE ) // 920666
 GAME( 2018, sf2red01,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Golden Edition)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, sf2red02,      sf2ce,    cps1_12MHz, sf2,      cps_state, init_cps1,     ROT0, "MamePlus", "Street Fighter II': Champion Edition (Hardest Level)", MACHINE_SUPPORTS_SAVE )
