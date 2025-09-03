@@ -214,6 +214,8 @@ NUM GAME YEAR COMPANY                 TITLE
 508 1324 2025 iq_132                  P.O.W (Neo-Geo port)
 509 0539 2025 Kakoeimon               Super Power Kick
 510 1320 2024 iq_132                  Atomic Runner Chelnov (Neo-Geo port)
+511 14A5 2025 OzzyOuzo                Bad Dudes vs Dragonninja (Neo-Geo port)
+512 14A4 2025 OzzyOuzo                In the Hunt (Neo-Geo port)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2333,6 +2335,24 @@ ROM_START( doubled1b ) // 2025-02-17
 	ROM_LOAD16_BYTE( "505b.c2",   0x0000001, 0x1000000, CRC(728eb8ae) SHA1(a2e9d020cb940ea4ebdb1946eb3ab136c643da17) )
 ROM_END
 
+ROM_START( doubled1c ) // 2025-06-29
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "505c.p1", 0x000000, 0x100000, CRC(83d2ec24) SHA1(8af79b15115a82c545aecb2020806cea90cc69a2) )
+	ROM_LOAD16_WORD_SWAP( "505c.p2", 0x100000, 0x400000, CRC(7e5ed6b8) SHA1(cae16c7d27512f94a242bff167393a2c56c0220d) )
+
+	NEO_SFIX_128K( "505c.s1", CRC(714afb4b) SHA1(63b69781585e503e7fa6a62bcf1e6742f8cb3921) )
+
+	NEO_BIOS_AUDIO_64K( "505c.m1", CRC(43295479) SHA1(5f08b91444e89f918cd239019b6df540b5d158fc) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "505c.v1",   0x000000, 0x800000, CRC(f01e97dc) SHA1(3bfb92c2cfb937ddf02299b6ac14c6851b6c1f11) )
+	ROM_LOAD( "502c.v2",   0x800000, 0x800000, CRC(79156c41) SHA1(8f8835139390c021b201384c304d235300b47af7) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "505c.c1",   0x0000000, 0x1000000, CRC(fd883db8) SHA1(9b5c2e916a38438290d9b82eb7b5f34e8b27f660) )
+	ROM_LOAD16_BYTE( "505c.c2",   0x0000001, 0x1000000, CRC(718050d3) SHA1(4bab6c856a8e91d4d8dab12257211e6c6e82b306) )
+ROM_END
+
 
 // 506: Karnov port by iq_132
 ROM_START( karnovn )
@@ -2440,6 +2460,46 @@ ROM_START( chelnovn )
 
 	ROM_REGION( 0x80000, "sprites", 0 )
 	ROM_LOAD( "510.c1",   0x000000, 0x80000, CRC(d8eed0b2) SHA1(ff3c81737e7045c9a39f104bf7f48406bf8895d5) )
+ROM_END
+
+
+// 511: Bad Dudes vs Dragonninja port by OzzyOuzo.
+ROM_START( baddudesn )
+	ROM_REGION( 0x800000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "511.p1", 0x000000, 0x100000, CRC(77a74315) SHA1(90a63f02ec8e242af776b55aaca7998fa493cc39) )
+	ROM_LOAD16_WORD_SWAP( "511.p2", 0x100000, 0x700000, CRC(f827dd6e) SHA1(36ac12cbde4869c266c1159a58c40d851d113fdf) )
+
+	NEO_SFIX_128K( "511.s1", CRC(83b0f6c4) SHA1(4e3fd4369216fc9f4c699aea6bdf699b577c53e1) )
+
+	NEO_BIOS_AUDIO_64K( "511.m1", CRC(2854b516) SHA1(9417756c419e374853d56d5025f78e2645956d85) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "511.v1",   0x000000, 0x800000, CRC(d8ac5857) SHA1(afea061d7122398938899a42f2c4141d4f125c69) )
+	ROM_LOAD( "511.v2",   0x800000, 0x800000, CRC(f37bd666) SHA1(66d1cf293eea4cfe1cc36fe7ee9f6b46b0d731ee) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "511.c1",   0x0000000, 0x1000000, CRC(fe7bb928) SHA1(9afa02773e1fcd845ecb3c7ec3c5d5232ac8be2c) )
+	ROM_LOAD16_BYTE( "511.c2",   0x0000001, 0x1000000, CRC(68deb392) SHA1(c01f17582b54332c50086f4161e13d6433d16c85) )
+ROM_END
+
+
+// 512: In the Hunt port by OzzyOuzo.
+ROM_START( inthuntn )
+	ROM_REGION( 0x200000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "512.p1", 0x000000, 0x100000, CRC(58e3317a) SHA1(437dd2321f1bc8f5013daebe6399d25b02bd0fe9) )
+	ROM_LOAD16_WORD_SWAP( "512.p2", 0x100000, 0x100000, CRC(c6494f12) SHA1(3842c99dd0ad5443228f9db39c6f1e5a063e595b) )
+
+	NEO_SFIX_128K( "512.s1", CRC(35c8a6e0) SHA1(710af5ad77e5be09cbdaaa94624646cec54bca24) )
+
+	NEO_BIOS_AUDIO_64K( "512.m1", CRC(dd055711) SHA1(2fcae3ba868213d8efc0d17c1290d08aceb6cb4a) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "512.v1",   0x000000, 0x800000, CRC(eb947c63) SHA1(acb360fed600fb8143c41ca5389c8f7263d3915b) )
+	ROM_LOAD( "512.v2",   0x800000, 0x800000, CRC(79156c41) SHA1(8f8835139390c021b201384c304d235300b47af7) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "512.c1",   0x0000000, 0x1000000, CRC(1b32eaf5) SHA1(9d17ae76d8d67dbd34c209cd1c2a0036786b0924) )
+	ROM_LOAD16_BYTE( "512.c2",   0x0000001, 0x1000000, CRC(87b8def8) SHA1(d27685fc28d5745a75ac7337c5765325c56f5d70) )
 ROM_END
 
 
@@ -3874,6 +3934,7 @@ GAME( 2023, amazonn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2017, badapple,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badapplea,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "BEY", "Bad Apple demo (v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, badappleb,    badapple, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "HP Man", "Bad Apple demo (Giga Power Edition)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, baddudesn,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Bad Dudes vs Dragonninja Burger Edition demo (2025-06-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2002, beast,        neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Jeff Kurtz", "Shadow of the Beast (Neo Geo Demo)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 2020, bonusstage,   neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Totologic", "Bonus Stage", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, bpanicdx,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Block Panic DX (2025-01-01)", MACHINE_SUPPORTS_SAVE )
@@ -3896,6 +3957,7 @@ GAME( 2016, didemo,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, doubled1,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-01-03)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, doubled1a,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-01-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, doubled1b,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-02-17)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, doubled1c,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-06-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )
@@ -3914,6 +3976,7 @@ GAME( 2020, gxg,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2022, horekidb3,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "iq132", "Kid no Hore Hore Daisakusen (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2021, hypernoid,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "M.Priewe", "Hypernoid, 2021-11-28)", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Operation I.G.L.A. demo", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
+GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
