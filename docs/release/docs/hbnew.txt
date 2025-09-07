@@ -9,9 +9,11 @@ New Games
 ---------------------------------
 - [baddudesn]           Bad Dudes vs Dragonninja Burger Edition 2-stage demo (2025-06-28)
 - [doubled1c]           Double Dragon One demo (2025-06-29)
+- [doubled1d]           Double Dragon One beta (2025-09-03)
 - [inthuntn]            In the Hunt 30-second demo (2025-05-18)
 - [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
+- [sf2prime]            Street Fighter II': Prime (v0.66) [zero800]
 
 
 
@@ -34,7 +36,7 @@ New Games
 - [sf2prime57]          Street Fighter II': Prime (v0.57) [zero800]
 - [sf2prime59]          Street Fighter II': Prime (v0.59) [zero800]
 - [sf2prime60]          Street Fighter II': Prime (v0.60) [zero800]
-- [sf2prime]            Street Fighter II': Prime (v0.63) [zero800]
+- [sf2prime63]          Street Fighter II': Prime (v0.63) [zero800]
 - [spkick2]             Super Power Kick (beta 2)
 - [turfmast01]          Neo Turf Masters - Course and Pin Randomiser v0.1
 - [y_test]              Midway Y-unit Test Rom v1.40
