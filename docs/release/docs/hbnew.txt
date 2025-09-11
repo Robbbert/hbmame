@@ -14,6 +14,7 @@ New Games
 - [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
 - [sf2prime]            Street Fighter II': Prime (v0.66) [zero800]
+- [sinistar01]          Sinistar (balanced ver) [Synamax]
 
 
 

@@ -25,6 +25,32 @@ ROM_START( defender2 )
 	ROM_LOAD( "decoder.5",   0x0200, 0x0200, CRC(f921c5fe) SHA1(9cebb8bb935315101d248140d1b4503993ebdf8a) )
 ROM_END
 
+ROM_START( sinistar01 ) // balanced ver. First time run gives blank screen, press F3.
+	ROM_REGION( 0x19000, "maincpu", 0 )
+	ROM_LOAD( "sinistar_rom_10-b_16-3004-62.4c", 0x0e000, 0x1000, CRC(3d670417) SHA1(81802622bee8dbea5c0f08019d87d941dcdbe292) )
+	ROM_LOAD( "sinistar01_rom_11.4a", 0x0f000, 0x1000, CRC(fe83bce2) SHA1(7774602fbae7c345341be54eb281cf97ead04212) )
+	ROM_LOAD( "sinistar_rom_1-b_16-3004-53.1d",  0x10000, 0x1000, CRC(f6f3a22c) SHA1(026d8cab07734fa294a5645edbe65a904bcbc302) )
+	ROM_LOAD( "sinistar_rom_2-b_16-3004-54.1c",  0x11000, 0x1000, CRC(cab3185c) SHA1(423d1e3b0c07333ec582529bc4d0b7baf591820a) )
+	ROM_LOAD( "sinistar_rom_3-b_16-3004-55.1a",  0x12000, 0x1000, CRC(1ce1b3cc) SHA1(5bc03d7249529d827dc60c087e074ab3e4ea7361) )
+	ROM_LOAD( "sinistar_rom_4-b_16-3004-56.2d",  0x13000, 0x1000, CRC(6da632ba) SHA1(72c0c3d5a5ca87ca4d95fcedaf834206e4633950) )
+	ROM_LOAD( "sinistar_rom_5-b_16-3004-57.2c",  0x14000, 0x1000, CRC(b662e8fc) SHA1(828a89d2ea13d8a362dae708f86bff54cb231887) )
+	ROM_LOAD( "sinistar_rom_6-b_16-3004-58.2a",  0x15000, 0x1000, CRC(2306183d) SHA1(703e29e6446856615760a4897c0f5d79cc7bdfb2) )
+	ROM_LOAD( "sinistar_rom_7-b_16-3004-59.3d",  0x16000, 0x1000, CRC(e5dd918e) SHA1(bf4e2ada6a59d246218544d822ba5355da925924) )
+	ROM_LOAD( "sinistar01_rom_8.3c",  0x17000, 0x1000, CRC(9b693243) SHA1(04183031598cc4b152b107d583e4f8346a2f60eb) )
+	ROM_LOAD( "sinistar01_rom_9.3a",  0x18000, 0x1000, CRC(5ed44beb) SHA1(f77a7d90ebb5e7bf516dbd947aca3b808ff3443d) )
+
+	ROM_REGION( 0x10000, "soundcpu", 0 )
+	ROM_LOAD( "3004_speech_ic7_r1_16-3004-52.ic7", 0xb000, 0x1000, CRC(e1019568) SHA1(442f4f3ccd2e1db2136d2ffb121ea442921f87ca) )
+	ROM_LOAD( "3004_speech_ic5_r1_16-3004-50.ic5", 0xc000, 0x1000, CRC(cf3b5ffd) SHA1(d5d51c550581c9d46ab331dd4fd32541a2ef598e) )
+	ROM_LOAD( "3004_speech_ic6_r1_16-3004-51.ic6", 0xd000, 0x1000, CRC(ff8d2645) SHA1(16fa2a602acbbc182dd96bab113ab18356f3daf0) )
+	ROM_LOAD( "3004_speech_ic4_r1_16-3004-49.ic4", 0xe000, 0x1000, CRC(4b56a626) SHA1(44430cd5c110ec751b0bfb8ae99b26d443350db1) )
+	ROM_LOAD( "video_sound_rom_9_std.808.ic12",    0xf000, 0x1000, CRC(b82f4ddb) SHA1(c70c7dd6e88897920d7709a260f27810f66aade1) )
+
+	ROM_REGION( 0x0400, "proms", 0 )
+	ROM_LOAD( "decoder_rom_4.3g", 0x0000, 0x0200, CRC(e6631c23) SHA1(9988723269367fb44ef83f627186a1c88cf7877e) )
+	ROM_LOAD( "decoder_rom_6.3c", 0x0200, 0x0200, CRC(83faf25e) SHA1(30002643d08ed983a6701a7c4b5ee74a2f4a1adb) )
+ROM_END
+
 ROM_START( splatsc1 )
 	ROM_REGION( 0x19000, "maincpu", 0 )
 	ROM_LOAD( "splatsc1.10",               0x0d000, 0x1000, CRC(6cc2988a) SHA1(bd0648185ab859afc981d4e8ab954ed1f39303e4) )
@@ -119,6 +145,7 @@ ROM_END
 
 
 GAME( 1981, defender2,   defender, williams_base,  stargate, williams_state, init_stargate, ROT0, "Jeff Vavasour", "Defender II", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, sinistar01,  sinistar, sinistar,       sinistar, sinistar_state,       empty_init,    ROT270, "Synamax", "Sinistar (balanced ver)", MACHINE_SUPPORTS_SAVE )
 GAME( 1982, splatsc1,    splat,    williams_muxed, splat,    williams_muxed_state, init_joust,    ROT0, "Williams", "Splat! (sc1 hardware)", MACHINE_SUPPORTS_SAVE )
 GAME( 2012, robotron201, robotron, williams_base,  robotron, williams_state, init_robotron, ROT0, "Sean Riddle", "Robotron: 2084 (Hacked Patched Blue-201)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, robotronp,   robotron, williams_base,  robotron, williams_state, init_robotron, ROT0, "Christian Gingras / Sean Riddle", "Robotron: 2084 (Patched)", MACHINE_SUPPORTS_SAVE )
