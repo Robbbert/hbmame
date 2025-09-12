@@ -987,11 +987,11 @@ int win_window_info::complete_create()
 	osd_rect monitorbounds = monitor()->position_size();
 
 	// create the window menu if needed
-	if (downcast<windows_options &>(machine().options()).menu())
-	{
-		if (win_create_menu(machine(), &menu))
-			return 1;
-	}
+//	if (downcast<windows_options &>(machine().options()).menu())
+//	{
+//		if (win_create_menu(machine(), &menu))
+//			return 1;
+//	}
 
 	// are we in worker UI mode?
 	HWND hwnd;
