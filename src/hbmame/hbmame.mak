@@ -15,6 +15,7 @@ LAYOUTS += \
 	$(SRC)/hbmame/layout/spacmissx.lay \
 	$(SRC)/mame/layout/segabill.lay \
 	$(SRC)/mame/layout/warrior.lay \
+	$(SRC)/mame/layout/bzone.lay \
 	$(SRC)/mame/layout/contcirc.lay \
 	$(SRC)/mame/layout/invaders.lay \
 	$(SRC)/mame/layout/spcenctr.lay \
@@ -22,6 +23,7 @@ LAYOUTS += \
 
 # MAME layouts that are needed for compile to succeed, not used by HBMAME
 LAYOUTS += \
+	$(SRC)/mame/layout/redbaron.lay \
 	$(SRC)/mame/layout/gnw_dualh.lay \
 	$(SRC)/mame/layout/gnw_dualv.lay \
 	$(SRC)/mame/layout/inttoote.lay \

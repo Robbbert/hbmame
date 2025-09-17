@@ -140,6 +140,10 @@ bublbobls01
 @source:bwidow.cpp
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
 
+@source:bzone.cpp
+//bzone                                  //parent
+//bzone01
+
 @source:cabal.cpp
 cabal                                  //parent
 cabal01
@@ -6169,6 +6173,7 @@ doubled1a
 doubled1b
 doubled1c
 doubled1d
+doubled1e
 dti			// Duck Tales Intro
 dtia		// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */

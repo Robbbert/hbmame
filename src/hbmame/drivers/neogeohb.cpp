@@ -2353,9 +2353,27 @@ ROM_START( doubled1c ) // 2025-06-29
 	ROM_LOAD16_BYTE( "505c.c2",   0x0000001, 0x1000000, CRC(718050d3) SHA1(4bab6c856a8e91d4d8dab12257211e6c6e82b306) )
 ROM_END
 
-ROM_START( doubled1d ) // 2025-06-29
+ROM_START( doubled1d ) // 2025-09-03
 	ROM_REGION( 0x500000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "505d.p1", 0x000000, 0x100000, CRC(e7923280) SHA1(5a8aba8a267499c1aff4a8d16a704de0423f00cd) )
+	ROM_LOAD16_WORD_SWAP( "505c.p2", 0x100000, 0x400000, CRC(7e5ed6b8) SHA1(cae16c7d27512f94a242bff167393a2c56c0220d) )
+
+	NEO_SFIX_128K( "505c.s1", CRC(714afb4b) SHA1(63b69781585e503e7fa6a62bcf1e6742f8cb3921) )
+
+	NEO_BIOS_AUDIO_64K( "505c.m1", CRC(43295479) SHA1(5f08b91444e89f918cd239019b6df540b5d158fc) )
+
+	ROM_REGION( 0x1000000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "505c.v1",   0x000000, 0x800000, CRC(f01e97dc) SHA1(3bfb92c2cfb937ddf02299b6ac14c6851b6c1f11) )
+	ROM_LOAD( "505c.v2",   0x800000, 0x800000, CRC(79156c41) SHA1(8f8835139390c021b201384c304d235300b47af7) )
+
+	ROM_REGION( 0x2000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "505c.c1",   0x0000000, 0x1000000, CRC(fd883db8) SHA1(9b5c2e916a38438290d9b82eb7b5f34e8b27f660) )
+	ROM_LOAD16_BYTE( "505c.c2",   0x0000001, 0x1000000, CRC(718050d3) SHA1(4bab6c856a8e91d4d8dab12257211e6c6e82b306) )
+ROM_END
+
+ROM_START( doubled1e ) // 2025-09-14
+	ROM_REGION( 0x500000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "505e.p1", 0x000000, 0x100000, CRC(33f38286) SHA1(4b949629a85c6877031d7e82f4c980bed0252412) )
 	ROM_LOAD16_WORD_SWAP( "505c.p2", 0x100000, 0x400000, CRC(7e5ed6b8) SHA1(cae16c7d27512f94a242bff167393a2c56c0220d) )
 
 	NEO_SFIX_128K( "505c.s1", CRC(714afb4b) SHA1(63b69781585e503e7fa6a62bcf1e6742f8cb3921) )
@@ -3976,7 +3994,8 @@ GAME( 2025, doubled1,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, doubled1a,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-01-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, doubled1b,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-02-17)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, doubled1c,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One demo (2025-06-29)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, doubled1d,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One beta (2025-09-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, doubled1d,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One beta 2 (2025-09-03)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, doubled1e,    doubled1, neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "La Casa De Ruivo / Neo Byte Force", "Double Dragon One beta 3 (2025-09-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dti,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v1)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dtia,         dti,      neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "Duck Tales (Intro demo v2)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, dwi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "DarkWing Duck (Intro demo v1)", MACHINE_SUPPORTS_SAVE )

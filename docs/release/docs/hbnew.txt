@@ -9,7 +9,8 @@ New Games
 ---------------------------------
 - [baddudesn]           Bad Dudes vs Dragonninja Burger Edition 2-stage demo (2025-06-28)
 - [doubled1c]           Double Dragon One demo (2025-06-29)
-- [doubled1d]           Double Dragon One beta (2025-09-03)
+- [doubled1d]           Double Dragon One beta 2 (2025-09-03)
+- [doubled1e]           Double Dragon One beta 3 (2025-09-14)
 - [inthuntn]            In the Hunt 30-second demo (2025-05-18)
 - [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
