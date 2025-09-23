@@ -13,6 +13,7 @@ New Games
 - [doubled1e]           Double Dragon One beta 3 (2025-09-14)
 - [inthuntn]            In the Hunt 30-second demo (2025-05-18)
 - [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
+- [pbobblen04]          Puzzle Bobble (precise controls)
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
 - [sf2prime]            Street Fighter II': Prime (v0.66) [zero800]
 - [sinistar01]          Sinistar (balanced ver) [Synamax]
