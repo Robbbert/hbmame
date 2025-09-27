@@ -121,6 +121,7 @@ private:
 	address_space_config const m_adpcm_b_config; // address space 1 config (ADPCM-B)
 	optional_memory_region m_adpcm_a_region; // ADPCM-A memory region
 	optional_memory_region m_adpcm_b_region; // ADPCM-B memory region
+	u32 m_rom_size = 0;
 };
 
 

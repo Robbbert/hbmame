@@ -23774,6 +23774,71 @@ ROM_START( kof98s23 )
 	ROM_LOAD16_BYTE( "242.c8", 0x3000001, 0x800000, CRC(c823e045) SHA1(886fbf64bcb58bc4eabb1fc9262f6ac9901a0f28) )
 ROM_END
 
+ROM_START( kof98s25 ) // Anniversary Edition - crash in attract mode
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	// These are corrupt during attract mode fight (where cars are driving past), do not use
+	ROM_LOAD16_WORD_SWAP( "242h25.p1", 0x000000, 0x100000, CRC(3dc02691) SHA1(9d68bef6cd3cd48c0f4fd746f63ad2aeaa22c32d) )
+	ROM_LOAD16_WORD_SWAP( "242ae.p2", 0x100000, 0x600000, CRC(609fac6b) SHA1(8010f4f5bd70308d027c1c5ae672117ab76f8d89) )
+
+	NEO_SFIX_128K( "242ae.s1", CRC(f1fee5c0) SHA1(e0d7b6c3c4a1c24003f25de6a5238e0a8ad32269) )
+
+	NEO_BIOS_AUDIO_256K( "242ae.m1", CRC(9ade0528) SHA1(67d0c3b146d369416b84c081544fe51fc6c2a140) )
+
+	ROM_REGION( 0x1400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+	ROM_LOAD( "242ae.v5", 0x1000000, 0x400000, CRC(afdd9660) SHA1(0d67fb61111256c0d74d4f2b473ab5a42d1909b9) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242ae.c1",  0x0000000, 0x800000, CRC(0319cfc9) SHA1(f275015d6bddf392936b35cd7399f929a6d63d29) )
+	ROM_LOAD16_BYTE( "242ae.c2",  0x0000001, 0x800000, CRC(553f6714) SHA1(9c14963ce9ac0cfd125defe2fe80206deb1bc896) )
+	ROM_LOAD16_BYTE( "242.c3", 0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242.c4", 0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
+	ROM_LOAD16_BYTE( "242ae.c5",  0x2000000, 0x800000, CRC(71641718) SHA1(b88a00aca2fc34230d2d2da0b235195a5eb1ecf0) )
+	ROM_LOAD16_BYTE( "242ae.c6",  0x2000001, 0x800000, CRC(982ba2b3) SHA1(232ce3be7beaad13b35865da770157ef4b29a7a9) )
+	ROM_LOAD16_BYTE( "242ae.c7",  0x3000000, 0x800000, CRC(8d495552) SHA1(20ff76b681b2e544c5a57060bb98ab6bb91bea3c) )
+	ROM_LOAD16_BYTE( "242ae.c8",  0x3000001, 0x800000, CRC(8bfc3417) SHA1(38bb85563d0a7f008a64cf76d71d82b935cd98e5) )
+	ROM_LOAD16_BYTE( "242ae.c9",  0x4000000, 0x800000, CRC(128256d1) SHA1(948af62545756165890e950fcd67bbd6304b3366) )
+	ROM_LOAD16_BYTE( "242ae.c10", 0x4000001, 0x800000, CRC(4bd8412d) SHA1(72e9cc6e3df8000d0a7fc7a89257dd0ce56fc909) )
+	ROM_LOAD16_BYTE( "242ae.c11", 0x5000000, 0x800000, CRC(e893277f) SHA1(a87db547821c63d162aac3ad178c8f794ef6a060) )
+	ROM_LOAD16_BYTE( "242ae.c12", 0x5000001, 0x800000, CRC(f165589e) SHA1(6bdcb1dd9ce507fcae40d0aba42a2c1300987479) )
+ROM_END
+
+ROM_START( kof98s26 ) // Anniversary Edition : all confirmed - crash in attract mode
+	ROM_REGION( 0x700000, "maincpu", 0 )
+	// These are corrupt during attract mode fight (where cars are driving past), do not use
+	ROM_LOAD16_WORD_SWAP( "242ae0.p1", 0x000000, 0x100000, CRC(23a80b3e) SHA1(b1afaf382ffd5a1d72ae5ca18c11a751a11d7654) )
+	ROM_LOAD16_WORD_SWAP( "242h26.p2", 0x100000, 0x600000, CRC(99b3e5cc) SHA1(ef2f44eff097e597bb96b187c4e69294cb5b5423) )
+
+	NEO_SFIX_128K( "242ae.s1", CRC(f1fee5c0) SHA1(e0d7b6c3c4a1c24003f25de6a5238e0a8ad32269) )
+
+	NEO_BIOS_AUDIO_256K( "242ae.m1", CRC(9ade0528) SHA1(67d0c3b146d369416b84c081544fe51fc6c2a140) )
+
+	ROM_REGION( 0x1400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "242.v1", 0x000000, 0x400000, CRC(b9ea8051) SHA1(49606f64eb249263b3341b4f50cc1763c390b2af) )
+	ROM_LOAD( "242.v2", 0x400000, 0x400000, CRC(cc11106e) SHA1(d3108bc05c9bf041d4236b2fa0c66b013aa8db1b) )
+	ROM_LOAD( "242.v3", 0x800000, 0x400000, CRC(044ea4e1) SHA1(062a2f2e52098d73bc31c9ad66f5db8080395ce8) )
+	ROM_LOAD( "242.v4", 0xc00000, 0x400000, CRC(7985ea30) SHA1(54ed5f0324de6164ea81943ebccb3e8d298368ec) )
+	ROM_LOAD( "242ae.v5", 0x1000000, 0x400000, CRC(afdd9660) SHA1(0d67fb61111256c0d74d4f2b473ab5a42d1909b9) )
+
+	ROM_REGION( 0x6000000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "242ae.c1",  0x0000000, 0x800000, CRC(0319cfc9) SHA1(f275015d6bddf392936b35cd7399f929a6d63d29) )
+	ROM_LOAD16_BYTE( "242ae.c2",  0x0000001, 0x800000, CRC(553f6714) SHA1(9c14963ce9ac0cfd125defe2fe80206deb1bc896) )
+	ROM_LOAD16_BYTE( "242.c3", 0x1000000, 0x800000, CRC(22127b4f) SHA1(bd0d00f889d9da7c6ac48f287d9ed8c605ae22cf) )
+	ROM_LOAD16_BYTE( "242.c4", 0x1000001, 0x800000, CRC(0b4fa044) SHA1(fa13c3764fae6b035a626601bc43629f1ebaaffd) )
+	ROM_LOAD16_BYTE( "242ae.c5",  0x2000000, 0x800000, CRC(71641718) SHA1(b88a00aca2fc34230d2d2da0b235195a5eb1ecf0) )
+	ROM_LOAD16_BYTE( "242ae.c6",  0x2000001, 0x800000, CRC(982ba2b3) SHA1(232ce3be7beaad13b35865da770157ef4b29a7a9) )
+	ROM_LOAD16_BYTE( "242ae.c7",  0x3000000, 0x800000, CRC(8d495552) SHA1(20ff76b681b2e544c5a57060bb98ab6bb91bea3c) )
+	ROM_LOAD16_BYTE( "242ae.c8",  0x3000001, 0x800000, CRC(8bfc3417) SHA1(38bb85563d0a7f008a64cf76d71d82b935cd98e5) )
+	ROM_LOAD16_BYTE( "242ae.c9",  0x4000000, 0x800000, CRC(128256d1) SHA1(948af62545756165890e950fcd67bbd6304b3366) )
+	ROM_LOAD16_BYTE( "242ae.c10", 0x4000001, 0x800000, CRC(4bd8412d) SHA1(72e9cc6e3df8000d0a7fc7a89257dd0ce56fc909) )
+	ROM_LOAD16_BYTE( "242ae.c11", 0x5000000, 0x800000, CRC(e893277f) SHA1(a87db547821c63d162aac3ad178c8f794ef6a060) )
+	ROM_LOAD16_BYTE( "242ae.c12", 0x5000001, 0x800000, CRC(f165589e) SHA1(6bdcb1dd9ce507fcae40d0aba42a2c1300987479) )
+ROM_END
+
+
 
 GAME( 2009, kof98ae,   kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Anniversary Edition)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 GAME( 2009, kof98ae0,  kof98,    neogeo_noslot, neogeo, neogeo_state, init_neogeo,   ROT0, "hack", "Kof'98 (Anniversary Edition)(set 0)", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
@@ -23872,6 +23937,8 @@ GAME( 2019, kof98hh119,     kof98,    neogeo_noslot, neogeo, neogeo_state,      
 GAME( 2020, kof98hh135,     kof98,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "hack",    "Kof'98 (BC Second Impact Edition, 2020-07-29)", MACHINE_SUPPORTS_SAVE )
 GAME( 2016, kof98s21,       kof98,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "hack",    "Kof'98 (Super Plus Aniversary 2016)", MACHINE_SUPPORTS_SAVE )
 GAME( 1998, kof98s23,       kof98,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "hack",    "Kof'98 (Combo, 2017-07-27)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98s25,       kof98,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "Hassan & Imran Butt", "Kof'98 (Anniversary Edition Unknown Date Rev.1)", MACHINE_SUPPORTS_SAVE )
+GAME( 1998, kof98s26,       kof98,    neogeo_noslot, neogeo, neogeo_state,         init_neogeo,    ROT0, "hack",    "Kof'98 (Anniversary Edition Unknown Date Rev.2)", MACHINE_SUPPORTS_SAVE )
 
 
 ROM_START( kof99ae0 ) /* Original Version - Decrypted GFX */

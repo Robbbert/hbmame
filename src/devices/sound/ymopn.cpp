@@ -197,6 +197,8 @@ void ym2610_device_base<ChipClass>::device_start()
 		else if (m_adpcm_a_region)
 			space(1).install_rom(0, m_adpcm_a_region->bytes() - 1, m_adpcm_a_region->base());
 	}
+	if (m_adpcm_a_region)
+		m_rom_size = m_adpcm_a_region->bytes();
 }
 
 
@@ -209,7 +211,12 @@ template<typename ChipClass>
 uint8_t ym2610_device_base<ChipClass>::ymfm_external_read(ymfm::access_class type, uint32_t offset)
 {
 	if (type == ymfm::ACCESS_ADPCM_A)
-		return space(0).read_byte(offset);
+	{
+		if (offset < m_rom_size)
+			return space(0).read_byte(offset);
+		else
+			return 0;
+	}
 	else if (type == ymfm::ACCESS_ADPCM_B)
 		return space(1).read_byte(offset);
 	return 0;
