@@ -757,6 +757,7 @@ files {
 	MAME_DIR .. "src/hbmame/drivers/kof2001.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kof2002.cpp",
 	MAME_DIR .. "src/hbmame/drivers/kof2003.cpp",
+	MAME_DIR .. "src/hbmame/drivers/kof2k2re.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mgd2.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslug.cpp",
 	MAME_DIR .. "src/hbmame/drivers/mslug2.cpp",
