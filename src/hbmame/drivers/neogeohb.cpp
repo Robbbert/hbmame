@@ -216,6 +216,7 @@ NUM GAME YEAR COMPANY                 TITLE
 510 1320 2024 iq_132                  Atomic Runner Chelnov (Neo-Geo port)
 511 14A5 2025 OzzyOuzo                Bad Dudes vs Dragonninja (Neo-Geo port)
 512 14A4 2025 OzzyOuzo                In the Hunt (Neo-Geo port)
+513 0539 2025 Tonsomo Entertainment   Jurl
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2539,6 +2540,25 @@ ROM_START( inthuntn )
 ROM_END
 
 
+// 513: Jurl by Tonsomo Entertainment
+// bugs: no sound
+ROM_START( jurl )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "513.p1", 0x000000, 0x080000, CRC(601b540e) SHA1(d2ec144bde329a2f23c08c425a47e4661c950034) )
+
+	NEO_SFIX_128K( "513.s1", CRC(d6c058c9) SHA1(b5f3faef8e87a517584e85e42e4af9dd90003047) )
+
+	NEO_BIOS_AUDIO_128K( "513.m1", CRC(b758c5d2) SHA1(939ab3d66cb1138cf4170432fab213beb4cef0d1) )
+
+	ROM_REGION( 0x400000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "513.v1",   0x000000, 0x400000, CRC(16db022e) SHA1(dab8973b95e813cc215011d6d00c6f96f651c636) )
+
+	ROM_REGION( 0x200000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "513.c1",   0x0000000, 0x100000, CRC(02811fe9) SHA1(0257251d7ce31202f7604d1eb48f2dadd09e7819) )
+	ROM_LOAD16_BYTE( "513.c2",   0x0000001, 0x100000, CRC(953bb9a9) SHA1(cd75c64b559ed92c7c02da4f74653aaed314cae6) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -4017,6 +4037,7 @@ GAME( 2018, igla,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2025, inthuntn,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Balek Corp / Neo Byte Force", "In the Hunt demo (2025-05-18)", MACHINE_SUPPORTS_SAVE )
 GAME( 2013, iocero,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iocerom", "Primo Demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, jumpnrund,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Jump n Run Tech Demo", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, jurl,         neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Tonsomo Entertainment", "Jurl (2025-06-14)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, karnovn,      neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Karnov (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2014, knightsch,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Neobitz", "Knight's Chance", MACHINE_SUPPORTS_SAVE )
 GAME( 2018, lernit,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Vasily Familiya", "Team Lernit", MACHINE_IS_INCOMPLETE | MACHINE_SUPPORTS_SAVE )
