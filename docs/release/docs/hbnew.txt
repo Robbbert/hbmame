@@ -12,6 +12,7 @@ New Games
 - [doubled1d]           Double Dragon One beta 2 (2025-09-03)
 - [doubled1e]           Double Dragon One beta 3 (2025-09-14)
 - [inthuntn]            In the Hunt 30-second demo (2025-05-18)
+- [kof2001s49]          The King of Fighters 2001 (All Boss Plus 2025-05-31)
 - [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
 - [pbobblen04]          Puzzle Bobble (precise controls)
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
