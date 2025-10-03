@@ -29,8 +29,10 @@ public:
 		, m4_bank_audio_main(*this, "audio4_main")
 	{ }
 
-	void ps2_map(address_map &map);
 	void ps2(machine_config &config);
+
+private:
+	void ps2_map(address_map &map);
 
 	void audio2_map(address_map &map);
 	void audio2_io(address_map &map);
@@ -60,7 +62,7 @@ public:
 	void audio4_enable_nmi_w(offs_t offset, u8 data);
 
 	void machine_start() override;
-private:
+
 	required_device<cpu_device> m2_audiocpu;
 	required_device<ym2610_device> m2_ym;
 	required_device<generic_latch_8_device> m2_soundlatch;

@@ -1128,6 +1128,18 @@ void neogeo_state::gsc(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc_map);
 }
 
+void neogeo_state::gsc1_map(address_map &map)
+{
+	main_map_noslot(map);
+	map(0x900000,0x9fffff).rom().region("gsc", 0);  // extra rom
+}
+
+void neogeo_state::gsc1(machine_config &config)
+{
+	neogeo_noslot(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc1_map);
+}
+
 
 /*************************************
  *
