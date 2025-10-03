@@ -212,13 +212,16 @@ uint8_t ym2610_device_base<ChipClass>::ymfm_external_read(ymfm::access_class typ
 {
 	if (type == ymfm::ACCESS_ADPCM_A)
 	{
-		if (offset < m_rom_size)
+		if (m_rom_size > 0xffffff)
 			return space(0).read_byte(offset);
-		else
-			return 0;
+
+		return space(0).read_byte(offset & 0xffffff);
 	}
 	else if (type == ymfm::ACCESS_ADPCM_B)
+	{
+//		printf("adpcmb ");
 		return space(1).read_byte(offset);
+	}
 	return 0;
 }
 
