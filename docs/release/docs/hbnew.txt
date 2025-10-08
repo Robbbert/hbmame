@@ -15,6 +15,7 @@ New Games
 - [kof2002s116]         Kof2002 (Plus 2025)
 - [pacupacu1]           Pacu Pacu (v1.1) [Sokurah]
 - [pbobblen04]          Puzzle Bobble (precise controls)
+- [sf2ce68]             Street Fighter II': Champion Edition (Re-edit v0.29.7)
 - [sf2mix]              Street Fighter II: Dream Battle (Mix 1.5)
 - [sf2prime]            Street Fighter II': Prime (v0.66) [zero800]
 - [sinistar01]          Sinistar (balanced ver) [Synamax]
