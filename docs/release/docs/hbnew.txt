@@ -9,6 +9,7 @@ New Games
 ---------------------------------
 - [baddudesn]           Bad Dudes vs Dragonninja Burger Edition 2-stage demo (2025-06-28)
 - [doubled1]            Double Dragon One beta 3 (2025-09-16)
+- [foodfn]              Food Fight (Neo-Geo port) [iq_132]
 - [inthuntn]            In the Hunt 30-second demo (2025-05-18)
 - [jurl]                Jurl (2025-06-14)
 - [kof2001s49]          The King of Fighters 2001 (All Boss Plus 2025-05-31)

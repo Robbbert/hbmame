@@ -217,6 +217,7 @@ NUM GAME YEAR COMPANY                 TITLE
 511 14A5 2025 OzzyOuzo                Bad Dudes vs Dragonninja (Neo-Geo port)
 512 14A4 2025 OzzyOuzo                In the Hunt (Neo-Geo port)
 513 0539 2025 Tonsomo Entertainment   Jurl
+514 F00D 2025 iq_132                  Food Fight (Neo-Geo port)
 539 0539 2025 Shadow Gangs            Shadow Gangs demo
 
 
@@ -2469,6 +2470,25 @@ ROM_START( jurl )
 ROM_END
 
 
+// 514: Food Fight port by iq_132
+// bugs: priority issues
+ROM_START( foodfn )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "514.p1", 0x000000, 0x080000, CRC(904bb32f) SHA1(b6e29634485af5e88997971f0dfb7661e93e8724) )
+
+	NEO_SFIX_128K( "021.s1", CRC(6956d778) SHA1(e3757776d60dc07d8e07c9ca61b223b14732f860) )
+
+	NEO_BIOS_AUDIO_256K( "514.m1", CRC(35cb565b) SHA1(887b91c47e99c5b3beb92425d49e240425507afa) )
+
+	ROM_REGION( 0x080000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "514.v1", 0x000000, 0x080000, CRC(16d20386) SHA1(79787d1a6f23937f3da6cb3d7bfea798a3ccaf1f) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "514.c1", 0x000000, 0x080000, CRC(7b4ca9e3) SHA1(ed5aa0f673e6489f608b4fe3cd16ef7f6fdcff31) )
+	ROM_LOAD16_BYTE( "514.c2", 0x000001, 0x080000, CRC(d9f831bb) SHA1(f2bf06591506c8d142873800a55713de831c49eb) )
+ROM_END
+
+
 // 539: Shadow Gangs demo by Shadow Gangs
 // bugs: screen goes black, sound stops after a few seconds
 ROM_START( sgz ) // demo
@@ -3928,6 +3948,7 @@ GAME( 2009, dwia,         dwi,      neogeo_noslot,   neogeo,  neogeo_state, init
 GAME( 2006, ffeast,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast (NeoGeo)", MACHINE_SUPPORTS_SAVE )
 GAME( 2005, ffeastd,      ffeast,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Rastersoft", "Frog Feast demo", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, flapchck,     neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "Blastar", "Flappy Chicken (2023-04-30)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, foodfn,       neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "iq132", "Food Fight (Neo-Geo port)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann,    neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 1, 2023-05-31)", MACHINE_SUPPORTS_SAVE )
 GAME( 2023, galaxiann2,   galaxiann,neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT270, "tcdev", "Galaxians (beta 2, 2023-06-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, gbi,          neogeo,   neogeo_noslot,   neogeo,  neogeo_state, init_neogeo,   ROT0, "[Raregame]", "GhostBusters (Intro demo)", MACHINE_SUPPORTS_SAVE )
