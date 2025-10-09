@@ -1624,6 +1624,9 @@ void neogeo_state::init_vliner()
 
 	m_sprgen->m_fixed_layer_bank_type = 0;
 
+	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
+
 	m_extra_ram = std::make_unique<uint16_t[]>(0x1000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff, m_extra_ram.get());
 	save_pointer(NAME(m_extra_ram), 0x1000);

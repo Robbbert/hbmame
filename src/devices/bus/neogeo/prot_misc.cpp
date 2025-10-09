@@ -186,7 +186,7 @@ void neoboot_prot_device::decrypt_kof2k4se_68k(uint8_t* cpurom, uint32_t cpurom_
 void neoboot_prot_device::lans2004_vx_decrypt(uint8_t* ymsndrom, uint32_t ymsndrom_size)
 {
 	uint8_t *rom = ymsndrom;
-	for (int i = 0; i < 0xA00000; i++)
+	for (u32 i = 0; i < ymsndrom_size; i++)
 		rom[i] = bitswap<8>(rom[i], 0, 1, 5, 4, 3, 2, 6, 7);
 }
 
