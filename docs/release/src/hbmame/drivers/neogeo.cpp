@@ -627,12 +627,6 @@ void neogeo_state::init_neogeo()
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x340000, 0x340001, 0, 0x01fffe, 0, read16smo_delegate(*this, FUNC(neogeo_state::in1_r)));
 	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
 	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
-	FILE *fp = fopen(".ym_size.tmp", "w");
-    if (fp) {
-        uint32_t ymsize = ym_region_size;
-        fprintf(fp, "%x", ymsize);  // 以十六進制文本形式寫入
-        fclose(fp);
-    }
 }
 
 
@@ -1134,6 +1128,18 @@ void neogeo_state::gsc(machine_config &config)
 	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc_map);
 }
 
+void neogeo_state::gsc1_map(address_map &map)
+{
+	main_map_noslot(map);
+	map(0x900000,0x9fffff).rom().region("gsc", 0);  // extra rom
+}
+
+void neogeo_state::gsc1(machine_config &config)
+{
+	neogeo_noslot(config);
+	m_maincpu->set_addrmap(AS_PROGRAM, &neogeo_state::gsc1_map);
+}
+
 
 /*************************************
  *
@@ -1617,6 +1623,9 @@ void neogeo_state::init_vliner()
 	m_banked_cart->install_banks(machine(), m_maincpu, m_region_maincpu->base(), m_region_maincpu->bytes());
 
 	m_sprgen->m_fixed_layer_bank_type = 0;
+
+	m_sprgen->set_sprite_region(m_region_sprites->base(), m_region_sprites->bytes());
+	m_sprgen->set_fixed_regions(m_region_fixed->base(), m_region_fixed->bytes(), m_region_fixedbios);
 
 	m_extra_ram = std::make_unique<uint16_t[]>(0x1000);
 	m_maincpu->space(AS_PROGRAM).install_ram(0x200000, 0x201fff, m_extra_ram.get());

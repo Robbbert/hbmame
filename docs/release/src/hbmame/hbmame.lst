@@ -122,6 +122,7 @@ vecbtime		/* T-Bone hack of Burgertime */
 @source:bublbobl.cpp
 bublbobl		//parent
 bublboblu
+bublboblu2
 bub68705a
 boblcave
 bublcave
@@ -129,16 +130,20 @@ bublcave10
 bublcave11
 bbaladar		/* Aladar Bootleg */
 bb2bmh			/* Overclocked Bubblebobble Memories Hack */
-bbhackv1 		/* Overclocked Level Hack */
+bbhackv1		/* Overclocked Level Hack */
 bbredux1		/* Punji - Bubble Bobble Redux with Level Skip */
 bbredux2		/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3		/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
-bublbobf 		/* Arkatrad */
-sboblboblh 		/* level select hack */
+bublbobf		/* Arkatrad */
+sboblboblh		/* level select hack */
 bublbobls01
 
 @source:bwidow.cpp
 spacwarp		/* HB Jeff Hendrix - Proto on Space Duel HW */
+
+@source:bzone.cpp
+//bzone                                  //parent
+//bzone01
 
 @source:cabal.cpp
 cabal                                  //parent
@@ -1010,6 +1015,7 @@ sf2ce64
 sf2ce65
 sf2ce66
 sf2ce67
+sf2ce68
 sf2hf01
 sf2hfu01
 sf2hfu02
@@ -1033,6 +1039,7 @@ sf2mix100
 sf2mix110
 sf2mix120
 sf2mix130
+sf2mix140
 sf2mix
 sf2mkot01
 sf2red01
@@ -1475,6 +1482,7 @@ sf2prime56
 sf2prime57
 sf2prime59
 sf2prime60
+sf2prime63
 sfas01
 sfas02
 sfas03
@@ -2164,55 +2172,6 @@ kof95s46
 kof95s47
 
 @source:kof96.cpp
-kof96a
-kof96ae
-kof96ae1
-kof96ae1a
-kof96ae1b
-kof96ae2
-kof96ae23
-kof96b
-kof96b1
-kof96bb
-kof96c
-kof96ckvs
-kof96cn
-kof96cns01
-kof96cr
-kof96chj
-kof96eh
-kof96ep
-kof96ep2
-kof96ep3
-kof96evo
-kof96evoo
-kof96ey
-kof96hp
-kof96hp1
-kof96hpr
-kof96k
-kof96k1
-kof96k3
-kof96k3o
-kof96kt
-kof96lx
-kof96ncd
-kof96oih
-kof96pch
-kof96pjc
-kof96pm
-kof96rcw
-kof96ri
-kof96ri1
-kof96ri2
-kof96ri3
-kof96ri4
-kof96ri5
-kof96rp1
-kof96ru
-kof96ru2
-kof96rw
-kof96seh
 kof96s01
 kof96s02
 kof96s06
@@ -2255,6 +2214,54 @@ kof96s47
 kof96s48
 kof96s49
 kof96s50
+kof96s51
+kof96s52
+kof96s53
+kof96s54
+kof96s55
+kof96s56
+kof96s57
+kof96s58
+kof96s59
+kof96s60
+kof96s61
+kof96s62
+kof96s63
+kof96s64
+kof96s65
+kof96s66
+kof96s67
+kof96s68
+kof96s69
+kof96s70
+kof96s71
+kof96s72
+kof96s73
+kof96s74
+kof96s75
+kof96s76
+kof96s77
+kof96s78
+kof96s79
+kof96s80
+kof96s81
+kof96s82
+kof96s83
+kof96s84
+kof96s85
+kof96s86
+kof96s87
+kof96s88
+kof96s89
+kof96s90
+kof96s91
+kof96s92
+kof96s93
+kof96s94
+kof96s95
+kof96s96
+kof96s97
+kof96s98
 
 @source:kof97.cpp
 kof97aa
@@ -2974,7 +2981,6 @@ kof98s02
 kof98s03
 kof98s04
 kof98s05
-kof98s06
 kof98s07
 kof98s08
 kof98s09
@@ -2991,8 +2997,6 @@ kof98s19
 kof98s20
 kof98s22
 kof98s24
-kof98s25
-kof98s26
 kof98s27
 kof98s28
 kof98s29
@@ -3020,7 +3024,6 @@ kof98s50
 kof98s51
 kof98s52
 kof98hh01
-kof98hh02
 kof98hh03
 kof98hh04
 kof98hh05
@@ -3576,6 +3579,7 @@ kof2001s45
 kof2001s46
 kof2001s47
 kof2001s48
+kof2001s49
 
 @source:kof2002.cpp
 kof200215
@@ -3838,6 +3842,7 @@ kof2002s112
 kof2002s113
 kof2002s114
 kof2002s115
+kof2002s116
 kf2k2mps01
 kf2k2mps02
 kf2k2mps03
@@ -4310,6 +4315,7 @@ pacmtest1
 pacmtest2
 pactetris		// HB
 pacupacu                               // HB
+pacupacu1                              // HB
 pakupaku                               // HB
 pakupaku2                              // HB
 pakupaku3                              // HB
@@ -6137,6 +6143,7 @@ amazonn
 badapple			// BEY
 badapplea
 badappleb
+baddudesn
 beast		/* 2002 (c) 1989 Psygnosis */
 bonusstage                             // HB
 bpanicdx                               // HB
@@ -6161,8 +6168,6 @@ ddsprdmo
 ddsprdmo1
 didemo
 doubled1
-doubled1a
-doubled1b
 dti			// Duck Tales Intro
 dtia		// Duck Tales Intro
 dwi			/* DarkWing Duck Intro */
@@ -6170,6 +6175,7 @@ dwia
 ffeast		// Frog Feast
 ffeastd		// Frog Feast demo
 flapchck
+foodfn
 fr2			// 098 Idol Mahjong - final romance 2
 fr2cd		/* 098 (c) 1995 Video Systems Co. */
 fr2ch		/* 098 (c) 1995 Video Systems Co. */
@@ -6184,8 +6190,10 @@ gxg
 horekidb3
 hypernoid
 //igla
+inthuntn
 iocero		// BEY
 jumpnrund
+jurl
 karnovn
 knacki		// KnackiBalls by Furrtek
 knightsch
@@ -6433,9 +6441,10 @@ nitd07
 pzlcrz
 pbcrazyb1
 pbcrazyb2
-pbobblenba
-pbobblencd
-pbobblendx
+pbobblen01
+pbobblen02
+pbobblen03
+pbobblen04
 pnyaad
 pnyaadd
 preisle2s01
@@ -8924,6 +8933,8 @@ robotron                               //parent
 robotron201                            // start at level 201 (Sean Riddle)
 robotronp                              // Patched to remove the (in the corner) crash
 robotrontie                            // Tie Die set (Vid Kidz)
+sinistar                               //parent
+sinistar01
 splat                                  //parent
 splatsc1
 conquest

@@ -42,7 +42,7 @@
 #define ID_HELP_ABOUTSYSTEM             3140
 #define ID_FILE_OLDUI                   3141
 #define ID_FILE_UIACTIVE                3142
-#define IDC_SHOW_MENU                   3143
+//#define IDC_SHOW_MENU                   3143
 #define IDI_ICON_CART                   3200
 #define IDI_ICON_HARD                   3201
 #define IDI_ICON_CASS                   3202

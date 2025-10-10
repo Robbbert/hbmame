@@ -8,7 +8,7 @@ rem echo.
 echo 2. ARCADE - CLEAN, update MAKEFILE, check HK, check sets that NEED ROMS
 echo.
 echo 3. MAMEUI - CLEAN, update MAKEFILE and run SWLIST
-rem echo.
+echo.
 echo 4. When this is all done, then
 pause
 goto arcade

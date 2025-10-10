@@ -846,17 +846,17 @@ ROM_START( neocup98k )
 ROM_END
 
 
-ROM_START( pbobblenba )
+ROM_START( pbobblen01 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "083b.p1", 0x000000, 0x080000, CRC(ac1e9ef3) SHA1(a2b125ee70869667431ab125bc29e768500802ad) )
+	ROM_LOAD16_WORD_SWAP( "083s01.p1", 0x000000, 0x080000, CRC(ac1e9ef3) SHA1(a2b125ee70869667431ab125bc29e768500802ad) )
 
 	NEO_SFIX_128K( "083.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) )
 
 	NEO_BIOS_AUDIO_128K( "083.m1", CRC(f424368a) SHA1(5e5bbcaeb82bed2ee17df08f005ca20ad1030723) )
 
 	ROM_REGION( 0x380000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "083b.v1", 0x200000, 0x080000, CRC(f8872aed) SHA1(73685980253093b4f148cb38b6a47476fb2a61aa) )
-	ROM_LOAD( "083b.v2", 0x280000, 0x080000, CRC(5c8cf5fe) SHA1(97d74466ac48708d7f4004524288dd2f32f17793) )
+	ROM_LOAD( "083s01.v1", 0x200000, 0x080000, CRC(f8872aed) SHA1(73685980253093b4f148cb38b6a47476fb2a61aa) )
+	ROM_LOAD( "083s01.v2", 0x280000, 0x080000, CRC(5c8cf5fe) SHA1(97d74466ac48708d7f4004524288dd2f32f17793) )
 	ROM_LOAD( "083.v4", 0x300000, 0x080000, CRC(0a548948) SHA1(e1e4afd17811cb60401c14fbcf0465035165f4fb) )
 
 	ROM_REGION( 0x100000, "sprites", 0 )
@@ -864,13 +864,13 @@ ROM_START( pbobblenba )
 	ROM_LOAD16_BYTE( "083.c6", 0x000001, 0x80000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
 ROM_END
 
-ROM_START( pbobblencd )
+ROM_START( pbobblen02 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "083cd.p1", 0x000000, 0x040000, CRC(b1095646) SHA1(20fa2bc724df4b5234ff0ccf3074e545f28d1bbd) )
+	ROM_LOAD16_WORD_SWAP( "083s02.p1", 0x000000, 0x040000, CRC(b1095646) SHA1(20fa2bc724df4b5234ff0ccf3074e545f28d1bbd) )
 
 	NEO_SFIX_128K( "083.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) )
 
-	NEO_BIOS_AUDIO_64K( "083cd.m1", CRC(c505fcdb) SHA1(2b3e10e1475c7c1425b382be30c765e455c5bbc6) )
+	NEO_BIOS_AUDIO_64K( "083s02.m1", CRC(c505fcdb) SHA1(2b3e10e1475c7c1425b382be30c765e455c5bbc6) )
 
 	ROM_REGION( 0x180000, "ymsnd:adpcma", 0 )
 	ROM_LOAD( "083ch.v3", 0x000000, 0x100000, CRC(30ce579e) SHA1(635f7ab2178981ba38cc0080f4f97e954e552440) )
@@ -879,6 +879,40 @@ ROM_START( pbobblencd )
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "083.c5", 0x000000, 0x80000, CRC(e89ad494) SHA1(69c9ea415773af94ac44c48af05d55ada222b138) )
 	ROM_LOAD16_BYTE( "083.c6", 0x000001, 0x80000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
+ROM_END
+
+ROM_START( pbobblen03 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "083s03.p1", 0x000000, 0x040000, CRC(5ed56e87) SHA1(b927c9fd907f90e1b5556c96f22b5245b23f07a6) )
+
+	NEO_SFIX_128K( "083.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) )
+
+	NEO_BIOS_AUDIO_64K( "083s03.m1", CRC(129e6054) SHA1(4edd18c44759e7a140705f1544413c649131c551) )
+
+	ROM_REGION( 0x380000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "083.v3", 0x200000, 0x100000, CRC(0840cbc4) SHA1(1adbd7aef44fa80832f63dfb8efdf69fd7256a57) )
+	ROM_LOAD( "083.v4", 0x300000, 0x080000, CRC(0a548948) SHA1(e1e4afd17811cb60401c14fbcf0465035165f4fb) )
+
+	ROM_REGION( 0x100000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "083.c5", 0x000000, 0x80000, CRC(e89ad494) SHA1(69c9ea415773af94ac44c48af05d55ada222b138) )
+	ROM_LOAD16_BYTE( "083.c6", 0x000001, 0x80000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
+ROM_END
+
+ROM_START( pbobblen04 )
+	ROM_REGION( 0x100000, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "083s04.p1", 0x000000, 0x080000, CRC(2cf95fad) SHA1(7ba3c152832096507e4c25157beb32054861d469) )
+
+	NEO_SFIX_128K( "083.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) )
+
+	NEO_BIOS_AUDIO_128K( "083.m1", CRC(f424368a) SHA1(5e5bbcaeb82bed2ee17df08f005ca20ad1030723) )
+
+	ROM_REGION( 0x380000, "ymsnd:adpcma", 0 )
+	ROM_LOAD( "083.v3", 0x200000, 0x100000, CRC(0840cbc4) SHA1(1adbd7aef44fa80832f63dfb8efdf69fd7256a57) )
+	ROM_LOAD( "083.v4", 0x300000, 0x080000, CRC(0a548948) SHA1(e1e4afd17811cb60401c14fbcf0465035165f4fb) )
+
+	ROM_REGION( 0x500000, "sprites", 0 )
+	ROM_LOAD16_BYTE( "083.c5", 0x400000, 0x080000, CRC(e89ad494) SHA1(69c9ea415773af94ac44c48af05d55ada222b138) )
+	ROM_LOAD16_BYTE( "083.c6", 0x400001, 0x080000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
 ROM_END
 
 ROM_START( pzlcrz )
@@ -932,23 +966,6 @@ ROM_START( pbcrazyb2 )
 	ROM_REGION( 0x100000, "sprites", 0 )
 	ROM_LOAD16_BYTE( "462b2.c1", 0x000000, 0x68000, CRC(b50a9e06) SHA1(d9f7aaddc6e48518a4ad332e718847001b5e3330) )
 	ROM_LOAD16_BYTE( "462b2.c2", 0x000001, 0x68000, CRC(427422db) SHA1(e7fed9ae3ce9c61dd85a0adafc51af727acba37d) )
-ROM_END
-
-ROM_START( pbobblendx )
-	ROM_REGION( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_WORD_SWAP( "083dx.p1", 0x000000, 0x040000, CRC(5ed56e87) SHA1(b927c9fd907f90e1b5556c96f22b5245b23f07a6) )
-
-	NEO_SFIX_128K( "083.s1", CRC(9caae538) SHA1(cf2d90a7c1a42107c0bb8b9a61397634286dbe0a) )
-
-	NEO_BIOS_AUDIO_64K( "083dx.m1", CRC(129e6054) SHA1(4edd18c44759e7a140705f1544413c649131c551) )
-
-	ROM_REGION( 0x380000, "ymsnd:adpcma", 0 )
-	ROM_LOAD( "083.v3", 0x200000, 0x100000, CRC(0840cbc4) SHA1(1adbd7aef44fa80832f63dfb8efdf69fd7256a57) )
-	ROM_LOAD( "083.v4", 0x300000, 0x080000, CRC(0a548948) SHA1(e1e4afd17811cb60401c14fbcf0465035165f4fb) )
-
-	ROM_REGION( 0x100000, "sprites", 0 )
-	ROM_LOAD16_BYTE( "083.c5", 0x000000, 0x80000, CRC(e89ad494) SHA1(69c9ea415773af94ac44c48af05d55ada222b138) )
-	ROM_LOAD16_BYTE( "083.c6", 0x000001, 0x80000, CRC(4b42d7eb) SHA1(042ae50a528cea21cf07771d3915c57aa16fd5af) )
 ROM_END
 
 
@@ -1600,9 +1617,10 @@ GAME( 1998, neocup98k,     neocup98, neogeo_noslot, neogeo, neogeo_state, init_n
 GAME( 2009, pbcrazyb1,     pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble (Crazy beta 1, 2009-07-05)", MACHINE_SUPPORTS_SAVE )
 GAME( 2009, pbcrazyb2,     pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Puzzle Bobble (Crazy beta 2, 2009-07-23)", MACHINE_SUPPORTS_SAVE )
 GAME( 2020, pzlcrz,        pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Elrayzeur", "Puzzle Crazy", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, pbobblenba,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Taito", "Puzzle Bobble (set 3)", MACHINE_SUPPORTS_SAVE )
-GAME( 1994, pbobblencd,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Puzzle Bobble (CD conversion)", MACHINE_SUPPORTS_SAVE )
-GAME( 2000, pbobblendx,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle Bobble Deluxe (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pbobblen01,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "Taito", "Puzzle Bobble (set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 1994, pbobblen02,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "CD_conv", "Puzzle Bobble (CD conversion)", MACHINE_SUPPORTS_SAVE )
+GAME( 2000, pbobblen03,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "hack", "Puzzle Bobble Deluxe (bootleg)", MACHINE_SUPPORTS_SAVE )
+GAME( 2024, pbobblen04,    pbobblen, neogeo_noslot, neogeo, neogeo_state, init_neogeo,    ROT0, "City41", "Puzzle Bobble (precise controls)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2003, pnyaad,        pnyaa,    neogeo_noslot, neogeo, neogeo_state, init_pnyaad,    ROT0, "Aiky", "Pochi & Nyaa (decrypted C Set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2003, pnyaadd,       pnyaa,    neogeo_noslot, neogeo, neogeo_state, init_pnyaad,    ROT0, "Aiky", "Pochi & Nyaa (decrypted C Set 2)", MACHINE_SUPPORTS_SAVE )

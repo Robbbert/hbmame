@@ -585,7 +585,7 @@ void ngbootleg_prot_device::decrypt_kof2k4se_68k(u8* cpurom, u32 cpurom_size)
 void ngbootleg_prot_device::lans2004_vx_decrypt(u8* ymsndrom, u32 ymsndrom_size)
 {
 	u8 *rom = ymsndrom;
-	for (u8 i = 0; i < 0xA00000; i++)
+	for (u32 i = 0; i < ymsndrom_size; i++)
 		rom[i] = bitswap<8>(rom[i], 0, 1, 5, 4, 3, 2, 6, 7);
 }
 
