@@ -122,6 +122,7 @@ vecbtime		/* T-Bone hack of Burgertime */
 @source:bublbobl.cpp
 bublbobl		//parent
 bublboblu
+bublboblu2
 bub68705a
 boblcave
 bublcave
@@ -129,12 +130,12 @@ bublcave10
 bublcave11
 bbaladar		/* Aladar Bootleg */
 bb2bmh			/* Overclocked Bubblebobble Memories Hack */
-bbhackv1 		/* Overclocked Level Hack */
+bbhackv1		/* Overclocked Level Hack */
 bbredux1		/* Punji - Bubble Bobble Redux with Level Skip */
 bbredux2		/* Punji - Bubble Bobble Redux with Level Skip and Game Continue */
 bbredux3		/* Punji - Bubble Bobble Redux with Level Skip, Game Continue, and High Score Save */
-bublbobf 		/* Arkatrad */
-sboblboblh 		/* level select hack */
+bublbobf		/* Arkatrad */
+sboblboblh		/* level select hack */
 bublbobls01
 
 @source:bwidow.cpp
