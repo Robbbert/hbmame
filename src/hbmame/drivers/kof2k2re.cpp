@@ -326,9 +326,9 @@ void kof2k2re_hbmame::ps2_map(address_map &map)
 	//map(0x300000, 0x300001).mirror(0x01ff7e).portr("IN0");
 	//map(0x340000, 0x340001).mirror(0x01fffe).portr("IN1");
 	//map(0x3a0000, 0x3a001f).mirror(0x01ffe0).w(FUNC(kof2k2re_hbmame::system_control_w_m4));
-	map(0xba0000, 0xba0001).mirror(0x01fffe).rw(FUNC(kof2k2re_hbmame::audio4_result_r),FUNC(kof2k2re_hbmame::audio4_command_w));
-	map(0xbc0000, 0xbc0001).mirror(0x01fffe).rw(FUNC(kof2k2re_hbmame::audio3_result_r),FUNC(kof2k2re_hbmame::audio3_command_w));
-	map(0xbe0000, 0xbe0001).mirror(0x01fffe).rw(FUNC(kof2k2re_hbmame::audio2_result_r),FUNC(kof2k2re_hbmame::audio2_command_w));
+	map(0xba0000, 0xba0001).rw(FUNC(kof2k2re_hbmame::audio4_result_r),FUNC(kof2k2re_hbmame::audio4_command_w));
+	map(0xbc0000, 0xbc0001).rw(FUNC(kof2k2re_hbmame::audio3_result_r),FUNC(kof2k2re_hbmame::audio3_command_w));
+	map(0xbe0000, 0xbe0001).rw(FUNC(kof2k2re_hbmame::audio2_result_r),FUNC(kof2k2re_hbmame::audio2_command_w));
 	//map(0xba0000,0xba0001).w(FUNC(kof2k2re_hbmame::audio4_command_w)).umask16(0xff00);
 	//map(0xbc0000,0xbc0001).w(FUNC(kof2k2re_hbmame::audio3_command_w)).umask16(0xff00);
 	//map(0xbe0000,0xbe0001).w(FUNC(kof2k2re_hbmame::audio2_command_w)).umask16(0xff00);
