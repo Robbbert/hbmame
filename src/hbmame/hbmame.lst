@@ -1985,6 +1985,7 @@ fourplay
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 gmultib
+gmultic
 //scramblemk                             // skeleton
 
 @source:gauntlet.cpp

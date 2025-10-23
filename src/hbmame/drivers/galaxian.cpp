@@ -906,6 +906,21 @@ ROM_START( gmultib )
 //	ROM_LOAD( "bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
 ROM_END
 
+ROM_START( gmultic )
+	ROM_REGION( 0x80000, "maincpu", 0 )
+	ROM_LOAD( "code.bin",     0x00000, 0x80000, CRC(24f914a4) SHA1(8263722ea7b6a0a70d46e6543947aa04fbdcd5aa) )
+
+	ROM_REGION( 0x20000, "gfx1", 0 )
+	ROM_LOAD( "gfx1.bin",     0x00000, 0x10000, CRC(3216af7c) SHA1(226368d935c014e8ddfb9a1f16d6d3d663ccfa17) )
+	ROM_LOAD( "gfx2.bin",     0x10000, 0x10000, CRC(cb68a779) SHA1(40abd97f83cf45d9d347ce4b24df657e3a25e99b) )
+
+	ROM_REGION( 0x20, "proms", ROMREGION_ERASEFF )
+
+	ROM_REGION( 0x400, "user1", 0 )
+	ROM_LOAD( "col.bin",      0x000000, 0x400, CRC(945bece6) SHA1(3bcc18d17a93db0cc5e6ceb978623040b077e3ba) )
+	//ROM_LOAD( "bigcol.bin",   0x000000, 0x10000, CRC(515132db) SHA1(0d099c70dbd50a7b792b88807f589bbc886e8e22) )
+ROM_END
+
 ROM_START( scramblemk )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD( "multi.main",     0x00000, 0x80000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
@@ -954,17 +969,6 @@ void gmultib_state::gfxbank_w(offs_t offset, uint8_t data)
 	//printf("switching to gfxbank %d\n",data);
 	data &= 31;
 	galaxian_gfxbank_w(0, data);
-#if 0
-	if (m_oldgfx != data)
-	{
-		m_oldgfx = data;
-		for (int x = 0; x < 0x200; x++)
-			m_gfxdecode->gfx(0)->mark_dirty(x);
-
-		for (int x = 0; x < 0x80; x++)
-			m_gfxdecode->gfx(1)->mark_dirty(x);
-	}
-#endif
 }
 
 void gmultib_state::rombank_w(offs_t offset, uint8_t data)
@@ -974,9 +978,12 @@ void gmultib_state::rombank_w(offs_t offset, uint8_t data)
 	m_rombank->set_entry(data);
 	m_rom_bank = data;
 
-	// enable stars in Omega (overlooked by maker)
+	// Omega: stars on
 	if (data == 2)
 		galaxian_stars_enable_w(1);
+	// Guttang: stars off
+	if (data >= 22)
+		galaxian_stars_enable_w(0);
 
 	// choose prom
 	u16 newprom = data * 0x20;
@@ -994,8 +1001,8 @@ void gmultib_state::rombank_w(offs_t offset, uint8_t data)
 void gmultib_state::gmultib_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color)
 {
 	*code |= (m_gfxbank[0] << 6);
-	// Ladybug and Devilfish
-	if ((m_rom_bank == 7) || (m_rom_bank == 13))
+	// Ladybug, Devilfish, Guttang (2 banks)
+	if ((m_rom_bank == 7) || (m_rom_bank == 13) || (m_rom_bank == 22) || (m_rom_bank == 23))
 		*code += 0x40;
 }
 
@@ -1077,7 +1084,6 @@ void gmultib_state::gmultib(machine_config &config)
 {
 	galaxian(config);
 
-	// basic machine hardware
 	m_maincpu->set_addrmap(AS_PROGRAM, &gmultib_state::mem_map);
 
 	m_gfxdecode->set_info(gfx_gmultib);
@@ -1085,7 +1091,8 @@ void gmultib_state::gmultib(machine_config &config)
 	NVRAM(config, "nvram", nvram_device::DEFAULT_ALL_0);
 }
 
-GAME( 2022, gmultib, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, ROT90, "Macro", "Galaxian Multigame (2015)", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, gmultib, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, ROT90, "Macro", "Galaxian Multigame (2022)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, gmultic, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, ROT90, "Macro", "Galaxian Multigame (2025)", MACHINE_SUPPORTS_SAVE )
 
 class smk_state : public videight_state
 {

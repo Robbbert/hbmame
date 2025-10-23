@@ -7,7 +7,8 @@
 
 New Games
 ---------------------------------
-- [gmultib]             Galaxian Multigame (2015)
+- [gmultib]             Galaxian Multigame (2022)
+- [gmultic]             Galaxian Multigame (2025)
 - [maglord02]           Magician Lord (Again Changes From Hell v1.0.0)
 
 
