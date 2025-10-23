@@ -2639,6 +2639,7 @@ ROM_END
 
 
 // 610 : NGYM2610 by Blastar (c) 2018
+// Bugs: ADPCMA no longer works after the YM emulation was rewritten
 ROM_START( ngym2610 )
 	ROM_REGION( 0x100000, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "610.p1", 0x000000, 0x100000, CRC(61c31db6) SHA1(7f43848b5a5ad321849e3c80f640449ba73c3716) )

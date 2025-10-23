@@ -1558,3 +1558,4 @@ void videight_state::videight_gfxbank_w(offs_t offset, uint8_t data)
 	if ((data < 2) && (m_gfxbank[4] == 6) && (offset == 2))
 		galaxian_gfxbank_w(0, data + 4);
 }
+

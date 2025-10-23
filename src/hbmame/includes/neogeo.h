@@ -401,6 +401,14 @@ INPUT_PORTS_EXTERN(dualbios);
 #define ROM_LOAD16_WORD_SWAP_BIOS(bios,name,offset,length,hash) \
 	ROMX_LOAD(name, offset, length, hash, ROM_GROUPWORD | ROM_REVERSE | ROM_BIOS(bios))
 
+#define NEOGEO_AESBIOS(x) \
+	ROM_SYSTEM_BIOS( x +0, "aes_asia", "Asia AES" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x +0, "neo-epo.bin",  0x00000, 0x020000, CRC(d27a71f1) SHA1(1b3b22092f30c4d1b2c15f04d1670eb1e9fbea07) ) \
+	ROM_SYSTEM_BIOS( x +1, "aes_japan", "Japan AES" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x +1, "neo-po.bin",   0x00000, 0x020000, CRC(16d0c132) SHA1(4e4a440cae46f3889d20234aebd7f8d5f522e22c) ) \
+	ROM_SYSTEM_BIOS( x +2, "aes_devel", "Development System ROM" ) \
+	ROM_LOAD16_WORD_SWAP_BIOS( x +2, "neodebug.rom", 0x00000, 0x020000, CRC(698ebb7d) SHA1(081c49aa8cc7dad5939833dc1b18338321ea0a07) )
+
 #define NEOGEO_UNIBIOS(x) \
 	ROM_SYSTEM_BIOS( x+ 0, "unibios40", "Universe Bios (Hack, Ver. 4.0)" ) \
 	ROM_LOAD16_WORD_SWAP_BIOS( x+ 0, "uni-bios_4_0.rom",  0x00000, 0x20000, CRC(a7aab458) SHA1(938a0bda7d9a357240718c2cec319878d36b8f72) )
@@ -489,6 +497,7 @@ INPUT_PORTS_EXTERN(dualbios);
 	/* NEOGEO_UNIBIOS_2(16) */ \
 	/* NEOGEO_UNIBIOS_1(16) */ \
 	/* NEOGEO_AES_BIOS(16) */ \
+	NEOGEO_AESBIOS(21) \
 	ROM_DEFAULT_BIOS("unibios40")
 
 

@@ -1984,7 +1984,7 @@ vectrgal	/* T-Bone hack of Galaxian */
 fourplay
 videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
-//multigameb                           // skeleton
+gmultib
 //scramblemk                             // skeleton
 
 @source:gauntlet.cpp

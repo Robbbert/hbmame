@@ -2079,7 +2079,7 @@ void ym2610::write_data_hi(uint8_t data)
 //-------------------------------------------------
 
 void ym2610::write(uint32_t offset, uint8_t data)
-{
+{//printf("%X=%X ",offset+4,data);
 	switch (offset & 3)
 	{
 		case 0: // address port
