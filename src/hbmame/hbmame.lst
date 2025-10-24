@@ -61,7 +61,7 @@ asteroid		//parent
 asteroid6		/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer		// star destroyer, hack of asteroid2
-//amg			// test only
+//amulti			// test only
 
 @source:astrocde.cpp
 tst_gorf		/* Gorf test rom */
@@ -1986,7 +1986,7 @@ videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 gmultib
 gmultic
-//scramblemk                             // skeleton
+//smulti                                // skeleton
 
 @source:gauntlet.cpp
 gaunt2		//parent
@@ -6187,16 +6187,17 @@ gladmort
 gladmortd
 gladmortd2
 goldaxen
+//greenspace
 gxg
 horekidb3
 hypernoid
 //igla
 inthuntn
-iocero		// BEY
+iocero
 jumpnrund
 jurl
 karnovn
-knacki		// KnackiBalls by Furrtek
+knacki
 knightsch
 lernit
 lhbb
@@ -6208,27 +6209,29 @@ looptrsp
 ltorb
 ndo_a_td
 neo2048
-neo2500		/* Blastar */
-neo3d		// Oxygene
-neocstlv	// BarfHappy
-neodemo		/* Charles Doty */
-neofight	// Kannagi
+neo2500
+neo3d
+neocstlv
+neodemo
+//neodemo02
+neofight
 neofightb
 neofighto
-neogal1		// BEY
-neogal1d	// BEY
-neogal1t	// BEY
-neogal2		// BEY
-neonopon	/* (c) 2002-10-05 Blastar */
+neogal1
+neogal1d
+neogal1t
+neogal2
+//neohw
+neonopon
 //neonopon_d1 // unplayable demo
 //neonopon_d2 // unplayable demo
 //neonopon_d3 // unplayable demo
 neopang
-neopong		/* (c) 2002 Neodev */
-neoponga	/* (c) 2002 Neodev */
-neoromjb	// CeL
-neotest		// BEY
-neothund	// Sebastian Mihai
+neopong
+neoponga
+neoromjb
+neotest
+neothund
 neotrisd1
 neotrisd2
 neotrisd3

@@ -921,7 +921,7 @@ ROM_START( gmultic )
 	//ROM_LOAD( "bigcol.bin",   0x000000, 0x10000, CRC(515132db) SHA1(0d099c70dbd50a7b792b88807f589bbc886e8e22) )
 ROM_END
 
-ROM_START( scramblemk )
+ROM_START( smulti )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD( "multi.main",     0x00000, 0x80000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
 
@@ -929,14 +929,13 @@ ROM_START( scramblemk )
 	ROM_LOAD( "multi.gfx1",     0x00000, 0x10000, CRC(7d420a14) SHA1(e603c3cf8fd88fa09017269d4f9ce8d027e20eaf) )
 	ROM_LOAD( "multi.gfx2",     0x10000, 0x10000, CRC(a5e17a10) SHA1(9208a74f1b46c31c6d95e2b2fad325258f2301b7) )
 
-//	ROM_LOAD( "bigcol.bin",   0x000400, 0x10000, CRC(19f54955) SHA1(45f4361a1136ecb5e5297708bfe0a577812eab29) )
+	ROM_REGION( 0x20, "proms", 0 )
+	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
 
-//	ROM_REGION( 0x1000, "gfx1", 0 )
-//	ROM_LOAD( "1h.bin",       0x0000, 0x0800, CRC(39fb43a4) SHA1(4755609bd974976f04855d51e08ec0d62ab4bc07) )
-//	ROM_LOAD( "1k.bin",       0x0800, 0x0800, CRC(7e3f56a2) SHA1(a9795d8b7388f404f3b0e2c6ce15d713a4c5bafa) )
-
-//	ROM_REGION( 0x0020, "proms", 0 )
-//	ROM_LOAD( "6l.bpr",       0x0000, 0x0020, CRC(c3ac9467) SHA1(f382ad5a34d282056c78a5ec00c30ec43772bae2) )
+	ROM_REGION( 0x20800, "user1", 0 )
+	ROM_LOAD( "multi-prom.6e",    0x00000, 0x10000, CRC(5760a4f5) SHA1(539f56cae010488f0c6e4ff8de43e7dfe9b34375) )
+	ROM_LOAD( "multi-sndz80.bin", 0x10000, 0x10000, CRC(25865125) SHA1(5bbbc6f5a0ad6c6b86dea7893e4e18195c37192e) )
+	ROM_LOAD( "multi-main-eep.bin", 0x20000, 0x800, CRC(5b2feb51) SHA1(413fd60057cf3fcf6ad86463b2b814a4471d4882) )
 ROM_END
 
 class gmultib_state : public videight_state
@@ -978,6 +977,11 @@ void gmultib_state::rombank_w(offs_t offset, uint8_t data)
 	m_rombank->set_entry(data);
 	m_rom_bank = data;
 
+	// choose prom
+	u16 newprom = data * 0x20;
+	if (newprom == m_oldprom)
+		return;
+
 	// Omega: stars on
 	if (data == 2)
 		galaxian_stars_enable_w(1);
@@ -985,17 +989,12 @@ void gmultib_state::rombank_w(offs_t offset, uint8_t data)
 	if (data >= 22)
 		galaxian_stars_enable_w(0);
 
-	// choose prom
-	u16 newprom = data * 0x20;
-	if (newprom != m_oldprom)
-	{
-		m_oldprom = newprom;
-		//printf("prom = %X\n",newprom);
-		uint8_t* srcregion = memregion("user1")->base() + newprom;
-		uint8_t* dstregion = memregion("proms")->base();
-		memcpy(dstregion, srcregion, 0x20);
-		galaxian_palette(*m_palette);
-	}
+	m_oldprom = newprom;
+	//printf("prom = %X\n",newprom);
+	uint8_t* srcregion = memregion("user1")->base() + newprom;
+	uint8_t* dstregion = memregion("proms")->base();
+	memcpy(dstregion, srcregion, 0x20);
+	galaxian_palette(*m_palette);
 }
 
 void gmultib_state::gmultib_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color)
@@ -1094,64 +1093,64 @@ void gmultib_state::gmultib(machine_config &config)
 GAME( 2022, gmultib, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, ROT90, "Macro", "Galaxian Multigame (2022)", MACHINE_SUPPORTS_SAVE )
 GAME( 2025, gmultic, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, ROT90, "Macro", "Galaxian Multigame (2025)", MACHINE_SUPPORTS_SAVE )
 
-class smk_state : public videight_state
+class smulti_state : public videight_state
 {
 public:
-	smk_state(const machine_config &mconfig, device_type type, const char *tag)
+	smulti_state(const machine_config &mconfig, device_type type, const char *tag)
 		: videight_state(mconfig, type, tag)
 		, m_rombank(*this, "rombank")
 	{
 	}
 
-	void smk(machine_config &config);
-	void init_smk();
+	void smulti(machine_config &config);
+	void init_smulti();
 
 private:
 	//void multib_rombank_w(offs_t offset, uint8_t data);
 	//void multib_gfxbank_w(offs_t offset, uint8_t data);
-	void smk_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
-	void smk_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
+	void smulti_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
+	void smulti_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
 	void mem_map(address_map &map);
 
 	required_memory_bank m_rombank;
 };
 
-void smk_state::init_smk()
+void smulti_state::init_smulti()
 {
 	m_rombank->configure_entries(0, 16, memregion("maincpu")->base(), 0x8000);
 	m_rombank->set_entry(0);
 
 	/* video extensions */
 	common_init(nullptr, nullptr, nullptr, nullptr);
-	m_extend_tile_info_ptr = extend_tile_info_delegate(&smk_state::videight_extend_tile_info, this);
-	m_extend_sprite_info_ptr = extend_sprite_info_delegate(&smk_state::videight_extend_sprite_info, this);
+	m_extend_tile_info_ptr = extend_tile_info_delegate(&smulti_state::videight_extend_tile_info, this);
+	m_extend_sprite_info_ptr = extend_sprite_info_delegate(&smulti_state::videight_extend_sprite_info, this);
 }
 
-static GFXDECODE_START(gfx_smk)
+static GFXDECODE_START(gfx_smulti)
 	GFXDECODE_SCALE("gfx1", 0x0000, galaxian_charlayout,   0, 32*32, GALAXIAN_XSCALE,1)
 	GFXDECODE_SCALE("gfx1", 0x0000, galaxian_spritelayout, 0, 32*32, GALAXIAN_XSCALE,1)
 GFXDECODE_END
 
-void smk_state::mem_map(address_map &map)
+void smulti_state::mem_map(address_map &map)
 {
 	map.unmap_value_high();
 	map(0x0000,0x3fff).bankr(m_rombank);
 	map(0x4000,0x4fff).ram();
-	map(0x5000,0x53ff).mirror(0x400).ram().w(FUNC(smk_state::galaxian_videoram_w)).share("videoram");
-	map(0x5800,0x58ff).mirror(0x700).ram().w(FUNC(smk_state::galaxian_objram_w)).share("spriteram");
+	map(0x5000,0x53ff).mirror(0x400).ram().w(FUNC(smulti_state::galaxian_videoram_w)).share("videoram");
+	map(0x5800,0x58ff).mirror(0x700).ram().w(FUNC(smulti_state::galaxian_objram_w)).share("spriteram");
 	map(0x6000,0x6000).portr("IN0");
 	map(0x6800,0x6800).portr("IN1");
 	map(0x7000,0x7000).portr("IN2");
 	map(0x7800,0x7fff).r("watchdog",FUNC(watchdog_timer_device::reset_r));
-	map(0x6000,0x6002).w(FUNC(smk_state::videight_gfxbank_w));
-	map(0x6003,0x6003).w(FUNC(smk_state::coin_count_0_w));
+	map(0x6000,0x6002).w(FUNC(smulti_state::videight_gfxbank_w));
+	map(0x6003,0x6003).w(FUNC(smulti_state::coin_count_0_w));
 	map(0x6004,0x6007).w("cust",FUNC(galaxian_sound_device::lfo_freq_w));
 	map(0x6800,0x6807).w("cust",FUNC(galaxian_sound_device::sound_w));
 	map(0x6808,0x68ff).nopw();
-	map(0x7001,0x7001).w(FUNC(smk_state::irq_enable_w));
-	map(0x7002,0x7005).w(FUNC(smk_state::videight_rombank_w));
-	map(0x7006,0x7006).w(FUNC(smk_state::galaxian_flip_screen_x_w));
-	map(0x7007,0x7007).w(FUNC(smk_state::galaxian_flip_screen_y_w));
+	map(0x7001,0x7001).w(FUNC(smulti_state::irq_enable_w));
+	map(0x7002,0x7005).w(FUNC(smulti_state::videight_rombank_w));
+	map(0x7006,0x7006).w(FUNC(smulti_state::galaxian_flip_screen_x_w));
+	map(0x7007,0x7007).w(FUNC(smulti_state::galaxian_flip_screen_y_w));
 	map(0x7008,0x7008).nopw();  /* bit 4 of rombank select - always 0 */
 	map(0x7800,0x7800).w("cust",FUNC(galaxian_sound_device::pitch_w));
 	map(0x7a00,0x7a00).nopw();   // unknown 0 and 1
@@ -1161,17 +1160,17 @@ void smk_state::mem_map(address_map &map)
 	map(0x8000,0xffff).rom();
 }
 
-void smk_state::smk(machine_config &config)
+void smulti_state::smulti(machine_config &config)
 {
 	galaxian(config);
 
 	// basic machine hardware
-	m_maincpu->set_addrmap(AS_PROGRAM, &smk_state::mem_map);
+	m_maincpu->set_addrmap(AS_PROGRAM, &smulti_state::mem_map);
 
 	/* video hardware */
-	m_gfxdecode->set_info(gfx_smk);
+	m_gfxdecode->set_info(gfx_smulti);
 	m_palette->set_entries(32 * 32);
 }
 
-GAME( 2022, scramblemk, 0, smk, warofbug, smk_state, init_smk, ROT90, "<unknown>", "Scramble MultiKit", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, smulti, 0, smulti, warofbug, smulti_state, init_smulti, ROT90, "<unknown>", "Scramble MultiKit", MACHINE_SUPPORTS_SAVE )
 
