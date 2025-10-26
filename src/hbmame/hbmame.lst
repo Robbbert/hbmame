@@ -61,6 +61,7 @@ asteroid		//parent
 asteroid6		/* Clay Cowgill Bullet Hack */
 astdelux4
 starslayer		// star destroyer, hack of asteroid2
+astdelux
 //amulti			// test only
 
 @source:astrocde.cpp
