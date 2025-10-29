@@ -12580,6 +12580,34 @@ ROM_START( dinos283 ) // dinore v1.2
 	ROM_LOAD( "dino.key", 0x00, 0x80, CRC(6cf0c283) SHA1(9da83b20665b565acb7e127a8e78adbcb6629175) )
 ROM_END
 
+ROM_START( dinos284 ) // dino with kod sound (real bootleg); select monaural in setup. No demo sound.
+	ROM_REGION( CODE_SIZE, "maincpu", 0 )
+	ROM_LOAD16_WORD_SWAP( "c25s284.p1",  0x000000, 0x80000, CRC(c694dc30) SHA1(71ab99a1c612c3cc9521f580d019d8a70cadbf22) )
+	ROM_LOAD16_WORD_SWAP( "c25s284.p2",  0x080000, 0x80000, CRC(94d65eb2) SHA1(6f297a3b9ab7db3215d1b145ace6031b68291b2d) )
+	ROM_LOAD16_WORD_SWAP( "c25s284.p3",  0x100000, 0x80000, CRC(bcb2ae70) SHA1(5e76e1a93152c894728d1135a7dc5e1adc2315d4) )
+
+	ROM_REGION( 0x400000, "gfx", 0 )
+	ROM_LOAD64_WORD( "c25.c01",  0x000000, 0x80000, CRC(8da4f917) SHA1(4f7b2304b7d9b545d6707d7ec921d3e28200699d) )
+	ROM_LOAD64_WORD( "c25.c03",  0x000002, 0x80000, CRC(6c40f603) SHA1(cdbd11dfcec08e87355d7e21e9fd39f7eacab016) )
+	ROM_LOAD64_WORD( "c25.c05",  0x000004, 0x80000, CRC(09c8fc2d) SHA1(d0c0a1258ec5dd484ab6ec1c5663425431f929ee) )
+	ROM_LOAD64_WORD( "c25.c07",  0x000006, 0x80000, CRC(637ff38f) SHA1(859926b33b9955b3ed67471c61faa442d42b9696) )
+	ROM_LOAD64_WORD( "c25.c17",  0x200000, 0x80000, CRC(470befee) SHA1(a42e38319e9b7424381352512f11bd8edf0bbb96) )
+	ROM_LOAD64_WORD( "c25.c19",  0x200002, 0x80000, CRC(22bfb7a3) SHA1(c44959bd3d42b9fc8ecb482dfaf63fbd469d2c3e) )
+	ROM_LOAD64_WORD( "c25.c21",  0x200004, 0x80000, CRC(e7599ac4) SHA1(0e788a38547a8701115d01190ddeaca64388db4d) )
+	ROM_LOAD64_WORD( "c25.c23",  0x200006, 0x80000, CRC(211b4b15) SHA1(374f6b185faa0f14f5c45b9b1d60d0772d93fb17) )
+
+	ROM_REGION( 0x18000, "audiocpu", 0 )
+	ROM_LOAD( "c16.m1",   0x00000, 0x08000, CRC(bac6ec26) SHA1(6cbb6d55660150ae3f5270e023328275ee1bbf50) )
+	ROM_CONTINUE(         0x10000, 0x08000 )
+
+	ROM_REGION( 0x40000, "oki", 0 )
+	ROM_LOAD( "c16.v1",   0x00000, 0x20000, CRC(4c63181d) SHA1(270f27534a95cb0be3ff3f9ca71c502320d8090b) )
+	ROM_LOAD( "c16.v2",   0x20000, 0x20000, CRC(92941b80) SHA1(5fa7c2793e6febee54a83042d118ddd4f2b7d127) )
+
+	ROM_REGION( 0x80, "control", 0 )
+	ROM_LOAD( "dinoh.key", 0x00, 0x80, CRC(67862673) SHA1(9ae7446231da7fd6355e1f22ac3fb974c3775600) )
+ROM_END
+
 ROM_START( dinot01 )
 	ROM_REGION( CODE_SIZE, "maincpu", 0 )
 	ROM_LOAD16_WORD_SWAP( "c25t01.p1",  0x000000, 0x100000, CRC(2a7b2915) SHA1(817d24c5206a60c4d93affffc9bd5a72abccbb01) )
@@ -28759,6 +28787,7 @@ GAME( 2020, dinos280,      dino,     qsound,     dino,     cps_state, init_dino,
 GAME( 2021, dinos281,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "GameHackFan", "Cadillacs and Dinosaurs (Readjusted v1.0)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dinos282,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "GameHackFan", "Cadillacs and Dinosaurs (Readjusted v1.1)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, dinos283,      dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "GameHackFan", "Cadillacs and Dinosaurs (Readjusted v1.2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1993, dinos284,      dino,     wofsf2,     dino,     cps_state, init_dinohunt, ROT0, "bootleg", "Cadillacs and Dinosaurs (with kod sound)", MACHINE_SUPPORTS_SAVE )
 GAME( 1993, dinot01,       dino,     qsound,     dinohz,   cps_state, init_dinohb,   ROT0, "Akira", "Cadillacs and Dinosaurs Turbo 97 (bootleg set 2, 930201 etc)", MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinot02,       dino,     qsound,     dinohz,   cps_state, init_dinoh,    ROT0, "hack", "Cadillacs and Dinosaurs Turbo 97 (Second Generation Extreme Edition 1, 2017-12-16)" , MACHINE_SUPPORTS_SAVE )
 GAME( 2017, dinot03,       dino,     qsound,     dino,     cps_state, init_dino,     ROT0, "hack", "Cadillacs and Dinosaurs Turbo 97 (Second Generation Extreme Edition 2, 2017-12-17)" , MACHINE_SUPPORTS_SAVE )
