@@ -924,6 +924,9 @@ ROM_END
 ROM_START( smulti )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD( "multi.main",     0x00000, 0x80000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
+	ROM_FILL(0x9b87,3,0)
+	ROM_FILL(0x9c6c,2,0)
+	ROM_FILL(0x9b80,2,0)
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "multi-sndz80.bin", 0x00000, 0x10000, CRC(25865125) SHA1(5bbbc6f5a0ad6c6b86dea7893e4e18195c37192e) )
@@ -1098,6 +1101,24 @@ GAME( 2022, gmultib, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, RO
 GAME( 2025, gmultic, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, ROT90, "Macro", "Galaxian Multigame (2025)", MACHINE_SUPPORTS_SAVE )
 
 //******************************************************************************************************
+/* Problems:
+- No sound
+- NVRAM not working
+- Can't access game selection menu
+- Need bankswitch info for main rom
+- Need bankswitch info for audio rom
+- Need bankswitch info for gfx roms
+- Need bankswitch info for colour prom
+
+To get to setup menu: Hold down 1 and hit F3
+
+What works:
+- Can play scramble
+
+Game list: Scramble, Super Cobra, Anteater, Amidar, Frogger, Turtles, Armored Car, The End.
+- The gfx roms are segmented in the same order. Possibly the colour proms too.
+*/
+
 #include "machine/i2cmem.h"
 
 class smulti_state : public videight_state
@@ -1107,7 +1128,7 @@ public:
 		: videight_state(mconfig, type, tag)
 		, m_rombank(*this, "rombank")
 		, m_audiobank(*this, "audiobank")
-		, m_eeprom(*this, "nvram")
+		, m_nvram(*this, "nvram")
 	{
 	}
 
@@ -1115,24 +1136,25 @@ public:
 	void init_smulti();
 
 private:
-	//void multib_rombank_w(offs_t offset, uint8_t data);
+	//void rombank_w(offs_t offset, uint8_t data);
 	void gfxbank_w(offs_t offset, uint8_t data);
-	void scl_w(offs_t, uint8_t data) { m_eeprom->write_scl(BIT(data, 0)); };
-	void sda_w(offs_t, uint8_t data) { m_eeprom->write_sda(BIT(data, 7)); };
-	uint8_t sda_r(offs_t) { return m_eeprom->read_sda() << 1; };
+	void scl_w(offs_t, uint8_t data) { m_nvram->write_scl(data); };
+	void sda_w(offs_t, uint8_t data) { m_nvram->write_sda(data); };
+	uint8_t sda_r(offs_t) { return m_nvram->read_sda() ? 2 : 0; };
 	void smulti_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
 	void smulti_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
 	void mem_map(address_map &map);
 	void sound_map(address_map &map);
+	void sound_io_map(address_map &map);
 
 	required_memory_bank m_rombank;
 	required_memory_bank m_audiobank;
-	required_device<i2cmem_device> m_eeprom;
+	required_device<i2cmem_device> m_nvram;
 };
 
 void smulti_state::init_smulti()
 {
-	m_rombank->configure_entries(0, 16, memregion("maincpu")->base(), 0x8000);
+	m_rombank->configure_entries(0, 32, memregion("maincpu")->base(), 0x4000);
 	m_rombank->set_entry(0);
 	m_audiobank->configure_entries(0, 8, memregion("audiocpu")->base(), 0x2000);
 	m_audiobank->set_entry(0);
@@ -1146,8 +1168,15 @@ void smulti_state::init_smulti()
 void smulti_state::gfxbank_w(offs_t offset, uint8_t data)
 {
 	printf("switching to gfxbank %d\n",data);
-	data &= 15;
-	galaxian_gfxbank_w(0, data << 1);
+	if (data == 0x0f)
+		galaxian_gfxbank_w(0, 30);
+	else
+		galaxian_gfxbank_w(0, 0);
+	//prom
+	uint8_t* srcregion = memregion("user1")->base();  // + newprom;
+	uint8_t* dstregion = memregion("proms")->base();
+	memcpy(dstregion, srcregion, 0x20);
+	galaxian_palette(*m_palette);
 }
 
 static GFXDECODE_START(gfx_smulti)
@@ -1170,14 +1199,15 @@ void smulti_state::mem_map(address_map &map)
 	map(0x6807,0x6807).mirror(0x07f8).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
 	map(0x7000,0x7000).mirror(0x07ff).r("watchdog", FUNC(watchdog_timer_device::reset_r));
 	map(0x8000,0xffff).rom();
-	map(0x8100,0x81ff).rw(FUNC(galaxian_state::theend_ppi8255_r), FUNC(galaxian_state::theend_ppi8255_w));
-	map(0x7800,0x7800).r(FUNC(smulti_state::sda_r)); // works
-	map(0x7a00,0x7a00).w(FUNC(smulti_state::scl_w)); // works
-	map(0x7c00,0x7c00).w(FUNC(smulti_state::sda_w)); // not saving
-//	map(0x7800,0x7800).nopw();   // unknown 00 and FF
-//	map(0x7e00,0x7e00).nopw();   // unknown
-//	map(0x8200,0x8203).nopw();   // unknown
+	map(0x8100,0x8103).rw(m_ppi8255[0], FUNC(i8255_device::read), FUNC(i8255_device::write));
+	map(0x8200,0x8203).rw(m_ppi8255[1], FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0x3600,0x3600).w(FUNC(smulti_state::gfxbank_w));
+	// nvram interface - not working, device is stuck in idle
+	map(0x7800,0x7800).r(FUNC(smulti_state::sda_r));
+	map(0x7a00,0x7a00).w(FUNC(smulti_state::scl_w));
+	map(0x7c00,0x7c00).w(FUNC(smulti_state::sda_w));
+	map(0x7800,0x7800).nopw();   // FF before using nvram, then 00 after it's done.
+	map(0x7e00,0x7e00).noprw();   // unknown (bit 1 must be high when read)
 }
 
 void smulti_state::sound_map(address_map &map)
@@ -1187,6 +1217,15 @@ void smulti_state::sound_map(address_map &map)
 	map(0x9000,0x9fff).mirror(0x6000).w(FUNC(galaxian_state::konami_sound_filter_w));
 }
 
+void smulti_state::sound_io_map(address_map &map)
+{
+	map.global_mask(0xff);
+	map(0x10, 0x10).w(m_ay8910[1], FUNC(ay8910_device::address_w));
+	map(0x20, 0x20).rw(m_ay8910[1], FUNC(ay8910_device::data_r), FUNC(ay8910_device::data_w));
+	map(0x40, 0x40).w(m_ay8910[0], FUNC(ay8910_device::address_w));
+	map(0x80, 0x80).rw(m_ay8910[0], FUNC(ay8910_device::data_r), FUNC(ay8910_device::data_w));
+}
+
 void smulti_state::smulti(machine_config &config)
 {
 	scramble(config);
@@ -1194,12 +1233,13 @@ void smulti_state::smulti(machine_config &config)
 	// basic machine hardware
 	m_maincpu->set_addrmap(AS_PROGRAM, &smulti_state::mem_map);
 	m_audiocpu->set_addrmap(AS_PROGRAM, &smulti_state::sound_map);
+	m_audiocpu->set_addrmap(AS_IO, &smulti_state::sound_io_map);
 
 	/* video hardware */
 	m_gfxdecode->set_info(gfx_smulti);
-	m_palette->set_entries(32 * 32);
+	//m_palette->set_entries(32 * 32);
 
-	I2C_24C16(config, m_eeprom);
+	I2C_24C16(config, m_nvram);
 }
 
 GAME( 2022, smulti, 0, smulti, scramble, smulti_state, init_smulti, ROT90, "<unknown>", "Scramble MultiKit", MACHINE_SUPPORTS_SAVE )
