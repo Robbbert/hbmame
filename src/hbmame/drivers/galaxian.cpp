@@ -924,7 +924,7 @@ ROM_END
 ROM_START( smulti )
 	ROM_REGION( 0x80000, "maincpu", 0 )
 	ROM_LOAD( "multi.main",     0x00000, 0x80000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
-	ROM_FILL(0x9b87,3,0)
+	//ROM_FILL(0x9b87,3,0)
 	ROM_FILL(0x9c6c,2,0)
 	ROM_FILL(0x9b80,2,0)
 
@@ -941,7 +941,7 @@ ROM_START( smulti )
 	ROM_REGION( 0x10000, "user1", 0 )
 	ROM_LOAD( "multi-prom.6e",    0x00000, 0x10000, CRC(5760a4f5) SHA1(539f56cae010488f0c6e4ff8de43e7dfe9b34375) )
 
-	ROM_REGION( 0x800, "nvram", 0 )
+	ROM_REGION( 0x800, "nvram", ROMREGION_ERASEFF )
 	ROM_LOAD( "multi-main-eep.bin", 0x000, 0x800, CRC(5b2feb51) SHA1(413fd60057cf3fcf6ad86463b2b814a4471d4882) )
 ROM_END
 
@@ -1102,7 +1102,7 @@ GAME( 2025, gmultic, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, RO
 
 //******************************************************************************************************
 /* Problems:
-- No sound
+- Sound is weird
 - NVRAM not working
 - Can't access game selection menu
 - Need bankswitch info for main rom
@@ -1127,7 +1127,6 @@ public:
 	smulti_state(const machine_config &mconfig, device_type type, const char *tag)
 		: videight_state(mconfig, type, tag)
 		, m_rombank(*this, "rombank")
-		, m_audiobank(*this, "audiobank")
 		, m_nvram(*this, "nvram")
 	{
 	}
@@ -1148,7 +1147,6 @@ private:
 	void sound_io_map(address_map &map);
 
 	required_memory_bank m_rombank;
-	required_memory_bank m_audiobank;
 	required_device<i2cmem_device> m_nvram;
 };
 
@@ -1156,8 +1154,6 @@ void smulti_state::init_smulti()
 {
 	m_rombank->configure_entries(0, 32, memregion("maincpu")->base(), 0x4000);
 	m_rombank->set_entry(0);
-	m_audiobank->configure_entries(0, 8, memregion("audiocpu")->base(), 0x2000);
-	m_audiobank->set_entry(0);
 
 	/* video extensions */
 	common_init(&galaxian_state::scramble_draw_bullet, &galaxian_state::scramble_draw_background, nullptr, nullptr);
@@ -1189,15 +1185,15 @@ void smulti_state::mem_map(address_map &map)
 	map.unmap_value_high();
 	map(0x0000,0x3fff).bankr(m_rombank);
 	map(0x4000,0x47ff).ram();
-	map(0x4800,0x4bff).mirror(0x0400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
-	map(0x5000,0x50ff).mirror(0x0700).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
-	map(0x6801,0x6801).mirror(0x07f8).w(FUNC(galaxian_state::irq_enable_w));
-	map(0x6802,0x6802).mirror(0x07f8).w(FUNC(galaxian_state::coin_count_0_w));
-	map(0x6803,0x6803).mirror(0x07f8).w(FUNC(galaxian_state::scramble_background_enable_w));
-	map(0x6804,0x6804).mirror(0x07f8).w(FUNC(galaxian_state::galaxian_stars_enable_w));
-	map(0x6806,0x6806).mirror(0x07f8).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
-	map(0x6807,0x6807).mirror(0x07f8).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
-	map(0x7000,0x7000).mirror(0x07ff).r("watchdog", FUNC(watchdog_timer_device::reset_r));
+	map(0x4800,0x4bff).mirror(0x400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
+	map(0x5000,0x50ff).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
+	map(0x6801,0x6801).w(FUNC(galaxian_state::irq_enable_w));
+	map(0x6802,0x6802).w(FUNC(galaxian_state::coin_count_0_w));
+	map(0x6803,0x6803).w(FUNC(galaxian_state::scramble_background_enable_w));
+	map(0x6804,0x6804).w(FUNC(galaxian_state::galaxian_stars_enable_w));
+	map(0x6806,0x6806).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
+	map(0x6807,0x6807).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
+	map(0x7000,0x7000).r("watchdog", FUNC(watchdog_timer_device::reset_r));
 	map(0x8000,0xffff).rom();
 	map(0x8100,0x8103).rw(m_ppi8255[0], FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0x8200,0x8203).rw(m_ppi8255[1], FUNC(i8255_device::read), FUNC(i8255_device::write));
@@ -1212,14 +1208,15 @@ void smulti_state::mem_map(address_map &map)
 
 void smulti_state::sound_map(address_map &map)
 {
-	map(0x0000,0x1fff).bankr(m_audiobank);
-	map(0x8000,0x83ff).mirror(0x6c00).ram();
-	map(0x9000,0x9fff).mirror(0x6000).w(FUNC(galaxian_state::konami_sound_filter_w));
+	map(0x0000,0xffff).rom();
+	map(0x8000,0x83ff).ram();
+	//map(0x9000,0x9fff).w(FUNC(galaxian_state::konami_sound_filter_w));
 }
 
 void smulti_state::sound_io_map(address_map &map)
 {
 	map.global_mask(0xff);
+	map.unmap_value_high();
 	map(0x10, 0x10).w(m_ay8910[1], FUNC(ay8910_device::address_w));
 	map(0x20, 0x20).rw(m_ay8910[1], FUNC(ay8910_device::data_r), FUNC(ay8910_device::data_w));
 	map(0x40, 0x40).w(m_ay8910[0], FUNC(ay8910_device::address_w));
