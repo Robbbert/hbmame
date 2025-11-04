@@ -2242,8 +2242,10 @@ ROM_START( umk3wn )
 	ROM_LOAD16_BYTE( "l1_mortal_kombat_3_u5_music_spch.u5", 0x600000, 0x100000, CRC(3b98a09f) SHA1(edf1d02a56dcf3349e6b4bb4097acfe7592305f4) )
 
 	ROM_REGION16_LE( 0x100000, "maincpu", 0 )
-	ROM_LOAD16_BYTE( "umk3wn.u54",  0x00000, 0x80000, CRC(74f1e45d) SHA1(e22ec95d600f64c75cc436c5184c6de6cfd70ecd) ) 
-	ROM_LOAD16_BYTE( "umk3wn.u63",  0x00001, 0x80000, CRC(289d62dc) SHA1(c116ea3baac45cabfcef7a354ee193035985c9de) )
+	//ROM_LOAD16_BYTE( "umk3wn.u54",  0x00000, 0x80000, CRC(74f1e45d) SHA1(e22ec95d600f64c75cc436c5184c6de6cfd70ecd) ) // old
+	//ROM_LOAD16_BYTE( "umk3wn.u63",  0x00001, 0x80000, CRC(289d62dc) SHA1(c116ea3baac45cabfcef7a354ee193035985c9de) ) // old
+	ROM_LOAD16_BYTE( "umk3wn.u54",  0x00000, 0x80000, CRC(965fb405) SHA1(3086ca481f8ca31c017943b9a1461ddde96ce30b) ) // include noob patch
+	ROM_LOAD16_BYTE( "umk3wn.u63",  0x00001, 0x80000, CRC(653bcac4) SHA1(9a558ba2f201eb4d0087e2fc21cbf6f0dad834f0) ) // include noob patch
 
 	ROM_REGION( 0x1009, "serial_security:pic", 0 )
 	ROM_LOAD( "463_mk3_ultimate.u64",  0x0000, 0x1009, CRC(4f425218) SHA1(7f26045ed2c9ca94fadcb673ce10f28208aa720e) )
@@ -2363,7 +2365,7 @@ GAME( 2019, umk3tm20190417, umk3, wunit_picemu, mk3, midwunit_state, init_umk3, 
 GAME( 2021, umk3tm20210809, umk3, wunit_picemu, mk3, midwunit_state, init_umk3, ROT0, "TEAM UMK 3", "Ultimate Mortal Kombat 3 (Team Edition, 2021-08-09)", MACHINE_SUPPORTS_SAVE )
 GAME( 2019, umk3plus20190921,  umk3,  wunit_picsim, mk3, midwunit_state, init_mk3, ROT0, "Mortalkombatplus", "Ultimate Mortal Kombat 3 (Plus Beta 1, 2019-09-21)", MACHINE_SUPPORTS_SAVE )
 GAME( 2022, umk3plus20220307,  umk3,  wunit_picsim, mk3, midwunit_state, init_mk3, ROT0, "Mortalkombatplus", "Ultimate Mortal Kombat 3 (Plus Beta 2, 2022-03-07)", MACHINE_SUPPORTS_SAVE )
-GAME( 2025, umk3wn,         umk3, wunit_picsim, mk3, midwunit_state, init_mk3, ROT0, "Midway", "Ultimate Mortal Kombat 3 (WaveNet)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, umk3wn,         umk3, wunit_picsim, mk3, midwunit_state, init_mk3, ROT0, "Neotendo", "Ultimate Mortal Kombat 3 (WaveNet)", MACHINE_SUPPORTS_SAVE )
 // WWF Wrestlemania
 GAME( 2020, wwfmania01, wwfmania, wunit_picsim, wwfmania, midwunit_state, init_wwfmania, ROT0, "hack", "WWF: Wrestlemania (Acid Clown Edition, SP2, 2020-12-02)", MACHINE_SUPPORTS_SAVE )
 

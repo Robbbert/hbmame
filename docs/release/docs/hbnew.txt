@@ -11,7 +11,7 @@ New Games
 - [gmultib]             Galaxian Multigame (2022)
 - [gmultic]             Galaxian Multigame (2025)
 - [maglord02]           Magician Lord (Again Changes From Hell v1.0.0)
-- [umk3wn]              Ultimate Mortal Kombat 3 (WaveNet)
+- [umk3wn]              Ultimate Mortal Kombat 3 (WaveNet) [Neotendo]
 
 
 
