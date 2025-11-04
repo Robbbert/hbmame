@@ -1713,6 +1713,9 @@ futaribljc
 ddragon2                               //parent
 ddragon2s01
 
+@source:ddragon3.cpp
+wwfwfest                               //parent
+
 @source:dbz.cpp
 dbz                                    //parent
 dbz01
@@ -8954,6 +8957,10 @@ stinger2s01
 
 @source:wmg.cpp
 wmg
+
+@source:wwfsstar.cpp
+wwfsstar                               //parent
+wwesstar
 
 @source:yiear.cpp
 yiear                                  //parent

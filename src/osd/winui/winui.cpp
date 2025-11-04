@@ -702,7 +702,7 @@ extern const LPCTSTR column_names[COLUMN_MAX] =
 {
 	TEXT("Machine"),
 	TEXT("Source"),
-	TEXT("Directory"),
+	TEXT("Short Name"),
 	TEXT("Type"),
 	TEXT("Screen"),
 	TEXT("Manufacturer"),
