@@ -13,6 +13,7 @@ New Games
 - [maglord02]           Magician Lord (Again Changes From Hell v1.0.0)
 - [umk3wn]              Ultimate Mortal Kombat 3 (WaveNet) [Neotendo]
 - [wwesstar]            WWE Superstars (Basic Fun)
+- [wwewfest]            WWE WrestleFest (Basic Fun)
 
 
 

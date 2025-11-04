@@ -35,5 +35,5 @@ ROM_START( wwesstar )
 ROM_END
 
 /*    YEAR  NAME         PARENT      MACHINE   INPUT     CLASS         INIT      MONITOR COMPANY                 FULLNAME               FLAGS */
-GAME( 2025, wwesstar, wwfsstar, wwfsstar, wwfsstar, wwfsstar_state, empty_init, ROT0, "Anton LeDec", "WWE Superstars (Basic Fun, uncensored)", MACHINE_SUPPORTS_SAVE )
+GAME( 2025, wwesstar, wwfsstar, wwfsstar, wwfsstar, wwfsstar_state, empty_init, ROT0, "Anton LeDec", "WWE Superstars (Basic Fun)", MACHINE_SUPPORTS_SAVE )
 

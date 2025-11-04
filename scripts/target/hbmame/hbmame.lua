@@ -1047,7 +1047,7 @@ files {
 	MAME_DIR .. "src/mame/video/shadfrce.cpp",
 	MAME_DIR .. "src/hbmame/drivers/ddragon.cpp",
 	MAME_DIR .. "src/mame/video/ddragon.cpp",
-	MAME_DIR .. "src/mame/drivers/ddragon3.cpp",
+	MAME_DIR .. "src/hbmame/drivers/ddragon3.cpp",
 	MAME_DIR .. "src/mame/video/ddragon3.cpp",
 	MAME_DIR .. "src/hbmame/drivers/wwfsstar.cpp",
 	MAME_DIR .. "src/mame/video/wwfsstar.cpp",
