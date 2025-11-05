@@ -7,9 +7,10 @@
 
 New Games
 ---------------------------------
+- [bbb2]                Bang Bang Busters 2 (demo) [Pixelheart]
 - [dinos284]            Cadillacs and Dinosaurs (with kod sound)
-- [gmultib]             Galaxian Multigame (2022)
-- [gmultic]             Galaxian Multigame (2025)
+- [gmultib]             Galaxian Multigame (2022) [Macro]
+- [gmultic]             Galaxian Multigame (2025) [Macro]
 - [maglord02]           Magician Lord (Again Changes From Hell v1.0.0)
 - [umk3wn]              Ultimate Mortal Kombat 3 (WaveNet) [Neotendo]
 - [wwesstar]            WWE Superstars (Basic Fun)
