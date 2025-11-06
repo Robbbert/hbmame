@@ -648,6 +648,7 @@ files {
 	MAME_DIR .. "src/mame/video/k054156_k054157_k056832.cpp",
 	MAME_DIR .. "src/mame/video/k053936.cpp",
 	MAME_DIR .. "src/mame/video/k055555.cpp",
+	MAME_DIR .. "src/hbmame/machine/galser.cpp",
 }
 
 createHBMAMEProjects(_target, _subtarget, "metro")

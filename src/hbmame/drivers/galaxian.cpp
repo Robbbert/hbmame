@@ -923,10 +923,17 @@ ROM_END
 
 ROM_START( smulti )
 	ROM_REGION( 0x80000, "maincpu", 0 )
-	ROM_LOAD( "multi.main",     0x00000, 0x80000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
+	ROM_LOAD( "multi.main",     0x00000, 0x10000, CRC(26e8a444) SHA1(abf3b69076e9318f10c487a3bbe530fb74ee8290) )
+	ROM_CONTINUE( 0x20000, 0x10000)
+	ROM_CONTINUE( 0x40000, 0x10000)
+	ROM_CONTINUE( 0x60000, 0x10000)
+	ROM_CONTINUE( 0x10000, 0x10000)
+	ROM_CONTINUE( 0x30000, 0x10000)
+	ROM_CONTINUE( 0x50000, 0x10000)
+	ROM_CONTINUE( 0x70000, 0x10000)
 	//ROM_FILL(0x9b87,3,0)
-	ROM_FILL(0x9c6c,2,0)
-	ROM_FILL(0x9b80,2,0)
+	//ROM_FILL(0x9c6c,2,0)
+	//ROM_FILL(0x9b80,2,0)
 
 	ROM_REGION( 0x10000, "audiocpu", 0 )
 	ROM_LOAD( "multi-sndz80.bin", 0x00000, 0x10000, CRC(25865125) SHA1(5bbbc6f5a0ad6c6b86dea7893e4e18195c37192e) )
@@ -941,8 +948,8 @@ ROM_START( smulti )
 	ROM_REGION( 0x10000, "user1", 0 )
 	ROM_LOAD( "multi-prom.6e",    0x00000, 0x10000, CRC(5760a4f5) SHA1(539f56cae010488f0c6e4ff8de43e7dfe9b34375) )
 
-	ROM_REGION( 0x800, "nvram", ROMREGION_ERASEFF )
-	ROM_LOAD( "multi-main-eep.bin", 0x000, 0x800, CRC(5b2feb51) SHA1(413fd60057cf3fcf6ad86463b2b814a4471d4882) )
+	//ROM_REGION( 0x100, "nvram", ROMREGION_ERASEFF )
+	//ROM_LOAD( "multi-main-eep.bin", 0x000, 0x800, CRC(5b2feb51) SHA1(413fd60057cf3fcf6ad86463b2b814a4471d4882) )
 ROM_END
 
 class gmultib_state : public videight_state
@@ -1102,13 +1109,9 @@ GAME( 2025, gmultic, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, RO
 
 //******************************************************************************************************
 /* Problems:
-- Sound is weird
-- NVRAM not working
 - Can't access game selection menu
 - Need bankswitch info for main rom
-- Need bankswitch info for audio rom
-- Need bankswitch info for gfx roms
-- Need bankswitch info for colour prom
+- Super Cobra, Amidar, Turtles, The End - not working (runs Frogger)
 
 To get to setup menu: Hold down 1 and hit F3
 
@@ -1119,7 +1122,7 @@ Game list: Scramble, Super Cobra, Anteater, Amidar, Frogger, Turtles, Armored Ca
 - The gfx roms are segmented in the same order. Possibly the colour proms too.
 */
 
-#include "machine/i2cmem.h"
+#include "machine/galser.h"
 
 class smulti_state : public videight_state
 {
@@ -1135,10 +1138,10 @@ public:
 	void init_smulti();
 
 private:
-	//void rombank_w(offs_t offset, uint8_t data);
 	void gfxbank_w(offs_t offset, uint8_t data);
 	void scl_w(offs_t, uint8_t data) { m_nvram->write_scl(data); };
 	void sda_w(offs_t, uint8_t data) { m_nvram->write_sda(data); };
+	void en_w(offs_t, uint8_t data) { m_nvram->write_en(data); };
 	uint8_t sda_r(offs_t) { return m_nvram->read_sda() ? 2 : 0; };
 	void smulti_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
 	void smulti_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
@@ -1147,12 +1150,12 @@ private:
 	void sound_io_map(address_map &map);
 
 	required_memory_bank m_rombank;
-	required_device<i2cmem_device> m_nvram;
+	required_device<galser_device> m_nvram;
 };
 
 void smulti_state::init_smulti()
 {
-	m_rombank->configure_entries(0, 32, memregion("maincpu")->base(), 0x4000);
+	m_rombank->configure_entries(0, 8, memregion("maincpu")->base(), 0x10000);
 	m_rombank->set_entry(0);
 
 	/* video extensions */
@@ -1163,15 +1166,39 @@ void smulti_state::init_smulti()
 
 void smulti_state::gfxbank_w(offs_t offset, uint8_t data)
 {
-	printf("switching to gfxbank %d\n",data);
-	if (data == 0x0f)
+	m_rombank->set_entry(0);
+	galaxian_gfxbank_w(0, 0);
+	//printf("switching to gfxbank %d\n",data);
+	// Logo
+	if (BIT(data, 0))
 		galaxian_gfxbank_w(0, 30);
 	else
-		galaxian_gfxbank_w(0, 0);
+	{
+		data /= 18;
+		galaxian_gfxbank_w(0, data<<2);
+		m_rombank->set_entry(data);
+	}
 	//prom
-	uint8_t* srcregion = memregion("user1")->base();  // + newprom;
+	uint8_t* srcregion = memregion("user1")->base() + (data * 0x40);
 	uint8_t* dstregion = memregion("proms")->base();
-	memcpy(dstregion, srcregion, 0x20);
+
+	// Frogger prom is scrambled, but making it right doesn't fix the colours
+#if 0
+	if (data == 4)
+	{
+		memcpy(dstregion, srcregion, 4);
+		memcpy(dstregion+4, srcregion+8, 4);
+		memcpy(dstregion+8, srcregion+16, 4);
+		memcpy(dstregion+12, srcregion+24, 4);
+		memcpy(dstregion+16, srcregion+4, 4);
+		memcpy(dstregion+20, srcregion+12, 4);
+		memcpy(dstregion+24, srcregion+20, 4);
+		memcpy(dstregion+28, srcregion+28, 4);
+	}
+	else
+#endif
+		memcpy(dstregion, srcregion, 0x20);
+
 	galaxian_palette(*m_palette);
 }
 
@@ -1183,7 +1210,7 @@ GFXDECODE_END
 void smulti_state::mem_map(address_map &map)
 {
 	map.unmap_value_high();
-	map(0x0000,0x3fff).bankr(m_rombank);
+	map(0x0000,0xffff).bankr(m_rombank);
 	map(0x4000,0x47ff).ram();
 	map(0x4800,0x4bff).mirror(0x400).ram().w(FUNC(galaxian_state::galaxian_videoram_w)).share("videoram");
 	map(0x5000,0x50ff).ram().w(FUNC(galaxian_state::galaxian_objram_w)).share("spriteram");
@@ -1194,15 +1221,12 @@ void smulti_state::mem_map(address_map &map)
 	map(0x6806,0x6806).w(FUNC(galaxian_state::galaxian_flip_screen_x_w));
 	map(0x6807,0x6807).w(FUNC(galaxian_state::galaxian_flip_screen_y_w));
 	map(0x7000,0x7000).r("watchdog", FUNC(watchdog_timer_device::reset_r));
-	map(0x8000,0xffff).rom();
 	map(0x8100,0x8103).rw(m_ppi8255[0], FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0x8200,0x8203).rw(m_ppi8255[1], FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0x3600,0x3600).w(FUNC(smulti_state::gfxbank_w));
-	// nvram interface - not working, device is stuck in idle
-	map(0x7800,0x7800).r(FUNC(smulti_state::sda_r));
+	map(0x7800,0x7800).rw(FUNC(smulti_state::sda_r),FUNC(smulti_state::en_w));
 	map(0x7a00,0x7a00).w(FUNC(smulti_state::scl_w));
 	map(0x7c00,0x7c00).w(FUNC(smulti_state::sda_w));
-	map(0x7800,0x7800).nopw();   // FF before using nvram, then 00 after it's done.
 	map(0x7e00,0x7e00).noprw();   // unknown (bit 1 must be high when read)
 }
 
@@ -1210,7 +1234,7 @@ void smulti_state::sound_map(address_map &map)
 {
 	map(0x0000,0xffff).rom();
 	map(0x8000,0x83ff).ram();
-	//map(0x9000,0x9fff).w(FUNC(galaxian_state::konami_sound_filter_w));
+	map(0x9000,0x9fff).w(FUNC(galaxian_state::konami_sound_filter_w));
 }
 
 void smulti_state::sound_io_map(address_map &map)
@@ -1236,7 +1260,7 @@ void smulti_state::smulti(machine_config &config)
 	m_gfxdecode->set_info(gfx_smulti);
 	//m_palette->set_entries(32 * 32);
 
-	I2C_24C16(config, m_nvram);
+	GALSER(config, m_nvram);
 }
 
 GAME( 2022, smulti, 0, smulti, scramble, smulti_state, init_smulti, ROT90, "<unknown>", "Scramble MultiKit", MACHINE_SUPPORTS_SAVE )
