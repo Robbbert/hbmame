@@ -1992,7 +1992,7 @@ videight	/* 8in1 multigame */
 wbeast		/* Bootleg of War-of-Bug */
 gmultib
 gmultic
-//smulti                                // skeleton
+smulti                                // skeleton
 
 @source:gauntlet.cpp
 gaunt2		//parent

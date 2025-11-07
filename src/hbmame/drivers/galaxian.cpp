@@ -1109,17 +1109,16 @@ GAME( 2025, gmultic, galnamco, gmultib, gmultib, gmultib_state, init_gmultib, RO
 
 //******************************************************************************************************
 /* Problems:
-- Can't access game selection menu
 - Need bankswitch info for main rom
 - Super Cobra, Amidar, Turtles, The End - not working (runs Frogger)
+- Colours might be wrong
 
-To get to setup menu: Hold down 1 and hit F3
+* To get to setup menu: Hold down 1 and hit F3
 
-What works:
-- Can play scramble
+* To get to games menu: While a game is running, hold down 1, wait for game to freeze, let go.
 
 Game list: Scramble, Super Cobra, Anteater, Amidar, Frogger, Turtles, Armored Car, The End.
-- The gfx roms are segmented in the same order. Possibly the colour proms too.
+- The gfx roms and colour proms are segmented in the same order.
 */
 
 #include "machine/galser.h"
@@ -1258,10 +1257,9 @@ void smulti_state::smulti(machine_config &config)
 
 	/* video hardware */
 	m_gfxdecode->set_info(gfx_smulti);
-	//m_palette->set_entries(32 * 32);
 
 	GALSER(config, m_nvram);
 }
 
-GAME( 2022, smulti, 0, smulti, scramble, smulti_state, init_smulti, ROT90, "<unknown>", "Scramble MultiKit", MACHINE_SUPPORTS_SAVE )
+GAME( 2022, smulti, 0, smulti, scramble, smulti_state, init_smulti, ROT90, "HighScoreSaves", "Scramble MultiKit v1.0", MACHINE_NOT_WORKING | MACHINE_SUPPORTS_SAVE )
 
