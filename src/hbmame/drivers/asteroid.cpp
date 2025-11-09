@@ -85,11 +85,13 @@ public:
 //		, m_p_ram(*this, "ram")
 	{ }
 
+	void amulti(machine_config &config);
 	void init_amulti();
+	void mem_map(address_map &map);
 };
 
 ROM_START( amulti )
-	ROM_REGION( 0x8000, "maincpu", 0 )
+	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "036430-02.d1",  0x6000, 0x0800, CRC(a4d7a525) SHA1(abe262193ec8e1981be36928e9a89a8ac95cd0ad) )
 	ROM_LOAD( "036431-02.ef1", 0x6800, 0x0800, CRC(d4004aae) SHA1(aa2099b8fc62a79879efeea70ea1e9ed77e3e6f0) )
 	ROM_LOAD( "036432-02.fh1", 0x7000, 0x0800, CRC(6d720c41) SHA1(198218cd2f43f8b83e4463b1f3a8aa49da5015e4) )
@@ -112,10 +114,39 @@ ROM_START( amulti )
 	ROM_REGION( 0x18000, "user3", ROMREGION_ERASEFF )
 ROM_END
 
+void amulti_state::mem_map(address_map &map)
+{
+	//map.global_mask(0x7fff);
+	map(0x0000, 0x01ff).ram();
+	map(0x0200, 0x02ff).bankrw("ram1");
+	map(0x0300, 0x03ff).bankrw("ram2");
+	map(0x0400, 0xffff).rom();
+	map(0x2000, 0x2007).r(FUNC(asteroid_state::asteroid_IN0_r)).nopw(); // IN0
+	map(0x2400, 0x2407).r(FUNC(asteroid_state::asteroid_IN1_r)).nopw(); // IN1
+	map(0x2800, 0x2803).r(FUNC(asteroid_state::asteroid_DSW1_r));       // DSW1
+	map(0x2c00, 0x2c0f).rw("pokey", FUNC(pokey_device::read), FUNC(pokey_device::write));
+	map(0x2c40, 0x2c7f).r(FUNC(asteroid_state::earom_read));
+	map(0x3000, 0x3000).w(m_dvg, FUNC(dvg_device::go_w));
+	map(0x3200, 0x323f).w(FUNC(asteroid_state::earom_write)).nopr();
+	map(0x3400, 0x3400).w("watchdog", FUNC(watchdog_timer_device::reset_w));
+	map(0x3600, 0x3600).w(FUNC(asteroid_state::asteroid_explode_w));
+	map(0x3a00, 0x3a00).w(FUNC(asteroid_state::earom_control_w));
+	map(0x3c00, 0x3c07).w("audiolatch", FUNC(ls259_device::write_d7));
+	map(0x3e00, 0x3e00).w(FUNC(asteroid_state::asteroid_noise_reset_w));
+	map(0x4000, 0x47ff).ram();                     // vector RAM
+}
+
+void amulti_state::amulti(machine_config &config)
+{
+	astdelux(config);
+
+	m_maincpu->set_addrmap(AS_PROGRAM, &amulti_state::mem_map);
+}
+
 void amulti_state::init_amulti()
 {
 	u8 *src = memregion("user2")->base();
-	u8 *dest = memregion("user3")->base();
+	u8 *dst = memregion("user3")->base();
 
 	offs_t i,j;
 	u8 t;
@@ -128,11 +159,11 @@ void amulti_state::init_amulti()
 		if (!BIT(i, 10))
 			j ^= 0x100;
 
-		dest[j] = t;
+		dst[j] = t;
 	}
-	uint8_t* srcregion = memregion("user3")->base()+0x2800;
-	uint8_t* dstregion = memregion("maincpu")->base()+0x6800;
-	memcpy(dstregion, srcregion, 0x1800);
+	uint8_t* srcregion = memregion("user3")->base();
+	uint8_t* dstregion = memregion("maincpu")->base();
+	memcpy(dstregion, srcregion, 0x10000);
 
 
 //	for (i = 0x10000; i < 0x18000; i++)
@@ -141,15 +172,15 @@ void amulti_state::init_amulti()
 //	for (i = 0x10000; i < 0x18000; i++)
 //	{
 //		j = bitswap<16>(i, 15, 6, 5, 12, 11, 10, 9, 8, 7, 14, 13, 4, 3, 2, 1, 0);
-//		dest[j|0x10000] = src[i];
+//		dst[j|0x10000] = src[i];
 //	}
 
 //	src = memregion("maincpu")->base()+0x6000;
 //	for (i = 0; i < 0x2000; i++)
-//		src[i] = dest[i];
+//		src[i] = dst[i];
 }
 
 
-GAME( 2002, amulti, astdelux, astdelux, astdelux, amulti_state, init_amulti, ROT0, "Braze", "Asteroids Multigame", MACHINE_NOT_WORKING )
+GAME( 2002, amulti, astdelux, amulti, astdelux, amulti_state, init_amulti, ROT0, "Braze", "Asteroids Multigame", MACHINE_NOT_WORKING )
 
 
