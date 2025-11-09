@@ -130,9 +130,9 @@ void amulti_state::init_amulti()
 
 		dest[j] = t;
 	}
-	//uint8_t* srcregion = memregion("user3")->base()+0x6000;
-	//uint8_t* dstregion = memregion("maincpu")->base()+0x6000;
-	//memcpy(dstregion, srcregion, 0x2000);
+	uint8_t* srcregion = memregion("user3")->base()+0x2800;
+	uint8_t* dstregion = memregion("maincpu")->base()+0x6800;
+	memcpy(dstregion, srcregion, 0x1800);
 
 
 //	for (i = 0x10000; i < 0x18000; i++)

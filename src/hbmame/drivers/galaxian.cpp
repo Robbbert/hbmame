@@ -1137,11 +1137,7 @@ public:
 	void init_smulti();
 
 private:
-	void gfxbank_w(offs_t offset, uint8_t data);
-	void scl_w(offs_t, uint8_t data) { m_nvram->write_scl(data); };
-	void sda_w(offs_t, uint8_t data) { m_nvram->write_sda(data); };
-	void en_w(offs_t, uint8_t data) { m_nvram->write_en(data); };
-	uint8_t sda_r(offs_t) { return m_nvram->read_sda() ? 2 : 0; };
+	void rombank_w(offs_t offset, uint8_t data);
 	void smulti_extend_tile_info(uint16_t *code, uint8_t *color, uint8_t attrib, uint8_t x, uint8_t y);
 	void smulti_extend_sprite_info(const uint8_t *base, uint8_t *sx, uint8_t *sy, uint8_t *flipx, uint8_t *flipy, uint16_t *code, uint8_t *color);
 	void mem_map(address_map &map);
@@ -1155,15 +1151,15 @@ private:
 void smulti_state::init_smulti()
 {
 	m_rombank->configure_entries(0, 8, memregion("maincpu")->base(), 0x10000);
-	m_rombank->set_entry(0);
 
 	/* video extensions */
 	common_init(&galaxian_state::scramble_draw_bullet, &galaxian_state::scramble_draw_background, nullptr, nullptr);
 	m_extend_tile_info_ptr = extend_tile_info_delegate(&smulti_state::videight_extend_tile_info, this);
 	m_extend_sprite_info_ptr = extend_sprite_info_delegate(&smulti_state::videight_extend_sprite_info, this);
+	rombank_w(0,0);
 }
 
-void smulti_state::gfxbank_w(offs_t offset, uint8_t data)
+void smulti_state::rombank_w(offs_t offset, uint8_t data)
 {
 	m_rombank->set_entry(0);
 	galaxian_gfxbank_w(0, 0);
@@ -1222,10 +1218,11 @@ void smulti_state::mem_map(address_map &map)
 	map(0x7000,0x7000).r("watchdog", FUNC(watchdog_timer_device::reset_r));
 	map(0x8100,0x8103).rw(m_ppi8255[0], FUNC(i8255_device::read), FUNC(i8255_device::write));
 	map(0x8200,0x8203).rw(m_ppi8255[1], FUNC(i8255_device::read), FUNC(i8255_device::write));
-	map(0x3600,0x3600).w(FUNC(smulti_state::gfxbank_w));
-	map(0x7800,0x7800).rw(FUNC(smulti_state::sda_r),FUNC(smulti_state::en_w));
-	map(0x7a00,0x7a00).w(FUNC(smulti_state::scl_w));
-	map(0x7c00,0x7c00).w(FUNC(smulti_state::sda_w));
+	map(0x3600,0x3600).w(FUNC(smulti_state::rombank_w));
+	map(0x7800,0x7800).lr8(NAME([this] () {return m_nvram->read_sda() ? 2 : 0; }));
+	map(0x7800,0x7800).lw8(NAME([this] (u8 data) {m_nvram->write_en(data); }));
+	map(0x7a00,0x7a00).lw8(NAME([this] (u8 data) {m_nvram->write_scl(data); }));
+	map(0x7c00,0x7c00).lw8(NAME([this] (u8 data) {m_nvram->write_sda(data); }));
 	map(0x7e00,0x7e00).noprw();   // unknown (bit 1 must be high when read)
 }
 

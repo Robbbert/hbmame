@@ -2,7 +2,7 @@
 // copyright-holders:Robbbert
 /***************************************************************************
 
-Unknown serial nvram device used in Scramble Multikit
+Unknown serial nvram device used in Scramble Multikit (possibly 93C76/86)
 
 ***************************************************************************/
 
@@ -28,7 +28,7 @@ galser_device::galser_device(const machine_config &mconfig, const char *tag, dev
 	: device_t(mconfig, GALSER, tag, owner, clock)
 	, device_nvram_interface(mconfig, *this)
 	, m_region(*this, DEVICE_SELF)
-	, m_data_size(0x100)
+	, m_data_size(0x200)
 	, m_scl(0)
 	, m_sdaw(0)
 	, m_en(0)
@@ -125,10 +125,10 @@ WRITE_LINE_MEMBER( galser_device::write_en )
 		//printf("ack set\n");
 		if (m_count == 22)
 		{
-			uint8_t header = m_data_in >> 16;
-			m_byteaddr = (m_data_in >> 8) & 0xff;
+			uint8_t header = m_data_in >> 19;
+			m_byteaddr = (m_data_in >> 8) & (m_data_size - 1);
 			uint8_t data = m_data_in;
-			if (header == 0x28)
+			if (header == 0x05)
 			{
 				m_data[m_byteaddr] = data;
 				//printf("wrote %X:%X\n",m_byteaddr,data);
@@ -160,15 +160,16 @@ WRITE_LINE_MEMBER( galser_device::write_scl )
 		if (m_count == 14)
 		{
 			//printf("%X\n",m_data_in);
-			if((m_data_in & 0xff00) == 0x3000)
+			uint8_t header = m_data_in >> 11;
+			if(header == 0x06)
 			{
 				m_write = false;
-				m_byteaddr = m_data_in & 0xff;
+				m_byteaddr = m_data_in & (m_data_size - 1);
 				m_data_out = m_data[m_byteaddr];
 				//printf("read = %X:%X\n",m_byteaddr,m_data_out);
 			}
 			else
-			if((m_data_in & 0xff00) == 0x2800)
+			if(header == 0x05)
 				m_write = true;
 		}
 	}
